@@ -1,7 +1,3 @@
-/* 
- * $Id: command.c,v 1.9 2004/03/17 14:59:32 kalle Exp $ 
- *
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -44,7 +40,7 @@ static command_definition_t cmds[] =
 {
   { {  13,   0,   0 }, CMD_PLAY, "Play/Enter directory" },
   { { 'P',   0,   0 }, CMD_PAUSE, "Pause" },
-  { {  ESC, BS, 's' }, CMD_STOP, "Stop" },
+  { { 's',  BS,   0 }, CMD_STOP, "Stop" },
   { { '>',   0,   0 }, CMD_TRACK_NEXT, "Next song" },
   { { '<',   0,   0 }, CMD_TRACK_PREVIOUS, "Previous song" },
 
