@@ -39,7 +39,7 @@
 #define MPD_RECONNECT_TIME  1500
 
 /* song format - list window */
-#define DEFAULT_LIST_FORMAT "%name%|[%artist% - ]%title%|%file%"
+#define DEFAULT_LIST_FORMAT "%name%|[%artist% - ]%title%|%shortfile%"
 #define LIST_FORMAT (options.list_format ? options.list_format : DEFAULT_LIST_FORMAT)
 
 /* song format - status window */
