@@ -1,5 +1,9 @@
+2004-07-12  Kalle Wallin <kaw@linux.se>
+	* options.c: fixed short option handling for multiple short options 
+	  at once (-abcde)
+	
 2004-07-09  Kalle Wallin <kaw@linux.se>
-	* ncmpc-0.11.0 released
+	* ncmpc-0.11.0 released (r1820)
 
 2004-07-08 Kalle Wallin <kaw@linux.se>
 	* doc/keys.sample: Welcome back

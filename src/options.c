@@ -100,7 +100,7 @@ option_error(int error, char *option, char *arg)
       fprintf(stderr, PACKAGE ": invalid option %s=%s\n", option, arg);
       break;
     case ERROR_MISSING_ARGUMENT:
-      fprintf(stderr, PACKAGE ": missing value for %s\n", option);
+      fprintf(stderr, PACKAGE ": missing value for %s option\n", option);
       break;
     default:
       fprintf(stderr, PACKAGE ": internal error %d\n", error);
@@ -242,22 +242,28 @@ options_parse(int argc, const char *argv[])
 	      opt = NULL;
 	    }
 	}
-      /* check for a short option */
-      else if( len==2 && g_str_has_prefix(arg, "-") )
+      /* check for short options */
+      else if( len>=2 && g_str_has_prefix(arg, "-") )
 	{
-	  /* make shure we got an argument for the previous option */
-	  if( opt && opt->argument )
-	    option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
+	  int j;
 
-	  /* check if the option exists */
-	  if( (opt=lookup_option(arg[1], NULL))==NULL )
-	    option_error(ERROR_UNKNOWN_OPTION, arg, NULL);
-
-	  /* if no option argument is needed execute callback */
-	  if( opt->argument==NULL )
+	  for(j=1; j<len; j++)
 	    {
-	      option_cb (opt->shortopt, NULL);
-	      opt = NULL;
+	      /* make shure we got an argument for the previous option */
+	      if( opt && opt->argument )
+		option_error(ERROR_MISSING_ARGUMENT, 
+			     opt->longopt, opt->argument);
+	      
+	      /* check if the option exists */
+	      if( (opt=lookup_option(arg[j], NULL))==NULL )
+		option_error(ERROR_UNKNOWN_OPTION, arg, NULL);
+
+	      /* if no option argument is needed execute callback */
+	      if( opt->argument==NULL )
+		{
+		  option_cb (opt->shortopt, NULL);
+		  opt = NULL;
+		}
 	    }
 	}
       else

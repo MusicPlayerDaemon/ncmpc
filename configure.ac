@@ -4,7 +4,7 @@ dnl
 
 AC_INIT
 AC_CONFIG_SRCDIR([src/main.c])
-AM_INIT_AUTOMAKE(ncmpc, 0.11.0)
+AM_INIT_AUTOMAKE([ncmpc], [0.11.1-svn])
 AM_CONFIG_HEADER([config.h])
 
 dnl Check for programs
@@ -66,13 +66,13 @@ AC_CHECK_LIB([ncurses],
 dnl Check for glib-2.4
 PKG_CHECK_MODULES([GLIB], 
 		  [glib-2.0 >= 2.4],
-		  glib24=yes,
-		  AC_MSG_WARN([glib-2.4 is required for NLS support!]))
+		  [glib24=yes],
+		  [AC_MSG_WARN([glib-2.4 is required for NLS support!])])
 if test "x$glib24" != "xyes"; then
    PKG_CHECK_MODULES([GLIB], 
 		     [glib-2.0 >= 2.2],
-		     nls=no,
-		     AC_MSG_ERROR([glib-2.2 is required]))
+		     [nls=no],
+		     [AC_MSG_ERROR([glib-2.2 is required])])
 fi
 
 
