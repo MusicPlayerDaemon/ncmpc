@@ -3,6 +3,8 @@
 #include <glib.h>
 #include <ncurses.h>
 
+#include "config.h"
+#include "support.h"
 #include "libmpdclient.h"
 #include "mpc.h"
 #include "command.h"
@@ -32,6 +34,48 @@ list_callback(int index, int *highlight, void *data)
     }
 
   return mpc_get_song_name(song);
+}
+
+static int
+handle_save_playlist(screen_t *screen, mpd_client_t *c)
+{
+  char *filename, *filename_utf8;
+
+  filename=screen_getstr(screen->status_window.w, "Save playlist as: ");
+  filename=trim(filename);
+  if( filename==NULL || filename[0]=='\0' )
+    return -1;
+  /* convert filename to utf-8 */
+  filename_utf8 = locale_to_utf8(filename);
+  /* send save command to mpd */
+  mpd_sendSaveCommand(c->connection, filename_utf8);
+  mpd_finishCommand(c->connection);
+  free(filename_utf8);
+  /* handle errors */
+  if( mpc_error(c))
+    {
+      if(  mpc_error_str(c) )
+	{
+	  char *str = utf8_to_locale(mpc_error_str(c));
+	  screen_status_message(str);
+	  free(str);
+	}
+      else
+	screen_status_printf("Error: Unable to save playlist as %s", filename);
+      mpd_clearError(c->connection);
+      beep();
+      return -1;
+    }
+  /* success */
+  screen_status_printf("Saved %s", filename);
+  free(filename);
+  /* update the file list if it has been initalized */
+  if( c->filelist )
+    {
+      mpc_update_filelist(c);
+      list_window_check_selected(screen->filelist, c->filelist_length);
+    }
+  return 0;
 }
 
 void 
@@ -93,7 +137,7 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 			   mpc_get_song_name(song));
       return 1;
     case CMD_SAVE_PLAYLIST:
-      screen_status_printf("Sorry, playlist saving not implemented yet!");
+      handle_save_playlist(screen, c);
       return 1;
     case CMD_LIST_FIND:
     case CMD_LIST_RFIND:

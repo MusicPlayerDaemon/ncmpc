@@ -4,6 +4,7 @@
 #include <glib.h>
 #include <ncurses.h>
 
+#include "config.h"
 #include "support.h"
 #include "command.h"
 #include "list_window.h"
