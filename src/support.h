@@ -18,7 +18,7 @@ char *strcasestr(const char *haystack, const char *needle);
 typedef struct
 {
   int offset;
-  time_t t;
+  GTime t; /* GTime is equivalent to time_t */
 
 } scroll_state_t;
 

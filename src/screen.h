@@ -41,10 +41,11 @@ typedef struct
 
   GList *screen_list;
 
-  time_t start_timestamp;
-  time_t status_timestamp;
-  time_t input_timestamp;
-  command_t last_cmd;
+  /* GTime is equivalent to time_t */
+  GTime start_timestamp;
+  GTime status_timestamp;
+  GTime input_timestamp;
+  GTime last_cmd;
 
   int cols, rows;
 
