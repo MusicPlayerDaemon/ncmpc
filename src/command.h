@@ -74,5 +74,6 @@ command_t get_key_command_from_name(char *name);
 int assign_keys(command_t command, int keys[MAX_COMMAND_KEYS]);
 
 command_t get_keyboard_command(void);
+command_t get_keyboard_command_with_timeout(int milliseconds);
 
 #endif

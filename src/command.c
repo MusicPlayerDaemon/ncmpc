@@ -158,7 +158,7 @@ static command_definition_t cmds[] =
     N_("Key configuration screen") },
 #endif
 
-  { { 'q',  0,   0 }, CMD_QUIT,   "quit",
+  { { 'q', 'Q',  3 }, CMD_QUIT,   "quit",
     N_("Quit") },  
 
   { { -1,  -1,  -1 }, CMD_NONE, NULL, NULL }
@@ -345,13 +345,16 @@ get_key_command(int key)
   return find_key_command(key, cmds);
 }
 
-
 command_t
-get_keyboard_command(void)
+get_keyboard_command_with_timeout(int ms)
 {
   int key;
 
+  if( ms != SCREEN_TIMEOUT)
+    timeout(ms);
   key = wgetch(stdscr);
+  if( ms != SCREEN_TIMEOUT)
+    timeout(SCREEN_TIMEOUT);
 
   if( key==KEY_RESIZE )
     screen_resize();
@@ -359,9 +362,13 @@ get_keyboard_command(void)
   if( key==ERR )
     return CMD_NONE;
 
-  DK(fprintf(stderr, "key = 0x%02X\t", key));
-
   return get_key_command(key);
+}
+
+command_t
+get_keyboard_command(void)
+{
+  return get_keyboard_command_with_timeout(SCREEN_TIMEOUT);
 }
 
 int
