@@ -2,7 +2,8 @@ dnl
 dnl  $Id: configure.ac,v 1.10 2004/03/18 09:33:43 kalle Exp $
 dnl
 
-AC_INIT(main.c)
+AC_INIT
+AC_CONFIG_SRCDIR([main.c])
 AM_INIT_AUTOMAKE(ncmpc, 0.10.1)
 
 dnl Check for programs
@@ -22,9 +23,6 @@ keydef_screen=yes
 dnl
 dnl Check for types
 dnl
-dnl AC_CHECK_TYPE(socklen_t, 
-dnl 	      AC_DEFINE(HAVE_SOCKLEN_T, 1, socklen_t defined in sys/socket.h),
-dnl )
 
 AC_SOCKLEN_T
 
@@ -70,7 +68,7 @@ AC_CHECK_LIB(popt,
 
 dnl Debugging 
 AC_ARG_ENABLE(debug, 
-              AS_HELP_STRING([--enable-debug],[Enable debugging]),
+              AC_HELP_STRING(--enable-debug,Enable debugging),
 	      , 
 	      enable_debug=no)
 
@@ -80,7 +78,7 @@ fi
 
 dnl Key editor
 AC_ARG_ENABLE(key-editor, 
-              AS_HELP_STRING([--enable-key-editor],[Enable key editor]),
+              AC_HELP_STRING(--enable-key-editor,Enable key editor),
 	      keydef_screen=no,
 	      keydef_screen=yes)
 if test "$keydef_screen" = yes; then
@@ -91,14 +89,13 @@ dnl   AC_DEFINE(ENABLE_KEYDEF_SCREEN, 1, [Enable builtin key editor]),
 
 dnl Default host
 AC_ARG_WITH(default-host,
-	    AS_HELP_STRING([--with-default-host=ARG],
-                           [Default MPD host (localhost)]),
+	    AC_HELP_STRING(--with-default-host=ARG,Default MPD host (localhost)),
             DEFAULT_HOST="$withval",
             DEFAULT_HOST="localhost")
 
 dnl Default port
 AC_ARG_WITH(default-port,
-            AS_HELP_STRING([--with-default-port=ARG],[Default port (2100)]),
+            AC_HELP_STRING(--with-default-port=ARG,Default port (2100)),
             DEFAULT_PORT="$withval",
             DEFAULT_PORT="2100")
 
@@ -114,7 +111,8 @@ AC_DEFINE_UNQUOTED(DEFAULT_HOST,     "$DEFAULT_HOST",    Default MPD host)
 
 AM_CONFIG_HEADER(config.h)
 
-AC_OUTPUT(doc/Makefile Makefile)
+AC_CONFIG_FILES([doc/Makefile Makefile])
+AC_OUTPUT
 
 echo "
 Configuration:  
