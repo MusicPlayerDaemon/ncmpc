@@ -263,7 +263,7 @@ colors_start(void)
 	      list=list->next;
 	    }
 	}
-      else if( !can_change_color() )
+      else if( color_definition_list && !can_change_color() )
 	fprintf(stderr, _("Terminal lacks support for changing colors!\n"));
 
       if( options.enable_colors )
