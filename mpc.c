@@ -23,6 +23,9 @@ mpc_update_song(mpd_client_t *c)
 {
   mpd_InfoEntity *entity;
 
+  if( mpc_error(c) )
+    return;
+
   if( c->song )
     {
       mpd_freeSong(c->song);
@@ -30,6 +33,8 @@ mpc_update_song(mpd_client_t *c)
     }
 
   mpd_sendPlaylistInfoCommand(c->connection, c->status->song);
+  if( mpc_error(c) )
+    return;
   while( (entity=mpd_getNextInfoEntity(c->connection)) )
     {
       mpd_Song *song = entity->info.song;
@@ -82,6 +87,26 @@ mpc_connect(char *host, int port)
 
   return c;
 }
+
+int
+mpc_reconnect(mpd_client_t *c, char *host, int port)
+{
+  mpd_Connection *connection;
+
+  connection =  mpd_newConnection(host, port, 10);
+  if( connection==NULL )
+    return -1;
+  if( connection->error )
+    {
+      mpd_closeConnection(connection);
+      return -1;
+    }
+  
+  c->connection = connection;
+
+  return 0;
+}
+
 
 int
 mpc_error(mpd_client_t *c)
@@ -139,11 +164,16 @@ mpc_update_playlist(mpd_client_t *c)
 
   //  fprintf(stderr, "mpc_update_playlist(): status->playlist = %d\n",  c->status->playlist);
 
+  if( mpc_error(c) )
+    return -1;
+
   if( c->playlist )
     mpc_free_playlist(c);
 
   c->playlist_length=0;
   mpd_sendPlaylistInfoCommand(c->connection,-1);
+  if( mpc_error(c) )
+    return -1;
   while( (entity=mpd_getNextInfoEntity(c->connection)) ) 
     {
       if(entity->type==MPD_INFO_ENTITY_TYPE_SONG) 
@@ -218,18 +248,21 @@ mpc_get_song_name(mpd_Song *song)
 int 
 mpc_update(mpd_client_t *c)
 {
+  if( mpc_error(c) )
+    return -1;
+
   if( c->status )
     {
       mpd_freeStatus(c->status);
     }
 
   c->status = mpd_getStatus(c->connection);
+  if( mpc_error(c) )
+    return -1;
   
-  //  if( c->playlist == NULL || c->playlist_id!=c->status->playlist )
   if( c->playlist_id!=c->status->playlist )
     mpc_update_playlist(c);
   
-  //  if( c->song == NULL || c->status->song != c->song_id )
   if( c->status->song != c->song_id )
     {
       c->song = mpc_playlist_get_song(c, c->status->song);
@@ -277,6 +310,9 @@ int
 mpc_update_filelist(mpd_client_t *c)
 {
   mpd_InfoEntity *entity;
+
+  if( mpc_error(c) )
+    return -1;
 
   if( c->filelist )
     mpc_free_filelist(c);
