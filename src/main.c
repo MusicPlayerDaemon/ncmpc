@@ -104,7 +104,7 @@ update_xterm_title(void)
   if( strncmp(title,tmp,BUFSIZE) )
     {
       g_strlcpy(title, tmp, BUFSIZE);
-      set_xterm_title(title);
+      set_xterm_title("%s", title);
     }
 }
 
