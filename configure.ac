@@ -50,6 +50,7 @@ dnl
 
 dnl ncurses
 AC_CHECK_LIB(ncurses, initscr,, [AC_MSG_ERROR(ncurses library is required)])
+LIBS="$LIBS -lncurses"
 
 dnl glib-2.0
 AM_PATH_GLIB_2_0(, , [AC_MSG_ERROR(glib-2.x is required)], glib)
@@ -73,11 +74,6 @@ if test "$enable_debug" = yes; then
   CFLAGS="$CFLAGS -g -DDEBUG"
 fi
 
-dnl Default charset
-AC_ARG_WITH(default-charset,
-	    [  --with-default-charset=ARG  Default charset (ISO-8859-1)], 
-            DEFAULT_CHARSET="ISO-8859-1")
-
 dnl Default host
 AC_ARG_WITH(default-host,
 	    [  --with-default-host=HOST  Default host (localhost)], 
@@ -92,14 +88,13 @@ AC_ARG_WITH(default-port,
 
 
 CFLAGS="$CFLAGS $GLIB_CFLAGS"
-LIBS="$LIBS $GLIB_LIBS -lncurses"
+LIBS="$LIBS $GLIB_LIBS"
 
 
 dnl Autoheader
 AC_DEFINE_UNQUOTED(DEFAULT_PORT,      $DEFAULT_PORT,     Default MPD port)
 AC_DEFINE_UNQUOTED(DEFAULT_PORT_STR, "$DEFAULT_PORT",    Default MPD port)
 AC_DEFINE_UNQUOTED(DEFAULT_HOST,     "$DEFAULT_HOST",    Default MPD host)
-AC_DEFINE_UNQUOTED(DEFAULT_CHARSET,  "$DEFAULT_CHARSET", Default charset)
 
 AM_CONFIG_HEADER(config.h)
 
