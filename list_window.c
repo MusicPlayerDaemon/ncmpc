@@ -48,6 +48,9 @@ list_window_check_selected(list_window_t *lw, int length)
   if( lw->selected<0 )
     lw->selected=0;
 
+  while( lw->selected<lw->start )
+    lw->selected++;
+
   while( lw->selected>0 && length>0 && lw->selected>=length )
     lw->selected--;
 }
