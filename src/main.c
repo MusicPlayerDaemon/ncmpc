@@ -1,7 +1,7 @@
 /* 
  * $Id$
  *
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -168,6 +168,7 @@ main(int argc, const char *argv[])
 	    }
 	  else	
 	    mpd_finishCommand(mpc->connection);
+
 	  g_timer_start(timer);
 	}
 
@@ -188,9 +189,10 @@ main(int argc, const char *argv[])
 	}
       else if( options->reconnect )
 	{
-	  sleep(MPD_RECONNECT_TIMEOUT);
-	  screen_status_printf(_("Connecting to %s...  [Press Ctrl-C to abort]"), 
-			       options->host);
+	  if( get_keyboard_command_with_timeout(MPD_RECONNECT_TIME)==CMD_QUIT)
+	    exit(EXIT_SUCCESS);
+	  screen_status_printf(_("Connecting to %s...  [Press %s to abort]"), 
+			       options->host, get_key_names(CMD_QUIT,0) );
 	  if( mpc_reconnect(mpc, 
 			    options->host, 
 			    options->port, 

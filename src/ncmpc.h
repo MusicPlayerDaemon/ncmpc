@@ -32,8 +32,8 @@
 /* time in seconds between mpd updates (double) */
 #define MPD_UPDATE_TIME        0.5
 
-/* timout in seconds before trying to reconnect (int) */
-#define MPD_RECONNECT_TIMEOUT  3
+/* time in milliseconds before trying to reconnect (int) */
+#define MPD_RECONNECT_TIME  1000
 
 
 #endif /* NCMPC_H */

@@ -77,7 +77,7 @@ mpc_reconnect(mpd_client_t *c, char *host, int port, char *password)
 {
   mpd_Connection *connection;
 
-  connection =  mpd_newConnection(host, port, 10);
+  connection =  mpd_newConnection(host, port, 1);
   if( connection==NULL )
     return -1;
   if( connection->error )
