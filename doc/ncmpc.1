@@ -1,4 +1,4 @@
-.TH "ncmpc" "1" "April 2004" "" ""
+.TH "ncmpc" "1" "May 2004" "" ""
 .SH "NAME"
 ncmpc \- curses Music Player Daemon (MPD) client.
 .SH "SYNOPSIS"
@@ -66,6 +66,9 @@ Make the cursor as wide as the screen.
 .B enable_colors = yes|no
 Enable/disable colors.
 .TP 
+.B background_color = color|none
+Set the background color. If the background color is assigned to the keyword \fBnone\fR, ncmpc will not change the background color.
+.TP 
 .B title_color = color
 Set the text color for the title row (first row).
 .TP 
@@ -92,9 +95,7 @@ ncmpc is running. To edit key bindings use the key editor in ncmpc (press 'K').
 Report bugs on http://www.musicpd.org/mantis/
 .SH "NOTE"
 Since MPD uses UTF\-8, ncmpc needs to convert characters to the 
-charset used by the local system. If you get character conversion errors when your running ncmpc you probably need to set up your locale. This is done by setting any of the LC_CTYPE, LANG or LC_ALL enviroment variables (LC_CTYPE only affects character handling). For example if you want UK settings and use bash you should add the following line to your /etc/profile:
-
-  export LC_CTYPE=en_UK
+charset used by the local system. If you get character conversion errors when your running ncmpc you probably need to set up your locale. This is done by setting any of the LC_CTYPE, LANG or LC_ALL enviroment variables (LC_CTYPE only affects character handling).
 
 .SH "SE ALSO"
 mpc(1), mpd(1), locale(5), locale(7)

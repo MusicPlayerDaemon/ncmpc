@@ -97,8 +97,10 @@ str2color(char *str)
     return COLOR_CYAN;
   else if( !strcasecmp(str,"white") )
     return COLOR_WHITE;
+  else if( !strcasecmp(str,"default") || !strcasecmp(str,"none") )
+    return -1;
   fprintf(stderr,"Warning: unknown color %s\n", str);
-  return -1;
+  return -2;
 }
 
 static int
@@ -330,7 +332,7 @@ read_rc_file(char *filename, options_t *options)
 	      /* background color */
 	      else if( !strcasecmp(CONF_COLOR_BACKGROUND, name) )
 		{
-		  if( (color=str2color(value)) >= 0 )
+		  if( (color=str2color(value)) >= -1 )
 		    options->bg_color = color;
 		}
 	      /* color - top (title) window */

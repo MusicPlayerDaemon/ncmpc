@@ -422,6 +422,7 @@ screen_init(void)
   if( has_colors() )
     {
       start_color();
+      use_default_colors();
       if( options.enable_colors )
 	{
 	  init_pair(1, options.title_color,    options.bg_color);
@@ -431,8 +432,6 @@ screen_init(void)
 	  init_pair(5, options.status_color,   options.bg_color);
 	  init_pair(6, options.alert_color,    options.bg_color);
 	}
-      else
-	use_default_colors();
     }
   else if( options.enable_colors )
     {
