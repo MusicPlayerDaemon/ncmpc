@@ -22,6 +22,7 @@ void
 exit_and_cleanup(void)
 {
   screen_exit();
+  charset_close();
   if( mpc )
     {
       if( mpc_error(mpc) )
@@ -47,6 +48,10 @@ main(int argc, char *argv[])
   /* parse command line options */
   options_init();
   options = options_parse(argc, argv);
+
+  /* initialize local charset */
+  if( charset_init() )
+    exit(EXIT_FAILURE);
 
   /* setup signal behavior - SIGINT */
   sigemptyset( &act.sa_mask );
