@@ -28,8 +28,8 @@ typedef struct
 
 int mpc_close(mpd_client_t *c);
 
-mpd_client_t *mpc_connect(char *host, int port);
-int mpc_reconnect(mpd_client_t *c, char *host, int port);
+mpd_client_t *mpc_connect(char *host, int port, char *passwd);
+int mpc_reconnect(mpd_client_t *c, char *host, int port, char *passwd);
 
 int mpc_update(mpd_client_t *c);
 int mpc_update_playlist(mpd_client_t *c);

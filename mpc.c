@@ -63,7 +63,7 @@ mpc_close(mpd_client_t *c)
 }
 
 mpd_client_t *
-mpc_connect(char *host, int port)
+mpc_connect(char *host, int port, char *password)
 {
   mpd_Connection *connection;
   mpd_client_t *c;
@@ -80,11 +80,17 @@ mpc_connect(char *host, int port)
   c->connection = connection;
   c->cwd = g_strdup("");
 
+  if( password )
+    {
+      mpd_sendPasswordCommand(connection, password);
+      mpd_finishCommand(connection);
+    }
+
   return c;
 }
 
 int
-mpc_reconnect(mpd_client_t *c, char *host, int port)
+mpc_reconnect(mpd_client_t *c, char *host, int port, char *password)
 {
   mpd_Connection *connection;
 
@@ -99,6 +105,12 @@ mpc_reconnect(mpd_client_t *c, char *host, int port)
   
   c->connection = connection;
 
+  if( password )
+    {
+      mpd_sendPasswordCommand(connection, password);
+      mpd_finishCommand(connection);
+    }
+
   return 0;
 }
 
@@ -109,7 +121,7 @@ mpc_error(mpd_client_t *c)
   if( c == NULL || c->connection == NULL )
     return 1;
   if( c->connection->error )
-    return 1;
+    return c->connection->error;
 
   return 0;
 }

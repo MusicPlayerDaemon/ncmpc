@@ -9,8 +9,12 @@
 #include "config.h"
 #include "options.h"
 #include "command.h"
+#include "support.h"
 
 options_t options;
+
+static char *mpd_host     = NULL;
+static char *mpd_password = NULL;
 
 static struct poptOption optionsTable[] = {
 #ifdef DEBUG
@@ -23,8 +27,10 @@ static struct poptOption optionsTable[] = {
   { "exit",         'e', 0, 0, 'e', "Exit on connection errors." },
   { "port",         'p', POPT_ARG_INT, &options.port, 0, 
     "Connect to server on port [" DEFAULT_PORT_STR "].", "PORT" },
-  { "host",         'h', POPT_ARG_STRING, &options.host, 0, 
+  { "host",         'h', POPT_ARG_STRING, &mpd_host, 0, 
     "Connect to server [" DEFAULT_HOST "].", "HOSTNAME" },
+  { "passwd",       'P', POPT_ARG_STRING, &mpd_password, 0, 
+    "Connect with password.", "PASSWORD" },
   POPT_AUTOHELP
   { NULL, 0, 0, NULL, 0 }
 };
@@ -44,6 +50,8 @@ options_parse( int argc, const char **argv)
   int c;
   poptContext optCon;   /* context for parsing command-line options */
 
+  mpd_host = NULL;
+  mpd_password = NULL;
   optCon = poptGetContext(NULL, argc, argv, optionsTable, 0);
   while ((c = poptGetNextOpt(optCon)) >= 0) 
     {
@@ -88,6 +96,16 @@ options_parse( int argc, const char **argv)
       exit(EXIT_FAILURE);
     }
 
+  if( mpd_host )
+    {
+      g_free(options.host);
+      options.host = mpd_host;
+    }
+  if( mpd_password )
+    {
+      g_free(options.password);
+      options.password = mpd_password;
+    }
   poptFreeContext(optCon);
   return &options;
 }
@@ -95,14 +113,25 @@ options_parse( int argc, const char **argv)
 options_t *
 options_init( void )
 {
-  char *value;
+  const char *value;
+  char *tmp;
 
   memset(&options, 0, sizeof(options_t));
-  if( (value=getenv(MPD_HOST_ENV)) )
+
+  if( (value=g_getenv(MPD_HOST_ENV)) )
     options.host = g_strdup(value);
   else
     options.host = g_strdup(DEFAULT_HOST);
-  if( (value=getenv(MPD_PORT_ENV)) )
+  if( (tmp=g_strstr_len(options.host, strlen(options.host), "@")) )
+    {
+      char *oldhost = options.host;
+      *tmp  = '\0';
+      options.password = locale_to_utf8(oldhost);
+      options.host = g_strdup(tmp+1);
+      g_free(oldhost);
+    }
+
+  if( (value=g_getenv(MPD_PORT_ENV)) )
     options.port = atoi(value);
   else
     options.port = DEFAULT_PORT;
@@ -111,12 +140,12 @@ options_init( void )
   options.find_wrap = 1;
 
   options.bg_color       = COLOR_BLACK;
-  options.title_color    = COLOR_BLUE;
-  options.line_color     = COLOR_GREEN;
-  options.list_color     = COLOR_YELLOW;
-  options.progress_color = COLOR_GREEN;
-  options.status_color   = COLOR_RED;
-  options.alert_color    = COLOR_MAGENTA;;
+  options.title_color    = COLOR_YELLOW;
+  options.line_color     = COLOR_WHITE;
+  options.list_color     = COLOR_GREEN;
+  options.progress_color = COLOR_WHITE;
+  options.status_color   = COLOR_YELLOW;
+  options.alert_color    = COLOR_RED;
 
   return &options;
 }

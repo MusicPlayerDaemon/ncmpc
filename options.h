@@ -8,6 +8,8 @@
 typedef struct 
 {
   char *host;
+  char *username;
+  char *password;
   int   port;
   int   reconnect;
   int   debug;

@@ -13,8 +13,11 @@
 #include "screen.h"
 #include "conf.h"
 
+/* time in seconds between mpd updates (double) */
+#define MPD_UPDATE_TIME        1.0
 
-#define MPD_UPDATE_TIME  1.0
+/* timout in seconds before trying to reconnect (int) */
+#define MPD_RECONNECT_TIMEOUT  3
 
 
 static mpd_client_t *mpc = NULL;
@@ -32,6 +35,7 @@ exit_and_cleanup(void)
       mpc_close(mpc);
     }
   g_free(options.host);
+  g_free(options.password);
   if( timer )
     g_timer_destroy(timer);
 }
@@ -48,7 +52,7 @@ main(int argc, const char *argv[])
 {
   options_t *options;
   struct sigaction act;
-  int connected;
+  gboolean connected;
 
   /* initialize options */
   options = options_init();
@@ -92,14 +96,14 @@ main(int argc, const char *argv[])
     }
 
   /* set xterm title */
-  if( getenv("DISPLAY") )
-    printf("%c]0;%s%c", '\033', PACKAGE " v" VERSION, '\007');
+  if( g_getenv("DISPLAY") )
+    printf("%c]0;%s%c", '\033', PACKAGE " version " VERSION, '\007');
 
   /* install exit function */
   atexit(exit_and_cleanup);
 
   /* connect to our music player daemon */
-  mpc = mpc_connect(options->host, options->port);
+  mpc = mpc_connect(options->host, options->port, options->password);
   if( mpc_error(mpc) )
     exit(EXIT_FAILURE);
 
@@ -109,7 +113,7 @@ main(int argc, const char *argv[])
   /* initialize timer */
   timer = g_timer_new();
 
-  connected=1;
+  connected = TRUE;
   while( connected || options->reconnect )
     {
       static gdouble t = G_MAXDOUBLE;
@@ -117,19 +121,25 @@ main(int argc, const char *argv[])
       if( connected && t>=MPD_UPDATE_TIME )
 	{
 	  mpc_update(mpc);
-	  if( mpc_error(mpc) )
+	  if( mpc_error(mpc) == MPD_ERROR_ACK )
 	    {
-	      connected=0;
+	      screen_status_printf("%s", mpc_error_str(mpc));
+	      mpd_clearError(mpc->connection);
+	      mpd_finishCommand(mpc->connection);
+	    }
+	  else if( mpc_error(mpc) )
+	    {
 	      screen_status_printf("Lost connection to %s", options->host);
+	      connected = FALSE;	 
 	      doupdate();
+	      mpd_clearError(mpc->connection);
 	      mpd_closeConnection(mpc->connection);
 	      mpc->connection = NULL;
 	    }
-	  else
+	  else	
 	    mpd_finishCommand(mpc->connection);
 	  g_timer_start(timer);
 	}
-
 
       if( connected )
 	{
@@ -146,19 +156,22 @@ main(int argc, const char *argv[])
 	}
       else if( options->reconnect )
 	{
-	  sleep(3);
+	  sleep(MPD_RECONNECT_TIMEOUT);
 	  screen_status_printf("Connecting to %s...  [Press Ctrl-C to abort]", 
 			       options->host);
-	  if( mpc_reconnect(mpc, options->host, options->port) == 0 )
+	  if( mpc_reconnect(mpc, 
+			    options->host, 
+			    options->port, 
+			    options->password) == 0 )
 	    {
 	      screen_status_printf("Connected to %s!", options->host);
-	      connected=1;
+	      connected = TRUE;
 	    }
 	  doupdate();
 	}
 
       t = g_timer_elapsed(timer, NULL);
-
     }
+
   exit(EXIT_FAILURE);
 }
