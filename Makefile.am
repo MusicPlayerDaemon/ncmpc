@@ -3,11 +3,12 @@
 #
 
 bin_PROGRAMS = ncmpc
-man_MANS = doc/ncmpc.1
 pkgdata_DATA =
 docdir = $(prefix)/share/doc/$(PACKAGE)
-doc_DATA = AUTHORS README ChangeLog doc/ncmpcrc
-EXTRA_DIST = COPYING $(pkgdata_DATA) $(man_MANS) $(doc_DATA)
+doc_DATA = AUTHORS README ChangeLog
+EXTRA_DIST = COPYING $(pkgdata_DATA) $(doc_DATA)
+
+SUBDIRS = doc
 
 ncmpc_headers = libmpdclient.h mpc.h options.h conf.h command.h screen.h \
               screen_utils.h screen_play.h screen_file.h screen_search.h \

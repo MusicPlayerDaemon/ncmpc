@@ -110,7 +110,7 @@ AC_DEFINE_UNQUOTED(DEFAULT_CHARSET,  "$DEFAULT_CHARSET", Default charset)
 
 AM_CONFIG_HEADER(config.h)
 
-AC_OUTPUT(Makefile)
+AC_OUTPUT(doc/Makefile Makefile)
 
 echo "
 Configuration:  
