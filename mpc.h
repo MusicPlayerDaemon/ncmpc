@@ -1,3 +1,4 @@
+
 typedef struct
 {
   char selected;
@@ -12,6 +13,9 @@ typedef struct
   mpd_Song       *song;
   int            song_id;
   int            song_updated;
+
+  int            seek_song_id;
+  int            seek_target_time;
 
   GList         *playlist;
   int            playlist_length;
