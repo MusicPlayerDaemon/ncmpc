@@ -117,12 +117,46 @@ handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
 {
   gchar *filename;
   gint error;
+  GCompletion *gcmp;
+  GList *list = NULL;
+
+  void pre_completion_cb(GCompletion *gcmp, gchar *line)
+    {
+      if( list == NULL )
+	{
+	  /* create completion list */
+	  list = gcmp_list_from_path(c, "", NULL, GCMP_TYPE_PLAYLIST);
+	  g_completion_add_items(gcmp, list);
+	}
+    }
+
+  void post_completion_cb(GCompletion *gcmp, gchar *line, GList *items)
+    {
+      if( g_list_length(items)>=1 )
+	screen_display_completion_list(screen, items);
+    }
 
   if( name==NULL )
     {
+      /* initialize completion support */
+      gcmp = g_completion_new(NULL);
+      g_completion_set_compare(gcmp, strncmp);
+      wrln_pre_completion_callback = pre_completion_cb;
+      wrln_post_completion_callback = post_completion_cb;
+
       /* query the user for a filename */
-      filename=screen_getstr(screen->status_window.w, _("Save playlist as: "));
+      filename = screen_readln(screen->status_window.w,
+			       _("Save playlist as: "),
+			       NULL,
+			       NULL,
+			       gcmp);     			       
       filename=trim(filename);
+
+      /* destroy completion support */
+      wrln_pre_completion_callback = NULL;
+      wrln_post_completion_callback = NULL;
+      g_completion_free(gcmp);
+      list = string_list_free(list);
     }
   else
     {
@@ -181,17 +215,18 @@ handle_add_to_playlist(screen_t *screen, mpdclient_t *c)
     {
       g_completion_remove_items(gcmp, list);
       list = string_list_remove(list, dir);
-      list = gcmp_list_from_path(c, dir, list);
+      list = gcmp_list_from_path(c, dir, list, GCMP_TYPE_RFILE);
       g_completion_add_items(gcmp, list);
       dir_list = g_list_append(dir_list, g_strdup(dir));
     }
 
   void pre_completion_cb(GCompletion *gcmp, gchar *line)	
     {
+      D("pre_completion()...\n");
       if( list == NULL )
 	{
 	  /* create initial list */
-	  list = gcmp_list_from_path(c, "", NULL);
+	  list = gcmp_list_from_path(c, "", NULL, GCMP_TYPE_RFILE);
 	  g_completion_add_items(gcmp, list);
 	}
       else if( line && line[0] && line[strlen(line)-1]=='/' &&
@@ -204,6 +239,7 @@ handle_add_to_playlist(screen_t *screen, mpdclient_t *c)
 
   void post_completion_cb(GCompletion *gcmp, gchar *line, GList *items)
     {
+      D("post_completion()...\n");
       if( g_list_length(items)>1 )
 	screen_display_completion_list(screen, items);
 
@@ -215,27 +251,31 @@ handle_add_to_playlist(screen_t *screen, mpdclient_t *c)
 	}
     }
     
-
+  /* initialize completion support */
   gcmp = g_completion_new(NULL);
   g_completion_set_compare(gcmp, strncmp);
-
   wrln_pre_completion_callback = pre_completion_cb;
   wrln_post_completion_callback = post_completion_cb;
+  /* get path */
   path = screen_readln(screen->status_window.w, 
 		       _("Add: "),
 		       NULL, 
 		       NULL, 
 		       gcmp);
+
+  /* destroy completion data */
   wrln_pre_completion_callback = NULL;
   wrln_post_completion_callback = NULL;
-  
   g_completion_free(gcmp);
-
   string_list_free(list);
   string_list_free(dir_list);
 
+  /* add the path to the playlist */
   if( path && path[0] )
     mpdclient_cmd_add_path(c, path);
+
+  lw->clear = 1;
+  lw->repaint = 1;
 
   return 0;
 }

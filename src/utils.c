@@ -81,7 +81,7 @@ string_list_remove(GList *string_list, gchar *str)
 
 /* create a list suiteble for GCompletion from path */
 GList *
-gcmp_list_from_path(mpdclient_t *c, gchar *path, GList *list)
+gcmp_list_from_path(mpdclient_t *c, gchar *path, GList *list, gint types)
 {
   GList *flist = NULL;
   mpdclient_filelist_t *filelist;
@@ -96,7 +96,8 @@ gcmp_list_from_path(mpdclient_t *c, gchar *path, GList *list)
       mpd_InfoEntity *entity = entry ? entry->entity : NULL;
       char *name = NULL;
       
-      if( entity && entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY ) 
+      if( entity && entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY && 
+	  types & GCMP_TYPE_DIR) 
 	{
 	  mpd_Directory *dir = entity->info.directory;
 	  gchar *tmp = utf8_to_locale(dir->path);
@@ -106,11 +107,19 @@ gcmp_list_from_path(mpdclient_t *c, gchar *path, GList *list)
 	  strcat(name, "/");
 	  g_free(tmp);
 	}
-      else if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG )
+      else if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG &&
+	       types & GCMP_TYPE_FILE )
 	{
 	  mpd_Song *song = entity->info.song;
 	  name = utf8_to_locale(song->file);
 	}
+      else if( entity && entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE &&
+	       types & GCMP_TYPE_PLAYLIST )
+	{
+	  mpd_PlaylistFile *plf = entity->info.playlistFile;
+	  name = utf8_to_locale(plf->path);
+	}
+
       if( name )
 	list = g_list_append(list, name);
 

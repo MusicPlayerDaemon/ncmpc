@@ -1,3 +1,21 @@
+2004-06-17 Kalle Wallin <kaw@linux.se>
+	* screen_utils.c: fixed the display of completion lists
+	* wreadln.c: try to complete even if the line is empty
+	* utils.c: added type argument to gcmp_list_from_path()
+	* screen_play.c: added completion support to handle_save_playlist()
+	* command.[c|h]: check_key_bindings() can now write an error messages 
+	                 to a buffer instead of stderr
+	* main.c: display errors without exiting when key bindings are broken
+
+2004-06-17 Kalle Wallin <kaw@linux.se>
+	* Added a add command, used to add urls or files to the playlist, with
+	  file completion.
+
+
+2004-06-16 Kalle Wallin <kaw@linux.se>
+	* mpdclient.c: enabled plchanges, make shure the playlist length is 
+	  updated when removing songs
+
 2004-06-16 Kalle Wallin <kaw@linux.se>
 	* libmpdclient updated (r1507)
 	* mpdclient: add path to mpdclient_cmd_db_update() 
@@ -8,7 +26,7 @@
 	* conf.c: Added support for cusomized format strings with 
 	          list-format and status-format
 	* options.c: Added status_format, list_format fields
-	* mpdclient.c: Sort playlist if needed after plchanges, 
+	* mpdclient.c: disable plchanges (needs more work),
 	  update the song position fields in mpdclient_cmd_move, 
 	  use song id's by default (define ENABLE_SONG_ID), disable plchanges
 	* screen_play.c: Offer to overwrite when saving playlists
