@@ -101,6 +101,18 @@ else
 fi
 
 
+dnl disbale raw mode
+AC_MSG_CHECKING([Place the terminal into raw mode])
+AC_ARG_ENABLE([raw-mode],
+	AC_HELP_STRING([--disable-raw-mode],
+		       [Disable raw terminal mode]),
+		       [use_raw=$enableval], 
+                       [use_raw=yes])
+AC_MSG_RESULT([$use_raw])
+if test "x$use_raw" = "xyes" ; then
+  AC_DEFINE([ENABLE_RAW_MODE], [1], [Place the terminal into raw mode])
+fi
+
 dnl Debugging 
 AC_MSG_CHECKING([whether to build with debug support])
 AC_ARG_ENABLE([debug], 
