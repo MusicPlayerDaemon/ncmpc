@@ -64,6 +64,9 @@ list_window_reset(list_window_t *lw)
 void
 list_window_check_selected(list_window_t *lw, int length)
 {
+  while( lw->start && lw->start+lw->rows>length)
+    lw->start--;
+
   if( lw->selected<0 )
     lw->selected=0;
 
@@ -175,6 +178,7 @@ list_window_paint(list_window_t *lw,
 	  if( lw->start+i == lw->selected )
 	    wattroff(lw->w, A_REVERSE);
 	}
+	
     }
   lw->clear=0;
 }
