@@ -8,7 +8,7 @@ AM_INIT_AUTOMAKE(ncmpc, 0.10.0-svn)
 dnl Check for programs
 AC_PROG_CC
 AC_PROG_INSTALL
-AC_PROG_LIBTOOL
+dnl AC_PROG_LIBTOOL
 
 dnl =======================================================
 dnl initialize variables
@@ -79,10 +79,20 @@ if test "$enable_debug" = yes; then
   CFLAGS="$CFLAGS -g -DDEBUG"
 fi
 
+dnl Enable 
+AC_ARG_ENABLE(colors,
+	    [  --enable-colors         Enable colors [default=no]],
+	    ,
+            enable_colors=no)
+
+if test "$enable_colors" = yes; then
+  CFLAGS="$CFLAGS -DENABLE_COLORS"
+fi
+
+
 dnl Default charset
 AC_ARG_WITH(default-charset,
 	    [  --with-default-charset=ARG  Default charset (ISO-8859-1)], 
-            DEFAULT_CHARSET="$withval",
             DEFAULT_CHARSET="ISO-8859-1")
 
 dnl Default host
