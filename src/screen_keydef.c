@@ -26,7 +26,7 @@
 
 #include "config.h"
 
-#ifdef  ENABLE_KEYDEF_SCREEN
+#ifndef  DISABLE_KEYDEF_SCREEN
 #include "ncmpc.h"
 #include "mpdclient.h"
 #include "options.h"
@@ -369,7 +369,7 @@ keydef_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
     case CMD_LIST_RFIND_NEXT:
       return screen_find(screen, c, 
 			 lw,  length,
-			 cmd, list_callback);
+			 cmd, list_callback, NULL);
 
     default:
       break;

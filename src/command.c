@@ -172,8 +172,15 @@ static command_definition_t cmds[] =
 
 
   /* extra screens */
+#ifdef ENABLE_SEARCH_SCREEN
+  { {'4',  F4,   0 }, 0, CMD_SCREEN_SEARCH,    "screen-search",
+    N_("Search screen") },
+  { {'m',   0,   0 }, 0, CMD_SEARCH_MODE,      "search-mode",
+    N_("Change search mode") },
+#endif
+
 #ifdef ENABLE_CLOCK_SCREEN
-  { {'4',  F4,   0 }, 0, CMD_SCREEN_CLOCK,    "screen-clock",
+  { {'5',  F5,   0 }, 0, CMD_SCREEN_CLOCK,    "screen-clock",
     N_("Clock screen") },
 #endif
 

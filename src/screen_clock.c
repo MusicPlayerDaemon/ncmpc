@@ -13,7 +13,7 @@
 
 #include "config.h"
 
-#ifdef  ENABLE_CLOCK_SCREEN
+#ifndef  DISABLE_CLOCK_SCREEN
 #include "ncmpc.h"
 #include "mpdclient.h"
 #include "options.h"

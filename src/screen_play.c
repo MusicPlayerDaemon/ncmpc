@@ -444,7 +444,7 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
     case CMD_LIST_RFIND_NEXT:
       return screen_find(screen, c, 
 			 lw, c->playlist.length,
-			 cmd, list_callback);
+			 cmd, list_callback, (void *) c);
     case CMD_MOUSE_EVENT:
       return handle_mouse_event(screen,c);
     default:

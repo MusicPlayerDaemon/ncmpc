@@ -53,6 +53,9 @@ static help_text_row_t help_text[] =
   { 0, CMD_SCREEN_HELP,    NULL },
   { 0, CMD_SCREEN_PLAY,    NULL },
   { 0, CMD_SCREEN_FILE,    NULL },
+#ifdef ENABLE_SEARCH_SCREEN
+  { 0, CMD_SCREEN_SEARCH,  NULL },
+#endif
 #ifdef ENABLE_CLOCK_SCREEN
   { 0, CMD_SCREEN_CLOCK,   NULL },
 #endif
@@ -105,10 +108,21 @@ static help_text_row_t help_text[] =
   { 0, CMD_NONE,           NULL },
   { 1, CMD_NONE,           N_("Keys - Browse screen") },
   { 2, CMD_NONE,           NULL },
-  { 0, CMD_PLAY,           N_("Enter directory") },
+  { 0, CMD_PLAY,           N_("Enter directory/Select and play song") },
   { 0, CMD_SELECT,         NULL },
-  { 0, CMD_DELETE,         NULL },
+  { 0, CMD_DELETE,         N_("Delete playlist") },
   { 0, CMD_SCREEN_UPDATE,  NULL },
+
+#ifdef ENABLE_SEARCH_SCREEN
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_NONE,           NULL },
+  { 1, CMD_NONE,           N_("Keys - Search screen") },
+  { 2, CMD_NONE,           NULL },
+  { 0, CMD_SCREEN_SEARCH,  N_("Search") },
+  { 0, CMD_PLAY,           N_("Select and play") },
+  { 0, CMD_SELECT,         NULL },
+  { 0, CMD_SEARCH_MODE,    NULL },
+#endif
 
   { 0, CMD_NONE, NULL },
   {-1, CMD_NONE, NULL }
@@ -255,7 +269,7 @@ help_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
   lw->selected = lw->start+lw->rows;
   if( screen_find(screen, c, 
 		  lw,  help_text_rows,
-		  cmd, list_callback) )
+		  cmd, list_callback, NULL) )
     {
       /* center the row */
       lw->start = lw->selected-(lw->rows/2);

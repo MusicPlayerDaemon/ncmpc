@@ -158,6 +158,9 @@ void mpdclient_playlist_callback(mpdclient_t *c, int event, gpointer data);
 /*** filelist functions  ***************************************************/
 mpdclient_filelist_t *mpdclient_filelist_free(mpdclient_filelist_t *filelist);
 mpdclient_filelist_t *mpdclient_filelist_get(mpdclient_t *c, gchar *path);
+mpdclient_filelist_t *mpdclient_filelist_search(mpdclient_t *c, 
+						int table,
+						gchar *path);
 mpdclient_filelist_t *mpdclient_filelist_update(mpdclient_t *c, 
 						mpdclient_filelist_t *flist);
 

@@ -1,3 +1,8 @@
+2004-11-14  Kalle Wallin <kaw@linux.se>
+	* Added a search screen 
+	* screen_browse.c: added enqueue and play feature
+	* configure.ac: made mouse support and search screen optional
+
 2004-07-21  Kalle Wallin <kaw@linux.se>
 	* Added Spanish translations from Jose Cedeno
 	* command.c: dont lookup key if key==0 in find_key_command()

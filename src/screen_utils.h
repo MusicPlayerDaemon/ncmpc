@@ -18,7 +18,8 @@ int screen_find(screen_t *screen,
 		list_window_t *lw, 
 		int rows,
 		command_t findcmd,
-		list_window_callback_fn_t callback_fn);
+		list_window_callback_fn_t callback_fn,
+		void *callback_data);
 
 
 void screen_display_completion_list(screen_t *screen, GList *list);

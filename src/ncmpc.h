@@ -5,6 +5,16 @@
 #include "config.h"
 #endif
 
+#ifndef DISABLE_SEARCH_SCREEN
+#define ENABLE_SEARCH_SCREEN 1
+#endif
+#ifndef DISABLE_KEYDEF_SCREEN
+#define ENABLE_KEYDEF_SCREEN 1
+#endif
+#ifndef DISABLE_CLOCK_SCREEN
+#define ENABLE_CLOCK_SCREEN 1
+#endif
+
 #ifdef DEBUG
 void D(char *format, ...);
 #else

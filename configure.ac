@@ -56,11 +56,6 @@ AC_CHECK_LIB([ncurses],
 	     [initscr],
              [LIBS="$LIBS -lncurses"], 
              [AC_MSG_ERROR(ncurses library is required)])
-AC_CHECK_LIB([ncurses], 
-	     [getmouse],
-	     [AC_DEFINE([HAVE_GETMOUSE], [1], [ncurses - getmouse()])],
-             [])
-
 
 
 dnl Check for glib-2.4
@@ -149,6 +144,33 @@ dnl Optional screen - browse screen
 #   AC_DEFINE(ENABLE_BROWSE_SCREEN, 1, [Enable the browse screen])
 #fi
 
+dnl Optional - curses getmouse support
+AC_MSG_CHECKING([whether to include mouse support])
+AC_ARG_ENABLE([mouse], 
+              AC_HELP_STRING([--enable-mouse],
+	                     [Enable curses getmouse support @<:@default=yes@:>@]),
+	      [getmouse="$enableval"],
+	      [getmouse=yes])
+AC_MSG_RESULT([$getmouse])
+if test "x$getmouse" = "xyes" ; then
+   AC_CHECK_LIB([ncurses], 
+	        [getmouse],
+		[AC_DEFINE([HAVE_GETMOUSE], [1], [ncurses - getmouse()])],
+		[])
+fi
+
+dnl search screen
+AC_MSG_CHECKING([whether to include the search screen])
+AC_ARG_ENABLE([search-screen], 
+              AC_HELP_STRING([--enable-search-screen],
+	                     [Enable search screen @<:@default=yes@:>@]),
+	      [search_screen="$enableval"],
+	      [search_screen=yes])
+AC_MSG_RESULT([$search_screen])
+if test "x$search_screen" != "xyes" ; then
+   AC_DEFINE(DISABLE_SEARCH_SCREEN, 1, [Disable search screen])
+fi
+
 dnl Optional screen - key editor
 AC_MSG_CHECKING([whether to include the key editor screen])
 AC_ARG_ENABLE([key-screen], 
@@ -157,8 +179,8 @@ AC_ARG_ENABLE([key-screen],
 	      [keydef_screen="$enableval"],
 	      [keydef_screen=yes])
 AC_MSG_RESULT([$keydef_screen])
-if test "x$keydef_screen" = "xyes" ; then
-   AC_DEFINE(ENABLE_KEYDEF_SCREEN, 1, [Enable key editor screen])
+if test "x$keydef_screen" != "xyes" ; then
+   AC_DEFINE(DISABLE_KEYDEF_SCREEN, 1, [Disable key editor screen])
 fi
 
 dnl Optional screen - clock
@@ -169,8 +191,8 @@ AC_ARG_ENABLE([clock-screen],
 	      [clock_screen="$enableval"],
 	      [clock_screen=no])
 AC_MSG_RESULT([$clock_screen])
-if test "x$clock_screen" = "xyes" ; then
-   AC_DEFINE(ENABLE_CLOCK_SCREEN, 1, [Enable clock screen])
+if test "x$clock_screen" != "xyes" ; then
+   AC_DEFINE(DISABLE_CLOCK_SCREEN, 1, [Disable clock screen])
 fi
 
 dnl Default host

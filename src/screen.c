@@ -47,11 +47,14 @@
 #define SCREEN_HELP_ID         100
 #define SCREEN_KEYDEF_ID       101
 #define SCREEN_CLOCK_ID        102
+#define SCREEN_SEARCH_ID       103
+
 
 /* screens */
 extern screen_functions_t *get_screen_playlist(void);
 extern screen_functions_t *get_screen_browse(void);
 extern screen_functions_t *get_screen_help(void);
+extern screen_functions_t *get_screen_search(void);
 extern screen_functions_t *get_screen_keydef(void);
 extern screen_functions_t *get_screen_clock(void);
 
@@ -69,6 +72,9 @@ static screen_mode_info_t screens[] = {
   { SCREEN_PLAYLIST_ID, "playlist", get_screen_playlist },
   { SCREEN_BROWSE_ID,   "browse",   get_screen_browse },
   { SCREEN_HELP_ID,     "help",     get_screen_help },
+#ifdef ENABLE_SEARCH_SCREEN
+  { SCREEN_SEARCH_ID,   "search",   get_screen_search },
+#endif
 #ifdef ENABLE_KEYDEF_SCREEN
   { SCREEN_KEYDEF_ID,   "keydef",   get_screen_keydef },
 #endif
@@ -169,7 +175,13 @@ paint_top_window(char *header, mpdclient_t *c, int clear)
 	  colors_use(w, COLOR_TITLE_BOLD);
 	  waddstr(w, get_key_names(CMD_SCREEN_FILE, FALSE));
 	  colors_use(w, COLOR_TITLE);
-	  waddstr(w, _(":Browse"));
+	  waddstr(w, _(":Browse  "));
+#ifdef ENABLE_SEARCH_SCREEN
+	  colors_use(w, COLOR_TITLE_BOLD);
+	  waddstr(w, get_key_names(CMD_SCREEN_SEARCH, FALSE));
+	  colors_use(w, COLOR_TITLE);
+	  waddstr(w, _(":Search  "));
+#endif
 	}
       if( c->status->volume==MPD_STATUS_NO_VOLUME )
 	{
@@ -872,6 +884,9 @@ screen_cmd(mpdclient_t *c, command_t cmd)
       break;
     case CMD_SCREEN_HELP:
       switch_screen_mode(SCREEN_HELP_ID, c);
+      break;
+    case CMD_SCREEN_SEARCH:
+      switch_screen_mode(SCREEN_SEARCH_ID, c);
       break;
     case CMD_SCREEN_KEYDEF:
       switch_screen_mode(SCREEN_KEYDEF_ID, c);

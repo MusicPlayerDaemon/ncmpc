@@ -160,6 +160,12 @@ handle_option(int c, char *arg)
 #ifdef ENABLE_NLS
       printf(" nls");
 #endif
+#ifdef HAVE_GETMOUSE
+      printf(" getmouse");
+#endif
+#ifdef ENABLE_SEARCH_SCREEN
+      printf(" search-screen");
+#endif
 #ifdef ENABLE_KEYDEF_SCREEN
       printf(" key-screen");
 #endif

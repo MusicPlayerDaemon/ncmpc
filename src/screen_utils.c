@@ -110,7 +110,8 @@ screen_find(screen_t *screen,
 	    list_window_t *lw, 
 	    int rows,
 	    command_t findcmd,
-	    list_window_callback_fn_t callback_fn)
+	    list_window_callback_fn_t callback_fn,
+	    void *callback_data)
 {
   int reversed = 0;
   int retval   = 0;
@@ -145,14 +146,14 @@ screen_find(screen_t *screen,
       if( reversed )
 	retval = list_window_rfind(lw, 
 				   callback_fn,
-				   c, 
+				   callback_data, 
 				   screen->findbuf,
 				   options.find_wrap,
 				   rows);
       else
 	retval = list_window_find(lw,
 				  callback_fn,
-				  c,
+				  callback_data,
 				  screen->findbuf,
 				  options.find_wrap);
       if( retval == 0 )

@@ -33,6 +33,7 @@
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
+#include "screen_browse.h"
 
 
 #define USE_OLD_LAYOUT
@@ -50,7 +51,7 @@ static mpdclient_filelist_t *filelist = NULL;
 
 
 /* clear the highlight flag for all items in the filelist */
-static void
+void
 clear_highlights(mpdclient_filelist_t *filelist)
 {
   GList *list = g_list_first(filelist->list);
@@ -65,7 +66,7 @@ clear_highlights(mpdclient_filelist_t *filelist)
 }
 
 /* change the highlight flag for a song */
-static void
+void
 set_highlight(mpdclient_filelist_t *filelist, mpd_Song *song, int highlight)
 {
   GList *list = g_list_first(filelist->list);
@@ -95,7 +96,7 @@ set_highlight(mpdclient_filelist_t *filelist, mpd_Song *song, int highlight)
 }
 
 /* sync highlight flags with playlist */
-static void
+void
 sync_highlights(mpdclient_t *c, mpdclient_filelist_t *filelist)
 {
   GList *list = g_list_first(filelist->list);
@@ -178,11 +179,11 @@ pop_lw_state(void)
 }
 
 /* list_window callback */
-static char *
-list_callback(int index, int *highlight, void *data)
+char *
+browse_lw_callback(int index, int *highlight, void *data)
 {
   static char buf[BUFSIZE];
-  /*mpdclient_t *c = (mpdclient_t *) data;*/
+  mpdclient_filelist_t *filelist = (mpdclient_filelist_t *) data;
   filelist_entry_t *entry;
   mpd_InfoEntity *entity;
 
@@ -327,9 +328,37 @@ handle_delete(screen_t *screen, mpdclient_t *c)
   return 0;
 }
 
-
 static int
-handle_enter(screen_t *screen, mpdclient_t *c)
+enqueue_and_play(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
+{
+  mpd_InfoEntity *entity = entry->entity;
+  mpd_Song *song = entity->info.song;
+  
+  if(!( entry->flags & HIGHLIGHT ))
+    {
+      if( mpdclient_cmd_add(c, song) == 0 )
+	{
+	  char buf[BUFSIZE];
+	  
+	  entry->flags |= HIGHLIGHT;
+	  strfsong(buf, BUFSIZE, LIST_FORMAT, song);
+	  screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
+	  mpdclient_update(c); /* get song id */
+	} 
+      else
+	return -1;
+    }
+  
+  int index = playlist_get_index_from_file(c, song->file);
+  mpdclient_cmd_play(c, index);
+  return 0;
+}
+
+int
+browse_handle_enter(screen_t *screen, 
+		    mpdclient_t *c,
+		    list_window_t *lw,
+		    mpdclient_filelist_t *filelist)
 {
   filelist_entry_t *entry;
   mpd_InfoEntity *entity;
@@ -343,6 +372,8 @@ handle_enter(screen_t *screen, mpdclient_t *c)
     return change_directory(screen, c, entry);
   else if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE )
     return load_playlist(screen, c, entry);
+  else if( entity->type==MPD_INFO_ENTITY_TYPE_SONG )
+    return enqueue_and_play(screen, c, entry);
   return -1;
 }
 
@@ -403,8 +434,11 @@ add_directory(mpdclient_t *c, char *dir)
 }
 #endif
 
-static int
-handle_select(screen_t *screen, mpdclient_t *c)
+int
+browse_handle_select(screen_t *screen, 
+		     mpdclient_t *c,
+		     list_window_t *lw,
+		     mpdclient_filelist_t *filelist)
 {
   filelist_entry_t *entry;
 
@@ -536,7 +570,7 @@ browse_paint(screen_t *screen, mpdclient_t *c)
 {
   lw->clear = 1;
   
-  list_window_paint(lw, list_callback, (void *) c);
+  list_window_paint(lw, browse_lw_callback, (void *) filelist);
   wnoutrefresh(lw->w);
 }
 
@@ -549,14 +583,17 @@ browse_update(screen_t *screen, mpdclient_t *c)
       filelist->updated = FALSE;
       return;
     }
-  list_window_paint(lw, list_callback, (void *) c);
+  list_window_paint(lw, browse_lw_callback, (void *) filelist);
   wnoutrefresh(lw->w);
 }
 
 
 #ifdef HAVE_GETMOUSE
-static int
-handle_mouse_event(screen_t *screen, mpdclient_t *c)
+int
+browse_handle_mouse_event(screen_t *screen, 
+			  mpdclient_t *c,
+			  list_window_t *lw,
+			  mpdclient_filelist_t *filelist)
 {
   int row;
   int prev_selected = lw->selected;
@@ -571,19 +608,17 @@ handle_mouse_event(screen_t *screen, mpdclient_t *c)
   if( bstate & BUTTON1_CLICKED )
     {
       if( prev_selected == lw->selected )
-	handle_enter(screen, c);
+	browse_handle_enter(screen, c, lw, filelist);
     }
   else if( bstate & BUTTON3_CLICKED )
     {
       if( prev_selected == lw->selected )
-	handle_select(screen, c);
+	browse_handle_select(screen, c, lw, filelist);
     }
 
   return 1;
 }
-#else
-#define handle_mouse_event(s,c) (0)
-#endif
+#endif 
 
 static int 
 browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
@@ -591,10 +626,10 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
   switch(cmd)
     {
     case CMD_PLAY:
-      handle_enter(screen, c);
+      browse_handle_enter(screen, c, lw, filelist);
       return 1;
     case CMD_SELECT:
-      if( handle_select(screen, c) == 0 )
+      if( browse_handle_select(screen, c, lw, filelist) == 0 )
 	{
 	  /* continue and select next item... */
 	  cmd = CMD_LIST_NEXT;
@@ -632,9 +667,9 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
     case CMD_LIST_RFIND_NEXT:
       return screen_find(screen, c, 
 			 lw, filelist->length,
-			 cmd, list_callback);
+			 cmd, browse_lw_callback, (void *) filelist);
     case CMD_MOUSE_EVENT:
-      return handle_mouse_event(screen,c);
+      return browse_handle_mouse_event(screen,c,lw,filelist);
     default:
       break;
     }

@@ -14,6 +14,7 @@ typedef struct
   char *xterm_title_format;
   int   port;
   int   crossfade_time;
+  int   search_mode;
   gboolean reconnect;
   gboolean debug;
   gboolean find_wrap;

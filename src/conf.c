@@ -59,6 +59,7 @@
 #define CONF_XTERM_TITLE             "set-xterm-title"
 #define CONF_ENABLE_MOUSE            "enable-mouse"
 #define CONF_CROSSFADE_TIME          "crossfade-time"
+#define CONF_SEARCH_MODE             "search-mode"
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -471,6 +472,10 @@ read_rc_file(char *filename, options_t *options)
 	      else if( !strcasecmp(CONF_CROSSFADE_TIME, name) )
 		{
 		  options->crossfade_time = atoi(value);
+		}
+	      else if( !strcasecmp(CONF_SEARCH_MODE, name) )
+		{
+		  options->search_mode = atoi(value);
 		}
 	      else
 		{
