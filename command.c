@@ -57,6 +57,7 @@ extern void screen_resize(void);
 #define F5   KEY_F(5)
 #define F6   KEY_F(6)
 
+
 static command_definition_t cmds[] =
 {
   { {  13,   0,   0 }, CMD_PLAY, "play",  
@@ -100,6 +101,11 @@ static command_definition_t cmds[] =
     "Toggle crossfade mode" },
   { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "save",
     "Save playlist" },
+
+  { { 0,  0,   0 }, CMD_LIST_MOVE_UP,     "move-up", 
+    "Move item up" },
+  { { 0,  0,   0 }, CMD_LIST_MOVE_DOWN,   "move-down", 
+    "Move item down" },
 
   { {  UP,  ',',   0 }, CMD_LIST_PREVIOUS,      "up",
     "Move cursor up" },
@@ -157,7 +163,7 @@ get_command_definitions(void)
 char *
 key2str(int key)
 {
-  static char buf[4];
+  static char buf[32];
   int i;
 
   buf[0] = 0;
@@ -201,10 +207,17 @@ key2str(int key)
       for(i=0; i<=63; i++)
 	if( key==KEY_F(i) )
 	  {
-	    snprintf(buf, 4, "F%d", i );
+	    snprintf(buf, 32, "F%d", i );
 	    return buf;
 	  }
-      snprintf(buf, 4, "%c", key);
+      if( !(key & ~037) )
+	snprintf(buf, 32, "Ctrl-%c", 'A'+(key & 037)-1 );
+      else if( (key & ~037) == 224 )
+	snprintf(buf, 32, "Alt-%c", 'A'+(key & 037)-1 );
+      else if( key>32 &&  key<256 )
+	snprintf(buf, 32, "%c", key);
+      else
+	snprintf(buf, 32, "0x%03X", key);
     }
   return buf;
 }

@@ -32,6 +32,12 @@
 #include "screen_file.h"
 #include "screen_play.h"
 
+#ifdef DEBUG
+#define D(x) x
+#else
+#define D(x)
+#endif
+
 #define BUFSIZE 256
 
 static list_window_t *lw = NULL;
@@ -207,6 +213,12 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
     case CMD_SCREEN_UPDATE:
       center_playing_item(screen, c);
       return 1;
+    case CMD_LIST_MOVE_UP:
+      playlist_move_song(c, lw->selected, lw->selected-1);
+      break;
+    case CMD_LIST_MOVE_DOWN:
+      playlist_move_song(c, lw->selected, lw->selected+1);
+      break;
     case CMD_LIST_FIND:
     case CMD_LIST_RFIND:
     case CMD_LIST_FIND_NEXT:
@@ -235,6 +247,56 @@ play_get_selected(void)
 }
 
 int
+playlist_move_song(mpd_client_t *c, int old_index, int new_index)
+{
+  int index1, index2;
+  GList *item1, *item2;
+  gpointer data1, data2;
+
+  if( old_index==new_index || new_index<0 || new_index>=c->playlist_length )
+    return -1;
+
+  /* send the move command to mpd */
+  mpd_sendMoveCommand(c->connection, old_index, new_index);
+  mpd_finishCommand(c->connection);
+  if( mpc_error(c) )
+    return -1;
+
+  index1 = MIN(old_index, new_index);
+  index2 = MAX(old_index, new_index);
+  item1 = g_list_nth(c->playlist, index1);
+  item2 = g_list_nth(c->playlist, index2);
+  data1 = item1->data;
+  data2 = item2->data;
+
+  /* move the second item */
+  D(fprintf(stderr, "move second item [%d->%d]...\n", index2, index1));
+  c->playlist = g_list_remove(c->playlist, data2);
+  c->playlist = g_list_insert_before(c->playlist, item1, data2);
+
+  /* move the first item */
+  if( index2-index1 >1 )
+    {
+      D(fprintf(stderr, "move first item [%d->%d]...\n", index1, index2));
+      item2 = g_list_nth(c->playlist, index2);
+      c->playlist = g_list_remove(c->playlist, data1);
+      c->playlist = g_list_insert_before(c->playlist, item2, data1);
+    }
+  
+  /* increment the playlist id, so we dont retrives a new playlist */
+  c->playlist_id++;
+
+  /* make shure the playlist is repainted */
+  lw->clear = 1;
+  lw->repaint = 1;
+
+  /* keep song selected */
+  lw->selected = new_index;
+
+  return 0;
+}
+
+int
 playlist_add_song(mpd_client_t *c, mpd_Song *song)
 {
   if( !song || !song->file )
@@ -246,7 +308,6 @@ playlist_add_song(mpd_client_t *c, mpd_Song *song)
   if( mpc_error(c) )
     return -1;
 
-#ifndef DISABLE_FANCY_PLAYLIST_MANAGMENT
   /* add the song to playlist */
   c->playlist = g_list_append(c->playlist, (gpointer) mpd_songDup(song));
   c->playlist_length++;
@@ -257,7 +318,6 @@ playlist_add_song(mpd_client_t *c, mpd_Song *song)
   /* make shure the playlist is repainted */
   lw->clear = 1;
   lw->repaint = 1;
-#endif
 
   /* set selected highlight in the browse screen */
   file_set_highlight(c, song, 1);
@@ -285,7 +345,6 @@ playlist_delete_song(mpd_client_t *c, int index)
   /* clear selected highlight in the browse screen */
   file_set_highlight(c, song, 0);
 
-#ifndef DISABLE_FANCY_PLAYLIST_MANAGMENT
   /* increment the playlist id, so we dont retrives a new playlist */
   c->playlist_id++;
 
@@ -305,7 +364,6 @@ playlist_delete_song(mpd_client_t *c, int index)
   lw->clear = 1;
   lw->repaint = 1;
   list_window_check_selected(lw, c->playlist_length);
-#endif
 
   return 0;
 }

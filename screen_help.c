@@ -83,6 +83,8 @@ static help_text_row_t help_text[] =
   { 0, CMD_PLAY,           "Play" },
   { 0, CMD_DELETE,         NULL },
   { 0, CMD_CLEAR,          NULL },
+  { 0, CMD_LIST_MOVE_UP,   "Move song up" },
+  { 0, CMD_LIST_MOVE_DOWN, "Move song down" },
   { 0, CMD_SAVE_PLAYLIST,  NULL },
   { 0, CMD_SCREEN_UPDATE,  "Center" },
   { 0, CMD_TOGGLE_AUTOCENTER, NULL },
