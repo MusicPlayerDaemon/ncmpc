@@ -101,10 +101,11 @@ gcmp_list_from_path(mpdclient_t *c, gchar *path, GList *list, gint types)
 	{
 	  mpd_Directory *dir = entity->info.directory;
 	  gchar *tmp = utf8_to_locale(dir->path);
+	  gsize size = strlen(tmp)+2;
 	  
-	  name = g_malloc(strlen(tmp)+2);
-	  strcpy(name, tmp);
-	  strcat(name, "/");
+	  name = g_malloc(size);
+	  g_strlcpy(name, tmp, size);
+	  g_strlcat(name, "/", size);
 	  g_free(tmp);
 	}
       else if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG &&

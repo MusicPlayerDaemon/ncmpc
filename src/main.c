@@ -99,11 +99,11 @@ update_xterm_title(void)
       strfsong(tmp, BUFSIZE, options.xterm_title_format, song);
     }
   else
-    strncpy(tmp, PACKAGE " version " VERSION, BUFSIZE);
+    g_strlcpy(tmp, PACKAGE " version " VERSION, BUFSIZE);
 
-  if( strcmp(title,tmp) )
+  if( strncmp(title,tmp,BUFSIZE) )
     {
-      strncpy(title, tmp, BUFSIZE);
+      g_strlcpy(title, tmp, BUFSIZE);
       set_xterm_title(title);
     }
 }

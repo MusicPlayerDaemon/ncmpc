@@ -178,11 +178,12 @@ handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
 
       if( code == MPD_ACK_ERROR_EXIST )
 	{
-	  char buf[256];
+	  char *buf;
 	  int key;
 
-	  snprintf(buf, 256, _("Replace %s [%s/%s] ? "), filename, YES, NO);
+	  buf=g_strdup_printf(_("Replace %s [%s/%s] ? "), filename, YES, NO);
 	  key = tolower(screen_getch(screen->status_window.w, buf));
+	  g_free(buf);
 	  if( key == YES[0] )
 	    {
 	      if( mpdclient_cmd_delete_playlist(c, filename) )
@@ -321,7 +322,7 @@ play_title(char *str, size_t size)
   if( strcmp(options.host, "localhost") == 0 )
     return _("Playlist");
   
-  snprintf(str, size, _("Playlist on %s"), options.host);
+  g_snprintf(str, size, _("Playlist on %s"), options.host);
 
   return str;
 }

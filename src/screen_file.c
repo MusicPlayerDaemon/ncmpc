@@ -182,7 +182,7 @@ static char *
 list_callback(int index, int *highlight, void *data)
 {
   static char buf[BUFSIZE];
-  //mpdclient_t *c = (mpdclient_t *) data;
+  /*mpdclient_t *c = (mpdclient_t *) data;*/
   filelist_entry_t *entry;
   mpd_InfoEntity *entity;
 
@@ -202,7 +202,7 @@ list_callback(int index, int *highlight, void *data)
       mpd_Directory *dir = entity->info.directory;
       char *dirname = utf8_to_locale(basename(dir->path));
 
-      snprintf(buf, BUFSIZE, "[%s]", dirname);
+      g_snprintf(buf, BUFSIZE, "[%s]", dirname);
       g_free(dirname);
       return buf;
     }
@@ -219,9 +219,9 @@ list_callback(int index, int *highlight, void *data)
       char *filename = utf8_to_locale(basename(plf->path));
 
 #ifdef USE_OLD_LAYOUT      
-      snprintf(buf, BUFSIZE, "*%s*", filename);
+      g_snprintf(buf, BUFSIZE, "*%s*", filename);
 #else 
-      snprintf(buf, BUFSIZE, "<Playlist> %s", filename);
+      g_snprintf(buf, BUFSIZE, "<Playlist> %s", filename);
 #endif
       g_free(filename);
       return buf;
@@ -289,7 +289,7 @@ handle_delete(screen_t *screen, mpdclient_t *c)
   filelist_entry_t *entry;
   mpd_InfoEntity *entity;
   mpd_PlaylistFile *plf;
-  char *str, buf[BUFSIZE];
+  char *str, *buf;
   int key;
 
   entry=( filelist_entry_t *) g_list_nth_data(filelist->list,lw->selected);
@@ -307,9 +307,10 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 
   plf = entity->info.playlistFile;
   str = utf8_to_locale(basename(plf->path));
-  snprintf(buf, BUFSIZE, _("Delete playlist %s [%s/%s] ? "), str, YES, NO);
+  buf = g_strdup_printf(_("Delete playlist %s [%s/%s] ? "), str, YES, NO);
   g_free(str);  
   key = tolower(screen_getch(screen->status_window.w, buf));
+  g_free(buf);
   if( key==KEY_RESIZE )
     screen_resize();
   if( key != YES[0] )
@@ -526,7 +527,7 @@ browse_close(void)
 static char *
 browse_title(char *str, size_t size)
 {
-  snprintf(str, size, _("Browse: %s"), basename(filelist->path));
+  g_snprintf(str, size, _("Browse: %s"), basename(filelist->path));
   return str;
 }
 

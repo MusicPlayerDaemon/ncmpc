@@ -223,13 +223,14 @@ set_xterm_title(char *format, ...)
     {
       if( g_getenv("WINDOWID") )
 	{
-	  char buffer[512];
+	  char *msg;
 	  va_list ap;
 	  
 	  va_start(ap,format);
-	  vsnprintf(buffer,sizeof(buffer),format,ap);
+	  msg = g_strdup_vprintf(format,ap);
 	  va_end(ap);
-	  printf("%c]0;%s%c", '\033', buffer, '\007'); 
+	  printf("%c]0;%s%c", '\033', msg, '\007'); 
+	  g_free(msg);
 	}
       else
 	options.enable_xterm_title = FALSE;

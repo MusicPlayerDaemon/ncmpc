@@ -114,7 +114,7 @@ _strfsong(gchar *s,
 	  temp = g_malloc0(max);
 	  if( _strfsong(temp, max, p+1, song, &p) >0 )
 	    {
-	      strncat(s, temp, max-length);
+	      g_strlcat(s, temp, max);
 	      length = strlen(s);
 	      found = TRUE;
 	    }
@@ -137,17 +137,15 @@ _strfsong(gchar *s,
       /* pass-through non-escaped portions of the format string */
       if (p[0] != '#' && p[0] != '%' && length<max)
 	{
-	  strncat(s, p, 1);
-	  length++;
-	  ++p;
+	  s[length++] = *p;
+	  p++;
 	  continue;
 	}
 
       /* let the escape character escape itself */
       if (p[0] == '#' && p[1] != '\0' && length<max)
 	{
-	  strncat(s, p+1, 1);
-	  length++;
+	  s[length++] = *(p+1);
 	  p+=2;
 	  continue;
 	}
@@ -185,13 +183,10 @@ _strfsong(gchar *s,
 	}
       else if (strncmp("%time%", p, n) == 0)
 	{
-	  if (song->time != MPD_SONG_NO_TIME) {
-	    gchar s[10];
-	    snprintf(s, 9, "%d:%d", song->time / 60, 
-		     song->time % 60 + 1);
-	    /* nasty hack to use static buffer */
-	    temp = g_strdup(s);
-	  }
+	  if (song->time != MPD_SONG_NO_TIME) 
+	    temp = g_strdup_printf("%d:%d", 
+				   song->time / 60, 
+				   song->time % 60 + 1);
 	}
 
       if( temp == NULL)
@@ -202,7 +197,7 @@ _strfsong(gchar *s,
 	     but put the real character back in (pseudo-const) */
 	  if( length+templen > max )
 	    templen = max-length;
-	  strncat(s, p, templen);
+	  g_strlcat(s, p,max);
 	  length+=templen;
 	}
       else {
@@ -211,7 +206,7 @@ _strfsong(gchar *s,
 	found = TRUE;
 	if( length+templen > max )
 	  templen = max-length;
-	strncat(s, temp, templen);
+	g_strlcat(s, temp, max);
 	length+=templen;
 	g_free(temp);
       }

@@ -121,7 +121,7 @@ static list_window_t *lw = NULL;
 static char *
 list_callback(int index, int *highlight, void *data)
 {
-  static char buf[256];
+  static char buf[512];
 
   if( help_text_rows<0 )
     {
@@ -137,30 +137,30 @@ list_callback(int index, int *highlight, void *data)
       if( help_text[index].command == CMD_NONE )
 	{
 	  if( help_text[index].text )
-	    snprintf(buf, 256, "%28s", _(help_text[index].text));
+	    g_snprintf(buf, sizeof(buf), "%28s", _(help_text[index].text));
 	  else 
 	    if( help_text[index].highlight == 2 )
 	      {
 		int i;
 
-		for(i=3; i<COLS-3 && i<256; i++)
+		for(i=3; i<COLS-3 && i<sizeof(buf); i++)
 		  buf[i]='-';
 		buf[i] = '\0';
 	      }
 	    else
-	      strcpy(buf, " ");
+	      g_strlcpy(buf, " ", sizeof(buf));
 	  return buf;
 	}
       if( help_text[index].text )
-	snprintf(buf, 256, 
-		 "%20s : %s   ", 
-		 get_key_names(help_text[index].command, TRUE),
-		 _(help_text[index].text));
+	g_snprintf(buf, sizeof(buf), 
+		   "%20s : %s   ", 
+		   get_key_names(help_text[index].command, TRUE),
+		   _(help_text[index].text));
       else
-	snprintf(buf, 256, 
-		 "%20s : %s   ", 
-		 get_key_names(help_text[index].command, TRUE),
-		 get_key_description(help_text[index].command));
+	g_snprintf(buf, sizeof(buf), 
+		   "%20s : %s   ", 
+		   get_key_names(help_text[index].command, TRUE),
+		   get_key_description(help_text[index].command));
       return buf;
     }
 

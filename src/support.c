@@ -53,8 +53,8 @@ remove_trailing_slash(char *path)
 char *
 lowerstr(char *str)
 {
-  size_t i;
-  size_t len = strlen(str);
+  gsize i;
+  gsize len = strlen(str);
 
   if( str==NULL )
     return NULL;
@@ -100,8 +100,8 @@ strcasestr(const char *haystack, const char *needle)
 char *
 strscroll(char *str, char *separator, int width, scroll_state_t *st)
 {
-  char *tmp, *buf;
-  size_t len;
+  gchar *tmp, *buf;
+  gsize len, size;
 
   if( st->offset==0 )
     {
@@ -110,19 +110,21 @@ strscroll(char *str, char *separator, int width, scroll_state_t *st)
     }
   
   /* create a buffer containing the string and the separator */
-  tmp = g_malloc(strlen(str)+strlen(separator)+1);
-  strcpy(tmp, str);
-  strcat(tmp, separator);
+  size = strlen(str)+strlen(separator)+1;
+  tmp = g_malloc(size);
+  g_strlcpy(tmp, str, size);
+  g_strlcat(tmp, separator, size);
   len = strlen(tmp);
 
   if( st->offset >= len )
     st->offset = 0;
   
   /* create the new scrolled string */
-  buf = g_malloc(width+1);
-  strncpy(buf, tmp+st->offset, width);
+  size = width+1;
+  buf = g_malloc(size);
+  g_strlcpy(buf, tmp+st->offset, size);
   if( strlen(buf) < width )
-    strncat(buf, tmp, width-strlen(buf));
+    g_strlcat(buf, tmp, size);
 
   if( time(NULL)-st->t >= 1 )
     {

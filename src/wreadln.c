@@ -37,27 +37,27 @@
 #define WRLN_MAX_LINE_SIZE 1024
 #define WRLN_MAX_HISTORY_LENGTH 32
  
-unsigned int wrln_max_line_size = WRLN_MAX_LINE_SIZE;
-unsigned int wrln_max_history_length = WRLN_MAX_HISTORY_LENGTH;
+guint wrln_max_line_size = WRLN_MAX_LINE_SIZE;
+guint wrln_max_history_length = WRLN_MAX_HISTORY_LENGTH;
 wrln_wgetch_fn_t wrln_wgetch = NULL;
 wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
 wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 
 extern void screen_bell(void);
 
-char *
+gchar *
 wreadln(WINDOW *w, 
-	char *prompt, 
-	char *initial_value,
-	int x1, 
+	gchar *prompt, 
+	gchar *initial_value,
+	gint x1, 
 	GList **history, 
 	GCompletion *gcmp)
 {
   GList *hlist = NULL, *hcurrent = NULL;
-  char *line;
-  int x0, y, width;		
-  int cursor = 0, start = 0;		
-  int key = 0, i;
+  gchar *line;
+  gint x0, y, width;		
+  gint cursor = 0, start = 0;		
+  gint key = 0, i;
 
   /* move the cursor one step to the right */
   void cursor_move_right(void) {
@@ -132,11 +132,11 @@ wreadln(WINDOW *w,
 	  if( hlist==hcurrent )
 	    {
 	      /* save the current line */
-	      strncpy(hlist->data, line, wrln_max_line_size);
+	      g_strlcpy(hlist->data, line, wrln_max_line_size);
 	    }
 	  /* get previous line */
 	  hlist = hlist->prev;
-	  strncpy(line, hlist->data, wrln_max_line_size);
+	  g_strlcpy(line, hlist->data, wrln_max_line_size);
 	}
       cursor_move_to_eol();
       drawline();
@@ -144,7 +144,7 @@ wreadln(WINDOW *w,
   else if( initial_value )
     {
       /* copy the initial value to the line buffer */
-      strncpy(line, initial_value, wrln_max_line_size);
+      g_strlcpy(line, initial_value, wrln_max_line_size);
       cursor_move_to_eol();
       drawline();
     }  
@@ -166,7 +166,9 @@ wreadln(WINDOW *w,
 
       switch (key)
 	{
+#ifdef HAVE_GETMOUSE
 	case KEY_MOUSE: /* ignore mouse events */
+#endif
 	case ERR: /* ingnore errors */
 	  break;
 
@@ -193,8 +195,7 @@ wreadln(WINDOW *w,
 	      list = g_completion_complete(gcmp, line, &prefix);	      
 	      if( prefix )
 		{
-		  int len = strlen(prefix);
-		  strncpy(line, prefix, len);
+		  g_strlcpy(line, prefix, wrln_max_line_size);
 		  cursor_move_to_eol();
 		  g_free(prefix);
 		}
@@ -259,13 +260,12 @@ wreadln(WINDOW *w,
 	      if( hlist==hcurrent )
 		{
 		  /* save the current line */
-		  strncpy(hlist->data, line, wrln_max_line_size);
+		  g_strlcpy(hlist->data, line, wrln_max_line_size);
 		}
 	      /* get previous line */
 	      hlist = hlist->prev;
-	      strncpy(line, hlist->data, wrln_max_line_size);
+	      g_strlcpy(line, hlist->data, wrln_max_line_size);
 	    }
-	  //	  if (cursor > strlen(line))
 	  cursor_move_to_eol();
 	  break;
 	case KEY_DOWN:	
@@ -274,7 +274,7 @@ wreadln(WINDOW *w,
 	    {
 	      /* get next line */
 	      hlist = hlist->next;
-	      strncpy(line, hlist->data, wrln_max_line_size);
+	      g_strlcpy(line, hlist->data, wrln_max_line_size);
 	    }
 	  cursor_move_to_eol();
 	  break;
@@ -292,12 +292,14 @@ wreadln(WINDOW *w,
 	    {
 	      if (strlen (line + cursor))	/* if the cursor is */
 		{		                /* not at the last pos */
-		  char *tmp = 0;
-		  tmp = g_malloc0(strlen (line + cursor) + 1);
-		  strcpy (tmp, line + cursor);
+		  gchar *tmp = 0;
+		  gsize size = strlen(line + cursor) + 1;
+
+		  tmp = g_malloc0(size);
+		  g_strlcpy (tmp, line + cursor, size);
 		  line[cursor] = key;
 		  line[cursor + 1] = 0;
-		  strcat (&line[cursor + 1], tmp);
+		  g_strlcat (&line[cursor + 1], tmp, size);
 		  g_free(tmp);
 		  cursor_move_right();
 		}
@@ -321,7 +323,7 @@ wreadln(WINDOW *w,
 	  /* update the current history entry */
 	  size_t size = strlen(line)+1;
 	  hcurrent->data = g_realloc(hcurrent->data, size);
-	  strncpy(hcurrent->data, line, size);
+	  g_strlcpy(hcurrent->data, line, size);
 	}
       else
 	{

@@ -149,11 +149,12 @@ static void
 assign_new_key(WINDOW *w, int cmd_index, int key_index)
 {
   int key;
-  char buf[BUFSIZE];
+  char *buf;
   command_t cmd;
 
-  snprintf(buf, BUFSIZE, _("Enter new key for %s: "), cmds[cmd_index].name);
+  buf = g_strdup_printf(_("Enter new key for %s: "), cmds[cmd_index].name);
   key = screen_getch(w, buf);
+  g_free(buf);
   if( key==KEY_RESIZE )
     screen_resize();
   if( key==ERR )
@@ -207,16 +208,16 @@ list_callback(int index, int *highlight, void *data)
     index--;
     if( index<MAX_COMMAND_KEYS && cmds[subcmd].keys[index]>0 )
       {
-	snprintf(buf, 
-		 BUFSIZE, "%d. %-20s   (%d) ", 
-		 index+1, 
-		 key2str(cmds[subcmd].keys[index]),
-		 cmds[subcmd].keys[index]);
+	g_snprintf(buf, 
+		   BUFSIZE, "%d. %-20s   (%d) ", 
+		   index+1, 
+		   key2str(cmds[subcmd].keys[index]),
+		   cmds[subcmd].keys[index]);
 	return buf;
       } 
     else if ( index==subcmd_addpos )
       {
-	snprintf(buf, BUFSIZE, _("%d. Add new key "), index+1 );
+	g_snprintf(buf, BUFSIZE, _("%d. Add new key "), index+1 );
 	return buf;
       }
   }
@@ -288,7 +289,7 @@ keydef_title(char *str, size_t size)
   if( subcmd<0 )
     return _("Edit key bindings");
   
-  snprintf(str, size, _("Edit keys for %s"), cmds[subcmd].name);
+  g_snprintf(str, size, _("Edit keys for %s"), cmds[subcmd].name);
   return str;
 }
 

@@ -233,17 +233,17 @@ key2str(int key)
       for(i=0; i<=63; i++)
 	if( key==KEY_F(i) )
 	  {
-	    snprintf(buf, 32, "F%d", i );
+	    g_snprintf(buf, 32, "F%d", i );
 	    return buf;
 	  }
       if( !(key & ~037) )
-	snprintf(buf, 32, "Ctrl-%c", 'A'+(key & 037)-1 );
+	g_snprintf(buf, 32, "Ctrl-%c", 'A'+(key & 037)-1 );
       else if( (key & ~037) == 224 )
-	snprintf(buf, 32, "Alt-%c", 'A'+(key & 037)-1 );
+	g_snprintf(buf, 32, "Alt-%c", 'A'+(key & 037)-1 );
       else if( key>32 &&  key<256 )
-	snprintf(buf, 32, "%c", key);
+	g_snprintf(buf, 32, "%c", key);
       else
-	snprintf(buf, 32, "0x%03X", key);
+	g_snprintf(buf, 32, "0x%03X", key);
     }
   return buf;
 }
@@ -293,14 +293,14 @@ get_key_names(command_t command, int all)
 	  int j;
 	  static char keystr[80];
 
-	  strncpy(keystr, key2str(cmds[i].keys[0]), 80);
+	  g_strlcpy(keystr, key2str(cmds[i].keys[0]), sizeof(keystr));
 	  if( !all )
 	    return keystr;
 	  j=1;
 	  while( j<MAX_COMMAND_KEYS && cmds[i].keys[j]>0 )
 	    {
-	      strcat(keystr, " ");
-	      strcat(keystr, key2str(cmds[i].keys[j]));
+	      g_strlcat(keystr, " ", sizeof(keystr));
+	      g_strlcat(keystr, key2str(cmds[i].keys[j]), sizeof(keystr));
 	      j++;
 	    }
 	  return keystr;
@@ -477,14 +477,14 @@ check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 	  {
 	    if( buf )
 #ifdef ENABLE_KEYDEF_SCREEN
-	      snprintf(buf, bufsize,
-		       _("Key %s assigned to %s and %s (press %s for the key editor)"),
-		       key2str(cp[i].keys[j]),
-		       get_key_command_name(cp[i].command),
-		       get_key_command_name(cmd),
-		       get_key_names(CMD_SCREEN_KEYDEF,0));
+	      g_snprintf(buf, bufsize,
+			 _("Key %s assigned to %s and %s (press %s for the key editor)"),
+			 key2str(cp[i].keys[j]),
+			 get_key_command_name(cp[i].command),
+			 get_key_command_name(cmd),
+			 get_key_names(CMD_SCREEN_KEYDEF,0));
 #else
-	    snprintf(buf, bufsize,
+	    g_snprintf(buf, bufsize,
 		       _("Error: Key %s assigned to %s and %s !!!\n"),
 		       key2str(cp[i].keys[j]),
 		       get_key_command_name(cp[i].command),
