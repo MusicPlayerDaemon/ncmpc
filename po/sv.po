@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-30 14:22+0200\n"
+"POT-Creation-Date: 2004-07-03 19:36+0200\n"
 "PO-Revision-Date: 2004-06-05 18:16+0200\n"
 "Last-Translator: Kalle Wallin <kaw@linux.se>\n"
 "Language-Team: sv <sv@li.org>\n"
@@ -28,17 +28,17 @@ msgstr ""
 msgid "Exiting..."
 msgstr "Avslutar..."
 
-#: src/main.c:219
+#: src/main.c:237
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (0.11.0 needed).\n"
 msgstr "MPD version %d.%d.%d är för gammal - uppgradera till version 0.11.x \n"
 
-#: src/main.c:271
+#: src/main.c:289
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr "Ansluter till %s... [Tryck %s för att avbryta]"
 
-#: src/main.c:283
+#: src/main.c:301
 #, c-format
 msgid "Connected to %s!"
 msgstr "Ansluten till %s!"
@@ -72,64 +72,64 @@ msgstr "Spelar:"
 msgid "[Paused]"
 msgstr "[Pausad]"
 
-#: src/screen.c:380 src/screen.c:481
+#: src/screen.c:380 src/screen.c:484
 msgid "Error: Screen to small!\n"
 msgstr "Fel: Terminal är för liten!\n"
 
-#: src/screen.c:637
+#: src/screen.c:640
 msgid "Repeat is on"
 msgstr "Repeat är på"
 
-#: src/screen.c:638
+#: src/screen.c:641
 msgid "Repeat is off"
 msgstr "Repeat är av"
 
-#: src/screen.c:641
+#: src/screen.c:644
 msgid "Random is on"
 msgstr "Random är på"
 
-#: src/screen.c:642
+#: src/screen.c:645
 msgid "Random is off"
 msgstr "Random är av"
 
-#: src/screen.c:645
+#: src/screen.c:648
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Crossfade %d sekunder"
 
-#: src/screen.c:648
+#: src/screen.c:651
 msgid "Database updated!"
 msgstr "Databasen är uppdaterad!"
 
-#: src/screen.c:769
+#: src/screen.c:815
 msgid "Shuffled playlist!"
 msgstr "Slumpsorterat spellistan!"
 
-#: src/screen.c:773
+#: src/screen.c:819
 msgid "Cleared playlist!"
 msgstr "Rensar spellistan!"
 
-#: src/screen.c:788
+#: src/screen.c:834
 msgid "Database update started!"
 msgstr "Uppdaterar databasen!"
 
-#: src/screen.c:791 src/screen_file.c:595
+#: src/screen.c:837 src/screen_file.c:626
 msgid "Database update running..."
 msgstr "Databasen uppdateras..."
 
-#: src/screen.c:804
+#: src/screen.c:850
 msgid "Find mode: Wrapped"
 msgstr "Sök runt (börja om)"
 
-#: src/screen.c:805
+#: src/screen.c:851
 msgid "Find mode: Normal"
 msgstr "Sök normalt (till slut/början)"
 
-#: src/screen.c:810
+#: src/screen.c:856
 msgid "Auto center mode: On"
 msgstr "Automatisk centrering är på"
 
-#: src/screen.c:811
+#: src/screen.c:857
 msgid "Auto center mode: Off"
 msgstr "Automatisk centrering är av"
 
@@ -141,39 +141,39 @@ msgstr "Sök: "
 msgid "Find backward: "
 msgstr "Sök (bakåt): "
 
-#: src/screen_utils.c:161
+#: src/screen_utils.c:169
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Hittar inte '%s'"
 
-#: src/screen_play.c:153
+#: src/screen_play.c:155
 msgid "Save playlist as: "
 msgstr "Spara spellistan som: "
 
-#: src/screen_play.c:182
+#: src/screen_play.c:184
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Ersätt '%s' [%s/%s] ? "
 
-#: src/screen_play.c:195 src/screen_file.c:317 src/screen_keydef.c:161
+#: src/screen_play.c:197 src/screen_file.c:317 src/screen_keydef.c:161
 msgid "Aborted!"
 msgstr "Avbröt!"
 
 #. success
-#: src/screen_play.c:201
+#: src/screen_play.c:203
 #, c-format
 msgid "Saved %s"
 msgstr "Sparat %s"
 
-#: src/screen_play.c:265
+#: src/screen_play.c:267
 msgid "Add: "
 msgstr "Lägg till: "
 
-#: src/screen_play.c:320
+#: src/screen_play.c:322
 msgid "Playlist"
 msgstr "Spellista"
 
-#: src/screen_play.c:322
+#: src/screen_play.c:324
 #, c-format
 msgid "Playlist on %s"
 msgstr "Spellista på %s"
@@ -211,11 +211,11 @@ msgstr "Lägger till '%s'...\n"
 msgid "Browse: %s"
 msgstr "Filer: %s"
 
-#: src/screen_file.c:580
+#: src/screen_file.c:611
 msgid "Screen updated!"
 msgstr "Uppdaterat!"
 
-#: src/screen_file.c:587
+#: src/screen_file.c:618
 #, c-format
 msgid "Database update of %s started!"
 msgstr "Uppdaterar databasen ifrån %s!"
@@ -504,80 +504,80 @@ msgstr "Upprepa Sökning bakåt"
 msgid "Clock screen"
 msgstr "Klocka"
 
-#: src/command.c:199
+#: src/command.c:197
 msgid "Undefined"
 msgstr "Ej definerad"
 
-#: src/command.c:201
+#: src/command.c:199
 msgid "Space"
 msgstr "Mellanslag"
 
-#: src/command.c:203
+#: src/command.c:201
 msgid "Enter"
 msgstr ""
 
-#: src/command.c:205
+#: src/command.c:203
 msgid "Backspace"
 msgstr ""
 
-#: src/command.c:207
+#: src/command.c:205
 msgid "Delete"
 msgstr "Del"
 
-#: src/command.c:209
+#: src/command.c:207
 msgid "Up"
 msgstr "Uppåtpil"
 
-#: src/command.c:211
+#: src/command.c:209
 msgid "Down"
 msgstr "Nedåtpil"
 
-#: src/command.c:213
+#: src/command.c:211
 msgid "Left"
 msgstr "Vänsterpil"
 
-#: src/command.c:215
+#: src/command.c:213
 msgid "Right"
 msgstr "Högerpil"
 
-#: src/command.c:217
+#: src/command.c:215
 msgid "Home"
 msgstr ""
 
-#: src/command.c:219
+#: src/command.c:217
 msgid "End"
 msgstr ""
 
-#: src/command.c:221
+#: src/command.c:219
 msgid "PageDown"
 msgstr ""
 
-#: src/command.c:223
+#: src/command.c:221
 msgid "PageUp"
 msgstr ""
 
-#: src/command.c:225
+#: src/command.c:223
 msgid "Tab"
 msgstr ""
 
-#: src/command.c:227
+#: src/command.c:225
 msgid "Shift+Tab"
 msgstr ""
 
-#: src/command.c:229
+#: src/command.c:227
 msgid "Esc"
 msgstr ""
 
-#: src/command.c:231
+#: src/command.c:229
 msgid "Insert"
 msgstr "Ins"
 
-#: src/command.c:456
+#: src/command.c:459
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 msgstr "%s tilldelat kommandona %s och %s (tryck på %s och korrigera)"
 
-#: src/command.c:463 src/command.c:470
+#: src/command.c:466 src/command.c:473
 #, c-format
 msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr "Fel: Tangenten %s är tilldelad både %s och %s !!!\n"
@@ -600,11 +600,11 @@ msgstr "Terminalen saknar stöd för omdefinition av färger!\n"
 msgid "Terminal lacks color capabilities!\n"
 msgstr "Terminalen saknar stöd för färger!\n"
 
-#: src/support.c:186
+#: src/support.c:166
 #, c-format
 msgid "Error: Unable to convert characters to %s"
 msgstr "Fel vid konvertering av tecken från UTF-8 till %s"
 
-#: src/support.c:215
+#: src/support.c:195
 msgid "Error: Unable to convert characters to UTF-8"
 msgstr "Fel vid konvertering av tecken till UTF-8"

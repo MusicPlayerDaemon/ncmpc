@@ -12,4 +12,5 @@ src/screen_help.c
 src/command.c
 src/colors.c
 src/support.c
+src/options.c
 
