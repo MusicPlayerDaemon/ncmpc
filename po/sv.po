@@ -257,7 +257,7 @@ msgstr "Sök: %s [%s]"
 #: src/screen_search.c:218
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
-msgstr "Tryck ppå %s för en ny sökning [%s]"
+msgstr "Tryck på %s för en ny sökning [%s]"
 
 #: src/screen_search.c:252
 #, c-format
