@@ -130,11 +130,14 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
     {
     case CMD_DELETE:
       song = mpc_playlist_get_song(c, screen->playlist->selected);
-      file_clear_highlight(c, song);
-      mpd_sendDeleteCommand(c->connection, screen->playlist->selected);
-      mpd_finishCommand(c->connection);
-      screen_status_printf("Removed \'%s\' from playlist!",
-			   mpc_get_song_name(song));
+      if( song )
+	{
+	  file_clear_highlight(c, song);
+	  mpd_sendDeleteCommand(c->connection, screen->playlist->selected);
+	  mpd_finishCommand(c->connection);
+	  screen_status_printf("Removed \'%s\' from playlist!",
+			       mpc_get_song_name(song));
+	}
       return 1;
     case CMD_SAVE_PLAYLIST:
       handle_save_playlist(screen, c);
