@@ -1,5 +1,7 @@
 /* 
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -166,6 +168,7 @@ list_window_paint(list_window_t *lw,
       if( label )
 	{
 	  int selected = lw->start+i == lw->selected;
+	  size_t len = strlen(label);
 
 	  if( highlight )
 	    colors_use(lw->w, COLOR_LIST_BOLD);
@@ -175,9 +178,9 @@ list_window_paint(list_window_t *lw,
 	  if( selected )
 	    wattron(lw->w, A_REVERSE);
 	  
-	  waddnstr(lw->w, label, lw->cols-1);
-	  if( fill )
-	    mvwhline(lw->w, i, strlen(label), ' ', lw->cols-1);
+	  waddnstr(lw->w, label, lw->cols);
+	  if( fill && len<lw->cols )
+	    mvwhline(lw->w, i, len, ' ', lw->cols-len);
 
 	  if( selected )
 	    wattroff(lw->w, A_REVERSE);	  
