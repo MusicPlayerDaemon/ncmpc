@@ -264,7 +264,7 @@ paint_status_window(mpdclient_t *c)
     {
       if( status->totalTime > 0 )
 	{
-	  if( seek_id == c->song->id )
+	  if( c->song && seek_id == c->song->id )
 	    elapsedTime = seek_target_time;
 	  snprintf(screen->buf, screen->buf_size, 
 		   " [%i:%02i/%i:%02i]",
@@ -736,8 +736,10 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 	  seek_target_time++;
 	  if( seek_target_time < c->status->totalTime )
 	    break;
-	  seek_target_time=0;
+	  seek_target_time = c->status->totalTime;
+	  /* seek_target_time=0; */
 	}
+      break;
       /* fall through... */
     case CMD_TRACK_NEXT:
       if( !IS_STOPPED(c->status->state) )

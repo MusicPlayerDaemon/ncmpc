@@ -26,6 +26,7 @@
 
 #include "config.h"
 #include "ncmpc.h"
+#include "options.h"
 #include "support.h"
 #include "mpdclient.h"
 #include "strfsong.h"
@@ -305,12 +306,12 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 
   plf = entity->info.playlistFile;
   str = utf8_to_locale(basename(plf->path));
-  snprintf(buf, BUFSIZE, _("Delete playlist %s [y/n] ? "), str);
+  snprintf(buf, BUFSIZE, _("Delete playlist %s [%s/%s] ? "), str, YES, NO);
   g_free(str);  
   key = tolower(screen_getch(screen->status_window.w, buf));
   if( key==KEY_RESIZE )
     screen_resize();
-  if( key!='y' )
+  if( key != YES[0] )
     {
       screen_status_printf(_("Aborted!"));
       return 0;
@@ -318,7 +319,6 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 
   if( mpdclient_cmd_delete_playlist(c, plf->path) )
     {
-      beep();
       return -1;
     }
   screen_status_printf(_("Playlist deleted!"));

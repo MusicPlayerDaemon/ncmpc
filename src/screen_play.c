@@ -18,6 +18,7 @@
  *
  */
 
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -108,18 +109,53 @@ center_playing_item(screen_t *screen, mpdclient_t *c)
 }
 
 static int
-handle_save_playlist(screen_t *screen, mpdclient_t *c)
+handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
 {
-  char *filename;
+  gchar *filename;
+  gint error;
 
-  filename=screen_getstr(screen->status_window.w, _("Save playlist as: "));
-  filename=trim(filename);
+  if( name==NULL )
+    {
+      /* query the user for a filename */
+      filename=screen_getstr(screen->status_window.w, _("Save playlist as: "));
+      filename=trim(filename);
+    }
+  else
+    {
+      filename=g_strdup(name);
+    }
   if( filename==NULL || filename[0]=='\0' )
     return -1;
   /* send save command to mpd */
-  if( mpdclient_cmd_save_playlist(c, filename) )
+  D("Saving playlist as \'%s \'...\n", filename);
+  if( (error=mpdclient_cmd_save_playlist(c, filename)) )
     {
-      beep();
+      gint code = GET_ACK_ERROR_CODE(error);
+
+      if( code == MPD_ACK_ERROR_EXIST )
+	{
+	  char buf[256];
+	  int key;
+
+	  snprintf(buf, 256, _("Replace %s [%s/%s] ? "), filename, YES, NO);
+	  key = tolower(screen_getch(screen->status_window.w, buf));
+	  if( key == YES[0] )
+	    {
+	      char *filename_utf8 = locale_to_utf8(filename);
+	      
+	      if( mpdclient_cmd_delete_playlist(c, filename_utf8) )
+		{
+		  g_free(filename);
+		  g_free(filename_utf8);
+		  return -1;
+		}
+	      g_free(filename_utf8);
+	      error = handle_save_playlist(screen, c, filename);
+	      g_free(filename);
+	      return error;
+	    }	  
+	}
+      g_free(filename);
       return -1;
     }
   /* success */
@@ -219,22 +255,22 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
     {
     case CMD_PLAY:
       mpdclient_cmd_play(c, lw->selected);
-      break;
+      return 1;
     case CMD_DELETE:
       mpdclient_cmd_delete(c, lw->selected);
       return 1;
     case CMD_SAVE_PLAYLIST:
-      handle_save_playlist(screen, c);
+      handle_save_playlist(screen, c, NULL);
       return 1;
     case CMD_SCREEN_UPDATE:
       center_playing_item(screen, c);
       return 1;
     case CMD_LIST_MOVE_UP:
       mpdclient_cmd_move(c, lw->selected, lw->selected-1);
-      break;
+      return 1;
     case CMD_LIST_MOVE_DOWN:
       mpdclient_cmd_move(c, lw->selected, lw->selected+1);
-      break;
+      return 1;
     case CMD_LIST_FIND:
     case CMD_LIST_RFIND:
     case CMD_LIST_FIND_NEXT:

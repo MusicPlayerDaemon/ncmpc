@@ -57,7 +57,7 @@ error_callback(mpdclient_t *c, gint error, gchar *msg)
   gint code = GET_ACK_ERROR_CODE(error);
 
   error = error & 0xFF;
-  D("Error [%d:%d]> \"%s\"\n", error, c->connection->errorCode, msg);
+  D("Error [%d:%d]> \"%s\"\n", error, code, msg);
   switch(error)
     {
     case MPD_ERROR_CONNPORT:
@@ -69,8 +69,8 @@ error_callback(mpdclient_t *c, gint error, gchar *msg)
       break;
     default:
       screen_status_printf("%s", msg);
-      doupdate();
       beep();
+      doupdate();
       connected = FALSE;
     }
 }
@@ -87,6 +87,8 @@ exit_and_cleanup(void)
     }
   g_free(options.host);
   g_free(options.password);
+  g_free(options.list_format);
+  g_free(options.status_format);
   if( timer )
     g_timer_destroy(timer);
 }
@@ -183,6 +185,15 @@ main(int argc, const char *argv[])
     mpd->connection->version[0],
     mpd->connection->version[1],
     mpd->connection->version[2]);
+
+  if( !MPD_VERSION(mpd, 0,11,0) )
+    {
+      fprintf(stderr, "MPD version %d.%d.%d is to old (0.11.0 needed).\n",
+	      mpd->connection->version[0],
+	      mpd->connection->version[1],
+	      mpd->connection->version[2]);
+      exit(EXIT_FAILURE);
+    }
 
   /* initialize curses */
   screen_init(mpd);

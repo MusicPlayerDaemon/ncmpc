@@ -2,6 +2,9 @@
 #define MPDCLIENT_H
 #include "libmpdclient.h"
 
+#define MPD_VERSION(c,x,y,z) (c->connection->version[0]*10000+c->connection->version[1]*100+c->connection->version[2] >= \
+                              x*10000+y*100+z)
+
 /****************************************************************************/
 /* Playlist */
 /****************************************************************************/
