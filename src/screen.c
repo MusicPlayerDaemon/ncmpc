@@ -31,6 +31,7 @@
 #include "ncmpc.h"
 #include "support.h"
 #include "mpdclient.h"
+#include "utils.h"
 #include "command.h"
 #include "options.h"
 #include "colors.h"
@@ -39,11 +40,7 @@
 #include "screen.h"
 #include "screen_utils.h"
 
-#define ENABLE_STATUS_LINE_CLOCK
-#define ENABLE_SCROLLING
-
-#define STATUS_MESSAGE_TIMEOUT 3
-#define STATUS_LINE_MAX_SIZE   512
+#define MAX_SONGNAME_LENGTH   512
 
 #define SCREEN_PLAYLIST_ID     0
 #define SCREEN_BROWSE_ID       1
@@ -55,13 +52,8 @@
 extern screen_functions_t *get_screen_playlist(void);
 extern screen_functions_t *get_screen_browse(void);
 extern screen_functions_t *get_screen_help(void);
-
-#ifdef ENABLE_KEYDEF_SCREEN
 extern screen_functions_t *get_screen_keydef(void);
-#endif
-#ifdef ENABLE_CLOCK_SCREEN
 extern screen_functions_t *get_screen_clock(void);
-#endif
 
 typedef screen_functions_t * (*screen_get_mode_functions_fn_t) (void);
 
@@ -70,8 +62,8 @@ typedef struct
   gint id;
   gchar *name;
   screen_get_mode_functions_fn_t get_mode_functions;
-
 } screen_mode_info_t;
+
 
 static screen_mode_info_t screens[] = {
   { SCREEN_PLAYLIST_ID, "playlist", get_screen_playlist },
@@ -137,7 +129,7 @@ switch_screen_mode(gint id, mpdclient_t *c)
 static void
 paint_top_window(char *header, mpdclient_t *c, int clear)
 {
-  char flags[4];
+  char flags[5];
   static int prev_volume = -1;
   static int prev_header_len = -1;
   WINDOW *w = screen->top_window.w;
@@ -180,24 +172,24 @@ paint_top_window(char *header, mpdclient_t *c, int clear)
 	}
       if( c->status->volume==MPD_STATUS_NO_VOLUME )
 	{
-	  snprintf(buf, 32, _("Volume n/a "));
+	  g_snprintf(buf, 32, _("Volume n/a "));
 	}
       else
 	{
-	  snprintf(buf, 32, _(" Volume %d%%"), c->status->volume); 
+	  g_snprintf(buf, 32, _(" Volume %d%%"), c->status->volume); 
 	}
       colors_use(w, COLOR_TITLE);
       mvwaddstr(w, 0, screen->top_window.cols-strlen(buf), buf);
 
       flags[0] = 0;
       if( c->status->repeat )
-	strcat(flags, "r");
+	g_strlcat(flags, "r", sizeof(flags));
       if( c->status->random )
-	strcat(flags, "z");
+	g_strlcat(flags, "z", sizeof(flags));;
       if( c->status->crossfade )
-	strcat(flags, "x");
+	g_strlcat(flags, "x", sizeof(flags));
       if( c->status->updatingDb )
-	strcat(flags, "U");
+	g_strlcat(flags, "U", sizeof(flags));
       colors_use(w, COLOR_LINE);
       mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
       if( flags[0] )
@@ -253,10 +245,9 @@ paint_status_window(mpdclient_t *c)
   char *str = NULL;
   int x = 0;
 
-  if( time(NULL) - screen->status_timestamp <= STATUS_MESSAGE_TIMEOUT )
+  if( time(NULL) - screen->status_timestamp <= SCREEN_STATUS_MESSAGE_TIME )
     return;
-  
-  
+   
   wmove(w, 0, 0);
   wclrtoeol(w);
   colors_use(w, COLOR_STATUS_BOLD);
@@ -288,17 +279,17 @@ paint_status_window(mpdclient_t *c)
 	{
 	  if( c->song && seek_id == c->song->id )
 	    elapsedTime = seek_target_time;
-	  snprintf(screen->buf, screen->buf_size, 
+	  g_snprintf(screen->buf, screen->buf_size, 
 		   " [%i:%02i/%i:%02i]",
 		   elapsedTime/60, elapsedTime%60,
 		   status->totalTime/60,   status->totalTime%60 );
 	}
       else
 	{
-	  snprintf(screen->buf, screen->buf_size,  " [%d kbps]", status->bitRate );
+	  g_snprintf(screen->buf, screen->buf_size,  
+		     " [%d kbps]", status->bitRate );
 	}
     }
-#ifdef ENABLE_STATUS_LINE_CLOCK
   else
     {
       time_t timep;
@@ -306,34 +297,32 @@ paint_status_window(mpdclient_t *c)
       time(&timep);
       strftime(screen->buf, screen->buf_size, "%X ",localtime(&timep));
     }
-#endif
 
   /* display song */
   if( (IS_PLAYING(status->state) || IS_PAUSED(status->state)) )
     {
-      char songname[STATUS_LINE_MAX_SIZE];
+      char songname[MAX_SONGNAME_LENGTH];
       int width = COLS-x-strlen(screen->buf);
 
       if( song )
-	strfsong(songname, STATUS_LINE_MAX_SIZE, STATUS_FORMAT, song);
+	strfsong(songname, MAX_SONGNAME_LENGTH, STATUS_FORMAT, song);
       else
 	songname[0] = '\0';
 
       colors_use(w, COLOR_STATUS);
-#ifdef ENABLE_SCROLLING
+      /* scroll if the song name is to long */
       if( strlen(songname) > width )
 	{
 	  static  scroll_state_t st = { 0, 0 };
 	  char *tmp = strscroll(songname, " *** ", width, &st);
 
-	  strcpy(songname, tmp);
+	  g_strlcpy(songname, tmp, MAX_SONGNAME_LENGTH);
 	  g_free(tmp);	  
 	}
-#endif
       mvwaddnstr(w, 0, x, songname, width);
     } 
 
-  /* distplay time string */
+  /* display time string */
   if( screen->buf[0] )
     {
       x = screen->status_window.cols - strlen(screen->buf);
@@ -342,21 +331,6 @@ paint_status_window(mpdclient_t *c)
     }
 
   wnoutrefresh(w);
-}
-
-GList *
-screen_free_string_list(GList *list)
-{
-  GList *l = g_list_first(list);
-  
-  while(l)
-    {
-      g_free(l->data);
-      l->data = NULL;
-      l=l->next;
-    }
-  g_list_free(list);
-  return NULL;
 }
 
 int
@@ -381,7 +355,7 @@ screen_exit(void)
 	  i++;
 	}
      
-      screen_free_string_list(screen->find_history);
+      string_list_free(screen->find_history);
       g_free(screen->buf);
       g_free(screen->findbuf);
       
@@ -468,13 +442,14 @@ screen_status_message(char *msg)
 void 
 screen_status_printf(char *format, ...)
 {
-  char buffer[STATUS_LINE_MAX_SIZE];
+  char *msg;
   va_list ap;
   
   va_start(ap,format);
-  vsnprintf(buffer,sizeof(buffer),format,ap);
+  msg = g_strdup_vprintf(format,ap);
   va_end(ap);
-  screen_status_message(buffer);
+  screen_status_message(msg);
+  g_free(msg);
 }
 
 int
