@@ -52,6 +52,8 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
       break;
     case PLAYLIST_EVENT_MOVE:
       lw->selected = *((int *) data);
+      if( lw->selected<lw->start )
+	lw->start--;
       break;
     default:
       break;
