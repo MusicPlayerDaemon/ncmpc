@@ -2,6 +2,7 @@ ncmpc-0.11.1
 
  + Spanish translations from Jose Cedeno
  + Russian translations from Nikolay Pavlov
+ + French translations from Yann Cézard
  + ncmpc now supports SIGSTOP and SIGCONT (Ctrl-Z)
  + ncmpc now hides the cursor on the help screen
  + ncmpc now can enqueue and play a song from the browse screen (Enter)
