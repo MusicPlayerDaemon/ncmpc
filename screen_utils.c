@@ -4,6 +4,7 @@
  */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include <glib.h>
 #include <ncurses.h>
@@ -160,14 +161,13 @@ list_window_find(list_window_t *lw,
 		 void *callback_data,
 		 char *str)
 {
+  int h;
   int i = lw->selected+1;
+  char *label;
 
-  while( i< lw->rows )
+  while( (label=(callback) (i,&h,callback_data)) )
     {
-      int h;
-      char *label = (callback) (i,&h,callback_data);
-      
-      if( str && label && strstr(label, str) )
+      if( str && label && strcasestr(label, str) )
 	{
 	  lw->selected = i;
 	  return 0;
