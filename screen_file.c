@@ -247,11 +247,14 @@ char *
 file_get_header(mpd_client_t *c)
 {
   static char buf[64];
+  char *tmp;
 
+  tmp = utf8_to_locale(basename(c->cwd));
   snprintf(buf, 64, 
 	   TOP_HEADER_FILE ": %s                          ",
-	   basename(c->cwd)
+	   tmp
 	   );
+  free(tmp);
 
   return buf;
 }
