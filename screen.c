@@ -375,7 +375,11 @@ screen_resize(void)
 
       list=list->next;
     }
-  
+
+  /* ? - without this the cursor becomes visible with aterm & Eterm */
+  curs_set(1);
+  curs_set(0);     
+
   screen->painted = 0;
 }
 
