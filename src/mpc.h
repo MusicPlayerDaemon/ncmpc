@@ -44,6 +44,7 @@ int mpc_set_cwd(mpd_client_t *c, char *dir);
 
 mpd_Song *mpc_playlist_get_song(mpd_client_t *c, int n);
 char *mpc_get_song_name(mpd_Song *song);
+char *mpc_get_song_name2(mpd_Song *song);
 int mpc_playlist_get_song_index(mpd_client_t *c, char *filename);
 
 int   mpc_error(mpd_client_t *c);

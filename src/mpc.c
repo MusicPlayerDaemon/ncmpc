@@ -1,3 +1,23 @@
+/* 
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -6,18 +26,13 @@
 #include <glib.h>
 
 #include "config.h"
+#include "ncmpc.h"
 #include "support.h"
 #include "libmpdclient.h"
 #include "mpc.h"
 #include "options.h"
 
 #define MAX_SONG_LENGTH 1024
-
-#ifdef DEBUG
-#define D(x) x
-#else
-#define D(x)
-#endif
 
 int 
 mpc_close(mpd_client_t *c)
@@ -136,11 +151,11 @@ mpc_free_playlist(mpd_client_t *c)
 }
 
 int 
-mpc_update_playlist(mpd_client_t *c)
+mpc_get_playlist(mpd_client_t *c)
 {
   mpd_InfoEntity *entity;
 
-  D(fprintf(stderr, "mpc_update_playlist() [%d]\n",  c->status->playlist));
+  D(fprintf(stderr, "mpc_get_playlist() [%lld]\n", c->status->playlist));
 
   if( mpc_error(c) )
     return -1;
@@ -163,11 +178,68 @@ mpc_update_playlist(mpd_client_t *c)
 	}
       mpd_freeInfoEntity(entity);
     }
+  mpd_finishCommand(c->connection);
   c->playlist_id = c->status->playlist;
   c->playlist_updated = 1;
   c->song_id = -1;
   c->song = NULL;
 
+  mpc_filelist_set_selected(c);
+
+  return 0;
+}
+
+int 
+mpc_update_playlist(mpd_client_t *c)
+{
+  mpd_InfoEntity *entity;
+
+  D(fprintf(stderr, "mpc_update_playlist() [%lld]\n", c->status->playlist));
+
+  if( mpc_error(c) )
+    return -1;
+
+  mpd_sendPlChangesCommand(c->connection, c->playlist_id);
+  if( mpc_error(c) )
+    return -1;
+  if( (entity=mpd_getNextInfoEntity(c->connection)) == NULL )
+    return mpc_get_playlist(c);
+  while( entity ) 
+    {
+      if(entity->type==MPD_INFO_ENTITY_TYPE_SONG) 
+	{
+	  mpd_Song *song;
+	  GList *item;
+
+	  if( (song=mpd_songDup(entity->info.song)) == NULL )
+	    return mpc_get_playlist(c);
+
+	  item =  g_list_nth(c->playlist, song->num);
+	  if( item && item->data)
+	    {
+	      mpd_freeSong((mpd_Song *) item->data);
+	      item->data = song;
+	      if( c->song_id == song->num )
+		c->song = song;
+	      D(fprintf(stderr, "Changing num %d to %s\n",
+			song->num, mpc_get_song_name(song)));
+	    }
+	  else
+	    {
+	      D(fprintf(stderr, "Adding num %d - %s\n",
+			song->num, mpc_get_song_name(song)));
+	      c->playlist = g_list_append(c->playlist, 
+					  (gpointer) song);
+	      c->playlist_length++;
+	    }
+	}
+      mpd_freeInfoEntity(entity);
+      entity=mpd_getNextInfoEntity(c->connection);
+    }
+  mpd_finishCommand(c->connection);
+
+  c->playlist_id = c->status->playlist;
+  c->playlist_updated = 1;
   mpc_filelist_set_selected(c);
 
   return 0;
@@ -227,6 +299,104 @@ mpc_get_song_name(mpd_Song *song)
   return buf;
 }
 
+char *
+mpc_get_song_name2(mpd_Song *song)
+{
+  static char buf[MAX_SONG_LENGTH];
+  char *name;
+  
+  if( song->name )
+    {
+      name = utf8_to_locale(song->name);
+      strncpy(buf, name, MAX_SONG_LENGTH);
+      g_free(name);
+      return buf;
+    }
+
+  if( song->title )
+    {      
+      if( song->artist )
+	{
+	  snprintf(buf, MAX_SONG_LENGTH, "%s - %s", song->artist, song->title);
+	  name = utf8_to_locale(buf);
+	  strncpy(buf, name, MAX_SONG_LENGTH);
+	  g_free(name);
+	  return buf;
+	}
+      else
+	{
+	  name = utf8_to_locale(song->title);
+	  strncpy(buf, name, MAX_SONG_LENGTH);
+	  g_free(name);
+	  return buf;
+	}
+    }
+  name = utf8_to_locale(basename(song->file));
+  strncpy(buf, name, MAX_SONG_LENGTH);
+  g_free(name);
+  return buf;
+}
+
+#if 0
+size_t
+strfsong(char *s, size_t max, const char *format, mpd_Song *song)
+{
+  size_t i, len, format_len;
+  char prev;
+
+  void sappend(char *utfstr) {
+    char *tmp = utf8_to_locale(utfstr);
+    size_t tmplen = strlen(tmp);
+    if( i+tmplen < max )
+      strcat(s, tmp);
+    else
+      strncat(s, tmp, max-i);
+    i = strlen(s);
+    g_free(tmp);
+  }
+
+  i = 0;
+  len = 0;
+  format_len = strlen(format);
+  memset(s, 0, max);
+  while(i<format_len && len<max)
+    {
+      if( i>0 && format[i-1]=='%' )
+	{
+	  char *tmp;
+	  size_t tmplen;
+
+	  switch(format[i])
+	    {
+	    case '%':
+	      s[len++] = format[i];
+	      break;
+	    case 'a':
+	      sappend(song->artist);
+	      break;
+	    case 't':
+	      sappend(song->title);
+	      break;
+	    case 'n':
+	      sappend(song->name);
+	      break;
+	    case 'f':
+	      sappend(song->file);
+	      break;
+	    }
+	}
+      else if( format[i]!='%' )
+	{
+	  s[len] = format[i++];
+	}
+      len++;
+    }
+
+  return len;
+}
+#endif
+
+
 int 
 mpc_update(mpd_client_t *c)
 {
@@ -241,9 +411,14 @@ mpc_update(mpd_client_t *c)
   c->status = mpd_getStatus(c->connection);
   if( mpc_error(c) )
     return -1;
-  
+
   if( c->playlist_id!=c->status->playlist )
-    mpc_update_playlist(c);
+    {
+      if( c->playlist_length<2 )
+	mpc_get_playlist(c);
+      else
+	mpc_update_playlist(c);
+    }
   
   if( !c->song || c->status->song != c->song_id )
     {

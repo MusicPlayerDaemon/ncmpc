@@ -1,3 +1,7 @@
+2004-06-07 Kalle Wallin <kaw@linux.se>
+	*  configure.ac: disable nls if glib is pre 2.4
+	*  mpc.c: added support for the PLCHANGES command
+	
 2004-06-06 Kalle Wallin <kaw@linux.se>
 	* i18n: ncmpc is now bilingual (sv)
 	* Moved all locale initialization code to main.c
@@ -5,6 +9,7 @@
 	* Added wreadln.c, wreadln.h a simple line editor
 	* screen_utils.c: use wreadln() instead of curses wgetstr()
 	* Added a history for the find command!
+	* Added screen_clock.c an optional clock screen (just for fun)
 
 
 2004-06-05 Kalle Wallin <kaw@linux.se>
