@@ -553,13 +553,8 @@ read_rc_file(char *filename, options_t *options)
 		fprintf(stderr, 
 			_("Unknown configuration parameter: %s\n"), 
 			name);
-#ifdef DEBUG
-	      printf( "  %s = %s %s\n", 
-		      name, 
-		      value,
-		      match_found ? "" : "- UNKNOWN SETTING!" );
-#endif
-
+	      D("conf>  %s = %s %s\n", name, value,
+		match_found ? "" : "- UNKNOWN SETTING!" );
 	    }
 	}	  
     }
