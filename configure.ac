@@ -4,7 +4,7 @@ dnl
 
 AC_INIT
 AC_CONFIG_SRCDIR([src/main.c])
-AM_INIT_AUTOMAKE([ncmpc], [0.11.1-svn])
+AM_INIT_AUTOMAKE([ncmpc], [0.11.1-rc1])
 AM_CONFIG_HEADER([config.h])
 
 dnl Check for programs
@@ -163,9 +163,9 @@ dnl search screen
 AC_MSG_CHECKING([whether to include the search screen])
 AC_ARG_ENABLE([search-screen], 
               AC_HELP_STRING([--enable-search-screen],
-	                     [Enable search screen @<:@default=yes@:>@]),
+	                     [Enable search screen (EXPERIMENTAL) @<:@default=no@:>@]),
 	      [search_screen="$enableval"],
-	      [search_screen=yes])
+	      [search_screen=no])
 AC_MSG_RESULT([$search_screen])
 if test "x$search_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_SEARCH_SCREEN, 1, [Disable search screen])
