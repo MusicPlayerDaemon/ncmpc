@@ -5,9 +5,14 @@ Features:
 * id3 browser
 
 Other:
-* Remove popt dependency
 * Add libgpm support?
 
+Glib
+* replace snprintf with g_snprintf or g_strdup_printf 
+* replace strcat with g_strlcat or g_strconcat()
+* replace strncpy with g_strlcpy 
+* replace strstr with g_strrstr 
+* ...
 
 
 

@@ -4,7 +4,7 @@ dnl
 
 AC_INIT
 AC_CONFIG_SRCDIR([src/main.c])
-AM_INIT_AUTOMAKE(ncmpc, 0.11.0-svn)
+AM_INIT_AUTOMAKE(ncmpc, 0.11.0-svn-20040630)
 AM_CONFIG_HEADER([config.h])
 
 dnl Check for programs
@@ -15,6 +15,9 @@ dnl AC_PROG_LIBTOOL
 dnl =======================================================
 dnl initialize variables
 dnl =======================================================
+
+dnl i18n
+ALL_LINGUAS="sv"
 
 set -- $CFLAGS
 
@@ -49,15 +52,10 @@ dnl Check for libraries
 dnl
 
 dnl ncurses
-AC_CHECK_LIB([ncurses], [initscr],, 
+AC_CHECK_LIB([ncurses], 
+	     [initscr],
+             [LIBS="$LIBS -lncurses"], 
              [AC_MSG_ERROR(ncurses library is required)])
-LIBS="$LIBS -lncurses"
-
-dnl popt
-AC_CHECK_LIB([popt], 
-             [poptGetArg],
-             [LIBS="$LIBS -lpopt"],
-             AC_MSG_ERROR([Missing popt command line parsing library]))
 
 
 dnl Check for glib-2.4
@@ -74,8 +72,6 @@ fi
 
 
 dnl i18n
-ALL_LINGUAS="sv"
-
 AM_NLS
 if test "x$glib24" = "xyes"; then
   nls=$USE_NLS
@@ -101,13 +97,37 @@ dnl Debugging
 AC_MSG_CHECKING([whether to build with debug support])
 AC_ARG_ENABLE([debug], 
               AC_HELP_STRING([--enable-debug],
-                             [Enable debugging @<:@default=no@:>@)]),
+                             [Enable debugging @<:@default=no@:>@]),
 	      [enable_debug="$enableval"], 
 	      [enable_debug=no])
 AC_MSG_RESULT([$enable_debug])
 if test "x$enable_debug" = "xyes" ; then
    CFLAGS="$CFLAGS -Wall -g -DDEBUG"
 fi
+
+dnl Optional screen - help screen
+#AC_MSG_CHECKING([whether to include the help screen])
+#AC_ARG_ENABLE([help-screen], 
+#              AC_HELP_STRING([--enable-help-screen],
+#	                     [Enable the help screen @<:@default=yes@:>@]),
+#	      [help_screen="$enableval"],
+#	      [help_screen=yes])
+#AC_MSG_RESULT([$help_screen])
+#if test "x$help_screen" = "xyes" ; then
+#   AC_DEFINE(ENABLE_HELP_SCREEN, 1, [Enable the help screen])
+#fi
+
+dnl Optional screen - browse screen
+#AC_MSG_CHECKING([whether to include the browse screen])
+#AC_ARG_ENABLE([browse-screen], 
+#              AC_HELP_STRING([--enable-browse-screen],
+#	                     [Enable the browse screen @<:@default=yes@:>@]),
+#	      [browse_screen="$enableval"],
+#	      [browse_screen=yes])
+#AC_MSG_RESULT([$browse_screen])
+#if test "x$browse_screen" = "xyes" ; then
+#   AC_DEFINE(ENABLE_BROWSE_SCREEN, 1, [Enable the browse screen])
+#fi
 
 dnl Optional screen - key editor
 AC_MSG_CHECKING([whether to include the key editor screen])

@@ -1,5 +1,5 @@
 ncmpc-0.11.0
-
+ + removed popt dependency
  + the default port is now 6600 (mpd-0.11.0)
  + nls support (glib-2.4 required for nls)
  + ncmpc now uses the terminal in raw mode (enabling key bindings to Ctrl-C...)
