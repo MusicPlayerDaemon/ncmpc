@@ -1,3 +1,12 @@
+2004-04-19 Kalle Wallin <kaw@linux.se>
+	* Added copyright notice and license notice 
+	* Major cleanup of the 'screen' handling routines. The goal of this 
+	  is to simplify addition of 'screens' (like a key editor).
+	* added a key editor -> screen_keydef.c
+	* configure.ac - added a --enable-key-editor to enable/disable the 
+	  build in key editor.
+	
+
 2004-04-14 Kalle Wallin <kaw@linux.se>
 	* support.c - use screen_status_printf() to display character 
 	  conversion errors. Only use stderr if DEBUG is enabled.
@@ -21,17 +30,8 @@
 2004-04-13 Kalle Wallin <kaw@linux.se>
 	* list_window.c - use clrtoeol instead of wclear. This improves the
 	  speed and removes some flickering.
-	* main.c - poll mpd twice/seconed instead of once, print a newline 
+	* main.c - poll mpd twice/second instead of once, print a newline 
 	  after closing curses.
 
 2004-04-12 Kalle Wallin <kaw@linux.se>
 	* ncmcp-0.10.0 released
-
-
-
-
-
-	
-
-
-	
