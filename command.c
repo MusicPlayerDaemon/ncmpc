@@ -31,7 +31,7 @@
 #define PGDN KEY_NPAGE
 #define PGUP KEY_PPAGE
 #define TAB  0x09
-#define STAB 0x5A
+#define STAB 0x161
 #define ESC  0x1B
 #define F1   KEY_F(1)
 #define F2   KEY_F(2)
@@ -44,7 +44,7 @@ static command_definition_t cmds[] =
 {
   { {  13,   0,   0 }, CMD_PLAY, "Play/Enter directory" },
   { { 'P',   0,   0 }, CMD_PAUSE, "Pause" },
-  { {  BS, ESC,   0 }, CMD_STOP, "Stop" },
+  { {  ESC, BS, 's' }, CMD_STOP, "Stop" },
   { { '>',   0,   0 }, CMD_TRACK_NEXT, "Next song" },
   { { '<',   0,   0 }, CMD_TRACK_PREVIOUS, "Previous song" },
 
@@ -54,8 +54,8 @@ static command_definition_t cmds[] =
   { { 'w',   0,   0 }, CMD_TOGGLE_FIND_WRAP, "Toggle find mode" },
 
   { { ' ',   0,   0 }, CMD_SELECT, "Select/deselect song in playlist" },
-  { { DEL,   0,   0 }, CMD_DELETE, "Delete song from playlist" },
-  { { 's',   0,   0 }, CMD_SHUFFLE, "Shuffle playlist" },
+  { { DEL,  'd',  0 }, CMD_DELETE, "Delete song from playlist" },
+  { { 'Z',   0,   0 }, CMD_SHUFFLE, "Shuffle playlist" },
   { { 'c',   0,   0 }, CMD_CLEAR, "Clear playlist" },
   { { 'r',   0,   0 }, CMD_REPEAT, "Toggle repeat mode" },
   { { 'z',   0,   0 }, CMD_RANDOM, "Toggle random mode" },
@@ -63,10 +63,10 @@ static command_definition_t cmds[] =
 
   { {  UP,   0,   0 }, CMD_LIST_PREVIOUS,      "Move: Up" },
   { { DWN,   0,   0 }, CMD_LIST_NEXT,          "Move: Down" },
-  { { HOME,  0,   0 }, CMD_LIST_FIRST,         "Move: Home" },
-  { { END,   0,   0 }, CMD_LIST_LAST,          "Move: End" },
-  { { PGUP,  0,   0 }, CMD_LIST_PREVIOUS_PAGE, "Move: Page Up" },
-  { { PGDN,  0,   0 }, CMD_LIST_NEXT_PAGE,     "Move: Page Down" },
+  { { HOME, 0x01, 0 }, CMD_LIST_FIRST,         "Move: Home" },
+  { { END,  0x05, 0 }, CMD_LIST_LAST,          "Move: End" },
+  { { PGUP, 'A',   0 }, CMD_LIST_PREVIOUS_PAGE, "Move: Page Up" },
+  { { PGDN, 'B',   0 }, CMD_LIST_NEXT_PAGE,     "Move: Page Down" },
   { { '/',   0,   0 }, CMD_LIST_FIND,          "Forward Find" },
   { { 'n',   0,   0 }, CMD_LIST_FIND_NEXT,     "Forward Find Next" },
   { { '?',   0,   0 }, CMD_LIST_RFIND,         "Backward Find" },
@@ -78,7 +78,7 @@ static command_definition_t cmds[] =
   { { F1, '1', 'h' }, CMD_SCREEN_HELP,   "Help screen" },
   { { F2, '2',   0 }, CMD_SCREEN_PLAY,   "Playlist screen" },
   { { F3, '3',   0 }, CMD_SCREEN_FILE,   "Browse screen" },
-  //  { { F4, '4',   0 }, CMD_SCREEN_SEARCH, "Search screen" },
+  /*  { { F4, '4',   0 }, CMD_SCREEN_SEARCH, "Search screen" }, */
   { {'u',   0,   0 }, CMD_SCREEN_UPDATE,   "Update screen" },
 
   { { 'q',  0,   0 }, CMD_QUIT,   "Quit " PACKAGE },  
