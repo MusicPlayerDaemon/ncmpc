@@ -8,11 +8,23 @@
 ## wide_cursor - make the cursor as wide as the screen
 #wide-cursor = yes
 
+## wrapped cursor movement
+#wrap-around = no
+
+## wrapped find mode
+#find-wrap = yes
+
 ## list-format
 #list-format = "%name%|[%artist% - ]%title%|%file%"
 
 ## status-format
 #status-format = "[%artist% - ]%title%|%shortfile%"
+
+## sound audible bell on alerts
+#audible-bell = yes
+
+## enable visible bell on alerts
+#visible-bell = no
 
 
 ##
