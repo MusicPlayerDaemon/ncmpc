@@ -758,6 +758,7 @@ mpdclient_filelist_free(mpdclient_filelist_t *filelist)
 {
   GList *list = g_list_first(filelist->list);
 
+  D("mpdclient_filelist_free()\n");
   while( list!=NULL )
     {
       filelist_entry_t *entry = list->data;
@@ -785,6 +786,7 @@ mpdclient_filelist_get(mpdclient_t *c, gchar *path)
   mpd_InfoEntity *entity;
   gchar *path_utf8 = locale_to_utf8(path);
 
+  D("mpdclient_filelist_get(%s)\n", path);
   mpd_sendLsInfoCommand(c->connection, path_utf8);
   filelist = g_malloc0(sizeof(mpdclient_filelist_t));
   if( path && path[0] && strcmp(path, "/") )
@@ -821,7 +823,7 @@ mpdclient_filelist_get(mpdclient_t *c, gchar *path)
 mpdclient_filelist_t *
 mpdclient_filelist_update(mpdclient_t *c, mpdclient_filelist_t *filelist)
 {
-  if( filelist == NULL )
+  if( filelist != NULL )
     {    
       gchar *path = g_strdup(filelist->path);
 
