@@ -96,6 +96,7 @@ static help_text_row_t help_text[] =
   { 0, CMD_CLEAR,          NULL },
   { 0, CMD_LIST_MOVE_UP,   N_("Move song up") },
   { 0, CMD_LIST_MOVE_DOWN, N_("Move song down") },
+  { 0, CMD_ADD,            NULL },
   { 0, CMD_SAVE_PLAYLIST,  NULL },
   { 0, CMD_SCREEN_UPDATE,  N_("Center") },
   { 0, CMD_TOGGLE_AUTOCENTER, NULL },

@@ -6,6 +6,7 @@
 	* command.[c|h]: check_key_bindings() can now write an error messages 
 	                 to a buffer instead of stderr
 	* main.c: display errors without exiting when key bindings are broken
+	* screen_help.c: added the add command to the help screen
 
 2004-06-17 Kalle Wallin <kaw@linux.se>
 	* Added a add command, used to add urls or files to the playlist, with
