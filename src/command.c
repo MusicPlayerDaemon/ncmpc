@@ -401,8 +401,8 @@ get_keyboard_command_with_timeout(int ms)
     return CMD_NONE;
 
 #ifdef HAVE_GETMOUSE
-  //  if( key==KEY_MOUSE )
-  //    return CMD_MOUSE_EVENT;
+  if( key==KEY_MOUSE )
+    return CMD_MOUSE_EVENT;
 #endif
 
   return get_key_command(key);

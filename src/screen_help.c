@@ -111,23 +111,6 @@ static help_text_row_t help_text[] =
   { 0, CMD_SCREEN_UPDATE,  NULL },
 
   { 0, CMD_NONE, NULL },
-  { 0, CMD_NONE, NULL },
-  { 1, CMD_NONE, "ncmpc build information" },
-  { 2, CMD_NONE, NULL },
-  { 0, CMD_NONE, "             Version : " VERSION },
-  { 0, CMD_NONE, "  Configuration dirs : ~/.ncmpc, " SYSCONFDIR "/" PACKAGE },
-#ifdef ENABLE_NLS
-  { 0, CMD_NONE, "NLS support : yes" },
-#else
-  { 0, CMD_NONE, "NLS support : no" },
-#endif
-#ifdef ENABLE_KEYDEF_SCREEN
-  { 0, CMD_NONE, "Key Editor : yes" },
-#else
-  { 0, CMD_NONE, "Key Editor : no" },
-#endif
-
-  { 0, CMD_NONE, NULL },
   {-1, CMD_NONE, NULL }
 };
 

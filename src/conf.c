@@ -57,6 +57,7 @@
 #define CONF_AUDIBLE_BELL            "audible-bell"
 #define CONF_VISIBLE_BELL            "visible-bell"
 #define CONF_XTERM_TITLE             "set-xterm-title"
+#define CONF_MOUSE_EVENTS            "enable-mouse"
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -461,6 +462,10 @@ read_rc_file(char *filename, options_t *options)
 	      else if( !strcasecmp(CONF_XTERM_TITLE, name) )
 		{
 		  options->enable_xterm_title = str2bool(value);
+		}
+	      else if( !strcasecmp(CONF_MOUSE_EVENTS, name) )
+		{
+		  options->enable_mouse_events = str2bool(value);
 		}
 	      else
 		{

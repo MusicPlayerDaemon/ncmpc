@@ -478,7 +478,8 @@ screen_init(mpdclient_t *c)
   timeout(SCREEN_TIMEOUT);
   /* initialize mouse support */
 #ifdef HAVE_GETMOUSE
-  mousemask(ALL_MOUSE_EVENTS, NULL);
+  if( options.enable_mouse_events )
+    mousemask(ALL_MOUSE_EVENTS, NULL);
 #endif
 
   if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )

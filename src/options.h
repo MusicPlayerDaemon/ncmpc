@@ -20,9 +20,10 @@ typedef struct
   gboolean auto_center;
   gboolean wide_cursor;  
   gboolean enable_colors;
-  gboolean audible_bell;       /* not implemented */
-  gboolean visible_bell;       /* not implemented */
-  gboolean enable_xterm_title; /* not implemented */
+  gboolean audible_bell;       
+  gboolean visible_bell;       
+  gboolean enable_xterm_title; 
+  gboolean enable_mouse_events;
 
 } options_t;
 
