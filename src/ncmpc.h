@@ -6,9 +6,9 @@
 #endif
 
 #ifdef DEBUG
-#define D(x, args...) fprintf(stderr, x,  ##args)
+#define D(format, args...) fprintf(stderr, format,  ##args)
 #else
-#define D(x,...)
+#define D(...)
 #endif
 
 /* i18n */
