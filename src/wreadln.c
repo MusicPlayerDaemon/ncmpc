@@ -39,6 +39,8 @@
 unsigned int wrln_max_line_size = WRLN_MAX_LINE_SIZE;
 unsigned int wrln_max_history_length = WRLN_MAX_HISTORY_LENGTH;
 GVoidFunc wrln_resize_callback = NULL;
+wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
+wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 
 
 char *
@@ -183,7 +185,9 @@ wreadln(WINDOW *w,
 	      char *prefix = NULL;
 	      GList *list;
 	      
-	      list = g_completion_complete(gcmp, line, &prefix);
+	      if(wrln_pre_completion_callback)
+		wrln_pre_completion_callback(gcmp, line);
+	      list = g_completion_complete(gcmp, line, &prefix);	      
 	      if( prefix )
 		{
 		  int len = strlen(prefix);
@@ -193,6 +197,8 @@ wreadln(WINDOW *w,
 		}
 	      else
 		beep();
+	      if( wrln_post_completion_callback )
+		wrln_post_completion_callback(gcmp, line, list);
 	    }
 	  break;
 

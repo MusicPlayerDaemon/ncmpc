@@ -159,4 +159,26 @@ screen_find(screen_t *screen,
   return 0;
 }
 
+void
+screen_display_completion_list(screen_t *screen, GList *list)
+{
+  WINDOW *w = screen->main_window.w;
+  gint y=0;
 
+  colors_use(w, COLOR_STATUS_ALERT);
+  while( y<screen->main_window.rows )
+    {
+      wmove(w, y++, 0);
+      wclrtoeol(w);
+      if( list )
+	{
+	  gchar *tmp = g_strdup(list->data);
+	  waddstr(w, basename(tmp));
+	  g_free(tmp);
+	  list = list->next;
+	}
+    }
+  wrefresh(w);
+  doupdate();
+  colors_use(w, COLOR_LIST);
+}

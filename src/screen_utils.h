@@ -1,9 +1,13 @@
+#ifndef SCREEN_UTILS_H
+#define SCREEN_UTILS_H
 
 /* read a characher from the status window */
 int screen_getch(WINDOW *w, char *prompt);
 
 /* read a string from the status window */
 char *screen_getstr(WINDOW *w, char *prompt);
+char *screen_readln(WINDOW *w, char *prompt, char *value,
+		    GList **history, GCompletion *gcmp);
 
 /* query user for a string and find it in a list window */
 int screen_find(screen_t *screen,
@@ -14,5 +18,6 @@ int screen_find(screen_t *screen,
 		list_window_callback_fn_t callback_fn);
 
 
-int my_waddstr(WINDOW *, const char *, int);
-int my_mvwaddstr(WINDOW *, int, int, const char *, int);
+void screen_display_completion_list(screen_t *screen, GList *list);
+
+#endif
