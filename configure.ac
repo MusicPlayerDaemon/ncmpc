@@ -20,9 +20,14 @@ CFLAGS="-Wall $CFLAGS"
 dnl
 dnl Check for types
 dnl
-AC_CHECK_TYPE(socklen_t, 
-	      AC_DEFINE(HAVE_SOCKLEN_T, 1, socklen_t defined in sys/socket.h),
-)
+dnl AC_CHECK_TYPE(socklen_t, 
+dnl 	      AC_DEFINE(HAVE_SOCKLEN_T, 1, socklen_t defined in sys/socket.h),
+dnl )
+
+AC_SOCKLEN_T
+
+
+
 
 
 dnl
