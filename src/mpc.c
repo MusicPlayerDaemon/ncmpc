@@ -320,7 +320,8 @@ mpc_get_song_name2(mpd_Song *song)
 {
   static char buf[MAX_SONG_LENGTH];
   char *name;
-  
+
+  /* streams */
   if( song->name )
     {
       name = utf8_to_locale(song->name);
@@ -328,7 +329,16 @@ mpc_get_song_name2(mpd_Song *song)
       g_free(name);
       return buf;
     }
+  else if( strstr(song->file, "://") )
+    {
+      name = utf8_to_locale(song->file);
+      strncpy(buf, name, MAX_SONG_LENGTH);
+      g_free(name);
+      
+      return buf;
+    }
 
+  /* regular songs */
   if( song->title )
     {      
       if( song->artist )

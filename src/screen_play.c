@@ -339,7 +339,7 @@ playlist_delete_song(mpd_client_t *c, int index)
 
   /* print a status message */
   screen_status_printf(_("Removed \'%s\' from playlist!"),
-		       mpc_get_song_name(song));
+		       mpc_get_song_name2(song));
   /* clear selected highlight in the browse screen */
   file_set_highlight(c, song, 0);
 
