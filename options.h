@@ -14,7 +14,8 @@ typedef struct
   int   reconnect;
   int   debug;
   int   find_wrap;
-
+  int   auto_center;
+  
   int   enable_colors;
   int   bg_color;
   int   title_color;
