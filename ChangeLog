@@ -1,3 +1,17 @@
+2004-04-23 Kalle Wallin <kaw@linux.se>
+	* Updated Changelog, TODO, NEWS and the manual page.
+
+2004-04-22 Kalle Wallin <kaw@linux.se>
+	* Added smart delete and add (#0000220), at the moment only used 
+	        when deleting or adding a single song.
+	* mpc.c: make shure selections in the browse screen is updated 
+	         when the playlist updated
+	  
+	
+2004-04-21 Kalle Wallin <kaw@linux.se>
+	* Fixed resize handling (SIGWINCH), problems may still occur when
+	  ncmpc is inside some of ncurses [w]getstr functions.
+	
 2004-04-20 Kalle Wallin <kaw@linux.se>
 	* Added support for seeking 
 	* Added crossfade support

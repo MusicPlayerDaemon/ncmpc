@@ -1,20 +1,18 @@
 
 client functions
 ----------------------------------------------------------------------------
+  * move songs in playlists
   * search screen
   * id3 browser
 
 ncurses
 ----------------------------------------------------------------------------
-  * customizable keybindings
-  * improve list drawing (faster) 
-  
+  * a small line editor (with history and support for KEY_RESIZE).
 
 other
 ----------------------------------------------------------------------------
   * internationalization - gettext
-  * SIGWINCH handling
-
+  * A cleanup would be nice
 
 
 

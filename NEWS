@@ -1,3 +1,17 @@
 
+ncmpc-0.10.1 
+
+ + support for user key bindings (~/.ncmpc/keys)
+ + a key configuration screen (press 'K')
+ + fixed resize event (SIGWINCH) handling.
+ + improved drawing routines (removes flickering)
+ + support for seeking, toggle crossfade 
+ + support for a wide (like cplay) cursor (se the man page for details)
+ + display mpd status flags on the second row [rzx] (repeat,random,crossfade)
+ + support for system-wide configuration files (config,keys)
+ + the user configuration file is moved to ~/.ncmpc/config
+ + and some small changes (view the ChangeLog for details)
 
 	
+
+

@@ -1,4 +1,4 @@
-.TH "ncmpc" "1" "0.10.0" "Kalle Wallin" ""
+.TH "ncmpc" "1" "April 2004" "" ""
 .SH "NAME"
 ncmpc \- curses Music Player Daemon (MPD) client.
 .SH "SYNOPSIS"
@@ -46,15 +46,55 @@ Specify MPD host.
 Connect to server on PORT.
 .TP 
 .B \-P, \-\-password=PASSWORD
-Connect top MPD with a password.
+Use password when connecting.
 .TP 
 Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options.
+.SH "CONFIGURATION"
+When ncmpc start it tries to read user setting from the ~/ncmpc/config file. If no user configuration is found ncmpc tries to load global settings from $SYSCONFDIR/ncmpc/config (the actual path is displayed on the help screen). An example configuration file (config.sample) should be provided with ncmpc.
+
+Avalible colors: black, red, green, yellow, blue, magenta, cyan and white.
+
+Supported configuration options:
+.TP 
+.B auto_center = yes|no
+Enable/disable auto center mode. When auto center mode is enabled 
+ncmpc centers the current track in the playlist window.
+.TP 
+.B wide_cursor = yes|no
+Make the cursor as wide as the screen.
+.TP 
+.B enable_colors = yes|no
+Enable/disable colors.
+.TP 
+.B title_color = color
+Set the text color for the title row (first row).
+.TP 
+.B line_color = color
+Set the color of the line on the second row.
+.TP 
+.B list_color = color
+Set the text color in the main area of ncmpc.
+.TP 
+.B progress_color = color
+Set the color of the progress indicator.
+.TP 
+.B status_color = color
+Set the text color used in the status window (last row). 
+.TP 
+.B alert_color = color
+Text color used to display alerts in the status window.
 .SH "KEYS"
-You can view ncmpc's key bindings by pressing F1 (help) when 
-ncmpc is running.
-.SH "CONFIGURATION FILE"
-When ncmpc start it read user setting from ~/.ncmpcrc. An example file ncmpcrc.sample should be provided with ncmpc.
+When ncmpc start it tries to read user key bindings from the ~/ncmpc/keys file. If no user key bindings is found ncmpc tries to load global key bindings from $SYSCONFDIR/ncmpc/keys (the actual path is displayed on the help screen). 
 
+You can view ncmpc's key bindings by pressing '1' (help) when 
+ncmpc is running. To edit key bindings use the key editor in ncmpc (press 'K').
+.SH "BUGS"
+Report bugs on http://www.musicpd.org/mantis/
+.SH "NOTE"
+Since MPD uses UTF\-8, ncmpc needs to convert characters to the 
+charset used by the local system. If you get character conversion errors when your running ncmpc you probably need to set up your locale. This is done by setting any of the LC_CTYPE, LANG or LC_ALL enviroment variables (LC_CTYPE only affects character handling). For example if you want UK settings and use bash you should add the following line to your /etc/profile:
 
-.SH "SEE ALSO"
-mpc(1), MPD(1)
+  export LC_CTYPE=en_UK
+
+.SH "SE ALSO"
+mpc(1), mpd(1), locale(5), locale(7)
