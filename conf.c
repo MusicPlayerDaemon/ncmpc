@@ -97,7 +97,7 @@ read_rc_file(char *filename, options_t *options)
 
   if( filename==NULL )
     {
-      filename = concat_path(getenv("HOME"), RCFILE);
+      filename = g_build_filename(g_get_home_dir(), RCFILE);
       free_filename = 1;
     }
 
