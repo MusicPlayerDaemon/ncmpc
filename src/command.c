@@ -63,6 +63,38 @@ extern void screen_resize(void);
 
 static command_definition_t cmds[] =
 {
+#ifdef ENABLE_KEYDEF_SCREEN
+  { {'K',   0,   0 }, CMD_SCREEN_KEYDEF,    "screen-keyedit",
+    N_("Key configuration screen") },
+#endif
+  { { 'q', 'Q',  3 }, CMD_QUIT,   "quit",
+    N_("Quit") },  
+
+  /* movment */
+  { {  UP,  ',',   0 }, CMD_LIST_PREVIOUS,      "up",
+    N_("Move cursor up") },
+  { { DWN,  '.',   0 }, CMD_LIST_NEXT,          "down",
+    N_("Move cursor down") },
+  { { HOME, 0x01, 0 }, CMD_LIST_FIRST,          "home",
+    N_("Home ") },
+  { { END,  0x05, 0 }, CMD_LIST_LAST,           "end",
+    N_("End ") },
+  { { PGUP,   0,   0 }, CMD_LIST_PREVIOUS_PAGE, "pgup",
+    N_("Page up") },
+  { { PGDN,   0,   0 }, CMD_LIST_NEXT_PAGE,     "pgdn", 
+    N_("Page down") },
+
+
+  /* basic screens */
+  { { '1', F1, 'h' }, CMD_SCREEN_HELP,      "screen-help",
+    N_("Help screen") },
+  { { '2', F2,  0 }, CMD_SCREEN_PLAY,      "screen-playlist",
+    N_("Playlist screen") },
+  { { '3', F3,  0 }, CMD_SCREEN_FILE,      "screen-browse",
+    N_("Browse screen") },
+
+
+  /* player commands */
   { {  13,   0,   0 }, CMD_PLAY, "play",  
     N_("Play/Enter directory") },
   { { 'P',   0,   0 }, CMD_PAUSE,"pause", 
@@ -77,17 +109,10 @@ static command_definition_t cmds[] =
     N_("Seek forward") },
   { { 'b',   0,   0 }, CMD_SEEK_BACKWARD, "seek-backward", 
     N_("Seek backward") },
-
   { { '+', RGHT,  0 }, CMD_VOLUME_UP, "volume-up", 
     N_("Increase volume") },
   { { '-', LEFT,  0 }, CMD_VOLUME_DOWN, "volume-down", 
     N_("Decrease volume") },
-
-  { { 'w',   0,   0 }, CMD_TOGGLE_FIND_WRAP,  "wrap-mode", 
-    N_("Toggle find mode") },
-  { { 'U',   0,   0 }, CMD_TOGGLE_AUTOCENTER, "autocenter-mode", 
-    N_("Toggle auto center mode") },
-
   { { ' ',   0,   0 }, CMD_SELECT, "select", 
     N_("Select/deselect song in playlist") },
   { { DEL,  'd',  0 }, CMD_DELETE, "delete",
@@ -102,31 +127,38 @@ static command_definition_t cmds[] =
     N_("Toggle random mode") },
   { { 'x',   0,   0 }, CMD_CROSSFADE, "crossfade",
     N_("Toggle crossfade mode") },
-  { { 21,   0,   0 }, CMD_DB_UPDATE,  "db-update",
+  { { 21,    0,   0 }, CMD_DB_UPDATE,  "db-update",
     N_("Start a music database update") },
-
   { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "save",
     N_("Save playlist") },
   { { 'a',   0,   0 }, CMD_ADD, "add",
     N_("Add url/file to playlist") },
 
+
+  /* lists */
   { { 0,  0,   0 }, CMD_LIST_MOVE_UP,     "move-up", 
     N_("Move item up") },
   { { 0,  0,   0 }, CMD_LIST_MOVE_DOWN,   "move-down", 
     N_("Move item down") },
+  { {'u',   0,   0 }, CMD_SCREEN_UPDATE,    "update",
+    N_("Update screen") },
 
-  { {  UP,  ',',   0 }, CMD_LIST_PREVIOUS,      "up",
-    N_("Move cursor up") },
-  { { DWN,  '.',   0 }, CMD_LIST_NEXT,          "down",
-    N_("Move cursor down") },
-  { { HOME, 0x01, 0 }, CMD_LIST_FIRST,          "home",
-    N_("Home ") },
-  { { END,  0x05, 0 }, CMD_LIST_LAST,           "end",
-    N_("End ") },
-  { { PGUP, 'A',   0 }, CMD_LIST_PREVIOUS_PAGE, "pgup",
-    N_("Page up") },
-  { { PGDN, 'B',   0 }, CMD_LIST_NEXT_PAGE,     "pgdn", 
-    N_("Page down") },
+
+  /* ncmpc options */
+  { { 'w',   0,   0 }, CMD_TOGGLE_FIND_WRAP,  "wrap-mode", 
+    N_("Toggle find mode") },
+  { { 'U',   0,   0 }, CMD_TOGGLE_AUTOCENTER, "autocenter-mode", 
+    N_("Toggle auto center mode") },
+
+
+  /* change screen */
+  { { TAB,   0,   0 }, CMD_SCREEN_NEXT,     "screen-next",
+    N_("Next screen") },
+  { { STAB,  0,   0 }, CMD_SCREEN_PREVIOUS, "screen-prev",
+    N_("Previous screen") },
+
+ 
+  /* find */
   { { '/',   0,   0 }, CMD_LIST_FIND,           "find",
     N_("Forward find") },
   { { 'n',   0,   0 }, CMD_LIST_FIND_NEXT,      "find-next",
@@ -137,31 +169,13 @@ static command_definition_t cmds[] =
     N_("Backward find previous") },
 
 
-  { { TAB,   0,   0 }, CMD_SCREEN_NEXT,     "screen-next",
-    N_("Next screen") },
-
-  { { STAB,  0,   0 }, CMD_SCREEN_PREVIOUS, "screen-prev",
-    N_("Previous screen") },
-
-  { { '1', F1, 'h' }, CMD_SCREEN_HELP,      "screen-help",
-    N_("Help screen") },
-  { { '2', F2,  0 }, CMD_SCREEN_PLAY,      "screen-playlist",
-    N_("Playlist screen") },
-  { { '3', F3,  0 }, CMD_SCREEN_FILE,      "screen-browse",
-    N_("Browse screen") },
-  { {'u',   0,   0 }, CMD_SCREEN_UPDATE,    "update",
-    N_("Update screen") },
+  /* extra screens */
 #ifdef ENABLE_CLOCK_SCREEN
   { {'4',  F4,   0 }, CMD_SCREEN_CLOCK,    "screen-clock",
     N_("Clock screen") },
 #endif
-#ifdef ENABLE_KEYDEF_SCREEN
-  { {'K',   0,   0 }, CMD_SCREEN_KEYDEF,    "screen-keyedit",
-    N_("Key configuration screen") },
-#endif
 
-  { { 'q', 'Q',  3 }, CMD_QUIT,   "quit",
-    N_("Quit") },  
+
 
   { { -1,  -1,  -1 }, CMD_NONE, NULL, NULL }
 };
@@ -392,7 +406,7 @@ assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
 }
 
 int 
-check_key_bindings(void)
+check_key_bindings(char *buf, size_t bufsize)
 {
   int i;
   int retval = 0;
@@ -407,10 +421,27 @@ check_key_bindings(void)
 	if( cmds[i].keys[j] && 
 	    (cmd=get_key_command(cmds[i].keys[j])) != cmds[i].command )
 	  {
-	    fprintf(stderr, _("Error: Key %s assigned to %s and %s !!!\n"),
-		    key2str(cmds[i].keys[j]),
-		    get_key_command_name(cmds[i].command),
-		    get_key_command_name(cmd));
+	    if( buf )
+#ifdef ENABLE_KEYDEF_SCREEN
+	      snprintf(buf, bufsize,
+		       _("Key %s assigned to %s and %s (press %s for the key editor)"),
+		       key2str(cmds[i].keys[j]),
+		       get_key_command_name(cmds[i].command),
+		       get_key_command_name(cmd),
+		       get_key_names(CMD_SCREEN_KEYDEF,0));
+#else
+	    snprintf(buf, bufsize,
+		       _("Error: Key %s assigned to %s and %s !!!\n"),
+		       key2str(cmds[i].keys[j]),
+		       get_key_command_name(cmds[i].command),
+		       get_key_command_name(cmd));
+#endif
+	    else
+	      fprintf(stderr,
+		      _("Error: Key %s assigned to %s and %s !!!\n"),
+		      key2str(cmds[i].keys[j]),
+		      get_key_command_name(cmds[i].command),
+		      get_key_command_name(cmd));
 	    retval = -1;
 	  }
       i++;

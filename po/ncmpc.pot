@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-16 13:19+0200\n"
+"POT-Creation-Date: 2004-06-19 19:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,20 +24,16 @@ msgstr ""
 msgid "n"
 msgstr ""
 
-#: src/main.c:99
+#: src/main.c:101
 msgid "Exiting..."
 msgstr ""
 
-#: src/main.c:140
-msgid "Confusing key bindings - exiting!\n"
-msgstr ""
-
-#: src/main.c:235
+#: src/main.c:242
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr ""
 
-#: src/main.c:247
+#: src/main.c:254
 #, c-format
 msgid "Connected to %s!"
 msgstr ""
@@ -145,31 +141,34 @@ msgstr ""
 msgid "Unable to find '%s'"
 msgstr ""
 
-#. query the user for a filename
-#: src/screen_play.c:120
+#: src/screen_play.c:142
 msgid "Save playlist as: "
 msgstr ""
 
-#: src/screen_play.c:140
+#: src/screen_play.c:171
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr ""
 
-#: src/screen_play.c:157 src/screen_file.c:316 src/screen_keydef.c:159
+#: src/screen_play.c:188 src/screen_file.c:316 src/screen_keydef.c:159
 msgid "Aborted!"
 msgstr ""
 
 #. success
-#: src/screen_play.c:163
+#: src/screen_play.c:194
 #, c-format
 msgid "Saved %s"
 msgstr ""
 
-#: src/screen_play.c:204
+#: src/screen_play.c:252
+msgid "Add: "
+msgstr ""
+
+#: src/screen_play.c:310
 msgid "Playlist"
 msgstr ""
 
-#: src/screen_play.c:206
+#: src/screen_play.c:312
 #, c-format
 msgid "Playlist on %s"
 msgstr ""
@@ -332,239 +331,248 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: src/command.c:67
-msgid "Play/Enter directory"
-msgstr ""
-
-#: src/command.c:69
-msgid "Pause"
-msgstr ""
-
-#: src/command.c:71
-msgid "Stop"
-msgstr ""
-
-#: src/command.c:73
-msgid "Next track"
-msgstr ""
-
-#: src/command.c:75
-msgid "Previous track"
-msgstr ""
-
-#: src/command.c:77
-msgid "Seek forward"
-msgstr ""
-
-#: src/command.c:79
-msgid "Seek backward"
-msgstr ""
-
-#: src/command.c:82
-msgid "Increase volume"
-msgstr ""
-
-#: src/command.c:84
-msgid "Decrease volume"
-msgstr ""
-
-#: src/command.c:87
-msgid "Toggle find mode"
-msgstr ""
-
-#: src/command.c:89
-msgid "Toggle auto center mode"
-msgstr ""
-
-#: src/command.c:92
-msgid "Select/deselect song in playlist"
-msgstr ""
-
-#: src/command.c:94
-msgid "Delete song from playlist"
-msgstr ""
-
-#: src/command.c:96
-msgid "Shuffle playlist"
-msgstr ""
-
-#: src/command.c:98
-msgid "Clear playlist"
-msgstr ""
-
-#: src/command.c:100
-msgid "Toggle repeat mode"
-msgstr ""
-
-#: src/command.c:102
-msgid "Toggle random mode"
-msgstr ""
-
-#: src/command.c:104
-msgid "Toggle crossfade mode"
-msgstr ""
-
-#: src/command.c:106
-msgid "Start a music database update"
-msgstr ""
-
-#: src/command.c:109
-msgid "Save playlist"
-msgstr ""
-
-#: src/command.c:112
-msgid "Move item up"
-msgstr ""
-
-#: src/command.c:114
-msgid "Move item down"
-msgstr ""
-
-#: src/command.c:117
-msgid "Move cursor up"
-msgstr ""
-
-#: src/command.c:119
-msgid "Move cursor down"
-msgstr ""
-
-#: src/command.c:121
-msgid "Home "
-msgstr ""
-
-#: src/command.c:123
-msgid "End "
-msgstr ""
-
-#: src/command.c:125
-msgid "Page up"
-msgstr ""
-
-#: src/command.c:127
-msgid "Page down"
-msgstr ""
-
-#: src/command.c:129
-msgid "Forward find"
-msgstr ""
-
-#: src/command.c:131
-msgid "Forward find next"
-msgstr ""
-
-#: src/command.c:133
-msgid "Backward find"
-msgstr ""
-
-#: src/command.c:135
-msgid "Backward find previous"
-msgstr ""
-
-#: src/command.c:139
-msgid "Next screen"
-msgstr ""
-
-#: src/command.c:142
-msgid "Previous screen"
-msgstr ""
-
-#: src/command.c:145
-msgid "Help screen"
-msgstr ""
-
-#: src/command.c:147
-msgid "Playlist screen"
-msgstr ""
-
-#: src/command.c:149
-msgid "Browse screen"
-msgstr ""
-
-#: src/command.c:151
-msgid "Update screen"
-msgstr ""
-
-#: src/command.c:154
-msgid "Clock screen"
-msgstr ""
-
-#: src/command.c:158
+#: src/command.c:68
 msgid "Key configuration screen"
 msgstr ""
 
-#: src/command.c:162
+#: src/command.c:71
 msgid "Quit"
 msgstr ""
 
-#: src/command.c:183
-msgid "Undefined"
+#: src/command.c:75
+msgid "Move cursor up"
 msgstr ""
 
-#: src/command.c:185
-msgid "Space"
+#: src/command.c:77
+msgid "Move cursor down"
 msgstr ""
 
-#: src/command.c:187
-msgid "Enter"
+#: src/command.c:79
+msgid "Home "
 msgstr ""
 
-#: src/command.c:189
-msgid "Backspace"
+#: src/command.c:81
+msgid "End "
 msgstr ""
 
-#: src/command.c:191
-msgid "Delete"
+#: src/command.c:83
+msgid "Page up"
 msgstr ""
 
-#: src/command.c:193
-msgid "Up"
+#: src/command.c:85
+msgid "Page down"
 msgstr ""
 
-#: src/command.c:195
-msgid "Down"
+#: src/command.c:90
+msgid "Help screen"
 msgstr ""
 
-#: src/command.c:197
-msgid "Left"
+#: src/command.c:92
+msgid "Playlist screen"
+msgstr ""
+
+#: src/command.c:94
+msgid "Browse screen"
+msgstr ""
+
+#: src/command.c:99
+msgid "Play/Enter directory"
+msgstr ""
+
+#: src/command.c:101
+msgid "Pause"
+msgstr ""
+
+#: src/command.c:103
+msgid "Stop"
+msgstr ""
+
+#: src/command.c:105
+msgid "Next track"
+msgstr ""
+
+#: src/command.c:107
+msgid "Previous track"
+msgstr ""
+
+#: src/command.c:109
+msgid "Seek forward"
+msgstr ""
+
+#: src/command.c:111
+msgid "Seek backward"
+msgstr ""
+
+#: src/command.c:113
+msgid "Increase volume"
+msgstr ""
+
+#: src/command.c:115
+msgid "Decrease volume"
+msgstr ""
+
+#: src/command.c:117
+msgid "Select/deselect song in playlist"
+msgstr ""
+
+#: src/command.c:119
+msgid "Delete song from playlist"
+msgstr ""
+
+#: src/command.c:121
+msgid "Shuffle playlist"
+msgstr ""
+
+#: src/command.c:123
+msgid "Clear playlist"
+msgstr ""
+
+#: src/command.c:125
+msgid "Toggle repeat mode"
+msgstr ""
+
+#: src/command.c:127
+msgid "Toggle random mode"
+msgstr ""
+
+#: src/command.c:129
+msgid "Toggle crossfade mode"
+msgstr ""
+
+#: src/command.c:131
+msgid "Start a music database update"
+msgstr ""
+
+#: src/command.c:133
+msgid "Save playlist"
+msgstr ""
+
+#: src/command.c:135
+msgid "Add url/file to playlist"
+msgstr ""
+
+#: src/command.c:140
+msgid "Move item up"
+msgstr ""
+
+#: src/command.c:142
+msgid "Move item down"
+msgstr ""
+
+#: src/command.c:144
+msgid "Update screen"
+msgstr ""
+
+#: src/command.c:149
+msgid "Toggle find mode"
+msgstr ""
+
+#: src/command.c:151
+msgid "Toggle auto center mode"
+msgstr ""
+
+#: src/command.c:156
+msgid "Next screen"
+msgstr ""
+
+#: src/command.c:158
+msgid "Previous screen"
+msgstr ""
+
+#: src/command.c:163
+msgid "Forward find"
+msgstr ""
+
+#: src/command.c:165
+msgid "Forward find next"
+msgstr ""
+
+#: src/command.c:167
+msgid "Backward find"
+msgstr ""
+
+#: src/command.c:169
+msgid "Backward find previous"
+msgstr ""
+
+#: src/command.c:175
+msgid "Clock screen"
 msgstr ""
 
 #: src/command.c:199
-msgid "Right"
+msgid "Undefined"
 msgstr ""
 
 #: src/command.c:201
-msgid "Home"
+msgid "Space"
 msgstr ""
 
 #: src/command.c:203
-msgid "End"
+msgid "Enter"
 msgstr ""
 
 #: src/command.c:205
-msgid "PageDown"
+msgid "Backspace"
 msgstr ""
 
 #: src/command.c:207
-msgid "PageUp"
+msgid "Delete"
 msgstr ""
 
 #: src/command.c:209
-msgid "Tab"
+msgid "Up"
 msgstr ""
 
 #: src/command.c:211
-msgid "Shift+Tab"
+msgid "Down"
 msgstr ""
 
 #: src/command.c:213
-msgid "Esc"
+msgid "Left"
 msgstr ""
 
 #: src/command.c:215
+msgid "Right"
+msgstr ""
+
+#: src/command.c:217
+msgid "Home"
+msgstr ""
+
+#: src/command.c:219
+msgid "End"
+msgstr ""
+
+#: src/command.c:221
+msgid "PageDown"
+msgstr ""
+
+#: src/command.c:223
+msgid "PageUp"
+msgstr ""
+
+#: src/command.c:225
+msgid "Tab"
+msgstr ""
+
+#: src/command.c:227
+msgid "Shift+Tab"
+msgstr ""
+
+#: src/command.c:229
+msgid "Esc"
+msgstr ""
+
+#: src/command.c:231
 msgid "Insert"
 msgstr ""
 
-#: src/command.c:408
+#: src/command.c:427
+#, c-format
+msgid "Key %s assigned to %s and %s (press %s for the key editor)"
+msgstr ""
+
+#: src/command.c:434 src/command.c:441
 #, c-format
 msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr ""

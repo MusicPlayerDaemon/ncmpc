@@ -34,6 +34,8 @@
 #include "screen.h"
 #include "conf.h"
 
+#define BUFSIZE 256
+
 static mpdclient_t   *mpd = NULL;
 static gboolean connected = FALSE;
 static GTimer      *timer = NULL;
@@ -106,6 +108,7 @@ main(int argc, const char *argv[])
   options_t *options;
   struct sigaction act;
   const char *charset = NULL;
+  gboolean key_error;
 
 #ifdef HAVE_LOCALE_H
   /* time and date formatting */
@@ -133,14 +136,10 @@ main(int argc, const char *argv[])
   
   /* read configuration */
   read_configuration(options);
-  
-  /* check key bindings */
-  if( check_key_bindings() )
-    {
-      fprintf(stderr, _("Confusing key bindings - exiting!\n"));
-      exit(EXIT_FAILURE);
-    }
 
+  /* check key bindings */
+  key_error = check_key_bindings(NULL, 0);
+  
   /* parse command line options - 2 pass */
   options_parse(argc, argv);
 
@@ -208,6 +207,14 @@ main(int argc, const char *argv[])
   while( connected || options->reconnect )
     {
       static gdouble t = G_MAXDOUBLE;
+
+      if( key_error )
+	{
+	  char buf[BUFSIZE];
+
+	  key_error=check_key_bindings(buf, BUFSIZE);
+	  screen_status_printf("%s", buf);
+	}
 
       if( connected && (t>=MPD_UPDATE_TIME || mpd->need_update) )
 	{

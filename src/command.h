@@ -63,7 +63,7 @@ command_definition_t *get_command_definitions(void);
 command_t find_key_command(int key, command_definition_t *cmds);
 
 void command_dump_keys(void);
-int  check_key_bindings(void);
+int  check_key_bindings(char *buf, size_t size);
 int  write_key_bindings(FILE *f);
 
 char *key2str(int key);
