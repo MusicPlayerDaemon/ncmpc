@@ -29,6 +29,7 @@
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
+#include "screen_play.h"
 #include "screen_file.h"
 
 #define BUFSIZE 1024
@@ -298,8 +299,7 @@ handle_select(screen_t *screen, mpd_client_t *c)
 	{
 	  mpd_Song *song = entry->entity->info.song;
 
-	  mpd_sendAddCommand(c->connection, song->file);
-	  mpd_finishCommand(c->connection);
+	  playlist_add_song(c, song);
 
 	  screen_status_printf("Adding \'%s\' to playlist\n", 
 			       mpc_get_song_name(song));
@@ -307,19 +307,17 @@ handle_select(screen_t *screen, mpd_client_t *c)
     }
   else
     {
+      /* remove song from playlist */
       if( entry->entity->type==MPD_INFO_ENTITY_TYPE_SONG )
 	{
-	  int i;
 	  mpd_Song *song = entry->entity->info.song;
-	  
-	  i = mpc_playlist_get_song_index(c, song->file);
-	  if( i>=0 )
-	    {
-	      mpd_sendDeleteCommand(c->connection, i);
-	      mpd_finishCommand(c->connection);
-	      screen_status_printf("Removed \'%s\' from playlist\n", 
-				   mpc_get_song_name(song));
 
+	  if( song )
+	    {
+	      int index = mpc_playlist_get_song_index(c, song->file);
+	      
+	      while( (index=mpc_playlist_get_song_index(c, song->file))>=0 )
+		playlist_delete_song(c, index);
 	    }
 	}
     }
@@ -458,7 +456,7 @@ file_clear_highlights(mpd_client_t *c)
 }
 
 void
-file_clear_highlight(mpd_client_t *c, mpd_Song *song)
+file_set_highlight(mpd_client_t *c, mpd_Song *song, int highlight)
 {
   GList *list = g_list_first(c->filelist);
 
@@ -476,7 +474,7 @@ file_clear_highlight(mpd_client_t *c, mpd_Song *song)
 
 	  if( strcmp(song->file, song2->file) == 0 )
 	    {
-	      entry->selected = 0;
+	      entry->selected = highlight;
 	    }
 	}
       list = list->next;

@@ -13,43 +13,11 @@
 
 #define MAX_SONG_LENGTH 1024
 
-void 
-mpc_update_song(mpd_client_t *c)
-{
-  mpd_InfoEntity *entity;
-
-  if( mpc_error(c) )
-    return;
-
-  if( c->song )
-    {
-      mpd_freeSong(c->song);
-      c->song = NULL;
-    }
-
-  mpd_sendPlaylistInfoCommand(c->connection, c->status->song);
-  if( mpc_error(c) )
-    return;
-  while( (entity=mpd_getNextInfoEntity(c->connection)) )
-    {
-      mpd_Song *song = entity->info.song;
-
-      if(c->connection->error) 
-	{
-	  fprintf(stderr,"error: %s\n",c->connection->errorStr);
-	  exit(EXIT_FAILURE);
-	}
-      if(entity->type!=MPD_INFO_ENTITY_TYPE_SONG) {
-	mpd_freeInfoEntity(entity);
-	fprintf(stderr,
-		"error: type != MPD_INFO_ENTITY_TYPE_SONG [%d]\n",
-		entity->type);
-	exit(EXIT_FAILURE);
-      }
-      c->song = mpd_songDup(song);
-      mpd_freeInfoEntity(entity);
-    }
-}
+#ifdef DEBUG
+#define D(x) x
+#else
+#define D(x)
+#endif
 
 int 
 mpc_close(mpd_client_t *c)
@@ -161,6 +129,9 @@ mpc_free_playlist(mpd_client_t *c)
   c->playlist=NULL;
   c->playlist_length=0;
 
+  c->song_id = -1;
+  c->song = NULL;
+
   return 0;
 }
 
@@ -169,7 +140,7 @@ mpc_update_playlist(mpd_client_t *c)
 {
   mpd_InfoEntity *entity;
 
-  //  fprintf(stderr, "mpc_update_playlist(): status->playlist = %d\n",  c->status->playlist);
+  D(fprintf(stderr, "mpc_update_playlist() [%d]\n",  c->status->playlist));
 
   if( mpc_error(c) )
     return -1;
@@ -195,6 +166,9 @@ mpc_update_playlist(mpd_client_t *c)
   c->playlist_id = c->status->playlist;
   c->playlist_updated = 1;
   c->song_id = -1;
+  c->song = NULL;
+
+  mpc_filelist_set_selected(c);
 
   return 0;
 }
@@ -221,6 +195,7 @@ mpc_playlist_get_song(mpd_client_t *c, int n)
 {
   return (mpd_Song *) g_list_nth_data(c->playlist, n);
 }
+
 
 char *
 mpc_get_song_name(mpd_Song *song)
@@ -270,7 +245,7 @@ mpc_update(mpd_client_t *c)
   if( c->playlist_id!=c->status->playlist )
     mpc_update_playlist(c);
   
-  if( c->status->song != c->song_id )
+  if( !c->song || c->status->song != c->song_id )
     {
       c->song = mpc_playlist_get_song(c, c->status->song);
       c->song_id = c->status->song;

@@ -34,6 +34,8 @@
 
 #define BUFSIZE 256
 
+#define ENABLE_FANCY_PLAYLIST_MANAGMENT
+
 static list_window_t *lw = NULL;
 
 static char *
@@ -126,7 +128,6 @@ handle_save_playlist(screen_t *screen, mpd_client_t *c)
   return 0;
 }
 
-
 static void
 play_init(WINDOW *w, int cols, int rows)
 {
@@ -157,7 +158,7 @@ static void
 play_paint(screen_t *screen, mpd_client_t *c)
 { 
   lw->clear = 1;
-  
+
   list_window_paint(lw, list_callback, (void *) c);
   wnoutrefresh(lw->w);
 }
@@ -197,24 +198,10 @@ play_update(screen_t *screen, mpd_client_t *c)
 static int
 play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 {
-  mpd_Song *song;
-
   switch(cmd)
     {
     case CMD_DELETE:
-      song = mpc_playlist_get_song(c, lw->selected);
-      if( song )
-	{
-	  file_clear_highlight(c, song);
-	  mpd_sendDeleteCommand(c->connection, lw->selected);
-	  mpd_finishCommand(c->connection);
-	  if( !mpc_error(c) )
-	    {
-	      screen_status_printf("Removed \'%s\' from playlist!",
-				   mpc_get_song_name(song));
-
-	    }
-	}
+      playlist_delete_song(c, lw->selected);
       return 1;
     case CMD_SAVE_PLAYLIST:
       handle_save_playlist(screen, c);
@@ -248,6 +235,83 @@ play_get_selected(void)
 {
   return lw->selected;
 }
+
+int
+playlist_add_song(mpd_client_t *c, mpd_Song *song)
+{
+  if( !song || !song->file )
+    return -1;
+
+  /* send the add command to mpd */
+  mpd_sendAddCommand(c->connection, song->file);
+  mpd_finishCommand(c->connection);
+  if( mpc_error(c) )
+    return -1;
+
+#ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT
+  /* add the song to playlist */
+  c->playlist = g_list_append(c->playlist, (gpointer) mpd_songDup(song));
+  c->playlist_length++;
+
+  /* increment the playlist id, so we dont retrives a new playlist */
+  c->playlist_id++;
+
+  /* make shure the playlist is repainted */
+  lw->clear = 1;
+  lw->repaint = 1;
+#endif
+
+  /* set selected highlight in the browse screen */
+  file_set_highlight(c, song, 1);
+
+  return 0;
+}
+
+int
+playlist_delete_song(mpd_client_t *c, int index)
+{
+  mpd_Song *song = mpc_playlist_get_song(c, index);
+
+  if( !song )
+    return -1;
+
+  /* send the delete command to mpd */
+  mpd_sendDeleteCommand(c->connection, index);
+  mpd_finishCommand(c->connection); 
+  if( mpc_error(c) )
+    return -1;
+
+  /* print a status message */
+  screen_status_printf("Removed \'%s\' from playlist!",
+		       mpc_get_song_name(song));
+  /* clear selected highlight in the browse screen */
+  file_set_highlight(c, song, 0);
+
+#ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT 
+  /* increment the playlist id, so we dont retrives a new playlist */
+  c->playlist_id++;
+
+  /* remove references to the song */
+  if( c->song == song )
+    {
+      c->song = NULL;
+      c->song_id = -1;
+    }
+  
+  /* remove the song from the playlist */
+  c->playlist = g_list_remove(c->playlist, (gpointer) song);
+  c->playlist_length = g_list_length(c->playlist);
+  mpd_freeSong(song);
+
+  /* make shure the playlist is repainted */
+  lw->clear = 1;
+  lw->repaint = 1;
+  list_window_check_selected(lw, c->playlist_length);
+#endif
+
+  return 0;
+}
+
 
 screen_functions_t *
 get_screen_playlist(void)
