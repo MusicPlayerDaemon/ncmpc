@@ -347,7 +347,7 @@ screen_init(void)
 				       screen->main_window.cols,
 				       screen->main_window.rows );
 
-  leaveok(screen->main_window.w, TRUE);
+  //  leaveok(screen->main_window.w, TRUE); temporary disabled
   keypad(screen->main_window.w, TRUE);  
 
   /* create progress window */
@@ -408,6 +408,7 @@ screen_paint(mpd_client_t *c)
   paint_progress_window(c);
   paint_status_window(c);
   screen->painted = 1;
+  wmove(screen->main_window.w, 0, 0);  wnoutrefresh(screen->main_window.w);
   doupdate();
 }
 
@@ -456,6 +457,7 @@ screen_update(mpd_client_t *c)
     }
   paint_progress_window(c);
   paint_status_window(c);
+  wmove(screen->main_window.w, 0, 0);   wnoutrefresh(screen->main_window.w);
   doupdate();
 }
 
