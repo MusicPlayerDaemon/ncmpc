@@ -46,7 +46,7 @@ error_cb(mpdclient_t *c, gint error, gchar *msg)
   GList *list = c->error_callbacks;
   
   if( list==NULL )
-    fprintf(stderr, "error [%d]: %s\n", error, msg);
+    fprintf(stderr, "error [%d]: %s\n", (error & 0xFF), msg);
 
   while(list)
     {
@@ -85,11 +85,14 @@ mpdclient_finish_command(mpdclient_t *c)
   if( c->connection->error )
     {
       gchar *msg = locale_to_utf8(c->connection->errorStr);
-      gint retval = c->connection->error;
+      gint error = c->connection->error;
+      
+      if( error == MPD_ERROR_ACK )
+	error = error | (c->connection->errorCode << 8);
 
-      error_cb(c, c->connection->error, msg);
+      error_cb(c, error, msg);
       g_free(msg);
-      return retval;
+      return error;
     }
 
   return 0;
@@ -120,7 +123,6 @@ mpdclient_free(mpdclient_t *c)
 gint
 mpdclient_disconnect(mpdclient_t *c)
 {
-  D("mpdclient_disconnect()...\n");
   if( c->connection )
     mpd_closeConnection(c->connection);
   c->connection = NULL;
@@ -152,7 +154,6 @@ mpdclient_connect(mpdclient_t *c,
     mpdclient_disconnect(c);
 
   /* connect to MPD */
-  D("mpdclient_connect(%s, %d)...\n", host, port);
   c->connection = mpd_newConnection(host, port, timeout);
   if( c->connection->error )
     return error_cb(c, c->connection->error, c->connection->errorStr);
@@ -163,6 +164,7 @@ mpdclient_connect(mpdclient_t *c,
       mpd_sendPasswordCommand(c->connection, password);
       retval = mpdclient_finish_command(c);
     }
+  c->need_update = TRUE;
 
   return retval;
 }
@@ -568,8 +570,7 @@ mpdclient_playlist_free(mpdclient_playlist_t *playlist)
       list=list->next;
     }
   g_list_free(playlist->list);
-  playlist->list   = NULL;
-  playlist->length = 0;
+  memset(playlist, 0, sizeof(mpdclient_playlist_t));
   return 0;
 }
 
@@ -587,9 +588,6 @@ mpdclient_playlist_update(mpdclient_t *c)
   if( c->playlist.list )
     mpdclient_playlist_free(&c->playlist);
 
-  c->song = NULL;
-  c->playlist.updated = TRUE;
-
   mpd_sendPlaylistInfoCommand(c->connection,-1);
   while( (entity=mpd_getNextInfoEntity(c->connection)) ) 
     {
@@ -604,6 +602,7 @@ mpdclient_playlist_update(mpdclient_t *c)
     }
   c->playlist.id = c->status->playlist;
   c->song = NULL;
+  c->playlist.updated = TRUE;
 
   /* call playlist updated callbacks */
   mpdclient_playlist_callback(c, PLAYLIST_EVENT_UPDATED, NULL);

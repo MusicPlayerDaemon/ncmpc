@@ -91,6 +91,10 @@ gint mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename_utf8);
 
 
 /*** error callbacks *****************************************************/ 
+
+#define IS_ACK_ERROR(n)       (n & MPD_ERROR_ACK)
+#define GET_ACK_ERROR_CODE(n) ((n & 0xFF00) >> 8)
+
 typedef void (*mpdc_error_cb_t) (mpdclient_t *c, gint error, gchar *msg);
 
 void mpdclient_install_error_callback(mpdclient_t *c, mpdc_error_cb_t cb);

@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
+#include <string.h>
 #include <glib.h>
 
 #include "config.h"
@@ -37,22 +38,41 @@ static mpdclient_t   *mpd = NULL;
 static gboolean connected = FALSE;
 static GTimer      *timer = NULL;
 
-static void
-error_callback(mpdclient_t *c, int error, char *msg)
+static gchar *
+error_msg(gchar *msg)
 {
-  D("error_callback> error=%d errorCode=%d errorAt=%d\n", 
-    error, c->connection->errorCode, c->connection->errorAt);
-  D("error_callback> \"%s\"\n", msg);
+  gchar *p;
+
+  if( (p=strchr(msg, '}' )) == NULL )
+    return msg;
+  while( p && *p && (*p=='}' || *p==' ') )
+    p++;
+
+  return p;
+}
+
+static void
+error_callback(mpdclient_t *c, gint error, gchar *msg)
+{
+  gint code = GET_ACK_ERROR_CODE(error);
+
+  error = error & 0xFF;
+  D("Error [%d:%d]> \"%s\"\n", error, c->connection->errorCode, msg);
   switch(error)
     {
+    case MPD_ERROR_CONNPORT:
+    case MPD_ERROR_NORESPONSE:
+      break;
     case MPD_ERROR_ACK:
-      screen_status_printf("%s", msg);
+      screen_status_printf("%s", error_msg(msg));
+      beep();
       break;
     default:
-      screen_status_printf(_("Lost connection to %s"), options.host);
+      screen_status_printf("%s", msg);
+      doupdate();
+      beep();
       connected = FALSE;
     }
-  doupdate();
 }
 
 void
@@ -203,7 +223,6 @@ main(int argc, const char *argv[])
 	{
 	  screen_status_printf(_("Connecting to %s...  [Press %s to abort]"), 
 			       options->host, get_key_names(CMD_QUIT,0) );
-	  doupdate();
 
 	  if( get_keyboard_command_with_timeout(MPD_RECONNECT_TIME)==CMD_QUIT)
 	    exit(EXIT_SUCCESS);
@@ -211,13 +230,13 @@ main(int argc, const char *argv[])
 	  if( mpdclient_connect(mpd,
 				options->host,
 				options->port, 
-				1.0,
+				1.5,
 				options->password) == 0 )
 	    {
 	      screen_status_printf(_("Connected to %s!"), options->host);
-	      doupdate();
 	      connected = TRUE;
 	    }	  
+	  doupdate();
 	}
 
       t = g_timer_elapsed(timer, NULL);
