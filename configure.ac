@@ -48,17 +48,6 @@ dnl
 dnl Check for libraries
 dnl
 
-dnl iconv
-AM_ICONV
-
-dnl nl_langinfo()
-AM_LANGINFO_CODESET
-if test $am_cv_langinfo_codeset = no; then
-  LANGINFO_OBJS=langinfo.o
-fi
-AC_SUBST(LANGINFO_OBJS)
-
-
 dnl ncurses
 AC_CHECK_LIB(ncurses, initscr,, [AC_MSG_ERROR(ncurses library is required)])
 

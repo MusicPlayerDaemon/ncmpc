@@ -1,6 +1,4 @@
 #include <ctype.h>
-#include <errno.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -12,27 +10,11 @@
 #include <locale.h>
 #endif
 
-#ifdef HAVE_ICONV
-#include <iconv.h>
-#endif
-
-#ifdef HAVE_LANGINFO_CODESET
-#include <langinfo.h>
-#endif
-
 #define BUFSIZE 1024
 
-
-static char *charset = NULL;
-
-#ifdef HAVE_LOCALE_H
-static char *locale = NULL;
-#endif
-
-#ifdef HAVE_ICONV
-iconv_t iconv_from_uft8 = (iconv_t)(-1);
-iconv_t iconv_to_uft8 = (iconv_t)(-1);
-#endif
+static const char *charset = NULL;
+static const char *locale = NULL;
+static gboolean noconvert = TRUE;
 
 char *
 trim(char *str)
@@ -104,11 +86,11 @@ concat_path(char *p1, char *p2)
   size += strlen(p2);
   size++;
 
-  path = calloc(size, sizeof(char));
-  strncpy(path, p1, size);
+  path =  g_malloc0(size*sizeof(char));
+  g_strlcpy(path, p1, size);
   if( append_slash )
-    strncat(path, "/", size);
-  strncat(path, p2, size);
+    g_strlcat(path, "/", size);
+  g_strlcat(path, p2, size);
 
   return path;
 }
@@ -151,115 +133,41 @@ charset_init(void)
   /* get current locale */
   if( (locale=setlocale(LC_CTYPE,"")) == NULL )
     {
-      fprintf(stderr,"setlocale() - failed!\n");
+      g_printerr("setlocale() - failed!\n");
       return -1;
     }
 #endif
 
   /* get charset */
-  if( (charset=nl_langinfo(CODESET)) == NULL )
-    {
-      fprintf(stderr,
-	      "nl_langinfo() failed using default:" DEFAULT_CHARSET "\n");
-      charset = DEFAULT_CHARSET;
-    }
+  noconvert = g_get_charset(&charset);
+
 #ifdef DEBUG
-  fprintf(stderr, "charset: %s\n", charset);
+  g_printerr("charset: %s\n", charset);
 #endif
   
-#ifdef HAVE_ICONV
-  /* allocate descriptor for character set conversion */
-  iconv_from_uft8 = iconv_open(charset, "UTF-8");
-  if( iconv_from_uft8 == (iconv_t)(-1) )
-    {
-      perror("iconv_open");
-      return -1;
-    }
-  iconv_to_uft8 = iconv_open("UTF-8", charset);
-  if( iconv_to_uft8 == (iconv_t)(-1) )
-    {
-      perror("iconv_open");
-      return -1;
-    }
-#endif
-
   return 0;
 }
 
 int
 charset_close(void)
 {
-#ifdef HAVE_ICONV
-  if( iconv_from_uft8 != (iconv_t)(-1) )
-    {
-      iconv_close(iconv_from_uft8);
-      iconv_from_uft8 = (iconv_t)(-1);
-    }
-  if( iconv_to_uft8 != (iconv_t)(-1) )
-    {
-      iconv_close(iconv_to_uft8);
-      iconv_to_uft8 = (iconv_t)(-1);
-    }
-#endif
   return 0;
 }
-
-#ifdef HAVE_ICONV
-static char *
-charconv(iconv_t iv, char *str)
-{
-  size_t inleft;
-  size_t retlen;
-  char *ret;
-
-  if( str==NULL )
-    return NULL;
-
-  if( iv == (iconv_t)(-1) )
-    return strdup(str);
-
-  ret = NULL;
-  retlen = 0;
-  inleft = strlen(str);
-  while( inleft>0 )
-    {
-      char buf[BUFSIZE];
-      size_t outleft = BUFSIZE;
-      char *bufp = buf;
-
-      if( iconv(iv, &str, &inleft, &bufp, &outleft) <0 )
-	{
-	  perror("iconv");
-	  free(ret);
-	  return NULL;
-	}
-      ret = realloc(ret, BUFSIZE-outleft+1);
-      memcpy(ret+retlen, buf, BUFSIZE-outleft);
-      retlen += BUFSIZE-outleft;
-      ret[retlen] = '\0';
-    }
-  return ret;
-}
-#endif
 
 char *
 utf8_to_locale(char *str)
 {
-#ifdef HAVE_ICONV
-  return charconv(iconv_from_uft8, str);
-#else
-  return strdup(str);
-#endif
+  if( noconvert )
+    return g_strup(str);
+  return g_locale_from_utf8(str, -1, NULL, NULL, NULL);
 }
 
 char *
 locale_to_utf8(char *str)
 {
-#ifdef HAVE_ICONV
-  return charconv(iconv_to_uft8, str);
-#else
-  return strdup(str);
-#endif
+  if( noconvert )
+    return g_strup(str);
+  return g_locale_to_utf8(str, -1, NULL, NULL, NULL);
 }
 
 
