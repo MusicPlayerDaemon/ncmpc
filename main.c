@@ -85,7 +85,8 @@ main(int argc, char *argv[])
     }
 
   /* set xterm title */
-  printf("%c]0;%s%c", '\033', PACKAGE " v" VERSION, '\007');
+  if( getenv("DISPLAY") )
+    printf("%c]0;%s%c", '\033', PACKAGE " v" VERSION, '\007');
 
   /* install exit function */
   atexit(exit_and_cleanup);
