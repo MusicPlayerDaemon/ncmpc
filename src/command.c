@@ -25,6 +25,7 @@
 #include <ncurses.h>
 
 #include "config.h"
+#include "ncmpc.h"
 #include "command.h"
 
 #undef DEBUG_KEYS
@@ -61,98 +62,98 @@ extern void screen_resize(void);
 static command_definition_t cmds[] =
 {
   { {  13,   0,   0 }, CMD_PLAY, "play",  
-    "Play/Enter directory" },
+    N_("Play/Enter directory") },
   { { 'P',   0,   0 }, CMD_PAUSE,"pause", 
-    "Pause" },
+    N_("Pause") },
   { { 's',  BS,   0 }, CMD_STOP, "stop",   
-    "Stop" },
+    N_("Stop") },
   { { '>',   0,   0 }, CMD_TRACK_NEXT, "next", 
-    "Next track" },
+    N_("Next track") },
   { { '<',   0,   0 }, CMD_TRACK_PREVIOUS, "prev", 
-    "Previous track" },
+    N_("Previous track") },
   { { 'f',   0,   0 }, CMD_SEEK_FORWARD, "seek-forward", 
-    "Seek forward" },
+    N_("Seek forward") },
   { { 'b',   0,   0 }, CMD_SEEK_BACKWARD, "seek-backward", 
-    "Seek backward" },
+    N_("Seek backward") },
 
   { { '+', RGHT,  0 }, CMD_VOLUME_UP, "volume-up", 
-    "Increase volume" },
+    N_("Increase volume") },
   { { '-', LEFT,  0 }, CMD_VOLUME_DOWN, "volume-down", 
-    "Decrease volume" },
+    N_("Decrease volume") },
 
   { { 'w',   0,   0 }, CMD_TOGGLE_FIND_WRAP,  "wrap-mode", 
-    "Toggle find mode" },
+    N_("Toggle find mode") },
   { { 'U',   0,   0 }, CMD_TOGGLE_AUTOCENTER, "autocenter-mode", 
-    "Toggle auto center mode" },
+    N_("Toggle auto center mode") },
 
   { { ' ',  'a',   0 }, CMD_SELECT, "select", 
-    "Select/deselect song in playlist" },
+    N_("Select/deselect song in playlist") },
   { { DEL,  'd',  0 }, CMD_DELETE, "delete",
-    "Delete song from playlist" },
+    N_("Delete song from playlist") },
   { { 'Z',   0,   0 }, CMD_SHUFFLE, "shuffle",
-    "Shuffle playlist" },
+    N_("Shuffle playlist") },
   { { 'c',   0,   0 }, CMD_CLEAR, "clear",
-    "Clear playlist" },
+    N_("Clear playlist") },
   { { 'r',   0,   0 }, CMD_REPEAT, "repeat",
-    "Toggle repeat mode" },
+    N_("Toggle repeat mode") },
   { { 'z',   0,   0 }, CMD_RANDOM, "random",
-    "Toggle random mode" },
+    N_("Toggle random mode") },
   { { 'x',   0,   0 }, CMD_CROSSFADE, "crossfade",
-    "Toggle crossfade mode" },
+    N_("Toggle crossfade mode") },
   { { 21,   0,   0 }, CMD_DB_UPDATE,  "db-update",
-    "Start a music database update" },
+    N_("Start a music database update") },
 
   { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "save",
-    "Save playlist" },
+    N_("Save playlist") },
 
   { { 0,  0,   0 }, CMD_LIST_MOVE_UP,     "move-up", 
-    "Move item up" },
+    N_("Move item up") },
   { { 0,  0,   0 }, CMD_LIST_MOVE_DOWN,   "move-down", 
-    "Move item down" },
+    N_("Move item down") },
 
   { {  UP,  ',',   0 }, CMD_LIST_PREVIOUS,      "up",
-    "Move cursor up" },
+    N_("Move cursor up") },
   { { DWN,  '.',   0 }, CMD_LIST_NEXT,          "down",
-    "Move cursor down" },
+    N_("Move cursor down") },
   { { HOME, 0x01, 0 }, CMD_LIST_FIRST,          "home",
-    "Home " },
+    N_("Home ") },
   { { END,  0x05, 0 }, CMD_LIST_LAST,           "end",
-    "End " },
+    N_("End ") },
   { { PGUP, 'A',   0 }, CMD_LIST_PREVIOUS_PAGE, "pgup",
-    "Page up" },
+    N_("Page up") },
   { { PGDN, 'B',   0 }, CMD_LIST_NEXT_PAGE,     "pgdn", 
-    "Page down" },
+    N_("Page down") },
   { { '/',   0,   0 }, CMD_LIST_FIND,           "find",
-    "Forward find" },
+    N_("Forward find") },
   { { 'n',   0,   0 }, CMD_LIST_FIND_NEXT,      "find-next",
-    "Forward find next" },
+    N_("Forward find next") },
   { { '?',   0,   0 }, CMD_LIST_RFIND,          "rfind",
-    "Backward find" },
+    N_("Backward find") },
   { { 'p',   0,   0 }, CMD_LIST_RFIND_NEXT,     "rfind-next",
-    "Backward find previous" },
+    N_("Backward find previous") },
 
 
   { { TAB,   0,   0 }, CMD_SCREEN_NEXT,     "screen-next",
-    "Next screen" },
+    N_("Next screen") },
 
   { { STAB,  0,   0 }, CMD_SCREEN_PREVIOUS, "screen-prev",
-    "Previous screen" },
+    N_("Previous screen") },
 
   { { '1', F1, 'h' }, CMD_SCREEN_HELP,      "screen-help",
-    "Help screen" },
+    N_("Help screen") },
   { { '2', F2,  0 }, CMD_SCREEN_PLAY,      "screen-playlist",
-    "Playlist screen" },
+    N_("Playlist screen") },
   { { '3', F3,  0 }, CMD_SCREEN_FILE,      "screen-browse",
-    "Browse screen" },
+    N_("Browse screen") },
   { {'u',   0,   0 }, CMD_SCREEN_UPDATE,    "update",
-    "Update screen" },
+    N_("Update screen") },
 #ifdef ENABLE_KEYDEF_SCREEN
   { {'K',   0,   0 }, CMD_SCREEN_KEYDEF,    "screen-keyedit",
-    "Key configuration screen" },
+    N_("Key configuration screen") },
 #endif
 
   { { 'q',  0,   0 }, CMD_QUIT,   "quit",
-    "Quit " PACKAGE },  
+    N_("Quit") },  
 
   { { -1,  -1,  -1 }, CMD_NONE, NULL, NULL }
 };
@@ -173,39 +174,39 @@ key2str(int key)
   switch(key)
     {
     case 0:
-      return "Undefined";
+      return _("Undefined");
     case ' ':
-      return "Space";
+      return _("Space");
     case 13:
-      return "Enter";
+      return _("Enter");
     case BS:
-      return "Backspace";
+      return _("Backspace");
     case DEL:
-      return "Delete";
+      return _("Delete");
     case UP: 
-      return "Up";
+      return _("Up");
     case DWN:
-      return "Down";
+      return _("Down");
     case LEFT:
-      return "Left";
+      return _("Left");
     case RGHT:
-      return "Right";
+      return _("Right");
     case HOME:
-      return "Home";
+      return _("Home");
     case END:
-      return "End";
+      return _("End");
     case PGDN:
-      return "PageDown";
+      return _("PageDown");
     case PGUP:
-      return "PageUp";
+      return _("PageUp");
     case TAB: 
-      return "Tab";
+      return _("Tab");
     case STAB:
-      return "Shift+Tab";
+      return _("Shift+Tab");
     case ESC:
-      return "Esc";
+      return _("Esc");
     case KEY_IC:
-      return "Insert";
+      return _("Insert");
     default:
       for(i=0; i<=63; i++)
 	if( key==KEY_F(i) )
@@ -278,7 +279,7 @@ get_key_description(command_t command)
   while( cmds[i].description )
     {
       if( cmds[i].command == command )
-	return cmds[i].description;
+	return _(cmds[i].description);
       i++;
     }
   return NULL;
@@ -391,7 +392,7 @@ check_key_bindings(void)
 	if( cmds[i].keys[j] && 
 	    (cmd=get_key_command(cmds[i].keys[j])) != cmds[i].command )
 	  {
-	    fprintf(stderr, "Error: Key %s assigned to %s and %s !!!\n",
+	    fprintf(stderr, _("Error: Key %s assigned to %s and %s !!!\n"),
 		    key2str(cmds[i].keys[j]),
 		    get_key_command_name(cmds[i].command),
 		    get_key_command_name(cmd));

@@ -23,6 +23,7 @@
 #include <ncurses.h>
 
 #include "config.h"
+#include "ncmpc.h"
 #include "libmpdclient.h"
 #include "mpc.h"
 #include "support.h"
@@ -32,8 +33,8 @@
 #include "colors.h"
 #include "screen.h"
 
-#define FIND_PROMPT  "Find: "
-#define RFIND_PROMPT "Find backward: "
+#define FIND_PROMPT  _("Find: ")
+#define RFIND_PROMPT _("Find backward: ")
 
 int
 screen_getch(WINDOW *w, char *prompt)
@@ -140,7 +141,7 @@ screen_find(screen_t *screen,
 	}
       else
 	{
-	  screen_status_printf("Unable to find \'%s\'", screen->findbuf);
+	  screen_status_printf(_("Unable to find \'%s\'"), screen->findbuf);
 	  beep();
 	}
       return 1;

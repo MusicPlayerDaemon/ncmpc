@@ -23,6 +23,7 @@
 #include <ncurses.h>
 
 #include "config.h"
+#include "ncmpc.h"
 #include "support.h"
 #include "libmpdclient.h"
 #include "mpc.h"
@@ -147,7 +148,7 @@ load_playlist(screen_t *screen, mpd_client_t *c, filelist_entry_t *entry)
   mpd_sendLoadCommand(c->connection, plf->path);
   mpd_finishCommand(c->connection);
 
-  screen_status_printf("Loading playlist %s...", filename);
+  screen_status_printf(_("Loading playlist %s..."), filename);
   g_free(filename);
   return 0;
 }
@@ -169,21 +170,21 @@ handle_delete(screen_t *screen, mpd_client_t *c)
 
   if( entity->type!=MPD_INFO_ENTITY_TYPE_PLAYLISTFILE )
     {
-      screen_status_printf("You can only delete playlists!");
+      screen_status_printf(_("You can only delete playlists!"));
       beep();
       return -1;
     }
 
   plf = entity->info.playlistFile;
   str = utf8_to_locale(basename(plf->path));
-  snprintf(buf, BUFSIZE, "Delete playlist %s [y/n] ? ", str);
+  snprintf(buf, BUFSIZE, _("Delete playlist %s [y/n] ? "), str);
   g_free(str);  
   key = tolower(screen_getch(screen->status_window.w, buf));
   if( key==KEY_RESIZE )
     screen_resize();
   if( key!='y' )
     {
-      screen_status_printf("Aborted!");
+      screen_status_printf(_("Aborted!"));
       return 0;
     }
 
@@ -197,7 +198,7 @@ handle_delete(screen_t *screen, mpd_client_t *c)
       beep();
       return -1;
     }
-  screen_status_printf("Playlist deleted!");
+  screen_status_printf(_("Playlist deleted!"));
   mpc_update_filelist(c);
   list_window_check_selected(lw, c->filelist_length);
   return 0;
@@ -231,7 +232,7 @@ add_directory(mpd_client_t *c, char *dir)
   char *dirname;
 
   dirname = utf8_to_locale(dir);
-  screen_status_printf("Adding directory %s...\n", dirname);
+  screen_status_printf(_("Adding directory %s...\n"), dirname);
   doupdate(); 
   g_free(dirname);
   dirname = NULL;
@@ -301,7 +302,7 @@ handle_select(screen_t *screen, mpd_client_t *c)
 
 	  playlist_add_song(c, song);
 
-	  screen_status_printf("Adding \'%s\' to playlist\n", 
+	  screen_status_printf(_("Adding \'%s\' to playlist\n"), 
 			       mpc_get_song_name(song));
 	}
     }
@@ -366,7 +367,8 @@ file_title(void)
 
   tmp = utf8_to_locale(basename(mpc->cwd));
   snprintf(buf, TITLESIZE, 
-	   TOP_HEADER_FILE ": %s                          ",
+	   "%s : %s                          ",
+	   _(TOP_HEADER_FILE) ,
 	   tmp
 	   );
   g_free(tmp);
@@ -418,7 +420,7 @@ file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
     case CMD_SCREEN_UPDATE:
       mpc_update_filelist(c);
       list_window_check_selected(lw, c->filelist_length);
-      screen_status_printf("Screen updated!");
+      screen_status_printf(_("Screen updated!"));
       return 1;
     case CMD_LIST_FIND:
     case CMD_LIST_RFIND:

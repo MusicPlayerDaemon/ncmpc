@@ -21,12 +21,12 @@
 #include <stdarg.h>
 #include <string.h>
 #include <time.h>
-//#include <signal.h>
 #include <locale.h>
 #include <glib.h>
 #include <ncurses.h>
 
 #include "config.h"
+#include "ncmpc.h"
 #include "libmpdclient.h"
 #include "mpc.h"
 #include "command.h"
@@ -128,23 +128,23 @@ paint_top_window(char *header, mpd_client_t *c, int clear)
 	  colors_use(w, COLOR_TITLE_BOLD);
 	  waddstr(w, get_key_names(CMD_SCREEN_HELP, FALSE));
 	  colors_use(w, COLOR_TITLE);
-	  waddstr(w, ":Help  ");
+	  waddstr(w, _(":Help  "));
 	  colors_use(w, COLOR_TITLE_BOLD);
 	  waddstr(w, get_key_names(CMD_SCREEN_PLAY, FALSE));
 	  colors_use(w, COLOR_TITLE);
-	  waddstr(w, ":Playlist  ");
+	  waddstr(w, _(":Playlist  "));
 	  colors_use(w, COLOR_TITLE_BOLD);
 	  waddstr(w, get_key_names(CMD_SCREEN_FILE, FALSE));
 	  colors_use(w, COLOR_TITLE);
-	  waddstr(w, ":Browse");
+	  waddstr(w, _(":Browse"));
 	}
       if( c->status->volume==MPD_STATUS_NO_VOLUME )
 	{
-	  snprintf(buf, 32, "Volume n/a ");
+	  snprintf(buf, 32, _("Volume n/a "));
 	}
       else
 	{
-	  snprintf(buf, 32, " Volume %d%%", c->status->volume); 
+	  snprintf(buf, 32, _(" Volume %d%%"), c->status->volume); 
 	}
       colors_use(w, COLOR_TITLE);
       mvwaddstr(w, 0, screen->top_window.cols-strlen(buf), buf);
@@ -263,13 +263,13 @@ paint_status_window(mpd_client_t *c)
   switch(status->state)
     {
     case MPD_STATUS_STATE_STOP:
-      waddstr(w, "Stopped! ");
+      waddstr(w, _("Stopped! "));
       break;
     case MPD_STATUS_STATE_PLAY:
-      waddstr(w, "Playing:");
+      waddstr(w, _("Playing:"));
       break;
     case MPD_STATUS_STATE_PAUSE:
-      waddstr(w, "[Paused]");
+      waddstr(w, _("[Paused]"));
       break;
     default:
       break;
@@ -330,20 +330,6 @@ paint_status_window(mpd_client_t *c)
       mvwaddstr(w, 0, x, screen->buf);
     }
 
-#ifdef ENABLE_STATUS_LINE_CLOCK
-  else if( c->status->state == MPD_STATUS_STATE_STOP )
-    {
-      time_t timep;
-
-      /* Note: setlocale(LC_TIME,"") should be used first */
-      time(&timep);
-      strftime(screen->buf, screen->buf_size, "%X ",  localtime(&timep));
-      x = screen->status_window.cols - strlen(screen->buf) ;
-      colors_use(w, COLOR_STATUS_TIME);
-      mvwaddstr(w, 0, x, screen->buf);
-    }
-#endif
-
   wnoutrefresh(w);
 }
 
@@ -393,7 +379,7 @@ screen_resize(void)
   if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
     {
       screen_exit();
-      fprintf(stderr, "Error: Screen to small!\n");
+      fprintf(stderr, _("Error: Screen to small!\n"));
       exit(EXIT_FAILURE);
     }
 
@@ -493,7 +479,7 @@ screen_init(void)
 
   if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
     {
-      fprintf(stderr, "Error: Screen to small!\n");
+      fprintf(stderr, _("Error: Screen to small!\n"));
       exit(EXIT_FAILURE);
     }
 
@@ -637,15 +623,18 @@ screen_update(mpd_client_t *c)
       dbupdate = c->status->updatingDb;
     }
   if( repeat != c->status->repeat )
-    screen_status_printf("Repeat is %s", 
-			 c->status->repeat  ? "On" : "Off");
+    screen_status_printf(c->status->repeat ? 
+			 _("Repeat is on") :
+			 _("Repeat is off"));
   if( random != c->status->random )
-    screen_status_printf("Random is %s", 
-			 c->status->random ? "On" : "Off");
+    screen_status_printf(c->status->random ?
+			 _("Random is on") :
+			 _("Random is off"));
+			 
   if( crossfade != c->status->crossfade )
-    screen_status_printf("Crossfade %d seconds", c->status->crossfade);
+    screen_status_printf(_("Crossfade %d seconds"), c->status->crossfade);
   if( dbupdate && dbupdate != c->status->updatingDb )
-    screen_status_printf("Database updated!");
+    screen_status_printf(_("Database updated!"));
 
   repeat = c->status->repeat;
   random = c->status->random;
@@ -775,13 +764,13 @@ screen_cmd(mpd_client_t *c, command_t cmd)
     case CMD_SHUFFLE:
       mpd_sendShuffleCommand(c->connection);
       mpd_finishCommand(c->connection);
-      screen_status_message("Shuffled playlist!");
+      screen_status_message(_("Shuffled playlist!"));
       break;
     case CMD_CLEAR:
       mpd_sendClearCommand(c->connection);
       mpd_finishCommand(c->connection);
       file_clear_highlights(c);
-      screen_status_message("Cleared playlist!");
+      screen_status_message(_("Cleared playlist!"));
       break;
     case CMD_REPEAT:
       n = !c->status->repeat;
@@ -808,10 +797,10 @@ screen_cmd(mpd_client_t *c, command_t cmd)
 	  n = mpd_getUpdateId(c->connection);
 	  mpd_finishCommand(c->connection);
 	  if( !mpc_error(c) )
-	    screen_status_printf("Database update started [%d]", n);
+	    screen_status_printf(_("Database update started [%d]"), n);
 	}
       else
-	screen_status_printf("Database update running...");
+	screen_status_printf(_("Database update running..."));
       break;
     case CMD_VOLUME_UP:
       if( c->status->volume!=MPD_STATUS_NO_VOLUME && c->status->volume<100 )
@@ -831,13 +820,15 @@ screen_cmd(mpd_client_t *c, command_t cmd)
       break;
     case CMD_TOGGLE_FIND_WRAP:
       options.find_wrap = !options.find_wrap;
-      screen_status_printf("Find mode: %s", 
-			   options.find_wrap ? "Wrapped" : "Normal");
+      screen_status_printf(options.find_wrap ? 
+			   _("Find mode: Wrapped") :
+			   _("Find mode: Normal"));
       break;
     case CMD_TOGGLE_AUTOCENTER:
       options.auto_center = !options.auto_center;
-      screen_status_printf("Auto center mode: %s", 
-			   options.auto_center ? "On" : "Off");
+      screen_status_printf(options.auto_center ?
+			   _("Auto center mode: On") :
+			   _("Auto center mode: Off"));
       break;
     case CMD_SCREEN_PREVIOUS:
       if( screen->mode > SCREEN_PLAY_WINDOW )

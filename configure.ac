@@ -5,6 +5,7 @@ dnl
 AC_INIT
 AC_CONFIG_SRCDIR([src/main.c])
 AM_INIT_AUTOMAKE(ncmpc, 0.11.0-svn)
+AM_CONFIG_HEADER([config.h])
 
 dnl Check for programs
 AC_PROG_CC
@@ -16,7 +17,6 @@ dnl initialize variables
 dnl =======================================================
 
 set -- $CFLAGS
-CFLAGS="-Wall $CFLAGS"
 
 keydef_screen=yes
 
@@ -54,8 +54,33 @@ dnl ncurses
 AC_CHECK_LIB(ncurses, initscr,, [AC_MSG_ERROR(ncurses library is required)])
 LIBS="$LIBS -lncurses"
 
-dnl glib-2.0
-AM_PATH_GLIB_2_0(, , [AC_MSG_ERROR(glib-2.x is required)], glib)
+dnl Check for glib-2
+#AM_PATH_GLIB_2_0(, , [AC_MSG_ERROR(glib-2.x is required)], glib)
+PKG_CHECK_MODULES(GLIB, 
+		  glib-2.0 >= 2.2,
+		  ,
+		  AC_MSG_ERROR(glib-2.2 is required))
+
+dnl i18n
+ALL_LINGUAS=""
+AC_MSG_CHECKING([whether to include NLS support])
+AC_ARG_ENABLE([nls],
+              AC_HELP_STRING([--enable-nls],
+	                     [include natural language support @<:@default=yes@:>@]),
+              [nls="$enableval"],
+	      [nls=yes])
+AC_MSG_RESULT([$nls])
+if test "x$nls" = "xyes"; then
+   ALL_LINGUAS="sv"
+   AM_GLIB_GNU_GETTEXT
+   GETTEXT_PACKAGE=$PACKAGE
+   AC_SUBST(GETTEXT_PACKAGE)
+   AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], 
+                      ["${GETTEXT_PACKAGE}"], 
+                      [gettext domain])
+  nls=$gt_cv_have_gettext
+fi
+
 
 dnl popt
 AC_CHECK_LIB(popt, 
@@ -73,7 +98,7 @@ AC_ARG_ENABLE(debug,
 	      enable_debug=no)
 
 if test "$enable_debug" = yes; then
-   CFLAGS="$CFLAGS -g -DDEBUG"
+   CFLAGS="$CFLAGS -Wall -g -DDEBUG"
 fi
 
 dnl Key editor
@@ -83,9 +108,9 @@ AC_ARG_ENABLE(key-editor,
 	      keydef_screen=no,
 	      keydef_screen=yes)
 if test "$keydef_screen" = yes; then
-       CFLAGS="$CFLAGS -DENABLE_KEYDEF_SCREEN"
+   AC_DEFINE(ENABLE_KEYDEF_SCREEN, 1, [Enable builtin key editor])
 fi
-dnl   AC_DEFINE(ENABLE_KEYDEF_SCREEN, 1, [Enable builtin key editor]), 
+
 
 
 dnl Default host
@@ -101,23 +126,18 @@ AC_ARG_WITH(default-port,
             DEFAULT_PORT="6600")
 
 
-CFLAGS="$CFLAGS $GLIB_CFLAGS -DSYSCONFDIR=\\\"\$(sysconfdir)\\\""
-LIBS="$LIBS $GLIB_LIBS"
-
-
 dnl Autoheader
 AC_DEFINE_UNQUOTED(DEFAULT_PORT,      $DEFAULT_PORT,     Default MPD port)
 AC_DEFINE_UNQUOTED(DEFAULT_PORT_STR, "$DEFAULT_PORT",    Default MPD port)
 AC_DEFINE_UNQUOTED(DEFAULT_HOST,     "$DEFAULT_HOST",    Default MPD host)
 
-AM_CONFIG_HEADER(config.h)
-
-AC_CONFIG_FILES([doc/Makefile src/Makefile Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile doc/Makefile po/Makefile.in])
 AC_OUTPUT
 
 echo "
 Configuration:  
   prefix:                             ${prefix}
+  nls:                                ${nls}
   sysconfdir:                         ${sysconfdir}
   Default MPD host:                   ${DEFAULT_HOST}
   Default MPD port:                   ${DEFAULT_PORT}

@@ -1,9 +1,13 @@
 2004-06-05 Kalle Wallin <kaw@linux.se>
+	* Added initial i18n support
 	* Changed directory layout to suit future use of gettext 
+	* Changed the default port to 6600
 	* screen.c: Added mpd update flag [U] and display a status message
 	            when a update has finished
 	* screen.c: Display bit rate instead of time when the total time
 	            is zero and display local time when mpd is stopped.
+	* Addded support for the mpd update command.
+
 
 2004-05-07 Kalle Wallin <kaw@linux.se>
 	* Redesigned ncmpc's color support - view the manual for details!

@@ -1,0 +1,543 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-06-05 20:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/main.c:59
+msgid ""
+"\n"
+"Exiting...\n"
+msgstr ""
+
+#: src/main.c:89
+msgid "Confusing key bindings - exiting!\n"
+msgstr ""
+
+#: src/main.c:153
+#, c-format
+msgid "Lost connection to %s"
+msgstr ""
+
+#: src/main.c:183
+#, c-format
+msgid "Connecting to %s...  [Press Ctrl-C to abort]"
+msgstr ""
+
+#: src/main.c:190
+#, c-format
+msgid "Connected to %s!"
+msgstr ""
+
+#: src/screen.c:131
+msgid ":Help  "
+msgstr ""
+
+#: src/screen.c:135
+msgid ":Playlist  "
+msgstr ""
+
+#: src/screen.c:139
+msgid ":Browse"
+msgstr ""
+
+#: src/screen.c:143
+msgid "Volume n/a "
+msgstr ""
+
+#: src/screen.c:147
+#, c-format
+msgid " Volume %d%%"
+msgstr ""
+
+#: src/screen.c:266
+msgid "Stopped! "
+msgstr ""
+
+#: src/screen.c:269
+msgid "Playing:"
+msgstr ""
+
+#: src/screen.c:272
+msgid "[Paused]"
+msgstr ""
+
+#: src/screen.c:382 src/screen.c:482
+msgid "Error: Screen to small!\n"
+msgstr ""
+
+#: src/screen.c:627
+msgid "Repeat is on"
+msgstr ""
+
+#: src/screen.c:628
+msgid "Repeat is off"
+msgstr ""
+
+#: src/screen.c:631
+msgid "Random is on"
+msgstr ""
+
+#: src/screen.c:632
+msgid "Random is off"
+msgstr ""
+
+#: src/screen.c:635
+#, c-format
+msgid "Crossfade %d seconds"
+msgstr ""
+
+#: src/screen.c:637
+msgid "Database updated!"
+msgstr ""
+
+#: src/screen.c:767
+msgid "Shuffled playlist!"
+msgstr ""
+
+#: src/screen.c:773
+msgid "Cleared playlist!"
+msgstr ""
+
+#: src/screen.c:800
+#, c-format
+msgid "Database update started [%d]"
+msgstr ""
+
+#: src/screen.c:803
+msgid "Database update running..."
+msgstr ""
+
+#: src/screen.c:824
+msgid "Find mode: Wrapped"
+msgstr ""
+
+#: src/screen.c:825
+msgid "Find mode: Normal"
+msgstr ""
+
+#: src/screen.c:830
+msgid "Auto center mode: On"
+msgstr ""
+
+#: src/screen.c:831
+msgid "Auto center mode: Off"
+msgstr ""
+
+#: src/screen_utils.c:36
+msgid "Find: "
+msgstr ""
+
+#: src/screen_utils.c:37
+msgid "Find backward: "
+msgstr ""
+
+#: src/screen_utils.c:144
+#, c-format
+msgid "Unable to find '%s'"
+msgstr ""
+
+#: src/screen_play.c:91
+msgid "Save playlist as: "
+msgstr ""
+
+#: src/screen_play.c:111
+#, c-format
+msgid "Error: Unable to save playlist as %s"
+msgstr ""
+
+#. success
+#: src/screen_play.c:118
+#, c-format
+msgid "Saved %s"
+msgstr ""
+
+#: src/screen_play.c:154
+msgid "Playlist"
+msgstr ""
+
+#. print a status message
+#: src/screen_play.c:339
+#, c-format
+msgid "Removed '%s' from playlist!"
+msgstr ""
+
+#: src/screen_file.c:151
+#, c-format
+msgid "Loading playlist %s..."
+msgstr ""
+
+#: src/screen_file.c:173
+msgid "You can only delete playlists!"
+msgstr ""
+
+#: src/screen_file.c:180
+#, c-format
+msgid "Delete playlist %s [y/n] ? "
+msgstr ""
+
+#: src/screen_file.c:187 src/screen_keydef.c:158
+msgid "Aborted!"
+msgstr ""
+
+#: src/screen_file.c:201
+msgid "Playlist deleted!"
+msgstr ""
+
+#: src/screen_file.c:235
+#, c-format
+msgid "Adding directory %s...\n"
+msgstr ""
+
+#: src/screen_file.c:305
+#, c-format
+msgid "Adding '%s' to playlist\n"
+msgstr ""
+
+#: src/screen_file.c:423
+msgid "Screen updated!"
+msgstr ""
+
+#: src/screen_keydef.c:45
+msgid "===> Apply & Save key bindings  "
+msgstr ""
+
+#: src/screen_keydef.c:46
+msgid "===> Apply key bindings "
+msgstr ""
+
+#: src/screen_keydef.c:75
+msgid "You have new key bindings!"
+msgstr ""
+
+#: src/screen_keydef.c:78
+msgid "Keybindings unchanged."
+msgstr ""
+
+#: src/screen_keydef.c:89
+#, c-format
+msgid "Error: Unable to create direcory ~/.ncmpc - %s"
+msgstr ""
+
+#: src/screen_keydef.c:99 src/screen_keydef.c:105
+#, c-format
+msgid "Error: %s - %s"
+msgstr ""
+
+#: src/screen_keydef.c:107
+#, c-format
+msgid "Wrote %s"
+msgstr ""
+
+#: src/screen_keydef.c:135
+msgid "Deleted"
+msgstr ""
+
+#: src/screen_keydef.c:152
+#, c-format
+msgid "Enter new key for %s: "
+msgstr ""
+
+#: src/screen_keydef.c:164
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr ""
+
+#: src/screen_keydef.c:171
+#, c-format
+msgid "Assigned %s to %s"
+msgstr ""
+
+#: src/screen_keydef.c:207
+#, c-format
+msgid "%d. Add new key "
+msgstr ""
+
+#: src/screen_keydef.c:254
+msgid "Welcome to the key editor!"
+msgstr ""
+
+#: src/screen_keydef.c:270
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr ""
+
+#: src/screen_keydef.c:279
+msgid "Edit key bindings"
+msgstr ""
+
+#: src/screen_keydef.c:282
+#, c-format
+msgid "Edit keys for %s"
+msgstr ""
+
+#: src/command.c:65
+msgid "Play/Enter directory"
+msgstr ""
+
+#: src/command.c:67
+msgid "Pause"
+msgstr ""
+
+#: src/command.c:69
+msgid "Stop"
+msgstr ""
+
+#: src/command.c:71
+msgid "Next track"
+msgstr ""
+
+#: src/command.c:73
+msgid "Previous track"
+msgstr ""
+
+#: src/command.c:75
+msgid "Seek forward"
+msgstr ""
+
+#: src/command.c:77
+msgid "Seek backward"
+msgstr ""
+
+#: src/command.c:80
+msgid "Increase volume"
+msgstr ""
+
+#: src/command.c:82
+msgid "Decrease volume"
+msgstr ""
+
+#: src/command.c:85
+msgid "Toggle find mode"
+msgstr ""
+
+#: src/command.c:87
+msgid "Toggle auto center mode"
+msgstr ""
+
+#: src/command.c:90
+msgid "Select/deselect song in playlist"
+msgstr ""
+
+#: src/command.c:92
+msgid "Delete song from playlist"
+msgstr ""
+
+#: src/command.c:94
+msgid "Shuffle playlist"
+msgstr ""
+
+#: src/command.c:96
+msgid "Clear playlist"
+msgstr ""
+
+#: src/command.c:98
+msgid "Toggle repeat mode"
+msgstr ""
+
+#: src/command.c:100
+msgid "Toggle random mode"
+msgstr ""
+
+#: src/command.c:102
+msgid "Toggle crossfade mode"
+msgstr ""
+
+#: src/command.c:104
+msgid "Start a music database update"
+msgstr ""
+
+#: src/command.c:107
+msgid "Save playlist"
+msgstr ""
+
+#: src/command.c:110
+msgid "Move item up"
+msgstr ""
+
+#: src/command.c:112
+msgid "Move item down"
+msgstr ""
+
+#: src/command.c:115
+msgid "Move cursor up"
+msgstr ""
+
+#: src/command.c:117
+msgid "Move cursor down"
+msgstr ""
+
+#: src/command.c:119
+msgid "Home "
+msgstr ""
+
+#: src/command.c:121
+msgid "End "
+msgstr ""
+
+#: src/command.c:123
+msgid "Page up"
+msgstr ""
+
+#: src/command.c:125
+msgid "Page down"
+msgstr ""
+
+#: src/command.c:127
+msgid "Forward find"
+msgstr ""
+
+#: src/command.c:129
+msgid "Forward find next"
+msgstr ""
+
+#: src/command.c:131
+msgid "Backward find"
+msgstr ""
+
+#: src/command.c:133
+msgid "Backward find previous"
+msgstr ""
+
+#: src/command.c:137
+msgid "Next screen"
+msgstr ""
+
+#: src/command.c:140
+msgid "Previous screen"
+msgstr ""
+
+#: src/command.c:143
+msgid "Help screen"
+msgstr ""
+
+#: src/command.c:145
+msgid "Playlist screen"
+msgstr ""
+
+#: src/command.c:147
+msgid "Browse screen"
+msgstr ""
+
+#: src/command.c:149
+msgid "Update screen"
+msgstr ""
+
+#: src/command.c:152
+msgid "Key configuration screen"
+msgstr ""
+
+#: src/command.c:156
+msgid "Quit"
+msgstr ""
+
+#: src/command.c:177
+msgid "Undefined"
+msgstr ""
+
+#: src/command.c:179
+msgid "Space"
+msgstr ""
+
+#: src/command.c:181
+msgid "Enter"
+msgstr ""
+
+#: src/command.c:183
+msgid "Backspace"
+msgstr ""
+
+#: src/command.c:185
+msgid "Delete"
+msgstr ""
+
+#: src/command.c:187
+msgid "Up"
+msgstr ""
+
+#: src/command.c:189
+msgid "Down"
+msgstr ""
+
+#: src/command.c:191
+msgid "Left"
+msgstr ""
+
+#: src/command.c:193
+msgid "Right"
+msgstr ""
+
+#: src/command.c:195
+msgid "Home"
+msgstr ""
+
+#: src/command.c:197
+msgid "End"
+msgstr ""
+
+#: src/command.c:199
+msgid "PageDown"
+msgstr ""
+
+#: src/command.c:201
+msgid "PageUp"
+msgstr ""
+
+#: src/command.c:203
+msgid "Tab"
+msgstr ""
+
+#: src/command.c:205
+msgid "Shift+Tab"
+msgstr ""
+
+#: src/command.c:207
+msgid "Esc"
+msgstr ""
+
+#: src/command.c:209
+msgid "Insert"
+msgstr ""
+
+#: src/command.c:395
+#, c-format
+msgid "Error: Key %s assigned to %s and %s !!!\n"
+msgstr ""
+
+#: src/colors.c:191
+#, c-format
+msgid "Warning: Unknown color - %s\n"
+msgstr ""
+
+#: src/colors.c:236
+#, c-format
+msgid "Warning: Unknown color field - %s\n"
+msgstr ""
+
+#: src/colors.c:271
+msgid "Terminal lacks support for changing colors!\n"
+msgstr ""
+
+#: src/colors.c:288
+msgid "Terminal lacks color capabilities!\n"
+msgstr ""
+
+#: src/support.c:172
+#, c-format
+msgid "Error: Unable to convert characters to %s"
+msgstr ""
+
+#: src/support.c:201
+msgid "Error: Unable to convert characters to UTF-8"
+msgstr ""

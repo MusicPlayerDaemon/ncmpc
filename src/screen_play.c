@@ -22,6 +22,7 @@
 #include <ncurses.h>
 
 #include "config.h"
+#include "ncmpc.h"
 #include "options.h"
 #include "support.h"
 #include "libmpdclient.h"
@@ -31,12 +32,6 @@
 #include "screen_utils.h"
 #include "screen_file.h"
 #include "screen_play.h"
-
-#ifdef DEBUG
-#define D(x) x
-#else
-#define D(x)
-#endif
 
 #define BUFSIZE 256
 
@@ -93,7 +88,7 @@ handle_save_playlist(screen_t *screen, mpd_client_t *c)
 {
   char *filename, *filename_utf8;
 
-  filename=screen_getstr(screen->status_window.w, "Save playlist as: ");
+  filename=screen_getstr(screen->status_window.w, _("Save playlist as: "));
   filename=trim(filename);
   if( filename==NULL || filename[0]=='\0' )
     return -1;
@@ -113,13 +108,14 @@ handle_save_playlist(screen_t *screen, mpd_client_t *c)
 	  g_free(str);
 	}
       else
-	screen_status_printf("Error: Unable to save playlist as %s", filename);
+	screen_status_printf(_("Error: Unable to save playlist as %s"), 
+			     filename);
       mpd_clearError(c->connection);
       beep();
       return -1;
     }
   /* success */
-  screen_status_printf("Saved %s", filename);
+  screen_status_printf(_("Saved %s"), filename);
   g_free(filename);
   /* update the file list if it has been initalized */
   if( c->filelist )
@@ -155,7 +151,7 @@ play_exit(void)
 static char *
 play_title(void)
 {
-  return (TOP_HEADER_PREFIX "Playlist");
+  return _(TOP_HEADER_PREFIX "Playlist");
 }
 
 static void
@@ -340,7 +336,7 @@ playlist_delete_song(mpd_client_t *c, int index)
     return -1;
 
   /* print a status message */
-  screen_status_printf("Removed \'%s\' from playlist!",
+  screen_status_printf(_("Removed \'%s\' from playlist!"),
 		       mpc_get_song_name(song));
   /* clear selected highlight in the browse screen */
   file_set_highlight(c, song, 0);

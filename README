@@ -2,7 +2,7 @@ ncmpc is a ncurses client for MPD, the Music Player Daemon with an
 interface is inspired by cplay (by Ulf Betlehem).  
 
 The client connects to a MPD running on a machine on the local network.
-By default,  ncmpc  connects  to  localhost:2100.   This  can  be
+By default,  ncmpc  connects  to  localhost:6600.   This  can  be
 changed  either  at  compile-time,  or  by  exporting  the MPD_HOST and
 MPD_PORT environment variables, or by the command line  options  --host
 and --port.

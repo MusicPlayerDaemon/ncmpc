@@ -28,19 +28,13 @@
 
 #include <glib.h>
 #include <ncurses.h>
-
 #include "config.h"
+#include "ncmpc.h"
 #include "options.h"
 #include "support.h"
 #include "command.h"
 #include "colors.h"
 #include "conf.h"
-
-#ifdef DEBUG
-#define D(x) x
-#else
-#define D(x)
-#endif
 
 #define ENABLE_OLD_COLOR_SYNTAX
 
@@ -111,14 +105,18 @@ parse_key_value(char *str, size_t len, char **end)
 	  else if( isdigit(c) )
 	    state = KEY_PARSER_DEC;
 	  else {
-	    fprintf(stderr, "Error: Unsupported key definition - %s\n", str);
+	    fprintf(stderr,
+		    _("Error: Unsupported key definition - %s\n"), 
+		    str);
 	    return -1;
 	  }
 	  break;
 	case KEY_PARSER_CHAR:
 	  if( next!='\'' )
 	    {
-	      fprintf(stderr, "Error: Unsupported key definition - %s\n", str);
+	      fprintf(stderr,
+		      _("Error: Unsupported key definition - %s\n"), 
+		      str);
 	      return -1;
 	    }
 	  value = c;
@@ -132,7 +130,7 @@ parse_key_value(char *str, size_t len, char **end)
 	case KEY_PARSER_HEX:
 	  if( !isdigit(next) )
 	    {
-	      fprintf(stderr, "Error: Digit expexted after 0x - %s\n", str);
+	      fprintf(stderr,_("Error: Digit expexted after 0x - %s\n"), str);
 	      return -1;
 	    }
 	  value = (int) strtol(str+(i+1), end, 16);
@@ -168,7 +166,7 @@ parse_key_definition(char *str)
     buf[j++] = str[i++];
   if( (cmd=get_key_command_from_name(buf)) == CMD_NONE )
     {
-      fprintf(stderr, "Error: Unknown key command %s\n", buf);
+      fprintf(stderr, _("Error: Unknown key command %s\n"), buf);
       return -1;
     }
 
@@ -182,7 +180,7 @@ parse_key_definition(char *str)
   len = strlen(buf);
   if( len==0 )
     {
-      fprintf(stderr,"Error: Incomplete key definition - %s\n", str);
+      fprintf(stderr,_("Error: Incomplete key definition - %s\n"), str);
       return -1;
     }
 
@@ -202,7 +200,7 @@ parse_key_definition(char *str)
     } 
   if( key<0 )
     {
-      fprintf(stderr,"Error: Bad key definition - %s\n", str);
+      fprintf(stderr,_("Error: Bad key definition - %s\n"), str);
       return -1;
     }
 
@@ -254,7 +252,7 @@ parse_color_definition(char *str)
   color=colors_str2color(buf);
   if( color<0 )
     {
-      fprintf(stderr, "Error: Bad color %s [%d]\n", buf, color);
+      fprintf(stderr,_("Error: Bad color %s [%d]\n"), buf, color);
       return -1;
     }
   name = g_strdup(buf);
@@ -269,7 +267,7 @@ parse_color_definition(char *str)
   len = strlen(buf);
   if( len==0 )
     {
-      fprintf(stderr,"Error: Incomplete color definition - %s\n", str);
+      fprintf(stderr,_("Error: Incomplete color definition - %s\n"), str);
       g_free(name);
       return -1;
     }
@@ -290,7 +288,7 @@ parse_color_definition(char *str)
     } 
   if( value<0 || i!=3)
     {
-      fprintf(stderr,"Error: Bad color definition - %s\n", str);
+      fprintf(stderr,_("Error: Bad color definition - %s\n"), str);
       g_free(name);
       return -1;
     }
@@ -469,7 +467,7 @@ read_rc_file(char *filename, options_t *options)
 
 	      if( !match_found )
 		fprintf(stderr, 
-			"Unknown configuration parameter: %s\n", 
+			_("Unknown configuration parameter: %s\n"), 
 			name);
 #ifdef DEBUG
 	      printf( "  %s = %s %s\n", 

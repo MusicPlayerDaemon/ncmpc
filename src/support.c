@@ -23,16 +23,11 @@
 #include <glib.h>
 
 #include "config.h"
+#include "ncmpc.h"
 #include "support.h"
 
 #ifdef HAVE_LOCALE_H
 #include <locale.h>
-#endif
-
-#ifdef DEBUG
-#define D(x) x
-#else 
-#define D(x)
 #endif
 
 #define BUFSIZE 1024
@@ -174,7 +169,7 @@ utf8_to_locale(char *utf8str)
 			 &error);
   if( error )
     {
-      screen_status_printf("Error: Unable to convert characters to %s",
+      screen_status_printf(_("Error: Unable to convert characters to %s"),
 			   charset);
       D(g_printerr("utf8_to_locale(): %s\n", error->message));
       g_error_free(error);
@@ -203,7 +198,7 @@ locale_to_utf8(char *localestr)
 		       &error);
   if( error )
     {
-      screen_status_printf("Error: Unable to convert characters to UTF-8");
+      screen_status_printf(_("Error: Unable to convert characters to UTF-8"));
       D(g_printerr("locale_to_utf8: %s\n", error->message));
       g_error_free(error);
       return g_strdup(localestr);

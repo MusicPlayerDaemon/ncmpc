@@ -23,6 +23,7 @@
 #include <glib.h>
 
 #include "config.h"
+#include "ncmpc.h"
 #include "libmpdclient.h"
 #include "support.h"
 #include "mpc.h"
@@ -30,13 +31,6 @@
 #include "command.h"
 #include "screen.h"
 #include "conf.h"
-
-/* time in seconds between mpd updates (double) */
-#define MPD_UPDATE_TIME        0.5
-
-/* timout in seconds before trying to reconnect (int) */
-#define MPD_RECONNECT_TIMEOUT  3
-
 
 static mpd_client_t *mpc = NULL;
 static GTimer       *timer = NULL;
@@ -62,7 +56,7 @@ exit_and_cleanup(void)
 void
 catch_sigint( int sig )
 {
-  printf( "\nExiting...\n");
+  printf( _("\nExiting...\n"));
   exit(EXIT_SUCCESS);
 }
 
@@ -72,6 +66,13 @@ main(int argc, const char *argv[])
   options_t *options;
   struct sigaction act;
   gboolean connected;
+
+  /* initialize i18n support */
+#ifdef ENABLE_NLS
+  setlocale(LC_MESSAGES, "");
+  bindtextdomain(GETTEXT_PACKAGE, LOCALE_DIR);
+  textdomain(GETTEXT_PACKAGE);
+#endif
 
   /* initialize options */
   options = options_init();
@@ -85,7 +86,7 @@ main(int argc, const char *argv[])
   /* check key bindings */
   if( check_key_bindings() )
     {
-      fprintf(stderr, "Confusing key bindings - exiting!\n");
+      fprintf(stderr, _("Confusing key bindings - exiting!\n"));
       exit(EXIT_FAILURE);
     }
 
@@ -149,7 +150,7 @@ main(int argc, const char *argv[])
 	    }
 	  else if( mpc_error(mpc) )
 	    {
-	      screen_status_printf("Lost connection to %s", options->host);
+	      screen_status_printf(_("Lost connection to %s"), options->host);
 	      connected = FALSE;	 
 	      doupdate();
 	      mpd_clearError(mpc->connection);
@@ -179,14 +180,14 @@ main(int argc, const char *argv[])
       else if( options->reconnect )
 	{
 	  sleep(MPD_RECONNECT_TIMEOUT);
-	  screen_status_printf("Connecting to %s...  [Press Ctrl-C to abort]", 
+	  screen_status_printf(_("Connecting to %s...  [Press Ctrl-C to abort]"), 
 			       options->host);
 	  if( mpc_reconnect(mpc, 
 			    options->host, 
 			    options->port, 
 			    options->password) == 0 )
 	    {
-	      screen_status_printf("Connected to %s!", options->host);
+	      screen_status_printf(_("Connected to %s!"), options->host);
 	      connected = TRUE;
 	    }
 	  doupdate();

@@ -23,6 +23,7 @@
 #include <glib.h>
 
 #include "config.h"
+#include "ncmpc.h"
 #include "options.h"
 #include "support.h"
 #include "colors.h"
@@ -187,7 +188,7 @@ colors_str2color(char *str)
     return COLOR_BRIGHT_BLACK;
   else if( !strcasecmp(str,"none") )
     return -1;
-  fprintf(stderr,"Warning: Unknown color - %s\n", str);
+  fprintf(stderr,_("Warning: Unknown color - %s\n"), str);
   return -2;
 }
 
@@ -232,7 +233,7 @@ colors_assign(char *name, char *value)
 	  bg = color;
 	  return 0;
 	}
-      fprintf(stderr,"Warning: Unknown color field - %s\n", name);
+      fprintf(stderr,_("Warning: Unknown color field - %s\n"), name);
       return -1;
     }
 
@@ -267,7 +268,7 @@ colors_start(void)
 	    }
 	}
       else if( !can_change_color() )
-	fprintf(stderr, "Terminal lacks support for changing colors!\n");
+	fprintf(stderr, _("Terminal lacks support for changing colors!\n"));
 
       if( options.enable_colors )
 	{
@@ -284,7 +285,7 @@ colors_start(void)
     }
   else if( options.enable_colors )
     {
-      fprintf(stderr, "Terminal lacks color capabilities!\n");
+      fprintf(stderr, _("Terminal lacks color capabilities!\n"));
       options.enable_colors = 0;
     }
 

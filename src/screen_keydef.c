@@ -25,6 +25,7 @@
 #include "config.h"
 
 #ifdef  ENABLE_KEYDEF_SCREEN
+#include "ncmpc.h"
 #include "libmpdclient.h"
 #include "options.h"
 #include "conf.h"
@@ -41,8 +42,8 @@
 #define LIST_ITEM_SAVE()    (LIST_ITEM_APPLY()+1)
 #define LIST_LENGTH()       (LIST_ITEM_SAVE()+1)
 
-#define LIST_ITEM_SAVE_LABEL  "===> Apply & Save key bindings  "
-#define LIST_ITEM_APPLY_LABEL "===> Apply key bindings "
+#define LIST_ITEM_SAVE_LABEL  _("===> Apply & Save key bindings  ")
+#define LIST_ITEM_APPLY_LABEL _("===> Apply key bindings ")
 
 
 static list_window_t *lw = NULL;
@@ -71,10 +72,10 @@ apply_keys(void)
       size_t size = command_list_length*sizeof(command_definition_t);
 
       memcpy(orginal_cmds, cmds, size);
-      screen_status_printf("You have new key bindings!");
+      screen_status_printf(_("You have new key bindings!"));
     }
   else
-    screen_status_printf("Keybindings unchanged.");
+    screen_status_printf(_("Keybindings unchanged."));
 }
 
 static int
@@ -85,7 +86,7 @@ save_keys(void)
 
   if( check_user_conf_dir() )
     {
-      screen_status_printf("Error: Unable to create direcory ~/.ncmpc - %s", 
+      screen_status_printf(_("Error: Unable to create direcory ~/.ncmpc - %s"),
 			   strerror(errno));
       beep();
       return -1;
@@ -95,15 +96,15 @@ save_keys(void)
 
   if( (f=fopen(filename,"w")) == NULL )
     {
-      screen_status_printf("Error: %s - %s", filename, strerror(errno));
+      screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
       beep();
       g_free(filename);
       return -1;
     }
   if( write_key_bindings(f) )
-    screen_status_printf("Error: %s - %s", filename, strerror(errno));
+    screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
   else
-    screen_status_printf("Wrote %s", filename);
+    screen_status_printf(_("Wrote %s"), filename);
   
   g_free(filename);
   return fclose(f);
@@ -131,7 +132,7 @@ delete_key(int cmd_index, int key_index)
 {
   int i = key_index+1;
 
-  screen_status_printf("Delete...");
+  screen_status_printf(_("Deleted"));
   while( i<MAX_COMMAND_KEYS && cmds[cmd_index].keys[i] )
     cmds[cmd_index].keys[key_index++] = cmds[cmd_index].keys[i++];
   cmds[cmd_index].keys[key_index] = 0;
@@ -148,26 +149,27 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
   char buf[BUFSIZE];
   command_t cmd;
 
-  snprintf(buf, BUFSIZE, "Enter new key for %s: ", cmds[cmd_index].name);
+  snprintf(buf, BUFSIZE, _("Enter new key for %s: "), cmds[cmd_index].name);
   key = screen_getch(w, buf);
   if( key==KEY_RESIZE )
     screen_resize();
   if( key==ERR )
     {
-      screen_status_printf("Aborted!");
+      screen_status_printf(_("Aborted!"));
       return;
     }
   cmd = find_key_command(key, cmds);
   if( cmd!=CMD_NONE && cmd!= cmds[cmd_index].command )
     {
-      screen_status_printf("Error: key %s is already used for %s", 
+      screen_status_printf(_("Error: key %s is already used for %s"), 
 			   key2str(key),
 			   get_key_command_name(cmd));
       beep();
       return;
     }
   cmds[cmd_index].keys[key_index] = key;
-  screen_status_printf("Assigned %s to %s", key2str(key),cmds[cmd_index].name);
+  screen_status_printf(_("Assigned %s to %s"), 
+		       key2str(key),cmds[cmd_index].name);
   check_subcmd_length();
   lw->repaint = 1;
 }
@@ -202,7 +204,7 @@ list_callback(int index, int *highlight, void *data)
       } 
     else if ( index==subcmd_addpos )
       {
-	snprintf(buf, BUFSIZE, "%d. Add new key ", index+1 );
+	snprintf(buf, BUFSIZE, _("%d. Add new key "), index+1 );
 	return buf;
       }
   }
@@ -249,7 +251,7 @@ keydef_open(screen_t *screen, mpd_client_t *c)
       cmds = g_malloc0(cmds_size);
       memcpy(cmds, current_cmds, cmds_size);
       command_list_length += STATIC_ITEMS;
-      screen_status_printf("Welcome to the key editor!");
+      screen_status_printf(_("Welcome to the key editor!"));
     }
 
   subcmd = -1;
@@ -265,7 +267,7 @@ keydef_close(void)
       cmds = NULL;
     }
   else
-    screen_status_printf("Note: Did you forget to \'Apply\' your changes?");
+    screen_status_printf(_("Note: Did you forget to \'Apply\' your changes?"));
 }
 
 static char *
@@ -274,10 +276,10 @@ keydef_title(void)
   static char buf[BUFSIZE];
 
   if( subcmd<0 )
-    return (TOP_HEADER_PREFIX "Edit key bindings");
+    return _(TOP_HEADER_PREFIX "Edit key bindings");
   
   snprintf(buf, BUFSIZE, 
-	   TOP_HEADER_PREFIX "Edit keys for %s", 
+	   _(TOP_HEADER_PREFIX "Edit keys for %s"), 
 	   cmds[subcmd].name);
   return buf;
 }
