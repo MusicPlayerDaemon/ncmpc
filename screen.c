@@ -35,12 +35,17 @@
 #include "screen_search.h"
 #include "screen_utils.h"
 
-#ifdef ENABLE_KEYDEF_SCREEN
-extern screen_functions_t *get_screen_keydef(void);
-#endif
+#define ENABLE_MP_FLAGS_DISPLAY
+#undef  ENABLE_STATUS_LINE_CLOCK
+
+#define DEFAULT_CROSSFADE_TIME 10
 
 #define STATUS_MESSAGE_TIMEOUT 3
 #define STATUS_LINE_MAX_SIZE   512
+
+#ifdef ENABLE_KEYDEF_SCREEN
+extern screen_functions_t *get_screen_keydef(void);
+#endif
 
 static screen_t *screen = NULL;
 static screen_functions_t *mode_fn = NULL;
@@ -86,7 +91,7 @@ switch_screen_mode(screen_mode_t new_mode, mpd_client_t *c)
 }
 
 static void
-paint_top_window(char *header, int volume, int clear)
+paint_top_window(char *header, mpd_client_t *c, int clear)
 {
   static int prev_volume = -1;
   static int prev_header_len = -1;
@@ -104,7 +109,7 @@ paint_top_window(char *header, int volume, int clear)
       wclrtoeol(w);
     }
 
-  if(prev_volume!=volume || clear)
+  if(prev_volume!=c->status->volume || clear)
     {
       char buf[12];
 
@@ -129,33 +134,44 @@ paint_top_window(char *header, int volume, int clear)
 	  wattroff(w, A_BOLD);
 	  waddstr(w, ":Browse");
 	}
-      if( volume==MPD_STATUS_NO_VOLUME )
+      if( c->status->volume==MPD_STATUS_NO_VOLUME )
 	{
 	  snprintf(buf, 12, "Volume n/a ");
 	}
       else
 	{
-	  snprintf(buf, 12, "Volume %3d%%", volume); 
+	  snprintf(buf, 12, "Volume %3d%%", c->status->volume); 
 	}
       mvwaddstr(w, 0, screen->top_window.cols-12, buf);
 
-#if 1
       if( options.enable_colors )
 	wattron(w, LINE_COLORS);
-      mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
-      if( options.enable_colors )
-	wattroff(w, LINE_COLORS);
+
+#ifdef ENABLE_MP_FLAGS_DISPLAY
+      {
+	char buf[4];
+
+	buf[0] = 0;
+	if( c->status->repeat )
+	  strcat(buf, "r");
+	if( c->status->random )
+	  strcat(buf, "z");
+	if( c->status->crossfade )
+	  strcat(buf, "x");
+
+	mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
+	if( buf[0] )
+	  {
+	    wmove(w,1,screen->top_window.cols-strlen(buf)-3);
+	    waddch(w, '[');
+	    wattron(w, A_BOLD);
+	    waddstr(w, buf);
+	    wattroff(w, A_BOLD);
+	    waddch(w, ']');
+	  }
+      }
 #else
-      if( options.enable_colors )
-	wattron(w, LINE_COLORS);
-
       mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
-      wmove(w,1,screen->top_window.cols-6);
-      waddstr(w, "[rzx]");
-	
-      if( options.enable_colors )
-	wattroff(w, LINE_COLORS);
-
 #endif
 
       wnoutrefresh(w);
@@ -167,6 +183,7 @@ paint_progress_window(mpd_client_t *c)
 {
   double p;
   int width;
+  int elapsedTime = c->status->elapsedTime;
 
   if( c->status==NULL || IS_STOPPED(c->status->state) )
     {
@@ -176,7 +193,10 @@ paint_progress_window(mpd_client_t *c)
       return;
     }
 
-  p = ((double) c->status->elapsedTime) / ((double) c->status->totalTime);
+  if( c->seek_song_id == c->song_id )
+    elapsedTime = c->seek_target_time;
+
+  p = ((double) elapsedTime) / ((double) c->status->totalTime);
   
   width = (int) (p * (double) screen->progress_window.cols);
   mvwhline(screen->progress_window.w, 
@@ -245,15 +265,15 @@ paint_status_window(mpd_client_t *c)
       mvwaddstr(w, 0, x, screen->buf);
 	
     }
-#if 0
+#ifdef ENABLE_STATUS_LINE_CLOCK
   else if( c->status->state == MPD_STATUS_STATE_STOP )
     {
       time_t timep;
-      x = screen->status_window.cols - strlen(screen->buf);
-      
+
+      /* Note: setlocale(LC_TIME,"") should be used first */
       time(&timep);
-      //strftime(screen->buf, screen->buf_size, "%X ",  localtime(&timep));
-      strftime(screen->buf, screen->buf_size, "%R ",  localtime(&timep));
+      strftime(screen->buf, screen->buf_size, "%X ",  localtime(&timep));
+      x = screen->status_window.cols - strlen(screen->buf) ;
       mvwaddstr(w, 0, x, screen->buf);
     }
 #endif
@@ -388,6 +408,7 @@ screen_init(void)
   screen->buf_size = screen->cols;
   screen->findbuf = NULL;
   screen->painted = 0;
+  screen->start_timestamp = time(NULL);
   screen->input_timestamp = time(NULL);
   screen->last_cmd = CMD_NONE;
 
@@ -476,9 +497,9 @@ screen_paint(mpd_client_t *c)
 {
   /* paint the title/header window */
   if( mode_fn && mode_fn->get_title )
-    paint_top_window(mode_fn->get_title(), c->status->volume, 1);
+    paint_top_window(mode_fn->get_title(), c, 1);
   else
-    paint_top_window("", c->status->volume, 1);
+    paint_top_window("", c, 1);
 
   /* paint the main window */
   if( mode_fn && mode_fn->paint )
@@ -500,6 +521,7 @@ screen_update(mpd_client_t *c)
   static int repeat = -1;
   static int random = -1;
   static int crossfade = -1;
+  static int welcome = 1;
   list_window_t *lw = NULL;
 
   if( !screen->painted )
@@ -526,13 +548,16 @@ screen_update(mpd_client_t *c)
   crossfade = c->status->crossfade;
 
   /* update title/header window */
-  if( screen->last_cmd==CMD_NONE && 
-      time(NULL)-screen->input_timestamp <= SCREEN_WELCOME_TIME)	
-    paint_top_window("", c->status->volume, 0);
+  if( welcome && screen->last_cmd==CMD_NONE &&
+      time(NULL)-screen->start_timestamp <= SCREEN_WELCOME_TIME)
+    paint_top_window("", c, 0);
   else if( mode_fn && mode_fn->get_title )
-    paint_top_window(mode_fn->get_title(), c->status->volume, 0);
+    {
+      paint_top_window(mode_fn->get_title(), c, 0);
+      welcome = 0;
+    }
   else
-    paint_top_window("", c->status->volume, 0);
+    paint_top_window("", c, 0);
 
   /* update the main window */
   if( mode_fn && mode_fn->paint )
@@ -556,6 +581,23 @@ screen_update(mpd_client_t *c)
 
   /* tell curses to update */
   doupdate();
+}
+
+void
+screen_idle(mpd_client_t *c)
+{
+  if( c->seek_song_id ==  c->song_id &&
+      (screen->last_cmd == CMD_SEEK_FORWARD || 
+       screen->last_cmd == CMD_SEEK_BACKWARD) )
+    {
+      mpd_sendSeekCommand(c->connection, 
+			  c->seek_song_id, 
+			  c->seek_target_time);
+      mpd_finishCommand(c->connection);
+    }
+
+  screen->last_cmd = CMD_NONE;
+  c->seek_song_id = -1;
 }
 
 void 
@@ -584,20 +626,47 @@ screen_cmd(mpd_client_t *c, command_t cmd)
       mpd_sendStopCommand(c->connection);
       mpd_finishCommand(c->connection);
       break;
+    case CMD_SEEK_FORWARD:
+      if( !IS_STOPPED(c->status->state) )
+	{
+	  if( c->seek_song_id != c->song_id )
+	    {
+	      c->seek_song_id = c->song_id;
+	      c->seek_target_time = c->status->elapsedTime;
+	    }
+	  c->seek_target_time++;
+	  if( c->seek_target_time < c->status->totalTime )
+	    break;
+	  c->seek_target_time=0;
+	}
+      /* fall through... */
     case CMD_TRACK_NEXT:
-      if( IS_PLAYING(c->status->state) )
+      if( !IS_STOPPED(c->status->state) )
 	{
 	  mpd_sendNextCommand(c->connection);
 	  mpd_finishCommand(c->connection);
 	}
       break;
+    case CMD_SEEK_BACKWARD:
+      if( !IS_STOPPED(c->status->state) )
+	{
+	  if( c->seek_song_id != c->song_id )
+	    {
+	      c->seek_song_id = c->song_id;
+	      c->seek_target_time = c->status->elapsedTime;
+	    }
+	  c->seek_target_time--;
+	  if( c->seek_target_time < 0 )
+	    c->seek_target_time=0;
+	}
+      break;
     case CMD_TRACK_PREVIOUS:
-      if( IS_PLAYING(c->status->state) )
+      if( !IS_STOPPED(c->status->state) )
 	{
 	  mpd_sendPrevCommand(c->connection);
 	  mpd_finishCommand(c->connection);
 	}
-      break;
+      break;   
     case CMD_SHUFFLE:
       mpd_sendShuffleCommand(c->connection);
       mpd_finishCommand(c->connection);
@@ -617,6 +686,14 @@ screen_cmd(mpd_client_t *c, command_t cmd)
     case CMD_RANDOM:
       n = !c->status->random;
       mpd_sendRandomCommand(c->connection, n);
+      mpd_finishCommand(c->connection);
+      break;
+    case CMD_CROSSFADE:
+      if( c->status->crossfade )
+	n = 0;
+      else
+	n = DEFAULT_CROSSFADE_TIME;
+      mpd_sendCrossfadeCommand(c->connection, n);
       mpd_finishCommand(c->connection);
       break;
     case CMD_VOLUME_UP:
