@@ -11,7 +11,6 @@ char *basename(char *path);
 
 #define IS_WHITESPACE(c) (c==' ' || c=='\t' || c=='\r' || c=='\n')
 
-char *trim(char *str);
 char *remove_trailing_slash(char *path);
 char *lowerstr(char *str);
 char *strcasestr(const char *haystack, const char *needle);

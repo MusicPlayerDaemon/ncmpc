@@ -154,7 +154,7 @@ handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
 			       NULL,
 			       NULL,
 			       gcmp);     			       
-      filename=trim(filename);
+      filename=g_strstrip(filename);
 
       /* destroy completion support */
       wrln_pre_completion_callback = NULL;

@@ -36,26 +36,6 @@ extern void screen_status_printf(char *format, ...);
 static gboolean noconvert = TRUE;
 
 char *
-trim(char *str)
-{
-  char *end;
-
-  if( str==NULL )
-    return NULL;
-
-  while( IS_WHITESPACE(*str) )
-    str++;
-
-  end=str+strlen(str)-1;
-  while( end>str && IS_WHITESPACE(*end) )
-    {
-      *end = '\0';
-      end--;
-    }
-  return str;
-}
-
-char *
 remove_trailing_slash(char *path)
 {
   int len;
