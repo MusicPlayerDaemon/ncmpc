@@ -1,3 +1,22 @@
+ncmpc-0.11.1
+
+ + Spanish translations from Jose Cedeno
+ + Russian translations from Nikolay Pavlov
+ + ncmpc now supports SIGSTOP and SIGCONT (Ctrl-Z)
+ + ncmpc now hides the cursor on the help screen
+ + ncmpc now can enqueue and play a song from the browse screen (Enter)
+ + configuration changes:
+	o ncmpc no longer supports the old configuration file syntax
+	o the crossfade time can now be definied in (crossfade-time)
+	o support for ncurses mouse events is now optional (enable-mouse)
+ + bugfixes:
+	o fixed short option handling for multiple short options
+	o %time% format fix from Aurelien Foret (use %02d for seconds)
+	o Fixed abort (Ctrl-G) handling when saving playlist
+	o survive select/find operations on empty lists (Niko Tyni)
+
+
+
 ncmpc-0.11.0
  + removed popt dependency
  + the default port is now 6600 (mpd-0.11.0)
@@ -30,6 +49,7 @@ ncmpc-0.11.0
  + ncmpc now have an optional clock screen
  + ncmpc now updates the local playlists via MPD's plchanges command...
  + ncmpc now support ncurses mouse events (xterm)
+ + ncmpc now has german translations from Ingmar Gebert
  
 
 
