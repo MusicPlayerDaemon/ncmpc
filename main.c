@@ -59,7 +59,14 @@ main(int argc, const char *argv[])
   options = options_init();
   
   /* read configuration */
-  read_rc_file(NULL, options);
+  read_configuration(options);
+  
+  /* check key bindings */
+  if( check_key_bindings() )
+    {
+      fprintf(stderr, "Confusing key bindings - exiting!\n");
+      exit(EXIT_FAILURE);
+    }
 
   /* parse command line options */
   options_parse(argc, argv);
