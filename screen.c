@@ -1,0 +1,520 @@
+/* 
+ * $Id: screen.c,v 1.10 2004/03/17 14:50:12 kalle Exp $ 
+ *
+ */
+
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <time.h>
+#include <glib.h>
+#include <ncurses.h>
+
+#include "libmpdclient.h"
+#include "mpc.h"
+#include "command.h"
+#include "screen.h"
+#include "screen_play.h"
+#include "screen_file.h"
+#include "screen_help.h"
+#include "screen_search.h"
+
+#define STATUS_MESSAGE_TIMEOUT 3
+
+static screen_t *screen = NULL;
+
+static void
+switch_screen_mode(screen_mode_t new_mode, mpd_client_t *c)
+{
+  if( new_mode == screen->mode )
+    return;
+
+ switch(screen->mode)
+    {
+    case SCREEN_PLAY_WINDOW:
+      play_close(screen, c);
+      break;
+    case SCREEN_FILE_WINDOW:
+      file_close(screen, c);
+      break;
+    case SCREEN_SEARCH_WINDOW:
+      search_close(screen, c);
+      break;
+    case SCREEN_HELP_WINDOW:
+      help_close(screen, c);
+      break;
+    }
+
+ screen->mode = new_mode;
+ screen->painted = 0;
+
+ switch(screen->mode)
+    {
+    case SCREEN_PLAY_WINDOW:
+      play_open(screen, c);
+      break;
+    case SCREEN_FILE_WINDOW:
+      file_open(screen, c);
+      break;
+    case SCREEN_SEARCH_WINDOW:
+      search_open(screen, c);
+      break;
+    case SCREEN_HELP_WINDOW:
+      help_open(screen, c);
+      break;
+    }
+}
+
+static void
+paint_top_window(char *header, int volume, int clear)
+{
+  static int prev_volume = -1;
+  WINDOW *w = screen->top_window.w;
+
+  if(clear)
+    {
+      wclear(w);
+    }
+
+  if(prev_volume!=volume || clear)
+    {
+      char buf[12];
+
+      wattron(w, A_BOLD);
+      mvwaddstr(w, 0, 0, header );
+      wattroff(w, A_BOLD);
+      if( volume==MPD_STATUS_NO_VOLUME )
+	{
+	  snprintf(buf, 12, "Volume n/a ");
+	}
+      else
+	{
+	  snprintf(buf, 12, "Volume %3d%%", volume); 
+	}
+      mvwaddstr(w, 0, screen->top_window.cols-12, buf);
+
+      mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
+
+      wrefresh(w);
+    }
+}
+
+static void
+paint_progress_window(mpd_client_t *c)
+{
+  double p;
+  int width;
+
+  if( c->status==NULL || !IS_PLAYING(c->status->state) )
+    {
+      mvwhline(screen->progress_window.w, 0, 0, ACS_HLINE, 
+	       screen->progress_window.cols);
+      wrefresh(screen->progress_window.w);
+      return;
+    }
+
+  p = ((double) c->status->elapsedTime) / ((double) c->status->totalTime);
+  
+  width = (int) (p * (double) screen->progress_window.cols);
+  
+  mvwhline(screen->progress_window.w, 
+	   0, 0,
+	   ACS_HLINE, 
+	   screen->progress_window.cols);
+  
+  whline(screen->progress_window.w, '=', width-1);
+  
+  mvwaddch(screen->progress_window.w, 0, width-1, 'O');
+  wrefresh(screen->progress_window.w);
+}
+
+static void 
+paint_status_window(mpd_client_t *c)
+{
+  WINDOW *w = screen->status_window.w;
+  mpd_Status *status = c->status;
+  mpd_Song *song   = c->song;
+  int x = 0;
+
+  if( time(NULL) - screen->status_timestamp <= STATUS_MESSAGE_TIMEOUT )
+    return;
+  
+  wmove(w, 0, 0);
+  wclrtoeol(w);
+  
+  switch(status->state)
+    {
+    case MPD_STATUS_STATE_STOP:
+      wattron(w, A_BOLD);
+      waddstr(w, "Stopped! ");
+      wattroff(w, A_BOLD);
+      break;
+    case MPD_STATUS_STATE_PLAY:
+      waddstr(w, "Playing:");
+      break;
+    case MPD_STATUS_STATE_PAUSE:
+      wattron(w, A_BOLD);
+      waddstr(w, "Paused:");
+      wattroff(w, A_BOLD);
+      break;
+    default:
+      waddstr(w, "Warning: Music Player Daemon in unknown state!");
+      break;
+    }
+  x += 10;
+
+  if( IS_PLAYING(status->state) &&  song )
+    {
+      mvwaddstr(w, 0, x, mpc_get_song_name(song));
+    }
+  
+
+  /* time */
+  if( IS_PLAYING(status->state) )
+    {
+      x = screen->status_window.cols - strlen(screen->buf);
+
+      if( c->status->repeat )
+	mvwaddstr(w, 0, x-3, "<R>");
+      else
+	mvwaddstr(w, 0, x-3, "   ");
+
+      snprintf(screen->buf, screen->buf_size, 
+	       " [%i:%02i/%i:%02i] ",
+	       status->elapsedTime/60, status->elapsedTime%60,
+	       status->totalTime/60,   status->totalTime%60 );
+      mvwaddstr(w, 0, x, screen->buf);
+	
+    }
+  
+
+  wrefresh(w);
+}
+
+
+
+int
+screen_exit(void)
+{
+  endwin();
+  if( screen )
+    {
+      screen->playlist = list_window_free(screen->playlist);
+      screen->filelist = list_window_free(screen->filelist);
+      screen->helplist = list_window_free(screen->helplist);
+      free(screen->buf);
+      free(screen);
+      screen = NULL;
+    }
+  return 0;
+}
+
+void
+screen_resized(int sig)
+{
+  screen_exit();
+  if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
+    {
+      fprintf(stderr, "Error: Screen to small!\n");
+      exit(EXIT_FAILURE);
+    }
+  screen_init();
+}
+
+void 
+screen_status_message(mpd_client_t *c, char *msg)
+{
+  WINDOW *w = screen->status_window.w;
+
+  wmove(w, 0, 0);
+  wclrtoeol(w);
+  wattron(w, A_BOLD);
+  waddstr(w, msg);
+  wattroff(w, A_BOLD);
+  wrefresh(w);
+  screen->status_timestamp = time(NULL);
+}
+
+int
+screen_init(void)
+{
+  /* initialize the curses library */
+  initscr();      
+  start_color();
+  use_default_colors();
+  /* tell curses not to do NL->CR/NL on output */
+  nonl();          
+  /* take input chars one at a time, no wait for \n */  
+  cbreak();       
+  /* don't echo input */
+  noecho();    
+  /* set cursor invisible */     
+  curs_set(0);     
+  /* return from getch() without blocking */
+  //  nodelay(stdscr, TRUE); 
+  keypad(stdscr, TRUE);  
+  timeout(100); /*void wtimeout(WINDOW *win, int delay);*/
+
+
+  if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
+    {
+      fprintf(stderr, "Error: Screen to small!\n");
+      exit(EXIT_FAILURE);
+    }
+
+  screen = malloc(sizeof(screen_t));
+  memset(screen, 0, sizeof(screen_t));
+  screen->mode = SCREEN_PLAY_WINDOW;
+  screen->cols = COLS;
+  screen->rows = LINES;
+  screen->buf  = malloc(screen->cols);
+  screen->buf_size = screen->cols;
+  screen->painted = 0;
+
+  /* create top window */
+  screen->top_window.rows = 2;
+  screen->top_window.cols = screen->cols;
+  screen->top_window.w = newwin(screen->top_window.rows, 
+				  screen->top_window.cols,
+				  0, 0);
+  leaveok(screen->top_window.w, TRUE);
+  keypad(screen->top_window.w, TRUE);  
+
+  /* create main window */
+  screen->main_window.rows = screen->rows-4;
+  screen->main_window.cols = screen->cols;
+  screen->main_window.w = newwin(screen->main_window.rows, 
+				 screen->main_window.cols,
+				 2, 
+				 0);
+  screen->playlist = list_window_init( screen->main_window.w,
+				       screen->main_window.cols,
+				       screen->main_window.rows );
+  screen->filelist = list_window_init( screen->main_window.w,
+				       screen->main_window.cols,
+				       screen->main_window.rows );
+  screen->helplist = list_window_init( screen->main_window.w,
+				       screen->main_window.cols,
+				       screen->main_window.rows );
+  leaveok(screen->main_window.w, TRUE);
+  keypad(screen->main_window.w, TRUE);  
+
+  /* create progress window */
+  screen->progress_window.rows = 1;
+  screen->progress_window.cols = screen->cols;
+  screen->progress_window.w = newwin(screen->progress_window.rows, 
+				     screen->progress_window.cols,
+				     screen->rows-2, 
+				     0);
+  leaveok(screen->progress_window.w, TRUE);
+  
+  /* create status window */
+  screen->status_window.rows = 1;
+  screen->status_window.cols = screen->cols;
+  screen->status_window.w = newwin(screen->status_window.rows, 
+				   screen->status_window.cols,
+				   screen->rows-1, 
+				   0);
+  leaveok(screen->status_window.w, FALSE);
+  keypad(screen->status_window.w, TRUE);  
+
+  return 0;
+}
+
+void 
+screen_paint(mpd_client_t *c)
+{
+  switch(screen->mode)
+    {
+    case SCREEN_PLAY_WINDOW:
+      paint_top_window(TOP_HEADER_PLAY, c->status->volume, 1);
+      play_paint(screen, c);      
+      break;
+    case SCREEN_FILE_WINDOW:
+      paint_top_window(file_get_header(c), c->status->volume, 1);
+      file_paint(screen, c);      
+      break;
+    case SCREEN_SEARCH_WINDOW:
+      paint_top_window(TOP_HEADER_SEARCH, c->status->volume, 1);
+      search_paint(screen, c);      
+      break;
+    case SCREEN_HELP_WINDOW:
+      paint_top_window(TOP_HEADER_PLAY, c->status->volume, 1);
+      help_paint(screen, c);      
+      break;
+    }
+
+  paint_progress_window(c);
+  paint_status_window(c);
+  screen->painted = 1;
+}
+
+void 
+screen_update(mpd_client_t *c)
+{
+  if( !screen->painted )
+    return screen_paint(c);
+
+  switch(screen->mode)
+    {
+    case SCREEN_PLAY_WINDOW:
+      paint_top_window(TOP_HEADER_PLAY, c->status->volume, 0);
+      play_update(screen, c);
+      break;
+    case SCREEN_FILE_WINDOW:
+      paint_top_window(file_get_header(c), c->status->volume, 0);
+      file_update(screen, c);
+      break;
+    case SCREEN_SEARCH_WINDOW:
+      paint_top_window(TOP_HEADER_SEARCH, c->status->volume, 0);
+      search_update(screen, c);
+      break;
+    case SCREEN_HELP_WINDOW:
+      paint_top_window(TOP_HEADER_HELP, c->status->volume, 0);
+      help_update(screen, c);
+      break;
+    }
+  paint_progress_window(c);
+  paint_status_window(c);
+}
+
+void 
+screen_cmd(mpd_client_t *c, command_t cmd)
+{
+  int n;
+  char buf[256];
+  screen_mode_t new_mode = screen->mode;
+
+  switch(screen->mode)
+    {
+    case SCREEN_PLAY_WINDOW:
+      if( play_cmd(screen, c, cmd) )
+	return;
+      break;
+    case SCREEN_FILE_WINDOW:
+      if( file_cmd(screen, c, cmd) )
+	return;
+      break;
+    case SCREEN_SEARCH_WINDOW:
+      if( search_cmd(screen, c, cmd) )
+	return;
+      break;
+    case SCREEN_HELP_WINDOW:
+      if( help_cmd(screen, c, cmd) )
+	return;
+      break;
+    }
+
+  switch(cmd)
+    {
+    case CMD_PLAY:
+      mpd_sendPlayCommand(c->connection, screen->playlist->selected);
+      mpd_finishCommand(c->connection);
+      break;
+    case CMD_PAUSE:
+      mpd_sendPauseCommand(c->connection);
+      mpd_finishCommand(c->connection);
+      break;
+    case CMD_STOP:
+      mpd_sendStopCommand(c->connection);
+      mpd_finishCommand(c->connection);
+      break;
+    case CMD_TRACK_NEXT:
+      if( IS_PLAYING(c->status->state) )
+	{
+	  mpd_sendNextCommand(c->connection);
+	  mpd_finishCommand(c->connection);
+	}
+      break;
+    case CMD_TRACK_PREVIOUS:
+      if( IS_PLAYING(c->status->state) )
+	{
+	  mpd_sendPrevCommand(c->connection);
+	  mpd_finishCommand(c->connection);
+	}
+      break;
+    case CMD_SHUFFLE:
+      mpd_sendShuffleCommand(c->connection);
+      mpd_finishCommand(c->connection);
+      screen_status_message(c, "Shuffled playlist!");
+      break;
+    case CMD_CLEAR:
+      mpd_sendClearCommand(c->connection);
+      mpd_finishCommand(c->connection);
+      file_clear_highlights(c);
+      screen_status_message(c, "Cleared playlist!");
+      break;
+    case CMD_REPEAT:
+      n = !c->status->repeat;
+      mpd_sendRepeatCommand(c->connection, n);
+      mpd_finishCommand(c->connection);
+      snprintf(buf, 256, "Repeat is %s", n ? "On" : "Off");
+      screen_status_message(c, buf);
+      break;
+    case CMD_RANDOM:
+      n = !c->status->random;
+      mpd_sendRandomCommand(c->connection, n);
+      mpd_finishCommand(c->connection);
+      snprintf(buf, 256, "Random is %s", n ? "On" : "Off");
+      screen_status_message(c, buf);
+      break;
+    case CMD_VOLUME_UP:
+      mpd_sendVolumeCommand(c->connection, 1);
+      mpd_finishCommand(c->connection);
+      if( c->status->volume!=MPD_STATUS_NO_VOLUME )
+	{
+	  snprintf(buf, 256, "Volume %d%%", c->status->volume+1); 
+	  screen_status_message(c, buf);
+	}
+      break;
+    case CMD_VOLUME_DOWN:
+      mpd_sendVolumeCommand(c->connection, -1);
+      mpd_finishCommand(c->connection);
+      if( c->status->volume!=MPD_STATUS_NO_VOLUME )
+	{
+	  snprintf(buf, 256, "Volume %d%%", c->status->volume-1); 
+	  screen_status_message(c, buf);
+	}
+      break;
+    case CMD_SCREEN_PREVIOUS:
+      if( screen->mode > SCREEN_PLAY_WINDOW )
+	new_mode = screen->mode - 1;
+      else
+	new_mode = SCREEN_HELP_WINDOW-1;
+      switch_screen_mode(new_mode, c);
+      break;
+    case CMD_SCREEN_NEXT:
+      new_mode = screen->mode + 1;
+      if( new_mode >= SCREEN_HELP_WINDOW )
+	new_mode = SCREEN_PLAY_WINDOW;
+      switch_screen_mode(new_mode, c);
+      break;
+    case CMD_SCREEN_PLAY:
+      switch_screen_mode(SCREEN_PLAY_WINDOW, c);
+      break;
+    case CMD_SCREEN_FILE:
+      switch_screen_mode(SCREEN_FILE_WINDOW, c);
+      break;
+    case CMD_SCREEN_SEARCH:
+      switch_screen_mode(SCREEN_SEARCH_WINDOW, c);
+      break;
+    case CMD_SCREEN_HELP:
+      switch_screen_mode(SCREEN_HELP_WINDOW, c);
+      break;
+    case CMD_QUIT:
+      exit(EXIT_SUCCESS);
+    case CMD_NONE:
+    case CMD_DELETE: 
+    case CMD_SELECT:
+    case CMD_LIST_PREVIOUS:
+    case CMD_LIST_NEXT:
+    case CMD_LIST_FIRST:
+    case CMD_LIST_LAST:
+    case CMD_LIST_NEXT_PAGE:
+    case CMD_LIST_PREVIOUS_PAGE:
+      break;
+    }
+
+}
+
+
