@@ -21,12 +21,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ncurses.h>
 #include <glib.h>
 
 #include "config.h"
 #include "ncmpc.h"
 #include "support.h"
 #include "options.h"
+#include "command.h"
+#include "conf.h"
 
 #define MAX_LONGOPT_LENGTH 32
 
@@ -56,6 +59,10 @@ static arg_opt_t option_table[] = {
   { 'V', "version",  NULL,   "Display version information" },
   { 'c', "colors",   NULL,   "Enable colors" },
   { 'C', "no-colors", NULL,  "Disable colors" },
+#ifdef HAVE_GETMOUSE
+  { 'm', "mouse",    NULL,   "Enable mouse" },
+  { 'M', "no-mouse", NULL,   "Disable mouse" },
+#endif
   { 'e', "exit",     NULL,   "Exit on connection errors" },
   { 'p', "port",  "PORT", "Connect to server on port [" DEFAULT_PORT_STR "]" },
   { 'h', "host",  "HOST", "Connect to server on host [" DEFAULT_HOST "]" },
@@ -63,6 +70,7 @@ static arg_opt_t option_table[] = {
   { 'f', "config",  "FILE",     "Read configuration from file" },
   { 'k', "key-file","FILE",     "Read configuration from file" },
 #ifdef DEBUG
+  { 'K', "dump-keys", NULL,     "Dump key bindings to stdout" },
   { 'D', "debug",   NULL,   "Enable debug output on stderr" },
 #endif
   { 0, NULL, NULL, NULL },
@@ -144,13 +152,33 @@ handle_option(int c, char *arg)
       display_help();
       exit(EXIT_SUCCESS);
     case 'V': /* --version */
-      printf("Version %s\n", VERSION);
+      printf("%s version: %s\n", PACKAGE, VERSION);
+      printf("build options:");
+#ifdef DEBUG
+      printf(" debug");
+#endif
+#ifdef ENABLE_NLS
+      printf(" nls");
+#endif
+#ifdef ENABLE_KEYDEF_SCREEN
+      printf(" key-screen");
+#endif
+#ifdef ENABLE_CLOCK_SCREEN
+      printf(" clock-screen");
+#endif
+      printf("\n");
       exit(EXIT_SUCCESS);
     case 'c': /* --colors */
       options.enable_colors = TRUE;
       break;
     case 'C': /* --no-colors */
       options.enable_colors = FALSE;
+      break;
+   case 'm': /* --mouse */
+     options.enable_mouse = TRUE;
+      break;
+    case 'M': /* --no-mouse */
+      options.enable_mouse = FALSE;
       break;
     case 'e': /* --exit */
       options.reconnect = FALSE;
@@ -178,9 +206,16 @@ handle_option(int c, char *arg)
 	g_free(options.key_file);
       options.key_file = g_strdup(arg);
       break;
+#ifdef DEBUG
+    case 'K': /* --dump-keys */
+      read_configuration(&options);
+      write_key_bindings(stdout, KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
+      exit(EXIT_SUCCESS);
+      break;
     case 'D': /* --debug */
       options.debug = TRUE;
       break;
+#endif
     default:
       fprintf(stderr,"Unknown Option %c = %s\n", c, arg);
       break;

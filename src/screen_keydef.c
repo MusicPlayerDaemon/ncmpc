@@ -102,7 +102,7 @@ save_keys(void)
       g_free(filename);
       return -1;
     }
-  if( write_key_bindings(f) )
+  if( write_key_bindings(f, KEYDEF_WRITE_HEADER) )
     screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
   else
     screen_status_printf(_("Wrote %s"), filename);

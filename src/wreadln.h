@@ -7,8 +7,9 @@ extern unsigned int wrln_max_line_size;
 /* max items stored in the history list */
 extern unsigned int wrln_max_history_length;
 
-/* a callback function for KEY_RESIZE */
-extern GVoidFunc wrln_resize_callback;
+/* custom wgetch function */
+typedef int (*wrln_wgetch_fn_t) (WINDOW *w);
+extern wrln_wgetch_fn_t wrln_wgetch;
 
 /* called after TAB is pressed but before g_completion_complete */
 typedef void (*wrln_gcmp_pre_cb_t) (GCompletion *gcmp, gchar *buf);

@@ -39,12 +39,11 @@
  
 unsigned int wrln_max_line_size = WRLN_MAX_LINE_SIZE;
 unsigned int wrln_max_history_length = WRLN_MAX_HISTORY_LENGTH;
-GVoidFunc wrln_resize_callback = NULL;
+wrln_wgetch_fn_t wrln_wgetch = NULL;
 wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
 wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 
 extern void screen_bell(void);
-extern void sigstop(void);
 
 char *
 wreadln(WINDOW *w, 
@@ -152,7 +151,10 @@ wreadln(WINDOW *w,
 
   while( key!=13 && key!='\n' )
     {
-      key = wgetch(w);
+      if( wrln_wgetch )
+	key = wrln_wgetch(w);
+      else
+	key = wgetch(w);
 
       /* check if key is a function key */
       for(i=0; i<63; i++)
@@ -164,21 +166,12 @@ wreadln(WINDOW *w,
 
       switch (key)
 	{
-#ifdef HAVE_GETMOUSE
 	case KEY_MOUSE: /* ignore mouse events */
-#endif
 	case ERR: /* ingnore errors */
 	  break;
 
-#ifdef ENABLE_RAW_MODE
-	case 26:
-	  sigstop();
-	  break;
-#endif
 	case KEY_RESIZE:
-	  /* a resize event -> call an external callback function */
-	  if( wrln_resize_callback )
-	    wrln_resize_callback();
+	  /* a resize event */
 	  if( x1>COLS )
 	    {
 	      x1=COLS;

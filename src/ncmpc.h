@@ -40,16 +40,12 @@ void D(char *format, ...);
 
 /* song format - list window */
 #define DEFAULT_LIST_FORMAT "%name%|[%artist% - ]%title%|%shortfile%"
-#define LIST_FORMAT (options.list_format ? options.list_format : DEFAULT_LIST_FORMAT)
+#define LIST_FORMAT (options.list_format ? options.list_format : \
+                                           DEFAULT_LIST_FORMAT)
 
 /* song format - status window */
 #define DEFAULT_STATUS_FORMAT "[%artist% - ]%title%|%shortfile%"
-#define STATUS_FORMAT (options.status_format ? options.status_format : DEFAULT_STATUS_FORMAT)
-
-/* sigstop key (Ctrl-Z) */
-#define KEY_SIGSTOP 26
-
-/* send SIGSTOP */
-void sigstop(void);
+#define STATUS_FORMAT (options.status_format ? options.status_format : \
+                                               DEFAULT_STATUS_FORMAT)
 
 #endif /* NCMPC_H */

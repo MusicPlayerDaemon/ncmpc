@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <string.h>
+#include <ncurses.h>
 #include <glib.h>
 
 #include "config.h"

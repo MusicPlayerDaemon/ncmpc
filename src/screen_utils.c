@@ -63,24 +63,14 @@ screen_getch(WINDOW *w, char *prompt)
   curs_set(1);
   timeout(-1);
 
-  while( (key=wgetch(w)) == ERR )
+  while( (key=my_wgetch(w)) == ERR )
     ;
-
-#ifdef ENABLE_RAW_MODE
-  if( key==KEY_SIGSTOP )
-    sigstop();
-#endif
 
 #ifdef HAVE_GETMOUSE
   /* ignore mouse events */
   if( key==KEY_MOUSE )
     return screen_getch(w, prompt);
 #endif
-
-  if( key==KEY_RESIZE )
-    {
-      screen_resize();
-    }
 
   noecho();
   curs_set(0);

@@ -478,7 +478,7 @@ screen_init(mpdclient_t *c)
   timeout(SCREEN_TIMEOUT);
   /* initialize mouse support */
 #ifdef HAVE_GETMOUSE
-  if( options.enable_mouse_events )
+  if( options.enable_mouse )
     mousemask(ALL_MOUSE_EVENTS, NULL);
 #endif
 
@@ -587,7 +587,7 @@ screen_init(mpdclient_t *c)
     mode_fn->open(screen, c);
 
   /* initialize wreadln */
-  wrln_resize_callback = screen_resize;
+  wrln_wgetch = my_wgetch;
   wrln_max_history_length = 16;
 
   return 0;

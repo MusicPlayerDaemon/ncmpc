@@ -54,9 +54,14 @@ typedef enum
 } command_t;
 
 
-/* flags */
+/* command definition flags */
 #define COMMAND_KEY_MODIFIED  0x01
 #define COMMAND_KEY_CONFLICT  0x02
+
+/* write key bindings flags */
+#define KEYDEF_WRITE_HEADER  0x01
+#define KEYDEF_WRITE_ALL     0x02
+#define KEYDEF_COMMENT_ALL   0x04
 
 typedef struct 
 {
@@ -72,7 +77,7 @@ command_t find_key_command(int key, command_definition_t *cmds);
 
 void command_dump_keys(void);
 int  check_key_bindings(command_definition_t *cmds, char *buf, size_t size);
-int  write_key_bindings(FILE *f);
+int  write_key_bindings(FILE *f, int all);
 
 char *key2str(int key);
 char *get_key_description(command_t command);
@@ -82,6 +87,7 @@ command_t get_key_command(int key);
 command_t get_key_command_from_name(char *name);
 int assign_keys(command_t command, int keys[MAX_COMMAND_KEYS]);
 
+int my_wgetch(WINDOW *w);
 command_t get_keyboard_command(void);
 command_t get_keyboard_command_with_timeout(int milliseconds);
 

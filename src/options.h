@@ -23,7 +23,7 @@ typedef struct
   gboolean audible_bell;       
   gboolean visible_bell;       
   gboolean enable_xterm_title; 
-  gboolean enable_mouse_events;
+  gboolean enable_mouse;
 
 } options_t;
 
