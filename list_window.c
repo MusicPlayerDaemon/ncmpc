@@ -5,6 +5,7 @@
 #include <ncurses.h>
 
 #include "config.h"
+#include "options.h"
 #include "support.h"
 #include "command.h"
 #include "list_window.h"
@@ -118,6 +119,7 @@ list_window_paint(list_window_t *lw,
 		  void *callback_data)
 {
   int i;
+  int fill = options.wide_cursor;
 
   while( lw->selected < lw->start )
     {
@@ -137,7 +139,7 @@ list_window_paint(list_window_t *lw,
 
       label = (callback) (lw->start+i, &highlight, callback_data);
       wmove(lw->w, i, 0);
-      if( lw->clear )
+      if( lw->clear && (!fill || !label) )
 	wclrtoeol(lw->w);
       if( label )
 	{
@@ -147,6 +149,8 @@ list_window_paint(list_window_t *lw,
 	    wattron(lw->w, A_REVERSE);
 	  
 	  waddnstr(lw->w, label, lw->cols-1);
+	  if( fill )
+	    mvwhline(lw->w, i, strlen(label), ' ', lw->cols-1);
 
 	  if( highlight )
 	    wattroff(lw->w, A_BOLD);

@@ -2,9 +2,6 @@
 #define MPD_HOST_ENV "MPD_HOST"
 #define MPD_PORT_ENV "MPD_PORT"
 
-#define NCMPCRC_ENV  "NCMPCRC"
-
-
 typedef struct 
 {
   char *host;
@@ -24,6 +21,7 @@ typedef struct
   int   progress_color;
   int   status_color;
   int   alert_color;
+  int   wide_cursor;
 
 } options_t;
 

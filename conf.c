@@ -40,6 +40,7 @@
 #define CONF_COLOR_PROGRESS          "progress_color"
 #define CONF_COLOR_STATUS            "status_color"
 #define CONF_COLOR_ALERT             "alert_color"
+#define CONF_WIDE_CURSOR             "wide_cursor"
 #define CONF_KEY_DEFINITION          "key"
 
 typedef enum {
@@ -292,73 +293,71 @@ read_rc_file(char *filename, options_t *options)
 		}
 	      value[j] = '\0';
 	      
-	      match_found = 0;
+	      match_found = 1;
 	      
 	      if( !strcasecmp(CONF_KEY_DEFINITION, name) )
 		{
 		  parse_key_definition(value);
-		  match_found = 1;
 		}
 	      /* enable colors */
 	      else if( !strcasecmp(CONF_ENABLE_COLORS, name) )
 		{
 		  options->enable_colors = str2bool(value);
-		  match_found = 1;
 		}
 	      /* auto center */
 	      else if( !strcasecmp(CONF_AUTO_CENTER, name) )
 		{
 		  options->auto_center = str2bool(value);
-		  match_found = 1;
 		}
 	      /* background color */
 	      else if( !strcasecmp(CONF_COLOR_BACKGROUND, name) )
 		{
 		  if( (color=str2color(value)) >= 0 )
 		    options->bg_color = color;
-		  match_found = 1;
 		}
 	      /* color - top (title) window */
 	      else if( !strcasecmp(CONF_COLOR_TITLE, name) )
 		{
 		  if( (color=str2color(value)) >= 0 )
 		    options->title_color = color;
-		  match_found = 1;
 		}
 	      /* color - line (title) window */
 	      else if( !strcasecmp(CONF_COLOR_LINE, name) )
 		{
 		  if( (color=str2color(value)) >= 0 )
 		    options->line_color = color;
-		  match_found = 1;
 		}
 	      /* color - list window */
 	      else if( !strcasecmp(CONF_COLOR_LIST, name) )
 		{
 		  if( (color=str2color(value)) >= 0 )
 		    options->list_color = color;
-		  match_found = 1;
 		}
 	      /* color - progress bar */
 	      else if( !strcasecmp(CONF_COLOR_PROGRESS, name) )
 		{
 		  if( (color=str2color(value)) >= 0 )
 		    options->progress_color = color;
-		  match_found = 1;
 		}
 	      /* color - status window */
 	      else if( !strcasecmp(CONF_COLOR_STATUS, name) )
 		{
 		  if( (color=str2color(value)) >= 0 )
 		    options->status_color = color;
-		  match_found = 1;
 		}
 	      /* color - alerts */
 	      else if( !strcasecmp(CONF_COLOR_ALERT, name) )
 		{
 		  if( (color=str2color(value)) >= 0 )
 		    options->alert_color = color;
-		  match_found = 1;
+		}
+	      else if( !strcasecmp(CONF_WIDE_CURSOR, name) )
+		{
+		  options->wide_cursor = str2bool(value);
+		}
+	      else
+		{
+		  match_found = 0;
 		}
 	      
 
