@@ -1,3 +1,41 @@
+2004-06-16 Kalle Wallin <kaw@linux.se>
+	* libmpdclient updated (r1507)
+	* mpdclient: add path to mpdclient_cmd_db_update() 
+	* screen_file.c: Use current path when updating the db (browse screen)
+
+2004-06-15 Kalle Wallin <kaw@linux.se>
+	* conf.c: Replaced '_' with '-' in configuration field names
+	* conf.c: Added support for cusomized format strings with 
+	          list-format and status-format
+	* options.c: Added status_format, list_format fields
+	* mpdclient.c: Sort playlist if needed after plchanges, 
+	  update the song position fields in mpdclient_cmd_move, 
+	  use song id's by default (define ENABLE_SONG_ID), disable plchanges
+	* screen_play.c: Offer to overwrite when saving playlists
+	* screen_utils.c: Use the alert color in screen_readln()
+	
+
+2004-06-14 Kalle Wallin <kaw@linux.se>
+	* libmpdclient updated (r1482)
+	* Major cleanup of the mpd client code (mpc->mpdclient)
+	  including error callbacks and playlist (changes) callbacks 
+	* strfsong: added a modified version of mpc's songToFormatedString
+	* screen_file.c: added position history (feature #0000233)
+
+
+2004-06-09 Kalle Wallin <kaw@linux.se>
+	* Use the teminal in raw  mode (ignore interrupt,quit,suspend, and 
+	  flow control characters)
+	* command.*: Added the get_keyboard_command_with_timeout() function
+	* main.c: Redesigned the reconnect code to allow user interrupt
+	* screen*: Changed arguments to the get_title callback (and the title)
+	* support.c: moved utility function for scrolling
+	* list_window.c: fixed a small layout bug in list_window_paint()
+
+
+2004-06-08 Kalle Wallin <kaw@linux.se>
+	* mpc.c: Dont use basename on stream urls (get_song_name2)
+
 2004-06-07 Kalle Wallin <kaw@linux.se>
 	* configure.ac: disable nls if glib is pre 2.4
 	* mpc.c: added support for the PLCHANGES command
@@ -9,7 +47,7 @@
 	* main.c: added bind_textdomain_codeset() 	
 	* Added wreadln.c, wreadln.h a simple line editor
 	* screen_utils.c: use wreadln() instead of curses wgetstr()
-	* Added a history for the find command!
+	* Added find history
 	* Added screen_clock.c an optional clock screen (just for fun)
 
 

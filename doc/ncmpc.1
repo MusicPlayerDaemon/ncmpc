@@ -65,14 +65,20 @@ Possible text colors are the base colors plus grey, brightred, brightgreen, brig
 
 Supported configuration options:
 .TP 
-.B auto_center = yes|no
+.B auto\-center = yes|no
 Enable/disable auto center mode. When auto center mode is enabled 
 ncmpc centers the current track in the playlist window.
 .TP 
-.B wide_cursor = yes|no
+.B wide\-cursor = yes|no
 Make the cursor as wide as the screen.
 .TP 
-.B enable_colors = yes|no
+.B list\-format = SONG FORMAT
+The format used to display songs in the main window.
+.TP 
+.B status\-format = SONG FORMAT
+The format used to display songs on the status line.
+.TP 
+.B enable\-colors = yes|no
 Enable/disable colors.
 .TP 
 .B color background = COLOR
@@ -119,6 +125,19 @@ When ncmpc start it tries to read user key bindings from the ~/ncmpc/keys file. 
 
 You can view ncmpc's key bindings by pressing '1' (help) when 
 ncmpc is running. To edit key bindings use the key editor in ncmpc (press 'K').
+.SH "SONG FORMAT"
+Format of song display for status and the list window.
+The  metadata  delimeters  are: %name%, %artist%, %track%, %time%, %file%, %shortfile%.
+
+The [] operators is used to group output such that if no metadata delimeters are found or matched between '[' and ']', then none of  the  characters between '[' and ']' are outputed. '&' and '|' are logical operators for and and or. '#'  is used to escape characters. 
+
+Some  useful examples for format are: 
+
+   "%file%" 
+
+and 
+
+   "[[%artist% \- ]%title%]|[%file]" 
 .SH "BUGS"
 Report bugs on http://www.musicpd.org/mantis/
 .SH "NOTE"
