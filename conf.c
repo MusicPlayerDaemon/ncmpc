@@ -35,9 +35,6 @@
 #define CONF_COLOR_ALERT             "alert_color"
 
 
-#define IS_WHITESPACE(c) (c==' ' || c=='\t' || c=='\r' || c=='\n')
-
-
 static int
 str2bool(char *str)
 {
