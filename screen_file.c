@@ -333,6 +333,29 @@ file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
       list_window_previous_page(screen->filelist);
       screen->filelist->repaint  = 1;
       break;
+    case CMD_LIST_FIND:
+      if( screen->findbuf )
+	{
+	  free(screen->findbuf);
+	  screen->findbuf=NULL;
+	}
+      /* fall throw... */
+    case CMD_LIST_FIND_NEXT:
+      if( !screen->findbuf )
+	screen->findbuf=screen_readln(screen->status_window.w, "/");
+      if( list_window_find(screen->filelist,
+			   list_callback,
+			   c,
+			   screen->findbuf) == 0 )
+	{
+	  screen->filelist->repaint  = 1;
+	}
+      else
+	{
+	  screen_status_printf(c, "Unable to find \'%s\'", screen->findbuf);
+	  beep();
+	}
+      break;
     default:
       return 0;
     }

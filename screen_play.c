@@ -84,7 +84,6 @@ play_update(screen_t *screen, mpd_client_t *c)
 int
 play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 {
-  char buf[256];
   mpd_Song *song;
 
   switch(cmd)
@@ -94,10 +93,9 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
       file_clear_highlight(c, song);
       mpd_sendDeleteCommand(c->connection, screen->playlist->selected);
       mpd_finishCommand(c->connection);
-      snprintf(buf, 256,
-	       "Removed \'%s\' from playlist!",
-	       mpc_get_song_name(song));	       
-      screen_status_message(c, buf);
+      screen_status_printf(c, 
+			   "Removed \'%s\' from playlist!",
+			   mpc_get_song_name(song));
       break;
     case CMD_LIST_PREVIOUS:
       list_window_previous(screen->playlist);
@@ -121,6 +119,29 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
     case CMD_LIST_PREVIOUS_PAGE:
       list_window_previous_page(screen->playlist);
       screen->playlist->repaint  = 1;
+      break;
+    case CMD_LIST_FIND:
+      if( screen->findbuf )
+	{
+	  free(screen->findbuf);
+	  screen->findbuf=NULL;
+	}
+      /* fall throw... */
+    case CMD_LIST_FIND_NEXT:
+      if( !screen->findbuf )
+	screen->findbuf=screen_readln(screen->status_window.w, "/");
+      if( list_window_find(screen->playlist,
+			   list_callback,
+			   c,
+			   screen->findbuf) == 0 )
+	{
+	  screen->playlist->repaint  = 1;
+	}
+      else
+	{
+	  screen_status_printf(c, "Unable to find \'%s\'", screen->findbuf);
+	  beep();
+	}
       break;
     default:
       return 0;

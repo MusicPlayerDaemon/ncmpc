@@ -13,6 +13,9 @@
 #include "command.h"
 #include "screen.h"
 
+#if 0
+#include <readline/readline.h>
+#endif
 
 
 list_window_t *
@@ -150,3 +153,51 @@ list_window_previous_page(list_window_t *lw)
   else
     list_window_first(lw);
 }
+
+int
+list_window_find(list_window_t *lw, 
+		 list_window_callback_fn_t callback,
+		 void *callback_data,
+		 char *str)
+{
+  int i = lw->selected+1;
+
+  while( i< lw->rows )
+    {
+      int h;
+      char *label = (callback) (i,&h,callback_data);
+      
+      if( str && label && strstr(label, str) )
+	{
+	  lw->selected = i;
+	  return 0;
+	}
+      i++;
+    }
+  return 1;
+}
+
+
+char *
+screen_readln(WINDOW *w, char *prompt)
+{
+  char buf[256], *line = NULL;
+  int prompt_len = strlen(prompt);
+
+  wclear(w);  
+  wmove(w, 0, 0);
+  waddstr(w, prompt);
+  wmove(w, 0, prompt_len);
+  
+  echo();
+  curs_set(1);
+
+  if( wgetnstr(w, buf, 256) == OK )
+    line = strdup(buf);
+
+  noecho();
+  curs_set(0);
+
+  return line;
+}
+
