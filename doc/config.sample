@@ -29,6 +29,9 @@
 ## change the xterm title 
 #set-xterm-title = no
 
+## xterm title format
+#xterm-title-format = "ncmpc: [ %name%|[%artist% - ]%title%|%file%]"
+
 ##
 ## Color configuration
 ##

@@ -11,6 +11,7 @@ typedef struct
   char *key_file;
   char *list_format;
   char *status_format;
+  char *xterm_title_format;
   int   port;
   gboolean reconnect;
   gboolean debug;

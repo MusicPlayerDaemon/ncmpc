@@ -216,14 +216,19 @@ set_xterm_title(char *format, ...)
   /* the current xterm title exists under the WM_NAME property */
   /* and can be retreived with xprop -id $WINDOWID */
 
-  if( options.enable_xterm_title && g_getenv("WINDOWID") )
+  if( options.enable_xterm_title )
     {
-      char buffer[512];
-      va_list ap;
-  
-      va_start(ap,format);
-      vsnprintf(buffer,sizeof(buffer),format,ap);
-      va_end(ap);
-      printf("%c]0;%s%c", '\033', buffer, '\007'); 
+      if( g_getenv("WINDOWID") )
+	{
+	  char buffer[512];
+	  va_list ap;
+	  
+	  va_start(ap,format);
+	  vsnprintf(buffer,sizeof(buffer),format,ap);
+	  va_end(ap);
+	  printf("%c]0;%s%c", '\033', buffer, '\007'); 
+	}
+      else
+	options.enable_xterm_title = FALSE;
     }
 }

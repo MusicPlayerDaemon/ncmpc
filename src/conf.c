@@ -53,11 +53,13 @@
 #define CONF_COLOR_DEFINITION        "colordef"
 #define CONF_LIST_FORMAT             "list-format"
 #define CONF_STATUS_FORMAT           "status-format"
+#define CONF_XTERM_TITLE_FORMAT      "xterm-title-format"
 #define CONF_LIST_WRAP               "wrap-around"
 #define CONF_FIND_WRAP               "find-wrap"
 #define CONF_AUDIBLE_BELL            "audible-bell"
 #define CONF_VISIBLE_BELL            "visible-bell"
 #define CONF_XTERM_TITLE             "set-xterm-title"
+
 
 /* Deprecated - configuration field names */
 #define OLD_CONF_ENABLE_COLORS       "enable_colors"
@@ -514,6 +516,12 @@ read_rc_file(char *filename, options_t *options)
 		{
 		  g_free(options->status_format);
 		  options->status_format = get_format(value);
+		}
+	      /* xterm title format string */
+	      else if( !strcasecmp(CONF_XTERM_TITLE_FORMAT, name) )
+		{
+		  g_free(options->xterm_title_format);
+		  options->xterm_title_format = get_format(value);
 		}
 	      else if( !strcasecmp(CONF_LIST_WRAP, name) )
 		{

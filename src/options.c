@@ -175,6 +175,7 @@ options_init( void )
 
   options.list_format = NULL;
   options.status_format = NULL;
+  options.xterm_title_format = NULL;
 
   options.reconnect = TRUE;
   options.find_wrap = TRUE;
