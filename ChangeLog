@@ -1,5 +1,11 @@
+2005-01-23: Kalle Wallin <kaw@linux.se>
+	* libmpdclient updated to 2897
+
 2005-01-20: Kalle Wallin <kaw@linux.se>
 	* Added French translations from Yann Cézard
+
+2005-01-19: shb
+	* libmpdclient updated to r2890
 
 2005-01-03:  Kalle Wallin <kaw@linux.se>
 	* Added Russian translations from Nikolay Pavlov
