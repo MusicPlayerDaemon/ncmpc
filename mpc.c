@@ -16,6 +16,8 @@
 #include "mpc.h"
 #include "options.h"
 
+#define MAX_SONG_LENGTH 1024
+
 void 
 mpc_update_song(mpd_client_t *c)
 {
@@ -186,21 +188,31 @@ mpc_playlist_get_song(mpd_client_t *c, int n)
 char *
 mpc_get_song_name(mpd_Song *song)
 {
+  static char buf[MAX_SONG_LENGTH];
+  char *name;
+  
   if( song->title )
     {
       if( song->artist )
 	{
-	  static char buf[512];
-
-	  snprintf(buf, 512, "%s - %s", song->artist, song->title);
-	  return utf8(buf);
+	  snprintf(buf, MAX_SONG_LENGTH, "%s - %s", song->artist, song->title);
+	  name = utf8_to_locale(buf);
+	  strncpy(buf, name, MAX_SONG_LENGTH);
+	  free(name);
+	  return buf;
 	}
       else
 	{
-	  return utf8(song->title);
+	  name = utf8_to_locale(song->title);
+	  strncpy(buf, name, MAX_SONG_LENGTH);
+	  free(name);
+	  return buf;
 	}
     }
-  return utf8(basename(song->file));
+  name = utf8_to_locale(song->file);
+  strncpy(buf, name, MAX_SONG_LENGTH);
+  free(name);
+  return buf;
 }
 
 int 

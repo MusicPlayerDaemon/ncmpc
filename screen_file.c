@@ -16,10 +16,12 @@
 #include "screen.h"
 #include "screen_file.h"
 
+#define BUFSIZE 1024
 
 static char *
 list_callback(int index, int *highlight, void *data)
 {
+  static char buf[BUFSIZE];
   mpd_client_t *c = (mpd_client_t *) data;
   filelist_entry_t *entry;
   mpd_InfoEntity *entity;
@@ -37,10 +39,12 @@ list_callback(int index, int *highlight, void *data)
     }
   if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY ) 
     {
-
       mpd_Directory *dir = entity->info.directory;
+      char *dirname = utf8_to_locale(dir->path);
 
-      return utf8(basename(dir->path));
+      strncpy(buf, dirname, BUFSIZE);
+      free(dirname);
+      return buf;
     }
   else if( entity->type==MPD_INFO_ENTITY_TYPE_SONG )
     {

@@ -18,6 +18,7 @@ set -- $CFLAGS
 CFLAGS="-Wall $CFLAGS"
 
 
+
 dnl
 dnl Check for libaries
 dnl
@@ -44,6 +45,18 @@ AC_CHECK_TYPE(socklen_t,
 dnl
 dnl Check for headers
 dnl
+
+AM_ICONV
+
+AC_CHECK_HEADER(langinfo.h,
+	        AC_DEFINE(HAVE_LANGINFO_H, 1, langinfo.h),
+		,)
+
+AC_CHECK_HEADER(locale.h,
+	        AC_DEFINE(HAVE_LOCALE_H, 1, locale.h),
+		,)
+
+
 AC_CHECK_HEADER(libgen.h,
                 AC_DEFINE(HAVE_LIBGEN_H, 1, glibc - libgen.h),
 		,)

@@ -5,5 +5,10 @@
 char *basename(char *path);
 #endif
 
-char *utf8(char *str);
+
+
+int charset_init(void);
+int charset_close(void);
+char *utf8_to_locale(char *str);
+
 
