@@ -30,6 +30,13 @@
 
 #define MAX_LONGOPT_LENGTH 32
 
+#define ERROR_UNKNOWN_OPTION    0x01
+#define ERROR_BAD_ARGUMENT      0x02
+#define ERROR_GOT_ARGUMENT      0x03
+#define ERROR_MISSING_ARGUMENT  0x04
+
+ 
+
 typedef struct
 {
   int  shortopt;
@@ -78,6 +85,30 @@ lookup_option(int s, char *l)
   return NULL;
 }
 
+static void
+option_error(int error, char *option, char *arg)
+{
+  switch(error)
+    {
+    case ERROR_UNKNOWN_OPTION:
+      fprintf(stderr, PACKAGE ": invalid option %s\n", option);
+      break;
+    case ERROR_BAD_ARGUMENT:
+      fprintf(stderr, PACKAGE ": bad argument: %s\n", option);
+      break;
+    case ERROR_GOT_ARGUMENT:
+      fprintf(stderr, PACKAGE ": invalid option %s=%s\n", option, arg);
+      break;
+    case ERROR_MISSING_ARGUMENT:
+      fprintf(stderr, PACKAGE ": missing value for %s\n", option);
+      break;
+    default:
+      fprintf(stderr, PACKAGE ": internal error %d\n", error);
+      break;
+    }
+  exit(EXIT_FAILURE);
+}
+
 static void 
 display_help(void)
 {
@@ -106,6 +137,7 @@ display_help(void)
 static void 
 handle_option(int c, char *arg)
 {
+  D("option callback -%c %s\n", c, arg);
   switch(c)
     {
     case '?': /* --help */
@@ -177,27 +209,32 @@ options_parse(int argc, const char *argv[])
       /* check for a long option */
       if( g_str_has_prefix(arg, "--") )
 	{
-	  char *value;
+	  char *name, *value;
+	  
+	  /* make shure we got an argument for the previous option */
+	  if( opt && opt->argument )
+	    option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
 
 	  /* retreive a option argument */
 	  if( (value=g_strrstr(arg+2, "=")) )
 	    {
 	      *value = '\0';
+	      name = g_strdup(arg);
+	      *value = '=';
 	      value++;
 	    }
+	  else
+	    name = g_strdup(arg);
+
 	  /* check if the option exists */
-	  if( (opt=lookup_option(0, arg+2)) == NULL )
-	    {
-	      fprintf(stderr, PACKAGE ": invalid option %s\n", arg);
-	      exit(EXIT_FAILURE);
-	    }
+	  if( (opt=lookup_option(0, name+2)) == NULL )
+	    option_error(ERROR_UNKNOWN_OPTION, name, NULL);
+	  g_free(name);
+	  
 	  /* abort if we got an argument to the option and dont want one */
 	  if( value && opt->argument==NULL )
-	    {
-	      fprintf(stderr, PACKAGE ": invalid option argument %s=%s\n", 
-		      arg, value);
-	      exit(EXIT_FAILURE);
-	    }
+	    option_error(ERROR_GOT_ARGUMENT, arg, value);
+	  
 	  /* execute option callback */
 	  if( value || opt->argument==NULL )
 	    {
@@ -208,12 +245,14 @@ options_parse(int argc, const char *argv[])
       /* check for a short option */
       else if( len==2 && g_str_has_prefix(arg, "-") )
 	{
+	  /* make shure we got an argument for the previous option */
+	  if( opt && opt->argument )
+	    option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
+
 	  /* check if the option exists */
 	  if( (opt=lookup_option(arg[1], NULL))==NULL )
-	    {
-	      fprintf(stderr, PACKAGE ": invalid option %s\n",arg);
-	      exit(EXIT_FAILURE);
-	    }
+	    option_error(ERROR_UNKNOWN_OPTION, arg, NULL);
+
 	  /* if no option argument is needed execute callback */
 	  if( opt->argument==NULL )
 	    {
@@ -227,17 +266,19 @@ options_parse(int argc, const char *argv[])
 	  if( opt && opt->argument)
 	    {
 	      option_cb (opt->shortopt, arg);
+	      opt = NULL;
 	    }
 	  else 
-	    {
-	      fprintf(stderr, PACKAGE ": bad argument: %s\n", arg);
-	      exit(EXIT_FAILURE);
-	    }
-	  opt = NULL;
+	    option_error(ERROR_BAD_ARGUMENT, arg, NULL);	  
 	}
-
       i++;
     }
+  
+  if( opt && opt->argument==NULL)
+    option_cb (opt->shortopt, NULL);
+  else if( opt && opt->argument )
+    option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
+
   return  &options;
 }
 
@@ -250,6 +291,7 @@ options_init( void )
 
   memset(&options, 0, sizeof(options_t));
 
+  /* get initial values for host and password from MPD_HOST (enviroment) */
   if( (value=g_getenv(MPD_HOST_ENV)) )
     options.host = g_strdup(value);
   else
@@ -262,16 +304,13 @@ options_init( void )
       options.host = g_strdup(tmp+1);
       g_free(oldhost);
     }
-
+  /* get initial values for port from MPD_PORT (enviroment) */
   if( (value=g_getenv(MPD_PORT_ENV)) )
     options.port = atoi(value);
   else
     options.port = DEFAULT_PORT;
 
-  options.list_format = NULL;
-  options.status_format = NULL;
-  options.xterm_title_format = NULL;
-
+  /* default option values */
   options.reconnect = TRUE;
   options.find_wrap = TRUE;
   options.wide_cursor = TRUE;

@@ -1,4 +1,12 @@
-2004-06-29 Kalle Wallin <kaw@linux.se>
+2004-07-02 Kalle Wallin <kaw@linux.se>
+	* options.c: improved error handling in the argv parser
+
+2004-07-01 Kalle Wallin <kaw@linux.se>
+	* support.[c|h]: removed the trim() function
+	* screen_play.c: use glib's g_strstrip() instead of trim()
+	* options.c: removed popt code
+
+2004-06-29
 	* command.h: added flags to command_definition_t.
 	* command.c: only save keys with a COMMAND_KEY_MODIFIED flag
 	  (dont write all key bindings when saving ~/.ncmpc/keys)
