@@ -5,29 +5,33 @@
 #include <glib.h>
 
 #include "config.h"
+#include "support.h"
 
 #ifdef HAVE_LOCALE_H
-#ifdef HAVE_LANGINFO_H
-#ifdef HAVE_ICONV
 #include <locale.h>
-#include <langinfo.h>
-#include <iconv.h>
-#define ENABLE_CHARACTER_SET_CONVERSION
-#endif
-#endif
 #endif
 
-#include "support.h"
+#ifdef HAVE_ICONV
+#include <iconv.h>
+#endif
+
+#ifdef HAVE_LANGINFO_CODESET
+#include <langinfo.h>
+#endif
 
 #define BUFSIZE 1024
 
-#ifdef ENABLE_CHARACTER_SET_CONVERSION
-static char *locale = NULL;
+
 static char *charset = NULL;
+
+#ifdef HAVE_LOCALE_H
+static char *locale = NULL;
+#endif
+
+#ifdef HAVE_ICONV
 iconv_t iconv_from_uft8 = (iconv_t)(-1);
 iconv_t iconv_to_uft8 = (iconv_t)(-1);
 #endif
-
 
 
 #ifndef HAVE_LIBGEN_H
@@ -71,21 +75,28 @@ basename(char *path)
 int
 charset_init(void)
 {
-#ifdef ENABLE_CHARACTER_SET_CONVERSION
+#ifdef HAVE_LOCALE_H
   /* get current locale */
   if( (locale=setlocale(LC_CTYPE,"")) == NULL )
     {
       fprintf(stderr,"setlocale() - failed!\n");
       return -1;
     }
+#endif
 
+#ifdef HAVE_LANGINFO_CODESET
   /* get charset */
   if( (charset=nl_langinfo(CODESET)) == NULL )
     {
-      fprintf(stderr,"nl_langinfo() - failed!\n");
-      return -1;
+      fprintf(stderr,
+	      "nl_langinfo() failed using default:" DEFAULT_CHARSET "\n");
     }
-
+#endif
+  
+  if( charset==NULL )
+    charset = DEFAULT_CHARSET;
+  
+#ifdef HAVE_ICONV
   /* allocate descriptor for character set conversion */
   iconv_from_uft8 = iconv_open(charset, "UTF-8");
   if( iconv_from_uft8 == (iconv_t)(-1) )
@@ -101,7 +112,7 @@ charset_init(void)
 int
 charset_close(void)
 {
-#ifdef ENABLE_CHARACTER_SET_CONVERSION
+#ifdef HAVE_ICONV
   if( iconv_from_uft8 == (iconv_t)(-1) )
     {
       iconv_close(iconv_from_uft8);
@@ -121,7 +132,7 @@ charset_close(void)
 char *
 utf8_to_locale(char *str)
 {
-#ifdef ENABLE_CHARACTER_SET_CONVERSION
+#ifdef HAVE_ICONV
   size_t inleft;
   size_t retlen;
   char *ret;

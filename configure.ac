@@ -17,11 +17,36 @@ dnl =======================================================
 set -- $CFLAGS
 CFLAGS="-Wall $CFLAGS"
 
+dnl
+dnl Check for types
+dnl
+AC_CHECK_TYPE(socklen_t, 
+	      AC_DEFINE(HAVE_SOCKLEN_T, 1, socklen_t defined in sys/socket.h),
+)
+
+
+dnl
+dnl Check for headers
+dnl
+
+AC_CHECK_HEADER(libgen.h,
+                AC_DEFINE(HAVE_LIBGEN_H, 1, glibc - libgen.h),
+		,)
+
+AC_CHECK_HEADER(locale.h,
+ 	        AC_DEFINE(HAVE_LOCALE_H, 1, locale.h),
+		,)
 
 
 dnl
 dnl Check for libaries
 dnl
+
+dnl iconv
+AM_ICONV
+
+dnl nl_langinfo()
+AM_LANGINFO_CODESET
 
 dnl ncurses
 AC_CHECK_LIB(ncurses, initscr,, [AC_MSG_ERROR(ncurses library is required)])
@@ -34,32 +59,6 @@ AC_CHECK_LIB(popt,
              poptGetArg,
              LIBS="$LIBS -lpopt",
              AC_MSG_ERROR(Missing popt command line parsing library))
-
-dnl
-dnl Check for types
-dnl
-AC_CHECK_TYPE(socklen_t, 
-	      AC_DEFINE(HAVE_SOCKLEN_T, 1, socklen_t defined in sys/socket.h),
-)
-
-dnl
-dnl Check for headers
-dnl
-
-AM_ICONV
-
-AC_CHECK_HEADER(langinfo.h,
-	        AC_DEFINE(HAVE_LANGINFO_H, 1, langinfo.h),
-		,)
-
-AC_CHECK_HEADER(locale.h,
-	        AC_DEFINE(HAVE_LOCALE_H, 1, locale.h),
-		,)
-
-
-AC_CHECK_HEADER(libgen.h,
-                AC_DEFINE(HAVE_LIBGEN_H, 1, glibc - libgen.h),
-		,)
 
 dnl
 dnl X11
@@ -75,6 +74,12 @@ AC_ARG_ENABLE(debug,
 if test "$enable_debug" = yes; then
   CFLAGS="$CFLAGS -g -DDEBUG"
 fi
+
+dnl Default charset
+AC_ARG_WITH(default-charset,
+	    [  --with-default-charset=ARG  Default charset (ISO-8859-1)], 
+            DEFAULT_CHARSET="$withval",
+            DEFAULT_CHARSET="ISO-8859-1")
 
 dnl Default host
 AC_ARG_WITH(default-host,
@@ -94,9 +99,10 @@ LIBS="$LIBS $GLIB_LIBS -lncurses"
 
 
 dnl Autoheader
-AC_DEFINE_UNQUOTED(DEFAULT_PORT,      $DEFAULT_PORT,    Default MPD port)
-AC_DEFINE_UNQUOTED(DEFAULT_PORT_STR, "$DEFAULT_PORT",   Default MPD port)
-AC_DEFINE_UNQUOTED(DEFAULT_HOST,     "$DEFAULT_HOST",   Default MPD host)
+AC_DEFINE_UNQUOTED(DEFAULT_PORT,      $DEFAULT_PORT,     Default MPD port)
+AC_DEFINE_UNQUOTED(DEFAULT_PORT_STR, "$DEFAULT_PORT",    Default MPD port)
+AC_DEFINE_UNQUOTED(DEFAULT_HOST,     "$DEFAULT_HOST",    Default MPD host)
+AC_DEFINE_UNQUOTED(DEFAULT_CHARSET,  "$DEFAULT_CHARSET", Default charset)
 
 
 AM_CONFIG_HEADER(config.h)
