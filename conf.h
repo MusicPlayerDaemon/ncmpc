@@ -1,3 +1,3 @@
 
-int read_rc_file(char *filename, options_t *options);
+int read_configuration(options_t *options);
 
