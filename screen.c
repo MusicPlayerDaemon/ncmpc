@@ -68,7 +68,14 @@ static void
 paint_top_window(char *header, int volume, int clear)
 {
   static int prev_volume = -1;
+  static int prev_header_len = -1;
   WINDOW *w = screen->top_window.w;
+
+  if(prev_header_len!=strlen(header))
+    {
+      prev_header_len = strlen(header);
+      clear = 1;
+    }
 
   if(clear)
     {
