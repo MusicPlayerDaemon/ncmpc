@@ -1,8 +1,3 @@
-/* 
- * $Id: screen_utils.c,v 1.4 2004/03/16 13:57:24 kalle Exp $ 
- *
- */
-
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
@@ -11,13 +6,9 @@
 
 #include "libmpdclient.h"
 #include "mpc.h"
+#include "support.h"
 #include "command.h"
 #include "screen.h"
-
-#if 0
-#include <readline/readline.h>
-#endif
-
 
 list_window_t *
 list_window_init(WINDOW *w, int width, int height)

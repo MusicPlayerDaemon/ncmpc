@@ -101,10 +101,12 @@ add_directory(mpd_client_t *c, char *dir)
   mpd_InfoEntity *entity;
   GList *subdir_list = NULL;
   GList *list = NULL;
-  char buf[80];
+  char *dirname;
 
-  snprintf(buf, 80, "Adding directory %s...\n", dir);
-  screen_status_message(c, buf);
+  dirname = utf8_to_locale(dir);
+  screen_status_printf("Adding directory %s...\n", dirname);
+  free(dirname);
+  dirname = NULL;
 
   mpd_sendLsInfoCommand(c->connection, dir);
   mpd_sendCommandListBegin(c->connection);
@@ -168,16 +170,13 @@ select_entry(screen_t *screen, mpd_client_t *c)
     {
       if( entry->entity->type==MPD_INFO_ENTITY_TYPE_SONG )
 	{
-	  char buf[80];
 	  mpd_Song *song = entry->entity->info.song;
 
 	  mpd_sendAddCommand(c->connection, song->file);
 	  mpd_finishCommand(c->connection);
 
-	  snprintf(buf, 80, 
-		   "Adding \'%s\' to playlist\n", 
-		   mpc_get_song_name(song));
-	  screen_status_message(c, buf);
+	  screen_status_printf("Adding \'%s\' to playlist\n", 
+			       mpc_get_song_name(song));
 	}
     }
   else
@@ -185,7 +184,6 @@ select_entry(screen_t *screen, mpd_client_t *c)
       if( entry->entity->type==MPD_INFO_ENTITY_TYPE_SONG )
 	{
 	  int i;
-	  char buf[80];
 	  mpd_Song *song = entry->entity->info.song;
 	  
 	  i = mpc_playlist_get_song_index(c, song->file);
@@ -193,10 +191,9 @@ select_entry(screen_t *screen, mpd_client_t *c)
 	    {
 	      mpd_sendDeleteCommand(c->connection, i);
 	      mpd_finishCommand(c->connection);
-	      snprintf(buf, 80, 
-		       "Removed \'%s\' from playlist\n", 
-		       mpc_get_song_name(song));
-	      screen_status_message(c, buf);
+	      screen_status_printf("Removed \'%s\' from playlist\n", 
+				   mpc_get_song_name(song));
+
 	    }
 	}
     }
@@ -352,7 +349,7 @@ file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 	}
       else
 	{
-	  screen_status_printf(c, "Unable to find \'%s\'", screen->findbuf);
+	  screen_status_printf("Unable to find \'%s\'", screen->findbuf);
 	  beep();
 	}
       break;

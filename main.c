@@ -1,8 +1,3 @@
-/* 
- * $Id: main.c,v 1.5 2004/03/16 14:34:49 kalle Exp $ 
- *
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -17,9 +12,8 @@
 #include "command.h"
 #include "screen.h"
 
-#define BUFSIZE 256
-
 static mpd_client_t *mpc = NULL;
+
 
 void
 exit_and_cleanup(void)
@@ -42,7 +36,7 @@ catch_sigint( int sig )
 }
 
 int 
-main(int argc, char *argv[])
+main(int argc, const char *argv[])
 {
   options_t *options;
   struct sigaction act;
@@ -96,6 +90,7 @@ main(int argc, char *argv[])
   if( mpc_error(mpc) )
     exit(EXIT_FAILURE);
 
+  /* initialize curses */
   screen_init();
   
   counter=0;
@@ -103,16 +98,14 @@ main(int argc, char *argv[])
   while( connected || options->reconnect )
     {
       command_t cmd;
-      char buf[BUFSIZE];
-	
+
       if( connected && counter==0  )
 	{
 	  mpc_update(mpc);
 	  if( mpc_error(mpc) )
 	    {
 	      connected=0;
-	      snprintf(buf, BUFSIZE, "Lost connection to %s", options->host);
-	      screen_status_message(mpc, buf);
+	      screen_status_printf("Lost connection to %s", options->host);
 	      mpd_closeConnection(mpc->connection);
 	      mpc->connection = NULL;
 	    }
@@ -133,14 +126,11 @@ main(int argc, char *argv[])
       else if( options->reconnect )
 	{
 	  sleep(3);
-	  snprintf(buf, BUFSIZE, 
-		   "Connecting to %s...  [Press Ctrl-C to abort]", 
-		   options->host);
-	  screen_status_message(mpc, buf);
+	  screen_status_printf("Connecting to %s...  [Press Ctrl-C to abort]", 
+			       options->host);
 	  if( mpc_reconnect(mpc, options->host, options->port) == 0 )
 	    {
-	      snprintf(buf, BUFSIZE, "Connected to %s!", options->host);
-	      screen_status_message(mpc, buf);
+	      screen_status_printf("Connected to %s!", options->host);
 	      connected=1;
 	      counter=0;
 	    }

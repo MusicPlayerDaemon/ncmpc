@@ -176,11 +176,6 @@ paint_status_window(mpd_client_t *c)
     {
       x = screen->status_window.cols - strlen(screen->buf);
 
-      if( c->status->repeat )
-	mvwaddstr(w, 0, x-3, "<R>");
-      else
-	mvwaddstr(w, 0, x-3, "   ");
-
       snprintf(screen->buf, screen->buf_size, 
 	       " [%i:%02i/%i:%02i] ",
 	       status->elapsedTime/60, status->elapsedTime%60,
@@ -188,6 +183,18 @@ paint_status_window(mpd_client_t *c)
       mvwaddstr(w, 0, x, screen->buf);
 	
     }
+#if 1
+  else if( c->status->state == MPD_STATUS_STATE_STOP )
+    {
+      time_t timep;
+      x = screen->status_window.cols - strlen(screen->buf);
+      
+      time(&timep);
+      //strftime(screen->buf, screen->buf_size, "%X ",  localtime(&timep));
+      strftime(screen->buf, screen->buf_size, "%R ",  localtime(&timep));
+      mvwaddstr(w, 0, x, screen->buf);
+    }
+#endif
   
 
   wrefresh(w);
@@ -225,7 +232,7 @@ screen_resized(int sig)
 }
 
 void 
-screen_status_message(mpd_client_t *c, char *msg)
+screen_status_message(char *msg)
 {
   WINDOW *w = screen->status_window.w;
 
@@ -239,7 +246,7 @@ screen_status_message(mpd_client_t *c, char *msg)
 }
 
 void 
-screen_status_printf(mpd_client_t *c, char *format, ...)
+screen_status_printf(char *format, ...)
 {
   char buffer[STATUS_LINE_MAX_SIZE];
   va_list ap;
@@ -247,7 +254,7 @@ screen_status_printf(mpd_client_t *c, char *format, ...)
   va_start(ap,format);
   vsnprintf(buffer,sizeof(buffer),format,ap);
   va_end(ap);
-  screen_status_message(c, buffer);
+  screen_status_message(buffer);
 }
 
 int
@@ -398,7 +405,7 @@ void
 screen_cmd(mpd_client_t *c, command_t cmd)
 {
   int n;
-  char buf[256];
+  //  char buf[256];
   screen_mode_t new_mode = screen->mode;
 
   switch(screen->mode)
@@ -452,46 +459,42 @@ screen_cmd(mpd_client_t *c, command_t cmd)
     case CMD_SHUFFLE:
       mpd_sendShuffleCommand(c->connection);
       mpd_finishCommand(c->connection);
-      screen_status_message(c, "Shuffled playlist!");
+      screen_status_message("Shuffled playlist!");
       break;
     case CMD_CLEAR:
       mpd_sendClearCommand(c->connection);
       mpd_finishCommand(c->connection);
       file_clear_highlights(c);
-      screen_status_message(c, "Cleared playlist!");
+      screen_status_message("Cleared playlist!");
       break;
     case CMD_REPEAT:
       n = !c->status->repeat;
       mpd_sendRepeatCommand(c->connection, n);
       mpd_finishCommand(c->connection);
-      snprintf(buf, 256, "Repeat is %s", n ? "On" : "Off");
-      screen_status_message(c, buf);
+      screen_status_printf("Repeat is %s", n ? "On" : "Off");
       break;
     case CMD_RANDOM:
       n = !c->status->random;
       mpd_sendRandomCommand(c->connection, n);
       mpd_finishCommand(c->connection);
-      snprintf(buf, 256, "Random is %s", n ? "On" : "Off");
-      screen_status_message(c, buf);
+      screen_status_printf("Random is %s", n ? "On" : "Off");
       break;
     case CMD_VOLUME_UP:
-      //  mpd_sendSetvolCommand(c->connection, X );
-      mpd_sendVolumeCommand(c->connection, 1);
-      mpd_finishCommand(c->connection);
-      if( c->status->volume!=MPD_STATUS_NO_VOLUME )
+      if( c->status->volume!=MPD_STATUS_NO_VOLUME && c->status->volume<100 )
 	{
-	  snprintf(buf, 256, "Volume %d%%", c->status->volume+1); 
-	  screen_status_message(c, buf);
+	  c->status->volume=c->status->volume+1;
+	  mpd_sendSetvolCommand(c->connection, c->status->volume  );
+	  mpd_finishCommand(c->connection);
+	  screen_status_printf("Volume %d%%", c->status->volume);
 	}
       break;
     case CMD_VOLUME_DOWN:
-      //  mpd_sendSetvolCommand(c->connection, X );
-      mpd_sendVolumeCommand(c->connection, -1);
-      mpd_finishCommand(c->connection);
-      if( c->status->volume!=MPD_STATUS_NO_VOLUME )
+      if( c->status->volume!=MPD_STATUS_NO_VOLUME && c->status->volume>0 )
 	{
-	  snprintf(buf, 256, "Volume %d%%", c->status->volume-1); 
-	  screen_status_message(c, buf);
+	  c->status->volume=c->status->volume-1;
+	  mpd_sendSetvolCommand(c->connection, c->status->volume  );
+	  mpd_finishCommand(c->connection);
+	  screen_status_printf("Volume %d%%", c->status->volume);
 	}
       break;
     case CMD_SCREEN_PREVIOUS:

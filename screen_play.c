@@ -93,8 +93,7 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
       file_clear_highlight(c, song);
       mpd_sendDeleteCommand(c->connection, screen->playlist->selected);
       mpd_finishCommand(c->connection);
-      screen_status_printf(c, 
-			   "Removed \'%s\' from playlist!",
+      screen_status_printf("Removed \'%s\' from playlist!",
 			   mpc_get_song_name(song));
       break;
     case CMD_LIST_PREVIOUS:
@@ -139,7 +138,7 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 	}
       else
 	{
-	  screen_status_printf(c, "Unable to find \'%s\'", screen->findbuf);
+	  screen_status_printf("Unable to find \'%s\'", screen->findbuf);
 	  beep();
 	}
       break;

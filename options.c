@@ -40,7 +40,7 @@ usage(poptContext optCon, int exitcode, char *error, char *addl)
 }
 
 options_t *
-options_parse( int argc, char **argv )
+options_parse( int argc, const char **argv)
 {
   int c;
   poptContext optCon;   /* context for parsing command-line options */

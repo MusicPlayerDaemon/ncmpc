@@ -13,6 +13,8 @@ ncurses
 
 other
 ----------------------------------------------------------------------------
-  * find/search function in playlist (like in less '/')
+  * find/search function in playlist (like in less '/')		- done
+  * configuration file(s) - keybindings,colors...
+  * internationalization - gettext
 
 

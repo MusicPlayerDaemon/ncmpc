@@ -64,8 +64,8 @@ typedef struct
 int screen_init(void);
 int screen_exit(void);
 void screen_resized(int sig);
-void screen_status_message(mpd_client_t *c, char *msg);
-void screen_status_printf(mpd_client_t *c, char *format, ...);
+void screen_status_message(char *msg);
+void screen_status_printf(char *format, ...);
 char *screen_error(void);
 void screen_paint(mpd_client_t *c);
 void screen_update(mpd_client_t *c);

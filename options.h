@@ -13,6 +13,6 @@ typedef struct
 } options_t;
 
 void options_init(void);
-options_t *options_parse(int argc, char **argv);
+options_t *options_parse(int argc, const char **argv);
 options_t *get_options(void);
 
