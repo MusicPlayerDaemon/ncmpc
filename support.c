@@ -166,12 +166,12 @@ int
 charset_close(void)
 {
 #ifdef HAVE_ICONV
-  if( iconv_from_uft8 == (iconv_t)(-1) )
+  if( iconv_from_uft8 != (iconv_t)(-1) )
     {
       iconv_close(iconv_from_uft8);
       iconv_from_uft8 = (iconv_t)(-1);
     }
-  if( iconv_to_uft8 == (iconv_t)(-1) )
+  if( iconv_to_uft8 != (iconv_t)(-1) )
     {
       iconv_close(iconv_to_uft8);
       iconv_to_uft8 = (iconv_t)(-1);
