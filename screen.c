@@ -214,6 +214,7 @@ paint_status_window(mpd_client_t *c)
   WINDOW *w = screen->status_window.w;
   mpd_Status *status = c->status;
   mpd_Song *song   = c->song;
+  int elapsedTime = c->status->elapsedTime;
   int x = 0;
 
   if( time(NULL) - screen->status_timestamp <= STATUS_MESSAGE_TIMEOUT )
@@ -254,13 +255,15 @@ paint_status_window(mpd_client_t *c)
   
 
   /* time */
+  if( c->seek_song_id == c->song_id )
+    elapsedTime = c->seek_target_time;
   if( IS_PLAYING(status->state) || IS_PAUSED(status->state) )
     {
       x = screen->status_window.cols - strlen(screen->buf);
 
       snprintf(screen->buf, screen->buf_size, 
 	       " [%i:%02i/%i:%02i] ",
-	       status->elapsedTime/60, status->elapsedTime%60,
+	       elapsedTime/60, elapsedTime%60,
 	       status->totalTime/60,   status->totalTime%60 );
       mvwaddstr(w, 0, x, screen->buf);
 	
