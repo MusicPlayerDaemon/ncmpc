@@ -137,7 +137,7 @@ list_callback(int index, int *highlight, void *data)
       if( help_text[index].command == CMD_NONE )
 	{
 	  if( help_text[index].text )
-	    g_snprintf(buf, sizeof(buf), "%28s", _(help_text[index].text));
+	    g_snprintf(buf, sizeof(buf), "      %s", _(help_text[index].text));
 	  else 
 	    if( help_text[index].highlight == 2 )
 	      {
