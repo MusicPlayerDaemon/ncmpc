@@ -1,3 +1,21 @@
+/* 
+ * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -80,9 +98,9 @@ static command_definition_t cmds[] =
   { { DWN,  '.',   0 }, CMD_LIST_NEXT,          "down",
     "Move cursor down" },
   { { HOME, 0x01, 0 }, CMD_LIST_FIRST,          "home",
-    "Home" },
+    "Home " },
   { { END,  0x05, 0 }, CMD_LIST_LAST,           "end",
-    "End" },
+    "End " },
   { { PGUP, 'A',   0 }, CMD_LIST_PREVIOUS_PAGE, "pgup",
     "Page up" },
   { { PGDN, 'B',   0 }, CMD_LIST_NEXT_PAGE,     "pgdn", 
@@ -111,6 +129,10 @@ static command_definition_t cmds[] =
     "Browse screen" },
   { {'u',   0,   0 }, CMD_SCREEN_UPDATE,    "update",
     "Update screen" },
+#ifdef ENABLE_KEYDEF_SCREEN
+  { {'K',   0,   0 }, CMD_SCREEN_KEYDEF,    "screen-keyedit",
+    "Key edit screen" },
+#endif
 
   { { 'q',  0,   0 }, CMD_QUIT,   "quit",
     "Quit " PACKAGE },  
@@ -118,10 +140,17 @@ static command_definition_t cmds[] =
   { { -1,  -1,  -1 }, CMD_NONE, NULL, NULL }
 };
 
+command_definition_t *
+get_command_definitions(void)
+{
+  return cmds;
+}
+
 char *
 key2str(int key)
 {
-  static char buf[2];
+  static char buf[4];
+  int i;
 
   buf[0] = 0;
   switch(key)
@@ -158,20 +187,16 @@ key2str(int key)
       return "Shift+Tab";
     case ESC:
       return "Esc";
-    case F1:
-      return "F1";
-    case F2:
-      return "F2";
-    case F3:
-      return "F3";
-    case F4:
-      return "F4";
-    case F5:
-      return "F5";
-    case F6:
-      return "F6";
+    case KEY_IC:
+      return "Insert";
     default:
-      snprintf(buf, 2, "%c", key);
+      for(i=0; i<=63; i++)
+	if( key==KEY_F(i) )
+	  {
+	    snprintf(buf, 4, "F%d", i );
+	    return buf;
+	  }
+      snprintf(buf, 4, "%c", key);
     }
   return buf;
 }
@@ -265,13 +290,14 @@ get_key_command_from_name(char *name)
   return CMD_NONE;
 }
 
+
 command_t 
-get_key_command(int key)
+find_key_command(int key, command_definition_t *cmds)
 {
   int i;
 
   i=0;
-  while( cmds[i].name )
+  while( cmds && cmds[i].name )
     {
       if( cmds[i].keys[0] == key || 
 	  cmds[i].keys[1] == key ||
@@ -280,6 +306,12 @@ get_key_command(int key)
       i++;
     }
   return CMD_NONE;
+}
+
+command_t 
+get_key_command(int key)
+{
+  return find_key_command(key, cmds);
 }
 
 

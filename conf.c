@@ -1,3 +1,21 @@
+/* 
+ * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
 #include <ctype.h>
 #include <stdio.h>
 #include <errno.h>
@@ -384,6 +402,28 @@ read_rc_file(char *filename, options_t *options)
   return 0;
 }
 
+int
+check_user_conf_dir(void)
+{
+  int retval;
+  char *dirname = g_build_filename(g_get_home_dir(), "." PACKAGE, NULL);
+  
+  if( g_file_test(dirname, G_FILE_TEST_IS_DIR) )
+    {
+      g_free(dirname);
+      return 0;
+    }
+  retval = mkdir(dirname, 0755);
+  g_free(dirname);
+  return retval;
+}
+
+char *
+get_user_key_binding_filename(void)
+{
+  return g_build_filename(g_get_home_dir(), "." PACKAGE, "keys", NULL);
+}
+
 
 int
 read_configuration(options_t *options)
@@ -418,7 +458,7 @@ read_configuration(options_t *options)
     }
 
   /* check for  user key bindings ~/.ncmpc/keys */
-  filename = g_build_filename(g_get_home_dir(), "." PACKAGE, "keys", NULL);
+  filename = get_user_key_binding_filename();
   if( !g_file_test(filename, G_FILE_TEST_IS_REGULAR) )
     {
       g_free(filename);
@@ -442,7 +482,6 @@ read_configuration(options_t *options)
       read_rc_file(filename, options);
       g_free(filename);
       filename = NULL;
-      //write_key_bindings(stderr);
     }
 
   return 0;
