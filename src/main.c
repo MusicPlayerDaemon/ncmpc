@@ -133,6 +133,13 @@ catch_sigint( int sig )
   exit(EXIT_SUCCESS);
 }
 
+void
+catch_sigcont( int sig )
+{
+  D("catch_sigcont()\n");
+  screen_resize();
+}
+
 #ifdef DEBUG
 void 
 D(char *format, ...)
@@ -196,7 +203,7 @@ main(int argc, const char *argv[])
   sigemptyset( &act.sa_mask );
   act.sa_flags    = 0;
   act.sa_handler = catch_sigint;
-  if( sigaction( SIGINT, &act, NULL )<0 )
+  if( sigaction(SIGINT, &act, NULL)<0 )
     {
       perror("signal");
       exit(EXIT_FAILURE);
@@ -205,9 +212,18 @@ main(int argc, const char *argv[])
   sigemptyset( &act.sa_mask );
   act.sa_flags    = 0;
   act.sa_handler = catch_sigint;
-  if( sigaction( SIGTERM, &act, NULL )<0 )
+  if( sigaction(SIGTERM, &act, NULL)<0 )
     {
       perror("sigaction()");
+      exit(EXIT_FAILURE);
+    }
+  /* setup signal behavior - SIGCONT */
+  sigemptyset( &act.sa_mask );
+  act.sa_flags    = 0;
+  act.sa_handler = catch_sigcont;
+  if( sigaction(SIGCONT, &act, NULL)<0 )
+    {
+      perror("sigaction(SIGCONT)");
       exit(EXIT_FAILURE);
     }
 
