@@ -34,7 +34,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #ifndef HAVE_SOCKLEN_T
-typedef int socklen_t;
+typedef SOCKLEN_T socklen_t;
 #endif
 #endif
 
