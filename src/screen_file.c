@@ -284,6 +284,26 @@ load_playlist(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
   return 0;
 }
 
+static int
+handle_save(screen_t *screen, mpdclient_t *c)
+{
+  filelist_entry_t *entry;
+  char *defaultname = NULL;
+
+
+  entry=( filelist_entry_t *) g_list_nth_data(filelist->list,lw->selected);
+  if( entry && entry->entity )
+    { 
+      mpd_InfoEntity *entity = entry->entity;
+      if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE )
+	{
+	  mpd_PlaylistFile *plf = entity->info.playlistFile;
+	  defaultname = plf->path;
+	}
+    }
+  return playlist_save(screen, c, NULL, defaultname);
+}
+
 static int 
 handle_delete(screen_t *screen, mpdclient_t *c)
 {
@@ -648,6 +668,9 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       break;
     case CMD_DELETE:
       handle_delete(screen, c);
+      break;
+    case CMD_SAVE_PLAYLIST:
+      handle_save(screen, c);
       break;
     case CMD_SCREEN_UPDATE:
       screen->painted = 0;

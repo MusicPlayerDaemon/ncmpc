@@ -110,6 +110,7 @@ static help_text_row_t help_text[] =
   { 2, CMD_NONE,           NULL },
   { 0, CMD_PLAY,           N_("Enter directory/Select and play song") },
   { 0, CMD_SELECT,         NULL },
+  { 0, CMD_SAVE_PLAYLIST,  NULL },
   { 0, CMD_DELETE,         N_("Delete playlist") },
   { 0, CMD_SCREEN_UPDATE,  NULL },
 

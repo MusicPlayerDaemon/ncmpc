@@ -114,8 +114,9 @@ center_playing_item(screen_t *screen, mpdclient_t *c)
   return 0;
 }
 
-static int
-handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
+
+int
+playlist_save(screen_t *screen, mpdclient_t *c, char *name, char *defaultname)
 {
   gchar *filename;
   gint error;
@@ -153,7 +154,7 @@ handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
       /* query the user for a filename */
       filename = screen_readln(screen->status_window.w,
 			       _("Save playlist as: "),
-			       NULL,
+			       defaultname,
 			       NULL,
 			       gcmp);     			       
 
@@ -192,7 +193,7 @@ handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
 		  g_free(filename);
 		  return -1;
 		}
-	      error = handle_save_playlist(screen, c, filename);
+	      error = playlist_save(screen, c, filename, NULL);
 	      g_free(filename);
 	      return error;
 	    }	  
@@ -422,7 +423,7 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       mpdclient_cmd_delete(c, lw->selected);
       return 1;
     case CMD_SAVE_PLAYLIST:
-      handle_save_playlist(screen, c, NULL);
+      playlist_save(screen, c, NULL, NULL);
       return 1;
     case CMD_ADD:
       handle_add_to_playlist(screen, c);
