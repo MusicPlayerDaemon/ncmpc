@@ -239,7 +239,7 @@ mpc_get_song_name(mpd_Song *song)
 	  return buf;
 	}
     }
-  name = utf8_to_locale(song->file);
+  name = utf8_to_locale(basename(song->file));
   strncpy(buf, name, MAX_SONG_LENGTH);
   free(name);
   return buf;
