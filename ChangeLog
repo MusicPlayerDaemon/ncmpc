@@ -1,3 +1,11 @@
+2004-04-20 Kalle Wallin <kaw@linux.se>
+	* Added support for seeking 
+	* Added crossfade support
+	* screen.c: Display mpd flags on the second row [rzx]
+	* screen_keydef.c: show a message if changes is not applied
+	* configure.ac: changed calls to AS_HELP_STRING -> AC_HELP_STRING
+	                because the first one failed on darwin.
+
 2004-04-19 Kalle Wallin <kaw@linux.se>
 	* Added copyright notice and license notice 
 	* Major cleanup of the 'screen' handling routines. The goal of this 
