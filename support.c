@@ -1,4 +1,5 @@
 #include <ctype.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -115,7 +116,8 @@ charset_init(void)
   noconvert = g_get_charset(&charset);
 
 #ifdef DEBUG
-  g_printerr("charset: %s\n", charset);
+  g_printerr("charset: %s [%d]\n", charset, noconvert);
+  fflush(stderr);
 #endif
   
   return 0;
@@ -141,7 +143,7 @@ utf8_to_locale(char *utf8str)
   wb = 0; /* bytes written */
   error = NULL;
   str=g_locale_from_utf8(utf8str, 
-			 g_utf8_strlen(utf8str,-1), 
+			 strlen(utf8str),
 			 &wb, &rb,
 			 &error);
   if( error )
@@ -168,7 +170,7 @@ locale_to_utf8(char *localestr)
   wb = 0; /* bytes written */
   error = NULL;
   str=g_locale_to_utf8(localestr, 
-		       -1, 
+		       strlen(localestr), 
 		       &wb, &rb,
 		       &error);
   if( error )
