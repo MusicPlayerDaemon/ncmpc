@@ -34,7 +34,7 @@
 #undef  ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_ADD /* broken with song id's */
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_DELETE
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_MOVE
-#undef  ENABLE_SONG_ID
+#define ENABLE_SONG_ID
 
 #define MPD_ERROR(c) (c==NULL || c->connection==NULL || c->connection->error)
 
@@ -222,6 +222,7 @@ mpdclient_cmd_play(mpdclient_t *c, gint index)
 #ifdef ENABLE_SONG_ID
   mpd_Song *song = playlist_get_song(c, index);
 
+  D("Play id:%d\n", song ? song->id : -1);
   if( song )
     mpd_sendPlayIdCommand(c->connection, song->id);
   else
@@ -266,6 +267,7 @@ mpdclient_cmd_prev(mpdclient_t *c)
 gint 
 mpdclient_cmd_seek(mpdclient_t *c, gint id, gint pos)
 {
+  D("Seek id:%d\n", id);
   mpd_sendSeekIdCommand(c->connection, id, pos);
   return mpdclient_finish_command(c);
 }
@@ -367,6 +369,7 @@ mpdclient_cmd_delete(mpdclient_t *c, gint index)
 
   /* send the delete command to mpd */
 #ifdef ENABLE_SONG_ID
+  D("Delete id:%d\n", song->id);
   mpd_sendDeleteIdCommand(c->connection, song->id);
 #else
   mpd_sendDeleteCommand(c->connection, index);
@@ -405,7 +408,7 @@ mpdclient_cmd_delete(mpdclient_t *c, gint index)
 gint
 mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 {
-  gint retval, index1, index2;
+  gint n, index1, index2;
   GList *item1, *item2;
   gpointer data1, data2;
   mpd_Song *song1, *song2;
@@ -418,18 +421,26 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 
   /* send the move command to mpd */  
 #ifdef ENABLE_SONG_ID
-  mpd_sendMoveIdCommand(c->connection, song1->id, song2->id);
+  D("Swaping id:%d with id:%d\n", song1->id, song2->id);
+  mpd_sendSwapIdCommand(c->connection, song1->id, song2->id);
 #else
+  D("Moving index %d to id:%d\n", old_index, new_index);
   mpd_sendMoveCommand(c->connection, old_index, new_index);
 #endif
-  if( (retval=mpdclient_finish_command(c)) )
-    return retval;
+  if( (n=mpdclient_finish_command(c)) )
+    return n;
 
 #ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_MOVE
+  /* update the songs position field */
+  n = song1->pos;
+  song1->pos = song2->pos;
+  song2->pos = n;
   index1 = MIN(old_index, new_index);
   index2 = MAX(old_index, new_index);
+  /* retreive the list items */
   item1 = g_list_nth(c->playlist.list, index1);
   item2 = g_list_nth(c->playlist.list, index2);
+  /* retrieve the songs */
   data1 = item1->data;
   data2 = item2->data;
 
@@ -448,11 +459,12 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
   /* increment the playlist id, so we dont retrives a new playlist */
   c->playlist.id++;
 
-  /* call playlist updated callback */
-  mpdclient_playlist_callback(c, PLAYLIST_EVENT_MOVE, (gpointer) &new_index);
 #else
   c->need_update = TRUE;
 #endif 
+
+  /* call playlist updated callback */
+  mpdclient_playlist_callback(c, PLAYLIST_EVENT_MOVE, (gpointer) &new_index);
 
   return 0;
 }
@@ -610,10 +622,20 @@ mpdclient_playlist_update(mpdclient_t *c)
   return mpdclient_finish_command(c);
 }
 
+static gint 
+compare_songs(gconstpointer a, gconstpointer b)
+{
+  mpd_Song *song1 = (mpd_Song *) a; 
+  mpd_Song *song2 = (mpd_Song *) b; 
+
+  return song1->pos - song2->pos;
+}
+
 /* update playlist (plchanges) */
 gint 
 mpdclient_playlist_update_changes(mpdclient_t *c)
 {
+  gboolean sort = FALSE;
   mpd_InfoEntity *entity;
 
   D("mpdclient_playlist_update_changes() [%lld -> %lld]\n", 
@@ -646,7 +668,10 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 	      item->data = song;
 	      if( c->song && c->song->id == song->id )
 		c->song = song;
-	      D("Changing num %d [%d] to %s\n",
+	      if( !sort && g_list_position(c->playlist.list, item)!=song->pos )
+		sort = TRUE;
+	      D("Changing index %d, num %d [%d] to %s\n",
+		g_list_position(c->playlist.list, item),
 		song->pos, song->id, get_song_name(song));
 	    }
 	  else
@@ -672,6 +697,12 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
       c->playlist.list = g_list_delete_link(c->playlist.list, item);
       c->playlist.length--;      
       D("Removed the last playlist entry\n");
+    }
+
+  if( sort )
+    {
+      D("Sorting playlist...\n");
+      c->playlist.list = g_list_sort(c->playlist.list, compare_songs );
     }
 
   c->playlist.id = c->status->playlist;
