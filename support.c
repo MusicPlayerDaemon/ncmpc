@@ -11,7 +11,15 @@
 #include <locale.h>
 #endif
 
+#ifdef DEBUG
+#define D(x) x
+#else 
+#define D(x)
+#endif
+
 #define BUFSIZE 1024
+
+extern void screen_status_printf(char *format, ...);
 
 static const char *charset = NULL;
 static const char *locale = NULL;
@@ -148,7 +156,9 @@ utf8_to_locale(char *utf8str)
 			 &error);
   if( error )
     {
-      g_printerr("utf8_to_locale(): %s\n", error->message);
+      screen_status_printf("Error: Unable to convert characters to %s",
+			   charset);
+      D(g_printerr("utf8_to_locale(): %s\n", error->message));
       g_error_free(error);
       return g_strdup(utf8str);
     }
@@ -175,7 +185,8 @@ locale_to_utf8(char *localestr)
 		       &error);
   if( error )
     {
-      g_printerr("locale_to_utf8: %s\n", error->message);
+      screen_status_printf("Error: Unable to convert characters to UTF-8");
+      D(g_printerr("locale_to_utf8: %s\n", error->message));
       g_error_free(error);
       return g_strdup(localestr);
     }
