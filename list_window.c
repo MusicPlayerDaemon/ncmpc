@@ -129,11 +129,6 @@ list_window_paint(list_window_t *lw,
       lw->start++;
       lw->clear=1;
     }
-  if( lw->clear )
-    {
-      wclear(lw->w);
-      lw->clear=0;
-    }
 
   for(i=0; i<lw->rows; i++)
     {
@@ -141,15 +136,17 @@ list_window_paint(list_window_t *lw,
       char *label;
 
       label = (callback) (lw->start+i, &highlight, callback_data);
+      wmove(lw->w, i, 0);
+      if( lw->clear )
+	wclrtoeol(lw->w);
       if( label )
 	{
-	  wmove(lw->w, i, 0);
 	  if( highlight )
 	    wattron(lw->w, A_BOLD);
 	  if( lw->start+i == lw->selected )
 	    wattron(lw->w, A_REVERSE);
 	  
-	  waddnstr(lw->w, label, lw->cols);
+	  waddnstr(lw->w, label, lw->cols-1);
 
 	  if( highlight )
 	    wattroff(lw->w, A_BOLD);
@@ -157,6 +154,7 @@ list_window_paint(list_window_t *lw,
 	    wattroff(lw->w, A_REVERSE);
 	}
     }
+  lw->clear=0;
 }
 
 
