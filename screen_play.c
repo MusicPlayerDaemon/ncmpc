@@ -1,8 +1,3 @@
-/* 
- * $Id: screen_play.c,v 1.6 2004/03/17 14:49:31 kalle Exp $ 
- *
- */
-
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -12,6 +7,7 @@
 #include "mpc.h"
 #include "command.h"
 #include "screen.h"
+#include "screen_utils.h"
 #include "screen_file.h"
 #include "screen_play.h"
 
@@ -95,37 +91,14 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
       mpd_finishCommand(c->connection);
       screen_status_printf("Removed \'%s\' from playlist!",
 			   mpc_get_song_name(song));
-      break;
-    case CMD_LIST_PREVIOUS:
-      list_window_previous(screen->playlist);
-      screen->playlist->repaint=1;
-      break;
-    case CMD_LIST_NEXT:
-      list_window_next(screen->playlist, c->playlist_length);
-      screen->playlist->repaint=1;
-      break;
-    case CMD_LIST_FIRST:
-      list_window_first(screen->playlist);
-      screen->playlist->repaint  = 1;
-      break;
-    case CMD_LIST_LAST:
-      list_window_last(screen->playlist, c->playlist_length);
-      screen->playlist->repaint  = 1;
-    case CMD_LIST_NEXT_PAGE:
-      list_window_next_page(screen->playlist, c->playlist_length);
-      screen->playlist->repaint  = 1;
-      break;
-    case CMD_LIST_PREVIOUS_PAGE:
-      list_window_previous_page(screen->playlist);
-      screen->playlist->repaint  = 1;
-      break;
+      return 1;
     case CMD_LIST_FIND:
       if( screen->findbuf )
 	{
 	  free(screen->findbuf);
 	  screen->findbuf=NULL;
 	}
-      /* fall throw... */
+      /* continue... */
     case CMD_LIST_FIND_NEXT:
       if( !screen->findbuf )
 	screen->findbuf=screen_readln(screen->status_window.w, "/");
@@ -141,9 +114,9 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 	  screen_status_printf("Unable to find \'%s\'", screen->findbuf);
 	  beep();
 	}
-      break;
+      return 1;
     default:
-      return 0;
+      break;
     }
-  return 1;
+  return list_window_cmd(screen->playlist, c->playlist_length, cmd) ;
 }

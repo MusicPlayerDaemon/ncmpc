@@ -1,8 +1,3 @@
-/* 
- * $Id: screen_help.c,v 1.8 2004/03/17 13:40:25 kalle Exp $ 
- *
- */
-
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -13,6 +8,7 @@
 #include "mpc.h"
 #include "command.h"
 #include "screen.h"
+#include "screen_utils.h"
 #include "screen_help.h"
 
 typedef struct
@@ -137,30 +133,6 @@ help_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 {
  switch(cmd)
     {
-    case CMD_LIST_PREVIOUS:
-      list_window_previous(screen->helplist);
-      screen->helplist->repaint=1;
-      break;
-    case CMD_LIST_NEXT:
-      list_window_next(screen->helplist, help_text_rows);
-      screen->helplist->repaint=1;
-      break;
-    case CMD_LIST_FIRST:
-      list_window_first(screen->helplist);
-      screen->helplist->repaint  = 1;
-      break;
-    case CMD_LIST_LAST:
-      list_window_last(screen->helplist, help_text_rows);
-      screen->helplist->repaint  = 1;
-      break;
-    case CMD_LIST_PREVIOUS_PAGE:
-      list_window_previous_page(screen->helplist);
-      screen->helplist->repaint  = 1;
-      break;
-    case CMD_LIST_NEXT_PAGE:
-      list_window_next_page(screen->helplist, help_text_rows);
-      screen->helplist->repaint  = 1;
-      break;
     case CMD_LIST_FIND:
       if( screen->findbuf )
 	{
@@ -183,9 +155,9 @@ help_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 	  screen_status_printf("Unable to find \'%s\'", screen->findbuf);
 	  beep();
 	}
-      break;
+      return 1;
     default:
-      return 0;
+      break;
     }
-  return 1;
+  return list_window_cmd(screen->helplist, help_text_rows, cmd);
 }

@@ -121,7 +121,7 @@ main(int argc, const char *argv[])
 	    {
 	      screen_cmd(mpc, cmd);
 	      if( cmd==CMD_VOLUME_UP || cmd==CMD_VOLUME_DOWN)
-		counter=10;
+		counter=10; /* make shure we dont update the volume yet */
 	      else
 		counter=0;
 	    }

@@ -1,8 +1,3 @@
-/* 
- * $Id: screen_file.c,v 1.9 2004/03/18 09:33:07 kalle Exp $ 
- *
- */
-
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -14,6 +9,7 @@
 #include "mpc.h"
 #include "command.h"
 #include "screen.h"
+#include "screen_utils.h"
 #include "screen_file.h"
 
 #define BUFSIZE 1024
@@ -302,33 +298,11 @@ file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
     {
     case CMD_PLAY:
       change_directory(screen, c);
-      break;
-    case CMD_LIST_PREVIOUS:
-      list_window_previous(screen->filelist);
-      screen->filelist->repaint=1;
-      break;
+      return 1;
     case CMD_SELECT:
       select_entry(screen, c);
       /* continue and select next item... */
-    case CMD_LIST_NEXT:
-      list_window_next(screen->filelist, c->filelist_length);
-      screen->filelist->repaint=1;
-      break;
-    case CMD_LIST_FIRST:
-      list_window_first(screen->filelist);
-      screen->filelist->repaint  = 1;
-      break;
-    case CMD_LIST_LAST:
-      list_window_last(screen->filelist, c->filelist_length);
-      screen->filelist->repaint  = 1;
-      break;
-    case CMD_LIST_NEXT_PAGE:
-      list_window_next_page(screen->filelist, c->filelist_length);
-      screen->filelist->repaint  = 1;
-      break;
-    case CMD_LIST_PREVIOUS_PAGE:
-      list_window_previous_page(screen->filelist);
-      screen->filelist->repaint  = 1;
+      cmd = CMD_LIST_NEXT;
       break;
     case CMD_LIST_FIND:
       if( screen->findbuf )
@@ -352,9 +326,9 @@ file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 	  screen_status_printf("Unable to find \'%s\'", screen->findbuf);
 	  beep();
 	}
-      break;
+      return 1;
     default:
-      return 0;
+      break;
     }
-  return 1;
+  return list_window_cmd(screen->filelist, c->filelist_length, cmd);
 }

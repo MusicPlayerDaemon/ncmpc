@@ -1,7 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 #include <ncurses.h>
-#include "screen_utils.h"
+#include "list_window.h"
 
 #define TOP_HEADER_PREFIX "Music Player Client - "
 #define TOP_HEADER_PLAY   TOP_HEADER_PREFIX "Playlist"
