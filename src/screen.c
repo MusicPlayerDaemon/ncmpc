@@ -53,6 +53,10 @@
 #ifdef ENABLE_KEYDEF_SCREEN
 extern screen_functions_t *get_screen_keydef(void);
 #endif
+#ifdef ENABLE_CLOCK_SCREEN
+extern screen_functions_t *get_screen_clock(void);
+#endif
+
 
 static screen_t *screen = NULL;
 static screen_functions_t *mode_fn = NULL;
@@ -84,6 +88,12 @@ switch_screen_mode(screen_mode_t new_mode, mpd_client_t *c)
       mode_fn = get_screen_keydef();
       break;
 #endif
+#ifdef ENABLE_CLOCK_SCREEN
+    case SCREEN_CLOCK_WINDOW:
+      mode_fn = get_screen_clock();
+      break;
+#endif
+
     default:
       break;
     }
@@ -578,6 +588,10 @@ screen_init(void)
   screen->screen_list = g_list_append(screen->screen_list, 
 				      (gpointer) get_screen_keydef());
 #endif
+#ifdef ENABLE_CLOCK_SCREEN
+  screen->screen_list = g_list_append(screen->screen_list, 
+				      (gpointer) get_screen_clock());
+#endif
 
   list = screen->screen_list;
   while( list )
@@ -596,6 +610,7 @@ screen_init(void)
 
   /* initialize wreadln */
   wrln_resize_callback = screen_resize;
+  wrln_max_history_length = 16;
 
   return 0;
 }
@@ -886,12 +901,16 @@ screen_cmd(mpd_client_t *c, command_t cmd)
       switch_screen_mode(SCREEN_KEYDEF_WINDOW, c);
       break;
 #endif
+#ifdef ENABLE_CLOCK_SCREEN 
+    case CMD_SCREEN_CLOCK:
+      switch_screen_mode(SCREEN_CLOCK_WINDOW, c);
+      break;
+#endif
     case CMD_QUIT:
       exit(EXIT_SUCCESS);
     default:
       break;
     }
-
 }
 
 

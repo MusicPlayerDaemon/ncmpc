@@ -53,6 +53,9 @@ static help_text_row_t help_text[] =
   { 0, CMD_SCREEN_HELP,    NULL },
   { 0, CMD_SCREEN_PLAY,    NULL },
   { 0, CMD_SCREEN_FILE,    NULL },
+#ifdef ENABLE_CLOCK_SCREEN
+  { 0, CMD_SCREEN_CLOCK,   NULL },
+#endif
 #ifdef ENABLE_KEYDEF_SCREEN
   { 0, CMD_SCREEN_KEYDEF,  NULL },
 #endif

@@ -1,5 +1,7 @@
 /* 
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -147,6 +149,10 @@ static command_definition_t cmds[] =
     N_("Browse screen") },
   { {'u',   0,   0 }, CMD_SCREEN_UPDATE,    "update",
     N_("Update screen") },
+#ifdef ENABLE_CLOCK_SCREEN
+  { {'4',  F4,   0 }, CMD_SCREEN_CLOCK,    "screen-clock",
+    N_("Clock screen") },
+#endif
 #ifdef ENABLE_KEYDEF_SCREEN
   { {'K',   0,   0 }, CMD_SCREEN_KEYDEF,    "screen-keyedit",
     N_("Key configuration screen") },

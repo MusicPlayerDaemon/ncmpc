@@ -6,6 +6,7 @@ src/screen_utils.c
 src/screen_play.c
 src/screen_file.c
 src/screen_keydef.c
+src/screen_clock.c
 src/screen_help.c
 src/command.c
 src/colors.c
