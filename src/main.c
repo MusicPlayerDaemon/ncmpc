@@ -103,7 +103,6 @@ update_xterm_title(void)
   if( strcmp(title,tmp) )
     {
       strncpy(title, tmp, BUFSIZE);
-      fprintf(stderr, "%s\n", title);
       set_xterm_title(title);
     }
 }
