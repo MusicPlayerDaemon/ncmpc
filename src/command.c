@@ -136,11 +136,11 @@ static command_definition_t cmds[] =
 
 
   /* lists */
-  { { 0,  0,   0 }, CMD_LIST_MOVE_UP,     "move-up", 
+  { { 11,  0,   0 }, CMD_LIST_MOVE_UP,     "move-up", 
     N_("Move item up") },
-  { { 0,  0,   0 }, CMD_LIST_MOVE_DOWN,   "move-down", 
+  { { 10,  0,   0 }, CMD_LIST_MOVE_DOWN,   "move-down", 
     N_("Move item down") },
-  { {'u',   0,   0 }, CMD_SCREEN_UPDATE,    "update",
+  { { 12,  0,   0 }, CMD_SCREEN_UPDATE,    "update",
     N_("Update screen") },
 
 
