@@ -114,6 +114,7 @@ switch_screen_mode(gint id, mpdclient_t *c)
   new_mode = lookup_mode(id);
   if( new_mode>=0 && screens[new_mode].get_mode_functions )
     {
+      D("switch_screen(%s)\n", screens[new_mode].name );
       mode_fn = screens[new_mode].get_mode_functions();
       screen->mode = new_mode;
     }
@@ -579,10 +580,15 @@ screen_init(mpdclient_t *c)
 void 
 screen_paint(mpdclient_t *c)
 {
-  D("screen_paint()\n");
-  /* paint the title/header window */
+  char *title = NULL;
+
   if( mode_fn && mode_fn->get_title )
-    paint_top_window(mode_fn->get_title(screen->buf,screen->buf_size), c, 1);
+    title = mode_fn->get_title(screen->buf,screen->buf_size);
+
+  D("screen_paint(%s)\n", title);
+  /* paint the title/header window */
+  if( title )
+    paint_top_window(title, c, 1);
   else
     paint_top_window("", c, 1);
 
