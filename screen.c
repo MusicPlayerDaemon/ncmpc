@@ -192,7 +192,7 @@ paint_status_window(mpd_client_t *c)
       mvwaddstr(w, 0, x, screen->buf);
 	
     }
-#if 1
+#if 0
   else if( c->status->state == MPD_STATUS_STATE_STOP )
     {
       time_t timep;
