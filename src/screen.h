@@ -99,4 +99,8 @@ void screen_update(mpdclient_t *c);
 void screen_idle(mpdclient_t *c);
 void screen_cmd(mpdclient_t *c, command_t cmd);
 
+int screen_get_mouse_event(mpdclient_t *c,
+			   list_window_t *lw, int lw_length, 
+			   unsigned long *bstate, int *row);
+
 #endif

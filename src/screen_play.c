@@ -367,6 +367,47 @@ play_update(screen_t *screen, mpdclient_t *c)
     }
 }
 
+#ifdef HAVE_GETMOUSE
+static int
+handle_mouse_event(screen_t *screen, mpdclient_t *c)
+{
+  int row;
+  int selected;
+  unsigned long bstate;
+
+  if( screen_get_mouse_event(c, lw, c->playlist.length, &bstate, &row) )
+    return 1;
+
+  if( bstate & BUTTON1_DOUBLE_CLICKED )
+    {
+      /* stop */
+      screen_cmd(c, CMD_STOP);
+      return 1;
+    }
+
+  selected = lw->start+row;
+
+  if( bstate & BUTTON1_CLICKED )
+    {
+      /* play */
+      if( lw->start+row < c->playlist.length )
+	mpdclient_cmd_play(c, lw->start+row);
+    }
+  else if( bstate & BUTTON3_CLICKED )
+    {
+      /* delete */
+      if( selected == lw->selected )
+	mpdclient_cmd_delete(c, lw->selected);
+    }
+  lw->selected = selected;
+  list_window_check_selected(lw, c->playlist.length);
+
+  return 1;
+}
+#else
+#define handle_mouse_event(s,c) (0)
+#endif
+
 static int
 play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
@@ -403,6 +444,8 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       return screen_find(screen, c, 
 			 lw, c->playlist.length,
 			 cmd, list_callback);
+    case CMD_MOUSE_EVENT:
+      return handle_mouse_event(screen,c);
     default:
       break;
     }

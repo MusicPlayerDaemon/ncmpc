@@ -474,7 +474,10 @@ screen_init(mpdclient_t *c)
   keypad(stdscr, TRUE);  
   /* return from getch() without blocking */
   timeout(SCREEN_TIMEOUT);
-  
+  /* initialize mouse support */
+#ifdef HAVE_GETMOUSE
+  mousemask(ALL_MOUSE_EVENTS, NULL);
+#endif
 
   if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
     {
@@ -703,6 +706,49 @@ screen_idle(mpdclient_t *c)
   screen->last_cmd = CMD_NONE;
   seek_id = -1;
 }
+
+#ifdef HAVE_GETMOUSE
+int
+screen_get_mouse_event(mpdclient_t *c,
+		       list_window_t *lw, int lw_length, 
+		       unsigned long *bstate, int *row)
+{
+  MEVENT event;
+
+  /* retreive the mouse event from ncurses */
+  getmouse(&event);
+  D("mouse: id=%d  y=%d,x=%d,z=%d\n",event.id,event.y,event.x,event.z);
+  /* calculate the selected row in the list window */
+  *row = event.y - screen->top_window.rows;
+  /* copy button state bits */
+  *bstate = event.bstate;
+  /* if button 2 was pressed switch screen */
+  if( event.bstate & BUTTON2_CLICKED )
+    {
+      screen_cmd(c, CMD_SCREEN_NEXT);
+      return 1;
+    }
+  /* if the even occured above the list window move up */
+  if( *row<0 && lw )
+    {
+      if( event.bstate & BUTTON3_CLICKED )
+	list_window_first(lw);
+      else
+	list_window_previous_page(lw);
+      return 1;
+    }
+   /* if the even occured below the list window move down */
+  if( *row>=lw->rows && lw )
+    {
+      if( event.bstate & BUTTON3_CLICKED )
+	list_window_last(lw, lw_length);
+      else
+	list_window_next_page(lw, lw_length);
+      return 1;
+    } 
+  return 0;
+}
+#endif
 
 void 
 screen_cmd(mpdclient_t *c, command_t cmd)

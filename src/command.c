@@ -175,8 +175,6 @@ static command_definition_t cmds[] =
     N_("Clock screen") },
 #endif
 
-
-
   { { -1,  -1,  -1 }, 0, CMD_NONE, NULL, NULL }
 };
 
@@ -395,6 +393,11 @@ get_keyboard_command_with_timeout(int ms)
 
   if( key==ERR )
     return CMD_NONE;
+
+#ifdef HAVE_GETMOUSE
+  if( key==KEY_MOUSE )
+    return CMD_MOUSE_EVENT;
+#endif
 
   return get_key_command(key);
 }

@@ -56,6 +56,11 @@ AC_CHECK_LIB([ncurses],
 	     [initscr],
              [LIBS="$LIBS -lncurses"], 
              [AC_MSG_ERROR(ncurses library is required)])
+AC_CHECK_LIB([ncurses], 
+	     [getmouse],
+	     [AC_DEFINE([HAVE_GETMOUSE], [1], [ncurses - getmouse()])],
+             [])
+
 
 
 dnl Check for glib-2.4

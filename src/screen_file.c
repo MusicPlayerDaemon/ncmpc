@@ -553,6 +553,37 @@ browse_update(screen_t *screen, mpdclient_t *c)
 }
 
 
+#ifdef HAVE_GETMOUSE
+static int
+handle_mouse_event(screen_t *screen, mpdclient_t *c)
+{
+  int row;
+  int prev_selected = lw->selected;
+  unsigned long bstate;
+
+  if( screen_get_mouse_event(c, lw, filelist->length, &bstate, &row) )
+    return 1;
+
+  lw->selected = lw->start+row;
+  list_window_check_selected(lw, filelist->length);
+
+  if( bstate & BUTTON1_CLICKED )
+    {
+      if( prev_selected == lw->selected )
+	handle_enter(screen, c);
+    }
+  else if( bstate & BUTTON3_CLICKED )
+    {
+      if( prev_selected == lw->selected )
+	handle_select(screen, c);
+    }
+
+  return 1;
+}
+#else
+#define handle_mouse_event(s,c) (0)
+#endif
+
 static int 
 browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
@@ -601,6 +632,8 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       return screen_find(screen, c, 
 			 lw, filelist->length,
 			 cmd, list_callback);
+    case CMD_MOUSE_EVENT:
+      return handle_mouse_event(screen,c);
     default:
       break;
     }

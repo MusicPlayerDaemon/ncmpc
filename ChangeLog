@@ -1,5 +1,8 @@
 2004-07-02 Kalle Wallin <kaw@linux.se>
 	* options.c: improved error handling in the argv parser
+	* screen_play.c: scroll up when moving a item uppwards
+	* mpdclient.c: redesigned the plchanges code (its now based on qball's)
+	* Added ncurses basic mouse support (playlist and browse screens)
 
 2004-07-01 Kalle Wallin <kaw@linux.se>
 	* support.[c|h]: removed the trim() function
