@@ -60,7 +60,6 @@ static command_definition_t cmds[] =
   { { 'r',   0,   0 }, CMD_REPEAT, "Toggle repeat mode" },
   { { 'z',   0,   0 }, CMD_RANDOM, "Toggle random mode" },
   { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "Save playlist" },
-  { { 'D',   0,   0 }, CMD_DELETE_PLAYLIST, "Delete playlist" },
 
   { {  UP,   0,   0 }, CMD_LIST_PREVIOUS,      "Move: Up" },
   { { DWN,   0,   0 }, CMD_LIST_NEXT,          "Move: Down" },

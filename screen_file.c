@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -108,6 +109,57 @@ load_playlist(screen_t *screen, mpd_client_t *c, filelist_entry_t *entry)
   return 0;
 }
 
+static int 
+handle_delete(screen_t *screen, mpd_client_t *c)
+{
+  list_window_t *lw = screen->filelist;
+  filelist_entry_t *entry;
+  mpd_InfoEntity *entity;
+  mpd_PlaylistFile *plf;
+  char *str, buf[BUFSIZE];
+  int key;
+
+  entry = ( filelist_entry_t *) g_list_nth_data(c->filelist, lw->selected);
+  if( entry==NULL || entry->entity==NULL )
+    return -1;
+
+  entity = entry->entity;
+
+  if( entity->type!=MPD_INFO_ENTITY_TYPE_PLAYLISTFILE )
+    {
+      screen_status_printf("You can only delete playlists!");
+      beep();
+      return -1;
+    }
+
+  plf = entity->info.playlistFile;
+  str = utf8_to_locale(basename(plf->path));
+  snprintf(buf, BUFSIZE, "Delete playlist %s [y/n] ? ", str);
+  free(str);  
+  key = tolower(screen_getch(screen->status_window.w, buf));
+  if( key!='y' )
+    {
+      screen_status_printf("Aborted!");
+      return 0;
+    }
+
+  mpd_sendRmCommand(c->connection, plf->path);
+  mpd_finishCommand(c->connection);
+  if( mpc_error(c))
+    {
+      str = utf8_to_locale(mpc_error_str(c));
+      screen_status_printf("Error: %s", str);
+      free(str);
+      beep();
+      return -1;
+    }
+  screen_status_printf("Playlist deleted!");
+  mpc_update_filelist(c);
+  list_window_check_selected(lw, c->filelist_length);
+  return 0;
+}
+
+
 static int
 handle_play_cmd(screen_t *screen, mpd_client_t *c)
 {
@@ -177,7 +229,7 @@ add_directory(mpd_client_t *c, char *dir)
 }
 
 static int
-select_entry(screen_t *screen, mpd_client_t *c)
+handle_select(screen_t *screen, mpd_client_t *c)
 {
   list_window_t *w = screen->filelist;
   filelist_entry_t *entry;
@@ -336,14 +388,14 @@ file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
       handle_play_cmd(screen, c);
       return 1;
     case CMD_SELECT:
-      if( select_entry(screen, c) == 0 )
+      if( handle_select(screen, c) == 0 )
 	{
 	  /* continue and select next item... */
 	  cmd = CMD_LIST_NEXT;
 	}
       break;
-    case CMD_DELETE_PLAYLIST:
-      screen_status_printf("Sorry, command not implemented yet!");
+    case CMD_DELETE:
+      handle_delete(screen, c);
       return 1;
       break;
     case CMD_LIST_FIND:
