@@ -8,6 +8,7 @@
 #include "mpc.h"
 #include "support.h"
 #include "command.h"
+#include "options.h"
 #include "screen.h"
 
 char *
@@ -33,3 +34,30 @@ screen_readln(WINDOW *w, char *prompt)
   return line;
 }
 
+int
+my_waddstr(WINDOW *w, const char *text, int color)
+{
+  int ret;
+
+  if( options.enable_colors )
+    wattron(w, color);
+  ret = waddstr(w, text);
+  if( options.enable_colors )
+    wattroff(w, color);
+
+  return ret;
+}
+
+int
+my_mvwaddstr(WINDOW *w, int x, int y, const char *text, int color)
+{
+  int ret;
+
+  if( options.enable_colors )
+    wattron(w, color);
+  ret = mvwaddstr(w, x, y, text);
+  if( options.enable_colors )
+    wattroff(w, color);
+
+  return ret;
+}

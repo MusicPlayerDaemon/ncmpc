@@ -9,11 +9,11 @@ docdir = $(prefix)/share/doc/$(PACKAGE)
 doc_DATA = AUTHORS README ChangeLog
 EXTRA_DIST = COPYING $(pkgdata_DATA) $(man_MANS) $(doc_DATA)
 
-ncmpc_headers = libmpdclient.h mpc.h options.h command.h screen.h \
+ncmpc_headers = libmpdclient.h mpc.h options.h conf.h command.h screen.h \
               screen_utils.h screen_play.h screen_file.h screen_search.h \
-	      screen_help.h list_window.h support.h
+	      screen_help.h list_window.h support.h 
 
-ncmpc_SOURCES = libmpdclient.c main.c mpc.c options.c command.c \
+ncmpc_SOURCES = libmpdclient.c main.c mpc.c options.c conf.c command.c \
 		      screen.c screen_utils.c screen_play.c screen_file.c \
 		      screen_search.c screen_help.c \
                       list_window.c support.c $(ncmpc_headers)

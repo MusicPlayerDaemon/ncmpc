@@ -79,17 +79,6 @@ if test "$enable_debug" = yes; then
   CFLAGS="$CFLAGS -g -DDEBUG"
 fi
 
-dnl Enable 
-AC_ARG_ENABLE(colors,
-	    [  --enable-colors         Enable colors [default=no]],
-	    ,
-            enable_colors=no)
-
-if test "$enable_colors" = yes; then
-  CFLAGS="$CFLAGS -DENABLE_COLORS"
-fi
-
-
 dnl Default charset
 AC_ARG_WITH(default-charset,
 	    [  --with-default-charset=ARG  Default charset (ISO-8859-1)], 

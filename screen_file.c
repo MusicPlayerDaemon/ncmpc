@@ -47,8 +47,16 @@ list_callback(int index, int *highlight, void *data)
       mpd_Song *song = entity->info.song;
       return mpc_get_song_name(song);
     }
-
-  return NULL;
+  else if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE )
+    {
+      mpd_PlaylistFile *plf = entity->info.playlistFile;
+      char *filename = utf8_to_locale(basename(plf->path));
+      
+      snprintf(buf, BUFSIZE, "%s*", filename);
+      free(filename);
+      return buf;
+    }
+  return "Error: Unknow entry!";
 }
 
 static void

@@ -3,16 +3,27 @@
 #include <ncurses.h>
 #include "list_window.h"
 
+/* top window headers */
 #define TOP_HEADER_PREFIX "Music Player Client - "
 #define TOP_HEADER_PLAY   TOP_HEADER_PREFIX "Playlist"
 #define TOP_HEADER_FILE   TOP_HEADER_PREFIX "Browse"
 #define TOP_HEADER_HELP   TOP_HEADER_PREFIX "Help    "
 #define TOP_HEADER_SEARCH TOP_HEADER_PREFIX "Search  "
 
+/* colors */
+#define TITLE_COLORS     COLOR_PAIR(1)
+#define LINE_COLORS      COLOR_PAIR(2)
+#define LIST_COLORS      COLOR_PAIR(3)
+#define PROGRESS_COLORS  COLOR_PAIR(4)
+#define STATUS_COLORS    COLOR_PAIR(5)
+#define ALERT_COLORS     COLOR_PAIR(6)
+
+/* minumum window size */
 #define SCREEN_MIN_COLS 14
 #define SCREEN_MIN_ROWS  5
 
 #define IS_PLAYING(s) (s==MPD_STATUS_STATE_PLAY)
+#define IS_PAUSED(s) (s==MPD_STATUS_STATE_PAUSE)
 
 typedef enum
 {

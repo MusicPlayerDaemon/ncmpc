@@ -1,8 +1,3 @@
-/* 
- * $Id: screen.c,v 1.10 2004/03/17 14:50:12 kalle Exp $ 
- *
- */
-
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
@@ -14,11 +9,13 @@
 #include "libmpdclient.h"
 #include "mpc.h"
 #include "command.h"
+#include "options.h"
 #include "screen.h"
 #include "screen_play.h"
 #include "screen_file.h"
 #include "screen_help.h"
 #include "screen_search.h"
+#include "screen_utils.h"
 
 #define STATUS_MESSAGE_TIMEOUT 3
 #define STATUS_LINE_MAX_SIZE   512
@@ -83,7 +80,7 @@ paint_top_window(char *header, int volume, int clear)
       char buf[12];
 
       wattron(w, A_BOLD);
-      mvwaddstr(w, 0, 0, header );
+      mvwaddstr(w, 0, 0, header);
       wattroff(w, A_BOLD);
       if( volume==MPD_STATUS_NO_VOLUME )
 	{
@@ -95,7 +92,13 @@ paint_top_window(char *header, int volume, int clear)
 	}
       mvwaddstr(w, 0, screen->top_window.cols-12, buf);
 
+      if( options.enable_colors )
+	wattron(w, LINE_COLORS);
+
       mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
+
+      if( options.enable_colors )
+	wattroff(w, LINE_COLORS);
 
       wrefresh(w);
     }
@@ -118,14 +121,11 @@ paint_progress_window(mpd_client_t *c)
   p = ((double) c->status->elapsedTime) / ((double) c->status->totalTime);
   
   width = (int) (p * (double) screen->progress_window.cols);
-  
   mvwhline(screen->progress_window.w, 
 	   0, 0,
 	   ACS_HLINE, 
 	   screen->progress_window.cols);
-  
   whline(screen->progress_window.w, '=', width-1);
-  
   mvwaddch(screen->progress_window.w, 0, width-1, 'O');
   wrefresh(screen->progress_window.w);
 }
@@ -152,27 +152,32 @@ paint_status_window(mpd_client_t *c)
       wattroff(w, A_BOLD);
       break;
     case MPD_STATUS_STATE_PLAY:
+      wattron(w, A_BOLD);
       waddstr(w, "Playing:");
+      wattroff(w, A_BOLD);
       break;
     case MPD_STATUS_STATE_PAUSE:
       wattron(w, A_BOLD);
-      waddstr(w, "Paused:");
+      waddstr(w, "[Paused]");
       wattroff(w, A_BOLD);
       break;
     default:
-      waddstr(w, "Warning: Music Player Daemon in unknown state!");
+      my_waddstr(w, 
+		 "Warning: Music Player Daemon in unknown state!", 
+		 ALERT_COLORS);
       break;
     }
   x += 10;
 
-  if( IS_PLAYING(status->state) &&  song )
+  if( (IS_PLAYING(status->state) || IS_PAUSED(status->state)) &&  song )
     {
+      // my_mvwaddstr(w, 0, x, mpc_get_song_name(song), COLOR_PAIR(2));
       mvwaddstr(w, 0, x, mpc_get_song_name(song));
     }
   
 
   /* time */
-  if( IS_PLAYING(status->state) )
+  if( IS_PLAYING(status->state) || IS_PAUSED(status->state) )
     {
       x = screen->status_window.cols - strlen(screen->buf);
 
@@ -180,6 +185,7 @@ paint_status_window(mpd_client_t *c)
 	       " [%i:%02i/%i:%02i] ",
 	       status->elapsedTime/60, status->elapsedTime%60,
 	       status->totalTime/60,   status->totalTime%60 );
+      //my_mvwaddstr(w, 0, x, screen->buf, COLOR_PAIR(1));
       mvwaddstr(w, 0, x, screen->buf);
 	
     }
@@ -239,7 +245,7 @@ screen_status_message(char *msg)
   wmove(w, 0, 0);
   wclrtoeol(w);
   wattron(w, A_BOLD);
-  waddstr(w, msg);
+  my_waddstr(w, msg, ALERT_COLORS);
   wattroff(w, A_BOLD);
   wrefresh(w);
   screen->status_timestamp = time(NULL);
@@ -263,7 +269,18 @@ screen_init(void)
   /* initialize the curses library */
   initscr();      
   start_color();
-  use_default_colors();
+  if( options.enable_colors )
+    {
+      init_pair(1, options.title_color,    options.bg_color);
+      init_pair(2, options.line_color,     options.bg_color);
+      init_pair(3, options.list_color,     options.bg_color);
+      init_pair(4, options.progress_color, options.bg_color);
+      init_pair(5, options.status_color,   options.bg_color);
+      init_pair(6, options.alert_color,    options.bg_color);
+    }
+  else
+    use_default_colors();
+
   /* tell curses not to do NL->CR/NL on output */
   nonl();          
   /* take input chars one at a time, no wait for \n */  
@@ -276,7 +293,6 @@ screen_init(void)
   //  nodelay(stdscr, TRUE); 
   keypad(stdscr, TRUE);  
   timeout(100); /*void wtimeout(WINDOW *win, int delay);*/
-
 
   if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
     {
@@ -338,8 +354,21 @@ screen_init(void)
 				   screen->status_window.cols,
 				   screen->rows-1, 
 				   0);
+
   leaveok(screen->status_window.w, FALSE);
   keypad(screen->status_window.w, TRUE);  
+
+  if( options.enable_colors )
+    {
+      /* set background attributes */
+      wbkgd(screen->main_window.w, LIST_COLORS);
+      wbkgd(screen->top_window.w, TITLE_COLORS);
+      wbkgd(screen->playlist->w, LIST_COLORS);
+      wbkgd(screen->filelist->w, LIST_COLORS);
+      wbkgd(screen->helplist->w, LIST_COLORS);
+      wbkgd(screen->progress_window.w, PROGRESS_COLORS);
+      wbkgd(screen->status_window.w, STATUS_COLORS);
+    }
 
   return 0;
 }
@@ -541,3 +570,4 @@ screen_cmd(mpd_client_t *c, command_t cmd)
 }
 
 
+;

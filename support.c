@@ -68,6 +68,34 @@ lowerstr(char *str)
   return str;
 }
 
+
+char *
+concat_path(char *p1, char *p2)
+{
+  size_t size;
+  char *path;
+  char append_slash = 0;
+
+  size = strlen(p1);
+  if( size==0 || p1[size-1]!='/' )
+    {
+      size++;
+      append_slash = 1;
+    }
+  size += strlen(p2);
+  size++;
+
+  path = calloc(size, sizeof(char));
+  strncpy(path, p1, size);
+  if( append_slash )
+    strncat(path, "/", size);
+  strncat(path, p2, size);
+
+  return path;
+}
+
+
+
 #ifndef HAVE_BASENAME
 char *
 basename(char *path)

@@ -11,6 +11,8 @@
 #include "options.h"
 #include "command.h"
 #include "screen.h"
+#include "conf.h"
+
 
 static mpd_client_t *mpc = NULL;
 
@@ -42,9 +44,14 @@ main(int argc, const char *argv[])
   struct sigaction act;
   int counter, connected;
 
+  /* initialize options */
+  options = options_init();
+  
+  /* read configuration */
+  read_rc_file(NULL, options);
+
   /* parse command line options */
-  options_init();
-  options = options_parse(argc, argv);
+  options_parse(argc, argv);
 
   /* initialize local charset */
   if( charset_init() )

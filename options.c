@@ -1,19 +1,15 @@
-/*
- * $Id: options.c,v 1.7 2004/03/17 11:34:36 kalle Exp $
- *
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <ncurses.h>
 #include <popt.h>
 
 #include "config.h"
 #include "options.h"
 #include "command.h"
 
-static options_t options;
+options_t options;
 
 static struct poptOption optionsTable[] = {
 #ifdef DEBUG
@@ -21,6 +17,8 @@ static struct poptOption optionsTable[] = {
 #endif
   { "version",      'V', 0, 0, 'V', "Display version information." },
   { "keys",         'k', 0, 0, 'k', "Display key bindings." },
+  { "colors",       'c', 0, 0, 'c', "Enable colors." },
+  { "no-colors",    'C', 0, 0, 'C', "Disable colors." },
   { "exit",         'e', 0, 0, 'e', "Exit on connection errors." },
   { "port",         'p', POPT_ARG_INT, &options.port, 0, 
     "Connect to server on port [" DEFAULT_PORT_STR "].", "PORT" },
@@ -55,6 +53,12 @@ options_parse( int argc, const char **argv)
 	  options.debug = 1;
 	  break;
 #endif
+	case 'c':
+	  options.enable_colors = 1;
+	  break;
+	case 'C':
+	  options.enable_colors = 0;
+	  break;
 	case 'V':
 	  printf("Version " VERSION "\n");
 	  exit(EXIT_SUCCESS);
@@ -87,7 +91,7 @@ options_parse( int argc, const char **argv)
   return &options;
 }
 
-void
+options_t *
 options_init( void )
 {
   char *value;
@@ -102,6 +106,16 @@ options_init( void )
   else
     options.port = DEFAULT_PORT;
   options.reconnect = 1;
+
+  options.bg_color       = COLOR_BLACK;
+  options.title_color    = COLOR_BLUE;
+  options.line_color     = COLOR_GREEN;
+  options.list_color     = COLOR_YELLOW;
+  options.progress_color = COLOR_GREEN;
+  options.status_color   = COLOR_RED;
+  options.alert_color    = COLOR_MAGENTA;;
+
+  return &options;
 }
 
 
