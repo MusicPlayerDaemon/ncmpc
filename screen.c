@@ -96,15 +96,15 @@ paint_top_window(char *header, int volume, int clear)
       else
 	{
 	  wattron(w, A_BOLD);
-	  waddstr(w, "F1");
+	  waddstr(w, "1");
 	  wattroff(w, A_BOLD);
 	  waddstr(w, ":Help  ");
 	  wattron(w, A_BOLD);
-	  waddstr(w, "F2");
+	  waddstr(w, "2");
 	  wattroff(w, A_BOLD);
 	  waddstr(w, ":Playlist  ");
 	  wattron(w, A_BOLD);
-	  waddstr(w, "F3");
+	  waddstr(w, "3");
 	  wattroff(w, A_BOLD);
 	  waddstr(w, ":Browse");
 	}
