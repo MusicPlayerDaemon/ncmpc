@@ -59,18 +59,12 @@ list_callback(int index, int *highlight, void *data)
   return "Error: Unknow entry!";
 }
 
-static void
-change_directory(screen_t *screen, mpd_client_t *c)
+static int
+change_directory(screen_t *screen, mpd_client_t *c, filelist_entry_t *entry)
 {
   list_window_t *w = screen->filelist;
-  filelist_entry_t *entry;
-  mpd_InfoEntity *entity;
+  mpd_InfoEntity *entity = entry->entity;
 
-  entry = ( filelist_entry_t *) g_list_nth_data(c->filelist, w->selected);
-  if( entry==NULL )
-    return;
-
-  entity = entry->entity;
   if( entity==NULL )
     {
       char *parent = g_path_get_dirname(c->cwd);
@@ -92,12 +86,46 @@ change_directory(screen_t *screen, mpd_client_t *c)
 	c->cwd = strdup(dir->path);      
       }
     else
-      return;
+      return -1;
   
   mpc_update_filelist(c);
   list_window_reset(w);
+  return 0;
 }
 
+static int
+load_playlist(screen_t *screen, mpd_client_t *c, filelist_entry_t *entry)
+{
+  mpd_InfoEntity *entity = entry->entity;
+  mpd_PlaylistFile *plf = entity->info.playlistFile;
+  char *filename = utf8_to_locale(basename(plf->path));
+
+  mpd_sendLoadCommand(c->connection, plf->path);
+  mpd_finishCommand(c->connection);
+
+  screen_status_printf("Loading playlist %s...", filename);
+  free(filename);
+  return 0;
+}
+
+static int
+handle_play_cmd(screen_t *screen, mpd_client_t *c)
+{
+  list_window_t *w = screen->filelist;
+  filelist_entry_t *entry;
+  mpd_InfoEntity *entity;
+  
+  entry = ( filelist_entry_t *) g_list_nth_data(c->filelist, w->selected);
+  if( entry==NULL )
+    return -1;
+
+  entity = entry->entity;
+  if( entity==NULL || entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY )
+    return change_directory(screen, c, entry);
+  else if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE )
+    return load_playlist(screen, c, entry);
+  return -1;
+}
 
 static int
 add_directory(mpd_client_t *c, char *dir)
@@ -148,7 +176,7 @@ add_directory(mpd_client_t *c, char *dir)
   return 0;
 }
 
-static void
+static int
 select_entry(screen_t *screen, mpd_client_t *c)
 {
   list_window_t *w = screen->filelist;
@@ -156,17 +184,17 @@ select_entry(screen_t *screen, mpd_client_t *c)
 
   entry = ( filelist_entry_t *) g_list_nth_data(c->filelist, w->selected);
   if( entry==NULL || entry->entity==NULL)
-    return;
+    return -1;
 
   if( entry->entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY )
     {
       mpd_Directory *dir = entry->entity->info.directory;
       add_directory(c, dir->path);
-      return;
+      return 0;
     }
 
   if( entry->entity->type!=MPD_INFO_ENTITY_TYPE_SONG )
-    return; /* No support for adding dirs... :( */
+    return -1; 
 
   entry->selected = !entry->selected;
 
@@ -201,7 +229,7 @@ select_entry(screen_t *screen, mpd_client_t *c)
 	    }
 	}
     }
-  
+  return 0;
 }
 
 void
@@ -305,12 +333,14 @@ file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
   switch(cmd)
     {
     case CMD_PLAY:
-      change_directory(screen, c);
+      handle_play_cmd(screen, c);
       return 1;
     case CMD_SELECT:
-      select_entry(screen, c);
-      /* continue and select next item... */
-      cmd = CMD_LIST_NEXT;
+      if( select_entry(screen, c) == 0 )
+	{
+	  /* continue and select next item... */
+	  cmd = CMD_LIST_NEXT;
+	}
       break;
     case CMD_LIST_FIND:
       if( screen->findbuf )
