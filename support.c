@@ -158,7 +158,7 @@ char *
 utf8_to_locale(char *str)
 {
   if( noconvert )
-    return g_strup(str);
+    return g_strdup(str);
   return g_locale_from_utf8(str, -1, NULL, NULL, NULL);
 }
 
@@ -166,7 +166,7 @@ char *
 locale_to_utf8(char *str)
 {
   if( noconvert )
-    return g_strup(str);
+    return g_strdup(str);
   return g_locale_to_utf8(str, -1, NULL, NULL, NULL);
 }
 
