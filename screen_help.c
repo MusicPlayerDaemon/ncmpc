@@ -13,7 +13,7 @@
 
 typedef struct
 {
-  char highlight;
+  signed char highlight;
   command_t command;
   char *text;
 } help_text_row_t;
