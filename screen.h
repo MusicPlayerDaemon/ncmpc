@@ -27,6 +27,7 @@
 
 #define IS_PLAYING(s) (s==MPD_STATUS_STATE_PLAY)
 #define IS_PAUSED(s) (s==MPD_STATUS_STATE_PAUSE)
+#define IS_STOPPED(s) (!(IS_PLAYING(s) | IS_PAUSED(s)))
 
 typedef enum
 {
@@ -54,7 +55,9 @@ typedef struct
   window_t main_window;
   window_t progress_window;
   window_t status_window;
+
   time_t status_timestamp;
+  time_t input_timestamp;
 
   list_window_t *playlist;
   list_window_t *filelist;
