@@ -1,4 +1,6 @@
 /* 
+ * $Id$
+ *
  * (c) 2004 by Kalle Wallin (kaw@linux.se)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -40,7 +42,6 @@ exit_and_cleanup(void)
 {
   screen_exit();
   printf("\n");
-  charset_close();
   if( mpc )
     {
       if( mpc_error(mpc) )
@@ -66,11 +67,24 @@ main(int argc, const char *argv[])
   options_t *options;
   struct sigaction act;
   gboolean connected;
+  const char *charset = NULL;
+
+  /* initialize charset */
+#ifdef HAVE_LOCALE_H
+  if( setlocale(LC_CTYPE,"") == NULL )
+    {
+      g_printerr("setlocale() - failed!\n");
+      exit(EXIT_FAILURE);
+    }
+  charset_init(g_get_charset(&charset));
+  D(printf("charset: %s\n", charset));
+#endif
 
   /* initialize i18n support */
 #ifdef ENABLE_NLS
   setlocale(LC_MESSAGES, "");
   bindtextdomain(GETTEXT_PACKAGE, LOCALE_DIR);
+  bind_textdomain_codeset(GETTEXT_PACKAGE, charset);
   textdomain(GETTEXT_PACKAGE);
 #endif
 
@@ -92,10 +106,6 @@ main(int argc, const char *argv[])
 
   /* parse command line options - 2 pass */
   options_parse(argc, argv);
-
-  /* initialize local charset */
-  if( charset_init() )
-    exit(EXIT_FAILURE);
 
   /* setup signal behavior - SIGINT */
   sigemptyset( &act.sa_mask );

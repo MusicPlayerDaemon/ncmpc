@@ -1,4 +1,6 @@
 /* 
+ * $Id$
+ *
  * (c) 2004 by Kalle Wallin (kaw@linux.se)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -26,16 +28,10 @@
 #include "ncmpc.h"
 #include "support.h"
 
-#ifdef HAVE_LOCALE_H
-#include <locale.h>
-#endif
-
 #define BUFSIZE 1024
 
 extern void screen_status_printf(char *format, ...);
 
-static const char *charset = NULL;
-static const char *locale = NULL;
 static gboolean noconvert = TRUE;
 
 char *
@@ -120,34 +116,10 @@ strcasestr(const char *haystack, const char *needle)
 }
 #endif /* HAVE_STRCASESTR */
 
-
-int
-charset_init(void)
+void
+charset_init(gboolean disable)
 {
-#ifdef HAVE_LOCALE_H
-  /* get current locale */
-  if( (locale=setlocale(LC_CTYPE,"")) == NULL )
-    {
-      g_printerr("setlocale() - failed!\n");
-      return -1;
-    }
-#endif
-
-  /* get charset */
-  noconvert = g_get_charset(&charset);
-
-#ifdef DEBUG
-  g_printerr("charset: %s [%d]\n", charset, noconvert);
-  fflush(stderr);
-#endif
-  
-  return 0;
-}
-
-int
-charset_close(void)
-{
-  return 0;
+  noconvert = disable;
 }
 
 char *
@@ -169,6 +141,9 @@ utf8_to_locale(char *utf8str)
 			 &error);
   if( error )
     {
+      const char *charset;
+
+      g_get_charset(&charset);
       screen_status_printf(_("Error: Unable to convert characters to %s"),
 			   charset);
       D(g_printerr("utf8_to_locale(): %s\n", error->message));
