@@ -3,6 +3,12 @@
 #include <libgen.h>
 #endif
 
+#ifndef HAVE_LANGINFO_CODESET
+#define CODESET ((nl_item) 1)
+typedef int nl_item;
+char *nl_langinfo(nl_item);
+#endif
+
 char *concat_path(char *p1, char *p2);
 
 #ifndef HAVE_BASENAME

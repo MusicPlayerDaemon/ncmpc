@@ -137,17 +137,16 @@ charset_init(void)
     }
 #endif
 
-#ifdef HAVE_LANGINFO_CODESET
   /* get charset */
   if( (charset=nl_langinfo(CODESET)) == NULL )
     {
       fprintf(stderr,
 	      "nl_langinfo() failed using default:" DEFAULT_CHARSET "\n");
+      charset = DEFAULT_CHARSET;
     }
+#ifdef DEBUG
+  fprintf(stderr, "charset: %s\n", charset);
 #endif
-  
-  if( charset==NULL )
-    charset = DEFAULT_CHARSET;
   
 #ifdef HAVE_ICONV
   /* allocate descriptor for character set conversion */
