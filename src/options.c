@@ -1,5 +1,7 @@
 /* 
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +27,7 @@
 #include <popt.h>
 
 #include "config.h"
+#include "ncmpc.h"
 #include "options.h"
 #include "command.h"
 #include "support.h"
@@ -170,9 +173,14 @@ options_init( void )
   else
     options.port = DEFAULT_PORT;
 
+  options.list_format = NULL;
+  options.status_format = NULL;
+
   options.reconnect = 1;
   options.find_wrap = 1;
   options.wide_cursor = 1;
+  options.enable_beep = 1;
+
 
   return &options;
 }

@@ -38,20 +38,26 @@
 #include "colors.h"
 #include "conf.h"
 
-#define ENABLE_OLD_COLOR_SYNTAX
+#define ENABLE_OLD_SYNTAX
 
 #define MAX_LINE_LENGTH 1024
 #define COMMENT_TOKEN   '#'
 
 /* configuration field names */
-#define CONF_ENABLE_COLORS           "enable_colors"
-#define CONF_AUTO_CENTER             "auto_center"
-#define CONF_WIDE_CURSOR             "wide_cursor"
+#define CONF_ENABLE_COLORS           "enable-colors"
+#define CONF_AUTO_CENTER             "auto-center"
+#define CONF_WIDE_CURSOR             "wide-cursor"
+#define CONF_ENABLE_BELL             "enable-bell"
 #define CONF_KEY_DEFINITION          "key"
 #define CONF_COLOR                   "color"
 #define CONF_COLOR_DEFINITION        "colordef"
+#define CONF_LIST_FORMAT             "list-format"
+#define CONF_STATUS_FORMAT           "status-format"
 
 /* Deprecated - configuration field names */
+#define OLD_CONF_ENABLE_COLORS       "enable_colors"
+#define OLD_CONF_AUTO_CENTER         "auto_center"
+#define OLD_CONF_WIDE_CURSOR         "wide_cursor"
 #define CONF_COLOR_BACKGROUND        "background_color"
 #define CONF_COLOR_TITLE             "title_color"
 #define CONF_COLOR_LINE              "line_color"
@@ -299,6 +305,19 @@ parse_color_definition(char *str)
   return value;
 }
 
+static char *
+get_format(char *str)
+{
+  gsize len = strlen(str);
+
+  if( str && str[0]=='\"' && str[len-1] == '\"' )
+    {
+      str[len-1] = '\0';
+      str++;
+    }
+  return g_strdup(str);
+}
+
 
 static int
 read_rc_file(char *filename, options_t *options)
@@ -404,51 +423,69 @@ read_rc_file(char *filename, options_t *options)
 		{
 		  parse_color(value);
 		}
-#ifdef ENABLE_OLD_COLOR_SYNTAX
+#ifdef ENABLE_OLD_SYNTAX
 	      /* background color */
 	      else if( !strcasecmp(CONF_COLOR_BACKGROUND, name) )
 		{
-		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
 		  colors_assign("background", value);
 		}
 	      /* color - top (title) window */
 	      else if( !strcasecmp(CONF_COLOR_TITLE, name) )
 		{
-		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
 		  colors_assign("title", value);
 		  colors_assign("title2", value);
 		}
 	      /* color - line (title) window */
 	      else if( !strcasecmp(CONF_COLOR_LINE, name) )
 		{
-		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
 		  colors_assign("line", value);
 		  colors_assign("line2", value);
 		}
 	      /* color - list window */
 	      else if( !strcasecmp(CONF_COLOR_LIST, name) )
 		{
-		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
 		  colors_assign("list", value);
 		}
 	      /* color - progress bar */
 	      else if( !strcasecmp(CONF_COLOR_PROGRESS, name) )
 		{
-		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
 		  colors_assign("progressbar", value);
 		}
 	      /* color - status window */
 	      else if( !strcasecmp(CONF_COLOR_STATUS, name) )
 		{
-		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
 		  colors_assign("status", value);
 		  colors_assign("status2", value);
 		}
 	      /* color - alerts */
 	      else if( !strcasecmp(CONF_COLOR_ALERT, name) )
 		{
-		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
 		  colors_assign("alert", value);
+		}
+	      /* enable colors */
+	      else if( !strcasecmp(OLD_CONF_ENABLE_COLORS, name) )
+		{
+		  fprintf(stderr,"%s: %s deprecated - use %s!\n", filename, name, CONF_ENABLE_COLORS);
+		  options->enable_colors = str2bool(value);
+		}
+	      /* auto center */
+	      else if( !strcasecmp(OLD_CONF_AUTO_CENTER, name) )
+		{
+		  fprintf(stderr,"%s: %s deprecated - use %s!\n", filename, name, CONF_AUTO_CENTER);
+		  options->auto_center = str2bool(value);
+		}
+	      /* wide cursor */
+	      else if( !strcasecmp(OLD_CONF_WIDE_CURSOR, name) )
+		{
+		  fprintf(stderr,"%s: %s deprecated - use %s!\n", filename, name, CONF_WIDE_CURSOR);
+		  options->wide_cursor = str2bool(value);
 		}
 #endif
 	      /* wide cursor */
@@ -460,6 +497,20 @@ read_rc_file(char *filename, options_t *options)
 	      else if( !strcasecmp(CONF_COLOR_DEFINITION, name) )
 		{
 		  parse_color_definition(value);
+		}
+	      /* list format string */
+	      else if( !strcasecmp(CONF_LIST_FORMAT, name) )
+		{
+		  g_free(options->list_format);
+		  options->list_format = get_format(value);
+		  fprintf(stderr, "list-format = \'%s\'\n", options->list_format);
+		}
+	      /* status format string */
+	      else if( !strcasecmp(CONF_STATUS_FORMAT, name) )
+		{
+		  g_free(options->status_format);
+		  options->status_format = get_format(value);
+		  fprintf(stderr, "status-format = \'%s\'\n", options->status_format);
 		}
 	      else
 		{

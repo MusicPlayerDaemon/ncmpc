@@ -23,6 +23,9 @@
 #define N_(x) x
 #endif
 
+#define YES   _("y")
+#define NO    _("n")
+
 /* welcome message time [s] */
 #define SCREEN_WELCOME_TIME 10
 
@@ -33,12 +36,14 @@
 #define MPD_UPDATE_TIME        0.5
 
 /* time in milliseconds before trying to reconnect (int) */
-#define MPD_RECONNECT_TIME  1000
+#define MPD_RECONNECT_TIME  1500
 
 /* song format - list window */
-#define LIST_FORMAT "%name%|[%artist% - ]%title%|%file%"
+#define DEFAULT_LIST_FORMAT "%name%|[%artist% - ]%title%|%file%"
+#define LIST_FORMAT (options.list_format ? options.list_format : DEFAULT_LIST_FORMAT)
 
 /* song format - status window */
-#define STATUS_FORMAT "[%artist% - ]%title%|%basename%"
+#define DEFAULT_STATUS_FORMAT "[%artist% - ]%title%|%basename%"
+#define STATUS_FORMAT (options.status_format ? options.status_format : DEFAULT_STATUS_FORMAT)
 
 #endif /* NCMPC_H */

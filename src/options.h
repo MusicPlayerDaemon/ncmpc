@@ -9,6 +9,8 @@ typedef struct
   char *password;
   char *config_file;
   char *key_file;
+  char *list_format;
+  char *status_format;
   int   port;
   int   reconnect;
   int   debug;
@@ -16,6 +18,7 @@ typedef struct
   int   auto_center;
   int   wide_cursor;  
   int   enable_colors;
+  int   enable_beep;
 
 } options_t;
 
