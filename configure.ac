@@ -18,7 +18,6 @@ dnl =======================================================
 
 set -- $CFLAGS
 
-
 dnl
 dnl Check for types
 dnl
@@ -61,23 +60,31 @@ AC_CHECK_LIB([popt],
              AC_MSG_ERROR([Missing popt command line parsing library]))
 
 
-dnl Check for glib-2
+dnl Check for glib-2.4
 PKG_CHECK_MODULES([GLIB], 
-		  [glib-2.0 >= 2.2],
-		  ,
-		  AC_MSG_ERROR([glib-2.2 is required]))
+		  [glib-2.0 >= 2.4],
+		  glib24=yes,
+		  AC_MSG_WARN([glib-2.4 is required for NLS support!]))
+if test "x$glib24" != "xyes"; then
+   PKG_CHECK_MODULES([GLIB], 
+		     [glib-2.0 >= 2.2],
+		     nls=no,
+		     AC_MSG_ERROR([glib-2.2 is required]))
+fi
+
 
 dnl i18n
-ALL_LINGUAS=""
-AC_MSG_CHECKING([whether to include NLS support])
-AC_ARG_ENABLE([nls],
-              AC_HELP_STRING([--enable-nls],
-	                     [include natural language support @<:@default=yes@:>@]),
-              [nls="$enableval"],
-	      [nls=yes])
-AC_MSG_RESULT([$nls])
+ALL_LINGUAS="sv"
+
+AM_NLS
+if test "x$glib24" = "xyes"; then
+  nls=$USE_NLS
+else
+  USE_NLS=no
+  AC_SUBST(USE_NLS)
+fi
+
 if test "x$nls" = "xyes"; then
-   ALL_LINGUAS="sv"
    AM_GLIB_GNU_GETTEXT
    GETTEXT_PACKAGE=$PACKAGE
    AC_SUBST(GETTEXT_PACKAGE)
@@ -85,6 +92,8 @@ if test "x$nls" = "xyes"; then
                       ["${GETTEXT_PACKAGE}"], 
                       [gettext domain])
   nls=$gt_cv_have_gettext
+else
+  AM_PO_SUBDIRS
 fi
 
 

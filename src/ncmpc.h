@@ -12,8 +12,10 @@
 #endif
 
 /* i18n */
-#ifdef ENABLE_NLS
+#ifdef HAVE_LOCALE_H
 #include <locale.h>
+#endif
+#ifdef ENABLE_NLS
 #include <libintl.h>
 #include <glib/gi18n.h>
 #else
