@@ -417,6 +417,7 @@ screen_update(mpd_client_t *c)
 {
   static int repeat = -1;
   static int random = -1;
+  list_window_t *lw = NULL;
 
   if( !screen->painted )
     return screen_paint(c);
@@ -441,10 +442,12 @@ screen_update(mpd_client_t *c)
     case SCREEN_PLAY_WINDOW:
       paint_top_window(TOP_HEADER_PLAY, c->status->volume, 0);
       play_update(screen, c);
+      lw = screen->playlist;
       break;
     case SCREEN_FILE_WINDOW:
       paint_top_window(file_get_header(c), c->status->volume, 0);
       file_update(screen, c);
+      lw = screen->filelist;
       break;
     case SCREEN_SEARCH_WINDOW:
       paint_top_window(TOP_HEADER_SEARCH, c->status->volume, 0);
@@ -453,11 +456,13 @@ screen_update(mpd_client_t *c)
     case SCREEN_HELP_WINDOW:
       paint_top_window(TOP_HEADER_HELP, c->status->volume, 0);
       help_update(screen, c);
+      lw = screen->helplist;
       break;
     }
   paint_progress_window(c);
   paint_status_window(c);
-  wmove(screen->main_window.w, 0, 0);   wnoutrefresh(screen->main_window.w);
+  wmove(screen->main_window.w, LW_ROW(lw), 0);   
+  wnoutrefresh(screen->main_window.w);
   doupdate();
 }
 

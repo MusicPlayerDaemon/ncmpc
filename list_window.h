@@ -1,6 +1,8 @@
 #ifndef LIST_WINDOW_H
 #define LIST_WINDOW_H
 
+#define LW_ROW(lw) (lw ? lw->selected-lw->start :  0)
+
 typedef char *  (*list_window_callback_fn_t)   (int index, 
 						int *highlight,
 						void *data);
