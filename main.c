@@ -14,7 +14,7 @@
 #include "conf.h"
 
 /* time in seconds between mpd updates (double) */
-#define MPD_UPDATE_TIME        1.0
+#define MPD_UPDATE_TIME        0.5
 
 /* timout in seconds before trying to reconnect (int) */
 #define MPD_RECONNECT_TIMEOUT  3
@@ -27,6 +27,7 @@ void
 exit_and_cleanup(void)
 {
   screen_exit();
+  printf("\n");
   charset_close();
   if( mpc )
     {
