@@ -78,6 +78,7 @@ screen_readln(WINDOW *w,
 
   wmove(w, 0,0);
   curs_set(1);
+  colors_use(w, COLOR_STATUS_ALERT);
   line = wreadln(w, prompt, value, COLS, history, gcmp);
   curs_set(0);
   return line;
