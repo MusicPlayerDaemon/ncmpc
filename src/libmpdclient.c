@@ -52,6 +52,10 @@
 #endif
 #endif
 
+#ifndef MSG_DONTWAIT
+#define MSG_DONTWAIT 0
+#endif
+
 #define COMMAND_LIST	1
 #define COMMAND_LIST_OK	2
 
@@ -222,8 +226,8 @@ mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
 			if(readed<=0) {
 				snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
 					"problems getting a response from"
-					" \"%s\" on port %i",host,
-					port);
+					" \"%s\" on port %i : %s",host,
+					port, strerror(errno));
 				connection->error = MPD_ERROR_NORESPONSE;
 				return connection;
 			}
@@ -345,7 +349,12 @@ void mpd_executeCommand(mpd_Connection * connection, char * command) {
 	while((ret = select(connection->sock+1,NULL,&fds,NULL,&tv)==1) || 
 			(ret==-1 && errno==EINTR)) {
 		ret = send(connection->sock,commandPtr,commandLen,
+#ifdef WIN32
+			   ioctlsocket(connection->sock, commandLen, commandPtr));
+#endif
+#ifndef WIN32
 				MSG_DONTWAIT);
+#endif
 		if(ret<=0)
 		{
 			if(ret==EAGAIN || ret==EINTR) continue;
@@ -428,7 +437,12 @@ void mpd_getNextReturnElement(mpd_Connection * connection) {
 			readed = recv(connection->sock,
 				connection->buffer+connection->buflen,
 				MPD_BUFFER_MAX_LENGTH-connection->buflen,
+#ifdef WIN32
+			   ioctlsocket(connection->sock, commandLen, commandPtr));
+#endif
+#ifndef WIN32
 				MSG_DONTWAIT);
+#endif
 			if(readed<0 && (errno==EAGAIN || errno==EINTR)) {
 				continue;
 			}
@@ -773,6 +787,7 @@ void mpd_initSong(mpd_Song * song) {
 	song->track = NULL;
 	song->title = NULL;
 	song->name = NULL;
+	song->date = NULL;
 	song->time = MPD_SONG_NO_TIME;
 	song->pos = MPD_SONG_NO_NUM;
 	song->id = MPD_SONG_NO_ID;
@@ -785,6 +800,7 @@ void mpd_finishSong(mpd_Song * song) {
 	if(song->title) free(song->title);
 	if(song->track) free(song->track);
 	if(song->name) free(song->name);
+	if(song->date) free(song->date);
 }
 
 mpd_Song * mpd_newSong() {
@@ -809,6 +825,7 @@ mpd_Song * mpd_songDup(mpd_Song * song) {
 	if(song->title) ret->title = strdup(song->title);
 	if(song->track) ret->track = strdup(song->track);
 	if(song->name) ret->name = strdup(song->name);
+	if(song->date) ret->date = strdup(song->date);
 	ret->time = song->time;
 	ret->pos = song->pos;
 	ret->id = song->id;
@@ -993,6 +1010,10 @@ mpd_InfoEntity * mpd_getNextInfoEntity(mpd_Connection * connection) {
 			else if(entity->info.song->id==MPD_SONG_NO_ID &&
 					strcmp(re->name,"Id")==0) {
 				entity->info.song->id = atoi(re->value);
+			}
+			else if(!entity->info.song->date &&
+					strcmp(re->name, "Date") == 0) {
+				entity->info.song->date = strdup(re->value);
 			}
 		}
 		else if(entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY) {
@@ -1383,4 +1404,69 @@ void mpd_sendCommandListEnd(mpd_Connection * connection) {
 	}
 	connection->commandList = 0;
 	mpd_executeCommand(connection,"command_list_end\n");
+}
+
+void mpd_sendOutputsCommand(mpd_Connection * connection) {
+	mpd_executeCommand(connection,"outputs\n");
+}
+
+mpd_OutputEntity * mpd_getNextOutput(mpd_Connection * connection) {
+	mpd_OutputEntity * output = NULL;
+
+	if(connection->doneProcessing || (connection->listOks &&
+			connection->doneListOk))
+	{
+		return NULL;
+	}
+
+	if(connection->error) return NULL;
+
+	output = malloc(sizeof(mpd_OutputEntity));
+	output->id = -10;
+	output->name = NULL;
+	output->enabled = 0;
+
+	if(!connection->returnElement) mpd_getNextReturnElement(connection);
+
+	while(connection->returnElement) {
+		mpd_ReturnElement * re = connection->returnElement;
+		if(strcmp(re->name,"outputid")==0) {
+			if(output!=NULL && output->id>=0) return output;
+			output->id = atoi(re->value);
+		}
+		else if(strcmp(re->name,"outputname")==0) {
+			output->name = strdup(re->value);
+		}
+		else if(strcmp(re->name,"outputenabled")==0) {
+			output->enabled = atoi(re->value);
+		}
+
+		mpd_getNextReturnElement(connection);
+		if(connection->error) {
+			free(output);
+			return NULL;
+		}
+		
+	}
+
+	return output;
+}
+
+void mpd_sendEnableOutputCommand(mpd_Connection * connection, int outputId) {
+	char * string = malloc(strlen("enableoutput")+25);
+	sprintf(string,"enableoutput \"%i\"\n",outputId);
+	mpd_executeCommand(connection,string);
+	free(string);
+}
+
+void mpd_sendDisableOutputCommand(mpd_Connection * connection, int outputId) {
+	char * string = malloc(strlen("disableoutput")+25);
+	sprintf(string,"disableoutput \"%i\"\n",outputId);
+	mpd_executeCommand(connection,string);
+	free(string);
+}
+
+void mpd_freeOutputElement(mpd_OutputEntity * output) {
+	free(output->name);
+	free(output);
 }
