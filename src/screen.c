@@ -590,6 +590,7 @@ screen_init(mpdclient_t *c)
 void 
 screen_paint(mpdclient_t *c)
 {
+  D("screen_paint()\n");
   /* paint the title/header window */
   if( mode_fn && mode_fn->get_title )
     paint_top_window(mode_fn->get_title(screen->buf,screen->buf_size), c, 1);
@@ -597,6 +598,7 @@ screen_paint(mpdclient_t *c)
     paint_top_window("", c, 1);
 
   /* paint the main window */
+  wclear(screen->main_window.w);
   if( mode_fn && mode_fn->paint )
     mode_fn->paint(screen, c);
   
@@ -807,6 +809,9 @@ screen_cmd(mpdclient_t *c, command_t cmd)
       screen_status_printf(options.auto_center ?
 			   _("Auto center mode: On") :
 			   _("Auto center mode: Off"));
+      break;
+    case CMD_SCREEN_UPDATE:
+      screen->painted = 0;
       break;
     case CMD_SCREEN_PREVIOUS:
       if( screen->mode > SCREEN_PLAY_WINDOW )

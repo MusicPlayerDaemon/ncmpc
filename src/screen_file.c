@@ -572,6 +572,9 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       handle_delete(screen, c);
       break;
     case CMD_SCREEN_UPDATE:
+      screen->painted = 0;
+      lw->clear = 1;
+      lw->repaint = 1;
       filelist = mpdclient_filelist_update(c, filelist);
       list_window_check_selected(lw, filelist->length);
       screen_status_printf(_("Screen updated!"));
