@@ -34,6 +34,25 @@ iconv_t iconv_from_uft8 = (iconv_t)(-1);
 iconv_t iconv_to_uft8 = (iconv_t)(-1);
 #endif
 
+char *
+trim(char *str)
+{
+  char *end;
+
+  if( str==NULL )
+    return NULL;
+
+  while( IS_WHITESPACE(*str) )
+    str++;
+
+  end=str+strlen(str)-1;
+  while( end>str && IS_WHITESPACE(*end) )
+    {
+      *end = '\0';
+      end--;
+    }
+  return str;
+}
 
 char *
 remove_trailing_slash(char *path)
@@ -156,6 +175,12 @@ charset_init(void)
       perror("iconv_open");
       return -1;
     }
+  iconv_to_uft8 = iconv_open("UTF-8", charset);
+  if( iconv_to_uft8 == (iconv_t)(-1) )
+    {
+      perror("iconv_open");
+      return -1;
+    }
 #endif
 
   return 0;
@@ -179,17 +204,18 @@ charset_close(void)
   return 0;
 }
 
-
-
-char *
-utf8_to_locale(char *str)
-{
 #ifdef HAVE_ICONV
+static char *
+charconv(iconv_t iv, char *str)
+{
   size_t inleft;
   size_t retlen;
   char *ret;
 
-  if( iconv_from_uft8 == (iconv_t)(-1) )
+  if( str==NULL )
+    return NULL;
+
+  if( iv == (iconv_t)(-1) )
     return strdup(str);
 
   ret = NULL;
@@ -201,7 +227,7 @@ utf8_to_locale(char *str)
       size_t outleft = BUFSIZE;
       char *bufp = buf;
 
-      if( iconv(iconv_from_uft8, &str, &inleft, &bufp, &outleft) <0 )
+      if( iconv(iv, &str, &inleft, &bufp, &outleft) <0 )
 	{
 	  perror("iconv");
 	  free(ret);
@@ -213,7 +239,24 @@ utf8_to_locale(char *str)
       ret[retlen] = '\0';
     }
   return ret;
+}
+#endif
 
+char *
+utf8_to_locale(char *str)
+{
+#ifdef HAVE_ICONV
+  return charconv(iconv_from_uft8, str);
+#else
+  return strdup(str);
+#endif
+}
+
+char *
+locale_to_utf8(char *str)
+{
+#ifdef HAVE_ICONV
+  return charconv(iconv_to_uft8, str);
 #else
   return strdup(str);
 #endif
