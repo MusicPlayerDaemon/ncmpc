@@ -1,5 +1,7 @@
 /* 
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +33,7 @@
 #include "options.h"
 #include "list_window.h"
 #include "colors.h"
+#include "wreadln.h"
 #include "screen.h"
 
 #define FIND_PROMPT  _("Find: ")
@@ -63,29 +66,26 @@ screen_getch(WINDOW *w, char *prompt)
   return key;
 }
 
+char *
+screen_readln(WINDOW *w, 
+	      char *prompt, 
+	      char *value,
+	      GList **history,
+	      GCompletion *gcmp)
+{
+  char *line = NULL;
+
+  wmove(w, 0,0);
+  curs_set(1);
+  line = wreadln(w, prompt, value, COLS, history, gcmp);
+  curs_set(0);
+  return line;
+}
 
 char *
 screen_getstr(WINDOW *w, char *prompt)
 {
-  char buf[256], *line = NULL;
-  int prompt_len = strlen(prompt);
-
-  colors_use(w, COLOR_STATUS_ALERT);
-  wclear(w);  
-  wmove(w, 0, 0);
-  waddstr(w, prompt);
-  wmove(w, 0, prompt_len);
-  
-  echo();
-  curs_set(1);
-
-  if( wgetnstr(w, buf, 256) == OK )
-    line = g_strdup(buf);
-
-  noecho();
-  curs_set(0);
-
-  return line;
+  return screen_readln(w, prompt, NULL, NULL, NULL);
 }
 
 
@@ -121,7 +121,13 @@ screen_find(screen_t *screen,
     case CMD_LIST_FIND_NEXT:
     case CMD_LIST_RFIND_NEXT:
       if( !screen->findbuf )
-	screen->findbuf=screen_getstr(screen->status_window.w, prompt);
+	screen->findbuf=screen_readln(screen->status_window.w,
+				      prompt,
+				      (char *) -1, //NULL,
+				      &screen->find_history,
+				      NULL);
+      if( !screen->findbuf || !screen->findbuf[0] )
+	return 1; 
       if( reversed )
 	retval = list_window_rfind(lw, 
 				   callback_fn,

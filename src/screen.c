@@ -1,5 +1,7 @@
 /* 
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +34,7 @@
 #include "command.h"
 #include "options.h"
 #include "colors.h"
+#include "wreadln.h"
 #include "screen.h"
 #include "screen_play.h"
 #include "screen_file.h"
@@ -39,7 +42,7 @@
 #include "screen_search.h"
 #include "screen_utils.h"
 
-#undef  ENABLE_STATUS_LINE_CLOCK
+#define ENABLE_STATUS_LINE_CLOCK
 #define ENABLE_SCROLLING
 
 #define DEFAULT_CROSSFADE_TIME 10
@@ -294,15 +297,17 @@ paint_status_window(mpd_client_t *c)
 	  snprintf(screen->buf, screen->buf_size,  " [%d kbps]", status->bitRate );
 	}
     }
+#ifdef ENABLE_STATUS_LINE_CLOCK
   else
     {
       time_t timep;
 
       time(&timep);
       /* Note: setlocale(LC_TIME,"") should be used first */
-      //strftime(screen->buf, screen->buf_size, "%X ",  localtime(&timep));
-      strftime(screen->buf, screen->buf_size, " %k:%M",  localtime(&timep));
+      //strftime(screen->buf, screen->buf_size, "%x  - %X ",localtime(&timep));
+      strftime(screen->buf, screen->buf_size, "%X ",localtime(&timep));
     }
+#endif
 
   /* display song */
   if( (IS_PLAYING(status->state) || IS_PAUSED(status->state)) &&  song )
@@ -333,7 +338,20 @@ paint_status_window(mpd_client_t *c)
   wnoutrefresh(w);
 }
 
-
+GList *
+screen_free_string_list(GList *list)
+{
+  GList *l = g_list_first(list);
+  
+  while(l)
+    {
+      g_free(l->data);
+      l->data = NULL;
+      l=l->next;
+    }
+  g_list_free(list);
+  return NULL;
+}
 
 int
 screen_exit(void)
@@ -356,9 +374,10 @@ screen_exit(void)
 	  list=list->next;
 	}
       g_list_free(screen->screen_list);
-
+      screen_free_string_list(screen->find_history);
       g_free(screen->buf);
       g_free(screen->findbuf);
+      
       g_free(screen);
       screen = NULL;
     }
@@ -472,9 +491,9 @@ screen_init(void)
   noecho();    
   /* set cursor invisible */     
   curs_set(0);     
-  /* return from getch() without blocking */
-  //  nodelay(stdscr, TRUE); 
+  /* enable extra keys */
   keypad(stdscr, TRUE);  
+  /* return from getch() without blocking */
   timeout(SCREEN_TIMEOUT);
 
   if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
@@ -574,6 +593,9 @@ screen_init(void)
     }
 
   mode_fn = get_screen_playlist();
+
+  /* initialize wreadln */
+  wrln_resize_callback = screen_resize;
 
   return 0;
 }

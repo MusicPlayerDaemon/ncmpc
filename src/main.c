@@ -69,13 +69,12 @@ main(int argc, const char *argv[])
   gboolean connected;
   const char *charset = NULL;
 
-  /* initialize charset */
 #ifdef HAVE_LOCALE_H
-  if( setlocale(LC_CTYPE,"") == NULL )
-    {
-      g_printerr("setlocale() - failed!\n");
-      exit(EXIT_FAILURE);
-    }
+  /* time and date formatting */
+  setlocale(LC_TIME,"");
+  /* charset */
+  setlocale(LC_CTYPE,"");
+  /* initialize charset conversions */
   charset_init(g_get_charset(&charset));
   D(printf("charset: %s\n", charset));
 #endif

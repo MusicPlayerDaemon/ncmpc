@@ -53,6 +53,7 @@ typedef struct
   size_t buf_size;
 
   char *findbuf;
+  GList *find_history;
 
   int painted;
 
