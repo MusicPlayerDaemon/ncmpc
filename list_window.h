@@ -44,6 +44,7 @@ void list_window_first(list_window_t *lw);
 void list_window_last(list_window_t *lw, int length);
 void list_window_previous_page(list_window_t *lw);
 void list_window_next_page(list_window_t *lw, int length);
+void list_window_check_selected(list_window_t *lw, int length);
 
 /* find a string in a list window */
 int  list_window_find(list_window_t *lw, 
