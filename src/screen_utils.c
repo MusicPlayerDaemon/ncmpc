@@ -162,20 +162,38 @@ screen_find(screen_t *screen,
 void
 screen_display_completion_list(screen_t *screen, GList *list)
 {
+  static GList *prev_list = NULL;
+  static gint prev_length = 0;
+  static gint offset = 0;
   WINDOW *w = screen->main_window.w;
-  gint y=0;
+  gint length, y=0;
+
+  length = g_list_length(list);
+  if( list==prev_list && length==prev_length )
+    {
+      offset += screen->main_window.rows;
+      if( offset>=length )
+	offset=0;
+    }
+  else
+    {
+      prev_list = list;
+      prev_length = length;
+      offset = 0;
+    }
 
   colors_use(w, COLOR_STATUS_ALERT);
   while( y<screen->main_window.rows )
     {
+      GList *item = g_list_nth(list, y+offset);
+
       wmove(w, y++, 0);
       wclrtoeol(w);
-      if( list )
+      if( item )
 	{
-	  gchar *tmp = g_strdup(list->data);
+	  gchar *tmp = g_strdup(item->data);
 	  waddstr(w, basename(tmp));
 	  g_free(tmp);
-	  list = list->next;
 	}
     }
   wrefresh(w);
