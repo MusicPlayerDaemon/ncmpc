@@ -34,8 +34,9 @@
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
+#include "strfsong.h"
 
-#define BUFSIZE 256
+#define BUFSIZE 1024
 
 static mpdclient_t   *mpd = NULL;
 static gboolean connected = FALSE;
@@ -75,6 +76,35 @@ error_callback(mpdclient_t *c, gint error, gchar *msg)
       screen_bell();
       doupdate();
       connected = FALSE;
+    }
+}
+
+static void
+update_xterm_title(void)
+{
+  static char title[BUFSIZE];
+  char tmp[BUFSIZE];
+  mpd_Status *status = NULL;
+  mpd_Song *song = NULL;
+
+  if( mpd )
+    {
+      status = mpd->status;
+      song = mpd->song;
+    }
+
+  if(options.xterm_title_format && status && song && IS_PLAYING(status->state))
+    {
+      strfsong(tmp, BUFSIZE, options.xterm_title_format, song);
+    }
+  else
+    strncpy(tmp, PACKAGE " version " VERSION, BUFSIZE);
+
+  if( strcmp(title,tmp) )
+    {
+      strncpy(title, tmp, BUFSIZE);
+      fprintf(stderr, "%s\n", title);
+      set_xterm_title(title);
     }
 }
 
@@ -163,9 +193,6 @@ main(int argc, const char *argv[])
       perror("sigaction()");
       exit(EXIT_FAILURE);
     }
-
-  /* set xterm title */
-  set_xterm_title(PACKAGE " version " VERSION);
 
   /* install exit function */
   atexit(exit_and_cleanup);
@@ -259,7 +286,8 @@ main(int argc, const char *argv[])
 	    }	  
 	  doupdate();
 	}
-
+      if( options->enable_xterm_title )
+	update_xterm_title();
       t = g_timer_elapsed(timer, NULL);
     }
   exit(EXIT_FAILURE);
