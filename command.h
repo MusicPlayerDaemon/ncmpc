@@ -38,6 +38,7 @@ typedef enum
   CMD_SCREEN_PLAY,
   CMD_SCREEN_FILE,
   CMD_SCREEN_SEARCH,
+  CMD_SCREEN_KEYDEF,
   CMD_SCREEN_HELP,
   CMD_QUIT
 } command_t;
@@ -50,11 +51,14 @@ typedef struct
   char *description;
 } command_definition_t;
 
+command_definition_t *get_command_definitions(void);
+command_t find_key_command(int key, command_definition_t *cmds);
 
 void command_dump_keys(void);
 int  check_key_bindings(void);
 int  write_key_bindings(FILE *f);
 
+char *key2str(int key);
 char *get_key_description(command_t command);
 char *get_key_command_name(command_t command);
 char *get_key_names(command_t command, int all);

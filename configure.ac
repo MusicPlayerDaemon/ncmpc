@@ -17,6 +17,8 @@ dnl =======================================================
 set -- $CFLAGS
 CFLAGS="-Wall $CFLAGS"
 
+keydef_screen=yes
+
 dnl
 dnl Check for types
 dnl
@@ -25,9 +27,6 @@ dnl 	      AC_DEFINE(HAVE_SOCKLEN_T, 1, socklen_t defined in sys/socket.h),
 dnl )
 
 AC_SOCKLEN_T
-
-
-
 
 
 dnl
@@ -71,23 +70,35 @@ AC_CHECK_LIB(popt,
 
 dnl Debugging 
 AC_ARG_ENABLE(debug, 
-              [  --enable-debug        Enable debugging [default=no]],
+              AS_HELP_STRING([--enable-debug],[Enable debugging]),
 	      , 
 	      enable_debug=no)
 
 if test "$enable_debug" = yes; then
-  CFLAGS="$CFLAGS -g -DDEBUG"
+   CFLAGS="$CFLAGS -g -DDEBUG"
 fi
+
+dnl Key editor
+AC_ARG_ENABLE(key-editor, 
+              AS_HELP_STRING([--enable-key-editor],[Enable key editor]),
+	      keydef_screen=no,
+	      keydef_screen=yes)
+if test "$keydef_screen" = yes; then
+       CFLAGS="$CFLAGS -DENABLE_KEYDEF_SCREEN"
+fi
+dnl   AC_DEFINE(ENABLE_KEYDEF_SCREEN, 1, [Enable builtin key editor]), 
+
 
 dnl Default host
 AC_ARG_WITH(default-host,
-	    [  --with-default-host=HOST  Default host (localhost)], 
+	    AS_HELP_STRING([--with-default-host=ARG],
+                           [Default MPD host (localhost)]),
             DEFAULT_HOST="$withval",
             DEFAULT_HOST="localhost")
 
 dnl Default port
 AC_ARG_WITH(default-port,
-            [  --with-default-port=PORT  Default port (2100)],
+            AS_HELP_STRING([--with-default-port=ARG],[Default port (2100)]),
             DEFAULT_PORT="$withval",
             DEFAULT_PORT="2100")
 
@@ -109,8 +120,9 @@ echo "
 Configuration:  
   prefix:                             ${prefix}
   sysconfdir:                         ${sysconfdir}
-  Enable debugging:                   ${enable_debug}
   Default MPD host:                   ${DEFAULT_HOST}
   Default MPD port:                   ${DEFAULT_PORT}
+  Enable debugging:                   ${enable_debug}
+  Key edit screen:                    ${keydef_screen}
 "
 echo
