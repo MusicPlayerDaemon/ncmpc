@@ -21,6 +21,7 @@ static struct poptOption optionsTable[] = {
 #endif
   { "version",      'V', 0, 0, 'V', "Display version information." },
   { "keys",         'k', 0, 0, 'k', "Display key bindings." },
+  { "exit",         'e', 0, 0, 'e', "Exit on connection errors." },
   { "port",         'p', POPT_ARG_INT, &options.port, 0, 
     "Connect to server on port [" DEFAULT_PORT_STR "].", "PORT" },
   { "host",         'h', POPT_ARG_STRING, &options.host, 0, 
@@ -60,6 +61,9 @@ options_parse( int argc, char **argv )
 	case 'k':
 	  command_dump_keys();
 	  exit(EXIT_SUCCESS);
+	case 'e':
+	  options.reconnect = 0;
+	  break;
 	default:
 	  fprintf(stderr, "%s: %s\n",
 		  poptBadOption(optCon, POPT_BADOPTION_NOALIAS),
@@ -97,6 +101,7 @@ options_init( void )
     options.port = atoi(value);
   else
     options.port = DEFAULT_PORT;
+  options.reconnect = 1;
 }
 
 

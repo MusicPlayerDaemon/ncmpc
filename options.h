@@ -7,6 +7,8 @@ typedef struct
 {
   char *host;
   int   port;
+  int   reconnect;
+  int   debug;
 
 } options_t;
 
