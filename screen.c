@@ -266,18 +266,26 @@ screen_init(void)
 {
   /* initialize the curses library */
   initscr();        
-  start_color();
-  if( options.enable_colors )
+  if( has_colors() )
     {
-      init_pair(1, options.title_color,    options.bg_color);
-      init_pair(2, options.line_color,     options.bg_color);
-      init_pair(3, options.list_color,     options.bg_color);
-      init_pair(4, options.progress_color, options.bg_color);
-      init_pair(5, options.status_color,   options.bg_color);
-      init_pair(6, options.alert_color,    options.bg_color);
+      start_color();
+      if( options.enable_colors )
+	{
+	  init_pair(1, options.title_color,    options.bg_color);
+	  init_pair(2, options.line_color,     options.bg_color);
+	  init_pair(3, options.list_color,     options.bg_color);
+	  init_pair(4, options.progress_color, options.bg_color);
+	  init_pair(5, options.status_color,   options.bg_color);
+	  init_pair(6, options.alert_color,    options.bg_color);
+	}
+      else
+	use_default_colors();
     }
-  else
-    use_default_colors();
+  else if( options.enable_colors )
+    {
+      fprintf(stderr, "Terminal lacks color capabilities.\n");
+      options.enable_colors = 0;
+    }
 
   /* tell curses not to do NL->CR/NL on output */
   nonl();          
@@ -333,6 +341,7 @@ screen_init(void)
   screen->helplist = list_window_init( screen->main_window.w,
 				       screen->main_window.cols,
 				       screen->main_window.rows );
+
   leaveok(screen->main_window.w, TRUE);
   keypad(screen->main_window.w, TRUE);  
 
@@ -361,9 +370,6 @@ screen_init(void)
       /* set background attributes */
       wbkgd(screen->main_window.w, LIST_COLORS);
       wbkgd(screen->top_window.w, TITLE_COLORS);
-      wbkgd(screen->playlist->w, LIST_COLORS);
-      wbkgd(screen->filelist->w, LIST_COLORS);
-      wbkgd(screen->helplist->w, LIST_COLORS);
       wbkgd(screen->progress_window.w, PROGRESS_COLORS);
       wbkgd(screen->status_window.w, STATUS_COLORS);
     }
