@@ -1,0 +1,112 @@
+##
+## Key bindings for ncmpc (~/.ncmpc/keys)
+## 
+##
+## Its possible to bind maximum three keys to a command
+## Keys can be defined with a character or a decimal/hexadecimal value.
+## A command can be disabled by binding it to 0 (key bind quit = 0).
+## 
+## Example - bind the Q key to quit in three different ways:
+## (character,decimal [81], hexadecimal [51])
+##
+## key quit = 'Q'
+## key quit = 81
+## key quit = 0x51
+##
+
+# Play/Enter directory
+key play = 13
+
+# Pause
+key pause = 'P'
+
+# Stop
+key stop = 's',  263
+
+# Next track
+key next = 62
+
+# Previous track
+key prev = 60
+
+# Increase volume
+key volume-up = '+',  261
+
+# Decrease volume
+key volume-down = '-',  260
+
+# Toggle find mode
+key wrap-mode = 'w'
+
+# Toggle auto center mode
+key autocenter-mode = 'U'
+
+# Select/deselect song in playlist
+key select = 32,  'a'
+
+# Delete song from playlist
+key delete = 330,  'd'
+
+# Shuffle playlist
+key shuffle = 'Z'
+
+# Clear playlist
+key clear = 'c'
+
+# Toggle repeat mode
+key repeat = 'r'
+
+# Toggle random mode
+key random = 'z'
+
+# Save playlist
+key save = 'S'
+
+# Move cursor up
+key up = 259,  44
+
+# Move cursor down
+key down = 258,  46
+
+# Home
+key home = 262,  1
+
+# End
+key end = 360,  5
+
+# Page up
+key pgup = 339,  'A'
+
+# Page down
+key pgdn = 338,  'B'
+
+# Forward find
+key find = 47
+
+# Forward find next
+key find-next = 'n'
+
+# Backward find
+key rfind = 63
+
+# Backward find previous
+key rfind-next = 'p'
+
+# Next screen
+key screen-next = 9
+
+# Help screen
+key screen-help = '1',  265,  'h'
+
+# Playlist screen
+key screen-playlist = '2',  266
+
+# Browse screen
+key screen-browse = '3',  267
+
+# Update screen
+key update = 'u'
+
+# Quit ncmpc
+key quit = 'q'
+
