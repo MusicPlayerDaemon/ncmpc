@@ -152,7 +152,7 @@ list_window_paint(list_window_t *lw,
 
   for(i=0; i<lw->rows; i++)
     {
-      int highlight;
+      int highlight = 0;
       char *label;
 
       label = (callback) (lw->start+i, &highlight, callback_data);
