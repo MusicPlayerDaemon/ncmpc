@@ -75,7 +75,7 @@ static screen_mode_info_t screens[] = {
 #ifdef ENABLE_CLOCK_SCREEN
   { SCREEN_CLOCK_ID,    "clock",    get_screen_clock },
 #endif
-  { -1, NULL,      NULL }
+  { G_MAXINT, NULL,      NULL }
 };
 
 static gboolean welcome = TRUE;
