@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdarg.h>
 #include <string.h>
 #include <time.h>
 #include <glib.h>
@@ -20,6 +21,7 @@
 #include "screen_search.h"
 
 #define STATUS_MESSAGE_TIMEOUT 3
+#define STATUS_LINE_MAX_SIZE   512
 
 static screen_t *screen = NULL;
 
@@ -203,6 +205,7 @@ screen_exit(void)
       screen->filelist = list_window_free(screen->filelist);
       screen->helplist = list_window_free(screen->helplist);
       free(screen->buf);
+      free(screen->findbuf);
       free(screen);
       screen = NULL;
     }
@@ -233,6 +236,18 @@ screen_status_message(mpd_client_t *c, char *msg)
   wattroff(w, A_BOLD);
   wrefresh(w);
   screen->status_timestamp = time(NULL);
+}
+
+void 
+screen_status_printf(mpd_client_t *c, char *format, ...)
+{
+  char buffer[STATUS_LINE_MAX_SIZE];
+  va_list ap;
+  
+  va_start(ap,format);
+  vsnprintf(buffer,sizeof(buffer),format,ap);
+  va_end(ap);
+  screen_status_message(c, buffer);
 }
 
 int
@@ -269,6 +284,7 @@ screen_init(void)
   screen->rows = LINES;
   screen->buf  = malloc(screen->cols);
   screen->buf_size = screen->cols;
+  screen->findbuf = NULL;
   screen->painted = 0;
 
   /* create top window */
@@ -503,6 +519,8 @@ screen_cmd(mpd_client_t *c, command_t cmd)
       break;
     case CMD_QUIT:
       exit(EXIT_SUCCESS);
+    case CMD_LIST_FIND:
+    case CMD_LIST_FIND_NEXT:
     case CMD_NONE:
     case CMD_DELETE: 
     case CMD_SELECT:
