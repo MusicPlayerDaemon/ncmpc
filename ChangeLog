@@ -1,9 +1,5 @@
-0.1.2	* Fixed a bug introduced in version 0.1.1. The full path to files 
-	  was printed in the browse screen (changed back to basename). 
 	
-0.1.1	* Added support for utf-8 (MPD >= 0.10.0)
-	
-0.1.0	* First published version of mpc-ncurses
+0.10.0	* First version of ncmpc
 
 
 	
