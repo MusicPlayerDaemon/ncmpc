@@ -184,7 +184,7 @@ _strfsong(gchar *s,
       else if (strncmp("%time%", p, n) == 0)
 	{
 	  if (song->time != MPD_SONG_NO_TIME) 
-	    temp = g_strdup_printf("%d:%d", 
+	    temp = g_strdup_printf("%d:%02d", 
 				   song->time / 60, 
 				   song->time % 60 + 1);
 	}
