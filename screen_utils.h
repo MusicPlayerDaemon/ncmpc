@@ -1,6 +1,9 @@
 
+/* read a characher from the status window */
+int screen_getch(WINDOW *w, char *prompt);
+
 /* read a string from the status window */
-char *screen_readln(WINDOW *w, char *prompt);
+char *screen_getstr(WINDOW *w, char *prompt);
 
 /* query user for a string and find it in a list window */
 int screen_find(screen_t *screen,

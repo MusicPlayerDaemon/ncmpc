@@ -15,8 +15,33 @@
 #define FIND_PROMPT  "Find: "
 #define RFIND_PROMPT "Find backward: "
 
+int
+screen_getch(WINDOW *w, char *prompt)
+{
+  int key = -1;
+  int prompt_len = strlen(prompt);
+
+  wclear(w);  
+  wmove(w, 0, 0);
+  waddstr(w, prompt);
+  wmove(w, 0, prompt_len);
+  
+  echo();
+  curs_set(1);
+  timeout(-1);
+
+  key = wgetch(w);
+
+  noecho();
+  curs_set(0);
+  timeout(SCREEN_TIMEOUT);
+
+  return key;
+}
+
+
 char *
-screen_readln(WINDOW *w, char *prompt)
+screen_getstr(WINDOW *w, char *prompt)
 {
   char buf[256], *line = NULL;
   int prompt_len = strlen(prompt);
@@ -71,7 +96,7 @@ screen_find(screen_t *screen,
     case CMD_LIST_FIND_NEXT:
     case CMD_LIST_RFIND_NEXT:
       if( !screen->findbuf )
-	screen->findbuf=screen_readln(screen->status_window.w, prompt);
+	screen->findbuf=screen_getstr(screen->status_window.w, prompt);
       if( reversed )
 	retval = list_window_rfind(lw, 
 				   callback_fn,
