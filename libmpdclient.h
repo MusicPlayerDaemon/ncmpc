@@ -1,5 +1,5 @@
 /* libmpdclient
- * (c)2002 by Warren Dukes (shank@mercury.chem.pitt.edu)
+ * (c)2003-2004 by Warren Dukes (shank@mercury.chem.pitt.edu)
  * This project's homepage is: http://www.musicpd.org
  *
  * This library is free software; you can redistribute it and/or
@@ -116,6 +116,8 @@ typedef struct mpd_Status {
 	long long playlist;
 	/* use with MPD_STATUS_STATE_* to determine state of player */
 	int state;
+	/* crossfade setting in seconds */
+	int crossfade;
 	/* if in PLAY or PAUSE state, this is the number of the currently
 	 * playing song in the playlist, beginning with 0
 	 */
@@ -128,6 +130,12 @@ typedef struct mpd_Status {
 	int totalTime;
 	/* current bit rate in kbs */
 	int bitRate;
+	/* audio sample rate */
+	unsigned int sampleRate;
+	/* audio bits */
+	int bits;
+	/* audio channels */
+	int channels;
 	/* error */
 	char * error;
 } mpd_Status;
@@ -141,6 +149,20 @@ mpd_Status * mpd_getStatus(mpd_Connection * connection);
  * free's status info malloc'd and returned by mpd_getStatus
  */
 void mpd_freeStatus(mpd_Status * status);
+
+typedef struct _mpd_Stats {
+	int numberOfArtists;
+	int numberOfAlbums;
+	int numberOfSongs;
+	unsigned long uptime;
+	unsigned long dbUpdateTime;
+	unsigned long playTime;
+	unsigned long dbPlayTime;
+} mpd_Stats;
+
+mpd_Stats * mpd_getStats(mpd_Connection * connection);
+
+void mpd_freeStats(mpd_Stats * stats);
 
 /* SONG STUFF */
 
@@ -348,9 +370,18 @@ void mpd_sendRepeatCommand(mpd_Connection * connection, int repeatMode);
 
 void mpd_sendRandomCommand(mpd_Connection * connection, int randomMode);
 
+void mpd_sendSetvolCommand(mpd_Connection * connection, int volumeChange);
+
+/* WARNING: don't use volume command, its depreacted */
 void mpd_sendVolumeCommand(mpd_Connection * connection, int volumeChange);
 
+void mpd_sendCrossfadeCommand(mpd_Connection * connection, int seconds);
+
+int mpd_getCrossfade(mpd_Connection * connection);
+
 void mpd_sendUpdateCommand(mpd_Connection * connection);
+
+void mpd_sendPasswordCommand(mpd_Connection * connection, const char * pass);
 
 /* after executing a command, when your done with it to get its status
  * (you want to check connection->error for an error)

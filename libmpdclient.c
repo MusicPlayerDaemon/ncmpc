@@ -1,5 +1,5 @@
 /* libmpdclient
- * (c)2002 by Warren Dukes (shank@mercury.chem.pitt.edu)
+ * (c)2003-2004 by Warren Dukes (shank@mercury.chem.pitt.edu)
  * This project's homepage is: http://www.musicpd.org
  *
  * This library is free software; you can redistribute it and/or
@@ -96,8 +96,8 @@ void mpd_freeReturnElement(mpd_ReturnElement * re) {
 
 void mpd_setConnectionTimeout(mpd_Connection * connection, float timeout) {
 		connection->timeout.tv_sec = (int)timeout;
-		connection->timeout.tv_usec = (int)((timeout -
-				connection->timeout.tv_sec)/1e+6+0.5);
+		connection->timeout.tv_usec = (int)(timeout*1e6 -
+				connection->timeout.tv_sec*1000000+0.5);
 }
 
 mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
@@ -243,7 +243,8 @@ mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
 			if(readed<=0) {
 				snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
 					"problems getting a response from"
-					 " \"%s\" on port %i",host,port);
+					" \"%s\" on port %i",host,
+					port);
 				connection->error = MPD_ERROR_NORESPONSE;
 				return connection;
 			}
@@ -509,6 +510,10 @@ mpd_Status * mpd_getStatus(mpd_Connection * connection) {
 	status->elapsedTime = 0;
 	status->totalTime = 0;
 	status->bitRate = 0;
+	status->sampleRate = 0;
+	status->bits = 0;
+	status->channels = 0;
+	status->crossfade = -1;
 	status->error = NULL;
 
 	mpd_getNextReturnElement(connection);
@@ -564,6 +569,18 @@ mpd_Status * mpd_getStatus(mpd_Connection * connection) {
 		else if(strcmp(re->name,"error")==0) {
 			status->error = strdup(re->value);
 		}
+		else if(strcmp(re->name,"xfade")==0) {
+			status->crossfade = atoi(re->value);
+		}
+		else if(strcmp(re->name,"audio")==0) {
+			char * tok;
+			char * copy;
+			copy = strdup(re->value);
+			status->sampleRate = atoi(strtok_r(copy,":",&tok));
+			status->bits = atoi(strtok_r(NULL,":",&tok));
+			status->channels = atoi(strtok_r(NULL,"",&tok));
+			free(copy);
+		}
 
 		mpd_getNextReturnElement(connection);
 		if(connection->error) {
@@ -589,6 +606,62 @@ mpd_Status * mpd_getStatus(mpd_Connection * connection) {
 void mpd_freeStatus(mpd_Status * status) {
 	if(status->error) free(status->error);
 	free(status);
+}
+
+mpd_Stats * mpd_getStats(mpd_Connection * connection) {
+	mpd_Stats * stats;
+
+	mpd_executeCommand(connection,"stats\n");
+		
+	if(connection->error) return NULL;
+
+	stats = malloc(sizeof(mpd_Stats));
+	stats->numberOfArtists = 0;
+	stats->numberOfAlbums = 0;
+	stats->numberOfSongs = 0;
+	stats->uptime = 0;
+	stats->dbUpdateTime = 0;
+
+	mpd_getNextReturnElement(connection);
+	if(connection->error) {
+		free(stats);
+		return NULL;
+	}
+	while(connection->returnElement) {
+		mpd_ReturnElement * re = connection->returnElement;
+		if(strcmp(re->name,"artists")==0) {
+			stats->numberOfArtists = atoi(re->value);
+		}
+		else if(strcmp(re->name,"albums")==0) {
+			stats->numberOfAlbums = atoi(re->value);
+		}
+		else if(strcmp(re->name,"songs")==0) {
+			stats->numberOfSongs = atoi(re->value);
+		}
+		else if(strcmp(re->name,"uptime")==0) {
+			stats->uptime = strtol(re->value,NULL,10);
+		}
+		else if(strcmp(re->name,"db_update")==0) {
+			stats->dbUpdateTime = strtol(re->value,NULL,10);
+		}
+
+		mpd_getNextReturnElement(connection);
+		if(connection->error) {
+			free(stats);
+			return NULL;
+		}
+	}
+
+	if(connection->error) {
+		free(stats);
+		return NULL;
+	}
+
+	return stats;
+}
+
+void mpd_freeStats(mpd_Stats * stats) {
+	free(stats);
 }
 
 void mpd_initSong(mpd_Song * song) {
@@ -1048,11 +1121,34 @@ void mpd_sendRandomCommand(mpd_Connection * connection, int randomMode) {
 	free(string);
 }
 
+void mpd_sendSetvolCommand(mpd_Connection * connection, int volumeChange) {
+	char * string = malloc(strlen("setvol")+25);
+	sprintf(string,"setvol \"%i\"\n",volumeChange);
+	mpd_executeCommand(connection,string);
+	free(string);
+}
+
 void mpd_sendVolumeCommand(mpd_Connection * connection, int volumeChange) {
 	char * string = malloc(strlen("volume")+25);
 	sprintf(string,"volume \"%i\"\n",volumeChange);
 	mpd_executeCommand(connection,string);
 	free(string);
+}
+
+void mpd_sendCrossfadeCommand(mpd_Connection * connection, int seconds) {
+	char * string = malloc(strlen("crossfade")+25);
+	sprintf(string,"crossfade \"%i\"\n",seconds);
+	mpd_executeCommand(connection,string);
+	free(string);
+}
+
+void mpd_sendPasswordCommand(mpd_Connection * connection, const char * pass) {
+	char * sPass = mpd_sanitizeArg(pass);
+	char * string = malloc(strlen("password")+strlen(sPass)+5);
+	sprintf(string,"password \"%s\"\n",sPass);
+	mpd_executeCommand(connection,string);
+	free(string);
+	free(sPass);
 }
 
 void mpd_sendCommandListBegin(mpd_Connection * connection) {
