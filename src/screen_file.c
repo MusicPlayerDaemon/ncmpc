@@ -563,6 +563,21 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       list_window_check_selected(lw, filelist->length);
       screen_status_printf(_("Screen updated!"));
       return 1;
+    case CMD_DB_UPDATE:
+      if( !c->status->updatingDb )
+	{
+	  if( mpdclient_cmd_db_update(c,filelist->path)==0 )
+	    {
+	      screen_status_printf(_("Database update of %s started!"),
+				   filelist->path);
+	      /* set updatingDb to make shure the browse callback gets called
+	       * even if the updated has finished before status is updated */
+	      c->status->updatingDb = 1; 
+	    }
+	}
+      else
+	screen_status_printf(_("Database update running..."));
+      return 1;
     case CMD_LIST_FIND:
     case CMD_LIST_RFIND:
     case CMD_LIST_FIND_NEXT:

@@ -154,6 +154,7 @@ handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
 	      g_free(filename);
 	      return error;
 	    }	  
+	  screen_status_printf(_("Aborted!"));
 	}
       g_free(filename);
       return -1;

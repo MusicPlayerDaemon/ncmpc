@@ -101,7 +101,7 @@ mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
 	int err;
 	struct hostent * he;
 	struct sockaddr * dest;
-#ifdef MPD_HAVE_SOCKLEN_T
+#ifdef HAVE_SOCKLEN_T
 	socklen_t destlen;
 #else
 	int destlen;
@@ -1265,8 +1265,13 @@ void mpd_sendSeekIdCommand(mpd_Connection * connection, int id, int time) {
 	free(string);
 }
 
-void mpd_sendUpdateCommand(mpd_Connection * connection) {
-        mpd_executeCommand(connection,"update\n");
+void mpd_sendUpdateCommand(mpd_Connection * connection, char * path) {
+	char * sPath = mpd_sanitizeArg(path);
+	char * string = malloc(strlen("update")+strlen(sPath)+5);
+	sprintf(string,"update \"%s\"\n",sPath);
+	mpd_sendInfoCommand(connection,string);
+	free(string);
+	free(sPath);
 }
 
 int mpd_getUpdateId(mpd_Connection * connection) {
