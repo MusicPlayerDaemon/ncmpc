@@ -45,8 +45,8 @@ static command_definition_t cmds[] =
   { {  13,   0,   0 }, CMD_PLAY, "Play/Enter directory" },
   { { 'p',   0,   0 }, CMD_PAUSE, "Pause" },
   { {  BS, ESC,   0 }, CMD_STOP, "Stop" },
-  { { 'n',   0,   0 }, CMD_TRACK_NEXT, "Next song" },
-  { { 'b',   0,   0 }, CMD_TRACK_PREVIOUS, "Previous song" },
+  { { '>',   0,   0 }, CMD_TRACK_NEXT, "Next song" },
+  { { '<',   0,   0 }, CMD_TRACK_PREVIOUS, "Previous song" },
 
   { { '+', RGHT,  0 }, CMD_VOLUME_UP, "Increase volume" },
   { { '-', LEFT,  0 }, CMD_VOLUME_DOWN, "Decrease volume" },
@@ -64,6 +64,8 @@ static command_definition_t cmds[] =
   { { END,   0,   0 }, CMD_LIST_LAST,          "Move: End" },
   { { PGUP,  0,   0 }, CMD_LIST_PREVIOUS_PAGE, "Move: Page Up" },
   { { PGDN,  0,   0 }, CMD_LIST_NEXT_PAGE,     "Move: Page Down" },
+  { { '/',   0,   0 }, CMD_LIST_FIND,          "Find" },
+  { { 'n',   0,   0 }, CMD_LIST_FIND_NEXT,     "Find Next" },
 
   { { TAB,   0,   0 }, CMD_SCREEN_NEXT,   "Next screen" },
   { { STAB,  0,   0 }, CMD_SCREEN_PREVIOUS, "Previous screen" },
