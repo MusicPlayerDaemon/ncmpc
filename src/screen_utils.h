@@ -1,6 +1,9 @@
 #ifndef SCREEN_UTILS_H
 #define SCREEN_UTILS_H
 
+/* sound an audible and/or visible bell */
+void screen_bell(void);
+
 /* read a characher from the status window */
 int screen_getch(WINDOW *w, char *prompt);
 
@@ -19,5 +22,7 @@ int screen_find(screen_t *screen,
 
 
 void screen_display_completion_list(screen_t *screen, GList *list);
+
+void set_xterm_title(char *format, ...);
 
 #endif

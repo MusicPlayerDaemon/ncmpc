@@ -89,7 +89,7 @@ save_keys(void)
     {
       screen_status_printf(_("Error: Unable to create direcory ~/.ncmpc - %s"),
 			   strerror(errno));
-      beep();
+      screen_bell();
       return -1;
     }
 
@@ -98,7 +98,7 @@ save_keys(void)
   if( (f=fopen(filename,"w")) == NULL )
     {
       screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
-      beep();
+      screen_bell();
       g_free(filename);
       return -1;
     }
@@ -165,7 +165,7 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
       screen_status_printf(_("Error: key %s is already used for %s"), 
 			   key2str(key),
 			   get_key_command_name(cmd));
-      beep();
+      screen_bell();
       return;
     }
   cmds[cmd_index].keys[key_index] = key;

@@ -38,6 +38,15 @@
 #define FIND_PROMPT  _("Find: ")
 #define RFIND_PROMPT _("Find backward: ")
 
+void
+screen_bell(void)
+{
+  if( options.audible_bell )
+    beep();
+  if( options.visible_bell )
+    flash();
+}
+
 int
 screen_getch(WINDOW *w, char *prompt)
 {
@@ -150,7 +159,7 @@ screen_find(screen_t *screen,
       else
 	{
 	  screen_status_printf(_("Unable to find \'%s\'"), screen->findbuf);
-	  beep();
+	  screen_bell();
 	}
       return 1;
     default:
@@ -199,4 +208,22 @@ screen_display_completion_list(screen_t *screen, GList *list)
   wrefresh(w);
   doupdate();
   colors_use(w, COLOR_LIST);
+}
+
+void
+set_xterm_title(char *format, ...)
+{
+  /* the current xterm title exists under the WM_NAME property */
+  /* and can be retreived with xprop -id $WINDOWID */
+
+  if( options.enable_xterm_title && g_getenv("WINDOWID") )
+    {
+      char buffer[512];
+      va_list ap;
+  
+      va_start(ap,format);
+      vsnprintf(buffer,sizeof(buffer),format,ap);
+      va_end(ap);
+      printf("%c]0;%s%c", '\033', buffer, '\007'); 
+    }
 }

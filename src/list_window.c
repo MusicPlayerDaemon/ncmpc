@@ -31,13 +31,14 @@
 #include "colors.h"
 #include "list_window.h"
 
+extern void screen_bell(void);
+
 list_window_t *
 list_window_init(WINDOW *w, int width, int height)
 {
   list_window_t *lw;
 
-  lw = g_malloc(sizeof(list_window_t));
-  memset(lw, 0, sizeof(list_window_t));
+  lw = g_malloc0(sizeof(list_window_t));
   lw->w = w;
   lw->cols = width;
   lw->rows = height;
@@ -60,6 +61,7 @@ void
 list_window_reset(list_window_t *lw)
 {
   lw->selected = 0;
+  lw->xoffset = 0;
   lw->start = 0;
   lw->clear = 1;
 }
@@ -91,24 +93,43 @@ list_window_next(list_window_t *lw, int length)
 {
   if( lw->selected < length-1 )
     lw->selected++;
+  else if ( options.list_wrap )
+    lw->selected = 0;
 }
 
 void
-list_window_previous(list_window_t *lw)
+list_window_previous(list_window_t *lw, int length)
 {
   if( lw->selected > 0 )
     lw->selected--;
+  else if( options.list_wrap )
+    lw->selected = length-1;
+}
+
+void
+list_window_right(list_window_t *lw, int length)
+{
+  lw->xoffset++;
+}
+
+void
+list_window_left(list_window_t *lw)
+{
+  if( lw->xoffset > 0 )
+    lw->xoffset--;
 }
 
 void
 list_window_first(list_window_t *lw)
 {
+  lw->xoffset = 0;
   lw->selected = 0;
 }
 
 void
 list_window_last(list_window_t *lw, int length)
 {
+  lw->xoffset = 0;
   lw->selected = length-1;
 }
 
@@ -218,7 +239,7 @@ list_window_find(list_window_t *lw,
       if( wrap )
 	{
 	  i=0; /* first item */
-	  beep(); 
+	  screen_bell();
 	}
     }
   return 1;
@@ -253,7 +274,7 @@ list_window_rfind(list_window_t *lw,
       if( wrap )
 	{
 	  i=rows-1; /* last item */
-	  beep();
+	  screen_bell();
 	}
     }
   return 1;
@@ -267,7 +288,7 @@ list_window_cmd(list_window_t *lw, int rows, command_t cmd)
   switch(cmd)
     {
     case CMD_LIST_PREVIOUS:
-      list_window_previous(lw);
+      list_window_previous(lw, rows);
       lw->repaint=1;
       break;
     case CMD_LIST_NEXT:

@@ -93,6 +93,7 @@ gint mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index);
 gint mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename);
 gint mpdclient_cmd_save_playlist_utf8(mpdclient_t *c, gchar *filename);
 gint mpdclient_cmd_load_playlist_utf8(mpdclient_t *c, gchar *filename_utf8);
+gint mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename);
 gint mpdclient_cmd_delete_playlist_utf8(mpdclient_t *c, gchar *filename_utf8);
 
 

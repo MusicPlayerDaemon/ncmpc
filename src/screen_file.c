@@ -301,7 +301,7 @@ handle_delete(screen_t *screen, mpdclient_t *c)
   if( entity->type!=MPD_INFO_ENTITY_TYPE_PLAYLISTFILE )
     {
       screen_status_printf(_("You can only delete playlists!"));
-      beep();
+      screen_bell();
       return -1;
     }
 

@@ -30,9 +30,10 @@
 #include "mpdclient.h"
 #include "support.h"
 #include "options.h"
+#include "conf.h"
 #include "command.h"
 #include "screen.h"
-#include "conf.h"
+#include "screen_utils.h"
 
 #define BUFSIZE 256
 
@@ -67,11 +68,11 @@ error_callback(mpdclient_t *c, gint error, gchar *msg)
       break;
     case MPD_ERROR_ACK:
       screen_status_printf("%s", error_msg(msg));
-      beep();
+      screen_bell();
       break;
     default:
       screen_status_printf("%s", msg);
-      beep();
+      screen_bell();
       doupdate();
       connected = FALSE;
     }
@@ -163,9 +164,10 @@ main(int argc, const char *argv[])
     }
 
   /* set xterm title */
-  /*   if( g_getenv("DISPLAY") )
-   *     printf("%c]0;%s%c", '\033', PACKAGE " version " VERSION, '\007'); 
-   */
+#ifdef DEBUG
+  options->enable_xterm_title = 1;
+  set_xterm_title(PACKAGE " version " VERSION);
+#endif
 
   /* install exit function */
   atexit(exit_and_cleanup);

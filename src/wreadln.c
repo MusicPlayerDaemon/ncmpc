@@ -42,6 +42,7 @@ GVoidFunc wrln_resize_callback = NULL;
 wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
 wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 
+extern void screen_bell(void);
 
 char *
 wreadln(WINDOW *w, 
@@ -196,14 +197,14 @@ wreadln(WINDOW *w,
 		  g_free(prefix);
 		}
 	      else
-		beep();
+		screen_bell();
 	      if( wrln_post_completion_callback )
 		wrln_post_completion_callback(gcmp, line, list);
 	    }
 	  break;
 
 	case KEY_CTRL_G:
-	  beep();
+	  screen_bell();
 	  g_free(line);
 	  if( history )
 	    {
