@@ -708,7 +708,7 @@ screen_idle(mpd_client_t *c)
 void 
 screen_cmd(mpd_client_t *c, command_t cmd)
 {
-  int n;
+  int n = 0;
   screen_mode_t new_mode = screen->mode;
 
   screen->input_timestamp = time(NULL);
@@ -800,6 +800,18 @@ screen_cmd(mpd_client_t *c, command_t cmd)
 	n = DEFAULT_CROSSFADE_TIME;
       mpd_sendCrossfadeCommand(c->connection, n);
       mpd_finishCommand(c->connection);
+      break;
+    case CMD_DB_UPDATE:
+      if( !c->status->updatingDb )
+	{
+	  mpd_sendUpdateCommand(c->connection);
+	  n = mpd_getUpdateId(c->connection);
+	  mpd_finishCommand(c->connection);
+	  if( !mpc_error(c) )
+	    screen_status_printf("Database update started [%d]", n);
+	}
+      else
+	screen_status_printf("Database update running...");
       break;
     case CMD_VOLUME_UP:
       if( c->status->volume!=MPD_STATUS_NO_VOLUME && c->status->volume<100 )

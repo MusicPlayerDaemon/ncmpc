@@ -73,6 +73,7 @@ static help_text_row_t help_text[] =
   { 0, CMD_REPEAT,         NULL },
   { 0, CMD_RANDOM,         NULL },
   { 0, CMD_CROSSFADE,      NULL },
+  { 0, CMD_DB_UPDATE,      NULL },
   { 0, CMD_NONE,           NULL },
   { 0, CMD_QUIT,           NULL },
 

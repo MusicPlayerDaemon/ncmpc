@@ -99,6 +99,9 @@ static command_definition_t cmds[] =
     "Toggle random mode" },
   { { 'x',   0,   0 }, CMD_CROSSFADE, "crossfade",
     "Toggle crossfade mode" },
+  { { 21,   0,   0 }, CMD_DB_UPDATE,  "db-update",
+    "Start a music database update" },
+
   { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "save",
     "Save playlist" },
 
