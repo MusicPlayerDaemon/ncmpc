@@ -166,11 +166,15 @@ list_window_find(list_window_t *lw,
 	      lw->selected = i;
 	      return 0;
 	    }
-	  i++;
 	  if( wrap && i==lw->selected )
 	    return 1;
+	  i++;
 	}
-      i=0; /* first item */
+      if( wrap )
+	{
+	  i=0; /* first item */
+	  beep(); 
+	}
     }
   return 1;
 }
@@ -197,11 +201,15 @@ list_window_rfind(list_window_t *lw,
 	      lw->selected = i;
 	      return 0;
 	    }
-	  i--;
 	  if( wrap && i==lw->selected )
 	    return 1;
+	  i--;
 	}
-      i=rows-1; /* last item */
+      if( wrap )
+	{
+	  i=rows-1; /* last item */
+	  beep();
+	}
     }
   return 1;
 }
