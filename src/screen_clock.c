@@ -117,7 +117,7 @@ clock_resize(int cols, int rows)
 
   
   XBASE = (cols-XLENGTH)/2;
-  YBASE = (rows-YDEPTH)/2-(YDEPTH/2);
+  YBASE = (rows-YDEPTH)/2-(YDEPTH/2)+2;
 }
 
 static void 
@@ -161,9 +161,19 @@ clock_update(screen_t *screen, mpd_client_t *c)
   long t, a;
   int i, j, s, k;
   char buf[BUFSIZE];
-  
+
   time(&now);
   tm = localtime(&now);
+
+  if( win.rows<=YDEPTH+1 || win.cols<=XLENGTH+1 )
+    {
+      strftime(buf, BUFSIZE, "%X ",tm);
+      mvwaddstr(win.w, win.rows ? win.rows/2:0, (win.cols-strlen(buf))/2, buf);
+      wrefresh(win.w);
+      return;
+    }
+  
+
   
   mask = 0;
   set(tm->tm_sec % 10, 0);

@@ -1,6 +1,7 @@
 2004-06-07 Kalle Wallin <kaw@linux.se>
-	*  configure.ac: disable nls if glib is pre 2.4
-	*  mpc.c: added support for the PLCHANGES command
+	* configure.ac: disable nls if glib is pre 2.4
+	* mpc.c: added support for the PLCHANGES command
+	* screen_clock.c: fixed resize handling
 	
 2004-06-06 Kalle Wallin <kaw@linux.se>
 	* i18n: ncmpc is now bilingual (sv)
