@@ -87,9 +87,27 @@ paint_top_window(char *header, int volume, int clear)
     {
       char buf[12];
 
-      wattron(w, A_BOLD);
-      mvwaddstr(w, 0, 0, header);
-      wattroff(w, A_BOLD);
+      if( header[0] )
+	{
+	  wattron(w, A_BOLD);
+	  mvwaddstr(w, 0, 0, header);
+	  wattroff(w, A_BOLD);
+	}
+      else
+	{
+	  wattron(w, A_BOLD);
+	  waddstr(w, "F1");
+	  wattroff(w, A_BOLD);
+	  waddstr(w, ":Help  ");
+	  wattron(w, A_BOLD);
+	  waddstr(w, "F2");
+	  wattroff(w, A_BOLD);
+	  waddstr(w, ":Playlist  ");
+	  wattron(w, A_BOLD);
+	  waddstr(w, "F3");
+	  wattroff(w, A_BOLD);
+	  waddstr(w, ":Browse");
+	}
       if( volume==MPD_STATUS_NO_VOLUME )
 	{
 	  snprintf(buf, 12, "Volume n/a ");
@@ -335,6 +353,7 @@ screen_init(void)
   screen->findbuf = NULL;
   screen->painted = 0;
   screen->input_timestamp = time(NULL);
+  screen->last_cmd = CMD_NONE;
 
   /* create top window */
   screen->top_window.rows = 2;
@@ -455,7 +474,11 @@ screen_update(mpd_client_t *c)
   switch(screen->mode)
     {
     case SCREEN_PLAY_WINDOW:
-      paint_top_window(TOP_HEADER_PLAY, c->status->volume, 0);
+      if( screen->last_cmd==CMD_NONE && 
+	  time(NULL)-screen->input_timestamp <= SCREEN_WELCOME_TIME)	
+	paint_top_window("", c->status->volume, 0);
+      else
+	paint_top_window(TOP_HEADER_PLAY, c->status->volume, 0);
       play_update(screen, c);
       lw = screen->playlist;
       break;
@@ -488,6 +511,7 @@ screen_cmd(mpd_client_t *c, command_t cmd)
   screen_mode_t new_mode = screen->mode;
 
   screen->input_timestamp = time(NULL);
+  screen->last_cmd = cmd;
   switch(screen->mode)
     {
     case SCREEN_PLAY_WINDOW:

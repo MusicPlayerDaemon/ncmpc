@@ -25,6 +25,9 @@
 /* timeout for non blocking read [ms] */
 #define SCREEN_TIMEOUT 250
 
+/* welcome message time [s] */
+#define SCREEN_WELCOME_TIME 10
+
 #define IS_PLAYING(s) (s==MPD_STATUS_STATE_PLAY)
 #define IS_PAUSED(s) (s==MPD_STATUS_STATE_PAUSE)
 #define IS_STOPPED(s) (!(IS_PLAYING(s) | IS_PAUSED(s)))
@@ -58,6 +61,7 @@ typedef struct
 
   time_t status_timestamp;
   time_t input_timestamp;
+  command_t last_cmd;
 
   list_window_t *playlist;
   list_window_t *filelist;
