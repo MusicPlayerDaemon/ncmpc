@@ -3,7 +3,7 @@ dnl  $Id: configure.ac,v 1.10 2004/03/18 09:33:43 kalle Exp $
 dnl
 
 AC_INIT(main.c)
-AM_INIT_AUTOMAKE(ncmpc, 0.10.0)
+AM_INIT_AUTOMAKE(ncmpc, 0.10.1)
 
 dnl Check for programs
 AC_PROG_CC
@@ -92,7 +92,7 @@ AC_ARG_WITH(default-port,
             DEFAULT_PORT="2100")
 
 
-CFLAGS="$CFLAGS $GLIB_CFLAGS"
+CFLAGS="$CFLAGS $GLIB_CFLAGS -DSYSCONFDIR=\\\"\$(sysconfdir)\\\""
 LIBS="$LIBS $GLIB_LIBS"
 
 
@@ -107,7 +107,8 @@ AC_OUTPUT(doc/Makefile Makefile)
 
 echo "
 Configuration:  
-  Install path:                       ${prefix}
+  prefix:                             ${prefix}
+  sysconfdir:                         ${sysconfdir}
   Enable debugging:                   ${enable_debug}
   Default MPD host:                   ${DEFAULT_HOST}
   Default MPD port:                   ${DEFAULT_PORT}
