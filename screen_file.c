@@ -15,6 +15,8 @@
 
 #define BUFSIZE 1024
 
+#undef USE_OLD_LAYOUT
+
 static char *
 list_callback(int index, int *highlight, void *data)
 {
@@ -32,28 +34,47 @@ list_callback(int index, int *highlight, void *data)
 
   if( entity == NULL )
     {
+#ifdef USE_OLD_LAYOUT
       return "[..]";
+#else
+      return "<d> ..";
+#endif
     }
   if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY ) 
     {
       mpd_Directory *dir = entity->info.directory;
       char *dirname = utf8_to_locale(basename(dir->path));
 
+#ifdef USE_OLD_LAYOUT
       snprintf(buf, BUFSIZE, "[%s]", dirname);
+#else
+      snprintf(buf, BUFSIZE, "<d> %s", dirname);
+#endif
       free(dirname);
       return buf;
     }
   else if( entity->type==MPD_INFO_ENTITY_TYPE_SONG )
     {
       mpd_Song *song = entity->info.song;
-      return mpc_get_song_name(song);
+
+#ifdef USE_OLD_LAYOUT      
+      return mpc_get_song_name(song));
+#else
+      snprintf(buf, BUFSIZE, "<m> %s", mpc_get_song_name(song));
+      return buf;
+#endif
+
     }
   else if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE )
     {
       mpd_PlaylistFile *plf = entity->info.playlistFile;
       char *filename = utf8_to_locale(basename(plf->path));
-      
+
+#ifdef USE_OLD_LAYOUT      
       snprintf(buf, BUFSIZE, "*%s*", filename);
+#else      
+      snprintf(buf, BUFSIZE, "<p> %s", filename);
+#endif
       free(filename);
       return buf;
     }
@@ -327,11 +348,11 @@ file_clear_highlight(mpd_client_t *c, mpd_Song *song)
 char *
 file_get_header(mpd_client_t *c)
 {
-  static char buf[64];
+  static char buf[BUFSIZE];
   char *tmp;
 
   tmp = utf8_to_locale(basename(c->cwd));
-  snprintf(buf, 64, 
+  snprintf(buf, BUFSIZE, 
 	   TOP_HEADER_FILE ": %s                          ",
 	   tmp
 	   );
