@@ -14,8 +14,11 @@
 #include "conf.h"
 
 
-static mpd_client_t *mpc = NULL;
+#define MPD_UPDATE_TIME  1.0
 
+
+static mpd_client_t *mpc = NULL;
+static GTimer       *timer = NULL;
 
 void
 exit_and_cleanup(void)
@@ -29,6 +32,8 @@ exit_and_cleanup(void)
       mpc_close(mpc);
     }
   g_free(options.host);
+  if( timer )
+    g_timer_destroy(timer);
 }
 
 void
@@ -43,7 +48,7 @@ main(int argc, const char *argv[])
 {
   options_t *options;
   struct sigaction act;
-  int counter, connected;
+  int connected;
 
   /* initialize options */
   options = options_init();
@@ -100,14 +105,16 @@ main(int argc, const char *argv[])
 
   /* initialize curses */
   screen_init();
-  
-  counter=0;
+
+  /* initialize timer */
+  timer = g_timer_new();
+
   connected=1;
   while( connected || options->reconnect )
     {
-      command_t cmd;
+      static gdouble t = G_MAXDOUBLE;
 
-      if( connected && counter==0  )
+      if( connected && t>=MPD_UPDATE_TIME )
 	{
 	  mpc_update(mpc);
 	  if( mpc_error(mpc) )
@@ -120,20 +127,21 @@ main(int argc, const char *argv[])
 	    }
 	  else
 	    mpd_finishCommand(mpc->connection);
-	  counter=10;
+	  g_timer_start(timer);
 	}
 
 
       if( connected )
 	{
+	  command_t cmd;
+
 	  screen_update(mpc);
 	  if( (cmd=get_keyboard_command()) != CMD_NONE )
 	    {
 	      screen_cmd(mpc, cmd);
 	      if( cmd==CMD_VOLUME_UP || cmd==CMD_VOLUME_DOWN)
-		counter=10; /* make shure we dont update the volume yet */
-	      else
-		counter=0;
+		/* make shure we dont update the volume yet */
+		g_timer_start(timer);
 	    }
 	}
       else if( options->reconnect )
@@ -145,13 +153,11 @@ main(int argc, const char *argv[])
 	    {
 	      screen_status_printf("Connected to %s!", options->host);
 	      connected=1;
-	      counter=0;
 	    }
 	  doupdate();
 	}
 
-      if( counter>0 )
-	counter--;
+      t = g_timer_elapsed(timer, NULL);
 
     }
   exit(EXIT_FAILURE);
