@@ -22,51 +22,56 @@ static help_text_row_t help_text[] =
 {
   { 1, CMD_NONE,  "          Keys   " },
   { 0, CMD_NONE,  "        --------" },
-  { 0, CMD_STOP,           "Stop" },
-  { 0, CMD_PAUSE,          "Pause" },
-  { 0, CMD_TRACK_NEXT,     "Next track" },
-  { 0, CMD_TRACK_PREVIOUS, "Prevoius track (back)" },
-  { 0, CMD_VOLUME_DOWN,    "Volume down" },
-  { 0, CMD_VOLUME_UP,      "Volume up" },
-  { 0, CMD_NONE, " " },
-  { 0, CMD_LIST_NEXT,      "Move cursor up" },
-  { 0, CMD_LIST_PREVIOUS,  "Move cursor down" },
-  { 0, CMD_LIST_FIND,      "Find" },
-  { 0, CMD_LIST_RFIND,     "find backward" },
-  { 0, CMD_LIST_FIND_NEXT, "Find next" },
-  { 0, CMD_LIST_RFIND_NEXT,"Find previuos" },
-  { 0, CMD_TOGGLE_FIND_WRAP, "Toggle find mode" },
-  { 0, CMD_NONE, " " },
-  { 0, CMD_SCREEN_NEXT,   "Change screen" },
-  { 0, CMD_SCREEN_HELP,   "Help screen" },
-  { 0, CMD_SCREEN_PLAY,   "Playlist screen" },
-  { 0, CMD_SCREEN_FILE,   "Browse screen" },
-  { 0, CMD_QUIT,          "Quit" },
-  { 0, CMD_NONE, " " },
-  { 0, CMD_NONE, " " },
+  { 0, CMD_STOP,           NULL },
+  { 0, CMD_PAUSE,          NULL },
+  { 0, CMD_TRACK_NEXT,     NULL },
+  { 0, CMD_TRACK_PREVIOUS, NULL },
+  { 0, CMD_VOLUME_DOWN,    NULL },
+  { 0, CMD_VOLUME_UP,      NULL },
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_LIST_PREVIOUS,  NULL },
+  { 0, CMD_LIST_NEXT,      NULL },
+  { 0, CMD_LIST_PREVIOUS_PAGE, NULL }, 
+  { 0, CMD_LIST_NEXT_PAGE, NULL },
+  { 0, CMD_LIST_FIRST,     NULL },
+  { 0, CMD_LIST_LAST,      NULL },
+
+  { 0, CMD_LIST_FIND,      NULL },
+  { 0, CMD_LIST_RFIND,     NULL },
+  { 0, CMD_LIST_FIND_NEXT, NULL },
+  { 0, CMD_LIST_RFIND_NEXT,  NULL },
+  { 0, CMD_TOGGLE_FIND_WRAP, NULL },
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_SCREEN_NEXT,    NULL },
+  { 0, CMD_SCREEN_HELP,    NULL },
+  { 0, CMD_SCREEN_PLAY,    NULL },
+  { 0, CMD_SCREEN_FILE,    NULL },
+  { 0, CMD_QUIT,           NULL },
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_NONE,           NULL },
   { 1, CMD_NONE, "    Keys - Playlist screen " },
   { 0, CMD_NONE, "  --------------------------" },
-  { 0, CMD_PLAY,           "Play selected entry" },
-  { 0, CMD_DELETE,         "Delete selected entry from playlist" },
-  { 0, CMD_SHUFFLE,        "Shuffle playlist" },
-  { 0, CMD_CLEAR,          "Clear playlist" },
-  { 0, CMD_SAVE_PLAYLIST,  "Save playlist" },
-  { 0, CMD_REPEAT,         "Toggle repeat mode" },
-  { 0, CMD_RANDOM,         "Toggle random mode" },
-  { 0, CMD_SCREEN_UPDATE,  "Center playing track" },
-  { 0, CMD_TOGGLE_AUTOCENTER, "Toggle auto center" },
-  { 0, CMD_NONE, " " },
-  { 0, CMD_NONE, " " },
+  { 0, CMD_PLAY,           "Play" },
+  { 0, CMD_DELETE,         NULL },
+  { 0, CMD_SHUFFLE,        NULL },
+  { 0, CMD_CLEAR,          NULL },
+  { 0, CMD_SAVE_PLAYLIST,  NULL },
+  { 0, CMD_REPEAT,         NULL },
+  { 0, CMD_RANDOM,         NULL },
+  { 0, CMD_SCREEN_UPDATE,  "Center" },
+  { 0, CMD_TOGGLE_AUTOCENTER, NULL },
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_NONE,           NULL },
   { 1, CMD_NONE, "    Keys - Browse screen " },
   { 0, CMD_NONE, "  ------------------------" },
-  { 0, CMD_PLAY,            "Enter directory/Load playlist" },
-  { 0, CMD_SELECT,          "Add/remove song from playlist" },
-  { 0, CMD_DELETE,          "Delete playlist" },
-  { 0, CMD_SCREEN_UPDATE,   "Update" },
-  { 0, CMD_NONE, " " },
-  { 0, CMD_NONE, " " },
+  { 0, CMD_PLAY,            "Enter directory" },
+  { 0, CMD_SELECT,          NULL },
+  { 0, CMD_DELETE,          NULL },
+  { 0, CMD_SCREEN_UPDATE,   NULL },
+  { 0, CMD_NONE, NULL },
+  { 0, CMD_NONE, NULL },
   { 1, CMD_NONE, " " PACKAGE " version " VERSION },
-  { 0, CMD_NONE, NULL }
+  {-1, CMD_NONE, NULL }
 };
 
 static int help_text_rows = -1;
@@ -81,20 +86,31 @@ list_callback(int index, int *highlight, void *data)
   if( help_text_rows<0 )
     {
       help_text_rows = 0;
-      while( help_text[help_text_rows].text )
+      while( help_text[help_text_rows].highlight != -1 )
 	help_text_rows++;
     }
 
   *highlight = 0;
   if( index<help_text_rows )
     {
-      *highlight = help_text[index].highlight;
+      *highlight = help_text[index].highlight > 0;
       if( help_text[index].command == CMD_NONE )
-	return help_text[index].text;
-      snprintf(buf, 256, 
-	       "%20s : %s", 
-	       command_get_keys(help_text[index].command),
-	       help_text[index].text);
+	{
+	  if( help_text[index].text )
+	    return help_text[index].text;
+	  else
+	    return "  ";
+	}
+      if( help_text[index].text )
+	snprintf(buf, 256, 
+		 "%20s : %s", 
+		 get_key_names(help_text[index].command, TRUE),
+		 help_text[index].text);
+      else
+	snprintf(buf, 256, 
+		 "%20s : %s", 
+		 get_key_names(help_text[index].command, TRUE),
+		 get_key_description(help_text[index].command));
       return buf;
     }
 
