@@ -356,6 +356,7 @@ options_init( void )
   options.find_wrap = TRUE;
   options.wide_cursor = TRUE;
   options.audible_bell = TRUE;
+  options.crossfade_time = DEFAULT_CROSSFADE_TIME;
 
   return &options;
 }

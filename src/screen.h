@@ -11,25 +11,12 @@
 #define IS_PAUSED(s) (s==MPD_STATUS_STATE_PAUSE)
 #define IS_STOPPED(s) (!(IS_PLAYING(s) | IS_PAUSED(s)))
 
-
-typedef enum
-{
-  SCREEN_PLAY_WINDOW = 0,
-  SCREEN_FILE_WINDOW,
-  SCREEN_HELP_WINDOW,
-  SCREEN_KEYDEF_WINDOW,
-  SCREEN_CLOCK_WINDOW,
-  SCREEN_SEARCH_WINDOW
-
-} screen_mode_t;
-
 typedef struct
 {
   WINDOW *w;
   int rows, cols;
 
 } window_t;
-
 
 
 typedef struct
@@ -39,8 +26,6 @@ typedef struct
   window_t progress_window;
   window_t status_window;
 
-  GList *screen_list;
-
   /* GTime is equivalent to time_t */
   GTime start_timestamp;
   GTime status_timestamp;
@@ -49,7 +34,8 @@ typedef struct
 
   int cols, rows;
 
-  screen_mode_t mode;
+  //screen_mode_t mode;
+  int mode;
 
   char *buf;
   size_t buf_size;

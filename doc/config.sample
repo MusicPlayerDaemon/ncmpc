@@ -32,6 +32,12 @@
 ## xterm title format
 #xterm-title-format = "ncmpc: [ %name%|[%artist% - ]%title%|%file%]"
 
+## enable mouse events 
+#enable-mouse = no
+
+## mpd crossfade time 
+##crossfade-time = 10
+
 ##
 ## Color configuration
 ##

@@ -26,6 +26,9 @@ void D(char *format, ...);
 #define YES   _("y")
 #define NO    _("n")
 
+/* mpd crossfade time [s] */
+#define DEFAULT_CROSSFADE_TIME 10
+
 /* welcome message time [s] */
 #define SCREEN_WELCOME_TIME 10
 

@@ -42,10 +42,14 @@
 #define ENABLE_STATUS_LINE_CLOCK
 #define ENABLE_SCROLLING
 
-#define CROSSFADE_TIME 10
-
 #define STATUS_MESSAGE_TIMEOUT 3
 #define STATUS_LINE_MAX_SIZE   512
+
+#define SCREEN_PLAYLIST_ID     0
+#define SCREEN_BROWSE_ID       1
+#define SCREEN_HELP_ID         100
+#define SCREEN_KEYDEF_ID       101
+#define SCREEN_CLOCK_ID        102
 
 /* screens */
 extern screen_functions_t *get_screen_playlist(void);
@@ -59,17 +63,55 @@ extern screen_functions_t *get_screen_keydef(void);
 extern screen_functions_t *get_screen_clock(void);
 #endif
 
+typedef screen_functions_t * (*screen_get_mode_functions_fn_t) (void);
+
+typedef struct
+{
+  gint id;
+  gchar *name;
+  screen_get_mode_functions_fn_t get_mode_functions;
+
+} screen_mode_info_t;
+
+static screen_mode_info_t screens[] = {
+  { SCREEN_PLAYLIST_ID, "playlist", get_screen_playlist },
+  { SCREEN_BROWSE_ID,   "browse",   get_screen_browse },
+  { SCREEN_HELP_ID,     "help",     get_screen_help },
+#ifdef ENABLE_KEYDEF_SCREEN
+  { SCREEN_KEYDEF_ID,   "keydef",   get_screen_keydef },
+#endif
+#ifdef ENABLE_CLOCK_SCREEN
+  { SCREEN_CLOCK_ID,    "clock",    get_screen_clock },
+#endif
+  { -1, NULL,      NULL }
+};
+
 static gboolean welcome = TRUE;
 static screen_t *screen = NULL;
 static screen_functions_t *mode_fn = NULL;
 static int seek_id = -1;
 static int seek_target_time = 0;
 
+static gint 
+lookup_mode(gint id)
+{
+  gint i=0;
+
+  while( screens[i].name )
+    {
+      if( screens[i].id == id )
+	return i;
+      i++;
+    }
+  return -1;
+}
 
 static void
-switch_screen_mode(screen_mode_t new_mode, mpdclient_t *c)
+switch_screen_mode(gint id, mpdclient_t *c)
 {
-  if( new_mode == screen->mode )
+  gint new_mode;
+
+  if( id == screens[screen->mode].id )
     return;
 
   /* close the old mode */
@@ -77,38 +119,18 @@ switch_screen_mode(screen_mode_t new_mode, mpdclient_t *c)
     mode_fn->close();
 
   /* get functions for the new mode */
-  switch(new_mode)
+  new_mode = lookup_mode(id);
+  if( new_mode>=0 && screens[new_mode].get_mode_functions )
     {
-    case SCREEN_PLAY_WINDOW:
-      mode_fn = get_screen_playlist();
-      break;
-    case SCREEN_FILE_WINDOW:
-      mode_fn = get_screen_browse();
-      break;
-    case SCREEN_HELP_WINDOW:
-      mode_fn = get_screen_help();
-      break;
-#ifdef ENABLE_KEYDEF_SCREEN
-    case SCREEN_KEYDEF_WINDOW:
-      mode_fn = get_screen_keydef();
-      break;
-#endif
-#ifdef ENABLE_CLOCK_SCREEN
-    case SCREEN_CLOCK_WINDOW:
-      mode_fn = get_screen_clock();
-      break;
-#endif
-
-    default:
-      break;
+      mode_fn = screens[new_mode].get_mode_functions();
+      screen->mode = new_mode;
     }
 
- screen->mode = new_mode;
- screen->painted = 0;
-
- /* open the new mode */
- if( mode_fn && mode_fn->open )
-   mode_fn->open(screen, c);
+  screen->painted = 0;
+  
+  /* open the new mode */
+  if( mode_fn && mode_fn->open )
+    mode_fn->open(screen, c);
 
 }
 
@@ -343,21 +365,22 @@ screen_exit(void)
   endwin();
   if( screen )
     {
-      GList *list = g_list_first(screen->screen_list);
+      gint i;
 
       /* close and exit all screens (playlist,browse,help...) */
-      while( list )
+      i=0;
+      while( screens[i].get_mode_functions )
 	{
-	  screen_functions_t *mode_fn = list->data;
+	  screen_functions_t *mode_fn = screens[i].get_mode_functions();
 
 	  if( mode_fn && mode_fn->close )
 	    mode_fn->close();
 	  if( mode_fn && mode_fn->exit )
 	    mode_fn->exit();
-	  list->data = NULL;
-	  list=list->next;
+
+	  i++;
 	}
-      g_list_free(screen->screen_list);
+     
       screen_free_string_list(screen->find_history);
       g_free(screen->buf);
       g_free(screen->findbuf);
@@ -371,7 +394,7 @@ screen_exit(void)
 void
 screen_resize(void)
 {
-  GList *list;
+  gint i;
 
   D("Resize rows %d->%d, cols %d->%d\n",screen->rows,LINES,screen->cols,COLS);
   if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
@@ -410,15 +433,16 @@ screen_resize(void)
   g_free(screen->buf);
   screen->buf = g_malloc(screen->cols);
 
-  list = g_list_first(screen->screen_list);
-  while( list )
+  /* close and exit all screens (playlist,browse,help...) */
+  i=0;
+  while( screens[i].get_mode_functions )
     {
-      screen_functions_t *mode_fn = list->data;
+      screen_functions_t *mode_fn = screens[i].get_mode_functions();
 
       if( mode_fn && mode_fn->resize )
 	mode_fn->resize(screen->main_window.cols, screen->main_window.rows);
 
-      list=list->next;
+      i++;
     }
 
   /* ? - without this the cursor becomes visible with aterm & Eterm */
@@ -456,7 +480,7 @@ screen_status_printf(char *format, ...)
 int
 screen_init(mpdclient_t *c)
 {
-  GList *list;
+  gint i;
 
   /* initialize the curses library */
   initscr();
@@ -490,7 +514,7 @@ screen_init(mpdclient_t *c)
 
   screen = g_malloc(sizeof(screen_t));
   memset(screen, 0, sizeof(screen_t));
-  screen->mode = SCREEN_PLAY_WINDOW;
+  screen->mode = 0;
   screen->cols = COLS;
   screen->rows = LINES;
   screen->buf  = g_malloc(screen->cols);
@@ -553,33 +577,17 @@ screen_init(mpdclient_t *c)
     }
 
   /* initialize screens */
-  screen->screen_list = NULL;
-  screen->screen_list = g_list_append(screen->screen_list, 
-				      (gpointer) get_screen_playlist());
-  screen->screen_list = g_list_append(screen->screen_list, 
-				      (gpointer) get_screen_browse());
-  screen->screen_list = g_list_append(screen->screen_list, 
-				      (gpointer) get_screen_help());
-#ifdef ENABLE_KEYDEF_SCREEN
-  screen->screen_list = g_list_append(screen->screen_list, 
-				      (gpointer) get_screen_keydef());
-#endif
-#ifdef ENABLE_CLOCK_SCREEN
-  screen->screen_list = g_list_append(screen->screen_list, 
-				      (gpointer) get_screen_clock());
-#endif
-
-  list = screen->screen_list;
-  while( list )
+  i=0;
+  while( screens[i].get_mode_functions )
     {
-      screen_functions_t *fn = list->data;
-      
+      screen_functions_t *fn = screens[i].get_mode_functions();
+
       if( fn && fn->init )
 	fn->init(screen->main_window.w, 
 		 screen->main_window.cols,
 		 screen->main_window.rows);
-      
-      list = list->next;
+
+      i++;
     }
 
   mode_fn = get_screen_playlist();
@@ -756,8 +764,6 @@ screen_get_mouse_event(mpdclient_t *c,
 void 
 screen_cmd(mpdclient_t *c, command_t cmd)
 {
-  screen_mode_t new_mode = screen->mode;
-
   screen->input_timestamp = time(NULL);
   screen->last_cmd = cmd;
   welcome = FALSE;
@@ -828,7 +834,10 @@ screen_cmd(mpdclient_t *c, command_t cmd)
       mpdclient_cmd_random(c, !c->status->random);
       break;
     case CMD_CROSSFADE:
-      mpdclient_cmd_crossfade(c, c->status->crossfade ? 0 : CROSSFADE_TIME);
+      if(  c->status->crossfade )
+	mpdclient_cmd_crossfade(c, 0);
+      else
+	mpdclient_cmd_crossfade(c, options.crossfade_time);	
       break;
     case CMD_DB_UPDATE:
       if( !c->status->updatingDb )
@@ -863,40 +872,32 @@ screen_cmd(mpdclient_t *c, command_t cmd)
       screen->painted = 0;
       break;
     case CMD_SCREEN_PREVIOUS:
-      if( screen->mode > SCREEN_PLAY_WINDOW )
-	new_mode = screen->mode - 1;
+      if( screen->mode > 0 )
+	switch_screen_mode(screens[screen->mode-1].id, c);
       else
-	new_mode = SCREEN_HELP_WINDOW-1;
-      switch_screen_mode(new_mode, c);
+	switch_screen_mode(lookup_mode(SCREEN_HELP_ID)-1, c);
       break;
     case CMD_SCREEN_NEXT:
-      new_mode = screen->mode + 1;
-      if( new_mode >= SCREEN_HELP_WINDOW )
-	new_mode = SCREEN_PLAY_WINDOW;
-      switch_screen_mode(new_mode, c);
+      if( screens[screen->mode+1].id < SCREEN_HELP_ID )
+	switch_screen_mode(screens[screen->mode+1].id, c);
+      else
+	switch_screen_mode(screens[0].id, c);
       break;
     case CMD_SCREEN_PLAY:
-      switch_screen_mode(SCREEN_PLAY_WINDOW, c);
+      switch_screen_mode(SCREEN_PLAYLIST_ID, c);
       break;
     case CMD_SCREEN_FILE:
-      switch_screen_mode(SCREEN_FILE_WINDOW, c);
-      break;
-    case CMD_SCREEN_SEARCH:
-      switch_screen_mode(SCREEN_SEARCH_WINDOW, c);
+      switch_screen_mode(SCREEN_BROWSE_ID, c);
       break;
     case CMD_SCREEN_HELP:
-      switch_screen_mode(SCREEN_HELP_WINDOW, c);
+      switch_screen_mode(SCREEN_HELP_ID, c);
       break;
-#ifdef ENABLE_KEYDEF_SCREEN 
     case CMD_SCREEN_KEYDEF:
-      switch_screen_mode(SCREEN_KEYDEF_WINDOW, c);
+      switch_screen_mode(SCREEN_KEYDEF_ID, c);
       break;
-#endif
-#ifdef ENABLE_CLOCK_SCREEN 
     case CMD_SCREEN_CLOCK:
-      switch_screen_mode(SCREEN_CLOCK_WINDOW, c);
+      switch_screen_mode(SCREEN_CLOCK_ID, c);
       break;
-#endif
     case CMD_QUIT:
       exit(EXIT_SUCCESS);
     default:

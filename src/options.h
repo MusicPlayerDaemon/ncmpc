@@ -13,6 +13,7 @@ typedef struct
   char *status_format;
   char *xterm_title_format;
   int   port;
+  int   crossfade_time;
   gboolean reconnect;
   gboolean debug;
   gboolean find_wrap;

@@ -58,6 +58,7 @@
 #define CONF_VISIBLE_BELL            "visible-bell"
 #define CONF_XTERM_TITLE             "set-xterm-title"
 #define CONF_ENABLE_MOUSE            "enable-mouse"
+#define CONF_CROSSFADE_TIME          "crossfade-time"
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -466,6 +467,10 @@ read_rc_file(char *filename, options_t *options)
 	      else if( !strcasecmp(CONF_ENABLE_MOUSE, name) )
 		{
 		  options->enable_mouse = str2bool(value);
+		}
+	      else if( !strcasecmp(CONF_CROSSFADE_TIME, name) )
+		{
+		  options->crossfade_time = atoi(value);
 		}
 	      else
 		{

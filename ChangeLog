@@ -1,3 +1,9 @@
+2004-07-13  Kalle Wallin <kaw@linux.se>
+	* command.c: added my_wgetch() function, 
+	  Ctrl-C, Ctrl-Z are now hard coded to SIGINT and SIGSTOP
+	* options.c: added options --mouse and --no-mouse
+	* Crossfade time can now be definied in the conf file (crossfade-time)
+	
 2004-07-12  Kalle Wallin <kaw@linux.se>
 	* options.c: fixed short option handling for multiple short options 
 	  at once (-abcde)
