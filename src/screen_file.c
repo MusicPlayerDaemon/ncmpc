@@ -331,6 +331,7 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 static int
 enqueue_and_play(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
 {
+  int index;
   mpd_InfoEntity *entity = entry->entity;
   mpd_Song *song = entity->info.song;
   
@@ -349,7 +350,7 @@ enqueue_and_play(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
 	return -1;
     }
   
-  int index = playlist_get_index_from_file(c, song->file);
+  index = playlist_get_index_from_file(c, song->file);
   mpdclient_cmd_play(c, index);
   return 0;
 }
