@@ -1,5 +1,7 @@
 /* 
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,7 +56,7 @@ list_callback(int index, int *highlight, void *data)
       *highlight = 1;
     }
 
-  return mpc_get_song_name(song);
+  return mpc_get_song_name2(song);
 }
 
 static int
