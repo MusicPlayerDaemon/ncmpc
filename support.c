@@ -130,24 +130,54 @@ charset_close(void)
 char *
 utf8_to_locale(char *utf8str)
 {
-  char *str;
+  gchar *str;
+  gsize rb, wb;
+  GError *error;
 
   if( noconvert )
     return g_strdup(utf8str);
-  if( (str=g_locale_from_utf8(utf8str, -1, NULL, NULL, NULL)) == NULL )
-    return g_strdup(utf8str);
+
+  rb = 0; /* bytes read */
+  wb = 0; /* bytes written */
+  error = NULL;
+  str=g_locale_from_utf8(utf8str, 
+			 g_utf8_strlen(utf8str,-1), 
+			 &wb, &rb,
+			 &error);
+  if( error )
+    {
+      g_printerr("utf8_to_locale(): %s\n", error->message);
+      g_error_free(error);
+      return g_strdup(utf8str);
+    }
+  
   return str;
 }
 
 char *
 locale_to_utf8(char *localestr)
 {
-  char *str;
+  gchar *str;
+  gsize rb, wb;
+  GError *error;
 
   if( noconvert )
     return g_strdup(localestr);
-  if( (str=g_locale_to_utf8(localestr, -1, NULL, NULL, NULL)) == NULL )
-    return g_strdup(localestr);
+
+  rb = 0; /* bytes read */
+  wb = 0; /* bytes written */
+  error = NULL;
+  str=g_locale_to_utf8(localestr, 
+		       -1, 
+		       &wb, &rb,
+		       &error);
+  if( error )
+    {
+      g_printerr("locale_to_utf8: %s\n", error->message);
+      g_error_free(error);
+      return g_strdup(localestr);
+    }
+
   return str;
 }
 
