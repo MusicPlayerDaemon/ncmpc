@@ -94,9 +94,7 @@ paint_top_window(char *header, int volume, int clear)
 
       if( options.enable_colors )
 	wattron(w, LINE_COLORS);
-
       mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
-
       if( options.enable_colors )
 	wattroff(w, LINE_COLORS);
 
@@ -267,7 +265,7 @@ int
 screen_init(void)
 {
   /* initialize the curses library */
-  initscr();      
+  initscr();        
   start_color();
   if( options.enable_colors )
     {
@@ -526,6 +524,11 @@ screen_cmd(mpd_client_t *c, command_t cmd)
 	  screen_status_printf("Volume %d%%", c->status->volume);
 	}
       break;
+    case CMD_TOGGLE_FIND_WRAP:
+      options.find_wrap = !options.find_wrap;
+      screen_status_printf("Find mode: %s", 
+			   options.find_wrap ? "Wrapped" : "Normal");
+      break;
     case CMD_SCREEN_PREVIOUS:
       if( screen->mode > SCREEN_PLAY_WINDOW )
 	new_mode = screen->mode - 1;
@@ -553,21 +556,11 @@ screen_cmd(mpd_client_t *c, command_t cmd)
       break;
     case CMD_QUIT:
       exit(EXIT_SUCCESS);
-    case CMD_LIST_FIND:
-    case CMD_LIST_FIND_NEXT:
-    case CMD_NONE:
-    case CMD_DELETE: 
-    case CMD_SELECT:
-    case CMD_LIST_PREVIOUS:
-    case CMD_LIST_NEXT:
-    case CMD_LIST_FIRST:
-    case CMD_LIST_LAST:
-    case CMD_LIST_NEXT_PAGE:
-    case CMD_LIST_PREVIOUS_PAGE:
+    default:
       break;
     }
 
 }
 
 
-;
+
