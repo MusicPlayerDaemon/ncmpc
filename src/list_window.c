@@ -245,6 +245,8 @@ list_window_find(list_window_t *lw,
 	}
       if( wrap )
 	{
+	  if ( i==0 ) /* empty list */
+	    return 1;
 	  i=0; /* first item */
 	  screen_bell();
 	}
@@ -264,6 +266,9 @@ list_window_rfind(list_window_t *lw,
   int h;
   int i = lw->selected-1;
   char *label;
+
+  if ( rows == 0 )
+    return 1;
 
   while( wrap || i==lw->selected-1 )
     {
