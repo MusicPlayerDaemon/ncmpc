@@ -5,16 +5,19 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <signal.h>
 #include <glib.h>
 
 #include "config.h"
 #include "libmpdclient.h"
+#include "support.h"
 #include "mpc.h"
 #include "options.h"
 #include "command.h"
 #include "screen.h"
 
+#define BUFSIZE 256
 
 static mpd_client_t *mpc = NULL;
 
@@ -43,7 +46,7 @@ main(int argc, char *argv[])
 {
   options_t *options;
   struct sigaction act;
-  int counter;
+  int counter, connected;
 
   /* parse command line options */
   options_init();
@@ -93,35 +96,58 @@ main(int argc, char *argv[])
     exit(EXIT_FAILURE);
 
   screen_init();
-#if 0
-  mpc_update(mpc);
-   mpc_update_filelist(mpc);
-  screen_paint(mpc);
-  //  sleep(1);
-#endif
   
   counter=0;
-  while( !mpc_error(mpc) )
+  connected=1;
+  while( connected || options->reconnect )
     {
       command_t cmd;
-
-      if( !counter )
+      char buf[BUFSIZE];
+	
+      if( connected && counter==0  )
 	{
 	  mpc_update(mpc);
-	  mpd_finishCommand(mpc->connection);
+	  if( mpc_error(mpc) )
+	    {
+	      connected=0;
+	      snprintf(buf, BUFSIZE, "Lost connection to %s", options->host);
+	      screen_status_message(mpc, buf);
+	      mpd_closeConnection(mpc->connection);
+	      mpc->connection = NULL;
+	    }
+	  else
+	    mpd_finishCommand(mpc->connection);
 	  counter=10;
 	}
-      else
-	counter--;
-      
-      screen_update(mpc);
-      
-      if( (cmd=get_keyboard_command()) != CMD_NONE )
-	{
-	  screen_cmd(mpc, cmd);
-	  counter=0;
-	}
-    }
 
+      if( connected )
+	{
+	  screen_update(mpc);
+	  if( (cmd=get_keyboard_command()) != CMD_NONE )
+	    {
+	      screen_cmd(mpc, cmd);
+	      counter=0;
+	    }
+	}
+      else if( options->reconnect )
+	{
+	  sleep(3);
+	  snprintf(buf, BUFSIZE, 
+		   "Connecting to %s...  [Press Ctrl-C to abort]", 
+		   options->host);
+	  screen_status_message(mpc, buf);
+	  if( mpc_reconnect(mpc, options->host, options->port) == 0 )
+	    {
+	      snprintf(buf, BUFSIZE, "Connected to %s!", options->host);
+	      screen_status_message(mpc, buf);
+	      connected=1;
+	      counter=0;
+	    }
+	}
+
+      if( counter>0 )
+	counter--;
+
+    }
   exit(EXIT_FAILURE);
 }
