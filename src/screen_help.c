@@ -188,6 +188,7 @@ static void
 help_init(WINDOW *w, int cols, int rows)
 {
   lw = list_window_init(w, cols, rows);
+  lw->flags = LW_HIDE_CURSOR;
 }
 
 static void
@@ -233,15 +234,56 @@ help_update(screen_t *screen, mpdclient_t *c)
 static int 
 help_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
-  int retval;
+  lw->repaint=1;
+  switch(cmd)
+    {
+    case CMD_LIST_NEXT:
+      if( lw->start+lw->rows < help_text_rows )
+	lw->start++;
+      return 1;
+    case CMD_LIST_PREVIOUS:
+      if( lw->start >0 )
+	lw->start--;
+      return 1;
+    case CMD_LIST_FIRST:
+      lw->start = 0;
+      return 1;
+    case CMD_LIST_LAST:
+      lw->start = help_text_rows-lw->rows;
+      if( lw->start<0 )
+	lw->start = 0;
+      return 1;
+    case CMD_LIST_NEXT_PAGE:
+      lw->start = lw->start + lw->rows;
+      if( lw->start+lw->rows >= help_text_rows )
+	lw->start = help_text_rows-lw->rows;
+      if( lw->start<0 )
+	lw->start = 0;
+       return 1;
+    case CMD_LIST_PREVIOUS_PAGE:
+      lw->start = lw->start - lw->rows;
+      if( lw->start<0 )
+	lw->start = 0;
+      return 1;
+    default:
+      break;
+    }
 
-  retval = list_window_cmd(lw, help_text_rows, cmd);
-  if( !retval )
-    return screen_find(screen, c, 
-		       lw,  help_text_rows,
-		       cmd, list_callback);
+  lw->selected = lw->start+lw->rows;
+  if( screen_find(screen, c, 
+		  lw,  help_text_rows,
+		  cmd, list_callback) )
+    {
+      /* center the row */
+      lw->start = lw->selected-(lw->rows/2);
+      if( lw->start+lw->rows > help_text_rows )
+	lw->start = help_text_rows-lw->rows;
+      if( lw->start<0 )
+	lw->start=0;
+      return 1;
+    }
 
-  return retval;
+  return 0;
 }
 
 static list_window_t *

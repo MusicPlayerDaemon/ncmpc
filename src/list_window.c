@@ -166,15 +166,22 @@ list_window_paint(list_window_t *lw,
   int i;
   int fill = options.wide_cursor;
 
-  while( lw->selected < lw->start )
+  if( lw->flags & LW_HIDE_CURSOR )
     {
-      lw->start--;
-      lw->clear=1;
+      lw->selected = -1;
     }
-  while( lw->selected >= lw->start+lw->rows )
+  else
     {
-      lw->start++;
-      lw->clear=1;
+      while( lw->selected < lw->start )
+	{
+	  lw->start--;
+	  lw->clear=1;
+	}
+      while( lw->selected >= lw->start+lw->rows )
+	{
+	  lw->start++;
+	  lw->clear=1;
+	}
     }
 
   for(i=0; i<lw->rows; i++)

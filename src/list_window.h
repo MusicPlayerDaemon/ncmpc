@@ -3,6 +3,8 @@
 
 #define LW_ROW(lw) (lw ? lw->selected-lw->start :  0)
 
+#define LW_HIDE_CURSOR    0x01
+
 typedef char *  (*list_window_callback_fn_t)   (int index, 
 						int *highlight,
 						void *data);
@@ -17,6 +19,7 @@ typedef struct
   int xoffset;
   int clear;
   int repaint;
+  int flags;
 
 } list_window_t;
 
