@@ -71,9 +71,9 @@ static command_definition_t cmds[] =
     N_("Quit") },  
 
   /* movment */
-  { {  UP,  ',',   0 }, CMD_LIST_PREVIOUS,      "up",
+  { {  UP,  'k',   0 }, CMD_LIST_PREVIOUS,      "up",
     N_("Move cursor up") },
-  { { DWN,  '.',   0 }, CMD_LIST_NEXT,          "down",
+  { { DWN,  'j',   0 }, CMD_LIST_NEXT,          "down",
     N_("Move cursor down") },
   { { HOME, 0x01, 0 }, CMD_LIST_FIRST,          "home",
     N_("Home ") },
