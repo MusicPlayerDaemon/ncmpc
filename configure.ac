@@ -1,10 +1,10 @@
 dnl
-dnl  $Id: configure.ac,v 1.10 2004/03/18 09:33:43 kalle Exp $
+dnl  $Id$
 dnl
 
 AC_INIT
 AC_CONFIG_SRCDIR([main.c])
-AM_INIT_AUTOMAKE(ncmpc, 0.10.1)
+AM_INIT_AUTOMAKE(ncmpc, 0.10.2-svn)
 
 dnl Check for programs
 AC_PROG_CC
@@ -68,7 +68,7 @@ AC_CHECK_LIB(popt,
 
 dnl Debugging 
 AC_ARG_ENABLE(debug, 
-              AC_HELP_STRING(--enable-debug,Enable debugging),
+              AC_HELP_STRING(--enable-debug,Enable debugging (default=no)),
 	      , 
 	      enable_debug=no)
 
@@ -78,7 +78,8 @@ fi
 
 dnl Key editor
 AC_ARG_ENABLE(key-editor, 
-              AC_HELP_STRING(--enable-key-editor,Enable key editor),
+              AC_HELP_STRING(--enable-key-editor,
+	                     Enable key editor (default=yes)),
 	      keydef_screen=no,
 	      keydef_screen=yes)
 if test "$keydef_screen" = yes; then
