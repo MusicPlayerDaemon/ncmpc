@@ -1,17 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# German
+# Copyright (C) 2004 Kalle Wallin
+# This file is distributed under the same license as the ncmpc package.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: ncmpc 0.11.0\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2004-07-03 19:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,7 +25,7 @@ msgstr "n"
 
 #: src/main.c:132
 msgid "Exiting..."
-msgstr "Beendet..."
+msgstr "Beenden..."
 
 #: src/main.c:237
 #, c-format
@@ -36,7 +35,7 @@ msgstr "Fehler: MPD Version %d.%d.%d ist zu alt (0.11.0 wird benötigt).\n"
 #: src/main.c:289
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
-msgstr "Verbinde mit %s...   [Drücke %s um abzubrechen]"
+msgstr "Verbinde mit %s...   [%s drücken, um abzubrechen]"
 
 #: src/main.c:301
 #, c-format
@@ -273,7 +272,7 @@ msgstr "%s wurde %s zugeordnet"
 #: src/screen_keydef.c:219
 #, c-format
 msgid "%d. Add new key "
-msgstr "%d. Füge neue Taste hinzu"
+msgstr "%d. Füge neue Taste hinzu "
 
 #: src/screen_keydef.c:266
 msgid "Welcome to the key editor!"
@@ -281,11 +280,11 @@ msgstr "Willkommen beim Tasteneditor!"
 
 #: src/screen_keydef.c:282
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Tip: Hast du vergessen deine Änderungen 'Anzuwenden' ?"
+msgstr "Tipp: Hast du vergessen, deine Änderungen 'Anzuwenden' ?"
 
 #: src/screen_keydef.c:289
 msgid "Edit key bindings"
-msgstr "Editiere Tastenbelegung"
+msgstr "Editiere Tastenbelegungen"
 
 #: src/screen_keydef.c:291
 #, c-format
@@ -354,7 +353,7 @@ msgstr "Cursor nach unten bewegen"
 
 #: src/command.c:79
 msgid "Home "
-msgstr "Pos1 "
+msgstr "Anfang "
 
 #: src/command.c:81
 msgid "End "
@@ -402,11 +401,11 @@ msgstr "Vorheriger Track"
 
 #: src/command.c:109
 msgid "Seek forward"
-msgstr "Vorwärtsspulen"
+msgstr "Vorwärts spulen"
 
 #: src/command.c:111
 msgid "Seek backward"
-msgstr "Zurückspulen"
+msgstr "Zurück spulen"
 
 #: src/command.c:113
 msgid "Increase volume"
@@ -418,7 +417,7 @@ msgstr "Laustärke verringern"
 
 #: src/command.c:117
 msgid "Select/deselect song in playlist"
-msgstr "Markiere/Demarkiere Song in der Playlist"
+msgstr "Markiere/Entmarkiere Song in der Playlist"
 
 #: src/command.c:119
 msgid "Delete song from playlist"
@@ -490,7 +489,7 @@ msgstr "Vorwärtssuche"
 
 #: src/command.c:165
 msgid "Forward find next"
-msgstr "Vorwärtssuche weiter"
+msgstr "Vorwärtssuche fortsetzen"
 
 #: src/command.c:167
 msgid "Backward find"
@@ -498,7 +497,7 @@ msgstr "Rückwärtssuche"
 
 #: src/command.c:169
 msgid "Backward find previous"
-msgstr "Rückwärtssuche zurück"
+msgstr "Rückwärtssuche fortsetzen"
 
 #: src/command.c:175
 msgid "Clock screen"
@@ -579,7 +578,7 @@ msgstr "Taste %s ist %s und %s zugeordnet (drücke %s für den Tasteneditor)"
 
 #: src/command.c:466 src/command.c:473
 #, c-format
-msgid "Error: Key %s assigned to %s and %s !!!\n"
+  msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr "Fehler: Taste %s ist %s und %s zugeordnet !!!\n"
 
 #: src/colors.c:187
