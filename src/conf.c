@@ -53,6 +53,11 @@
 #define CONF_COLOR_DEFINITION        "colordef"
 #define CONF_LIST_FORMAT             "list-format"
 #define CONF_STATUS_FORMAT           "status-format"
+#define CONF_LIST_WRAP               "wrap-around"
+#define CONF_FIND_WRAP               "find-wrap"
+#define CONF_AUDIBLE_BELL            "audible-bell"
+#define CONF_VISIBLE_BELL            "visible-bell"
+#define CONF_XTERM_TITLE             "xterm-title"
 
 /* Deprecated - configuration field names */
 #define OLD_CONF_ENABLE_COLORS       "enable_colors"
@@ -75,13 +80,13 @@ typedef enum {
   KEY_PARSER_DONE
 } key_parser_state_t;
 
-static int
+static gboolean
 str2bool(char *str)
 {
-  if( !strcasecmp(str,"no")  || !strcasecmp(str,"false") || 
-      !strcasecmp(str,"off") || !strcasecmp(str,"0") )
-    return 0;
-  return 1;
+  if( !strcasecmp(str,"yes")  || !strcasecmp(str,"true") || 
+      !strcasecmp(str,"on")   || !strcasecmp(str,"1") )
+    return TRUE;
+  return FALSE;
 }
 
 static int
@@ -503,14 +508,32 @@ read_rc_file(char *filename, options_t *options)
 		{
 		  g_free(options->list_format);
 		  options->list_format = get_format(value);
-		  fprintf(stderr, "list-format = \'%s\'\n", options->list_format);
 		}
 	      /* status format string */
 	      else if( !strcasecmp(CONF_STATUS_FORMAT, name) )
 		{
 		  g_free(options->status_format);
 		  options->status_format = get_format(value);
-		  fprintf(stderr, "status-format = \'%s\'\n", options->status_format);
+		}
+	      else if( !strcasecmp(CONF_LIST_WRAP, name) )
+		{
+		  options->list_wrap = str2bool(value);
+		}
+	      else if( !strcasecmp(CONF_FIND_WRAP, name) )
+		{
+		  options->find_wrap = str2bool(value);
+		}
+	      else if( !strcasecmp(CONF_AUDIBLE_BELL, name) )
+		{
+		  options->audible_bell = str2bool(value);
+		}
+	      else if( !strcasecmp(CONF_VISIBLE_BELL, name) )
+		{
+		  options->visible_bell = str2bool(value);
+		}
+	      else if( !strcasecmp(CONF_XTERM_TITLE, name) )
+		{
+		  options->enable_xterm_title = str2bool(value);
 		}
 	      else
 		{

@@ -12,13 +12,16 @@ typedef struct
   char *list_format;
   char *status_format;
   int   port;
-  int   reconnect;
-  int   debug;
-  int   find_wrap;
-  int   auto_center;
-  int   wide_cursor;  
-  int   enable_colors;
-  int   enable_beep;
+  gboolean reconnect;
+  gboolean debug;
+  gboolean find_wrap;
+  gboolean list_wrap;
+  gboolean auto_center;
+  gboolean wide_cursor;  
+  gboolean enable_colors;
+  gboolean audible_bell;       /* not implemented */
+  gboolean visible_bell;       /* not implemented */
+  gboolean enable_xterm_title; /* not implemented */
 
 } options_t;
 

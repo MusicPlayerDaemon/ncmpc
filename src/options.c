@@ -176,11 +176,10 @@ options_init( void )
   options.list_format = NULL;
   options.status_format = NULL;
 
-  options.reconnect = 1;
-  options.find_wrap = 1;
-  options.wide_cursor = 1;
-  options.enable_beep = 1;
-
+  options.reconnect = TRUE;
+  options.find_wrap = TRUE;
+  options.wide_cursor = TRUE;
+  options.audible_bell = TRUE;
 
   return &options;
 }
