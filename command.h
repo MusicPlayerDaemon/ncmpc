@@ -1,3 +1,7 @@
+#ifndef COMMAND_H
+#define COMMAND_H
+
+#define MAX_COMMAND_KEYS 3
 
 typedef enum
 {
@@ -40,13 +44,24 @@ typedef enum
 
 typedef struct 
 {
-  int keys[3];
+  int keys[MAX_COMMAND_KEYS];
   command_t command;
+  char *name;
   char *description;
 } command_definition_t;
 
 
 void command_dump_keys(void);
-char *command_get_keys(command_t command);
+int  check_key_bindings(void);
+int  write_key_bindings(FILE *f);
+
+char *get_key_description(command_t command);
+char *get_key_command_name(command_t command);
+char *get_key_names(command_t command, int all);
+command_t get_key_command(int key);
+command_t get_key_command_from_name(char *name);
+int assign_keys(command_t command, int keys[MAX_COMMAND_KEYS]);
 
 command_t get_keyboard_command(void);
+
+#endif

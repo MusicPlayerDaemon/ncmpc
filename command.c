@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,49 +39,83 @@
 
 static command_definition_t cmds[] =
 {
-  { {  13,   0,   0 }, CMD_PLAY, "Play/Enter directory" },
-  { { 'P',   0,   0 }, CMD_PAUSE, "Pause" },
-  { { 's',  BS,   0 }, CMD_STOP, "Stop" },
-  { { '>',   0,   0 }, CMD_TRACK_NEXT, "Next song" },
-  { { '<',   0,   0 }, CMD_TRACK_PREVIOUS, "Previous song" },
+  { {  13,   0,   0 }, CMD_PLAY, "play",  
+    "Play/Enter directory" },
+  { { 'P',   0,   0 }, CMD_PAUSE,"pause", 
+    "Pause" },
+  { { 's',  BS,   0 }, CMD_STOP, "stop",   
+    "Stop" },
+  { { '>',   0,   0 }, CMD_TRACK_NEXT, "next", 
+    "Next track" },
+  { { '<',   0,   0 }, CMD_TRACK_PREVIOUS, "prev", 
+    "Previous track" },
 
-  { { '+', RGHT,  0 }, CMD_VOLUME_UP, "Increase volume" },
-  { { '-', LEFT,  0 }, CMD_VOLUME_DOWN, "Decrease volume" },
+  { { '+', RGHT,  0 }, CMD_VOLUME_UP, "volume-up", 
+    "Increase volume" },
+  { { '-', LEFT,  0 }, CMD_VOLUME_DOWN, "volume-down", 
+    "Decrease volume" },
 
-  { { 'w',   0,   0 }, CMD_TOGGLE_FIND_WRAP,  "Toggle find mode" },
-  { { 'U',   0,   0 }, CMD_TOGGLE_AUTOCENTER, "Toggle auto center mode" },
+  { { 'w',   0,   0 }, CMD_TOGGLE_FIND_WRAP,  "wrap-mode", 
+    "Toggle find mode" },
+  { { 'U',   0,   0 }, CMD_TOGGLE_AUTOCENTER, "autocenter-mode", 
+    "Toggle auto center mode" },
 
-  { { ' ',  'a',   0 }, CMD_SELECT, "Select/deselect song in playlist" },
-  { { DEL,  'd',  0 }, CMD_DELETE, "Delete song from playlist" },
-  { { 'Z',   0,   0 }, CMD_SHUFFLE, "Shuffle playlist" },
-  { { 'c',   0,   0 }, CMD_CLEAR, "Clear playlist" },
-  { { 'r',   0,   0 }, CMD_REPEAT, "Toggle repeat mode" },
-  { { 'z',   0,   0 }, CMD_RANDOM, "Toggle random mode" },
-  { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "Save playlist" },
+  { { ' ',  'a',   0 }, CMD_SELECT, "select", 
+    "Select/deselect song in playlist" },
+  { { DEL,  'd',  0 }, CMD_DELETE, "delete",
+    "Delete song from playlist" },
+  { { 'Z',   0,   0 }, CMD_SHUFFLE, "shuffle",
+    "Shuffle playlist" },
+  { { 'c',   0,   0 }, CMD_CLEAR, "clear",
+    "Clear playlist" },
+  { { 'r',   0,   0 }, CMD_REPEAT, "repeat",
+    "Toggle repeat mode" },
+  { { 'z',   0,   0 }, CMD_RANDOM, "random",
+    "Toggle random mode" },
+  { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "save",
+    "Save playlist" },
 
-  { {  UP,  ',',   0 }, CMD_LIST_PREVIOUS,      "Move: Up" },
-  { { DWN,  '.',   0 }, CMD_LIST_NEXT,          "Move: Down" },
-  { { HOME, 0x01, 0 }, CMD_LIST_FIRST,         "Move: Home" },
-  { { END,  0x05, 0 }, CMD_LIST_LAST,          "Move: End" },
-  { { PGUP, 'A',   0 }, CMD_LIST_PREVIOUS_PAGE, "Move: Page Up" },
-  { { PGDN, 'B',   0 }, CMD_LIST_NEXT_PAGE,     "Move: Page Down" },
-  { { '/',   0,   0 }, CMD_LIST_FIND,          "Forward Find" },
-  { { 'n',   0,   0 }, CMD_LIST_FIND_NEXT,     "Forward Find Next" },
-  { { '?',   0,   0 }, CMD_LIST_RFIND,         "Backward Find" },
-  { { 'p',   0,   0 }, CMD_LIST_RFIND_NEXT,    "Backward Find Previous" },
+  { {  UP,  ',',   0 }, CMD_LIST_PREVIOUS,      "up",
+    "Move cursor up" },
+  { { DWN,  '.',   0 }, CMD_LIST_NEXT,          "down",
+    "Move cursor down" },
+  { { HOME, 0x01, 0 }, CMD_LIST_FIRST,          "home",
+    "Home" },
+  { { END,  0x05, 0 }, CMD_LIST_LAST,           "end",
+    "End" },
+  { { PGUP, 'A',   0 }, CMD_LIST_PREVIOUS_PAGE, "pgup",
+    "Page up" },
+  { { PGDN, 'B',   0 }, CMD_LIST_NEXT_PAGE,     "pgdn", 
+    "Page down" },
+  { { '/',   0,   0 }, CMD_LIST_FIND,           "find",
+    "Forward find" },
+  { { 'n',   0,   0 }, CMD_LIST_FIND_NEXT,      "find-next",
+    "Forward find next" },
+  { { '?',   0,   0 }, CMD_LIST_RFIND,          "rfind",
+    "Backward find" },
+  { { 'p',   0,   0 }, CMD_LIST_RFIND_NEXT,     "rfind-next",
+    "Backward find previous" },
 
 
-  { { TAB,   0,   0 }, CMD_SCREEN_NEXT,   "Next screen" },
-  { { STAB,  0,   0 }, CMD_SCREEN_PREVIOUS, "Previous screen" },
-  { { F1, '1', 'h' }, CMD_SCREEN_HELP,   "Help screen" },
-  { { F2, '2',   0 }, CMD_SCREEN_PLAY,   "Playlist screen" },
-  { { F3, '3',   0 }, CMD_SCREEN_FILE,   "Browse screen" },
-  /*  { { F4, '4',   0 }, CMD_SCREEN_SEARCH, "Search screen" }, */
-  { {'u',   0,   0 }, CMD_SCREEN_UPDATE,   "Update screen" },
+  { { TAB,   0,   0 }, CMD_SCREEN_NEXT,     "screen-next",
+    "Next screen" },
 
-  { { 'q',  0,   0 }, CMD_QUIT,   "Quit " PACKAGE },  
+  { { STAB,  0,   0 }, CMD_SCREEN_PREVIOUS, "screen-prev",
+    "Previous screen" },
 
-  { { -1,  -1,  -1 }, CMD_NONE, NULL }
+  { { '1', F1, 'h' }, CMD_SCREEN_HELP,      "screen-help",
+    "Help screen" },
+  { { '2', F2,  0 }, CMD_SCREEN_PLAY,      "screen-playlist",
+    "Playlist screen" },
+  { { '3', F3,  0 }, CMD_SCREEN_FILE,      "screen-browse",
+    "Browse screen" },
+  { {'u',   0,   0 }, CMD_SCREEN_UPDATE,    "update",
+    "Update screen" },
+
+  { { 'q',  0,   0 }, CMD_QUIT,   "quit",
+    "Quit " PACKAGE },  
+
+  { { -1,  -1,  -1 }, CMD_NONE, NULL, NULL }
 };
 
 char *
@@ -91,6 +126,8 @@ key2str(int key)
   buf[0] = 0;
   switch(key)
     {
+    case 0:
+      return "Undefined";
     case ' ':
       return "Space";
     case 13:
@@ -148,30 +185,16 @@ command_dump_keys(void)
   while( cmds[i].description )
     {
       if( cmds[i].command != CMD_NONE )
-	{
-	  int j;
-	  char keystr[80];
-
-	  strcpy(keystr, key2str(cmds[i].keys[0]));
-	  j=1;
-	  while( j<3 && cmds[i].keys[j]>0 )
-	    {
-	      strcat(keystr, " ");
-	      strcat(keystr, key2str(cmds[i].keys[j]));
-	      j++;
-	    }
-	  printf(" %20s : %s\n", keystr, cmds[i].description);
- 
-	}
+	printf(" %20s : %s\n", get_key_names(cmds[i].command,1),cmds[i].name); 
       i++;
     }
 }
 
 char *
-command_get_keys(command_t command)
+get_key_names(command_t command, int all)
 {
   int i;
-
+  
   i=0;
   while( cmds[i].description )
     {
@@ -180,9 +203,11 @@ command_get_keys(command_t command)
 	  int j;
 	  static char keystr[80];
 
-	  strcpy(keystr, key2str(cmds[i].keys[0]));
+	  strncpy(keystr, key2str(cmds[i].keys[0]), 80);
+	  if( !all )
+	    return keystr;
 	  j=1;
-	  while( j<3 && cmds[i].keys[j]>0 )
+	  while( j<MAX_COMMAND_KEYS && cmds[i].keys[j]>0 )
 	    {
 	      strcat(keystr, " ");
 	      strcat(keystr, key2str(cmds[i].keys[j]));
@@ -195,10 +220,72 @@ command_get_keys(command_t command)
   return NULL;
 }
 
+char *
+get_key_description(command_t command)
+{
+  int i;
+
+  i=0;
+  while( cmds[i].description )
+    {
+      if( cmds[i].command == command )
+	return cmds[i].description;
+      i++;
+    }
+  return NULL;
+}
+
+char *
+get_key_command_name(command_t command)
+{
+  int i;
+
+  i=0;
+  while( cmds[i].name )
+    {
+      if( cmds[i].command == command )
+	return cmds[i].name;
+      i++;
+    }
+  return NULL;
+}
+
+command_t 
+get_key_command_from_name(char *name)
+{
+  int i;
+
+  i=0;
+  while( cmds[i].name )
+    {
+      if( strcmp(name, cmds[i].name) == 0 )
+	return cmds[i].command;
+      i++;
+    }
+  return CMD_NONE;
+}
+
+command_t 
+get_key_command(int key)
+{
+  int i;
+
+  i=0;
+  while( cmds[i].name )
+    {
+      if( cmds[i].keys[0] == key || 
+	  cmds[i].keys[1] == key ||
+	  cmds[i].keys[2] == key )
+	return cmds[i].command;
+      i++;
+    }
+  return CMD_NONE;
+}
+
+
 command_t
 get_keyboard_command(void)
 {
-  int i;
   int key;
 
   key = wgetch(stdscr);
@@ -208,21 +295,79 @@ get_keyboard_command(void)
 
   DK(fprintf(stderr, "key = 0x%02X\t", key));
 
-  //  if( isalpha(key) )
-  //    key=tolower(key);
+  return get_key_command(key);
+}
+
+int
+assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
+{
+ int i;
 
   i=0;
-  while( cmds[i].description )
+  while( cmds[i].name )
     {
-      if( cmds[i].keys[0] == key || 
-	  cmds[i].keys[1] == key ||
-	  cmds[i].keys[2] == key )
+      if( cmds[i].command == command )
 	{
-	  DK(fprintf(stderr, "Match - %s\n", cmds[i].description));
-	  return cmds[i].command;
+	  memcpy(cmds[i].keys, keys, sizeof(int)*MAX_COMMAND_KEYS);
+	  return 0;
 	}
       i++;
-    } 
-  DK(fprintf(stderr, "NO MATCH\n"));
-  return CMD_NONE;
+    }
+  return -1;
+}
+
+int 
+check_key_bindings(void)
+{
+  int i;
+  int retval = 0;
+  
+  i=0;
+  while( cmds[i].name )
+    {
+      int j;
+      command_t cmd;
+
+      for(j=0; j<MAX_COMMAND_KEYS; j++)
+	if( cmds[i].keys[j] && 
+	    (cmd=get_key_command(cmds[i].keys[j])) != cmds[i].command )
+	  {
+	    fprintf(stderr, "Error: Key %s assigned to %s and %s !!!\n",
+		    key2str(cmds[i].keys[j]),
+		    get_key_command_name(cmds[i].command),
+		    get_key_command_name(cmd));
+	    retval = -1;
+	  }
+      i++;
+    }
+  return retval;
+}
+
+int
+write_key_bindings(FILE *f)
+{
+  int i,j;
+
+  i=0;
+  while( cmds[i].name && !ferror(f) )
+    {
+      fprintf(f, "# %s\n", cmds[i].description);
+      fprintf(f, "key %s = ", cmds[i].name);
+      for(j=0; j<MAX_COMMAND_KEYS; j++)
+	{
+	  if( j && cmds[i].keys[j] )
+	    fprintf(f, ",  ");
+	  if( !j || cmds[i].keys[j] )
+	    {
+	      if( cmds[i].keys[j]<256 && (isalpha(cmds[i].keys[j]) || 
+					  isdigit(cmds[i].keys[j])) )
+		fprintf(f, "\'%c\'", cmds[i].keys[j]);
+	      else
+		fprintf(f, "%d", cmds[i].keys[j]);
+	    }
+	}
+      fprintf(f,"\n\n");
+      i++;
+    }
+  return ferror(f);
 }
