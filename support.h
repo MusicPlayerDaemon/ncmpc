@@ -3,8 +3,6 @@
 #include <libgen.h>
 #endif
 
-char *concat_path(char *p1, char *p2);
-
 #ifndef HAVE_BASENAME
 char *basename(char *path);
 #endif

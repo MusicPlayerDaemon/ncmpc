@@ -70,33 +70,6 @@ lowerstr(char *str)
 }
 
 
-char *
-concat_path(char *p1, char *p2)
-{
-  size_t size;
-  char *path;
-  char append_slash = 0;
-
-  size = strlen(p1);
-  if( size==0 || p1[size-1]!='/' )
-    {
-      size++;
-      append_slash = 1;
-    }
-  size += strlen(p2);
-  size++;
-
-  path =  g_malloc0(size*sizeof(char));
-  g_strlcpy(path, p1, size);
-  if( append_slash )
-    g_strlcat(path, "/", size);
-  g_strlcat(path, p2, size);
-
-  return path;
-}
-
-
-
 #ifndef HAVE_BASENAME
 char *
 basename(char *path)
@@ -155,19 +128,27 @@ charset_close(void)
 }
 
 char *
-utf8_to_locale(char *str)
+utf8_to_locale(char *utf8str)
 {
+  char *str;
+
   if( noconvert )
-    return g_strdup(str);
-  return g_locale_from_utf8(str, -1, NULL, NULL, NULL);
+    return g_strdup(utf8str);
+  if( (str=g_locale_from_utf8(utf8str, -1, NULL, NULL, NULL)) == NULL )
+    return g_strdup(utf8str);
+  return str;
 }
 
 char *
-locale_to_utf8(char *str)
+locale_to_utf8(char *localestr)
 {
+  char *str;
+
   if( noconvert )
-    return g_strdup(str);
-  return g_locale_to_utf8(str, -1, NULL, NULL, NULL);
+    return g_strdup(localestr);
+  if( (str=g_locale_to_utf8(localestr, -1, NULL, NULL, NULL)) == NULL )
+    return g_strdup(localestr);
+  return str;
 }
 
 
