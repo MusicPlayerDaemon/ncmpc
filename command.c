@@ -54,7 +54,7 @@ static command_definition_t cmds[] =
   { { 'w',   0,   0 }, CMD_TOGGLE_FIND_WRAP,  "Toggle find mode" },
   { { 'U',   0,   0 }, CMD_TOGGLE_AUTOCENTER, "Toggle auto center mode" },
 
-  { { ' ',   0,   0 }, CMD_SELECT, "Select/deselect song in playlist" },
+  { { ' ',  'a',   0 }, CMD_SELECT, "Select/deselect song in playlist" },
   { { DEL,  'd',  0 }, CMD_DELETE, "Delete song from playlist" },
   { { 'Z',   0,   0 }, CMD_SHUFFLE, "Shuffle playlist" },
   { { 'c',   0,   0 }, CMD_CLEAR, "Clear playlist" },
@@ -62,8 +62,8 @@ static command_definition_t cmds[] =
   { { 'z',   0,   0 }, CMD_RANDOM, "Toggle random mode" },
   { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "Save playlist" },
 
-  { {  UP,   0,   0 }, CMD_LIST_PREVIOUS,      "Move: Up" },
-  { { DWN,   0,   0 }, CMD_LIST_NEXT,          "Move: Down" },
+  { {  UP,  ',',   0 }, CMD_LIST_PREVIOUS,      "Move: Up" },
+  { { DWN,  '.',   0 }, CMD_LIST_NEXT,          "Move: Down" },
   { { HOME, 0x01, 0 }, CMD_LIST_FIRST,         "Move: Home" },
   { { END,  0x05, 0 }, CMD_LIST_LAST,          "Move: End" },
   { { PGUP, 'A',   0 }, CMD_LIST_PREVIOUS_PAGE, "Move: Page Up" },
