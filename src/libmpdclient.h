@@ -135,6 +135,8 @@ typedef struct mpd_Status {
 	int bits;
 	/* audio channels */
 	int channels;
+	/* 1 if mpd is updating, 0 otherwise */
+	int updatingDb;
 	/* error */
 	char * error;
 } mpd_Status;
@@ -327,9 +329,6 @@ char * mpd_getNextAlbum(mpd_Connection * connection);
 void mpd_sendListCommand(mpd_Connection * connection, int table, 
 		const char * arg1);
 
-void mpd_sendListAlbumsCommand(mpd_Connection * connection, 
-		const char * artist);
-
 /* SIMPLE COMMANDS */
 
 void mpd_sendAddCommand(mpd_Connection * connection, const char * file);
@@ -377,6 +376,9 @@ void mpd_sendVolumeCommand(mpd_Connection * connection, int volumeChange);
 void mpd_sendCrossfadeCommand(mpd_Connection * connection, int seconds);
 
 void mpd_sendUpdateCommand(mpd_Connection * connection);
+
+/* returns the update job id, call this after a update command*/
+int mpd_getUpdateId(mpd_Connection * connection);
 
 void mpd_sendPasswordCommand(mpd_Connection * connection, const char * pass);
 

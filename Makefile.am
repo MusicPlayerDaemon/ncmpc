@@ -1,27 +1,15 @@
 #
-# $Id: Makefile.am,v 1.5 2004/03/16 23:49:14 kalle Exp $
+# $Id$
 #
 
-bin_PROGRAMS = ncmpc
+AUTOMAKE_OPTIONS = foreign 1.6
+
+SUBDIRS = doc src
 pkgdata_DATA =
 docdir = $(prefix)/share/doc/$(PACKAGE)
-doc_DATA = AUTHORS README ChangeLog
-EXTRA_DIST = COPYING $(pkgdata_DATA) $(doc_DATA)
+doc_DATA = AUTHORS README
+EXTRA_DIST = ChangeLog COPYING $(pkgdata_DATA) $(doc_DATA)
 
-SUBDIRS = doc
-
-#EXTRA_ncmpc_SOURCES = 
-#ncmpc_LDADD = 
-#ncmpc_DEPENDENCIES = 
-
-ncmpc_headers = libmpdclient.h mpc.h options.h conf.h command.h screen.h \
-              screen_utils.h screen_play.h screen_file.h screen_search.h \
-	      screen_help.h list_window.h colors.h support.h 
-
-ncmpc_SOURCES = libmpdclient.c main.c mpc.c options.c conf.c command.c \
-		      screen.c screen_utils.c screen_play.c screen_file.c \
-		      screen_search.c screen_help.c screen_keydef.c \
-                      list_window.c colors.c support.c $(ncmpc_headers)
 
 
 

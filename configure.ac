@@ -3,8 +3,8 @@ dnl  $Id$
 dnl
 
 AC_INIT
-AC_CONFIG_SRCDIR([main.c])
-AM_INIT_AUTOMAKE(ncmpc, 0.10.2-svn)
+AC_CONFIG_SRCDIR([src/main.c])
+AM_INIT_AUTOMAKE(ncmpc, 0.11.0-svn)
 
 dnl Check for programs
 AC_PROG_CC
@@ -96,9 +96,9 @@ AC_ARG_WITH(default-host,
 
 dnl Default port
 AC_ARG_WITH(default-port,
-            AC_HELP_STRING(--with-default-port=ARG,Default port (2100)),
+            AC_HELP_STRING(--with-default-port=ARG,Default port (6600)),
             DEFAULT_PORT="$withval",
-            DEFAULT_PORT="2100")
+            DEFAULT_PORT="6600")
 
 
 CFLAGS="$CFLAGS $GLIB_CFLAGS -DSYSCONFDIR=\\\"\$(sysconfdir)\\\""
@@ -112,7 +112,7 @@ AC_DEFINE_UNQUOTED(DEFAULT_HOST,     "$DEFAULT_HOST",    Default MPD host)
 
 AM_CONFIG_HEADER(config.h)
 
-AC_CONFIG_FILES([doc/Makefile Makefile])
+AC_CONFIG_FILES([doc/Makefile src/Makefile Makefile])
 AC_OUTPUT
 
 echo "

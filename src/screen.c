@@ -21,7 +21,8 @@
 #include <stdarg.h>
 #include <string.h>
 #include <time.h>
-#include <signal.h>
+//#include <signal.h>
+#include <locale.h>
 #include <glib.h>
 #include <ncurses.h>
 
@@ -115,7 +116,7 @@ paint_top_window(char *header, mpd_client_t *c, int clear)
 
   if(prev_volume!=c->status->volume || clear)
     {
-      char buf[12];
+      char buf[32];
 
       if( header[0] )
 	{
@@ -139,14 +140,14 @@ paint_top_window(char *header, mpd_client_t *c, int clear)
 	}
       if( c->status->volume==MPD_STATUS_NO_VOLUME )
 	{
-	  snprintf(buf, 12, "Volume n/a ");
+	  snprintf(buf, 32, "Volume n/a ");
 	}
       else
 	{
-	  snprintf(buf, 12, "Volume %3d%%", c->status->volume); 
+	  snprintf(buf, 32, " Volume %d%%", c->status->volume); 
 	}
       colors_use(w, COLOR_TITLE);
-      mvwaddstr(w, 0, screen->top_window.cols-12, buf);
+      mvwaddstr(w, 0, screen->top_window.cols-strlen(buf), buf);
 
       flags[0] = 0;
       if( c->status->repeat )
@@ -155,6 +156,8 @@ paint_top_window(char *header, mpd_client_t *c, int clear)
 	strcat(flags, "z");
       if( c->status->crossfade )
 	strcat(flags, "x");
+      if( c->status->updatingDb )
+	strcat(flags, "U");
       colors_use(w, COLOR_LINE);
       mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
       if( flags[0] )
@@ -275,13 +278,31 @@ paint_status_window(mpd_client_t *c)
 
   /* create time string */
   memset(screen->buf, 0, screen->buf_size);
-  if( c->seek_song_id == c->song_id )
-    elapsedTime = c->seek_target_time;
   if( IS_PLAYING(status->state) || IS_PAUSED(status->state) )
-    snprintf(screen->buf, screen->buf_size, 
-	     " [%i:%02i/%i:%02i] ",
-	     elapsedTime/60, elapsedTime%60,
-	     status->totalTime/60,   status->totalTime%60 );
+    {
+      if( status->totalTime > 0 )
+	{
+	  if( c->seek_song_id == c->song_id )
+	    elapsedTime = c->seek_target_time;
+	  snprintf(screen->buf, screen->buf_size, 
+		   " [%i:%02i/%i:%02i]",
+		   elapsedTime/60, elapsedTime%60,
+		   status->totalTime/60,   status->totalTime%60 );
+	}
+      else
+	{
+	  snprintf(screen->buf, screen->buf_size,  " [%d kbps]", status->bitRate );
+	}
+    }
+  else
+    {
+      time_t timep;
+
+      time(&timep);
+      /* Note: setlocale(LC_TIME,"") should be used first */
+      //strftime(screen->buf, screen->buf_size, "%X ",  localtime(&timep));
+      strftime(screen->buf, screen->buf_size, " %k:%M",  localtime(&timep));
+    }
 
   /* display song */
   if( (IS_PLAYING(status->state) || IS_PAUSED(status->state)) &&  song )
@@ -600,6 +621,7 @@ screen_update(mpd_client_t *c)
   static int repeat = -1;
   static int random = -1;
   static int crossfade = -1;
+  static int dbupdate = -1;
   static int welcome = 1;
   list_window_t *lw = NULL;
 
@@ -612,6 +634,7 @@ screen_update(mpd_client_t *c)
       repeat = c->status->repeat;
       random = c->status->random;
       crossfade = c->status->crossfade;
+      dbupdate = c->status->updatingDb;
     }
   if( repeat != c->status->repeat )
     screen_status_printf("Repeat is %s", 
@@ -621,10 +644,13 @@ screen_update(mpd_client_t *c)
 			 c->status->random ? "On" : "Off");
   if( crossfade != c->status->crossfade )
     screen_status_printf("Crossfade %d seconds", c->status->crossfade);
+  if( dbupdate && dbupdate != c->status->updatingDb )
+    screen_status_printf("Database updated!");
 
   repeat = c->status->repeat;
   random = c->status->random;
   crossfade = c->status->crossfade;
+  dbupdate = c->status->updatingDb;
 
   /* update title/header window */
   if( welcome && screen->last_cmd==CMD_NONE &&
