@@ -65,9 +65,17 @@ screen_getch(WINDOW *w, char *prompt)
 
   while( (key=wgetch(w)) == ERR )
     ;
-  
+
+#ifdef HAVE_GETMOUSE
+  /* ignore mouse events */
+  if( key==KEY_MOUSE )
+    return screen_getch(w, prompt);
+#endif
+
   if( key==KEY_RESIZE )
-    screen_resize();
+    {
+      screen_resize();
+    }
 
   noecho();
   curs_set(0);

@@ -23,6 +23,7 @@
 #include <ncurses.h>
 #include <glib.h>
 
+#include "config.h"
 #include "wreadln.h"
 
 #define KEY_CTRL_A   1
@@ -162,8 +163,10 @@ wreadln(WINDOW *w,
 
       switch (key)
 	{
-	case ERR:
-	  /* ingnore errors */
+#ifdef HAVE_GETMOUSE
+	case KEY_MOUSE: /* ignore mouse events */
+#endif
+	case ERR: /* ingnore errors */
 	  break;
 
 	case KEY_RESIZE:
