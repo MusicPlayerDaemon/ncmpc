@@ -363,6 +363,8 @@ browse_handle_enter(screen_t *screen,
   filelist_entry_t *entry;
   mpd_InfoEntity *entity;
   
+  if ( filelist==NULL )
+    return -1;
   entry = ( filelist_entry_t *) g_list_nth_data(filelist->list, lw->selected);
   if( entry==NULL )
     return -1;
@@ -442,6 +444,8 @@ browse_handle_select(screen_t *screen,
 {
   filelist_entry_t *entry;
 
+  if ( filelist==NULL )
+    return -1;
   entry=( filelist_entry_t *) g_list_nth_data(filelist->list, lw->selected);
   if( entry==NULL || entry->entity==NULL)
     return -1;
@@ -598,12 +602,18 @@ browse_handle_mouse_event(screen_t *screen,
   int row;
   int prev_selected = lw->selected;
   unsigned long bstate;
+  int length;
 
-  if( screen_get_mouse_event(c, lw, filelist->length, &bstate, &row) )
+  if ( filelist )
+    length = filelist->length;
+  else
+    length = 0;
+
+  if( screen_get_mouse_event(c, lw, length, &bstate, &row) )
     return 1;
 
   lw->selected = lw->start+row;
-  list_window_check_selected(lw, filelist->length);
+  list_window_check_selected(lw, length);
 
   if( bstate & BUTTON1_CLICKED )
     {
