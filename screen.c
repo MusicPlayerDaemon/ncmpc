@@ -459,7 +459,7 @@ screen_cmd(mpd_client_t *c, command_t cmd)
       screen_status_message(c, buf);
       break;
     case CMD_VOLUME_UP:
-      mpd_sendVolumeCommand(c->connection, 1);
+      mpd_sendSetvolCommand(c->connection, 1);
       mpd_finishCommand(c->connection);
       if( c->status->volume!=MPD_STATUS_NO_VOLUME )
 	{
@@ -468,7 +468,7 @@ screen_cmd(mpd_client_t *c, command_t cmd)
 	}
       break;
     case CMD_VOLUME_DOWN:
-      mpd_sendVolumeCommand(c->connection, -1);
+      mpd_sendSetvolCommand(c->connection, -1);
       mpd_finishCommand(c->connection);
       if( c->status->volume!=MPD_STATUS_NO_VOLUME )
 	{
