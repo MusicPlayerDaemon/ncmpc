@@ -1,3 +1,21 @@
+/* 
+ * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -15,6 +33,8 @@
 #include "screen_play.h"
 
 #define BUFSIZE 256
+
+static list_window_t *lw = NULL;
 
 static char *
 list_callback(int index, int *highlight, void *data)
@@ -39,7 +59,6 @@ list_callback(int index, int *highlight, void *data)
 static int
 center_playing_item(screen_t *screen, mpd_client_t *c)
 {
-  list_window_t *lw = screen->playlist;
   int length = c->playlist_length;
   int offset = lw->selected-lw->start;
   
@@ -99,35 +118,43 @@ handle_save_playlist(screen_t *screen, mpd_client_t *c)
   /* update the file list if it has been initalized */
   if( c->filelist )
     {
+      list_window_t *file_lw = get_filelist_window();
+
       mpc_update_filelist(c);
-      list_window_check_selected(screen->filelist, c->filelist_length);
+      list_window_check_selected(file_lw, c->filelist_length);
     }
   return 0;
 }
 
-void 
-play_open(screen_t *screen, mpd_client_t *c)
-{
 
+static void
+play_init(WINDOW *w, int cols, int rows)
+{
+  lw = list_window_init(w, cols, rows);
 }
 
-void 
-play_close(screen_t *screen, mpd_client_t *c)
+static void
+play_exit(void)
 {
+  list_window_free(lw);
 }
 
-void
+static char *
+play_title(void)
+{
+  return (TOP_HEADER_PREFIX "Playlist");
+}
+
+static void
 play_paint(screen_t *screen, mpd_client_t *c)
-{
-  list_window_t *w = screen->playlist;
- 
-  w->clear = 1;
+{ 
+  lw->clear = 1;
   
-  list_window_paint(screen->playlist, list_callback, (void *) c);
-  wnoutrefresh(screen->playlist->w);
+  list_window_paint(lw, list_callback, (void *) c);
+  wnoutrefresh(lw->w);
 }
 
-void
+static void
 play_update(screen_t *screen, mpd_client_t *c)
 {
   if( options.auto_center )
@@ -143,23 +170,23 @@ play_update(screen_t *screen, mpd_client_t *c)
 
   if( c->playlist_updated )
     {
-      if( screen->playlist->selected >= c->playlist_length )
-	screen->playlist->selected = c->playlist_length-1;
-      if( screen->playlist->start    >= c->playlist_length )
-	list_window_reset(screen->playlist);
+      if( lw->selected >= c->playlist_length )
+	lw->selected = c->playlist_length-1;
+      if( lw->start    >= c->playlist_length )
+	list_window_reset(lw);
 
       play_paint(screen, c);
       c->playlist_updated = 0;
     }
-  else if( screen->playlist->repaint || 1)
+  else if( lw->repaint || 1)
     {
-      list_window_paint(screen->playlist, list_callback, (void *) c);
-      wnoutrefresh(screen->playlist->w);
-      screen->playlist->repaint = 0;
+      list_window_paint(lw, list_callback, (void *) c);
+      wnoutrefresh(lw->w);
+      lw->repaint = 0;
     }
 }
 
-int
+static int
 play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 {
   mpd_Song *song;
@@ -167,11 +194,11 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
   switch(cmd)
     {
     case CMD_DELETE:
-      song = mpc_playlist_get_song(c, screen->playlist->selected);
+      song = mpc_playlist_get_song(c, lw->selected);
       if( song )
 	{
 	  file_clear_highlight(c, song);
-	  mpd_sendDeleteCommand(c->connection, screen->playlist->selected);
+	  mpd_sendDeleteCommand(c->connection, lw->selected);
 	  mpd_finishCommand(c->connection);
 	  if( !mpc_error(c) )
 	    {
@@ -192,10 +219,43 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
     case CMD_LIST_FIND_NEXT:
     case CMD_LIST_RFIND_NEXT:
       return screen_find(screen, c, 
-			 screen->playlist, c->playlist_length,
+			 lw, c->playlist_length,
 			 cmd, list_callback);
     default:
       break;
     }
-  return list_window_cmd(screen->playlist, c->playlist_length, cmd) ;
+  return list_window_cmd(lw, c->playlist_length, cmd) ;
+}
+
+
+
+static list_window_t *
+play_lw(void)
+{
+  return lw;
+}
+
+int 
+play_get_selected(void)
+{
+  return lw->selected;
+}
+
+screen_functions_t *
+get_screen_playlist(void)
+{
+  static screen_functions_t functions;
+
+  memset(&functions, 0, sizeof(screen_functions_t));
+  functions.init   = play_init;
+  functions.exit   = play_exit;
+  functions.open   = NULL;
+  functions.close  = NULL;
+  functions.paint  = play_paint;
+  functions.update = play_update;
+  functions.cmd    = play_cmd;
+  functions.get_lw = play_lw;
+  functions.get_title = play_title;
+
+  return &functions;
 }

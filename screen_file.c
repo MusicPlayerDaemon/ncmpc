@@ -1,3 +1,21 @@
+/* 
+ * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,8 +32,12 @@
 #include "screen_file.h"
 
 #define BUFSIZE 1024
+#define TITLESIZE 256
 
 #define USE_OLD_LAYOUT
+
+static list_window_t *lw;
+static mpd_client_t *mpc = NULL;
 
 static char *
 list_callback(int index, int *highlight, void *data)
@@ -84,7 +106,6 @@ list_callback(int index, int *highlight, void *data)
 static int
 change_directory(screen_t *screen, mpd_client_t *c, filelist_entry_t *entry)
 {
-  list_window_t *w = screen->filelist;
   mpd_InfoEntity *entity = entry->entity;
 
   if( entity==NULL )
@@ -111,7 +132,7 @@ change_directory(screen_t *screen, mpd_client_t *c, filelist_entry_t *entry)
       return -1;
   
   mpc_update_filelist(c);
-  list_window_reset(w);
+  list_window_reset(lw);
   return 0;
 }
 
@@ -133,7 +154,6 @@ load_playlist(screen_t *screen, mpd_client_t *c, filelist_entry_t *entry)
 static int 
 handle_delete(screen_t *screen, mpd_client_t *c)
 {
-  list_window_t *lw = screen->filelist;
   filelist_entry_t *entry;
   mpd_InfoEntity *entity;
   mpd_PlaylistFile *plf;
@@ -184,11 +204,10 @@ handle_delete(screen_t *screen, mpd_client_t *c)
 static int
 handle_play_cmd(screen_t *screen, mpd_client_t *c)
 {
-  list_window_t *w = screen->filelist;
   filelist_entry_t *entry;
   mpd_InfoEntity *entity;
   
-  entry = ( filelist_entry_t *) g_list_nth_data(c->filelist, w->selected);
+  entry = ( filelist_entry_t *) g_list_nth_data(c->filelist, lw->selected);
   if( entry==NULL )
     return -1;
 
@@ -253,10 +272,9 @@ add_directory(mpd_client_t *c, char *dir)
 static int
 handle_select(screen_t *screen, mpd_client_t *c)
 {
-  list_window_t *w = screen->filelist;
   filelist_entry_t *entry;
 
-  entry = ( filelist_entry_t *) g_list_nth_data(c->filelist, w->selected);
+  entry = ( filelist_entry_t *) g_list_nth_data(c->filelist, lw->selected);
   if( entry==NULL || entry->entity==NULL)
     return -1;
 
@@ -306,6 +324,116 @@ handle_select(screen_t *screen, mpd_client_t *c)
   return 0;
 }
 
+static void
+file_init(WINDOW *w, int cols, int rows)
+{
+  lw = list_window_init(w, cols, rows);
+}
+
+static void
+file_exit(void)
+{
+  list_window_free(lw);
+}
+
+static void 
+file_open(screen_t *screen, mpd_client_t *c)
+{
+  if( c->filelist == NULL )
+    {
+      mpc_update_filelist(c);
+    }
+  mpc = c;
+}
+
+static void
+file_close(void)
+{
+}
+
+static char *
+file_title(void)
+{
+  static char buf[TITLESIZE];
+  char *tmp;
+
+  tmp = utf8_to_locale(basename(mpc->cwd));
+  snprintf(buf, TITLESIZE, 
+	   TOP_HEADER_FILE ": %s                          ",
+	   tmp
+	   );
+  g_free(tmp);
+
+  return buf;
+}
+
+static void 
+file_paint(screen_t *screen, mpd_client_t *c)
+{
+  lw->clear = 1;
+  
+  list_window_paint(lw, list_callback, (void *) c);
+  wnoutrefresh(lw->w);
+}
+
+static void 
+file_update(screen_t *screen, mpd_client_t *c)
+{
+  if( c->filelist_updated )
+    {
+      file_paint(screen, c);
+      c->filelist_updated = 0;
+      return;
+    }
+  list_window_paint(lw, list_callback, (void *) c);
+  wnoutrefresh(lw->w);
+}
+
+
+static int 
+file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
+{
+  switch(cmd)
+    {
+    case CMD_PLAY:
+      handle_play_cmd(screen, c);
+      return 1;
+    case CMD_SELECT:
+      if( handle_select(screen, c) == 0 )
+	{
+	  /* continue and select next item... */
+	  cmd = CMD_LIST_NEXT;
+	}
+      break;
+    case CMD_DELETE:
+      handle_delete(screen, c);
+      break;
+    case CMD_SCREEN_UPDATE:
+      mpc_update_filelist(c);
+      list_window_check_selected(lw, c->filelist_length);
+      screen_status_printf("Screen updated!");
+      return 1;
+    case CMD_LIST_FIND:
+    case CMD_LIST_RFIND:
+    case CMD_LIST_FIND_NEXT:
+    case CMD_LIST_RFIND_NEXT:
+      return screen_find(screen, c, 
+			 lw, c->filelist_length,
+			 cmd, list_callback);
+    default:
+      break;
+    }
+  return list_window_cmd(lw, c->filelist_length, cmd);
+}
+
+
+list_window_t *
+get_filelist_window()
+{
+  return lw;
+}
+
+
 void
 file_clear_highlights(mpd_client_t *c)
 {
@@ -346,93 +474,22 @@ file_clear_highlight(mpd_client_t *c, mpd_Song *song)
     }
 }
 
-char *
-file_get_header(mpd_client_t *c)
+screen_functions_t *
+get_screen_file(void)
 {
-  static char buf[BUFSIZE];
-  char *tmp;
+  static screen_functions_t functions;
 
-  tmp = utf8_to_locale(basename(c->cwd));
-  snprintf(buf, BUFSIZE, 
-	   TOP_HEADER_FILE ": %s                          ",
-	   tmp
-	   );
-  g_free(tmp);
+  memset(&functions, 0, sizeof(screen_functions_t));
+  functions.init   = file_init;
+  functions.exit   = file_exit;
+  functions.open   = file_open;
+  functions.close  = file_close;
+  functions.paint  = file_paint;
+  functions.update = file_update;
+  functions.cmd    = file_cmd;
+  functions.get_lw = get_filelist_window;
+  functions.get_title = file_title;
 
-  return buf;
+  return &functions;
 }
 
-void 
-file_open(screen_t *screen, mpd_client_t *c)
-{
-  if( c->filelist == NULL )
-    {
-      mpc_update_filelist(c);
-    }
-}
-
-void 
-file_close(screen_t *screen, mpd_client_t *c)
-{
-}
-
-void 
-file_paint(screen_t *screen, mpd_client_t *c)
-{
-  list_window_t *w = screen->filelist;
- 
-  w->clear = 1;
-  
-  list_window_paint(screen->filelist, list_callback, (void *) c);
-  wnoutrefresh(screen->filelist->w);
-}
-
-void 
-file_update(screen_t *screen, mpd_client_t *c)
-{
-  if( c->filelist_updated )
-    {
-      file_paint(screen, c);
-      c->filelist_updated = 0;
-      return;
-    }
-  list_window_paint(screen->filelist, list_callback, (void *) c);
-  wnoutrefresh(screen->filelist->w);
-}
-
-
-int 
-file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
-{
-  switch(cmd)
-    {
-    case CMD_PLAY:
-      handle_play_cmd(screen, c);
-      return 1;
-    case CMD_SELECT:
-      if( handle_select(screen, c) == 0 )
-	{
-	  /* continue and select next item... */
-	  cmd = CMD_LIST_NEXT;
-	}
-      break;
-    case CMD_DELETE:
-      handle_delete(screen, c);
-      break;
-    case CMD_SCREEN_UPDATE:
-      mpc_update_filelist(c);
-      list_window_check_selected(screen->filelist, c->filelist_length);
-      screen_status_printf("Screen updated!");
-      return 1;
-    case CMD_LIST_FIND:
-    case CMD_LIST_RFIND:
-    case CMD_LIST_FIND_NEXT:
-    case CMD_LIST_RFIND_NEXT:
-      return screen_find(screen, c, 
-			 screen->filelist, c->filelist_length,
-			 cmd, list_callback);
-    default:
-      break;
-    }
-  return list_window_cmd(screen->filelist, c->filelist_length, cmd);
-}

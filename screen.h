@@ -32,16 +32,16 @@
 #define IS_PAUSED(s) (s==MPD_STATUS_STATE_PAUSE)
 #define IS_STOPPED(s) (!(IS_PLAYING(s) | IS_PAUSED(s)))
 
+
 typedef enum
 {
   SCREEN_PLAY_WINDOW = 0,
   SCREEN_FILE_WINDOW,
   SCREEN_HELP_WINDOW,
+  SCREEN_KEYDEF_WINDOW,
   SCREEN_SEARCH_WINDOW
 
 } screen_mode_t;
-
-
 
 typedef struct
 {
@@ -59,13 +59,11 @@ typedef struct
   window_t progress_window;
   window_t status_window;
 
+  GList *screen_list;
+
   time_t status_timestamp;
   time_t input_timestamp;
   command_t last_cmd;
-
-  list_window_t *playlist;
-  list_window_t *filelist;
-  list_window_t *helplist;
 
   int cols, rows;
 
@@ -80,6 +78,30 @@ typedef struct
 
 } screen_t;
 
+
+typedef void (*screen_init_fn_t)   (WINDOW *w, int cols, int rows);
+typedef void (*screen_exit_fn_t)   (void);
+typedef void (*screen_open_fn_t)   (screen_t *screen, mpd_client_t *c);
+typedef void (*screen_close_fn_t)  (void);
+typedef void (*screen_paint_fn_t)  (screen_t *screen, mpd_client_t *c);
+typedef void (*screen_update_fn_t) (screen_t *screen, mpd_client_t *c);
+typedef int (*screen_cmd_fn_t) (screen_t *scr, mpd_client_t *c, command_t cmd);
+typedef char * (*screen_title_fn_t) (void);
+typedef list_window_t * (*screen_get_lw_fn_t) (void);
+
+typedef struct
+{
+  screen_init_fn_t   init;
+  screen_exit_fn_t   exit;
+  screen_open_fn_t   open;
+  screen_close_fn_t  close;
+  screen_paint_fn_t  paint;
+  screen_update_fn_t update;
+  screen_cmd_fn_t    cmd;
+  screen_title_fn_t  get_title;
+  screen_get_lw_fn_t get_lw;
+
+} screen_functions_t;
 
 
 int screen_init(void);

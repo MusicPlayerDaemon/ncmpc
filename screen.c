@@ -1,3 +1,21 @@
+/* 
+ * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
@@ -17,10 +35,15 @@
 #include "screen_search.h"
 #include "screen_utils.h"
 
+#ifdef ENABLE_KEYDEF_SCREEN
+extern screen_functions_t *get_screen_keydef(void);
+#endif
+
 #define STATUS_MESSAGE_TIMEOUT 3
 #define STATUS_LINE_MAX_SIZE   512
 
 static screen_t *screen = NULL;
+static screen_functions_t *mode_fn = NULL;
 
 static void
 switch_screen_mode(screen_mode_t new_mode, mpd_client_t *c)
@@ -28,40 +51,38 @@ switch_screen_mode(screen_mode_t new_mode, mpd_client_t *c)
   if( new_mode == screen->mode )
     return;
 
- switch(screen->mode)
+  /* close the old mode */
+  if( mode_fn && mode_fn->close )
+    mode_fn->close();
+
+  /* get functions for the new mode */
+  switch(new_mode)
     {
     case SCREEN_PLAY_WINDOW:
-      play_close(screen, c);
+      mode_fn = get_screen_playlist();
       break;
     case SCREEN_FILE_WINDOW:
-      file_close(screen, c);
-      break;
-    case SCREEN_SEARCH_WINDOW:
-      search_close(screen, c);
+      mode_fn = get_screen_file();
       break;
     case SCREEN_HELP_WINDOW:
-      help_close(screen, c);
+      mode_fn = get_screen_help();
+      break;
+#ifdef ENABLE_KEYDEF_SCREEN
+    case SCREEN_KEYDEF_WINDOW:
+      mode_fn = get_screen_keydef();
+      break;
+#endif
+    default:
       break;
     }
 
  screen->mode = new_mode;
  screen->painted = 0;
 
- switch(screen->mode)
-    {
-    case SCREEN_PLAY_WINDOW:
-      play_open(screen, c);
-      break;
-    case SCREEN_FILE_WINDOW:
-      file_open(screen, c);
-      break;
-    case SCREEN_SEARCH_WINDOW:
-      search_open(screen, c);
-      break;
-    case SCREEN_HELP_WINDOW:
-      help_open(screen, c);
-      break;
-    }
+ /* open the new mode */
+ if( mode_fn && mode_fn->open )
+   mode_fn->open(screen, c);
+
 }
 
 static void
@@ -249,9 +270,22 @@ screen_exit(void)
   endwin();
   if( screen )
     {
-      screen->playlist = list_window_free(screen->playlist);
-      screen->filelist = list_window_free(screen->filelist);
-      screen->helplist = list_window_free(screen->helplist);
+      GList *list = g_list_first(screen->screen_list);
+
+      /* close and exit all screens (playlist,browse,help...) */
+      while( list )
+	{
+	  screen_functions_t *mode_fn = list->data;
+
+	  if( mode_fn && mode_fn->close )
+	    mode_fn->close();
+	  if( mode_fn && mode_fn->exit )
+	    mode_fn->exit();
+	  list->data = NULL;
+	  list=list->next;
+	}
+      g_list_free(screen->screen_list);
+
       g_free(screen->buf);
       g_free(screen->findbuf);
       g_free(screen);
@@ -301,6 +335,8 @@ screen_status_printf(char *format, ...)
 int
 screen_init(void)
 {
+  GList *list;
+
   /* initialize the curses library */
   initscr();        
   if( has_colors() )
@@ -371,15 +407,6 @@ screen_init(void)
 				 screen->main_window.cols,
 				 2, 
 				 0);
-  screen->playlist = list_window_init( screen->main_window.w,
-				       screen->main_window.cols,
-				       screen->main_window.rows );
-  screen->filelist = list_window_init( screen->main_window.w,
-				       screen->main_window.cols,
-				       screen->main_window.rows );
-  screen->helplist = list_window_init( screen->main_window.w,
-				       screen->main_window.cols,
-				       screen->main_window.rows );
 
   //  leaveok(screen->main_window.w, TRUE); temporary disabled
   keypad(screen->main_window.w, TRUE);  
@@ -413,36 +440,57 @@ screen_init(void)
       wbkgd(screen->status_window.w, STATUS_COLORS);
     }
 
+  /* initialize screens */
+  screen->screen_list = NULL;
+  screen->screen_list = g_list_append(screen->screen_list, 
+				      (gpointer) get_screen_playlist());
+  screen->screen_list = g_list_append(screen->screen_list, 
+				      (gpointer) get_screen_file());
+  screen->screen_list = g_list_append(screen->screen_list, 
+				      (gpointer) get_screen_help());
+#ifdef ENABLE_KEYDEF_SCREEN
+  screen->screen_list = g_list_append(screen->screen_list, 
+				      (gpointer) get_screen_keydef());
+#endif
+
+  list = screen->screen_list;
+  while( list )
+    {
+      screen_functions_t *fn = list->data;
+      
+      if( fn && fn->init )
+	fn->init(screen->main_window.w, 
+		 screen->main_window.cols,
+		 screen->main_window.rows);
+      
+      list = list->next;
+    }
+
+  mode_fn = get_screen_playlist();
+
   return 0;
 }
 
 void 
 screen_paint(mpd_client_t *c)
 {
-  switch(screen->mode)
-    {
-    case SCREEN_PLAY_WINDOW:
-      paint_top_window(TOP_HEADER_PLAY, c->status->volume, 1);
-      play_paint(screen, c);      
-      break;
-    case SCREEN_FILE_WINDOW:
-      paint_top_window(file_get_header(c), c->status->volume, 1);
-      file_paint(screen, c);      
-      break;
-    case SCREEN_SEARCH_WINDOW:
-      paint_top_window(TOP_HEADER_SEARCH, c->status->volume, 1);
-      search_paint(screen, c);      
-      break;
-    case SCREEN_HELP_WINDOW:
-      paint_top_window(TOP_HEADER_PLAY, c->status->volume, 1);
-      help_paint(screen, c);      
-      break;
-    }
+  /* paint the title/header window */
+  if( mode_fn && mode_fn->get_title )
+    paint_top_window(mode_fn->get_title(), c->status->volume, 1);
+  else
+    paint_top_window("", c->status->volume, 1);
 
+  /* paint the main window */
+  if( mode_fn && mode_fn->paint )
+    mode_fn->paint(screen, c);
+  
   paint_progress_window(c);
   paint_status_window(c);
   screen->painted = 1;
-  wmove(screen->main_window.w, 0, 0);  wnoutrefresh(screen->main_window.w);
+  wmove(screen->main_window.w, 0, 0);  
+  wnoutrefresh(screen->main_window.w);
+
+  /* tell curses to update */
   doupdate();
 }
 
@@ -451,15 +499,18 @@ screen_update(mpd_client_t *c)
 {
   static int repeat = -1;
   static int random = -1;
+  static int crossfade = -1;
   list_window_t *lw = NULL;
 
   if( !screen->painted )
     return screen_paint(c);
 
+  /* print a message if mpd status has changed */
   if( repeat<0 )
     {
       repeat = c->status->repeat;
       random = c->status->random;
+      crossfade = c->status->crossfade;
     }
   if( repeat != c->status->repeat )
     screen_status_printf("Repeat is %s", 
@@ -467,40 +518,43 @@ screen_update(mpd_client_t *c)
   if( random != c->status->random )
     screen_status_printf("Random is %s", 
 			 c->status->random ? "On" : "Off");
-  
+  if( crossfade != c->status->crossfade )
+    screen_status_printf("Crossfade %d seconds", c->status->crossfade);
+
   repeat = c->status->repeat;
   random = c->status->random;
+  crossfade = c->status->crossfade;
 
-  switch(screen->mode)
-    {
-    case SCREEN_PLAY_WINDOW:
-      if( screen->last_cmd==CMD_NONE && 
-	  time(NULL)-screen->input_timestamp <= SCREEN_WELCOME_TIME)	
-	paint_top_window("", c->status->volume, 0);
-      else
-	paint_top_window(TOP_HEADER_PLAY, c->status->volume, 0);
-      play_update(screen, c);
-      lw = screen->playlist;
-      break;
-    case SCREEN_FILE_WINDOW:
-      paint_top_window(file_get_header(c), c->status->volume, 0);
-      file_update(screen, c);
-      lw = screen->filelist;
-      break;
-    case SCREEN_SEARCH_WINDOW:
-      paint_top_window(TOP_HEADER_SEARCH, c->status->volume, 0);
-      search_update(screen, c);
-      break;
-    case SCREEN_HELP_WINDOW:
-      paint_top_window(TOP_HEADER_HELP, c->status->volume, 0);
-      help_update(screen, c);
-      lw = screen->helplist;
-      break;
-    }
+  /* update title/header window */
+  if( screen->last_cmd==CMD_NONE && 
+      time(NULL)-screen->input_timestamp <= SCREEN_WELCOME_TIME)	
+    paint_top_window("", c->status->volume, 0);
+  else if( mode_fn && mode_fn->get_title )
+    paint_top_window(mode_fn->get_title(), c->status->volume, 0);
+  else
+    paint_top_window("", c->status->volume, 0);
+
+  /* update the main window */
+  if( mode_fn && mode_fn->paint )
+    mode_fn->update(screen, c);
+
+  if( mode_fn && mode_fn->get_lw )
+    lw = mode_fn->get_lw();
+
+  /* update progress window */
   paint_progress_window(c);
+
+  /* update status window */
   paint_status_window(c);
-  wmove(screen->main_window.w, LW_ROW(lw), 0);   
+
+  /* move the cursor to the selected row in the main window */
+  if( lw )
+    wmove(screen->main_window.w, LW_ROW(lw), 0);   
+  else
+    wmove(screen->main_window.w, 0, 0);   
   wnoutrefresh(screen->main_window.w);
+
+  /* tell curses to update */
   doupdate();
 }
 
@@ -512,30 +566,14 @@ screen_cmd(mpd_client_t *c, command_t cmd)
 
   screen->input_timestamp = time(NULL);
   screen->last_cmd = cmd;
-  switch(screen->mode)
-    {
-    case SCREEN_PLAY_WINDOW:
-      if( play_cmd(screen, c, cmd) )
-	return;
-      break;
-    case SCREEN_FILE_WINDOW:
-      if( file_cmd(screen, c, cmd) )
-	return;
-      break;
-    case SCREEN_SEARCH_WINDOW:
-      if( search_cmd(screen, c, cmd) )
-	return;
-      break;
-    case SCREEN_HELP_WINDOW:
-      if( help_cmd(screen, c, cmd) )
-	return;
-      break;
-    }
+
+  if( mode_fn && mode_fn->cmd && mode_fn->cmd(screen, c, cmd) )
+    return;
 
   switch(cmd)
     {
     case CMD_PLAY:
-      mpd_sendPlayCommand(c->connection, screen->playlist->selected);
+      mpd_sendPlayCommand(c->connection, play_get_selected());
       mpd_finishCommand(c->connection);
       break;
     case CMD_PAUSE:
@@ -634,6 +672,11 @@ screen_cmd(mpd_client_t *c, command_t cmd)
     case CMD_SCREEN_HELP:
       switch_screen_mode(SCREEN_HELP_WINDOW, c);
       break;
+#ifdef ENABLE_KEYDEF_SCREEN 
+    case CMD_SCREEN_KEYDEF:
+      switch_screen_mode(SCREEN_KEYDEF_WINDOW, c);
+      break;
+#endif
     case CMD_QUIT:
       exit(EXIT_SUCCESS);
     default:

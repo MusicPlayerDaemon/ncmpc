@@ -1,3 +1,21 @@
+/* 
+ * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -46,6 +64,9 @@ static help_text_row_t help_text[] =
   { 0, CMD_SCREEN_HELP,    NULL },
   { 0, CMD_SCREEN_PLAY,    NULL },
   { 0, CMD_SCREEN_FILE,    NULL },
+#ifdef ENABLE_KEYDEF_SCREEN
+  { 0, CMD_SCREEN_KEYDEF,  NULL },
+#endif
   { 0, CMD_QUIT,           NULL },
   { 0, CMD_NONE,           NULL },
   { 0, CMD_NONE,           NULL },
@@ -75,7 +96,7 @@ static help_text_row_t help_text[] =
 };
 
 static int help_text_rows = -1;
-
+static list_window_t *lw = NULL;
 
 
 static char *
@@ -117,51 +138,80 @@ list_callback(int index, int *highlight, void *data)
   return NULL;
 }
 
-
-void 
-help_open(screen_t *screen, mpd_client_t *c)
+static void
+help_init(WINDOW *w, int cols, int rows)
 {
+  lw = list_window_init(w, cols, rows);
 }
 
-void 
-help_close(screen_t *screen, mpd_client_t *c)
+static void
+help_exit(void)
 {
+  list_window_free(lw);
 }
 
-void 
+
+static char *
+help_title(void)
+{
+  return (TOP_HEADER_PREFIX "Help");
+}
+
+static void 
 help_paint(screen_t *screen, mpd_client_t *c)
 {
-  list_window_t *w = screen->helplist;
-
-  w->clear = 1;
-  list_window_paint(screen->helplist, list_callback, NULL);
-  wrefresh(screen->helplist->w);
+  lw->clear = 1;
+  list_window_paint(lw, list_callback, NULL);
+  wrefresh(lw->w);
 }
 
-void 
+static void 
 help_update(screen_t *screen, mpd_client_t *c)
 {  
-  list_window_t *w = screen->helplist;
- 
-  if( w->repaint )
+  if( lw->repaint )
     {
-      list_window_paint(screen->helplist, list_callback, NULL);
-      wrefresh(screen->helplist->w);
-      w->repaint = 0;
+      list_window_paint(lw, list_callback, NULL);
+      wrefresh(lw->w);
+      lw->repaint = 0;
     }
 }
 
 
-int 
+static int 
 help_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 {
   int retval;
 
-  retval = list_window_cmd(screen->helplist, help_text_rows, cmd);
+  retval = list_window_cmd(lw, help_text_rows, cmd);
   if( !retval )
     return screen_find(screen, c, 
-		       screen->helplist, help_text_rows,
+		       lw,  help_text_rows,
 		       cmd, list_callback);
 
   return retval;
+}
+
+static list_window_t *
+help_lw(void)
+{
+  return lw;
+}
+
+screen_functions_t *
+get_screen_help(void)
+{
+  static screen_functions_t functions;
+
+  memset(&functions, 0, sizeof(screen_functions_t));
+  functions.init   = help_init;
+  functions.exit   = help_exit;
+  functions.open   = NULL;
+  functions.close  = NULL;
+  functions.paint  = help_paint;
+  functions.update = help_update;
+  functions.cmd    = help_cmd;
+  functions.get_lw = help_lw;
+  functions.get_title = help_title;
+
+  return &functions;
 }
