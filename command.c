@@ -67,6 +67,10 @@ static command_definition_t cmds[] =
     "Next track" },
   { { '<',   0,   0 }, CMD_TRACK_PREVIOUS, "prev", 
     "Previous track" },
+  { { 'f',   0,   0 }, CMD_SEEK_FORWARD, "seek-forward", 
+    "Seek forward" },
+  { { 'b',   0,   0 }, CMD_SEEK_BACKWARD, "seek-backward", 
+    "Seek backward" },
 
   { { '+', RGHT,  0 }, CMD_VOLUME_UP, "volume-up", 
     "Increase volume" },
@@ -90,6 +94,8 @@ static command_definition_t cmds[] =
     "Toggle repeat mode" },
   { { 'z',   0,   0 }, CMD_RANDOM, "random",
     "Toggle random mode" },
+  { { 'x',   0,   0 }, CMD_CROSSFADE, "crossfade",
+    "Toggle crossfade mode" },
   { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "save",
     "Save playlist" },
 
@@ -131,7 +137,7 @@ static command_definition_t cmds[] =
     "Update screen" },
 #ifdef ENABLE_KEYDEF_SCREEN
   { {'K',   0,   0 }, CMD_SCREEN_KEYDEF,    "screen-keyedit",
-    "Key edit screen" },
+    "Key configuration screen" },
 #endif
 
   { { 'q',  0,   0 }, CMD_QUIT,   "quit",

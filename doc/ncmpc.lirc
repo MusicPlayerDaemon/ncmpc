@@ -22,6 +22,22 @@ begin
 	config = +
 end
 
+Begin
+	remote = *
+	button = CD_SEEK_BACK
+	prog   = irpty
+	repeat = 1
+	config = b
+end
+
+begin
+	remote = *
+	button = CD_SEEL_FORW
+	prog   = irpty
+	repeat = 1
+	config = f
+end
+
 begin
 	remote = *
 	button = CD_STOP
@@ -190,4 +206,20 @@ begin
 	config = r
 end
 
+# crossfade
+begin
+	remote = *
+	button = CD_TIME_FADE
+	prog   = irpty
+	repeat = 0
+	config = x
+end
+
+begin
+	remote = *
+	button = CD_TIME
+	prog   = irpty
+	repeat = 0
+	config = t
+end
 

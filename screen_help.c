@@ -29,6 +29,7 @@
 #include "screen_utils.h"
 #include "screen_help.h"
 
+
 typedef struct
 {
   signed char highlight;
@@ -38,27 +39,14 @@ typedef struct
 
 static help_text_row_t help_text[] = 
 {
-  { 1, CMD_NONE,  "          Keys   " },
-  { 0, CMD_NONE,  "        --------" },
-  { 0, CMD_STOP,           NULL },
-  { 0, CMD_PAUSE,          NULL },
-  { 0, CMD_TRACK_NEXT,     NULL },
-  { 0, CMD_TRACK_PREVIOUS, NULL },
-  { 0, CMD_VOLUME_DOWN,    NULL },
-  { 0, CMD_VOLUME_UP,      NULL },
-  { 0, CMD_NONE,           NULL },
+  { 1, CMD_NONE,  "          Movement keys  " },
+  { 0, CMD_NONE,  "        -----------------" },
   { 0, CMD_LIST_PREVIOUS,  NULL },
   { 0, CMD_LIST_NEXT,      NULL },
   { 0, CMD_LIST_PREVIOUS_PAGE, NULL }, 
   { 0, CMD_LIST_NEXT_PAGE, NULL },
   { 0, CMD_LIST_FIRST,     NULL },
   { 0, CMD_LIST_LAST,      NULL },
-
-  { 0, CMD_LIST_FIND,      NULL },
-  { 0, CMD_LIST_RFIND,     NULL },
-  { 0, CMD_LIST_FIND_NEXT, NULL },
-  { 0, CMD_LIST_RFIND_NEXT,  NULL },
-  { 0, CMD_TOGGLE_FIND_WRAP, NULL },
   { 0, CMD_NONE,           NULL },
   { 0, CMD_SCREEN_NEXT,    NULL },
   { 0, CMD_SCREEN_HELP,    NULL },
@@ -67,31 +55,71 @@ static help_text_row_t help_text[] =
 #ifdef ENABLE_KEYDEF_SCREEN
   { 0, CMD_SCREEN_KEYDEF,  NULL },
 #endif
-  { 0, CMD_QUIT,           NULL },
+
   { 0, CMD_NONE,           NULL },
   { 0, CMD_NONE,           NULL },
-  { 1, CMD_NONE, "    Keys - Playlist screen " },
-  { 0, CMD_NONE, "  --------------------------" },
-  { 0, CMD_PLAY,           "Play" },
-  { 0, CMD_DELETE,         NULL },
+  { 1, CMD_NONE, "          General keys " },
+  { 0, CMD_NONE, "        ----------------" },
+  { 0, CMD_STOP,           NULL },
+  { 0, CMD_PAUSE,          NULL },
+  { 0, CMD_TRACK_NEXT,     NULL },
+  { 0, CMD_TRACK_PREVIOUS, NULL },
+  { 0, CMD_SEEK_FORWARD,   NULL },
+  { 0, CMD_SEEK_BACKWARD,  NULL },
+  { 0, CMD_VOLUME_DOWN,    NULL },
+  { 0, CMD_VOLUME_UP,      NULL },
+  { 0, CMD_NONE,           NULL },
   { 0, CMD_SHUFFLE,        NULL },
-  { 0, CMD_CLEAR,          NULL },
-  { 0, CMD_SAVE_PLAYLIST,  NULL },
   { 0, CMD_REPEAT,         NULL },
   { 0, CMD_RANDOM,         NULL },
+  { 0, CMD_CROSSFADE,      NULL },
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_QUIT,           NULL },
+
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_NONE,           NULL },
+  { 1, CMD_NONE, "          Keys - Playlist screen " },
+  { 0, CMD_NONE, "        --------------------------" },
+  { 0, CMD_PLAY,           "Play" },
+  { 0, CMD_DELETE,         NULL },
+  { 0, CMD_CLEAR,          NULL },
+  { 0, CMD_SAVE_PLAYLIST,  NULL },
   { 0, CMD_SCREEN_UPDATE,  "Center" },
   { 0, CMD_TOGGLE_AUTOCENTER, NULL },
+
   { 0, CMD_NONE,           NULL },
   { 0, CMD_NONE,           NULL },
-  { 1, CMD_NONE, "    Keys - Browse screen " },
-  { 0, CMD_NONE, "  ------------------------" },
+  { 1, CMD_NONE, "          Keys - Browse screen " },
+  { 0, CMD_NONE, "        ------------------------" },
   { 0, CMD_PLAY,            "Enter directory" },
   { 0, CMD_SELECT,          NULL },
   { 0, CMD_DELETE,          NULL },
   { 0, CMD_SCREEN_UPDATE,   NULL },
+
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_NONE,           NULL },
+  { 1, CMD_NONE, "               Find keys " },
+  { 0, CMD_NONE, "              -------------" },
+  { 0, CMD_LIST_FIND,      NULL },
+  { 0, CMD_LIST_RFIND,     NULL },
+  { 0, CMD_LIST_FIND_NEXT, NULL },
+  { 0, CMD_LIST_RFIND_NEXT,  NULL },
+  { 0, CMD_TOGGLE_FIND_WRAP, NULL },
+  { 0, CMD_TOGGLE_FIND_WRAP, NULL },
+
   { 0, CMD_NONE, NULL },
   { 0, CMD_NONE, NULL },
-  { 1, CMD_NONE, " " PACKAGE " version " VERSION },
+  { 1, CMD_NONE, "          ncmpc build information " },
+  { 0, CMD_NONE, "         ---------------------------" },
+  { 0, CMD_NONE, "             Version : " VERSION },
+  { 0, CMD_NONE, "  Configuration dirs : ~/.ncmpc, " SYSCONFDIR "/" PACKAGE },
+#ifdef ENABLE_KEYDEF_SCREEN
+  { 0, CMD_NONE, "          Key Editor : yes" },
+#else
+  { 0, CMD_NONE, "          Key Editor : no" },
+#endif
+
+  { 0, CMD_NONE, NULL },
   {-1, CMD_NONE, NULL }
 };
 
@@ -124,12 +152,12 @@ list_callback(int index, int *highlight, void *data)
 	}
       if( help_text[index].text )
 	snprintf(buf, 256, 
-		 "%20s : %s", 
+		 "%20s : %s   ", 
 		 get_key_names(help_text[index].command, TRUE),
 		 help_text[index].text);
       else
 	snprintf(buf, 256, 
-		 "%20s : %s", 
+		 "%20s : %s   ", 
 		 get_key_names(help_text[index].command, TRUE),
 		 get_key_description(help_text[index].command));
       return buf;
