@@ -40,7 +40,7 @@ list_callback(int index, int *highlight, void *data)
   if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY ) 
     {
       mpd_Directory *dir = entity->info.directory;
-      char *dirname = utf8_to_locale(dir->path);
+      char *dirname = utf8_to_locale(basename(dir->path));
 
       strncpy(buf, dirname, BUFSIZE);
       free(dirname);
