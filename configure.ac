@@ -3,7 +3,7 @@ dnl  $Id: configure.ac,v 1.10 2004/03/18 09:33:43 kalle Exp $
 dnl
 
 AC_INIT(main.c)
-AM_INIT_AUTOMAKE(ncmpc, 0.10.0)
+AM_INIT_AUTOMAKE(ncmpc, 0.10.0-svn)
 
 dnl Check for programs
 AC_PROG_CC
@@ -39,7 +39,13 @@ AC_CHECK_HEADER(locale.h,
 
 
 dnl
-dnl Check for libaries
+dnl Check for functions
+dnl
+AC_CHECK_FUNCS(basename strcasestr)
+
+
+dnl
+dnl Check for libraries
 dnl
 
 dnl iconv
@@ -60,10 +66,8 @@ AC_CHECK_LIB(popt,
              LIBS="$LIBS -lpopt",
              AC_MSG_ERROR(Missing popt command line parsing library))
 
-dnl
-dnl X11
-dnl
-dnl AC_PATH_XTRA
+
+
 
 dnl Debugging 
 AC_ARG_ENABLE(debug, 
