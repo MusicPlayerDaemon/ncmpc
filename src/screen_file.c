@@ -36,6 +36,7 @@
 
 
 #define USE_OLD_LAYOUT
+#undef  USE_OLD_ADD
 
 #define BUFSIZE 1024
 
@@ -345,6 +346,7 @@ handle_enter(screen_t *screen, mpdclient_t *c)
 }
 
 
+#ifdef USE_OLD_ADD
 /* NOTE - The add_directory functions should move to mpdclient.c */
 extern gint mpdclient_finish_command(mpdclient_t *c);
 
@@ -398,6 +400,7 @@ add_directory(mpdclient_t *c, char *dir)
   g_list_free(subdir_list);
   return 0;
 }
+#endif
 
 static int
 handle_select(screen_t *screen, mpdclient_t *c)
@@ -414,7 +417,17 @@ handle_select(screen_t *screen, mpdclient_t *c)
   if( entry->entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY )
     {
       mpd_Directory *dir = entry->entity->info.directory;
+#ifdef USE_OLD_ADD
       add_directory(c, dir->path);
+#else
+      if( mpdclient_cmd_add_path(c, dir->path) == 0 )
+	{
+	  char *tmp = utf8_to_locale(dir->path);
+
+	  screen_status_printf(_("Adding \'%s\' to playlist\n"), tmp);
+	  g_free(tmp);
+	}
+#endif
       return 0;
     }
 
