@@ -4,6 +4,7 @@
 #include <glib.h>
 #include <ncurses.h>
 
+#include "config.h"
 #include "libmpdclient.h"
 #include "mpc.h"
 #include "support.h"
