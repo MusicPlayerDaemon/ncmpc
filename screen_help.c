@@ -158,6 +158,29 @@ help_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
       list_window_next_page(screen->helplist, help_text_rows);
       screen->helplist->repaint  = 1;
       break;
+    case CMD_LIST_FIND:
+      if( screen->findbuf )
+	{
+	  free(screen->findbuf);
+	  screen->findbuf=NULL;
+	}
+      /* continue... */
+    case CMD_LIST_FIND_NEXT:
+      if( !screen->findbuf )
+	screen->findbuf=screen_readln(screen->status_window.w, "/");
+      if( list_window_find(screen->helplist,
+			   list_callback,
+			   c,
+			   screen->findbuf) == 0 )
+	{
+	  screen->helplist->repaint  = 1;
+	}
+      else
+	{
+	  screen_status_printf("Unable to find \'%s\'", screen->findbuf);
+	  beep();
+	}
+      break;
     default:
       return 0;
     }
