@@ -23,7 +23,7 @@
 #define SCREEN_MIN_ROWS  5
 
 /* timeout for non blocking read [ms] */
-#define SCREEN_TIMEOUT 250
+#define SCREEN_TIMEOUT 500
 
 /* welcome message time [s] */
 #define SCREEN_WELCOME_TIME 10
@@ -61,6 +61,7 @@ typedef struct
 
   GList *screen_list;
 
+  time_t start_timestamp;
   time_t status_timestamp;
   time_t input_timestamp;
   command_t last_cmd;
@@ -112,6 +113,7 @@ void screen_status_printf(char *format, ...);
 char *screen_error(void);
 void screen_paint(mpd_client_t *c);
 void screen_update(mpd_client_t *c);
+void screen_idle(mpd_client_t *c);
 void screen_cmd(mpd_client_t *c, command_t cmd);
 
 #endif

@@ -179,6 +179,8 @@ main(int argc, const char *argv[])
 		/* make shure we dont update the volume yet */
 		g_timer_start(timer);
 	    }
+	  else
+	    screen_idle(mpc);
 	}
       else if( options->reconnect )
 	{
