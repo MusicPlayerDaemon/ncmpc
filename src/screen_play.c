@@ -133,7 +133,11 @@ handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
   void post_completion_cb(GCompletion *gcmp, gchar *line, GList *items)
     {
       if( g_list_length(items)>=1 )
-	screen_display_completion_list(screen, items);
+	{
+	  screen_display_completion_list(screen, items);
+	  lw->clear = 1;
+	  lw->repaint = 1;
+	}
     }
 
   if( name==NULL )
@@ -240,8 +244,12 @@ handle_add_to_playlist(screen_t *screen, mpdclient_t *c)
   void post_completion_cb(GCompletion *gcmp, gchar *line, GList *items)
     {
       D("post_completion()...\n");
-      if( g_list_length(items)>1 )
-	screen_display_completion_list(screen, items);
+      if( g_list_length(items)>=1 )
+	{
+	  screen_display_completion_list(screen, items);
+	  lw->clear = 1;
+	  lw->repaint = 1;
+	}
 
       if( line && line[0] && line[strlen(line)-1]=='/' &&
 	  string_list_find(dir_list, line) == NULL )
@@ -273,9 +281,6 @@ handle_add_to_playlist(screen_t *screen, mpdclient_t *c)
   /* add the path to the playlist */
   if( path && path[0] )
     mpdclient_cmd_add_path(c, path);
-
-  lw->clear = 1;
-  lw->repaint = 1;
 
   return 0;
 }
