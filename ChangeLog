@@ -1,8 +1,17 @@
+2005-01-03:  Kalle Wallin <kaw@linux.se>
+	* Added Russian translations from Nikolay Pavlov
+
+2004-12-19: Kalle Wallin <kaw@linux.se>
+	* Bugfixes from Niko Tyni, survive select/find operations on an empty 
+          list
+
 2004-12-12  Kalle Wallin <kaw@linux.se>
-	* screen_play.c: Fixed abort (Ctrl-G) handling in the save playlist prompt
+	* screen_play.c: Fixed abort (Ctrl-G) handling in the save playlist 
+          prompt
 
 2004-12-09  Kalle Wallin <kaw@linux.se>
-	* strfsong.c: %time% format fix from Aurelien Foret (use %02d for seconds)
+	* strfsong.c: %time% format fix from Aurelien Foret 
+          (use %02d for seconds)
 
 2004-11-14  Kalle Wallin <kaw@linux.se>
 	* Added a search screen 
