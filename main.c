@@ -105,8 +105,6 @@ main(int argc, const char *argv[])
   while( connected || options->reconnect )
     {
       command_t cmd;
-      static int repeat = -1;
-      static int random = -1;
 
       if( connected && counter==0  )
 	{
@@ -115,33 +113,18 @@ main(int argc, const char *argv[])
 	    {
 	      connected=0;
 	      screen_status_printf("Lost connection to %s", options->host);
+	      doupdate();
 	      mpd_closeConnection(mpc->connection);
 	      mpc->connection = NULL;
 	    }
 	  else
 	    mpd_finishCommand(mpc->connection);
 	  counter=10;
-
-	  if( repeat<0 )
-	    {
-	      repeat = mpc->status->repeat;
-	      random = mpc->status->random;
-	    }
-	  if( repeat != mpc->status->repeat )
-	    screen_status_printf("Repeat is %s", 
-				 mpc->status->repeat  ? "On" : "Off");
-	  if( random != mpc->status->random )
-	    screen_status_printf("Random is %s", 
-				 mpc->status->random ? "On" : "Off");
-
-	  repeat = mpc->status->repeat;
-	  random = mpc->status->random;
 	}
+
 
       if( connected )
 	{
-	  
-
 	  screen_update(mpc);
 	  if( (cmd=get_keyboard_command()) != CMD_NONE )
 	    {
@@ -163,6 +146,7 @@ main(int argc, const char *argv[])
 	      connected=1;
 	      counter=0;
 	    }
+	  doupdate();
 	}
 
       if( counter>0 )

@@ -407,8 +407,26 @@ screen_paint(mpd_client_t *c)
 void 
 screen_update(mpd_client_t *c)
 {
+  static int repeat = -1;
+  static int random = -1;
+
   if( !screen->painted )
     return screen_paint(c);
+
+  if( repeat<0 )
+    {
+      repeat = c->status->repeat;
+      random = c->status->random;
+    }
+  if( repeat != c->status->repeat )
+    screen_status_printf("Repeat is %s", 
+			 c->status->repeat  ? "On" : "Off");
+  if( random != c->status->random )
+    screen_status_printf("Random is %s", 
+			 c->status->random ? "On" : "Off");
+  
+  repeat = c->status->repeat;
+  random = c->status->random;
 
   switch(screen->mode)
     {
