@@ -1,0 +1,193 @@
+#
+# Sample .lirc file for usage with irpty and ncmcp
+# 
+# $ irpty ./ncmpc.lirc -- ncmcp 
+# 
+
+
+
+Begin
+	remote = *
+	button = CD_VOL-
+	prog   = irpty
+	repeat = 1
+	config = -
+end
+
+begin
+	remote = *
+	button = CD_VOL+
+	prog   = irpty
+	repeat = 1
+	config = +
+end
+
+begin
+	remote = *
+	button = CD_STOP
+	prog   = irpty
+	repeat = 0
+	config = s
+end
+
+begin
+	remote = *
+	button = CD_NEXT
+	prog   = irpty
+	repeat = 0
+	config = >
+end
+
+begin
+	remote = *
+	button = CD_PREV
+	prog   = irpty
+	repeat = 0
+	config = <
+end
+
+begin
+	remote = *
+	button = CD_PAUSE
+	prog   = irpty
+	repeat = 0
+	config = P
+end
+
+begin
+	remote = *
+	button = CD_PLAY
+	prog   = irpty
+	repeat = 0
+	config = \r
+end
+
+# Switch screen (Playlist/Browse)
+begin
+	remote = *
+	button = CD_EJECT
+	prog   = irpty
+	repeat = 0
+	config = \x9
+end
+
+
+# move: Up
+begin
+	remote = *
+	button = CD_2
+	prog   = irpty
+	repeat = 2
+	config = ,
+end
+
+# move: Down
+begin
+	remote = *
+	button = CD_8
+	prog   = irpty
+	repeat = 2
+	config = .
+end
+
+# move: Center (update)
+begin
+	remote = *
+	button = CD_5
+	prog   = irpty
+	repeat = 0
+	config = u
+end
+
+# Auto center
+begin
+	remote = *
+	button = CD_CHECK
+	prog   = irpty
+	config = U
+end
+
+
+# move: home
+begin
+	remote = *
+	button = CD_1
+	prog   = irpty
+	repeat = 0
+	config = \A
+end
+
+# move: end
+begin
+	remote = *
+	button = CD_7
+	prog   = irpty
+	repeat = 0
+	config = \E
+end
+
+# move: PgUp
+begin
+	remote = *
+	button = CD_3
+	prog   = irpty
+	repeat = 0
+	config = A
+end
+
+# move: PgDn
+begin
+	remote = *
+	button = CD_9
+	prog   = irpty
+	repeat = 0
+	config = B
+end
+
+
+# Add/Select song 
+begin
+	remote = *
+	button = CD_INDEX_NEXT
+	prog   = irpty
+	repeat = 0
+	config = a
+end
+
+# Delete song 
+begin
+	remote = *
+	button = CD_INDEX_PREV
+	prog   = irpty
+	repeat = 0
+	config = d
+end
+
+# Clear playlist
+begin
+	remote = *
+	button = CD_CLEAR
+	prog   = irpty
+	repeat = 0
+	config = c
+end
+
+# Random
+begin
+	remote = *
+	button = CD_RANDOM
+	prog   = irpty
+	repeat = 0
+	config = z
+end
+
+# repeat
+begin
+	remote = *
+	button = CD_REPEAT
+	prog   = irpty
+	repeat = 0
+	config = r
+end
+
+
