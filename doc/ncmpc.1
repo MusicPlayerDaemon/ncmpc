@@ -1,4 +1,4 @@
-.TH "mpc-ncurses" "1" "" "Kalle Wallin" ""
+.TH "mpc-ncurses" "1" "0.10.0" "Kalle Wallin" ""
 .SH "NAME"
 ncmpc \- ncurses MPD client.
 .SH "SYNOPSIS"
@@ -29,8 +29,11 @@ Display version information.
 .B \-k,  \-\-keys
 Display key bindings.
 .TP 
+.B \-e,  \-\-exit
+Exit on connection errors. The default way is to reconnect.
+.TP 
 .B \-h, \-\-host=HOSTNAME
-Specify host.
+Specify MPD host.
 .TP 
 .B \-p, \-\-port=PORT
 Connect to server on PORT.
