@@ -23,9 +23,15 @@ Download the ncmpc source code, then:
 	$ tar zxvf ncmpc-x.y.z.tar.gz
 	$ cd ncmpc-x.y.z
 	$ ./configure
-	$  make
-	$  make install
+	$ make
+	$ make install
 
+or if you are starting from the subversion checkout:
+	$ svn co https://svn.musicpd.org/ncmpc/trunk ncmpc
+	$ cd ncmpc
+	$ ./autogen.sh
+	$ make
+	$ make install
 
 
 Upgrading to ncmpc-0.11.0 
