@@ -88,7 +88,7 @@ static command_definition_t cmds[] =
   { { 'U',   0,   0 }, CMD_TOGGLE_AUTOCENTER, "autocenter-mode", 
     N_("Toggle auto center mode") },
 
-  { { ' ',  'a',   0 }, CMD_SELECT, "select", 
+  { { ' ',   0,   0 }, CMD_SELECT, "select", 
     N_("Select/deselect song in playlist") },
   { { DEL,  'd',  0 }, CMD_DELETE, "delete",
     N_("Delete song from playlist") },
@@ -107,6 +107,8 @@ static command_definition_t cmds[] =
 
   { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "save",
     N_("Save playlist") },
+  { { 'a',   0,   0 }, CMD_ADD, "add",
+    N_("Add url/file to playlist") },
 
   { { 0,  0,   0 }, CMD_LIST_MOVE_UP,     "move-up", 
     N_("Move item up") },

@@ -23,14 +23,18 @@
 #include <string.h>
 #include <glib.h>
 #include <ncurses.h>
+#include <panel.h>
 
 #include "config.h"
 #include "ncmpc.h"
 #include "options.h"
 #include "support.h"
 #include "mpdclient.h"
+#include "utils.h"
 #include "strfsong.h"
+#include "wreadln.h"
 #include "command.h"
+#include "colors.h"
 #include "screen.h"
 #include "screen_utils.h"
 
@@ -165,6 +169,77 @@ handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
   return 0;
 }
 
+static int
+handle_add_to_playlist(screen_t *screen, mpdclient_t *c)
+{
+  gchar *path;
+  GCompletion *gcmp;
+  GList *list = NULL;
+  GList *dir_list = NULL;
+
+  void add_dir(gchar *dir)
+    {
+      g_completion_remove_items(gcmp, list);
+      list = string_list_remove(list, dir);
+      list = gcmp_list_from_path(c, dir, list);
+      g_completion_add_items(gcmp, list);
+      dir_list = g_list_append(dir_list, g_strdup(dir));
+    }
+
+  void pre_completion_cb(GCompletion *gcmp, gchar *line)	
+    {
+      if( list == NULL )
+	{
+	  /* create initial list */
+	  list = gcmp_list_from_path(c, "", NULL);
+	  g_completion_add_items(gcmp, list);
+	}
+      else if( line && line[0] && line[strlen(line)-1]=='/' &&
+	       string_list_find(dir_list, line) == NULL )
+	{	  
+	  /* add directory content to list */
+	  add_dir(line);
+	}
+    }
+
+  void post_completion_cb(GCompletion *gcmp, gchar *line, GList *items)
+    {
+      if( g_list_length(items)>1 )
+	screen_display_completion_list(screen, items);
+
+      if( line && line[0] && line[strlen(line)-1]=='/' &&
+	  string_list_find(dir_list, line) == NULL )
+	{	  
+	  /* add directory content to list */
+	  add_dir(line);
+	}
+    }
+    
+
+  gcmp = g_completion_new(NULL);
+  g_completion_set_compare(gcmp, strncmp);
+
+  wrln_pre_completion_callback = pre_completion_cb;
+  wrln_post_completion_callback = post_completion_cb;
+  path = screen_readln(screen->status_window.w, 
+		       _("Add: "),
+		       NULL, 
+		       NULL, 
+		       gcmp);
+  wrln_pre_completion_callback = NULL;
+  wrln_post_completion_callback = NULL;
+  
+  g_completion_free(gcmp);
+
+  string_list_free(list);
+  string_list_free(dir_list);
+
+  if( path && path[0] )
+    mpdclient_cmd_add_path(c, path);
+
+  return 0;
+}
+
 static void
 play_init(WINDOW *w, int cols, int rows)
 {
@@ -262,6 +337,9 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       return 1;
     case CMD_SAVE_PLAYLIST:
       handle_save_playlist(screen, c, NULL);
+      return 1;
+    case CMD_ADD:
+      handle_add_to_playlist(screen, c);
       return 1;
     case CMD_SCREEN_UPDATE:
       center_playing_item(screen, c);
