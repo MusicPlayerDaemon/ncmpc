@@ -4,14 +4,12 @@ Features:
 * search screen
 * id3 browser
 
-Other:
-* Add libgpm support?
-
 Glib
 * replace snprintf with g_snprintf or g_strdup_printf 
 * replace strcat with g_strlcat or g_strconcat()
 * replace strncpy with g_strlcpy 
 * replace strstr with g_strrstr 
+* replace vsnprintf with g_vsprintf or g_strdup_vprintf(format,ap);
 * ...
 
 
