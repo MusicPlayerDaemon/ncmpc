@@ -1,5 +1,9 @@
+2004-07-08 Kalle Wallin <kaw@linux.se>
+	* doc/keys.sample: Welcome back
+
 2004-07-06 Kalle Wallin <kaw@linux.se>
 	* configure.ac: display a warning when NLS is disabled
+	* ncmpc-0.11.0-rc1 (r1798)
 
 2004-07-03 Kalle Wallin <kaw@linux.se>
 	* wreadln.c, screen_utils.c: ignore mouse events (wgetch)

@@ -167,7 +167,7 @@ begin
 	button = CD_INDEX_NEXT
 	prog   = irpty
 	repeat = 0
-	config = a
+	config = \x20
 end
 
 # Delete song 

@@ -1,0 +1,141 @@
+##
+## Key bindings for ncmpc (~/.ncmpc/keys)
+## 
+##
+## Its possible to bind maximum three keys to a command
+## Keys can be defined with a character or a decimal/hexadecimal value.
+## A command can be disabled by binding it to 0 (key bind quit = 0).
+## 
+## Example - bind the Q key to quit in three different ways:
+## (character, decimal [81], hexadecimal [51])
+##
+## key quit = 'Q'
+## key quit = 81
+## key quit = 0x51
+##
+
+## Quit
+key quit = 'q',  'Q',  3
+
+## Move cursor up
+key up = 259,  'k'
+
+## Move cursor down 
+key down = 258,  'j'
+
+## Home 
+key home = 262,  1
+
+## End 
+key end = 360,  5
+
+## Page up
+key pgup = 339
+
+## Page down
+key pgdn = 338
+
+## Help screen
+#key screen-help = '1',  265,  'h'
+
+## Playlist screen
+key screen-playlist = '2',  266
+
+## Browse screen
+key screen-browse = '3',  267
+
+## Play/Enter directory
+key play = 13
+
+## Pause
+key pause = 'P'
+
+## Stop
+key stop = 's',  263
+
+## Next track
+key next = 62
+
+## Previous track
+key prev = 60
+
+## Seek forward
+key seek-forward = 'f'
+
+## Seek backward
+key seek-backward = 'b'
+
+## Increase volume
+key volume-up = 43,  261
+
+## Decrease volume
+key volume-down = 45,  260
+
+## Select/deselect song in playlist
+key select = 32
+
+## Delete song from playlist
+key delete = 330,  'd'
+
+## Shuffle playlist
+key shuffle = 'Z'
+
+## Clear playlist
+key clear = 'c'
+
+## Toggle repeat mode
+key repeat = 'r'
+
+## Toggle random mode
+key random = 'z'
+
+## Toggle crossfade mode
+key crossfade = 'x'
+
+## Start a music database update
+key db-update = 21
+
+## Save playlist
+key save = 'S'
+
+## Add url/file to playlist
+key add = 'a'
+
+## Move item up
+key move-up = 11
+
+## Move item down
+key move-down = 10
+
+## Update screen
+key update = 12
+
+## Toggle find mode
+key wrap-mode = 'w'
+
+## Toggle auto center mode
+key autocenter-mode = 'U'
+
+## Next screen
+key screen-next = 9
+
+## Previous screen
+key screen-prev = 353
+
+## Forward find
+key find = 47
+
+## Forward find next
+key find-next = 'n'
+
+## Backward find
+key rfind = 63
+
+## Backward find previous
+key rfind-next = 'p'
+
+## Key configuration screen
+#key screen-keyedit = 'K'
+
+
+
