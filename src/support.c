@@ -116,6 +116,44 @@ strcasestr(const char *haystack, const char *needle)
 }
 #endif /* HAVE_STRCASESTR */
 
+char *
+strscroll(char *str, char *separator, int width, scroll_state_t *st)
+{
+  char *tmp, *buf;
+  size_t len;
+
+  if( st->offset==0 )
+    {
+      st->offset++;
+      return g_strdup(str);
+    }
+  
+  /* create a buffer containing the string and the separator */
+  tmp = g_malloc(strlen(str)+strlen(separator)+1);
+  strcpy(tmp, str);
+  strcat(tmp, separator);
+  len = strlen(tmp);
+
+  if( st->offset >= len )
+    st->offset = 0;
+  
+  /* create the new scrolled string */
+  buf = g_malloc(width+1);
+  strncpy(buf, tmp+st->offset, width);
+  if( strlen(buf) < width )
+    strncat(buf, tmp, width-strlen(buf));
+
+  if( time(NULL)-st->t >= 1 )
+    {
+      st->t = time(NULL);
+      st->offset++;
+    }
+  g_free(tmp);
+  return buf;
+  
+}
+
+
 void
 charset_init(gboolean disable)
 {

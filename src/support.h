@@ -16,6 +16,15 @@ char *remove_trailing_slash(char *path);
 char *lowerstr(char *str);
 char *strcasestr(const char *haystack, const char *needle);
 
+typedef struct
+{
+  int offset;
+  time_t t;
+
+} scroll_state_t;
+
+char *strscroll(char *str, char *separator, int width, scroll_state_t *st);
+
 void charset_init(gboolean disable);
 char *utf8_to_locale(char *str);
 char *locale_to_utf8(char *str);
