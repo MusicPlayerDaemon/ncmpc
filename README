@@ -1,18 +1,66 @@
-ncmpc is a ncurses client for MPD, the Music Player Daemon with an
-interface is inspired by cplay (by Ulf Betlehem).  
 
-The client connects to a MPD running on a machine on the local network.
-By default,  ncmpc  connects  to  localhost:6600.   This  can  be
+Overview
+------------------------------------------------------------------------------
+ncmpc is a curses client for the Music Player Daemon (MPD). ncmpc connects to 
+a MPD running on a machine on the local network, and controls this with an 
+interface inspired by cplay. 
+
+Music Player Daemon (MPD) allows remote access for playing music (MP3, 
+Ogg Vorbis, FLAC, AAC, and wave files) and managing playlists. MPD is 
+designed for integrating a computer into a stereo system that provides 
+control for music playback over a local network. Read more at musicpd.org
+
+
+
+How to compile and install ncmpc
+-------------------------------------------------------------------------------
+Download the ncmpc source code, then:
+	$ tar zxvf ncmpc-x.y.z.tar.gz
+	$ cd ncmpc-x.y.z
+	$ ./configure
+	$  make
+	$  make install
+
+
+
+Upgrading to ncmpc-0.11.0 
+------------------------------------------------------------------------------
+The syntax for the configuration file (~/.ncmpc/config) has changed, view the
+manual page or the sample configuration file for details.
+
+The old key binding to the select command (space,a) will result in a 
+conflict as the a key is used for the new add command in 0.11.0. The easy 
+solution is to delete your old key bindings (~/.ncmpc/keys), but you can use 
+the built in key editor to solve any key conflicts.
+
+
+
+Usage
+-------------------------------------------------------------------------------
+ncmpc connects to a MPD running on a machine on the local network. 
+By default, ncmpc  connects  to  localhost:6600.   This  can  be
 changed  either  at  compile-time,  or  by  exporting  the MPD_HOST and
 MPD_PORT environment variables, or by the command line  options  --host
 and --port.
 
 	$ ncmpc --host=musicserver --port=44000
 
+For more information please view ncmpc's manual page.
 
-Read more about MPD on http://www.musicpd.org
 
 
+
+Web Page, Forums and Bug Reports
+-------------------------------------------------------------------------------
+	* Read more about ncmpc & MPD on http://www.musicpd.org
+	* a ncmpc forum exists at musicpd.org - http://www.musicpd.org/forum
+	* report bugs at musicpd.org - http://www.musicpd.org/mantis/
+
+
+
+
+-------------------------------------------------------------------------------
+$Id$
 
 
 

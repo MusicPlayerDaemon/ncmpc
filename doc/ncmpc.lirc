@@ -1,5 +1,5 @@
 #
-# Sample .lirc file for usage with irpty and ncmcp
+# Sample .lirc file for usage with irpty and ncmpc
 # 
 # $ irpty ./ncmpc.lirc -- ncmcp 
 # 
@@ -94,7 +94,7 @@ begin
 	button = CD_2
 	prog   = irpty
 	repeat = 2
-	config = ,
+	config = k
 end
 
 # move: Down
@@ -103,7 +103,7 @@ begin
 	button = CD_8
 	prog   = irpty
 	repeat = 2
-	config = .
+	config = j
 end
 
 # move: Center (update)

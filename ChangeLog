@@ -1,3 +1,33 @@
+2004-06-29 Kalle Wallin <kaw@linux.se>
+	* command.h: added flags to command_definition_t.
+	* command.c: only save keys with a COMMAND_KEY_MODIFIED flag
+	  (dont write all key bindings when saving ~/.ncmpc/keys)
+	* screen_keydef.c: highlight conflicting key bindings
+	* libmpdclient: updated to r1513
+
+2004-06-24 Kalle Wallin <kaw@linux.se>
+	* Added configuraton option set-xterm-title xterm-title-format,
+	  the xterm title can now include song information
+
+2004-06-22 Kalle Wallin <kaw@linux.se>
+	* Added configuraton options audible-bell, visible-bell, wrap-around,
+	  find-wrap
+	* screen_utils.c: added screen_bell() for audible/visible bells
+	* list_window.c: add optional wrapped movement 
+	* ncmpc.h: Make shure the dummy debug macro survives the OSX 
+	  preprocessor
+	* command.c: Changed key bindings: Ctrl-K=move-up, Ctrl-J=move-down,
+	  Ctrl-L=update
+	* Made shure the screen is repainted on CMD_SCREEN_UPDATE
+	
+
+2004-06-17 Kalle Wallin <kaw@linux.se>
+	* screen_file.c: let mpd add directories (just send the path)
+	* main.c: only set xterm title if DEBUG is defined
+	* mpdclient.[c|h]: added _utf8 suffix to all functions that take utf8 
+	                   arguments.
+	* command.c: Support cursor/down with j and k
+	
 2004-06-17 Kalle Wallin <kaw@linux.se>
 	* screen_utils.c: fixed the display of completion lists
 	* wreadln.c: try to complete even if the line is empty

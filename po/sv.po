@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-24 21:17+0200\n"
+"POT-Creation-Date: 2004-06-30 14:22+0200\n"
 "PO-Revision-Date: 2004-06-05 18:16+0200\n"
 "Last-Translator: Kalle Wallin <kaw@linux.se>\n"
 "Language-Team: sv <sv@li.org>\n"
@@ -155,7 +155,7 @@ msgstr "Spara spellistan som: "
 msgid "Replace %s [%s/%s] ? "
 msgstr "Ersätt '%s' [%s/%s] ? "
 
-#: src/screen_play.c:195 src/screen_file.c:317 src/screen_keydef.c:159
+#: src/screen_play.c:195 src/screen_file.c:317 src/screen_keydef.c:161
 msgid "Aborted!"
 msgstr "Avbröt!"
 
@@ -255,39 +255,39 @@ msgstr "Sparade %s"
 msgid "Deleted"
 msgstr "Raderad"
 
-#: src/screen_keydef.c:153
+#: src/screen_keydef.c:155
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Ny tangent för %s: "
 
-#: src/screen_keydef.c:165
+#: src/screen_keydef.c:167
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "Tangenten %s används redan för %s"
 
-#: src/screen_keydef.c:172
+#: src/screen_keydef.c:176
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "%s = %s"
 
-#: src/screen_keydef.c:208
+#: src/screen_keydef.c:219
 #, c-format
 msgid "%d. Add new key "
 msgstr "%d. Lägg till ny tangent"
 
-#: src/screen_keydef.c:255
+#: src/screen_keydef.c:266
 msgid "Welcome to the key editor!"
 msgstr "Här kan du ändra tangentdefinitioner"
 
-#: src/screen_keydef.c:271
+#: src/screen_keydef.c:282
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "OBS! Du glömde väl inte att Verkställa?"
 
-#: src/screen_keydef.c:278
+#: src/screen_keydef.c:289
 msgid "Edit key bindings"
 msgstr "Ändra tangentdefinitioner"
 
-#: src/screen_keydef.c:280
+#: src/screen_keydef.c:291
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Ändra tangenter för kommandot '%s'"
@@ -572,12 +572,12 @@ msgstr ""
 msgid "Insert"
 msgstr "Ins"
 
-#: src/command.c:427
+#: src/command.c:456
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 msgstr "%s tilldelat kommandona %s och %s (tryck på %s och korrigera)"
 
-#: src/command.c:434 src/command.c:441
+#: src/command.c:463 src/command.c:470
 #, c-format
 msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr "Fel: Tangenten %s är tilldelad både %s och %s !!!\n"

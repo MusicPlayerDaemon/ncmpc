@@ -1,13 +1,12 @@
 
 Features:
+* remote playlists 
 * search screen
 * id3 browser
 
 Other:
 * Remove popt dependency
-* A cleanup would be nice
-
-*** Cleanup mpc.c !!!
+* Add libgpm support?
 
 
 

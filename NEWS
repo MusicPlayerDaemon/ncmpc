@@ -1,3 +1,36 @@
+ncmpc-0.11.0
+
+ + the default port is now 6600 (mpd-0.11.0)
+ + nls support (glib-2.4 required for nls)
+ + ncmpc now uses the terminal in raw mode (enabling key bindings to Ctrl-C...)
+ + changed key bindings:
+	o cursor movement up/down with j and k (used to be . and ,)
+	o the update/redraw command is now executed with Ctrl-L (used to be u) 
+ + new ncmpc commands:
+	o move a playlist entry up/down with Ctrl-K, Ctrl-J (playlist screen)
+	o add a song/url with a (playlist screen)
+	o support for MPD db updates with Ctrl-U 
+ + new command line options --config=FILE and --key-file=FILE
+ + configuration changes:
+	o replaced '_' with '-' in configuration field names
+	o the color support in ncmpc have been redesigned - more colors and 
+	  color fields
+	o the display of song names can now be customized (list-format, 
+	  status-format, xterm-title-format)
+	o ncmpc no longer changes the xterm title by default (set-xterm-title)
+	o new option for default find mode (find-wrap)
+	o new option for cplay like cursor movement (wrap-around)
+	o alert bells can be customized (audible-bell,visible-bell)
+	o the wide cursor is now enabled by default (wide-cursor)
+	o view the sample configuration file or the manual page for details 
+ + ncmpc now scrolls long song names on the status line
+ + ncmpc now have a new build in line editor with completion and history
+ + ncmpc now remembers the cursor position when changing directories
+ + ncmpc now offers to overwrite when saving playlists
+ + ncmpc now have an optional clock screen
+ + ncmpc now updates the local playlists via MPD's plchanges command...
+ 
+
 
 ncmpc-0.10.1 
 
