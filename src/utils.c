@@ -1,0 +1,121 @@
+/* 
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <glib.h>
+
+#include "config.h"
+#include "ncmpc.h"
+#include "options.h"
+#include "support.h"
+#include "mpdclient.h"
+#include "utils.h"
+
+
+GList *
+string_list_free(GList *string_list)
+{
+  GList *list = g_list_first(string_list);
+
+  while(list)
+    {
+      g_free(list->data);
+      list->data=NULL;
+      list=list->next;
+    }
+  g_list_free(string_list);
+  return NULL;
+}
+
+GList *
+string_list_find(GList *string_list, gchar *str)
+{
+  GList *list = g_list_first(string_list);
+
+  while(list)
+    {
+      if( strcmp(str, (gchar *) list->data) ==  0 )
+	return list;
+      list = list->next;
+    }
+  return NULL;
+}
+
+GList *
+string_list_remove(GList *string_list, gchar *str)
+{
+  GList *list = g_list_first(string_list);
+
+  while(list)
+    {
+      if( strcmp(str, (gchar *) list->data) ==  0 )
+	{
+	  g_free(list->data);
+	  list->data = NULL;
+	  return g_list_delete_link(string_list, list);
+	}
+      list = list->next;
+    }
+  return list;
+}
+
+/* create a list suiteble for GCompletion from path */
+GList *
+gcmp_list_from_path(mpdclient_t *c, gchar *path, GList *list)
+{
+  GList *flist = NULL;
+  mpdclient_filelist_t *filelist;
+  
+  if( (filelist=mpdclient_filelist_get(c, path)) == NULL )
+    return list;
+  D("retreived filelist!\n");
+  flist = filelist->list;
+  while( flist )
+    {
+      filelist_entry_t *entry = flist->data;
+      mpd_InfoEntity *entity = entry ? entry->entity : NULL;
+      char *name = NULL;
+      
+      if( entity && entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY ) 
+	{
+	  mpd_Directory *dir = entity->info.directory;
+	  gchar *tmp = utf8_to_locale(dir->path);
+	  
+	  name = g_malloc(strlen(tmp)+2);
+	  strcpy(name, tmp);
+	  strcat(name, "/");
+	  g_free(tmp);
+	}
+      else if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG )
+	{
+	  mpd_Song *song = entity->info.song;
+	  name = utf8_to_locale(song->file);
+	}
+      if( name )
+	list = g_list_append(list, name);
+
+      flist = flist->next;
+    }
+  mpdclient_filelist_free(filelist);
+  return list;
+}
