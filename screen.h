@@ -22,6 +22,9 @@
 #define SCREEN_MIN_COLS 14
 #define SCREEN_MIN_ROWS  5
 
+/* timeout for non blocking read [ms] */
+#define SCREEN_TIMEOUT 100
+
 #define IS_PLAYING(s) (s==MPD_STATUS_STATE_PLAY)
 #define IS_PAUSED(s) (s==MPD_STATUS_STATE_PAUSE)
 

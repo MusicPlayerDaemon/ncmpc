@@ -298,7 +298,7 @@ screen_init(void)
   /* return from getch() without blocking */
   //  nodelay(stdscr, TRUE); 
   keypad(stdscr, TRUE);  
-  timeout(100); /*void wtimeout(WINDOW *win, int delay);*/
+  timeout(SCREEN_TIMEOUT);
 
   if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
     {
@@ -440,7 +440,6 @@ void
 screen_cmd(mpd_client_t *c, command_t cmd)
 {
   int n;
-  //  char buf[256];
   screen_mode_t new_mode = screen->mode;
 
   switch(screen->mode)
