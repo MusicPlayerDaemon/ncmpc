@@ -277,7 +277,7 @@ load_playlist(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
   mpd_PlaylistFile *plf = entity->info.playlistFile;
   char *filename = utf8_to_locale(plf->path);
 
-  if( mpdclient_cmd_load_playlist(c, plf->path) == 0 )
+  if( mpdclient_cmd_load_playlist_utf8(c, plf->path) == 0 )
     screen_status_printf(_("Loading playlist %s..."), basename(filename));
   g_free(filename);
   return 0;
@@ -318,7 +318,7 @@ handle_delete(screen_t *screen, mpdclient_t *c)
       return 0;
     }
 
-  if( mpdclient_cmd_delete_playlist(c, plf->path) )
+  if( mpdclient_cmd_delete_playlist_utf8(c, plf->path) )
     {
       return -1;
     }
@@ -418,9 +418,9 @@ handle_select(screen_t *screen, mpdclient_t *c)
     {
       mpd_Directory *dir = entry->entity->info.directory;
 #ifdef USE_OLD_ADD
-      add_directory(c, dir->path);
+      add_directory(c, tmp);
 #else
-      if( mpdclient_cmd_add_path(c, dir->path) == 0 )
+      if( mpdclient_cmd_add_path_utf8(c, dir->path) == 0 )
 	{
 	  char *tmp = utf8_to_locale(dir->path);
 
@@ -579,7 +579,7 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
     case CMD_DB_UPDATE:
       if( !c->status->updatingDb )
 	{
-	  if( mpdclient_cmd_db_update(c,filelist->path)==0 )
+	  if( mpdclient_cmd_db_update_utf8(c,filelist->path)==0 )
 	    {
 	      screen_status_printf(_("Database update of %s started!"),
 				   filelist->path);

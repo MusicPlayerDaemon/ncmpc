@@ -81,17 +81,19 @@ gint mpdclient_cmd_clear(mpdclient_t *c);
 gint mpdclient_cmd_repeat(mpdclient_t *c, gint value);
 gint mpdclient_cmd_random(mpdclient_t *c, gint value);
 gint mpdclient_cmd_crossfade(mpdclient_t *c, gint value);
-gint mpdclient_cmd_db_update(mpdclient_t *c, gchar *path);
+gint mpdclient_cmd_db_update_utf8(mpdclient_t *c, gchar *path);
 gint mpdclient_cmd_volume(mpdclient_t *c, gint value);
 gint mpdclient_cmd_add_path(mpdclient_t *c, gchar *path);
+gint mpdclient_cmd_add_path_utf8(mpdclient_t *c, gchar *path);
 
 gint mpdclient_cmd_add(mpdclient_t *c, mpd_Song *song);
 gint mpdclient_cmd_delete(mpdclient_t *c, gint index);
 gint mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index);
 
 gint mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename);
-gint mpdclient_cmd_load_playlist(mpdclient_t *c, gchar *filename_utf8);
-gint mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename_utf8);
+gint mpdclient_cmd_save_playlist_utf8(mpdclient_t *c, gchar *filename);
+gint mpdclient_cmd_load_playlist_utf8(mpdclient_t *c, gchar *filename_utf8);
+gint mpdclient_cmd_delete_playlist_utf8(mpdclient_t *c, gchar *filename_utf8);
 
 
 /*** error callbacks *****************************************************/ 

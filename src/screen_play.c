@@ -183,15 +183,11 @@ handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
 	  key = tolower(screen_getch(screen->status_window.w, buf));
 	  if( key == YES[0] )
 	    {
-	      char *filename_utf8 = locale_to_utf8(filename);
-	      
-	      if( mpdclient_cmd_delete_playlist(c, filename_utf8) )
+	      if( mpdclient_cmd_delete_playlist(c, filename) )
 		{
 		  g_free(filename);
-		  g_free(filename_utf8);
 		  return -1;
 		}
-	      g_free(filename_utf8);
 	      error = handle_save_playlist(screen, c, filename);
 	      g_free(filename);
 	      return error;

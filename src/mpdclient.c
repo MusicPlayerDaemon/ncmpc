@@ -316,7 +316,7 @@ mpdclient_cmd_crossfade(mpdclient_t *c, gint value)
 }
 
 gint 
-mpdclient_cmd_db_update(mpdclient_t *c, gchar *path)
+mpdclient_cmd_db_update_utf8(mpdclient_t *c, gchar *path)
 {
   mpd_sendUpdateCommand(c->connection, path ? path : "");
   return mpdclient_finish_command(c);
@@ -330,13 +330,19 @@ mpdclient_cmd_volume(mpdclient_t *c, gint value)
 }
 
 gint 
+mpdclient_cmd_add_path_utf8(mpdclient_t *c, gchar *path_utf8)
+{
+  mpd_sendAddCommand(c->connection, path_utf8);
+  return mpdclient_finish_command(c);
+}
+
+gint 
 mpdclient_cmd_add_path(mpdclient_t *c, gchar *path)
 {
   gint retval;
   gchar *path_utf8 = locale_to_utf8(path);
 
-  mpd_sendAddCommand(c->connection, path_utf8);
-  retval=mpdclient_finish_command(c);
+  retval=mpdclient_cmd_add_path_utf8(c, path_utf8);
   g_free(path_utf8);
   return retval;
 }
@@ -483,20 +489,29 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 }
 
 gint 
-mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename)
+mpdclient_cmd_save_playlist_utf8(mpdclient_t *c, gchar *filename_utf8)
 {
   gint retval = 0;
-  gchar *filename_utf8 = locale_to_utf8(filename);
 
   mpd_sendSaveCommand(c->connection, filename_utf8);
   if( (retval=mpdclient_finish_command(c)) == 0 )
     mpdclient_browse_callback(c, BROWSE_PLAYLIST_SAVED, NULL);
+  return retval;
+}
+
+gint 
+mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename)
+{
+  gint retval = 0;
+  gchar *filename_utf8 = locale_to_utf8(filename);
+  
+  retval = mpdclient_cmd_save_playlist_utf8(c, filename);
   g_free(filename_utf8);
   return retval;
 }
 
 gint 
-mpdclient_cmd_load_playlist(mpdclient_t *c, gchar *filename_utf8)
+mpdclient_cmd_load_playlist_utf8(mpdclient_t *c, gchar *filename_utf8)
 {
   mpd_sendLoadCommand(c->connection, filename_utf8);
   c->need_update = TRUE;
@@ -504,13 +519,24 @@ mpdclient_cmd_load_playlist(mpdclient_t *c, gchar *filename_utf8)
 }
 
 gint 
-mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename_utf8)
+mpdclient_cmd_delete_playlist_utf8(mpdclient_t *c, gchar *filename_utf8)
 {
   gint retval = 0;
 
   mpd_sendRmCommand(c->connection, filename_utf8);
   if( (retval=mpdclient_finish_command(c)) == 0 )
     mpdclient_browse_callback(c, BROWSE_PLAYLIST_DELETED, NULL);
+  return retval;
+}
+
+gint 
+mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename)
+{
+  gint retval = 0;
+  gchar *filename_utf8 = locale_to_utf8(filename);
+
+  retval = mpdclient_cmd_delete_playlist_utf8(c, filename_utf8);
+  g_free(filename_utf8);
   return retval;
 }
 
