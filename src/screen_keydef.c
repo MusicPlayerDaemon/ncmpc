@@ -276,10 +276,10 @@ keydef_title(void)
   static char buf[BUFSIZE];
 
   if( subcmd<0 )
-    return _(TOP_HEADER_PREFIX "Edit key bindings");
+    return _("Edit key bindings");
   
   snprintf(buf, BUFSIZE, 
-	   _(TOP_HEADER_PREFIX "Edit keys for %s"), 
+	   _("Edit keys for %s"), 
 	   cmds[subcmd].name);
   return buf;
 }

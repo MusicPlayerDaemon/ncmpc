@@ -709,7 +709,11 @@ screen_cmd(mpd_client_t *c, command_t cmd)
   switch(cmd)
     {
     case CMD_PLAY:
-      mpd_sendPlayCommand(c->connection, play_get_selected());
+      if( screen->mode == SCREEN_PLAY_WINDOW )
+	n = play_get_selected();
+      else
+	n = -1;
+      mpd_sendPlayCommand(c->connection, n);
       mpd_finishCommand(c->connection);
       break;
     case CMD_PAUSE:

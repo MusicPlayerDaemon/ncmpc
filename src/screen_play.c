@@ -151,7 +151,7 @@ play_exit(void)
 static char *
 play_title(void)
 {
-  return _(TOP_HEADER_PREFIX "Playlist");
+  return _("Music Player Client - Playlist");
 }
 
 static void

@@ -22,6 +22,7 @@
 #include <ncurses.h>
 
 #include "config.h"
+#include "ncmpc.h"
 #include "libmpdclient.h"
 #include "mpc.h"
 #include "command.h"
@@ -39,8 +40,8 @@ typedef struct
 
 static help_text_row_t help_text[] = 
 {
-  { 1, CMD_NONE,  "          Movement keys  " },
-  { 0, CMD_NONE,  "        -----------------" },
+  { 1, CMD_NONE,           N_("Keys - Movement") },
+  { 2, CMD_NONE,           NULL },
   { 0, CMD_LIST_PREVIOUS,  NULL },
   { 0, CMD_LIST_NEXT,      NULL },
   { 0, CMD_LIST_PREVIOUS_PAGE, NULL }, 
@@ -58,8 +59,8 @@ static help_text_row_t help_text[] =
 
   { 0, CMD_NONE,           NULL },
   { 0, CMD_NONE,           NULL },
-  { 1, CMD_NONE, "          General keys " },
-  { 0, CMD_NONE, "        ----------------" },
+  { 1, CMD_NONE,           N_("Keys - Global") },
+  { 2, CMD_NONE,           NULL },
   { 0, CMD_STOP,           NULL },
   { 0, CMD_PAUSE,          NULL },
   { 0, CMD_TRACK_NEXT,     NULL },
@@ -69,56 +70,57 @@ static help_text_row_t help_text[] =
   { 0, CMD_VOLUME_DOWN,    NULL },
   { 0, CMD_VOLUME_UP,      NULL },
   { 0, CMD_NONE,           NULL },
-  { 0, CMD_SHUFFLE,        NULL },
   { 0, CMD_REPEAT,         NULL },
   { 0, CMD_RANDOM,         NULL },
   { 0, CMD_CROSSFADE,      NULL },
+  { 0, CMD_SHUFFLE,        NULL },
   { 0, CMD_DB_UPDATE,      NULL },
   { 0, CMD_NONE,           NULL },
-  { 0, CMD_QUIT,           NULL },
-
-  { 0, CMD_NONE,           NULL },
-  { 0, CMD_NONE,           NULL },
-  { 1, CMD_NONE, "          Keys - Playlist screen " },
-  { 0, CMD_NONE, "        --------------------------" },
-  { 0, CMD_PLAY,           "Play" },
-  { 0, CMD_DELETE,         NULL },
-  { 0, CMD_CLEAR,          NULL },
-  { 0, CMD_LIST_MOVE_UP,   "Move song up" },
-  { 0, CMD_LIST_MOVE_DOWN, "Move song down" },
-  { 0, CMD_SAVE_PLAYLIST,  NULL },
-  { 0, CMD_SCREEN_UPDATE,  "Center" },
-  { 0, CMD_TOGGLE_AUTOCENTER, NULL },
-
-  { 0, CMD_NONE,           NULL },
-  { 0, CMD_NONE,           NULL },
-  { 1, CMD_NONE, "          Keys - Browse screen " },
-  { 0, CMD_NONE, "        ------------------------" },
-  { 0, CMD_PLAY,            "Enter directory" },
-  { 0, CMD_SELECT,          NULL },
-  { 0, CMD_DELETE,          NULL },
-  { 0, CMD_SCREEN_UPDATE,   NULL },
-
-  { 0, CMD_NONE,           NULL },
-  { 0, CMD_NONE,           NULL },
-  { 1, CMD_NONE, "               Find keys " },
-  { 0, CMD_NONE, "              -------------" },
   { 0, CMD_LIST_FIND,      NULL },
   { 0, CMD_LIST_RFIND,     NULL },
   { 0, CMD_LIST_FIND_NEXT, NULL },
   { 0, CMD_LIST_RFIND_NEXT,  NULL },
   { 0, CMD_TOGGLE_FIND_WRAP, NULL },
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_QUIT,           NULL },
+
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_NONE,           NULL },
+  { 1, CMD_NONE,           N_("Keys - Playlist screen") },
+  { 2, CMD_NONE,           NULL },
+  { 0, CMD_PLAY,           N_("Play") },
+  { 0, CMD_DELETE,         NULL },
+  { 0, CMD_CLEAR,          NULL },
+  { 0, CMD_LIST_MOVE_UP,   N_("Move song up") },
+  { 0, CMD_LIST_MOVE_DOWN, N_("Move song down") },
+  { 0, CMD_SAVE_PLAYLIST,  NULL },
+  { 0, CMD_SCREEN_UPDATE,  N_("Center") },
+  { 0, CMD_TOGGLE_AUTOCENTER, NULL },
+
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_NONE,           NULL },
+  { 1, CMD_NONE,           N_("Keys - Browse screen") },
+  { 2, CMD_NONE,           NULL },
+  { 0, CMD_PLAY,           N_("Enter directory") },
+  { 0, CMD_SELECT,         NULL },
+  { 0, CMD_DELETE,         NULL },
+  { 0, CMD_SCREEN_UPDATE,  NULL },
 
   { 0, CMD_NONE, NULL },
   { 0, CMD_NONE, NULL },
-  { 1, CMD_NONE, "          ncmpc build information " },
-  { 0, CMD_NONE, "         ---------------------------" },
+  { 1, CMD_NONE, "ncmpc build information" },
+  { 2, CMD_NONE, NULL },
   { 0, CMD_NONE, "             Version : " VERSION },
   { 0, CMD_NONE, "  Configuration dirs : ~/.ncmpc, " SYSCONFDIR "/" PACKAGE },
-#ifdef ENABLE_KEYDEF_SCREEN
-  { 0, CMD_NONE, "          Key Editor : yes" },
+#ifdef ENABLE_NLS
+  { 0, CMD_NONE, "NLS support : yes" },
 #else
-  { 0, CMD_NONE, "          Key Editor : no" },
+  { 0, CMD_NONE, "NLS support : no" },
+#endif
+#ifdef ENABLE_KEYDEF_SCREEN
+  { 0, CMD_NONE, "Key Editor : yes" },
+#else
+  { 0, CMD_NONE, "Key Editor : no" },
 #endif
 
   { 0, CMD_NONE, NULL },
@@ -148,15 +150,25 @@ list_callback(int index, int *highlight, void *data)
       if( help_text[index].command == CMD_NONE )
 	{
 	  if( help_text[index].text )
-	    return help_text[index].text;
-	  else
-	    return "  ";
+	    snprintf(buf, 256, "%28s", _(help_text[index].text));
+	  else 
+	    if( help_text[index].highlight == 2 )
+	      {
+		int i;
+
+		for(i=3; i<COLS-3 && i<256; i++)
+		  buf[i]='-';
+		buf[i] = '\0';
+	      }
+	    else
+	      strcpy(buf, " ");
+	  return buf;
 	}
       if( help_text[index].text )
 	snprintf(buf, 256, 
 		 "%20s : %s   ", 
 		 get_key_names(help_text[index].command, TRUE),
-		 help_text[index].text);
+		 _(help_text[index].text));
       else
 	snprintf(buf, 256, 
 		 "%20s : %s   ", 
@@ -191,7 +203,7 @@ help_exit(void)
 static char *
 help_title(void)
 {
-  return (TOP_HEADER_PREFIX "Help");
+  return _("Music Player Client - Help");
 }
 
 static void 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-05 20:20+0200\n"
+"POT-Creation-Date: 2004-06-06 00:24+0200\n"
 "PO-Revision-Date: 2004-06-05 18:16+0200\n"
 "Last-Translator: Kalle Wallin <kaw@linux.se>\n"
 "Language-Team: sv <sv@li.org>\n"
@@ -45,15 +45,15 @@ msgstr "Ansluten till %s!"
 
 #: src/screen.c:131
 msgid ":Help  "
-msgstr ":Hjälp "
+msgstr ":Hjälp  "
 
 #: src/screen.c:135
 msgid ":Playlist  "
-msgstr ":Spellista "
+msgstr ":Spellista  "
 
 #: src/screen.c:139
 msgid ":Browse"
-msgstr ":Filer "
+msgstr ":Filer  "
 
 #: src/screen.c:143
 msgid "Volume n/a "
@@ -66,7 +66,7 @@ msgstr " Volym: %d%%"
 
 #: src/screen.c:266
 msgid "Stopped! "
-msgstr "Stopped!"
+msgstr "Stoppad"
 
 #: src/screen.c:269
 msgid "Playing:"
@@ -107,11 +107,11 @@ msgstr "Databasen är uppdaterad!"
 
 #: src/screen.c:767
 msgid "Shuffled playlist!"
-msgstr "Slumpat spellistan!"
+msgstr "Slumpsorterat spellistan!"
 
 #: src/screen.c:773
 msgid "Cleared playlist!"
-msgstr "Rensat spellistan!"
+msgstr "Rensar spellistan!"
 
 #: src/screen.c:800
 #, c-format
@@ -124,19 +124,19 @@ msgstr "Databasen uppdateras..."
 
 #: src/screen.c:824
 msgid "Find mode: Wrapped"
-msgstr ""
+msgstr "Sök runt (börja om)"
 
 #: src/screen.c:825
 msgid "Find mode: Normal"
-msgstr ""
+msgstr "Sök normalt (till slut/början)"
 
 #: src/screen.c:830
 msgid "Auto center mode: On"
-msgstr "Auto center mode: Off"
+msgstr "Automatisk centrering är på"
 
 #: src/screen.c:831
 msgid "Auto center mode: Off"
-msgstr "Auto center mode: Av"
+msgstr "Automatisk centrering är av"
 
 #: src/screen_utils.c:36
 msgid "Find: "
@@ -167,8 +167,8 @@ msgid "Saved %s"
 msgstr "Sparat %s"
 
 #: src/screen_play.c:154
-msgid "Playlist"
-msgstr "Spellista"
+msgid "Music Player Client - Playlist"
+msgstr "[ncmpc] Spellista"
 
 #. print a status message
 #: src/screen_play.c:339
@@ -183,7 +183,7 @@ msgstr "Laddar %s..."
 
 #: src/screen_file.c:173
 msgid "You can only delete playlists!"
-msgstr "Du kan bara radera spellistor!"
+msgstr "Du kan endast radera spellistor!"
 
 #: src/screen_file.c:180
 #, c-format
@@ -192,7 +192,7 @@ msgstr "Radera '%s' [y/n] ? "
 
 #: src/screen_file.c:187 src/screen_keydef.c:158
 msgid "Aborted!"
-msgstr ""
+msgstr "Avbröt!"
 
 #: src/screen_file.c:201
 msgid "Playlist deleted!"
@@ -201,14 +201,19 @@ msgstr "Spellistan raderad!"
 #: src/screen_file.c:235
 #, c-format
 msgid "Adding directory %s...\n"
-msgstr "Lägger till %s...\n"
+msgstr "Lägger till alla filer i %s...\n"
 
 #: src/screen_file.c:305
 #, c-format
 msgid "Adding '%s' to playlist\n"
 msgstr "Lägger till '%s'...\n"
 
-#: src/screen_file.c:423
+#: src/screen_file.c:369
+#, c-format
+msgid "Browse: %s"
+msgstr "[ncmpc] Filer: %s"
+
+#: src/screen_file.c:419
 msgid "Screen updated!"
 msgstr "Uppdaterat!"
 
@@ -222,11 +227,11 @@ msgstr "==> Verkställ"
 
 #: src/screen_keydef.c:75
 msgid "You have new key bindings!"
-msgstr ""
+msgstr "Tangentdefinitioner uppdaterade!"
 
 #: src/screen_keydef.c:78
 msgid "Keybindings unchanged."
-msgstr ""
+msgstr "Tangentdefinitioner oförändrade!"
 
 #: src/screen_keydef.c:89
 #, c-format
@@ -260,16 +265,16 @@ msgstr "Tangenten %s används redan för %s"
 #: src/screen_keydef.c:171
 #, c-format
 msgid "Assigned %s to %s"
-msgstr ""
+msgstr "%s = %s"
 
 #: src/screen_keydef.c:207
 #, c-format
 msgid "%d. Add new key "
-msgstr "%d. Lägg till"
+msgstr "%d. Lägg till ny tangent"
 
 #: src/screen_keydef.c:254
 msgid "Welcome to the key editor!"
-msgstr ""
+msgstr "Här kan du ändra tangentdefinitioner"
 
 #: src/screen_keydef.c:270
 msgid "Note: Did you forget to 'Apply' your changes?"
@@ -277,24 +282,64 @@ msgstr "OBS! Du glömde väl inte att Verkställa?"
 
 #: src/screen_keydef.c:279
 msgid "Edit key bindings"
-msgstr "Ändra tangent bindingar"
+msgstr "Ändra tangentdefinitioner"
 
 #: src/screen_keydef.c:282
 #, c-format
 msgid "Edit keys for %s"
-msgstr "Ändra tangenter för %s"
+msgstr "Ändra tangenter för kommandot '%s'"
+
+#: src/screen_help.c:43
+msgid "Keys - Movement"
+msgstr "Tangenter - Navigation"
+
+#: src/screen_help.c:62
+msgid "Keys - Global"
+msgstr "Tangenter - Globala"
+
+#: src/screen_help.c:89
+msgid "Keys - Playlist screen"
+msgstr "Tangenter - Spellista"
+
+#: src/screen_help.c:91
+msgid "Play"
+msgstr "Starta/Spela markerad"
+
+#: src/screen_help.c:94
+msgid "Move song up"
+msgstr "Flytta markerad uppåt i spellistan"
+
+#: src/screen_help.c:95
+msgid "Move song down"
+msgstr "Flytta markerad nedåt i spellistan"
+
+#: src/screen_help.c:97
+msgid "Center"
+msgstr "Centrera"
+
+#: src/screen_help.c:102
+msgid "Keys - Browse screen"
+msgstr "Tangenter - Filer"
+
+#: src/screen_help.c:104
+msgid "Enter directory"
+msgstr "Välj bibliotek"
+
+#: src/screen_help.c:201
+msgid "Music Player Client - Help"
+msgstr "[ncmpc] Hjälp"
 
 #: src/command.c:65
 msgid "Play/Enter directory"
-msgstr ""
+msgstr "Spela/Välj"
 
 #: src/command.c:67
 msgid "Pause"
-msgstr ""
+msgstr "Paus"
 
 #: src/command.c:69
 msgid "Stop"
-msgstr "Stop"
+msgstr "Stopp"
 
 #: src/command.c:71
 msgid "Next track"
@@ -306,11 +351,11 @@ msgstr "Föregånde"
 
 #: src/command.c:75
 msgid "Seek forward"
-msgstr "Sök bakåt"
+msgstr "Spola/Sök framåt"
 
 #: src/command.c:77
 msgid "Seek backward"
-msgstr "Sök (bakåt): "
+msgstr "Spola/Sök tillbaka"
 
 #: src/command.c:80
 msgid "Increase volume"
@@ -322,11 +367,11 @@ msgstr "Minska volymen"
 
 #: src/command.c:85
 msgid "Toggle find mode"
-msgstr ""
+msgstr "Ändra sök inställningar"
 
 #: src/command.c:87
 msgid "Toggle auto center mode"
-msgstr "Auto center mode Av/På"
+msgstr "Automatisk centrering På/Av"
 
 #: src/command.c:90
 msgid "Select/deselect song in playlist"
@@ -334,11 +379,11 @@ msgstr "Lägg till/Ta bort"
 
 #: src/command.c:92
 msgid "Delete song from playlist"
-msgstr "Ta bort ifrån spellistan"
+msgstr "Ta bort/Radera"
 
 #: src/command.c:94
 msgid "Shuffle playlist"
-msgstr "Slumpa spellista"
+msgstr "Slumpsportera spellista"
 
 #: src/command.c:96
 msgid "Clear playlist"
@@ -374,27 +419,27 @@ msgstr "Flytta ner"
 
 #: src/command.c:115
 msgid "Move cursor up"
-msgstr "Förflytta markören nedåt"
+msgstr "Markör nedåt"
 
 #: src/command.c:117
 msgid "Move cursor down"
-msgstr "Förflytta markören uppåt"
+msgstr "Markör uppåt"
 
 #: src/command.c:119
 msgid "Home "
-msgstr ""
+msgstr "Markören till den första raden"
 
 #: src/command.c:121
 msgid "End "
-msgstr ""
+msgstr "Markören till den sista raden"
 
 #: src/command.c:123
 msgid "Page up"
-msgstr ""
+msgstr "Markören en skärm uppåt"
 
 #: src/command.c:125
 msgid "Page down"
-msgstr ""
+msgstr "Markören en skärm nedåt"
 
 #: src/command.c:127
 msgid "Forward find"
@@ -438,7 +483,7 @@ msgstr "Updatera"
 
 #: src/command.c:152
 msgid "Key configuration screen"
-msgstr "Tangentbindningar"
+msgstr "Tangentdefinitioner"
 
 #: src/command.c:156
 msgid "Quit"
@@ -462,23 +507,23 @@ msgstr ""
 
 #: src/command.c:185
 msgid "Delete"
-msgstr ""
+msgstr "Del"
 
 #: src/command.c:187
 msgid "Up"
-msgstr ""
+msgstr "Uppåtpil"
 
 #: src/command.c:189
 msgid "Down"
-msgstr ""
+msgstr "Nedåtpil"
 
 #: src/command.c:191
 msgid "Left"
-msgstr ""
+msgstr "Vänsterpil"
 
 #: src/command.c:193
 msgid "Right"
-msgstr ""
+msgstr "Högerpil"
 
 #: src/command.c:195
 msgid "Home"
@@ -510,7 +555,7 @@ msgstr ""
 
 #: src/command.c:209
 msgid "Insert"
-msgstr ""
+msgstr "Ins"
 
 #: src/command.c:395
 #, c-format

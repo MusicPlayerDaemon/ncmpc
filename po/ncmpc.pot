@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-05 20:20+0200\n"
+"POT-Creation-Date: 2004-06-06 00:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,7 +165,7 @@ msgid "Saved %s"
 msgstr ""
 
 #: src/screen_play.c:154
-msgid "Playlist"
+msgid "Music Player Client - Playlist"
 msgstr ""
 
 #. print a status message
@@ -206,7 +206,12 @@ msgstr ""
 msgid "Adding '%s' to playlist\n"
 msgstr ""
 
-#: src/screen_file.c:423
+#: src/screen_file.c:369
+#, c-format
+msgid "Browse: %s"
+msgstr ""
+
+#: src/screen_file.c:419
 msgid "Screen updated!"
 msgstr ""
 
@@ -280,6 +285,46 @@ msgstr ""
 #: src/screen_keydef.c:282
 #, c-format
 msgid "Edit keys for %s"
+msgstr ""
+
+#: src/screen_help.c:43
+msgid "Keys - Movement"
+msgstr ""
+
+#: src/screen_help.c:62
+msgid "Keys - Global"
+msgstr ""
+
+#: src/screen_help.c:89
+msgid "Keys - Playlist screen"
+msgstr ""
+
+#: src/screen_help.c:91
+msgid "Play"
+msgstr ""
+
+#: src/screen_help.c:94
+msgid "Move song up"
+msgstr ""
+
+#: src/screen_help.c:95
+msgid "Move song down"
+msgstr ""
+
+#: src/screen_help.c:97
+msgid "Center"
+msgstr ""
+
+#: src/screen_help.c:102
+msgid "Keys - Browse screen"
+msgstr ""
+
+#: src/screen_help.c:104
+msgid "Enter directory"
+msgstr ""
+
+#: src/screen_help.c:201
+msgid "Music Player Client - Help"
 msgstr ""
 
 #: src/command.c:65

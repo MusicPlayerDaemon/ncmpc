@@ -366,11 +366,7 @@ file_title(void)
   char *tmp;
 
   tmp = utf8_to_locale(basename(mpc->cwd));
-  snprintf(buf, TITLESIZE, 
-	   "%s : %s                          ",
-	   _(TOP_HEADER_FILE) ,
-	   tmp
-	   );
+  snprintf(buf, TITLESIZE, _("Browse: %s"), tmp);
   g_free(tmp);
 
   return buf;
