@@ -96,15 +96,15 @@ paint_top_window(char *header, int volume, int clear)
       else
 	{
 	  wattron(w, A_BOLD);
-	  waddstr(w, "1");
+	  waddstr(w, get_key_names(CMD_SCREEN_HELP, FALSE));
 	  wattroff(w, A_BOLD);
 	  waddstr(w, ":Help  ");
 	  wattron(w, A_BOLD);
-	  waddstr(w, "2");
+	  waddstr(w, get_key_names(CMD_SCREEN_PLAY, FALSE));
 	  wattroff(w, A_BOLD);
 	  waddstr(w, ":Playlist  ");
 	  wattron(w, A_BOLD);
-	  waddstr(w, "3");
+	  waddstr(w, get_key_names(CMD_SCREEN_FILE, FALSE));
 	  wattroff(w, A_BOLD);
 	  waddstr(w, ":Browse");
 	}
