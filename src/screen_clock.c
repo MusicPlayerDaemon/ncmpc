@@ -148,9 +148,9 @@ clock_close(void)
 }
 
 static char *
-clock_title(void)
+clock_title(char *str, size_t size)
 {
-  return _("Music Player Client - Clock");
+  return _("Clock");
 }
 
 static void 

@@ -1,5 +1,7 @@
 /* 
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -204,9 +206,9 @@ help_exit(void)
 
 
 static char *
-help_title(void)
+help_title(char *str, size_t size)
 {
-  return _("Music Player Client - Help");
+  return _("Help");
 }
 
 static void 

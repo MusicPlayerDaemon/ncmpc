@@ -1,5 +1,7 @@
 /* 
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -271,17 +273,13 @@ keydef_close(void)
 }
 
 static char *
-keydef_title(void)
+keydef_title(char *str, size_t size)
 {
-  static char buf[BUFSIZE];
-
   if( subcmd<0 )
     return _("Edit key bindings");
   
-  snprintf(buf, BUFSIZE, 
-	   _("Edit keys for %s"), 
-	   cmds[subcmd].name);
-  return buf;
+  snprintf(str, size, _("Edit keys for %s"), cmds[subcmd].name);
+  return str;
 }
 
 static void 

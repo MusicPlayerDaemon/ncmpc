@@ -1,5 +1,7 @@
 /* 
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -360,16 +362,15 @@ file_close(void)
 }
 
 static char *
-file_title(void)
+file_title(char *str, size_t size)
 {
-  static char buf[TITLESIZE];
   char *tmp;
 
   tmp = utf8_to_locale(basename(mpc->cwd));
-  snprintf(buf, TITLESIZE, _("Browse: %s"), tmp);
+  snprintf(str, size, _("Browse: %s"), tmp);
   g_free(tmp);
 
-  return buf;
+  return str;
 }
 
 static void 

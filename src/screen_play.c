@@ -151,9 +151,14 @@ play_exit(void)
 }
 
 static char *
-play_title(void)
+play_title(char *str, size_t size)
 {
-  return _("Music Player Client - Playlist");
+  if( strcmp(options.host, "localhost") == 0 )
+    return _("Playlist");
+  
+  snprintf(str, size, _("Playlist on %s"), options.host);
+
+  return str;
 }
 
 static void
