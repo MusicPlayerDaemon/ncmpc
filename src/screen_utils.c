@@ -26,8 +26,7 @@
 
 #include "config.h"
 #include "ncmpc.h"
-#include "libmpdclient.h"
-#include "mpc.h"
+#include "mpdclient.h"
 #include "support.h"
 #include "command.h"
 #include "options.h"
@@ -55,7 +54,9 @@ screen_getch(WINDOW *w, char *prompt)
   curs_set(1);
   timeout(-1);
 
-  key = wgetch(w);
+  while( (key=wgetch(w)) == ERR )
+    ;
+  
   if( key==KEY_RESIZE )
     screen_resize();
 
@@ -92,7 +93,7 @@ screen_getstr(WINDOW *w, char *prompt)
 /* query user for a string and find it in a list window */
 int 
 screen_find(screen_t *screen,
-	    mpd_client_t *c,
+	    mpdclient_t *c,
 	    list_window_t *lw, 
 	    int rows,
 	    command_t findcmd,

@@ -1,7 +1,7 @@
 /* 
  * $Id$
  *
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
  *
  */
 
+#include <time.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -184,7 +185,7 @@ utf8_to_locale(char *utf8str)
       g_get_charset(&charset);
       screen_status_printf(_("Error: Unable to convert characters to %s"),
 			   charset);
-      D(g_printerr("utf8_to_locale(): %s\n", error->message));
+      D("utf8_to_locale(): %s\n", error->message);
       g_error_free(error);
       return g_strdup(utf8str);
     }
@@ -212,7 +213,7 @@ locale_to_utf8(char *localestr)
   if( error )
     {
       screen_status_printf(_("Error: Unable to convert characters to UTF-8"));
-      D(g_printerr("locale_to_utf8: %s\n", error->message));
+      D("locale_to_utf8: %s\n", error->message);
       g_error_free(error);
       return g_strdup(localestr);
     }

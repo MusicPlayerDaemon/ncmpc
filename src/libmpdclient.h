@@ -43,7 +43,7 @@
 #define MPD_ACK_ERROR_ARG			2
 #define MPD_ACK_ERROR_PASSWORD			3
 #define MPD_ACK_ERROR_PERMISSION		4
-#define MPD_ACK_ERROR_UNKNOWN			5
+#define MPD_ACK_ERROR_UNKNOWN_CMD		5
 #define MPD_ACK_ERROR_NO_EXIST			6
 #define MPD_ACK_ERROR_PLAYLIST_MAX		7
 #define MPD_ACK_ERROR_SYSTEM			8
@@ -80,6 +80,8 @@ typedef struct _mpd_Connection {
 	int buflen;
 	int bufstart;
 	int doneProcessing;
+	int listOks;
+	int doneListOk;
 	int commandList;
 	mpd_ReturnElement * returnElement;
 	struct timeval timeout;
@@ -134,10 +136,11 @@ typedef struct mpd_Status {
 	int state;
 	/* crossfade setting in seconds */
 	int crossfade;
-	/* if in PLAY or PAUSE state, this is the number of the currently
+	/* if in PLAY or PAUSE state, this is the position of the currently
 	 * playing song in the playlist, beginning with 0
 	 */
 	int song;
+	int songid;
 	/* time in seconds that have elapsed in the currently playing/paused
 	 * song
 	 */
@@ -157,6 +160,8 @@ typedef struct mpd_Status {
 	/* error */
 	char * error;
 } mpd_Status;
+
+void mpd_sendStatusCommand(mpd_Connection * connection);
 
 /* mpd_getStatus
  * returns status info, be sure to free it with mpd_freeStatus()
@@ -178,6 +183,8 @@ typedef struct _mpd_Stats {
 	unsigned long dbPlayTime;
 } mpd_Stats;
 
+void mpd_sendStatsCommand(mpd_Connection * connection);
+
 mpd_Stats * mpd_getStats(mpd_Connection * connection);
 
 void mpd_freeStats(mpd_Stats * stats);
@@ -186,6 +193,7 @@ void mpd_freeStats(mpd_Stats * stats);
 
 #define MPD_SONG_NO_TIME	-1
 #define MPD_SONG_NO_NUM		-1
+#define MPD_SONG_NO_ID		-1
 
 /* mpd_Song
  * for storing song info returned by mpd
@@ -206,9 +214,10 @@ typedef struct _mpd_Song {
 	char * name;
 	/* length of song in seconds, check that it is not MPD_SONG_NO_TIME  */
 	int time;
-	/* if plchanges or playlistinfo used, is the number of the song in
+	/* if plchanges or playlistinfo used, is the position of the song in
 	 * the playlist */
-	int num;
+	int pos;
+	int id;
 } mpd_Song;
 
 /* mpd_newSong
@@ -318,6 +327,8 @@ void mpd_freeInfoEntity(mpd_InfoEntity * entity);
 /* use this function to loop over after calling Info/Listall functions */
 mpd_InfoEntity * mpd_getNextInfoEntity(mpd_Connection * connection);
 
+void mpd_sendCurrentSongCommand(mpd_Connection * connection);
+
 /* songNum of -1, means to display the whole list */
 void mpd_sendPlaylistInfoCommand(mpd_Connection * connection, int songNum);
 
@@ -362,6 +373,8 @@ void mpd_sendAddCommand(mpd_Connection * connection, const char * file);
 
 void mpd_sendDeleteCommand(mpd_Connection * connection, int songNum);
 
+void mpd_sendDeleteIdCommand(mpd_Connection * connection, int songNum);
+
 void mpd_sendSaveCommand(mpd_Connection * connection, const char * name);
 
 void mpd_sendLoadCommand(mpd_Connection * connection, const char * name);
@@ -377,9 +390,11 @@ void mpd_sendClearCommand(mpd_Connection * connection);
 
 void mpd_sendPlayCommand(mpd_Connection * connection, int songNum);
 
+void mpd_sendPlayIdCommand(mpd_Connection * connection, int songNum);
+
 void mpd_sendStopCommand(mpd_Connection * connection);
 
-void mpd_sendPauseCommand(mpd_Connection * connection);
+void mpd_sendPauseCommand(mpd_Connection * connection, int pauseMode);
 
 void mpd_sendNextCommand(mpd_Connection * connection);
 
@@ -387,9 +402,15 @@ void mpd_sendPrevCommand(mpd_Connection * connection);
 
 void mpd_sendMoveCommand(mpd_Connection * connection, int from, int to);
 
+void mpd_sendMoveIdCommand(mpd_Connection * connection, int from, int to);
+
 void mpd_sendSwapCommand(mpd_Connection * connection, int song1, int song2);
 
+void mpd_sendSwapIdCommand(mpd_Connection * connection, int song1, int song2);
+
 void mpd_sendSeekCommand(mpd_Connection * connection, int song, int time);
+
+void mpd_sendSeekIdCommand(mpd_Connection * connection, int song, int time);
 
 void mpd_sendRepeatCommand(mpd_Connection * connection, int repeatMode);
 
@@ -417,7 +438,11 @@ void mpd_finishCommand(mpd_Connection * connection);
 /* command list stuff, use this to do things like add files very quickly */
 void mpd_sendCommandListBegin(mpd_Connection * connection);
 
+void mpd_sendCommandListOkBegin(mpd_Connection * connection);
+
 void mpd_sendCommandListEnd(mpd_Connection * connection);
+
+int mpd_nextListOkCommand(mpd_Connection * connection);
 
 #ifdef __cplusplus
 }

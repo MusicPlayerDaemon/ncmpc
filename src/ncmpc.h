@@ -6,9 +6,9 @@
 #endif
 
 #ifdef DEBUG
-#define D(x) x
+#define D(x, args...) fprintf(stderr, x,  ##args)
 #else
-#define D(x)
+#define D(x,...)
 #endif
 
 /* i18n */
@@ -35,5 +35,10 @@
 /* time in milliseconds before trying to reconnect (int) */
 #define MPD_RECONNECT_TIME  1000
 
+/* song format - list window */
+#define LIST_FORMAT "%name%|[%artist% - ]%title%|%file%"
+
+/* song format - status window */
+#define STATUS_FORMAT "[%artist% - ]%title%|%basename%"
 
 #endif /* NCMPC_H */

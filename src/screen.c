@@ -30,26 +30,27 @@
 #include "config.h"
 #include "ncmpc.h"
 #include "support.h"
-#include "libmpdclient.h"
-#include "mpc.h"
+#include "mpdclient.h"
 #include "command.h"
 #include "options.h"
 #include "colors.h"
+#include "strfsong.h"
 #include "wreadln.h"
 #include "screen.h"
-#include "screen_play.h"
-#include "screen_file.h"
-#include "screen_help.h"
-#include "screen_search.h"
 #include "screen_utils.h"
 
 #define ENABLE_STATUS_LINE_CLOCK
 #define ENABLE_SCROLLING
 
-#define DEFAULT_CROSSFADE_TIME 10
+#define CROSSFADE_TIME 10
 
 #define STATUS_MESSAGE_TIMEOUT 3
 #define STATUS_LINE_MAX_SIZE   512
+
+/* screens */
+extern screen_functions_t *get_screen_playlist(void);
+extern screen_functions_t *get_screen_browse(void);
+extern screen_functions_t *get_screen_help(void);
 
 #ifdef ENABLE_KEYDEF_SCREEN
 extern screen_functions_t *get_screen_keydef(void);
@@ -58,13 +59,15 @@ extern screen_functions_t *get_screen_keydef(void);
 extern screen_functions_t *get_screen_clock(void);
 #endif
 
-
 static gboolean welcome = TRUE;
 static screen_t *screen = NULL;
 static screen_functions_t *mode_fn = NULL;
+static int seek_id = -1;
+static int seek_target_time = 0;
+
 
 static void
-switch_screen_mode(screen_mode_t new_mode, mpd_client_t *c)
+switch_screen_mode(screen_mode_t new_mode, mpdclient_t *c)
 {
   if( new_mode == screen->mode )
     return;
@@ -80,7 +83,7 @@ switch_screen_mode(screen_mode_t new_mode, mpd_client_t *c)
       mode_fn = get_screen_playlist();
       break;
     case SCREEN_FILE_WINDOW:
-      mode_fn = get_screen_file();
+      mode_fn = get_screen_browse();
       break;
     case SCREEN_HELP_WINDOW:
       mode_fn = get_screen_help();
@@ -110,7 +113,7 @@ switch_screen_mode(screen_mode_t new_mode, mpd_client_t *c)
 }
 
 static void
-paint_top_window(char *header, mpd_client_t *c, int clear)
+paint_top_window(char *header, mpdclient_t *c, int clear)
 {
   char flags[4];
   static int prev_volume = -1;
@@ -189,7 +192,7 @@ paint_top_window(char *header, mpd_client_t *c, int clear)
 }
 
 static void
-paint_progress_window(mpd_client_t *c)
+paint_progress_window(mpdclient_t *c)
 {
   double p;
   int width;
@@ -203,8 +206,8 @@ paint_progress_window(mpd_client_t *c)
       return;
     }
 
-  if( c->seek_song_id == c->song_id )
-    elapsedTime = c->seek_target_time;
+  if( c->song && seek_id == c->song->id )
+    elapsedTime = seek_target_time;
 
   p = ((double) elapsedTime) / ((double) c->status->totalTime);
   
@@ -219,12 +222,13 @@ paint_progress_window(mpd_client_t *c)
 }
 
 static void 
-paint_status_window(mpd_client_t *c)
+paint_status_window(mpdclient_t *c)
 {
   WINDOW *w = screen->status_window.w;
   mpd_Status *status = c->status;
   mpd_Song *song   = c->song;
   int elapsedTime = c->status->elapsedTime;
+  char *str = NULL;
   int x = 0;
 
   if( time(NULL) - screen->status_timestamp <= STATUS_MESSAGE_TIMEOUT )
@@ -238,16 +242,21 @@ paint_status_window(mpd_client_t *c)
   switch(status->state)
     {
     case MPD_STATUS_STATE_PLAY:
-      waddstr(w, _("Playing:"));
+      str = _("Playing:");
       break;
     case MPD_STATUS_STATE_PAUSE:
-      waddstr(w, _("[Paused]"));
+      str = _("[Paused]");
       break;
     case MPD_STATUS_STATE_STOP:
     default:
       break;
     }
-  x += 9;
+
+  if( str )
+    {
+      waddstr(w, str);
+      x += strlen(str)+1;
+    }
 
   /* create time string */
   memset(screen->buf, 0, screen->buf_size);
@@ -255,8 +264,8 @@ paint_status_window(mpd_client_t *c)
     {
       if( status->totalTime > 0 )
 	{
-	  if( c->seek_song_id == c->song_id )
-	    elapsedTime = c->seek_target_time;
+	  if( seek_id == c->song->id )
+	    elapsedTime = seek_target_time;
 	  snprintf(screen->buf, screen->buf_size, 
 		   " [%i:%02i/%i:%02i]",
 		   elapsedTime/60, elapsedTime%60,
@@ -273,17 +282,20 @@ paint_status_window(mpd_client_t *c)
       time_t timep;
 
       time(&timep);
-      /* Note: setlocale(LC_TIME,"") should be used first */
-      //strftime(screen->buf, screen->buf_size, "%x  - %X ",localtime(&timep));
       strftime(screen->buf, screen->buf_size, "%X ",localtime(&timep));
     }
 #endif
 
   /* display song */
-  if( (IS_PLAYING(status->state) || IS_PAUSED(status->state)) &&  song )
+  if( (IS_PLAYING(status->state) || IS_PAUSED(status->state)) )
     {
-      char *songname = mpc_get_song_name(song);
+      char songname[STATUS_LINE_MAX_SIZE];
       int width = COLS-x-strlen(screen->buf);
+
+      if( song )
+	strfsong(songname, STATUS_LINE_MAX_SIZE, STATUS_FORMAT, song);
+      else
+	songname[0] = '\0';
 
       colors_use(w, COLOR_STATUS);
 #ifdef ENABLE_SCROLLING
@@ -361,12 +373,7 @@ screen_resize(void)
 {
   GList *list;
 
-#ifdef DEBUG
-  fprintf(stderr, "Resize rows %d->%d, cols %d->%d\n",
-	  screen->rows, LINES,
-	  screen->cols, COLS);
-#endif
-      
+  D("Resize rows %d->%d, cols %d->%d\n",screen->rows,LINES,screen->cols,COLS);
   if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
     {
       screen_exit();
@@ -447,7 +454,7 @@ screen_status_printf(char *format, ...)
 }
 
 int
-screen_init(void)
+screen_init(mpdclient_t *c)
 {
   GList *list;
 
@@ -544,7 +551,7 @@ screen_init(void)
   screen->screen_list = g_list_append(screen->screen_list, 
 				      (gpointer) get_screen_playlist());
   screen->screen_list = g_list_append(screen->screen_list, 
-				      (gpointer) get_screen_file());
+				      (gpointer) get_screen_browse());
   screen->screen_list = g_list_append(screen->screen_list, 
 				      (gpointer) get_screen_help());
 #ifdef ENABLE_KEYDEF_SCREEN
@@ -570,6 +577,8 @@ screen_init(void)
     }
 
   mode_fn = get_screen_playlist();
+  if( mode_fn && mode_fn->open )
+    mode_fn->open(screen, c);
 
   /* initialize wreadln */
   wrln_resize_callback = screen_resize;
@@ -579,7 +588,7 @@ screen_init(void)
 }
 
 void 
-screen_paint(mpd_client_t *c)
+screen_paint(mpdclient_t *c)
 {
   /* paint the title/header window */
   if( mode_fn && mode_fn->get_title )
@@ -602,7 +611,7 @@ screen_paint(mpd_client_t *c)
 }
 
 void 
-screen_update(mpd_client_t *c)
+screen_update(mpdclient_t *c)
 {
   static int repeat = -1;
   static int random = -1;
@@ -633,7 +642,10 @@ screen_update(mpd_client_t *c)
   if( crossfade != c->status->crossfade )
     screen_status_printf(_("Crossfade %d seconds"), c->status->crossfade);
   if( dbupdate && dbupdate != c->status->updatingDb )
-    screen_status_printf(_("Database updated!"));
+    {
+      screen_status_printf(_("Database updated!"));
+      mpdclient_browse_callback(c, BROWSE_DB_UPDATED, NULL);
+    }
 
   repeat = c->status->repeat;
   random = c->status->random;
@@ -677,26 +689,22 @@ screen_update(mpd_client_t *c)
 }
 
 void
-screen_idle(mpd_client_t *c)
+screen_idle(mpdclient_t *c)
 {
-  if( c->seek_song_id ==  c->song_id &&
+  if( c->song && seek_id ==  c->song->id &&
       (screen->last_cmd == CMD_SEEK_FORWARD || 
        screen->last_cmd == CMD_SEEK_BACKWARD) )
     {
-      mpd_sendSeekCommand(c->connection, 
-			  c->seek_song_id, 
-			  c->seek_target_time);
-      mpd_finishCommand(c->connection);
+      mpdclient_cmd_seek(c, seek_id, seek_target_time);
     }
 
   screen->last_cmd = CMD_NONE;
-  c->seek_song_id = -1;
+  seek_id = -1;
 }
 
 void 
-screen_cmd(mpd_client_t *c, command_t cmd)
+screen_cmd(mpdclient_t *c, command_t cmd)
 {
-  int n = 0;
   screen_mode_t new_mode = screen->mode;
 
   screen->input_timestamp = time(NULL);
@@ -709,118 +717,82 @@ screen_cmd(mpd_client_t *c, command_t cmd)
   switch(cmd)
     {
     case CMD_PLAY:
-      if( screen->mode == SCREEN_PLAY_WINDOW )
-	n = play_get_selected();
-      else
-	n = -1;
-      mpd_sendPlayCommand(c->connection, n);
-      mpd_finishCommand(c->connection);
+      mpdclient_cmd_play(c, MPD_PLAY_AT_BEGINNING);
       break;
     case CMD_PAUSE:
-      mpd_sendPauseCommand(c->connection);
-      mpd_finishCommand(c->connection);
+      mpdclient_cmd_pause(c, !IS_PAUSED(c->status->state));
       break;
     case CMD_STOP:
-      mpd_sendStopCommand(c->connection);
-      mpd_finishCommand(c->connection);
+      mpdclient_cmd_stop(c);
       break;
     case CMD_SEEK_FORWARD:
       if( !IS_STOPPED(c->status->state) )
 	{
-	  if( c->seek_song_id != c->song_id )
+	  if( c->song && seek_id != c->song->id )
 	    {
-	      c->seek_song_id = c->song_id;
-	      c->seek_target_time = c->status->elapsedTime;
+	      seek_id = c->song->id;
+	      seek_target_time = c->status->elapsedTime;
 	    }
-	  c->seek_target_time++;
-	  if( c->seek_target_time < c->status->totalTime )
+	  seek_target_time++;
+	  if( seek_target_time < c->status->totalTime )
 	    break;
-	  c->seek_target_time=0;
+	  seek_target_time=0;
 	}
       /* fall through... */
     case CMD_TRACK_NEXT:
       if( !IS_STOPPED(c->status->state) )
-	{
-	  mpd_sendNextCommand(c->connection);
-	  mpd_finishCommand(c->connection);
-	}
+	mpdclient_cmd_next(c);
       break;
     case CMD_SEEK_BACKWARD:
       if( !IS_STOPPED(c->status->state) )
 	{
-	  if( c->seek_song_id != c->song_id )
+	  if( seek_id != c->song->id )
 	    {
-	      c->seek_song_id = c->song_id;
-	      c->seek_target_time = c->status->elapsedTime;
+	      seek_id = c->song->id;
+	      seek_target_time = c->status->elapsedTime;
 	    }
-	  c->seek_target_time--;
-	  if( c->seek_target_time < 0 )
-	    c->seek_target_time=0;
+	  seek_target_time--;
+	  if( seek_target_time < 0 )
+	    seek_target_time=0;
 	}
       break;
     case CMD_TRACK_PREVIOUS:
       if( !IS_STOPPED(c->status->state) )
-	{
-	  mpd_sendPrevCommand(c->connection);
-	  mpd_finishCommand(c->connection);
-	}
+	mpdclient_cmd_prev(c);
       break;   
     case CMD_SHUFFLE:
-      mpd_sendShuffleCommand(c->connection);
-      mpd_finishCommand(c->connection);
-      screen_status_message(_("Shuffled playlist!"));
+      if( mpdclient_cmd_shuffle(c) == 0 )
+	screen_status_message(_("Shuffled playlist!"));
       break;
     case CMD_CLEAR:
-      mpd_sendClearCommand(c->connection);
-      mpd_finishCommand(c->connection);
-      file_clear_highlights(c);
-      screen_status_message(_("Cleared playlist!"));
+      if( mpdclient_cmd_clear(c) == 0 )
+	screen_status_message(_("Cleared playlist!"));
       break;
     case CMD_REPEAT:
-      n = !c->status->repeat;
-      mpd_sendRepeatCommand(c->connection, n);
-      mpd_finishCommand(c->connection);
+      mpdclient_cmd_repeat(c, !c->status->repeat);
       break;
     case CMD_RANDOM:
-      n = !c->status->random;
-      mpd_sendRandomCommand(c->connection, n);
-      mpd_finishCommand(c->connection);
+      mpdclient_cmd_random(c, !c->status->random);
       break;
     case CMD_CROSSFADE:
-      if( c->status->crossfade )
-	n = 0;
-      else
-	n = DEFAULT_CROSSFADE_TIME;
-      mpd_sendCrossfadeCommand(c->connection, n);
-      mpd_finishCommand(c->connection);
+      mpdclient_cmd_crossfade(c, c->status->crossfade ? 0 : CROSSFADE_TIME);
       break;
     case CMD_DB_UPDATE:
       if( !c->status->updatingDb )
 	{
-	  mpd_sendUpdateCommand(c->connection);
-	  n = mpd_getUpdateId(c->connection);
-	  mpd_finishCommand(c->connection);
-	  if( !mpc_error(c) )
-	    screen_status_printf(_("Database update started [%d]"), n);
+	  if( mpdclient_cmd_db_update(c)==0 )
+	    screen_status_printf(_("Database update started!"));
 	}
       else
 	screen_status_printf(_("Database update running..."));
       break;
     case CMD_VOLUME_UP:
       if( c->status->volume!=MPD_STATUS_NO_VOLUME && c->status->volume<100 )
-	{
-	  c->status->volume=c->status->volume+1;
-	  mpd_sendSetvolCommand(c->connection, c->status->volume  );
-	  mpd_finishCommand(c->connection);
-	}
+	mpdclient_cmd_volume(c, ++c->status->volume);
       break;
     case CMD_VOLUME_DOWN:
       if( c->status->volume!=MPD_STATUS_NO_VOLUME && c->status->volume>0 )
-	{
-	  c->status->volume=c->status->volume-1;
-	  mpd_sendSetvolCommand(c->connection, c->status->volume  );
-	  mpd_finishCommand(c->connection);
-	}
+	mpdclient_cmd_volume(c, --c->status->volume);
       break;
     case CMD_TOGGLE_FIND_WRAP:
       options.find_wrap = !options.find_wrap;

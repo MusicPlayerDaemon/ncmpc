@@ -1,4 +1,6 @@
 /*
+ * $Id$
+ *
  * This file is based on the 'Grand digital clock' (gdc.c) shipped with 
  * ncurses. 
  */
@@ -13,9 +15,8 @@
 
 #ifdef  ENABLE_CLOCK_SCREEN
 #include "ncmpc.h"
-#include "libmpdclient.h"
+#include "mpdclient.h"
 #include "options.h"
-#include "mpc.h"
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
@@ -133,7 +134,7 @@ clock_exit(void)
 }
 
 static void 
-clock_open(screen_t *screen, mpd_client_t *c)
+clock_open(screen_t *screen, mpdclient_t *c)
 {
   int j;
 
@@ -154,7 +155,7 @@ clock_title(char *str, size_t size)
 }
 
 static void 
-clock_update(screen_t *screen, mpd_client_t *c)
+clock_update(screen_t *screen, mpdclient_t *c)
 {  
   time_t now;
   struct tm *tm;
@@ -228,7 +229,7 @@ clock_update(screen_t *screen, mpd_client_t *c)
 }
 
 static void 
-clock_paint(screen_t *screen, mpd_client_t *c)
+clock_paint(screen_t *screen, mpdclient_t *c)
 {
   /* this seems to be a better way to clear the window than wclear() ?! */
   wmove(win.w, 0, 0);
@@ -239,7 +240,7 @@ clock_paint(screen_t *screen, mpd_client_t *c)
 
 
 static int 
-clock_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
+clock_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
   return 0;
 }

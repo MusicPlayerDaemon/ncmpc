@@ -1,5 +1,7 @@
 /* 
- * (c) 2004 by Kalle Wallin (kaw@linux.se)
+ * $Id$
+ *
+ * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -308,7 +310,7 @@ read_rc_file(char *filename, options_t *options)
   if( filename==NULL )
     return -1;
 
-  D(printf("Reading configuration file %s\n", filename));
+  D("Reading configuration file %s\n", filename);
   if( (fd=open(filename,O_RDONLY)) <0 )
     {
       perror(filename);
@@ -480,7 +482,7 @@ read_rc_file(char *filename, options_t *options)
 	}	  
     }
 
-  D(printf( "--\n\n" ));
+  D("--\n\n");
 
   if( free_filename )
     g_free(filename);

@@ -28,10 +28,9 @@
 
 #ifdef  ENABLE_KEYDEF_SCREEN
 #include "ncmpc.h"
-#include "libmpdclient.h"
+#include "mpdclient.h"
 #include "options.h"
 #include "conf.h"
-#include "mpc.h"
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
@@ -238,7 +237,7 @@ keydef_exit(void)
 }
 
 static void 
-keydef_open(screen_t *screen, mpd_client_t *c)
+keydef_open(screen_t *screen, mpdclient_t *c)
 {
   if( cmds == NULL )
     {
@@ -283,7 +282,7 @@ keydef_title(char *str, size_t size)
 }
 
 static void 
-keydef_paint(screen_t *screen, mpd_client_t *c)
+keydef_paint(screen_t *screen, mpdclient_t *c)
 {
   lw->clear = 1;
   list_window_paint(lw, list_callback, NULL);
@@ -291,7 +290,7 @@ keydef_paint(screen_t *screen, mpd_client_t *c)
 }
 
 static void 
-keydef_update(screen_t *screen, mpd_client_t *c)
+keydef_update(screen_t *screen, mpdclient_t *c)
 {  
   if( lw->repaint )
     {
@@ -302,7 +301,7 @@ keydef_update(screen_t *screen, mpd_client_t *c)
 }
 
 static int 
-keydef_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
+keydef_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
   int length = LIST_LENGTH();
 

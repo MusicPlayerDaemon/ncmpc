@@ -26,27 +26,44 @@
 
 #include "config.h"
 #include "ncmpc.h"
-#include "libmpdclient.h"
+#include "mpdclient.h"
 #include "support.h"
-#include "mpc.h"
 #include "options.h"
 #include "command.h"
 #include "screen.h"
 #include "conf.h"
 
-static mpd_client_t *mpc = NULL;
-static GTimer       *timer = NULL;
+static mpdclient_t   *mpd = NULL;
+static gboolean connected = FALSE;
+static GTimer      *timer = NULL;
+
+static void
+error_callback(mpdclient_t *c, int error, char *msg)
+{
+  D("error_callback> error=%d errorCode=%d errorAt=%d\n", 
+    error, c->connection->errorCode, c->connection->errorAt);
+  D("error_callback> \"%s\"\n", msg);
+  switch(error)
+    {
+    case MPD_ERROR_ACK:
+      screen_status_printf("%s", msg);
+      break;
+    default:
+      screen_status_printf(_("Lost connection to %s"), options.host);
+      connected = FALSE;
+    }
+  doupdate();
+}
 
 void
 exit_and_cleanup(void)
 {
   screen_exit();
   printf("\n");
-  if( mpc )
+  if( mpd )
     {
-      if( mpc_error(mpc) )
-	fprintf(stderr,"Error: %s\n", mpc_error_str(mpc));
-      mpc_close(mpc);
+      mpdclient_disconnect(mpd);
+      mpd = mpdclient_free(mpd);
     }
   g_free(options.host);
   g_free(options.password);
@@ -57,7 +74,7 @@ exit_and_cleanup(void)
 void
 catch_sigint( int sig )
 {
-  printf( _("\nExiting...\n"));
+  printf("\n%s\n", _("Exiting..."));
   exit(EXIT_SUCCESS);
 }
 
@@ -66,7 +83,6 @@ main(int argc, const char *argv[])
 {
   options_t *options;
   struct sigaction act;
-  gboolean connected;
   const char *charset = NULL;
 
 #ifdef HAVE_LOCALE_H
@@ -76,7 +92,7 @@ main(int argc, const char *argv[])
   setlocale(LC_CTYPE,"");
   /* initialize charset conversions */
   charset_init(g_get_charset(&charset));
-  D(printf("charset: %s\n", charset));
+  D("charset: %s\n", charset);
 #endif
 
   /* initialize i18n support */
@@ -133,12 +149,26 @@ main(int argc, const char *argv[])
   atexit(exit_and_cleanup);
 
   /* connect to our music player daemon */
-  mpc = mpc_connect(options->host, options->port, options->password);
-  if( mpc_error(mpc) )
-    exit(EXIT_FAILURE);
+  mpd = mpdclient_new();
+  if( mpdclient_connect(mpd, 
+			options->host, 
+			options->port, 
+			10.0, 
+			options->password) )
+    {
+      exit(EXIT_FAILURE);
+    }
+  connected = TRUE;
+  D("Connected to MPD version %d.%d.%d\n",
+    mpd->connection->version[0],
+    mpd->connection->version[1],
+    mpd->connection->version[2]);
 
   /* initialize curses */
-  screen_init();
+  screen_init(mpd);
+
+  /* install error callback function */
+  mpdclient_install_error_callback(mpd, error_callback);
 
   /* initialize timer */
   timer = g_timer_new();
@@ -148,27 +178,9 @@ main(int argc, const char *argv[])
     {
       static gdouble t = G_MAXDOUBLE;
 
-      if( connected && t>=MPD_UPDATE_TIME )
+      if( connected && (t>=MPD_UPDATE_TIME || mpd->need_update) )
 	{
-	  mpc_update(mpc);
-	  if( mpc_error(mpc) == MPD_ERROR_ACK )
-	    {
-	      screen_status_printf("%s", mpc_error_str(mpc));
-	      mpd_clearError(mpc->connection);
-	      mpd_finishCommand(mpc->connection);
-	    }
-	  else if( mpc_error(mpc) )
-	    {
-	      screen_status_printf(_("Lost connection to %s"), options->host);
-	      connected = FALSE;	 
-	      doupdate();
-	      mpd_clearError(mpc->connection);
-	      mpd_closeConnection(mpc->connection);
-	      mpc->connection = NULL;
-	    }
-	  else	
-	    mpd_finishCommand(mpc->connection);
-
+	  mpdclient_update(mpd);
 	  g_timer_start(timer);
 	}
 
@@ -176,36 +188,39 @@ main(int argc, const char *argv[])
 	{
 	  command_t cmd;
 
-	  screen_update(mpc);
+	  screen_update(mpd);
 	  if( (cmd=get_keyboard_command()) != CMD_NONE )
 	    {
-	      screen_cmd(mpc, cmd);
+	      screen_cmd(mpd, cmd);
 	      if( cmd==CMD_VOLUME_UP || cmd==CMD_VOLUME_DOWN)
 		/* make shure we dont update the volume yet */
 		g_timer_start(timer);
 	    }
 	  else
-	    screen_idle(mpc);
+	    screen_idle(mpd);
 	}
       else if( options->reconnect )
 	{
-	  if( get_keyboard_command_with_timeout(MPD_RECONNECT_TIME)==CMD_QUIT)
-	    exit(EXIT_SUCCESS);
 	  screen_status_printf(_("Connecting to %s...  [Press %s to abort]"), 
 			       options->host, get_key_names(CMD_QUIT,0) );
-	  if( mpc_reconnect(mpc, 
-			    options->host, 
-			    options->port, 
-			    options->password) == 0 )
+	  doupdate();
+
+	  if( get_keyboard_command_with_timeout(MPD_RECONNECT_TIME)==CMD_QUIT)
+	    exit(EXIT_SUCCESS);
+	  
+	  if( mpdclient_connect(mpd,
+				options->host,
+				options->port, 
+				1.0,
+				options->password) == 0 )
 	    {
 	      screen_status_printf(_("Connected to %s!"), options->host);
+	      doupdate();
 	      connected = TRUE;
-	    }
-	  doupdate();
+	    }	  
 	}
 
       t = g_timer_elapsed(timer, NULL);
     }
-
   exit(EXIT_FAILURE);
 }

@@ -25,12 +25,10 @@
 
 #include "config.h"
 #include "ncmpc.h"
-#include "libmpdclient.h"
-#include "mpc.h"
+#include "mpdclient.h"
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
-#include "screen_help.h"
 
 
 typedef struct
@@ -212,7 +210,7 @@ help_title(char *str, size_t size)
 }
 
 static void 
-help_paint(screen_t *screen, mpd_client_t *c)
+help_paint(screen_t *screen, mpdclient_t *c)
 {
   lw->clear = 1;
   list_window_paint(lw, list_callback, NULL);
@@ -220,7 +218,7 @@ help_paint(screen_t *screen, mpd_client_t *c)
 }
 
 static void 
-help_update(screen_t *screen, mpd_client_t *c)
+help_update(screen_t *screen, mpdclient_t *c)
 {  
   if( lw->repaint )
     {
@@ -232,7 +230,7 @@ help_update(screen_t *screen, mpd_client_t *c)
 
 
 static int 
-help_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
+help_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
   int retval;
 
