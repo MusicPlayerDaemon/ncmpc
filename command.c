@@ -43,7 +43,7 @@
 static command_definition_t cmds[] =
 {
   { {  13,   0,   0 }, CMD_PLAY, "Play/Enter directory" },
-  { { 'p',   0,   0 }, CMD_PAUSE, "Pause" },
+  { { 'P',   0,   0 }, CMD_PAUSE, "Pause" },
   { {  BS, ESC,   0 }, CMD_STOP, "Stop" },
   { { '>',   0,   0 }, CMD_TRACK_NEXT, "Next song" },
   { { '<',   0,   0 }, CMD_TRACK_PREVIOUS, "Previous song" },
@@ -51,12 +51,16 @@ static command_definition_t cmds[] =
   { { '+', RGHT,  0 }, CMD_VOLUME_UP, "Increase volume" },
   { { '-', LEFT,  0 }, CMD_VOLUME_DOWN, "Decrease volume" },
 
-  { { ' ',   0,  0 }, CMD_SELECT, "Select/deselect song in playlist" },
+  { { 'w',   0,   0 }, CMD_TOGGLE_FIND_WRAP, "Toggle find mode" },
+
+  { { ' ',   0,   0 }, CMD_SELECT, "Select/deselect song in playlist" },
   { { DEL,   0,   0 }, CMD_DELETE, "Delete song from playlist" },
   { { 's',   0,   0 }, CMD_SHUFFLE, "Shuffle playlist" },
   { { 'c',   0,   0 }, CMD_CLEAR, "Clear playlist" },
   { { 'r',   0,   0 }, CMD_REPEAT, "Toggle repeat mode" },
   { { 'z',   0,   0 }, CMD_RANDOM, "Toggle random mode" },
+  { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "Save playlist" },
+  { { 'D',   0,   0 }, CMD_DELETE_PLAYLIST, "Delete playlist" },
 
   { {  UP,   0,   0 }, CMD_LIST_PREVIOUS,      "Move: Up" },
   { { DWN,   0,   0 }, CMD_LIST_NEXT,          "Move: Down" },
@@ -64,8 +68,10 @@ static command_definition_t cmds[] =
   { { END,   0,   0 }, CMD_LIST_LAST,          "Move: End" },
   { { PGUP,  0,   0 }, CMD_LIST_PREVIOUS_PAGE, "Move: Page Up" },
   { { PGDN,  0,   0 }, CMD_LIST_NEXT_PAGE,     "Move: Page Down" },
-  { { '/',   0,   0 }, CMD_LIST_FIND,          "Find" },
-  { { 'n',   0,   0 }, CMD_LIST_FIND_NEXT,     "Find Next" },
+  { { '/',   0,   0 }, CMD_LIST_FIND,          "Forward Find" },
+  { { 'n',   0,   0 }, CMD_LIST_FIND_NEXT,     "Forward Find Next" },
+  { { '?',   0,   0 }, CMD_LIST_RFIND,         "Backward Find" },
+  { { 'p',   0,   0 }, CMD_LIST_RFIND_NEXT,    "Backward Find Previous" },
 
   { { TAB,   0,   0 }, CMD_SCREEN_NEXT,   "Next screen" },
   { { STAB,  0,   0 }, CMD_SCREEN_PREVIOUS, "Previous screen" },
@@ -204,8 +210,8 @@ get_keyboard_command(void)
 
   DK(fprintf(stderr, "key = 0x%02X\t", key));
 
-  if( isalpha(key) )
-    key=tolower(key);
+  //  if( isalpha(key) )
+  //    key=tolower(key);
 
   i=0;
   while( cmds[i].description )

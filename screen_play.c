@@ -92,29 +92,16 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
       screen_status_printf("Removed \'%s\' from playlist!",
 			   mpc_get_song_name(song));
       return 1;
-    case CMD_LIST_FIND:
-      if( screen->findbuf )
-	{
-	  free(screen->findbuf);
-	  screen->findbuf=NULL;
-	}
-      /* continue... */
-    case CMD_LIST_FIND_NEXT:
-      if( !screen->findbuf )
-	screen->findbuf=screen_readln(screen->status_window.w, "/");
-      if( list_window_find(screen->playlist,
-			   list_callback,
-			   c,
-			   screen->findbuf) == 0 )
-	{
-	  screen->playlist->repaint  = 1;
-	}
-      else
-	{
-	  screen_status_printf("Unable to find \'%s\'", screen->findbuf);
-	  beep();
-	}
+    case CMD_SAVE_PLAYLIST:
+      screen_status_printf("Sorry, playlist saving not implemented yet!");
       return 1;
+    case CMD_LIST_FIND:
+    case CMD_LIST_RFIND:
+    case CMD_LIST_FIND_NEXT:
+    case CMD_LIST_RFIND_NEXT:
+      return screen_find(screen, c, 
+			 screen->playlist, c->playlist_length,
+			 cmd, list_callback);
     default:
       break;
     }

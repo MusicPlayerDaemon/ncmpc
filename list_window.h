@@ -49,6 +49,16 @@ void list_window_next_page(list_window_t *lw, int length);
 int  list_window_find(list_window_t *lw, 
 		      list_window_callback_fn_t callback,
 		      void *callback_data,
-		      char *str);
+		      char *str,
+		      int wrap);
+
+/* find a string in a list window (reversed) */
+int
+list_window_rfind(list_window_t *lw, 
+		  list_window_callback_fn_t callback,
+		  void *callback_data,
+		  char *str,
+		  int wrap,
+		  int rows);
 
 #endif

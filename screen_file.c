@@ -31,7 +31,7 @@ list_callback(int index, int *highlight, void *data)
 
   if( entity == NULL )
     {
-      return "[Back]";
+      return "[..]";
     }
   if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY ) 
     {
@@ -52,7 +52,7 @@ list_callback(int index, int *highlight, void *data)
       mpd_PlaylistFile *plf = entity->info.playlistFile;
       char *filename = utf8_to_locale(basename(plf->path));
       
-      snprintf(buf, BUFSIZE, "%s*", filename);
+      snprintf(buf, BUFSIZE, "*%s*", filename);
       free(filename);
       return buf;
     }
@@ -342,29 +342,17 @@ file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 	  cmd = CMD_LIST_NEXT;
 	}
       break;
-    case CMD_LIST_FIND:
-      if( screen->findbuf )
-	{
-	  free(screen->findbuf);
-	  screen->findbuf=NULL;
-	}
-      /* continue... */
-    case CMD_LIST_FIND_NEXT:
-      if( !screen->findbuf )
-	screen->findbuf=screen_readln(screen->status_window.w, "/");
-      if( list_window_find(screen->filelist,
-			   list_callback,
-			   c,
-			   screen->findbuf) == 0 )
-	{
-	  screen->filelist->repaint  = 1;
-	}
-      else
-	{
-	  screen_status_printf("Unable to find \'%s\'", screen->findbuf);
-	  beep();
-	}
+    case CMD_DELETE_PLAYLIST:
+      screen_status_printf("Sorry, command not implemented yet!");
       return 1;
+      break;
+    case CMD_LIST_FIND:
+    case CMD_LIST_RFIND:
+    case CMD_LIST_FIND_NEXT:
+    case CMD_LIST_RFIND_NEXT:
+      return screen_find(screen, c, 
+			 screen->filelist, c->filelist_length,
+			 cmd, list_callback);
     default:
       break;
     }

@@ -150,20 +150,58 @@ int
 list_window_find(list_window_t *lw, 
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
-		 char *str)
+		 char *str,
+		 int wrap)
 {
   int h;
   int i = lw->selected+1;
   char *label;
-
-  while( (label=(callback) (i,&h,callback_data)) )
+  
+  while( wrap || i==lw->selected+1 )
     {
-      if( str && label && strcasestr(label, str) )
+      while( (label=(callback) (i,&h,callback_data)) )
 	{
-	  lw->selected = i;
-	  return 0;
+	  if( str && label && strcasestr(label, str) )
+	    {
+	      lw->selected = i;
+	      return 0;
+	    }
+	  i++;
+	  if( wrap && i==lw->selected )
+	    return 1;
 	}
-      i++;
+      i=0; /* first item */
+    }
+  return 1;
+}
+
+
+int
+list_window_rfind(list_window_t *lw, 
+		  list_window_callback_fn_t callback,
+		  void *callback_data,
+		  char *str,
+		  int wrap,
+		  int rows)
+{
+  int h;
+  int i = lw->selected-1;
+  char *label;
+
+  while( wrap || i==lw->selected-1 )
+    {
+      while( i>=0 && (label=(callback) (i,&h,callback_data)) )
+	{
+	  if( str && label && strcasestr(label, str) )
+	    {
+	      lw->selected = i;
+	      return 0;
+	    }
+	  i--;
+	  if( wrap && i==lw->selected )
+	    return 1;
+	}
+      i=rows-1; /* last item */
     }
   return 1;
 }
@@ -204,3 +242,5 @@ list_window_cmd(list_window_t *lw, int rows, command_t cmd)
     }
   return 1;
 }
+
+

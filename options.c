@@ -105,7 +105,9 @@ options_init( void )
     options.port = atoi(value);
   else
     options.port = DEFAULT_PORT;
+
   options.reconnect = 1;
+  options.find_wrap = 1;
 
   options.bg_color       = COLOR_BLACK;
   options.title_color    = COLOR_BLUE;

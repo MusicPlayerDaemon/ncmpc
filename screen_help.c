@@ -32,7 +32,10 @@ static help_text_row_t help_text[] =
   { 0, CMD_LIST_NEXT,      "Move cursor up" },
   { 0, CMD_LIST_PREVIOUS,  "Move cursor down" },
   { 0, CMD_LIST_FIND,      "Find" },
-  { 0, CMD_LIST_FIND_NEXT, "Find again" },
+  { 0, CMD_LIST_RFIND,     "find backward" },
+  { 0, CMD_LIST_FIND_NEXT, "Find next" },
+  { 0, CMD_LIST_RFIND_NEXT,"Find previuos" },
+  { 0, CMD_TOGGLE_FIND_WRAP, "Toggle find mode" },
   { 0, CMD_NONE, " " },
   { 0, CMD_SCREEN_NEXT,   "Change screen" },
   { 0, CMD_SCREEN_HELP,   "Help screen" },
@@ -43,18 +46,20 @@ static help_text_row_t help_text[] =
   { 0, CMD_NONE, " " },
   { 1, CMD_NONE, "    Keys - Playlist screen " },
   { 0, CMD_NONE, "  --------------------------" },
-  { 0, CMD_PLAY,    "Play selected entry" },
-  { 0, CMD_DELETE,  "Delete selected entry from platlist" },
-  { 0, CMD_SHUFFLE, "Shuffle playlist" },
-  { 0, CMD_CLEAR,   "Clear playlist" },
-  { 0, CMD_REPEAT,  "Toggle repeat mode" },
-  { 0, CMD_RANDOM,  "Toggle random mode" },
+  { 0, CMD_PLAY,           "Play selected entry" },
+  { 0, CMD_DELETE,         "Delete selected entry from playlist" },
+  { 0, CMD_SHUFFLE,        "Shuffle playlist" },
+  { 0, CMD_CLEAR,          "Clear playlist" },
+  { 0, CMD_SAVE_PLAYLIST,  "Save playlist" },
+  { 0, CMD_REPEAT,         "Toggle repeat mode" },
+  { 0, CMD_RANDOM,         "Toggle random mode" },
   { 0, CMD_NONE, " " },
   { 0, CMD_NONE, " " },
   { 1, CMD_NONE, "    Keys - Browse screen " },
   { 0, CMD_NONE, "  ------------------------" },
-  { 0, CMD_PLAY,   "Change to selected directory" },
-  { 0, CMD_SELECT, "Add/Remove selected file" },
+  { 0, CMD_PLAY,            "Enter directory/Load playlist" },
+  { 0, CMD_SELECT,          "Add/remove song from playlist" },
+  { 0, CMD_DELETE_PLAYLIST, "Delete playlist" },
   { 0, CMD_NONE, " " },
   { 0, CMD_NONE, " " },
   { 1, CMD_NONE, " " PACKAGE " version " VERSION },
@@ -131,33 +136,13 @@ help_update(screen_t *screen, mpd_client_t *c)
 int 
 help_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 {
- switch(cmd)
-    {
-    case CMD_LIST_FIND:
-      if( screen->findbuf )
-	{
-	  free(screen->findbuf);
-	  screen->findbuf=NULL;
-	}
-      /* continue... */
-    case CMD_LIST_FIND_NEXT:
-      if( !screen->findbuf )
-	screen->findbuf=screen_readln(screen->status_window.w, "/");
-      if( list_window_find(screen->helplist,
-			   list_callback,
-			   c,
-			   screen->findbuf) == 0 )
-	{
-	  screen->helplist->repaint  = 1;
-	}
-      else
-	{
-	  screen_status_printf("Unable to find \'%s\'", screen->findbuf);
-	  beep();
-	}
-      return 1;
-    default:
-      break;
-    }
-  return list_window_cmd(screen->helplist, help_text_rows, cmd);
+  int retval;
+
+  retval = list_window_cmd(screen->helplist, help_text_rows, cmd);
+  if( !retval )
+    return screen_find(screen, c, 
+		       screen->helplist, help_text_rows,
+		       cmd, list_callback);
+
+  return retval;
 }

@@ -11,6 +11,7 @@ typedef struct
   int   port;
   int   reconnect;
   int   debug;
+  int   find_wrap;
 
   int   enable_colors;
   int   bg_color;
