@@ -14,7 +14,6 @@
 #include "screen_file.h"
 #include "screen_play.h"
 
-
 #define BUFSIZE 256
 
 static char *
@@ -29,7 +28,7 @@ list_callback(int index, int *highlight, void *data)
       return NULL;
     }
 
-  if( IS_PLAYING(c->status->state) && index==c->song_id )
+  if( index==c->song_id && !IS_STOPPED(c->status->state) )
     {
       *highlight = 1;
     }
@@ -44,7 +43,7 @@ center_playing_item(screen_t *screen, mpd_client_t *c)
   int length = c->playlist_length;
   int offset = lw->selected-lw->start;
   
-  if( !lw || length<lw->rows || !IS_PLAYING(c->status->state) )
+  if( !lw || length<lw->rows || IS_STOPPED(c->status->state) )
     return 0;
 
   /* try to center the song that are playing */
@@ -174,8 +173,12 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 	  file_clear_highlight(c, song);
 	  mpd_sendDeleteCommand(c->connection, screen->playlist->selected);
 	  mpd_finishCommand(c->connection);
-	  screen_status_printf("Removed \'%s\' from playlist!",
-			       mpc_get_song_name(song));
+	  if( !mpc_error(c) )
+	    {
+	      screen_status_printf("Removed \'%s\' from playlist!",
+				   mpc_get_song_name(song));
+
+	    }
 	}
       return 1;
     case CMD_SAVE_PLAYLIST:
