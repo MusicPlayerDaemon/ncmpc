@@ -1,18 +1,15 @@
 
-Features:
-* remote playlists 
-* search screen
-* id3 browser
+ * Make status line scrolling optional
 
-Glib
-* replace snprintf with g_snprintf or g_strdup_printf 
-* replace strcat with g_strlcat or g_strconcat()
-* replace strncpy with g_strlcpy 
-* replace strstr with g_strrstr 
-* replace vsnprintf with g_vsprintf or g_strdup_vprintf(format,ap);
-* ...
+ * Scroll long list entries, move left/right (#242)
 
+ * Search screen (with a simple ui)
 
+ * Merge the help and key definition screens 
 
+ * Redesign the keyboard input code
+	+ allow keys to be assign to multiple commands
+	+ support macros, could be used to create a parent-dir cmd (#328)
 
+ * LIRC support (without irpty) ?
 
