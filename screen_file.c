@@ -396,8 +396,12 @@ file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
       break;
     case CMD_DELETE:
       handle_delete(screen, c);
-      return 1;
       break;
+    case CMD_SCREEN_UPDATE:
+      mpc_update_filelist(c);
+      list_window_check_selected(screen->filelist, c->filelist_length);
+      screen_status_printf("Screen updated!");
+      return 1;
     case CMD_LIST_FIND:
     case CMD_LIST_RFIND:
     case CMD_LIST_FIND_NEXT:

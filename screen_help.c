@@ -60,6 +60,7 @@ static help_text_row_t help_text[] =
   { 0, CMD_PLAY,            "Enter directory/Load playlist" },
   { 0, CMD_SELECT,          "Add/remove song from playlist" },
   { 0, CMD_DELETE,          "Delete playlist" },
+  { 0, CMD_SCREEN_UPDATE,   "Update" },
   { 0, CMD_NONE, " " },
   { 0, CMD_NONE, " " },
   { 1, CMD_NONE, " " PACKAGE " version " VERSION },

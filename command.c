@@ -72,12 +72,14 @@ static command_definition_t cmds[] =
   { { '?',   0,   0 }, CMD_LIST_RFIND,         "Backward Find" },
   { { 'p',   0,   0 }, CMD_LIST_RFIND_NEXT,    "Backward Find Previous" },
 
+
   { { TAB,   0,   0 }, CMD_SCREEN_NEXT,   "Next screen" },
   { { STAB,  0,   0 }, CMD_SCREEN_PREVIOUS, "Previous screen" },
   { { F1, '1', 'h' }, CMD_SCREEN_HELP,   "Help screen" },
   { { F2, '2',   0 }, CMD_SCREEN_PLAY,   "Playlist screen" },
   { { F3, '3',   0 }, CMD_SCREEN_FILE,   "Browse screen" },
   //  { { F4, '4',   0 }, CMD_SCREEN_SEARCH, "Search screen" },
+  { {'u',   0,   0 }, CMD_SCREEN_UPDATE,   "Update screen" },
 
   { { 'q',  0,   0 }, CMD_QUIT,   "Quit " PACKAGE },  
 
