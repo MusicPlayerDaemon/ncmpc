@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-06 22:59+0200\n"
+"POT-Creation-Date: 2004-06-16 13:19+0200\n"
 "PO-Revision-Date: 2004-06-05 18:16+0200\n"
 "Last-Translator: Kalle Wallin <kaw@linux.se>\n"
 "Language-Team: sv <sv@li.org>\n"
@@ -16,282 +16,281 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/main.c:60
-msgid ""
-"\n"
-"Exiting...\n"
-msgstr ""
-"\n"
-"Avslutar...\n"
+#: src/ncmpc.h:26
+msgid "y"
+msgstr "j"
 
-#: src/main.c:102
+#: src/ncmpc.h:27
+msgid "n"
+msgstr ""
+
+#: src/main.c:99
+msgid "Exiting..."
+msgstr "Avslutar..."
+
+#: src/main.c:140
 msgid "Confusing key bindings - exiting!\n"
 msgstr "Felaktiga tangent definitioner!\n"
 
-#: src/main.c:162
+#: src/main.c:235
 #, c-format
-msgid "Lost connection to %s"
-msgstr "Ingen anslutning till %s"
+msgid "Connecting to %s...  [Press %s to abort]"
+msgstr "Ansluter till %s... [Tryck %s för att avbryta]"
 
-#: src/main.c:192
-#, c-format
-msgid "Connecting to %s...  [Press Ctrl-C to abort]"
-msgstr "Ansluter till %s... [Tryck Ctrl-C för att avbryta]"
-
-#: src/main.c:199
+#: src/main.c:247
 #, c-format
 msgid "Connected to %s!"
 msgstr "Ansluten till %s!"
 
-#: src/screen.c:144
+#: src/screen.c:149
 msgid ":Help  "
 msgstr ":Hjälp  "
 
-#: src/screen.c:148
+#: src/screen.c:153
 msgid ":Playlist  "
 msgstr ":Spellista  "
 
-#: src/screen.c:152
+#: src/screen.c:157
 msgid ":Browse"
 msgstr ":Filer  "
 
-#: src/screen.c:156
+#: src/screen.c:161
 msgid "Volume n/a "
 msgstr "Volym: n/a "
 
-#: src/screen.c:160
+#: src/screen.c:165
 #, c-format
 msgid " Volume %d%%"
 msgstr " Volym: %d%%"
 
-#: src/screen.c:279
-msgid "Stopped! "
-msgstr "Stoppad"
-
-#: src/screen.c:282
+#: src/screen.c:245
 msgid "Playing:"
 msgstr "Spelar:"
 
-#: src/screen.c:285
+#: src/screen.c:248
 msgid "[Paused]"
 msgstr "[Pausad]"
 
-#: src/screen.c:411 src/screen.c:511
+#: src/screen.c:380 src/screen.c:481
 msgid "Error: Screen to small!\n"
 msgstr "Fel: Terminal är för liten!\n"
 
-#: src/screen.c:664
+#: src/screen.c:635
 msgid "Repeat is on"
 msgstr "Repeat är på"
 
-#: src/screen.c:665
+#: src/screen.c:636
 msgid "Repeat is off"
 msgstr "Repeat är av"
 
-#: src/screen.c:668
+#: src/screen.c:639
 msgid "Random is on"
 msgstr "Random är på"
 
-#: src/screen.c:669
+#: src/screen.c:640
 msgid "Random is off"
 msgstr "Random är av"
 
-#: src/screen.c:672
+#: src/screen.c:643
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Crossfade %d sekunder"
 
-#: src/screen.c:674
+#: src/screen.c:646
 msgid "Database updated!"
 msgstr "Databasen är uppdaterad!"
 
-#: src/screen.c:808
+#: src/screen.c:767
 msgid "Shuffled playlist!"
 msgstr "Slumpsorterat spellistan!"
 
-#: src/screen.c:814
+#: src/screen.c:771
 msgid "Cleared playlist!"
 msgstr "Rensar spellistan!"
 
-#: src/screen.c:841
-#, c-format
-msgid "Database update started [%d]"
-msgstr "Uppdatering av databasen startad [%d]"
+#: src/screen.c:786
+msgid "Database update started!"
+msgstr "Uppdaterar databasen!"
 
-#: src/screen.c:844
+#: src/screen.c:789 src/screen_file.c:579
 msgid "Database update running..."
 msgstr "Databasen uppdateras..."
 
-#: src/screen.c:865
+#: src/screen.c:802
 msgid "Find mode: Wrapped"
 msgstr "Sök runt (börja om)"
 
-#: src/screen.c:866
+#: src/screen.c:803
 msgid "Find mode: Normal"
 msgstr "Sök normalt (till slut/början)"
 
-#: src/screen.c:871
+#: src/screen.c:808
 msgid "Auto center mode: On"
 msgstr "Automatisk centrering är på"
 
-#: src/screen.c:872
+#: src/screen.c:809
 msgid "Auto center mode: Off"
 msgstr "Automatisk centrering är av"
 
-#: src/screen_utils.c:39
+#: src/screen_utils.c:38
 msgid "Find: "
 msgstr "Sök: "
 
-#: src/screen_utils.c:40
+#: src/screen_utils.c:39
 msgid "Find backward: "
 msgstr "Sök (bakåt): "
 
-#: src/screen_utils.c:150
+#: src/screen_utils.c:152
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Hittar inte '%s'"
 
-#: src/screen_play.c:91
+#. query the user for a filename
+#: src/screen_play.c:120
 msgid "Save playlist as: "
 msgstr "Spara spellistan som: "
 
-#: src/screen_play.c:111
+#: src/screen_play.c:140
 #, c-format
-msgid "Error: Unable to save playlist as %s"
-msgstr "Fel: Kan inte spara spellistan som %s"
+msgid "Replace %s [%s/%s] ? "
+msgstr "Ersätt '%s' [%s/%s] ? "
+
+#: src/screen_play.c:157 src/screen_file.c:316 src/screen_keydef.c:159
+msgid "Aborted!"
+msgstr "Avbröt!"
 
 #. success
-#: src/screen_play.c:118
+#: src/screen_play.c:163
 #, c-format
 msgid "Saved %s"
 msgstr "Sparat %s"
 
-#: src/screen_play.c:154
-msgid "Music Player Client - Playlist"
-msgstr "[ncmpc] Spellista"
+#: src/screen_play.c:204
+msgid "Playlist"
+msgstr "Spellista"
 
-#. print a status message
-#: src/screen_play.c:339
+#: src/screen_play.c:206
 #, c-format
-msgid "Removed '%s' from playlist!"
-msgstr "Tar bort '%s'!"
+msgid "Playlist on %s"
+msgstr "Spellista på %s"
 
-#: src/screen_file.c:151
+#: src/screen_file.c:280
 #, c-format
 msgid "Loading playlist %s..."
 msgstr "Laddar %s..."
 
-#: src/screen_file.c:173
+#: src/screen_file.c:302
 msgid "You can only delete playlists!"
 msgstr "Du kan endast radera spellistor!"
 
-#: src/screen_file.c:180
+#: src/screen_file.c:309
 #, c-format
-msgid "Delete playlist %s [y/n] ? "
-msgstr "Radera '%s' [y/n] ? "
+msgid "Delete playlist %s [%s/%s] ? "
+msgstr "Radera '%s' [%s/%s] ? "
 
-#: src/screen_file.c:187 src/screen_keydef.c:158
-msgid "Aborted!"
-msgstr "Avbröt!"
-
-#: src/screen_file.c:201
+#: src/screen_file.c:324
 msgid "Playlist deleted!"
 msgstr "Spellistan raderad!"
 
-#: src/screen_file.c:235
+#: src/screen_file.c:360
 #, c-format
 msgid "Adding directory %s...\n"
 msgstr "Lägger till alla filer i %s...\n"
 
-#: src/screen_file.c:305
+#: src/screen_file.c:440
 #, c-format
 msgid "Adding '%s' to playlist\n"
 msgstr "Lägger till '%s'...\n"
 
-#: src/screen_file.c:369
+#: src/screen_file.c:516
 #, c-format
 msgid "Browse: %s"
-msgstr "[ncmpc] Filer: %s"
+msgstr "Filer: %s"
 
-#: src/screen_file.c:419
+#: src/screen_file.c:564
 msgid "Screen updated!"
 msgstr "Uppdaterat!"
 
-#: src/screen_keydef.c:45
+#: src/screen_file.c:571
+#, c-format
+msgid "Database update of %s started!"
+msgstr "Uppdaterar databasen ifrån %s!"
+
+#: src/screen_keydef.c:46
 msgid "===> Apply & Save key bindings  "
 msgstr "==> Verkställ och Spara"
 
-#: src/screen_keydef.c:46
+#: src/screen_keydef.c:47
 msgid "===> Apply key bindings "
 msgstr "==> Verkställ"
 
-#: src/screen_keydef.c:75
+#: src/screen_keydef.c:76
 msgid "You have new key bindings!"
 msgstr "Tangentdefinitioner uppdaterade!"
 
-#: src/screen_keydef.c:78
+#: src/screen_keydef.c:79
 msgid "Keybindings unchanged."
 msgstr "Tangentdefinitioner oförändrade!"
 
-#: src/screen_keydef.c:89
+#: src/screen_keydef.c:90
 #, c-format
 msgid "Error: Unable to create direcory ~/.ncmpc - %s"
 msgstr "Fel: Kan inte skapa ~/.ncmpc - %s"
 
-#: src/screen_keydef.c:99 src/screen_keydef.c:105
+#: src/screen_keydef.c:100 src/screen_keydef.c:106
 #, c-format
 msgid "Error: %s - %s"
 msgstr "Fel: %s - %s"
 
-#: src/screen_keydef.c:107
+#: src/screen_keydef.c:108
 #, c-format
 msgid "Wrote %s"
 msgstr "Sparade %s"
 
-#: src/screen_keydef.c:135
+#: src/screen_keydef.c:136
 msgid "Deleted"
 msgstr "Raderad"
 
-#: src/screen_keydef.c:152
+#: src/screen_keydef.c:153
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Ny tangent för %s: "
 
-#: src/screen_keydef.c:164
+#: src/screen_keydef.c:165
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "Tangenten %s används redan för %s"
 
-#: src/screen_keydef.c:171
+#: src/screen_keydef.c:172
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "%s = %s"
 
-#: src/screen_keydef.c:207
+#: src/screen_keydef.c:208
 #, c-format
 msgid "%d. Add new key "
 msgstr "%d. Lägg till ny tangent"
 
-#: src/screen_keydef.c:254
+#: src/screen_keydef.c:255
 msgid "Welcome to the key editor!"
 msgstr "Här kan du ändra tangentdefinitioner"
 
-#: src/screen_keydef.c:270
+#: src/screen_keydef.c:271
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "OBS! Du glömde väl inte att Verkställa?"
 
-#: src/screen_keydef.c:279
+#: src/screen_keydef.c:278
 msgid "Edit key bindings"
 msgstr "Ändra tangentdefinitioner"
 
-#: src/screen_keydef.c:282
+#: src/screen_keydef.c:280
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Ändra tangenter för kommandot '%s'"
 
-#: src/screen_clock.c:153
-msgid "Music Player Client - Clock"
-msgstr "[ncmpc] Klocka"
+#: src/screen_clock.c:154
+msgid "Clock"
+msgstr "Klocka"
 
 #: src/screen_help.c:43
 msgid "Keys - Movement"
@@ -329,9 +328,9 @@ msgstr "Tangenter - Filer"
 msgid "Enter directory"
 msgstr "Välj bibliotek"
 
-#: src/screen_help.c:209
-msgid "Music Player Client - Help"
-msgstr "[ncmpc] Hjälp"
+#: src/screen_help.c:210
+msgid "Help"
+msgstr "Hjälp"
 
 #: src/command.c:67
 msgid "Play/Enter directory"
@@ -565,34 +564,34 @@ msgstr ""
 msgid "Insert"
 msgstr "Ins"
 
-#: src/command.c:401
+#: src/command.c:408
 #, c-format
 msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr "Fel: Tangenten %s är tilldelad både %s och %s !!!\n"
 
-#: src/colors.c:191
+#: src/colors.c:187
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr "Varning: Känner inte till färgen %s\n"
 
-#: src/colors.c:236
+#: src/colors.c:232
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Varning: %s ej definerad.\n"
 
-#: src/colors.c:271
+#: src/colors.c:267
 msgid "Terminal lacks support for changing colors!\n"
 msgstr "Terminalen saknar stöd för omdefinition av färger!\n"
 
-#: src/colors.c:288
+#: src/colors.c:284
 msgid "Terminal lacks color capabilities!\n"
 msgstr "Terminalen saknar stöd för färger!\n"
 
-#: src/support.c:147
+#: src/support.c:186
 #, c-format
 msgid "Error: Unable to convert characters to %s"
 msgstr "Fel vid konvertering av tecken från UTF-8 till %s"
 
-#: src/support.c:176
+#: src/support.c:215
 msgid "Error: Unable to convert characters to UTF-8"
 msgstr "Fel vid konvertering av tecken till UTF-8"

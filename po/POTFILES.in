@@ -1,5 +1,6 @@
 # source files
 
+src/ncmpc.h
 src/main.c
 src/screen.c
 src/screen_utils.c
@@ -11,3 +12,4 @@ src/screen_help.c
 src/command.c
 src/colors.c
 src/support.c
+

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-06 22:59+0200\n"
+"POT-Creation-Date: 2004-06-16 13:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,279 +16,280 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/main.c:60
-msgid ""
-"\n"
-"Exiting...\n"
+#: src/ncmpc.h:26
+msgid "y"
 msgstr ""
 
-#: src/main.c:102
+#: src/ncmpc.h:27
+msgid "n"
+msgstr ""
+
+#: src/main.c:99
+msgid "Exiting..."
+msgstr ""
+
+#: src/main.c:140
 msgid "Confusing key bindings - exiting!\n"
 msgstr ""
 
-#: src/main.c:162
+#: src/main.c:235
 #, c-format
-msgid "Lost connection to %s"
+msgid "Connecting to %s...  [Press %s to abort]"
 msgstr ""
 
-#: src/main.c:192
-#, c-format
-msgid "Connecting to %s...  [Press Ctrl-C to abort]"
-msgstr ""
-
-#: src/main.c:199
+#: src/main.c:247
 #, c-format
 msgid "Connected to %s!"
 msgstr ""
 
-#: src/screen.c:144
+#: src/screen.c:149
 msgid ":Help  "
 msgstr ""
 
-#: src/screen.c:148
+#: src/screen.c:153
 msgid ":Playlist  "
 msgstr ""
 
-#: src/screen.c:152
+#: src/screen.c:157
 msgid ":Browse"
 msgstr ""
 
-#: src/screen.c:156
+#: src/screen.c:161
 msgid "Volume n/a "
 msgstr ""
 
-#: src/screen.c:160
+#: src/screen.c:165
 #, c-format
 msgid " Volume %d%%"
 msgstr ""
 
-#: src/screen.c:279
-msgid "Stopped! "
-msgstr ""
-
-#: src/screen.c:282
+#: src/screen.c:245
 msgid "Playing:"
 msgstr ""
 
-#: src/screen.c:285
+#: src/screen.c:248
 msgid "[Paused]"
 msgstr ""
 
-#: src/screen.c:411 src/screen.c:511
+#: src/screen.c:380 src/screen.c:481
 msgid "Error: Screen to small!\n"
 msgstr ""
 
-#: src/screen.c:664
+#: src/screen.c:635
 msgid "Repeat is on"
 msgstr ""
 
-#: src/screen.c:665
+#: src/screen.c:636
 msgid "Repeat is off"
 msgstr ""
 
-#: src/screen.c:668
+#: src/screen.c:639
 msgid "Random is on"
 msgstr ""
 
-#: src/screen.c:669
+#: src/screen.c:640
 msgid "Random is off"
 msgstr ""
 
-#: src/screen.c:672
+#: src/screen.c:643
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr ""
 
-#: src/screen.c:674
+#: src/screen.c:646
 msgid "Database updated!"
 msgstr ""
 
-#: src/screen.c:808
+#: src/screen.c:767
 msgid "Shuffled playlist!"
 msgstr ""
 
-#: src/screen.c:814
+#: src/screen.c:771
 msgid "Cleared playlist!"
 msgstr ""
 
-#: src/screen.c:841
-#, c-format
-msgid "Database update started [%d]"
+#: src/screen.c:786
+msgid "Database update started!"
 msgstr ""
 
-#: src/screen.c:844
+#: src/screen.c:789 src/screen_file.c:579
 msgid "Database update running..."
 msgstr ""
 
-#: src/screen.c:865
+#: src/screen.c:802
 msgid "Find mode: Wrapped"
 msgstr ""
 
-#: src/screen.c:866
+#: src/screen.c:803
 msgid "Find mode: Normal"
 msgstr ""
 
-#: src/screen.c:871
+#: src/screen.c:808
 msgid "Auto center mode: On"
 msgstr ""
 
-#: src/screen.c:872
+#: src/screen.c:809
 msgid "Auto center mode: Off"
 msgstr ""
 
-#: src/screen_utils.c:39
+#: src/screen_utils.c:38
 msgid "Find: "
 msgstr ""
 
-#: src/screen_utils.c:40
+#: src/screen_utils.c:39
 msgid "Find backward: "
 msgstr ""
 
-#: src/screen_utils.c:150
+#: src/screen_utils.c:152
 #, c-format
 msgid "Unable to find '%s'"
 msgstr ""
 
-#: src/screen_play.c:91
+#. query the user for a filename
+#: src/screen_play.c:120
 msgid "Save playlist as: "
 msgstr ""
 
-#: src/screen_play.c:111
+#: src/screen_play.c:140
 #, c-format
-msgid "Error: Unable to save playlist as %s"
+msgid "Replace %s [%s/%s] ? "
+msgstr ""
+
+#: src/screen_play.c:157 src/screen_file.c:316 src/screen_keydef.c:159
+msgid "Aborted!"
 msgstr ""
 
 #. success
-#: src/screen_play.c:118
+#: src/screen_play.c:163
 #, c-format
 msgid "Saved %s"
 msgstr ""
 
-#: src/screen_play.c:154
-msgid "Music Player Client - Playlist"
+#: src/screen_play.c:204
+msgid "Playlist"
 msgstr ""
 
-#. print a status message
-#: src/screen_play.c:339
+#: src/screen_play.c:206
 #, c-format
-msgid "Removed '%s' from playlist!"
+msgid "Playlist on %s"
 msgstr ""
 
-#: src/screen_file.c:151
+#: src/screen_file.c:280
 #, c-format
 msgid "Loading playlist %s..."
 msgstr ""
 
-#: src/screen_file.c:173
+#: src/screen_file.c:302
 msgid "You can only delete playlists!"
 msgstr ""
 
-#: src/screen_file.c:180
+#: src/screen_file.c:309
 #, c-format
-msgid "Delete playlist %s [y/n] ? "
+msgid "Delete playlist %s [%s/%s] ? "
 msgstr ""
 
-#: src/screen_file.c:187 src/screen_keydef.c:158
-msgid "Aborted!"
-msgstr ""
-
-#: src/screen_file.c:201
+#: src/screen_file.c:324
 msgid "Playlist deleted!"
 msgstr ""
 
-#: src/screen_file.c:235
+#: src/screen_file.c:360
 #, c-format
 msgid "Adding directory %s...\n"
 msgstr ""
 
-#: src/screen_file.c:305
+#: src/screen_file.c:440
 #, c-format
 msgid "Adding '%s' to playlist\n"
 msgstr ""
 
-#: src/screen_file.c:369
+#: src/screen_file.c:516
 #, c-format
 msgid "Browse: %s"
 msgstr ""
 
-#: src/screen_file.c:419
+#: src/screen_file.c:564
 msgid "Screen updated!"
 msgstr ""
 
-#: src/screen_keydef.c:45
-msgid "===> Apply & Save key bindings  "
+#: src/screen_file.c:571
+#, c-format
+msgid "Database update of %s started!"
 msgstr ""
 
 #: src/screen_keydef.c:46
+msgid "===> Apply & Save key bindings  "
+msgstr ""
+
+#: src/screen_keydef.c:47
 msgid "===> Apply key bindings "
 msgstr ""
 
-#: src/screen_keydef.c:75
+#: src/screen_keydef.c:76
 msgid "You have new key bindings!"
 msgstr ""
 
-#: src/screen_keydef.c:78
+#: src/screen_keydef.c:79
 msgid "Keybindings unchanged."
 msgstr ""
 
-#: src/screen_keydef.c:89
+#: src/screen_keydef.c:90
 #, c-format
 msgid "Error: Unable to create direcory ~/.ncmpc - %s"
 msgstr ""
 
-#: src/screen_keydef.c:99 src/screen_keydef.c:105
+#: src/screen_keydef.c:100 src/screen_keydef.c:106
 #, c-format
 msgid "Error: %s - %s"
 msgstr ""
 
-#: src/screen_keydef.c:107
+#: src/screen_keydef.c:108
 #, c-format
 msgid "Wrote %s"
 msgstr ""
 
-#: src/screen_keydef.c:135
+#: src/screen_keydef.c:136
 msgid "Deleted"
 msgstr ""
 
-#: src/screen_keydef.c:152
+#: src/screen_keydef.c:153
 #, c-format
 msgid "Enter new key for %s: "
 msgstr ""
 
-#: src/screen_keydef.c:164
+#: src/screen_keydef.c:165
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr ""
 
-#: src/screen_keydef.c:171
+#: src/screen_keydef.c:172
 #, c-format
 msgid "Assigned %s to %s"
 msgstr ""
 
-#: src/screen_keydef.c:207
+#: src/screen_keydef.c:208
 #, c-format
 msgid "%d. Add new key "
 msgstr ""
 
-#: src/screen_keydef.c:254
+#: src/screen_keydef.c:255
 msgid "Welcome to the key editor!"
 msgstr ""
 
-#: src/screen_keydef.c:270
+#: src/screen_keydef.c:271
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr ""
 
-#: src/screen_keydef.c:279
+#: src/screen_keydef.c:278
 msgid "Edit key bindings"
 msgstr ""
 
-#: src/screen_keydef.c:282
+#: src/screen_keydef.c:280
 #, c-format
 msgid "Edit keys for %s"
 msgstr ""
 
-#: src/screen_clock.c:153
-msgid "Music Player Client - Clock"
+#: src/screen_clock.c:154
+msgid "Clock"
 msgstr ""
 
 #: src/screen_help.c:43
@@ -327,8 +328,8 @@ msgstr ""
 msgid "Enter directory"
 msgstr ""
 
-#: src/screen_help.c:209
-msgid "Music Player Client - Help"
+#: src/screen_help.c:210
+msgid "Help"
 msgstr ""
 
 #: src/command.c:67
@@ -563,34 +564,34 @@ msgstr ""
 msgid "Insert"
 msgstr ""
 
-#: src/command.c:401
+#: src/command.c:408
 #, c-format
 msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr ""
 
-#: src/colors.c:191
+#: src/colors.c:187
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr ""
 
-#: src/colors.c:236
+#: src/colors.c:232
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr ""
 
-#: src/colors.c:271
+#: src/colors.c:267
 msgid "Terminal lacks support for changing colors!\n"
 msgstr ""
 
-#: src/colors.c:288
+#: src/colors.c:284
 msgid "Terminal lacks color capabilities!\n"
 msgstr ""
 
-#: src/support.c:147
+#: src/support.c:186
 #, c-format
 msgid "Error: Unable to convert characters to %s"
 msgstr ""
 
-#: src/support.c:176
+#: src/support.c:215
 msgid "Error: Unable to convert characters to UTF-8"
 msgstr ""
