@@ -4,7 +4,7 @@ dnl
 
 AC_INIT
 AC_CONFIG_SRCDIR([src/main.c])
-AM_INIT_AUTOMAKE([ncmpc], [0.11.1-rc1])
+AM_INIT_AUTOMAKE([ncmpc], [0.11.1-rc3])
 AM_CONFIG_HEADER([config.h])
 
 dnl Check for programs
@@ -17,7 +17,7 @@ dnl initialize variables
 dnl =======================================================
 
 dnl i18n
-ALL_LINGUAS="es de ru sv"
+ALL_LINGUAS="es de fr ru sv"
 
 set -- $CFLAGS
 
