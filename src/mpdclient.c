@@ -330,6 +330,18 @@ mpdclient_cmd_volume(mpdclient_t *c, gint value)
 }
 
 gint 
+mpdclient_cmd_add_path(mpdclient_t *c, gchar *path)
+{
+  gint retval;
+  gchar *path_utf8 = locale_to_utf8(path);
+
+  mpd_sendAddCommand(c->connection, path_utf8);
+  retval=mpdclient_finish_command(c);
+  g_free(path_utf8);
+  return retval;
+}
+
+gint 
 mpdclient_cmd_add(mpdclient_t *c, mpd_Song *song)
 { 
   gint retval = 0;

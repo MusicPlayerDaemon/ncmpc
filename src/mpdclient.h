@@ -83,6 +83,7 @@ gint mpdclient_cmd_random(mpdclient_t *c, gint value);
 gint mpdclient_cmd_crossfade(mpdclient_t *c, gint value);
 gint mpdclient_cmd_db_update(mpdclient_t *c, gchar *path);
 gint mpdclient_cmd_volume(mpdclient_t *c, gint value);
+gint mpdclient_cmd_add_path(mpdclient_t *c, gchar *path);
 
 gint mpdclient_cmd_add(mpdclient_t *c, mpd_Song *song);
 gint mpdclient_cmd_delete(mpdclient_t *c, gint index);
