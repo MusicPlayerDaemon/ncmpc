@@ -57,7 +57,7 @@
 #define CONF_FIND_WRAP               "find-wrap"
 #define CONF_AUDIBLE_BELL            "audible-bell"
 #define CONF_VISIBLE_BELL            "visible-bell"
-#define CONF_XTERM_TITLE             "xterm-title"
+#define CONF_XTERM_TITLE             "set-xterm-title"
 
 /* Deprecated - configuration field names */
 #define OLD_CONF_ENABLE_COLORS       "enable_colors"

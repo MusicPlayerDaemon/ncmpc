@@ -26,6 +26,8 @@
 ## enable visible bell on alerts
 #visible-bell = no
 
+## change the xterm title 
+#set-xterm-title = no
 
 ##
 ## Color configuration
