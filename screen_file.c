@@ -210,6 +210,7 @@ add_directory(mpd_client_t *c, char *dir)
 
   dirname = utf8_to_locale(dir);
   screen_status_printf("Adding directory %s...\n", dirname);
+  doupdate(); 
   g_free(dirname);
   dirname = NULL;
 
