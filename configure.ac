@@ -3,7 +3,7 @@ dnl  $Id: configure.ac,v 1.10 2004/03/18 09:33:43 kalle Exp $
 dnl
 
 AC_INIT(main.c)
-AM_INIT_AUTOMAKE(ncmpc, 0.10.0-svn)
+AM_INIT_AUTOMAKE(ncmpc, 0.10.0)
 
 dnl Check for programs
 AC_PROG_CC

@@ -29,7 +29,7 @@ static struct poptOption optionsTable[] = {
     "Connect to server on port [" DEFAULT_PORT_STR "].", "PORT" },
   { "host",         'h', POPT_ARG_STRING, &mpd_host, 0, 
     "Connect to server [" DEFAULT_HOST "].", "HOSTNAME" },
-  { "passwd",       'P', POPT_ARG_STRING, &mpd_password, 0, 
+  { "password",     'P', POPT_ARG_STRING, &mpd_password, 0, 
     "Connect with password.", "PASSWORD" },
   POPT_AUTOHELP
   { NULL, 0, 0, NULL, 0 }
