@@ -169,7 +169,7 @@ main(int argc, const char *argv[])
   read_configuration(options);
 
   /* check key bindings */
-  key_error = check_key_bindings(NULL, 0);
+  key_error = check_key_bindings(NULL, NULL, 0);
   
   /* parse command line options - 2 pass */
   options_parse(argc, argv);
@@ -241,7 +241,7 @@ main(int argc, const char *argv[])
 	{
 	  char buf[BUFSIZE];
 
-	  key_error=check_key_bindings(buf, BUFSIZE);
+	  key_error=check_key_bindings(NULL, buf, BUFSIZE);
 	  screen_status_printf("%s", buf);
 	}
 

@@ -64,120 +64,120 @@ extern void screen_resize(void);
 static command_definition_t cmds[] =
 {
 #ifdef ENABLE_KEYDEF_SCREEN
-  { {'K',   0,   0 }, CMD_SCREEN_KEYDEF,    "screen-keyedit",
+  { {'K',   0,   0 }, 0, CMD_SCREEN_KEYDEF,    "screen-keyedit",
     N_("Key configuration screen") },
 #endif
-  { { 'q', 'Q',  3 }, CMD_QUIT,   "quit",
+  { { 'q', 'Q',  3 }, 0, CMD_QUIT,   "quit",
     N_("Quit") },  
 
   /* movment */
-  { {  UP,  'k',   0 }, CMD_LIST_PREVIOUS,      "up",
+  { {  UP,  'k',   0 }, 0, CMD_LIST_PREVIOUS,      "up",
     N_("Move cursor up") },
-  { { DWN,  'j',   0 }, CMD_LIST_NEXT,          "down",
+  { { DWN,  'j',   0 }, 0, CMD_LIST_NEXT,          "down",
     N_("Move cursor down") },
-  { { HOME, 0x01, 0 }, CMD_LIST_FIRST,          "home",
+  { { HOME, 0x01, 0 }, 0, CMD_LIST_FIRST,          "home",
     N_("Home ") },
-  { { END,  0x05, 0 }, CMD_LIST_LAST,           "end",
+  { { END,  0x05, 0 }, 0, CMD_LIST_LAST,           "end",
     N_("End ") },
-  { { PGUP,   0,   0 }, CMD_LIST_PREVIOUS_PAGE, "pgup",
+  { { PGUP,   0,   0 }, 0, CMD_LIST_PREVIOUS_PAGE, "pgup",
     N_("Page up") },
-  { { PGDN,   0,   0 }, CMD_LIST_NEXT_PAGE,     "pgdn", 
+  { { PGDN,   0,   0 }, 0, CMD_LIST_NEXT_PAGE,     "pgdn", 
     N_("Page down") },
 
 
   /* basic screens */
-  { { '1', F1, 'h' }, CMD_SCREEN_HELP,      "screen-help",
+  { { '1', F1, 'h' }, 0, CMD_SCREEN_HELP,      "screen-help",
     N_("Help screen") },
-  { { '2', F2,  0 }, CMD_SCREEN_PLAY,      "screen-playlist",
+  { { '2', F2,  0 }, 0, CMD_SCREEN_PLAY,      "screen-playlist",
     N_("Playlist screen") },
-  { { '3', F3,  0 }, CMD_SCREEN_FILE,      "screen-browse",
+  { { '3', F3,  0 }, 0, CMD_SCREEN_FILE,      "screen-browse",
     N_("Browse screen") },
 
 
   /* player commands */
-  { {  13,   0,   0 }, CMD_PLAY, "play",  
+  { {  13,   0,   0 }, 0, CMD_PLAY, "play",  
     N_("Play/Enter directory") },
-  { { 'P',   0,   0 }, CMD_PAUSE,"pause", 
+  { { 'P',   0,   0 }, 0, CMD_PAUSE,"pause", 
     N_("Pause") },
-  { { 's',  BS,   0 }, CMD_STOP, "stop",   
+  { { 's',  BS,   0 }, 0, CMD_STOP, "stop",   
     N_("Stop") },
-  { { '>',   0,   0 }, CMD_TRACK_NEXT, "next", 
+  { { '>',   0,   0 }, 0, CMD_TRACK_NEXT, "next", 
     N_("Next track") },
-  { { '<',   0,   0 }, CMD_TRACK_PREVIOUS, "prev", 
+  { { '<',   0,   0 }, 0, CMD_TRACK_PREVIOUS, "prev", 
     N_("Previous track") },
-  { { 'f',   0,   0 }, CMD_SEEK_FORWARD, "seek-forward", 
+  { { 'f',   0,   0 }, 0, CMD_SEEK_FORWARD, "seek-forward", 
     N_("Seek forward") },
-  { { 'b',   0,   0 }, CMD_SEEK_BACKWARD, "seek-backward", 
+  { { 'b',   0,   0 }, 0, CMD_SEEK_BACKWARD, "seek-backward", 
     N_("Seek backward") },
-  { { '+', RGHT,  0 }, CMD_VOLUME_UP, "volume-up", 
+  { { '+', RGHT,  0 }, 0, CMD_VOLUME_UP, "volume-up", 
     N_("Increase volume") },
-  { { '-', LEFT,  0 }, CMD_VOLUME_DOWN, "volume-down", 
+  { { '-', LEFT,  0 }, 0, CMD_VOLUME_DOWN, "volume-down", 
     N_("Decrease volume") },
-  { { ' ',   0,   0 }, CMD_SELECT, "select", 
+  { { ' ',   0,   0 }, 0, CMD_SELECT, "select", 
     N_("Select/deselect song in playlist") },
-  { { DEL,  'd',  0 }, CMD_DELETE, "delete",
+  { { DEL,  'd',  0 }, 0, CMD_DELETE, "delete",
     N_("Delete song from playlist") },
-  { { 'Z',   0,   0 }, CMD_SHUFFLE, "shuffle",
+  { { 'Z',   0,   0 }, 0, CMD_SHUFFLE, "shuffle",
     N_("Shuffle playlist") },
-  { { 'c',   0,   0 }, CMD_CLEAR, "clear",
+  { { 'c',   0,   0 }, 0, CMD_CLEAR, "clear",
     N_("Clear playlist") },
-  { { 'r',   0,   0 }, CMD_REPEAT, "repeat",
+  { { 'r',   0,   0 }, 0, CMD_REPEAT, "repeat",
     N_("Toggle repeat mode") },
-  { { 'z',   0,   0 }, CMD_RANDOM, "random",
+  { { 'z',   0,   0 }, 0, CMD_RANDOM, "random",
     N_("Toggle random mode") },
-  { { 'x',   0,   0 }, CMD_CROSSFADE, "crossfade",
+  { { 'x',   0,   0 }, 0, CMD_CROSSFADE, "crossfade",
     N_("Toggle crossfade mode") },
-  { { 21,    0,   0 }, CMD_DB_UPDATE,  "db-update",
+  { { 21,    0,   0 }, 0, CMD_DB_UPDATE,  "db-update",
     N_("Start a music database update") },
-  { { 'S',   0,   0 }, CMD_SAVE_PLAYLIST, "save",
+  { { 'S',   0,   0 }, 0, CMD_SAVE_PLAYLIST, "save",
     N_("Save playlist") },
-  { { 'a',   0,   0 }, CMD_ADD, "add",
+  { { 'a',   0,   0 }, 0, CMD_ADD, "add",
     N_("Add url/file to playlist") },
 
 
   /* lists */
-  { { 11,  0,   0 }, CMD_LIST_MOVE_UP,     "move-up", 
+  { { 11,  0,   0 }, 0, CMD_LIST_MOVE_UP,     "move-up", 
     N_("Move item up") },
-  { { 10,  0,   0 }, CMD_LIST_MOVE_DOWN,   "move-down", 
+  { { 10,  0,   0 }, 0, CMD_LIST_MOVE_DOWN,   "move-down", 
     N_("Move item down") },
-  { { 12,  0,   0 }, CMD_SCREEN_UPDATE,    "update",
+  { { 12,  0,   0 }, 0, CMD_SCREEN_UPDATE,    "update",
     N_("Update screen") },
 
 
   /* ncmpc options */
-  { { 'w',   0,   0 }, CMD_TOGGLE_FIND_WRAP,  "wrap-mode", 
+  { { 'w',   0,   0 }, 0, CMD_TOGGLE_FIND_WRAP,  "wrap-mode", 
     N_("Toggle find mode") },
-  { { 'U',   0,   0 }, CMD_TOGGLE_AUTOCENTER, "autocenter-mode", 
+  { { 'U',   0,   0 }, 0, CMD_TOGGLE_AUTOCENTER, "autocenter-mode", 
     N_("Toggle auto center mode") },
 
 
   /* change screen */
-  { { TAB,   0,   0 }, CMD_SCREEN_NEXT,     "screen-next",
+  { { TAB,   0,   0 }, 0, CMD_SCREEN_NEXT,     "screen-next",
     N_("Next screen") },
-  { { STAB,  0,   0 }, CMD_SCREEN_PREVIOUS, "screen-prev",
+  { { STAB,  0,   0 }, 0, CMD_SCREEN_PREVIOUS, "screen-prev",
     N_("Previous screen") },
 
  
   /* find */
-  { { '/',   0,   0 }, CMD_LIST_FIND,           "find",
+  { { '/',   0,   0 }, 0, CMD_LIST_FIND,           "find",
     N_("Forward find") },
-  { { 'n',   0,   0 }, CMD_LIST_FIND_NEXT,      "find-next",
+  { { 'n',   0,   0 }, 0, CMD_LIST_FIND_NEXT,      "find-next",
     N_("Forward find next") },
-  { { '?',   0,   0 }, CMD_LIST_RFIND,          "rfind",
+  { { '?',   0,   0 }, 0, CMD_LIST_RFIND,          "rfind",
     N_("Backward find") },
-  { { 'p',   0,   0 }, CMD_LIST_RFIND_NEXT,     "rfind-next",
+  { { 'p',   0,   0 }, 0, CMD_LIST_RFIND_NEXT,     "rfind-next",
     N_("Backward find previous") },
 
 
   /* extra screens */
 #ifdef ENABLE_CLOCK_SCREEN
-  { {'4',  F4,   0 }, CMD_SCREEN_CLOCK,    "screen-clock",
+  { {'4',  F4,   0 }, 0, CMD_SCREEN_CLOCK,    "screen-clock",
     N_("Clock screen") },
 #endif
 
 
 
-  { { -1,  -1,  -1 }, CMD_NONE, NULL, NULL }
+  { { -1,  -1,  -1 }, 0, CMD_NONE, NULL, NULL }
 };
 
 command_definition_t *
@@ -260,6 +260,24 @@ command_dump_keys(void)
 	printf(" %20s : %s\n", get_key_names(cmds[i].command,1),cmds[i].name); 
       i++;
     }
+}
+
+int
+set_key_flags(command_definition_t *cp, command_t command, int flags)
+{
+  int i;
+
+  i=0;
+  while( cp[i].name )
+    {
+      if( cp[i].command == command )
+	{
+	  cp[i].flags |= flags;
+	  return 0;
+	}
+      i++;
+    }
+  return 1;
 }
 
 char *
@@ -398,6 +416,7 @@ assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
       if( cmds[i].command == command )
 	{
 	  memcpy(cmds[i].keys, keys, sizeof(int)*MAX_COMMAND_KEYS);
+	  cmds[i].flags |= COMMAND_KEY_MODIFIED;
 	  return 0;
 	}
       i++;
@@ -406,44 +425,56 @@ assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
 }
 
 int 
-check_key_bindings(char *buf, size_t bufsize)
+check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 {
   int i;
   int retval = 0;
+
+  if( cp==NULL )
+    cp = cmds;
+
+  i=0;
+  while( cp[i].name )
+    {
+      cp[i].flags &= ~COMMAND_KEY_CONFLICT;
+      i++;
+    }
   
   i=0;
-  while( cmds[i].name )
+  while( cp[i].name )
     {
       int j;
-      command_t cmd;
+      command_t cmd;	  
 
       for(j=0; j<MAX_COMMAND_KEYS; j++)
-	if( cmds[i].keys[j] && 
-	    (cmd=get_key_command(cmds[i].keys[j])) != cmds[i].command )
+	if( cp[i].keys[j] && 
+	    (cmd=find_key_command(cp[i].keys[j],cp)) != cp[i].command )
 	  {
 	    if( buf )
 #ifdef ENABLE_KEYDEF_SCREEN
 	      snprintf(buf, bufsize,
 		       _("Key %s assigned to %s and %s (press %s for the key editor)"),
-		       key2str(cmds[i].keys[j]),
-		       get_key_command_name(cmds[i].command),
+		       key2str(cp[i].keys[j]),
+		       get_key_command_name(cp[i].command),
 		       get_key_command_name(cmd),
 		       get_key_names(CMD_SCREEN_KEYDEF,0));
 #else
 	    snprintf(buf, bufsize,
 		       _("Error: Key %s assigned to %s and %s !!!\n"),
-		       key2str(cmds[i].keys[j]),
-		       get_key_command_name(cmds[i].command),
+		       key2str(cp[i].keys[j]),
+		       get_key_command_name(cp[i].command),
 		       get_key_command_name(cmd));
 #endif
 	    else
 	      fprintf(stderr,
 		      _("Error: Key %s assigned to %s and %s !!!\n"),
-		      key2str(cmds[i].keys[j]),
-		      get_key_command_name(cmds[i].command),
+		      key2str(cp[i].keys[j]),
+		      get_key_command_name(cp[i].command),
 		      get_key_command_name(cmd));
+	    cp[i].flags |= COMMAND_KEY_CONFLICT;
+	    set_key_flags(cp, cmd, COMMAND_KEY_CONFLICT);
 	    retval = -1;
-	  }
+	  }	
       i++;
     }
   return retval;
@@ -454,25 +485,30 @@ write_key_bindings(FILE *f)
 {
   int i,j;
 
+  fprintf(f, "# Key bindings for ncmpc (generated by ncmpc)\n\n");
+
   i=0;
   while( cmds[i].name && !ferror(f) )
     {
-      fprintf(f, "# %s\n", cmds[i].description);
-      fprintf(f, "key %s = ", cmds[i].name);
-      for(j=0; j<MAX_COMMAND_KEYS; j++)
+      if( cmds[i].flags & COMMAND_KEY_MODIFIED )
 	{
-	  if( j && cmds[i].keys[j] )
-	    fprintf(f, ",  ");
-	  if( !j || cmds[i].keys[j] )
+	  fprintf(f, "# %s\n", cmds[i].description);
+	  fprintf(f, "key %s = ", cmds[i].name);
+	  for(j=0; j<MAX_COMMAND_KEYS; j++)
 	    {
-	      if( cmds[i].keys[j]<256 && (isalpha(cmds[i].keys[j]) || 
-					  isdigit(cmds[i].keys[j])) )
-		fprintf(f, "\'%c\'", cmds[i].keys[j]);
-	      else
-		fprintf(f, "%d", cmds[i].keys[j]);
+	      if( j && cmds[i].keys[j] )
+		fprintf(f, ",  ");
+	      if( !j || cmds[i].keys[j] )
+		{
+		  if( cmds[i].keys[j]<256 && (isalpha(cmds[i].keys[j]) || 
+					      isdigit(cmds[i].keys[j])) )
+		    fprintf(f, "\'%c\'", cmds[i].keys[j]);
+		  else
+		    fprintf(f, "%d", cmds[i].keys[j]);
+		}
 	    }
+	  fprintf(f,"\n\n");
 	}
-      fprintf(f,"\n\n");
       i++;
     }
   return ferror(f);

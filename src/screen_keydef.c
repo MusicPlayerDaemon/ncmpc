@@ -137,10 +137,12 @@ delete_key(int cmd_index, int key_index)
   while( i<MAX_COMMAND_KEYS && cmds[cmd_index].keys[i] )
     cmds[cmd_index].keys[key_index++] = cmds[cmd_index].keys[i++];
   cmds[cmd_index].keys[key_index] = 0;
-
+  cmds[cmd_index].flags |= COMMAND_KEY_MODIFIED;
   check_subcmd_length();
   lw->clear = 1;
   lw->repaint = 1;
+  /* update key conflict flags */
+  check_key_bindings(cmds, NULL, 0);
 }
 
 static void
@@ -169,10 +171,14 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
       return;
     }
   cmds[cmd_index].keys[key_index] = key;
+  cmds[cmd_index].flags |= COMMAND_KEY_MODIFIED;
+  
   screen_status_printf(_("Assigned %s to %s"), 
 		       key2str(key),cmds[cmd_index].name);
   check_subcmd_length();
   lw->repaint = 1;
+  /* update key conflict flags */
+  check_key_bindings(cmds, NULL, 0);
 }
 
 static char *
@@ -180,10 +186,15 @@ list_callback(int index, int *highlight, void *data)
 {
   static char buf[BUFSIZE];
 
+  *highlight = 0;
   if( subcmd <0 )
     {
       if( index<command_list_length )
-	return cmds[index].name;
+	{
+	  if( cmds[index].flags & COMMAND_KEY_CONFLICT )
+	    *highlight = 1;
+	  return cmds[index].name;
+	}
       else if( index==LIST_ITEM_APPLY() )
 	return LIST_ITEM_APPLY_LABEL;
       else if( index==LIST_ITEM_SAVE() )
@@ -346,6 +357,10 @@ keydef_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       if( subcmd>=0 && lw->selected-STATIC_SUB_ITEMS>=0 )
 	delete_key(subcmd, lw->selected-STATIC_SUB_ITEMS);
       return 1;
+      break;
+    case CMD_SAVE_PLAYLIST:
+      apply_keys();
+      save_keys();
       break;
     case CMD_LIST_FIND:
     case CMD_LIST_RFIND:

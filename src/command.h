@@ -3,6 +3,7 @@
 
 #define MAX_COMMAND_KEYS 3
 
+/* commands */
 typedef enum
 {
   CMD_NONE = 0,
@@ -51,9 +52,15 @@ typedef enum
   CMD_QUIT
 } command_t;
 
+
+/* flags */
+#define COMMAND_KEY_MODIFIED  0x01
+#define COMMAND_KEY_CONFLICT  0x02
+
 typedef struct 
 {
   int keys[MAX_COMMAND_KEYS];
+  char flags;
   command_t command;
   char *name;
   char *description;
@@ -63,7 +70,7 @@ command_definition_t *get_command_definitions(void);
 command_t find_key_command(int key, command_definition_t *cmds);
 
 void command_dump_keys(void);
-int  check_key_bindings(char *buf, size_t size);
+int  check_key_bindings(command_definition_t *cmds, char *buf, size_t size);
 int  write_key_bindings(FILE *f);
 
 char *key2str(int key);
