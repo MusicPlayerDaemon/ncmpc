@@ -42,7 +42,7 @@ list_callback(int index, int *highlight, void *data)
       mpd_Directory *dir = entity->info.directory;
       char *dirname = utf8_to_locale(basename(dir->path));
 
-      strncpy(buf, dirname, BUFSIZE);
+      snprintf(buf, BUFSIZE, "[%s]", dirname);
       free(dirname);
       return buf;
     }
@@ -336,7 +336,7 @@ file_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
 	  free(screen->findbuf);
 	  screen->findbuf=NULL;
 	}
-      /* fall throw... */
+      /* continue... */
     case CMD_LIST_FIND_NEXT:
       if( !screen->findbuf )
 	screen->findbuf=screen_readln(screen->status_window.w, "/");
