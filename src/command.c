@@ -24,6 +24,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <glib.h>
+#include <signal.h>
 #include <ncurses.h>
 
 #include "config.h"
@@ -391,12 +392,17 @@ get_keyboard_command_with_timeout(int ms)
   if( key==KEY_RESIZE )
     screen_resize();
 
+#ifdef ENABLE_RAW_MODE
+  if( key==KEY_SIGSTOP )
+    sigstop();
+#endif
+
   if( key==ERR )
     return CMD_NONE;
 
 #ifdef HAVE_GETMOUSE
-  if( key==KEY_MOUSE )
-    return CMD_MOUSE_EVENT;
+  //  if( key==KEY_MOUSE )
+  //    return CMD_MOUSE_EVENT;
 #endif
 
   return get_key_command(key);

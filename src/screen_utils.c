@@ -66,6 +66,11 @@ screen_getch(WINDOW *w, char *prompt)
   while( (key=wgetch(w)) == ERR )
     ;
 
+#ifdef ENABLE_RAW_MODE
+  if( key==KEY_SIGSTOP )
+    sigstop();
+#endif
+
 #ifdef HAVE_GETMOUSE
   /* ignore mouse events */
   if( key==KEY_MOUSE )

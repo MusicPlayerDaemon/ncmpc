@@ -137,7 +137,19 @@ void
 catch_sigcont( int sig )
 {
   D("catch_sigcont()\n");
-  screen_resize();
+#ifdef ENABLE_RAW_MODE
+  reset_prog_mode(); /* restore tty modes */
+  refresh();
+#endif
+  screen_resize(); 
+}
+
+void
+sigstop(void)
+{
+  def_prog_mode();  /* save the tty modes */
+  endwin();         /* end curses mode temporarily */
+  kill(0, SIGSTOP); /* issue SIGSTOP */
 }
 
 #ifdef DEBUG

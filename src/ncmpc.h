@@ -46,4 +46,10 @@ void D(char *format, ...);
 #define DEFAULT_STATUS_FORMAT "[%artist% - ]%title%|%shortfile%"
 #define STATUS_FORMAT (options.status_format ? options.status_format : DEFAULT_STATUS_FORMAT)
 
+/* sigstop key (Ctrl-Z) */
+#define KEY_SIGSTOP 26
+
+/* send SIGSTOP */
+void sigstop(void);
+
 #endif /* NCMPC_H */
