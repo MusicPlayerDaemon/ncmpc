@@ -98,7 +98,7 @@ paint_top_window(char *header, int volume, int clear)
       if( options.enable_colors )
 	wattroff(w, LINE_COLORS);
 
-      wrefresh(w);
+      wnoutrefresh(w);
     }
 }
 
@@ -112,7 +112,7 @@ paint_progress_window(mpd_client_t *c)
     {
       mvwhline(screen->progress_window.w, 0, 0, ACS_HLINE, 
 	       screen->progress_window.cols);
-      wrefresh(screen->progress_window.w);
+      wnoutrefresh(screen->progress_window.w);
       return;
     }
 
@@ -125,7 +125,7 @@ paint_progress_window(mpd_client_t *c)
 	   screen->progress_window.cols);
   whline(screen->progress_window.w, '=', width-1);
   mvwaddch(screen->progress_window.w, 0, width-1, 'O');
-  wrefresh(screen->progress_window.w);
+  wnoutrefresh(screen->progress_window.w);
 }
 
 static void 
@@ -201,7 +201,7 @@ paint_status_window(mpd_client_t *c)
 #endif
   
 
-  wrefresh(w);
+  wnoutrefresh(w);
 }
 
 
@@ -245,7 +245,7 @@ screen_status_message(char *msg)
   wattron(w, A_BOLD);
   my_waddstr(w, msg, ALERT_COLORS);
   wattroff(w, A_BOLD);
-  wrefresh(w);
+  wnoutrefresh(w);
   screen->status_timestamp = time(NULL);
 }
 
@@ -397,6 +397,7 @@ screen_paint(mpd_client_t *c)
   paint_progress_window(c);
   paint_status_window(c);
   screen->painted = 1;
+  doupdate();
 }
 
 void 
@@ -426,6 +427,7 @@ screen_update(mpd_client_t *c)
     }
   paint_progress_window(c);
   paint_status_window(c);
+  doupdate();
 }
 
 void 

@@ -53,7 +53,7 @@ play_paint(screen_t *screen, mpd_client_t *c)
   w->clear = 1;
   
   list_window_paint(screen->playlist, list_callback, (void *) c);
-  wrefresh(screen->playlist->w);
+  wnoutrefresh(screen->playlist->w);
 }
 
 void
@@ -72,7 +72,7 @@ play_update(screen_t *screen, mpd_client_t *c)
   else if( screen->playlist->repaint || 1)
     {
       list_window_paint(screen->playlist, list_callback, (void *) c);
-      wrefresh(screen->playlist->w);
+      wnoutrefresh(screen->playlist->w);
       screen->playlist->repaint = 0;
     }
 }

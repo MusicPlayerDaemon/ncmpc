@@ -310,7 +310,7 @@ file_paint(screen_t *screen, mpd_client_t *c)
   w->clear = 1;
   
   list_window_paint(screen->filelist, list_callback, (void *) c);
-  wrefresh(screen->filelist->w);
+  wnoutrefresh(screen->filelist->w);
 }
 
 void 
@@ -323,7 +323,7 @@ file_update(screen_t *screen, mpd_client_t *c)
       return;
     }
   list_window_paint(screen->filelist, list_callback, (void *) c);
-  wrefresh(screen->filelist->w);
+  wnoutrefresh(screen->filelist->w);
 }
 
 
