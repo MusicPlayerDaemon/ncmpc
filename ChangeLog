@@ -1,3 +1,9 @@
+2004-12-12  Kalle Wallin <kaw@linux.se>
+	* screen_play.c: Fixed abort (Ctrl-G) handling in the save playlist prompt
+
+2004-12-09  Kalle Wallin <kaw@linux.se>
+	* strfsong.c: %time% format fix from Aurelien Foret (use %02d for seconds)
+
 2004-11-14  Kalle Wallin <kaw@linux.se>
 	* Added a search screen 
 	* screen_browse.c: added enqueue and play feature

@@ -156,13 +156,14 @@ handle_save_playlist(screen_t *screen, mpdclient_t *c, char *name)
 			       NULL,
 			       NULL,
 			       gcmp);     			       
-      filename=g_strstrip(filename);
 
       /* destroy completion support */
       wrln_pre_completion_callback = NULL;
       wrln_post_completion_callback = NULL;
       g_completion_free(gcmp);
       list = string_list_free(list);
+      if( filename )
+	filename=g_strstrip(filename);
     }
   else
     {
