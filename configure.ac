@@ -4,7 +4,7 @@ dnl
 
 AC_INIT
 AC_CONFIG_SRCDIR([src/main.c])
-AM_INIT_AUTOMAKE(ncmpc, 0.11.0-svn-20040630)
+AM_INIT_AUTOMAKE(ncmpc, 0.11.0-svn)
 AM_CONFIG_HEADER([config.h])
 
 dnl Check for programs

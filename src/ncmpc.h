@@ -6,7 +6,7 @@
 #endif
 
 #ifdef DEBUG
-#define D(format, args...) fprintf(stderr, format,  ##args)
+void D(char *format, ...);
 #else
 #define D(...)
 #endif

@@ -133,6 +133,24 @@ catch_sigint( int sig )
   exit(EXIT_SUCCESS);
 }
 
+#ifdef DEBUG
+void 
+D(char *format, ...)
+{
+  if( options.debug )
+    {
+      gchar *msg;
+      va_list ap;
+  
+      va_start(ap,format);
+      msg = g_strdup_vprintf(format,ap);
+      va_end(ap);
+      fprintf(stderr, "%s", msg);
+      g_free(msg);
+    }
+}
+#endif
+
 int 
 main(int argc, const char *argv[])
 {
