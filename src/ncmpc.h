@@ -43,7 +43,7 @@
 #define LIST_FORMAT (options.list_format ? options.list_format : DEFAULT_LIST_FORMAT)
 
 /* song format - status window */
-#define DEFAULT_STATUS_FORMAT "[%artist% - ]%title%|%basename%"
+#define DEFAULT_STATUS_FORMAT "[%artist% - ]%title%|%shortfile%"
 #define STATUS_FORMAT (options.status_format ? options.status_format : DEFAULT_STATUS_FORMAT)
 
 #endif /* NCMPC_H */

@@ -145,7 +145,7 @@ _strfsong(gchar *s,
       n = end - p + 1;
       if(*end != '%')
 	n--;
-      else if (strncmp("%basename%", p, n) == 0)
+      else if (strncmp("%shortfile%", p, n) == 0)
 	temp = utf8_to_locale(basename(song->file));
       else if (strncmp("%file%", p, n) == 0)
 	temp = utf8_to_locale(song->file);

@@ -12,7 +12,7 @@
 #list-format = "%name%|[%artist% - ]%title%|%file%"
 
 ## status-format
-#status-format = "[%artist% - ]%title%|%basename%"
+#status-format = "[%artist% - ]%title%|%shortfile%"
 
 
 ##
