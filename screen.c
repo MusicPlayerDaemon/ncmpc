@@ -169,7 +169,6 @@ paint_status_window(mpd_client_t *c)
 
   if( (IS_PLAYING(status->state) || IS_PAUSED(status->state)) &&  song )
     {
-      // my_mvwaddstr(w, 0, x, mpc_get_song_name(song), COLOR_PAIR(2));
       mvwaddstr(w, 0, x, mpc_get_song_name(song));
     }
   
@@ -183,7 +182,6 @@ paint_status_window(mpd_client_t *c)
 	       " [%i:%02i/%i:%02i] ",
 	       status->elapsedTime/60, status->elapsedTime%60,
 	       status->totalTime/60,   status->totalTime%60 );
-      //my_mvwaddstr(w, 0, x, screen->buf, COLOR_PAIR(1));
       mvwaddstr(w, 0, x, screen->buf);
 	
     }
@@ -505,13 +503,11 @@ screen_cmd(mpd_client_t *c, command_t cmd)
       n = !c->status->repeat;
       mpd_sendRepeatCommand(c->connection, n);
       mpd_finishCommand(c->connection);
-      screen_status_printf("Repeat is %s", n ? "On" : "Off");
       break;
     case CMD_RANDOM:
       n = !c->status->random;
       mpd_sendRandomCommand(c->connection, n);
       mpd_finishCommand(c->connection);
-      screen_status_printf("Random is %s", n ? "On" : "Off");
       break;
     case CMD_VOLUME_UP:
       if( c->status->volume!=MPD_STATUS_NO_VOLUME && c->status->volume<100 )
