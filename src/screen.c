@@ -29,6 +29,7 @@
 
 #include "config.h"
 #include "ncmpc.h"
+#include "support.h"
 #include "libmpdclient.h"
 #include "mpc.h"
 #include "command.h"
@@ -58,6 +59,7 @@ extern screen_functions_t *get_screen_clock(void);
 #endif
 
 
+static gboolean welcome = TRUE;
 static screen_t *screen = NULL;
 static screen_functions_t *mode_fn = NULL;
 
@@ -216,46 +218,6 @@ paint_progress_window(mpd_client_t *c)
   wnoutrefresh(screen->progress_window.w);
 }
 
-#ifdef ENABLE_SCROLLING
-static char *
-scroll_string(char *str, char *sep, int width)
-{
-  static int offset = 0;
-  static time_t t = 0;
-  char *tmp, *buf;
-  size_t len;
-
-  if( offset==0 )
-    {
-      offset++;
-      return g_strdup(str);
-    }
- 
-  /* create a buffer containing the string and the separator */
-  tmp = g_malloc(strlen(str)+strlen(sep)+1);
-  strcpy(tmp, str);
-  strcat(tmp, sep);
-  len = strlen(tmp);
-
-  if( offset >= len )
-   offset = 0;
-  
-  /* create the new scrolled string */
-  buf = g_malloc(width+1);
-  strncpy(buf, tmp+offset, width);
-  if( strlen(buf) < width )
-    strncat(buf, tmp, width-strlen(buf));
-
-  if( time(NULL)-t >= 1 )
-    {
-      t = time(NULL);
-      offset++;
-    }
-  g_free(tmp);
-  return buf;
-}
-#endif
-
 static void 
 paint_status_window(mpd_client_t *c)
 {
@@ -275,15 +237,13 @@ paint_status_window(mpd_client_t *c)
   
   switch(status->state)
     {
-    case MPD_STATUS_STATE_STOP:
-      waddstr(w, _("Stopped! "));
-      break;
     case MPD_STATUS_STATE_PLAY:
       waddstr(w, _("Playing:"));
       break;
     case MPD_STATUS_STATE_PAUSE:
       waddstr(w, _("[Paused]"));
       break;
+    case MPD_STATUS_STATE_STOP:
     default:
       break;
     }
@@ -329,9 +289,11 @@ paint_status_window(mpd_client_t *c)
 #ifdef ENABLE_SCROLLING
       if( strlen(songname) > width )
 	{
-	  char *tmp = scroll_string(songname, " *** ", width);
+	  static  scroll_state_t st = { 0, 0 };
+	  char *tmp = strscroll(songname, " *** ", width, &st);
+
 	  strcpy(songname, tmp);
-	  g_free(tmp);
+	  g_free(tmp);	  
 	}
 #endif
       mvwaddnstr(w, 0, x, songname, width);
@@ -495,8 +457,8 @@ screen_init(void)
   colors_start();
   /* tell curses not to do NL->CR/NL on output */
   nonl();          
-  /* take input chars one at a time, no wait for \n */  
-  cbreak();       
+  /*  use raw mode (ignore interrupt,quit,suspend, and flow control ) */
+  raw();
   /* don't echo input */
   noecho();    
   /* set cursor invisible */     
@@ -505,6 +467,7 @@ screen_init(void)
   keypad(stdscr, TRUE);  
   /* return from getch() without blocking */
   timeout(SCREEN_TIMEOUT);
+  
 
   if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
     {
@@ -620,7 +583,7 @@ screen_paint(mpd_client_t *c)
 {
   /* paint the title/header window */
   if( mode_fn && mode_fn->get_title )
-    paint_top_window(mode_fn->get_title(), c, 1);
+    paint_top_window(mode_fn->get_title(screen->buf,screen->buf_size), c, 1);
   else
     paint_top_window("", c, 1);
 
@@ -645,7 +608,6 @@ screen_update(mpd_client_t *c)
   static int random = -1;
   static int crossfade = -1;
   static int dbupdate = -1;
-  static int welcome = 1;
   list_window_t *lw = NULL;
 
   if( !screen->painted )
@@ -684,8 +646,8 @@ screen_update(mpd_client_t *c)
     paint_top_window("", c, 0);
   else if( mode_fn && mode_fn->get_title )
     {
-      paint_top_window(mode_fn->get_title(), c, 0);
-      welcome = 0;
+      paint_top_window(mode_fn->get_title(screen->buf,screen->buf_size), c, 0);
+      welcome = FALSE;
     }
   else
     paint_top_window("", c, 0);
@@ -739,6 +701,7 @@ screen_cmd(mpd_client_t *c, command_t cmd)
 
   screen->input_timestamp = time(NULL);
   screen->last_cmd = cmd;
+  welcome = FALSE;
 
   if( mode_fn && mode_fn->cmd && mode_fn->cmd(screen, c, cmd) )
     return;

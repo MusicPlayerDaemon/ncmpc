@@ -69,7 +69,7 @@ typedef void (*screen_resize_fn_t)   (int cols, int rows);
 typedef void (*screen_paint_fn_t)  (screen_t *screen, mpd_client_t *c);
 typedef void (*screen_update_fn_t) (screen_t *screen, mpd_client_t *c);
 typedef int (*screen_cmd_fn_t) (screen_t *scr, mpd_client_t *c, command_t cmd);
-typedef char * (*screen_title_fn_t) (void);
+typedef char * (*screen_title_fn_t) (char *s, size_t size);
 typedef list_window_t * (*screen_get_lw_fn_t) (void);
 
 typedef struct
