@@ -1,5 +1,9 @@
 2004-04-23 Kalle Wallin <kaw@linux.se>
 	* Updated Changelog, TODO, NEWS and the manual page.
+	* screen_play.c:  Make shure the cursor stays on the same row when 
+	                  deleting a playlist entry.
+	* screen.c: Turn off LINE_COLORS after drawing the top line.
+     
 
 2004-04-22 Kalle Wallin <kaw@linux.se>
 	* Added smart delete and add (#0000220), at the moment only used 

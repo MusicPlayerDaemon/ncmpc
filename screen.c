@@ -175,6 +175,9 @@ paint_top_window(char *header, mpd_client_t *c, int clear)
       mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
 #endif
 
+      if( options.enable_colors )
+	wattroff(w, LINE_COLORS);
+
       wnoutrefresh(w);
     }
 }
