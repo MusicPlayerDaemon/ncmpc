@@ -35,6 +35,8 @@
 #define DK(x)
 #endif
 
+extern void screen_resize(void);
+
 #define BS   KEY_BACKSPACE
 #define DEL  KEY_DC
 #define UP   KEY_UP
