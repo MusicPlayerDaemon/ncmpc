@@ -84,6 +84,7 @@ typedef void (*screen_init_fn_t)   (WINDOW *w, int cols, int rows);
 typedef void (*screen_exit_fn_t)   (void);
 typedef void (*screen_open_fn_t)   (screen_t *screen, mpd_client_t *c);
 typedef void (*screen_close_fn_t)  (void);
+typedef void (*screen_resize_fn_t)   (int cols, int rows);
 typedef void (*screen_paint_fn_t)  (screen_t *screen, mpd_client_t *c);
 typedef void (*screen_update_fn_t) (screen_t *screen, mpd_client_t *c);
 typedef int (*screen_cmd_fn_t) (screen_t *scr, mpd_client_t *c, command_t cmd);
@@ -96,6 +97,7 @@ typedef struct
   screen_exit_fn_t   exit;
   screen_open_fn_t   open;
   screen_close_fn_t  close;
+  screen_resize_fn_t resize;
   screen_paint_fn_t  paint;
   screen_update_fn_t update;
   screen_cmd_fn_t    cmd;
@@ -107,7 +109,7 @@ typedef struct
 
 int screen_init(void);
 int screen_exit(void);
-void screen_resized(int sig);
+void screen_resize(void);
 void screen_status_message(char *msg);
 void screen_status_printf(char *format, ...);
 char *screen_error(void);

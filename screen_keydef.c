@@ -150,6 +150,8 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
 
   snprintf(buf, BUFSIZE, "Enter new key for %s: ", cmds[cmd_index].name);
   key = screen_getch(w, buf);
+  if( key==KEY_RESIZE )
+    screen_resize();
   if( key==ERR )
     {
       screen_status_printf("Aborted!");
@@ -212,6 +214,13 @@ static void
 keydef_init(WINDOW *w, int cols, int rows)
 {
   lw = list_window_init(w, cols, rows);
+}
+
+static void
+keydef_resize(int cols, int rows)
+{
+  lw->cols = cols;
+  lw->rows = rows;
 }
 
 static void 
@@ -370,6 +379,7 @@ get_screen_keydef(void)
   functions.exit   = keydef_exit;
   functions.open   = keydef_open;
   functions.close  = keydef_close;
+  functions.resize = keydef_resize;
   functions.paint  = keydef_paint;
   functions.update = keydef_update;
   functions.cmd    = keydef_cmd;

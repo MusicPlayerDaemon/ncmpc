@@ -178,6 +178,8 @@ handle_delete(screen_t *screen, mpd_client_t *c)
   snprintf(buf, BUFSIZE, "Delete playlist %s [y/n] ? ", str);
   g_free(str);  
   key = tolower(screen_getch(screen->status_window.w, buf));
+  if( key==KEY_RESIZE )
+    screen_resize();
   if( key!='y' )
     {
       screen_status_printf("Aborted!");
@@ -328,6 +330,13 @@ static void
 file_init(WINDOW *w, int cols, int rows)
 {
   lw = list_window_init(w, cols, rows);
+}
+
+static void
+file_resize(int cols, int rows)
+{
+  lw->cols = cols;
+  lw->rows = rows;
 }
 
 static void
@@ -484,6 +493,7 @@ get_screen_file(void)
   functions.exit   = file_exit;
   functions.open   = file_open;
   functions.close  = file_close;
+  functions.resize = file_resize;
   functions.paint  = file_paint;
   functions.update = file_update;
   functions.cmd    = file_cmd;

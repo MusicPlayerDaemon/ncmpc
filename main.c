@@ -102,15 +102,6 @@ main(int argc, const char *argv[])
       perror("signal");
       exit(EXIT_FAILURE);
     }
-  /* setup signal behavior - SIGWINCH  */
-  sigemptyset( &act.sa_mask );
-  act.sa_flags    = 0;
-  act.sa_handler = screen_resized;
-  if( sigaction( SIGWINCH, &act, NULL )<0 )
-    {
-      perror("sigaction()");
-      exit(EXIT_FAILURE);
-    }
   /* setup signal behavior - SIGTERM */
   sigemptyset( &act.sa_mask );
   act.sa_flags    = 0;

@@ -21,6 +21,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <time.h>
+#include <signal.h>
 #include <glib.h>
 #include <ncurses.h>
 
@@ -318,15 +319,64 @@ screen_exit(void)
 }
 
 void
-screen_resized(int sig)
+screen_resize(void)
 {
-  screen_exit();
+  GList *list;
+
+#ifdef DEBUG
+  fprintf(stderr, "Resize rows %d->%d, cols %d->%d\n",
+	  screen->rows, LINES,
+	  screen->cols, COLS);
+#endif
+      
   if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
     {
+      screen_exit();
       fprintf(stderr, "Error: Screen to small!\n");
       exit(EXIT_FAILURE);
     }
-  screen_init();
+
+  resizeterm(LINES, COLS);
+
+  screen->cols = COLS;
+  screen->rows = LINES;
+
+  /* top window */
+  screen->top_window.cols = screen->cols;
+  wresize(screen->top_window.w, 2, screen->cols);
+
+  /* main window */
+  screen->main_window.cols = screen->cols;
+  screen->main_window.rows = screen->rows-4;
+  wresize(screen->main_window.w, screen->main_window.rows, screen->cols);
+  wclear(screen->main_window.w);
+
+  /* progress window */
+  screen->progress_window.cols = screen->cols;
+  wresize(screen->progress_window.w, 1, screen->cols);
+  mvwin(screen->progress_window.w, screen->rows-2, 0);
+
+  /* status window */
+  screen->status_window.cols = screen->cols;
+  wresize(screen->status_window.w, 1, screen->cols);
+  mvwin(screen->status_window.w, screen->rows-1, 0);
+
+  screen->buf_size = screen->cols;
+  g_free(screen->buf);
+  screen->buf = g_malloc(screen->cols);
+
+  list = g_list_first(screen->screen_list);
+  while( list )
+    {
+      screen_functions_t *mode_fn = list->data;
+
+      if( mode_fn && mode_fn->resize )
+	mode_fn->resize(screen->main_window.cols, screen->main_window.rows);
+
+      list=list->next;
+    }
+  
+  screen->painted = 0;
 }
 
 void 

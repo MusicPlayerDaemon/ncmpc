@@ -50,6 +50,8 @@ screen_getch(WINDOW *w, char *prompt)
   timeout(-1);
 
   key = wgetch(w);
+  if( key==KEY_RESIZE )
+    screen_resize();
 
   noecho();
   curs_set(0);

@@ -172,6 +172,13 @@ help_init(WINDOW *w, int cols, int rows)
 }
 
 static void
+help_resize(int cols, int rows)
+{
+  lw->cols = cols;
+  lw->rows = rows;
+}
+
+static void
 help_exit(void)
 {
   list_window_free(lw);
@@ -234,6 +241,7 @@ get_screen_help(void)
   functions.exit   = help_exit;
   functions.open   = NULL;
   functions.close  = NULL;
+  functions.resize = help_resize;
   functions.paint  = help_paint;
   functions.update = help_update;
   functions.cmd    = help_cmd;

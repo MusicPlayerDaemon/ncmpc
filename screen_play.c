@@ -134,6 +134,14 @@ play_init(WINDOW *w, int cols, int rows)
 }
 
 static void
+play_resize(int cols, int rows)
+{
+  lw->cols = cols;
+  lw->rows = rows;
+}
+
+
+static void
 play_exit(void)
 {
   list_window_free(lw);
@@ -251,6 +259,7 @@ get_screen_playlist(void)
   functions.exit   = play_exit;
   functions.open   = NULL;
   functions.close  = NULL;
+  functions.resize = play_resize;
   functions.paint  = play_paint;
   functions.update = play_update;
   functions.cmd    = play_cmd;

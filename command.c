@@ -328,6 +328,9 @@ get_keyboard_command(void)
 
   key = wgetch(stdscr);
 
+  if( key==KEY_RESIZE )
+    screen_resize();
+
   if( key==ERR )
     return CMD_NONE;
 
