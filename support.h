@@ -1,10 +1,19 @@
 
 #ifdef HAVE_LIBGEN_H
 #include <libgen.h>
-#else
+#endif
+
+
+#ifndef HAVE_BASENAME
 char *basename(char *path);
 #endif
 
+#ifndef HAVE_STRCASESTR
+char *strcasestr(const char *haystack, const char *needle);
+#endif
+
+char *remove_trailing_slash(char *path);
+char *lowerstr(char *str);
 
 
 int charset_init(void);

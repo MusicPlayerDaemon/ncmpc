@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,8 +35,6 @@ iconv_t iconv_to_uft8 = (iconv_t)(-1);
 #endif
 
 
-#ifndef HAVE_LIBGEN_H
-
 char *
 remove_trailing_slash(char *path)
 {
@@ -51,7 +50,25 @@ remove_trailing_slash(char *path)
   return path;
 }
 
+char *
+lowerstr(char *str)
+{
+  size_t i;
+  size_t len = strlen(str);
 
+  if( str==NULL )
+    return NULL;
+
+  i=0;
+  while(i<len && str[i])
+    {
+      str[i] = tolower(str[i]);
+      i++;
+    }
+  return str;
+}
+
+#ifndef HAVE_BASENAME
 char *
 basename(char *path)
 {
@@ -68,8 +85,16 @@ basename(char *path)
 
   return path;
 }
+#endif /* HAVE_BASENAME */
 
-#endif /* HAVE_LIBGEN_H */
+
+#ifndef HAVE_STRCASESTR
+char *
+strcasestr(const char *haystack, const char *needle)
+{
+  return strstr(lowerstr(haystack), lowerstr(needle));
+}
+#endif /* HAVE_STRCASESTR */
 
 
 int
