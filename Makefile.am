@@ -10,10 +10,9 @@ EXTRA_DIST = COPYING $(pkgdata_DATA) $(doc_DATA)
 
 SUBDIRS = doc
 
-EXTRA_ncmpc_SOURCES = langinfo.c
-
-ncmpc_LDADD = $(LANGINFO_OBJS)
-ncmpc_DEPENDENCIES = $(LANGINFO_OBJS)
+#EXTRA_ncmpc_SOURCES = 
+#ncmpc_LDADD = 
+#ncmpc_DEPENDENCIES = 
 
 ncmpc_headers = libmpdclient.h mpc.h options.h conf.h command.h screen.h \
               screen_utils.h screen_play.h screen_file.h screen_search.h \
