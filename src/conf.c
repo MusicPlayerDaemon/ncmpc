@@ -38,8 +38,6 @@
 #include "colors.h"
 #include "conf.h"
 
-#define ENABLE_OLD_SYNTAX
-
 #define MAX_LINE_LENGTH 1024
 #define COMMENT_TOKEN   '#'
 
@@ -59,20 +57,6 @@
 #define CONF_AUDIBLE_BELL            "audible-bell"
 #define CONF_VISIBLE_BELL            "visible-bell"
 #define CONF_XTERM_TITLE             "set-xterm-title"
-
-
-/* Deprecated - configuration field names */
-#define OLD_CONF_ENABLE_COLORS       "enable_colors"
-#define OLD_CONF_AUTO_CENTER         "auto_center"
-#define OLD_CONF_WIDE_CURSOR         "wide_cursor"
-#define CONF_COLOR_BACKGROUND        "background_color"
-#define CONF_COLOR_TITLE             "title_color"
-#define CONF_COLOR_LINE              "line_color"
-#define CONF_COLOR_LIST              "list_color"
-#define CONF_COLOR_PROGRESS          "progress_color"
-#define CONF_COLOR_STATUS            "status_color"
-#define CONF_COLOR_ALERT             "alert_color"
-
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -191,7 +175,7 @@ parse_key_definition(char *str)
 
   /* get the value part */
   memset(buf, 0, MAX_LINE_LENGTH);
-  strncpy(buf, str+i, len-i);
+  g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
   len = strlen(buf);
   if( len==0 )
     {
@@ -278,7 +262,7 @@ parse_color_definition(char *str)
 
   /* get the value part */
   memset(buf, 0, MAX_LINE_LENGTH);
-  strncpy(buf, str+i, len-i);
+  g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
   len = strlen(buf);
   if( len==0 )
     {
@@ -430,71 +414,6 @@ read_rc_file(char *filename, options_t *options)
 		{
 		  parse_color(value);
 		}
-#ifdef ENABLE_OLD_SYNTAX
-	      /* background color */
-	      else if( !strcasecmp(CONF_COLOR_BACKGROUND, name) )
-		{
-		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
-		  colors_assign("background", value);
-		}
-	      /* color - top (title) window */
-	      else if( !strcasecmp(CONF_COLOR_TITLE, name) )
-		{
-		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
-		  colors_assign("title", value);
-		  colors_assign("title2", value);
-		}
-	      /* color - line (title) window */
-	      else if( !strcasecmp(CONF_COLOR_LINE, name) )
-		{
-		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
-		  colors_assign("line", value);
-		  colors_assign("line2", value);
-		}
-	      /* color - list window */
-	      else if( !strcasecmp(CONF_COLOR_LIST, name) )
-		{
-		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
-		  colors_assign("list", value);
-		}
-	      /* color - progress bar */
-	      else if( !strcasecmp(CONF_COLOR_PROGRESS, name) )
-		{
-		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
-		  colors_assign("progressbar", value);
-		}
-	      /* color - status window */
-	      else if( !strcasecmp(CONF_COLOR_STATUS, name) )
-		{
-		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
-		  colors_assign("status", value);
-		  colors_assign("status2", value);
-		}
-	      /* color - alerts */
-	      else if( !strcasecmp(CONF_COLOR_ALERT, name) )
-		{
-		  fprintf(stderr,"%s: %s deprecated!\n", filename,name);
-		  colors_assign("alert", value);
-		}
-	      /* enable colors */
-	      else if( !strcasecmp(OLD_CONF_ENABLE_COLORS, name) )
-		{
-		  fprintf(stderr,"%s: %s deprecated - use %s!\n", filename, name, CONF_ENABLE_COLORS);
-		  options->enable_colors = str2bool(value);
-		}
-	      /* auto center */
-	      else if( !strcasecmp(OLD_CONF_AUTO_CENTER, name) )
-		{
-		  fprintf(stderr,"%s: %s deprecated - use %s!\n", filename, name, CONF_AUTO_CENTER);
-		  options->auto_center = str2bool(value);
-		}
-	      /* wide cursor */
-	      else if( !strcasecmp(OLD_CONF_WIDE_CURSOR, name) )
-		{
-		  fprintf(stderr,"%s: %s deprecated - use %s!\n", filename, name, CONF_WIDE_CURSOR);
-		  options->wide_cursor = str2bool(value);
-		}
-#endif
 	      /* wide cursor */
 	      else if( !strcasecmp(CONF_WIDE_CURSOR, name) )
 		{
