@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-03 17:56+0100\n"
+"POT-Creation-Date: 2005-01-04 21:55+0100\n"
 "PO-Revision-Date: 2004-06-05 18:16+0200\n"
 "Last-Translator: Kalle Wallin <kaw@linux.se>\n"
 "Language-Team: sv <sv@li.org>\n"
@@ -117,7 +117,7 @@ msgstr "Rensar spellistan!"
 msgid "Database update started!"
 msgstr "Uppdaterar databasen!"
 
-#: src/screen.c:842 src/screen_file.c:672
+#: src/screen.c:842 src/screen_file.c:673
 msgid "Database update running..."
 msgstr "Databasen uppdateras..."
 
@@ -200,26 +200,26 @@ msgstr "Radera '%s' [%s/%s] ? "
 msgid "Playlist deleted!"
 msgstr "Spellistan raderad!"
 
-#: src/screen_file.c:345 src/screen_file.c:466 src/screen_file.c:492
+#: src/screen_file.c:346 src/screen_file.c:467 src/screen_file.c:493
 #, c-format
 msgid "Adding '%s' to playlist\n"
 msgstr "Lägger till '%s'...\n"
 
-#: src/screen_file.c:396
+#: src/screen_file.c:397
 #, c-format
 msgid "Adding directory %s...\n"
 msgstr "Lägger till alla filer i %s...\n"
 
-#: src/screen_file.c:568
+#: src/screen_file.c:569
 #, c-format
 msgid "Browse: %s"
 msgstr "Filer: %s"
 
-#: src/screen_file.c:657
+#: src/screen_file.c:658
 msgid "Screen updated!"
 msgstr "Uppdaterat!"
 
-#: src/screen_file.c:664
+#: src/screen_file.c:665
 #, c-format
 msgid "Database update of %s started!"
 msgstr "Uppdaterar databasen ifrån %s!"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-03 17:56+0100\n"
+"POT-Creation-Date: 2005-01-04 21:55+0100\n"
 "PO-Revision-Date: 2004-12-29 09:40+0200\n"
 "Last-Translator: Nikolay Pavlov <quetzal@roks.biz>\n"
 "Language-Team: ru <ru@li.org>\n"
@@ -116,7 +116,7 @@ msgstr "Плайлист очищен!"
 msgid "Database update started!"
 msgstr "Начато обновление Базы!"
 
-#: src/screen.c:842 src/screen_file.c:672
+#: src/screen.c:842 src/screen_file.c:673
 msgid "Database update running..."
 msgstr "Обновление Базы..."
 
@@ -199,26 +199,26 @@ msgstr "Удалить плейлист %s [%s/%s] ? "
 msgid "Playlist deleted!"
 msgstr "Плейлист удален!"
 
-#: src/screen_file.c:345 src/screen_file.c:466 src/screen_file.c:492
+#: src/screen_file.c:346 src/screen_file.c:467 src/screen_file.c:493
 #, c-format
 msgid "Adding '%s' to playlist\n"
 msgstr "Добавляю '%s' в плейлист\n"
 
-#: src/screen_file.c:396
+#: src/screen_file.c:397
 #, c-format
 msgid "Adding directory %s...\n"
 msgstr "Добавляю директорию %s...\n"
 
-#: src/screen_file.c:568
+#: src/screen_file.c:569
 #, c-format
 msgid "Browse: %s"
 msgstr "Просмотр: %s"
 
-#: src/screen_file.c:657
+#: src/screen_file.c:658
 msgid "Screen updated!"
 msgstr "Экран обновляеться!"
 
-#: src/screen_file.c:664
+#: src/screen_file.c:665
 #, c-format
 msgid "Database update of %s started!"
 msgstr "Начато обновление Базы в %s "

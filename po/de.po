@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-03 17:56+0100\n"
+"POT-Creation-Date: 2005-01-04 21:55+0100\n"
 "PO-Revision-Date: 2004-07-08 21:16+0200\n"
 "Last-Translator: Ingmar Gebert\n"
 "Language-Team: de <de@li.org>\n"
@@ -65,7 +65,7 @@ msgstr "Lautstärke n/a "
 #: src/screen.c:192
 #, c-format
 msgid " Volume %d%%"
-msgstr " Laustärke %d%%"
+msgstr " Lautstärke %d%%"
 
 #: src/screen.c:271
 msgid "Playing:"
@@ -116,7 +116,7 @@ msgstr "Playlist gelöscht!"
 msgid "Database update started!"
 msgstr "Datenbankaktualisierung gestartet!"
 
-#: src/screen.c:842 src/screen_file.c:672
+#: src/screen.c:842 src/screen_file.c:673
 msgid "Database update running..."
 msgstr "Datenbankaktualisierung läuft..."
 
@@ -193,75 +193,75 @@ msgstr "Du kannst nur Playlisten löschen!"
 #: src/screen_file.c:311
 #, c-format
 msgid "Delete playlist %s [%s/%s] ? "
-msgstr "Lösche Playlist %s [%s/%s ? "
+msgstr "Lösche Playlist %s [%s/%s] ? "
 
 #: src/screen_file.c:327
 msgid "Playlist deleted!"
 msgstr "Playlist gelöscht!"
 
-#: src/screen_file.c:345 src/screen_file.c:466 src/screen_file.c:492
+#: src/screen_file.c:346 src/screen_file.c:467 src/screen_file.c:493
 #, c-format
 msgid "Adding '%s' to playlist\n"
 msgstr "Füge '%s' der Playlist hinzu\n"
 
-#: src/screen_file.c:396
+#: src/screen_file.c:397
 #, c-format
 msgid "Adding directory %s...\n"
 msgstr "Füge Verzeichnis %s hinzu...\n"
 
-#: src/screen_file.c:568
+#: src/screen_file.c:569
 #, c-format
 msgid "Browse: %s"
 msgstr "Stöbern: %s"
 
-#: src/screen_file.c:657
+#: src/screen_file.c:658
 msgid "Screen updated!"
 msgstr "Anzeige aktualisiert!"
 
-#: src/screen_file.c:664
+#: src/screen_file.c:665
 #, c-format
 msgid "Database update of %s started!"
 msgstr "Datenbankaktualisierung von %s gestartet!"
 
 #: src/screen_search.c:50
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: src/screen_search.c:51
 msgid "Artist"
-msgstr ""
+msgstr "Künstler"
 
 #: src/screen_search.c:52
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: src/screen_search.c:53
 msgid "Filename"
-msgstr ""
+msgstr "Dateiname"
 
 #: src/screen_search.c:114
 msgid "Search: "
-msgstr ""
+msgstr "Suche: "
 
 #: src/screen_search.c:162
 #, c-format
 msgid "Press %s for a new search"
-msgstr ""
+msgstr "Drücke %s für eine neue Suche"
 
 #: src/screen_search.c:214
 #, c-format
 msgid "Search: Results for %s [%s]"
-msgstr ""
+msgstr "Suche: Ergebnisse für %s [%s]"
 
 #: src/screen_search.c:218
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
-msgstr ""
+msgstr "Suche: Drücke %s für eine neue Suche [%s]"
 
 #: src/screen_search.c:252
 #, c-format
 msgid "Search mode: %s"
-msgstr ""
+msgstr "Suchmodus: %s"
 
 #: src/screen_keydef.c:46
 msgid "===> Apply & Save key bindings  "
@@ -282,7 +282,7 @@ msgstr "Tastenbelegung unverändert."
 #: src/screen_keydef.c:90
 #, c-format
 msgid "Error: Unable to create direcory ~/.ncmpc - %s"
-msgstr "Fehler: kann Verzeichnis ~/ncmpc - %s nicht erstellen"
+msgstr "Fehler: kann Verzeichnis ~/.ncmpc - %s nicht erstellen"
 
 #: src/screen_keydef.c:100 src/screen_keydef.c:106
 #, c-format
@@ -373,7 +373,7 @@ msgstr "Tasten - Stöbern Anzeige"
 
 #: src/screen_help.c:111
 msgid "Enter directory/Select and play song"
-msgstr ""
+msgstr "Verzeichnis öffnen/Song auswählen und abspielen"
 
 #: src/screen_help.c:113
 msgid "Delete playlist"
@@ -386,11 +386,11 @@ msgstr "Tasten - Stöbern Anzeige"
 
 #: src/screen_help.c:121
 msgid "Search"
-msgstr ""
+msgstr "Suche"
 
 #: src/screen_help.c:122
 msgid "Select and play"
-msgstr ""
+msgstr "Auswählen und abspielen"
 
 #: src/screen_help.c:208
 msgid "Help"
@@ -470,11 +470,11 @@ msgstr "Zurück spulen"
 
 #: src/command.c:115
 msgid "Increase volume"
-msgstr "Laustärke erhöhen"
+msgstr "Lautstärke erhöhen"
 
 #: src/command.c:117
 msgid "Decrease volume"
-msgstr "Laustärke verringern"
+msgstr "Lautstärke verringern"
 
 #: src/command.c:119
 msgid "Select/deselect song in playlist"
@@ -567,7 +567,7 @@ msgstr "Nächste Anzeige"
 
 #: src/command.c:179
 msgid "Change search mode"
-msgstr ""
+msgstr "Wechsel des Suchmodus"
 
 #: src/command.c:184
 msgid "Clock screen"

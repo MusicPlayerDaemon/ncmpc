@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-03 17:56+0100\n"
+"POT-Creation-Date: 2005-01-04 21:55+0100\n"
 "PO-Revision-Date: 2004-07-15 05:28+0200\n"
 "Last-Translator: Jose Cedeno <cedenoj@gmail.com>\n"
 "Language-Team: es <es@li.org>\n"
@@ -116,7 +116,7 @@ msgstr "Lista de canciones esta vacia!"
 msgid "Database update started!"
 msgstr "La actualizacion de la base de datos ha empezado!"
 
-#: src/screen.c:842 src/screen_file.c:672
+#: src/screen.c:842 src/screen_file.c:673
 msgid "Database update running..."
 msgstr "Actualizando la base de datos"
 
@@ -199,26 +199,26 @@ msgstr "Borrar la lista de canciones %s [%%s] ? "
 msgid "Playlist deleted!"
 msgstr "Lista de canciones borrada!"
 
-#: src/screen_file.c:345 src/screen_file.c:466 src/screen_file.c:492
+#: src/screen_file.c:346 src/screen_file.c:467 src/screen_file.c:493
 #, c-format
 msgid "Adding '%s' to playlist\n"
 msgstr "Anadiendo '%s' a la lista de caciones\n"
 
-#: src/screen_file.c:396
+#: src/screen_file.c:397
 #, c-format
 msgid "Adding directory %s...\n"
 msgstr "Agregando directorio %s...\n"
 
-#: src/screen_file.c:568
+#: src/screen_file.c:569
 #, c-format
 msgid "Browse: %s"
 msgstr "Navegando: %s"
 
-#: src/screen_file.c:657
+#: src/screen_file.c:658
 msgid "Screen updated!"
 msgstr "La informacion presentada esta al dia!"
 
-#: src/screen_file.c:664
+#: src/screen_file.c:665
 #, c-format
 msgid "Database update of %s started!"
 msgstr "Actualizacion de la Base de datos de %s empezo!"
