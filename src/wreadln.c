@@ -180,7 +180,7 @@ wreadln(WINDOW *w,
 	  break;
 
 	case TAB:
-	  if( gcmp && strlen(line))
+	  if( gcmp )
 	    {
 	      char *prefix = NULL;
 	      GList *list;
