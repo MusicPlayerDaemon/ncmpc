@@ -2,19 +2,19 @@
 client functions
 ----------------------------------------------------------------------------
   * search screen
-  * load/save playlists
+  * load/save playlists						
 
 ncurses
 ----------------------------------------------------------------------------
   * customizable keybindings
-  * color support / customizable color 
+  * color support / customizable color                          - done
   * improve list drawing (faster)
   
 
 other
 ----------------------------------------------------------------------------
   * find/search function in playlist (like in less '/')		- done
-  * configuration file(s) - keybindings,colors...
+  * configuration file(s) - keybindings,colors...               - done
   * internationalization - gettext
 
 
