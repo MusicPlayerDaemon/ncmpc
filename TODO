@@ -2,14 +2,17 @@
 client functions
 ----------------------------------------------------------------------------
   * search screen
-  * search function in playlist (like in less '/')
   * load/save playlists
 
 ncurses
 ----------------------------------------------------------------------------
+  * customizable keybindings
+  * color support / customizable color 
   * improve list drawing (faster)
+  
 
 other
 ----------------------------------------------------------------------------
+  * find/search function in playlist (like in less '/')
 
 
