@@ -255,6 +255,8 @@ keydef_close(void)
       g_free(cmds);
       cmds = NULL;
     }
+  else
+    screen_status_printf("Note: Did you forget to \'Apply\' your changes?");
 }
 
 static char *
