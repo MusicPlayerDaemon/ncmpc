@@ -1,3 +1,12 @@
+2004-07-06 Kalle Wallin <kaw@linux.se>
+	* configure.ac: display a warning when NLS is disabled
+
+2004-07-03 Kalle Wallin <kaw@linux.se>
+	* wreadln.c, screen_utils.c: ignore mouse events (wgetch)
+	* Changed the debug macro D() into a function (--debug now works)
+	* Added german translations from Ingmar Gebert (Ogig)
+	* support.h, screen.h: using GTime instead of time_t
+
 2004-07-02 Kalle Wallin <kaw@linux.se>
 	* options.c: improved error handling in the argv parser
 	* screen_play.c: scroll up when moving a item uppwards

@@ -17,7 +17,7 @@ dnl initialize variables
 dnl =======================================================
 
 dnl i18n
-ALL_LINGUAS="sv de"
+ALL_LINGUAS="de sv"
 
 set -- $CFLAGS
 
@@ -93,6 +93,9 @@ if test "x$nls" = "xyes"; then
                       ["${GETTEXT_PACKAGE}"], 
                       [gettext domain])
   nls=$gt_cv_have_gettext
+  if test "x$nls" != "xyes"; then
+     AC_MSG_WARN([NLS support disabled!])
+  fi
 else
   AM_PO_SUBDIRS
 fi
