@@ -280,6 +280,9 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	return screen_find(screen, c, 
 			   lw, filelist->length,
 			   cmd, browse_lw_callback, (void *) filelist);
+      else
+	return 1;
+
     case CMD_MOUSE_EVENT:
       return browse_handle_mouse_event(screen,c,lw,filelist);
 
