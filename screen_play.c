@@ -34,8 +34,6 @@
 
 #define BUFSIZE 256
 
-#define ENABLE_FANCY_PLAYLIST_MANAGMENT
-
 static list_window_t *lw = NULL;
 
 static char *
@@ -248,7 +246,7 @@ playlist_add_song(mpd_client_t *c, mpd_Song *song)
   if( mpc_error(c) )
     return -1;
 
-#ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT
+#ifndef DISABLE_FANCY_PLAYLIST_MANAGMENT
   /* add the song to playlist */
   c->playlist = g_list_append(c->playlist, (gpointer) mpd_songDup(song));
   c->playlist_length++;
@@ -287,7 +285,7 @@ playlist_delete_song(mpd_client_t *c, int index)
   /* clear selected highlight in the browse screen */
   file_set_highlight(c, song, 0);
 
-#ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT 
+#ifndef DISABLE_FANCY_PLAYLIST_MANAGMENT
   /* increment the playlist id, so we dont retrives a new playlist */
   c->playlist_id++;
 
@@ -306,6 +304,8 @@ playlist_delete_song(mpd_client_t *c, int index)
   /* make shure the playlist is repainted */
   lw->clear = 1;
   lw->repaint = 1;
+  if( lw->start>0 ) 
+    lw->start--; /* make shure we stay on the same row */
   list_window_check_selected(lw, c->playlist_length);
 #endif
 
