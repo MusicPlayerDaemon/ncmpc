@@ -120,7 +120,10 @@ main(int argc, const char *argv[])
 	  if( (cmd=get_keyboard_command()) != CMD_NONE )
 	    {
 	      screen_cmd(mpc, cmd);
-	      counter=0;
+	      if( cmd==CMD_VOLUME_UP || cmd==CMD_VOLUME_DOWN)
+		counter=10;
+	      else
+		counter=0;
 	    }
 	}
       else if( options->reconnect )
