@@ -51,7 +51,8 @@ static command_definition_t cmds[] =
   { { '+', RGHT,  0 }, CMD_VOLUME_UP, "Increase volume" },
   { { '-', LEFT,  0 }, CMD_VOLUME_DOWN, "Decrease volume" },
 
-  { { 'w',   0,   0 }, CMD_TOGGLE_FIND_WRAP, "Toggle find mode" },
+  { { 'w',   0,   0 }, CMD_TOGGLE_FIND_WRAP,  "Toggle find mode" },
+  { { 'U',   0,   0 }, CMD_TOGGLE_AUTOCENTER, "Toggle auto center mode" },
 
   { { ' ',   0,   0 }, CMD_SELECT, "Select/deselect song in playlist" },
   { { DEL,  'd',  0 }, CMD_DELETE, "Delete song from playlist" },

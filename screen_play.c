@@ -4,6 +4,7 @@
 #include <ncurses.h>
 
 #include "config.h"
+#include "options.h"
 #include "support.h"
 #include "libmpdclient.h"
 #include "mpc.h"
@@ -34,6 +35,33 @@ list_callback(int index, int *highlight, void *data)
     }
 
   return mpc_get_song_name(song);
+}
+
+static int
+center_playing_item(screen_t *screen, mpd_client_t *c)
+{
+  list_window_t *lw = screen->playlist;
+  int length = c->playlist_length;
+  int offset = lw->selected-lw->start;
+  
+  if( !lw || length<lw->rows || !IS_PLAYING(c->status->state) )
+    return 0;
+
+  /* try to center the song that are playing */
+  lw->start = c->song_id-(lw->rows/2);
+  if( lw->start+lw->rows > length )
+    lw->start = length-lw->rows;
+  if( lw->start<0 )
+    lw->start=0;
+
+  /* make sure the cursor is in the window */
+  lw->selected = lw->start+offset;
+  list_window_check_selected(lw, length);
+
+  lw->clear = 1;
+  lw->repaint = 1;
+
+  return 0;
 }
 
 static int
@@ -103,6 +131,17 @@ play_paint(screen_t *screen, mpd_client_t *c)
 void
 play_update(screen_t *screen, mpd_client_t *c)
 {
+  if( options.auto_center )
+    {
+      static int prev_song_id = 0;
+      
+      if( prev_song_id != c->song_id )	
+	{
+	  center_playing_item(screen, c);
+	  prev_song_id = c->song_id;
+	}
+    }
+
   if( c->playlist_updated )
     {
       if( screen->playlist->selected >= c->playlist_length )
@@ -141,6 +180,9 @@ play_cmd(screen_t *screen, mpd_client_t *c, command_t cmd)
       return 1;
     case CMD_SAVE_PLAYLIST:
       handle_save_playlist(screen, c);
+      return 1;
+    case CMD_SCREEN_UPDATE:
+      center_playing_item(screen, c);
       return 1;
     case CMD_LIST_FIND:
     case CMD_LIST_RFIND:

@@ -53,6 +53,8 @@ static help_text_row_t help_text[] =
   { 0, CMD_SAVE_PLAYLIST,  "Save playlist" },
   { 0, CMD_REPEAT,         "Toggle repeat mode" },
   { 0, CMD_RANDOM,         "Toggle random mode" },
+  { 0, CMD_SCREEN_UPDATE,  "Center playing track" },
+  { 0, CMD_TOGGLE_AUTOCENTER, "Toggle auto center" },
   { 0, CMD_NONE, " " },
   { 0, CMD_NONE, " " },
   { 1, CMD_NONE, "    Keys - Browse screen " },

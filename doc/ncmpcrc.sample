@@ -1,21 +1,23 @@
-#
-# Configuration file for ncmpc (~/.ncmpcrc)
-# 
+##
+## Configuration file for ncmpc (~/.ncmpcrc)
+## 
 
+## auto center (center the playing track in the playlist)
+#auto_center = no
 
-#
-# Color configuration
-#
-# colors: black,red,green,yellow,blue,magenta,cyan,white 
-#
+##
+## Color configuration
+##
+## colors: black,red,green,yellow,blue,magenta,cyan,white 
+##
 
-# enable/disable colors
-enable_colors = yes
+## enable/disable colors
+#enable_colors = yes
 
-# background color
+## background color
 #background_color = blue
 
-# text colors
+## text colors
 #title_color    = white
 #line_color     = green
 #list_color     = yellow
@@ -24,16 +26,16 @@ enable_colors = yes
 #alert_color    = yellow
 
 
-#
-# Key bindings - NOT IMPLEMENTED
-#
+##
+## Key bindings - NOT IMPLEMENTED
+##
 # key_up = 13
 
 
-#
-# Key names - NOT IMPLEMENTED
-#
+##
+## Key names - NOT IMPLEMENTED
+##
 #key_name  13  Enter
-#
+
 
 

@@ -28,6 +28,9 @@
 
 /* configuration field names */
 #define CONF_ENABLE_COLORS           "enable_colors"
+#define CONF_AUTO_CENTER             "auto_center"
+
+/* configuration field names - colors */
 #define CONF_COLOR_BACKGROUND        "background_color"
 #define CONF_COLOR_TITLE             "title_color"
 #define CONF_COLOR_LINE              "line_color"
@@ -65,24 +68,6 @@ str2color(char *str)
     return COLOR_CYAN;
   else if( !strcasecmp(str,"white") )
     return COLOR_WHITE;
-#if 0
-   else if( !strcasecmp(str,"grey") ) 
-     return COLOR_BLACK | A_BOLD;
-  else if( !strcasecmp(str,"brightred") )
-    return COLOR_RED | A_BOLD;
-  else if( !strcasecmp(str,"brightgreen") )
-    return COLOR_GREEN | A_BOLD;
-  else if( !strcasecmp(str,"brightyellow") )
-    return COLOR_YELLOW | A_BOLD;
-  else if( !strcasecmp(str,"brightblue") )
-    return COLOR_BLUE | A_BOLD;
-  else if( !strcasecmp(str,"brightmagenta") )
-    return COLOR_MAGENTA | A_BOLD;
-  else if( !strcasecmp(str,"brightcyan") )
-    return COLOR_CYAN | A_BOLD;
-  else if( !strcasecmp(str,"brightwhite") )
-    return COLOR_WHITE | A_BOLD;
-#endif
   fprintf(stderr,"Warning: unknown color %s\n", str);
   return -1;
 }
@@ -179,6 +164,12 @@ read_rc_file(char *filename, options_t *options)
 	      if( !strcasecmp(CONF_ENABLE_COLORS, name) )
 		{
 		  options->enable_colors = str2bool(value);
+		  match_found = 1;
+		}
+	      /* auto center */
+	      else if( !strcasecmp(CONF_AUTO_CENTER, name) )
+		{
+		  options->auto_center = str2bool(value);
 		  match_found = 1;
 		}
 	      /* background color */

@@ -79,7 +79,8 @@ paint_top_window(char *header, int volume, int clear)
 
   if(clear)
     {
-      wclear(w);
+      wmove(w, 0, 0);
+      wclrtoeol(w);
     }
 
   if(prev_volume!=volume || clear)
@@ -99,11 +100,24 @@ paint_top_window(char *header, int volume, int clear)
 	}
       mvwaddstr(w, 0, screen->top_window.cols-12, buf);
 
+#if 1
       if( options.enable_colors )
 	wattron(w, LINE_COLORS);
       mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
       if( options.enable_colors )
 	wattroff(w, LINE_COLORS);
+#else
+      if( options.enable_colors )
+	wattron(w, LINE_COLORS);
+
+      mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
+      wmove(w,1,screen->top_window.cols-6);
+      waddstr(w, "[rzx]");
+	
+      if( options.enable_colors )
+	wattroff(w, LINE_COLORS);
+
+#endif
 
       wnoutrefresh(w);
     }
@@ -115,7 +129,7 @@ paint_progress_window(mpd_client_t *c)
   double p;
   int width;
 
-  if( c->status==NULL || !IS_PLAYING(c->status->state) )
+  if( c->status==NULL || IS_STOPPED(c->status->state) )
     {
       mvwhline(screen->progress_window.w, 0, 0, ACS_HLINE, 
 	       screen->progress_window.cols);
@@ -320,6 +334,7 @@ screen_init(void)
   screen->buf_size = screen->cols;
   screen->findbuf = NULL;
   screen->painted = 0;
+  screen->input_timestamp = time(NULL);
 
   /* create top window */
   screen->top_window.rows = 2;
@@ -472,6 +487,7 @@ screen_cmd(mpd_client_t *c, command_t cmd)
   int n;
   screen_mode_t new_mode = screen->mode;
 
+  screen->input_timestamp = time(NULL);
   switch(screen->mode)
     {
     case SCREEN_PLAY_WINDOW:
@@ -563,6 +579,11 @@ screen_cmd(mpd_client_t *c, command_t cmd)
       options.find_wrap = !options.find_wrap;
       screen_status_printf("Find mode: %s", 
 			   options.find_wrap ? "Wrapped" : "Normal");
+      break;
+    case CMD_TOGGLE_AUTOCENTER:
+      options.auto_center = !options.auto_center;
+      screen_status_printf("Auto center mode: %s", 
+			   options.auto_center ? "On" : "Off");
       break;
     case CMD_SCREEN_PREVIOUS:
       if( screen->mode > SCREEN_PLAY_WINDOW )
