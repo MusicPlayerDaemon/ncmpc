@@ -220,9 +220,9 @@ screen_exit(void)
       screen->playlist = list_window_free(screen->playlist);
       screen->filelist = list_window_free(screen->filelist);
       screen->helplist = list_window_free(screen->helplist);
-      free(screen->buf);
-      free(screen->findbuf);
-      free(screen);
+      g_free(screen->buf);
+      g_free(screen->findbuf);
+      g_free(screen);
       screen = NULL;
     }
   return 0;
@@ -311,12 +311,12 @@ screen_init(void)
       exit(EXIT_FAILURE);
     }
 
-  screen = malloc(sizeof(screen_t));
+  screen = g_malloc(sizeof(screen_t));
   memset(screen, 0, sizeof(screen_t));
   screen->mode = SCREEN_PLAY_WINDOW;
   screen->cols = COLS;
   screen->rows = LINES;
-  screen->buf  = malloc(screen->cols);
+  screen->buf  = g_malloc(screen->cols);
   screen->buf_size = screen->cols;
   screen->findbuf = NULL;
   screen->painted = 0;

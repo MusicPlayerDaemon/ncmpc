@@ -56,7 +56,7 @@ screen_getstr(WINDOW *w, char *prompt)
   curs_set(1);
 
   if( wgetnstr(w, buf, 256) == OK )
-    line = strdup(buf);
+    line = g_strdup(buf);
 
   noecho();
   curs_set(0);
@@ -90,7 +90,7 @@ screen_find(screen_t *screen,
     case CMD_LIST_RFIND:
       if( screen->findbuf )
 	{
-	  free(screen->findbuf);
+	  g_free(screen->findbuf);
 	  screen->findbuf=NULL;
 	}
       /* continue... */

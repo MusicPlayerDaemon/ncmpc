@@ -50,7 +50,7 @@ handle_save_playlist(screen_t *screen, mpd_client_t *c)
   /* send save command to mpd */
   mpd_sendSaveCommand(c->connection, filename_utf8);
   mpd_finishCommand(c->connection);
-  free(filename_utf8);
+  g_free(filename_utf8);
   /* handle errors */
   if( mpc_error(c))
     {
@@ -58,7 +58,7 @@ handle_save_playlist(screen_t *screen, mpd_client_t *c)
 	{
 	  char *str = utf8_to_locale(mpc_error_str(c));
 	  screen_status_message(str);
-	  free(str);
+	  g_free(str);
 	}
       else
 	screen_status_printf("Error: Unable to save playlist as %s", filename);
@@ -68,7 +68,7 @@ handle_save_playlist(screen_t *screen, mpd_client_t *c)
     }
   /* success */
   screen_status_printf("Saved %s", filename);
-  free(filename);
+  g_free(filename);
   /* update the file list if it has been initalized */
   if( c->filelist )
     {

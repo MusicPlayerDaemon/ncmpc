@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <ncurses.h>
+#include <glib.h>
 #include <popt.h>
 
 #include "config.h"
@@ -98,9 +99,9 @@ options_init( void )
 
   memset(&options, 0, sizeof(options_t));
   if( (value=getenv(MPD_HOST_ENV)) )
-    options.host = strdup(value);
+    options.host = g_strdup(value);
   else
-    options.host = strdup(DEFAULT_HOST);
+    options.host = g_strdup(DEFAULT_HOST);
   if( (value=getenv(MPD_PORT_ENV)) )
     options.port = atoi(value);
   else

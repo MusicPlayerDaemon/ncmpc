@@ -15,7 +15,7 @@
 
 #define BUFSIZE 1024
 
-#undef USE_OLD_LAYOUT
+#define USE_OLD_LAYOUT
 
 static char *
 list_callback(int index, int *highlight, void *data)
@@ -37,7 +37,7 @@ list_callback(int index, int *highlight, void *data)
 #ifdef USE_OLD_LAYOUT
       return "[..]";
 #else
-      return "<d> ..";
+      return "d ..";
 #endif
     }
   if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY ) 
@@ -48,9 +48,9 @@ list_callback(int index, int *highlight, void *data)
 #ifdef USE_OLD_LAYOUT
       snprintf(buf, BUFSIZE, "[%s]", dirname);
 #else
-      snprintf(buf, BUFSIZE, "<d> %s", dirname);
+      snprintf(buf, BUFSIZE, "d %s", dirname);
 #endif
-      free(dirname);
+      g_free(dirname);
       return buf;
     }
   else if( entity->type==MPD_INFO_ENTITY_TYPE_SONG )
@@ -58,9 +58,9 @@ list_callback(int index, int *highlight, void *data)
       mpd_Song *song = entity->info.song;
 
 #ifdef USE_OLD_LAYOUT      
-      return mpc_get_song_name(song));
+      return mpc_get_song_name(song);
 #else
-      snprintf(buf, BUFSIZE, "<m> %s", mpc_get_song_name(song));
+      snprintf(buf, BUFSIZE, "m %s", mpc_get_song_name(song));
       return buf;
 #endif
 
@@ -73,9 +73,9 @@ list_callback(int index, int *highlight, void *data)
 #ifdef USE_OLD_LAYOUT      
       snprintf(buf, BUFSIZE, "*%s*", filename);
 #else      
-      snprintf(buf, BUFSIZE, "<p> %s", filename);
+      snprintf(buf, BUFSIZE, "p %s", filename);
 #endif
-      free(filename);
+      g_free(filename);
       return buf;
     }
   return "Error: Unknow entry!";
@@ -96,7 +96,7 @@ change_directory(screen_t *screen, mpd_client_t *c, filelist_entry_t *entry)
 	  parent[0] = '\0';
 	}
       if( c->cwd )
-	free(c->cwd);
+	g_free(c->cwd);
       c->cwd = parent;
     }
   else
@@ -104,8 +104,8 @@ change_directory(screen_t *screen, mpd_client_t *c, filelist_entry_t *entry)
       {
 	mpd_Directory *dir = entity->info.directory;
 	if( c->cwd )
-	  free(c->cwd);
-	c->cwd = strdup(dir->path);      
+	  g_free(c->cwd);
+	c->cwd = g_strdup(dir->path);      
       }
     else
       return -1;
@@ -126,7 +126,7 @@ load_playlist(screen_t *screen, mpd_client_t *c, filelist_entry_t *entry)
   mpd_finishCommand(c->connection);
 
   screen_status_printf("Loading playlist %s...", filename);
-  free(filename);
+  g_free(filename);
   return 0;
 }
 
@@ -156,7 +156,7 @@ handle_delete(screen_t *screen, mpd_client_t *c)
   plf = entity->info.playlistFile;
   str = utf8_to_locale(basename(plf->path));
   snprintf(buf, BUFSIZE, "Delete playlist %s [y/n] ? ", str);
-  free(str);  
+  g_free(str);  
   key = tolower(screen_getch(screen->status_window.w, buf));
   if( key!='y' )
     {
@@ -170,7 +170,7 @@ handle_delete(screen_t *screen, mpd_client_t *c)
     {
       str = utf8_to_locale(mpc_error_str(c));
       screen_status_printf("Error: %s", str);
-      free(str);
+      g_free(str);
       beep();
       return -1;
     }
@@ -210,7 +210,7 @@ add_directory(mpd_client_t *c, char *dir)
 
   dirname = utf8_to_locale(dir);
   screen_status_printf("Adding directory %s...\n", dirname);
-  free(dirname);
+  g_free(dirname);
   dirname = NULL;
 
   mpd_sendLsInfoCommand(c->connection, dir);
@@ -356,7 +356,7 @@ file_get_header(mpd_client_t *c)
 	   TOP_HEADER_FILE ": %s                          ",
 	   tmp
 	   );
-  free(tmp);
+  g_free(tmp);
 
   return buf;
 }

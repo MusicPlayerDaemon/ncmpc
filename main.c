@@ -28,6 +28,7 @@ exit_and_cleanup(void)
 	fprintf(stderr,"Error: %s\n", mpc_error_str(mpc));
       mpc_close(mpc);
     }
+  g_free(options.host);
 }
 
 void

@@ -1,8 +1,3 @@
-/* 
- * $Id: mpc.c,v 1.5 2004/03/17 23:19:21 kalle Exp $ 
- *
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -62,7 +57,7 @@ mpc_close(mpd_client_t *c)
   if( c->connection )
     mpd_closeConnection(c->connection);
   if( c->cwd )
-    free( c->cwd );
+    g_free( c->cwd );
   
   return 0;
 }
@@ -80,10 +75,10 @@ mpc_connect(char *host, int port)
       exit(EXIT_FAILURE);
     }
   
-  c = malloc(sizeof(mpd_client_t));
+  c = g_malloc(sizeof(mpd_client_t));
   memset(c, 0, sizeof(mpd_client_t));
   c->connection = connection;
-  c->cwd = strdup("");
+  c->cwd = g_strdup("");
 
   return c;
 }
@@ -228,20 +223,20 @@ mpc_get_song_name(mpd_Song *song)
 	  snprintf(buf, MAX_SONG_LENGTH, "%s - %s", song->artist, song->title);
 	  name = utf8_to_locale(buf);
 	  strncpy(buf, name, MAX_SONG_LENGTH);
-	  free(name);
+	  g_free(name);
 	  return buf;
 	}
       else
 	{
 	  name = utf8_to_locale(song->title);
 	  strncpy(buf, name, MAX_SONG_LENGTH);
-	  free(name);
+	  g_free(name);
 	  return buf;
 	}
     }
   name = utf8_to_locale(basename(song->file));
   strncpy(buf, name, MAX_SONG_LENGTH);
-  free(name);
+  g_free(name);
   return buf;
 }
 
@@ -294,7 +289,7 @@ mpc_free_filelist(mpd_client_t *c)
 
       if( entry->entity )
 	mpd_freeInfoEntity(entry->entity);
-      free(entry);
+      g_free(entry);
       list=list->next;
     }
   g_list_free(c->filelist);
@@ -325,7 +320,7 @@ mpc_update_filelist(mpd_client_t *c)
   if( c->cwd && c->cwd[0] )
     {
       /* add a dummy entry for ./.. */
-      filelist_entry_t *entry = malloc(sizeof(filelist_entry_t));
+      filelist_entry_t *entry = g_malloc(sizeof(filelist_entry_t));
       memset(entry, 0, sizeof(filelist_entry_t));
       entry->entity = NULL;
       c->filelist = g_list_append(c->filelist, (gpointer) entry);
@@ -334,7 +329,7 @@ mpc_update_filelist(mpd_client_t *c)
 
   while( (entity=mpd_getNextInfoEntity(c->connection)) ) 
     {
-      filelist_entry_t *entry = malloc(sizeof(filelist_entry_t));
+      filelist_entry_t *entry = g_malloc(sizeof(filelist_entry_t));
       
       memset(entry, 0, sizeof(filelist_entry_t));
       entry->entity = entity;

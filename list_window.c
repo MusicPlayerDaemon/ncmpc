@@ -14,7 +14,7 @@ list_window_init(WINDOW *w, int width, int height)
 {
   list_window_t *lw;
 
-  lw = malloc(sizeof(list_window_t));
+  lw = g_malloc(sizeof(list_window_t));
   memset(lw, 0, sizeof(list_window_t));
   lw->w = w;
   lw->cols = width;
@@ -29,7 +29,7 @@ list_window_free(list_window_t *lw)
   if( lw )
     {
       memset(lw, 0, sizeof(list_window_t));
-      free(lw);
+      g_free(lw);
     }
   return NULL;
 }

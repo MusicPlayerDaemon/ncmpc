@@ -6,6 +6,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
+#include <glib.h>
 #include <ncurses.h>
 
 #include "config.h"
@@ -104,7 +106,7 @@ read_rc_file(char *filename, options_t *options)
     {
       D(perror(filename));
       if( free_filename )
-	free(filename);
+	g_free(filename);
       return -1;
     }
 
@@ -248,7 +250,7 @@ read_rc_file(char *filename, options_t *options)
   D(printf( "--\n\n" ));
 
   if( free_filename )
-    free(filename);
+    g_free(filename);
  
   return 0;
 }
