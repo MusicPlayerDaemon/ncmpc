@@ -103,8 +103,9 @@ mpc_error(mpd_client_t *c)
 {
   if( c == NULL || c->connection == NULL )
     return 1;
+
   if( c->connection->error )
-    return c->connection->error;
+      return c->connection->error;
 
   return 0;
 }
@@ -194,7 +195,8 @@ mpc_update_playlist(mpd_client_t *c)
 {
   mpd_InfoEntity *entity;
 
-  D(fprintf(stderr, "mpc_update_playlist() [%lld]\n", c->status->playlist));
+  D(fprintf(stderr, "mpc_update_playlist() [%lld -> %lld]\n", 
+	    c->status->playlist, c->playlist_id));
 
   if( mpc_error(c) )
     return -1;
@@ -202,9 +204,8 @@ mpc_update_playlist(mpd_client_t *c)
   mpd_sendPlChangesCommand(c->connection, c->playlist_id);
   if( mpc_error(c) )
     return -1;
-  if( (entity=mpd_getNextInfoEntity(c->connection)) == NULL )
-    return mpc_get_playlist(c);
-  while( entity ) 
+
+  while( (entity=mpd_getNextInfoEntity(c->connection)) != NULL   ) 
     {
       if(entity->type==MPD_INFO_ENTITY_TYPE_SONG) 
 	{
@@ -212,11 +213,15 @@ mpc_update_playlist(mpd_client_t *c)
 	  GList *item;
 
 	  if( (song=mpd_songDup(entity->info.song)) == NULL )
-	    return mpc_get_playlist(c);
+	    {
+	      D(fprintf(stderr, "song==NULL\n"));
+	      return mpc_get_playlist(c);
+	    }
 
 	  item =  g_list_nth(c->playlist, song->num);
 	  if( item && item->data)
 	    {
+	      /* Update playlist entry */
 	      mpd_freeSong((mpd_Song *) item->data);
 	      item->data = song;
 	      if( c->song_id == song->num )
@@ -226,6 +231,7 @@ mpc_update_playlist(mpd_client_t *c)
 	    }
 	  else
 	    {
+	      /* Add a new  playlist entry */
 	      D(fprintf(stderr, "Adding num %d - %s\n",
 			song->num, mpc_get_song_name(song)));
 	      c->playlist = g_list_append(c->playlist, 
@@ -233,10 +239,20 @@ mpc_update_playlist(mpd_client_t *c)
 	      c->playlist_length++;
 	    }
 	}
-      mpd_freeInfoEntity(entity);
-      entity=mpd_getNextInfoEntity(c->connection);
+      mpd_freeInfoEntity(entity);      
     }
   mpd_finishCommand(c->connection);
+  
+  while( g_list_length(c->playlist) > c->status->playlistLength )
+    {
+      GList *item = g_list_last(c->playlist);
+
+      /* Remove the last playlist entry */
+      mpd_freeSong((mpd_Song *) item->data);
+      c->playlist = g_list_delete_link(c->playlist, item);
+      c->playlist_length--;      
+      D(fprintf(stderr, "Removed the last playlist entryn\n"));
+    }
 
   c->playlist_id = c->status->playlist;
   c->playlist_updated = 1;
@@ -476,9 +492,8 @@ mpc_update_filelist(mpd_client_t *c)
 
   c->filelist_length=0;
 
-  //  mpd_sendListallCommand(conn,"");
   mpd_sendLsInfoCommand(c->connection, c->cwd);
-
+  
   if( c->cwd && c->cwd[0] )
     {
       /* add a dummy entry for ./.. */

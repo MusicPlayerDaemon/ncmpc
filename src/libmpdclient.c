@@ -469,13 +469,13 @@ void mpd_getNextReturnElement(mpd_Connection * connection) {
 	
 		strcpy(connection->errorStr, output);
 		connection->error = MPD_ERROR_ACK;
-		connection->errorCode = MPD_ERROR_CODE_UNK;
+		connection->errorCode = MPD_ACK_ERROR_UNK;
 		connection->errorAt = MPD_ERROR_AT_UNK;
 		connection->doneProcessing = 1;
 
 		needle = strchr(output, '[');
 		if(!needle) return;
-		val = strtol(needle, &test, 10);
+		val = strtol(needle+1, &test, 10);
 		if(*test != '@') return;
 		connection->errorCode = val;
 		val = strtol(test+1, &test, 10);
@@ -966,7 +966,7 @@ void mpd_sendPlaylistInfoCommand(mpd_Connection * connection, int songNum) {
 
 void mpd_sendPlChangesCommand(mpd_Connection * connection, long long playlist) {
 	char * string = malloc(strlen("plchanges")+25);
-	sprintf(string,"plchanges \"%i\"\n",playlist);
+	sprintf(string,"plchanges \"%lld\"\n",playlist);
 	mpd_sendInfoCommand(connection,string);
 	free(string);
 }

@@ -36,8 +36,20 @@
 #define MPD_ERROR_ACK		18 /* ACK returned! */
 #define MPD_ERROR_BUFFEROVERRUN	19 /* Buffer was overrun! */
 
-#define MPD_ERROR_CODE_UNK	-1;
-#define MPD_ERROR_AT_UNK	-1;
+#define MPD_ACK_ERROR_UNK	-1
+#define MPD_ERROR_AT_UNK	-1
+
+#define MPD_ACK_ERROR_NOT_LIST			1
+#define MPD_ACK_ERROR_ARG			2
+#define MPD_ACK_ERROR_PASSWORD			3
+#define MPD_ACK_ERROR_PERMISSION		4
+#define MPD_ACK_ERROR_UNKNOWN			5
+#define MPD_ACK_ERROR_NO_EXIST			6
+#define MPD_ACK_ERROR_PLAYLIST_MAX		7
+#define MPD_ACK_ERROR_SYSTEM			8
+#define MPD_ACK_ERROR_PLAYLIST_LOAD		9
+#define MPD_ACK_ERROR_UPDATE_ALREADY		10
+#define MPD_ACK_ERROR_PLAYER_SYNC		11
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,18 +1,13 @@
 
-client functions
-----------------------------------------------------------------------------
-  * move songs in playlists
-  * search screen
-  * id3 browser
+Features:
+* search screen
+* id3 browser
 
-ncurses
-----------------------------------------------------------------------------
-  * a small line editor (with history and support for KEY_RESIZE).
+Other:
+* Remove popt dependency
+* A cleanup would be nice
 
-other
-----------------------------------------------------------------------------
-  * internationalization - gettext
-  * A cleanup would be nice
+*** Cleanup mpc.c !!!
 
 
 
