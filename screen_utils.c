@@ -29,6 +29,7 @@
 #include "command.h"
 #include "options.h"
 #include "list_window.h"
+#include "colors.h"
 #include "screen.h"
 
 #define FIND_PROMPT  "Find: "
@@ -40,6 +41,7 @@ screen_getch(WINDOW *w, char *prompt)
   int key = -1;
   int prompt_len = strlen(prompt);
 
+  colors_use(w, COLOR_STATUS_ALERT);
   wclear(w);  
   wmove(w, 0, 0);
   waddstr(w, prompt);
@@ -67,6 +69,7 @@ screen_getstr(WINDOW *w, char *prompt)
   char buf[256], *line = NULL;
   int prompt_len = strlen(prompt);
 
+  colors_use(w, COLOR_STATUS_ALERT);
   wclear(w);  
   wmove(w, 0, 0);
   waddstr(w, prompt);
@@ -147,32 +150,4 @@ screen_find(screen_t *screen,
   return 0;
 }
 
-
-int
-my_waddstr(WINDOW *w, const char *text, int color)
-{
-  int ret;
-
-  if( options.enable_colors )
-    wattron(w, color);
-  ret = waddstr(w, text);
-  if( options.enable_colors )
-    wattroff(w, color);
-
-  return ret;
-}
-
-int
-my_mvwaddstr(WINDOW *w, int x, int y, const char *text, int color)
-{
-  int ret;
-
-  if( options.enable_colors )
-    wattron(w, color);
-  ret = mvwaddstr(w, x, y, text);
-  if( options.enable_colors )
-    wattroff(w, color);
-
-  return ret;
-}
 

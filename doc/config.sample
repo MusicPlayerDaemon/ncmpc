@@ -6,7 +6,7 @@
 #auto_center = no
 
 ## wide_cursor - make the cursor as wide as the screen
-#wide_cursor = no
+#wide_cursor = yes
 
 ##
 ## Color configuration
@@ -17,17 +17,25 @@
 ## enable/disable colors
 #enable_colors = no
 
-## background color
-#background_color = black
+## background colors: black,red,green,yellow,blue,magenta,cyan,white, none 
+#color background = black
 
-## text colors
-#title_color    = white
-#line_color     = green
-#list_color     = yellow
-#progress_color = green
-#status_color   = white
-#alert_color    = yellow
+## text colors: black, red, green, yellow, blue, magenta, cyan, white,
+##              brightblack, brightred, brightgreen, brightyellow, brightblue,
+##              brightmagenta, brightcyan, brightwhite
 
+
+#color title = yellow
+#color title-bold = brightyellow
+#color line = white
+#color line-flags = brightwhite
+#color list = green
+#color list-bold = brightgreen
+#color progressbar = white
+#color status-state = brightyellow
+#color status-song  = yellow
+#color status-time  = red
+#color alert = brightred
 
 
 

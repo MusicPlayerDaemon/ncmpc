@@ -26,6 +26,7 @@
 #include "options.h"
 #include "support.h"
 #include "command.h"
+#include "colors.h"
 #include "list_window.h"
 
 list_window_t *
@@ -164,19 +165,22 @@ list_window_paint(list_window_t *lw,
 	wclrtoeol(lw->w);
       if( label )
 	{
+	  int selected = lw->start+i == lw->selected;
+
 	  if( highlight )
-	    wattron(lw->w, A_BOLD);
-	  if( lw->start+i == lw->selected )
+	    colors_use(lw->w, COLOR_LIST_BOLD);
+	  else
+	    colors_use(lw->w, COLOR_LIST);
+
+	  if( selected )
 	    wattron(lw->w, A_REVERSE);
 	  
 	  waddnstr(lw->w, label, lw->cols-1);
 	  if( fill )
 	    mvwhline(lw->w, i, strlen(label), ' ', lw->cols-1);
 
-	  if( highlight )
-	    wattroff(lw->w, A_BOLD);
-	  if( lw->start+i == lw->selected )
-	    wattroff(lw->w, A_REVERSE);
+	  if( selected )
+	    wattroff(lw->w, A_REVERSE);	  
 	}
 	
     }

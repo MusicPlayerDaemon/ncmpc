@@ -1,3 +1,19 @@
+2004-05-07 Kalle Wallin <kaw@linux.se>
+	* Redesigned ncmpc's color support - view the manual for details!
+	* Added support for moving songs in a playlist (move-up, move-down)
+	* options.c: added new command line options --config and --key-file,
+	             wide_cursor is now enabled by default
+	* screen.c: scroll long song titles in the status window,
+	            dont display volume changes in the status window.
+	
+2004-05-03 Kalle Wallin <kaw@linux.se>
+	* configure.ac: display default values for --enable-x, 
+			version updated to 0.10.2-svn
+	* conf.c: The background color can now be assigned to 'none'.
+
+2004-04-26 Kalle Wallin <kaw@linux.se>
+	* ncmpc-0.10.1 released (r892)
+
 2004-04-23 Kalle Wallin <kaw@linux.se>
 	* Updated Changelog, TODO, NEWS and the manual page.
 	* screen_play.c:  Make shure the cursor stays on the same row when 

@@ -33,6 +33,7 @@
 #include "options.h"
 #include "support.h"
 #include "command.h"
+#include "colors.h"
 #include "conf.h"
 
 #ifdef DEBUG
@@ -41,7 +42,7 @@
 #define D(x)
 #endif
 
-#define RCFILE "." PACKAGE "rc"
+#define ENABLE_OLD_COLOR_SYNTAX
 
 #define MAX_LINE_LENGTH 1024
 #define COMMENT_TOKEN   '#'
@@ -49,8 +50,12 @@
 /* configuration field names */
 #define CONF_ENABLE_COLORS           "enable_colors"
 #define CONF_AUTO_CENTER             "auto_center"
+#define CONF_WIDE_CURSOR             "wide_cursor"
+#define CONF_KEY_DEFINITION          "key"
+#define CONF_COLOR                   "color"
+#define CONF_COLOR_DEFINITION        "colordef"
 
-/* configuration field names - colors */
+/* Deprecated - configuration field names */
 #define CONF_COLOR_BACKGROUND        "background_color"
 #define CONF_COLOR_TITLE             "title_color"
 #define CONF_COLOR_LINE              "line_color"
@@ -58,8 +63,7 @@
 #define CONF_COLOR_PROGRESS          "progress_color"
 #define CONF_COLOR_STATUS            "status_color"
 #define CONF_COLOR_ALERT             "alert_color"
-#define CONF_WIDE_CURSOR             "wide_cursor"
-#define CONF_KEY_DEFINITION          "key"
+
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -76,31 +80,6 @@ str2bool(char *str)
       !strcasecmp(str,"off") || !strcasecmp(str,"0") )
     return 0;
   return 1;
-}
-
-static int
-str2color(char *str)
-{
-  if( !strcasecmp(str,"black") )
-    return COLOR_BLACK;
-  else if( !strcasecmp(str,"red") )
-    return COLOR_RED;
-  else if( !strcasecmp(str,"green") )
-    return COLOR_GREEN;
-  else if( !strcasecmp(str,"yellow") )
-    return COLOR_YELLOW;
-  else if( !strcasecmp(str,"blue") )
-    return COLOR_BLUE;
-  else if( !strcasecmp(str,"magenta") )
-    return COLOR_MAGENTA;
-  else if( !strcasecmp(str,"cyan") )
-    return COLOR_CYAN;
-  else if( !strcasecmp(str,"white") )
-    return COLOR_WHITE;
-  else if( !strcasecmp(str,"default") || !strcasecmp(str,"none") )
-    return -1;
-  fprintf(stderr,"Warning: unknown color %s\n", str);
-  return -2;
 }
 
 static int
@@ -231,11 +210,101 @@ parse_key_definition(char *str)
 }
 
 static int
+parse_color(char *str)
+{
+  char *name = str;
+  char *value = NULL;
+  int len,i;
+
+  i=0;
+  len=strlen(str);
+  /* get the color name */
+  while( i<len && str[i]!='=' && !IS_WHITESPACE(str[i]) )
+    i++;
+  
+  /* skip whitespace */
+  while( i<len && (str[i]=='=' || IS_WHITESPACE(str[i])) )
+    {
+      str[i]='\0';
+      i++;
+    } 
+  
+  if( i<len )
+    value = str+i;
+
+  return colors_assign(name, value);
+}
+
+
+static int
+parse_color_definition(char *str)
+{
+  char buf[MAX_LINE_LENGTH];
+  char *p, *end, *name;
+  size_t len = strlen(str);
+  int i,j,value;
+  short color, rgb[3];
+
+  /* get the command name */
+  i=0;
+  j=0;
+  memset(buf, 0, MAX_LINE_LENGTH);
+  while( i<len && str[i]!='=' && !IS_WHITESPACE(str[i]) )
+    buf[j++] = str[i++];
+  color=colors_str2color(buf);
+  if( color<0 )
+    {
+      fprintf(stderr, "Error: Bad color %s [%d]\n", buf, color);
+      return -1;
+    }
+  name = g_strdup(buf);
+
+  /* skip whitespace */
+  while( i<len && (str[i]=='=' || IS_WHITESPACE(str[i])) )
+    i++;
+
+  /* get the value part */
+  memset(buf, 0, MAX_LINE_LENGTH);
+  strncpy(buf, str+i, len-i);
+  len = strlen(buf);
+  if( len==0 )
+    {
+      fprintf(stderr,"Error: Incomplete color definition - %s\n", str);
+      g_free(name);
+      return -1;
+    }
+
+  /* parse r,g.b values with the key definition parser */
+  i = 0;
+  value = 0;
+  len = strlen(buf);
+  p = buf;
+  end = buf+len;
+  memset(rgb, 0, sizeof(short)*3);
+  while( i<3 && p<end && (value=parse_key_value(p,len+1,&p))>=0 )
+    {
+      rgb[i++] = value;
+      while( p<end && (*p==',' || *p==' ' || *p=='\t') )
+	p++;
+      len = strlen(p);
+    } 
+  if( value<0 || i!=3)
+    {
+      fprintf(stderr,"Error: Bad color definition - %s\n", str);
+      g_free(name);
+      return -1;
+    }
+  value = colors_define(name, rgb[0], rgb[1], rgb[2]);
+  g_free(name);
+  return value;
+}
+
+
+static int
 read_rc_file(char *filename, options_t *options)
 {
   int fd;
   int quit  = 0;
-  int color = -1;
   int free_filename = 0;
 
   if( filename==NULL )
@@ -244,7 +313,7 @@ read_rc_file(char *filename, options_t *options)
   D(printf("Reading configuration file %s\n", filename));
   if( (fd=open(filename,O_RDONLY)) <0 )
     {
-      D(perror(filename));
+      perror(filename);
       if( free_filename )
 	g_free(filename);
       return -1;
@@ -314,7 +383,8 @@ read_rc_file(char *filename, options_t *options)
 	      value[j] = '\0';
 	      
 	      match_found = 1;
-	      
+
+	      /* key definition */
 	      if( !strcasecmp(CONF_KEY_DEFINITION, name) )
 		{
 		  parse_key_definition(value);
@@ -329,51 +399,67 @@ read_rc_file(char *filename, options_t *options)
 		{
 		  options->auto_center = str2bool(value);
 		}
+	      /* color assignment */
+	      else if( !strcasecmp(CONF_COLOR, name) )
+		{
+		  parse_color(value);
+		}
+#ifdef ENABLE_OLD_COLOR_SYNTAX
 	      /* background color */
 	      else if( !strcasecmp(CONF_COLOR_BACKGROUND, name) )
 		{
-		  if( (color=str2color(value)) >= -1 )
-		    options->bg_color = color;
+		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  colors_assign("background", value);
 		}
 	      /* color - top (title) window */
 	      else if( !strcasecmp(CONF_COLOR_TITLE, name) )
 		{
-		  if( (color=str2color(value)) >= 0 )
-		    options->title_color = color;
+		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  colors_assign("title", value);
+		  colors_assign("title2", value);
 		}
 	      /* color - line (title) window */
 	      else if( !strcasecmp(CONF_COLOR_LINE, name) )
 		{
-		  if( (color=str2color(value)) >= 0 )
-		    options->line_color = color;
+		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  colors_assign("line", value);
+		  colors_assign("line2", value);
 		}
 	      /* color - list window */
 	      else if( !strcasecmp(CONF_COLOR_LIST, name) )
 		{
-		  if( (color=str2color(value)) >= 0 )
-		    options->list_color = color;
+		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  colors_assign("list", value);
 		}
 	      /* color - progress bar */
 	      else if( !strcasecmp(CONF_COLOR_PROGRESS, name) )
 		{
-		  if( (color=str2color(value)) >= 0 )
-		    options->progress_color = color;
+		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  colors_assign("progressbar", value);
 		}
 	      /* color - status window */
 	      else if( !strcasecmp(CONF_COLOR_STATUS, name) )
 		{
-		  if( (color=str2color(value)) >= 0 )
-		    options->status_color = color;
+		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  colors_assign("status", value);
+		  colors_assign("status2", value);
 		}
 	      /* color - alerts */
 	      else if( !strcasecmp(CONF_COLOR_ALERT, name) )
 		{
-		  if( (color=str2color(value)) >= 0 )
-		    options->alert_color = color;
+		  fprintf(stderr,"%s: %s - deprecated!\n", filename,name);
+		  colors_assign("alert", value);
 		}
+#endif
+	      /* wide cursor */
 	      else if( !strcasecmp(CONF_WIDE_CURSOR, name) )
 		{
 		  options->wide_cursor = str2bool(value);
+		}
+	      /* color definition */
+	      else if( !strcasecmp(CONF_COLOR_DEFINITION, name) )
+		{
+		  parse_color_definition(value);
 		}
 	      else
 		{
@@ -432,12 +518,20 @@ read_configuration(options_t *options)
 {
   char *filename = NULL;
 
+  /* check for command line configuration file */
+  if( options->config_file )
+    filename = g_strdup(options->config_file);
+
   /* check for user configuration ~/.ncmpc/config */
-  filename = g_build_filename(g_get_home_dir(), "." PACKAGE, "config", NULL);
-  if( !g_file_test(filename, G_FILE_TEST_IS_REGULAR) )
+  if( filename == NULL )
     {
-      g_free(filename);
-      filename = NULL;
+      filename = g_build_filename(g_get_home_dir(), 
+				  "." PACKAGE, "config", NULL);
+      if( !g_file_test(filename, G_FILE_TEST_IS_REGULAR) )
+	{
+	  g_free(filename);
+	  filename = NULL;
+	}
     }
 
   /* check for  global configuration SYSCONFDIR/ncmpc/config */
@@ -459,12 +553,19 @@ read_configuration(options_t *options)
       filename = NULL;
     }
 
+  /* check for command line key binding file */
+  if( options->key_file )
+    filename = g_strdup(options->key_file);
+
   /* check for  user key bindings ~/.ncmpc/keys */
-  filename = get_user_key_binding_filename();
-  if( !g_file_test(filename, G_FILE_TEST_IS_REGULAR) )
+  if( filename == NULL )
     {
-      g_free(filename);
-      filename = NULL;
+      filename = get_user_key_binding_filename();
+      if( !g_file_test(filename, G_FILE_TEST_IS_REGULAR) )
+	{
+	  g_free(filename);
+	  filename = NULL;
+	}
     }
 
   /* check for  global key bindings SYSCONFDIR/ncmpc/keys */

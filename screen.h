@@ -10,14 +10,6 @@
 #define TOP_HEADER_HELP   TOP_HEADER_PREFIX "Help    "
 #define TOP_HEADER_SEARCH TOP_HEADER_PREFIX "Search  "
 
-/* colors */
-#define TITLE_COLORS     COLOR_PAIR(1)
-#define LINE_COLORS      COLOR_PAIR(2)
-#define LIST_COLORS      COLOR_PAIR(3)
-#define PROGRESS_COLORS  COLOR_PAIR(4)
-#define STATUS_COLORS    COLOR_PAIR(5)
-#define ALERT_COLORS     COLOR_PAIR(6)
-
 /* minumum window size */
 #define SCREEN_MIN_COLS 14
 #define SCREEN_MIN_ROWS  5

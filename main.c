@@ -75,6 +75,9 @@ main(int argc, const char *argv[])
 
   /* initialize options */
   options = options_init();
+
+  /* parse command line options - 1 pass get configuration files */
+  options_parse(argc, argv);
   
   /* read configuration */
   read_configuration(options);
@@ -86,7 +89,7 @@ main(int argc, const char *argv[])
       exit(EXIT_FAILURE);
     }
 
-  /* parse command line options */
+  /* parse command line options - 2 pass */
   options_parse(argc, argv);
 
   /* initialize local charset */

@@ -7,21 +7,15 @@ typedef struct
   char *host;
   char *username;
   char *password;
+  char *config_file;
+  char *key_file;
   int   port;
   int   reconnect;
   int   debug;
   int   find_wrap;
   int   auto_center;
-  
+  int   wide_cursor;  
   int   enable_colors;
-  int   bg_color;
-  int   title_color;
-  int   line_color;
-  int   list_color;
-  int   progress_color;
-  int   status_color;
-  int   alert_color;
-  int   wide_cursor;
 
 } options_t;
 

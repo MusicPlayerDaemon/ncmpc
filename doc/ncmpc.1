@@ -48,11 +48,20 @@ Connect to server on PORT.
 .B \-P, \-\-password=PASSWORD
 Use password when connecting.
 .TP 
+.B \-f, \-\-config=FILE
+Read configuration from file.
+.TP 
+.B \-P, \-\-key\-file=FILE
+Read key bindings from FILE.
+.TP 
 Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options.
 .SH "CONFIGURATION"
 When ncmpc start it tries to read user setting from the ~/ncmpc/config file. If no user configuration is found ncmpc tries to load global settings from $SYSCONFDIR/ncmpc/config (the actual path is displayed on the help screen). An example configuration file (config.sample) should be provided with ncmpc.
 
-Avalible colors: black, red, green, yellow, blue, magenta, cyan and white.
+Base colors are: black, red, green, yellow, blue, magenta, cyan and white. 
+
+Possible text colors are the base colors plus grey, brightred, brightgreen, brightyellow, brightblue, brightmagenta, brightcyan and brightwhite.
+
 
 Supported configuration options:
 .TP 
@@ -66,26 +75,45 @@ Make the cursor as wide as the screen.
 .B enable_colors = yes|no
 Enable/disable colors.
 .TP 
-.B background_color = color|none
-Set the background color. If the background color is assigned to the keyword \fBnone\fR, ncmpc will not change the background color.
+.B color background = COLOR
+Set the background color. If the background color is assigned to the keyword \fBnone\fR, ncmpc will not change the background color. Only the base colors are valid background colors.
 .TP 
-.B title_color = color
-Set the text color for the title row (first row).
+.B color title = TEXTCOLOR
+Set the text color for the title row.
 .TP 
-.B line_color = color
+.B color title\-bold = TEXTCOLOR
+Set the text color for the title row (the bold part).
+.TP 
+.B color line = TEXTCOLOR
 Set the color of the line on the second row.
 .TP 
-.B list_color = color
+.B color line\-flags = TEXTCOLOR
+Set the text color used to indicate mpd flags on the second row.
+.TP 
+.B color list = TEXTCOLOR
 Set the text color in the main area of ncmpc.
 .TP 
-.B progress_color = color
+.B color list\-bold = TEXTCOLOR
+Set the bold text color in the main area of ncmpc.
+.TP 
+.B color progressbar = TEXTCOLOR
 Set the color of the progress indicator.
 .TP 
-.B status_color = color
-Set the text color used in the status window (last row). 
+.B color status\-state = TEXTCOLOR
+Set the text color used to display mpd status in the status window.
 .TP 
-.B alert_color = color
+.B color status\-song = TEXTCOLOR
+Set the text color used to display song names in the status window.
+.TP 
+.B color status\-time = TEXTCOLOR
+Set the text color used to display time the status window. 
+.TP 
+.B color alert = TEXTCOLOR
 Text color used to display alerts in the status window.
+.TP 
+.B colordef COLOR = R, G, B
+Redefine any of the base colors. The RGB values must be an integer value between 0 and 1000. 
+\fBNote\fR: Only some terminals allow redefinitions of colors! 
 .SH "KEYS"
 When ncmpc start it tries to read user key bindings from the ~/ncmpc/keys file. If no user key bindings is found ncmpc tries to load global key bindings from $SYSCONFDIR/ncmpc/keys (the actual path is displayed on the help screen). 
 

@@ -33,13 +33,14 @@ options_t options;
 
 static char *mpd_host     = NULL;
 static char *mpd_password = NULL;
+static char *config_file  = NULL;
+static char *key_file     = NULL;
 
 static struct poptOption optionsTable[] = {
 #ifdef DEBUG
   { "debug",        'D', 0, 0, 'D', "Enable debug output." },
 #endif
   { "version",      'V', 0, 0, 'V', "Display version information." },
-  { "keys",         'k', 0, 0, 'k', "Display key bindings." },
   { "colors",       'c', 0, 0, 'c', "Enable colors." },
   { "no-colors",    'C', 0, 0, 'C', "Disable colors." },
   { "exit",         'e', 0, 0, 'e', "Exit on connection errors." },
@@ -49,6 +50,11 @@ static struct poptOption optionsTable[] = {
     "Connect to server [" DEFAULT_HOST "].", "HOSTNAME" },
   { "password",     'P', POPT_ARG_STRING, &mpd_password, 0, 
     "Connect with password.", "PASSWORD" },
+  { "config",       'f', POPT_ARG_STRING, &config_file, 0, 
+    "Read config from FILE." , "FILE" },
+  { "key-file",     'k', POPT_ARG_STRING, &key_file, 0, 
+    "Read key bindings from FILE." , "FILE" },
+
   POPT_AUTOHELP
   { NULL, 0, 0, NULL, 0 }
 };
@@ -70,6 +76,8 @@ options_parse( int argc, const char **argv)
 
   mpd_host = NULL;
   mpd_password = NULL;
+  config_file = NULL;
+  key_file = NULL;
   optCon = poptGetContext(NULL, argc, argv, optionsTable, 0);
   while ((c = poptGetNextOpt(optCon)) >= 0) 
     {
@@ -88,9 +96,6 @@ options_parse( int argc, const char **argv)
 	  break;
 	case 'V':
 	  printf("Version " VERSION "\n");
-	  exit(EXIT_SUCCESS);
-	case 'k':
-	  command_dump_keys();
 	  exit(EXIT_SUCCESS);
 	case 'e':
 	  options.reconnect = 0;
@@ -124,6 +129,17 @@ options_parse( int argc, const char **argv)
       g_free(options.password);
       options.password = mpd_password;
     }
+  if( config_file )
+    {
+      g_free(options.config_file);
+      options.config_file = config_file;
+    }
+  if( key_file )
+    {
+      g_free(options.key_file);
+      options.key_file = key_file;
+    }
+
   poptFreeContext(optCon);
   return &options;
 }
@@ -156,14 +172,7 @@ options_init( void )
 
   options.reconnect = 1;
   options.find_wrap = 1;
-
-  options.bg_color       = COLOR_BLACK;
-  options.title_color    = COLOR_YELLOW;
-  options.line_color     = COLOR_WHITE;
-  options.list_color     = COLOR_GREEN;
-  options.progress_color = COLOR_WHITE;
-  options.status_color   = COLOR_YELLOW;
-  options.alert_color    = COLOR_RED;
+  options.wide_cursor = 1;
 
   return &options;
 }

@@ -1,7 +1,7 @@
 #! /bin/sh
 # Check Autoconf version
 if [ -x `which autoconf` ]; then
-	AC_VER=`autoconf --version | head -1 | sed 's/^[^0-9]*//'`
+	AC_VER=`autoconf --version | head -n 1 | sed 's/^[^0-9]*//'`
 	AC_VER_MAJOR=`echo $AC_VER | cut -f1 -d'.'`
 	AC_VER_MINOR=`echo $AC_VER | cut -f2 -d'.' | sed 's/[^0-9]*$//'`
 
