@@ -82,6 +82,7 @@ void
 exit_and_cleanup(void)
 {
   screen_exit();
+  set_xterm_title("");
   printf("\n");
   if( mpd )
     {
@@ -164,10 +165,7 @@ main(int argc, const char *argv[])
     }
 
   /* set xterm title */
-#ifdef DEBUG
-  options->enable_xterm_title = 1;
   set_xterm_title(PACKAGE " version " VERSION);
-#endif
 
   /* install exit function */
   atexit(exit_and_cleanup);
@@ -188,9 +186,11 @@ main(int argc, const char *argv[])
     mpd->connection->version[1],
     mpd->connection->version[2]);
 
-  if( !MPD_VERSION(mpd, 0,11,0) )
+  /* quit if mpd is pre 0.11.0 - song id not supported by mpd */
+  if( MPD_VERSION_LT(mpd, 0,11,0) )
     {
-      fprintf(stderr, "MPD version %d.%d.%d is to old (0.11.0 needed).\n",
+      fprintf(stderr,
+	      _("Error: MPD version %d.%d.%d is to old (0.11.0 needed).\n"),
 	      mpd->connection->version[0],
 	      mpd->connection->version[1],
 	      mpd->connection->version[2]);

@@ -2,8 +2,16 @@
 #define MPDCLIENT_H
 #include "libmpdclient.h"
 
-#define MPD_VERSION(c,x,y,z) (c->connection->version[0]*10000+c->connection->version[1]*100+c->connection->version[2] >= \
-                              x*10000+y*100+z)
+#define MPD_VERSION_EQ(c,x,y,z) (c->connection->version[0] == x && \
+                                 c->connection->version[1] == y && \
+                                 c->connection->version[2] == z )
+
+#define MPD_VERSION_LT(c,x,y,z) ( c->connection->version[0]<x  || \
+ (c->connection->version[0]==x && c->connection->version[1]<y) || \
+ (c->connection->version[0]==x && c->connection->version[1]==y && \
+  c->connection->version[2]<z) )
+
+
 
 /****************************************************************************/
 /* Playlist */
