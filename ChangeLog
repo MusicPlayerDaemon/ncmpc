@@ -1,3 +1,10 @@
+2005-06-01: Kalle Wallin <kaw@linux.se>
+	* main.c: Fixes #0000406, patch from René van Bevern
+	* po/de.po: Updates from René van Bevern
+
+2005-01-24: Kalle Wallin <kaw@linux.se>
+	* ncmpc-0.11.1
+
 2005-01-23: Kalle Wallin <kaw@linux.se>
 	* libmpdclient updated to 2897
 

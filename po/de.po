@@ -30,7 +30,7 @@ msgstr "Beenden..."
 #: src/main.c:266
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (0.11.0 needed).\n"
-msgstr "Fehler: MPD Version %d.%d.%d ist zu alt (0.11.0 wird benötigt).\n"
+msgstr "Fehler: MPD-Version %d.%d.%d ist zu alt (0.11.0 wird benötigt).\n"
 
 #: src/main.c:318
 #, c-format
@@ -69,7 +69,7 @@ msgstr " Lautstärke %d%%"
 
 #: src/screen.c:271
 msgid "Playing:"
-msgstr "Spielt gerade:"
+msgstr "Spiele:"
 
 #: src/screen.c:274
 msgid "[Paused]"
@@ -98,7 +98,7 @@ msgstr "Zufallswiedergabe ist aus"
 #: src/screen.c:652
 #, c-format
 msgid "Crossfade %d seconds"
-msgstr "Crossfade %d Sekunden"
+msgstr "%d Sekunden Crossfade"
 
 #: src/screen.c:655
 msgid "Database updated!"
@@ -320,11 +320,11 @@ msgstr "%d. Füge neue Taste hinzu "
 
 #: src/screen_keydef.c:267
 msgid "Welcome to the key editor!"
-msgstr "Willkommen beim Tasteneditor!"
+msgstr "Willkommen im Tasteneditor!"
 
 #: src/screen_keydef.c:283
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Tipp: Hast du vergessen, deine Änderungen 'Anzuwenden' ?"
+msgstr "Tipp: Hast du vergessen, deine Änderungen 'Anzuwenden'?"
 
 #: src/screen_keydef.c:290
 msgid "Edit key bindings"
@@ -349,7 +349,7 @@ msgstr "Tasten - Global"
 
 #: src/screen_help.c:95
 msgid "Keys - Playlist screen"
-msgstr "Tasten - Playlist Anzeige"
+msgstr "Tasten - Playlistenanzeige"
 
 #: src/screen_help.c:97
 msgid "Play"
@@ -357,11 +357,11 @@ msgstr "Abspielen"
 
 #: src/screen_help.c:100
 msgid "Move song up"
-msgstr "Song nach oben bewegen"
+msgstr "Stück nach oben bewegen"
 
 #: src/screen_help.c:101
 msgid "Move song down"
-msgstr "Song nach unten bewegen"
+msgstr "Stück nach unten bewegen"
 
 #: src/screen_help.c:104
 msgid "Center"
@@ -369,20 +369,19 @@ msgstr "Zentrieren"
 
 #: src/screen_help.c:109
 msgid "Keys - Browse screen"
-msgstr "Tasten - Stöbern Anzeige"
+msgstr "Tasten - Stöber-Anzeige"
 
 #: src/screen_help.c:111
 msgid "Enter directory/Select and play song"
-msgstr "Verzeichnis öffnen/Song auswählen und abspielen"
+msgstr "Verzeichnis öffnen/Stück auswählen und abspielen"
 
 #: src/screen_help.c:113
 msgid "Delete playlist"
 msgstr "Lösche Playlist"
 
 #: src/screen_help.c:119
-#, fuzzy
 msgid "Keys - Search screen"
-msgstr "Tasten - Stöbern Anzeige"
+msgstr "Tasten - Stöber-Anzeige"
 
 #: src/screen_help.c:121
 msgid "Search"
@@ -434,7 +433,7 @@ msgstr "Hilfeanzeige"
 
 #: src/command.c:94
 msgid "Playlist screen"
-msgstr "Playlist Anzeige"
+msgstr "Playlistenanzeige"
 
 #: src/command.c:96
 msgid "Browse screen"
@@ -454,19 +453,19 @@ msgstr "Stop"
 
 #: src/command.c:107
 msgid "Next track"
-msgstr "Nächster Track"
+msgstr "Nächstes Stück"
 
 #: src/command.c:109
 msgid "Previous track"
-msgstr "Vorheriger Track"
+msgstr "Vorheriges Stück"
 
 #: src/command.c:111
 msgid "Seek forward"
-msgstr "Vorwärts spulen"
+msgstr "Vorspulen"
 
 #: src/command.c:113
 msgid "Seek backward"
-msgstr "Zurück spulen"
+msgstr "Zurückspulen"
 
 #: src/command.c:115
 msgid "Increase volume"
@@ -478,7 +477,7 @@ msgstr "Lautstärke verringern"
 
 #: src/command.c:119
 msgid "Select/deselect song in playlist"
-msgstr "Markiere/Entmarkiere Song in der Playlist"
+msgstr "Wähle Stück in der Playlist an/ab"
 
 #: src/command.c:121
 msgid "Delete song from playlist"
@@ -561,17 +560,16 @@ msgid "Backward find previous"
 msgstr "Rückwärtssuche fortsetzen"
 
 #: src/command.c:177
-#, fuzzy
 msgid "Search screen"
-msgstr "Nächste Anzeige"
+msgstr "Suchanzeige"
 
 #: src/command.c:179
 msgid "Change search mode"
-msgstr "Wechsel des Suchmodus"
+msgstr "Suchmodus wechseln"
 
 #: src/command.c:184
 msgid "Clock screen"
-msgstr "Uhr Anzeige"
+msgstr "Uhr-Anzeige"
 
 #: src/command.c:206
 msgid "Undefined"
@@ -639,7 +637,7 @@ msgstr "Esc"
 
 #: src/command.c:238
 msgid "Insert"
-msgstr "Einf"
+msgstr "Einfg"
 
 #: src/command.c:488
 #, c-format
