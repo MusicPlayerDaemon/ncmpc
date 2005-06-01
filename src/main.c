@@ -253,6 +253,13 @@ main(int argc, const char *argv[])
     {
       exit(EXIT_FAILURE);
     }
+
+  /* if no password is used, but the mpd wants one, the connection
+     might be established but no status information is avaiable */
+  mpdclient_update(mpd);
+  if(!mpd->status)  
+    exit(EXIT_FAILURE);
+  
   connected = TRUE;
   D("Connected to MPD version %d.%d.%d\n",
     mpd->connection->version[0],
