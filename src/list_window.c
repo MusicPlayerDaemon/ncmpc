@@ -165,12 +165,9 @@ list_window_paint(list_window_t *lw,
 {
   int i;
   int fill = options.wide_cursor;
+  int show_cursor = !(lw->flags & LW_HIDE_CURSOR);
 
-  if( lw->flags & LW_HIDE_CURSOR )
-    {
-      lw->selected = -1;
-    }
-  else
+  if( show_cursor )
     {
       while( lw->selected < lw->start )
 	{
@@ -183,7 +180,7 @@ list_window_paint(list_window_t *lw,
 	  lw->clear=1;
 	}
     }
-
+  
   for(i=0; i<lw->rows; i++)
     {
       int highlight = 0;
@@ -203,7 +200,7 @@ list_window_paint(list_window_t *lw,
 	  else
 	    colors_use(lw->w, COLOR_LIST);
 
-	  if( selected )
+	  if( show_cursor && selected )
 	    wattron(lw->w, A_REVERSE);
 	  
 	  waddnstr(lw->w, label, lw->cols);

@@ -15,6 +15,7 @@ typedef struct
   int   port;
   int   crossfade_time;
   int   search_mode;
+  int   hide_cursor;
   gboolean reconnect;
   gboolean debug;
   gboolean find_wrap;

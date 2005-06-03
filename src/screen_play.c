@@ -21,6 +21,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <glib.h>
 #include <ncurses.h>
 #include <panel.h>
@@ -341,6 +342,18 @@ play_paint(screen_t *screen, mpdclient_t *c)
 static void
 play_update(screen_t *screen, mpdclient_t *c)
 {
+  /* hide the cursor when mpd are playing and the user are inactive */
+  if( options.hide_cursor>0 && c->status->state == MPD_STATUS_STATE_PLAY &&
+      time(NULL)-screen->input_timestamp >= options.hide_cursor )
+    {
+      lw->flags |= LW_HIDE_CURSOR;
+    }
+  else
+    {
+      lw->flags &= ~LW_HIDE_CURSOR;
+    }
+
+  /* center the cursor */
   if( options.auto_center )
     {
       static int prev_song_id = 0;

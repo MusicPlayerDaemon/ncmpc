@@ -26,6 +26,9 @@
 ## enable visible bell on alerts
 #visible-bell = no
 
+## hide playlist cursor after x seconds (0 disables this feature)
+#hide-cursor = 5
+
 ## change the xterm title 
 #set-xterm-title = no
 

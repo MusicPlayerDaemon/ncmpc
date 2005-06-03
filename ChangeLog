@@ -1,3 +1,6 @@
+2005-06-03: Kalle Wallin <kaw@linux.se>
+	* Added a "hide cursor" feature #0000417
+
 2005-06-01: Kalle Wallin <kaw@linux.se>
 	* main.c: Fixes #0000406, patch from René van Bevern
 	* po/de.po: Updates from René van Bevern
