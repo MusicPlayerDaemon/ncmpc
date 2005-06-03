@@ -1,5 +1,6 @@
 2005-06-03: Kalle Wallin <kaw@linux.se>
-	* Added a "hide cursor" feature #0000417
+	* Seek time can now be defined in the conf file (seek-time)
+	* Added a "hide cursor" feature #0000417 (hide-cursor)
 
 2005-06-01: Kalle Wallin <kaw@linux.se>
 	* main.c: Fixes #0000406, patch from René van Bevern

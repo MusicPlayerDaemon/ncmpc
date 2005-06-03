@@ -38,6 +38,9 @@
 ## enable mouse events 
 #enable-mouse = no
 
+## seek time (default 1s)
+#seek-time = 3
+
 ## mpd crossfade time 
 ##crossfade-time = 10
 

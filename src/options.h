@@ -16,6 +16,7 @@ typedef struct
   int   crossfade_time;
   int   search_mode;
   int   hide_cursor;
+  int   seek_time;
   gboolean reconnect;
   gboolean debug;
   gboolean find_wrap;

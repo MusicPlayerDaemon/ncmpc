@@ -61,6 +61,7 @@
 #define CONF_CROSSFADE_TIME          "crossfade-time"
 #define CONF_SEARCH_MODE             "search-mode"
 #define CONF_HIDE_CURSOR             "hide-cursor"
+#define CONF_SEEK_TIME               "seek-time"
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -481,6 +482,10 @@ read_rc_file(char *filename, options_t *options)
 	      else if( !strcasecmp(CONF_HIDE_CURSOR, name) )
 		{
 		  options->hide_cursor = atoi(value);
+		}
+	      else if( !strcasecmp(CONF_SEEK_TIME, name) )
+		{
+		  options->seek_time = atoi(value);
 		}
 	      else
 		{

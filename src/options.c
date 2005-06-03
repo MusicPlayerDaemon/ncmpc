@@ -363,6 +363,7 @@ options_init( void )
   options.wide_cursor = TRUE;
   options.audible_bell = TRUE;
   options.crossfade_time = DEFAULT_CROSSFADE_TIME;
+  options.seek_time = 1;
 
   return &options;
 }

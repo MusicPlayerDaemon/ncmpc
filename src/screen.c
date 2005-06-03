@@ -783,7 +783,7 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 	      seek_id = c->song->id;
 	      seek_target_time = c->status->elapsedTime;
 	    }
-	  seek_target_time++;
+	  seek_target_time+=options.seek_time;
 	  if( seek_target_time < c->status->totalTime )
 	    break;
 	  seek_target_time = c->status->totalTime;
@@ -803,7 +803,7 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 	      seek_id = c->song->id;
 	      seek_target_time = c->status->elapsedTime;
 	    }
-	  seek_target_time--;
+	  seek_target_time-=options.seek_time;
 	  if( seek_target_time < 0 )
 	    seek_target_time=0;
 	}
