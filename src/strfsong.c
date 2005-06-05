@@ -174,6 +174,10 @@ _strfsong(gchar *s,
 	temp = song->track ? utf8_to_locale(song->track) : NULL;
       else if (strncmp("%name%", p, n) == 0)
 	temp = song->name ? utf8_to_locale(song->name) : NULL;
+      else if (strncmp("%date%", p, n) == 0)
+	temp = song->date ? utf8_to_locale(song->date) : NULL;
+      else if (strncmp("%genre%", p, n) == 0)
+	temp = song->genre ? utf8_to_locale(song->genre) : NULL;
       else if (strncmp("%shortfile%", p, n) == 0)
 	{
 	  if( strstr(song->file, "://") )
