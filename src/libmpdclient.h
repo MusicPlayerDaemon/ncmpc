@@ -233,6 +233,11 @@ typedef struct _mpd_Song {
 	char * name;
 	/* date */
 	char *date;
+
+	/* added by qball */
+	char *genre;
+	char *composer;
+
 	/* length of song in seconds, check that it is not MPD_SONG_NO_TIME  */
 	int time;
 	/* if plchanges/playlistinfo/playlistid used, is the position of the 
@@ -355,6 +360,9 @@ void mpd_sendCurrentSongCommand(mpd_Connection * connection);
 
 /* songNum of -1, means to display the whole list */
 void mpd_sendPlaylistInfoCommand(mpd_Connection * connection, int songNum);
+
+/* songId of -1, means to display the whole list */
+void mpd_sendPlaylistIdCommand(mpd_Connection * connection, int songId);
 
 /* use this to get the changes in the playlist since version _playlist_ */
 void mpd_sendPlChangesCommand(mpd_Connection * connection, long long playlist);

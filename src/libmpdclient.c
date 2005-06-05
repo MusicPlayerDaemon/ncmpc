@@ -69,25 +69,33 @@ int mpd_ipv6Supported() {
 }                       
 #endif  
 
-
-char * mpd_sanitizeArg(const char * arg) {
+static char * mpd_sanitizeArg(const char * arg) {
 	size_t i;
-	int count=0;
 	char * ret;
-
-	for(i=0;i<strlen(arg);i++) {
-		if(arg[i]=='"' || arg[i]=='\\') count++;
+	register const char *c;
+	register char *rc;
+	
+	/* 
+	unsigned int count = 0;
+	
+	c = arg;
+	for(i = strlen(arg); i != 0; --i) {
+		if(*c=='"' || *c=='\\') count++;
+		c++;
 	}
-
 	ret = malloc(strlen(arg)+count+1);
+	*/
+	/* instead of counting in that loop above, just
+	 * use a bit more memory and half running time
+	 */
+	ret = malloc(strlen(arg) * 2 + 1);
 
-	count = 0;
-	for(i=0;i<strlen(arg)+1;i++) {
-		if(arg[i]=='"' || arg[i]=='\\') {
-			ret[i+count] = '\\';
-			count++;
-		}
-		ret[i+count] = arg[i];
+	c = arg;
+	rc = ret;
+	for(i = strlen(arg)+1; i != 0; --i) {
+		if(*c=='"' || *c=='\\')
+			*rc++ = '\\';
+		*(rc++) = *(c++);
 	}
 
 	return ret;
@@ -789,6 +797,10 @@ void mpd_initSong(mpd_Song * song) {
 	song->title = NULL;
 	song->name = NULL;
 	song->date = NULL;
+	/* added by Qball */
+	song->genre = NULL;
+	song->composer = NULL;
+
 	song->time = MPD_SONG_NO_TIME;
 	song->pos = MPD_SONG_NO_NUM;
 	song->id = MPD_SONG_NO_ID;
@@ -802,6 +814,8 @@ void mpd_finishSong(mpd_Song * song) {
 	if(song->track) free(song->track);
 	if(song->name) free(song->name);
 	if(song->date) free(song->date);
+	if(song->genre) free(song->genre);
+	if(song->composer) free(song->composer);
 }
 
 mpd_Song * mpd_newSong() {
@@ -827,6 +841,8 @@ mpd_Song * mpd_songDup(mpd_Song * song) {
 	if(song->track) ret->track = strdup(song->track);
 	if(song->name) ret->name = strdup(song->name);
 	if(song->date) ret->date = strdup(song->date);
+	if(song->genre) ret->genre= strdup(song->genre);
+	if(song->composer) ret->composer= strdup(song->composer);
 	ret->time = song->time;
 	ret->pos = song->pos;
 	ret->id = song->id;
@@ -1016,6 +1032,15 @@ mpd_InfoEntity * mpd_getNextInfoEntity(mpd_Connection * connection) {
 					strcmp(re->name, "Date") == 0) {
 				entity->info.song->date = strdup(re->value);
 			}
+			else if(!entity->info.song->genre &&
+					strcmp(re->name, "Genre") == 0) {
+				entity->info.song->genre = strdup(re->value);
+			}
+			else if(!entity->info.song->composer &&
+					strcmp(re->name, "Composer") == 0) {
+				entity->info.song->composer = strdup(re->value);
+			}                                                    			
+			
 		}
 		else if(entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY) {
 		}
