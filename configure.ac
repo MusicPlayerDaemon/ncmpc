@@ -17,7 +17,7 @@ dnl initialize variables
 dnl =======================================================
 
 dnl i18n
-ALL_LINGUAS="es de fr ru sv"
+ALL_LINGUAS="es de fr no ru sv"
 
 set -- $CFLAGS
 
@@ -157,6 +157,18 @@ if test "x$getmouse" = "xyes" ; then
 	        [getmouse],
 		[AC_DEFINE([HAVE_GETMOUSE], [1], [ncurses - getmouse()])],
 		[])
+fi
+
+dnl artist screen
+AC_MSG_CHECKING([whether to include the artist screen])
+AC_ARG_ENABLE([artist-screen], 
+              AC_HELP_STRING([--enable-artist-screen],
+	                     [Enable artist screen (EXPERIMENTAL) @<:@default=no@:>@]),
+	      [artist_screen="$enableval"],
+	      [artist_screen=no])
+AC_MSG_RESULT([$artist_screen])
+if test "x$artist_screen" != "xyes" ; then
+   AC_DEFINE(DISABLE_ARTIST_SCREEN, 1, [Disable artist screen])
 fi
 
 dnl search screen
