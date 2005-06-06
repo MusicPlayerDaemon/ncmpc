@@ -39,6 +39,8 @@
 
 #define MPD_ERROR(c) (c==NULL || c->connection==NULL || c->connection->error)
 
+/* from utils.c */
+extern GList *string_list_free(GList *string_list);
 
 /* Error callbacks */
 static gint
@@ -883,13 +885,12 @@ mpdclient_filelist_get(mpdclient_t *c, gchar *path)
 }
 
 mpdclient_filelist_t *
-mpdclient_filelist_search(mpdclient_t *c, int table, gchar *filter)
+mpdclient_filelist_search_utf8(mpdclient_t *c, int table, gchar *filter_utf8)
 {
   mpdclient_filelist_t *filelist;
   mpd_InfoEntity *entity;
-  gchar *filter_utf8 = locale_to_utf8(filter);
 
-  D("mpdclient_filelist_filter(%s)\n", filter);
+  D("mpdclient_filelist_search(%s)\n", filter_utf8);
   mpd_sendSearchCommand(c->connection, table, filter_utf8);
   filelist = g_malloc0(sizeof(mpdclient_filelist_t));
 
@@ -903,13 +904,23 @@ mpdclient_filelist_search(mpdclient_t *c, int table, gchar *filter)
     }
   
   if( mpdclient_finish_command(c) )
-    {
-      g_free(filter_utf8);
-      return mpdclient_filelist_free(filelist);
-    }
-  
-  g_free(filter_utf8);
+    return mpdclient_filelist_free(filelist);
+
   filelist->updated = TRUE;
+
+  return filelist;
+}
+
+
+mpdclient_filelist_t *
+mpdclient_filelist_search(mpdclient_t *c, int table, gchar *filter)
+{
+  mpdclient_filelist_t *filelist;
+  gchar *filter_utf8 = locale_to_utf8(filter);
+
+  D("mpdclient_filelist_search(%s)\n", filter);
+  filelist = mpdclient_filelist_search_utf8(c, table, filter_utf8);
+  g_free(filter_utf8);
 
   return filelist;
 }
@@ -954,9 +965,45 @@ mpdclient_filelist_find_song(mpdclient_filelist_t *fl, mpd_Song *song)
 }
 
 
+GList *
+mpdclient_get_artists_utf8(mpdclient_t *c)
+{
+  gchar *str = NULL; 
+  GList *list = NULL;
 
+  D("mpdclient_get_artists()\n");
+  mpd_sendListCommand(c->connection, MPD_TABLE_ARTIST, NULL);
+  while( (str=mpd_getNextArtist(c->connection)) )
+    {
+      list = g_list_append(list, (gpointer) str);
+    }
+  if( mpdclient_finish_command(c) )
+    {
+      return string_list_free(list);
+    }  
 
+  return list;
+}
 
+GList *
+mpdclient_get_albums_utf8(mpdclient_t *c, gchar *artist_utf8)
+{
+  gchar *str = NULL; 
+  GList *list = NULL;
+
+  D("mpdclient_get_albums(%s)\n", artist_utf8);
+  mpd_sendListCommand(c->connection, MPD_TABLE_ALBUM, artist_utf8);
+  while( (str=mpd_getNextAlbum(c->connection)) )
+    {
+      list = g_list_append(list, (gpointer) str);
+    }
+  if( mpdclient_finish_command(c) )
+    {
+      return string_list_free(list);
+    }  
+  
+  return list;
+}
 
 
 

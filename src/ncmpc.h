@@ -5,6 +5,9 @@
 #include "config.h"
 #endif
 
+#ifndef DISABLE_ARTIST_SCREEN
+#define ENABLE_ARTIST_SCREEN 1
+#endif
 #ifndef DISABLE_SEARCH_SCREEN
 #define ENABLE_SEARCH_SCREEN 1
 #endif

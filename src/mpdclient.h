@@ -104,6 +104,10 @@ gint mpdclient_cmd_load_playlist_utf8(mpdclient_t *c, gchar *filename_utf8);
 gint mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename);
 gint mpdclient_cmd_delete_playlist_utf8(mpdclient_t *c, gchar *filename_utf8);
 
+/* list functions */
+GList *mpdclient_get_artists_utf8(mpdclient_t *c);
+GList *mpdclient_get_albums_utf8(mpdclient_t *c, gchar *artist_utf8);
+
 
 /*** error callbacks *****************************************************/ 
 
@@ -161,6 +165,9 @@ mpdclient_filelist_t *mpdclient_filelist_get(mpdclient_t *c, gchar *path);
 mpdclient_filelist_t *mpdclient_filelist_search(mpdclient_t *c, 
 						int table,
 						gchar *path);
+mpdclient_filelist_t *mpdclient_filelist_search_utf8(mpdclient_t *c, 
+						     int table,
+						     gchar *path);
 mpdclient_filelist_t *mpdclient_filelist_update(mpdclient_t *c, 
 						mpdclient_filelist_t *flist);
 

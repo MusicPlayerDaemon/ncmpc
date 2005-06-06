@@ -171,6 +171,18 @@ if test "x$artist_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_ARTIST_SCREEN, 1, [Disable artist screen])
 fi
 
+dnl artist screen
+AC_MSG_CHECKING([whether to include the artist screen])
+AC_ARG_ENABLE([artist-screen], 
+              AC_HELP_STRING([--enable-artist-screen],
+	                     [Enable artist screen (EXPERIMENTAL) @<:@default=no@:>@]),
+	      [artist_screen="$enableval"],
+	      [artist_screen=no])
+AC_MSG_RESULT([$artist_screen])
+if test "x$artist_screen" != "xyes" ; then
+   AC_DEFINE(DISABLE_ARTIST_SCREEN, 1, [Disable artist screen])
+fi
+
 dnl search screen
 AC_MSG_CHECKING([whether to include the search screen])
 AC_ARG_ENABLE([search-screen], 

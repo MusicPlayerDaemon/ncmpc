@@ -194,7 +194,7 @@ paint(screen_t *screen, mpdclient_t *c)
   wnoutrefresh(lw->w);
 }
 
-void 
+static void 
 update(screen_t *screen, mpdclient_t *c)
 {
   if( filelist==NULL || filelist->updated )

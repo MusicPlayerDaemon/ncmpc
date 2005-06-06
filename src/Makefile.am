@@ -15,7 +15,8 @@ ncmpc_headers = libmpdclient.h mpdclient.h options.h conf.h command.h \
 
 ncmpc_SOURCES = libmpdclient.c main.c mpdclient.c options.c conf.c command.c \
 		screen.c screen_utils.c screen_play.c screen_file.c \
-		screen_search.c screen_help.c screen_keydef.c screen_clock.c \
+		screen_artist.c screen_search.c screen_help.c \
+                screen_keydef.c screen_clock.c \
                 list_window.c colors.c support.c wreadln.c strfsong.c utils.c \
                 $(ncmpc_headers)
 
