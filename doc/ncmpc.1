@@ -1,4 +1,4 @@
-.TH "ncmpc" "1" "May 2004" "" ""
+.TH "ncmpc" "1" "June 2005" "" ""
 .SH "NAME"
 ncmpc \- curses Music Player Daemon (MPD) client.
 .SH "SYNOPSIS"
@@ -56,7 +56,7 @@ Read key bindings from FILE.
 .TP 
 Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options.
 .SH "CONFIGURATION"
-When ncmpc start it tries to read user setting from the ~/ncmpc/config file. If no user configuration is found ncmpc tries to load global settings from $SYSCONFDIR/ncmpc/config (the actual path is displayed on the help screen). An example configuration file (config.sample) should be provided with ncmpc.
+When ncmpc start it tries to read user setting from the ~/.ncmpc/config file. If no user configuration is found ncmpc tries to load global settings from $SYSCONFDIR/ncmpc/config (the actual path is displayed on the help screen). An example configuration file (config.sample) should be provided with ncmpc.
 
 Base colors are: black, red, green, yellow, blue, magenta, cyan and white. 
 
@@ -72,6 +72,9 @@ ncmpc centers the current track in the playlist window.
 .B wide\-cursor = yes|no
 Make the cursor as wide as the screen.
 .TP 
+.B hide\-cursor = NUM
+Hide the playlist cursor after NUM seconds of inactivity.
+.TP 
 .B wrap\-around = yes|no
 Wrapped cursor movement.
 .TP 
@@ -83,6 +86,9 @@ Sound audible bell on alerts.
 .TP 
 .B visible\-bell = yes|no
 Visible bell on alerts.
+.TP 
+.B seek\-time = NUM
+Seek forward/backward by NUM seconds.
 .TP 
 .B list\-format = SONG FORMAT
 The format used to display songs in the main window.
@@ -139,7 +145,7 @@ Text color used to display alerts in the status window.
 Redefine any of the base colors. The RGB values must be an integer value between 0 and 1000. 
 \fBNote\fR: Only some terminals allow redefinitions of colors! 
 .SH "KEYS"
-When ncmpc start it tries to read user key bindings from the ~/ncmpc/keys file. If no user key bindings is found ncmpc tries to load global key bindings from $SYSCONFDIR/ncmpc/keys (the actual path is displayed on the help screen). 
+When ncmpc start it tries to read user key bindings from the ~/.ncmpc/keys file. If no user key bindings is found ncmpc tries to load global key bindings from $SYSCONFDIR/ncmpc/keys (the actual path is displayed on the help screen). 
 
 You can view ncmpc's key bindings by pressing '1' (help) when 
 ncmpc is running. To edit key bindings use the key editor in ncmpc (press 'K').
