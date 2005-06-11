@@ -1,3 +1,10 @@
+2005-06-11: Kalle Wallin <kaw@linux.se>
+	* configure.ac: support wide-char ncurses library (--with-ncursesw)
+	
+2005-06-06: Kalle Wallin <kaw@linux.se>
+	* Added Norwegian translations from Ole R. Thorsen
+	* Added an artist (browser) screen
+	
 2005-06-03: Kalle Wallin <kaw@linux.se>
 	* Seek time can now be defined in the conf file (seek-time)
 	* Added a "hide cursor" feature #0000417 (hide-cursor)

@@ -44,6 +44,7 @@ wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
 wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 
 extern void screen_bell(void);
+extern size_t my_strlen(char *str);
 
 gchar *
 wreadln(WINDOW *w, 
@@ -61,7 +62,7 @@ wreadln(WINDOW *w,
 
   /* move the cursor one step to the right */
   void cursor_move_right(void) {
-    if( cursor < strlen(line) && cursor<wrln_max_line_size-1 )
+    if( cursor < my_strlen(line) && cursor<wrln_max_line_size-1 )
       {
 	cursor++;
 	if( cursor+x0 >= x1 && start<cursor-width+1)
@@ -79,7 +80,7 @@ wreadln(WINDOW *w,
   }
  /* move the cursor to the end of the line */
   void cursor_move_to_eol(void) {
-    cursor = strlen(line);
+    cursor = my_strlen(line);
     if( cursor+x0 >= x1 )
       start = cursor-width+1;
   }
@@ -247,7 +248,7 @@ wreadln(WINDOW *w,
 	  break;
 	case KEY_DC:		/* handle delete key. As above */
 	case KEY_CTRL_D:
-	  if( cursor <= strlen(line) - 1 ) 
+	  if( cursor <= my_strlen(line) - 1 ) 
 	    {
 	      for (i = cursor; line[i] != 0; i++)
 		line[i] = line[i + 1];

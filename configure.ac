@@ -52,10 +52,22 @@ dnl Check for libraries
 dnl
 
 dnl ncurses
-AC_CHECK_LIB([ncurses], 
+ncurses=ncurses
+AC_ARG_WITH([ncurses],
+	    AC_HELP_STRING([--with-ncurses], [compile/link with ncurses library]),
+	    [ncurses=ncurses])
+AC_ARG_WITH(ncursesw,
+	    AC_HELP_STRING([--with-ncursesw], [compile/link with wide-char ncurses library]),
+	    [ncurses=ncursesw])
+
+AC_CHECK_LIB([$ncurses], 
 	     [initscr],
-             [LIBS="$LIBS -lncurses"], 
-             [AC_MSG_ERROR(ncurses library is required)])
+             [LIBS="$LIBS -l$ncurses"], 
+             [AC_MSG_ERROR($ncurses library is required)])
+
+if test "x$ncurses" = "xncursesw" ; then
+   AC_DEFINE(USE_NCURSESW, 1, [use wide-char ncurses library])
+fi
 
 
 dnl Check for glib-2.4
@@ -153,13 +165,13 @@ AC_ARG_ENABLE([mouse],
 	      [getmouse=yes])
 AC_MSG_RESULT([$getmouse])
 if test "x$getmouse" = "xyes" ; then
-   AC_CHECK_LIB([ncurses], 
+   AC_CHECK_LIB([$ncurses], 
 	        [getmouse],
-		[AC_DEFINE([HAVE_GETMOUSE], [1], [ncurses - getmouse()])],
+		[AC_DEFINE([HAVE_GETMOUSE], [1], [$ncurses - getmouse()])],
 		[])
 fi
 
-dnl artist screen
+dnl Optional screen - artist
 AC_MSG_CHECKING([whether to include the artist screen])
 AC_ARG_ENABLE([artist-screen], 
               AC_HELP_STRING([--enable-artist-screen],
@@ -171,19 +183,7 @@ if test "x$artist_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_ARTIST_SCREEN, 1, [Disable artist screen])
 fi
 
-dnl artist screen
-AC_MSG_CHECKING([whether to include the artist screen])
-AC_ARG_ENABLE([artist-screen], 
-              AC_HELP_STRING([--enable-artist-screen],
-	                     [Enable artist screen (EXPERIMENTAL) @<:@default=no@:>@]),
-	      [artist_screen="$enableval"],
-	      [artist_screen=no])
-AC_MSG_RESULT([$artist_screen])
-if test "x$artist_screen" != "xyes" ; then
-   AC_DEFINE(DISABLE_ARTIST_SCREEN, 1, [Disable artist screen])
-fi
-
-dnl search screen
+dnl Optional screen - search
 AC_MSG_CHECKING([whether to include the search screen])
 AC_ARG_ENABLE([search-screen], 
               AC_HELP_STRING([--enable-search-screen],
@@ -211,9 +211,9 @@ dnl Optional screen - clock
 AC_MSG_CHECKING([whether to include the clock screen])
 AC_ARG_ENABLE([clock-screen], 
               AC_HELP_STRING([--enable-clock-screen],
-	                     [Enable clock screen @<:@default=no@:>@]),
+	                     [Enable clock screen @<:@default=yes@:>@]),
 	      [clock_screen="$enableval"],
-	      [clock_screen=no])
+	      [clock_screen=yes])
 AC_MSG_RESULT([$clock_screen])
 if test "x$clock_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_CLOCK_SCREEN, 1, [Disable clock screen])

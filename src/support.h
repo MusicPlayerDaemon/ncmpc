@@ -28,4 +28,10 @@ void charset_init(gboolean disable);
 char *utf8_to_locale(char *str);
 char *locale_to_utf8(char *str);
 
+/* number of characters in str */
+size_t my_strlen(char *str);
+/* number of bytes in str */
+size_t my_strsize(char *str);
+
+
 #endif 

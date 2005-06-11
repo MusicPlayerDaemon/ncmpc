@@ -35,6 +35,15 @@ extern void screen_status_printf(char *format, ...);
 
 static gboolean noconvert = TRUE;
 
+size_t
+my_strlen(char *str)
+{
+  if( g_utf8_validate(str,-1,NULL) )
+    return g_utf8_strlen(str,-1);
+  else
+    return strlen(str);
+}
+
 char *
 remove_trailing_slash(char *path)
 {
@@ -135,7 +144,6 @@ strscroll(char *str, char *separator, int width, scroll_state_t *st)
   return buf;
   
 }
-
 
 void
 charset_init(gboolean disable)

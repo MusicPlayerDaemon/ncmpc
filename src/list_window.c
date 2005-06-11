@@ -193,7 +193,7 @@ list_window_paint(list_window_t *lw,
       if( label )
 	{
 	  int selected = lw->start+i == lw->selected;
-	  size_t len = strlen(label);
+	  size_t len = my_strlen(label);
 
 	  if( highlight )
 	    colors_use(lw->w, COLOR_LIST_BOLD);
