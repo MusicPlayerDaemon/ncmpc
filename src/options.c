@@ -163,6 +163,9 @@ handle_option(int c, char *arg)
 #ifdef HAVE_GETMOUSE
       printf(" getmouse");
 #endif
+#ifdef ENABLE_ARTIST_SCREEN
+      printf(" artist-screen");
+#endif
 #ifdef ENABLE_SEARCH_SCREEN
       printf(" search-screen");
 #endif
