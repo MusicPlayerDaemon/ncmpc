@@ -49,6 +49,7 @@ static help_text_row_t help_text[] =
   { 0, CMD_LIST_FIRST,     NULL },
   { 0, CMD_LIST_LAST,      NULL },
   { 0, CMD_NONE,           NULL },
+  { 0, CMD_SCREEN_PREVIOUS,NULL },
   { 0, CMD_SCREEN_NEXT,    NULL },
   { 0, CMD_SCREEN_HELP,    NULL },
   { 0, CMD_SCREEN_PLAY,    NULL },
