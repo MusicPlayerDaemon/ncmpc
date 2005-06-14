@@ -885,13 +885,19 @@ mpdclient_filelist_get(mpdclient_t *c, gchar *path)
 }
 
 mpdclient_filelist_t *
-mpdclient_filelist_search_utf8(mpdclient_t *c, int table, gchar *filter_utf8)
+mpdclient_filelist_search_utf8(mpdclient_t *c, 
+			       int exact_match,
+			       int table, 
+			       gchar *filter_utf8)
 {
   mpdclient_filelist_t *filelist;
   mpd_InfoEntity *entity;
 
   D("mpdclient_filelist_search(%s)\n", filter_utf8);
-  mpd_sendSearchCommand(c->connection, table, filter_utf8);
+  if( exact_match )
+    mpd_sendFindCommand(c->connection, table, filter_utf8);
+  else
+    mpd_sendSearchCommand(c->connection, table, filter_utf8);
   filelist = g_malloc0(sizeof(mpdclient_filelist_t));
 
   while( (entity=mpd_getNextInfoEntity(c->connection)) ) 
@@ -913,13 +919,16 @@ mpdclient_filelist_search_utf8(mpdclient_t *c, int table, gchar *filter_utf8)
 
 
 mpdclient_filelist_t *
-mpdclient_filelist_search(mpdclient_t *c, int table, gchar *filter)
+mpdclient_filelist_search(mpdclient_t *c,
+			  int exact_match, 
+			  int table, 
+			  gchar *filter)
 {
   mpdclient_filelist_t *filelist;
   gchar *filter_utf8 = locale_to_utf8(filter);
 
   D("mpdclient_filelist_search(%s)\n", filter);
-  filelist = mpdclient_filelist_search_utf8(c, table, filter_utf8);
+  filelist = mpdclient_filelist_search_utf8(c,exact_match,table,filter_utf8);
   g_free(filter_utf8);
 
   return filelist;
@@ -963,6 +972,38 @@ mpdclient_filelist_find_song(mpdclient_filelist_t *fl, mpd_Song *song)
     }
   return NULL;
 }
+
+int
+mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl)
+{
+  GList *list = g_list_first(fl->list);
+
+  if( fl->list==NULL || fl->length<1 )
+    return 0;
+
+  mpd_sendCommandListBegin(c->connection);
+  while( list )
+    {
+      filelist_entry_t *entry = list->data;
+      mpd_InfoEntity *entity  = entry->entity;
+
+      if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG )
+	{
+	  mpd_Song *song = entity->info.song;
+
+	  mpd_sendAddCommand(c->connection, song->file);
+	}
+      list = list->next;
+    }
+  mpd_sendCommandListEnd(c->connection);
+  return mpdclient_finish_command(c);
+}
+
+
+
+
+
+
 
 
 GList *

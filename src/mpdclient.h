@@ -163,9 +163,11 @@ void mpdclient_playlist_callback(mpdclient_t *c, int event, gpointer data);
 mpdclient_filelist_t *mpdclient_filelist_free(mpdclient_filelist_t *filelist);
 mpdclient_filelist_t *mpdclient_filelist_get(mpdclient_t *c, gchar *path);
 mpdclient_filelist_t *mpdclient_filelist_search(mpdclient_t *c, 
+						int exact_match,
 						int table,
 						gchar *path);
 mpdclient_filelist_t *mpdclient_filelist_search_utf8(mpdclient_t *c, 
+						     int exact_match,
 						     int table,
 						     gchar *path);
 mpdclient_filelist_t *mpdclient_filelist_update(mpdclient_t *c, 
@@ -180,6 +182,9 @@ void mpdclient_filelist_clear_flags(mpdclient_filelist_t *flist);
 void mpdclient_filelist_clear_flags(mpdclient_filelist_t *flist);
 filelist_entry_t *mpdclient_filelist_find_song(mpdclient_filelist_t *flist,
 					       mpd_Song *song);
+
+/* add all songs in filelist to the playlist */
+int mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl);
 
 /*** mpdclient browse callbacks ********************************************/
 

@@ -129,6 +129,7 @@ search_new(screen_t *screen, mpdclient_t *c)
     }
 
   filelist = mpdclient_filelist_search(c, 
+				       FALSE,
 				       mode[options.search_mode].table,
 				       pattern);
   sync_highlights(c, filelist);
@@ -257,6 +258,7 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	{
 	  search_clear(screen, c, FALSE);
 	  filelist = mpdclient_filelist_search(c, 
+					       FALSE,
 					       mode[options.search_mode].table,
 					       pattern);
 	  sync_highlights(c, filelist);

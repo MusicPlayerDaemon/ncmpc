@@ -39,6 +39,9 @@
 
 #define BUFSIZE 1024
 
+typedef enum { LIST_ARTISTS, LIST_ALBUMS, LIST_SONGS } artist_mode_t;
+
+static artist_mode_t mode = LIST_ARTISTS;
 static char *artist = NULL;
 static char *album  = NULL;
 static list_window_t *lw = NULL;
@@ -105,11 +108,13 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 	{
 	  album = g_strdup(_("All tracks"));
 	  filelist = mpdclient_filelist_search_utf8(c,  
+						    TRUE,
 						    MPD_TABLE_ARTIST,
 						    artist);
 	}
       else
 	filelist = mpdclient_filelist_search_utf8(c,  
+						  TRUE,
 						  MPD_TABLE_ALBUM,
 						  album);
       /* add a dummy entry for ".." */
@@ -120,6 +125,7 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
       /* install playlist callback and fix highlights */
       sync_highlights(c, filelist);
       mpdclient_install_playlist_callback(c, playlist_changed_callback);
+      mode = LIST_SONGS;
     }
   else if( m_artist ) /* retreive albums... */
     {
@@ -129,11 +135,12 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
       metalist = g_list_insert(metalist, g_strdup(".."), 0);
       /* add a dummy entry for all songs */
       metalist = g_list_insert(metalist, g_strdup(_("All tracks")), -1);
-
+      mode = LIST_ALBUMS;
     }
   else /* retreive artists... */
     {
       metalist = mpdclient_get_artists_utf8(c);
+      mode = LIST_ARTISTS;
     }
   metalist_length = g_list_length(metalist);
   lw->clear = TRUE;
@@ -252,12 +259,18 @@ get_title(char *str, size_t size)
   char *s1 = artist ? utf8_to_locale(artist) : NULL;
   char *s2 = album ? utf8_to_locale(album) : NULL;
 
-  if( album )
-    g_snprintf(str, size,  _("Artist: %s - %s"), s1, s2);
-  else if( artist )
-    g_snprintf(str, size,  _("Artist: %s"), s1);
-  else
-    g_snprintf(str, size,  _("Artist: [db browser - EXPERIMENTAL]"));
+  switch(mode)
+    {
+    case LIST_ARTISTS:
+      g_snprintf(str, size,  _("Artist: [db browser - EXPERIMENTAL]"));
+      break;
+    case LIST_ALBUMS:
+      g_snprintf(str, size,  _("Artist: %s"), s1);
+      break;
+    case LIST_SONGS:
+      g_snprintf(str, size,  _("Artist: %s - %s"), s1, s2);
+      break;
+    }
   g_free(s1);
   g_free(s2);
   return str;
@@ -269,28 +282,43 @@ get_filelist_window()
   return lw;
 }
 
+static void
+add_query(mpdclient_t *c, int table, char *filter)
+{
+  char *str;
+  mpdclient_filelist_t *addlist;
+
+  str = utf8_to_locale(filter);
+  if( table== MPD_TABLE_ALBUM )
+    screen_status_printf("Adding album %s...", str);
+  else
+    screen_status_printf("Adding %s...", str);
+  g_free(str);
+  addlist = mpdclient_filelist_search_utf8(c, TRUE, table, filter);
+  if( addlist )
+    {
+      mpdclient_filelist_add_all(c, addlist);
+      addlist = mpdclient_filelist_free(addlist);
+    }
+}
+
 static int 
 artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
+  char *selected;
+
   switch(cmd)
     {
     case CMD_PLAY:
-      if( artist && album )
+      switch(mode)
 	{
-	  if( lw->selected==0 )  /* handle ".." */
-	    {
-	      update_metalist(c, g_strdup(artist), NULL);
-	      list_window_reset(lw);
-	      /* restore previous list window state */
-	      list_window_pop_state(lw_state,lw); 
-	    }
-	  else
-	    browse_handle_enter(screen, c, lw, filelist);
-	}
-      else if ( artist )
-	{
+	case LIST_ARTISTS:
+	  selected = (char *) g_list_nth_data(metalist, lw->selected);
+	  update_metalist(c, g_strdup(selected), NULL);
+	  list_window_push_state(lw_state,lw); 
+	  break;
+	case LIST_ALBUMS:
 	  if( lw->selected == 0 )  /* handle ".." */
-
 	    {
 	      update_metalist(c, NULL, NULL);
 	      list_window_reset(lw);
@@ -304,26 +332,53 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	    }
 	  else /* select album */
 	    {
-	      char *selected = (char *) g_list_nth_data(metalist, lw->selected);
+	      selected = (char *) g_list_nth_data(metalist, lw->selected);
 	      update_metalist(c, g_strdup(artist), g_strdup(selected));
 	      list_window_push_state(lw_state,lw); 
 	    }
-	}
-      else
-	{
-	  char *selected = (char *) g_list_nth_data(metalist, lw->selected);
-	  update_metalist(c, g_strdup(selected), NULL);
-	  list_window_push_state(lw_state,lw); 
+	  break;
+	case LIST_SONGS:
+	  if( lw->selected==0 )  /* handle ".." */
+	    {
+	      update_metalist(c, g_strdup(artist), NULL);
+	      list_window_reset(lw);
+	      /* restore previous list window state */
+	      list_window_pop_state(lw_state,lw); 
+	    }
+	  else
+	    browse_handle_enter(screen, c, lw, filelist);
+	  break;
 	}
       return 1;
 
     case CMD_SELECT:
-      if( browse_handle_select(screen, c, lw, filelist) == 0 )
+      switch(mode)
 	{
-	  /* continue and select next item... */
-	  cmd = CMD_LIST_NEXT;
+	case LIST_ARTISTS:
+	  selected = (char *) g_list_nth_data(metalist, lw->selected);
+	  add_query(c, MPD_TABLE_ARTIST, selected);
+	  cmd = CMD_LIST_NEXT; /* continue and select next item... */
+	  break;
+	case LIST_ALBUMS:
+	  if( lw->selected && lw->selected == metalist_length-1)
+	    {
+	      add_query(c, MPD_TABLE_ARTIST, artist);
+	    }
+	  else if( lw->selected > 0 )
+	    {
+	      selected = (char *) g_list_nth_data(metalist, lw->selected);
+	      add_query(c, MPD_TABLE_ALBUM, selected);
+	      cmd = CMD_LIST_NEXT; /* continue and select next item... */
+	    }
+	  break;
+	case LIST_SONGS:
+	  if( browse_handle_select(screen, c, lw, filelist) == 0 )
+	    {
+	      cmd = CMD_LIST_NEXT; /* continue and select next item... */
+	    }
+	  break;
 	}
-      return 1;
+      break;
 
       /* continue and update... */
     case CMD_SCREEN_UPDATE:
@@ -353,11 +408,14 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       return browse_handle_mouse_event(screen,c,lw,filelist);
 
     default:
-      if( filelist )
-	return list_window_cmd(lw, filelist->length, cmd);
-      else if( metalist )
-	return list_window_cmd(lw, metalist_length, cmd);
+      break;
     }
+
+  if( filelist )
+    return list_window_cmd(lw, filelist->length, cmd);
+  else if( metalist )
+    return list_window_cmd(lw, metalist_length, cmd);
+
   
   return 0;
 }
