@@ -24,7 +24,6 @@
 #include <time.h>
 #include <glib.h>
 #include <ncurses.h>
-#include <panel.h>
 
 #include "config.h"
 #include "ncmpc.h"
