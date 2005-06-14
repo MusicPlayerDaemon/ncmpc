@@ -45,7 +45,7 @@
 
 
 static list_window_t *lw = NULL;
-static GList *lw_state_list = NULL;
+static list_window_state_t *lw_state = NULL;
 static mpdclient_filelist_t *filelist = NULL;
 
 
@@ -153,31 +153,6 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
     }
 }
 
-/* store current state when entering a subdirectory */
-static void
-push_lw_state(void)
-{
-  list_window_t *tmp = g_malloc(sizeof(list_window_t));
-
-  memcpy(tmp, lw, sizeof(list_window_t));
-  lw_state_list = g_list_prepend(lw_state_list, (gpointer) tmp);
-}
-
-/* get previous state when leaving a directory */
-static void
-pop_lw_state(void)
-{
-  if( lw_state_list )
-    {
-      list_window_t *tmp = lw_state_list->data;
-
-      memcpy(lw, tmp, sizeof(list_window_t));
-      g_free(tmp);
-      lw_state_list->data = NULL;
-      lw_state_list = g_list_delete_link(lw_state_list, lw_state_list);
-    }
-}
-
 /* list_window callback */
 char *
 browse_lw_callback(int index, int *highlight, void *data)
@@ -248,7 +223,7 @@ change_directory(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
       path = g_strdup(parent);
       list_window_reset(lw);
       /* restore previous list window state */
-      pop_lw_state(); 
+      list_window_pop_state(lw_state,lw); 
     }
   else
     if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY)
@@ -257,8 +232,7 @@ change_directory(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
 	mpd_Directory *dir = entity->info.directory;
 	path = utf8_to_locale(dir->path);      
 	/* save current list window state */
-	push_lw_state(); 
-	list_window_reset(lw);
+	list_window_push_state(lw_state,lw); 
       }
     else
       return -1;
@@ -537,6 +511,7 @@ static void
 browse_init(WINDOW *w, int cols, int rows)
 {
   lw = list_window_init(w, cols, rows);
+  lw_state = list_window_init_state();
 }
 
 static void
@@ -549,22 +524,10 @@ browse_resize(int cols, int rows)
 static void
 browse_exit(void)
 {
-  if( lw_state_list )
-    {
-      GList *list = lw_state_list;
-      while( list )
-	{
-	  g_free(list->data);
-	  list->data = NULL;
-	  list = list->next;
-	}
-      g_list_free(lw_state_list);
-      lw_state_list = NULL;
-
-    }
   if( filelist )
     filelist = mpdclient_filelist_free(filelist);
-  list_window_free(lw);
+  lw = list_window_free(lw);
+  lw_state = list_window_free_state(lw_state);
 }
 
 static void 

@@ -23,6 +23,11 @@ typedef struct
 
 } list_window_t;
 
+typedef struct 
+{
+  GList *list;
+} list_window_state_t;
+
 
 /* create a new list window */
 list_window_t *list_window_init(WINDOW *w, int width, int height);
@@ -70,5 +75,13 @@ list_window_rfind(list_window_t *lw,
 		  char *str,
 		  int wrap,
 		  int rows);
+
+/* list window states */
+list_window_state_t *list_window_init_state(void);
+list_window_state_t *list_window_free_state(list_window_state_t *state);
+void list_window_push_state(list_window_state_t *state, list_window_t *lw);
+void list_window_pop_state(list_window_state_t *state, list_window_t *lw);
+
+
 
 #endif

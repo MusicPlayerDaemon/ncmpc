@@ -1,5 +1,9 @@
+2005-06-14: Kalle Wallin <kaw@linux.se>
+	* Moved list window state code to list_window.c
+
 2005-06-11: Kalle Wallin <kaw@linux.se>
 	* configure.ac: support wide-char ncurses library (--with-ncursesw)
+	* support.c: added my_strlen for wide-char strings
 	
 2005-06-06: Kalle Wallin <kaw@linux.se>
 	* Added Norwegian translations from Ole R. Thorsen

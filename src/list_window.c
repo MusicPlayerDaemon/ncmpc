@@ -327,3 +327,62 @@ list_window_cmd(list_window_t *lw, int rows, command_t cmd)
 }
 
 
+
+
+
+list_window_state_t *
+list_window_init_state(void)
+{
+  return g_malloc0(sizeof(list_window_state_t));
+}
+
+list_window_state_t *
+list_window_free_state(list_window_state_t *state)
+{
+  if( state )
+    {
+      if( state->list )
+	{
+	  GList *list = state->list;
+	  while( list )
+	    {
+	      g_free(list->data);
+	      list->data = NULL;
+	      list = list->next;
+	    }
+	  g_list_free(state->list);
+	  state->list = NULL;
+	}
+      g_free(state);
+    }
+  return NULL;
+}
+
+void 
+list_window_push_state(list_window_state_t *state, list_window_t *lw)
+{
+  if( state )
+    {
+      list_window_t *tmp = g_malloc(sizeof(list_window_t));
+      memcpy(tmp, lw, sizeof(list_window_t));
+      state->list = g_list_prepend(state->list, (gpointer) tmp);
+      list_window_reset(lw);
+    }
+}
+
+void 
+list_window_pop_state(list_window_state_t *state, list_window_t *lw)
+{
+  if( state && state->list )
+    {
+      list_window_t *tmp = state->list->data;
+
+      memcpy(lw, tmp, sizeof(list_window_t));
+      g_free(tmp);
+      state->list->data = NULL;
+      state->list = g_list_delete_link(state->list, state->list);
+    }
+}
+
+
+

@@ -1,7 +1,7 @@
 /* 
  * $Id$
  *
- * (c) 2004 by Kalle Wallin <kaw@linux.se>
+ * (c) 2005 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,32 +45,7 @@ static list_window_t *lw = NULL;
 static mpdclient_filelist_t *filelist = NULL;
 static int metalist_length = 0;
 static GList *metalist = NULL;
-static GList *lw_state_list = NULL;
-
-/* store current state when entering a subdirectory */
-static void
-push_lw_state(void)
-{
-  list_window_t *tmp = g_malloc(sizeof(list_window_t));
-
-  memcpy(tmp, lw, sizeof(list_window_t));
-  lw_state_list = g_list_prepend(lw_state_list, (gpointer) tmp);
-}
-
-/* get previous state when leaving a directory */
-static void
-pop_lw_state(void)
-{
-  if( lw_state_list )
-    {
-      list_window_t *tmp = lw_state_list->data;
-
-      memcpy(lw, tmp, sizeof(list_window_t));
-      g_free(tmp);
-      lw_state_list->data = NULL;
-      lw_state_list = g_list_delete_link(lw_state_list, lw_state_list);
-    }
-}
+static list_window_state_t *lw_state = NULL;
 
 /* list_window callback */
 static char *
@@ -108,6 +83,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
     }
 }
 
+/* fetch artists/albums/songs from mpd */
 static void
 update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 {
@@ -160,12 +136,31 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
       metalist = mpdclient_get_artists_utf8(c);
     }
   metalist_length = g_list_length(metalist);
+  lw->clear = TRUE;
+}
+
+/* db updated */
+static void 
+browse_callback(mpdclient_t *c, int event, gpointer data)
+{
+  switch(event)
+    {
+    case BROWSE_DB_UPDATED:
+      D("screen_artist.c> browse_callback() [BROWSE_DB_UPDATED]\n");
+      lw->clear = 1;
+      lw->repaint = 1;
+      update_metalist(c, g_strdup(artist), g_strdup(album));
+      break;
+    default:
+      break;
+    }
 }
 
 static void
 init(WINDOW *w, int cols, int rows)
 {
   lw = list_window_init(w, cols, rows);
+  lw_state = list_window_init_state();
   artist = NULL;
   album = NULL;
 }
@@ -173,20 +168,6 @@ init(WINDOW *w, int cols, int rows)
 static void
 quit(void)
 {
-  /* clear list window state */
-  if( lw_state_list )
-    {
-      GList *list = lw_state_list;
-      while( list )
-	{
-	  g_free(list->data);
-	  list->data = NULL;
-	  list = list->next;
-	}
-      g_list_free(lw_state_list);
-      lw_state_list = NULL;
-    }
-  
   if( filelist )
     filelist = mpdclient_filelist_free(filelist);
   if( metalist )
@@ -195,14 +176,22 @@ quit(void)
   g_free(album);
   artist = NULL;
   album = NULL;
-  list_window_free(lw);  
+  lw = list_window_free(lw);  
+  lw_state = list_window_free_state(lw_state);
 }
 
 static void
 open(screen_t *screen, mpdclient_t *c)
 {
+  static gboolean callback_installed = FALSE;
+
   if( metalist==NULL && filelist ==NULL)
     update_metalist(c, NULL, NULL);
+  if( !callback_installed )
+    {
+      mpdclient_install_browse_callback(c, browse_callback);
+      callback_installed = TRUE;
+    }
 }
 
 static void
@@ -242,12 +231,18 @@ paint(screen_t *screen, mpdclient_t *c)
 static void 
 update(screen_t *screen, mpdclient_t *c)
 {
-  if( filelist==NULL || filelist->updated )
+  if( filelist && !filelist->updated )
+    {
+      list_window_paint(lw, browse_lw_callback, (void *) filelist);
+    }
+  else if( metalist )
+    {
+      list_window_paint(lw, artist_lw_callback, (void *) metalist);
+    }
+  else
     {
       paint(screen, c);
-      return;
     }
-  list_window_paint(lw, browse_lw_callback, (void *) filelist);
   wnoutrefresh(lw->w);
 }
 
@@ -287,7 +282,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	      update_metalist(c, g_strdup(artist), NULL);
 	      list_window_reset(lw);
 	      /* restore previous list window state */
-	      pop_lw_state(); 
+	      list_window_pop_state(lw_state,lw); 
 	    }
 	  else
 	    browse_handle_enter(screen, c, lw, filelist);
@@ -300,28 +295,25 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	      update_metalist(c, NULL, NULL);
 	      list_window_reset(lw);
 	      /* restore previous list window state */
-	      pop_lw_state(); 
+	      list_window_pop_state(lw_state,lw); 
 	    }
 	  else if( lw->selected == metalist_length-1) /* handle "show all" */
 	    {
 	      update_metalist(c, g_strdup(artist), g_strdup("\0"));
-	      push_lw_state(); 
-	      list_window_reset(lw);
+	      list_window_push_state(lw_state,lw); 
 	    }
 	  else /* select album */
 	    {
 	      char *selected = (char *) g_list_nth_data(metalist, lw->selected);
 	      update_metalist(c, g_strdup(artist), g_strdup(selected));
-	      push_lw_state(); 
-	      list_window_reset(lw);
+	      list_window_push_state(lw_state,lw); 
 	    }
 	}
       else
 	{
 	  char *selected = (char *) g_list_nth_data(metalist, lw->selected);
 	  update_metalist(c, g_strdup(selected), NULL);
-	  push_lw_state(); 
-	  list_window_reset(lw);
+	  list_window_push_state(lw_state,lw); 
 	}
       return 1;
 
@@ -335,6 +327,11 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
       /* continue and update... */
     case CMD_SCREEN_UPDATE:
+      screen->painted = 0;
+      lw->clear = 1;
+      lw->repaint = 1;
+      update_metalist(c, g_strdup(artist), g_strdup(album));
+      screen_status_printf(_("Screen updated!"));
       return 0;
 
     case CMD_LIST_FIND:
