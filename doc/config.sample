@@ -2,6 +2,11 @@
 ## Configuration file for ncmpc (~/.ncmpc/config)
 ## 
 
+## screen list - used when navigating with next-screen (tab) and 
+## previous-screen (shift+tab) 
+## names: playlist browse help artist clock
+#screen-list = playlist artist
+
 ## auto center (center the playing track in the playlist)
 #auto-center = no
 

@@ -45,6 +45,9 @@ void D(char *format, ...);
 /* welcome message time [s] */
 #define SCREEN_WELCOME_TIME 10
 
+/* screen list */
+#define DEFAULT_SCREEN_LIST "playlist browse"
+
 /* status message time [s] */
 #define SCREEN_STATUS_MESSAGE_TIME 3
 

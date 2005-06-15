@@ -62,6 +62,7 @@
 #define CONF_SEARCH_MODE             "search-mode"
 #define CONF_HIDE_CURSOR             "hide-cursor"
 #define CONF_SEEK_TIME               "seek-time"
+#define CONF_SCREEN_LIST             "screen-list"
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -70,6 +71,10 @@ typedef enum {
   KEY_PARSER_HEX,
   KEY_PARSER_DONE
 } key_parser_state_t;
+
+
+extern gint screen_get_id(char *name);
+
 
 static gboolean
 str2bool(char *str)
@@ -314,6 +319,36 @@ get_format(char *str)
   return g_strdup(str);
 }
 
+static char **
+check_screen_list(char *value)
+{
+  char **tmp = g_strsplit_set(value, " \t,", 100);
+  char **screen = NULL;
+  int i,j;
+
+  i=0;
+  j=0;
+  while( tmp && tmp[i] )
+    {
+      tmp[i] = lowerstr(tmp[i]);
+      if( screen_get_id(tmp[i]) == -1 )
+	fprintf(stderr,
+		_("Error: Unsupported screen \"%s\"\n"), 
+		tmp[i]);
+      else
+	{
+	  screen = g_realloc(screen, (j+2)*sizeof(char *));
+	  screen[j++] = g_strdup(tmp[i]);
+	  screen[j] = NULL;
+	}
+      i++;
+    }
+  g_strfreev(tmp);
+  if( screen == NULL )
+    return g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
+
+  return screen;
+}
 
 static int
 read_rc_file(char *filename, options_t *options)
@@ -487,11 +522,23 @@ read_rc_file(char *filename, options_t *options)
 		{
 		  options->seek_time = atoi(value);
 		}
+	      else if( !strcasecmp(CONF_SCREEN_LIST, name) )
+		{
+		  g_strfreev(options->screen_list);
+		  options->screen_list = check_screen_list(value);
+		  
+#ifdef DEBUG
+		  D("screen-list:"); 
+		  j=0;
+		  while(options->screen_list[j])
+		    D(" %s", options->screen_list[j++]);
+		  D("\n"); 
+#endif
+		}
 	      else
 		{
 		  match_found = 0;
 		}
-	      
 
 	      if( !match_found )
 		fprintf(stderr, 

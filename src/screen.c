@@ -74,10 +74,10 @@ typedef struct
 static screen_mode_info_t screens[] = {
   { SCREEN_PLAYLIST_ID, "playlist", get_screen_playlist },
   { SCREEN_BROWSE_ID,   "browse",   get_screen_browse },
-  { SCREEN_HELP_ID,     "help",     get_screen_help },
 #ifdef ENABLE_ARTIST_SCREEN
   { SCREEN_ARTIST_ID,   "artist",   get_screen_artist },
 #endif
+  { SCREEN_HELP_ID,     "help",     get_screen_help },
 #ifdef ENABLE_SEARCH_SCREEN
   { SCREEN_SEARCH_ID,   "search",   get_screen_search },
 #endif
@@ -95,6 +95,20 @@ static screen_t *screen = NULL;
 static screen_functions_t *mode_fn = NULL;
 static int seek_id = -1;
 static int seek_target_time = 0;
+
+gint
+screen_get_id(char *name)
+{
+  gint i=0;
+
+  while( screens[i].name )
+    {
+      if( strcmp(name, screens[i].name) == 0 )	
+	return screens[i].id;
+      i++;
+    }
+  return -1;
+}
 
 static gint 
 lookup_mode(gint id)
@@ -137,6 +151,32 @@ switch_screen_mode(gint id, mpdclient_t *c)
   if( mode_fn && mode_fn->open )
     mode_fn->open(screen, c);
 
+}
+
+static void
+screen_next_mode(mpdclient_t *c, int offset)
+{
+  int max = g_strv_length(options.screen_list);
+  int current, next;
+  int i;
+
+  /* find current screen */
+  current = -1;
+  i = 0;
+  while( options.screen_list[i] )
+    {
+      if( strcmp(options.screen_list[i], screens[screen->mode].name) == 0 )
+	current = i;
+      i++;
+    }
+  next = current + offset;
+  if( next<0 )
+    next = max-1;
+  else if( next>=max )
+    next = 0;
+
+  D("current mode: %d:%d    next:%d\n", current, max, next);
+  switch_screen_mode(screen_get_id(options.screen_list[next]), c);
 }
 
 static void
@@ -590,7 +630,14 @@ screen_init(mpdclient_t *c)
       i++;
     }
 
+#if 0
+  /* broken */
+  mode_fn = NULL;
+  switch_screen_mode(screen_get_id(options.screen_list[0]), c);
+#else
   mode_fn = get_screen_playlist();
+#endif
+
   if( mode_fn && mode_fn->open )
     mode_fn->open(screen, c);
 
@@ -877,16 +924,10 @@ screen_cmd(mpdclient_t *c, command_t cmd)
       screen->painted = 0;
       break;
     case CMD_SCREEN_PREVIOUS:
-      if( screen->mode > 0 )
-	switch_screen_mode(screens[screen->mode-1].id, c);
-      else
-	switch_screen_mode(lookup_mode(SCREEN_HELP_ID)-1, c);
+      screen_next_mode(c, -1);
       break;
     case CMD_SCREEN_NEXT:
-      if( screens[screen->mode+1].id < SCREEN_HELP_ID )
-	switch_screen_mode(screens[screen->mode+1].id, c);
-      else
-	switch_screen_mode(screens[0].id, c);
+      screen_next_mode(c, 1);
       break;
     case CMD_SCREEN_PLAY:
       switch_screen_mode(SCREEN_PLAYLIST_ID, c);

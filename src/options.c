@@ -367,6 +367,7 @@ options_init( void )
   options.audible_bell = TRUE;
   options.crossfade_time = DEFAULT_CROSSFADE_TIME;
   options.seek_time = 1;
+  options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
 
   return &options;
 }

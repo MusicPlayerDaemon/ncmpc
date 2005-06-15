@@ -1,5 +1,11 @@
+2005-06-15: Kalle Wallin <kaw@linux.se>
+	* Added configuraton option screen-list
+	
 2005-06-14: Kalle Wallin <kaw@linux.se>
 	* Moved list window state code to list_window.c
+	* mpdclient.c: added exact_match parameter to 
+	  mpdclient_filelist_search()
+	* screen_artist.c: support adding of artists and albums (all songs)
 
 2005-06-11: Kalle Wallin <kaw@linux.se>
 	* configure.ac: support wide-char ncurses library (--with-ncursesw)
