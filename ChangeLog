@@ -1,5 +1,6 @@
 2005-06-15: Kalle Wallin <kaw@linux.se>
 	* Added configuraton option screen-list
+	* Added configuraton option find-show-last
 	
 2005-06-14: Kalle Wallin <kaw@linux.se>
 	* Moved list window state code to list_window.c
@@ -39,8 +40,8 @@
 	* Added Russian translations from Nikolay Pavlov
 
 2004-12-19: Kalle Wallin <kaw@linux.se>
-	* Bugfixes from Niko Tyni, survive select/find operations on an empty 
-          list
+	* Bugfixes from Niko Tyni, survive select/find operations on an 
+	  empty list
 
 2004-12-12  Kalle Wallin <kaw@linux.se>
 	* screen_play.c: Fixed abort (Ctrl-G) handling in the save playlist 
@@ -64,7 +65,7 @@
 	* command.c: added my_wgetch() function, 
 	  Ctrl-C, Ctrl-Z are now hard coded to SIGINT and SIGSTOP
 	* options.c: added options --mouse and --no-mouse
-	* Crossfade time can now be definied in the conf file (crossfade-time)
+	* crossfade-time can now be definied in the conf file
 	* r1865
 	
 2004-07-12  Kalle Wallin <kaw@linux.se>
@@ -97,7 +98,8 @@
 2004-07-02 Kalle Wallin <kaw@linux.se>
 	* options.c: improved error handling in the argv parser
 	* screen_play.c: scroll up when moving a item uppwards
-	* mpdclient.c: redesigned the plchanges code (its now based on qball's)
+	* mpdclient.c: redesigned the plchanges code (its now based on 
+	  qball's)
 	* Added ncurses basic mouse support (playlist and browse screens)
 
 2004-07-01 Kalle Wallin <kaw@linux.se>
@@ -131,8 +133,8 @@
 2004-06-17 Kalle Wallin <kaw@linux.se>
 	* screen_file.c: let mpd add directories (just send the path)
 	* main.c: only set xterm title if DEBUG is defined
-	* mpdclient.[c|h]: added _utf8 suffix to all functions that take utf8 
-	                   arguments.
+	* mpdclient.[c|h]: added _utf8 suffix to all functions that take 
+	  utf8 arguments.
 	* command.c: Support cursor/down with j and k
 	
 2004-06-17 Kalle Wallin <kaw@linux.se>
@@ -140,14 +142,14 @@
 	* wreadln.c: try to complete even if the line is empty
 	* utils.c: added type argument to gcmp_list_from_path()
 	* screen_play.c: added completion support to handle_save_playlist()
-	* command.[c|h]: check_key_bindings() can now write an error messages 
-	                 to a buffer instead of stderr
+	* command.[c|h]: check_key_bindings() can now write an error messages
+	  to a buffer instead of stderr
 	* main.c: display errors without exiting when key bindings are broken
 	* screen_help.c: added the add command to the help screen
 
 2004-06-17 Kalle Wallin <kaw@linux.se>
-	* Added a add command, used to add urls or files to the playlist, with
-	  file completion.
+	* Added a add command, used to add urls or files to the playlist, 
+	  with file completion.
 
 
 2004-06-16 Kalle Wallin <kaw@linux.se>
@@ -157,7 +159,7 @@
 2004-06-16 Kalle Wallin <kaw@linux.se>
 	* libmpdclient updated (r1507)
 	* mpdclient: add path to mpdclient_cmd_db_update() 
-	* screen_file.c: Use current path when updating the db (browse screen)
+	* screen_file.c: Use current path when updating the db 
 
 2004-06-15 Kalle Wallin <kaw@linux.se>
 	* conf.c: Replaced '_' with '-' in configuration field names
@@ -184,7 +186,7 @@
 	  flow control characters)
 	* command.*: Added the get_keyboard_command_with_timeout() function
 	* main.c: Redesigned the reconnect code to allow user interrupt
-	* screen*: Changed arguments to the get_title callback (and the title)
+	* screen*: Changed title and arguments for get_title callback() 
 	* support.c: moved utility function for scrolling
 	* list_window.c: fixed a small layout bug in list_window_paint()
 

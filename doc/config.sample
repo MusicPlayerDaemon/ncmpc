@@ -19,6 +19,9 @@
 ## wrapped find mode
 #find-wrap = yes
 
+## show last pattern when using find
+#find-show-last = no
+
 ## list-format
 #list-format = "%name%|[%artist% - ]%title%|%file%"
 

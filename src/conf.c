@@ -54,6 +54,7 @@
 #define CONF_XTERM_TITLE_FORMAT      "xterm-title-format"
 #define CONF_LIST_WRAP               "wrap-around"
 #define CONF_FIND_WRAP               "find-wrap"
+#define CONF_FIND_SHOW_LAST          "find-show-last"
 #define CONF_AUDIBLE_BELL            "audible-bell"
 #define CONF_VISIBLE_BELL            "visible-bell"
 #define CONF_XTERM_TITLE             "set-xterm-title"
@@ -489,6 +490,10 @@ read_rc_file(char *filename, options_t *options)
 	      else if( !strcasecmp(CONF_FIND_WRAP, name) )
 		{
 		  options->find_wrap = str2bool(value);
+		}
+	      else if( !strcasecmp(CONF_FIND_SHOW_LAST,name) )
+		{
+		  options->find_show_last_pattern = str2bool(value);
 		}
 	      else if( !strcasecmp(CONF_AUDIBLE_BELL, name) )
 		{

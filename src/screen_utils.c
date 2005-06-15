@@ -116,6 +116,7 @@ screen_find(screen_t *screen,
   int reversed = 0;
   int retval   = 0;
   char *prompt = FIND_PROMPT;
+  char *value = options.find_show_last_pattern ? (char *) -1 : NULL;
 
   if( findcmd==CMD_LIST_RFIND ||findcmd==CMD_LIST_RFIND_NEXT ) 
     {
@@ -138,7 +139,7 @@ screen_find(screen_t *screen,
       if( !screen->findbuf )
 	screen->findbuf=screen_readln(screen->status_window.w,
 				      prompt,
-				      (char *) -1, //NULL,
+				      value,
 				      &screen->find_history,
 				      NULL);
       if( !screen->findbuf || !screen->findbuf[0] )

@@ -21,6 +21,7 @@ typedef struct
   gboolean reconnect;
   gboolean debug;
   gboolean find_wrap;
+  gboolean find_show_last_pattern;
   gboolean list_wrap;
   gboolean auto_center;
   gboolean wide_cursor;  
