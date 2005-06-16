@@ -35,7 +35,7 @@
 #define LIBMPDCLIENT_H
 
 #include <sys/time.h>
-
+#include <stdarg.h>
 #define MPD_BUFFER_MAX_LENGTH	50000
 #define MPD_WELCOME_MESSAGE	"OK MPD "
 
@@ -70,6 +70,26 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
+enum 
+{
+	MPD_TAG_ITEM_ARTIST,
+	MPD_TAG_ITEM_ALBUM,
+	MPD_TAG_ITEM_TITLE,
+	MPD_TAG_ITEM_TRACK,
+	MPD_TAG_ITEM_NAME,
+	MPD_TAG_ITEM_GENRE,
+	MPD_TAG_ITEM_DATE,
+	MPD_TAG_ITEM_COMPOSER,
+	MPD_TAG_ITEM_PERFORMER,
+	MPD_TAG_ITEM_COMMENT,
+	MPD_TAG_ITEM_FILENAME,
+	MPD_TAG_NUM_OF_ITEM_TYPES
+}mpd_TagItems;
+
+
+extern char * mpdTagItemKeys[MPD_TAG_NUM_OF_ITEM_TYPES];
 
 /* internal stuff don't touch this struct */
 typedef struct _mpd_ReturnElement {
@@ -388,20 +408,31 @@ void mpd_sendSearchCommand(mpd_Connection * connection, int table,
 void mpd_sendFindCommand(mpd_Connection * connection, int table, 
 		const char * str);
 
+
+void mpd_sendSearchTagCommand(mpd_Connection *connection, ...);
+void mpd_sendFindTagCommand(mpd_Connection *connection, ...);
+void mpd_sendVSearchTagCommand(mpd_Connection *connection, va_list arglist);
+void mpd_sendVFindTagCommand(mpd_Connection *connection, va_list arglist);
 /* LIST TAG COMMANDS */
 
 /* use this function fetch next artist entry, be sure to free the returned 
  * string.  NULL means there are no more.  Best used with sendListArtists
  */
+
 char * mpd_getNextArtist(mpd_Connection * connection);
 
 char * mpd_getNextAlbum(mpd_Connection * connection);
+
+char * mpd_getNextTag(mpd_Connection *connection, int table);
 
 /* list artist or albums by artist, arg1 should be set to the artist if
  * listing albums by a artist, otherwise NULL for listing all artists or albums
  */
 void mpd_sendListCommand(mpd_Connection * connection, int table, 
 		const char * arg1);
+
+void mpd_sendListTagCommand(mpd_Connection * connection, int table,...);
+void mpd_sendVListTagCommand(mpd_Connection * connection,int ret_table, va_list arglist);
 
 /* SIMPLE COMMANDS */
 

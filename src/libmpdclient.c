@@ -31,6 +31,7 @@
 
 */
 
+
 #include "libmpdclient.h"
 
 #include <errno.h>
@@ -39,12 +40,16 @@
 #include <netdb.h>
 #include <stdio.h>
 #include <sys/param.h>
+
+
 #include <string.h>
+#include <strings.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <stdarg.h>
 
 #ifndef MPD_NO_IPV6
 #ifdef AF_INET6
@@ -58,6 +63,22 @@
 
 #define COMMAND_LIST	1
 #define COMMAND_LIST_OK	2
+
+char * mpdTagItemKeys[MPD_TAG_NUM_OF_ITEM_TYPES] =
+{
+	"Artist",
+	"Album",
+	"Title",
+	"Track",
+	"Name",
+	"Genre",
+	"Date",
+	"Composer",
+	"Performer",
+	"Comment",
+	"filename"
+};
+
 
 #ifdef MPD_HAVE_IPV6        
 int mpd_ipv6Supported() {
@@ -105,8 +126,8 @@ mpd_ReturnElement * mpd_newReturnElement(const char * name, const char * value)
 {
 	mpd_ReturnElement * ret = malloc(sizeof(mpd_ReturnElement));
 
-	ret->name = strdup(name);
-	ret->value = strdup(value);
+	ret->name = (char *)strdup(name);
+	ret->value = (char *)strdup(value);
 
 	return ret;
 }
@@ -1073,6 +1094,13 @@ char * mpd_getNextReturnElementNamed(mpd_Connection * connection,
 	return NULL;
 }
 
+char * mpd_getNextTag(mpd_Connection * connection,int table) {
+	if(table >= 0 && table < MPD_TAG_NUM_OF_ITEM_TYPES)
+	{
+		return mpd_getNextReturnElementNamed(connection,mpdTagItemKeys[table]);
+	}
+	return NULL;
+}
 char * mpd_getNextArtist(mpd_Connection * connection) {
 	return mpd_getNextReturnElementNamed(connection,"Artist");
 }
@@ -1154,6 +1182,89 @@ void mpd_sendSearchCommand(mpd_Connection * connection, int table,
 	free(string);
 	free(sanitStr);
 }
+void mpd_sendSearchTagCommand(mpd_Connection *connection, ...)
+{
+	va_list arglist;
+	va_start(arglist, connection);
+	mpd_sendVSearchTagCommand(connection, arglist);
+	va_end(arglist);
+}
+
+void mpd_sendVSearchTagCommand(mpd_Connection * connection, va_list arglist) 
+{
+	char *st, *str;
+	char * string=NULL;
+	int table;
+	char * sanitStr;
+	string = realloc(string,strlen("search")+1);
+	strcpy(string, "search");
+	while((table = va_arg(arglist, int)) != -1)
+	{
+		if(table >= 0 && table < MPD_TAG_NUM_OF_ITEM_TYPES)
+		{
+			st = mpdTagItemKeys[table];
+			str = va_arg(arglist,char *);
+			sanitStr = mpd_sanitizeArg(str);
+			string = realloc(string, strlen(string)+strlen(st)+strlen(sanitStr)+6);
+			sprintf(string, "%s %s \"%s\"",string,st,sanitStr);
+			free(sanitStr);
+		}	
+		else {
+			connection->error = 1;
+			sprintf(connection->errorStr,"unknown table for search %i",table);
+			va_end(arglist);
+			return;
+		}
+	}
+	/* set the last to '\n', should be sufficient space in the string for this */
+	sprintf(string, "%s\n", string);
+	mpd_sendInfoCommand(connection,string);
+	free(string);
+}
+
+
+void mpd_sendFindTagCommand(mpd_Connection *connection, ...)
+{
+	va_list arglist;
+	va_start(arglist, connection);
+	mpd_sendVFindTagCommand(connection, arglist);
+	va_end(arglist);
+}
+
+
+
+
+void mpd_sendVFindTagCommand(mpd_Connection * connection, va_list arglist) 
+{
+	char *st, *str;
+	char * string=NULL;
+	int table;
+	char * sanitStr;
+	string = realloc(string,strlen("find")+1);
+	strcpy(string, "find");
+	while((table = va_arg(arglist, int)) != -1)
+	{
+		if(table >= 0 && table < MPD_TAG_NUM_OF_ITEM_TYPES)
+		{
+			st = mpdTagItemKeys[table];
+			str = va_arg(arglist,char *);
+			sanitStr = mpd_sanitizeArg(str);
+			string = realloc(string, strlen(string)+strlen(st)+strlen(sanitStr)+6);
+			sprintf(string, "%s %s \"%s\"",string,st,sanitStr);
+			free(sanitStr);
+		}	
+		else {
+			connection->error = 1;
+			sprintf(connection->errorStr,"unknown table for find %i",table);
+			va_end(arglist);
+			return;
+		}
+	}
+	/* set the last to '\n', should be sufficient space in the string for this */
+	sprintf(string, "%s\n", string);
+	mpd_sendInfoCommand(connection,string);
+	free(string);
+}
 
 void mpd_sendFindCommand(mpd_Connection * connection, int table, 
 		const char * str) 
@@ -1201,6 +1312,53 @@ void mpd_sendListCommand(mpd_Connection * connection, int table,
 	mpd_sendInfoCommand(connection,string);
 	free(string);
 }
+
+void mpd_sendListTagCommand(mpd_Connection *connection, int ret_table, ...)
+{
+	va_list arglist;
+	va_start(arglist, ret_table);
+	mpd_sendVListTagCommand(connection, ret_table, arglist);
+	va_end(arglist);
+}
+void mpd_sendVListTagCommand(mpd_Connection * connection,int ret_table, va_list arglist) 
+{
+	char *st, *str;
+	char * string=NULL;
+	int table;
+	char * sanitStr;
+	if(ret_table < 0 && ret_table >= MPD_TAG_NUM_OF_ITEM_TYPES)
+	{
+		connection->error = 1;
+		sprintf(connection->errorStr,"unknown ret_table for search %i",ret_table);
+		return;
+	}
+
+	string = realloc(string,strlen("list")+3+strlen(mpdTagItemKeys[ret_table]));
+	sprintf(string, "list %s",mpdTagItemKeys[ret_table]);
+	while((table = va_arg(arglist, int)) != -1)
+	{
+		if(table >= 0 && table < MPD_TAG_NUM_OF_ITEM_TYPES)
+		{
+			st = mpdTagItemKeys[table];
+			str = va_arg(arglist,char *);
+			sanitStr = mpd_sanitizeArg(str);
+			string = realloc(string, strlen(string)+strlen(st)+strlen(sanitStr)+7);
+			sprintf(string, "%s %s \"%s\"",string,st,sanitStr);
+			free(sanitStr);
+		}	
+		else {
+			connection->error = 1;
+			sprintf(connection->errorStr,"unknown table for search %i",table);
+			va_end(arglist);
+			return;
+		}
+	}
+	/* set the last to '\n', should be sufficient space in the string for this */
+	sprintf(string,"%s\n", string);
+	mpd_sendInfoCommand(connection,string);
+	free(string);
+}
+
 
 void mpd_sendAddCommand(mpd_Connection * connection, const char * file) {
 	char * sFile = mpd_sanitizeArg(file);
@@ -1440,7 +1598,7 @@ mpd_OutputEntity * mpd_getNextOutput(mpd_Connection * connection) {
 	mpd_OutputEntity * output = NULL;
 
 	if(connection->doneProcessing || (connection->listOks &&
-			connection->doneListOk))
+				connection->doneListOk))
 	{
 		return NULL;
 	}
@@ -1472,7 +1630,7 @@ mpd_OutputEntity * mpd_getNextOutput(mpd_Connection * connection) {
 			free(output);
 			return NULL;
 		}
-		
+
 	}
 
 	return output;
