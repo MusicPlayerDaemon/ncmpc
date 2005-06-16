@@ -50,6 +50,20 @@ static int metalist_length = 0;
 static GList *metalist = NULL;
 static list_window_state_t *lw_state = NULL;
 
+static gint
+compare_utf8(gconstpointer s1, gconstpointer s2)
+{
+  char *key1, *key2;
+  int n;
+
+  key1 = g_utf8_collate_key(s1,-1);
+  key2 = g_utf8_collate_key(s2,-1);
+  n = strcmp(key1,key2);
+  g_free(key1);
+  g_free(key2);
+  return n;
+}
+
 /* list_window callback */
 static char *
 artist_lw_callback(int index, int *highlight, void *data)
@@ -131,6 +145,8 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
     {
       artist = m_artist;
       metalist = mpdclient_get_albums_utf8(c, m_artist);
+      /* sort list */
+      metalist = g_list_sort(metalist, compare_utf8);
       /* add a dummy entry for ".." */
       metalist = g_list_insert(metalist, g_strdup(".."), 0);
       /* add a dummy entry for all songs */
@@ -140,6 +156,8 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
   else /* retreive artists... */
     {
       metalist = mpdclient_get_artists_utf8(c);
+      /* sort list */
+      metalist = g_list_sort(metalist, compare_utf8);
       mode = LIST_ARTISTS;
     }
   metalist_length = g_list_length(metalist);
