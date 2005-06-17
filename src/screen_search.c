@@ -223,7 +223,7 @@ search_advanced_query(char *query, mpdclient_t *c)
 
   i=0;
   j=0;
-  while( strv[i] && i<9 )
+  while( strv[i] && strlen(strv[i])>0 && i<9 )
     {
       D("strv[%d] = \"%s\"\n", i, strv[i]);
 
@@ -243,11 +243,13 @@ search_advanced_query(char *query, mpdclient_t *c)
 	    }
 	  i++;
 	}
-      else if( strv[i+1] == NULL )
+      else if( strv[i+1] == NULL || strlen(strv[i+1])==0 )
 	{
 	  D("No argument for search tag %s\n", strv[i]);
 	  screen_status_printf(_("No argument for search tag %s"), strv[i]);
 	  i++;
+	  //	  j--;
+	  //table[j] = -1;
 	}
       else
 	{
@@ -264,7 +266,7 @@ search_advanced_query(char *query, mpdclient_t *c)
   g_strfreev(strv);
 
 
-  if( advanced_search_mode )
+  if( advanced_search_mode && j>0 )
     {
       /*-----------------------------------------------------------------------
        * NOTE (again): This code exists to test a new search ui,
@@ -298,7 +300,7 @@ search_advanced_query(char *query, mpdclient_t *c)
 	  filelist->length++;
 	}
   
-      if( mpdclient_finish_command(c) )
+      if( mpdclient_finish_command(c) && filelist )
 	filelist = mpdclient_filelist_free(filelist);
 
       filelist->updated = TRUE;
