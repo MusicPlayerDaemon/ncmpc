@@ -64,6 +64,7 @@
 #define CONF_HIDE_CURSOR             "hide-cursor"
 #define CONF_SEEK_TIME               "seek-time"
 #define CONF_SCREEN_LIST             "screen-list"
+#define CONF_TIMEDISPLAY_TYPE        "timedisplay-type"
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -217,6 +218,17 @@ parse_key_definition(char *str)
   return assign_keys(cmd, keys);
 }
 
+static char *
+parse_timedisplay_type(char *str)
+{
+ if((!strcmp(str,"elapsed")) || (!strcmp(str,"remaining"))){
+   return str;
+ } else {
+   fprintf(stderr,_("Error: Bad time display type - %s\n"), str);
+   return DEFAULT_TIMEDISPLAY_TYPE;
+ }
+}
+
 static int
 parse_color(char *str)
 {
@@ -242,7 +254,6 @@ parse_color(char *str)
 
   return colors_assign(name, value);
 }
-
 
 static int
 parse_color_definition(char *str)
@@ -459,6 +470,14 @@ read_rc_file(char *filename, options_t *options)
 	      else if( !strcasecmp(CONF_WIDE_CURSOR, name) )
 		{
 		  options->wide_cursor = str2bool(value);
+		}
+	      /* timer display type */
+	      else if( !strcasecmp(CONF_TIMEDISPLAY_TYPE, name) )
+		{
+		    g_free(options->timedisplay_type);
+		    options->timedisplay_type=g_strdup(parse_timedisplay_type(value));
+		    D("deb");
+		    D(options->timedisplay_type);
 		}
 	      /* color definition */
 	      else if( !strcasecmp(CONF_COLOR_DEFINITION, name) )

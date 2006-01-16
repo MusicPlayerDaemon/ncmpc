@@ -306,8 +306,9 @@ paint_status_window(mpdclient_t *c)
   WINDOW *w = screen->status_window.w;
   mpd_Status *status = c->status;
   mpd_Song *song   = c->song;
-  int elapsedTime = c->status->elapsedTime;
+  int elapsedTime = 0;
   char *str = NULL;
+  char *timestr = NULL;
   int x = 0;
 
   if( time(NULL) - screen->status_timestamp <= SCREEN_STATUS_MESSAGE_TIME )
@@ -341,11 +342,24 @@ paint_status_window(mpdclient_t *c)
   if( IS_PLAYING(status->state) || IS_PAUSED(status->state) )
     {
       if( status->totalTime > 0 )
-	{
-	  if( c->song && seek_id == c->song->id )
+        {
+	
+	/*checks the conf to see whether to display elapsed or remaining time */
+	if(!strcmp(options.timedisplay_type,"elapsed"))
+          {
+             timestr= " [%i:%02i/%i:%02i]";	    
+             elapsedTime = c->status->elapsedTime;
+          }
+        else if(!strcmp(options.timedisplay_type,"remaining"))
+          {
+            timestr= " [-%i:%02i/%i:%02i]";	    
+            elapsedTime = (c->status->totalTime - c->status->elapsedTime);
+          }  
+	if( c->song && seek_id == c->song->id )
 	    elapsedTime = seek_target_time;
+	/*write out the time*/
 	  g_snprintf(screen->buf, screen->buf_size, 
-		   " [%i:%02i/%i:%02i]",
+		   timestr,
 		   elapsedTime/60, elapsedTime%60,
 		   status->totalTime/60,   status->totalTime%60 );
 	}

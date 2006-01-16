@@ -648,8 +648,12 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	{
 	  if( mpdclient_cmd_db_update_utf8(c,filelist->path)==0 )
 	    {
-	      screen_status_printf(_("Database update of %s started!"),
+	      if(strcmp(filelist->path,"")) {
+	         screen_status_printf(_("Database update of %s started!"),
 				   filelist->path);
+	      } else {
+	        screen_status_printf(_("Database update started!"));
+	      }
 	      /* set updatingDb to make shure the browse callback gets called
 	       * even if the updated has finished before status is updated */
 	      c->status->updatingDb = 1; 

@@ -13,6 +13,7 @@ typedef struct
   char *status_format;
   char *xterm_title_format;
   char **screen_list;
+  char *timedisplay_type;
   int   port;
   int   crossfade_time;
   int   search_mode;
