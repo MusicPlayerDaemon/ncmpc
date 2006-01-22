@@ -52,12 +52,12 @@ dnl Check for libraries
 dnl
 
 dnl ncurses
-ncurses=ncurses
+ncurses=ncursesw
 AC_ARG_WITH([ncurses],
-	    AC_HELP_STRING([--with-ncurses], [compile/link with ncurses library]),
+	    AC_HELP_STRING([--with-ncurses], [compile/link with ncurses library] ),
 	    [ncurses=ncurses])
 AC_ARG_WITH(ncursesw,
-	    AC_HELP_STRING([--with-ncursesw], [compile/link with wide-char ncurses library]),
+	    AC_HELP_STRING([--with-ncursesw], [compile/link with wide-char ncurses library @<:@default@:>@]),
 	    [ncurses=ncursesw])
 
 AC_CHECK_LIB([$ncurses], 
@@ -66,6 +66,7 @@ AC_CHECK_LIB([$ncurses],
              [AC_MSG_ERROR($ncurses library is required)])
 
 if test "x$ncurses" = "xncursesw" ; then
+   AC_DEFINE(_XOPEN_SOURCE_EXTENDED, 1, [wide-char wget_ch()])
    AC_DEFINE(USE_NCURSESW, 1, [use wide-char ncurses library])
 fi
 
@@ -187,9 +188,9 @@ dnl Optional screen - search
 AC_MSG_CHECKING([whether to include the search screen])
 AC_ARG_ENABLE([search-screen], 
               AC_HELP_STRING([--enable-search-screen],
-	                     [Enable search screen (EXPERIMENTAL) @<:@default=no@:>@]),
+	                     [Enable search screen (EXPERIMENTAL) @<:@default=yes@:>@]),
 	      [search_screen="$enableval"],
-	      [search_screen=no])
+	      [search_screen=yes])
 AC_MSG_RESULT([$search_screen])
 if test "x$search_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_SEARCH_SCREEN, 1, [Disable search screen])
@@ -240,7 +241,7 @@ AC_MSG_RESULT([$DEFAULT_PORT])
 AC_DEFINE_UNQUOTED([DEFAULT_PORT],     [$DEFAULT_PORT],   [Default MPD port])
 AC_DEFINE_UNQUOTED([DEFAULT_PORT_STR], ["$DEFAULT_PORT"], [Default MPD port])
 
-dnl Default host
+dnl Default timedisplay type
 AC_MSG_CHECKING([for default timedisplay type])
 AC_ARG_WITH([default-timedisplay_type],
 	    AC_HELP_STRING([--with-default-timedisplay_type=ARG],
