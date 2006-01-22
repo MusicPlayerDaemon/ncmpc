@@ -18,12 +18,18 @@
  *
  */
 
+#include "config.h"
+
 #include <stdlib.h>
 #include <string.h>
-#include <ncurses.h>
 #include <glib.h>
 
-#include "config.h"
+#ifdef USE_NCURSESW
+#include <ncursesw/ncurses.h>
+#else
+#include <ncurses.h>
+#endif
+
 #include "wreadln.h"
 
 #define KEY_CTRL_A   1
@@ -45,6 +51,10 @@ wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 
 extern void screen_bell(void);
 extern size_t my_strlen(char *str);
+
+
+#ifndef USE_NCURSESW
+/* libcurses version */
 
 gchar *
 wreadln(WINDOW *w, 
@@ -347,5 +357,305 @@ wreadln(WINDOW *w,
   
   return g_realloc(line, strlen(line)+1);
 }
- 
 
+#else
+/* libcursesw version */ 
+
+gchar *
+wreadln(WINDOW *w, 
+	gchar *prompt, 
+	gchar *initial_value,
+	gint x1, 
+	GList **history, 
+	GCompletion *gcmp)
+{
+  GList *hlist = NULL, *hcurrent = NULL;
+  wchar_t *wline;
+  gchar *mbline;
+  gint x0, x, y, width, start;
+  gint cursor;
+  wint_t wch;
+  gint key;
+  gint i;
+
+  /* move the cursor to the beginning of the line */
+  void cursor_move_home(void) {
+    x=0;
+    cursor=0;
+    start=0;
+  }
+  /* move the cursor to the end of the line */
+  void cursor_move_to_eol(void) {
+    cursor = wcslen(wline);
+    //x=wcswidth(wline,cursor);
+    if( cursor+x0 >= x1 )
+      start = cursor-width+1;
+  }
+  /* move the cursor one step to the left */
+  void cursor_move_left(void) {
+    if( cursor > 0 )
+      {
+	if( cursor==start && start > 0 )
+	  start--;
+	//x-=wcwidth(wline[cursor]); 
+	cursor--;
+      }
+  }
+  /* move the cursor one step to the right */
+  void cursor_move_right(void) {
+    if( cursor < wcslen(wline) && cursor<wrln_max_line_size-1 )
+      {
+	//x +=wcwidth(wline[cursor]); 
+	cursor++;
+	if( cursor+x0 >= x1 && start<cursor-width+1)
+	  start++;
+      }
+  }
+  /* handle backspace */
+  void backspace() {
+    if( cursor > 0 )	
+      {
+	for (i = cursor - 1; wline[i] != 0; i++)
+	  wline[i] = wline[i + 1];
+	cursor_move_left();
+      }
+  }
+  /* handle delete */
+  void delete() {
+    if( cursor <= wcslen(wline) - 1 ) 
+      {
+	for (i = cursor; wline[i] != 0; i++)
+	  wline[i] = wline[i + 1];
+      }
+  }
+  /* draw line buffer and update cursor position */
+  void drawline() {
+    wmove(w, y, x0);
+    /* clear input area */
+    whline(w, ' ', width);
+    /* print visible part of the line buffer */
+    waddnwstr(w, wline+start, width);
+    /* move the cursor to the correct position */
+    wmove(w, y, x0 + cursor-start);
+    /* tell ncurses to redraw the screen */
+    doupdate();
+  }
+
+  /* initialize variables */
+  start = 0;
+  x = 0;
+  cursor = 0;
+  mbline = NULL;
+
+  /* allocate a line buffer */
+  wline = g_malloc0(wrln_max_line_size*sizeof(wchar_t));
+  /* turn off echo */
+  noecho();		
+  /* make shure the cursor is visible */
+  curs_set(1);
+  /* print prompt string */
+  if( prompt )
+    waddstr(w, prompt);	
+   /* retrive y and x0 position */
+  getyx(w, y, x0);
+  /* check the x1 value */
+  if( x1<=x0 || x1>COLS )
+    x1 = COLS;
+  width = x1-x0;
+  /* clear input area */
+  mvwhline(w, y, x0, ' ', width);
+
+
+  if( history )
+    {
+      /* append the a new line to our history list */
+      *history = g_list_append(*history, g_malloc0(wrln_max_line_size));
+      /* hlist points to the current item in the history list */
+      hlist =  g_list_last(*history);
+      hcurrent = hlist;
+    }
+  if( initial_value == (char *) -1 )
+    {
+      /* get previous history entry */
+      if( history && hlist->prev )
+	{
+	  if( hlist==hcurrent )
+	    {
+	      /* save the current line */
+	      //g_strlcpy(hlist->data, line, wrln_max_line_size);
+	    }
+	  /* get previous line */
+	  hlist = hlist->prev;
+	  mbstowcs(wline, hlist->data, wrln_max_line_size);
+	}
+      cursor_move_to_eol();
+      drawline();
+    }
+  else if( initial_value )
+    {
+      /* copy the initial value to the line buffer */
+      mbstowcs(wline, initial_value, wrln_max_line_size);
+      cursor_move_to_eol();
+      drawline();
+    }  
+
+  wch=0;
+  key=0;
+  while( wch!=13 && wch!='\n' )
+    {
+      key = wget_wch(w, &wch);
+
+      if( key==KEY_CODE_YES )
+	{
+	  /* function key */
+	  switch(wch)
+	    {
+	    case KEY_HOME:
+	      cursor_move_home();
+	      break;
+	    case KEY_END:
+	      cursor_move_to_eol();
+	      break;
+	    case KEY_LEFT:
+	      cursor_move_left();
+	      break;
+	    case KEY_RIGHT:
+	      cursor_move_right();
+	      break;
+	    case KEY_DC:
+	      delete();
+	      break;
+	    case KEY_BCKSPC:
+	    case KEY_BACKSPACE:	
+	      backspace();
+	      break;
+	    case KEY_UP:		
+	      /* get previous history entry */
+	      if( history && hlist->prev )
+		{
+		  if( hlist==hcurrent )
+		    {
+		      /* save the current line */
+		      wcstombs(hlist->data, wline, wrln_max_line_size);
+		    }
+		  /* get previous line */
+		  hlist = hlist->prev;
+		  mbstowcs(wline, hlist->data, wrln_max_line_size);
+		}
+	      cursor_move_to_eol();
+	      break; 
+	    case KEY_DOWN:	
+	      /* get next history entry */
+	      if( history && hlist->next )
+		{
+		  /* get next line */
+		  hlist = hlist->next;
+		  mbstowcs(wline, hlist->data, wrln_max_line_size);
+		}
+	      cursor_move_to_eol();
+	      break;
+	    case KEY_RESIZE:
+	      /* resize event */
+	      if( x1>COLS )
+		{
+		  x1=COLS;
+		  width = x1-x0;
+		  cursor_move_to_eol();
+		}
+	      /* make shure the cursor is visible */
+	      curs_set(1);
+	      break;
+	    }
+
+	}
+      else if( key!=ERR )
+	{
+	  switch(wch)
+	    {
+	    case KEY_CTRL_A:
+	      cursor_move_home();
+	      break;
+	    case KEY_CTRL_D:
+	      delete();
+	      break;
+	    case KEY_CTRL_E:
+	      cursor_move_to_eol();
+	      break;
+	    case KEY_CTRL_G:
+	      screen_bell();
+	      g_free(wline);
+	      if( history )
+		{
+		  g_free(hcurrent->data);
+		  hcurrent->data = NULL;
+		  *history = g_list_delete_link(*history, hcurrent);
+		}
+	      return NULL;
+	    case KEY_CTRL_K:
+	      wline[cursor] = 0;
+	      break;
+	    case '\n':
+	    case 13:
+	      /* ignore char */
+	      break;
+	    default:
+	      if( (wcslen(wline+cursor)) )
+		{
+		  /* the cursor is not at the last pos */
+		  wchar_t *tmp = NULL;
+		  gsize len = (wcslen(wline+cursor)+1);
+		  tmp = g_malloc0(len*sizeof(wchar_t));
+		  wmemcpy(tmp, wline+cursor, len);
+		  wline[cursor] = wch;
+		  wline[cursor+1] = 0;
+		  wcscat(&wline[cursor+1], tmp);
+		  g_free(tmp);
+		  cursor_move_right();
+		}
+	      else
+		{
+		  wline[cursor] = wch;
+		  wline[cursor+1] = 0;
+		  cursor_move_right();
+		}
+	    }
+	}
+      drawline();
+    }
+
+  i = wcstombs(NULL,wline,0)+1;
+  mbline = g_malloc0(i);
+  wcstombs(mbline, wline, i);
+
+  /* update history */
+  if( history )
+    {
+      if( strlen(mbline) )
+	{
+	  /* update the current history entry */
+	  size_t size = strlen(mbline)+1;
+	  hcurrent->data = g_realloc(hcurrent->data, size);
+	  g_strlcpy(hcurrent->data, mbline, size);
+	}
+      else
+	{
+	  /* the line was empty - remove the current history entry */
+	  g_free(hcurrent->data);
+	  hcurrent->data = NULL;
+	  *history = g_list_delete_link(*history, hcurrent);
+	}
+
+      while( g_list_length(*history) > wrln_max_history_length )
+	{
+	  GList *first = g_list_first(*history);
+
+	  /* remove the oldest history entry  */
+	  g_free(first->data);
+	  first->data = NULL;
+	  *history = g_list_delete_link(*history, first);
+	}
+    }
+  return mbline;
+}
+ 
+#endif
