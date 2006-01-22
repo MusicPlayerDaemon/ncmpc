@@ -33,10 +33,12 @@
 #include "wreadln.h"
 
 #define KEY_CTRL_A   1
+#define KEY_CTRL_C   3
 #define KEY_CTRL_D   4 
 #define KEY_CTRL_E   5
 #define KEY_CTRL_G   7
 #define KEY_CTRL_K   11
+#define KEY_CTRL_Z   26
 #define KEY_BCKSPC   8
 #define TAB          9
 
@@ -575,6 +577,9 @@ wreadln(WINDOW *w,
 	    case KEY_CTRL_A:
 	      cursor_move_home();
 	      break;
+	    case KEY_CTRL_C:
+	      exit(EXIT_SUCCESS);
+	      break;
 	    case KEY_CTRL_D:
 	      delete();
 	      break;
@@ -593,6 +598,12 @@ wreadln(WINDOW *w,
 	      return NULL;
 	    case KEY_CTRL_K:
 	      wline[cursor] = 0;
+	      break;
+	    case KEY_CTRL_Z:
+	      sigstop();
+	      break;
+	    case 127:
+	      backspace();
 	      break;
 	    case '\n':
 	    case 13:

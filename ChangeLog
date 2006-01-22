@@ -1,3 +1,15 @@
+2006-01-22  Kalle Wallin <kaw@linux.se>
+	* configure.ac: use libcursesw by default
+	* wreadln.c: use wget_wch (wide characters) when built with libcursesw
+
+2006-01-17 Kalle Wallin <kaw@linux.se>
+	* Russian translation fix (codepage) from Alexey Ivanov
+	
+2006-01-16 Jonatan Fors <etnoy@broach.se>
+	* Added timedisplay option (elapsed/remaining)
+	* Fixed db update message
+	* ncmpc.1: Updated and corrected.
+
 2005-06-15: Kalle Wallin <kaw@linux.se>
 	* Added configuraton option screen-list
 	* Added configuraton option find-show-last
