@@ -67,7 +67,7 @@ AC_CHECK_FUNC([gethostbyname],
 
 
 dnl ncurses
-ncurses=ncursesw
+ncurses=auto
 AC_ARG_WITH([ncurses],
 	    AC_HELP_STRING([--with-ncurses], [compile/link with ncurses library] ),
 	    [ncurses=ncurses])
@@ -75,10 +75,19 @@ AC_ARG_WITH(ncursesw,
 	    AC_HELP_STRING([--with-ncursesw], [compile/link with wide-char ncurses library @<:@default@:>@]),
 	    [ncurses=ncursesw])
 
+if test "x$ncurses" = "xauto"; then
+	AC_CHECK_LIB([ncursesw], 
+		     [initscr],
+		     [ncurses=ncursesw],
+		     [ncurses=ncurses])
+fi
+		     
+
 AC_CHECK_LIB([$ncurses], 
 	     [initscr],
-             [LIBS="$LIBS -l$ncurses"], 
-             [AC_MSG_ERROR($ncurses library is required)])
+	     [LIBS="$LIBS -l$ncurses"], 
+	     [AC_MSG_ERROR($ncurses library is required)])
+
 
 if test "x$ncurses" = "xncursesw" ; then
    AC_DEFINE(_XOPEN_SOURCE_EXTENDED, 1, [wide-char wget_ch()])
