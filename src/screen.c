@@ -399,7 +399,7 @@ paint_status_window(mpdclient_t *c)
 	  g_free(tmp);	  
 	}
       //mvwaddnstr(w, 0, x, songname, width);
-      mvwaddnstr(w, 0, x, songname);
+      mvwaddstr(w, 0, x, songname);
     } 
 
   /* display time string */

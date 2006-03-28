@@ -204,7 +204,7 @@ list_window_paint(list_window_t *lw,
 	    wattron(lw->w, A_REVERSE);
 	  
 	  //waddnstr(lw->w, label, lw->cols);
-	  waddnstr(lw->w, label);
+	  waddstr(lw->w, label);
 	  if( fill && len<lw->cols )
 	    mvwhline(lw->w, i, len, ' ', lw->cols-len);
 
