@@ -51,12 +51,6 @@
 #include <fcntl.h>
 #include <stdarg.h>
 
-#ifndef MPD_NO_IPV6
-#ifdef AF_INET6
-#define MPD_HAVE_IPV6
-#endif
-#endif
-
 #ifndef MSG_DONTWAIT
 #define MSG_DONTWAIT 0
 #endif
@@ -79,16 +73,6 @@ char * mpdTagItemKeys[MPD_TAG_NUM_OF_ITEM_TYPES] =
 	"filename"
 };
 
-
-#ifdef MPD_HAVE_IPV6        
-int mpd_ipv6Supported() {
-        int s;          
-        s = socket(AF_INET6,SOCK_STREAM,0);
-        if(s == -1) return 0;
-        close(s);       
-        return 1;                       
-}                       
-#endif  
 
 static char * mpd_sanitizeArg(const char * arg) {
 	size_t i;
@@ -146,22 +130,15 @@ void mpd_setConnectionTimeout(mpd_Connection * connection, float timeout) {
 
 mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
 	int err;
-	struct hostent * he;
-	struct sockaddr * dest;
-#ifdef HAVE_SOCKLEN_T
-	socklen_t destlen;
-#else
-	int destlen;
-#endif
-	struct sockaddr_in sin;
+	int error;
 	char * rt;
 	char * output;
+	char service[20];
 	mpd_Connection * connection = malloc(sizeof(mpd_Connection));
 	struct timeval tv;
+	struct addrinfo hints, *res;
+	struct addrinfo *addrinfo = NULL;
 	fd_set fds;
-#ifdef MPD_HAVE_IPV6
-	struct sockaddr_in6 sin6;
-#endif
 	strcpy(connection->buffer,"");
 	connection->buflen = 0;
 	connection->bufstart = 0;
@@ -173,73 +150,65 @@ mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
 	connection->doneListOk = 0;
 	connection->returnElement = NULL;
 
-	if(!(he=gethostbyname(host))) {
+	memset(&hints, 0, sizeof(hints));
+	hints.ai_family = PF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
+
+	snprintf(service, sizeof(service), "%d", port);
+
+	error = getaddrinfo(host, service, &hints, &addrinfo);
+
+	if (error) {
 		snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
-				"host \"%s\" not found",host);
+				"host \"%s\" not found: %s",host, gai_strerror(error));
 		connection->error = MPD_ERROR_UNKHOST;
 		return connection;
 	}
 
-	memset(&sin,0,sizeof(struct sockaddr_in));
-	/*dest.sin_family = he->h_addrtype;*/
-	sin.sin_family = AF_INET;
-	sin.sin_port = htons(port);
-#ifdef MPD_HAVE_IPV6
-	memset(&sin6,0,sizeof(struct sockaddr_in6));
-	sin6.sin6_family = AF_INET6;
-	sin6.sin6_port = htons(port);
-#endif
-	switch(he->h_addrtype) {
-	case AF_INET:
-		memcpy((char *)&sin.sin_addr.s_addr,(char *)he->h_addr,
-				he->h_length);
-		dest = (struct sockaddr *)&sin;
-		destlen = sizeof(struct sockaddr_in);
-		break;
-#ifdef MPD_HAVE_IPV6
-	case AF_INET6:
-		if(!mpd_ipv6Supported()) {
-			strcpy(connection->errorStr,"no IPv6 suuport but a "
-					"IPv6 address found\n");
+	for (res = addrinfo; res; res = res->ai_next) {
+		/* create socket */
+		
+		if((connection->sock = socket(res->ai_family,SOCK_STREAM,res->ai_protocol))<0) {
+			strcpy(connection->errorStr,"problems creating socket");
 			connection->error = MPD_ERROR_SYSTEM;
+			freeaddrinfo(addrinfo);
 			return connection;
 		}
-		memcpy((char *)&sin6.sin6_addr.s6_addr,(char *)he->h_addr,
-				he->h_length);
-		dest = (struct sockaddr *)&sin6;
-		destlen = sizeof(struct sockaddr_in6);
-		break;
-#endif
-	default:
-		strcpy(connection->errorStr,"address type is not IPv4 or "
-				"IPv6\n");
-		connection->error = MPD_ERROR_SYSTEM;
-		return connection;
-		break;
-	}
-	
-	if((connection->sock = socket(dest->sa_family,SOCK_STREAM,0))<0) {
-		strcpy(connection->errorStr,"problems creating socket");
-		connection->error = MPD_ERROR_SYSTEM;
-		return connection;
-	}
 
-	mpd_setConnectionTimeout(connection,timeout);
+		mpd_setConnectionTimeout(connection,timeout);
 
-	/* connect stuff */
-	{
-		int flags = fcntl(connection->sock, F_GETFL, 0);
-		fcntl(connection->sock, F_SETFL, flags | O_NONBLOCK);
-
-		if(connect(connection->sock,dest,destlen)<0 && 
-				errno!=EINPROGRESS) 
+		/* connect stuff */
 		{
-			snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
-					"problems connecting to \"%s\" on port"
-				 	" %i",host,port);
-			connection->error = MPD_ERROR_CONNPORT;
-			return connection;
+#ifdef WIN32
+			int iMode = 1; // 0 = blocking, else non-blocking
+			ioctlsocket(connection->sock, FIONBIO, (u_long FAR*) &iMode);
+			if(connect(connection->sock,res->ai_addr,res->ai_addrlen) == SOCKET_ERROR
+				&& WSAGetLastError() != WSAEWOULDBLOCK)
+#else
+				int flags = fcntl(connection->sock, F_GETFL, 0);
+			fcntl(connection->sock, F_SETFL, flags | O_NONBLOCK);
+
+			if(connect(connection->sock,res->ai_addr,res->ai_addrlen)<0 && 
+					errno!=EINPROGRESS) 
+#endif
+			{
+				/* try the next address family */
+				close(connection->sock);
+				connection->sock = 0;
+				continue;
+			}
 		}
+	}
+
+	freeaddrinfo(addrinfo);
+
+	if (connection->sock == 0) {
+		snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
+				"problems connecting to \"%s\" on port"
+				" %i: %s",host,port, strerror(errno));
+		connection->error = MPD_ERROR_CONNPORT;
+
+		return connection;
 	}
 
 	while(!(rt = strstr(connection->buffer,"\n"))) {
