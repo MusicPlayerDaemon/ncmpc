@@ -1,3 +1,7 @@
+2006-03-28  Kalle Wallin <kaw@linux.se>
+	* wreadln.c: fixed TAB completion support when built with libcursesw
+	             (path from René van Bevern)
+
 2006-01-22  Kalle Wallin <kaw@linux.se>
 	* configure.ac: use libcursesw by default
 	* wreadln.c: use wget_wch (wide characters) when built with libcursesw

@@ -586,6 +586,33 @@ wreadln(WINDOW *w,
 	    case KEY_CTRL_E:
 	      cursor_move_to_eol();
 	      break;
+	    case TAB:
+	      if( gcmp )
+		{
+		  char *prefix = NULL;
+		  GList *list;
+		  
+		  i = wcstombs(NULL,wline,0)+1;
+		  mbline = g_malloc0(i);
+		  wcstombs(mbline, wline, i);
+		  
+		  if(wrln_pre_completion_callback)
+		    wrln_pre_completion_callback(gcmp, mbline);
+		  list = g_completion_complete(gcmp, mbline, &prefix);	      
+		  if( prefix )
+		    {
+		      mbstowcs(wline, prefix, wrln_max_line_size);
+		      cursor_move_to_eol();
+		      g_free(prefix);
+		    }
+		  else
+		    screen_bell();
+		  if( wrln_post_completion_callback )
+		    wrln_post_completion_callback(gcmp, mbline, list);
+		  
+		  g_free(mbline);
+		}
+	      break;
 	    case KEY_CTRL_G:
 	      screen_bell();
 	      g_free(wline);
