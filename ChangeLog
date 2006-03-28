@@ -1,6 +1,7 @@
 2006-03-28  Kalle Wallin <kaw@linux.se>
 	* wreadln.c: fixed TAB completion support when built with libcursesw
 	             (path from René van Bevern)
+	* unicode fixes from Dmitry Baryshkov
 	* added galician translation from Johám-Luís Miguéns Vila
 	* configure.ac: check for recv/send/gethostbyname/socket/connect in 
 	                -lsocket -lnsl (Tonnerre)

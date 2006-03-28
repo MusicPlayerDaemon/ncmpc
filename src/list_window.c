@@ -203,7 +203,8 @@ list_window_paint(list_window_t *lw,
 	  if( show_cursor && selected )
 	    wattron(lw->w, A_REVERSE);
 	  
-	  waddnstr(lw->w, label, lw->cols);
+	  //waddnstr(lw->w, label, lw->cols);
+	  waddnstr(lw->w, label);
 	  if( fill && len<lw->cols )
 	    mvwhline(lw->w, i, len, ' ', lw->cols-len);
 

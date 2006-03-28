@@ -187,9 +187,9 @@ paint_top_window(char *header, mpdclient_t *c, int clear)
   static int prev_header_len = -1;
   WINDOW *w = screen->top_window.w;
 
-  if(prev_header_len!=strlen(header))
+  if(prev_header_len!=my_strlen(header))
     {
-      prev_header_len = strlen(header);
+      prev_header_len = my_strlen(header);
       clear = 1;
     }
 
@@ -244,7 +244,7 @@ paint_top_window(char *header, mpdclient_t *c, int clear)
 	  g_snprintf(buf, 32, _(" Volume %d%%"), c->status->volume); 
 	}
       colors_use(w, COLOR_TITLE);
-      mvwaddstr(w, 0, screen->top_window.cols-strlen(buf), buf);
+      mvwaddstr(w, 0, screen->top_window.cols-my_strlen(buf), buf);
 
       flags[0] = 0;
       if( c->status->repeat )
@@ -334,7 +334,7 @@ paint_status_window(mpdclient_t *c)
   if( str )
     {
       waddstr(w, str);
-      x += strlen(str)+1;
+      x += my_strlen(str)+1;
     }
 
   /* create time string */
@@ -381,7 +381,7 @@ paint_status_window(mpdclient_t *c)
   if( (IS_PLAYING(status->state) || IS_PAUSED(status->state)) )
     {
       char songname[MAX_SONGNAME_LENGTH];
-      int width = COLS-x-strlen(screen->buf);
+      int width = COLS-x-my_strlen(screen->buf);
 
       if( song )
 	strfsong(songname, MAX_SONGNAME_LENGTH, STATUS_FORMAT, song);
@@ -390,7 +390,7 @@ paint_status_window(mpdclient_t *c)
 
       colors_use(w, COLOR_STATUS);
       /* scroll if the song name is to long */
-      if( strlen(songname) > width )
+      if( my_strlen(songname) > width )
 	{
 	  static  scroll_state_t st = { 0, 0 };
 	  char *tmp = strscroll(songname, " *** ", width, &st);
@@ -398,7 +398,8 @@ paint_status_window(mpdclient_t *c)
 	  g_strlcpy(songname, tmp, MAX_SONGNAME_LENGTH);
 	  g_free(tmp);	  
 	}
-      mvwaddnstr(w, 0, x, songname, width);
+      //mvwaddnstr(w, 0, x, songname, width);
+      mvwaddnstr(w, 0, x, songname);
     } 
 
   /* display time string */
