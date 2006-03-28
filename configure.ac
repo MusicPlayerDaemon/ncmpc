@@ -51,6 +51,21 @@ dnl
 dnl Check for libraries
 dnl
 
+dnl Try to find the socket functions
+AC_CHECK_FUNC([socket],
+	      [], 
+              [AC_CHECK_LIB([socket],[socket],[LIBS="$LIBS -lsocket"],
+	                    [AC_MSG_ERROR(No UNIX socket API found)])
+              ])
+
+dnl Try to find the gethostbyname functions
+AC_CHECK_FUNC([gethostbyname],
+	      [], 
+              [AC_CHECK_LIB([nsl],[gethostbyname],[LIBS="$LIBS -lnsl"],
+	                    [AC_MSG_ERROR(No UNIX gethostbyname API found)])
+              ])
+
+
 dnl ncurses
 ncurses=ncursesw
 AC_ARG_WITH([ncurses],

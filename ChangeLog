@@ -2,6 +2,8 @@
 	* wreadln.c: fixed TAB completion support when built with libcursesw
 	             (path from René van Bevern)
 	* added galician translation from Johám-Luís Miguéns Vila
+	* configure.ac: check for recv/send/gethostbyname/socket/connect in 
+	                -lsocket -lnsl (Tonnerre)
 
 2006-01-22  Kalle Wallin <kaw@linux.se>
 	* configure.ac: use libcursesw by default
