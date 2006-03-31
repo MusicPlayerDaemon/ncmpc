@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Mikkel Kirkgaard Nielsen <ncmpc@mikini.dk>\n"
 "Language-Team: da <da@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/ncmpc.h:36
@@ -72,7 +72,7 @@ msgstr " Volumen: %d%%"
 #: src/screen.c:271
 msgid "Playing:"
 msgstr "Afspiller:"
-'
+
 #: src/screen.c:274
 msgid "[Paused]"
 msgstr "[Pause]"
@@ -190,7 +190,7 @@ msgstr "Henter %s..."
 
 #: src/screen_file.c:304
 msgid "You can only delete playlists!"
-sgstr "Du kan kun slette afspilningslister!"
+msgstr "Du kan kun slette afspilningslister!"
 
 #: src/screen_file.c:311
 #, c-format
@@ -399,7 +399,7 @@ msgstr "Hjælp"
 
 #: src/command.c:70
 msgid "Key configuration screen"
-msgstr "Taste konfigurations skærm
+msgstr "Taste konfigurations skærm"
 
 #: src/command.c:73
 msgid "Quit"
