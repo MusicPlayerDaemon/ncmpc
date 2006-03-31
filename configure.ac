@@ -17,7 +17,7 @@ dnl initialize variables
 dnl =======================================================
 
 dnl i18n
-ALL_LINGUAS="es de fr gl no ru sv"
+ALL_LINGUAS="es da de fr gl no ru sv"
 
 set -- $CFLAGS
 

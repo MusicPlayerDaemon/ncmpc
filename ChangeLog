@@ -1,3 +1,6 @@
+2006-03-31  Kalle Wallin <kaw@linux.se>
+	* added danish translation from  Mikkel Kirkgaard Nielsen
+
 2006-03-28  Kalle Wallin <kaw@linux.se>
 	* wreadln.c: fixed TAB completion support when built with libcursesw
 	             (path from René van Bevern)
