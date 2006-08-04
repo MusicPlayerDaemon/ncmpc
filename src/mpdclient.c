@@ -871,11 +871,8 @@ mpdclient_filelist_get(mpdclient_t *c, gchar *path)
       filelist->length++;
     }
   
-  if( mpdclient_finish_command(c) )
-    {
-      g_free(path_utf8);
-      return mpdclient_filelist_free(filelist);
-    }
+   /* If there's an error, ignore it.  We'll return an empty filelist. */
+   mpdclient_finish_command(c);
   
   g_free(path_utf8);
   filelist->path = g_strdup(path);
