@@ -242,15 +242,12 @@ AC_ARG_ENABLE([search-screen],
               AC_HELP_STRING([--enable-search-screen],
 	                     [Enable search screen (EXPERIMENTAL) @<:@default=yes@:>@]),
 	      [search_screen="$enableval"],
-	      [search_screen=no])
-#AC_MSG_RESULT([$search_screen])
+	      [search_screen=yes])
+AC_MSG_RESULT([$search_screen])
 if test "x$search_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_SEARCH_SCREEN, 1, [Disable search screen])
 fi
-AC_MSG_WARN([search screen unavailable due to issues with libmpdclient update])
-AC_DEFINE(DISABLE_SEARCH_SCREEN, 1, [Disable search screen]) 
-AC_MSG_RESULT([$search_screen])  
-
+  
 dnl Optional screen - key editor
 AC_MSG_CHECKING([whether to include the key editor screen])
 AC_ARG_ENABLE([key-screen], 

@@ -277,18 +277,14 @@ search_advanced_query(char *query, mpdclient_t *c)
       mpd_InfoEntity *entity;
 
       /** stupid - but this is just a test...... (fulhack)  */
-      mpd_sendSearchTagCommand(c->connection, 
-			       table[0], arg[0],
-			       table[1], arg[1],
-			       table[2], arg[2],
-			       table[3], arg[3],
-			       table[4], arg[4],
-			       table[5], arg[5],
-			       table[6], arg[6],
-			       table[7], arg[7],
-			       table[8], arg[8],
-			       table[9], arg[9]);
-
+	  int iter;
+	  for(iter = 0; i < 10; i++)
+	  {
+	  	  mpd_addConstraintSearch(c->connection, table[i], arg[i]);
+	  }		  
+			
+	  mpd_commitSearch(c->connection);
+	  
       filelist = g_malloc0(sizeof(mpdclient_filelist_t));
 
       while( (entity=mpd_getNextInfoEntity(c->connection)) ) 
