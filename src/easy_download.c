@@ -15,11 +15,16 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
  
+#
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
+#include "ncmpc.h"
+
+#ifdef ENABLE_LYRICS_SCREEN
+
 #include <curl/curl.h>
 #include "easy_download.h"
 
@@ -80,3 +85,5 @@ void easy_download_clean(easy_download_struct *dld)
 	dld->size = 0;
 	dld->max_size = -1;
 }
+
+#endif
