@@ -1,16 +1,18 @@
 2006-09-4
-	* tradiaz is temporary maintainer of a special branch of ncmpc now
+    * tradiaz is temporary maintainer of a special branch of ncmpc now
       https://svn.musicpd.org/mpd/ncmpc/branches/tradiaz
-	  the development will go on there till kaw shows up again
-	  contact him: tradiaz .AT. yahoo .DOT. de
+      the development will go on there till kaw shows up again
+      contact him: tradiaz .AT. yahoo .DOT. de
 
     * added a lyrics screen. it downloads and shows lyrics from leoslyrics.com
-	  (storing and reading lyrics to come)
+      (storing and reading lyrics to come)
       have a look at the manpage for the lyrics_timeout config file option
     * catching signal SIGHUP now
     * host and port of mpd can be specified in the config file now     
-	* libmpdclient update (the experimental search screen is making problems with the it)
-	* enhanced compatibility of Makefile.am for automake       
+    * libmpdclient update (the experimental search screen is making problems with the it)
+    * enhanced compatibility of Makefile.am for automake       
+    * jat fixed a bug that occured when being in a non existing
+      directory in the browse screen
 
 2006-03-31  Kalle Wallin <kaw@linux.se>
 	* added danish translation from  Mikkel Kirkgaard Nielsen
