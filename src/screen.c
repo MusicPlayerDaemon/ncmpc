@@ -40,7 +40,6 @@
 #include "screen.h"
 #include "screen_utils.h"
 
-#define MAX_SONGNAME_LENGTH   512
 
 #define SCREEN_PLAYLIST_ID     0
 #define SCREEN_BROWSE_ID       1
@@ -49,6 +48,7 @@
 #define SCREEN_KEYDEF_ID       101
 #define SCREEN_CLOCK_ID        102
 #define SCREEN_SEARCH_ID       103
+#define SCREEN_LYRICS_ID	   104	
 
 
 
@@ -60,6 +60,7 @@ extern screen_functions_t *get_screen_search(void);
 extern screen_functions_t *get_screen_artist(void);
 extern screen_functions_t *get_screen_keydef(void);
 extern screen_functions_t *get_screen_clock(void);
+extern screen_functions_t *get_screen_lyrics(void);
 
 typedef screen_functions_t * (*screen_get_mode_functions_fn_t) (void);
 
@@ -86,6 +87,9 @@ static screen_mode_info_t screens[] = {
 #endif
 #ifdef ENABLE_CLOCK_SCREEN
   { SCREEN_CLOCK_ID,    "clock",    get_screen_clock },
+#endif
+  #ifdef ENABLE_LYRICS_SCREEN
+  { SCREEN_LYRICS_ID,    "lyrics",    get_screen_lyrics },
 #endif
   { G_MAXINT, NULL,      NULL }
 };
@@ -124,6 +128,10 @@ lookup_mode(gint id)
   return -1;
 }
 
+gint get_cur_mode_id()
+{
+	return screens[screen->mode].id;
+}
 static void
 switch_screen_mode(gint id, mpdclient_t *c)
 {
@@ -233,6 +241,12 @@ paint_top_window(char *header, mpdclient_t *c, int clear)
 	  waddstr(w, get_key_names(CMD_SCREEN_SEARCH, FALSE));
 	  colors_use(w, COLOR_TITLE);
 	  waddstr(w, _(":Search  "));
+#endif
+#ifdef ENABLE_LYRICS_SCREEN
+	  colors_use(w, COLOR_TITLE_BOLD);
+	  waddstr(w, get_key_names(CMD_SCREEN_LYRICS, FALSE));
+	  colors_use(w, COLOR_TITLE);
+	  waddstr(w, _(":Lyrics  "));
 #endif
 	}
       if( c->status->volume==MPD_STATUS_NO_VOLUME )
@@ -965,12 +979,12 @@ screen_cmd(mpdclient_t *c, command_t cmd)
     case CMD_SCREEN_CLOCK:
       switch_screen_mode(SCREEN_CLOCK_ID, c);
       break;
+	case CMD_SCREEN_LYRICS:
+      switch_screen_mode(SCREEN_LYRICS_ID, c);
+      break;
     case CMD_QUIT:
       exit(EXIT_SUCCESS);
     default:
       break;
     }
 }
-
-
-

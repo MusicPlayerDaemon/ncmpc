@@ -369,7 +369,7 @@ options_init( void )
   options.seek_time = 1;
   options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
   options.timedisplay_type = DEFAULT_TIMEDISPLAY_TYPE;
+  options.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT;
   
   return &options;
 }
-

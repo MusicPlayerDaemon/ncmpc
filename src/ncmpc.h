@@ -17,6 +17,9 @@
 #ifndef DISABLE_CLOCK_SCREEN
 #define ENABLE_CLOCK_SCREEN 1
 #endif
+#ifndef DISABLE_LYRICS_SCREEN
+#define ENABLE_LYRICS_SCREEN 1
+#endif
 
 #ifdef DEBUG
 void D(char *format, ...);
@@ -73,5 +76,7 @@ void D(char *format, ...);
 #define DEFAULT_STATUS_FORMAT "[%artist% - ]%title%|%shortfile%"
 #define STATUS_FORMAT (options.status_format ? options.status_format : \
                                                DEFAULT_STATUS_FORMAT)
+											   
+#define DEFAULT_LYRICS_TIMEOUT 100
 
 #endif /* NCMPC_H */

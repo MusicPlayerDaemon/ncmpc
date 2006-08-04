@@ -65,6 +65,9 @@
 #define CONF_SEEK_TIME               "seek-time"
 #define CONF_SCREEN_LIST             "screen-list"
 #define CONF_TIMEDISPLAY_TYPE        "timedisplay-type"
+#define CONF_HOST                    "host"
+#define CONF_PORT                    "port"
+#define CONF_LYRICS_TIMEOUT          "lyrics-timeout"
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -559,6 +562,18 @@ read_rc_file(char *filename, options_t *options)
 		  D("\n"); 
 #endif
 		}
+	    else if( !strcasecmp(CONF_HOST, name))
+	    {
+	    options->host = get_format(value);
+	    }
+	    else if( !strcasecmp(CONF_PORT, name))
+	    {
+	    options->port = atoi(get_format(value));
+	    }
+		else if( !strcasecmp(CONF_LYRICS_TIMEOUT, name))
+	    {
+	    options->lyrics_timeout = atoi(get_format(value));
+	    }		
 	      else
 		{
 		  match_found = 0;
@@ -681,6 +696,3 @@ read_configuration(options_t *options)
 
   return 0;
 }
-
-
-

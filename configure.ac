@@ -132,6 +132,34 @@ else
   AM_PO_SUBDIRS
 fi
 
+dnl check for gthreads
+PKG_CHECK_MODULES([GTHREAD], 
+		  [gthread-2.0],
+		  [gthread=yes],
+		  [AC_MSG_WARN([gthread-2.0 >= 0.20 is required the lyrics screen])])
+		  
+dnl check for libcurl
+PKG_CHECK_MODULES([libcurl], 
+		  [libcurl],
+		  [libcurl=yes],
+		  [AC_MSG_WARN([libcurl is required for the lyrics screen])])
+		  
+dnl check for expat
+expat=expat
+AC_CHECK_LIB([$expat], 
+	     [XML_ParserCreate],
+	     [have_expat=yes], 
+	     [AC_MSG_WARN($expat library is required for lyrics screen)])
+if test "x$have_expat" = "xyes"; then
+LIBS="$LIBS -l$expat"
+fi
+		  
+#if test "x$gthread-2.0" != "xyes"; then
+#  PKG_CHECK_MODULES([GTHREAD], 
+#		     [glib-2.0 >= 2.2],
+#		     [nls=no],
+#		     [AC_MSG_ERROR([glib-2.2 is required])])
+#fi
 
 dnl disbale raw mode
 AC_MSG_CHECKING([Place the terminal into raw mode])
@@ -214,11 +242,14 @@ AC_ARG_ENABLE([search-screen],
               AC_HELP_STRING([--enable-search-screen],
 	                     [Enable search screen (EXPERIMENTAL) @<:@default=yes@:>@]),
 	      [search_screen="$enableval"],
-	      [search_screen=yes])
-AC_MSG_RESULT([$search_screen])
+	      [search_screen=no])
+#AC_MSG_RESULT([$search_screen])
 if test "x$search_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_SEARCH_SCREEN, 1, [Disable search screen])
 fi
+AC_MSG_WARN([search screen unavailable due to issues with libmpdclient update])
+AC_DEFINE(DISABLE_SEARCH_SCREEN, 1, [Disable search screen]) 
+AC_MSG_RESULT([$search_screen])  
 
 dnl Optional screen - key editor
 AC_MSG_CHECKING([whether to include the key editor screen])
@@ -243,6 +274,33 @@ AC_MSG_RESULT([$clock_screen])
 if test "x$clock_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_CLOCK_SCREEN, 1, [Disable clock screen])
 fi
+
+dnl Optional screen - lyrics
+AC_MSG_CHECKING([whether to include the lyrics screen]) 
+AC_ARG_ENABLE([lyrics-screen], 
+              AC_HELP_STRING([--enable-lyrics-screen],
+	                     [Enable lyrics screen @<:@default=no@:>@]),
+	      [lyrics_screen="$enableval"],
+	      [lyrics_screen=no])	
+if test "x$lyrics_screen" != "xyes" ; then
+   AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
+   lyrics_screen=no
+fi
+#lyrics_screen=yes
+if test "$libcurl" != "yes" ; then
+   AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
+   lyrics_screen=no
+fi
+if test "$gthread" != "yes" ; then
+   AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
+   lyrics_screen=no
+fi
+if test "$have_expat" != "yes" ; then
+   AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
+   lyrics_screen=no
+fi
+
+AC_MSG_RESULT([$lyrics_screen])
 
 dnl Default host
 AC_MSG_CHECKING([for default MPD host])
@@ -277,4 +335,3 @@ AC_DEFINE_UNQUOTED([DEFAULT_TIMEDISPLAY_TYPE], ["$DEFAULT_TIMEDISPLAY_TYPE"], [D
 
 AC_CONFIG_FILES([Makefile src/Makefile doc/Makefile po/Makefile.in])
 AC_OUTPUT
-

@@ -125,7 +125,14 @@ static help_text_row_t help_text[] =
   { 0, CMD_SELECT,         NULL },
   { 0, CMD_SEARCH_MODE,    NULL },
 #endif
-
+#ifdef ENABLE_LYRICS_SCREEN
+  { 0, CMD_NONE,           NULL },
+  { 0, CMD_NONE,           NULL },
+  { 1, CMD_NONE,           N_("Keys - Lyrics screen") },
+  { 2, CMD_NONE,           NULL },
+  { 0, CMD_SCREEN_LYRICS,  N_("View Lyrics") },
+  { 0, CMD_SELECT,         N_("(Re)load lyrics") },
+#endif
   { 0, CMD_NONE, NULL },
   {-1, CMD_NONE, NULL }
 };

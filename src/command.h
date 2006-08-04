@@ -52,6 +52,7 @@ typedef enum
   CMD_SCREEN_KEYDEF,
   CMD_SCREEN_CLOCK,
   CMD_SCREEN_HELP,
+  CMD_SCREEN_LYRICS,
   CMD_QUIT
 } command_t;
 

@@ -19,6 +19,7 @@ typedef struct
   int   search_mode;
   int   hide_cursor;
   int   seek_time;
+  int   lyrics_timeout;
   gboolean reconnect;
   gboolean debug;
   gboolean find_wrap;
@@ -38,6 +39,3 @@ extern options_t options;
 
 options_t *options_init(void);
 options_t *options_parse(int argc, const char **argv);
-
-
-

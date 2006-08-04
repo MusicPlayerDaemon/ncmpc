@@ -135,6 +135,13 @@ catch_sigint( int sig )
 }
 
 void
+catch_sighup( int sig)
+{
+  printf("\n%s\n", _("Exiting..."));
+  exit(EXIT_SUCCESS);
+}
+
+void
 catch_sigcont( int sig )
 {
   D("catch_sigcont()\n");
@@ -239,7 +246,17 @@ main(int argc, const char *argv[])
       perror("sigaction(SIGCONT)");
       exit(EXIT_FAILURE);
     }
-
+ 
+  /* setup signal behaviour - SIGHUP*/ 
+  sigemptyset( &act.sa_mask );
+  act.sa_flags    = 0;
+  act.sa_handler = catch_sigint;
+  if( sigaction(SIGHUP, &act, NULL)<0 )
+  	{
+  	perror("sigaction(SIGHUP)");
+  	exit(EXIT_FAILURE);
+  	}
+	
   /* install exit function */
   atexit(exit_and_cleanup);
 

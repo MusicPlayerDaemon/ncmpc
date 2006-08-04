@@ -61,6 +61,7 @@ extern void screen_resize(void);
 #define F4   KEY_F(4)
 #define F5   KEY_F(5)
 #define F6   KEY_F(6)
+#define F7   KEY_F(7)
 
 
 static command_definition_t cmds[] =
@@ -187,6 +188,11 @@ static command_definition_t cmds[] =
   { {'6',  F6,   0 }, 0, CMD_SCREEN_CLOCK,    "screen-clock",
     N_("Clock screen") },
 #endif
+#ifdef ENABLE_LYRICS_SCREEN
+  { {'7',  F7,   0 }, 0, CMD_SCREEN_LYRICS,    "screen-lyrics",
+    N_("Lyrics screen") },
+#endif
+
 
   { { -1,  -1,  -1 }, 0, CMD_NONE, NULL, NULL }
 };
