@@ -1,20 +1,24 @@
-2006-09-5
-        * the 5th of august... it's dark around me... there are still flies constantly shitting
-          onto my screen's display surface and the search screen works now with new api
+2006-09-5 Andreas Obergrusberger <tradiaz@yahoo.de>
+        * the 5th of august... it's dark around me... 
+	  there are still flies constantly shitting
+          onto my screen's display surface and the search 
+          screen works now with new api
           of libmpdclient. enabled by default.
+	* building with lyrics screen on gentoo now works... thanks avuton :)
 
-2006-09-4
+2006-09-4 Anderas Obergrusberger <tradiaz@yahoo.de>
         * tradiaz is temporary maintainer of a special branch of ncmpc now
           https://svn.musicpd.org/mpd/ncmpc/branches/tradiaz
           the development will go on there till kaw shows up again
-           contact him: tradiaz .AT. yahoo .DOT. de
+          contact him: tradiaz@yahoo.de
 
-        * added a lyrics screen. it downloads and shows lyrics from leoslyrics.com
-          (storing and reading lyrics to come)
+        * added a lyrics screen. it downloads and shows lyrics 
+	  from leoslyrics.com (storing and reading lyrics to come)
           have a look at the manpage for the lyrics_timeout config file option
         * catching signal SIGHUP now
         * host and port of mpd can be specified in the config file now     
-        * libmpdclient update (the experimental search screen is making problems with the it)
+        * libmpdclient update (the experimental search screen 
+          is making problems with the it)
         * enhanced compatibility of Makefile.am for automake       
         * jat fixed a bug that occured when being in a non existing
           directory in the browse screen

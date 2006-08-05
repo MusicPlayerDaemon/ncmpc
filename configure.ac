@@ -137,11 +137,13 @@ PKG_CHECK_MODULES([GTHREAD],
 		  [gthread-2.0],
 		  [gthread=yes],
 		  [AC_MSG_WARN([gthread-2.0 >= 0.20 is required the lyrics screen])])
+AC_SUBST(GTHREAD_LIBS)
+AC_SUBST(GTHREAD_CFLAGS)
 		  
 dnl check for libcurl
 PKG_CHECK_MODULES([libcurl], 
 		  [libcurl],
-		  [libcurl=yes],
+		  [libcurl=yes,LIBS="$LIBS -lcurl"],
 		  [AC_MSG_WARN([libcurl is required for the lyrics screen])])
 		  
 dnl check for expat
