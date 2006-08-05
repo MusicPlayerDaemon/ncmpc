@@ -6,7 +6,8 @@
           of libmpdclient. enabled by default.
 	* building with lyrics screen on gentoo now works... thanks avuton :)
         * updated translation template
-        * german and lyrics- and search-screen translation added
+        * german lyrics- and search-screen translation added
+        * avuton has fixed a lot of warnings
 
 2006-09-4 Anderas Obergrusberger <tradiaz@yahoo.de>
         * tradiaz is temporary maintainer of a special branch of ncmpc now

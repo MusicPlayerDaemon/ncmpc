@@ -37,6 +37,7 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "easy_download.h"
+#include "strfsong.h"
 
 #define LEOSLYRICS_SEARCH_URL "http://api.leoslyrics.com/api_search.php?auth=QuodLibet&artist=%s&songtitle=%s"
  
@@ -335,7 +336,7 @@ gpointer get_lyr(void *c)
 	parser = XML_ParserCreate(NULL);
         XML_SetUserData(parser, NULL);
 	
-	int state;
+	int state = 0;
 
 	XML_SetElementHandler(parser, check_search_response, end_tag);
 	XML_SetCharacterDataHandler(parser, check_search_success);

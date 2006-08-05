@@ -51,6 +51,7 @@ wrln_wgetch_fn_t wrln_wgetch = NULL;
 wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
 wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 
+extern void sigstop(void);
 extern void screen_bell(void);
 extern size_t my_strlen(char *str);
 

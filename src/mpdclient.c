@@ -63,6 +63,8 @@ error_cb(mpdclient_t *c, gint error, gchar *msg)
 }
 
 #ifdef DEBUG
+// Unused ath the moment
+/*
 #include "strfsong.h"
 
 static gchar *
@@ -73,7 +75,7 @@ get_song_name(mpd_Song *song)
   strfsong(name, 256, "[%artist% - ]%title%|%file%", song);
   return name;
 }
-
+*/
 #endif
 
 /****************************************************************************/

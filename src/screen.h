@@ -82,6 +82,7 @@ void screen_paint(mpdclient_t *c);
 void screen_update(mpdclient_t *c);
 void screen_idle(mpdclient_t *c);
 void screen_cmd(mpdclient_t *c, command_t cmd);
+gint screen_get_id(char *name);
 
 
 gint get_cur_mode_id();

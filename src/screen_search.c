@@ -43,6 +43,8 @@
 
 #ifdef FUTURE
 
+extern gint mpdclient_finish_command(mpdclient_t *c);
+
 typedef struct
 {
   int id;

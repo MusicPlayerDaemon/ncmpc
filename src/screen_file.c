@@ -34,7 +34,7 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "screen_browse.h"
-
+#include "screen_play.h"
 
 #define USE_OLD_LAYOUT
 #undef  USE_OLD_ADD
