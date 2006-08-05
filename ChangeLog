@@ -8,6 +8,7 @@
         * updated translation template
         * german lyrics- and search-screen translation added
         * avuton has fixed a lot of warnings
+	* fixed a problem with compiling on Arch Linux
 
 2006-09-4 Anderas Obergrusberger <tradiaz@yahoo.de>
         * tradiaz is temporary maintainer of a special branch of ncmpc now
