@@ -132,6 +132,7 @@ static help_text_row_t help_text[] =
   { 2, CMD_NONE,           NULL },
   { 0, CMD_SCREEN_LYRICS,  N_("View Lyrics") },
   { 0, CMD_SELECT,         N_("(Re)load lyrics") },
+  { 0, CMD_INTERRUPT,         N_("Interrupt retrieval") },
 #endif
   { 0, CMD_NONE, NULL },
   {-1, CMD_NONE, NULL }

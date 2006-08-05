@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-05 11:00+0000\n"
+"POT-Creation-Date: 2006-08-05 20:19+0000\n"
 "PO-Revision-Date: 2004-07-08 21:16+0200\n"
 "Last-Translator: Ingmar Gebert\n"
 "Language-Team: de <de@li.org>\n"
@@ -234,110 +234,110 @@ msgstr "Anzeige aktualisiert!"
 msgid "Database update of %s started!"
 msgstr "Datenbankaktualisierung von %s gestartet!"
 
-#: src/screen_search.c:54
+#: src/screen_search.c:56
 #, fuzzy
 msgid "artist"
 msgstr "Künstler"
 
-#: src/screen_search.c:55
+#: src/screen_search.c:57
 #, fuzzy
 msgid "album"
 msgstr "Album"
 
-#: src/screen_search.c:56
+#: src/screen_search.c:58
 #, fuzzy
 msgid "title"
 msgstr "Titel"
 
-#: src/screen_search.c:57
+#: src/screen_search.c:59
 #, fuzzy
 msgid "track"
 msgstr "Nächstes Stück"
 
-#: src/screen_search.c:58
+#: src/screen_search.c:60
 #, fuzzy
 msgid "name"
 msgstr "Dateiname"
 
-#: src/screen_search.c:59
+#: src/screen_search.c:61
 msgid "genre"
 msgstr "Genre"
 
-#: src/screen_search.c:60
+#: src/screen_search.c:62
 msgid "date"
 msgstr "Datum"
 
-#: src/screen_search.c:61
+#: src/screen_search.c:63
 msgid "composer"
 msgstr "Komponist"
 
-#: src/screen_search.c:62
+#: src/screen_search.c:64
 msgid "performer"
 msgstr "Aufführung"
 
-#: src/screen_search.c:63
+#: src/screen_search.c:65
 msgid "comment"
 msgstr "Anmerkung"
 
-#: src/screen_search.c:64
+#: src/screen_search.c:66
 #, fuzzy
 msgid "file"
 msgstr "Datei"
 
-#: src/screen_search.c:98
+#: src/screen_search.c:100
 msgid "Title"
 msgstr "Titel"
 
-#: src/screen_search.c:99
+#: src/screen_search.c:101
 msgid "Artist"
 msgstr "Künstler"
 
-#: src/screen_search.c:100
+#: src/screen_search.c:102
 msgid "Album"
 msgstr "Album"
 
-#: src/screen_search.c:101
+#: src/screen_search.c:103
 msgid "Filename"
 msgstr "Dateiname"
 
-#: src/screen_search.c:242
+#: src/screen_search.c:244
 #, c-format
 msgid "Bad search tag %s"
 msgstr "Tag nicht erkannt: %s"
 
-#: src/screen_search.c:249
+#: src/screen_search.c:251
 #, c-format
 msgid "No argument for search tag %s"
 msgstr "Kein Argument für Tag %s"
 
-#: src/screen_search.c:321
+#: src/screen_search.c:323
 msgid "Search: "
 msgstr "Suche: "
 
 #. if( pattern==NULL )
 #. search_new(screen, c);
 #. else
-#: src/screen_search.c:377
+#: src/screen_search.c:379
 #, c-format
 msgid "Press %s for a new search"
 msgstr "Drücke %s für eine neue Suche"
 
-#: src/screen_search.c:433
+#: src/screen_search.c:435
 #, fuzzy, c-format
 msgid "Search: %s"
 msgstr "Suche: "
 
-#: src/screen_search.c:436
+#: src/screen_search.c:438
 #, c-format
 msgid "Search: Results for %s [%s]"
 msgstr "Suche: Ergebnisse für %s [%s]"
 
-#: src/screen_search.c:440
+#: src/screen_search.c:442
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
 msgstr "Suche: Drücke %s für eine neue Suche [%s]"
 
-#: src/screen_search.c:474
+#: src/screen_search.c:476
 #, c-format
 msgid "Search mode: %s"
 msgstr "Suchmodus: %s"
@@ -483,35 +483,25 @@ msgstr "Liedtext lesen"
 msgid "(Re)load lyrics"
 msgstr "Text (neu) laden"
 
-#: src/screen_help.c:217
+#: src/screen_help.c:135
+msgid "Interrupt retrieval"
+msgstr "Laden unterbrechen"
+
+#: src/screen_help.c:218
 msgid "Help"
 msgstr "Hilfe"
 
-#: src/screen_lyrics.c:422
+#: src/screen_lyrics.c:421
 msgid "Lyrics  [No connection]"
 msgstr "Liedtext [keine Verbindung]"
 
-#: src/screen_lyrics.c:423
+#: src/screen_lyrics.c:422
 msgid "Lyrics  [Not found]"
 msgstr "Liedtext [Text nicht gefunden]"
 
-#: src/screen_lyrics.c:424
+#: src/screen_lyrics.c:423
 msgid "Lyrics  [retrieving]"
 msgstr "Liedtexte [Lade...]"
-
-#. if(lyr_text.lines->len > 2)
-#. {
-#. static char buf[512];
-#. char artist[512];
-#. char title[512];
-#. get_text_line(&lyr_text, 0, artist, 512);
-#. get_text_line(&lyr_text, 1, artist, 512);
-#. snprintf(buf, 512, "Lyrics  %s - %s", artist, title);
-#. return buf;
-#. }
-#: src/screen_lyrics.c:436
-msgid "Lyrics"
-msgstr "Liedtexte"
 
 #: src/command.c:71
 msgid "Key configuration screen"
@@ -699,80 +689,84 @@ msgstr "Uhr-Anzeige"
 msgid "Lyrics screen"
 msgstr "Liedtextanzeige"
 
-#: src/command.c:216
+#: src/command.c:195
+msgid "Interrupt action"
+msgstr "Kommando Unterbrechen"
+
+#: src/command.c:218
 msgid "Undefined"
 msgstr "Undefiniert"
 
-#: src/command.c:218
+#: src/command.c:220
 msgid "Space"
 msgstr "Leertaste"
 
-#: src/command.c:220
+#: src/command.c:222
 msgid "Enter"
 msgstr "Enter"
 
-#: src/command.c:222
+#: src/command.c:224
 msgid "Backspace"
 msgstr "Backspace"
 
-#: src/command.c:224
+#: src/command.c:226
 msgid "Delete"
 msgstr "Entf"
 
-#: src/command.c:226
+#: src/command.c:228
 msgid "Up"
 msgstr "Oben"
 
-#: src/command.c:228
+#: src/command.c:230
 msgid "Down"
 msgstr "Unten"
 
-#: src/command.c:230
+#: src/command.c:232
 msgid "Left"
 msgstr "Links"
 
-#: src/command.c:232
+#: src/command.c:234
 msgid "Right"
 msgstr "Rechts"
 
-#: src/command.c:234
+#: src/command.c:236
 msgid "Home"
 msgstr "Pos1"
 
-#: src/command.c:236
+#: src/command.c:238
 msgid "End"
 msgstr "Ende"
 
-#: src/command.c:238
+#: src/command.c:240
 msgid "PageDown"
 msgstr "Bild ab"
 
-#: src/command.c:240
+#: src/command.c:242
 msgid "PageUp"
 msgstr "Bild auf"
 
-#: src/command.c:242
+#: src/command.c:244
 msgid "Tab"
 msgstr "Tab"
 
-#: src/command.c:244
+#: src/command.c:246
 msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
-#: src/command.c:246
+#: src/command.c:248
 msgid "Esc"
 msgstr "Esc"
 
-#: src/command.c:248
+#: src/command.c:250
 msgid "Insert"
 msgstr "Einfg"
 
-#: src/command.c:498
+#: src/command.c:500
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 msgstr "Taste %s ist %s und %s zugeordnet (drücke %s für den Tasteneditor)"
 
-#: src/command.c:505 src/command.c:512
+#: src/command.c:507 src/command.c:514
 #, c-format
 msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr "Fehler: Taste %s ist %s und %s zugeordnet !!!\n"
@@ -805,6 +799,9 @@ msgstr "Fehler: kann Zeichen nicht nach %s konvertieren"
 #: src/support.c:216
 msgid "Error: Unable to convert characters to UTF-8"
 msgstr "Fehler: kann Zeichen nicht nach UTF-8 konvertieren"
+
+#~ msgid "Lyrics"
+#~ msgstr "Liedtexte"
 
 #, fuzzy
 #~ msgid "playlist browse"

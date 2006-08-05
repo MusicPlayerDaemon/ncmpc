@@ -59,9 +59,6 @@ guint8 result;
 char *hid;
 GTimer *dltime;
 short int lock;
-//GString *lyr_text;
-//char *lyr_text;	
-//GArray *textline;
 formed_text lyr_text;
 /* result is a bitset in which the succes when searching 4 lyrics is logged
 countend by position - backwards
@@ -217,11 +214,12 @@ void check_repaint()
 int check_dl_progress(void *clientp, double dltotal, double dlnow,
                         double ultotal, double ulnow)
 {
-	if(g_timer_elapsed(dltime, NULL) >= options.lyrics_timeout)
+	if(g_timer_elapsed(dltime, NULL) >= options.lyrics_timeout || lock == 4)
 	{	
 		formed_text_init(&lyr_text);
 		return -1;
 	}
+
 	return 0;
 }	
 
@@ -493,6 +491,9 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       return 1;
 	case CMD_SELECT:
 	  g_thread_create(get_lyr, c, FALSE, NULL);	
+	  return 1;
+	case CMD_INTERRUPT:
+	  if(lock != 0) lock = 4;
 	  return 1;	
 	default:
       break;

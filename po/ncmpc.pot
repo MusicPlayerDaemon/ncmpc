@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-05 11:00+0000\n"
+"POT-Creation-Date: 2006-08-05 20:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -233,104 +233,104 @@ msgstr ""
 msgid "Database update of %s started!"
 msgstr ""
 
-#: src/screen_search.c:54
+#: src/screen_search.c:56
 msgid "artist"
 msgstr ""
 
-#: src/screen_search.c:55
+#: src/screen_search.c:57
 msgid "album"
 msgstr ""
 
-#: src/screen_search.c:56
+#: src/screen_search.c:58
 msgid "title"
 msgstr ""
 
-#: src/screen_search.c:57
+#: src/screen_search.c:59
 msgid "track"
 msgstr ""
 
-#: src/screen_search.c:58
+#: src/screen_search.c:60
 msgid "name"
 msgstr ""
 
-#: src/screen_search.c:59
+#: src/screen_search.c:61
 msgid "genre"
 msgstr ""
 
-#: src/screen_search.c:60
+#: src/screen_search.c:62
 msgid "date"
 msgstr ""
 
-#: src/screen_search.c:61
+#: src/screen_search.c:63
 msgid "composer"
 msgstr ""
 
-#: src/screen_search.c:62
+#: src/screen_search.c:64
 msgid "performer"
 msgstr ""
 
-#: src/screen_search.c:63
+#: src/screen_search.c:65
 msgid "comment"
 msgstr ""
 
-#: src/screen_search.c:64
+#: src/screen_search.c:66
 msgid "file"
 msgstr ""
 
-#: src/screen_search.c:98
+#: src/screen_search.c:100
 msgid "Title"
 msgstr ""
 
-#: src/screen_search.c:99
+#: src/screen_search.c:101
 msgid "Artist"
 msgstr ""
 
-#: src/screen_search.c:100
+#: src/screen_search.c:102
 msgid "Album"
 msgstr ""
 
-#: src/screen_search.c:101
+#: src/screen_search.c:103
 msgid "Filename"
 msgstr ""
 
-#: src/screen_search.c:242
+#: src/screen_search.c:244
 #, c-format
 msgid "Bad search tag %s"
 msgstr ""
 
-#: src/screen_search.c:249
+#: src/screen_search.c:251
 #, c-format
 msgid "No argument for search tag %s"
 msgstr ""
 
-#: src/screen_search.c:321
+#: src/screen_search.c:323
 msgid "Search: "
 msgstr ""
 
 #. if( pattern==NULL )
 #. search_new(screen, c);
 #. else
-#: src/screen_search.c:377
+#: src/screen_search.c:379
 #, c-format
 msgid "Press %s for a new search"
 msgstr ""
 
-#: src/screen_search.c:433
+#: src/screen_search.c:435
 #, c-format
 msgid "Search: %s"
 msgstr ""
 
-#: src/screen_search.c:436
+#: src/screen_search.c:438
 #, c-format
 msgid "Search: Results for %s [%s]"
 msgstr ""
 
-#: src/screen_search.c:440
+#: src/screen_search.c:442
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
 msgstr ""
 
-#: src/screen_search.c:474
+#: src/screen_search.c:476
 #, c-format
 msgid "Search mode: %s"
 msgstr ""
@@ -475,34 +475,24 @@ msgstr ""
 msgid "(Re)load lyrics"
 msgstr ""
 
-#: src/screen_help.c:217
+#: src/screen_help.c:135
+msgid "Interrupt retrieval"
+msgstr ""
+
+#: src/screen_help.c:218
 msgid "Help"
 msgstr ""
 
-#: src/screen_lyrics.c:422
+#: src/screen_lyrics.c:421
 msgid "Lyrics  [No connection]"
 msgstr ""
 
-#: src/screen_lyrics.c:423
+#: src/screen_lyrics.c:422
 msgid "Lyrics  [Not found]"
 msgstr ""
 
-#: src/screen_lyrics.c:424
+#: src/screen_lyrics.c:423
 msgid "Lyrics  [retrieving]"
-msgstr ""
-
-#. if(lyr_text.lines->len > 2)
-#. {
-#. static char buf[512];
-#. char artist[512];
-#. char title[512];
-#. get_text_line(&lyr_text, 0, artist, 512);
-#. get_text_line(&lyr_text, 1, artist, 512);
-#. snprintf(buf, 512, "Lyrics  %s - %s", artist, title);
-#. return buf;
-#. }
-#: src/screen_lyrics.c:436
-msgid "Lyrics"
 msgstr ""
 
 #: src/command.c:71
@@ -689,80 +679,84 @@ msgstr ""
 msgid "Lyrics screen"
 msgstr ""
 
-#: src/command.c:216
-msgid "Undefined"
+#: src/command.c:195
+msgid "Interrupt action"
 msgstr ""
 
 #: src/command.c:218
-msgid "Space"
+msgid "Undefined"
 msgstr ""
 
 #: src/command.c:220
-msgid "Enter"
+msgid "Space"
 msgstr ""
 
 #: src/command.c:222
-msgid "Backspace"
+msgid "Enter"
 msgstr ""
 
 #: src/command.c:224
-msgid "Delete"
+msgid "Backspace"
 msgstr ""
 
 #: src/command.c:226
-msgid "Up"
+msgid "Delete"
 msgstr ""
 
 #: src/command.c:228
-msgid "Down"
+msgid "Up"
 msgstr ""
 
 #: src/command.c:230
-msgid "Left"
+msgid "Down"
 msgstr ""
 
 #: src/command.c:232
-msgid "Right"
+msgid "Left"
 msgstr ""
 
 #: src/command.c:234
-msgid "Home"
+msgid "Right"
 msgstr ""
 
 #: src/command.c:236
-msgid "End"
+msgid "Home"
 msgstr ""
 
 #: src/command.c:238
-msgid "PageDown"
+msgid "End"
 msgstr ""
 
 #: src/command.c:240
-msgid "PageUp"
+msgid "PageDown"
 msgstr ""
 
 #: src/command.c:242
-msgid "Tab"
+msgid "PageUp"
 msgstr ""
 
 #: src/command.c:244
-msgid "Shift+Tab"
+msgid "Tab"
 msgstr ""
 
 #: src/command.c:246
-msgid "Esc"
+msgid "Shift+Tab"
 msgstr ""
 
 #: src/command.c:248
+msgid "Esc"
+msgstr ""
+
+#: src/command.c:250
 msgid "Insert"
 msgstr ""
 
-#: src/command.c:498
+#: src/command.c:500
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 msgstr ""
 
-#: src/command.c:505 src/command.c:512
+#: src/command.c:507 src/command.c:514
 #, c-format
 msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr ""

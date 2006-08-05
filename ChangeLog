@@ -9,6 +9,8 @@
         * german lyrics- and search-screen translation added
         * avuton has fixed a lot of warnings
 	* fixed a problem with compiling on Arch Linux
+	* Added a way to interrupt retrieval of lyrics (ESC)
+	 +update of .po files
 
 2006-09-4 Anderas Obergrusberger <tradiaz@yahoo.de>
         * tradiaz is temporary maintainer of a special branch of ncmpc now
