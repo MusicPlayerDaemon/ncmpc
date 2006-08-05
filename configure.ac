@@ -143,8 +143,13 @@ AC_SUBST(GTHREAD_CFLAGS)
 dnl check for libcurl
 PKG_CHECK_MODULES([libcurl], 
 		  [libcurl],
-		  [libcurl=yes,LIBS="$LIBS -lcurl"],
+		  [libcurl=yes],
+		  #[libcurl=yes,LIBS="$LIBS -lcurl"], #doesn't work for me on arch
 		  [AC_MSG_WARN([libcurl is required for the lyrics screen])])
+
+if test "x$libcurl" = "xyes"; then
+ LIBS="$LIBS -lcurl" 
+fi
 		  
 dnl check for expat
 expat=expat
@@ -287,12 +292,14 @@ if test "x$lyrics_screen" != "xyes" ; then
 fi
 #lyrics_screen=yes
 if test "$libcurl" != "yes" ; then
-   AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
-   lyrics_screen=no
+ AC_MSG_RESULT([$lyrics_screen])  
+ # AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
+  # lyrics_screen=no
 fi
 if test "$gthread" != "yes" ; then
    AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
    lyrics_screen=no
+AC_MSG_RESULT([$lyrics_screen]) 
 fi
 if test "$have_expat" != "yes" ; then
    AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])

@@ -10,6 +10,7 @@ src/screen_search.c
 src/screen_keydef.c
 src/screen_clock.c
 src/screen_help.c
+src/screen_lyrics.c
 src/command.c
 src/colors.c
 src/support.c
