@@ -310,9 +310,12 @@ gpointer get_lyr(void *c)
 	strfsong(artist, MAX_SONGNAME_LENGTH, "%artist%", cur);
 	strfsong(title, MAX_SONGNAME_LENGTH, "%title%", cur);
 	
+	//write header..
 	formed_text_init(&lyr_text);
 	add_text_line(&lyr_text, artist, 0);
 	add_text_line(&lyr_text, title, 0);
+	add_text_line(&lyr_text, "", 0);
+	add_text_line(&lyr_text, "", 0);
 	
 	//if(get_lyr_hd(artist, title) == 0) return &lyr_text;
 	
@@ -370,20 +373,20 @@ list_callback(int index, int *highlight, void *data)
 	int linelen;
 
     //i think i'ts fine to write it into the 1st line...
-  if((index == lyr_text.lines->len && lyr_text.lines->len != 2)||
+  if((index == lyr_text.lines->len && lyr_text.lines->len != 3)||
 	  ((lyr_text.lines->len == 0 
-	  ||lyr_text.lines->len == 2) && index == 0))
+	  ||lyr_text.lines->len == 4) && index == 0))
   {
     *highlight=3; 
   	return CREDITS;
   }
     
-  if(index < 2 && lyr_text.lines->len > 2) *highlight=3;
-  else if(index >=  lyr_text.lines->len || index == 2)
+  if(index < 2 && lyr_text.lines->len > 4) *highlight=3;
+  else if(index >=  lyr_text.lines->len)
   {
 	  return "";
   }
-  if(index >1) index--;
+ //if(index >1) index--;
   get_text_line(&lyr_text, index, buf, 512);
   return buf;
 } 
@@ -417,7 +420,7 @@ lyrics_exit(void)
 static char *
 lyrics_title(char *str, size_t size)
 {
-	if(lyr_text.lines->len == 2){ 
+	if(lyr_text.lines->len == 4){ 
 	if(lock == 1 && !(result & 2)) return _("Lyrics  [No connection]");
     if(lock == 1 && !(result & 4)) return _("Lyrics  [Not found]"); 		
 	if(lock == 2) return _("Lyrics  [retrieving]");
