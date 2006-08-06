@@ -1,6 +1,7 @@
 2006-09-6 Andreas Obergrusberger <tradiaz@yahoo.de>
 	* fixed a bug in the lyrics screen that made
  	  the first texte line not show up
+	* just interrupt running, not upcomming lyrics retrieval
 
 2006-09-5 Andreas Obergrusberger <tradiaz@yahoo.de>
         * the 5th of august... it's dark around me... 
@@ -28,7 +29,7 @@
         * catching signal SIGHUP now
         * host and port of mpd can be specified in the config file now     
         * libmpdclient update (the experimental search screen 
-          is making problems with the it)
+          is making problems with it)
         * enhanced compatibility of Makefile.am for automake       
         * jat fixed a bug that occured when being in a non existing
           directory in the browse screen

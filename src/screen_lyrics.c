@@ -496,7 +496,7 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	  g_thread_create(get_lyr, c, FALSE, NULL);	
 	  return 1;
 	case CMD_INTERRUPT:
-	  if(lock != 0) lock = 4;
+	  if(lock > 1) lock = 4;
 	  return 1;	
 	default:
       break;
