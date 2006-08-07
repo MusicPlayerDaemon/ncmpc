@@ -1,15 +1,15 @@
-2006-09-7 Andreas Obergrusberger <tradiaz@yahoo.de>
+2006-08-7 Andreas Obergrusberger <tradiaz@yahoo.de>
 	* bugfixes in lyrics screen
 	* ncmpc can now load and save lyrics
 	  loading and saving is compatible with gmpc's ~/.lyrics
 	* language updates for template and german file
 
-2006-09-6 Andreas Obergrusberger <tradiaz@yahoo.de>
+2006-08-6 Andreas Obergrusberger <tradiaz@yahoo.de>
 	* fixed a bug in the lyrics screen that made
  	  the first texte line not show up
 	* just interrupt running, not upcomming lyrics retrieval
 
-2006-09-5 Andreas Obergrusberger <tradiaz@yahoo.de>
+2006-08-5 Andreas Obergrusberger <tradiaz@yahoo.de>
         * the 5th of august... it's dark around me... 
 	  there are still flies constantly shitting
           onto my screen's display surface and the search 
@@ -23,7 +23,7 @@
 	* Added a way to interrupt retrieval of lyrics (ESC)
 	 +update of .po files
 
-2006-09-4 Anderas Obergrusberger <tradiaz@yahoo.de>
+2006-08-4 Anderas Obergrusberger <tradiaz@yahoo.de>
         * tradiaz is temporary maintainer of a special branch of ncmpc now
           https://svn.musicpd.org/mpd/ncmpc/branches/tradiaz
           the development will go on there till kaw shows up again
