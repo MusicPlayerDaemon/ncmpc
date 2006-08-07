@@ -352,7 +352,7 @@ int store_lyr_hd()
 	int i;
 	char line_buf[1024];
 	
-	for(i = 4; i <= lyr_text.text->len; i++)
+	for(i = 3; i <= lyr_text.text->len; i++)
 	{
 		if(get_text_line(&lyr_text, i, line_buf, 1024) == -1);
 		fputs(line_buf, lyr_file);
