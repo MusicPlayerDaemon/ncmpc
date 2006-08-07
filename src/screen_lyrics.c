@@ -216,7 +216,6 @@ int check_dl_progress(void *clientp, double dltotal, double dlnow,
 {
 	if(g_timer_elapsed(dltime, NULL) >= options.lyrics_timeout || lock == 4)
 	{	
-		while (1)fprintf(stderr,"hihffo!");
 		formed_text_init(&lyr_text);
 		return -1;
 	}
