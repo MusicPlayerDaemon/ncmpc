@@ -1,3 +1,9 @@
+2006-09-7 Andreas Obergrusberger <tradiaz@yahoo.de>
+	* bugfixes in lyrics screen
+	* ncmpc can now load and save lyrics
+	  loading and saving is compatible with gmpc's ~/.lyrics
+	* language updates for template and german file
+
 2006-09-6 Andreas Obergrusberger <tradiaz@yahoo.de>
 	* fixed a bug in the lyrics screen that made
  	  the first texte line not show up

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-05 20:19+0000\n"
+"POT-Creation-Date: 2006-08-07 09:10+0000\n"
 "PO-Revision-Date: 2004-07-15 05:28+0200\n"
 "Last-Translator: Jose Cedeno <cedenoj@gmail.com>\n"
 "Language-Team: es <es@li.org>\n"
@@ -483,21 +483,30 @@ msgstr ""
 msgid "Interrupt retrieval"
 msgstr ""
 
-#: src/screen_help.c:218
+#: src/screen_help.c:136
+msgid "Explicitly download lyrics"
+msgstr ""
+
+#: src/screen_help.c:219
 msgid "Help"
 msgstr "Ayuda"
 
-#: src/screen_lyrics.c:421
+#: src/screen_lyrics.c:481
 msgid "Lyrics  [No connection]"
 msgstr ""
 
-#: src/screen_lyrics.c:422
+#: src/screen_lyrics.c:482
 msgid "Lyrics  [Not found]"
 msgstr ""
 
-#: src/screen_lyrics.c:423
+#: src/screen_lyrics.c:485
 msgid "Lyrics  [retrieving]"
 msgstr ""
+
+#: src/screen_lyrics.c:567
+#, fuzzy
+msgid "Lyrics saved!"
+msgstr "Ventana de lista de canciones"
 
 #: src/command.c:71
 msgid "Key configuration screen"
@@ -690,80 +699,85 @@ msgstr "Ventana de lista de canciones"
 msgid "Interrupt action"
 msgstr ""
 
-#: src/command.c:218
+#: src/command.c:197
+#, fuzzy
+msgid "Update Lyrics"
+msgstr "Actualizar la ventana"
+
+#: src/command.c:220
 msgid "Undefined"
 msgstr "Indefinido"
 
-#: src/command.c:220
+#: src/command.c:222
 msgid "Space"
 msgstr "Space"
 
-#: src/command.c:222
+#: src/command.c:224
 msgid "Enter"
 msgstr "Enter"
 
-#: src/command.c:224
+#: src/command.c:226
 msgid "Backspace"
 msgstr "backspace"
 
-#: src/command.c:226
+#: src/command.c:228
 msgid "Delete"
 msgstr "Borrar"
 
-#: src/command.c:228
+#: src/command.c:230
 msgid "Up"
 msgstr "Arriba"
 
-#: src/command.c:230
+#: src/command.c:232
 msgid "Down"
 msgstr "Abajo"
 
-#: src/command.c:232
+#: src/command.c:234
 msgid "Left"
 msgstr "Izquierda"
 
-#: src/command.c:234
+#: src/command.c:236
 msgid "Right"
 msgstr "Derecha"
 
-#: src/command.c:236
+#: src/command.c:238
 msgid "Home"
 msgstr "Inicio"
 
-#: src/command.c:238
+#: src/command.c:240
 msgid "End"
 msgstr "Fin"
 
-#: src/command.c:240
+#: src/command.c:242
 msgid "PageDown"
 msgstr "Pagina siguiente"
 
-#: src/command.c:242
+#: src/command.c:244
 msgid "PageUp"
 msgstr "Pagina anterior"
 
-#: src/command.c:244
+#: src/command.c:246
 msgid "Tab"
 msgstr "Tab"
 
-#: src/command.c:246
+#: src/command.c:248
 msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
-#: src/command.c:248
+#: src/command.c:250
 msgid "Esc"
 msgstr "Exc"
 
-#: src/command.c:250
+#: src/command.c:252
 msgid "Insert"
 msgstr "Insert"
 
-#: src/command.c:500
+#: src/command.c:502
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 msgstr "Tecla %s asignada a %s y %s (pressiona %s para el editor de teclas)"
 
-#: src/command.c:507 src/command.c:514
+#: src/command.c:509 src/command.c:516
 #, c-format
 msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr "Error: Tecla %s asignada a %s y %s !!!\n"

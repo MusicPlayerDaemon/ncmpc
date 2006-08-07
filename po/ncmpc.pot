@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-05 20:19+0000\n"
+"POT-Creation-Date: 2006-08-07 09:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -479,20 +479,28 @@ msgstr ""
 msgid "Interrupt retrieval"
 msgstr ""
 
-#: src/screen_help.c:218
+#: src/screen_help.c:136
+msgid "Explicitly download lyrics"
+msgstr ""
+
+#: src/screen_help.c:219
 msgid "Help"
 msgstr ""
 
-#: src/screen_lyrics.c:421
+#: src/screen_lyrics.c:481
 msgid "Lyrics  [No connection]"
 msgstr ""
 
-#: src/screen_lyrics.c:422
+#: src/screen_lyrics.c:482
 msgid "Lyrics  [Not found]"
 msgstr ""
 
-#: src/screen_lyrics.c:423
+#: src/screen_lyrics.c:485
 msgid "Lyrics  [retrieving]"
+msgstr ""
+
+#: src/screen_lyrics.c:567
+msgid "Lyrics saved!"
 msgstr ""
 
 #: src/command.c:71
@@ -683,80 +691,84 @@ msgstr ""
 msgid "Interrupt action"
 msgstr ""
 
-#: src/command.c:218
-msgid "Undefined"
+#: src/command.c:197
+msgid "Update Lyrics"
 msgstr ""
 
 #: src/command.c:220
-msgid "Space"
+msgid "Undefined"
 msgstr ""
 
 #: src/command.c:222
-msgid "Enter"
+msgid "Space"
 msgstr ""
 
 #: src/command.c:224
-msgid "Backspace"
+msgid "Enter"
 msgstr ""
 
 #: src/command.c:226
-msgid "Delete"
+msgid "Backspace"
 msgstr ""
 
 #: src/command.c:228
-msgid "Up"
+msgid "Delete"
 msgstr ""
 
 #: src/command.c:230
-msgid "Down"
+msgid "Up"
 msgstr ""
 
 #: src/command.c:232
-msgid "Left"
+msgid "Down"
 msgstr ""
 
 #: src/command.c:234
-msgid "Right"
+msgid "Left"
 msgstr ""
 
 #: src/command.c:236
-msgid "Home"
+msgid "Right"
 msgstr ""
 
 #: src/command.c:238
-msgid "End"
+msgid "Home"
 msgstr ""
 
 #: src/command.c:240
-msgid "PageDown"
+msgid "End"
 msgstr ""
 
 #: src/command.c:242
-msgid "PageUp"
+msgid "PageDown"
 msgstr ""
 
 #: src/command.c:244
-msgid "Tab"
+msgid "PageUp"
 msgstr ""
 
 #: src/command.c:246
-msgid "Shift+Tab"
+msgid "Tab"
 msgstr ""
 
 #: src/command.c:248
-msgid "Esc"
+msgid "Shift+Tab"
 msgstr ""
 
 #: src/command.c:250
+msgid "Esc"
+msgstr ""
+
+#: src/command.c:252
 msgid "Insert"
 msgstr ""
 
-#: src/command.c:500
+#: src/command.c:502
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 msgstr ""
 
-#: src/command.c:507 src/command.c:514
+#: src/command.c:509 src/command.c:516
 #, c-format
 msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr ""

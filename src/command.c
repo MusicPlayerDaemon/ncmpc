@@ -191,8 +191,10 @@ static command_definition_t cmds[] =
 #ifdef ENABLE_LYRICS_SCREEN
   { {'7',  F7,   0 }, 0, CMD_SCREEN_LYRICS,    "screen-lyrics",
     N_("Lyrics screen") },
-  { {ESC,  0,   0 }, 0, CMD_INTERRUPT,    "screen-lyrics",
+  { {ESC,  0,   0 }, 0, CMD_INTERRUPT,    "lyrics-interrupt",
     N_("Interrupt action") },
+  { {'u',  0,   0 }, 0, CMD_LYRICS_UPDATE,    "lyrics-update",
+    N_("Update Lyrics") },
 #endif
 
 

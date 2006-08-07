@@ -30,6 +30,7 @@
 
 #include "config.h"
 #ifndef DISABLE_LYRICS_SCREEN
+#include <sys/stat.h>
 #include "ncmpc.h"
 #include "options.h"
 #include "mpdclient.h"
@@ -37,11 +38,13 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "easy_download.h"
+#include "lyrics_screen.h"
 #include "strfsong.h"
 
-#define LEOSLYRICS_SEARCH_URL "http://api.leoslyrics.com/api_search.php?auth=QuodLibet&artist=%s&songtitle=%s"
+
+#define LEOSLYRICS_SEARCH_URL "http://api.leoslyrics.com/api_search.php?auth=ncmpc&artist=%s&songtitle=%s"
  
-#define LEOSLYRICS_CONTENT_URL "http://api.leoslyrics.com/api_lyrics.php?auth=QuodLibet&hid=%s"
+#define LEOSLYRICS_CONTENT_URL "http://api.leoslyrics.com/api_lyrics.php?auth=ncmpc&hid=%s"
 
 #define CREDITS "Lyrics provided by www.LeosLyrics.com"
 typedef struct _formed_text
@@ -50,6 +53,13 @@ typedef struct _formed_text
 	GArray *lines;
 	int val;
 } formed_text;
+
+typedef struct _retrieval_spec
+{
+	mpdclient_t *client;
+	int way;
+} retrieval_spec;
+
 
 
 XML_Parser parser, contentp;
@@ -72,10 +82,10 @@ wasting 3 bits doesn't mean being a fat memory hog like kde.... does it?
 */
 static void lyrics_paint(screen_t *screen, mpdclient_t *c);
 
-void get_text_line(formed_text *text, int num, char *dest, int len)
+int get_text_line(formed_text *text, int num, char *dest, int len)
 {
 	memset(dest, '\0', len*sizeof(char));
-    if(num >= text->lines->len-1) return;	
+    if(num >= text->lines->len-1) return -1;	
 	int linelen;
 	if(num == 0)
 	{
@@ -98,6 +108,8 @@ void get_text_line(formed_text *text, int num, char *dest, int len)
 	}
 	dest[linelen] = '\n';
 	dest[linelen+1] = '\0';
+	
+	return 0;
 }
 	
 void add_text_line(formed_text *dest, const char *src, int len)
@@ -138,95 +150,9 @@ void formed_text_init(formed_text *text)
 	
 	text->val = 0;
 }
-/*
-char *check_lyr_hd(char *artist, char *title, int how)
-{ //checking whether for lyrics file existence and proper access
-	static char path[1024];
-	snprintf(path, 1024, "%s/.lyrics/%s/%s.lyric", 
-			getenv("HOME"), artist, title);
-    
-    if(g_access(path, how) != 0) return NULL;
-	return path;
-}		
-
-int get_lyr_hd(char *artist, char *title)
-{
-	char *path = check_lyr_hd(artist, title, R_OK);
-	if(path == NULL) return -1;
-	
-	FILE *lyr_file;	
-	lyr_file = fopen(path, "r");
-	if(lyr_file == NULL) return -1;
-	
-	char *buf = NULL;
-	char **line = &buf;
-	size_t n = 0;
-	
-	while(1)
-	{
-	 n = getline(line, &n, lyr_file); 
-	 if( n < 1 || *line == NULL || feof(lyr_file) != 0 ) return 0;
-	 add_text_line(&lyr_text, *line, n+1);
-	 free(*line);
-	 *line = NULL; n = 0;
- 	}
-	
-	return 0;
-}	
-    
-int store_lyr_hd()
-{
-	char artist[512];
-	char title[512];
-	static char path[1024];
-	FILE *lyr_file;
-	
-	get_text_line(&lyr_text, 0, artist, 512);
-	get_text_line(&lyr_text, 1, title, 512);
-	artist[strlen(artist)-2] = '\0';
-	title[strlen(title)-2] = '\0';
-	
-	snprintf(path, 1024, "%s/.lyrics/%s/%s.lyric", 
-			getenv("HOME"), artist, title);
-	
-	if (check_lyr_hd(artist, title, F_OK) == 0) lyr_file = fopen(path, "w");
-	else lyr_file = fopen(path, "xw");
-	if(lyr_file == NULL) return -1;
-	
-	int i;
-	char line_buf[1024];
-	
-	for(i = 2; i <= lyr_text.text->len; i++)
-	{
-		get_text_line(&lyr_text, i, line_buf, 0);
-		fputs(line_buf, lyr_file);
-	}
-	fclose(lyr_file);
-	return 0;
-}
-				
-*/	
-void check_repaint()
-{
-	if(screen_get_id("lyrics") == get_cur_mode_id())lyrics_paint(NULL, NULL);
-}
-
-int check_dl_progress(void *clientp, double dltotal, double dlnow,
-                        double ultotal, double ulnow)
-{
-	if(g_timer_elapsed(dltime, NULL) >= options.lyrics_timeout || lock == 4)
-	{	
-		formed_text_init(&lyr_text);
-		return -1;
-	}
-
-	return 0;
-}	
-
-
 
 static void check_content(void *data, const char *name, const char **atts)
-{
+{ 
 	if(strstr(name, "text") != NULL)
 	{
 
@@ -286,39 +212,24 @@ static void fetch_text(void *userData, const XML_Char *s, int len)
 	}
 }
 
-gpointer get_lyr(void *c)
+int check_dl_progress(void *clientp, double dltotal, double dlnow,
+                        double ultotal, double ulnow)
 {
-	mpd_Status *status = ((mpdclient_t*)c)->status;
-	mpd_Song *cur = ((mpdclient_t*)c)->song; 
-	mpdclient_update((mpdclient_t*)c);
-	
-	if(!(IS_PAUSED(status->state)||IS_PLAYING(status->state)))
-	{
-		formed_text_init(&lyr_text);			
-		return NULL;
+	if(g_timer_elapsed(dltime, NULL) >= options.lyrics_timeout || lock == 4)
+	{	
+		while (1)fprintf(stderr,"hihffo!");
+		formed_text_init(&lyr_text);
+		return -1;
 	}
-	
+
+	return 0;
+}	
+
+
+int check_lyr_http(char *artist, char *title, char *url)
+{
 	char url_avail[256];
-	char url_hid[256];
-	char artist[MAX_SONGNAME_LENGTH];
-	char title[MAX_SONGNAME_LENGTH];
-	lock = 2;
-	result = 0;
-	
-	if(dltime == NULL) dltime = g_timer_new();
-	
-	strfsong(artist, MAX_SONGNAME_LENGTH, "%artist%", cur);
-	strfsong(title, MAX_SONGNAME_LENGTH, "%title%", cur);
-	
-	//write header..
-	formed_text_init(&lyr_text);
-	add_text_line(&lyr_text, artist, 0);
-	add_text_line(&lyr_text, title, 0);
-	add_text_line(&lyr_text, "", 0);
-	add_text_line(&lyr_text, "", 0);
-	
-	//if(get_lyr_hd(artist, title) == 0) return &lyr_text;
-	
+
 	//this replacess the whitespaces with '+'
 	g_strdelimit(artist, " ", '+');
 	g_strdelimit(title, " ", '+');
@@ -330,39 +241,180 @@ gpointer get_lyr(void *c)
 	easy_download_struct lyr_avail = {NULL, 0,-1};	
 	
 	g_timer_start(dltime);
-	if(!easy_download(url_avail, &lyr_avail, check_dl_progress)) return NULL;
+	if(!easy_download(url_avail, &lyr_avail, check_dl_progress)) return -1;
 	g_timer_stop(dltime);
 
 	//we gotta parse that stuff with expat
 	parser = XML_ParserCreate(NULL);
-        XML_SetUserData(parser, NULL);
+    XML_SetUserData(parser, NULL);
 	
-	int state = 0;
-
 	XML_SetElementHandler(parser, check_search_response, end_tag);
 	XML_SetCharacterDataHandler(parser, check_search_success);
-	XML_Parse(parser, lyr_avail.data, strlen(lyr_avail.data), state);	
+	XML_Parse(parser, lyr_avail.data, strlen(lyr_avail.data), 0);	
 	XML_ParserFree(parser);	
 
-	if(!(result & 4)) return NULL; //check whether lyrics found
-	easy_download_struct lyr_content = {NULL, 0,-1};  
-	snprintf(url_hid, 512, LEOSLYRICS_CONTENT_URL, hid);
+	if(!(result & 4)) return -1; //check whether lyrics found
+	snprintf(url, 512, LEOSLYRICS_CONTENT_URL, hid);
+
+	return 0;
+}
+int get_lyr_http(char *artist, char *title)
+{
+	char url_hid[256];
+	if(dltime == NULL) dltime = g_timer_new();
+
+	if(check_lyr_http(artist, title, url_hid) != 0) return -1;
 	
+	easy_download_struct lyr_content = {NULL, 0,-1};  
 	g_timer_continue(dltime);		
-	if(!(easy_download(url_hid, &lyr_content, check_dl_progress))) return NULL;
+	if(!(easy_download(url_hid, &lyr_content, check_dl_progress))) return -1;
 	g_timer_stop(dltime);
 	
 	contentp = XML_ParserCreate(NULL);
 	XML_SetUserData(contentp, NULL);
 	XML_SetElementHandler(contentp, check_content, end_tag);	
 	XML_SetCharacterDataHandler(contentp, fetch_text);
-	XML_Parse(contentp, lyr_content.data, strlen(lyr_content.data), state);
+	XML_Parse(contentp, lyr_content.data, strlen(lyr_content.data), 0);
 	XML_ParserFree(contentp);
+
+	return 0;
+	
+}
+FILE *create_lyr_file(char *artist, char *title)
+{
+		char path[1024];
+
+		snprintf(path, 1024, "%s/.lyrics", 
+			getenv("HOME"));
+		if(g_access(path, W_OK) != 0) if(mkdir(path, S_IRWXU) != 0) return NULL;
+	
+		snprintf(path, 1024, "%s/.lyrics/%s", 
+				getenv("HOME"), artist);
+		if(g_access(path, W_OK) != 0) if(mkdir(path, S_IRWXU) != 0) return NULL;	
+	
+		snprintf(path, 1024, "%s/.lyrics/%s/%s.lyric", 
+				getenv("HOME"), artist, title);
+
+	FILE *file = fopen(path, "w");
+}	
+
+char *check_lyr_hd(char *artist, char *title, int how)
+{ //checking whether for lyrics file existence and proper access
+	static char path[1024];
+	snprintf(path, 1024, "%s/.lyrics/%s/%s.lyric", 
+			getenv("HOME"), artist, title);
+    
+    if(g_access(path, how) != 0) return NULL;
+		 
+	return path;
+}		
+
+
+int get_lyr_hd(char *artist, char *title)
+{
+	char *path = check_lyr_hd(artist, title, R_OK);
+	if(path == NULL) return -1;
+	
+	FILE *lyr_file;	
+	lyr_file = fopen(path, "r");
+	if(lyr_file == NULL) return -1;
+	
+	char *buf = NULL;
+	char **line = &buf;
+	size_t n = 0;
+	
+	while(1)
+	{
+	 n = getline(line, &n, lyr_file); 
+	 if( n < 1 || *line == NULL || feof(lyr_file) != 0 ) return 0;
+	 add_text_line(&lyr_text, *line, n+1);
+	 free(*line);
+	 *line = NULL; n = 0;
+ 	}
+	
+	return 0;
+}	
+    
+int store_lyr_hd()
+{
+	char artist[512];
+	char title[512];
+	static char path[1024];
+	FILE *lyr_file;
+	
+	get_text_line(&lyr_text, 0, artist, 512);
+	get_text_line(&lyr_text, 1, title, 512);
+	artist[strlen(artist)-1] = '\0';
+	title[strlen(title)-1] = '\0';
+	
+	snprintf(path, 1024, "%s/.lyrics/%s/%s.lyric", 
+			getenv("HOME"), artist, title);
+	lyr_file = create_lyr_file(artist, title);
+	if(lyr_file == NULL) return -1;
+	int i;
+	char line_buf[1024];
+	
+	for(i = 4; i <= lyr_text.text->len; i++)
+	{
+		if(get_text_line(&lyr_text, i, line_buf, 1024) == -1);
+		fputs(line_buf, lyr_file);
+	}
+	fclose(lyr_file);
+	return 0;
+}
+				
+	
+void check_repaint()
+{
+	if(screen_get_id("lyrics") == get_cur_mode_id())lyrics_paint(NULL, NULL);
+}
+
+
+gpointer get_lyr(void *c)
+{
+	mpd_Status *status = ((retrieval_spec*)c)->client->status;
+	mpd_Song *cur = ((retrieval_spec*)c)->client->song; 
+	//mpdclient_update((mpdclient_t*)c);
+	
+	if(!(IS_PAUSED(status->state)||IS_PLAYING(status->state)))
+	{
+		formed_text_init(&lyr_text);			
+		return NULL;
+	}
+	
+
+	char artist[MAX_SONGNAME_LENGTH];
+	char title[MAX_SONGNAME_LENGTH];
+	lock = 2;
+	result = 0;
+	
+	formed_text_init(&lyr_text);
+	
+	strfsong(artist, MAX_SONGNAME_LENGTH, "%artist%", cur);
+	strfsong(title, MAX_SONGNAME_LENGTH, "%title%", cur);
+	
+	//write header..
+	formed_text_init(&lyr_text);
+	add_text_line(&lyr_text, artist, 0);
+	add_text_line(&lyr_text, title, 0);
+	add_text_line(&lyr_text, "", 0);
+	add_text_line(&lyr_text, "", 0);
+	
+	if (((retrieval_spec*)c)->way == 1)
+	{
+		 if(get_lyr_http(artist, title) != 0) return NULL;
+	}
+	else{
+		if(get_lyr_hd(artist, title) != 0) 
+		{
+		if(get_lyr_http(artist, title) != 0) return NULL;
+		}
+		else result |= 1;
+	}
 	
 	lw->start = 0;
 	check_repaint();
-	
-    lock = 1;
+	lock = 1;
 	return &lyr_text;
 }	
 
@@ -370,10 +422,9 @@ static char *
 list_callback(int index, int *highlight, void *data)
 {
 	static char buf[512];
-	int linelen;
-
+	
     //i think i'ts fine to write it into the 1st line...
-  if((index == lyr_text.lines->len && lyr_text.lines->len != 3)||
+  if((index == lyr_text.lines->len && lyr_text.lines->len > 4)||
 	  ((lyr_text.lines->len == 0 
 	  ||lyr_text.lines->len == 4) && index == 0))
   {
@@ -382,11 +433,12 @@ list_callback(int index, int *highlight, void *data)
   }
     
   if(index < 2 && lyr_text.lines->len > 4) *highlight=3;
-  else if(index >=  lyr_text.lines->len)
+  else if(index >=  lyr_text.lines->len ||
+	( index < 4 && index != 0 && lyr_text.lines->len < 5))
   {
 	  return "";
   }
- //if(index >1) index--;
+ 
   get_text_line(&lyr_text, index, buf, 512);
   return buf;
 } 
@@ -420,10 +472,17 @@ lyrics_exit(void)
 static char *
 lyrics_title(char *str, size_t size)
 {
-	if(lyr_text.lines->len == 4){ 
-	if(lock == 1 && !(result & 2)) return _("Lyrics  [No connection]");
-    if(lock == 1 && !(result & 4)) return _("Lyrics  [Not found]"); 		
-	if(lock == 2) return _("Lyrics  [retrieving]");
+	if(lyr_text.lines->len == 4)
+	{
+		if(lock == 1)
+		{
+			if(!(result & 1))
+			{
+				if(!(result & 2)) return _("Lyrics  [No connection]");
+				if(!(result & 4)) return _("Lyrics  [Not found]"); 
+			}
+		}
+		if(lock == 2) return _("Lyrics  [retrieving]");
 	}
 	/*if(lyr_text.lines->len > 2) 
 	{
@@ -462,6 +521,8 @@ static int
 lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
   lw->repaint=1;
+  static retrieval_spec spec;
+  char *msg;
   switch(cmd)
     {
     case CMD_LIST_NEXT:
@@ -493,11 +554,23 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	lw->start = 0;
       return 1;
 	case CMD_SELECT:
-	  g_thread_create(get_lyr, c, FALSE, NULL);	
+	  spec.client = c;
+	  spec.way = 0;
+	  g_thread_create(get_lyr, &spec, FALSE, NULL);	
 	  return 1;
 	case CMD_INTERRUPT:
 	  if(lock > 1) lock = 4;
 	  return 1;	
+	case CMD_ADD:
+	  if(lock > 0 && lock != 4)
+	  {
+	  	 if(store_lyr_hd() == 0) screen_status_message (_("Lyrics saved!"));
+	  }
+	  return 1;
+	case CMD_LYRICS_UPDATE:
+	  spec.client = c;
+	  spec.way = 1;
+	  g_thread_create(get_lyr, &spec, FALSE, NULL);
 	default:
       break;
     }

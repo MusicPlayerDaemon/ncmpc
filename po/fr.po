@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-05 20:19+0000\n"
+"POT-Creation-Date: 2006-08-07 09:10+0000\n"
 "PO-Revision-Date: 2005-01-19 15:15+0100\n"
 "Last-Translator: Yann Cézard <eesprit@free.fr>\n"
 "Language-Team: fr <fr@li.org>\n"
@@ -490,21 +490,30 @@ msgstr ""
 msgid "Interrupt retrieval"
 msgstr ""
 
-#: src/screen_help.c:218
+#: src/screen_help.c:136
+msgid "Explicitly download lyrics"
+msgstr ""
+
+#: src/screen_help.c:219
 msgid "Help"
 msgstr "Aide"
 
-#: src/screen_lyrics.c:421
+#: src/screen_lyrics.c:481
 msgid "Lyrics  [No connection]"
 msgstr ""
 
-#: src/screen_lyrics.c:422
+#: src/screen_lyrics.c:482
 msgid "Lyrics  [Not found]"
 msgstr ""
 
-#: src/screen_lyrics.c:423
+#: src/screen_lyrics.c:485
 msgid "Lyrics  [retrieving]"
 msgstr ""
+
+#: src/screen_lyrics.c:567
+#, fuzzy
+msgid "Lyrics saved!"
+msgstr "Ecran de Liste de lecture"
 
 #: src/command.c:71
 msgid "Key configuration screen"
@@ -697,81 +706,86 @@ msgstr "Ecran de Liste de lecture"
 msgid "Interrupt action"
 msgstr ""
 
-#: src/command.c:218
+#: src/command.c:197
+#, fuzzy
+msgid "Update Lyrics"
+msgstr "Mettre à jour l'écran"
+
+#: src/command.c:220
 msgid "Undefined"
 msgstr "Indéfini"
 
-#: src/command.c:220
+#: src/command.c:222
 msgid "Space"
 msgstr "Espace"
 
-#: src/command.c:222
+#: src/command.c:224
 msgid "Enter"
 msgstr "Entrée"
 
-#: src/command.c:224
+#: src/command.c:226
 msgid "Backspace"
 msgstr "Backspace"
 
-#: src/command.c:226
+#: src/command.c:228
 msgid "Delete"
 msgstr "Suppr"
 
-#: src/command.c:228
+#: src/command.c:230
 msgid "Up"
 msgstr "Haut"
 
-#: src/command.c:230
+#: src/command.c:232
 msgid "Down"
 msgstr "Bas"
 
-#: src/command.c:232
+#: src/command.c:234
 msgid "Left"
 msgstr "Gauche"
 
-#: src/command.c:234
+#: src/command.c:236
 msgid "Right"
 msgstr "Droite"
 
-#: src/command.c:236
+#: src/command.c:238
 msgid "Home"
 msgstr "Début"
 
-#: src/command.c:238
+#: src/command.c:240
 msgid "End"
 msgstr "Fin"
 
-#: src/command.c:240
+#: src/command.c:242
 msgid "PageDown"
 msgstr "PageBas"
 
-#: src/command.c:242
+#: src/command.c:244
 msgid "PageUp"
 msgstr "PageHaut"
 
-#: src/command.c:244
+#: src/command.c:246
 msgid "Tab"
 msgstr "Tab"
 
-#: src/command.c:246
+#: src/command.c:248
 msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
-#: src/command.c:248
+#: src/command.c:250
 msgid "Esc"
 msgstr "Echap"
 
-#: src/command.c:250
+#: src/command.c:252
 msgid "Insert"
 msgstr "Inser"
 
-#: src/command.c:500
+#: src/command.c:502
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 msgstr ""
 "La touche %s est assignée à %s (appuyez sur %s pour l'éditeur de touches)"
 
-#: src/command.c:507 src/command.c:514
+#: src/command.c:509 src/command.c:516
 #, c-format
 msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr "Erreur: La touche %s est assignée à %s et à %s !!!\n"
