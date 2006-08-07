@@ -38,7 +38,6 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "easy_download.h"
-#include "lyrics_screen.h"
 #include "strfsong.h"
 
 
