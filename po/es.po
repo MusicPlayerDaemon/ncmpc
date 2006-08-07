@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-07 09:10+0000\n"
+"POT-Creation-Date: 2006-08-07 11:40+0000\n"
 "PO-Revision-Date: 2004-07-15 05:28+0200\n"
 "Last-Translator: Jose Cedeno <cedenoj@gmail.com>\n"
 "Language-Team: es <es@li.org>\n"
@@ -487,23 +487,28 @@ msgstr ""
 msgid "Explicitly download lyrics"
 msgstr ""
 
-#: src/screen_help.c:219
+#: src/screen_help.c:137
+#, fuzzy
+msgid "Save lyrics"
+msgstr "Guardar la lista de canciones"
+
+#: src/screen_help.c:220
 msgid "Help"
 msgstr "Ayuda"
 
-#: src/screen_lyrics.c:481
+#: src/screen_lyrics.c:479
 msgid "Lyrics  [No connection]"
 msgstr ""
 
-#: src/screen_lyrics.c:482
+#: src/screen_lyrics.c:480
 msgid "Lyrics  [Not found]"
 msgstr ""
 
-#: src/screen_lyrics.c:485
+#: src/screen_lyrics.c:483
 msgid "Lyrics  [retrieving]"
 msgstr ""
 
-#: src/screen_lyrics.c:567
+#: src/screen_lyrics.c:565
 #, fuzzy
 msgid "Lyrics saved!"
 msgstr "Ventana de lista de canciones"
