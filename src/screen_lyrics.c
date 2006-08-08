@@ -328,7 +328,7 @@ int get_lyr_hd(char *artist, char *title)
 	{
 	 n = getline(line, &n, lyr_file); 
 	 if( n < 1 || *line == NULL || feof(lyr_file) != 0 ) return 0;
-	 add_text_line(&lyr_text, *line, n+1);
+	 add_text_line(&lyr_text, *line, n);
 	 free(*line);
 	 *line = NULL; n = 0;
  	}
