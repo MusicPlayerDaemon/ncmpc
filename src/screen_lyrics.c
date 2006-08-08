@@ -21,12 +21,15 @@
  *
  */
 
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
 #include <ncurses.h>
 #include <expat.h>
 #include <unistd.h>
+#include <glib/gstdio.h>
+#include <stdio.h>
 
 #include "config.h"
 #ifndef DISABLE_LYRICS_SCREEN
@@ -244,7 +247,7 @@ int check_lyr_http(char *artist, char *title, char *url)
 
 	//we gotta parse that stuff with expat
 	parser = XML_ParserCreate(NULL);
-    XML_SetUserData(parser, NULL);
+	XML_SetUserData(parser, NULL);
 	
 	XML_SetElementHandler(parser, check_search_response, end_tag);
 	XML_SetCharacterDataHandler(parser, check_search_success);
@@ -293,7 +296,7 @@ FILE *create_lyr_file(char *artist, char *title)
 		snprintf(path, 1024, "%s/.lyrics/%s/%s.lyric", 
 				getenv("HOME"), artist, title);
 
-	FILE *file = fopen(path, "w");
+	    return fopen(path, "w");
 }	
 
 char *check_lyr_hd(char *artist, char *title, int how)
@@ -520,7 +523,6 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
   lw->repaint=1;
   static retrieval_spec spec;
-  char *msg;
   switch(cmd)
     {
     case CMD_LIST_NEXT:
