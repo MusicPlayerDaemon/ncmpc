@@ -202,7 +202,7 @@ browse_lw_callback(int index, int *highlight, void *data)
       g_free(filename);
       return buf;
     }
-  return "Error: Unknow entry!";
+  return "Error: Unknown entry!";
 }
 
 /* chdir */

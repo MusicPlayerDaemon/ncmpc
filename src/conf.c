@@ -144,7 +144,7 @@ parse_key_value(char *str, size_t len, char **end)
 	case KEY_PARSER_HEX:
 	  if( !isdigit(next) )
 	    {
-	      fprintf(stderr,_("Error: Digit expexted after 0x - %s\n"), str);
+	      fprintf(stderr,_("Error: Digit expected after 0x - %s\n"), str);
 	      return -1;
 	    }
 	  value = (int) strtol(str+(i+1), end, 16);

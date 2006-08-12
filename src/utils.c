@@ -88,7 +88,7 @@ gcmp_list_from_path(mpdclient_t *c, gchar *path, GList *list, gint types)
   
   if( (filelist=mpdclient_filelist_get(c, path)) == NULL )
     return list;
-  D("retreived filelist!\n");
+  D("retrieved filelist!\n");
   flist = filelist->list;
   while( flist )
     {

@@ -119,7 +119,7 @@ lw_search_help_callback(int index, int *highlight, void *data)
   static char *text[] = {
     "Welcome to ncmpc's search screen - SVN version.",
     "",
-    "Quick search - just enter a string and ncmcp will search according",
+    "Quick search - just enter a string and ncmpc will search according",
     "               to the current search mode (displayed above).",
     "",
     "Advanced - bla bla bla.... syntax below",

@@ -444,7 +444,7 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 
   /* send the move command to mpd */  
 #ifdef ENABLE_SONG_ID
-  D("Swaping id:%d with id:%d\n", song1->id, song2->id);
+  D("Swapping id:%d with id:%d\n", song1->id, song2->id);
   mpd_sendSwapIdCommand(c->connection, song1->id, song2->id);
 #else
   D("Moving index %d to id:%d\n", old_index, new_index);
