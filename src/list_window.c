@@ -205,8 +205,8 @@ list_window_paint(list_window_t *lw,
 	  
 	  //waddnstr(lw->w, label, lw->cols);
 	  waddstr(lw->w, label);
-	  if( fill && len<lw->cols )
-	    mvwhline(lw->w, i, len, ' ', lw->cols-len);
+	   if( fill && len<lw->cols )
+	    whline(lw->w,  ' ', lw->cols-len);
 
 	  if( selected )
 	    wattroff(lw->w, A_REVERSE);	  
