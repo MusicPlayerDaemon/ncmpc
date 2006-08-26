@@ -63,11 +63,11 @@ typedef struct _retrieval_spec
     int way;
 } retrieval_spec;
 
-typedef struct _lyrics
+typedef struct _lyrics_t
 {
   int header_len;
   
-  guint8 result
+  guint8 result;
   char *hid;
   GTimer *dltime;
 
@@ -76,7 +76,10 @@ typedef struct _lyrics
 
   formed_text content;
 
-} lyrics;
+} lyrics_t;
+
+lyrics_t lyrics;
+
 
 XML_Parser parser, contentp;
 static int lyrics_text_rows = -1;
