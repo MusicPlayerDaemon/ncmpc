@@ -53,7 +53,7 @@ screen_getch(WINDOW *w, char *prompt)
   int key = -1;
   int prompt_len = strlen(prompt);
 
-  colors_use(w, COLOR_STATUS_ALERT);
+  //  colors_use(w, COLOR_STATUS_ALERT);
   wclear(w);  
   wmove(w, 0, 0);
   waddstr(w, prompt);
@@ -102,6 +102,54 @@ screen_getstr(WINDOW *w, char *prompt)
   return screen_readln(w, prompt, NULL, NULL, NULL);
 }
 
+char *
+screen_getstr_masked(WINDOW *w, char *prompt)
+{
+  return screen_readln(w, prompt, NULL, NULL, NULL);
+}
+
+
+char *
+screen_read_password(WINDOW *w, char *prompt)
+{
+  if(w == NULL)
+    {
+      int rows, cols;
+      getmaxyx(stdscr, rows, cols);
+      /* create window for input */
+      w = newwin(1,  cols, rows-1, 0);
+      leaveok(w, FALSE);
+      keypad(w, TRUE);  
+    } 
+  wmove(w, 0,0);
+  curs_set(1);
+  colors_use(w, COLOR_STATUS_ALERT);
+  if(prompt == NULL)
+    return wreadln_masked(w, _("Password: "), NULL, COLS, NULL, NULL);
+  else
+    return wreadln_masked(w, prompt, NULL, COLS, NULL, NULL);
+  curs_set(0);
+}
+    
+gint
+_screen_auth(mpdclient_t *c, gint recursion)
+{
+   mpd_clearError(c->connection);
+  if(recursion > 2) return 1;
+  mpd_sendPasswordCommand(c->connection,  screen_read_password(NULL, NULL));   
+  mpd_finishCommand(c->connection);
+   mpdclient_update(c);
+   if(  c->connection->errorCode == MPD_ACK_ERROR_PASSWORD ) return  _screen_auth(c, ++recursion);
+   return 0;
+}
+
+gint
+screen_auth(mpdclient_t *c)
+{
+  _screen_auth(c, 0);
+  mpdclient_update(c);
+  curs_set(0);
+}
 
 /* query user for a string and find it in a list window */
 int 
@@ -196,7 +244,7 @@ screen_display_completion_list(screen_t *screen, GList *list)
       offset = 0;
     }
 
-  colors_use(w, COLOR_STATUS_ALERT);
+    colors_use(w, COLOR_STATUS_ALERT);
   while( y<screen->main_window.rows )
     {
       GList *item = g_list_nth(list, y+offset);

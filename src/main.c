@@ -36,6 +36,7 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "strfsong.h"
+#include "splash.h"
 
 #define BUFSIZE 1024
 
@@ -259,9 +260,13 @@ main(int argc, const char *argv[])
 	
   /* install exit function */
   atexit(exit_and_cleanup);
+  
+  ncurses_init();
+  if(options->show_splash == TRUE) draw_splash();
 
   /* connect to our music player daemon */
   mpd = mpdclient_new();
+ 
   if( mpdclient_connect(mpd, 
 			options->host, 
 			options->port, 
@@ -274,8 +279,11 @@ main(int argc, const char *argv[])
   /* if no password is used, but the mpd wants one, the connection
      might be established but no status information is avaiable */
   mpdclient_update(mpd);
-  if(!mpd->status)  
-    exit(EXIT_FAILURE);
+  if(!mpd->status)
+    {
+      screen_auth(mpd);
+    }
+  if(!mpd->status) exit(EXIT_FAILURE);
   
   connected = TRUE;
   D("Connected to MPD version %d.%d.%d\n",
@@ -296,7 +304,6 @@ main(int argc, const char *argv[])
 
   /* initialize curses */
   screen_init(mpd);
-
   /* install error callback function */
   mpdclient_install_error_callback(mpd, error_callback);
 

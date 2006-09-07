@@ -68,6 +68,7 @@
 #define CONF_HOST                    "host"
 #define CONF_PORT                    "port"
 #define CONF_LYRICS_TIMEOUT          "lyrics-timeout"
+#define CONF_SHOW_SPLASH             "show-splash"
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -553,7 +554,11 @@ read_rc_file(char *filename, options_t *options)
 		{
 		  g_strfreev(options->screen_list);
 		  options->screen_list = check_screen_list(value);
-		  
+		}
+	      else if( !strcasecmp(CONF_SHOW_SPLASH, name) )
+		{
+		  options->show_splash = str2bool(value);
+			  
 #ifdef DEBUG
 		  D("screen-list:"); 
 		  j=0;

@@ -60,12 +60,13 @@ extern size_t my_strlen(char *str);
 /* libcurses version */
 
 gchar *
-wreadln(WINDOW *w, 
+_wreadln(WINDOW *w, 
 	gchar *prompt, 
 	gchar *initial_value,
 	gint x1, 
 	GList **history, 
-	GCompletion *gcmp)
+	GCompletion *gcmp,
+        gboolean masked)
 {
   GList *hlist = NULL, *hcurrent = NULL;
   gchar *line;
@@ -103,7 +104,8 @@ wreadln(WINDOW *w,
     /* clear input area */
     whline(w, ' ', width);
     /* print visible part of the line buffer */
-    waddnstr(w, line+start, width);
+    if(masked == TRUE) whline(w, '*', my_strlen(line)-start);
+    else waddnstr(w, line+start, width);
     /* move the cursor to the correct position */
     wmove(w, y, x0 + cursor-start);
     /* tell ncurses to redraw the screen */
@@ -365,12 +367,13 @@ wreadln(WINDOW *w,
 /* libcursesw version */ 
 
 gchar *
-wreadln(WINDOW *w, 
+_wreadln(WINDOW *w, 
 	gchar *prompt, 
 	gchar *initial_value,
 	gint x1, 
 	GList **history, 
-	GCompletion *gcmp)
+	GCompletion *gcmp, 
+	gboolean masked)
 {
   GList *hlist = NULL, *hcurrent = NULL;
   wchar_t *wline;
@@ -437,7 +440,8 @@ wreadln(WINDOW *w,
     /* clear input area */
     whline(w, ' ', width);
     /* print visible part of the line buffer */
-    waddnwstr(w, wline+start, width);
+    if(masked == TRUE) whline(w, '*', my_strlen(line)-start);
+    else waddnstr(w, line+start, width);
     /* move the cursor to the correct position */
     wmove(w, y, x0 + cursor-start);
     /* tell ncurses to redraw the screen */
@@ -698,3 +702,25 @@ wreadln(WINDOW *w,
 }
  
 #endif
+
+gchar *
+wreadln(WINDOW *w, 
+	gchar *prompt, 
+	gchar *initial_value,
+	gint x1, 
+	GList **history, 
+	GCompletion *gcmp)
+  {
+    return  _wreadln(w, prompt, initial_value, x1, history, gcmp, FALSE);
+  }    
+	
+gchar *
+wreadln_masked(WINDOW *w, 
+	gchar *prompt, 
+	gchar *initial_value,
+	gint x1, 
+	GList **history, 
+	GCompletion *gcmp)
+  {
+    return  _wreadln(w, prompt, initial_value, x1, history, gcmp, TRUE);
+  }    

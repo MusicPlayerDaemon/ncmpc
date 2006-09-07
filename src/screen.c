@@ -546,10 +546,9 @@ screen_status_printf(char *format, ...)
   g_free(msg);
 }
 
-int
-screen_init(mpdclient_t *c)
+void
+ncurses_init()
 {
-  gint i;
 
   /* initialize the curses library */
   initscr();
@@ -559,7 +558,7 @@ screen_init(mpdclient_t *c)
   nonl();          
   /*  use raw mode (ignore interrupt,quit,suspend, and flow control ) */
 #ifdef ENABLE_RAW_MODE
-  raw();
+  //  raw();
 #endif
   /* don't echo input */
   noecho();    
@@ -580,12 +579,18 @@ screen_init(mpdclient_t *c)
       fprintf(stderr, _("Error: Screen to small!\n"));
       exit(EXIT_FAILURE);
     }
-
   screen = g_malloc(sizeof(screen_t));
   memset(screen, 0, sizeof(screen_t));
   screen->mode = 0;
   screen->cols = COLS;
   screen->rows = LINES;
+}
+
+int
+screen_init(mpdclient_t *c)
+{
+  gint i;
+
   screen->buf  = g_malloc(screen->cols);
   screen->buf_size = screen->cols;
   screen->findbuf = NULL;

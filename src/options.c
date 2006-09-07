@@ -69,6 +69,7 @@ static arg_opt_t option_table[] = {
   { 'P', "password","PASSWORD", "Connect with password" },
   { 'f', "config",  "FILE",     "Read configuration from file" },
   { 'k', "key-file","FILE",     "Read configuration from file" },
+  { 'S', "no-splash", NULL, "Don't show the splash screen" },
 #ifdef DEBUG
   { 'K', "dump-keys", NULL,     "Dump key bindings to stdout" },
   { 'D', "debug",   NULL,   "Enable debug output on stderr" },
@@ -214,6 +215,9 @@ handle_option(int c, char *arg)
       if( options.key_file )
 	g_free(options.key_file);
       options.key_file = g_strdup(arg);
+      break;
+    case 'S': /* --key-file */
+      options.show_splash = FALSE;
       break;
 #ifdef DEBUG
     case 'K': /* --dump-keys */
@@ -370,6 +374,7 @@ options_init( void )
   options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
   options.timedisplay_type = DEFAULT_TIMEDISPLAY_TYPE;
   options.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT;
+  options.show_splash = TRUE;
   
   return &options;
 }

@@ -1,4 +1,10 @@
 2006-08.8 Andreas Obergrusberger <tradiaz@yahoo.de> 
+	* Here it is! the splash screen. asking you for password 
+	  everytime and featuring a nice animation :)
+	* ncmpc will now always ask for a password when it's not 
+	  permitted to execute a command
+
+2006-08.8 Andreas Obergrusberger <tradiaz@yahoo.de> 
 	* Avuton fixed some warning
 	* fixed a bug that doubled empty lines
 	  when loading lyrics from hd

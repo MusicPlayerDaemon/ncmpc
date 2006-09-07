@@ -91,10 +91,12 @@ mpdclient_finish_command(mpdclient_t *c)
     {
       gchar *msg = locale_to_utf8(c->connection->errorStr);
       gint error = c->connection->error;
-      
       if( error == MPD_ERROR_ACK )
 	error = error | (c->connection->errorCode << 8);
-
+      if(  c->connection->errorCode == MPD_ACK_ERROR_PERMISSION )
+	{
+	  if(screen_auth(c) == 0) return 0;
+	}
       error_cb(c, error, msg);
       g_free(msg);
       return error;

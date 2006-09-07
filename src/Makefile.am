@@ -21,7 +21,8 @@ ncmpc_headers = \
   strfsong.h\
   utils.h\
   ncmpc.h\
-  screen_browse.h
+  screen_browse.h\
+  splash.h
 
 # $Id$
 
@@ -51,6 +52,7 @@ ncmpc_SOURCES = \
   wreadln.c\
   strfsong.c\
   utils.c\
+  splash.c\
   $(ncmpc_headers)
 
 ncmpc_LDADD = \
