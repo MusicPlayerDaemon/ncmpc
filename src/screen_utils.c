@@ -53,7 +53,7 @@ screen_getch(WINDOW *w, char *prompt)
   int key = -1;
   int prompt_len = strlen(prompt);
 
-  //  colors_use(w, COLOR_STATUS_ALERT);
+  colors_use(w, COLOR_STATUS_ALERT);
   wclear(w);  
   wmove(w, 0, 0);
   waddstr(w, prompt);
@@ -244,7 +244,7 @@ screen_display_completion_list(screen_t *screen, GList *list)
       offset = 0;
     }
 
-    colors_use(w, COLOR_STATUS_ALERT);
+  colors_use(w, COLOR_STATUS_ALERT);
   while( y<screen->main_window.rows )
     {
       GList *item = g_list_nth(list, y+offset);

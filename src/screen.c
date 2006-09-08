@@ -584,12 +584,6 @@ ncurses_init()
   screen->mode = 0;
   screen->cols = COLS;
   screen->rows = LINES;
-}
-
-int
-screen_init(mpdclient_t *c)
-{
-  gint i;
 
   screen->buf  = g_malloc(screen->cols);
   screen->buf_size = screen->cols;
@@ -649,6 +643,11 @@ screen_init(mpdclient_t *c)
       wbkgd(screen->status_window.w,   COLOR_PAIR(COLOR_STATUS));
       colors_use(screen->progress_window.w, COLOR_PROGRESSBAR);
     }
+}
+
+screen_init(mpdclient_t *c)
+{
+  gint i;
 
   /* initialize screens */
   i=0;
