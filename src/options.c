@@ -374,7 +374,7 @@ options_init( void )
   options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
   options.timedisplay_type = DEFAULT_TIMEDISPLAY_TYPE;
   options.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT;
-  options.show_splash = TRUE;
+  options.show_splash = FALSE;
   
   return &options;
 }
