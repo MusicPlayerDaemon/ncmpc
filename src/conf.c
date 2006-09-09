@@ -67,6 +67,7 @@
 #define CONF_TIMEDISPLAY_TYPE        "timedisplay-type"
 #define CONF_HOST                    "host"
 #define CONF_PORT                    "port"
+#define CONF_PASSWORD                "password"
 #define CONF_LYRICS_TIMEOUT          "lyrics-timeout"
 #define CONF_SHOW_SPLASH             "show-splash"
 
@@ -575,7 +576,11 @@ read_rc_file(char *filename, options_t *options)
 	    {
 	    options->port = atoi(get_format(value));
 	    }
-		else if( !strcasecmp(CONF_LYRICS_TIMEOUT, name))
+	    else if( !strcasecmp(CONF_PASSWORD, name))
+	      {
+		options->password = get_format(value);
+	      }
+	    else if( !strcasecmp(CONF_LYRICS_TIMEOUT, name))
 	    {
 	    options->lyrics_timeout = atoi(get_format(value));
 	    }		
