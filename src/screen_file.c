@@ -549,7 +549,20 @@ browse_close(void)
 static char *
 browse_title(char *str, size_t size)
 {
-  g_snprintf(str, size, _("Browse: %s"), basename(filelist->path));
+  char *pathcopy;
+  char *parentdir;
+  pathcopy = strdup(filelist->path);
+  parentdir = dirname(pathcopy);
+  parentdir = basename(parentdir);
+  if( parentdir[0] == '.' && strlen(parentdir) == 1 )
+    {
+      parentdir = NULL;
+    }
+  g_snprintf(str, size, _("Browse: %s%s%s"),
+	     parentdir ? parentdir : "",
+	     parentdir ? "/" : "",
+	     basename(filelist->path));
+  free(pathcopy);
   return str;
 }
 

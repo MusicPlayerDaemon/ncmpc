@@ -170,6 +170,22 @@ _strfsong(gchar *s,
 	temp = song->title ? utf8_to_locale(song->title) : NULL;
       else if (strncmp("%album%", p, n) == 0)
 	temp = song->album ? utf8_to_locale(song->album) : NULL;
+      else if (strncmp("%shortalbum%", p, n) == 0)
+	{
+	  temp = song->album ? utf8_to_locale(song->album) : NULL;
+	  if (temp)
+	    {
+	      gchar *temp2 = g_strndup(temp, 25);
+	      if (strlen(temp) > 25)
+		{
+		  temp2[24] = '.';
+		  temp2[23] = '.';
+		  temp2[22] = '.';
+		}
+	      g_free(temp);
+	      temp = temp2;
+	    }
+	}
       else if (strncmp("%track%", p, n) == 0)
 	temp = song->track ? utf8_to_locale(song->track) : NULL;
       else if (strncmp("%name%", p, n) == 0)
