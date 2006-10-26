@@ -5,10 +5,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ncmpc SVN\n"
+"Project-Id-Version: ncmpc-tradiaz SVN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-08-07 11:40+0000\n"
-"PO-Revision-Date: 2006-02-26 23:13+0100\n"
+"PO-Revision-Date: 2006-10-25 01:30+0200\n"
 "Last-Translator: Johám-Luís Miguéns Vila <galiza.ceive@gmail.com>\n"
 "Language-Team: galician\n"
 "MIME-Version: 1.0\n"
@@ -56,18 +56,16 @@ msgid ":Browse  "
 msgstr ":Navegar "
 
 #: src/screen.c:237
-#, fuzzy
 msgid ":Artist  "
-msgstr "Artista"
+msgstr ":Artista"
 
 #: src/screen.c:243
 msgid ":Search  "
 msgstr ":Procurar "
 
 #: src/screen.c:249
-#, fuzzy
 msgid ":Lyrics  "
-msgstr ":Lista "
+msgstr ":Letras "
 
 #: src/screen.c:254
 msgid "Volume n/a "
@@ -237,54 +235,48 @@ msgid "Database update of %s started!"
 msgstr "A actualizaçom da BD de %s começou!"
 
 #: src/screen_search.c:56
-#, fuzzy
 msgid "artist"
-msgstr "Artista"
+msgstr "artista"
 
 #: src/screen_search.c:57
-#, fuzzy
 msgid "album"
-msgstr "Álbum"
+msgstr "álbum"
 
 #: src/screen_search.c:58
-#, fuzzy
 msgid "title"
-msgstr "Título"
+msgstr "título"
 
 #: src/screen_search.c:59
-#, fuzzy
 msgid "track"
-msgstr "Seguinte"
+msgstr "pista"
 
 #: src/screen_search.c:60
-#, fuzzy
 msgid "name"
-msgstr "Nome do ficheiro"
+msgstr "nome do ficheiro"
 
 #: src/screen_search.c:61
 msgid "genre"
-msgstr ""
+msgstr "estilo"
 
 #: src/screen_search.c:62
 msgid "date"
-msgstr ""
+msgstr "data"
 
 #: src/screen_search.c:63
 msgid "composer"
-msgstr ""
+msgstr "compositor"
 
 #: src/screen_search.c:64
 msgid "performer"
-msgstr ""
+msgstr "executante"
 
 #: src/screen_search.c:65
 msgid "comment"
-msgstr ""
+msgstr "comentário"
 
 #: src/screen_search.c:66
-#, fuzzy
 msgid "file"
-msgstr "Título"
+msgstr "ficheiro"
 
 #: src/screen_search.c:100
 msgid "Title"
@@ -305,12 +297,12 @@ msgstr "Nome do ficheiro"
 #: src/screen_search.c:244
 #, c-format
 msgid "Bad search tag %s"
-msgstr ""
+msgstr "Tag de procura errónea %s"
 
 #: src/screen_search.c:251
 #, c-format
 msgid "No argument for search tag %s"
-msgstr ""
+msgstr "Sem argumento para a procura da tag %s"
 
 #: src/screen_search.c:323
 msgid "Search: "
@@ -325,9 +317,9 @@ msgid "Press %s for a new search"
 msgstr "Preme %s para umha nova procura"
 
 #: src/screen_search.c:435
-#, fuzzy, c-format
+#, c-format
 msgid "Search: %s"
-msgstr "Procurar: "
+msgstr "Procurar: %s "
 
 #: src/screen_search.c:438
 #, c-format
@@ -473,30 +465,28 @@ msgid "Select and play"
 msgstr "Seleccionar e tocar"
 
 #: src/screen_help.c:131
-#, fuzzy
 msgid "Keys - Lyrics screen"
-msgstr "Teclas - Écrã da lista"
+msgstr "Teclas - Écrã das letras"
 
 #: src/screen_help.c:133
 msgid "View Lyrics"
-msgstr ""
+msgstr "Ver Letras"
 
 #: src/screen_help.c:134
 msgid "(Re)load lyrics"
-msgstr ""
+msgstr "(Re)carregar letras"
 
 #: src/screen_help.c:135
 msgid "Interrupt retrieval"
-msgstr ""
+msgstr "Interromper a descarga"
 
 #: src/screen_help.c:136
 msgid "Explicitly download lyrics"
-msgstr ""
+msgstr "Forçar a descarga das letras"
 
 #: src/screen_help.c:137
-#, fuzzy
 msgid "Save lyrics"
-msgstr "Guardar lista"
+msgstr "Guardar as letras"
 
 #: src/screen_help.c:220
 msgid "Help"
@@ -504,20 +494,19 @@ msgstr "Ajuda"
 
 #: src/screen_lyrics.c:479
 msgid "Lyrics  [No connection]"
-msgstr ""
+msgstr "Letras [Sem conexom]"
 
 #: src/screen_lyrics.c:480
 msgid "Lyrics  [Not found]"
-msgstr ""
+msgstr "Letras [Nom atopadas]"
 
 #: src/screen_lyrics.c:483
 msgid "Lyrics  [retrieving]"
-msgstr ""
+msgstr "Letras [a procurar]"
 
 #: src/screen_lyrics.c:565
-#, fuzzy
 msgid "Lyrics saved!"
-msgstr "Écrã da lista"
+msgstr "Letras guardadas!"
 
 #: src/command.c:71
 msgid "Key configuration screen"
@@ -684,9 +673,8 @@ msgid "Backward find previous"
 msgstr "Procurar cara atrás, anterior"
 
 #: src/command.c:178
-#, fuzzy
 msgid "Artist screen"
-msgstr "Écrã da lista"
+msgstr "Navegador de Artistas"
 
 #: src/command.c:182
 msgid "Search screen"
@@ -701,18 +689,16 @@ msgid "Clock screen"
 msgstr "Écrã do relógio"
 
 #: src/command.c:193
-#, fuzzy
 msgid "Lyrics screen"
-msgstr "Écrã da lista"
+msgstr "Ecrã das letras"
 
 #: src/command.c:195
 msgid "Interrupt action"
-msgstr ""
+msgstr "Interromper a acçom"
 
 #: src/command.c:197
-#, fuzzy
 msgid "Update Lyrics"
-msgstr "Actualizar o écrã"
+msgstr "Actualizar as letras"
 
 #: src/command.c:220
 msgid "Undefined"
