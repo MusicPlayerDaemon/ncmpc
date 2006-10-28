@@ -42,6 +42,31 @@
 /* from utils.c */
 extern GList *string_list_free(GList *string_list);
 
+
+/* filelist sorting functions */
+static gint
+compare_filelistentry_dir(gconstpointer filelist_entry1, gconstpointer filelist_entry2)
+{
+  mpd_InfoEntity *e1, *e2;
+  char *key1, *key2;
+  int n = 0;
+
+  e1 = ((filelist_entry_t *)filelist_entry1)->entity;
+  e2 = ((filelist_entry_t *)filelist_entry2)->entity;
+  if (e1 && e2 &&
+      e1->type == MPD_INFO_ENTITY_TYPE_DIRECTORY &&
+      e2->type == MPD_INFO_ENTITY_TYPE_DIRECTORY)
+    {
+      key1 = g_utf8_collate_key(e1->info.directory->path,-1);
+      key2 = g_utf8_collate_key(e2->info.directory->path,-1);
+      n = strcmp(key1,key2);
+      g_free(key1);
+      g_free(key2);
+    }
+  return n;
+}
+
+
 /* Error callbacks */
 static gint
 error_cb(mpdclient_t *c, gint error, gchar *msg)
@@ -853,6 +878,7 @@ mpdclient_filelist_get(mpdclient_t *c, gchar *path)
   mpdclient_filelist_t *filelist;
   mpd_InfoEntity *entity;
   gchar *path_utf8 = locale_to_utf8(path);
+  gboolean has_dirs_only = TRUE;
 
   D("mpdclient_filelist_get(%s)\n", path);
   mpd_sendLsInfoCommand(c->connection, path_utf8);
@@ -873,6 +899,11 @@ mpdclient_filelist_get(mpdclient_t *c, gchar *path)
       entry->entity = entity;
       filelist->list = g_list_append(filelist->list, (gpointer) entry);
       filelist->length++;
+
+      if (has_dirs_only && entity->type != MPD_INFO_ENTITY_TYPE_DIRECTORY)
+	{
+	  has_dirs_only = FALSE;
+	}
     }
   
    /* If there's an error, ignore it.  We'll return an empty filelist. */
@@ -881,6 +912,13 @@ mpdclient_filelist_get(mpdclient_t *c, gchar *path)
   g_free(path_utf8);
   filelist->path = g_strdup(path);
   filelist->updated = TRUE;
+
+  // If there are only directory entities in the filelist, we sort it
+  if (has_dirs_only)
+    {
+      D("mpdclient_filelist_get: only dirs; sorting!\n");
+      filelist->list = g_list_sort(filelist->list, compare_filelistentry_dir);
+    }
 
   return filelist;
 }

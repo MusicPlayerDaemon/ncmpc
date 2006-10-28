@@ -190,6 +190,8 @@ main(int argc, const char *argv[])
 #ifdef HAVE_LOCALE_H
   /* time and date formatting */
   setlocale(LC_TIME,"");
+  /* care about sorting order etc */
+  setlocale(LC_COLLATE,"");
   /* charset */
   setlocale(LC_CTYPE,"");
   /* initialize charset conversions */
