@@ -1,4 +1,8 @@
-2006-10-28 Anderas Obergrusberger <tradiaz@yahoo.de>
+2006-11-1
+  * fixed build problems on some systems 
+    by adding mkinstalldirs 
+
+2006-10-28 Andreas Obergrusberger <tradiaz@yahoo.de>
   * Daniel has added sorting by caring about LC_COLLATE
   
 2006-10-26 Andreas Obergrusberger <tradiaz@yahoo.de>
