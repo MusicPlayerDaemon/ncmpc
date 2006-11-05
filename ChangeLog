@@ -1,4 +1,7 @@
-2006-11-1
+2006-11-5 Andreas Obergrusberger <tradiaz@yahoo.de>
+  * spanish translation updated
+
+2006-11-1 Andreas Obergrusberger <tradiaz@yahoo.de>
   * fixed build problems on some systems 
     by adding mkinstalldirs 
 
