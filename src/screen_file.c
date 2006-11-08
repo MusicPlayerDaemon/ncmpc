@@ -207,20 +207,33 @@ browse_lw_callback(int index, int *highlight, void *data)
 
 /* chdir */
 static int
-change_directory(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
+change_directory(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry, char *new_path)
 {
-  mpd_InfoEntity *entity = entry->entity;
+  mpd_InfoEntity *entity = NULL;
   gchar *path = NULL;
+
+  if( entry!=NULL )
+    entity = entry->entity;
+  else if( new_path==NULL )
+    return -1;
 
   if( entity==NULL )
     {
-      /* return to parent */
-      char *parent = g_path_get_dirname(filelist->path);
-      if( strcmp(parent, ".") == 0 )
+      if( entry || 0==strcmp(new_path, "..") )
 	{
-	  parent[0] = '\0';
+	  /* return to parent */
+	  char *parent = g_path_get_dirname(filelist->path);
+	  if( strcmp(parent, ".") == 0 )
+	    {
+	      parent[0] = '\0';
+	    }
+	  path = g_strdup(parent);
 	}
-      path = g_strdup(parent);
+      else
+	{
+	  /* entry==NULL, then new_path ("" is root) */
+	  path = g_strdup(new_path);
+	}
       list_window_reset(lw);
       /* restore previous list window state */
       list_window_pop_state(lw_state,lw); 
@@ -366,7 +379,7 @@ browse_handle_enter(screen_t *screen,
 
   entity = entry->entity;
   if( entity==NULL || entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY )
-    return change_directory(screen, c, entry);
+    return change_directory(screen, c, entry, NULL);
   else if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE )
     return load_playlist(screen, c, entry);
   else if( entity->type==MPD_INFO_ENTITY_TYPE_SONG )
@@ -635,6 +648,12 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
     case CMD_PLAY:
       browse_handle_enter(screen, c, lw, filelist);
       return 1;
+    case CMD_GO_ROOT_DIRECTORY:
+      return change_directory(screen, c, NULL, "");
+      break;
+    case CMD_GO_PARENT_DIRECTORY:
+      return change_directory(screen, c, NULL, "..");
+      break;
     case CMD_SELECT:
       if( browse_handle_select(screen, c, lw, filelist) == 0 )
 	{

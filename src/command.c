@@ -137,6 +137,10 @@ static command_definition_t cmds[] =
   { { 'a',   0,   0 }, 0, CMD_ADD, "add",
     N_("Add url/file to playlist") },
 
+  { { '!',   0,   0 }, 0, CMD_GO_ROOT_DIRECTORY, "go-root-directory",
+    N_("Go to root directory") },
+  { { '"',   0,   0 }, 0, CMD_GO_PARENT_DIRECTORY, "go-parent-directory",
+    N_("Go to parent directory") },
 
   /* lists */
   { { 11,  0,   0 }, 0, CMD_LIST_MOVE_UP,     "move-up", 
