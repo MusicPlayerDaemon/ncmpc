@@ -80,7 +80,7 @@ list_window_rfind(list_window_t *lw,
 list_window_state_t *list_window_init_state(void);
 list_window_state_t *list_window_free_state(list_window_state_t *state);
 void list_window_push_state(list_window_state_t *state, list_window_t *lw);
-void list_window_pop_state(list_window_state_t *state, list_window_t *lw);
+bool list_window_pop_state(list_window_state_t *state, list_window_t *lw);
 
 
 

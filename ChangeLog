@@ -1,6 +1,10 @@
+2006-11-11 Andreas Obergrusberger <tradiaz@yahoo.de>
+  * fixed advanced search
+  * go root/parent also for artist screen
+  
 2006-11-8 Andreas Obergrusberger <tradiaz@yahoo.de>
   * Daniel added the functionality to go to
-    the parent and root directory via shortcu
+    the parent and root directory via shortcut
   * updated ncmpc.pot
 
 2006-11-5 Andreas Obergrusberger <tradiaz@yahoo.de>

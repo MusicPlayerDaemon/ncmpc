@@ -371,7 +371,7 @@ list_window_push_state(list_window_state_t *state, list_window_t *lw)
     }
 }
 
-void 
+bool
 list_window_pop_state(list_window_state_t *state, list_window_t *lw)
 {
   if( state && state->list )
@@ -383,7 +383,7 @@ list_window_pop_state(list_window_state_t *state, list_window_t *lw)
       state->list->data = NULL;
       state->list = g_list_delete_link(state->list, state->list);
     }
+
+  // return TRUE if there are still states in the list
+  return (state && state->list) ? TRUE : FALSE;
 }
-
-
-

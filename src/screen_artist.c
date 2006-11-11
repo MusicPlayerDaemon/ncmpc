@@ -369,6 +369,40 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	}
       return 1;
 
+
+    /* FIXME? CMD_GO_* handling duplicates code from CMD_PLAY */
+
+    case CMD_GO_PARENT_DIRECTORY:
+      switch(mode)
+	{
+	case LIST_ALBUMS:
+	  update_metalist(c, NULL, NULL);
+	  list_window_reset(lw);
+	  /* restore previous list window state */
+	  list_window_pop_state(lw_state,lw);
+	  break;
+	case LIST_SONGS:
+	  update_metalist(c, g_strdup(artist), NULL);
+	  list_window_reset(lw);
+	  /* restore previous list window state */
+	  list_window_pop_state(lw_state,lw);
+	  break;
+	}
+      break;
+
+    case CMD_GO_ROOT_DIRECTORY:
+      switch(mode)
+	{
+	case LIST_ALBUMS:
+	case LIST_SONGS:
+	  update_metalist(c, NULL, NULL);
+	  list_window_reset(lw);
+	  /* restore first list window state (pop while returning true) */
+	  while(list_window_pop_state(lw_state,lw));
+	  break;
+	}
+      break;
+
     case CMD_SELECT:
       switch(mode)
 	{

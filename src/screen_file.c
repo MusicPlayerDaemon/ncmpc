@@ -228,15 +228,18 @@ change_directory(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry, char
 	      parent[0] = '\0';
 	    }
 	  path = g_strdup(parent);
+	  list_window_reset(lw);
+	  /* restore previous list window state */
+	  list_window_pop_state(lw_state,lw); 
 	}
       else
 	{
 	  /* entry==NULL, then new_path ("" is root) */
 	  path = g_strdup(new_path);
+	  list_window_reset(lw);
+	  /* restore first list window state (pop while returning true) */
+	  while(list_window_pop_state(lw_state,lw));
 	}
-      list_window_reset(lw);
-      /* restore previous list window state */
-      list_window_pop_state(lw_state,lw); 
     }
   else
     if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY)
