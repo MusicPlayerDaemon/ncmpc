@@ -7,13 +7,13 @@
 
 char *check_lyr_hd(char *artist, char *title, int how)
 { //checking whether for lyrics file existence and proper access
-        static char path[1024];
-        snprintf(path, 1024, "%s/.lyrics/%s/%s.lyric", 
-                        getenv("HOME"), artist, title);
+  result |= 2;      
+  static char path[1024];
+  snprintf(path, 1024, "%s/.lyrics/%s/%s.lyric", 
+                  getenv("HOME"), artist, title);
     
-    if(g_access(path, how) != 0) return NULL;
-                 
-        return path;
+  if(g_access(path, how) != 0) return NULL;
+  return path;
 }		
 
 
@@ -25,7 +25,7 @@ int get_lyr_hd(char *artist, char *title)
         FILE *lyr_file;	
         lyr_file = fopen(path, "r");
         if(lyr_file == NULL) return -1;
-        
+        result |= 4;
         char *buf = NULL;
         char **line = &buf;
         size_t n = 0;
