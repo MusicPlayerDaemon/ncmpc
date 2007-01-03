@@ -3,7 +3,7 @@ SUBDIRS = \
   doc\
   po
 
-AUTOMAKE_OPTIONS =   foreign 1.6
+AUTOMAKE_OPTIONS =   gnu 1.6
 
 # $Id$
 

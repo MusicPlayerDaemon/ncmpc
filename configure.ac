@@ -11,6 +11,7 @@ dnl Check for programs
 AC_PROG_CC
 AC_PROG_INSTALL
 dnl AC_PROG_LIBTOOL
+AC_PROG_LIBTOOL
 
 dnl =======================================================
 dnl initialize variables
@@ -149,6 +150,14 @@ PKG_CHECK_MODULES([GTHREAD],
 AC_SUBST(GTHREAD_LIBS)
 AC_SUBST(GTHREAD_CFLAGS)
 		  
+dnl check for gmodule
+PKG_CHECK_MODULES([GMODULE], 
+		  [gmodule-2.0],
+		  [gmodule=yes],
+		  [AC_MSG_WARN([gmodule-2.0 >= 0.20 is required the plugin system])])
+AC_SUBST(GMODULE_LIBS)
+AC_SUBST(GMODULE_CFLAGS)
+
 dnl check for libcurl
 PKG_CHECK_MODULES([libcurl], 
 		  [libcurl],
@@ -214,7 +223,7 @@ dnl Optional screen - help screen
 #fi
 
 dnl Optional screen - browse screen
-#AC_MSG_CHECKING([whether to include the browse screen])
+#AC_MSG_CHECKING([whether to include the browse screen])r
 #AC_ARG_ENABLE([browse-screen], 
 #              AC_HELP_STRING([--enable-browse-screen],
 #	                     [Enable the browse screen @<:@default=yes@:>@]),
@@ -239,6 +248,23 @@ if test "x$getmouse" = "xyes" ; then
 		[AC_DEFINE([HAVE_GETMOUSE], [1], [$ncurses - getmouse()])],
 		[])
 fi
+
+dnl Plugin loading for lyrics sources
+AC_MSG_CHECKING([whether to include the plugin infrastructure])
+AC_ARG_ENABLE([plugin-support],
+	     AC_HELP_STRING([--enable-plugin-support],
+			    [Enable loading lyrics plugins @<:@default=yes@:>@]),
+	     [plugin_support="$enableval"],
+	     [plugin_support=yes])
+if test "x$plugin_support" != "xyes" ; then
+    AC_DEFINE(DISABLE_PLUGIN_SYSTEM, 1, [Disable plugin system])
+fi
+
+if test "x$gmodule" != "xyes" ; then
+    AC_DEFINE(DISABLE_PLUGIN_SYSTEM, 1, [Disable plugin system])
+    plugin_support=no
+fi
+AC_MSG_RESULT([$plugin_support])
 
 dnl Optional screen - artist
 AC_MSG_CHECKING([whether to include the artist screen])
@@ -294,29 +320,100 @@ AC_ARG_ENABLE([lyrics-screen],
               AC_HELP_STRING([--enable-lyrics-screen],
 	                     [Enable lyrics screen @<:@default=no@:>@]),
 	      [lyrics_screen="$enableval"],
-	      [lyrics_screen=no])	
+	      [lyrics_screen=yes])	
 if test "x$lyrics_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
    lyrics_screen=no
 fi
 #lyrics_screen=yes
-if test "$libcurl" != "yes" ; then
- AC_MSG_RESULT([$lyrics_screen])  
+#if test "x$libcurl" != "xyes" ; then
+# AC_MSG_RESULT([$lyrics_screen])  
  # AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
   # lyrics_screen=no
-fi
-if test "$gthread" != "yes" ; then
-   AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
-   lyrics_screen=no
-AC_MSG_RESULT([$lyrics_screen]) 
-fi
-if test "$have_expat" != "yes" ; then
+#fi
+if test "x$gthread" != "xyes" ; then
    AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
    lyrics_screen=no
 fi
+#if test "x$have_expat" != "xyes" ; then
+#   AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
+#   lyrics_screen=no
+#fi
 
 AC_MSG_RESULT([$lyrics_screen])
 
+dnl hd
+AC_MSG_CHECKING([whether to build with .lyrics support])
+AC_ARG_WITH([lyrics-hd],
+	    AC_HELP_STRING([[--with-lyrics-leoslyrics[=plugin/fixed/no]]],
+		       [enable leoslyrics lyrics source @<:@default=plugin@:>@]),
+	[hd=$withval],
+	[hd=plugin])
+
+if test "x$plugin_support" != "xyes" ; then
+    if test "x$hd" == "xplugin" ; then
+	hd=fixed
+	AC_MSG_NOTICE([Enable lyrics plugin support to compile as a plugin!])
+   fi
+fi	
+AC_MSG_RESULT([$hd])
+if test "x$hd" == "xfixed"; then
+    AC_DEFINE_UNQUOTED([ENABLE_LYRSRC_HD], 1,
+		   [~/.lyrics inclusion])
+fi
+if test "x$hd" == "xplugin" ; then
+    src_lyr_plugins="${src_lyr_plugins}hd "
+fi
+AM_CONDITIONAL(HD_FIXED, test x$hd = xfixed)
+
+dnl leoslyrics
+AC_MSG_CHECKING([whether to build with leoslyrics])
+AC_ARG_WITH([lyrics-leoslyrics],
+	    AC_HELP_STRING([[--with-lyrics-leoslyrics[=plugin/fixed/no]]],
+		       [enable leoslyrics lyrics source @<:@default=plugin@:>@]),
+	[leoslyrics=$withval],
+	[leoslyrics=plugin])
+
+if test "x$plugin_support" != "xyes" ; then
+    if test "x$leoslyrics" == "xplugin" ; then
+	leoslyrics=fixed
+	AC_MSG_NOTICE([Enable lyrics plugin support to compile as a plugin!])
+   fi
+fi	
+
+if test "x$have_expat" != "xyes" ; then
+    leoslyrics=no
+fi
+if test "x$libcurl" != "xyes" ; then
+    leoslyrics=no
+fi
+
+if test "x$leoslyrics" == "xplugin" ; then
+    src_lyr_plugins="${src_lyr_plugins}leoslyrics "
+fi
+AC_MSG_RESULT([$leoslyrics])
+
+if test "x$leoslyrics" == "xfixed" ; then 
+    AC_DEFINE_UNQUOTED([ENABLE_LYRSRC_LEOSLYRICS], 1,
+		   [Leoslyrics inclusion])
+fi
+
+#if test "x$leoslyrics" == "xfixed" ; then
+ #   src_lyr_fixed="${src_lyr_fixed}../plugins/leoslyrics/lyrics_leoslyrics.c "
+ #   leoslyrics_fixed=yes
+#fi
+AM_CONDITIONAL(LEOSLYRICS_FIXED, test x$leoslyrics = xfixed)
+
+dnl plugins directory
+AC_ARG_WITH([plugin-dir],
+	    AC_HELP_STRING([[--with-plugin-dir[=DIRECTORY]]],
+		       [Directory where plugins are stored @<:@default=/usr/share/ncmpc/modules@:>@]),
+	[plugindir=$withval],
+	[plugindir="/usr/share/ncmpc/modules"])
+AC_DEFINE_UNQUOTED([PLUGIN_DIR_SYSTEM], ["$plugindir"],
+		   [Directory to search for plugins])
+
+AC_SUBST(plugindir)
 dnl Default host
 AC_MSG_CHECKING([for default MPD host])
 AC_ARG_WITH([default-host],
@@ -347,6 +444,9 @@ AC_ARG_WITH([default-timedisplay_type],
             [DEFAULT_TIMEDISPLAY_TYPE="elapsed"])
 AC_MSG_RESULT([$DEFAULT_TIMEDISPLAY_TYPE])
 AC_DEFINE_UNQUOTED([DEFAULT_TIMEDISPLAY_TYPE], ["$DEFAULT_TIMEDISPLAY_TYPE"], [Default way to display time, either 'elapsed' or 'remaining'])
-
-AC_CONFIG_FILES([Makefile src/Makefile doc/Makefile po/Makefile.in])
+AC_SUBST(src_lyr_plugins)
+AC_SUBST(src_lyr_fixed)
+AC_CONFIG_FILES([Makefile src/Makefile plugins/Makefile doc/Makefile po/Makefile 
+		plugins/hd/Makefile 
+		plugins/leoslyrics/Makefile])
 AC_OUTPUT

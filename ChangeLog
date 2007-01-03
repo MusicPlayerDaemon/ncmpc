@@ -1,3 +1,8 @@
+2007-01-03 Andreas Obergrusberger <tradiaz@yahoo.d>
+  * added plugin support for lyrics
+  * changed the build system heavily, look at INSTALL
+  * build system now GNU standardized
+
 2006-11-11 Andreas Obergrusberger <tradiaz@yahoo.de>
   * fixed advanced search
   * go root/parent also for artist screen

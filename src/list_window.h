@@ -1,6 +1,8 @@
 #ifndef LIST_WINDOW_H
 #define LIST_WINDOW_H
 
+#include <ncurses.h>
+#include <command.h>
 #define LW_ROW(lw) (lw ? lw->selected-lw->start :  0)
 
 #define LW_HIDE_CURSOR    0x01

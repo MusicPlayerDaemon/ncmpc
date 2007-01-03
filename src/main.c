@@ -33,6 +33,7 @@
 #include "options.h"
 #include "conf.h"
 #include "command.h"
+#include "src_lyrics.h"
 #include "screen.h"
 #include "screen_utils.h"
 #include "strfsong.h"
@@ -265,6 +266,8 @@ main(int argc, const char *argv[])
   
   ncurses_init();
   if(options->show_splash == TRUE) draw_splash();
+
+  init_src_lyr ();
 
   /* connect to our music player daemon */
   mpd = mpdclient_new();

@@ -1,9 +1,16 @@
+#SUBDIRS = 
+
 AM_CPPFLAGS = \
   $(GLIB_CFLAGS)\
   $(GTHREAD_CFLAGS)\
-  $(libcurl_CFLAGS)\
+  $(GMODULE_CFLAGS)\
   -DLOCALE_DIR=\""$(datadir)/locale"\"\
   -DSYSCONFDIR=\""$(sysconfdir)"\"
+
+ncmpc_LDADD = \
+  $(GLIB_LIBS)\
+  $(GTHREAD_LIBS)\
+  $(GMODULE_LIBS)
 
 ncmpc_headers = \
   libmpdclient.h\
@@ -22,11 +29,14 @@ ncmpc_headers = \
   utils.h\
   ncmpc.h\
   screen_browse.h\
-  splash.h
+  splash.h\
+  src_lyrics.h
 
 # $Id$
 
 bin_PROGRAMS = ncmpc
+
+lyr_src=${lyr_src_fixed}
 
 ncmpc_SOURCES = \
   libmpdclient.c\
@@ -53,9 +63,18 @@ ncmpc_SOURCES = \
   strfsong.c\
   utils.c\
   splash.c\
-  $(ncmpc_headers)
+  src_lyrics.c
 
-ncmpc_LDADD = \
-  $(GLIB_LIBS)\
-  $(GTHREAD_LIBS)\
-  $(libcurl_LIBS)
+if LEOSLYRICS_FIXED
+ncmpc_SOURCES+=lyrics_leoslyrics.c 
+AM_CPPFLAGS+=${libcurl_CFLAGS}
+ncmpc_LDADD+=${libcurl_LIBS}
+endif
+
+if HD_FIXED
+ncmpc_SOURCES+=lyrics_hd.c 
+endif
+
+ncmpc_SOURCES+=${ncmpc_headers}
+
+
