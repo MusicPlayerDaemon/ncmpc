@@ -267,7 +267,7 @@ main(int argc, const char *argv[])
   ncurses_init();
   if(options->show_splash == TRUE) draw_splash();
 
-  init_src_lyr ();
+  src_lyr_init ();
 
   /* connect to our music player daemon */
   mpd = mpdclient_new();

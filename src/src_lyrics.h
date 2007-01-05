@@ -70,8 +70,8 @@ typedef int (*src_lyr_plugin_register) (src_lyr *source_descriptor);
 
 GArray *src_lyr_stack;
 
-int init_src_lyr_stack ();
-int init_src_lyr ();
+int src_lyr_stack_init ();
+int src_lyr_init ();
 int get_lyr_by_src (int priority, char *artist, char *title);
 
 #endif

@@ -18,12 +18,13 @@
  *
  */
 
-#include "src_lyrics.h"
-#include <options.h>
 #include <unistd.h>
-#include "../config.h"
+#include <string.h>
 
-#define PLUGIN_DIR_USER "/home/andi/.ncmpc/plugins"
+#include "../config.h"
+#include "src_lyrics.h"
+
+#define PLUGIN_DIR_USER "/.ncmpc/plugins"
 
 int get_text_line(formed_text *text, int num, char *dest, int len)
 {
@@ -104,7 +105,7 @@ int deregister_lyr_hd ();
 int register_lyr_hd (src_lyr *source_descriptor);
 #endif
 
-int init_src_lyr_stack ()
+int src_lyr_stack_init ()
 {
   src_lyr_stack = g_array_new (TRUE, FALSE, sizeof (src_lyr*));
 
@@ -120,14 +121,15 @@ int init_src_lyr_stack ()
 #endif
 
 #ifndef DISABLE_PLUGIN_SYSTEM
+
   src_lyr_plugins_load ();
 #endif
 
 }
 
-int init_src_lyr ()
+int src_lyr_init ()
 {
-  init_src_lyr_stack();
+  src_lyr_stack_init ();
 
   int i = 0;
   while (g_array_index (src_lyr_stack, src_lyr*, i) != NULL)
@@ -189,8 +191,12 @@ int src_lyr_plugins_load ()
   if (plugin_dir == NULL)
     return -1;
   src_lyr_plugins_load_from_dir (plugin_dir);
+
+  GString *user_dir_path;
+  user_dir_path = g_string_new (g_get_home_dir());
+  g_string_append (user_dir_path, PLUGIN_DIR_USER);
  
-  plugin_dir = g_dir_open (PLUGIN_DIR_USER, 0, NULL);
+  plugin_dir = g_dir_open (user_dir_path->str, 0, NULL);
   if (plugin_dir == NULL)
     return -1;
   src_lyr_plugins_load_from_dir (plugin_dir);
