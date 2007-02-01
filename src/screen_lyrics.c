@@ -227,8 +227,8 @@ lyrics_title(char *str, size_t size)
                         if(!(result & 1))
                         {
 				g_string_append (msg, " - ");
-                                if(!(result & 2)) g_string_append (msg, _("No connection"));
-                                if(!(result & 4)) g_string_append (msg, _("Not found")); 
+                                if(!(result & 2)) g_string_append (msg, _("No access"));
+				else if(!(result & 4)) g_string_append (msg, _("Not found")); 
                         }
                 }
                 if(lock == 2) 

@@ -82,6 +82,7 @@ static void fetch_text(void *userData, const XML_Char *s, int len)
 {
         if(result & 16)
         {
+	  	if (s[0] == 13 ) return; //ignore any single carriage returns
                 add_text_line(&lyr_text, s, len); 
         }
 }

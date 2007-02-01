@@ -50,7 +50,7 @@ int get_text_line(formed_text *text, int num, char *dest, int len)
                 memcpy(dest, &text->text->str[g_array_index(text->lines, int, num)],
                 linelen*sizeof(char));	
         }
-        dest[linelen] = '\n';
+	dest[linelen] = '\n';
         dest[linelen+1] = '\0';
         
         return 0;
@@ -58,6 +58,7 @@ int get_text_line(formed_text *text, int num, char *dest, int len)
         
 void add_text_line(formed_text *dest, const char *src, int len)
 {
+
         // need this because g_array_append_val doesnt work with literals
         // and expat sends "\n" as an extra line everytime
         if(len == 0)
@@ -75,7 +76,7 @@ void add_text_line(formed_text *dest, const char *src, int len)
                 if(dest->lines->len > 0) dest->val += g_array_index(dest->lines, int,
                                                                         dest->lines->len-1);
         }
-        else if (len == 1 && dest->val != 0) dest->val = 0;
+        else if (len < 6 && dest->val != 0) dest->val = 0;
                                 
         if(dest->val > 0)
         { 

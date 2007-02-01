@@ -117,21 +117,14 @@ lw_search_help_callback(int index, int *highlight, void *data)
 {
   int text_rows;
   static char *text[] = {
-    "Welcome to ncmpc's search screen - SVN version.",
-    "",
-    "Quick search - just enter a string and ncmpc will search according",
+    "Quick  - just enter a string and ncmpc will search according",
     "               to the current search mode (displayed above).",
     "",
-    "Advanced - bla bla bla.... syntax below",
-    ""
-    " <tag>:<search term> [<tag>:<search term>...]",
+    "Advanced  -  <tag>:<search term> [<tag>:<search term>...]",
+    "			Example: artist:radiohead album:pablo honey",
     "",
-    "Example: artist:radiohead album:pablo honey",
-    "",
-    "##### SOMEONE - Write a proper help text, please! #####",
-    "",
-    "avalible tags: artist, album, title, track, name, genre, date",
-    "               composer, performer, comment, file",
+    "		   avalible tags: artist, album, title, track,", 
+    "	           name, genre, date composer, performer, comment, file",
     "",
     NULL
   };

@@ -82,6 +82,7 @@ static void fetch_text(void *userData, const XML_Char *s, int len)
 {
         if(result & 16)
         {
+	  	if (s[0] == 13 ) return; //ignore any single carriage returns
                 add_text_line(&lyr_text, s, len); 
         }
 }
@@ -146,7 +147,6 @@ int get_lyr_leoslyrics(char *artist, char *title)
         return 0;
         
 }
-#if SRC_LYR_LEOSLYRICS == plugin
 int register_me (src_lyr *source_descriptor)
 { 
   source_descriptor->check_lyr = check_lyr_leoslyrics;
@@ -155,4 +155,3 @@ int register_me (src_lyr *source_descriptor)
   source_descriptor->name = "Leoslyrics";
   source_descriptor->description = "powered by http://www.leoslyrics.com";
 }
-#endif
