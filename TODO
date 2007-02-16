@@ -1,6 +1,4 @@
 
- * Make status line scrolling optional
-
  * Scroll long list entries, move left/right (#242)
 
  * Search screen (with a simple ui)
@@ -13,5 +11,5 @@
 
  * LIRC support (without irpty) ?
 
- * In-program option editor
+ /* In-program option editor */ do not touch, already in develpoment ;)
 

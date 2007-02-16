@@ -70,6 +70,8 @@
 #define CONF_PASSWORD                "password"
 #define CONF_LYRICS_TIMEOUT          "lyrics-timeout"
 #define CONF_SHOW_SPLASH             "show-splash"
+#define CONF_SCROLL                  "scroll"
+#define CONF_SCROLL_SEP              "scroll-sep"
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -584,6 +586,15 @@ read_rc_file(char *filename, options_t *options)
 	    {
 	    options->lyrics_timeout = atoi(get_format(value));
 	    }		
+	    else if( !strcasecmp(CONF_SCROLL, name))
+	    {
+	    options->scroll = str2bool(value);
+	    }
+	    else if( !strcasecmp(CONF_SCROLL_SEP, name))
+	    {
+	    g_free(options->scroll_sep);
+	    options->scroll_sep = get_format(value);
+	    }
 	      else
 		{
 		  match_found = 0;

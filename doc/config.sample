@@ -52,6 +52,12 @@
 ## mpd crossfade time 
 ##crossfade-time = 10
 
+## scroll long titles
+#scroll = yes
+
+## separator to use when scrolling
+#scroll-sep = " *** "
+
 ##
 ## Color configuration
 ##

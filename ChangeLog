@@ -1,4 +1,10 @@
-2007-02-01 Andreas Obergrusberger <tradiazqyahoo.de>
+2007-02-16 Andreas Obergrusberger <tradiaz@yahoo.de>
+  + nj has posted a lot of patches on the bug tracker
+  	* added the option to search for artist and title at the same time
+  	* fixed a drawing problem with the help screen
+  	* made scrolling of the song title when windows is too small optional
+	  
+2007-02-01 Andreas Obergrusberger <tradiaz@yahoo.de>
   * fixed a bad bug in leoslyrics that made every
     second line an empty line
   * uploaded some updates for the lyrics system
@@ -76,7 +82,7 @@
 
 2006-08-4 Anderas Obergrusberger <tradiaz@yahoo.de>
         * tradiaz is temporary maintainer of a special branch of ncmpc now
-          https://svn.musicpd.org/mpd/ncmpc/branches/tradiaz
+          (https://svn.musicpd.org/mpd/ncmpc/branches/tradiaz)
           the development will go on there till kaw shows up again
           contact him: tradiaz@yahoo.de
 

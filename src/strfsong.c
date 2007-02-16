@@ -204,9 +204,21 @@ _strfsong(gchar *s,
       else if (strncmp("%time%", p, n) == 0)
 	{
 	  if (song->time != MPD_SONG_NO_TIME) 
-	    temp = g_strdup_printf("%d:%02d", 
-				   song->time / 60, 
-				   song->time % 60 + 1);
+	    {
+	      if (song->time > 3600)
+		{
+		  temp = g_strdup_printf("%d:%02d:%02d", 
+			  song->time / 3600, 
+			  (song->time % 3600) / 60, 
+			  song->time % 60);
+		}
+	      else
+		{
+		  temp = g_strdup_printf("%d:%02d", 
+			  song->time / 60, 
+			  song->time % 60);
+		}
+	    }
 	}
 
       if( temp == NULL)

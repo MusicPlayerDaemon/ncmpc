@@ -356,26 +356,30 @@ paint_status_window(mpdclient_t *c)
   if( IS_PLAYING(status->state) || IS_PAUSED(status->state) )
     {
       if( status->totalTime > 0 )
-        {
-	
-	/*checks the conf to see whether to display elapsed or remaining time */
-	if(!strcmp(options.timedisplay_type,"elapsed"))
-          {
-             timestr= " [%i:%02i/%i:%02i]";	    
-             elapsedTime = c->status->elapsedTime;
-          }
-        else if(!strcmp(options.timedisplay_type,"remaining"))
-          {
-            timestr= " [-%i:%02i/%i:%02i]";	    
-            elapsedTime = (c->status->totalTime - c->status->elapsedTime);
-          }  
-	if( c->song && seek_id == c->song->id )
-	    elapsedTime = seek_target_time;
-	/*write out the time*/
-	  g_snprintf(screen->buf, screen->buf_size, 
-		   timestr,
-		   elapsedTime/60, elapsedTime%60,
-		   status->totalTime/60,   status->totalTime%60 );
+	{
+	  /*checks the conf to see whether to display elapsed or remaining time */
+	  if(!strcmp(options.timedisplay_type,"elapsed"))
+	      elapsedTime = c->status->elapsedTime;
+	  else if(!strcmp(options.timedisplay_type,"remaining"))
+	      elapsedTime = (c->status->totalTime - c->status->elapsedTime);
+
+	  if( c->song && seek_id == c->song->id )
+	      elapsedTime = seek_target_time;
+	  /*write out the time, using hours if time over 60 minutes*/
+	  if (c->status->totalTime > 3600)
+	    {
+	      g_snprintf(screen->buf, screen->buf_size, 
+		      " [%i:%02i:%02i/%i:%02i:%02i]",
+		      elapsedTime/3600, (elapsedTime%3600)/60, elapsedTime%60,
+		      status->totalTime/3600, (status->totalTime%3600)/60,  status->totalTime%60);
+	    }
+	  else
+	    {
+	      g_snprintf(screen->buf, screen->buf_size, 
+		      " [%i:%02i/%i:%02i]",
+		      elapsedTime/60, elapsedTime%60,
+		      status->totalTime/60,   status->totalTime%60 );
+	    }
 	}
       else
 	{
@@ -404,10 +408,10 @@ paint_status_window(mpdclient_t *c)
 
       colors_use(w, COLOR_STATUS);
       /* scroll if the song name is to long */
-      if( my_strlen(songname) > width )
+      if( options.scroll && my_strlen(songname) > width )
 	{
 	  static  scroll_state_t st = { 0, 0 };
-	  char *tmp = strscroll(songname, " *** ", width, &st);
+	  char *tmp = strscroll(songname, options.scroll_sep, width, &st);
 
 	  g_strlcpy(songname, tmp, MAX_SONGNAME_LENGTH);
 	  g_free(tmp);	  

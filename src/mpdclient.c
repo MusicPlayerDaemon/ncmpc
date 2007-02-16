@@ -30,12 +30,15 @@
 #include "support.h"
 #include "mpdclient.h"
 #include "options.h"
+#include "strfsong.h"
 
 #undef  ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_ADD /* broken with song id's */
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_DELETE
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_MOVE
 #define ENABLE_SONG_ID
 #define ENABLE_PLCHANGES 
+
+#define BUFSIZE 1024
 
 #define MPD_ERROR(c) (c==NULL || c->connection==NULL || c->connection->error)
 
@@ -62,6 +65,27 @@ compare_filelistentry_dir(gconstpointer filelist_entry1, gconstpointer filelist_
       n = strcmp(key1,key2);
       g_free(key1);
       g_free(key2);
+    }
+  return n;
+}
+
+/* sort by list-format */
+gint
+compare_filelistentry_format(gconstpointer filelist_entry1, gconstpointer filelist_entry2)
+{
+  mpd_InfoEntity *e1, *e2;
+  char key1[BUFSIZE], key2[BUFSIZE];
+  int n = 0;
+
+  e1 = ((filelist_entry_t *)filelist_entry1)->entity;
+  e2 = ((filelist_entry_t *)filelist_entry2)->entity;
+  if (e1 && e2 &&
+      e1->type == MPD_INFO_ENTITY_TYPE_SONG &&
+      e2->type == MPD_INFO_ENTITY_TYPE_SONG)
+    {
+      strfsong(key1, BUFSIZE, LIST_FORMAT, e1->info.song);
+      strfsong(key2, BUFSIZE, LIST_FORMAT, e2->info.song);
+      n = strcmp(key1,key2);
     }
   return n;
 }

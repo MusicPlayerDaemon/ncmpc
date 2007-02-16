@@ -246,6 +246,7 @@ static int
 help_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
   lw->repaint=1;
+  lw->clear=1;
   switch(cmd)
     {
     case CMD_LIST_NEXT:

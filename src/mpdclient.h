@@ -203,5 +203,7 @@ void mpdclient_remove_browse_callback(mpdclient_t *c, mpdc_list_cb_t cb);
 /* issue a playlist callback */
 void mpdclient_browse_callback(mpdclient_t *c, int event, gpointer data);
 
+/* sort by list-format */
+gint compare_filelistentry_format(gconstpointer filelist_entry1, gconstpointer filelist_entry2);
 
 #endif

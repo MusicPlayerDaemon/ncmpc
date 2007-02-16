@@ -91,16 +91,19 @@ search_get_tag_id(char *name)
 #define SEARCH_ALBUM    2
 #define SEARCH_FILE     3
 
+#define SEARCH_ARTIST_TITLE 999
+
 typedef struct {
   int table;
   char *label;
 } search_type_t;
 
 static search_type_t mode[] = {
-  { MPD_TABLE_TITLE,    N_("Title") },
-  { MPD_TABLE_ARTIST,   N_("Artist") },
-  { MPD_TABLE_ALBUM,    N_("Album") },
-  { MPD_TABLE_FILENAME, N_("Filename") },
+  { MPD_TABLE_TITLE,     N_("Title") },
+  { MPD_TABLE_ARTIST,    N_("Artist") },
+  { MPD_TABLE_ALBUM,     N_("Album") },
+  { MPD_TABLE_FILENAME,  N_("Filename") },
+  { SEARCH_ARTIST_TITLE, N_("Artist + Title") },
   { 0, NULL }
 };
 
@@ -186,6 +189,29 @@ search_clear(screen_t *screen, mpdclient_t *c, gboolean clear_pattern)
 }
 
 #ifdef FUTURE
+mpdclient_filelist_t *
+filelist_search(mpdclient_t *c, int exact_match, int table, gchar *pattern)
+{
+  mpdclient_filelist_t *list, *list2;
+
+  if( table == SEARCH_ARTIST_TITLE )
+    {
+      list = mpdclient_filelist_search(c, FALSE, MPD_TABLE_ARTIST, pattern);
+      list2 = mpdclient_filelist_search(c, FALSE, MPD_TABLE_TITLE, pattern);
+
+      list->length += list2->length;
+      list->list = g_list_concat(list->list, list2->list);
+      list->list = g_list_sort(list->list, compare_filelistentry_format);
+      list->updated = TRUE;
+    }
+  else
+    {
+      list = mpdclient_filelist_search(c, FALSE, table, pattern);
+    }
+
+  return list;
+}
+
 /*-----------------------------------------------------------------------
  * NOTE: This code exists to test a new search ui,
  *       Its ugly and MUST be redesigned before the next release!
@@ -335,10 +361,10 @@ search_new(screen_t *screen, mpdclient_t *c)
   if( !MPD_VERSION_LT(c, 0, 12, 0) )
     filelist = search_advanced_query(pattern, c);
   if( !advanced_search_mode && filelist==NULL )
-    filelist = mpdclient_filelist_search(c, 
-					 FALSE,
-					 mode[options.search_mode].table,
-					 pattern);
+    filelist = filelist_search(c, 
+			       FALSE,
+			       mode[options.search_mode].table,
+			       pattern);
   sync_highlights(c, filelist);
   mpdclient_install_playlist_callback(c, playlist_changed_callback);
   list_window_check_selected(lw, filelist->length);
@@ -462,7 +488,8 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	  /* continue and select next item... */
 	  cmd = CMD_LIST_NEXT;
 	}
-      return 1;
+      /* call list_window_cmd to go to the next item */
+      return list_window_cmd(lw, filelist->length, cmd);
 
     case CMD_SEARCH_MODE:
       options.search_mode++;
@@ -475,10 +502,10 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       if( pattern )
 	{
 	  search_clear(screen, c, FALSE);
-	  filelist = mpdclient_filelist_search(c, 
-					       FALSE,
-					       mode[options.search_mode].table,
-					       pattern);
+	  filelist = filelist_search(c, 
+				     FALSE,
+				     mode[options.search_mode].table,
+				     pattern);
 	  sync_highlights(c, filelist);
 	}
       return 1;

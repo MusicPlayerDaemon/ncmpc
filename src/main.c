@@ -125,6 +125,7 @@ exit_and_cleanup(void)
   g_free(options.password);
   g_free(options.list_format);
   g_free(options.status_format);
+  g_free(options.scroll_sep);
   if( timer )
     g_timer_destroy(timer);
 }

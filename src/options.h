@@ -12,6 +12,7 @@ typedef struct
   char *list_format;
   char *status_format;
   char *xterm_title_format;
+  char *scroll_sep;
   char **screen_list;
   char *timedisplay_type;
   int   port;
@@ -33,6 +34,7 @@ typedef struct
   gboolean enable_xterm_title; 
   gboolean enable_mouse;
   gboolean show_splash;
+  gboolean scroll;
 
 } options_t;
 

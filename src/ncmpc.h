@@ -79,4 +79,7 @@ void D(char *format, ...);
 											   
 #define DEFAULT_LYRICS_TIMEOUT 100
 
+#define DEFAULT_SCROLL TRUE
+#define DEFAULT_SCROLL_SEP " *** "
+
 #endif /* NCMPC_H */

@@ -375,6 +375,8 @@ options_init( void )
   options.timedisplay_type = DEFAULT_TIMEDISPLAY_TYPE;
   options.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT;
   options.show_splash = FALSE;
+  options.scroll = DEFAULT_SCROLL;
+  options.scroll_sep = g_strdup(DEFAULT_SCROLL_SEP);
   
   return &options;
 }
