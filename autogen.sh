@@ -17,7 +17,7 @@ echo "checking for autoconf... "
         echo "You must have autoconf installed to compile $package."
         echo "Download the appropriate package for your distribution,"
         echo "or get the source tarball at ftp://ftp.gnu.org/pub/gnu/"
-        DIE=1
+        DIE=0
 }
 
 VERSIONGREP="sed -e s/.*[^0-9\.]\([0-9]\.[0-9]\).*/\1/"
@@ -67,7 +67,7 @@ if test -r Makefile.am; then
         echo "You must have automake installed to compile $package."
         echo "Download the appropriate package for your distribution,"
         echo "or get the source tarball at ftp://ftp.gnu.org/pub/gnu/"
-        exit 1
+        #exit 1
   }
 fi
 
@@ -87,7 +87,7 @@ fi
 	echo "Download the appropriate package for your system,"
 	echo "or get the source from one of the GNU ftp sites"
 	echo "listed in http://www.gnu.org/order/ftp.html"
-	DIE=1
+	DIE=0
 }
 
 if test "$DIE" -eq 1; then
