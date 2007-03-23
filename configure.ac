@@ -26,8 +26,7 @@ dnl
 dnl Check for types
 dnl
 
-AC_SOCKLEN_T
-
+AC_MSG_RESULT([$ac_have_socklen_t]) 
 
 dnl
 dnl Check for headers
