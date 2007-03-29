@@ -115,7 +115,7 @@ gpointer get_lyr(void *c)
 
         char artist[MAX_SONGNAME_LENGTH];
         char title[MAX_SONGNAME_LENGTH];
-        lock = 2;
+	lock=2;
         result = 0;
         
         formed_text_init(&lyr_text);
@@ -132,7 +132,11 @@ gpointer get_lyr(void *c)
         
         if (((retrieval_spec*)c)->way != -1) /*till it'S of use*/
         {
-                 if(get_lyr_by_src (src_selection, artist, title) != 0) return NULL;
+                 if(get_lyr_by_src (src_selection, artist, title) != 0)
+		   {
+		    lock=0;
+		    return NULL;
+		   }
         }
         /*else{
                 if(get_lyr_hd(artist, title) != 0) 
@@ -141,7 +145,7 @@ gpointer get_lyr(void *c)
                 }
                 else result |= 1;
         }*/
-        
+	//return NULL;
         lw->start = 0;
         check_repaint();
         lock = 1;

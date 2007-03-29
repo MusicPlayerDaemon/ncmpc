@@ -145,6 +145,7 @@ int src_lyr_init ()
 
 int get_lyr_by_src (int priority, char *artist, char *title)
 {
+  if(src_lyr_stack->len == 0) return -1;
   //if (g_array_index (src_lyr_stack, src_lyr*, priority)->check_lyr() == 0)
     //{
        g_array_index (src_lyr_stack, src_lyr*, priority)->get_lyr (artist, title);
