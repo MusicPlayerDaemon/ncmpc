@@ -50,7 +50,7 @@ static void check_search_response(void *data, const char *name,
                 {
                         if(strstr(atts[2], "hid") != NULL)
                         {
-                                hid = atts[3];
+                                hid = strdup (atts[3]);
                         }
         
                         if(strstr(atts[2], "exactMatch") != NULL)
@@ -120,6 +120,11 @@ int check_lyr_leoslyrics(char *artist, char *title, char *url)
         XML_ParserFree(parser);	
 
         if(!(result & 4)) return -1; //check whether lyrics found
+
+	CURL *curl = curl_easy_init ();
+	char *esc_hid = curl_easy_escape (curl, hid, 0);
+	free (hid);
+
         snprintf(url, 512, LEOSLYRICS_CONTENT_URL, hid);
 
         return 0;

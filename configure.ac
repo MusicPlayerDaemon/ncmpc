@@ -449,3 +449,4 @@ AC_CONFIG_FILES([Makefile src/Makefile plugins/Makefile doc/Makefile po/Makefile
 		plugins/hd/Makefile 
 		plugins/leoslyrics/Makefile])
 AC_OUTPUT
+AC_MSG_WARN([TO BUILD AN INSTALL THE PLUGINS cd TO THE plugins DIRECTORY AND EXECUTE make && make install THERE])
