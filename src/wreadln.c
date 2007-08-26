@@ -38,6 +38,7 @@
 #define KEY_CTRL_E   5
 #define KEY_CTRL_G   7
 #define KEY_CTRL_K   11
+#define KEY_CTRL_U   21
 #define KEY_CTRL_Z   26
 #define KEY_BCKSPC   8
 #define TAB          9
@@ -278,6 +279,12 @@ _wreadln(WINDOW *w,
 	  break;
 	case KEY_CTRL_K:
 	  line[cursor] = 0;
+	  break;
+	case KEY_CTRL_U:
+	  cursor = my_strlen(line);
+	  for (i = 0;i < cursor; i++)
+	    line[i] = '\0';
+	  cursor = 0;
 	  break;
 	case 127:
 	case KEY_BCKSPC:	/* handle backspace: copy all */
@@ -701,6 +708,12 @@ _wreadln(WINDOW *w,
 	      return NULL;
 	    case KEY_CTRL_K:
 	      wline[cursor] = 0;
+	      break;
+	    case KEY_CTRL_U:
+	      cursor = wcslen(wline);
+	      for (i = 0;i < cursor; i++)
+		wline[i] = '\0';
+	      cursor = 0;
 	      break;
 	    case KEY_CTRL_Z:
 	      sigstop();
