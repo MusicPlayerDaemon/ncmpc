@@ -48,6 +48,7 @@
 guint wrln_max_line_size = WRLN_MAX_LINE_SIZE;
 guint wrln_max_history_length = WRLN_MAX_HISTORY_LENGTH;
 wrln_wgetch_fn_t wrln_wgetch = NULL;
+void *wrln_completion_callback_data = NULL;
 wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
 wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 
@@ -55,8 +56,72 @@ extern void sigstop(void);
 extern void screen_bell(void);
 extern size_t my_strlen(char *str);
 
-
 #ifndef USE_NCURSESW
+/* move the cursor one step to the right */
+static inline void cursor_move_right(gint *cursor,
+				     gint *start,
+				     gint width,
+				     gint x0,
+				     gint x1,
+				     gchar *line)
+{
+  if( *cursor < strlen(line) && *cursor<wrln_max_line_size-1 )
+    {
+      (*cursor)++;
+      if( *cursor+x0 >= x1 && *start<*cursor-width+1)
+	(*start)++;
+    }
+}
+
+/* move the cursor one step to the left */
+static inline void cursor_move_left(gint *cursor,
+                                    gint *start)
+{
+  if( *cursor > 0 )
+    {
+      if( *cursor==*start && *start > 0 )
+	(*start)--;
+      (*cursor)--;
+    }
+}
+
+/* move the cursor to the end of the line */
+static inline void cursor_move_to_eol(gint *cursor,
+				      gint *start,
+				      gint width,
+				      gint x0,
+				      gint x1,
+				      gchar *line)
+{
+  *cursor = strlen(line);
+  if( *cursor+x0 >= x1 )
+    *start = *cursor-width+1;
+}
+
+/* draw line buffer and update cursor position */
+static inline void drawline(gint cursor,
+			    gint start,
+			    gint width,
+			    gint x0,
+			    gint x1,
+			    gint y,
+			    gboolean masked,
+			    gchar *line,
+			    WINDOW *w)
+{
+  wmove(w, y, x0);
+  /* clear input area */
+  whline(w, ' ', width);
+  /* print visible part of the line buffer */
+  if(masked == TRUE) whline(w, '*', my_strlen(line)-start);
+  else waddnstr(w, line+start, width);
+  /* move the cursor to the correct position */
+  wmove(w, y, x0 + cursor-start);
+  /* tell ncurses to redraw the screen */
+  doupdate();
+}
+
+
 /* libcurses version */
 
 gchar *
@@ -73,45 +138,6 @@ _wreadln(WINDOW *w,
   gint x0, y, width;		
   gint cursor = 0, start = 0;		
   gint key = 0, i;
-
-  /* move the cursor one step to the right */
-  void cursor_move_right(void) {
-    if( cursor < my_strlen(line) && cursor<wrln_max_line_size-1 )
-      {
-	cursor++;
-	if( cursor+x0 >= x1 && start<cursor-width+1)
-	  start++;
-      }
-  }
-  /* move the cursor one step to the left */
-  void cursor_move_left(void) {
-    if( cursor > 0 )
-      {
-	if( cursor==start && start > 0 )
-	  start--;
-	cursor--;
-      }
-  }
- /* move the cursor to the end of the line */
-  void cursor_move_to_eol(void) {
-    cursor = my_strlen(line);
-    if( cursor+x0 >= x1 )
-      start = cursor-width+1;
-  }
-  /* draw line buffer and update cursor position */
-  void drawline() {
-    wmove(w, y, x0);
-    /* clear input area */
-    whline(w, ' ', width);
-    /* print visible part of the line buffer */
-    if(masked == TRUE) whline(w, '*', my_strlen(line)-start);
-    else waddnstr(w, line+start, width);
-    /* move the cursor to the correct position */
-    wmove(w, y, x0 + cursor-start);
-    /* tell ncurses to redraw the screen */
-    doupdate();
-  }
-
 
   /* allocate a line buffer */
   line = g_malloc0(wrln_max_line_size);
@@ -154,15 +180,15 @@ _wreadln(WINDOW *w,
 	  hlist = hlist->prev;
 	  g_strlcpy(line, hlist->data, wrln_max_line_size);
 	}
-      cursor_move_to_eol();
-      drawline();
+      cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
+      drawline(cursor, start, width, x0, x1, y, masked, line, w);
     }
   else if( initial_value )
     {
       /* copy the initial value to the line buffer */
       g_strlcpy(line, initial_value, wrln_max_line_size);
-      cursor_move_to_eol();
-      drawline();
+      cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
+      drawline(cursor, start, width, x0, x1, y, masked, line, w);
     }  
 
   while( key!=13 && key!='\n' )
@@ -194,7 +220,7 @@ _wreadln(WINDOW *w,
 	    {
 	      x1=COLS;
 	      width = x1-x0;
-	      cursor_move_to_eol();
+	      cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
 	    }
 	  /* make shure the cursor is visible */
 	  curs_set(1);
@@ -207,18 +233,20 @@ _wreadln(WINDOW *w,
 	      GList *list;
 	      
 	      if(wrln_pre_completion_callback)
-		wrln_pre_completion_callback(gcmp, line);
+		wrln_pre_completion_callback(gcmp, line,
+		                             wrln_completion_callback_data);
 	      list = g_completion_complete(gcmp, line, &prefix);	      
 	      if( prefix )
 		{
 		  g_strlcpy(line, prefix, wrln_max_line_size);
-		  cursor_move_to_eol();
+		  cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
 		  g_free(prefix);
 		}
 	      else
 		screen_bell();
 	      if( wrln_post_completion_callback )
-		wrln_post_completion_callback(gcmp, line, list);
+		wrln_post_completion_callback(gcmp, line, list,
+		                              wrln_completion_callback_data);
 	    }
 	  break;
 
@@ -234,10 +262,10 @@ _wreadln(WINDOW *w,
 	  return NULL;
 	  
 	case KEY_LEFT:
-	  cursor_move_left();
+	  cursor_move_left(&cursor, &start);
 	  break;
 	case KEY_RIGHT:	
-	  cursor_move_right();
+	  cursor_move_right(&cursor, &start, width, x0, x1, line);
 	  break;
 	case KEY_HOME:
 	case KEY_CTRL_A:
@@ -246,7 +274,7 @@ _wreadln(WINDOW *w,
 	  break;
 	case KEY_END:
 	case KEY_CTRL_E:
-	  cursor_move_to_eol();
+	  cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
 	  break;
 	case KEY_CTRL_K:
 	  line[cursor] = 0;
@@ -258,7 +286,7 @@ _wreadln(WINDOW *w,
 	    {
 	      for (i = cursor - 1; line[i] != 0; i++)
 		line[i] = line[i + 1];
-	      cursor_move_left();
+	      cursor_move_left(&cursor, &start);
 	    }
 	  break;
 	case KEY_DC:		/* handle delete key. As above */
@@ -282,7 +310,7 @@ _wreadln(WINDOW *w,
 	      hlist = hlist->prev;
 	      g_strlcpy(line, hlist->data, wrln_max_line_size);
 	    }
-	  cursor_move_to_eol();
+	  cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
 	  break;
 	case KEY_DOWN:	
 	  /* get next history entry */
@@ -292,7 +320,7 @@ _wreadln(WINDOW *w,
 	      hlist = hlist->next;
 	      g_strlcpy(line, hlist->data, wrln_max_line_size);
 	    }
-	  cursor_move_to_eol();
+	  cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
 	  break;
 	  
 	case '\n':
@@ -317,18 +345,18 @@ _wreadln(WINDOW *w,
 		  line[cursor + 1] = 0;
 		  g_strlcat (&line[cursor + 1], tmp, size);
 		  g_free(tmp);
-		  cursor_move_right();
+		  cursor_move_right(&cursor, &start, width, x0, x1, line);
 		}
 	      else
 		{
 		  line[cursor + 1] = 0;
 		  line[cursor] = key;
-		  cursor_move_right();
+		  cursor_move_right(&cursor, &start, width, x0, x1, line);
 		}
 	    }
 	}
 
-      drawline();
+      drawline(cursor, start, width, x0, x1, y, masked, line, w);
     }
 
   /* update history */
@@ -364,6 +392,106 @@ _wreadln(WINDOW *w,
 }
 
 #else
+
+/* move the cursor one step to the right */
+static inline void cursor_move_right(gint *cursor,
+				     gint *start,
+				     gint width,
+				     gint x0,
+				     gint x1,
+				     wchar_t *wline)
+{
+  if( *cursor < wcslen(wline) && *cursor<wrln_max_line_size-1 )
+    {
+      (*cursor)++;
+      if( *cursor+x0 >= x1 && *start<*cursor-width+1)
+	(*start)++;
+    }
+}
+
+/* move the cursor one step to the left */
+static inline void cursor_move_left(gint *cursor,
+				    gint *start,
+				    gint width,
+				    gint x0,
+				    gint x1,
+				    wchar_t *line)
+{
+  if( *cursor > 0 )
+    {
+      if( *cursor==*start && *start > 0 )
+	(*start)--;
+      (*cursor)--;
+    }
+}
+
+
+static inline void backspace(gint *cursor,
+			     gint *start,
+			     gint width,
+			     gint x0,
+			     gint x1,
+			     wchar_t *wline) 
+{
+  int i;
+  if( *cursor > 0 )    
+    {
+      for (i = *cursor - 1; wline[i] != 0; i++)
+	wline[i] = wline[i + 1];
+      cursor_move_left(cursor, start, width, x0, x1, wline);
+    }
+}
+
+/* handle delete */
+static inline void delete(gint *cursor,
+			  wchar_t *wline) 
+{
+  int i;
+  if( *cursor <= wcslen(wline) - 1 ) 
+    {
+      for (i = *cursor; wline[i] != 0; i++)
+	wline[i] = wline[i + 1];
+    }
+}
+
+/* move the cursor to the end of the line */
+static inline void cursor_move_to_eol(gint *cursor,
+				      gint *start,
+				      gint width,
+				      gint x0,
+				      gint x1,
+				      wchar_t *line)
+{
+  *cursor = wcslen(line);
+  if( *cursor+x0 >= x1 )
+    *start = *cursor-width+1;
+}
+
+/* draw line buffer and update cursor position */
+static inline void drawline(gint cursor,
+			    gint start,
+			    gint width,
+			    gint x0,
+			    gint x1,
+			    gint y,
+			    gboolean masked,
+			    wchar_t *line,
+			    WINDOW *w)
+{
+  wmove(w, y, x0);
+  /* clear input area */
+  whline(w, ' ', width);
+  /* print visible part of the line buffer */
+  if(masked == TRUE) whline(w, '*', wcslen(line)-start);
+  else waddnwstr(w, line+start, width);
+  FILE *dbg = fopen ("dbg", "a+");
+  fprintf (dbg, "%i,%s---%i---", width, line, wcslen (line));
+  /* move the cursor to the correct position */
+  wmove(w, y, x0 + cursor-start);
+  /* tell ncurses to redraw the screen */
+  doupdate();
+}
+
 /* libcursesw version */ 
 
 gchar *
@@ -384,70 +512,7 @@ _wreadln(WINDOW *w,
   gint key;
   gint i;
 
-  /* move the cursor to the beginning of the line */
-  void cursor_move_home(void) {
-    x=0;
-    cursor=0;
-    start=0;
-  }
-  /* move the cursor to the end of the line */
-  void cursor_move_to_eol(void) {
-    cursor = wcslen(wline);
-    //x=wcswidth(wline,cursor);
-    if( cursor+x0 >= x1 )
-      start = cursor-width+1;
-  }
-  /* move the cursor one step to the left */
-  void cursor_move_left(void) {
-    if( cursor > 0 )
-      {
-	if( cursor==start && start > 0 )
-	  start--;
-	//x-=wcwidth(wline[cursor]); 
-	cursor--;
-      }
-  }
-  /* move the cursor one step to the right */
-  void cursor_move_right(void) {
-    if( cursor < wcslen(wline) && cursor<wrln_max_line_size-1 )
-      {
-	//x +=wcwidth(wline[cursor]); 
-	cursor++;
-	if( cursor+x0 >= x1 && start<cursor-width+1)
-	  start++;
-      }
-  }
-  /* handle backspace */
-  void backspace() {
-    if( cursor > 0 )	
-      {
-	for (i = cursor - 1; wline[i] != 0; i++)
-	  wline[i] = wline[i + 1];
-	cursor_move_left();
-      }
-  }
-  /* handle delete */
-  void delete() {
-    if( cursor <= wcslen(wline) - 1 ) 
-      {
-	for (i = cursor; wline[i] != 0; i++)
-	  wline[i] = wline[i + 1];
-      }
-  }
-  /* draw line buffer and update cursor position */
-  void drawline() {
-    wmove(w, y, x0);
-    /* clear input area */
-    whline(w, ' ', width);
-    /* print visible part of the line buffer */
-    if(masked == TRUE) whline(w, '*', my_strlen(line)-start);
-    else waddnstr(w, line+start, width);
-    /* move the cursor to the correct position */
-    wmove(w, y, x0 + cursor-start);
-    /* tell ncurses to redraw the screen */
-    doupdate();
-  }
-
+ 
   /* initialize variables */
   start = 0;
   x = 0;
@@ -495,15 +560,15 @@ _wreadln(WINDOW *w,
 	  hlist = hlist->prev;
 	  mbstowcs(wline, hlist->data, wrln_max_line_size);
 	}
-      cursor_move_to_eol();
-      drawline();
+      cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
+      drawline(cursor, start, width, x0, x1, y, masked, wline, w);
     }
   else if( initial_value )
     {
       /* copy the initial value to the line buffer */
       mbstowcs(wline, initial_value, wrln_max_line_size);
-      cursor_move_to_eol();
-      drawline();
+      cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
+      drawline(cursor, start, width, x0, x1, y, masked, wline, w);
     }  
 
   wch=0;
@@ -518,23 +583,25 @@ _wreadln(WINDOW *w,
 	  switch(wch)
 	    {
 	    case KEY_HOME:
-	      cursor_move_home();
+	      x=0;
+	      cursor=0;
+	      start=0;
 	      break;
 	    case KEY_END:
-	      cursor_move_to_eol();
+	      cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
 	      break;
 	    case KEY_LEFT:
-	      cursor_move_left();
+	      cursor_move_left(&cursor, &start, width, x0, x1, wline);
 	      break;
 	    case KEY_RIGHT:
-	      cursor_move_right();
+	      cursor_move_right(&cursor, &start, width, x0, x1, wline);
 	      break;
 	    case KEY_DC:
-	      delete();
+	      delete(&cursor, wline);
 	      break;
 	    case KEY_BCKSPC:
 	    case KEY_BACKSPACE:	
-	      backspace();
+	      backspace(&cursor, &start, width, x0, x1, wline);
 	      break;
 	    case KEY_UP:		
 	      /* get previous history entry */
@@ -549,7 +616,7 @@ _wreadln(WINDOW *w,
 		  hlist = hlist->prev;
 		  mbstowcs(wline, hlist->data, wrln_max_line_size);
 		}
-	      cursor_move_to_eol();
+	      cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
 	      break; 
 	    case KEY_DOWN:	
 	      /* get next history entry */
@@ -559,7 +626,7 @@ _wreadln(WINDOW *w,
 		  hlist = hlist->next;
 		  mbstowcs(wline, hlist->data, wrln_max_line_size);
 		}
-	      cursor_move_to_eol();
+	      cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
 	      break;
 	    case KEY_RESIZE:
 	      /* resize event */
@@ -567,7 +634,7 @@ _wreadln(WINDOW *w,
 		{
 		  x1=COLS;
 		  width = x1-x0;
-		  cursor_move_to_eol();
+		  cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
 		}
 	      /* make shure the cursor is visible */
 	      curs_set(1);
@@ -580,16 +647,18 @@ _wreadln(WINDOW *w,
 	  switch(wch)
 	    {
 	    case KEY_CTRL_A:
-	      cursor_move_home();
+	      x=0;
+	      cursor=0;
+	      start=0;
 	      break;
 	    case KEY_CTRL_C:
 	      exit(EXIT_SUCCESS);
 	      break;
 	    case KEY_CTRL_D:
-	      delete();
+	      delete(&cursor, wline);
 	      break;
 	    case KEY_CTRL_E:
-	      cursor_move_to_eol();
+	      cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
 	      break;
 	    case TAB:
 	      if( gcmp )
@@ -602,18 +671,20 @@ _wreadln(WINDOW *w,
 		  wcstombs(mbline, wline, i);
 		  
 		  if(wrln_pre_completion_callback)
-		    wrln_pre_completion_callback(gcmp, mbline);
+		    wrln_pre_completion_callback(gcmp, mbline, 
+						 wrln_completion_callback_data);
 		  list = g_completion_complete(gcmp, mbline, &prefix);	      
 		  if( prefix )
 		    {
 		      mbstowcs(wline, prefix, wrln_max_line_size);
-		      cursor_move_to_eol();
+		      cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
 		      g_free(prefix);
 		    }
 		  else
 		    screen_bell();
 		  if( wrln_post_completion_callback )
-		    wrln_post_completion_callback(gcmp, mbline, list);
+		    wrln_post_completion_callback(gcmp, mbline, list,
+						  wrln_completion_callback_data);
 		  
 		  g_free(mbline);
 		}
@@ -635,7 +706,7 @@ _wreadln(WINDOW *w,
 	      sigstop();
 	      break;
 	    case 127:
-	      backspace();
+	      backspace(&cursor, &start, width, x0, x1, wline);
 	      break;
 	    case '\n':
 	    case 13:
@@ -653,19 +724,20 @@ _wreadln(WINDOW *w,
 		  wline[cursor+1] = 0;
 		  wcscat(&wline[cursor+1], tmp);
 		  g_free(tmp);
-		  cursor_move_right();
+		  cursor_move_right(&cursor, &start, width, x0, x1, wline);
 		}
 	      else
 		{
+		  FILE *ff = fopen ("curspr", "a+");
+		  fprintf (ff, "%i", cursor);
 		  wline[cursor] = wch;
 		  wline[cursor+1] = 0;
-		  cursor_move_right();
+		  cursor_move_right(&cursor, &start, width, x0, x1, wline);
 		}
 	    }
 	}
-      drawline();
+      drawline(cursor, start, width, x0, x1, y, masked, wline, w);
     }
-
   i = wcstombs(NULL,wline,0)+1;
   mbline = g_malloc0(i);
   wcstombs(mbline, wline, i);
