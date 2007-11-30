@@ -564,10 +564,7 @@ browse_handle_select_all (screen_t *screen,
   if( entry->entity->type!=MPD_INFO_ENTITY_TYPE_SONG )
     continue; 
 
-  if( entry->flags & HIGHLIGHT )
-    entry->flags &= ~HIGHLIGHT;
-  else
-    entry->flags |= HIGHLIGHT;
+  entry->flags |= HIGHLIGHT;
 
   if( entry->flags & HIGHLIGHT )
     {
