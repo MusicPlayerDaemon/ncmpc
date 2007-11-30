@@ -118,6 +118,8 @@ static command_definition_t cmds[] =
     N_("Decrease volume") },
   { { ' ',   0,   0 }, 0, CMD_SELECT, "select", 
     N_("Select/deselect song in playlist") },
+  { { 't',   0,   0 }, 0, CMD_SELECT_ALL, "select_all",
+    N_("Select all listed items") },
   { { DEL,  'd',  0 }, 0, CMD_DELETE, "delete",
     N_("Delete song from playlist") },
   { { 'Z',   0,   0 }, 0, CMD_SHUFFLE, "shuffle",

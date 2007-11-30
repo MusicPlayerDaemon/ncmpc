@@ -12,6 +12,10 @@ int browse_handle_select(screen_t *screen,
 			 mpdclient_t *c,
 			 list_window_t *lw,
 			 mpdclient_filelist_t *filelist);
+int browse_handle_select_all (screen_t *screen, 
+		     mpdclient_t *c,
+		     list_window_t *lw,
+		     mpdclient_filelist_t *filelist);
 int browse_handle_enter(screen_t *screen, 
 			mpdclient_t *c,
 			list_window_t *lw,

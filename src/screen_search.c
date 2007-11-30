@@ -491,6 +491,11 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
       /* call list_window_cmd to go to the next item */
       return list_window_cmd(lw, filelist->length, cmd);
 
+    case CMD_SELECT_ALL:
+      browse_handle_select_all (screen, c, lw, filelist);
+      paint (screen, c);
+      return 0;
+
     case CMD_SEARCH_MODE:
       options.search_mode++;
       if( mode[options.search_mode].label == NULL )

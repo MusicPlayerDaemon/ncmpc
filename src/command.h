@@ -9,6 +9,7 @@ typedef enum
   CMD_NONE = 0,
   CMD_PLAY,
   CMD_SELECT,
+  CMD_SELECT_ALL,
   CMD_PAUSE,
   CMD_STOP,
   CMD_TRACK_NEXT,

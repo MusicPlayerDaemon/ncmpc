@@ -125,6 +125,7 @@ static help_text_row_t help_text[] =
   { 0, CMD_SCREEN_SEARCH,  N_("Search") },
   { 0, CMD_PLAY,           N_("Select and play") },
   { 0, CMD_SELECT,         NULL },
+  { 0, CMD_SELECT_ALL,	   NULL },
   { 0, CMD_SEARCH_MODE,    NULL },
 #endif
 #ifdef ENABLE_LYRICS_SCREEN

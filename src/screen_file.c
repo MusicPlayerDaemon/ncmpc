@@ -523,6 +523,89 @@ browse_handle_select(screen_t *screen,
   return 0;
 }
 
+int
+browse_handle_select_all (screen_t *screen, 
+		     mpdclient_t *c,
+		     list_window_t *lw,
+		     mpdclient_filelist_t *filelist)
+{
+  filelist_entry_t *entry;
+  GList *temp = filelist->list;
+
+  if ( filelist==NULL )
+    return -1;
+  for (filelist->list = g_list_first(filelist->list); 
+       filelist->list; 
+       filelist->list = g_list_next(filelist->list))
+    {
+  entry=( filelist_entry_t *) filelist->list->data;
+  if( entry==NULL || entry->entity==NULL)
+    return -1;
+
+  if( entry->entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE )
+     load_playlist(screen, c, entry);
+
+  if( entry->entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY )
+    {
+      mpd_Directory *dir = entry->entity->info.directory;
+#ifdef USE_OLD_ADD
+      add_directory(c, tmp);
+#else
+      if( mpdclient_cmd_add_path_utf8(c, dir->path) == 0 )
+	{
+	  char *tmp = utf8_to_locale(dir->path);
+
+	  screen_status_printf(_("Adding \'%s\' to playlist\n"), tmp);
+	  g_free(tmp);
+	}
+#endif
+    }
+
+  if( entry->entity->type!=MPD_INFO_ENTITY_TYPE_SONG )
+    continue; 
+
+  if( entry->flags & HIGHLIGHT )
+    entry->flags &= ~HIGHLIGHT;
+  else
+    entry->flags |= HIGHLIGHT;
+
+  if( entry->flags & HIGHLIGHT )
+    {
+      if( entry->entity->type==MPD_INFO_ENTITY_TYPE_SONG )
+	{
+	  mpd_Song *song = entry->entity->info.song;
+
+	  if( mpdclient_cmd_add(c, song) == 0 )
+	    {
+	      char buf[BUFSIZE];
+	      
+	      strfsong(buf, BUFSIZE, LIST_FORMAT, song);
+	      screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
+	    }
+	}
+    }
+  /*else
+    {
+       //remove song from playlist 
+      if( entry->entity->type==MPD_INFO_ENTITY_TYPE_SONG )
+	{
+	  mpd_Song *song = entry->entity->info.song;
+
+	  if( song )
+	    {
+	      int index = playlist_get_index_from_file(c, song->file);
+	      
+	      while( (index=playlist_get_index_from_file(c, song->file))>=0 )
+		mpdclient_cmd_delete(c, index);
+	    }
+	}
+    }
+  return 0;*/
+    }
+  filelist->list = temp;
+  return 0;
+}
+
 static void
 browse_init(WINDOW *w, int cols, int rows)
 {
