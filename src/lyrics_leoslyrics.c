@@ -95,13 +95,14 @@ static void fetch_text(void *userData, const XML_Char *s, int len)
 int check_lyr_leoslyrics(char *artist, char *title, char *url)
 {
         char url_avail[256];
+	CURL *curl = curl_easy_init ();
+
 
         //this replacess the whitespaces with '+'
-        g_strdelimit(artist, " ", '+');
-        g_strdelimit(title, " ", '+');
-        
+        char *esc_title = curl_easy_escape (curl, title, 0);
+        char *esc_artist = curl_easy_escape (curl, artist, 0); 
         //we insert the artist and the title into the url		
-        snprintf(url_avail, 512, LEOSLYRICS_SEARCH_URL, artist, title);
+        snprintf(url_avail, 512, LEOSLYRICS_SEARCH_URL, esc_artist, esc_title);
 
         //download that xml!
         easy_download_struct lyr_avail = {NULL, 0,-1};	
@@ -121,7 +122,6 @@ int check_lyr_leoslyrics(char *artist, char *title, char *url)
 
         if(!(result & 4)) return -1; //check whether lyrics found
 
-	CURL *curl = curl_easy_init ();
 	char *esc_hid = curl_easy_escape (curl, hid, 0);
 	free (hid);
 
