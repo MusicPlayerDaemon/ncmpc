@@ -13,10 +13,10 @@
 #define COLOR_STATUS_TIME    10
 #define COLOR_STATUS_ALERT   11
 
-short colors_str2color(char *str);
+short colors_str2color(const char *str);
 
-int colors_assign(char *name, char *value);
-int colors_define(char *name, short r, short g, short b);
+int colors_assign(const char *name, const char *value);
+int colors_define(const char *name, short r, short g, short b);
 int colors_start(void);
 int colors_use(WINDOW *w, int id);
 

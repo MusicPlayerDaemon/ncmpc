@@ -23,11 +23,11 @@ typedef struct {
 char *strscroll(char *str, char *separator, int width, scroll_state_t *st);
 
 void charset_init(gboolean disable);
-char *utf8_to_locale(char *str);
-char *locale_to_utf8(char *str);
+char *utf8_to_locale(const char *str);
+char *locale_to_utf8(const char *str);
 
 /* number of characters in str */
-size_t my_strlen(char *str);
+size_t my_strlen(const char *str);
 /* number of bytes in str */
 size_t my_strsize(char *str);
 

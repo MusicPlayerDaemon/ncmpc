@@ -67,7 +67,7 @@ typedef screen_functions_t * (*screen_get_mode_functions_fn_t) (void);
 typedef struct
 {
 	gint id;
-	gchar *name;
+	const gchar *name;
 	screen_get_mode_functions_fn_t get_mode_functions;
 } screen_mode_info_t;
 
@@ -101,7 +101,7 @@ static int seek_id = -1;
 static int seek_target_time = 0;
 
 gint
-screen_get_id(char *name)
+screen_get_id(const char *name)
 {
 	gint i=0;
 
@@ -186,7 +186,7 @@ screen_next_mode(mpdclient_t *c, int offset)
 }
 
 static void
-paint_top_window2(char *header, mpdclient_t *c)
+paint_top_window2(const char *header, mpdclient_t *c)
 {
 	char flags[5];
 	WINDOW *w = screen->top_window.w;
@@ -258,7 +258,7 @@ paint_top_window2(char *header, mpdclient_t *c)
 }
 
 static void
-paint_top_window(char *header, mpdclient_t *c, int clear)
+paint_top_window(const char *header, mpdclient_t *c, int clear)
 {
 	static int prev_volume = -1;
 	static int prev_header_len = -1;
@@ -314,7 +314,7 @@ paint_status_window(mpdclient_t *c)
 	mpd_Status *status = c->status;
 	mpd_Song *song = c->song;
 	int elapsedTime = 0;
-	char *str = NULL;
+	const char *str = NULL;
 	int x = 0;
 
 	if( time(NULL) - screen->status_timestamp <= SCREEN_STATUS_MESSAGE_TIME )
@@ -499,7 +499,7 @@ screen_resize(void)
 }
 
 void
-screen_status_message(char *msg)
+screen_status_message(const char *msg)
 {
 	WINDOW *w = screen->status_window.w;
 
@@ -512,7 +512,7 @@ screen_status_message(char *msg)
 }
 
 void
-screen_status_printf(char *format, ...)
+screen_status_printf(const char *format, ...)
 {
 	char *msg;
 	va_list ap;
@@ -662,7 +662,7 @@ screen_init(mpdclient_t *c)
 void
 screen_paint(mpdclient_t *c)
 {
-	char *title = NULL;
+	const char *title = NULL;
 
 	if (mode_fn && mode_fn->get_title)
 		title = mode_fn->get_title(screen->buf, screen->buf_size);

@@ -40,13 +40,13 @@
 
 typedef struct {
 	int shortopt;
-	char *longopt;
-	char *argument;
-	char *descrition;
+	const char *longopt;
+	const char *argument;
+	const char *descrition;
 } arg_opt_t;
 
 
-typedef void (*option_callback_fn_t)(int c, char *arg);
+typedef void (*option_callback_fn_t)(int c, const char *arg);
 
 
 options_t options;
@@ -92,7 +92,7 @@ lookup_option(int s, char *l)
 }
 
 static void
-option_error(int error, char *option, char *arg)
+option_error(int error, const char *option, const char *arg)
 {
   switch(error)
     {
@@ -141,7 +141,7 @@ display_help(void)
 }
 
 static void 
-handle_option(int c, char *arg)
+handle_option(int c, const char *arg)
 {
   D("option callback -%c %s\n", c, arg);
   switch(c)
@@ -241,7 +241,7 @@ options_parse(int argc, const char *argv[])
 
 	i=1;
 	while (i < argc) {
-		char *arg = (char *) argv[i];
+		const char *arg = argv[i];
 		size_t len = strlen(arg);
 
 		/* check for a long option */
@@ -351,7 +351,7 @@ options_init( void )
 	options.crossfade_time = DEFAULT_CROSSFADE_TIME;
 	options.seek_time = 1;
 	options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
-	options.timedisplay_type = DEFAULT_TIMEDISPLAY_TYPE;
+	options.timedisplay_type = g_strdup(DEFAULT_TIMEDISPLAY_TYPE);
 	options.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT;
 	options.scroll = DEFAULT_SCROLL;
 	options.scroll_sep = g_strdup(DEFAULT_SCROLL_SEP);

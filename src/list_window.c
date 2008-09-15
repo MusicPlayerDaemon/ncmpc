@@ -168,7 +168,7 @@ list_window_paint(list_window_t *lw,
 
 	for (i = 0; i < lw->rows; i++) {
 		int highlight = 0;
-		char *label;
+		const char *label;
 
 		label = callback(lw->start + i, &highlight, callback_data);
 		wmove(lw->w, i, 0);
@@ -204,12 +204,12 @@ int
 list_window_find(list_window_t *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
-		 char *str,
+		 const char *str,
 		 int wrap)
 {
 	int h;
 	int i = lw->selected + 1;
-	char *label;
+	const char *label;
 
 	while (wrap || i == lw->selected + 1) {
 		while ((label = callback(i,&h,callback_data))) {
@@ -236,13 +236,13 @@ int
 list_window_rfind(list_window_t *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data,
-		  char *str,
+		  const char *str,
 		  int wrap,
 		  int rows)
 {
 	int h;
 	int i = lw->selected-1;
-	char *label;
+	const char *label;
 
 	if (rows == 0)
 		return 1;

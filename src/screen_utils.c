@@ -48,7 +48,7 @@ screen_bell(void)
 }
 
 int
-screen_getch(WINDOW *w, char *prompt)
+screen_getch(WINDOW *w, const char *prompt)
 {
   int key = -1;
   int prompt_len = strlen(prompt);
@@ -81,8 +81,8 @@ screen_getch(WINDOW *w, char *prompt)
 
 char *
 screen_readln(WINDOW *w,
-	      char *prompt,
-	      char *value,
+	      const char *prompt,
+	      const char *value,
 	      GList **history,
 	      GCompletion *gcmp)
 {
@@ -97,13 +97,13 @@ screen_readln(WINDOW *w,
 }
 
 char *
-screen_getstr(WINDOW *w, char *prompt)
+screen_getstr(WINDOW *w, const char *prompt)
 {
   return screen_readln(w, prompt, NULL, NULL, NULL);
 }
 
 char *
-screen_read_password(WINDOW *w, char *prompt)
+screen_read_password(WINDOW *w, const char *prompt)
 {
   if(w == NULL)
     {
@@ -155,7 +155,7 @@ screen_find(screen_t *screen,
 {
 	int reversed = 0;
 	int retval = 0;
-	char *prompt = FIND_PROMPT;
+	const char *prompt = FIND_PROMPT;
 	char *value = options.find_show_last_pattern ? (char *) -1 : NULL;
 
 	if (findcmd == CMD_LIST_RFIND || findcmd == CMD_LIST_RFIND_NEXT) {
@@ -255,7 +255,7 @@ screen_display_completion_list(screen_t *screen, GList *list)
 }
 
 void
-set_xterm_title(char *format, ...)
+set_xterm_title(const char *format, ...)
 {
   /* the current xterm title exists under the WM_NAME property */
   /* and can be retreived with xprop -id $WINDOWID */

@@ -7,9 +7,9 @@
 
 #define LW_HIDE_CURSOR    0x01
 
-typedef char *(*list_window_callback_fn_t)(int index,
-					   int *highlight,
-					   void *data);
+typedef const char *(*list_window_callback_fn_t)(int index,
+						 int *highlight,
+						 void *data);
 
 typedef struct {
 	WINDOW *w;
@@ -60,7 +60,7 @@ void list_window_check_selected(list_window_t *lw, int length);
 int  list_window_find(list_window_t *lw,
 		      list_window_callback_fn_t callback,
 		      void *callback_data,
-		      char *str,
+		      const char *str,
 		      int wrap);
 
 /* find a string in a list window (reversed) */
@@ -68,7 +68,7 @@ int
 list_window_rfind(list_window_t *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data,
-		  char *str,
+		  const char *str,
 		  int wrap,
 		  int rows);
 

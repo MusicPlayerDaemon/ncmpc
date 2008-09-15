@@ -31,12 +31,12 @@
 
 #define BUFSIZE 1024
 
-extern void screen_status_printf(char *format, ...);
+extern void screen_status_printf(const char *format, ...);
 
 static gboolean noconvert = TRUE;
 
 size_t
-my_strlen(char *str)
+my_strlen(const char *str)
 {
   if( g_utf8_validate(str,-1,NULL) )
     return g_utf8_strlen(str,-1);
@@ -157,7 +157,7 @@ charset_init(gboolean disable)
 }
 
 char *
-utf8_to_locale(char *utf8str)
+utf8_to_locale(const char *utf8str)
 {
   gchar *str;
   gsize rb, wb;
@@ -189,7 +189,7 @@ utf8_to_locale(char *utf8str)
 }
 
 char *
-locale_to_utf8(char *localestr)
+locale_to_utf8(const char *localestr)
 {
   gchar *str;
   gsize rb, wb;

@@ -146,7 +146,7 @@ clock_close(void)
 {
 }
 
-static char *
+static const char *
 clock_title(char *str, size_t size)
 {
 	return _("Clock");

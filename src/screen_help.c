@@ -34,7 +34,7 @@
 typedef struct {
 	signed char highlight;
 	command_t command;
-	char *text;
+	const char *text;
 } help_text_row_t;
 
 static help_text_row_t help_text[] = 
@@ -146,7 +146,7 @@ static int help_text_rows = -1;
 static list_window_t *lw = NULL;
 
 
-static char *
+static const char *
 list_callback(int index, int *highlight, void *data)
 {
 	static char buf[512];
@@ -211,7 +211,7 @@ help_exit(void)
 }
 
 
-static char *
+static const char *
 help_title(char *str, size_t size)
 {
 	return _("Help");

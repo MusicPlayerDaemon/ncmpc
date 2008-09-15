@@ -146,7 +146,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 }
 
 /* list_window callback */
-char *
+const char *
 browse_lw_callback(int index, int *highlight, void *data)
 {
 	static char buf[BUFSIZE];
@@ -195,7 +195,7 @@ browse_lw_callback(int index, int *highlight, void *data)
 /* chdir */
 static int
 change_directory(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry,
-		 char *new_path)
+		 const char *new_path)
 {
 	mpd_InfoEntity *entity = NULL;
 	gchar *path = NULL;
@@ -591,7 +591,7 @@ browse_close(void)
 {
 }
 
-static char *
+static const char *
 browse_title(char *str, size_t size)
 {
 	char *pathcopy;

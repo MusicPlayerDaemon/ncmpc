@@ -34,8 +34,8 @@
 #include "support.h"
 #include "strfsong.h"
 
-static gchar *
-skip(gchar * p)
+static const gchar *
+skip(const gchar * p)
 {
 	gint stack = 0;
 
@@ -62,9 +62,9 @@ _strfsong(gchar *s,
 	  gsize max,
 	  const gchar *format,
 	  mpd_Song *song,
-	  gchar **last)
+	  const gchar **last)
 {
-	gchar *p, *end;
+	const gchar *p, *end;
 	gchar *temp;
 	gsize n, length = 0;
 	gboolean found = FALSE;
@@ -73,7 +73,7 @@ _strfsong(gchar *s,
 	if( song==NULL )
 		return 0;
 
-	for (p = (gchar *)format; *p != '\0' && length<max;) {
+	for (p = format; *p != '\0' && length<max;) {
 		/* OR */
 		if (p[0] == '|') {
 			++p;

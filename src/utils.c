@@ -48,7 +48,7 @@ string_list_free(GList *string_list)
 }
 
 GList *
-string_list_find(GList *string_list, gchar *str)
+string_list_find(GList *string_list, const gchar *str)
 {
 	GList *list = g_list_first(string_list);
 
@@ -61,7 +61,7 @@ string_list_find(GList *string_list, gchar *str)
 }
 
 GList *
-string_list_remove(GList *string_list, gchar *str)
+string_list_remove(GList *string_list, const gchar *str)
 {
 	GList *list = g_list_first(string_list);
 
@@ -78,7 +78,7 @@ string_list_remove(GList *string_list, gchar *str)
 
 /* create a list suiteble for GCompletion from path */
 GList *
-gcmp_list_from_path(mpdclient_t *c, gchar *path, GList *list, gint types)
+gcmp_list_from_path(mpdclient_t *c, const gchar *path, GList *list, gint types)
 {
   GList *flist = NULL;
   mpdclient_filelist_t *filelist;

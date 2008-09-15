@@ -75,8 +75,8 @@ typedef struct  {
 	int keys[MAX_COMMAND_KEYS];
 	char flags;
 	command_t command;
-	char *name;
-	char *description;
+	const char *name;
+	const char *description;
 } command_definition_t;
 
 command_definition_t *get_command_definitions(void);
@@ -86,10 +86,10 @@ void command_dump_keys(void);
 int  check_key_bindings(command_definition_t *cmds, char *buf, size_t size);
 int  write_key_bindings(FILE *f, int all);
 
-char *key2str(int key);
-char *get_key_description(command_t command);
-char *get_key_command_name(command_t command);
-char *get_key_names(command_t command, int all);
+const char *key2str(int key);
+const char *get_key_description(command_t command);
+const char *get_key_command_name(command_t command);
+const char *get_key_names(command_t command, int all);
 command_t get_key_command(int key);
 command_t get_key_command_from_name(char *name);
 int assign_keys(command_t command, int keys[MAX_COMMAND_KEYS]);

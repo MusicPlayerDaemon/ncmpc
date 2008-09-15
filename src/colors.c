@@ -64,7 +64,7 @@ typedef struct {
 
 typedef struct {
 	int id;
-	char *name;
+	const char *name;
 	short fg;
 	attr_t attrs;
 } color_entry_t;
@@ -107,7 +107,7 @@ colors_lookup(int id)
 }
 
 static color_entry_t *
-colors_lookup_by_name(char *name)
+colors_lookup_by_name(const char *name)
 {
   int i;
 
@@ -147,7 +147,7 @@ colors_update_pair(int id)
 }
 
 short
-colors_str2color(char *str)
+colors_str2color(const char *str)
 {
   if( !strcasecmp(str,"black") )
     return COLOR_BLACK;
@@ -191,7 +191,7 @@ colors_str2color(char *str)
  * it adds the definition to the color_definition_list and init_color() is 
  * done in colors_start() */
 int
-colors_define(char *name, short r, short g, short b)
+colors_define(const char *name, short r, short g, short b)
 {
   color_definition_entry_t *entry;
   short color = colors_str2color(name);
@@ -212,7 +212,7 @@ colors_define(char *name, short r, short g, short b)
 
 
 int
-colors_assign(char *name, char *value)
+colors_assign(const char *name, const char *value)
 {
   color_entry_t *entry = colors_lookup_by_name(name);
   short color;

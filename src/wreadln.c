@@ -125,8 +125,8 @@ static inline void drawline(gint cursor,
 
 gchar *
 _wreadln(WINDOW *w,
-	 gchar *prompt,
-	 gchar *initial_value,
+	 const gchar *prompt,
+	 const gchar *initial_value,
 	 gint x1,
 	 GList **history,
 	 GCompletion *gcmp,
@@ -477,8 +477,8 @@ static inline void drawline(gint cursor,
 
 gchar *
 _wreadln(WINDOW *w,
-	 gchar *prompt,
-	 gchar *initial_value,
+	 const gchar *prompt,
+	 const gchar *initial_value,
 	 gint x1,
 	 GList **history,
 	 GCompletion *gcmp,
@@ -763,8 +763,8 @@ _wreadln(WINDOW *w,
 
 gchar *
 wreadln(WINDOW *w,
-	gchar *prompt,
-	gchar *initial_value,
+	const gchar *prompt,
+	const gchar *initial_value,
 	gint x1,
 	GList **history,
 	GCompletion *gcmp)
@@ -774,8 +774,8 @@ wreadln(WINDOW *w,
 
 gchar *
 wreadln_masked(WINDOW *w,
-	       gchar *prompt,
-	       gchar *initial_value,
+	       const gchar *prompt,
+	       const gchar *initial_value,
 	       gint x1,
 	       GList **history,
 	       GCompletion *gcmp)

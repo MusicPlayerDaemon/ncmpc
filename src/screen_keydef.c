@@ -182,7 +182,7 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
   check_key_bindings(cmds, NULL, 0);
 }
 
-static char *
+static const char *
 list_callback(int index, int *highlight, void *data)
 {
 	static char buf[BUFSIZE];
@@ -275,7 +275,7 @@ keydef_close(void)
     screen_status_printf(_("Note: Did you forget to \'Apply\' your changes?"));
 }
 
-static char *
+static const char *
 keydef_title(char *str, size_t size)
 {
   if( subcmd<0 )

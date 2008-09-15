@@ -71,7 +71,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 	list_window_check_selected(lw, c->playlist.length);
 }
 
-static char *
+static const char *
 list_callback(int index, int *highlight, void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
@@ -356,7 +356,7 @@ play_exit(void)
 	list_window_free(lw);
 }
 
-static char *
+static const char *
 play_title(char *str, size_t size)
 {
 	if( strcmp(options.host, "localhost") == 0 )

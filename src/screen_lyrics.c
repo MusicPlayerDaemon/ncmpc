@@ -151,7 +151,7 @@ gpointer get_lyr(void *c)
 	return &lyr_text;
 }
 
-static char *
+static const char *
 list_callback(int index, int *highlight, void *data)
 {
 	static char buf[512];
@@ -204,7 +204,7 @@ lyrics_exit(void)
 }
 
 
-static char *
+static const char *
 lyrics_title(char *str, size_t size)
 {
 	static GString *msg;

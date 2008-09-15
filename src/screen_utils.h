@@ -5,14 +5,14 @@
 void screen_bell(void);
 
 /* read a characher from the status window */
-int screen_getch(WINDOW *w, char *prompt);
+int screen_getch(WINDOW *w, const char *prompt);
 
 /* read a string from the status window */
-char *screen_getstr(WINDOW *w, char *prompt);
-char *screen_readln(WINDOW *w, char *prompt, char *value,
+char *screen_getstr(WINDOW *w, const char *prompt);
+char *screen_readln(WINDOW *w, const char *prompt, const char *value,
 		    GList **history, GCompletion *gcmp);
-char *screen_readln_masked(WINDOW *w, char *prompt);
-char *screen_read_pasword(WINDOW *w, char *prompt);
+char *screen_readln_masked(WINDOW *w, const char *prompt);
+char *screen_read_pasword(WINDOW *w, const char *prompt);
 /* query user for a string and find it in a list window */
 int screen_find(screen_t *screen,
 		list_window_t *lw,
@@ -25,6 +25,6 @@ gint screen_auth(mpdclient_t *c);
 
 void screen_display_completion_list(screen_t *screen, GList *list);
 
-void set_xterm_title(char *format, ...);
+void set_xterm_title(const char *format, ...);
 
 #endif

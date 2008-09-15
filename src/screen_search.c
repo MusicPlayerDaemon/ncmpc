@@ -47,8 +47,8 @@ extern gint mpdclient_finish_command(mpdclient_t *c);
 
 typedef struct {
 	int id;
-	char *name;
-	char *localname;
+	const char *name;
+	const char *localname;
 } search_tag_t;
 
 static search_tag_t search_tag[] = {
@@ -94,7 +94,7 @@ search_get_tag_id(char *name)
 
 typedef struct {
 	int table;
-	char *label;
+	const char *label;
 } search_type_t;
 
 static search_type_t mode[] = {
@@ -114,11 +114,11 @@ static gboolean advanced_search_mode = FALSE;
 
 
 /* search info */
-static char *
+static const char *
 lw_search_help_callback(int index, int *highlight, void *data)
 {
 	int text_rows;
-	static char *text[] = {
+	static const char *text[] = {
 		"Quick  - just enter a string and ncmpc will search according",
 		"               to the current search mode (displayed above).",
 		"",
@@ -435,7 +435,7 @@ update(screen_t *screen, mpdclient_t *c)
   wnoutrefresh(lw->w);
 }
 
-static char *
+static const char *
 get_title(char *str, size_t size)
 {
   if( advanced_search_mode && pattern )

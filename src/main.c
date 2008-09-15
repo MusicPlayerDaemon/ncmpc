@@ -44,8 +44,8 @@ static mpdclient_t   *mpd = NULL;
 static gboolean connected = FALSE;
 static GTimer      *timer = NULL;
 
-static gchar *
-error_msg(gchar *msg)
+static const gchar *
+error_msg(const gchar *msg)
 {
   gchar *p;
 
@@ -58,7 +58,7 @@ error_msg(gchar *msg)
 }
 
 static void
-error_callback(mpdclient_t *c, gint error, gchar *msg)
+error_callback(mpdclient_t *c, gint error, const gchar *msg)
 {
 	gint code = GET_ACK_ERROR_CODE(error);
 
@@ -156,7 +156,7 @@ sigstop(void)
 
 #ifndef NDEBUG
 void 
-D(char *format, ...)
+D(const char *format, ...)
 {
   if( options.debug )
     {

@@ -218,8 +218,8 @@ parse_key_definition(char *str)
 	return assign_keys(cmd, keys);
 }
 
-static char *
-parse_timedisplay_type(char *str)
+static const char *
+parse_timedisplay_type(const char *str)
 {
 	if((!strcmp(str,"elapsed")) || (!strcmp(str,"remaining"))){
 		return str;
@@ -232,8 +232,8 @@ parse_timedisplay_type(char *str)
 static int
 parse_color(char *str)
 {
-	char *name = str;
-	char *value = NULL;
+	const char *name = str;
+	const char *value = NULL;
 	int len,i;
 
 	i=0;

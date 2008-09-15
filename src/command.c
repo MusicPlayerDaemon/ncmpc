@@ -213,7 +213,7 @@ get_command_definitions(void)
   return cmds;
 }
 
-char *
+const char *
 key2str(int key)
 {
   static char buf[32];
@@ -307,7 +307,7 @@ set_key_flags(command_definition_t *cp, command_t command, int flags)
   return 1;
 }
 
-char *
+const char *
 get_key_names(command_t command, int all)
 {
   int i;
@@ -337,7 +337,7 @@ get_key_names(command_t command, int all)
   return NULL;
 }
 
-char *
+const char *
 get_key_description(command_t command)
 {
   int i;
@@ -352,7 +352,7 @@ get_key_description(command_t command)
   return NULL;
 }
 
-char *
+const char *
 get_key_command_name(command_t command)
 {
   int i;

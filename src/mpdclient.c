@@ -51,12 +51,12 @@ static gint
 compare_filelistentry_dir(gconstpointer filelist_entry1,
 			  gconstpointer filelist_entry2)
 {
-	mpd_InfoEntity *e1, *e2;
+	const mpd_InfoEntity *e1, *e2;
 	char *key1, *key2;
 	int n = 0;
 
-	e1 = ((filelist_entry_t *)filelist_entry1)->entity;
-	e2 = ((filelist_entry_t *)filelist_entry2)->entity;
+	e1 = ((const filelist_entry_t *)filelist_entry1)->entity;
+	e2 = ((const filelist_entry_t *)filelist_entry2)->entity;
 
 	if (e1 && e2 &&
 	    e1->type == MPD_INFO_ENTITY_TYPE_DIRECTORY &&
@@ -76,12 +76,12 @@ gint
 compare_filelistentry_format(gconstpointer filelist_entry1,
 			     gconstpointer filelist_entry2)
 {
-	mpd_InfoEntity *e1, *e2;
+	const mpd_InfoEntity *e1, *e2;
 	char key1[BUFSIZE], key2[BUFSIZE];
 	int n = 0;
 
-	e1 = ((filelist_entry_t *)filelist_entry1)->entity;
-	e2 = ((filelist_entry_t *)filelist_entry2)->entity;
+	e1 = ((const filelist_entry_t *)filelist_entry1)->entity;
+	e2 = ((const filelist_entry_t *)filelist_entry2)->entity;
 
 	if (e1 && e2 &&
 	    e1->type == MPD_INFO_ENTITY_TYPE_SONG &&
@@ -884,7 +884,7 @@ mpdclient_filelist_free(mpdclient_filelist_t *filelist)
 
 
 mpdclient_filelist_t *
-mpdclient_filelist_get(mpdclient_t *c, gchar *path)
+mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 {
   mpdclient_filelist_t *filelist;
   mpd_InfoEntity *entity;

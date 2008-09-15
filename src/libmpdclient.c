@@ -233,7 +233,7 @@ static int mpd_connect(mpd_Connection * connection, const char * host, int port,
 }
 #endif /* !MPD_HAVE_GAI */
 
-char * mpdTagItemKeys[MPD_TAG_NUM_OF_ITEM_TYPES] =
+const char *const mpdTagItemKeys[MPD_TAG_NUM_OF_ITEM_TYPES] =
 {
 	"Artist",
 	"Album",
@@ -419,11 +419,12 @@ void mpd_closeConnection(mpd_Connection * connection) {
 	WSACleanup();
 }
 
-static void mpd_executeCommand(mpd_Connection * connection, char * command) {
+static void mpd_executeCommand(mpd_Connection *connection,
+			       const char *command) {
 	int ret;
 	struct timeval tv;
 	fd_set fds;
-	char * commandPtr = command;
+	const char *commandPtr = command;
 	int commandLen = strlen(command);
 
 	if(!connection->doneProcessing && !connection->commandList) {
@@ -1432,8 +1433,8 @@ void mpd_sendSeekIdCommand(mpd_Connection * connection, int id, int time) {
 	free(string);
 }
 
-void mpd_sendUpdateCommand(mpd_Connection * connection, char * path) {
-	char * sPath = mpd_sanitizeArg(path);
+void mpd_sendUpdateCommand(mpd_Connection * connection, const char *path) {
+	char *sPath = mpd_sanitizeArg(path);
 	char * string = malloc(strlen("update")+strlen(sPath)+5);
 	sprintf(string,"update \"%s\"\n",sPath);
 	mpd_sendInfoCommand(connection,string);

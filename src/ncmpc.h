@@ -22,7 +22,7 @@
 #endif
 
 #ifndef NDEBUG
-void D(char *format, ...);
+void D(const char *format, ...);
 #else
 #define D(...)
 #endif
