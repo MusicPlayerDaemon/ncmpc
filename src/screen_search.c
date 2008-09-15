@@ -247,8 +247,6 @@ search_advanced_query(char *query, mpdclient_t *c)
 	i=0;
 	j=0;
 	while (strv[i] && strlen(strv[i]) > 0 && i < 9) {
-		D("strv[%d] = \"%s\"\n", i, strv[i]);
-
 		int id = search_get_tag_id(strv[i]);
 		if (id == -1) {
 			if (table[j]) {
@@ -281,6 +279,9 @@ search_advanced_query(char *query, mpdclient_t *c)
 
 
 	if (advanced_search_mode && j > 0) {
+		int iter;
+		mpd_InfoEntity *entity;
+
 		/*-----------------------------------------------------------------------
 		 * NOTE (again): This code exists to test a new search ui,
 		 *               Its ugly and MUST be redesigned before the next release!
@@ -290,7 +291,6 @@ search_advanced_query(char *query, mpdclient_t *c)
 		/** stupid - but this is just a test...... (fulhack)  */
 		mpd_startSearch(c->connection, FALSE);
 
-		int iter;
 		for(iter = 0; iter < 10; iter++) {
 			mpd_addConstraintSearch(c->connection, table[iter], arg[iter]);
 		}
@@ -298,8 +298,6 @@ search_advanced_query(char *query, mpdclient_t *c)
 		mpd_commitSearch(c->connection);
 
 		fl = g_malloc0(sizeof(mpdclient_filelist_t));
-
-		mpd_InfoEntity *entity;
 
 		while ((entity=mpd_getNextInfoEntity(c->connection)))  {
 			filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));

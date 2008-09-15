@@ -28,10 +28,12 @@
 
 int get_text_line(formed_text *text, int num, char *dest, int len)
 {
+	int linelen;
+
 	memset(dest, '\0', len*sizeof(char));
 	if (num >= text->lines->len - 1)
 		return -1;
-	int linelen;
+
 	if (num == 0) {
 		linelen = g_array_index(text->lines, int, num);
 		memcpy(dest, text->text->str, linelen*sizeof(char));
@@ -128,9 +130,10 @@ void src_lyr_stack_init(void)
 
 int src_lyr_init(void)
 {
+	int i = 0;
+
 	src_lyr_stack_init ();
 
-	int i = 0;
 	while (g_array_index (src_lyr_stack, src_lyr*, i) != NULL) {
 		src_lyr *i_stack;
 		i_stack = g_array_index (src_lyr_stack, src_lyr*, i);
@@ -150,12 +153,14 @@ int get_lyr_by_src (int priority, char *artist, char *title)
 static int src_lyr_load_plugin_file(const char *file)
 {
 	GString *path;
+	src_lyr *new_src;
+	src_lyr_plugin_register register_func;
+
 	path = g_string_new (PLUGIN_DIR_SYSTEM);
 	g_string_append (path, "/");
 	g_string_append (path, file);
 
-	src_lyr_plugin_register register_func;
-	src_lyr *new_src = malloc (sizeof (src_lyr));
+	new_src = malloc(sizeof(src_lyr));
 	new_src->module = g_module_open (path->str, G_MODULE_BIND_LAZY);
 	if (!g_module_symbol (new_src->module, "register_me", (gpointer*) &register_func))
 		return -1;
@@ -178,13 +183,13 @@ static void src_lyr_plugins_load_from_dir(GDir *plugin_dir)
 static int src_lyr_plugins_load(void)
 {
 	GDir *plugin_dir;
+	GString *user_dir_path;
 
 	plugin_dir = g_dir_open (PLUGIN_DIR_SYSTEM, 0, NULL);
 	if (plugin_dir == NULL)
 		return -1;
 	src_lyr_plugins_load_from_dir (plugin_dir);
 
-	GString *user_dir_path;
 	user_dir_path = g_string_new (g_get_home_dir());
 	g_string_append (user_dir_path, PLUGIN_DIR_USER);
 

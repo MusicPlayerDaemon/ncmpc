@@ -71,6 +71,8 @@ static int store_lyr_hd(void)
 	char title[512];
 	static char path[1024];
 	FILE *lyr_file;
+	int i;
+	char line_buf[1024];
 
 	get_text_line(&lyr_text, 0, artist, 512);
 	get_text_line(&lyr_text, 1, title, 512);
@@ -82,9 +84,6 @@ static int store_lyr_hd(void)
 	lyr_file = create_lyr_file(artist, title);
 	if (lyr_file == NULL)
 		return -1;
-
-	int i;
-	char line_buf[1024];
 
 	for (i = 3; i <= lyr_text.text->len; i++) {
 		if(get_text_line(&lyr_text, i, line_buf, 1024) == -1);
@@ -106,6 +105,9 @@ static gpointer get_lyr(void *c)
 {
 	mpd_Status *status = ((retrieval_spec*)c)->client->status;
 	mpd_Song *cur = ((retrieval_spec*)c)->client->song;
+	char artist[MAX_SONGNAME_LENGTH];
+	char title[MAX_SONGNAME_LENGTH];
+
 	//mpdclient_update((mpdclient_t*)c);
 
 	if(!(IS_PAUSED(status->state)||IS_PLAYING(status->state))) {
@@ -114,8 +116,6 @@ static gpointer get_lyr(void *c)
 	}
 
 
-	char artist[MAX_SONGNAME_LENGTH];
-	char title[MAX_SONGNAME_LENGTH];
 	lock=2;
 	result = 0;
 
@@ -160,8 +160,8 @@ list_callback(int idx, int *highlight, void *data)
 	if ((idx == lyr_text.lines->len && lyr_text.lines->len > 4) ||
 	    ((lyr_text.lines->len == 0 || lyr_text.lines->len == 4) &&
 	     idx == 0)) {
-		*highlight=3;
 		src_lyr* selected = g_array_index(src_lyr_stack, src_lyr*, src_selection);
+		*highlight=3;
 		if (selected != NULL)
 			return selected->description;
 		return "";
