@@ -26,7 +26,7 @@
 
 #define ENABLE_SECONDS 0
 
-static window_t win = { NULL, 0, 0 };
+static window_t win;
 static gboolean enable_seconds = ENABLE_SECONDS;
 
 /* orginal variables from gdc.c */
