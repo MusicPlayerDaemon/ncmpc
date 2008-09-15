@@ -186,9 +186,80 @@ screen_next_mode(mpdclient_t *c, int offset)
 }
 
 static void
-paint_top_window(char *header, mpdclient_t *c, int clear)
+paint_top_window2(char *header, mpdclient_t *c)
 {
 	char flags[5];
+	WINDOW *w = screen->top_window.w;
+	char buf[32];
+
+	if (header[0]) {
+		colors_use(w, COLOR_TITLE_BOLD);
+		mvwaddstr(w, 0, 0, header);
+	} else {
+		colors_use(w, COLOR_TITLE_BOLD);
+		waddstr(w, get_key_names(CMD_SCREEN_HELP, FALSE));
+		colors_use(w, COLOR_TITLE);
+		waddstr(w, _(":Help  "));
+		colors_use(w, COLOR_TITLE_BOLD);
+		waddstr(w, get_key_names(CMD_SCREEN_PLAY, FALSE));
+		colors_use(w, COLOR_TITLE);
+		waddstr(w, _(":Playlist  "));
+		colors_use(w, COLOR_TITLE_BOLD);
+		waddstr(w, get_key_names(CMD_SCREEN_FILE, FALSE));
+		colors_use(w, COLOR_TITLE);
+		waddstr(w, _(":Browse  "));
+#ifdef ENABLE_ARTIST_SCREEN
+		colors_use(w, COLOR_TITLE_BOLD);
+		waddstr(w, get_key_names(CMD_SCREEN_ARTIST, FALSE));
+		colors_use(w, COLOR_TITLE);
+		waddstr(w, _(":Artist  "));
+#endif
+#ifdef ENABLE_SEARCH_SCREEN
+		colors_use(w, COLOR_TITLE_BOLD);
+		waddstr(w, get_key_names(CMD_SCREEN_SEARCH, FALSE));
+		colors_use(w, COLOR_TITLE);
+		waddstr(w, _(":Search  "));
+#endif
+#ifdef ENABLE_LYRICS_SCREEN
+		colors_use(w, COLOR_TITLE_BOLD);
+		waddstr(w, get_key_names(CMD_SCREEN_LYRICS, FALSE));
+		colors_use(w, COLOR_TITLE);
+		waddstr(w, _(":Lyrics  "));
+#endif
+	}
+	if (c->status->volume==MPD_STATUS_NO_VOLUME) {
+		g_snprintf(buf, 32, _("Volume n/a "));
+	} else {
+		g_snprintf(buf, 32, _(" Volume %d%%"), c->status->volume);
+	}
+	colors_use(w, COLOR_TITLE);
+	mvwaddstr(w, 0, screen->top_window.cols-my_strlen(buf), buf);
+
+	flags[0] = 0;
+	if( c->status->repeat )
+		g_strlcat(flags, "r", sizeof(flags));
+	if( c->status->random )
+		g_strlcat(flags, "z", sizeof(flags));;
+	if( c->status->crossfade )
+		g_strlcat(flags, "x", sizeof(flags));
+	if( c->status->updatingDb )
+		g_strlcat(flags, "U", sizeof(flags));
+	colors_use(w, COLOR_LINE);
+	mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
+	if (flags[0]) {
+		wmove(w,1,screen->top_window.cols-strlen(flags)-3);
+		waddch(w, '[');
+		colors_use(w, COLOR_LINE_BOLD);
+		waddstr(w, flags);
+		colors_use(w, COLOR_LINE);
+		waddch(w, ']');
+	}
+	wnoutrefresh(w);
+}
+
+static void
+paint_top_window(char *header, mpdclient_t *c, int clear)
+{
 	static int prev_volume = -1;
 	static int prev_header_len = -1;
 	WINDOW *w = screen->top_window.w;
@@ -203,73 +274,8 @@ paint_top_window(char *header, mpdclient_t *c, int clear)
 		wclrtoeol(w);
 	}
 
-	if (prev_volume!=c->status->volume || clear) {
-		char buf[32];
-
-		if (header[0]) {
-			colors_use(w, COLOR_TITLE_BOLD);
-			mvwaddstr(w, 0, 0, header);
-		} else {
-			colors_use(w, COLOR_TITLE_BOLD);
-			waddstr(w, get_key_names(CMD_SCREEN_HELP, FALSE));
-			colors_use(w, COLOR_TITLE);
-			waddstr(w, _(":Help  "));
-			colors_use(w, COLOR_TITLE_BOLD);
-			waddstr(w, get_key_names(CMD_SCREEN_PLAY, FALSE));
-			colors_use(w, COLOR_TITLE);
-			waddstr(w, _(":Playlist  "));
-			colors_use(w, COLOR_TITLE_BOLD);
-			waddstr(w, get_key_names(CMD_SCREEN_FILE, FALSE));
-			colors_use(w, COLOR_TITLE);
-			waddstr(w, _(":Browse  "));
-#ifdef ENABLE_ARTIST_SCREEN
-			colors_use(w, COLOR_TITLE_BOLD);
-			waddstr(w, get_key_names(CMD_SCREEN_ARTIST, FALSE));
-			colors_use(w, COLOR_TITLE);
-			waddstr(w, _(":Artist  "));
-#endif
-#ifdef ENABLE_SEARCH_SCREEN
-			colors_use(w, COLOR_TITLE_BOLD);
-			waddstr(w, get_key_names(CMD_SCREEN_SEARCH, FALSE));
-			colors_use(w, COLOR_TITLE);
-			waddstr(w, _(":Search  "));
-#endif
-#ifdef ENABLE_LYRICS_SCREEN
-			colors_use(w, COLOR_TITLE_BOLD);
-			waddstr(w, get_key_names(CMD_SCREEN_LYRICS, FALSE));
-			colors_use(w, COLOR_TITLE);
-			waddstr(w, _(":Lyrics  "));
-#endif
-		}
-		if (c->status->volume==MPD_STATUS_NO_VOLUME) {
-			g_snprintf(buf, 32, _("Volume n/a "));
-		} else {
-			g_snprintf(buf, 32, _(" Volume %d%%"), c->status->volume);
-		}
-		colors_use(w, COLOR_TITLE);
-		mvwaddstr(w, 0, screen->top_window.cols-my_strlen(buf), buf);
-
-		flags[0] = 0;
-		if( c->status->repeat )
-			g_strlcat(flags, "r", sizeof(flags));
-		if( c->status->random )
-			g_strlcat(flags, "z", sizeof(flags));;
-		if( c->status->crossfade )
-			g_strlcat(flags, "x", sizeof(flags));
-		if( c->status->updatingDb )
-			g_strlcat(flags, "U", sizeof(flags));
-		colors_use(w, COLOR_LINE);
-		mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
-		if (flags[0]) {
-			wmove(w,1,screen->top_window.cols-strlen(flags)-3);
-			waddch(w, '[');
-			colors_use(w, COLOR_LINE_BOLD);
-			waddstr(w, flags);
-			colors_use(w, COLOR_LINE);
-			waddch(w, ']');
-		}
-		wnoutrefresh(w);
-	}
+	if (prev_volume!=c->status->volume || clear)
+		paint_top_window2(header, c);
 }
 
 static void
