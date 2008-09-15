@@ -14,6 +14,7 @@
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
+#include "gcc.h"
 
 #include <time.h>
 #include <stdlib.h>
@@ -133,7 +134,7 @@ clock_exit(void)
 }
 
 static void
-clock_open(screen_t *screen, mpdclient_t *c)
+clock_open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	int j;
 
@@ -148,13 +149,13 @@ clock_close(void)
 }
 
 static const char *
-clock_title(char *str, size_t size)
+clock_title(mpd_unused char *str, mpd_unused size_t size)
 {
 	return _("Clock");
 }
 
 static void
-clock_update(screen_t *screen, mpdclient_t *c)
+clock_update(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	time_t now;
 	struct tm *tm;
@@ -234,7 +235,8 @@ clock_paint(screen_t *screen, mpdclient_t *c)
 }
 
 static int
-clock_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
+clock_cmd(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c,
+	  mpd_unused command_t cmd)
 {
 	return 0;
 }

@@ -29,6 +29,7 @@
 #include "screen_utils.h"
 #include "screen_browse.h"
 #include "screen_play.h"
+#include "gcc.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -114,7 +115,8 @@ sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl)
 
 /* the db have changed -> update the filelist */
 static void
-file_changed_callback(mpdclient_t *c, int event, gpointer data)
+file_changed_callback(mpdclient_t *c, mpd_unused int event,
+		      mpd_unused gpointer data)
 {
 	D("screen_file.c> filelist_callback() [%d]\n", event);
 	filelist = mpdclient_filelist_update(c, filelist);
@@ -194,8 +196,8 @@ browse_lw_callback(unsigned idx, int *highlight, void *data)
 
 /* chdir */
 static int
-change_directory(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry,
-		 const char *new_path)
+change_directory(mpd_unused screen_t *screen, mpdclient_t *c,
+		 filelist_entry_t *entry, const char *new_path)
 {
 	mpd_InfoEntity *entity = NULL;
 	gchar *path = NULL;
@@ -240,7 +242,8 @@ change_directory(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry,
 }
 
 static int
-load_playlist(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
+load_playlist(mpd_unused screen_t *screen, mpdclient_t *c,
+	      filelist_entry_t *entry)
 {
 	mpd_InfoEntity *entity = entry->entity;
 	mpd_PlaylistFile *plf = entity->info.playlistFile;
@@ -313,7 +316,8 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 }
 
 static int
-enqueue_and_play(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
+enqueue_and_play(mpd_unused screen_t *screen, mpdclient_t *c,
+		 filelist_entry_t *entry)
 {
 	int idx;
 	mpd_InfoEntity *entity = entry->entity;
@@ -483,7 +487,7 @@ browse_handle_select(screen_t *screen,
 int
 browse_handle_select_all (screen_t *screen,
 			  mpdclient_t *c,
-			  list_window_t *local_lw,
+			  mpd_unused list_window_t *local_lw,
 			  mpdclient_filelist_t *fl)
 {
 	filelist_entry_t *entry;
@@ -578,7 +582,7 @@ browse_exit(void)
 }
 
 static void
-browse_open(screen_t *screen, mpdclient_t *c)
+browse_open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	if( filelist == NULL ) {
 		filelist = mpdclient_filelist_get(c, "");
@@ -615,7 +619,7 @@ browse_title(char *str, size_t size)
 }
 
 static void
-browse_paint(screen_t *screen, mpdclient_t *c)
+browse_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	lw->clear = 1;
 

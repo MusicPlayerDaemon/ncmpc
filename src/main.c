@@ -29,6 +29,7 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "strfsong.h"
+#include "gcc.h"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -55,12 +56,10 @@ error_msg(const gchar *msg)
 }
 
 static void
-error_callback(mpdclient_t *c, gint error, const gchar *msg)
+error_callback(mpd_unused mpdclient_t *c, gint error, const gchar *msg)
 {
-	gint code = GET_ACK_ERROR_CODE(error);
-
 	error = error & 0xFF;
-	D("Error [%d:%d]> \"%s\"\n", error, code, msg);
+	D("Error [%d:%d]> \"%s\"\n", error, GET_ACK_ERROR_CODE(error), msg);
 	switch (error) {
 	case MPD_ERROR_CONNPORT:
 	case MPD_ERROR_NORESPONSE:
@@ -126,7 +125,7 @@ exit_and_cleanup(void)
 }
 
 static void
-catch_sigint( int sig )
+catch_sigint(mpd_unused int sig)
 {
 	printf("\n%s\n", _("Exiting..."));
 	exit(EXIT_SUCCESS);
@@ -134,7 +133,7 @@ catch_sigint( int sig )
 
 
 static void
-catch_sigcont( int sig )
+catch_sigcont(mpd_unused int sig)
 {
 	D("catch_sigcont()\n");
 #ifdef ENABLE_RAW_MODE

@@ -31,6 +31,7 @@
 #include "easy_download.h"
 #include "strfsong.h"
 #include "src_lyrics.h"
+#include "gcc.h"
 
 #define _GNU_SOURCE
 #include <stdlib.h>
@@ -152,7 +153,7 @@ static gpointer get_lyr(void *c)
 }
 
 static const char *
-list_callback(unsigned idx, int *highlight, void *data)
+list_callback(unsigned idx, int *highlight, mpd_unused void *data)
 {
 	static char buf[512];
 
@@ -205,7 +206,7 @@ lyrics_exit(void)
 
 
 static const char *
-lyrics_title(char *str, size_t size)
+lyrics_title(mpd_unused char *str, mpd_unused size_t size)
 {
 	static GString *msg;
 	if (msg == NULL)
@@ -244,7 +245,7 @@ lyrics_title(char *str, size_t size)
 }
 
 static void
-lyrics_paint(screen_t *screen, mpdclient_t *c)
+lyrics_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	lw->clear = 1;
 	list_window_paint(lw, list_callback, NULL);
@@ -253,7 +254,7 @@ lyrics_paint(screen_t *screen, mpdclient_t *c)
 
 
 static void
-lyrics_update(screen_t *screen, mpdclient_t *c)
+lyrics_update(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	if( lw->repaint ) {
 		list_window_paint(lw, list_callback, NULL);

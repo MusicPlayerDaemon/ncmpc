@@ -28,6 +28,7 @@
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
+#include "gcc.h"
 
 #include <errno.h>
 #include <stdlib.h>
@@ -183,7 +184,7 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
 }
 
 static const char *
-list_callback(unsigned idx, int *highlight, void *data)
+list_callback(unsigned idx, int *highlight, mpd_unused void *data)
 {
 	static char buf[BUFSIZE];
 
@@ -241,7 +242,7 @@ keydef_exit(void)
 }
 
 static void 
-keydef_open(screen_t *screen, mpdclient_t *c)
+keydef_open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
   if( cmds == NULL )
     {
@@ -286,7 +287,7 @@ keydef_title(char *str, size_t size)
 }
 
 static void 
-keydef_paint(screen_t *screen, mpdclient_t *c)
+keydef_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
   lw->clear = 1;
   list_window_paint(lw, list_callback, NULL);
@@ -294,7 +295,7 @@ keydef_paint(screen_t *screen, mpdclient_t *c)
 }
 
 static void 
-keydef_update(screen_t *screen, mpdclient_t *c)
+keydef_update(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {  
   if( lw->repaint )
     {
@@ -305,7 +306,7 @@ keydef_update(screen_t *screen, mpdclient_t *c)
 }
 
 static int
-keydef_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
+keydef_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 {
 	int length = LIST_LENGTH();
 

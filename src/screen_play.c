@@ -31,6 +31,7 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "screen_play.h"
+#include "gcc.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -92,7 +93,7 @@ list_callback(unsigned idx, int *highlight, void *data)
 }
 
 static int
-center_playing_item(screen_t *screen, mpdclient_t *c)
+center_playing_item(mpdclient_t *c)
 {
 	unsigned length = c->playlist.length;
 	unsigned offset = lw->selected - lw->start;
@@ -123,7 +124,7 @@ center_playing_item(screen_t *screen, mpdclient_t *c)
 }
 
 static void
-save_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
+save_pre_completion_cb(GCompletion *gcmp, mpd_unused gchar *line, void *data)
 {
 	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
 	GList **list = tmp->list;
@@ -137,8 +138,8 @@ save_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
 }
 
 static void
-save_post_completion_cb(GCompletion *gcmp, gchar *line, GList *items,
-			void *data)
+save_post_completion_cb(mpd_unused GCompletion *gcmp, mpd_unused gchar *line,
+			GList *items, void *data)
 {
 	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
 	screen_t *screen = tmp->screen;
@@ -336,7 +337,7 @@ play_init(WINDOW *w, int cols, int rows)
 }
 
 static void
-play_open(screen_t *screen, mpdclient_t *c)
+play_open(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	static gboolean install_cb = TRUE;
 
@@ -371,7 +372,7 @@ play_title(char *str, size_t size)
 }
 
 static void
-play_paint(screen_t *screen, mpdclient_t *c)
+play_paint(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	lw->clear = 1;
 
@@ -395,7 +396,7 @@ play_update(screen_t *screen, mpdclient_t *c)
 		static int prev_song_id = 0;
 
 		if( c->song && prev_song_id != c->song->id ) {
-			center_playing_item(screen, c);
+			center_playing_item(c);
 			prev_song_id = c->song->id;
 		}
 	}
@@ -417,7 +418,7 @@ play_update(screen_t *screen, mpdclient_t *c)
 
 #ifdef HAVE_GETMOUSE
 static int
-handle_mouse_event(screen_t *screen, mpdclient_t *c)
+handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	int row;
 	unsigned selected;
@@ -473,7 +474,7 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		screen->painted = 0;
 		lw->clear = 1;
 		lw->repaint = 1;
-		center_playing_item(screen, c);
+		center_playing_item(c);
 		return 1;
 	case CMD_LIST_MOVE_UP:
 		mpdclient_cmd_move(c, lw->selected, lw->selected-1);

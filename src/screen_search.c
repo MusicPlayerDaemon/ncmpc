@@ -31,6 +31,7 @@
 #include "utils.h"
 #include "screen_utils.h"
 #include "screen_browse.h"
+#include "gcc.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -116,7 +117,8 @@ static gboolean advanced_search_mode = FALSE;
 
 /* search info */
 static const char *
-lw_search_help_callback(unsigned idx, int *highlight, void *data)
+lw_search_help_callback(unsigned idx, mpd_unused int *highlight,
+			mpd_unused void *data)
 {
 	unsigned text_rows;
 	static const char *text[] = {
@@ -143,7 +145,7 @@ lw_search_help_callback(unsigned idx, int *highlight, void *data)
 
 /* the playlist have been updated -> fix highlights */
 static void 
-playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
+playlist_changed_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
 {
   if( filelist==NULL )
     return;
@@ -174,7 +176,8 @@ search_check_mode(void)
 }
 
 static void
-search_clear(screen_t *screen, mpdclient_t *c, gboolean clear_pattern)
+search_clear(mpd_unused screen_t *screen, mpdclient_t *c,
+	     gboolean clear_pattern)
 {
   if( filelist )
     {
@@ -190,7 +193,7 @@ search_clear(screen_t *screen, mpdclient_t *c, gboolean clear_pattern)
 
 #ifdef FUTURE
 static mpdclient_filelist_t *
-filelist_search(mpdclient_t *c, int exact_match, int table,
+filelist_search(mpdclient_t *c, mpd_unused int exact_match, int table,
 		gchar *local_pattern)
 {
   mpdclient_filelist_t *list, *list2;
@@ -380,7 +383,7 @@ quit(void)
 }
 
 static void
-open(screen_t *screen, mpdclient_t *c)
+open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
   //  if( pattern==NULL )
   //    search_new(screen, c);
@@ -403,7 +406,7 @@ close(void)
 }
 
 static void 
-paint(screen_t *screen, mpdclient_t *c)
+paint(mpd_unused screen_t *screen, mpdclient_t *c)
 {
   lw->clear = 1;
   

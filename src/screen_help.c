@@ -24,6 +24,7 @@
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
+#include "gcc.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -147,7 +148,7 @@ static list_window_t *lw = NULL;
 
 
 static const char *
-list_callback(unsigned idx, int *highlight, void *data)
+list_callback(unsigned idx, int *highlight, mpd_unused void *data)
 {
 	static char buf[512];
 
@@ -212,13 +213,13 @@ help_exit(void)
 
 
 static const char *
-help_title(char *str, size_t size)
+help_title(mpd_unused char *str, mpd_unused size_t size)
 {
 	return _("Help");
 }
 
 static void
-help_paint(screen_t *screen, mpdclient_t *c)
+help_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	lw->clear = 1;
 	list_window_paint(lw, list_callback, NULL);
@@ -226,7 +227,7 @@ help_paint(screen_t *screen, mpdclient_t *c)
 }
 
 static void
-help_update(screen_t *screen, mpdclient_t *c)
+help_update(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	if (lw->repaint) {
 		list_window_paint(lw, list_callback, NULL);
@@ -237,7 +238,7 @@ help_update(screen_t *screen, mpdclient_t *c)
 
 
 static int
-help_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
+help_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 {
 	lw->repaint=1;
 	lw->clear=1;
