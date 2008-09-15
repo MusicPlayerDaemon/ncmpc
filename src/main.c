@@ -173,7 +173,6 @@ D(const char *format, ...)
 int
 main(int argc, const char *argv[])
 {
-	options_t *options;
 	struct sigaction act;
 	const char *charset = NULL;
 	gboolean key_error;
@@ -199,13 +198,13 @@ main(int argc, const char *argv[])
 #endif
 
 	/* initialize options */
-	options = options_init();
+	options_init();
 
 	/* parse command line options - 1 pass get configuration files */
 	options_parse(argc, argv);
 
 	/* read configuration */
-	read_configuration(options);
+	read_configuration(&options);
 
 	/* check key bindings */
 	key_error = check_key_bindings(NULL, NULL, 0);
@@ -260,10 +259,10 @@ main(int argc, const char *argv[])
 	mpd = mpdclient_new();
 
 	if (mpdclient_connect(mpd,
-			      options->host,
-			      options->port,
+			      options.host,
+			      options.port,
 			      10.0,
-			      options->password))
+			      options.password))
 		exit(EXIT_FAILURE);
 
 	/* if no password is used, but the mpd wants one, the connection
@@ -300,7 +299,7 @@ main(int argc, const char *argv[])
 	timer = g_timer_new();
 
 	connected = TRUE;
-	while (connected || options->reconnect) {
+	while (connected || options.reconnect) {
 		static gdouble t = G_MAXDOUBLE;
 
 		if( key_error ) {
@@ -328,25 +327,25 @@ main(int argc, const char *argv[])
 				}
 			else
 				screen_idle(mpd);
-		} else if (options->reconnect) {
+		} else if( options.reconnect ) {
 			screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
-					     options->host, get_key_names(CMD_QUIT,0) );
+					     options.host, get_key_names(CMD_QUIT,0) );
 
 			if( get_keyboard_command_with_timeout(MPD_RECONNECT_TIME)==CMD_QUIT)
 				exit(EXIT_SUCCESS);
 
 			if (mpdclient_connect(mpd,
-					      options->host, options->port,
+					      options.host, options.port,
 					      1.5,
-					      options->password) == 0) {
-				screen_status_printf(_("Connected to %s!"), options->host);
+					      options.password) == 0) {
+				screen_status_printf(_("Connected to %s!"), options.host);
 				connected = TRUE;
 			}
 
 			doupdate();
 		}
 
-		if (options->enable_xterm_title)
+		if (options.enable_xterm_title)
 			update_xterm_title();
 
 		t = g_timer_elapsed(timer, NULL);

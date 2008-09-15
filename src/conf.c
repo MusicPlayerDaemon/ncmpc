@@ -18,6 +18,7 @@
  *
  */
 
+#define NO_GLOBAL_OPTIONS
 #include "conf.h"
 #include "config.h"
 #include "ncmpc.h"
