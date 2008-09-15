@@ -1,3 +1,4 @@
+#include "options.h"
 
 int check_user_conf_dir(void);
 

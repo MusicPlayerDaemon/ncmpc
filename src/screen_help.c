@@ -18,17 +18,17 @@
  *
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <glib.h>
-#include <ncurses.h>
-
 #include "config.h"
 #include "ncmpc.h"
 #include "mpdclient.h"
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
+
+#include <stdlib.h>
+#include <string.h>
+#include <glib.h>
+#include <ncurses.h>
 
 
 typedef struct {

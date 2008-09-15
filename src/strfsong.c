@@ -22,17 +22,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <glib.h>
-
-#include "config.h"
-#include "libmpdclient.h"
-#include "support.h"
 #include "strfsong.h"
+#include "support.h"
+
+#include <string.h>
 
 static const gchar *
 skip(const gchar * p)

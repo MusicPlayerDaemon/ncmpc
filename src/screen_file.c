@@ -18,12 +18,6 @@
  *
  */
 
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
-#include <glib.h>
-#include <ncurses.h>
-
 #include "config.h"
 #include "ncmpc.h"
 #include "options.h"
@@ -35,6 +29,12 @@
 #include "screen_utils.h"
 #include "screen_browse.h"
 #include "screen_play.h"
+
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+#include <glib.h>
+#include <ncurses.h>
 
 #define USE_OLD_LAYOUT
 #undef  USE_OLD_ADD

@@ -20,6 +20,8 @@
 
 #include "config.h"
 
+#include "wreadln.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -29,8 +31,6 @@
 #else
 #include <ncurses.h>
 #endif
-
-#include "wreadln.h"
 
 #define KEY_CTRL_A   1
 #define KEY_CTRL_C   3

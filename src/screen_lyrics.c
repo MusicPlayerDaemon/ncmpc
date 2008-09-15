@@ -19,16 +19,6 @@
  *
  */
 
-#define _GNU_SOURCE
-#include <stdlib.h>
-#include <string.h>
-#include <glib.h>
-#include <ncurses.h>
-#include <expat.h>
-#include <unistd.h>
-#include <glib/gstdio.h>
-#include <stdio.h>
-
 #include "config.h"
 #ifndef DISABLE_LYRICS_SCREEN
 #include <sys/stat.h>
@@ -41,6 +31,16 @@
 #include "easy_download.h"
 #include "strfsong.h"
 #include "src_lyrics.h"
+
+#define _GNU_SOURCE
+#include <stdlib.h>
+#include <string.h>
+#include <glib.h>
+#include <ncurses.h>
+#include <expat.h>
+#include <unistd.h>
+#include <glib/gstdio.h>
+#include <stdio.h>
 
 int src_selection;
 

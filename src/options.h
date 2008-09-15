@@ -1,3 +1,7 @@
+#ifndef OPTIONS_H
+#define OPTIONS_H
+
+#include <glib.h>
 
 #define MPD_HOST_ENV "MPD_HOST"
 #define MPD_PORT_ENV "MPD_PORT"
@@ -39,3 +43,5 @@ extern options_t options;
 
 options_t *options_init(void);
 options_t *options_parse(int argc, const char **argv);
+
+#endif

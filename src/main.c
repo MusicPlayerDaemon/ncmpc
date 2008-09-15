@@ -18,14 +18,6 @@
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <string.h>
-#include <ncurses.h>
-#include <glib.h>
-
 #include "config.h"
 #include "ncmpc.h"
 #include "mpdclient.h"
@@ -37,6 +29,11 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "strfsong.h"
+
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <string.h>
 
 #define BUFSIZE 1024
 

@@ -1,6 +1,9 @@
 #ifndef MPDCLIENT_H
 #define MPDCLIENT_H
+
 #include "libmpdclient.h"
+
+#include <glib.h>
 
 #define MPD_VERSION_EQ(c,x,y,z) (c->connection->version[0] == x && \
                                  c->connection->version[1] == y && \

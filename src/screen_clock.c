@@ -5,12 +5,6 @@
  * ncurses. 
  */
 
-#include <time.h>
-#include <stdlib.h>
-#include <string.h>
-#include <glib.h>
-#include <ncurses.h>
-
 #include "config.h"
 
 #ifndef  DISABLE_CLOCK_SCREEN
@@ -20,6 +14,13 @@
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
+
+#include <time.h>
+#include <stdlib.h>
+#include <string.h>
+#include <glib.h>
+#include <ncurses.h>
+
 
 #define YDEPTH	5
 #define BUFSIZE 64

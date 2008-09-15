@@ -18,19 +18,18 @@
  *
  */
 
-#include <stdio.h>
+#include "mpdclient.h"
+#include "screen_utils.h"
+#include "config.h"
+#include "ncmpc.h"
+#include "support.h"
+#include "options.h"
+#include "strfsong.h"
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
-#include <glib.h>
-
-#include "config.h"
-#include "ncmpc.h"
-#include "support.h"
-#include "mpdclient.h"
-#include "options.h"
-#include "strfsong.h"
 
 #undef  ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_ADD /* broken with song id's */
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_DELETE

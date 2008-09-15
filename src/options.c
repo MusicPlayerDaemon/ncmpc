@@ -18,18 +18,15 @@
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ncurses.h>
-#include <glib.h>
-
+#include "options.h"
 #include "config.h"
 #include "ncmpc.h"
 #include "support.h"
-#include "options.h"
 #include "command.h"
 #include "conf.h"
+
+#include <stdlib.h>
+#include <string.h>
 
 #define MAX_LONGOPT_LENGTH 32
 

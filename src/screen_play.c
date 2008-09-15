@@ -18,13 +18,6 @@
  *
  */
 
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <glib.h>
-#include <ncurses.h>
-
 #include "config.h"
 #include "ncmpc.h"
 #include "options.h"
@@ -38,6 +31,13 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "screen_play.h"
+
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <glib.h>
+#include <ncurses.h>
 
 #define MAX_SONG_LENGTH 512
 

@@ -1,6 +1,13 @@
 #ifndef SCREEN_UTILS_H
 #define SCREEN_UTILS_H
 
+#include "screen.h"
+#include "list_window.h"
+#include "mpdclient.h"
+#include "command.h"
+
+#include <ncurses.h>
+
 /* sound an audible and/or visible bell */
 void screen_bell(void);
 

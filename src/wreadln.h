@@ -1,6 +1,9 @@
 #ifndef WREADLN_H
 #define WREADLN_H
 
+#include <glib.h>
+#include <ncurses.h>
+
 /* max size allocated for a line */
 extern guint wrln_max_line_size;
 

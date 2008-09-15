@@ -18,13 +18,8 @@
  *
  */
 
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
-#include <glib.h>
-#include <ncurses.h>
-
 #include "config.h"
+
 #ifndef DISABLE_SEARCH_SCREEN
 #include "ncmpc.h"
 #include "options.h"
@@ -36,6 +31,12 @@
 #include "utils.h"
 #include "screen_utils.h"
 #include "screen_browse.h"
+
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+#include <glib.h>
+#include <ncurses.h>
 
 /* new search stuff with qball's libmpdclient */
 #define FUTURE

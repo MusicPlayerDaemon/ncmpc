@@ -1,6 +1,8 @@
 #ifndef COLORS_H
 #define COLORS_H
 
+#include <ncurses.h>
+
 #define COLOR_TITLE           1
 #define COLOR_TITLE_BOLD      2
 #define COLOR_LINE            3

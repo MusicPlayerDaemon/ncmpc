@@ -18,12 +18,6 @@
  *
  */
 
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
-#include <glib.h>
-#include <ncurses.h>
-
 #include "config.h"
 
 #ifndef  DISABLE_KEYDEF_SCREEN
@@ -34,6 +28,12 @@
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
+
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
+#include <glib.h>
+#include <ncurses.h>
 
 #define STATIC_ITEMS      0
 #define STATIC_SUB_ITEMS  1

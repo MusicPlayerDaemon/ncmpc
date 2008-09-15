@@ -18,13 +18,8 @@
  *
  */
 
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
-#include <glib.h>
-#include <ncurses.h>
-
 #include "config.h"
+
 #ifndef DISABLE_ARTIST_SCREEN
 #include "ncmpc.h"
 #include "options.h"
@@ -36,6 +31,12 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "screen_browse.h"
+
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+#include <glib.h>
+#include <ncurses.h>
 
 #define BUFSIZE 1024
 

@@ -18,15 +18,8 @@
  *
  */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdarg.h>
-#include <string.h>
-#include <time.h>
-#include <locale.h>
-#include <glib.h>
-#include <ncurses.h>
-
+#include "screen.h"
+#include "screen_utils.h"
 #include "config.h"
 #include "ncmpc.h"
 #include "support.h"
@@ -37,9 +30,13 @@
 #include "colors.h"
 #include "strfsong.h"
 #include "wreadln.h"
-#include "screen.h"
-#include "screen_utils.h"
 
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdarg.h>
+#include <string.h>
+#include <time.h>
+#include <locale.h>
 
 #define SCREEN_PLAYLIST_ID     0
 #define SCREEN_BROWSE_ID       1

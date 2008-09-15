@@ -1,9 +1,7 @@
-#include <glib.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-
 #include "src_lyrics.h"
+
+#include <stdlib.h>
+#include <unistd.h>
 
 char *check_lyr_hd(char *artist, char *title, int how)
 { //checking whether for lyrics file existence and proper access

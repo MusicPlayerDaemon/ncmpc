@@ -18,16 +18,14 @@
  *
  */
 
+#include "support.h"
+#include "ncmpc.h"
+
 #include <time.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <glib.h>
-
-#include "config.h"
-#include "ncmpc.h"
-#include "support.h"
 
 #define BUFSIZE 1024
 

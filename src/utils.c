@@ -18,19 +18,14 @@
  *
  */
 
-#include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <glib.h>
-
-#include "config.h"
+#include "utils.h"
 #include "ncmpc.h"
 #include "options.h"
 #include "support.h"
-#include "mpdclient.h"
-#include "utils.h"
 
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
 
 GList *
 string_list_free(GList *string_list)

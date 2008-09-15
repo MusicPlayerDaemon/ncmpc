@@ -1,6 +1,9 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include "mpdclient.h"
+
+#include <glib.h>
 
 /* functions for lists containing strings */
 GList *string_list_free(GList *string_list);

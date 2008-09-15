@@ -1,7 +1,11 @@
 #ifndef SCREEN_H
 #define SCREEN_H
-#include <ncurses.h>
+
 #include "list_window.h"
+#include "mpdclient.h"
+
+#include <ncurses.h>
+#include <glib.h>
 
 #define IS_PLAYING(s) (s==MPD_STATUS_STATE_PLAY)
 #define IS_PAUSED(s) (s==MPD_STATUS_STATE_PAUSE)

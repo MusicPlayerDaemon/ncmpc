@@ -18,17 +18,14 @@
  *
  */
 
+#include "colors.h"
+#include "ncmpc.h"
+#include "options.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ncurses.h>
 #include <glib.h>
-
-#include "config.h"
-#include "ncmpc.h"
-#include "options.h"
-#include "support.h"
-#include "colors.h"
 
 #define COLOR_BRIGHT_MASK   (1<<7)
 

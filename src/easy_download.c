@@ -14,19 +14,18 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
-#
+
+#include "ncmpc.h"
+
+#ifdef ENABLE_LYRICS_SCREEN
+#include "easy_download.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
-#include "ncmpc.h"
-
-#ifdef ENABLE_LYRICS_SCREEN
 
 #include <curl/curl.h>
-#include "easy_download.h"
 
 static size_t write_data(void *buffer, size_t size,
 	size_t nmemb, easy_download_struct *dld)

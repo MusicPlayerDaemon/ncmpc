@@ -18,6 +18,13 @@
  *
  */
 
+#include "conf.h"
+#include "config.h"
+#include "ncmpc.h"
+#include "support.h"
+#include "command.h"
+#include "colors.h"
+
 #include <ctype.h>
 #include <stdio.h>
 #include <errno.h>
@@ -27,16 +34,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
-#include <glib.h>
-#include <ncurses.h>
-#include "config.h"
-#include "ncmpc.h"
-#include "options.h"
-#include "support.h"
-#include "command.h"
-#include "colors.h"
-#include "conf.h"
 
 #define MAX_LINE_LENGTH 1024
 #define COMMENT_TOKEN   '#'

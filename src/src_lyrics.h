@@ -1,10 +1,11 @@
 #ifndef SOURCE_LYRICS
 #define SOURCE_LYRICS
 
-#include <stdlib.h>
-#include <glib.h>
 #include "list_window.h"
 #include "mpdclient.h"
+
+#include <stdlib.h>
+#include <glib.h>
 #include <gmodule.h>
 
 typedef struct _formed_text

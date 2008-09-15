@@ -18,22 +18,17 @@
  *
  */
 
+#include "screen_utils.h"
+#include "config.h"
+#include "ncmpc.h"
+#include "support.h"
+#include "options.h"
+#include "colors.h"
+#include "wreadln.h"
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <glib.h>
-#include <ncurses.h>
-
-#include "config.h"
-#include "ncmpc.h"
-#include "mpdclient.h"
-#include "support.h"
-#include "command.h"
-#include "options.h"
-#include "list_window.h"
-#include "colors.h"
-#include "wreadln.h"
-#include "screen.h"
 
 #define FIND_PROMPT  _("Find: ")
 #define RFIND_PROMPT _("Find backward: ")

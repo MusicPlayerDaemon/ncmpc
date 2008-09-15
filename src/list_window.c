@@ -18,18 +18,16 @@
  *
  */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <glib.h>
-#include <ncurses.h>
-
+#include "list_window.h"
 #include "config.h"
 #include "options.h"
 #include "support.h"
 #include "command.h"
 #include "colors.h"
-#include "list_window.h"
+
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
 extern void screen_bell(void);
 

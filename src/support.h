@@ -1,6 +1,8 @@
 #ifndef SUPPORT_H
 #define SUPPORT_H
 
+#include <glib.h>
+
 #ifdef HAVE_LIBGEN_H
 #include <libgen.h>
 #endif

@@ -18,20 +18,18 @@
  *
  */
 
+#include "command.h"
+#include "config.h"
+#include "ncmpc.h"
+#include "mpdclient.h"
+#include "screen.h"
+
 #include <ctype.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <glib.h>
 #include <signal.h>
-#include <ncurses.h>
-
-#include "config.h"
-#include "ncmpc.h"
-#include "command.h"
-#include "mpdclient.h"
-#include "screen.h"
 
 #undef DEBUG_KEYS
 
