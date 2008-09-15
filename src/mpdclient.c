@@ -163,6 +163,7 @@ mpdclient_new(void)
   mpdclient_t *c;
 
   c = g_malloc0(sizeof(mpdclient_t));
+  c->playlist.list = g_array_sized_new(FALSE, FALSE, sizeof(mpd_Song *), 1024);
 
   return c;
 }
@@ -459,8 +460,7 @@ mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 	c->playlist.id++;
 
 	/* remove the song from the playlist */
-	c->playlist.list = g_list_remove(c->playlist.list, (gpointer) song);
-	c->playlist.length = g_list_length(c->playlist.list);
+	g_array_remove_index(c->playlist.list, idx);
 
 	/* call playlist updated callback */
 	mpdclient_playlist_callback(c, PLAYLIST_EVENT_DELETE, (gpointer) song);
@@ -484,13 +484,11 @@ mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 gint
 mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 {
-	gint n, index1, index2;
-	GList *item1, *item2;
-	gpointer data1, data2;
+	gint n;
 	mpd_Song *song1, *song2;
 
 	if (old_index == new_index || new_index < 0 ||
-	    (guint)new_index >= c->playlist.length)
+	    (guint)new_index >= c->playlist.list->len)
 		return -1;
 
 	song1 = playlist_get_song(c, old_index);
@@ -512,26 +510,9 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 	n = song1->pos;
 	song1->pos = song2->pos;
 	song2->pos = n;
-	index1 = MIN(old_index, new_index);
-	index2 = MAX(old_index, new_index);
-	/* retreive the list items */
-	item1 = g_list_nth(c->playlist.list, index1);
-	item2 = g_list_nth(c->playlist.list, index2);
-	/* retrieve the songs */
-	data1 = item1->data;
-	data2 = item2->data;
-
-	/* move the second item */
-	c->playlist.list = g_list_remove(c->playlist.list, data2);
-	c->playlist.list = g_list_insert_before(c->playlist.list, item1, data2);
-
-	/* move the first item */
-	if (index2-index1 > 1) {
-		item2 = g_list_nth(c->playlist.list, index2);
-		c->playlist.list = g_list_remove(c->playlist.list, data1);
-		c->playlist.list = g_list_insert_before(c->playlist.list,
-							item2, data1);
-	}
+	/* update the array */
+	g_array_index(c->playlist.list, mpd_Song *, old_index) = song2;
+	g_array_index(c->playlist.list, mpd_Song *, new_index) = song1;
 
 	/* increment the playlist id, so we dont retrives a new playlist */
 	c->playlist.id++;
@@ -671,15 +652,14 @@ mpdclient_remove_error_callback(mpdclient_t *c, mpdc_error_cb_t cb)
 gint
 mpdclient_playlist_free(mpdclient_playlist_t *playlist)
 {
-  GList *list = g_list_first(playlist->list);
+	guint i;
 
-  while(list)
-    {
-      mpd_Song *song = (mpd_Song *) list->data;
-      mpd_freeSong(song);
-      list=list->next;
-    }
-  g_list_free(playlist->list);
+	for (i = 0; i < playlist->list->len; ++i) {
+		mpd_Song *song = g_array_index(playlist->list, mpd_Song *, i);
+		mpd_freeSong(song);
+	}
+
+	g_array_free(playlist->list, TRUE);
 	memset(playlist, 0, sizeof(mpdclient_playlist_t));
 	return 0;
 }
@@ -702,10 +682,7 @@ mpdclient_playlist_update(mpdclient_t *c)
 	while ((entity = mpd_getNextInfoEntity(c->connection))) {
 		if (entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
 			mpd_Song *song = mpd_songDup(entity->info.song);
-
-			c->playlist.list = g_list_append(c->playlist.list,
-							 (gpointer)song);
-			c->playlist.length++;
+			g_array_append_val(c->playlist.list, song);
 		}
 		mpd_freeInfoEntity(entity);
 	}
@@ -737,41 +714,39 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 	mpd_sendPlChangesCommand(c->connection, c->playlist.id);
 
 	while ((entity = mpd_getNextInfoEntity(c->connection)) != NULL) {
-		mpd_Song *song = entity->info.song;
+		mpd_Song *song = mpd_songDup(entity->info.song);
 
-		if (song->pos >= 0 && (guint)song->pos < c->playlist.length) {
-			GList *item = g_list_nth(c->playlist.list, song->pos);
-
+		if (song->pos >= 0 && (guint)song->pos < c->playlist.list->len) {
 			/* update song */
-			D("updating pos:%d, id=%d [%p] - %s\n",
-			  song->pos, song->id, item, song->file);
-			mpd_freeSong((mpd_Song *) item->data);
-			item->data = mpd_songDup(song);
+			D("updating pos:%d, id=%d - %s\n",
+			  song->pos, song->id, song->file);
+			mpd_freeSong(g_array_index(c->playlist.list,
+						   mpd_Song *, song->pos));
+			g_array_index(c->playlist.list,
+				      mpd_Song *, song->pos) = song;
 		} else {
 			/* add a new song */
 			D("adding song at pos %d\n", song->pos);
-			c->playlist.list = g_list_append(c->playlist.list,
-							 (gpointer)mpd_songDup(song));
+			g_array_append_val(c->playlist.list, song);
 		}
 
 		mpd_freeInfoEntity(entity);
 	}
 
 	/* remove trailing songs */
-	while ((guint)c->status->playlistLength < c->playlist.length) {
-		GList *item = g_list_last(c->playlist.list);
+	while ((guint)c->status->playlistLength < c->playlist.list->len) {
+		guint pos = c->playlist.list->len - 1;
+		mpd_Song *song = g_array_index(c->playlist.list, mpd_Song *, pos);
 
 		/* Remove the last playlist entry */
-		D("removing song at pos %d\n", ((mpd_Song *) item->data)->pos);
-		mpd_freeSong((mpd_Song *) item->data);
-		c->playlist.list = g_list_delete_link(c->playlist.list, item);
-		c->playlist.length = g_list_length(c->playlist.list);
+		D("removing song at pos %d\n", pos);
+		mpd_freeSong(song);
+		g_array_remove_index(c->playlist.list, pos);
 	}
 
 	c->song = NULL;
 	c->playlist.id = c->status->playlist;
 	c->playlist.updated = TRUE;
-	c->playlist.length = g_list_length(c->playlist.list);
 
 	mpdclient_playlist_callback(c, PLAYLIST_EVENT_UPDATED, NULL);
 
@@ -789,34 +764,22 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 mpd_Song *
 playlist_get_song(mpdclient_t *c, gint idx)
 {
-	return (mpd_Song *) g_list_nth_data(c->playlist.list, idx);
-}
+	if (idx < 0 || (guint)idx >= c->playlist.list->len)
+		return NULL;
 
-GList *
-playlist_lookup(mpdclient_t *c, int id)
-{
-	GList *list = g_list_first(c->playlist.list);
-
-	while (list) {
-		mpd_Song *song = (mpd_Song *) list->data;
-		if( song->id == id )
-			return list;
-		list=list->next;
-	}
-
-	return NULL;
+	return g_array_index(c->playlist.list, mpd_Song *, idx);
 }
 
 mpd_Song *
 playlist_lookup_song(mpdclient_t *c, gint id)
 {
-	GList *list = c->playlist.list;
+	guint i;
 
-	while (list) {
-		mpd_Song *song = (mpd_Song *) list->data;
+	for (i = 0; i < c->playlist.list->len; ++i) {
+		mpd_Song *song = g_array_index(c->playlist.list,
+					       mpd_Song *, i);
 		if (song->id == id)
 			return song;
-		list=list->next;
 	}
 
 	return NULL;
@@ -825,30 +788,45 @@ playlist_lookup_song(mpdclient_t *c, gint id)
 gint
 playlist_get_index(mpdclient_t *c, mpd_Song *song)
 {
-	return g_list_index(c->playlist.list, song);
+	guint i;
+
+	for (i = 0; i < c->playlist.list->len; ++i) {
+		if (g_array_index(c->playlist.list, mpd_Song *, i)
+		    == song)
+			return (gint)i;
+	}
+
+	return -1;
 }
 
 gint
 playlist_get_index_from_id(mpdclient_t *c, gint id)
 {
-	return g_list_index(c->playlist.list, playlist_lookup_song(c, id));
+	guint i;
+
+	for (i = 0; i < c->playlist.list->len; ++i) {
+		mpd_Song *song = g_array_index(c->playlist.list,
+					       mpd_Song *, i);
+		if (song->id == id)
+			return (gint)i;
+	}
+
+	return -1;
 }
 
 gint
 playlist_get_index_from_file(mpdclient_t *c, gchar *filename)
 {
-  GList *list = c->playlist.list;
-  gint i=0;
+	guint i;
 
-  while( list )
-    {
-      mpd_Song *song = (mpd_Song *) list->data;
-      if( strcmp(song->file, filename ) == 0 )	
-	return i;
-      list=list->next;
-      i++;
-    }
-  return -1;
+	for (i = 0; i < c->playlist.list->len; ++i) {
+		mpd_Song *song = g_array_index(c->playlist.list,
+					       mpd_Song *, i);
+		if(strcmp(song->file, filename) == 0)
+			return (gint)i;
+	}
+
+	return -1;
 }
 
 

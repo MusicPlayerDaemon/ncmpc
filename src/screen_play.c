@@ -70,7 +70,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 	/* make shure the playlist is repainted */
 	lw->clear = 1;
 	lw->repaint = 1;
-	list_window_check_selected(lw, c->playlist.length);
+	list_window_check_selected(lw, c->playlist.list->len);
 }
 
 static const char *
@@ -95,7 +95,7 @@ list_callback(unsigned idx, int *highlight, void *data)
 static int
 center_playing_item(mpdclient_t *c)
 {
-	unsigned length = c->playlist.length;
+	unsigned length = c->playlist.list->len;
 	unsigned offset = lw->selected - lw->start;
 	int idx;
 
@@ -402,9 +402,9 @@ play_update(screen_t *screen, mpdclient_t *c)
 	}
 
 	if( c->playlist.updated ) {
-		if( lw->selected >= c->playlist.length )
-			lw->selected = c->playlist.length-1;
-		if( lw->start    >= c->playlist.length )
+		if (lw->selected >= c->playlist.list->len)
+			lw->selected = c->playlist.list->len - 1;
+		if (lw->start >= c->playlist.list->len)
 			list_window_reset(lw);
 
 		play_paint(screen, c);
@@ -424,7 +424,7 @@ handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
 	unsigned selected;
 	unsigned long bstate;
 
-	if (screen_get_mouse_event(c, lw, c->playlist.length, &bstate, &row))
+	if (screen_get_mouse_event(c, lw, c->playlist.list->len, &bstate, &row))
 		return 1;
 
 	if (bstate & BUTTON1_DOUBLE_CLICKED) {
@@ -437,7 +437,7 @@ handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
 
 	if (bstate & BUTTON1_CLICKED) {
 		/* play */
-		if (lw->start + row < c->playlist.length)
+		if (lw->start + row < c->playlist.list->len)
 			mpdclient_cmd_play(c, lw->start + row);
 	} else if (bstate & BUTTON3_CLICKED) {
 		/* delete */
@@ -446,7 +446,7 @@ handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
 	}
 
 	lw->selected = selected;
-	list_window_check_selected(lw, c->playlist.length);
+	list_window_check_selected(lw, c->playlist.list->len);
 
 	return 1;
 }
@@ -487,14 +487,14 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
 		return screen_find(screen,
-				   lw, c->playlist.length,
+				   lw, c->playlist.list->len,
 				   cmd, list_callback, (void *) c);
 	case CMD_MOUSE_EVENT:
 		return handle_mouse_event(screen,c);
 	default:
 		break;
 	}
-	return list_window_cmd(lw, c->playlist.length, cmd) ;
+	return list_window_cmd(lw, c->playlist.list->len, cmd);
 }
 
 static list_window_t *

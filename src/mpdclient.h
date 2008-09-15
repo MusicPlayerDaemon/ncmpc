@@ -24,12 +24,10 @@ typedef struct
 {
   /* playlist id */
   long long id;
-  /* list length */
-  guint length;
   /* true if the list is updated */
   gboolean updated;
   /* the list */
-  GList *list;
+  GArray *list;
 
 } mpdclient_playlist_t;
 
@@ -135,7 +133,6 @@ gint mpdclient_playlist_update(mpdclient_t *c);
 /* get playlist changes */
 gint mpdclient_playlist_update_changes(mpdclient_t *c);
 
-GList *playlist_lookup(mpdclient_t *c, gint id);
 mpd_Song *playlist_lookup_song(mpdclient_t *c, gint id);
 mpd_Song *playlist_get_song(mpdclient_t *c, gint index);
 gint playlist_get_index(mpdclient_t *c, mpd_Song *song);
