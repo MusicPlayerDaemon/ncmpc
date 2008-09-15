@@ -560,15 +560,7 @@ read_rc_file(char *filename, options_t *options)
 		}
 	      else if( !strcasecmp(CONF_SHOW_SPLASH, name) )
 		{
-		  options->show_splash = str2bool(value);
-			  
-#ifdef DEBUG
-		  D("screen-list:"); 
-		  j=0;
-		  while(options->screen_list[j])
-		    D(" %s", options->screen_list[j++]);
-		  D("\n"); 
-#endif
+		  /* the splash screen was removed */
 		}
 	    else if( !strcasecmp(CONF_HOST, name))
 	    {

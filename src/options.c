@@ -217,7 +217,7 @@ handle_option(int c, char *arg)
       options.key_file = g_strdup(arg);
       break;
     case 'S': /* --key-file */
-      options.show_splash = FALSE;
+      /* the splash screen was removed */
       break;
 #ifdef DEBUG
     case 'K': /* --dump-keys */
@@ -374,7 +374,6 @@ options_init( void )
   options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
   options.timedisplay_type = DEFAULT_TIMEDISPLAY_TYPE;
   options.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT;
-  options.show_splash = FALSE;
   options.scroll = DEFAULT_SCROLL;
   options.scroll_sep = g_strdup(DEFAULT_SCROLL_SEP);
   

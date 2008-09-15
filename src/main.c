@@ -37,7 +37,6 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "strfsong.h"
-#include "splash.h"
 
 #define BUFSIZE 1024
 
@@ -266,7 +265,6 @@ main(int argc, const char *argv[])
   atexit(exit_and_cleanup);
   
   ncurses_init();
-  if(options->show_splash == TRUE) draw_splash();
 
   src_lyr_init ();
 

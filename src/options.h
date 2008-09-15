@@ -33,7 +33,6 @@ typedef struct
   gboolean visible_bell;       
   gboolean enable_xterm_title; 
   gboolean enable_mouse;
-  gboolean show_splash;
   gboolean scroll;
 
 } options_t;
