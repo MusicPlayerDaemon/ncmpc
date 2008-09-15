@@ -139,9 +139,10 @@ _screen_auth(mpdclient_t *c, gint recursion)
 gint
 screen_auth(mpdclient_t *c)
 {
-	_screen_auth(c, 0);
+	gint ret = _screen_auth(c, 0);
 	mpdclient_update(c);
 	curs_set(0);
+	return ret;
 }
 
 /* query user for a string and find it in a list window */
