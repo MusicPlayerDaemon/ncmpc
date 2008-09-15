@@ -104,7 +104,6 @@ static inline void drawline(gint cursor,
 			    gint start,
 			    gint width,
 			    gint x0,
-			    gint x1,
 			    gint y,
 			    gboolean masked,
 			    gchar *line,
@@ -182,14 +181,14 @@ _wreadln(WINDOW *w,
 	  g_strlcpy(line, hlist->data, wrln_max_line_size);
 	}
       cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
-      drawline(cursor, start, width, x0, x1, y, masked, line, w);
+      drawline(cursor, start, width, x0, y, masked, line, w);
     }
   else if( initial_value )
     {
       /* copy the initial value to the line buffer */
       g_strlcpy(line, initial_value, wrln_max_line_size);
       cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
-      drawline(cursor, start, width, x0, x1, y, masked, line, w);
+      drawline(cursor, start, width, x0, y, masked, line, w);
     }  
 
   while( key!=13 && key!='\n' )
@@ -363,7 +362,7 @@ _wreadln(WINDOW *w,
 	    }
 	}
 
-      drawline(cursor, start, width, x0, x1, y, masked, line, w);
+      drawline(cursor, start, width, x0, y, masked, line, w);
     }
 
   /* update history */
@@ -479,7 +478,6 @@ static inline void drawline(gint cursor,
 			    gint start,
 			    gint width,
 			    gint x0,
-			    gint x1,
 			    gint y,
 			    gboolean masked,
 			    wchar_t *line,
@@ -568,14 +566,14 @@ _wreadln(WINDOW *w,
 	  mbstowcs(wline, hlist->data, wrln_max_line_size);
 	}
       cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
-      drawline(cursor, start, width, x0, x1, y, masked, wline, w);
+      drawline(cursor, start, width, x0, y, masked, wline, w);
     }
   else if( initial_value )
     {
       /* copy the initial value to the line buffer */
       mbstowcs(wline, initial_value, wrln_max_line_size);
       cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
-      drawline(cursor, start, width, x0, x1, y, masked, wline, w);
+      drawline(cursor, start, width, x0, y, masked, wline, w);
     }  
 
   wch=0;
@@ -749,7 +747,7 @@ _wreadln(WINDOW *w,
 		}
 	    }
 	}
-      drawline(cursor, start, width, x0, x1, y, masked, wline, w);
+      drawline(cursor, start, width, x0, y, masked, wline, w);
     }
   i = wcstombs(NULL,wline,0)+1;
   mbline = g_malloc0(i);

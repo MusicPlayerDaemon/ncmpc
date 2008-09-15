@@ -236,12 +236,6 @@ handle_option(int c, char *arg)
 }
 
 options_t *
-options_get(void)
-{
-  return &options;
-}
-
-options_t *
 options_parse(int argc, const char *argv[])
 {
   int i;

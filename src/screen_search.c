@@ -529,7 +529,7 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
     case CMD_LIST_FIND_NEXT:
     case CMD_LIST_RFIND_NEXT:
       if( filelist )
-	return screen_find(screen, c, 
+	return screen_find(screen,
 			   lw, filelist->length,
 			   cmd, browse_lw_callback, (void *) filelist);
       else

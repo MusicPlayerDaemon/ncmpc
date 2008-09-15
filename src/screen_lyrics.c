@@ -332,7 +332,7 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
     }
 
   lw->selected = lw->start+lw->rows;
-  if( screen_find(screen, c, 
+  if( screen_find(screen,
                   lw,  lyrics_text_rows,
                   cmd, list_callback, NULL) )
     {

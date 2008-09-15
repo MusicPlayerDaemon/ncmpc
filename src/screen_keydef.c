@@ -367,7 +367,7 @@ keydef_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
     case CMD_LIST_RFIND:
     case CMD_LIST_FIND_NEXT:
     case CMD_LIST_RFIND_NEXT:
-      return screen_find(screen, c, 
+      return screen_find(screen,
 			 lw,  length,
 			 cmd, list_callback, NULL);
 

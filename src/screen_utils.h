@@ -15,7 +15,6 @@ char *screen_readln_masked(WINDOW *w, char *prompt);
 char *screen_read_pasword(WINDOW *w, char *prompt); 
 /* query user for a string and find it in a list window */
 int screen_find(screen_t *screen,
-		mpdclient_t *c,
 		list_window_t *lw, 
 		int rows,
 		command_t findcmd,

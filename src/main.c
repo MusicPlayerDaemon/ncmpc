@@ -137,13 +137,6 @@ catch_sigint( int sig )
 }
 
 void
-catch_sighup( int sig)
-{
-  printf("\n%s\n", _("Exiting..."));
-  exit(EXIT_SUCCESS);
-}
-
-void
 catch_sigcont( int sig )
 {
   D("catch_sigcont()\n");

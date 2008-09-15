@@ -107,19 +107,6 @@ list_window_previous(list_window_t *lw, int length)
 }
 
 void
-list_window_right(list_window_t *lw, int length)
-{
-  lw->xoffset++;
-}
-
-void
-list_window_left(list_window_t *lw)
-{
-  if( lw->xoffset > 0 )
-    lw->xoffset--;
-}
-
-void
 list_window_first(list_window_t *lw)
 {
   lw->xoffset = 0;

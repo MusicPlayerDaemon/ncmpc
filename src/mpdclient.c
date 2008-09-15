@@ -719,17 +719,6 @@ mpdclient_playlist_update(mpdclient_t *c)
 
 #ifdef ENABLE_PLCHANGES
 
-gint 
-mpdclient_compare_songs(gconstpointer a, gconstpointer b)
-{
-  mpd_Song *song1 = (mpd_Song *) a; 
-  mpd_Song *song2 = (mpd_Song *) b; 
-
-  return song1->pos - song2->pos;
-}
-
-
-
 /* update playlist (plchanges) */
 gint 
 mpdclient_playlist_update_changes(mpdclient_t *c)

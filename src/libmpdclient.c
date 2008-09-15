@@ -295,7 +295,7 @@ void mpd_setConnectionTimeout(mpd_Connection * connection, float timeout) {
 }
 
 static int mpd_parseWelcome(mpd_Connection * connection, const char * host, int port,
-                            char * rt, char * output) {
+                            char * output) {
 	char * tmp;
 	char * test;
 	int i;
@@ -398,7 +398,8 @@ mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
 	strcpy(connection->buffer,rt+1);
 	connection->buflen = strlen(connection->buffer);
 
-	if(mpd_parseWelcome(connection,host,port,rt,output) == 0) connection->doneProcessing = 1;
+	if(mpd_parseWelcome(connection,host,port,output) == 0)
+		connection->doneProcessing = 1;
 
 	free(output);
 

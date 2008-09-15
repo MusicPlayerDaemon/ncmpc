@@ -146,10 +146,7 @@ int src_lyr_init ()
 int get_lyr_by_src (int priority, char *artist, char *title)
 {
   if(src_lyr_stack->len == 0) return -1;
-  //if (g_array_index (src_lyr_stack, src_lyr*, priority)->check_lyr() == 0)
-    //{
        g_array_index (src_lyr_stack, src_lyr*, priority)->get_lyr (artist, title);
-    //}
   return 0;
 }
 
@@ -163,7 +160,6 @@ int src_lyr_load_plugin_file (const char *file)
   src_lyr_plugin_register register_func;
   src_lyr *new_src = malloc (sizeof (src_lyr));
   new_src->module = g_module_open (path->str, G_MODULE_BIND_LAZY);
-  //if (new_src->module == NULL) for (;;) fprintf (stderr, g_module_error());
   if (!g_module_symbol (new_src->module, "register_me", (gpointer*) &register_func)) 
     return -1;
   new_src->register_src_lyr = register_func;

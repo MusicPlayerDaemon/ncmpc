@@ -322,7 +322,6 @@ paint_status_window(mpdclient_t *c)
   mpd_Song *song   = c->song;
   int elapsedTime = 0;
   char *str = NULL;
-  char *timestr = NULL;
   int x = 0;
 
   if( time(NULL) - screen->status_timestamp <= SCREEN_STATUS_MESSAGE_TIME )
