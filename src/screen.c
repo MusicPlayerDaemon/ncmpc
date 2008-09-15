@@ -255,7 +255,7 @@ paint_top_window2(const char *header, mpdclient_t *c)
 }
 
 static void
-paint_top_window(const char *header, mpdclient_t *c, int clear)
+paint_top_window(const char *header, mpdclient_t *c, int full_repaint)
 {
 	static int prev_volume = -1;
 	static int prev_header_len = -1;
@@ -263,15 +263,15 @@ paint_top_window(const char *header, mpdclient_t *c, int clear)
 
 	if (prev_header_len!=my_strlen(header)) {
 		prev_header_len = my_strlen(header);
-		clear = 1;
+		full_repaint = 1;
 	}
 
-	if (clear) {
+	if (full_repaint) {
 		wmove(w, 0, 0);
 		wclrtoeol(w);
 	}
 
-	if (prev_volume!=c->status->volume || clear)
+	if (prev_volume!=c->status->volume || full_repaint)
 		paint_top_window2(header, c);
 }
 
@@ -416,12 +416,12 @@ screen_exit(void)
 		/* close and exit all screens (playlist,browse,help...) */
 		i=0;
 		while (screens[i].get_mode_functions) {
-			screen_functions_t *mode_fn = screens[i].get_mode_functions();
+			screen_functions_t *sf = screens[i].get_mode_functions();
 
-			if (mode_fn && mode_fn->close)
-				mode_fn->close();
-			if (mode_fn && mode_fn->exit)
-				mode_fn->exit();
+			if (sf && sf->close)
+				sf->close();
+			if (sf && sf->exit)
+				sf->exit();
 
 			i++;
 		}
@@ -480,10 +480,10 @@ screen_resize(void)
 	/* close and exit all screens (playlist,browse,help...) */
 	i=0;
 	while (screens[i].get_mode_functions) {
-		screen_functions_t *mode_fn = screens[i].get_mode_functions();
+		screen_functions_t *sf = screens[i].get_mode_functions();
 
-		if (mode_fn && mode_fn->resize)
-			mode_fn->resize(screen->main_window.cols, screen->main_window.rows);
+		if (sf && sf->resize)
+			sf->resize(screen->main_window.cols, screen->main_window.rows);
 
 		i++;
 	}
@@ -691,7 +691,7 @@ void
 screen_update(mpdclient_t *c)
 {
 	static int repeat = -1;
-	static int random = -1;
+	static int random_enabled = -1;
 	static int crossfade = -1;
 	static int dbupdate = -1;
 	list_window_t *lw = NULL;
@@ -702,7 +702,7 @@ screen_update(mpdclient_t *c)
 	/* print a message if mpd status has changed */
 	if (repeat < 0) {
 		repeat = c->status->repeat;
-		random = c->status->random;
+		random_enabled = c->status->random;
 		crossfade = c->status->crossfade;
 		dbupdate = c->status->updatingDb;
 	}
@@ -712,7 +712,7 @@ screen_update(mpdclient_t *c)
 				     _("Repeat is on") :
 				     _("Repeat is off"));
 
-	if (random != c->status->random)
+	if (random_enabled != c->status->random)
 		screen_status_printf(c->status->random ?
 				     _("Random is on") :
 				     _("Random is off"));
@@ -726,7 +726,7 @@ screen_update(mpdclient_t *c)
 	}
 
 	repeat = c->status->repeat;
-	random = c->status->random;
+	random_enabled = c->status->random;
 	crossfade = c->status->crossfade;
 	dbupdate = c->status->updatingDb;
 

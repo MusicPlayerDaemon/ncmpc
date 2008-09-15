@@ -596,15 +596,15 @@ int
 check_user_conf_dir(void)
 {
 	int retval;
-	char *dirname = g_build_filename(g_get_home_dir(), "." PACKAGE, NULL);
+	char *directory = g_build_filename(g_get_home_dir(), "." PACKAGE, NULL);
 
-	if (g_file_test(dirname, G_FILE_TEST_IS_DIR)) {
-		g_free(dirname);
+	if (g_file_test(directory, G_FILE_TEST_IS_DIR)) {
+		g_free(directory);
 		return 0;
 	}
 
-	retval = mkdir(dirname, 0755);
-	g_free(dirname);
+	retval = mkdir(directory, 0755);
+	g_free(directory);
 	return retval;
 }
 

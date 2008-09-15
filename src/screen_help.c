@@ -147,7 +147,7 @@ static list_window_t *lw = NULL;
 
 
 static const char *
-list_callback(int index, int *highlight, void *data)
+list_callback(int idx, int *highlight, void *data)
 {
 	static char buf[512];
 
@@ -158,12 +158,12 @@ list_callback(int index, int *highlight, void *data)
 	}
 
 	*highlight = 0;
-	if (index < help_text_rows) {
-		*highlight = help_text[index].highlight > 0;
-		if (help_text[index].command == CMD_NONE) {
-			if (help_text[index].text)
-				g_snprintf(buf, sizeof(buf), "      %s", _(help_text[index].text));
-			else if (help_text[index].highlight == 2) {
+	if (idx < help_text_rows) {
+		*highlight = help_text[idx].highlight > 0;
+		if (help_text[idx].command == CMD_NONE) {
+			if (help_text[idx].text)
+				g_snprintf(buf, sizeof(buf), "      %s", _(help_text[idx].text));
+			else if (help_text[idx].highlight == 2) {
 				int i;
 
 				for (i = 3; i < COLS - 3 && i < sizeof(buf); i++)
@@ -174,16 +174,16 @@ list_callback(int index, int *highlight, void *data)
 			return buf;
 		}
 
-		if (help_text[index].text)
+		if (help_text[idx].text)
 			g_snprintf(buf, sizeof(buf),
 				   "%20s : %s   ",
-				   get_key_names(help_text[index].command, TRUE),
-				   _(help_text[index].text));
+				   get_key_names(help_text[idx].command, TRUE),
+				   _(help_text[idx].text));
 		else
 			g_snprintf(buf, sizeof(buf),
 				   "%20s : %s   ",
-				   get_key_names(help_text[index].command, TRUE),
-				   get_key_description(help_text[index].command));
+				   get_key_names(help_text[idx].command, TRUE),
+				   get_key_description(help_text[idx].command));
 		return buf;
 	}
 

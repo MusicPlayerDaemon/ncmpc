@@ -51,9 +51,9 @@ static mpdclient_filelist_t *filelist = NULL;
 
 /* clear the highlight flag for all items in the filelist */
 void
-clear_highlights(mpdclient_filelist_t *filelist)
+clear_highlights(mpdclient_filelist_t *fl)
 {
-	GList *list = g_list_first(filelist->list);
+	GList *list = g_list_first(fl->list);
 
 	while( list ) {
 		filelist_entry_t *entry = list->data;
@@ -65,9 +65,9 @@ clear_highlights(mpdclient_filelist_t *filelist)
 
 /* change the highlight flag for a song */
 void
-set_highlight(mpdclient_filelist_t *filelist, mpd_Song *song, int highlight)
+set_highlight(mpdclient_filelist_t *fl, mpd_Song *song, int highlight)
 {
-	GList *list = g_list_first(filelist->list);
+	GList *list = g_list_first(fl->list);
 
 	if( !song )
 		return;
@@ -92,9 +92,9 @@ set_highlight(mpdclient_filelist_t *filelist, mpd_Song *song, int highlight)
 
 /* sync highlight flags with playlist */
 void
-sync_highlights(mpdclient_t *c, mpdclient_filelist_t *filelist)
+sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl)
 {
-	GList *list = g_list_first(filelist->list);
+	GList *list = g_list_first(fl->list);
 
 	while(list) {
 		filelist_entry_t *entry = list->data;
@@ -147,15 +147,15 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 
 /* list_window callback */
 const char *
-browse_lw_callback(int index, int *highlight, void *data)
+browse_lw_callback(int idx, int *highlight, void *data)
 {
 	static char buf[BUFSIZE];
-	mpdclient_filelist_t *filelist = (mpdclient_filelist_t *) data;
+	mpdclient_filelist_t *fl = (mpdclient_filelist_t *) data;
 	filelist_entry_t *entry;
 	mpd_InfoEntity *entity;
 
 	*highlight = 0;
-	if( (entry=(filelist_entry_t *)g_list_nth_data(filelist->list,index))==NULL )
+	if( (entry=(filelist_entry_t *)g_list_nth_data(fl->list,idx))==NULL )
 		return NULL;
 
 	entity = entry->entity;
@@ -166,10 +166,10 @@ browse_lw_callback(int index, int *highlight, void *data)
 
 	if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY ) {
 		mpd_Directory *dir = entity->info.directory;
-		char *dirname = utf8_to_locale(basename(dir->path));
+		char *directory = utf8_to_locale(basename(dir->path));
 
-		g_snprintf(buf, BUFSIZE, "[%s]", dirname);
-		g_free(dirname);
+		g_snprintf(buf, BUFSIZE, "[%s]", directory);
+		g_free(directory);
 		return buf;
 	} else if( entity->type==MPD_INFO_ENTITY_TYPE_SONG ) {
 		mpd_Song *song = entity->info.song;
@@ -315,7 +315,7 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 static int
 enqueue_and_play(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
 {
-	int index;
+	int idx;
 	mpd_InfoEntity *entity = entry->entity;
 	mpd_Song *song = entity->info.song;
 
@@ -331,23 +331,23 @@ enqueue_and_play(screen_t *screen, mpdclient_t *c, filelist_entry_t *entry)
 			return -1;
 	}
 
-	index = playlist_get_index_from_file(c, song->file);
-	mpdclient_cmd_play(c, index);
+	idx = playlist_get_index_from_file(c, song->file);
+	mpdclient_cmd_play(c, idx);
 	return 0;
 }
 
 int
 browse_handle_enter(screen_t *screen,
 		    mpdclient_t *c,
-		    list_window_t *lw,
-		    mpdclient_filelist_t *filelist)
+		    list_window_t *local_lw,
+		    mpdclient_filelist_t *fl)
 {
 	filelist_entry_t *entry;
 	mpd_InfoEntity *entity;
 
-	if ( filelist==NULL )
+	if ( fl==NULL )
 		return -1;
-	entry = ( filelist_entry_t *) g_list_nth_data(filelist->list, lw->selected);
+	entry = ( filelist_entry_t *) g_list_nth_data(fl->list, local_lw->selected);
 	if( entry==NULL )
 		return -1;
 
@@ -415,14 +415,15 @@ add_directory(mpdclient_t *c, char *dir)
 int
 browse_handle_select(screen_t *screen,
 		     mpdclient_t *c,
-		     list_window_t *lw,
-		     mpdclient_filelist_t *filelist)
+		     list_window_t *local_lw,
+		     mpdclient_filelist_t *fl)
 {
 	filelist_entry_t *entry;
 
-	if ( filelist==NULL )
+	if ( fl==NULL )
 		return -1;
-	entry=( filelist_entry_t *) g_list_nth_data(filelist->list, lw->selected);
+	entry=( filelist_entry_t *) g_list_nth_data(fl->list,
+						    local_lw->selected);
 	if( entry==NULL || entry->entity==NULL)
 		return -1;
 
@@ -469,10 +470,10 @@ browse_handle_select(screen_t *screen,
 			mpd_Song *song = entry->entity->info.song;
 
 			if( song ) {
-				int index = playlist_get_index_from_file(c, song->file);
+				int idx = playlist_get_index_from_file(c, song->file);
 
-				while( (index=playlist_get_index_from_file(c, song->file))>=0 )
-					mpdclient_cmd_delete(c, index);
+				while( (idx=playlist_get_index_from_file(c, song->file))>=0 )
+					mpdclient_cmd_delete(c, idx);
 			}
 		}
 	}
@@ -482,18 +483,18 @@ browse_handle_select(screen_t *screen,
 int
 browse_handle_select_all (screen_t *screen,
 			  mpdclient_t *c,
-			  list_window_t *lw,
-			  mpdclient_filelist_t *filelist)
+			  list_window_t *local_lw,
+			  mpdclient_filelist_t *fl)
 {
 	filelist_entry_t *entry;
-	GList *temp = filelist->list;
+	GList *temp = fl->list;
 
-	if ( filelist==NULL )
+	if ( fl==NULL )
 		return -1;
-	for (filelist->list = g_list_first(filelist->list);
-	     filelist->list;
-	     filelist->list = g_list_next(filelist->list)) {
-		entry=( filelist_entry_t *) filelist->list->data;
+	for (fl->list = g_list_first(fl->list);
+	     fl->list;
+	     fl->list = g_list_next(fl->list)) {
+		entry=( filelist_entry_t *) fl->list->data;
 		if( entry==NULL || entry->entity==NULL)
 			return -1;
 
@@ -538,10 +539,10 @@ browse_handle_select_all (screen_t *screen,
 				mpd_Song *song = entry->entity->info.song;
 
 				if( song ) {
-					int index = playlist_get_index_from_file(c, song->file);
+					int idx = playlist_get_index_from_file(c, song->file);
 
-					while( (index=playlist_get_index_from_file(c, song->file))>=0 )
-						mpdclient_cmd_delete(c, index);
+					while( (idx=playlist_get_index_from_file(c, song->file))>=0 )
+						mpdclient_cmd_delete(c, idx);
 				}
 			}
 		}
@@ -549,7 +550,7 @@ browse_handle_select_all (screen_t *screen,
 		return 0;
 	}
 
-	filelist->list = temp;
+	fl->list = temp;
 	return 0;
 }
 
@@ -640,31 +641,31 @@ browse_update(screen_t *screen, mpdclient_t *c)
 int
 browse_handle_mouse_event(screen_t *screen,
 			  mpdclient_t *c,
-			  list_window_t *lw,
-			  mpdclient_filelist_t *filelist)
+			  list_window_t *local_lw,
+			  mpdclient_filelist_t *fl)
 {
 	int row;
-	int prev_selected = lw->selected;
+	int prev_selected = local_lw->selected;
 	unsigned long bstate;
 	int length;
 
-	if ( filelist )
-		length = filelist->length;
+	if ( fl )
+		length = fl->length;
 	else
 		length = 0;
 
-	if( screen_get_mouse_event(c, lw, length, &bstate, &row) )
+	if( screen_get_mouse_event(c, local_lw, length, &bstate, &row) )
 		return 1;
 
-	lw->selected = lw->start+row;
-	list_window_check_selected(lw, length);
+	local_lw->selected = local_lw->start+row;
+	list_window_check_selected(local_lw, length);
 
 	if( bstate & BUTTON1_CLICKED ) {
-		if( prev_selected == lw->selected )
-			browse_handle_enter(screen, c, lw, filelist);
+		if( prev_selected == local_lw->selected )
+			browse_handle_enter(screen, c, local_lw, fl);
 	} else if( bstate & BUTTON3_CLICKED ) {
-		if( prev_selected == lw->selected )
-			browse_handle_select(screen, c, lw, filelist);
+		if( prev_selected == local_lw->selected )
+			browse_handle_select(screen, c, local_lw, fl);
 	}
 
 	return 1;

@@ -183,33 +183,33 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
 }
 
 static const char *
-list_callback(int index, int *highlight, void *data)
+list_callback(int idx, int *highlight, void *data)
 {
 	static char buf[BUFSIZE];
 
 	*highlight = 0;
 	if (subcmd < 0) {
-		if (index < command_list_length) {
-			if (cmds[index].flags & COMMAND_KEY_CONFLICT)
+		if (idx < command_list_length) {
+			if (cmds[idx].flags & COMMAND_KEY_CONFLICT)
 				*highlight = 1;
-			return cmds[index].name;
-		} else if (index == LIST_ITEM_APPLY())
+			return cmds[idx].name;
+		} else if (idx == LIST_ITEM_APPLY())
 			return LIST_ITEM_APPLY_LABEL;
-		else if (index == LIST_ITEM_SAVE())
+		else if (idx == LIST_ITEM_SAVE())
 			return LIST_ITEM_SAVE_LABEL;
 	} else {
-		if (index == 0)
+		if (idx == 0)
 			return "[..]";
-		index--;
-		if (index < MAX_COMMAND_KEYS && cmds[subcmd].keys[index] > 0) {
+		idx--;
+		if (idx < MAX_COMMAND_KEYS && cmds[subcmd].keys[idx] > 0) {
 			g_snprintf(buf,
 				   BUFSIZE, "%d. %-20s   (%d) ",
-				   index + 1,
-				   key2str(cmds[subcmd].keys[index]),
-				   cmds[subcmd].keys[index]);
+				   idx + 1,
+				   key2str(cmds[subcmd].keys[idx]),
+				   cmds[subcmd].keys[idx]);
 			return buf;
-		} else if (index == subcmd_addpos) {
-			g_snprintf(buf, BUFSIZE, _("%d. Add new key "), index + 1);
+		} else if (idx == subcmd_addpos) {
+			g_snprintf(buf, BUFSIZE, _("%d. Add new key "), idx + 1);
 			return buf;
 		}
 	}

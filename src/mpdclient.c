@@ -203,7 +203,7 @@ gint
 mpdclient_connect(mpdclient_t *c,
 		  gchar *host,
 		  gint port,
-		  gfloat timeout,
+		  gfloat _timeout,
 		  gchar *password)
 {
 	gint retval = 0;
@@ -213,7 +213,7 @@ mpdclient_connect(mpdclient_t *c,
 		mpdclient_disconnect(c);
 
 	/* connect to MPD */
-	c->connection = mpd_newConnection(host, port, timeout);
+	c->connection = mpd_newConnection(host, port, _timeout);
 	if( c->connection->error )
 		return error_cb(c, c->connection->error,
 				c->connection->errorStr);
@@ -276,10 +276,10 @@ mpdclient_update(mpdclient_t *c)
 /****************************************************************************/
 
 gint
-mpdclient_cmd_play(mpdclient_t *c, gint index)
+mpdclient_cmd_play(mpdclient_t *c, gint idx)
 {
 #ifdef ENABLE_SONG_ID
-	mpd_Song *song = playlist_get_song(c, index);
+	mpd_Song *song = playlist_get_song(c, idx);
 
 	D("Play id:%d\n", song ? song->id : -1);
 	if (song)
@@ -287,7 +287,7 @@ mpdclient_cmd_play(mpdclient_t *c, gint index)
 	else
 		mpd_sendPlayIdCommand(c->connection, MPD_PLAY_AT_BEGINNING);
 #else
-	mpd_sendPlayCommand(c->connection, index);
+	mpd_sendPlayCommand(c->connection, idx);
 #endif
 	c->need_update = TRUE;
 	return mpdclient_finish_command(c);
@@ -436,10 +436,10 @@ mpdclient_cmd_add(mpdclient_t *c, mpd_Song *song)
 }
 
 gint
-mpdclient_cmd_delete(mpdclient_t *c, gint index)
+mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 {
 	gint retval = 0;
-	mpd_Song *song = playlist_get_song(c, index);
+	mpd_Song *song = playlist_get_song(c, idx);
 
 	if( !song )
 		return -1;
@@ -449,7 +449,7 @@ mpdclient_cmd_delete(mpdclient_t *c, gint index)
 	D("Delete id:%d\n", song->id);
 	mpd_sendDeleteIdCommand(c->connection, song->id);
 #else
-	mpd_sendDeleteCommand(c->connection, index);
+	mpd_sendDeleteCommand(c->connection, idx);
 #endif
 	if( (retval=mpdclient_finish_command(c)) )
 		return retval;
@@ -785,9 +785,9 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 #endif
 
 mpd_Song *
-playlist_get_song(mpdclient_t *c, gint index)
+playlist_get_song(mpdclient_t *c, gint idx)
 {
-	return (mpd_Song *) g_list_nth_data(c->playlist.list, index);
+	return (mpd_Song *) g_list_nth_data(c->playlist.list, idx);
 }
 
 GList *
@@ -971,12 +971,12 @@ mpdclient_filelist_t *
 mpdclient_filelist_search(mpdclient_t *c,
 			  int exact_match,
 			  int table,
-			  gchar *filter)
+			  gchar *_filter)
 {
 	mpdclient_filelist_t *filelist;
-	gchar *filter_utf8 = locale_to_utf8(filter);
+	gchar *filter_utf8 = locale_to_utf8(_filter);
 
-	D("mpdclient_filelist_search(%s)\n", filter);
+	D("mpdclient_filelist_search(%s)\n", _filter);
 	filelist = mpdclient_filelist_search_utf8(c, exact_match, table,
 						  filter_utf8);
 	g_free(filter_utf8);

@@ -116,7 +116,7 @@ static gboolean advanced_search_mode = FALSE;
 
 /* search info */
 static const char *
-lw_search_help_callback(int index, int *highlight, void *data)
+lw_search_help_callback(int idx, int *highlight, void *data)
 {
 	int text_rows;
 	static const char *text[] = {
@@ -136,8 +136,8 @@ lw_search_help_callback(int index, int *highlight, void *data)
 	while (text[text_rows])
 		text_rows++;
 
-	if (index < text_rows)
-		return text[index];
+	if (idx < text_rows)
+		return text[idx];
 	return NULL;
 }
 
@@ -190,14 +190,17 @@ search_clear(screen_t *screen, mpdclient_t *c, gboolean clear_pattern)
 
 #ifdef FUTURE
 static mpdclient_filelist_t *
-filelist_search(mpdclient_t *c, int exact_match, int table, gchar *pattern)
+filelist_search(mpdclient_t *c, int exact_match, int table,
+		gchar *local_pattern)
 {
   mpdclient_filelist_t *list, *list2;
 
   if( table == SEARCH_ARTIST_TITLE )
     {
-      list = mpdclient_filelist_search(c, FALSE, MPD_TABLE_ARTIST, pattern);
-      list2 = mpdclient_filelist_search(c, FALSE, MPD_TABLE_TITLE, pattern);
+      list = mpdclient_filelist_search(c, FALSE, MPD_TABLE_ARTIST,
+				       local_pattern);
+      list2 = mpdclient_filelist_search(c, FALSE, MPD_TABLE_TITLE,
+					local_pattern);
 
       list->length += list2->length;
       list->list = g_list_concat(list->list, list2->list);
@@ -206,7 +209,7 @@ filelist_search(mpdclient_t *c, int exact_match, int table, gchar *pattern)
     }
   else
     {
-      list = mpdclient_filelist_search(c, FALSE, table, pattern);
+      list = mpdclient_filelist_search(c, FALSE, table, local_pattern);
     }
 
   return list;
@@ -224,7 +227,7 @@ search_advanced_query(char *query, mpdclient_t *c)
 	char **strv;
 	int table[10];
 	char *arg[10];
-	mpdclient_filelist_t *filelist = NULL;
+	mpdclient_filelist_t *fl = NULL;
 
 	advanced_search_mode = FALSE;
 	if( g_strrstr(query, ":") == NULL )
@@ -294,7 +297,7 @@ search_advanced_query(char *query, mpdclient_t *c)
 
 		mpd_commitSearch(c->connection);
 
-		filelist = g_malloc0(sizeof(mpdclient_filelist_t));
+		fl = g_malloc0(sizeof(mpdclient_filelist_t));
 
 		mpd_InfoEntity *entity;
 
@@ -302,21 +305,21 @@ search_advanced_query(char *query, mpdclient_t *c)
 			filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
 
 			entry->entity = entity;
-			filelist->list = g_list_append(filelist->list, (gpointer) entry);
-			filelist->length++;
+			fl->list = g_list_append(fl->list, (gpointer) entry);
+			fl->length++;
 		}
 
-		if (mpdclient_finish_command(c) && filelist)
-			filelist = mpdclient_filelist_free(filelist);
+		if (mpdclient_finish_command(c) && fl)
+			fl = mpdclient_filelist_free(fl);
 
-		filelist->updated = TRUE;
+		fl->updated = TRUE;
 	}
 
 	i=0;
 	while( arg[i] )
 		g_free(arg[i++]);
 
-	return filelist;
+	return fl;
 }
 #else
 #define search_advanced_query(pattern,c) (NULL)

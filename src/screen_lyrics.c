@@ -152,14 +152,14 @@ static gpointer get_lyr(void *c)
 }
 
 static const char *
-list_callback(int index, int *highlight, void *data)
+list_callback(int idx, int *highlight, void *data)
 {
 	static char buf[512];
 
 	//i think i'ts fine to write it into the 1st line...
-	if ((index == lyr_text.lines->len && lyr_text.lines->len > 4) ||
+	if ((idx == lyr_text.lines->len && lyr_text.lines->len > 4) ||
 	    ((lyr_text.lines->len == 0 || lyr_text.lines->len == 4) &&
-	     index == 0)) {
+	     idx == 0)) {
 		*highlight=3;
 		src_lyr* selected = g_array_index(src_lyr_stack, src_lyr*, src_selection);
 		if (selected != NULL)
@@ -167,14 +167,14 @@ list_callback(int index, int *highlight, void *data)
 		return "";
 	}
 
-	if (index < 2 && lyr_text.lines->len > 4)
+	if (idx < 2 && lyr_text.lines->len > 4)
 		*highlight=3;
-	else if(index >= lyr_text.lines->len ||
-		(index < 4 && index != 0 && lyr_text.lines->len < 5)) {
+	else if(idx >= lyr_text.lines->len ||
+		(idx < 4 && idx != 0 && lyr_text.lines->len < 5)) {
 		return "";
 	}
 
-	get_text_line(&lyr_text, index, buf, 512);
+	get_text_line(&lyr_text, idx, buf, 512);
 	return buf;
 }
 

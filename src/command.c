@@ -381,16 +381,16 @@ get_key_command_from_name(char *name)
 
 
 command_t
-find_key_command(int key, command_definition_t *cmds)
+find_key_command(int key, command_definition_t *c)
 {
 	int i;
 
 	i=0;
-	while (key && cmds && cmds[i].name) {
-		if (cmds[i].keys[0] == key ||
-		    cmds[i].keys[1] == key ||
-		    cmds[i].keys[2] == key)
-			return cmds[i].command;
+	while (key && c && c[i].name) {
+		if (c[i].keys[0] == key ||
+		    c[i].keys[1] == key ||
+		    c[i].keys[2] == key)
+			return c[i].command;
 		i++;
 	}
 

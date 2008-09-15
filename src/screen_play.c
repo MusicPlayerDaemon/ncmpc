@@ -73,14 +73,14 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 }
 
 static const char *
-list_callback(int index, int *highlight, void *data)
+list_callback(int idx, int *highlight, void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
 	mpdclient_t *c = (mpdclient_t *) data;
 	mpd_Song *song;
 
 	*highlight = 0;
-	if( (song=playlist_get_song(c, index)) == NULL ) {
+	if( (song=playlist_get_song(c, idx)) == NULL ) {
 		return NULL;
 	}
 
@@ -96,16 +96,16 @@ center_playing_item(screen_t *screen, mpdclient_t *c)
 {
 	int length = c->playlist.length;
 	int offset = lw->selected - lw->start;
-	int index;
+	int idx;
 
 	if (!lw || !c->song || length<lw->rows ||
 	    IS_STOPPED(c->status->state))
 		return 0;
 
 	/* try to center the song that are playing */
-	index = playlist_get_index(c, c->song);
-	D("Autocenter song id:%d pos:%d index:%d\n", c->song->id,c->song->pos,index);
-	lw->start = index - (lw->rows / 2);
+	idx = playlist_get_index(c, c->song);
+	D("Autocenter song id:%d pos:%d index:%d\n", c->song->id,c->song->pos,idx);
+	lw->start = idx - (lw->rows / 2);
 	if (lw->start + lw->rows > length)
 		lw->start = length - lw->rows;
 	if (lw->start < 0)
