@@ -126,7 +126,7 @@ lookup_mode(gint id)
 	return -1;
 }
 
-gint get_cur_mode_id()
+gint get_cur_mode_id(void)
 {
 	return screens[screen->mode].id;
 }
@@ -525,7 +525,7 @@ screen_status_printf(const char *format, ...)
 }
 
 void
-ncurses_init()
+ncurses_init(void)
 {
 
 	/* initialize the curses library */
@@ -623,6 +623,7 @@ ncurses_init()
 		}
 }
 
+int
 screen_init(mpdclient_t *c)
 {
 	gint i;

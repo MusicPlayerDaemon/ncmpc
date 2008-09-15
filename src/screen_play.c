@@ -37,6 +37,7 @@
 #include "colors.h"
 #include "screen.h"
 #include "screen_utils.h"
+#include "screen_play.h"
 
 #define MAX_SONG_LENGTH 512
 
@@ -120,7 +121,8 @@ center_playing_item(screen_t *screen, mpdclient_t *c)
 	return 0;
 }
 
-void save_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
+static void
+save_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
 {
 	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
 	GList **list = tmp->list;
@@ -133,8 +135,9 @@ void save_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
 	}
 }
 
-void save_post_completion_cb(GCompletion *gcmp, gchar *line, GList *items,
-			     void *data)
+static void
+save_post_completion_cb(GCompletion *gcmp, gchar *line, GList *items,
+			void *data)
 {
 	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
 	screen_t *screen = tmp->screen;
@@ -227,8 +230,8 @@ playlist_save(screen_t *screen, mpdclient_t *c, char *name, char *defaultname)
   return 0;
 }
 
-void add_dir(GCompletion *gcmp, gchar *dir, GList **dir_list, GList **list,
-             mpdclient_t *c)
+static void add_dir(GCompletion *gcmp, gchar *dir, GList **dir_list,
+                    GList **list, mpdclient_t *c)
 {
   g_completion_remove_items(gcmp, *list);
   *list = string_list_remove(*list, dir);
@@ -237,7 +240,7 @@ void add_dir(GCompletion *gcmp, gchar *dir, GList **dir_list, GList **list,
   *dir_list = g_list_append(*dir_list, g_strdup(dir));
 }
 
-void add_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
+static void add_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
 {
   completion_callback_data_t *tmp = (completion_callback_data_t *)data;
   GList **dir_list = tmp->dir_list;
@@ -259,8 +262,8 @@ void add_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
     }
 }
 
-void add_post_completion_cb(GCompletion *gcmp, gchar *line, GList *items,
-                            void *data)
+static void add_post_completion_cb(GCompletion *gcmp, gchar *line,
+                                   GList *items, void *data)
 {
   completion_callback_data_t *tmp = (completion_callback_data_t *)data;
   GList **dir_list = tmp->dir_list;

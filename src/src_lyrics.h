@@ -55,11 +55,11 @@ struct src_lyr
   char *description;
   
   int (*register_src_lyr) (src_lyr *source_descriptor);
-  int (*deregister_src_lyr) ();
+  int (*deregister_src_lyr)(void);
 
   int (*check_lyr) (char *artist, char *title, char *url);
   int (*get_lyr) (char *artist, char *title);
-  int (*state_lyr) ();
+  int (*state_lyr)(void);
 
 #ifndef DISABLE_PLUGIN_SYSTEM
   GModule *module;
@@ -70,8 +70,10 @@ typedef int (*src_lyr_plugin_register) (src_lyr *source_descriptor);
 
 GArray *src_lyr_stack;
 
-int src_lyr_stack_init ();
-int src_lyr_init ();
+int get_text_line(formed_text *text, int num, char *dest, int len);
+
+void src_lyr_stack_init(void);
+int src_lyr_init(void);
 int get_lyr_by_src (int priority, char *artist, char *title);
 
 #endif

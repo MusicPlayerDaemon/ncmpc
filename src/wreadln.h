@@ -34,5 +34,12 @@ gchar *wreadln(WINDOW *w,            /* the curses window to use */
 	       GCompletion *gcmp    /* a GCompletion structure or NULL */
 	       );
 
+gchar *
+wreadln_masked(WINDOW *w,
+	       const gchar *prompt,
+	       const gchar *initial_value,
+	       gint x1,
+	       GList **history,
+	       GCompletion *gcmp);
 
 #endif

@@ -123,7 +123,7 @@ static inline void drawline(gint cursor,
 
 /* libcurses version */
 
-gchar *
+static gchar *
 _wreadln(WINDOW *w,
 	 const gchar *prompt,
 	 const gchar *initial_value,
@@ -475,7 +475,7 @@ static inline void drawline(gint cursor,
 
 /* libcursesw version */ 
 
-gchar *
+static gchar *
 _wreadln(WINDOW *w,
 	 const gchar *prompt,
 	 const gchar *initial_value,

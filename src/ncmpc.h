@@ -82,4 +82,7 @@ void D(const char *format, ...);
 #define DEFAULT_SCROLL TRUE
 #define DEFAULT_SCROLL_SEP " *** "
 
+void
+sigstop(void);
+
 #endif /* NCMPC_H */

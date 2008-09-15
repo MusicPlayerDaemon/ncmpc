@@ -30,6 +30,8 @@
 #include "config.h"
 #include "ncmpc.h"
 #include "command.h"
+#include "mpdclient.h"
+#include "screen.h"
 
 #undef DEBUG_KEYS
 
@@ -38,9 +40,6 @@
 #else
 #define DK(x)
 #endif
-
-extern void sigstop(void);
-extern void screen_resize(void);
 
 #define BS   KEY_BACKSPACE
 #define DEL  KEY_DC
@@ -289,7 +288,7 @@ command_dump_keys(void)
     }
 }
 
-int
+static int
 set_key_flags(command_definition_t *cp, command_t command, int flags)
 {
   int i;

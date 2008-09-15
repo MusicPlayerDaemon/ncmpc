@@ -103,7 +103,9 @@ int deregister_lyr_hd ();
 int register_lyr_hd (src_lyr *source_descriptor);
 #endif
 
-int src_lyr_stack_init ()
+static int src_lyr_plugins_load(void);
+
+void src_lyr_stack_init(void)
 {
 	src_lyr_stack = g_array_new (TRUE, FALSE, sizeof (src_lyr*));
 
@@ -124,7 +126,7 @@ int src_lyr_stack_init ()
 #endif
 }
 
-int src_lyr_init ()
+int src_lyr_init(void)
 {
 	src_lyr_stack_init ();
 
@@ -145,7 +147,7 @@ int get_lyr_by_src (int priority, char *artist, char *title)
 	return 0;
 }
 
-int src_lyr_load_plugin_file (const char *file)
+static int src_lyr_load_plugin_file(const char *file)
 {
 	GString *path;
 	path = g_string_new (PLUGIN_DIR_SYSTEM);
@@ -162,7 +164,7 @@ int src_lyr_load_plugin_file (const char *file)
 	return 0;
 }
 
-void src_lyr_plugins_load_from_dir (GDir *plugin_dir)
+static void src_lyr_plugins_load_from_dir(GDir *plugin_dir)
 {
 	const gchar *cur_file;
 
@@ -173,7 +175,7 @@ void src_lyr_plugins_load_from_dir (GDir *plugin_dir)
 	}
 }
 
-int src_lyr_plugins_load ()
+static int src_lyr_plugins_load(void)
 {
 	GDir *plugin_dir;
 

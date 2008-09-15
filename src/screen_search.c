@@ -188,7 +188,7 @@ search_clear(screen_t *screen, mpdclient_t *c, gboolean clear_pattern)
 }
 
 #ifdef FUTURE
-mpdclient_filelist_t *
+static mpdclient_filelist_t *
 filelist_search(mpdclient_t *c, int exact_match, int table, gchar *pattern)
 {
   mpdclient_filelist_t *list, *list2;
@@ -454,7 +454,7 @@ get_title(char *str, size_t size)
 }
 
 static list_window_t *
-get_filelist_window()
+get_filelist_window(void)
 {
 	return lw;
 }

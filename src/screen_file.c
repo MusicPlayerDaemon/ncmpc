@@ -740,8 +740,8 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	return list_window_cmd(lw, filelist->length, cmd);
 }
 
-list_window_t *
-get_filelist_window()
+static list_window_t *
+get_filelist_window(void)
 {
 	return lw;
 }

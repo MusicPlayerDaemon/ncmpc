@@ -108,7 +108,7 @@ update_xterm_title(void)
     }
 }
 
-void
+static void
 exit_and_cleanup(void)
 {
   screen_exit();
@@ -128,14 +128,15 @@ exit_and_cleanup(void)
     g_timer_destroy(timer);
 }
 
-void
+static void
 catch_sigint( int sig )
 {
 	printf("\n%s\n", _("Exiting..."));
 	exit(EXIT_SUCCESS);
 }
 
-void
+
+static void
 catch_sigcont( int sig )
 {
 	D("catch_sigcont()\n");

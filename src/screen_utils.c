@@ -102,7 +102,7 @@ screen_getstr(WINDOW *w, const char *prompt)
   return screen_readln(w, prompt, NULL, NULL, NULL);
 }
 
-char *
+static char *
 screen_read_password(WINDOW *w, const char *prompt)
 {
   if(w == NULL)
@@ -124,7 +124,7 @@ screen_read_password(WINDOW *w, const char *prompt)
   curs_set(0);
 }
     
-gint
+static gint
 _screen_auth(mpdclient_t *c, gint recursion)
 {
    mpd_clearError(c->connection);

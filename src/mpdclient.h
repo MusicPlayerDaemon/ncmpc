@@ -69,6 +69,10 @@ typedef struct
 } mpdclient_t;
 
 /** functions ***************************************************************/
+
+gint
+mpdclient_finish_command(mpdclient_t *c);
+
 mpdclient_t *mpdclient_new(void);
 mpdclient_t *mpdclient_free(mpdclient_t *c);
 gint mpdclient_connect(mpdclient_t *c, gchar *host, gint port,

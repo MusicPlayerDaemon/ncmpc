@@ -46,7 +46,7 @@ int src_selection;
 
 static void lyrics_paint(screen_t *screen, mpdclient_t *c);
 
-FILE *create_lyr_file(char *artist, char *title)
+static FILE *create_lyr_file(char *artist, char *title)
 {
 	char path[1024];
 
@@ -65,7 +65,7 @@ FILE *create_lyr_file(char *artist, char *title)
 }
 
 
-int store_lyr_hd()
+static int store_lyr_hd(void)
 {
 	char artist[512];
 	char title[512];
@@ -96,13 +96,13 @@ int store_lyr_hd()
 }
 
 
-void check_repaint()
+static void check_repaint(void)
 {
         if(screen_get_id("lyrics") == get_cur_mode_id())lyrics_paint(NULL, NULL);
 }
 
 
-gpointer get_lyr(void *c)
+static gpointer get_lyr(void *c)
 {
 	mpd_Status *status = ((retrieval_spec*)c)->client->status;
 	mpd_Song *cur = ((retrieval_spec*)c)->client->song;

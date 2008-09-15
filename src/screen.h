@@ -65,6 +65,8 @@ typedef struct {
 	screen_get_lw_fn_t get_lw;
 } screen_functions_t;
 
+void
+ncurses_init(void);
 
 int screen_init(mpdclient_t *c);
 int screen_exit(void);
@@ -79,9 +81,30 @@ void screen_cmd(mpdclient_t *c, command_t cmd);
 gint screen_get_id(const char *name);
 
 
-gint get_cur_mode_id();
+gint get_cur_mode_id(void);
 int screen_get_mouse_event(mpdclient_t *c,
 			   list_window_t *lw, int lw_length, 
 			   unsigned long *bstate, int *row);
+
+screen_functions_t *
+get_screen_search(void);
+
+screen_functions_t *
+get_screen_browse(void);
+
+screen_functions_t *
+get_screen_playlist(void);
+
+screen_functions_t *
+get_screen_help(void);
+
+screen_functions_t *
+get_screen_lyrics(void);
+
+screen_functions_t *
+get_screen_keydef(void);
+
+screen_functions_t *
+get_screen_clock(void);
 
 #endif
