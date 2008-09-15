@@ -6,7 +6,7 @@ touch stamp-h
 
 # add aclocal.m4 to current dir
 echo "aclocal..."
-aclocal
+aclocal -I $PWD/m4
 
 # rerun libtoolize
 echo "libtoolize..."

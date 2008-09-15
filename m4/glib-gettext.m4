@@ -1,5 +1,5 @@
 # Copyright (C) 1995-2002 Free Software Foundation, Inc.
-# Copyright (C) 2001-2003 Red Hat, Inc.
+# Copyright (C) 2001-2003,2004 Red Hat, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -22,7 +22,9 @@
 #
 # Added better handling of ALL_LINGUAS from GNU gettext version 
 # written by Bruno Haible, Owen Taylor <otaylor.redhat.com> 5/30/3002
-
+#
+# Modified to require ngettext
+# Matthias Clasen <mclasen@redhat.com> 08/06/2004
 #
 # We need this here as well, since someone might use autoconf-2.5x
 # to configure GLib then an older version to configure a package
@@ -115,16 +117,27 @@ glib_DEFUN([GLIB_WITH_NLS],
       #
       # First check in libc
       #
-      AC_CACHE_CHECK([for dgettext in libc], gt_cv_func_dgettext_libc,
+      AC_CACHE_CHECK([for ngettext in libc], gt_cv_func_ngettext_libc,
         [AC_TRY_LINK([
 #include <libintl.h>
 ],
-          [return (int) dgettext ("","")],
-	  gt_cv_func_dgettext_libc=yes,
-          gt_cv_func_dgettext_libc=no)
+         [return !ngettext ("","", 1)],
+	  gt_cv_func_ngettext_libc=yes,
+          gt_cv_func_ngettext_libc=no)
         ])
   
-      if test "$gt_cv_func_dgettext_libc" = "yes" ; then
+      if test "$gt_cv_func_ngettext_libc" = "yes" ; then
+	      AC_CACHE_CHECK([for dgettext in libc], gt_cv_func_dgettext_libc,
+        	[AC_TRY_LINK([
+#include <libintl.h>
+],
+	          [return !dgettext ("","")],
+		  gt_cv_func_dgettext_libc=yes,
+	          gt_cv_func_dgettext_libc=no)
+        	])
+      fi
+  
+      if test "$gt_cv_func_ngettext_libc" = "yes" ; then
         AC_CHECK_FUNCS(bind_textdomain_codeset)
       fi
 
@@ -132,25 +145,29 @@ glib_DEFUN([GLIB_WITH_NLS],
       # If we don't have everything we want, check in libintl
       #
       if test "$gt_cv_func_dgettext_libc" != "yes" \
+	 || test "$gt_cv_func_ngettext_libc" != "yes" \
          || test "$ac_cv_func_bind_textdomain_codeset" != "yes" ; then
         
         AC_CHECK_LIB(intl, bindtextdomain,
-	    [AC_CHECK_LIB(intl, dgettext,
-		          gt_cv_func_dgettext_libintl=yes)])
+	    [AC_CHECK_LIB(intl, ngettext,
+		    [AC_CHECK_LIB(intl, dgettext,
+			          gt_cv_func_dgettext_libintl=yes)])])
 
 	if test "$gt_cv_func_dgettext_libintl" != "yes" ; then
 	  AC_MSG_CHECKING([if -liconv is needed to use gettext])
 	  AC_MSG_RESULT([])
-          AC_CHECK_LIB(intl, dcgettext,
+  	  AC_CHECK_LIB(intl, ngettext,
+          	[AC_CHECK_LIB(intl, dcgettext,
 		       [gt_cv_func_dgettext_libintl=yes
 			libintl_extra_libs=-liconv],
-			:,-liconv)
+			:,-liconv)],
+		:,-liconv)
         fi
 
         #
         # If we found libintl, then check in it for bind_textdomain_codeset();
         # we'll prefer libc if neither have bind_textdomain_codeset(),
-        # and both have dgettext
+        # and both have dgettext and ngettext
         #
         if test "$gt_cv_func_dgettext_libintl" = "yes" ; then
           glib_save_LIBS="$LIBS"
@@ -162,7 +179,8 @@ glib_DEFUN([GLIB_WITH_NLS],
           if test "$ac_cv_func_bind_textdomain_codeset" = "yes" ; then
             gt_cv_func_dgettext_libc=no
           else
-            if test "$gt_cv_func_dgettext_libc" = "yes"; then
+            if test "$gt_cv_func_dgettext_libc" = "yes" \
+		&& test "$gt_cv_func_ngettext_libc" = "yes"; then
               gt_cv_func_dgettext_libintl=no
             fi
           fi
@@ -187,6 +205,20 @@ glib_DEFUN([GLIB_WITH_NLS],
           glib_save_LIBS="$LIBS"
           LIBS="$LIBS $INTLLIBS"
 	  AC_CHECK_FUNCS(dcgettext)
+	  MSGFMT_OPTS=
+	  AC_MSG_CHECKING([if msgfmt accepts -c])
+	  GLIB_RUN_PROG([$MSGFMT -c -o /dev/null],[
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: test 1.0\n"
+"PO-Revision-Date: 2007-02-15 12:01+0100\n"
+"Last-Translator: test <foo@bar.xx>\n"
+"Language-Team: C <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+], [MSGFMT_OPTS=-c; AC_MSG_RESULT([yes])], [AC_MSG_RESULT([no])])
+	  AC_SUBST(MSGFMT_OPTS)
 	  AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
 	  GLIB_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
 	    [test -z "`$ac_dir/$ac_word -h 2>&1 | grep '(HELP)'`"], :)
@@ -358,8 +390,10 @@ glib_DEFUN([GLIB_DEFINE_LOCALEDIR],
 [glib_REQUIRE([GLIB_GNU_GETTEXT])dnl
 glib_save_prefix="$prefix"
 glib_save_exec_prefix="$exec_prefix"
+glib_save_datarootdir="$datarootdir"
 test "x$prefix" = xNONE && prefix=$ac_default_prefix
 test "x$exec_prefix" = xNONE && exec_prefix=$prefix
+datarootdir=`eval echo "${datarootdir}"`
 if test "x$CATOBJEXT" = "x.mo" ; then
   localedir=`eval echo "${libdir}/locale"`
 else
@@ -367,6 +401,7 @@ else
 fi
 prefix="$glib_save_prefix"
 exec_prefix="$glib_save_exec_prefix"
+datarootdir="$glib_save_datarootdir"
 AC_DEFINE_UNQUOTED($1, "$localedir",
   [Define the location where the catalogs will be installed])
 ])
@@ -378,3 +413,20 @@ ifdef(glib_configure_in,[],[
 AC_DEFUN([AM_GLIB_GNU_GETTEXT],[GLIB_GNU_GETTEXT($@)])
 AC_DEFUN([AM_GLIB_DEFINE_LOCALEDIR],[GLIB_DEFINE_LOCALEDIR($@)])
 ])dnl
+
+# GLIB_RUN_PROG(PROGRAM, TEST-FILE, [ACTION-IF-PASS], [ACTION-IF-FAIL])
+# 
+# Create a temporary file with TEST-FILE as its contents and pass the
+# file name to PROGRAM.  Perform ACTION-IF-PASS if PROGRAM exits with
+# 0 and perform ACTION-IF-FAIL for any other exit status.
+AC_DEFUN([GLIB_RUN_PROG],
+[cat >conftest.foo <<_ACEOF
+$2
+_ACEOF
+if AC_RUN_LOG([$1 conftest.foo]); then
+  m4_ifval([$3], [$3], [:])
+m4_ifvaln([$4], [else $4])dnl
+echo "$as_me: failed input was:" >&AS_MESSAGE_LOG_FD
+sed 's/^/| /' conftest.foo >&AS_MESSAGE_LOG_FD
+fi])
+
