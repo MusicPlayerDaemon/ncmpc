@@ -89,7 +89,8 @@ static int store_lyr_hd(void)
 		return -1;
 
 	for (i = 3; i <= lyr_text.text->len; i++) {
-		if(get_text_line(&lyr_text, i, line_buf, 1024) == -1);
+		if (get_text_line(&lyr_text, i, line_buf, 1024) == -1)
+			break;
 		fputs(line_buf, lyr_file);
 	}
 
