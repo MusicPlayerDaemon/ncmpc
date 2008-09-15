@@ -30,6 +30,7 @@ ncmpc_headers = \
   ncmpc.h\
   screen_browse.h\
   src_lyrics.h \
+	str_pool.h \
 	gcc.h
 
 # $Id$
@@ -62,7 +63,8 @@ ncmpc_SOURCES = \
   wreadln.c\
   strfsong.c\
   utils.c\
-  src_lyrics.c
+  src_lyrics.c \
+	str_pool.c
 
 if LEOSLYRICS_FIXED
 ncmpc_SOURCES+=lyrics_leoslyrics.c 
