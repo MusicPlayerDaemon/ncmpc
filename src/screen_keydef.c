@@ -39,7 +39,7 @@
 #define STATIC_SUB_ITEMS  1
 #define BUFSIZE 256
 
-#define LIST_ITEM_APPLY()   (command_list_length)
+#define LIST_ITEM_APPLY()   ((unsigned)command_list_length)
 #define LIST_ITEM_SAVE()    (LIST_ITEM_APPLY()+1)
 #define LIST_LENGTH()       (LIST_ITEM_SAVE()+1)
 
@@ -48,12 +48,12 @@
 
 
 static list_window_t *lw = NULL;
-static int command_list_length = 0;
+static unsigned command_list_length = 0;
 static command_definition_t *cmds = NULL;
 
 static int subcmd = -1;
-static int subcmd_length = 0;
-static int subcmd_addpos = 0;
+static unsigned subcmd_length = 0;
+static unsigned subcmd_addpos = 0;
 
 static int
 keybindings_changed(void)
@@ -183,13 +183,13 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
 }
 
 static const char *
-list_callback(int idx, int *highlight, void *data)
+list_callback(unsigned idx, int *highlight, void *data)
 {
 	static char buf[BUFSIZE];
 
 	*highlight = 0;
 	if (subcmd < 0) {
-		if (idx < command_list_length) {
+		if (idx < (unsigned)command_list_length) {
 			if (cmds[idx].flags & COMMAND_KEY_CONFLICT)
 				*highlight = 1;
 			return cmds[idx].name;
@@ -338,7 +338,7 @@ keydef_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		lw->clear = 1;
 		return 1;
 	case CMD_DELETE:
-		if (subcmd >= 0 && lw->selected - STATIC_SUB_ITEMS >= 0)
+		if (subcmd >= 0 && lw->selected >= STATIC_SUB_ITEMS)
 			delete_key(subcmd, lw->selected - STATIC_SUB_ITEMS);
 		return 1;
 		break;

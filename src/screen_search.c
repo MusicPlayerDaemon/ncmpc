@@ -116,9 +116,9 @@ static gboolean advanced_search_mode = FALSE;
 
 /* search info */
 static const char *
-lw_search_help_callback(int idx, int *highlight, void *data)
+lw_search_help_callback(unsigned idx, int *highlight, void *data)
 {
-	int text_rows;
+	unsigned text_rows;
 	static const char *text[] = {
 		"Quick  - just enter a string and ncmpc will search according",
 		"               to the current search mode (displayed above).",

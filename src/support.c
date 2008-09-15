@@ -137,7 +137,7 @@ strscroll(char *str, char *separator, int width, scroll_state_t *st)
 	} else {
 		buf = g_malloc(size);
 		g_strlcpy(buf, tmp+st->offset, size);
-		if (strlen(buf) < width)
+		if (strlen(buf) < (size_t)width)
 			g_strlcat(buf, tmp, size);
 	}
 	if( time(NULL)-st->t >= 1 ) {

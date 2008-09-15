@@ -32,7 +32,7 @@
 extern void screen_bell(void);
 
 list_window_t *
-list_window_init(WINDOW *w, int width, int height)
+list_window_init(WINDOW *w, unsigned width, unsigned height)
 {
 	list_window_t *lw;
 
@@ -65,13 +65,10 @@ list_window_reset(list_window_t *lw)
 }
 
 void
-list_window_check_selected(list_window_t *lw, int length)
+list_window_check_selected(list_window_t *lw, unsigned length)
 {
-	while (lw->start && lw->start + lw->rows > length)
+	while (lw->start > 0 && lw->start + lw->rows > length)
 		lw->start--;
-
-	if (lw->selected < 0)
-		lw->selected = 0;
 
 	while (lw->selected < lw->start)
 		lw->selected++;
@@ -81,22 +78,22 @@ list_window_check_selected(list_window_t *lw, int length)
 }
 
 void
-list_window_set_selected(list_window_t *lw, int n)
+list_window_set_selected(list_window_t *lw, unsigned n)
 {
 	lw->selected = n;
 }
 
 void
-list_window_next(list_window_t *lw, int length)
+list_window_next(list_window_t *lw, unsigned length)
 {
-	if (lw->selected < length - 1)
+	if (lw->selected + 1 < length)
 		lw->selected++;
 	else if (options.list_wrap)
 		lw->selected = 0;
 }
 
 void
-list_window_previous(list_window_t *lw, int length)
+list_window_previous(list_window_t *lw, unsigned length)
 {
 	if (lw->selected > 0)
 		lw->selected--;
@@ -112,20 +109,22 @@ list_window_first(list_window_t *lw)
 }
 
 void
-list_window_last(list_window_t *lw, int length)
+list_window_last(list_window_t *lw, unsigned length)
 {
 	lw->xoffset = 0;
-	lw->selected = length - 1;
+	if (length > 0)
+		lw->selected = length - 1;
+	else
+		lw->selected = 0;
 }
 
 void
-list_window_next_page(list_window_t *lw, int length)
+list_window_next_page(list_window_t *lw, unsigned length)
 {
-	int step = lw->rows - 1;
-	if (step <= 0)
+	if (lw->rows < 2)
 		return;
-	if (lw->selected + step < length - 1)
-		lw->selected += step;
+	if (lw->selected + lw->rows < length)
+		lw->selected += lw->rows - 1;
 	else
 		return list_window_last(lw, length);
 }
@@ -133,11 +132,10 @@ list_window_next_page(list_window_t *lw, int length)
 void
 list_window_previous_page(list_window_t *lw)
 {
-	int step = lw->rows - 1;
-	if (step <= 0)
+	if (lw->rows < 2)
 		return;
-	if (lw->selected-step > 0)
-		lw->selected -= step;
+	if (lw->selected > lw->rows - 1)
+		lw->selected -= lw->rows - 1;
 	else
 		list_window_first(lw);
 }
@@ -148,7 +146,7 @@ list_window_paint(list_window_t *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data)
 {
-	int i;
+	unsigned i;
 	int fill = options.wide_cursor;
 	int show_cursor = !(lw->flags & LW_HIDE_CURSOR);
 
@@ -206,7 +204,7 @@ list_window_find(list_window_t *lw,
 		 int wrap)
 {
 	int h;
-	int i = lw->selected + 1;
+	unsigned i = lw->selected + 1;
 	const char *label;
 
 	while (wrap || i == lw->selected + 1) {
@@ -236,22 +234,22 @@ list_window_rfind(list_window_t *lw,
 		  void *callback_data,
 		  const char *str,
 		  int wrap,
-		  int rows)
+		  unsigned rows)
 {
 	int h;
-	int i = lw->selected-1;
+	int i = lw->selected - 1;
 	const char *label;
 
 	if (rows == 0)
 		return 1;
 
-	while (wrap || i == lw->selected - 1) {
+	while (wrap || i == (int)lw->selected - 1) {
 		while (i >= 0 && (label = callback(i,&h,callback_data))) {
 			if( str && label && strcasestr(label, str) ) {
 				lw->selected = i;
 				return 0;
 			}
-			if (wrap && i == lw->selected)
+			if (wrap && i == (int)lw->selected)
 				return 1;
 			i--;
 		}
@@ -265,7 +263,7 @@ list_window_rfind(list_window_t *lw,
 
 /* perform basic list window commands (movement) */
 int
-list_window_cmd(list_window_t *lw, int rows, command_t cmd)
+list_window_cmd(list_window_t *lw, unsigned rows, command_t cmd)
 {
 	switch (cmd) {
 	case CMD_LIST_PREVIOUS:

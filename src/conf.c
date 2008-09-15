@@ -94,7 +94,8 @@ str2bool(char *str)
 static int
 parse_key_value(char *str, size_t len, char **end)
 {
-	int i, value;
+	size_t i;
+	int value;
 	key_parser_state_t state;
 
 	i=0;
@@ -164,8 +165,8 @@ parse_key_definition(char *str)
 {
 	char buf[MAX_LINE_LENGTH];
 	char *p, *end;
-	size_t len = strlen(str);
-	int i,j,key;
+	size_t len = strlen(str), i;
+	int j,key;
 	int keys[MAX_COMMAND_KEYS];
 	command_t cmd;
 
@@ -256,8 +257,8 @@ parse_color_definition(char *str)
 {
 	char buf[MAX_LINE_LENGTH];
 	char *p, *end, *name;
-	size_t len = strlen(str);
-	int i,j,value;
+	size_t len = strlen(str), i;
+	int j,value;
 	short color, rgb[3];
 
 	/* get the command name */

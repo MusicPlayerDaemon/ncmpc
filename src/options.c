@@ -275,7 +275,7 @@ options_parse(int argc, const char *argv[])
 		}
 		/* check for short options */
 		else if (len>=2 && g_str_has_prefix(arg, "-")) {
-			int j;
+			size_t j;
 
 			for(j=1; j<len; j++) {
 				/* make shure we got an argument for the previous option */

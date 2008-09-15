@@ -73,7 +73,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 }
 
 static const char *
-list_callback(int idx, int *highlight, void *data)
+list_callback(unsigned idx, int *highlight, void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
 	mpdclient_t *c = (mpdclient_t *) data;
@@ -94,8 +94,8 @@ list_callback(int idx, int *highlight, void *data)
 static int
 center_playing_item(screen_t *screen, mpdclient_t *c)
 {
-	int length = c->playlist.length;
-	int offset = lw->selected - lw->start;
+	unsigned length = c->playlist.length;
+	unsigned offset = lw->selected - lw->start;
 	int idx;
 
 	if (!lw || !c->song || length<lw->rows ||
@@ -105,11 +105,12 @@ center_playing_item(screen_t *screen, mpdclient_t *c)
 	/* try to center the song that are playing */
 	idx = playlist_get_index(c, c->song);
 	D("Autocenter song id:%d pos:%d index:%d\n", c->song->id,c->song->pos,idx);
-	lw->start = idx - (lw->rows / 2);
-	if (lw->start + lw->rows > length)
-		lw->start = length - lw->rows;
-	if (lw->start < 0)
-		lw->start = 0;
+	idx -= (lw->rows / 2);
+	if (idx + (int)lw->rows > (int)length)
+		idx = length - lw->rows;
+	if (idx < 0)
+		idx = 0;
+	lw->start = idx;
 
 	/* make sure the cursor is in the window */
 	lw->selected = lw->start+offset;
@@ -419,7 +420,7 @@ static int
 handle_mouse_event(screen_t *screen, mpdclient_t *c)
 {
 	int row;
-	int selected;
+	unsigned selected;
 	unsigned long bstate;
 
 	if (screen_get_mouse_event(c, lw, c->playlist.length, &bstate, &row))

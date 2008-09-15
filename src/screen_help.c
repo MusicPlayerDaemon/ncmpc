@@ -147,7 +147,7 @@ static list_window_t *lw = NULL;
 
 
 static const char *
-list_callback(int idx, int *highlight, void *data)
+list_callback(unsigned idx, int *highlight, void *data)
 {
 	static char buf[512];
 
@@ -158,7 +158,7 @@ list_callback(int idx, int *highlight, void *data)
 	}
 
 	*highlight = 0;
-	if (idx < help_text_rows) {
+	if (idx < (unsigned)help_text_rows) {
 		*highlight = help_text[idx].highlight > 0;
 		if (help_text[idx].command == CMD_NONE) {
 			if (help_text[idx].text)
@@ -166,7 +166,7 @@ list_callback(int idx, int *highlight, void *data)
 			else if (help_text[idx].highlight == 2) {
 				int i;
 
-				for (i = 3; i < COLS - 3 && i < sizeof(buf); i++)
+				for (i = 3; i < COLS - 3 && i < (int)sizeof(buf); i++)
 					buf[i] = '-';
 				buf[i] = '\0';
 			} else
@@ -243,7 +243,7 @@ help_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	lw->clear=1;
 	switch(cmd) {
 	case CMD_LIST_NEXT:
-		if (lw->start + lw->rows < help_text_rows)
+		if (lw->start + lw->rows < (unsigned)help_text_rows)
 			lw->start++;
 		return 1;
 	case CMD_LIST_PREVIOUS:
@@ -254,20 +254,24 @@ help_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		lw->start = 0;
 		return 1;
 	case CMD_LIST_LAST:
-		lw->start = help_text_rows - lw->rows;
-		if (lw->start < 0)
+		if ((unsigned)help_text_rows > lw->rows)
+			lw->start = help_text_rows - lw->rows;
+		else
 			lw->start = 0;
 		return 1;
 	case CMD_LIST_NEXT_PAGE:
 		lw->start = lw->start + lw->rows;
-		if (lw->start + lw->rows >= help_text_rows)
-			lw->start = help_text_rows - lw->rows;
-		if (lw->start < 0)
-			lw->start = 0;
+		if (lw->start + lw->rows >= (unsigned)help_text_rows) {
+			if ((unsigned)help_text_rows > lw->rows)
+				lw->start = help_text_rows - lw->rows;
+			else
+				lw->start = 0;
+		}
 		return 1;
 	case CMD_LIST_PREVIOUS_PAGE:
-		lw->start = lw->start - lw->rows;
-		if (lw->start < 0)
+		if (lw->start > lw->rows)
+			lw->start -= lw->rows;
+		else
 			lw->start = 0;
 		return 1;
 	default:
@@ -279,11 +283,16 @@ help_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			lw,  help_text_rows,
 			cmd, list_callback, NULL)) {
 		/* center the row */
-		lw->start = lw->selected - (lw->rows / 2);
-		if (lw->start + lw->rows > help_text_rows)
-			lw->start = help_text_rows - lw->rows;
-		if (lw->start < 0)
+		if (lw->selected > lw->rows / 2)
+			lw->start = lw->selected - lw->rows / 2;
+		else
 			lw->start = 0;
+		if (lw->start + lw->rows > (unsigned)help_text_rows) {
+			if (lw->rows < (unsigned)help_text_rows)
+				lw->start = help_text_rows - lw->rows;
+			else
+				lw->start = 0;
+		}
 		return 1;
 	}
 

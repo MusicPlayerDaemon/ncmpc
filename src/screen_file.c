@@ -147,7 +147,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 
 /* list_window callback */
 const char *
-browse_lw_callback(int idx, int *highlight, void *data)
+browse_lw_callback(unsigned idx, int *highlight, void *data)
 {
 	static char buf[BUFSIZE];
 	mpdclient_filelist_t *fl = (mpdclient_filelist_t *) data;
@@ -645,7 +645,7 @@ browse_handle_mouse_event(screen_t *screen,
 			  mpdclient_filelist_t *fl)
 {
 	int row;
-	int prev_selected = local_lw->selected;
+	unsigned prev_selected = local_lw->selected;
 	unsigned long bstate;
 	int length;
 

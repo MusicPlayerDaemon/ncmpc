@@ -258,7 +258,7 @@ static void
 paint_top_window(const char *header, mpdclient_t *c, int full_repaint)
 {
 	static int prev_volume = -1;
-	static int prev_header_len = -1;
+	static size_t prev_header_len = -1;
 	WINDOW *w = screen->top_window.w;
 
 	if (prev_header_len!=my_strlen(header)) {
@@ -385,7 +385,7 @@ paint_status_window(mpdclient_t *c)
 
 		colors_use(w, COLOR_STATUS);
 		/* scroll if the song name is to long */
-		if (options.scroll && my_strlen(songname) > width) {
+		if (options.scroll && my_strlen(songname) > (size_t)width) {
 			static  scroll_state_t st = { 0, 0 };
 			char *tmp = strscroll(songname, options.scroll_sep, width, &st);
 
@@ -809,7 +809,7 @@ screen_get_mouse_event(mpdclient_t *c,
 	}
 
 	/* if the even occured below the list window move down */
-	if (*row >= lw->rows && lw) {
+	if ((unsigned)*row >= lw->rows && lw) {
 		if (event.bstate & BUTTON3_CLICKED)
 			list_window_last(lw, lw_length);
 		else

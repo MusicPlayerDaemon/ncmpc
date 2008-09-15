@@ -71,7 +71,7 @@ static int store_lyr_hd(void)
 	char title[512];
 	static char path[1024];
 	FILE *lyr_file;
-	int i;
+	unsigned i;
 	char line_buf[1024];
 
 	get_text_line(&lyr_text, 0, artist, 512);
@@ -152,7 +152,7 @@ static gpointer get_lyr(void *c)
 }
 
 static const char *
-list_callback(int idx, int *highlight, void *data)
+list_callback(unsigned idx, int *highlight, void *data)
 {
 	static char buf[512];
 
@@ -214,7 +214,7 @@ lyrics_title(char *str, size_t size)
 
 	g_string_append (msg, "Lyrics  [");
 
-	if (src_selection > src_lyr_stack->len - 1)
+	if (src_selection > (int)src_lyr_stack->len - 1)
 		g_string_append (msg, "No plugin available");
 	else {
 		src_lyr* selected =  g_array_index (src_lyr_stack, src_lyr*, src_selection);
@@ -282,20 +282,24 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		lw->start = 0;
 		return 1;
 	case CMD_LIST_LAST:
-		lw->start = lyrics_text_rows-lw->rows;
-		if( lw->start<0 )
+		if ((unsigned)lyrics_text_rows > lw->rows)
+			lw->start = lyrics_text_rows - lw->rows;
+		else
 			lw->start = 0;
 		return 1;
 	case CMD_LIST_NEXT_PAGE:
-		lw->start = lw->start + lw->rows-1;
-		if( lw->start+lw->rows >= lyr_text.lines->len+1 )
-			lw->start = lyr_text.lines->len-lw->rows+1;
-		if( lw->start<0 )
-			lw->start = 0;
+		lw->start = lw->start + lw->rows - 1;
+		if (lw->start + lw->rows >= (unsigned)lyrics_text_rows + 1) {
+			if ((unsigned)lyrics_text_rows + 1 > lw->rows)
+				lw->start = lyrics_text_rows + 1 - lw->rows;
+			else
+				lw->start = 0;
+		}
 		return 1;
 	case CMD_LIST_PREVIOUS_PAGE:
-		lw->start = lw->start - lw->rows;
-		if( lw->start<0 )
+		if (lw->start > lw->rows)
+			lw->start -= lw->rows;
+		else
 			lw->start = 0;
 		return 1;
 	case CMD_SELECT:
@@ -319,7 +323,7 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		return 1;
 	case CMD_SEARCH_MODE:
 		//while (0==0) fprintf (stderr, "%i", src_lyr_stack->len);
-		if (src_selection == src_lyr_stack->len - 1)
+		if (src_selection == (int)src_lyr_stack->len - 1)
 			src_selection = -1;
 		src_selection++;
 		return 1;
@@ -333,10 +337,12 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			cmd, list_callback, NULL)) {
 		/* center the row */
 		lw->start = lw->selected - (lw->rows / 2);
-		if (lw->start + lw->rows > lyrics_text_rows)
-			lw->start = lyrics_text_rows - lw->rows;
-		if (lw->start < 0)
-			lw->start = 0;
+		if (lw->start + lw->rows > (unsigned)lyrics_text_rows) {
+			if (lw->rows < (unsigned)lyrics_text_rows)
+				lw->start = lyrics_text_rows - lw->rows;
+			else
+				lw->start = 0;
+		}
 		return 1;
 	}
 

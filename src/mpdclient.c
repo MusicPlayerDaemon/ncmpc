@@ -490,7 +490,7 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 	mpd_Song *song1, *song2;
 
 	if (old_index == new_index || new_index < 0 ||
-	    new_index >= c->playlist.length)
+	    (guint)new_index >= c->playlist.length)
 		return -1;
 
 	song1 = playlist_get_song(c, old_index);
@@ -739,7 +739,7 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 	while ((entity = mpd_getNextInfoEntity(c->connection)) != NULL) {
 		mpd_Song *song = entity->info.song;
 
-		if (song->pos < c->playlist.length) {
+		if (song->pos >= 0 && (guint)song->pos < c->playlist.length) {
 			GList *item = g_list_nth(c->playlist.list, song->pos);
 
 			/* update song */
@@ -756,7 +756,7 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 	}
 
 	/* remove trailing songs */
-	while (c->status->playlistLength < c->playlist.length) {
+	while ((guint)c->status->playlistLength < c->playlist.length) {
 		GList *item = g_list_last(c->playlist.list);
 
 		/* Remove the last playlist entry */

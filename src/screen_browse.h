@@ -6,7 +6,7 @@ void set_highlight(mpdclient_filelist_t *filelist,
 		   int highlight);
 
 
-const char *browse_lw_callback(int index, int *highlight, void *filelist);
+const char *browse_lw_callback(unsigned index, int *highlight, void *filelist);
 
 int browse_handle_select(screen_t *screen, 
 			 mpdclient_t *c,

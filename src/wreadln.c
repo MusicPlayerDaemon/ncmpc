@@ -66,7 +66,8 @@ static inline void cursor_move_right(gint *cursor,
 				     gint x1,
 				     gchar *line)
 {
-	if (*cursor < strlen(line) && *cursor < wrln_max_line_size - 1) {
+	if (*cursor < (int)strlen(line) &&
+	    *cursor < (int)wrln_max_line_size - 1) {
 		(*cursor)++;
 		if (*cursor + x0 >= x1 && *start < *cursor - width + 1)
 			(*start)++;
@@ -284,7 +285,7 @@ _wreadln(WINDOW *w,
 			break;
 		case KEY_DC:		/* handle delete key. As above */
 		case KEY_CTRL_D:
-			if (cursor <= my_strlen(line) - 1) {
+			if (cursor <= (gint)my_strlen(line) - 1) {
 				for (i = cursor; line[i] != 0; i++)
 					line[i] = line[i + 1];
 			}

@@ -10,17 +10,17 @@
 
 #define LW_HIDE_CURSOR    0x01
 
-typedef const char *(*list_window_callback_fn_t)(int index,
+typedef const char *(*list_window_callback_fn_t)(unsigned index,
 						 int *highlight,
 						 void *data);
 
 typedef struct {
 	WINDOW *w;
-	int rows, cols;
+	unsigned rows, cols;
 
-	int start;
-	int selected;
-	int xoffset;
+	unsigned start;
+	unsigned selected;
+	unsigned xoffset;
 	int clear;
 	int repaint;
 	int flags;
@@ -32,7 +32,7 @@ typedef struct {
 
 
 /* create a new list window */
-list_window_t *list_window_init(WINDOW *w, int width, int height);
+list_window_t *list_window_init(WINDOW *w, unsigned width, unsigned height);
 
 /* destroy a list window (returns NULL) */
 list_window_t *list_window_free(list_window_t *lw);
@@ -46,18 +46,18 @@ void list_window_paint(list_window_t *lw,
 		       void *callback_data);
 
 /* perform basic list window commands (movement) */
-int list_window_cmd(list_window_t *lw, int rows, command_t cmd);
+int list_window_cmd(list_window_t *lw, unsigned rows, command_t cmd);
 
 
 /* select functions */
-void list_window_set_selected(list_window_t *lw, int n);
-void list_window_previous(list_window_t *lw, int length);
-void list_window_next(list_window_t *lw, int length);
+void list_window_set_selected(list_window_t *lw, unsigned n);
+void list_window_previous(list_window_t *lw, unsigned length);
+void list_window_next(list_window_t *lw, unsigned length);
 void list_window_first(list_window_t *lw);
-void list_window_last(list_window_t *lw, int length);
+void list_window_last(list_window_t *lw, unsigned length);
 void list_window_previous_page(list_window_t *lw);
-void list_window_next_page(list_window_t *lw, int length);
-void list_window_check_selected(list_window_t *lw, int length);
+void list_window_next_page(list_window_t *lw, unsigned length);
+void list_window_check_selected(list_window_t *lw, unsigned length);
 
 /* find a string in a list window */
 int  list_window_find(list_window_t *lw,
@@ -73,7 +73,7 @@ list_window_rfind(list_window_t *lw,
 		  void *callback_data,
 		  const char *str,
 		  int wrap,
-		  int rows);
+		  unsigned rows);
 
 /* list window states */
 list_window_state_t *list_window_init_state(void);

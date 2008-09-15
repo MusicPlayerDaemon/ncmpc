@@ -26,7 +26,7 @@
 
 #define PLUGIN_DIR_USER "/.ncmpc/plugins"
 
-int get_text_line(formed_text *text, int num, char *dest, int len)
+int get_text_line(formed_text *text, unsigned num, char *dest, size_t len)
 {
 	int linelen;
 
