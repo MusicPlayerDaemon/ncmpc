@@ -24,11 +24,6 @@ typedef struct _retrieval_spec
         int way;
 } retrieval_spec;
 
-
-
-static int lyrics_text_rows = -1;
-static list_window_t *lw = NULL;
-
 GTimer *dltime;
 short int lock;
 formed_text lyr_text;

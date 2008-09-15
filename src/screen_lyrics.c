@@ -43,7 +43,9 @@
 #include <glib/gstdio.h>
 #include <stdio.h>
 
-int src_selection;
+static list_window_t *lw = NULL;
+static int lyrics_text_rows = -1;
+static int src_selection;
 
 static void lyrics_paint(screen_t *screen, mpdclient_t *c);
 
