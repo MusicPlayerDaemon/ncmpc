@@ -206,8 +206,23 @@ AC_ARG_ENABLE([debug],
 	      [enable_debug=no])
 AC_MSG_RESULT([$enable_debug])
 if test "x$enable_debug" = "xyes" ; then
-   CFLAGS="$CFLAGS -Wall -g -DDEBUG"
+   CFLAGS="$CFLAGS -g -DDEBUG"
 fi
+
+dnl CFLAGS
+
+AC_SUBST(AM_CFLAGS)
+
+CHECK_CFLAG([-Wall])
+CHECK_CFLAG([-Wextra])
+CHECK_CFLAG([-Wno-deprecated-declarations])
+CHECK_CFLAG([-Wmissing-prototypes])
+CHECK_CFLAG([-Wdeclaration-after-statement])
+CHECK_CFLAG([-Wshadow])
+CHECK_CFLAG([-Wpointer-arith])
+CHECK_CFLAG([-Wstrict-prototypes])
+CHECK_CFLAG([-Wcast-qual])
+CHECK_CFLAG([-Wwrite-strings])
 
 dnl Optional screen - help screen
 #AC_MSG_CHECKING([whether to include the help screen])
