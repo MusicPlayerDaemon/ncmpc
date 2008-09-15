@@ -71,13 +71,12 @@ typedef enum
 #define KEYDEF_WRITE_ALL     0x02
 #define KEYDEF_COMMENT_ALL   0x04
 
-typedef struct 
-{
-  int keys[MAX_COMMAND_KEYS];
-  char flags;
-  command_t command;
-  char *name;
-  char *description;
+typedef struct  {
+	int keys[MAX_COMMAND_KEYS];
+	char flags;
+	command_t command;
+	char *name;
+	char *description;
 } command_definition_t;
 
 command_definition_t *get_command_definitions(void);

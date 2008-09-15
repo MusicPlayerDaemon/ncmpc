@@ -924,7 +924,8 @@ static void mpd_initDirectory(mpd_Directory * directory) {
 }
 
 static void mpd_finishDirectory(mpd_Directory * directory) {
-	if(directory->path) free(directory->path);
+	if (directory->path)
+		free(directory->path);
 }
 
 mpd_Directory * mpd_newDirectory(void) {
@@ -944,7 +945,8 @@ void mpd_freeDirectory(mpd_Directory * directory) {
 mpd_Directory * mpd_directoryDup(mpd_Directory * directory) {
 	mpd_Directory * ret = mpd_newDirectory();
 
-	if(directory->path) ret->path = strdup(directory->path);
+	if (directory->path)
+		ret->path = strdup(directory->path);
 
 	return ret;
 }
@@ -954,7 +956,8 @@ static void mpd_initPlaylistFile(mpd_PlaylistFile * playlist) {
 }
 
 static void mpd_finishPlaylistFile(mpd_PlaylistFile * playlist) {
-	if(playlist->path) free(playlist->path);
+	if (playlist->path)
+		free(playlist->path);
 }
 
 mpd_PlaylistFile * mpd_newPlaylistFile(void) {
@@ -973,7 +976,8 @@ void mpd_freePlaylistFile(mpd_PlaylistFile * playlist) {
 mpd_PlaylistFile * mpd_playlistFileDup(mpd_PlaylistFile * playlist) {
 	mpd_PlaylistFile * ret = mpd_newPlaylistFile();
 
-	if(playlist->path) ret->path = strdup(playlist->path);
+	if (playlist->path)
+		ret->path = strdup(playlist->path);
 
 	return ret;
 }
@@ -1017,8 +1021,7 @@ mpd_InfoEntity * mpd_getNextInfoEntity(mpd_Connection * connection) {
 	mpd_InfoEntity * entity = NULL;
 
 	if(connection->doneProcessing || (connection->listOks &&
-	   connection->doneListOk))
-	{
+	   connection->doneListOk)) {
 		return NULL;
 	}
 

@@ -80,8 +80,8 @@ screen_getch(WINDOW *w, char *prompt)
 }
 
 char *
-screen_readln(WINDOW *w, 
-	      char *prompt, 
+screen_readln(WINDOW *w,
+	      char *prompt,
 	      char *value,
 	      GList **history,
 	      GCompletion *gcmp)
@@ -139,9 +139,9 @@ _screen_auth(mpdclient_t *c, gint recursion)
 gint
 screen_auth(mpdclient_t *c)
 {
-  _screen_auth(c, 0);
-  mpdclient_update(c);
-  curs_set(0);
+	_screen_auth(c, 0);
+	mpdclient_update(c);
+	curs_set(0);
 }
 
 /* query user for a string and find it in a list window */
@@ -153,16 +153,15 @@ screen_find(screen_t *screen,
 	    list_window_callback_fn_t callback_fn,
 	    void *callback_data)
 {
-  int reversed = 0;
-  int retval   = 0;
-  char *prompt = FIND_PROMPT;
-  char *value = options.find_show_last_pattern ? (char *) -1 : NULL;
+	int reversed = 0;
+	int retval = 0;
+	char *prompt = FIND_PROMPT;
+	char *value = options.find_show_last_pattern ? (char *) -1 : NULL;
 
-  if( findcmd==CMD_LIST_RFIND ||findcmd==CMD_LIST_RFIND_NEXT ) 
-    {
-      prompt = RFIND_PROMPT;
-      reversed = 1;
-    }
+	if (findcmd == CMD_LIST_RFIND || findcmd == CMD_LIST_RFIND_NEXT) {
+		prompt = RFIND_PROMPT;
+		reversed = 1;
+	}
 
   switch(findcmd)
     {

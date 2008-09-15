@@ -7,27 +7,24 @@
 
 #define LW_HIDE_CURSOR    0x01
 
-typedef char *  (*list_window_callback_fn_t)   (int index, 
-						int *highlight,
-						void *data);
+typedef char *(*list_window_callback_fn_t)(int index,
+					   int *highlight,
+					   void *data);
 
-typedef struct
-{
-  WINDOW *w;
-  int rows, cols;
+typedef struct {
+	WINDOW *w;
+	int rows, cols;
 
-  int start;
-  int selected;
-  int xoffset;
-  int clear;
-  int repaint;
-  int flags;
-
+	int start;
+	int selected;
+	int xoffset;
+	int clear;
+	int repaint;
+	int flags;
 } list_window_t;
 
-typedef struct 
-{
-  GList *list;
+typedef struct {
+	GList *list;
 } list_window_state_t;
 
 
@@ -60,7 +57,7 @@ void list_window_next_page(list_window_t *lw, int length);
 void list_window_check_selected(list_window_t *lw, int length);
 
 /* find a string in a list window */
-int  list_window_find(list_window_t *lw, 
+int  list_window_find(list_window_t *lw,
 		      list_window_callback_fn_t callback,
 		      void *callback_data,
 		      char *str,
@@ -68,7 +65,7 @@ int  list_window_find(list_window_t *lw,
 
 /* find a string in a list window (reversed) */
 int
-list_window_rfind(list_window_t *lw, 
+list_window_rfind(list_window_t *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data,
 		  char *str,

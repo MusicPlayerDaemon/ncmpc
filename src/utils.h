@@ -14,8 +14,8 @@ GList *string_list_remove(GList *string_list, gchar *str);
 #define GCMP_TYPE_RFILE     (GCMP_TYPE_DIR | GCMP_TYPE_FILE)
 #define GCMP_TYPE_RPLAYLIST (GCMP_TYPE_DIR | GCMP_TYPE_PLAYLIST)
 
-GList *gcmp_list_from_path(mpdclient_t *c, 
-			   gchar *path, 
+GList *gcmp_list_from_path(mpdclient_t *c,
+			   gchar *path,
 			   GList *list,
 			   gint types);
 

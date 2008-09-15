@@ -36,292 +36,275 @@ extern void screen_bell(void);
 list_window_t *
 list_window_init(WINDOW *w, int width, int height)
 {
-  list_window_t *lw;
+	list_window_t *lw;
 
-  lw = g_malloc0(sizeof(list_window_t));
-  lw->w = w;
-  lw->cols = width;
-  lw->rows = height;
-  lw->clear = 1;
-  return lw;
+	lw = g_malloc0(sizeof(list_window_t));
+	lw->w = w;
+	lw->cols = width;
+	lw->rows = height;
+	lw->clear = 1;
+	return lw;
 }
 
 list_window_t *
 list_window_free(list_window_t *lw)
 {
-  if( lw )
-    {
-      memset(lw, 0, sizeof(list_window_t));
-      g_free(lw);
-    }
-  return NULL;
+	if (lw) {
+		memset(lw, 0, sizeof(list_window_t));
+		g_free(lw);
+	}
+
+	return NULL;
 }
 
 void
 list_window_reset(list_window_t *lw)
 {
-  lw->selected = 0;
-  lw->xoffset = 0;
-  lw->start = 0;
-  lw->clear = 1;
+	lw->selected = 0;
+	lw->xoffset = 0;
+	lw->start = 0;
+	lw->clear = 1;
 }
 
 void
 list_window_check_selected(list_window_t *lw, int length)
 {
-  while( lw->start && lw->start+lw->rows>length)
-    lw->start--;
+	while (lw->start && lw->start + lw->rows > length)
+		lw->start--;
 
-  if( lw->selected<0 )
-    lw->selected=0;
+	if (lw->selected < 0)
+		lw->selected = 0;
 
-  while( lw->selected<lw->start )
-    lw->selected++;
+	while (lw->selected < lw->start)
+		lw->selected++;
 
-  while( lw->selected>0 && length>0 && lw->selected>=length )
-    lw->selected--;
+	while (lw->selected > 0 && length > 0 && lw->selected >= length)
+		lw->selected--;
 }
 
-void 
+void
 list_window_set_selected(list_window_t *lw, int n)
 {
-  lw->selected=n;
+	lw->selected = n;
 }
 
 void
 list_window_next(list_window_t *lw, int length)
 {
-  if( lw->selected < length-1 )
-    lw->selected++;
-  else if ( options.list_wrap )
-    lw->selected = 0;
+	if (lw->selected < length - 1)
+		lw->selected++;
+	else if (options.list_wrap)
+		lw->selected = 0;
 }
 
 void
 list_window_previous(list_window_t *lw, int length)
 {
-  if( lw->selected > 0 )
-    lw->selected--;
-  else if( options.list_wrap )
-    lw->selected = length-1;
+	if (lw->selected > 0)
+		lw->selected--;
+	else if (options.list_wrap)
+		lw->selected = length - 1;
 }
 
 void
 list_window_first(list_window_t *lw)
 {
-  lw->xoffset = 0;
-  lw->selected = 0;
+	lw->xoffset = 0;
+	lw->selected = 0;
 }
 
 void
 list_window_last(list_window_t *lw, int length)
 {
-  lw->xoffset = 0;
-  lw->selected = length-1;
+	lw->xoffset = 0;
+	lw->selected = length - 1;
 }
 
 void
 list_window_next_page(list_window_t *lw, int length)
 {
-  int step = lw->rows-1;
-  if( step<= 0 )
-    return;
-  if( lw->selected+step < length-1 )
-    lw->selected+=step;
-  else
-    return list_window_last(lw,length);
+	int step = lw->rows - 1;
+	if (step <= 0)
+		return;
+	if (lw->selected + step < length - 1)
+		lw->selected += step;
+	else
+		return list_window_last(lw, length);
 }
 
 void
 list_window_previous_page(list_window_t *lw)
 {
-  int step = lw->rows-1;
-  if( step<= 0 )
-    return;
-  if( lw->selected-step > 0 )
-    lw->selected-=step;
-  else
-    list_window_first(lw);
+	int step = lw->rows - 1;
+	if (step <= 0)
+		return;
+	if (lw->selected-step > 0)
+		lw->selected -= step;
+	else
+		list_window_first(lw);
 }
 
 
-void 
+void
 list_window_paint(list_window_t *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data)
 {
-  int i;
-  int fill = options.wide_cursor;
-  int show_cursor = !(lw->flags & LW_HIDE_CURSOR);
+	int i;
+	int fill = options.wide_cursor;
+	int show_cursor = !(lw->flags & LW_HIDE_CURSOR);
 
-  if( show_cursor )
-    {
-      while( lw->selected < lw->start )
-	{
-	  lw->start--;
-	  lw->clear=1;
+	if (show_cursor) {
+		while (lw->selected < lw->start) {
+			lw->start--;
+			lw->clear=1;
+		}
+
+		while (lw->selected >= lw->start+lw->rows) {
+			lw->start++;
+			lw->clear=1;
+		}
 	}
-      while( lw->selected >= lw->start+lw->rows )
-	{
-	  lw->start++;
-	  lw->clear=1;
+
+	for (i = 0; i < lw->rows; i++) {
+		int highlight = 0;
+		char *label;
+
+		label = callback(lw->start + i, &highlight, callback_data);
+		wmove(lw->w, i, 0);
+		if( lw->clear && (!fill || !label) )
+			wclrtoeol(lw->w);
+
+		if (label) {
+			int selected = lw->start + i == lw->selected;
+			size_t len = my_strlen(label);
+
+			if( highlight )
+				colors_use(lw->w, COLOR_LIST_BOLD);
+			else
+				colors_use(lw->w, COLOR_LIST);
+
+			if( show_cursor && selected )
+				wattron(lw->w, A_REVERSE);
+
+			//waddnstr(lw->w, label, lw->cols);
+			waddstr(lw->w, label);
+			if( fill && len<lw->cols )
+				whline(lw->w,  ' ', lw->cols-len);
+
+			if( selected )
+				wattroff(lw->w, A_REVERSE);
+		}
 	}
-    }
-  
-  for(i=0; i<lw->rows; i++)
-    {
-      int highlight = 0;
-      char *label;
 
-      label = (callback) (lw->start+i, &highlight, callback_data);
-      wmove(lw->w, i, 0);
-      if( lw->clear && (!fill || !label) )
-	wclrtoeol(lw->w);
-      if( label )
-	{
-	  int selected = lw->start+i == lw->selected;
-	  size_t len = my_strlen(label);
-
-	  if( highlight )
-	    colors_use(lw->w, COLOR_LIST_BOLD);
-	  else
-	    colors_use(lw->w, COLOR_LIST);
-
-	  if( show_cursor && selected )
-	    wattron(lw->w, A_REVERSE);
-	  
-	  //waddnstr(lw->w, label, lw->cols);
-	  waddstr(lw->w, label);
-	   if( fill && len<lw->cols )
-	    whline(lw->w,  ' ', lw->cols-len);
-
-	  if( selected )
-	    wattroff(lw->w, A_REVERSE);	  
-	}
-	
-    }
-  lw->clear=0;
+	lw->clear=0;
 }
 
-
 int
-list_window_find(list_window_t *lw, 
+list_window_find(list_window_t *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
 		 char *str,
 		 int wrap)
 {
-  int h;
-  int i = lw->selected+1;
-  char *label;
-  
-  while( wrap || i==lw->selected+1 )
-    {
-      while( (label=(callback) (i,&h,callback_data)) )
-	{
-	  if( str && label && strcasestr(label, str) )
-	    {
-	      lw->selected = i;
-	      return 0;
-	    }
-	  if( wrap && i==lw->selected )
-	    return 1;
-	  i++;
+	int h;
+	int i = lw->selected + 1;
+	char *label;
+
+	while (wrap || i == lw->selected + 1) {
+		while ((label = callback(i,&h,callback_data))) {
+			if (str && label && strcasestr(label, str)) {
+				lw->selected = i;
+				return 0;
+			}
+			if (wrap && i == lw->selected)
+				return 1;
+			i++;
+		}
+		if (wrap) {
+			if (i == 0) /* empty list */
+				return 1;
+			i=0; /* first item */
+			screen_bell();
+		}
 	}
-      if( wrap )
-	{
-	  if ( i==0 ) /* empty list */
-	    return 1;
-	  i=0; /* first item */
-	  screen_bell();
-	}
-    }
-  return 1;
+
+	return 1;
 }
 
-
 int
-list_window_rfind(list_window_t *lw, 
+list_window_rfind(list_window_t *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data,
 		  char *str,
 		  int wrap,
 		  int rows)
 {
-  int h;
-  int i = lw->selected-1;
-  char *label;
+	int h;
+	int i = lw->selected-1;
+	char *label;
 
-  if ( rows == 0 )
-    return 1;
+	if (rows == 0)
+		return 1;
 
-  while( wrap || i==lw->selected-1 )
-    {
-      while( i>=0 && (label=(callback) (i,&h,callback_data)) )
-	{
-	  if( str && label && strcasestr(label, str) )
-	    {
-	      lw->selected = i;
-	      return 0;
-	    }
-	  if( wrap && i==lw->selected )
-	    return 1;
-	  i--;
+	while (wrap || i == lw->selected - 1) {
+		while (i >= 0 && (label = callback(i,&h,callback_data))) {
+			if( str && label && strcasestr(label, str) ) {
+				lw->selected = i;
+				return 0;
+			}
+			if (wrap && i == lw->selected)
+				return 1;
+			i--;
+		}
+		if (wrap) {
+			i = rows - 1; /* last item */
+			screen_bell();
+		}
 	}
-      if( wrap )
-	{
-	  i=rows-1; /* last item */
-	  screen_bell();
-	}
-    }
-  return 1;
+	return 1;
 }
-
 
 /* perform basic list window commands (movement) */
-int 
+int
 list_window_cmd(list_window_t *lw, int rows, command_t cmd)
 {
-  switch(cmd)
-    {
-    case CMD_LIST_PREVIOUS:
-      list_window_previous(lw, rows);
-      lw->repaint=1;
-      break;
-    case CMD_LIST_NEXT:
-      list_window_next(lw, rows);
-      lw->repaint=1;
-      break;
-    case CMD_LIST_FIRST:
-      list_window_first(lw);
-      lw->repaint  = 1;
-      break;
-    case CMD_LIST_LAST:
-      list_window_last(lw, rows);
-      lw->repaint = 1;
-      break;
-    case CMD_LIST_NEXT_PAGE:
-      list_window_next_page(lw, rows);
-      lw->repaint  = 1;
-      break;
-    case CMD_LIST_PREVIOUS_PAGE:
-      list_window_previous_page(lw);
-      lw->repaint  = 1;
-      break;
-    default:
-      return 0;
-    }
-  return 1;
+	switch (cmd) {
+	case CMD_LIST_PREVIOUS:
+		list_window_previous(lw, rows);
+		lw->repaint=1;
+		break;
+	case CMD_LIST_NEXT:
+		list_window_next(lw, rows);
+		lw->repaint=1;
+		break;
+	case CMD_LIST_FIRST:
+		list_window_first(lw);
+		lw->repaint  = 1;
+		break;
+	case CMD_LIST_LAST:
+		list_window_last(lw, rows);
+		lw->repaint = 1;
+		break;
+	case CMD_LIST_NEXT_PAGE:
+		list_window_next_page(lw, rows);
+		lw->repaint  = 1;
+		break;
+	case CMD_LIST_PREVIOUS_PAGE:
+		list_window_previous_page(lw);
+		lw->repaint  = 1;
+		break;
+	default:
+		return 0;
+	}
+
+	return 1;
 }
-
-
-
-
 
 list_window_state_t *
 list_window_init_state(void)
 {
-  return g_malloc0(sizeof(list_window_state_t));
+	return g_malloc0(sizeof(list_window_state_t));
 }
 
 list_window_state_t *

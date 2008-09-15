@@ -58,33 +58,32 @@
 #define NAME_BGCOLOR      "background"
 
 typedef struct {
-  short color;
-  short r,g,b;
+	short color;
+	short r,g,b;
 } color_definition_entry_t;
 
 typedef struct {
-  int    id;
-  char   *name;
-  short  fg;
-  attr_t attrs;
+	int id;
+	char *name;
+	short fg;
+	attr_t attrs;
 } color_entry_t;
 
 static color_entry_t colors[] = {
-
-  /* color pair,        field name,        color,            mono attribute */
-  /*-------------------------------------------------------------------------*/
-  { COLOR_TITLE,        NAME_TITLE,        COLOR_YELLOW,         A_NORMAL },
-  { COLOR_TITLE_BOLD,   NAME_TITLE_BOLD,   COLOR_BRIGHT_YELLOW,  A_BOLD },
-  { COLOR_LINE,         NAME_LINE,         COLOR_WHITE,          A_NORMAL },
-  { COLOR_LINE_BOLD,    NAME_LINE_BOLD,    COLOR_BRIGHT_WHITE,   A_BOLD },
-  { COLOR_LIST,         NAME_LIST,         COLOR_GREEN,          A_NORMAL },
-  { COLOR_LIST_BOLD,    NAME_LIST_BOLD,    COLOR_BRIGHT_GREEN,   A_BOLD },
-  { COLOR_PROGRESSBAR,  NAME_PROGRESS,     COLOR_WHITE,          A_NORMAL },
-  { COLOR_STATUS,       NAME_STATUS,       COLOR_YELLOW,         A_NORMAL },
-  { COLOR_STATUS_BOLD,  NAME_STATUS_BOLD,  COLOR_BRIGHT_YELLOW,  A_BOLD },
-  { COLOR_STATUS_TIME,  NAME_STATUS_TIME,  COLOR_RED,            A_NORMAL },
-  { COLOR_STATUS_ALERT, NAME_ALERT,        COLOR_BRIGHT_RED,     A_BOLD },
-  { 0,                  NULL,              0,                    0 }
+	/* color pair,        field name,        color,            mono attribute */
+	/*-------------------------------------------------------------------------*/
+	{ COLOR_TITLE,        NAME_TITLE,        COLOR_YELLOW,         A_NORMAL },
+	{ COLOR_TITLE_BOLD,   NAME_TITLE_BOLD,   COLOR_BRIGHT_YELLOW,  A_BOLD },
+	{ COLOR_LINE,         NAME_LINE,         COLOR_WHITE,          A_NORMAL },
+	{ COLOR_LINE_BOLD,    NAME_LINE_BOLD,    COLOR_BRIGHT_WHITE,   A_BOLD },
+	{ COLOR_LIST,         NAME_LIST,         COLOR_GREEN,          A_NORMAL },
+	{ COLOR_LIST_BOLD,    NAME_LIST_BOLD,    COLOR_BRIGHT_GREEN,   A_BOLD },
+	{ COLOR_PROGRESSBAR,  NAME_PROGRESS,     COLOR_WHITE,          A_NORMAL },
+	{ COLOR_STATUS,       NAME_STATUS,       COLOR_YELLOW,         A_NORMAL },
+	{ COLOR_STATUS_BOLD,  NAME_STATUS_BOLD,  COLOR_BRIGHT_YELLOW,  A_BOLD },
+	{ COLOR_STATUS_TIME,  NAME_STATUS_TIME,  COLOR_RED,            A_NORMAL },
+	{ COLOR_STATUS_ALERT, NAME_ALERT,        COLOR_BRIGHT_RED,     A_BOLD },
+	{ 0,                  NULL,              0,                    0 }
 };
 
 /* background color */

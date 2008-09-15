@@ -50,33 +50,30 @@ string_list_free(GList *string_list)
 GList *
 string_list_find(GList *string_list, gchar *str)
 {
-  GList *list = g_list_first(string_list);
+	GList *list = g_list_first(string_list);
 
-  while(list)
-    {
-      if( strcmp(str, (gchar *) list->data) ==  0 )
-	return list;
-      list = list->next;
-    }
-  return NULL;
+	while(list) {
+		if( strcmp(str, (gchar *) list->data) ==  0 )
+			return list;
+		list = list->next;
+	}
+	return NULL;
 }
 
 GList *
 string_list_remove(GList *string_list, gchar *str)
 {
-  GList *list = g_list_first(string_list);
+	GList *list = g_list_first(string_list);
 
-  while(list)
-    {
-      if( strcmp(str, (gchar *) list->data) ==  0 )
-	{
-	  g_free(list->data);
-	  list->data = NULL;
-	  return g_list_delete_link(string_list, list);
+	while(list) {
+		if( strcmp(str, (gchar *) list->data) ==  0 ) {
+			g_free(list->data);
+			list->data = NULL;
+			return g_list_delete_link(string_list, list);
+		}
+		list = list->next;
 	}
-      list = list->next;
-    }
-  return list;
+	return list;
 }
 
 /* create a list suiteble for GCompletion from path */

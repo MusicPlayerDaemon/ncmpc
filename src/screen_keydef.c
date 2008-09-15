@@ -185,44 +185,36 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
 static char *
 list_callback(int index, int *highlight, void *data)
 {
-  static char buf[BUFSIZE];
+	static char buf[BUFSIZE];
 
-  *highlight = 0;
-  if( subcmd <0 )
-    {
-      if( index<command_list_length )
-	{
-	  if( cmds[index].flags & COMMAND_KEY_CONFLICT )
-	    *highlight = 1;
-	  return cmds[index].name;
+	*highlight = 0;
+	if (subcmd < 0) {
+		if (index < command_list_length) {
+			if (cmds[index].flags & COMMAND_KEY_CONFLICT)
+				*highlight = 1;
+			return cmds[index].name;
+		} else if (index == LIST_ITEM_APPLY())
+			return LIST_ITEM_APPLY_LABEL;
+		else if (index == LIST_ITEM_SAVE())
+			return LIST_ITEM_SAVE_LABEL;
+	} else {
+		if (index == 0)
+			return "[..]";
+		index--;
+		if (index < MAX_COMMAND_KEYS && cmds[subcmd].keys[index] > 0) {
+			g_snprintf(buf,
+				   BUFSIZE, "%d. %-20s   (%d) ",
+				   index + 1,
+				   key2str(cmds[subcmd].keys[index]),
+				   cmds[subcmd].keys[index]);
+			return buf;
+		} else if (index == subcmd_addpos) {
+			g_snprintf(buf, BUFSIZE, _("%d. Add new key "), index + 1);
+			return buf;
+		}
 	}
-      else if( index==LIST_ITEM_APPLY() )
-	return LIST_ITEM_APPLY_LABEL;
-      else if( index==LIST_ITEM_SAVE() )
-	return LIST_ITEM_SAVE_LABEL;
-    }
-  else
-  {
-    if( index== 0 )
-      return "[..]";
-    index--;
-    if( index<MAX_COMMAND_KEYS && cmds[subcmd].keys[index]>0 )
-      {
-	g_snprintf(buf, 
-		   BUFSIZE, "%d. %-20s   (%d) ", 
-		   index+1, 
-		   key2str(cmds[subcmd].keys[index]),
-		   cmds[subcmd].keys[index]);
-	return buf;
-      } 
-    else if ( index==subcmd_addpos )
-      {
-	g_snprintf(buf, BUFSIZE, _("%d. Add new key "), index+1 );
-	return buf;
-      }
-  }
-  
-  return NULL;
+
+	return NULL;
 }
 
 static void 
@@ -312,70 +304,61 @@ keydef_update(screen_t *screen, mpdclient_t *c)
     }
 }
 
-static int 
+static int
 keydef_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
-  int length = LIST_LENGTH();
+	int length = LIST_LENGTH();
 
-  if( subcmd>=0 )
-    length = subcmd_length;
+	if (subcmd >= 0)
+		length = subcmd_length;
 
-  switch(cmd)
-    {
-    case CMD_PLAY:
-      if( subcmd<0 )
-	{
-	  if( lw->selected == LIST_ITEM_APPLY() )
-	    apply_keys();
-	  else if( lw->selected == LIST_ITEM_SAVE() )
-	    {
-	      apply_keys();
-	      save_keys();
-	    }
-	  else
-	    {
-	      subcmd = lw->selected;
-	      lw->selected=0;
-	      check_subcmd_length();
-	    }
+	switch(cmd) {
+	case CMD_PLAY:
+		if( subcmd<0 ) {
+			if( lw->selected == LIST_ITEM_APPLY() )
+				apply_keys();
+			else if( lw->selected == LIST_ITEM_SAVE() ) {
+				apply_keys();
+				save_keys();
+			} else {
+				subcmd = lw->selected;
+				lw->selected=0;
+				check_subcmd_length();
+			}
+		} else {
+			if (lw->selected == 0) { /* up */
+				lw->selected = subcmd;
+				subcmd = -1;
+			} else
+				assign_new_key(screen->status_window.w,
+					       subcmd,
+					       lw->selected-STATIC_SUB_ITEMS);
+		}
+		lw->repaint = 1;
+		lw->clear = 1;
+		return 1;
+	case CMD_DELETE:
+		if (subcmd >= 0 && lw->selected - STATIC_SUB_ITEMS >= 0)
+			delete_key(subcmd, lw->selected - STATIC_SUB_ITEMS);
+		return 1;
+		break;
+	case CMD_SAVE_PLAYLIST:
+		apply_keys();
+		save_keys();
+		break;
+	case CMD_LIST_FIND:
+	case CMD_LIST_RFIND:
+	case CMD_LIST_FIND_NEXT:
+	case CMD_LIST_RFIND_NEXT:
+		return screen_find(screen,
+				   lw,  length,
+				   cmd, list_callback, NULL);
+
+	default:
+		break;
 	}
-      else
-	{
-	  if( lw->selected == 0 ) /* up */
-	    {
-	      lw->selected = subcmd;
-	      subcmd = -1;
-	    }
-	  else
-	    assign_new_key(screen->status_window.w, 
-			   subcmd,
-			   lw->selected-STATIC_SUB_ITEMS);
-	}
-      lw->repaint = 1;
-      lw->clear = 1;
-      return 1;
-    case CMD_DELETE:
-      if( subcmd>=0 && lw->selected-STATIC_SUB_ITEMS>=0 )
-	delete_key(subcmd, lw->selected-STATIC_SUB_ITEMS);
-      return 1;
-      break;
-    case CMD_SAVE_PLAYLIST:
-      apply_keys();
-      save_keys();
-      break;
-    case CMD_LIST_FIND:
-    case CMD_LIST_RFIND:
-    case CMD_LIST_FIND_NEXT:
-    case CMD_LIST_RFIND_NEXT:
-      return screen_find(screen,
-			 lw,  length,
-			 cmd, list_callback, NULL);
 
-    default:
-      break;
-    }
-
-  return list_window_cmd(lw, length, cmd);
+	return list_window_cmd(lw, length, cmd);
 }
 
 static list_window_t *

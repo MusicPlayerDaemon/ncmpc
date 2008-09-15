@@ -15,11 +15,9 @@ char *remove_trailing_slash(char *path);
 char *lowerstr(char *str);
 char *strcasestr(const char *haystack, const char *needle);
 
-typedef struct
-{
-  int offset;
-  GTime t; /* GTime is equivalent to time_t */
-
+typedef struct {
+	int offset;
+	GTime t; /* GTime is equivalent to time_t */
 } scroll_state_t;
 
 char *strscroll(char *str, char *separator, int width, scroll_state_t *st);

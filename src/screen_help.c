@@ -31,11 +31,10 @@
 #include "screen_utils.h"
 
 
-typedef struct
-{
-  signed char highlight;
-  command_t command;
-  char *text;
+typedef struct {
+	signed char highlight;
+	command_t command;
+	char *text;
 } help_text_row_t;
 
 static help_text_row_t help_text[] = 
@@ -150,50 +149,45 @@ static list_window_t *lw = NULL;
 static char *
 list_callback(int index, int *highlight, void *data)
 {
-  static char buf[512];
+	static char buf[512];
 
-  if( help_text_rows<0 )
-    {
-      help_text_rows = 0;
-      while( help_text[help_text_rows].highlight != -1 )
-	help_text_rows++;
-    }
-
-  *highlight = 0;
-  if( index<help_text_rows )
-    {
-      *highlight = help_text[index].highlight > 0;
-      if( help_text[index].command == CMD_NONE )
-	{
-	  if( help_text[index].text )
-	    g_snprintf(buf, sizeof(buf), "      %s", _(help_text[index].text));
-	  else 
-	    if( help_text[index].highlight == 2 )
-	      {
-		int i;
-
-		for(i=3; i<COLS-3 && i<sizeof(buf); i++)
-		  buf[i]='-';
-		buf[i] = '\0';
-	      }
-	    else
-	      g_strlcpy(buf, " ", sizeof(buf));
-	  return buf;
+	if (help_text_rows < 0) {
+		help_text_rows = 0;
+		while (help_text[help_text_rows].highlight != -1)
+			help_text_rows++;
 	}
-      if( help_text[index].text )
-	g_snprintf(buf, sizeof(buf), 
-		   "%20s : %s   ", 
-		   get_key_names(help_text[index].command, TRUE),
-		   _(help_text[index].text));
-      else
-	g_snprintf(buf, sizeof(buf), 
-		   "%20s : %s   ", 
-		   get_key_names(help_text[index].command, TRUE),
-		   get_key_description(help_text[index].command));
-      return buf;
-    }
 
-  return NULL;
+	*highlight = 0;
+	if (index < help_text_rows) {
+		*highlight = help_text[index].highlight > 0;
+		if (help_text[index].command == CMD_NONE) {
+			if (help_text[index].text)
+				g_snprintf(buf, sizeof(buf), "      %s", _(help_text[index].text));
+			else if (help_text[index].highlight == 2) {
+				int i;
+
+				for (i = 3; i < COLS - 3 && i < sizeof(buf); i++)
+					buf[i] = '-';
+				buf[i] = '\0';
+			} else
+				g_strlcpy(buf, " ", sizeof(buf));
+			return buf;
+		}
+
+		if (help_text[index].text)
+			g_snprintf(buf, sizeof(buf),
+				   "%20s : %s   ",
+				   get_key_names(help_text[index].command, TRUE),
+				   _(help_text[index].text));
+		else
+			g_snprintf(buf, sizeof(buf),
+				   "%20s : %s   ",
+				   get_key_names(help_text[index].command, TRUE),
+				   get_key_description(help_text[index].command));
+		return buf;
+	}
+
+	return NULL;
 }
 
 static void
@@ -220,107 +214,104 @@ help_exit(void)
 static char *
 help_title(char *str, size_t size)
 {
-  return _("Help");
+	return _("Help");
 }
 
-static void 
+static void
 help_paint(screen_t *screen, mpdclient_t *c)
 {
-  lw->clear = 1;
-  list_window_paint(lw, list_callback, NULL);
-  wrefresh(lw->w);
+	lw->clear = 1;
+	list_window_paint(lw, list_callback, NULL);
+	wrefresh(lw->w);
 }
 
-static void 
+static void
 help_update(screen_t *screen, mpdclient_t *c)
-{  
-  if( lw->repaint )
-    {
-      list_window_paint(lw, list_callback, NULL);
-      wrefresh(lw->w);
-      lw->repaint = 0;
-    }
+{
+	if (lw->repaint) {
+		list_window_paint(lw, list_callback, NULL);
+		wrefresh(lw->w);
+		lw->repaint = 0;
+	}
 }
 
 
-static int 
+static int
 help_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
-  lw->repaint=1;
-  lw->clear=1;
-  switch(cmd)
-    {
-    case CMD_LIST_NEXT:
-      if( lw->start+lw->rows < help_text_rows )
-	lw->start++;
-      return 1;
-    case CMD_LIST_PREVIOUS:
-      if( lw->start >0 )
-	lw->start--;
-      return 1;
-    case CMD_LIST_FIRST:
-      lw->start = 0;
-      return 1;
-    case CMD_LIST_LAST:
-      lw->start = help_text_rows-lw->rows;
-      if( lw->start<0 )
-	lw->start = 0;
-      return 1;
-    case CMD_LIST_NEXT_PAGE:
-      lw->start = lw->start + lw->rows;
-      if( lw->start+lw->rows >= help_text_rows )
-	lw->start = help_text_rows-lw->rows;
-      if( lw->start<0 )
-	lw->start = 0;
-       return 1;
-    case CMD_LIST_PREVIOUS_PAGE:
-      lw->start = lw->start - lw->rows;
-      if( lw->start<0 )
-	lw->start = 0;
-      return 1;
-    default:
-      break;
-    }
+	lw->repaint=1;
+	lw->clear=1;
+	switch(cmd) {
+	case CMD_LIST_NEXT:
+		if (lw->start + lw->rows < help_text_rows)
+			lw->start++;
+		return 1;
+	case CMD_LIST_PREVIOUS:
+		if (lw->start > 0)
+			lw->start--;
+		return 1;
+	case CMD_LIST_FIRST:
+		lw->start = 0;
+		return 1;
+	case CMD_LIST_LAST:
+		lw->start = help_text_rows - lw->rows;
+		if (lw->start < 0)
+			lw->start = 0;
+		return 1;
+	case CMD_LIST_NEXT_PAGE:
+		lw->start = lw->start + lw->rows;
+		if (lw->start + lw->rows >= help_text_rows)
+			lw->start = help_text_rows - lw->rows;
+		if (lw->start < 0)
+			lw->start = 0;
+		return 1;
+	case CMD_LIST_PREVIOUS_PAGE:
+		lw->start = lw->start - lw->rows;
+		if (lw->start < 0)
+			lw->start = 0;
+		return 1;
+	default:
+		break;
+	}
 
-  lw->selected = lw->start+lw->rows;
-  if( screen_find(screen,
-		  lw,  help_text_rows,
-		  cmd, list_callback, NULL) )
-    {
-      /* center the row */
-      lw->start = lw->selected-(lw->rows/2);
-      if( lw->start+lw->rows > help_text_rows )
-	lw->start = help_text_rows-lw->rows;
-      if( lw->start<0 )
-	lw->start=0;
-      return 1;
-    }
+	lw->selected = lw->start+lw->rows;
+	if (screen_find(screen,
+			lw,  help_text_rows,
+			cmd, list_callback, NULL)) {
+		/* center the row */
+		lw->start = lw->selected - (lw->rows / 2);
+		if (lw->start + lw->rows > help_text_rows)
+			lw->start = help_text_rows - lw->rows;
+		if (lw->start < 0)
+			lw->start = 0;
+		return 1;
+	}
 
-  return 0;
+	return 0;
 }
 
 static list_window_t *
 help_lw(void)
 {
-  return lw;
+	return lw;
 }
 
 screen_functions_t *
 get_screen_help(void)
 {
-  static screen_functions_t functions;
+	static screen_functions_t functions;
 
-  memset(&functions, 0, sizeof(screen_functions_t));
-  functions.init   = help_init;
-  functions.exit   = help_exit;
-  functions.open   = NULL;
-  functions.close  = NULL;
-  functions.resize = help_resize;
-  functions.paint  = help_paint;
-  functions.update = help_update;
-  functions.cmd    = help_cmd;
-  functions.get_lw = help_lw;
-  functions.get_title = help_title;
+	memset(&functions, 0, sizeof(screen_functions_t));
+	functions.init   = help_init;
+	functions.exit   = help_exit;
+	functions.open   = NULL;
+	functions.close  = NULL;
+	functions.resize = help_resize;
+	functions.paint  = help_paint;
+	functions.update = help_update;
+	functions.cmd    = help_cmd;
+	functions.get_lw = help_lw;
+	functions.get_title = help_title;
 
-  return &functions;
+	return &functions;
 }

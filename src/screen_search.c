@@ -45,11 +45,10 @@
 
 extern gint mpdclient_finish_command(mpdclient_t *c);
 
-typedef struct
-{
-  int id;
-  char *name;
-  char *localname;
+typedef struct {
+	int id;
+	char *name;
+	char *localname;
 } search_tag_t;
 
 static search_tag_t search_tag[] = {
@@ -94,8 +93,8 @@ search_get_tag_id(char *name)
 #define SEARCH_ARTIST_TITLE 999
 
 typedef struct {
-  int table;
-  char *label;
+	int table;
+	char *label;
 } search_type_t;
 
 static search_type_t mode[] = {
@@ -118,27 +117,27 @@ static gboolean advanced_search_mode = FALSE;
 static char *
 lw_search_help_callback(int index, int *highlight, void *data)
 {
-  int text_rows;
-  static char *text[] = {
-    "Quick  - just enter a string and ncmpc will search according",
-    "               to the current search mode (displayed above).",
-    "",
-    "Advanced  -  <tag>:<search term> [<tag>:<search term>...]",
-    "			Example: artist:radiohead album:pablo honey",
-    "",
-    "		   avalible tags: artist, album, title, track,", 
-    "	           name, genre, date composer, performer, comment, file",
-    "",
-    NULL
-  };
+	int text_rows;
+	static char *text[] = {
+		"Quick  - just enter a string and ncmpc will search according",
+		"               to the current search mode (displayed above).",
+		"",
+		"Advanced  -  <tag>:<search term> [<tag>:<search term>...]",
+		"			Example: artist:radiohead album:pablo honey",
+		"",
+		"		   avalible tags: artist, album, title, track,",
+		"	           name, genre, date composer, performer, comment, file",
+		"",
+		NULL
+	};
 
-  text_rows=0;
-  while( text[text_rows] )
-    text_rows++;
-  
-  if( index < text_rows )
-    return text[index];
-  return NULL;
+	text_rows=0;
+	while (text[text_rows])
+		text_rows++;
+
+	if (index < text_rows)
+		return text[index];
+	return NULL;
 }
 
 /* the playlist have been updated -> fix highlights */
@@ -220,116 +219,103 @@ filelist_search(mpdclient_t *c, int exact_match, int table, gchar *pattern)
 static mpdclient_filelist_t *
 search_advanced_query(char *query, mpdclient_t *c)
 {
-  int i,j;
-  char **strv;
-  int table[10];
-  char *arg[10];
-  mpdclient_filelist_t *filelist = NULL;
+	int i,j;
+	char **strv;
+	int table[10];
+	char *arg[10];
+	mpdclient_filelist_t *filelist = NULL;
 
-  advanced_search_mode = FALSE;
-  if( g_strrstr(query, ":") == NULL )
-    return NULL;
-  
-  strv = g_strsplit_set(query, ": ", 0);
+	advanced_search_mode = FALSE;
+	if( g_strrstr(query, ":") == NULL )
+		return NULL;
 
-  i=0;
-  while( strv[i] )
-    {
-      D("strv[%d] = \"%s\"\n", i, strv[i]);
-      i++;
-    }
+	strv = g_strsplit_set(query, ": ", 0);
 
-  memset(table, 0, 10*sizeof(int));
-  memset(arg,   0, 10*sizeof(char *));
-
-  i=0;
-  j=0;
-  while( strv[i] && strlen(strv[i])>0 && i<9 )
-    {
-      D("strv[%d] = \"%s\"\n", i, strv[i]);
-
-      int id = search_get_tag_id(strv[i]);
-      if( id==-1 )
-	{
-	  if( table[j] )
-	    {
-	      char *tmp = arg[j];
-	      arg[j] = g_strdup_printf("%s %s", arg[j], strv[i]);
-	      g_free(tmp);
-	    }
-	  else
-	    {
-	      D("Bad search tag %s\n", strv[i]);
-	      screen_status_printf(_("Bad search tag %s"), strv[i]);
-	    }
-	  i++;
+	i=0;
+	while (strv[i]) {
+		D("strv[%d] = \"%s\"\n", i, strv[i]);
+		i++;
 	}
-      else if( strv[i+1] == NULL || strlen(strv[i+1])==0 )
-	{
-	  D("No argument for search tag %s\n", strv[i]);
-	  screen_status_printf(_("No argument for search tag %s"), strv[i]);
-	  i++;
-	  //	  j--;
-	  //table[j] = -1;
+
+	memset(table, 0, 10*sizeof(int));
+	memset(arg, 0, 10*sizeof(char *));
+
+	i=0;
+	j=0;
+	while (strv[i] && strlen(strv[i]) > 0 && i < 9) {
+		D("strv[%d] = \"%s\"\n", i, strv[i]);
+
+		int id = search_get_tag_id(strv[i]);
+		if (id == -1) {
+			if (table[j]) {
+				char *tmp = arg[j];
+				arg[j] = g_strdup_printf("%s %s", arg[j], strv[i]);
+				g_free(tmp);
+			} else {
+				D("Bad search tag %s\n", strv[i]);
+				screen_status_printf(_("Bad search tag %s"), strv[i]);
+			}
+			i++;
+		} else if (strv[i+1] == NULL || strlen(strv[i+1]) == 0) {
+			D("No argument for search tag %s\n", strv[i]);
+			screen_status_printf(_("No argument for search tag %s"), strv[i]);
+			i++;
+			//	  j--;
+			//table[j] = -1;
+		} else {
+			table[j] = id;
+			arg[j] = locale_to_utf8(strv[i+1]); // FREE ME
+			j++;
+			table[j] = -1;
+			arg[j] = NULL;
+			i = i + 2;
+			advanced_search_mode = TRUE;
+		}
 	}
-      else
-	{
-	  table[j] = id;
-	  arg[j] = locale_to_utf8(strv[i+1]); // FREE ME
-	  j++;
-	  table[j] = -1;
-	  arg[j] = NULL;
-	  i = i + 2;
-	  advanced_search_mode = TRUE;
-	}     
-    }
 
-  g_strfreev(strv);
+	g_strfreev(strv);
 
 
-  if( advanced_search_mode && j>0 )
-    {
-      /*-----------------------------------------------------------------------
-       * NOTE (again): This code exists to test a new search ui,
-       *               Its ugly and MUST be redesigned before the next release!
-       *             + the code below should live in mpdclient.c
-       *-----------------------------------------------------------------------
-       */
-      /** stupid - but this is just a test...... (fulhack)  */
-          mpd_startSearch(c->connection, FALSE);
+	if (advanced_search_mode && j > 0) {
+		/*-----------------------------------------------------------------------
+		 * NOTE (again): This code exists to test a new search ui,
+		 *               Its ugly and MUST be redesigned before the next release!
+		 *             + the code below should live in mpdclient.c
+		 *-----------------------------------------------------------------------
+		 */
+		/** stupid - but this is just a test...... (fulhack)  */
+		mpd_startSearch(c->connection, FALSE);
 
-	  int iter;
-	  for(iter = 0; iter < 10; iter++)
-	  {
-	  	  mpd_addConstraintSearch(c->connection, table[iter], arg[iter]);
-	  }		  
-			
-	  mpd_commitSearch(c->connection);
-	  
-      filelist = g_malloc0(sizeof(mpdclient_filelist_t));
+		int iter;
+		for(iter = 0; iter < 10; iter++) {
+			mpd_addConstraintSearch(c->connection, table[iter], arg[iter]);
+		}
 
-      mpd_InfoEntity *entity;
+		mpd_commitSearch(c->connection);
 
-      while( (entity=mpd_getNextInfoEntity(c->connection)) ) 
-	{
-	  filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
-      
-	  entry->entity = entity;
-	  filelist->list = g_list_append(filelist->list, (gpointer) entry);
-	  filelist->length++;
+		filelist = g_malloc0(sizeof(mpdclient_filelist_t));
+
+		mpd_InfoEntity *entity;
+
+		while ((entity=mpd_getNextInfoEntity(c->connection)))  {
+			filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
+
+			entry->entity = entity;
+			filelist->list = g_list_append(filelist->list, (gpointer) entry);
+			filelist->length++;
+		}
+
+		if (mpdclient_finish_command(c) && filelist)
+			filelist = mpdclient_filelist_free(filelist);
+
+		filelist->updated = TRUE;
 	}
-  
-      if( mpdclient_finish_command(c) && filelist )
-	filelist = mpdclient_filelist_free(filelist);
 
-      filelist->updated = TRUE;
-    } 
-  
-  i=0;
-  while( arg[i] )
-    g_free(arg[i++]);
+	i=0;
+	while( arg[i] )
+		g_free(arg[i++]);
 
-  return filelist;
+	return filelist;
 }
 #else
 #define search_advanced_query(pattern,c) (NULL)
@@ -470,7 +456,7 @@ get_title(char *str, size_t size)
 static list_window_t *
 get_filelist_window()
 {
-  return lw;
+	return lw;
 }
 
 static int 

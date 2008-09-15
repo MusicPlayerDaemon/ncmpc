@@ -88,285 +88,270 @@ extern gint screen_get_id(char *name);
 static gboolean
 str2bool(char *str)
 {
-  if( !strcasecmp(str,"yes")  || !strcasecmp(str,"true") || 
-      !strcasecmp(str,"on")   || !strcasecmp(str,"1") )
-    return TRUE;
-  return FALSE;
+	if (!strcasecmp(str, "yes") || !strcasecmp(str, "true") ||
+	    !strcasecmp(str, "on") || !strcasecmp(str, "1"))
+		return TRUE;
+	return FALSE;
 }
 
 static int
 parse_key_value(char *str, size_t len, char **end)
 {
-  int i, value;
-  key_parser_state_t state;
+	int i, value;
+	key_parser_state_t state;
 
-  i=0;
-  value=0;
-  state=KEY_PARSER_UNKNOWN;
-  *end = str;
+	i=0;
+	value=0;
+	state=KEY_PARSER_UNKNOWN;
+	*end = str;
 
-  while( i<len && state!=KEY_PARSER_DONE )
-    {
-      int next = 0;
-      int c = str[i];
+	while (i < len && state != KEY_PARSER_DONE) {
+		int next = 0;
+		int c = str[i];
 
-      if( i+1<len )
-	next = str[i+1];
+		if( i+1<len )
+			next = str[i+1];
 
-      switch(state)
-	{
-	case KEY_PARSER_UNKNOWN:
-	  if( c=='\'' )
-	    state = KEY_PARSER_CHAR;
-	  else if( c=='0' && next=='x' )
-	    state = KEY_PARSER_HEX;
-	  else if( isdigit(c) )
-	    state = KEY_PARSER_DEC;
-	  else {
-	    fprintf(stderr,
-		    _("Error: Unsupported key definition - %s\n"), 
-		    str);
-	    return -1;
-	  }
-	  break;
-	case KEY_PARSER_CHAR:
-	  if( next!='\'' )
-	    {
-	      fprintf(stderr,
-		      _("Error: Unsupported key definition - %s\n"), 
-		      str);
-	      return -1;
-	    }
-	  value = c;
-	  *end = str+i+2;
-	  state = KEY_PARSER_DONE;
-	  break;
-	case KEY_PARSER_DEC:
-	  value = (int) strtol(str+(i-1), end, 10);
-	  state = KEY_PARSER_DONE;
-	  break;
-	case KEY_PARSER_HEX:
-	  if( !isdigit(next) )
-	    {
-	      fprintf(stderr,_("Error: Digit expected after 0x - %s\n"), str);
-	      return -1;
-	    }
-	  value = (int) strtol(str+(i+1), end, 16);
-	  state = KEY_PARSER_DONE;
-	  break;
-	case KEY_PARSER_DONE:
-	  break;
+		switch(state) {
+		case KEY_PARSER_UNKNOWN:
+			if( c=='\'' )
+				state = KEY_PARSER_CHAR;
+			else if( c=='0' && next=='x' )
+				state = KEY_PARSER_HEX;
+			else if( isdigit(c) )
+				state = KEY_PARSER_DEC;
+			else {
+				fprintf(stderr,
+					_("Error: Unsupported key definition - %s\n"),
+					str);
+				return -1;
+			}
+			break;
+		case KEY_PARSER_CHAR:
+			if( next!='\'' ) {
+				fprintf(stderr,
+					_("Error: Unsupported key definition - %s\n"),
+					str);
+				return -1;
+			}
+			value = c;
+			*end = str+i+2;
+			state = KEY_PARSER_DONE;
+			break;
+		case KEY_PARSER_DEC:
+			value = (int) strtol(str+(i-1), end, 10);
+			state = KEY_PARSER_DONE;
+			break;
+		case KEY_PARSER_HEX:
+			if( !isdigit(next) ) {
+				fprintf(stderr,_("Error: Digit expected after 0x - %s\n"), str);
+				return -1;
+			}
+			value = (int) strtol(str+(i+1), end, 16);
+			state = KEY_PARSER_DONE;
+			break;
+		case KEY_PARSER_DONE:
+			break;
+		}
+		i++;
 	}
-      i++;
-    }
 
-  if( *end> str+len )
-    *end = str+len;
+	if( *end> str+len )
+		*end = str+len;
 
-  return value;
+	return value;
 }
 
 static int
 parse_key_definition(char *str)
 {
-  char buf[MAX_LINE_LENGTH];
-  char *p, *end;
-  size_t len = strlen(str);
-  int i,j,key;
-  int keys[MAX_COMMAND_KEYS];
-  command_t cmd;
+	char buf[MAX_LINE_LENGTH];
+	char *p, *end;
+	size_t len = strlen(str);
+	int i,j,key;
+	int keys[MAX_COMMAND_KEYS];
+	command_t cmd;
 
-  /* get the command name */
-  i=0;
-  j=0;
-  memset(buf, 0, MAX_LINE_LENGTH);
-  while( i<len && str[i]!='=' && !IS_WHITESPACE(str[i]) )
-    buf[j++] = str[i++];
-  if( (cmd=get_key_command_from_name(buf)) == CMD_NONE )
-    {
-      fprintf(stderr, _("Error: Unknown key command %s\n"), buf);
-      return -1;
-    }
+	/* get the command name */
+	i=0;
+	j=0;
+	memset(buf, 0, MAX_LINE_LENGTH);
+	while( i<len && str[i]!='=' && !IS_WHITESPACE(str[i]) )
+		buf[j++] = str[i++];
+	if( (cmd=get_key_command_from_name(buf)) == CMD_NONE ) {
+		fprintf(stderr, _("Error: Unknown key command %s\n"), buf);
+		return -1;
+	}
 
-  /* skip whitespace */
-  while( i<len && (str[i]=='=' || IS_WHITESPACE(str[i])) )
-    i++;
+	/* skip whitespace */
+	while( i<len && (str[i]=='=' || IS_WHITESPACE(str[i])) )
+		i++;
 
-  /* get the value part */
-  memset(buf, 0, MAX_LINE_LENGTH);
-  g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
-  len = strlen(buf);
-  if( len==0 )
-    {
-      fprintf(stderr,_("Error: Incomplete key definition - %s\n"), str);
-      return -1;
-    }
+	/* get the value part */
+	memset(buf, 0, MAX_LINE_LENGTH);
+	g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
+	len = strlen(buf);
+	if( len==0 ) {
+		fprintf(stderr,_("Error: Incomplete key definition - %s\n"), str);
+		return -1;
+	}
 
-  /* parse key values */
-  i = 0;
-  key = 0;
-  len = strlen(buf);
-  p = buf;
-  end = buf+len;
-  memset(keys, 0, sizeof(int)*MAX_COMMAND_KEYS);
-  while( i<MAX_COMMAND_KEYS && p<end && (key=parse_key_value(p,len+1,&p))>=0 )
-    {
-      keys[i++] = key;
-      while( p<end && (*p==',' || *p==' ' || *p=='\t') )
-	p++;
-      len = strlen(p);
-    } 
-  if( key<0 )
-    {
-      fprintf(stderr,_("Error: Bad key definition - %s\n"), str);
-      return -1;
-    }
+	/* parse key values */
+	i = 0;
+	key = 0;
+	len = strlen(buf);
+	p = buf;
+	end = buf+len;
+	memset(keys, 0, sizeof(int)*MAX_COMMAND_KEYS);
+	while( i<MAX_COMMAND_KEYS && p<end &&
+	       (key=parse_key_value(p,len+1,&p))>=0 ) {
+		keys[i++] = key;
+		while( p<end && (*p==',' || *p==' ' || *p=='\t') )
+			p++;
+		len = strlen(p);
+	}
+	if( key<0 ) {
+		fprintf(stderr,_("Error: Bad key definition - %s\n"), str);
+		return -1;
+	}
 
-  return assign_keys(cmd, keys);
+	return assign_keys(cmd, keys);
 }
 
 static char *
 parse_timedisplay_type(char *str)
 {
- if((!strcmp(str,"elapsed")) || (!strcmp(str,"remaining"))){
-   return str;
- } else {
-   fprintf(stderr,_("Error: Bad time display type - %s\n"), str);
-   return DEFAULT_TIMEDISPLAY_TYPE;
- }
+	if((!strcmp(str,"elapsed")) || (!strcmp(str,"remaining"))){
+		return str;
+	} else {
+		fprintf(stderr,_("Error: Bad time display type - %s\n"), str);
+		return DEFAULT_TIMEDISPLAY_TYPE;
+	}
 }
 
 static int
 parse_color(char *str)
 {
-  char *name = str;
-  char *value = NULL;
-  int len,i;
+	char *name = str;
+	char *value = NULL;
+	int len,i;
 
-  i=0;
-  len=strlen(str);
-  /* get the color name */
-  while( i<len && str[i]!='=' && !IS_WHITESPACE(str[i]) )
-    i++;
-  
-  /* skip whitespace */
-  while( i<len && (str[i]=='=' || IS_WHITESPACE(str[i])) )
-    {
-      str[i]='\0';
-      i++;
-    } 
-  
-  if( i<len )
-    value = str+i;
+	i=0;
+	len=strlen(str);
+	/* get the color name */
+	while( i<len && str[i]!='=' && !IS_WHITESPACE(str[i]) )
+		i++;
 
-  return colors_assign(name, value);
+	/* skip whitespace */
+	while( i<len && (str[i]=='=' || IS_WHITESPACE(str[i])) ) {
+		str[i]='\0';
+		i++;
+	}
+
+	if( i<len )
+		value = str+i;
+
+	return colors_assign(name, value);
 }
 
 static int
 parse_color_definition(char *str)
 {
-  char buf[MAX_LINE_LENGTH];
-  char *p, *end, *name;
-  size_t len = strlen(str);
-  int i,j,value;
-  short color, rgb[3];
+	char buf[MAX_LINE_LENGTH];
+	char *p, *end, *name;
+	size_t len = strlen(str);
+	int i,j,value;
+	short color, rgb[3];
 
-  /* get the command name */
-  i=0;
-  j=0;
-  memset(buf, 0, MAX_LINE_LENGTH);
-  while( i<len && str[i]!='=' && !IS_WHITESPACE(str[i]) )
-    buf[j++] = str[i++];
-  color=colors_str2color(buf);
-  if( color<0 )
-    {
-      fprintf(stderr,_("Error: Bad color %s [%d]\n"), buf, color);
-      return -1;
-    }
-  name = g_strdup(buf);
+	/* get the command name */
+	i=0;
+	j=0;
+	memset(buf, 0, MAX_LINE_LENGTH);
+	while( i<len && str[i]!='=' && !IS_WHITESPACE(str[i]) )
+		buf[j++] = str[i++];
+	color=colors_str2color(buf);
+	if( color<0 ) {
+		fprintf(stderr,_("Error: Bad color %s [%d]\n"), buf, color);
+		return -1;
+	}
+	name = g_strdup(buf);
 
-  /* skip whitespace */
-  while( i<len && (str[i]=='=' || IS_WHITESPACE(str[i])) )
-    i++;
+	/* skip whitespace */
+	while( i<len && (str[i]=='=' || IS_WHITESPACE(str[i])) )
+		i++;
 
-  /* get the value part */
-  memset(buf, 0, MAX_LINE_LENGTH);
-  g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
-  len = strlen(buf);
-  if( len==0 )
-    {
-      fprintf(stderr,_("Error: Incomplete color definition - %s\n"), str);
-      g_free(name);
-      return -1;
-    }
+	/* get the value part */
+	memset(buf, 0, MAX_LINE_LENGTH);
+	g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
+	len = strlen(buf);
+	if( len==0 ) {
+		fprintf(stderr,_("Error: Incomplete color definition - %s\n"), str);
+		g_free(name);
+		return -1;
+	}
 
-  /* parse r,g.b values with the key definition parser */
-  i = 0;
-  value = 0;
-  len = strlen(buf);
-  p = buf;
-  end = buf+len;
-  memset(rgb, 0, sizeof(short)*3);
-  while( i<3 && p<end && (value=parse_key_value(p,len+1,&p))>=0 )
-    {
-      rgb[i++] = value;
-      while( p<end && (*p==',' || *p==' ' || *p=='\t') )
-	p++;
-      len = strlen(p);
-    } 
-  if( value<0 || i!=3)
-    {
-      fprintf(stderr,_("Error: Bad color definition - %s\n"), str);
-      g_free(name);
-      return -1;
-    }
-  value = colors_define(name, rgb[0], rgb[1], rgb[2]);
-  g_free(name);
-  return value;
+	/* parse r,g.b values with the key definition parser */
+	i = 0;
+	value = 0;
+	len = strlen(buf);
+	p = buf;
+	end = buf+len;
+	memset(rgb, 0, sizeof(short)*3);
+	while( i<3 && p<end && (value=parse_key_value(p,len+1,&p))>=0 ) {
+		rgb[i++] = value;
+		while( p<end && (*p==',' || *p==' ' || *p=='\t') )
+			p++;
+		len = strlen(p);
+	}
+	if( value<0 || i!=3) {
+		fprintf(stderr,_("Error: Bad color definition - %s\n"), str);
+		g_free(name);
+		return -1;
+	}
+	value = colors_define(name, rgb[0], rgb[1], rgb[2]);
+	g_free(name);
+	return value;
 }
 
 static char *
 get_format(char *str)
 {
-  gsize len = strlen(str);
+	gsize len = strlen(str);
 
-  if( str && str[0]=='\"' && str[len-1] == '\"' )
-    {
-      str[len-1] = '\0';
-      str++;
-    }
-  return g_strdup(str);
+	if( str && str[0]=='\"' && str[len-1] == '\"' ) {
+		str[len-1] = '\0';
+		str++;
+	}
+	return g_strdup(str);
 }
 
 static char **
 check_screen_list(char *value)
 {
-  char **tmp = g_strsplit_set(value, " \t,", 100);
-  char **screen = NULL;
-  int i,j;
+	char **tmp = g_strsplit_set(value, " \t,", 100);
+	char **screen = NULL;
+	int i,j;
 
-  i=0;
-  j=0;
-  while( tmp && tmp[i] )
-    {
-      tmp[i] = lowerstr(tmp[i]);
-      if( screen_get_id(tmp[i]) == -1 )
-	fprintf(stderr,
-		_("Error: Unsupported screen \"%s\"\n"), 
-		tmp[i]);
-      else
-	{
-	  screen = g_realloc(screen, (j+2)*sizeof(char *));
-	  screen[j++] = g_strdup(tmp[i]);
-	  screen[j] = NULL;
+	i=0;
+	j=0;
+	while( tmp && tmp[i] ) {
+		tmp[i] = lowerstr(tmp[i]);
+		if( screen_get_id(tmp[i]) == -1 )
+			fprintf(stderr,
+				_("Error: Unsupported screen \"%s\"\n"),
+				tmp[i]);
+		else {
+			screen = g_realloc(screen, (j+2)*sizeof(char *));
+			screen[j++] = g_strdup(tmp[i]);
+			screen[j] = NULL;
+		}
+		i++;
 	}
-      i++;
-    }
-  g_strfreev(tmp);
-  if( screen == NULL )
-    return g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
+	g_strfreev(tmp);
+	if( screen == NULL )
+		return g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
 
-  return screen;
+	return screen;
 }
 
 static int
@@ -613,23 +598,23 @@ read_rc_file(char *filename, options_t *options)
 int
 check_user_conf_dir(void)
 {
-  int retval;
-  char *dirname = g_build_filename(g_get_home_dir(), "." PACKAGE, NULL);
-  
-  if( g_file_test(dirname, G_FILE_TEST_IS_DIR) )
-    {
-      g_free(dirname);
-      return 0;
-    }
-  retval = mkdir(dirname, 0755);
-  g_free(dirname);
-  return retval;
+	int retval;
+	char *dirname = g_build_filename(g_get_home_dir(), "." PACKAGE, NULL);
+
+	if (g_file_test(dirname, G_FILE_TEST_IS_DIR)) {
+		g_free(dirname);
+		return 0;
+	}
+
+	retval = mkdir(dirname, 0755);
+	g_free(dirname);
+	return retval;
 }
 
 char *
 get_user_key_binding_filename(void)
 {
-  return g_build_filename(g_get_home_dir(), "." PACKAGE, "keys", NULL);
+	return g_build_filename(g_get_home_dir(), "." PACKAGE, "keys", NULL);
 }
 
 
