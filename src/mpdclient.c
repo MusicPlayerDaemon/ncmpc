@@ -753,6 +753,8 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 			c->playlist.list = g_list_append(c->playlist.list,
 							 (gpointer)mpd_songDup(song));
 		}
+
+		mpd_freeInfoEntity(entity);
 	}
 
 	/* remove trailing songs */
