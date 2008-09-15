@@ -29,7 +29,8 @@ ncmpc_headers = \
   utils.h\
   ncmpc.h\
   screen_browse.h\
-  src_lyrics.h
+  src_lyrics.h \
+	gcc.h
 
 # $Id$
 
