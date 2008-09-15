@@ -28,8 +28,10 @@
 #include <curl/curl.h>
 
 static size_t write_data(void *buffer, size_t size,
-	size_t nmemb, easy_download_struct *dld)
+			 size_t nmemb, void *data)
 {
+	easy_download_struct *dld = data;
+
 	if(dld->data == NULL)
 	{
 		dld->size = 0;
