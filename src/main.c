@@ -154,7 +154,7 @@ sigstop(void)
   kill(0, SIGSTOP); /* issue SIGSTOP */
 }
 
-#ifdef DEBUG
+#ifndef NDEBUG
 void 
 D(char *format, ...)
 {

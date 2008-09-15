@@ -67,7 +67,7 @@ static arg_opt_t option_table[] = {
   { 'f', "config",  "FILE",     "Read configuration from file" },
   { 'k', "key-file","FILE",     "Read configuration from file" },
   { 'S', "no-splash", NULL, "Don't show the splash screen" },
-#ifdef DEBUG
+#ifndef NDEBUG
   { 'K', "dump-keys", NULL,     "Dump key bindings to stdout" },
   { 'D', "debug",   NULL,   "Enable debug output on stderr" },
 #endif
@@ -152,7 +152,7 @@ handle_option(int c, char *arg)
     case 'V': /* --version */
       printf("%s version: %s\n", PACKAGE, VERSION);
       printf("build options:");
-#ifdef DEBUG
+#ifndef NDEBUG
       printf(" debug");
 #endif
 #ifdef ENABLE_NLS
@@ -216,7 +216,7 @@ handle_option(int c, char *arg)
     case 'S': /* --key-file */
       /* the splash screen was removed */
       break;
-#ifdef DEBUG
+#ifndef NDEBUG
     case 'K': /* --dump-keys */
       read_configuration(&options);
       write_key_bindings(stdout, KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);

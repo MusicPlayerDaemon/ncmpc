@@ -21,7 +21,7 @@
 #define ENABLE_LYRICS_SCREEN 1
 #endif
 
-#ifdef DEBUG
+#ifndef NDEBUG
 void D(char *format, ...);
 #else
 #define D(...)

@@ -206,7 +206,9 @@ AC_ARG_ENABLE([debug],
 	      [enable_debug=no])
 AC_MSG_RESULT([$enable_debug])
 if test "x$enable_debug" = "xyes" ; then
-   CFLAGS="$CFLAGS -g -DDEBUG"
+    CFLAGS="$CFLAGS -g"
+else
+    CFLAGS="$CFLAGS -DNDEBUG"
 fi
 
 dnl CFLAGS

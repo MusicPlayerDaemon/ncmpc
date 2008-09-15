@@ -115,7 +115,7 @@ error_cb(mpdclient_t *c, gint error, gchar *msg)
   return error;
 }
 
-#ifdef DEBUG
+#ifndef NDEBUG
 // Unused ath the moment
 /*
 #include "strfsong.h"
@@ -246,7 +246,7 @@ mpdclient_update(mpdclient_t *c)
   c->status = mpd_getStatus(c->connection);
   if( (retval=mpdclient_finish_command(c)) )
     return retval;
-#ifdef DEBUG
+#ifndef NDEBUG
   if( c->status->error )
     D("status> %s\n", c->status->error);
 #endif
