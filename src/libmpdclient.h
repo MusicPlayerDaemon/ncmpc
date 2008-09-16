@@ -295,7 +295,7 @@ void mpd_freeSong(mpd_Song * song);
 /* mpd_songDup
  * works like strDup, but for a mpd_Song
  */
-mpd_Song * mpd_songDup(mpd_Song * song);
+mpd_Song * mpd_songDup(const mpd_Song * song);
 
 /* DIRECTORY STUFF */
 

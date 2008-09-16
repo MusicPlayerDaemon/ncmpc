@@ -957,7 +957,7 @@ void mpd_freeSong(mpd_Song * song) {
 	free(song);
 }
 
-mpd_Song * mpd_songDup(mpd_Song * song) {
+mpd_Song * mpd_songDup(const mpd_Song * song) {
 	mpd_Song * ret = mpd_newSong();
 
 	if(song->file) ret->file = str_pool_dup(song->file);
