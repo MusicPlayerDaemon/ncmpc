@@ -615,6 +615,8 @@ ncurses_init(void)
 			wbkgd(screen->status_window.w,   COLOR_PAIR(COLOR_STATUS));
 			colors_use(screen->progress_window.w, COLOR_PROGRESSBAR);
 		}
+
+	refresh();
 }
 
 int
