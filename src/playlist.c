@@ -34,8 +34,7 @@ playlist_init(struct mpdclient_playlist *playlist)
 {
 	playlist->id = 0;
 	playlist->updated = FALSE;
-	playlist->list = g_array_sized_new(FALSE, FALSE,
-					   sizeof(struct mpd_song *), 1024);
+	playlist->list = g_ptr_array_sized_new(1024);
 }
 
 void
@@ -49,7 +48,7 @@ playlist_clear(struct mpdclient_playlist *playlist)
 		mpd_freeSong(song);
 	}
 
-	g_array_set_size(playlist->list, 0);
+	g_ptr_array_set_size(playlist->list, 0);
 }
 
 gint
@@ -57,7 +56,7 @@ mpdclient_playlist_free(mpdclient_playlist_t *playlist)
 {
 	if (playlist->list != NULL) {
 		playlist_clear(playlist);
-		g_array_free(playlist->list, TRUE);
+		g_ptr_array_free(playlist->list, TRUE);
 	}
 
 	memset(playlist, 0, sizeof(mpdclient_playlist_t));

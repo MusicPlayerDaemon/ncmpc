@@ -37,7 +37,7 @@ typedef struct mpdclient_playlist {
 	gboolean updated;
 
 	/* the list */
-	GArray *list;
+	GPtrArray *list;
 } mpdclient_playlist_t;
 
 void
@@ -70,14 +70,13 @@ playlist_get(const struct mpdclient_playlist *playlist, guint idx)
 {
 	assert(idx < playlist_length(playlist));
 
-	return g_array_index(playlist->list, struct mpd_song *, idx);
+	return g_ptr_array_index(playlist->list, idx);
 }
 
 static inline void
 playlist_append(struct mpdclient_playlist *playlist, const mpd_Song *song)
 {
-	mpd_Song *song2 = mpd_songDup(song);
-	g_array_append_val(playlist->list, song2);
+	g_ptr_array_add(playlist->list, mpd_songDup(song));
 }
 
 static inline void
@@ -86,7 +85,7 @@ playlist_set(const struct mpdclient_playlist *playlist, guint idx,
 {
 	assert(idx < playlist_length(playlist));
 
-	g_array_index(playlist->list, mpd_Song *, idx) = mpd_songDup(song);
+	g_ptr_array_index(playlist->list, idx) = mpd_songDup(song);
 }
 
 static inline void
@@ -100,9 +99,8 @@ playlist_replace(struct mpdclient_playlist *playlist, guint idx,
 static inline void
 playlist_remove(struct mpdclient_playlist *playlist, guint idx)
 {
-	mpd_Song *song = playlist_get(playlist, idx);
+	mpd_Song *song = g_ptr_array_remove_index(playlist->list, idx);
 	mpd_freeSong(song);
-	g_array_remove_index(playlist->list, idx);
 }
 
 static inline void
@@ -118,8 +116,8 @@ playlist_swap(struct mpdclient_playlist *playlist, guint idx1, guint idx2)
 	song2->pos = n;
 
 	/* update the array */
-	g_array_index(playlist->list, struct mpd_song *, idx1) = song2;
-	g_array_index(playlist->list, struct mpd_song *, idx2) = song1;
+	g_ptr_array_index(playlist->list, idx1) = song2;
+	g_ptr_array_index(playlist->list, idx2) = song1;
 }
 
 struct mpd_song *playlist_lookup_song(struct mpdclient *c, gint id);
