@@ -25,7 +25,7 @@
 #include "options.h"
 #include "conf.h"
 #include "command.h"
-#include "src_lyrics.h"
+#include "lyrics.h"
 #include "screen.h"
 #include "screen_utils.h"
 #include "strfsong.h"
@@ -252,7 +252,7 @@ main(int argc, const char *argv[])
 
 	ncurses_init();
 
-	src_lyr_init ();
+	lyrics_init();
 
 	/* connect to our music player daemon */
 	mpd = mpdclient_new();

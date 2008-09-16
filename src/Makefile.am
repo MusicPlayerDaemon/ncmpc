@@ -3,21 +3,18 @@
 AM_CPPFLAGS = \
   $(GLIB_CFLAGS)\
   $(GTHREAD_CFLAGS)\
-  $(GMODULE_CFLAGS)\
   -DLOCALE_DIR=\""$(datadir)/locale"\"\
   -DSYSCONFDIR=\""$(sysconfdir)"\"
 
 ncmpc_LDADD = \
   $(GLIB_LIBS)\
-  $(GTHREAD_LIBS)\
-  $(GMODULE_LIBS)
+  $(GTHREAD_LIBS)
 
 ncmpc_headers = \
   libmpdclient.h\
 	song.h \
   mpdclient.h\
 	playlist.h \
-  easy_download.h\
   options.h\
   conf.h\
   command.h\
@@ -31,7 +28,7 @@ ncmpc_headers = \
   utils.h\
   ncmpc.h\
   screen_browse.h\
-  src_lyrics.h \
+	lyrics.h \
 	str_pool.h \
 	gcc.h
 
@@ -50,7 +47,6 @@ ncmpc_SOURCES = \
   options.c\
   conf.c\
   command.c\
-  easy_download.c\
   screen.c\
   screen_utils.c\
   screen_play.c\
@@ -67,18 +63,8 @@ ncmpc_SOURCES = \
   wreadln.c\
   strfsong.c\
   utils.c\
-  src_lyrics.c \
+	lyrics.c \
 	str_pool.c
-
-if LEOSLYRICS_FIXED
-ncmpc_SOURCES+=lyrics_leoslyrics.c 
-AM_CPPFLAGS+=${libcurl_CFLAGS}
-ncmpc_LDADD+=${libcurl_LIBS}
-endif
-
-if HD_FIXED
-ncmpc_SOURCES+=lyrics_hd.c 
-endif
 
 ncmpc_SOURCES+=${ncmpc_headers}
 
