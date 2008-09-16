@@ -20,53 +20,47 @@
 /* Playlist */
 /****************************************************************************/
 
-typedef struct
-{
-  /* playlist id */
-  long long id;
-  /* true if the list is updated */
-  gboolean updated;
-  /* the list */
-  GArray *list;
+typedef struct {
+	/* playlist id */
+	long long id;
+	/* true if the list is updated */
+	gboolean updated;
+	/* the list */
+	GArray *list;
 
 } mpdclient_playlist_t;
 
-
-typedef struct
-{
-  guint flags;
-  mpd_InfoEntity *entity;
+typedef struct {
+	guint flags;
+	mpd_InfoEntity *entity;
 } filelist_entry_t;
 
-typedef struct
-{
-  /* path */
-  gchar *path;
-  /* list length */
-  guint length;
-  /* true if the list is updated */
-  gboolean updated;
-  /* the list */
-  GList *list;
+typedef struct {
+	/* path */
+	gchar *path;
+	/* list length */
+	guint length;
+	/* true if the list is updated */
+	gboolean updated;
+	/* the list */
+	GList *list;
 
 } mpdclient_filelist_t;
 
-typedef struct
-{
-  /* playlist */
-  mpdclient_playlist_t playlist;
+typedef struct {
+	/* playlist */
+	mpdclient_playlist_t playlist;
 
-  /* Callbacks */
-  GList *error_callbacks;
-  GList *playlist_callbacks;
-  GList *browse_callbacks;
+	/* Callbacks */
+	GList *error_callbacks;
+	GList *playlist_callbacks;
+	GList *browse_callbacks;
 
-  mpd_Connection *connection;
-  mpd_Status     *status;
-  mpd_Song       *song;
+	mpd_Connection *connection;
+	mpd_Status     *status;
+	mpd_Song       *song;
 
-  gboolean       need_update;
-
+	gboolean       need_update;
 } mpdclient_t;
 
 /** functions ***************************************************************/

@@ -301,36 +301,34 @@ main(int argc, const char *argv[])
 	while (connected || options.reconnect) {
 		static gdouble t = G_MAXDOUBLE;
 
-		if( key_error ) {
+		if (key_error) {
 			char buf[BUFSIZE];
 
 			key_error=check_key_bindings(NULL, buf, BUFSIZE);
 			screen_status_printf("%s", buf);
 		}
 
-		if( connected && (t>=MPD_UPDATE_TIME || mpd->need_update) ) {
+		if (connected && (t >= MPD_UPDATE_TIME || mpd->need_update)) {
 			mpdclient_update(mpd);
 			g_timer_start(timer);
 		}
 
-		if( connected ) {
+		if (connected) {
 			command_t cmd;
 
 			screen_update(mpd);
-			if( (cmd=get_keyboard_command()) != CMD_NONE )
-				{
-					screen_cmd(mpd, cmd);
-					if( cmd==CMD_VOLUME_UP || cmd==CMD_VOLUME_DOWN)
-						/* make shure we dont update the volume yet */
-						g_timer_start(timer);
-				}
-			else
+			if ((cmd=get_keyboard_command()) != CMD_NONE) {
+				screen_cmd(mpd, cmd);
+				if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN)
+					/* make shure we dont update the volume yet */
+					g_timer_start(timer);
+			} else
 				screen_idle(mpd);
-		} else if( options.reconnect ) {
+		} else if (options.reconnect) {
 			screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
 					     options.host, get_key_names(CMD_QUIT,0) );
 
-			if( get_keyboard_command_with_timeout(MPD_RECONNECT_TIME)==CMD_QUIT)
+			if (get_keyboard_command_with_timeout(MPD_RECONNECT_TIME) == CMD_QUIT)
 				exit(EXIT_SUCCESS);
 
 			if (mpdclient_connect(mpd,
@@ -351,4 +349,3 @@ main(int argc, const char *argv[])
 	}
 	exit(EXIT_FAILURE);
 }
-

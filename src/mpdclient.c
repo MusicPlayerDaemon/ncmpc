@@ -160,44 +160,44 @@ mpdclient_finish_command(mpdclient_t *c)
 mpdclient_t *
 mpdclient_new(void)
 {
-  mpdclient_t *c;
+	mpdclient_t *c;
 
-  c = g_malloc0(sizeof(mpdclient_t));
-  c->playlist.list = g_array_sized_new(FALSE, FALSE, sizeof(mpd_Song *), 1024);
+	c = g_malloc0(sizeof(mpdclient_t));
+	c->playlist.list = g_array_sized_new(FALSE, FALSE, sizeof(mpd_Song *), 1024);
 
-  return c;
+	return c;
 }
 
 mpdclient_t *
 mpdclient_free(mpdclient_t *c)
 {
-  mpdclient_disconnect(c);
-  g_list_free(c->error_callbacks);
-  g_list_free(c->playlist_callbacks);
-  g_list_free(c->browse_callbacks);
-  g_free(c);
+	mpdclient_disconnect(c);
+	g_list_free(c->error_callbacks);
+	g_list_free(c->playlist_callbacks);
+	g_list_free(c->browse_callbacks);
+	g_free(c);
 
-  return NULL;
+	return NULL;
 }
 
 gint
 mpdclient_disconnect(mpdclient_t *c)
 {
-  if( c->connection )
-    mpd_closeConnection(c->connection);
-  c->connection = NULL;
+	if (c->connection)
+		mpd_closeConnection(c->connection);
+	c->connection = NULL;
 
-  if( c->status )
-    mpd_freeStatus(c->status);
-  c->status = NULL;
+	if (c->status)
+		mpd_freeStatus(c->status);
+	c->status = NULL;
 
-  if( c->playlist.list )
-    mpdclient_playlist_free(&c->playlist);
+	if (c->playlist.list)
+		mpdclient_playlist_free(&c->playlist);
 
-  if( c->song )
-    c->song = NULL;
-  
-  return 0;
+	if (c->song)
+		c->song = NULL;
+
+	return 0;
 }
 
 gint
@@ -232,43 +232,41 @@ mpdclient_connect(mpdclient_t *c,
 gint
 mpdclient_update(mpdclient_t *c)
 {
-  gint retval = 0;
+	gint retval = 0;
 
-  if( MPD_ERROR(c) )
-    return -1;
+	if (MPD_ERROR(c))
+		return -1;
 
-  /* free the old status */
-  if( c->status )
-    mpd_freeStatus(c->status);
-  
-  /* retreive new status */
-  mpd_sendStatusCommand(c->connection);
-  c->status = mpd_getStatus(c->connection);
-  if( (retval=mpdclient_finish_command(c)) )
-    return retval;
+	/* free the old status */
+	if (c->status)
+		mpd_freeStatus(c->status);
+
+	/* retreive new status */
+	mpd_sendStatusCommand(c->connection);
+	c->status = mpd_getStatus(c->connection);
+	if ((retval=mpdclient_finish_command(c)))
+		return retval;
 #ifndef NDEBUG
-  if( c->status->error )
-    D("status> %s\n", c->status->error);
+	if (c->status->error)
+		D("status> %s\n", c->status->error);
 #endif
 
-  /* check if the playlist needs an update */
-  if( c->playlist.id != c->status->playlist )
-    {
-      if( c->playlist.list )
-	retval = mpdclient_playlist_update_changes(c);
-      else
-	retval = mpdclient_playlist_update(c);
-    }
+	/* check if the playlist needs an update */
+	if (c->playlist.id != c->status->playlist) {
+		if (c->playlist.list)
+			retval = mpdclient_playlist_update_changes(c);
+		else
+			retval = mpdclient_playlist_update(c);
+	}
 
-  /* update the current song */
-  if( !c->song || c->status->songid != c->song->id )
-    {
-      c->song = playlist_get_song(c, c->status->song);
-    }
+	/* update the current song */
+	if (!c->song || c->status->songid != c->song->id) {
+		c->song = playlist_get_song(c, c->status->song);
+	}
 
-  c->need_update = FALSE;
+	c->need_update = FALSE;
 
-  return retval;
+	return retval;
 }
 
 

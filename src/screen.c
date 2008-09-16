@@ -767,12 +767,10 @@ screen_update(mpdclient_t *c)
 void
 screen_idle(mpdclient_t *c)
 {
-	if( c->song && seek_id ==  c->song->id &&
+	if (c->song && seek_id == c->song->id &&
 	    (screen->last_cmd == CMD_SEEK_FORWARD ||
-	     screen->last_cmd == CMD_SEEK_BACKWARD) )
-		{
-			mpdclient_cmd_seek(c, seek_id, seek_target_time);
-		}
+	     screen->last_cmd == CMD_SEEK_BACKWARD))
+		mpdclient_cmd_seek(c, seek_id, seek_target_time);
 
 	screen->last_cmd = CMD_NONE;
 	seek_id = -1;
