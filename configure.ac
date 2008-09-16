@@ -8,7 +8,7 @@ AM_INIT_AUTOMAKE([ncmpc], [0.12~git])
 AM_CONFIG_HEADER([config.h])
 
 dnl Check for programs
-AC_PROG_CC
+AC_PROG_CC_C99
 AC_PROG_INSTALL
 dnl AC_PROG_LIBTOOL
 AC_PROG_LIBTOOL
