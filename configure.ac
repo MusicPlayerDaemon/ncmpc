@@ -81,26 +81,11 @@ if test "x$ncurses" = "xauto"; then
 		     [ncurses=ncursesw],
 		     [ncurses=ncurses])
 fi
-		     
-AC_CHECK_HEADER([ncursesw/ncurses.h],
- 	        [have_ncursesw_h=yes],
-		,)
-
-
-
 
 AC_CHECK_LIB([$ncurses], 
 	     [initscr],
 	     [LIBS="$LIBS -l$ncurses"], 
 	     [AC_MSG_ERROR($ncurses library is required)])
-
-
-if test "x$ncurses" != "xncursesw" ; then
-	if test "x$have_ncursesw_h" = "xyes" ; then
-		 AC_DEFINE(_XOPEN_SOURCE_EXTENDED, 1, [wide-char wget_ch()])
-   		 AC_DEFINE(USE_NCURSESW, 1, [use wide-char ncurses library])
-	fi
-fi
 
 
 
