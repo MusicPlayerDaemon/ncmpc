@@ -20,7 +20,7 @@
 /* Playlist */
 /****************************************************************************/
 
-typedef struct {
+typedef struct mpdclient_playlist {
 	/* playlist id */
 	long long id;
 	/* true if the list is updated */
@@ -30,12 +30,12 @@ typedef struct {
 
 } mpdclient_playlist_t;
 
-typedef struct {
+typedef struct filelist_entry {
 	guint flags;
 	mpd_InfoEntity *entity;
 } filelist_entry_t;
 
-typedef struct {
+typedef struct mpdclient_filelist {
 	/* path */
 	gchar *path;
 	/* list length */
@@ -47,7 +47,7 @@ typedef struct {
 
 } mpdclient_filelist_t;
 
-typedef struct {
+typedef struct mpdclient {
 	/* playlist */
 	mpdclient_playlist_t playlist;
 
