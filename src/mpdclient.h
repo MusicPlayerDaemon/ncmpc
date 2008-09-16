@@ -2,8 +2,7 @@
 #define MPDCLIENT_H
 
 #include "libmpdclient.h"
-
-#include <glib.h>
+#include "playlist.h"
 
 #define MPD_VERSION_EQ(c,x,y,z) (c->connection->version[0] == x && \
                                  c->connection->version[1] == y && \
@@ -13,22 +12,6 @@
  (c->connection->version[0]==x && c->connection->version[1]<y) || \
  (c->connection->version[0]==x && c->connection->version[1]==y && \
   c->connection->version[2]<z) )
-
-
-
-/****************************************************************************/
-/* Playlist */
-/****************************************************************************/
-
-typedef struct mpdclient_playlist {
-	/* playlist id */
-	long long id;
-	/* true if the list is updated */
-	gboolean updated;
-	/* the list */
-	GArray *list;
-
-} mpdclient_playlist_t;
 
 typedef struct filelist_entry {
 	guint flags;
@@ -120,19 +103,11 @@ void mpdclient_remove_error_callback(mpdclient_t *c, mpdc_error_cb_t cb);
 
 /*** playlist functions  **************************************************/
 
-/* free a playlist */
-gint mpdclient_playlist_free(mpdclient_playlist_t *playlist);
 /* update the complete playlist */
-gint mpdclient_playlist_update(mpdclient_t *c);
+gint mpdclient_playlist_update(struct mpdclient *c);
+
 /* get playlist changes */
-gint mpdclient_playlist_update_changes(mpdclient_t *c);
-
-struct mpd_song *playlist_lookup_song(mpdclient_t *c, gint id);
-struct mpd_song *playlist_get_song(mpdclient_t *c, gint index);
-gint playlist_get_index(mpdclient_t *c, struct mpd_song *song);
-gint playlist_get_index_from_id(mpdclient_t *c, gint id);
-gint playlist_get_index_from_file(mpdclient_t *c, gchar *filename);
-
+gint mpdclient_playlist_update_changes(struct mpdclient *c);
 
 
 /*** mpdclient playlist callbacks *****************************************/

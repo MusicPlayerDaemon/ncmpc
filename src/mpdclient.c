@@ -647,20 +647,6 @@ mpdclient_remove_error_callback(mpdclient_t *c, mpdc_error_cb_t cb)
 /*** Playlist managment functions *******************************************/
 /****************************************************************************/
 
-gint
-mpdclient_playlist_free(mpdclient_playlist_t *playlist)
-{
-	guint i;
-
-	for (i = 0; i < playlist->list->len; ++i) {
-		struct mpd_song *song = g_array_index(playlist->list, struct mpd_song *, i);
-		mpd_freeSong(song);
-	}
-
-	g_array_free(playlist->list, TRUE);
-	memset(playlist, 0, sizeof(mpdclient_playlist_t));
-	return 0;
-}
 
 /* update playlist */
 gint
@@ -758,74 +744,6 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 	return mpdclient_playlist_update(c);
 }
 #endif
-
-struct mpd_song *
-playlist_get_song(mpdclient_t *c, gint idx)
-{
-	if (idx < 0 || (guint)idx >= c->playlist.list->len)
-		return NULL;
-
-	return g_array_index(c->playlist.list, struct mpd_song *, idx);
-}
-
-struct mpd_song *
-playlist_lookup_song(mpdclient_t *c, gint id)
-{
-	guint i;
-
-	for (i = 0; i < c->playlist.list->len; ++i) {
-		struct mpd_song *song = g_array_index(c->playlist.list,
-						      struct mpd_song *, i);
-		if (song->id == id)
-			return song;
-	}
-
-	return NULL;
-}
-
-gint
-playlist_get_index(mpdclient_t *c, struct mpd_song *song)
-{
-	guint i;
-
-	for (i = 0; i < c->playlist.list->len; ++i) {
-		if (g_array_index(c->playlist.list, struct mpd_song *, i)
-		    == song)
-			return (gint)i;
-	}
-
-	return -1;
-}
-
-gint
-playlist_get_index_from_id(mpdclient_t *c, gint id)
-{
-	guint i;
-
-	for (i = 0; i < c->playlist.list->len; ++i) {
-		struct mpd_song *song = g_array_index(c->playlist.list,
-						      struct mpd_song *, i);
-		if (song->id == id)
-			return (gint)i;
-	}
-
-	return -1;
-}
-
-gint
-playlist_get_index_from_file(mpdclient_t *c, gchar *filename)
-{
-	guint i;
-
-	for (i = 0; i < c->playlist.list->len; ++i) {
-		struct mpd_song *song = g_array_index(c->playlist.list,
-						      struct mpd_song *, i);
-		if(strcmp(song->file, filename) == 0)
-			return (gint)i;
-	}
-
-	return -1;
-}
 
 
 /****************************************************************************/
