@@ -163,7 +163,7 @@ mpdclient_new(void)
 	mpdclient_t *c;
 
 	c = g_malloc0(sizeof(mpdclient_t));
-	c->playlist.list = g_array_sized_new(FALSE, FALSE, sizeof(mpd_Song *), 1024);
+	c->playlist.list = g_array_sized_new(FALSE, FALSE, sizeof(struct mpd_song *), 1024);
 
 	return c;
 }
@@ -278,7 +278,7 @@ gint
 mpdclient_cmd_play(mpdclient_t *c, gint idx)
 {
 #ifdef ENABLE_SONG_ID
-	mpd_Song *song = playlist_get_song(c, idx);
+	struct mpd_song *song = playlist_get_song(c, idx);
 
 	D("Play id:%d\n", song ? song->id : -1);
 	if (song)
@@ -405,7 +405,7 @@ mpdclient_cmd_add_path(mpdclient_t *c, gchar *path)
 }
 
 gint
-mpdclient_cmd_add(mpdclient_t *c, mpd_Song *song)
+mpdclient_cmd_add(mpdclient_t *c, struct mpd_song *song)
 {
 	gint retval = 0;
 
@@ -438,7 +438,7 @@ gint
 mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 {
 	gint retval = 0;
-	mpd_Song *song = playlist_get_song(c, idx);
+	struct mpd_song *song = playlist_get_song(c, idx);
 
 	if( !song )
 		return -1;
@@ -483,7 +483,7 @@ gint
 mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 {
 	gint n;
-	mpd_Song *song1, *song2;
+	struct mpd_song *song1, *song2;
 
 	if (old_index == new_index || new_index < 0 ||
 	    (guint)new_index >= c->playlist.list->len)
@@ -509,8 +509,8 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 	song1->pos = song2->pos;
 	song2->pos = n;
 	/* update the array */
-	g_array_index(c->playlist.list, mpd_Song *, old_index) = song2;
-	g_array_index(c->playlist.list, mpd_Song *, new_index) = song1;
+	g_array_index(c->playlist.list, struct mpd_song *, old_index) = song2;
+	g_array_index(c->playlist.list, struct mpd_song *, new_index) = song1;
 
 	/* increment the playlist id, so we dont retrives a new playlist */
 	c->playlist.id++;
@@ -653,7 +653,7 @@ mpdclient_playlist_free(mpdclient_playlist_t *playlist)
 	guint i;
 
 	for (i = 0; i < playlist->list->len; ++i) {
-		mpd_Song *song = g_array_index(playlist->list, mpd_Song *, i);
+		struct mpd_song *song = g_array_index(playlist->list, struct mpd_song *, i);
 		mpd_freeSong(song);
 	}
 
@@ -679,7 +679,7 @@ mpdclient_playlist_update(mpdclient_t *c)
 	mpd_sendPlaylistInfoCommand(c->connection,-1);
 	while ((entity = mpd_getNextInfoEntity(c->connection))) {
 		if (entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
-			mpd_Song *song = mpd_songDup(entity->info.song);
+			struct mpd_song *song = mpd_songDup(entity->info.song);
 			g_array_append_val(c->playlist.list, song);
 		}
 		mpd_freeInfoEntity(entity);
@@ -712,16 +712,16 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 	mpd_sendPlChangesCommand(c->connection, c->playlist.id);
 
 	while ((entity = mpd_getNextInfoEntity(c->connection)) != NULL) {
-		mpd_Song *song = mpd_songDup(entity->info.song);
+		struct mpd_song *song = mpd_songDup(entity->info.song);
 
 		if (song->pos >= 0 && (guint)song->pos < c->playlist.list->len) {
 			/* update song */
 			D("updating pos:%d, id=%d - %s\n",
 			  song->pos, song->id, song->file);
 			mpd_freeSong(g_array_index(c->playlist.list,
-						   mpd_Song *, song->pos));
+						   struct mpd_song *, song->pos));
 			g_array_index(c->playlist.list,
-				      mpd_Song *, song->pos) = song;
+				      struct mpd_song *, song->pos) = song;
 		} else {
 			/* add a new song */
 			D("adding song at pos %d\n", song->pos);
@@ -734,7 +734,7 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 	/* remove trailing songs */
 	while ((guint)c->status->playlistLength < c->playlist.list->len) {
 		guint pos = c->playlist.list->len - 1;
-		mpd_Song *song = g_array_index(c->playlist.list, mpd_Song *, pos);
+		struct mpd_song *song = g_array_index(c->playlist.list, struct mpd_song *, pos);
 
 		/* Remove the last playlist entry */
 		D("removing song at pos %d\n", pos);
@@ -759,23 +759,23 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 }
 #endif
 
-mpd_Song *
+struct mpd_song *
 playlist_get_song(mpdclient_t *c, gint idx)
 {
 	if (idx < 0 || (guint)idx >= c->playlist.list->len)
 		return NULL;
 
-	return g_array_index(c->playlist.list, mpd_Song *, idx);
+	return g_array_index(c->playlist.list, struct mpd_song *, idx);
 }
 
-mpd_Song *
+struct mpd_song *
 playlist_lookup_song(mpdclient_t *c, gint id)
 {
 	guint i;
 
 	for (i = 0; i < c->playlist.list->len; ++i) {
-		mpd_Song *song = g_array_index(c->playlist.list,
-					       mpd_Song *, i);
+		struct mpd_song *song = g_array_index(c->playlist.list,
+						      struct mpd_song *, i);
 		if (song->id == id)
 			return song;
 	}
@@ -784,12 +784,12 @@ playlist_lookup_song(mpdclient_t *c, gint id)
 }
 
 gint
-playlist_get_index(mpdclient_t *c, mpd_Song *song)
+playlist_get_index(mpdclient_t *c, struct mpd_song *song)
 {
 	guint i;
 
 	for (i = 0; i < c->playlist.list->len; ++i) {
-		if (g_array_index(c->playlist.list, mpd_Song *, i)
+		if (g_array_index(c->playlist.list, struct mpd_song *, i)
 		    == song)
 			return (gint)i;
 	}
@@ -803,8 +803,8 @@ playlist_get_index_from_id(mpdclient_t *c, gint id)
 	guint i;
 
 	for (i = 0; i < c->playlist.list->len; ++i) {
-		mpd_Song *song = g_array_index(c->playlist.list,
-					       mpd_Song *, i);
+		struct mpd_song *song = g_array_index(c->playlist.list,
+						      struct mpd_song *, i);
 		if (song->id == id)
 			return (gint)i;
 	}
@@ -818,8 +818,8 @@ playlist_get_index_from_file(mpdclient_t *c, gchar *filename)
 	guint i;
 
 	for (i = 0; i < c->playlist.list->len; ++i) {
-		mpd_Song *song = g_array_index(c->playlist.list,
-					       mpd_Song *, i);
+		struct mpd_song *song = g_array_index(c->playlist.list,
+						      struct mpd_song *, i);
 		if(strcmp(song->file, filename) == 0)
 			return (gint)i;
 	}
@@ -978,7 +978,7 @@ mpdclient_filelist_update(mpdclient_t *c, mpdclient_filelist_t *filelist)
 }
 
 filelist_entry_t *
-mpdclient_filelist_find_song(mpdclient_filelist_t *fl, mpd_Song *song)
+mpdclient_filelist_find_song(mpdclient_filelist_t *fl, struct mpd_song *song)
 {
   GList *list = g_list_first(fl->list);
 
@@ -989,7 +989,7 @@ mpdclient_filelist_find_song(mpdclient_filelist_t *fl, mpd_Song *song)
 
       if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG )
 	{
-	  mpd_Song *song2 = entity->info.song;
+	  struct mpd_song *song2 = entity->info.song;
 
 	  if( strcmp(song->file, song2->file) == 0 )
 	    {
@@ -1017,7 +1017,7 @@ mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl)
 
       if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG )
 	{
-	  mpd_Song *song = entity->info.song;
+	  struct mpd_song *song = entity->info.song;
 
 	  mpd_sendAddCommand(c->connection, song->file);
 	}

@@ -93,7 +93,7 @@ gint mpdclient_cmd_volume(mpdclient_t *c, gint value);
 gint mpdclient_cmd_add_path(mpdclient_t *c, gchar *path);
 gint mpdclient_cmd_add_path_utf8(mpdclient_t *c, gchar *path);
 
-gint mpdclient_cmd_add(mpdclient_t *c, mpd_Song *song);
+gint mpdclient_cmd_add(mpdclient_t *c, struct mpd_song *song);
 gint mpdclient_cmd_delete(mpdclient_t *c, gint index);
 gint mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index);
 
@@ -127,9 +127,9 @@ gint mpdclient_playlist_update(mpdclient_t *c);
 /* get playlist changes */
 gint mpdclient_playlist_update_changes(mpdclient_t *c);
 
-mpd_Song *playlist_lookup_song(mpdclient_t *c, gint id);
-mpd_Song *playlist_get_song(mpdclient_t *c, gint index);
-gint playlist_get_index(mpdclient_t *c, mpd_Song *song);
+struct mpd_song *playlist_lookup_song(mpdclient_t *c, gint id);
+struct mpd_song *playlist_get_song(mpdclient_t *c, gint index);
+gint playlist_get_index(mpdclient_t *c, struct mpd_song *song);
 gint playlist_get_index_from_id(mpdclient_t *c, gint id);
 gint playlist_get_index_from_file(mpdclient_t *c, gchar *filename);
 
@@ -173,13 +173,13 @@ mpdclient_filelist_t *mpdclient_filelist_update(mpdclient_t *c,
 
 #define HIGHLIGHT  (0x01)
 void mpdclient_filelist_set_flags(mpdclient_filelist_t *flist, 
-				  mpd_Song *song,
+				  struct mpd_song *song,
 				  guint flags);
 
 void mpdclient_filelist_clear_flags(mpdclient_filelist_t *flist);
 void mpdclient_filelist_clear_flags(mpdclient_filelist_t *flist);
 filelist_entry_t *mpdclient_filelist_find_song(mpdclient_filelist_t *flist,
-					       mpd_Song *song);
+					       struct mpd_song *song);
 
 /* add all songs in filelist to the playlist */
 int mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl);
