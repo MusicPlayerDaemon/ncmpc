@@ -39,6 +39,13 @@ typedef struct mpdclient_playlist {
 	GArray *list;
 } mpdclient_playlist_t;
 
+void
+playlist_init(struct mpdclient_playlist *playlist);
+
+/** remove and free all songs in the playlist */
+void
+playlist_clear(struct mpdclient_playlist *playlist);
+
 /* free a playlist */
 gint mpdclient_playlist_free(mpdclient_playlist_t *playlist);
 

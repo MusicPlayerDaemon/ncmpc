@@ -163,7 +163,7 @@ mpdclient_new(void)
 	mpdclient_t *c;
 
 	c = g_malloc0(sizeof(mpdclient_t));
-	c->playlist.list = g_array_sized_new(FALSE, FALSE, sizeof(struct mpd_song *), 1024);
+	playlist_init(&c->playlist);
 
 	return c;
 }
@@ -172,6 +172,9 @@ mpdclient_t *
 mpdclient_free(mpdclient_t *c)
 {
 	mpdclient_disconnect(c);
+
+	mpdclient_playlist_free(&c->playlist);
+
 	g_list_free(c->error_callbacks);
 	g_list_free(c->playlist_callbacks);
 	g_list_free(c->browse_callbacks);
@@ -191,8 +194,7 @@ mpdclient_disconnect(mpdclient_t *c)
 		mpd_freeStatus(c->status);
 	c->status = NULL;
 
-	if (c->playlist.list)
-		mpdclient_playlist_free(&c->playlist);
+	playlist_clear(&c->playlist);
 
 	if (c->song)
 		c->song = NULL;
