@@ -1,10 +1,10 @@
 #ifndef SOURCE_LYRICS
 #define SOURCE_LYRICS
 
-#include "list_window.h"
+#include "config.h"
 #include "mpdclient.h"
 
-#include <stdlib.h>
+#include <sys/types.h>
 #include <glib.h>
 #include <gmodule.h>
 

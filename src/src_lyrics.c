@@ -18,11 +18,11 @@
  *
  */
 
+#include "src_lyrics.h"
+
+#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-
-#include "../config.h"
-#include "src_lyrics.h"
 
 #define PLUGIN_DIR_USER "/.ncmpc/plugins"
 
