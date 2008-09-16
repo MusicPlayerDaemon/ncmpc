@@ -33,7 +33,13 @@
 #include "song.h"
 #include "str_pool.h"
 
+#define LIBMPDCLIENT_GLIB_SLICE
+
+#ifndef LIBMPDCLIENT_GLIB_SLICE
 #include <stdlib.h>
+#else
+#include <glib.h>
+#endif
 
 static void mpd_initSong(struct mpd_song *song) {
 	song->file = NULL;
@@ -80,7 +86,11 @@ static void mpd_finishSong(struct mpd_song *song) {
 }
 
 struct mpd_song *mpd_newSong(void) {
+#ifndef LIBMPDCLIENT_GLIB_SLICE
 	struct mpd_song *ret = malloc(sizeof(*ret));
+#else
+	struct mpd_song *ret = g_slice_new(struct mpd_song);
+#endif
 
 	mpd_initSong(ret);
 
@@ -89,7 +99,12 @@ struct mpd_song *mpd_newSong(void) {
 
 void mpd_freeSong(struct mpd_song *song) {
 	mpd_finishSong(song);
+
+#ifndef LIBMPDCLIENT_GLIB_SLICE
 	free(song);
+#else
+	g_slice_free(struct mpd_song, song);
+#endif
 }
 
 struct mpd_song *mpd_songDup(const struct mpd_song *song) {
