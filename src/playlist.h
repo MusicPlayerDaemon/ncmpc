@@ -24,6 +24,7 @@
 
 #include "libmpdclient.h"
 
+#include <assert.h>
 #include <glib.h>
 
 struct mpdclient;
@@ -48,6 +49,78 @@ playlist_clear(struct mpdclient_playlist *playlist);
 
 /* free a playlist */
 gint mpdclient_playlist_free(mpdclient_playlist_t *playlist);
+
+static inline guint
+playlist_length(const struct mpdclient_playlist *playlist)
+{
+	assert(playlist != NULL);
+	assert(playlist->list != NULL);
+
+	return playlist->list->len;
+}
+
+static inline gboolean
+playlist_is_empty(const struct mpdclient_playlist *playlist)
+{
+	return playlist_length(playlist) == 0;
+}
+
+static inline struct mpd_song *
+playlist_get(const struct mpdclient_playlist *playlist, guint idx)
+{
+	assert(idx < playlist_length(playlist));
+
+	return g_array_index(playlist->list, struct mpd_song *, idx);
+}
+
+static inline void
+playlist_append(struct mpdclient_playlist *playlist, const mpd_Song *song)
+{
+	mpd_Song *song2 = mpd_songDup(song);
+	g_array_append_val(playlist->list, song2);
+}
+
+static inline void
+playlist_set(const struct mpdclient_playlist *playlist, guint idx,
+	     const mpd_Song *song)
+{
+	assert(idx < playlist_length(playlist));
+
+	g_array_index(playlist->list, mpd_Song *, idx) = mpd_songDup(song);
+}
+
+static inline void
+playlist_replace(struct mpdclient_playlist *playlist, guint idx,
+		 const mpd_Song *song)
+{
+	mpd_freeSong(playlist_get(playlist, idx));
+	playlist_set(playlist, idx, song);
+}
+
+static inline void
+playlist_remove(struct mpdclient_playlist *playlist, guint idx)
+{
+	mpd_Song *song = playlist_get(playlist, idx);
+	mpd_freeSong(song);
+	g_array_remove_index(playlist->list, idx);
+}
+
+static inline void
+playlist_swap(struct mpdclient_playlist *playlist, guint idx1, guint idx2)
+{
+	mpd_Song *song1 = playlist_get(playlist, idx1);
+	mpd_Song *song2 = playlist_get(playlist, idx2);
+	gint n;
+
+	/* update the songs position field */
+	n = song1->pos;
+	song1->pos = song2->pos;
+	song2->pos = n;
+
+	/* update the array */
+	g_array_index(playlist->list, struct mpd_song *, idx1) = song2;
+	g_array_index(playlist->list, struct mpd_song *, idx2) = song1;
+}
 
 struct mpd_song *playlist_lookup_song(struct mpdclient *c, gint id);
 

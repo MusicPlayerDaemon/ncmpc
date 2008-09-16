@@ -255,7 +255,7 @@ mpdclient_update(mpdclient_t *c)
 
 	/* check if the playlist needs an update */
 	if (c->playlist.id != c->status->playlist) {
-		if (c->playlist.list)
+		if (playlist_is_empty(&c->playlist))
 			retval = mpdclient_playlist_update_changes(c);
 		else
 			retval = mpdclient_playlist_update(c);
@@ -421,8 +421,7 @@ mpdclient_cmd_add(mpdclient_t *c, struct mpd_song *song)
 
 #ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_ADD
 	/* add the song to playlist */
-	c->playlist.list = g_list_append(c->playlist.list, mpd_songDup(song));
-	c->playlist.length++;
+	playlist_append(&c->playlist, song);
 
 	/* increment the playlist id, so we dont retrives a new playlist */
 	c->playlist.id++;
@@ -460,7 +459,7 @@ mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 	c->playlist.id++;
 
 	/* remove the song from the playlist */
-	g_array_remove_index(c->playlist.list, idx);
+	playlist_remove(&c->playlist, idx);
 
 	/* call playlist updated callback */
 	mpdclient_playlist_callback(c, PLAYLIST_EVENT_DELETE, (gpointer) song);
@@ -470,9 +469,6 @@ mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 		c->song = NULL;
 		c->need_update = TRUE;
 	}
-
-	/* free song */
-	mpd_freeSong(song);
 
 #else
 	c->need_update = TRUE;
@@ -506,13 +502,8 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 		return n;
 
 #ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_MOVE
-	/* update the songs position field */
-	n = song1->pos;
-	song1->pos = song2->pos;
-	song2->pos = n;
-	/* update the array */
-	g_array_index(c->playlist.list, struct mpd_song *, old_index) = song2;
-	g_array_index(c->playlist.list, struct mpd_song *, new_index) = song1;
+	/* update the playlist */
+	playlist_swap(&c->playlist, old_index, new_index);
 
 	/* increment the playlist id, so we dont retrives a new playlist */
 	c->playlist.id++;
@@ -666,10 +657,9 @@ mpdclient_playlist_update(mpdclient_t *c)
 
 	mpd_sendPlaylistInfoCommand(c->connection,-1);
 	while ((entity = mpd_getNextInfoEntity(c->connection))) {
-		if (entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
-			struct mpd_song *song = mpd_songDup(entity->info.song);
-			g_array_append_val(c->playlist.list, song);
-		}
+		if (entity->type == MPD_INFO_ENTITY_TYPE_SONG)
+			playlist_append(&c->playlist, entity->info.song);
+
 		mpd_freeInfoEntity(entity);
 	}
 
@@ -700,20 +690,17 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 	mpd_sendPlChangesCommand(c->connection, c->playlist.id);
 
 	while ((entity = mpd_getNextInfoEntity(c->connection)) != NULL) {
-		struct mpd_song *song = mpd_songDup(entity->info.song);
+		struct mpd_song *song = entity->info.song;
 
 		if (song->pos >= 0 && (guint)song->pos < c->playlist.list->len) {
 			/* update song */
 			D("updating pos:%d, id=%d - %s\n",
 			  song->pos, song->id, song->file);
-			mpd_freeSong(g_array_index(c->playlist.list,
-						   struct mpd_song *, song->pos));
-			g_array_index(c->playlist.list,
-				      struct mpd_song *, song->pos) = song;
+			playlist_replace(&c->playlist, song->pos, song);
 		} else {
 			/* add a new song */
 			D("adding song at pos %d\n", song->pos);
-			g_array_append_val(c->playlist.list, song);
+			playlist_append(&c->playlist, song);
 		}
 
 		mpd_freeInfoEntity(entity);
@@ -722,12 +709,10 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 	/* remove trailing songs */
 	while ((guint)c->status->playlistLength < c->playlist.list->len) {
 		guint pos = c->playlist.list->len - 1;
-		struct mpd_song *song = g_array_index(c->playlist.list, struct mpd_song *, pos);
 
 		/* Remove the last playlist entry */
 		D("removing song at pos %d\n", pos);
-		mpd_freeSong(song);
-		g_array_remove_index(c->playlist.list, pos);
+		playlist_remove(&c->playlist, pos);
 	}
 
 	c->song = NULL;
