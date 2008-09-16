@@ -31,10 +31,10 @@
 
 extern void screen_bell(void);
 
-list_window_t *
+struct list_window *
 list_window_init(WINDOW *w, unsigned width, unsigned height)
 {
-	list_window_t *lw;
+	struct list_window *lw;
 
 	lw = g_malloc0(sizeof(list_window_t));
 	lw->w = w;
@@ -44,8 +44,8 @@ list_window_init(WINDOW *w, unsigned width, unsigned height)
 	return lw;
 }
 
-list_window_t *
-list_window_free(list_window_t *lw)
+struct list_window *
+list_window_free(struct list_window *lw)
 {
 	if (lw) {
 		memset(lw, 0, sizeof(list_window_t));
@@ -56,7 +56,7 @@ list_window_free(list_window_t *lw)
 }
 
 void
-list_window_reset(list_window_t *lw)
+list_window_reset(struct list_window *lw)
 {
 	lw->selected = 0;
 	lw->xoffset = 0;
@@ -65,7 +65,7 @@ list_window_reset(list_window_t *lw)
 }
 
 void
-list_window_check_selected(list_window_t *lw, unsigned length)
+list_window_check_selected(struct list_window *lw, unsigned length)
 {
 	if (lw->start + lw->rows > length) {
 		if (length > lw->rows)
@@ -82,13 +82,13 @@ list_window_check_selected(list_window_t *lw, unsigned length)
 }
 
 void
-list_window_set_selected(list_window_t *lw, unsigned n)
+list_window_set_selected(struct list_window *lw, unsigned n)
 {
 	lw->selected = n;
 }
 
 void
-list_window_next(list_window_t *lw, unsigned length)
+list_window_next(struct list_window *lw, unsigned length)
 {
 	if (lw->selected + 1 < length)
 		lw->selected++;
@@ -97,7 +97,7 @@ list_window_next(list_window_t *lw, unsigned length)
 }
 
 void
-list_window_previous(list_window_t *lw, unsigned length)
+list_window_previous(struct list_window *lw, unsigned length)
 {
 	if (lw->selected > 0)
 		lw->selected--;
@@ -106,14 +106,14 @@ list_window_previous(list_window_t *lw, unsigned length)
 }
 
 void
-list_window_first(list_window_t *lw)
+list_window_first(struct list_window *lw)
 {
 	lw->xoffset = 0;
 	lw->selected = 0;
 }
 
 void
-list_window_last(list_window_t *lw, unsigned length)
+list_window_last(struct list_window *lw, unsigned length)
 {
 	lw->xoffset = 0;
 	if (length > 0)
@@ -123,7 +123,7 @@ list_window_last(list_window_t *lw, unsigned length)
 }
 
 void
-list_window_next_page(list_window_t *lw, unsigned length)
+list_window_next_page(struct list_window *lw, unsigned length)
 {
 	if (lw->rows < 2)
 		return;
@@ -134,7 +134,7 @@ list_window_next_page(list_window_t *lw, unsigned length)
 }
 
 void
-list_window_previous_page(list_window_t *lw)
+list_window_previous_page(struct list_window *lw)
 {
 	if (lw->rows < 2)
 		return;
@@ -146,7 +146,7 @@ list_window_previous_page(list_window_t *lw)
 
 
 void
-list_window_paint(list_window_t *lw,
+list_window_paint(struct list_window *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data)
 {
@@ -201,7 +201,7 @@ list_window_paint(list_window_t *lw,
 }
 
 int
-list_window_find(list_window_t *lw,
+list_window_find(struct list_window *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str,
@@ -233,7 +233,7 @@ list_window_find(list_window_t *lw,
 }
 
 int
-list_window_rfind(list_window_t *lw,
+list_window_rfind(struct list_window *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data,
 		  const char *str,
@@ -267,7 +267,7 @@ list_window_rfind(list_window_t *lw,
 
 /* perform basic list window commands (movement) */
 int
-list_window_cmd(list_window_t *lw, unsigned rows, command_t cmd)
+list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 {
 	switch (cmd) {
 	case CMD_LIST_PREVIOUS:
@@ -331,10 +331,10 @@ list_window_free_state(list_window_state_t *state)
 }
 
 void
-list_window_push_state(list_window_state_t *state, list_window_t *lw)
+list_window_push_state(list_window_state_t *state, struct list_window *lw)
 {
 	if (state) {
-		list_window_t *tmp = g_malloc(sizeof(list_window_t));
+		struct list_window *tmp = g_malloc(sizeof(list_window_t));
 		memcpy(tmp, lw, sizeof(list_window_t));
 		state->list = g_list_prepend(state->list, (gpointer) tmp);
 		list_window_reset(lw);
@@ -342,10 +342,10 @@ list_window_push_state(list_window_state_t *state, list_window_t *lw)
 }
 
 bool
-list_window_pop_state(list_window_state_t *state, list_window_t *lw)
+list_window_pop_state(list_window_state_t *state, struct list_window *lw)
 {
 	if (state && state->list) {
-		list_window_t *tmp = state->list->data;
+		struct list_window *tmp = state->list->data;
 
 		memcpy(lw, tmp, sizeof(list_window_t));
 		g_free(tmp);

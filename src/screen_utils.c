@@ -19,6 +19,8 @@
  */
 
 #include "screen_utils.h"
+#include "screen.h"
+#include "mpdclient.h"
 #include "config.h"
 #include "ncmpc.h"
 #include "support.h"
@@ -120,7 +122,7 @@ screen_read_password(WINDOW *w, const char *prompt)
 }
     
 static gint
-_screen_auth(mpdclient_t *c, gint recursion)
+_screen_auth(struct mpdclient *c, gint recursion)
 {
    mpd_clearError(c->connection);
   if(recursion > 2) return 1;
@@ -132,7 +134,7 @@ _screen_auth(mpdclient_t *c, gint recursion)
 }
 
 gint
-screen_auth(mpdclient_t *c)
+screen_auth(struct mpdclient *c)
 {
 	gint ret = _screen_auth(c, 0);
 	mpdclient_update(c);
