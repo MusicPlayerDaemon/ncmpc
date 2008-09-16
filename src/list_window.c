@@ -67,14 +67,18 @@ list_window_reset(list_window_t *lw)
 void
 list_window_check_selected(list_window_t *lw, unsigned length)
 {
-	while (lw->start > 0 && lw->start + lw->rows > length)
-		lw->start--;
+	if (lw->start + lw->rows > length) {
+		if (length > lw->rows)
+			lw->start = length - lw->rows;
+		else
+			lw->start = 0;
+	}
 
-	while (lw->selected < lw->start)
-		lw->selected++;
+	if (lw->selected < lw->start)
+		lw->selected = lw->start;
 
-	while (lw->selected > 0 && length > 0 && lw->selected >= length)
-		lw->selected--;
+	if (length > 0 && lw->selected >= length)
+		lw->selected = length - 1;
 }
 
 void
@@ -151,13 +155,13 @@ list_window_paint(list_window_t *lw,
 	int show_cursor = !(lw->flags & LW_HIDE_CURSOR);
 
 	if (show_cursor) {
-		while (lw->selected < lw->start) {
-			lw->start--;
+		if (lw->selected < lw->start) {
+			lw->start = lw->selected;
 			lw->clear=1;
 		}
 
-		while (lw->selected >= lw->start+lw->rows) {
-			lw->start++;
+		if (lw->selected >= lw->start + lw->rows) {
+			lw->start = lw->selected - lw->rows + 1;
 			lw->clear=1;
 		}
 	}
