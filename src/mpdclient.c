@@ -652,8 +652,7 @@ mpdclient_playlist_update(mpdclient_t *c)
 	if (MPD_ERROR(c))
 		return -1;
 
-	if (c->playlist.list)
-		mpdclient_playlist_free(&c->playlist);
+	playlist_clear(&c->playlist);
 
 	mpd_sendPlaylistInfoCommand(c->connection,-1);
 	while ((entity = mpd_getNextInfoEntity(c->connection))) {
