@@ -272,32 +272,27 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 	switch (cmd) {
 	case CMD_LIST_PREVIOUS:
 		list_window_previous(lw, rows);
-		lw->repaint=1;
 		break;
 	case CMD_LIST_NEXT:
 		list_window_next(lw, rows);
-		lw->repaint=1;
 		break;
 	case CMD_LIST_FIRST:
 		list_window_first(lw);
-		lw->repaint  = 1;
 		break;
 	case CMD_LIST_LAST:
 		list_window_last(lw, rows);
-		lw->repaint = 1;
 		break;
 	case CMD_LIST_NEXT_PAGE:
 		list_window_next_page(lw, rows);
-		lw->repaint  = 1;
 		break;
 	case CMD_LIST_PREVIOUS_PAGE:
 		list_window_previous_page(lw);
-		lw->repaint  = 1;
 		break;
 	default:
 		return 0;
 	}
 
+	lw->repaint  = 1;
 	return 1;
 }
 
