@@ -139,11 +139,10 @@ static help_text_row_t help_text[] =
   { 0, CMD_LYRICS_UPDATE,         N_("Explicitly download lyrics") },
   { 0, CMD_ADD,         N_("Save lyrics") }, 
 #endif
-  { 0, CMD_NONE, NULL },
-  {-1, CMD_NONE, NULL }
 };
 
-static int help_text_rows = -1;
+#define help_text_rows (sizeof(help_text) / sizeof(help_text[0]))
+
 static list_window_t *lw = NULL;
 
 
@@ -152,14 +151,8 @@ list_callback(unsigned idx, int *highlight, mpd_unused void *data)
 {
 	static char buf[512];
 
-	if (help_text_rows < 0) {
-		help_text_rows = 0;
-		while (help_text[help_text_rows].highlight != -1)
-			help_text_rows++;
-	}
-
 	*highlight = 0;
-	if (idx < (unsigned)help_text_rows) {
+	if (idx < help_text_rows) {
 		*highlight = help_text[idx].highlight > 0;
 		if (help_text[idx].command == CMD_NONE) {
 			if (help_text[idx].text)
