@@ -421,13 +421,14 @@ screen_exit(void)
 
 	endwin();
 
+	if (mode_fn->close != NULL)
+		mode_fn->close();
+
 	/* close and exit all screens (playlist,browse,help...) */
 	i=0;
 	while (screens[i].functions) {
 		const struct screen_functions *sf = screens[i].functions;
 
-		if (sf->close)
-			sf->close();
 		if (sf->exit)
 			sf->exit();
 
