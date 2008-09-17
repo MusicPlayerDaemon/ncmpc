@@ -38,21 +38,22 @@
 
 #define BUFSIZE 1024
 
-static mpdclient_t   *mpd = NULL;
+static mpdclient_t *mpd = NULL;
 static gboolean connected = FALSE;
-static GTimer      *timer = NULL;
+static GTimer *timer = NULL;
 
 static const gchar *
 error_msg(const gchar *msg)
 {
-  gchar *p;
+	gchar *p;
 
-  if( (p=strchr(msg, '}' )) == NULL )
-    return msg;
-  while( p && *p && (*p=='}' || *p==' ') )
-    p++;
+	if ((p = strchr(msg, '}')) == NULL)
+		return msg;
 
-  return p;
+	while (p && *p && (*p=='}' || *p==' '))
+		p++;
+
+	return p;
 }
 
 static void
@@ -79,49 +80,48 @@ error_callback(mpd_unused mpdclient_t *c, gint error, const gchar *msg)
 static void
 update_xterm_title(void)
 {
-  static char title[BUFSIZE];
-  char tmp[BUFSIZE];
-  mpd_Status *status = NULL;
-  mpd_Song *song = NULL;
+	static char title[BUFSIZE];
+	char tmp[BUFSIZE];
+	mpd_Status *status = NULL;
+	mpd_Song *song = NULL;
 
-  if( mpd )
-    {
-      status = mpd->status;
-      song = mpd->song;
-    }
+	if (mpd) {
+		status = mpd->status;
+		song = mpd->song;
+	}
 
-  if(options.xterm_title_format && status && song && IS_PLAYING(status->state))
-    {
-      strfsong(tmp, BUFSIZE, options.xterm_title_format, song);
-    }
-  else
-    g_strlcpy(tmp, PACKAGE " version " VERSION, BUFSIZE);
+	if (options.xterm_title_format && status && song &&
+	    IS_PLAYING(status->state))
+		strfsong(tmp, BUFSIZE, options.xterm_title_format, song);
+	else
+		g_strlcpy(tmp, PACKAGE " version " VERSION, BUFSIZE);
 
-  if( strncmp(title,tmp,BUFSIZE) )
-    {
-      g_strlcpy(title, tmp, BUFSIZE);
-      set_xterm_title("%s", title);
-    }
+	if (strncmp(title, tmp, BUFSIZE)) {
+		g_strlcpy(title, tmp, BUFSIZE);
+		set_xterm_title("%s", title);
+	}
 }
 
 static void
 exit_and_cleanup(void)
 {
-  screen_exit();
-  set_xterm_title("");
-  printf("\n");
-  if( mpd )
-    {
-      mpdclient_disconnect(mpd);
-      mpdclient_free(mpd);
-    }
-  g_free(options.host);
-  g_free(options.password);
-  g_free(options.list_format);
-  g_free(options.status_format);
-  g_free(options.scroll_sep);
-  if( timer )
-    g_timer_destroy(timer);
+	screen_exit();
+	set_xterm_title("");
+	printf("\n");
+
+	if (mpd) {
+		mpdclient_disconnect(mpd);
+		mpdclient_free(mpd);
+	}
+
+	g_free(options.host);
+	g_free(options.password);
+	g_free(options.list_format);
+	g_free(options.status_format);
+	g_free(options.scroll_sep);
+
+	if (timer)
+		g_timer_destroy(timer);
 }
 
 static void
@@ -212,37 +212,37 @@ main(int argc, const char *argv[])
 	options_parse(argc, argv);
 
 	/* setup signal behavior - SIGINT */
-	sigemptyset( &act.sa_mask );
-	act.sa_flags    = 0;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = 0;
 	act.sa_handler = catch_sigint;
-	if( sigaction(SIGINT, &act, NULL)<0 ) {
+	if (sigaction(SIGINT, &act, NULL) < 0) {
 		perror("signal");
 		exit(EXIT_FAILURE);
 	}
 
 	/* setup signal behavior - SIGTERM */
-	sigemptyset( &act.sa_mask );
-	act.sa_flags    = 0;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = 0;
 	act.sa_handler = catch_sigint;
-	if( sigaction(SIGTERM, &act, NULL)<0 ) {
+	if (sigaction(SIGTERM, &act, NULL) < 0) {
 		perror("sigaction()");
 		exit(EXIT_FAILURE);
 	}
 
 	/* setup signal behavior - SIGCONT */
-	sigemptyset( &act.sa_mask );
-	act.sa_flags    = 0;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = 0;
 	act.sa_handler = catch_sigcont;
-	if( sigaction(SIGCONT, &act, NULL)<0 ) {
+	if (sigaction(SIGCONT, &act, NULL) < 0) {
 		perror("sigaction(SIGCONT)");
 		exit(EXIT_FAILURE);
 	}
 
 	/* setup signal behaviour - SIGHUP*/
-	sigemptyset( &act.sa_mask );
-	act.sa_flags    = 0;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = 0;
 	act.sa_handler = catch_sigint;
-	if( sigaction(SIGHUP, &act, NULL)<0 ) {
+	if (sigaction(SIGHUP, &act, NULL) < 0) {
 		perror("sigaction(SIGHUP)");
 		exit(EXIT_FAILURE);
 	}

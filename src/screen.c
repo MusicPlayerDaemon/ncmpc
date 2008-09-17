@@ -543,15 +543,15 @@ ncurses_init(void)
 	timeout(SCREEN_TIMEOUT);
 	/* initialize mouse support */
 #ifdef HAVE_GETMOUSE
-	if( options.enable_mouse )
+	if (options.enable_mouse)
 		mousemask(ALL_MOUSE_EVENTS, NULL);
 #endif
 
-	if( COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS )
-		{
-			fprintf(stderr, _("Error: Screen to small!\n"));
-			exit(EXIT_FAILURE);
-		}
+	if (COLS < SCREEN_MIN_COLS || LINES < SCREEN_MIN_ROWS) {
+		fprintf(stderr, _("Error: Screen to small!\n"));
+		exit(EXIT_FAILURE);
+	}
+
 	screen.mode = 0;
 	screen.cols = COLS;
 	screen.rows = LINES;
@@ -604,16 +604,15 @@ ncurses_init(void)
 	leaveok(screen.status_window.w, FALSE);
 	keypad(screen.status_window.w, TRUE);
 
-	if( options.enable_colors )
-		{
-			/* set background attributes */
-			wbkgd(stdscr, COLOR_PAIR(COLOR_LIST));
-			wbkgd(screen.main_window.w,     COLOR_PAIR(COLOR_LIST));
-			wbkgd(screen.top_window.w,      COLOR_PAIR(COLOR_TITLE));
-			wbkgd(screen.progress_window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
-			wbkgd(screen.status_window.w,   COLOR_PAIR(COLOR_STATUS));
-			colors_use(screen.progress_window.w, COLOR_PROGRESSBAR);
-		}
+	if (options.enable_colors) {
+		/* set background attributes */
+		wbkgd(stdscr, COLOR_PAIR(COLOR_LIST));
+		wbkgd(screen.main_window.w,     COLOR_PAIR(COLOR_LIST));
+		wbkgd(screen.top_window.w,      COLOR_PAIR(COLOR_TITLE));
+		wbkgd(screen.progress_window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
+		wbkgd(screen.status_window.w,   COLOR_PAIR(COLOR_STATUS));
+		colors_use(screen.progress_window.w, COLOR_PROGRESSBAR);
+	}
 
 	refresh();
 }

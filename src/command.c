@@ -397,61 +397,61 @@ find_key_command(int key, command_definition_t *c)
 	return CMD_NONE;
 }
 
-command_t 
+command_t
 get_key_command(int key)
 {
-  return find_key_command(key, cmds);
+	return find_key_command(key, cmds);
 }
 
 int
 my_wgetch(WINDOW *w)
 {
-  int c;
+	int c;
 
-  c = wgetch(w);
+	c = wgetch(w);
 
-  /* handle resize event */
-  if( c==KEY_RESIZE )
-    screen_resize();
+	/* handle resize event */
+	if (c == KEY_RESIZE)
+		screen_resize();
 
 #ifdef ENABLE_RAW_MODE
-  /* handle SIGSTOP (Ctrl-Z) */
-  if( c==26 || c==407 )
-    sigstop();
-  /* handle SIGINT (Ctrl-C) */
-  if( c==3 )
-    exit(EXIT_SUCCESS);
+	/* handle SIGSTOP (Ctrl-Z) */
+	if (c == 26 || c == 407)
+		sigstop();
+	/* handle SIGINT (Ctrl-C) */
+	if (c == 3)
+		exit(EXIT_SUCCESS);
 #endif
 
-  return c;
+	return c;
 }
 
 command_t
 get_keyboard_command_with_timeout(int ms)
 {
-  int key;
+	int key;
 
-  if( ms != SCREEN_TIMEOUT)
-    timeout(ms);
-  key = my_wgetch(stdscr);
-  if( ms != SCREEN_TIMEOUT)
-    timeout(SCREEN_TIMEOUT);
+	if (ms != SCREEN_TIMEOUT)
+		timeout(ms);
+	key = my_wgetch(stdscr);
+	if (ms != SCREEN_TIMEOUT)
+		timeout(SCREEN_TIMEOUT);
 
-  if( key==ERR )
-    return CMD_NONE;
+	if (key == ERR)
+		return CMD_NONE;
 
 #ifdef HAVE_GETMOUSE
-  if( key==KEY_MOUSE )
-    return CMD_MOUSE_EVENT;
+	if (key == KEY_MOUSE)
+		return CMD_MOUSE_EVENT;
 #endif
 
-  return get_key_command(key);
+	return get_key_command(key);
 }
 
 command_t
 get_keyboard_command(void)
 {
-  return get_keyboard_command_with_timeout(SCREEN_TIMEOUT);
+	return get_keyboard_command_with_timeout(SCREEN_TIMEOUT);
 }
 
 int

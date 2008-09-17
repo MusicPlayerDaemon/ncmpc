@@ -88,7 +88,7 @@ static int winsock_dll_error(mpd_Connection *connection)
 			LOBYTE(wsaData.wVersion) != 2 ||
 			HIBYTE(wsaData.wVersion) != 2 ) {
 		snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
-				"Could not find usable WinSock DLL.");
+			 "Could not find usable WinSock DLL.");
 		connection->error = MPD_ERROR_SYSTEM;
 		return 1;
 	}
@@ -142,7 +142,7 @@ static int mpd_connect(mpd_Connection * connection, const char * host, int port,
 
 	if (error) {
 		snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
-				"host \"%s\" not found: %s",host, gai_strerror(error));
+			 "host \"%s\" not found: %s",host, gai_strerror(error));
 		connection->error = MPD_ERROR_UNKHOST;
 		return -1;
 	}
@@ -173,8 +173,8 @@ static int mpd_connect(mpd_Connection * connection, const char * host, int port,
 
 	if (connection->sock < 0) {
 		snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
-				"problems connecting to \"%s\" on port"
-				" %i: %s",host,port, strerror(errno));
+			 "problems connecting to \"%s\" on port"
+			 " %i: %s",host,port, strerror(errno));
 		connection->error = MPD_ERROR_CONNPORT;
 
 		return -1;
@@ -193,7 +193,7 @@ static int mpd_connect(mpd_Connection * connection, const char * host, int port,
 
 	if(!(he=gethostbyname(host))) {
 		snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
-				"host \"%s\" not found",host);
+			 "host \"%s\" not found",host);
 		connection->error = MPD_ERROR_UNKHOST;
 		return -1;
 	}
@@ -228,8 +228,8 @@ static int mpd_connect(mpd_Connection * connection, const char * host, int port,
 	/* connect stuff */
 	if (do_connect_fail(connection, dest, destlen)) {
 		snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
-				"problems connecting to \"%s\" on port"
-				" %i",host,port);
+			 "problems connecting to \"%s\" on port"
+			 " %i",host,port);
 		connection->error = MPD_ERROR_CONNPORT;
 		return -1;
 	}
@@ -307,8 +307,8 @@ static int mpd_parseWelcome(mpd_Connection * connection, const char * host, int 
 
 	if(strncmp(output,MPD_WELCOME_MESSAGE,strlen(MPD_WELCOME_MESSAGE))) {
 		snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
-				"mpd not running on port %i on host \"%s\"",
-				port,host);
+			 "mpd not running on port %i on host \"%s\"",
+			 port,host);
 		connection->error = MPD_ERROR_NOTMPD;
 		return 1;
 	}
@@ -419,13 +419,13 @@ mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
 		if((err = select(connection->sock+1,&fds,NULL,NULL,&tv)) == 1) {
 			int readed;
 			readed = recv(connection->sock,
-					&(connection->buffer[connection->buflen]),
-					MPD_BUFFER_MAX_LENGTH-connection->buflen,0);
+				      &(connection->buffer[connection->buflen]),
+				      MPD_BUFFER_MAX_LENGTH-connection->buflen,0);
 			if(readed<=0) {
 				snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
-						"problems getting a response from"
-						" \"%s\" on port %i : %s",host,
-						port, strerror(errno));
+					 "problems getting a response from"
+					 " \"%s\" on port %i : %s",host,
+					 port, strerror(errno));
 				connection->error = MPD_ERROR_NORESPONSE;
 				return connection;
 			}
@@ -433,19 +433,19 @@ mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
 			connection->buffer[connection->buflen] = '\0';
 		}
 		else if(err<0) {
- 			if (SELECT_ERRNO_IGNORE)
+			if (SELECT_ERRNO_IGNORE)
 				continue;
 			snprintf(connection->errorStr,
-					MPD_BUFFER_MAX_LENGTH,
-					"problems connecting to \"%s\" on port"
-					" %i",host,port);
+				 MPD_BUFFER_MAX_LENGTH,
+				 "problems connecting to \"%s\" on port"
+				 " %i",host,port);
 			connection->error = MPD_ERROR_CONNPORT;
 			return connection;
 		}
 		else {
 			snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
-					"timeout in attempting to get a response from"
-					" \"%s\" on port %i",host,port);
+				 "timeout in attempting to get a response from"
+				 " \"%s\" on port %i",host,port);
 			connection->error = MPD_ERROR_NORESPONSE;
 			return connection;
 		}
@@ -485,8 +485,9 @@ static void mpd_executeCommand(mpd_Connection *connection,
 	const char *commandPtr = command;
 	int commandLen = strlen(command);
 
-	if(!connection->doneProcessing && !connection->commandList) {
-		strcpy(connection->errorStr,"not done processing current command");
+	if (!connection->doneProcessing && !connection->commandList) {
+		strcpy(connection->errorStr,
+		       "not done processing current command");
 		connection->error = 1;
 		return;
 	}
@@ -547,27 +548,24 @@ static void mpd_getNextReturnElement(mpd_Connection * connection) {
 	if(connection->returnElement) mpd_freeReturnElement(connection->returnElement);
 	connection->returnElement = NULL;
 
-	if(connection->doneProcessing || (connection->listOks &&
-	   connection->doneListOk))
-	{
+	if (connection->doneProcessing ||
+	    (connection->listOks && connection->doneListOk)) {
 		strcpy(connection->errorStr,"already done processing current command");
 		connection->error = 1;
 		return;
 	}
 
 	bufferCheck = connection->buffer+connection->bufstart;
-	while(connection->bufstart>=connection->buflen ||
-			!(rt = strchr(bufferCheck,'\n'))) {
-		if(connection->buflen>=MPD_BUFFER_MAX_LENGTH) {
+	while (connection->bufstart >= connection->buflen ||
+	       !(rt = strchr(bufferCheck, '\n'))) {
+		if (connection->buflen >= MPD_BUFFER_MAX_LENGTH) {
 			memmove(connection->buffer,
-					connection->buffer+
-					connection->bufstart,
-					connection->buflen-
-					connection->bufstart+1);
-			connection->buflen-=connection->bufstart;
+				connection->buffer + connection->bufstart,
+				connection->buflen - connection->bufstart + 1);
+			connection->buflen -= connection->bufstart;
 			connection->bufstart = 0;
 		}
-		if(connection->buflen>=MPD_BUFFER_MAX_LENGTH) {
+		if (connection->buflen >= MPD_BUFFER_MAX_LENGTH) {
 			strcpy(connection->errorStr,"buffer overrun");
 			connection->error = MPD_ERROR_BUFFEROVERRUN;
 			connection->doneProcessing = 1;
@@ -581,9 +579,9 @@ static void mpd_getNextReturnElement(mpd_Connection * connection) {
 		FD_SET(connection->sock,&fds);
 		if((err = select(connection->sock+1,&fds,NULL,NULL,&tv) == 1)) {
 			readed = recv(connection->sock,
-					connection->buffer+connection->buflen,
-					MPD_BUFFER_MAX_LENGTH-connection->buflen,
-					MSG_DONTWAIT);
+				      connection->buffer+connection->buflen,
+				      MPD_BUFFER_MAX_LENGTH-connection->buflen,
+				      MSG_DONTWAIT);
 			if(readed<0 && SENDRECV_ERRNO_IGNORE) {
 				continue;
 			}
@@ -671,7 +669,7 @@ static void mpd_getNextReturnElement(mpd_Connection * connection) {
 	}
 	else {
 		snprintf(connection->errorStr,MPD_BUFFER_MAX_LENGTH,
-					"error parsing: %s:%s",name,value);
+			 "error parsing: %s:%s",name,value);
 		connection->errorStr[MPD_BUFFER_MAX_LENGTH] = '\0';
 		connection->error = 1;
 	}
