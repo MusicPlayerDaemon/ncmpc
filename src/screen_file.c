@@ -473,7 +473,7 @@ browse_handle_select(screen_t *screen,
 			mpd_Song *song = entry->entity->info.song;
 
 			if( song ) {
-				int idx = playlist_get_index_from_file(c, song->file);
+				int idx;
 
 				while( (idx=playlist_get_index_from_file(c, song->file))>=0 )
 					mpdclient_cmd_delete(c, idx);
