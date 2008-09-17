@@ -700,7 +700,6 @@ screen_update(mpdclient_t *c)
 	static int random_enabled = -1;
 	static int crossfade = -1;
 	static int dbupdate = -1;
-	list_window_t *lw = NULL;
 
 	if( !screen->painted )
 		return screen_paint(c);
@@ -750,20 +749,14 @@ screen_update(mpdclient_t *c)
 	if (mode_fn && mode_fn->paint)
 		mode_fn->update(screen, c);
 
-	if (mode_fn && mode_fn->get_lw)
-		lw = mode_fn->get_lw();
-
 	/* update progress window */
 	paint_progress_window(c);
 
 	/* update status window */
 	paint_status_window(c);
 
-	/* move the cursor to the selected row in the main window */
-	if (lw)
-		wmove(screen->main_window.w, LW_ROW(lw), 0);
-	else
-		wmove(screen->main_window.w, 0, 0);
+	/* move the cursor to the origin */
+	wmove(screen->main_window.w, 0, 0);
 	wnoutrefresh(screen->main_window.w);
 
 	/* tell curses to update */

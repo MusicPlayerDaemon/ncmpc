@@ -497,12 +497,6 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	return list_window_cmd(lw, c->playlist.list->len, cmd);
 }
 
-static list_window_t *
-play_lw(void)
-{
-  return lw;
-}
-
 const struct screen_functions screen_playlist = {
 	.init = play_init,
 	.exit = play_exit,
@@ -512,6 +506,5 @@ const struct screen_functions screen_playlist = {
 	.paint = play_paint,
 	.update = play_update,
 	.cmd = play_cmd,
-	.get_lw = play_lw,
 	.get_title = play_title,
 };

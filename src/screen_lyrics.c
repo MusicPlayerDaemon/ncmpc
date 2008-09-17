@@ -370,12 +370,6 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	return 0;
 }
 
-static list_window_t *
-lyrics_lw(void)
-{
-  return lw;
-}
-
 const struct screen_functions screen_lyrics = {
 	.init = lyrics_screen_init,
 	.exit = lyrics_exit,
@@ -385,7 +379,6 @@ const struct screen_functions screen_lyrics = {
 	.paint = lyrics_paint,
 	.update = lyrics_update,
 	.cmd = lyrics_cmd,
-	.get_lw = lyrics_lw,
 	.get_title = lyrics_title,
 };
 

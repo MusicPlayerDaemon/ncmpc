@@ -362,12 +362,6 @@ keydef_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 	return list_window_cmd(lw, length, cmd);
 }
 
-static list_window_t *
-keydef_lw(void)
-{
-  return lw;
-}
-
 const struct screen_functions screen_keydef = {
 	.init = keydef_init,
 	.exit = keydef_exit,
@@ -377,7 +371,6 @@ const struct screen_functions screen_keydef = {
 	.paint = keydef_paint,
 	.update = keydef_update,
 	.cmd = keydef_cmd,
-	.get_lw = keydef_lw,
 	.get_title = keydef_title,
 };
 

@@ -745,12 +745,6 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	return list_window_cmd(lw, filelist->length, cmd);
 }
 
-static list_window_t *
-get_filelist_window(void)
-{
-	return lw;
-}
-
 const struct screen_functions screen_browse = {
 	.init = browse_init,
 	.exit = browse_exit,
@@ -760,7 +754,6 @@ const struct screen_functions screen_browse = {
 	.paint = browse_paint,
 	.update = browse_update,
 	.cmd = browse_cmd,
-	.get_lw = get_filelist_window,
 	.get_title = browse_title,
 };
 

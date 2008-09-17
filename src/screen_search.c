@@ -458,12 +458,6 @@ get_title(char *str, size_t size)
   return str;
 }
 
-static list_window_t *
-get_filelist_window(void)
-{
-	return lw;
-}
-
 static int 
 search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
@@ -546,7 +540,6 @@ const struct screen_functions screen_search = {
 	.paint = paint,
 	.update = update,
 	.cmd = search_cmd,
-	.get_lw = get_filelist_window,
 	.get_title = get_title,
 };
 

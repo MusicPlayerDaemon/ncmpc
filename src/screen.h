@@ -56,7 +56,6 @@ typedef void (*screen_paint_fn_t)(struct screen *screen, mpdclient_t *c);
 typedef void (*screen_update_fn_t)(struct screen *screen, mpdclient_t *c);
 typedef int (*screen_cmd_fn_t)(struct screen *scr, mpdclient_t *c, command_t cmd);
 typedef const char *(*screen_title_fn_t)(char *s, size_t size);
-typedef struct list_window *(*screen_get_lw_fn_t) (void);
 
 typedef struct screen_functions {
 	screen_init_fn_t   init;
@@ -68,7 +67,6 @@ typedef struct screen_functions {
 	screen_update_fn_t update;
 	screen_cmd_fn_t    cmd;
 	screen_title_fn_t  get_title;
-	screen_get_lw_fn_t get_lw;
 } screen_functions_t;
 
 void

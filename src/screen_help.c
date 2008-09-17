@@ -300,12 +300,6 @@ help_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 	return 0;
 }
 
-static list_window_t *
-help_lw(void)
-{
-	return lw;
-}
-
 const struct screen_functions screen_help = {
 	.init = help_init,
 	.exit = help_exit,
@@ -313,6 +307,5 @@ const struct screen_functions screen_help = {
 	.paint = help_paint,
 	.update = help_update,
 	.cmd = help_cmd,
-	.get_lw = help_lw,
 	.get_title = help_title,
 };
