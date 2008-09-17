@@ -41,6 +41,8 @@ playlist_clear(struct mpdclient_playlist *playlist)
 {
 	guint i;
 
+	playlist->id = 0;
+
 	for (i = 0; i < playlist->list->len; ++i) {
 		struct mpd_song *song = playlist_get(playlist, i);
 
