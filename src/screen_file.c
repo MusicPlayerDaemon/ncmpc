@@ -590,11 +590,6 @@ browse_open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 	}
 }
 
-static void
-browse_close(void)
-{
-}
-
 static const char *
 browse_title(char *str, size_t size)
 {
@@ -748,7 +743,6 @@ const struct screen_functions screen_browse = {
 	.init = browse_init,
 	.exit = browse_exit,
 	.open = browse_open,
-	.close = browse_close,
 	.resize = browse_resize,
 	.paint = browse_paint,
 	.update = browse_update,

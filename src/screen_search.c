@@ -401,11 +401,6 @@ resize(int cols, int rows)
   lw->rows = rows;
 }
 
-static void
-close(void)
-{
-}
-
 static void 
 paint(mpd_unused screen_t *screen, mpdclient_t *c)
 {
@@ -536,7 +531,6 @@ const struct screen_functions screen_search = {
 	.init = init,
 	.exit = quit,
 	.open = open,
-	.close = close,
 	.resize = resize,
 	.paint = paint,
 	.update = update,

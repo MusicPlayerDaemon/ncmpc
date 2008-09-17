@@ -128,26 +128,6 @@ clock_init(WINDOW *w, int cols, int rows)
 	clock_resize(cols, rows);
 }
 
-static void
-clock_exit(void)
-{
-}
-
-static void
-clock_open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
-{
-	int j;
-
-	for (j = 0; j < 5; j++)
-		older[j] = newer[j] = next[j] = 0;
-
-}
-
-static void
-clock_close(void)
-{
-}
-
 static const char *
 clock_title(mpd_unused char *str, mpd_unused size_t size)
 {
@@ -234,22 +214,11 @@ clock_paint(screen_t *screen, mpdclient_t *c)
 	clock_update(screen, c);
 }
 
-static int
-clock_cmd(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c,
-	  mpd_unused command_t cmd)
-{
-	return 0;
-}
-
 const struct screen_functions screen_clock = {
 	.init = clock_init,
-	.exit = clock_exit,
-	.open = clock_open,
-	.close = clock_close,
 	.resize = clock_resize,
 	.paint = clock_paint,
 	.update = clock_update,
-	.cmd = clock_cmd,
 	.get_title = clock_title,
 };
 

@@ -229,11 +229,6 @@ resize(int cols, int rows)
 }
 
 static void
-close(void)
-{
-}
-
-static void
 paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	lw->clear = 1;
@@ -461,7 +456,6 @@ const struct screen_functions screen_artist = {
 	.init = init,
 	.exit = quit,
 	.open = open,
-	.close = close,
 	.resize = resize,
 	.paint = paint,
 	.update = update,
