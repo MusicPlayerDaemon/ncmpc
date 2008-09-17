@@ -181,7 +181,8 @@ search_clear(mpd_unused screen_t *screen, mpdclient_t *c,
 {
 	if (filelist) {
 		mpdclient_remove_playlist_callback(c, playlist_changed_callback);
-		filelist = mpdclient_filelist_free(filelist);
+		mpdclient_filelist_free(filelist);
+		filelist = NULL;
 	}
 	if (clear_pattern && pattern) {
 		g_free(pattern);
@@ -309,7 +310,7 @@ search_advanced_query(char *query, mpdclient_t *c)
 		}
 
 		if (mpdclient_finish_command(c) && fl)
-			fl = mpdclient_filelist_free(fl);
+			mpdclient_filelist_free(fl);
 
 		fl->updated = TRUE;
 	}
@@ -373,7 +374,7 @@ quit(void)
 	if (search_history)
 		string_list_free(search_history);
 	if (filelist)
-		filelist = mpdclient_filelist_free(filelist);
+		mpdclient_filelist_free(filelist);
 	list_window_free(lw);
 
 	if (pattern) {

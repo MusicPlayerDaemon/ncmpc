@@ -72,8 +72,8 @@ typedef struct screen_functions {
 void
 ncurses_init(void);
 
-int screen_init(mpdclient_t *c);
-int screen_exit(void);
+void screen_init(mpdclient_t *c);
+void screen_exit(void);
 void screen_resize(void);
 void screen_status_message(const char *msg);
 void screen_status_printf(const char *format, ...);

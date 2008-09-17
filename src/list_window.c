@@ -44,15 +44,13 @@ list_window_init(WINDOW *w, unsigned width, unsigned height)
 	return lw;
 }
 
-struct list_window *
+void
 list_window_free(struct list_window *lw)
 {
 	if (lw) {
 		memset(lw, 0, sizeof(list_window_t));
 		g_free(lw);
 	}
-
-	return NULL;
 }
 
 void
@@ -148,7 +146,7 @@ list_window_next_page(struct list_window *lw, unsigned length)
 	if (lw->selected + lw->rows < length)
 		lw->selected += lw->rows - 1;
 	else
-		return list_window_last(lw, length);
+		list_window_last(lw, length);
 }
 
 void
@@ -370,7 +368,7 @@ list_window_init_state(void)
 	return g_malloc0(sizeof(list_window_state_t));
 }
 
-list_window_state_t *
+void
 list_window_free_state(list_window_state_t *state)
 {
 	if (state) {
@@ -389,8 +387,6 @@ list_window_free_state(list_window_state_t *state)
 
 		g_free(state);
 	}
-
-	return NULL;
 }
 
 void

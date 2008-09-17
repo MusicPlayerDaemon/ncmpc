@@ -168,7 +168,7 @@ mpdclient_new(void)
 	return c;
 }
 
-mpdclient_t *
+void
 mpdclient_free(mpdclient_t *c)
 {
 	mpdclient_disconnect(c);
@@ -179,8 +179,6 @@ mpdclient_free(mpdclient_t *c)
 	g_list_free(c->playlist_callbacks);
 	g_list_free(c->browse_callbacks);
 	g_free(c);
-
-	return NULL;
 }
 
 gint
@@ -738,14 +736,14 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 /*** Filelist functions *****************************************************/
 /****************************************************************************/
 
-mpdclient_filelist_t *
+void
 mpdclient_filelist_free(mpdclient_filelist_t *filelist)
 {
 	GList *list = g_list_first(filelist->list);
 
 	D("mpdclient_filelist_free()\n");
 	if (list == NULL)
-		return NULL;
+		return;
 	while (list != NULL) {
 		filelist_entry_t *entry = list->data;
 
@@ -760,8 +758,6 @@ mpdclient_filelist_free(mpdclient_filelist_t *filelist)
 	filelist->list = NULL;
 	filelist->length = 0;
 	g_free(filelist);
-
-	return NULL;
 }
 
 
@@ -836,8 +832,10 @@ mpdclient_filelist_search_utf8(mpdclient_t *c,
 		filelist->length++;
 	}
 
-	if (mpdclient_finish_command(c))
-		return mpdclient_filelist_free(filelist);
+	if (mpdclient_finish_command(c)) {
+		mpdclient_filelist_free(filelist);
+		return NULL;
+	}
 
 	filelist->updated = TRUE;
 	return filelist;
@@ -868,7 +866,7 @@ mpdclient_filelist_update(mpdclient_t *c, mpdclient_filelist_t *filelist)
     {    
       gchar *path = g_strdup(filelist->path);
 
-      filelist = mpdclient_filelist_free(filelist);
+      mpdclient_filelist_free(filelist);
       filelist = mpdclient_filelist_get(c, path);
       g_free(path);
       return filelist;

@@ -52,7 +52,7 @@ gint
 mpdclient_finish_command(mpdclient_t *c);
 
 mpdclient_t *mpdclient_new(void);
-mpdclient_t *mpdclient_free(mpdclient_t *c);
+void mpdclient_free(mpdclient_t *c);
 gint mpdclient_connect(mpdclient_t *c, gchar *host, gint port,
 		       gfloat timeout, gchar *password);
 gint mpdclient_disconnect(mpdclient_t *c);
@@ -133,7 +133,7 @@ void mpdclient_playlist_callback(mpdclient_t *c, int event, gpointer data);
 
 
 /*** filelist functions  ***************************************************/
-mpdclient_filelist_t *mpdclient_filelist_free(mpdclient_filelist_t *filelist);
+void mpdclient_filelist_free(mpdclient_filelist_t *filelist);
 mpdclient_filelist_t *mpdclient_filelist_get(mpdclient_t *c, const gchar *path);
 mpdclient_filelist_t *mpdclient_filelist_search(mpdclient_t *c, 
 						int exact_match,

@@ -36,7 +36,7 @@ struct list_window *list_window_init(WINDOW *w,
 				     unsigned width, unsigned height);
 
 /* destroy a list window (returns NULL) */
-struct list_window *list_window_free(struct list_window *lw);
+void list_window_free(struct list_window *lw);
 
 /* reset a list window (selected=0, start=0, clear=1) */
 void list_window_reset(struct list_window *lw);
@@ -87,7 +87,7 @@ list_window_rfind(struct list_window *lw,
 
 /* list window states */
 list_window_state_t *list_window_init_state(void);
-list_window_state_t *list_window_free_state(list_window_state_t *state);
+void list_window_free_state(list_window_state_t *state);
 void list_window_push_state(list_window_state_t *state,
 			    struct list_window *lw);
 bool list_window_pop_state(list_window_state_t *state, struct list_window *lw);

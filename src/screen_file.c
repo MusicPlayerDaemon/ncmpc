@@ -232,7 +232,7 @@ change_directory(mpd_unused screen_t *screen, mpdclient_t *c,
 	} else
 		return -1;
 
-	filelist = mpdclient_filelist_free(filelist);
+	mpdclient_filelist_free(filelist);
 	filelist = mpdclient_filelist_get(c, path);
 	sync_highlights(c, filelist);
 	list_window_check_selected(lw, filelist->length);
@@ -575,9 +575,9 @@ static void
 browse_exit(void)
 {
 	if( filelist )
-		filelist = mpdclient_filelist_free(filelist);
-	lw = list_window_free(lw);
-	lw_state = list_window_free_state(lw_state);
+		mpdclient_filelist_free(filelist);
+	list_window_free(lw);
+	list_window_free_state(lw_state);
 }
 
 static void

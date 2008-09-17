@@ -413,7 +413,7 @@ paint_status_window(mpdclient_t *c)
 	wnoutrefresh(w);
 }
 
-int
+void
 screen_exit(void)
 {
 	guint i;
@@ -434,8 +434,6 @@ screen_exit(void)
 	string_list_free(screen.find_history);
 	g_free(screen.buf);
 	g_free(screen.findbuf);
-
-	return 0;
 }
 
 void
@@ -620,7 +618,7 @@ ncurses_init(void)
 	refresh();
 }
 
-int
+void
 screen_init(mpdclient_t *c)
 {
 	guint i;
@@ -641,8 +639,6 @@ screen_init(mpdclient_t *c)
 	/* initialize wreadln */
 	wrln_wgetch = my_wgetch;
 	wrln_max_history_length = 16;
-
-	return 0;
 }
 
 void

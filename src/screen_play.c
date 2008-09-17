@@ -92,7 +92,7 @@ list_callback(unsigned idx, int *highlight, void *data)
 	return songname;
 }
 
-static int
+static void
 center_playing_item(mpdclient_t *c)
 {
 	unsigned length = c->playlist.list->len;
@@ -101,13 +101,13 @@ center_playing_item(mpdclient_t *c)
 
 	if (!lw || !c->song || length<lw->rows ||
 	    IS_STOPPED(c->status->state))
-		return 0;
+		return;
 
 	/* try to center the song that are playing */
 	idx = playlist_get_index(c, c->song);
 	D("Autocenter song id:%d pos:%d index:%d\n", c->song->id,c->song->pos,idx);
 	if (idx < 0)
-		return 0;
+		return;
 
 	list_window_center(lw, length, idx);
 
@@ -115,7 +115,7 @@ center_playing_item(mpdclient_t *c)
 	lw->selected = lw->start+offset;
 	list_window_check_selected(lw, length);
 
-	return 0;
+	return;
 }
 
 static void

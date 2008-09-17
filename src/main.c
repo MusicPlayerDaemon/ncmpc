@@ -113,7 +113,7 @@ exit_and_cleanup(void)
   if( mpd )
     {
       mpdclient_disconnect(mpd);
-      mpd = mpdclient_free(mpd);
+      mpdclient_free(mpd);
     }
   g_free(options.host);
   g_free(options.password);
