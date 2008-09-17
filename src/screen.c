@@ -795,16 +795,9 @@ screen_get_mouse_event(mpdclient_t *c,
 }
 #endif
 
-void
-screen_cmd(mpdclient_t *c, command_t cmd)
+static int
+screen_client_cmd(mpdclient_t *c, command_t cmd)
 {
-	screen.input_timestamp = time(NULL);
-	screen.last_cmd = cmd;
-	welcome = FALSE;
-
-	if (mode_fn->cmd != NULL && mode_fn->cmd(&screen, c, cmd))
-		return;
-
 	switch(cmd) {
 	case CMD_PLAY:
 		mpdclient_cmd_play(c, MPD_PLAY_AT_BEGINNING);
@@ -883,6 +876,28 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 		if( c->status->volume!=MPD_STATUS_NO_VOLUME && c->status->volume>0 )
 			mpdclient_cmd_volume(c, --c->status->volume);
 		break;
+
+	default:
+		return 0;
+	}
+
+	return 1;
+}
+
+void
+screen_cmd(mpdclient_t *c, command_t cmd)
+{
+	screen.input_timestamp = time(NULL);
+	screen.last_cmd = cmd;
+	welcome = FALSE;
+
+	if (mode_fn->cmd != NULL && mode_fn->cmd(&screen, c, cmd))
+		return;
+
+	if (screen_client_cmd(c, cmd))
+		return;
+
+	switch(cmd) {
 	case CMD_TOGGLE_FIND_WRAP:
 		options.find_wrap = !options.find_wrap;
 		screen_status_printf(options.find_wrap ?
