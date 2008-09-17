@@ -296,6 +296,56 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 	return 1;
 }
 
+int
+list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
+{
+	switch (cmd) {
+	case CMD_LIST_PREVIOUS:
+		if (lw->start > 0)
+			lw->start--;
+		break;
+
+	case CMD_LIST_NEXT:
+		if (lw->start + lw->rows < rows)
+			lw->start++;
+		break;
+
+	case CMD_LIST_FIRST:
+		lw->start = 0;
+		break;
+
+	case CMD_LIST_LAST:
+		if (rows > lw->rows)
+			lw->start = rows - lw->rows;
+		else
+			lw->start = 0;
+		break;
+
+	case CMD_LIST_NEXT_PAGE:
+		lw->start += lw->rows - 1;
+		if (lw->start + lw->rows > rows) {
+			if (rows > lw->rows)
+				lw->start = rows - lw->rows;
+			else
+				lw->start = 0;
+		}
+		break;
+
+	case CMD_LIST_PREVIOUS_PAGE:
+		if (lw->start > lw->rows)
+			lw->start -= lw->rows;
+		else
+			lw->start = 0;
+		break;
+
+	default:
+		return 0;
+	}
+
+	lw->repaint = lw->clear = 1;
+	return 1;
+}
+
 list_window_state_t *
 list_window_init_state(void)
 {

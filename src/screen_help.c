@@ -240,44 +240,8 @@ help_update(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 static int
 help_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 {
-	lw->repaint=1;
-	lw->clear=1;
-	switch(cmd) {
-	case CMD_LIST_NEXT:
-		if (lw->start + lw->rows < (unsigned)help_text_rows)
-			lw->start++;
+	if (list_window_scroll_cmd(lw, help_text_rows, cmd))
 		return 1;
-	case CMD_LIST_PREVIOUS:
-		if (lw->start > 0)
-			lw->start--;
-		return 1;
-	case CMD_LIST_FIRST:
-		lw->start = 0;
-		return 1;
-	case CMD_LIST_LAST:
-		if ((unsigned)help_text_rows > lw->rows)
-			lw->start = help_text_rows - lw->rows;
-		else
-			lw->start = 0;
-		return 1;
-	case CMD_LIST_NEXT_PAGE:
-		lw->start = lw->start + lw->rows;
-		if (lw->start + lw->rows >= (unsigned)help_text_rows) {
-			if ((unsigned)help_text_rows > lw->rows)
-				lw->start = help_text_rows - lw->rows;
-			else
-				lw->start = 0;
-		}
-		return 1;
-	case CMD_LIST_PREVIOUS_PAGE:
-		if (lw->start > lw->rows)
-			lw->start -= lw->rows;
-		else
-			lw->start = 0;
-		return 1;
-	default:
-		break;
-	}
 
 	lw->selected = lw->start+lw->rows;
 	if (screen_find(screen,

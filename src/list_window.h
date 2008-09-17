@@ -49,6 +49,13 @@ void list_window_paint(struct list_window *lw,
 /* perform basic list window commands (movement) */
 int list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd);
 
+/**
+ * Scroll the window.  Returns non-zero if the command has been
+ * consumed.
+ */
+int
+list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd);
+
 
 /* select functions */
 void list_window_set_selected(struct list_window *lw, unsigned n);

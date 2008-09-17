@@ -289,40 +289,12 @@ lyrics_update(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 static int
 lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
+	if (list_window_scroll_cmd(lw, current.lines->len, cmd))
+		return 1;
+
 	lw->repaint=1;
+
 	switch(cmd) {
-	case CMD_LIST_NEXT:
-		if (current.lines != NULL && lw->start+lw->rows < current.lines->len+1)
-			lw->start++;
-		return 1;
-	case CMD_LIST_PREVIOUS:
-		if( lw->start >0 )
-			lw->start--;
-		return 1;
-	case CMD_LIST_FIRST:
-		lw->start = 0;
-		return 1;
-	case CMD_LIST_LAST:
-		if ((unsigned)lyrics_text_rows > lw->rows)
-			lw->start = lyrics_text_rows - lw->rows;
-		else
-			lw->start = 0;
-		return 1;
-	case CMD_LIST_NEXT_PAGE:
-		lw->start = lw->start + lw->rows - 1;
-		if (lw->start + lw->rows >= (unsigned)lyrics_text_rows + 1) {
-			if ((unsigned)lyrics_text_rows + 1 > lw->rows)
-				lw->start = lyrics_text_rows + 1 - lw->rows;
-			else
-				lw->start = 0;
-		}
-		return 1;
-	case CMD_LIST_PREVIOUS_PAGE:
-		if (lw->start > lw->rows)
-			lw->start -= lw->rows;
-		else
-			lw->start = 0;
-		return 1;
 	case CMD_SELECT:
 		/* XXX */
 		if (current.loader != NULL) {
