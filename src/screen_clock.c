@@ -241,24 +241,16 @@ clock_cmd(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c,
 	return 0;
 }
 
-screen_functions_t *
-get_screen_clock(void)
-{
-	static screen_functions_t functions;
-
-	memset(&functions, 0, sizeof(screen_functions_t));
-	functions.init = clock_init;
-	functions.exit = clock_exit;
-	functions.open = clock_open;
-	functions.close = clock_close;
-	functions.resize = clock_resize;
-	functions.paint = clock_paint;
-	functions.update = clock_update;
-	functions.cmd = clock_cmd;
-	functions.get_lw = NULL;
-	functions.get_title = clock_title;
-
-	return &functions;
-}
+const struct screen_functions screen_clock = {
+	.init = clock_init,
+	.exit = clock_exit,
+	.open = clock_open,
+	.close = clock_close,
+	.resize = clock_resize,
+	.paint = clock_paint,
+	.update = clock_update,
+	.cmd = clock_cmd,
+	.get_title = clock_title,
+};
 
 #endif

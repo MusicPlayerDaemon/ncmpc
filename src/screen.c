@@ -50,14 +50,22 @@
 
 
 /* screens */
-extern struct screen_functions *get_screen_playlist(void);
-extern struct screen_functions *get_screen_browse(void);
-extern struct screen_functions *get_screen_help(void);
-extern struct screen_functions *get_screen_search(void);
-extern struct screen_functions *get_screen_artist(void);
-extern struct screen_functions *get_screen_keydef(void);
-extern struct screen_functions *get_screen_clock(void);
-extern struct screen_functions *get_screen_lyrics(void);
+extern const struct screen_functions screen_playlist;
+extern const struct screen_functions screen_browse;
+#ifdef ENABLE_ARTIST_SCREEN
+extern const struct screen_functions screen_artist;
+#endif
+extern const struct screen_functions screen_help;
+#ifdef ENABLE_SEARCH_SCREEN
+extern const struct screen_functions screen_search;
+#endif
+#ifdef ENABLE_KEYDEF_SCREEN
+extern const struct screen_functions screen_keydef;
+#endif
+#ifdef ENABLE_CLOCK_SCREEN
+extern const struct screen_functions screen_clock;
+#endif
+extern const struct screen_functions screen_lyrics;
 
 typedef struct screen_functions * (*screen_get_mode_functions_fn_t) (void);
 
@@ -65,32 +73,32 @@ static const struct
 {
 	gint id;
 	const gchar *name;
-	screen_get_mode_functions_fn_t get_mode_functions;
+	const struct screen_functions *functions;
 } screens[] = {
-	{ SCREEN_PLAYLIST_ID, "playlist", get_screen_playlist },
-	{ SCREEN_BROWSE_ID,   "browse",   get_screen_browse },
+	{ SCREEN_PLAYLIST_ID, "playlist", &screen_playlist },
+	{ SCREEN_BROWSE_ID, "browse", &screen_browse },
 #ifdef ENABLE_ARTIST_SCREEN
-	{ SCREEN_ARTIST_ID,   "artist",   get_screen_artist },
+	{ SCREEN_ARTIST_ID, "artist", &screen_artist },
 #endif
-	{ SCREEN_HELP_ID,     "help",     get_screen_help },
+	{ SCREEN_HELP_ID, "help", &screen_help },
 #ifdef ENABLE_SEARCH_SCREEN
-	{ SCREEN_SEARCH_ID,   "search",   get_screen_search },
+	{ SCREEN_SEARCH_ID, "search", &screen_search },
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
-	{ SCREEN_KEYDEF_ID,   "keydef",   get_screen_keydef },
+	{ SCREEN_KEYDEF_ID, "keydef", &screen_keydef },
 #endif
 #ifdef ENABLE_CLOCK_SCREEN
-	{ SCREEN_CLOCK_ID,    "clock",    get_screen_clock },
+	{ SCREEN_CLOCK_ID, "clock", &screen_clock },
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
-	{ SCREEN_LYRICS_ID,    "lyrics",    get_screen_lyrics },
+	{ SCREEN_LYRICS_ID, "lyrics", &screen_lyrics },
 #endif
-	{ G_MAXINT, NULL,      NULL }
+	{ G_MAXINT, NULL, NULL }
 };
 
 static gboolean welcome = TRUE;
 static screen_t *screen = NULL;
-static struct screen_functions *mode_fn = NULL;
+static const struct screen_functions *mode_fn = NULL;
 static int seek_id = -1;
 static int seek_target_time = 0;
 
@@ -139,9 +147,9 @@ switch_screen_mode(gint id, mpdclient_t *c)
 
 	/* get functions for the new mode */
 	new_mode = lookup_mode(id);
-	if (new_mode>=0 && screens[new_mode].get_mode_functions) {
+	if (new_mode >= 0 && screens[new_mode].functions) {
 		D("switch_screen(%s)\n", screens[new_mode].name );
-		mode_fn = screens[new_mode].get_mode_functions();
+		mode_fn = screens[new_mode].functions;
 		screen->mode = new_mode;
 	}
 
@@ -412,12 +420,12 @@ screen_exit(void)
 
 		/* close and exit all screens (playlist,browse,help...) */
 		i=0;
-		while (screens[i].get_mode_functions) {
-			struct screen_functions *sf = screens[i].get_mode_functions();
+		while (screens[i].functions) {
+			const struct screen_functions *sf = screens[i].functions;
 
-			if (sf && sf->close)
+			if (sf->close)
 				sf->close();
-			if (sf && sf->exit)
+			if (sf->exit)
 				sf->exit();
 
 			i++;
@@ -476,10 +484,10 @@ screen_resize(void)
 
 	/* close and exit all screens (playlist,browse,help...) */
 	i=0;
-	while (screens[i].get_mode_functions) {
-		struct screen_functions *sf = screens[i].get_mode_functions();
+	while (screens[i].functions) {
+		const struct screen_functions *sf = screens[i].functions;
 
-		if (sf && sf->resize)
+		if (sf->resize)
 			sf->resize(screen->main_window.cols, screen->main_window.rows);
 
 		i++;
@@ -626,10 +634,10 @@ screen_init(mpdclient_t *c)
 
 	/* initialize screens */
 	i=0;
-	while (screens[i].get_mode_functions) {
-		struct screen_functions *fn = screens[i].get_mode_functions();
+	while (screens[i].functions) {
+		const struct screen_functions *fn = screens[i].functions;
 
-		if (fn && fn->init)
+		if (fn->init)
 			fn->init(screen->main_window.w,
 				 screen->main_window.cols,
 				 screen->main_window.rows);
@@ -642,7 +650,7 @@ screen_init(mpdclient_t *c)
 	mode_fn = NULL;
 	switch_screen_mode(screen_get_id(options.screen_list[0]), c);
 #else
-	mode_fn = get_screen_playlist();
+	mode_fn = &screen_playlist;
 #endif
 
 	if( mode_fn && mode_fn->open )

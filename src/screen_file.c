@@ -751,23 +751,16 @@ get_filelist_window(void)
 	return lw;
 }
 
-screen_functions_t *
-get_screen_browse(void)
-{
-	static screen_functions_t functions;
-
-	memset(&functions, 0, sizeof(screen_functions_t));
-	functions.init = browse_init;
-	functions.exit = browse_exit;
-	functions.open = browse_open;
-	functions.close = browse_close;
-	functions.resize = browse_resize;
-	functions.paint = browse_paint;
-	functions.update = browse_update;
-	functions.cmd = browse_cmd;
-	functions.get_lw = get_filelist_window;
-	functions.get_title = browse_title;
-
-	return &functions;
-}
+const struct screen_functions screen_browse = {
+	.init = browse_init,
+	.exit = browse_exit,
+	.open = browse_open,
+	.close = browse_close,
+	.resize = browse_resize,
+	.paint = browse_paint,
+	.update = browse_update,
+	.cmd = browse_cmd,
+	.get_lw = get_filelist_window,
+	.get_title = browse_title,
+};
 

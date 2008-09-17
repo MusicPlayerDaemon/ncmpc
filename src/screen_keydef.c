@@ -368,25 +368,17 @@ keydef_lw(void)
   return lw;
 }
 
-screen_functions_t *
-get_screen_keydef(void)
-{
-  static screen_functions_t functions;
-
-  memset(&functions, 0, sizeof(screen_functions_t));
-  functions.init   = keydef_init;
-  functions.exit   = keydef_exit;
-  functions.open   = keydef_open;
-  functions.close  = keydef_close;
-  functions.resize = keydef_resize;
-  functions.paint  = keydef_paint;
-  functions.update = keydef_update;
-  functions.cmd    = keydef_cmd;
-  functions.get_lw = keydef_lw;
-  functions.get_title = keydef_title;
-
-  return &functions;
-}
-
+const struct screen_functions screen_keydef = {
+	.init = keydef_init,
+	.exit = keydef_exit,
+	.open = keydef_open,
+	.close = keydef_close,
+	.resize = keydef_resize,
+	.paint = keydef_paint,
+	.update = keydef_update,
+	.cmd = keydef_cmd,
+	.get_lw = keydef_lw,
+	.get_title = keydef_title,
+};
 
 #endif

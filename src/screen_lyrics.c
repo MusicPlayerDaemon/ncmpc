@@ -376,23 +376,17 @@ lyrics_lw(void)
   return lw;
 }
 
-screen_functions_t *
-get_screen_lyrics(void)
-{
-  static screen_functions_t functions;
+const struct screen_functions screen_lyrics = {
+	.init = lyrics_screen_init,
+	.exit = lyrics_exit,
+	.open = lyrics_open,
+	.close = NULL,
+	.resize = lyrics_resize,
+	.paint = lyrics_paint,
+	.update = lyrics_update,
+	.cmd = lyrics_cmd,
+	.get_lw = lyrics_lw,
+	.get_title = lyrics_title,
+};
 
-  memset(&functions, 0, sizeof(screen_functions_t));
-  functions.init   = lyrics_screen_init;
-  functions.exit   = lyrics_exit;
-  functions.open = lyrics_open;
-  functions.close  = NULL;
-  functions.resize = lyrics_resize;
-  functions.paint  = lyrics_paint;
-  functions.update = lyrics_update;
-  functions.cmd    = lyrics_cmd;
-  functions.get_lw = lyrics_lw;
-  functions.get_title = lyrics_title;
-
-  return &functions;
-}
 #endif /* ENABLE_LYRICS_SCREEN */

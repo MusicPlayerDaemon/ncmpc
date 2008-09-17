@@ -92,25 +92,4 @@ int screen_get_mouse_event(mpdclient_t *c,
 			   struct list_window *lw, int lw_length, 
 			   unsigned long *bstate, int *row);
 
-struct screen_functions *
-get_screen_search(void);
-
-struct screen_functions *
-get_screen_browse(void);
-
-struct screen_functions *
-get_screen_playlist(void);
-
-struct screen_functions *
-get_screen_help(void);
-
-struct screen_functions *
-get_screen_lyrics(void);
-
-struct screen_functions *
-get_screen_keydef(void);
-
-struct screen_functions *
-get_screen_clock(void);
-
 #endif

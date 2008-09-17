@@ -306,22 +306,13 @@ help_lw(void)
 	return lw;
 }
 
-screen_functions_t *
-get_screen_help(void)
-{
-	static screen_functions_t functions;
-
-	memset(&functions, 0, sizeof(screen_functions_t));
-	functions.init   = help_init;
-	functions.exit   = help_exit;
-	functions.open   = NULL;
-	functions.close  = NULL;
-	functions.resize = help_resize;
-	functions.paint  = help_paint;
-	functions.update = help_update;
-	functions.cmd    = help_cmd;
-	functions.get_lw = help_lw;
-	functions.get_title = help_title;
-
-	return &functions;
-}
+const struct screen_functions screen_help = {
+	.init = help_init,
+	.exit = help_exit,
+	.resize = help_resize,
+	.paint = help_paint,
+	.update = help_update,
+	.cmd = help_cmd,
+	.get_lw = help_lw,
+	.get_title = help_title,
+};

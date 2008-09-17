@@ -503,22 +503,15 @@ play_lw(void)
   return lw;
 }
 
-screen_functions_t *
-get_screen_playlist(void)
-{
-  static screen_functions_t functions;
-
-  memset(&functions, 0, sizeof(screen_functions_t));
-  functions.init   = play_init;
-  functions.exit   = play_exit;
-  functions.open   = play_open;
-  functions.close  = NULL;
-  functions.resize = play_resize;
-  functions.paint  = play_paint;
-  functions.update = play_update;
-  functions.cmd    = play_cmd;
-  functions.get_lw = play_lw;
-  functions.get_title = play_title;
-
-  return &functions;
-}
+const struct screen_functions screen_playlist = {
+	.init = play_init,
+	.exit = play_exit,
+	.open = play_open,
+	.close = NULL,
+	.resize = play_resize,
+	.paint = play_paint,
+	.update = play_update,
+	.cmd = play_cmd,
+	.get_lw = play_lw,
+	.get_title = play_title,
+};

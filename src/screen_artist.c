@@ -473,25 +473,17 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
   return 0;
 }
 
-screen_functions_t *
-get_screen_artist(void)
-{
-  static screen_functions_t functions;
-
-  memset(&functions, 0, sizeof(screen_functions_t));
-  functions.init   = init;
-  functions.exit   = quit;
-  functions.open   = open;
-  functions.close  = close;
-  functions.resize = resize;
-  functions.paint  = paint;
-  functions.update = update;
-  functions.cmd    = artist_cmd;
-  functions.get_lw = get_filelist_window;
-  functions.get_title = get_title;
-
-  return &functions;
-}
-
+const struct screen_functions screen_artist = {
+	.init = init,
+	.exit = quit,
+	.open = open,
+	.close = close,
+	.resize = resize,
+	.paint = paint,
+	.update = update,
+	.cmd = artist_cmd,
+	.get_lw = get_filelist_window,
+	.get_title = get_title,
+};
 
 #endif /* ENABLE_ARTIST_SCREEN */
