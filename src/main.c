@@ -254,51 +254,17 @@ main(int argc, const char *argv[])
 
 	lyrics_init();
 
-	/* connect to our music player daemon */
+	/* create mpdclient instance */
 	mpd = mpdclient_new();
-
-	if (mpdclient_connect(mpd,
-			      options.host,
-			      options.port,
-			      10.0,
-			      options.password))
-		exit(EXIT_FAILURE);
-
-	/* if no password is used, but the mpd wants one, the connection
-	   might be established but no status information is avaiable */
-	mpdclient_update(mpd);
-	if (!mpd->status)
-		screen_auth(mpd);
-
-	if (!mpd->status)
-		exit(EXIT_FAILURE);
-
-	connected = TRUE;
-	D("Connected to MPD version %d.%d.%d\n",
-	  mpd->connection->version[0],
-	  mpd->connection->version[1],
-	  mpd->connection->version[2]);
-
-	/* quit if mpd is pre 0.11.0 - song id not supported by mpd */
-	if( MPD_VERSION_LT(mpd, 0,11,0) ) {
-		fprintf(stderr,
-			_("Error: MPD version %d.%d.%d is to old (0.11.0 needed).\n"),
-			mpd->connection->version[0],
-			mpd->connection->version[1],
-			mpd->connection->version[2]);
-		exit(EXIT_FAILURE);
-	}
+	mpdclient_install_error_callback(mpd, error_callback);
 
 	/* initialize curses */
 	screen_init(mpd);
-	/* install error callback function */
-	mpdclient_install_error_callback(mpd, error_callback);
 
 	/* initialize timer */
 	timer = g_timer_new();
 
-	connected = TRUE;
-	while (connected || options.reconnect) {
+	while (1) {
 		static gdouble t = G_MAXDOUBLE;
 
 		if (key_error) {
@@ -324,19 +290,35 @@ main(int argc, const char *argv[])
 					g_timer_start(timer);
 			} else
 				screen_idle(mpd);
-		} else if (options.reconnect) {
+		} else {
 			screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
 					     options.host, get_key_names(CMD_QUIT,0) );
 
+			/*
 			if (get_keyboard_command_with_timeout(MPD_RECONNECT_TIME) == CMD_QUIT)
 				exit(EXIT_SUCCESS);
+			*/
 
 			if (mpdclient_connect(mpd,
 					      options.host, options.port,
 					      1.5,
 					      options.password) == 0) {
 				screen_status_printf(_("Connected to %s!"), options.host);
-				connected = TRUE;
+
+				/* quit if mpd is pre 0.11.0 - song id not supported by mpd */
+				if (MPD_VERSION_LT(mpd, 0, 11, 0)) {
+					screen_status_printf(_("Error: MPD version %d.%d.%d is to old (0.11.0 needed).\n"),
+							     mpd->connection->version[0],
+							     mpd->connection->version[1],
+							     mpd->connection->version[2]);
+					mpdclient_disconnect(mpd);
+				} else {
+					mpdclient_update(mpd);
+					if (!mpd->status)
+						screen_auth(mpd);
+
+					connected = TRUE;
+				}
 			}
 
 			doupdate();
