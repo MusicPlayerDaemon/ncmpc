@@ -33,7 +33,6 @@ void
 playlist_init(struct mpdclient_playlist *playlist)
 {
 	playlist->id = 0;
-	playlist->updated = FALSE;
 	playlist->list = g_ptr_array_sized_new(1024);
 }
 

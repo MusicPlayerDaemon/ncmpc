@@ -51,6 +51,7 @@ typedef struct
 } completion_callback_data_t;
 
 static list_window_t *lw = NULL;
+static long long playlist_id;
 
 static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
@@ -398,14 +399,14 @@ play_update(screen_t *screen, mpdclient_t *c)
 		}
 	}
 
-	if( c->playlist.updated ) {
+	if (c->playlist.id != playlist_id) {
 		if (lw->selected >= c->playlist.list->len)
 			lw->selected = c->playlist.list->len - 1;
 		if (lw->start >= c->playlist.list->len)
 			list_window_reset(lw);
 
 		play_paint(screen, c);
-		c->playlist.updated = FALSE;
+		playlist_id = c->playlist.id;
 	} else if( lw->repaint || 1) {
 		list_window_paint(lw, list_callback, (void *) c);
 		wnoutrefresh(lw->w);

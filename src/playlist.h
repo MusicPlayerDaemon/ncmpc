@@ -33,9 +33,6 @@ typedef struct mpdclient_playlist {
 	/* playlist id */
 	long long id;
 
-	/* true if the list is updated */
-	gboolean updated;
-
 	/* the list */
 	GPtrArray *list;
 } mpdclient_playlist_t;

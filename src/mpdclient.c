@@ -666,7 +666,6 @@ mpdclient_playlist_update(mpdclient_t *c)
 
 	c->playlist.id = c->status->playlist;
 	c->song = NULL;
-	c->playlist.updated = TRUE;
 
 	/* call playlist updated callbacks */
 	mpdclient_playlist_callback(c, PLAYLIST_EVENT_UPDATED, NULL);
@@ -718,7 +717,6 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 
 	c->song = NULL;
 	c->playlist.id = c->status->playlist;
-	c->playlist.updated = TRUE;
 
 	mpdclient_playlist_callback(c, PLAYLIST_EVENT_UPDATED, NULL);
 
