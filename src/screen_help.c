@@ -151,37 +151,37 @@ list_callback(unsigned idx, int *highlight, mpd_unused void *data)
 {
 	static char buf[512];
 
-	*highlight = 0;
-	if (idx < help_text_rows) {
-		*highlight = help_text[idx].highlight > 0;
-		if (help_text[idx].command == CMD_NONE) {
-			if (help_text[idx].text)
-				g_snprintf(buf, sizeof(buf), "      %s", _(help_text[idx].text));
-			else if (help_text[idx].highlight == 2) {
-				int i;
+	if (idx >= help_text_rows)
+		return NULL;
 
-				for (i = 3; i < COLS - 3 && i < (int)sizeof(buf); i++)
-					buf[i] = '-';
-				buf[i] = '\0';
-			} else
-				g_strlcpy(buf, " ", sizeof(buf));
-			return buf;
-		}
+	if (help_text[idx].highlight)
+		*highlight = 1;
 
+	if (help_text[idx].command == CMD_NONE) {
 		if (help_text[idx].text)
-			g_snprintf(buf, sizeof(buf),
-				   "%20s : %s   ",
-				   get_key_names(help_text[idx].command, TRUE),
-				   _(help_text[idx].text));
-		else
-			g_snprintf(buf, sizeof(buf),
-				   "%20s : %s   ",
-				   get_key_names(help_text[idx].command, TRUE),
-				   get_key_description(help_text[idx].command));
+			g_snprintf(buf, sizeof(buf), "      %s", _(help_text[idx].text));
+		else if (help_text[idx].highlight == 2) {
+			int i;
+
+			for (i = 3; i < COLS - 3 && i < (int)sizeof(buf); i++)
+				buf[i] = '-';
+			buf[i] = '\0';
+		} else
+			g_strlcpy(buf, " ", sizeof(buf));
 		return buf;
 	}
 
-	return NULL;
+	if (help_text[idx].text)
+		g_snprintf(buf, sizeof(buf),
+			   "%20s : %s   ",
+			   get_key_names(help_text[idx].command, TRUE),
+			   _(help_text[idx].text));
+	else
+		g_snprintf(buf, sizeof(buf),
+			   "%20s : %s   ",
+			   get_key_names(help_text[idx].command, TRUE),
+			   get_key_description(help_text[idx].command));
+	return buf;
 }
 
 static void
