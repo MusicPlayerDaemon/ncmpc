@@ -97,7 +97,7 @@ static const struct
 };
 
 static gboolean welcome = TRUE;
-static screen_t *screen = NULL;
+static struct screen screen;
 static const struct screen_functions *mode_fn = &screen_playlist;
 static int seek_id = -1;
 static int seek_target_time = 0;
@@ -130,7 +130,7 @@ lookup_mode(gint id)
 
 gint get_cur_mode_id(void)
 {
-	return screens[screen->mode].id;
+	return screens[screen.mode].id;
 }
 
 static void
@@ -138,7 +138,7 @@ switch_screen_mode(gint id, mpdclient_t *c)
 {
 	gint new_mode;
 
-	if( id == screens[screen->mode].id )
+	if( id == screens[screen.mode].id )
 		return;
 
 	/* close the old mode */
@@ -150,14 +150,14 @@ switch_screen_mode(gint id, mpdclient_t *c)
 	if (new_mode >= 0 && screens[new_mode].functions) {
 		D("switch_screen(%s)\n", screens[new_mode].name );
 		mode_fn = screens[new_mode].functions;
-		screen->mode = new_mode;
+		screen.mode = new_mode;
 	}
 
-	screen->painted = 0;
+	screen.painted = 0;
 
 	/* open the new mode */
 	if (mode_fn->open != NULL)
-		mode_fn->open(screen, c);
+		mode_fn->open(&screen, c);
 }
 
 static int
@@ -179,7 +179,7 @@ screen_next_mode(mpdclient_t *c, int offset)
 	int current, next;
 
 	/* find current screen */
-	current = find_configured_screen(screens[screen->mode].name);
+	current = find_configured_screen(screens[screen.mode].name);
 	next = current + offset;
 	if (next<0)
 		next = max-1;
@@ -194,7 +194,7 @@ static void
 paint_top_window2(const char *header, mpdclient_t *c)
 {
 	char flags[5];
-	WINDOW *w = screen->top_window.w;
+	WINDOW *w = screen.top_window.w;
 	char buf[32];
 
 	if (header[0]) {
@@ -238,7 +238,7 @@ paint_top_window2(const char *header, mpdclient_t *c)
 		g_snprintf(buf, 32, _(" Volume %d%%"), c->status->volume);
 	}
 	colors_use(w, COLOR_TITLE);
-	mvwaddstr(w, 0, screen->top_window.cols-my_strlen(buf), buf);
+	mvwaddstr(w, 0, screen.top_window.cols-my_strlen(buf), buf);
 
 	flags[0] = 0;
 	if( c->status->repeat )
@@ -250,9 +250,9 @@ paint_top_window2(const char *header, mpdclient_t *c)
 	if( c->status->updatingDb )
 		g_strlcat(flags, "U", sizeof(flags));
 	colors_use(w, COLOR_LINE);
-	mvwhline(w, 1, 0, ACS_HLINE, screen->top_window.cols);
+	mvwhline(w, 1, 0, ACS_HLINE, screen.top_window.cols);
 	if (flags[0]) {
-		wmove(w,1,screen->top_window.cols-strlen(flags)-3);
+		wmove(w,1,screen.top_window.cols-strlen(flags)-3);
 		waddch(w, '[');
 		colors_use(w, COLOR_LINE_BOLD);
 		waddstr(w, flags);
@@ -267,7 +267,7 @@ paint_top_window(const char *header, mpdclient_t *c, int full_repaint)
 {
 	static int prev_volume = -1;
 	static size_t prev_header_len = -1;
-	WINDOW *w = screen->top_window.w;
+	WINDOW *w = screen.top_window.w;
 
 	if (prev_header_len!=my_strlen(header)) {
 		prev_header_len = my_strlen(header);
@@ -291,9 +291,9 @@ paint_progress_window(mpdclient_t *c)
 	int elapsedTime = c->status->elapsedTime;
 
 	if (c->status==NULL || IS_STOPPED(c->status->state)) {
-		mvwhline(screen->progress_window.w, 0, 0, ACS_HLINE,
-			 screen->progress_window.cols);
-		wnoutrefresh(screen->progress_window.w);
+		mvwhline(screen.progress_window.w, 0, 0, ACS_HLINE,
+			 screen.progress_window.cols);
+		wnoutrefresh(screen.progress_window.w);
 		return;
 	}
 
@@ -302,27 +302,27 @@ paint_progress_window(mpdclient_t *c)
 
 	p = ((double) elapsedTime) / ((double) c->status->totalTime);
 
-	width = (int) (p * (double) screen->progress_window.cols);
-	mvwhline(screen->progress_window.w,
+	width = (int) (p * (double) screen.progress_window.cols);
+	mvwhline(screen.progress_window.w,
 		 0, 0,
 		 ACS_HLINE,
-		 screen->progress_window.cols);
-	whline(screen->progress_window.w, '=', width-1);
-	mvwaddch(screen->progress_window.w, 0, width-1, 'O');
-	wnoutrefresh(screen->progress_window.w);
+		 screen.progress_window.cols);
+	whline(screen.progress_window.w, '=', width-1);
+	mvwaddch(screen.progress_window.w, 0, width-1, 'O');
+	wnoutrefresh(screen.progress_window.w);
 }
 
 static void
 paint_status_window(mpdclient_t *c)
 {
-	WINDOW *w = screen->status_window.w;
+	WINDOW *w = screen.status_window.w;
 	mpd_Status *status = c->status;
 	mpd_Song *song = c->song;
 	int elapsedTime = 0;
 	const char *str = NULL;
 	int x = 0;
 
-	if( time(NULL) - screen->status_timestamp <= SCREEN_STATUS_MESSAGE_TIME )
+	if( time(NULL) - screen.status_timestamp <= SCREEN_STATUS_MESSAGE_TIME )
 		return;
 
 	wmove(w, 0, 0);
@@ -347,7 +347,7 @@ paint_status_window(mpdclient_t *c)
 	}
 
 	/* create time string */
-	memset(screen->buf, 0, screen->buf_size);
+	memset(screen.buf, 0, screen.buf_size);
 	if (IS_PLAYING(status->state) || IS_PAUSED(status->state)) {
 		if (status->totalTime > 0) {
 			/*checks the conf to see whether to display elapsed or remaining time */
@@ -360,31 +360,31 @@ paint_status_window(mpdclient_t *c)
 				elapsedTime = seek_target_time;
 			/*write out the time, using hours if time over 60 minutes*/
 			if (c->status->totalTime > 3600) {
-				g_snprintf(screen->buf, screen->buf_size,
+				g_snprintf(screen.buf, screen.buf_size,
 					   " [%i:%02i:%02i/%i:%02i:%02i]",
 					   elapsedTime/3600, (elapsedTime%3600)/60, elapsedTime%60,
 					   status->totalTime/3600, (status->totalTime%3600)/60,  status->totalTime%60);
 			} else {
-				g_snprintf(screen->buf, screen->buf_size,
+				g_snprintf(screen.buf, screen.buf_size,
 					   " [%i:%02i/%i:%02i]",
 					   elapsedTime/60, elapsedTime%60,
 					   status->totalTime/60,   status->totalTime%60 );
 			}
 		} else {
-			g_snprintf(screen->buf, screen->buf_size,
+			g_snprintf(screen.buf, screen.buf_size,
 				   " [%d kbps]", status->bitRate );
 		}
 	} else {
 		time_t timep;
 
 		time(&timep);
-		strftime(screen->buf, screen->buf_size, "%X ",localtime(&timep));
+		strftime(screen.buf, screen.buf_size, "%X ",localtime(&timep));
 	}
 
 	/* display song */
 	if (IS_PLAYING(status->state) || IS_PAUSED(status->state)) {
 		char songname[MAX_SONGNAME_LENGTH];
-		int width = COLS-x-my_strlen(screen->buf);
+		int width = COLS-x-my_strlen(screen.buf);
 
 		if (song)
 			strfsong(songname, MAX_SONGNAME_LENGTH, STATUS_FORMAT, song);
@@ -405,10 +405,10 @@ paint_status_window(mpdclient_t *c)
 	}
 
 	/* display time string */
-	if (screen->buf[0]) {
-		x = screen->status_window.cols - strlen(screen->buf);
+	if (screen.buf[0]) {
+		x = screen.status_window.cols - strlen(screen.buf);
 		colors_use(w, COLOR_STATUS_TIME);
-		mvwaddstr(w, 0, x, screen->buf);
+		mvwaddstr(w, 0, x, screen.buf);
 	}
 
 	wnoutrefresh(w);
@@ -417,30 +417,27 @@ paint_status_window(mpdclient_t *c)
 int
 screen_exit(void)
 {
+	gint i;
+
 	endwin();
-	if (screen) {
-		gint i;
 
-		/* close and exit all screens (playlist,browse,help...) */
-		i=0;
-		while (screens[i].functions) {
-			const struct screen_functions *sf = screens[i].functions;
+	/* close and exit all screens (playlist,browse,help...) */
+	i=0;
+	while (screens[i].functions) {
+		const struct screen_functions *sf = screens[i].functions;
 
-			if (sf->close)
-				sf->close();
-			if (sf->exit)
-				sf->exit();
+		if (sf->close)
+			sf->close();
+		if (sf->exit)
+			sf->exit();
 
-			i++;
-		}
-
-		string_list_free(screen->find_history);
-		g_free(screen->buf);
-		g_free(screen->findbuf);
-
-		g_free(screen);
-		screen = NULL;
+		i++;
 	}
+
+	string_list_free(screen.find_history);
+	g_free(screen.buf);
+	g_free(screen.findbuf);
+
 	return 0;
 }
 
@@ -449,7 +446,7 @@ screen_resize(void)
 {
 	gint i;
 
-	D("Resize rows %d->%d, cols %d->%d\n",screen->rows,LINES,screen->cols,COLS);
+	D("Resize rows %d->%d, cols %d->%d\n",screen.rows,LINES,screen.cols,COLS);
 	if (COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS) {
 		screen_exit();
 		fprintf(stderr, _("Error: Screen to small!\n"));
@@ -458,32 +455,32 @@ screen_resize(void)
 
 	resizeterm(LINES, COLS);
 
-	screen->cols = COLS;
-	screen->rows = LINES;
+	screen.cols = COLS;
+	screen.rows = LINES;
 
 	/* top window */
-	screen->top_window.cols = screen->cols;
-	wresize(screen->top_window.w, 2, screen->cols);
+	screen.top_window.cols = screen.cols;
+	wresize(screen.top_window.w, 2, screen.cols);
 
 	/* main window */
-	screen->main_window.cols = screen->cols;
-	screen->main_window.rows = screen->rows-4;
-	wresize(screen->main_window.w, screen->main_window.rows, screen->cols);
-	wclear(screen->main_window.w);
+	screen.main_window.cols = screen.cols;
+	screen.main_window.rows = screen.rows-4;
+	wresize(screen.main_window.w, screen.main_window.rows, screen.cols);
+	wclear(screen.main_window.w);
 
 	/* progress window */
-	screen->progress_window.cols = screen->cols;
-	wresize(screen->progress_window.w, 1, screen->cols);
-	mvwin(screen->progress_window.w, screen->rows-2, 0);
+	screen.progress_window.cols = screen.cols;
+	wresize(screen.progress_window.w, 1, screen.cols);
+	mvwin(screen.progress_window.w, screen.rows-2, 0);
 
 	/* status window */
-	screen->status_window.cols = screen->cols;
-	wresize(screen->status_window.w, 1, screen->cols);
-	mvwin(screen->status_window.w, screen->rows-1, 0);
+	screen.status_window.cols = screen.cols;
+	wresize(screen.status_window.w, 1, screen.cols);
+	mvwin(screen.status_window.w, screen.rows-1, 0);
 
-	screen->buf_size = screen->cols;
-	g_free(screen->buf);
-	screen->buf = g_malloc(screen->cols);
+	screen.buf_size = screen.cols;
+	g_free(screen.buf);
+	screen.buf = g_malloc(screen.cols);
 
 	/* close and exit all screens (playlist,browse,help...) */
 	i=0;
@@ -491,7 +488,7 @@ screen_resize(void)
 		const struct screen_functions *sf = screens[i].functions;
 
 		if (sf->resize)
-			sf->resize(screen->main_window.cols, screen->main_window.rows);
+			sf->resize(screen.main_window.cols, screen.main_window.rows);
 
 		i++;
 	}
@@ -500,20 +497,20 @@ screen_resize(void)
 	curs_set(1);
 	curs_set(0);
 
-	screen->painted = 0;
+	screen.painted = 0;
 }
 
 void
 screen_status_message(const char *msg)
 {
-	WINDOW *w = screen->status_window.w;
+	WINDOW *w = screen.status_window.w;
 
 	wmove(w, 0, 0);
 	wclrtoeol(w);
 	colors_use(w, COLOR_STATUS_ALERT);
 	waddstr(w, msg);
 	wnoutrefresh(w);
-	screen->status_timestamp = time(NULL);
+	screen.status_timestamp = time(NULL);
 }
 
 void
@@ -562,69 +559,67 @@ ncurses_init(void)
 			fprintf(stderr, _("Error: Screen to small!\n"));
 			exit(EXIT_FAILURE);
 		}
-	screen = g_malloc(sizeof(screen_t));
-	memset(screen, 0, sizeof(screen_t));
-	screen->mode = 0;
-	screen->cols = COLS;
-	screen->rows = LINES;
+	screen.mode = 0;
+	screen.cols = COLS;
+	screen.rows = LINES;
 
-	screen->buf  = g_malloc(screen->cols);
-	screen->buf_size = screen->cols;
-	screen->findbuf = NULL;
-	screen->painted = 0;
-	screen->start_timestamp = time(NULL);
-	screen->input_timestamp = time(NULL);
-	screen->last_cmd = CMD_NONE;
+	screen.buf  = g_malloc(screen.cols);
+	screen.buf_size = screen.cols;
+	screen.findbuf = NULL;
+	screen.painted = 0;
+	screen.start_timestamp = time(NULL);
+	screen.input_timestamp = time(NULL);
+	screen.last_cmd = CMD_NONE;
 
 	/* create top window */
-	screen->top_window.rows = 2;
-	screen->top_window.cols = screen->cols;
-	screen->top_window.w = newwin(screen->top_window.rows,
-				      screen->top_window.cols,
+	screen.top_window.rows = 2;
+	screen.top_window.cols = screen.cols;
+	screen.top_window.w = newwin(screen.top_window.rows,
+				      screen.top_window.cols,
 				      0, 0);
-	leaveok(screen->top_window.w, TRUE);
-	keypad(screen->top_window.w, TRUE);
+	leaveok(screen.top_window.w, TRUE);
+	keypad(screen.top_window.w, TRUE);
 
 	/* create main window */
-	screen->main_window.rows = screen->rows-4;
-	screen->main_window.cols = screen->cols;
-	screen->main_window.w = newwin(screen->main_window.rows,
-				       screen->main_window.cols,
+	screen.main_window.rows = screen.rows-4;
+	screen.main_window.cols = screen.cols;
+	screen.main_window.w = newwin(screen.main_window.rows,
+				       screen.main_window.cols,
 				       2,
 				       0);
 
-	//  leaveok(screen->main_window.w, TRUE); temporary disabled
-	keypad(screen->main_window.w, TRUE);
+	//  leaveok(screen.main_window.w, TRUE); temporary disabled
+	keypad(screen.main_window.w, TRUE);
 
 	/* create progress window */
-	screen->progress_window.rows = 1;
-	screen->progress_window.cols = screen->cols;
-	screen->progress_window.w = newwin(screen->progress_window.rows,
-					   screen->progress_window.cols,
-					   screen->rows-2,
+	screen.progress_window.rows = 1;
+	screen.progress_window.cols = screen.cols;
+	screen.progress_window.w = newwin(screen.progress_window.rows,
+					   screen.progress_window.cols,
+					   screen.rows-2,
 					   0);
-	leaveok(screen->progress_window.w, TRUE);
+	leaveok(screen.progress_window.w, TRUE);
 
 	/* create status window */
-	screen->status_window.rows = 1;
-	screen->status_window.cols = screen->cols;
-	screen->status_window.w = newwin(screen->status_window.rows,
-					 screen->status_window.cols,
-					 screen->rows-1,
+	screen.status_window.rows = 1;
+	screen.status_window.cols = screen.cols;
+	screen.status_window.w = newwin(screen.status_window.rows,
+					 screen.status_window.cols,
+					 screen.rows-1,
 					 0);
 
-	leaveok(screen->status_window.w, FALSE);
-	keypad(screen->status_window.w, TRUE);
+	leaveok(screen.status_window.w, FALSE);
+	keypad(screen.status_window.w, TRUE);
 
 	if( options.enable_colors )
 		{
 			/* set background attributes */
 			wbkgd(stdscr, COLOR_PAIR(COLOR_LIST));
-			wbkgd(screen->main_window.w,     COLOR_PAIR(COLOR_LIST));
-			wbkgd(screen->top_window.w,      COLOR_PAIR(COLOR_TITLE));
-			wbkgd(screen->progress_window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
-			wbkgd(screen->status_window.w,   COLOR_PAIR(COLOR_STATUS));
-			colors_use(screen->progress_window.w, COLOR_PROGRESSBAR);
+			wbkgd(screen.main_window.w,     COLOR_PAIR(COLOR_LIST));
+			wbkgd(screen.top_window.w,      COLOR_PAIR(COLOR_TITLE));
+			wbkgd(screen.progress_window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
+			wbkgd(screen.status_window.w,   COLOR_PAIR(COLOR_STATUS));
+			colors_use(screen.progress_window.w, COLOR_PROGRESSBAR);
 		}
 
 	refresh();
@@ -641,15 +636,15 @@ screen_init(mpdclient_t *c)
 		const struct screen_functions *fn = screens[i].functions;
 
 		if (fn->init)
-			fn->init(screen->main_window.w,
-				 screen->main_window.cols,
-				 screen->main_window.rows);
+			fn->init(screen.main_window.w,
+				 screen.main_window.cols,
+				 screen.main_window.rows);
 
 		i++;
 	}
 
 	if (mode_fn->open != NULL)
-		mode_fn->open(screen, c);
+		mode_fn->open(&screen, c);
 
 	/* initialize wreadln */
 	wrln_wgetch = my_wgetch;
@@ -664,7 +659,7 @@ screen_paint(mpdclient_t *c)
 	const char *title = NULL;
 
 	if (mode_fn->get_title != NULL)
-		title = mode_fn->get_title(screen->buf, screen->buf_size);
+		title = mode_fn->get_title(screen.buf, screen.buf_size);
 
 	D("screen_paint(%s)\n", title);
 	/* paint the title/header window */
@@ -674,15 +669,15 @@ screen_paint(mpdclient_t *c)
 		paint_top_window("", c, 1);
 
 	/* paint the main window */
-	wclear(screen->main_window.w);
+	wclear(screen.main_window.w);
 	if (mode_fn->paint != NULL)
-		mode_fn->paint(screen, c);
+		mode_fn->paint(&screen, c);
 
 	paint_progress_window(c);
 	paint_status_window(c);
-	screen->painted = 1;
-	wmove(screen->main_window.w, 0, 0);
-	wnoutrefresh(screen->main_window.w);
+	screen.painted = 1;
+	wmove(screen.main_window.w, 0, 0);
+	wnoutrefresh(screen.main_window.w);
 
 	/* tell curses to update */
 	doupdate();
@@ -696,7 +691,7 @@ screen_update(mpdclient_t *c)
 	static int crossfade = -1;
 	static int dbupdate = -1;
 
-	if( !screen->painted )
+	if( !screen.painted )
 		return screen_paint(c);
 
 	/* print a message if mpd status has changed */
@@ -731,18 +726,18 @@ screen_update(mpdclient_t *c)
 	dbupdate = c->status->updatingDb;
 
 	/* update title/header window */
-	if (welcome && screen->last_cmd==CMD_NONE &&
-	    time(NULL)-screen->start_timestamp <= SCREEN_WELCOME_TIME)
+	if (welcome && screen.last_cmd==CMD_NONE &&
+	    time(NULL)-screen.start_timestamp <= SCREEN_WELCOME_TIME)
 		paint_top_window("", c, 0);
 	else if (mode_fn->get_title != NULL) {
-		paint_top_window(mode_fn->get_title(screen->buf,screen->buf_size), c, 0);
+		paint_top_window(mode_fn->get_title(screen.buf,screen.buf_size), c, 0);
 		welcome = FALSE;
 	} else
 		paint_top_window("", c, 0);
 
 	/* update the main window */
 	if (mode_fn->update != NULL)
-		mode_fn->update(screen, c);
+		mode_fn->update(&screen, c);
 
 	/* update progress window */
 	paint_progress_window(c);
@@ -751,8 +746,8 @@ screen_update(mpdclient_t *c)
 	paint_status_window(c);
 
 	/* move the cursor to the origin */
-	wmove(screen->main_window.w, 0, 0);
-	wnoutrefresh(screen->main_window.w);
+	wmove(screen.main_window.w, 0, 0);
+	wnoutrefresh(screen.main_window.w);
 
 	/* tell curses to update */
 	doupdate();
@@ -762,11 +757,11 @@ void
 screen_idle(mpdclient_t *c)
 {
 	if (c->song && seek_id == c->song->id &&
-	    (screen->last_cmd == CMD_SEEK_FORWARD ||
-	     screen->last_cmd == CMD_SEEK_BACKWARD))
+	    (screen.last_cmd == CMD_SEEK_FORWARD ||
+	     screen.last_cmd == CMD_SEEK_BACKWARD))
 		mpdclient_cmd_seek(c, seek_id, seek_target_time);
 
-	screen->last_cmd = CMD_NONE;
+	screen.last_cmd = CMD_NONE;
 	seek_id = -1;
 }
 
@@ -782,7 +777,7 @@ screen_get_mouse_event(mpdclient_t *c,
 	getmouse(&event);
 	D("mouse: id=%d  y=%d,x=%d,z=%d\n",event.id,event.y,event.x,event.z);
 	/* calculate the selected row in the list window */
-	*row = event.y - screen->top_window.rows;
+	*row = event.y - screen.top_window.rows;
 	/* copy button state bits */
 	*bstate = event.bstate;
 	/* if button 2 was pressed switch screen */
@@ -816,11 +811,11 @@ screen_get_mouse_event(mpdclient_t *c,
 void
 screen_cmd(mpdclient_t *c, command_t cmd)
 {
-	screen->input_timestamp = time(NULL);
-	screen->last_cmd = cmd;
+	screen.input_timestamp = time(NULL);
+	screen.last_cmd = cmd;
 	welcome = FALSE;
 
-	if (mode_fn->cmd != NULL && mode_fn->cmd(screen, c, cmd))
+	if (mode_fn->cmd != NULL && mode_fn->cmd(&screen, c, cmd))
 		return;
 
 	switch(cmd) {
@@ -914,7 +909,7 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 				     _("Auto center mode: Off"));
 		break;
 	case CMD_SCREEN_UPDATE:
-		screen->painted = 0;
+		screen.painted = 0;
 		break;
 	case CMD_SCREEN_PREVIOUS:
 		screen_next_mode(c, -1);
