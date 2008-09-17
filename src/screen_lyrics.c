@@ -39,7 +39,6 @@
 #include <stdio.h>
 
 static list_window_t *lw = NULL;
-static int lyrics_text_rows = -1;
 
 static struct {
 	const struct mpd_song *song;
@@ -324,7 +323,7 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 	lw->selected = lw->start+lw->rows;
 	if (screen_find(screen,
-			lw,  lyrics_text_rows,
+			lw, current.lines->len,
 			cmd, list_callback, NULL)) {
 		/* center the row */
 		list_window_center(lw, current.lines->len, lw->selected);
