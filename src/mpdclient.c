@@ -459,7 +459,7 @@ mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 	c->playlist.id++;
 
 	/* remove the song from the playlist */
-	playlist_remove(&c->playlist, idx);
+	playlist_remove_reuse(&c->playlist, idx);
 
 	/* call playlist updated callback */
 	mpdclient_playlist_callback(c, PLAYLIST_EVENT_DELETE, (gpointer) song);
@@ -469,6 +469,8 @@ mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 		c->song = NULL;
 		c->need_update = TRUE;
 	}
+
+	mpd_freeSong(song);
 
 #else
 	c->need_update = TRUE;
