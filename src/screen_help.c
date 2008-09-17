@@ -248,16 +248,7 @@ help_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 			lw,  help_text_rows,
 			cmd, list_callback, NULL)) {
 		/* center the row */
-		if (lw->selected > lw->rows / 2)
-			lw->start = lw->selected - lw->rows / 2;
-		else
-			lw->start = 0;
-		if (lw->start + lw->rows > (unsigned)help_text_rows) {
-			if (lw->rows < (unsigned)help_text_rows)
-				lw->start = help_text_rows - lw->rows;
-			else
-				lw->start = 0;
-		}
+		list_window_center(lw, help_text_rows, lw->selected);
 		return 1;
 	}
 

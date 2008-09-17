@@ -106,19 +106,14 @@ center_playing_item(mpdclient_t *c)
 	/* try to center the song that are playing */
 	idx = playlist_get_index(c, c->song);
 	D("Autocenter song id:%d pos:%d index:%d\n", c->song->id,c->song->pos,idx);
-	idx -= (lw->rows / 2);
-	if (idx + (int)lw->rows > (int)length)
-		idx = length - lw->rows;
 	if (idx < 0)
-		idx = 0;
-	lw->start = idx;
+		return 0;
+
+	list_window_center(lw, length, idx);
 
 	/* make sure the cursor is in the window */
 	lw->selected = lw->start+offset;
 	list_window_check_selected(lw, length);
-
-	lw->clear = 1;
-	lw->repaint = 1;
 
 	return 0;
 }

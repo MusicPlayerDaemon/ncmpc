@@ -82,6 +82,24 @@ list_window_check_selected(struct list_window *lw, unsigned length)
 }
 
 void
+list_window_center(struct list_window *lw, unsigned rows, unsigned n)
+{
+	if (n > lw->rows / 2)
+		lw->start = n - lw->rows / 2;
+	else
+		lw->start = 0;
+
+	if (lw->start + lw->rows > rows) {
+		if (lw->rows < rows)
+			lw->start = rows - lw->rows;
+		else
+			lw->start = 0;
+	}
+
+	lw->repaint = lw->clear = 1;
+}
+
+void
 list_window_set_selected(struct list_window *lw, unsigned n)
 {
 	lw->selected = n;

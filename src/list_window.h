@@ -56,6 +56,8 @@ int list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd);
 int
 list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd);
 
+void
+list_window_center(struct list_window *lw, unsigned rows, unsigned n);
 
 /* select functions */
 void list_window_set_selected(struct list_window *lw, unsigned n);

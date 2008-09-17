@@ -292,8 +292,6 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	if (list_window_scroll_cmd(lw, current.lines->len, cmd))
 		return 1;
 
-	lw->repaint=1;
-
 	switch(cmd) {
 	case CMD_SELECT:
 		/* XXX */
@@ -329,13 +327,7 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			lw,  lyrics_text_rows,
 			cmd, list_callback, NULL)) {
 		/* center the row */
-		lw->start = lw->selected - (lw->rows / 2);
-		if (lw->start + lw->rows > (unsigned)lyrics_text_rows) {
-			if (lw->rows < (unsigned)lyrics_text_rows)
-				lw->start = lyrics_text_rows - lw->rows;
-			else
-				lw->start = 0;
-		}
+		list_window_center(lw, current.lines->len, lw->selected);
 		return 1;
 	}
 
