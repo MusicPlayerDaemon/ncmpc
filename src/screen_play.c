@@ -85,9 +85,10 @@ list_callback(unsigned idx, int *highlight, void *data)
 
 	song = playlist_get(&c->playlist, idx);
 
-	if( c->song && song->id==c->song->id && !IS_STOPPED(c->status->state) ) {
+	if (c->song != NULL && song->id == c->song->id &&
+	    c->status != NULL && !IS_STOPPED(c->status->state))
 		*highlight = 1;
-	}
+
 	strfsong(songname, MAX_SONG_LENGTH, LIST_FORMAT, song);
 	return songname;
 }
@@ -99,7 +100,8 @@ center_playing_item(mpdclient_t *c)
 	unsigned offset = lw->selected - lw->start;
 	int idx;
 
-	if (!c->song || length<lw->rows || IS_STOPPED(c->status->state))
+	if (!c->song || length < lw->rows ||
+	    c->status == NULL || IS_STOPPED(c->status->state))
 		return;
 
 	/* try to center the song that are playing */
@@ -378,7 +380,8 @@ static void
 play_update(screen_t *screen, mpdclient_t *c)
 {
 	/* hide the cursor when mpd are playing and the user are inactive */
-	if( options.hide_cursor>0 && c->status->state == MPD_STATUS_STATE_PLAY &&
+	if (options.hide_cursor > 0 &&
+	    (c->status != NULL && c->status->state == MPD_STATUS_STATE_PLAY) &&
 	    time(NULL)-screen->input_timestamp >= options.hide_cursor ) {
 		lw->flags |= LW_HIDE_CURSOR;
 	} else {

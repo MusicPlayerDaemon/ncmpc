@@ -706,6 +706,9 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			screen_status_printf(_("Screen updated!"));
 			return 1;
 		case CMD_DB_UPDATE:
+			if (c->status == NULL)
+				return 1;
+
 			if( !c->status->updatingDb )
 				{
 					if( mpdclient_cmd_db_update_utf8(c,filelist->path)==0 )

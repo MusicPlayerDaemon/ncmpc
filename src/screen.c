@@ -231,7 +231,7 @@ paint_top_window2(const char *header, mpdclient_t *c)
 		waddstr(w, _(":Lyrics  "));
 #endif
 	}
-	if (c->status->volume==MPD_STATUS_NO_VOLUME) {
+	if (c->status == NULL || c->status->volume == MPD_STATUS_NO_VOLUME) {
 		g_snprintf(buf, 32, _("Volume n/a "));
 	} else {
 		g_snprintf(buf, 32, _(" Volume %d%%"), c->status->volume);
@@ -240,14 +240,17 @@ paint_top_window2(const char *header, mpdclient_t *c)
 	mvwaddstr(w, 0, screen.top_window.cols-my_strlen(buf), buf);
 
 	flags[0] = 0;
-	if( c->status->repeat )
-		g_strlcat(flags, "r", sizeof(flags));
-	if( c->status->random )
-		g_strlcat(flags, "z", sizeof(flags));;
-	if( c->status->crossfade )
-		g_strlcat(flags, "x", sizeof(flags));
-	if( c->status->updatingDb )
-		g_strlcat(flags, "U", sizeof(flags));
+	if (c->status != NULL) {
+		if (c->status->repeat)
+			g_strlcat(flags, "r", sizeof(flags));
+		if (c->status->random)
+			g_strlcat(flags, "z", sizeof(flags));;
+		if (c->status->crossfade)
+			g_strlcat(flags, "x", sizeof(flags));
+		if (c->status->updatingDb)
+			g_strlcat(flags, "U", sizeof(flags));
+	}
+
 	colors_use(w, COLOR_LINE);
 	mvwhline(w, 1, 0, ACS_HLINE, screen.top_window.cols);
 	if (flags[0]) {
@@ -278,7 +281,8 @@ paint_top_window(const char *header, mpdclient_t *c, int full_repaint)
 		wclrtoeol(w);
 	}
 
-	if (prev_volume!=c->status->volume || full_repaint)
+	if ((c->status != NULL && prev_volume != c->status->volume) ||
+	    full_repaint)
 		paint_top_window2(header, c);
 }
 
@@ -287,7 +291,7 @@ paint_progress_window(mpdclient_t *c)
 {
 	double p;
 	int width;
-	int elapsedTime = c->status->elapsedTime;
+	int elapsedTime;
 
 	if (c->status==NULL || IS_STOPPED(c->status->state)) {
 		mvwhline(screen.progress_window.w, 0, 0, ACS_HLINE,
@@ -298,6 +302,8 @@ paint_progress_window(mpdclient_t *c)
 
 	if (c->song && seek_id == c->song->id)
 		elapsedTime = seek_target_time;
+	else
+		elapsedTime = c->status->elapsedTime;
 
 	p = ((double) elapsedTime) / ((double) c->status->totalTime);
 
@@ -328,7 +334,7 @@ paint_status_window(mpdclient_t *c)
 	wclrtoeol(w);
 	colors_use(w, COLOR_STATUS_BOLD);
 
-	switch(status->state) {
+	switch (status == NULL ? MPD_STATUS_STATE_STOP : status->state) {
 	case MPD_STATUS_STATE_PLAY:
 		str = _("Playing:");
 		break;
@@ -347,7 +353,8 @@ paint_status_window(mpdclient_t *c)
 
 	/* create time string */
 	memset(screen.buf, 0, screen.buf_size);
-	if (IS_PLAYING(status->state) || IS_PAUSED(status->state)) {
+	if (status != NULL && (IS_PLAYING(status->state) ||
+			       IS_PAUSED(status->state))) {
 		if (status->totalTime > 0) {
 			/*checks the conf to see whether to display elapsed or remaining time */
 			if(!strcmp(options.timedisplay_type,"elapsed"))
@@ -381,7 +388,8 @@ paint_status_window(mpdclient_t *c)
 	}
 
 	/* display song */
-	if (IS_PLAYING(status->state) || IS_PAUSED(status->state)) {
+	if (status != NULL && (IS_PLAYING(status->state) ||
+			       IS_PAUSED(status->state))) {
 		char songname[MAX_SONGNAME_LENGTH];
 		int width = COLS-x-my_strlen(screen.buf);
 
@@ -682,35 +690,37 @@ screen_update(mpdclient_t *c)
 		return screen_paint(c);
 
 	/* print a message if mpd status has changed */
-	if (repeat < 0) {
+	if (c->status != NULL) {
+		if (repeat < 0) {
+			repeat = c->status->repeat;
+			random_enabled = c->status->random;
+			crossfade = c->status->crossfade;
+			dbupdate = c->status->updatingDb;
+		}
+
+		if (repeat != c->status->repeat)
+			screen_status_printf(c->status->repeat ?
+					     _("Repeat is on") :
+					     _("Repeat is off"));
+
+		if (random_enabled != c->status->random)
+			screen_status_printf(c->status->random ?
+					     _("Random is on") :
+					     _("Random is off"));
+
+		if (crossfade != c->status->crossfade)
+			screen_status_printf(_("Crossfade %d seconds"), c->status->crossfade);
+
+		if (dbupdate && dbupdate != c->status->updatingDb) {
+			screen_status_printf(_("Database updated!"));
+			mpdclient_browse_callback(c, BROWSE_DB_UPDATED, NULL);
+		}
+
 		repeat = c->status->repeat;
 		random_enabled = c->status->random;
 		crossfade = c->status->crossfade;
 		dbupdate = c->status->updatingDb;
 	}
-
-	if (repeat != c->status->repeat)
-		screen_status_printf(c->status->repeat ?
-				     _("Repeat is on") :
-				     _("Repeat is off"));
-
-	if (random_enabled != c->status->random)
-		screen_status_printf(c->status->random ?
-				     _("Random is on") :
-				     _("Random is off"));
-
-	if (crossfade != c->status->crossfade)
-		screen_status_printf(_("Crossfade %d seconds"), c->status->crossfade);
-
-	if (dbupdate && dbupdate != c->status->updatingDb) {
-		screen_status_printf(_("Database updated!"));
-		mpdclient_browse_callback(c, BROWSE_DB_UPDATED, NULL);
-	}
-
-	repeat = c->status->repeat;
-	random_enabled = c->status->random;
-	crossfade = c->status->crossfade;
-	dbupdate = c->status->updatingDb;
 
 	/* update title/header window */
 	if (welcome && screen.last_cmd==CMD_NONE &&
@@ -798,6 +808,9 @@ screen_get_mouse_event(mpdclient_t *c,
 static int
 screen_client_cmd(mpdclient_t *c, command_t cmd)
 {
+	if (c->connection == NULL || c->status == NULL)
+		return 0;
+
 	switch(cmd) {
 	case CMD_PLAY:
 		mpdclient_cmd_play(c, MPD_PLAY_AT_BEGINNING);
