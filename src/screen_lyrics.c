@@ -207,8 +207,8 @@ static int store_lyr_hd(void)
 static const char *
 list_callback(unsigned idx, mpd_unused int *highlight, mpd_unused void *data)
 {
-	if (current.lines == NULL || idx >= current.lines->len)
-		return "";
+	if (idx >= current.lines->len)
+		return NULL;
 
 	return g_ptr_array_index(current.lines, idx);
 }
