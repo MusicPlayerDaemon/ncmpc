@@ -140,18 +140,18 @@ switch_screen_mode(gint id, mpdclient_t *c)
 	if( id == screens[screen.mode].id )
 		return;
 
+	new_mode = lookup_mode(id);
+	if (new_mode < 0)
+		return;
+
 	/* close the old mode */
 	if (mode_fn->close != NULL)
 		mode_fn->close();
 
 	/* get functions for the new mode */
-	new_mode = lookup_mode(id);
-	if (new_mode >= 0) {
-		D("switch_screen(%s)\n", screens[new_mode].name );
-		mode_fn = screens[new_mode].functions;
-		screen.mode = new_mode;
-	}
-
+	D("switch_screen(%s)\n", screens[new_mode].name );
+	mode_fn = screens[new_mode].functions;
+	screen.mode = new_mode;
 	screen.painted = 0;
 
 	/* open the new mode */
