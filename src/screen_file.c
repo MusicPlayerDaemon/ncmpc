@@ -156,7 +156,6 @@ browse_lw_callback(unsigned idx, int *highlight, void *data)
 	filelist_entry_t *entry;
 	mpd_InfoEntity *entity;
 
-	*highlight = 0;
 	if( (entry=(filelist_entry_t *)g_list_nth_data(fl->list,idx))==NULL )
 		return NULL;
 

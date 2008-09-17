@@ -188,7 +188,6 @@ list_callback(unsigned idx, int *highlight, mpd_unused void *data)
 {
 	static char buf[BUFSIZE];
 
-	*highlight = 0;
 	if (subcmd < 0) {
 		if (idx < (unsigned)command_list_length) {
 			if (cmds[idx].flags & COMMAND_KEY_CONFLICT)

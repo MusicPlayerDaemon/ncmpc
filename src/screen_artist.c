@@ -72,7 +72,6 @@ artist_lw_callback(int index, int *highlight, void *data)
   static char buf[BUFSIZE];
   char *str, *str_utf8;
   
-  *highlight = 0;
   if( (str_utf8=(char *) g_list_nth_data(metalist,index))==NULL )
     return NULL;
 

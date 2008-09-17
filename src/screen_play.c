@@ -80,7 +80,6 @@ list_callback(unsigned idx, int *highlight, void *data)
 	mpdclient_t *c = (mpdclient_t *) data;
 	mpd_Song *song;
 
-	*highlight = 0;
 	if( (song=playlist_get_song(c, idx)) == NULL ) {
 		return NULL;
 	}
