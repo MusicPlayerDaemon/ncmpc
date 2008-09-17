@@ -31,6 +31,7 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "screen_browse.h"
+#include "gcc.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -47,7 +48,7 @@ static char *artist = NULL;
 static char *album  = NULL;
 static list_window_t *lw = NULL;
 static mpdclient_filelist_t *filelist = NULL;
-static int metalist_length = 0;
+static unsigned metalist_length = 0;
 static GList *metalist = NULL;
 static list_window_state_t *lw_state = NULL;
 
@@ -66,13 +67,13 @@ compare_utf8(gconstpointer s1, gconstpointer s2)
 }
 
 /* list_window callback */
-static char *
-artist_lw_callback(int index, int *highlight, void *data)
+static const char *
+artist_lw_callback(unsigned idx, mpd_unused int *highlight, mpd_unused void *data)
 {
 	static char buf[BUFSIZE];
 	char *str, *str_utf8;
 
-	if ((str_utf8=(char *) g_list_nth_data(metalist,index)) == NULL)
+	if ((str_utf8 = (char *)g_list_nth_data(metalist, idx)) == NULL)
 		return NULL;
 
 	str = utf8_to_locale(str_utf8);
@@ -84,7 +85,7 @@ artist_lw_callback(int index, int *highlight, void *data)
 
 /* the playlist have been updated -> fix highlights */
 static void
-playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
+playlist_changed_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
 {
 	if (filelist == NULL)
 		return;
@@ -113,10 +114,13 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 		metalist = string_list_free(metalist);
 	if (filelist) {
 		mpdclient_remove_playlist_callback(c, playlist_changed_callback);
-		filelist = mpdclient_filelist_free(filelist);
+		mpdclient_filelist_free(filelist);
+		filelist = NULL;
 	}
+
 	if (m_album) {
 		/* retreive songs... */
+		filelist_entry_t *entry;
 
 		artist = m_artist;
 		album = m_album;
@@ -132,7 +136,7 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 								  MPD_TABLE_ALBUM,
 								  album);
 		/* add a dummy entry for ".." */
-		filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
+		entry = g_malloc0(sizeof(filelist_entry_t));
 		entry->entity = NULL;
 		filelist->list = g_list_insert(filelist->list, entry, 0);
 		filelist->length++;
@@ -166,7 +170,7 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 
 /* db updated */
 static void
-browse_callback(mpdclient_t *c, int event, gpointer data)
+browse_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
 {
 	switch(event) {
 	case BROWSE_DB_UPDATED:
@@ -193,19 +197,19 @@ static void
 quit(void)
 {
 	if (filelist)
-		filelist = mpdclient_filelist_free(filelist);
+		mpdclient_filelist_free(filelist);
 	if (metalist)
-		metalist = string_list_free(metalist);
+		string_list_free(metalist);
 	g_free(artist);
 	g_free(album);
 	artist = NULL;
 	album = NULL;
-	lw = list_window_free(lw);
-	lw_state = list_window_free_state(lw_state);
+	list_window_free(lw);
+	list_window_free_state(lw_state);
 }
 
 static void
-open(screen_t *screen, mpdclient_t *c)
+open(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	static gboolean callback_installed = FALSE;
 
@@ -230,7 +234,7 @@ close(void)
 }
 
 static void
-paint(screen_t *screen, mpdclient_t *c)
+paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	lw->clear = 1;
 
@@ -259,7 +263,7 @@ update(screen_t *screen, mpdclient_t *c)
 	wnoutrefresh(lw->w);
 }
 
-static char *
+static const char *
 get_title(char *str, size_t size)
 {
 	char *s1 = artist ? utf8_to_locale(artist) : NULL;
@@ -281,29 +285,23 @@ get_title(char *str, size_t size)
 	return str;
 }
 
-static list_window_t *
-get_filelist_window()
-{
-  return lw;
-}
-
 static void
-add_query(mpdclient_t *c, int table, char *filter)
+add_query(mpdclient_t *c, int table, char *_filter)
 {
 	char *str;
 	mpdclient_filelist_t *addlist;
 
-	str = utf8_to_locale(filter);
+	str = utf8_to_locale(_filter);
 	if (table== MPD_TABLE_ALBUM)
 		screen_status_printf("Adding album %s...", str);
 	else
 		screen_status_printf("Adding %s...", str);
 	g_free(str);
 
-	addlist = mpdclient_filelist_search_utf8(c, TRUE, table, filter);
+	addlist = mpdclient_filelist_search_utf8(c, TRUE, table, _filter);
 	if (addlist) {
 		mpdclient_filelist_add_all(c, addlist);
-		addlist = mpdclient_filelist_free(addlist);
+		mpdclient_filelist_free(addlist);
 	}
 }
 
@@ -360,6 +358,9 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 	case CMD_GO_PARENT_DIRECTORY:
 		switch (mode) {
+		case LIST_ARTISTS:
+			break;
+
 		case LIST_ALBUMS:
 			update_metalist(c, NULL, NULL);
 			list_window_reset(lw);
@@ -378,6 +379,9 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 	case CMD_GO_ROOT_DIRECTORY:
 		switch (mode) {
+		case LIST_ARTISTS:
+			break;
+
 		case LIST_ALBUMS:
 		case LIST_SONGS:
 			update_metalist(c, NULL, NULL);
@@ -462,7 +466,6 @@ const struct screen_functions screen_artist = {
 	.paint = paint,
 	.update = update,
 	.cmd = artist_cmd,
-	.get_lw = get_filelist_window,
 	.get_title = get_title,
 };
 
