@@ -439,10 +439,12 @@ gint
 mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 {
 	gint retval = 0;
-	struct mpd_song *song = playlist_get_song(c, idx);
+	struct mpd_song *song;
 
-	if( !song )
+	if (idx < 0 || (guint)idx >= playlist_length(&c->playlist))
 		return -1;
+
+	song = playlist_get(&c->playlist, idx);
 
 	/* send the delete command to mpd */
 #ifdef ENABLE_SONG_ID
@@ -487,8 +489,8 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 	    (guint)new_index >= c->playlist.list->len)
 		return -1;
 
-	song1 = playlist_get_song(c, old_index);
-	song2 = playlist_get_song(c, new_index);
+	song1 = playlist_get(&c->playlist, old_index);
+	song2 = playlist_get(&c->playlist, new_index);
 
 	/* send the move command to mpd */
 #ifdef ENABLE_SONG_ID

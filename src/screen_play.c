@@ -80,9 +80,10 @@ list_callback(unsigned idx, int *highlight, void *data)
 	mpdclient_t *c = (mpdclient_t *) data;
 	mpd_Song *song;
 
-	if( (song=playlist_get_song(c, idx)) == NULL ) {
+	if (idx >= playlist_length(&c->playlist))
 		return NULL;
-	}
+
+	song = playlist_get(&c->playlist, idx);
 
 	if( c->song && song->id==c->song->id && !IS_STOPPED(c->status->state) ) {
 		*highlight = 1;
