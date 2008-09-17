@@ -160,23 +160,26 @@ switch_screen_mode(gint id, mpdclient_t *c)
 		mode_fn->open(screen, c);
 }
 
+static int
+find_configured_screen(const char *name)
+{
+	unsigned i;
+
+	for (i = 0; options.screen_list[i] != NULL; ++i)
+		if (strcmp(options.screen_list[i], name) == 0)
+			return i;
+
+	return -1;
+}
+
 static void
 screen_next_mode(mpdclient_t *c, int offset)
 {
 	int max = g_strv_length(options.screen_list);
 	int current, next;
-	int i;
 
 	/* find current screen */
-	current = -1;
-	i = 0;
-	while (options.screen_list[i]) {
-		if (strcmp(options.screen_list[i],
-			   screens[screen->mode].name) == 0)
-			current = i;
-		i++;
-	}
-
+	current = find_configured_screen(screens[screen->mode].name);
 	next = current + offset;
 	if (next<0)
 		next = max-1;
