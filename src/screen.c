@@ -746,7 +746,7 @@ screen_update(mpdclient_t *c)
 		paint_top_window("", c, 0);
 
 	/* update the main window */
-	if (mode_fn && mode_fn->paint)
+	if (mode_fn && mode_fn->update != NULL)
 		mode_fn->update(screen, c);
 
 	/* update progress window */
