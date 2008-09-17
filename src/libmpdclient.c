@@ -383,7 +383,6 @@ static int mpd_connect_un(mpd_Connection * connection,
 mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
 	int err;
 	char * rt;
-	char * output =  NULL;
 	mpd_Connection * connection = malloc(sizeof(mpd_Connection));
 	struct timeval tv;
 	fd_set fds;
@@ -452,14 +451,11 @@ mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
 	}
 
 	*rt = '\0';
-	output = strdup(connection->buffer);
-	strcpy(connection->buffer,rt+1);
-	connection->buflen = strlen(connection->buffer);
-
-	if(mpd_parseWelcome(connection,host,port,output) == 0)
+	if (mpd_parseWelcome(connection, host, port, connection->buffer) == 0)
 		connection->doneProcessing = 1;
 
-	free(output);
+	strcpy(connection->buffer,rt+1);
+	connection->buflen = strlen(connection->buffer);
 
 	return connection;
 }
