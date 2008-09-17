@@ -98,7 +98,7 @@ static const struct
 
 static gboolean welcome = TRUE;
 static screen_t *screen = NULL;
-static const struct screen_functions *mode_fn = NULL;
+static const struct screen_functions *mode_fn = &screen_playlist;
 static int seek_id = -1;
 static int seek_target_time = 0;
 
@@ -142,7 +142,7 @@ switch_screen_mode(gint id, mpdclient_t *c)
 		return;
 
 	/* close the old mode */
-	if( mode_fn && mode_fn->close )
+	if (mode_fn->close != NULL)
 		mode_fn->close();
 
 	/* get functions for the new mode */
@@ -156,7 +156,7 @@ switch_screen_mode(gint id, mpdclient_t *c)
 	screen->painted = 0;
 
 	/* open the new mode */
-	if (mode_fn && mode_fn->open)
+	if (mode_fn->open != NULL)
 		mode_fn->open(screen, c);
 }
 
@@ -645,15 +645,7 @@ screen_init(mpdclient_t *c)
 		i++;
 	}
 
-#if 0
-	/* broken */
-	mode_fn = NULL;
-	switch_screen_mode(screen_get_id(options.screen_list[0]), c);
-#else
-	mode_fn = &screen_playlist;
-#endif
-
-	if( mode_fn && mode_fn->open )
+	if (mode_fn->open != NULL)
 		mode_fn->open(screen, c);
 
 	/* initialize wreadln */
@@ -668,7 +660,7 @@ screen_paint(mpdclient_t *c)
 {
 	const char *title = NULL;
 
-	if (mode_fn && mode_fn->get_title)
+	if (mode_fn->get_title != NULL)
 		title = mode_fn->get_title(screen->buf, screen->buf_size);
 
 	D("screen_paint(%s)\n", title);
@@ -680,7 +672,7 @@ screen_paint(mpdclient_t *c)
 
 	/* paint the main window */
 	wclear(screen->main_window.w);
-	if( mode_fn && mode_fn->paint )
+	if (mode_fn->paint != NULL)
 		mode_fn->paint(screen, c);
 
 	paint_progress_window(c);
@@ -739,14 +731,14 @@ screen_update(mpdclient_t *c)
 	if (welcome && screen->last_cmd==CMD_NONE &&
 	    time(NULL)-screen->start_timestamp <= SCREEN_WELCOME_TIME)
 		paint_top_window("", c, 0);
-	else if (mode_fn && mode_fn->get_title) {
+	else if (mode_fn->get_title != NULL) {
 		paint_top_window(mode_fn->get_title(screen->buf,screen->buf_size), c, 0);
 		welcome = FALSE;
 	} else
 		paint_top_window("", c, 0);
 
 	/* update the main window */
-	if (mode_fn && mode_fn->update != NULL)
+	if (mode_fn->update != NULL)
 		mode_fn->update(screen, c);
 
 	/* update progress window */
@@ -825,7 +817,7 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 	screen->last_cmd = cmd;
 	welcome = FALSE;
 
-	if( mode_fn && mode_fn->cmd && mode_fn->cmd(screen, c, cmd) )
+	if (mode_fn->cmd != NULL && mode_fn->cmd(screen, c, cmd))
 		return;
 
 	switch(cmd) {
