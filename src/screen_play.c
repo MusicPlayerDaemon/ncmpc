@@ -99,8 +99,7 @@ center_playing_item(mpdclient_t *c)
 	unsigned offset = lw->selected - lw->start;
 	int idx;
 
-	if (!lw || !c->song || length<lw->rows ||
-	    IS_STOPPED(c->status->state))
+	if (!c->song || length<lw->rows || IS_STOPPED(c->status->state))
 		return;
 
 	/* try to center the song that are playing */
