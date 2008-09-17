@@ -93,8 +93,9 @@ static const struct
 #ifdef ENABLE_LYRICS_SCREEN
 	{ SCREEN_LYRICS_ID, "lyrics", &screen_lyrics },
 #endif
-	{ G_MAXINT, NULL, NULL }
 };
+
+#define NUM_SCREENS (sizeof(screens) / sizeof(screens[0]))
 
 static gboolean welcome = TRUE;
 static struct screen screen;
@@ -105,26 +106,24 @@ static int seek_target_time = 0;
 gint
 screen_get_id(const char *name)
 {
-	gint i=0;
+	guint i;
 
-	while (screens[i].name) {
+	for (i = 0; i < NUM_SCREENS; ++i)
 		if (strcmp(name, screens[i].name) == 0)
 			return screens[i].id;
-		i++;
-	}
+
 	return -1;
 }
 
 static gint
 lookup_mode(gint id)
 {
-	gint i=0;
+	guint i;
 
-	while (screens[i].name) {
+	for (i = 0; i < NUM_SCREENS; ++i)
 		if (screens[i].id == id)
 			return i;
-		i++;
-	}
+
 	return -1;
 }
 
@@ -147,7 +146,7 @@ switch_screen_mode(gint id, mpdclient_t *c)
 
 	/* get functions for the new mode */
 	new_mode = lookup_mode(id);
-	if (new_mode >= 0 && screens[new_mode].functions) {
+	if (new_mode >= 0) {
 		D("switch_screen(%s)\n", screens[new_mode].name );
 		mode_fn = screens[new_mode].functions;
 		screen.mode = new_mode;
@@ -417,7 +416,7 @@ paint_status_window(mpdclient_t *c)
 int
 screen_exit(void)
 {
-	gint i;
+	guint i;
 
 	endwin();
 
@@ -425,14 +424,11 @@ screen_exit(void)
 		mode_fn->close();
 
 	/* close and exit all screens (playlist,browse,help...) */
-	i=0;
-	while (screens[i].functions) {
+	for (i = 0; i < NUM_SCREENS; ++i) {
 		const struct screen_functions *sf = screens[i].functions;
 
 		if (sf->exit)
 			sf->exit();
-
-		i++;
 	}
 
 	string_list_free(screen.find_history);
@@ -445,7 +441,7 @@ screen_exit(void)
 void
 screen_resize(void)
 {
-	gint i;
+	guint i;
 
 	D("Resize rows %d->%d, cols %d->%d\n",screen.rows,LINES,screen.cols,COLS);
 	if (COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS) {
@@ -484,15 +480,13 @@ screen_resize(void)
 	screen.buf = g_malloc(screen.cols);
 
 	/* close and exit all screens (playlist,browse,help...) */
-	i=0;
-	while (screens[i].functions) {
+	for (i = 0; i < NUM_SCREENS; ++i) {
 		const struct screen_functions *sf = screens[i].functions;
 
 		if (sf->resize)
 			sf->resize(screen.main_window.cols, screen.main_window.rows);
-
-		i++;
 	}
+
 
 	/* ? - without this the cursor becomes visible with aterm & Eterm */
 	curs_set(1);
@@ -629,19 +623,16 @@ ncurses_init(void)
 int
 screen_init(mpdclient_t *c)
 {
-	gint i;
+	guint i;
 
 	/* initialize screens */
-	i=0;
-	while (screens[i].functions) {
+	for (i = 0; i < NUM_SCREENS; ++i) {
 		const struct screen_functions *fn = screens[i].functions;
 
 		if (fn->init)
 			fn->init(screen.main_window.w,
 				 screen.main_window.cols,
 				 screen.main_window.rows);
-
-		i++;
 	}
 
 	if (mode_fn->open != NULL)
