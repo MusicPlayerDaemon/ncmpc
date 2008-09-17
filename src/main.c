@@ -38,9 +38,12 @@
 
 #define BUFSIZE 1024
 
+static const guint idle_interval = 500;
+
 static mpdclient_t *mpd = NULL;
 static gboolean connected = FALSE;
-static GTimer *timer = NULL;
+static GMainLoop *main_loop;
+static guint reconnect_source_id, idle_source_id, update_source_id;
 
 static const gchar *
 error_msg(const gchar *msg)
@@ -119,16 +122,12 @@ exit_and_cleanup(void)
 	g_free(options.list_format);
 	g_free(options.status_format);
 	g_free(options.scroll_sep);
-
-	if (timer)
-		g_timer_destroy(timer);
 }
 
 static void
 catch_sigint(mpd_unused int sig)
 {
-	printf("\n%s\n", _("Exiting..."));
-	exit(EXIT_SUCCESS);
+	g_main_loop_quit(main_loop);
 }
 
 
@@ -169,12 +168,144 @@ D(const char *format, ...)
 }
 #endif
 
+static gboolean
+timer_mpd_update(gpointer data);
+
+/**
+ * This timer is installed when the connection to the MPD server is
+ * broken.  It tries to recover by reconnecting periodically.
+ */
+static gboolean
+timer_reconnect(mpd_unused gpointer data)
+{
+	int ret;
+
+	if (connected)
+		return FALSE;
+
+	screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
+			     options.host, get_key_names(CMD_QUIT,0) );
+	doupdate();
+
+	mpdclient_disconnect(mpd);
+	ret = mpdclient_connect(mpd,
+				options.host, options.port,
+				1.5,
+				options.password);
+	if (ret != 0) {
+		/* try again in 5 seconds */
+		g_timeout_add(5000, timer_reconnect, NULL);
+		return FALSE;
+	}
+
+	/* quit if mpd is pre 0.11.0 - song id not supported by mpd */
+	if (MPD_VERSION_LT(mpd, 0, 11, 0)) {
+		screen_status_printf(_("Error: MPD version %d.%d.%d is to old (0.11.0 needed).\n"),
+				     mpd->connection->version[0],
+				     mpd->connection->version[1],
+				     mpd->connection->version[2]);
+		mpdclient_disconnect(mpd);
+		doupdate();
+
+		/* try again after 30 seconds */
+		g_timeout_add(30000, timer_reconnect, NULL);
+		return FALSE;
+	}
+
+	screen_status_printf(_("Connected to %s!"), options.host);
+	doupdate();
+
+	connected = TRUE;
+
+	/* update immediately */
+	g_timeout_add(1, timer_mpd_update, GINT_TO_POINTER(FALSE));
+
+	reconnect_source_id = 0;
+	return FALSE;
+
+}
+
+static gboolean
+timer_mpd_update(gpointer data)
+{
+	if (connected)
+		mpdclient_update(mpd);
+	else if (reconnect_source_id == 0)
+		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
+						    NULL);
+
+	if (options.enable_xterm_title)
+		update_xterm_title();
+
+	screen_update(mpd);
+
+	return GPOINTER_TO_INT(data);
+}
+
+/**
+ * This idle timer is invoked when the user hasn't typed a key for
+ * 500ms.  It is used for delayed seeking.
+ */
+static gboolean
+timer_idle(mpd_unused gpointer data)
+{
+	screen_idle(mpd);
+	return TRUE;
+}
+
+static gboolean
+keyboard_event(mpd_unused GIOChannel *source,
+	       mpd_unused GIOCondition condition, mpd_unused gpointer data)
+{
+	command_t cmd;
+
+	/* remove the idle timeout; add it later with fresh interval */
+	g_source_remove(idle_source_id);
+
+	if ((cmd=get_keyboard_command()) != CMD_NONE) {
+		screen_cmd(mpd, cmd);
+
+		if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN) {
+			/* make sure we dont update the volume yet */
+			g_source_remove(update_source_id);
+			update_source_id = g_timeout_add((guint)(MPD_UPDATE_TIME * 1000),
+							 timer_mpd_update,
+							 GINT_TO_POINTER(TRUE));
+		}
+	}
+
+	screen_update(mpd);
+
+	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
+	return TRUE;
+}
+
+/**
+ * Check the configured key bindings for errors, and display a status
+ * message every 10 seconds.
+ */
+static gboolean
+timer_check_key_bindings(mpd_unused gpointer data)
+{
+	char buf[256];
+	gboolean key_error;
+
+	key_error = check_key_bindings(NULL, buf, sizeof(buf));
+	if (!key_error)
+		/* no error: disable this timer for the rest of this
+		   process */
+		return FALSE;
+
+	screen_status_printf("%s", buf);
+	doupdate();
+	return TRUE;
+}
+
 int
 main(int argc, const char *argv[])
 {
 	struct sigaction act;
 	const char *charset = NULL;
-	gboolean key_error;
 
 #ifdef HAVE_LOCALE_H
 	/* time and date formatting */
@@ -206,7 +337,7 @@ main(int argc, const char *argv[])
 	read_configuration(&options);
 
 	/* check key bindings */
-	key_error = check_key_bindings(NULL, NULL, 0);
+	check_key_bindings(NULL, NULL, 0);
 
 	/* parse command line options - 2 pass */
 	options_parse(argc, argv);
@@ -261,73 +392,24 @@ main(int argc, const char *argv[])
 	/* initialize curses */
 	screen_init(mpd);
 
-	/* initialize timer */
-	timer = g_timer_new();
+	/* the main loop */
+	main_loop = g_main_loop_new(NULL, FALSE);
 
-	while (1) {
-		static gdouble t = G_MAXDOUBLE;
+	/* watch out for keyboard input */
+	g_io_add_watch(g_io_channel_unix_new(STDIN_FILENO), G_IO_IN,
+		       keyboard_event, NULL);
 
-		if (key_error) {
-			char buf[BUFSIZE];
+	/* attempt to connect */
+	reconnect_source_id = g_timeout_add(1, timer_reconnect, NULL);
 
-			key_error=check_key_bindings(NULL, buf, BUFSIZE);
-			screen_status_printf("%s", buf);
-		}
+	update_source_id = g_timeout_add((guint)(MPD_UPDATE_TIME * 1000),
+					 timer_mpd_update,
+					 GINT_TO_POINTER(TRUE));
+	g_timeout_add(10000, timer_check_key_bindings, NULL);
+	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
 
-		if (connected && (t >= MPD_UPDATE_TIME || mpd->need_update)) {
-			mpdclient_update(mpd);
-			g_timer_start(timer);
-		}
+	g_main_loop_run(main_loop);
+	g_main_loop_unref(main_loop);
 
-		if (connected) {
-			command_t cmd;
-
-			screen_update(mpd);
-			if ((cmd=get_keyboard_command()) != CMD_NONE) {
-				screen_cmd(mpd, cmd);
-				if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN)
-					/* make shure we dont update the volume yet */
-					g_timer_start(timer);
-			} else
-				screen_idle(mpd);
-		} else {
-			screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
-					     options.host, get_key_names(CMD_QUIT,0) );
-
-			/*
-			if (get_keyboard_command_with_timeout(MPD_RECONNECT_TIME) == CMD_QUIT)
-				exit(EXIT_SUCCESS);
-			*/
-
-			if (mpdclient_connect(mpd,
-					      options.host, options.port,
-					      1.5,
-					      options.password) == 0) {
-				screen_status_printf(_("Connected to %s!"), options.host);
-
-				/* quit if mpd is pre 0.11.0 - song id not supported by mpd */
-				if (MPD_VERSION_LT(mpd, 0, 11, 0)) {
-					screen_status_printf(_("Error: MPD version %d.%d.%d is to old (0.11.0 needed).\n"),
-							     mpd->connection->version[0],
-							     mpd->connection->version[1],
-							     mpd->connection->version[2]);
-					mpdclient_disconnect(mpd);
-				} else {
-					mpdclient_update(mpd);
-					if (!mpd->status)
-						screen_auth(mpd);
-
-					connected = TRUE;
-				}
-			}
-
-			doupdate();
-		}
-
-		if (options.enable_xterm_title)
-			update_xterm_title();
-
-		t = g_timer_elapsed(timer, NULL);
-	}
-	exit(EXIT_FAILURE);
+	exit_and_cleanup();
 }

@@ -547,8 +547,6 @@ ncurses_init(void)
 	curs_set(0);
 	/* enable extra keys */
 	keypad(stdscr, TRUE);
-	/* return from getch() without blocking */
-	timeout(SCREEN_TIMEOUT);
 	/* initialize mouse support */
 #ifdef HAVE_GETMOUSE
 	if (options.enable_mouse)

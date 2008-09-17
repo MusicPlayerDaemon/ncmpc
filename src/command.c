@@ -30,6 +30,7 @@
 #include <ctype.h>
 #include <glib.h>
 #include <signal.h>
+#include <unistd.h>
 
 #undef DEBUG_KEYS
 
@@ -420,23 +421,18 @@ my_wgetch(WINDOW *w)
 		sigstop();
 	/* handle SIGINT (Ctrl-C) */
 	if (c == 3)
-		exit(EXIT_SUCCESS);
+		kill(getpid(), SIGTERM);
 #endif
 
 	return c;
 }
 
 command_t
-get_keyboard_command_with_timeout(int ms)
+get_keyboard_command(void)
 {
 	int key;
 
-	if (ms != SCREEN_TIMEOUT)
-		timeout(ms);
 	key = my_wgetch(stdscr);
-	if (ms != SCREEN_TIMEOUT)
-		timeout(SCREEN_TIMEOUT);
-
 	if (key == ERR)
 		return CMD_NONE;
 
@@ -446,12 +442,6 @@ get_keyboard_command_with_timeout(int ms)
 #endif
 
 	return get_key_command(key);
-}
-
-command_t
-get_keyboard_command(void)
-{
-	return get_keyboard_command_with_timeout(SCREEN_TIMEOUT);
 }
 
 int

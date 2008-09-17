@@ -100,6 +100,5 @@ int assign_keys(command_t command, int keys[MAX_COMMAND_KEYS]);
 
 int my_wgetch(WINDOW *w);
 command_t get_keyboard_command(void);
-command_t get_keyboard_command_with_timeout(int milliseconds);
 
 #endif

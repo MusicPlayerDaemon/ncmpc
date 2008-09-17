@@ -58,7 +58,6 @@ screen_getch(WINDOW *w, const char *prompt)
   
   echo();
   curs_set(1);
-  timeout(-1);
 
   while( (key=my_wgetch(w)) == ERR )
     ;
@@ -71,7 +70,6 @@ screen_getch(WINDOW *w, const char *prompt)
 
   noecho();
   curs_set(0);
-  timeout(SCREEN_TIMEOUT);
 
   return key;
 }
