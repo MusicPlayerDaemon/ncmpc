@@ -739,113 +739,106 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 mpdclient_filelist_t *
 mpdclient_filelist_free(mpdclient_filelist_t *filelist)
 {
-  GList *list = g_list_first(filelist->list);
+	GList *list = g_list_first(filelist->list);
 
-  D("mpdclient_filelist_free()\n");
-  if( list == NULL )
-    return NULL;
-  while( list!=NULL )
-    {
-      filelist_entry_t *entry = list->data;
+	D("mpdclient_filelist_free()\n");
+	if (list == NULL)
+		return NULL;
+	while (list != NULL) {
+		filelist_entry_t *entry = list->data;
 
-      if( entry->entity )
-	mpd_freeInfoEntity(entry->entity);
-      g_free(entry);
-      list=list->next;
-    }
-  g_list_free(filelist->list);
-  g_free(filelist->path);
-  filelist->path = NULL;
-  filelist->list = NULL;
-  filelist->length = 0;
-  g_free(filelist);
+		if (entry->entity)
+			mpd_freeInfoEntity(entry->entity);
+		g_free(entry);
+		list=list->next;
+	}
+	g_list_free(filelist->list);
+	g_free(filelist->path);
+	filelist->path = NULL;
+	filelist->list = NULL;
+	filelist->length = 0;
+	g_free(filelist);
 
-  return NULL;
+	return NULL;
 }
 
 
 mpdclient_filelist_t *
 mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 {
-  mpdclient_filelist_t *filelist;
-  mpd_InfoEntity *entity;
-  gchar *path_utf8 = locale_to_utf8(path);
-  gboolean has_dirs_only = TRUE;
+	mpdclient_filelist_t *filelist;
+	mpd_InfoEntity *entity;
+	gchar *path_utf8 = locale_to_utf8(path);
+	gboolean has_dirs_only = TRUE;
 
-  D("mpdclient_filelist_get(%s)\n", path);
-  mpd_sendLsInfoCommand(c->connection, path_utf8);
-  filelist = g_malloc0(sizeof(mpdclient_filelist_t));
-  if( path && path[0] && strcmp(path, "/") )
-    {
-      /* add a dummy entry for ./.. */
-      filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
-      entry->entity = NULL;
-      filelist->list = g_list_append(filelist->list, (gpointer) entry);
-      filelist->length++;
-    }
-
-  while( (entity=mpd_getNextInfoEntity(c->connection)) ) 
-    {
-      filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
-      
-      entry->entity = entity;
-      filelist->list = g_list_append(filelist->list, (gpointer) entry);
-      filelist->length++;
-
-      if (has_dirs_only && entity->type != MPD_INFO_ENTITY_TYPE_DIRECTORY)
-	{
-	  has_dirs_only = FALSE;
+	D("mpdclient_filelist_get(%s)\n", path);
+	mpd_sendLsInfoCommand(c->connection, path_utf8);
+	filelist = g_malloc0(sizeof(mpdclient_filelist_t));
+	if (path && path[0] && strcmp(path, "/")) {
+		/* add a dummy entry for ./.. */
+		filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
+		entry->entity = NULL;
+		filelist->list = g_list_append(filelist->list, entry);
+		filelist->length++;
 	}
-    }
-  
-   /* If there's an error, ignore it.  We'll return an empty filelist. */
-   mpdclient_finish_command(c);
-  
-  g_free(path_utf8);
-  filelist->path = g_strdup(path);
-  filelist->updated = TRUE;
 
-  // If there are only directory entities in the filelist, we sort it
-  if (has_dirs_only)
-    {
-      D("mpdclient_filelist_get: only dirs; sorting!\n");
-      filelist->list = g_list_sort(filelist->list, compare_filelistentry_dir);
-    }
+	while ((entity=mpd_getNextInfoEntity(c->connection))) {
+		filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
 
-  return filelist;
+		entry->entity = entity;
+		filelist->list = g_list_append(filelist->list, entry);
+		filelist->length++;
+
+		if (has_dirs_only && entity->type != MPD_INFO_ENTITY_TYPE_DIRECTORY) {
+			has_dirs_only = FALSE;
+		}
+	}
+
+	/* If there's an error, ignore it.  We'll return an empty filelist. */
+	mpdclient_finish_command(c);
+
+	g_free(path_utf8);
+	filelist->path = g_strdup(path);
+	filelist->updated = TRUE;
+
+	// If there are only directory entities in the filelist, we sort it
+	if (has_dirs_only) {
+		D("mpdclient_filelist_get: only dirs; sorting!\n");
+		filelist->list = g_list_sort(filelist->list, compare_filelistentry_dir);
+	}
+
+	return filelist;
 }
 
 mpdclient_filelist_t *
-mpdclient_filelist_search_utf8(mpdclient_t *c, 
+mpdclient_filelist_search_utf8(mpdclient_t *c,
 			       int exact_match,
-			       int table, 
+			       int table,
 			       gchar *filter_utf8)
 {
-  mpdclient_filelist_t *filelist;
-  mpd_InfoEntity *entity;
+	mpdclient_filelist_t *filelist;
+	mpd_InfoEntity *entity;
 
-  D("mpdclient_filelist_search(%s)\n", filter_utf8);
-  if( exact_match )
-    mpd_sendFindCommand(c->connection, table, filter_utf8);
-  else
-    mpd_sendSearchCommand(c->connection, table, filter_utf8);
-  filelist = g_malloc0(sizeof(mpdclient_filelist_t));
+	D("mpdclient_filelist_search(%s)\n", filter_utf8);
+	if (exact_match)
+		mpd_sendFindCommand(c->connection, table, filter_utf8);
+	else
+		mpd_sendSearchCommand(c->connection, table, filter_utf8);
+	filelist = g_malloc0(sizeof(mpdclient_filelist_t));
 
-  while( (entity=mpd_getNextInfoEntity(c->connection)) ) 
-    {
-      filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
-      
-      entry->entity = entity;
-      filelist->list = g_list_append(filelist->list, (gpointer) entry);
-      filelist->length++;
-    }
-  
-  if( mpdclient_finish_command(c) )
-    return mpdclient_filelist_free(filelist);
+	while ((entity=mpd_getNextInfoEntity(c->connection))) {
+		filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
 
-  filelist->updated = TRUE;
+		entry->entity = entity;
+		filelist->list = g_list_append(filelist->list, entry);
+		filelist->length++;
+	}
 
-  return filelist;
+	if (mpdclient_finish_command(c))
+		return mpdclient_filelist_free(filelist);
+
+	filelist->updated = TRUE;
+	return filelist;
 }
 
 

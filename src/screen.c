@@ -626,17 +626,16 @@ screen_init(mpdclient_t *c)
 
 	/* initialize screens */
 	i=0;
-	while( screens[i].get_mode_functions )
-		{
-			struct screen_functions *fn = screens[i].get_mode_functions();
+	while (screens[i].get_mode_functions) {
+		struct screen_functions *fn = screens[i].get_mode_functions();
 
-			if( fn && fn->init )
-				fn->init(screen->main_window.w,
-					 screen->main_window.cols,
-					 screen->main_window.rows);
+		if (fn && fn->init)
+			fn->init(screen->main_window.w,
+				 screen->main_window.cols,
+				 screen->main_window.rows);
 
-			i++;
-		}
+		i++;
+	}
 
 #if 0
 	/* broken */

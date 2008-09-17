@@ -179,16 +179,14 @@ static void
 search_clear(mpd_unused screen_t *screen, mpdclient_t *c,
 	     gboolean clear_pattern)
 {
-  if( filelist )
-    {
-      mpdclient_remove_playlist_callback(c, playlist_changed_callback);
-      filelist = mpdclient_filelist_free(filelist);
-    }
-  if( clear_pattern && pattern )
-    {
-      g_free(pattern);
-      pattern = NULL;
-    }
+	if (filelist) {
+		mpdclient_remove_playlist_callback(c, playlist_changed_callback);
+		filelist = mpdclient_filelist_free(filelist);
+	}
+	if (clear_pattern && pattern) {
+		g_free(pattern);
+		pattern = NULL;
+	}
 }
 
 #ifdef FUTURE
@@ -366,20 +364,22 @@ search_new(screen_t *screen, mpdclient_t *c)
 static void
 init(WINDOW *w, int cols, int rows)
 {
-  lw = list_window_init(w, cols, rows);
+	lw = list_window_init(w, cols, rows);
 }
 
 static void
 quit(void)
 {
-  if( search_history )
-    string_list_free(search_history);
-  if( filelist )
-    filelist = mpdclient_filelist_free(filelist);
-  list_window_free(lw);
-  if( pattern )
-    g_free(pattern);
-  pattern = NULL;
+	if (search_history)
+		string_list_free(search_history);
+	if (filelist)
+		filelist = mpdclient_filelist_free(filelist);
+	list_window_free(lw);
+
+	if (pattern) {
+		g_free(pattern);
+		pattern = NULL;
+	}
 }
 
 static void
