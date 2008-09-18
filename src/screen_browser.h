@@ -48,7 +48,8 @@ const char *browser_lw_callback(unsigned index, int *highlight, void *filelist);
 int
 browser_handle_select(struct screen_browser *browser, mpdclient_t *c);
 
-int browser_handle_select_all(struct screen_browser *browser, mpdclient_t *c);
+void
+browser_handle_select_all(struct screen_browser *browser, mpdclient_t *c);
 
 int
 browser_change_directory(struct screen_browser *browser, mpdclient_t *c,

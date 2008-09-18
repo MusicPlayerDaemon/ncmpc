@@ -330,16 +330,12 @@ add_directory(mpdclient_t *c, char *dir)
 }
 #endif
 
-int
-browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
+static int
+browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
+		     gboolean toggle)
 {
-	filelist_entry_t *entry;
-
-	if (browser->filelist == NULL)
-		return -1;
-	entry = g_list_nth_data(browser->filelist->list, browser->lw->selected);
-	if (entry == NULL || entry->entity == NULL)
-		return -1;
+	assert(entry != NULL);
+	assert(entry->entity != NULL);
 
 	if (entry->entity->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE)
 		return load_playlist(c, entry);
@@ -362,12 +358,12 @@ browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
 	if (entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
 		return -1;
 
-	if (entry->flags & HIGHLIGHT)
+	if (toggle && entry->flags & HIGHLIGHT)
 		entry->flags &= ~HIGHLIGHT;
 	else
 		entry->flags |= HIGHLIGHT;
 
-	if (entry->flags & HIGHLIGHT) {
+	if (toggle || entry->flags & HIGHLIGHT) {
 		if (entry->entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
 			mpd_Song *song = entry->entity->info.song;
 
@@ -396,60 +392,37 @@ browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
 }
 
 int
+browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
+{
+	filelist_entry_t *entry;
+
+	if (browser->filelist == NULL)
+		return -1;
+	entry = g_list_nth_data(browser->filelist->list, browser->lw->selected);
+	if (entry == NULL || entry->entity == NULL)
+		return -1;
+
+	return browser_select_entry(c, entry, TRUE);
+}
+
+void
 browser_handle_select_all(struct screen_browser *browser, mpdclient_t *c)
 {
 	filelist_entry_t *entry;
 	GList *temp = browser->filelist->list;
 
 	if (browser->filelist == NULL)
-		return -1;
+		return;
 
 	for (browser->filelist->list = g_list_first(browser->filelist->list);
 	     browser->filelist->list;
 	     browser->filelist->list = g_list_next(browser->filelist->list)) {
 		entry = browser->filelist->list->data;
-		if (entry == NULL || entry->entity == NULL)
-			return -1;
-
-		if (entry->entity->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE)
-			load_playlist(c, entry);
-
-		if (entry->entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY) {
-			mpd_Directory *dir = entry->entity->info.directory;
-#ifdef USE_OLD_ADD
-			add_directory(c, tmp);
-#else
-			if (mpdclient_cmd_add_path_utf8(c, dir->path) == 0) {
-				char *tmp = utf8_to_locale(dir->path);
-
-				screen_status_printf(_("Adding \'%s\' to playlist\n"), tmp);
-				g_free(tmp);
-			}
-#endif
-		}
-
-		if (entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
-			continue;
-
-		entry->flags |= HIGHLIGHT;
-
-		if (entry->flags & HIGHLIGHT) {
-			if (entry->entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
-				mpd_Song *song = entry->entity->info.song;
-
-				if (mpdclient_cmd_add(c, song) == 0) {
-					char buf[BUFSIZE];
-
-					strfsong(buf, BUFSIZE, LIST_FORMAT, song);
-					screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
-				}
-			}
-		}
-		return 0;
+		if (entry != NULL && entry->entity != NULL)
+			browser_select_entry(c, entry, FALSE);
 	}
 
 	browser->filelist->list = temp;
-	return 0;
 }
 
 #ifdef HAVE_GETMOUSE
