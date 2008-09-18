@@ -105,11 +105,11 @@ static search_type_t mode[] = {
 	{ 0, NULL }
 };
 
-static list_window_t *lw = NULL;
-static mpdclient_filelist_t *filelist = NULL;
 static GList *search_history = NULL;
 static gchar *pattern = NULL;
 static gboolean advanced_search_mode = FALSE;
+
+static struct screen_browser browser;
 
 
 /* search info */
@@ -144,15 +144,15 @@ lw_search_help_callback(unsigned idx, mpd_unused int *highlight,
 static void
 playlist_changed_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
 {
-	if (filelist == NULL)
+	if (browser.filelist == NULL)
 		return;
 	D("screen_search.c> playlist_callback() [%d]\n", event);
 	switch(event) {
 	case PLAYLIST_EVENT_CLEAR:
-		clear_highlights(filelist);
+		clear_highlights(browser.filelist);
 		break;
 	default:
-		sync_highlights(c, filelist);
+		sync_highlights(c, browser.filelist);
 		break;
 	}
 }
@@ -175,10 +175,10 @@ static void
 search_clear(mpd_unused screen_t *screen, mpdclient_t *c,
 	     gboolean clear_pattern)
 {
-	if (filelist) {
+	if (browser.filelist) {
 		mpdclient_remove_playlist_callback(c, playlist_changed_callback);
-		mpdclient_filelist_free(filelist);
-		filelist = NULL;
+		mpdclient_filelist_free(browser.filelist);
+		browser.filelist = NULL;
 	}
 	if (clear_pattern && pattern) {
 		g_free(pattern);
@@ -334,21 +334,21 @@ search_new(screen_t *screen, mpdclient_t *c)
 	}
 
 	if (pattern == NULL) {
-		list_window_reset(lw);
+		list_window_reset(browser.lw);
 		return;
 	}
 
 	if (!MPD_VERSION_LT(c, 0, 12, 0))
-		filelist = search_advanced_query(pattern, c);
+		browser.filelist = search_advanced_query(pattern, c);
 
-	if (!advanced_search_mode && filelist == NULL)
-		filelist = filelist_search(c, FALSE,
-					   mode[options.search_mode].table,
-					   pattern);
+	if (!advanced_search_mode && browser.filelist == NULL)
+		browser.filelist = filelist_search(c, FALSE,
+						  mode[options.search_mode].table,
+						  pattern);
 
-	sync_highlights(c, filelist);
+	sync_highlights(c, browser.filelist);
 	mpdclient_install_playlist_callback(c, playlist_changed_callback);
-	list_window_check_selected(lw, filelist->length);
+	list_window_check_selected(browser.lw, browser.filelist->length);
 }
 
 
@@ -356,7 +356,7 @@ search_new(screen_t *screen, mpdclient_t *c)
 static void
 init(WINDOW *w, int cols, int rows)
 {
-	lw = list_window_init(w, cols, rows);
+	browser.lw = list_window_init(w, cols, rows);
 }
 
 static void
@@ -364,9 +364,9 @@ quit(void)
 {
 	if (search_history)
 		string_list_free(search_history);
-	if (filelist)
-		mpdclient_filelist_free(filelist);
-	list_window_free(lw);
+	if (browser.filelist)
+		mpdclient_filelist_free(browser.filelist);
+	list_window_free(browser.lw);
 
 	if (pattern) {
 		g_free(pattern);
@@ -388,41 +388,41 @@ open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 static void
 resize(int cols, int rows)
 {
-	lw->cols = cols;
-	lw->rows = rows;
+	browser.lw->cols = cols;
+	browser.lw->rows = rows;
 }
 
 static void
 paint(mpd_unused screen_t *screen, mpdclient_t *c)
 {
-	lw->clear = 1;
+	browser.lw->clear = 1;
 
-	if (filelist) {
-		lw->flags = 0;
-		list_window_paint(lw, browse_lw_callback, (void *) filelist);
-		filelist->updated = FALSE;
+	if (browser.filelist) {
+		browser.lw->flags = 0;
+		list_window_paint(browser.lw, browse_lw_callback, browser.filelist);
+		browser.filelist->updated = FALSE;
 	} else {
-		lw->flags = LW_HIDE_CURSOR;
-		list_window_paint(lw, lw_search_help_callback, NULL);
+		browser.lw->flags = LW_HIDE_CURSOR;
+		list_window_paint(browser.lw, lw_search_help_callback, NULL);
 		if( !MPD_VERSION_LT(c, 0, 12, 0) )
 			g_strdup_printf("Advanced search disabled (MPD version < 0.12.0");
 		//      wmove(lw->w, 0, 0);
 		//wclrtobot(lw->w);
 	}
 
-	wnoutrefresh(lw->w);
+	wnoutrefresh(browser.lw->w);
 }
 
 static void
 update(screen_t *screen, mpdclient_t *c)
 {
-	if (filelist==NULL || filelist->updated) {
+	if (browser.filelist == NULL || browser.filelist->updated) {
 		paint(screen, c);
 		return;
 	}
 
-	list_window_paint(lw, browse_lw_callback, (void *) filelist);
-	wnoutrefresh(lw->w);
+	list_window_paint(browser.lw, browse_lw_callback, browser.filelist);
+	wnoutrefresh(browser.lw->w);
 }
 
 static const char *
@@ -448,19 +448,21 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
 	switch (cmd) {
 	case CMD_PLAY:
-		browse_handle_enter(screen, c, lw, filelist);
+		browse_handle_enter(screen, c, browser.lw, browser.filelist);
 		return 1;
 
 	case CMD_SELECT:
-		if (browse_handle_select(screen, c, lw, filelist) == 0) {
+		if (browse_handle_select(screen, c, browser.lw,
+					 browser.filelist) == 0) {
 			/* continue and select next item... */
 			cmd = CMD_LIST_NEXT;
 		}
 		/* call list_window_cmd to go to the next item */
-		return list_window_cmd(lw, filelist->length, cmd);
+		return list_window_cmd(browser.lw, browser.filelist->length, cmd);
 
 	case CMD_SELECT_ALL:
-		browse_handle_select_all (screen, c, lw, filelist);
+		browse_handle_select_all(screen, c, browser.lw,
+					 browser.filelist);
 		paint (screen, c);
 		return 0;
 
@@ -474,11 +476,11 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_SCREEN_UPDATE:
 		if (pattern) {
 			search_clear(screen, c, FALSE);
-			filelist = filelist_search(c,
-						   FALSE,
-						   mode[options.search_mode].table,
-						   pattern);
-			sync_highlights(c, filelist);
+			browser.filelist = filelist_search(c,
+							  FALSE,
+							  mode[options.search_mode].table,
+							  pattern);
+			sync_highlights(c, browser.filelist);
 		}
 		return 1;
 
@@ -488,26 +490,29 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 	case CMD_CLEAR:
 		search_clear(screen, c, TRUE);
-		list_window_reset(lw);
+		list_window_reset(browser.lw);
 		return 1;
 
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		if (filelist)
+		if (browser.filelist)
 			return screen_find(screen,
-					   lw, filelist->length,
-					   cmd, browse_lw_callback, (void *) filelist);
+					   browser.lw, browser.filelist->length,
+					   cmd, browse_lw_callback,
+					   browser.filelist);
 		else
 			return 1;
 
 	case CMD_MOUSE_EVENT:
-		return browse_handle_mouse_event(screen,c,lw,filelist);
+		return browse_handle_mouse_event(screen, c, browser.lw,
+						 browser.filelist);
 
 	default:
-		if (filelist)
-			return list_window_cmd(lw, filelist->length, cmd);
+		if (browser.filelist)
+			return list_window_cmd(browser.lw,
+					       browser.filelist->length, cmd);
 	}
 
 	return 0;

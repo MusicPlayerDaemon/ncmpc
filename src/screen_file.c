@@ -44,11 +44,7 @@
 
 #define HIGHLIGHT  (0x01)
 
-
-static list_window_t *lw = NULL;
-static list_window_state_t *lw_state = NULL;
-static mpdclient_filelist_t *filelist = NULL;
-
+static struct screen_browser browser;
 
 /* clear the highlight flag for all items in the filelist */
 void
@@ -119,9 +115,9 @@ file_changed_callback(mpdclient_t *c, mpd_unused int event,
 		      mpd_unused gpointer data)
 {
 	D("screen_file.c> filelist_callback() [%d]\n", event);
-	filelist = mpdclient_filelist_update(c, filelist);
-	sync_highlights(c, filelist);
-	list_window_check_selected(lw, filelist->length);
+	browser.filelist = mpdclient_filelist_update(c, browser.filelist);
+	sync_highlights(c, browser.filelist);
+	list_window_check_selected(browser.lw, browser.filelist->length);
 }
 
 /* the playlist have been updated -> fix highlights */
@@ -131,18 +127,18 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 	D("screen_file.c> playlist_callback() [%d]\n", event);
 	switch(event) {
 	case PLAYLIST_EVENT_CLEAR:
-		clear_highlights(filelist);
+		clear_highlights(browser.filelist);
 		break;
 	case PLAYLIST_EVENT_ADD:
-		set_highlight(filelist, (mpd_Song *) data, 1);
+		set_highlight(browser.filelist, (mpd_Song *) data, 1);
 		break;
 	case PLAYLIST_EVENT_DELETE:
-		set_highlight(filelist, (mpd_Song *) data, 0);
+		set_highlight(browser.filelist, (mpd_Song *) data, 0);
 		break;
 	case PLAYLIST_EVENT_MOVE:
 		break;
 	default:
-		sync_highlights(c, filelist);
+		sync_highlights(c, browser.filelist);
 		break;
 	}
 }
@@ -209,33 +205,33 @@ change_directory(mpd_unused screen_t *screen, mpdclient_t *c,
 	if( entity==NULL ) {
 		if( entry || 0==strcmp(new_path, "..") ) {
 			/* return to parent */
-			char *parent = g_path_get_dirname(filelist->path);
+			char *parent = g_path_get_dirname(browser.filelist->path);
 			if( strcmp(parent, ".") == 0 )
 				parent[0] = '\0';
 			path = g_strdup(parent);
-			list_window_reset(lw);
+			list_window_reset(browser.lw);
 			/* restore previous list window state */
-			list_window_pop_state(lw_state,lw);
+			list_window_pop_state(browser.lw_state,browser.lw);
 		} else {
 			/* entry==NULL, then new_path ("" is root) */
 			path = g_strdup(new_path);
-			list_window_reset(lw);
+			list_window_reset(browser.lw);
 			/* restore first list window state (pop while returning true) */
-			while(list_window_pop_state(lw_state,lw));
+			while(list_window_pop_state(browser.lw_state,browser.lw));
 		}
 	} else if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY) {
 		/* enter sub */
 		mpd_Directory *dir = entity->info.directory;
 		path = utf8_to_locale(dir->path);
 		/* save current list window state */
-		list_window_push_state(lw_state,lw);
+		list_window_push_state(browser.lw_state,browser.lw);
 	} else
 		return -1;
 
-	mpdclient_filelist_free(filelist);
-	filelist = mpdclient_filelist_get(c, path);
-	sync_highlights(c, filelist);
-	list_window_check_selected(lw, filelist->length);
+	mpdclient_filelist_free(browser.filelist);
+	browser.filelist = mpdclient_filelist_get(c, path);
+	sync_highlights(c, browser.filelist);
+	list_window_check_selected(browser.lw, browser.filelist->length);
 	g_free(path);
 	return 0;
 }
@@ -260,8 +256,7 @@ handle_save(screen_t *screen, mpdclient_t *c)
 	filelist_entry_t *entry;
 	char *defaultname = NULL;
 
-
-	entry=( filelist_entry_t *) g_list_nth_data(filelist->list,lw->selected);
+	entry = g_list_nth_data(browser.filelist->list, browser.lw->selected);
 	if( entry && entry->entity ) {
 		mpd_InfoEntity *entity = entry->entity;
 		if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
@@ -282,7 +277,7 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 	char *str, *buf;
 	int key;
 
-	entry=( filelist_entry_t *) g_list_nth_data(filelist->list,lw->selected);
+	entry = g_list_nth_data(browser.filelist->list,browser. lw->selected);
 	if( entry==NULL || entry->entity==NULL )
 		return -1;
 
@@ -560,31 +555,31 @@ browse_handle_select_all (screen_t *screen,
 static void
 browse_init(WINDOW *w, int cols, int rows)
 {
-	lw = list_window_init(w, cols, rows);
-	lw_state = list_window_init_state();
+	browser.lw = list_window_init(w, cols, rows);
+	browser.lw_state = list_window_init_state();
 }
 
 static void
 browse_resize(int cols, int rows)
 {
-	lw->cols = cols;
-	lw->rows = rows;
+	browser.lw->cols = cols;
+	browser.lw->rows = rows;
 }
 
 static void
 browse_exit(void)
 {
-	if( filelist )
-		mpdclient_filelist_free(filelist);
-	list_window_free(lw);
-	list_window_free_state(lw_state);
+	if (browser.filelist)
+		mpdclient_filelist_free(browser.filelist);
+	list_window_free(browser.lw);
+	list_window_free_state(browser.lw_state);
 }
 
 static void
 browse_open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
-	if( filelist == NULL ) {
-		filelist = mpdclient_filelist_get(c, "");
+	if (browser.filelist == NULL) {
+		browser.filelist = mpdclient_filelist_get(c, "");
 		mpdclient_install_playlist_callback(c, playlist_changed_callback);
 		mpdclient_install_browse_callback(c, file_changed_callback);
 	}
@@ -596,7 +591,7 @@ browse_title(char *str, size_t size)
 	char *pathcopy;
 	char *parentdir;
 
-	pathcopy = strdup(filelist->path);
+	pathcopy = strdup(browser.filelist->path);
 	parentdir = dirname(pathcopy);
 	parentdir = basename(parentdir);
 
@@ -607,7 +602,7 @@ browse_title(char *str, size_t size)
 	g_snprintf(str, size, _("Browse: %s%s%s"),
 		   parentdir ? parentdir : "",
 		   parentdir ? "/" : "",
-		   basename(filelist->path));
+		   basename(browser.filelist->path));
 	free(pathcopy);
 	return str;
 }
@@ -615,23 +610,23 @@ browse_title(char *str, size_t size)
 static void
 browse_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
-	lw->clear = 1;
+	browser.lw->clear = 1;
 
-	list_window_paint(lw, browse_lw_callback, (void *) filelist);
-	wnoutrefresh(lw->w);
+	list_window_paint(browser.lw, browse_lw_callback, browser.filelist);
+	wnoutrefresh(browser.lw->w);
 }
 
 static void
 browse_update(screen_t *screen, mpdclient_t *c)
 {
-	if( filelist->updated ) {
+	if (browser.filelist->updated) {
 		browse_paint(screen, c);
-		filelist->updated = FALSE;
+		browser.filelist->updated = FALSE;
 		return;
 	}
 
-	list_window_paint(lw, browse_lw_callback, (void *) filelist);
-	wnoutrefresh(lw->w);
+	list_window_paint(browser.lw, browse_lw_callback, browser.filelist);
+	wnoutrefresh(browser.lw->w);
 }
 
 
@@ -675,7 +670,8 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
 	switch(cmd) {
 	case CMD_PLAY:
-		browse_handle_enter(screen, c, lw, filelist);
+		browse_handle_enter(screen, c, browser.lw,
+				    browser.filelist);
 		return 1;
 	case CMD_GO_ROOT_DIRECTORY:
 		return change_directory(screen, c, NULL, "");
@@ -684,7 +680,8 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		return change_directory(screen, c, NULL, "..");
 		break;
 	case CMD_SELECT:
-		if (browse_handle_select(screen, c, lw, filelist) == 0) {
+		if (browse_handle_select(screen, c, browser.lw,
+					 browser.filelist) == 0) {
 			/* continue and select next item... */
 			cmd = CMD_LIST_NEXT;
 		}
@@ -697,10 +694,11 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		break;
 	case CMD_SCREEN_UPDATE:
 		screen->painted = 0;
-		lw->clear = 1;
-		lw->repaint = 1;
-		filelist = mpdclient_filelist_update(c, filelist);
-		list_window_check_selected(lw, filelist->length);
+		browser.lw->clear = 1;
+		browser.lw->repaint = 1;
+		browser.filelist = mpdclient_filelist_update(c, browser.filelist);
+		list_window_check_selected(browser.lw,
+					   browser.filelist->length);
 		screen_status_printf(_("Screen updated!"));
 		return 1;
 	case CMD_DB_UPDATE:
@@ -708,10 +706,10 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			return 1;
 
 		if (!c->status->updatingDb) {
-			if (mpdclient_cmd_db_update_utf8(c,filelist->path) == 0) {
-				if (strcmp(filelist->path, ""))
+			if (mpdclient_cmd_db_update_utf8(c, browser.filelist->path) == 0) {
+				if (strcmp(browser.filelist->path, ""))
 					screen_status_printf(_("Database update of %s started!"),
-							     filelist->path);
+							     browser.filelist->path);
 				else
 					screen_status_printf(_("Database update started!"));
 
@@ -727,15 +725,17 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
 		return screen_find(screen,
-				   lw, filelist->length,
-				   cmd, browse_lw_callback, (void *) filelist);
+				   browser.lw, browser.filelist->length,
+				   cmd, browse_lw_callback,
+				   browser.filelist);
 	case CMD_MOUSE_EVENT:
-		return browse_handle_mouse_event(screen,c,lw,filelist);
+		return browse_handle_mouse_event(screen,c, browser.lw,
+						 browser.filelist);
 	default:
 		break;
 	}
 
-	return list_window_cmd(lw, filelist->length, cmd);
+	return list_window_cmd(browser.lw, browser.filelist->length, cmd);
 }
 
 const struct screen_functions screen_browse = {

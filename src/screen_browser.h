@@ -1,3 +1,9 @@
+struct screen_browser {
+	struct list_window *lw;
+	struct list_window_state *lw_state;
+
+	mpdclient_filelist_t *filelist;
+};
 
 void clear_highlights(mpdclient_filelist_t *filelist);
 void sync_highlights(mpdclient_t *c, mpdclient_filelist_t *filelist);
