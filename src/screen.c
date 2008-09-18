@@ -810,9 +810,11 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 		return 0;
 
 	switch(cmd) {
+		/*
 	case CMD_PLAY:
 		mpdclient_cmd_play(c, MPD_PLAY_AT_BEGINNING);
 		break;
+		*/
 	case CMD_PAUSE:
 		mpdclient_cmd_pause(c, !IS_PAUSED(c->status->state));
 		break;
