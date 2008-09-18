@@ -358,13 +358,10 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 	if (entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
 		return -1;
 
-	if (toggle && entry->flags & HIGHLIGHT)
-		entry->flags &= ~HIGHLIGHT;
-	else
-		entry->flags |= HIGHLIGHT;
-
-	if (toggle || entry->flags & HIGHLIGHT) {
+	if (!toggle || (entry->flags & HIGHLIGHT) == 0) {
 		mpd_Song *song = entry->entity->info.song;
+
+		entry->flags |= HIGHLIGHT;
 
 		if (mpdclient_cmd_add(c, song) == 0) {
 			char buf[BUFSIZE];
@@ -375,6 +372,8 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 	} else {
 		/* remove song from playlist */
 		mpd_Song *song = entry->entity->info.song;
+
+		entry->flags &= ~HIGHLIGHT;
 
 		if (song) {
 			int idx;
