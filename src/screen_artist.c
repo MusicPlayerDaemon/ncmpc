@@ -234,7 +234,7 @@ paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 	browser.lw->clear = 1;
 
 	if (browser.filelist) {
-		list_window_paint(browser.lw, browse_lw_callback,
+		list_window_paint(browser.lw, browser_lw_callback,
 				  browser.filelist);
 		browser.filelist->updated = FALSE;
 	} else if (metalist) {
@@ -251,7 +251,7 @@ static void
 update(screen_t *screen, mpdclient_t *c)
 {
 	if (browser.filelist && !browser.filelist->updated)
-		list_window_paint(browser.lw, browse_lw_callback,
+		list_window_paint(browser.lw, browser_lw_callback,
 				  browser.filelist);
 	else if (metalist)
 		list_window_paint(browser.lw, artist_lw_callback, metalist);
@@ -348,8 +348,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 				list_window_pop_state(browser.lw_state,
 						      browser.lw);
 			} else
-				browse_handle_enter(screen, c, browser.lw,
-						    browser.filelist);
+				browser_handle_enter(&browser, c);
 			break;
 		}
 		return 1;
@@ -415,8 +414,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			break;
 
 		case LIST_SONGS:
-			if (browse_handle_select(screen, c, browser.lw,
-						 browser.filelist) == 0)
+			if (browser_handle_select(&browser, c) == 0)
 				/* continue and select next item... */
 				cmd = CMD_LIST_NEXT;
 			break;
@@ -439,7 +437,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		if (browser.filelist)
 			return screen_find(screen,
 					   browser.lw, browser.filelist->length,
-					   cmd, browse_lw_callback,
+					   cmd, browser_lw_callback,
 					   browser.filelist);
 		else if (metalist)
 			return screen_find(screen,
@@ -449,8 +447,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			return 1;
 
 	case CMD_MOUSE_EVENT:
-		return browse_handle_mouse_event(screen, c,browser.lw,
-						 browser.filelist);
+		return browser_handle_mouse_event(&browser, c);
 
 	default:
 		break;

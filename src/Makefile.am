@@ -52,6 +52,7 @@ ncmpc_SOURCES = \
   screen.c\
   screen_utils.c\
   screen_play.c\
+	screen_browser.c\
   screen_file.c\
   screen_artist.c\
   screen_search.c\
