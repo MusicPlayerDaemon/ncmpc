@@ -12,6 +12,7 @@ ncmpc_LDADD = \
 
 ncmpc_headers = \
   libmpdclient.h\
+	resolver.h \
 	song.h \
   mpdclient.h\
 	playlist.h \
@@ -40,6 +41,7 @@ lyr_src=${lyr_src_fixed}
 
 ncmpc_SOURCES = \
   libmpdclient.c\
+	resolver.c \
 	song.c \
   main.c\
   mpdclient.c\
