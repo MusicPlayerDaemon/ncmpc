@@ -43,7 +43,6 @@
 #define SCREEN_ARTIST_ID       2
 #define SCREEN_HELP_ID         100
 #define SCREEN_KEYDEF_ID       101
-#define SCREEN_CLOCK_ID        102
 #define SCREEN_SEARCH_ID       103
 #define SCREEN_LYRICS_ID	   104
 
@@ -61,9 +60,6 @@ extern const struct screen_functions screen_search;
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
 extern const struct screen_functions screen_keydef;
-#endif
-#ifdef ENABLE_CLOCK_SCREEN
-extern const struct screen_functions screen_clock;
 #endif
 extern const struct screen_functions screen_lyrics;
 
@@ -86,9 +82,6 @@ static const struct
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
 	{ SCREEN_KEYDEF_ID, "keydef", &screen_keydef },
-#endif
-#ifdef ENABLE_CLOCK_SCREEN
-	{ SCREEN_CLOCK_ID, "clock", &screen_clock },
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
 	{ SCREEN_LYRICS_ID, "lyrics", &screen_lyrics },
@@ -949,9 +942,6 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 		break;
 	case CMD_SCREEN_KEYDEF:
 		switch_screen_mode(SCREEN_KEYDEF_ID, c);
-		break;
-	case CMD_SCREEN_CLOCK:
-		switch_screen_mode(SCREEN_CLOCK_ID, c);
 		break;
 	case CMD_SCREEN_LYRICS:
 		switch_screen_mode(SCREEN_LYRICS_ID, c);

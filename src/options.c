@@ -167,9 +167,6 @@ handle_option(int c, const char *arg)
 #ifdef ENABLE_KEYDEF_SCREEN
       printf(" key-screen");
 #endif
-#ifdef ENABLE_CLOCK_SCREEN
-      printf(" clock-screen");
-#endif
       printf("\n");
       exit(EXIT_SUCCESS);
     case 'c': /* --colors */

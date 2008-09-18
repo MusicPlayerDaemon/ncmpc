@@ -257,18 +257,6 @@ if test "x$keydef_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_KEYDEF_SCREEN, 1, [Disable key editor screen])
 fi
 
-dnl Optional screen - clock
-AC_MSG_CHECKING([whether to include the clock screen])
-AC_ARG_ENABLE([clock-screen], 
-              AC_HELP_STRING([--enable-clock-screen],
-	                     [Enable clock screen @<:@default=yes@:>@]),
-	      [clock_screen="$enableval"],
-	      [clock_screen=yes])
-AC_MSG_RESULT([$clock_screen])
-if test "x$clock_screen" != "xyes" ; then
-   AC_DEFINE(DISABLE_CLOCK_SCREEN, 1, [Disable clock screen])
-fi
-
 dnl Optional screen - lyrics
 AC_MSG_CHECKING([whether to include the lyrics screen]) 
 AC_ARG_ENABLE([lyrics-screen], 

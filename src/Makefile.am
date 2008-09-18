@@ -59,7 +59,6 @@ ncmpc_SOURCES = \
   screen_help.c\
   screen_lyrics.c\
   screen_keydef.c\
-  screen_clock.c\
   list_window.c\
   colors.c\
   support.c\

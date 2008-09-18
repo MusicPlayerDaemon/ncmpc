@@ -57,9 +57,6 @@ static help_text_row_t help_text[] =
 #ifdef ENABLE_SEARCH_SCREEN
   { 0, CMD_SCREEN_SEARCH,  NULL },
 #endif
-#ifdef ENABLE_CLOCK_SCREEN
-  { 0, CMD_SCREEN_CLOCK,   NULL },
-#endif
 #ifdef ENABLE_KEYDEF_SCREEN
   { 0, CMD_SCREEN_KEYDEF,  NULL },
 #endif

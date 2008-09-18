@@ -188,10 +188,6 @@ static command_definition_t cmds[] =
     N_("Change search mode") },
 #endif
 
-#ifdef ENABLE_CLOCK_SCREEN
-  { {'6',  F6,   0 }, 0, CMD_SCREEN_CLOCK,    "screen-clock",
-    N_("Clock screen") },
-#endif
 #ifdef ENABLE_LYRICS_SCREEN
   { {'7',  F7,   0 }, 0, CMD_SCREEN_LYRICS,    "screen-lyrics",
     N_("Lyrics screen") },
