@@ -954,8 +954,6 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_SCREEN_LYRICS:
 		switch_screen_mode(SCREEN_LYRICS_ID, c);
 		break;
-	case CMD_QUIT:
-		exit(EXIT_SUCCESS);
 	default:
 		break;
 	}

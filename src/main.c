@@ -263,6 +263,11 @@ keyboard_event(mpd_unused GIOChannel *source,
 	g_source_remove(idle_source_id);
 
 	if ((cmd=get_keyboard_command()) != CMD_NONE) {
+		if (cmd == CMD_QUIT) {
+			g_main_loop_quit(main_loop);
+			return FALSE;
+		}
+
 		screen_cmd(mpd, cmd);
 
 		if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN) {
@@ -377,9 +382,6 @@ main(int argc, const char *argv[])
 		perror("sigaction(SIGHUP)");
 		exit(EXIT_FAILURE);
 	}
-
-	/* install exit function */
-	atexit(exit_and_cleanup);
 
 	ncurses_init();
 
