@@ -28,8 +28,11 @@ void charset_init(gboolean disable);
 char *utf8_to_locale(const char *str);
 char *locale_to_utf8(const char *str);
 
-/* number of characters in str */
+/**
+ * Returns the number of terminal cells occupied by this string.
+ */
 size_t my_strlen(const char *str);
+
 /* number of bytes in str */
 size_t my_strsize(char *str);
 

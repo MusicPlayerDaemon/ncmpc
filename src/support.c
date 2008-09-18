@@ -36,9 +36,19 @@ static gboolean noconvert = TRUE;
 size_t
 my_strlen(const char *str)
 {
-	if (g_utf8_validate(str, -1, NULL))
-		return g_utf8_strlen(str, -1);
-	else
+	if (g_utf8_validate(str, -1, NULL)) {
+		size_t len = g_utf8_strlen(str, -1);
+		size_t width = 0;
+		gunichar c;
+
+		while (len--) {
+			c = g_utf8_get_char(str);
+			width += g_unichar_iswide(c) ? 2 : 1;
+			str += g_unichar_to_utf8(c, NULL);
+		}
+
+		return width;
+	} else
 		return strlen(str);
 }
 
