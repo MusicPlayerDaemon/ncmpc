@@ -364,27 +364,23 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 		entry->flags |= HIGHLIGHT;
 
 	if (toggle || entry->flags & HIGHLIGHT) {
-		if (entry->entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
-			mpd_Song *song = entry->entity->info.song;
+		mpd_Song *song = entry->entity->info.song;
 
-			if (mpdclient_cmd_add(c, song) == 0) {
-				char buf[BUFSIZE];
+		if (mpdclient_cmd_add(c, song) == 0) {
+			char buf[BUFSIZE];
 
-				strfsong(buf, BUFSIZE, LIST_FORMAT, song);
-				screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
-			}
+			strfsong(buf, BUFSIZE, LIST_FORMAT, song);
+			screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
 		}
 	} else {
 		/* remove song from playlist */
-		if (entry->entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
-			mpd_Song *song = entry->entity->info.song;
+		mpd_Song *song = entry->entity->info.song;
 
-			if (song) {
-				int idx;
+		if (song) {
+			int idx;
 
-				while ((idx = playlist_get_index_from_file(c, song->file)) >=0)
-					mpdclient_cmd_delete(c, idx);
-			}
+			while ((idx = playlist_get_index_from_file(c, song->file)) >=0)
+				mpdclient_cmd_delete(c, idx);
 		}
 	}
 
