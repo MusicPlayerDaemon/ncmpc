@@ -30,7 +30,7 @@
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
-#include "screen_browse.h"
+#include "screen_browser.h"
 #include "gcc.h"
 
 #include <ctype.h>

@@ -28,7 +28,7 @@ ncmpc_headers = \
   strfsong.h\
   utils.h\
   ncmpc.h\
-  screen_browse.h\
+	screen_browser.h \
 	lyrics.h \
 	str_pool.h \
 	gcc.h
