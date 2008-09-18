@@ -445,21 +445,6 @@ browser_handle_select_all(struct screen_browser *browser, mpdclient_t *c)
 				}
 			}
 		}
-		/*
-		else {
-			//remove song from playlist
-			if( entry->entity->type==MPD_INFO_ENTITY_TYPE_SONG ) {
-				mpd_Song *song = entry->entity->info.song;
-
-				if( song ) {
-					int idx = playlist_get_index_from_file(c, song->file);
-
-					while( (idx=playlist_get_index_from_file(c, song->file))>=0 )
-						mpdclient_cmd_delete(c, idx);
-				}
-			}
-		}
-		*/
 		return 0;
 	}
 
