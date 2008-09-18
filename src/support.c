@@ -36,43 +36,42 @@ static gboolean noconvert = TRUE;
 size_t
 my_strlen(const char *str)
 {
-  if( g_utf8_validate(str,-1,NULL) )
-    return g_utf8_strlen(str,-1);
-  else
-    return strlen(str);
+	if (g_utf8_validate(str, -1, NULL))
+		return g_utf8_strlen(str, -1);
+	else
+		return strlen(str);
 }
 
 char *
 remove_trailing_slash(char *path)
 {
-  int len;
+	int len;
 
-  if( path==NULL )
-    return NULL;
+	if (path == NULL)
+		return NULL;
 
-  len=strlen(path);
-  if( len>1 && path[len-1] == '/' )
-    path[len-1] = '\0';
+	len = strlen(path);
+	if (len > 1 && path[len - 1] == '/')
+		path[len - 1] = '\0';
 
-  return path;
+	return path;
 }
 
 char *
 lowerstr(char *str)
 {
-  gsize i;
-  gsize len = strlen(str);
+	gsize i;
+	gsize len = strlen(str);
 
-  if( str==NULL )
-    return NULL;
+	if (str == NULL)
+		return NULL;
 
-  i=0;
-  while(i<len && str[i])
-    {
-      str[i] = tolower(str[i]);
-      i++;
-    }
-  return str;
+	i = 0;
+	while (i < len && str[i]) {
+		str[i] = tolower(str[i]);
+		i++;
+	}
+	return str;
 }
 
 
@@ -80,18 +79,18 @@ lowerstr(char *str)
 char *
 basename(char *path)
 {
-  char *end;
+	char *end;
 
-  path = remove_trailing_slash(path);
-  end = path + strlen(path);
+	path = remove_trailing_slash(path);
+	end = path + strlen(path);
 
-  while( end>path && *end!='/' )
-    end--;
+	while (end > path && *end != '/')
+		end--;
 
-  if( *end=='/' && end!=path )
-    return end+1;
+	if (*end == '/' && end != path)
+		return end+1;
 
-  return path;
+	return path;
 }
 #endif /* HAVE_BASENAME */
 
@@ -100,7 +99,7 @@ basename(char *path)
 char *
 strcasestr(const char *haystack, const char *needle)
 {
-  return strstr(lowerstr(haystack), lowerstr(needle));
+	return strstr(lowerstr(haystack), lowerstr(needle));
 }
 #endif /* HAVE_STRCASESTR */
 
@@ -123,7 +122,7 @@ strscroll(char *str, char *separator, int width, scroll_state_t *st)
 	g_strlcat(tmp, separator, size);
 	len = my_strlen(tmp);
 
-	if( st->offset >= len )
+	if (st->offset >= len)
 		st->offset = 0;
 
 	/* create the new scrolled string */
@@ -157,62 +156,57 @@ charset_init(gboolean disable)
 char *
 utf8_to_locale(const char *utf8str)
 {
-  gchar *str;
-  gsize rb, wb;
-  GError *error;
+	gchar *str;
+	gsize rb, wb;
+	GError *error;
 
-  if( noconvert )
-    return g_strdup(utf8str);
+	if (noconvert)
+		return g_strdup(utf8str);
 
-  rb = 0; /* bytes read */
-  wb = 0; /* bytes written */
-  error = NULL;
-  str=g_locale_from_utf8(utf8str, 
-			 strlen(utf8str),
-			 &wb, &rb,
-			 &error);
-  if( error )
-    {
-      const char *charset;
+	rb = 0; /* bytes read */
+	wb = 0; /* bytes written */
+	error = NULL;
+	str = g_locale_from_utf8(utf8str,
+				 strlen(utf8str),
+				 &wb, &rb,
+				 &error);
+	if (error) {
+		const char *charset;
 
-      g_get_charset(&charset);
-      screen_status_printf(_("Error: Unable to convert characters to %s"),
-			   charset);
-      D("utf8_to_locale(): %s\n", error->message);
-      g_error_free(error);
-      return g_strdup(utf8str);
-    }
-  
-  return str;
+		g_get_charset(&charset);
+		screen_status_printf(_("Error: Unable to convert characters to %s"),
+				     charset);
+		D("utf8_to_locale(): %s\n", error->message);
+		g_error_free(error);
+		return g_strdup(utf8str);
+	}
+
+	return str;
 }
 
 char *
 locale_to_utf8(const char *localestr)
 {
-  gchar *str;
-  gsize rb, wb;
-  GError *error;
+	gchar *str;
+	gsize rb, wb;
+	GError *error;
 
-  if( noconvert )
-    return g_strdup(localestr);
+	if (noconvert)
+		return g_strdup(localestr);
 
-  rb = 0; /* bytes read */
-  wb = 0; /* bytes written */
-  error = NULL;
-  str=g_locale_to_utf8(localestr, 
-		       strlen(localestr), 
-		       &wb, &rb,
-		       &error);
-  if( error )
-    {
-      screen_status_printf(_("Error: Unable to convert characters to UTF-8"));
-      D("locale_to_utf8: %s\n", error->message);
-      g_error_free(error);
-      return g_strdup(localestr);
-    }
+	rb = 0; /* bytes read */
+	wb = 0; /* bytes written */
+	error = NULL;
+	str = g_locale_to_utf8(localestr,
+			       strlen(localestr),
+			       &wb, &rb,
+			       &error);
+	if (error) {
+		screen_status_printf(_("Error: Unable to convert characters to UTF-8"));
+		D("locale_to_utf8: %s\n", error->message);
+		g_error_free(error);
+		return g_strdup(localestr);
+	}
 
-  return str;
+	return str;
 }
-
-
-
