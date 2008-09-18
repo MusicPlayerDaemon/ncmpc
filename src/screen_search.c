@@ -42,7 +42,6 @@
 /* new search stuff with qball's libmpdclient */
 #define FUTURE
 
-
 #ifdef FUTURE
 
 extern gint mpdclient_finish_command(mpdclient_t *c);
@@ -54,38 +53,36 @@ typedef struct {
 } search_tag_t;
 
 static search_tag_t search_tag[] = {
-  { MPD_TAG_ITEM_ARTIST,   "artist",    N_("artist") },
-  { MPD_TAG_ITEM_ALBUM,    "album",     N_("album") },
-  { MPD_TAG_ITEM_TITLE,    "title",     N_("title") },
-  { MPD_TAG_ITEM_TRACK,    "track",     N_("track") },
-  { MPD_TAG_ITEM_NAME,     "name",      N_("name") },
-  { MPD_TAG_ITEM_GENRE,    "genre",     N_("genre") },
-  { MPD_TAG_ITEM_DATE,     "date",      N_("date") },
-  { MPD_TAG_ITEM_COMPOSER, "composer",  N_("composer") },
-  { MPD_TAG_ITEM_PERFORMER,"performer", N_("performer") },
-  { MPD_TAG_ITEM_COMMENT,  "comment",   N_("comment") },
-  { MPD_TAG_ITEM_FILENAME, "filename",  N_("file") },
-  { -1,                    NULL,        NULL }
+	{ MPD_TAG_ITEM_ARTIST, "artist", N_("artist") },
+	{ MPD_TAG_ITEM_ALBUM, "album", N_("album") },
+	{ MPD_TAG_ITEM_TITLE, "title", N_("title") },
+	{ MPD_TAG_ITEM_TRACK, "track", N_("track") },
+	{ MPD_TAG_ITEM_NAME, "name", N_("name") },
+	{ MPD_TAG_ITEM_GENRE, "genre", N_("genre") },
+	{ MPD_TAG_ITEM_DATE, "date", N_("date") },
+	{ MPD_TAG_ITEM_COMPOSER, "composer", N_("composer") },
+	{ MPD_TAG_ITEM_PERFORMER, "performer", N_("performer") },
+	{ MPD_TAG_ITEM_COMMENT, "comment", N_("comment") },
+	{ MPD_TAG_ITEM_FILENAME, "filename", N_("file") },
+	{ -1, NULL, NULL }
 };
 
 static int
 search_get_tag_id(char *name)
 {
-  int i;
+	int i = 0;
 
-  i=0;
-  while( search_tag[i].name )
-    {
-      if( strcasecmp(search_tag[i].name, name)==0 || 
-	  strcasecmp(search_tag[i].localname, name)==0 )
-	return search_tag[i].id;
-      i++;
-    }
-  return -1;
+	while (search_tag[i].name) {
+		if (strcasecmp(search_tag[i].name, name) == 0 ||
+		    strcasecmp(search_tag[i].localname, name) == 0)
+			return search_tag[i].id;
+		i++;
+	}
+
+	return -1;
 }
 
 #endif
-
 
 #define SEARCH_TITLE    0
 #define SEARCH_ARTIST   1
@@ -100,12 +97,12 @@ typedef struct {
 } search_type_t;
 
 static search_type_t mode[] = {
-  { MPD_TABLE_TITLE,     N_("Title") },
-  { MPD_TABLE_ARTIST,    N_("Artist") },
-  { MPD_TABLE_ALBUM,     N_("Album") },
-  { MPD_TABLE_FILENAME,  N_("Filename") },
-  { SEARCH_ARTIST_TITLE, N_("Artist + Title") },
-  { 0, NULL }
+	{ MPD_TABLE_TITLE, N_("Title") },
+	{ MPD_TABLE_ARTIST, N_("Artist") },
+	{ MPD_TABLE_ALBUM, N_("Album") },
+	{ MPD_TABLE_FILENAME, N_("Filename") },
+	{ SEARCH_ARTIST_TITLE, N_("Artist + Title") },
+	{ 0, NULL }
 };
 
 static list_window_t *lw = NULL;
@@ -144,35 +141,34 @@ lw_search_help_callback(unsigned idx, mpd_unused int *highlight,
 }
 
 /* the playlist have been updated -> fix highlights */
-static void 
+static void
 playlist_changed_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
 {
-  if( filelist==NULL )
-    return;
-  D("screen_search.c> playlist_callback() [%d]\n", event);
-  switch(event)
-    {
-    case PLAYLIST_EVENT_CLEAR:
-      clear_highlights(filelist);
-      break;
-    default:
-      sync_highlights(c, filelist);
-      break;
-    }
+	if (filelist == NULL)
+		return;
+	D("screen_search.c> playlist_callback() [%d]\n", event);
+	switch(event) {
+	case PLAYLIST_EVENT_CLEAR:
+		clear_highlights(filelist);
+		break;
+	default:
+		sync_highlights(c, filelist);
+		break;
+	}
 }
 
 /* sanity check search mode value */
 static void
 search_check_mode(void)
 {
-  int max = 0;
+	int max = 0;
 
-  while( mode[max].label != NULL )
-    max++;
-  if( options.search_mode<0 )
-    options.search_mode = 0;
-  else if( options.search_mode>=max )
-    options.search_mode = max-1;
+	while (mode[max].label != NULL)
+		max++;
+	if (options.search_mode < 0)
+		options.search_mode = 0;
+	else if (options.search_mode >= max)
+		options.search_mode = max-1;
 }
 
 static void
@@ -195,26 +191,22 @@ static mpdclient_filelist_t *
 filelist_search(mpdclient_t *c, mpd_unused int exact_match, int table,
 		gchar *local_pattern)
 {
-  mpdclient_filelist_t *list, *list2;
+	mpdclient_filelist_t *list, *list2;
 
-  if( table == SEARCH_ARTIST_TITLE )
-    {
-      list = mpdclient_filelist_search(c, FALSE, MPD_TABLE_ARTIST,
-				       local_pattern);
-      list2 = mpdclient_filelist_search(c, FALSE, MPD_TABLE_TITLE,
-					local_pattern);
+	if (table == SEARCH_ARTIST_TITLE) {
+		list = mpdclient_filelist_search(c, FALSE, MPD_TABLE_ARTIST,
+						 local_pattern);
+		list2 = mpdclient_filelist_search(c, FALSE, MPD_TABLE_TITLE,
+						  local_pattern);
 
-      list->length += list2->length;
-      list->list = g_list_concat(list->list, list2->list);
-      list->list = g_list_sort(list->list, compare_filelistentry_format);
-      list->updated = TRUE;
-    }
-  else
-    {
-      list = mpdclient_filelist_search(c, FALSE, table, local_pattern);
-    }
+		list->length += list2->length;
+		list->list = g_list_concat(list->list, list2->list);
+		list->list = g_list_sort(list->list, compare_filelistentry_format);
+		list->updated = TRUE;
+	} else
+		list = mpdclient_filelist_search(c, FALSE, table, local_pattern);
 
-  return list;
+	return list;
 }
 
 /*-----------------------------------------------------------------------
@@ -328,36 +320,35 @@ search_advanced_query(char *query, mpdclient_t *c)
 static void
 search_new(screen_t *screen, mpdclient_t *c)
 {
-  search_clear(screen, c, TRUE);
-  
-  pattern = screen_readln(screen->status_window.w, 
-			  _("Search: "),
-			  NULL,
-			  &search_history,
-			  NULL);
+	search_clear(screen, c, TRUE);
 
-  if( pattern && strcmp(pattern,"")==0 )
-    {
-      g_free(pattern);
-      pattern=NULL;
-    }
-  
-  if( pattern==NULL )
-    {
-      list_window_reset(lw);
-      return;
-    }
+	pattern = screen_readln(screen->status_window.w,
+				_("Search: "),
+				NULL,
+				&search_history,
+				NULL);
 
-  if( !MPD_VERSION_LT(c, 0, 12, 0) )
-    filelist = search_advanced_query(pattern, c);
-  if( !advanced_search_mode && filelist==NULL )
-    filelist = filelist_search(c, 
-			       FALSE,
-			       mode[options.search_mode].table,
-			       pattern);
-  sync_highlights(c, filelist);
-  mpdclient_install_playlist_callback(c, playlist_changed_callback);
-  list_window_check_selected(lw, filelist->length);
+	if (pattern && strcmp(pattern,"") == 0) {
+		g_free(pattern);
+		pattern=NULL;
+	}
+
+	if (pattern == NULL) {
+		list_window_reset(lw);
+		return;
+	}
+
+	if (!MPD_VERSION_LT(c, 0, 12, 0))
+		filelist = search_advanced_query(pattern, c);
+
+	if (!advanced_search_mode && filelist == NULL)
+		filelist = filelist_search(c, FALSE,
+					   mode[options.search_mode].table,
+					   pattern);
+
+	sync_highlights(c, filelist);
+	mpdclient_install_playlist_callback(c, playlist_changed_callback);
+	list_window_check_selected(lw, filelist->length);
 }
 
 
@@ -386,145 +377,140 @@ quit(void)
 static void
 open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
-  //  if( pattern==NULL )
-  //    search_new(screen, c);
-  // else
-  screen_status_printf(_("Press %s for a new search"),
-			 get_key_names(CMD_SCREEN_SEARCH,0));
-  search_check_mode();
+	//  if( pattern==NULL )
+	//    search_new(screen, c);
+	// else
+	screen_status_printf(_("Press %s for a new search"),
+			     get_key_names(CMD_SCREEN_SEARCH,0));
+	search_check_mode();
 }
 
 static void
 resize(int cols, int rows)
 {
-  lw->cols = cols;
-  lw->rows = rows;
+	lw->cols = cols;
+	lw->rows = rows;
 }
 
-static void 
+static void
 paint(mpd_unused screen_t *screen, mpdclient_t *c)
 {
-  lw->clear = 1;
-  
-  if( filelist )
-    {
-      lw->flags = 0;
-      list_window_paint(lw, browse_lw_callback, (void *) filelist);
-      filelist->updated = FALSE;
-    }
-  else
-    {
-      lw->flags = LW_HIDE_CURSOR;
-      list_window_paint(lw, lw_search_help_callback, NULL);
-      if( !MPD_VERSION_LT(c, 0, 12, 0) )
-	g_strdup_printf("Advanced search disabled (MPD version < 0.12.0"); 
-      //      wmove(lw->w, 0, 0);
-      //wclrtobot(lw->w);
-    }
-  wnoutrefresh(lw->w);
+	lw->clear = 1;
+
+	if (filelist) {
+		lw->flags = 0;
+		list_window_paint(lw, browse_lw_callback, (void *) filelist);
+		filelist->updated = FALSE;
+	} else {
+		lw->flags = LW_HIDE_CURSOR;
+		list_window_paint(lw, lw_search_help_callback, NULL);
+		if( !MPD_VERSION_LT(c, 0, 12, 0) )
+			g_strdup_printf("Advanced search disabled (MPD version < 0.12.0");
+		//      wmove(lw->w, 0, 0);
+		//wclrtobot(lw->w);
+	}
+
+	wnoutrefresh(lw->w);
 }
 
-static void 
+static void
 update(screen_t *screen, mpdclient_t *c)
 {
-  if( filelist==NULL || filelist->updated )
-    {
-      paint(screen, c);
-      return;
-    }
-  list_window_paint(lw, browse_lw_callback, (void *) filelist);
-  wnoutrefresh(lw->w);
+	if (filelist==NULL || filelist->updated) {
+		paint(screen, c);
+		return;
+	}
+
+	list_window_paint(lw, browse_lw_callback, (void *) filelist);
+	wnoutrefresh(lw->w);
 }
 
 static const char *
 get_title(char *str, size_t size)
 {
-  if( advanced_search_mode && pattern )
-    g_snprintf(str, size, _("Search: %s"), pattern);
-  else if( pattern )
-    g_snprintf(str, size, 
-	       _("Search: Results for %s [%s]"), 
-	       pattern,
-	       _(mode[options.search_mode].label));
-  else
-    g_snprintf(str, size, _("Search: Press %s for a new search [%s]"),
-	       get_key_names(CMD_SCREEN_SEARCH,0),
-	       _(mode[options.search_mode].label));
-	       
-  return str;
+	if (advanced_search_mode && pattern)
+		g_snprintf(str, size, _("Search: %s"), pattern);
+	else if (pattern)
+		g_snprintf(str, size,
+			   _("Search: Results for %s [%s]"),
+			   pattern,
+			   _(mode[options.search_mode].label));
+	else
+		g_snprintf(str, size, _("Search: Press %s for a new search [%s]"),
+			   get_key_names(CMD_SCREEN_SEARCH,0),
+			   _(mode[options.search_mode].label));
+
+	return str;
 }
 
-static int 
+static int
 search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
-  switch(cmd)
-    {
-    case CMD_PLAY:
-       browse_handle_enter(screen, c, lw, filelist);
-      return 1;
+	switch (cmd) {
+	case CMD_PLAY:
+		browse_handle_enter(screen, c, lw, filelist);
+		return 1;
 
-    case CMD_SELECT:
-      if( browse_handle_select(screen, c, lw, filelist) == 0 )
-	{
-	  /* continue and select next item... */
-	  cmd = CMD_LIST_NEXT;
+	case CMD_SELECT:
+		if (browse_handle_select(screen, c, lw, filelist) == 0) {
+			/* continue and select next item... */
+			cmd = CMD_LIST_NEXT;
+		}
+		/* call list_window_cmd to go to the next item */
+		return list_window_cmd(lw, filelist->length, cmd);
+
+	case CMD_SELECT_ALL:
+		browse_handle_select_all (screen, c, lw, filelist);
+		paint (screen, c);
+		return 0;
+
+	case CMD_SEARCH_MODE:
+		options.search_mode++;
+		if (mode[options.search_mode].label == NULL)
+			options.search_mode = 0;
+		screen_status_printf(_("Search mode: %s"),
+				     _(mode[options.search_mode].label));
+		/* continue and update... */
+	case CMD_SCREEN_UPDATE:
+		if (pattern) {
+			search_clear(screen, c, FALSE);
+			filelist = filelist_search(c,
+						   FALSE,
+						   mode[options.search_mode].table,
+						   pattern);
+			sync_highlights(c, filelist);
+		}
+		return 1;
+
+	case CMD_SCREEN_SEARCH:
+		search_new(screen, c);
+		return 1;
+
+	case CMD_CLEAR:
+		search_clear(screen, c, TRUE);
+		list_window_reset(lw);
+		return 1;
+
+	case CMD_LIST_FIND:
+	case CMD_LIST_RFIND:
+	case CMD_LIST_FIND_NEXT:
+	case CMD_LIST_RFIND_NEXT:
+		if (filelist)
+			return screen_find(screen,
+					   lw, filelist->length,
+					   cmd, browse_lw_callback, (void *) filelist);
+		else
+			return 1;
+
+	case CMD_MOUSE_EVENT:
+		return browse_handle_mouse_event(screen,c,lw,filelist);
+
+	default:
+		if (filelist)
+			return list_window_cmd(lw, filelist->length, cmd);
 	}
-      /* call list_window_cmd to go to the next item */
-      return list_window_cmd(lw, filelist->length, cmd);
 
-    case CMD_SELECT_ALL:
-      browse_handle_select_all (screen, c, lw, filelist);
-      paint (screen, c);
-      return 0;
-
-    case CMD_SEARCH_MODE:
-      options.search_mode++;
-      if( mode[options.search_mode].label == NULL )
-	options.search_mode = 0;
-      screen_status_printf(_("Search mode: %s"), 
-			   _(mode[options.search_mode].label));
-      /* continue and update... */
-    case CMD_SCREEN_UPDATE:
-      if( pattern )
-	{
-	  search_clear(screen, c, FALSE);
-	  filelist = filelist_search(c, 
-				     FALSE,
-				     mode[options.search_mode].table,
-				     pattern);
-	  sync_highlights(c, filelist);
-	}
-      return 1;
-
-    case CMD_SCREEN_SEARCH:
-      search_new(screen, c);
-      return 1;
-
-    case CMD_CLEAR:
-      search_clear(screen, c, TRUE);
-      list_window_reset(lw);
-      return 1;
-
-    case CMD_LIST_FIND:
-    case CMD_LIST_RFIND:
-    case CMD_LIST_FIND_NEXT:
-    case CMD_LIST_RFIND_NEXT:
-      if( filelist )
-	return screen_find(screen,
-			   lw, filelist->length,
-			   cmd, browse_lw_callback, (void *) filelist);
-      else
-	return 1;
-
-    case CMD_MOUSE_EVENT:
-      return browse_handle_mouse_event(screen,c,lw,filelist);
-
-    default:
-      if( filelist )
-	return list_window_cmd(lw, filelist->length, cmd);
-    }
-  
-  return 0;
+	return 0;
 }
 
 const struct screen_functions screen_search = {

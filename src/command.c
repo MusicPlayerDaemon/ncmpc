@@ -208,178 +208,170 @@ static command_definition_t cmds[] =
 command_definition_t *
 get_command_definitions(void)
 {
-  return cmds;
+	return cmds;
 }
 
 const char *
 key2str(int key)
 {
-  static char buf[32];
-  int i;
+	static char buf[32];
+	int i;
 
-  buf[0] = 0;
-  switch(key)
-    {
-    case 0:
-      return _("Undefined");
-    case ' ':
-      return _("Space");
-    case 13:
-      return _("Enter");
-    case BS:
-      return _("Backspace");
-    case DEL:
-      return _("Delete");
-    case UP: 
-      return _("Up");
-    case DWN:
-      return _("Down");
-    case LEFT:
-      return _("Left");
-    case RGHT:
-      return _("Right");
-    case HOME:
-      return _("Home");
-    case END:
-      return _("End");
-    case PGDN:
-      return _("PageDown");
-    case PGUP:
-      return _("PageUp");
-    case TAB: 
-      return _("Tab");
-    case STAB:
-      return _("Shift+Tab");
-    case ESC:
-      return _("Esc");
-    case KEY_IC:
-      return _("Insert");
-    default:
-      for(i=0; i<=63; i++)
-	if( key==KEY_F(i) )
-	  {
-	    g_snprintf(buf, 32, "F%d", i );
-	    return buf;
-	  }
-      if( !(key & ~037) )
-	g_snprintf(buf, 32, "Ctrl-%c", 'A'+(key & 037)-1 );
-      else if( (key & ~037) == 224 )
-	g_snprintf(buf, 32, "Alt-%c", 'A'+(key & 037)-1 );
-      else if( key>32 &&  key<256 )
-	g_snprintf(buf, 32, "%c", key);
-      else
-	g_snprintf(buf, 32, "0x%03X", key);
-    }
-  return buf;
+	buf[0] = 0;
+	switch(key) {
+	case 0:
+		return _("Undefined");
+	case ' ':
+		return _("Space");
+	case 13:
+		return _("Enter");
+	case BS:
+		return _("Backspace");
+	case DEL:
+		return _("Delete");
+	case UP:
+		return _("Up");
+	case DWN:
+		return _("Down");
+	case LEFT:
+		return _("Left");
+	case RGHT:
+		return _("Right");
+	case HOME:
+		return _("Home");
+	case END:
+		return _("End");
+	case PGDN:
+		return _("PageDown");
+	case PGUP:
+		return _("PageUp");
+	case TAB:
+		return _("Tab");
+	case STAB:
+		return _("Shift+Tab");
+	case ESC:
+		return _("Esc");
+	case KEY_IC:
+		return _("Insert");
+	default:
+		for (i = 0; i <= 63; i++)
+			if (key == KEY_F(i)) {
+				g_snprintf(buf, 32, "F%d", i );
+				return buf;
+			}
+		if (!(key & ~037))
+			g_snprintf(buf, 32, "Ctrl-%c", 'A'+(key & 037)-1 );
+		else if ((key & ~037) == 224)
+			g_snprintf(buf, 32, "Alt-%c", 'A'+(key & 037)-1 );
+		else if (key > 32 && key < 256)
+			g_snprintf(buf, 32, "%c", key);
+		else
+			g_snprintf(buf, 32, "0x%03X", key);
+	}
+
+	return buf;
 }
 
 void
 command_dump_keys(void)
 {
-  int i;
+	int i;
 
-  i=0;
-  while( cmds[i].description )
-    {
-      if( cmds[i].command != CMD_NONE )
-	printf(" %20s : %s\n", get_key_names(cmds[i].command,1),cmds[i].name); 
-      i++;
-    }
+	i = 0;
+	while (cmds[i].description) {
+		if (cmds[i].command != CMD_NONE)
+			printf(" %20s : %s\n", get_key_names(cmds[i].command,1),cmds[i].name);
+		i++;
+	}
 }
 
 static int
 set_key_flags(command_definition_t *cp, command_t command, int flags)
 {
-  int i;
+	int i;
 
-  i=0;
-  while( cp[i].name )
-    {
-      if( cp[i].command == command )
-	{
-	  cp[i].flags |= flags;
-	  return 0;
+	i = 0;
+	while (cp[i].name) {
+		if (cp[i].command == command) {
+			cp[i].flags |= flags;
+			return 0;
+		}
+		i++;
 	}
-      i++;
-    }
-  return 1;
+
+	return 1;
 }
 
 const char *
 get_key_names(command_t command, int all)
 {
   int i;
-  
-  i=0;
-  while( cmds[i].description )
-    {
-      if( cmds[i].command == command )
-	{
-	  int j;
-	  static char keystr[80];
 
-	  g_strlcpy(keystr, key2str(cmds[i].keys[0]), sizeof(keystr));
-	  if( !all )
-	    return keystr;
-	  j=1;
-	  while( j<MAX_COMMAND_KEYS && cmds[i].keys[j]>0 )
-	    {
-	      g_strlcat(keystr, " ", sizeof(keystr));
-	      g_strlcat(keystr, key2str(cmds[i].keys[j]), sizeof(keystr));
-	      j++;
-	    }
-	  return keystr;
- 	}
-      i++;
-    }
+  i=0;
+  while (cmds[i].description) {
+	  if (cmds[i].command == command) {
+		  int j;
+		  static char keystr[80];
+
+		  g_strlcpy(keystr, key2str(cmds[i].keys[0]), sizeof(keystr));
+		  if (!all)
+			  return keystr;
+		  j=1;
+		  while (j < MAX_COMMAND_KEYS && cmds[i].keys[j] > 0) {
+			  g_strlcat(keystr, " ", sizeof(keystr));
+			  g_strlcat(keystr, key2str(cmds[i].keys[j]), sizeof(keystr));
+			  j++;
+		  }
+		  return keystr;
+	  }
+	  i++;
+  }
   return NULL;
 }
 
 const char *
 get_key_description(command_t command)
 {
-  int i;
+	int i;
 
-  i=0;
-  while( cmds[i].description )
-    {
-      if( cmds[i].command == command )
-	return _(cmds[i].description);
-      i++;
-    }
-  return NULL;
+	i=0;
+	while (cmds[i].description) {
+		if (cmds[i].command == command)
+			return _(cmds[i].description);
+		i++;
+	}
+
+	return NULL;
 }
 
 const char *
 get_key_command_name(command_t command)
 {
-  int i;
+	int i;
 
-  i=0;
-  while( cmds[i].name )
-    {
-      if( cmds[i].command == command )
-	return cmds[i].name;
-      i++;
-    }
-  return NULL;
+	i=0;
+	while (cmds[i].name) {
+		if (cmds[i].command == command)
+			return cmds[i].name;
+		i++;
+	}
+	return NULL;
 }
 
-command_t 
+command_t
 get_key_command_from_name(char *name)
 {
-  int i;
+	int i;
 
-  i=0;
-  while( cmds[i].name )
-    {
-      if( strcmp(name, cmds[i].name) == 0 )
-	return cmds[i].command;
-      i++;
-    }
-  return CMD_NONE;
+	i=0;
+	while (cmds[i].name) {
+		if (strcmp(name, cmds[i].name) == 0)
+			return cmds[i].command;
+		i++;
+	}
+
+	return CMD_NONE;
 }
-
 
 command_t
 find_key_command(int key, command_definition_t *c)
@@ -447,111 +439,104 @@ get_keyboard_command(void)
 int
 assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
 {
- int i;
+	int i;
 
-  i=0;
-  while( cmds[i].name )
-    {
-      if( cmds[i].command == command )
-	{
-	  memcpy(cmds[i].keys, keys, sizeof(int)*MAX_COMMAND_KEYS);
-	  cmds[i].flags |= COMMAND_KEY_MODIFIED;
-	  return 0;
+	i=0;
+	while (cmds[i].name) {
+		if (cmds[i].command == command) {
+			memcpy(cmds[i].keys, keys, sizeof(int)*MAX_COMMAND_KEYS);
+			cmds[i].flags |= COMMAND_KEY_MODIFIED;
+			return 0;
+		}
+		i++;
 	}
-      i++;
-    }
-  return -1;
+	return -1;
 }
 
-int 
+int
 check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 {
-  int i;
-  int retval = 0;
+	int i;
+	int retval = 0;
 
-  if( cp==NULL )
-    cp = cmds;
+	if (cp == NULL)
+		cp = cmds;
 
-  i=0;
-  while( cp[i].name )
-    {
-      cp[i].flags &= ~COMMAND_KEY_CONFLICT;
-      i++;
-    }
-  
-  i=0;
-  while( cp[i].name )
-    {
-      int j;
-      command_t cmd;	  
+	i=0;
+	while (cp[i].name) {
+		cp[i].flags &= ~COMMAND_KEY_CONFLICT;
+		i++;
+	}
 
-      for(j=0; j<MAX_COMMAND_KEYS; j++)
-	if( cp[i].keys[j] && 
-	    (cmd=find_key_command(cp[i].keys[j],cp)) != cp[i].command )
-	  {
-	    if( buf )
+	i=0;
+	while (cp[i].name) {
+		int j;
+		command_t cmd;
+
+		for(j=0; j<MAX_COMMAND_KEYS; j++)
+			if (cp[i].keys[j] &&
+			    (cmd = find_key_command(cp[i].keys[j],cp)) != cp[i].command) {
+				if (buf) {
 #ifdef ENABLE_KEYDEF_SCREEN
-	      g_snprintf(buf, bufsize,
-			 _("Key %s assigned to %s and %s (press %s for the key editor)"),
-			 key2str(cp[i].keys[j]),
-			 get_key_command_name(cp[i].command),
-			 get_key_command_name(cmd),
-			 get_key_names(CMD_SCREEN_KEYDEF,0));
+					g_snprintf(buf, bufsize,
+						   _("Key %s assigned to %s and %s (press %s for the key editor)"),
+						   key2str(cp[i].keys[j]),
+						   get_key_command_name(cp[i].command),
+						   get_key_command_name(cmd),
+						   get_key_names(CMD_SCREEN_KEYDEF,0));
 #else
-	    g_snprintf(buf, bufsize,
-		       _("Error: Key %s assigned to %s and %s !!!\n"),
-		       key2str(cp[i].keys[j]),
-		       get_key_command_name(cp[i].command),
-		       get_key_command_name(cmd));
+					g_snprintf(buf, bufsize,
+						   _("Error: Key %s assigned to %s and %s !!!\n"),
+						   key2str(cp[i].keys[j]),
+						   get_key_command_name(cp[i].command),
+						   get_key_command_name(cmd));
 #endif
-	    else
-	      fprintf(stderr,
-		      _("Error: Key %s assigned to %s and %s !!!\n"),
-		      key2str(cp[i].keys[j]),
-		      get_key_command_name(cp[i].command),
-		      get_key_command_name(cmd));
-	    cp[i].flags |= COMMAND_KEY_CONFLICT;
-	    set_key_flags(cp, cmd, COMMAND_KEY_CONFLICT);
-	    retval = -1;
-	  }	
-      i++;
-    }
-  return retval;
+				} else
+					fprintf(stderr,
+						_("Error: Key %s assigned to %s and %s !!!\n"),
+						key2str(cp[i].keys[j]),
+						get_key_command_name(cp[i].command),
+						get_key_command_name(cmd));
+				cp[i].flags |= COMMAND_KEY_CONFLICT;
+				set_key_flags(cp, cmd, COMMAND_KEY_CONFLICT);
+				retval = -1;
+			}
+		i++;
+	}
+	return retval;
 }
 
 int
 write_key_bindings(FILE *f, int flags)
 {
-  int i,j;
+	int i,j;
 
-  if( flags & KEYDEF_WRITE_HEADER )
-    fprintf(f, "## Key bindings for ncmpc (generated by ncmpc)\n\n");
+	if( flags & KEYDEF_WRITE_HEADER )
+		fprintf(f, "## Key bindings for ncmpc (generated by ncmpc)\n\n");
 
-  i=0;
-  while( cmds[i].name && !ferror(f) )
-    {
-      if( cmds[i].flags & COMMAND_KEY_MODIFIED || flags & KEYDEF_WRITE_ALL)
-	{
-	  fprintf(f, "## %s\n", cmds[i].description);
-	  if( flags & KEYDEF_COMMENT_ALL )
-	    fprintf(f, "#");
-	  fprintf(f, "key %s = ", cmds[i].name);
-	  for(j=0; j<MAX_COMMAND_KEYS; j++)
-	    {
-	      if( j && cmds[i].keys[j] )
-		fprintf(f, ",  ");
-	      if( !j || cmds[i].keys[j] )
-		{
-		  if( cmds[i].keys[j]<256 && (isalpha(cmds[i].keys[j]) || 
-					      isdigit(cmds[i].keys[j])) )
-		    fprintf(f, "\'%c\'", cmds[i].keys[j]);
-		  else
-		    fprintf(f, "%d", cmds[i].keys[j]);
+	i=0;
+	while (cmds[i].name && !ferror(f)) {
+		if (cmds[i].flags & COMMAND_KEY_MODIFIED ||
+		    flags & KEYDEF_WRITE_ALL) {
+			fprintf(f, "## %s\n", cmds[i].description);
+			if (flags & KEYDEF_COMMENT_ALL)
+				fprintf(f, "#");
+			fprintf(f, "key %s = ", cmds[i].name);
+			for (j = 0; j < MAX_COMMAND_KEYS; j++) {
+				if (j && cmds[i].keys[j])
+					fprintf(f, ",  ");
+				if (!j || cmds[i].keys[j]) {
+					if (cmds[i].keys[j]<256 && (isalpha(cmds[i].keys[j]) ||
+								    isdigit(cmds[i].keys[j])))
+						fprintf(f, "\'%c\'", cmds[i].keys[j]);
+					else
+						fprintf(f, "%d", cmds[i].keys[j]);
+				}
+			}
+			fprintf(f,"\n\n");
 		}
-	    }
-	  fprintf(f,"\n\n");
+		i++;
 	}
-      i++;
-    }
-  return ferror(f);
+
+	return ferror(f);
 }

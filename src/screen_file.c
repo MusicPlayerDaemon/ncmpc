@@ -673,72 +673,68 @@ browse_handle_mouse_event(screen_t *screen,
 static int
 browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
-	switch(cmd)
-		{
-		case CMD_PLAY:
-			browse_handle_enter(screen, c, lw, filelist);
-			return 1;
-		case CMD_GO_ROOT_DIRECTORY:
-			return change_directory(screen, c, NULL, "");
-			break;
-		case CMD_GO_PARENT_DIRECTORY:
-			return change_directory(screen, c, NULL, "..");
-			break;
-		case CMD_SELECT:
-			if( browse_handle_select(screen, c, lw, filelist) == 0 )
-				{
-					/* continue and select next item... */
-					cmd = CMD_LIST_NEXT;
-				}
-			break;
-		case CMD_DELETE:
-			handle_delete(screen, c);
-			break;
-		case CMD_SAVE_PLAYLIST:
-			handle_save(screen, c);
-			break;
-		case CMD_SCREEN_UPDATE:
-			screen->painted = 0;
-			lw->clear = 1;
-			lw->repaint = 1;
-			filelist = mpdclient_filelist_update(c, filelist);
-			list_window_check_selected(lw, filelist->length);
-			screen_status_printf(_("Screen updated!"));
-			return 1;
-		case CMD_DB_UPDATE:
-			if (c->status == NULL)
-				return 1;
-
-			if( !c->status->updatingDb )
-				{
-					if( mpdclient_cmd_db_update_utf8(c,filelist->path)==0 )
-						{
-							if(strcmp(filelist->path,"")) {
-								screen_status_printf(_("Database update of %s started!"),
-										     filelist->path);
-							} else {
-								screen_status_printf(_("Database update started!"));
-							}
-							/* set updatingDb to make shure the browse callback gets called
-							 * even if the updated has finished before status is updated */
-							c->status->updatingDb = 1;
-						}
-				}
-			else
-				screen_status_printf(_("Database update running..."));
-			return 1;
-		case CMD_LIST_FIND:
-		case CMD_LIST_RFIND:
-		case CMD_LIST_FIND_NEXT:
-		case CMD_LIST_RFIND_NEXT:
-			return screen_find(screen,
-					   lw, filelist->length,
-					   cmd, browse_lw_callback, (void *) filelist);
-		case CMD_MOUSE_EVENT:
-			return browse_handle_mouse_event(screen,c,lw,filelist);
-		default:
-			break;
+	switch(cmd) {
+	case CMD_PLAY:
+		browse_handle_enter(screen, c, lw, filelist);
+		return 1;
+	case CMD_GO_ROOT_DIRECTORY:
+		return change_directory(screen, c, NULL, "");
+		break;
+	case CMD_GO_PARENT_DIRECTORY:
+		return change_directory(screen, c, NULL, "..");
+		break;
+	case CMD_SELECT:
+		if (browse_handle_select(screen, c, lw, filelist) == 0) {
+			/* continue and select next item... */
+			cmd = CMD_LIST_NEXT;
 		}
+		break;
+	case CMD_DELETE:
+		handle_delete(screen, c);
+		break;
+	case CMD_SAVE_PLAYLIST:
+		handle_save(screen, c);
+		break;
+	case CMD_SCREEN_UPDATE:
+		screen->painted = 0;
+		lw->clear = 1;
+		lw->repaint = 1;
+		filelist = mpdclient_filelist_update(c, filelist);
+		list_window_check_selected(lw, filelist->length);
+		screen_status_printf(_("Screen updated!"));
+		return 1;
+	case CMD_DB_UPDATE:
+		if (c->status == NULL)
+			return 1;
+
+		if (!c->status->updatingDb) {
+			if (mpdclient_cmd_db_update_utf8(c,filelist->path) == 0) {
+				if (strcmp(filelist->path, ""))
+					screen_status_printf(_("Database update of %s started!"),
+							     filelist->path);
+				else
+					screen_status_printf(_("Database update started!"));
+
+				/* set updatingDb to make shure the browse callback gets called
+				 * even if the updated has finished before status is updated */
+				c->status->updatingDb = 1;
+			}
+		} else
+			screen_status_printf(_("Database update running..."));
+		return 1;
+	case CMD_LIST_FIND:
+	case CMD_LIST_RFIND:
+	case CMD_LIST_FIND_NEXT:
+	case CMD_LIST_RFIND_NEXT:
+		return screen_find(screen,
+				   lw, filelist->length,
+				   cmd, browse_lw_callback, (void *) filelist);
+	case CMD_MOUSE_EVENT:
+		return browse_handle_mouse_event(screen,c,lw,filelist);
+	default:
+		break;
+	}
+
 	return list_window_cmd(lw, filelist->length, cmd);
 }
 

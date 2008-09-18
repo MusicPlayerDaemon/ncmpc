@@ -30,16 +30,16 @@
 GList *
 string_list_free(GList *string_list)
 {
-  GList *list = g_list_first(string_list);
+	GList *list = g_list_first(string_list);
 
-  while(list)
-    {
-      g_free(list->data);
-      list->data=NULL;
-      list=list->next;
-    }
-  g_list_free(string_list);
-  return NULL;
+	while (list) {
+		g_free(list->data);
+		list->data = NULL;
+		list = list->next;
+	}
+
+	g_list_free(string_list);
+	return NULL;
 }
 
 GList *
@@ -75,49 +75,47 @@ string_list_remove(GList *string_list, const gchar *str)
 GList *
 gcmp_list_from_path(mpdclient_t *c, const gchar *path, GList *list, gint types)
 {
-  GList *flist = NULL;
-  mpdclient_filelist_t *filelist;
-  
-  if( (filelist=mpdclient_filelist_get(c, path)) == NULL )
-    return list;
-  D("retrieved filelist!\n");
-  flist = filelist->list;
-  while( flist )
-    {
-      filelist_entry_t *entry = flist->data;
-      mpd_InfoEntity *entity = entry ? entry->entity : NULL;
-      char *name = NULL;
-      
-      if( entity && entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY && 
-	  types & GCMP_TYPE_DIR) 
-	{
-	  mpd_Directory *dir = entity->info.directory;
-	  gchar *tmp = utf8_to_locale(dir->path);
-	  gsize size = strlen(tmp)+2;
-	  
-	  name = g_malloc(size);
-	  g_strlcpy(name, tmp, size);
-	  g_strlcat(name, "/", size);
-	  g_free(tmp);
-	}
-      else if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG &&
-	       types & GCMP_TYPE_FILE )
-	{
-	  mpd_Song *song = entity->info.song;
-	  name = utf8_to_locale(song->file);
-	}
-      else if( entity && entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE &&
-	       types & GCMP_TYPE_PLAYLIST )
-	{
-	  mpd_PlaylistFile *plf = entity->info.playlistFile;
-	  name = utf8_to_locale(plf->path);
+	GList *flist = NULL;
+	mpdclient_filelist_t *filelist;
+
+	if ((filelist = mpdclient_filelist_get(c, path)) == NULL)
+		return list;
+
+	D("retrieved filelist!\n");
+	flist = filelist->list;
+	while (flist) {
+		filelist_entry_t *entry = flist->data;
+		mpd_InfoEntity *entity = entry ? entry->entity : NULL;
+		char *name = NULL;
+
+		if (entity && entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY &&
+		    types & GCMP_TYPE_DIR) {
+			mpd_Directory *dir = entity->info.directory;
+			gchar *tmp = utf8_to_locale(dir->path);
+			gsize size = strlen(tmp)+2;
+
+			name = g_malloc(size);
+			g_strlcpy(name, tmp, size);
+			g_strlcat(name, "/", size);
+			g_free(tmp);
+		} else if (entity &&
+			   entity->type == MPD_INFO_ENTITY_TYPE_SONG &&
+			   types & GCMP_TYPE_FILE) {
+			mpd_Song *song = entity->info.song;
+			name = utf8_to_locale(song->file);
+		} else if (entity &&
+			   entity->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE &&
+			   types & GCMP_TYPE_PLAYLIST) {
+			mpd_PlaylistFile *plf = entity->info.playlistFile;
+			name = utf8_to_locale(plf->path);
+		}
+
+		if (name)
+			list = g_list_append(list, name);
+
+		flist = flist->next;
 	}
 
-      if( name )
-	list = g_list_append(list, name);
-
-      flist = flist->next;
-    }
-  mpdclient_filelist_free(filelist);
-  return list;
+	mpdclient_filelist_free(filelist);
+	return list;
 }
