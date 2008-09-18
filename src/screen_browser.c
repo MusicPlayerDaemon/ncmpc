@@ -358,6 +358,8 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 	if (entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
 		return -1;
 
+	assert(entry->entity->info.song != NULL);
+
 	if (!toggle || (entry->flags & HIGHLIGHT) == 0) {
 		mpd_Song *song = entry->entity->info.song;
 
@@ -372,15 +374,12 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 	} else {
 		/* remove song from playlist */
 		mpd_Song *song = entry->entity->info.song;
+		int idx;
 
 		entry->flags &= ~HIGHLIGHT;
 
-		if (song) {
-			int idx;
-
-			while ((idx = playlist_get_index_from_file(c, song->file)) >=0)
-				mpdclient_cmd_delete(c, idx);
-		}
+		while ((idx = playlist_get_index_from_file(c, song->file)) >=0)
+			mpdclient_cmd_delete(c, idx);
 	}
 
 	return 0;
