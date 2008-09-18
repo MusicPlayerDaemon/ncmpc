@@ -53,23 +53,7 @@ file_changed_callback(mpdclient_t *c, mpd_unused int event,
 static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 {
-	D("screen_file.c> playlist_callback() [%d]\n", event);
-	switch(event) {
-	case PLAYLIST_EVENT_CLEAR:
-		clear_highlights(browser.filelist);
-		break;
-	case PLAYLIST_EVENT_ADD:
-		set_highlight(browser.filelist, (mpd_Song *) data, 1);
-		break;
-	case PLAYLIST_EVENT_DELETE:
-		set_highlight(browser.filelist, (mpd_Song *) data, 0);
-		break;
-	case PLAYLIST_EVENT_MOVE:
-		break;
-	default:
-		sync_highlights(c, browser.filelist);
-		break;
-	}
+	browser_playlist_changed(&browser, c, event, data);
 }
 
 static int

@@ -37,7 +37,7 @@
 #define HIGHLIGHT  (0x01)
 
 /* clear the highlight flag for all items in the filelist */
-void
+static void
 clear_highlights(mpdclient_filelist_t *fl)
 {
 	GList *list = g_list_first(fl->list);
@@ -51,7 +51,7 @@ clear_highlights(mpdclient_filelist_t *fl)
 }
 
 /* change the highlight flag for a song */
-void
+static void
 set_highlight(mpdclient_filelist_t *fl, mpd_Song *song, int highlight)
 {
 	GList *list = g_list_first(fl->list);
@@ -96,6 +96,33 @@ sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl)
 				entry->flags &= ~HIGHLIGHT;
 		}
 		list=list->next;
+	}
+}
+
+/* the playlist have been updated -> fix highlights */
+void
+browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
+			 int event, gpointer data)
+{
+	if (browser->filelist == NULL)
+		return;
+
+	D("screen_file.c> playlist_callback() [%d]\n", event);
+	switch(event) {
+	case PLAYLIST_EVENT_CLEAR:
+		clear_highlights(browser->filelist);
+		break;
+	case PLAYLIST_EVENT_ADD:
+		set_highlight(browser->filelist, (mpd_Song *) data, 1);
+		break;
+	case PLAYLIST_EVENT_DELETE:
+		set_highlight(browser->filelist, (mpd_Song *) data, 0);
+		break;
+	case PLAYLIST_EVENT_MOVE:
+		break;
+	default:
+		sync_highlights(c, browser->filelist);
+		break;
 	}
 }
 

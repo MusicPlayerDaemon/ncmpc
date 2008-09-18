@@ -36,12 +36,12 @@ struct screen_browser {
 	mpdclient_filelist_t *filelist;
 };
 
-void clear_highlights(mpdclient_filelist_t *filelist);
-void sync_highlights(mpdclient_t *c, mpdclient_filelist_t *filelist);
-void set_highlight(mpdclient_filelist_t *filelist, 
-		   mpd_Song *song, 
-		   int highlight);
+void
+sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl);
 
+void
+browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
+			 int event, gpointer data);
 
 const char *browser_lw_callback(unsigned index, int *highlight, void *filelist);
 

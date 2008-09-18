@@ -142,19 +142,9 @@ lw_search_help_callback(unsigned idx, mpd_unused int *highlight,
 
 /* the playlist have been updated -> fix highlights */
 static void
-playlist_changed_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
+playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 {
-	if (browser.filelist == NULL)
-		return;
-	D("screen_search.c> playlist_callback() [%d]\n", event);
-	switch(event) {
-	case PLAYLIST_EVENT_CLEAR:
-		clear_highlights(browser.filelist);
-		break;
-	default:
-		sync_highlights(c, browser.filelist);
-		break;
-	}
+	browser_playlist_changed(&browser, c, event, data);
 }
 
 /* sanity check search mode value */
