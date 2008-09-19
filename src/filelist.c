@@ -21,6 +21,7 @@
 #include "libmpdclient.h"
 
 #include <string.h>
+#include <assert.h>
 
 void
 mpdclient_filelist_free(struct filelist *filelist)
@@ -51,7 +52,9 @@ mpdclient_filelist_find_song(struct filelist *fl,
 {
 	GList *list = g_list_first(fl->list);
 
-	while (list && song) {
+	assert(song != NULL);
+
+	while (list != NULL) {
 		filelist_entry_t *entry = list->data;
 		mpd_InfoEntity *entity  = entry->entity;
 
