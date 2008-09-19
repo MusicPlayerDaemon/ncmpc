@@ -46,7 +46,7 @@ file_changed_callback(mpdclient_t *c, mpd_unused int event,
 	D("screen_file.c> filelist_callback() [%d]\n", event);
 	browser.filelist = mpdclient_filelist_update(c, browser.filelist);
 	sync_highlights(c, browser.filelist);
-	list_window_check_selected(browser.lw, browser.filelist->length);
+	list_window_check_selected(browser.lw, filelist_length(browser.filelist));
 }
 
 /* the playlist have been updated -> fix highlights */
@@ -62,7 +62,7 @@ handle_save(screen_t *screen, mpdclient_t *c)
 	filelist_entry_t *entry;
 	char *defaultname = NULL;
 
-	entry = g_list_nth_data(browser.filelist->list, browser.lw->selected);
+	entry = filelist_get(browser.filelist, browser.lw->selected);
 	if( entry && entry->entity ) {
 		mpd_InfoEntity *entity = entry->entity;
 		if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
@@ -83,7 +83,7 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 	char *str, *buf;
 	int key;
 
-	entry = g_list_nth_data(browser.filelist->list,browser. lw->selected);
+	entry = filelist_get(browser.filelist, browser.lw->selected);
 	if( entry==NULL || entry->entity==NULL )
 		return -1;
 
@@ -223,7 +223,7 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		browser.lw->repaint = 1;
 		browser.filelist = mpdclient_filelist_update(c, browser.filelist);
 		list_window_check_selected(browser.lw,
-					   browser.filelist->length);
+					   filelist_length(browser.filelist));
 		screen_status_printf(_("Screen updated!"));
 		return 1;
 	case CMD_DB_UPDATE:
@@ -250,7 +250,7 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
 		return screen_find(screen,
-				   browser.lw, browser.filelist->length,
+				   browser.lw, filelist_length(browser.filelist),
 				   cmd, browser_lw_callback,
 				   browser.filelist);
 	case CMD_MOUSE_EVENT:
@@ -259,7 +259,7 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		break;
 	}
 
-	return list_window_cmd(browser.lw, browser.filelist->length, cmd);
+	return list_window_cmd(browser.lw, filelist_length(browser.filelist), cmd);
 }
 
 const struct screen_functions screen_browse = {

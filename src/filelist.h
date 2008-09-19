@@ -43,8 +43,42 @@ typedef struct filelist {
 	GList *list;
 } mpdclient_filelist_t;
 
+struct filelist *
+filelist_new(const char *path);
+
 void
 filelist_free(struct filelist *filelist);
+
+static inline guint
+filelist_length(const struct filelist *filelist)
+{
+	return filelist->length;
+}
+
+static inline gboolean
+filelist_is_empty(const struct filelist *filelist)
+{
+	return filelist_length(filelist) == 0;
+}
+
+static inline struct filelist_entry *
+filelist_get(const struct filelist *filelist, guint i)
+{
+	return (struct filelist_entry*)
+		g_list_nth_data(filelist->list, i);
+}
+
+struct filelist_entry *
+filelist_append(struct filelist *filelist, struct mpd_InfoEntity *entity);
+
+struct filelist_entry *
+filelist_prepend(struct filelist *filelist, struct mpd_InfoEntity *entity);
+
+void
+filelist_move(struct filelist *filelist, struct filelist *from);
+
+void
+filelist_sort(struct filelist *filelist, GCompareFunc compare_func);
 
 struct filelist_entry *
 filelist_find_song(struct filelist *flist, const struct mpd_song *song);

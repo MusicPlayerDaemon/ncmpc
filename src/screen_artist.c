@@ -108,8 +108,6 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 
 	if (m_album) {
 		/* retreive songs... */
-		filelist_entry_t *entry;
-
 		artist = m_artist;
 		album = m_album;
 		if (album[0] == 0) {
@@ -124,11 +122,8 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 							       MPD_TABLE_ALBUM,
 							       album);
 		/* add a dummy entry for ".." */
-		entry = g_malloc0(sizeof(filelist_entry_t));
-		entry->entity = NULL;
-		browser.filelist->list = g_list_insert(browser.filelist->list,
-						      entry, 0);
-		browser.filelist->length++;
+		filelist_prepend(browser.filelist, NULL);
+
 		/* install playlist callback and fix highlights */
 		sync_highlights(c, browser.filelist);
 		mpdclient_install_playlist_callback(c, playlist_changed_callback);
@@ -425,7 +420,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LIST_RFIND_NEXT:
 		if (browser.filelist)
 			return screen_find(screen,
-					   browser.lw, browser.filelist->length,
+					   browser.lw, filelist_length(browser.filelist),
 					   cmd, browser_lw_callback,
 					   browser.filelist);
 		else if (metalist)
@@ -443,7 +438,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	}
 
 	if (browser.filelist)
-		return list_window_cmd(browser.lw, browser.filelist->length, cmd);
+		return list_window_cmd(browser.lw, filelist_length(browser.filelist), cmd);
 	else if (metalist)
 		return list_window_cmd(browser.lw, metalist_length, cmd);
 

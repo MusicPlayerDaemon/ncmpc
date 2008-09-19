@@ -125,7 +125,8 @@ browser_lw_callback(unsigned idx, int *highlight, void *data)
 	filelist_entry_t *entry;
 	mpd_InfoEntity *entity;
 
-	if( (entry=(filelist_entry_t *)g_list_nth_data(fl->list,idx))==NULL )
+	entry = filelist_get(fl, idx);
+	if (entry == NULL)
 		return NULL;
 
 	entity = entry->entity;
@@ -204,7 +205,7 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 	filelist_free(browser->filelist);
 	browser->filelist = mpdclient_filelist_get(c, path);
 	sync_highlights(c, browser->filelist);
-	list_window_check_selected(browser->lw, browser->filelist->length);
+	list_window_check_selected(browser->lw, filelist_length(browser->filelist));
 	g_free(path);
 	return 0;
 }
@@ -254,8 +255,8 @@ browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 
 	if (browser->filelist == NULL)
 		return -1;
-	entry = (filelist_entry_t *) g_list_nth_data(browser->filelist->list,
-						     browser->lw->selected);
+
+	entry = filelist_get(browser->filelist, browser->lw->selected);
 	if( entry==NULL )
 		return -1;
 
@@ -382,7 +383,7 @@ browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
 
 	if (browser->filelist == NULL)
 		return -1;
-	entry = g_list_nth_data(browser->filelist->list, browser->lw->selected);
+	entry = filelist_get(browser->filelist, browser->lw->selected);
 	if (entry == NULL || entry->entity == NULL)
 		return -1;
 
@@ -419,7 +420,7 @@ browser_handle_mouse_event(struct screen_browser *browser, mpdclient_t *c)
 	int length;
 
 	if (browser->filelist)
-		length = browser->filelist->length;
+		length = filelist_length(browser->filelist);
 	else
 		length = 0;
 

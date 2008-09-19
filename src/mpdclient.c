@@ -746,21 +746,13 @@ mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 
 	D("mpdclient_filelist_get(%s)\n", path);
 	mpd_sendLsInfoCommand(c->connection, path_utf8);
-	filelist = g_malloc0(sizeof(mpdclient_filelist_t));
-	if (path && path[0] && strcmp(path, "/")) {
+	filelist = filelist_new(path);
+	if (path && path[0] && strcmp(path, "/"))
 		/* add a dummy entry for ./.. */
-		filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
-		entry->entity = NULL;
-		filelist->list = g_list_append(filelist->list, entry);
-		filelist->length++;
-	}
+		filelist_append(filelist, NULL);
 
 	while ((entity=mpd_getNextInfoEntity(c->connection))) {
-		filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
-
-		entry->entity = entity;
-		filelist->list = g_list_append(filelist->list, entry);
-		filelist->length++;
+		filelist_append(filelist, entity);
 
 		if (has_dirs_only && entity->type != MPD_INFO_ENTITY_TYPE_DIRECTORY) {
 			has_dirs_only = FALSE;
@@ -771,13 +763,12 @@ mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 	mpdclient_finish_command(c);
 
 	g_free(path_utf8);
-	filelist->path = g_strdup(path);
 	filelist->updated = TRUE;
 
 	// If there are only directory entities in the filelist, we sort it
 	if (has_dirs_only) {
 		D("mpdclient_filelist_get: only dirs; sorting!\n");
-		filelist->list = g_list_sort(filelist->list, compare_filelistentry_dir);
+		filelist_sort(filelist, compare_filelistentry_dir);
 	}
 
 	return filelist;
@@ -797,15 +788,10 @@ mpdclient_filelist_search_utf8(mpdclient_t *c,
 		mpd_sendFindCommand(c->connection, table, filter_utf8);
 	else
 		mpd_sendSearchCommand(c->connection, table, filter_utf8);
-	filelist = g_malloc0(sizeof(mpdclient_filelist_t));
+	filelist = filelist_new(NULL);
 
-	while ((entity=mpd_getNextInfoEntity(c->connection))) {
-		filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
-
-		entry->entity = entity;
-		filelist->list = g_list_append(filelist->list, entry);
-		filelist->length++;
-	}
+	while ((entity=mpd_getNextInfoEntity(c->connection)))
+		filelist_append(filelist, entity);
 
 	if (mpdclient_finish_command(c)) {
 		filelist_free(filelist);
@@ -854,7 +840,7 @@ mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl)
 {
 	GList *list = g_list_first(fl->list);
 
-	if (fl->list == NULL || fl->length < 1)
+	if (filelist_is_empty(fl))
 		return 0;
 
 	mpd_sendCommandListBegin(c->connection);

@@ -23,6 +23,19 @@
 #include <string.h>
 #include <assert.h>
 
+struct filelist *
+filelist_new(const char *path)
+{
+	struct filelist *filelist = g_malloc(sizeof(*filelist));
+
+	filelist->path = g_strdup(path);
+	filelist->length = 0;
+	filelist->updated = FALSE;
+	filelist->list = NULL;
+
+	return filelist;
+}
+
 void
 filelist_free(struct filelist *filelist)
 {
@@ -44,6 +57,49 @@ filelist_free(struct filelist *filelist)
 	g_list_free(filelist->list);
 	g_free(filelist->path);
 	g_free(filelist);
+}
+
+struct filelist_entry *
+filelist_append(struct filelist *filelist, struct mpd_InfoEntity *entity)
+{
+	struct filelist_entry *entry = g_malloc(sizeof(*entry));
+
+	entry->flags = 0;
+	entry->entity = entity;
+
+	filelist->list = g_list_append(filelist->list, entry);
+	filelist->length++;
+
+	return entry;
+}
+
+struct filelist_entry *
+filelist_prepend(struct filelist *filelist, struct mpd_InfoEntity *entity)
+{
+	struct filelist_entry *entry = g_malloc(sizeof(*entry));
+
+	entry->flags = 0;
+	entry->entity = entity;
+
+	filelist->list = g_list_insert(filelist->list, entry, 0);
+	filelist->length++;
+
+	return entry;
+}
+
+void
+filelist_move(struct filelist *filelist, struct filelist *from)
+{
+	filelist->list = g_list_concat(filelist->list, from->list);
+	filelist->length += from->length;
+	from->list = NULL;
+	from->length = 0;
+}
+
+void
+filelist_sort(struct filelist *filelist, GCompareFunc compare_func)
+{
+	filelist->list = g_list_sort(filelist->list, compare_func);
 }
 
 struct filelist_entry *

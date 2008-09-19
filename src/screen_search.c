@@ -189,9 +189,8 @@ filelist_search(mpdclient_t *c, mpd_unused int exact_match, int table,
 		list2 = mpdclient_filelist_search(c, FALSE, MPD_TABLE_TITLE,
 						  local_pattern);
 
-		list->length += list2->length;
-		list->list = g_list_concat(list->list, list2->list);
-		list->list = g_list_sort(list->list, compare_filelistentry_format);
+		filelist_move(list, list2);
+		filelist_sort(list, compare_filelistentry_format);
 		list->updated = TRUE;
 	} else
 		list = mpdclient_filelist_search(c, FALSE, table, local_pattern);
@@ -283,13 +282,8 @@ search_advanced_query(char *query, mpdclient_t *c)
 
 		fl = g_malloc0(sizeof(mpdclient_filelist_t));
 
-		while ((entity=mpd_getNextInfoEntity(c->connection)))  {
-			filelist_entry_t *entry = g_malloc0(sizeof(filelist_entry_t));
-
-			entry->entity = entity;
-			fl->list = g_list_append(fl->list, (gpointer) entry);
-			fl->length++;
-		}
+		while ((entity=mpd_getNextInfoEntity(c->connection)))
+			filelist_append(fl, entity);
 
 		if (mpdclient_finish_command(c) && fl)
 			filelist_free(fl);
@@ -338,7 +332,7 @@ search_new(screen_t *screen, mpdclient_t *c)
 
 	sync_highlights(c, browser.filelist);
 	mpdclient_install_playlist_callback(c, playlist_changed_callback);
-	list_window_check_selected(browser.lw, browser.filelist->length);
+	list_window_check_selected(browser.lw, filelist_length(browser.filelist));
 }
 
 
@@ -447,7 +441,7 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			cmd = CMD_LIST_NEXT;
 		}
 		/* call list_window_cmd to go to the next item */
-		return list_window_cmd(browser.lw, browser.filelist->length, cmd);
+		return list_window_cmd(browser.lw, filelist_length(browser.filelist), cmd);
 
 	case CMD_SELECT_ALL:
 		browser_handle_select_all(&browser, c);
@@ -487,7 +481,7 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LIST_RFIND_NEXT:
 		if (browser.filelist)
 			return screen_find(screen,
-					   browser.lw, browser.filelist->length,
+					   browser.lw, filelist_length(browser.filelist),
 					   cmd, browser_lw_callback,
 					   browser.filelist);
 		else
@@ -499,7 +493,7 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	default:
 		if (browser.filelist)
 			return list_window_cmd(browser.lw,
-					       browser.filelist->length, cmd);
+					       filelist_length(browser.filelist), cmd);
 	}
 
 	return 0;
