@@ -6,6 +6,7 @@ AC_INIT
 AC_CONFIG_SRCDIR([src/main.c])
 AM_INIT_AUTOMAKE([ncmpc], [0.12~git])
 AM_CONFIG_HEADER([config.h])
+AC_CONFIG_MACRO_DIR([m4])
 
 dnl Check for programs
 AC_PROG_CC_C99

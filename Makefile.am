@@ -3,6 +3,7 @@ SUBDIRS = \
   doc\
   po
 
+ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS =   gnu 1.6
 
 # $Id$
