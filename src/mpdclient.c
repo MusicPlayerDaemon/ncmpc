@@ -736,31 +736,6 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 /*** Filelist functions *****************************************************/
 /****************************************************************************/
 
-void
-mpdclient_filelist_free(mpdclient_filelist_t *filelist)
-{
-	GList *list = g_list_first(filelist->list);
-
-	D("mpdclient_filelist_free()\n");
-	if (list == NULL)
-		return;
-	while (list != NULL) {
-		filelist_entry_t *entry = list->data;
-
-		if (entry->entity)
-			mpd_freeInfoEntity(entry->entity);
-		g_free(entry);
-		list=list->next;
-	}
-	g_list_free(filelist->list);
-	g_free(filelist->path);
-	filelist->path = NULL;
-	filelist->list = NULL;
-	filelist->length = 0;
-	g_free(filelist);
-}
-
-
 mpdclient_filelist_t *
 mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 {
@@ -870,30 +845,6 @@ mpdclient_filelist_update(mpdclient_t *c, mpdclient_filelist_t *filelist)
       filelist = mpdclient_filelist_get(c, path);
       g_free(path);
       return filelist;
-    }
-  return NULL;
-}
-
-filelist_entry_t *
-mpdclient_filelist_find_song(mpdclient_filelist_t *fl, struct mpd_song *song)
-{
-  GList *list = g_list_first(fl->list);
-
-  while( list && song)
-    {
-      filelist_entry_t *entry = list->data;
-      mpd_InfoEntity *entity  = entry->entity;
-
-      if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG )
-	{
-	  struct mpd_song *song2 = entity->info.song;
-
-	  if( strcmp(song->file, song2->file) == 0 )
-	    {
-	      return entry;
-	    }
-	}
-      list = list->next;
     }
   return NULL;
 }

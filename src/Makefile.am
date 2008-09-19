@@ -16,6 +16,7 @@ ncmpc_headers = \
 	song.h \
   mpdclient.h\
 	playlist.h \
+	filelist.h \
   options.h\
   conf.h\
   command.h\
@@ -46,6 +47,7 @@ ncmpc_SOURCES = \
   main.c\
   mpdclient.c\
 	playlist.c \
+	filelist.c \
   options.c\
   conf.c\
   command.c\

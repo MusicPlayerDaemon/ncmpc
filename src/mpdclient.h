@@ -3,6 +3,7 @@
 
 #include "libmpdclient.h"
 #include "playlist.h"
+#include "filelist.h"
 
 #define MPD_VERSION_EQ(c,x,y,z) (c->connection->version[0] == x && \
                                  c->connection->version[1] == y && \
@@ -12,23 +13,6 @@
  (c->connection->version[0]==x && c->connection->version[1]<y) || \
  (c->connection->version[0]==x && c->connection->version[1]==y && \
   c->connection->version[2]<z) )
-
-typedef struct filelist_entry {
-	guint flags;
-	mpd_InfoEntity *entity;
-} filelist_entry_t;
-
-typedef struct mpdclient_filelist {
-	/* path */
-	gchar *path;
-	/* list length */
-	guint length;
-	/* true if the list is updated */
-	gboolean updated;
-	/* the list */
-	GList *list;
-
-} mpdclient_filelist_t;
 
 typedef struct mpdclient {
 	/* playlist */
@@ -133,7 +117,7 @@ void mpdclient_playlist_callback(mpdclient_t *c, int event, gpointer data);
 
 
 /*** filelist functions  ***************************************************/
-void mpdclient_filelist_free(mpdclient_filelist_t *filelist);
+
 mpdclient_filelist_t *mpdclient_filelist_get(mpdclient_t *c, const gchar *path);
 mpdclient_filelist_t *mpdclient_filelist_search(mpdclient_t *c, 
 						int exact_match,
@@ -145,16 +129,6 @@ mpdclient_filelist_t *mpdclient_filelist_search_utf8(mpdclient_t *c,
 						     gchar *path);
 mpdclient_filelist_t *mpdclient_filelist_update(mpdclient_t *c, 
 						mpdclient_filelist_t *flist);
-
-#define HIGHLIGHT  (0x01)
-void mpdclient_filelist_set_flags(mpdclient_filelist_t *flist, 
-				  struct mpd_song *song,
-				  guint flags);
-
-void mpdclient_filelist_clear_flags(mpdclient_filelist_t *flist);
-void mpdclient_filelist_clear_flags(mpdclient_filelist_t *flist);
-filelist_entry_t *mpdclient_filelist_find_song(mpdclient_filelist_t *flist,
-					       struct mpd_song *song);
 
 /* add all songs in filelist to the playlist */
 int mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl);
