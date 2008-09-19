@@ -247,16 +247,21 @@ enqueue_and_play(mpdclient_t *c, filelist_entry_t *entry)
 	return 0;
 }
 
+static struct filelist_entry *
+browser_get_selected(const struct screen_browser *browser)
+{
+	if (browser->filelist == NULL)
+		return NULL;
+
+	return filelist_get(browser->filelist, browser->lw->selected);
+}
+
 int
 browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 {
-	filelist_entry_t *entry;
+	struct filelist_entry *entry = browser_get_selected(browser);
 	mpd_InfoEntity *entity;
 
-	if (browser->filelist == NULL)
-		return -1;
-
-	entry = filelist_get(browser->filelist, browser->lw->selected);
 	if( entry==NULL )
 		return -1;
 
@@ -379,11 +384,8 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 int
 browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
 {
-	filelist_entry_t *entry;
+	struct filelist_entry *entry = browser_get_selected(browser);
 
-	if (browser->filelist == NULL)
-		return -1;
-	entry = filelist_get(browser->filelist, browser->lw->selected);
 	if (entry == NULL || entry->entity == NULL)
 		return -1;
 
