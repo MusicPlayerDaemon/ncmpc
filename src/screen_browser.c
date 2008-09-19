@@ -54,26 +54,17 @@ clear_highlights(mpdclient_filelist_t *fl)
 static void
 set_highlight(mpdclient_filelist_t *fl, mpd_Song *song, int highlight)
 {
-	GList *list = g_list_first(fl->list);
+	struct filelist_entry *entry = mpdclient_filelist_find_song(fl, song);
+	mpd_InfoEntity *entity;
 
-	assert(song != NULL);
+	if (entry == NULL)
+		return;
 
-	while( list ) {
-		filelist_entry_t *entry = list->data;
-		mpd_InfoEntity *entity  = entry->entity;
-
-		if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG ) {
-			mpd_Song *song2 = entity->info.song;
-
-			if( strcmp(song->file, song2->file) == 0 ) {
-				if(highlight)
-					entry->flags |= HIGHLIGHT;
-				else
-					entry->flags &= ~HIGHLIGHT;
-			}
-		}
-		list = list->next;
-	}
+	entity = entry->entity;
+	if (highlight)
+		entry->flags |= HIGHLIGHT;
+	else
+		entry->flags &= ~HIGHLIGHT;
 }
 
 /* sync highlight flags with playlist */
