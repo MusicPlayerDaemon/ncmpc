@@ -101,10 +101,22 @@ filelist_move(struct filelist *filelist, struct filelist *from)
 	g_ptr_array_set_size(from->entries, 0);
 }
 
+static gint
+filelist_compare_indirect(gconstpointer ap, gconstpointer bp, gpointer data)
+{
+	GCompareFunc compare_func = data;
+	gconstpointer a = *(const gconstpointer*)ap;
+	gconstpointer b = *(const gconstpointer*)bp;
+
+	return compare_func(a, b);
+}
+
 void
 filelist_sort(struct filelist *filelist, GCompareFunc compare_func)
 {
-	g_ptr_array_sort(filelist->entries, compare_func);
+	g_ptr_array_sort_with_data(filelist->entries,
+				   filelist_compare_indirect,
+				   compare_func);
 }
 
 struct filelist_entry *
