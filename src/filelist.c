@@ -57,7 +57,7 @@ filelist_free(struct filelist *filelist)
 struct filelist_entry *
 filelist_append(struct filelist *filelist, struct mpd_InfoEntity *entity)
 {
-	struct filelist_entry *entry = g_malloc(sizeof(*entry));
+	struct filelist_entry *entry = g_slice_alloc(sizeof(*entry));
 
 	entry->flags = 0;
 	entry->entity = entity;
@@ -70,13 +70,11 @@ filelist_append(struct filelist *filelist, struct mpd_InfoEntity *entity)
 struct filelist_entry *
 filelist_prepend(struct filelist *filelist, struct mpd_InfoEntity *entity)
 {
-	struct filelist_entry *entry = g_malloc(sizeof(*entry));
+	struct filelist_entry *entry = filelist_append(filelist, entity);
 
 	/* this is very slow, but we should optimize screen_artist.c
 	   later so that this function can be removed, so I'm not in
 	   the mood to implement something better here */
-
-	entry = filelist_append(filelist, entity);
 
 	if (!filelist_is_empty(filelist)) {
 		guint i;
