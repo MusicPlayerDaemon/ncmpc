@@ -75,16 +75,16 @@ string_list_remove(GList *string_list, const gchar *str)
 GList *
 gcmp_list_from_path(mpdclient_t *c, const gchar *path, GList *list, gint types)
 {
-	GList *flist = NULL;
+	guint i;
 	mpdclient_filelist_t *filelist;
 
 	if ((filelist = mpdclient_filelist_get(c, path)) == NULL)
 		return list;
 
 	D("retrieved filelist!\n");
-	flist = filelist->list;
-	while (flist) {
-		filelist_entry_t *entry = flist->data;
+
+	for (i = 0; i < filelist_length(filelist); ++i) {
+		struct filelist_entry *entry = filelist_get(filelist, i);
 		mpd_InfoEntity *entity = entry ? entry->entity : NULL;
 		char *name = NULL;
 
@@ -112,8 +112,6 @@ gcmp_list_from_path(mpdclient_t *c, const gchar *path, GList *list, gint types)
 
 		if (name)
 			list = g_list_append(list, name);
-
-		flist = flist->next;
 	}
 
 	filelist_free(filelist);

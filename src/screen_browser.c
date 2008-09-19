@@ -40,13 +40,12 @@
 static void
 clear_highlights(mpdclient_filelist_t *fl)
 {
-	GList *list = g_list_first(fl->list);
+	guint i;
 
-	while( list ) {
-		filelist_entry_t *entry = list->data;
+	for (i = 0; i < filelist_length(fl); ++i) {
+		struct filelist_entry *entry = filelist_get(fl, i);
 
 		entry->flags &= ~HIGHLIGHT;
-		list = list->next;
 	}
 }
 
@@ -71,13 +70,13 @@ set_highlight(mpdclient_filelist_t *fl, mpd_Song *song, int highlight)
 void
 sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl)
 {
-	GList *list = g_list_first(fl->list);
+	guint i;
 
-	while(list) {
-		filelist_entry_t *entry = list->data;
+	for (i = 0; i < filelist_length(fl); ++i) {
+		struct filelist_entry *entry = filelist_get(fl, i);
 		mpd_InfoEntity *entity = entry->entity;
 
-		if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG ) {
+		if ( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG ) {
 			mpd_Song *song = entity->info.song;
 
 			if( playlist_get_index_from_file(c, song->file) >= 0 )
@@ -85,7 +84,6 @@ sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl)
 			else
 				entry->flags &= ~HIGHLIGHT;
 		}
-		list=list->next;
 	}
 }
 
@@ -125,9 +123,11 @@ browser_lw_callback(unsigned idx, int *highlight, void *data)
 	filelist_entry_t *entry;
 	mpd_InfoEntity *entity;
 
-	entry = filelist_get(fl, idx);
-	if (entry == NULL)
+	if (idx >= filelist_length(fl))
 		return NULL;
+
+	entry = filelist_get(fl, idx);
+	assert(entry != NULL);
 
 	entity = entry->entity;
 	*highlight = (entry->flags & HIGHLIGHT);
@@ -395,21 +395,17 @@ browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
 void
 browser_handle_select_all(struct screen_browser *browser, mpdclient_t *c)
 {
-	filelist_entry_t *entry;
-	GList *temp = browser->filelist->list;
+	guint i;
 
 	if (browser->filelist == NULL)
 		return;
 
-	for (browser->filelist->list = g_list_first(browser->filelist->list);
-	     browser->filelist->list;
-	     browser->filelist->list = g_list_next(browser->filelist->list)) {
-		entry = browser->filelist->list->data;
+	for (i = 0; i < filelist_length(browser->filelist); ++i) {
+		struct filelist_entry *entry = filelist_get(browser->filelist, i);
+
 		if (entry != NULL && entry->entity != NULL)
 			browser_select_entry(c, entry, FALSE);
 	}
-
-	browser->filelist->list = temp;
 }
 
 #ifdef HAVE_GETMOUSE

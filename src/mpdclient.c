@@ -838,14 +838,15 @@ mpdclient_filelist_update(mpdclient_t *c, mpdclient_filelist_t *filelist)
 int
 mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl)
 {
-	GList *list = g_list_first(fl->list);
+	guint i;
 
 	if (filelist_is_empty(fl))
 		return 0;
 
 	mpd_sendCommandListBegin(c->connection);
-	while (list) {
-		filelist_entry_t *entry = list->data;
+
+	for (i = 0; i < filelist_length(fl); ++i) {
+		filelist_entry_t *entry = filelist_get(fl, i);
 		mpd_InfoEntity *entity  = entry->entity;
 
 		if (entity && entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
@@ -853,8 +854,6 @@ mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl)
 
 			mpd_sendAddCommand(c->connection, song->file);
 		}
-
-		list = list->next;
 	}
 
 	mpd_sendCommandListEnd(c->connection);

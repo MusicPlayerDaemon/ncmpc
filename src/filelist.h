@@ -33,14 +33,11 @@ typedef struct filelist {
 	/* path */
 	gchar *path;
 
-	/* list length */
-	guint length;
-
 	/* true if the list is updated */
 	gboolean updated;
 
 	/* the list */
-	GList *list;
+	GPtrArray *entries;
 } mpdclient_filelist_t;
 
 struct filelist *
@@ -52,7 +49,7 @@ filelist_free(struct filelist *filelist);
 static inline guint
 filelist_length(const struct filelist *filelist)
 {
-	return filelist->length;
+	return filelist->entries->len;
 }
 
 static inline gboolean
@@ -64,8 +61,7 @@ filelist_is_empty(const struct filelist *filelist)
 static inline struct filelist_entry *
 filelist_get(const struct filelist *filelist, guint i)
 {
-	return (struct filelist_entry*)
-		g_list_nth_data(filelist->list, i);
+	return g_ptr_array_index(filelist->entries, i);
 }
 
 struct filelist_entry *

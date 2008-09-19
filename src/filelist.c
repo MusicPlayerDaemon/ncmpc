@@ -29,9 +29,8 @@ filelist_new(const char *path)
 	struct filelist *filelist = g_malloc(sizeof(*filelist));
 
 	filelist->path = g_strdup(path);
-	filelist->length = 0;
 	filelist->updated = FALSE;
-	filelist->list = NULL;
+	filelist->entries = g_ptr_array_new();
 
 	return filelist;
 }
@@ -39,22 +38,18 @@ filelist_new(const char *path)
 void
 filelist_free(struct filelist *filelist)
 {
-	GList *list = g_list_first(filelist->list);
+	guint i;
 
-	if (list == NULL)
-		return;
-
-	while (list != NULL) {
-		filelist_entry_t *entry = list->data;
+	for (i = 0; i < filelist_length(filelist); ++i) {
+		struct filelist_entry *entry = filelist_get(filelist, i);
 
 		if (entry->entity)
 			mpd_freeInfoEntity(entry->entity);
 
 		g_free(entry);
-		list = list->next;
 	}
 
-	g_list_free(filelist->list);
+	g_ptr_array_free(filelist->entries, TRUE);
 	g_free(filelist->path);
 	g_free(filelist);
 }
@@ -67,8 +62,7 @@ filelist_append(struct filelist *filelist, struct mpd_InfoEntity *entity)
 	entry->flags = 0;
 	entry->entity = entity;
 
-	filelist->list = g_list_append(filelist->list, entry);
-	filelist->length++;
+	g_ptr_array_add(filelist->entries, entry);
 
 	return entry;
 }
@@ -78,11 +72,21 @@ filelist_prepend(struct filelist *filelist, struct mpd_InfoEntity *entity)
 {
 	struct filelist_entry *entry = g_malloc(sizeof(*entry));
 
-	entry->flags = 0;
-	entry->entity = entity;
+	/* this is very slow, but we should optimize screen_artist.c
+	   later so that this function can be removed, so I'm not in
+	   the mood to implement something better here */
 
-	filelist->list = g_list_insert(filelist->list, entry, 0);
-	filelist->length++;
+	entry = filelist_append(filelist, entity);
+
+	if (!filelist_is_empty(filelist)) {
+		guint i;
+
+		for (i = filelist_length(filelist) - 1; i > 0; --i)
+			g_ptr_array_index(filelist->entries, i) =
+				filelist_get(filelist, i - 1);
+
+		g_ptr_array_index(filelist->entries, 0) = entry;
+	}
 
 	return entry;
 }
@@ -90,27 +94,30 @@ filelist_prepend(struct filelist *filelist, struct mpd_InfoEntity *entity)
 void
 filelist_move(struct filelist *filelist, struct filelist *from)
 {
-	filelist->list = g_list_concat(filelist->list, from->list);
-	filelist->length += from->length;
-	from->list = NULL;
-	from->length = 0;
+	guint i;
+
+	for (i = 0; i < filelist_length(from); ++i)
+		g_ptr_array_add(filelist->entries,
+				g_ptr_array_index(from->entries, i));
+
+	g_ptr_array_set_size(from->entries, 0);
 }
 
 void
 filelist_sort(struct filelist *filelist, GCompareFunc compare_func)
 {
-	filelist->list = g_list_sort(filelist->list, compare_func);
+	g_ptr_array_sort(filelist->entries, compare_func);
 }
 
 struct filelist_entry *
 filelist_find_song(struct filelist *fl, const struct mpd_song *song)
 {
-	GList *list = g_list_first(fl->list);
+	guint i;
 
 	assert(song != NULL);
 
-	while (list != NULL) {
-		filelist_entry_t *entry = list->data;
+	for (i = 0; i < filelist_length(fl); ++i) {
+		struct filelist_entry *entry = filelist_get(fl, i);
 		mpd_InfoEntity *entity  = entry->entity;
 
 		if (entity && entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
@@ -119,8 +126,6 @@ filelist_find_song(struct filelist *fl, const struct mpd_song *song)
 			if (strcmp(song->file, song2->file) == 0)
 				return entry;
 		}
-
-		list = list->next;
 	}
 
 	return NULL;
