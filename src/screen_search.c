@@ -190,6 +190,7 @@ filelist_search(mpdclient_t *c, mpd_unused int exact_match, int table,
 						  local_pattern);
 
 		filelist_move(list, list2);
+		filelist_free(list2);
 		filelist_sort(list, compare_filelistentry_format);
 		list->updated = TRUE;
 	} else
