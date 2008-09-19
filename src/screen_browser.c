@@ -56,8 +56,7 @@ set_highlight(mpdclient_filelist_t *fl, mpd_Song *song, int highlight)
 {
 	GList *list = g_list_first(fl->list);
 
-	if( !song )
-		return;
+	assert(song != NULL);
 
 	while( list ) {
 		filelist_entry_t *entry = list->data;
