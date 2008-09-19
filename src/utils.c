@@ -116,6 +116,6 @@ gcmp_list_from_path(mpdclient_t *c, const gchar *path, GList *list, gint types)
 		flist = flist->next;
 	}
 
-	mpdclient_filelist_free(filelist);
+	filelist_free(filelist);
 	return list;
 }

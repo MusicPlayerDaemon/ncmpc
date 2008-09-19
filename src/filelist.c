@@ -24,7 +24,7 @@
 #include <assert.h>
 
 void
-mpdclient_filelist_free(struct filelist *filelist)
+filelist_free(struct filelist *filelist)
 {
 	GList *list = g_list_first(filelist->list);
 
@@ -47,8 +47,7 @@ mpdclient_filelist_free(struct filelist *filelist)
 }
 
 struct filelist_entry *
-mpdclient_filelist_find_song(struct filelist *fl,
-			     const struct mpd_song *song)
+filelist_find_song(struct filelist *fl, const struct mpd_song *song)
 {
 	GList *list = g_list_first(fl->list);
 

@@ -54,7 +54,7 @@ clear_highlights(mpdclient_filelist_t *fl)
 static void
 set_highlight(mpdclient_filelist_t *fl, mpd_Song *song, int highlight)
 {
-	struct filelist_entry *entry = mpdclient_filelist_find_song(fl, song);
+	struct filelist_entry *entry = filelist_find_song(fl, song);
 	mpd_InfoEntity *entity;
 
 	if (entry == NULL)
@@ -201,7 +201,7 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 	} else
 		return -1;
 
-	mpdclient_filelist_free(browser->filelist);
+	filelist_free(browser->filelist);
 	browser->filelist = mpdclient_filelist_get(c, path);
 	sync_highlights(c, browser->filelist);
 	list_window_check_selected(browser->lw, browser->filelist->length);

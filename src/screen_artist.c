@@ -102,7 +102,7 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 		metalist = string_list_free(metalist);
 	if (browser.filelist) {
 		mpdclient_remove_playlist_callback(c, playlist_changed_callback);
-		mpdclient_filelist_free(browser.filelist);
+		filelist_free(browser.filelist);
 		browser.filelist = NULL;
 	}
 
@@ -186,7 +186,7 @@ static void
 quit(void)
 {
 	if (browser.filelist)
-		mpdclient_filelist_free(browser.filelist);
+		filelist_free(browser.filelist);
 	if (metalist)
 		string_list_free(metalist);
 	g_free(artist);
@@ -287,7 +287,7 @@ add_query(mpdclient_t *c, int table, char *_filter)
 	addlist = mpdclient_filelist_search_utf8(c, TRUE, table, _filter);
 	if (addlist) {
 		mpdclient_filelist_add_all(c, addlist);
-		mpdclient_filelist_free(addlist);
+		filelist_free(addlist);
 	}
 }
 

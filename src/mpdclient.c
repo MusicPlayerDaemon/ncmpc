@@ -808,7 +808,7 @@ mpdclient_filelist_search_utf8(mpdclient_t *c,
 	}
 
 	if (mpdclient_finish_command(c)) {
-		mpdclient_filelist_free(filelist);
+		filelist_free(filelist);
 		return NULL;
 	}
 
@@ -841,7 +841,7 @@ mpdclient_filelist_update(mpdclient_t *c, mpdclient_filelist_t *filelist)
     {    
       gchar *path = g_strdup(filelist->path);
 
-      mpdclient_filelist_free(filelist);
+      filelist_free(filelist);
       filelist = mpdclient_filelist_get(c, path);
       g_free(path);
       return filelist;

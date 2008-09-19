@@ -133,7 +133,7 @@ static void
 browse_exit(void)
 {
 	if (browser.filelist)
-		mpdclient_filelist_free(browser.filelist);
+		filelist_free(browser.filelist);
 	list_window_free(browser.lw);
 	list_window_free_state(browser.lw_state);
 }
