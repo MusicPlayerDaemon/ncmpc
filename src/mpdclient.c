@@ -901,35 +901,28 @@ mpdclient_filelist_find_song(mpdclient_filelist_t *fl, struct mpd_song *song)
 int
 mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl)
 {
-  GList *list = g_list_first(fl->list);
+	GList *list = g_list_first(fl->list);
 
-  if( fl->list==NULL || fl->length<1 )
-    return 0;
+	if (fl->list == NULL || fl->length < 1)
+		return 0;
 
-  mpd_sendCommandListBegin(c->connection);
-  while( list )
-    {
-      filelist_entry_t *entry = list->data;
-      mpd_InfoEntity *entity  = entry->entity;
+	mpd_sendCommandListBegin(c->connection);
+	while (list) {
+		filelist_entry_t *entry = list->data;
+		mpd_InfoEntity *entity  = entry->entity;
 
-      if( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG )
-	{
-	  struct mpd_song *song = entity->info.song;
+		if (entity && entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
+			struct mpd_song *song = entity->info.song;
 
-	  mpd_sendAddCommand(c->connection, song->file);
+			mpd_sendAddCommand(c->connection, song->file);
+		}
+
+		list = list->next;
 	}
-      list = list->next;
-    }
-  mpd_sendCommandListEnd(c->connection);
-  return mpdclient_finish_command(c);
+
+	mpd_sendCommandListEnd(c->connection);
+	return mpdclient_finish_command(c);
 }
-
-
-
-
-
-
-
 
 GList *
 mpdclient_get_artists_utf8(mpdclient_t *c)
