@@ -150,6 +150,31 @@ sigstop(void)
   kill(0, SIGSTOP); /* issue SIGSTOP */
 }
 
+static guint timer_sigwinch_id;
+
+static gboolean
+timer_sigwinch(mpd_unused gpointer data)
+{
+	/* the following causes the screen to flicker.  There might be
+	   better solutions, but I believe it isn't all that
+	   important. */
+
+	endwin();
+	refresh();
+	screen_resize();
+
+	return FALSE;
+}
+
+static void
+catch_sigwinch(mpd_unused int sig)
+{
+	if (timer_sigwinch_id != 0)
+		g_source_remove(timer_sigwinch_id);
+
+	timer_sigwinch_id = g_timeout_add(100, timer_sigwinch, NULL);
+}
+
 #ifndef NDEBUG
 void 
 D(const char *format, ...)
@@ -380,6 +405,14 @@ main(int argc, const char *argv[])
 	act.sa_handler = catch_sigint;
 	if (sigaction(SIGHUP, &act, NULL) < 0) {
 		perror("sigaction(SIGHUP)");
+		exit(EXIT_FAILURE);
+	}
+
+	/* setup SIGWINCH */
+
+	act.sa_handler = catch_sigwinch;
+	if (sigaction(SIGWINCH, &act, NULL) < 0) {
+		perror("sigaction(SIGWINCH)");
 		exit(EXIT_FAILURE);
 	}
 
