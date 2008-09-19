@@ -46,7 +46,7 @@ filelist_free(struct filelist *filelist)
 		if (entry->entity)
 			mpd_freeInfoEntity(entry->entity);
 
-		g_free(entry);
+		g_slice_free(struct filelist_entry, entry);
 	}
 
 	g_ptr_array_free(filelist->entries, TRUE);
@@ -57,7 +57,7 @@ filelist_free(struct filelist *filelist)
 struct filelist_entry *
 filelist_append(struct filelist *filelist, struct mpd_InfoEntity *entity)
 {
-	struct filelist_entry *entry = g_slice_alloc(sizeof(*entry));
+	struct filelist_entry *entry = g_slice_new(struct filelist_entry);
 
 	entry->flags = 0;
 	entry->entity = entity;
