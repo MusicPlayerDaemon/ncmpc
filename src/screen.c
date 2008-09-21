@@ -317,6 +317,7 @@ paint_status_window(mpdclient_t *c)
 	mpd_Status *status = c->status;
 	mpd_Song *song = c->song;
 	int elapsedTime = 0;
+	char bitrate[16];
 	const char *str = NULL;
 	int x = 0;
 
@@ -357,16 +358,25 @@ paint_status_window(mpdclient_t *c)
 
 			if( c->song && seek_id == c->song->id )
 				elapsedTime = seek_target_time;
+
+			/* display bitrate if visible-bitrate is true */
+			if (options.visible_bitrate) {
+				g_snprintf(bitrate, 16,
+				           " [%d kbps]", status->bitRate);
+			} else {
+				bitrate[0] = '\0';
+			}
+
 			/*write out the time, using hours if time over 60 minutes*/
 			if (c->status->totalTime > 3600) {
 				g_snprintf(screen.buf, screen.buf_size,
-					   " [%i:%02i:%02i/%i:%02i:%02i]",
-					   elapsedTime/3600, (elapsedTime%3600)/60, elapsedTime%60,
+					   "%s [%i:%02i:%02i/%i:%02i:%02i]",
+					   bitrate, elapsedTime/3600, (elapsedTime%3600)/60, elapsedTime%60,
 					   status->totalTime/3600, (status->totalTime%3600)/60,  status->totalTime%60);
 			} else {
 				g_snprintf(screen.buf, screen.buf_size,
-					   " [%i:%02i/%i:%02i]",
-					   elapsedTime/60, elapsedTime%60,
+					   "%s [%i:%02i/%i:%02i]",
+					   bitrate, elapsedTime/60, elapsedTime%60,
 					   status->totalTime/60,   status->totalTime%60 );
 			}
 		} else {

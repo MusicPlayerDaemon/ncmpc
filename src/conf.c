@@ -70,6 +70,7 @@
 #define CONF_SHOW_SPLASH             "show-splash"
 #define CONF_SCROLL                  "scroll"
 #define CONF_SCROLL_SEP              "scroll-sep"
+#define CONF_VISIBLE_BITRATE         "visible-bitrate"
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -462,6 +463,10 @@ read_rc_file(char *filename, options_t *options)
 		{
 		  options->wide_cursor = str2bool(value);
 		}
+	      /* visible bitrate */
+	      else if (!strcasecmp(CONF_VISIBLE_BITRATE, name)) {
+		      options->visible_bitrate = str2bool(value);
+	      }
 	      /* timer display type */
 	      else if( !strcasecmp(CONF_TIMEDISPLAY_TYPE, name) )
 		{

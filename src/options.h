@@ -37,6 +37,7 @@ typedef struct {
 	gboolean enable_xterm_title;
 	gboolean enable_mouse;
 	gboolean scroll;
+	gboolean visible_bitrate;
 } options_t;
 
 #ifndef NO_GLOBAL_OPTIONS
