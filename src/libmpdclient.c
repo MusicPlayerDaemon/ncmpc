@@ -451,6 +451,12 @@ static void mpd_executeCommand(mpd_Connection *connection,
 	const char *commandPtr = command;
 	int commandLen = strlen(command);
 
+	if (connection->sock < 0) {
+		strcpy(connection->errorStr, "not connected");
+		connection->error = MPD_ERROR_CONNCLOSED;
+		return;
+	}
+
 	if (!connection->doneProcessing && !connection->commandList) {
 		strcpy(connection->errorStr,
 		       "not done processing current command");
