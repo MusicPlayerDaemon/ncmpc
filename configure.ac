@@ -316,5 +316,5 @@ AC_ARG_WITH([default-timedisplay_type],
             [DEFAULT_TIMEDISPLAY_TYPE="elapsed"])
 AC_MSG_RESULT([$DEFAULT_TIMEDISPLAY_TYPE])
 AC_DEFINE_UNQUOTED([DEFAULT_TIMEDISPLAY_TYPE], ["$DEFAULT_TIMEDISPLAY_TYPE"], [Default way to display time, either 'elapsed' or 'remaining'])
-AC_CONFIG_FILES([Makefile src/Makefile doc/Makefile po/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile doc/Makefile po/Makefile.in po/Makefile])
 AC_OUTPUT
