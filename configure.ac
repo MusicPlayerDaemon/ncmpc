@@ -264,7 +264,7 @@ AC_ARG_ENABLE([lyrics-screen],
               AC_HELP_STRING([--enable-lyrics-screen],
 	                     [Enable lyrics screen @<:@default=no@:>@]),
 	      [lyrics_screen="$enableval"],
-	      [lyrics_screen=yes])	
+	      [lyrics_screen=no])	
 if test "x$lyrics_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
    lyrics_screen=no
