@@ -272,6 +272,8 @@ add_query(mpdclient_t *c, int table, char *_filter)
 	char *str;
 	mpdclient_filelist_t *addlist;
 
+	assert(filter != NULL);
+
 	str = utf8_to_locale(_filter);
 	if (table== MPD_TABLE_ALBUM)
 		screen_status_printf("Adding album %s...", str);
@@ -381,6 +383,9 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		case LIST_ARTISTS:
 			selected = g_list_nth_data(metalist,
 						   browser.lw->selected);
+			if (selected == NULL)
+				return 1;
+
 			add_query(c, MPD_TABLE_ARTIST, selected);
 			cmd = CMD_LIST_NEXT; /* continue and select next item... */
 			break;
@@ -392,6 +397,9 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			else if (browser.lw->selected > 0) {
 				selected = g_list_nth_data(metalist,
 							   browser.lw->selected);
+				if (selected == NULL)
+					return 1;
+
 				add_query(c, MPD_TABLE_ALBUM, selected);
 				cmd = CMD_LIST_NEXT; /* continue and select next item... */
 			}
