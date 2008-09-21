@@ -62,6 +62,9 @@ handle_save(screen_t *screen, mpdclient_t *c)
 	filelist_entry_t *entry;
 	char *defaultname = NULL;
 
+	if (browser.lw->selected >= filelist_length(browser.filelist))
+		return -1;
+
 	entry = filelist_get(browser.filelist, browser.lw->selected);
 	if( entry && entry->entity ) {
 		mpd_InfoEntity *entity = entry->entity;
@@ -82,6 +85,9 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 	mpd_PlaylistFile *plf;
 	char *str, *buf;
 	int key;
+
+	if (browser.lw->selected >= filelist_length(browser.filelist))
+		return -1;
 
 	entry = filelist_get(browser.filelist, browser.lw->selected);
 	if( entry==NULL || entry->entity==NULL )

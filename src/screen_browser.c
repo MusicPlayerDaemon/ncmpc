@@ -250,7 +250,8 @@ enqueue_and_play(mpdclient_t *c, filelist_entry_t *entry)
 static struct filelist_entry *
 browser_get_selected(const struct screen_browser *browser)
 {
-	if (browser->filelist == NULL)
+	if (browser->filelist == NULL ||
+	    browser->lw->selected >= filelist_length(browser->filelist))
 		return NULL;
 
 	return filelist_get(browser->filelist, browser->lw->selected);
