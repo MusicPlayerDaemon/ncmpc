@@ -25,5 +25,7 @@ automake --add-missing
 
 
 # configure
-echo "./configure $*"
-./configure $*
+if test x$NOCONFIGURE = x; then
+	echo "./configure $*"
+	./configure $*
+fi
