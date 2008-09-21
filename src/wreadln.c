@@ -33,11 +33,15 @@
 #endif
 
 #define KEY_CTRL_A   1
+#define KEY_CTRL_B   2
 #define KEY_CTRL_C   3
-#define KEY_CTRL_D   4 
+#define KEY_CTRL_D   4
 #define KEY_CTRL_E   5
+#define KEY_CTRL_F   6
 #define KEY_CTRL_G   7
 #define KEY_CTRL_K   11
+#define KEY_CTRL_N   14
+#define KEY_CTRL_P   16
 #define KEY_CTRL_U   21
 #define KEY_CTRL_Z   26
 #define KEY_BCKSPC   8
@@ -251,9 +255,11 @@ _wreadln(WINDOW *w,
 			return NULL;
 
 		case KEY_LEFT:
+		case KEY_CTRL_B:
 			cursor_move_left(&cursor, &start);
 			break;
 		case KEY_RIGHT:
+		case KEY_CTRL_F:
 			cursor_move_right(&cursor, &start, width, x0, x1, line);
 			break;
 		case KEY_HOME:
@@ -291,6 +297,7 @@ _wreadln(WINDOW *w,
 			}
 			break;
 		case KEY_UP:
+		case KEY_CTRL_P:
 			/* get previous history entry */
 			if( history && hlist->prev ) {
 				if( hlist==hcurrent )
@@ -305,6 +312,7 @@ _wreadln(WINDOW *w,
 			cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
 			break;
 		case KEY_DOWN:
+		case KEY_CTRL_N:
 			/* get next history entry */
 			if( history && hlist->next ) {
 				/* get next line */
