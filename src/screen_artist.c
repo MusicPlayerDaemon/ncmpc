@@ -121,6 +121,9 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 				mpdclient_filelist_search_utf8(c, TRUE,
 							       MPD_TABLE_ALBUM,
 							       album);
+		if (browser.filelist == NULL)
+			browser.filelist = filelist_new(NULL);
+
 		/* add a dummy entry for ".." */
 		filelist_prepend(browser.filelist, NULL);
 

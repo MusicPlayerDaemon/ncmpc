@@ -168,7 +168,7 @@ search_clear(mpd_unused screen_t *screen, mpdclient_t *c,
 	if (browser.filelist) {
 		mpdclient_remove_playlist_callback(c, playlist_changed_callback);
 		filelist_free(browser.filelist);
-		browser.filelist = NULL;
+		browser.filelist = filelist_new(NULL);
 	}
 	if (clear_pattern && pattern) {
 		g_free(pattern);
@@ -186,15 +186,23 @@ filelist_search(mpdclient_t *c, mpd_unused int exact_match, int table,
 	if (table == SEARCH_ARTIST_TITLE) {
 		list = mpdclient_filelist_search(c, FALSE, MPD_TABLE_ARTIST,
 						 local_pattern);
+		if (list == NULL)
+			list = filelist_new(NULL);
+
 		list2 = mpdclient_filelist_search(c, FALSE, MPD_TABLE_TITLE,
 						  local_pattern);
+		if (list2 != NULL) {
+			filelist_move(list, list2);
+			filelist_free(list2);
+		}
 
-		filelist_move(list, list2);
-		filelist_free(list2);
 		filelist_sort(list, compare_filelistentry_format);
 		list->updated = TRUE;
-	} else
+	} else {
 		list = mpdclient_filelist_search(c, FALSE, table, local_pattern);
+		if (list == NULL)
+			list = filelist_new(NULL);
+	}
 
 	return list;
 }
@@ -330,6 +338,9 @@ search_new(screen_t *screen, mpdclient_t *c)
 		browser.filelist = filelist_search(c, FALSE,
 						  mode[options.search_mode].table,
 						  pattern);
+
+	if (browser.filelist == NULL)
+		browser.filelist = filelist_new(NULL);
 
 	sync_highlights(c, browser.filelist);
 	mpdclient_install_playlist_callback(c, playlist_changed_callback);
