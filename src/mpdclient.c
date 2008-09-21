@@ -1,6 +1,4 @@
-/* 
- * $Id$
- *
+/*
  * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -35,7 +33,7 @@
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_DELETE
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_MOVE
 #define ENABLE_SONG_ID
-#define ENABLE_PLCHANGES 
+#define ENABLE_PLCHANGES
 
 #define BUFSIZE 1024
 
@@ -98,63 +96,49 @@ compare_filelistentry_format(gconstpointer filelist_entry1,
 static gint
 error_cb(mpdclient_t *c, gint error, gchar *msg)
 {
-  GList *list = c->error_callbacks;
-  
-  if( list==NULL )
-    fprintf(stderr, "error [%d]: %s\n", (error & 0xFF), msg);
+	GList *list = c->error_callbacks;
 
-  while(list)
-    {
-      mpdc_error_cb_t cb = list->data;
-      if( cb )
-	cb(c, error, msg);
-      list=list->next;
-    }
-  mpd_clearError(c->connection);
-  return error;
+	if (list == NULL)
+		fprintf(stderr, "error [%d]: %s\n", (error & 0xFF), msg);
+
+	while (list) {
+		mpdc_error_cb_t cb = list->data;
+		if (cb)
+			cb(c, error, msg);
+		list = list->next;
+	}
+
+	mpd_clearError(c->connection);
+	return error;
 }
 
-#ifndef NDEBUG
-// Unused ath the moment
-/*
-#include "strfsong.h"
-
-static gchar *
-get_song_name(mpd_Song *song)
-{
-  static gchar name[256];
-
-  strfsong(name, 256, "[%artist% - ]%title%|%file%", song);
-  return name;
-}
-*/
-#endif
 
 /****************************************************************************/
 /*** mpdclient functions ****************************************************/
 /****************************************************************************/
 
 gint
-mpdclient_finish_command(mpdclient_t *c) 
+mpdclient_finish_command(mpdclient_t *c)
 {
-  mpd_finishCommand(c->connection);
+	mpd_finishCommand(c->connection);
 
-  if( c->connection->error )
-    {
-      gchar *msg = locale_to_utf8(c->connection->errorStr);
-      gint error = c->connection->error;
-      if( error == MPD_ERROR_ACK )
-	error = error | (c->connection->errorCode << 8);
-      if(  c->connection->errorCode == MPD_ACK_ERROR_PERMISSION )
-	{
-	  if(screen_auth(c) == 0) return 0;
+	if (c->connection->error) {
+		gchar *msg = locale_to_utf8(c->connection->errorStr);
+		gint error = c->connection->error;
+
+		if (error == MPD_ERROR_ACK)
+			error = error | (c->connection->errorCode << 8);
+
+		if (c->connection->errorCode == MPD_ACK_ERROR_PERMISSION &&
+		    screen_auth(c) == 0)
+			return 0;
+
+		error_cb(c, error, msg);
+		g_free(msg);
+		return error;
 	}
-      error_cb(c, error, msg);
-      g_free(msg);
-      return error;
-    }
 
-  return 0;
+	return 0;
 }
 
 mpdclient_t *
@@ -355,86 +339,86 @@ mpdclient_cmd_prev(mpdclient_t *c)
 	return mpdclient_finish_command(c);
 }
 
-gint 
+gint
 mpdclient_cmd_seek(mpdclient_t *c, gint id, gint pos)
 {
-  D("Seek id:%d\n", id);
-  mpd_sendSeekIdCommand(c->connection, id, pos);
-  return mpdclient_finish_command(c);
+	D("Seek id:%d\n", id);
+	mpd_sendSeekIdCommand(c->connection, id, pos);
+	return mpdclient_finish_command(c);
 }
 
-gint 
+gint
 mpdclient_cmd_shuffle(mpdclient_t *c)
 {
-  mpd_sendShuffleCommand(c->connection);
-  c->need_update = TRUE;
-  return mpdclient_finish_command(c);
+	mpd_sendShuffleCommand(c->connection);
+	c->need_update = TRUE;
+	return mpdclient_finish_command(c);
 }
 
-gint 
+gint
 mpdclient_cmd_clear(mpdclient_t *c)
 {
-  gint retval = 0;
+	gint retval = 0;
 
-  mpd_sendClearCommand(c->connection);
-  retval = mpdclient_finish_command(c);
-  /* call playlist updated callback */
-  mpdclient_playlist_callback(c, PLAYLIST_EVENT_CLEAR, NULL);
-  c->need_update = TRUE;
-  return retval;
+	mpd_sendClearCommand(c->connection);
+	retval = mpdclient_finish_command(c);
+	/* call playlist updated callback */
+	mpdclient_playlist_callback(c, PLAYLIST_EVENT_CLEAR, NULL);
+	c->need_update = TRUE;
+	return retval;
 }
 
-gint 
+gint
 mpdclient_cmd_repeat(mpdclient_t *c, gint value)
 {
-  mpd_sendRepeatCommand(c->connection, value);
-  return mpdclient_finish_command(c);
+	mpd_sendRepeatCommand(c->connection, value);
+	return mpdclient_finish_command(c);
 }
 
-gint 
+gint
 mpdclient_cmd_random(mpdclient_t *c, gint value)
 {
-  mpd_sendRandomCommand(c->connection, value);
-  return mpdclient_finish_command(c);
+	mpd_sendRandomCommand(c->connection, value);
+	return mpdclient_finish_command(c);
 }
 
-gint 
+gint
 mpdclient_cmd_crossfade(mpdclient_t *c, gint value)
 {
-  mpd_sendCrossfadeCommand(c->connection, value);
-  return mpdclient_finish_command(c);
+	mpd_sendCrossfadeCommand(c->connection, value);
+	return mpdclient_finish_command(c);
 }
 
-gint 
+gint
 mpdclient_cmd_db_update_utf8(mpdclient_t *c, gchar *path)
 {
-  mpd_sendUpdateCommand(c->connection, path ? path : "");
-  return mpdclient_finish_command(c);
+	mpd_sendUpdateCommand(c->connection, path ? path : "");
+	return mpdclient_finish_command(c);
 }
 
-gint 
+gint
 mpdclient_cmd_volume(mpdclient_t *c, gint value)
 {
-  mpd_sendSetvolCommand(c->connection, value);
-  return mpdclient_finish_command(c);
+	mpd_sendSetvolCommand(c->connection, value);
+	return mpdclient_finish_command(c);
 }
 
-gint 
+gint
 mpdclient_cmd_add_path_utf8(mpdclient_t *c, gchar *path_utf8)
 {
-  mpd_sendAddCommand(c->connection, path_utf8);
-  return mpdclient_finish_command(c);
+	mpd_sendAddCommand(c->connection, path_utf8);
+	return mpdclient_finish_command(c);
 }
 
-gint 
+gint
 mpdclient_cmd_add_path(mpdclient_t *c, gchar *path)
 {
-  gint retval;
-  gchar *path_utf8 = locale_to_utf8(path);
+	gint retval;
+	gchar *path_utf8 = locale_to_utf8(path);
 
-  retval=mpdclient_cmd_add_path_utf8(c, path_utf8);
-  g_free(path_utf8);
-  return retval;
+	retval=mpdclient_cmd_add_path_utf8(c, path_utf8);
+	g_free(path_utf8);
+	return retval;
 }
 
 gint
@@ -554,127 +538,127 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 	return 0;
 }
 
-gint 
+gint
 mpdclient_cmd_save_playlist_utf8(mpdclient_t *c, gchar *filename_utf8)
 {
-  gint retval = 0;
+	gint retval = 0;
 
-  mpd_sendSaveCommand(c->connection, filename_utf8);
-  if( (retval=mpdclient_finish_command(c)) == 0 )
-    mpdclient_browse_callback(c, BROWSE_PLAYLIST_SAVED, NULL);
-  return retval;
+	mpd_sendSaveCommand(c->connection, filename_utf8);
+	if ((retval = mpdclient_finish_command(c)) == 0)
+		mpdclient_browse_callback(c, BROWSE_PLAYLIST_SAVED, NULL);
+	return retval;
 }
 
-gint 
+gint
 mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename)
 {
-  gint retval = 0;
-  gchar *filename_utf8 = locale_to_utf8(filename);
-  
-  retval = mpdclient_cmd_save_playlist_utf8(c, filename);
-  g_free(filename_utf8);
-  return retval;
+	gint retval = 0;
+	gchar *filename_utf8 = locale_to_utf8(filename);
+
+	retval = mpdclient_cmd_save_playlist_utf8(c, filename);
+	g_free(filename_utf8);
+	return retval;
 }
 
-gint 
+gint
 mpdclient_cmd_load_playlist_utf8(mpdclient_t *c, gchar *filename_utf8)
 {
-  mpd_sendLoadCommand(c->connection, filename_utf8);
-  c->need_update = TRUE;
-  return mpdclient_finish_command(c);
+	mpd_sendLoadCommand(c->connection, filename_utf8);
+	c->need_update = TRUE;
+	return mpdclient_finish_command(c);
 }
 
-gint 
+gint
 mpdclient_cmd_delete_playlist_utf8(mpdclient_t *c, gchar *filename_utf8)
 {
-  gint retval = 0;
+	gint retval = 0;
 
-  mpd_sendRmCommand(c->connection, filename_utf8);
-  if( (retval=mpdclient_finish_command(c)) == 0 )
-    mpdclient_browse_callback(c, BROWSE_PLAYLIST_DELETED, NULL);
-  return retval;
+	mpd_sendRmCommand(c->connection, filename_utf8);
+	if ((retval = mpdclient_finish_command(c)) == 0)
+		mpdclient_browse_callback(c, BROWSE_PLAYLIST_DELETED, NULL);
+	return retval;
 }
 
-gint 
+gint
 mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename)
 {
-  gint retval = 0;
-  gchar *filename_utf8 = locale_to_utf8(filename);
+	gint retval = 0;
+	gchar *filename_utf8 = locale_to_utf8(filename);
 
-  retval = mpdclient_cmd_delete_playlist_utf8(c, filename_utf8);
-  g_free(filename_utf8);
-  return retval;
+	retval = mpdclient_cmd_delete_playlist_utf8(c, filename_utf8);
+	g_free(filename_utf8);
+	return retval;
 }
 
 
 /****************************************************************************/
 /*** Callback managment functions *******************************************/
 /****************************************************************************/
+
 static void
 do_list_callbacks(mpdclient_t *c, GList *list, gint event, gpointer data)
 {
-  while(list)
-    {
-      mpdc_list_cb_t fn = list->data;
+	while (list) {
+		mpdc_list_cb_t fn = list->data;
 
-      fn(c, event, data);
-      list=list->next;
-    }
+		fn(c, event, data);
+		list = list->next;
+	}
 }
 
 void
 mpdclient_playlist_callback(mpdclient_t *c, int event, gpointer data)
 {
-  do_list_callbacks(c, c->playlist_callbacks, event, data);
+	do_list_callbacks(c, c->playlist_callbacks, event, data);
 }
 
 void
 mpdclient_install_playlist_callback(mpdclient_t *c,mpdc_list_cb_t cb)
 {
-  c->playlist_callbacks = g_list_append(c->playlist_callbacks, cb);
+	c->playlist_callbacks = g_list_append(c->playlist_callbacks, cb);
 }
 
 void
 mpdclient_remove_playlist_callback(mpdclient_t *c, mpdc_list_cb_t cb)
 {
-  c->playlist_callbacks = g_list_remove(c->playlist_callbacks, cb);
+	c->playlist_callbacks = g_list_remove(c->playlist_callbacks, cb);
 }
 
 void
 mpdclient_browse_callback(mpdclient_t *c, int event, gpointer data)
 {
-  do_list_callbacks(c, c->browse_callbacks, event, data);
+	do_list_callbacks(c, c->browse_callbacks, event, data);
 }
 
 
 void
 mpdclient_install_browse_callback(mpdclient_t *c,mpdc_list_cb_t cb)
 {
-  c->browse_callbacks = g_list_append(c->browse_callbacks, cb);
+	c->browse_callbacks = g_list_append(c->browse_callbacks, cb);
 }
 
 void
 mpdclient_remove_browse_callback(mpdclient_t *c, mpdc_list_cb_t cb)
 {
-  c->browse_callbacks = g_list_remove(c->browse_callbacks, cb);
+	c->browse_callbacks = g_list_remove(c->browse_callbacks, cb);
 }
 
 void
 mpdclient_install_error_callback(mpdclient_t *c, mpdc_error_cb_t cb)
 {
-  c->error_callbacks = g_list_append(c->error_callbacks, cb);
+	c->error_callbacks = g_list_append(c->error_callbacks, cb);
 }
 
 void
 mpdclient_remove_error_callback(mpdclient_t *c, mpdc_error_cb_t cb)
 {
-  c->error_callbacks = g_list_remove(c->error_callbacks, cb);
+	c->error_callbacks = g_list_remove(c->error_callbacks, cb);
 }
+
 
 /****************************************************************************/
 /*** Playlist managment functions *******************************************/
 /****************************************************************************/
-
 
 /* update playlist */
 gint
@@ -856,16 +840,15 @@ mpdclient_filelist_search(mpdclient_t *c,
 mpdclient_filelist_t *
 mpdclient_filelist_update(mpdclient_t *c, mpdclient_filelist_t *filelist)
 {
-  if( filelist != NULL )
-    {    
-      gchar *path = g_strdup(filelist->path);
+	if (filelist != NULL) {
+		gchar *path = g_strdup(filelist->path);
 
-      filelist_free(filelist);
-      filelist = mpdclient_filelist_get(c, path);
-      g_free(path);
-      return filelist;
-    }
-  return NULL;
+		filelist_free(filelist);
+		filelist = mpdclient_filelist_get(c, path);
+		g_free(path);
+		return filelist;
+	}
+	return NULL;
 }
 
 int
@@ -896,44 +879,33 @@ mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl)
 GList *
 mpdclient_get_artists_utf8(mpdclient_t *c)
 {
-  gchar *str = NULL; 
-  GList *list = NULL;
+	gchar *str = NULL;
+	GList *list = NULL;
 
-  D("mpdclient_get_artists()\n");
-  mpd_sendListCommand(c->connection, MPD_TABLE_ARTIST, NULL);
-  while( (str=mpd_getNextArtist(c->connection)) )
-    {
-      list = g_list_append(list, (gpointer) str);
-    }
-  if( mpdclient_finish_command(c) )
-    {
-      return string_list_free(list);
-    }  
+	D("mpdclient_get_artists()\n");
+	mpd_sendListCommand(c->connection, MPD_TABLE_ARTIST, NULL);
+	while ((str = mpd_getNextArtist(c->connection)))
+		list = g_list_append(list, (gpointer) str);
 
-  return list;
+	if (mpdclient_finish_command(c))
+		return string_list_free(list);
+
+	return list;
 }
 
 GList *
 mpdclient_get_albums_utf8(mpdclient_t *c, gchar *artist_utf8)
 {
-  gchar *str = NULL; 
-  GList *list = NULL;
+	gchar *str = NULL;
+	GList *list = NULL;
 
-  D("mpdclient_get_albums(%s)\n", artist_utf8);
-  mpd_sendListCommand(c->connection, MPD_TABLE_ALBUM, artist_utf8);
-  while( (str=mpd_getNextAlbum(c->connection)) )
-    {
-      list = g_list_append(list, (gpointer) str);
-    }
-  if( mpdclient_finish_command(c) )
-    {
-      return string_list_free(list);
-    }  
-  
-  return list;
+	D("mpdclient_get_albums(%s)\n", artist_utf8);
+	mpd_sendListCommand(c->connection, MPD_TABLE_ALBUM, artist_utf8);
+	while ((str = mpd_getNextAlbum(c->connection)))
+		list = g_list_append(list, (gpointer) str);
+
+	if (mpdclient_finish_command(c))
+		return string_list_free(list);
+
+	return list;
 }
-
-
-
-
-
