@@ -126,7 +126,8 @@ mpdclient_finish_command(mpdclient_t *c)
 		gint error = c->connection->error;
 		gchar *msg;
 
-		if (c->connection->errorCode == MPD_ACK_ERROR_PERMISSION &&
+		if (error == MPD_ERROR_ACK &&
+		    c->connection->errorCode == MPD_ACK_ERROR_PERMISSION &&
 		    screen_auth(c) == 0)
 			return 0;
 
