@@ -216,22 +216,14 @@ help_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 	wrefresh(lw->w);
 }
 
-static void
-help_update(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
-{
-	if (lw->repaint) {
-		list_window_paint(lw, list_callback, NULL);
-		wrefresh(lw->w);
-		lw->repaint = 0;
-	}
-}
-
-
 static int
 help_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 {
-	if (list_window_scroll_cmd(lw, help_text_rows, cmd))
+	if (list_window_scroll_cmd(lw, help_text_rows, cmd)) {
+		list_window_paint(lw, list_callback, NULL);
+		wrefresh(lw->w);
 		return 1;
+	}
 
 	lw->selected = lw->start+lw->rows;
 	if (screen_find(screen,
@@ -239,6 +231,8 @@ help_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 			cmd, list_callback, NULL)) {
 		/* center the row */
 		list_window_center(lw, help_text_rows, lw->selected);
+		list_window_paint(lw, list_callback, NULL);
+		wrefresh(lw->w);
 		return 1;
 	}
 
@@ -250,7 +244,6 @@ const struct screen_functions screen_help = {
 	.exit = help_exit,
 	.resize = help_resize,
 	.paint = help_paint,
-	.update = help_update,
 	.cmd = help_cmd,
 	.get_title = help_title,
 };
