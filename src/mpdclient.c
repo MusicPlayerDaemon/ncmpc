@@ -311,7 +311,6 @@ mpdclient_cmd_crop(mpdclient_t *c)
 
 	if (length <= 0) {
 		mpd_freeStatus(status);
-		screen_status_message("You have to have a playlist longer than 1 song in length to crop");
 	} else if (status->state == 3 || status->state == 2) {
 		/* If playing or paused */
 
@@ -328,7 +327,6 @@ mpdclient_cmd_crop(mpdclient_t *c)
 		mpd_freeStatus(status);
 	} else {
 		mpd_freeStatus(status);
-		screen_status_message("You need to be playing to crop the playlist\n");
 	}
 
 	return mpdclient_finish_command(c);
