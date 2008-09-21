@@ -21,6 +21,7 @@
 #include "support.h"
 #include "ncmpc.h"
 
+#include <assert.h>
 #include <time.h>
 #include <ctype.h>
 #include <stdio.h>
@@ -36,6 +37,8 @@ static gboolean noconvert = TRUE;
 size_t
 my_strlen(const char *str)
 {
+	assert(str != NULL);
+
 	if (g_utf8_validate(str, -1, NULL)) {
 		size_t len = g_utf8_strlen(str, -1);
 		size_t width = 0;
@@ -91,6 +94,8 @@ basename(char *path)
 {
 	char *end;
 
+	assert(path != NULL);
+
 	path = remove_trailing_slash(path);
 	end = path + strlen(path);
 
@@ -109,6 +114,9 @@ basename(char *path)
 char *
 strcasestr(const char *haystack, const char *needle)
 {
+	assert(haystack != NULL);
+	assert(needle != NULL);
+
 	return strstr(lowerstr(haystack), lowerstr(needle));
 }
 #endif /* HAVE_STRCASESTR */
@@ -119,6 +127,10 @@ strscroll(char *str, char *separator, int width, scroll_state_t *st)
 {
 	gchar *tmp, *buf;
 	gsize len, size;
+
+	assert(str != NULL);
+	assert(separator != NULL);
+	assert(st != NULL);
 
 	if( st->offset==0 ) {
 		st->offset++;
@@ -170,6 +182,8 @@ utf8_to_locale(const char *utf8str)
 	gsize rb, wb;
 	GError *error;
 
+	assert(utf8str != NULL);
+
 	if (noconvert)
 		return g_strdup(utf8str);
 
@@ -200,6 +214,8 @@ locale_to_utf8(const char *localestr)
 	gchar *str;
 	gsize rb, wb;
 	GError *error;
+
+	assert(localestr != NULL);
 
 	if (noconvert)
 		return g_strdup(localestr);
