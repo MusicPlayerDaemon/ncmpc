@@ -300,6 +300,41 @@ mpdclient_cmd_pause(mpdclient_t *c, gint value)
 }
 
 gint
+mpdclient_cmd_crop(mpdclient_t *c)
+{
+	mpd_Status *status;
+	int length;
+
+	mpd_sendStatusCommand(c->connection);
+	status = mpd_getStatus(c->connection);
+	length = status->playlistLength - 1;
+
+	if (length <= 0) {
+		mpd_freeStatus(status);
+		screen_status_message("You have to have a playlist longer than 1 song in length to crop");
+	} else if (status->state == 3 || status->state == 2) {
+		/* If playing or paused */
+
+		mpd_sendCommandListBegin( c->connection );
+
+		while (length >= 0) {
+			if (length != status->song)
+				mpd_sendDeleteCommand(c->connection, length);
+
+			length--;
+		}
+
+		mpd_sendCommandListEnd(c->connection);
+		mpd_freeStatus(status);
+	} else {
+		mpd_freeStatus(status);
+		screen_status_message("You need to be playing to crop the playlist\n");
+	}
+
+	return mpdclient_finish_command(c);
+}
+
+gint
 mpdclient_cmd_stop(mpdclient_t *c)
 {
 	mpd_sendStopCommand(c->connection);

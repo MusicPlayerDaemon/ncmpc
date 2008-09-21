@@ -46,6 +46,8 @@ gint mpdclient_update(mpdclient_t *c);
 /*** MPD Commands  **********************************************************/
 gint mpdclient_cmd_play(mpdclient_t *c, gint index);
 gint mpdclient_cmd_pause(mpdclient_t *c, gint value);
+gint
+mpdclient_cmd_crop(mpdclient_t *c);
 gint mpdclient_cmd_stop(mpdclient_t *c);
 gint mpdclient_cmd_next(mpdclient_t *c);
 gint mpdclient_cmd_prev(mpdclient_t *c);

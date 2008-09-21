@@ -814,6 +814,9 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_STOP:
 		mpdclient_cmd_stop(c);
 		break;
+	case CMD_CROP:
+		mpdclient_cmd_crop(c);
+		break;
 	case CMD_SEEK_FORWARD:
 		if (!IS_STOPPED(c->status->state)) {
 			if (c->song && seek_id != c->song->id) {

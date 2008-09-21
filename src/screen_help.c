@@ -67,6 +67,7 @@ static help_text_row_t help_text[] =
   { 2, CMD_NONE,           NULL },
   { 0, CMD_STOP,           NULL },
   { 0, CMD_PAUSE,          NULL },
+  { 0, CMD_CROP, NULL },
   { 0, CMD_TRACK_NEXT,     NULL },
   { 0, CMD_TRACK_PREVIOUS, NULL },
   { 0, CMD_SEEK_FORWARD,   NULL },

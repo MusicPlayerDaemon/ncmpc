@@ -102,6 +102,8 @@ static command_definition_t cmds[] =
     N_("Pause") },
   { { 's',  BS,   0 }, 0, CMD_STOP, "stop",   
     N_("Stop") },
+  { { 'o',  0,   0 }, 0, CMD_CROP, "crop",
+    N_("Crop") },
   { { '>',   0,   0 }, 0, CMD_TRACK_NEXT, "next", 
     N_("Next track") },
   { { '<',   0,   0 }, 0, CMD_TRACK_PREVIOUS, "prev", 
