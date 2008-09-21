@@ -123,16 +123,17 @@ mpdclient_finish_command(mpdclient_t *c)
 	mpd_finishCommand(c->connection);
 
 	if (c->connection->error) {
-		gchar *msg = locale_to_utf8(c->connection->errorStr);
 		gint error = c->connection->error;
-
-		if (error == MPD_ERROR_ACK)
-			error = error | (c->connection->errorCode << 8);
+		gchar *msg;
 
 		if (c->connection->errorCode == MPD_ACK_ERROR_PERMISSION &&
 		    screen_auth(c) == 0)
 			return 0;
 
+		if (error == MPD_ERROR_ACK)
+			error = error | (c->connection->errorCode << 8);
+
+		msg = locale_to_utf8(c->connection->errorStr);
 		error_cb(c, error, msg);
 		g_free(msg);
 		return error;
