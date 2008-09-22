@@ -336,6 +336,7 @@ main(int argc, const char *argv[])
 {
 	struct sigaction act;
 	const char *charset = NULL;
+	GIOChannel *keyboard_channel;
 
 #ifdef HAVE_LOCALE_H
 	/* time and date formatting */
@@ -431,8 +432,8 @@ main(int argc, const char *argv[])
 	main_loop = g_main_loop_new(NULL, FALSE);
 
 	/* watch out for keyboard input */
-	g_io_add_watch(g_io_channel_unix_new(STDIN_FILENO), G_IO_IN,
-		       keyboard_event, NULL);
+	keyboard_channel = g_io_channel_unix_new(STDIN_FILENO);
+	g_io_add_watch(keyboard_channel, G_IO_IN, keyboard_event, NULL);
 
 	/* attempt to connect */
 	reconnect_source_id = g_timeout_add(1, timer_reconnect, NULL);
@@ -444,7 +445,11 @@ main(int argc, const char *argv[])
 	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
 
 	g_main_loop_run(main_loop);
+
+	/* cleanup */
+
 	g_main_loop_unref(main_loop);
+	g_io_channel_unref(keyboard_channel);
 
 	exit_and_cleanup();
 }
