@@ -2,16 +2,15 @@ dnl
 dnl  $Id$
 dnl
 
-AC_INIT
+AC_INIT(ncurses MPD client, 0.12~git, max@duempel.org, ncmpc)
 AC_CONFIG_SRCDIR([src/main.c])
-AM_INIT_AUTOMAKE([ncmpc], [0.12~git])
+AM_INIT_AUTOMAKE([1.7 dist-bzip2])
 AM_CONFIG_HEADER([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
 dnl Check for programs
 AC_PROG_CC_C99
 AC_PROG_INSTALL
-dnl AC_PROG_LIBTOOL
 AC_PROG_LIBTOOL
 
 dnl =======================================================
