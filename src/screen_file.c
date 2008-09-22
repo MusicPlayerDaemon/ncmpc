@@ -226,7 +226,6 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_SCREEN_UPDATE:
 		screen->painted = 0;
 		browser.lw->clear = 1;
-		browser.lw->repaint = 1;
 		browser.filelist = mpdclient_filelist_update(c, browser.filelist);
 		list_window_check_selected(browser.lw,
 					   filelist_length(browser.filelist));

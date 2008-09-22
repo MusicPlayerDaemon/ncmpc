@@ -163,7 +163,6 @@ browse_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
 	case BROWSE_DB_UPDATED:
 		D("screen_artist.c> browse_callback() [BROWSE_DB_UPDATED]\n");
 		browser.lw->clear = 1;
-		browser.lw->repaint = 1;
 		update_metalist(c, g_strdup(artist), g_strdup(album));
 		break;
 	default:
@@ -420,7 +419,6 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_SCREEN_UPDATE:
 		screen->painted = 0;
 		browser.lw->clear = 1;
-		browser.lw->repaint = 1;
 		update_metalist(c, g_strdup(artist), g_strdup(album));
 		screen_status_printf(_("Screen updated!"));
 		return 0;

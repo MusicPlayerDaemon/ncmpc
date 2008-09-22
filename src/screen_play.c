@@ -71,7 +71,6 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 	}
 	/* make shure the playlist is repainted */
 	lw->clear = 1;
-	lw->repaint = 1;
 	list_window_check_selected(lw, c->playlist.list->len);
 }
 
@@ -145,7 +144,6 @@ save_post_completion_cb(mpd_unused GCompletion *gcmp, mpd_unused gchar *line,
 	if( g_list_length(items)>=1 ) {
 		screen_display_completion_list(screen, items);
 		lw->clear = 1;
-		lw->repaint = 1;
 	}
 }
 
@@ -276,7 +274,6 @@ static void add_post_completion_cb(GCompletion *gcmp, gchar *line,
     {
       screen_display_completion_list(screen, items);
       lw->clear = 1;
-      lw->repaint = 1;
     }
 
   if( line && line[0] && line[strlen(line)-1]=='/' &&
@@ -410,10 +407,9 @@ play_update(screen_t *screen, mpdclient_t *c)
 
 		play_paint(screen, c);
 		playlist_id = c->playlist.id;
-	} else if( lw->repaint || 1) {
+	} else {
 		list_window_paint(lw, list_callback, (void *) c);
 		wnoutrefresh(lw->w);
-		lw->repaint = 0;
 	}
 }
 
@@ -477,7 +473,6 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_SCREEN_UPDATE:
 		screen->painted = 0;
 		lw->clear = 1;
-		lw->repaint = 1;
 		center_playing_item(c);
 		return 1;
 	case CMD_LIST_MOVE_UP:
