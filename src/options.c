@@ -66,21 +66,20 @@ static const arg_opt_t option_table[] = {
 	{ 'K', "dump-keys", NULL, "Dump key bindings to stdout" },
 	{ 'D', "debug", NULL, "Enable debug output on stderr" },
 #endif
-	{ 0, NULL, NULL, NULL },
 };
+
+static const unsigned option_table_size = sizeof(option_table) / sizeof(option_table[0]);
 
 static const arg_opt_t *
 lookup_option(int s, char *l)
 {
-	int i;
+	unsigned i;
 
-	i=0;
-	while (option_table[i].descrition) {
+	for (i = 0; i < option_table_size; ++i) {
 		if (l && strcmp(l, option_table[i].longopt) == 0)
 			return &option_table[i];;
 		if (s && s == option_table[i].shortopt)
 			return &option_table[i];;
-		i++;
 	}
 
 	return NULL;
@@ -113,10 +112,11 @@ option_error(int error, const char *option, const char *arg)
 static void
 display_help(void)
 {
-	int i = 0;
+	unsigned i;
 
 	printf("Usage: %s [OPTION]...\n", PACKAGE);
-	while (option_table[i].descrition) {
+
+	for (i = 0; i < option_table_size; ++i) {
 		char tmp[MAX_LONGOPT_LENGTH];
 
 		if (option_table[i].argument)
