@@ -16,7 +16,6 @@
 struct window {
 	WINDOW *w;
 	int rows, cols;
-	int cur_action_id;
 };
 
 typedef struct screen {
