@@ -46,7 +46,7 @@ typedef void (*option_callback_fn_t)(int c, const char *arg);
 
 options_t options;
 
-static arg_opt_t option_table[] = {
+static const arg_opt_t option_table[] = {
 	{ '?', "help", NULL, "Show this help message" },
 	{ 'V', "version", NULL, "Display version information" },
 	{ 'c', "colors", NULL, "Enable colors" },
@@ -69,7 +69,7 @@ static arg_opt_t option_table[] = {
 	{ 0, NULL, NULL, NULL },
 };
 
-static arg_opt_t *
+static const arg_opt_t *
 lookup_option(int s, char *l)
 {
 	int i;
@@ -226,7 +226,7 @@ options_t *
 options_parse(int argc, const char *argv[])
 {
 	int i;
-	arg_opt_t *opt = NULL;
+	const arg_opt_t *opt = NULL;
 	option_callback_fn_t option_cb = handle_option;
 
 	i=1;
