@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh -e
 
 # Generate config.h.in
 echo "touch stamp-h"
