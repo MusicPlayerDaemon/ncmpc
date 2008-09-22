@@ -28,7 +28,8 @@ typedef struct screen {
 	/* GTime is equivalent to time_t */
 	GTime start_timestamp;
 	GTime status_timestamp;
-	GTime last_cmd;
+
+	command_t last_cmd;
 
 	int cols, rows;
 
