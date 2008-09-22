@@ -100,6 +100,8 @@ screen_getstr(WINDOW *w, const char *prompt)
 static char *
 screen_read_password(WINDOW *w, const char *prompt)
 {
+	char *ret;
+
 	if (w == NULL) {
 		int rows, cols;
 		getmaxyx(stdscr, rows, cols);
@@ -114,11 +116,12 @@ screen_read_password(WINDOW *w, const char *prompt)
 	colors_use(w, COLOR_STATUS_ALERT);
 
 	if (prompt == NULL)
-		return wreadln_masked(w, _("Password: "), NULL, COLS, NULL, NULL);
+		ret = wreadln_masked(w, _("Password: "), NULL, COLS, NULL, NULL);
 	else
-		return wreadln_masked(w, prompt, NULL, COLS, NULL, NULL);
+		ret = wreadln_masked(w, prompt, NULL, COLS, NULL, NULL);
 
 	curs_set(0);
+	return ret;
 }
 
 static gint
