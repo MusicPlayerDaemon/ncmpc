@@ -422,7 +422,8 @@ handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
 	unsigned selected;
 	unsigned long bstate;
 
-	if (screen_get_mouse_event(c, lw, c->playlist.list->len, &bstate, &row))
+	if (screen_get_mouse_event(c, &bstate, &row) ||
+	    list_window_mouse(lw, c->playlist.list->len, bstate, row))
 		return 1;
 
 	if (bstate & BUTTON1_DOUBLE_CLICKED) {

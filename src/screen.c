@@ -737,9 +737,7 @@ screen_idle(mpdclient_t *c)
 
 #ifdef HAVE_GETMOUSE
 int
-screen_get_mouse_event(mpdclient_t *c,
-		       list_window_t *lw, int lw_length,
-		       unsigned long *bstate, int *row)
+screen_get_mouse_event(mpdclient_t *c, unsigned long *bstate, int *row)
 {
 	MEVENT event;
 
@@ -753,24 +751,6 @@ screen_get_mouse_event(mpdclient_t *c,
 	/* if button 2 was pressed switch screen */
 	if (event.bstate & BUTTON2_CLICKED) {
 		screen_cmd(c, CMD_SCREEN_NEXT);
-		return 1;
-	}
-
-	/* if the even occured above the list window move up */
-	if (*row < 0 && lw) {
-		if (event.bstate & BUTTON3_CLICKED)
-			list_window_first(lw);
-		else
-			list_window_previous_page(lw);
-		return 1;
-	}
-
-	/* if the even occured below the list window move down */
-	if ((unsigned)*row >= lw->rows && lw) {
-		if (event.bstate & BUTTON3_CLICKED)
-			list_window_last(lw, lw_length);
-		else
-			list_window_next_page(lw, lw_length);
 		return 1;
 	}
 

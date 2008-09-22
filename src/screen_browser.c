@@ -423,7 +423,8 @@ browser_handle_mouse_event(struct screen_browser *browser, mpdclient_t *c)
 	else
 		length = 0;
 
-	if( screen_get_mouse_event(c, browser->lw, length, &bstate, &row) )
+	if (screen_get_mouse_event(c, &bstate, &row) ||
+	    list_window_mouse(browser->lw, length, bstate, row))
 		return 1;
 
 	browser->lw->selected = browser->lw->start + row;

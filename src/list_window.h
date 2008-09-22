@@ -1,6 +1,7 @@
 #ifndef LIST_WINDOW_H
 #define LIST_WINDOW_H
 
+#include "../config.h"
 #include "command.h"
 
 #include <ncurses.h>
@@ -55,6 +56,16 @@ int list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd);
  */
 int
 list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd);
+
+#ifdef HAVE_GETMOUSE
+/**
+ * The mouse was clicked.  Check if the list should be scrolled
+ * Returns non-zero if the mouse event has been handled.
+ */
+int
+list_window_mouse(struct list_window *lw, unsigned rows,
+		  unsigned long bstate, int y);
+#endif
 
 void
 list_window_center(struct list_window *lw, unsigned rows, unsigned n);

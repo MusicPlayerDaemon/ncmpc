@@ -13,8 +13,6 @@
 
 #define MAX_SONGNAME_LENGTH   512
 
-struct list_window;
-
 struct window {
 	WINDOW *w;
 	int rows, cols;
@@ -83,8 +81,6 @@ gint screen_get_id(const char *name);
 
 
 gint get_cur_mode_id(void);
-int screen_get_mouse_event(mpdclient_t *c,
-			   struct list_window *lw, int lw_length, 
-			   unsigned long *bstate, int *row);
+int screen_get_mouse_event(mpdclient_t *c, unsigned long *bstate, int *row);
 
 #endif

@@ -25,6 +25,7 @@
 #include "command.h"
 #include "colors.h"
 
+#include <assert.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
@@ -361,6 +362,35 @@ list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 	lw->repaint = lw->clear = 1;
 	return 1;
 }
+
+#ifdef HAVE_GETMOUSE
+int
+list_window_mouse(struct list_window *lw, unsigned rows,
+		  unsigned long bstate, int y)
+{
+	assert(lw != NULL);
+
+	/* if the even occured above the list window move up */
+	if (y < 0) {
+		if (bstate & BUTTON3_CLICKED)
+			list_window_first(lw);
+		else
+			list_window_previous_page(lw);
+		return 1;
+	}
+
+	/* if the even occured below the list window move down */
+	if ((unsigned)y >= rows) {
+		if (bstate & BUTTON3_CLICKED)
+			list_window_last(lw, rows);
+		else
+			list_window_next_page(lw, rows);
+		return 1;
+	}
+
+	return 0;
+}
+#endif
 
 list_window_state_t *
 list_window_init_state(void)
