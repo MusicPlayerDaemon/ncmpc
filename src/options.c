@@ -1,6 +1,4 @@
-/* 
- * $Id$
- *
+/*
  * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -49,181 +47,179 @@ typedef void (*option_callback_fn_t)(int c, const char *arg);
 options_t options;
 
 static arg_opt_t option_table[] = {
-  { '?', "help",     NULL,   "Show this help message" },
-  { 'V', "version",  NULL,   "Display version information" },
-  { 'c', "colors",   NULL,   "Enable colors" },
-  { 'C', "no-colors", NULL,  "Disable colors" },
+	{ '?', "help", NULL, "Show this help message" },
+	{ 'V', "version", NULL, "Display version information" },
+	{ 'c', "colors", NULL, "Enable colors" },
+	{ 'C', "no-colors", NULL, "Disable colors" },
 #ifdef HAVE_GETMOUSE
-  { 'm', "mouse",    NULL,   "Enable mouse" },
-  { 'M', "no-mouse", NULL,   "Disable mouse" },
+	{ 'm', "mouse", NULL, "Enable mouse" },
+	{ 'M', "no-mouse", NULL, "Disable mouse" },
 #endif
-  { 'e', "exit",     NULL,   "Exit on connection errors" },
-  { 'p', "port",  "PORT", "Connect to server on port [" DEFAULT_PORT_STR "]" },
-  { 'h', "host",  "HOST", "Connect to server on host [" DEFAULT_HOST "]" },
-  { 'P', "password","PASSWORD", "Connect with password" },
-  { 'f', "config",  "FILE",     "Read configuration from file" },
-  { 'k', "key-file","FILE",     "Read configuration from file" },
-  { 'S', "no-splash", NULL, "Don't show the splash screen" },
+	{ 'e', "exit", NULL, "Exit on connection errors" },
+	{ 'p', "port", "PORT", "Connect to server on port [" DEFAULT_PORT_STR "]" },
+	{ 'h', "host", "HOST", "Connect to server on host [" DEFAULT_HOST "]" },
+	{ 'P', "password","PASSWORD", "Connect with password" },
+	{ 'f', "config", "FILE", "Read configuration from file" },
+	{ 'k', "key-file","FILE", "Read configuration from file" },
+	{ 'S', "no-splash", NULL, "Don't show the splash screen" },
 #ifndef NDEBUG
-  { 'K', "dump-keys", NULL,     "Dump key bindings to stdout" },
-  { 'D', "debug",   NULL,   "Enable debug output on stderr" },
+	{ 'K', "dump-keys", NULL, "Dump key bindings to stdout" },
+	{ 'D', "debug", NULL, "Enable debug output on stderr" },
 #endif
-  { 0, NULL, NULL, NULL },
+	{ 0, NULL, NULL, NULL },
 };
 
 static arg_opt_t *
 lookup_option(int s, char *l)
 {
-  int i;
+	int i;
 
-  i=0;
-  while( option_table[i].descrition )
-    {
-      if( l && strcmp(l, option_table[i].longopt) == 0 )
-	return &option_table[i];;
-      if( s && s==option_table[i].shortopt )
-	return &option_table[i];;
-      i++;
-    }
-  return NULL;
+	i=0;
+	while (option_table[i].descrition) {
+		if (l && strcmp(l, option_table[i].longopt) == 0)
+			return &option_table[i];;
+		if (s && s == option_table[i].shortopt)
+			return &option_table[i];;
+		i++;
+	}
+
+	return NULL;
 }
 
 static void
 option_error(int error, const char *option, const char *arg)
 {
-  switch(error)
-    {
-    case ERROR_UNKNOWN_OPTION:
-      fprintf(stderr, PACKAGE ": invalid option %s\n", option);
-      break;
-    case ERROR_BAD_ARGUMENT:
-      fprintf(stderr, PACKAGE ": bad argument: %s\n", option);
-      break;
-    case ERROR_GOT_ARGUMENT:
-      fprintf(stderr, PACKAGE ": invalid option %s=%s\n", option, arg);
-      break;
-    case ERROR_MISSING_ARGUMENT:
-      fprintf(stderr, PACKAGE ": missing value for %s option\n", option);
-      break;
-    default:
-      fprintf(stderr, PACKAGE ": internal error %d\n", error);
-      break;
-    }
-  exit(EXIT_FAILURE);
+	switch (error) {
+	case ERROR_UNKNOWN_OPTION:
+		fprintf(stderr, PACKAGE ": invalid option %s\n", option);
+		break;
+	case ERROR_BAD_ARGUMENT:
+		fprintf(stderr, PACKAGE ": bad argument: %s\n", option);
+		break;
+	case ERROR_GOT_ARGUMENT:
+		fprintf(stderr, PACKAGE ": invalid option %s=%s\n", option, arg);
+		break;
+	case ERROR_MISSING_ARGUMENT:
+		fprintf(stderr, PACKAGE ": missing value for %s option\n", option);
+		break;
+	default:
+		fprintf(stderr, PACKAGE ": internal error %d\n", error);
+		break;
+	}
+
+	exit(EXIT_FAILURE);
 }
 
-static void 
+static void
 display_help(void)
 {
-  int i = 0;
+	int i = 0;
 
-  printf("Usage: %s [OPTION]...\n", PACKAGE);
-  while( option_table[i].descrition )
-    {
-      char tmp[MAX_LONGOPT_LENGTH];
+	printf("Usage: %s [OPTION]...\n", PACKAGE);
+	while (option_table[i].descrition) {
+		char tmp[MAX_LONGOPT_LENGTH];
 
-      if( option_table[i].argument )
-	g_snprintf(tmp, MAX_LONGOPT_LENGTH, "%s=%s", 
-		   option_table[i].longopt, 
-		   option_table[i].argument);
-      else
-	g_strlcpy(tmp, option_table[i].longopt, 64);
+		if (option_table[i].argument)
+			g_snprintf(tmp, MAX_LONGOPT_LENGTH, "%s=%s",
+				   option_table[i].longopt,
+				   option_table[i].argument);
+		else
+			g_strlcpy(tmp, option_table[i].longopt, 64);
 
-      printf("  -%c, --%-20s %s\n", 
-	     option_table[i].shortopt, 
-	     tmp,
-	     option_table[i].descrition);
-      i++;
-    }
+		printf("  -%c, --%-20s %s\n",
+		       option_table[i].shortopt,
+		       tmp,
+		       option_table[i].descrition);
+		i++;
+	}
 }
 
-static void 
+static void
 handle_option(int c, const char *arg)
 {
-  D("option callback -%c %s\n", c, arg);
-  switch(c)
-    {
-    case '?': /* --help */
-      display_help();
-      exit(EXIT_SUCCESS);
-    case 'V': /* --version */
-      printf("%s version: %s\n", PACKAGE, VERSION);
-      printf("build options:");
+	D("option callback -%c %s\n", c, arg);
+	switch (c) {
+	case '?': /* --help */
+		display_help();
+		exit(EXIT_SUCCESS);
+	case 'V': /* --version */
+		printf("%s version: %s\n", PACKAGE, VERSION);
+		printf("build options:");
 #ifndef NDEBUG
-      printf(" debug");
+		printf(" debug");
 #endif
 #ifdef ENABLE_NLS
-      printf(" nls");
+		printf(" nls");
 #endif
 #ifdef HAVE_GETMOUSE
-      printf(" getmouse");
+		printf(" getmouse");
 #endif
 #ifdef ENABLE_ARTIST_SCREEN
-      printf(" artist-screen");
+		printf(" artist-screen");
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
-      printf(" search-screen");
+		printf(" search-screen");
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
-      printf(" key-screen");
+		printf(" key-screen");
 #endif
-      printf("\n");
-      exit(EXIT_SUCCESS);
-    case 'c': /* --colors */
-      options.enable_colors = TRUE;
-      break;
-    case 'C': /* --no-colors */
-      options.enable_colors = FALSE;
-      break;
-    case 'm': /* --mouse */
-     options.enable_mouse = TRUE;
-      break;
-    case 'M': /* --no-mouse */
-      options.enable_mouse = FALSE;
-      break;
-    case 'e': /* --exit */
-      options.reconnect = FALSE;
-      break;
-    case 'p': /* --port */
-      options.port = atoi(arg);
-      break;
-    case 'h': /* --host */
-      if( options.host )
-	g_free(options.host);
-      options.host = g_strdup(arg);
-      break;
-    case 'P': /* --password */
-      if( options.password )
-	g_free(options.password);
-      options.password = locale_to_utf8(arg);
-      break;
-    case 'f': /* --config */
-      if( options.config_file )
-	g_free(options.config_file);
-      options.config_file = g_strdup(arg);
-      break;
-    case 'k': /* --key-file */
-      if( options.key_file )
-	g_free(options.key_file);
-      options.key_file = g_strdup(arg);
-      break;
-    case 'S': /* --key-file */
-      /* the splash screen was removed */
-      break;
+		printf("\n");
+		exit(EXIT_SUCCESS);
+	case 'c': /* --colors */
+		options.enable_colors = TRUE;
+		break;
+	case 'C': /* --no-colors */
+		options.enable_colors = FALSE;
+		break;
+	case 'm': /* --mouse */
+		options.enable_mouse = TRUE;
+		break;
+	case 'M': /* --no-mouse */
+		options.enable_mouse = FALSE;
+		break;
+	case 'e': /* --exit */
+		options.reconnect = FALSE;
+		break;
+	case 'p': /* --port */
+		options.port = atoi(arg);
+		break;
+	case 'h': /* --host */
+		if( options.host )
+			g_free(options.host);
+		options.host = g_strdup(arg);
+		break;
+	case 'P': /* --password */
+		if( options.password )
+			g_free(options.password);
+		options.password = locale_to_utf8(arg);
+		break;
+	case 'f': /* --config */
+		if( options.config_file )
+			g_free(options.config_file);
+		options.config_file = g_strdup(arg);
+		break;
+	case 'k': /* --key-file */
+		if( options.key_file )
+			g_free(options.key_file);
+		options.key_file = g_strdup(arg);
+		break;
+	case 'S': /* --key-file */
+		/* the splash screen was removed */
+		break;
 #ifndef NDEBUG
-    case 'K': /* --dump-keys */
-      read_configuration(&options);
-      write_key_bindings(stdout, KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
-      exit(EXIT_SUCCESS);
-      break;
-    case 'D': /* --debug */
-      options.debug = TRUE;
-      break;
+	case 'K': /* --dump-keys */
+		read_configuration(&options);
+		write_key_bindings(stdout, KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
+		exit(EXIT_SUCCESS);
+		break;
+	case 'D': /* --debug */
+		options.debug = TRUE;
+		break;
 #endif
-    default:
-      fprintf(stderr,"Unknown Option %c = %s\n", c, arg);
-      break;
-    }
+	default:
+		fprintf(stderr,"Unknown Option %c = %s\n", c, arg);
+		break;
+	}
 }
 
 options_t *
@@ -276,23 +272,23 @@ options_parse(int argc, const char *argv[])
 
 			for(j=1; j<len; j++) {
 				/* make shure we got an argument for the previous option */
-				if( opt && opt->argument )
+				if (opt && opt->argument)
 					option_error(ERROR_MISSING_ARGUMENT,
 						     opt->longopt, opt->argument);
 
 				/* check if the option exists */
-				if( (opt=lookup_option(arg[j], NULL))==NULL )
+				if ((opt=lookup_option(arg[j], NULL)) == NULL)
 					option_error(ERROR_UNKNOWN_OPTION, arg, NULL);
 
 				/* if no option argument is needed execute callback */
-				if( opt->argument==NULL ) {
+				if (opt->argument == NULL) {
 					option_cb (opt->shortopt, NULL);
 					opt = NULL;
 				}
 			}
 		} else {
 			/* is this a option argument? */
-			if( opt && opt->argument) {
+			if (opt && opt->argument) {
 				option_cb (opt->shortopt, arg);
 				opt = NULL;
 			} else
@@ -301,9 +297,9 @@ options_parse(int argc, const char *argv[])
 		i++;
 	}
 
-	if( opt && opt->argument==NULL)
+	if (opt && opt->argument == NULL)
 		option_cb (opt->shortopt, NULL);
-	else if( opt && opt->argument )
+	else if (opt && opt->argument)
 		option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
 
 	return  &options;
@@ -318,12 +314,12 @@ options_init( void )
 	memset(&options, 0, sizeof(options_t));
 
 	/* get initial values for host and password from MPD_HOST (enviroment) */
-	if ((value=g_getenv(MPD_HOST_ENV)))
+	if ((value = g_getenv(MPD_HOST_ENV)))
 		options.host = g_strdup(value);
 	else
 		options.host = g_strdup(DEFAULT_HOST);
 
-	if ((tmp=g_strstr_len(options.host, strlen(options.host), "@"))) {
+	if ((tmp = g_strstr_len(options.host, strlen(options.host), "@"))) {
 		char *oldhost = options.host;
 		*tmp  = '\0';
 		options.password = locale_to_utf8(oldhost);
@@ -332,7 +328,7 @@ options_init( void )
 	}
 
 	/* get initial values for port from MPD_PORT (enviroment) */
-	if ((value=g_getenv(MPD_PORT_ENV)))
+	if ((value = g_getenv(MPD_PORT_ENV)))
 		options.port = atoi(value);
 	else
 		options.port = DEFAULT_PORT;
