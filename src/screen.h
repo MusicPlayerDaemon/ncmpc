@@ -15,7 +15,7 @@
 
 struct window {
 	WINDOW *w;
-	int rows, cols;
+	unsigned rows, cols;
 };
 
 typedef struct screen {
@@ -30,7 +30,7 @@ typedef struct screen {
 
 	command_t last_cmd;
 
-	int cols, rows;
+	unsigned cols, rows;
 
 	int mode;
 

@@ -215,10 +215,10 @@ void
 screen_display_completion_list(screen_t *screen, GList *list)
 {
 	static GList *prev_list = NULL;
-	static gint prev_length = 0;
-	static gint offset = 0;
+	static guint prev_length = 0;
+	static guint offset = 0;
 	WINDOW *w = screen->main_window.w;
-	gint length, y=0;
+	guint length, y=0;
 
 	length = g_list_length(list);
 	if (list == prev_list && length == prev_length) {
