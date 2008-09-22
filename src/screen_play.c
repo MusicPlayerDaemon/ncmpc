@@ -471,10 +471,9 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		handle_add_to_playlist(screen, c);
 		return 1;
 	case CMD_SCREEN_UPDATE:
-		screen->painted = 0;
-		lw->clear = 1;
 		center_playing_item(c);
-		return 1;
+		return 0;
+
 	case CMD_LIST_MOVE_UP:
 		mpdclient_cmd_move(c, lw->selected, lw->selected-1);
 		return 1;

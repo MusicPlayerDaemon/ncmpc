@@ -417,8 +417,6 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 		/* continue and update... */
 	case CMD_SCREEN_UPDATE:
-		screen->painted = 0;
-		browser.lw->clear = 1;
 		update_metalist(c, g_strdup(artist), g_strdup(album));
 		screen_status_printf(_("Screen updated!"));
 		return 0;

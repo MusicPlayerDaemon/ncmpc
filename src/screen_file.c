@@ -224,13 +224,12 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		handle_save(screen, c);
 		break;
 	case CMD_SCREEN_UPDATE:
-		screen->painted = 0;
-		browser.lw->clear = 1;
 		browser.filelist = mpdclient_filelist_update(c, browser.filelist);
 		list_window_check_selected(browser.lw,
 					   filelist_length(browser.filelist));
 		screen_status_printf(_("Screen updated!"));
-		return 1;
+		return 0;
+
 	case CMD_DB_UPDATE:
 		if (c->status == NULL)
 			return 1;
