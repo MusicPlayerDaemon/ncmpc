@@ -38,6 +38,7 @@ typedef struct {
 	gboolean enable_mouse;
 	gboolean scroll;
 	gboolean visible_bitrate;
+	gboolean welcome_screen_list;
 } options_t;
 
 #ifndef NO_GLOBAL_OPTIONS

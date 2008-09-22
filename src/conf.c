@@ -71,6 +71,7 @@
 #define CONF_SCROLL                  "scroll"
 #define CONF_SCROLL_SEP              "scroll-sep"
 #define CONF_VISIBLE_BITRATE         "visible-bitrate"
+#define CONF_WELCOME_SCREEN_LIST     "welcome-screen-list"
 
 typedef enum {
   KEY_PARSER_UNKNOWN,
@@ -463,6 +464,10 @@ read_rc_file(char *filename, options_t *options)
 		{
 		  options->wide_cursor = str2bool(value);
 		}
+	      /* welcome screen list */
+	      else if (!strcasecmp(CONF_WELCOME_SCREEN_LIST, name)) {
+	          options->welcome_screen_list = str2bool(value);
+	      }
 	      /* visible bitrate */
 	      else if (!strcasecmp(CONF_VISIBLE_BITRATE, name)) {
 		      options->visible_bitrate = str2bool(value);

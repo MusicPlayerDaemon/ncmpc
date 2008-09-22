@@ -341,6 +341,7 @@ options_init( void )
 	options.reconnect = TRUE;
 	options.find_wrap = TRUE;
 	options.wide_cursor = TRUE;
+	options.welcome_screen_list = TRUE;
 	options.audible_bell = TRUE;
 	options.crossfade_time = DEFAULT_CROSSFADE_TIME;
 	options.seek_time = 1;

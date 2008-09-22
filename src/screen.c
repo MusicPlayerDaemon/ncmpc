@@ -724,7 +724,8 @@ screen_update(mpdclient_t *c)
 	}
 
 	/* update title/header window */
-	if (welcome && screen.last_cmd==CMD_NONE &&
+	if (welcome && options.welcome_screen_list &&
+	    screen.last_cmd==CMD_NONE &&
 	    time(NULL)-screen.start_timestamp <= SCREEN_WELCOME_TIME)
 		paint_top_window("", c, 0);
 	else if (mode_fn->get_title != NULL) {
