@@ -20,6 +20,7 @@ ncmpc_headers = \
   options.h\
   conf.h\
   command.h\
+	ncu.h \
   screen.h\
   screen_utils.h\
   list_window.h\
@@ -51,6 +52,7 @@ ncmpc_SOURCES = \
   options.c\
   conf.c\
   command.c\
+	ncu.c \
   screen.c\
   screen_utils.c\
   screen_play.c\

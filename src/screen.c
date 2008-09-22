@@ -429,8 +429,6 @@ screen_exit(void)
 {
 	guint i;
 
-	endwin();
-
 	if (mode_fn->close != NULL)
 		mode_fn->close();
 
@@ -531,30 +529,9 @@ screen_status_printf(const char *format, ...)
 }
 
 void
-ncurses_init(void)
+screen_init(mpdclient_t *c)
 {
-
-	/* initialize the curses library */
-	initscr();
-	/* initialize color support */
-	colors_start();
-	/* tell curses not to do NL->CR/NL on output */
-	nonl();
-	/*  use raw mode (ignore interrupt,quit,suspend, and flow control ) */
-#ifdef ENABLE_RAW_MODE
-	//  raw();
-#endif
-	/* don't echo input */
-	noecho();
-	/* set cursor invisible */
-	curs_set(0);
-	/* enable extra keys */
-	keypad(stdscr, TRUE);
-	/* initialize mouse support */
-#ifdef HAVE_GETMOUSE
-	if (options.enable_mouse)
-		mousemask(ALL_MOUSE_EVENTS, NULL);
-#endif
+	guint i;
 
 	if (COLS < SCREEN_MIN_COLS || LINES < SCREEN_MIN_ROWS) {
 		fprintf(stderr, _("Error: Screen to small!\n"));
@@ -624,12 +601,6 @@ ncurses_init(void)
 	}
 
 	refresh();
-}
-
-void
-screen_init(mpdclient_t *c)
-{
-	guint i;
 
 	/* initialize screens */
 	for (i = 0; i < NUM_SCREENS; ++i) {

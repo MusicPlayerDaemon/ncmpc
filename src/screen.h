@@ -69,9 +69,6 @@ typedef struct screen_functions {
 	screen_title_fn_t  get_title;
 } screen_functions_t;
 
-void
-ncurses_init(void);
-
 void screen_init(mpdclient_t *c);
 void screen_exit(void);
 void screen_resize(void);

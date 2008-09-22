@@ -26,6 +26,7 @@
 #include "conf.h"
 #include "command.h"
 #include "lyrics.h"
+#include "ncu.h"
 #include "screen.h"
 #include "screen_utils.h"
 #include "strfsong.h"
@@ -417,7 +418,7 @@ main(int argc, const char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	ncurses_init();
+	ncu_init();
 
 	lyrics_init();
 
@@ -452,4 +453,5 @@ main(int argc, const char *argv[])
 	g_io_channel_unref(keyboard_channel);
 
 	exit_and_cleanup();
+	ncu_deinit();
 }
