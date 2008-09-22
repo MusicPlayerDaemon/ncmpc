@@ -50,6 +50,7 @@ typedef struct
   mpdclient_t *c;
 } completion_callback_data_t;
 
+static GTime input_timestamp;
 static list_window_t *lw = NULL;
 static long long playlist_id;
 
@@ -338,6 +339,8 @@ play_open(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	static gboolean install_cb = TRUE;
 
+	input_timestamp = time(NULL);
+
 	if (install_cb) {
 		mpdclient_install_playlist_callback(c, playlist_changed_callback);
 		install_cb = FALSE;
@@ -383,7 +386,7 @@ play_update(screen_t *screen, mpdclient_t *c)
 	/* hide the cursor when mpd are playing and the user are inactive */
 	if (options.hide_cursor > 0 &&
 	    (c->status != NULL && c->status->state == MPD_STATUS_STATE_PLAY) &&
-	    time(NULL)-screen->input_timestamp >= options.hide_cursor ) {
+	    time(NULL) - input_timestamp >= options.hide_cursor ) {
 		lw->flags |= LW_HIDE_CURSOR;
 	} else {
 		lw->flags &= ~LW_HIDE_CURSOR;
@@ -456,6 +459,8 @@ handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
 static int
 play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
+	input_timestamp = time(NULL);
+
 	switch(cmd) {
 	case CMD_PLAY:
 		mpdclient_cmd_play(c, lw->selected);

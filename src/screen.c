@@ -547,7 +547,6 @@ screen_init(mpdclient_t *c)
 	screen.findbuf = NULL;
 	screen.painted = 0;
 	screen.start_timestamp = time(NULL);
-	screen.input_timestamp = time(NULL);
 	screen.last_cmd = CMD_NONE;
 
 	/* create top window */
@@ -858,7 +857,6 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 void
 screen_cmd(mpdclient_t *c, command_t cmd)
 {
-	screen.input_timestamp = time(NULL);
 	screen.last_cmd = cmd;
 	welcome = FALSE;
 
