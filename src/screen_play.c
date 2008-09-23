@@ -400,11 +400,7 @@ play_update(screen_t *screen, mpdclient_t *c)
 	}
 
 	if (c->playlist.id != playlist_id) {
-		if (lw->selected >= c->playlist.list->len)
-			lw->selected = c->playlist.list->len - 1;
-		if (lw->start >= c->playlist.list->len)
-			list_window_reset(lw);
-
+		list_window_check_selected(lw, playlist_length(&c->playlist));
 		play_paint(screen, c);
 		playlist_id = c->playlist.id;
 	} else {
