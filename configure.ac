@@ -126,21 +126,6 @@ else
   AM_PO_SUBDIRS
 fi
 
-dnl check for gthreads
-PKG_CHECK_MODULES([GTHREAD], 
-		  [gthread-2.0],
-		  [gthread=yes],
-		  [AC_MSG_WARN([gthread-2.0 >= 0.20 is required the lyrics screen])])
-AC_SUBST(GTHREAD_LIBS)
-AC_SUBST(GTHREAD_CFLAGS)
-		  
-#if test "x$gthread-2.0" != "xyes"; then
-#  PKG_CHECK_MODULES([GTHREAD], 
-#		     [glib-2.0 >= 2.2],
-#		     [nls=no],
-#		     [AC_MSG_ERROR([glib-2.2 is required])])
-#fi
-
 dnl disbale raw mode
 AC_MSG_CHECKING([Place the terminal into raw mode])
 AC_ARG_ENABLE([raw-mode],
