@@ -76,14 +76,14 @@ screen_lyrics_clear(void)
 {
 	guint i;
 
-	assert(current.loader == NULL ||
-	       lyrics_result(current.loader) == LYRICS_SUCCESS);
-
 	for (i = 0; i < current.lines->len; ++i)
 		g_free(g_ptr_array_index(current.lines, i));
 
 	g_ptr_array_set_size(current.lines, 0);
 }
+
+static const char *
+list_callback(unsigned idx, int *highlight, void *data);
 
 static void
 screen_lyrics_set(const GString *str)
@@ -122,32 +122,30 @@ screen_lyrics_set(const GString *str)
 
 	if (*p != 0)
 		g_ptr_array_add(current.lines, g_strdup(p));
+
+	/* paint new data */
+
+	if (get_cur_mode_id() == 104) { /* XXX don't use the literal number */
+		lw->clear = 1;
+		list_window_paint(lw, list_callback, NULL);
+		wrefresh(lw->w);
+
+		/* XXX repaint the screen title */
+	}
 }
 
-static int
-screen_lyrics_poll(void)
+static void
+screen_lyrics_callback(const GString *result, mpd_unused void *data)
 {
 	assert(current.loader != NULL);
 
-	switch (lyrics_result(current.loader)) {
-	case LYRICS_BUSY:
-		return 0;
-
-	case LYRICS_SUCCESS:
-		screen_lyrics_set(lyrics_get(current.loader));
-		lyrics_free(current.loader);
-		current.loader = NULL;
-		return 1;
-
-	case LYRICS_FAILED:
-		lyrics_free(current.loader);
-		current.loader = NULL;
+	if (result != NULL)
+		screen_lyrics_set(result);
+	else
 		screen_status_message (_("No lyrics"));
-		return -1;
-	}
 
-	assert(0);
-	return -1;
+	lyrics_free(current.loader);
+	current.loader = NULL;
 }
 
 static void
@@ -168,7 +166,8 @@ screen_lyrics_load(struct mpd_song *song)
 	strfsong(buffer, sizeof(buffer), "%title%", song);
 	current.title = g_strdup(buffer);
 
-	current.loader = lyrics_load(current.artist, current.title);
+	current.loader = lyrics_load(current.artist, current.title,
+				     screen_lyrics_callback, NULL);
 }
 
 static void lyrics_paint(screen_t *screen, mpdclient_t *c);
@@ -246,8 +245,6 @@ lyrics_open(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	if (c->song != NULL && c->song != current.song)
 		screen_lyrics_load(c->song);
-	else if (current.loader != NULL)
-		screen_lyrics_poll();
 }
 
 
@@ -292,14 +289,6 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		return 1;
 
 	switch(cmd) {
-	case CMD_SELECT:
-		/* XXX */
-		if (current.loader != NULL) {
-			int ret = screen_lyrics_poll();
-			if (ret != 0)
-				lyrics_paint(NULL, NULL);
-		}
-		return 1;
 	case CMD_INTERRUPT:
 		if (current.loader != NULL) {
 			screen_lyrics_abort();

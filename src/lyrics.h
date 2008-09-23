@@ -21,11 +21,7 @@
 
 #include <glib.h>
 
-enum lyrics_loader_result {
-	LYRICS_SUCCESS,
-	LYRICS_BUSY,
-	LYRICS_FAILED
-};
+typedef void (*lyrics_callback_t)(const GString *result, void *data);
 
 struct lyrics_loader;
 
@@ -34,15 +30,10 @@ void lyrics_init(void);
 void lyrics_deinit(void);
 
 struct lyrics_loader *
-lyrics_load(const char *artist, const char *title);
+lyrics_load(const char *artist, const char *title,
+	    lyrics_callback_t callback, void *callback_data);
 
 void
 lyrics_free(struct lyrics_loader *loader);
-
-enum lyrics_loader_result
-lyrics_result(struct lyrics_loader *loader);
-
-const GString *
-lyrics_get(struct lyrics_loader *loader);
 
 #endif
