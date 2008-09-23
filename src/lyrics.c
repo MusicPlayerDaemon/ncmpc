@@ -18,6 +18,7 @@
 
 #include "lyrics.h"
 #include "gcc.h"
+#include "../config.h"
 
 #include <assert.h>
 #include <stdlib.h>
@@ -62,12 +63,26 @@ static int lyrics_register_plugin(const char *path0)
 
 void lyrics_init(void)
 {
+	GDir *dir;
+
 	plugins = g_ptr_array_new();
 
-	/* XXX configurable paths */
-	lyrics_register_plugin("./lyrics/hd.py");
-	lyrics_register_plugin("./lyrics/leoslyrics.py");
-	lyrics_register_plugin("./lyrics/lyricswiki.rb");
+	dir = g_dir_open(LYRICS_PLUGIN_DIR, 0, NULL);
+	if (dir != NULL) {
+		const char *name;
+		char path[sizeof(LYRICS_PLUGIN_DIR) + 128];
+
+		memcpy(path, LYRICS_PLUGIN_DIR, sizeof(LYRICS_PLUGIN_DIR) - 1);
+		path[sizeof(LYRICS_PLUGIN_DIR) - 1] = G_DIR_SEPARATOR;
+
+		while ((name = g_dir_read_name(dir)) != NULL) {
+			g_strlcpy(path + sizeof(LYRICS_PLUGIN_DIR), name,
+				  sizeof(path) - sizeof(LYRICS_PLUGIN_DIR));
+			lyrics_register_plugin(path);
+		}
+
+		g_dir_close(dir);
+	}
 }
 
 void lyrics_deinit(void)
