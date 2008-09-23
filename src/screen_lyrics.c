@@ -79,8 +79,6 @@ screen_lyrics_clear(void)
 	assert(current.loader == NULL ||
 	       lyrics_result(current.loader) == LYRICS_SUCCESS);
 
-	current.song = NULL;
-
 	for (i = 0; i < current.lines->len; ++i)
 		g_free(g_ptr_array_index(current.lines, i));
 
@@ -161,6 +159,8 @@ screen_lyrics_load(struct mpd_song *song)
 
 	screen_lyrics_abort();
 	screen_lyrics_clear();
+
+	current.song = song;
 
 	strfsong(buffer, sizeof(buffer), "%artist%", song);
 	current.artist = g_strdup(buffer);
