@@ -17,6 +17,7 @@
  */
 
 #include "lyrics.h"
+#include "gcc.h"
 
 #include <assert.h>
 #include <stdlib.h>
@@ -25,7 +26,6 @@
 #include <sys/stat.h>
 #include <sys/signal.h>
 #include <sys/wait.h>
-#include <pthread.h>
 
 static GPtrArray *plugins;
 
@@ -34,11 +34,12 @@ struct lyrics_loader {
 
 	enum lyrics_loader_result result;
 
-	pthread_t thread;
-	pthread_mutex_t mutex;
+	guint next_plugin;
 
 	pid_t pid;
 	int fd;
+	GIOChannel *channel;
+	guint event_id;
 
 	GString *data;
 };
@@ -77,6 +78,62 @@ void lyrics_deinit(void)
 	g_ptr_array_free(plugins, TRUE);
 }
 
+static void
+lyrics_next_plugin(struct lyrics_loader *loader);
+
+static void
+lyrics_eof(struct lyrics_loader *loader)
+{
+	int ret, status;
+
+	g_io_channel_unref(loader->channel);
+	close(loader->fd);
+	loader->fd = -1;
+
+	ret = waitpid(loader->pid, &status, 0);
+	loader->pid = -1;
+
+	if (ret < 0 || !WIFEXITED(status) || WEXITSTATUS(status) != 0) {
+		g_string_free(loader->data, TRUE);
+		loader->data = NULL;
+
+		lyrics_next_plugin(loader);
+	} else {
+		loader->result = LYRICS_SUCCESS;
+	}
+}
+
+static gboolean
+lyrics_data(mpd_unused GIOChannel *source,
+	    mpd_unused GIOCondition condition, gpointer data)
+{
+	struct lyrics_loader *loader = data;
+	char buffer[256];
+	ssize_t nbytes;
+
+	assert(loader != NULL);
+	assert(loader->result = LYRICS_BUSY);
+	assert(loader->fd >= 0);
+	assert(loader->pid > 0);
+	assert(source == loader->channel);
+
+	if ((condition & G_IO_IN) == 0) {
+		lyrics_eof(loader);
+		return FALSE;
+	}
+
+	nbytes = condition & G_IO_IN
+		? read(loader->fd, buffer, sizeof(buffer))
+		: 0;
+	if (nbytes <= 0) {
+		lyrics_eof(loader);
+		return FALSE;
+	}
+
+	g_string_append_len(loader->data, buffer, nbytes);
+	return TRUE;
+}
+
 static int
 lyrics_start_plugin(struct lyrics_loader *loader, const char *plugin_path)
 {
@@ -86,6 +143,8 @@ lyrics_start_plugin(struct lyrics_loader *loader, const char *plugin_path)
 	assert(loader != NULL);
 	assert(loader->result == LYRICS_BUSY);
 	assert(loader->pid < 0);
+	assert(loader->fd < 0);
+	assert(loader->data == NULL);
 
 	ret = pipe(fds);
 	if (ret < 0)
@@ -120,65 +179,42 @@ lyrics_start_plugin(struct lyrics_loader *loader, const char *plugin_path)
 
 	/* XXX CLOEXEC? */
 
-	return 0;
-}
-
-static int
-lyrics_try_plugin(struct lyrics_loader *loader, const char *plugin_path)
-{
-	int ret, status;
-	char buffer[256];
-	ssize_t nbytes;
-
-	assert(loader != NULL);
-	assert(loader->fd >= 0);
-
-	ret = lyrics_start_plugin(loader, plugin_path);
-	if (ret != 0)
-		return ret;
-
-	assert(loader->pid > 0);
-
-	while ((nbytes = read(loader->fd, buffer, sizeof(buffer))) > 0)
-		g_string_append_len(loader->data, buffer, nbytes);
-
-	ret = waitpid(loader->pid, &status, 0);
-	loader->pid = -1;
-
-	if (ret < 0 || !WIFEXITED(status) || WEXITSTATUS(status) != 0) {
-		g_string_free(loader->data, TRUE);
-		return -1;
-	}
+	loader->channel = g_io_channel_unix_new(loader->fd);
+	loader->event_id = g_io_add_watch(loader->channel, G_IO_IN|G_IO_HUP,
+					  lyrics_data, loader);
 
 	return 0;
 }
 
-static void *
-lyrics_thread(void *arg)
+static void
+lyrics_next_plugin(struct lyrics_loader *loader)
 {
-	struct lyrics_loader *loader = arg;
-	guint next_plugin = 0;
+	const char *plugin_path;
 	int ret = -1;
 
-	while (next_plugin < plugins->len && ret != 0) {
-		const char *plugin_path = g_ptr_array_index(plugins,
-							    next_plugin++);
-		ret = lyrics_try_plugin(loader, plugin_path);
-		assert(loader->pid < 0);
+	assert(loader->pid < 0);
+	assert(loader->fd < 0);
+	assert(loader->data == NULL);
+
+	if (loader->next_plugin >= plugins->len) {
+		/* no plugins left */
+		loader->result = LYRICS_FAILED;
+		return;
 	}
 
-	pthread_mutex_lock(&loader->mutex);
-	loader->result = ret == 0 ? LYRICS_SUCCESS : LYRICS_FAILED;
-	loader->thread = 0;
-	pthread_mutex_unlock(&loader->mutex);
-	return NULL;
+	plugin_path = g_ptr_array_index(plugins, loader->next_plugin++);
+	ret = lyrics_start_plugin(loader, plugin_path);
+	if (ret < 0) {
+		/* system error */
+		loader->result = LYRICS_FAILED;
+		return;
+	}
 }
 
 struct lyrics_loader *
 lyrics_load(const char *artist, const char *title)
 {
 	struct lyrics_loader *loader = g_new(struct lyrics_loader, 1);
-	int ret;
 
 	assert(artist != NULL);
 	assert(title != NULL);
@@ -189,15 +225,12 @@ lyrics_load(const char *artist, const char *title)
 	loader->artist = g_strdup(artist);
 	loader->title = g_strdup(title);
 	loader->result = LYRICS_BUSY;
+	loader->next_plugin = 0;
 	loader->pid = -1;
+	loader->fd = -1;
+	loader->data = NULL;
 
-	pthread_mutex_init(&loader->mutex, NULL);
-
-	ret = pthread_create(&loader->thread, NULL, lyrics_thread, loader);
-	if (ret != 0) {
-		lyrics_free(loader);
-		return NULL;
-	}
+	lyrics_next_plugin(loader);
 
 	return loader;
 }
@@ -205,19 +238,20 @@ lyrics_load(const char *artist, const char *title)
 void
 lyrics_free(struct lyrics_loader *loader)
 {
-	pid_t pid = loader->pid;
-	pthread_t thread = loader->thread;
+	if (loader->fd >= 0) {
+		g_source_remove(loader->event_id);
+		g_io_channel_unref(loader->channel);
+		close(loader->fd);
+	}
 
-	if (pid > 0)
-		kill(pid, SIGTERM);
+	if (loader->pid > 0) {
+		int status;
 
-	if (loader->thread != 0)
-		pthread_join(thread, NULL);
+		kill(loader->pid, SIGTERM);
+		waitpid(loader->pid, &status, 0);
+	}
 
-	assert(loader->pid < 0);
-	assert(loader->thread == 0);
-
-	if (loader->result == LYRICS_SUCCESS && loader->data != NULL)
+	if (loader->data != NULL)
 		g_string_free(loader->data, TRUE);
 }
 
@@ -230,13 +264,8 @@ lyrics_result(struct lyrics_loader *loader)
 const GString *
 lyrics_get(struct lyrics_loader *loader)
 {
-	/* sync with thread */
-	pthread_mutex_lock(&loader->mutex);
-	pthread_mutex_unlock(&loader->mutex);
-
 	assert(loader->result == LYRICS_SUCCESS);
 	assert(loader->pid < 0);
-	assert(loader->thread == 0);
 	assert(loader->data != NULL);
 
 	return loader->data;
