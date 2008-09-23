@@ -72,12 +72,6 @@ list_window_center(struct list_window *lw, unsigned rows, unsigned n);
 
 /* select functions */
 void list_window_set_selected(struct list_window *lw, unsigned n);
-void list_window_previous(struct list_window *lw, unsigned length);
-void list_window_next(struct list_window *lw, unsigned length);
-void list_window_first(struct list_window *lw);
-void list_window_last(struct list_window *lw, unsigned length);
-void list_window_previous_page(struct list_window *lw);
-void list_window_next_page(struct list_window *lw, unsigned length);
 void list_window_check_selected(struct list_window *lw, unsigned length);
 
 /* find a string in a list window */

@@ -104,7 +104,7 @@ list_window_set_selected(struct list_window *lw, unsigned n)
 	lw->selected = n;
 }
 
-void
+static void
 list_window_next(struct list_window *lw, unsigned length)
 {
 	if (lw->selected + 1 < length)
@@ -113,7 +113,7 @@ list_window_next(struct list_window *lw, unsigned length)
 		lw->selected = 0;
 }
 
-void
+static void
 list_window_previous(struct list_window *lw, unsigned length)
 {
 	if (lw->selected > 0)
@@ -122,14 +122,14 @@ list_window_previous(struct list_window *lw, unsigned length)
 		lw->selected = length - 1;
 }
 
-void
+static void
 list_window_first(struct list_window *lw)
 {
 	lw->xoffset = 0;
 	lw->selected = 0;
 }
 
-void
+static void
 list_window_last(struct list_window *lw, unsigned length)
 {
 	lw->xoffset = 0;
@@ -139,7 +139,7 @@ list_window_last(struct list_window *lw, unsigned length)
 		lw->selected = 0;
 }
 
-void
+static void
 list_window_next_page(struct list_window *lw, unsigned length)
 {
 	if (lw->rows < 2)
@@ -150,7 +150,7 @@ list_window_next_page(struct list_window *lw, unsigned length)
 		list_window_last(lw, length);
 }
 
-void
+static void
 list_window_previous_page(struct list_window *lw)
 {
 	if (lw->rows < 2)
