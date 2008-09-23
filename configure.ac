@@ -253,20 +253,6 @@ if test "x$lyrics_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
    lyrics_screen=no
 fi
-#lyrics_screen=yes
-#if test "x$libcurl" != "xyes" ; then
-# AC_MSG_RESULT([$lyrics_screen])  
- # AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
-  # lyrics_screen=no
-#fi
-if test "x$gthread" != "xyes" ; then
-   AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
-   lyrics_screen=no
-fi
-#if test "x$have_expat" != "xyes" ; then
-#   AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
-#   lyrics_screen=no
-#fi
 
 AC_MSG_RESULT([$lyrics_screen])
 
