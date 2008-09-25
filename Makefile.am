@@ -18,6 +18,8 @@ doc_DATA = \
 EXTRA_DIST = \
   $(doc_DATA)
 
+sparse-check:
+	$(MAKE) -C src $@
 
 #
 # lyrics plugins
