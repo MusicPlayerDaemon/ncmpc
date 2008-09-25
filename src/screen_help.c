@@ -210,7 +210,6 @@ help_title(mpd_unused char *str, mpd_unused size_t size)
 static void
 help_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
-	lw->clear = 1;
 	list_window_paint(lw, list_callback, NULL);
 	wrefresh(lw->w);
 }

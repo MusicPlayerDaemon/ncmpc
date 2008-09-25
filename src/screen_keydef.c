@@ -134,7 +134,6 @@ delete_key(int cmd_index, int key_index)
 	cmds[cmd_index].keys[key_index] = 0;
 	cmds[cmd_index].flags |= COMMAND_KEY_MODIFIED;
 	check_subcmd_length();
-	lw->clear = 1;
 	lw->repaint = 1;
 	/* update key conflict flags */
 	check_key_bindings(cmds, NULL, 0);
@@ -281,7 +280,6 @@ keydef_title(char *str, size_t size)
 static void
 keydef_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
-	lw->clear = 1;
 	list_window_paint(lw, list_callback, NULL);
 	wrefresh(lw->w);
 }
@@ -327,7 +325,6 @@ keydef_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 					       lw->selected - STATIC_SUB_ITEMS);
 		}
 		lw->repaint = 1;
-		lw->clear = 1;
 		return 1;
 	case CMD_DELETE:
 		if (subcmd >= 0 && lw->selected >= STATIC_SUB_ITEMS)

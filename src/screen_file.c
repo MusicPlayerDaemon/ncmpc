@@ -177,8 +177,6 @@ browse_title(char *str, size_t size)
 static void
 browse_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
-	browser.lw->clear = 1;
-
 	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
 	wnoutrefresh(browser.lw->w);
 }

@@ -126,7 +126,6 @@ screen_lyrics_set(const GString *str)
 	/* paint new data */
 
 	if (get_cur_mode_id() == 104) { /* XXX don't use the literal number */
-		lw->clear = 1;
 		list_window_paint(lw, list_callback, NULL);
 		wrefresh(lw->w);
 
@@ -265,7 +264,6 @@ lyrics_title(char *str, size_t size)
 static void
 lyrics_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
-	lw->clear = 1;
 	list_window_paint(lw, list_callback, NULL);
 	wrefresh(lw->w);
 }

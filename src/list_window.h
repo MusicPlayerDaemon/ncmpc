@@ -22,7 +22,6 @@ typedef struct list_window {
 	unsigned start;
 	unsigned selected;
 	unsigned xoffset;
-	int clear;
 	int repaint;
 	int flags;
 } list_window_t;
@@ -39,7 +38,7 @@ struct list_window *list_window_init(WINDOW *w,
 /* destroy a list window (returns NULL) */
 void list_window_free(struct list_window *lw);
 
-/* reset a list window (selected=0, start=0, clear=1) */
+/* reset a list window (selected=0, start=0) */
 void list_window_reset(struct list_window *lw);
 
 /* paint a list window */

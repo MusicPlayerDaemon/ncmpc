@@ -389,8 +389,6 @@ resize(int cols, int rows)
 static void
 paint(mpd_unused screen_t *screen, mpdclient_t *c)
 {
-	browser.lw->clear = 1;
-
 	if (browser.filelist) {
 		browser.lw->flags = 0;
 		list_window_paint(browser.lw, browser_lw_callback, browser.filelist);

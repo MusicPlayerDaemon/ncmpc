@@ -150,7 +150,6 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 		mode = LIST_ARTISTS;
 	}
 	metalist_length = g_list_length(metalist);
-	browser.lw->clear = TRUE;
 }
 
 /* db updated */
@@ -160,7 +159,6 @@ browse_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
 	switch(event) {
 	case BROWSE_DB_UPDATED:
 		D("screen_artist.c> browse_callback() [BROWSE_DB_UPDATED]\n");
-		browser.lw->clear = 1;
 		update_metalist(c, g_strdup(artist), g_strdup(album));
 		break;
 	default:
@@ -215,8 +213,6 @@ resize(int cols, int rows)
 static void
 paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
-	browser.lw->clear = 1;
-
 	if (browser.filelist) {
 		list_window_paint(browser.lw, browser_lw_callback,
 				  browser.filelist);

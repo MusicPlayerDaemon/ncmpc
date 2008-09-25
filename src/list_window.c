@@ -41,7 +41,6 @@ list_window_init(WINDOW *w, unsigned width, unsigned height)
 	lw->w = w;
 	lw->cols = width;
 	lw->rows = height;
-	lw->clear = 1;
 	return lw;
 }
 
@@ -60,7 +59,6 @@ list_window_reset(struct list_window *lw)
 	lw->selected = 0;
 	lw->xoffset = 0;
 	lw->start = 0;
-	lw->clear = 1;
 }
 
 void
@@ -95,7 +93,7 @@ list_window_center(struct list_window *lw, unsigned rows, unsigned n)
 			lw->start = 0;
 	}
 
-	lw->repaint = lw->clear = 1;
+	lw->repaint = 1;
 }
 
 void
@@ -172,15 +170,11 @@ list_window_paint(struct list_window *lw,
 	int show_cursor = !(lw->flags & LW_HIDE_CURSOR);
 
 	if (show_cursor) {
-		if (lw->selected < lw->start) {
+		if (lw->selected < lw->start)
 			lw->start = lw->selected;
-			lw->clear=1;
-		}
 
-		if (lw->selected >= lw->start + lw->rows) {
+		if (lw->selected >= lw->start + lw->rows)
 			lw->start = lw->selected - lw->rows + 1;
-			lw->clear=1;
-		}
 	}
 
 	for (i = 0; i < lw->rows; i++) {
@@ -189,8 +183,6 @@ list_window_paint(struct list_window *lw,
 
 		label = callback(lw->start + i, &highlight, callback_data);
 		wmove(lw->w, i, 0);
-		if( lw->clear && (!fill || !label) )
-			wclrtoeol(lw->w);
 
 		if (label) {
 			int selected = lw->start + i == lw->selected;
@@ -211,10 +203,12 @@ list_window_paint(struct list_window *lw,
 
 			if (selected)
 				wattroff(lw->w, A_REVERSE);
-		}
-	}
 
-	lw->clear=0;
+			if (!fill && len < lw->cols)
+				wclrtoeol(lw->w);
+		} else
+			wclrtoeol(lw->w);
+	}
 }
 
 int
@@ -359,7 +353,7 @@ list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 		return 0;
 	}
 
-	lw->repaint = lw->clear = 1;
+	lw->repaint = 1;
 	return 1;
 }
 
