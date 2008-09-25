@@ -54,6 +54,22 @@ typedef void (*screen_update_fn_t)(mpdclient_t *c);
 typedef int (*screen_cmd_fn_t)(struct screen *scr, mpdclient_t *c, command_t cmd);
 typedef const char *(*screen_title_fn_t)(char *s, size_t size);
 
+extern const struct screen_functions screen_playlist;
+extern const struct screen_functions screen_browse;
+#ifdef ENABLE_ARTIST_SCREEN
+extern const struct screen_functions screen_artist;
+#endif
+extern const struct screen_functions screen_help;
+#ifdef ENABLE_SEARCH_SCREEN
+extern const struct screen_functions screen_search;
+#endif
+#ifdef ENABLE_KEYDEF_SCREEN
+extern const struct screen_functions screen_keydef;
+#endif
+#ifdef ENABLE_LYRICS_SCREEN
+extern const struct screen_functions screen_lyrics;
+#endif
+
 typedef struct screen_functions {
 	screen_init_fn_t   init;
 	screen_exit_fn_t   exit;

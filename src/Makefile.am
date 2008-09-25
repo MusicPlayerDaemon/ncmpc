@@ -22,6 +22,7 @@ ncmpc_headers = \
   command.h\
 	ncu.h \
   screen.h\
+	screen_list.h \
   screen_utils.h\
   list_window.h\
   colors.h\
@@ -54,6 +55,7 @@ ncmpc_SOURCES = \
   command.c\
 	ncu.c \
   screen.c\
+	screen_list.c \
   screen_utils.c\
   screen_play.c\
 	screen_browser.c\

@@ -19,6 +19,7 @@
  */
 
 #include "screen.h"
+#include "screen_list.h"
 #include "screen_utils.h"
 #include "config.h"
 #include "ncmpc.h"
@@ -38,59 +39,7 @@
 #include <time.h>
 #include <locale.h>
 
-#define SCREEN_PLAYLIST_ID     0
-#define SCREEN_BROWSE_ID       1
-#define SCREEN_ARTIST_ID       2
-#define SCREEN_HELP_ID         100
-#define SCREEN_KEYDEF_ID       101
-#define SCREEN_SEARCH_ID       103
-#define SCREEN_LYRICS_ID	   104
-
-
-
 /* screens */
-extern const struct screen_functions screen_playlist;
-extern const struct screen_functions screen_browse;
-#ifdef ENABLE_ARTIST_SCREEN
-extern const struct screen_functions screen_artist;
-#endif
-extern const struct screen_functions screen_help;
-#ifdef ENABLE_SEARCH_SCREEN
-extern const struct screen_functions screen_search;
-#endif
-#ifdef ENABLE_KEYDEF_SCREEN
-extern const struct screen_functions screen_keydef;
-#endif
-#ifdef ENABLE_LYRICS_SCREEN
-extern const struct screen_functions screen_lyrics;
-#endif
-
-typedef struct screen_functions * (*screen_get_mode_functions_fn_t) (void);
-
-static const struct
-{
-	gint id;
-	const gchar *name;
-	const struct screen_functions *functions;
-} screens[] = {
-	{ SCREEN_PLAYLIST_ID, "playlist", &screen_playlist },
-	{ SCREEN_BROWSE_ID, "browse", &screen_browse },
-#ifdef ENABLE_ARTIST_SCREEN
-	{ SCREEN_ARTIST_ID, "artist", &screen_artist },
-#endif
-	{ SCREEN_HELP_ID, "help", &screen_help },
-#ifdef ENABLE_SEARCH_SCREEN
-	{ SCREEN_SEARCH_ID, "search", &screen_search },
-#endif
-#ifdef ENABLE_KEYDEF_SCREEN
-	{ SCREEN_KEYDEF_ID, "keydef", &screen_keydef },
-#endif
-#ifdef ENABLE_LYRICS_SCREEN
-	{ SCREEN_LYRICS_ID, "lyrics", &screen_lyrics },
-#endif
-};
-
-#define NUM_SCREENS (sizeof(screens) / sizeof(screens[0]))
 
 static gboolean welcome = TRUE;
 static struct screen screen;
@@ -98,33 +47,9 @@ static const struct screen_functions *mode_fn = &screen_playlist;
 static int seek_id = -1;
 static int seek_target_time = 0;
 
-gint
-screen_get_id(const char *name)
-{
-	guint i;
-
-	for (i = 0; i < NUM_SCREENS; ++i)
-		if (strcmp(name, screens[i].name) == 0)
-			return screens[i].id;
-
-	return -1;
-}
-
-static gint
-lookup_mode(gint id)
-{
-	guint i;
-
-	for (i = 0; i < NUM_SCREENS; ++i)
-		if (screens[i].id == id)
-			return i;
-
-	return -1;
-}
-
 gint get_cur_mode_id(void)
 {
-	return screens[screen.mode].id;
+	return screen_get_id_by_index(screen.mode);
 }
 
 static void
@@ -132,7 +57,7 @@ switch_screen_mode(gint id, mpdclient_t *c)
 {
 	gint new_mode;
 
-	if( id == screens[screen.mode].id )
+	if (id == screen_get_id_by_index(screen.mode))
 		return;
 
 	new_mode = lookup_mode(id);
@@ -144,8 +69,7 @@ switch_screen_mode(gint id, mpdclient_t *c)
 		mode_fn->close();
 
 	/* get functions for the new mode */
-	D("switch_screen(%s)\n", screens[new_mode].name );
-	mode_fn = screens[new_mode].functions;
+	mode_fn = screen_get_functions(new_mode);
 	screen.mode = new_mode;
 	screen.painted = 0;
 
@@ -173,7 +97,7 @@ screen_next_mode(mpdclient_t *c, int offset)
 	int current, next;
 
 	/* find current screen */
-	current = find_configured_screen(screens[screen.mode].name);
+	current = find_configured_screen(screen_get_name(screen.mode));
 	next = current + offset;
 	if (next<0)
 		next = max-1;
@@ -429,18 +353,10 @@ paint_status_window(mpdclient_t *c)
 void
 screen_exit(void)
 {
-	guint i;
-
 	if (mode_fn->close != NULL)
 		mode_fn->close();
 
-	/* close and exit all screens (playlist,browse,help...) */
-	for (i = 0; i < NUM_SCREENS; ++i) {
-		const struct screen_functions *sf = screens[i].functions;
-
-		if (sf->exit)
-			sf->exit();
-	}
+	screen_list_exit();
 
 	string_list_free(screen.find_history);
 	g_free(screen.buf);
@@ -450,8 +366,6 @@ screen_exit(void)
 void
 screen_resize(void)
 {
-	guint i;
-
 	D("Resize rows %d->%d, cols %d->%d\n",screen.rows,LINES,screen.cols,COLS);
 	if (COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS) {
 		screen_exit();
@@ -488,14 +402,8 @@ screen_resize(void)
 	g_free(screen.buf);
 	screen.buf = g_malloc(screen.cols);
 
-	/* close and exit all screens (playlist,browse,help...) */
-	for (i = 0; i < NUM_SCREENS; ++i) {
-		const struct screen_functions *sf = screens[i].functions;
-
-		if (sf->resize)
-			sf->resize(screen.main_window.cols, screen.main_window.rows);
-	}
-
+	/* resize all screens */
+	screen_list_resize(screen.main_window.cols, screen.main_window.rows);
 
 	/* ? - without this the cursor becomes visible with aterm & Eterm */
 	curs_set(1);
@@ -533,8 +441,6 @@ screen_status_printf(const char *format, ...)
 void
 screen_init(mpdclient_t *c)
 {
-	guint i;
-
 	if (COLS < SCREEN_MIN_COLS || LINES < SCREEN_MIN_ROWS) {
 		fprintf(stderr, _("Error: Screen to small!\n"));
 		exit(EXIT_FAILURE);
@@ -604,14 +510,8 @@ screen_init(mpdclient_t *c)
 	refresh();
 
 	/* initialize screens */
-	for (i = 0; i < NUM_SCREENS; ++i) {
-		const struct screen_functions *fn = screens[i].functions;
-
-		if (fn->init)
-			fn->init(screen.main_window.w,
-				 screen.main_window.cols,
-				 screen.main_window.rows);
-	}
+	screen_list_init(screen.main_window.w,
+			 screen.main_window.cols, screen.main_window.rows);
 
 	if (mode_fn->open != NULL)
 		mode_fn->open(&screen, c);
