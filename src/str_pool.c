@@ -31,7 +31,7 @@ struct slot {
 	char value[1];
 } __attribute__((packed));
 
-struct slot *slots[NUM_SLOTS];
+static struct slot *slots[NUM_SLOTS];
 
 static inline unsigned
 calc_hash(const char *p)

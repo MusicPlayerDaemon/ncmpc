@@ -454,4 +454,6 @@ main(int argc, const char *argv[])
 
 	exit_and_cleanup();
 	ncu_deinit();
+
+	return 0;
 }

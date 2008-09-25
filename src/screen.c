@@ -558,7 +558,7 @@ screen_update(mpdclient_t *c)
 	static int dbupdate = -1;
 
 	if( !screen.painted )
-		return screen_paint(c);
+		screen_paint(c);
 
 	/* print a message if mpd status has changed */
 	if (c->status != NULL) {

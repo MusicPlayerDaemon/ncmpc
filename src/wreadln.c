@@ -334,7 +334,7 @@ _wreadln(WINDOW *w,
 			if (key >= 32) {
 				if (strlen (line + cursor)) { /* if the cursor is */
 					/* not at the last pos */
-					gchar *tmp = 0;
+					gchar *tmp = NULL;
 					gsize size = strlen(line + cursor) + 1;
 
 					tmp = g_malloc0(size);
