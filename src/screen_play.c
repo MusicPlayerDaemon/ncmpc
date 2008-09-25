@@ -50,7 +50,23 @@ typedef struct
 
 static GTime input_timestamp;
 static list_window_t *lw = NULL;
-static long long playlist_id;
+
+static void
+play_paint(struct mpdclient *c);
+
+static void
+playlist_repaint(struct mpdclient *c)
+{
+	play_paint(c);
+	wrefresh(lw->w);
+}
+
+static void
+playlist_repaint_if_active(struct mpdclient *c)
+{
+	if (get_cur_mode_id() == 0) /* XXX don't use the literal number */
+		playlist_repaint(c);
+}
 
 static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
@@ -69,6 +85,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 	}
 
 	list_window_check_selected(lw, c->playlist.list->len);
+	playlist_repaint_if_active(c);
 }
 
 static const char *
@@ -114,7 +131,7 @@ center_playing_item(mpdclient_t *c)
 	lw->selected = lw->start+offset;
 	list_window_check_selected(lw, length);
 
-	return;
+	playlist_repaint(c);
 }
 
 static void
@@ -367,13 +384,20 @@ play_paint(mpdclient_t *c)
 static void
 play_update(mpd_unused screen_t *screen, mpdclient_t *c)
 {
+	int new_flags = lw->flags;
+
 	/* hide the cursor when mpd are playing and the user are inactive */
 	if (options.hide_cursor > 0 &&
 	    (c->status != NULL && c->status->state == MPD_STATUS_STATE_PLAY) &&
 	    time(NULL) - input_timestamp >= options.hide_cursor ) {
-		lw->flags |= LW_HIDE_CURSOR;
+		new_flags |= LW_HIDE_CURSOR;
 	} else {
-		lw->flags &= ~LW_HIDE_CURSOR;
+		new_flags &= ~LW_HIDE_CURSOR;
+	}
+
+	if (new_flags != lw->flags) {
+		lw->flags = new_flags;
+		playlist_repaint(c);
 	}
 
 	/* center the cursor */
@@ -384,14 +408,6 @@ play_update(mpd_unused screen_t *screen, mpdclient_t *c)
 			center_playing_item(c);
 			prev_song_id = c->song->id;
 		}
-	}
-
-	if (c->playlist.id != playlist_id) {
-		list_window_check_selected(lw, playlist_length(&c->playlist));
-		play_paint(c);
-		playlist_id = c->playlist.id;
-	} else {
-		list_window_paint(lw, list_callback, (void *) c);
 	}
 }
 
@@ -404,8 +420,10 @@ handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
 	unsigned long bstate;
 
 	if (screen_get_mouse_event(c, &bstate, &row) ||
-	    list_window_mouse(lw, c->playlist.list->len, bstate, row))
+	    list_window_mouse(lw, c->playlist.list->len, bstate, row)) {
+		playlist_repaint(c);
 		return 1;
+	}
 
 	if (bstate & BUTTON1_DOUBLE_CLICKED) {
 		/* stop */
@@ -427,6 +445,7 @@ handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
 
 	lw->selected = selected;
 	list_window_check_selected(lw, c->playlist.list->len);
+	playlist_repaint(c);
 
 	return 1;
 }
@@ -438,6 +457,11 @@ static int
 play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
 	input_timestamp = time(NULL);
+
+	if (list_window_cmd(lw, playlist_length(&c->playlist), cmd)) {
+		playlist_repaint(c);
+		return 1;
+	}
 
 	switch(cmd) {
 	case CMD_PLAY:
@@ -466,15 +490,19 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		return screen_find(screen,
-				   lw, c->playlist.list->len,
-				   cmd, list_callback, (void *) c);
+		screen_find(screen,
+			    lw, playlist_length(&c->playlist),
+			    cmd, list_callback, c);
+		playlist_repaint(c);
+		return 1;
+
 	case CMD_MOUSE_EVENT:
 		return handle_mouse_event(screen,c);
 	default:
 		break;
 	}
-	return list_window_cmd(lw, c->playlist.list->len, cmd);
+
+	return 0;
 }
 
 const struct screen_functions screen_playlist = {
