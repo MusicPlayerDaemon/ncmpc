@@ -4,7 +4,7 @@ SUBDIRS = \
   po
 
 ACLOCAL_AMFLAGS = -I m4
-AUTOMAKE_OPTIONS =   gnu 1.6
+AUTOMAKE_OPTIONS = gnu 1.6 dist-bzip2
 
 # $Id$
 
