@@ -82,8 +82,31 @@ screen_lyrics_clear(void)
 	g_ptr_array_set_size(current.lines, 0);
 }
 
-static const char *
-list_callback(unsigned idx, int *highlight, void *data);
+static void
+lyrics_paint(mpdclient_t *c);
+
+/**
+ * Repaint and update the screen.
+ */
+static void
+lyrics_repaint(void)
+{
+	lyrics_paint(NULL);
+	wrefresh(lw->w);
+}
+
+/**
+ * Repaint and update the screen, if it is currently active.
+ */
+static void
+lyrics_repaint_if_active(void)
+{
+	if (get_cur_mode_id() == 104) { /* XXX don't use the literal number */
+		lyrics_repaint();
+
+		/* XXX repaint the screen title */
+	}
+}
 
 static void
 screen_lyrics_set(const GString *str)
@@ -125,12 +148,7 @@ screen_lyrics_set(const GString *str)
 
 	/* paint new data */
 
-	if (get_cur_mode_id() == 104) { /* XXX don't use the literal number */
-		list_window_paint(lw, list_callback, NULL);
-		wrefresh(lw->w);
-
-		/* XXX repaint the screen title */
-	}
+	lyrics_repaint_if_active();
 }
 
 static void
@@ -297,8 +315,7 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LYRICS_UPDATE:
 		if (c->song != NULL) {
 			screen_lyrics_load(c->song);
-			lyrics_paint(NULL);
-			wrefresh(lw->w);
+			lyrics_repaint();
 		}
 		return 1;
 	default:
