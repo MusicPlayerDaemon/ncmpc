@@ -28,7 +28,6 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
 
 #define FIND_PROMPT  _("Find: ")
 #define RFIND_PROMPT _("Find backward: ")
@@ -46,13 +45,11 @@ int
 screen_getch(WINDOW *w, const char *prompt)
 {
 	int key = -1;
-	int prompt_len = strlen(prompt);
 
 	colors_use(w, COLOR_STATUS_ALERT);
 	wclear(w);
 	wmove(w, 0, 0);
 	waddstr(w, prompt);
-	wmove(w, 0, prompt_len);
 
 	echo();
 	curs_set(1);
