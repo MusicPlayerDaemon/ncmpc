@@ -196,20 +196,20 @@ list_window_paint(struct list_window *lw,
 			int selected = lw->start + i == lw->selected;
 			size_t len = my_strlen(label);
 
-			if( highlight )
+			if (highlight)
 				colors_use(lw->w, COLOR_LIST_BOLD);
 			else
 				colors_use(lw->w, COLOR_LIST);
 
-			if( show_cursor && selected )
+			if (show_cursor && selected)
 				wattron(lw->w, A_REVERSE);
 
 			//waddnstr(lw->w, label, lw->cols);
 			waddstr(lw->w, label);
-			if( fill && len<lw->cols )
+			if (fill && len < lw->cols)
 				whline(lw->w,  ' ', lw->cols-len);
 
-			if( selected )
+			if (selected)
 				wattroff(lw->w, A_REVERSE);
 		}
 	}

@@ -1,6 +1,4 @@
-/* 
- * $Id$
- *
+/*
  * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -38,7 +36,7 @@ typedef struct {
 	const char *text;
 } help_text_row_t;
 
-static help_text_row_t help_text[] = 
+static help_text_row_t help_text[] =
 {
   { 1, CMD_NONE,           N_("Keys - Movement") },
   { 2, CMD_NONE,           NULL },
