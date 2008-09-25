@@ -283,22 +283,13 @@ lyrics_paint(mpd_unused mpdclient_t *c)
 	list_window_paint(lw, list_callback, NULL);
 }
 
-
-static void
-lyrics_update(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
-{
-	if( lw->repaint ) {
-		list_window_paint(lw, list_callback, NULL);
-		lw->repaint = 0;
-	}
-}
-
-
 static int
 lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
-	if (list_window_scroll_cmd(lw, current.lines->len, cmd))
+	if (list_window_scroll_cmd(lw, current.lines->len, cmd)) {
+		lyrics_repaint();
 		return 1;
+	}
 
 	switch(cmd) {
 	case CMD_INTERRUPT:
@@ -328,6 +319,7 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			cmd, list_callback, NULL)) {
 		/* center the row */
 		list_window_center(lw, current.lines->len, lw->selected);
+		lyrics_repaint();
 		return 1;
 	}
 
@@ -341,7 +333,6 @@ const struct screen_functions screen_lyrics = {
 	.close = NULL,
 	.resize = lyrics_resize,
 	.paint = lyrics_paint,
-	.update = lyrics_update,
 	.cmd = lyrics_cmd,
 	.get_title = lyrics_title,
 };
