@@ -237,7 +237,6 @@ paint(mpd_unused mpdclient_t *c)
 	if (browser.filelist) {
 		list_window_paint(browser.lw, browser_lw_callback,
 				  browser.filelist);
-		browser.filelist->updated = FALSE;
 	} else if (metalist) {
 		list_window_paint(browser.lw, artist_lw_callback, metalist);
 	} else {
@@ -472,7 +471,6 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		list_window_paint(browser.lw, browser_lw_callback,
 				  browser.filelist);
 		wrefresh(browser.lw->w);
-		browser.filelist->updated = FALSE;
 		return 1;
 	}
 

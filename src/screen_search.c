@@ -213,7 +213,6 @@ filelist_search(mpdclient_t *c, mpd_unused int exact_match, int table,
 		}
 
 		filelist_sort(list, compare_filelistentry_format);
-		list->updated = TRUE;
 	} else {
 		list = mpdclient_filelist_search(c, FALSE, table, local_pattern);
 		if (list == NULL)
@@ -312,8 +311,6 @@ search_advanced_query(char *query, mpdclient_t *c)
 
 		if (mpdclient_finish_command(c) && fl)
 			filelist_free(fl);
-
-		fl->updated = TRUE;
 	}
 
 	i=0;
@@ -410,7 +407,6 @@ paint(mpd_unused mpdclient_t *c)
 	if (browser.filelist) {
 		browser.lw->flags = 0;
 		list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
-		browser.filelist->updated = FALSE;
 	} else {
 		browser.lw->flags = LW_HIDE_CURSOR;
 		list_window_paint(browser.lw, lw_search_help_callback, NULL);

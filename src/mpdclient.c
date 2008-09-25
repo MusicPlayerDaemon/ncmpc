@@ -782,7 +782,6 @@ mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 	mpdclient_finish_command(c);
 
 	g_free(path_utf8);
-	filelist->updated = TRUE;
 
 	// If there are only directory entities in the filelist, we sort it
 	if (has_dirs_only) {
@@ -817,7 +816,6 @@ mpdclient_filelist_search_utf8(mpdclient_t *c,
 		return NULL;
 	}
 
-	filelist->updated = TRUE;
 	return filelist;
 }
 

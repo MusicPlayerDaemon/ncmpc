@@ -33,9 +33,6 @@ typedef struct filelist {
 	/* path */
 	gchar *path;
 
-	/* true if the list is updated */
-	gboolean updated;
-
 	/* the list */
 	GPtrArray *entries;
 } mpdclient_filelist_t;

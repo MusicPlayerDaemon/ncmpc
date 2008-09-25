@@ -29,7 +29,6 @@ filelist_new(const char *path)
 	struct filelist *filelist = g_malloc(sizeof(*filelist));
 
 	filelist->path = g_strdup(path);
-	filelist->updated = FALSE;
 	filelist->entries = g_ptr_array_new();
 
 	return filelist;
