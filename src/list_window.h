@@ -22,7 +22,6 @@ typedef struct list_window {
 	unsigned start;
 	unsigned selected;
 	unsigned xoffset;
-	int repaint;
 	int flags;
 } list_window_t;
 

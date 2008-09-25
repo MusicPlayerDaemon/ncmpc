@@ -92,8 +92,6 @@ list_window_center(struct list_window *lw, unsigned rows, unsigned n)
 		else
 			lw->start = 0;
 	}
-
-	lw->repaint = 1;
 }
 
 void
@@ -303,7 +301,6 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 		return 0;
 	}
 
-	lw->repaint  = 1;
 	return 1;
 }
 
@@ -353,7 +350,6 @@ list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 		return 0;
 	}
 
-	lw->repaint = 1;
 	return 1;
 }
 

@@ -198,9 +198,7 @@ screen_find(screen_t *screen,
 						  screen->findbuf,
 						  options.find_wrap);
 
-		if (retval == 0)
-			lw->repaint  = 1;
-		else {
+		if (retval != 0) {
 			screen_status_printf(_("Unable to find \'%s\'"), screen->findbuf);
 			screen_bell();
 		}
