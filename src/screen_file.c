@@ -36,6 +36,23 @@
 
 static struct screen_browser browser;
 
+static void
+browse_paint(mpdclient_t *c);
+
+static void
+file_repaint(void)
+{
+	browse_paint(NULL);
+	wrefresh(browser.lw->w);
+}
+
+static void
+file_repaint_if_active(void)
+{
+	if (get_cur_mode_id() == 1) /* XXX don't use the literal number */
+		file_repaint();
+}
+
 /* the db have changed -> update the filelist */
 static void
 file_changed_callback(mpdclient_t *c, mpd_unused int event,
@@ -45,6 +62,8 @@ file_changed_callback(mpdclient_t *c, mpd_unused int event,
 	browser.filelist = mpdclient_filelist_update(c, browser.filelist);
 	sync_highlights(c, browser.filelist);
 	list_window_check_selected(browser.lw, filelist_length(browser.filelist));
+
+	file_repaint_if_active();
 }
 
 /* the playlist have been updated -> fix highlights */
@@ -52,6 +71,8 @@ static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 {
 	browser_playlist_changed(&browser, c, event, data);
+
+	file_repaint_if_active();
 }
 
 static int
@@ -180,31 +201,22 @@ browse_paint(mpd_unused mpdclient_t *c)
 	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
 }
 
-static void
-browse_update(mpd_unused screen_t *screen, mpdclient_t *c)
-{
-	if (browser.filelist->updated) {
-		browse_paint(c);
-		browser.filelist->updated = FALSE;
-		return;
-	}
-
-	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
-}
-
 static int
 browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
 	switch(cmd) {
 	case CMD_PLAY:
 		browser_handle_enter(&browser, c);
+		file_repaint();
 		return 1;
 	case CMD_GO_ROOT_DIRECTORY:
-		return browser_change_directory(&browser, c, NULL, "");
-		break;
+		browser_change_directory(&browser, c, NULL, "");
+		file_repaint();
+		return 1;
 	case CMD_GO_PARENT_DIRECTORY:
-		return browser_change_directory(&browser, c, NULL, "..");
-		break;
+		browser_change_directory(&browser, c, NULL, "..");
+		file_repaint();
+		return 1;
 	case CMD_SELECT:
 		if (browser_handle_select(&browser, c) == 0) {
 			/* continue and select next item... */
@@ -213,6 +225,7 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		break;
 	case CMD_DELETE:
 		handle_delete(screen, c);
+		file_repaint();
 		break;
 	case CMD_SAVE_PLAYLIST:
 		handle_save(screen, c);
@@ -221,6 +234,8 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		browser.filelist = mpdclient_filelist_update(c, browser.filelist);
 		list_window_check_selected(browser.lw,
 					   filelist_length(browser.filelist));
+		file_repaint();
+
 		screen_status_printf(_("Screen updated!"));
 		return 0;
 
@@ -247,17 +262,30 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		return screen_find(screen,
-				   browser.lw, filelist_length(browser.filelist),
-				   cmd, browser_lw_callback,
-				   browser.filelist);
+		screen_find(screen,
+			    browser.lw, filelist_length(browser.filelist),
+			    cmd, browser_lw_callback,
+			    browser.filelist);
+		file_repaint();
+		return 1;
+
 	case CMD_MOUSE_EVENT:
-		return browser_handle_mouse_event(&browser, c);
+		if (browser_handle_mouse_event(&browser, c))
+			file_repaint();
+
+		return 1;
+
 	default:
 		break;
 	}
 
-	return list_window_cmd(browser.lw, filelist_length(browser.filelist), cmd);
+	if (list_window_cmd(browser.lw, filelist_length(browser.filelist),
+			    cmd)) {
+		file_repaint();
+		return 1;
+	}
+
+	return 0;
 }
 
 const struct screen_functions screen_browse = {
@@ -266,7 +294,6 @@ const struct screen_functions screen_browse = {
 	.open = browse_open,
 	.resize = browse_resize,
 	.paint = browse_paint,
-	.update = browse_update,
 	.cmd = browse_cmd,
 	.get_title = browse_title,
 };
