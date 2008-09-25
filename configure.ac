@@ -260,7 +260,14 @@ AC_ARG_WITH([lyrics-plugin-dir],
         AC_HELP_STRING([[--with-lyrics-plugin-dir[=DIRECTORY]]],
                        [Directory where lyrics plugins are stored @<:@default=PREFIX/lib/ncmpc/lyrics@:>@]),
        [lyrics_plugin_dir=$withval],
-       [lyrics_plugin_dir="$prefix/lib/ncmpc/lyrics"])
+       [lyrics_plugin_dir=""])
+if test "x${lyrics_plugin_dir}" = "x"; then
+    if test "x${prefix}" = "xNONE"; then
+        lyrics_plugin_dir="${ac_default_prefix}/lib/ncmpc/lyrics"
+    else
+        lyrics_plugin_dir="${prefix}/lib/ncmpc/lyrics"
+    fi
+fi
 AC_DEFINE_UNQUOTED([LYRICS_PLUGIN_DIR], ["$lyrics_plugin_dir"],
                   [Directory to search for lyrics plugins])
 AC_SUBST(lyrics_plugin_dir)
