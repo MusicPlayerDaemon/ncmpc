@@ -56,13 +56,9 @@ screen_is_visible(const struct screen_functions *sf)
 static void
 switch_screen_mode(const struct screen_functions *sf, mpdclient_t *c)
 {
-	gint new_mode;
+	assert(sf != NULL);
 
 	if (sf == mode_fn)
-		return;
-
-	new_mode = lookup_mode(sf);
-	if (new_mode < 0)
 		return;
 
 	/* close the old mode */
@@ -71,7 +67,6 @@ switch_screen_mode(const struct screen_functions *sf, mpdclient_t *c)
 
 	/* get functions for the new mode */
 	mode_fn = sf;
-	screen.mode = new_mode;
 	screen.painted = 0;
 
 	/* open the new mode */
@@ -96,9 +91,10 @@ screen_next_mode(mpdclient_t *c, int offset)
 {
 	int max = g_strv_length(options.screen_list);
 	int current, next;
+	const struct screen_functions *sf;
 
 	/* find current screen */
-	current = find_configured_screen(screen_get_name(screen.mode));
+	current = find_configured_screen(screen_get_name(mode_fn));
 	next = current + offset;
 	if (next<0)
 		next = max-1;
@@ -106,7 +102,9 @@ screen_next_mode(mpdclient_t *c, int offset)
 		next = 0;
 
 	D("current mode: %d:%d    next:%d\n", current, max, next);
-	switch_screen_mode(screen_lookup_name(options.screen_list[next]), c);
+	sf = screen_lookup_name(options.screen_list[next]);
+	if (sf != NULL)
+		switch_screen_mode(sf, c);
 }
 
 static void
@@ -447,7 +445,6 @@ screen_init(mpdclient_t *c)
 		exit(EXIT_FAILURE);
 	}
 
-	screen.mode = 0;
 	screen.cols = COLS;
 	screen.rows = LINES;
 

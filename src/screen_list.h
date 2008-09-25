@@ -50,15 +50,12 @@ void
 screen_list_resize(unsigned cols, unsigned rows);
 
 const char *
-screen_get_name(unsigned i);
+screen_get_name(const struct screen_functions *sf);
 
 const struct screen_functions *
 screen_lookup_name(const char *name);
 
 int
 screen_get_id(const char *name);
-
-int
-lookup_mode(const struct screen_functions *sf);
 
 #endif

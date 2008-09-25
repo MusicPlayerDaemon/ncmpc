@@ -32,8 +32,6 @@ typedef struct screen {
 
 	unsigned cols, rows;
 
-	int mode;
-
 	char *buf;
 	size_t buf_size;
 
