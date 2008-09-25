@@ -445,6 +445,14 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		/* call list_window_cmd to go to the next item */
 		break;
 
+	case CMD_ADD:
+		if (browser_handle_add(&browser, c) == 0)
+			/* continue and select next item... */
+			cmd = CMD_LIST_NEXT;
+
+		/* call list_window_cmd to go to the next item */
+		break;
+
 	case CMD_SELECT_ALL:
 		browser_handle_select_all(&browser, c);
 		search_repaint();

@@ -107,6 +107,7 @@ static help_text_row_t help_text[] =
   { 2, CMD_NONE,           NULL },
   { 0, CMD_PLAY,           N_("Enter directory/Select and play song") },
   { 0, CMD_SELECT,         NULL },
+  { 0, CMD_ADD, N_("Append song to playlist") },
   { 0, CMD_SAVE_PLAYLIST,  NULL },
   { 0, CMD_DELETE,         N_("Delete playlist") },
   { 0, CMD_GO_PARENT_DIRECTORY, NULL },
@@ -121,6 +122,7 @@ static help_text_row_t help_text[] =
   { 0, CMD_SCREEN_SEARCH,  N_("Search") },
   { 0, CMD_PLAY,           N_("Select and play") },
   { 0, CMD_SELECT,         NULL },
+  { 0, CMD_ADD, N_("Append song to playlist") },
   { 0, CMD_SELECT_ALL,	   NULL },
   { 0, CMD_SEARCH_MODE,    NULL },
 #endif

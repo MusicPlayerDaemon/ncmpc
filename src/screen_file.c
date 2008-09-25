@@ -223,6 +223,13 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			cmd = CMD_LIST_NEXT;
 		}
 		break;
+
+	case CMD_ADD:
+		if (browser_handle_add(&browser, c) == 0)
+			/* continue and select next item... */
+			cmd = CMD_LIST_NEXT;
+		break;
+
 	case CMD_DELETE:
 		handle_delete(screen, c);
 		file_repaint();

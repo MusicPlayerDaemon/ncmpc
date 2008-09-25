@@ -290,6 +290,7 @@ static int
 artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
 	char *selected;
+	int ret;
 
 	if (browser.filelist == NULL && metalist != NULL &&
 	    list_window_cmd(browser.lw, metalist_length, cmd)) {
@@ -396,6 +397,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		break;
 
 	case CMD_SELECT:
+	case CMD_ADD:
 		switch(mode) {
 		case LIST_ARTISTS:
 			selected = g_list_nth_data(metalist,
@@ -423,7 +425,10 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			break;
 
 		case LIST_SONGS:
-			if (browser_handle_select(&browser, c) == 0)
+			ret = cmd == CMD_SELECT
+				? browser_handle_select(&browser, c)
+				: browser_handle_add(&browser, c);
+			if (ret == 0)
 				/* continue and select next item... */
 				cmd = CMD_LIST_NEXT;
 			break;

@@ -391,6 +391,17 @@ browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
 	return browser_select_entry(c, entry, TRUE);
 }
 
+int
+browser_handle_add(struct screen_browser *browser, mpdclient_t *c)
+{
+	struct filelist_entry *entry = browser_get_selected(browser);
+
+	if (entry == NULL || entry->entity == NULL)
+		return -1;
+
+	return browser_select_entry(c, entry, FALSE);
+}
+
 void
 browser_handle_select_all(struct screen_browser *browser, mpdclient_t *c)
 {
