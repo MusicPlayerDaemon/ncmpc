@@ -27,5 +27,5 @@ lyrics_plugin_dir = @lyrics_plugin_dir@
 lyrics_plugins = hd.py leoslyrics.py lyricswiki.rb
 
 install-exec-local:
-	install -m 0755 -d $(lyrics_plugin_dir)
-	install -m 0755 $(addprefix lyrics/,$(lyrics_plugins)) $(lyrics_plugin_dir)
+	install -m 0755 -d $(DESTDIR)$(lyrics_plugin_dir)
+	install -m 0755 $(addprefix lyrics/,$(lyrics_plugins)) $(DESTDIR)$(lyrics_plugin_dir)
