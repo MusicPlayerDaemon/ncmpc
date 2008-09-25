@@ -254,6 +254,8 @@ if test "x$lyrics_screen" != "xyes" ; then
    lyrics_screen=no
 fi
 
+AM_CONDITIONAL(LYRICS, test x$lyrics_screen = xyes)
+
 AC_MSG_RESULT([$lyrics_screen])
 
 AC_ARG_WITH([lyrics-plugin-dir],
