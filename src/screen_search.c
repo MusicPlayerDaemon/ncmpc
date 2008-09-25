@@ -138,11 +138,29 @@ lw_search_help_callback(unsigned idx, mpd_unused int *highlight,
 	return NULL;
 }
 
+static void
+paint(mpdclient_t *c);
+
+static void
+search_repaint(void)
+{
+	paint(NULL);
+	wrefresh(browser.lw->w);
+}
+
+static void
+search_repaint_if_active(void)
+{
+	if (get_cur_mode_id() == 103) /* XXX don't use the literal number */
+		search_repaint();
+}
+
 /* the playlist have been updated -> fix highlights */
 static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 {
 	browser_playlist_changed(&browser, c, event, data);
+	search_repaint_if_active();
 }
 
 /* sanity check search mode value */
@@ -399,17 +417,6 @@ paint(mpd_unused mpdclient_t *c)
 	}
 }
 
-static void
-update(mpd_unused screen_t *screen, mpdclient_t *c)
-{
-	if (browser.filelist == NULL || browser.filelist->updated) {
-		paint(c);
-		return;
-	}
-
-	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
-}
-
 static const char *
 get_title(char *str, size_t size)
 {
@@ -434,6 +441,7 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	switch (cmd) {
 	case CMD_PLAY:
 		browser_handle_enter(&browser, c);
+		search_repaint();
 		return 1;
 
 	case CMD_SELECT:
@@ -442,11 +450,11 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			cmd = CMD_LIST_NEXT;
 		}
 		/* call list_window_cmd to go to the next item */
-		return list_window_cmd(browser.lw, filelist_length(browser.filelist), cmd);
+		break;
 
 	case CMD_SELECT_ALL:
 		browser_handle_select_all(&browser, c);
-		paint(c);
+		search_repaint();
 		return 0;
 
 	case CMD_SEARCH_MODE:
@@ -465,36 +473,48 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 							  pattern);
 			sync_highlights(c, browser.filelist);
 		}
+		search_repaint();
 		return 1;
 
 	case CMD_SCREEN_SEARCH:
 		search_new(screen, c);
+		search_repaint();
 		return 1;
 
 	case CMD_CLEAR:
 		search_clear(screen, c, TRUE);
 		list_window_reset(browser.lw);
+		search_repaint();
 		return 1;
 
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		if (browser.filelist)
-			return screen_find(screen,
-					   browser.lw, filelist_length(browser.filelist),
-					   cmd, browser_lw_callback,
-					   browser.filelist);
-		else
-			return 1;
+		if (browser.filelist) {
+			screen_find(screen,
+				    browser.lw, filelist_length(browser.filelist),
+				    cmd, browser_lw_callback,
+				    browser.filelist);
+			search_repaint();
+		}
+
+		return 1;
 
 	case CMD_MOUSE_EVENT:
-		return browser_handle_mouse_event(&browser, c);
+		browser_handle_mouse_event(&browser, c);
+		search_repaint();
+		return 1;
 
 	default:
-		if (browser.filelist)
-			return list_window_cmd(browser.lw,
-					       filelist_length(browser.filelist), cmd);
+		break;
+	}
+
+	if (browser.filelist != NULL &&
+	    list_window_cmd(browser.lw,
+			    filelist_length(browser.filelist), cmd)) {
+		search_repaint();
+		return 1;
 	}
 
 	return 0;
@@ -506,7 +526,6 @@ const struct screen_functions screen_search = {
 	.open = open,
 	.resize = resize,
 	.paint = paint,
-	.update = update,
 	.cmd = search_cmd,
 	.get_title = get_title,
 };
