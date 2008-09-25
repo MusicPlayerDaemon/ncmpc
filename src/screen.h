@@ -50,7 +50,7 @@ typedef void (*screen_open_fn_t)(struct screen *screen, mpdclient_t *c);
 typedef void (*screen_close_fn_t)(void);
 typedef void (*screen_resize_fn_t)(int cols, int rows);
 typedef void (*screen_paint_fn_t)(mpdclient_t *c);
-typedef void (*screen_update_fn_t)(struct screen *screen, mpdclient_t *c);
+typedef void (*screen_update_fn_t)(mpdclient_t *c);
 typedef int (*screen_cmd_fn_t)(struct screen *scr, mpdclient_t *c, command_t cmd);
 typedef const char *(*screen_title_fn_t)(char *s, size_t size);
 

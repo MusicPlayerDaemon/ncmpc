@@ -366,9 +366,11 @@ play_open(mpd_unused screen_t *screen, mpdclient_t *c)
 	static gboolean install_cb = TRUE;
 
 	assert(timer_hide_cursor_id == 0);
-	if (options.hide_cursor > 0)
+	if (options.hide_cursor > 0) {
+		lw->flags &= ~LW_HIDE_CURSOR;
 		timer_hide_cursor_id = g_timeout_add(options.hide_cursor * 1000,
 						     timer_hide_cursor, c);
+	}
 
 	if (install_cb) {
 		mpdclient_install_playlist_callback(c, playlist_changed_callback);
@@ -416,7 +418,7 @@ play_paint(mpdclient_t *c)
 }
 
 static void
-play_update(mpd_unused screen_t *screen, mpdclient_t *c)
+play_update(mpdclient_t *c)
 {
 	/* center the cursor */
 	if (options.auto_center) {
