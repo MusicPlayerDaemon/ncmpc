@@ -54,14 +54,14 @@ screen_is_visible(const struct screen_functions *sf)
 }
 
 static void
-switch_screen_mode(gint id, mpdclient_t *c)
+switch_screen_mode(const struct screen_functions *sf, mpdclient_t *c)
 {
 	gint new_mode;
 
-	if (id == screen_get_id_by_index(screen.mode))
+	if (sf == mode_fn)
 		return;
 
-	new_mode = lookup_mode(id);
+	new_mode = lookup_mode(sf);
 	if (new_mode < 0)
 		return;
 
@@ -70,7 +70,7 @@ switch_screen_mode(gint id, mpdclient_t *c)
 		mode_fn->close();
 
 	/* get functions for the new mode */
-	mode_fn = screen_get_functions(new_mode);
+	mode_fn = sf;
 	screen.mode = new_mode;
 	screen.painted = 0;
 
@@ -106,7 +106,7 @@ screen_next_mode(mpdclient_t *c, int offset)
 		next = 0;
 
 	D("current mode: %d:%d    next:%d\n", current, max, next);
-	switch_screen_mode(screen_get_id(options.screen_list[next]), c);
+	switch_screen_mode(screen_lookup_name(options.screen_list[next]), c);
 }
 
 static void
@@ -792,26 +792,34 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 		screen_next_mode(c, 1);
 		break;
 	case CMD_SCREEN_PLAY:
-		switch_screen_mode(SCREEN_PLAYLIST_ID, c);
+		switch_screen_mode(&screen_playlist, c);
 		break;
 	case CMD_SCREEN_FILE:
-		switch_screen_mode(SCREEN_BROWSE_ID, c);
+		switch_screen_mode(&screen_browse, c);
 		break;
 	case CMD_SCREEN_HELP:
-		switch_screen_mode(SCREEN_HELP_ID, c);
+		switch_screen_mode(&screen_help, c);
 		break;
+#ifdef ENABLE_SEARCH_SCREEN
 	case CMD_SCREEN_SEARCH:
-		switch_screen_mode(SCREEN_SEARCH_ID, c);
+		switch_screen_mode(&screen_search, c);
 		break;
+#endif
+#ifdef ENABLE_ARTIST_SCREEN
 	case CMD_SCREEN_ARTIST:
-		switch_screen_mode(SCREEN_ARTIST_ID, c);
+		switch_screen_mode(&screen_artist, c);
 		break;
+#endif
+#ifdef ENABLE_KEYDEF_SCREEN
 	case CMD_SCREEN_KEYDEF:
-		switch_screen_mode(SCREEN_KEYDEF_ID, c);
+		switch_screen_mode(&screen_keydef, c);
 		break;
+#endif
+#ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
-		switch_screen_mode(SCREEN_LYRICS_ID, c);
+		switch_screen_mode(&screen_lyrics, c);
 		break;
+#endif
 	default:
 		break;
 	}

@@ -57,11 +57,11 @@ screen_list_exit(void);
 void
 screen_list_resize(unsigned cols, unsigned rows);
 
-int
-screen_get_id_by_index(unsigned i);
-
 const char *
 screen_get_name(unsigned i);
+
+const struct screen_functions *
+screen_lookup_name(const char *name);
 
 int
 screen_get_id(const char *name);
@@ -70,6 +70,6 @@ const struct screen_functions *
 screen_get_functions(unsigned i);
 
 int
-lookup_mode(int id);
+lookup_mode(const struct screen_functions *sf);
 
 #endif

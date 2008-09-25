@@ -25,6 +25,7 @@
 #include "support.h"
 #include "command.h"
 #include "colors.h"
+#include "screen_list.h"
 
 #include <ctype.h>
 #include <stdio.h>
@@ -80,10 +81,6 @@ typedef enum {
   KEY_PARSER_HEX,
   KEY_PARSER_DONE
 } key_parser_state_t;
-
-
-extern gint screen_get_id(char *name);
-
 
 static gboolean
 str2bool(char *str)
@@ -337,7 +334,7 @@ check_screen_list(char *value)
 	j=0;
 	while( tmp && tmp[i] ) {
 		tmp[i] = lowerstr(tmp[i]);
-		if( screen_get_id(tmp[i]) == -1 )
+		if (screen_lookup_name(tmp[i]) == NULL)
 			fprintf(stderr,
 				_("Error: Unsupported screen \"%s\"\n"),
 				tmp[i]);

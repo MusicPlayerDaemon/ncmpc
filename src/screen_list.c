@@ -86,14 +86,6 @@ screen_list_resize(unsigned cols, unsigned rows)
 	}
 }
 
-int
-screen_get_id_by_index(unsigned i)
-{
-	assert(i < NUM_SCREENS);
-
-	return screens[i].id;
-}
-
 const char *
 screen_get_name(unsigned i)
 {
@@ -102,16 +94,16 @@ screen_get_name(unsigned i)
 	return screens[i].name;
 }
 
-int
-screen_get_id(const char *name)
+const struct screen_functions *
+screen_lookup_name(const char *name)
 {
 	unsigned i;
 
 	for (i = 0; i < NUM_SCREENS; ++i)
 		if (strcmp(name, screens[i].name) == 0)
-			return screens[i].id;
+			return screens[i].functions;
 
-	return -1;
+	return NULL;
 }
 
 const struct screen_functions *
@@ -123,12 +115,12 @@ screen_get_functions(unsigned i)
 }
 
 int
-lookup_mode(int id)
+lookup_mode(const struct screen_functions *sf)
 {
 	unsigned i;
 
 	for (i = 0; i < NUM_SCREENS; ++i)
-		if (screens[i].id == id)
+		if (screens[i].functions == sf)
 			return i;
 
 	return -1;
