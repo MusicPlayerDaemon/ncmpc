@@ -16,9 +16,6 @@
  *
  */
 
-#include "config.h"
-
-#ifndef DISABLE_ARTIST_SCREEN
 #include "ncmpc.h"
 #include "options.h"
 #include "support.h"
@@ -486,5 +483,3 @@ const struct screen_functions screen_artist = {
 	.cmd = artist_cmd,
 	.get_title = get_title,
 };
-
-#endif /* ENABLE_ARTIST_SCREEN */

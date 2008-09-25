@@ -23,7 +23,7 @@ EXTRA_DIST = \
 # lyrics plugins
 #
 
-if LYRICS
+if ENABLE_LYRICS_SCREEN
 
 lyrics_plugin_dir = @lyrics_plugin_dir@
 lyrics_plugins = hd.sh leoslyrics.py lyricswiki.rb

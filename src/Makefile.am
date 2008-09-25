@@ -58,19 +58,30 @@ ncmpc_SOURCES = \
   screen_play.c\
 	screen_browser.c\
   screen_file.c\
-  screen_artist.c\
-  screen_search.c\
   screen_help.c\
-  screen_lyrics.c\
-  screen_keydef.c\
   list_window.c\
   colors.c\
   support.c\
   wreadln.c\
   strfsong.c\
   utils.c\
-	lyrics.c \
 	str_pool.c
+
+if ENABLE_ARTIST_SCREEN
+ncmpc_SOURCES += screen_artist.c
+endif
+
+if ENABLE_SEARCH_SCREEN
+ncmpc_SOURCES += screen_search.c
+endif
+
+if ENABLE_KEYDEF_SCREEN
+ncmpc_SOURCES += screen_keydef.c
+endif
+
+if ENABLE_LYRICS_SCREEN
+ncmpc_SOURCES += screen_lyrics.c lyrics.c
+endif
 
 ncmpc_SOURCES+=${ncmpc_headers}
 

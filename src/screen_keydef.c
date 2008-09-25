@@ -16,9 +16,6 @@
  *
  */
 
-#include "config.h"
-
-#ifndef  DISABLE_KEYDEF_SCREEN
 #include "ncmpc.h"
 #include "mpdclient.h"
 #include "options.h"
@@ -375,5 +372,3 @@ const struct screen_functions screen_keydef = {
 	.cmd = keydef_cmd,
 	.get_title = keydef_title,
 };
-
-#endif

@@ -61,7 +61,9 @@ extern const struct screen_functions screen_search;
 #ifdef ENABLE_KEYDEF_SCREEN
 extern const struct screen_functions screen_keydef;
 #endif
+#ifdef ENABLE_LYRICS_SCREEN
 extern const struct screen_functions screen_lyrics;
+#endif
 
 typedef struct screen_functions * (*screen_get_mode_functions_fn_t) (void);
 

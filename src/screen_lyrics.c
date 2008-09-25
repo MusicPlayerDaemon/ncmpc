@@ -17,8 +17,6 @@
  *
  */
 
-#include "config.h"
-#ifndef DISABLE_LYRICS_SCREEN
 #include <sys/stat.h>
 #include "ncmpc.h"
 #include "options.h"
@@ -336,5 +334,3 @@ const struct screen_functions screen_lyrics = {
 	.cmd = lyrics_cmd,
 	.get_title = lyrics_title,
 };
-
-#endif /* ENABLE_LYRICS_SCREEN */

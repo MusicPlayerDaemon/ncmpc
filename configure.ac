@@ -218,6 +218,8 @@ if test "x$artist_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_ARTIST_SCREEN, 1, [Disable artist screen])
 fi
 
+AM_CONDITIONAL(ENABLE_ARTIST_SCREEN, test x$artist_screen = xyes)
+
 dnl Optional screen - search
 AC_MSG_CHECKING([whether to include the search screen])
 AC_ARG_ENABLE([search-screen], 
@@ -229,6 +231,8 @@ AC_MSG_RESULT([$search_screen])
 if test "x$search_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_SEARCH_SCREEN, 1, [Disable search screen])
 fi
+
+AM_CONDITIONAL(ENABLE_SEARCH_SCREEN, test x$search_screen = xyes)
   
 dnl Optional screen - key editor
 AC_MSG_CHECKING([whether to include the key editor screen])
@@ -242,6 +246,8 @@ if test "x$keydef_screen" != "xyes" ; then
    AC_DEFINE(DISABLE_KEYDEF_SCREEN, 1, [Disable key editor screen])
 fi
 
+AM_CONDITIONAL(ENABLE_KEYDEF_SCREEN, test x$keydef_screen = xyes)
+
 dnl Optional screen - lyrics
 AC_MSG_CHECKING([whether to include the lyrics screen]) 
 AC_ARG_ENABLE([lyrics-screen], 
@@ -254,7 +260,7 @@ if test "x$lyrics_screen" != "xyes" ; then
    lyrics_screen=no
 fi
 
-AM_CONDITIONAL(LYRICS, test x$lyrics_screen = xyes)
+AM_CONDITIONAL(ENABLE_LYRICS_SCREEN, test x$lyrics_screen = xyes)
 
 AC_MSG_RESULT([$lyrics_screen])
 

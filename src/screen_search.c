@@ -16,9 +16,6 @@
  *
  */
 
-#include "config.h"
-
-#ifndef DISABLE_SEARCH_SCREEN
 #include "ncmpc.h"
 #include "options.h"
 #include "support.h"
@@ -525,5 +522,3 @@ const struct screen_functions screen_search = {
 	.cmd = search_cmd,
 	.get_title = get_title,
 };
-
-#endif /* ENABLE_SEARCH_SCREEN */
