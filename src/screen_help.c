@@ -211,7 +211,6 @@ static void
 help_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	list_window_paint(lw, list_callback, NULL);
-	wrefresh(lw->w);
 }
 
 static int

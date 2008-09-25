@@ -169,8 +169,6 @@ screen_lyrics_load(struct mpd_song *song)
 				     screen_lyrics_callback, NULL);
 }
 
-static void lyrics_paint(screen_t *screen, mpdclient_t *c);
-
 static FILE *create_lyr_file(const char *artist, const char *title)
 {
 	char path[1024];
@@ -265,7 +263,6 @@ static void
 lyrics_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	list_window_paint(lw, list_callback, NULL);
-	wrefresh(lw->w);
 }
 
 
@@ -274,7 +271,6 @@ lyrics_update(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	if( lw->repaint ) {
 		list_window_paint(lw, list_callback, NULL);
-		wrefresh(lw->w);
 		lw->repaint = 0;
 	}
 }
@@ -302,6 +298,7 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		if (c->song != NULL) {
 			screen_lyrics_load(c->song);
 			lyrics_paint(NULL, NULL);
+			wrefresh(lw->w);
 		}
 		return 1;
 	default:

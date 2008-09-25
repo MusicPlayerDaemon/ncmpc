@@ -281,7 +281,6 @@ static void
 keydef_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	list_window_paint(lw, list_callback, NULL);
-	wrefresh(lw->w);
 }
 
 static void
@@ -289,7 +288,6 @@ keydef_update(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	if (lw->repaint) {
 		list_window_paint(lw, list_callback, NULL);
-		wrefresh(lw->w);
 		lw->repaint = 0;
 	}
 }

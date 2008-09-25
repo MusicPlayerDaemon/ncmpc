@@ -401,8 +401,6 @@ paint(mpd_unused screen_t *screen, mpdclient_t *c)
 		//      wmove(lw->w, 0, 0);
 		//wclrtobot(lw->w);
 	}
-
-	wnoutrefresh(browser.lw->w);
 }
 
 static void
@@ -414,7 +412,6 @@ update(screen_t *screen, mpdclient_t *c)
 	}
 
 	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
-	wnoutrefresh(browser.lw->w);
 }
 
 static const char *

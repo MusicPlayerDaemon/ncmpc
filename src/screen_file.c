@@ -178,7 +178,6 @@ static void
 browse_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 {
 	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
-	wnoutrefresh(browser.lw->w);
 }
 
 static void
@@ -191,7 +190,6 @@ browse_update(screen_t *screen, mpdclient_t *c)
 	}
 
 	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
-	wnoutrefresh(browser.lw->w);
 }
 
 static int

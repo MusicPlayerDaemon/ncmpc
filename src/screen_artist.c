@@ -223,8 +223,6 @@ paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 		wmove(browser.lw->w, 0, 0);
 		wclrtobot(browser.lw->w);
 	}
-
-	wnoutrefresh(browser.lw->w);
 }
 
 static void

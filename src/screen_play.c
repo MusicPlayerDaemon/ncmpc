@@ -362,7 +362,6 @@ static void
 play_paint(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	list_window_paint(lw, list_callback, (void *) c);
-	wnoutrefresh(lw->w);
 }
 
 static void
@@ -393,7 +392,6 @@ play_update(screen_t *screen, mpdclient_t *c)
 		playlist_id = c->playlist.id;
 	} else {
 		list_window_paint(lw, list_callback, (void *) c);
-		wnoutrefresh(lw->w);
 	}
 }
 
