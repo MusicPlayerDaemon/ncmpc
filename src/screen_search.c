@@ -387,7 +387,7 @@ resize(int cols, int rows)
 }
 
 static void
-paint(mpdclient_t *c)
+paint(mpd_unused mpdclient_t *c)
 {
 	if (browser.filelist) {
 		browser.lw->flags = 0;
@@ -396,10 +396,6 @@ paint(mpdclient_t *c)
 	} else {
 		browser.lw->flags = LW_HIDE_CURSOR;
 		list_window_paint(browser.lw, lw_search_help_callback, NULL);
-		if( !MPD_VERSION_LT(c, 0, 12, 0) )
-			g_strdup_printf("Advanced search disabled (MPD version < 0.12.0");
-		//      wmove(lw->w, 0, 0);
-		//wclrtobot(lw->w);
 	}
 }
 
