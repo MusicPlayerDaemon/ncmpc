@@ -48,8 +48,8 @@ typedef struct
 	mpdclient_t *c;
 } completion_callback_data_t;
 
-static GTime input_timestamp;
 static list_window_t *lw = NULL;
+static guint timer_hide_cursor_id;
 
 static void
 play_paint(struct mpdclient *c);
@@ -338,16 +338,50 @@ play_init(WINDOW *w, int cols, int rows)
 	lw = list_window_init(w, cols, rows);
 }
 
+static gboolean
+timer_hide_cursor(gpointer data)
+{
+	struct mpdclient *c = data;
+
+	assert(options.hide_cursor > 0);
+	assert(timer_hide_cursor_id != 0);
+
+	timer_hide_cursor_id = 0;
+
+	/* hide the cursor when mpd is playing and the user is inactive */
+
+	if (c->status != NULL && c->status->state == MPD_STATUS_STATE_PLAY) {
+		lw->flags |= LW_HIDE_CURSOR;
+		playlist_repaint(c);
+	} else
+		timer_hide_cursor_id = g_timeout_add(options.hide_cursor * 1000,
+						     timer_hide_cursor, c);
+
+	return FALSE;
+}
+
 static void
 play_open(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	static gboolean install_cb = TRUE;
 
-	input_timestamp = time(NULL);
+	assert(timer_hide_cursor_id == 0);
+	if (options.hide_cursor > 0)
+		timer_hide_cursor_id = g_timeout_add(options.hide_cursor * 1000,
+						     timer_hide_cursor, c);
 
 	if (install_cb) {
 		mpdclient_install_playlist_callback(c, playlist_changed_callback);
 		install_cb = FALSE;
+	}
+}
+
+static void
+play_close(void)
+{
+	if (timer_hide_cursor_id != 0) {
+		g_source_remove(timer_hide_cursor_id);
+		timer_hide_cursor_id = 0;
 	}
 }
 
@@ -384,22 +418,6 @@ play_paint(mpdclient_t *c)
 static void
 play_update(mpd_unused screen_t *screen, mpdclient_t *c)
 {
-	int new_flags = lw->flags;
-
-	/* hide the cursor when mpd are playing and the user are inactive */
-	if (options.hide_cursor > 0 &&
-	    (c->status != NULL && c->status->state == MPD_STATUS_STATE_PLAY) &&
-	    time(NULL) - input_timestamp >= options.hide_cursor ) {
-		new_flags |= LW_HIDE_CURSOR;
-	} else {
-		new_flags &= ~LW_HIDE_CURSOR;
-	}
-
-	if (new_flags != lw->flags) {
-		lw->flags = new_flags;
-		playlist_repaint(c);
-	}
-
 	/* center the cursor */
 	if (options.auto_center) {
 		static int prev_song_id = 0;
@@ -456,7 +474,14 @@ handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
 static int
 play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
-	input_timestamp = time(NULL);
+	lw->flags &= ~LW_HIDE_CURSOR;
+
+	if (options.hide_cursor > 0) {
+		if (timer_hide_cursor_id != 0)
+			g_source_remove(timer_hide_cursor_id);
+		timer_hide_cursor_id = g_timeout_add(options.hide_cursor * 1000,
+						     timer_hide_cursor, c);
+	}
 
 	if (list_window_cmd(lw, playlist_length(&c->playlist), cmd)) {
 		playlist_repaint(c);
@@ -509,7 +534,7 @@ const struct screen_functions screen_playlist = {
 	.init = play_init,
 	.exit = play_exit,
 	.open = play_open,
-	.close = NULL,
+	.close = play_close,
 	.resize = play_resize,
 	.paint = play_paint,
 	.update = play_update,
