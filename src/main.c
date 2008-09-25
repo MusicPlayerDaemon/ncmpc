@@ -25,12 +25,15 @@
 #include "options.h"
 #include "conf.h"
 #include "command.h"
-#include "lyrics.h"
 #include "ncu.h"
 #include "screen.h"
 #include "screen_utils.h"
 #include "strfsong.h"
 #include "gcc.h"
+
+#ifdef ENABLE_LYRICS_SCREEN
+#include "lyrics.h"
+#endif
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -420,7 +423,9 @@ main(int argc, const char *argv[])
 
 	ncu_init();
 
+#ifdef ENABLE_LYRICS_SCREEN
 	lyrics_init();
+#endif
 
 	/* create mpdclient instance */
 	mpd = mpdclient_new();
