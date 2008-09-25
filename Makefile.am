@@ -26,7 +26,7 @@ EXTRA_DIST = \
 if LYRICS
 
 lyrics_plugin_dir = @lyrics_plugin_dir@
-lyrics_plugins = hd.py leoslyrics.py lyricswiki.rb
+lyrics_plugins = hd.sh leoslyrics.py lyricswiki.rb
 
 install-exec-local:
 	install -m 0755 -d $(DESTDIR)$(lyrics_plugin_dir)
