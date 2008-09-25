@@ -124,6 +124,16 @@ check_subcmd_length(void)
 }
 
 static void
+keydef_paint(mpdclient_t *c);
+
+static void
+keydef_repaint(void)
+{
+	keydef_paint(NULL);
+	wrefresh(lw->w);
+}
+
+static void
 delete_key(int cmd_index, int key_index)
 {
 	int i = key_index+1;
@@ -134,7 +144,10 @@ delete_key(int cmd_index, int key_index)
 	cmds[cmd_index].keys[key_index] = 0;
 	cmds[cmd_index].flags |= COMMAND_KEY_MODIFIED;
 	check_subcmd_length();
-	lw->repaint = 1;
+
+	/* repaint */
+	keydef_repaint();
+
 	/* update key conflict flags */
 	check_key_bindings(cmds, NULL, 0);
 }
@@ -173,7 +186,10 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
 	screen_status_printf(_("Assigned %s to %s"),
 			     key2str(key),cmds[cmd_index].name);
 	check_subcmd_length();
-	lw->repaint = 1;
+
+	/* repaint */
+	keydef_repaint();
+
 	/* update key conflict flags */
 	check_key_bindings(cmds, NULL, 0);
 }
@@ -283,15 +299,6 @@ keydef_paint(mpd_unused mpdclient_t *c)
 	list_window_paint(lw, list_callback, NULL);
 }
 
-static void
-keydef_update(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
-{
-	if (lw->repaint) {
-		list_window_paint(lw, list_callback, NULL);
-		lw->repaint = 0;
-	}
-}
-
 static int
 keydef_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 {
@@ -299,6 +306,11 @@ keydef_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 
 	if (subcmd >= 0)
 		length = subcmd_length;
+
+	if (list_window_cmd(lw, length, cmd)) {
+		keydef_repaint();
+		return 1;
+	}
 
 	switch(cmd) {
 	case CMD_PLAY:
@@ -312,17 +324,20 @@ keydef_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 				subcmd = lw->selected;
 				lw->selected=0;
 				check_subcmd_length();
+
+				keydef_repaint();
 			}
 		} else {
 			if (lw->selected == 0) { /* up */
 				lw->selected = subcmd;
 				subcmd = -1;
+
+				keydef_repaint();
 			} else
 				assign_new_key(screen->status_window.w,
 					       subcmd,
 					       lw->selected - STATIC_SUB_ITEMS);
 		}
-		lw->repaint = 1;
 		return 1;
 	case CMD_DELETE:
 		if (subcmd >= 0 && lw->selected >= STATIC_SUB_ITEMS)
@@ -337,15 +352,17 @@ keydef_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		return screen_find(screen,
-				   lw,  length,
-				   cmd, list_callback, NULL);
+		screen_find(screen,
+			    lw, length,
+			    cmd, list_callback, NULL);
+		keydef_repaint();
+		return 1;
 
 	default:
 		break;
 	}
 
-	return list_window_cmd(lw, length, cmd);
+	return 0;
 }
 
 const struct screen_functions screen_keydef = {
@@ -355,7 +372,6 @@ const struct screen_functions screen_keydef = {
 	.close = keydef_close,
 	.resize = keydef_resize,
 	.paint = keydef_paint,
-	.update = keydef_update,
 	.cmd = keydef_cmd,
 	.get_title = keydef_title,
 };
