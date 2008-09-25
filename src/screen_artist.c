@@ -80,11 +80,30 @@ artist_lw_callback(unsigned idx, mpd_unused int *highlight, mpd_unused void *dat
 	return buf;
 }
 
+static void
+paint(mpdclient_t *c);
+
+static void
+artist_repaint(void)
+{
+	paint(NULL);
+	wrefresh(browser.lw->w);
+}
+
+static void
+artist_repaint_if_active(void)
+{
+	if (get_cur_mode_id() == 2) /* XXX don't use the literal number */
+		artist_repaint();
+}
+
 /* the playlist have been updated -> fix highlights */
 static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 {
 	browser_playlist_changed(&browser, c, event, data);
+
+	artist_repaint_if_active();
 }
 
 /* fetch artists/albums/songs from mpd */
@@ -164,6 +183,8 @@ browse_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
 	default:
 		break;
 	}
+
+	artist_repaint_if_active();
 }
 
 static void
@@ -225,19 +246,6 @@ paint(mpd_unused mpdclient_t *c)
 	}
 }
 
-static void
-update(mpd_unused screen_t *screen, mpdclient_t *c)
-{
-	if (browser.filelist && !browser.filelist->updated)
-		list_window_paint(browser.lw, browser_lw_callback,
-				  browser.filelist);
-	else if (metalist)
-		list_window_paint(browser.lw, artist_lw_callback, metalist);
-	else
-		paint(c);
-	wnoutrefresh(browser.lw->w);
-}
-
 static const char *
 get_title(char *str, size_t size)
 {
@@ -287,6 +295,13 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
 	char *selected;
 
+	if (browser.filelist == NULL && metalist != NULL &&
+	    list_window_cmd(browser.lw, metalist_length, cmd)) {
+		list_window_paint(browser.lw, artist_lw_callback, metalist);
+		wrefresh(browser.lw->w);
+		return 1;
+	}
+
 	switch(cmd) {
 	case CMD_PLAY:
 		switch (mode) {
@@ -295,6 +310,9 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 							    browser.lw->selected);
 			update_metalist(c, g_strdup(selected), NULL);
 			list_window_push_state(browser.lw_state, browser.lw);
+
+			list_window_paint(browser.lw, artist_lw_callback, metalist);
+			wrefresh(browser.lw->w);
 			break;
 
 		case LIST_ALBUMS:
@@ -316,6 +334,8 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 				update_metalist(c, g_strdup(artist), g_strdup(selected));
 				list_window_push_state(browser.lw_state, browser.lw);
 			}
+
+			artist_repaint();
 			break;
 
 		case LIST_SONGS:
@@ -327,6 +347,9 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 				/* restore previous list window state */
 				list_window_pop_state(browser.lw_state,
 						      browser.lw);
+
+				list_window_paint(browser.lw, artist_lw_callback, metalist);
+				wrefresh(browser.lw->w);
 			} else
 				browser_handle_enter(&browser, c);
 			break;
@@ -355,6 +378,8 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			list_window_pop_state(browser.lw_state, browser.lw);
 			break;
 		}
+
+		artist_repaint();
 		break;
 
 	case CMD_GO_ROOT_DIRECTORY:
@@ -370,6 +395,8 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			while(list_window_pop_state(browser.lw_state, browser.lw));
 			break;
 		}
+
+		artist_repaint();
 		break;
 
 	case CMD_SELECT:
@@ -418,16 +445,19 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
 		if (browser.filelist)
-			return screen_find(screen,
-					   browser.lw, filelist_length(browser.filelist),
-					   cmd, browser_lw_callback,
-					   browser.filelist);
+			screen_find(screen,
+				    browser.lw, filelist_length(browser.filelist),
+				    cmd, browser_lw_callback,
+				    browser.filelist);
 		else if (metalist)
-			return screen_find(screen,
-					   browser.lw, metalist_length,
-					   cmd, artist_lw_callback, metalist);
+			screen_find(screen,
+				    browser.lw, metalist_length,
+				    cmd, artist_lw_callback, metalist);
 		else
 			return 1;
+
+		artist_repaint();
+		return 1;
 
 	case CMD_MOUSE_EVENT:
 		return browser_handle_mouse_event(&browser, c);
@@ -436,10 +466,15 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		break;
 	}
 
-	if (browser.filelist)
-		return list_window_cmd(browser.lw, filelist_length(browser.filelist), cmd);
-	else if (metalist)
-		return list_window_cmd(browser.lw, metalist_length, cmd);
+	if (browser.filelist != NULL &&
+	    list_window_cmd(browser.lw, filelist_length(browser.filelist),
+			    cmd)) {
+		list_window_paint(browser.lw, browser_lw_callback,
+				  browser.filelist);
+		wrefresh(browser.lw->w);
+		browser.filelist->updated = FALSE;
+		return 1;
+	}
 
 	return 0;
 }
@@ -450,7 +485,6 @@ const struct screen_functions screen_artist = {
 	.open = open,
 	.resize = resize,
 	.paint = paint,
-	.update = update,
 	.cmd = artist_cmd,
 	.get_title = get_title,
 };
