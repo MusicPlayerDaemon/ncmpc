@@ -359,13 +359,13 @@ play_title(char *str, size_t size)
 }
 
 static void
-play_paint(mpd_unused screen_t *screen, mpdclient_t *c)
+play_paint(mpdclient_t *c)
 {
 	list_window_paint(lw, list_callback, (void *) c);
 }
 
 static void
-play_update(screen_t *screen, mpdclient_t *c)
+play_update(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	/* hide the cursor when mpd are playing and the user are inactive */
 	if (options.hide_cursor > 0 &&
@@ -388,7 +388,7 @@ play_update(screen_t *screen, mpdclient_t *c)
 
 	if (c->playlist.id != playlist_id) {
 		list_window_check_selected(lw, playlist_length(&c->playlist));
-		play_paint(screen, c);
+		play_paint(c);
 		playlist_id = c->playlist.id;
 	} else {
 		list_window_paint(lw, list_callback, (void *) c);

@@ -211,7 +211,7 @@ resize(int cols, int rows)
 }
 
 static void
-paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
+paint(mpd_unused mpdclient_t *c)
 {
 	if (browser.filelist) {
 		list_window_paint(browser.lw, browser_lw_callback,
@@ -226,7 +226,7 @@ paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 }
 
 static void
-update(screen_t *screen, mpdclient_t *c)
+update(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	if (browser.filelist && !browser.filelist->updated)
 		list_window_paint(browser.lw, browser_lw_callback,
@@ -234,7 +234,7 @@ update(screen_t *screen, mpdclient_t *c)
 	else if (metalist)
 		list_window_paint(browser.lw, artist_lw_callback, metalist);
 	else
-		paint(screen, c);
+		paint(c);
 	wnoutrefresh(browser.lw->w);
 }
 

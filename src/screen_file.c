@@ -175,16 +175,16 @@ browse_title(char *str, size_t size)
 }
 
 static void
-browse_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
+browse_paint(mpd_unused mpdclient_t *c)
 {
 	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
 }
 
 static void
-browse_update(screen_t *screen, mpdclient_t *c)
+browse_update(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	if (browser.filelist->updated) {
-		browse_paint(screen, c);
+		browse_paint(c);
 		browser.filelist->updated = FALSE;
 		return;
 	}

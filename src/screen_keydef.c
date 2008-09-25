@@ -278,7 +278,7 @@ keydef_title(char *str, size_t size)
 }
 
 static void
-keydef_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
+keydef_paint(mpd_unused mpdclient_t *c)
 {
 	list_window_paint(lw, list_callback, NULL);
 }

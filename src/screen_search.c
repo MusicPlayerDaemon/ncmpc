@@ -387,7 +387,7 @@ resize(int cols, int rows)
 }
 
 static void
-paint(mpd_unused screen_t *screen, mpdclient_t *c)
+paint(mpdclient_t *c)
 {
 	if (browser.filelist) {
 		browser.lw->flags = 0;
@@ -404,10 +404,10 @@ paint(mpd_unused screen_t *screen, mpdclient_t *c)
 }
 
 static void
-update(screen_t *screen, mpdclient_t *c)
+update(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	if (browser.filelist == NULL || browser.filelist->updated) {
-		paint(screen, c);
+		paint(c);
 		return;
 	}
 
@@ -450,7 +450,7 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 	case CMD_SELECT_ALL:
 		browser_handle_select_all(&browser, c);
-		paint (screen, c);
+		paint(c);
 		return 0;
 
 	case CMD_SEARCH_MODE:

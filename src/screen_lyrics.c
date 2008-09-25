@@ -260,7 +260,7 @@ lyrics_title(char *str, size_t size)
 }
 
 static void
-lyrics_paint(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
+lyrics_paint(mpd_unused mpdclient_t *c)
 {
 	list_window_paint(lw, list_callback, NULL);
 }
@@ -297,7 +297,7 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LYRICS_UPDATE:
 		if (c->song != NULL) {
 			screen_lyrics_load(c->song);
-			lyrics_paint(NULL, NULL);
+			lyrics_paint(NULL);
 			wrefresh(lw->w);
 		}
 		return 1;
