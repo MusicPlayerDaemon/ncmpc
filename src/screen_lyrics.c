@@ -99,7 +99,7 @@ lyrics_repaint(void)
 static void
 lyrics_repaint_if_active(void)
 {
-	if (get_cur_mode_id() == 104) { /* XXX don't use the literal number */
+	if (screen_is_visible(&screen_lyrics)) {
 		lyrics_repaint();
 
 		/* XXX repaint the screen title */

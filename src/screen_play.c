@@ -64,7 +64,7 @@ playlist_repaint(struct mpdclient *c)
 static void
 playlist_repaint_if_active(struct mpdclient *c)
 {
-	if (get_cur_mode_id() == 0) /* XXX don't use the literal number */
+	if (screen_is_visible(&screen_playlist))
 		playlist_repaint(c);
 }
 

@@ -47,9 +47,10 @@ static const struct screen_functions *mode_fn = &screen_playlist;
 static int seek_id = -1;
 static int seek_target_time = 0;
 
-gint get_cur_mode_id(void)
+gboolean
+screen_is_visible(const struct screen_functions *sf)
 {
-	return screen_get_id_by_index(screen.mode);
+	return sf == mode_fn;
 }
 
 static void

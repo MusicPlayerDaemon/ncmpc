@@ -90,7 +90,7 @@ artist_repaint(void)
 static void
 artist_repaint_if_active(void)
 {
-	if (get_cur_mode_id() == 2) /* XXX don't use the literal number */
+	if (screen_is_visible(&screen_artist))
 		artist_repaint();
 }
 

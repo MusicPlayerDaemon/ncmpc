@@ -94,8 +94,9 @@ void screen_idle(mpdclient_t *c);
 void screen_cmd(mpdclient_t *c, command_t cmd);
 gint screen_get_id(const char *name);
 
+gboolean
+screen_is_visible(const struct screen_functions *sf);
 
-gint get_cur_mode_id(void);
 int screen_get_mouse_event(mpdclient_t *c, unsigned long *bstate, int *row);
 
 #endif
