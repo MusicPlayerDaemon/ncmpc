@@ -24,14 +24,6 @@
 
 #include <ncurses.h>
 
-#define SCREEN_PLAYLIST_ID 0
-#define SCREEN_BROWSE_ID 1
-#define SCREEN_ARTIST_ID 2
-#define SCREEN_HELP_ID 100
-#define SCREEN_KEYDEF_ID 101
-#define SCREEN_SEARCH_ID 103
-#define SCREEN_LYRICS_ID 104
-
 extern const struct screen_functions screen_playlist;
 extern const struct screen_functions screen_browse;
 #ifdef ENABLE_ARTIST_SCREEN
@@ -65,9 +57,6 @@ screen_lookup_name(const char *name);
 
 int
 screen_get_id(const char *name);
-
-const struct screen_functions *
-screen_get_functions(unsigned i);
 
 int
 lookup_mode(const struct screen_functions *sf);

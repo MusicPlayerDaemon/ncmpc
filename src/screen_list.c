@@ -24,24 +24,23 @@
 
 static const struct
 {
-	int id;
 	const char *name;
 	const struct screen_functions *functions;
 } screens[] = {
-	{ SCREEN_PLAYLIST_ID, "playlist", &screen_playlist },
-	{ SCREEN_BROWSE_ID, "browse", &screen_browse },
+	{ "playlist", &screen_playlist },
+	{ "browse", &screen_browse },
 #ifdef ENABLE_ARTIST_SCREEN
-	{ SCREEN_ARTIST_ID, "artist", &screen_artist },
+	{ "artist", &screen_artist },
 #endif
-	{ SCREEN_HELP_ID, "help", &screen_help },
+	{ "help", &screen_help },
 #ifdef ENABLE_SEARCH_SCREEN
-	{ SCREEN_SEARCH_ID, "search", &screen_search },
+	{ "search", &screen_search },
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
-	{ SCREEN_KEYDEF_ID, "keydef", &screen_keydef },
+	{ "keydef", &screen_keydef },
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
-	{ SCREEN_LYRICS_ID, "lyrics", &screen_lyrics },
+	{ "lyrics", &screen_lyrics },
 #endif
 };
 
@@ -104,14 +103,6 @@ screen_lookup_name(const char *name)
 			return screens[i].functions;
 
 	return NULL;
-}
-
-const struct screen_functions *
-screen_get_functions(unsigned i)
-{
-	assert(i < NUM_SCREENS);
-
-	return screens[i].functions;
 }
 
 int
