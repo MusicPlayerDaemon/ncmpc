@@ -130,8 +130,6 @@ center_playing_item(mpdclient_t *c)
 	/* make sure the cursor is in the window */
 	lw->selected = lw->start+offset;
 	list_window_check_selected(lw, length);
-
-	playlist_repaint(c);
 }
 
 static void
@@ -420,14 +418,17 @@ play_paint(mpdclient_t *c)
 static void
 play_update(mpdclient_t *c)
 {
-	/* center the cursor */
-	if (options.auto_center) {
-		static int prev_song_id = 0;
+	static int prev_song_id;
+	int current_song_id = c->song != NULL ? c->song->id : 0;
 
-		if (c->song && prev_song_id != c->song->id) {
+	if (current_song_id != prev_song_id) {
+		prev_song_id = current_song_id;
+
+		/* center the cursor */
+		if (options.auto_center && current_song_id != 0)
 			center_playing_item(c);
-			prev_song_id = c->song->id;
-		}
+
+		playlist_repaint(c);
 	}
 }
 
@@ -505,6 +506,7 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		return 1;
 	case CMD_SCREEN_UPDATE:
 		center_playing_item(c);
+		playlist_repaint(c);
 		return 0;
 
 	case CMD_LIST_MOVE_UP:
