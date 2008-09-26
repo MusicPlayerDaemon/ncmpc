@@ -421,6 +421,15 @@ main(int argc, const char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
+	/* ignore SIGPIPE */
+
+	act.sa_flags = SA_RESTART;
+	act.sa_handler = SIG_IGN;
+	if (sigaction(SIGWINCH, &act, NULL) < 0) {
+		perror("sigaction(SIGWINCH)");
+		exit(EXIT_FAILURE);
+	}
+
 	ncu_init();
 
 #ifdef ENABLE_LYRICS_SCREEN
