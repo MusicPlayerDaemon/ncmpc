@@ -419,7 +419,8 @@ static void
 play_update(mpdclient_t *c)
 {
 	static int prev_song_id;
-	int current_song_id = c->song != NULL ? c->song->id : 0;
+	int current_song_id = c->song != NULL && c->status != NULL &&
+		!IS_STOPPED(c->status->state) ? c->song->id : 0;
 
 	if (current_song_id != prev_song_id) {
 		prev_song_id = current_song_id;
