@@ -418,15 +418,15 @@ play_paint(mpdclient_t *c)
 static void
 play_update(mpdclient_t *c)
 {
-	static int prev_song_id;
+	static int prev_song_id = -1;
 	int current_song_id = c->song != NULL && c->status != NULL &&
-		!IS_STOPPED(c->status->state) ? c->song->id : 0;
+		!IS_STOPPED(c->status->state) ? c->song->id : -1;
 
 	if (current_song_id != prev_song_id) {
 		prev_song_id = current_song_id;
 
 		/* center the cursor */
-		if (options.auto_center && current_song_id != 0)
+		if (options.auto_center && current_song_id != -1)
 			center_playing_item(c);
 
 		playlist_repaint(c);
