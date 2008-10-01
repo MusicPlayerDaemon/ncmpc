@@ -287,14 +287,31 @@ add_query(mpdclient_t *c, int table, char *_filter)
 }
 
 static int
+artist_lw_cmd(command_t cmd)
+{
+	switch (mode) {
+	case LIST_ARTISTS:
+	case LIST_ALBUMS:
+		return list_window_cmd(browser.lw, metalist_length, cmd);
+
+	case LIST_SONGS:
+		return list_window_cmd(browser.lw,
+				       filelist_length(browser.filelist),
+				       cmd);
+	}
+
+	assert(0);
+	return 0;
+}
+
+static int
 artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
 	char *selected;
 	int ret;
 
-	if (browser.filelist == NULL && metalist != NULL &&
-	    list_window_cmd(browser.lw, metalist_length, cmd)) {
-		list_window_paint(browser.lw, artist_lw_callback, metalist);
+	if (artist_lw_cmd(cmd)) {
+		artist_repaint();
 		wrefresh(browser.lw->w);
 		return 1;
 	}
@@ -465,15 +482,6 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 	default:
 		break;
-	}
-
-	if (browser.filelist != NULL &&
-	    list_window_cmd(browser.lw, filelist_length(browser.filelist),
-			    cmd)) {
-		list_window_paint(browser.lw, browser_lw_callback,
-				  browser.filelist);
-		wrefresh(browser.lw->w);
-		return 1;
 	}
 
 	return 0;
