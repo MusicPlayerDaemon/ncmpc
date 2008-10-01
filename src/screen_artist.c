@@ -41,8 +41,7 @@ typedef enum { LIST_ARTISTS, LIST_ALBUMS, LIST_SONGS } artist_mode_t;
 static artist_mode_t mode = LIST_ARTISTS;
 static char *artist = NULL;
 static char *album  = NULL;
-static unsigned metalist_length = 0;
-static GList *metalist = NULL;
+static GPtrArray *metalist = NULL;
 
 static struct screen_browser browser;
 
@@ -70,7 +69,7 @@ artist_lw_callback(unsigned idx, mpd_unused int *highlight, mpd_unused void *dat
 	if (mode == LIST_ALBUMS) {
 		if (idx == 0)
 			return "[..]";
-		else if (idx == metalist_length - 1) {
+		else if (idx == metalist->len + 1) {
 			str = utf8_to_locale(_("All tracks"));
 			g_snprintf(buf, BUFSIZE, "[%s]", str);
 			g_free(str);
@@ -80,8 +79,11 @@ artist_lw_callback(unsigned idx, mpd_unused int *highlight, mpd_unused void *dat
 		--idx;
 	}
 
-	if ((str_utf8 = (char *)g_list_nth_data(metalist, idx)) == NULL)
+	if (idx >= metalist->len)
 		return NULL;
+
+	str_utf8 = g_ptr_array_index(metalist, idx);
+	assert(str_utf8 != NULL);
 
 	str = utf8_to_locale(str_utf8);
 	g_snprintf(buf, BUFSIZE, "[%s]", str);
@@ -116,6 +118,34 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 	artist_repaint_if_active();
 }
 
+static GPtrArray *
+g_list_to_ptr_array(GList *in)
+{
+	GPtrArray *out = g_ptr_array_sized_new(g_list_length(in));
+	GList *head = in;
+
+	while (in != NULL) {
+		g_ptr_array_add(out, in->data);
+		in = g_list_next(in);
+	}
+
+	g_list_free(head);
+	return out;
+}
+
+static void
+string_array_free(GPtrArray *array)
+{
+	unsigned i;
+
+	for (i = 0; i < array->len; ++i) {
+		char *value = g_ptr_array_index(array, i);
+		free(value);
+	}
+
+	g_ptr_array_free(array, TRUE);
+}
+
 /* fetch artists/albums/songs from mpd */
 static void
 update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
@@ -125,8 +155,11 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 	artist = NULL;
 	album = NULL;
 
-	if (metalist)
-		metalist = string_list_free(metalist);
+	if (metalist != NULL) {
+		string_array_free(metalist);
+		metalist = NULL;
+	}
+
 	if (browser.filelist) {
 		mpdclient_remove_playlist_callback(c, playlist_changed_callback);
 		filelist_free(browser.filelist);
@@ -160,23 +193,26 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 		mode = LIST_SONGS;
 	} else if (m_artist) {
 		/* retreive albums... */
+		GList *list;
 
 		artist = m_artist;
-		metalist = mpdclient_get_albums_utf8(c, m_artist);
+		list = mpdclient_get_albums_utf8(c, m_artist);
 		/* sort list */
-		metalist = g_list_sort(metalist, compare_utf8);
+		list = g_list_sort(list, compare_utf8);
+
+		metalist = g_list_to_ptr_array(list);
 		mode = LIST_ALBUMS;
 	} else {
 		/* retreive artists... */
+		GList *list;
 
-		metalist = mpdclient_get_artists_utf8(c);
+		list = mpdclient_get_artists_utf8(c);
 		/* sort list */
-		metalist = g_list_sort(metalist, compare_utf8);
+		list = g_list_sort(list, compare_utf8);
+
+		metalist = g_list_to_ptr_array(list);
 		mode = LIST_ARTISTS;
 	}
-	metalist_length = g_list_length(metalist);
-	if (mode == LIST_ALBUMS)
-		metalist_length += 2;
 }
 
 /* db updated */
@@ -210,7 +246,7 @@ quit(void)
 	if (browser.filelist)
 		filelist_free(browser.filelist);
 	if (metalist)
-		string_list_free(metalist);
+		string_array_free(metalist);
 	g_free(artist);
 	g_free(album);
 	artist = NULL;
@@ -297,13 +333,23 @@ add_query(mpdclient_t *c, int table, char *_filter)
 	}
 }
 
+static unsigned
+metalist_length(void)
+{
+	assert(metalist != NULL);
+
+	return mode == LIST_ALBUMS
+		? metalist->len + 2
+		: metalist->len;
+}
+
 static int
 artist_lw_cmd(command_t cmd)
 {
 	switch (mode) {
 	case LIST_ARTISTS:
 	case LIST_ALBUMS:
-		return list_window_cmd(browser.lw, metalist_length, cmd);
+		return list_window_cmd(browser.lw, metalist_length(), cmd);
 
 	case LIST_SONGS:
 		return list_window_cmd(browser.lw,
@@ -331,8 +377,8 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_PLAY:
 		switch (mode) {
 		case LIST_ARTISTS:
-			selected = (char *) g_list_nth_data(metalist,
-							    browser.lw->selected);
+			selected = g_ptr_array_index(metalist,
+						     browser.lw->selected);
 			update_metalist(c, g_strdup(selected), NULL);
 			list_window_push_state(browser.lw_state, browser.lw);
 
@@ -348,14 +394,14 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 				list_window_reset(browser.lw);
 				/* restore previous list window state */
 				list_window_pop_state(browser.lw_state, browser.lw);
-			} else if (browser.lw->selected == metalist_length - 1) {
+			} else if (browser.lw->selected == metalist->len + 1) {
 				/* handle "show all" */
 				update_metalist(c, g_strdup(artist), g_strdup("\0"));
 				list_window_push_state(browser.lw_state, browser.lw);
 			} else {
 				/* select album */
-				selected = g_list_nth_data(metalist,
-							   browser.lw->selected - 1);
+				selected = g_ptr_array_index(metalist,
+							     browser.lw->selected - 1);
 				update_metalist(c, g_strdup(artist), g_strdup(selected));
 				list_window_push_state(browser.lw_state, browser.lw);
 			}
@@ -428,25 +474,18 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_ADD:
 		switch(mode) {
 		case LIST_ARTISTS:
-			selected = g_list_nth_data(metalist,
-						   browser.lw->selected);
-			if (selected == NULL)
-				return 1;
-
+			selected = g_ptr_array_index(metalist,
+						     browser.lw->selected);
 			add_query(c, MPD_TABLE_ARTIST, selected);
 			cmd = CMD_LIST_NEXT; /* continue and select next item... */
 			break;
 
 		case LIST_ALBUMS:
-			if (browser.lw->selected &&
-			    browser.lw->selected == metalist_length - 1)
+			if (browser.lw->selected == metalist->len + 1)
 				add_query(c, MPD_TABLE_ARTIST, artist);
 			else if (browser.lw->selected > 0) {
-				selected = g_list_nth_data(metalist,
-							   browser.lw->selected - 1);
-				if (selected == NULL)
-					return 1;
-
+				selected = g_ptr_array_index(metalist,
+							     browser.lw->selected - 1);
 				add_query(c, MPD_TABLE_ALBUM, selected);
 				cmd = CMD_LIST_NEXT; /* continue and select next item... */
 			}
@@ -480,7 +519,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 				    browser.filelist);
 		else if (metalist)
 			screen_find(screen,
-				    browser.lw, metalist_length,
+				    browser.lw, metalist_length(),
 				    cmd, artist_lw_callback, metalist);
 		else
 			return 1;
