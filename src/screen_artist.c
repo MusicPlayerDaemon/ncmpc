@@ -146,6 +146,88 @@ string_array_free(GPtrArray *array)
 	g_ptr_array_free(array, TRUE);
 }
 
+static void
+free_lists(struct mpdclient *c)
+{
+	if (metalist != NULL) {
+		string_array_free(metalist);
+		metalist = NULL;
+	}
+
+	if (browser.filelist) {
+		if (c != NULL)
+			mpdclient_remove_playlist_callback(c, playlist_changed_callback);
+		filelist_free(browser.filelist);
+		browser.filelist = NULL;
+	}
+}
+
+static void
+load_artist_list(struct mpdclient *c)
+{
+	GList *list;
+
+	assert(mode == LIST_ARTISTS);
+	assert(artist == NULL);
+	assert(album == NULL);
+	assert(metalist == NULL);
+	assert(browser.filelist == NULL);
+
+	list = mpdclient_get_artists_utf8(c);
+	/* sort list */
+	list = g_list_sort(list, compare_utf8);
+
+	metalist = g_list_to_ptr_array(list);
+}
+
+static void
+load_album_list(struct mpdclient *c)
+{
+	GList *list;
+
+	assert(mode == LIST_ALBUMS);
+	assert(artist != NULL);
+	assert(album == NULL);
+	assert(metalist == NULL);
+	assert(browser.filelist == NULL);
+
+	list = mpdclient_get_albums_utf8(c, artist);
+	/* sort list */
+	list = g_list_sort(list, compare_utf8);
+
+	metalist = g_list_to_ptr_array(list);
+}
+
+static void
+load_song_list(struct mpdclient *c)
+{
+	assert(mode == LIST_SONGS);
+	assert(artist != NULL);
+	assert(album != NULL);
+	assert(browser.filelist == NULL);
+
+	if (album[0] == 0) {
+		album = g_strdup(_("All tracks"));
+		browser.filelist =
+			mpdclient_filelist_search_utf8(c, TRUE,
+						       MPD_TABLE_ARTIST,
+						       artist);
+	} else
+		browser.filelist =
+			mpdclient_filelist_search_utf8(c, TRUE,
+						       MPD_TABLE_ALBUM,
+						       album);
+	if (browser.filelist == NULL)
+		browser.filelist = filelist_new(NULL);
+
+	/* add a dummy entry for ".." */
+	filelist_prepend(browser.filelist, NULL);
+
+	/* install playlist callback and fix highlights */
+	sync_highlights(c, browser.filelist);
+	mpdclient_install_playlist_callback(c, playlist_changed_callback);
+}
+
 /* fetch artists/albums/songs from mpd */
 static void
 update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
@@ -155,63 +237,24 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 	artist = NULL;
 	album = NULL;
 
-	if (metalist != NULL) {
-		string_array_free(metalist);
-		metalist = NULL;
-	}
-
-	if (browser.filelist) {
-		mpdclient_remove_playlist_callback(c, playlist_changed_callback);
-		filelist_free(browser.filelist);
-		browser.filelist = NULL;
-	}
+	free_lists(c);
 
 	if (m_album) {
 		/* retreive songs... */
 		artist = m_artist;
 		album = m_album;
-		if (album[0] == 0) {
-			album = g_strdup(_("All tracks"));
-			browser.filelist =
-				mpdclient_filelist_search_utf8(c, TRUE,
-							       MPD_TABLE_ARTIST,
-							       artist);
-		} else
-			browser.filelist =
-				mpdclient_filelist_search_utf8(c, TRUE,
-							       MPD_TABLE_ALBUM,
-							       album);
-		if (browser.filelist == NULL)
-			browser.filelist = filelist_new(NULL);
 
-		/* add a dummy entry for ".." */
-		filelist_prepend(browser.filelist, NULL);
-
-		/* install playlist callback and fix highlights */
-		sync_highlights(c, browser.filelist);
-		mpdclient_install_playlist_callback(c, playlist_changed_callback);
 		mode = LIST_SONGS;
+		load_song_list(c);
 	} else if (m_artist) {
 		/* retreive albums... */
-		GList *list;
-
 		artist = m_artist;
-		list = mpdclient_get_albums_utf8(c, m_artist);
-		/* sort list */
-		list = g_list_sort(list, compare_utf8);
 
-		metalist = g_list_to_ptr_array(list);
 		mode = LIST_ALBUMS;
+		load_album_list(c);
 	} else {
-		/* retreive artists... */
-		GList *list;
-
-		list = mpdclient_get_artists_utf8(c);
-		/* sort list */
-		list = g_list_sort(list, compare_utf8);
-
-		metalist = g_list_to_ptr_array(list);
 		mode = LIST_ARTISTS;
+		load_artist_list(c);
 	}
 }
 
@@ -243,10 +286,7 @@ init(WINDOW *w, int cols, int rows)
 static void
 quit(void)
 {
-	if (browser.filelist)
-		filelist_free(browser.filelist);
-	if (metalist)
-		string_array_free(metalist);
+	free_lists(NULL);
 	g_free(artist);
 	g_free(album);
 	artist = NULL;
