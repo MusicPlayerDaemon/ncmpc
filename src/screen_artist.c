@@ -228,9 +228,8 @@ load_song_list(struct mpdclient *c)
 	mpdclient_install_playlist_callback(c, playlist_changed_callback);
 }
 
-/* fetch artists/albums/songs from mpd */
 static void
-update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
+free_state(struct mpdclient *c)
 {
 	g_free(artist);
 	g_free(album);
@@ -238,24 +237,41 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 	album = NULL;
 
 	free_lists(c);
+}
 
-	if (m_album) {
-		/* retreive songs... */
-		artist = m_artist;
-		album = m_album;
+static void
+open_artist_list(struct mpdclient *c)
+{
+	free_state(c);
 
-		mode = LIST_SONGS;
-		load_song_list(c);
-	} else if (m_artist) {
-		/* retreive albums... */
-		artist = m_artist;
+	mode = LIST_ARTISTS;
+	load_artist_list(c);
+}
 
-		mode = LIST_ALBUMS;
-		load_album_list(c);
-	} else {
-		mode = LIST_ARTISTS;
-		load_artist_list(c);
-	}
+static void
+open_album_list(struct mpdclient *c, char *_artist)
+{
+	assert(_artist != NULL);
+
+	free_state(c);
+
+	mode = LIST_ALBUMS;
+	artist = _artist;
+	load_album_list(c);
+}
+
+static void
+open_song_list(struct mpdclient *c, char *_artist, char *_album)
+{
+	assert(_artist != NULL);
+	assert(_album != NULL);
+
+	free_state(c);
+
+	mode = LIST_SONGS;
+	artist = _artist;
+	album = _album;
+	load_song_list(c);
 }
 
 static void
@@ -306,11 +322,7 @@ init(WINDOW *w, int cols, int rows)
 static void
 quit(void)
 {
-	free_lists(NULL);
-	g_free(artist);
-	g_free(album);
-	artist = NULL;
-	album = NULL;
+	free_state(NULL);
 	list_window_free(browser.lw);
 	list_window_free_state(browser.lw_state);
 }
@@ -439,7 +451,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		case LIST_ARTISTS:
 			selected = g_ptr_array_index(metalist,
 						     browser.lw->selected);
-			update_metalist(c, g_strdup(selected), NULL);
+			open_album_list(c, g_strdup(selected));
 			list_window_push_state(browser.lw_state, browser.lw);
 
 			list_window_paint(browser.lw, artist_lw_callback, metalist);
@@ -450,19 +462,19 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			if (browser.lw->selected == 0) {
 				/* handle ".." */
 
-				update_metalist(c, NULL, NULL);
+				open_artist_list(c);
 				list_window_reset(browser.lw);
 				/* restore previous list window state */
 				list_window_pop_state(browser.lw_state, browser.lw);
 			} else if (browser.lw->selected == metalist->len + 1) {
 				/* handle "show all" */
-				update_metalist(c, g_strdup(artist), g_strdup("\0"));
+				open_song_list(c, g_strdup(artist), g_strdup("\0"));
 				list_window_push_state(browser.lw_state, browser.lw);
 			} else {
 				/* select album */
 				selected = g_ptr_array_index(metalist,
 							     browser.lw->selected - 1);
-				update_metalist(c, g_strdup(artist), g_strdup(selected));
+				open_song_list(c, g_strdup(artist), g_strdup(selected));
 				list_window_push_state(browser.lw_state, browser.lw);
 			}
 
@@ -473,7 +485,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			if (browser.lw->selected == 0) {
 				/* handle ".." */
 
-				update_metalist(c, g_strdup(artist), NULL);
+				open_album_list(c, g_strdup(artist));
 				list_window_reset(browser.lw);
 				/* restore previous list window state */
 				list_window_pop_state(browser.lw_state,
@@ -496,14 +508,14 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			break;
 
 		case LIST_ALBUMS:
-			update_metalist(c, NULL, NULL);
+			open_artist_list(c);
 			list_window_reset(browser.lw);
 			/* restore previous list window state */
 			list_window_pop_state(browser.lw_state, browser.lw);
 			break;
 
 		case LIST_SONGS:
-			update_metalist(c, g_strdup(artist), NULL);
+			open_album_list(c, g_strdup(artist));
 			list_window_reset(browser.lw);
 			/* restore previous list window state */
 			list_window_pop_state(browser.lw_state, browser.lw);
@@ -520,7 +532,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 		case LIST_ALBUMS:
 		case LIST_SONGS:
-			update_metalist(c, NULL, NULL);
+			open_artist_list(c);
 			list_window_reset(browser.lw);
 			/* restore first list window state (pop while returning true) */
 			while(list_window_pop_state(browser.lw_state, browser.lw));
