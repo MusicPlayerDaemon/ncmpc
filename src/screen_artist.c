@@ -258,6 +258,26 @@ update_metalist(mpdclient_t *c, char *m_artist, char *m_album)
 	}
 }
 
+static void
+reload_lists(struct mpdclient *c)
+{
+	free_lists(c);
+
+	switch (mode) {
+	case LIST_ARTISTS:
+		load_artist_list(c);
+		break;
+
+	case LIST_ALBUMS:
+		load_album_list(c);
+		break;
+
+	case LIST_SONGS:
+		load_song_list(c);
+		break;
+	}
+}
+
 /* db updated */
 static void
 browse_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
@@ -265,7 +285,7 @@ browse_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
 	switch(event) {
 	case BROWSE_DB_UPDATED:
 		D("screen_artist.c> browse_callback() [BROWSE_DB_UPDATED]\n");
-		update_metalist(c, g_strdup(artist), g_strdup(album));
+		reload_lists(c);
 		break;
 	default:
 		break;
@@ -301,7 +321,7 @@ open(mpd_unused screen_t *screen, mpdclient_t *c)
 	static gboolean callback_installed = FALSE;
 
 	if (metalist == NULL && browser.filelist == NULL)
-		update_metalist(c, NULL, NULL);
+		reload_lists(c);
 	if (!callback_installed) {
 		mpdclient_install_browse_callback(c, browse_callback);
 		callback_installed = TRUE;
@@ -544,7 +564,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 		/* continue and update... */
 	case CMD_SCREEN_UPDATE:
-		update_metalist(c, g_strdup(artist), g_strdup(album));
+		reload_lists(c);
 		screen_status_printf(_("Screen updated!"));
 		return 0;
 
