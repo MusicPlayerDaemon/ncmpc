@@ -450,11 +450,6 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	char *selected;
 	int ret;
 
-	if (artist_lw_cmd(cmd)) {
-		artist_repaint();
-		return 1;
-	}
-
 	switch(cmd) {
 	case CMD_PLAY:
 		switch (mode) {
@@ -622,6 +617,11 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 	default:
 		break;
+	}
+
+	if (artist_lw_cmd(cmd)) {
+		artist_repaint();
+		return 1;
 	}
 
 	return 0;
