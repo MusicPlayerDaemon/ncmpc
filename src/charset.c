@@ -18,13 +18,10 @@
  */
 
 #include "charset.h"
-#include "i18n.h"
 
 #include <assert.h>
 #include <string.h>
 #include <glib.h>
-
-extern void screen_status_printf(const char *format, ...);
 
 static bool noconvert = true;
 static const char *charset;
@@ -61,7 +58,6 @@ char *
 utf8_to_locale(const char *utf8str)
 {
 	gchar *str;
-	gsize rb, wb;
 	GError *error;
 
 	assert(utf8str != NULL);
@@ -69,16 +65,11 @@ utf8_to_locale(const char *utf8str)
 	if (noconvert)
 		return g_strdup(utf8str);
 
-	rb = 0; /* bytes read */
-	wb = 0; /* bytes written */
-	error = NULL;
-	str = g_locale_from_utf8(utf8str,
-				 strlen(utf8str),
-				 &wb, &rb,
-				 &error);
-	if (error) {
-		screen_status_printf(_("Error: Unable to convert characters to %s"),
-				     charset);
+	str = g_convert_with_fallback(utf8str, strlen(utf8str),
+				      charset, "utf-8",
+				      NULL, NULL, NULL,
+				      &error);
+	if (str == NULL) {
 		g_error_free(error);
 		return g_strdup(utf8str);
 	}
@@ -90,7 +81,6 @@ char *
 locale_to_utf8(const char *localestr)
 {
 	gchar *str;
-	gsize rb, wb;
 	GError *error;
 
 	assert(localestr != NULL);
@@ -98,15 +88,11 @@ locale_to_utf8(const char *localestr)
 	if (noconvert)
 		return g_strdup(localestr);
 
-	rb = 0; /* bytes read */
-	wb = 0; /* bytes written */
-	error = NULL;
-	str = g_locale_to_utf8(localestr,
-			       strlen(localestr),
-			       &wb, &rb,
-			       &error);
-	if (error) {
-		screen_status_printf(_("Error: Unable to convert characters to UTF-8"));
+	str = g_convert_with_fallback(localestr, strlen(localestr),
+				      "utf-8", charset,
+				      NULL, NULL, NULL,
+				      &error);
+	if (str == NULL) {
 		g_error_free(error);
 		return g_strdup(localestr);
 	}
