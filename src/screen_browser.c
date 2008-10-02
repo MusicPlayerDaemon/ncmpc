@@ -255,7 +255,7 @@ browser_get_selected(const struct screen_browser *browser)
 	return filelist_get(browser->filelist, browser->lw->selected);
 }
 
-int
+static int
 browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 {
 	struct filelist_entry *entry = browser_get_selected(browser);
@@ -380,7 +380,7 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 	return 0;
 }
 
-int
+static int
 browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
 {
 	struct filelist_entry *entry = browser_get_selected(browser);
@@ -391,7 +391,7 @@ browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
 	return browser_select_entry(c, entry, TRUE);
 }
 
-int
+static int
 browser_handle_add(struct screen_browser *browser, mpdclient_t *c)
 {
 	struct filelist_entry *entry = browser_get_selected(browser);
@@ -402,7 +402,7 @@ browser_handle_add(struct screen_browser *browser, mpdclient_t *c)
 	return browser_select_entry(c, entry, FALSE);
 }
 
-void
+static void
 browser_handle_select_all(struct screen_browser *browser, mpdclient_t *c)
 {
 	guint i;
@@ -419,7 +419,7 @@ browser_handle_select_all(struct screen_browser *browser, mpdclient_t *c)
 }
 
 #ifdef HAVE_GETMOUSE
-int
+static int
 browser_handle_mouse_event(struct screen_browser *browser, mpdclient_t *c)
 {
 	int row;
@@ -492,9 +492,11 @@ browser_cmd(struct screen_browser *browser, struct screen *screen,
 			    browser->filelist);
 		return true;
 
+#ifdef HAVE_GETMOUSE
 	case CMD_MOUSE_EVENT:
 		browser_handle_mouse_event(browser, c);
 		return true;
+#endif
 
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:

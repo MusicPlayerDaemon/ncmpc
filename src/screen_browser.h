@@ -48,26 +48,8 @@ browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
 const char *browser_lw_callback(unsigned index, int *highlight, void *filelist);
 
 int
-browser_handle_select(struct screen_browser *browser, mpdclient_t *c);
-
-int
-browser_handle_add(struct screen_browser *browser, mpdclient_t *c);
-
-void
-browser_handle_select_all(struct screen_browser *browser, mpdclient_t *c);
-
-int
 browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 			 filelist_entry_t *entry, const char *new_path);
-
-int
-browser_handle_enter(struct screen_browser *browser, mpdclient_t *c);
-
-#ifdef HAVE_GETMOUSE
-int browser_handle_mouse_event(struct screen_browser *browser, mpdclient_t *c);
-#else
-#define browser_handle_mouse_event(browser, c) (0)
-#endif
 
 bool
 browser_cmd(struct screen_browser *browser, struct screen *screen,
