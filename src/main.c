@@ -41,6 +41,9 @@
 #include <signal.h>
 #include <string.h>
 
+/* time between mpd updates [s] */
+static const float MPD_UPDATE_TIME = 0.5;
+
 #define BUFSIZE 1024
 
 static const guint idle_interval = 500;

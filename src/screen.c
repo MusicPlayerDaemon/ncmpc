@@ -22,7 +22,6 @@
 #include "screen_list.h"
 #include "screen_utils.h"
 #include "config.h"
-#include "ncmpc.h"
 #include "i18n.h"
 #include "support.h"
 #include "mpdclient.h"
@@ -39,6 +38,16 @@
 #include <string.h>
 #include <time.h>
 #include <locale.h>
+
+/** welcome message time [s] */
+static const unsigned SCREEN_WELCOME_TIME = 10;
+
+/** status message time [s] */
+static const unsigned SCREEN_STATUS_MESSAGE_TIME = 3;
+
+/* minumum window size */
+static const int SCREEN_MIN_COLS = 14;
+static const int SCREEN_MIN_ROWS = 5;
 
 /* screens */
 
