@@ -20,11 +20,15 @@
 #ifndef CHARSET_H
 #define CHARSET_H
 
+#include "config.h"
+
 #include <stdbool.h>
 #include <stddef.h>
 
+#ifdef HAVE_LOCALE_H
 const char *
 charset_init(void);
+#endif
 
 /**
  * Returns the number of terminal cells occupied by this string.

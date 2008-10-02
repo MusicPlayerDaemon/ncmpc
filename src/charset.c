@@ -23,6 +23,7 @@
 #include <string.h>
 #include <glib.h>
 
+#ifdef HAVE_LOCALE_H
 static bool noconvert = true;
 static const char *charset;
 
@@ -31,13 +32,16 @@ charset_init(void)
 {
 	noconvert = g_get_charset(&charset);
 	return charset;
+	return NULL;
 }
+#endif
 
 unsigned
 utf8_width(const char *str)
 {
 	assert(str != NULL);
 
+#ifdef HAVE_LOCALE_H
 	if (g_utf8_validate(str, -1, NULL)) {
 		size_t len = g_utf8_strlen(str, -1);
 		unsigned width = 0;
@@ -51,12 +55,14 @@ utf8_width(const char *str)
 
 		return width;
 	} else
+#endif
 		return strlen(str);
 }
 
 char *
 utf8_to_locale(const char *utf8str)
 {
+#ifdef HAVE_LOCALE_H
 	gchar *str;
 	GError *error;
 
@@ -75,11 +81,15 @@ utf8_to_locale(const char *utf8str)
 	}
 
 	return str;
+#else
+	return g_strdup(utf8str);
+#endif
 }
 
 char *
 locale_to_utf8(const char *localestr)
 {
+#ifdef HAVE_LOCALE_H
 	gchar *str;
 	GError *error;
 
@@ -98,4 +108,7 @@ locale_to_utf8(const char *localestr)
 	}
 
 	return str;
+#else
+	return g_strdup(localestr);
+#endif
 }

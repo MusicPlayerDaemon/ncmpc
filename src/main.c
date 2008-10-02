@@ -323,7 +323,9 @@ int
 main(int argc, const char *argv[])
 {
 	struct sigaction act;
+#ifdef HAVE_LOCALE_H
 	const char *charset = NULL;
+#endif
 	GIOChannel *keyboard_channel;
 
 #ifdef HAVE_LOCALE_H
@@ -335,7 +337,6 @@ main(int argc, const char *argv[])
 	setlocale(LC_CTYPE,"");
 	/* initialize charset conversions */
 	charset = charset_init();
-#endif
 
 	/* initialize i18n support */
 #ifdef ENABLE_NLS
@@ -343,6 +344,7 @@ main(int argc, const char *argv[])
 	bindtextdomain(GETTEXT_PACKAGE, LOCALE_DIR);
 	bind_textdomain_codeset(GETTEXT_PACKAGE, charset);
 	textdomain(GETTEXT_PACKAGE);
+#endif
 #endif
 
 	/* initialize options */
