@@ -26,6 +26,7 @@
 #include "screen_utils.h"
 #include "strfsong.h"
 #include "lyrics.h"
+#include "charset.h"
 #include "gcc.h"
 
 #define _GNU_SOURCE
@@ -221,10 +222,17 @@ static int store_lyr_hd(void)
 static const char *
 list_callback(unsigned idx, mpd_unused int *highlight, mpd_unused void *data)
 {
+	static char buffer[256];
+	char *value;
+
 	if (idx >= current.lines->len)
 		return NULL;
 
-	return g_ptr_array_index(current.lines, idx);
+	value = utf8_to_locale(g_ptr_array_index(current.lines, idx));
+	g_strlcpy(buffer, value, sizeof(buffer));
+	free(value);
+
+	return buffer;
 }
 
 
