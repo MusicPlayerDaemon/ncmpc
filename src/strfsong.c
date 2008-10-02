@@ -54,7 +54,7 @@ static gsize
 _strfsong(gchar *s,
 	  gsize max,
 	  const gchar *format,
-	  mpd_Song *song,
+	  const struct mpd_song *song,
 	  const gchar **last)
 {
 	const gchar *p, *end;
@@ -216,7 +216,8 @@ _strfsong(gchar *s,
 }
 
 gsize
-strfsong(gchar *s, gsize max, const gchar *format, mpd_Song *song)
+strfsong(gchar *s, gsize max, const gchar *format,
+	 const struct mpd_song *song)
 {
   return _strfsong(s, max, format, song, NULL);
 }

@@ -164,7 +164,7 @@ screen_lyrics_callback(const GString *result, mpd_unused void *data)
 }
 
 static void
-screen_lyrics_load(struct mpd_song *song)
+screen_lyrics_load(const struct mpd_song *song)
 {
 	char buffer[MAX_SONGNAME_LENGTH];
 
