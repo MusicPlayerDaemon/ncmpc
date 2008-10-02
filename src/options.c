@@ -165,19 +165,19 @@ handle_option(int c, const char *arg)
 		printf("\n");
 		exit(EXIT_SUCCESS);
 	case 'c': /* --colors */
-		options.enable_colors = TRUE;
+		options.enable_colors = true;
 		break;
 	case 'C': /* --no-colors */
-		options.enable_colors = FALSE;
+		options.enable_colors = false;
 		break;
 	case 'm': /* --mouse */
-		options.enable_mouse = TRUE;
+		options.enable_mouse = true;
 		break;
 	case 'M': /* --no-mouse */
-		options.enable_mouse = FALSE;
+		options.enable_mouse = false;
 		break;
 	case 'e': /* --exit */
-		options.reconnect = FALSE;
+		options.reconnect = false;
 		break;
 	case 'p': /* --port */
 		options.port = atoi(arg);
@@ -212,7 +212,7 @@ handle_option(int c, const char *arg)
 		exit(EXIT_SUCCESS);
 		break;
 	case 'D': /* --debug */
-		options.debug = TRUE;
+		options.debug = true;
 		break;
 #endif
 	default:
@@ -335,11 +335,11 @@ options_init( void )
 	/* default option values */
 	options.list_format = g_strdup(DEFAULT_LIST_FORMAT);
 	options.status_format = g_strdup(DEFAULT_STATUS_FORMAT);
-	options.reconnect = TRUE;
-	options.find_wrap = TRUE;
-	options.wide_cursor = TRUE;
-	options.welcome_screen_list = TRUE;
-	options.audible_bell = TRUE;
+	options.reconnect = true;
+	options.find_wrap = true;
+	options.wide_cursor = true;
+	options.welcome_screen_list = true;
+	options.audible_bell = true;
 	options.crossfade_time = DEFAULT_CROSSFADE_TIME;
 	options.seek_time = 1;
 	options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);

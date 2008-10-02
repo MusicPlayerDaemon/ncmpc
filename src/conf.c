@@ -83,13 +83,11 @@ typedef enum {
   KEY_PARSER_DONE
 } key_parser_state_t;
 
-static gboolean
+static bool
 str2bool(char *str)
 {
-	if (!strcasecmp(str, "yes") || !strcasecmp(str, "true") ||
-	    !strcasecmp(str, "on") || !strcasecmp(str, "1"))
-		return TRUE;
-	return FALSE;
+	return strcasecmp(str, "yes") == 0 || strcasecmp(str, "true") == 0 ||
+		strcasecmp(str, "on") == 0 || strcasecmp(str, "1") == 0;
 }
 
 static int

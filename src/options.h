@@ -1,7 +1,7 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
-#include <glib.h>
+#include <stdbool.h>
 
 #define MPD_HOST_ENV "MPD_HOST"
 #define MPD_PORT_ENV "MPD_PORT"
@@ -24,21 +24,21 @@ typedef struct {
 	int hide_cursor;
 	int seek_time;
 	int lyrics_timeout;
-	gboolean reconnect;
-	gboolean debug;
-	gboolean find_wrap;
-	gboolean find_show_last_pattern;
-	gboolean list_wrap;
-	gboolean auto_center;
-	gboolean wide_cursor;
-	gboolean enable_colors;
-	gboolean audible_bell;
-	gboolean visible_bell;
-	gboolean enable_xterm_title;
-	gboolean enable_mouse;
-	gboolean scroll;
-	gboolean visible_bitrate;
-	gboolean welcome_screen_list;
+	bool reconnect;
+	bool debug;
+	bool find_wrap;
+	bool find_show_last_pattern;
+	bool list_wrap;
+	bool auto_center;
+	bool wide_cursor;
+	bool enable_colors;
+	bool audible_bell;
+	bool visible_bell;
+	bool enable_xterm_title;
+	bool enable_mouse;
+	bool scroll;
+	bool visible_bitrate;
+	bool welcome_screen_list;
 } options_t;
 
 #ifndef NO_GLOBAL_OPTIONS
