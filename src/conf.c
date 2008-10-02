@@ -362,7 +362,6 @@ read_rc_file(char *filename, options_t *options)
   if( filename==NULL )
     return -1;
 
-  D("Reading configuration file %s\n", filename);
   if( (fd=open(filename,O_RDONLY)) <0 )
     {
       perror(filename);
@@ -474,8 +473,6 @@ read_rc_file(char *filename, options_t *options)
 		{
 		    g_free(options->timedisplay_type);
 		    options->timedisplay_type=g_strdup(parse_timedisplay_type(value));
-		    D("deb");
-		    D(options->timedisplay_type);
 		}
 	      /* color definition */
 	      else if( !strcasecmp(CONF_COLOR_DEFINITION, name) )
@@ -587,13 +584,9 @@ read_rc_file(char *filename, options_t *options)
 		fprintf(stderr, 
 			_("Unknown configuration parameter: %s\n"), 
 			name);
-	      D("conf>  %s = %s %s\n", name, value,
-		match_found ? "" : "- UNKNOWN SETTING!" );
 	    }
 	}	  
     }
-
-  D("--\n\n");
 
   if( free_filename )
     g_free(filename);

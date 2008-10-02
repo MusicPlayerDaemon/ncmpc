@@ -19,7 +19,6 @@
  */
 
 #include "utils.h"
-#include "ncmpc.h"
 #include "options.h"
 #include "support.h"
 
@@ -80,8 +79,6 @@ gcmp_list_from_path(mpdclient_t *c, const gchar *path, GList *list, gint types)
 
 	if ((filelist = mpdclient_filelist_get(c, path)) == NULL)
 		return list;
-
-	D("retrieved filelist!\n");
 
 	for (i = 0; i < filelist_length(filelist); ++i) {
 		struct filelist_entry *entry = filelist_get(filelist, i);

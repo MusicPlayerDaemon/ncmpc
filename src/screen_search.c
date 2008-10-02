@@ -241,7 +241,6 @@ search_advanced_query(char *query, mpdclient_t *c)
 
 	i=0;
 	while (strv[i]) {
-		D("strv[%d] = \"%s\"\n", i, strv[i]);
 		i++;
 	}
 
@@ -258,12 +257,10 @@ search_advanced_query(char *query, mpdclient_t *c)
 				arg[j] = g_strdup_printf("%s %s", arg[j], strv[i]);
 				g_free(tmp);
 			} else {
-				D("Bad search tag %s\n", strv[i]);
 				screen_status_printf(_("Bad search tag %s"), strv[i]);
 			}
 			i++;
 		} else if (strv[i+1] == NULL || strlen(strv[i+1]) == 0) {
-			D("No argument for search tag %s\n", strv[i]);
 			screen_status_printf(_("No argument for search tag %s"), strv[i]);
 			i++;
 			//	  j--;

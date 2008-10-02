@@ -58,7 +58,6 @@ static void
 file_changed_callback(mpdclient_t *c, mpd_unused int event,
 		      mpd_unused gpointer data)
 {
-	D("screen_file.c> filelist_callback() [%d]\n", event);
 	browser.filelist = mpdclient_filelist_update(c, browser.filelist);
 	sync_highlights(c, browser.filelist);
 	list_window_check_selected(browser.lw, filelist_length(browser.filelist));

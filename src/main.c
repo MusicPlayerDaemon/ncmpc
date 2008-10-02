@@ -67,7 +67,6 @@ static void
 error_callback(mpd_unused mpdclient_t *c, gint error, const gchar *msg)
 {
 	error = error & 0xFF;
-	D("Error [%d:%d]> \"%s\"\n", error, GET_ACK_ERROR_CODE(error), msg);
 	switch (error) {
 	case MPD_ERROR_CONNPORT:
 	case MPD_ERROR_NORESPONSE:
@@ -138,7 +137,6 @@ catch_sigint(mpd_unused int sig)
 static void
 catch_sigcont(mpd_unused int sig)
 {
-	D("catch_sigcont()\n");
 #ifdef ENABLE_RAW_MODE
 	reset_prog_mode(); /* restore tty modes */
 	refresh();
@@ -178,24 +176,6 @@ catch_sigwinch(mpd_unused int sig)
 
 	timer_sigwinch_id = g_timeout_add(100, timer_sigwinch, NULL);
 }
-
-#ifndef NDEBUG
-void 
-D(const char *format, ...)
-{
-  if( options.debug )
-    {
-      gchar *msg;
-      va_list ap;
-  
-      va_start(ap,format);
-      msg = g_strdup_vprintf(format,ap);
-      va_end(ap);
-      fprintf(stderr, "%s", msg);
-      g_free(msg);
-    }
-}
-#endif
 
 static gboolean
 timer_mpd_update(gpointer data);
@@ -351,7 +331,6 @@ main(int argc, const char *argv[])
 	setlocale(LC_CTYPE,"");
 	/* initialize charset conversions */
 	charset_init(g_get_charset(&charset));
-	D("charset: %s\n", charset);
 #endif
 
 	/* initialize i18n support */

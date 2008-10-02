@@ -137,7 +137,6 @@ display_help(void)
 static void
 handle_option(int c, const char *arg)
 {
-	D("option callback -%c %s\n", c, arg);
 	switch (c) {
 	case '?': /* --help */
 		display_help();

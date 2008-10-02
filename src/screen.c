@@ -101,7 +101,6 @@ screen_next_mode(mpdclient_t *c, int offset)
 	else if (next>=max)
 		next = 0;
 
-	D("current mode: %d:%d    next:%d\n", current, max, next);
 	sf = screen_lookup_name(options.screen_list[next]);
 	if (sf != NULL)
 		screen_switch(sf, c);
@@ -365,7 +364,6 @@ screen_exit(void)
 void
 screen_resize(void)
 {
-	D("Resize rows %d->%d, cols %d->%d\n",screen.rows,LINES,screen.cols,COLS);
 	if (COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS) {
 		screen_exit();
 		fprintf(stderr, _("Error: Screen to small!\n"));
@@ -527,7 +525,6 @@ screen_paint(mpdclient_t *c)
 	if (mode_fn->get_title != NULL)
 		title = mode_fn->get_title(screen.buf, screen.buf_size);
 
-	D("screen_paint(%s)\n", title);
 	/* paint the title/header window */
 	if( title )
 		paint_top_window(title, c, 1);
@@ -642,7 +639,6 @@ screen_get_mouse_event(mpdclient_t *c, unsigned long *bstate, int *row)
 
 	/* retreive the mouse event from ncurses */
 	getmouse(&event);
-	D("mouse: id=%d  y=%d,x=%d,z=%d\n",event.id,event.y,event.x,event.z);
 	/* calculate the selected row in the list window */
 	*row = event.y - screen.top_window.rows;
 	/* copy button state bits */

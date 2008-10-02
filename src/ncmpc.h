@@ -5,12 +5,6 @@
 #include "config.h"
 #endif
 
-#ifndef NDEBUG
-void D(const char *format, ...);
-#else
-#define D(...)
-#endif
-
 /* i18n */
 #ifdef HAVE_LOCALE_H
 #include <locale.h>

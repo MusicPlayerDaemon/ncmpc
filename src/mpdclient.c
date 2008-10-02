@@ -232,10 +232,6 @@ mpdclient_update(mpdclient_t *c)
 	c->status = mpd_getStatus(c->connection);
 	if ((retval=mpdclient_finish_command(c)))
 		return retval;
-#ifndef NDEBUG
-	if (c->status->error)
-		D("status> %s\n", c->status->error);
-#endif
 
 	/* check if the playlist needs an update */
 	if (c->playlist.id != c->status->playlist) {
@@ -266,7 +262,6 @@ mpdclient_cmd_play(mpdclient_t *c, gint idx)
 #ifdef ENABLE_SONG_ID
 	struct mpd_song *song = playlist_get_song(c, idx);
 
-	D("Play id:%d\n", song ? song->id : -1);
 	if (song)
 		mpd_sendPlayIdCommand(c->connection, song->id);
 	else
@@ -344,7 +339,6 @@ mpdclient_cmd_prev(mpdclient_t *c)
 gint
 mpdclient_cmd_seek(mpdclient_t *c, gint id, gint pos)
 {
-	D("Seek id:%d\n", id);
 	mpd_sendSeekIdCommand(c->connection, id, pos);
 	return mpdclient_finish_command(c);
 }
@@ -465,7 +459,6 @@ mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 
 	/* send the delete command to mpd */
 #ifdef ENABLE_SONG_ID
-	D("Delete id:%d\n", song->id);
 	mpd_sendDeleteIdCommand(c->connection, song->id);
 #else
 	mpd_sendDeleteCommand(c->connection, idx);
@@ -513,10 +506,8 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 
 	/* send the move command to mpd */
 #ifdef ENABLE_SONG_ID
-	D("Swapping id:%d with id:%d\n", song1->id, song2->id);
 	mpd_sendSwapIdCommand(c->connection, song1->id, song2->id);
 #else
-	D("Moving index %d to id:%d\n", old_index, new_index);
 	mpd_sendMoveCommand(c->connection, old_index, new_index);
 #endif
 	if( (n=mpdclient_finish_command(c)) )
@@ -534,7 +525,6 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 #endif
 
 	/* call playlist updated callback */
-	D("move> new_index=%d, old_index=%d\n", new_index, old_index);
 	mpdclient_playlist_callback(c, PLAYLIST_EVENT_MOVE, (gpointer) &new_index);
 
 	return 0;
@@ -668,8 +658,6 @@ mpdclient_playlist_update(mpdclient_t *c)
 {
 	mpd_InfoEntity *entity;
 
-	D("mpdclient_playlist_update() [%lld]\n", c->status->playlist);
-
 	if (MPD_ERROR(c))
 		return -1;
 
@@ -700,9 +688,6 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 {
 	mpd_InfoEntity *entity;
 
-	D("mpdclient_playlist_update_changes() [%lld -> %lld]\n",
-	  c->status->playlist, c->playlist.id);
-
 	if (MPD_ERROR(c))
 		return -1;
 
@@ -713,12 +698,9 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 
 		if (song->pos >= 0 && (guint)song->pos < c->playlist.list->len) {
 			/* update song */
-			D("updating pos:%d, id=%d - %s\n",
-			  song->pos, song->id, song->file);
 			playlist_replace(&c->playlist, song->pos, song);
 		} else {
 			/* add a new song */
-			D("adding song at pos %d\n", song->pos);
 			playlist_append(&c->playlist, song);
 		}
 
@@ -730,7 +712,6 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 		guint pos = c->playlist.list->len - 1;
 
 		/* Remove the last playlist entry */
-		D("removing song at pos %d\n", pos);
 		playlist_remove(&c->playlist, pos);
 	}
 
@@ -763,7 +744,6 @@ mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 	gchar *path_utf8 = locale_to_utf8(path);
 	gboolean has_dirs_only = TRUE;
 
-	D("mpdclient_filelist_get(%s)\n", path);
 	mpd_sendLsInfoCommand(c->connection, path_utf8);
 	filelist = filelist_new(path);
 	if (path && path[0] && strcmp(path, "/"))
@@ -784,10 +764,8 @@ mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 	g_free(path_utf8);
 
 	// If there are only directory entities in the filelist, we sort it
-	if (has_dirs_only) {
-		D("mpdclient_filelist_get: only dirs; sorting!\n");
+	if (has_dirs_only)
 		filelist_sort(filelist, compare_filelistentry_dir);
-	}
 
 	return filelist;
 }
@@ -801,7 +779,6 @@ mpdclient_filelist_search_utf8(mpdclient_t *c,
 	mpdclient_filelist_t *filelist;
 	mpd_InfoEntity *entity;
 
-	D("mpdclient_filelist_search(%s)\n", filter_utf8);
 	if (exact_match)
 		mpd_sendFindCommand(c->connection, table, filter_utf8);
 	else
@@ -829,7 +806,6 @@ mpdclient_filelist_search(mpdclient_t *c,
 	mpdclient_filelist_t *filelist;
 	gchar *filter_utf8 = locale_to_utf8(_filter);
 
-	D("mpdclient_filelist_search(%s)\n", _filter);
 	filelist = mpdclient_filelist_search_utf8(c, exact_match, table,
 						  filter_utf8);
 	g_free(filter_utf8);
@@ -882,7 +858,6 @@ mpdclient_get_artists_utf8(mpdclient_t *c)
 	gchar *str = NULL;
 	GList *list = NULL;
 
-	D("mpdclient_get_artists()\n");
 	mpd_sendListCommand(c->connection, MPD_TABLE_ARTIST, NULL);
 	while ((str = mpd_getNextArtist(c->connection)))
 		list = g_list_append(list, (gpointer) str);
@@ -899,7 +874,6 @@ mpdclient_get_albums_utf8(mpdclient_t *c, gchar *artist_utf8)
 	gchar *str = NULL;
 	GList *list = NULL;
 
-	D("mpdclient_get_albums(%s)\n", artist_utf8);
 	mpd_sendListCommand(c->connection, MPD_TABLE_ALBUM, artist_utf8);
 	while ((str = mpd_getNextAlbum(c->connection)))
 		list = g_list_append(list, (gpointer) str);

@@ -71,7 +71,6 @@ playlist_repaint_if_active(struct mpdclient *c)
 static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 {
-	D("screen_play.c> playlist_callback() [%d]\n", event);
 	switch (event) {
 	case PLAYLIST_EVENT_DELETE:
 		break;
@@ -121,7 +120,6 @@ center_playing_item(mpdclient_t *c)
 
 	/* try to center the song that are playing */
 	idx = playlist_get_index(c, c->song);
-	D("Autocenter song id:%d pos:%d index:%d\n", c->song->id,c->song->pos,idx);
 	if (idx < 0)
 		return;
 
@@ -201,7 +199,6 @@ playlist_save(screen_t *screen, mpdclient_t *c, char *name, char *defaultname)
 		return -1;
 
 	/* send save command to mpd */
-	D("Saving playlist as \'%s \'...\n", filename);
 	if ((error = mpdclient_cmd_save_playlist(c, filename))) {
 		gint code = GET_ACK_ERROR_CODE(error);
 
@@ -256,7 +253,6 @@ static void add_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
 	GList **list = tmp->list;
 	mpdclient_t *c = tmp->c;
 
-	D("pre_completion()...\n");
 	if (*list == NULL) {
 		/* create initial list */
 		*list = gcmp_list_from_path(c, "", NULL, GCMP_TYPE_RFILE);
@@ -277,7 +273,6 @@ static void add_post_completion_cb(GCompletion *gcmp, gchar *line,
 	mpdclient_t *c = tmp->c;
 	screen_t *screen = tmp->screen;
 
-	D("post_completion()...\n");
 	if (g_list_length(items) >= 1)
 		screen_display_completion_list(screen, items);
 

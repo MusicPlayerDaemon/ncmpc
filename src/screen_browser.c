@@ -93,7 +93,6 @@ browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
 	if (browser->filelist == NULL)
 		return;
 
-	D("screen_file.c> playlist_callback() [%d]\n", event);
 	switch(event) {
 	case PLAYLIST_EVENT_CLEAR:
 		clear_highlights(browser->filelist);

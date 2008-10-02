@@ -307,7 +307,6 @@ browse_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
 {
 	switch(event) {
 	case BROWSE_DB_UPDATED:
-		D("screen_artist.c> browse_callback() [BROWSE_DB_UPDATED]\n");
 		reload_lists(c);
 		break;
 	default:

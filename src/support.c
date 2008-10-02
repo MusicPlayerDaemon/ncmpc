@@ -200,7 +200,6 @@ utf8_to_locale(const char *utf8str)
 		g_get_charset(&charset);
 		screen_status_printf(_("Error: Unable to convert characters to %s"),
 				     charset);
-		D("utf8_to_locale(): %s\n", error->message);
 		g_error_free(error);
 		return g_strdup(utf8str);
 	}
@@ -229,7 +228,6 @@ locale_to_utf8(const char *localestr)
 			       &error);
 	if (error) {
 		screen_status_printf(_("Error: Unable to convert characters to UTF-8"));
-		D("locale_to_utf8: %s\n", error->message);
 		g_error_free(error);
 		return g_strdup(localestr);
 	}
