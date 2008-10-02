@@ -21,7 +21,7 @@
 #include "config.h"
 #include "ncmpc.h"
 #include "mpdclient.h"
-#include "support.h"
+#include "charset.h"
 #include "options.h"
 #include "conf.h"
 #include "command.h"

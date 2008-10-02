@@ -19,12 +19,13 @@
 #include "options.h"
 #include "config.h"
 #include "defaults.h"
-#include "support.h"
+#include "charset.h"
 #include "command.h"
 #include "conf.h"
 
 #include <stdlib.h>
 #include <string.h>
+#include <glib.h>
 
 #define MAX_LONGOPT_LENGTH 32
 

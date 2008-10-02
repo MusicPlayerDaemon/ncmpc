@@ -20,7 +20,7 @@
 
 #include "utils.h"
 #include "options.h"
-#include "support.h"
+#include "charset.h"
 
 #include <ctype.h>
 #include <stdlib.h>

@@ -18,9 +18,9 @@
  *
  */
 
-#include "config.h"
-
 #include "wreadln.h"
+#include "charset.h"
+#include "config.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -59,7 +59,6 @@ wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 
 extern void sigstop(void);
 extern void screen_bell(void);
-extern size_t my_strlen(char *str);
 
 #ifndef USE_NCURSESW
 /* move the cursor one step to the right */

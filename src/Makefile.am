@@ -27,6 +27,7 @@ ncmpc_headers = \
   list_window.h\
   colors.h\
   support.h\
+	charset.h \
   wreadln.h\
   strfsong.h\
   utils.h\
@@ -66,6 +67,7 @@ ncmpc_SOURCES = \
   list_window.c\
   colors.c\
   support.c\
+	charset.c \
   wreadln.c\
   strfsong.c\
   utils.c\

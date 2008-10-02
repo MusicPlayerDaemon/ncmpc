@@ -19,7 +19,7 @@
 #include "mpdclient.h"
 #include "screen_utils.h"
 #include "config.h"
-#include "support.h"
+#include "charset.h"
 #include "options.h"
 #include "strfsong.h"
 

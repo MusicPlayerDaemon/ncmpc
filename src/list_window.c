@@ -21,6 +21,7 @@
 #include "list_window.h"
 #include "config.h"
 #include "options.h"
+#include "charset.h"
 #include "support.h"
 #include "command.h"
 #include "colors.h"

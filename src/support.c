@@ -19,42 +19,14 @@
  */
 
 #include "support.h"
-#include "i18n.h"
+#include "charset.h"
 #include "config.h"
 
 #include <assert.h>
-#include <time.h>
 #include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #define BUFSIZE 1024
-
-extern void screen_status_printf(const char *format, ...);
-
-static gboolean noconvert = TRUE;
-
-size_t
-my_strlen(const char *str)
-{
-	assert(str != NULL);
-
-	if (g_utf8_validate(str, -1, NULL)) {
-		size_t len = g_utf8_strlen(str, -1);
-		size_t width = 0;
-		gunichar c;
-
-		while (len--) {
-			c = g_utf8_get_char(str);
-			width += g_unichar_iswide(c) ? 2 : 1;
-			str += g_unichar_to_utf8(c, NULL);
-		}
-
-		return width;
-	} else
-		return strlen(str);
-}
 
 char *
 remove_trailing_slash(char *path)
@@ -168,70 +140,4 @@ strscroll(char *str, char *separator, int width, scroll_state_t *st)
 	}
 	g_free(tmp);
 	return buf;
-}
-
-void
-charset_init(gboolean disable)
-{
-  noconvert = disable;
-}
-
-char *
-utf8_to_locale(const char *utf8str)
-{
-	gchar *str;
-	gsize rb, wb;
-	GError *error;
-
-	assert(utf8str != NULL);
-
-	if (noconvert)
-		return g_strdup(utf8str);
-
-	rb = 0; /* bytes read */
-	wb = 0; /* bytes written */
-	error = NULL;
-	str = g_locale_from_utf8(utf8str,
-				 strlen(utf8str),
-				 &wb, &rb,
-				 &error);
-	if (error) {
-		const char *charset;
-
-		g_get_charset(&charset);
-		screen_status_printf(_("Error: Unable to convert characters to %s"),
-				     charset);
-		g_error_free(error);
-		return g_strdup(utf8str);
-	}
-
-	return str;
-}
-
-char *
-locale_to_utf8(const char *localestr)
-{
-	gchar *str;
-	gsize rb, wb;
-	GError *error;
-
-	assert(localestr != NULL);
-
-	if (noconvert)
-		return g_strdup(localestr);
-
-	rb = 0; /* bytes read */
-	wb = 0; /* bytes written */
-	error = NULL;
-	str = g_locale_to_utf8(localestr,
-			       strlen(localestr),
-			       &wb, &rb,
-			       &error);
-	if (error) {
-		screen_status_printf(_("Error: Unable to convert characters to UTF-8"));
-		g_error_free(error);
-		return g_strdup(localestr);
-	}
-
-	return str;
 }

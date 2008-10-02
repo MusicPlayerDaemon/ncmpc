@@ -20,6 +20,7 @@
 #include "screen_browser.h"
 #include "i18n.h"
 #include "options.h"
+#include "charset.h"
 #include "support.h"
 #include "strfsong.h"
 #include "screen_utils.h"

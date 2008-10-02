@@ -18,7 +18,7 @@
 
 #include "i18n.h"
 #include "options.h"
-#include "support.h"
+#include "charset.h"
 #include "mpdclient.h"
 #include "strfsong.h"
 #include "command.h"

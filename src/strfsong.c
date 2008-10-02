@@ -24,6 +24,7 @@
 
 #include "strfsong.h"
 #include "support.h"
+#include "charset.h"
 
 #include <string.h>
 
