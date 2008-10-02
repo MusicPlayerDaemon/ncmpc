@@ -38,6 +38,8 @@
 
 static list_window_t *lw = NULL;
 
+static const struct mpd_song *next_song;
+
 static struct {
 	const struct mpd_song *song;
 
@@ -256,8 +258,13 @@ lyrics_exit(void)
 static void
 lyrics_open(mpd_unused screen_t *screen, mpdclient_t *c)
 {
-	if (c->song != NULL && c->song != current.song)
-		screen_lyrics_load(c->song);
+	if (next_song == NULL)
+		next_song = c->song;
+
+	if (next_song != NULL && next_song != current.song)
+		screen_lyrics_load(next_song);
+
+	next_song = NULL;
 }
 
 
@@ -334,3 +341,12 @@ const struct screen_functions screen_lyrics = {
 	.cmd = lyrics_cmd,
 	.get_title = lyrics_title,
 };
+
+void
+screen_lyrics_switch(struct mpdclient *c, const struct mpd_song *song)
+{
+	assert(song != NULL);
+
+	next_song = song;
+	screen_switch(&screen_lyrics, c);
+}

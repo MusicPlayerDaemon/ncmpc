@@ -528,6 +528,17 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 	case CMD_MOUSE_EVENT:
 		return handle_mouse_event(screen,c);
+
+#ifdef ENABLE_LYRICS_SCREEN
+	case CMD_SCREEN_LYRICS:
+		if (lw->selected < playlist_length(&c->playlist)) {
+			screen_lyrics_switch(c, playlist_get(&c->playlist, lw->selected));
+			return 1;
+		}
+
+		break;
+#endif
+
 	default:
 		break;
 	}

@@ -455,6 +455,8 @@ bool
 browser_cmd(struct screen_browser *browser, struct screen *screen,
 	    struct mpdclient *c, command_t cmd)
 {
+	struct filelist_entry *entry;
+
 	switch (cmd) {
 	case CMD_PLAY:
 		browser_handle_enter(browser, c);
@@ -493,6 +495,20 @@ browser_cmd(struct screen_browser *browser, struct screen *screen,
 	case CMD_MOUSE_EVENT:
 		browser_handle_mouse_event(browser, c);
 		return true;
+
+#ifdef ENABLE_LYRICS_SCREEN
+	case CMD_SCREEN_LYRICS:
+		entry = browser_get_selected(browser);
+		if (entry == NULL)
+			return false;
+
+		if (entry->entity == NULL ||
+		    entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
+			return true;
+
+		screen_lyrics_switch(c, entry->entity->info.song);
+		return true;
+#endif
 
 	default:
 		break;
