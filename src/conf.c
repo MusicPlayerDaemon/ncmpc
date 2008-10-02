@@ -21,6 +21,7 @@
 #define NO_GLOBAL_OPTIONS
 #include "conf.h"
 #include "config.h"
+#include "defaults.h"
 #include "ncmpc.h"
 #include "support.h"
 #include "command.h"

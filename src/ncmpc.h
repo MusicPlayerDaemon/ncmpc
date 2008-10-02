@@ -20,14 +20,8 @@
 #define YES   _("y")
 #define NO    _("n")
 
-/* mpd crossfade time [s] */
-#define DEFAULT_CROSSFADE_TIME 10
-
 /* welcome message time [s] */
 #define SCREEN_WELCOME_TIME 10
-
-/* screen list */
-#define DEFAULT_SCREEN_LIST "playlist browse"
 
 /* status message time [s] */
 #define SCREEN_STATUS_MESSAGE_TIME 3
@@ -45,18 +39,9 @@
 /* time before trying to reconnect [ms] */
 #define MPD_RECONNECT_TIME  1500
 
-/* song format - list window */
-#define DEFAULT_LIST_FORMAT "%name%|[%artist% - ]%title%|%shortfile%"
 #define LIST_FORMAT options.list_format
 
-/* song format - status window */
-#define DEFAULT_STATUS_FORMAT "[%artist% - ]%title%|%shortfile%"
 #define STATUS_FORMAT options.status_format
-
-#define DEFAULT_LYRICS_TIMEOUT 100
-
-#define DEFAULT_SCROLL TRUE
-#define DEFAULT_SCROLL_SEP " *** "
 
 void
 sigstop(void);

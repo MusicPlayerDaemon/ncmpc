@@ -31,6 +31,7 @@ ncmpc_headers = \
   strfsong.h\
   utils.h\
   ncmpc.h\
+	defaults.h \
 	screen_browser.h \
 	lyrics.h \
 	str_pool.h \

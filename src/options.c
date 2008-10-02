@@ -18,7 +18,7 @@
 
 #include "options.h"
 #include "config.h"
-#include "ncmpc.h"
+#include "defaults.h"
 #include "support.h"
 #include "command.h"
 #include "conf.h"
