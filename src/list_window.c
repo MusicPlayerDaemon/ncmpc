@@ -185,7 +185,7 @@ list_window_paint(struct list_window *lw,
 
 		if (label) {
 			int selected = lw->start + i == lw->selected;
-			size_t len = my_strlen(label);
+			unsigned len = utf8_width(label);
 
 			if (highlight)
 				colors_use(lw->w, COLOR_LIST_BOLD);

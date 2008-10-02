@@ -34,14 +34,14 @@ charset_init(bool disable)
 	noconvert = disable;
 }
 
-size_t
-my_strlen(const char *str)
+unsigned
+utf8_width(const char *str)
 {
 	assert(str != NULL);
 
 	if (g_utf8_validate(str, -1, NULL)) {
 		size_t len = g_utf8_strlen(str, -1);
-		size_t width = 0;
+		unsigned width = 0;
 		gunichar c;
 
 		while (len--) {

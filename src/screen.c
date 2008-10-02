@@ -165,7 +165,7 @@ paint_top_window2(const char *header, mpdclient_t *c)
 		g_snprintf(buf, 32, _(" Volume %d%%"), c->status->volume);
 	}
 	colors_use(w, COLOR_TITLE);
-	mvwaddstr(w, 0, screen.top_window.cols-my_strlen(buf), buf);
+	mvwaddstr(w, 0, screen.top_window.cols - utf8_width(buf), buf);
 
 	flags[0] = 0;
 	if (c->status != NULL) {
@@ -196,11 +196,11 @@ static void
 paint_top_window(const char *header, mpdclient_t *c, int full_repaint)
 {
 	static int prev_volume = -1;
-	static size_t prev_header_len = -1;
+	static unsigned prev_header_len = -1;
 	WINDOW *w = screen.top_window.w;
 
-	if (prev_header_len!=my_strlen(header)) {
-		prev_header_len = my_strlen(header);
+	if (prev_header_len != utf8_width(header)) {
+		prev_header_len = utf8_width(header);
 		full_repaint = 1;
 	}
 
@@ -277,7 +277,7 @@ paint_status_window(mpdclient_t *c)
 
 	if (str) {
 		waddstr(w, str);
-		x += my_strlen(str)+1;
+		x += utf8_width(str) + 1;
 	}
 
 	/* create time string */
@@ -329,7 +329,7 @@ paint_status_window(mpdclient_t *c)
 	if (status != NULL && (IS_PLAYING(status->state) ||
 			       IS_PAUSED(status->state))) {
 		char songname[MAX_SONGNAME_LENGTH];
-		int width = COLS-x-my_strlen(screen.buf);
+		int width = COLS - x - utf8_width(screen.buf);
 
 		if (song)
 			strfsong(songname, MAX_SONGNAME_LENGTH,
@@ -339,7 +339,7 @@ paint_status_window(mpdclient_t *c)
 
 		colors_use(w, COLOR_STATUS);
 		/* scroll if the song name is to long */
-		if (options.scroll && my_strlen(songname) > (size_t)width) {
+		if (options.scroll && utf8_width(songname) > (unsigned)width) {
 			static  scroll_state_t st = { 0, 0 };
 			char *tmp = strscroll(songname, options.scroll_sep, width, &st);
 

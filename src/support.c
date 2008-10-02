@@ -115,7 +115,7 @@ strscroll(char *str, char *separator, int width, scroll_state_t *st)
 	tmp = g_malloc(size);
 	g_strlcpy(tmp, str, size);
 	g_strlcat(tmp, separator, size);
-	len = my_strlen(tmp);
+	len = utf8_width(tmp);
 
 	if (st->offset >= len)
 		st->offset = 0;

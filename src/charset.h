@@ -28,7 +28,8 @@ void charset_init(bool disable);
 /**
  * Returns the number of terminal cells occupied by this string.
  */
-size_t my_strlen(const char *str);
+unsigned
+utf8_width(const char *str);
 
 char *utf8_to_locale(const char *str);
 char *locale_to_utf8(const char *str);

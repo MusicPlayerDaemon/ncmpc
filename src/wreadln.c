@@ -116,7 +116,7 @@ static inline void drawline(gint cursor,
   /* clear input area */
   whline(w, ' ', width);
   /* print visible part of the line buffer */
-  if(masked == TRUE) whline(w, '*', my_strlen(line)-start);
+  if(masked == TRUE) whline(w, '*', utf8_width(line) - start);
   else waddnstr(w, line+start, width);
   /* move the cursor to the correct position */
   wmove(w, y, x0 + cursor-start);
@@ -274,7 +274,7 @@ _wreadln(WINDOW *w,
 			line[cursor] = 0;
 			break;
 		case KEY_CTRL_U:
-			cursor = my_strlen(line);
+			cursor = utf8_width(line);
 			for (i = 0;i < cursor; i++)
 				line[i] = '\0';
 			cursor = 0;
@@ -290,7 +290,7 @@ _wreadln(WINDOW *w,
 			break;
 		case KEY_DC:		/* handle delete key. As above */
 		case KEY_CTRL_D:
-			if (cursor <= (gint)my_strlen(line) - 1) {
+			if (cursor <= (gint)utf8_width(line) - 1) {
 				for (i = cursor; line[i] != 0; i++)
 					line[i] = line[i + 1];
 			}
