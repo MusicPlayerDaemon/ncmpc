@@ -23,7 +23,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-void charset_init(bool disable);
+const char *
+charset_init(void);
 
 /**
  * Returns the number of terminal cells occupied by this string.

@@ -334,7 +334,7 @@ main(int argc, const char *argv[])
 	/* charset */
 	setlocale(LC_CTYPE,"");
 	/* initialize charset conversions */
-	charset_init(g_get_charset(&charset));
+	charset = charset_init();
 #endif
 
 	/* initialize i18n support */

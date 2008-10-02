@@ -27,11 +27,13 @@
 extern void screen_status_printf(const char *format, ...);
 
 static bool noconvert = true;
+static const char *charset;
 
-void
-charset_init(bool disable)
+const char *
+charset_init(void)
 {
-	noconvert = disable;
+	noconvert = g_get_charset(&charset);
+	return charset;
 }
 
 unsigned
@@ -75,9 +77,6 @@ utf8_to_locale(const char *utf8str)
 				 &wb, &rb,
 				 &error);
 	if (error) {
-		const char *charset;
-
-		g_get_charset(&charset);
 		screen_status_printf(_("Error: Unable to convert characters to %s"),
 				     charset);
 		g_error_free(error);
