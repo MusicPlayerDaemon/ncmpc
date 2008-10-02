@@ -452,7 +452,6 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 
 	if (artist_lw_cmd(cmd)) {
 		artist_repaint();
-		wrefresh(browser.lw->w);
 		return 1;
 	}
 
