@@ -7,8 +7,6 @@
 #include <ncurses.h>
 #include <glib.h>
 
-#define LW_ROW(lw) (lw ? lw->selected-lw->start :  0)
-
 #define LW_HIDE_CURSOR    0x01
 
 typedef const char *(*list_window_callback_fn_t)(unsigned index,
