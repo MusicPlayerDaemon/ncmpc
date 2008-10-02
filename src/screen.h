@@ -1,6 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+#include "config.h"
 #include "mpdclient.h"
 #include "command.h"
 
