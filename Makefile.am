@@ -31,6 +31,6 @@ lyrics_plugins = hd.sh leoslyrics.py lyricswiki.rb
 
 install-exec-local:
 	install -m 0755 -d $(DESTDIR)$(lyrics_plugin_dir)
-	install -m 0755 $(addprefix lyrics/,$(lyrics_plugins)) $(DESTDIR)$(lyrics_plugin_dir)
+	cd lyrics && install -m 0755 $(lyrics_plugins) $(DESTDIR)$(lyrics_plugin_dir)
 
 endif
