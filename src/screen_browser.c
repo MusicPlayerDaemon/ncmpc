@@ -28,12 +28,13 @@
 
 #include <string.h>
 
-#define USE_OLD_LAYOUT
 #undef  USE_OLD_ADD
 
 #define BUFSIZE 1024
 
 #define HIGHLIGHT  (0x01)
+
+static const char playlist_format[] = "*%s*";
 
 /* clear the highlight flag for all items in the filelist */
 static void
@@ -149,11 +150,7 @@ browser_lw_callback(unsigned idx, int *highlight, void *data)
 		mpd_PlaylistFile *plf = entity->info.playlistFile;
 		char *filename = utf8_to_locale(basename(plf->path));
 
-#ifdef USE_OLD_LAYOUT
-		g_snprintf(buf, BUFSIZE, "*%s*", filename);
-#else
-		g_snprintf(buf, BUFSIZE, "<Playlist> %s", filename);
-#endif
+		g_snprintf(buf, BUFSIZE, playlist_format, filename);
 		g_free(filename);
 		return buf;
 	}
