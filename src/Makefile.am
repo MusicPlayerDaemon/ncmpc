@@ -32,6 +32,7 @@ ncmpc_headers = \
   utils.h\
   ncmpc.h\
 	defaults.h \
+	i18n.h \
 	screen_browser.h \
 	lyrics.h \
 	str_pool.h \

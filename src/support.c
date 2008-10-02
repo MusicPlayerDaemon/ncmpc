@@ -19,7 +19,8 @@
  */
 
 #include "support.h"
-#include "ncmpc.h"
+#include "i18n.h"
+#include "config.h"
 
 #include <assert.h>
 #include <time.h>

@@ -29,6 +29,7 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "strfsong.h"
+#include "i18n.h"
 #include "gcc.h"
 
 #ifdef ENABLE_LYRICS_SCREEN

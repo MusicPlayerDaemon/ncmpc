@@ -18,7 +18,7 @@
  */
 
 #include <sys/stat.h>
-#include "ncmpc.h"
+#include "i18n.h"
 #include "options.h"
 #include "mpdclient.h"
 #include "command.h"

@@ -19,6 +19,7 @@
 
 #include "screen_browser.h"
 #include "ncmpc.h"
+#include "i18n.h"
 #include "options.h"
 #include "support.h"
 #include "strfsong.h"

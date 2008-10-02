@@ -1,25 +1,6 @@
 #ifndef NCMPC_H
 #define NCMPC_H
 
-#ifndef PACKAGE
-#include "config.h"
-#endif
-
-/* i18n */
-#ifdef HAVE_LOCALE_H
-#include <locale.h>
-#endif
-#ifdef ENABLE_NLS
-#include <libintl.h>
-#include <glib/gi18n.h>
-#else
-#define  _(x) x
-#define N_(x) x
-#endif
-
-#define YES   _("y")
-#define NO    _("n")
-
 /* welcome message time [s] */
 #define SCREEN_WELCOME_TIME 10
 

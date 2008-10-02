@@ -22,7 +22,7 @@
 #include "conf.h"
 #include "config.h"
 #include "defaults.h"
-#include "ncmpc.h"
+#include "i18n.h"
 #include "support.h"
 #include "command.h"
 #include "colors.h"

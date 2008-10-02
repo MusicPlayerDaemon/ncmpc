@@ -20,7 +20,7 @@
 #include "screen.h"
 #include "mpdclient.h"
 #include "config.h"
-#include "ncmpc.h"
+#include "i18n.h"
 #include "support.h"
 #include "options.h"
 #include "colors.h"

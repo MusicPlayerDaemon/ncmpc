@@ -17,7 +17,7 @@
  */
 
 #include "config.h"
-#include "ncmpc.h"
+#include "i18n.h"
 #include "mpdclient.h"
 #include "command.h"
 #include "screen.h"

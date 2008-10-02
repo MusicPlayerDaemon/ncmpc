@@ -23,6 +23,7 @@
 #include "screen_utils.h"
 #include "config.h"
 #include "ncmpc.h"
+#include "i18n.h"
 #include "support.h"
 #include "mpdclient.h"
 #include "utils.h"
