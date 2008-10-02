@@ -82,6 +82,9 @@ void screen_idle(mpdclient_t *c);
 void screen_cmd(mpdclient_t *c, command_t cmd);
 gint screen_get_id(const char *name);
 
+void
+screen_switch(const struct screen_functions *sf, struct mpdclient *c);
+
 gboolean
 screen_is_visible(const struct screen_functions *sf);
 

@@ -53,8 +53,8 @@ screen_is_visible(const struct screen_functions *sf)
 	return sf == mode_fn;
 }
 
-static void
-switch_screen_mode(const struct screen_functions *sf, mpdclient_t *c)
+void
+screen_switch(const struct screen_functions *sf, struct mpdclient *c)
 {
 	assert(sf != NULL);
 
@@ -104,7 +104,7 @@ screen_next_mode(mpdclient_t *c, int offset)
 	D("current mode: %d:%d    next:%d\n", current, max, next);
 	sf = screen_lookup_name(options.screen_list[next]);
 	if (sf != NULL)
-		switch_screen_mode(sf, c);
+		screen_switch(sf, c);
 }
 
 static void
@@ -789,32 +789,32 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 		screen_next_mode(c, 1);
 		break;
 	case CMD_SCREEN_PLAY:
-		switch_screen_mode(&screen_playlist, c);
+		screen_switch(&screen_playlist, c);
 		break;
 	case CMD_SCREEN_FILE:
-		switch_screen_mode(&screen_browse, c);
+		screen_switch(&screen_browse, c);
 		break;
 	case CMD_SCREEN_HELP:
-		switch_screen_mode(&screen_help, c);
+		screen_switch(&screen_help, c);
 		break;
 #ifdef ENABLE_SEARCH_SCREEN
 	case CMD_SCREEN_SEARCH:
-		switch_screen_mode(&screen_search, c);
+		screen_switch(&screen_search, c);
 		break;
 #endif
 #ifdef ENABLE_ARTIST_SCREEN
 	case CMD_SCREEN_ARTIST:
-		switch_screen_mode(&screen_artist, c);
+		screen_switch(&screen_artist, c);
 		break;
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
 	case CMD_SCREEN_KEYDEF:
-		switch_screen_mode(&screen_keydef, c);
+		screen_switch(&screen_keydef, c);
 		break;
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
-		switch_screen_mode(&screen_lyrics, c);
+		screen_switch(&screen_lyrics, c);
 		break;
 #endif
 	default:
