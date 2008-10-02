@@ -20,7 +20,7 @@
 #ifndef SCREEN_LIST_H
 #define SCREEN_LIST_H
 
-#include "ncmpc.h"
+#include "config.h"
 
 #include <ncurses.h>
 

@@ -5,19 +5,6 @@
 #include "config.h"
 #endif
 
-#ifndef DISABLE_ARTIST_SCREEN
-#define ENABLE_ARTIST_SCREEN 1
-#endif
-#ifndef DISABLE_SEARCH_SCREEN
-#define ENABLE_SEARCH_SCREEN 1
-#endif
-#ifndef DISABLE_KEYDEF_SCREEN
-#define ENABLE_KEYDEF_SCREEN 1
-#endif
-#ifndef DISABLE_LYRICS_SCREEN
-#define ENABLE_LYRICS_SCREEN 1
-#endif
-
 #ifndef NDEBUG
 void D(const char *format, ...);
 #else

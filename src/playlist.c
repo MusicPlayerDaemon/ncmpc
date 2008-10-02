@@ -21,7 +21,6 @@
 
 #include "playlist.h"
 #include "mpdclient.h"
-#include "ncmpc.h"
 
 #include <string.h>
 

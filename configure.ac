@@ -214,8 +214,8 @@ AC_ARG_ENABLE([artist-screen],
 	      [artist_screen="$enableval"],
 	      [artist_screen=no])
 AC_MSG_RESULT([$artist_screen])
-if test "x$artist_screen" != "xyes" ; then
-   AC_DEFINE(DISABLE_ARTIST_SCREEN, 1, [Disable artist screen])
+if test "x$artist_screen" = "xyes" ; then
+    AC_DEFINE(ENABLE_ARTIST_SCREEN, 1, [Enable artist screen])
 fi
 
 AM_CONDITIONAL(ENABLE_ARTIST_SCREEN, test x$artist_screen = xyes)
@@ -228,8 +228,8 @@ AC_ARG_ENABLE([search-screen],
 	      [search_screen="$enableval"],
 	      [search_screen=yes])
 AC_MSG_RESULT([$search_screen])
-if test "x$search_screen" != "xyes" ; then
-   AC_DEFINE(DISABLE_SEARCH_SCREEN, 1, [Disable search screen])
+if test "x$search_screen" = "xyes" ; then
+    AC_DEFINE(ENABLE_SEARCH_SCREEN, 1, [Enable search screen])
 fi
 
 AM_CONDITIONAL(ENABLE_SEARCH_SCREEN, test x$search_screen = xyes)
@@ -242,8 +242,8 @@ AC_ARG_ENABLE([key-screen],
 	      [keydef_screen="$enableval"],
 	      [keydef_screen=yes])
 AC_MSG_RESULT([$keydef_screen])
-if test "x$keydef_screen" != "xyes" ; then
-   AC_DEFINE(DISABLE_KEYDEF_SCREEN, 1, [Disable key editor screen])
+if test "x$keydef_screen" = "xyes" ; then
+    AC_DEFINE(ENABLE_KEYDEF_SCREEN, 1, [Enable key editor screen])
 fi
 
 AM_CONDITIONAL(ENABLE_KEYDEF_SCREEN, test x$keydef_screen = xyes)
@@ -255,9 +255,8 @@ AC_ARG_ENABLE([lyrics-screen],
 	                     [Enable lyrics screen @<:@default=no@:>@]),
 	      [lyrics_screen="$enableval"],
 	      [lyrics_screen=no])	
-if test "x$lyrics_screen" != "xyes" ; then
-   AC_DEFINE(DISABLE_LYRICS_SCREEN, 1, [Disable lyrics screen])
-   lyrics_screen=no
+if test "x$lyrics_screen" = "xyes" ; then
+    AC_DEFINE(ENABLE_LYRICS_SCREEN, 1, [Enable lyrics screen])
 fi
 
 AM_CONDITIONAL(ENABLE_LYRICS_SCREEN, test x$lyrics_screen = xyes)
