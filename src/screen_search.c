@@ -432,32 +432,6 @@ static int
 search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
 	switch (cmd) {
-	case CMD_PLAY:
-		browser_handle_enter(&browser, c);
-		search_repaint();
-		return 1;
-
-	case CMD_SELECT:
-		if (browser_handle_select(&browser, c) == 0) {
-			/* continue and select next item... */
-			cmd = CMD_LIST_NEXT;
-		}
-		/* call list_window_cmd to go to the next item */
-		break;
-
-	case CMD_ADD:
-		if (browser_handle_add(&browser, c) == 0)
-			/* continue and select next item... */
-			cmd = CMD_LIST_NEXT;
-
-		/* call list_window_cmd to go to the next item */
-		break;
-
-	case CMD_SELECT_ALL:
-		browser_handle_select_all(&browser, c);
-		search_repaint();
-		return 0;
-
 	case CMD_SEARCH_MODE:
 		options.search_mode++;
 		if (mode[options.search_mode].label == NULL)
@@ -488,32 +462,12 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		search_repaint();
 		return 1;
 
-	case CMD_LIST_FIND:
-	case CMD_LIST_RFIND:
-	case CMD_LIST_FIND_NEXT:
-	case CMD_LIST_RFIND_NEXT:
-		if (browser.filelist) {
-			screen_find(screen,
-				    browser.lw, filelist_length(browser.filelist),
-				    cmd, browser_lw_callback,
-				    browser.filelist);
-			search_repaint();
-		}
-
-		return 1;
-
-	case CMD_MOUSE_EVENT:
-		browser_handle_mouse_event(&browser, c);
-		search_repaint();
-		return 1;
-
 	default:
 		break;
 	}
 
 	if (browser.filelist != NULL &&
-	    list_window_cmd(browser.lw,
-			    filelist_length(browser.filelist), cmd)) {
+	    browser_cmd(&browser, screen, c, cmd)) {
 		search_repaint();
 		return 1;
 	}

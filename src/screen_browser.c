@@ -451,3 +451,56 @@ browser_handle_mouse_event(struct screen_browser *browser, mpdclient_t *c)
 }
 #endif
 
+bool
+browser_cmd(struct screen_browser *browser, struct screen *screen,
+	    struct mpdclient *c, command_t cmd)
+{
+	switch (cmd) {
+	case CMD_PLAY:
+		browser_handle_enter(browser, c);
+		return true;
+
+	case CMD_SELECT:
+		if (browser_handle_select(browser, c) == 0)
+			/* continue and select next item... */
+			cmd = CMD_LIST_NEXT;
+
+		/* call list_window_cmd to go to the next item */
+		break;
+
+	case CMD_ADD:
+		if (browser_handle_add(browser, c) == 0)
+			/* continue and select next item... */
+			cmd = CMD_LIST_NEXT;
+
+		/* call list_window_cmd to go to the next item */
+		break;
+
+	case CMD_SELECT_ALL:
+		browser_handle_select_all(browser, c);
+		return true;
+
+	case CMD_LIST_FIND:
+	case CMD_LIST_RFIND:
+	case CMD_LIST_FIND_NEXT:
+	case CMD_LIST_RFIND_NEXT:
+		screen_find(screen,
+			    browser->lw, filelist_length(browser->filelist),
+			    cmd, browser_lw_callback,
+			    browser->filelist);
+		return true;
+
+	case CMD_MOUSE_EVENT:
+		browser_handle_mouse_event(browser, c);
+		return true;
+
+	default:
+		break;
+	}
+
+	if (list_window_cmd(browser->lw, filelist_length(browser->filelist),
+			    cmd))
+		return true;
+
+	return false;
+}

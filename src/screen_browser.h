@@ -26,6 +26,8 @@
 #include "mpdclient.h"
 #include "config.h"
 
+#include <stdbool.h>
+
 struct list_window;
 struct list_window_state;
 
@@ -66,5 +68,9 @@ int browser_handle_mouse_event(struct screen_browser *browser, mpdclient_t *c);
 #else
 #define browser_handle_mouse_event(browser, c) (0)
 #endif
+
+bool
+browser_cmd(struct screen_browser *browser, struct screen *screen,
+	    struct mpdclient *c, command_t cmd);
 
 #endif

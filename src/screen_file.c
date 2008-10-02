@@ -205,10 +205,6 @@ static int
 browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
 	switch(cmd) {
-	case CMD_PLAY:
-		browser_handle_enter(&browser, c);
-		file_repaint();
-		return 1;
 	case CMD_GO_ROOT_DIRECTORY:
 		browser_change_directory(&browser, c, NULL, "");
 		file_repaint();
@@ -217,18 +213,6 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		browser_change_directory(&browser, c, NULL, "..");
 		file_repaint();
 		return 1;
-	case CMD_SELECT:
-		if (browser_handle_select(&browser, c) == 0) {
-			/* continue and select next item... */
-			cmd = CMD_LIST_NEXT;
-		}
-		break;
-
-	case CMD_ADD:
-		if (browser_handle_add(&browser, c) == 0)
-			/* continue and select next item... */
-			cmd = CMD_LIST_NEXT;
-		break;
 
 	case CMD_DELETE:
 		handle_delete(screen, c);
@@ -266,29 +250,12 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		} else
 			screen_status_printf(_("Database update running..."));
 		return 1;
-	case CMD_LIST_FIND:
-	case CMD_LIST_RFIND:
-	case CMD_LIST_FIND_NEXT:
-	case CMD_LIST_RFIND_NEXT:
-		screen_find(screen,
-			    browser.lw, filelist_length(browser.filelist),
-			    cmd, browser_lw_callback,
-			    browser.filelist);
-		file_repaint();
-		return 1;
-
-	case CMD_MOUSE_EVENT:
-		if (browser_handle_mouse_event(&browser, c))
-			file_repaint();
-
-		return 1;
 
 	default:
 		break;
 	}
 
-	if (list_window_cmd(browser.lw, filelist_length(browser.filelist),
-			    cmd)) {
+	if (browser_cmd(&browser, screen, c, cmd)) {
 		file_repaint();
 		return 1;
 	}

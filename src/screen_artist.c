@@ -427,7 +427,7 @@ metalist_length(void)
 }
 
 static int
-artist_lw_cmd(command_t cmd)
+artist_lw_cmd(struct screen *screen, struct mpdclient *c, command_t cmd)
 {
 	switch (mode) {
 	case LIST_ARTISTS:
@@ -435,9 +435,7 @@ artist_lw_cmd(command_t cmd)
 		return list_window_cmd(browser.lw, metalist_length(), cmd);
 
 	case LIST_SONGS:
-		return list_window_cmd(browser.lw,
-				       filelist_length(browser.filelist),
-				       cmd);
+		return browser_cmd(&browser, screen, c, cmd);
 	}
 
 	assert(0);
@@ -448,7 +446,6 @@ static int
 artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 {
 	char *selected;
-	int ret;
 
 	switch(cmd) {
 	case CMD_PLAY:
@@ -460,7 +457,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			list_window_push_state(browser.lw_state, browser.lw);
 
 			artist_repaint();
-			break;
+			return true;
 
 		case LIST_ALBUMS:
 			if (browser.lw->selected == 0) {
@@ -483,7 +480,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			}
 
 			artist_repaint();
-			break;
+			return true;
 
 		case LIST_SONGS:
 			if (browser.lw->selected == 0) {
@@ -496,12 +493,11 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 						      browser.lw);
 
 				artist_repaint();
-			} else
-				browser_handle_enter(&browser, c);
+				return true;
+			}
 			break;
 		}
-		return 1;
-
+		break;
 
 		/* FIXME? CMD_GO_* handling duplicates code from CMD_PLAY */
 
@@ -567,12 +563,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			break;
 
 		case LIST_SONGS:
-			ret = cmd == CMD_SELECT
-				? browser_handle_select(&browser, c)
-				: browser_handle_add(&browser, c);
-			if (ret == 0)
-				/* continue and select next item... */
-				cmd = CMD_LIST_NEXT;
+			/* handled by browser_cmd() */
 			break;
 		}
 		break;
@@ -592,34 +583,28 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 			screen_find(screen,
 				    browser.lw, artist_list->len,
 				    cmd, artist_lw_callback, artist_list);
-			break;
+			artist_repaint();
+			return 1;
 
 		case LIST_ALBUMS:
 			screen_find(screen,
 				    browser.lw, album_list->len + 2,
 				    cmd, artist_lw_callback, album_list);
-			break;
+			artist_repaint();
+			return 1;
 
 		case LIST_SONGS:
-			screen_find(screen,
-				    browser.lw,
-				    filelist_length(browser.filelist),
-				    cmd, browser_lw_callback,
-				    browser.filelist);
+			/* handled by browser_cmd() */
 			break;
 		}
 
-		artist_repaint();
-		return 1;
-
-	case CMD_MOUSE_EVENT:
-		return browser_handle_mouse_event(&browser, c);
+		break;
 
 	default:
 		break;
 	}
 
-	if (artist_lw_cmd(cmd)) {
+	if (artist_lw_cmd(screen, c, cmd)) {
 		artist_repaint();
 		return 1;
 	}
