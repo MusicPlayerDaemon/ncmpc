@@ -333,6 +333,8 @@ options_init( void )
 		options.port = DEFAULT_PORT;
 
 	/* default option values */
+	options.list_format = g_strdup(DEFAULT_LIST_FORMAT);
+	options.status_format = g_strdup(DEFAULT_STATUS_FORMAT);
 	options.reconnect = TRUE;
 	options.find_wrap = TRUE;
 	options.wide_cursor = TRUE;
