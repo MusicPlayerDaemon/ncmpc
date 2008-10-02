@@ -18,7 +18,6 @@
  */
 
 #include "screen_browser.h"
-#include "ncmpc.h"
 #include "i18n.h"
 #include "options.h"
 #include "support.h"
@@ -143,7 +142,7 @@ browser_lw_callback(unsigned idx, int *highlight, void *data)
 	} else if( entity->type==MPD_INFO_ENTITY_TYPE_SONG ) {
 		mpd_Song *song = entity->info.song;
 
-		strfsong(buf, BUFSIZE, LIST_FORMAT, song);
+		strfsong(buf, BUFSIZE, options.list_format, song);
 		return buf;
 	} else if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
 		mpd_PlaylistFile *plf = entity->info.playlistFile;
@@ -233,7 +232,7 @@ enqueue_and_play(mpdclient_t *c, filelist_entry_t *entry)
 			char buf[BUFSIZE];
 
 			entry->flags |= HIGHLIGHT;
-			strfsong(buf, BUFSIZE, LIST_FORMAT, song);
+			strfsong(buf, BUFSIZE, options.list_format, song);
 			screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
 			mpdclient_update(c); /* get song id */
 		} else
@@ -363,7 +362,7 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 		if (mpdclient_cmd_add(c, song) == 0) {
 			char buf[BUFSIZE];
 
-			strfsong(buf, BUFSIZE, LIST_FORMAT, song);
+			strfsong(buf, BUFSIZE, options.list_format, song);
 			screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
 		}
 	} else {

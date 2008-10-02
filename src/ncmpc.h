@@ -20,10 +20,6 @@
 /* time before trying to reconnect [ms] */
 #define MPD_RECONNECT_TIME  1500
 
-#define LIST_FORMAT options.list_format
-
-#define STATUS_FORMAT options.status_format
-
 void
 sigstop(void);
 

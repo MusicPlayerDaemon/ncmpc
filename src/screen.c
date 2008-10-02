@@ -322,7 +322,8 @@ paint_status_window(mpdclient_t *c)
 		int width = COLS-x-my_strlen(screen.buf);
 
 		if (song)
-			strfsong(songname, MAX_SONGNAME_LENGTH, STATUS_FORMAT, song);
+			strfsong(songname, MAX_SONGNAME_LENGTH,
+				 options.status_format, song);
 		else
 			songname[0] = '\0';
 

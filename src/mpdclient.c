@@ -19,7 +19,6 @@
 #include "mpdclient.h"
 #include "screen_utils.h"
 #include "config.h"
-#include "ncmpc.h"
 #include "support.h"
 #include "options.h"
 #include "strfsong.h"
@@ -83,8 +82,8 @@ compare_filelistentry_format(gconstpointer filelist_entry1,
 	if (e1 && e2 &&
 	    e1->type == MPD_INFO_ENTITY_TYPE_SONG &&
 	    e2->type == MPD_INFO_ENTITY_TYPE_SONG) {
-		strfsong(key1, BUFSIZE, LIST_FORMAT, e1->info.song);
-		strfsong(key2, BUFSIZE, LIST_FORMAT, e2->info.song);
+		strfsong(key1, BUFSIZE, options.list_format, e1->info.song);
+		strfsong(key2, BUFSIZE, options.list_format, e2->info.song);
 		n = strcmp(key1,key2);
 	}
 

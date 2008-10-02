@@ -17,7 +17,6 @@
  */
 
 #include "config.h"
-#include "ncmpc.h"
 #include "i18n.h"
 #include "options.h"
 #include "support.h"
@@ -104,7 +103,7 @@ list_callback(unsigned idx, int *highlight, void *data)
 	    c->status != NULL && !IS_STOPPED(c->status->state))
 		*highlight = 1;
 
-	strfsong(songname, MAX_SONG_LENGTH, LIST_FORMAT, song);
+	strfsong(songname, MAX_SONG_LENGTH, options.list_format, song);
 	return songname;
 }
 
