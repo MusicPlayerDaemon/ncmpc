@@ -42,17 +42,6 @@ typedef struct screen {
 	int painted;
 } screen_t;
 
-
-typedef void (*screen_init_fn_t)(WINDOW *w, int cols, int rows);
-typedef void (*screen_exit_fn_t)(void);
-typedef void (*screen_open_fn_t)(struct screen *screen, mpdclient_t *c);
-typedef void (*screen_close_fn_t)(void);
-typedef void (*screen_resize_fn_t)(int cols, int rows);
-typedef void (*screen_paint_fn_t)(mpdclient_t *c);
-typedef void (*screen_update_fn_t)(mpdclient_t *c);
-typedef int (*screen_cmd_fn_t)(struct screen *scr, mpdclient_t *c, command_t cmd);
-typedef const char *(*screen_title_fn_t)(char *s, size_t size);
-
 extern const struct screen_functions screen_playlist;
 extern const struct screen_functions screen_browse;
 #ifdef ENABLE_ARTIST_SCREEN
@@ -70,15 +59,15 @@ extern const struct screen_functions screen_lyrics;
 #endif
 
 typedef struct screen_functions {
-	screen_init_fn_t   init;
-	screen_exit_fn_t   exit;
-	screen_open_fn_t   open;
-	screen_close_fn_t  close;
-	screen_resize_fn_t resize;
-	screen_paint_fn_t  paint;
-	screen_update_fn_t update;
-	screen_cmd_fn_t    cmd;
-	screen_title_fn_t  get_title;
+	void (*init)(WINDOW *w, int cols, int rows);
+	void (*exit)(void);
+	void (*open)(struct screen *screen, mpdclient_t *c);
+	void (*close)(void);
+	void (*resize)(int cols, int rows);
+	void (*paint)(mpdclient_t *c);
+	void (*update)(mpdclient_t *c);
+	int (*cmd)(struct screen *scr, mpdclient_t *c, command_t cmd);
+	const char *(*get_title)(char *s, size_t size);
 } screen_functions_t;
 
 void screen_init(mpdclient_t *c);
