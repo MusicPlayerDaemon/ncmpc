@@ -34,38 +34,33 @@
 #include <glib.h>
 #include <ncurses.h>
 
-typedef struct {
-	int id;
+static const struct {
 	const char *name;
 	const char *localname;
-} search_tag_t;
-
-static search_tag_t search_tag[] = {
-	{ MPD_TAG_ITEM_ARTIST, "artist", N_("artist") },
-	{ MPD_TAG_ITEM_ALBUM, "album", N_("album") },
-	{ MPD_TAG_ITEM_TITLE, "title", N_("title") },
-	{ MPD_TAG_ITEM_TRACK, "track", N_("track") },
-	{ MPD_TAG_ITEM_NAME, "name", N_("name") },
-	{ MPD_TAG_ITEM_GENRE, "genre", N_("genre") },
-	{ MPD_TAG_ITEM_DATE, "date", N_("date") },
-	{ MPD_TAG_ITEM_COMPOSER, "composer", N_("composer") },
-	{ MPD_TAG_ITEM_PERFORMER, "performer", N_("performer") },
-	{ MPD_TAG_ITEM_COMMENT, "comment", N_("comment") },
-	{ MPD_TAG_ITEM_FILENAME, "filename", N_("file") },
-	{ -1, NULL, NULL }
+} search_tag[MPD_TAG_NUM_OF_ITEM_TYPES] = {
+	[MPD_TAG_ITEM_ARTIST] = { "artist", N_("artist") },
+	[MPD_TAG_ITEM_ALBUM] = { "album", N_("album") },
+	[MPD_TAG_ITEM_TITLE] = { "title", N_("title") },
+	[MPD_TAG_ITEM_TRACK] = { "track", N_("track") },
+	[MPD_TAG_ITEM_NAME] = { "name", N_("name") },
+	[MPD_TAG_ITEM_GENRE] = { "genre", N_("genre") },
+	[MPD_TAG_ITEM_DATE] = { "date", N_("date") },
+	[MPD_TAG_ITEM_COMPOSER] = { "composer", N_("composer") },
+	[MPD_TAG_ITEM_PERFORMER] = { "performer", N_("performer") },
+	[MPD_TAG_ITEM_COMMENT] = { "comment", N_("comment") },
+	[MPD_TAG_ITEM_FILENAME] = { "filename", N_("file") },
 };
 
 static int
 search_get_tag_id(char *name)
 {
-	int i = 0;
+	unsigned i;
 
-	while (search_tag[i].name) {
-		if (strcasecmp(search_tag[i].name, name) == 0 ||
-		    strcasecmp(search_tag[i].localname, name) == 0)
-			return search_tag[i].id;
-		i++;
-	}
+	for (i = 0; i < MPD_TAG_NUM_OF_ITEM_TYPES; ++i)
+		if (search_tag[i].name != NULL &&
+		    (strcasecmp(search_tag[i].name, name) == 0 ||
+		     strcasecmp(search_tag[i].localname, name) == 0))
+			return i;
 
 	return -1;
 }
