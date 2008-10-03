@@ -48,6 +48,8 @@ typedef struct
 	mpdclient_t *c;
 } completion_callback_data_t;
 
+static struct mpdclient_playlist *playlist;
+static int current_song_id = -1;
 static list_window_t *lw = NULL;
 static guint timer_hide_cursor_id;
 
@@ -88,19 +90,16 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 }
 
 static const char *
-list_callback(unsigned idx, int *highlight, void *data)
+list_callback(unsigned idx, int *highlight, mpd_unused void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
-	mpdclient_t *c = (mpdclient_t *) data;
 	mpd_Song *song;
 
-	if (idx >= playlist_length(&c->playlist))
+	if (playlist == NULL || idx >= playlist_length(playlist))
 		return NULL;
 
-	song = playlist_get(&c->playlist, idx);
-
-	if (c->song != NULL && song->id == c->song->id &&
-	    c->status != NULL && !IS_STOPPED(c->status->state))
+	song = playlist_get(playlist, idx);
+	if (song->id == current_song_id)
 		*highlight = 1;
 
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, song);
@@ -358,6 +357,8 @@ play_open(mpd_unused screen_t *screen, mpdclient_t *c)
 {
 	static gboolean install_cb = TRUE;
 
+	playlist = &c->playlist;
+
 	assert(timer_hide_cursor_id == 0);
 	if (options.hide_cursor > 0) {
 		lw->flags &= ~LW_HIDE_CURSOR;
@@ -405,16 +406,17 @@ play_title(char *str, size_t size)
 }
 
 static void
-play_paint(mpdclient_t *c)
+play_paint(mpd_unused mpdclient_t *c)
 {
-	list_window_paint(lw, list_callback, (void *) c);
+	list_window_paint(lw, list_callback, NULL);
 }
 
 static void
 play_update(mpdclient_t *c)
 {
 	static int prev_song_id = -1;
-	int current_song_id = c->song != NULL && c->status != NULL &&
+
+	current_song_id = c->song != NULL && c->status != NULL &&
 		!IS_STOPPED(c->status->state) ? c->song->id : -1;
 
 	if (current_song_id != prev_song_id) {
@@ -430,14 +432,14 @@ play_update(mpdclient_t *c)
 
 #ifdef HAVE_GETMOUSE
 static int
-handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
+handle_mouse_event(struct mpdclient *c)
 {
 	int row;
 	unsigned selected;
 	unsigned long bstate;
 
 	if (screen_get_mouse_event(c, &bstate, &row) ||
-	    list_window_mouse(lw, c->playlist.list->len, bstate, row)) {
+	    list_window_mouse(lw, playlist_length(playlist), bstate, row)) {
 		playlist_repaint(c);
 		return 1;
 	}
@@ -452,7 +454,7 @@ handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
 
 	if (bstate & BUTTON1_CLICKED) {
 		/* play */
-		if (lw->start + row < c->playlist.list->len)
+		if (lw->start + row < playlist_length(playlist))
 			mpdclient_cmd_play(c, lw->start + row);
 	} else if (bstate & BUTTON3_CLICKED) {
 		/* delete */
@@ -461,13 +463,11 @@ handle_mouse_event(mpd_unused screen_t *screen, mpdclient_t *c)
 	}
 
 	lw->selected = selected;
-	list_window_check_selected(lw, c->playlist.list->len);
+	list_window_check_selected(lw, playlist_length(playlist));
 	playlist_repaint(c);
 
 	return 1;
 }
-#else
-#define handle_mouse_event(s,c) (0)
 #endif
 
 static int
@@ -517,12 +517,14 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LIST_RFIND_NEXT:
 		screen_find(screen,
 			    lw, playlist_length(&c->playlist),
-			    cmd, list_callback, c);
+			    cmd, list_callback, NULL);
 		playlist_repaint(c);
 		return 1;
 
+#ifdef HAVE_GETMOUSE
 	case CMD_MOUSE_EVENT:
-		return handle_mouse_event(screen,c);
+		return handle_mouse_event(c);
+#endif
 
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
