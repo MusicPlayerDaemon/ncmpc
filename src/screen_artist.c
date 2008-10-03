@@ -374,23 +374,29 @@ get_title(char *str, size_t size)
 
 	switch(mode) {
 	case LIST_ARTISTS:
-		g_snprintf(str, size,  _("Artist: [db browser - EXPERIMENTAL]"));
+		g_snprintf(str, size, _("All artists"));
 		break;
+
 	case LIST_ALBUMS:
 		s1 = utf8_to_locale(artist);
-		g_snprintf(str, size,  _("Artist: %s"), s1);
+		g_snprintf(str, size, _("Albums of artist: %s"), s1);
 		g_free(s1);
 		break;
+
 	case LIST_SONGS:
 		s1 = utf8_to_locale(artist);
-		s2 = *album == 0
-			? g_strdup(_("All tracks"))
-			: utf8_to_locale(album);
-		g_snprintf(str, size,  _("Artist: %s - %s"), s1, s2);
+		if (*album != 0) {
+			s2 = utf8_to_locale(album);
+			g_snprintf(str, size,
+				   _("Album: %s - %s"), s1, s2);
+			g_free(s2);
+		} else
+			g_snprintf(str, size,
+				   _("All tracks of artist: %s"), s1);
 		g_free(s1);
-		g_free(s2);
 		break;
 	}
+
 	return str;
 }
 
