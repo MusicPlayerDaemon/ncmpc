@@ -16,7 +16,6 @@
  *
  */
 
-#define NO_GLOBAL_OPTIONS
 #include "conf.h"
 #include "config.h"
 #include "defaults.h"
@@ -359,7 +358,7 @@ check_screen_list(char *value)
 }
 
 static int
-read_rc_file(char *filename, options_t *options)
+read_rc_file(char *filename)
 {
 	int fd;
 	int quit = 0;
@@ -441,13 +440,13 @@ read_rc_file(char *filename, options_t *options)
 				/* enable colors */
 				else if(!strcasecmp(CONF_ENABLE_COLORS, name))
 #ifdef ENABLE_COLORS
-					options->enable_colors = str2bool(value);
+					options.enable_colors = str2bool(value);
 #else
 				{}
 #endif
 				/* auto center */
 				else if (!strcasecmp(CONF_AUTO_CENTER, name))
-					options->auto_center = str2bool(value);
+					options.auto_center = str2bool(value);
 				/* color assignment */
 				else if (!strcasecmp(CONF_COLOR, name))
 #ifdef ENABLE_COLORS
@@ -457,17 +456,17 @@ read_rc_file(char *filename, options_t *options)
 #endif
 				/* wide cursor */
 				else if (!strcasecmp(CONF_WIDE_CURSOR, name))
-					options->wide_cursor = str2bool(value);
+					options.wide_cursor = str2bool(value);
 				/* welcome screen list */
 				else if (!strcasecmp(CONF_WELCOME_SCREEN_LIST, name))
-					options->welcome_screen_list = str2bool(value);
+					options.welcome_screen_list = str2bool(value);
 				/* visible bitrate */
 				else if (!strcasecmp(CONF_VISIBLE_BITRATE, name))
-					options->visible_bitrate = str2bool(value);
+					options.visible_bitrate = str2bool(value);
 				/* timer display type */
 				else if (!strcasecmp(CONF_TIMEDISPLAY_TYPE, name)) {
-					g_free(options->timedisplay_type);
-					options->timedisplay_type=g_strdup(parse_timedisplay_type(value));
+					g_free(options.timedisplay_type);
+					options.timedisplay_type=g_strdup(parse_timedisplay_type(value));
 				/* color definition */
 				} else if (!strcasecmp(CONF_COLOR_DEFINITION, name))
 #ifdef ENABLE_COLORS
@@ -477,56 +476,56 @@ read_rc_file(char *filename, options_t *options)
 #endif
 				/* list format string */
 				else if (!strcasecmp(CONF_LIST_FORMAT, name)) {
-					g_free(options->list_format);
-					options->list_format = get_format(value);
+					g_free(options.list_format);
+					options.list_format = get_format(value);
 				/* status format string */
 				} else if (!strcasecmp(CONF_STATUS_FORMAT, name)) {
-					g_free(options->status_format);
-					options->status_format = get_format(value);
+					g_free(options.status_format);
+					options.status_format = get_format(value);
 				/* xterm title format string */
 				} else if (!strcasecmp(CONF_XTERM_TITLE_FORMAT, name)) {
-					g_free(options->xterm_title_format);
-					options->xterm_title_format = get_format(value);
+					g_free(options.xterm_title_format);
+					options.xterm_title_format = get_format(value);
 				} else if (!strcasecmp(CONF_LIST_WRAP, name))
-					options->list_wrap = str2bool(value);
+					options.list_wrap = str2bool(value);
 				else if (!strcasecmp(CONF_FIND_WRAP, name))
-					options->find_wrap = str2bool(value);
+					options.find_wrap = str2bool(value);
 				else if (!strcasecmp(CONF_FIND_SHOW_LAST,name))
-					options->find_show_last_pattern = str2bool(value);
+					options.find_show_last_pattern = str2bool(value);
 				else if (!strcasecmp(CONF_AUDIBLE_BELL, name))
-					options->audible_bell = str2bool(value);
+					options.audible_bell = str2bool(value);
 				else if (!strcasecmp(CONF_VISIBLE_BELL, name))
-					options->visible_bell = str2bool(value);
+					options.visible_bell = str2bool(value);
 				else if (!strcasecmp(CONF_XTERM_TITLE, name))
-					options->enable_xterm_title = str2bool(value);
+					options.enable_xterm_title = str2bool(value);
 				else if (!strcasecmp(CONF_ENABLE_MOUSE, name))
-					options->enable_mouse = str2bool(value);
+					options.enable_mouse = str2bool(value);
 				else if (!strcasecmp(CONF_CROSSFADE_TIME, name))
-					options->crossfade_time = atoi(value);
+					options.crossfade_time = atoi(value);
 				else if (!strcasecmp(CONF_SEARCH_MODE, name))
-					options->search_mode = atoi(value);
+					options.search_mode = atoi(value);
 				else if (!strcasecmp(CONF_HIDE_CURSOR, name))
-					options->hide_cursor = atoi(value);
+					options.hide_cursor = atoi(value);
 				else if (!strcasecmp(CONF_SEEK_TIME, name))
-					options->seek_time = atoi(value);
+					options.seek_time = atoi(value);
 				else if (!strcasecmp(CONF_SCREEN_LIST, name)) {
-					g_strfreev(options->screen_list);
-					options->screen_list = check_screen_list(value);
+					g_strfreev(options.screen_list);
+					options.screen_list = check_screen_list(value);
 				} else if (!strcasecmp(CONF_SHOW_SPLASH, name)) {
 					/* the splash screen was removed */
 				} else if (!strcasecmp(CONF_HOST, name))
-					options->host = get_format(value);
+					options.host = get_format(value);
 				else if (!strcasecmp(CONF_PORT, name))
-					options->port = atoi(get_format(value));
+					options.port = atoi(get_format(value));
 				else if (!strcasecmp(CONF_PASSWORD, name))
-					options->password = get_format(value);
+					options.password = get_format(value);
 				else if (!strcasecmp(CONF_LYRICS_TIMEOUT, name))
-					options->lyrics_timeout = atoi(get_format(value));
+					options.lyrics_timeout = atoi(get_format(value));
 				else if (!strcasecmp(CONF_SCROLL, name))
-					options->scroll = str2bool(value);
+					options.scroll = str2bool(value);
 				else if (!strcasecmp(CONF_SCROLL_SEP, name)) {
-					g_free(options->scroll_sep);
-					options->scroll_sep = get_format(value);
+					g_free(options.scroll_sep);
+					options.scroll_sep = get_format(value);
 				} else
 					match_found = 0;
 
@@ -567,13 +566,13 @@ get_user_key_binding_filename(void)
 }
 
 int
-read_configuration(options_t *options)
+read_configuration(void)
 {
 	char *filename = NULL;
 
 	/* check for command line configuration file */
-	if (options->config_file)
-		filename = g_strdup(options->config_file);
+	if (options.config_file)
+		filename = g_strdup(options.config_file);
 
 	/* check for user configuration ~/.ncmpc/config */
 	if (filename == NULL) {
@@ -596,14 +595,14 @@ read_configuration(options_t *options)
 
 	/* load configuration */
 	if (filename) {
-		read_rc_file(filename, options);
+		read_rc_file(filename);
 		g_free(filename);
 		filename = NULL;
 	}
 
 	/* check for command line key binding file */
-	if (options->key_file)
-		filename = g_strdup(options->key_file);
+	if (options.key_file)
+		filename = g_strdup(options.key_file);
 
 	/* check for  user key bindings ~/.ncmpc/keys */
 	if (filename == NULL) {
@@ -625,7 +624,7 @@ read_configuration(options_t *options)
 
 	/* load key bindings */
 	if (filename) {
-		read_rc_file(filename, options);
+		read_rc_file(filename);
 		g_free(filename);
 		filename = NULL;
 	}

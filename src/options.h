@@ -45,11 +45,9 @@ typedef struct {
 	bool welcome_screen_list;
 } options_t;
 
-#ifndef NO_GLOBAL_OPTIONS
 extern options_t options;
-#endif
 
-options_t *options_init(void);
-options_t *options_parse(int argc, const char **argv);
+void options_init(void);
+void options_parse(int argc, const char **argv);
 
 #endif

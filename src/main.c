@@ -352,7 +352,7 @@ main(int argc, const char *argv[])
 	options_parse(argc, argv);
 
 	/* read configuration */
-	read_configuration(&options);
+	read_configuration();
 
 	/* check key bindings */
 	check_key_bindings(NULL, NULL, 0);

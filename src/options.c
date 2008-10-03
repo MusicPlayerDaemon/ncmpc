@@ -217,7 +217,7 @@ handle_option(int c, const char *arg)
 		break;
 #ifndef NDEBUG
 	case 'K': /* --dump-keys */
-		read_configuration(&options);
+		read_configuration();
 		write_key_bindings(stdout, KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
 		exit(EXIT_SUCCESS);
 		break;
@@ -231,7 +231,7 @@ handle_option(int c, const char *arg)
 	}
 }
 
-options_t *
+void
 options_parse(int argc, const char *argv[])
 {
 	int i;
@@ -310,11 +310,9 @@ options_parse(int argc, const char *argv[])
 		option_cb (opt->shortopt, NULL);
 	else if (opt && opt->argument)
 		option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
-
-	return  &options;
 }
 
-options_t *
+void
 options_init(void)
 {
 	const char *value;
@@ -357,6 +355,4 @@ options_init(void)
 	options.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT;
 	options.scroll = DEFAULT_SCROLL;
 	options.scroll_sep = g_strdup(DEFAULT_SCROLL_SEP);
-
-	return &options;
 }
