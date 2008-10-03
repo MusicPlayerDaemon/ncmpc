@@ -125,8 +125,6 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 	g_free(str);
 	key = tolower(screen_getch(screen->status_window.w, buf));
 	g_free(buf);
-	if( key==KEY_RESIZE )
-		screen_resize();
 	if( key != YES[0] ) {
 		screen_status_printf(_("Aborted!"));
 		return 0;

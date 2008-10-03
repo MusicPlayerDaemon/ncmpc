@@ -208,17 +208,6 @@ _wreadln(WINDOW *w,
 		case ERR: /* ingnore errors */
 			break;
 
-		case KEY_RESIZE:
-			/* a resize event */
-			if( x1>COLS ) {
-				x1=COLS;
-				width = x1-x0;
-				cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
-			}
-			/* make shure the cursor is visible */
-			curs_set(1);
-			break;
-
 		case TAB:
 			if( gcmp ) {
 				char *prefix = NULL;
@@ -613,17 +602,6 @@ _wreadln(WINDOW *w,
 		  mbstowcs(wline, hlist->data, wrln_max_line_size);
 		}
 	      cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
-	      break;
-	    case KEY_RESIZE:
-	      /* resize event */
-	      if( x1>COLS )
-		{
-		  x1=COLS;
-		  width = x1-x0;
-		  cursor_move_to_eol(&cursor, &start, width, x0, x1, wline);
-		}
-	      /* make shure the cursor is visible */
-	      curs_set(1);
 	      break;
 	    }
 

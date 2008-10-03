@@ -398,10 +398,6 @@ my_wgetch(WINDOW *w)
 
 	c = wgetch(w);
 
-	/* handle resize event */
-	if (c == KEY_RESIZE)
-		screen_resize();
-
 #ifdef ENABLE_RAW_MODE
 	/* handle SIGSTOP (Ctrl-Z) */
 	if (c == 26 || c == 407)

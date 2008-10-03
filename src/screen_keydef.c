@@ -160,9 +160,6 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
 	key = screen_getch(w, buf);
 	g_free(buf);
 
-	if (key == KEY_RESIZE)
-		screen_resize();
-
 	if (key==ERR) {
 		screen_status_printf(_("Aborted!"));
 		return;
