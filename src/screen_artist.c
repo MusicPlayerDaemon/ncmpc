@@ -94,12 +94,12 @@ artist_lw_callback(unsigned idx, mpd_unused int *highlight, mpd_unused void *dat
 }
 
 static void
-paint(mpdclient_t *c);
+paint(void);
 
 static void
 artist_repaint(void)
 {
-	paint(NULL);
+	paint();
 	wrefresh(browser.lw->w);
 }
 
@@ -352,7 +352,7 @@ resize(int cols, int rows)
 }
 
 static void
-paint(mpd_unused mpdclient_t *c)
+paint(void)
 {
 	if (browser.filelist) {
 		list_window_paint(browser.lw, browser_lw_callback,

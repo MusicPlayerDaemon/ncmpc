@@ -546,7 +546,7 @@ screen_paint(mpdclient_t *c)
 	/* paint the main window */
 	wclear(screen.main_window.w);
 	if (mode_fn->paint != NULL)
-		mode_fn->paint(c);
+		mode_fn->paint();
 
 	paint_progress_window(c);
 	paint_status_window(c);

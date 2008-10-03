@@ -54,20 +54,20 @@ static list_window_t *lw = NULL;
 static guint timer_hide_cursor_id;
 
 static void
-play_paint(struct mpdclient *c);
+play_paint(void);
 
 static void
-playlist_repaint(struct mpdclient *c)
+playlist_repaint(void)
 {
-	play_paint(c);
+	play_paint();
 	wrefresh(lw->w);
 }
 
 static void
-playlist_repaint_if_active(struct mpdclient *c)
+playlist_repaint_if_active(void)
 {
 	if (screen_is_visible(&screen_playlist))
-		playlist_repaint(c);
+		playlist_repaint();
 }
 
 static void
@@ -86,7 +86,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 	}
 
 	list_window_check_selected(lw, c->playlist.list->len);
-	playlist_repaint_if_active(c);
+	playlist_repaint_if_active();
 }
 
 static const char *
@@ -344,7 +344,7 @@ timer_hide_cursor(gpointer data)
 
 	if (c->status != NULL && c->status->state == MPD_STATUS_STATE_PLAY) {
 		lw->flags |= LW_HIDE_CURSOR;
-		playlist_repaint(c);
+		playlist_repaint();
 	} else
 		timer_hide_cursor_id = g_timeout_add(options.hide_cursor * 1000,
 						     timer_hide_cursor, c);
@@ -406,7 +406,7 @@ play_title(char *str, size_t size)
 }
 
 static void
-play_paint(mpd_unused mpdclient_t *c)
+play_paint(void)
 {
 	list_window_paint(lw, list_callback, NULL);
 }
@@ -426,7 +426,7 @@ play_update(mpdclient_t *c)
 		if (options.auto_center && current_song_id != -1)
 			center_playing_item(c);
 
-		playlist_repaint(c);
+		playlist_repaint();
 	}
 }
 
@@ -440,7 +440,7 @@ handle_mouse_event(struct mpdclient *c)
 
 	if (screen_get_mouse_event(c, &bstate, &row) ||
 	    list_window_mouse(lw, playlist_length(playlist), bstate, row)) {
-		playlist_repaint(c);
+		playlist_repaint();
 		return 1;
 	}
 
@@ -464,7 +464,7 @@ handle_mouse_event(struct mpdclient *c)
 
 	lw->selected = selected;
 	list_window_check_selected(lw, playlist_length(playlist));
-	playlist_repaint(c);
+	playlist_repaint();
 
 	return 1;
 }
@@ -483,7 +483,7 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	}
 
 	if (list_window_cmd(lw, playlist_length(&c->playlist), cmd)) {
-		playlist_repaint(c);
+		playlist_repaint();
 		return 1;
 	}
 
@@ -502,7 +502,7 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		return 1;
 	case CMD_SCREEN_UPDATE:
 		center_playing_item(c);
-		playlist_repaint(c);
+		playlist_repaint();
 		return 0;
 
 	case CMD_LIST_MOVE_UP:
@@ -518,7 +518,7 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		screen_find(screen,
 			    lw, playlist_length(&c->playlist),
 			    cmd, list_callback, NULL);
-		playlist_repaint(c);
+		playlist_repaint();
 		return 1;
 
 #ifdef HAVE_GETMOUSE

@@ -62,7 +62,7 @@ typedef struct screen_functions {
 	void (*open)(struct screen *screen, mpdclient_t *c);
 	void (*close)(void);
 	void (*resize)(int cols, int rows);
-	void (*paint)(mpdclient_t *c);
+	void (*paint)(void);
 	void (*update)(mpdclient_t *c);
 	int (*cmd)(struct screen *scr, mpdclient_t *c, command_t cmd);
 	const char *(*get_title)(char *s, size_t size);

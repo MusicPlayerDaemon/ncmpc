@@ -121,12 +121,12 @@ check_subcmd_length(void)
 }
 
 static void
-keydef_paint(mpdclient_t *c);
+keydef_paint(void);
 
 static void
 keydef_repaint(void)
 {
-	keydef_paint(NULL);
+	keydef_paint();
 	wrefresh(lw->w);
 }
 
@@ -288,7 +288,7 @@ keydef_title(char *str, size_t size)
 }
 
 static void
-keydef_paint(mpd_unused mpdclient_t *c)
+keydef_paint(void)
 {
 	list_window_paint(lw, list_callback, NULL);
 }

@@ -207,7 +207,7 @@ help_title(mpd_unused char *str, mpd_unused size_t size)
 }
 
 static void
-help_paint(mpd_unused mpdclient_t *c)
+help_paint(void)
 {
 	list_window_paint(lw, list_callback, NULL);
 }

@@ -84,7 +84,7 @@ screen_lyrics_clear(void)
 }
 
 static void
-lyrics_paint(mpdclient_t *c);
+lyrics_paint(void);
 
 /**
  * Repaint and update the screen.
@@ -92,7 +92,7 @@ lyrics_paint(mpdclient_t *c);
 static void
 lyrics_repaint(void)
 {
-	lyrics_paint(NULL);
+	lyrics_paint();
 	wrefresh(lw->w);
 }
 
@@ -291,7 +291,7 @@ lyrics_title(char *str, size_t size)
 }
 
 static void
-lyrics_paint(mpd_unused mpdclient_t *c)
+lyrics_paint(void)
 {
 	list_window_paint(lw, list_callback, NULL);
 }
