@@ -21,7 +21,6 @@
 #include "i18n.h"
 #include "options.h"
 #include "charset.h"
-#include "support.h"
 #include "strfsong.h"
 #include "screen_utils.h"
 #include "gcc.h"
@@ -136,7 +135,7 @@ browser_lw_callback(unsigned idx, int *highlight, void *data)
 
 	if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY ) {
 		mpd_Directory *dir = entity->info.directory;
-		char *directory = utf8_to_locale(basename(dir->path));
+		char *directory = utf8_to_locale(g_basename(dir->path));
 
 		g_snprintf(buf, BUFSIZE, "[%s]", directory);
 		g_free(directory);
@@ -148,7 +147,7 @@ browser_lw_callback(unsigned idx, int *highlight, void *data)
 		return buf;
 	} else if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
 		mpd_PlaylistFile *plf = entity->info.playlistFile;
-		char *filename = utf8_to_locale(basename(plf->path));
+		char *filename = utf8_to_locale(g_basename(plf->path));
 
 		g_snprintf(buf, BUFSIZE, playlist_format, filename);
 		g_free(filename);
@@ -213,7 +212,8 @@ load_playlist(mpdclient_t *c, filelist_entry_t *entry)
 	char *filename = utf8_to_locale(plf->path);
 
 	if (mpdclient_cmd_load_playlist_utf8(c, plf->path) == 0)
-		screen_status_printf(_("Loading playlist %s..."), basename(filename));
+		screen_status_printf(_("Loading playlist %s..."),
+				     g_basename(filename));
 	g_free(filename);
 	return 0;
 }

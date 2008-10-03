@@ -7,10 +7,6 @@
 #include <libgen.h>
 #endif
 
-#ifndef HAVE_BASENAME
-char *basename(char *path);
-#endif
-
 char *remove_trailing_slash(char *path);
 const char *strcasestr(const char *haystack, const char *needle);
 

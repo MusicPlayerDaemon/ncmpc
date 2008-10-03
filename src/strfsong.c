@@ -23,7 +23,6 @@
  */
 
 #include "strfsong.h"
-#include "support.h"
 #include "charset.h"
 
 #include <string.h>
@@ -171,7 +170,7 @@ _strfsong(gchar *s,
 			if( strstr(song->file, "://") )
 				temp = utf8_to_locale(song->file);
 			else
-				temp = utf8_to_locale(basename(song->file));
+				temp = utf8_to_locale(g_basename(song->file));
 		} else if (strncmp("%time%", p, n) == 0) {
 			if (song->time != MPD_SONG_NO_TIME)  {
 				if (song->time > 3600) {

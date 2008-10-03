@@ -20,7 +20,6 @@
 #include "i18n.h"
 #include "options.h"
 #include "charset.h"
-#include "support.h"
 #include "mpdclient.h"
 #include "command.h"
 #include "screen.h"
@@ -121,7 +120,7 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 	}
 
 	plf = entity->info.playlistFile;
-	str = utf8_to_locale(basename(plf->path));
+	str = utf8_to_locale(g_basename(plf->path));
 	buf = g_strdup_printf(_("Delete playlist %s [%s/%s] ? "), str, YES, NO);
 	g_free(str);
 	key = tolower(screen_getch(screen->status_window.w, buf));
@@ -176,12 +175,10 @@ browse_open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
 static const char *
 browse_title(char *str, size_t size)
 {
-	char *pathcopy;
-	char *parentdir;
+	char *dirname, *parentdir;
 
-	pathcopy = strdup(browser.filelist->path);
-	parentdir = dirname(pathcopy);
-	parentdir = basename(parentdir);
+	dirname = g_path_get_dirname(browser.filelist->path);
+	parentdir = g_path_get_basename(dirname);
 
 	if( parentdir[0] == '.' && strlen(parentdir) == 1 ) {
 		parentdir = NULL;
@@ -190,8 +187,9 @@ browse_title(char *str, size_t size)
 	g_snprintf(str, size, _("Browse: %s%s%s"),
 		   parentdir ? parentdir : "",
 		   parentdir ? "/" : "",
-		   basename(browser.filelist->path));
-	free(pathcopy);
+		   g_basename(browser.filelist->path));
+	free(dirname);
+	free(parentdir);
 	return str;
 }
 

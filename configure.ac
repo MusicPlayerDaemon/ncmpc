@@ -44,7 +44,7 @@ AC_CHECK_HEADER([locale.h],
 dnl
 dnl Check for functions
 dnl
-AC_CHECK_FUNCS([basename strcasestr])
+AC_CHECK_FUNCS([strcasestr])
 
 
 dnl

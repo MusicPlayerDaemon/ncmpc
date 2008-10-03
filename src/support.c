@@ -43,28 +43,6 @@ remove_trailing_slash(char *path)
 	return path;
 }
 
-#ifndef HAVE_BASENAME
-char *
-basename(char *path)
-{
-	char *end;
-
-	assert(path != NULL);
-
-	path = remove_trailing_slash(path);
-	end = path + strlen(path);
-
-	while (end > path && *end != '/')
-		end--;
-
-	if (*end == '/' && end != path)
-		return end+1;
-
-	return path;
-}
-#endif /* HAVE_BASENAME */
-
-
 #ifndef HAVE_STRCASESTR
 const char *
 strcasestr(const char *haystack, const char *needle)
