@@ -332,14 +332,15 @@ check_screen_list(char *value)
 	i=0;
 	j=0;
 	while( tmp && tmp[i] ) {
-		tmp[i] = lowerstr(tmp[i]);
-		if (screen_lookup_name(tmp[i]) == NULL)
+		char *name = g_ascii_strdown(tmp[i], -1);
+		if (screen_lookup_name(name) == NULL) {
 			fprintf(stderr,
 				_("Error: Unsupported screen \"%s\"\n"),
-				tmp[i]);
-		else {
+				name);
+			free(name);
+		} else {
 			screen = g_realloc(screen, (j+2)*sizeof(char *));
-			screen[j++] = g_strdup(tmp[i]);
+			screen[j++] = name;
 			screen[j] = NULL;
 		}
 		i++;

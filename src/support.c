@@ -43,24 +43,6 @@ remove_trailing_slash(char *path)
 	return path;
 }
 
-char *
-lowerstr(char *str)
-{
-	gsize i;
-	gsize len = strlen(str);
-
-	if (str == NULL)
-		return NULL;
-
-	i = 0;
-	while (i < len && str[i]) {
-		str[i] = tolower(str[i]);
-		i++;
-	}
-	return str;
-}
-
-
 #ifndef HAVE_BASENAME
 char *
 basename(char *path)
@@ -84,13 +66,21 @@ basename(char *path)
 
 
 #ifndef HAVE_STRCASESTR
-char *
+const char *
 strcasestr(const char *haystack, const char *needle)
 {
+	char *haystack2 = g_utf8_strdown(haystack, -1);
+	char *needle2 = g_utf8_strdown(needle, -1);
+	char *result;
+
 	assert(haystack != NULL);
 	assert(needle != NULL);
 
-	return strstr(lowerstr(haystack), lowerstr(needle));
+	result = strstr(haystack2, needle2);
+	g_free(haystack2);
+	g_free(needle2);
+
+	return haystack + (result - haystack2);
 }
 #endif /* HAVE_STRCASESTR */
 
