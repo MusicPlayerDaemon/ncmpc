@@ -318,8 +318,6 @@ options_init(void)
 	const char *value;
 	char *tmp;
 
-	memset(&options, 0, sizeof(options_t));
-
 	/* get initial values for host and password from MPD_HOST (enviroment) */
 	if ((value = g_getenv(MPD_HOST_ENV)))
 		options.host = g_strdup(value);
