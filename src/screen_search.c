@@ -34,11 +34,6 @@
 #include <glib.h>
 #include <ncurses.h>
 
-/* new search stuff with qball's libmpdclient */
-#define FUTURE
-
-#ifdef FUTURE
-
 extern gint mpdclient_finish_command(mpdclient_t *c);
 
 typedef struct {
@@ -76,8 +71,6 @@ search_get_tag_id(char *name)
 
 	return -1;
 }
-
-#endif
 
 #define SEARCH_TITLE    0
 #define SEARCH_ARTIST   1
@@ -189,7 +182,6 @@ search_clear(mpd_unused screen_t *screen, mpdclient_t *c,
 	}
 }
 
-#ifdef FUTURE
 static mpdclient_filelist_t *
 filelist_search(mpdclient_t *c, mpd_unused int exact_match, int table,
 		gchar *local_pattern)
@@ -313,9 +305,6 @@ search_advanced_query(char *query, mpdclient_t *c)
 
 	return fl;
 }
-#else
-#define search_advanced_query(pattern,c) (NULL)
-#endif
 
 static void
 search_new(screen_t *screen, mpdclient_t *c)
