@@ -26,23 +26,6 @@
 #include <ctype.h>
 #include <string.h>
 
-#define BUFSIZE 1024
-
-char *
-remove_trailing_slash(char *path)
-{
-	int len;
-
-	if (path == NULL)
-		return NULL;
-
-	len = strlen(path);
-	if (len > 1 && path[len - 1] == '/')
-		path[len - 1] = '\0';
-
-	return path;
-}
-
 #ifndef HAVE_STRCASESTR
 const char *
 strcasestr(const char *haystack, const char *needle)

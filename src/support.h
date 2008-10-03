@@ -7,7 +7,6 @@
 #include <libgen.h>
 #endif
 
-char *remove_trailing_slash(char *path);
 const char *strcasestr(const char *haystack, const char *needle);
 
 typedef struct {
