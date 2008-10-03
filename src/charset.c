@@ -71,7 +71,7 @@ utf8_to_locale(const char *utf8str)
 	if (noconvert)
 		return g_strdup(utf8str);
 
-	str = g_convert_with_fallback(utf8str, strlen(utf8str),
+	str = g_convert_with_fallback(utf8str, -1,
 				      charset, "utf-8",
 				      NULL, NULL, NULL,
 				      &error);
@@ -98,7 +98,7 @@ locale_to_utf8(const char *localestr)
 	if (noconvert)
 		return g_strdup(localestr);
 
-	str = g_convert_with_fallback(localestr, strlen(localestr),
+	str = g_convert_with_fallback(localestr, -1,
 				      "utf-8", charset,
 				      NULL, NULL, NULL,
 				      &error);
