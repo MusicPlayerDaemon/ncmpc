@@ -20,6 +20,7 @@
 #include "i18n.h"
 #include "options.h"
 
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -58,26 +59,24 @@ typedef struct {
 } color_definition_entry_t;
 
 typedef struct {
-	enum color id;
 	const char *name;
 	short fg;
 	attr_t attrs;
 } color_entry_t;
 
-static color_entry_t colors[] = {
-	/* color pair, field name, color, mono attribute */
-	{ COLOR_TITLE,        NAME_TITLE,        COLOR_YELLOW,         A_NORMAL },
-	{ COLOR_TITLE_BOLD,   NAME_TITLE_BOLD,   COLOR_BRIGHT_YELLOW,  A_BOLD },
-	{ COLOR_LINE,         NAME_LINE,         COLOR_WHITE,          A_NORMAL },
-	{ COLOR_LINE_BOLD,    NAME_LINE_BOLD,    COLOR_BRIGHT_WHITE,   A_BOLD },
-	{ COLOR_LIST,         NAME_LIST,         COLOR_GREEN,          A_NORMAL },
-	{ COLOR_LIST_BOLD,    NAME_LIST_BOLD,    COLOR_BRIGHT_GREEN,   A_BOLD },
-	{ COLOR_PROGRESSBAR,  NAME_PROGRESS,     COLOR_WHITE,          A_NORMAL },
-	{ COLOR_STATUS,       NAME_STATUS,       COLOR_YELLOW,         A_NORMAL },
-	{ COLOR_STATUS_BOLD,  NAME_STATUS_BOLD,  COLOR_BRIGHT_YELLOW,  A_BOLD },
-	{ COLOR_STATUS_TIME,  NAME_STATUS_TIME,  COLOR_RED,            A_NORMAL },
-	{ COLOR_STATUS_ALERT, NAME_ALERT,        COLOR_BRIGHT_RED,     A_BOLD },
-	{ 0,                  NULL,              0,                    0 }
+static color_entry_t colors[COLOR_END] = {
+	/* color pair = field name, color, mono attribute */
+	[COLOR_TITLE] = { NAME_TITLE, COLOR_YELLOW, A_NORMAL },
+	[COLOR_TITLE_BOLD] = { NAME_TITLE_BOLD, COLOR_BRIGHT_YELLOW, A_BOLD },
+	[COLOR_LINE] = { NAME_LINE, COLOR_WHITE, A_NORMAL },
+	[COLOR_LINE_BOLD] = { NAME_LINE_BOLD, COLOR_BRIGHT_WHITE, A_BOLD },
+	[COLOR_LIST] = { NAME_LIST, COLOR_GREEN, A_NORMAL },
+	[COLOR_LIST_BOLD] = { NAME_LIST_BOLD, COLOR_BRIGHT_GREEN, A_BOLD },
+	[COLOR_PROGRESSBAR] = { NAME_PROGRESS, COLOR_WHITE, A_NORMAL },
+	[COLOR_STATUS] = { NAME_STATUS, COLOR_YELLOW, A_NORMAL },
+	[COLOR_STATUS_BOLD] = { NAME_STATUS_BOLD, COLOR_BRIGHT_YELLOW, A_BOLD },
+	[COLOR_STATUS_TIME] = { NAME_STATUS_TIME, COLOR_RED, A_NORMAL },
+	[COLOR_STATUS_ALERT] = { NAME_ALERT, COLOR_BRIGHT_RED, A_BOLD },
 };
 
 /* background color */
@@ -86,29 +85,13 @@ static short bg = COLOR_BLACK;
 static GList *color_definition_list = NULL;
 
 static color_entry_t *
-colors_lookup(enum color id)
-{
-	int i = 0;
-
-	while (colors[i].name != NULL) {
-		if (colors[i].id == id)
-			return &colors[i];
-		i++;
-	}
-
-	return NULL;
-}
-
-static color_entry_t *
 colors_lookup_by_name(const char *name)
 {
-	int i = 0;
+	enum color i;
 
-	while (colors[i].name != NULL) {
+	for (i = 1; i < COLOR_END; ++i)
 		if (!strcasecmp(colors[i].name, name))
 			return &colors[i];
-		i++;
-	}
 
 	return NULL;
 }
@@ -116,11 +99,10 @@ colors_lookup_by_name(const char *name)
 static int
 colors_update_pair(enum color id)
 {
-	color_entry_t *entry = colors_lookup(id);
+	color_entry_t *entry = &colors[id];
 	short fg = -1;
 
-	if (!entry)
-		return -1;
+	assert(id > 0 && id < COLOR_END);
 
 	if (IS_BRIGHT(entry->fg)) {
 		entry->attrs = A_BOLD;
@@ -130,7 +112,7 @@ colors_update_pair(enum color id)
 		fg = entry->fg;
 	}
 
-	init_pair(entry->id, fg, bg);
+	init_pair(id, fg, bg);
 	return 0;
 }
 
@@ -249,13 +231,11 @@ colors_start(void)
 			fprintf(stderr, _("Terminal lacks support for changing colors!\n"));
 
 		if (options.enable_colors) {
-			int i = 0;
+			enum color i;
 
-			while (colors[i].name) {
+			for (i = 1; i < COLOR_END; ++i)
 				/* update the color pairs */
-				colors_update_pair(colors[i].id);
-				i++;
-			}
+				colors_update_pair(i);
 		}
 	} else if (options.enable_colors) {
 		fprintf(stderr, _("Terminal lacks color capabilities!\n"));
@@ -281,12 +261,11 @@ colors_start(void)
 int
 colors_use(WINDOW *w, enum color id)
 {
-	color_entry_t *entry = colors_lookup(id);
+	color_entry_t *entry = &colors[id];
 	short pair;
 	attr_t attrs;
 
-	if (!entry)
-		return -1;
+	assert(id > 0 && id < COLOR_END);
 
 	wattr_get(w, &attrs, &pair, NULL);
 

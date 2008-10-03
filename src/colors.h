@@ -15,6 +15,7 @@ enum color {
 	COLOR_STATUS_BOLD,
 	COLOR_STATUS_TIME,
 	COLOR_STATUS_ALERT,
+	COLOR_END
 };
 
 short colors_str2color(const char *str);
