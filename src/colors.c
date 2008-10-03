@@ -58,7 +58,7 @@ typedef struct {
 } color_definition_entry_t;
 
 typedef struct {
-	int id;
+	enum color id;
 	const char *name;
 	short fg;
 	attr_t attrs;
@@ -86,7 +86,7 @@ static short bg = COLOR_BLACK;
 static GList *color_definition_list = NULL;
 
 static color_entry_t *
-colors_lookup(int id)
+colors_lookup(enum color id)
 {
 	int i = 0;
 
@@ -114,7 +114,7 @@ colors_lookup_by_name(const char *name)
 }
 
 static int
-colors_update_pair(int id)
+colors_update_pair(enum color id)
 {
 	color_entry_t *entry = colors_lookup(id);
 	short fg = -1;
@@ -279,7 +279,7 @@ colors_start(void)
 }
 
 int
-colors_use(WINDOW *w, int id)
+colors_use(WINDOW *w, enum color id)
 {
 	color_entry_t *entry = colors_lookup(id);
 	short pair;
@@ -292,7 +292,7 @@ colors_use(WINDOW *w, int id)
 
 	if (options.enable_colors) {
 		/* color mode */
-		if (attrs != entry->attrs || id != pair)
+		if (attrs != entry->attrs || (short)id != pair)
 			wattr_set(w, entry->attrs, id, NULL);
 	} else {
 		/* mono mode */

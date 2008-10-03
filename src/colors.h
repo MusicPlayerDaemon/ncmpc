@@ -3,23 +3,25 @@
 
 #include <ncurses.h>
 
-#define COLOR_TITLE 1
-#define COLOR_TITLE_BOLD 2
-#define COLOR_LINE 3
-#define COLOR_LINE_BOLD 4
-#define COLOR_LIST 5
-#define COLOR_LIST_BOLD 6
-#define COLOR_PROGRESSBAR 7
-#define COLOR_STATUS 8
-#define COLOR_STATUS_BOLD 9
-#define COLOR_STATUS_TIME 10
-#define COLOR_STATUS_ALERT 11
+enum color {
+	COLOR_TITLE = 1,
+	COLOR_TITLE_BOLD,
+	COLOR_LINE,
+	COLOR_LINE_BOLD,
+	COLOR_LIST,
+	COLOR_LIST_BOLD,
+	COLOR_PROGRESSBAR,
+	COLOR_STATUS,
+	COLOR_STATUS_BOLD,
+	COLOR_STATUS_TIME,
+	COLOR_STATUS_ALERT,
+};
 
 short colors_str2color(const char *str);
 
 int colors_assign(const char *name, const char *value);
 int colors_define(const char *name, short r, short g, short b);
 int colors_start(void);
-int colors_use(WINDOW *w, int id);
+int colors_use(WINDOW *w, enum color id);
 
 #endif /* COLORS_H */
