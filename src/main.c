@@ -40,7 +40,7 @@
 #include <string.h>
 
 /* time between mpd updates [s] */
-static const float MPD_UPDATE_TIME = 0.5;
+static const guint update_interval = 500;
 
 #define BUFSIZE 1024
 
@@ -284,7 +284,7 @@ keyboard_event(mpd_unused GIOChannel *source,
 		if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN) {
 			/* make sure we dont update the volume yet */
 			g_source_remove(update_source_id);
-			update_source_id = g_timeout_add((guint)(MPD_UPDATE_TIME * 1000),
+			update_source_id = g_timeout_add(update_interval,
 							 timer_mpd_update,
 							 GINT_TO_POINTER(TRUE));
 		}
@@ -433,7 +433,7 @@ main(int argc, const char *argv[])
 	/* attempt to connect */
 	reconnect_source_id = g_timeout_add(1, timer_reconnect, NULL);
 
-	update_source_id = g_timeout_add((guint)(MPD_UPDATE_TIME * 1000),
+	update_source_id = g_timeout_add(update_interval,
 					 timer_mpd_update,
 					 GINT_TO_POINTER(TRUE));
 	g_timeout_add(10000, timer_check_key_bindings, NULL);
