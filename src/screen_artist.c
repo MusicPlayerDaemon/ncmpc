@@ -213,13 +213,12 @@ load_song_list(struct mpdclient *c)
 	assert(album != NULL);
 	assert(browser.filelist == NULL);
 
-	if (album[0] == 0) {
-		album = g_strdup(_("All tracks"));
+	if (album[0] == 0)
 		browser.filelist =
 			mpdclient_filelist_search_utf8(c, TRUE,
 						       MPD_TABLE_ARTIST,
 						       artist);
-	} else
+	else
 		browser.filelist =
 			mpdclient_filelist_search_utf8(c, TRUE,
 						       MPD_TABLE_ALBUM,
@@ -373,22 +372,27 @@ paint(mpd_unused mpdclient_t *c)
 static const char *
 get_title(char *str, size_t size)
 {
-	char *s1 = artist ? utf8_to_locale(artist) : NULL;
-	char *s2 = album ? utf8_to_locale(album) : NULL;
+	char *s1, *s2;
 
 	switch(mode) {
 	case LIST_ARTISTS:
 		g_snprintf(str, size,  _("Artist: [db browser - EXPERIMENTAL]"));
 		break;
 	case LIST_ALBUMS:
+		s1 = utf8_to_locale(artist);
 		g_snprintf(str, size,  _("Artist: %s"), s1);
+		g_free(s1);
 		break;
 	case LIST_SONGS:
+		s1 = utf8_to_locale(artist);
+		s2 = *album == 0
+			? g_strdup(_("All tracks"))
+			: utf8_to_locale(album);
 		g_snprintf(str, size,  _("Artist: %s - %s"), s1, s2);
+		g_free(s1);
+		g_free(s2);
 		break;
 	}
-	g_free(s1);
-	g_free(s2);
 	return str;
 }
 
