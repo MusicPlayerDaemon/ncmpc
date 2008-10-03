@@ -370,8 +370,7 @@ main(int argc, const char *argv[])
 	}
 
 	/* setup signal behavior - SIGTERM */
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = 0;
+
 	act.sa_handler = catch_sigint;
 	if (sigaction(SIGTERM, &act, NULL) < 0) {
 		perror("sigaction()");
@@ -379,8 +378,7 @@ main(int argc, const char *argv[])
 	}
 
 	/* setup signal behavior - SIGCONT */
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = 0;
+
 	act.sa_handler = catch_sigcont;
 	if (sigaction(SIGCONT, &act, NULL) < 0) {
 		perror("sigaction(SIGCONT)");
@@ -388,8 +386,7 @@ main(int argc, const char *argv[])
 	}
 
 	/* setup signal behaviour - SIGHUP*/
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = 0;
+
 	act.sa_handler = catch_sigint;
 	if (sigaction(SIGHUP, &act, NULL) < 0) {
 		perror("sigaction(SIGHUP)");
