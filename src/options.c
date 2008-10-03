@@ -143,27 +143,27 @@ handle_option(int c, const char *arg)
 		display_help();
 		exit(EXIT_SUCCESS);
 	case 'V': /* --version */
-		printf("%s version: %s\n", PACKAGE, VERSION);
-		printf("build options:");
+		puts(PACKAGE " version: " VERSION "\n"
+		     "build options:"
 #ifndef NDEBUG
-		printf(" debug");
+		     " debug"
 #endif
 #ifdef ENABLE_NLS
-		printf(" nls");
+		     " nls"
 #endif
 #ifdef HAVE_GETMOUSE
-		printf(" getmouse");
+		     " getmouse"
 #endif
 #ifdef ENABLE_ARTIST_SCREEN
-		printf(" artist-screen");
+		     " artist-screen"
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
-		printf(" search-screen");
+		     " search-screen"
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
-		printf(" key-screen");
+		     " key-screen"
 #endif
-		printf("\n");
+		     "\n");
 		exit(EXIT_SUCCESS);
 	case 'c': /* --colors */
 		options.enable_colors = true;
