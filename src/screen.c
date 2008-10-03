@@ -503,6 +503,7 @@ screen_init(mpdclient_t *c)
 	leaveok(screen.status_window.w, FALSE);
 	keypad(screen.status_window.w, TRUE);
 
+#ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* set background attributes */
 		wbkgd(stdscr, COLOR_PAIR(COLOR_LIST));
@@ -512,6 +513,7 @@ screen_init(mpdclient_t *c)
 		wbkgd(screen.status_window.w,   COLOR_PAIR(COLOR_STATUS));
 		colors_use(screen.progress_window.w, COLOR_PROGRESSBAR);
 	}
+#endif
 
 	refresh();
 

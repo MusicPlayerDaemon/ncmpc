@@ -151,6 +151,11 @@ handle_option(int c, const char *arg)
 #ifdef ENABLE_NLS
 		     " nls"
 #endif
+#ifdef ENABLE_COLORS
+		     " colors"
+#else
+		     " no-colors"
+#endif
 #ifdef HAVE_GETMOUSE
 		     " getmouse"
 #endif
@@ -166,10 +171,14 @@ handle_option(int c, const char *arg)
 		     "\n");
 		exit(EXIT_SUCCESS);
 	case 'c': /* --colors */
+#ifdef ENABLE_COLORS
 		options.enable_colors = true;
+#endif
 		break;
 	case 'C': /* --no-colors */
+#ifdef ENABLE_COLORS
 		options.enable_colors = false;
+#endif
 		break;
 	case 'm': /* --mouse */
 		options.enable_mouse = true;

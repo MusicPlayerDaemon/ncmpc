@@ -138,6 +138,18 @@ if test "x$use_raw" = "xyes" ; then
   AC_DEFINE([ENABLE_RAW_MODE], [1], [Place the terminal into raw mode])
 fi
 
+dnl enable colors
+AC_MSG_CHECKING([color support])
+AC_ARG_ENABLE([colors],
+	AC_HELP_STRING([--enable-colors],
+		       [Enable color support]),
+		       [use_colors=$enableval], 
+                       [use_colors=no])
+AC_MSG_RESULT([$use_colors])
+if test "x$use_colors" = "xyes" ; then
+    AC_DEFINE([ENABLE_COLORS], [1], [Enable color support])
+fi
+
 dnl Debugging 
 AC_MSG_CHECKING([whether to build with debug support])
 AC_ARG_ENABLE([debug], 

@@ -18,7 +18,9 @@
 
 #include "colors.h"
 #include "i18n.h"
+#ifdef ENABLE_COLORS
 #include "options.h"
+#endif
 
 #include <assert.h>
 #include <stdio.h>
@@ -53,10 +55,12 @@
 #define NAME_ALERT "alert"
 #define NAME_BGCOLOR "background"
 
+#ifdef ENABLE_COLORS
 typedef struct {
 	short color;
 	short r,g,b;
 } color_definition_entry_t;
+#endif
 
 typedef struct {
 	const char *name;
@@ -78,6 +82,8 @@ static color_entry_t colors[COLOR_END] = {
 	[COLOR_STATUS_TIME] = { NAME_STATUS_TIME, COLOR_RED, A_NORMAL },
 	[COLOR_STATUS_ALERT] = { NAME_ALERT, COLOR_BRIGHT_RED, A_BOLD },
 };
+
+#ifdef ENABLE_COLORS
 
 /* background color */
 static short bg = COLOR_BLACK;
@@ -208,6 +214,7 @@ colors_assign(const char *name, const char *value)
 	return 0;
 }
 
+
 int
 colors_start(void)
 {
@@ -257,6 +264,7 @@ colors_start(void)
 
 	return 0;
 }
+#endif
 
 int
 colors_use(WINDOW *w, enum color id)
@@ -269,15 +277,19 @@ colors_use(WINDOW *w, enum color id)
 
 	wattr_get(w, &attrs, &pair, NULL);
 
+#ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* color mode */
 		if (attrs != entry->attrs || (short)id != pair)
 			wattr_set(w, entry->attrs, id, NULL);
 	} else {
+#endif
 		/* mono mode */
 		if (attrs != entry->attrs)
 			wattrset(w, entry->attrs);
+#ifdef ENABLE_COLORS
 	}
+#endif
 
 	return 0;
 }

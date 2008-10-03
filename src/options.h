@@ -1,6 +1,8 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
+#include "config.h"
+
 #include <stdbool.h>
 
 #define MPD_HOST_ENV "MPD_HOST"
@@ -31,7 +33,9 @@ typedef struct {
 	bool list_wrap;
 	bool auto_center;
 	bool wide_cursor;
+#ifdef ENABLE_COLORS
 	bool enable_colors;
+#endif
 	bool audible_bell;
 	bool visible_bell;
 	bool enable_xterm_title;

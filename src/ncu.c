@@ -17,7 +17,16 @@
  */
 
 #include "ncu.h"
+
+#ifdef ENABLE_COLORS
 #include "colors.h"
+#endif
+
+#ifdef HAVE_GETMOUSE
+#include "options.h"
+#endif
+
+#include <ncurses.h>
 
 void
 ncu_init(void)
@@ -26,7 +35,9 @@ ncu_init(void)
 	initscr();
 
 	/* initialize color support */
+#ifdef ENABLE_COLORS
 	colors_start();
+#endif
 
 	/* tell curses not to do NL->CR/NL on output */
 	nonl();

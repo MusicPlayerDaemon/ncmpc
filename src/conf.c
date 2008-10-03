@@ -225,6 +225,7 @@ parse_timedisplay_type(const char *str)
 	}
 }
 
+#ifdef ENABLE_COLORS
 static int
 parse_color(char *str)
 {
@@ -312,6 +313,7 @@ parse_color_definition(char *str)
 	g_free(name);
 	return value;
 }
+#endif
 
 static char *
 get_format(char *str)
@@ -438,13 +440,21 @@ read_rc_file(char *filename, options_t *options)
 						parse_key_definition(value);
 				/* enable colors */
 				else if(!strcasecmp(CONF_ENABLE_COLORS, name))
+#ifdef ENABLE_COLORS
 					options->enable_colors = str2bool(value);
+#else
+				{}
+#endif
 				/* auto center */
 				else if (!strcasecmp(CONF_AUTO_CENTER, name))
 					options->auto_center = str2bool(value);
 				/* color assignment */
 				else if (!strcasecmp(CONF_COLOR, name))
+#ifdef ENABLE_COLORS
 					parse_color(value);
+#else
+				{}
+#endif
 				/* wide cursor */
 				else if (!strcasecmp(CONF_WIDE_CURSOR, name))
 					options->wide_cursor = str2bool(value);
@@ -460,7 +470,11 @@ read_rc_file(char *filename, options_t *options)
 					options->timedisplay_type=g_strdup(parse_timedisplay_type(value));
 				/* color definition */
 				} else if (!strcasecmp(CONF_COLOR_DEFINITION, name))
+#ifdef ENABLE_COLORS
 					parse_color_definition(value);
+#else
+				{}
+#endif
 				/* list format string */
 				else if (!strcasecmp(CONF_LIST_FORMAT, name)) {
 					g_free(options->list_format);
