@@ -76,4 +76,7 @@ filelist_sort(struct filelist *filelist, GCompareFunc compare_func);
 struct filelist_entry *
 filelist_find_song(struct filelist *flist, const struct mpd_song *song);
 
+int
+filelist_find_directory(struct filelist *filelist, const char *name);
+
 #endif

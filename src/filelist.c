@@ -139,3 +139,22 @@ filelist_find_song(struct filelist *fl, const struct mpd_song *song)
 
 	return NULL;
 }
+
+int
+filelist_find_directory(struct filelist *filelist, const char *name)
+{
+	guint i;
+
+	assert(name != NULL);
+
+	for (i = 0; i < filelist_length(filelist); ++i) {
+		struct filelist_entry *entry = filelist_get(filelist, i);
+		mpd_InfoEntity *entity  = entry->entity;
+
+		if (entity && entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY &&
+		    strcmp(entity->info.directory->path, name) == 0)
+			return i;
+	}
+
+	return -1;
+}
