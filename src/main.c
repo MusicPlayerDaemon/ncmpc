@@ -408,8 +408,8 @@ main(int argc, const char *argv[])
 
 	act.sa_flags = SA_RESTART;
 	act.sa_handler = SIG_IGN;
-	if (sigaction(SIGWINCH, &act, NULL) < 0) {
-		perror("sigaction(SIGWINCH)");
+	if (sigaction(SIGPIPE, &act, NULL) < 0) {
+		perror("sigaction(SIGPIPE)");
 		exit(EXIT_FAILURE);
 	}
 
