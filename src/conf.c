@@ -23,7 +23,6 @@
 #include "config.h"
 #include "defaults.h"
 #include "i18n.h"
-#include "support.h"
 #include "command.h"
 #include "colors.h"
 #include "screen_list.h"
@@ -37,6 +36,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <glib.h>
 
 #define MAX_LINE_LENGTH 1024
 #define COMMENT_TOKEN   '#'
@@ -173,7 +173,7 @@ parse_key_definition(char *str)
 	i=0;
 	j=0;
 	memset(buf, 0, MAX_LINE_LENGTH);
-	while( i<len && str[i]!='=' && !IS_WHITESPACE(str[i]) )
+	while (i < len && str[i] != '=' && !g_ascii_isspace(str[i]))
 		buf[j++] = str[i++];
 	if( (cmd=get_key_command_from_name(buf)) == CMD_NONE ) {
 		fprintf(stderr, _("Error: Unknown key command %s\n"), buf);
@@ -181,7 +181,7 @@ parse_key_definition(char *str)
 	}
 
 	/* skip whitespace */
-	while( i<len && (str[i]=='=' || IS_WHITESPACE(str[i])) )
+	while (i < len && (str[i] == '=' || g_ascii_isspace(str[i])))
 		i++;
 
 	/* get the value part */
@@ -236,11 +236,11 @@ parse_color(char *str)
 	i=0;
 	len=strlen(str);
 	/* get the color name */
-	while( i<len && str[i]!='=' && !IS_WHITESPACE(str[i]) )
+	while (i < len && str[i] != '=' && !g_ascii_isspace(str[i]))
 		i++;
 
 	/* skip whitespace */
-	while( i<len && (str[i]=='=' || IS_WHITESPACE(str[i])) ) {
+	while (i < len && (str[i] == '=' || g_ascii_isspace(str[i]))) {
 		str[i]='\0';
 		i++;
 	}
@@ -264,7 +264,7 @@ parse_color_definition(char *str)
 	i=0;
 	j=0;
 	memset(buf, 0, MAX_LINE_LENGTH);
-	while( i<len && str[i]!='=' && !IS_WHITESPACE(str[i]) )
+	while (i < len && str[i] != '=' && !g_ascii_isspace(str[i]))
 		buf[j++] = str[i++];
 	color=colors_str2color(buf);
 	if( color<0 ) {
@@ -274,7 +274,7 @@ parse_color_definition(char *str)
 	name = g_strdup(buf);
 
 	/* skip whitespace */
-	while( i<len && (str[i]=='=' || IS_WHITESPACE(str[i])) )
+	while (i < len && (str[i] == '=' || g_ascii_isspace(str[i])))
 		i++;
 
 	/* get the value part */
@@ -396,7 +396,7 @@ read_rc_file(char *filename, options_t *options)
       /* remove trailing whitespace */
       line[i] = '\0';
       i--;
-      while( i>=0 && IS_WHITESPACE(line[i]) )
+      while (i >= 0 && g_ascii_isspace(line[i]))
 	{
 	  line[i] = '\0';
 	  i--;
@@ -407,7 +407,7 @@ read_rc_file(char *filename, options_t *options)
 	{
 	  i = 0;
 	  /* skip whitespace */
-	  while( i<len && IS_WHITESPACE(line[i]) )
+	  while (i < len && g_ascii_isspace(line[i]))
 	    i++;
 	  
 	  /* continue if this line is not a comment */
@@ -415,14 +415,14 @@ read_rc_file(char *filename, options_t *options)
 	    {
 	      /* get the name part */
 	      j=0;
-	      while( i<len && line[i]!='=' && !IS_WHITESPACE(line[i]) )
+	      while (i < len && line[i] != '=' && !g_ascii_isspace(line[i]))
 		{
 		  name[j++] = line[i++];
 		}
 	      name[j] = '\0';
 	      
 	      /* skip '=' and whitespace */
-	      while( i<len && (line[i]=='=' || IS_WHITESPACE(line[i])) )
+	      while (i < len && (line[i] == '=' || g_ascii_isspace(line[i])))
 		i++;
 	      
 	      /* get the value part */
