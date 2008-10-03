@@ -23,10 +23,6 @@ typedef struct list_window {
 	int flags;
 } list_window_t;
 
-typedef struct list_window_state {
-	GList *list;
-} list_window_state_t;
-
 
 /* create a new list window */
 struct list_window *list_window_init(WINDOW *w,
@@ -85,14 +81,5 @@ list_window_rfind(struct list_window *lw,
 		  const char *str,
 		  int wrap,
 		  unsigned rows);
-
-/* list window states */
-list_window_state_t *list_window_init_state(void);
-void list_window_free_state(list_window_state_t *state);
-void list_window_push_state(list_window_state_t *state,
-			    struct list_window *lw);
-bool list_window_pop_state(list_window_state_t *state, struct list_window *lw);
-
-
 
 #endif

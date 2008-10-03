@@ -33,7 +33,6 @@ struct list_window_state;
 
 struct screen_browser {
 	struct list_window *lw;
-	struct list_window_state *lw_state;
 
 	mpdclient_filelist_t *filelist;
 };

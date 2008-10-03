@@ -143,7 +143,6 @@ static void
 browse_init(WINDOW *w, int cols, int rows)
 {
 	browser.lw = list_window_init(w, cols, rows);
-	browser.lw_state = list_window_init_state();
 }
 
 static void
@@ -159,7 +158,6 @@ browse_exit(void)
 	if (browser.filelist)
 		filelist_free(browser.filelist);
 	list_window_free(browser.lw);
-	list_window_free_state(browser.lw_state);
 }
 
 static void

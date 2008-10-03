@@ -164,6 +164,8 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 {
 	mpd_InfoEntity *entity = NULL;
 	gchar *path = NULL;
+	char *old_path;
+	int idx;
 
 	if( entry!=NULL )
 		entity = entry->entity;
@@ -177,29 +179,33 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 			if( strcmp(parent, ".") == 0 )
 				parent[0] = '\0';
 			path = g_strdup(parent);
-			list_window_reset(browser->lw);
-			/* restore previous list window state */
-			list_window_pop_state(browser->lw_state, browser->lw);
 		} else {
 			/* entry==NULL, then new_path ("" is root) */
 			path = g_strdup(new_path);
-			list_window_reset(browser->lw);
-			/* restore first list window state (pop while returning true) */
-			while(list_window_pop_state(browser->lw_state, browser->lw));
 		}
 	} else if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY) {
 		/* enter sub */
 		mpd_Directory *dir = entity->info.directory;
 		path = utf8_to_locale(dir->path);
-		/* save current list window state */
-		list_window_push_state(browser->lw_state, browser->lw);
 	} else
 		return -1;
+
+	old_path = g_strdup(browser->filelist->path);
 
 	filelist_free(browser->filelist);
 	browser->filelist = mpdclient_filelist_get(c, path);
 	sync_highlights(c, browser->filelist);
-	list_window_check_selected(browser->lw, filelist_length(browser->filelist));
+
+	idx = filelist_find_directory(browser->filelist, old_path);
+	g_free(old_path);
+
+	list_window_reset(browser->lw);
+	if (idx >= 0) {
+		list_window_set_selected(browser->lw, idx);
+		list_window_center(browser->lw,
+				   filelist_length(browser->filelist), idx);
+	}
+
 	g_free(path);
 	return 0;
 }
