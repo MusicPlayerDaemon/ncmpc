@@ -398,6 +398,7 @@ main(int argc, const char *argv[])
 
 	/* setup SIGWINCH */
 
+	act.sa_flags = SA_RESTART;
 	act.sa_handler = catch_sigwinch;
 	if (sigaction(SIGWINCH, &act, NULL) < 0) {
 		perror("sigaction(SIGWINCH)");
@@ -406,7 +407,6 @@ main(int argc, const char *argv[])
 
 	/* ignore SIGPIPE */
 
-	act.sa_flags = SA_RESTART;
 	act.sa_handler = SIG_IGN;
 	if (sigaction(SIGPIPE, &act, NULL) < 0) {
 		perror("sigaction(SIGPIPE)");
