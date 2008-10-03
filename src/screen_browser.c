@@ -279,8 +279,6 @@ browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 
 
 #ifdef USE_OLD_ADD
-/* NOTE - The add_directory functions should move to mpdclient.c */
-extern gint mpdclient_finish_command(mpdclient_t *c);
 
 static int
 add_directory(mpdclient_t *c, char *dir)

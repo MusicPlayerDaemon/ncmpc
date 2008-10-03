@@ -34,8 +34,6 @@
 #include <glib.h>
 #include <ncurses.h>
 
-extern gint mpdclient_finish_command(mpdclient_t *c);
-
 typedef struct {
 	int id;
 	const char *name;
