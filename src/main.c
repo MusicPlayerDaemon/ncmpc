@@ -143,7 +143,7 @@ catch_sigcont(mpd_unused int sig)
 	reset_prog_mode(); /* restore tty modes */
 	refresh();
 #endif
-	screen_resize();
+	screen_resize(mpd);
 }
 
 void
@@ -165,7 +165,7 @@ timer_sigwinch(mpd_unused gpointer data)
 
 	endwin();
 	refresh();
-	screen_resize();
+	screen_resize(mpd);
 
 	return FALSE;
 }
@@ -441,6 +441,8 @@ main(int argc, const char *argv[])
 					 GINT_TO_POINTER(TRUE));
 	g_timeout_add(10000, timer_check_key_bindings, NULL);
 	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
+
+	screen_paint(mpd);
 
 	g_main_loop_run(main_loop);
 

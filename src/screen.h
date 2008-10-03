@@ -38,8 +38,6 @@ typedef struct screen {
 
 	char *findbuf;
 	GList *find_history;
-
-	int painted;
 } screen_t;
 
 extern const struct screen_functions screen_playlist;
@@ -72,7 +70,7 @@ typedef struct screen_functions {
 
 void screen_init(mpdclient_t *c);
 void screen_exit(void);
-void screen_resize(void);
+void screen_resize(struct mpdclient *c);
 void screen_status_message(const char *msg);
 void screen_status_printf(const char *format, ...);
 char *screen_error(void);

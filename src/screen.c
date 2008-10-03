@@ -76,11 +76,12 @@ screen_switch(const struct screen_functions *sf, struct mpdclient *c)
 
 	/* get functions for the new mode */
 	mode_fn = sf;
-	screen.painted = 0;
 
 	/* open the new mode */
 	if (mode_fn->open != NULL)
 		mode_fn->open(&screen, c);
+
+	screen_paint(c);
 }
 
 static int
@@ -372,7 +373,7 @@ screen_exit(void)
 }
 
 void
-screen_resize(void)
+screen_resize(struct mpdclient *c)
 {
 	if (COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS) {
 		screen_exit();
@@ -416,7 +417,7 @@ screen_resize(void)
 	curs_set(1);
 	curs_set(0);
 
-	screen.painted = 0;
+	screen_paint(c);
 }
 
 void
@@ -459,7 +460,6 @@ screen_init(mpdclient_t *c)
 	screen.buf  = g_malloc(screen.cols);
 	screen.buf_size = screen.cols;
 	screen.findbuf = NULL;
-	screen.painted = 0;
 	screen.start_timestamp = time(NULL);
 	screen.last_cmd = CMD_NONE;
 
@@ -550,7 +550,6 @@ screen_paint(mpdclient_t *c)
 
 	paint_progress_window(c);
 	paint_status_window(c);
-	screen.painted = 1;
 	wmove(screen.main_window.w, 0, 0);
 	wnoutrefresh(screen.main_window.w);
 
@@ -565,9 +564,6 @@ screen_update(mpdclient_t *c)
 	static int random_enabled = -1;
 	static int crossfade = -1;
 	static int dbupdate = -1;
-
-	if( !screen.painted )
-		screen_paint(c);
 
 	/* print a message if mpd status has changed */
 	if (c->status != NULL) {
@@ -788,7 +784,7 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 				     _("Auto center mode: Off"));
 		break;
 	case CMD_SCREEN_UPDATE:
-		screen.painted = 0;
+		screen_paint(c);
 		break;
 	case CMD_SCREEN_PREVIOUS:
 		screen_next_mode(c, -1);
