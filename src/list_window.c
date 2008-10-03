@@ -1,6 +1,4 @@
-/* 
- * $Id$
- *
+/*
  * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify

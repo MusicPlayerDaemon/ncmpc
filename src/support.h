@@ -16,4 +16,4 @@ typedef struct {
 
 char *strscroll(char *str, char *separator, int width, scroll_state_t *st);
 
-#endif 
+#endif

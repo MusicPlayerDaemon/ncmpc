@@ -1,6 +1,4 @@
-/* 
- * $Id$
- *
+/*
  * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -41,167 +39,165 @@
 #define DK(x)
 #endif
 
-#define BS   KEY_BACKSPACE
-#define DEL  KEY_DC
-#define UP   KEY_UP
-#define DWN  KEY_DOWN
+#define BS KEY_BACKSPACE
+#define DEL KEY_DC
+#define UP KEY_UP
+#define DWN KEY_DOWN
 #define LEFT KEY_LEFT
 #define RGHT KEY_RIGHT
 #define HOME KEY_HOME
-#define END  KEY_END
+#define END KEY_END
 #define PGDN KEY_NPAGE
 #define PGUP KEY_PPAGE
-#define TAB  0x09
+#define TAB 0x09
 #define STAB 0x161
-#define ESC  0x1B
-#define F1   KEY_F(1)
-#define F2   KEY_F(2)
-#define F3   KEY_F(3)
-#define F4   KEY_F(4)
-#define F5   KEY_F(5)
-#define F6   KEY_F(6)
-#define F7   KEY_F(7)
+#define ESC 0x1B
+#define F1 KEY_F(1)
+#define F2 KEY_F(2)
+#define F3 KEY_F(3)
+#define F4 KEY_F(4)
+#define F5 KEY_F(5)
+#define F6 KEY_F(6)
+#define F7 KEY_F(7)
 
 
-static command_definition_t cmds[] =
-{
+static command_definition_t cmds[] = {
 #ifdef ENABLE_KEYDEF_SCREEN
-  { {'K',   0,   0 }, 0, CMD_SCREEN_KEYDEF,    "screen-keyedit",
-    N_("Key configuration screen") },
+	{ {'K', 0, 0 }, 0, CMD_SCREEN_KEYDEF, "screen-keyedit",
+	  N_("Key configuration screen") },
 #endif
-  { { 'q', 'Q',  3 }, 0, CMD_QUIT,   "quit",
-    N_("Quit") },  
+	{ { 'q', 'Q', 3 }, 0, CMD_QUIT, "quit",
+	  N_("Quit") },
 
-  /* movment */
-  { {  UP,  'k',   0 }, 0, CMD_LIST_PREVIOUS,      "up",
-    N_("Move cursor up") },
-  { { DWN,  'j',   0 }, 0, CMD_LIST_NEXT,          "down",
-    N_("Move cursor down") },
-  { { HOME, 0x01, 0 }, 0, CMD_LIST_FIRST,          "home",
-    N_("Home ") },
-  { { END,  0x05, 0 }, 0, CMD_LIST_LAST,           "end",
-    N_("End ") },
-  { { PGUP,   0,   0 }, 0, CMD_LIST_PREVIOUS_PAGE, "pgup",
-    N_("Page up") },
-  { { PGDN,   0,   0 }, 0, CMD_LIST_NEXT_PAGE,     "pgdn", 
-    N_("Page down") },
-
-
-  /* basic screens */
-  { { '1', F1, 'h' }, 0, CMD_SCREEN_HELP,      "screen-help",
-    N_("Help screen") },
-  { { '2', F2,  0 }, 0, CMD_SCREEN_PLAY,      "screen-playlist",
-    N_("Playlist screen") },
-  { { '3', F3,  0 }, 0, CMD_SCREEN_FILE,      "screen-browse",
-    N_("Browse screen") },
+	/* movment */
+	{ { UP, 'k', 0 }, 0, CMD_LIST_PREVIOUS, "up",
+	  N_("Move cursor up") },
+	{ { DWN, 'j', 0 }, 0, CMD_LIST_NEXT, "down",
+	  N_("Move cursor down") },
+	{ { HOME, 0x01, 0 }, 0, CMD_LIST_FIRST, "home",
+	  N_("Home ") },
+	{ { END, 0x05, 0 }, 0, CMD_LIST_LAST, "end",
+	  N_("End ") },
+	{ { PGUP, 0, 0 }, 0, CMD_LIST_PREVIOUS_PAGE, "pgup",
+	  N_("Page up") },
+	{ { PGDN, 0, 0 }, 0, CMD_LIST_NEXT_PAGE, "pgdn",
+	  N_("Page down") },
 
 
-  /* player commands */
-  { {  13,   0,   0 }, 0, CMD_PLAY, "play",  
-    N_("Play/Enter directory") },
-  { { 'P',   0,   0 }, 0, CMD_PAUSE,"pause", 
-    N_("Pause") },
-  { { 's',  BS,   0 }, 0, CMD_STOP, "stop",   
-    N_("Stop") },
-  { { 'o',  0,   0 }, 0, CMD_CROP, "crop",
-    N_("Crop") },
-  { { '>',   0,   0 }, 0, CMD_TRACK_NEXT, "next", 
-    N_("Next track") },
-  { { '<',   0,   0 }, 0, CMD_TRACK_PREVIOUS, "prev", 
-    N_("Previous track") },
-  { { 'f',   0,   0 }, 0, CMD_SEEK_FORWARD, "seek-forward", 
-    N_("Seek forward") },
-  { { 'b',   0,   0 }, 0, CMD_SEEK_BACKWARD, "seek-backward", 
-    N_("Seek backward") },
-  { { '+', RGHT,  0 }, 0, CMD_VOLUME_UP, "volume-up", 
-    N_("Increase volume") },
-  { { '-', LEFT,  0 }, 0, CMD_VOLUME_DOWN, "volume-down", 
-    N_("Decrease volume") },
-  { { ' ',   0,   0 }, 0, CMD_SELECT, "select", 
-    N_("Select/deselect song in playlist") },
-  { { 't',   0,   0 }, 0, CMD_SELECT_ALL, "select_all",
-    N_("Select all listed items") },
-  { { DEL,  'd',  0 }, 0, CMD_DELETE, "delete",
-    N_("Delete song from playlist") },
-  { { 'Z',   0,   0 }, 0, CMD_SHUFFLE, "shuffle",
-    N_("Shuffle playlist") },
-  { { 'c',   0,   0 }, 0, CMD_CLEAR, "clear",
-    N_("Clear playlist") },
-  { { 'r',   0,   0 }, 0, CMD_REPEAT, "repeat",
-    N_("Toggle repeat mode") },
-  { { 'z',   0,   0 }, 0, CMD_RANDOM, "random",
-    N_("Toggle random mode") },
-  { { 'x',   0,   0 }, 0, CMD_CROSSFADE, "crossfade",
-    N_("Toggle crossfade mode") },
-  { { 21,    0,   0 }, 0, CMD_DB_UPDATE,  "db-update",
-    N_("Start a music database update") },
-  { { 'S',   0,   0 }, 0, CMD_SAVE_PLAYLIST, "save",
-    N_("Save playlist") },
-  { { 'a',   0,   0 }, 0, CMD_ADD, "add",
-    N_("Add url/file to playlist") },
-
-  { { '!',   0,   0 }, 0, CMD_GO_ROOT_DIRECTORY, "go-root-directory",
-    N_("Go to root directory") },
-  { { '"',   0,   0 }, 0, CMD_GO_PARENT_DIRECTORY, "go-parent-directory",
-    N_("Go to parent directory") },
-
-  /* lists */
-  { { 11,  0,   0 }, 0, CMD_LIST_MOVE_UP,     "move-up", 
-    N_("Move item up") },
-  { { 10,  0,   0 }, 0, CMD_LIST_MOVE_DOWN,   "move-down", 
-    N_("Move item down") },
-  { { 12,  0,   0 }, 0, CMD_SCREEN_UPDATE,    "update",
-    N_("Update screen") },
+	/* basic screens */
+	{ { '1', F1, 'h' }, 0, CMD_SCREEN_HELP, "screen-help",
+	  N_("Help screen") },
+	{ { '2', F2, 0 }, 0, CMD_SCREEN_PLAY, "screen-playlist",
+	  N_("Playlist screen") },
+	{ { '3', F3, 0 }, 0, CMD_SCREEN_FILE, "screen-browse",
+	  N_("Browse screen") },
 
 
-  /* ncmpc options */
-  { { 'w',   0,   0 }, 0, CMD_TOGGLE_FIND_WRAP,  "wrap-mode", 
-    N_("Toggle find mode") },
-  { { 'U',   0,   0 }, 0, CMD_TOGGLE_AUTOCENTER, "autocenter-mode", 
-    N_("Toggle auto center mode") },
+	/* player commands */
+	{ { 13, 0, 0 }, 0, CMD_PLAY, "play",
+	  N_("Play/Enter directory") },
+	{ { 'P', 0, 0 }, 0, CMD_PAUSE,"pause",
+	  N_("Pause") },
+	{ { 's', BS, 0 }, 0, CMD_STOP, "stop",
+	  N_("Stop") },
+	{ { 'o', 0, 0 }, 0, CMD_CROP, "crop",
+	  N_("Crop") },
+	{ { '>', 0, 0 }, 0, CMD_TRACK_NEXT, "next",
+	  N_("Next track") },
+	{ { '<', 0, 0 }, 0, CMD_TRACK_PREVIOUS, "prev",
+	  N_("Previous track") },
+	{ { 'f', 0, 0 }, 0, CMD_SEEK_FORWARD, "seek-forward",
+	  N_("Seek forward") },
+	{ { 'b', 0, 0 }, 0, CMD_SEEK_BACKWARD, "seek-backward",
+	  N_("Seek backward") },
+	{ { '+', RGHT, 0 }, 0, CMD_VOLUME_UP, "volume-up",
+	  N_("Increase volume") },
+	{ { '-', LEFT, 0 }, 0, CMD_VOLUME_DOWN, "volume-down",
+	  N_("Decrease volume") },
+	{ { ' ', 0, 0 }, 0, CMD_SELECT, "select",
+	  N_("Select/deselect song in playlist") },
+	{ { 't', 0, 0 }, 0, CMD_SELECT_ALL, "select_all",
+	  N_("Select all listed items") },
+	{ { DEL, 'd', 0 }, 0, CMD_DELETE, "delete",
+	  N_("Delete song from playlist") },
+	{ { 'Z', 0, 0 }, 0, CMD_SHUFFLE, "shuffle",
+	  N_("Shuffle playlist") },
+	{ { 'c', 0, 0 }, 0, CMD_CLEAR, "clear",
+	  N_("Clear playlist") },
+	{ { 'r', 0, 0 }, 0, CMD_REPEAT, "repeat",
+	  N_("Toggle repeat mode") },
+	{ { 'z', 0, 0 }, 0, CMD_RANDOM, "random",
+	  N_("Toggle random mode") },
+	{ { 'x', 0, 0 }, 0, CMD_CROSSFADE, "crossfade",
+	  N_("Toggle crossfade mode") },
+	{ { 21, 0, 0 }, 0, CMD_DB_UPDATE, "db-update",
+	  N_("Start a music database update") },
+	{ { 'S', 0, 0 }, 0, CMD_SAVE_PLAYLIST, "save",
+	  N_("Save playlist") },
+	{ { 'a', 0, 0 }, 0, CMD_ADD, "add",
+	  N_("Add url/file to playlist") },
+
+	{ { '!', 0, 0 }, 0, CMD_GO_ROOT_DIRECTORY, "go-root-directory",
+	  N_("Go to root directory") },
+	{ { '"', 0, 0 }, 0, CMD_GO_PARENT_DIRECTORY, "go-parent-directory",
+	  N_("Go to parent directory") },
+
+	/* lists */
+	{ { 11, 0, 0 }, 0, CMD_LIST_MOVE_UP, "move-up",
+	  N_("Move item up") },
+	{ { 10, 0, 0 }, 0, CMD_LIST_MOVE_DOWN, "move-down",
+	  N_("Move item down") },
+	{ { 12, 0, 0 }, 0, CMD_SCREEN_UPDATE, "update",
+	  N_("Update screen") },
 
 
-  /* change screen */
-  { { TAB,   0,   0 }, 0, CMD_SCREEN_NEXT,     "screen-next",
-    N_("Next screen") },
-  { { STAB,  0,   0 }, 0, CMD_SCREEN_PREVIOUS, "screen-prev",
-    N_("Previous screen") },
-
- 
-  /* find */
-  { { '/',   0,   0 }, 0, CMD_LIST_FIND,           "find",
-    N_("Forward find") },
-  { { 'n',   0,   0 }, 0, CMD_LIST_FIND_NEXT,      "find-next",
-    N_("Forward find next") },
-  { { '?',   0,   0 }, 0, CMD_LIST_RFIND,          "rfind",
-    N_("Backward find") },
-  { { 'p',   0,   0 }, 0, CMD_LIST_RFIND_NEXT,     "rfind-next",
-    N_("Backward find previous") },
+	/* ncmpc options */
+	{ { 'w', 0, 0 }, 0, CMD_TOGGLE_FIND_WRAP, "wrap-mode",
+	  N_("Toggle find mode") },
+	{ { 'U', 0, 0 }, 0, CMD_TOGGLE_AUTOCENTER, "autocenter-mode",
+	  N_("Toggle auto center mode") },
 
 
-  /* extra screens */
+	/* change screen */
+	{ { TAB, 0, 0 }, 0, CMD_SCREEN_NEXT, "screen-next",
+	  N_("Next screen") },
+	{ { STAB, 0, 0 }, 0, CMD_SCREEN_PREVIOUS, "screen-prev",
+	  N_("Previous screen") },
+
+
+	/* find */
+	{ { '/', 0, 0 }, 0, CMD_LIST_FIND, "find",
+	  N_("Forward find") },
+	{ { 'n', 0, 0 }, 0, CMD_LIST_FIND_NEXT, "find-next",
+	  N_("Forward find next") },
+	{ { '?', 0, 0 }, 0, CMD_LIST_RFIND, "rfind",
+	  N_("Backward find") },
+	{ { 'p', 0, 0 }, 0, CMD_LIST_RFIND_NEXT, "rfind-next",
+	  N_("Backward find previous") },
+
+
+	/* extra screens */
 #ifdef ENABLE_ARTIST_SCREEN
-  { {'4',  F4,   0 }, 0, CMD_SCREEN_ARTIST,    "screen-artist",
-    N_("Artist screen") },
+	{ {'4', F4, 0 }, 0, CMD_SCREEN_ARTIST, "screen-artist",
+	  N_("Artist screen") },
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
-  { {'5',  F5,   0 }, 0, CMD_SCREEN_SEARCH,    "screen-search",
-    N_("Search screen") },
-  { {'m',   0,   0 }, 0, CMD_SEARCH_MODE,      "search-mode",
-    N_("Change search mode") },
+	{ {'5', F5, 0 }, 0, CMD_SCREEN_SEARCH, "screen-search",
+	  N_("Search screen") },
+	{ {'m', 0, 0 }, 0, CMD_SEARCH_MODE, "search-mode",
+	  N_("Change search mode") },
 #endif
 
 #ifdef ENABLE_LYRICS_SCREEN
-  { {'7',  F7,   0 }, 0, CMD_SCREEN_LYRICS,    "screen-lyrics",
-    N_("Lyrics screen") },
-  { {ESC,  0,   0 }, 0, CMD_INTERRUPT,    "lyrics-interrupt",
-    N_("Interrupt action") },
-  { {'u',  0,   0 }, 0, CMD_LYRICS_UPDATE,    "lyrics-update",
-    N_("Update Lyrics") },
+	{ {'7', F7, 0 }, 0, CMD_SCREEN_LYRICS, "screen-lyrics",
+	  N_("Lyrics screen") },
+	{ {ESC, 0, 0 }, 0, CMD_INTERRUPT, "lyrics-interrupt",
+	  N_("Interrupt action") },
+	{ {'u', 0, 0 }, 0, CMD_LYRICS_UPDATE, "lyrics-update",
+	  N_("Update Lyrics") },
 #endif
 
-
-  { { -1,  -1,  -1 }, 0, CMD_NONE, NULL, NULL }
+	{ { -1, -1, -1 }, 0, CMD_NONE, NULL, NULL }
 };
 
 command_definition_t *
@@ -510,10 +506,10 @@ write_key_bindings(FILE *f, int flags)
 {
 	int i,j;
 
-	if( flags & KEYDEF_WRITE_HEADER )
+	if (flags & KEYDEF_WRITE_HEADER)
 		fprintf(f, "## Key bindings for ncmpc (generated by ncmpc)\n\n");
 
-	i=0;
+	i = 0;
 	while (cmds[i].name && !ferror(f)) {
 		if (cmds[i].flags & COMMAND_KEY_MODIFIED ||
 		    flags & KEYDEF_WRITE_ALL) {

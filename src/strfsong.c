@@ -1,6 +1,4 @@
-/* 
- * $Id$
- *
+/*
  * Based on mpc's songToFormatedString modified for glib and ncmpc
  *
  *
@@ -33,11 +31,12 @@ skip(const gchar * p)
 	gint stack = 0;
 
 	while (*p != '\0') {
-		if(*p == '[') stack++;
-		if(*p == '#' && p[1] != '\0') {
+		if (*p == '[')
+			stack++;
+		if (*p == '#' && p[1] != '\0') {
 			/* skip escaped stuff */
 			++p;
-		} else if(stack) {
+		} else if (stack) {
 			if(*p == ']') stack--;
 		} else {
 			if(*p == '&' || *p == '|' || *p == ']') {
@@ -63,7 +62,7 @@ _strfsong(gchar *s,
 	gboolean found = FALSE;
 
 	memset(s, 0, max);
-	if( song==NULL )
+	if (song == NULL)
 		return 0;
 
 	for (p = format; *p != '\0' && length<max;) {
@@ -219,6 +218,6 @@ gsize
 strfsong(gchar *s, gsize max, const gchar *format,
 	 const struct mpd_song *song)
 {
-  return _strfsong(s, max, format, song, NULL);
+	return _strfsong(s, max, format, song, NULL);
 }
-     
+

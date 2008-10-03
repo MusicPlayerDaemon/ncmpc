@@ -1,6 +1,4 @@
-/* 
- * $Id$
- *
+/*
  * (c) 2004 by Kalle Wallin <kaw@linux.se>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -39,48 +37,48 @@
 #include <glib.h>
 
 #define MAX_LINE_LENGTH 1024
-#define COMMENT_TOKEN   '#'
+#define COMMENT_TOKEN '#'
 
 /* configuration field names */
-#define CONF_ENABLE_COLORS           "enable-colors"
-#define CONF_AUTO_CENTER             "auto-center"
-#define CONF_WIDE_CURSOR             "wide-cursor"
-#define CONF_ENABLE_BELL             "enable-bell"
-#define CONF_KEY_DEFINITION          "key"
-#define CONF_COLOR                   "color"
-#define CONF_COLOR_DEFINITION        "colordef"
-#define CONF_LIST_FORMAT             "list-format"
-#define CONF_STATUS_FORMAT           "status-format"
-#define CONF_XTERM_TITLE_FORMAT      "xterm-title-format"
-#define CONF_LIST_WRAP               "wrap-around"
-#define CONF_FIND_WRAP               "find-wrap"
-#define CONF_FIND_SHOW_LAST          "find-show-last"
-#define CONF_AUDIBLE_BELL            "audible-bell"
-#define CONF_VISIBLE_BELL            "visible-bell"
-#define CONF_XTERM_TITLE             "set-xterm-title"
-#define CONF_ENABLE_MOUSE            "enable-mouse"
-#define CONF_CROSSFADE_TIME          "crossfade-time"
-#define CONF_SEARCH_MODE             "search-mode"
-#define CONF_HIDE_CURSOR             "hide-cursor"
-#define CONF_SEEK_TIME               "seek-time"
-#define CONF_SCREEN_LIST             "screen-list"
-#define CONF_TIMEDISPLAY_TYPE        "timedisplay-type"
-#define CONF_HOST                    "host"
-#define CONF_PORT                    "port"
-#define CONF_PASSWORD                "password"
-#define CONF_LYRICS_TIMEOUT          "lyrics-timeout"
-#define CONF_SHOW_SPLASH             "show-splash"
-#define CONF_SCROLL                  "scroll"
-#define CONF_SCROLL_SEP              "scroll-sep"
-#define CONF_VISIBLE_BITRATE         "visible-bitrate"
-#define CONF_WELCOME_SCREEN_LIST     "welcome-screen-list"
+#define CONF_ENABLE_COLORS "enable-colors"
+#define CONF_AUTO_CENTER "auto-center"
+#define CONF_WIDE_CURSOR "wide-cursor"
+#define CONF_ENABLE_BELL "enable-bell"
+#define CONF_KEY_DEFINITION "key"
+#define CONF_COLOR "color"
+#define CONF_COLOR_DEFINITION "colordef"
+#define CONF_LIST_FORMAT "list-format"
+#define CONF_STATUS_FORMAT "status-format"
+#define CONF_XTERM_TITLE_FORMAT "xterm-title-format"
+#define CONF_LIST_WRAP "wrap-around"
+#define CONF_FIND_WRAP "find-wrap"
+#define CONF_FIND_SHOW_LAST "find-show-last"
+#define CONF_AUDIBLE_BELL "audible-bell"
+#define CONF_VISIBLE_BELL "visible-bell"
+#define CONF_XTERM_TITLE "set-xterm-title"
+#define CONF_ENABLE_MOUSE "enable-mouse"
+#define CONF_CROSSFADE_TIME "crossfade-time"
+#define CONF_SEARCH_MODE "search-mode"
+#define CONF_HIDE_CURSOR "hide-cursor"
+#define CONF_SEEK_TIME "seek-time"
+#define CONF_SCREEN_LIST "screen-list"
+#define CONF_TIMEDISPLAY_TYPE "timedisplay-type"
+#define CONF_HOST "host"
+#define CONF_PORT "port"
+#define CONF_PASSWORD "password"
+#define CONF_LYRICS_TIMEOUT "lyrics-timeout"
+#define CONF_SHOW_SPLASH "show-splash"
+#define CONF_SCROLL "scroll"
+#define CONF_SCROLL_SEP "scroll-sep"
+#define CONF_VISIBLE_BITRATE "visible-bitrate"
+#define CONF_WELCOME_SCREEN_LIST "welcome-screen-list"
 
 typedef enum {
-  KEY_PARSER_UNKNOWN,
-  KEY_PARSER_CHAR,
-  KEY_PARSER_DEC,
-  KEY_PARSER_HEX,
-  KEY_PARSER_DONE
+	KEY_PARSER_UNKNOWN,
+	KEY_PARSER_CHAR,
+	KEY_PARSER_DEC,
+	KEY_PARSER_HEX,
+	KEY_PARSER_DONE
 } key_parser_state_t;
 
 static bool
@@ -188,7 +186,7 @@ parse_key_definition(char *str)
 	memset(buf, 0, MAX_LINE_LENGTH);
 	g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
 	len = strlen(buf);
-	if( len==0 ) {
+	if (len == 0) {
 		fprintf(stderr,_("Error: Incomplete key definition - %s\n"), str);
 		return -1;
 	}
@@ -200,14 +198,15 @@ parse_key_definition(char *str)
 	p = buf;
 	end = buf+len;
 	memset(keys, 0, sizeof(int)*MAX_COMMAND_KEYS);
-	while( i<MAX_COMMAND_KEYS && p<end &&
-	       (key=parse_key_value(p,len+1,&p))>=0 ) {
+	while (i < MAX_COMMAND_KEYS && p < end &&
+	       (key = parse_key_value(p, len + 1, &p)) >= 0) {
 		keys[i++] = key;
-		while( p<end && (*p==',' || *p==' ' || *p=='\t') )
+		while (p < end && (*p==',' || *p==' ' || *p=='\t'))
 			p++;
 		len = strlen(p);
 	}
-	if( key<0 ) {
+
+	if (key < 0) {
 		fprintf(stderr,_("Error: Bad key definition - %s\n"), str);
 		return -1;
 	}
@@ -218,9 +217,9 @@ parse_key_definition(char *str)
 static const char *
 parse_timedisplay_type(const char *str)
 {
-	if((!strcmp(str,"elapsed")) || (!strcmp(str,"remaining"))){
+	if (!strcmp(str,"elapsed") || !strcmp(str,"remaining"))
 		return str;
-	} else {
+	else {
 		fprintf(stderr,_("Error: Bad time display type - %s\n"), str);
 		return DEFAULT_TIMEDISPLAY_TYPE;
 	}
@@ -245,7 +244,7 @@ parse_color(char *str)
 		i++;
 	}
 
-	if( i<len )
+	if (i < len)
 		value = str+i;
 
 	return colors_assign(name, value);
@@ -266,8 +265,8 @@ parse_color_definition(char *str)
 	memset(buf, 0, MAX_LINE_LENGTH);
 	while (i < len && str[i] != '=' && !g_ascii_isspace(str[i]))
 		buf[j++] = str[i++];
-	color=colors_str2color(buf);
-	if( color<0 ) {
+	color = colors_str2color(buf);
+	if (color < 0) {
 		fprintf(stderr,_("Error: Bad color %s [%d]\n"), buf, color);
 		return -1;
 	}
@@ -281,8 +280,9 @@ parse_color_definition(char *str)
 	memset(buf, 0, MAX_LINE_LENGTH);
 	g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
 	len = strlen(buf);
-	if( len==0 ) {
-		fprintf(stderr,_("Error: Incomplete color definition - %s\n"), str);
+	if (len == 0) {
+		fprintf(stderr, _("Error: Incomplete color definition - %s\n"),
+			str);
 		g_free(name);
 		return -1;
 	}
@@ -292,19 +292,22 @@ parse_color_definition(char *str)
 	value = 0;
 	len = strlen(buf);
 	p = buf;
-	end = buf+len;
+	end = buf + len;
 	memset(rgb, 0, sizeof(short)*3);
-	while( i<3 && p<end && (value=parse_key_value(p,len+1,&p))>=0 ) {
+	while (i < 3 && p < end &&
+	       (value = parse_key_value(p,len+1,&p)) >= 0) {
 		rgb[i++] = value;
 		while( p<end && (*p==',' || *p==' ' || *p=='\t') )
 			p++;
 		len = strlen(p);
 	}
-	if( value<0 || i!=3) {
-		fprintf(stderr,_("Error: Bad color definition - %s\n"), str);
+
+	if (value < 0 || i != 3) {
+		fprintf(stderr, _("Error: Bad color definition - %s\n"), str);
 		g_free(name);
 		return -1;
 	}
+
 	value = colors_define(name, rgb[0], rgb[1], rgb[2]);
 	g_free(name);
 	return value;
@@ -315,10 +318,11 @@ get_format(char *str)
 {
 	gsize len = strlen(str);
 
-	if( str && str[0]=='\"' && str[len-1] == '\"' ) {
-		str[len-1] = '\0';
+	if (str && str[0]=='\"' && str[len-1] == '\"') {
+		str[len - 1] = '\0';
 		str++;
 	}
+
 	return g_strdup(str);
 }
 
@@ -355,243 +359,175 @@ check_screen_list(char *value)
 static int
 read_rc_file(char *filename, options_t *options)
 {
-  int fd;
-  int quit  = 0;
-  int free_filename = 0;
+	int fd;
+	int quit = 0;
+	int free_filename = 0;
 
-  if( filename==NULL )
-    return -1;
+	if (filename == NULL)
+		return -1;
 
-  if( (fd=open(filename,O_RDONLY)) <0 )
-    {
-      perror(filename);
-      if( free_filename )
-	g_free(filename);
-      return -1;
-    }
-
-  while( !quit )
-    {
-      int i,j;
-      int len;
-      int match_found;
-      char line[MAX_LINE_LENGTH];
-      char name[MAX_LINE_LENGTH];
-      char value[MAX_LINE_LENGTH];
-
-      line[0]  = '\0';
-      value[0] = '\0';
-
-      i = 0;
-      /* read a line ending with '\n' */
-      do {
-	len = read( fd, &line[i], 1 );
-	if( len == 1 )
-	  i++;
-	else
-	  quit = 1;
-      } while( !quit && i<MAX_LINE_LENGTH && line[i-1]!='\n' );
-      
-     
-      /* remove trailing whitespace */
-      line[i] = '\0';
-      i--;
-      while (i >= 0 && g_ascii_isspace(line[i]))
-	{
-	  line[i] = '\0';
-	  i--;
-	}     
-      len = i+1;
-
-      if( len>0 )
-	{
-	  i = 0;
-	  /* skip whitespace */
-	  while (i < len && g_ascii_isspace(line[i]))
-	    i++;
-	  
-	  /* continue if this line is not a comment */
-	  if( line[i] != COMMENT_TOKEN )
-	    {
-	      /* get the name part */
-	      j=0;
-	      while (i < len && line[i] != '=' && !g_ascii_isspace(line[i]))
-		{
-		  name[j++] = line[i++];
-		}
-	      name[j] = '\0';
-	      
-	      /* skip '=' and whitespace */
-	      while (i < len && (line[i] == '=' || g_ascii_isspace(line[i])))
-		i++;
-	      
-	      /* get the value part */
-	      j=0;
-	      while( i<len )
-		{
-		  value[j++] = line[i++];
-		}
-	      value[j] = '\0';
-	      
-	      match_found = 1;
-
-	      /* key definition */
-	      if( !strcasecmp(CONF_KEY_DEFINITION, name) )
-		{
-		  parse_key_definition(value);
-		}
-	      /* enable colors */
-	      else if( !strcasecmp(CONF_ENABLE_COLORS, name) )
-		{
-		  options->enable_colors = str2bool(value);
-		}
-	      /* auto center */
-	      else if( !strcasecmp(CONF_AUTO_CENTER, name) )
-		{
-		  options->auto_center = str2bool(value);
-		}
-	      /* color assignment */
-	      else if( !strcasecmp(CONF_COLOR, name) )
-		{
-		  parse_color(value);
-		}
-	      /* wide cursor */
-	      else if( !strcasecmp(CONF_WIDE_CURSOR, name) )
-		{
-		  options->wide_cursor = str2bool(value);
-		}
-	      /* welcome screen list */
-	      else if (!strcasecmp(CONF_WELCOME_SCREEN_LIST, name)) {
-	          options->welcome_screen_list = str2bool(value);
-	      }
-	      /* visible bitrate */
-	      else if (!strcasecmp(CONF_VISIBLE_BITRATE, name)) {
-		      options->visible_bitrate = str2bool(value);
-	      }
-	      /* timer display type */
-	      else if( !strcasecmp(CONF_TIMEDISPLAY_TYPE, name) )
-		{
-		    g_free(options->timedisplay_type);
-		    options->timedisplay_type=g_strdup(parse_timedisplay_type(value));
-		}
-	      /* color definition */
-	      else if( !strcasecmp(CONF_COLOR_DEFINITION, name) )
-		{
-		  parse_color_definition(value);
-		}
-	      /* list format string */
-	      else if( !strcasecmp(CONF_LIST_FORMAT, name) )
-		{
-		  g_free(options->list_format);
-		  options->list_format = get_format(value);
-		}
-	      /* status format string */
-	      else if( !strcasecmp(CONF_STATUS_FORMAT, name) )
-		{
-		  g_free(options->status_format);
-		  options->status_format = get_format(value);
-		}
-	      /* xterm title format string */
-	      else if( !strcasecmp(CONF_XTERM_TITLE_FORMAT, name) )
-		{
-		  g_free(options->xterm_title_format);
-		  options->xterm_title_format = get_format(value);
-		}
-	      else if( !strcasecmp(CONF_LIST_WRAP, name) )
-		{
-		  options->list_wrap = str2bool(value);
-		}
-	      else if( !strcasecmp(CONF_FIND_WRAP, name) )
-		{
-		  options->find_wrap = str2bool(value);
-		}
-	      else if( !strcasecmp(CONF_FIND_SHOW_LAST,name) )
-		{
-		  options->find_show_last_pattern = str2bool(value);
-		}
-	      else if( !strcasecmp(CONF_AUDIBLE_BELL, name) )
-		{
-		  options->audible_bell = str2bool(value);
-		}
-	      else if( !strcasecmp(CONF_VISIBLE_BELL, name) )
-		{
-		  options->visible_bell = str2bool(value);
-		}
-	      else if( !strcasecmp(CONF_XTERM_TITLE, name) )
-		{
-		  options->enable_xterm_title = str2bool(value);
-		}
-	      else if( !strcasecmp(CONF_ENABLE_MOUSE, name) )
-		{
-		  options->enable_mouse = str2bool(value);
-		}
-	      else if( !strcasecmp(CONF_CROSSFADE_TIME, name) )
-		{
-		  options->crossfade_time = atoi(value);
-		}
-	      else if( !strcasecmp(CONF_SEARCH_MODE, name) )
-		{
-		  options->search_mode = atoi(value);
-		}
-	      else if( !strcasecmp(CONF_HIDE_CURSOR, name) )
-		{
-		  options->hide_cursor = atoi(value);
-		}
-	      else if( !strcasecmp(CONF_SEEK_TIME, name) )
-		{
-		  options->seek_time = atoi(value);
-		}
-	      else if( !strcasecmp(CONF_SCREEN_LIST, name) )
-		{
-		  g_strfreev(options->screen_list);
-		  options->screen_list = check_screen_list(value);
-		}
-	      else if( !strcasecmp(CONF_SHOW_SPLASH, name) )
-		{
-		  /* the splash screen was removed */
-		}
-	    else if( !strcasecmp(CONF_HOST, name))
-	    {
-	    options->host = get_format(value);
-	    }
-	    else if( !strcasecmp(CONF_PORT, name))
-	    {
-	    options->port = atoi(get_format(value));
-	    }
-	    else if( !strcasecmp(CONF_PASSWORD, name))
-	      {
-		options->password = get_format(value);
-	      }
-	    else if( !strcasecmp(CONF_LYRICS_TIMEOUT, name))
-	    {
-	    options->lyrics_timeout = atoi(get_format(value));
-	    }		
-	    else if( !strcasecmp(CONF_SCROLL, name))
-	    {
-	    options->scroll = str2bool(value);
-	    }
-	    else if( !strcasecmp(CONF_SCROLL_SEP, name))
-	    {
-	    g_free(options->scroll_sep);
-	    options->scroll_sep = get_format(value);
-	    }
-	      else
-		{
-		  match_found = 0;
+	if ((fd = open(filename,O_RDONLY)) < 0) {
+			perror(filename);
+			if (free_filename)
+				g_free(filename);
+			return -1;
 		}
 
-	      if( !match_found )
-		fprintf(stderr, 
-			_("Unknown configuration parameter: %s\n"), 
-			name);
-	    }
-	}	  
-    }
+	while (!quit) {
+		int i,j;
+		int len;
+		int match_found;
+		char line[MAX_LINE_LENGTH];
+		char name[MAX_LINE_LENGTH];
+		char value[MAX_LINE_LENGTH];
 
-  if( free_filename )
-    g_free(filename);
- 
-  return 0;
+		line[0]  = '\0';
+		value[0] = '\0';
+
+		i = 0;
+		/* read a line ending with '\n' */
+		do {
+			len = read(fd, &line[i], 1);
+			if (len == 1)
+				i++;
+			else
+				quit = 1;
+		} while (!quit && i < MAX_LINE_LENGTH && line[i-1] != '\n');
+
+
+		/* remove trailing whitespace */
+		line[i] = '\0';
+		i--;
+		while (i >= 0 && g_ascii_isspace(line[i])) {
+			line[i] = '\0';
+			i--;
+		}
+
+		len = i + 1;
+		if (len > 0) {
+			i = 0;
+			/* skip whitespace */
+			while (i < len && g_ascii_isspace(line[i]))
+				i++;
+
+			/* continue if this line is not a comment */
+			if (line[i] != COMMENT_TOKEN) {
+				/* get the name part */
+				j = 0;
+				while (i < len && line[i] != '=' &&
+				       !g_ascii_isspace(line[i])) {
+					name[j++] = line[i++];
+				}
+
+				name[j] = '\0';
+
+				/* skip '=' and whitespace */
+				while (i < len && (line[i] == '=' || g_ascii_isspace(line[i])))
+					i++;
+
+				/* get the value part */
+				j = 0;
+				while (i < len)
+					value[j++] = line[i++];
+				value[j] = '\0';
+
+				match_found = 1;
+
+				/* key definition */
+				if (!strcasecmp(CONF_KEY_DEFINITION, name))
+						parse_key_definition(value);
+				/* enable colors */
+				else if(!strcasecmp(CONF_ENABLE_COLORS, name))
+					options->enable_colors = str2bool(value);
+				/* auto center */
+				else if (!strcasecmp(CONF_AUTO_CENTER, name))
+					options->auto_center = str2bool(value);
+				/* color assignment */
+				else if (!strcasecmp(CONF_COLOR, name))
+					parse_color(value);
+				/* wide cursor */
+				else if (!strcasecmp(CONF_WIDE_CURSOR, name))
+					options->wide_cursor = str2bool(value);
+				/* welcome screen list */
+				else if (!strcasecmp(CONF_WELCOME_SCREEN_LIST, name))
+					options->welcome_screen_list = str2bool(value);
+				/* visible bitrate */
+				else if (!strcasecmp(CONF_VISIBLE_BITRATE, name))
+					options->visible_bitrate = str2bool(value);
+				/* timer display type */
+				else if (!strcasecmp(CONF_TIMEDISPLAY_TYPE, name)) {
+					g_free(options->timedisplay_type);
+					options->timedisplay_type=g_strdup(parse_timedisplay_type(value));
+				/* color definition */
+				} else if (!strcasecmp(CONF_COLOR_DEFINITION, name))
+					parse_color_definition(value);
+				/* list format string */
+				else if (!strcasecmp(CONF_LIST_FORMAT, name)) {
+					g_free(options->list_format);
+					options->list_format = get_format(value);
+				/* status format string */
+				} else if (!strcasecmp(CONF_STATUS_FORMAT, name)) {
+					g_free(options->status_format);
+					options->status_format = get_format(value);
+				/* xterm title format string */
+				} else if (!strcasecmp(CONF_XTERM_TITLE_FORMAT, name)) {
+					g_free(options->xterm_title_format);
+					options->xterm_title_format = get_format(value);
+				} else if (!strcasecmp(CONF_LIST_WRAP, name))
+					options->list_wrap = str2bool(value);
+				else if (!strcasecmp(CONF_FIND_WRAP, name))
+					options->find_wrap = str2bool(value);
+				else if (!strcasecmp(CONF_FIND_SHOW_LAST,name))
+					options->find_show_last_pattern = str2bool(value);
+				else if (!strcasecmp(CONF_AUDIBLE_BELL, name))
+					options->audible_bell = str2bool(value);
+				else if (!strcasecmp(CONF_VISIBLE_BELL, name))
+					options->visible_bell = str2bool(value);
+				else if (!strcasecmp(CONF_XTERM_TITLE, name))
+					options->enable_xterm_title = str2bool(value);
+				else if (!strcasecmp(CONF_ENABLE_MOUSE, name))
+					options->enable_mouse = str2bool(value);
+				else if (!strcasecmp(CONF_CROSSFADE_TIME, name))
+					options->crossfade_time = atoi(value);
+				else if (!strcasecmp(CONF_SEARCH_MODE, name))
+					options->search_mode = atoi(value);
+				else if (!strcasecmp(CONF_HIDE_CURSOR, name))
+					options->hide_cursor = atoi(value);
+				else if (!strcasecmp(CONF_SEEK_TIME, name))
+					options->seek_time = atoi(value);
+				else if (!strcasecmp(CONF_SCREEN_LIST, name)) {
+					g_strfreev(options->screen_list);
+					options->screen_list = check_screen_list(value);
+				} else if (!strcasecmp(CONF_SHOW_SPLASH, name)) {
+					/* the splash screen was removed */
+				} else if (!strcasecmp(CONF_HOST, name))
+					options->host = get_format(value);
+				else if (!strcasecmp(CONF_PORT, name))
+					options->port = atoi(get_format(value));
+				else if (!strcasecmp(CONF_PASSWORD, name))
+					options->password = get_format(value);
+				else if (!strcasecmp(CONF_LYRICS_TIMEOUT, name))
+					options->lyrics_timeout = atoi(get_format(value));
+				else if (!strcasecmp(CONF_SCROLL, name))
+					options->scroll = str2bool(value);
+				else if (!strcasecmp(CONF_SCROLL_SEP, name)) {
+					g_free(options->scroll_sep);
+					options->scroll_sep = get_format(value);
+				} else
+					match_found = 0;
+
+				if (!match_found)
+					fprintf(stderr,
+						_("Unknown configuration parameter: %s\n"),
+						name);
+			}
+		}
+	}
+
+	if (free_filename)
+		g_free(filename);
+
+	return 0;
 }
 
 int
@@ -616,80 +552,69 @@ get_user_key_binding_filename(void)
 	return g_build_filename(g_get_home_dir(), "." PACKAGE, "keys", NULL);
 }
 
-
 int
 read_configuration(options_t *options)
 {
-  char *filename = NULL;
+	char *filename = NULL;
 
-  /* check for command line configuration file */
-  if( options->config_file )
-    filename = g_strdup(options->config_file);
+	/* check for command line configuration file */
+	if (options->config_file)
+		filename = g_strdup(options->config_file);
 
-  /* check for user configuration ~/.ncmpc/config */
-  if( filename == NULL )
-    {
-      filename = g_build_filename(g_get_home_dir(), 
-				  "." PACKAGE, "config", NULL);
-      if( !g_file_test(filename, G_FILE_TEST_IS_REGULAR) )
-	{
-	  g_free(filename);
-	  filename = NULL;
+	/* check for user configuration ~/.ncmpc/config */
+	if (filename == NULL) {
+		filename = g_build_filename(g_get_home_dir(),
+					    "." PACKAGE, "config", NULL);
+		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
+			g_free(filename);
+			filename = NULL;
+		}
 	}
-    }
 
-  /* check for  global configuration SYSCONFDIR/ncmpc/config */
-  if( filename == NULL )
-    {
-      filename = g_build_filename(SYSCONFDIR, PACKAGE, "config", NULL);
-      if( !g_file_test(filename, G_FILE_TEST_IS_REGULAR) )
-	{
-	  g_free(filename);
-	  filename = NULL;
+	/* check for  global configuration SYSCONFDIR/ncmpc/config */
+	if (filename == NULL) {
+		filename = g_build_filename(SYSCONFDIR, PACKAGE, "config", NULL);
+		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
+			g_free(filename);
+			filename = NULL;
+		}
 	}
-    }
 
-  /* load configuration */
-  if( filename )
-    {
-      read_rc_file(filename, options);
-      g_free(filename);
-      filename = NULL;
-    }
-
-  /* check for command line key binding file */
-  if( options->key_file )
-    filename = g_strdup(options->key_file);
-
-  /* check for  user key bindings ~/.ncmpc/keys */
-  if( filename == NULL )
-    {
-      filename = get_user_key_binding_filename();
-      if( !g_file_test(filename, G_FILE_TEST_IS_REGULAR) )
-	{
-	  g_free(filename);
-	  filename = NULL;
+	/* load configuration */
+	if (filename) {
+		read_rc_file(filename, options);
+		g_free(filename);
+		filename = NULL;
 	}
-    }
 
-  /* check for  global key bindings SYSCONFDIR/ncmpc/keys */
-  if( filename == NULL )
-    {
-      filename = g_build_filename(SYSCONFDIR, PACKAGE, "keys", NULL);
-      if( !g_file_test(filename, G_FILE_TEST_IS_REGULAR) )
-	{
-	  g_free(filename);
-	  filename = NULL;
+	/* check for command line key binding file */
+	if (options->key_file)
+		filename = g_strdup(options->key_file);
+
+	/* check for  user key bindings ~/.ncmpc/keys */
+	if (filename == NULL) {
+		filename = get_user_key_binding_filename();
+		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
+			g_free(filename);
+			filename = NULL;
+		}
 	}
-    }
 
-  /* load key bindings */
-  if( filename )
-    {
-      read_rc_file(filename, options);
-      g_free(filename);
-      filename = NULL;
-    }
+	/* check for  global key bindings SYSCONFDIR/ncmpc/keys */
+	if (filename == NULL) {
+		filename = g_build_filename(SYSCONFDIR, PACKAGE, "keys", NULL);
+		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
+			g_free(filename);
+			filename = NULL;
+		}
+	}
 
-  return 0;
+	/* load key bindings */
+	if (filename) {
+		read_rc_file(filename, options);
+		g_free(filename);
+		filename = NULL;
+	}
+
+	return 0;
 }

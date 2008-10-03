@@ -306,7 +306,7 @@ options_parse(int argc, const char *argv[])
 }
 
 options_t *
-options_init( void )
+options_init(void)
 {
 	const char *value;
 	char *tmp;

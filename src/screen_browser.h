@@ -1,6 +1,4 @@
 /*
- * $Id$
- *
  * (c) 2004 by Kalle Wallin <kaw@linux.se>
  * Copyright (C) 2008 Max Kellermann <max@duempel.org>
  *
