@@ -143,8 +143,7 @@ screen_auth(struct mpdclient *c)
 
 /* query user for a string and find it in a list window */
 int
-screen_find(screen_t *screen,
-	    list_window_t *lw,
+screen_find(list_window_t *lw,
 	    int rows,
 	    command_t findcmd,
 	    list_window_callback_fn_t callback_fn,
@@ -163,40 +162,41 @@ screen_find(screen_t *screen,
 	switch (findcmd) {
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
-		if (screen->findbuf) {
-			g_free(screen->findbuf);
-			screen->findbuf=NULL;
+		if (screen.findbuf) {
+			g_free(screen.findbuf);
+			screen.findbuf=NULL;
 		}
 		/* continue... */
 
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		if (!screen->findbuf)
-			screen->findbuf=screen_readln(screen->status_window.w,
-						      prompt,
-						      value,
-						      &screen->find_history,
-						      NULL);
+		if (!screen.findbuf)
+			screen.findbuf=screen_readln(screen.status_window.w,
+						     prompt,
+						     value,
+						     &screen.find_history,
+						     NULL);
 
-		if (!screen->findbuf || !screen->findbuf[0])
+		if (!screen.findbuf || !screen.findbuf[0])
 			return 1;
 
 		if (reversed)
 			retval = list_window_rfind(lw,
 						   callback_fn,
 						   callback_data,
-						   screen->findbuf,
+						   screen.findbuf,
 						   options.find_wrap,
 						   rows);
 		else
 			retval = list_window_find(lw,
 						  callback_fn,
 						  callback_data,
-						  screen->findbuf,
+						  screen.findbuf,
 						  options.find_wrap);
 
 		if (retval != 0) {
-			screen_status_printf(_("Unable to find \'%s\'"), screen->findbuf);
+			screen_status_printf(_("Unable to find \'%s\'"),
+					     screen.findbuf);
 			screen_bell();
 		}
 		return 1;
@@ -207,17 +207,17 @@ screen_find(screen_t *screen,
 }
 
 void
-screen_display_completion_list(screen_t *screen, GList *list)
+screen_display_completion_list(GList *list)
 {
 	static GList *prev_list = NULL;
 	static guint prev_length = 0;
 	static guint offset = 0;
-	WINDOW *w = screen->main_window.w;
+	WINDOW *w = screen.main_window.w;
 	guint length, y=0;
 
 	length = g_list_length(list);
 	if (list == prev_list && length == prev_length) {
-		offset += screen->main_window.rows;
+		offset += screen.main_window.rows;
 		if (offset >= length)
 			offset = 0;
 	} else {
@@ -227,7 +227,7 @@ screen_display_completion_list(screen_t *screen, GList *list)
 	}
 
 	colors_use(w, COLOR_STATUS_ALERT);
-	while (y < screen->main_window.rows) {
+	while (y < screen.main_window.rows) {
 		GList *item = g_list_nth(list, y+offset);
 
 		wmove(w, y++, 0);

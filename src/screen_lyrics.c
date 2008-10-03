@@ -264,7 +264,7 @@ lyrics_exit(void)
 }
 
 static void
-lyrics_open(mpd_unused screen_t *screen, mpdclient_t *c)
+lyrics_open(mpdclient_t *c)
 {
 	if (next_song == NULL)
 		next_song = c->song;
@@ -297,7 +297,7 @@ lyrics_paint(void)
 }
 
 static int
-lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
+lyrics_cmd(mpdclient_t *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(lw, current.lines->len, cmd)) {
 		lyrics_repaint();
@@ -327,8 +327,7 @@ lyrics_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	}
 
 	lw->selected = lw->start+lw->rows;
-	if (screen_find(screen,
-			lw, current.lines->len,
+	if (screen_find(lw, current.lines->len,
 			cmd, list_callback, NULL)) {
 		/* center the row */
 		list_window_center(lw, current.lines->len, lw->selected);

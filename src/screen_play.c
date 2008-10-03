@@ -44,7 +44,6 @@ typedef struct
 {
 	GList **list;
 	GList **dir_list;
-	screen_t *screen;
 	mpdclient_t *c;
 } completion_callback_data_t;
 
@@ -145,17 +144,14 @@ save_pre_completion_cb(GCompletion *gcmp, mpd_unused gchar *line, void *data)
 
 static void
 save_post_completion_cb(mpd_unused GCompletion *gcmp, mpd_unused gchar *line,
-			GList *items, void *data)
+			GList *items, mpd_unused void *data)
 {
-	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
-	screen_t *screen = tmp->screen;
-
 	if (g_list_length(items) >= 1)
-		screen_display_completion_list(screen, items);
+		screen_display_completion_list(items);
 }
 
 int
-playlist_save(screen_t *screen, mpdclient_t *c, char *name, char *defaultname)
+playlist_save(mpdclient_t *c, char *name, char *defaultname)
 {
 	gchar *filename;
 	gint error;
@@ -169,7 +165,6 @@ playlist_save(screen_t *screen, mpdclient_t *c, char *name, char *defaultname)
 		g_completion_set_compare(gcmp, strncmp);
 		data.list = &list;
 		data.dir_list = NULL;
-		data.screen = screen;
 		data.c = c;
 		wrln_completion_callback_data = &data;
 		wrln_pre_completion_callback = save_pre_completion_cb;
@@ -177,7 +172,7 @@ playlist_save(screen_t *screen, mpdclient_t *c, char *name, char *defaultname)
 
 
 		/* query the user for a filename */
-		filename = screen_readln(screen->status_window.w,
+		filename = screen_readln(screen.status_window.w,
 					 _("Save playlist as: "),
 					 defaultname,
 					 NULL,
@@ -207,7 +202,7 @@ playlist_save(screen_t *screen, mpdclient_t *c, char *name, char *defaultname)
 
 			buf = g_strdup_printf(_("Replace %s [%s/%s] ? "),
 					      filename, YES, NO);
-			key = tolower(screen_getch(screen->status_window.w,
+			key = tolower(screen_getch(screen.status_window.w,
 						   buf));
 			g_free(buf);
 
@@ -217,7 +212,7 @@ playlist_save(screen_t *screen, mpdclient_t *c, char *name, char *defaultname)
 					return -1;
 				}
 
-				error = playlist_save(screen, c, filename, NULL);
+				error = playlist_save(c, filename, NULL);
 				g_free(filename);
 				return error;
 			}
@@ -270,10 +265,9 @@ static void add_post_completion_cb(GCompletion *gcmp, gchar *line,
 	GList **dir_list = tmp->dir_list;
 	GList **list = tmp->list;
 	mpdclient_t *c = tmp->c;
-	screen_t *screen = tmp->screen;
 
 	if (g_list_length(items) >= 1)
-		screen_display_completion_list(screen, items);
+		screen_display_completion_list(items);
 
 	if (line && line[0] && line[strlen(line) - 1] == '/' &&
 	    string_list_find(*dir_list, line) == NULL) {
@@ -283,7 +277,7 @@ static void add_post_completion_cb(GCompletion *gcmp, gchar *line,
 }
 
 static int
-handle_add_to_playlist(screen_t *screen, mpdclient_t *c)
+handle_add_to_playlist(mpdclient_t *c)
 {
 	gchar *path;
 	GCompletion *gcmp;
@@ -296,14 +290,13 @@ handle_add_to_playlist(screen_t *screen, mpdclient_t *c)
 	g_completion_set_compare(gcmp, strncmp);
 	data.list = &list;
 	data.dir_list = &dir_list;
-	data.screen = screen;
 	data.c = c;
 	wrln_completion_callback_data = &data;
 	wrln_pre_completion_callback = add_pre_completion_cb;
 	wrln_post_completion_callback = add_post_completion_cb;
 
 	/* get path */
-	path = screen_readln(screen->status_window.w,
+	path = screen_readln(screen.status_window.w,
 			     _("Add: "),
 			     NULL,
 			     NULL,
@@ -353,7 +346,7 @@ timer_hide_cursor(gpointer data)
 }
 
 static void
-play_open(mpd_unused screen_t *screen, mpdclient_t *c)
+play_open(mpdclient_t *c)
 {
 	static gboolean install_cb = TRUE;
 
@@ -471,7 +464,7 @@ handle_mouse_event(struct mpdclient *c)
 #endif
 
 static int
-play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
+play_cmd(mpdclient_t *c, command_t cmd)
 {
 	lw->flags &= ~LW_HIDE_CURSOR;
 
@@ -495,10 +488,10 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		mpdclient_cmd_delete(c, lw->selected);
 		return 1;
 	case CMD_SAVE_PLAYLIST:
-		playlist_save(screen, c, NULL, NULL);
+		playlist_save(c, NULL, NULL);
 		return 1;
 	case CMD_ADD:
-		handle_add_to_playlist(screen, c);
+		handle_add_to_playlist(c);
 		return 1;
 	case CMD_SCREEN_UPDATE:
 		center_playing_item(c);
@@ -515,8 +508,7 @@ play_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(screen,
-			    lw, playlist_length(&c->playlist),
+		screen_find(lw, playlist_length(&c->playlist),
 			    cmd, list_callback, NULL);
 		playlist_repaint();
 		return 1;

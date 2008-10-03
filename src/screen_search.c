@@ -161,7 +161,7 @@ search_check_mode(void)
 }
 
 static void
-search_clear(mpd_unused screen_t *screen, mpdclient_t *c,
+search_clear(mpdclient_t *c,
 	     gboolean clear_pattern)
 {
 	if (browser.filelist) {
@@ -300,11 +300,11 @@ search_advanced_query(char *query, mpdclient_t *c)
 }
 
 static void
-search_new(screen_t *screen, mpdclient_t *c)
+search_new(mpdclient_t *c)
 {
-	search_clear(screen, c, TRUE);
+	search_clear(c, TRUE);
 
-	pattern = screen_readln(screen->status_window.w,
+	pattern = screen_readln(screen.status_window.w,
 				_("Search: "),
 				NULL,
 				&search_history,
@@ -360,7 +360,7 @@ quit(void)
 }
 
 static void
-open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
+open(mpd_unused mpdclient_t *c)
 {
 	//  if( pattern==NULL )
 	//    search_new(screen, c);
@@ -408,7 +408,7 @@ get_title(char *str, size_t size)
 }
 
 static int
-search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
+search_cmd(mpdclient_t *c, command_t cmd)
 {
 	switch (cmd) {
 	case CMD_SEARCH_MODE:
@@ -420,7 +420,7 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		/* continue and update... */
 	case CMD_SCREEN_UPDATE:
 		if (pattern) {
-			search_clear(screen, c, FALSE);
+			search_clear(c, FALSE);
 			browser.filelist = filelist_search(c,
 							  FALSE,
 							  mode[options.search_mode].table,
@@ -431,12 +431,12 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		return 1;
 
 	case CMD_SCREEN_SEARCH:
-		search_new(screen, c);
+		search_new(c);
 		search_repaint();
 		return 1;
 
 	case CMD_CLEAR:
-		search_clear(screen, c, TRUE);
+		search_clear(c, TRUE);
 		list_window_reset(browser.lw);
 		search_repaint();
 		return 1;
@@ -446,7 +446,7 @@ search_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	}
 
 	if (browser.filelist != NULL &&
-	    browser_cmd(&browser, screen, c, cmd)) {
+	    browser_cmd(&browser, c, cmd)) {
 		search_repaint();
 		return 1;
 	}

@@ -19,7 +19,7 @@ struct window {
 	unsigned rows, cols;
 };
 
-typedef struct screen {
+struct screen {
 	struct window top_window;
 	struct window main_window;
 	struct window progress_window;
@@ -38,7 +38,9 @@ typedef struct screen {
 
 	char *findbuf;
 	GList *find_history;
-} screen_t;
+};
+
+extern struct screen screen;
 
 extern const struct screen_functions screen_playlist;
 extern const struct screen_functions screen_browse;
@@ -59,12 +61,12 @@ extern const struct screen_functions screen_lyrics;
 typedef struct screen_functions {
 	void (*init)(WINDOW *w, int cols, int rows);
 	void (*exit)(void);
-	void (*open)(struct screen *screen, mpdclient_t *c);
+	void (*open)(mpdclient_t *c);
 	void (*close)(void);
 	void (*resize)(int cols, int rows);
 	void (*paint)(void);
 	void (*update)(mpdclient_t *c);
-	int (*cmd)(struct screen *scr, mpdclient_t *c, command_t cmd);
+	int (*cmd)(mpdclient_t *c, command_t cmd);
 	const char *(*get_title)(char *s, size_t size);
 } screen_functions_t;
 

@@ -331,7 +331,7 @@ quit(void)
 }
 
 static void
-open(mpd_unused screen_t *screen, mpdclient_t *c)
+open(mpdclient_t *c)
 {
 	static gboolean callback_installed = FALSE;
 
@@ -434,7 +434,7 @@ metalist_length(void)
 }
 
 static int
-artist_lw_cmd(struct screen *screen, struct mpdclient *c, command_t cmd)
+artist_lw_cmd(struct mpdclient *c, command_t cmd)
 {
 	switch (mode) {
 	case LIST_ARTISTS:
@@ -442,7 +442,7 @@ artist_lw_cmd(struct screen *screen, struct mpdclient *c, command_t cmd)
 		return list_window_cmd(browser.lw, metalist_length(), cmd);
 
 	case LIST_SONGS:
-		return browser_cmd(&browser, screen, c, cmd);
+		return browser_cmd(&browser, c, cmd);
 	}
 
 	assert(0);
@@ -463,7 +463,7 @@ string_array_find(GPtrArray *array, const char *value)
 }
 
 static int
-artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
+artist_cmd(mpdclient_t *c, command_t cmd)
 {
 	char *selected;
 	char *old;
@@ -641,15 +641,13 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 	case CMD_LIST_RFIND_NEXT:
 		switch (mode) {
 		case LIST_ARTISTS:
-			screen_find(screen,
-				    browser.lw, artist_list->len,
+			screen_find(browser.lw, artist_list->len,
 				    cmd, artist_lw_callback, artist_list);
 			artist_repaint();
 			return 1;
 
 		case LIST_ALBUMS:
-			screen_find(screen,
-				    browser.lw, album_list->len + 2,
+			screen_find(browser.lw, album_list->len + 2,
 				    cmd, artist_lw_callback, album_list);
 			artist_repaint();
 			return 1;
@@ -665,7 +663,7 @@ artist_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		break;
 	}
 
-	if (artist_lw_cmd(screen, c, cmd)) {
+	if (artist_lw_cmd(c, cmd)) {
 		artist_repaint();
 		return 1;
 	}

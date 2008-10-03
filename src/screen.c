@@ -51,7 +51,7 @@ static const int SCREEN_MIN_ROWS = 5;
 /* screens */
 
 static gboolean welcome = TRUE;
-static struct screen screen;
+struct screen screen;
 static const struct screen_functions *mode_fn = &screen_playlist;
 static int seek_id = -1;
 static int seek_target_time = 0;
@@ -79,7 +79,7 @@ screen_switch(const struct screen_functions *sf, struct mpdclient *c)
 
 	/* open the new mode */
 	if (mode_fn->open != NULL)
-		mode_fn->open(&screen, c);
+		mode_fn->open(c);
 
 	screen_paint(c);
 }
@@ -522,7 +522,7 @@ screen_init(mpdclient_t *c)
 			 screen.main_window.cols, screen.main_window.rows);
 
 	if (mode_fn->open != NULL)
-		mode_fn->open(&screen, c);
+		mode_fn->open(c);
 
 	/* initialize wreadln */
 	wrln_wgetch = my_wgetch;
@@ -764,7 +764,7 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 	screen.last_cmd = cmd;
 	welcome = FALSE;
 
-	if (mode_fn->cmd != NULL && mode_fn->cmd(&screen, c, cmd))
+	if (mode_fn->cmd != NULL && mode_fn->cmd(c, cmd))
 		return;
 
 	if (screen_client_cmd(c, cmd))

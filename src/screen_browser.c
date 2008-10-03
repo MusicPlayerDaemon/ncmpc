@@ -453,7 +453,7 @@ browser_handle_mouse_event(struct screen_browser *browser, mpdclient_t *c)
 #endif
 
 bool
-browser_cmd(struct screen_browser *browser, struct screen *screen,
+browser_cmd(struct screen_browser *browser,
 	    struct mpdclient *c, command_t cmd)
 {
 	struct filelist_entry *entry;
@@ -487,8 +487,7 @@ browser_cmd(struct screen_browser *browser, struct screen *screen,
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(screen,
-			    browser->lw, filelist_length(browser->filelist),
+		screen_find(browser->lw, filelist_length(browser->filelist),
 			    cmd, browser_lw_callback,
 			    browser->filelist);
 		return true;

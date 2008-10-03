@@ -213,7 +213,7 @@ help_paint(void)
 }
 
 static int
-help_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
+help_cmd(mpd_unused mpdclient_t *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(lw, help_text_rows, cmd)) {
 		list_window_paint(lw, list_callback, NULL);
@@ -222,8 +222,7 @@ help_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 	}
 
 	lw->selected = lw->start+lw->rows;
-	if (screen_find(screen,
-			lw,  help_text_rows,
+	if (screen_find(lw,  help_text_rows,
 			cmd, list_callback, NULL)) {
 		/* center the row */
 		list_window_center(lw, help_text_rows, lw->selected);

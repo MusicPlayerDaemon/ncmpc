@@ -49,7 +49,7 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 			 filelist_entry_t *entry, const char *new_path);
 
 bool
-browser_cmd(struct screen_browser *browser, struct screen *screen,
+browser_cmd(struct screen_browser *browser,
 	    struct mpdclient *c, command_t cmd);
 
 #endif

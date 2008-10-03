@@ -246,7 +246,7 @@ keydef_exit(void)
 }
 
 static void
-keydef_open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
+keydef_open(mpd_unused mpdclient_t *c)
 {
 	if (cmds == NULL) {
 		command_definition_t *current_cmds = get_command_definitions();
@@ -294,7 +294,7 @@ keydef_paint(void)
 }
 
 static int
-keydef_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
+keydef_cmd(mpd_unused mpdclient_t *c, command_t cmd)
 {
 	int length = LIST_LENGTH();
 
@@ -328,7 +328,7 @@ keydef_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 
 				keydef_repaint();
 			} else
-				assign_new_key(screen->status_window.w,
+				assign_new_key(screen.status_window.w,
 					       subcmd,
 					       lw->selected - STATIC_SUB_ITEMS);
 		}
@@ -346,8 +346,7 @@ keydef_cmd(screen_t *screen, mpd_unused mpdclient_t *c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(screen,
-			    lw, length,
+		screen_find(lw, length,
 			    cmd, list_callback, NULL);
 		keydef_repaint();
 		return 1;

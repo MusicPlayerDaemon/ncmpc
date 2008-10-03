@@ -75,7 +75,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 }
 
 static int
-handle_save(screen_t *screen, mpdclient_t *c)
+handle_save(mpdclient_t *c)
 {
 	filelist_entry_t *entry;
 	char *defaultname = NULL;
@@ -92,11 +92,11 @@ handle_save(screen_t *screen, mpdclient_t *c)
 		}
 	}
 
-	return playlist_save(screen, c, NULL, defaultname);
+	return playlist_save(c, NULL, defaultname);
 }
 
 static int
-handle_delete(screen_t *screen, mpdclient_t *c)
+handle_delete(mpdclient_t *c)
 {
 	filelist_entry_t *entry;
 	mpd_InfoEntity *entity;
@@ -123,7 +123,7 @@ handle_delete(screen_t *screen, mpdclient_t *c)
 	str = utf8_to_locale(g_basename(plf->path));
 	buf = g_strdup_printf(_("Delete playlist %s [%s/%s] ? "), str, YES, NO);
 	g_free(str);
-	key = tolower(screen_getch(screen->status_window.w, buf));
+	key = tolower(screen_getch(screen.status_window.w, buf));
 	g_free(buf);
 	if( key != YES[0] ) {
 		screen_status_printf(_("Aborted!"));
@@ -159,7 +159,7 @@ browse_exit(void)
 }
 
 static void
-browse_open(mpd_unused screen_t *screen, mpd_unused mpdclient_t *c)
+browse_open(mpd_unused mpdclient_t *c)
 {
 	if (browser.filelist == NULL) {
 		browser.filelist = mpdclient_filelist_get(c, "");
@@ -196,7 +196,7 @@ browse_paint(void)
 }
 
 static int
-browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
+browse_cmd(mpdclient_t *c, command_t cmd)
 {
 	switch(cmd) {
 	case CMD_GO_ROOT_DIRECTORY:
@@ -209,11 +209,11 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		return 1;
 
 	case CMD_DELETE:
-		handle_delete(screen, c);
+		handle_delete(c);
 		file_repaint();
 		break;
 	case CMD_SAVE_PLAYLIST:
-		handle_save(screen, c);
+		handle_save(c);
 		break;
 	case CMD_SCREEN_UPDATE:
 		browser.filelist = mpdclient_filelist_update(c, browser.filelist);
@@ -249,7 +249,7 @@ browse_cmd(screen_t *screen, mpdclient_t *c, command_t cmd)
 		break;
 	}
 
-	if (browser_cmd(&browser, screen, c, cmd)) {
+	if (browser_cmd(&browser, c, cmd)) {
 		file_repaint();
 		return 1;
 	}
