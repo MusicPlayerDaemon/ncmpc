@@ -32,10 +32,6 @@ dnl
 dnl Check for headers
 dnl
 
-AC_CHECK_HEADER([libgen.h],
-                AC_DEFINE([HAVE_LIBGEN_H], [1], [glibc - libgen.h]),
-		,)
-
 AC_CHECK_HEADER([locale.h],
  	        AC_DEFINE([HAVE_LOCALE_H], [1], [locale.h]),
 		,)

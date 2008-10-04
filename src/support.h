@@ -3,10 +3,6 @@
 
 #include <glib.h>
 
-#ifdef HAVE_LIBGEN_H
-#include <libgen.h>
-#endif
-
 const char *strcasestr(const char *haystack, const char *needle);
 
 typedef struct {
