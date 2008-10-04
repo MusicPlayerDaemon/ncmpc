@@ -39,10 +39,10 @@
 #include <locale.h>
 
 /** welcome message time [s] */
-static const unsigned SCREEN_WELCOME_TIME = 10;
+static const GTime SCREEN_WELCOME_TIME = 10;
 
 /** status message time [s] */
-static const unsigned SCREEN_STATUS_MESSAGE_TIME = 3;
+static const GTime SCREEN_STATUS_MESSAGE_TIME = 3;
 
 /* minumum window size */
 static const int SCREEN_MIN_COLS = 14;
