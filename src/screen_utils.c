@@ -234,7 +234,7 @@ screen_display_completion_list(GList *list)
 		wclrtoeol(w);
 		if (item) {
 			gchar *tmp = g_strdup(item->data);
-			waddstr(w, basename(tmp));
+			waddstr(w, g_basename(tmp));
 			g_free(tmp);
 		}
 	}
