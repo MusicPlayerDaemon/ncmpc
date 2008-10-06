@@ -41,7 +41,7 @@ utf8_width(const char *str)
 {
 	assert(str != NULL);
 
-#ifdef HAVE_LOCALE_H
+#ifdef ENABLE_WIDE
 	if (g_utf8_validate(str, -1, NULL)) {
 		size_t len = g_utf8_strlen(str, -1);
 		unsigned width = 0;

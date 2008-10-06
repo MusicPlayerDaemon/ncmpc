@@ -62,6 +62,14 @@ AC_CHECK_FUNC([gethostbyname],
               ])
 
 
+dnl wide character support
+AC_ARG_ENABLE([wide],
+    AC_HELP_STRING([--enable-wide],
+                   [Enable wide character support]),
+                   [use_wide=$enableval], 
+                   [use_wide=auto])
+
+
 dnl ncurses
 ncurses=auto
 AC_ARG_WITH([ncurses],
@@ -70,6 +78,17 @@ AC_ARG_WITH([ncurses],
 AC_ARG_WITH(ncursesw,
 	    AC_HELP_STRING([--with-ncursesw], [compile/link with wide-char ncurses library @<:@default@:>@]),
 	    [ncurses=ncursesw])
+
+if test "x$enable_wide" = "xno"; then
+    if test "x$ncurses" = "xauto"; then
+        dnl select narrow ncurses
+        ncurses=ncurses
+    fi
+
+    if test "x$ncurses" = "xncursesw"; then
+        AC_MSG_WARN([Narrow ncmpc linking against wide libncurses])
+    fi
+fi
 
 if test "x$ncurses" = "xauto"; then
 	AC_CHECK_LIB([ncursesw], 
@@ -87,6 +106,23 @@ if test "x$ncurses" = "xncursesw"; then
     AC_CHECK_HEADER([ncursesw/ncurses.h],
                     AC_DEFINE([HAVE_NCURSESW_NCURSES_H], [1], [ncursesw/ncurses.h]),
                     ,)
+fi
+
+
+dnl wide character support II
+
+if test "x$use_wide" = "xauto" ; then
+    AC_CHECK_LIB([$ncurses], 
+	         [wget_wch],
+	         [use_wide=yes],
+	         [use_wide=no])
+fi
+
+AC_MSG_CHECKING([wide character support])
+AC_MSG_RESULT([$use_wide])
+
+if test "x$use_wide" = "xyes" ; then
+    AC_DEFINE([ENABLE_WIDE], [1], [Enable wide character support])
 fi
 
 
