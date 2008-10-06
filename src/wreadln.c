@@ -76,35 +76,208 @@ void *wrln_completion_callback_data = NULL;
 wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
 wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 
+/** converts a byte position to a screen column */
+static unsigned
+byte_to_screen(const gchar *data, size_t x)
+{
+#ifdef ENABLE_WIDE
+	gchar *dup;
+	char *p;
+	unsigned width;
+
+	assert(x <= strlen(data));
+
+	dup = g_strdup(data);
+	dup[x] = 0;
+	p = locale_to_utf8(dup);
+	g_free(dup);
+
+	width = utf8_width(p);
+	g_free(p);
+
+	return width;
+#else
+	(void)data;
+
+	return (unsigned)x;
+#endif
+}
+
+/** finds the first character which doesn't fit on the screen */
+static size_t
+screen_to_bytes(const gchar *data, unsigned width)
+{
+#ifdef ENABLE_WIDE
+	size_t length = strlen(data);
+	gchar *dup = g_strdup(data);
+	char *p;
+	unsigned p_width;
+
+	while (true) {
+		dup[length] = 0;
+		p = locale_to_utf8(dup);
+		p_width = utf8_width(p);
+		g_free(p);
+		if (p_width <= width)
+			break;
+
+		--length;
+	}
+
+	g_free(dup);
+
+	return length;
+#else
+	(void)data;
+
+	return (size_t)width;
+#endif
+}
+
+/** returns the screen colum where the cursor is located */
+static unsigned
+cursor_column(const struct wreadln *wr)
+{
+	return byte_to_screen(wr->line + wr->start,
+			      wr->cursor - wr->start);
+}
+
+/** returns the offset in the string to align it at the right border
+    of the screen */
+static inline size_t
+right_align_bytes(const gchar *data, size_t right, unsigned width)
+{
+#ifdef ENABLE_WIDE
+	gchar *dup;
+	size_t start = 0;
+
+	assert(right <= strlen(data));
+
+	dup = g_strdup(data);
+	dup[right] = 0;
+
+	while (dup[start] != 0) {
+		char *p = locale_to_utf8(dup + start), *q;
+		unsigned p_width = utf8_width(p);
+		gunichar c;
+
+		if (p_width < width) {
+			g_free(p);
+			break;
+		}
+
+		c = g_utf8_get_char(p);
+		p[g_unichar_to_utf8(c, NULL)] = 0;
+		q = utf8_to_locale(p);
+		g_free(p);
+
+		start += strlen(q);
+		g_free(q);
+	}
+
+	g_free(dup);
+
+	return start;
+#else
+	(void)data;
+
+	return right >= width ? right + 1 - width : 0;
+#endif
+}
+
+/** returns the size (in bytes) of the next character */
+static inline size_t
+next_char_size(const gchar *data)
+{
+#ifdef ENABLE_WIDE
+	char *p = locale_to_utf8(data), *q;
+	gunichar c;
+	size_t size;
+
+	c = g_utf8_get_char(p);
+	p[g_unichar_to_utf8(c, NULL)] = 0;
+	q = utf8_to_locale(p);
+	g_free(p);
+
+	size = strlen(q);
+	g_free(q);
+
+	return size;
+#else
+	(void)data;
+
+	return 1;
+#endif
+}
+
+/** returns the size (in bytes) of the previous character */
+static inline size_t
+prev_char_size(const gchar *data, size_t x)
+{
+#ifdef ENABLE_WIDE
+	char *p = locale_to_utf8(data), *q;
+	gunichar c;
+	size_t size;
+
+	assert(x > 0);
+
+	q = p;
+	while (true) {
+		c = g_utf8_get_char(q);
+		size = g_unichar_to_utf8(c, NULL);
+		if (size > x)
+			size = x;
+		x -= size;
+		if (x == 0) {
+			g_free(p);
+			return size;
+		}
+
+		q += size;
+	}
+#else
+	(void)data;
+	(void)x;
+
+	return 1;
+#endif
+}
+
 /* move the cursor one step to the right */
 static inline void cursor_move_right(struct wreadln *wr)
 {
+	size_t size;
+
 	if (wr->line[wr->cursor] == 0)
 		return;
 
-	++wr->cursor;
-	if (wr->cursor >= (size_t)wr->width &&
-	    wr->start < wr->cursor - wr->width + 1)
-		++wr->start;
+	size = next_char_size(wr->line + wr->cursor);
+	wr->cursor += size;
+	if (cursor_column(wr) >= wr->width)
+		wr->start = right_align_bytes(wr->line, wr->cursor, wr->width);
 }
 
 /* move the cursor one step to the left */
 static inline void cursor_move_left(struct wreadln *wr)
 {
+	size_t size;
+
 	if (wr->cursor == 0)
 		return;
 
-	if (wr->cursor == wr->start && wr->start > 0)
-		--wr->start;
-	--wr->cursor;
+	size = prev_char_size(wr->line, wr->cursor);
+	assert(wr->cursor >= size);
+	wr->cursor -= size;
+	if (wr->cursor < wr->start)
+		wr->start = wr->cursor;
 }
 
 /* move the cursor to the end of the line */
 static inline void cursor_move_to_eol(struct wreadln *wr)
 {
 	wr->cursor = strlen(wr->line);
-	if (wr->cursor >= wr->width)
-		wr->start = wr->cursor - wr->width + 1;
+	if (cursor_column(wr) >= wr->width)
+		wr->start = right_align_bytes(wr->line, wr->cursor, wr->width);
 }
 
 /* draw line buffer and update cursor position */
@@ -115,11 +288,12 @@ static inline void drawline(const struct wreadln *wr)
 	whline(wr->w, ' ', wr->width);
 	/* print visible part of the line buffer */
 	if (wr->masked)
-		whline(wr->w, '*', utf8_width(wr->line) - wr->start);
+		whline(wr->w, '*', utf8_width(wr->line + wr->start));
 	else
-		waddnstr(wr->w, wr->line + wr->start, wr->width);
+		waddnstr(wr->w, wr->line + wr->start,
+			 screen_to_bytes(wr->line, wr->width));
 	/* move the cursor to the correct position */
-	wmove(wr->w, wr->y, wr->x + wr->cursor - wr->start);
+	wmove(wr->w, wr->y, wr->x + cursor_column(wr));
 	/* tell ncurses to redraw the screen */
 	doupdate();
 }
@@ -185,19 +359,18 @@ wreadln_insert_byte(struct wreadln *wr, gint key)
 #endif
 
 	wr->cursor += length;
-	if (wr->cursor >= (size_t)wr->width &&
-	    wr->start < wr->cursor - wr->width + 1)
-		wr->start += length;
+	if (cursor_column(wr) >= wr->width)
+		wr->start = right_align_bytes(wr->line, wr->cursor, wr->width);
 }
 
 static void
 wreadln_delete_char(struct wreadln *wr, size_t x)
 {
-	size_t rest;
-	const size_t length = 1;
+	size_t rest, length;
 
 	assert(x < strlen(wr->line));
 
+	length = next_char_size(&wr->line[x]);
 	rest = strlen(&wr->line[x + length]) + 1;
 	memmove(&wr->line[x], &wr->line[x + length], rest);
 }
