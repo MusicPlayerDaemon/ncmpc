@@ -77,7 +77,7 @@ GList *mpdclient_get_artists_utf8(mpdclient_t *c);
 GList *mpdclient_get_albums_utf8(mpdclient_t *c, gchar *artist_utf8);
 
 
-/*** error callbacks *****************************************************/ 
+/*** error callbacks *****************************************************/
 
 #define IS_ACK_ERROR(n)       (n & MPD_ERROR_ACK)
 #define GET_ACK_ERROR_CODE(n) ((n & 0xFF00) >> 8)
@@ -121,15 +121,15 @@ void mpdclient_playlist_callback(mpdclient_t *c, int event, gpointer data);
 /*** filelist functions  ***************************************************/
 
 mpdclient_filelist_t *mpdclient_filelist_get(mpdclient_t *c, const gchar *path);
-mpdclient_filelist_t *mpdclient_filelist_search(mpdclient_t *c, 
+mpdclient_filelist_t *mpdclient_filelist_search(mpdclient_t *c,
 						int exact_match,
 						int table,
 						gchar *path);
-mpdclient_filelist_t *mpdclient_filelist_search_utf8(mpdclient_t *c, 
+mpdclient_filelist_t *mpdclient_filelist_search_utf8(mpdclient_t *c,
 						     int exact_match,
 						     int table,
 						     gchar *path);
-mpdclient_filelist_t *mpdclient_filelist_update(mpdclient_t *c, 
+mpdclient_filelist_t *mpdclient_filelist_update(mpdclient_t *c,
 						mpdclient_filelist_t *flist);
 
 /* add all songs in filelist to the playlist */

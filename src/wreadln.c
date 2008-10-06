@@ -71,12 +71,11 @@ static inline void cursor_move_right(gint *cursor,
 static inline void cursor_move_left(gint *cursor,
                                     gint *start)
 {
-  if( *cursor > 0 )
-    {
-      if( *cursor==*start && *start > 0 )
-	(*start)--;
-      (*cursor)--;
-    }
+	if (*cursor > 0) {
+		if (*cursor == *start && *start > 0)
+			(*start)--;
+		(*cursor)--;
+	}
 }
 
 /* move the cursor to the end of the line */
@@ -87,9 +86,9 @@ static inline void cursor_move_to_eol(gint *cursor,
 				      gint x1,
 				      gchar *line)
 {
-  *cursor = strlen(line);
-  if( *cursor+x0 >= x1 )
-    *start = *cursor-width+1;
+	*cursor = strlen(line);
+	if (*cursor + x0 >= x1)
+		*start = *cursor - width + 1;
 }
 
 /* draw line buffer and update cursor position */
@@ -102,18 +101,19 @@ static inline void drawline(gint cursor,
 			    gchar *line,
 			    WINDOW *w)
 {
-  wmove(w, y, x0);
-  /* clear input area */
-  whline(w, ' ', width);
-  /* print visible part of the line buffer */
-  if(masked == TRUE) whline(w, '*', utf8_width(line) - start);
-  else waddnstr(w, line+start, width);
-  /* move the cursor to the correct position */
-  wmove(w, y, x0 + cursor-start);
-  /* tell ncurses to redraw the screen */
-  doupdate();
+	wmove(w, y, x0);
+	/* clear input area */
+	whline(w, ' ', width);
+	/* print visible part of the line buffer */
+	if(masked == TRUE)
+		whline(w, '*', utf8_width(line) - start);
+	else
+		waddnstr(w, line+start, width);
+	/* move the cursor to the correct position */
+	wmove(w, y, x0 + cursor-start);
+	/* tell ncurses to redraw the screen */
+	doupdate();
 }
-
 
 /* libcurses version */
 
@@ -139,55 +139,53 @@ _wreadln(WINDOW *w,
 	/* make shure the cursor is visible */
 	curs_set(1);
 	/* print prompt string */
-	if( prompt )
+	if (prompt)
 		waddstr(w, prompt);
 	/* retrive y and x0 position */
 	getyx(w, y, x0);
 	/* check the x1 value */
-	if( x1<=x0 || x1>COLS )
+	if (x1 <= x0 || x1 > COLS)
 		x1 = COLS;
-	width = x1-x0;
+	width = x1 - x0;
 	/* clear input area */
 	mvwhline(w, y, x0, ' ', width);
 
-	if( history ) {
+	if (history) {
 		/* append the a new line to our history list */
 		*history = g_list_append(*history, g_malloc0(wrln_max_line_size));
 		/* hlist points to the current item in the history list */
-		hlist =  g_list_last(*history);
+		hlist = g_list_last(*history);
 		hcurrent = hlist;
 	}
 
-	if( initial_value == (char *) -1 ) {
+	if (initial_value == (char *)-1) {
 		/* get previous history entry */
-		if( history && hlist->prev )
-			{
-				if( hlist==hcurrent )
-					{
-						/* save the current line */
-						g_strlcpy(hlist->data, line, wrln_max_line_size);
-					}
-				/* get previous line */
-				hlist = hlist->prev;
-				g_strlcpy(line, hlist->data, wrln_max_line_size);
-			}
+		if (history && hlist->prev) {
+			if (hlist == hcurrent)
+				/* save the current line */
+				g_strlcpy(hlist->data, line, wrln_max_line_size);
+
+			/* get previous line */
+			hlist = hlist->prev;
+			g_strlcpy(line, hlist->data, wrln_max_line_size);
+		}
 		cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
 		drawline(cursor, start, width, x0, y, masked, line, w);
-	} else if( initial_value ) {
+	} else if (initial_value) {
 		/* copy the initial value to the line buffer */
 		g_strlcpy(line, initial_value, wrln_max_line_size);
 		cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
 		drawline(cursor, start, width, x0, y, masked, line, w);
 	}
 
-	while( key!=13 && key!='\n' ) {
+	while (key != 13 && key != '\n') {
 		key = wgetch(w);
 
 		/* check if key is a function key */
-		for(i=0; i<63; i++)
-			if( key==KEY_F(i) ) {
-				key=KEY_F(1);
-				i=64;
+		for (i = 0; i < 63; i++)
+			if (key == KEY_F(i)) {
+				key = KEY_F(1);
+				i = 64;
 			}
 
 		switch (key) {
@@ -198,22 +196,22 @@ _wreadln(WINDOW *w,
 			break;
 
 		case TAB:
-			if( gcmp ) {
+			if (gcmp) {
 				char *prefix = NULL;
 				GList *list;
 
-				if(wrln_pre_completion_callback)
+				if (wrln_pre_completion_callback)
 					wrln_pre_completion_callback(gcmp, line,
 								     wrln_completion_callback_data);
 				list = g_completion_complete(gcmp, line, &prefix);
-				if( prefix ) {
+				if (prefix) {
 					g_strlcpy(line, prefix, wrln_max_line_size);
 					cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
 					g_free(prefix);
-				}
-				else
+				} else
 					screen_bell();
-				if( wrln_post_completion_callback )
+
+				if (wrln_post_completion_callback)
 					wrln_post_completion_callback(gcmp, line, list,
 								      wrln_completion_callback_data);
 			}
@@ -222,7 +220,7 @@ _wreadln(WINDOW *w,
 		case KEY_CTRL_G:
 			screen_bell();
 			g_free(line);
-			if( history ) {
+			if (history) {
 				g_free(hcurrent->data);
 				hcurrent->data = NULL;
 				*history = g_list_delete_link(*history, hcurrent);
@@ -274,12 +272,11 @@ _wreadln(WINDOW *w,
 		case KEY_UP:
 		case KEY_CTRL_P:
 			/* get previous history entry */
-			if( history && hlist->prev ) {
-				if( hlist==hcurrent )
-					{
-						/* save the current line */
-						g_strlcpy(hlist->data, line, wrln_max_line_size);
-					}
+			if (history && hlist->prev) {
+				if (hlist == hcurrent)
+					/* save the current line */
+					g_strlcpy(hlist->data, line, wrln_max_line_size);
+
 				/* get previous line */
 				hlist = hlist->prev;
 				g_strlcpy(line, hlist->data, wrln_max_line_size);
@@ -289,7 +286,7 @@ _wreadln(WINDOW *w,
 		case KEY_DOWN:
 		case KEY_CTRL_N:
 			/* get next history entry */
-			if( history && hlist->next ) {
+			if (history && hlist->next) {
 				/* get next line */
 				hlist = hlist->next;
 				g_strlcpy(line, hlist->data, wrln_max_line_size);
@@ -331,8 +328,8 @@ _wreadln(WINDOW *w,
 	}
 
 	/* update history */
-	if( history ) {
-		if( strlen(line) ) {
+	if (history) {
+		if (strlen(line)) {
 			/* update the current history entry */
 			size_t size = strlen(line)+1;
 			hcurrent->data = g_realloc(hcurrent->data, size);
@@ -344,7 +341,7 @@ _wreadln(WINDOW *w,
 			*history = g_list_delete_link(*history, hcurrent);
 		}
 
-		while( g_list_length(*history) > wrln_max_history_length ) {
+		while (g_list_length(*history) > wrln_max_history_length) {
 			GList *first = g_list_first(*history);
 
 			/* remove the oldest history entry  */
