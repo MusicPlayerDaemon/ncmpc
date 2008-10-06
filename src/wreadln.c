@@ -54,14 +54,12 @@ wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 static inline void cursor_move_right(gint *cursor,
 				     gint *start,
 				     gint width,
-				     gint x0,
-				     gint x1,
 				     gchar *line)
 {
 	if (*cursor < (int)strlen(line) &&
 	    *cursor < (int)wrln_max_line_size - 1) {
 		(*cursor)++;
-		if (*cursor + x0 >= x1 && *start < *cursor - width + 1)
+		if (*cursor >= width && *start < *cursor - width + 1)
 			(*start)++;
 	}
 }
@@ -81,12 +79,10 @@ static inline void cursor_move_left(gint *cursor,
 static inline void cursor_move_to_eol(gint *cursor,
 				      gint *start,
 				      gint width,
-				      gint x0,
-				      gint x1,
 				      gchar *line)
 {
 	*cursor = strlen(line);
-	if (*cursor + x0 >= x1)
+	if (*cursor >= width)
 		*start = *cursor - width + 1;
 }
 
@@ -168,12 +164,12 @@ _wreadln(WINDOW *w,
 			hlist = hlist->prev;
 			g_strlcpy(line, hlist->data, wrln_max_line_size);
 		}
-		cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
+		cursor_move_to_eol(&cursor, &start, width, line);
 		drawline(cursor, start, width, x0, y, masked, line, w);
 	} else if (initial_value) {
 		/* copy the initial value to the line buffer */
 		g_strlcpy(line, initial_value, wrln_max_line_size);
-		cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
+		cursor_move_to_eol(&cursor, &start, width, line);
 		drawline(cursor, start, width, x0, y, masked, line, w);
 	}
 
@@ -205,7 +201,7 @@ _wreadln(WINDOW *w,
 				list = g_completion_complete(gcmp, line, &prefix);
 				if (prefix) {
 					g_strlcpy(line, prefix, wrln_max_line_size);
-					cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
+					cursor_move_to_eol(&cursor, &start, width, line);
 					g_free(prefix);
 				} else
 					screen_bell();
@@ -232,7 +228,7 @@ _wreadln(WINDOW *w,
 			break;
 		case KEY_RIGHT:
 		case KEY_CTRL_F:
-			cursor_move_right(&cursor, &start, width, x0, x1, line);
+			cursor_move_right(&cursor, &start, width, line);
 			break;
 		case KEY_HOME:
 		case KEY_CTRL_A:
@@ -241,7 +237,7 @@ _wreadln(WINDOW *w,
 			break;
 		case KEY_END:
 		case KEY_CTRL_E:
-			cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
+			cursor_move_to_eol(&cursor, &start, width, line);
 			break;
 		case KEY_CTRL_K:
 			line[cursor] = 0;
@@ -280,7 +276,7 @@ _wreadln(WINDOW *w,
 				hlist = hlist->prev;
 				g_strlcpy(line, hlist->data, wrln_max_line_size);
 			}
-			cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
+			cursor_move_to_eol(&cursor, &start, width, line);
 			break;
 		case KEY_DOWN:
 		case KEY_CTRL_N:
@@ -290,7 +286,7 @@ _wreadln(WINDOW *w,
 				hlist = hlist->next;
 				g_strlcpy(line, hlist->data, wrln_max_line_size);
 			}
-			cursor_move_to_eol(&cursor, &start, width, x0, x1, line);
+			cursor_move_to_eol(&cursor, &start, width, line);
 			break;
 
 		case '\n':
@@ -314,11 +310,11 @@ _wreadln(WINDOW *w,
 					line[cursor + 1] = 0;
 					g_strlcat (&line[cursor + 1], tmp, size);
 					g_free(tmp);
-					cursor_move_right(&cursor, &start, width, x0, x1, line);
+					cursor_move_right(&cursor, &start, width, line);
 				} else {
 					line[cursor + 1] = 0;
 					line[cursor] = key;
-					cursor_move_right(&cursor, &start, width, x0, x1, line);
+					cursor_move_right(&cursor, &start, width, line);
 				}
 			}
 		}
