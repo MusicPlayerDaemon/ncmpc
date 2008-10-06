@@ -122,16 +122,11 @@ wreadln_insert_byte(struct wreadln *wr, gint key)
 {
 	if (strlen(wr->line + wr->cursor)) { /* if the cursor is */
 		/* not at the last pos */
-		gchar *tmp = NULL;
 		gsize rest = strlen(wr->line + wr->cursor) + 1;
 
-		tmp = g_malloc0(rest);
-		g_strlcpy (tmp, wr->line + wr->cursor, rest);
+		memmove(wr->line + wr->cursor + 1,
+			wr->line + wr->cursor, rest);
 		wr->line[wr->cursor] = key;
-		wr->line[wr->cursor + 1] = 0;
-		g_strlcat(&wr->line[wr->cursor + 1], tmp, rest);
-		g_free(tmp);
-		cursor_move_right(wr);
 	} else {
 		wr->line[wr->cursor + 1] = 0;
 		wr->line[wr->cursor] = key;
