@@ -18,6 +18,7 @@
 
 #include "wreadln.h"
 #include "charset.h"
+#include "screen_utils.h"
 #include "config.h"
 
 #include <stdlib.h>
@@ -47,9 +48,6 @@ guint wrln_max_history_length = WRLN_MAX_HISTORY_LENGTH;
 void *wrln_completion_callback_data = NULL;
 wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
 wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
-
-extern void sigstop(void);
-extern void screen_bell(void);
 
 /* move the cursor one step to the right */
 static inline void cursor_move_right(gint *cursor,
