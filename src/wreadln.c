@@ -40,11 +40,12 @@
 #define KEY_BCKSPC   8
 #define TAB          9
 
-#define WRLN_MAX_LINE_SIZE 1024
-#define WRLN_MAX_HISTORY_LENGTH 32
- 
-guint wrln_max_line_size = WRLN_MAX_LINE_SIZE;
-guint wrln_max_history_length = WRLN_MAX_HISTORY_LENGTH;
+/** max size allocated for a line */
+static const size_t wrln_max_line_size = 1024;
+
+/** max items stored in the history list */
+static const guint wrln_max_history_length = 32;
+
 void *wrln_completion_callback_data = NULL;
 wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
 wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;

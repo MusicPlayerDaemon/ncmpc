@@ -4,12 +4,6 @@
 #include <glib.h>
 #include <ncurses.h>
 
-/* max size allocated for a line */
-extern guint wrln_max_line_size;
-
-/* max items stored in the history list */
-extern guint wrln_max_history_length;
-
 /* completion callback data */
 extern void *wrln_completion_callback_data;
 

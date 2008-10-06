@@ -28,7 +28,6 @@
 #include "options.h"
 #include "colors.h"
 #include "strfsong.h"
-#include "wreadln.h"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -522,9 +521,6 @@ screen_init(mpdclient_t *c)
 
 	if (mode_fn->open != NULL)
 		mode_fn->open(c);
-
-	/* initialize wreadln */
-	wrln_max_history_length = 16;
 }
 
 void
