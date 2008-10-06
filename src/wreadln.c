@@ -21,6 +21,7 @@
 #include "screen_utils.h"
 #include "config.h"
 
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -130,6 +131,17 @@ wreadln_insert_byte(struct wreadln *wr, gint key)
 	wr->line[wr->cursor] = key;
 
 	cursor_move_right(wr);
+}
+
+static void
+wreadln_delete_char(struct wreadln *wr, size_t x)
+{
+	size_t i;
+
+	assert(x < strlen(wr->line));
+
+	for (i = x; wr->line[i] != 0; i++)
+		wr->line[i] = wr->line[i + 1];
 }
 
 /* libcurses version */
@@ -274,18 +286,15 @@ _wreadln(WINDOW *w,
 		case 127:
 		case KEY_BCKSPC:	/* handle backspace: copy all */
 		case KEY_BACKSPACE:	/* chars starting from curpos */
-			if (wr.cursor > 0) {/* - 1 from buf[n+1] to buf   */
-				for (i = wr.cursor - 1; wr.line[i] != 0; i++)
-					wr.line[i] = wr.line[i + 1];
+			if (wr.cursor > 0) { /* - 1 from buf[n+1] to buf   */
 				cursor_move_left(&wr);
+				wreadln_delete_char(&wr, wr.cursor);
 			}
 			break;
 		case KEY_DC:		/* handle delete key. As above */
 		case KEY_CTRL_D:
-			if (wr.cursor <= utf8_width(wr.line) - 1) {
-				for (i = wr.cursor; wr.line[i] != 0; i++)
-					wr.line[i] = wr.line[i + 1];
-			}
+			if (wr.line[wr.cursor] != 0)
+				wreadln_delete_char(&wr, wr.cursor);
 			break;
 		case KEY_UP:
 		case KEY_CTRL_P:
