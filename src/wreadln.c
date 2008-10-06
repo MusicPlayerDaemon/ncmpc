@@ -130,7 +130,10 @@ wreadln_insert_byte(struct wreadln *wr, gint key)
 		wr->line + wr->cursor, rest);
 	wr->line[wr->cursor] = key;
 
-	cursor_move_right(wr);
+	wr->cursor += length;
+	if (wr->cursor >= (size_t)wr->width &&
+	    wr->start < wr->cursor - wr->width + 1)
+		wr->start += length;
 }
 
 static void
