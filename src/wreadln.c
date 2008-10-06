@@ -26,6 +26,10 @@
 #include <string.h>
 #include <glib.h>
 
+#ifdef ENABLE_WIDE
+#include <sys/poll.h>
+#endif
+
 #define KEY_CTRL_A   1
 #define KEY_CTRL_B   2
 #define KEY_CTRL_C   3
@@ -120,15 +124,65 @@ static inline void drawline(const struct wreadln *wr)
 	doupdate();
 }
 
+#ifdef ENABLE_WIDE
+static bool
+multibyte_is_complete(const char *p, size_t length)
+{
+	GError *error = NULL;
+	gchar *q = g_locale_to_utf8(p, length,
+				    NULL, NULL, &error);
+	if (q != NULL) {
+		g_free(q);
+		return true;
+	} else {
+		g_error_free(error);
+		return false;
+	}
+}
+#endif
+
 static void
 wreadln_insert_byte(struct wreadln *wr, gint key)
 {
 	size_t rest = strlen(wr->line + wr->cursor) + 1;
+#ifdef ENABLE_WIDE
+	char buffer[32] = { key };
+	size_t length = 1;
+	struct pollfd pfd = {
+		.fd = 0,
+		.events = POLLIN,
+	};
+	int ret;
+
+	/* wide version: try to complete the multibyte sequence */
+
+	while (length < sizeof(buffer)) {
+		if (multibyte_is_complete(buffer, length))
+			/* sequence is complete */
+			break;
+
+		/* poll for more bytes on stdin, without timeout */
+
+		ret = poll(&pfd, 1, 0);
+		if (ret <= 0)
+			/* no more input from keyboard */
+			break;
+
+		buffer[length++] = wgetch(wr->w);
+	}
+
+	memmove(wr->line + wr->cursor + length,
+		wr->line + wr->cursor, rest);
+	memcpy(wr->line + wr->cursor, buffer, length);
+
+#else
 	const size_t length = 1;
 
 	memmove(wr->line + wr->cursor + length,
 		wr->line + wr->cursor, rest);
 	wr->line[wr->cursor] = key;
+
+#endif
 
 	wr->cursor += length;
 	if (wr->cursor >= (size_t)wr->width &&
