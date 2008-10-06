@@ -74,22 +74,24 @@ wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 /* move the cursor one step to the right */
 static inline void cursor_move_right(struct wreadln *wr)
 {
-	if (wr->cursor < strlen(wr->line)) {
-		++wr->cursor;
-		if (wr->cursor >= (size_t)wr->width &&
-		    wr->start < wr->cursor - wr->width + 1)
-			++wr->start;
-	}
+	if (wr->line[wr->cursor] == 0)
+		return;
+
+	++wr->cursor;
+	if (wr->cursor >= (size_t)wr->width &&
+	    wr->start < wr->cursor - wr->width + 1)
+		++wr->start;
 }
 
 /* move the cursor one step to the left */
 static inline void cursor_move_left(struct wreadln *wr)
 {
-	if (wr->cursor > 0) {
-		if (wr->cursor == wr->start && wr->start > 0)
-			--wr->start;
-		--wr->cursor;
-	}
+	if (wr->cursor == 0)
+		return;
+
+	if (wr->cursor == wr->start && wr->start > 0)
+		--wr->start;
+	--wr->cursor;
 }
 
 /* move the cursor to the end of the line */
