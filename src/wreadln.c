@@ -120,17 +120,12 @@ static inline void drawline(const struct wreadln *wr)
 static void
 wreadln_insert_byte(struct wreadln *wr, gint key)
 {
-	if (strlen(wr->line + wr->cursor)) { /* if the cursor is */
-		/* not at the last pos */
-		gsize rest = strlen(wr->line + wr->cursor) + 1;
+	size_t rest = strlen(wr->line + wr->cursor) + 1;
+	const size_t length = 1;
 
-		memmove(wr->line + wr->cursor + 1,
-			wr->line + wr->cursor, rest);
-		wr->line[wr->cursor] = key;
-	} else {
-		wr->line[wr->cursor + 1] = 0;
-		wr->line[wr->cursor] = key;
-	}
+	memmove(wr->line + wr->cursor + length,
+		wr->line + wr->cursor, rest);
+	wr->line[wr->cursor] = key;
 
 	cursor_move_right(wr);
 }
