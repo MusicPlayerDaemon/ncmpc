@@ -45,20 +45,20 @@ struct wreadln {
 	WINDOW *const w;
 
 	/** the origin coordinates in the window */
-	gint x, y;
+	unsigned x, y;
 
 	/** the screen width of the input field */
-	gint width;
+	unsigned width;
 
 	/** is the input masked, i.e. characters displayed as '*'? */
 	const gboolean masked;
 
 	/** the byte position of the cursor */
-	gint cursor;
+	size_t cursor;
 
 	/** the byte position displayed at the origin (for horizontal
 	    scrolling) */
-	gint start;
+	size_t start;
 
 	/** the current value */
 	gchar line[1024];
@@ -74,9 +74,9 @@ wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 /* move the cursor one step to the right */
 static inline void cursor_move_right(struct wreadln *wr)
 {
-	if (wr->cursor < (int)strlen(wr->line)) {
+	if (wr->cursor < strlen(wr->line)) {
 		++wr->cursor;
-		if (wr->cursor >= wr->width &&
+		if (wr->cursor >= (size_t)wr->width &&
 		    wr->start < wr->cursor - wr->width + 1)
 			++wr->start;
 	}
@@ -136,7 +136,7 @@ static gchar *
 _wreadln(WINDOW *w,
 	 const gchar *prompt,
 	 const gchar *initial_value,
-	 gint x1,
+	 unsigned x1,
 	 GList **history,
 	 GCompletion *gcmp,
 	 gboolean masked)
@@ -148,7 +148,8 @@ _wreadln(WINDOW *w,
 		.start = 0,
 	};
 	GList *hlist = NULL, *hcurrent = NULL;
-	gint key = 0, i;
+	gint key = 0;
+	size_t i;
 
 	/* turn off echo */
 	noecho();
@@ -160,7 +161,7 @@ _wreadln(WINDOW *w,
 	/* retrive y and x0 position */
 	getyx(w, wr.y, wr.x);
 	/* check the x1 value */
-	if (x1 <= wr.x || x1 > COLS)
+	if (x1 <= wr.x || x1 > (unsigned)COLS)
 		x1 = COLS;
 	wr.width = x1 - wr.x;
 	/* clear input area */
@@ -199,7 +200,7 @@ _wreadln(WINDOW *w,
 
 		/* check if key is a function key */
 		for (i = 0; i < 63; i++)
-			if (key == KEY_F(i)) {
+			if (key == (int)KEY_F(i)) {
 				key = KEY_F(1);
 				i = 64;
 			}
@@ -279,7 +280,7 @@ _wreadln(WINDOW *w,
 			break;
 		case KEY_DC:		/* handle delete key. As above */
 		case KEY_CTRL_D:
-			if (wr.cursor <= (gint)utf8_width(wr.line) - 1) {
+			if (wr.cursor <= utf8_width(wr.line) - 1) {
 				for (i = wr.cursor; wr.line[i] != 0; i++)
 					wr.line[i] = wr.line[i + 1];
 			}
@@ -359,7 +360,7 @@ gchar *
 wreadln(WINDOW *w,
 	const gchar *prompt,
 	const gchar *initial_value,
-	gint x1,
+	unsigned x1,
 	GList **history,
 	GCompletion *gcmp)
 {
@@ -370,7 +371,7 @@ gchar *
 wreadln_masked(WINDOW *w,
 	       const gchar *prompt,
 	       const gchar *initial_value,
-	       gint x1,
+	       unsigned x1,
 	       GList **history,
 	       GCompletion *gcmp)
 {

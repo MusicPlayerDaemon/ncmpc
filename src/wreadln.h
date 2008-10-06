@@ -22,7 +22,7 @@ gchar *wreadln(WINDOW *w,            /* the curses window to use */
 	       const gchar *prompt, /* the prompt string or NULL */
 	       const gchar *initial_value, /* initial value or NULL for a empty line
 					    * (char *) -1 = get value from history */
-	       gint x1,              /* the maximum x position or 0 */
+	       unsigned x1,              /* the maximum x position or 0 */
 	       GList **history,     /* a pointer to a history list or NULL */
 	       GCompletion *gcmp    /* a GCompletion structure or NULL */
 	       );
@@ -31,7 +31,7 @@ gchar *
 wreadln_masked(WINDOW *w,
 	       const gchar *prompt,
 	       const gchar *initial_value,
-	       gint x1,
+	       unsigned x1,
 	       GList **history,
 	       GCompletion *gcmp);
 
