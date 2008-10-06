@@ -42,11 +42,6 @@ ncu_init(void)
 	/* tell curses not to do NL->CR/NL on output */
 	nonl();
 
-	/*  use raw mode (ignore interrupt,quit,suspend, and flow control ) */
-#ifdef ENABLE_RAW_MODE
-	//  raw();
-#endif
-
 	/* don't echo input */
 	noecho();
 

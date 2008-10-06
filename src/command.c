@@ -398,15 +398,6 @@ my_wgetch(WINDOW *w)
 
 	c = wgetch(w);
 
-#ifdef ENABLE_RAW_MODE
-	/* handle SIGSTOP (Ctrl-Z) */
-	if (c == 26 || c == 407)
-		sigstop();
-	/* handle SIGINT (Ctrl-C) */
-	if (c == 3)
-		kill(getpid(), SIGTERM);
-#endif
-
 	return c;
 }
 

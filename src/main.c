@@ -139,10 +139,6 @@ catch_sigint(mpd_unused int sig)
 static void
 catch_sigcont(mpd_unused int sig)
 {
-#ifdef ENABLE_RAW_MODE
-	reset_prog_mode(); /* restore tty modes */
-	refresh();
-#endif
 	screen_resize(mpd);
 }
 
