@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
-#include <ncurses.h>
 
 typedef struct {
 	signed char highlight;

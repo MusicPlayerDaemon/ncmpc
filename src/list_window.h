@@ -4,8 +4,13 @@
 #include "../config.h"
 #include "command.h"
 
-#include <ncurses.h>
 #include <glib.h>
+
+#ifdef HAVE_NCURSESW_NCURSES_H
+#include <ncursesw/ncurses.h>
+#else
+#include <ncurses.h>
+#endif
 
 #define LW_HIDE_CURSOR    0x01
 

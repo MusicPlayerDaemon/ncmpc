@@ -3,7 +3,6 @@
 
 #include <stddef.h>
 #include <stdio.h>
-#include <ncurses.h>
 
 #define MAX_COMMAND_KEYS 3
 

@@ -32,7 +32,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
-#include <ncurses.h>
 
 #define BUFSIZE 1024
 

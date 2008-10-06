@@ -5,8 +5,13 @@
 #include "mpdclient.h"
 #include "command.h"
 
-#include <ncurses.h>
 #include <glib.h>
+
+#ifdef HAVE_NCURSESW_NCURSES_H
+#include <ncursesw/ncurses.h>
+#else
+#include <ncurses.h>
+#endif
 
 #define IS_PLAYING(s) (s==MPD_STATUS_STATE_PLAY)
 #define IS_PAUSED(s) (s==MPD_STATUS_STATE_PAUSE)

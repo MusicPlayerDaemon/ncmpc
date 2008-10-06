@@ -33,7 +33,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
-#include <ncurses.h>
 #include <unistd.h>
 #include <stdio.h>
 

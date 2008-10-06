@@ -26,7 +26,11 @@
 #include "options.h"
 #endif
 
+#ifdef HAVE_NCURSESW_NCURSES_H
+#include <ncursesw/ncurses.h>
+#else
 #include <ncurses.h>
+#endif
 
 void
 ncu_init(void)

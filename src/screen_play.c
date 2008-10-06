@@ -36,7 +36,6 @@
 #include <string.h>
 #include <time.h>
 #include <glib.h>
-#include <ncurses.h>
 
 #define MAX_SONG_LENGTH 512
 

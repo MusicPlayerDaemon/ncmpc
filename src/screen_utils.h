@@ -1,10 +1,15 @@
 #ifndef SCREEN_UTILS_H
 #define SCREEN_UTILS_H
 
+#include "config.h"
 #include "list_window.h"
 #include "command.h"
 
+#ifdef HAVE_NCURSESW_NCURSES_H
+#include <ncursesw/ncurses.h>
+#else
 #include <ncurses.h>
+#endif
 
 struct mpdclient;
 

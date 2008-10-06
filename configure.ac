@@ -83,6 +83,11 @@ AC_CHECK_LIB([$ncurses],
 	     [LIBS="$LIBS -l$ncurses"], 
 	     [AC_MSG_ERROR($ncurses library is required)])
 
+if test "x$ncurses" = "xncursesw"; then
+    AC_CHECK_HEADER([ncursesw/ncurses.h],
+                    AC_DEFINE([HAVE_NCURSESW_NCURSES_H], [1], [ncursesw/ncurses.h]),
+                    ,)
+fi
 
 
 dnl Check for glib-2.4

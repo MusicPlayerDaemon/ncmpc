@@ -1,8 +1,15 @@
 #ifndef WREADLN_H
 #define WREADLN_H
 
+#include "config.h"
+
 #include <glib.h>
+
+#ifdef HAVE_NCURSESW_NCURSES_H
+#include <ncursesw/ncurses.h>
+#else
 #include <ncurses.h>
+#endif
 
 /* completion callback data */
 extern void *wrln_completion_callback_data;

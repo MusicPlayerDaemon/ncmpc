@@ -29,7 +29,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
-#include <ncurses.h>
 
 #define STATIC_ITEMS      0
 #define STATIC_SUB_ITEMS  1
