@@ -10,10 +10,6 @@ extern guint wrln_max_line_size;
 /* max items stored in the history list */
 extern guint wrln_max_history_length;
 
-/* custom wgetch function */
-typedef int (*wrln_wgetch_fn_t) (WINDOW *w);
-extern wrln_wgetch_fn_t wrln_wgetch;
-
 /* completion callback data */
 extern void *wrln_completion_callback_data;
 

@@ -391,22 +391,12 @@ get_key_command(int key)
 	return find_key_command(key, cmds);
 }
 
-int
-my_wgetch(WINDOW *w)
-{
-	int c;
-
-	c = wgetch(w);
-
-	return c;
-}
-
 command_t
 get_keyboard_command(void)
 {
 	int key;
 
-	key = my_wgetch(stdscr);
+	key = wgetch(stdscr);
 	if (key == ERR)
 		return CMD_NONE;
 

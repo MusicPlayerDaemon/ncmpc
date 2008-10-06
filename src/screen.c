@@ -25,7 +25,6 @@
 #include "charset.h"
 #include "mpdclient.h"
 #include "utils.h"
-#include "command.h"
 #include "options.h"
 #include "colors.h"
 #include "strfsong.h"
@@ -525,7 +524,6 @@ screen_init(mpdclient_t *c)
 		mode_fn->open(c);
 
 	/* initialize wreadln */
-	wrln_wgetch = my_wgetch;
 	wrln_max_history_length = 16;
 }
 

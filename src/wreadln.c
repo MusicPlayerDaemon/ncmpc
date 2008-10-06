@@ -44,7 +44,6 @@
  
 guint wrln_max_line_size = WRLN_MAX_LINE_SIZE;
 guint wrln_max_history_length = WRLN_MAX_HISTORY_LENGTH;
-wrln_wgetch_fn_t wrln_wgetch = NULL;
 void *wrln_completion_callback_data = NULL;
 wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
 wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
@@ -182,10 +181,7 @@ _wreadln(WINDOW *w,
 	}
 
 	while( key!=13 && key!='\n' ) {
-		if( wrln_wgetch )
-			key = wrln_wgetch(w);
-		else
-			key = wgetch(w);
+		key = wgetch(w);
 
 		/* check if key is a function key */
 		for(i=0; i<63; i++)

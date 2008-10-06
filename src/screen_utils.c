@@ -54,7 +54,7 @@ screen_getch(WINDOW *w, const char *prompt)
 	echo();
 	curs_set(1);
 
-	while ((key=my_wgetch(w)) == ERR)
+	while ((key = wgetch(w)) == ERR)
 		;
 
 #ifdef HAVE_GETMOUSE
