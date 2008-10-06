@@ -61,11 +61,8 @@ struct wreadln {
 	gint start;
 
 	/** the current value */
-	gchar *line;
+	gchar line[1024];
 };
-
-/** max size allocated for a line */
-static const size_t wrln_max_line_size = 1024;
 
 /** max items stored in the history list */
 static const guint wrln_max_history_length = 32;
@@ -77,8 +74,7 @@ wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 /* move the cursor one step to the right */
 static inline void cursor_move_right(struct wreadln *wr)
 {
-	if (wr->cursor < (int)strlen(wr->line) &&
-	    wr->cursor < (int)wrln_max_line_size - 1) {
+	if (wr->cursor < (int)strlen(wr->line)) {
 		++wr->cursor;
 		if (wr->cursor >= wr->width &&
 		    wr->start < wr->cursor - wr->width + 1)
@@ -141,8 +137,6 @@ _wreadln(WINDOW *w,
 	GList *hlist = NULL, *hcurrent = NULL;
 	gint key = 0, i;
 
-	/* allocate a line buffer */
-	wr.line = g_malloc0(wrln_max_line_size);
 	/* turn off echo */
 	noecho();
 	/* make shure the cursor is visible */
@@ -161,7 +155,7 @@ _wreadln(WINDOW *w,
 
 	if (history) {
 		/* append the a new line to our history list */
-		*history = g_list_append(*history, g_malloc0(wrln_max_line_size));
+		*history = g_list_append(*history, g_malloc0(sizeof(wr.line)));
 		/* hlist points to the current item in the history list */
 		hlist = g_list_last(*history);
 		hcurrent = hlist;
@@ -172,17 +166,17 @@ _wreadln(WINDOW *w,
 		if (history && hlist->prev) {
 			if (hlist == hcurrent)
 				/* save the current line */
-				g_strlcpy(hlist->data, wr.line, wrln_max_line_size);
+				g_strlcpy(hlist->data, wr.line, sizeof(wr.line));
 
 			/* get previous line */
 			hlist = hlist->prev;
-			g_strlcpy(wr.line, hlist->data, wrln_max_line_size);
+			g_strlcpy(wr.line, hlist->data, sizeof(wr.line));
 		}
 		cursor_move_to_eol(&wr);
 		drawline(&wr);
 	} else if (initial_value) {
 		/* copy the initial value to the line buffer */
-		g_strlcpy(wr.line, initial_value, wrln_max_line_size);
+		g_strlcpy(wr.line, initial_value, sizeof(wr.line));
 		cursor_move_to_eol(&wr);
 		drawline(&wr);
 	}
@@ -214,7 +208,7 @@ _wreadln(WINDOW *w,
 								     wrln_completion_callback_data);
 				list = g_completion_complete(gcmp, wr.line, &prefix);
 				if (prefix) {
-					g_strlcpy(wr.line, prefix, wrln_max_line_size);
+					g_strlcpy(wr.line, prefix, sizeof(wr.line));
 					cursor_move_to_eol(&wr);
 					g_free(prefix);
 				} else
@@ -228,7 +222,6 @@ _wreadln(WINDOW *w,
 
 		case KEY_CTRL_G:
 			screen_bell();
-			g_free(wr.line);
 			if (history) {
 				g_free(hcurrent->data);
 				hcurrent->data = NULL;
@@ -285,12 +278,12 @@ _wreadln(WINDOW *w,
 				if (hlist == hcurrent)
 					/* save the current line */
 					g_strlcpy(hlist->data, wr.line,
-						  wrln_max_line_size);
+						  sizeof(wr.line));
 
 				/* get previous line */
 				hlist = hlist->prev;
 				g_strlcpy(wr.line, hlist->data,
-					  wrln_max_line_size);
+					  sizeof(wr.line));
 			}
 			cursor_move_to_eol(&wr);
 			break;
@@ -301,7 +294,7 @@ _wreadln(WINDOW *w,
 				/* get next line */
 				hlist = hlist->next;
 				g_strlcpy(wr.line, hlist->data,
-					  wrln_max_line_size);
+					  sizeof(wr.line));
 			}
 			cursor_move_to_eol(&wr);
 			break;
@@ -363,7 +356,7 @@ _wreadln(WINDOW *w,
 		}
 	}
 
-	return g_realloc(wr.line, strlen(wr.line) + 1);
+	return g_strdup(wr.line);
 }
 
 gchar *
