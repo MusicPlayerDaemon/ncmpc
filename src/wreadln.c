@@ -136,12 +136,13 @@ wreadln_insert_byte(struct wreadln *wr, gint key)
 static void
 wreadln_delete_char(struct wreadln *wr, size_t x)
 {
-	size_t i;
+	size_t rest;
+	const size_t length = 1;
 
 	assert(x < strlen(wr->line));
 
-	for (i = x; wr->line[i] != 0; i++)
-		wr->line[i] = wr->line[i + 1];
+	rest = strlen(&wr->line[x + length]) + 1;
+	memmove(&wr->line[x], &wr->line[x + length], rest);
 }
 
 /* libcurses version */
