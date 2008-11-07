@@ -22,12 +22,6 @@ ALL_LINGUAS="es da de fr gl no ru sv"
 set -- $CFLAGS
 
 dnl
-dnl Check for types
-dnl
-
-AC_MSG_RESULT([$ac_have_socklen_t]) 
-
-dnl
 dnl Check for headers
 dnl
 
