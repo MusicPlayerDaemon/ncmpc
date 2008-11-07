@@ -48,7 +48,7 @@ AC_ARG_ENABLE(mini,
 
 AM_CONDITIONAL(NCMPC_MINI, test x$enable_mini = xyes)
 if test "x$enable_mini" = xyes; then
-    AC_DEFINE([NCMPC_MINI], [1], [Build ncmpc-mini, which disables lots of features]),
+    AC_DEFINE([NCMPC_MINI], [1], [Build ncmpc-mini, which disables lots of features])
     auto=no
     disable_mini=no
     ncurses=ncurses
