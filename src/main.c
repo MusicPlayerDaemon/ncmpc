@@ -34,6 +34,10 @@
 #include "lyrics.h"
 #endif
 
+#ifdef ENABLE_LIRC
+#include "lirc.h"
+#endif
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
@@ -292,6 +296,40 @@ keyboard_event(mpd_unused GIOChannel *source,
 	return TRUE;
 }
 
+#ifdef ENABLE_LIRC
+static gboolean
+lirc_event(mpd_unused GIOChannel *source,
+	   mpd_unused GIOCondition condition, mpd_unused gpointer data)
+{
+	command_t cmd;
+
+	/* remove the idle timeout; add it later with fresh interval */
+	g_source_remove(idle_source_id);
+
+	if ((cmd = ncmpc_lirc_get_command()) != CMD_NONE) {
+		if (cmd == CMD_QUIT) {
+			g_main_loop_quit(main_loop);
+			return FALSE;
+		}
+
+		screen_cmd(mpd, cmd);
+
+		if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN) {
+			/* make sure we dont update the volume yet */
+			g_source_remove(update_source_id);
+			update_source_id = g_timeout_add(update_interval,
+							 timer_mpd_update,
+							 GINT_TO_POINTER(TRUE));
+		}
+	}
+
+	screen_update(mpd);
+
+	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
+	return TRUE;
+}
+#endif
+
 /**
  * Check the configured key bindings for errors, and display a status
  * message every 10 seconds.
@@ -321,6 +359,10 @@ main(int argc, const char *argv[])
 	const char *charset = NULL;
 #endif
 	GIOChannel *keyboard_channel;
+#ifdef ENABLE_LIRC
+	int lirc_socket;
+	GIOChannel *lirc_channel = NULL;
+#endif
 
 #ifdef HAVE_LOCALE_H
 	/* time and date formatting */
@@ -426,6 +468,15 @@ main(int argc, const char *argv[])
 	keyboard_channel = g_io_channel_unix_new(STDIN_FILENO);
 	g_io_add_watch(keyboard_channel, G_IO_IN, keyboard_event, NULL);
 
+#ifdef ENABLE_LIRC
+	/* watch out for lirc input */
+	lirc_socket = ncmpc_lirc_open();
+	if (lirc_socket >= 0) {
+		lirc_channel = g_io_channel_unix_new(lirc_socket);
+		g_io_add_watch(lirc_channel, G_IO_IN, lirc_event, NULL);
+	}
+#endif
+
 	/* attempt to connect */
 	reconnect_source_id = g_timeout_add(1, timer_reconnect, NULL);
 
@@ -443,6 +494,12 @@ main(int argc, const char *argv[])
 
 	g_main_loop_unref(main_loop);
 	g_io_channel_unref(keyboard_channel);
+
+#ifdef ENABLE_LIRC
+	if (lirc_socket >= 0)
+		g_io_channel_unref(lirc_channel);
+	ncmpc_lirc_close();
+#endif
 
 	exit_and_cleanup();
 	ncu_deinit();

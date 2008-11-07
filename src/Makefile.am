@@ -37,6 +37,7 @@ ncmpc_headers = \
 	screen_browser.h \
 	lyrics.h \
 	str_pool.h \
+	lirc.h \
 	gcc.h
 
 # $Id$
@@ -87,6 +88,10 @@ endif
 
 if ENABLE_LYRICS_SCREEN
 ncmpc_SOURCES += screen_lyrics.c lyrics.c
+endif
+
+if ENABLE_LIRC
+ncmpc_SOURCES += lirc.c
 endif
 
 ncmpc_SOURCES+=${ncmpc_headers}

@@ -174,6 +174,11 @@ if test "x$use_colors" = "xyes" ; then
     AC_DEFINE([ENABLE_COLORS], [1], [Enable color support])
 fi
 
+dnl test for LIRC support
+AC_CHECK_LIB(lirc_client, lirc_init)
+AC_SUBST(LIRC_LIBS)
+AC_DEFINE([ENABLE_LIRC], [1], [Enable LIRC support])
+
 dnl Debugging 
 AC_MSG_CHECKING([whether to build with debug support])
 AC_ARG_ENABLE([debug], 
