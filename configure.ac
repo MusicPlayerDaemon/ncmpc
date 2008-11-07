@@ -59,8 +59,8 @@ dnl wide character support
 AC_ARG_ENABLE([wide],
     AC_HELP_STRING([--enable-wide],
                    [Enable wide character support]),
-                   [use_wide=$enableval], 
-                   [use_wide=auto])
+                   [enable_wide=$enableval],
+                   [enable_wide=auto])
 
 
 dnl ncurses
@@ -104,17 +104,17 @@ fi
 
 dnl wide character support II
 
-if test "x$use_wide" = "xauto" ; then
+if test "x$enable_wide" = "xauto" ; then
     AC_CHECK_LIB([$ncurses], 
 	         [wget_wch],
-	         [use_wide=yes],
-	         [use_wide=no])
+	         [enable_wide=yes],
+	         [enable_wide=no])
 fi
 
 AC_MSG_CHECKING([wide character support])
-AC_MSG_RESULT([$use_wide])
+AC_MSG_RESULT([$enable_wide])
 
-if test "x$use_wide" = "xyes" ; then
+if test "x$enable_wide" = "xyes" ; then
     AC_DEFINE([ENABLE_WIDE], [1], [Enable wide character support])
 fi
 
