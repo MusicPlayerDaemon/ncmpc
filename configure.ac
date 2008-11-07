@@ -1,7 +1,3 @@
-dnl
-dnl  $Id$
-dnl
-
 AC_INIT(ncurses MPD client, 0.12~git, max@duempel.org, ncmpc)
 AC_CONFIG_SRCDIR([src/main.c])
 AM_INIT_AUTOMAKE([gnu 1.9 dist-bzip2])

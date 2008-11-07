@@ -1,5 +1,3 @@
-#SUBDIRS = 
-
 AM_CPPFLAGS = \
   $(GLIB_CFLAGS)\
   $(GTHREAD_CFLAGS)\
@@ -41,8 +39,6 @@ ncmpc_headers = \
 	str_pool.h \
 	lirc.h \
 	gcc.h
-
-# $Id$
 
 bin_PROGRAMS = ncmpc
 
