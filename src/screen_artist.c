@@ -214,14 +214,14 @@ load_song_list(struct mpdclient *c)
 
 	if (album[0] == 0)
 		browser.filelist =
-			mpdclient_filelist_search_utf8(c, TRUE,
-						       MPD_TABLE_ARTIST,
-						       artist);
+			mpdclient_filelist_search(c, TRUE,
+						  MPD_TABLE_ARTIST,
+						  artist);
 	else
 		browser.filelist =
-			mpdclient_filelist_search_utf8(c, TRUE,
-						       MPD_TABLE_ALBUM,
-						       album);
+			mpdclient_filelist_search(c, TRUE,
+						  MPD_TABLE_ALBUM,
+						  album);
 	if (browser.filelist == NULL)
 		browser.filelist = filelist_new(NULL);
 
@@ -414,7 +414,7 @@ add_query(mpdclient_t *c, int table, char *_filter)
 		screen_status_printf("Adding %s...", str);
 	g_free(str);
 
-	addlist = mpdclient_filelist_search_utf8(c, TRUE, table, _filter);
+	addlist = mpdclient_filelist_search(c, TRUE, table, _filter);
 	if (addlist) {
 		mpdclient_filelist_add_all(c, addlist);
 		filelist_free(addlist);

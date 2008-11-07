@@ -197,7 +197,7 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 	} else if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY) {
 		/* enter sub */
 		mpd_Directory *dir = entity->info.directory;
-		path = utf8_to_locale(dir->path);
+		path = g_strdup(dir->path);
 	} else
 		return -1;
 
@@ -360,7 +360,7 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 #ifdef USE_OLD_ADD
 		add_directory(c, tmp);
 #else
-		if (mpdclient_cmd_add_path_utf8(c, dir->path) == 0) {
+		if (mpdclient_cmd_add_path(c, dir->path) == 0) {
 			char *tmp = utf8_to_locale(dir->path);
 
 			screen_status_printf(_("Adding \'%s\' to playlist\n"), tmp);

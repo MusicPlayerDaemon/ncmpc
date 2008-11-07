@@ -19,7 +19,6 @@
 #include "mpdclient.h"
 #include "screen_utils.h"
 #include "config.h"
-#include "charset.h"
 #include "options.h"
 #include "strfsong.h"
 
@@ -123,7 +122,6 @@ mpdclient_finish_command(mpdclient_t *c)
 
 	if (c->connection->error) {
 		gint error = c->connection->error;
-		gchar *msg;
 
 		if (error == MPD_ERROR_ACK &&
 		    c->connection->errorCode == MPD_ACK_ERROR_PERMISSION &&
@@ -133,9 +131,7 @@ mpdclient_finish_command(mpdclient_t *c)
 		if (error == MPD_ERROR_ACK)
 			error = error | (c->connection->errorCode << 8);
 
-		msg = locale_to_utf8(c->connection->errorStr);
-		error_cb(c, error, msg);
-		g_free(msg);
+		error_cb(c, error, c->connection->errorStr);
 		return error;
 	}
 
@@ -399,21 +395,10 @@ mpdclient_cmd_volume(mpdclient_t *c, gint value)
 }
 
 gint
-mpdclient_cmd_add_path_utf8(mpdclient_t *c, gchar *path_utf8)
+mpdclient_cmd_add_path(mpdclient_t *c, gchar *path_utf8)
 {
 	mpd_sendAddCommand(c->connection, path_utf8);
 	return mpdclient_finish_command(c);
-}
-
-gint
-mpdclient_cmd_add_path(mpdclient_t *c, gchar *path)
-{
-	gint retval;
-	gchar *path_utf8 = locale_to_utf8(path);
-
-	retval=mpdclient_cmd_add_path_utf8(c, path_utf8);
-	g_free(path_utf8);
-	return retval;
 }
 
 gint
@@ -530,24 +515,13 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 }
 
 gint
-mpdclient_cmd_save_playlist_utf8(mpdclient_t *c, gchar *filename_utf8)
+mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename_utf8)
 {
 	gint retval = 0;
 
 	mpd_sendSaveCommand(c->connection, filename_utf8);
 	if ((retval = mpdclient_finish_command(c)) == 0)
 		mpdclient_browse_callback(c, BROWSE_PLAYLIST_SAVED, NULL);
-	return retval;
-}
-
-gint
-mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename)
-{
-	gint retval = 0;
-	gchar *filename_utf8 = locale_to_utf8(filename);
-
-	retval = mpdclient_cmd_save_playlist_utf8(c, filename);
-	g_free(filename_utf8);
 	return retval;
 }
 
@@ -560,24 +534,13 @@ mpdclient_cmd_load_playlist_utf8(mpdclient_t *c, gchar *filename_utf8)
 }
 
 gint
-mpdclient_cmd_delete_playlist_utf8(mpdclient_t *c, gchar *filename_utf8)
+mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename_utf8)
 {
 	gint retval = 0;
 
 	mpd_sendRmCommand(c->connection, filename_utf8);
 	if ((retval = mpdclient_finish_command(c)) == 0)
 		mpdclient_browse_callback(c, BROWSE_PLAYLIST_DELETED, NULL);
-	return retval;
-}
-
-gint
-mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename)
-{
-	gint retval = 0;
-	gchar *filename_utf8 = locale_to_utf8(filename);
-
-	retval = mpdclient_cmd_delete_playlist_utf8(c, filename_utf8);
-	g_free(filename_utf8);
 	return retval;
 }
 
@@ -740,10 +703,9 @@ mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 {
 	mpdclient_filelist_t *filelist;
 	mpd_InfoEntity *entity;
-	gchar *path_utf8 = locale_to_utf8(path);
 	gboolean has_dirs_only = TRUE;
 
-	mpd_sendLsInfoCommand(c->connection, path_utf8);
+	mpd_sendLsInfoCommand(c->connection, path);
 	filelist = filelist_new(path);
 	if (path && path[0] && strcmp(path, "/"))
 		/* add a dummy entry for ./.. */
@@ -760,8 +722,6 @@ mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 	/* If there's an error, ignore it.  We'll return an empty filelist. */
 	mpdclient_finish_command(c);
 
-	g_free(path_utf8);
-
 	// If there are only directory entities in the filelist, we sort it
 	if (has_dirs_only)
 		filelist_sort(filelist, compare_filelistentry_dir);
@@ -770,10 +730,10 @@ mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 }
 
 mpdclient_filelist_t *
-mpdclient_filelist_search_utf8(mpdclient_t *c,
-			       int exact_match,
-			       int table,
-			       gchar *filter_utf8)
+mpdclient_filelist_search(mpdclient_t *c,
+			  int exact_match,
+			  int table,
+			  gchar *filter_utf8)
 {
 	mpdclient_filelist_t *filelist;
 	mpd_InfoEntity *entity;
@@ -791,23 +751,6 @@ mpdclient_filelist_search_utf8(mpdclient_t *c,
 		filelist_free(filelist);
 		return NULL;
 	}
-
-	return filelist;
-}
-
-
-mpdclient_filelist_t *
-mpdclient_filelist_search(mpdclient_t *c,
-			  int exact_match,
-			  int table,
-			  gchar *_filter)
-{
-	mpdclient_filelist_t *filelist;
-	gchar *filter_utf8 = locale_to_utf8(_filter);
-
-	filelist = mpdclient_filelist_search_utf8(c, exact_match, table,
-						  filter_utf8);
-	g_free(filter_utf8);
 
 	return filelist;
 }

@@ -18,6 +18,7 @@
 
 #include "config.h"
 #include "i18n.h"
+#include "charset.h"
 #include "options.h"
 #include "support.h"
 #include "mpdclient.h"
@@ -156,7 +157,7 @@ save_post_completion_cb(mpd_unused GCompletion *gcmp, mpd_unused gchar *line,
 int
 playlist_save(mpdclient_t *c, char *name, char *defaultname)
 {
-	gchar *filename;
+	gchar *filename, *filename_utf8;
 	gint error;
 #ifndef NCMPC_MINI
 	GCompletion *gcmp;
@@ -204,7 +205,12 @@ playlist_save(mpdclient_t *c, char *name, char *defaultname)
 		return -1;
 
 	/* send save command to mpd */
-	if ((error = mpdclient_cmd_save_playlist(c, filename))) {
+
+	filename_utf8 = locale_to_utf8(filename);
+	error = mpdclient_cmd_save_playlist(c, filename_utf8);
+	g_free(filename_utf8);
+
+	if (error) {
 		gint code = GET_ACK_ERROR_CODE(error);
 
 		if (code == MPD_ACK_ERROR_EXIST) {
@@ -218,7 +224,11 @@ playlist_save(mpdclient_t *c, char *name, char *defaultname)
 			g_free(buf);
 
 			if (key == YES[0]) {
-				if (mpdclient_cmd_delete_playlist(c, filename)) {
+				filename_utf8 = locale_to_utf8(filename);
+				error = mpdclient_cmd_delete_playlist(c, filename_utf8);
+				g_free(filename_utf8);
+
+				if (error) {
 					g_free(filename);
 					return -1;
 				}
@@ -333,8 +343,11 @@ handle_add_to_playlist(mpdclient_t *c)
 #endif
 
 	/* add the path to the playlist */
-	if (path && path[0])
-		mpdclient_cmd_add_path(c, path);
+	if (path && path[0]) {
+		char *path_utf8 = locale_to_utf8(path);
+		mpdclient_cmd_add_path(c, path_utf8);
+		g_free(path_utf8);
+	}
 
 	g_free(path);
 	return 0;

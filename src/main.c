@@ -74,8 +74,10 @@ error_msg(const gchar *msg)
 }
 
 static void
-error_callback(mpd_unused mpdclient_t *c, gint error, const gchar *msg)
+error_callback(mpd_unused mpdclient_t *c, gint error, const gchar *_msg)
 {
+	char *msg = utf8_to_locale(_msg);
+
 	error = error & 0xFF;
 	switch (error) {
 	case MPD_ERROR_CONNPORT:
@@ -91,6 +93,8 @@ error_callback(mpd_unused mpdclient_t *c, gint error, const gchar *msg)
 		doupdate();
 		connected = FALSE;
 	}
+
+	g_free(msg);
 }
 
 #ifndef NCMPC_MINI

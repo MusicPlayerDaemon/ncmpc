@@ -82,6 +82,7 @@ handle_save(mpdclient_t *c)
 {
 	filelist_entry_t *entry;
 	char *defaultname = NULL;
+	int ret;
 
 	if (browser.lw->selected >= filelist_length(browser.filelist))
 		return -1;
@@ -95,7 +96,11 @@ handle_save(mpdclient_t *c)
 		}
 	}
 
-	return playlist_save(c, NULL, defaultname);
+	defaultname = utf8_to_locale(defaultname);
+	ret = playlist_save(c, NULL, defaultname);
+	g_free(defaultname);
+
+	return ret;
 }
 
 static int
@@ -133,7 +138,7 @@ handle_delete(mpdclient_t *c)
 		return 0;
 	}
 
-	if( mpdclient_cmd_delete_playlist_utf8(c, plf->path) )
+	if( mpdclient_cmd_delete_playlist(c, plf->path) )
 		return -1;
 
 	screen_status_printf(_("Playlist deleted!"));
@@ -177,6 +182,7 @@ static const char *
 browse_title(char *str, size_t size)
 {
 	const char *path = NULL, *prev = NULL, *slash = browser.filelist->path;
+	char *path_locale;
 
 	/* determine the last 2 parts of the path */
 	while ((slash = strchr(slash, '/')) != NULL) {
@@ -188,7 +194,9 @@ browse_title(char *str, size_t size)
 		/* fall back to full path */
 		path = browser.filelist->path;
 
-	g_snprintf(str, size, _("Browse: %s"), path);
+	path_locale = utf8_to_locale(path);
+	g_snprintf(str, size, _("Browse: %s"), path_locale);
+	g_free(path_locale);
 	return str;
 }
 
@@ -236,10 +244,13 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 
 		if (!c->status->updatingDb) {
 			if (mpdclient_cmd_db_update_utf8(c, browser.filelist->path) == 0) {
-				if (strcmp(browser.filelist->path, ""))
+				if (strcmp(browser.filelist->path, "")) {
+					char *path_locale =
+						utf8_to_locale(browser.filelist->path);
 					screen_status_printf(_("Database update of %s started!"),
-							     browser.filelist->path);
-				else
+							     path_locale);
+					g_free(path_locale);
+				} else
 					screen_status_printf(_("Database update started!"));
 
 				/* set updatingDb to make shure the browse callback gets called

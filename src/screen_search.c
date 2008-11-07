@@ -180,15 +180,16 @@ filelist_search(mpdclient_t *c, mpd_unused int exact_match, int table,
 		gchar *local_pattern)
 {
 	mpdclient_filelist_t *list, *list2;
+	gchar *filter_utf8 = locale_to_utf8(local_pattern);
 
 	if (table == SEARCH_ARTIST_TITLE) {
 		list = mpdclient_filelist_search(c, FALSE, MPD_TABLE_ARTIST,
-						 local_pattern);
+						 filter_utf8);
 		if (list == NULL)
 			list = filelist_new(NULL);
 
 		list2 = mpdclient_filelist_search(c, FALSE, MPD_TABLE_TITLE,
-						  local_pattern);
+						  filter_utf8);
 		if (list2 != NULL) {
 			filelist_move(list, list2);
 			filelist_free(list2);
@@ -196,11 +197,12 @@ filelist_search(mpdclient_t *c, mpd_unused int exact_match, int table,
 
 		filelist_sort(list, compare_filelistentry_format);
 	} else {
-		list = mpdclient_filelist_search(c, FALSE, table, local_pattern);
+		list = mpdclient_filelist_search(c, FALSE, table, filter_utf8);
 		if (list == NULL)
 			list = filelist_new(NULL);
 	}
 
+	g_free(filter_utf8);
 	return list;
 }
 

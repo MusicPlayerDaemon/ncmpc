@@ -60,17 +60,14 @@ gint mpdclient_cmd_crossfade(mpdclient_t *c, gint value);
 gint mpdclient_cmd_db_update_utf8(mpdclient_t *c, gchar *path);
 gint mpdclient_cmd_volume(mpdclient_t *c, gint value);
 gint mpdclient_cmd_add_path(mpdclient_t *c, gchar *path);
-gint mpdclient_cmd_add_path_utf8(mpdclient_t *c, gchar *path);
 
 gint mpdclient_cmd_add(mpdclient_t *c, struct mpd_song *song);
 gint mpdclient_cmd_delete(mpdclient_t *c, gint index);
 gint mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index);
 
 gint mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename);
-gint mpdclient_cmd_save_playlist_utf8(mpdclient_t *c, gchar *filename);
 gint mpdclient_cmd_load_playlist_utf8(mpdclient_t *c, gchar *filename_utf8);
-gint mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename);
-gint mpdclient_cmd_delete_playlist_utf8(mpdclient_t *c, gchar *filename_utf8);
+gint mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename_utf8);
 
 /* list functions */
 GList *mpdclient_get_artists_utf8(mpdclient_t *c);
@@ -124,11 +121,7 @@ mpdclient_filelist_t *mpdclient_filelist_get(mpdclient_t *c, const gchar *path);
 mpdclient_filelist_t *mpdclient_filelist_search(mpdclient_t *c,
 						int exact_match,
 						int table,
-						gchar *path);
-mpdclient_filelist_t *mpdclient_filelist_search_utf8(mpdclient_t *c,
-						     int exact_match,
-						     int table,
-						     gchar *path);
+						gchar *filter_utf8);
 mpdclient_filelist_t *mpdclient_filelist_update(mpdclient_t *c,
 						mpdclient_filelist_t *flist);
 
