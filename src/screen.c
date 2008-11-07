@@ -792,9 +792,11 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_SCREEN_FILE:
 		screen_switch(&screen_browse, c);
 		break;
+#ifdef ENABLE_HELP_SCREEN
 	case CMD_SCREEN_HELP:
 		screen_switch(&screen_help, c);
 		break;
+#endif
 #ifdef ENABLE_SEARCH_SCREEN
 	case CMD_SCREEN_SEARCH:
 		screen_switch(&screen_search, c);

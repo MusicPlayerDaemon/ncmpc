@@ -248,16 +248,18 @@ CHECK_CFLAG([-Wcast-qual])
 CHECK_CFLAG([-Wwrite-strings])
 
 dnl Optional screen - help screen
-#AC_MSG_CHECKING([whether to include the help screen])
-#AC_ARG_ENABLE([help-screen], 
-#              AC_HELP_STRING([--enable-help-screen],
-#	                     [Enable the help screen @<:@default=yes@:>@]),
-#	      [help_screen="$enableval"],
-#	      [help_screen=yes])
-#AC_MSG_RESULT([$help_screen])
-#if test "x$help_screen" = "xyes" ; then
-#   AC_DEFINE(ENABLE_HELP_SCREEN, 1, [Enable the help screen])
-#fi
+AC_MSG_CHECKING([whether to include the help screen])
+AC_ARG_ENABLE([help-screen],
+	AS_HELP_STRING([--enable-help-screen],
+		[Enable the help screen @<:@default=yes@:>@]),
+	[help_screen="$enableval"],
+	[help_screen=$disable_mini])
+AC_MSG_RESULT([$help_screen])
+if test "x$help_screen" = "xyes" ; then
+	AC_DEFINE(ENABLE_HELP_SCREEN, 1, [Enable the help screen])
+fi
+
+AM_CONDITIONAL(ENABLE_HELP_SCREEN, test x$help_screen = xyes)
 
 dnl Optional screen - browse screen
 #AC_MSG_CHECKING([whether to include the browse screen])r

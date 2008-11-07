@@ -66,7 +66,6 @@ ncmpc_SOURCES = \
   screen_play.c\
 	screen_browser.c\
   screen_file.c\
-  screen_help.c\
   list_window.c\
   colors.c\
   support.c\
@@ -75,6 +74,10 @@ ncmpc_SOURCES = \
   strfsong.c\
   utils.c\
 	str_pool.c
+
+if ENABLE_HELP_SCREEN
+ncmpc_SOURCES += screen_help.c
+endif
 
 if ENABLE_ARTIST_SCREEN
 ncmpc_SOURCES += screen_artist.c

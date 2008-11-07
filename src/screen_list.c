@@ -32,7 +32,9 @@ static const struct
 #ifdef ENABLE_ARTIST_SCREEN
 	{ "artist", &screen_artist },
 #endif
+#ifdef ENABLE_HELP_SCREEN
 	{ "help", &screen_help },
+#endif
 #ifdef ENABLE_SEARCH_SCREEN
 	{ "search", &screen_search },
 #endif
