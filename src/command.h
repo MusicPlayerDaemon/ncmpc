@@ -81,7 +81,10 @@ typedef struct  {
 	const char *description;
 } command_definition_t;
 
+#ifdef ENABLE_KEYDEF_SCREEN
 command_definition_t *get_command_definitions(void);
+#endif
+
 command_t find_key_command(int key, command_definition_t *cmds);
 
 void command_dump_keys(void);

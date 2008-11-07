@@ -25,7 +25,9 @@ typedef struct {
 	int search_mode;
 	int hide_cursor;
 	int seek_time;
+#ifdef ENABLE_LYRICS_SCREEN
 	int lyrics_timeout;
+#endif
 	bool find_wrap;
 	bool find_show_last_pattern;
 	bool list_wrap;
@@ -37,7 +39,9 @@ typedef struct {
 	bool audible_bell;
 	bool visible_bell;
 	bool enable_xterm_title;
+#ifdef HAVE_GETMOUSE
 	bool enable_mouse;
+#endif
 	bool scroll;
 	bool visible_bitrate;
 	bool welcome_screen_list;

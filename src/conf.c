@@ -499,7 +499,11 @@ read_rc_file(char *filename)
 				else if (!strcasecmp(CONF_XTERM_TITLE, name))
 					options.enable_xterm_title = str2bool(value);
 				else if (!strcasecmp(CONF_ENABLE_MOUSE, name))
+#ifdef HAVE_GETMOUSE
 					options.enable_mouse = str2bool(value);
+#else
+				{}
+#endif
 				else if (!strcasecmp(CONF_CROSSFADE_TIME, name))
 					options.crossfade_time = atoi(value);
 				else if (!strcasecmp(CONF_SEARCH_MODE, name))
@@ -520,7 +524,11 @@ read_rc_file(char *filename)
 				else if (!strcasecmp(CONF_PASSWORD, name))
 					options.password = get_format(value);
 				else if (!strcasecmp(CONF_LYRICS_TIMEOUT, name))
+#ifdef ENABLE_LYRICS_SCREEN
 					options.lyrics_timeout = atoi(get_format(value));
+#else
+				{}
+#endif
 				else if (!strcasecmp(CONF_SCROLL, name))
 					options.scroll = str2bool(value);
 				else if (!strcasecmp(CONF_SCROLL_SEP, name)) {

@@ -49,7 +49,9 @@ options_t options = {
 	.port = DEFAULT_PORT,
 	.crossfade_time = DEFAULT_CROSSFADE_TIME,
 	.seek_time = 1,
+#ifdef ENABLE_LYRICS_SCREEN
 	.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT,
+#endif
 	.find_wrap = true,
 	.wide_cursor = true,
 	.audible_bell = true,
@@ -190,10 +192,14 @@ handle_option(int c, const char *arg)
 #endif
 		break;
 	case 'm': /* --mouse */
+#ifdef HAVE_GETMOUSE
 		options.enable_mouse = true;
+#endif
 		break;
 	case 'M': /* --no-mouse */
+#ifdef HAVE_GETMOUSE
 		options.enable_mouse = false;
+#endif
 		break;
 	case 'e': /* --exit */
 		/* deprecated */

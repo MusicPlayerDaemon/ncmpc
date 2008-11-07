@@ -200,11 +200,13 @@ static command_definition_t cmds[] = {
 	{ { -1, -1, -1 }, 0, CMD_NONE, NULL, NULL }
 };
 
+#ifdef ENABLE_KEYDEF_SCREEN
 command_definition_t *
 get_command_definitions(void)
 {
 	return cmds;
 }
+#endif
 
 const char *
 key2str(int key)
