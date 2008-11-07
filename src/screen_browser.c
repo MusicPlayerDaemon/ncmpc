@@ -189,6 +189,7 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 			if( strcmp(parent, ".") == 0 )
 				parent[0] = '\0';
 			path = g_strdup(parent);
+			g_free(parent);
 		} else {
 			/* entry==NULL, then new_path ("" is root) */
 			path = g_strdup(new_path);
