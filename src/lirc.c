@@ -6,7 +6,9 @@ static int lirc_socket = 0;
 
 int ncmpc_lirc_open()
 {
-	if ((lirc_socket = lirc_init("ncmpc", 0)) == -1)
+	char prog[] = "ncmpc";
+
+	if ((lirc_socket = lirc_init(prog, 0)) == -1)
 		return -1;
 
 	if (lirc_readconfig(NULL, &lc, NULL)) {
