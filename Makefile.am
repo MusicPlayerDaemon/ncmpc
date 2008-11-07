@@ -16,6 +16,10 @@ doc_DATA = \
 EXTRA_DIST = \
   $(doc_DATA)
 
+# build the smalles possible ncmpc binary
+ncmpc-tiny:
+	$(MAKE) -C src $@
+
 sparse-check:
 	$(MAKE) -C src $@
 

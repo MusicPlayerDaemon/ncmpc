@@ -1,3 +1,5 @@
+CLEANFILES = ncmpc-tiny
+
 AM_CPPFLAGS = \
   $(GLIB_CFLAGS)\
   $(GTHREAD_CFLAGS)\
@@ -101,6 +103,10 @@ endif
 
 ncmpc_SOURCES+=${ncmpc_headers}
 
+# build the smalles possible ncmpc binary
+ncmpc-tiny: $(filter-out %.h,$(ncmpc_SOURCES))
+	$(COMPILE) --combine -fwhole-program $(ncmpc_LDFLAGS) $(ncmpc_LDADD) $(LIBS) $^ -o $@
+	strip --strip-all $@
 
 #
 # sparse
