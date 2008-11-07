@@ -31,9 +31,13 @@
 
 #define BUFSIZE 1024
 
+#ifndef NCMPC_MINI
 #define HIGHLIGHT  (0x01)
+#endif
 
 static const char playlist_format[] = "*%s*";
+
+#ifndef NCMPC_MINI
 
 /* clear the highlight flag for all items in the filelist */
 static void
@@ -112,6 +116,8 @@ browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
 	}
 }
 
+#endif
+
 /* list_window callback */
 const char *
 browser_lw_callback(unsigned idx, int *highlight, void *data)
@@ -128,7 +134,11 @@ browser_lw_callback(unsigned idx, int *highlight, void *data)
 	assert(entry != NULL);
 
 	entity = entry->entity;
+#ifndef NCMPC_MINI
 	*highlight = (entry->flags & HIGHLIGHT);
+#else
+	*highlight = false;
+#endif
 
 	if( entity == NULL )
 		return "[..]";
@@ -194,7 +204,9 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 
 	filelist_free(browser->filelist);
 	browser->filelist = mpdclient_filelist_get(c, path);
+#ifndef NCMPC_MINI
 	sync_highlights(c, browser->filelist);
+#endif
 
 	idx = filelist_find_directory(browser->filelist, old_path);
 	g_free(old_path);
@@ -231,17 +243,23 @@ enqueue_and_play(mpdclient_t *c, filelist_entry_t *entry)
 	mpd_InfoEntity *entity = entry->entity;
 	mpd_Song *song = entity->info.song;
 
+#ifndef NCMPC_MINI
 	if (!(entry->flags & HIGHLIGHT)) {
+#endif
 		if (mpdclient_cmd_add(c, song) == 0) {
 			char buf[BUFSIZE];
 
+#ifndef NCMPC_MINI
 			entry->flags |= HIGHLIGHT;
+#endif
 			strfsong(buf, BUFSIZE, options.list_format, song);
 			screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
 			mpdclient_update(c); /* get song id */
 		} else
 			return -1;
+#ifndef NCMPC_MINI
 	}
+#endif
 
 	idx = playlist_get_index_from_file(c, song->file);
 	mpdclient_cmd_play(c, idx);
@@ -328,7 +346,7 @@ add_directory(mpdclient_t *c, char *dir)
 
 static int
 browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
-		     gboolean toggle)
+		     mpd_unused gboolean toggle)
 {
 	assert(entry != NULL);
 	assert(entry->entity != NULL);
@@ -356,10 +374,15 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 
 	assert(entry->entity->info.song != NULL);
 
-	if (!toggle || (entry->flags & HIGHLIGHT) == 0) {
+#ifndef NCMPC_MINI
+	if (!toggle || (entry->flags & HIGHLIGHT) == 0)
+#endif
+	{
 		mpd_Song *song = entry->entity->info.song;
 
+#ifndef NCMPC_MINI
 		entry->flags |= HIGHLIGHT;
+#endif
 
 		if (mpdclient_cmd_add(c, song) == 0) {
 			char buf[BUFSIZE];
@@ -367,6 +390,7 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 			strfsong(buf, BUFSIZE, options.list_format, song);
 			screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
 		}
+#ifndef NCMPC_MINI
 	} else {
 		/* remove song from playlist */
 		mpd_Song *song = entry->entity->info.song;
@@ -376,6 +400,7 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 
 		while ((idx = playlist_get_index_from_file(c, song->file)) >=0)
 			mpdclient_cmd_delete(c, idx);
+#endif
 	}
 
 	return 0;

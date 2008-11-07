@@ -21,7 +21,6 @@
 #include "mpdclient.h"
 #include "charset.h"
 #include "options.h"
-#include "conf.h"
 #include "command.h"
 #include "ncu.h"
 #include "screen.h"
@@ -29,6 +28,10 @@
 #include "strfsong.h"
 #include "i18n.h"
 #include "gcc.h"
+
+#ifndef NCMPC_MINI
+#include "conf.h"
+#endif
 
 #ifdef ENABLE_LYRICS_SCREEN
 #include "lyrics.h"
@@ -89,6 +92,7 @@ error_callback(mpd_unused mpdclient_t *c, gint error, const gchar *msg)
 	}
 }
 
+#ifndef NCMPC_MINI
 static void
 update_xterm_title(void)
 {
@@ -113,12 +117,15 @@ update_xterm_title(void)
 		set_xterm_title("%s", title);
 	}
 }
+#endif
 
 static void
 exit_and_cleanup(void)
 {
 	screen_exit();
+#ifndef NCMPC_MINI
 	set_xterm_title("");
+#endif
 	printf("\n");
 
 	if (mpd) {
@@ -130,7 +137,9 @@ exit_and_cleanup(void)
 	g_free(options.password);
 	g_free(options.list_format);
 	g_free(options.status_format);
+#ifndef NCMPC_MINI
 	g_free(options.scroll_sep);
+#endif
 }
 
 static void
@@ -209,6 +218,7 @@ timer_reconnect(mpd_unused gpointer data)
 		return FALSE;
 	}
 
+#ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.11.0 - song id not supported by mpd */
 	if (MPD_VERSION_LT(mpd, 0, 11, 0)) {
 		screen_status_printf(_("Error: MPD version %d.%d.%d is to old (0.11.0 needed).\n"),
@@ -222,6 +232,7 @@ timer_reconnect(mpd_unused gpointer data)
 		g_timeout_add(30000, timer_reconnect, NULL);
 		return FALSE;
 	}
+#endif
 
 	screen_status_printf(_("Connected to %s!"), options.host);
 	doupdate();
@@ -245,8 +256,10 @@ timer_mpd_update(gpointer data)
 		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
 						    NULL);
 
+#ifndef NCMPC_MINI
 	if (options.enable_xterm_title)
 		update_xterm_title();
+#endif
 
 	screen_update(mpd);
 
@@ -330,6 +343,7 @@ lirc_event(mpd_unused GIOChannel *source,
 }
 #endif
 
+#ifndef NCMPC_MINI
 /**
  * Check the configured key bindings for errors, and display a status
  * message every 10 seconds.
@@ -350,12 +364,13 @@ timer_check_key_bindings(mpd_unused gpointer data)
 	doupdate();
 	return TRUE;
 }
+#endif
 
 int
 main(int argc, const char *argv[])
 {
 	struct sigaction act;
-#ifdef HAVE_LOCALE_H
+#if defined(HAVE_LOCALE_H) && !defined(NCMPC_MINI)
 	const char *charset = NULL;
 #endif
 	GIOChannel *keyboard_channel;
@@ -364,7 +379,7 @@ main(int argc, const char *argv[])
 	GIOChannel *lirc_channel = NULL;
 #endif
 
-#ifdef HAVE_LOCALE_H
+#if defined(HAVE_LOCALE_H) && !defined(NCMPC_MINI)
 	/* time and date formatting */
 	setlocale(LC_TIME,"");
 	/* care about sorting order etc */
@@ -390,7 +405,9 @@ main(int argc, const char *argv[])
 	options_parse(argc, argv);
 
 	/* read configuration */
+#ifndef NCMPC_MINI
 	read_configuration();
+#endif
 
 	/* check key bindings */
 	check_key_bindings(NULL, NULL, 0);
@@ -483,7 +500,9 @@ main(int argc, const char *argv[])
 	update_source_id = g_timeout_add(update_interval,
 					 timer_mpd_update,
 					 GINT_TO_POINTER(TRUE));
+#ifndef NCMPC_MINI
 	g_timeout_add(10000, timer_check_key_bindings, NULL);
+#endif
 	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
 
 	screen_paint(mpd);

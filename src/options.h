@@ -16,8 +16,10 @@ typedef struct {
 	char *key_file;
 	char *list_format;
 	char *status_format;
+#ifndef NCMPC_MINI
 	char *xterm_title_format;
 	char *scroll_sep;
+#endif
 	char **screen_list;
 	char *timedisplay_type;
 	int port;
@@ -38,13 +40,17 @@ typedef struct {
 #endif
 	bool audible_bell;
 	bool visible_bell;
+#ifndef NCMPC_MINI
 	bool enable_xterm_title;
+#endif
 #ifdef HAVE_GETMOUSE
 	bool enable_mouse;
 #endif
+#ifndef NCMPC_MINI
 	bool scroll;
 	bool visible_bitrate;
 	bool welcome_screen_list;
+#endif
 } options_t;
 
 extern options_t options;

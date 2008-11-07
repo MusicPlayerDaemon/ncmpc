@@ -36,6 +36,8 @@ gint screen_auth(struct mpdclient *c);
 
 void screen_display_completion_list(GList *list);
 
+#ifndef NCMPC_MINI
 void set_xterm_title(const char *format, ...);
+#endif
 
 #endif

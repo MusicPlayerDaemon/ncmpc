@@ -36,8 +36,10 @@
 #include <time.h>
 #include <locale.h>
 
+#ifndef NCMPC_MINI
 /** welcome message time [s] */
 static const GTime SCREEN_WELCOME_TIME = 10;
+#endif
 
 /** status message time [s] */
 static const GTime SCREEN_STATUS_MESSAGE_TIME = 3;
@@ -48,7 +50,10 @@ static const int SCREEN_MIN_ROWS = 5;
 
 /* screens */
 
+#ifndef NCMPC_MINI
 static gboolean welcome = TRUE;
+#endif
+
 struct screen screen;
 static const struct screen_functions *mode_fn = &screen_playlist;
 static int seek_id = -1;
@@ -124,6 +129,7 @@ paint_top_window2(const char *header, mpdclient_t *c)
 	if (header[0]) {
 		colors_use(w, COLOR_TITLE_BOLD);
 		mvwaddstr(w, 0, 0, header);
+#ifndef NCMPC_MINI
 	} else {
 		colors_use(w, COLOR_TITLE_BOLD);
 		waddstr(w, get_key_names(CMD_SCREEN_HELP, FALSE));
@@ -155,7 +161,9 @@ paint_top_window2(const char *header, mpdclient_t *c)
 		colors_use(w, COLOR_TITLE);
 		waddstr(w, _(":Lyrics  "));
 #endif
+#endif
 	}
+
 	if (c->status == NULL || c->status->volume == MPD_STATUS_NO_VOLUME) {
 		g_snprintf(buf, 32, _("Volume n/a "));
 	} else {
@@ -249,7 +257,11 @@ paint_status_window(mpdclient_t *c)
 	mpd_Status *status = c->status;
 	mpd_Song *song = c->song;
 	int elapsedTime = 0;
+#ifdef NCMPC_MINI
+	static char bitrate[1];
+#else
 	char bitrate[16];
+#endif
 	const char *str = NULL;
 	int x = 0;
 
@@ -292,12 +304,14 @@ paint_status_window(mpdclient_t *c)
 				elapsedTime = seek_target_time;
 
 			/* display bitrate if visible-bitrate is true */
+#ifndef NCMPC_MINI
 			if (options.visible_bitrate) {
 				g_snprintf(bitrate, 16,
 				           " [%d kbps]", status->bitRate);
 			} else {
 				bitrate[0] = '\0';
 			}
+#endif
 
 			/*write out the time, using hours if time over 60 minutes*/
 			if (c->status->totalTime > 3600) {
@@ -311,22 +325,28 @@ paint_status_window(mpdclient_t *c)
 					   bitrate, elapsedTime/60, elapsedTime%60,
 					   status->totalTime/60,   status->totalTime%60 );
 			}
+#ifndef NCMPC_MINI
 		} else {
 			g_snprintf(screen.buf, screen.buf_size,
 				   " [%d kbps]", status->bitRate );
+#endif
 		}
+#ifndef NCMPC_MINI
 	} else {
 		time_t timep;
 
 		time(&timep);
 		strftime(screen.buf, screen.buf_size, "%X ",localtime(&timep));
+#endif
 	}
 
 	/* display song */
 	if (status != NULL && (IS_PLAYING(status->state) ||
 			       IS_PAUSED(status->state))) {
 		char songname[MAX_SONGNAME_LENGTH];
+#ifndef NCMPC_MINI
 		int width = COLS - x - utf8_width(screen.buf);
+#endif
 
 		if (song)
 			strfsong(songname, MAX_SONGNAME_LENGTH,
@@ -336,6 +356,7 @@ paint_status_window(mpdclient_t *c)
 
 		colors_use(w, COLOR_STATUS);
 		/* scroll if the song name is to long */
+#ifndef NCMPC_MINI
 		if (options.scroll && utf8_width(songname) > (unsigned)width) {
 			static  scroll_state_t st = { 0, 0 };
 			char *tmp = strscroll(songname, options.scroll_sep, width, &st);
@@ -343,6 +364,7 @@ paint_status_window(mpdclient_t *c)
 			g_strlcpy(songname, tmp, MAX_SONGNAME_LENGTH);
 			g_free(tmp);
 		}
+#endif
 		//mvwaddnstr(w, 0, x, songname, width);
 		mvwaddstr(w, 0, x, songname);
 	}
@@ -554,6 +576,7 @@ screen_paint(mpdclient_t *c)
 void
 screen_update(mpdclient_t *c)
 {
+#ifndef NCMPC_MINI
 	static int repeat = -1;
 	static int random_enabled = -1;
 	static int crossfade = -1;
@@ -597,9 +620,13 @@ screen_update(mpdclient_t *c)
 	    screen.last_cmd==CMD_NONE &&
 	    time(NULL)-screen.start_timestamp <= SCREEN_WELCOME_TIME)
 		paint_top_window("", c, 0);
-	else if (mode_fn->get_title != NULL) {
+	else
+#endif
+	if (mode_fn->get_title != NULL) {
 		paint_top_window(mode_fn->get_title(screen.buf,screen.buf_size), c, 0);
+#ifndef NCMPC_MINI
 		welcome = FALSE;
+#endif
 	} else
 		paint_top_window("", c, 0);
 
@@ -756,7 +783,9 @@ void
 screen_cmd(mpdclient_t *c, command_t cmd)
 {
 	screen.last_cmd = cmd;
+#ifndef NCMPC_MINI
 	welcome = FALSE;
+#endif
 
 	if (mode_fn->cmd != NULL && mode_fn->cmd(c, cmd))
 		return;

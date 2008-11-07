@@ -25,7 +25,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#ifdef HAVE_LOCALE_H
+#if defined(HAVE_LOCALE_H) && !defined(NCMPC_MINI)
 const char *
 charset_init(void);
 #endif

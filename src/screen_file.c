@@ -58,12 +58,15 @@ file_changed_callback(mpdclient_t *c, mpd_unused int event,
 		      mpd_unused gpointer data)
 {
 	browser.filelist = mpdclient_filelist_update(c, browser.filelist);
+#ifndef NCMPC_MINI
 	sync_highlights(c, browser.filelist);
+#endif
 	list_window_check_selected(browser.lw, filelist_length(browser.filelist));
 
 	file_repaint_if_active();
 }
 
+#ifndef NCMPC_MINI
 /* the playlist have been updated -> fix highlights */
 static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
@@ -72,6 +75,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 
 	file_repaint_if_active();
 }
+#endif
 
 static int
 handle_save(mpdclient_t *c)
@@ -162,7 +166,9 @@ browse_open(mpd_unused mpdclient_t *c)
 {
 	if (browser.filelist == NULL) {
 		browser.filelist = mpdclient_filelist_get(c, "");
+#ifndef NCMPC_MINI
 		mpdclient_install_playlist_callback(c, playlist_changed_callback);
+#endif
 		mpdclient_install_browse_callback(c, file_changed_callback);
 	}
 }
@@ -216,7 +222,9 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 		break;
 	case CMD_SCREEN_UPDATE:
 		browser.filelist = mpdclient_filelist_update(c, browser.filelist);
+#ifndef NCMPC_MINI
 		sync_highlights(c, browser.filelist);
+#endif
 		list_window_check_selected(browser.lw,
 					   filelist_length(browser.filelist));
 		file_repaint();

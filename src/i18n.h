@@ -22,7 +22,7 @@
 #include "config.h"
 
 /* i18n */
-#ifdef HAVE_LOCALE_H
+#if defined(HAVE_LOCALE_H) && !defined(NCMPC_MINI)
 #include <locale.h>
 #endif
 #ifdef ENABLE_NLS

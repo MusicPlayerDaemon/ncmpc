@@ -244,6 +244,7 @@ screen_display_completion_list(GList *list)
 	colors_use(w, COLOR_LIST);
 }
 
+#ifndef NCMPC_MINI
 void
 set_xterm_title(const char *format, ...)
 {
@@ -264,3 +265,4 @@ set_xterm_title(const char *format, ...)
 			options.enable_xterm_title = FALSE;
 	}
 }
+#endif

@@ -11,6 +11,8 @@
 #include <ncurses.h>
 #endif
 
+#ifndef NCMPC_MINI
+
 /* completion callback data */
 extern void *wrln_completion_callback_data;
 
@@ -22,6 +24,8 @@ extern wrln_gcmp_pre_cb_t wrln_pre_completion_callback;
 typedef void (*wrln_gcmp_post_cb_t) (GCompletion *gcmp, gchar *s, GList *l,
                                      void *data);
 extern wrln_gcmp_post_cb_t wrln_post_completion_callback;
+
+#endif
 
 /* Note, wreadln calls curs_set() and noecho(), to enable cursor and
  * disable echo. wreadln will not restore these settings when exiting! */

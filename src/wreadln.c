@@ -72,9 +72,11 @@ struct wreadln {
 /** max items stored in the history list */
 static const guint wrln_max_history_length = 32;
 
+#ifndef NCMPC_MINI
 void *wrln_completion_callback_data = NULL;
 wrln_gcmp_pre_cb_t wrln_pre_completion_callback = NULL;
 wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
+#endif
 
 /** converts a byte position to a screen column */
 static unsigned
@@ -396,6 +398,10 @@ _wreadln(WINDOW *w,
 	gint key = 0;
 	size_t i;
 
+#ifdef NCMPC_MINI
+	(void)gcmp;
+#endif
+
 	/* turn off echo */
 	noecho();
 	/* make shure the cursor is visible */
@@ -458,6 +464,7 @@ _wreadln(WINDOW *w,
 			break;
 
 		case TAB:
+#ifndef NCMPC_MINI
 			if (gcmp) {
 				char *prefix = NULL;
 				GList *list;
@@ -477,6 +484,7 @@ _wreadln(WINDOW *w,
 					wrln_post_completion_callback(gcmp, wr.line, list,
 								      wrln_completion_callback_data);
 			}
+#endif
 			break;
 
 		case KEY_CTRL_G:

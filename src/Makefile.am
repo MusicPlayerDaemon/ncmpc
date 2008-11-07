@@ -57,7 +57,6 @@ ncmpc_SOURCES = \
 	playlist.c \
 	filelist.c \
   options.c\
-  conf.c\
   command.c\
 	ncu.c \
   screen.c\
@@ -74,6 +73,11 @@ ncmpc_SOURCES = \
   strfsong.c\
   utils.c\
 	str_pool.c
+
+if NCMPC_MINI
+else
+ncmpc_SOURCES += conf.c
+endif
 
 if ENABLE_HELP_SCREEN
 ncmpc_SOURCES += screen_help.c

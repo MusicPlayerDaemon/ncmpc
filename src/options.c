@@ -55,8 +55,10 @@ options_t options = {
 	.find_wrap = true,
 	.wide_cursor = true,
 	.audible_bell = true,
+#ifndef NCMPC_MINI
 	.scroll = DEFAULT_SCROLL,
 	.welcome_screen_list = true,
+#endif
 };
 
 static const arg_opt_t option_table[] = {
@@ -353,5 +355,7 @@ options_init(void)
 	options.status_format = g_strdup(DEFAULT_STATUS_FORMAT);
 	options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
 	options.timedisplay_type = g_strdup(DEFAULT_TIMEDISPLAY_TYPE);
+#ifndef NCMPC_MINI
 	options.scroll_sep = g_strdup(DEFAULT_SCROLL_SEP);
+#endif
 }

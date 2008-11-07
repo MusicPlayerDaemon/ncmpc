@@ -23,7 +23,7 @@
 #include <string.h>
 #include <glib.h>
 
-#ifdef HAVE_LOCALE_H
+#if defined(HAVE_LOCALE_H) && !defined(NCMPC_MINI)
 static bool noconvert = true;
 static const char *charset;
 
@@ -62,7 +62,7 @@ utf8_width(const char *str)
 char *
 utf8_to_locale(const char *utf8str)
 {
-#ifdef HAVE_LOCALE_H
+#if defined(HAVE_LOCALE_H) && !defined(NCMPC_MINI)
 	gchar *str;
 
 	assert(utf8str != NULL);
@@ -85,7 +85,7 @@ utf8_to_locale(const char *utf8str)
 char *
 locale_to_utf8(const char *localestr)
 {
-#ifdef HAVE_LOCALE_H
+#if defined(HAVE_LOCALE_H) && !defined(NCMPC_MINI)
 	gchar *str;
 
 	assert(localestr != NULL);

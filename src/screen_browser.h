@@ -35,12 +35,16 @@ struct screen_browser {
 	mpdclient_filelist_t *filelist;
 };
 
+#ifndef NCMPC_MINI
+
 void
 sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl);
 
 void
 browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
 			 int event, gpointer data);
+
+#endif
 
 const char *browser_lw_callback(unsigned index, int *highlight, void *filelist);
 

@@ -39,12 +39,14 @@
 
 #define MAX_SONG_LENGTH 512
 
+#ifndef NCMPC_MINI
 typedef struct
 {
 	GList **list;
 	GList **dir_list;
 	mpdclient_t *c;
 } completion_callback_data_t;
+#endif
 
 static struct mpdclient_playlist *playlist;
 static int current_song_id = -1;
@@ -127,6 +129,7 @@ center_playing_item(mpdclient_t *c)
 	list_window_check_selected(lw, length);
 }
 
+#ifndef NCMPC_MINI
 static void
 save_pre_completion_cb(GCompletion *gcmp, mpd_unused gchar *line, void *data)
 {
@@ -148,16 +151,24 @@ save_post_completion_cb(mpd_unused GCompletion *gcmp, mpd_unused gchar *line,
 	if (g_list_length(items) >= 1)
 		screen_display_completion_list(items);
 }
+#endif
 
 int
 playlist_save(mpdclient_t *c, char *name, char *defaultname)
 {
 	gchar *filename;
 	gint error;
+#ifndef NCMPC_MINI
 	GCompletion *gcmp;
 	GList *list = NULL;
 	completion_callback_data_t data;
+#endif
 
+#ifdef NCMPC_MINI
+	(void)defaultname;
+#endif
+
+#ifndef NCMPC_MINI
 	if (name == NULL) {
 		/* initialize completion support */
 		gcmp = g_completion_new(NULL);
@@ -186,6 +197,7 @@ playlist_save(mpdclient_t *c, char *name, char *defaultname)
 		if( filename )
 			filename=g_strstrip(filename);
 	} else
+#endif
 			filename=g_strdup(name);
 
 	if (filename == NULL || filename[0] == '\0')
@@ -229,6 +241,7 @@ playlist_save(mpdclient_t *c, char *name, char *defaultname)
 	return 0;
 }
 
+#ifndef NCMPC_MINI
 static void add_dir(GCompletion *gcmp, gchar *dir, GList **dir_list,
 		    GList **list, mpdclient_t *c)
 {
@@ -274,11 +287,13 @@ static void add_post_completion_cb(GCompletion *gcmp, gchar *line,
 		add_dir(gcmp, line, dir_list, list, c);
 	}
 }
+#endif
 
 static int
 handle_add_to_playlist(mpdclient_t *c)
 {
 	gchar *path;
+#ifndef NCMPC_MINI
 	GCompletion *gcmp;
 	GList *list = NULL;
 	GList *dir_list = NULL;
@@ -293,21 +308,29 @@ handle_add_to_playlist(mpdclient_t *c)
 	wrln_completion_callback_data = &data;
 	wrln_pre_completion_callback = add_pre_completion_cb;
 	wrln_post_completion_callback = add_post_completion_cb;
+#endif
 
 	/* get path */
 	path = screen_readln(screen.status_window.w,
 			     _("Add: "),
 			     NULL,
 			     NULL,
-			     gcmp);
+#ifdef NCMPC_MINI
+			     NULL
+#else
+			     gcmp
+#endif
+			     );
 
 	/* destroy completion data */
+#ifndef NCMPC_MINI
 	wrln_completion_callback_data = NULL;
 	wrln_pre_completion_callback = NULL;
 	wrln_post_completion_callback = NULL;
 	g_completion_free(gcmp);
 	string_list_free(list);
 	string_list_free(dir_list);
+#endif
 
 	/* add the path to the playlist */
 	if (path && path[0])
