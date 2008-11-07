@@ -336,6 +336,7 @@ handle_add_to_playlist(mpdclient_t *c)
 	if (path && path[0])
 		mpdclient_cmd_add_path(c, path);
 
+	g_free(path);
 	return 0;
 }
 
