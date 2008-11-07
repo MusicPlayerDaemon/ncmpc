@@ -176,21 +176,19 @@ browse_open(mpd_unused mpdclient_t *c)
 static const char *
 browse_title(char *str, size_t size)
 {
-	char *dirname, *parentdir;
+	const char *path = NULL, *prev = NULL, *slash = browser.filelist->path;
 
-	dirname = g_path_get_dirname(browser.filelist->path);
-	parentdir = g_path_get_basename(dirname);
-
-	if( parentdir[0] == '.' && strlen(parentdir) == 1 ) {
-		parentdir = NULL;
+	/* determine the last 2 parts of the path */
+	while ((slash = strchr(slash, '/')) != NULL) {
+		path = prev;
+		prev = ++slash;
 	}
 
-	g_snprintf(str, size, _("Browse: %s%s%s"),
-		   parentdir ? parentdir : "",
-		   parentdir ? "/" : "",
-		   g_basename(browser.filelist->path));
-	free(dirname);
-	free(parentdir);
+	if (path == NULL)
+		/* fall back to full path */
+		path = browser.filelist->path;
+
+	g_snprintf(str, size, _("Browse: %s"), path);
 	return str;
 }
 
