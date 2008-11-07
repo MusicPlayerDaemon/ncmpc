@@ -177,7 +177,7 @@ screen_find(list_window_t *lw,
 						     &screen.find_history,
 						     NULL);
 
-		if (!screen.findbuf || !screen.findbuf[0])
+		if (screen.findbuf == NULL)
 			return 1;
 
 		if (reversed)

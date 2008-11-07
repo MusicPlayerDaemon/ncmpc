@@ -313,11 +313,6 @@ search_new(mpdclient_t *c)
 				&search_history,
 				NULL);
 
-	if (pattern && strcmp(pattern,"") == 0) {
-		g_free(pattern);
-		pattern=NULL;
-	}
-
 	if (pattern == NULL) {
 		list_window_reset(browser.lw);
 		return;

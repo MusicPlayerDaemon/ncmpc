@@ -201,7 +201,7 @@ playlist_save(mpdclient_t *c, char *name, char *defaultname)
 #endif
 			filename=g_strdup(name);
 
-	if (filename == NULL || filename[0] == '\0')
+	if (filename == NULL)
 		return -1;
 
 	/* send save command to mpd */
@@ -343,7 +343,7 @@ handle_add_to_playlist(mpdclient_t *c)
 #endif
 
 	/* add the path to the playlist */
-	if (path && path[0]) {
+	if (path != NULL) {
 		char *path_utf8 = locale_to_utf8(path);
 		mpdclient_cmd_add_path(c, path_utf8);
 		g_free(path_utf8);

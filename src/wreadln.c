@@ -603,6 +603,9 @@ _wreadln(WINDOW *w,
 		}
 	}
 
+	if (wr.line[0] == 0)
+		return NULL;
+
 	return g_strdup(wr.line);
 }
 
