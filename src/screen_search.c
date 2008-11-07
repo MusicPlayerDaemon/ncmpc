@@ -304,6 +304,7 @@ search_new(mpdclient_t *c)
 {
 	search_clear(c, TRUE);
 
+	g_free(pattern);
 	pattern = screen_readln(screen.status_window.w,
 				_("Search: "),
 				NULL,
@@ -318,6 +319,11 @@ search_new(mpdclient_t *c)
 	if (pattern == NULL) {
 		list_window_reset(browser.lw);
 		return;
+	}
+
+	if (browser.filelist != NULL) {
+		filelist_free(browser.filelist);
+		browser.filelist = NULL;
 	}
 
 	if (!MPD_VERSION_LT(c, 0, 12, 0))
