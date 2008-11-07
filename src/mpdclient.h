@@ -57,7 +57,7 @@ gint mpdclient_cmd_clear(mpdclient_t *c);
 gint mpdclient_cmd_repeat(mpdclient_t *c, gint value);
 gint mpdclient_cmd_random(mpdclient_t *c, gint value);
 gint mpdclient_cmd_crossfade(mpdclient_t *c, gint value);
-gint mpdclient_cmd_db_update_utf8(mpdclient_t *c, gchar *path);
+gint mpdclient_cmd_db_update(mpdclient_t *c, gchar *path);
 gint mpdclient_cmd_volume(mpdclient_t *c, gint value);
 gint mpdclient_cmd_add_path(mpdclient_t *c, gchar *path);
 
@@ -66,12 +66,12 @@ gint mpdclient_cmd_delete(mpdclient_t *c, gint index);
 gint mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index);
 
 gint mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename);
-gint mpdclient_cmd_load_playlist_utf8(mpdclient_t *c, gchar *filename_utf8);
+gint mpdclient_cmd_load_playlist(mpdclient_t *c, gchar *filename_utf8);
 gint mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename_utf8);
 
 /* list functions */
-GList *mpdclient_get_artists_utf8(mpdclient_t *c);
-GList *mpdclient_get_albums_utf8(mpdclient_t *c, gchar *artist_utf8);
+GList *mpdclient_get_artists(mpdclient_t *c);
+GList *mpdclient_get_albums(mpdclient_t *c, gchar *artist_utf8);
 
 
 /*** error callbacks *****************************************************/

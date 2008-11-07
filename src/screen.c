@@ -758,7 +758,7 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 		break;
 	case CMD_DB_UPDATE:
 		if (!c->status->updatingDb) {
-			if( mpdclient_cmd_db_update_utf8(c,NULL)==0 )
+			if( mpdclient_cmd_db_update(c,NULL)==0 )
 				screen_status_printf(_("Database update started!"));
 		} else
 			screen_status_printf(_("Database update running..."));

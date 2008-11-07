@@ -230,7 +230,7 @@ load_playlist(mpdclient_t *c, filelist_entry_t *entry)
 	mpd_PlaylistFile *plf = entity->info.playlistFile;
 	char *filename = utf8_to_locale(plf->path);
 
-	if (mpdclient_cmd_load_playlist_utf8(c, plf->path) == 0)
+	if (mpdclient_cmd_load_playlist(c, plf->path) == 0)
 		screen_status_printf(_("Loading playlist %s..."),
 				     g_basename(filename));
 	g_free(filename);

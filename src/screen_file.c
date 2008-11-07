@@ -243,7 +243,7 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 			return 1;
 
 		if (!c->status->updatingDb) {
-			if (mpdclient_cmd_db_update_utf8(c, browser.filelist->path) == 0) {
+			if (mpdclient_cmd_db_update(c, browser.filelist->path) == 0) {
 				if (strcmp(browser.filelist->path, "")) {
 					char *path_locale =
 						utf8_to_locale(browser.filelist->path);

@@ -381,7 +381,7 @@ mpdclient_cmd_crossfade(mpdclient_t *c, gint value)
 }
 
 gint
-mpdclient_cmd_db_update_utf8(mpdclient_t *c, gchar *path)
+mpdclient_cmd_db_update(mpdclient_t *c, gchar *path)
 {
 	mpd_sendUpdateCommand(c->connection, path ? path : "");
 	return mpdclient_finish_command(c);
@@ -526,7 +526,7 @@ mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename_utf8)
 }
 
 gint
-mpdclient_cmd_load_playlist_utf8(mpdclient_t *c, gchar *filename_utf8)
+mpdclient_cmd_load_playlist(mpdclient_t *c, gchar *filename_utf8)
 {
 	mpd_sendLoadCommand(c->connection, filename_utf8);
 	c->need_update = TRUE;
@@ -795,7 +795,7 @@ mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl)
 }
 
 GList *
-mpdclient_get_artists_utf8(mpdclient_t *c)
+mpdclient_get_artists(mpdclient_t *c)
 {
 	gchar *str = NULL;
 	GList *list = NULL;
@@ -811,7 +811,7 @@ mpdclient_get_artists_utf8(mpdclient_t *c)
 }
 
 GList *
-mpdclient_get_albums_utf8(mpdclient_t *c, gchar *artist_utf8)
+mpdclient_get_albums(mpdclient_t *c, gchar *artist_utf8)
 {
 	gchar *str = NULL;
 	GList *list = NULL;

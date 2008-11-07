@@ -179,7 +179,7 @@ load_artist_list(struct mpdclient *c)
 	assert(album_list == NULL);
 	assert(browser.filelist == NULL);
 
-	list = mpdclient_get_artists_utf8(c);
+	list = mpdclient_get_artists(c);
 	/* sort list */
 	list = g_list_sort(list, compare_utf8);
 
@@ -197,7 +197,7 @@ load_album_list(struct mpdclient *c)
 	assert(album_list == NULL);
 	assert(browser.filelist == NULL);
 
-	list = mpdclient_get_albums_utf8(c, artist);
+	list = mpdclient_get_albums(c, artist);
 	/* sort list */
 	list = g_list_sort(list, compare_utf8);
 
