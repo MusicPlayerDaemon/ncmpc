@@ -26,8 +26,6 @@ typedef struct {
 	int hide_cursor;
 	int seek_time;
 	int lyrics_timeout;
-	bool reconnect;
-	bool debug;
 	bool find_wrap;
 	bool find_show_last_pattern;
 	bool list_wrap;

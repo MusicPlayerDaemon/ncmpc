@@ -65,7 +65,6 @@ static const arg_opt_t option_table[] = {
 	{ 'S', "no-splash", NULL, "Don't show the splash screen" },
 #ifndef NDEBUG
 	{ 'K', "dump-keys", NULL, "Dump key bindings to stdout" },
-	{ 'D', "debug", NULL, "Enable debug output on stderr" },
 #endif
 };
 
@@ -187,7 +186,7 @@ handle_option(int c, const char *arg)
 		options.enable_mouse = false;
 		break;
 	case 'e': /* --exit */
-		options.reconnect = false;
+		/* deprecated */
 		break;
 	case 'p': /* --port */
 		options.port = atoi(arg);
@@ -220,9 +219,6 @@ handle_option(int c, const char *arg)
 		read_configuration();
 		write_key_bindings(stdout, KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
 		exit(EXIT_SUCCESS);
-		break;
-	case 'D': /* --debug */
-		options.debug = true;
 		break;
 #endif
 	default:
@@ -341,7 +337,6 @@ options_init(void)
 	/* default option values */
 	options.list_format = g_strdup(DEFAULT_LIST_FORMAT);
 	options.status_format = g_strdup(DEFAULT_STATUS_FORMAT);
-	options.reconnect = true;
 	options.find_wrap = true;
 	options.wide_cursor = true;
 	options.welcome_screen_list = true;
