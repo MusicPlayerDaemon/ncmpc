@@ -66,8 +66,9 @@ error_msg(const gchar *msg)
 	if ((p = strchr(msg, '}')) == NULL)
 		return msg;
 
-	while (p && *p && (*p=='}' || *p==' '))
+	do {
 		p++;
+	} while (*p == '}' || * p== ' ');
 
 	return p;
 }
