@@ -1,6 +1,8 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
+#include "config.h"
+
 #include <stddef.h>
 #include <stdio.h>
 
