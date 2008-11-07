@@ -45,7 +45,17 @@ typedef struct {
 typedef void (*option_callback_fn_t)(int c, const char *arg);
 
 
-options_t options;
+options_t options = {
+	.port = DEFAULT_PORT,
+	.crossfade_time = DEFAULT_CROSSFADE_TIME,
+	.seek_time = 1,
+	.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT,
+	.find_wrap = true,
+	.wide_cursor = true,
+	.audible_bell = true,
+	.scroll = DEFAULT_SCROLL,
+	.welcome_screen_list = true,
+};
 
 static const arg_opt_t option_table[] = {
 	{ '?', "help", NULL, "Show this help message" },
@@ -331,21 +341,11 @@ options_init(void)
 	/* get initial values for port from MPD_PORT (enviroment) */
 	if ((value = g_getenv(MPD_PORT_ENV)))
 		options.port = atoi(value);
-	else
-		options.port = DEFAULT_PORT;
 
 	/* default option values */
 	options.list_format = g_strdup(DEFAULT_LIST_FORMAT);
 	options.status_format = g_strdup(DEFAULT_STATUS_FORMAT);
-	options.find_wrap = true;
-	options.wide_cursor = true;
-	options.welcome_screen_list = true;
-	options.audible_bell = true;
-	options.crossfade_time = DEFAULT_CROSSFADE_TIME;
-	options.seek_time = 1;
 	options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
 	options.timedisplay_type = g_strdup(DEFAULT_TIMEDISPLAY_TYPE);
-	options.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT;
-	options.scroll = DEFAULT_SCROLL;
 	options.scroll_sep = g_strdup(DEFAULT_SCROLL_SEP);
 }
