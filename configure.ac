@@ -8,14 +8,9 @@ AM_INIT_AUTOMAKE([gnu 1.6 dist-bzip2])
 AM_CONFIG_HEADER([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
-dnl Remove the check for c++ and fortran compiler
-m4_defun([_LT_AC_LANG_CXX_CONFIG], [:])
-m4_defun([_LT_AC_LANG_F77_CONFIG], [:])
-
 dnl Check for programs
 AC_PROG_CC_C99
 AC_PROG_INSTALL
-AC_PROG_LIBTOOL
 
 dnl =======================================================
 dnl initialize variables

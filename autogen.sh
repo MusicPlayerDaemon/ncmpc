@@ -8,10 +8,6 @@ touch stamp-h
 echo "aclocal..."
 aclocal -I $PWD/m4
 
-# rerun libtoolize
-echo "libtoolize..."
-libtoolize --force
-
 # This generates the configure script from configure.in
 echo "autoconf..."
 autoconf
