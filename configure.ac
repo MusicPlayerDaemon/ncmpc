@@ -37,6 +37,29 @@ AC_CHECK_FUNCS([strcasestr])
 
 
 dnl
+dnl ncmpc-mini
+dnl
+
+AC_ARG_ENABLE(mini,
+    AS_HELP_STRING([--enable-mini],
+                   [Build ncmpc-mini (default: disabled)]),
+    [enable_mini=$enableval],
+    [enable_mini=no])
+
+AM_CONDITIONAL(NCMPC_MINI, test x$enable_mini = xyes)
+if test "x$enable_mini" = xyes; then
+    AC_DEFINE([NCMPC_MINI], [1], [Build ncmpc-mini, which disables lots of features]),
+    auto=no
+    disable_mini=no
+    ncurses=ncurses
+else
+    auto=auto
+    disable_mini=yes
+    ncurses=auto
+fi
+
+
+dnl
 dnl Check for libraries
 dnl
 
@@ -64,7 +87,6 @@ AC_ARG_ENABLE([wide],
 
 
 dnl ncurses
-ncurses=auto
 AC_ARG_WITH([ncurses],
 	    AC_HELP_STRING([--with-ncurses], [compile/link with ncurses library] ),
 	    [ncurses=ncurses])
@@ -242,7 +264,7 @@ AC_ARG_ENABLE([mouse],
               AC_HELP_STRING([--enable-mouse],
 	                     [Enable curses getmouse support @<:@default=yes@:>@]),
 	      [getmouse="$enableval"],
-	      [getmouse=yes])
+	      [getmouse=$disable_mini])
 AC_MSG_RESULT([$getmouse])
 if test "x$getmouse" = "xyes" ; then
    AC_CHECK_LIB([$ncurses], 
@@ -271,7 +293,7 @@ AC_ARG_ENABLE([search-screen],
               AC_HELP_STRING([--enable-search-screen],
 	                     [Enable search screen (EXPERIMENTAL) @<:@default=yes@:>@]),
 	      [search_screen="$enableval"],
-	      [search_screen=yes])
+	      [search_screen=$disable_mini])
 AC_MSG_RESULT([$search_screen])
 if test "x$search_screen" = "xyes" ; then
     AC_DEFINE(ENABLE_SEARCH_SCREEN, 1, [Enable search screen])
@@ -285,7 +307,7 @@ AC_ARG_ENABLE([key-screen],
               AC_HELP_STRING([--enable-key-screen],
 	                     [Enable key editor screen @<:@default=yes@:>@]),
 	      [keydef_screen="$enableval"],
-	      [keydef_screen=yes])
+	      [keydef_screen=$disable_mini])
 AC_MSG_RESULT([$keydef_screen])
 if test "x$keydef_screen" = "xyes" ; then
     AC_DEFINE(ENABLE_KEYDEF_SCREEN, 1, [Enable key editor screen])
