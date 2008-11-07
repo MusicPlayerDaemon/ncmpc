@@ -3,12 +3,14 @@
 AM_CPPFLAGS = \
   $(GLIB_CFLAGS)\
   $(GTHREAD_CFLAGS)\
+	$(LIBLIRCCLIENT_CFLAGS) \
   -DLOCALE_DIR=\""$(datadir)/locale"\"\
   -DSYSCONFDIR=\""$(sysconfdir)"\"
 
 ncmpc_LDADD = \
   $(GLIB_LIBS)\
-  $(GTHREAD_LIBS)
+  $(GTHREAD_LIBS) \
+	$(LIBLIRCCLIENT_LIBS)
 
 ncmpc_headers = \
   libmpdclient.h\

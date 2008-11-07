@@ -175,9 +175,19 @@ if test "x$use_colors" = "xyes" ; then
 fi
 
 dnl test for LIRC support
-AC_CHECK_LIB(lirc_client, lirc_init)
-AC_SUBST(LIRC_LIBS)
-AC_DEFINE([ENABLE_LIRC], [1], [Enable LIRC support])
+
+AC_ARG_ENABLE([lirc],
+	AC_HELP_STRING([--enable-lirc],
+		[Enable LIRC support]),
+	[enable_lirc=$enableval],
+	[enable_lirc=no])
+if test x$enable_lirc = xyes; then
+	PKG_CHECK_MODULES([LIBLIRCCLIENT], [liblircclient0],,
+		[AC_MSG_ERROR([liblircclient0 not found])])
+	AC_DEFINE([ENABLE_LIRC], [1], [Enable LIRC support])
+fi
+
+AM_CONDITIONAL(ENABLE_LIRC, test x$enable_lirc = xyes)
 
 dnl Debugging 
 AC_MSG_CHECKING([whether to build with debug support])
