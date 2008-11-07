@@ -47,7 +47,6 @@ compare_filelistentry_dir(gconstpointer filelist_entry1,
 			  gconstpointer filelist_entry2)
 {
 	const mpd_InfoEntity *e1, *e2;
-	char *key1, *key2;
 	int n = 0;
 
 	e1 = ((const filelist_entry_t *)filelist_entry1)->entity;
@@ -55,13 +54,9 @@ compare_filelistentry_dir(gconstpointer filelist_entry1,
 
 	if (e1 && e2 &&
 	    e1->type == MPD_INFO_ENTITY_TYPE_DIRECTORY &&
-	    e2->type == MPD_INFO_ENTITY_TYPE_DIRECTORY) {
-		key1 = g_utf8_collate_key(e1->info.directory->path,-1);
-		key2 = g_utf8_collate_key(e2->info.directory->path,-1);
-		n = strcmp(key1,key2);
-		g_free(key1);
-		g_free(key2);
-	}
+	    e2->type == MPD_INFO_ENTITY_TYPE_DIRECTORY)
+		n = g_utf8_collate(e1->info.directory->path,
+				   e2->info.directory->path);
 
 	return n;
 }
