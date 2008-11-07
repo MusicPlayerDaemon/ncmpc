@@ -64,7 +64,6 @@ utf8_to_locale(const char *utf8str)
 {
 #ifdef HAVE_LOCALE_H
 	gchar *str;
-	GError *error;
 
 	assert(utf8str != NULL);
 
@@ -73,12 +72,9 @@ utf8_to_locale(const char *utf8str)
 
 	str = g_convert_with_fallback(utf8str, -1,
 				      charset, "utf-8",
-				      NULL, NULL, NULL,
-				      &error);
-	if (str == NULL) {
-		g_error_free(error);
+				      NULL, NULL, NULL, NULL);
+	if (str == NULL)
 		return g_strdup(utf8str);
-	}
 
 	return str;
 #else
@@ -91,7 +87,6 @@ locale_to_utf8(const char *localestr)
 {
 #ifdef HAVE_LOCALE_H
 	gchar *str;
-	GError *error;
 
 	assert(localestr != NULL);
 
@@ -100,12 +95,9 @@ locale_to_utf8(const char *localestr)
 
 	str = g_convert_with_fallback(localestr, -1,
 				      "utf-8", charset,
-				      NULL, NULL, NULL,
-				      &error);
-	if (str == NULL) {
-		g_error_free(error);
+				      NULL, NULL, NULL, NULL);
+	if (str == NULL)
 		return g_strdup(localestr);
-	}
 
 	return str;
 #else
