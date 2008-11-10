@@ -282,71 +282,54 @@ timer_idle(mpd_unused gpointer data)
 	return TRUE;
 }
 
+void begin_input_event(void)
+{
+	/* remove the idle timeout; add it later with fresh interval */
+	g_source_remove(idle_source_id);
+}
+
+void end_input_event(void)
+{
+	screen_update(mpd);
+
+	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
+}
+
+int do_input_event(command_t cmd)
+{
+	if (cmd == CMD_QUIT) {
+		g_main_loop_quit(main_loop);
+		return -1;
+	}
+
+	screen_cmd(mpd, cmd);
+
+	if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN) {
+		/* make sure we dont update the volume yet */
+		g_source_remove(update_source_id);
+		update_source_id = g_timeout_add(update_interval,
+						 timer_mpd_update,
+						 GINT_TO_POINTER(TRUE));
+	}
+
+	return 0;
+}
+
 static gboolean
 keyboard_event(mpd_unused GIOChannel *source,
 	       mpd_unused GIOCondition condition, mpd_unused gpointer data)
 {
 	command_t cmd;
 
-	/* remove the idle timeout; add it later with fresh interval */
-	g_source_remove(idle_source_id);
+	begin_input_event();
 
-	if ((cmd=get_keyboard_command()) != CMD_NONE) {
-		if (cmd == CMD_QUIT) {
-			g_main_loop_quit(main_loop);
+	if ((cmd=get_keyboard_command()) != CMD_NONE)
+		if (do_input_event(cmd) != 0)
 			return FALSE;
-		}
 
-		screen_cmd(mpd, cmd);
-
-		if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN) {
-			/* make sure we dont update the volume yet */
-			g_source_remove(update_source_id);
-			update_source_id = g_timeout_add(update_interval,
-							 timer_mpd_update,
-							 GINT_TO_POINTER(TRUE));
-		}
-	}
-
-	screen_update(mpd);
-
-	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
+	end_input_event();
 	return TRUE;
 }
-
-#ifdef ENABLE_LIRC
-static gboolean
-lirc_event(mpd_unused GIOChannel *source,
-	   mpd_unused GIOCondition condition, mpd_unused gpointer data)
-{
-	command_t cmd;
-
-	/* remove the idle timeout; add it later with fresh interval */
-	g_source_remove(idle_source_id);
-
-	if ((cmd = ncmpc_lirc_get_command()) != CMD_NONE) {
-		if (cmd == CMD_QUIT) {
-			g_main_loop_quit(main_loop);
-			return FALSE;
-		}
-
-		screen_cmd(mpd, cmd);
-
-		if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN) {
-			/* make sure we dont update the volume yet */
-			g_source_remove(update_source_id);
-			update_source_id = g_timeout_add(update_interval,
-							 timer_mpd_update,
-							 GINT_TO_POINTER(TRUE));
-		}
-	}
-
-	screen_update(mpd);
-
-	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
-	return TRUE;
-}
-#endif
 
 #ifndef NCMPC_MINI
 /**
