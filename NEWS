@@ -1,3 +1,16 @@
+ncmpc 0.12 - not yet released
+  * added artist screen (tag browser)
+  * added highly experimental lyrics screen (disabled by default)
+  * removed clock screen
+  * support wide characters
+  * optimized memory usage
+  * always try to reconnect after server failure
+  * support unix domain sockets for the MPD connection
+  * added compile-time "mini" option which produces the smallest
+    possible ncmpc binary
+  * added LIRC support
+
+
 ncmpc-0.11.1
 
  + Spanish translations from Jose Cedeno
