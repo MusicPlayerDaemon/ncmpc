@@ -289,9 +289,9 @@ dnl Optional screen - artist
 AC_MSG_CHECKING([whether to include the artist screen])
 AC_ARG_ENABLE([artist-screen], 
               AC_HELP_STRING([--enable-artist-screen],
-	                     [Enable artist screen (EXPERIMENTAL) @<:@default=no@:>@]),
+	                     [Enable artist screen @<:@default=no@:>@]),
 	      [artist_screen="$enableval"],
-	      [artist_screen=no])
+	      [artist_screen=yes])
 AC_MSG_RESULT([$artist_screen])
 if test "x$artist_screen" = "xyes" ; then
     AC_DEFINE(ENABLE_ARTIST_SCREEN, 1, [Enable artist screen])
