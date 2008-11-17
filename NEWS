@@ -11,8 +11,7 @@ ncmpc 0.12 - not yet released
   * added LIRC support
 
 
-ncmpc-0.11.1
-
+ncmpc 0.11.1 - 2005-01-24
  + Spanish translations from Jose Cedeno
  + Russian translations from Nikolay Pavlov
  + French translations from Yann Cézard
@@ -30,8 +29,7 @@ ncmpc-0.11.1
 	o survive select/find operations on empty lists (Niko Tyni)
 
 
-
-ncmpc-0.11.0
+ncmpc 0.11.0 - 2004-07-09
  + removed popt dependency
  + the default port is now 6600 (mpd-0.11.0)
  + nls support (glib-2.4 required for nls)
@@ -66,9 +64,7 @@ ncmpc-0.11.0
  + ncmpc now has german translations from Ingmar Gebert
  
 
-
-ncmpc-0.10.1 
-
+ncmpc 0.10.1 - 2004-04-26
  + support for user key bindings (~/.ncmpc/keys)
  + a key configuration screen (press 'K')
  + fixed resize event (SIGWINCH) handling.
@@ -80,6 +76,5 @@ ncmpc-0.10.1
  + the user configuration file is moved to ~/.ncmpc/config
  + and some small changes (view the ChangeLog for details)
 
-	
 
-
+ncmpc 0.10.0 - 2004-04-12
