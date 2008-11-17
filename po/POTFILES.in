@@ -1,14 +1,17 @@
 # source files
 
 src/ncmpc.h
+src/i18n.h
 src/main.c
 src/screen.c
+src/screen_artist.c
+src/screen_browser.c
+src/screen_list.c
 src/screen_utils.c
 src/screen_play.c
 src/screen_file.c
 src/screen_search.c
 src/screen_keydef.c
-src/screen_clock.c
 src/screen_help.c
 src/screen_lyrics.c
 src/command.c
