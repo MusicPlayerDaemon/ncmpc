@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-07 11:40+0000\n"
+"POT-Creation-Date: 2008-11-17 19:57+0100\n"
 "PO-Revision-Date: 2004-07-08 21:16+0200\n"
 "Last-Translator: Ingmar Gebert\n"
 "Language-Team: de <de@li.org>\n"
@@ -15,292 +15,322 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/ncmpc.h:42
+#: src/i18n.h:36
 msgid "y"
 msgstr "y"
 
-#: src/ncmpc.h:43
+#: src/i18n.h:37
 msgid "n"
 msgstr "n"
 
-#: src/main.c:133 src/main.c:140
-msgid "Exiting..."
-msgstr "Beenden..."
-
-#: src/main.c:290
-#, c-format
-msgid "Error: MPD version %d.%d.%d is to old (0.11.0 needed).\n"
-msgstr "Fehler: MPD-Version %d.%d.%d ist zu alt (0.11.0 wird benötigt).\n"
-
-#: src/main.c:342
+#: src/main.c:211
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr "Verbinde mit %s...   [%s drücken, um abzubrechen]"
 
-#: src/main.c:354
+#: src/main.c:229
+#, c-format
+msgid "Error: MPD version %d.%d.%d is to old (0.11.0 needed).\n"
+msgstr "Fehler: MPD-Version %d.%d.%d ist zu alt (0.11.0 wird benötigt).\n"
+
+#: src/main.c:242
 #, c-format
 msgid "Connected to %s!"
 msgstr "Verbunden mit %s!"
 
-#: src/screen.c:224
+#: src/screen.c:137
 msgid ":Help  "
 msgstr ":Hilfe  "
 
-#: src/screen.c:228
+#: src/screen.c:141
 msgid ":Playlist  "
 msgstr ":Playlist  "
 
-#: src/screen.c:232
+#: src/screen.c:145
 msgid ":Browse  "
 msgstr ":Stöbern  "
 
-#: src/screen.c:237
+#: src/screen.c:150
 #, fuzzy
 msgid ":Artist  "
 msgstr "Künstler"
 
-#: src/screen.c:243
+#: src/screen.c:156
 msgid ":Search  "
 msgstr ""
 
-#: src/screen.c:249
+#: src/screen.c:162
 #, fuzzy
 msgid ":Lyrics  "
 msgstr ":Texte  "
 
-#: src/screen.c:254
+#: src/screen.c:168
 msgid "Volume n/a "
 msgstr "Lautstärke n/a "
 
-#: src/screen.c:258
+#: src/screen.c:170
 #, c-format
 msgid " Volume %d%%"
 msgstr " Lautstärke %d%%"
 
-#: src/screen.c:338
+#: src/screen.c:277
 msgid "Playing:"
 msgstr "Spiele:"
 
-#: src/screen.c:341
+#: src/screen.c:280
 msgid "[Paused]"
 msgstr "[Pause]"
 
-#: src/screen.c:471 src/screen.c:580
+#: src/screen.c:400 src/screen.c:473
 #, c-format
 msgid "Error: Screen to small!\n"
 msgstr "Fehler: Anzeige zu klein!\n"
 
-#: src/screen.c:732
+#: src/screen.c:596
 msgid "Repeat is on"
 msgstr "Wiederholung ist an"
 
-#: src/screen.c:733
+#: src/screen.c:597
 msgid "Repeat is off"
 msgstr "Wiederholung ist aus"
 
-#: src/screen.c:736
+#: src/screen.c:601
 msgid "Random is on"
 msgstr "Zufallswiedergabe ist an"
 
-#: src/screen.c:737
+#: src/screen.c:602
 msgid "Random is off"
 msgstr "Zufallswiedergabe ist aus"
 
-#: src/screen.c:740
+#: src/screen.c:605
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "%d Sekunden Crossfade"
 
-#: src/screen.c:743
+#: src/screen.c:608
 msgid "Database updated!"
 msgstr "Datenbank aktualisiert!"
 
-#: src/screen.c:905
+#: src/screen.c:741
 msgid "Shuffled playlist!"
 msgstr "Playlist gemischt!"
 
-#: src/screen.c:909
+#: src/screen.c:745
 msgid "Cleared playlist!"
 msgstr "Playlist gelöscht!"
 
-#: src/screen.c:927 src/screen_file.c:655
+#: src/screen.c:762 src/screen_file.c:254
 msgid "Database update started!"
 msgstr "Datenbankaktualisierung gestartet!"
 
-#: src/screen.c:930 src/screen_file.c:663
+#: src/screen.c:764 src/screen_file.c:261
 msgid "Database update running..."
 msgstr "Datenbankaktualisierung läuft..."
 
-#: src/screen.c:943
+#: src/screen.c:800
 msgid "Find mode: Wrapped"
 msgstr "Suchmodus: Wrapped"
 
-#: src/screen.c:944
+#: src/screen.c:801
 msgid "Find mode: Normal"
 msgstr "Suchmodus: Normal"
 
-#: src/screen.c:949
+#: src/screen.c:806
 msgid "Auto center mode: On"
 msgstr "Autozentriermodus: an"
 
-#: src/screen.c:950
+#: src/screen.c:807
 msgid "Auto center mode: Off"
 msgstr "Autozentriermodus: aus"
 
-#: src/screen_utils.c:38
-msgid "Find: "
-msgstr "Suche: "
+#: src/screen_artist.c:73
+#, fuzzy
+msgid "All tracks"
+msgstr "Nächstes Stück"
 
-#: src/screen_utils.c:39
-msgid "Find backward: "
-msgstr "Suche rückwärts: "
+#: src/screen_artist.c:376
+#, fuzzy
+msgid "All artists"
+msgstr "Künstler"
 
-#: src/screen_utils.c:166
+#: src/screen_artist.c:381
 #, c-format
-msgid "Unable to find '%s'"
-msgstr "Kann '%s' nicht finden"
+msgid "Albums of artist: %s"
+msgstr ""
 
-#: src/screen_play.c:156
-msgid "Save playlist as: "
-msgstr "Speichere Playlist als: "
+#: src/screen_artist.c:390
+#, fuzzy, c-format
+msgid "Album: %s - %s"
+msgstr "Fehler: %s - %s"
 
-#: src/screen_play.c:186
+#: src/screen_artist.c:394
 #, c-format
-msgid "Replace %s [%s/%s] ? "
-msgstr "Ersetze %s [%s/%s] ?"
+msgid "All tracks of artist: %s"
+msgstr ""
 
-#: src/screen_play.c:200 src/screen_file.c:313 src/screen_keydef.c:162
-msgid "Aborted!"
-msgstr "Abbruch!"
+#: src/screen_artist.c:634 src/screen_file.c:238
+msgid "Screen updated!"
+msgstr "Anzeige aktualisiert!"
 
-#. success
-#: src/screen_play.c:206
-#, c-format
-msgid "Saved %s"
-msgstr "%s gespeichert"
-
-#: src/screen_play.c:270
-msgid "Add: "
-msgstr "Hinzufügen: "
-
-#: src/screen_play.c:325
-msgid "Playlist"
-msgstr "Playlist"
-
-#: src/screen_play.c:327
-#, c-format
-msgid "Playlist on %s"
-msgstr "Playlist auf %s"
-
-#: src/screen_file.c:256
+#: src/screen_browser.c:234
 #, c-format
 msgid "Loading playlist %s..."
 msgstr "Lade Playlist %s..."
 
-#: src/screen_file.c:298
-msgid "You can only delete playlists!"
-msgstr "Du kannst nur Playlisten löschen!"
-
-#: src/screen_file.c:305
-#, c-format
-msgid "Delete playlist %s [%s/%s] ? "
-msgstr "Lösche Playlist %s [%s/%s] ? "
-
-#: src/screen_file.c:321
-msgid "Playlist deleted!"
-msgstr "Playlist gelöscht!"
-
-#: src/screen_file.c:340 src/screen_file.c:461 src/screen_file.c:487
+#: src/screen_browser.c:257 src/screen_browser.c:366 src/screen_browser.c:392
 #, c-format
 msgid "Adding '%s' to playlist\n"
 msgstr "Füge '%s' der Playlist hinzu\n"
 
-#: src/screen_file.c:391
+#: src/screen_browser.c:311
 #, c-format
 msgid "Adding directory %s...\n"
 msgstr "Füge Verzeichnis %s hinzu...\n"
 
-#: src/screen_file.c:552
+#: src/screen_utils.c:32
+msgid "Find: "
+msgstr "Suche: "
+
+#: src/screen_utils.c:33
+msgid "Find backward: "
+msgstr "Suche rückwärts: "
+
+#: src/screen_utils.c:114
+msgid "Password: "
+msgstr ""
+
+#: src/screen_utils.c:207
+#, c-format
+msgid "Unable to find '%s'"
+msgstr "Kann '%s' nicht finden"
+
+#: src/screen_play.c:187
+msgid "Save playlist as: "
+msgstr "Speichere Playlist als: "
+
+#: src/screen_play.c:220
+#, c-format
+msgid "Replace %s [%s/%s] ? "
+msgstr "Ersetze %s [%s/%s] ?"
+
+#: src/screen_play.c:241 src/screen_file.c:137 src/screen_keydef.c:163
+msgid "Aborted!"
+msgstr "Abbruch!"
+
+#. success
+#: src/screen_play.c:249
+#, c-format
+msgid "Saved %s"
+msgstr "%s gespeichert"
+
+#: src/screen_play.c:325
+msgid "Add: "
+msgstr "Hinzufügen: "
+
+#: src/screen_play.c:431
+msgid "Playlist"
+msgstr "Playlist"
+
+#: src/screen_play.c:433
+#, c-format
+msgid "Playlist on %s"
+msgstr "Playlist auf %s"
+
+#: src/screen_file.c:125
+msgid "You can only delete playlists!"
+msgstr "Du kannst nur Playlisten löschen!"
+
+#: src/screen_file.c:132
+#, c-format
+msgid "Delete playlist %s [%s/%s] ? "
+msgstr "Lösche Playlist %s [%s/%s] ? "
+
+#: src/screen_file.c:144
+msgid "Playlist deleted!"
+msgstr "Playlist gelöscht!"
+
+#: src/screen_file.c:198
 #, c-format
 msgid "Browse: %s"
 msgstr "Stöbern: %s"
 
-#: src/screen_file.c:644
-msgid "Screen updated!"
-msgstr "Anzeige aktualisiert!"
-
-#: src/screen_file.c:652
+#: src/screen_file.c:250
 #, c-format
 msgid "Database update of %s started!"
 msgstr "Datenbankaktualisierung von %s gestartet!"
 
-#: src/screen_search.c:56
+#: src/screen_search.c:41
 #, fuzzy
 msgid "artist"
 msgstr "Künstler"
 
-#: src/screen_search.c:57
+#: src/screen_search.c:42
 #, fuzzy
 msgid "album"
 msgstr "Album"
 
-#: src/screen_search.c:58
+#: src/screen_search.c:43
 #, fuzzy
 msgid "title"
 msgstr "Titel"
 
-#: src/screen_search.c:59
+#: src/screen_search.c:44
 #, fuzzy
 msgid "track"
 msgstr "Nächstes Stück"
 
-#: src/screen_search.c:60
+#: src/screen_search.c:45
 #, fuzzy
 msgid "name"
 msgstr "Dateiname"
 
-#: src/screen_search.c:61
+#: src/screen_search.c:46
 msgid "genre"
 msgstr "Genre"
 
-#: src/screen_search.c:62
+#: src/screen_search.c:47
 msgid "date"
 msgstr "Datum"
 
-#: src/screen_search.c:63
+#: src/screen_search.c:48
 msgid "composer"
 msgstr "Komponist"
 
-#: src/screen_search.c:64
+#: src/screen_search.c:49
 msgid "performer"
 msgstr "Aufführung"
 
-#: src/screen_search.c:65
+#: src/screen_search.c:50
 msgid "comment"
 msgstr "Anmerkung"
 
-#: src/screen_search.c:66
+#: src/screen_search.c:51
 #, fuzzy
 msgid "file"
 msgstr "Datei"
 
-#: src/screen_search.c:100
+#: src/screen_search.c:81
 msgid "Title"
 msgstr "Titel"
 
-#: src/screen_search.c:101
+#: src/screen_search.c:82
 msgid "Artist"
 msgstr "Künstler"
 
-#: src/screen_search.c:102
+#: src/screen_search.c:83
 msgid "Album"
 msgstr "Album"
 
-#: src/screen_search.c:103
+#: src/screen_search.c:84
 msgid "Filename"
 msgstr "Dateiname"
 
-#: src/screen_search.c:244
+#: src/screen_search.c:85
+#, fuzzy
+msgid "Artist + Title"
+msgstr "Künstler"
+
+#: src/screen_search.c:247
 #, c-format
 msgid "Bad search tag %s"
 msgstr "Tag nicht erkannt: %s"
@@ -310,296 +340,298 @@ msgstr "Tag nicht erkannt: %s"
 msgid "No argument for search tag %s"
 msgstr "Kein Argument für Tag %s"
 
-#: src/screen_search.c:323
+#: src/screen_search.c:311
 msgid "Search: "
 msgstr "Suche: "
 
 #. if( pattern==NULL )
 #. search_new(screen, c);
 #. else
-#: src/screen_search.c:379
+#: src/screen_search.c:371
 #, c-format
 msgid "Press %s for a new search"
 msgstr "Drücke %s für eine neue Suche"
 
-#: src/screen_search.c:435
+#: src/screen_search.c:399
 #, fuzzy, c-format
 msgid "Search: %s"
 msgstr "Suche: "
 
-#: src/screen_search.c:438
+#: src/screen_search.c:402
 #, c-format
 msgid "Search: Results for %s [%s]"
 msgstr "Suche: Ergebnisse für %s [%s]"
 
-#: src/screen_search.c:442
+#: src/screen_search.c:406
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
 msgstr "Suche: Drücke %s für eine neue Suche [%s]"
 
-#: src/screen_search.c:476
+#: src/screen_search.c:421
 #, c-format
 msgid "Search mode: %s"
 msgstr "Suchmodus: %s"
 
-#: src/screen_keydef.c:46
+#: src/screen_keydef.c:41
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Tastenbelegung speichern und anwenden  "
 
-#: src/screen_keydef.c:47
+#: src/screen_keydef.c:42
 msgid "===> Apply key bindings "
 msgstr "===> Tastenbelegung anwenden "
 
-#: src/screen_keydef.c:76
+#: src/screen_keydef.c:70
 msgid "You have new key bindings!"
 msgstr "Du hast eine neue Tastenbelegung!"
 
-#: src/screen_keydef.c:79
+#: src/screen_keydef.c:72
 msgid "Keybindings unchanged."
 msgstr "Tastenbelegung unverändert."
 
-#: src/screen_keydef.c:90
+#: src/screen_keydef.c:82
 #, c-format
 msgid "Error: Unable to create direcory ~/.ncmpc - %s"
 msgstr "Fehler: kann Verzeichnis ~/.ncmpc - %s nicht erstellen"
 
-#: src/screen_keydef.c:100 src/screen_keydef.c:106
+#: src/screen_keydef.c:91 src/screen_keydef.c:98
 #, c-format
 msgid "Error: %s - %s"
 msgstr "Fehler: %s - %s"
 
-#: src/screen_keydef.c:108
+#: src/screen_keydef.c:100
 #, c-format
 msgid "Wrote %s"
 msgstr "%s geschrieben"
 
-#: src/screen_keydef.c:136
+#: src/screen_keydef.c:137
 msgid "Deleted"
 msgstr "Gelöscht"
 
-#: src/screen_keydef.c:155
+#: src/screen_keydef.c:158
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Gib neue Taste für %s ein: "
 
-#: src/screen_keydef.c:168
+#: src/screen_keydef.c:169
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "Fehler: Taste %s wird bereits benutzt für %s"
 
-#: src/screen_keydef.c:177
+#: src/screen_keydef.c:179
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "%s wurde %s zugeordnet"
 
-#: src/screen_keydef.c:220
+#: src/screen_keydef.c:216
 #, c-format
 msgid "%d. Add new key "
 msgstr "%d. Füge neue Taste hinzu "
 
-#: src/screen_keydef.c:267
+#: src/screen_keydef.c:262
 msgid "Welcome to the key editor!"
 msgstr "Willkommen im Tasteneditor!"
 
-#: src/screen_keydef.c:283
+#: src/screen_keydef.c:276
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Tipp: Hast du vergessen, deine Änderungen 'Anzuwenden'?"
 
-#: src/screen_keydef.c:290
+#: src/screen_keydef.c:283
 msgid "Edit key bindings"
 msgstr "Editiere Tastenbelegungen"
 
-#: src/screen_keydef.c:292
+#: src/screen_keydef.c:285
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Editiere Tasten für %s"
 
-#: src/screen_clock.c:154
-msgid "Clock"
-msgstr "Uhr"
-
-#: src/screen_help.c:43
+#: src/screen_help.c:38
 msgid "Keys - Movement"
 msgstr "Tasten - Bewegung"
 
-#: src/screen_help.c:69
+#: src/screen_help.c:61
 msgid "Keys - Global"
 msgstr "Tasten - Global"
 
-#: src/screen_help.c:96
+#: src/screen_help.c:89
 msgid "Keys - Playlist screen"
 msgstr "Tasten - Playlistenanzeige"
 
-#: src/screen_help.c:98
+#: src/screen_help.c:91
 msgid "Play"
 msgstr "Abspielen"
 
-#: src/screen_help.c:101
+#: src/screen_help.c:94
 msgid "Move song up"
 msgstr "Stück nach oben bewegen"
 
-#: src/screen_help.c:102
+#: src/screen_help.c:95
 msgid "Move song down"
 msgstr "Stück nach unten bewegen"
 
-#: src/screen_help.c:105
+#: src/screen_help.c:98
 msgid "Center"
 msgstr "Zentrieren"
 
-#: src/screen_help.c:110
+#: src/screen_help.c:103
 msgid "Keys - Browse screen"
 msgstr "Tasten - Stöber-Anzeige"
 
-#: src/screen_help.c:112
+#: src/screen_help.c:105
 msgid "Enter directory/Select and play song"
 msgstr "Verzeichnis öffnen/Stück auswählen und abspielen"
 
-#: src/screen_help.c:115
+#: src/screen_help.c:107 src/screen_help.c:122
+#, fuzzy
+msgid "Append song to playlist"
+msgstr "Lösche Song aus der Playlist"
+
+#: src/screen_help.c:109
 msgid "Delete playlist"
 msgstr "Lösche Playlist"
 
-#: src/screen_help.c:121
+#: src/screen_help.c:117
 msgid "Keys - Search screen"
 msgstr "Tasten - Stöber-Anzeige"
 
-#: src/screen_help.c:123
+#: src/screen_help.c:119
 msgid "Search"
 msgstr "Suche"
 
-#: src/screen_help.c:124
+#: src/screen_help.c:120
 msgid "Select and play"
 msgstr "Auswählen und abspielen"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:129
 #, fuzzy
 msgid "Keys - Lyrics screen"
 msgstr "Tasten - Liedtexteanzeige"
 
-#: src/screen_help.c:133
+#: src/screen_help.c:131
 msgid "View Lyrics"
 msgstr "Liedtext lesen"
 
-#: src/screen_help.c:134
+#: src/screen_help.c:132
 msgid "(Re)load lyrics"
 msgstr "Text (neu) laden"
 
-#: src/screen_help.c:135
+#: src/screen_help.c:133
 msgid "Interrupt retrieval"
 msgstr "Laden unterbrechen"
 
-#: src/screen_help.c:136
+#: src/screen_help.c:134
 msgid "Explicitly download lyrics"
 msgstr "Texte explizit herunterladen"
 
-#: src/screen_help.c:137
+#: src/screen_help.c:135
 #, fuzzy
 msgid "Save lyrics"
 msgstr "Text speicheren "
 
-#: src/screen_help.c:220
+#: src/screen_help.c:205
 msgid "Help"
 msgstr "Hilfe"
 
-#: src/screen_lyrics.c:479
-msgid "Lyrics  [No connection]"
-msgstr "Liedtext [keine Verbindung]"
+#: src/screen_lyrics.c:162
+#, fuzzy
+msgid "No lyrics"
+msgstr "Text speicheren "
 
-#: src/screen_lyrics.c:480
-msgid "Lyrics  [Not found]"
-msgstr "Liedtext [Text nicht gefunden]"
-
-#: src/screen_lyrics.c:483
-msgid "Lyrics  [retrieving]"
-msgstr "Liedtexte [Lade...]"
-
-#: src/screen_lyrics.c:565
+#: src/screen_lyrics.c:316
 #, fuzzy
 msgid "Lyrics saved!"
 msgstr "Text gespeichert!"
 
-#: src/command.c:71
+#: src/command.c:67
 msgid "Key configuration screen"
 msgstr "Tastenkonfigurationsanzeige"
 
-#: src/command.c:74
+#: src/command.c:70
 msgid "Quit"
 msgstr "Beenden"
 
-#: src/command.c:78
+#: src/command.c:74
 msgid "Move cursor up"
 msgstr "Cursor nach oben bewegen"
 
-#: src/command.c:80
+#: src/command.c:76
 msgid "Move cursor down"
 msgstr "Cursor nach unten bewegen"
 
-#: src/command.c:82
+#: src/command.c:78
 msgid "Home "
 msgstr "Anfang "
 
-#: src/command.c:84
+#: src/command.c:80
 msgid "End "
 msgstr "Ende "
 
-#: src/command.c:86
+#: src/command.c:82
 msgid "Page up"
 msgstr "Bild auf"
 
-#: src/command.c:88
+#: src/command.c:84
 msgid "Page down"
 msgstr "Bild ab"
 
-#: src/command.c:93
+#: src/command.c:89
 msgid "Help screen"
 msgstr "Hilfeanzeige"
 
-#: src/command.c:95
+#: src/command.c:91
 msgid "Playlist screen"
 msgstr "Playlistenanzeige"
 
-#: src/command.c:97
+#: src/command.c:93
 msgid "Browse screen"
 msgstr "Anzeige durchstöbern"
 
-#: src/command.c:102
+#: src/command.c:98
 msgid "Play/Enter directory"
 msgstr "Abspielen/Verzeichnis öffnen"
 
-#: src/command.c:104
+#: src/command.c:100
 msgid "Pause"
 msgstr "Pause"
 
-#: src/command.c:106
+#: src/command.c:102
 msgid "Stop"
 msgstr "Stop"
 
-#: src/command.c:108
+#: src/command.c:104
+msgid "Crop"
+msgstr ""
+
+#: src/command.c:106
 msgid "Next track"
 msgstr "Nächstes Stück"
 
-#: src/command.c:110
+#: src/command.c:108
 msgid "Previous track"
 msgstr "Vorheriges Stück"
 
-#: src/command.c:112
+#: src/command.c:110
 msgid "Seek forward"
 msgstr "Vorspulen"
 
-#: src/command.c:114
+#: src/command.c:112
 msgid "Seek backward"
 msgstr "Zurückspulen"
 
-#: src/command.c:116
+#: src/command.c:114
 msgid "Increase volume"
 msgstr "Lautstärke erhöhen"
 
-#: src/command.c:118
+#: src/command.c:116
 msgid "Decrease volume"
 msgstr "Lautstärke verringern"
 
-#: src/command.c:120
+#: src/command.c:118
 msgid "Select/deselect song in playlist"
 msgstr "Wähle Stück in der Playlist an/ab"
+
+#: src/command.c:120
+msgid "Select all listed items"
+msgstr ""
 
 #: src/command.c:122
 msgid "Delete song from playlist"
@@ -637,66 +669,72 @@ msgstr "Speichere Playlist"
 msgid "Add url/file to playlist"
 msgstr "Füge eine URL/Datei der Playlist hinzu"
 
+#: src/command.c:141
+#, fuzzy
+msgid "Go to root directory"
+msgstr "Verzeichnis öffnen"
+
 #: src/command.c:143
+#, fuzzy
+msgid "Go to parent directory"
+msgstr "Verzeichnis öffnen"
+
+#: src/command.c:147
 msgid "Move item up"
 msgstr "Bewege es nach oben"
 
-#: src/command.c:145
+#: src/command.c:149
 msgid "Move item down"
 msgstr "Bewege es nach unten"
 
-#: src/command.c:147
+#: src/command.c:151
 msgid "Update screen"
 msgstr "Aktualisiere Anzeige"
 
-#: src/command.c:152
+#: src/command.c:156
 msgid "Toggle find mode"
 msgstr "Wechsle den Suchmodus"
 
-#: src/command.c:154
+#: src/command.c:158
 msgid "Toggle auto center mode"
 msgstr "Schalte den Autozentrier-Modus ein/aus"
 
-#: src/command.c:159
+#: src/command.c:163
 msgid "Next screen"
 msgstr "Nächste Anzeige"
 
-#: src/command.c:161
+#: src/command.c:165
 msgid "Previous screen"
 msgstr "Vorherige Anzeige"
 
-#: src/command.c:166
+#: src/command.c:170
 msgid "Forward find"
 msgstr "Vorwärtssuche"
 
-#: src/command.c:168
+#: src/command.c:172
 msgid "Forward find next"
 msgstr "Vorwärtssuche fortsetzen"
 
-#: src/command.c:170
+#: src/command.c:174
 msgid "Backward find"
 msgstr "Rückwärtssuche"
 
-#: src/command.c:172
+#: src/command.c:176
 msgid "Backward find previous"
 msgstr "Rückwärtssuche fortsetzen"
 
-#: src/command.c:178
+#: src/command.c:182
 #, fuzzy
 msgid "Artist screen"
 msgstr "Playlistenanzeige"
 
-#: src/command.c:182
+#: src/command.c:186
 msgid "Search screen"
 msgstr "Suchanzeige"
 
-#: src/command.c:184
+#: src/command.c:188
 msgid "Change search mode"
 msgstr "Suchmodus wechseln"
-
-#: src/command.c:189
-msgid "Clock screen"
-msgstr "Uhr-Anzeige"
 
 #: src/command.c:193
 #, fuzzy
@@ -780,44 +818,59 @@ msgstr "Esc"
 msgid "Insert"
 msgstr "Einfg"
 
-#: src/command.c:502
+#: src/command.c:456
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 msgstr "Taste %s ist %s und %s zugeordnet (drücke %s für den Tasteneditor)"
 
-#: src/command.c:509 src/command.c:516
+#: src/command.c:463 src/command.c:470
 #, c-format
 msgid "Error: Key %s assigned to %s and %s !!!\n"
 msgstr "Fehler: Taste %s ist %s und %s zugeordnet !!!\n"
 
-#: src/colors.c:187
+#: src/colors.c:163
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr "Warnung: Unbekannte Farbe - %s\n"
 
-#: src/colors.c:232
+#: src/colors.c:206
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Warnung: Unbekanntes Farbfeld - %s\n"
 
-#: src/colors.c:267
+#: src/colors.c:238
 #, c-format
 msgid "Terminal lacks support for changing colors!\n"
 msgstr "Das Terminal unterstützt keine Farbwechsel!\n"
 
-#: src/colors.c:284
+#: src/colors.c:248
 #, c-format
 msgid "Terminal lacks color capabilities!\n"
 msgstr "Das Terminal unterstützt keine Farben!\n"
 
-#: src/support.c:187
-#, c-format
-msgid "Error: Unable to convert characters to %s"
-msgstr "Fehler: kann Zeichen nicht nach %s konvertieren"
+#~ msgid "Exiting..."
+#~ msgstr "Beenden..."
 
-#: src/support.c:216
-msgid "Error: Unable to convert characters to UTF-8"
-msgstr "Fehler: kann Zeichen nicht nach UTF-8 konvertieren"
+#~ msgid "Clock"
+#~ msgstr "Uhr"
+
+#~ msgid "Lyrics  [No connection]"
+#~ msgstr "Liedtext [keine Verbindung]"
+
+#~ msgid "Lyrics  [Not found]"
+#~ msgstr "Liedtext [Text nicht gefunden]"
+
+#~ msgid "Lyrics  [retrieving]"
+#~ msgstr "Liedtexte [Lade...]"
+
+#~ msgid "Clock screen"
+#~ msgstr "Uhr-Anzeige"
+
+#~ msgid "Error: Unable to convert characters to %s"
+#~ msgstr "Fehler: kann Zeichen nicht nach %s konvertieren"
+
+#~ msgid "Error: Unable to convert characters to UTF-8"
+#~ msgstr "Fehler: kann Zeichen nicht nach UTF-8 konvertieren"
 
 #~ msgid "Lyrics"
 #~ msgstr "Liedtexte"
@@ -989,6 +1042,3 @@ msgstr "Fehler: kann Zeichen nicht nach UTF-8 konvertieren"
 #, fuzzy
 #~ msgid " clock-screen"
 #~ msgstr "Uhr-Anzeige"
-
-#~ msgid "Enter directory"
-#~ msgstr "Verzeichnis öffnen"
