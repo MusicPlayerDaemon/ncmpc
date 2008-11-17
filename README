@@ -15,23 +15,7 @@ control for music playback over a local network. Read more at musicpd.org
 How to compile and install ncmpc
 -------------------------------------------------------------------------------
 
-Requirements:
-	* ncurses 
-	* glib-2.2 (2.4 for NLS support)
-
-Download the ncmpc source code, then:
-	$ tar zxvf ncmpc-x.y.z.tar.gz
-	$ cd ncmpc-x.y.z
-	$ ./configure
-	$ make
-	$ make install
-
-or if you are starting from the subversion checkout:
-	$ svn co https://svn.musicpd.org/ncmpc/trunk ncmpc
-	$ cd ncmpc
-	$ ./autogen.sh
-	$ make
-	$ make install
+See the INSTALL file.
 
 
 Upgrading to ncmpc-0.11.0 
