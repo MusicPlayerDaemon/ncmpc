@@ -25,6 +25,7 @@ ncmpc_headers = \
 	ncu.h \
   screen.h\
 	screen_list.h \
+	screen_play.h \
   screen_utils.h\
   list_window.h\
   colors.h\
