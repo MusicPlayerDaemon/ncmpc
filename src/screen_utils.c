@@ -121,10 +121,19 @@ screen_read_password(WINDOW *w, const char *prompt)
 static gint
 _screen_auth(struct mpdclient *c, gint recursion)
 {
+	char *password;
+
 	mpd_clearError(c->connection);
 	if (recursion > 2)
 		return 1;
-	mpd_sendPasswordCommand(c->connection,  screen_read_password(NULL, NULL));
+
+	password = screen_read_password(NULL, NULL);
+	if (password == NULL)
+		return 1;
+
+	mpd_sendPasswordCommand(c->connection, password);
+	g_free(password);
+
 	mpd_finishCommand(c->connection);
 	mpdclient_update(c);
 	if (c->connection->errorCode == MPD_ACK_ERROR_PASSWORD)
