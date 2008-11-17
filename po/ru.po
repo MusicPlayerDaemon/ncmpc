@@ -1,16 +1,16 @@
 # Russian
 # Copyright (C) 2004 Kalle Wallin 
 # This file is distributed under the same license as the ncmpc package.
-# Nikolay Pavlov <quetzal@roks.biz>, 2004.
-# Modified by Alexey Ivanov aka LexxTheFox <lexx@orenubrg.rfn.ru>
+# Original translation by Nikolay Pavlov <quetzal@roks.biz>, 2004.
+# Encoding and typos fixed, stylistic improvement by Max Arnold, 2006-12-09
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-08-07 11:40+0000\n"
-"PO-Revision-Date: 2004-12-29 09:40+0200\n"
-"Last-Translator: Alexey Ivanov aka LexxTheFox <lexx@orenubrg.rfn.ru>\n"
+"PO-Revision-Date: 2008-11-17 19:02+0100\n"
+"Last-Translator: Max Arnold <amv_cbxl@mail.ru>\n"
 "Language-Team: ru <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=koi8-r\n"
@@ -26,7 +26,7 @@ msgstr "n"
 
 #: src/main.c:133 src/main.c:140
 msgid "Exiting..."
-msgstr "Выхожу..."
+msgstr "Выход..."
 
 #: src/main.c:290
 #, c-format
@@ -41,7 +41,7 @@ msgstr "Подключение к %s...  [Нажмите %s для отмены]"
 #: src/main.c:354
 #, c-format
 msgid "Connected to %s!"
-msgstr "Подключен к %s!"
+msgstr "Подключено к %s!"
 
 #: src/screen.c:224
 msgid ":Help  "
@@ -49,7 +49,7 @@ msgstr ":Помощь  "
 
 #: src/screen.c:228
 msgid ":Playlist  "
-msgstr ":Плейлист  "
+msgstr ":Плэйлист  "
 
 #: src/screen.c:232
 msgid ":Browse  "
@@ -110,7 +110,7 @@ msgstr "Случайный режим выключен"
 #: src/screen.c:740
 #, c-format
 msgid "Crossfade %d seconds"
-msgstr "Кроссфейд %d секунд"
+msgstr "Плавный переход %d секунд"
 
 #: src/screen.c:743
 msgid "Database updated!"
@@ -118,23 +118,23 @@ msgstr "База обновлена!"
 
 #: src/screen.c:905
 msgid "Shuffled playlist!"
-msgstr "Плейлист перемешан!"
+msgstr "Плэйлист перемешан!"
 
 #: src/screen.c:909
 msgid "Cleared playlist!"
-msgstr "Плайлист очищен!"
+msgstr "Плэйлист очищен!"
 
 #: src/screen.c:927 src/screen_file.c:655
 msgid "Database update started!"
-msgstr "Начато обновление Базы!"
+msgstr "Начато обновление базы!"
 
 #: src/screen.c:930 src/screen_file.c:663
 msgid "Database update running..."
-msgstr "Обновление Базы..."
+msgstr "Идет обновление базы..."
 
 #: src/screen.c:943
 msgid "Find mode: Wrapped"
-msgstr "Режим поиска: Расширенный"
+msgstr "Режим поиска: Зацикленный"
 
 #: src/screen.c:944
 msgid "Find mode: Normal"
@@ -150,11 +150,11 @@ msgstr "Режим автоцентрирования: Выкл."
 
 #: src/screen_utils.c:38
 msgid "Find: "
-msgstr "Искать: "
+msgstr "Поиск: "
 
 #: src/screen_utils.c:39
 msgid "Find backward: "
-msgstr "Искать назад: "
+msgstr "Поиск назад: "
 
 #: src/screen_utils.c:166
 #, c-format
@@ -163,7 +163,7 @@ msgstr "Не удалось найти '%s'"
 
 #: src/screen_play.c:156
 msgid "Save playlist as: "
-msgstr "Сохранить плейлист как: "
+msgstr "Сохранить плэйлист как: "
 
 #: src/screen_play.c:186
 #, c-format
@@ -178,7 +178,7 @@ msgstr "Прервано!"
 #: src/screen_play.c:206
 #, c-format
 msgid "Saved %s"
-msgstr "Сохранено %s"
+msgstr "Сохранено в %s"
 
 #: src/screen_play.c:270
 msgid "Add: "
@@ -186,40 +186,40 @@ msgstr "Добавить: "
 
 #: src/screen_play.c:325
 msgid "Playlist"
-msgstr "Плейлист"
+msgstr "Плэйлист"
 
 #: src/screen_play.c:327
 #, c-format
 msgid "Playlist on %s"
-msgstr "Плейлист в %s"
+msgstr "Плэйлист на %s"
 
 #: src/screen_file.c:256
 #, c-format
 msgid "Loading playlist %s..."
-msgstr "Загружаю плейлист %s..."
+msgstr "Загружаю плэйлист %s..."
 
 #: src/screen_file.c:298
 msgid "You can only delete playlists!"
-msgstr "Вы можете только удалить плейлист!"
+msgstr "Плэйлисты можно только удалять!"
 
 #: src/screen_file.c:305
 #, c-format
 msgid "Delete playlist %s [%s/%s] ? "
-msgstr "Удалить плейлист %s [%s/%s] ? "
+msgstr "Удалить плэйлист %s [%s/%s] ? "
 
 #: src/screen_file.c:321
 msgid "Playlist deleted!"
-msgstr "Плейлист удален!"
+msgstr "Плэйлист удален!"
 
 #: src/screen_file.c:340 src/screen_file.c:461 src/screen_file.c:487
 #, c-format
 msgid "Adding '%s' to playlist\n"
-msgstr "Добавляю '%s' в плейлист\n"
+msgstr "Добавляется '%s' в плэйлист\n"
 
 #: src/screen_file.c:391
 #, c-format
 msgid "Adding directory %s...\n"
-msgstr "Добавляю директорию %s...\n"
+msgstr "Добавляется директория %s...\n"
 
 #: src/screen_file.c:552
 #, c-format
@@ -228,12 +228,12 @@ msgstr "Просмотр: %s"
 
 #: src/screen_file.c:644
 msgid "Screen updated!"
-msgstr "Экран обновляется!"
+msgstr "Экран обновлён!"
 
 #: src/screen_file.c:652
 #, c-format
 msgid "Database update of %s started!"
-msgstr "Начато обновление Базы в %s "
+msgstr "Обновление базы %s начато!"
 
 #: src/screen_search.c:56
 #, fuzzy
@@ -321,7 +321,7 @@ msgstr "Поиск: "
 #: src/screen_search.c:379
 #, c-format
 msgid "Press %s for a new search"
-msgstr "Нажмите %s чтобы начать новый поиск"
+msgstr "Нажмите %s для нового поиска"
 
 #: src/screen_search.c:435
 #, fuzzy, c-format
@@ -331,7 +331,7 @@ msgstr "Поиск: "
 #: src/screen_search.c:438
 #, c-format
 msgid "Search: Results for %s [%s]"
-msgstr "Результаты поиска $s [$s]"
+msgstr "Поиск: Результаты поиска по %s [%s]"
 
 #: src/screen_search.c:442
 #, c-format
@@ -345,19 +345,19 @@ msgstr "Режим поиска: %s"
 
 #: src/screen_keydef.c:46
 msgid "===> Apply & Save key bindings  "
-msgstr "===> Применить и сохранить новые комбинации клавиш  "
+msgstr "===> Применить и сохранить клавиатурные комбинации  "
 
 #: src/screen_keydef.c:47
 msgid "===> Apply key bindings "
-msgstr "===> Применить новые комбинации клавиш "
+msgstr "===> Применить клавиатурные комбинации "
 
 #: src/screen_keydef.c:76
 msgid "You have new key bindings!"
-msgstr "У вас есть новые комбинации клавиш!"
+msgstr "Новые клавиатурные комбинации задействованы!"
 
 #: src/screen_keydef.c:79
 msgid "Keybindings unchanged."
-msgstr "Настройки клавиатурных комбинаций не изменились."
+msgstr "Клавиатурные комбинации не изменились."
 
 #: src/screen_keydef.c:90
 #, c-format
@@ -381,12 +381,12 @@ msgstr "Удалено"
 #: src/screen_keydef.c:155
 #, c-format
 msgid "Enter new key for %s: "
-msgstr "Введите новую комбинацию для %s"
+msgstr "Нажмите новую клавишу для %s: "
 
 #: src/screen_keydef.c:168
 #, c-format
 msgid "Error: key %s is already used for %s"
-msgstr "Ошибка: клавиша %s уже используеться для %s"
+msgstr "Ошибка: клавиша %s уже используется для %s"
 
 #: src/screen_keydef.c:177
 #, c-format
@@ -400,20 +400,20 @@ msgstr "%d. Добавить новую клавишу "
 
 #: src/screen_keydef.c:267
 msgid "Welcome to the key editor!"
-msgstr "Добро пожаловать в редактор клавиш!"
+msgstr "Добро пожаловать в редактор клавиатурных комбинаций!"
 
 #: src/screen_keydef.c:283
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Внимание: Вы не забыли Применить ваши изменения?"
+msgstr "Внимание: Вы не забыли применить сделанные изменения?"
 
 #: src/screen_keydef.c:290
 msgid "Edit key bindings"
-msgstr "Редактировать клавиатурные комбинации"
+msgstr "Изменение клавиатурных комбинаций"
 
 #: src/screen_keydef.c:292
 #, c-format
 msgid "Edit keys for %s"
-msgstr "Редактировать комбинацию для %s"
+msgstr "Изменение клавиатурных комбинаций для %s"
 
 #: src/screen_clock.c:154
 msgid "Clock"
@@ -429,7 +429,7 @@ msgstr "Команды - Глобальные"
 
 #: src/screen_help.c:96
 msgid "Keys - Playlist screen"
-msgstr "Команды - Экран Плейлиста"
+msgstr "Команды - Экран плэйлиста"
 
 #: src/screen_help.c:98
 msgid "Play"
@@ -449,7 +449,7 @@ msgstr "Центрировать"
 
 #: src/screen_help.c:110
 msgid "Keys - Browse screen"
-msgstr "Команды - Экран Просмотра"
+msgstr "Команды - Экран просмотра"
 
 #: src/screen_help.c:112
 msgid "Enter directory/Select and play song"
@@ -457,7 +457,7 @@ msgstr "Перейти в директорию/Выбрать и проиграть композицию"
 
 #: src/screen_help.c:115
 msgid "Delete playlist"
-msgstr "Удалить Плейлист"
+msgstr "Удалить плэйлист"
 
 #: src/screen_help.c:121
 msgid "Keys - Search screen"
@@ -520,7 +520,7 @@ msgstr "Экран Плейлиста"
 
 #: src/command.c:71
 msgid "Key configuration screen"
-msgstr "Экран настройки клавиш"
+msgstr "Экран клавиатурных комбинаций"
 
 #: src/command.c:74
 msgid "Quit"
@@ -552,19 +552,19 @@ msgstr "На страницу вниз"
 
 #: src/command.c:93
 msgid "Help screen"
-msgstr "Экран Помощи"
+msgstr "Экран помощи"
 
 #: src/command.c:95
 msgid "Playlist screen"
-msgstr "Экран Плейлиста"
+msgstr "Экран плэйлиста"
 
 #: src/command.c:97
 msgid "Browse screen"
-msgstr "Экран Просмотра"
+msgstr "Экран просмотра"
 
 #: src/command.c:102
 msgid "Play/Enter directory"
-msgstr "Воспроизвести/Прейти в директорию"
+msgstr "Воспроизвести/Перейти в директорию"
 
 #: src/command.c:104
 msgid "Pause"
@@ -576,19 +576,19 @@ msgstr "Стоп"
 
 #: src/command.c:108
 msgid "Next track"
-msgstr "Следующий трек"
+msgstr "Следующая композиция"
 
 #: src/command.c:110
 msgid "Previous track"
-msgstr "Предыдущий трек"
+msgstr "Предыдущая композиция"
 
 #: src/command.c:112
 msgid "Seek forward"
-msgstr "Искать вперед"
+msgstr "Перемотка вперед"
 
 #: src/command.c:114
 msgid "Seek backward"
-msgstr "Искать назад"
+msgstr "Перемотка назад"
 
 #: src/command.c:116
 msgid "Increase volume"
@@ -604,15 +604,15 @@ msgstr "Пометить/Убрать пометку с композиции"
 
 #: src/command.c:122
 msgid "Delete song from playlist"
-msgstr "Удалить композицию из плейлиста"
+msgstr "Удалить композицию из плэйлиста"
 
 #: src/command.c:124
 msgid "Shuffle playlist"
-msgstr "Перемешать плейлист"
+msgstr "Перемешать плэйлист"
 
 #: src/command.c:126
 msgid "Clear playlist"
-msgstr "Очистить плейлист"
+msgstr "Очистить плэйлист"
 
 #: src/command.c:128
 msgid "Toggle repeat mode"
@@ -624,19 +624,19 @@ msgstr "Вкл/Выкл случайный режим"
 
 #: src/command.c:132
 msgid "Toggle crossfade mode"
-msgstr "Вкл/Выкл режим ознакомления"
+msgstr "Вкл/Выкл режим плавного перехода"
 
 #: src/command.c:134
 msgid "Start a music database update"
-msgstr "Начать обновление музыкальной Базы"
+msgstr "Начать обновление музыкальной базы"
 
 #: src/command.c:136
 msgid "Save playlist"
-msgstr "Сохранить плейлист"
+msgstr "Сохранить плэйлист"
 
 #: src/command.c:138
 msgid "Add url/file to playlist"
-msgstr "Добавить url/файл в плейлист"
+msgstr "Добавить url/файл в плэйлист"
 
 #: src/command.c:143
 msgid "Move item up"
@@ -697,7 +697,7 @@ msgstr "Изменить режим поиска"
 
 #: src/command.c:189
 msgid "Clock screen"
-msgstr "Экран Часов"
+msgstr "Экран часов"
 
 #: src/command.c:193
 #, fuzzy
