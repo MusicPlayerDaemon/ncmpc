@@ -531,6 +531,15 @@ browser_cmd(struct screen_browser *browser,
 		return true;
 #endif
 
+	case CMD_LOCATE:
+		entry = browser_get_selected(browser);
+		if (entry == NULL || entry->entity == NULL ||
+		    entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
+			return false;
+
+		screen_file_goto_song(c, entry->entity->info.song);
+		return true;
+
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
 		entry = browser_get_selected(browser);

@@ -81,6 +81,7 @@ static help_text_row_t help_text[] = {
 	{ 0, CMD_LIST_FIND_NEXT, NULL },
 	{ 0, CMD_LIST_RFIND_NEXT, NULL },
 	{ 0, CMD_TOGGLE_FIND_WRAP, NULL },
+	{ 0, CMD_LOCATE, NULL },
 	{ 0, CMD_NONE, NULL },
 	{ 0, CMD_QUIT, NULL },
 

@@ -219,6 +219,12 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 		file_repaint();
 		return 1;
 
+	case CMD_LOCATE:
+		/* don't let browser_cmd() evaluate the locate command
+		   - it's a no-op, and by the way, leads to a
+		   segmentation fault in the current implementation */
+		return false;
+
 	case CMD_DELETE:
 		handle_delete(c);
 		file_repaint();
@@ -283,3 +289,44 @@ const struct screen_functions screen_browse = {
 	.cmd = browse_cmd,
 	.get_title = browse_title,
 };
+
+bool
+screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song)
+{
+	const char *slash, *parent;
+	char *allocated = NULL;
+	bool ret;
+	int i;
+
+	assert(song != NULL);
+	assert(song->file != NULL);
+
+	if (strstr(song->file, "//") != NULL)
+		/* an URL? */
+		return false;
+
+	/* determine the song's parent directory and go there */
+
+	slash = strrchr(song->file, '/');
+	if (slash != NULL)
+		parent = allocated = g_strndup(song->file, slash - song->file);
+	else
+		parent = "";
+
+	ret = browser_change_directory(&browser, c, NULL, parent);
+	g_free(allocated);
+	if (!ret)
+		return false;
+
+	/* select the specified song */
+
+	i = filelist_find_song(browser.filelist, song);
+	if (i < 0)
+		i = 0;
+
+	list_window_set_selected(browser.lw, i);
+
+	/* finally, switch to the file screen */
+	screen_switch(&screen_browse, c);
+	return true;
+}

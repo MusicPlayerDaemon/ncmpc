@@ -554,6 +554,14 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		return handle_mouse_event(c);
 #endif
 
+	case CMD_LOCATE:
+		if (lw->selected < playlist_length(&c->playlist)) {
+			screen_file_goto_song(c, playlist_get(&c->playlist, lw->selected));
+			return true;
+		}
+
+		break;
+
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
 		if (lw->selected < playlist_length(&c->playlist)) {

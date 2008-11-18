@@ -95,6 +95,8 @@ screen_is_visible(const struct screen_functions *sf);
 
 int screen_get_mouse_event(mpdclient_t *c, unsigned long *bstate, int *row);
 
+bool
+screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song);
 
 #ifdef ENABLE_LYRICS_SCREEN
 void

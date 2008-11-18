@@ -329,6 +329,15 @@ lyrics_cmd(mpdclient_t *c, command_t cmd)
 			lyrics_repaint();
 		}
 		return 1;
+
+	case CMD_LOCATE:
+		if (current.song != NULL) {
+			screen_file_goto_song(c, current.song);
+			return true;
+		}
+
+		return false;
+
 	default:
 		break;
 	}
