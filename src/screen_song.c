@@ -35,6 +35,11 @@ screen_song_clear(void)
 		g_free(g_ptr_array_index(current.lines, i));
 
 	g_ptr_array_set_size(current.lines, 0);
+
+	if (current.song != NULL) {
+		mpd_freeSong(current.song);
+		current.song = NULL;
+	}
 }
 
 static void
