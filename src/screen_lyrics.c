@@ -330,6 +330,16 @@ lyrics_cmd(mpdclient_t *c, command_t cmd)
 		}
 		return true;
 
+#ifdef ENABLE_SONG_SCREEN
+	case CMD_VIEW:
+		if (current.song != NULL) {
+			screen_song_switch(c, current.song);
+			return true;
+		}
+
+		break;
+#endif
+
 	case CMD_LOCATE:
 		if (current.song != NULL) {
 			screen_file_goto_song(c, current.song);
