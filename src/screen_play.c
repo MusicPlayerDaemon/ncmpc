@@ -554,6 +554,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		return handle_mouse_event(c);
 #endif
 
+#ifdef ENABLE_SONG_SCREEN
 	case CMD_VIEW:
 		if (lw->selected < playlist_length(&c->playlist)) {
 			screen_song_switch(c, playlist_get(&c->playlist, lw->selected));
@@ -561,6 +562,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		}
 
 		break;
+#endif
 
 	case CMD_LOCATE:
 		if (lw->selected < playlist_length(&c->playlist)) {

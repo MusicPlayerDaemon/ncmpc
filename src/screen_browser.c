@@ -529,6 +529,7 @@ browser_cmd(struct screen_browser *browser,
 		return true;
 #endif
 
+#ifdef ENABLE_SONG_SCREEN
 	case CMD_VIEW:
 		entry = browser_get_selected(browser);
 		if (entry == NULL || entry->entity == NULL ||
@@ -537,6 +538,7 @@ browser_cmd(struct screen_browser *browser,
 
 		screen_song_switch(c, entry->entity->info.song);
 		return true;
+#endif
 
 	case CMD_LOCATE:
 		entry = browser_get_selected(browser);

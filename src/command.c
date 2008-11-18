@@ -142,8 +142,10 @@ static command_definition_t cmds[] = {
 	{ { '"', 0, 0 }, 0, CMD_GO_PARENT_DIRECTORY, "go-parent-directory",
 	  N_("Go to parent directory") },
 
+#ifdef ENABLE_SONG_SCREEN
 	{ { 'i', 0, 0 }, 0, CMD_VIEW, "view",
 	  N_("View the song") },
+#endif
 
 	{ { 'G', 0, 0 }, 0, CMD_LOCATE, "locate",
 	  N_("Locate song in browser") },
