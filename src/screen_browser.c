@@ -168,7 +168,7 @@ browser_lw_callback(unsigned idx, int *highlight, void *data)
 }
 
 /* chdir */
-int
+bool
 browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 			 filelist_entry_t *entry, const char *new_path)
 {
@@ -180,7 +180,7 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 	if( entry!=NULL )
 		entity = entry->entity;
 	else if( new_path==NULL )
-		return -1;
+		return false;
 
 	if( entity==NULL ) {
 		if( entry || 0==strcmp(new_path, "..") ) {
@@ -199,7 +199,7 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 		mpd_Directory *dir = entity->info.directory;
 		path = g_strdup(dir->path);
 	} else
-		return -1;
+		return false;
 
 	old_path = g_strdup(browser->filelist->path);
 
@@ -220,10 +220,10 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 	}
 
 	g_free(path);
-	return 0;
+	return true;
 }
 
-static int
+static bool
 load_playlist(mpdclient_t *c, filelist_entry_t *entry)
 {
 	mpd_InfoEntity *entity = entry->entity;
@@ -234,10 +234,10 @@ load_playlist(mpdclient_t *c, filelist_entry_t *entry)
 		screen_status_printf(_("Loading playlist %s..."),
 				     g_basename(filename));
 	g_free(filename);
-	return 0;
+	return true;
 }
 
-static int
+static bool
 enqueue_and_play(mpdclient_t *c, filelist_entry_t *entry)
 {
 	int idx;
@@ -257,14 +257,14 @@ enqueue_and_play(mpdclient_t *c, filelist_entry_t *entry)
 			screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
 			mpdclient_update(c); /* get song id */
 		} else
-			return -1;
+			return false;
 #ifndef NCMPC_MINI
 	}
 #endif
 
 	idx = playlist_get_index_from_file(c, song->file);
 	mpdclient_cmd_play(c, idx);
-	return 0;
+	return true;
 }
 
 static struct filelist_entry *
@@ -277,14 +277,14 @@ browser_get_selected(const struct screen_browser *browser)
 	return filelist_get(browser->filelist, browser->lw->selected);
 }
 
-static int
+static bool
 browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 {
 	struct filelist_entry *entry = browser_get_selected(browser);
 	mpd_InfoEntity *entity;
 
 	if( entry==NULL )
-		return -1;
+		return false;
 
 	entity = entry->entity;
 	if (entity == NULL || entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY)
@@ -293,7 +293,7 @@ browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 		return load_playlist(c, entry);
 	else if (entity->type == MPD_INFO_ENTITY_TYPE_SONG)
 		return enqueue_and_play(c, entry);
-	return -1;
+	return false;
 }
 
 
@@ -345,7 +345,7 @@ add_directory(mpdclient_t *c, char *dir)
 }
 #endif
 
-static int
+static bool
 browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 		     mpd_unused gboolean toggle)
 {
@@ -367,11 +367,11 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 			g_free(tmp);
 		}
 #endif
-		return 0;
+		return true;
 	}
 
 	if (entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
-		return -1;
+		return false;
 
 	assert(entry->entity->info.song != NULL);
 
@@ -404,27 +404,27 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 #endif
 	}
 
-	return 0;
+	return true;
 }
 
-static int
+static bool
 browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
 {
 	struct filelist_entry *entry = browser_get_selected(browser);
 
 	if (entry == NULL || entry->entity == NULL)
-		return -1;
+		return false;
 
 	return browser_select_entry(c, entry, TRUE);
 }
 
-static int
+static bool
 browser_handle_add(struct screen_browser *browser, mpdclient_t *c)
 {
 	struct filelist_entry *entry = browser_get_selected(browser);
 
 	if (entry == NULL || entry->entity == NULL)
-		return -1;
+		return false;
 
 	return browser_select_entry(c, entry, FALSE);
 }
@@ -492,7 +492,7 @@ browser_cmd(struct screen_browser *browser,
 		return true;
 
 	case CMD_SELECT:
-		if (browser_handle_select(browser, c) == 0)
+		if (browser_handle_select(browser, c))
 			/* continue and select next item... */
 			cmd = CMD_LIST_NEXT;
 
@@ -500,7 +500,7 @@ browser_cmd(struct screen_browser *browser,
 		break;
 
 	case CMD_ADD:
-		if (browser_handle_add(browser, c) == 0)
+		if (browser_handle_add(browser, c))
 			/* continue and select next item... */
 			cmd = CMD_LIST_NEXT;
 
