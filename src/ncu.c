@@ -17,6 +17,7 @@
  */
 
 #include "ncu.h"
+#include "config.h"
 
 #ifdef ENABLE_COLORS
 #include "colors.h"
