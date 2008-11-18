@@ -142,7 +142,7 @@ static command_definition_t cmds[] = {
 	{ { '"', 0, 0 }, 0, CMD_GO_PARENT_DIRECTORY, "go-parent-directory",
 	  N_("Go to parent directory") },
 
-	{ { 'l', 0, 0 }, 0, CMD_LOCATE, "locate",
+	{ { 'G', 0, 0 }, 0, CMD_LOCATE, "locate",
 	  N_("Locate song in browser") },
 
 	/* lists */
