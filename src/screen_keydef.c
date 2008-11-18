@@ -292,7 +292,7 @@ keydef_paint(void)
 	list_window_paint(lw, list_callback, NULL);
 }
 
-static int
+static bool
 keydef_cmd(mpd_unused mpdclient_t *c, command_t cmd)
 {
 	int length = LIST_LENGTH();
@@ -302,7 +302,7 @@ keydef_cmd(mpd_unused mpdclient_t *c, command_t cmd)
 
 	if (list_window_cmd(lw, length, cmd)) {
 		keydef_repaint();
-		return 1;
+		return true;
 	}
 
 	switch(cmd) {
@@ -331,11 +331,11 @@ keydef_cmd(mpd_unused mpdclient_t *c, command_t cmd)
 					       subcmd,
 					       lw->selected - STATIC_SUB_ITEMS);
 		}
-		return 1;
+		return true;
 	case CMD_DELETE:
 		if (subcmd >= 0 && lw->selected >= STATIC_SUB_ITEMS)
 			delete_key(subcmd, lw->selected - STATIC_SUB_ITEMS);
-		return 1;
+		return true;
 		break;
 	case CMD_SAVE_PLAYLIST:
 		apply_keys();
@@ -348,13 +348,13 @@ keydef_cmd(mpd_unused mpdclient_t *c, command_t cmd)
 		screen_find(lw, length,
 			    cmd, list_callback, NULL);
 		keydef_repaint();
-		return 1;
+		return true;
 
 	default:
 		break;
 	}
 
-	return 0;
+	return false;
 }
 
 const struct screen_functions screen_keydef = {

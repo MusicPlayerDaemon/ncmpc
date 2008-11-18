@@ -461,7 +461,7 @@ string_array_find(GPtrArray *array, const char *value)
 	return -1;
 }
 
-static int
+static bool
 artist_cmd(mpdclient_t *c, command_t cmd)
 {
 	char *selected;
@@ -632,7 +632,7 @@ artist_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_SCREEN_UPDATE:
 		reload_lists(c);
 		screen_status_printf(_("Screen updated!"));
-		return 0;
+		return false;
 
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
@@ -643,13 +643,13 @@ artist_cmd(mpdclient_t *c, command_t cmd)
 			screen_find(browser.lw, artist_list->len,
 				    cmd, artist_lw_callback, artist_list);
 			artist_repaint();
-			return 1;
+			return true;
 
 		case LIST_ALBUMS:
 			screen_find(browser.lw, album_list->len + 2,
 				    cmd, artist_lw_callback, album_list);
 			artist_repaint();
-			return 1;
+			return true;
 
 		case LIST_SONGS:
 			/* handled by browser_cmd() */
@@ -665,10 +665,10 @@ artist_cmd(mpdclient_t *c, command_t cmd)
 	if (artist_lw_cmd(c, cmd)) {
 		if (screen_is_visible(&screen_artist))
 			artist_repaint();
-		return 1;
+		return true;
 	}
 
-	return 0;
+	return false;
 }
 
 const struct screen_functions screen_artist = {

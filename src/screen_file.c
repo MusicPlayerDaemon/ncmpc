@@ -206,18 +206,18 @@ browse_paint(void)
 	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
 }
 
-static int
+static bool
 browse_cmd(mpdclient_t *c, command_t cmd)
 {
 	switch(cmd) {
 	case CMD_GO_ROOT_DIRECTORY:
 		browser_change_directory(&browser, c, NULL, "");
 		file_repaint();
-		return 1;
+		return true;
 	case CMD_GO_PARENT_DIRECTORY:
 		browser_change_directory(&browser, c, NULL, "..");
 		file_repaint();
-		return 1;
+		return true;
 
 	case CMD_LOCATE:
 		/* don't let browser_cmd() evaluate the locate command
@@ -242,11 +242,11 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 		file_repaint();
 
 		screen_status_printf(_("Screen updated!"));
-		return 0;
+		return false;
 
 	case CMD_DB_UPDATE:
 		if (c->status == NULL)
-			return 1;
+			return true;
 
 		if (!c->status->updatingDb) {
 			if (mpdclient_cmd_db_update(c, browser.filelist->path) == 0) {
@@ -265,7 +265,7 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 			}
 		} else
 			screen_status_printf(_("Database update running..."));
-		return 1;
+		return true;
 
 	default:
 		break;
@@ -274,10 +274,10 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 	if (browser_cmd(&browser, c, cmd)) {
 		if (screen_is_visible(&screen_browse))
 			file_repaint();
-		return 1;
+		return true;
 	}
 
-	return 0;
+	return false;
 }
 
 const struct screen_functions screen_browse = {

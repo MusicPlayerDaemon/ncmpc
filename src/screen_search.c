@@ -410,7 +410,7 @@ get_title(char *str, size_t size)
 	return str;
 }
 
-static int
+static bool
 search_cmd(mpdclient_t *c, command_t cmd)
 {
 	switch (cmd) {
@@ -431,18 +431,18 @@ search_cmd(mpdclient_t *c, command_t cmd)
 			sync_highlights(c, browser.filelist);
 		}
 		search_repaint();
-		return 1;
+		return true;
 
 	case CMD_SCREEN_SEARCH:
 		search_new(c);
 		search_repaint();
-		return 1;
+		return true;
 
 	case CMD_CLEAR:
 		search_clear(c, TRUE);
 		list_window_reset(browser.lw);
 		search_repaint();
-		return 1;
+		return true;
 
 	default:
 		break;
@@ -452,10 +452,10 @@ search_cmd(mpdclient_t *c, command_t cmd)
 	    browser_cmd(&browser, c, cmd)) {
 		if (screen_is_visible(&screen_search))
 			search_repaint();
-		return 1;
+		return true;
 	}
 
-	return 0;
+	return false;
 }
 
 const struct screen_functions screen_search = {

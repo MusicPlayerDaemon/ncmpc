@@ -71,7 +71,7 @@ typedef struct screen_functions {
 	void (*resize)(int cols, int rows);
 	void (*paint)(void);
 	void (*update)(mpdclient_t *c);
-	int (*cmd)(mpdclient_t *c, command_t cmd);
+	bool (*cmd)(mpdclient_t *c, command_t cmd);
 	const char *(*get_title)(char *s, size_t size);
 } screen_functions_t;
 

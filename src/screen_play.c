@@ -460,7 +460,7 @@ play_update(mpdclient_t *c)
 }
 
 #ifdef HAVE_GETMOUSE
-static int
+static bool
 handle_mouse_event(struct mpdclient *c)
 {
 	int row;
@@ -470,13 +470,13 @@ handle_mouse_event(struct mpdclient *c)
 	if (screen_get_mouse_event(c, &bstate, &row) ||
 	    list_window_mouse(lw, playlist_length(playlist), bstate, row)) {
 		playlist_repaint();
-		return 1;
+		return true;
 	}
 
 	if (bstate & BUTTON1_DOUBLE_CLICKED) {
 		/* stop */
 		screen_cmd(c, CMD_STOP);
-		return 1;
+		return true;
 	}
 
 	selected = lw->start + row;
@@ -495,11 +495,11 @@ handle_mouse_event(struct mpdclient *c)
 	list_window_check_selected(lw, playlist_length(playlist));
 	playlist_repaint();
 
-	return 1;
+	return true;
 }
 #endif
 
-static int
+static bool
 play_cmd(mpdclient_t *c, command_t cmd)
 {
 	lw->flags &= ~LW_HIDE_CURSOR;
@@ -513,33 +513,33 @@ play_cmd(mpdclient_t *c, command_t cmd)
 
 	if (list_window_cmd(lw, playlist_length(&c->playlist), cmd)) {
 		playlist_repaint();
-		return 1;
+		return true;
 	}
 
 	switch(cmd) {
 	case CMD_PLAY:
 		mpdclient_cmd_play(c, lw->selected);
-		return 1;
+		return true;
 	case CMD_DELETE:
 		mpdclient_cmd_delete(c, lw->selected);
-		return 1;
+		return true;
 	case CMD_SAVE_PLAYLIST:
 		playlist_save(c, NULL, NULL);
-		return 1;
+		return true;
 	case CMD_ADD:
 		handle_add_to_playlist(c);
-		return 1;
+		return true;
 	case CMD_SCREEN_UPDATE:
 		center_playing_item(c);
 		playlist_repaint();
-		return 0;
+		return false;
 
 	case CMD_LIST_MOVE_UP:
 		mpdclient_cmd_move(c, lw->selected, lw->selected-1);
-		return 1;
+		return true;
 	case CMD_LIST_MOVE_DOWN:
 		mpdclient_cmd_move(c, lw->selected, lw->selected+1);
-		return 1;
+		return true;
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
@@ -547,7 +547,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		screen_find(lw, playlist_length(&c->playlist),
 			    cmd, list_callback, NULL);
 		playlist_repaint();
-		return 1;
+		return true;
 
 #ifdef HAVE_GETMOUSE
 	case CMD_MOUSE_EVENT:
@@ -566,7 +566,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_SCREEN_LYRICS:
 		if (lw->selected < playlist_length(&c->playlist)) {
 			screen_lyrics_switch(c, playlist_get(&c->playlist, lw->selected));
-			return 1;
+			return true;
 		}
 
 		break;
@@ -576,7 +576,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		break;
 	}
 
-	return 0;
+	return false;
 }
 
 const struct screen_functions screen_playlist = {

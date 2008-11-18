@@ -303,12 +303,12 @@ lyrics_paint(void)
 	list_window_paint(lw, list_callback, NULL);
 }
 
-static int
+static bool
 lyrics_cmd(mpdclient_t *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(lw, current.lines->len, cmd)) {
 		lyrics_repaint();
-		return 1;
+		return true;
 	}
 
 	switch(cmd) {
@@ -317,18 +317,18 @@ lyrics_cmd(mpdclient_t *c, command_t cmd)
 			screen_lyrics_abort();
 			screen_lyrics_clear();
 		}
-		return 1;
+		return true;
 	case CMD_ADD:
 		if (current.loader == NULL && current.artist != NULL &&
 		    current.title != NULL && store_lyr_hd() == 0)
 			screen_status_message (_("Lyrics saved!"));
-		return 1;
+		return true;
 	case CMD_LYRICS_UPDATE:
 		if (c->song != NULL) {
 			screen_lyrics_load(c->song);
 			lyrics_repaint();
 		}
-		return 1;
+		return true;
 
 	case CMD_LOCATE:
 		if (current.song != NULL) {
@@ -348,10 +348,10 @@ lyrics_cmd(mpdclient_t *c, command_t cmd)
 		/* center the row */
 		list_window_center(lw, current.lines->len, lw->selected);
 		lyrics_repaint();
-		return 1;
+		return true;
 	}
 
-	return 0;
+	return false;
 }
 
 const struct screen_functions screen_lyrics = {

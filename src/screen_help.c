@@ -212,13 +212,13 @@ help_paint(void)
 	list_window_paint(lw, list_callback, NULL);
 }
 
-static int
+static bool
 help_cmd(mpd_unused mpdclient_t *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(lw, help_text_rows, cmd)) {
 		list_window_paint(lw, list_callback, NULL);
 		wrefresh(lw->w);
-		return 1;
+		return true;
 	}
 
 	lw->selected = lw->start+lw->rows;
@@ -228,10 +228,10 @@ help_cmd(mpd_unused mpdclient_t *c, command_t cmd)
 		list_window_center(lw, help_text_rows, lw->selected);
 		list_window_paint(lw, list_callback, NULL);
 		wrefresh(lw->w);
-		return 1;
+		return true;
 	}
 
-	return 0;
+	return false;
 }
 
 const struct screen_functions screen_help = {
