@@ -278,15 +278,18 @@ lyrics_open(mpdclient_t *c)
 static const char *
 lyrics_title(char *str, size_t size)
 {
-	if (current.loader != NULL)
-		return "Lyrics (loading)";
-	else if (current.artist != NULL && current.title != NULL &&
-		 current.lines->len > 0) {
-		snprintf(str, size, "Lyrics: %s - %s",
+	if (current.loader != NULL) {
+		snprintf(str, size, "%s (%s)",
+			 _("Lyrics"), _("loading..."));
+		return str;
+	} else if (current.artist != NULL && current.title != NULL &&
+		   current.lines->len > 0) {
+		snprintf(str, size, "%s: %s - %s",
+			 _("Lyrics"),
 			 current.artist, current.title);
 		return str;
 	} else
-		return "Lyrics";
+		return _("Lyrics");
 }
 
 static void
