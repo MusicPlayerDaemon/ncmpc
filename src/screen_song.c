@@ -16,14 +16,9 @@
  *
  */
 
-#include <sys/stat.h>
 #include "i18n.h"
-#include "options.h"
-#include "mpdclient.h"
-#include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
-#include "strfsong.h"
 #include "charset.h"
 
 static list_window_t *lw;
