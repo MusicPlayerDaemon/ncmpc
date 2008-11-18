@@ -266,7 +266,8 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 	}
 
 	if (browser_cmd(&browser, c, cmd)) {
-		file_repaint();
+		if (screen_is_visible(&screen_browse))
+			file_repaint();
 		return 1;
 	}
 

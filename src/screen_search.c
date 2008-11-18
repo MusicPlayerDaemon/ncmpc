@@ -450,7 +450,8 @@ search_cmd(mpdclient_t *c, command_t cmd)
 
 	if (browser.filelist != NULL &&
 	    browser_cmd(&browser, c, cmd)) {
-		search_repaint();
+		if (screen_is_visible(&screen_search))
+			search_repaint();
 		return 1;
 	}
 

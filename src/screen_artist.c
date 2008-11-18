@@ -663,7 +663,8 @@ artist_cmd(mpdclient_t *c, command_t cmd)
 	}
 
 	if (artist_lw_cmd(c, cmd)) {
-		artist_repaint();
+		if (screen_is_visible(&screen_artist))
+			artist_repaint();
 		return 1;
 	}
 
