@@ -128,6 +128,16 @@ screen_song_cmd(mpdclient_t *c, command_t cmd)
 
 		return false;
 
+#ifdef ENABLE_LYRICS_SCREEN
+	case CMD_SCREEN_LYRICS:
+		if (current.song != NULL) {
+			screen_lyrics_switch(c, current.song);
+			return true;
+		}
+
+		return false;
+#endif
+
 	default:
 		break;
 	}
