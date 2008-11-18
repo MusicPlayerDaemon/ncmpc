@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the ncmpc package.
 # Original translation by Nikolay Pavlov <quetzal@roks.biz>, 2004.
 # Encoding and typos fixed, stylistic improvement by Max Arnold, 2006-12-09
+# New msgids translated by Max Arnold, 2008-11-18
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-17 19:57+0100\n"
-"PO-Revision-Date: 2008-11-17 19:02+0100\n"
-"Last-Translator: Max Arnold <amv_cbxl@mail.ru>\n"
+"PO-Revision-Date: 2008-11-18 22:52+0800\n"
+"Last-Translator: Max Arnold <amv_cbx@mail.ru>\n"
 "Language-Team: ru <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=koi8-r\n"
@@ -45,25 +46,23 @@ msgstr ":Помощь  "
 
 #: src/screen.c:141
 msgid ":Playlist  "
-msgstr ":Плэйлист  "
+msgstr ":Плейлист  "
 
 #: src/screen.c:145
 msgid ":Browse  "
 msgstr ":Просмотр  "
 
 #: src/screen.c:150
-#, fuzzy
 msgid ":Artist  "
-msgstr "Автор"
+msgstr ":Автор  "
 
 #: src/screen.c:156
 msgid ":Search  "
 msgstr ":Поиск  "
 
 #: src/screen.c:162
-#, fuzzy
 msgid ":Lyrics  "
-msgstr ":Плейлист  "
+msgstr ":Текст  "
 
 #: src/screen.c:168
 msgid "Volume n/a "
@@ -114,11 +113,11 @@ msgstr "База обновлена!"
 
 #: src/screen.c:741
 msgid "Shuffled playlist!"
-msgstr "Плэйлист перемешан!"
+msgstr "Плейлист перемешан!"
 
 #: src/screen.c:745
 msgid "Cleared playlist!"
-msgstr "Плэйлист очищен!"
+msgstr "Плейлист очищен!"
 
 #: src/screen.c:762 src/screen_file.c:254
 msgid "Database update started!"
@@ -130,7 +129,7 @@ msgstr "Идет обновление базы..."
 
 #: src/screen.c:800
 msgid "Find mode: Wrapped"
-msgstr "Режим поиска: Зацикленный"
+msgstr "Режим поиска: Циклический"
 
 #: src/screen.c:801
 msgid "Find mode: Normal"
@@ -145,43 +144,40 @@ msgid "Auto center mode: Off"
 msgstr "Режим автоцентрирования: Выкл."
 
 #: src/screen_artist.c:73
-#, fuzzy
 msgid "All tracks"
-msgstr "Следующий трек"
+msgstr "Все композиции"
 
 #: src/screen_artist.c:376
-#, fuzzy
 msgid "All artists"
-msgstr "Автор"
+msgstr "Все авторы"
 
 #: src/screen_artist.c:381
 #, c-format
 msgid "Albums of artist: %s"
-msgstr ""
+msgstr "Альбомы автора: %s"
 
 #: src/screen_artist.c:390
-#, fuzzy, c-format
 msgid "Album: %s - %s"
-msgstr "Ошибка: %s - %s"
+msgstr "Альбом: %s - %s"
 
 #: src/screen_artist.c:394
 #, c-format
 msgid "All tracks of artist: %s"
-msgstr ""
+msgstr "Все композиции автора: %s"
 
 #: src/screen_artist.c:634 src/screen_file.c:238
 msgid "Screen updated!"
-msgstr "Экран обновлён!"
+msgstr "Экран обновлен!"
 
 #: src/screen_browser.c:234
 #, c-format
 msgid "Loading playlist %s..."
-msgstr "Загружаю плэйлист %s..."
+msgstr "Загружается плейлист %s..."
 
 #: src/screen_browser.c:257 src/screen_browser.c:366 src/screen_browser.c:392
 #, c-format
 msgid "Adding '%s' to playlist\n"
-msgstr "Добавляется '%s' в плэйлист\n"
+msgstr "В плейлист добавляется '%s'\n"
 
 #: src/screen_browser.c:311
 #, c-format
@@ -198,7 +194,7 @@ msgstr "Поиск назад: "
 
 #: src/screen_utils.c:114
 msgid "Password: "
-msgstr ""
+msgstr "Пароль: "
 
 #: src/screen_utils.c:207
 #, c-format
@@ -207,7 +203,7 @@ msgstr "Не удалось найти '%s'"
 
 #: src/screen_play.c:187
 msgid "Save playlist as: "
-msgstr "Сохранить плэйлист как: "
+msgstr "Сохранить плейлист как: "
 
 #: src/screen_play.c:220
 #, c-format
@@ -230,25 +226,25 @@ msgstr "Добавить: "
 
 #: src/screen_play.c:431
 msgid "Playlist"
-msgstr "Плэйлист"
+msgstr "Плейлист"
 
 #: src/screen_play.c:433
 #, c-format
 msgid "Playlist on %s"
-msgstr "Плэйлист на %s"
+msgstr "Плейлист на %s"
 
 #: src/screen_file.c:125
 msgid "You can only delete playlists!"
-msgstr "Плэйлисты можно только удалять!"
+msgstr "Плейлисты можно только удалять!"
 
 #: src/screen_file.c:132
 #, c-format
 msgid "Delete playlist %s [%s/%s] ? "
-msgstr "Удалить плэйлист %s [%s/%s] ? "
+msgstr "Удалить плейлист %s [%s/%s] ? "
 
 #: src/screen_file.c:144
 msgid "Playlist deleted!"
-msgstr "Плэйлист удален!"
+msgstr "Плейлист удален!"
 
 #: src/screen_file.c:198
 #, c-format
@@ -258,57 +254,51 @@ msgstr "Просмотр: %s"
 #: src/screen_file.c:250
 #, c-format
 msgid "Database update of %s started!"
-msgstr "Обновление базы %s начато!"
+msgstr "Обновление базы %s запущено!"
 
 #: src/screen_search.c:41
-#, fuzzy
 msgid "artist"
-msgstr "Автор"
+msgstr "artist"
 
 #: src/screen_search.c:42
-#, fuzzy
 msgid "album"
-msgstr "Альбом"
+msgstr "album"
 
 #: src/screen_search.c:43
-#, fuzzy
 msgid "title"
-msgstr "Название"
+msgstr "title"
 
 #: src/screen_search.c:44
-#, fuzzy
 msgid "track"
-msgstr "Следующий трек"
+msgstr "track"
 
 #: src/screen_search.c:45
-#, fuzzy
 msgid "name"
-msgstr "Имя файла"
+msgstr "name"
 
 #: src/screen_search.c:46
 msgid "genre"
-msgstr ""
+msgstr "genre"
 
 #: src/screen_search.c:47
 msgid "date"
-msgstr ""
+msgstr "date"
 
 #: src/screen_search.c:48
 msgid "composer"
-msgstr ""
+msgstr "composer"
 
 #: src/screen_search.c:49
 msgid "performer"
-msgstr ""
+msgstr "performer"
 
 #: src/screen_search.c:50
 msgid "comment"
-msgstr ""
+msgstr "comment"
 
 #: src/screen_search.c:51
-#, fuzzy
 msgid "file"
-msgstr "Название"
+msgstr "file"
 
 #: src/screen_search.c:81
 msgid "Title"
@@ -327,19 +317,18 @@ msgid "Filename"
 msgstr "Имя файла"
 
 #: src/screen_search.c:85
-#, fuzzy
 msgid "Artist + Title"
-msgstr "Автор"
+msgstr "Автор + Название"
 
 #: src/screen_search.c:247
 #, c-format
 msgid "Bad search tag %s"
-msgstr ""
+msgstr "Неверный тег поиска %s"
 
 #: src/screen_search.c:251
 #, c-format
 msgid "No argument for search tag %s"
-msgstr ""
+msgstr "Не задан критерий поиска по тегу %s"
 
 #: src/screen_search.c:311
 msgid "Search: "
@@ -351,27 +340,26 @@ msgstr "Поиск: "
 #: src/screen_search.c:371
 #, c-format
 msgid "Press %s for a new search"
-msgstr "Нажмите %s для нового поиска"
+msgstr "Нажмите %s для поиска"
 
 #: src/screen_search.c:399
-#, fuzzy, c-format
 msgid "Search: %s"
-msgstr "Поиск: "
+msgstr "Поиск: %s"
 
 #: src/screen_search.c:402
 #, c-format
 msgid "Search: Results for %s [%s]"
-msgstr "Поиск: Результаты поиска по %s [%s]"
+msgstr "Поиск: Результаты поиска '%s' в поле [%s]"
 
 #: src/screen_search.c:406
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
-msgstr "Поиск: Нажмите %s для нового поиска [%s]"
+msgstr "Поиск: Нажмите %s для поиска по полю [%s]"
 
 #: src/screen_search.c:421
 #, c-format
 msgid "Search mode: %s"
-msgstr "Режим поиска: %s"
+msgstr "Поле для поиска: %s"
 
 #: src/screen_keydef.c:41
 msgid "===> Apply & Save key bindings  "
@@ -455,7 +443,7 @@ msgstr "Команды - Глобальные"
 
 #: src/screen_help.c:89
 msgid "Keys - Playlist screen"
-msgstr "Команды - Экран плэйлиста"
+msgstr "Команды - Экран плейлиста"
 
 #: src/screen_help.c:91
 msgid "Play"
@@ -482,13 +470,12 @@ msgid "Enter directory/Select and play song"
 msgstr "Перейти в директорию/Выбрать и проиграть композицию"
 
 #: src/screen_help.c:107 src/screen_help.c:122
-#, fuzzy
 msgid "Append song to playlist"
-msgstr "Удалить композицию из плэйлиста"
+msgstr "Добавить композицию в плейлист"
 
 #: src/screen_help.c:109
 msgid "Delete playlist"
-msgstr "Удалить плэйлист"
+msgstr "Удалить плейлист"
 
 #: src/screen_help.c:117
 msgid "Keys - Search screen"
@@ -503,44 +490,40 @@ msgid "Select and play"
 msgstr "Выбрать и проиграть"
 
 #: src/screen_help.c:129
-#, fuzzy
 msgid "Keys - Lyrics screen"
-msgstr "Команды - Экран Плейлиста"
+msgstr "Команды - Экран текста песни"
 
 #: src/screen_help.c:131
 msgid "View Lyrics"
-msgstr ""
+msgstr "Показать текст"
 
 #: src/screen_help.c:132
 msgid "(Re)load lyrics"
-msgstr ""
+msgstr "(Пере)загрузить текст"
 
 #: src/screen_help.c:133
 msgid "Interrupt retrieval"
-msgstr ""
+msgstr "Прервать загрузку"
 
 #: src/screen_help.c:134
 msgid "Explicitly download lyrics"
-msgstr ""
+msgstr "Принудительно загрузить текст"
 
 #: src/screen_help.c:135
-#, fuzzy
 msgid "Save lyrics"
-msgstr "Сохранить плейлист"
+msgstr "Сохранить текст"
 
 #: src/screen_help.c:205
 msgid "Help"
 msgstr "Помощь"
 
 #: src/screen_lyrics.c:162
-#, fuzzy
 msgid "No lyrics"
-msgstr "Сохранить плейлист"
+msgstr "Текст отсутствует"
 
 #: src/screen_lyrics.c:316
-#, fuzzy
 msgid "Lyrics saved!"
-msgstr "Экран Плейлиста"
+msgstr "Текст сохранен!"
 
 #: src/command.c:67
 msgid "Key configuration screen"
@@ -580,7 +563,7 @@ msgstr "Экран помощи"
 
 #: src/command.c:91
 msgid "Playlist screen"
-msgstr "Экран плэйлиста"
+msgstr "Экран плейлиста"
 
 #: src/command.c:93
 msgid "Browse screen"
@@ -596,11 +579,11 @@ msgstr "Пауза"
 
 #: src/command.c:102
 msgid "Stop"
-msgstr "Стоп"
+msgstr "Останов"
 
 #: src/command.c:104
 msgid "Crop"
-msgstr ""
+msgstr "Удалить из плейлиста все композиции кроме текущей"
 
 #: src/command.c:106
 msgid "Next track"
@@ -632,19 +615,19 @@ msgstr "Пометить/Убрать пометку с композиции"
 
 #: src/command.c:120
 msgid "Select all listed items"
-msgstr ""
+msgstr "Добавить все композиции в плейлист"
 
 #: src/command.c:122
 msgid "Delete song from playlist"
-msgstr "Удалить композицию из плэйлиста"
+msgstr "Удалить композицию из плейлиста"
 
 #: src/command.c:124
 msgid "Shuffle playlist"
-msgstr "Перемешать плэйлист"
+msgstr "Перемешать плейлист"
 
 #: src/command.c:126
 msgid "Clear playlist"
-msgstr "Очистить плэйлист"
+msgstr "Очистить плейлист"
 
 #: src/command.c:128
 msgid "Toggle repeat mode"
@@ -660,25 +643,23 @@ msgstr "Вкл/Выкл режим плавного перехода"
 
 #: src/command.c:134
 msgid "Start a music database update"
-msgstr "Начать обновление музыкальной базы"
+msgstr "Обновить музыкальную базу"
 
 #: src/command.c:136
 msgid "Save playlist"
-msgstr "Сохранить плэйлист"
+msgstr "Сохранить плейлист"
 
 #: src/command.c:138
 msgid "Add url/file to playlist"
-msgstr "Добавить url/файл в плэйлист"
+msgstr "Добавить url/файл в плейлист"
 
 #: src/command.c:141
-#, fuzzy
 msgid "Go to root directory"
-msgstr "Введите директорию"
+msgstr "Перейти к корневой директории"
 
 #: src/command.c:143
-#, fuzzy
 msgid "Go to parent directory"
-msgstr "Введите директорию"
+msgstr "Перейти к родительской директории"
 
 #: src/command.c:147
 msgid "Move item up"
@@ -714,7 +695,7 @@ msgstr "Поиск вперед"
 
 #: src/command.c:172
 msgid "Forward find next"
-msgstr "Искать следующий"
+msgstr "Продолжить поиск вперёд"
 
 #: src/command.c:174
 msgid "Backward find"
@@ -722,12 +703,11 @@ msgstr "Поиск назад"
 
 #: src/command.c:176
 msgid "Backward find previous"
-msgstr "Искать предыдущий"
+msgstr "Продолжить поиск назад"
 
 #: src/command.c:182
-#, fuzzy
 msgid "Artist screen"
-msgstr "Экран Плейлиста"
+msgstr "Экран авторов"
 
 #: src/command.c:186
 msgid "Search screen"
@@ -735,21 +715,19 @@ msgstr "Экран поиска"
 
 #: src/command.c:188
 msgid "Change search mode"
-msgstr "Изменить режим поиска"
+msgstr "Изменить поле для поиска"
 
 #: src/command.c:193
-#, fuzzy
 msgid "Lyrics screen"
-msgstr "Экран Плейлиста"
+msgstr "Экран текста песни"
 
 #: src/command.c:195
 msgid "Interrupt action"
-msgstr ""
+msgstr "Прервать операцию"
 
 #: src/command.c:197
-#, fuzzy
 msgid "Update Lyrics"
-msgstr "Обновить экран"
+msgstr "Обновить текст"
 
 #: src/command.c:220
 msgid "Undefined"
