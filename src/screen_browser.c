@@ -57,12 +57,10 @@ static void
 set_highlight(mpdclient_filelist_t *fl, mpd_Song *song, int highlight)
 {
 	struct filelist_entry *entry = filelist_find_song(fl, song);
-	mpd_InfoEntity *entity;
 
 	if (entry == NULL)
 		return;
 
-	entity = entry->entity;
 	if (highlight)
 		entry->flags |= HIGHLIGHT;
 	else
