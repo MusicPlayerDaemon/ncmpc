@@ -38,6 +38,9 @@ static const struct
 #ifdef ENABLE_SEARCH_SCREEN
 	{ "search", &screen_search },
 #endif
+#ifdef ENABLE_SONG_SCREEN
+	{ "song", &screen_song },
+#endif
 #ifdef ENABLE_KEYDEF_SCREEN
 	{ "keydef", &screen_keydef },
 #endif

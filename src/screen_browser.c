@@ -529,6 +529,15 @@ browser_cmd(struct screen_browser *browser,
 		return true;
 #endif
 
+	case CMD_VIEW:
+		entry = browser_get_selected(browser);
+		if (entry == NULL || entry->entity == NULL ||
+		    entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
+			return false;
+
+		screen_song_switch(c, entry->entity->info.song);
+		return true;
+
 	case CMD_LOCATE:
 		entry = browser_get_selected(browser);
 		if (entry == NULL || entry->entity == NULL ||

@@ -90,6 +90,10 @@ if ENABLE_SEARCH_SCREEN
 ncmpc_SOURCES += screen_search.c
 endif
 
+if ENABLE_SONG_SCREEN
+ncmpc_SOURCES += screen_song.c
+endif
+
 if ENABLE_KEYDEF_SCREEN
 ncmpc_SOURCES += screen_keydef.c
 endif

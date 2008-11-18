@@ -312,6 +312,20 @@ if test "x$search_screen" = "xyes" ; then
 fi
 
 AM_CONDITIONAL(ENABLE_SEARCH_SCREEN, test x$search_screen = xyes)
+
+dnl Optional screen - song viewer
+AC_MSG_CHECKING([whether to include the song viewer screen])
+AC_ARG_ENABLE([song-screen],
+	AC_HELP_STRING([--enable-song-screen],
+		[Enable song viewer screen @<:@default=yes@:>@]),
+	[song_screen="$enableval"],
+	[song_screen=$disable_mini])
+AC_MSG_RESULT([$song_screen])
+if test "x$song_screen" = "xyes" ; then
+	AC_DEFINE(ENABLE_SONG_SCREEN, 1, [Enable song viewer screen])
+fi
+
+AM_CONDITIONAL(ENABLE_SONG_SCREEN, test x$song_screen = xyes)
   
 dnl Optional screen - key editor
 AC_MSG_CHECKING([whether to include the key editor screen])

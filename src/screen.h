@@ -56,6 +56,9 @@ extern const struct screen_functions screen_help;
 #ifdef ENABLE_SEARCH_SCREEN
 extern const struct screen_functions screen_search;
 #endif
+#ifdef ENABLE_SONG_SCREEN
+extern const struct screen_functions screen_song;
+#endif
 #ifdef ENABLE_KEYDEF_SCREEN
 extern const struct screen_functions screen_keydef;
 #endif
@@ -97,6 +100,11 @@ int screen_get_mouse_event(mpdclient_t *c, unsigned long *bstate, int *row);
 
 bool
 screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song);
+
+#ifdef ENABLE_SONG_SCREEN
+void
+screen_song_switch(struct mpdclient *c, const struct mpd_song *song);
+#endif
 
 #ifdef ENABLE_LYRICS_SCREEN
 void
