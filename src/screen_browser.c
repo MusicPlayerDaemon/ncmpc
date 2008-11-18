@@ -56,11 +56,13 @@ clear_highlights(mpdclient_filelist_t *fl)
 static void
 set_highlight(mpdclient_filelist_t *fl, mpd_Song *song, int highlight)
 {
-	struct filelist_entry *entry = filelist_find_song(fl, song);
+	int i = filelist_find_song(fl, song);
+	struct filelist_entry *entry;
 
-	if (entry == NULL)
+	if (i < 0)
 		return;
 
+	entry = filelist_get(fl, i);
 	if (highlight)
 		entry->flags |= HIGHLIGHT;
 	else

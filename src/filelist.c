@@ -118,7 +118,7 @@ filelist_sort(struct filelist *filelist, GCompareFunc compare_func)
 				   compare_func);
 }
 
-struct filelist_entry *
+int
 filelist_find_song(struct filelist *fl, const struct mpd_song *song)
 {
 	guint i;
@@ -133,11 +133,11 @@ filelist_find_song(struct filelist *fl, const struct mpd_song *song)
 			struct mpd_song *song2 = entity->info.song;
 
 			if (strcmp(song->file, song2->file) == 0)
-				return entry;
+				return i;
 		}
 	}
 
-	return NULL;
+	return -1;
 }
 
 int

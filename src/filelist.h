@@ -73,7 +73,7 @@ filelist_move(struct filelist *filelist, struct filelist *from);
 void
 filelist_sort(struct filelist *filelist, GCompareFunc compare_func);
 
-struct filelist_entry *
+int
 filelist_find_song(struct filelist *flist, const struct mpd_song *song);
 
 int
