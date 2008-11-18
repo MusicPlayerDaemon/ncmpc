@@ -41,7 +41,7 @@ static list_window_t *lw = NULL;
 static const struct mpd_song *next_song;
 
 static struct {
-	const struct mpd_song *song;
+	struct mpd_song *song;
 
 	char *artist, *title;
 
@@ -68,7 +68,10 @@ screen_lyrics_abort(void)
 		current.artist = NULL;
 	}
 
-	current.song = NULL;
+	if (current.song != NULL) {
+		mpd_freeSong(current.song);
+		current.song = NULL;
+	}
 }
 
 static void
@@ -175,7 +178,7 @@ screen_lyrics_load(const struct mpd_song *song)
 	screen_lyrics_abort();
 	screen_lyrics_clear();
 
-	current.song = song;
+	current.song = mpd_songDup(song);
 
 	strfsong(buffer, sizeof(buffer), "%artist%", song);
 	current.artist = g_strdup(buffer);
@@ -268,7 +271,9 @@ lyrics_open(mpdclient_t *c)
 	if (next_song == NULL)
 		next_song = c->song;
 
-	if (next_song != NULL && next_song != current.song)
+	if (next_song != NULL &&
+	    (current.song == NULL ||
+	     strcmp(next_song->file, current.song->file) != 0))
 		screen_lyrics_load(next_song);
 
 	next_song = NULL;
