@@ -487,9 +487,7 @@ bool
 browser_cmd(struct screen_browser *browser,
 	    struct mpdclient *c, command_t cmd)
 {
-#ifdef ENABLE_LYRICS_SCREEN
 	struct filelist_entry *entry;
-#endif
 
 	switch (cmd) {
 	case CMD_PLAY:
