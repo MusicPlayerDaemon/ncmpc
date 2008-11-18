@@ -201,15 +201,20 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 	} else
 		return false;
 
-	old_path = g_strdup(browser->filelist->path);
+	if (browser->filelist != NULL) {
+		old_path = g_strdup(browser->filelist->path);
+		filelist_free(browser->filelist);
+	} else
+		old_path = NULL;
 
-	filelist_free(browser->filelist);
 	browser->filelist = mpdclient_filelist_get(c, path);
 #ifndef NCMPC_MINI
 	sync_highlights(c, browser->filelist);
 #endif
 
-	idx = filelist_find_directory(browser->filelist, old_path);
+	idx = old_path != NULL
+		? filelist_find_directory(browser->filelist, old_path)
+		: -1;
 	g_free(old_path);
 
 	list_window_reset(browser->lw);
