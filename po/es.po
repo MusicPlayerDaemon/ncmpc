@@ -5,18 +5,20 @@
 # Johám-Luís Miguéns Vila, 2006.
 # Si tienes alguna sugerencia, encuentras algún error en la traducción o quieres colaborar con la misma,
 # puedes contactar conmigo a través del correo electrónico indicado más abajo.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc SVN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-17 19:57+0100\n"
-"PO-Revision-Date: 2006-11-01 10:54+0100\n"
-"Last-Translator: Johám-Luís Miguéns Vila <galiza.ceive@gmail.com>\n"
+"PO-Revision-Date: 2008-11-19 19:12+0100\n"
+"Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
 "Language-Team: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Plural-Forms: nplurals=2; plural=n != 1"
 
 #: src/i18n.h:36
 msgid "y"
@@ -49,7 +51,7 @@ msgstr ":Ayuda  "
 
 #: src/screen.c:141
 msgid ":Playlist  "
-msgstr ":Lista de Canciones  "
+msgstr ":Lista de canciónes"
 
 #: src/screen.c:145
 msgid ":Browse  "
@@ -147,14 +149,12 @@ msgid "Auto center mode: Off"
 msgstr "Modo autocentrado desactivado"
 
 #: src/screen_artist.c:73
-#, fuzzy
 msgid "All tracks"
-msgstr "pista"
+msgstr "Todas canciónes"
 
 #: src/screen_artist.c:376
-#, fuzzy
 msgid "All artists"
-msgstr "artista"
+msgstr "Todas artistas"
 
 #: src/screen_artist.c:381
 #, c-format
@@ -276,7 +276,7 @@ msgstr "título"
 
 #: src/screen_search.c:44
 msgid "track"
-msgstr "pista"
+msgstr "canción"
 
 #: src/screen_search.c:45
 msgid "name"
@@ -323,9 +323,8 @@ msgid "Filename"
 msgstr "Nombre de fichero"
 
 #: src/screen_search.c:85
-#, fuzzy
 msgid "Artist + Title"
-msgstr ":Artista  "
+msgstr "Artista + Título"
 
 #: src/screen_search.c:247
 #, c-format
@@ -478,9 +477,8 @@ msgid "Enter directory/Select and play song"
 msgstr "Acceder al directorio/Seleccionar y reproducir canción"
 
 #: src/screen_help.c:107 src/screen_help.c:122
-#, fuzzy
 msgid "Append song to playlist"
-msgstr "Borrar la canción de la lista"
+msgstr "Añadir la canción de la lista"
 
 #: src/screen_help.c:109
 msgid "Delete playlist"
@@ -527,9 +525,8 @@ msgid "Help"
 msgstr "Ayuda"
 
 #: src/screen_lyrics.c:162
-#, fuzzy
 msgid "No lyrics"
-msgstr "Guardar las letras"
+msgstr "No letras disponibles"
 
 #: src/screen_lyrics.c:316
 msgid "Lyrics saved!"
@@ -593,7 +590,7 @@ msgstr "Parar"
 
 #: src/command.c:104
 msgid "Crop"
-msgstr ""
+msgstr "Reducir lista de canciónes a canción marcado"
 
 #: src/command.c:106
 msgid "Next track"
@@ -664,14 +661,12 @@ msgid "Add url/file to playlist"
 msgstr "Añadir una URL o fichero a la lista"
 
 #: src/command.c:141
-#, fuzzy
 msgid "Go to root directory"
-msgstr "Entrar al directorio"
+msgstr "Entrar al directorio fundamental"
 
 #: src/command.c:143
-#, fuzzy
 msgid "Go to parent directory"
-msgstr "Entrar al directorio"
+msgstr "Entrar al directorio superior"
 
 #: src/command.c:147
 msgid "Move item up"
