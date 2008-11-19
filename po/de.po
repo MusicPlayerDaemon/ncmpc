@@ -2,22 +2,24 @@
 # Copyright (C) 2004 Kalle Wallin
 # This file is distributed under the same license as the ncmpc package.
 # Ingmar Gebert, 2004
-#, fuzzy
+# , fuzzy
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-17 19:57+0100\n"
-"PO-Revision-Date: 2004-07-08 21:16+0200\n"
-"Last-Translator: Ingmar Gebert\n"
+"PO-Revision-Date: 2008-11-19 19:10+0100\n"
+"Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: src/i18n.h:36
 msgid "y"
-msgstr "y"
+msgstr "j"
 
 #: src/i18n.h:37
 msgid "n"
@@ -144,14 +146,12 @@ msgid "Auto center mode: Off"
 msgstr "Autozentriermodus: aus"
 
 #: src/screen_artist.c:73
-#, fuzzy
 msgid "All tracks"
-msgstr "Nächstes Stück"
+msgstr "Alle Stücke"
 
 #: src/screen_artist.c:376
-#, fuzzy
 msgid "All artists"
-msgstr "Künstler"
+msgstr "Alle Künstler"
 
 #: src/screen_artist.c:381
 #, c-format
@@ -260,29 +260,24 @@ msgid "Database update of %s started!"
 msgstr "Datenbankaktualisierung von %s gestartet!"
 
 #: src/screen_search.c:41
-#, fuzzy
 msgid "artist"
 msgstr "Künstler"
 
 #: src/screen_search.c:42
-#, fuzzy
 msgid "album"
 msgstr "Album"
 
 #: src/screen_search.c:43
-#, fuzzy
 msgid "title"
 msgstr "Titel"
 
 #: src/screen_search.c:44
-#, fuzzy
 msgid "track"
-msgstr "Nächstes Stück"
+msgstr "Stück"
 
 #: src/screen_search.c:45
-#, fuzzy
 msgid "name"
-msgstr "Dateiname"
+msgstr "Name"
 
 #: src/screen_search.c:46
 msgid "genre"
@@ -305,7 +300,6 @@ msgid "comment"
 msgstr "Anmerkung"
 
 #: src/screen_search.c:51
-#, fuzzy
 msgid "file"
 msgstr "Datei"
 
@@ -326,9 +320,8 @@ msgid "Filename"
 msgstr "Dateiname"
 
 #: src/screen_search.c:85
-#, fuzzy
 msgid "Artist + Title"
-msgstr "Künstler"
+msgstr "Künstler + Titel"
 
 #: src/screen_search.c:247
 #, c-format
@@ -481,9 +474,8 @@ msgid "Enter directory/Select and play song"
 msgstr "Verzeichnis öffnen/Stück auswählen und abspielen"
 
 #: src/screen_help.c:107 src/screen_help.c:122
-#, fuzzy
 msgid "Append song to playlist"
-msgstr "Lösche Song aus der Playlist"
+msgstr "Song zur Playlist hinzufügen"
 
 #: src/screen_help.c:109
 msgid "Delete playlist"
@@ -502,7 +494,6 @@ msgid "Select and play"
 msgstr "Auswählen und abspielen"
 
 #: src/screen_help.c:129
-#, fuzzy
 msgid "Keys - Lyrics screen"
 msgstr "Tasten - Liedtexteanzeige"
 
@@ -523,23 +514,20 @@ msgid "Explicitly download lyrics"
 msgstr "Texte explizit herunterladen"
 
 #: src/screen_help.c:135
-#, fuzzy
 msgid "Save lyrics"
-msgstr "Text speicheren "
+msgstr "Liedtext speichern"
 
 #: src/screen_help.c:205
 msgid "Help"
 msgstr "Hilfe"
 
 #: src/screen_lyrics.c:162
-#, fuzzy
 msgid "No lyrics"
-msgstr "Text speicheren "
+msgstr "Kein Liedtext verfügbar"
 
 #: src/screen_lyrics.c:316
-#, fuzzy
 msgid "Lyrics saved!"
-msgstr "Text gespeichert!"
+msgstr "Liedtext gespeichert!"
 
 #: src/command.c:67
 msgid "Key configuration screen"
@@ -599,7 +587,7 @@ msgstr "Stop"
 
 #: src/command.c:104
 msgid "Crop"
-msgstr ""
+msgstr "Playlist auf das markierte Lied reduzieren"
 
 #: src/command.c:106
 msgid "Next track"
@@ -631,7 +619,7 @@ msgstr "Wähle Stück in der Playlist an/ab"
 
 #: src/command.c:120
 msgid "Select all listed items"
-msgstr ""
+msgstr "Alle angezeigten Lieder zur Playlist hinzufügen"
 
 #: src/command.c:122
 msgid "Delete song from playlist"
@@ -670,14 +658,12 @@ msgid "Add url/file to playlist"
 msgstr "Füge eine URL/Datei der Playlist hinzu"
 
 #: src/command.c:141
-#, fuzzy
 msgid "Go to root directory"
-msgstr "Verzeichnis öffnen"
+msgstr "Basis-Verzeichnis öffnen"
 
 #: src/command.c:143
-#, fuzzy
 msgid "Go to parent directory"
-msgstr "Verzeichnis öffnen"
+msgstr "Übergeordnetes Verzeichnis öffnen"
 
 #: src/command.c:147
 msgid "Move item up"
@@ -724,9 +710,8 @@ msgid "Backward find previous"
 msgstr "Rückwärtssuche fortsetzen"
 
 #: src/command.c:182
-#, fuzzy
 msgid "Artist screen"
-msgstr "Playlistenanzeige"
+msgstr "Künstlerdatenbank"
 
 #: src/command.c:186
 msgid "Search screen"
@@ -737,7 +722,6 @@ msgid "Change search mode"
 msgstr "Suchmodus wechseln"
 
 #: src/command.c:193
-#, fuzzy
 msgid "Lyrics screen"
 msgstr "Liedtextanzeige"
 
@@ -746,9 +730,8 @@ msgid "Interrupt action"
 msgstr "Kommando Unterbrechen"
 
 #: src/command.c:197
-#, fuzzy
 msgid "Update Lyrics"
-msgstr "Aktulaisiere Text"
+msgstr "Liedtext aktualisieren"
 
 #: src/command.c:220
 msgid "Undefined"
