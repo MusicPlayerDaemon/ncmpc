@@ -94,6 +94,7 @@ static const char *
 list_callback(unsigned idx, int *highlight, mpd_unused void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
+	static scroll_state_t st;
 	mpd_Song *song;
 
 	if (playlist == NULL || idx >= playlist_length(playlist))
@@ -104,6 +105,24 @@ list_callback(unsigned idx, int *highlight, mpd_unused void *data)
 		*highlight = 1;
 
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, song);
+
+	if (options.scroll && (unsigned)song->pos == lw->selected &&
+	    utf8_width(songname) > (unsigned)COLS) {
+		static unsigned current_song;
+		char *tmp;
+
+		if (current_song != lw->selected) {
+			st.offset = 0;
+			current_song = lw->selected;
+		}
+
+		tmp = strscroll(songname, options.scroll_sep,
+				MAX_SONG_LENGTH, &st);
+		g_strlcpy(songname, tmp, MAX_SONG_LENGTH);
+		g_free(tmp);
+	} else if ((unsigned)song->pos == lw->selected)
+		st.offset = 0;
+
 	return songname;
 }
 
@@ -448,7 +467,7 @@ play_update(mpdclient_t *c)
 	current_song_id = c->song != NULL && c->status != NULL &&
 		!IS_STOPPED(c->status->state) ? c->song->id : -1;
 
-	if (current_song_id != prev_song_id) {
+	if (options.scroll || current_song_id != prev_song_id) {
 		prev_song_id = current_song_id;
 
 		/* center the cursor */
