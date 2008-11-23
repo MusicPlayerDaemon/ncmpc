@@ -28,8 +28,8 @@ void ncmpc_lirc_close()
 }
 
 gboolean
-lirc_event(mpd_unused GIOChannel *source,
-	   mpd_unused GIOCondition condition, mpd_unused gpointer data)
+lirc_event(G_GNUC_UNUSED GIOChannel *source,
+	   G_GNUC_UNUSED GIOCondition condition, G_GNUC_UNUSED gpointer data)
 {
 	char *code, *txt;
 	command_t cmd;
