@@ -26,7 +26,6 @@
 #include "utils.h"
 #include "screen_utils.h"
 #include "screen_browser.h"
-#include "gcc.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -94,8 +93,8 @@ static struct screen_browser browser;
 
 /* search info */
 static const char *
-lw_search_help_callback(unsigned idx, mpd_unused int *highlight,
-			mpd_unused void *data)
+lw_search_help_callback(unsigned idx, G_GNUC_UNUSED int *highlight,
+			G_GNUC_UNUSED void *data)
 {
 	unsigned text_rows;
 	static const char *text[] = {
@@ -175,7 +174,7 @@ search_clear(mpdclient_t *c,
 }
 
 static mpdclient_filelist_t *
-filelist_search(mpdclient_t *c, mpd_unused int exact_match, int table,
+filelist_search(mpdclient_t *c, G_GNUC_UNUSED int exact_match, int table,
 		gchar *local_pattern)
 {
 	mpdclient_filelist_t *list, *list2;
@@ -362,7 +361,7 @@ quit(void)
 }
 
 static void
-open(mpd_unused mpdclient_t *c)
+open(G_GNUC_UNUSED mpdclient_t *c)
 {
 	//  if( pattern==NULL )
 	//    search_new(screen, c);
