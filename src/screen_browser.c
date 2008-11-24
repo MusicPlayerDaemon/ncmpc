@@ -23,7 +23,6 @@
 #include "charset.h"
 #include "strfsong.h"
 #include "screen_utils.h"
-#include "gcc.h"
 
 #include <string.h>
 
@@ -352,7 +351,7 @@ add_directory(mpdclient_t *c, char *dir)
 
 static bool
 browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
-		     mpd_unused gboolean toggle)
+		     G_GNUC_UNUSED gboolean toggle)
 {
 	assert(entry != NULL);
 	assert(entry->entity != NULL);
