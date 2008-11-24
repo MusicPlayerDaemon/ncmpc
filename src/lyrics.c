@@ -17,7 +17,6 @@
  */
 
 #include "lyrics.h"
-#include "gcc.h"
 #include "../config.h"
 
 #include <assert.h>
@@ -120,8 +119,8 @@ lyrics_eof(struct lyrics_loader *loader)
 }
 
 static gboolean
-lyrics_data(mpd_unused GIOChannel *source,
-	    mpd_unused GIOCondition condition, gpointer data)
+lyrics_data(G_GNUC_UNUSED GIOChannel *source,
+	    G_GNUC_UNUSED GIOCondition condition, gpointer data)
 {
 	struct lyrics_loader *loader = data;
 	char buffer[256];
