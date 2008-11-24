@@ -23,7 +23,6 @@
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
-#include "gcc.h"
 
 #include <errno.h>
 #include <stdlib.h>
@@ -188,7 +187,7 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
 }
 
 static const char *
-list_callback(unsigned idx, int *highlight, mpd_unused void *data)
+list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
 {
 	static char buf[BUFSIZE];
 
@@ -245,7 +244,7 @@ keydef_exit(void)
 }
 
 static void
-keydef_open(mpd_unused mpdclient_t *c)
+keydef_open(G_GNUC_UNUSED mpdclient_t *c)
 {
 	if (cmds == NULL) {
 		command_definition_t *current_cmds = get_command_definitions();
@@ -293,7 +292,7 @@ keydef_paint(void)
 }
 
 static bool
-keydef_cmd(mpd_unused mpdclient_t *c, command_t cmd)
+keydef_cmd(G_GNUC_UNUSED mpdclient_t *c, command_t cmd)
 {
 	int length = LIST_LENGTH();
 
