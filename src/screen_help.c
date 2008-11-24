@@ -22,7 +22,6 @@
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
-#include "gcc.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -142,7 +141,7 @@ static help_text_row_t help_text[] = {
 static list_window_t *lw;
 
 static const char *
-list_callback(unsigned idx, int *highlight, mpd_unused void *data)
+list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
 {
 	static char buf[512];
 
@@ -201,7 +200,7 @@ help_exit(void)
 
 
 static const char *
-help_title(mpd_unused char *str, mpd_unused size_t size)
+help_title(G_GNUC_UNUSED char *str, G_GNUC_UNUSED size_t size)
 {
 	return _("Help");
 }
@@ -213,7 +212,7 @@ help_paint(void)
 }
 
 static bool
-help_cmd(mpd_unused mpdclient_t *c, command_t cmd)
+help_cmd(G_GNUC_UNUSED mpdclient_t *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(lw, help_text_rows, cmd)) {
 		list_window_paint(lw, list_callback, NULL);
