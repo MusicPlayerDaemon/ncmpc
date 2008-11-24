@@ -40,8 +40,7 @@ ncmpc_headers = \
 	screen_browser.h \
 	lyrics.h \
 	str_pool.h \
-	lirc.h \
-	gcc.h
+	lirc.h
 
 bin_PROGRAMS = ncmpc
 
