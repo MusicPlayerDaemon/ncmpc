@@ -27,7 +27,6 @@
 #include "screen_utils.h"
 #include "strfsong.h"
 #include "i18n.h"
-#include "gcc.h"
 
 #ifndef NCMPC_MINI
 #include "conf.h"
@@ -74,7 +73,7 @@ error_msg(const gchar *msg)
 }
 
 static void
-error_callback(mpd_unused mpdclient_t *c, gint error, const gchar *_msg)
+error_callback(G_GNUC_UNUSED mpdclient_t *c, gint error, const gchar *_msg)
 {
 	char *msg = utf8_to_locale(_msg);
 
@@ -148,14 +147,14 @@ exit_and_cleanup(void)
 }
 
 static void
-catch_sigint(mpd_unused int sig)
+catch_sigint(G_GNUC_UNUSED int sig)
 {
 	g_main_loop_quit(main_loop);
 }
 
 
 static void
-catch_sigcont(mpd_unused int sig)
+catch_sigcont(G_GNUC_UNUSED int sig)
 {
 	screen_resize(mpd);
 }
@@ -171,7 +170,7 @@ sigstop(void)
 static guint timer_sigwinch_id;
 
 static gboolean
-timer_sigwinch(mpd_unused gpointer data)
+timer_sigwinch(G_GNUC_UNUSED gpointer data)
 {
 	/* the following causes the screen to flicker.  There might be
 	   better solutions, but I believe it isn't all that
@@ -185,7 +184,7 @@ timer_sigwinch(mpd_unused gpointer data)
 }
 
 static void
-catch_sigwinch(mpd_unused int sig)
+catch_sigwinch(G_GNUC_UNUSED int sig)
 {
 	if (timer_sigwinch_id != 0)
 		g_source_remove(timer_sigwinch_id);
@@ -201,7 +200,7 @@ timer_mpd_update(gpointer data);
  * broken.  It tries to recover by reconnecting periodically.
  */
 static gboolean
-timer_reconnect(mpd_unused gpointer data)
+timer_reconnect(G_GNUC_UNUSED gpointer data)
 {
 	int ret;
 
@@ -276,7 +275,7 @@ timer_mpd_update(gpointer data)
  * 500ms.  It is used for delayed seeking.
  */
 static gboolean
-timer_idle(mpd_unused gpointer data)
+timer_idle(G_GNUC_UNUSED gpointer data)
 {
 	screen_idle(mpd);
 	return TRUE;
@@ -316,8 +315,9 @@ int do_input_event(command_t cmd)
 }
 
 static gboolean
-keyboard_event(mpd_unused GIOChannel *source,
-	       mpd_unused GIOCondition condition, mpd_unused gpointer data)
+keyboard_event(G_GNUC_UNUSED GIOChannel *source,
+	       G_GNUC_UNUSED GIOCondition condition,
+	       G_GNUC_UNUSED gpointer data)
 {
 	command_t cmd;
 
@@ -337,7 +337,7 @@ keyboard_event(mpd_unused GIOChannel *source,
  * message every 10 seconds.
  */
 static gboolean
-timer_check_key_bindings(mpd_unused gpointer data)
+timer_check_key_bindings(G_GNUC_UNUSED gpointer data)
 {
 	char buf[256];
 	gboolean key_error;
