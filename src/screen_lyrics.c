@@ -27,7 +27,6 @@
 #include "strfsong.h"
 #include "lyrics.h"
 #include "charset.h"
-#include "gcc.h"
 
 #define _GNU_SOURCE
 #include <stdlib.h>
@@ -155,7 +154,7 @@ screen_lyrics_set(const GString *str)
 }
 
 static void
-screen_lyrics_callback(const GString *result, mpd_unused void *data)
+screen_lyrics_callback(const GString *result, G_GNUC_UNUSED void *data)
 {
 	assert(current.loader != NULL);
 
@@ -222,7 +221,8 @@ static int store_lyr_hd(void)
 }
 
 static const char *
-list_callback(unsigned idx, mpd_unused int *highlight, mpd_unused void *data)
+list_callback(unsigned idx, G_GNUC_UNUSED int *highlight,
+	      G_GNUC_UNUSED void *data)
 {
 	static char buffer[256];
 	char *value;
