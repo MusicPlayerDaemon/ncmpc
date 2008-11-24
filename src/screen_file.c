@@ -26,7 +26,6 @@
 #include "screen_utils.h"
 #include "screen_browser.h"
 #include "screen_play.h"
-#include "gcc.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -54,8 +53,8 @@ file_repaint_if_active(void)
 
 /* the db have changed -> update the filelist */
 static void
-file_changed_callback(mpdclient_t *c, mpd_unused int event,
-		      mpd_unused gpointer data)
+file_changed_callback(mpdclient_t *c, G_GNUC_UNUSED int event,
+		      G_GNUC_UNUSED gpointer data)
 {
 	browser.filelist = mpdclient_filelist_update(c, browser.filelist);
 #ifndef NCMPC_MINI
@@ -167,7 +166,7 @@ browse_exit(void)
 }
 
 static void
-browse_open(mpd_unused mpdclient_t *c)
+browse_open(G_GNUC_UNUSED mpdclient_t *c)
 {
 	if (browser.filelist == NULL) {
 		browser.filelist = mpdclient_filelist_get(c, "");
