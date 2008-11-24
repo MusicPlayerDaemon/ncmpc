@@ -30,7 +30,6 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "screen_play.h"
-#include "gcc.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -91,7 +90,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 }
 
 static const char *
-list_callback(unsigned idx, int *highlight, mpd_unused void *data)
+list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
 	static scroll_state_t st;
@@ -151,7 +150,8 @@ center_playing_item(mpdclient_t *c)
 
 #ifndef NCMPC_MINI
 static void
-save_pre_completion_cb(GCompletion *gcmp, mpd_unused gchar *line, void *data)
+save_pre_completion_cb(GCompletion *gcmp, G_GNUC_UNUSED gchar *line,
+		       void *data)
 {
 	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
 	GList **list = tmp->list;
@@ -165,8 +165,9 @@ save_pre_completion_cb(GCompletion *gcmp, mpd_unused gchar *line, void *data)
 }
 
 static void
-save_post_completion_cb(mpd_unused GCompletion *gcmp, mpd_unused gchar *line,
-			GList *items, mpd_unused void *data)
+save_post_completion_cb(G_GNUC_UNUSED GCompletion *gcmp,
+			G_GNUC_UNUSED gchar *line, GList *items,
+			G_GNUC_UNUSED void *data)
 {
 	if (g_list_length(items) >= 1)
 		screen_display_completion_list(items);
