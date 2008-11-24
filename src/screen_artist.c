@@ -26,7 +26,6 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "screen_browser.h"
-#include "gcc.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -60,7 +59,8 @@ compare_utf8(gconstpointer s1, gconstpointer s2)
 
 /* list_window callback */
 static const char *
-artist_lw_callback(unsigned idx, mpd_unused int *highlight, mpd_unused void *data)
+artist_lw_callback(unsigned idx, G_GNUC_UNUSED int *highlight,
+		   G_GNUC_UNUSED void *data)
 {
 	GPtrArray *list = data;
 	static char buf[BUFSIZE];
@@ -301,7 +301,7 @@ reload_lists(struct mpdclient *c)
 
 /* db updated */
 static void
-browse_callback(mpdclient_t *c, int event, mpd_unused gpointer data)
+browse_callback(mpdclient_t *c, int event, G_GNUC_UNUSED gpointer data)
 {
 	switch(event) {
 	case BROWSE_DB_UPDATED:
