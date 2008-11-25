@@ -1,14 +1,14 @@
 # GALICIAN (AGAL) TRANSLATION OF NCMPC.
-# Copyright (C) 2006
+# Copyright (C) 2006-2008
 # This file is distributed under the same license as the ncmpc package.
-# Johám-Luís Miguéns Vila <galiza.ceivet@gmail.com>, 2006.
+# Johám-Luís Miguéns Vila <galiza.ceivet@gmail.com>, 2006-2008
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ncmpc-tradiaz SVN\n"
+"Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-25 20:23+0100\n"
-"PO-Revision-Date: 2008-11-25 20:42+0100\n"
+"PO-Revision-Date: 2008-11-25 22:25+0100\n"
 "Last-Translator: Johám-Luís Miguéns Vila <galiza.ceive@gmail.com>\n"
 "Language-Team: galician\n"
 "MIME-Version: 1.0\n"
@@ -145,29 +145,27 @@ msgid "Auto center mode: Off"
 msgstr "Modo de auto-centrado: desactivado"
 
 #: src/screen_artist.c:73
-#, fuzzy
 msgid "All tracks"
-msgstr "pista"
+msgstr "Todas as pistas"
 
 #: src/screen_artist.c:376
-#, fuzzy
 msgid "All artists"
-msgstr "artista"
+msgstr "Todos os artistas"
 
 #: src/screen_artist.c:381
 #, c-format
 msgid "Albums of artist: %s"
-msgstr ""
+msgstr "Albumes do artista: %s"
 
 #: src/screen_artist.c:390
 #, c-format
 msgid "Album: %s - %s"
-msgstr ""
+msgstr "Álbum: %s - %s"
 
 #: src/screen_artist.c:394
 #, c-format
 msgid "All tracks of artist: %s"
-msgstr ""
+msgstr "Todas as pistas do artista: %s"
 
 #: src/screen_browser.c:238
 #, c-format
@@ -194,7 +192,7 @@ msgstr "Procurar atrás"
 
 #: src/screen_utils.c:114
 msgid "Password: "
-msgstr ""
+msgstr "Contrasinal :"
 
 #: src/screen_utils.c:207
 #, c-format
@@ -310,7 +308,7 @@ msgstr "Nome do ficheiro"
 
 #: src/screen_search.c:83
 msgid "Artist + Title"
-msgstr ""
+msgstr "Artista + Título"
 
 #: src/screen_search.c:245
 #, c-format
@@ -458,9 +456,8 @@ msgid "Enter directory/Select and play song"
 msgstr "Entra no cartafol/Selecciona e toca a cançom"
 
 #: src/screen_help.c:107 src/screen_help.c:122
-#, fuzzy
 msgid "Append song to playlist"
-msgstr "Eliminar a cançom da lista"
+msgstr "Engadir a cançom à lista"
 
 #: src/screen_help.c:109
 msgid "Delete playlist"
@@ -499,14 +496,12 @@ msgid "Save lyrics"
 msgstr "Guardar as letras"
 
 #: src/screen_lyrics.c:166
-#, fuzzy
 msgid "No lyrics"
-msgstr "Guardar as letras"
+msgstr "Sen letras"
 
 #: src/screen_lyrics.c:290
-#, fuzzy
 msgid "loading..."
-msgstr "A sair..."
+msgstr "a carregar..."
 
 #: src/screen_lyrics.c:326
 msgid "Lyrics saved"
@@ -570,7 +565,7 @@ msgstr "Parar"
 
 #: src/command.c:104
 msgid "Crop"
-msgstr ""
+msgstr "Cortar"
 
 #: src/command.c:106
 msgid "Next track"
@@ -602,7 +597,7 @@ msgstr "Seleccionar/desseleccionar a cançom na lista"
 
 #: src/command.c:120
 msgid "Select all listed items"
-msgstr ""
+msgstr "Seleccionar todos"
 
 #: src/command.c:122
 msgid "Delete song from playlist"
@@ -642,19 +637,19 @@ msgstr "Engadir url/ficheiro à lista"
 
 #: src/command.c:141
 msgid "Go to root directory"
-msgstr ""
+msgstr "Ir ao cartafol raíz"
 
 #: src/command.c:143
 msgid "Go to parent directory"
-msgstr ""
+msgstr "Ir ao cartafol pai"
 
 #: src/command.c:147
 msgid "View the song"
-msgstr ""
+msgstr "Ver a cançom"
 
 #: src/command.c:151
 msgid "Locate song in browser"
-msgstr ""
+msgstr "Atopar a cançom no navegador"
 
 #: src/command.c:155
 msgid "Move item up"
@@ -819,7 +814,7 @@ msgid "Terminal lacks support for changing colors\n"
 msgstr "A terminal nom tem suporte para a mudança das cores\n"
 
 #: src/colors.c:248
-#, fuzzy, c-format
+#, c-format
 msgid "Terminal lacks color capabilities\n"
 msgstr "A terminal nom tem capacidades de cor\n"
 
