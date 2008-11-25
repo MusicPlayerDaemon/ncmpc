@@ -119,6 +119,20 @@ screen_next_mode(mpdclient_t *c, int offset)
 		screen_switch(sf, c);
 }
 
+#ifndef NCMPC_MINI
+static void
+print_hotkey(WINDOW *w, command_t cmd, const char *label)
+{
+	colors_use(w, COLOR_TITLE_BOLD);
+	waddstr(w, get_key_names(cmd, FALSE));
+	colors_use(w, COLOR_TITLE);
+	waddch(w, ':');
+	waddstr(w, label);
+	waddch(w, ' ');
+	waddch(w, ' ');
+}
+#endif
+
 static void
 paint_top_window2(const char *header, mpdclient_t *c)
 {
@@ -131,35 +145,17 @@ paint_top_window2(const char *header, mpdclient_t *c)
 		mvwaddstr(w, 0, 0, header);
 #ifndef NCMPC_MINI
 	} else {
-		colors_use(w, COLOR_TITLE_BOLD);
-		waddstr(w, get_key_names(CMD_SCREEN_HELP, FALSE));
-		colors_use(w, COLOR_TITLE);
-		waddstr(w, _(":Help  "));
-		colors_use(w, COLOR_TITLE_BOLD);
-		waddstr(w, get_key_names(CMD_SCREEN_PLAY, FALSE));
-		colors_use(w, COLOR_TITLE);
-		waddstr(w, _(":Playlist  "));
-		colors_use(w, COLOR_TITLE_BOLD);
-		waddstr(w, get_key_names(CMD_SCREEN_FILE, FALSE));
-		colors_use(w, COLOR_TITLE);
-		waddstr(w, _(":Browse  "));
+		print_hotkey(w, CMD_SCREEN_HELP, _("Help"));
+		print_hotkey(w, CMD_SCREEN_PLAY, _("Playlist"));
+		print_hotkey(w, CMD_SCREEN_FILE, _("Browse"));
 #ifdef ENABLE_ARTIST_SCREEN
-		colors_use(w, COLOR_TITLE_BOLD);
-		waddstr(w, get_key_names(CMD_SCREEN_ARTIST, FALSE));
-		colors_use(w, COLOR_TITLE);
-		waddstr(w, _(":Artist  "));
+		print_hotkey(w, CMD_SCREEN_ARTIST, _("Artist"));
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
-		colors_use(w, COLOR_TITLE_BOLD);
-		waddstr(w, get_key_names(CMD_SCREEN_SEARCH, FALSE));
-		colors_use(w, COLOR_TITLE);
-		waddstr(w, _(":Search  "));
+		print_hotkey(w, CMD_SCREEN_SEARCH, _("Search"));
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
-		colors_use(w, COLOR_TITLE_BOLD);
-		waddstr(w, get_key_names(CMD_SCREEN_LYRICS, FALSE));
-		colors_use(w, COLOR_TITLE);
-		waddstr(w, _(":Lyrics  "));
+		print_hotkey(w, CMD_SCREEN_LYRICS, _("Lyrics"));
 #endif
 #endif
 	}
