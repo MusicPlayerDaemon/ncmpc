@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-25 20:23+0100\n"
-"PO-Revision-Date: 2008-11-25 20:28+0100\n"
+"PO-Revision-Date: 2008-11-25 21:01+0100\n"
 "Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -155,17 +155,17 @@ msgstr "Alle Künstler"
 #: src/screen_artist.c:381
 #, c-format
 msgid "Albums of artist: %s"
-msgstr ""
+msgstr "Alben des Künstlers: %s"
 
 #: src/screen_artist.c:390
-#, fuzzy, c-format
+#, c-format
 msgid "Album: %s - %s"
-msgstr "Fehler: %s - %s"
+msgstr "Album: %s - %s"
 
 #: src/screen_artist.c:394
 #, c-format
 msgid "All tracks of artist: %s"
-msgstr ""
+msgstr "Alle Lieder des Künstlers: %s"
 
 #: src/screen_browser.c:238
 #, c-format
@@ -192,7 +192,7 @@ msgstr "Suche rückwärts: "
 
 #: src/screen_utils.c:114
 msgid "Password: "
-msgstr ""
+msgstr "Passwort: "
 
 #: src/screen_utils.c:207
 #, c-format
@@ -500,9 +500,8 @@ msgid "No lyrics"
 msgstr "Kein Liedtext verfügbar"
 
 #: src/screen_lyrics.c:290
-#, fuzzy
 msgid "loading..."
-msgstr "Beenden..."
+msgstr "lade..."
 
 #: src/screen_lyrics.c:326
 msgid "Lyrics saved"
@@ -646,11 +645,11 @@ msgstr "Übergeordnetes Verzeichnis öffnen"
 
 #: src/command.c:147
 msgid "View the song"
-msgstr ""
+msgstr "Lied anzeigen"
 
 #: src/command.c:151
 msgid "Locate song in browser"
-msgstr ""
+msgstr "Lied in Datenbank orten"
 
 #: src/command.c:155
 msgid "Move item up"
