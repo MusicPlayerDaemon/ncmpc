@@ -2,18 +2,18 @@
 # Copyright (C) 2004 Kalle Wallin
 # This file is distributed under the same license as the ncmpc package.
 # Ingmar Gebert, 2004
-# Johám-Luís Miguéns Vila, 2006.
+# Johám-Luís Miguéns Vila, 2006-2008
 # Si tienes alguna sugerencia, encuentras algún error en la traducción o quieres colaborar con la misma,
 # puedes contactar conmigo a través del correo electrónico indicado más abajo.
 #
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ncmpc SVN\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: ncmpc\n"
+"Report-Msgid-Bugs-To: ashtophet@ashtophet.org\n"
 "POT-Creation-Date: 2008-11-25 20:23+0100\n"
-"PO-Revision-Date: 2008-11-25 21:02+0100\n"
-"Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
+"PO-Revision-Date: 2008-11-25 22:34+0100\n"
+"Last-Translator: Johám-Luís Miguéns Vila <ashtophet@ashtophet.org>\n"
 "Language-Team: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,9 +36,7 @@ msgstr "Conectándose a %s... [Presiona %s para interrumpir la ejecución]"
 #: src/main.c:228
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
-msgstr ""
-"Error: La versión %d.%d.%d del MPD es demasiado antigua (necesitas por lo "
-"menos la %s)"
+msgstr "Error: La versión %d.%d.%d del MPD es demasiado antigua (se necesita al menos la %s)"
 
 #: src/main.c:242
 #, c-format
@@ -111,7 +109,7 @@ msgstr "Modo aleatorio desactivado"
 #: src/screen.c:599
 #, c-format
 msgid "Crossfade %d seconds"
-msgstr "Crossfade %d segundos"
+msgstr "Desvanecimiento de %d segundos"
 
 #: src/screen.c:602
 msgid "Database updated"
@@ -119,15 +117,15 @@ msgstr "Base de datos actualizada"
 
 #: src/screen.c:735
 msgid "Shuffled playlist"
-msgstr "Lista de canciones aleatorizada"
+msgstr "Lista de canciones barajada"
 
 #: src/screen.c:739
 msgid "Cleared playlist"
-msgstr "Vaciada la Lista de canciones"
+msgstr "Vaciada la lista de canciones"
 
 #: src/screen.c:756 src/screen_file.c:257
 msgid "Database update started"
-msgstr "Ha comenzado la actualización de la BD"
+msgstr "Ha comenzado la actualización de la base de datos"
 
 #: src/screen.c:758 src/screen_file.c:264
 msgid "Database update running..."
@@ -135,7 +133,7 @@ msgstr "Actualizando la base de datos..."
 
 #: src/screen.c:794
 msgid "Find mode: Wrapped"
-msgstr "Tipo de búsqueda: Wrapped"
+msgstr "Tipo de búsqueda: simple"
 
 #: src/screen.c:795
 msgid "Find mode: Normal"
@@ -151,26 +149,26 @@ msgstr "Modo autocentrado desactivado"
 
 #: src/screen_artist.c:73
 msgid "All tracks"
-msgstr "Todas canciónes"
+msgstr "Todas las pistas"
 
 #: src/screen_artist.c:376
 msgid "All artists"
-msgstr "Todas artistas"
+msgstr "Todos los artistas"
 
 #: src/screen_artist.c:381
 #, c-format
 msgid "Albums of artist: %s"
-msgstr ""
+msgstr "Álbumes del artista: %s"
 
 #: src/screen_artist.c:390
 #, c-format
 msgid "Album: %s - %s"
-msgstr ""
+msgstr "Álbum: %s - %s"
 
 #: src/screen_artist.c:394
 #, c-format
 msgid "All tracks of artist: %s"
-msgstr ""
+msgstr "Todas las pistas del artista: %s"
 
 #: src/screen_browser.c:238
 #, c-format
@@ -197,7 +195,7 @@ msgstr "Buscar hacia atrás"
 
 #: src/screen_utils.c:114
 msgid "Password: "
-msgstr ""
+msgstr "Contraseña: "
 
 #: src/screen_utils.c:207
 #, c-format
@@ -230,7 +228,7 @@ msgstr "Añadir: "
 #: src/screen_play.c:453
 #, c-format
 msgid "Playlist on %s"
-msgstr "Lista de canciones en %s"
+msgstr "Lista de reproducción en %s"
 
 #: src/screen_file.c:124
 msgid "You can only delete playlists"
@@ -239,11 +237,11 @@ msgstr "Sólo puedes eliminar las listas"
 #: src/screen_file.c:131
 #, c-format
 msgid "Delete playlist %s [%s/%s] ? "
-msgstr "Borrar la lista de canciones %s [%s/%s] ? "
+msgstr "Borrar la lista de reproducción %s [%s/%s] ? "
 
 #: src/screen_file.c:143
 msgid "Playlist deleted"
-msgstr "Lista de canciones borrada"
+msgstr "Lista de reproducción borrada"
 
 #: src/screen_file.c:197
 #, c-format
@@ -253,7 +251,7 @@ msgstr "Navegando: %s"
 #: src/screen_file.c:253
 #, c-format
 msgid "Database update of %s started"
-msgstr "La actualización de la BD %s ha comenzado"
+msgstr "Ha comenzado la actualización de la base de datos %s"
 
 #: src/screen_search.c:39
 msgid "artist"
@@ -309,7 +307,7 @@ msgstr "Álbum"
 
 #: src/screen_search.c:82
 msgid "Filename"
-msgstr "Nombre de fichero"
+msgstr "Nombre de archivo"
 
 #: src/screen_search.c:83
 msgid "Artist + Title"
@@ -327,7 +325,7 @@ msgstr "Sin argumentos para la etiqueta de búsqueda %s"
 
 #: src/screen_search.c:309
 msgid "Search: "
-msgstr "Búsqueda: "
+msgstr "Buscar: "
 
 #. if( pattern==NULL )
 #. search_new(screen, c);
@@ -506,10 +504,9 @@ msgstr "No letras disponibles"
 
 #: src/screen_lyrics.c:290
 msgid "loading..."
-msgstr ""
+msgstr "cargando..."
 
 #: src/screen_lyrics.c:326
-#, fuzzy
 msgid "Lyrics saved"
 msgstr "Letras guardadas"
 
@@ -603,7 +600,7 @@ msgstr "Seleccionar/Deseleccionar la canción en la lista"
 
 #: src/command.c:120
 msgid "Select all listed items"
-msgstr ""
+msgstr "Seleccionar todos"
 
 #: src/command.c:122
 msgid "Delete song from playlist"
@@ -651,11 +648,11 @@ msgstr "Entrar al directorio superior"
 
 #: src/command.c:147
 msgid "View the song"
-msgstr ""
+msgstr "Ver la canción"
 
 #: src/command.c:151
 msgid "Locate song in browser"
-msgstr ""
+msgstr "Encontrar la canción en el navegador"
 
 #: src/command.c:155
 msgid "Move item up"
