@@ -78,6 +78,8 @@ screen_lyrics_clear(void)
 {
 	guint i;
 
+	list_window_reset(lw);
+
 	for (i = 0; i < current.lines->len; ++i)
 		g_free(g_ptr_array_index(current.lines, i));
 
