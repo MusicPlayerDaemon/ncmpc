@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-25 20:23+0100\n"
-"PO-Revision-Date: 2008-11-25 20:53+0100\n"
+"PO-Revision-Date: 2008-11-25 22:12+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "Listova»"
 
 #: src/screen.c:150 src/screen_search.c:80
 msgid "Artist"
-msgstr "Umelec"
+msgstr "Interpret"
 
 #: src/screen.c:153 src/screen_help.c:119
 msgid "Search"
@@ -140,32 +140,30 @@ msgstr "Automatické centrovanie: Zapnuté"
 
 #: src/screen.c:801
 msgid "Auto center mode: Off"
-msgstr "Automatické centrovanie> Vypnuté"
+msgstr "Automatické centrovanie: Vypnuté"
 
 #: src/screen_artist.c:73
-#, fuzzy
 msgid "All tracks"
-msgstr "stopa"
+msgstr "V¹etky stopy"
 
 #: src/screen_artist.c:376
-#, fuzzy
 msgid "All artists"
-msgstr "umelec"
+msgstr "V¹etci interpreti"
 
 #: src/screen_artist.c:381
 #, c-format
 msgid "Albums of artist: %s"
-msgstr ""
+msgstr "Albumy od interpreta: %s"
 
 #: src/screen_artist.c:390
-#, fuzzy, c-format
+#, c-format
 msgid "Album: %s - %s"
-msgstr "Chyba: %s - %s"
+msgstr "Album: %s - %s"
 
 #: src/screen_artist.c:394
 #, c-format
 msgid "All tracks of artist: %s"
-msgstr ""
+msgstr "V¹etky stopy od interpreta: %s"
 
 #: src/screen_browser.c:238
 #, c-format
@@ -252,7 +250,7 @@ msgstr "Aktualizácia databáze %s zaèala"
 
 #: src/screen_search.c:39
 msgid "artist"
-msgstr "umelec"
+msgstr "interpret"
 
 #: src/screen_search.c:40
 msgid "album"
@@ -284,7 +282,7 @@ msgstr "skladateµ"
 
 #: src/screen_search.c:47
 msgid "performer"
-msgstr "interpret"
+msgstr "umelec"
 
 #: src/screen_search.c:48
 msgid "comment"
@@ -308,7 +306,7 @@ msgstr "Názov súboru"
 
 #: src/screen_search.c:83
 msgid "Artist + Title"
-msgstr ""
+msgstr "Interpret + Názov"
 
 #: src/screen_search.c:245
 #, c-format
@@ -456,9 +454,8 @@ msgid "Enter directory/Select and play song"
 msgstr "Vstúpi» do adresára/Vybra» a prehra» skladbu"
 
 #: src/screen_help.c:107 src/screen_help.c:122
-#, fuzzy
 msgid "Append song to playlist"
-msgstr "Vymaza» skladbu z playlistu"
+msgstr "Prida» skladbu do playlistu"
 
 #: src/screen_help.c:109
 msgid "Delete playlist"
@@ -497,14 +494,12 @@ msgid "Save lyrics"
 msgstr "Ulo¾i» text piesne"
 
 #: src/screen_lyrics.c:166
-#, fuzzy
 msgid "No lyrics"
-msgstr "Ulo¾i» text piesne"
+msgstr "Bez textu"
 
 #: src/screen_lyrics.c:290
-#, fuzzy
 msgid "loading..."
-msgstr "Ukonèujem..."
+msgstr "naèítam..."
 
 #: src/screen_lyrics.c:326
 msgid "Lyrics saved"
@@ -568,7 +563,7 @@ msgstr "Stop"
 
 #: src/command.c:104
 msgid "Crop"
-msgstr ""
+msgstr "Oreza»"
 
 #: src/command.c:106
 msgid "Next track"
@@ -600,7 +595,7 @@ msgstr "Vybra»/odvybra» skladbu v playliste"
 
 #: src/command.c:120
 msgid "Select all listed items"
-msgstr ""
+msgstr "Vybra» v¹etky polo¾ky v zozname"
 
 #: src/command.c:122
 msgid "Delete song from playlist"
@@ -648,11 +643,11 @@ msgstr "Prejs» do nadradeného adresára"
 
 #: src/command.c:147
 msgid "View the song"
-msgstr ""
+msgstr "Zobrazi» skladbu"
 
 #: src/command.c:151
 msgid "Locate song in browser"
-msgstr ""
+msgstr "Nájs» skladbu v prehliadaèi"
 
 #: src/command.c:155
 msgid "Move item up"
@@ -700,7 +695,7 @@ msgstr "Pokraèova» v hµadaní vzad"
 
 #: src/command.c:190
 msgid "Artist screen"
-msgstr "Okno umelca"
+msgstr "Okno interpreta"
 
 #: src/command.c:194
 msgid "Search screen"
