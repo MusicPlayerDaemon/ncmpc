@@ -9,6 +9,9 @@ ncmpc 0.12 - not yet released
   * added compile-time "mini" option which produces the smallest
     possible ncmpc binary
   * added LIRC support
+  * scroll long song names in the playlist
+  * added command "locate" ('G') which locates a song in the database browser
+  * added "song" screen ('i') which displays song information
 
 
 ncmpc 0.11.1 - 2005-01-24
