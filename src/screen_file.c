@@ -121,7 +121,7 @@ handle_delete(mpdclient_t *c)
 	entity = entry->entity;
 
 	if( entity->type!=MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
-		screen_status_printf(_("You can only delete playlists!"));
+		screen_status_printf(_("You can only delete playlists"));
 		screen_bell();
 		return -1;
 	}
@@ -133,14 +133,14 @@ handle_delete(mpdclient_t *c)
 	key = tolower(screen_getch(screen.status_window.w, buf));
 	g_free(buf);
 	if( key != YES[0] ) {
-		screen_status_printf(_("Aborted!"));
+		screen_status_printf(_("Aborted"));
 		return 0;
 	}
 
 	if( mpdclient_cmd_delete_playlist(c, plf->path) )
 		return -1;
 
-	screen_status_printf(_("Playlist deleted!"));
+	screen_status_printf(_("Playlist deleted"));
 	return 0;
 }
 
@@ -239,8 +239,6 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 		list_window_check_selected(browser.lw,
 					   filelist_length(browser.filelist));
 		file_repaint();
-
-		screen_status_printf(_("Screen updated!"));
 		return false;
 
 	case CMD_DB_UPDATE:
@@ -252,11 +250,11 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 				if (strcmp(browser.filelist->path, "")) {
 					char *path_locale =
 						utf8_to_locale(browser.filelist->path);
-					screen_status_printf(_("Database update of %s started!"),
+					screen_status_printf(_("Database update of %s started"),
 							     path_locale);
 					g_free(path_locale);
 				} else
-					screen_status_printf(_("Database update started!"));
+					screen_status_printf(_("Database update started"));
 
 				/* set updatingDb to make shure the browse callback gets called
 				 * even if the updated has finished before status is updated */

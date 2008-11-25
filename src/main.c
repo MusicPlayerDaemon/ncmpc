@@ -225,10 +225,11 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.11.0 - song id not supported by mpd */
 	if (MPD_VERSION_LT(mpd, 0, 11, 0)) {
-		screen_status_printf(_("Error: MPD version %d.%d.%d is to old (0.11.0 needed).\n"),
+		screen_status_printf(_("Error: MPD version %d.%d.%d is to old (%s needed)"),
 				     mpd->connection->version[0],
 				     mpd->connection->version[1],
-				     mpd->connection->version[2]);
+				     mpd->connection->version[2],
+				     "0.11.0");
 		mpdclient_disconnect(mpd);
 		doupdate();
 
@@ -238,7 +239,7 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 	}
 #endif
 
-	screen_status_printf(_("Connected to %s!"), options.host);
+	screen_status_printf(_("Connected to %s"), options.host);
 	doupdate();
 
 	connected = TRUE;

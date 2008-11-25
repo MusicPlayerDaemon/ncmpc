@@ -258,7 +258,7 @@ playlist_save(mpdclient_t *c, char *name, char *defaultname)
 				return error;
 			}
 
-			screen_status_printf(_("Aborted!"));
+			screen_status_printf(_("Aborted"));
 		}
 
 		g_free(filename);

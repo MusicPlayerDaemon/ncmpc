@@ -393,7 +393,7 @@ screen_resize(struct mpdclient *c)
 {
 	if (COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS) {
 		screen_exit();
-		fprintf(stderr, _("Error: Screen to small!\n"));
+		fprintf(stderr, _("Error: Screen to small\n"));
 		exit(EXIT_FAILURE);
 	}
 
@@ -466,7 +466,7 @@ void
 screen_init(mpdclient_t *c)
 {
 	if (COLS < SCREEN_MIN_COLS || LINES < SCREEN_MIN_ROWS) {
-		fprintf(stderr, _("Error: Screen to small!\n"));
+		fprintf(stderr, _("Error: Screen to small\n"));
 		exit(EXIT_FAILURE);
 	}
 
@@ -601,7 +601,7 @@ screen_update(mpdclient_t *c)
 			screen_status_printf(_("Crossfade %d seconds"), c->status->crossfade);
 
 		if (dbupdate && dbupdate != c->status->updatingDb) {
-			screen_status_printf(_("Database updated!"));
+			screen_status_printf(_("Database updated"));
 			mpdclient_browse_callback(c, BROWSE_DB_UPDATED, NULL);
 		}
 
@@ -734,11 +734,11 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 		break;
 	case CMD_SHUFFLE:
 		if (mpdclient_cmd_shuffle(c) == 0)
-			screen_status_message(_("Shuffled playlist!"));
+			screen_status_message(_("Shuffled playlist"));
 		break;
 	case CMD_CLEAR:
 		if (mpdclient_cmd_clear(c) == 0)
-			screen_status_message(_("Cleared playlist!"));
+			screen_status_message(_("Cleared playlist"));
 		break;
 	case CMD_REPEAT:
 		mpdclient_cmd_repeat(c, !c->status->repeat);
@@ -755,7 +755,7 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_DB_UPDATE:
 		if (!c->status->updatingDb) {
 			if( mpdclient_cmd_db_update(c,NULL)==0 )
-				screen_status_printf(_("Database update started!"));
+				screen_status_printf(_("Database update started"));
 		} else
 			screen_status_printf(_("Database update running..."));
 		break;

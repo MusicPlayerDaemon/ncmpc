@@ -323,7 +323,7 @@ lyrics_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_ADD:
 		if (current.loader == NULL && current.artist != NULL &&
 		    current.title != NULL && store_lyr_hd() == 0)
-			screen_status_message (_("Lyrics saved!"));
+			screen_status_message (_("Lyrics saved"));
 		return true;
 	case CMD_LYRICS_UPDATE:
 		if (c->song != NULL) {

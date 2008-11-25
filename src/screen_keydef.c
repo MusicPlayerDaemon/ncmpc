@@ -66,7 +66,7 @@ apply_keys(void)
 		size_t size = command_list_length * sizeof(command_definition_t);
 
 		memcpy(orginal_cmds, cmds, size);
-		screen_status_printf(_("You have new key bindings!"));
+		screen_status_printf(_("You have new key bindings"));
 	} else
 		screen_status_printf(_("Keybindings unchanged."));
 }
@@ -159,7 +159,7 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
 	g_free(buf);
 
 	if (key==ERR) {
-		screen_status_printf(_("Aborted!"));
+		screen_status_printf(_("Aborted"));
 		return;
 	}
 
@@ -212,7 +212,8 @@ list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
 				   cmds[subcmd].keys[idx]);
 			return buf;
 		} else if (idx == subcmd_addpos) {
-			g_snprintf(buf, BUFSIZE, _("%d. Add new key "), idx + 1);
+			g_snprintf(buf, BUFSIZE, "%d. %s",
+				   idx + 1, _("Add new key"));
 			return buf;
 		}
 	}
@@ -258,7 +259,6 @@ keydef_open(G_GNUC_UNUSED mpdclient_t *c)
 		cmds = g_malloc0(cmds_size);
 		memcpy(cmds, current_cmds, cmds_size);
 		command_list_length += STATIC_ITEMS;
-		screen_status_printf(_("Welcome to the key editor!"));
 	}
 
 	subcmd = -1;

@@ -631,7 +631,6 @@ artist_cmd(mpdclient_t *c, command_t cmd)
 		/* continue and update... */
 	case CMD_SCREEN_UPDATE:
 		reload_lists(c);
-		screen_status_printf(_("Screen updated!"));
 		return false;
 
 	case CMD_LIST_FIND:

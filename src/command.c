@@ -468,14 +468,14 @@ check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 						   get_key_names(CMD_SCREEN_KEYDEF,0));
 #else
 					g_snprintf(buf, bufsize,
-						   _("Error: Key %s assigned to %s and %s !!!\n"),
+						   _("Error: Key %s assigned to %s and %s\n"),
 						   key2str(cp[i].keys[j]),
 						   get_key_command_name(cp[i].command),
 						   get_key_command_name(cmd));
 #endif
 				} else
 					fprintf(stderr,
-						_("Error: Key %s assigned to %s and %s !!!\n"),
+						_("Error: Key %s assigned to %s and %s\n"),
 						key2str(cp[i].keys[j]),
 						get_key_command_name(cp[i].command),
 						get_key_command_name(cmd));
