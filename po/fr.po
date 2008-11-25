@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-25 20:23+0100\n"
-"PO-Revision-Date: 2008-11-25 20:30+0100\n"
+"PO-Revision-Date: 2008-11-25 21:02+0100\n"
 "Last-Translator: Yann Cézard <eesprit@free.fr>\n"
 "Language-Team: fr <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -61,9 +61,8 @@ msgstr "Rechercher"
 
 #: src/screen.c:156 src/screen_lyrics.c:290 src/screen_lyrics.c:295
 #: src/screen_lyrics.c:299
-#, fuzzy
 msgid "Lyrics"
-msgstr ":Liste de Lecture  "
+msgstr ""
 
 #: src/screen.c:162
 msgid "Volume n/a "
@@ -162,9 +161,9 @@ msgid "Albums of artist: %s"
 msgstr ""
 
 #: src/screen_artist.c:390
-#, fuzzy, c-format
+#, c-format
 msgid "Album: %s - %s"
-msgstr "Erreur: %s - %s"
+msgstr ""
 
 #: src/screen_artist.c:394
 #, c-format
@@ -317,9 +316,8 @@ msgid "Filename"
 msgstr "Nom de fichier"
 
 #: src/screen_search.c:83
-#, fuzzy
 msgid "Artist + Title"
-msgstr "Artiste"
+msgstr ""
 
 #: src/screen_search.c:245
 #, c-format
@@ -485,9 +483,8 @@ msgid "Select and play"
 msgstr "Sélectionner et Lire"
 
 #: src/screen_help.c:129
-#, fuzzy
 msgid "Keys - Lyrics screen"
-msgstr "Touches - Liste de Lecture"
+msgstr ""
 
 #: src/screen_help.c:131
 msgid "View Lyrics"
@@ -506,24 +503,20 @@ msgid "Explicitly download lyrics"
 msgstr ""
 
 #: src/screen_help.c:135
-#, fuzzy
 msgid "Save lyrics"
-msgstr "Enregistrer la liste de lecture"
+msgstr ""
 
 #: src/screen_lyrics.c:166
-#, fuzzy
 msgid "No lyrics"
-msgstr "Enregistrer la liste de lecture"
+msgstr ""
 
 #: src/screen_lyrics.c:290
-#, fuzzy
 msgid "loading..."
-msgstr "Fin..."
+msgstr ""
 
 #: src/screen_lyrics.c:326
-#, fuzzy
 msgid "Lyrics saved"
-msgstr "Ecran de Liste de lecture"
+msgstr ""
 
 #: src/command.c:67
 msgid "Key configuration screen"
@@ -654,14 +647,12 @@ msgid "Add url/file to playlist"
 msgstr "Ajouter une url/un fichier à la liste de lecture"
 
 #: src/command.c:141
-#, fuzzy
 msgid "Go to root directory"
-msgstr "Entrer dans le répertoire"
+msgstr ""
 
 #: src/command.c:143
-#, fuzzy
 msgid "Go to parent directory"
-msgstr "Entrer dans le répertoire"
+msgstr ""
 
 #: src/command.c:147
 msgid "View the song"

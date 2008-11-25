@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc-tradiaz SVN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-25 20:23+0100\n"
-"PO-Revision-Date: 2008-11-25 20:30+0100\n"
+"PO-Revision-Date: 2008-11-25 20:42+0100\n"
 "Last-Translator: Johám-Luís Miguéns Vila <galiza.ceive@gmail.com>\n"
 "Language-Team: galician\n"
 "MIME-Version: 1.0\n"
@@ -160,9 +160,9 @@ msgid "Albums of artist: %s"
 msgstr ""
 
 #: src/screen_artist.c:390
-#, fuzzy, c-format
+#, c-format
 msgid "Album: %s - %s"
-msgstr "Erro: %s - %s"
+msgstr ""
 
 #: src/screen_artist.c:394
 #, c-format
@@ -309,9 +309,8 @@ msgid "Filename"
 msgstr "Nome do ficheiro"
 
 #: src/screen_search.c:83
-#, fuzzy
 msgid "Artist + Title"
-msgstr ":Artista"
+msgstr ""
 
 #: src/screen_search.c:245
 #, c-format
@@ -642,14 +641,12 @@ msgid "Add url/file to playlist"
 msgstr "Engadir url/ficheiro à lista"
 
 #: src/command.c:141
-#, fuzzy
 msgid "Go to root directory"
-msgstr "Tocar/Entrar num cartafol"
+msgstr ""
 
 #: src/command.c:143
-#, fuzzy
 msgid "Go to parent directory"
-msgstr "Tocar/Entrar num cartafol"
+msgstr ""
 
 #: src/command.c:147
 msgid "View the song"

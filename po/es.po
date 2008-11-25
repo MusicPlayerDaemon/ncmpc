@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ncmpc SVN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-25 20:23+0100\n"
-"PO-Revision-Date: 2008-11-25 20:29+0100\n"
+"PO-Revision-Date: 2008-11-25 21:02+0100\n"
 "Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
 "Language-Team: es\n"
 "MIME-Version: 1.0\n"
@@ -163,9 +163,9 @@ msgid "Albums of artist: %s"
 msgstr ""
 
 #: src/screen_artist.c:390
-#, fuzzy, c-format
+#, c-format
 msgid "Album: %s - %s"
-msgstr "Error: %s - %s"
+msgstr ""
 
 #: src/screen_artist.c:394
 #, c-format
@@ -505,9 +505,8 @@ msgid "No lyrics"
 msgstr "No letras disponibles"
 
 #: src/screen_lyrics.c:290
-#, fuzzy
 msgid "loading..."
-msgstr "Terminando..."
+msgstr ""
 
 #: src/screen_lyrics.c:326
 #, fuzzy

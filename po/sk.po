@@ -307,9 +307,8 @@ msgid "Filename"
 msgstr "Názov súboru"
 
 #: src/screen_search.c:83
-#, fuzzy
 msgid "Artist + Title"
-msgstr ":Umelec  "
+msgstr ""
 
 #: src/screen_search.c:245
 #, c-format
