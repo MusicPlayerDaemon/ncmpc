@@ -109,6 +109,7 @@ artist_repaint_if_active(void)
 		artist_repaint();
 }
 
+#ifndef NCMPC_MINI
 /* the playlist have been updated -> fix highlights */
 static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
@@ -117,6 +118,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 
 	artist_repaint_if_active();
 }
+#endif
 
 static GPtrArray *
 g_list_to_ptr_array(GList *in)
@@ -147,7 +149,7 @@ string_array_free(GPtrArray *array)
 }
 
 static void
-free_lists(struct mpdclient *c)
+free_lists(G_GNUC_UNUSED struct mpdclient *c)
 {
 	if (artist_list != NULL) {
 		string_array_free(artist_list);
@@ -160,8 +162,10 @@ free_lists(struct mpdclient *c)
 	}
 
 	if (browser.filelist) {
+#ifndef NCMPC_MINI
 		if (c != NULL)
 			mpdclient_remove_playlist_callback(c, playlist_changed_callback);
+#endif
 		filelist_free(browser.filelist);
 		browser.filelist = NULL;
 	}
@@ -228,9 +232,11 @@ load_song_list(struct mpdclient *c)
 	/* add a dummy entry for ".." */
 	filelist_prepend(browser.filelist, NULL);
 
+#ifndef NCMPC_MINI
 	/* install playlist callback and fix highlights */
 	sync_highlights(c, browser.filelist);
 	mpdclient_install_playlist_callback(c, playlist_changed_callback);
+#endif
 }
 
 static void
