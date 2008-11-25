@@ -93,7 +93,9 @@ static const char *
 list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
+#ifndef NCMPC_MINI
 	static scroll_state_t st;
+#endif
 	mpd_Song *song;
 
 	if (playlist == NULL || idx >= playlist_length(playlist))
@@ -105,6 +107,7 @@ list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
 
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, song);
 
+#ifndef NCMPC_MINI
 	if (options.scroll && (unsigned)song->pos == lw->selected &&
 	    utf8_width(songname) > (unsigned)COLS) {
 		static unsigned current_song;
@@ -121,6 +124,7 @@ list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
 		g_free(tmp);
 	} else if ((unsigned)song->pos == lw->selected)
 		st.offset = 0;
+#endif
 
 	return songname;
 }
@@ -468,7 +472,11 @@ play_update(mpdclient_t *c)
 	current_song_id = c->song != NULL && c->status != NULL &&
 		!IS_STOPPED(c->status->state) ? c->song->id : -1;
 
-	if (options.scroll || current_song_id != prev_song_id) {
+	if (current_song_id != prev_song_id
+#ifndef NCMPC_MINI
+	     || options.scroll
+#endif
+	    ) {
 		prev_song_id = current_song_id;
 
 		/* center the cursor */

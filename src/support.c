@@ -43,6 +43,8 @@ strcasestr(const char *haystack, const char *needle)
 }
 #endif /* HAVE_STRCASESTR */
 
+#ifndef NCMPC_MINI
+
 // FIXME: utf-8 length
 char *
 strscroll(char *str, char *separator, int width, scroll_state_t *st)
@@ -90,3 +92,5 @@ strscroll(char *str, char *separator, int width, scroll_state_t *st)
 	g_free(tmp);
 	return buf;
 }
+
+#endif
