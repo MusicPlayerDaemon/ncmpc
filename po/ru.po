@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the ncmpc package.
 # Original translation by Nikolay Pavlov <quetzal@roks.biz>, 2004.
 # Encoding and typos fixed, stylistic improvement by Max Arnold, 2006-12-09
-# New msgids translated by Max Arnold, 2008-11-18
+# Further improvements by Max Arnold, 2008-11-26
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-26 14:38+0100\n"
-"PO-Revision-Date: 2008-11-25 20:31+0100\n"
+"PO-Revision-Date: 2008-11-26 14:42+0100\n"
 "Last-Translator: Max Arnold <amv_cbx@mail.ru>\n"
 "Language-Team: ru <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -465,7 +465,7 @@ msgstr "Удалить плейлист"
 
 #: src/screen_help.c:117
 msgid "Keys - Search screen"
-msgstr "Клавиши - Экран поиска"
+msgstr "Команды - Экран поиска"
 
 #: src/screen_help.c:120
 msgid "Select and play"
@@ -500,52 +500,45 @@ msgid "No lyrics"
 msgstr "Текст отсутствует"
 
 #: src/screen_lyrics.c:290
-#, fuzzy
 msgid "loading..."
-msgstr "Выход..."
+msgstr "загрузка..."
 
 #: src/screen_lyrics.c:326
-#, fuzzy
 msgid "Lyrics saved"
-msgstr "Текст сохранен!"
+msgstr "Текст сохранен"
 
+# Several translations for Song Viewer:
 #: src/screen_song.c:105
 msgid "Song viewer"
-msgstr ""
+msgstr "Информация о композиции"
 
 #: src/screen_song.c:190
-#, fuzzy
 msgid "Composer"
-msgstr "composer"
+msgstr "Композитор"
 
 #: src/screen_song.c:191
-#, fuzzy
 msgid "Name"
-msgstr "name"
+msgstr "Name"
 
 #: src/screen_song.c:192
 msgid "Disc"
-msgstr ""
+msgstr "Диск"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Track"
-msgstr "track"
+msgstr "Дорожка"
 
 #: src/screen_song.c:194
-#, fuzzy
 msgid "Date"
-msgstr "date"
+msgstr "Дата"
 
 #: src/screen_song.c:195
-#, fuzzy
 msgid "Genre"
-msgstr "genre"
+msgstr "Жанр"
 
 #: src/screen_song.c:196
-#, fuzzy
 msgid "Comment"
-msgstr "comment"
+msgstr "Комментарий"
 
 #: src/command.c:67
 msgid "Key configuration screen"
@@ -685,11 +678,11 @@ msgstr "Перейти к родительской директории"
 
 #: src/command.c:147
 msgid "View the song"
-msgstr ""
+msgstr "Показать информацию"
 
 #: src/command.c:151
 msgid "Locate song in browser"
-msgstr ""
+msgstr "Перейти к файлу композиции"
 
 #: src/command.c:155
 msgid "Move item up"
