@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-25 20:23+0100\n"
+"POT-Creation-Date: 2008-11-26 14:38+0100\n"
 "PO-Revision-Date: 2008-11-25 21:01+0100\n"
 "Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
 "Language-Team: de <de@li.org>\n"
@@ -40,107 +40,107 @@ msgstr "Fehler: MPD-Version %d.%d.%d ist zu alt (%s wird benötigt)"
 msgid "Connected to %s"
 msgstr "Verbunden mit %s"
 
-#: src/screen.c:146 src/screen_help.c:205
+#: src/screen.c:148 src/screen_help.c:205
 msgid "Help"
 msgstr "Hilfe"
 
-#: src/screen.c:147 src/screen_play.c:451
+#: src/screen.c:149 src/screen_play.c:455
 msgid "Playlist"
 msgstr "Playlist"
 
-#: src/screen.c:148
+#: src/screen.c:150
 msgid "Browse"
 msgstr "Stöbern"
 
-#: src/screen.c:150 src/screen_search.c:80
+#: src/screen.c:152 src/screen_search.c:80 src/screen_song.c:187
 msgid "Artist"
 msgstr "Künstler"
 
-#: src/screen.c:153 src/screen_help.c:119
+#: src/screen.c:155 src/screen_help.c:119
 msgid "Search"
 msgstr "Suche"
 
-#: src/screen.c:156 src/screen_lyrics.c:290 src/screen_lyrics.c:295
+#: src/screen.c:158 src/screen_lyrics.c:290 src/screen_lyrics.c:295
 #: src/screen_lyrics.c:299
 msgid "Lyrics"
 msgstr "Liedtexte"
 
-#: src/screen.c:162
+#: src/screen.c:164
 msgid "Volume n/a "
 msgstr "Lautstärke n/a "
 
-#: src/screen.c:164
+#: src/screen.c:166
 #, c-format
 msgid " Volume %d%%"
 msgstr " Lautstärke %d%%"
 
-#: src/screen.c:271
+#: src/screen.c:273
 msgid "Playing:"
 msgstr "Spiele:"
 
-#: src/screen.c:274
+#: src/screen.c:276
 msgid "[Paused]"
 msgstr "[Pause]"
 
-#: src/screen.c:394 src/screen.c:467
+#: src/screen.c:396 src/screen.c:469
 #, c-format
 msgid "Error: Screen to small\n"
 msgstr "Fehler: Anzeige zu klein\n"
 
-#: src/screen.c:590
+#: src/screen.c:592
 msgid "Repeat is on"
 msgstr "Wiederholung ist an"
 
-#: src/screen.c:591
+#: src/screen.c:593
 msgid "Repeat is off"
 msgstr "Wiederholung ist aus"
 
-#: src/screen.c:595
+#: src/screen.c:597
 msgid "Random is on"
 msgstr "Zufallswiedergabe ist an"
 
-#: src/screen.c:596
+#: src/screen.c:598
 msgid "Random is off"
 msgstr "Zufallswiedergabe ist aus"
 
-#: src/screen.c:599
+#: src/screen.c:601
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "%d Sekunden Crossfade"
 
-#: src/screen.c:602
+#: src/screen.c:604
 msgid "Database updated"
 msgstr "Datenbank aktualisiert"
 
-#: src/screen.c:735
+#: src/screen.c:737
 msgid "Shuffled playlist"
 msgstr "Playlist gemischt"
 
-#: src/screen.c:739
+#: src/screen.c:741
 msgid "Cleared playlist"
 msgstr "Playlist gelöscht"
 
-#: src/screen.c:756 src/screen_file.c:257
+#: src/screen.c:758 src/screen_file.c:257
 msgid "Database update started"
 msgstr "Datenbankaktualisierung gestartet"
 
-#: src/screen.c:758 src/screen_file.c:264
+#: src/screen.c:760 src/screen_file.c:264
 msgid "Database update running..."
 msgstr "Datenbankaktualisierung läuft..."
 
-#: src/screen.c:794
+#: src/screen.c:796
 msgid "Find mode: Wrapped"
 msgstr "Suchmodus: Wrapped"
 
-#: src/screen.c:795
+#: src/screen.c:797
 msgid "Find mode: Normal"
 msgstr "Suchmodus: Normal"
 
-#: src/screen.c:800
+#: src/screen.c:802
 msgid "Auto center mode: On"
 msgstr "Autozentriermodus: an"
 
-#: src/screen.c:801
+#: src/screen.c:803
 msgid "Auto center mode: Off"
 msgstr "Autozentriermodus: aus"
 
@@ -148,21 +148,21 @@ msgstr "Autozentriermodus: aus"
 msgid "All tracks"
 msgstr "Alle Stücke"
 
-#: src/screen_artist.c:376
+#: src/screen_artist.c:382
 msgid "All artists"
 msgstr "Alle Künstler"
 
-#: src/screen_artist.c:381
+#: src/screen_artist.c:387
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "Alben des Künstlers: %s"
 
-#: src/screen_artist.c:390
+#: src/screen_artist.c:396
 #, c-format
 msgid "Album: %s - %s"
 msgstr "Album: %s - %s"
 
-#: src/screen_artist.c:394
+#: src/screen_artist.c:400
 #, c-format
 msgid "All tracks of artist: %s"
 msgstr "Alle Lieder des Künstlers: %s"
@@ -199,30 +199,30 @@ msgstr "Passwort: "
 msgid "Unable to find '%s'"
 msgstr "Kann '%s' nicht finden"
 
-#: src/screen_play.c:207
+#: src/screen_play.c:211
 msgid "Save playlist as: "
 msgstr "Speichere Playlist als: "
 
-#: src/screen_play.c:240
+#: src/screen_play.c:244
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Ersetze %s [%s/%s] ?"
 
-#: src/screen_play.c:261 src/screen_file.c:136 src/screen_keydef.c:162
+#: src/screen_play.c:265 src/screen_file.c:136 src/screen_keydef.c:162
 msgid "Aborted"
 msgstr "Abbruch"
 
 #. success
-#: src/screen_play.c:269
+#: src/screen_play.c:273
 #, c-format
 msgid "Saved %s"
 msgstr "%s gespeichert"
 
-#: src/screen_play.c:345
+#: src/screen_play.c:349
 msgid "Add: "
 msgstr "Hinzufügen: "
 
-#: src/screen_play.c:453
+#: src/screen_play.c:457
 #, c-format
 msgid "Playlist on %s"
 msgstr "Playlist auf %s"
@@ -294,11 +294,11 @@ msgstr "Anmerkung"
 msgid "file"
 msgstr "Datei"
 
-#: src/screen_search.c:79
+#: src/screen_search.c:79 src/screen_song.c:188
 msgid "Title"
 msgstr "Titel"
 
-#: src/screen_search.c:81
+#: src/screen_search.c:81 src/screen_song.c:189
 msgid "Album"
 msgstr "Album"
 
@@ -506,6 +506,44 @@ msgstr "lade..."
 #: src/screen_lyrics.c:326
 msgid "Lyrics saved"
 msgstr "Liedtext gespeichert"
+
+#: src/screen_song.c:105
+msgid "Song viewer"
+msgstr ""
+
+#: src/screen_song.c:190
+#, fuzzy
+msgid "Composer"
+msgstr "Komponist"
+
+#: src/screen_song.c:191
+#, fuzzy
+msgid "Name"
+msgstr "Name"
+
+#: src/screen_song.c:192
+msgid "Disc"
+msgstr ""
+
+#: src/screen_song.c:193
+#, fuzzy
+msgid "Track"
+msgstr "Stück"
+
+#: src/screen_song.c:194
+#, fuzzy
+msgid "Date"
+msgstr "Datum"
+
+#: src/screen_song.c:195
+#, fuzzy
+msgid "Genre"
+msgstr "Genre"
+
+#: src/screen_song.c:196
+#, fuzzy
+msgid "Comment"
+msgstr "Anmerkung"
 
 #: src/command.c:67
 msgid "Key configuration screen"
