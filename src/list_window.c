@@ -221,7 +221,7 @@ list_window_find(struct list_window *lw,
 	unsigned i = lw->selected + 1;
 	const char *label;
 
-	while (wrap || i == lw->selected + 1) {
+	do {
 		while ((label = callback(i,&h,callback_data))) {
 			if (str && label && strcasestr(label, str)) {
 				lw->selected = i;
@@ -237,7 +237,7 @@ list_window_find(struct list_window *lw,
 			i=0; /* first item */
 			screen_bell();
 		}
-	}
+	} while (wrap);
 
 	return 1;
 }
@@ -257,7 +257,7 @@ list_window_rfind(struct list_window *lw,
 	if (rows == 0)
 		return 1;
 
-	while (wrap || i == (int)lw->selected - 1) {
+	do {
 		while (i >= 0 && (label = callback(i,&h,callback_data))) {
 			if( str && label && strcasestr(label, str) ) {
 				lw->selected = i;
@@ -271,7 +271,8 @@ list_window_rfind(struct list_window *lw,
 			i = rows - 1; /* last item */
 			screen_bell();
 		}
-	}
+	} while (wrap);
+
 	return 1;
 }
 
