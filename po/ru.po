@@ -54,7 +54,7 @@ msgstr "Просмотр"
 
 #: src/screen.c:152 src/screen_search.c:80 src/screen_song.c:187
 msgid "Artist"
-msgstr "Автор"
+msgstr "Исполнитель"
 
 #: src/screen.c:155 src/screen_help.c:119
 msgid "Search"
@@ -150,12 +150,12 @@ msgstr "Все композиции"
 
 #: src/screen_artist.c:382
 msgid "All artists"
-msgstr "Все авторы"
+msgstr "Все исполнители"
 
 #: src/screen_artist.c:387
 #, c-format
 msgid "Albums of artist: %s"
-msgstr "Альбомы автора: %s"
+msgstr "Альбомы исполнителя: %s"
 
 #: src/screen_artist.c:396
 #, c-format
@@ -165,7 +165,7 @@ msgstr "Альбом: %s - %s"
 #: src/screen_artist.c:400
 #, c-format
 msgid "All tracks of artist: %s"
-msgstr "Все композиции автора: %s"
+msgstr "Все композиции исполнителя: %s"
 
 #: src/screen_browser.c:238
 #, c-format
@@ -296,7 +296,7 @@ msgstr "file"
 
 #: src/screen_search.c:79 src/screen_song.c:188
 msgid "Title"
-msgstr "Название"
+msgstr "Композиция"
 
 #: src/screen_search.c:81 src/screen_song.c:189
 msgid "Album"
@@ -308,7 +308,7 @@ msgstr "Имя файла"
 
 #: src/screen_search.c:83
 msgid "Artist + Title"
-msgstr "Автор + Название"
+msgstr "Исполнитель + Композиция"
 
 #: src/screen_search.c:245
 #, c-format
@@ -501,7 +501,7 @@ msgstr "Текст отсутствует"
 
 #: src/screen_lyrics.c:290
 msgid "loading..."
-msgstr "загрузка..."
+msgstr "загружается..."
 
 #: src/screen_lyrics.c:326
 msgid "Lyrics saved"
@@ -518,7 +518,7 @@ msgstr "Композитор"
 
 #: src/screen_song.c:191
 msgid "Name"
-msgstr "Name"
+msgstr "Название"
 
 #: src/screen_song.c:192
 msgid "Disc"
@@ -730,7 +730,7 @@ msgstr "Продолжить поиск назад"
 
 #: src/command.c:190
 msgid "Artist screen"
-msgstr "Экран авторов"
+msgstr "Экран исполнителей"
 
 #: src/command.c:194
 msgid "Search screen"
