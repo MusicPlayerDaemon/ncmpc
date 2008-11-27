@@ -159,7 +159,7 @@ screen_find(list_window_t *lw,
 	    void *callback_data)
 {
 	int reversed = 0;
-	int retval = 0;
+	bool found;
 	const char *prompt = FIND_PROMPT;
 	char *value = options.find_show_last_pattern ? (char *) -1 : NULL;
 
@@ -189,21 +189,17 @@ screen_find(list_window_t *lw,
 		if (screen.findbuf == NULL)
 			return 1;
 
-		if (reversed)
-			retval = list_window_rfind(lw,
-						   callback_fn,
-						   callback_data,
-						   screen.findbuf,
-						   options.find_wrap,
-						   rows);
-		else
-			retval = list_window_find(lw,
-						  callback_fn,
-						  callback_data,
-						  screen.findbuf,
-						  options.find_wrap);
-
-		if (retval != 0) {
+		found = reversed
+			? list_window_rfind(lw,
+					    callback_fn, callback_data,
+					    screen.findbuf,
+					    options.find_wrap,
+					    rows)
+			: list_window_find(lw,
+					   callback_fn, callback_data,
+					   screen.findbuf,
+					   options.find_wrap);
+		if (!found) {
 			screen_status_printf(_("Unable to find \'%s\'"),
 					     screen.findbuf);
 			screen_bell();

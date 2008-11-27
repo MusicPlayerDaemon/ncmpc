@@ -119,7 +119,7 @@ browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
 
 /* list_window callback */
 const char *
-browser_lw_callback(unsigned idx, int *highlight, void *data)
+browser_lw_callback(unsigned idx, bool *highlight, void *data)
 {
 	static char buf[BUFSIZE];
 	mpdclient_filelist_t *fl = (mpdclient_filelist_t *) data;
@@ -134,7 +134,7 @@ browser_lw_callback(unsigned idx, int *highlight, void *data)
 
 	entity = entry->entity;
 #ifndef NCMPC_MINI
-	*highlight = (entry->flags & HIGHLIGHT);
+	*highlight = (entry->flags & HIGHLIGHT) != 0;
 #else
 	*highlight = false;
 #endif

@@ -141,7 +141,7 @@ static help_text_row_t help_text[] = {
 static list_window_t *lw;
 
 static const char *
-list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
+list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED void *data)
 {
 	static char buf[512];
 
@@ -149,7 +149,7 @@ list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
 		return NULL;
 
 	if (help_text[idx].highlight)
-		*highlight = 1;
+		*highlight = true;
 
 	if (help_text[idx].command == CMD_NONE) {
 		if (help_text[idx].text)

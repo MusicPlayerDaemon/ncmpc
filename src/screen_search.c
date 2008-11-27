@@ -93,7 +93,7 @@ static struct screen_browser browser;
 
 /* search info */
 static const char *
-lw_search_help_callback(unsigned idx, G_GNUC_UNUSED int *highlight,
+lw_search_help_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
 			G_GNUC_UNUSED void *data)
 {
 	unsigned text_rows;

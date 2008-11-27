@@ -165,8 +165,8 @@ list_window_paint(struct list_window *lw,
 		  void *callback_data)
 {
 	unsigned i;
-	int fill = options.wide_cursor;
-	int show_cursor = !(lw->flags & LW_HIDE_CURSOR);
+	bool fill = options.wide_cursor;
+	bool show_cursor = !(lw->flags & LW_HIDE_CURSOR);
 
 	if (show_cursor) {
 		if (lw->selected < lw->start)
@@ -177,14 +177,14 @@ list_window_paint(struct list_window *lw,
 	}
 
 	for (i = 0; i < lw->rows; i++) {
-		int highlight = 0;
+		bool highlight = false;
 		const char *label;
 
 		label = callback(lw->start + i, &highlight, callback_data);
 		wmove(lw->w, i, 0);
 
 		if (label) {
-			int selected = lw->start + i == lw->selected;
+			bool selected = lw->start + i == lw->selected;
 			unsigned len = utf8_width(label);
 
 			if (highlight)
@@ -210,14 +210,14 @@ list_window_paint(struct list_window *lw,
 	}
 }
 
-int
+bool
 list_window_find(struct list_window *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str,
-		 int wrap)
+		 bool wrap)
 {
-	int h;
+	bool h;
 	unsigned i = lw->selected + 1;
 	const char *label;
 
@@ -225,10 +225,10 @@ list_window_find(struct list_window *lw,
 		while ((label = callback(i,&h,callback_data))) {
 			if (str && label && strcasestr(label, str)) {
 				lw->selected = i;
-				return 0;
+				return true;
 			}
 			if (wrap && i == lw->selected)
-				return 1;
+				return false;
 			i++;
 		}
 		if (wrap) {
@@ -239,32 +239,32 @@ list_window_find(struct list_window *lw,
 		}
 	} while (wrap);
 
-	return 1;
+	return false;
 }
 
-int
+bool
 list_window_rfind(struct list_window *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data,
 		  const char *str,
-		  int wrap,
+		  bool wrap,
 		  unsigned rows)
 {
-	int h;
+	bool h;
 	int i = lw->selected - 1;
 	const char *label;
 
 	if (rows == 0)
-		return 1;
+		return false;
 
 	do {
 		while (i >= 0 && (label = callback(i,&h,callback_data))) {
 			if( str && label && strcasestr(label, str) ) {
 				lw->selected = i;
-				return 0;
+				return true;
 			}
 			if (wrap && i == (int)lw->selected)
-				return 1;
+				return false;
 			i--;
 		}
 		if (wrap) {
@@ -273,11 +273,11 @@ list_window_rfind(struct list_window *lw,
 		}
 	} while (wrap);
 
-	return 1;
+	return false;
 }
 
 /* perform basic list window commands (movement) */
-int
+bool
 list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 {
 	switch (cmd) {
@@ -300,13 +300,13 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 		list_window_previous_page(lw);
 		break;
 	default:
-		return 0;
+		return false;
 	}
 
-	return 1;
+	return true;
 }
 
-int
+bool
 list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 {
 	switch (cmd) {
@@ -349,14 +349,14 @@ list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 		break;
 
 	default:
-		return 0;
+		return false;
 	}
 
-	return 1;
+	return true;
 }
 
 #ifdef HAVE_GETMOUSE
-int
+bool
 list_window_mouse(struct list_window *lw, unsigned rows,
 		  unsigned long bstate, int y)
 {
@@ -368,7 +368,7 @@ list_window_mouse(struct list_window *lw, unsigned rows,
 			list_window_first(lw);
 		else
 			list_window_previous_page(lw);
-		return 1;
+		return true;
 	}
 
 	/* if the even occured below the list window move down */
@@ -377,9 +377,9 @@ list_window_mouse(struct list_window *lw, unsigned rows,
 			list_window_last(lw, rows);
 		else
 			list_window_next_page(lw, rows);
-		return 1;
+		return true;
 	}
 
-	return 0;
+	return false;
 }
 #endif

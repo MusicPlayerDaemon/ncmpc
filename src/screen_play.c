@@ -90,7 +90,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 }
 
 static const char *
-list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
+list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
 #ifndef NCMPC_MINI
@@ -103,7 +103,7 @@ list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
 
 	song = playlist_get(playlist, idx);
 	if (song->id == current_song_id)
-		*highlight = 1;
+		*highlight = true;
 
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, song);
 

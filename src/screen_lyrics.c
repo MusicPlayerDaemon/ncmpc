@@ -223,7 +223,7 @@ static int store_lyr_hd(void)
 }
 
 static const char *
-list_callback(unsigned idx, G_GNUC_UNUSED int *highlight,
+list_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
 	      G_GNUC_UNUSED void *data)
 {
 	static char buffer[256];

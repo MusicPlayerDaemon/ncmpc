@@ -187,14 +187,14 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
 }
 
 static const char *
-list_callback(unsigned idx, int *highlight, G_GNUC_UNUSED void *data)
+list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED void *data)
 {
 	static char buf[BUFSIZE];
 
 	if (subcmd < 0) {
 		if (idx < (unsigned)command_list_length) {
 			if (cmds[idx].flags & COMMAND_KEY_CONFLICT)
-				*highlight = 1;
+				*highlight = true;
 			return cmds[idx].name;
 		} else if (idx == LIST_ITEM_APPLY())
 			return LIST_ITEM_APPLY_LABEL;
