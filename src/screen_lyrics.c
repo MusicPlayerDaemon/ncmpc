@@ -245,7 +245,7 @@ lyrics_screen_init(WINDOW *w, int cols, int rows)
 {
 	current.lines = g_ptr_array_new();
 	lw = list_window_init(w, cols, rows);
-	lw->flags = LW_HIDE_CURSOR;
+	lw->hide_cursor = true;
 }
 
 static void

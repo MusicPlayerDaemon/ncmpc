@@ -182,7 +182,7 @@ static void
 help_init(WINDOW *w, int cols, int rows)
 {
   lw = list_window_init(w, cols, rows);
-  lw->flags = LW_HIDE_CURSOR;
+	lw->hide_cursor = true;
 }
 
 static void

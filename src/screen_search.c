@@ -382,10 +382,10 @@ static void
 paint(void)
 {
 	if (browser.filelist) {
-		browser.lw->flags = 0;
+		browser.lw->hide_cursor = false;
 		list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
 	} else {
-		browser.lw->flags = LW_HIDE_CURSOR;
+		browser.lw->hide_cursor = true;
 		list_window_paint(browser.lw, lw_search_help_callback, NULL);
 	}
 }

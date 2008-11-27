@@ -396,7 +396,7 @@ timer_hide_cursor(gpointer data)
 	/* hide the cursor when mpd is playing and the user is inactive */
 
 	if (c->status != NULL && c->status->state == MPD_STATUS_STATE_PLAY) {
-		lw->flags |= LW_HIDE_CURSOR;
+		lw->hide_cursor = true;
 		playlist_repaint();
 	} else
 		timer_hide_cursor_id = g_timeout_add(options.hide_cursor * 1000,
@@ -414,7 +414,7 @@ play_open(mpdclient_t *c)
 
 	assert(timer_hide_cursor_id == 0);
 	if (options.hide_cursor > 0) {
-		lw->flags &= ~LW_HIDE_CURSOR;
+		lw->hide_cursor = false;
 		timer_hide_cursor_id = g_timeout_add(options.hide_cursor * 1000,
 						     timer_hide_cursor, c);
 	}
@@ -530,7 +530,7 @@ handle_mouse_event(struct mpdclient *c)
 static bool
 play_cmd(mpdclient_t *c, command_t cmd)
 {
-	lw->flags &= ~LW_HIDE_CURSOR;
+	lw->hide_cursor = false;
 
 	if (options.hide_cursor > 0) {
 		if (timer_hide_cursor_id != 0)

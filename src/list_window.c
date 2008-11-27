@@ -166,7 +166,7 @@ list_window_paint(struct list_window *lw,
 {
 	unsigned i;
 	bool fill = options.wide_cursor;
-	bool show_cursor = !(lw->flags & LW_HIDE_CURSOR);
+	bool show_cursor = !lw->hide_cursor;
 
 	if (show_cursor) {
 		if (lw->selected < lw->start)

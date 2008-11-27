@@ -13,8 +13,6 @@
 #include <ncurses.h>
 #endif
 
-#define LW_HIDE_CURSOR    0x01
-
 typedef const char *(*list_window_callback_fn_t)(unsigned index,
 						 bool *highlight,
 						 void *data);
@@ -26,7 +24,8 @@ typedef struct list_window {
 	unsigned start;
 	unsigned selected;
 	unsigned xoffset;
-	int flags;
+
+	bool hide_cursor;
 } list_window_t;
 
 
