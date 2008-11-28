@@ -1,5 +1,5 @@
 AC_PREREQ(2.60)
-AC_INIT(ncurses MPD client, 0.12~beta1, max@duempel.org, ncmpc)
+AC_INIT(ncurses MPD client, 0.12~beta2, max@duempel.org, ncmpc)
 AC_CONFIG_SRCDIR([src/main.c])
 AM_INIT_AUTOMAKE([foreign 1.9 dist-bzip2])
 AM_CONFIG_HEADER([config.h])
