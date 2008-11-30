@@ -48,6 +48,9 @@ static help_text_row_t help_text[] = {
 	{ 0, CMD_SCREEN_HELP, NULL },
 	{ 0, CMD_SCREEN_PLAY, NULL },
 	{ 0, CMD_SCREEN_FILE, NULL },
+#ifdef ENABLE_ARTIST_SCREEN
+	{ 0, CMD_SCREEN_ARTIST, NULL },
+#endif
 #ifdef ENABLE_SEARCH_SCREEN
 	{ 0, CMD_SCREEN_SEARCH, NULL },
 #endif
