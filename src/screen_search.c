@@ -283,7 +283,7 @@ search_advanced_query(char *query, mpdclient_t *c)
 
 		mpd_commitSearch(c->connection);
 
-		fl = g_malloc0(sizeof(mpdclient_filelist_t));
+		fl = filelist_new(NULL);
 
 		while ((entity=mpd_getNextInfoEntity(c->connection)))
 			filelist_append(fl, entity);
