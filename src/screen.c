@@ -145,7 +145,9 @@ paint_top_window2(const char *header, mpdclient_t *c)
 		mvwaddstr(w, 0, 0, header);
 #ifndef NCMPC_MINI
 	} else {
+#ifdef ENABLE_HELP_SCREEN
 		print_hotkey(w, CMD_SCREEN_HELP, _("Help"));
+#endif
 		print_hotkey(w, CMD_SCREEN_PLAY, _("Playlist"));
 		print_hotkey(w, CMD_SCREEN_FILE, _("Browse"));
 #ifdef ENABLE_ARTIST_SCREEN
