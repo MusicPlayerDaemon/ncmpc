@@ -472,11 +472,7 @@ play_update(mpdclient_t *c)
 	current_song_id = c->song != NULL && c->status != NULL &&
 		!IS_STOPPED(c->status->state) ? c->song->id : -1;
 
-	if (current_song_id != prev_song_id
-#ifndef NCMPC_MINI
-	     || options.scroll
-#endif
-	    ) {
+	if (current_song_id != prev_song_id) {
 		prev_song_id = current_song_id;
 
 		/* center the cursor */
@@ -484,6 +480,12 @@ play_update(mpdclient_t *c)
 			center_playing_item(c);
 
 		playlist_repaint();
+#ifndef NCMPC_MINI
+	} else if (options.scroll) {
+		/* always repaint if horizontal scrolling is
+		   enabled */
+		playlist_repaint();
+#endif
 	}
 }
 
