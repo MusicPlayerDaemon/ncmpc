@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-26 14:38+0100\n"
-"PO-Revision-Date: 2008-11-25 21:02+0100\n"
+"PO-Revision-Date: 2008-12-02 19:58+0100\n"
 "Last-Translator: Yann Cézard <eesprit@free.fr>\n"
 "Language-Team: fr <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -820,7 +820,7 @@ msgstr "Inser"
 #: src/command.c:464
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-msgstr "La touche %s est assignée à %s (appuyez sur %s pour l'éditeur de touches)"
+msgstr "La touche %s est assignée à %s et à %s (appuyez sur %s pour l'éditeur de touches)"
 
 #: src/command.c:471 src/command.c:478
 #, c-format
