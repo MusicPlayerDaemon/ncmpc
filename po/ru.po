@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-26 14:38+0100\n"
+"POT-Creation-Date: 2008-12-03 10:10+0100\n"
 "PO-Revision-Date: 2008-11-26 14:42+0100\n"
 "Last-Translator: Max Arnold <amv_cbx@mail.ru>\n"
 "Language-Team: ru <ru@li.org>\n"
@@ -40,107 +40,107 @@ msgstr "Ошибка: MPD версии %d.%d.%d устарел (необходим %s)"
 msgid "Connected to %s"
 msgstr "Подключено к %s"
 
-#: src/screen.c:148 src/screen_help.c:205
+#: src/screen.c:149 src/screen_help.c:209
 msgid "Help"
 msgstr "Помощь"
 
-#: src/screen.c:149 src/screen_play.c:455
+#: src/screen.c:151 src/screen_play.c:455
 msgid "Playlist"
 msgstr "Плейлист"
 
-#: src/screen.c:150
+#: src/screen.c:152
 msgid "Browse"
 msgstr "Просмотр"
 
-#: src/screen.c:152 src/screen_search.c:80 src/screen_song.c:187
+#: src/screen.c:154 src/screen_search.c:80 src/screen_song.c:187
 msgid "Artist"
 msgstr "Исполнитель"
 
-#: src/screen.c:155 src/screen_help.c:119
+#: src/screen.c:157 src/screen_help.c:123
 msgid "Search"
 msgstr "Поиск"
 
-#: src/screen.c:158 src/screen_lyrics.c:290 src/screen_lyrics.c:295
+#: src/screen.c:160 src/screen_lyrics.c:290 src/screen_lyrics.c:295
 #: src/screen_lyrics.c:299
 msgid "Lyrics"
 msgstr "Текст"
 
-#: src/screen.c:164
+#: src/screen.c:166
 msgid "Volume n/a "
 msgstr "Громкость н/д "
 
-#: src/screen.c:166
+#: src/screen.c:168
 #, c-format
 msgid " Volume %d%%"
 msgstr " Громкость %d%%"
 
-#: src/screen.c:273
+#: src/screen.c:275
 msgid "Playing:"
 msgstr "Проигрывается:"
 
-#: src/screen.c:276
+#: src/screen.c:278
 msgid "[Paused]"
 msgstr "[Пауза]"
 
-#: src/screen.c:396 src/screen.c:469
+#: src/screen.c:398 src/screen.c:471
 #, c-format
 msgid "Error: Screen to small\n"
 msgstr "Ошибка: Экран слишком мал\n"
 
-#: src/screen.c:592
+#: src/screen.c:594
 msgid "Repeat is on"
 msgstr "Повтор включен"
 
-#: src/screen.c:593
+#: src/screen.c:595
 msgid "Repeat is off"
 msgstr "Повтор выключен"
 
-#: src/screen.c:597
+#: src/screen.c:599
 msgid "Random is on"
 msgstr "Случаный режим включен"
 
-#: src/screen.c:598
+#: src/screen.c:600
 msgid "Random is off"
 msgstr "Случайный режим выключен"
 
-#: src/screen.c:601
+#: src/screen.c:603
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Плавный переход %d секунд"
 
-#: src/screen.c:604
+#: src/screen.c:606
 msgid "Database updated"
 msgstr "База обновлена"
 
-#: src/screen.c:737
+#: src/screen.c:739
 msgid "Shuffled playlist"
 msgstr "Плейлист перемешан"
 
-#: src/screen.c:741
+#: src/screen.c:743
 msgid "Cleared playlist"
 msgstr "Плейлист очищен"
 
-#: src/screen.c:758 src/screen_file.c:257
+#: src/screen.c:760 src/screen_file.c:257
 msgid "Database update started"
 msgstr "Начато обновление базы"
 
-#: src/screen.c:760 src/screen_file.c:264
+#: src/screen.c:762 src/screen_file.c:264
 msgid "Database update running..."
 msgstr "Идет обновление базы..."
 
-#: src/screen.c:796
+#: src/screen.c:798
 msgid "Find mode: Wrapped"
 msgstr "Режим поиска: Циклический"
 
-#: src/screen.c:797
+#: src/screen.c:799
 msgid "Find mode: Normal"
 msgstr "Режим поиска: Нормальный"
 
-#: src/screen.c:802
+#: src/screen.c:804
 msgid "Auto center mode: On"
 msgstr "Режим автоцентрирования: Вкл."
 
-#: src/screen.c:803
+#: src/screen.c:805
 msgid "Auto center mode: Off"
 msgstr "Режим автоцентрирования: Выкл."
 
@@ -194,7 +194,7 @@ msgstr "Поиск назад: "
 msgid "Password: "
 msgstr "Пароль: "
 
-#: src/screen_utils.c:207
+#: src/screen_utils.c:203
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Не удалось найти '%s'"
@@ -423,75 +423,75 @@ msgstr "Изменение клавиатурных комбинаций для %s"
 msgid "Keys - Movement"
 msgstr "Команды - Перемещение"
 
-#: src/screen_help.c:60
+#: src/screen_help.c:63
 msgid "Keys - Global"
 msgstr "Команды - Глобальные"
 
-#: src/screen_help.c:89
+#: src/screen_help.c:93
 msgid "Keys - Playlist screen"
 msgstr "Команды - Экран плейлиста"
 
-#: src/screen_help.c:91
+#: src/screen_help.c:95
 msgid "Play"
 msgstr "Воспроизведение"
 
-#: src/screen_help.c:94
+#: src/screen_help.c:98
 msgid "Move song up"
 msgstr "Переместить композицию вверх"
 
-#: src/screen_help.c:95
+#: src/screen_help.c:99
 msgid "Move song down"
 msgstr "Переместить композицию вниз"
 
-#: src/screen_help.c:98
+#: src/screen_help.c:102
 msgid "Center"
 msgstr "Центрировать"
 
-#: src/screen_help.c:103
+#: src/screen_help.c:107
 msgid "Keys - Browse screen"
 msgstr "Команды - Экран просмотра"
 
-#: src/screen_help.c:105
+#: src/screen_help.c:109
 msgid "Enter directory/Select and play song"
 msgstr "Перейти в директорию/Выбрать и проиграть композицию"
 
-#: src/screen_help.c:107 src/screen_help.c:122
+#: src/screen_help.c:111 src/screen_help.c:126
 msgid "Append song to playlist"
 msgstr "Добавить композицию в плейлист"
 
-#: src/screen_help.c:109
+#: src/screen_help.c:113
 msgid "Delete playlist"
 msgstr "Удалить плейлист"
 
-#: src/screen_help.c:117
+#: src/screen_help.c:121
 msgid "Keys - Search screen"
 msgstr "Команды - Экран поиска"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:124
 msgid "Select and play"
 msgstr "Выбрать и проиграть"
 
-#: src/screen_help.c:129
+#: src/screen_help.c:133
 msgid "Keys - Lyrics screen"
 msgstr "Команды - Экран текста песни"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:135
 msgid "View Lyrics"
 msgstr "Показать текст"
 
-#: src/screen_help.c:132
+#: src/screen_help.c:136
 msgid "(Re)load lyrics"
 msgstr "(Пере)загрузить текст"
 
-#: src/screen_help.c:133
+#: src/screen_help.c:137
 msgid "Interrupt retrieval"
 msgstr "Прервать загрузку"
 
-#: src/screen_help.c:134
+#: src/screen_help.c:138
 msgid "Explicitly download lyrics"
 msgstr "Принудительно загрузить текст"
 
-#: src/screen_help.c:135
+#: src/screen_help.c:139
 msgid "Save lyrics"
 msgstr "Сохранить текст"
 

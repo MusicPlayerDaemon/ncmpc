@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-26 14:38+0100\n"
+"POT-Creation-Date: 2008-12-03 10:10+0100\n"
 "PO-Revision-Date: 2008-11-25 22:12+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
@@ -38,107 +38,107 @@ msgstr "Chyba: MPD verzie %d.%d.%d je príli¹ staré (%s je potrebná)"
 msgid "Connected to %s"
 msgstr "Pripojený k %s"
 
-#: src/screen.c:148 src/screen_help.c:205
+#: src/screen.c:149 src/screen_help.c:209
 msgid "Help"
 msgstr "Pomoc"
 
-#: src/screen.c:149 src/screen_play.c:455
+#: src/screen.c:151 src/screen_play.c:455
 msgid "Playlist"
 msgstr "Playlist"
 
-#: src/screen.c:150
+#: src/screen.c:152
 msgid "Browse"
 msgstr "Listova»"
 
-#: src/screen.c:152 src/screen_search.c:80 src/screen_song.c:187
+#: src/screen.c:154 src/screen_search.c:80 src/screen_song.c:187
 msgid "Artist"
 msgstr "Interpret"
 
-#: src/screen.c:155 src/screen_help.c:119
+#: src/screen.c:157 src/screen_help.c:123
 msgid "Search"
 msgstr "Hµadanie"
 
-#: src/screen.c:158 src/screen_lyrics.c:290 src/screen_lyrics.c:295
+#: src/screen.c:160 src/screen_lyrics.c:290 src/screen_lyrics.c:295
 #: src/screen_lyrics.c:299
 msgid "Lyrics"
 msgstr "Text piesne"
 
-#: src/screen.c:164
+#: src/screen.c:166
 msgid "Volume n/a "
 msgstr "Hlasitos» n/a"
 
-#: src/screen.c:166
+#: src/screen.c:168
 #, c-format
 msgid " Volume %d%%"
 msgstr " Hlasitos» %d%%"
 
-#: src/screen.c:273
+#: src/screen.c:275
 msgid "Playing:"
 msgstr "Prehrávam:"
 
-#: src/screen.c:276
+#: src/screen.c:278
 msgid "[Paused]"
 msgstr "[Pozastavené]"
 
-#: src/screen.c:396 src/screen.c:469
+#: src/screen.c:398 src/screen.c:471
 #, c-format
 msgid "Error: Screen to small\n"
 msgstr "Chyba: Okno je príli¹ malé\n"
 
-#: src/screen.c:592
+#: src/screen.c:594
 msgid "Repeat is on"
 msgstr "Opakovanie je zapnuté"
 
-#: src/screen.c:593
+#: src/screen.c:595
 msgid "Repeat is off"
 msgstr "Opakovanie je vypnuté"
 
-#: src/screen.c:597
+#: src/screen.c:599
 msgid "Random is on"
 msgstr "Náhodný re¾im zapnutý"
 
-#: src/screen.c:598
+#: src/screen.c:600
 msgid "Random is off"
 msgstr "Náhodný re¾im vypnutý"
 
-#: src/screen.c:601
+#: src/screen.c:603
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Prelínanie %d sekúnd"
 
-#: src/screen.c:604
+#: src/screen.c:606
 msgid "Database updated"
 msgstr "Databáza aktualizovaná"
 
-#: src/screen.c:737
+#: src/screen.c:739
 msgid "Shuffled playlist"
 msgstr "Zamie¹aný playlist"
 
-#: src/screen.c:741
+#: src/screen.c:743
 msgid "Cleared playlist"
 msgstr "Vyèistený playlist"
 
-#: src/screen.c:758 src/screen_file.c:257
+#: src/screen.c:760 src/screen_file.c:257
 msgid "Database update started"
 msgstr "Bola spustená aktualizácia databáze"
 
-#: src/screen.c:760 src/screen_file.c:264
+#: src/screen.c:762 src/screen_file.c:264
 msgid "Database update running..."
 msgstr "Prebieha aktualizácia databáze..."
 
-#: src/screen.c:796
+#: src/screen.c:798
 msgid "Find mode: Wrapped"
 msgstr "Re¾im vyhµadávania: Zabalený"
 
-#: src/screen.c:797
+#: src/screen.c:799
 msgid "Find mode: Normal"
 msgstr "Re¾im vyhµadávanie: Normálny"
 
-#: src/screen.c:802
+#: src/screen.c:804
 msgid "Auto center mode: On"
 msgstr "Automatické centrovanie: Zapnuté"
 
-#: src/screen.c:803
+#: src/screen.c:805
 msgid "Auto center mode: Off"
 msgstr "Automatické centrovanie: Vypnuté"
 
@@ -192,7 +192,7 @@ msgstr "Vyhµada» spätne: "
 msgid "Password: "
 msgstr "Heslo: "
 
-#: src/screen_utils.c:207
+#: src/screen_utils.c:203
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Nepodarilo sa nájs» '%s'"
@@ -421,75 +421,75 @@ msgstr "Upravi» klávesy pre %s"
 msgid "Keys - Movement"
 msgstr "Klávesy - Pohyb"
 
-#: src/screen_help.c:60
+#: src/screen_help.c:63
 msgid "Keys - Global"
 msgstr "Klávesy - Globálne"
 
-#: src/screen_help.c:89
+#: src/screen_help.c:93
 msgid "Keys - Playlist screen"
 msgstr "Klávesy - Okno playlistu"
 
-#: src/screen_help.c:91
+#: src/screen_help.c:95
 msgid "Play"
 msgstr "Prehráva»"
 
-#: src/screen_help.c:94
+#: src/screen_help.c:98
 msgid "Move song up"
 msgstr "Presunú» skladbu nahor"
 
-#: src/screen_help.c:95
+#: src/screen_help.c:99
 msgid "Move song down"
 msgstr "Presunú» skladbu nadol"
 
-#: src/screen_help.c:98
+#: src/screen_help.c:102
 msgid "Center"
 msgstr "Do stredu"
 
-#: src/screen_help.c:103
+#: src/screen_help.c:107
 msgid "Keys - Browse screen"
 msgstr "Klávesy - Okno listovania"
 
-#: src/screen_help.c:105
+#: src/screen_help.c:109
 msgid "Enter directory/Select and play song"
 msgstr "Vstúpi» do adresára/Vybra» a prehra» skladbu"
 
-#: src/screen_help.c:107 src/screen_help.c:122
+#: src/screen_help.c:111 src/screen_help.c:126
 msgid "Append song to playlist"
 msgstr "Prida» skladbu do playlistu"
 
-#: src/screen_help.c:109
+#: src/screen_help.c:113
 msgid "Delete playlist"
 msgstr "Vymaza» playlist"
 
-#: src/screen_help.c:117
+#: src/screen_help.c:121
 msgid "Keys - Search screen"
 msgstr "Klávesy - Okno vyhµadávania"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:124
 msgid "Select and play"
 msgstr "Vybra» a prehra»"
 
-#: src/screen_help.c:129
+#: src/screen_help.c:133
 msgid "Keys - Lyrics screen"
 msgstr "Klávesy - Okno textu piesne"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:135
 msgid "View Lyrics"
 msgstr "Zobrazi» text piesne"
 
-#: src/screen_help.c:132
+#: src/screen_help.c:136
 msgid "(Re)load lyrics"
 msgstr "(Znovu)naèíta» text"
 
-#: src/screen_help.c:133
+#: src/screen_help.c:137
 msgid "Interrupt retrieval"
 msgstr "Zachytené preru¹enie"
 
-#: src/screen_help.c:134
+#: src/screen_help.c:138
 msgid "Explicitly download lyrics"
 msgstr "Explicitne s»ahova» texty"
 
-#: src/screen_help.c:135
+#: src/screen_help.c:139
 msgid "Save lyrics"
 msgstr "Ulo¾i» text piesne"
 
