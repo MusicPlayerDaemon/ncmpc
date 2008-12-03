@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-03 10:10+0100\n"
-"PO-Revision-Date: 2008-11-25 22:34+0100\n"
+"PO-Revision-Date: 2008-12-03 11:34+0100\n"
 "Last-Translator: Johám-Luís Miguéns Vila <ashtophet@ashtophet.org>\n"
 "Language-Team: es\n"
 "MIME-Version: 1.0\n"
@@ -514,41 +514,35 @@ msgstr "Letras guardadas"
 
 #: src/screen_song.c:105
 msgid "Song viewer"
-msgstr ""
+msgstr "Visor de la canción"
 
 #: src/screen_song.c:190
-#, fuzzy
 msgid "Composer"
-msgstr "compositor"
+msgstr "Compositor"
 
 #: src/screen_song.c:191
-#, fuzzy
 msgid "Name"
-msgstr "nombre"
+msgstr "Nombre"
 
 #: src/screen_song.c:192
 msgid "Disc"
-msgstr ""
+msgstr "Disco"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Track"
-msgstr "canción"
+msgstr "Pista"
 
 #: src/screen_song.c:194
-#, fuzzy
 msgid "Date"
-msgstr "fecha"
+msgstr "Fecha"
 
 #: src/screen_song.c:195
-#, fuzzy
 msgid "Genre"
-msgstr "estilo"
+msgstr "Estilo"
 
 #: src/screen_song.c:196
-#, fuzzy
 msgid "Comment"
-msgstr "comentario"
+msgstr "Comentario"
 
 #: src/command.c:67
 msgid "Key configuration screen"
