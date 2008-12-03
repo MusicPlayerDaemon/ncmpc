@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-03 10:10+0100\n"
-"PO-Revision-Date: 2008-11-25 22:25+0100\n"
+"PO-Revision-Date: 2008-12-03 11:32+0100\n"
 "Last-Translator: Johám-Luís Miguéns Vila <galiza.ceive@gmail.com>\n"
 "Language-Team: galician\n"
 "MIME-Version: 1.0\n"
@@ -509,41 +509,35 @@ msgstr "Letras guardadas"
 
 #: src/screen_song.c:105
 msgid "Song viewer"
-msgstr ""
+msgstr "Visor da cançom"
 
 #: src/screen_song.c:190
-#, fuzzy
 msgid "Composer"
-msgstr "compositor"
+msgstr "Compositor"
 
 #: src/screen_song.c:191
-#, fuzzy
 msgid "Name"
-msgstr "nome do ficheiro"
+msgstr "Nome do ficheiro"
 
 #: src/screen_song.c:192
 msgid "Disc"
-msgstr ""
+msgstr "Disco"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Track"
-msgstr "pista"
+msgstr "Pista"
 
 #: src/screen_song.c:194
-#, fuzzy
 msgid "Date"
-msgstr "data"
+msgstr "Data"
 
 #: src/screen_song.c:195
-#, fuzzy
 msgid "Genre"
-msgstr "estilo"
+msgstr "Estilo"
 
 #: src/screen_song.c:196
-#, fuzzy
 msgid "Comment"
-msgstr "comentário"
+msgstr "Comentário"
 
 #: src/command.c:67
 msgid "Key configuration screen"
