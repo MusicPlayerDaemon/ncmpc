@@ -395,7 +395,7 @@ screen_resize(struct mpdclient *c)
 {
 	if (COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS) {
 		screen_exit();
-		fprintf(stderr, _("Error: Screen to small\n"));
+		fprintf(stderr, "%s", _("Error: Screen too small"));
 		exit(EXIT_FAILURE);
 	}
 
@@ -468,7 +468,7 @@ void
 screen_init(mpdclient_t *c)
 {
 	if (COLS < SCREEN_MIN_COLS || LINES < SCREEN_MIN_ROWS) {
-		fprintf(stderr, _("Error: Screen to small\n"));
+		fprintf(stderr, "%s\n", _("Error: Screen too small"));
 		exit(EXIT_FAILURE);
 	}
 

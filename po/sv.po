@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-03 10:10+0100\n"
-"PO-Revision-Date: 2008-11-25 20:46+0100\n"
+"POT-Creation-Date: 2008-12-04 22:41+0100\n"
+"PO-Revision-Date: 2008-12-04 22:42+0100\n"
 "Last-Translator: Kalle Wallin <kaw@linux.se>\n"
 "Language-Team: sv <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -82,9 +82,8 @@ msgid "[Paused]"
 msgstr "[Pausad]"
 
 #: src/screen.c:398 src/screen.c:471
-#, c-format
-msgid "Error: Screen to small\n"
-msgstr "Fel: Terminal är för liten\n"
+msgid "Error: Screen too small"
+msgstr "Fel: Terminal är för liten"
 
 #: src/screen.c:594
 msgid "Repeat is on"

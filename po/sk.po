@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-03 10:10+0100\n"
-"PO-Revision-Date: 2008-12-03 23:18+0100\n"
+"POT-Creation-Date: 2008-12-04 22:41+0100\n"
+"PO-Revision-Date: 2008-12-04 22:42+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -81,9 +81,8 @@ msgid "[Paused]"
 msgstr "[Pozastavené]"
 
 #: src/screen.c:398 src/screen.c:471
-#, c-format
-msgid "Error: Screen to small\n"
-msgstr "Chyba: Okno je príli¹ malé\n"
+msgid "Error: Screen too small"
+msgstr "Chyba: Okno je príli¹ malé"
 
 #: src/screen.c:594
 msgid "Repeat is on"
