@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-03 10:10+0100\n"
-"PO-Revision-Date: 2008-11-25 22:12+0100\n"
+"PO-Revision-Date: 2008-12-03 23:18+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -507,41 +507,35 @@ msgstr "Text piesne ulo¾ený"
 
 #: src/screen_song.c:105
 msgid "Song viewer"
-msgstr ""
+msgstr "Prehliadaè piesní"
 
 #: src/screen_song.c:190
-#, fuzzy
 msgid "Composer"
-msgstr "skladateµ"
+msgstr "Skladateµ"
 
 #: src/screen_song.c:191
-#, fuzzy
 msgid "Name"
-msgstr "názov"
+msgstr "Názov"
 
 #: src/screen_song.c:192
 msgid "Disc"
-msgstr ""
+msgstr "Disk"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Track"
-msgstr "stopa"
+msgstr "Stopa"
 
 #: src/screen_song.c:194
-#, fuzzy
 msgid "Date"
-msgstr "dátum"
+msgstr "Dátum"
 
 #: src/screen_song.c:195
-#, fuzzy
 msgid "Genre"
-msgstr "¾áner"
+msgstr "®áner"
 
 #: src/screen_song.c:196
-#, fuzzy
 msgid "Comment"
-msgstr "komentár"
+msgstr "Komentár"
 
 #: src/command.c:67
 msgid "Key configuration screen"
