@@ -29,6 +29,8 @@ if ENABLE_LYRICS_SCREEN
 
 lyrics_plugins = hd.sh leoslyrics.py lyricswiki.rb
 
+EXTRA_DIST += $(addprefix lyrics/,$(lyrics_plugins))
+
 install-exec-local:
 	install -m 0755 -d $(DESTDIR)$(lyrics_plugin_dir)
 	cd lyrics && install -m 0755 $(lyrics_plugins) $(DESTDIR)$(lyrics_plugin_dir)
