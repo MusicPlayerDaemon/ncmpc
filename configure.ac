@@ -194,7 +194,7 @@ AC_ARG_ENABLE([colors],
 	AC_HELP_STRING([--enable-colors],
 		       [Enable color support]),
 		       [use_colors=$enableval], 
-		[use_colors=yes])
+	[use_colors=$disable_mini])
 AC_MSG_RESULT([$use_colors])
 if test "x$use_colors" = "xyes" ; then
     AC_DEFINE([ENABLE_COLORS], [1], [Enable color support])
