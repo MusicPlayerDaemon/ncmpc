@@ -178,6 +178,19 @@ save_post_completion_cb(G_GNUC_UNUSED GCompletion *gcmp,
 }
 #endif
 
+#ifndef NCMPC_MINI
+/**
+ * Wrapper for strncmp().  We are not allowed to pass &strncmp to
+ * g_completion_set_compare(), because strncmp() takes size_t where
+ * g_completion_set_compare passes a gsize value.
+ */
+static gint
+completion_strncmp(const gchar *s1, const gchar *s2, gsize n)
+{
+	return strncmp(s1, s2, n);
+}
+#endif
+
 int
 playlist_save(mpdclient_t *c, char *name, char *defaultname)
 {
@@ -197,7 +210,7 @@ playlist_save(mpdclient_t *c, char *name, char *defaultname)
 	if (name == NULL) {
 		/* initialize completion support */
 		gcmp = g_completion_new(NULL);
-		g_completion_set_compare(gcmp, strncmp);
+		g_completion_set_compare(gcmp, completion_strncmp);
 		data.list = &list;
 		data.dir_list = NULL;
 		data.c = c;
@@ -335,7 +348,7 @@ handle_add_to_playlist(mpdclient_t *c)
 
 	/* initialize completion support */
 	gcmp = g_completion_new(NULL);
-	g_completion_set_compare(gcmp, strncmp);
+	g_completion_set_compare(gcmp, completion_strncmp);
 	data.list = &list;
 	data.dir_list = &dir_list;
 	data.c = c;
