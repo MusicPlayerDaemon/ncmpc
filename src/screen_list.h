@@ -43,6 +43,10 @@ extern const struct screen_functions screen_keydef;
 #ifdef ENABLE_LYRICS_SCREEN
 extern const struct screen_functions screen_lyrics;
 #endif
+#ifdef ENABLE_OUTPUTS_SCREEN
+extern const struct screen_functions screen_outputs;
+#endif
+
 
 void
 screen_list_init(WINDOW *w, unsigned cols, unsigned rows);

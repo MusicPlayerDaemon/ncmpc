@@ -181,6 +181,10 @@ handle_option(int c, const char *arg)
 #ifdef ENABLE_KEYDEF_SCREEN
 		     " key-screen"
 #endif
+#ifdef ENABLE_OUTPUTS_SCREEN
+		     " outputs-screen"
+#endif
+
 		     "\n");
 		exit(EXIT_SUCCESS);
 	case 'c': /* --colors */

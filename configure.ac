@@ -372,6 +372,19 @@ AC_DEFINE_UNQUOTED([LYRICS_PLUGIN_DIR], ["$lyrics_plugin_dir"],
                   [Directory to search for lyrics plugins])
 AC_SUBST(lyrics_plugin_dir)
 
+dnl Optional screen - outputs
+AC_MSG_CHECKING([whether to include the outputs screen])
+AC_ARG_ENABLE([outputs-screen],
+	AC_HELP_STRING([--enable-outputs-screen],
+		[Enable outputs screen @<:@default=no@:>@]),
+	[outputs_screen=$enableval],
+	[outputs_screen=$disable_mini])
+if test "x$outputs_screen" = "xyes" ; then
+	AC_DEFINE(ENABLE_OUTPUTS_SCREEN, 1, [Enable outputs screen])
+fi
+
+AM_CONDITIONAL(ENABLE_OUTPUTS_SCREEN, test x$outputs_screen = xyes)
+
 dnl Default host
 AC_MSG_CHECKING([for default MPD host])
 AC_ARG_WITH([default-host],

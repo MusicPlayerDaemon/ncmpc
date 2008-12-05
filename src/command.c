@@ -59,6 +59,7 @@
 #define F5 KEY_F(5)
 #define F6 KEY_F(6)
 #define F7 KEY_F(7)
+#define F8 KEY_F(8)
 
 
 static command_definition_t cmds[] = {
@@ -204,6 +205,12 @@ static command_definition_t cmds[] = {
 	{ {'u', 0, 0 }, 0, CMD_LYRICS_UPDATE, "lyrics-update",
 	  N_("Update Lyrics") },
 #endif
+
+#ifdef ENABLE_OUTPUTS_SCREEN
+	{ {'8', F8, 0 }, 0, CMD_SCREEN_OUTPUTS, "screen-outputs",
+	  N_("Outputs screen") },
+#endif
+
 
 	{ { -1, -1, -1 }, 0, CMD_NONE, NULL, NULL }
 };

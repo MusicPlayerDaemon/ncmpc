@@ -503,6 +503,16 @@ msgstr ""
 msgid "No lyrics"
 msgstr ""
 
+#: src/screen_help.c:140
+#, fuzzy
+msgid "Keys - Outputs screen"
+msgstr "Tangenter - Utgångar"
+
+#: src/screen_help.c:142
+#, fuzzy
+msgid "Enable/disable output"
+msgstr "Öppna/stäng utgångar"
+
 #: src/screen_lyrics.c:290
 #, fuzzy
 msgid "loading..."
@@ -547,6 +557,22 @@ msgstr ""
 #, fuzzy
 msgid "Comment"
 msgstr "Centrera"
+
+#: src/screen_outputs.c:68
+#, fuzzy
+msgid "Output '%s' enabled"
+msgstr "Utgång '%s' öppnad"
+
+#: src/screen_outputs.c:74
+#, fuzzy
+msgid "Output '%s' disabled"
+msgstr "Utgång '%s' stängd"
+
+#: src/screen_outputs.c:148
+#, fuzzy
+msgid "Outputs"
+msgstr "Utgångar"
+
 
 #: src/command.c:67
 msgid "Key configuration screen"

@@ -138,6 +138,13 @@ static help_text_row_t help_text[] = {
 	{ 0, CMD_LYRICS_UPDATE, N_("Explicitly download lyrics") },
 	{ 0, CMD_ADD, N_("Save lyrics") },
 #endif
+#ifdef ENABLE_OUTPUTS_SCREEN
+	{ 0, CMD_NONE, NULL },
+	{ 0, CMD_NONE, NULL },
+	{ 1, CMD_NONE, N_("Keys - Outputs screen") },
+	{ 2, CMD_NONE, NULL },
+	{ 0, CMD_PLAY, N_("Enable/disable output") },
+#endif
 };
 
 #define help_text_rows (sizeof(help_text) / sizeof(help_text[0]))

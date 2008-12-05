@@ -47,6 +47,9 @@ static const struct
 #ifdef ENABLE_LYRICS_SCREEN
 	{ "lyrics", &screen_lyrics },
 #endif
+#ifdef ENABLE_OUTPUTS_SCREEN
+	{ "outputs", &screen_outputs },
+#endif
 };
 
 static const unsigned NUM_SCREENS = sizeof(screens) / sizeof(screens[0]);

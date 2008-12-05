@@ -101,6 +101,10 @@ if ENABLE_LYRICS_SCREEN
 ncmpc_SOURCES += screen_lyrics.c lyrics.c
 endif
 
+if ENABLE_OUTPUTS_SCREEN
+ncmpc_SOURCES += screen_outputs.c
+endif
+
 if ENABLE_LIRC
 ncmpc_SOURCES += lirc.c
 endif

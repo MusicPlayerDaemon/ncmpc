@@ -159,6 +159,12 @@ paint_top_window2(const char *header, mpdclient_t *c)
 #ifdef ENABLE_LYRICS_SCREEN
 		print_hotkey(w, CMD_SCREEN_LYRICS, _("Lyrics"));
 #endif
+#ifdef ENABLE_OUTPUTS_SCREEN
+		colors_use(w, COLOR_TITLE_BOLD);
+		waddstr(w, get_key_names(CMD_SCREEN_OUTPUTS, FALSE));
+		colors_use(w, COLOR_TITLE);
+		waddstr(w, _(":Outputs  "));
+#endif
 #endif
 	}
 
@@ -842,6 +848,11 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
 		screen_switch(&screen_lyrics, c);
+		break;
+#endif
+#ifdef ENABLE_OUTPUTS_SCREEN
+	case CMD_SCREEN_OUTPUTS:
+		screen_switch(&screen_outputs, c);
 		break;
 #endif
 	default:

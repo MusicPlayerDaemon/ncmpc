@@ -14,6 +14,7 @@ src/screen_search.c
 src/screen_keydef.c
 src/screen_help.c
 src/screen_lyrics.c
+src/screen_outputs.c
 src/screen_song.c
 src/command.c
 src/colors.c
