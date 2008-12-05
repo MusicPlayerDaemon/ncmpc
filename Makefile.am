@@ -25,11 +25,11 @@ sparse-check:
 # lyrics plugins
 #
 
-if ENABLE_LYRICS_SCREEN
-
 lyrics_plugins = hd.sh leoslyrics.py lyricswiki.rb
 
 EXTRA_DIST += $(addprefix lyrics/,$(lyrics_plugins))
+
+if ENABLE_LYRICS_SCREEN
 
 install-exec-local:
 	install -m 0755 -d $(DESTDIR)$(lyrics_plugin_dir)
