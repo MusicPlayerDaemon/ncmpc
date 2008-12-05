@@ -23,7 +23,7 @@
 
 static list_window_t *lw;
 
-struct {
+static struct {
 	struct mpd_song *song;
 	GPtrArray *lines;
 } current;
