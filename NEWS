@@ -1,3 +1,7 @@
+ncmpc 0.13 - not yet released
+  * added output configuration screen, default hotkey F8
+
+
 ncmpc 0.12 - 2008-12-05
   * added artist screen (tag browser)
   * added highly experimental lyrics screen (disabled by default)
