@@ -158,8 +158,14 @@ handle_option(int c, const char *arg)
 	case 'V': /* --version */
 		puts(PACKAGE " version: " VERSION "\n"
 		     "build options:"
+#ifdef NCMPC_MINI
+		     " mini"
+#endif
 #ifndef NDEBUG
 		     " debug"
+#endif
+#ifdef ENABLE_WIDE
+		     " wide"
 #endif
 #ifdef ENABLE_NLS
 		     " nls"
@@ -169,17 +175,29 @@ handle_option(int c, const char *arg)
 #else
 		     " no-colors"
 #endif
+#ifdef ENABLE_LIRC
+		     " lirc"
+#endif
 #ifdef HAVE_GETMOUSE
 		     " getmouse"
 #endif
 #ifdef ENABLE_ARTIST_SCREEN
 		     " artist-screen"
 #endif
+#ifdef ENABLE_HELP_SCREEN
+		     " help-screen"
+#endif
 #ifdef ENABLE_SEARCH_SCREEN
 		     " search-screen"
 #endif
+#ifdef ENABLE_SONG_SCREEN
+		     " song-screen"
+#endif
 #ifdef ENABLE_KEYDEF_SCREEN
 		     " key-screen"
+#endif
+#ifdef ENABLE_LYRICS_SCREEN
+		     " lyrics-screen"
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
 		     " outputs-screen"
