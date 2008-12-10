@@ -20,11 +20,7 @@
 #ifndef HSCROLL_H
 #define HSCROLL_H
 
-#include "config.h"
-
 #include <glib.h>
-
-#ifndef NCMPC_MINI
 
 typedef struct {
 	gsize offset;
@@ -32,7 +28,5 @@ typedef struct {
 } scroll_state_t;
 
 char *strscroll(char *str, char *separator, int width, scroll_state_t *st);
-
-#endif
 
 #endif

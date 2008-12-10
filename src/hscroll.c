@@ -18,13 +18,10 @@
 
 #include "hscroll.h"
 #include "charset.h"
-#include "config.h"
 
 #include <assert.h>
 #include <ctype.h>
 #include <string.h>
-
-#ifndef NCMPC_MINI
 
 // FIXME: utf-8 length
 char *
@@ -73,5 +70,3 @@ strscroll(char *str, char *separator, int width, scroll_state_t *st)
 	g_free(tmp);
 	return buf;
 }
-
-#endif

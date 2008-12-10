@@ -20,7 +20,6 @@
 #include "i18n.h"
 #include "charset.h"
 #include "options.h"
-#include "hscroll.h"
 #include "mpdclient.h"
 #include "utils.h"
 #include "strfsong.h"
@@ -30,6 +29,10 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "screen_play.h"
+
+#ifndef NCMPC_MINI
+#include "hscroll.h"
+#endif
 
 #include <ctype.h>
 #include <stdlib.h>

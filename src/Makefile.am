@@ -66,7 +66,6 @@ ncmpc_SOURCES = \
   screen_file.c\
   list_window.c\
   colors.c\
-	hscroll.c \
 	charset.c \
 	match.c \
   wreadln.c\
@@ -76,7 +75,9 @@ ncmpc_SOURCES = \
 
 if NCMPC_MINI
 else
-ncmpc_SOURCES += conf.c
+ncmpc_SOURCES += \
+	hscroll.c \
+	conf.c
 endif
 
 if ENABLE_HELP_SCREEN

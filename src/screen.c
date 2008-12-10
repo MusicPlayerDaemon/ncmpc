@@ -21,13 +21,16 @@
 #include "screen_utils.h"
 #include "config.h"
 #include "i18n.h"
-#include "hscroll.h"
 #include "charset.h"
 #include "mpdclient.h"
 #include "utils.h"
 #include "options.h"
 #include "colors.h"
 #include "strfsong.h"
+
+#ifndef NCMPC_MINI
+#include "hscroll.h"
+#endif
 
 #include <stdlib.h>
 #include <unistd.h>
