@@ -17,12 +17,31 @@
  */
 
 #include "match.h"
-#include "support.h"
+#include "charset.h"
 
+#include <glib.h>
 #include <string.h>
+
+static char *
+locale_casefold(const char *src)
+{
+	char *utf8 = locale_to_utf8(src);
+	char *folded = g_utf8_casefold(utf8, -1);
+
+	g_free(utf8);
+	return folded;
+}
 
 bool
 match_line(const char *line, const char *needle)
 {
-	return strcasestr(line, needle) != NULL;
+	char *line_folded = locale_casefold(line);
+	char *needle_folded = locale_casefold(needle);
+
+	bool ret = strstr(line_folded, needle_folded) != NULL;
+
+	g_free(line_folded);
+	g_free(needle_folded);
+
+	return ret;
 }
