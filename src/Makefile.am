@@ -31,6 +31,7 @@ ncmpc_headers = \
   colors.h\
   support.h\
 	charset.h \
+	match.h \
   wreadln.h\
   strfsong.h\
   utils.h\
@@ -67,6 +68,7 @@ ncmpc_SOURCES = \
   colors.c\
   support.c\
 	charset.c \
+	match.c \
   wreadln.c\
   strfsong.c\
   utils.c\

@@ -20,7 +20,7 @@
 #include "config.h"
 #include "options.h"
 #include "charset.h"
-#include "support.h"
+#include "match.h"
 #include "command.h"
 #include "colors.h"
 
@@ -223,7 +223,7 @@ list_window_find(struct list_window *lw,
 
 	do {
 		while ((label = callback(i,&h,callback_data))) {
-			if (str && label && strcasestr(label, str)) {
+			if (str && label && match_line(label, str)) {
 				lw->selected = i;
 				return true;
 			}
@@ -259,7 +259,7 @@ list_window_rfind(struct list_window *lw,
 
 	do {
 		while (i >= 0 && (label = callback(i,&h,callback_data))) {
-			if( str && label && strcasestr(label, str) ) {
+			if( str && label && match_line(label, str) ) {
 				lw->selected = i;
 				return true;
 			}
