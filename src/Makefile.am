@@ -29,7 +29,7 @@ ncmpc_headers = \
   screen_utils.h\
   list_window.h\
   colors.h\
-  support.h\
+	hscroll.h \
 	charset.h \
 	match.h \
   wreadln.h\
@@ -66,7 +66,7 @@ ncmpc_SOURCES = \
   screen_file.c\
   list_window.c\
   colors.c\
-  support.c\
+	hscroll.c \
 	charset.c \
 	match.c \
   wreadln.c\

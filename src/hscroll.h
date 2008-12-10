@@ -17,8 +17,8 @@
  *
  */
 
-#ifndef SUPPORT_H
-#define SUPPORT_H
+#ifndef HSCROLL_H
+#define HSCROLL_H
 
 #include "config.h"
 

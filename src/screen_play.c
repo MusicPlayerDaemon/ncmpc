@@ -20,7 +20,7 @@
 #include "i18n.h"
 #include "charset.h"
 #include "options.h"
-#include "support.h"
+#include "hscroll.h"
 #include "mpdclient.h"
 #include "utils.h"
 #include "strfsong.h"

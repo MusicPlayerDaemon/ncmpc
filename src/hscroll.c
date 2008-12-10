@@ -16,7 +16,7 @@
  *
  */
 
-#include "support.h"
+#include "hscroll.h"
 #include "charset.h"
 #include "config.h"
 
