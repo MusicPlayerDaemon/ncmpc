@@ -24,25 +24,6 @@
 #include <ctype.h>
 #include <string.h>
 
-#ifndef HAVE_STRCASESTR
-const char *
-strcasestr(const char *haystack, const char *needle)
-{
-	char *haystack2 = g_utf8_strdown(haystack, -1);
-	char *needle2 = g_utf8_strdown(needle, -1);
-	char *result;
-
-	assert(haystack != NULL);
-	assert(needle != NULL);
-
-	result = strstr(haystack2, needle2);
-	g_free(haystack2);
-	g_free(needle2);
-
-	return haystack + (result - haystack2);
-}
-#endif /* HAVE_STRCASESTR */
-
 #ifndef NCMPC_MINI
 
 // FIXME: utf-8 length

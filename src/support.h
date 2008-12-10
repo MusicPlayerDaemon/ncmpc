@@ -24,10 +24,6 @@
 
 #include <glib.h>
 
-#ifndef HAVE_STRCASESTR
-const char *strcasestr(const char *haystack, const char *needle);
-#endif
-
 #ifndef NCMPC_MINI
 
 typedef struct {

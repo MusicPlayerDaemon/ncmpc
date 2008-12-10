@@ -28,12 +28,6 @@ AC_CHECK_HEADER([locale.h],
 
 
 dnl
-dnl Check for functions
-dnl
-AC_CHECK_FUNCS([strcasestr])
-
-
-dnl
 dnl ncmpc-mini
 dnl
 
