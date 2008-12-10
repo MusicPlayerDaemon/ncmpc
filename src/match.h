@@ -19,7 +19,21 @@
 #ifndef MATCH_H
 #define MATCH_H
 
+#include "config.h"
+
 #include <stdbool.h>
+
+#ifdef NCMPC_MINI
+
+#include <string.h>
+
+static inline bool
+match_line(const char *line, const char *needle)
+{
+	return strstr(line, needle) != NULL;
+}
+
+#else
 
 /**
  * Checks whether the specified line matches the search string.  Case
@@ -27,5 +41,7 @@
  */
 bool
 match_line(const char *line, const char *needle);
+
+#endif
 
 #endif

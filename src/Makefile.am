@@ -67,7 +67,6 @@ ncmpc_SOURCES = \
   list_window.c\
   colors.c\
 	charset.c \
-	match.c \
   wreadln.c\
   strfsong.c\
   utils.c\
@@ -77,6 +76,7 @@ if NCMPC_MINI
 else
 ncmpc_SOURCES += \
 	hscroll.c \
+	match.c \
 	conf.c
 endif
 
