@@ -297,6 +297,8 @@ command_dump_keys(void)
 	}
 }
 
+#ifndef NCMPC_MINI
+
 static int
 set_key_flags(command_definition_t *cp, command_t command, int flags)
 {
@@ -313,6 +315,8 @@ set_key_flags(command_definition_t *cp, command_t command, int flags)
 
 	return 1;
 }
+
+#endif
 
 const char *
 get_key_names(command_t command, int all)
@@ -434,13 +438,17 @@ assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
 	while (cmds[i].name) {
 		if (cmds[i].command == command) {
 			memcpy(cmds[i].keys, keys, sizeof(int)*MAX_COMMAND_KEYS);
+#ifndef NCMPC_MINI
 			cmds[i].flags |= COMMAND_KEY_MODIFIED;
+#endif
 			return 0;
 		}
 		i++;
 	}
 	return -1;
 }
+
+#ifndef NCMPC_MINI
 
 int
 check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
@@ -529,3 +537,5 @@ write_key_bindings(FILE *f, int flags)
 
 	return ferror(f);
 }
+
+#endif

@@ -393,13 +393,13 @@ main(int argc, const char *argv[])
 	/* parse command line options - 1 pass get configuration files */
 	options_parse(argc, argv);
 
-	/* read configuration */
 #ifndef NCMPC_MINI
+	/* read configuration */
 	read_configuration();
-#endif
 
 	/* check key bindings */
 	check_key_bindings(NULL, NULL, 0);
+#endif
 
 	/* parse command line options - 2 pass */
 	options_parse(argc, argv);

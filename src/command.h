@@ -23,7 +23,10 @@
 #include "config.h"
 
 #include <stddef.h>
+
+#ifndef NCMPC_MINI
 #include <stdio.h>
+#endif
 
 #define MAX_COMMAND_KEYS 3
 
@@ -88,9 +91,11 @@ typedef enum {
 } command_t;
 
 
+#ifndef NCMPC_MINI
 /* command definition flags */
 #define COMMAND_KEY_MODIFIED  0x01
 #define COMMAND_KEY_CONFLICT  0x02
+#endif
 
 /* write key bindings flags */
 #define KEYDEF_WRITE_HEADER  0x01
@@ -112,8 +117,13 @@ command_definition_t *get_command_definitions(void);
 command_t find_key_command(int key, command_definition_t *cmds);
 
 void command_dump_keys(void);
+
+#ifndef NCMPC_MINI
+
 int check_key_bindings(command_definition_t *cmds, char *buf, size_t size);
 int write_key_bindings(FILE *f, int all);
+
+#endif
 
 const char *key2str(int key);
 const char *get_key_description(command_t command);
