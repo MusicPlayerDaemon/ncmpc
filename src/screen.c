@@ -160,10 +160,7 @@ paint_top_window2(const char *header, mpdclient_t *c)
 		print_hotkey(w, CMD_SCREEN_LYRICS, _("Lyrics"));
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
-		colors_use(w, COLOR_TITLE_BOLD);
-		waddstr(w, get_key_names(CMD_SCREEN_OUTPUTS, FALSE));
-		colors_use(w, COLOR_TITLE);
-		waddstr(w, _(":Outputs  "));
+		print_hotkey(w, CMD_SCREEN_OUTPUTS, _("Outputs"));
 #endif
 #endif
 	}
