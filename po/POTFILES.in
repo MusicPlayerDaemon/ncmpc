@@ -1,6 +1,5 @@
 # source files
 
-src/ncmpc.h
 src/i18n.h
 src/main.c
 src/screen.c
@@ -18,6 +17,3 @@ src/screen_outputs.c
 src/screen_song.c
 src/command.c
 src/colors.c
-src/support.c
-src/options.c
-
