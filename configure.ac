@@ -366,6 +366,8 @@ AC_DEFINE_UNQUOTED([LYRICS_PLUGIN_DIR], ["$lyrics_plugin_dir"],
                   [Directory to search for lyrics plugins])
 AC_SUBST(lyrics_plugin_dir)
 
+AM_CONDITIONAL(ENABLE_PLUGIN_LIBRARY, test x$lyrics_screen = xyes)
+
 dnl Optional screen - outputs
 AC_MSG_CHECKING([whether to include the outputs screen])
 AC_ARG_ENABLE([outputs-screen],
