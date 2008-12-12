@@ -510,6 +510,11 @@ main(int argc, const char *argv[])
 #endif
 
 	exit_and_cleanup();
+
+#ifdef ENABLE_LYRICS_SCREEN
+	lyrics_deinit();
+#endif
+
 	ncu_deinit();
 
 	return 0;
