@@ -255,9 +255,6 @@ lyrics_load(const char *artist, const char *title,
 	assert(artist != NULL);
 	assert(title != NULL);
 
-	if (loader == NULL)
-		return NULL;
-
 	loader->artist = g_strdup(artist);
 	loader->title = g_strdup(title);
 	loader->callback = callback;
