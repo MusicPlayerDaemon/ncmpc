@@ -23,10 +23,6 @@
 
 static struct plugin_list plugins;
 
-struct lyrics_loader {
-	struct plugin_cycle *plugin;
-};
-
 void lyrics_init(void)
 {
 	plugin_list_init(&plugins);
@@ -38,25 +34,14 @@ void lyrics_deinit(void)
 	plugin_list_deinit(&plugins);
 }
 
-struct lyrics_loader *
+struct plugin_cycle *
 lyrics_load(const char *artist, const char *title,
 	    plugin_callback_t callback, void *data)
 {
-	struct lyrics_loader *loader = g_new(struct lyrics_loader, 1);
 	const char *args[3] = { artist, title, NULL };
 
 	assert(artist != NULL);
 	assert(title != NULL);
 
-	loader->plugin = plugin_run(&plugins, args,
-				    callback, data);
-
-	return loader;
-}
-
-void
-lyrics_free(struct lyrics_loader *loader)
-{
-	plugin_stop(loader->plugin);
-	g_free(loader);
+	return plugin_run(&plugins, args, callback, data);
 }

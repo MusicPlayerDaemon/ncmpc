@@ -44,7 +44,7 @@ static struct {
 
 	char *artist, *title;
 
-	struct lyrics_loader *loader;
+	struct plugin_cycle *loader;
 
 	GPtrArray *lines;
 } current;
@@ -53,7 +53,7 @@ static void
 screen_lyrics_abort(void)
 {
 	if (current.loader != NULL) {
-		lyrics_free(current.loader);
+		plugin_stop(current.loader);
 		current.loader = NULL;
 	}
 
@@ -165,7 +165,7 @@ screen_lyrics_callback(const GString *result, G_GNUC_UNUSED void *data)
 	else
 		screen_status_message (_("No lyrics"));
 
-	lyrics_free(current.loader);
+	plugin_stop(current.loader);
 	current.loader = NULL;
 }
 

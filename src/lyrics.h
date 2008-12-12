@@ -21,17 +21,12 @@
 
 #include "plugin.h"
 
-struct lyrics_loader;
-
 void lyrics_init(void);
 
 void lyrics_deinit(void);
 
-struct lyrics_loader *
+struct plugin_cycle *
 lyrics_load(const char *artist, const char *title,
 	    plugin_callback_t callback, void *callback_data);
-
-void
-lyrics_free(struct lyrics_loader *loader);
 
 #endif
