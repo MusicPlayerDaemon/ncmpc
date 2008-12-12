@@ -23,10 +23,9 @@
 #include "mpdclient.h"
 #include "command.h"
 #include "screen.h"
-#include "screen_utils.h"
 #include "strfsong.h"
 #include "lyrics.h"
-#include "charset.h"
+#include "screen_text.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -34,7 +33,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-static list_window_t *lw = NULL;
+static struct screen_text text;
 
 static const struct mpd_song *next_song;
 
@@ -44,8 +43,6 @@ static struct {
 	char *artist, *title;
 
 	struct plugin_cycle *loader;
-
-	GPtrArray *lines;
 } current;
 
 static void
@@ -72,32 +69,6 @@ screen_lyrics_abort(void)
 	}
 }
 
-static void
-screen_lyrics_clear(void)
-{
-	guint i;
-
-	list_window_reset(lw);
-
-	for (i = 0; i < current.lines->len; ++i)
-		g_free(g_ptr_array_index(current.lines, i));
-
-	g_ptr_array_set_size(current.lines, 0);
-}
-
-static void
-lyrics_paint(void);
-
-/**
- * Repaint and update the screen.
- */
-static void
-lyrics_repaint(void)
-{
-	lyrics_paint();
-	wrefresh(lw->w);
-}
-
 /**
  * Repaint and update the screen, if it is currently active.
  */
@@ -105,7 +76,7 @@ static void
 lyrics_repaint_if_active(void)
 {
 	if (screen_is_visible(&screen_lyrics)) {
-		lyrics_repaint();
+		screen_text_repaint(&text);
 
 		/* XXX repaint the screen title */
 	}
@@ -114,40 +85,7 @@ lyrics_repaint_if_active(void)
 static void
 screen_lyrics_set(const GString *str)
 {
-	const char *p, *eol, *next;
-
-	screen_lyrics_clear();
-
-	p = str->str;
-	while ((eol = strchr(p, '\n')) != NULL) {
-		char *line;
-
-		next = eol + 1;
-
-		/* strip whitespace at end */
-
-		while (eol > p && (unsigned char)eol[-1] <= 0x20)
-			--eol;
-
-		/* create copy and append it to current.lines*/
-
-		line = g_malloc(eol - p + 1);
-		memcpy(line, p, eol - p);
-		line[eol - p] = 0;
-
-		g_ptr_array_add(current.lines, line);
-
-		/* reset control characters */
-
-		for (eol = line + (eol - p); line < eol; ++line)
-			if ((unsigned char)*line < 0x20)
-				*line = ' ';
-
-		p = next;
-	}
-
-	if (*p != 0)
-		g_ptr_array_add(current.lines, g_strdup(p));
+	screen_text_set(&text, str);
 
 	/* paint new data */
 
@@ -176,7 +114,7 @@ screen_lyrics_load(const struct mpd_song *song)
 	assert(song != NULL);
 
 	screen_lyrics_abort();
-	screen_lyrics_clear();
+	screen_text_clear(&text);
 
 	current.song = mpd_songDup(song);
 
@@ -213,57 +151,32 @@ static int store_lyr_hd(void)
 	if (lyr_file == NULL)
 		return -1;
 
-	for (i = 0; i < current.lines->len; ++i)
+	for (i = 0; i < text.lines->len; ++i)
 		fprintf(lyr_file, "%s\n",
-			(const char*)g_ptr_array_index(current.lines, i));
+			(const char*)g_ptr_array_index(text.lines, i));
 
 	fclose(lyr_file);
 	return 0;
 }
 
-static const char *
-list_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
-	      G_GNUC_UNUSED void *data)
-{
-	static char buffer[256];
-	char *value;
-
-	if (idx >= current.lines->len)
-		return NULL;
-
-	value = utf8_to_locale(g_ptr_array_index(current.lines, idx));
-	g_strlcpy(buffer, value, sizeof(buffer));
-	free(value);
-
-	return buffer;
-}
-
-
 static void
 lyrics_screen_init(WINDOW *w, int cols, int rows)
 {
-	current.lines = g_ptr_array_new();
-	lw = list_window_init(w, cols, rows);
-	lw->hide_cursor = true;
+	screen_text_init(&text, w, cols, rows);
 }
 
 static void
 lyrics_resize(int cols, int rows)
 {
-	lw->cols = cols;
-	lw->rows = rows;
+	screen_text_resize(&text, cols, rows);
 }
 
 static void
 lyrics_exit(void)
 {
-	list_window_free(lw);
-
 	screen_lyrics_abort();
-	screen_lyrics_clear();
 
-	g_ptr_array_free(current.lines, TRUE);
-	current.lines = NULL;
+	screen_text_deinit(&text);
 }
 
 static void
@@ -289,7 +202,7 @@ lyrics_title(char *str, size_t size)
 			 _("Lyrics"), _("loading..."));
 		return str;
 	} else if (current.artist != NULL && current.title != NULL &&
-		   current.lines->len > 0) {
+		   !screen_text_is_empty(&text)) {
 		snprintf(str, size, "%s: %s - %s",
 			 _("Lyrics"),
 			 current.artist, current.title);
@@ -301,22 +214,20 @@ lyrics_title(char *str, size_t size)
 static void
 lyrics_paint(void)
 {
-	list_window_paint(lw, list_callback, NULL);
+	screen_text_paint(&text);
 }
 
 static bool
 lyrics_cmd(mpdclient_t *c, command_t cmd)
 {
-	if (list_window_scroll_cmd(lw, current.lines->len, cmd)) {
-		lyrics_repaint();
+	if (screen_text_cmd(&text, c, cmd))
 		return true;
-	}
 
 	switch(cmd) {
 	case CMD_INTERRUPT:
 		if (current.loader != NULL) {
 			screen_lyrics_abort();
-			screen_lyrics_clear();
+			screen_text_clear(&text);
 		}
 		return true;
 	case CMD_ADD:
@@ -327,7 +238,7 @@ lyrics_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_LYRICS_UPDATE:
 		if (c->song != NULL) {
 			screen_lyrics_load(c->song);
-			lyrics_repaint();
+			screen_text_repaint(&text);
 		}
 		return true;
 
@@ -351,15 +262,6 @@ lyrics_cmd(mpdclient_t *c, command_t cmd)
 
 	default:
 		break;
-	}
-
-	lw->selected = lw->start+lw->rows;
-	if (screen_find(lw, current.lines->len,
-			cmd, list_callback, NULL)) {
-		/* center the row */
-		list_window_center(lw, current.lines->len, lw->selected);
-		lyrics_repaint();
-		return true;
 	}
 
 	return false;
