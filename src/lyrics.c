@@ -20,251 +20,36 @@
 #include "../config.h"
 
 #include <assert.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <sys/signal.h>
-#include <sys/wait.h>
 
-static GPtrArray *plugins;
+static struct plugin_list plugins;
 
 struct lyrics_loader {
-	char *artist, *title;
-
-	lyrics_callback_t callback;
-	void *callback_data;
-
-	guint next_plugin;
-
-	pid_t pid;
-	int fd;
-	GIOChannel *channel;
-	guint event_id;
-
-	GString *data;
+	struct plugin_cycle *plugin;
 };
-
-static int lyrics_register_plugin(const char *path0)
-{
-	int ret;
-	struct stat st;
-	char *path;
-
-	ret = stat(path0, &st);
-	if (ret < 0)
-		return -1;
-
-	path = g_strdup(path0);
-	g_ptr_array_add(plugins, path);
-	return 0;
-}
 
 void lyrics_init(void)
 {
-	GDir *dir;
-
-	plugins = g_ptr_array_new();
-
-	dir = g_dir_open(LYRICS_PLUGIN_DIR, 0, NULL);
-	if (dir != NULL) {
-		const char *name;
-		char path[sizeof(LYRICS_PLUGIN_DIR) + 128];
-
-		memcpy(path, LYRICS_PLUGIN_DIR, sizeof(LYRICS_PLUGIN_DIR) - 1);
-		path[sizeof(LYRICS_PLUGIN_DIR) - 1] = G_DIR_SEPARATOR;
-
-		while ((name = g_dir_read_name(dir)) != NULL) {
-			g_strlcpy(path + sizeof(LYRICS_PLUGIN_DIR), name,
-				  sizeof(path) - sizeof(LYRICS_PLUGIN_DIR));
-			lyrics_register_plugin(path);
-		}
-
-		g_dir_close(dir);
-	}
+	plugin_list_init(&plugins);
+	plugin_list_load_directory(&plugins, LYRICS_PLUGIN_DIR);
 }
 
 void lyrics_deinit(void)
 {
-	guint i;
-
-	for (i = 0; i < plugins->len; ++i)
-		free(g_ptr_array_index(plugins, i));
-	g_ptr_array_free(plugins, TRUE);
-}
-
-static void
-lyrics_next_plugin(struct lyrics_loader *loader);
-
-static void
-lyrics_eof(struct lyrics_loader *loader)
-{
-	int ret, status;
-
-	g_io_channel_unref(loader->channel);
-	close(loader->fd);
-	loader->fd = -1;
-
-	ret = waitpid(loader->pid, &status, 0);
-	loader->pid = -1;
-
-	if (ret < 0 || !WIFEXITED(status) || WEXITSTATUS(status) != 0) {
-		g_string_free(loader->data, TRUE);
-		loader->data = NULL;
-
-		lyrics_next_plugin(loader);
-	} else {
-		loader->callback(loader->data, loader->callback_data);
-	}
-}
-
-static gboolean
-lyrics_data(G_GNUC_UNUSED GIOChannel *source,
-	    G_GNUC_UNUSED GIOCondition condition, gpointer data)
-{
-	struct lyrics_loader *loader = data;
-	char buffer[256];
-	ssize_t nbytes;
-
-	assert(loader != NULL);
-	assert(loader->fd >= 0);
-	assert(loader->pid > 0);
-	assert(source == loader->channel);
-
-	if ((condition & G_IO_IN) == 0) {
-		lyrics_eof(loader);
-		return FALSE;
-	}
-
-	nbytes = condition & G_IO_IN
-		? read(loader->fd, buffer, sizeof(buffer))
-		: 0;
-	if (nbytes <= 0) {
-		lyrics_eof(loader);
-		return FALSE;
-	}
-
-	g_string_append_len(loader->data, buffer, nbytes);
-	return TRUE;
-}
-
-/**
- * This is a timer callback which calls the lyrics callback "some
- * timer later".  This solves the problem that lyrics_load() may fail
- * immediately, leaving its return value in an undefined state.
- * Instead, install a timer which calls the lyrics callback in the
- * moment after.
- */
-static gboolean
-lyrics_delayed_fail(gpointer data)
-{
-	struct lyrics_loader *loader = data;
-
-	assert(loader != NULL);
-	assert(loader->fd < 0);
-	assert(loader->pid < 0);
-	assert(loader->data == NULL);
-
-	loader->callback(NULL, loader->callback_data);
-
-	return FALSE;
-}
-
-static int
-lyrics_start_plugin(struct lyrics_loader *loader, const char *plugin_path)
-{
-	int ret, fds[2];
-	pid_t pid;
-
-	assert(loader != NULL);
-	assert(loader->pid < 0);
-	assert(loader->fd < 0);
-	assert(loader->data == NULL);
-
-	ret = pipe(fds);
-	if (ret < 0)
-		return -1;
-
-	pid = fork();
-
-	if (pid < 0) {
-		close(fds[0]);
-		close(fds[1]);
-		return -1;
-	}
-
-	if (pid == 0) {
-		dup2(fds[1], 1);
-		dup2(fds[1], 1);
-		close(fds[0]);
-		close(fds[1]);
-		close(0);
-		/* XXX close other fds? */
-
-		execl(plugin_path, plugin_path,
-		      loader->artist, loader->title, NULL);
-		_exit(1);
-	}
-
-	close(fds[1]);
-
-	loader->pid = pid;
-	loader->fd = fds[0];
-	loader->data = g_string_new(NULL);
-
-	/* XXX CLOEXEC? */
-
-	loader->channel = g_io_channel_unix_new(loader->fd);
-	loader->event_id = g_io_add_watch(loader->channel, G_IO_IN|G_IO_HUP,
-					  lyrics_data, loader);
-
-	return 0;
-}
-
-static void
-lyrics_next_plugin(struct lyrics_loader *loader)
-{
-	const char *plugin_path;
-	int ret = -1;
-
-	assert(loader->pid < 0);
-	assert(loader->fd < 0);
-	assert(loader->data == NULL);
-
-	if (loader->next_plugin >= plugins->len) {
-		/* no plugins left */
-		g_timeout_add(0, lyrics_delayed_fail, loader);
-		return;
-	}
-
-	plugin_path = g_ptr_array_index(plugins, loader->next_plugin++);
-	ret = lyrics_start_plugin(loader, plugin_path);
-	if (ret < 0) {
-		/* system error */
-		g_timeout_add(0, lyrics_delayed_fail, loader);
-		return;
-	}
+	plugin_list_deinit(&plugins);
 }
 
 struct lyrics_loader *
 lyrics_load(const char *artist, const char *title,
-	    lyrics_callback_t callback, void *data)
+	    plugin_callback_t callback, void *data)
 {
 	struct lyrics_loader *loader = g_new(struct lyrics_loader, 1);
+	const char *args[3] = { artist, title, NULL };
 
 	assert(artist != NULL);
 	assert(title != NULL);
 
-	loader->artist = g_strdup(artist);
-	loader->title = g_strdup(title);
-	loader->callback = callback;
-	loader->data = data;
-	loader->next_plugin = 0;
-	loader->pid = -1;
-	loader->fd = -1;
-	loader->data = NULL;
-
-	lyrics_next_plugin(loader);
+	loader->plugin = plugin_run(&plugins, args,
+				    callback, data);
 
 	return loader;
 }
@@ -272,21 +57,6 @@ lyrics_load(const char *artist, const char *title,
 void
 lyrics_free(struct lyrics_loader *loader)
 {
-	if (loader->fd >= 0) {
-		g_source_remove(loader->event_id);
-		g_io_channel_unref(loader->channel);
-		close(loader->fd);
-	}
-
-	if (loader->pid > 0) {
-		int status;
-
-		kill(loader->pid, SIGTERM);
-		waitpid(loader->pid, &status, 0);
-	}
-
-	if (loader->data != NULL)
-		g_string_free(loader->data, TRUE);
-
+	plugin_stop(loader->plugin);
 	g_free(loader);
 }

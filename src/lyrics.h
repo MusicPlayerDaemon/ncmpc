@@ -19,9 +19,7 @@
 #ifndef LYRICS_H
 #define LYRICS_H
 
-#include <glib.h>
-
-typedef void (*lyrics_callback_t)(const GString *result, void *data);
+#include "plugin.h"
 
 struct lyrics_loader;
 
@@ -31,7 +29,7 @@ void lyrics_deinit(void);
 
 struct lyrics_loader *
 lyrics_load(const char *artist, const char *title,
-	    lyrics_callback_t callback, void *callback_data);
+	    plugin_callback_t callback, void *callback_data);
 
 void
 lyrics_free(struct lyrics_loader *loader);
