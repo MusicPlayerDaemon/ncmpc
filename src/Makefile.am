@@ -39,6 +39,7 @@ ncmpc_headers = \
 	defaults.h \
 	i18n.h \
 	screen_browser.h \
+	screen_text.h \
 	plugin.h \
 	lyrics.h \
 	str_pool.h \
@@ -103,6 +104,10 @@ endif
 
 if ENABLE_PLUGIN_LIBRARY
 ncmpc_SOURCES += plugin.c
+endif
+
+if ENABLE_SCREEN_TEXT
+ncmpc_SOURCES += screen_text.c
 endif
 
 if ENABLE_LYRICS_SCREEN
