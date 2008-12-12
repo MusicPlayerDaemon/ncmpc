@@ -287,4 +287,6 @@ lyrics_free(struct lyrics_loader *loader)
 
 	if (loader->data != NULL)
 		g_string_free(loader->data, TRUE);
+
+	g_free(loader);
 }
