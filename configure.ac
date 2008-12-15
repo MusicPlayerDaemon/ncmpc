@@ -283,7 +283,7 @@ dnl Optional screen - artist
 AC_MSG_CHECKING([whether to include the artist screen])
 AC_ARG_ENABLE([artist-screen], 
               AC_HELP_STRING([--enable-artist-screen],
-	                     [Enable artist screen @<:@default=no@:>@]),
+	                     [Enable artist screen @<:@default=yes@:>@]),
 	      [artist_screen="$enableval"],
 	      [artist_screen=$disable_mini])
 AC_MSG_RESULT([$artist_screen])
@@ -373,7 +373,7 @@ dnl Optional screen - outputs
 AC_MSG_CHECKING([whether to include the outputs screen])
 AC_ARG_ENABLE([outputs-screen],
 	AC_HELP_STRING([--enable-outputs-screen],
-		[Enable outputs screen @<:@default=no@:>@]),
+		[Enable outputs screen @<:@default=yes@:>@]),
 	[outputs_screen=$enableval],
 	[outputs_screen=$disable_mini])
 if test "x$outputs_screen" = "xyes" ; then
