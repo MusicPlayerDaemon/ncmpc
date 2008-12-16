@@ -1,19 +1,18 @@
 # Swedish
 # This file is distributed under the same license as the ncmpc package.
 # Kalle Wallin <kaw@linux.se>, 2004.
-# Björn Pettersson <bjorn@hygiena.org>, 2008.
+# BjÃ¶rn Pettersson <bjorn@hygiena.org>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-26 14:38+0100\n"
 "PO-Revision-Date: 2008-12-05 20:46+0100\n"
-"Last-Translator: Björn Pettersson <bjorn@hygiena.org>\n"
+"Last-Translator: BjÃ¶rn Pettersson <bjorn@hygiena.org>\n"
 "Language-Team: sv <sv@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/i18n.h:36
@@ -27,12 +26,12 @@ msgstr "n"
 #: src/main.c:210
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
-msgstr "Ansluter till %s... [Tryck %s för att avbryta]"
+msgstr "Ansluter till %s... [Tryck %s fÃ¶r att avbryta]"
 
 #: src/main.c:228
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
-msgstr "Fel: MPD version %d.%d.%d är för gammal (%s krävs)"
+msgstr "Fel: MPD version %d.%d.%d Ã¤r fÃ¶r gammal (%s krÃ¤vs)"
 
 #: src/main.c:242
 #, c-format
@@ -41,7 +40,7 @@ msgstr "Ansluten till %s"
 
 #: src/screen.c:148 src/screen_help.c:205
 msgid "Help"
-msgstr "Hjälp"
+msgstr "HjÃ¤lp"
 
 #: src/screen.c:149 src/screen_play.c:455
 msgid "Playlist"
@@ -57,7 +56,7 @@ msgstr "Artist"
 
 #: src/screen.c:155 src/screen_help.c:119
 msgid "Search"
-msgstr "Sök"
+msgstr "SÃ¶k"
 
 #: src/screen.c:158 src/screen_lyrics.c:290 src/screen_lyrics.c:295
 #: src/screen_lyrics.c:299
@@ -84,11 +83,11 @@ msgstr "[Pausad]"
 #: src/screen.c:396 src/screen.c:469
 #, c-format
 msgid "Error: Screen to small\n"
-msgstr "Fel: Terminalen är för liten\n"
+msgstr "Fel: Terminalen Ã¤r fÃ¶r liten\n"
 
 #: src/screen.c:592
 msgid "Repeat is on"
-msgstr "Upprepning påslaget"
+msgstr "Upprepning pÃ¥slaget"
 
 #: src/screen.c:593
 msgid "Repeat is off"
@@ -96,7 +95,7 @@ msgstr "Upprepning avslaget"
 
 #: src/screen.c:597
 msgid "Random is on"
-msgstr "Slumpning påslaget"
+msgstr "Slumpning pÃ¥slaget"
 
 #: src/screen.c:598
 msgid "Random is off"
@@ -105,7 +104,7 @@ msgstr "Slumpning avslaget"
 #: src/screen.c:601
 #, c-format
 msgid "Crossfade %d seconds"
-msgstr "Mjuk övergång %d sekunder"
+msgstr "Mjuk Ã¶vergÃ¥ng %d sekunder"
 
 #: src/screen.c:604
 msgid "Database updated"
@@ -121,7 +120,7 @@ msgstr "Spellistan rensad"
 
 #: src/screen.c:758 src/screen_file.c:257
 msgid "Database update started"
-msgstr "Databasuppdatering påbörjad"
+msgstr "Databasuppdatering pÃ¥bÃ¶rjad"
 
 #: src/screen.c:760 src/screen_file.c:264
 msgid "Database update running..."
@@ -129,15 +128,15 @@ msgstr "Databasen uppdateras..."
 
 #: src/screen.c:796
 msgid "Find mode: Wrapped"
-msgstr "Sökläge: Börja om"
+msgstr "SÃ¶klÃ¤ge: BÃ¶rja om"
 
 #: src/screen.c:797
 msgid "Find mode: Normal"
-msgstr "Sökläge: Till början/slut"
+msgstr "SÃ¶klÃ¤ge: Till bÃ¶rjan/slut"
 
 #: src/screen.c:802
 msgid "Auto center mode: On"
-msgstr "Automatisk centrering påslaget"
+msgstr "Automatisk centrering pÃ¥slaget"
 
 #: src/screen.c:803
 msgid "Auto center mode: Off"
@@ -145,7 +144,7 @@ msgstr "Automatisk centrering avslaget"
 
 #: src/screen_artist.c:73
 msgid "All tracks"
-msgstr "Alla spår"
+msgstr "Alla spÃ¥r"
 
 #: src/screen_artist.c:382
 msgid "All artists"
@@ -164,7 +163,7 @@ msgstr "Album: %s - %s"
 #: src/screen_artist.c:400
 #, c-format
 msgid "All tracks of artist: %s"
-msgstr "Alla spår av artist: %s"
+msgstr "Alla spÃ¥r av artist: %s"
 
 #: src/screen_browser.c:238
 #, c-format
@@ -174,24 +173,24 @@ msgstr "Laddar spellista %s..."
 #: src/screen_browser.c:261 src/screen_browser.c:370 src/screen_browser.c:396
 #, c-format
 msgid "Adding '%s' to playlist\n"
-msgstr "Lägger till '%s' till spellista...\n"
+msgstr "LÃ¤gger till '%s' till spellista...\n"
 
 #: src/screen_browser.c:315
 #, c-format
 msgid "Adding directory %s...\n"
-msgstr "Lägger till katalog %s...\n"
+msgstr "LÃ¤gger till katalog %s...\n"
 
 #: src/screen_utils.c:32
 msgid "Find: "
-msgstr "Sök: "
+msgstr "SÃ¶k: "
 
 #: src/screen_utils.c:33
 msgid "Find backward: "
-msgstr "Sök bakåt: "
+msgstr "SÃ¶k bakÃ¥t: "
 
 #: src/screen_utils.c:114
 msgid "Password: "
-msgstr "Lösenord: "
+msgstr "LÃ¶senord: "
 
 #: src/screen_utils.c:207
 #, c-format
@@ -205,7 +204,7 @@ msgstr "Spara spellistan som: "
 #: src/screen_play.c:244
 #, c-format
 msgid "Replace %s [%s/%s] ? "
-msgstr "Ersätt %s [%s/%s] ? "
+msgstr "ErsÃ¤tt %s [%s/%s] ? "
 
 #: src/screen_play.c:265 src/screen_file.c:136 src/screen_keydef.c:162
 msgid "Aborted"
@@ -219,12 +218,12 @@ msgstr "%s sparad"
 
 #: src/screen_play.c:349
 msgid "Add: "
-msgstr "Lägg till: "
+msgstr "LÃ¤gg till: "
 
 #: src/screen_play.c:457
 #, c-format
 msgid "Playlist on %s"
-msgstr "Spellista på %s"
+msgstr "Spellista pÃ¥ %s"
 
 #: src/screen_file.c:124
 msgid "You can only delete playlists"
@@ -247,7 +246,7 @@ msgstr "Filer: %s"
 #: src/screen_file.c:253
 #, c-format
 msgid "Database update of %s started"
-msgstr "Uppdaterar databasen ifrån %s"
+msgstr "Uppdaterar databasen ifrÃ¥n %s"
 
 #: src/screen_search.c:39
 msgid "artist"
@@ -263,7 +262,7 @@ msgstr "titel"
 
 #: src/screen_search.c:42
 msgid "track"
-msgstr "spår"
+msgstr "spÃ¥r"
 
 #: src/screen_search.c:43
 msgid "name"
@@ -279,11 +278,11 @@ msgstr "datum"
 
 #: src/screen_search.c:46
 msgid "composer"
-msgstr "kompositör"
+msgstr "kompositÃ¶r"
 
 #: src/screen_search.c:47
 msgid "performer"
-msgstr "uppträdare"
+msgstr "upptrÃ¤dare"
 
 #: src/screen_search.c:48
 msgid "comment"
@@ -312,16 +311,16 @@ msgstr "Artist + titel"
 #: src/screen_search.c:245
 #, c-format
 msgid "Bad search tag %s"
-msgstr "Felaktig söktyp"
+msgstr "Felaktig sÃ¶ktyp"
 
 #: src/screen_search.c:249
 #, c-format
 msgid "No argument for search tag %s"
-msgstr "Argumentet för söktyp %s saknas"
+msgstr "Argumentet fÃ¶r sÃ¶ktyp %s saknas"
 
 #: src/screen_search.c:309
 msgid "Search: "
-msgstr "Sök: "
+msgstr "SÃ¶k: "
 
 #. if( pattern==NULL )
 #. search_new(screen, c);
@@ -329,35 +328,35 @@ msgstr "Sök: "
 #: src/screen_search.c:369
 #, c-format
 msgid "Press %s for a new search"
-msgstr "Tryck %s för ny sökning"
+msgstr "Tryck %s fÃ¶r ny sÃ¶kning"
 
 #: src/screen_search.c:397
 #, c-format
 msgid "Search: %s"
-msgstr "Sök: %s"
+msgstr "SÃ¶k: %s"
 
 #: src/screen_search.c:400
 #, c-format
 msgid "Search: Results for %s [%s]"
-msgstr "Sökresultat för %s [%s]"
+msgstr "SÃ¶kresultat fÃ¶r %s [%s]"
 
 #: src/screen_search.c:404
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
-msgstr "Tryck %s för ny sökning [%s]"
+msgstr "Tryck %s fÃ¶r ny sÃ¶kning [%s]"
 
 #: src/screen_search.c:419
 #, c-format
 msgid "Search mode: %s"
-msgstr "Sök efter: %s"
+msgstr "SÃ¶k efter: %s"
 
 #: src/screen_keydef.c:40
 msgid "===> Apply & Save key bindings  "
-msgstr "===> Verkställ och spara"
+msgstr "===> VerkstÃ¤ll och spara"
 
 #: src/screen_keydef.c:41
 msgid "===> Apply key bindings "
-msgstr "===> Verkställ"
+msgstr "===> VerkstÃ¤ll"
 
 #: src/screen_keydef.c:69
 msgid "You have new key bindings"
@@ -365,7 +364,7 @@ msgstr "Tangentdefinitioner uppdaterade"
 
 #: src/screen_keydef.c:71
 msgid "Keybindings unchanged."
-msgstr "Tangentdefinitioner oförändrade."
+msgstr "Tangentdefinitioner ofÃ¶rÃ¤ndrade."
 
 #: src/screen_keydef.c:81
 #, c-format
@@ -389,12 +388,12 @@ msgstr "Borttagen"
 #: src/screen_keydef.c:157
 #, c-format
 msgid "Enter new key for %s: "
-msgstr "Ny tangent för %s: "
+msgstr "Ny tangent fÃ¶r %s: "
 
 #: src/screen_keydef.c:168
 #, c-format
 msgid "Error: key %s is already used for %s"
-msgstr "Fel: Tangenten %s används redan för %s"
+msgstr "Fel: Tangenten %s anvÃ¤nds redan fÃ¶r %s"
 
 #: src/screen_keydef.c:178
 #, c-format
@@ -403,20 +402,20 @@ msgstr "%s tilldelad %s"
 
 #: src/screen_keydef.c:216
 msgid "Add new key"
-msgstr "Lägg till ny tangent"
+msgstr "LÃ¤gg till ny tangent"
 
 #: src/screen_keydef.c:275
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "OBS! Glömde du att 'Verkställa' dina ändringar?"
+msgstr "OBS! GlÃ¶mde du att 'VerkstÃ¤lla' dina Ã¤ndringar?"
 
 #: src/screen_keydef.c:282
 msgid "Edit key bindings"
-msgstr "Ändra tangentdefinitioner"
+msgstr "Ã„ndra tangentdefinitioner"
 
 #: src/screen_keydef.c:284
 #, c-format
 msgid "Edit keys for %s"
-msgstr "Ändra tangenter för kommandot %s"
+msgstr "Ã„ndra tangenter fÃ¶r kommandot %s"
 
 #: src/screen_help.c:37
 msgid "Keys - Movement"
@@ -436,11 +435,11 @@ msgstr "Starta/Spela markerad"
 
 #: src/screen_help.c:94
 msgid "Move song up"
-msgstr "Flytta spår uppåt"
+msgstr "Flytta spÃ¥r uppÃ¥t"
 
 #: src/screen_help.c:95
 msgid "Move song down"
-msgstr "Flytta spår nedåt"
+msgstr "Flytta spÃ¥r nedÃ¥t"
 
 #: src/screen_help.c:98
 msgid "Center"
@@ -452,11 +451,11 @@ msgstr "Tangenter - Filer"
 
 #: src/screen_help.c:105
 msgid "Enter directory/Select and play song"
-msgstr "Välj katalog/Markera och spela upp"
+msgstr "VÃ¤lj katalog/Markera och spela upp"
 
 #: src/screen_help.c:107 src/screen_help.c:122
 msgid "Append song to playlist"
-msgstr "Lägg till i spellista"
+msgstr "LÃ¤gg till i spellista"
 
 #: src/screen_help.c:109
 msgid "Delete playlist"
@@ -464,11 +463,11 @@ msgstr "Ta bort spellista"
 
 #: src/screen_help.c:117
 msgid "Keys - Search screen"
-msgstr "Tangenter - Sök"
+msgstr "Tangenter - SÃ¶k"
 
 #: src/screen_help.c:120
 msgid "Select and play"
-msgstr "Lägg till spellistan och spela"
+msgstr "LÃ¤gg till spellistan och spela"
 
 #: src/screen_help.c:129
 msgid "Keys - Lyrics screen"
@@ -484,7 +483,7 @@ msgstr "Ladda (om) texter"
 
 #: src/screen_help.c:133
 msgid "Interrupt retrieval"
-msgstr "Avbryt hämtning"
+msgstr "Avbryt hÃ¤mtning"
 
 #: src/screen_help.c:134
 msgid "Explicitly download lyrics"
@@ -508,11 +507,11 @@ msgstr "Text sparad"
 
 #: src/screen_song.c:105
 msgid "Song viewer"
-msgstr "Spår"
+msgstr "SpÃ¥r"
 
 #: src/screen_song.c:190
 msgid "Composer"
-msgstr "Kompositör"
+msgstr "KompositÃ¶r"
 
 #: src/screen_song.c:191
 msgid "Name"
@@ -524,7 +523,7 @@ msgstr "Skiva"
 
 #: src/screen_song.c:193
 msgid "Track"
-msgstr "Spår"
+msgstr "SpÃ¥r"
 
 #: src/screen_song.c:194
 msgid "Date"
@@ -548,31 +547,31 @@ msgstr "Avsluta"
 
 #: src/command.c:74
 msgid "Move cursor up"
-msgstr "Markör uppåt"
+msgstr "MarkÃ¶r uppÃ¥t"
 
 #: src/command.c:76
 msgid "Move cursor down"
-msgstr "Markör nedåt"
+msgstr "MarkÃ¶r nedÃ¥t"
 
 #: src/command.c:78
 msgid "Home "
-msgstr "Markören till den första raden"
+msgstr "MarkÃ¶ren till den fÃ¶rsta raden"
 
 #: src/command.c:80
 msgid "End "
-msgstr "Markören till den sista raden"
+msgstr "MarkÃ¶ren till den sista raden"
 
 #: src/command.c:82
 msgid "Page up"
-msgstr "Markören en skärm uppåt"
+msgstr "MarkÃ¶ren en skÃ¤rm uppÃ¥t"
 
 #: src/command.c:84
 msgid "Page down"
-msgstr "Markören en skärm nedåt"
+msgstr "MarkÃ¶ren en skÃ¤rm nedÃ¥t"
 
 #: src/command.c:89
 msgid "Help screen"
-msgstr "Hjälp"
+msgstr "HjÃ¤lp"
 
 #: src/command.c:91
 msgid "Playlist screen"
@@ -584,7 +583,7 @@ msgstr "Filer"
 
 #: src/command.c:98
 msgid "Play/Enter directory"
-msgstr "Spela upp/Välj"
+msgstr "Spela upp/VÃ¤lj"
 
 #: src/command.c:100
 msgid "Pause"
@@ -596,43 +595,43 @@ msgstr "Stoppa"
 
 #: src/command.c:104
 msgid "Crop"
-msgstr "Beskär"
+msgstr "BeskÃ¤r"
 
 #: src/command.c:106
 msgid "Next track"
-msgstr "Nästa spår"
+msgstr "NÃ¤sta spÃ¥r"
 
 #: src/command.c:108
 msgid "Previous track"
-msgstr "Föregånde spår"
+msgstr "FÃ¶regÃ¥nde spÃ¥r"
 
 #: src/command.c:110
 msgid "Seek forward"
-msgstr "Sök framåt"
+msgstr "SÃ¶k framÃ¥t"
 
 #: src/command.c:112
 msgid "Seek backward"
-msgstr "Sök bakåt"
+msgstr "SÃ¶k bakÃ¥t"
 
 #: src/command.c:114
 msgid "Increase volume"
-msgstr "Höj volymen"
+msgstr "HÃ¶j volymen"
 
 #: src/command.c:116
 msgid "Decrease volume"
-msgstr "Sänk volymen"
+msgstr "SÃ¤nk volymen"
 
 #: src/command.c:118
 msgid "Select/deselect song in playlist"
-msgstr "Markera/avmarkera spår till spellistan"
+msgstr "Markera/avmarkera spÃ¥r till spellistan"
 
 #: src/command.c:120
 msgid "Select all listed items"
-msgstr "Markera alla listade föremål"
+msgstr "Markera alla listade fÃ¶remÃ¥l"
 
 #: src/command.c:122
 msgid "Delete song from playlist"
-msgstr "Ta bort låt från spellista"
+msgstr "Ta bort lÃ¥t frÃ¥n spellista"
 
 #: src/command.c:124
 msgid "Shuffle playlist"
@@ -644,15 +643,15 @@ msgstr "Rensa spellista"
 
 #: src/command.c:128
 msgid "Toggle repeat mode"
-msgstr "Repeat på/av"
+msgstr "Repeat pÃ¥/av"
 
 #: src/command.c:130
 msgid "Toggle random mode"
-msgstr "Slumpning på/av"
+msgstr "Slumpning pÃ¥/av"
 
 #: src/command.c:132
 msgid "Toggle crossfade mode"
-msgstr "Mjuk övergång på/av"
+msgstr "Mjuk Ã¶vergÃ¥ng pÃ¥/av"
 
 #: src/command.c:134
 msgid "Start a music database update"
@@ -664,23 +663,23 @@ msgstr "Spara spellista"
 
 #: src/command.c:138
 msgid "Add url/file to playlist"
-msgstr "Lägg till url eller fil till spellistan"
+msgstr "LÃ¤gg till url eller fil till spellistan"
 
 #: src/command.c:141
 msgid "Go to root directory"
-msgstr "Gå till rotkatalogen"
+msgstr "GÃ¥ till rotkatalogen"
 
 #: src/command.c:143
 msgid "Go to parent directory"
-msgstr "Gå upp en nivå"
+msgstr "GÃ¥ upp en nivÃ¥"
 
 #: src/command.c:147
 msgid "View the song"
-msgstr "Visa spår"
+msgstr "Visa spÃ¥r"
 
 #: src/command.c:151
 msgid "Locate song in browser"
-msgstr "Hitta spår i Filer"
+msgstr "Hitta spÃ¥r i Filer"
 
 #: src/command.c:155
 msgid "Move item up"
@@ -696,35 +695,35 @@ msgstr "Updatera"
 
 #: src/command.c:164
 msgid "Toggle find mode"
-msgstr "Ändra sökinställningar"
+msgstr "Ã„ndra sÃ¶kinstÃ¤llningar"
 
 #: src/command.c:166
 msgid "Toggle auto center mode"
-msgstr "Automatisk centrering på/av"
+msgstr "Automatisk centrering pÃ¥/av"
 
 #: src/command.c:171
 msgid "Next screen"
-msgstr "Nästa skärm"
+msgstr "NÃ¤sta skÃ¤rm"
 
 #: src/command.c:173
 msgid "Previous screen"
-msgstr "Tidigare skärm"
+msgstr "Tidigare skÃ¤rm"
 
 #: src/command.c:178
 msgid "Forward find"
-msgstr "Sök"
+msgstr "SÃ¶k"
 
 #: src/command.c:180
 msgid "Forward find next"
-msgstr "Nästa träff"
+msgstr "NÃ¤sta trÃ¤ff"
 
 #: src/command.c:182
 msgid "Backward find"
-msgstr "Föregående träff"
+msgstr "FÃ¶regÃ¥ende trÃ¤ff"
 
 #: src/command.c:184
 msgid "Backward find previous"
-msgstr "Upprepa sökning bakåt"
+msgstr "Upprepa sÃ¶kning bakÃ¥t"
 
 #: src/command.c:190
 msgid "Artist screen"
@@ -732,11 +731,11 @@ msgstr "Artister"
 
 #: src/command.c:194
 msgid "Search screen"
-msgstr "Databassökning"
+msgstr "DatabassÃ¶kning"
 
 #: src/command.c:196
 msgid "Change search mode"
-msgstr "Ändra måltyp för databassökning"
+msgstr "Ã„ndra mÃ¥ltyp fÃ¶r databassÃ¶kning"
 
 #: src/command.c:201
 msgid "Lyrics screen"
@@ -772,39 +771,39 @@ msgstr "Ta bort"
 
 #: src/command.c:238
 msgid "Up"
-msgstr "Uppåtpil"
+msgstr "UppÃ¥tpil"
 
 #: src/command.c:240
 msgid "Down"
-msgstr "Nedåtpil"
+msgstr "NedÃ¥tpil"
 
 #: src/command.c:242
 msgid "Left"
-msgstr "Vänsterpil"
+msgstr "VÃ¤nsterpil"
 
 #: src/command.c:244
 msgid "Right"
-msgstr "Högerpil"
+msgstr "HÃ¶gerpil"
 
 #: src/command.c:246
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: src/command.c:248
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: src/command.c:250
 msgid "PageDown"
-msgstr ""
+msgstr "PageDown"
 
 #: src/command.c:252
 msgid "PageUp"
-msgstr ""
+msgstr "PageUp"
 
 #: src/command.c:254
 msgid "Tab"
-msgstr ""
+msgstr "Tab"
 
 #: src/command.c:256
 msgid "Shift+Tab"
@@ -816,22 +815,22 @@ msgstr "Esc"
 
 #: src/command.c:260
 msgid "Insert"
-msgstr ""
+msgstr "Insert"
 
 #: src/command.c:464
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-msgstr "%s tilldelat kommandona %s och %s (tryck på %s för att korrigera)"
+msgstr "%s tilldelat kommandona %s och %s (tryck pÃ¥ %s fÃ¶r att korrigera)"
 
 #: src/command.c:471 src/command.c:478
 #, c-format
 msgid "Error: Key %s assigned to %s and %s\n"
-msgstr "Fel: Tangent %s är tilldelad både %s och %s\n"
+msgstr "Fel: Tangent %s Ã¤r tilldelad bÃ¥de %s och %s\n"
 
 #: src/colors.c:163
 #, c-format
 msgid "Warning: Unknown color - %s\n"
-msgstr "Varning: Okänd färg - %s\n"
+msgstr "Varning: OkÃ¤nd fÃ¤rg - %s\n"
 
 #: src/colors.c:206
 #, c-format
@@ -841,18 +840,18 @@ msgstr "Varning: %s ej definierad.\n"
 #: src/colors.c:238
 #, c-format
 msgid "Terminal lacks support for changing colors\n"
-msgstr "Terminalen saknar stöd för växling av färger\n"
+msgstr "Terminalen saknar stÃ¶d fÃ¶r vÃ¤xling av fÃ¤rger\n"
 
 #: src/colors.c:248
 #, c-format
 msgid "Terminal lacks color capabilities\n"
-msgstr "Terminalen saknar stöd för färger\n"
+msgstr "Terminalen saknar stÃ¶d fÃ¶r fÃ¤rger\n"
 
 #~ msgid "Screen updated!"
 #~ msgstr "Uppdaterat!"
 
 #~ msgid "Welcome to the key editor!"
-#~ msgstr "Här kan du ändra tangentdefinitioner"
+#~ msgstr "HÃ¤r kan du Ã¤ndra tangentdefinitioner"
 
 #~ msgid "Clock"
 #~ msgstr "Klocka"
@@ -861,7 +860,7 @@ msgstr "Terminalen saknar stöd för färger\n"
 #~ msgstr "Klocka"
 
 #~ msgid "Error: Unable to convert characters to %s"
-#~ msgstr "Fel vid konvertering av tecken från UTF-8 till %s"
+#~ msgstr "Fel vid konvertering av tecken frÃ¥n UTF-8 till %s"
 
 #~ msgid "Error: Unable to convert characters to UTF-8"
 #~ msgstr "Fel vid konvertering av tecken till UTF-8"
