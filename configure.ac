@@ -33,7 +33,7 @@ dnl
 
 AC_ARG_ENABLE(mini,
     AS_HELP_STRING([--enable-mini],
-                   [Build ncmpc-mini (default: disabled)]),
+		[Build ncmpc-mini, i.e. without all optional features (default: disabled)]),
     [enable_mini=$enableval],
     [enable_mini=no])
 
