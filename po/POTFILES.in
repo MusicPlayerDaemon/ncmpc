@@ -18,3 +18,4 @@ src/screen_song.c
 src/command.c
 src/colors.c
 src/conf.c
+src/options.c

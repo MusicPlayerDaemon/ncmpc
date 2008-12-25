@@ -22,6 +22,7 @@
 #include "charset.h"
 #include "command.h"
 #include "conf.h"
+#include "i18n.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -208,6 +209,12 @@ handle_option(int c, const char *arg)
 #endif
 
 		     "\n");
+#ifndef NCMPC_MINI
+		if (strcmp("translator-credits", _("translator-credits")) != 0)
+			/* To translators: these credits are shown
+			   when ncmpc is started with "--version" */
+			printf("\n%s\n", _("translator-credits"));
+#endif
 		exit(EXIT_SUCCESS);
 	case 'c': /* --colors */
 #ifdef ENABLE_COLORS
