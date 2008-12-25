@@ -383,12 +383,15 @@ main(int argc, const char *argv[])
 	charset = charset_init();
 
 	/* initialize i18n support */
+#endif
+
 #ifdef ENABLE_NLS
 	setlocale(LC_MESSAGES, "");
 	bindtextdomain(GETTEXT_PACKAGE, LOCALE_DIR);
+#ifdef ENABLE_LOCALE
 	bind_textdomain_codeset(GETTEXT_PACKAGE, charset);
-	textdomain(GETTEXT_PACKAGE);
 #endif
+	textdomain(GETTEXT_PACKAGE);
 #endif
 
 	/* initialize options */
