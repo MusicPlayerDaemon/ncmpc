@@ -139,17 +139,6 @@ PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.4],,
 
 dnl i18n
 
-AC_MSG_CHECKING([national language support])
-AC_ARG_ENABLE([nls],
-	AS_HELP_STRING([--enable-nls], [Enable national language support]),
-	[enable_nls=$enableval],
-	[enable_nls=$disable_mini])
-AC_MSG_RESULT([$enable_nls])
-
-if test "x$enable_nls" = xno; then
-	nls=no
-fi
-
 AM_NLS
 nls=$USE_NLS
 
