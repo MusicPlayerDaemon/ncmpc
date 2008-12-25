@@ -184,34 +184,6 @@ fi
 
 AM_CONDITIONAL(ENABLE_LIRC, test x$enable_lirc = xyes)
 
-dnl Debugging 
-AC_MSG_CHECKING([whether to build with debug support])
-AC_ARG_ENABLE([debug], 
-              AC_HELP_STRING([--enable-debug],
-                             [Enable debugging @<:@default=no@:>@]),
-	      [enable_debug="$enableval"], 
-	      [enable_debug=no])
-AC_MSG_RESULT([$enable_debug])
-if test "x$enable_debug" = "xyes" ; then
-    CFLAGS="$CFLAGS -g"
-else
-    CFLAGS="$CFLAGS -DNDEBUG"
-fi
-
-dnl CFLAGS
-
-AC_SUBST(AM_CFLAGS)
-
-CHECK_CFLAG([-Wall])
-CHECK_CFLAG([-Wextra])
-CHECK_CFLAG([-Wno-deprecated-declarations])
-CHECK_CFLAG([-Wmissing-prototypes])
-CHECK_CFLAG([-Wdeclaration-after-statement])
-CHECK_CFLAG([-Wshadow])
-CHECK_CFLAG([-Wpointer-arith])
-CHECK_CFLAG([-Wstrict-prototypes])
-CHECK_CFLAG([-Wcast-qual])
-CHECK_CFLAG([-Wwrite-strings])
 
 dnl Optional screen - help screen
 AC_MSG_CHECKING([whether to include the help screen])
@@ -387,5 +359,47 @@ AC_ARG_WITH([default-timedisplay_type],
             [DEFAULT_TIMEDISPLAY_TYPE="elapsed"])
 AC_MSG_RESULT([$DEFAULT_TIMEDISPLAY_TYPE])
 AC_DEFINE_UNQUOTED([DEFAULT_TIMEDISPLAY_TYPE], ["$DEFAULT_TIMEDISPLAY_TYPE"], [Default way to display time, either 'elapsed' or 'remaining'])
+
+
+dnl
+dnl build options
+dnl
+
+AC_MSG_CHECKING([whether to build with debug support])
+AC_ARG_ENABLE([debug], 
+              AC_HELP_STRING([--enable-debug],
+                             [Enable debugging @<:@default=no@:>@]),
+	      [enable_debug="$enableval"], 
+	      [enable_debug=no])
+AC_MSG_RESULT([$enable_debug])
+if test "x$enable_debug" = "xyes" ; then
+    CFLAGS="$CFLAGS -g"
+else
+    CFLAGS="$CFLAGS -DNDEBUG"
+fi
+
+
+dnl
+dnl CFLAGS
+dnl
+
+AC_SUBST(AM_CFLAGS)
+
+CHECK_CFLAG([-Wall])
+CHECK_CFLAG([-Wextra])
+CHECK_CFLAG([-Wno-deprecated-declarations])
+CHECK_CFLAG([-Wmissing-prototypes])
+CHECK_CFLAG([-Wdeclaration-after-statement])
+CHECK_CFLAG([-Wshadow])
+CHECK_CFLAG([-Wpointer-arith])
+CHECK_CFLAG([-Wstrict-prototypes])
+CHECK_CFLAG([-Wcast-qual])
+CHECK_CFLAG([-Wwrite-strings])
+
+
+dnl
+dnl Generate output files
+dnl
+
 AC_CONFIG_FILES([Makefile src/Makefile doc/Makefile po/Makefile.in po/Makefile])
 AC_OUTPUT
