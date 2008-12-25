@@ -45,6 +45,10 @@
 #include <signal.h>
 #include <string.h>
 
+#ifdef HAVE_LOCALE_H
+#include <locale.h>
+#endif
+
 /* time between mpd updates [s] */
 static const guint update_interval = 500;
 

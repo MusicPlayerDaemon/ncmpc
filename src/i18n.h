@@ -21,13 +21,18 @@
 
 #include "config.h"
 
-/* i18n */
-#if defined(HAVE_LOCALE_H) && !defined(NCMPC_MINI)
-#include <locale.h>
-#endif
 #ifdef ENABLE_NLS
+
 #include <libintl.h>
-#include <glib/gi18n.h>
+
+#define _(x) gettext(x)
+
+#ifdef gettext_noop
+#define N_(x) gettext_noop(x)
+#else
+#define N_(x) (x)
+#endif
+
 #else
 #define  _(x) x
 #define N_(x) x
