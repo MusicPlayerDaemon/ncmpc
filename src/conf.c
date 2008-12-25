@@ -92,7 +92,7 @@ parse_key_value(char *str, char **end)
 {
 	if (*str == '\'') {
 		if (str[1] == '\'' || str[2] != '\'') {
-			print_error(_("Unsupported key definition"), str);
+			print_error(_("Malformed hotkey definition"), str);
 			return -1;
 		}
 
@@ -101,7 +101,7 @@ parse_key_value(char *str, char **end)
 	} else {
 		long value = strtol(str, end, 0);
 		if (*end == str) {
-			print_error(_("Unsupported key definition"), str);
+			print_error(_("Malformed hotkey definition"), str);
 			return -1;
 		}
 
@@ -126,7 +126,7 @@ parse_key_definition(char *str)
 	while (i < len && str[i] != '=' && !g_ascii_isspace(str[i]))
 		buf[j++] = str[i++];
 	if( (cmd=get_key_command_from_name(buf)) == CMD_NONE ) {
-		print_error(_("Unknown key command"), buf);
+		print_error(_("Unknown command"), buf);
 		return -1;
 	}
 
@@ -138,7 +138,7 @@ parse_key_definition(char *str)
 	memset(buf, 0, MAX_LINE_LENGTH);
 	g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
 	if (*buf == 0) {
-		print_error(_("Incomplete key definition"), str);
+		print_error(_("Incomplete hotkey configuration"), str);
 		return -1;
 	}
 
@@ -154,10 +154,8 @@ parse_key_definition(char *str)
 			p++;
 	}
 
-	if (key < 0) {
-		print_error(_("Bad key definition"), str);
+	if (key < 0)
 		return -1;
-	}
 
 	return assign_keys(cmd, keys);
 }
@@ -237,7 +235,7 @@ parse_color_definition(char *str)
 	/* get the command name */
 	color = colors_str2color(str);
 	if (color < 0) {
-		print_error(_("Bad color"), buf);
+		print_error(_("Bad color name"), buf);
 		return -1;
 	}
 
@@ -260,7 +258,7 @@ parse_color_definition(char *str)
 	}
 
 	if (*value != 0) {
-		print_error(_("Bad color definition"), str);
+		print_error(_("Malformed color definition"), str);
 		return -1;
 	}
 
@@ -293,7 +291,7 @@ check_screen_list(char *value)
 	while( tmp && tmp[i] ) {
 		char *name = g_ascii_strdown(tmp[i], -1);
 		if (screen_lookup_name(name) == NULL) {
-			print_error(_("Unsupported screen"), name);
+			print_error(_("Unknown screen name"), name);
 			free(name);
 		} else {
 			screen = g_realloc(screen, (j+2)*sizeof(char *));
