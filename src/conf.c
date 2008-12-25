@@ -96,8 +96,9 @@ print_error(const char *msg, const char *input)
 }
 
 static int
-parse_key_value(char *str, size_t len, char **end)
+parse_key_value(char *str, char **end)
 {
+	size_t len = strlen(str);
 	size_t i;
 	int value;
 	key_parser_state_t state;
@@ -166,7 +167,7 @@ static int
 parse_key_definition(char *str)
 {
 	char buf[MAX_LINE_LENGTH];
-	char *p, *end;
+	char *p;
 	size_t len = strlen(str), i;
 	int j,key;
 	int keys[MAX_COMMAND_KEYS];
@@ -190,8 +191,7 @@ parse_key_definition(char *str)
 	/* get the value part */
 	memset(buf, 0, MAX_LINE_LENGTH);
 	g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
-	len = strlen(buf);
-	if (len == 0) {
+	if (*buf == 0) {
 		print_error(_("Incomplete key definition"), str);
 		return -1;
 	}
@@ -199,16 +199,13 @@ parse_key_definition(char *str)
 	/* parse key values */
 	i = 0;
 	key = 0;
-	len = strlen(buf);
 	p = buf;
-	end = buf+len;
 	memset(keys, 0, sizeof(int)*MAX_COMMAND_KEYS);
-	while (i < MAX_COMMAND_KEYS && p < end &&
-	       (key = parse_key_value(p, len + 1, &p)) >= 0) {
+	while (i < MAX_COMMAND_KEYS && *p != 0 &&
+	       (key = parse_key_value(p, &p)) >= 0) {
 		keys[i++] = key;
-		while (p < end && (*p==',' || *p==' ' || *p=='\t'))
+		while (*p==',' || *p==' ' || *p=='\t')
 			p++;
-		len = strlen(p);
 	}
 
 	if (key < 0) {
