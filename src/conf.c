@@ -502,35 +502,25 @@ parse_line(char *line)
 static int
 read_rc_file(char *filename)
 {
-	int fd;
-	int quit = 0;
+	FILE *file;
+	char line[MAX_LINE_LENGTH];
 
 	if (filename == NULL)
 		return -1;
 
-	if ((fd = open(filename,O_RDONLY)) < 0) {
+	file = fopen(filename, "r");
+	if (file == NULL) {
 			perror(filename);
 			return -1;
 		}
 
-	while (!quit) {
+	while (fgets(line, sizeof(line), file) != NULL) {
 		int i;
 		int len;
-		char line[MAX_LINE_LENGTH];
 
-		i = 0;
-		/* read a line ending with '\n' */
-		do {
-			len = read(fd, &line[i], 1);
-			if (len == 1)
-				i++;
-			else
-				quit = 1;
-		} while (!quit && i < MAX_LINE_LENGTH && line[i-1] != '\n');
-
+		i = strlen(line);
 
 		/* remove trailing whitespace */
-		line[i] = '\0';
 		i--;
 		while (i >= 0 && g_ascii_isspace(line[i])) {
 			line[i] = '\0';
@@ -551,6 +541,7 @@ read_rc_file(char *filename)
 		}
 	}
 
+	fclose(file);
 	return 0;
 }
 
