@@ -143,7 +143,7 @@ fi
 
 dnl Check for glib-2.4
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.4],,
-	[AC_MSG_ERROR([glib-2.2 is required])])
+	[AC_MSG_ERROR([glib 2.4 is required])])
 
 
 dnl i18n
