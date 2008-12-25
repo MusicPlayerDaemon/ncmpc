@@ -157,7 +157,7 @@ static command_definition_t cmds[] = {
 	{ { 10, 0, 0 }, 0, CMD_LIST_MOVE_DOWN, "move-down",
 	  N_("Move item down") },
 	{ { 12, 0, 0 }, 0, CMD_SCREEN_UPDATE, "update",
-	  N_("Update screen") },
+	  N_("Refresh screen") },
 
 
 	/* ncmpc options */
