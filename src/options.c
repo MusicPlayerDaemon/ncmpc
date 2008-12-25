@@ -168,6 +168,9 @@ handle_option(int c, const char *arg)
 #ifdef ENABLE_WIDE
 		     " wide"
 #endif
+#ifdef ENABLE_LOCALE
+		     " locale"
+#endif
 #ifdef ENABLE_NLS
 		     " nls"
 #endif

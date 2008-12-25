@@ -45,7 +45,7 @@
 #include <signal.h>
 #include <string.h>
 
-#ifdef HAVE_LOCALE_H
+#ifdef ENABLE_LOCALE
 #include <locale.h>
 #endif
 
@@ -363,7 +363,7 @@ int
 main(int argc, const char *argv[])
 {
 	struct sigaction act;
-#if defined(HAVE_LOCALE_H) && !defined(NCMPC_MINI)
+#ifdef ENABLE_LOCALE
 	const char *charset = NULL;
 #endif
 	GIOChannel *keyboard_channel;
@@ -372,7 +372,7 @@ main(int argc, const char *argv[])
 	GIOChannel *lirc_channel = NULL;
 #endif
 
-#if defined(HAVE_LOCALE_H) && !defined(NCMPC_MINI)
+#ifdef ENABLE_LOCALE
 	/* time and date formatting */
 	setlocale(LC_TIME,"");
 	/* care about sorting order etc */

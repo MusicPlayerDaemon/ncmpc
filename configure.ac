@@ -18,14 +18,6 @@ ALL_LINGUAS="es da de fr gl no ru sk sv hu"
 
 set -- $CFLAGS
 
-dnl
-dnl Check for headers
-dnl
-
-AC_CHECK_HEADER([locale.h],
- 	        AC_DEFINE([HAVE_LOCALE_H], [1], [locale.h]),
-		,)
-
 
 dnl
 dnl ncmpc-mini
@@ -42,10 +34,12 @@ if test "x$enable_mini" = xyes; then
     AC_DEFINE([NCMPC_MINI], [1], [Build ncmpc-mini, which disables lots of features])
     auto=no
     disable_mini=no
+    auto_mini=no
     ncurses=ncurses
 else
     auto=auto
     disable_mini=yes
+    auto_mini=auto
     ncurses=auto
 fi
 
@@ -138,6 +132,28 @@ PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.4],,
 
 
 dnl i18n
+
+AC_ARG_ENABLE([locale],
+	AC_HELP_STRING([--disable-locale],
+		[Disable locale support (default: auto)]),
+		[enable_locale=$enableval],
+		[enable_locale=$auto_mini])
+
+if test x$enable_locale = xyes; then
+	AC_CHECK_HEADER([locale.h],,
+		[AC_MSG_ERROR(locale.h is unavailable)])
+fi
+
+if test x$enable_locale = xauto; then
+	AC_CHECK_HEADER([locale.h],
+		[enable_locale=yes],
+		[enable_locale=no])
+fi
+
+if test x$enable_locale = xyes; then
+	AC_DEFINE([ENABLE_LOCALE], [1], [Locale support is enabled])
+fi
+
 
 AM_NLS
 nls=$USE_NLS
