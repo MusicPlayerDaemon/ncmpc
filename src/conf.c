@@ -504,15 +504,12 @@ read_rc_file(char *filename)
 {
 	int fd;
 	int quit = 0;
-	int free_filename = 0;
 
 	if (filename == NULL)
 		return -1;
 
 	if ((fd = open(filename,O_RDONLY)) < 0) {
 			perror(filename);
-			if (free_filename)
-				g_free(filename);
 			return -1;
 		}
 
@@ -553,9 +550,6 @@ read_rc_file(char *filename)
 			}
 		}
 	}
-
-	if (free_filename)
-		g_free(filename);
 
 	return 0;
 }
