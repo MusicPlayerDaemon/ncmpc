@@ -95,7 +95,7 @@ static help_text_row_t help_text[] = {
 	{ 0, CMD_PLAY, N_("Play") },
 	{ 0, CMD_DELETE, NULL },
 	{ 0, CMD_CLEAR, NULL },
-	{ 1, CMD_LIST_MOVE_UP, N_("Move song up") },
+	{ 0, CMD_LIST_MOVE_UP, N_("Move song up") },
 	{ 0, CMD_LIST_MOVE_DOWN, N_("Move song down") },
 	{ 0, CMD_ADD, NULL },
 	{ 0, CMD_SAVE_PLAYLIST, NULL },
