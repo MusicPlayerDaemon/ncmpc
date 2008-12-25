@@ -515,30 +515,10 @@ read_rc_file(char *filename)
 		}
 
 	while (fgets(line, sizeof(line), file) != NULL) {
-		int i;
-		int len;
+		char *p = g_strchug(line);
 
-		i = strlen(line);
-
-		/* remove trailing whitespace */
-		i--;
-		while (i >= 0 && g_ascii_isspace(line[i])) {
-			line[i] = '\0';
-			i--;
-		}
-
-		len = i + 1;
-		if (len > 0) {
-			i = 0;
-			/* skip whitespace */
-			while (i < len && g_ascii_isspace(line[i]))
-				i++;
-
-			/* continue if this line is not a comment */
-			if (line[i] != COMMENT_TOKEN) {
-				parse_line(line + i);
-			}
-		}
+		if (*p != 0 && *p != COMMENT_TOKEN)
+			parse_line(g_strchomp(p));
 	}
 
 	fclose(file);
