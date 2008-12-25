@@ -121,6 +121,9 @@ handle_delete(mpdclient_t *c)
 	entity = entry->entity;
 
 	if( entity->type!=MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
+		/* translators: the "delete" command is only possible
+		   for playlists; the user attempted to delete a song
+		   or a directory or something else */
 		screen_status_printf(_("Deleting this item is not possible"));
 		screen_bell();
 		return -1;
@@ -133,6 +136,7 @@ handle_delete(mpdclient_t *c)
 	key = tolower(screen_getch(screen.status_window.w, buf));
 	g_free(buf);
 	if( key != YES[0] ) {
+		/* translators: a dialog was aborted by the user */
 		screen_status_printf(_("Aborted"));
 		return 0;
 	}
@@ -140,6 +144,8 @@ handle_delete(mpdclient_t *c)
 	if( mpdclient_cmd_delete_playlist(c, plf->path) )
 		return -1;
 
+	/* translators: MPD deleted the playlist, as requested by the
+	   user */
 	screen_status_printf(_("Playlist deleted"));
 	return 0;
 }

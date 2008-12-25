@@ -312,6 +312,7 @@ add_directory(mpdclient_t *c, char *dir)
 	char *dirname;
 
 	dirname = utf8_to_locale(dir);
+	/* translators: a directory is being added the to playlist */
 	screen_status_printf(_("Adding directory %s...\n"), dirname);
 	doupdate();
 	g_free(dirname);

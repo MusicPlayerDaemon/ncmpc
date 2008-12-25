@@ -76,9 +76,9 @@ static command_definition_t cmds[] = {
 	{ { DWN, 'j', 0 }, 0, CMD_LIST_NEXT, "down",
 	  N_("Move cursor down") },
 	{ { HOME, 0x01, 0 }, 0, CMD_LIST_FIRST, "home",
-	  N_("Home ") },
+	  N_("Home") },
 	{ { END, 0x05, 0 }, 0, CMD_LIST_LAST, "end",
-	  N_("End ") },
+	  N_("End") },
 	{ { PGUP, 0, 0 }, 0, CMD_LIST_PREVIOUS_PAGE, "pgup",
 	  N_("Page up") },
 	{ { PGDN, 0, 0 }, 0, CMD_LIST_NEXT_PAGE, "pgdn",
@@ -162,8 +162,12 @@ static command_definition_t cmds[] = {
 
 	/* ncmpc options */
 	{ { 'w', 0, 0 }, 0, CMD_TOGGLE_FIND_WRAP, "wrap-mode",
+	  /* translators: toggle between wrapping and non-wrapping
+	     search */
 	  N_("Toggle find mode") },
 	{ { 'U', 0, 0 }, 0, CMD_TOGGLE_AUTOCENTER, "autocenter-mode",
+	  /* translators: the auto center mode always centers the song
+	     currently being played */
 	  N_("Toggle auto center mode") },
 
 
@@ -201,6 +205,8 @@ static command_definition_t cmds[] = {
 	{ {'7', F7, 0 }, 0, CMD_SCREEN_LYRICS, "screen-lyrics",
 	  N_("Lyrics screen") },
 	{ {ESC, 0, 0 }, 0, CMD_INTERRUPT, "lyrics-interrupt",
+	  /* translators: interrupt the current background action,
+	     e.g. stop loading lyrics from the internet */
 	  N_("Interrupt action") },
 	{ {'u', 0, 0 }, 0, CMD_LYRICS_UPDATE, "lyrics-update",
 	  N_("Update Lyrics") },

@@ -126,6 +126,8 @@ parse_key_definition(char *str)
 	while (i < len && str[i] != '=' && !g_ascii_isspace(str[i]))
 		buf[j++] = str[i++];
 	if( (cmd=get_key_command_from_name(buf)) == CMD_NONE ) {
+		/* the hotkey configuration contains an unknown
+		   command */
 		print_error(_("Unknown command"), buf);
 		return -1;
 	}
@@ -138,6 +140,7 @@ parse_key_definition(char *str)
 	memset(buf, 0, MAX_LINE_LENGTH);
 	g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
 	if (*buf == 0) {
+		/* the hotkey configuration line is incomplete */
 		print_error(_("Incomplete hotkey configuration"), str);
 		return -1;
 	}
@@ -166,6 +169,10 @@ parse_timedisplay_type(const char *str)
 	if (!strcmp(str,"elapsed") || !strcmp(str,"remaining"))
 		return str;
 	else {
+		/* translators: ncmpc supports displaying the
+		   "elapsed" or "remaining" time of a song being
+		   played; in this case, the configuration file
+		   contained an invalid setting */
 		print_error(_("Bad time display type"), str);
 		return DEFAULT_TIMEDISPLAY_TYPE;
 	}
@@ -179,6 +186,8 @@ separate_value(char *p)
 
 	value = strchr(p, '=');
 	if (value == NULL) {
+		/* an equals sign '=' was expected while parsing a
+		   configuration file line */
 		fprintf(stderr, "%s\n", _("Missing '='"));
 		return NULL;
 	}
@@ -291,6 +300,8 @@ check_screen_list(char *value)
 	while( tmp && tmp[i] ) {
 		char *name = g_ascii_strdown(tmp[i], -1);
 		if (screen_lookup_name(name) == NULL) {
+			/* an unknown screen name was specified in the
+			   configuration file */
 			print_error(_("Unknown screen name"), name);
 			free(name);
 		} else {

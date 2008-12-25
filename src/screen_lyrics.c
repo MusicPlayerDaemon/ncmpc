@@ -100,6 +100,7 @@ screen_lyrics_callback(const GString *result, G_GNUC_UNUSED void *data)
 	if (result != NULL)
 		screen_lyrics_set(result);
 	else
+		/* translators: no lyrics were found for the song */
 		screen_status_message (_("No lyrics"));
 
 	plugin_stop(current.loader);
@@ -199,7 +200,10 @@ lyrics_title(char *str, size_t size)
 {
 	if (current.loader != NULL) {
 		snprintf(str, size, "%s (%s)",
-			 _("Lyrics"), _("loading..."));
+			 _("Lyrics"),
+			 /* translators: this message is displayed
+			    while data is retrieved */
+			 _("loading..."));
 		return str;
 	} else if (current.artist != NULL && current.title != NULL &&
 		   !screen_text_is_empty(&text)) {
@@ -233,6 +237,7 @@ lyrics_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_ADD:
 		if (current.loader == NULL && current.artist != NULL &&
 		    current.title != NULL && store_lyr_hd() == 0)
+			/* lyrics for the song were saved on hard disk */
 			screen_status_message (_("Lyrics saved"));
 		return true;
 	case CMD_LYRICS_UPDATE:
