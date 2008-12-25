@@ -4,6 +4,9 @@
 echo "touch stamp-h"
 touch stamp-h
 
+# create po/Makefile.in.in
+glib-gettextize --force --copy
+
 # add aclocal.m4 to current dir
 echo "aclocal..."
 aclocal -I $PWD/m4
