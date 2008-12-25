@@ -34,7 +34,7 @@ typedef struct {
 } help_text_row_t;
 
 static help_text_row_t help_text[] = {
-	{ 1, CMD_NONE, N_("Keys - Movement") },
+	{ 1, CMD_NONE, N_("Movement") },
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_LIST_PREVIOUS, NULL },
 	{ 0, CMD_LIST_NEXT, NULL },
@@ -60,7 +60,7 @@ static help_text_row_t help_text[] = {
 
 	{ 0, CMD_NONE, NULL },
 	{ 0, CMD_NONE, NULL },
-	{ 1, CMD_NONE, N_("Keys - Global") },
+	{ 1, CMD_NONE, N_("Global") },
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_STOP, NULL },
 	{ 0, CMD_PAUSE, NULL },
@@ -90,7 +90,7 @@ static help_text_row_t help_text[] = {
 
 	{ 0, CMD_NONE, NULL },
 	{ 0, CMD_NONE, NULL },
-	{ 1, CMD_NONE, N_("Keys - Playlist screen") },
+	{ 1, CMD_NONE, N_("Playlist screen") },
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_PLAY, N_("Play") },
 	{ 0, CMD_DELETE, NULL },
@@ -104,7 +104,7 @@ static help_text_row_t help_text[] = {
 
 	{ 0, CMD_NONE, NULL },
 	{ 0, CMD_NONE, NULL },
-	{ 1, CMD_NONE, N_("Keys - Browse screen") },
+	{ 1, CMD_NONE, N_("Browse screen") },
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_PLAY, N_("Enter directory/Select and play song") },
 	{ 0, CMD_SELECT, NULL },
@@ -118,7 +118,7 @@ static help_text_row_t help_text[] = {
 #ifdef ENABLE_SEARCH_SCREEN
 	{ 0, CMD_NONE, NULL },
 	{ 0, CMD_NONE, NULL },
-	{ 1, CMD_NONE, N_("Keys - Search screen") },
+	{ 1, CMD_NONE, N_("Search screen") },
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_SCREEN_SEARCH, N_("Search") },
 	{ 0, CMD_PLAY, N_("Select and play") },
@@ -130,7 +130,7 @@ static help_text_row_t help_text[] = {
 #ifdef ENABLE_LYRICS_SCREEN
 	{ 0, CMD_NONE, NULL },
 	{ 0, CMD_NONE, NULL },
-	{ 1, CMD_NONE, N_("Keys - Lyrics screen") },
+	{ 1, CMD_NONE, N_("Lyrics screen") },
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_SCREEN_LYRICS, N_("View Lyrics") },
 	{ 0, CMD_SELECT, N_("(Re)load lyrics") },
@@ -141,7 +141,7 @@ static help_text_row_t help_text[] = {
 #ifdef ENABLE_OUTPUTS_SCREEN
 	{ 0, CMD_NONE, NULL },
 	{ 0, CMD_NONE, NULL },
-	{ 1, CMD_NONE, N_("Keys - Outputs screen") },
+	{ 1, CMD_NONE, N_("Outputs screen") },
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_PLAY, N_("Enable/disable output") },
 #endif

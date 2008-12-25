@@ -121,7 +121,7 @@ handle_delete(mpdclient_t *c)
 	entity = entry->entity;
 
 	if( entity->type!=MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
-		screen_status_printf(_("You can only delete playlists"));
+		screen_status_printf(_("Deleting this item is not possible"));
 		screen_bell();
 		return -1;
 	}
@@ -194,7 +194,9 @@ browse_title(char *str, size_t size)
 		path = browser.filelist->path;
 
 	path_locale = utf8_to_locale(path);
-	g_snprintf(str, size, _("Browse: %s"), path_locale);
+	g_snprintf(str, size, "%s: %s",
+		   /* translators: caption of the browser screen */
+		   _("Browse"), path_locale);
 	g_free(path_locale);
 	return str;
 }
