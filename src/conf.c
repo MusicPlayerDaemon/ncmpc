@@ -72,14 +72,6 @@
 #define CONF_VISIBLE_BITRATE "visible-bitrate"
 #define CONF_WELCOME_SCREEN_LIST "welcome-screen-list"
 
-typedef enum {
-	KEY_PARSER_UNKNOWN,
-	KEY_PARSER_CHAR,
-	KEY_PARSER_DEC,
-	KEY_PARSER_HEX,
-	KEY_PARSER_DONE
-} key_parser_state_t;
-
 static bool
 str2bool(char *str)
 {
@@ -98,69 +90,23 @@ print_error(const char *msg, const char *input)
 static int
 parse_key_value(char *str, char **end)
 {
-	size_t len = strlen(str);
-	size_t i;
-	int value;
-	key_parser_state_t state;
-
-	i=0;
-	value=0;
-	state=KEY_PARSER_UNKNOWN;
-	*end = str;
-
-	while (i < len && state != KEY_PARSER_DONE) {
-		int next = 0;
-		int c = str[i];
-
-		if( i+1<len )
-			next = str[i+1];
-
-		switch(state) {
-		case KEY_PARSER_UNKNOWN:
-			if( c=='\'' )
-				state = KEY_PARSER_CHAR;
-			else if( c=='0' && next=='x' )
-				state = KEY_PARSER_HEX;
-			else if( isdigit(c) )
-				state = KEY_PARSER_DEC;
-			else {
-				print_error(_("Unsupported key definition"),
-					    str);
-				return -1;
-			}
-			break;
-		case KEY_PARSER_CHAR:
-			if( next!='\'' ) {
-				print_error(_("Unsupported key definition"),
-					    str);
-				return -1;
-			}
-			value = c;
-			*end = str+i+2;
-			state = KEY_PARSER_DONE;
-			break;
-		case KEY_PARSER_DEC:
-			value = (int) strtol(str+(i-1), end, 10);
-			state = KEY_PARSER_DONE;
-			break;
-		case KEY_PARSER_HEX:
-			if( !isdigit(next) ) {
-				print_error(_("Digit expected after 0x"), str);
-				return -1;
-			}
-			value = (int) strtol(str+(i+1), end, 16);
-			state = KEY_PARSER_DONE;
-			break;
-		case KEY_PARSER_DONE:
-			break;
+	if (*str == '\'') {
+		if (str[1] == '\'' || str[2] != '\'') {
+			print_error(_("Unsupported key definition"), str);
+			return -1;
 		}
-		i++;
+
+		*end = str + 3;
+		return str[1];
+	} else {
+		long value = strtol(str, end, 0);
+		if (*end == str) {
+			print_error(_("Unsupported key definition"), str);
+			return -1;
+		}
+
+		return (int)value;
 	}
-
-	if( *end> str+len )
-		*end = str+len;
-
-	return value;
 }
 
 static int
