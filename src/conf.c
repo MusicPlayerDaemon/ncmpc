@@ -231,91 +231,97 @@ parse_timedisplay_type(const char *str)
 }
 
 #ifdef ENABLE_COLORS
+static char *
+separate_value(char *p)
+{
+	char *value;
+
+	value = strchr(p, '=');
+	if (value == NULL) {
+		fprintf(stderr, "%s\n", _("Missing '='"));
+		return NULL;
+	}
+
+	*value++ = 0;
+
+	g_strchomp(p);
+	return g_strchug(value);
+}
+
 static int
 parse_color(char *str)
 {
-	const char *name = str;
-	const char *value = NULL;
-	int len,i;
+	char *value;
 
-	i=0;
-	len=strlen(str);
-	/* get the color name */
-	while (i < len && str[i] != '=' && !g_ascii_isspace(str[i]))
-		i++;
+	value = separate_value(str);
+	if (value == NULL)
+		return -1;
 
-	/* skip whitespace */
-	while (i < len && (str[i] == '=' || g_ascii_isspace(str[i]))) {
-		str[i]='\0';
-		i++;
-	}
+	return colors_assign(str, value);
+}
 
-	if (i < len)
-		value = str+i;
+/**
+ * Returns the first non-whitespace character after the next comma
+ * character, or the end of the string.  This is used to parse comma
+ * separated values.
+ */
+static char *
+after_comma(char *p)
+{
+	char *comma = strchr(p, ',');
 
-	return colors_assign(name, value);
+	if (comma != NULL) {
+		*comma++ = 0;
+		comma = g_strchug(comma);
+	} else
+		comma = p + strlen(p);
+
+	g_strchomp(p);
+	return comma;
 }
 
 static int
 parse_color_definition(char *str)
 {
 	char buf[MAX_LINE_LENGTH];
-	char *p, *end, *name;
-	size_t len = strlen(str), i;
-	int j,value;
+	char *value;
 	short color, rgb[3];
 
+	value = separate_value(str);
+	if (value == NULL)
+		return -1;
+
 	/* get the command name */
-	i=0;
-	j=0;
-	memset(buf, 0, MAX_LINE_LENGTH);
-	while (i < len && str[i] != '=' && !g_ascii_isspace(str[i]))
-		buf[j++] = str[i++];
-	color = colors_str2color(buf);
+	color = colors_str2color(str);
 	if (color < 0) {
 		print_error(_("Bad color"), buf);
 		return -1;
 	}
-	name = g_strdup(buf);
 
-	/* skip whitespace */
-	while (i < len && (str[i] == '=' || g_ascii_isspace(str[i])))
-		i++;
+	/* parse r,g,b values */
 
-	/* get the value part */
-	memset(buf, 0, MAX_LINE_LENGTH);
-	g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
-	len = strlen(buf);
-	if (len == 0) {
-		print_error(_("Incomplete color definition"), str);
-		g_free(name);
-		return -1;
+	for (unsigned i = 0; i < 3; ++i) {
+		char *next = after_comma(value), *endptr;
+		if (*value == 0) {
+			print_error(_("Incomplete color definition"), str);
+			return -1;
+		}
+
+		rgb[i] = strtol(value, &endptr, 0);
+		if (endptr == value || *endptr != 0) {
+			print_error(_("Invalid number"), value);
+			return -1;
+		}
+
+		value = next;
 	}
 
-	/* parse r,g.b values with the key definition parser */
-	i = 0;
-	value = 0;
-	len = strlen(buf);
-	p = buf;
-	end = buf + len;
-	memset(rgb, 0, sizeof(short)*3);
-	while (i < 3 && p < end &&
-	       (value = parse_key_value(p,len+1,&p)) >= 0) {
-		rgb[i++] = value;
-		while( p<end && (*p==',' || *p==' ' || *p=='\t') )
-			p++;
-		len = strlen(p);
-	}
-
-	if (value < 0 || i != 3) {
+	if (*value != 0) {
 		print_error(_("Bad color definition"), str);
-		g_free(name);
 		return -1;
 	}
 
-	value = colors_define(name, rgb[0], rgb[1], rgb[2]);
-	g_free(name);
-	return value;
+	return colors_define(str, rgb[0], rgb[1], rgb[2]);
 }
 #endif
 
