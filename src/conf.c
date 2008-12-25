@@ -360,6 +360,145 @@ check_screen_list(char *value)
 	return screen;
 }
 
+static bool
+parse_line(char *line)
+{
+	size_t len = strlen(line), i = 0, j;
+	char name[MAX_LINE_LENGTH];
+	char value[MAX_LINE_LENGTH];
+	bool match_found;
+
+	/* get the name part */
+	j = 0;
+	while (i < len && line[i] != '=' &&
+	       !g_ascii_isspace(line[i])) {
+		name[j++] = line[i++];
+	}
+
+	name[j] = '\0';
+
+	/* skip '=' and whitespace */
+	while (i < len && (line[i] == '=' || g_ascii_isspace(line[i])))
+		i++;
+
+	/* get the value part */
+	j = 0;
+	while (i < len)
+		value[j++] = line[i++];
+	value[j] = '\0';
+
+	match_found = true;
+
+	/* key definition */
+	if (!strcasecmp(CONF_KEY_DEFINITION, name))
+		parse_key_definition(value);
+	/* enable colors */
+	else if(!strcasecmp(CONF_ENABLE_COLORS, name))
+#ifdef ENABLE_COLORS
+		options.enable_colors = str2bool(value);
+#else
+	{}
+#endif
+	/* auto center */
+	else if (!strcasecmp(CONF_AUTO_CENTER, name))
+		options.auto_center = str2bool(value);
+	/* color assignment */
+	else if (!strcasecmp(CONF_COLOR, name))
+#ifdef ENABLE_COLORS
+		parse_color(value);
+#else
+	{}
+#endif
+	/* wide cursor */
+	else if (!strcasecmp(CONF_WIDE_CURSOR, name))
+		options.wide_cursor = str2bool(value);
+	/* welcome screen list */
+	else if (!strcasecmp(CONF_WELCOME_SCREEN_LIST, name))
+		options.welcome_screen_list = str2bool(value);
+	/* visible bitrate */
+	else if (!strcasecmp(CONF_VISIBLE_BITRATE, name))
+		options.visible_bitrate = str2bool(value);
+	/* timer display type */
+	else if (!strcasecmp(CONF_TIMEDISPLAY_TYPE, name)) {
+		g_free(options.timedisplay_type);
+		options.timedisplay_type=g_strdup(parse_timedisplay_type(value));
+		/* color definition */
+	} else if (!strcasecmp(CONF_COLOR_DEFINITION, name))
+#ifdef ENABLE_COLORS
+		parse_color_definition(value);
+#else
+	{}
+#endif
+	/* list format string */
+	else if (!strcasecmp(CONF_LIST_FORMAT, name)) {
+		g_free(options.list_format);
+		options.list_format = get_format(value);
+		/* status format string */
+	} else if (!strcasecmp(CONF_STATUS_FORMAT, name)) {
+		g_free(options.status_format);
+		options.status_format = get_format(value);
+		/* xterm title format string */
+	} else if (!strcasecmp(CONF_XTERM_TITLE_FORMAT, name)) {
+		g_free(options.xterm_title_format);
+		options.xterm_title_format = get_format(value);
+	} else if (!strcasecmp(CONF_LIST_WRAP, name))
+		options.list_wrap = str2bool(value);
+	else if (!strcasecmp(CONF_FIND_WRAP, name))
+		options.find_wrap = str2bool(value);
+	else if (!strcasecmp(CONF_FIND_SHOW_LAST,name))
+		options.find_show_last_pattern = str2bool(value);
+	else if (!strcasecmp(CONF_AUDIBLE_BELL, name))
+		options.audible_bell = str2bool(value);
+	else if (!strcasecmp(CONF_VISIBLE_BELL, name))
+		options.visible_bell = str2bool(value);
+	else if (!strcasecmp(CONF_XTERM_TITLE, name))
+		options.enable_xterm_title = str2bool(value);
+	else if (!strcasecmp(CONF_ENABLE_MOUSE, name))
+#ifdef HAVE_GETMOUSE
+		options.enable_mouse = str2bool(value);
+#else
+	{}
+#endif
+	else if (!strcasecmp(CONF_CROSSFADE_TIME, name))
+		options.crossfade_time = atoi(value);
+	else if (!strcasecmp(CONF_SEARCH_MODE, name))
+		options.search_mode = atoi(value);
+	else if (!strcasecmp(CONF_HIDE_CURSOR, name))
+		options.hide_cursor = atoi(value);
+	else if (!strcasecmp(CONF_SEEK_TIME, name))
+		options.seek_time = atoi(value);
+	else if (!strcasecmp(CONF_SCREEN_LIST, name)) {
+		g_strfreev(options.screen_list);
+		options.screen_list = check_screen_list(value);
+	} else if (!strcasecmp(CONF_SHOW_SPLASH, name)) {
+		/* the splash screen was removed */
+	} else if (!strcasecmp(CONF_HOST, name))
+		options.host = get_format(value);
+	else if (!strcasecmp(CONF_PORT, name))
+		options.port = atoi(get_format(value));
+	else if (!strcasecmp(CONF_PASSWORD, name))
+		options.password = get_format(value);
+	else if (!strcasecmp(CONF_LYRICS_TIMEOUT, name))
+#ifdef ENABLE_LYRICS_SCREEN
+		options.lyrics_timeout = atoi(get_format(value));
+#else
+	{}
+#endif
+	else if (!strcasecmp(CONF_SCROLL, name))
+		options.scroll = str2bool(value);
+	else if (!strcasecmp(CONF_SCROLL_SEP, name)) {
+		g_free(options.scroll_sep);
+		options.scroll_sep = get_format(value);
+	} else
+		match_found = false;
+
+	if (!match_found)
+		print_error(_("Unknown configuration parameter"),
+			    name);
+
+	return match_found;
+}
+
 static int
 read_rc_file(char *filename)
 {
@@ -378,15 +517,9 @@ read_rc_file(char *filename)
 		}
 
 	while (!quit) {
-		int i,j;
+		int i;
 		int len;
-		int match_found;
 		char line[MAX_LINE_LENGTH];
-		char name[MAX_LINE_LENGTH];
-		char value[MAX_LINE_LENGTH];
-
-		line[0]  = '\0';
-		value[0] = '\0';
 
 		i = 0;
 		/* read a line ending with '\n' */
@@ -416,133 +549,7 @@ read_rc_file(char *filename)
 
 			/* continue if this line is not a comment */
 			if (line[i] != COMMENT_TOKEN) {
-				/* get the name part */
-				j = 0;
-				while (i < len && line[i] != '=' &&
-				       !g_ascii_isspace(line[i])) {
-					name[j++] = line[i++];
-				}
-
-				name[j] = '\0';
-
-				/* skip '=' and whitespace */
-				while (i < len && (line[i] == '=' || g_ascii_isspace(line[i])))
-					i++;
-
-				/* get the value part */
-				j = 0;
-				while (i < len)
-					value[j++] = line[i++];
-				value[j] = '\0';
-
-				match_found = 1;
-
-				/* key definition */
-				if (!strcasecmp(CONF_KEY_DEFINITION, name))
-						parse_key_definition(value);
-				/* enable colors */
-				else if(!strcasecmp(CONF_ENABLE_COLORS, name))
-#ifdef ENABLE_COLORS
-					options.enable_colors = str2bool(value);
-#else
-				{}
-#endif
-				/* auto center */
-				else if (!strcasecmp(CONF_AUTO_CENTER, name))
-					options.auto_center = str2bool(value);
-				/* color assignment */
-				else if (!strcasecmp(CONF_COLOR, name))
-#ifdef ENABLE_COLORS
-					parse_color(value);
-#else
-				{}
-#endif
-				/* wide cursor */
-				else if (!strcasecmp(CONF_WIDE_CURSOR, name))
-					options.wide_cursor = str2bool(value);
-				/* welcome screen list */
-				else if (!strcasecmp(CONF_WELCOME_SCREEN_LIST, name))
-					options.welcome_screen_list = str2bool(value);
-				/* visible bitrate */
-				else if (!strcasecmp(CONF_VISIBLE_BITRATE, name))
-					options.visible_bitrate = str2bool(value);
-				/* timer display type */
-				else if (!strcasecmp(CONF_TIMEDISPLAY_TYPE, name)) {
-					g_free(options.timedisplay_type);
-					options.timedisplay_type=g_strdup(parse_timedisplay_type(value));
-				/* color definition */
-				} else if (!strcasecmp(CONF_COLOR_DEFINITION, name))
-#ifdef ENABLE_COLORS
-					parse_color_definition(value);
-#else
-				{}
-#endif
-				/* list format string */
-				else if (!strcasecmp(CONF_LIST_FORMAT, name)) {
-					g_free(options.list_format);
-					options.list_format = get_format(value);
-				/* status format string */
-				} else if (!strcasecmp(CONF_STATUS_FORMAT, name)) {
-					g_free(options.status_format);
-					options.status_format = get_format(value);
-				/* xterm title format string */
-				} else if (!strcasecmp(CONF_XTERM_TITLE_FORMAT, name)) {
-					g_free(options.xterm_title_format);
-					options.xterm_title_format = get_format(value);
-				} else if (!strcasecmp(CONF_LIST_WRAP, name))
-					options.list_wrap = str2bool(value);
-				else if (!strcasecmp(CONF_FIND_WRAP, name))
-					options.find_wrap = str2bool(value);
-				else if (!strcasecmp(CONF_FIND_SHOW_LAST,name))
-					options.find_show_last_pattern = str2bool(value);
-				else if (!strcasecmp(CONF_AUDIBLE_BELL, name))
-					options.audible_bell = str2bool(value);
-				else if (!strcasecmp(CONF_VISIBLE_BELL, name))
-					options.visible_bell = str2bool(value);
-				else if (!strcasecmp(CONF_XTERM_TITLE, name))
-					options.enable_xterm_title = str2bool(value);
-				else if (!strcasecmp(CONF_ENABLE_MOUSE, name))
-#ifdef HAVE_GETMOUSE
-					options.enable_mouse = str2bool(value);
-#else
-				{}
-#endif
-				else if (!strcasecmp(CONF_CROSSFADE_TIME, name))
-					options.crossfade_time = atoi(value);
-				else if (!strcasecmp(CONF_SEARCH_MODE, name))
-					options.search_mode = atoi(value);
-				else if (!strcasecmp(CONF_HIDE_CURSOR, name))
-					options.hide_cursor = atoi(value);
-				else if (!strcasecmp(CONF_SEEK_TIME, name))
-					options.seek_time = atoi(value);
-				else if (!strcasecmp(CONF_SCREEN_LIST, name)) {
-					g_strfreev(options.screen_list);
-					options.screen_list = check_screen_list(value);
-				} else if (!strcasecmp(CONF_SHOW_SPLASH, name)) {
-					/* the splash screen was removed */
-				} else if (!strcasecmp(CONF_HOST, name))
-					options.host = get_format(value);
-				else if (!strcasecmp(CONF_PORT, name))
-					options.port = atoi(get_format(value));
-				else if (!strcasecmp(CONF_PASSWORD, name))
-					options.password = get_format(value);
-				else if (!strcasecmp(CONF_LYRICS_TIMEOUT, name))
-#ifdef ENABLE_LYRICS_SCREEN
-					options.lyrics_timeout = atoi(get_format(value));
-#else
-				{}
-#endif
-				else if (!strcasecmp(CONF_SCROLL, name))
-					options.scroll = str2bool(value);
-				else if (!strcasecmp(CONF_SCROLL_SEP, name)) {
-					g_free(options.scroll_sep);
-					options.scroll_sep = get_format(value);
-				} else
-					match_found = 0;
-
-				if (!match_found)
-					print_error(_("Unknown configuration parameter"),
-						    name);
+				parse_line(line + i);
 			}
 		}
 	}
