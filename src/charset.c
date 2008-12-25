@@ -41,6 +41,9 @@ utf8_width(const char *str)
 {
 	assert(str != NULL);
 
+#if defined(ENABLE_MULTIBYTE) && !defined(ENABLE_WIDE)
+	return g_utf8_strlen(str, -1);
+#else
 #ifdef ENABLE_WIDE
 	if (g_utf8_validate(str, -1, NULL)) {
 		size_t len = g_utf8_strlen(str, -1);
@@ -57,6 +60,7 @@ utf8_width(const char *str)
 	} else
 #endif
 		return strlen(str);
+#endif
 }
 
 char *

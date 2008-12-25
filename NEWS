@@ -1,6 +1,9 @@
 ncmpc 0.13 - not yet released
   * added output configuration screen, default hotkey F8
   * new --disable-locale configure option
+  * new --disable-multibyte configure option; this allows you to
+    disable wide character support, retaining multibyte character
+    support
 
 
 ncmpc 0.12 - 2008-12-05

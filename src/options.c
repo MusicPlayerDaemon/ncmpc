@@ -166,6 +166,9 @@ handle_option(int c, const char *arg)
 #ifndef NDEBUG
 		     " debug"
 #endif
+#ifdef ENABLE_MULTIBYTE
+		     " multibyte"
+#endif
 #ifdef ENABLE_WIDE
 		     " wide"
 #endif

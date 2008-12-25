@@ -125,6 +125,21 @@ if test "x$enable_wide" = "xyes" ; then
     AC_DEFINE([ENABLE_WIDE], [1], [Enable wide character support])
 fi
 
+dnl multi-byte character support
+
+AC_ARG_ENABLE([multibyte],
+	AC_HELP_STRING([--disable-multibyte],
+		[Disable multibyte character support (default: enabled)]),
+		[enable_multibyte=$enableval],
+		[enable_multibyte=$disable_mini])
+
+if test x$enable_multibyte = xyes; then
+	AC_DEFINE([ENABLE_MULTIBYTE], [1], [Enable multibyte character support])
+else
+	if test x$enable_wide = xyes; then
+		AC_MSG_WARN(wide characters without multibyte characters makes little sense)
+	fi
+fi
 
 dnl Check for glib-2.4
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.4],,

@@ -26,7 +26,7 @@
 #include <string.h>
 #include <glib.h>
 
-#ifdef ENABLE_WIDE
+#if defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)
 #include <sys/poll.h>
 #endif
 
@@ -82,7 +82,7 @@ wrln_gcmp_post_cb_t wrln_post_completion_callback = NULL;
 static unsigned
 byte_to_screen(const gchar *data, size_t x)
 {
-#ifdef ENABLE_WIDE
+#if defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)
 	gchar *dup;
 	char *p;
 	unsigned width;
@@ -109,7 +109,7 @@ byte_to_screen(const gchar *data, size_t x)
 static size_t
 screen_to_bytes(const gchar *data, unsigned width)
 {
-#ifdef ENABLE_WIDE
+#if defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)
 	size_t length = strlen(data);
 	gchar *dup = g_strdup(data);
 	char *p;
@@ -149,7 +149,7 @@ cursor_column(const struct wreadln *wr)
 static inline size_t
 right_align_bytes(const gchar *data, size_t right, unsigned width)
 {
-#ifdef ENABLE_WIDE
+#if defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)
 	gchar *dup;
 	size_t start = 0;
 
@@ -191,7 +191,7 @@ right_align_bytes(const gchar *data, size_t right, unsigned width)
 static inline size_t
 next_char_size(const gchar *data)
 {
-#ifdef ENABLE_WIDE
+#if defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)
 	char *p = locale_to_utf8(data), *q;
 	gunichar c;
 	size_t size;
@@ -216,7 +216,7 @@ next_char_size(const gchar *data)
 static inline size_t
 prev_char_size(const gchar *data, size_t x)
 {
-#ifdef ENABLE_WIDE
+#if defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)
 	char *p = locale_to_utf8(data), *q;
 	gunichar c;
 	size_t size;
@@ -300,7 +300,7 @@ static inline void drawline(const struct wreadln *wr)
 	doupdate();
 }
 
-#ifdef ENABLE_WIDE
+#if defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)
 static bool
 multibyte_is_complete(const char *p, size_t length)
 {
@@ -321,7 +321,7 @@ static void
 wreadln_insert_byte(struct wreadln *wr, gint key)
 {
 	size_t rest = strlen(wr->line + wr->cursor) + 1;
-#ifdef ENABLE_WIDE
+#if defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)
 	char buffer[32] = { key };
 	size_t length = 1;
 	struct pollfd pfd = {
