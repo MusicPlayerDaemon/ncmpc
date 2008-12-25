@@ -133,16 +133,8 @@ fi
 
 
 dnl Check for glib-2.4
-PKG_CHECK_MODULES([GLIB], 
-		  [glib-2.0 >= 2.4],
-		  [glib24=yes],
-		  [AC_MSG_WARN([glib-2.4 is required for NLS support!])])
-if test "x$glib24" != "xyes"; then
-   PKG_CHECK_MODULES([GLIB], 
-		     [glib-2.0 >= 2.2],
-		     [nls=no],
-		     [AC_MSG_ERROR([glib-2.2 is required])])
-fi
+PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.4],,
+	[AC_MSG_ERROR([glib-2.2 is required])])
 
 
 dnl i18n
@@ -155,17 +147,11 @@ AC_ARG_ENABLE([nls],
 AC_MSG_RESULT([$enable_nls])
 
 if test "x$enable_nls" = xno; then
-	glib24=no
 	nls=no
 fi
 
 AM_NLS
-if test "x$glib24" = "xyes"; then
-  nls=$USE_NLS
-else
-  USE_NLS=no
-  AC_SUBST(USE_NLS)
-fi
+nls=$USE_NLS
 
 if test "x$nls" = "xyes"; then
    AM_GLIB_GNU_GETTEXT
