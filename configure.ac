@@ -154,19 +154,21 @@ if test x$enable_locale = xyes; then
 	AC_DEFINE([ENABLE_LOCALE], [1], [Locale support is enabled])
 fi
 
+if test x$enable_mini != xyes; then
+	AM_NLS
+else
+	USE_NLS=no
+fi
 
-AM_NLS
-nls=$USE_NLS
-
-if test "x$nls" = "xyes"; then
+if test x$USE_NLS = xyes; then
    AM_GLIB_GNU_GETTEXT
    GETTEXT_PACKAGE=$PACKAGE
    AC_SUBST(GETTEXT_PACKAGE)
    AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], 
                       ["${GETTEXT_PACKAGE}"], 
                       [gettext domain])
-  nls=$gt_cv_have_gettext
-  if test "x$nls" != "xyes"; then
+	USE_NLS=$gt_cv_have_gettext
+	if test x$USE_NLS != xyes; then
      AC_MSG_WARN([NLS support disabled!])
   fi
 else
