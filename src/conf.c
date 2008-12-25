@@ -87,6 +87,14 @@ str2bool(char *str)
 		strcasecmp(str, "on") == 0 || strcasecmp(str, "1") == 0;
 }
 
+static void
+print_error(const char *msg, const char *input)
+{
+	fprintf(stderr, "%s: %s ('%s')\n",
+		/* To translators: prefix for error messages */
+		_("Error"), msg, input);
+}
+
 static int
 parse_key_value(char *str, size_t len, char **end)
 {
@@ -115,17 +123,15 @@ parse_key_value(char *str, size_t len, char **end)
 			else if( isdigit(c) )
 				state = KEY_PARSER_DEC;
 			else {
-				fprintf(stderr,
-					_("Error: Unsupported key definition - %s\n"),
-					str);
+				print_error(_("Unsupported key definition"),
+					    str);
 				return -1;
 			}
 			break;
 		case KEY_PARSER_CHAR:
 			if( next!='\'' ) {
-				fprintf(stderr,
-					_("Error: Unsupported key definition - %s\n"),
-					str);
+				print_error(_("Unsupported key definition"),
+					    str);
 				return -1;
 			}
 			value = c;
@@ -138,7 +144,7 @@ parse_key_value(char *str, size_t len, char **end)
 			break;
 		case KEY_PARSER_HEX:
 			if( !isdigit(next) ) {
-				fprintf(stderr,_("Error: Digit expected after 0x - %s\n"), str);
+				print_error(_("Digit expected after 0x"), str);
 				return -1;
 			}
 			value = (int) strtol(str+(i+1), end, 16);
@@ -173,7 +179,7 @@ parse_key_definition(char *str)
 	while (i < len && str[i] != '=' && !g_ascii_isspace(str[i]))
 		buf[j++] = str[i++];
 	if( (cmd=get_key_command_from_name(buf)) == CMD_NONE ) {
-		fprintf(stderr, _("Error: Unknown key command %s\n"), buf);
+		print_error(_("Unknown key command"), buf);
 		return -1;
 	}
 
@@ -186,7 +192,7 @@ parse_key_definition(char *str)
 	g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
 	len = strlen(buf);
 	if (len == 0) {
-		fprintf(stderr,_("Error: Incomplete key definition - %s\n"), str);
+		print_error(_("Incomplete key definition"), str);
 		return -1;
 	}
 
@@ -206,7 +212,7 @@ parse_key_definition(char *str)
 	}
 
 	if (key < 0) {
-		fprintf(stderr,_("Error: Bad key definition - %s\n"), str);
+		print_error(_("Bad key definition"), str);
 		return -1;
 	}
 
@@ -219,7 +225,7 @@ parse_timedisplay_type(const char *str)
 	if (!strcmp(str,"elapsed") || !strcmp(str,"remaining"))
 		return str;
 	else {
-		fprintf(stderr,_("Error: Bad time display type - %s\n"), str);
+		print_error(_("Bad time display type"), str);
 		return DEFAULT_TIMEDISPLAY_TYPE;
 	}
 }
@@ -267,7 +273,7 @@ parse_color_definition(char *str)
 		buf[j++] = str[i++];
 	color = colors_str2color(buf);
 	if (color < 0) {
-		fprintf(stderr,_("Error: Bad color %s [%d]\n"), buf, color);
+		print_error(_("Bad color"), buf);
 		return -1;
 	}
 	name = g_strdup(buf);
@@ -281,8 +287,7 @@ parse_color_definition(char *str)
 	g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
 	len = strlen(buf);
 	if (len == 0) {
-		fprintf(stderr, _("Error: Incomplete color definition - %s\n"),
-			str);
+		print_error(_("Incomplete color definition"), str);
 		g_free(name);
 		return -1;
 	}
@@ -303,7 +308,7 @@ parse_color_definition(char *str)
 	}
 
 	if (value < 0 || i != 3) {
-		fprintf(stderr, _("Error: Bad color definition - %s\n"), str);
+		print_error(_("Bad color definition"), str);
 		g_free(name);
 		return -1;
 	}
@@ -339,9 +344,7 @@ check_screen_list(char *value)
 	while( tmp && tmp[i] ) {
 		char *name = g_ascii_strdown(tmp[i], -1);
 		if (screen_lookup_name(name) == NULL) {
-			fprintf(stderr,
-				_("Error: Unsupported screen \"%s\"\n"),
-				name);
+			print_error(_("Unsupported screen"), name);
 			free(name);
 		} else {
 			screen = g_realloc(screen, (j+2)*sizeof(char *));
@@ -538,9 +541,8 @@ read_rc_file(char *filename)
 					match_found = 0;
 
 				if (!match_found)
-					fprintf(stderr,
-						_("Unknown configuration parameter: %s\n"),
-						name);
+					print_error(_("Unknown configuration parameter"),
+						    name);
 			}
 		}
 	}
