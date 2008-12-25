@@ -365,17 +365,24 @@ dnl
 dnl build options
 dnl
 
-AC_MSG_CHECKING([whether to build with debug support])
-AC_ARG_ENABLE([debug], 
-              AC_HELP_STRING([--enable-debug],
-                             [Enable debugging @<:@default=no@:>@]),
-	      [enable_debug="$enableval"], 
-	      [enable_debug=no])
-AC_MSG_RESULT([$enable_debug])
-if test "x$enable_debug" = "xyes" ; then
-    CFLAGS="$CFLAGS -g"
-else
-    CFLAGS="$CFLAGS -DNDEBUG"
+AC_ARG_ENABLE(werror,
+	AS_HELP_STRING([--enable-werror],
+		[Treat warnings as errors (default: disabled)]),
+	ENABLE_WERROR=$enableval,
+	ENABLE_WERROR=no)
+
+if test "x$ENABLE_WERROR" = xyes; then
+	AM_CFLAGS="$AM_CFLAGS -Werror"
+fi
+
+AC_ARG_ENABLE(debug,
+	AS_HELP_STRING([--enable-debug],
+		[Enable debugging (default: disabled)]),
+	ENABLE_DEBUG=$enableval,
+	ENABLE_DEBUG=no)
+
+if test "x$ENABLE_DEBUG" = xno; then
+	AM_CFLAGS="$AM_CFLAGS -DNDEBUG"
 fi
 
 
