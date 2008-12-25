@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-26 14:38+0100\n"
-"PO-Revision-Date: 2008-12-05 20:46+0100\n"
+"PO-Revision-Date: 2008-12-25 12:40+0100\n"
 "Last-Translator: Björn Pettersson <bjorn@hygiena.org>\n"
 "Language-Team: sv <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -311,7 +311,7 @@ msgstr "Artist + titel"
 #: src/screen_search.c:245
 #, c-format
 msgid "Bad search tag %s"
-msgstr "Felaktig söktyp"
+msgstr "Felaktig söktyp %s"
 
 #: src/screen_search.c:249
 #, c-format
