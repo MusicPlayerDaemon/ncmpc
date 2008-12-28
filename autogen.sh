@@ -1,8 +1,7 @@
 #!/bin/sh -e
 
-# Generate config.h.in
-echo "touch stamp-h"
-touch stamp-h
+rm -rf config.cache build
+mkdir build
 
 # create po/Makefile.in.in
 glib-gettextize --force --copy
