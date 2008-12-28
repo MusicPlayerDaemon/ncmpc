@@ -10,12 +10,12 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-27 13:00+0100\n"
-"PO-Revision-Date: 2008-12-25 23:43+0100\n"
+"PO-Revision-Date: 2008-12-28 14:22+0100\n"
 "Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: src/i18n.h:41
 msgid "y"
@@ -68,7 +68,7 @@ msgstr "Liedtexte"
 
 #: src/screen.c:166 src/screen_outputs.c:161
 msgid "Outputs"
-msgstr ""
+msgstr "Ausgabegeräte"
 
 #: src/screen.c:172
 #, c-format
@@ -505,11 +505,11 @@ msgstr "Liedtext speichern"
 
 #: src/screen_help.c:144 src/command.c:217
 msgid "Outputs screen"
-msgstr ""
+msgstr "Anzeige der Ausgabegeräte"
 
 #: src/screen_help.c:146
 msgid "Enable/disable output"
-msgstr ""
+msgstr "Ausgabegerät aktivieren/deaktivieren"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -530,12 +530,12 @@ msgstr "Liedtext gespeichert"
 #: src/screen_outputs.c:57
 #, c-format
 msgid "Output '%s' enabled"
-msgstr ""
+msgstr "Ausgabegerät '%s' aktiviert"
 
 #: src/screen_outputs.c:63
 #, c-format
 msgid "Output '%s' disabled"
-msgstr ""
+msgstr "Ausgabegerät '%s' deaktiviert"
 
 #: src/screen_song.c:105
 msgid "Song viewer"
@@ -837,7 +837,7 @@ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 msgstr "Taste %s ist %s und %s zugeordnet (drücke %s für den Tasteneditor)"
 
 #: src/command.c:492 src/command.c:499
-#, fuzzy, c-format
+#, c-format
 msgid "Key %s assigned to %s and %s\n"
 msgstr "Fehler: Taste %s ist %s und %s zugeordnet\n"
 
@@ -864,22 +864,22 @@ msgstr "Das Terminal unterstützt keine Farben\n"
 #. To translators: prefix for error messages
 #: src/conf.c:87
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: src/conf.c:95 src/conf.c:104
 msgid "Malformed hotkey definition"
-msgstr ""
+msgstr "Fehlerhafte Definition der Tastenbelegung"
 
 #. the hotkey configuration contains an unknown
 #. command
 #: src/conf.c:131
 msgid "Unknown command"
-msgstr ""
+msgstr "Unbekannter Befehl"
 
 #. the hotkey configuration line is incomplete
 #: src/conf.c:144
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "Unvollständige Konfiguration für Tastenbelegung"
 
 #. translators: ncmpc supports displaying the
 #. "elapsed" or "remaining" time of a song being
@@ -887,40 +887,39 @@ msgstr ""
 #. contained an invalid setting
 #: src/conf.c:176
 msgid "Bad time display type"
-msgstr ""
+msgstr "Ungültige Anzeigeart"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/conf.c:191
 msgid "Missing '='"
-msgstr ""
+msgstr "Es fehlt ein '='"
 
 #: src/conf.c:247
 msgid "Bad color name"
-msgstr ""
+msgstr "Ungültiger Farbname"
 
 #: src/conf.c:256
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Unvollständige Farbkonfiguration"
 
 #: src/conf.c:262
 msgid "Invalid number"
-msgstr ""
+msgstr "Ungültige Zahl"
 
 #: src/conf.c:270
 msgid "Malformed color definition"
-msgstr ""
+msgstr "Fehlerhafte Farbdefinition"
 
 #. an unknown screen name was specified in the
 #. configuration file
 #: src/conf.c:305
 msgid "Unknown screen name"
-msgstr ""
+msgstr "Unbekannter Anzeigenname"
 
 #: src/conf.c:454
-#, fuzzy
 msgid "Unknown configuration parameter"
-msgstr "Tastenkonfigurationsanzeige"
+msgstr "Unbekannter Konfigurationsparameter"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
