@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-25 23:41+0100\n"
+"POT-Creation-Date: 2008-12-27 13:00+0100\n"
 "PO-Revision-Date: 2008-12-25 23:45+0100\n"
 "Last-Translator: Ole R. Thorsen <ole.rth@gmail.com>\n"
 "Language-Team: no <no@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/i18n.h:41
@@ -27,7 +27,7 @@ msgstr ""
 #: src/main.c:214
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
-msgstr "Kobler til %s... [Trykk %s for å avslutte]"
+msgstr "Kobler til %s... [Trykk %s for Ã¥ avslutte]"
 
 #: src/main.c:232
 #, c-format
@@ -58,7 +58,7 @@ msgstr ""
 
 #: src/screen.c:160 src/screen_help.c:123
 msgid "Search"
-msgstr "Søk"
+msgstr "SÃ¸k"
 
 #: src/screen.c:163 src/screen_lyrics.c:203 src/screen_lyrics.c:211
 #: src/screen_lyrics.c:215
@@ -93,7 +93,7 @@ msgstr "Feil: Terminalen er for liten"
 
 #: src/screen.c:600
 msgid "Repeat is on"
-msgstr "Repeter er på"
+msgstr "Repeter er pÃ¥"
 
 #: src/screen.c:601
 msgid "Repeat is off"
@@ -101,7 +101,7 @@ msgstr "Repeter er av"
 
 #: src/screen.c:605
 msgid "Random is on"
-msgstr "Random er på"
+msgstr "Random er pÃ¥"
 
 #: src/screen.c:606
 msgid "Random is off"
@@ -134,15 +134,15 @@ msgstr "Databasen oppdateres..."
 
 #: src/screen.c:804
 msgid "Find mode: Wrapped"
-msgstr "Søkt rundt (starter på ny)"
+msgstr "SÃ¸kt rundt (starter pÃ¥ ny)"
 
 #: src/screen.c:805
 msgid "Find mode: Normal"
-msgstr "Søk normalt (til slutt/begynnelse)"
+msgstr "SÃ¸k normalt (til slutt/begynnelse)"
 
 #: src/screen.c:810
 msgid "Auto center mode: On"
-msgstr "Automatisk sentrering er på"
+msgstr "Automatisk sentrering er pÃ¥"
 
 #: src/screen.c:811
 msgid "Auto center mode: Off"
@@ -191,11 +191,11 @@ msgstr "Legger til mappen %s...\n"
 
 #: src/screen_utils.c:31
 msgid "Find: "
-msgstr "Søk: "
+msgstr "SÃ¸k: "
 
 #: src/screen_utils.c:32
 msgid "Find backward: "
-msgstr "Søk (bakover): "
+msgstr "SÃ¸k (bakover): "
 
 #: src/screen_utils.c:113
 msgid "Password: "
@@ -233,7 +233,7 @@ msgstr "Legg til: "
 #: src/screen_play.c:473
 #, c-format
 msgid "Playlist on %s"
-msgstr "Spilleliste på %s"
+msgstr "Spilleliste pÃ¥ %s"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
@@ -335,7 +335,7 @@ msgstr ""
 
 #: src/screen_search.c:309
 msgid "Search: "
-msgstr "Søk: "
+msgstr "SÃ¸k: "
 
 #. if( pattern==NULL )
 #. search_new(screen, c);
@@ -343,27 +343,27 @@ msgstr "Søk: "
 #: src/screen_search.c:369
 #, c-format
 msgid "Press %s for a new search"
-msgstr "Trykk på %s for ett nytt søk"
+msgstr "Trykk pÃ¥ %s for ett nytt sÃ¸k"
 
 #: src/screen_search.c:397
 #, c-format
 msgid "Search: %s"
-msgstr "Søk: %s"
+msgstr "SÃ¸k: %s"
 
 #: src/screen_search.c:400
 #, c-format
 msgid "Search: Results for %s [%s]"
-msgstr "Søk: Resultater %s [%s]"
+msgstr "SÃ¸k: Resultater %s [%s]"
 
 #: src/screen_search.c:404
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
-msgstr "Trykk på %s for ett nytt søk [%s]"
+msgstr "Trykk pÃ¥ %s for ett nytt sÃ¸k [%s]"
 
 #: src/screen_search.c:419
 #, c-format
 msgid "Search mode: %s"
-msgstr "Søk etter: %s"
+msgstr "SÃ¸k etter: %s"
 
 #: src/screen_keydef.c:40
 msgid "===> Apply & Save key bindings  "
@@ -421,7 +421,7 @@ msgstr "Legg til ny tast"
 
 #: src/screen_keydef.c:275
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "OBS! Du glemte vel ikke å legge til de nye endringene?"
+msgstr "OBS! Du glemte vel ikke Ã¥ legge til de nye endringene?"
 
 #: src/screen_keydef.c:282
 msgid "Edit key bindings"
@@ -479,7 +479,7 @@ msgstr "Slett spilleliste"
 
 #: src/screen_help.c:121 src/command.c:199
 msgid "Search screen"
-msgstr "Database søk"
+msgstr "Database sÃ¸k"
 
 #: src/screen_help.c:124
 msgid "Select and play"
@@ -590,11 +590,11 @@ msgstr "Avslutt"
 
 #: src/command.c:75
 msgid "Move cursor up"
-msgstr "Flytt markør opp"
+msgstr "Flytt markÃ¸r opp"
 
 #: src/command.c:77
 msgid "Move cursor down"
-msgstr "Flytt markør ned"
+msgstr "Flytt markÃ¸r ned"
 
 #: src/command.c:79 src/command.c:259
 msgid "Home"
@@ -606,11 +606,11 @@ msgstr ""
 
 #: src/command.c:83
 msgid "Page up"
-msgstr "Markøren en side opp"
+msgstr "MarkÃ¸ren en side opp"
 
 #: src/command.c:85
 msgid "Page down"
-msgstr "Markøren en side ned"
+msgstr "MarkÃ¸ren en side ned"
 
 #: src/command.c:90
 msgid "Help screen"
@@ -642,15 +642,15 @@ msgstr "Forrige"
 
 #: src/command.c:111
 msgid "Seek forward"
-msgstr "Spol/Søk framover"
+msgstr "Spol/SÃ¸k framover"
 
 #: src/command.c:113
 msgid "Seek backward"
-msgstr "Spol/Søk tilbake"
+msgstr "Spol/SÃ¸k tilbake"
 
 #: src/command.c:115
 msgid "Increase volume"
-msgstr "Øk volumet"
+msgstr "Ã˜k volumet"
 
 #: src/command.c:117
 msgid "Decrease volume"
@@ -670,23 +670,23 @@ msgstr "Ta bort/slett"
 
 #: src/command.c:125
 msgid "Shuffle playlist"
-msgstr "Tilfeldiggjør spilleliste"
+msgstr "TilfeldiggjÃ¸r spilleliste"
 
 #: src/command.c:127
 msgid "Clear playlist"
-msgstr "Tøm spillelisten"
+msgstr "TÃ¸m spillelisten"
 
 #: src/command.c:129
 msgid "Toggle repeat mode"
-msgstr "Repeat På/Av"
+msgstr "Repeat PÃ¥/Av"
 
 #: src/command.c:131
 msgid "Toggle random mode"
-msgstr "Random På/Av"
+msgstr "Random PÃ¥/Av"
 
 #: src/command.c:133
 msgid "Toggle crossfade mode"
-msgstr "Crossfade På/Av"
+msgstr "Crossfade PÃ¥/Av"
 
 #: src/command.c:135
 msgid "Start a music database update"
@@ -733,13 +733,13 @@ msgstr "Oppdater"
 #. search
 #: src/command.c:167
 msgid "Toggle find mode"
-msgstr "Endre søk instillninger"
+msgstr "Endre sÃ¸k instillninger"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
 #: src/command.c:171
 msgid "Toggle auto center mode"
-msgstr "Automatisk centrering På/Av"
+msgstr "Automatisk centrering PÃ¥/Av"
 
 #: src/command.c:176
 msgid "Next screen"
@@ -751,19 +751,19 @@ msgstr "Forrige skjerm"
 
 #: src/command.c:183
 msgid "Forward find"
-msgstr "Søk"
+msgstr "SÃ¸k"
 
 #: src/command.c:185
 msgid "Forward find next"
-msgstr "Fremover Søking"
+msgstr "Fremover SÃ¸king"
 
 #: src/command.c:187
 msgid "Backward find"
-msgstr "Søk bakover"
+msgstr "SÃ¸k bakover"
 
 #: src/command.c:189
 msgid "Backward find previous"
-msgstr "Bakover Søk forrige"
+msgstr "Bakover SÃ¸k forrige"
 
 #: src/command.c:195
 msgid "Artist screen"
@@ -771,7 +771,7 @@ msgstr ""
 
 #: src/command.c:201
 msgid "Change search mode"
-msgstr "Endre søkemodus"
+msgstr "Endre sÃ¸kemodus"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
@@ -817,7 +817,7 @@ msgstr "Venstrepil"
 
 #: src/command.c:257
 msgid "Right"
-msgstr "Høyrepil"
+msgstr "HÃ¸yrepil"
 
 #: src/command.c:263
 msgid "PageDown"
@@ -846,12 +846,12 @@ msgstr "Ins"
 #: src/command.c:485
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-msgstr "%s tildelt kommandoen %s og %s (trykk %s for å rette)"
+msgstr "%s tildelt kommandoen %s og %s (trykk %s for Ã¥ rette)"
 
 #: src/command.c:492 src/command.c:499
 #, fuzzy, c-format
 msgid "Key %s assigned to %s and %s\n"
-msgstr "Feil: Tasten %s er tildelt både %s og %s\n"
+msgstr "Feil: Tasten %s er tildelt bÃ¥de %s og %s\n"
 
 #: src/colors.c:163
 #, c-format
@@ -866,12 +866,12 @@ msgstr "Advarsel: %s er ikke definert.\n"
 #: src/colors.c:238
 #, c-format
 msgid "Terminal lacks support for changing colors\n"
-msgstr "Terminalen mangler støtte for omdefinering av farger\n"
+msgstr "Terminalen mangler stÃ¸tte for omdefinering av farger\n"
 
 #: src/colors.c:248
 #, c-format
 msgid "Terminal lacks color capabilities\n"
-msgstr "Terminalen mangler støtte for farger\n"
+msgstr "Terminalen mangler stÃ¸tte for farger\n"
 
 #. To translators: prefix for error messages
 #: src/conf.c:87

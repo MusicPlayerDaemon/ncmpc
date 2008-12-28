@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-25 23:41+0100\n"
+"POT-Creation-Date: 2008-12-27 13:00+0100\n"
 "PO-Revision-Date: 2008-12-25 23:46+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/i18n.h:41
@@ -26,17 +26,17 @@ msgstr "n"
 #: src/main.c:214
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
-msgstr "Pripájam sa k %s... [Stlaète %s pre zru¹enie]"
+msgstr "PripÃ¡jam sa k %s... [StlaÄte %s pre zruÅ¡enie]"
 
 #: src/main.c:232
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
-msgstr "Chyba: MPD verzie %d.%d.%d je príli¹ staré (%s je potrebná)"
+msgstr "Chyba: MPD verzie %d.%d.%d je prÃ­liÅ¡ starÃ© (%s je potrebnÃ¡)"
 
 #: src/main.c:246
 #, c-format
 msgid "Connected to %s"
-msgstr "Pripojenı k %s"
+msgstr "PripojenÃ½ k %s"
 
 #: src/screen.c:152 src/screen_help.c:216
 msgid "Help"
@@ -49,7 +49,7 @@ msgstr "Playlist"
 #. translators: caption of the browser screen
 #: src/screen.c:155 src/screen_file.c:205
 msgid "Browse"
-msgstr "Listova»"
+msgstr "ListovaÅ¥"
 
 #: src/screen.c:157 src/screen_search.c:80 src/screen_song.c:187
 msgid "Artist"
@@ -57,7 +57,7 @@ msgstr "Interpret"
 
 #: src/screen.c:160 src/screen_help.c:123
 msgid "Search"
-msgstr "Hµadanie"
+msgstr "HÄ¾adanie"
 
 #: src/screen.c:163 src/screen_lyrics.c:203 src/screen_lyrics.c:211
 #: src/screen_lyrics.c:215
@@ -71,90 +71,90 @@ msgstr ""
 #: src/screen.c:172
 #, c-format
 msgid "Volume n/a "
-msgstr "Hlasitos» n/a"
+msgstr "HlasitosÅ¥ n/a"
 
 #: src/screen.c:174
 #, c-format
 msgid " Volume %d%%"
-msgstr " Hlasitos» %d%%"
+msgstr " HlasitosÅ¥ %d%%"
 
 #: src/screen.c:281
 msgid "Playing:"
-msgstr "Prehrávam:"
+msgstr "PrehrÃ¡vam:"
 
 #: src/screen.c:284
 msgid "[Paused]"
-msgstr "[Pozastavené]"
+msgstr "[PozastavenÃ©]"
 
 #: src/screen.c:404 src/screen.c:477
 msgid "Error: Screen too small"
-msgstr "Chyba: Okno je príli¹ malé"
+msgstr "Chyba: Okno je prÃ­liÅ¡ malÃ©"
 
 #: src/screen.c:600
 msgid "Repeat is on"
-msgstr "Opakovanie je zapnuté"
+msgstr "Opakovanie je zapnutÃ©"
 
 #: src/screen.c:601
 msgid "Repeat is off"
-msgstr "Opakovanie je vypnuté"
+msgstr "Opakovanie je vypnutÃ©"
 
 #: src/screen.c:605
 msgid "Random is on"
-msgstr "Náhodnı re¾im zapnutı"
+msgstr "NÃ¡hodnÃ½ reÅ¾im zapnutÃ½"
 
 #: src/screen.c:606
 msgid "Random is off"
-msgstr "Náhodnı re¾im vypnutı"
+msgstr "NÃ¡hodnÃ½ reÅ¾im vypnutÃ½"
 
 #: src/screen.c:609
 #, c-format
 msgid "Crossfade %d seconds"
-msgstr "Prelínanie %d sekúnd"
+msgstr "PrelÃ­nanie %d sekÃºnd"
 
 #: src/screen.c:612
 msgid "Database updated"
-msgstr "Databáza aktualizovaná"
+msgstr "DatabÃ¡za aktualizovanÃ¡"
 
 #: src/screen.c:745
 msgid "Shuffled playlist"
-msgstr "Zamie¹anı playlist"
+msgstr "ZamieÅ¡anÃ½ playlist"
 
 #: src/screen.c:749
 msgid "Cleared playlist"
-msgstr "Vyèistenı playlist"
+msgstr "VyÄistenÃ½ playlist"
 
 #: src/screen.c:766 src/screen_file.c:265
 msgid "Database update started"
-msgstr "Bola spustená aktualizácia databáze"
+msgstr "Bola spustenÃ¡ aktualizÃ¡cia databÃ¡ze"
 
 #: src/screen.c:768 src/screen_file.c:272
 msgid "Database update running..."
-msgstr "Prebieha aktualizácia databáze..."
+msgstr "Prebieha aktualizÃ¡cia databÃ¡ze..."
 
 #: src/screen.c:804
 msgid "Find mode: Wrapped"
-msgstr "Re¾im vyhµadávania: Zabalenı"
+msgstr "ReÅ¾im vyhÄ¾adÃ¡vania: ZabalenÃ½"
 
 #: src/screen.c:805
 msgid "Find mode: Normal"
-msgstr "Re¾im vyhµadávanie: Normálny"
+msgstr "ReÅ¾im vyhÄ¾adÃ¡vanie: NormÃ¡lny"
 
 #: src/screen.c:810
 msgid "Auto center mode: On"
-msgstr "Automatické centrovanie: Zapnuté"
+msgstr "AutomatickÃ© centrovanie: ZapnutÃ©"
 
 #: src/screen.c:811
 msgid "Auto center mode: Off"
-msgstr "Automatické centrovanie: Vypnuté"
+msgstr "AutomatickÃ© centrovanie: VypnutÃ©"
 
 #: src/screen_artist.c:73
 msgid "All tracks"
-msgstr "V¹etky stopy"
+msgstr "VÅ¡etky stopy"
 
 #: src/screen_artist.c:382
 #, c-format
 msgid "All artists"
-msgstr "V¹etci interpreti"
+msgstr "VÅ¡etci interpreti"
 
 #: src/screen_artist.c:387
 #, c-format
@@ -169,31 +169,31 @@ msgstr "Album: %s - %s"
 #: src/screen_artist.c:400
 #, c-format
 msgid "All tracks of artist: %s"
-msgstr "V¹etky stopy od interpreta: %s"
+msgstr "VÅ¡etky stopy od interpreta: %s"
 
 #: src/screen_browser.c:238
 #, c-format
 msgid "Loading playlist %s..."
-msgstr "Nahrávam playlist %s..."
+msgstr "NahrÃ¡vam playlist %s..."
 
 #: src/screen_browser.c:261 src/screen_browser.c:371 src/screen_browser.c:397
 #, c-format
 msgid "Adding '%s' to playlist\n"
-msgstr "Pridávam '%s' do playlistu\n"
+msgstr "PridÃ¡vam '%s' do playlistu\n"
 
 #. translators: a directory is being added the to playlist
 #: src/screen_browser.c:316
 #, c-format
 msgid "Adding directory %s...\n"
-msgstr "Pridávam adresár %s...\n"
+msgstr "PridÃ¡vam adresÃ¡r %s...\n"
 
 #: src/screen_utils.c:31
 msgid "Find: "
-msgstr "Vyhµada»: "
+msgstr "VyhÄ¾adaÅ¥: "
 
 #: src/screen_utils.c:32
 msgid "Find backward: "
-msgstr "Vyhµada» spätne: "
+msgstr "VyhÄ¾adaÅ¥ spÃ¤tne: "
 
 #: src/screen_utils.c:113
 msgid "Password: "
@@ -202,31 +202,31 @@ msgstr "Heslo: "
 #: src/screen_utils.c:202
 #, c-format
 msgid "Unable to find '%s'"
-msgstr "Nepodarilo sa nájs» '%s'"
+msgstr "Nepodarilo sa nÃ¡jsÅ¥ '%s'"
 
 #: src/screen_play.c:227
 msgid "Save playlist as: "
-msgstr "Ulo¾i» playlist ako: "
+msgstr "UloÅ¾iÅ¥ playlist ako: "
 
 #: src/screen_play.c:260
 #, c-format
 msgid "Replace %s [%s/%s] ? "
-msgstr "Nahradi» %s [%s/%s] ? "
+msgstr "NahradiÅ¥ %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
 #: src/screen_play.c:281 src/screen_file.c:140 src/screen_keydef.c:162
 msgid "Aborted"
-msgstr "Zru¹ené"
+msgstr "ZruÅ¡enÃ©"
 
 #. success
 #: src/screen_play.c:289
 #, c-format
 msgid "Saved %s"
-msgstr "Ulo¾enı %s"
+msgstr "UloÅ¾enÃ½ %s"
 
 #: src/screen_play.c:365
 msgid "Add: "
-msgstr "Prida»: "
+msgstr "PridaÅ¥: "
 
 #: src/screen_play.c:473
 #, c-format
@@ -239,23 +239,23 @@ msgstr "Playlist na %s"
 #: src/screen_file.c:127
 #, fuzzy
 msgid "Deleting this item is not possible"
-msgstr "Playlisti mô¾ete iba maza»"
+msgstr "Playlisti mÃ´Å¾ete iba mazaÅ¥"
 
 #: src/screen_file.c:134
 #, c-format
 msgid "Delete playlist %s [%s/%s] ? "
-msgstr "Vymaza» playlist %s [%s/%s] ? "
+msgstr "VymazaÅ¥ playlist %s [%s/%s] ? "
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
 #: src/screen_file.c:149
 msgid "Playlist deleted"
-msgstr "Playlist vymazanı"
+msgstr "Playlist vymazanÃ½"
 
 #: src/screen_file.c:261
 #, c-format
 msgid "Database update of %s started"
-msgstr "Aktualizácia databáze %s zaèala"
+msgstr "AktualizÃ¡cia databÃ¡ze %s zaÄala"
 
 #: src/screen_search.c:39
 msgid "artist"
@@ -267,7 +267,7 @@ msgstr "album"
 
 #: src/screen_search.c:41
 msgid "title"
-msgstr "názov"
+msgstr "nÃ¡zov"
 
 #: src/screen_search.c:42
 msgid "track"
@@ -275,19 +275,19 @@ msgstr "stopa"
 
 #: src/screen_search.c:43
 msgid "name"
-msgstr "názov"
+msgstr "nÃ¡zov"
 
 #: src/screen_search.c:44
 msgid "genre"
-msgstr "¾áner"
+msgstr "Å¾Ã¡ner"
 
 #: src/screen_search.c:45
 msgid "date"
-msgstr "dátum"
+msgstr "dÃ¡tum"
 
 #: src/screen_search.c:46
 msgid "composer"
-msgstr "skladateµ"
+msgstr "skladateÄ¾"
 
 #: src/screen_search.c:47
 msgid "performer"
@@ -295,15 +295,15 @@ msgstr "umelec"
 
 #: src/screen_search.c:48
 msgid "comment"
-msgstr "komentár"
+msgstr "komentÃ¡r"
 
 #: src/screen_search.c:49
 msgid "file"
-msgstr "súbor"
+msgstr "sÃºbor"
 
 #: src/screen_search.c:79 src/screen_song.c:188
 msgid "Title"
-msgstr "Názov"
+msgstr "NÃ¡zov"
 
 #: src/screen_search.c:81 src/screen_song.c:189
 msgid "Album"
@@ -311,25 +311,25 @@ msgstr "Album"
 
 #: src/screen_search.c:82
 msgid "Filename"
-msgstr "Názov súboru"
+msgstr "NÃ¡zov sÃºboru"
 
 #: src/screen_search.c:83
 msgid "Artist + Title"
-msgstr "Interpret + Názov"
+msgstr "Interpret + NÃ¡zov"
 
 #: src/screen_search.c:245
 #, c-format
 msgid "Bad search tag %s"
-msgstr "Zlá znaèka vyhµadávania %s"
+msgstr "ZlÃ¡ znaÄka vyhÄ¾adÃ¡vania %s"
 
 #: src/screen_search.c:249
 #, c-format
 msgid "No argument for search tag %s"
-msgstr "Chıba argument pre znaèku vyhµadávania %s"
+msgstr "ChÃ½ba argument pre znaÄku vyhÄ¾adÃ¡vania %s"
 
 #: src/screen_search.c:309
 msgid "Search: "
-msgstr "Vyhµada»: "
+msgstr "VyhÄ¾adaÅ¥: "
 
 #. if( pattern==NULL )
 #. search_new(screen, c);
@@ -337,48 +337,48 @@ msgstr "Vyhµada»: "
 #: src/screen_search.c:369
 #, c-format
 msgid "Press %s for a new search"
-msgstr "Stlaète %s pre nové hµadanie"
+msgstr "StlaÄte %s pre novÃ© hÄ¾adanie"
 
 #: src/screen_search.c:397
 #, c-format
 msgid "Search: %s"
-msgstr "Vyhµada»: %s"
+msgstr "VyhÄ¾adaÅ¥: %s"
 
 #: src/screen_search.c:400
 #, c-format
 msgid "Search: Results for %s [%s]"
-msgstr "Hµadanie: Vısledky pre re»azec %s[%s]"
+msgstr "HÄ¾adanie: VÃ½sledky pre reÅ¥azec %s[%s]"
 
 #: src/screen_search.c:404
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
-msgstr "Hµadanie: Stlaète %s pre opätovné hµadanie [%s]"
+msgstr "HÄ¾adanie: StlaÄte %s pre opÃ¤tovnÃ© hÄ¾adanie [%s]"
 
 #: src/screen_search.c:419
 #, c-format
 msgid "Search mode: %s"
-msgstr "Re¾im vyhµadávania: %s"
+msgstr "ReÅ¾im vyhÄ¾adÃ¡vania: %s"
 
 #: src/screen_keydef.c:40
 msgid "===> Apply & Save key bindings  "
-msgstr "===> Pou¾i» & Ulo¾i» nastavenie klávesov  "
+msgstr "===> PouÅ¾iÅ¥ & UloÅ¾iÅ¥ nastavenie klÃ¡vesov  "
 
 #: src/screen_keydef.c:41
 msgid "===> Apply key bindings "
-msgstr "===> Pou¾i» nastavenie klávesov "
+msgstr "===> PouÅ¾iÅ¥ nastavenie klÃ¡vesov "
 
 #: src/screen_keydef.c:69
 msgid "You have new key bindings"
-msgstr "Nastavili ste nové priradenie klávesov"
+msgstr "Nastavili ste novÃ© priradenie klÃ¡vesov"
 
 #: src/screen_keydef.c:71
 msgid "Keybindings unchanged."
-msgstr "Priradenie klávesov sa nezmenilo."
+msgstr "Priradenie klÃ¡vesov sa nezmenilo."
 
 #: src/screen_keydef.c:81
 #, c-format
 msgid "Error: Unable to create direcory ~/.ncmpc - %s"
-msgstr "Chyba: Nepodarilo sa vytvori» adresár ~/.ncmpc - %s"
+msgstr "Chyba: Nepodarilo sa vytvoriÅ¥ adresÃ¡r ~/.ncmpc - %s"
 
 #: src/screen_keydef.c:90 src/screen_keydef.c:97
 #, c-format
@@ -388,43 +388,43 @@ msgstr "Chyba: %s - %s"
 #: src/screen_keydef.c:99
 #, c-format
 msgid "Wrote %s"
-msgstr "Zapísané %s"
+msgstr "ZapÃ­sanÃ© %s"
 
 #: src/screen_keydef.c:136
 msgid "Deleted"
-msgstr "Vymazané"
+msgstr "VymazanÃ©"
 
 #: src/screen_keydef.c:157
 #, c-format
 msgid "Enter new key for %s: "
-msgstr "Zadajte novı kláves pre %s: "
+msgstr "Zadajte novÃ½ klÃ¡ves pre %s: "
 
 #: src/screen_keydef.c:168
 #, c-format
 msgid "Error: key %s is already used for %s"
-msgstr "Chyba: kláves %s je u¾ pou¾itı pre %s"
+msgstr "Chyba: klÃ¡ves %s je uÅ¾ pouÅ¾itÃ½ pre %s"
 
 #: src/screen_keydef.c:178
 #, c-format
 msgid "Assigned %s to %s"
-msgstr "%s priradené k %s"
+msgstr "%s priradenÃ© k %s"
 
 #: src/screen_keydef.c:216
 msgid "Add new key"
-msgstr "Prida» novı kláves"
+msgstr "PridaÅ¥ novÃ½ klÃ¡ves"
 
 #: src/screen_keydef.c:275
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Poznámka: Zabudli ste 'Pou¾i»' va¹e zmeny?"
+msgstr "PoznÃ¡mka: Zabudli ste 'PouÅ¾iÅ¥' vaÅ¡e zmeny?"
 
 #: src/screen_keydef.c:282
 msgid "Edit key bindings"
-msgstr "Upravi» priradenie klávesov"
+msgstr "UpraviÅ¥ priradenie klÃ¡vesov"
 
 #: src/screen_keydef.c:284
 #, c-format
 msgid "Edit keys for %s"
-msgstr "Upravi» klávesy pre %s"
+msgstr "UpraviÅ¥ klÃ¡vesy pre %s"
 
 #: src/screen_help.c:37
 msgid "Movement"
@@ -432,7 +432,7 @@ msgstr "Pohyb"
 
 #: src/screen_help.c:63
 msgid "Global"
-msgstr "Globálne"
+msgstr "GlobÃ¡lne"
 
 #: src/screen_help.c:93 src/command.c:92
 msgid "Playlist screen"
@@ -440,15 +440,15 @@ msgstr "Okno playlistu"
 
 #: src/screen_help.c:95
 msgid "Play"
-msgstr "Prehráva»"
+msgstr "PrehrÃ¡vaÅ¥"
 
 #: src/screen_help.c:98
 msgid "Move song up"
-msgstr "Presunú» skladbu nahor"
+msgstr "PresunÃºÅ¥ skladbu nahor"
 
 #: src/screen_help.c:99
 msgid "Move song down"
-msgstr "Presunú» skladbu nadol"
+msgstr "PresunÃºÅ¥ skladbu nadol"
 
 #: src/screen_help.c:102
 msgid "Center"
@@ -460,23 +460,23 @@ msgstr "Okno listovania"
 
 #: src/screen_help.c:109
 msgid "Enter directory/Select and play song"
-msgstr "Vstúpi» do adresára/Vybra» a prehra» skladbu"
+msgstr "VstÃºpiÅ¥ do adresÃ¡ra/VybraÅ¥ a prehraÅ¥ skladbu"
 
 #: src/screen_help.c:111 src/screen_help.c:126
 msgid "Append song to playlist"
-msgstr "Prida» skladbu do playlistu"
+msgstr "PridaÅ¥ skladbu do playlistu"
 
 #: src/screen_help.c:113
 msgid "Delete playlist"
-msgstr "Vymaza» playlist"
+msgstr "VymazaÅ¥ playlist"
 
 #: src/screen_help.c:121 src/command.c:199
 msgid "Search screen"
-msgstr "Okno vyhµadávania"
+msgstr "Okno vyhÄ¾adÃ¡vania"
 
 #: src/screen_help.c:124
 msgid "Select and play"
-msgstr "Vybra» a prehra»"
+msgstr "VybraÅ¥ a prehraÅ¥"
 
 #: src/screen_help.c:133 src/command.c:206
 msgid "Lyrics screen"
@@ -484,23 +484,23 @@ msgstr "Okno textu piesne"
 
 #: src/screen_help.c:135
 msgid "View Lyrics"
-msgstr "Zobrazi» text piesne"
+msgstr "ZobraziÅ¥ text piesne"
 
 #: src/screen_help.c:136
 msgid "(Re)load lyrics"
-msgstr "(Znovu)naèíta» text"
+msgstr "(Znovu)naÄÃ­taÅ¥ text"
 
 #: src/screen_help.c:137
 msgid "Interrupt retrieval"
-msgstr "Zachytené preru¹enie"
+msgstr "ZachytenÃ© preruÅ¡enie"
 
 #: src/screen_help.c:138
 msgid "Explicitly download lyrics"
-msgstr "Explicitne s»ahova» texty"
+msgstr "Explicitne sÅ¥ahovaÅ¥ texty"
 
 #: src/screen_help.c:139
 msgid "Save lyrics"
-msgstr "Ulo¾i» text piesne"
+msgstr "UloÅ¾iÅ¥ text piesne"
 
 #: src/screen_help.c:144 src/command.c:217
 msgid "Outputs screen"
@@ -519,12 +519,12 @@ msgstr "Bez textu"
 #. while data is retrieved
 #: src/screen_lyrics.c:206
 msgid "loading..."
-msgstr "naèítam..."
+msgstr "naÄÃ­tam..."
 
 #. lyrics for the song were saved on hard disk
 #: src/screen_lyrics.c:241
 msgid "Lyrics saved"
-msgstr "Text piesne ulo¾enı"
+msgstr "Text piesne uloÅ¾enÃ½"
 
 #: src/screen_outputs.c:57
 #, c-format
@@ -538,15 +538,15 @@ msgstr ""
 
 #: src/screen_song.c:105
 msgid "Song viewer"
-msgstr "Prehliadaè piesní"
+msgstr "PrehliadaÄ piesnÃ­"
 
 #: src/screen_song.c:190
 msgid "Composer"
-msgstr "Skladateµ"
+msgstr "SkladateÄ¾"
 
 #: src/screen_song.c:191
 msgid "Name"
-msgstr "Názov"
+msgstr "NÃ¡zov"
 
 #: src/screen_song.c:192
 msgid "Disc"
@@ -558,31 +558,31 @@ msgstr "Stopa"
 
 #: src/screen_song.c:194
 msgid "Date"
-msgstr "Dátum"
+msgstr "DÃ¡tum"
 
 #: src/screen_song.c:195
 msgid "Genre"
-msgstr "®áner"
+msgstr "Å½Ã¡ner"
 
 #: src/screen_song.c:196
 msgid "Comment"
-msgstr "Komentár"
+msgstr "KomentÃ¡r"
 
 #: src/command.c:68
 msgid "Key configuration screen"
-msgstr "Okno nastavenia klávesov"
+msgstr "Okno nastavenia klÃ¡vesov"
 
 #: src/command.c:71
 msgid "Quit"
-msgstr "Ukonèi»"
+msgstr "UkonÄiÅ¥"
 
 #: src/command.c:75
 msgid "Move cursor up"
-msgstr "Presunú» kurzor nahor"
+msgstr "PresunÃºÅ¥ kurzor nahor"
 
 #: src/command.c:77
 msgid "Move cursor down"
-msgstr "Presunú» kurzor nadol"
+msgstr "PresunÃºÅ¥ kurzor nadol"
 
 #: src/command.c:79 src/command.c:259
 msgid "Home"
@@ -606,7 +606,7 @@ msgstr "Okno s pomocou"
 
 #: src/command.c:99
 msgid "Play/Enter directory"
-msgstr "Prehra»/Vstúpi» do adresára"
+msgstr "PrehraÅ¥/VstÃºpiÅ¥ do adresÃ¡ra"
 
 #: src/command.c:101
 msgid "Pause"
@@ -618,140 +618,140 @@ msgstr "Stop"
 
 #: src/command.c:105
 msgid "Crop"
-msgstr "Oreza»"
+msgstr "OrezaÅ¥"
 
 #: src/command.c:107
 msgid "Next track"
-msgstr "Ïal¹ia stopa"
+msgstr "ÄalÅ¡ia stopa"
 
 #: src/command.c:109
 msgid "Previous track"
-msgstr "Predchádzajúca stopa"
+msgstr "PredchÃ¡dzajÃºca stopa"
 
 #: src/command.c:111
 msgid "Seek forward"
-msgstr "Posunú» vpred"
+msgstr "PosunÃºÅ¥ vpred"
 
 #: src/command.c:113
 msgid "Seek backward"
-msgstr "Posunú» vzad"
+msgstr "PosunÃºÅ¥ vzad"
 
 #: src/command.c:115
 msgid "Increase volume"
-msgstr "Prida» hlasitos»"
+msgstr "PridaÅ¥ hlasitosÅ¥"
 
 #: src/command.c:117
 msgid "Decrease volume"
-msgstr "Stí¹i»"
+msgstr "StÃ­Å¡iÅ¥"
 
 #: src/command.c:119
 msgid "Select/deselect song in playlist"
-msgstr "Vybra»/odvybra» skladbu v playliste"
+msgstr "VybraÅ¥/odvybraÅ¥ skladbu v playliste"
 
 #: src/command.c:121
 msgid "Select all listed items"
-msgstr "Vybra» v¹etky polo¾ky v zozname"
+msgstr "VybraÅ¥ vÅ¡etky poloÅ¾ky v zozname"
 
 #: src/command.c:123
 msgid "Delete song from playlist"
-msgstr "Vymaza» skladbu z playlistu"
+msgstr "VymazaÅ¥ skladbu z playlistu"
 
 #: src/command.c:125
 msgid "Shuffle playlist"
-msgstr "Zamie¹a» playlist"
+msgstr "ZamieÅ¡aÅ¥ playlist"
 
 #: src/command.c:127
 msgid "Clear playlist"
-msgstr "Vyèisti» playlist"
+msgstr "VyÄistiÅ¥ playlist"
 
 #: src/command.c:129
 msgid "Toggle repeat mode"
-msgstr "Prepnú» re¾im opakovania"
+msgstr "PrepnÃºÅ¥ reÅ¾im opakovania"
 
 #: src/command.c:131
 msgid "Toggle random mode"
-msgstr "Prepnú» náhodnı re¾im"
+msgstr "PrepnÃºÅ¥ nÃ¡hodnÃ½ reÅ¾im"
 
 #: src/command.c:133
 msgid "Toggle crossfade mode"
-msgstr "Prepnú» re¾ím prelínania skladieb"
+msgstr "PrepnÃºÅ¥ reÅ¾Ã­m prelÃ­nania skladieb"
 
 #: src/command.c:135
 msgid "Start a music database update"
-msgstr "Spusti» aktualizáciu hudobnej databáze"
+msgstr "SpustiÅ¥ aktualizÃ¡ciu hudobnej databÃ¡ze"
 
 #: src/command.c:137
 msgid "Save playlist"
-msgstr "Ulo¾i» playlist"
+msgstr "UloÅ¾iÅ¥ playlist"
 
 #: src/command.c:139
 msgid "Add url/file to playlist"
-msgstr "Prida» url/súbor do playlistu"
+msgstr "PridaÅ¥ url/sÃºbor do playlistu"
 
 #: src/command.c:142
 msgid "Go to root directory"
-msgstr "Prejs» do koreòového adresára"
+msgstr "PrejsÅ¥ do koreÅˆovÃ©ho adresÃ¡ra"
 
 #: src/command.c:144
 msgid "Go to parent directory"
-msgstr "Prejs» do nadradeného adresára"
+msgstr "PrejsÅ¥ do nadradenÃ©ho adresÃ¡ra"
 
 #: src/command.c:148
 msgid "View the song"
-msgstr "Zobrazi» skladbu"
+msgstr "ZobraziÅ¥ skladbu"
 
 #: src/command.c:152
 msgid "Locate song in browser"
-msgstr "Nájs» skladbu v prehliadaèi"
+msgstr "NÃ¡jsÅ¥ skladbu v prehliadaÄi"
 
 #: src/command.c:156
 msgid "Move item up"
-msgstr "Presunú» polo¾ku nahor"
+msgstr "PresunÃºÅ¥ poloÅ¾ku nahor"
 
 #: src/command.c:158
 msgid "Move item down"
-msgstr "Presunú» polo¾ku nadol"
+msgstr "PresunÃºÅ¥ poloÅ¾ku nadol"
 
 #: src/command.c:160
 #, fuzzy
 msgid "Refresh screen"
-msgstr "Obnovi» okno"
+msgstr "ObnoviÅ¥ okno"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
 #: src/command.c:167
 msgid "Toggle find mode"
-msgstr "Prepnú» re¾im vyhµadávania"
+msgstr "PrepnÃºÅ¥ reÅ¾im vyhÄ¾adÃ¡vania"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
 #: src/command.c:171
 msgid "Toggle auto center mode"
-msgstr "Prepnú» automatickı re¾im centrovania"
+msgstr "PrepnÃºÅ¥ automatickÃ½ reÅ¾im centrovania"
 
 #: src/command.c:176
 msgid "Next screen"
-msgstr "Ïal¹ia obrazovka"
+msgstr "ÄalÅ¡ia obrazovka"
 
 #: src/command.c:178
 msgid "Previous screen"
-msgstr "Predchádzajúca obrazovka"
+msgstr "PredchÃ¡dzajÃºca obrazovka"
 
 #: src/command.c:183
 msgid "Forward find"
-msgstr "Hµada» vpred"
+msgstr "HÄ¾adaÅ¥ vpred"
 
 #: src/command.c:185
 msgid "Forward find next"
-msgstr "Pokraèova» v hµadaní vpred"
+msgstr "PokraÄovaÅ¥ v hÄ¾adanÃ­ vpred"
 
 #: src/command.c:187
 msgid "Backward find"
-msgstr "Hµada» vzad"
+msgstr "HÄ¾adaÅ¥ vzad"
 
 #: src/command.c:189
 msgid "Backward find previous"
-msgstr "Pokraèova» v hµadaní vzad"
+msgstr "PokraÄovaÅ¥ v hÄ¾adanÃ­ vzad"
 
 #: src/command.c:195
 msgid "Artist screen"
@@ -759,21 +759,21 @@ msgstr "Okno interpreta"
 
 #: src/command.c:201
 msgid "Change search mode"
-msgstr "Zmeni» re¾im vyhµadávania"
+msgstr "ZmeniÅ¥ reÅ¾im vyhÄ¾adÃ¡vania"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
 #: src/command.c:210
 msgid "Interrupt action"
-msgstr "Akcia preru¹enia"
+msgstr "Akcia preruÅ¡enia"
 
 #: src/command.c:212
 msgid "Update Lyrics"
-msgstr "Obnovi» text"
+msgstr "ObnoviÅ¥ text"
 
 #: src/command.c:241
 msgid "Undefined"
-msgstr "Neurèené"
+msgstr "NeurÄenÃ©"
 
 #: src/command.c:243
 msgid "Space"
@@ -801,7 +801,7 @@ msgstr "Dole"
 
 #: src/command.c:255
 msgid "Left"
-msgstr "Vµavo"
+msgstr "VÄ¾avo"
 
 #: src/command.c:257
 msgid "Right"
@@ -834,32 +834,32 @@ msgstr "Insert"
 #: src/command.c:485
 #, c-format
 msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-msgstr "Kláves %s priradenı k %s a %s (stlaète %s pre editor klávesov)"
+msgstr "KlÃ¡ves %s priradenÃ½ k %s a %s (stlaÄte %s pre editor klÃ¡vesov)"
 
 #: src/command.c:492 src/command.c:499
 #, fuzzy, c-format
 msgid "Key %s assigned to %s and %s\n"
-msgstr "Chyba: Kláves %s priradenı k %s a %s\n"
+msgstr "Chyba: KlÃ¡ves %s priradenÃ½ k %s a %s\n"
 
 #: src/colors.c:163
 #, c-format
 msgid "Warning: Unknown color - %s\n"
-msgstr "Varovania: Neznáma farba - %s\n"
+msgstr "Varovania: NeznÃ¡ma farba - %s\n"
 
 #: src/colors.c:206
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
-msgstr "Varovanie: Neznáme farebné pole - %s\n"
+msgstr "Varovanie: NeznÃ¡me farebnÃ© pole - %s\n"
 
 #: src/colors.c:238
 #, c-format
 msgid "Terminal lacks support for changing colors\n"
-msgstr "Terminál nemá podporu pre zmenu farieb\n"
+msgstr "TerminÃ¡l nemÃ¡ podporu pre zmenu farieb\n"
 
 #: src/colors.c:248
 #, c-format
 msgid "Terminal lacks color capabilities\n"
-msgstr "Terminál nemá schopnosti zobrazovania farieb\n"
+msgstr "TerminÃ¡l nemÃ¡ schopnosti zobrazovania farieb\n"
 
 #. To translators: prefix for error messages
 #: src/conf.c:87
@@ -920,7 +920,7 @@ msgstr ""
 #: src/conf.c:454
 #, fuzzy
 msgid "Unknown configuration parameter"
-msgstr "Okno nastavenia klávesov"
+msgstr "Okno nastavenia klÃ¡vesov"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -929,10 +929,10 @@ msgid "translator-credits"
 msgstr ""
 
 #~ msgid "Screen updated!"
-#~ msgstr "Okno obnovené!"
+#~ msgstr "Okno obnovenÃ©!"
 
 #~ msgid "Welcome to the key editor!"
-#~ msgstr "Vitajte v editori klávesov!"
+#~ msgstr "Vitajte v editori klÃ¡vesov!"
 
 #~ msgid "Clock"
 #~ msgstr "Hodiny"
@@ -941,16 +941,16 @@ msgstr ""
 #~ msgstr "Text piesne  [Bez pripojenia]"
 
 #~ msgid "Lyrics  [Not found]"
-#~ msgstr "Text piesne  [Nenájdenı]"
+#~ msgstr "Text piesne  [NenÃ¡jdenÃ½]"
 
 #~ msgid "Lyrics  [retrieving]"
-#~ msgstr "Text piesne  [získavam]"
+#~ msgstr "Text piesne  [zÃ­skavam]"
 
 #~ msgid "Clock screen"
 #~ msgstr "Obrazovka s hodinami"
 
 #~ msgid "Error: Unable to convert characters to %s"
-#~ msgstr "Chyba: Nepodarilo sa konvertova» znaky na %s"
+#~ msgstr "Chyba: Nepodarilo sa konvertovaÅ¥ znaky na %s"
 
 #~ msgid "Error: Unable to convert characters to UTF-8"
-#~ msgstr "Chyba: Nepodarilo sa konvertova» znaky do UTF-8"
+#~ msgstr "Chyba: Nepodarilo sa konvertovaÅ¥ znaky do UTF-8"
