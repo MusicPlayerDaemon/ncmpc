@@ -69,6 +69,7 @@ typedef struct {
 	bool scroll;
 	bool visible_bitrate;
 	bool welcome_screen_list;
+	bool display_time;
 #endif
 } options_t;
 

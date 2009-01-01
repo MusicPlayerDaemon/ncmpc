@@ -61,6 +61,7 @@ options_t options = {
 #ifndef NCMPC_MINI
 	.scroll = DEFAULT_SCROLL,
 	.welcome_screen_list = true,
+	.display_time = true,
 #endif
 };
 

@@ -338,10 +338,12 @@ paint_status_window(mpdclient_t *c)
 		}
 #ifndef NCMPC_MINI
 	} else {
-		time_t timep;
+		if (options.display_time) {
+			time_t timep;
 
-		time(&timep);
-		strftime(screen.buf, screen.buf_size, "%X ",localtime(&timep));
+			time(&timep);
+			strftime(screen.buf, screen.buf_size, "%X ",localtime(&timep));
+		}
 #endif
 	}
 

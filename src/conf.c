@@ -72,6 +72,7 @@
 #define CONF_SCROLL_SEP "scroll-sep"
 #define CONF_VISIBLE_BITRATE "visible-bitrate"
 #define CONF_WELCOME_SCREEN_LIST "welcome-screen-list"
+#define CONF_DISPLAY_TIME "display-time"
 
 static bool
 str2bool(char *str)
@@ -448,7 +449,13 @@ parse_line(char *line)
 	else if (!strcasecmp(CONF_SCROLL_SEP, name)) {
 		g_free(options.scroll_sep);
 		options.scroll_sep = get_format(value);
-	} else
+	} else if (!strcasecmp(CONF_DISPLAY_TIME, name))
+#ifdef NCMPC_MINI
+		{}
+#else
+		options.display_time = str2bool(value);
+#endif
+	else
 		match_found = false;
 
 	if (!match_found)
