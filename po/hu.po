@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-25 23:41+0100\n"
-"PO-Revision-Date: 2008-12-25 23:44+0100\n"
+"POT-Creation-Date: 2008-12-27 13:00+0100\n"
+"PO-Revision-Date: 2008-12-28 20:03+0000\n"
 "Last-Translator: Laszlo Ashin <kodest@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-12-04 21:41+0000\n"
+"X-Launchpad-Export-Date: 2009-01-02 08:41+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:41
@@ -68,7 +68,7 @@ msgstr "Dalszövegek"
 
 #: src/screen.c:166 src/screen_outputs.c:161
 msgid "Outputs"
-msgstr ""
+msgstr "Kimenetek"
 
 #: src/screen.c:172
 #, c-format
@@ -239,9 +239,8 @@ msgstr "Lejátszólista itt: %s"
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/screen_file.c:127
-#, fuzzy
 msgid "Deleting this item is not possible"
-msgstr "A lejátszólistákat csak törölni tudod"
+msgstr "Ez az elem nem törölhető"
 
 #: src/screen_file.c:134
 #, c-format
@@ -506,11 +505,11 @@ msgstr "Dalszövegek mentése"
 
 #: src/screen_help.c:144 src/command.c:217
 msgid "Outputs screen"
-msgstr ""
+msgstr "Kimenetek"
 
 #: src/screen_help.c:146
 msgid "Enable/disable output"
-msgstr ""
+msgstr "Kimenet engedélyezése/tiltása"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -531,12 +530,12 @@ msgstr "Dalszövegek elmentve"
 #: src/screen_outputs.c:57
 #, c-format
 msgid "Output '%s' enabled"
-msgstr ""
+msgstr "Kimenet engedélyezve: %s"
 
 #: src/screen_outputs.c:63
 #, c-format
 msgid "Output '%s' disabled"
-msgstr ""
+msgstr "Kimenet tiltva: %s"
 
 #: src/screen_song.c:105
 msgid "Song viewer"
@@ -715,7 +714,6 @@ msgid "Move item down"
 msgstr "Elem mozgatása le"
 
 #: src/command.c:160
-#, fuzzy
 msgid "Refresh screen"
 msgstr "Képernyő frissítése"
 
@@ -840,9 +838,9 @@ msgstr ""
 "%s gomb hozzárendelve a következőkhöz: %s és %s (nyomj %s-t a szerkesztéshez)"
 
 #: src/command.c:492 src/command.c:499
-#, fuzzy, c-format
+#, c-format
 msgid "Key %s assigned to %s and %s\n"
-msgstr "Hiba: %s gomb hozzárendelve a következőkhöz: %s és %s\n"
+msgstr "A(z) %s gomb a követlezőkhoz van rendelve: %s és %s\n"
 
 #: src/colors.c:163
 #, c-format
@@ -867,22 +865,22 @@ msgstr "A terminál nem támogatja a színeket\n"
 #. To translators: prefix for error messages
 #: src/conf.c:87
 msgid "Error"
-msgstr ""
+msgstr "Hiba"
 
 #: src/conf.c:95 src/conf.c:104
 msgid "Malformed hotkey definition"
-msgstr ""
+msgstr "Hibás gyorsbillentyű definíció"
 
 #. the hotkey configuration contains an unknown
 #. command
 #: src/conf.c:131
 msgid "Unknown command"
-msgstr ""
+msgstr "Ismeretlen parancs"
 
 #. the hotkey configuration line is incomplete
 #: src/conf.c:144
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "Hiányos gyorsbillentyű definíció"
 
 #. translators: ncmpc supports displaying the
 #. "elapsed" or "remaining" time of a song being
@@ -890,43 +888,44 @@ msgstr ""
 #. contained an invalid setting
 #: src/conf.c:176
 msgid "Bad time display type"
-msgstr ""
+msgstr "Hibás időkijelzési típus"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/conf.c:191
 msgid "Missing '='"
-msgstr ""
+msgstr "Hiányzó egyenlőség jel"
 
 #: src/conf.c:247
 msgid "Bad color name"
-msgstr ""
+msgstr "Hibás szín megnevezés"
 
 #: src/conf.c:256
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Hiányos szín megadás"
 
 #: src/conf.c:262
 msgid "Invalid number"
-msgstr ""
+msgstr "Érvénytelen szám"
 
 #: src/conf.c:270
 msgid "Malformed color definition"
-msgstr ""
+msgstr "Hibás szín megadás"
 
 #. an unknown screen name was specified in the
 #. configuration file
 #: src/conf.c:305
 msgid "Unknown screen name"
-msgstr ""
+msgstr "Ismeretlen képernyő név"
 
 #: src/conf.c:454
-#, fuzzy
 msgid "Unknown configuration parameter"
-msgstr "Billentyű beállító képernyő"
+msgstr "Ismeretlen konfigurációs paraméter"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
 #: src/options.c:216 src/options.c:219
 msgid "translator-credits"
 msgstr ""
+"Launchpad Contributions:\n"
+"  Laszlo Ashin https://launchpad.net/~kodest"
