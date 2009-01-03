@@ -39,7 +39,10 @@ match_line(const char *line, const char *needle)
 	char *line_folded = locale_casefold(line);
 	char *needle_folded = locale_casefold(needle);
 
-	bool ret = strstr(line_folded, needle_folded) != NULL;
+	bool ret = (bool)g_regex_match_simple((const gchar*)needle_folded,
+			(const gchar*)line_folded,
+			G_REGEX_CASELESS | G_REGEX_DOTALL | G_REGEX_OPTIMIZE,
+			0);
 
 	g_free(line_folded);
 	g_free(needle_folded);

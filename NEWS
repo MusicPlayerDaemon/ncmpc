@@ -4,6 +4,7 @@ ncmpc 0.13 - not yet released
   * new --disable-multibyte configure option; this allows you to
     disable wide character support, retaining multibyte character
     support
+  * search with regular expressions
 
 
 ncmpc 0.12 - 2008-12-05
