@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-27 13:00+0100\n"
-"PO-Revision-Date: 2008-12-25 23:43+0100\n"
-"Last-Translator: Mikkel Kirkgaard Nielsen <ncmpc@mikini.dk>\n"
+"PO-Revision-Date: 2009-01-01 17:04+0000\n"
+"Last-Translator: Niels Anker <nanker@webspeed.dk>"
 "Language-Team: da <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-12-16 08:48+0000\n"
+"X-Launchpad-Export-Date: 2009-01-02 08:41+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:41
@@ -68,7 +68,7 @@ msgstr "Sangtekster"
 
 #: src/screen.c:166 src/screen_outputs.c:161
 msgid "Outputs"
-msgstr ""
+msgstr "Output"
 
 #: src/screen.c:172
 #, c-format
@@ -89,9 +89,8 @@ msgid "[Paused]"
 msgstr "[Pause]"
 
 #: src/screen.c:404 src/screen.c:477
-#, fuzzy
 msgid "Error: Screen too small"
-msgstr "Fejl: Skærmen er for lille"
+msgstr "Fejl: Skærm for lille"
 
 #: src/screen.c:600
 msgid "Repeat is on"
@@ -240,9 +239,8 @@ msgstr "Afspilningsliste på %s"
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/screen_file.c:127
-#, fuzzy
 msgid "Deleting this item is not possible"
-msgstr "Du kan kun slette afspilningslister"
+msgstr "Sletning af dette emne ikke muligt"
 
 #: src/screen_file.c:134
 #, c-format
@@ -495,11 +493,11 @@ msgstr "(Gen)indlæs santekster"
 
 #: src/screen_help.c:137
 msgid "Interrupt retrieval"
-msgstr ""
+msgstr "Abryd hentning"
 
 #: src/screen_help.c:138
 msgid "Explicitly download lyrics"
-msgstr ""
+msgstr "Hent kun sangtekster"
 
 #: src/screen_help.c:139
 msgid "Save lyrics"
@@ -507,11 +505,11 @@ msgstr "Gem sagtekster"
 
 #: src/screen_help.c:144 src/command.c:217
 msgid "Outputs screen"
-msgstr ""
+msgstr "Output skærm"
 
 #: src/screen_help.c:146
 msgid "Enable/disable output"
-msgstr ""
+msgstr "Slå output til/fra"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -532,16 +530,16 @@ msgstr "Sangtekster gemt"
 #: src/screen_outputs.c:57
 #, c-format
 msgid "Output '%s' enabled"
-msgstr ""
+msgstr "Output '%s' slået til"
 
 #: src/screen_outputs.c:63
 #, c-format
 msgid "Output '%s' disabled"
-msgstr ""
+msgstr "Output '%s' slået fra"
 
 #: src/screen_song.c:105
 msgid "Song viewer"
-msgstr ""
+msgstr "Sang viser"
 
 #: src/screen_song.c:190
 msgid "Composer"
@@ -705,7 +703,7 @@ msgstr "Vis sangen"
 
 #: src/command.c:152
 msgid "Locate song in browser"
-msgstr ""
+msgstr "Lokaliser sang i browseren"
 
 #: src/command.c:156
 msgid "Move item up"
@@ -716,9 +714,8 @@ msgid "Move item down"
 msgstr "Flyt ned"
 
 #: src/command.c:160
-#, fuzzy
 msgid "Refresh screen"
-msgstr "Opdater skærm"
+msgstr "Genopfrisk skærm"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
@@ -824,7 +821,7 @@ msgstr "Tab"
 
 #: src/command.c:269
 msgid "Shift+Tab"
-msgstr ""
+msgstr "Skift+Tabulator"
 
 #: src/command.c:271
 msgid "Esc"
@@ -840,9 +837,9 @@ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 msgstr "Tast %s bundet til kommando %s og %s (tryk på %s for at redigere)"
 
 #: src/command.c:492 src/command.c:499
-#, fuzzy, c-format
+#, c-format
 msgid "Key %s assigned to %s and %s\n"
-msgstr "Fel: Tasten %s er bundet til både %s og %s\n"
+msgstr "Tast %s tildelt %s og %s\n"
 
 #: src/colors.c:163
 #, c-format
@@ -867,22 +864,22 @@ msgstr "Terminalen understøtter ikke farver\n"
 #. To translators: prefix for error messages
 #: src/conf.c:87
 msgid "Error"
-msgstr ""
+msgstr "Fejl"
 
 #: src/conf.c:95 src/conf.c:104
 msgid "Malformed hotkey definition"
-msgstr ""
+msgstr "Forkert hotkey definition"
 
 #. the hotkey configuration contains an unknown
 #. command
 #: src/conf.c:131
 msgid "Unknown command"
-msgstr ""
+msgstr "Ukendt kommando"
 
 #. the hotkey configuration line is incomplete
 #: src/conf.c:144
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "Ufuldstændig hotkey konfiguration"
 
 #. translators: ncmpc supports displaying the
 #. "elapsed" or "remaining" time of a song being
@@ -890,46 +887,48 @@ msgstr ""
 #. contained an invalid setting
 #: src/conf.c:176
 msgid "Bad time display type"
-msgstr ""
+msgstr "Ringe tidsvisningstype"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/conf.c:191
 msgid "Missing '='"
-msgstr ""
+msgstr "Mangler '='"
 
 #: src/conf.c:247
 msgid "Bad color name"
-msgstr ""
+msgstr "Dårligt farvenavn"
 
 #: src/conf.c:256
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Ufuldstændig farve definition"
 
 #: src/conf.c:262
 msgid "Invalid number"
-msgstr ""
+msgstr "Ugyldigt tal."
 
 #: src/conf.c:270
 msgid "Malformed color definition"
-msgstr ""
+msgstr "Forkert farve definition"
 
 #. an unknown screen name was specified in the
 #. configuration file
 #: src/conf.c:305
 msgid "Unknown screen name"
-msgstr ""
+msgstr "Ukendt skærm navn"
 
 #: src/conf.c:454
-#, fuzzy
 msgid "Unknown configuration parameter"
-msgstr "Taste konfigurations skærm"
+msgstr "Ukendt konfigurations parameter"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
 #: src/options.c:216 src/options.c:219
 msgid "translator-credits"
 msgstr ""
+"Launchpad Contributions:\n"
+"  Mikkel Kirkgaard Nielsen https://launchpad.net/~ncmpc\n"
+"  Niels Anker https://launchpad.net/~nanker"
 
 #~ msgid "Screen updated!"
 #~ msgstr "Skærm opdateret!"
