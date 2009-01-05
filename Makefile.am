@@ -11,6 +11,8 @@ doc_DATA = \
   README\
   NEWS
 
+EXTRA_DIST = autogen.sh $(addprefix lyrics/,$(lyrics_plugins))
+
 # build the smalles possible ncmpc binary
 ncmpc-tiny:
 	$(MAKE) -C src $@
@@ -23,8 +25,6 @@ sparse-check:
 #
 
 lyrics_plugins = hd.sh leoslyrics.py lyricswiki.rb
-
-EXTRA_DIST = $(addprefix lyrics/,$(lyrics_plugins))
 
 if ENABLE_LYRICS_SCREEN
 
