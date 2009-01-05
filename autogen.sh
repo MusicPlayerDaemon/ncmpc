@@ -8,7 +8,7 @@ glib-gettextize --force --copy
 
 # add aclocal.m4 to current dir
 echo "aclocal..."
-aclocal -I $PWD/m4
+aclocal -I m4
 
 # This generates the configure script from configure.in
 echo "autoconf..."
