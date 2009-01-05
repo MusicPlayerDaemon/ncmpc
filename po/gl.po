@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-25 23:41+0100\n"
-"PO-Revision-Date: 2008-12-25 23:44+0100\n"
+"PO-Revision-Date: 2009-01-05 15:29+0100\n"
 "Last-Translator: Johám-Luís Miguéns Vila <galiza.ceive@gmail.com>\n"
 "Language-Team: galician\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr "Letras"
 
 #: src/screen.c:166 src/screen_outputs.c:161
 msgid "Outputs"
-msgstr ""
+msgstr "Saídas"
 
 #: src/screen.c:172
 #, c-format
@@ -239,9 +239,8 @@ msgstr "Lista em %s"
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/screen_file.c:127
-#, fuzzy
 msgid "Deleting this item is not possible"
-msgstr "Apenas podes eliminar as listas"
+msgstr "Nom é possíbel eliminar o elemento"
 
 #: src/screen_file.c:134
 #, c-format
@@ -506,11 +505,11 @@ msgstr "Guardar as letras"
 
 #: src/screen_help.c:144 src/command.c:217
 msgid "Outputs screen"
-msgstr ""
+msgstr "Écrã de saída"
 
 #: src/screen_help.c:146
 msgid "Enable/disable output"
-msgstr ""
+msgstr "Habilitar/Deshabilitar saída"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -531,12 +530,12 @@ msgstr "Letras guardadas"
 #: src/screen_outputs.c:57
 #, c-format
 msgid "Output '%s' enabled"
-msgstr ""
+msgstr "Activou-se a saída '%s'"
 
 #: src/screen_outputs.c:63
 #, c-format
 msgid "Output '%s' disabled"
-msgstr ""
+msgstr "Desactivou-se a saída '%s'"
 
 #: src/screen_song.c:105
 msgid "Song viewer"
@@ -715,7 +714,6 @@ msgid "Move item down"
 msgstr "Mover o elemento abaixo"
 
 #: src/command.c:160
-#, fuzzy
 msgid "Refresh screen"
 msgstr "Actualizar o écrã"
 
@@ -840,9 +838,9 @@ msgstr ""
 "A tecla %s assignou-se a %s e a %s (preme %s para ir ao editor de atalhos)"
 
 #: src/command.c:492 src/command.c:499
-#, fuzzy, c-format
+#, c-format
 msgid "Key %s assigned to %s and %s\n"
-msgstr "Erro: a tecla %s assignou-se a %s e a %s\n"
+msgstr "A tecla %s assignou-se a %s e a %s\n"
 
 #: src/colors.c:163
 #, c-format
@@ -867,22 +865,22 @@ msgstr "A terminal nom tem capacidades de cor\n"
 #. To translators: prefix for error messages
 #: src/conf.c:87
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: src/conf.c:95 src/conf.c:104
 msgid "Malformed hotkey definition"
-msgstr ""
+msgstr "Definiçom incorrecta da tecla de acceso rápido."
 
 #. the hotkey configuration contains an unknown
 #. command
 #: src/conf.c:131
 msgid "Unknown command"
-msgstr ""
+msgstr "Comando desconhecido"
 
 #. the hotkey configuration line is incomplete
 #: src/conf.c:144
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "Configuraçom incompleta da tecla de acceso rápido"
 
 #. translators: ncmpc supports displaying the
 #. "elapsed" or "remaining" time of a song being
@@ -890,46 +888,45 @@ msgstr ""
 #. contained an invalid setting
 #: src/conf.c:176
 msgid "Bad time display type"
-msgstr ""
+msgstr "Configuración incorrecta da duración mostrada"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/conf.c:191
 msgid "Missing '='"
-msgstr ""
+msgstr "Falta o signo '='"
 
 #: src/conf.c:247
 msgid "Bad color name"
-msgstr ""
+msgstr "Nome de cor incorrecto"
 
 #: src/conf.c:256
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Definiçom incompleta da cor"
 
 #: src/conf.c:262
 msgid "Invalid number"
-msgstr ""
+msgstr "Número inválido"
 
 #: src/conf.c:270
 msgid "Malformed color definition"
-msgstr ""
+msgstr "Definiçom incorrecta da cor"
 
 #. an unknown screen name was specified in the
 #. configuration file
 #: src/conf.c:305
 msgid "Unknown screen name"
-msgstr ""
+msgstr "Nome de écrã desconhecido"
 
 #: src/conf.c:454
-#, fuzzy
 msgid "Unknown configuration parameter"
-msgstr "Écrã da configuraçom dos atalhos"
+msgstr "Parâmetro de configuraçom desconhecido"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
 #: src/options.c:216 src/options.c:219
 msgid "translator-credits"
-msgstr ""
+msgstr "ashtophet"
 
 #~ msgid "Screen updated!"
 #~ msgstr "Écrã actualizado!"
