@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-27 13:00+0100\n"
-"PO-Revision-Date: 2008-12-25 23:46+0100\n"
+"PO-Revision-Date: 2009-01-05 18:25+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -66,7 +66,7 @@ msgstr "Text piesne"
 
 #: src/screen.c:166 src/screen_outputs.c:161
 msgid "Outputs"
-msgstr ""
+msgstr "Výstupy"
 
 #: src/screen.c:172
 #, c-format
@@ -237,9 +237,8 @@ msgstr "Playlist na %s"
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/screen_file.c:127
-#, fuzzy
 msgid "Deleting this item is not possible"
-msgstr "Playlisti môžete iba mazať"
+msgstr "Zmazanie tejto položky nie je možné"
 
 #: src/screen_file.c:134
 #, c-format
@@ -504,11 +503,11 @@ msgstr "Uložiť text piesne"
 
 #: src/screen_help.c:144 src/command.c:217
 msgid "Outputs screen"
-msgstr ""
+msgstr "Obrazovka výstupov"
 
 #: src/screen_help.c:146
 msgid "Enable/disable output"
-msgstr ""
+msgstr "Povoliť/vypnúť výstup"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -529,12 +528,12 @@ msgstr "Text piesne uložený"
 #: src/screen_outputs.c:57
 #, c-format
 msgid "Output '%s' enabled"
-msgstr ""
+msgstr "Výstup '%s' povolený"
 
 #: src/screen_outputs.c:63
 #, c-format
 msgid "Output '%s' disabled"
-msgstr ""
+msgstr "Výstup '%s' vypnutý"
 
 #: src/screen_song.c:105
 msgid "Song viewer"
@@ -713,9 +712,8 @@ msgid "Move item down"
 msgstr "Presunúť položku nadol"
 
 #: src/command.c:160
-#, fuzzy
 msgid "Refresh screen"
-msgstr "Obnoviť okno"
+msgstr "Obnoviť obrazovku"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
@@ -837,9 +835,9 @@ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 msgstr "Kláves %s priradený k %s a %s (stlačte %s pre editor klávesov)"
 
 #: src/command.c:492 src/command.c:499
-#, fuzzy, c-format
+#, c-format
 msgid "Key %s assigned to %s and %s\n"
-msgstr "Chyba: Kláves %s priradený k %s a %s\n"
+msgstr "Kláves %s priradený k %s a %s\n"
 
 #: src/colors.c:163
 #, c-format
@@ -864,22 +862,22 @@ msgstr "Terminál nemá schopnosti zobrazovania farieb\n"
 #. To translators: prefix for error messages
 #: src/conf.c:87
 msgid "Error"
-msgstr ""
+msgstr "Chyba"
 
 #: src/conf.c:95 src/conf.c:104
 msgid "Malformed hotkey definition"
-msgstr ""
+msgstr "Chybne zadaná definícia klávesovej skratky"
 
 #. the hotkey configuration contains an unknown
 #. command
 #: src/conf.c:131
 msgid "Unknown command"
-msgstr ""
+msgstr "Neznámy príkaz"
 
 #. the hotkey configuration line is incomplete
 #: src/conf.c:144
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "Neúplná konfigurácie klavesových skratiek"
 
 #. translators: ncmpc supports displaying the
 #. "elapsed" or "remaining" time of a song being
@@ -887,46 +885,45 @@ msgstr ""
 #. contained an invalid setting
 #: src/conf.c:176
 msgid "Bad time display type"
-msgstr ""
+msgstr "Nesprávny typ zobrazovania času"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/conf.c:191
 msgid "Missing '='"
-msgstr ""
+msgstr "Chýba '='"
 
 #: src/conf.c:247
 msgid "Bad color name"
-msgstr ""
+msgstr "Nesprávny názov farby"
 
 #: src/conf.c:256
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Neúplná definícia farby"
 
 #: src/conf.c:262
 msgid "Invalid number"
-msgstr ""
+msgstr "Neplatné číslo"
 
 #: src/conf.c:270
 msgid "Malformed color definition"
-msgstr ""
+msgstr "Zle zadaná definícia farby"
 
 #. an unknown screen name was specified in the
 #. configuration file
 #: src/conf.c:305
 msgid "Unknown screen name"
-msgstr ""
+msgstr "Neznámy názov obrazovky"
 
 #: src/conf.c:454
-#, fuzzy
 msgid "Unknown configuration parameter"
-msgstr "Okno nastavenia klávesov"
+msgstr "Neznámy parameter konfigurácie"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
 #: src/options.c:216 src/options.c:219
 msgid "translator-credits"
-msgstr ""
+msgstr "Jozef Riha <jose1711@gmail.com>"
 
 #~ msgid "Screen updated!"
 #~ msgstr "Okno obnovené!"
