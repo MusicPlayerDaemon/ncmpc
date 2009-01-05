@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-25 23:41+0100\n"
-"PO-Revision-Date: 2008-12-25 23:44+0100\n"
+"PO-Revision-Date: 2009-01-05 21:09+0100\n"
 "Last-Translator: Yann Cézard <eesprit@free.fr>\n"
 "Language-Team: fr <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -66,7 +66,7 @@ msgstr "Paroles"
 
 #: src/screen.c:166 src/screen_outputs.c:161
 msgid "Outputs"
-msgstr ""
+msgstr "Sorties"
 
 #: src/screen.c:172
 #, c-format
@@ -237,9 +237,8 @@ msgstr "Liste de lecture sur %s"
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/screen_file.c:127
-#, fuzzy
 msgid "Deleting this item is not possible"
-msgstr "Seules les listes de lecture peuvent être éffacées"
+msgstr "Impossible d'effacer ce type d'objet"
 
 #: src/screen_file.c:134
 #, c-format
@@ -250,7 +249,7 @@ msgstr "Effacer la liste de lecture %s [%s/%s] ? "
 #. user
 #: src/screen_file.c:149
 msgid "Playlist deleted"
-msgstr "Liste de lecture éffacée"
+msgstr "Liste de lecture effacée"
 
 #: src/screen_file.c:261
 #, c-format
@@ -504,11 +503,11 @@ msgstr "Enregistrer les paroles"
 
 #: src/screen_help.c:144 src/command.c:217
 msgid "Outputs screen"
-msgstr ""
+msgstr "Ecran des sorties"
 
 #: src/screen_help.c:146
 msgid "Enable/disable output"
-msgstr ""
+msgstr "Activer/désactiver une sortie"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -529,12 +528,12 @@ msgstr "Paroles enregistrées"
 #: src/screen_outputs.c:57
 #, c-format
 msgid "Output '%s' enabled"
-msgstr ""
+msgstr "Sortie %s activée"
 
 #: src/screen_outputs.c:63
 #, c-format
 msgid "Output '%s' disabled"
-msgstr ""
+msgstr "Sortie %s désactivée"
 
 #: src/screen_song.c:105
 msgid "Song viewer"
@@ -713,9 +712,8 @@ msgid "Move item down"
 msgstr "Déplacer l'élément vers le bas"
 
 #: src/command.c:160
-#, fuzzy
 msgid "Refresh screen"
-msgstr "Mettre à jour l'écran"
+msgstr "Rafraîchir l'écran"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
@@ -839,9 +837,8 @@ msgstr ""
 "touches)"
 
 #: src/command.c:492 src/command.c:499
-#, fuzzy, c-format
 msgid "Key %s assigned to %s and %s\n"
-msgstr "Erreur: La touche %s est assignée à %s et à %s\n"
+msgstr "La touche %s est assignée à %s et à %s\n"
 
 #: src/colors.c:163
 #, c-format
@@ -866,22 +863,22 @@ msgstr "Le terminal ne dispose pas de la gestion des couleurs\n"
 #. To translators: prefix for error messages
 #: src/conf.c:87
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 #: src/conf.c:95 src/conf.c:104
 msgid "Malformed hotkey definition"
-msgstr ""
+msgstr "Définition de raccourci malformée"
 
 #. the hotkey configuration contains an unknown
 #. command
 #: src/conf.c:131
 msgid "Unknown command"
-msgstr ""
+msgstr "Commande inconnue"
 
 #. the hotkey configuration line is incomplete
 #: src/conf.c:144
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "Configuration de raccourci incomplète"
 
 #. translators: ncmpc supports displaying the
 #. "elapsed" or "remaining" time of a song being
@@ -889,46 +886,45 @@ msgstr ""
 #. contained an invalid setting
 #: src/conf.c:176
 msgid "Bad time display type"
-msgstr ""
+msgstr "Mauvais type d'affichage du temps"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/conf.c:191
 msgid "Missing '='"
-msgstr ""
+msgstr "Manque '='"
 
 #: src/conf.c:247
 msgid "Bad color name"
-msgstr ""
+msgstr "Mauvais nom de couleur"
 
 #: src/conf.c:256
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Définition de couleur incomplète"
 
 #: src/conf.c:262
 msgid "Invalid number"
-msgstr ""
+msgstr "Nombre invalide"
 
 #: src/conf.c:270
 msgid "Malformed color definition"
-msgstr ""
+msgstr "Définition de couleur malformée"
 
 #. an unknown screen name was specified in the
 #. configuration file
 #: src/conf.c:305
 msgid "Unknown screen name"
-msgstr ""
+msgstr "Nom d'écran inconnu"
 
 #: src/conf.c:454
-#, fuzzy
 msgid "Unknown configuration parameter"
-msgstr "Ecran de configuration des touches"
+msgstr "Paramètre de configuration inconnu"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
 #: src/options.c:216 src/options.c:219
 msgid "translator-credits"
-msgstr ""
+msgstr "Traduction française : Yann Cézard <eesprit@free.fr>"
 
 #~ msgid "Screen updated!"
 #~ msgstr "Ecran mis à jour!"
