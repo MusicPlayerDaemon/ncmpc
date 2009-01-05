@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-25 23:41+0100\n"
-"PO-Revision-Date: 2008-12-25 23:44+0100\n"
+"PO-Revision-Date: 2009-01-05 15:29+0100\n"
 "Last-Translator: Johám-Luís Miguéns Vila <ashtophet@ashtophet.org>\n"
 "Language-Team: es\n"
 "MIME-Version: 1.0\n"
@@ -73,7 +73,7 @@ msgstr "Letras"
 
 #: src/screen.c:166 src/screen_outputs.c:161
 msgid "Outputs"
-msgstr ""
+msgstr "Salidas"
 
 #: src/screen.c:172
 #, c-format
@@ -244,9 +244,8 @@ msgstr "Lista de reproducción en %s"
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/screen_file.c:127
-#, fuzzy
 msgid "Deleting this item is not possible"
-msgstr "Sólo puedes eliminar las listas"
+msgstr "No se puede borrar el elemento"
 
 #: src/screen_file.c:134
 #, c-format
@@ -511,16 +510,16 @@ msgstr "Guardar las letras"
 
 #: src/screen_help.c:144 src/command.c:217
 msgid "Outputs screen"
-msgstr ""
+msgstr "Pantalla de salidas"
 
 #: src/screen_help.c:146
 msgid "Enable/disable output"
-msgstr ""
+msgstr "Activar/desactivar la salida"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
 msgid "No lyrics"
-msgstr "No letras disponibles"
+msgstr "No hay letras disponibles"
 
 #. translators: this message is displayed
 #. while data is retrieved
@@ -536,12 +535,12 @@ msgstr "Letras guardadas"
 #: src/screen_outputs.c:57
 #, c-format
 msgid "Output '%s' enabled"
-msgstr ""
+msgstr "Se activó la salida '%s'"
 
 #: src/screen_outputs.c:63
 #, c-format
 msgid "Output '%s' disabled"
-msgstr ""
+msgstr "Se desactivó la salida '%s'"
 
 #: src/screen_song.c:105
 msgid "Song viewer"
@@ -720,7 +719,6 @@ msgid "Move item down"
 msgstr "Moverlo abajo"
 
 #: src/command.c:160
-#, fuzzy
 msgid "Refresh screen"
 msgstr "Actualizar la ventana"
 
@@ -845,9 +843,9 @@ msgstr ""
 "Tecla %s asignada a %s y %s (pressiona %s para accer al editor de teclas)"
 
 #: src/command.c:492 src/command.c:499
-#, fuzzy, c-format
+#, c-format
 msgid "Key %s assigned to %s and %s\n"
-msgstr "Error: Tecla %s asignada a %s y %s\n"
+msgstr "Tecla %s asignada a %s y %s\n"
 
 #: src/colors.c:163
 #, c-format
@@ -872,22 +870,22 @@ msgstr "La terminal no tiene la opcion de diferentes colores\n"
 #. To translators: prefix for error messages
 #: src/conf.c:87
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: src/conf.c:95 src/conf.c:104
 msgid "Malformed hotkey definition"
-msgstr ""
+msgstr "Definición incorrecta de la tecla de acceso"
 
 #. the hotkey configuration contains an unknown
 #. command
 #: src/conf.c:131
 msgid "Unknown command"
-msgstr ""
+msgstr "Comando desconocido"
 
 #. the hotkey configuration line is incomplete
 #: src/conf.c:144
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "Configuración incompleta de la tecla de acceso"
 
 #. translators: ncmpc supports displaying the
 #. "elapsed" or "remaining" time of a song being
@@ -895,46 +893,45 @@ msgstr ""
 #. contained an invalid setting
 #: src/conf.c:176
 msgid "Bad time display type"
-msgstr ""
+msgstr "Configuración incorrecta del tipo de duración mostrada"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/conf.c:191
 msgid "Missing '='"
-msgstr ""
+msgstr "Falta un '='"
 
 #: src/conf.c:247
 msgid "Bad color name"
-msgstr ""
+msgstr "Nombre de color incorrecto"
 
 #: src/conf.c:256
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Definición de color incompleta"
 
 #: src/conf.c:262
 msgid "Invalid number"
-msgstr ""
+msgstr "Número inválido"
 
 #: src/conf.c:270
 msgid "Malformed color definition"
-msgstr ""
+msgstr "Definición de color erronea"
 
 #. an unknown screen name was specified in the
 #. configuration file
 #: src/conf.c:305
 msgid "Unknown screen name"
-msgstr ""
+msgstr "Nombre de pantalla desconocido"
 
 #: src/conf.c:454
-#, fuzzy
 msgid "Unknown configuration parameter"
-msgstr "Configuración de teclas"
+msgstr "Parámetro de configuración desconocido"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
 #: src/options.c:216 src/options.c:219
 msgid "translator-credits"
-msgstr ""
+msgstr "ashtophet"
 
 #~ msgid "Screen updated!"
 #~ msgstr "Ventana actualizada!"
