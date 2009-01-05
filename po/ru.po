@@ -51,7 +51,7 @@ msgstr "Плейлист"
 #. translators: caption of the browser screen
 #: src/screen.c:155 src/screen_file.c:205
 msgid "Browse"
-msgstr "Просмотр"
+msgstr "Навигация"
 
 #: src/screen.c:157 src/screen_search.c:80 src/screen_song.c:187
 msgid "Artist"
@@ -68,7 +68,7 @@ msgstr "Текст"
 
 #: src/screen.c:166 src/screen_outputs.c:161
 msgid "Outputs"
-msgstr ""
+msgstr "Аудиовыходы"
 
 #: src/screen.c:172
 #, c-format
@@ -241,7 +241,7 @@ msgstr "Плейлист на %s"
 #: src/screen_file.c:127
 #, fuzzy
 msgid "Deleting this item is not possible"
-msgstr "Плейлисты можно только удалять"
+msgstr "Удаление этого элемента невозможно"
 
 #: src/screen_file.c:134
 #, c-format
@@ -458,7 +458,7 @@ msgstr "Центрировать"
 
 #: src/screen_help.c:107 src/command.c:94
 msgid "Browse screen"
-msgstr "Экран просмотра"
+msgstr "Экран навигации"
 
 #: src/screen_help.c:109
 msgid "Enter directory/Select and play song"
@@ -506,11 +506,11 @@ msgstr "Сохранить текст"
 
 #: src/screen_help.c:144 src/command.c:217
 msgid "Outputs screen"
-msgstr ""
+msgstr "Экран аудиовыходов"
 
 #: src/screen_help.c:146
 msgid "Enable/disable output"
-msgstr ""
+msgstr "Вкл/выкл аудиовыход"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -531,12 +531,12 @@ msgstr "Текст сохранен"
 #: src/screen_outputs.c:57
 #, c-format
 msgid "Output '%s' enabled"
-msgstr ""
+msgstr "Аудиовыход '%s' включен"
 
 #: src/screen_outputs.c:63
 #, c-format
 msgid "Output '%s' disabled"
-msgstr ""
+msgstr "Аудиовыход '%s' выключен"
 
 # Several translations for Song Viewer:
 #: src/screen_song.c:105
@@ -589,11 +589,11 @@ msgstr "Курсор вниз"
 
 #: src/command.c:79 src/command.c:259
 msgid "Home"
-msgstr "Home"
+msgstr "В начало"
 
 #: src/command.c:81 src/command.c:261
 msgid "End"
-msgstr "End"
+msgstr "В конец"
 
 #: src/command.c:83
 msgid "Page up"
@@ -715,8 +715,7 @@ msgstr "Переместить вверх"
 msgid "Move item down"
 msgstr "Переместить вниз"
 
-#: src/command.c:160
-#, fuzzy
+#: src/command.c:161
 msgid "Refresh screen"
 msgstr "Обновить экран"
 
@@ -842,7 +841,7 @@ msgstr "Клавиша %s назначена для %s и %s (%s - редактор клавиш)"
 #: src/command.c:492 src/command.c:499
 #, fuzzy, c-format
 msgid "Key %s assigned to %s and %s\n"
-msgstr "Ошибка: Клавиша %s назначена для %s и %s\n"
+msgstr "Клавиша %s назначена для %s и %s\n"
 
 #: src/colors.c:163
 #, c-format
@@ -867,22 +866,22 @@ msgstr "Терминал не поддерживает цвета\n"
 #. To translators: prefix for error messages
 #: src/conf.c:87
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
 #: src/conf.c:95 src/conf.c:104
 msgid "Malformed hotkey definition"
-msgstr ""
+msgstr "Неправильное значение клавиатурной комбинации"
 
 #. the hotkey configuration contains an unknown
 #. command
 #: src/conf.c:131
 msgid "Unknown command"
-msgstr ""
+msgstr "Неизвестная команда"
 
 #. the hotkey configuration line is incomplete
 #: src/conf.c:144
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "Неопределённое значение клавиатурной комбинации"
 
 #. translators: ncmpc supports displaying the
 #. "elapsed" or "remaining" time of a song being
@@ -890,46 +889,46 @@ msgstr ""
 #. contained an invalid setting
 #: src/conf.c:176
 msgid "Bad time display type"
-msgstr ""
+msgstr "Неверный тип отображения времени"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/conf.c:191
 msgid "Missing '='"
-msgstr ""
+msgstr "Пропущен символ '='"
 
 #: src/conf.c:247
 msgid "Bad color name"
-msgstr ""
+msgstr "Неверное название цвета"
 
 #: src/conf.c:256
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Неопределённое значение цвета"
 
 #: src/conf.c:262
 msgid "Invalid number"
-msgstr ""
+msgstr "Неверное число"
 
 #: src/conf.c:270
 msgid "Malformed color definition"
-msgstr ""
+msgstr "Неправильное значение цвета"
 
 #. an unknown screen name was specified in the
 #. configuration file
 #: src/conf.c:305
 msgid "Unknown screen name"
-msgstr ""
+msgstr "Неизвестное название экрана"
 
 #: src/conf.c:454
 #, fuzzy
 msgid "Unknown configuration parameter"
-msgstr "Экран клавиатурных комбинаций"
+msgstr "Неизвестный параметр конфигурации"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
 #: src/options.c:216 src/options.c:219
 msgid "translator-credits"
-msgstr ""
+msgstr "Перевод: Max Arnold <lwarxx@gmail.com>"
 
 #~ msgid "Screen updated!"
 #~ msgstr "Экран обновлен!"
