@@ -481,20 +481,11 @@ check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 			if (cp[i].keys[j] &&
 			    (cmd = find_key_command(cp[i].keys[j],cp)) != cp[i].command) {
 				if (buf) {
-#ifdef ENABLE_KEYDEF_SCREEN
-					g_snprintf(buf, bufsize,
-						   _("Key %s assigned to %s and %s (press %s for the key editor)"),
-						   key2str(cp[i].keys[j]),
-						   get_key_command_name(cp[i].command),
-						   get_key_command_name(cmd),
-						   get_key_names(CMD_SCREEN_KEYDEF,0));
-#else
 					g_snprintf(buf, bufsize,
 						   _("Key %s assigned to %s and %s\n"),
 						   key2str(cp[i].keys[j]),
 						   get_key_command_name(cp[i].command),
 						   get_key_command_name(cmd));
-#endif
 				} else
 					fprintf(stderr,
 						_("Key %s assigned to %s and %s\n"),

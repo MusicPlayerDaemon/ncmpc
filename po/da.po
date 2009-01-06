@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-27 13:00+0100\n"
-"PO-Revision-Date: 2009-01-01 17:04+0000\n"
+"POT-Creation-Date: 2009-01-06 17:57+0100\n"
+"PO-Revision-Date: 2009-01-06 17:53+0100\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,158 +17,166 @@ msgstr ""
 "X-Launchpad-Export-Date: 2009-01-02 08:41+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: src/i18n.h:41
+#: src/i18n.h:42
 msgid "y"
 msgstr "j"
 
-#: src/i18n.h:42
+#: src/i18n.h:43
 msgid "n"
 msgstr "n"
 
-#: src/main.c:214
+#: src/main.c:215
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr "Forbinder til %s... [Tryk %s for at afbryde]"
 
-#: src/main.c:232
+#: src/main.c:233
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
 msgstr "Fejl: MPD version %d.%d.%d er for gammel (mindst %s er nødvendig)"
 
-#: src/main.c:246
+#: src/main.c:247
 #, c-format
 msgid "Connected to %s"
 msgstr "Forbundet til %s"
 
-#: src/screen.c:152 src/screen_help.c:216
+#. to translators: a key was bound twice in the key editor,
+#. and this is a hint for the user what to press to correct
+#. that
+#: src/main.c:366
+#, c-format
+msgid "press %s for the key editor"
+msgstr "tryk på %s for at redigere"
+
+#: src/screen.c:153 src/screen_help.c:217
 msgid "Help"
 msgstr "Hjælp"
 
-#: src/screen.c:154 src/screen_play.c:471
+#: src/screen.c:155 src/screen_play.c:472
 msgid "Playlist"
 msgstr "Afspilningsliste"
 
 #. translators: caption of the browser screen
-#: src/screen.c:155 src/screen_file.c:205
+#: src/screen.c:156 src/screen_file.c:205
 msgid "Browse"
 msgstr "Gennemse"
 
-#: src/screen.c:157 src/screen_search.c:80 src/screen_song.c:187
+#: src/screen.c:158 src/screen_search.c:80 src/screen_song.c:188
 msgid "Artist"
 msgstr "Kunstner"
 
-#: src/screen.c:160 src/screen_help.c:123
+#: src/screen.c:161 src/screen_help.c:124
 msgid "Search"
 msgstr "Søg"
 
-#: src/screen.c:163 src/screen_lyrics.c:203 src/screen_lyrics.c:211
+#: src/screen.c:164 src/screen_lyrics.c:203 src/screen_lyrics.c:211
 #: src/screen_lyrics.c:215
 msgid "Lyrics"
 msgstr "Sangtekster"
 
-#: src/screen.c:166 src/screen_outputs.c:161
+#: src/screen.c:167 src/screen_outputs.c:162
 msgid "Outputs"
 msgstr "Output"
 
-#: src/screen.c:172
+#: src/screen.c:173
 #, c-format
 msgid "Volume n/a "
 msgstr "Volumen: n/a "
 
-#: src/screen.c:174
+#: src/screen.c:175
 #, c-format
 msgid " Volume %d%%"
 msgstr " Volumen: %d%%"
 
-#: src/screen.c:281
+#: src/screen.c:282
 msgid "Playing:"
 msgstr "Afspiller:"
 
-#: src/screen.c:284
+#: src/screen.c:285
 msgid "[Paused]"
 msgstr "[Pause]"
 
-#: src/screen.c:404 src/screen.c:477
+#: src/screen.c:407 src/screen.c:480
 msgid "Error: Screen too small"
 msgstr "Fejl: Skærm for lille"
 
-#: src/screen.c:600
+#: src/screen.c:603
 msgid "Repeat is on"
 msgstr "Gentag er aktiv"
 
-#: src/screen.c:601
+#: src/screen.c:604
 msgid "Repeat is off"
 msgstr "Gentag er inaktiv"
 
-#: src/screen.c:605
+#: src/screen.c:608
 msgid "Random is on"
 msgstr "Tilfældig er aktiv"
 
-#: src/screen.c:606
+#: src/screen.c:609
 msgid "Random is off"
 msgstr "Tilfældig er inaktiv"
 
-#: src/screen.c:609
+#: src/screen.c:612
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Crossfade %d sekunder"
 
-#: src/screen.c:612
+#: src/screen.c:615
 msgid "Database updated"
 msgstr "Databasen er opdateret"
 
-#: src/screen.c:745
+#: src/screen.c:748
 msgid "Shuffled playlist"
 msgstr "Afspilninsglisten blandet"
 
-#: src/screen.c:749
+#: src/screen.c:752
 msgid "Cleared playlist"
 msgstr "Sletter afspilningslisten"
 
-#: src/screen.c:766 src/screen_file.c:265
+#: src/screen.c:769 src/screen_file.c:265
 msgid "Database update started"
 msgstr "Database opdatering startet"
 
-#: src/screen.c:768 src/screen_file.c:272
+#: src/screen.c:771 src/screen_file.c:272
 msgid "Database update running..."
 msgstr "Databasen opdateres..."
 
-#: src/screen.c:804
+#: src/screen.c:807
 msgid "Find mode: Wrapped"
 msgstr "Søg (begynd forfra)"
 
-#: src/screen.c:805
+#: src/screen.c:808
 msgid "Find mode: Normal"
 msgstr "Søg normalt (start/slut)"
 
-#: src/screen.c:810
+#: src/screen.c:813
 msgid "Auto center mode: On"
 msgstr "Automatisk centrering er aktiv"
 
-#: src/screen.c:811
+#: src/screen.c:814
 msgid "Auto center mode: Off"
 msgstr "Automatisk centrering er inaktiv"
 
-#: src/screen_artist.c:73
+#: src/screen_artist.c:74
 msgid "All tracks"
 msgstr "Alle spor"
 
-#: src/screen_artist.c:382
+#: src/screen_artist.c:383
 #, c-format
 msgid "All artists"
 msgstr "Alle kunstnere"
 
-#: src/screen_artist.c:387
+#: src/screen_artist.c:388
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "Album fra kunstneren: %s"
 
-#: src/screen_artist.c:396
+#: src/screen_artist.c:397
 #, c-format
 msgid "Album: %s - %s"
 msgstr "Album: %s - %s"
 
-#: src/screen_artist.c:400
+#: src/screen_artist.c:401
 #, c-format
 msgid "All tracks of artist: %s"
 msgstr "Alle spor fra kunstneren: %s"
@@ -189,48 +197,48 @@ msgstr "Tilføjer '%s' til listen...\n"
 msgid "Adding directory %s...\n"
 msgstr "Tilføjer mappen %s...\n"
 
-#: src/screen_utils.c:31
+#: src/screen_utils.c:32
 msgid "Find: "
 msgstr "Søg: "
 
-#: src/screen_utils.c:32
+#: src/screen_utils.c:33
 msgid "Find backward: "
 msgstr "Søg (baglæns): "
 
-#: src/screen_utils.c:113
+#: src/screen_utils.c:114
 msgid "Password: "
 msgstr "Adgangskode: "
 
-#: src/screen_utils.c:202
+#: src/screen_utils.c:203
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Kan ikke finde '%s'"
 
-#: src/screen_play.c:227
+#: src/screen_play.c:228
 msgid "Save playlist as: "
 msgstr "Gem afspilningslisten som: "
 
-#: src/screen_play.c:260
+#: src/screen_play.c:261
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Erstat '%s' [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_play.c:281 src/screen_file.c:140 src/screen_keydef.c:162
+#: src/screen_play.c:282 src/screen_file.c:140 src/screen_keydef.c:163
 msgid "Aborted"
 msgstr "Afbrudt"
 
 #. success
-#: src/screen_play.c:289
+#: src/screen_play.c:290
 #, c-format
 msgid "Saved %s"
 msgstr "Gemt %s"
 
-#: src/screen_play.c:365
+#: src/screen_play.c:366
 msgid "Add: "
 msgstr "Tilføj: "
 
-#: src/screen_play.c:473
+#: src/screen_play.c:474
 #, c-format
 msgid "Playlist on %s"
 msgstr "Afspilningsliste på %s"
@@ -302,11 +310,11 @@ msgstr "kommentar"
 msgid "file"
 msgstr "fil"
 
-#: src/screen_search.c:79 src/screen_song.c:188
+#: src/screen_search.c:79 src/screen_song.c:189
 msgid "Title"
 msgstr "Titel"
 
-#: src/screen_search.c:81 src/screen_song.c:189
+#: src/screen_search.c:81 src/screen_song.c:190
 msgid "Album"
 msgstr "Album"
 
@@ -360,154 +368,154 @@ msgstr "Tryk på %s for en ny søgning [%s]"
 msgid "Search mode: %s"
 msgstr "Søg efter: %s"
 
-#: src/screen_keydef.c:40
+#: src/screen_keydef.c:41
 msgid "===> Apply & Save key bindings  "
 msgstr "==> Anvend og gem taste bindinger  "
 
-#: src/screen_keydef.c:41
+#: src/screen_keydef.c:42
 msgid "===> Apply key bindings "
 msgstr "==> Anvend taste bindinger "
 
-#: src/screen_keydef.c:69
+#: src/screen_keydef.c:70
 msgid "You have new key bindings"
 msgstr "Taste bindinger opdaterede"
 
-#: src/screen_keydef.c:71
+#: src/screen_keydef.c:72
 msgid "Keybindings unchanged."
 msgstr "Taste bindinger uændrede!"
 
-#: src/screen_keydef.c:81
+#: src/screen_keydef.c:82
 #, c-format
 msgid "Error: Unable to create direcory ~/.ncmpc - %s"
 msgstr "Fejl: Kan ikke oprette mappen ~/.ncmpc - %s"
 
-#: src/screen_keydef.c:90 src/screen_keydef.c:97
+#: src/screen_keydef.c:91 src/screen_keydef.c:98
 #, c-format
 msgid "Error: %s - %s"
 msgstr "Fejl: %s - %s"
 
-#: src/screen_keydef.c:99
+#: src/screen_keydef.c:100
 #, c-format
 msgid "Wrote %s"
 msgstr "Skrev %s"
 
-#: src/screen_keydef.c:136
+#: src/screen_keydef.c:137
 msgid "Deleted"
 msgstr "Slettet"
 
-#: src/screen_keydef.c:157
+#: src/screen_keydef.c:158
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Ny tast for %s: "
 
-#: src/screen_keydef.c:168
+#: src/screen_keydef.c:169
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "Tasten %s anvendes allerede til %s"
 
-#: src/screen_keydef.c:178
+#: src/screen_keydef.c:179
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "Tildelt %s til %s"
 
-#: src/screen_keydef.c:216
+#: src/screen_keydef.c:217
 msgid "Add new key"
 msgstr "Definér ny tast"
 
-#: src/screen_keydef.c:275
+#: src/screen_keydef.c:276
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "OBS! Du glemte vel ikke at 'anvende' dine ændringer?"
 
-#: src/screen_keydef.c:282
+#: src/screen_keydef.c:283
 msgid "Edit key bindings"
 msgstr "Modificer taste bindinger"
 
-#: src/screen_keydef.c:284
+#: src/screen_keydef.c:285
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Modificer tast for '%s'"
 
-#: src/screen_help.c:37
+#: src/screen_help.c:38
 msgid "Movement"
 msgstr "Navigation"
 
-#: src/screen_help.c:63
+#: src/screen_help.c:64
 msgid "Global"
 msgstr "Globale"
 
-#: src/screen_help.c:93 src/command.c:92
+#: src/screen_help.c:94 src/command.c:93
 msgid "Playlist screen"
 msgstr "Afspilningsliste"
 
-#: src/screen_help.c:95
+#: src/screen_help.c:96
 msgid "Play"
 msgstr "Afspil"
 
-#: src/screen_help.c:98
+#: src/screen_help.c:99
 msgid "Move song up"
 msgstr "Flyt markøren op i afspilningslisten"
 
-#: src/screen_help.c:99
+#: src/screen_help.c:100
 msgid "Move song down"
 msgstr "Flyt markøren ned i afspilningslisten"
 
-#: src/screen_help.c:102
+#: src/screen_help.c:103
 msgid "Center"
 msgstr "Centrer"
 
-#: src/screen_help.c:107 src/command.c:94
+#: src/screen_help.c:108 src/command.c:95
 msgid "Browse screen"
 msgstr "Gennemse"
 
-#: src/screen_help.c:109
+#: src/screen_help.c:110
 msgid "Enter directory/Select and play song"
 msgstr "Skift til bibliotek/Tilføj til afspilningslisten og afspil"
 
-#: src/screen_help.c:111 src/screen_help.c:126
+#: src/screen_help.c:112 src/screen_help.c:127
 msgid "Append song to playlist"
 msgstr "Tilføj spor til afspilningsliste"
 
-#: src/screen_help.c:113
+#: src/screen_help.c:114
 msgid "Delete playlist"
 msgstr "Slet afspilningsliste"
 
-#: src/screen_help.c:121 src/command.c:199
+#: src/screen_help.c:122 src/command.c:200
 msgid "Search screen"
 msgstr "Database søgning"
 
-#: src/screen_help.c:124
+#: src/screen_help.c:125
 msgid "Select and play"
 msgstr "Vælg og afspil"
 
-#: src/screen_help.c:133 src/command.c:206
+#: src/screen_help.c:134 src/command.c:207
 msgid "Lyrics screen"
 msgstr "Sangtekst skærm"
 
-#: src/screen_help.c:135
+#: src/screen_help.c:136
 msgid "View Lyrics"
 msgstr "Gennemse sangtekster"
 
-#: src/screen_help.c:136
+#: src/screen_help.c:137
 msgid "(Re)load lyrics"
 msgstr "(Gen)indlæs santekster"
 
-#: src/screen_help.c:137
+#: src/screen_help.c:138
 msgid "Interrupt retrieval"
 msgstr "Abryd hentning"
 
-#: src/screen_help.c:138
+#: src/screen_help.c:139
 msgid "Explicitly download lyrics"
 msgstr "Hent kun sangtekster"
 
-#: src/screen_help.c:139
+#: src/screen_help.c:140
 msgid "Save lyrics"
 msgstr "Gem sagtekster"
 
-#: src/screen_help.c:144 src/command.c:217
+#: src/screen_help.c:145 src/command.c:218
 msgid "Outputs screen"
 msgstr "Output skærm"
 
-#: src/screen_help.c:146
+#: src/screen_help.c:147
 msgid "Enable/disable output"
 msgstr "Slå output til/fra"
 
@@ -527,357 +535,352 @@ msgstr "indlæser..."
 msgid "Lyrics saved"
 msgstr "Sangtekster gemt"
 
-#: src/screen_outputs.c:57
+#: src/screen_outputs.c:58
 #, c-format
 msgid "Output '%s' enabled"
 msgstr "Output '%s' slået til"
 
-#: src/screen_outputs.c:63
+#: src/screen_outputs.c:64
 #, c-format
 msgid "Output '%s' disabled"
 msgstr "Output '%s' slået fra"
 
-#: src/screen_song.c:105
+#: src/screen_song.c:106
 msgid "Song viewer"
 msgstr "Sang viser"
 
-#: src/screen_song.c:190
+#: src/screen_song.c:191
 msgid "Composer"
 msgstr "Komponist"
 
-#: src/screen_song.c:191
+#: src/screen_song.c:192
 msgid "Name"
 msgstr "Navn"
 
-#: src/screen_song.c:192
+#: src/screen_song.c:193
 msgid "Disc"
 msgstr "Disk"
 
-#: src/screen_song.c:193
+#: src/screen_song.c:194
 msgid "Track"
 msgstr "Spor"
 
-#: src/screen_song.c:194
+#: src/screen_song.c:195
 msgid "Date"
 msgstr "Dato"
 
-#: src/screen_song.c:195
+#: src/screen_song.c:196
 msgid "Genre"
 msgstr "Genre"
 
-#: src/screen_song.c:196
+#: src/screen_song.c:197
 msgid "Comment"
 msgstr "Kommentar"
 
-#: src/command.c:68
+#: src/command.c:69
 msgid "Key configuration screen"
 msgstr "Taste konfigurations skærm"
 
-#: src/command.c:71
+#: src/command.c:72
 msgid "Quit"
 msgstr "Afslut"
 
-#: src/command.c:75
+#: src/command.c:76
 msgid "Move cursor up"
 msgstr "Flyt markør op"
 
-#: src/command.c:77
+#: src/command.c:78
 msgid "Move cursor down"
 msgstr "Flyt markør ned"
 
-#: src/command.c:79 src/command.c:259
+#: src/command.c:80 src/command.c:260
 msgid "Home"
 msgstr "Hjem"
 
-#: src/command.c:81 src/command.c:261
+#: src/command.c:82 src/command.c:262
 msgid "End"
 msgstr "Slut"
 
-#: src/command.c:83
+#: src/command.c:84
 msgid "Page up"
 msgstr "Side op"
 
-#: src/command.c:85
+#: src/command.c:86
 msgid "Page down"
 msgstr "Side ned"
 
-#: src/command.c:90
+#: src/command.c:91
 msgid "Help screen"
 msgstr "Hjælp"
 
-#: src/command.c:99
+#: src/command.c:100
 msgid "Play/Enter directory"
 msgstr "Afspil/Gå til mappe"
 
-#: src/command.c:101
+#: src/command.c:102
 msgid "Pause"
 msgstr "Pause"
 
-#: src/command.c:103
+#: src/command.c:104
 msgid "Stop"
 msgstr "Stop"
 
-#: src/command.c:105
+#: src/command.c:106
 msgid "Crop"
 msgstr "Beskær"
 
-#: src/command.c:107
+#: src/command.c:108
 msgid "Next track"
 msgstr "Næste"
 
-#: src/command.c:109
+#: src/command.c:110
 msgid "Previous track"
 msgstr "Forrige"
 
-#: src/command.c:111
+#: src/command.c:112
 msgid "Seek forward"
 msgstr "Søg fremad"
 
-#: src/command.c:113
+#: src/command.c:114
 msgid "Seek backward"
 msgstr "Søg tilbage"
 
-#: src/command.c:115
+#: src/command.c:116
 msgid "Increase volume"
 msgstr "Hæv volumen"
 
-#: src/command.c:117
+#: src/command.c:118
 msgid "Decrease volume"
 msgstr "Sænk volumen"
 
-#: src/command.c:119
+#: src/command.c:120
 msgid "Select/deselect song in playlist"
 msgstr "Marker/afmarker sang i afspilningsliste"
 
-#: src/command.c:121
+#: src/command.c:122
 msgid "Select all listed items"
 msgstr "Vælg alle emner på listen"
 
-#: src/command.c:123
+#: src/command.c:124
 msgid "Delete song from playlist"
 msgstr "Slet sang fra afspilningsliste"
 
-#: src/command.c:125
+#: src/command.c:126
 msgid "Shuffle playlist"
 msgstr "Bland rækkefølgen i afspilningslisten"
 
-#: src/command.c:127
+#: src/command.c:128
 msgid "Clear playlist"
 msgstr "Slet afspilningslisten"
 
-#: src/command.c:129
+#: src/command.c:130
 msgid "Toggle repeat mode"
 msgstr "Aktiver/deaktiver gentag"
 
-#: src/command.c:131
+#: src/command.c:132
 msgid "Toggle random mode"
 msgstr "Aktiver/deaktiver tilfældigt valg"
 
-#: src/command.c:133
+#: src/command.c:134
 msgid "Toggle crossfade mode"
 msgstr "Aktiver/deaktiver crossfade mellem sange"
 
-#: src/command.c:135
+#: src/command.c:136
 msgid "Start a music database update"
 msgstr "Opdater databasen"
 
-#: src/command.c:137
+#: src/command.c:138
 msgid "Save playlist"
 msgstr "Gem afspilningslisten"
 
-#: src/command.c:139
+#: src/command.c:140
 msgid "Add url/file to playlist"
 msgstr "Tilføj URL eller fil til afspilningslisten"
 
-#: src/command.c:142
+#: src/command.c:143
 msgid "Go to root directory"
 msgstr "Gå til rod mappen"
 
-#: src/command.c:144
+#: src/command.c:145
 msgid "Go to parent directory"
 msgstr "Gå til forældre mappe"
 
-#: src/command.c:148
+#: src/command.c:149
 msgid "View the song"
 msgstr "Vis sangen"
 
-#: src/command.c:152
+#: src/command.c:153
 msgid "Locate song in browser"
 msgstr "Lokaliser sang i browseren"
 
-#: src/command.c:156
+#: src/command.c:157
 msgid "Move item up"
 msgstr "Flyt op"
 
-#: src/command.c:158
+#: src/command.c:159
 msgid "Move item down"
 msgstr "Flyt ned"
 
-#: src/command.c:160
+#: src/command.c:161
 msgid "Refresh screen"
 msgstr "Genopfrisk skærm"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/command.c:167
+#: src/command.c:168
 msgid "Toggle find mode"
 msgstr "Ændre søge tilstand"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/command.c:171
+#: src/command.c:172
 msgid "Toggle auto center mode"
 msgstr "Aktiver/deaktiver automatisk centrering"
 
-#: src/command.c:176
+#: src/command.c:177
 msgid "Next screen"
 msgstr "Næste skærm"
 
-#: src/command.c:178
+#: src/command.c:179
 msgid "Previous screen"
 msgstr "Forrige skærm"
 
-#: src/command.c:183
+#: src/command.c:184
 msgid "Forward find"
 msgstr "Søg"
 
-#: src/command.c:185
+#: src/command.c:186
 msgid "Forward find next"
 msgstr "Gentag søg"
 
-#: src/command.c:187
+#: src/command.c:188
 msgid "Backward find"
 msgstr "Søg baglæns"
 
-#: src/command.c:189
+#: src/command.c:190
 msgid "Backward find previous"
 msgstr "Gentag søg baglæns"
 
-#: src/command.c:195
+#: src/command.c:196
 msgid "Artist screen"
 msgstr "Kunstner skærm"
 
-#: src/command.c:201
+#: src/command.c:202
 msgid "Change search mode"
 msgstr "Ændre søge tilstand"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/command.c:210
+#: src/command.c:211
 msgid "Interrupt action"
 msgstr "Afbryd action"
 
-#: src/command.c:212
+#: src/command.c:213
 msgid "Update Lyrics"
 msgstr "Opdater sangtekster"
 
-#: src/command.c:241
+#: src/command.c:242
 msgid "Undefined"
 msgstr "Udefineret"
 
-#: src/command.c:243
+#: src/command.c:244
 msgid "Space"
 msgstr "Mellemrum"
 
-#: src/command.c:245
+#: src/command.c:246
 msgid "Enter"
 msgstr "Retur"
 
-#: src/command.c:247
+#: src/command.c:248
 msgid "Backspace"
 msgstr "Tilbagetast"
 
-#: src/command.c:249
+#: src/command.c:250
 msgid "Delete"
 msgstr "Slet"
 
-#: src/command.c:251
+#: src/command.c:252
 msgid "Up"
 msgstr "Op"
 
-#: src/command.c:253
+#: src/command.c:254
 msgid "Down"
 msgstr "Ned"
 
-#: src/command.c:255
+#: src/command.c:256
 msgid "Left"
 msgstr "Venstre"
 
-#: src/command.c:257
+#: src/command.c:258
 msgid "Right"
 msgstr "Højre"
 
-#: src/command.c:263
+#: src/command.c:264
 msgid "PageDown"
 msgstr "PageDown"
 
-#: src/command.c:265
+#: src/command.c:266
 msgid "PageUp"
 msgstr "PageUp"
 
-#: src/command.c:267
+#: src/command.c:268
 msgid "Tab"
 msgstr "Tab"
 
-#: src/command.c:269
+#: src/command.c:270
 msgid "Shift+Tab"
 msgstr "Skift+Tabulator"
 
-#: src/command.c:271
+#: src/command.c:272
 msgid "Esc"
 msgstr "Esc"
 
-#: src/command.c:273
+#: src/command.c:274
 msgid "Insert"
 msgstr "Indsæt"
 
-#: src/command.c:485
-#, c-format
-msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-msgstr "Tast %s bundet til kommando %s og %s (tryk på %s for at redigere)"
-
-#: src/command.c:492 src/command.c:499
+#: src/command.c:485 src/command.c:491
 #, c-format
 msgid "Key %s assigned to %s and %s\n"
 msgstr "Tast %s tildelt %s og %s\n"
 
-#: src/colors.c:163
+#: src/colors.c:164
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr "Advarsel: Ukendt farve - %s\n"
 
-#: src/colors.c:206
+#: src/colors.c:207
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Advarsel: Ukendt farve felt - %s.\n"
 
-#: src/colors.c:238
+#: src/colors.c:239
 #, c-format
 msgid "Terminal lacks support for changing colors\n"
 msgstr "Terminalen understøtter ikke at ændre farver\n"
 
-#: src/colors.c:248
+#: src/colors.c:249
 #, c-format
 msgid "Terminal lacks color capabilities\n"
 msgstr "Terminalen understøtter ikke farver\n"
 
 #. To translators: prefix for error messages
-#: src/conf.c:87
+#: src/conf.c:89
 msgid "Error"
 msgstr "Fejl"
 
-#: src/conf.c:95 src/conf.c:104
+#: src/conf.c:97 src/conf.c:106
 msgid "Malformed hotkey definition"
 msgstr "Forkert hotkey definition"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:131
+#: src/conf.c:133
 msgid "Unknown command"
 msgstr "Ukendt kommando"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:144
+#: src/conf.c:146
 msgid "Incomplete hotkey configuration"
 msgstr "Ufuldstændig hotkey konfiguration"
 
@@ -885,56 +888,56 @@ msgstr "Ufuldstændig hotkey konfiguration"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:176
+#: src/conf.c:178
 msgid "Bad time display type"
 msgstr "Ringe tidsvisningstype"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:191
+#: src/conf.c:193
 msgid "Missing '='"
 msgstr "Mangler '='"
 
-#: src/conf.c:247
+#: src/conf.c:249
 msgid "Bad color name"
 msgstr "Dårligt farvenavn"
 
-#: src/conf.c:256
+#: src/conf.c:258
 msgid "Incomplete color definition"
 msgstr "Ufuldstændig farve definition"
 
-#: src/conf.c:262
+#: src/conf.c:264
 msgid "Invalid number"
 msgstr "Ugyldigt tal."
 
-#: src/conf.c:270
+#: src/conf.c:272
 msgid "Malformed color definition"
 msgstr "Forkert farve definition"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:305
+#: src/conf.c:307
 msgid "Unknown screen name"
 msgstr "Ukendt skærm navn"
 
-#: src/conf.c:454
+#: src/conf.c:462
 msgid "Unknown configuration parameter"
 msgstr "Ukendt konfigurations parameter"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:216 src/options.c:219
+#: src/options.c:218 src/options.c:221
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Mikkel Kirkgaard Nielsen https://launchpad.net/~ncmpc\n"
 "  Niels Anker https://launchpad.net/~nanker"
 
+#~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
+#~ msgstr "Tast %s bundet til kommando %s og %s (tryk på %s for at redigere)"
+
 #~ msgid "Screen updated!"
 #~ msgstr "Skærm opdateret!"
-
-#~ msgid "Welcome to the key editor!"
-#~ msgstr "Velkommen til taste editoren"
 
 #~ msgid "Clock"
 #~ msgstr "Ur"

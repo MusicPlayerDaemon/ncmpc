@@ -346,6 +346,9 @@ static gboolean
 timer_check_key_bindings(G_GNUC_UNUSED gpointer data)
 {
 	char buf[256];
+#ifdef ENABLE_KEYDEF_SCREEN
+	char comment[64];
+#endif
 	gboolean key_error;
 
 	key_error = check_key_bindings(NULL, buf, sizeof(buf));
@@ -354,7 +357,20 @@ timer_check_key_bindings(G_GNUC_UNUSED gpointer data)
 		   process */
 		return FALSE;
 
+#ifdef ENABLE_KEYDEF_SCREEN
+	g_strchomp(buf);
+	g_strlcat(buf, " (", sizeof(buf));
+	/* to translators: a key was bound twice in the key editor,
+	   and this is a hint for the user what to press to correct
+	   that */
+	g_snprintf(comment, sizeof(comment), _("press %s for the key editor"),
+		   get_key_names(CMD_SCREEN_KEYDEF, 0));
+	g_strlcat(buf, comment, sizeof(buf));
+	g_strlcat(buf, ")", sizeof(buf));
+#endif
+
 	screen_status_printf("%s", buf);
+
 	doupdate();
 	return TRUE;
 }
