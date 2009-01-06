@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-06 18:12+0100\n"
+"POT-Creation-Date: 2009-01-06 18:21+0100\n"
 "PO-Revision-Date: 2009-01-06 18:17+0100\n"
 "Last-Translator: Max Arnold <amv_cbx@mail.ru>\n"
 "Language-Team: ru <ru@li.org>\n"
@@ -181,21 +181,15 @@ msgstr "Альбом: %s - %s"
 msgid "All tracks of artist: %s"
 msgstr "Все композиции исполнителя: %s"
 
-#: src/screen_browser.c:238
+#: src/screen_browser.c:236
 #, c-format
 msgid "Loading playlist %s..."
 msgstr "Загружается плейлист %s..."
 
-#: src/screen_browser.c:261 src/screen_browser.c:371 src/screen_browser.c:397
+#: src/screen_browser.c:259 src/screen_browser.c:317 src/screen_browser.c:343
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr "В плейлист добавляется '%s'"
-
-#. translators: a directory is being added the to playlist
-#: src/screen_browser.c:316
-#, c-format
-msgid "Adding directory %s...\n"
-msgstr "Добавляется директория %s...\n"
 
 #: src/screen_utils.c:32
 msgid "Find: "
@@ -930,6 +924,9 @@ msgstr "Неизвестный параметр конфигурации"
 #: src/options.c:218 src/options.c:221
 msgid "translator-credits"
 msgstr "Перевод: Max Arnold <lwarxx@gmail.com>"
+
+#~ msgid "Adding directory %s...\n"
+#~ msgstr "Добавляется директория %s...\n"
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr "Клавиша %s назначена для %s и %s (%s - редактор клавиш)"

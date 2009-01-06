@@ -26,8 +26,6 @@
 
 #include <string.h>
 
-#undef  USE_OLD_ADD
-
 #define BUFSIZE 1024
 
 #ifndef NCMPC_MINI
@@ -300,56 +298,6 @@ browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 	return false;
 }
 
-
-#ifdef USE_OLD_ADD
-
-static int
-add_directory(mpdclient_t *c, char *dir)
-{
-	mpd_InfoEntity *entity;
-	GList *subdir_list = NULL;
-	GList *list = NULL;
-	char *dirname;
-
-	dirname = utf8_to_locale(dir);
-	/* translators: a directory is being added the to playlist */
-	screen_status_printf(_("Adding directory %s...\n"), dirname);
-	doupdate();
-	g_free(dirname);
-	dirname = NULL;
-
-	mpd_sendLsInfoCommand(c->connection, dir);
-	mpd_sendCommandListBegin(c->connection);
-	while( (entity=mpd_getNextInfoEntity(c->connection)) ) {
-		if( entity->type==MPD_INFO_ENTITY_TYPE_SONG ) {
-			mpd_Song *song = entity->info.song;
-			mpd_sendAddCommand(c->connection, song->file);
-			mpd_freeInfoEntity(entity);
-		} else if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY ) {
-			subdir_list = g_list_append(subdir_list, (gpointer) entity);
-		} else
-			mpd_freeInfoEntity(entity);
-	}
-	mpd_sendCommandListEnd(c->connection);
-	mpdclient_finish_command(c);
-	c->need_update = TRUE;
-
-	list = g_list_first(subdir_list);
-	while( list!=NULL ) {
-		mpd_Directory *dir;
-
-		entity = list->data;
-		dir = entity->info.directory;
-		add_directory(c, dir->path);
-		mpd_freeInfoEntity(entity);
-		list->data=NULL;
-		list=list->next;
-	}
-	g_list_free(subdir_list);
-	return 0;
-}
-#endif
-
 static bool
 browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 		     G_GNUC_UNUSED gboolean toggle)
@@ -362,16 +310,14 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 
 	if (entry->entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY) {
 		mpd_Directory *dir = entry->entity->info.directory;
-#ifdef USE_OLD_ADD
-		add_directory(c, tmp);
-#else
+
 		if (mpdclient_cmd_add_path(c, dir->path) == 0) {
 			char *tmp = utf8_to_locale(dir->path);
 
 			screen_status_printf(_("Adding \'%s\' to playlist"), tmp);
 			g_free(tmp);
 		}
-#endif
+
 		return true;
 	}
 

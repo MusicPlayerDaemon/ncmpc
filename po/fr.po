@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-06 18:12+0100\n"
+"POT-Creation-Date: 2009-01-06 18:21+0100\n"
 "PO-Revision-Date: 2009-01-06 18:15+0100\n"
 "Last-Translator: Yann Cézard <eesprit@free.fr>\n"
 "Language-Team: fr <fr@li.org>\n"
@@ -179,21 +179,15 @@ msgstr "Album: %s - %s"
 msgid "All tracks of artist: %s"
 msgstr "Toutes les pistes de l'artiste : %s"
 
-#: src/screen_browser.c:238
+#: src/screen_browser.c:236
 #, c-format
 msgid "Loading playlist %s..."
 msgstr "Chargement de la liste de lecture %s..."
 
-#: src/screen_browser.c:261 src/screen_browser.c:371 src/screen_browser.c:397
+#: src/screen_browser.c:259 src/screen_browser.c:317 src/screen_browser.c:343
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr "Ajout de '%s' à la liste de lecture"
-
-#. translators: a directory is being added the to playlist
-#: src/screen_browser.c:316
-#, c-format
-msgid "Adding directory %s...\n"
-msgstr "Ajout du répertoire %s...\n"
 
 #: src/screen_utils.c:32
 msgid "Find: "
@@ -925,6 +919,9 @@ msgstr "Paramètre de configuration inconnu"
 #: src/options.c:218 src/options.c:221
 msgid "translator-credits"
 msgstr "Traduction française : Yann Cézard <eesprit@free.fr>"
+
+#~ msgid "Adding directory %s...\n"
+#~ msgstr "Ajout du répertoire %s...\n"
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr ""
