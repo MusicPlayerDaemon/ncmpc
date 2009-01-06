@@ -258,7 +258,7 @@ enqueue_and_play(mpdclient_t *c, filelist_entry_t *entry)
 			entry->flags |= HIGHLIGHT;
 #endif
 			strfsong(buf, BUFSIZE, options.list_format, song);
-			screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
+			screen_status_printf(_("Adding \'%s\' to playlist"), buf);
 			mpdclient_update(c); /* get song id */
 		} else
 			return false;
@@ -368,7 +368,7 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 		if (mpdclient_cmd_add_path(c, dir->path) == 0) {
 			char *tmp = utf8_to_locale(dir->path);
 
-			screen_status_printf(_("Adding \'%s\' to playlist\n"), tmp);
+			screen_status_printf(_("Adding \'%s\' to playlist"), tmp);
 			g_free(tmp);
 		}
 #endif
@@ -394,7 +394,7 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 			char buf[BUFSIZE];
 
 			strfsong(buf, BUFSIZE, options.list_format, song);
-			screen_status_printf(_("Adding \'%s\' to playlist\n"), buf);
+			screen_status_printf(_("Adding \'%s\' to playlist"), buf);
 		}
 #ifndef NCMPC_MINI
 	} else {

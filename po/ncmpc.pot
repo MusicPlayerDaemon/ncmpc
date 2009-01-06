@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-06 17:57+0100\n"
+"POT-Creation-Date: 2009-01-06 18:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -187,7 +187,7 @@ msgstr ""
 
 #: src/screen_browser.c:261 src/screen_browser.c:371 src/screen_browser.c:397
 #, c-format
-msgid "Adding '%s' to playlist\n"
+msgid "Adding '%s' to playlist"
 msgstr ""
 
 #. translators: a directory is being added the to playlist
@@ -840,7 +840,7 @@ msgstr ""
 
 #: src/command.c:485 src/command.c:491
 #, c-format
-msgid "Key %s assigned to %s and %s\n"
+msgid "Key %s assigned to %s and %s"
 msgstr ""
 
 #: src/colors.c:164
@@ -853,14 +853,12 @@ msgstr ""
 msgid "Warning: Unknown color field - %s\n"
 msgstr ""
 
-#: src/colors.c:239
-#, c-format
-msgid "Terminal lacks support for changing colors\n"
+#: src/colors.c:240
+msgid "Terminal lacks support for changing colors"
 msgstr ""
 
-#: src/colors.c:249
-#, c-format
-msgid "Terminal lacks color capabilities\n"
+#: src/colors.c:251
+msgid "Terminal lacks color capabilities"
 msgstr ""
 
 #. To translators: prefix for error messages

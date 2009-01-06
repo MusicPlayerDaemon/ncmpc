@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-06 17:57+0100\n"
-"PO-Revision-Date: 2009-01-06 17:54+0100\n"
+"POT-Creation-Date: 2009-01-06 18:12+0100\n"
+"PO-Revision-Date: 2009-01-06 18:14+0100\n"
 "Last-Translator: Johám-Luís Miguéns Vila <ashtophet@ashtophet.org>\n"
 "Language-Team: es\n"
 "MIME-Version: 1.0\n"
@@ -193,8 +193,8 @@ msgstr "Cargando la lista %s..."
 
 #: src/screen_browser.c:261 src/screen_browser.c:371 src/screen_browser.c:397
 #, c-format
-msgid "Adding '%s' to playlist\n"
-msgstr "Añadiendo '%s' a la lista de canciones\n"
+msgid "Adding '%s' to playlist"
+msgstr "Añadiendo '%s' a la lista de canciones"
 
 #. translators: a directory is being added the to playlist
 #: src/screen_browser.c:316
@@ -846,8 +846,8 @@ msgstr "Insertar"
 
 #: src/command.c:485 src/command.c:491
 #, c-format
-msgid "Key %s assigned to %s and %s\n"
-msgstr "Tecla %s asignada a %s y %s\n"
+msgid "Key %s assigned to %s and %s"
+msgstr "Tecla %s asignada a %s y %s"
 
 #: src/colors.c:164
 #, c-format
@@ -859,15 +859,13 @@ msgstr "Advertencia: Color %s - no reconocido\n"
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Advertencia: Propiedad del color - %s no reconocida\n"
 
-#: src/colors.c:239
-#, c-format
-msgid "Terminal lacks support for changing colors\n"
-msgstr "La terminal no soporta el cambio de colores\n"
+#: src/colors.c:240
+msgid "Terminal lacks support for changing colors"
+msgstr "La terminal no soporta el cambio de colores"
 
-#: src/colors.c:249
-#, c-format
-msgid "Terminal lacks color capabilities\n"
-msgstr "La terminal no tiene la opcion de diferentes colores\n"
+#: src/colors.c:251
+msgid "Terminal lacks color capabilities"
+msgstr "La terminal no tiene la opcion de diferentes colores"
 
 #. To translators: prefix for error messages
 #: src/conf.c:89

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-06 17:57+0100\n"
-"PO-Revision-Date: 2009-01-06 17:55+0100\n"
+"POT-Creation-Date: 2009-01-06 18:12+0100\n"
+"PO-Revision-Date: 2009-01-06 18:17+0100\n"
 "Last-Translator: Ole R. Thorsen <ole.rth@gmail.com>\n"
 "Language-Team: no <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -188,8 +188,8 @@ msgstr "Henter spilleliste %s..."
 
 #: src/screen_browser.c:261 src/screen_browser.c:371 src/screen_browser.c:397
 #, c-format
-msgid "Adding '%s' to playlist\n"
-msgstr "Legger '%s' til spillelisten\n"
+msgid "Adding '%s' to playlist"
+msgstr "Legger '%s' til spillelisten"
 
 #. translators: a directory is being added the to playlist
 #: src/screen_browser.c:316
@@ -852,9 +852,9 @@ msgid "Insert"
 msgstr "Ins"
 
 #: src/command.c:485 src/command.c:491
-#, fuzzy, c-format
-msgid "Key %s assigned to %s and %s\n"
-msgstr "Feil: Tasten %s er tildelt både %s og %s\n"
+#, c-format
+msgid "Key %s assigned to %s and %s"
+msgstr "Tasten %s er tildelt både %s og %s"
 
 #: src/colors.c:164
 #, c-format
@@ -866,15 +866,13 @@ msgstr "Advarsel: Kjenner ikke til fargen %s\n"
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Advarsel: %s er ikke definert.\n"
 
-#: src/colors.c:239
-#, c-format
-msgid "Terminal lacks support for changing colors\n"
-msgstr "Terminalen mangler støtte for omdefinering av farger\n"
+#: src/colors.c:240
+msgid "Terminal lacks support for changing colors"
+msgstr "Terminalen mangler støtte for omdefinering av farger"
 
-#: src/colors.c:249
-#, c-format
-msgid "Terminal lacks color capabilities\n"
-msgstr "Terminalen mangler støtte for farger\n"
+#: src/colors.c:251
+msgid "Terminal lacks color capabilities"
+msgstr "Terminalen mangler støtte for farger"
 
 #. To translators: prefix for error messages
 #: src/conf.c:89

@@ -482,16 +482,18 @@ check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 			    (cmd = find_key_command(cp[i].keys[j],cp)) != cp[i].command) {
 				if (buf) {
 					g_snprintf(buf, bufsize,
-						   _("Key %s assigned to %s and %s\n"),
+						   _("Key %s assigned to %s and %s"),
 						   key2str(cp[i].keys[j]),
 						   get_key_command_name(cp[i].command),
 						   get_key_command_name(cmd));
-				} else
+				} else {
 					fprintf(stderr,
-						_("Key %s assigned to %s and %s\n"),
+						_("Key %s assigned to %s and %s"),
 						key2str(cp[i].keys[j]),
 						get_key_command_name(cp[i].command),
 						get_key_command_name(cmd));
+					fputc('\n', stderr);
+				}
 				cp[i].flags |= COMMAND_KEY_CONFLICT;
 				set_key_flags(cp, cmd, COMMAND_KEY_CONFLICT);
 				retval = -1;

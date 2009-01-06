@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-06 17:57+0100\n"
-"PO-Revision-Date: 2009-01-06 17:56+0100\n"
+"POT-Creation-Date: 2009-01-06 18:12+0100\n"
+"PO-Revision-Date: 2009-01-06 18:18+0100\n"
 "Last-Translator: Björn Pettersson <bjorn@hygiena.org>\n"
 "Language-Team: sv <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -188,8 +188,8 @@ msgstr "Laddar spellista %s..."
 
 #: src/screen_browser.c:261 src/screen_browser.c:371 src/screen_browser.c:397
 #, c-format
-msgid "Adding '%s' to playlist\n"
-msgstr "Lägger till '%s' till spellista...\n"
+msgid "Adding '%s' to playlist"
+msgstr "Lägger till '%s' till spellista"
 
 #. translators: a directory is being added the to playlist
 #: src/screen_browser.c:316
@@ -841,8 +841,8 @@ msgstr "Insert"
 
 #: src/command.c:485 src/command.c:491
 #, c-format
-msgid "Key %s assigned to %s and %s\n"
-msgstr "Tangent %s tilldelad %s och %s\n"
+msgid "Key %s assigned to %s and %s"
+msgstr "Tangent %s tilldelad %s och %s"
 
 #: src/colors.c:164
 #, c-format
@@ -854,15 +854,13 @@ msgstr "Varning: Okänd färg - %s\n"
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Varning: %s ej definierad.\n"
 
-#: src/colors.c:239
-#, c-format
-msgid "Terminal lacks support for changing colors\n"
-msgstr "Terminalen saknar stöd för växling av färger\n"
+#: src/colors.c:240
+msgid "Terminal lacks support for changing colors"
+msgstr "Terminalen saknar stöd för växling av färger"
 
-#: src/colors.c:249
-#, c-format
-msgid "Terminal lacks color capabilities\n"
-msgstr "Terminalen saknar stöd för färger\n"
+#: src/colors.c:251
+msgid "Terminal lacks color capabilities"
+msgstr "Terminalen saknar stöd för färger"
 
 #. To translators: prefix for error messages
 #: src/conf.c:89

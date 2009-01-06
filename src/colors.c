@@ -236,7 +236,8 @@ colors_start(void)
 				list = list->next;
 			}
 		} else if (color_definition_list && !can_change_color())
-			fprintf(stderr, _("Terminal lacks support for changing colors\n"));
+			fprintf(stderr, "%s\n",
+				_("Terminal lacks support for changing colors"));
 
 		if (options.enable_colors) {
 			enum color i;
@@ -246,7 +247,8 @@ colors_start(void)
 				colors_update_pair(i);
 		}
 	} else if (options.enable_colors) {
-		fprintf(stderr, _("Terminal lacks color capabilities\n"));
+		fprintf(stderr, "%s\n",
+			_("Terminal lacks color capabilities"));
 		options.enable_colors = 0;
 	}
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-06 17:57+0100\n"
-"PO-Revision-Date: 2009-01-06 17:55+0100\n"
+"POT-Creation-Date: 2009-01-06 18:12+0100\n"
+"PO-Revision-Date: 2009-01-06 18:16+0100\n"
 "Last-Translator: Laszlo Ashin <kodest@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -188,8 +188,8 @@ msgstr "%s lejátszólista betöltése..."
 
 #: src/screen_browser.c:261 src/screen_browser.c:371 src/screen_browser.c:397
 #, c-format
-msgid "Adding '%s' to playlist\n"
-msgstr "'%s' hozzáadása a lejátszólistához\n"
+msgid "Adding '%s' to playlist"
+msgstr "'%s' hozzáadása a lejátszólistához"
 
 #. translators: a directory is being added the to playlist
 #: src/screen_browser.c:316
@@ -841,8 +841,8 @@ msgstr "Insert"
 
 #: src/command.c:485 src/command.c:491
 #, c-format
-msgid "Key %s assigned to %s and %s\n"
-msgstr "A(z) %s gomb a követlezőkhoz van rendelve: %s és %s\n"
+msgid "Key %s assigned to %s and %s"
+msgstr "A(z) %s gomb a követlezőkhoz van rendelve: %s és %s"
 
 #: src/colors.c:164
 #, c-format
@@ -854,15 +854,13 @@ msgstr "Figyelem: ismeretlen szín - %s\n"
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Figyelem: ismeretlen szín mező - %s\n"
 
-#: src/colors.c:239
-#, c-format
-msgid "Terminal lacks support for changing colors\n"
-msgstr "A terminál nem támogatja a színek változtatását\n"
+#: src/colors.c:240
+msgid "Terminal lacks support for changing colors"
+msgstr "A terminál nem támogatja a színek változtatását"
 
-#: src/colors.c:249
-#, c-format
-msgid "Terminal lacks color capabilities\n"
-msgstr "A terminál nem támogatja a színeket\n"
+#: src/colors.c:251
+msgid "Terminal lacks color capabilities"
+msgstr "A terminál nem támogatja a színeket"
 
 #. To translators: prefix for error messages
 #: src/conf.c:89
