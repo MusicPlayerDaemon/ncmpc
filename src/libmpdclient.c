@@ -164,9 +164,10 @@ static void mpd_freeReturnElement(mpd_ReturnElement * re) {
 	free(re);
 }
 
-void mpd_setConnectionTimeout(mpd_Connection * connection, float timeout) {
-	connection->timeout.tv_sec = (int)timeout;
-	connection->timeout.tv_usec = (int)(timeout*1e6 -
+void
+mpd_setConnectionTimeout(mpd_Connection *connection, float timeout_) {
+	connection->timeout.tv_sec = (int)timeout_;
+	connection->timeout.tv_usec = (int)(timeout_ * 1e6 -
 	                                    connection->timeout.tv_sec*1000000 +
 					    0.5);
 }
@@ -390,7 +391,8 @@ mpd_connect(mpd_Connection *connection, const char * host, int port)
 	return -1;
 }
 
-mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
+mpd_Connection *
+mpd_newConnection(const char *host, int port, float timeout_) {
 	int err;
 	char * rt;
 	mpd_Connection * connection = malloc(sizeof(mpd_Connection));
@@ -408,7 +410,7 @@ mpd_Connection * mpd_newConnection(const char * host, int port, float timeout) {
 	if (winsock_dll_error(connection))
 		return connection;
 
-	mpd_setConnectionTimeout(connection,timeout);
+	mpd_setConnectionTimeout(connection, timeout_);
 
 	err = mpd_connect(connection, host, port);
 	if (err < 0)
@@ -1336,16 +1338,16 @@ void mpd_sendSwapIdCommand(mpd_Connection * connection, int id1, int id2) {
 	free(string);
 }
 
-void mpd_sendSeekCommand(mpd_Connection * connection, int song, int time) {
+void mpd_sendSeekCommand(mpd_Connection * connection, int song, int to) {
 	char * string = malloc(strlen("seek")+25);
-	sprintf(string,"seek \"%i\" \"%i\"\n",song,time);
+	sprintf(string,"seek \"%i\" \"%i\"\n", song, to);
 	mpd_sendInfoCommand(connection,string);
 	free(string);
 }
 
-void mpd_sendSeekIdCommand(mpd_Connection * connection, int id, int time) {
+void mpd_sendSeekIdCommand(mpd_Connection * connection, int id, int to) {
 	char * string = malloc(strlen("seekid")+25);
-	sprintf(string,"seekid \"%i\" \"%i\"\n",id,time);
+	sprintf(string,"seekid \"%i\" \"%i\"\n", id, to);
 	mpd_sendInfoCommand(connection,string);
 	free(string);
 }

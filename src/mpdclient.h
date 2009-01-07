@@ -38,7 +38,7 @@ mpdclient_finish_command(mpdclient_t *c);
 mpdclient_t *mpdclient_new(void);
 void mpdclient_free(mpdclient_t *c);
 gint mpdclient_connect(mpdclient_t *c, gchar *host, gint port,
-		       gfloat timeout, gchar *password);
+		       gfloat timeout_, gchar *password);
 gint mpdclient_disconnect(mpdclient_t *c);
 gint mpdclient_update(mpdclient_t *c);
 

@@ -161,9 +161,11 @@ typedef struct _mpd_Connection {
  * even if an error has occurred
  * _timeout_ is the connection timeout period in seconds
  */
-mpd_Connection * mpd_newConnection(const char * host, int port, float timeout);
+mpd_Connection *
+mpd_newConnection(const char *host, int port, float timeout_);
 
-void mpd_setConnectionTimeout(mpd_Connection * connection, float timeout);
+void
+mpd_setConnectionTimeout(mpd_Connection *connection, float timeout_);
 
 /* mpd_closeConnection
  * use this to close a connection and free'ing subsequent memory
@@ -446,9 +448,9 @@ void mpd_sendSwapCommand(mpd_Connection * connection, int song1, int song2);
 
 void mpd_sendSwapIdCommand(mpd_Connection * connection, int song1, int song2);
 
-void mpd_sendSeekCommand(mpd_Connection * connection, int song, int time);
+void mpd_sendSeekCommand(mpd_Connection * connection, int song, int to);
 
-void mpd_sendSeekIdCommand(mpd_Connection * connection, int song, int time);
+void mpd_sendSeekIdCommand(mpd_Connection * connection, int song, int to);
 
 void mpd_sendRepeatCommand(mpd_Connection * connection, int repeatMode);
 
