@@ -59,6 +59,7 @@ typedef struct {
 #endif
 	bool audible_bell;
 	bool visible_bell;
+	bool bell_on_wrap;
 #ifndef NCMPC_MINI
 	bool enable_xterm_title;
 #endif

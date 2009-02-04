@@ -55,6 +55,7 @@
 #define CONF_FIND_SHOW_LAST "find-show-last"
 #define CONF_AUDIBLE_BELL "audible-bell"
 #define CONF_VISIBLE_BELL "visible-bell"
+#define CONF_BELL_ON_WRAP "bell-on-wrap"
 #define CONF_XTERM_TITLE "set-xterm-title"
 #define CONF_ENABLE_MOUSE "enable-mouse"
 #define CONF_CROSSFADE_TIME "crossfade-time"
@@ -411,6 +412,8 @@ parse_line(char *line)
 		options.audible_bell = str2bool(value);
 	else if (!strcasecmp(CONF_VISIBLE_BELL, name))
 		options.visible_bell = str2bool(value);
+	else if (!strcasecmp(CONF_BELL_ON_WRAP, name))
+		options.bell_on_wrap = str2bool(value);
 	else if (!strcasecmp(CONF_XTERM_TITLE, name))
 		options.enable_xterm_title = str2bool(value);
 	else if (!strcasecmp(CONF_ENABLE_MOUSE, name))

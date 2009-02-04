@@ -58,6 +58,7 @@ options_t options = {
 	.find_wrap = true,
 	.wide_cursor = true,
 	.audible_bell = true,
+	.bell_on_wrap = true,
 #ifndef NCMPC_MINI
 	.scroll = DEFAULT_SCROLL,
 	.welcome_screen_list = true,

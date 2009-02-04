@@ -216,7 +216,8 @@ list_window_find(struct list_window *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str,
-		 bool wrap)
+		 bool wrap,
+		 bool bell_on_wrap)
 {
 	bool h;
 	unsigned i = lw->selected + 1;
@@ -236,7 +237,9 @@ list_window_find(struct list_window *lw,
 			if (i == 0) /* empty list */
 				return 1;
 			i=0; /* first item */
-			screen_bell();
+			if (bell_on_wrap) {
+				screen_bell();
+			}
 		}
 	} while (wrap);
 
@@ -249,6 +252,7 @@ list_window_rfind(struct list_window *lw,
 		  void *callback_data,
 		  const char *str,
 		  bool wrap,
+		  bool bell_on_wrap,
 		  unsigned rows)
 {
 	bool h;
@@ -270,7 +274,9 @@ list_window_rfind(struct list_window *lw,
 		}
 		if (wrap) {
 			i = rows - 1; /* last item */
-			screen_bell();
+			if (bell_on_wrap) {
+				screen_bell();
+			}
 		}
 	} while (wrap);
 

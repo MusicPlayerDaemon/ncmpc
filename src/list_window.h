@@ -97,7 +97,8 @@ list_window_find(struct list_window *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str,
-		 bool wrap);
+		 bool wrap,
+		 bool bell_on_wrap);
 
 /* find a string in a list window (reversed) */
 bool
@@ -106,6 +107,7 @@ list_window_rfind(struct list_window *lw,
 		  void *callback_data,
 		  const char *str,
 		  bool wrap,
+		  bool bell_on_wrap,
 		  unsigned rows);
 
 #endif

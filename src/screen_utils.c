@@ -194,11 +194,13 @@ screen_find(list_window_t *lw,
 					    callback_fn, callback_data,
 					    screen.findbuf,
 					    options.find_wrap,
+					    options.bell_on_wrap,
 					    rows)
 			: list_window_find(lw,
 					   callback_fn, callback_data,
 					   screen.findbuf,
-					   options.find_wrap);
+					   options.find_wrap,
+					   options.bell_on_wrap);
 		if (!found) {
 			screen_status_printf(_("Unable to find \'%s\'"),
 					     screen.findbuf);
