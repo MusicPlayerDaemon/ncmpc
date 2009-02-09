@@ -19,6 +19,9 @@
 ## wrapped find mode
 #find-wrap = yes
 
+## ring bell when find wraps around
+#bell-on-wrap = no
+
 ## show last pattern when using find
 #find-show-last = no
 
