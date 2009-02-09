@@ -20,7 +20,7 @@
 #ifndef LIST_WINDOW_H
 #define LIST_WINDOW_H
 
-#include "../config.h"
+#include "config.h"
 #include "command.h"
 
 #include <glib.h>
