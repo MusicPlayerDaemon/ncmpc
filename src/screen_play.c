@@ -598,6 +598,21 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		center_playing_item(c);
 		playlist_repaint();
 		return false;
+	case CMD_SHUFFLE:
+	{
+		unsigned i = lw->selected_start + 1;
+		unsigned last_selected = lw->selected;
+		if(!lw->visual_selection)
+			/* No visual selection, shuffle all list. */
+			break;
+		for(; i <= lw->selected_end; ++i)
+			mpdclient_cmd_move(c, i, lw->selected_start + (rand() % ((i - lw->selected_start) + 1)));
+
+		lw->selected = last_selected;
+		screen_status_printf(_("Shuffled selection!"));
+
+		return true;
+	}
 	case CMD_LIST_MOVE_UP:
 		if(lw->selected_start == 0)
 			return false;
