@@ -1,7 +1,7 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -82,16 +82,20 @@ handle_save(mpdclient_t *c)
 	filelist_entry_t *entry;
 	char *defaultname = NULL;
 	int ret;
+	unsigned selected;
 
 	if (browser.lw->selected >= filelist_length(browser.filelist))
 		return -1;
 
-	entry = filelist_get(browser.filelist, browser.lw->selected);
-	if( entry && entry->entity ) {
-		mpd_InfoEntity *entity = entry->entity;
-		if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
-			mpd_PlaylistFile *plf = entity->info.playlistFile;
-			defaultname = plf->path;
+	for(selected = browser.lw->selected_start; selected <= browser.lw->selected_end; ++selected)
+	{
+		entry = filelist_get(browser.filelist, selected);
+		if( entry && entry->entity ) {
+			mpd_InfoEntity *entity = entry->entity;
+			if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
+				mpd_PlaylistFile *plf = entity->info.playlistFile;
+				defaultname = plf->path;
+			}
 		}
 	}
 
@@ -110,43 +114,47 @@ handle_delete(mpdclient_t *c)
 	mpd_PlaylistFile *plf;
 	char *str, *buf;
 	int key;
+	unsigned selected;
 
-	if (browser.lw->selected >= filelist_length(browser.filelist))
-		return -1;
+	for(selected = browser.lw->selected_start; selected <= browser.lw->selected_end; ++selected)
+	{
+		if (selected >= filelist_length(browser.filelist))
+			return -1;
 
-	entry = filelist_get(browser.filelist, browser.lw->selected);
-	if( entry==NULL || entry->entity==NULL )
-		return -1;
+		entry = filelist_get(browser.filelist, selected);
+		if( entry==NULL || entry->entity==NULL )
+			continue;
 
-	entity = entry->entity;
+		entity = entry->entity;
 
-	if( entity->type!=MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
-		/* translators: the "delete" command is only possible
-		   for playlists; the user attempted to delete a song
-		   or a directory or something else */
-		screen_status_printf(_("Deleting this item is not possible"));
-		screen_bell();
-		return -1;
+		if( entity->type!=MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
+			/* translators: the "delete" command is only possible
+			   for playlists; the user attempted to delete a song
+			   or a directory or something else */
+			screen_status_printf(_("Deleting this item is not possible"));
+			screen_bell();
+			continue;
+		}
+
+		plf = entity->info.playlistFile;
+		str = utf8_to_locale(g_basename(plf->path));
+		buf = g_strdup_printf(_("Delete playlist %s [%s/%s] ? "), str, YES, NO);
+		g_free(str);
+		key = tolower(screen_getch(screen.status_window.w, buf));
+		g_free(buf);
+		if( key != YES[0] ) {
+			/* translators: a dialog was aborted by the user */
+			screen_status_printf(_("Aborted"));
+			return 0;
+		}
+
+		if( mpdclient_cmd_delete_playlist(c, plf->path) )
+			continue;
+
+		/* translators: MPD deleted the playlist, as requested by the
+		   user */
+		screen_status_printf(_("Playlist deleted"));
 	}
-
-	plf = entity->info.playlistFile;
-	str = utf8_to_locale(g_basename(plf->path));
-	buf = g_strdup_printf(_("Delete playlist %s [%s/%s] ? "), str, YES, NO);
-	g_free(str);
-	key = tolower(screen_getch(screen.status_window.w, buf));
-	g_free(buf);
-	if( key != YES[0] ) {
-		/* translators: a dialog was aborted by the user */
-		screen_status_printf(_("Aborted"));
-		return 0;
-	}
-
-	if( mpdclient_cmd_delete_playlist(c, plf->path) )
-		return -1;
-
-	/* translators: MPD deleted the playlist, as requested by the
-	   user */
-	screen_status_printf(_("Playlist deleted"));
 	return 0;
 }
 

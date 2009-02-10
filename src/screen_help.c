@@ -1,7 +1,7 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -43,6 +43,7 @@ static help_text_row_t help_text[] = {
 	{ 0, CMD_LIST_NEXT_PAGE, NULL },
 	{ 0, CMD_LIST_FIRST, NULL },
 	{ 0, CMD_LIST_LAST, NULL },
+	{ 0, CMD_LIST_VISUAL_SELECT, NULL },
 	{ 0, CMD_NONE, NULL },
 	{ 0, CMD_SCREEN_PREVIOUS,NULL },
 	{ 0, CMD_SCREEN_NEXT, NULL },

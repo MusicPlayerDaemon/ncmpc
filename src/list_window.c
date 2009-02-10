@@ -1,7 +1,7 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -41,6 +41,7 @@ list_window_init(WINDOW *w, unsigned width, unsigned height)
 	lw->w = w;
 	lw->cols = width;
 	lw->rows = height;
+	lw->visual_selection = false;
 	return lw;
 }
 
@@ -57,6 +58,10 @@ void
 list_window_reset(struct list_window *lw)
 {
 	lw->selected = 0;
+	lw->selected_start = 0;
+	lw->selected_end = 0;
+	lw->visual_selection = false;
+	lw->visual_base = 0;
 	lw->xoffset = 0;
 	lw->start = 0;
 }
@@ -78,6 +83,19 @@ list_window_check_selected(struct list_window *lw, unsigned length)
 		lw->selected = 0;
 	else if (lw->selected >= length)
 		lw->selected = length - 1;
+
+	if(lw->visual_selection)
+	{
+		if(lw->visual_base > lw->selected_end)
+			  lw->selected_end = lw->selected;
+		if(lw->visual_base < lw->selected_start)
+			  lw->selected_start = lw->selected;
+	}
+	else
+	{
+		lw->selected_start = lw->selected;
+		lw->selected_end = lw->selected;
+	}
 }
 
 void
@@ -100,31 +118,43 @@ void
 list_window_set_selected(struct list_window *lw, unsigned n)
 {
 	lw->selected = n;
+	if(lw->visual_selection)
+	{
+		if(n >= lw->visual_base)
+			lw->selected_end = n;
+		if(n <= lw->visual_base)
+			lw->selected_start = n;
+	}
+	else
+	{
+		lw->selected_start = n;
+		lw->selected_end = n;
+	}
 }
 
 static void
 list_window_next(struct list_window *lw, unsigned length)
 {
 	if (lw->selected + 1 < length)
-		lw->selected++;
+		list_window_set_selected(lw, lw->selected + 1);
 	else if (options.list_wrap)
-		lw->selected = 0;
+		list_window_set_selected(lw, 0);
 }
 
 static void
 list_window_previous(struct list_window *lw, unsigned length)
 {
 	if (lw->selected > 0)
-		lw->selected--;
+		list_window_set_selected(lw, lw->selected - 1);
 	else if (options.list_wrap)
-		lw->selected = length - 1;
+		list_window_set_selected(lw, length-1);
 }
 
 static void
 list_window_first(struct list_window *lw)
 {
 	lw->xoffset = 0;
-	lw->selected = 0;
+	list_window_set_selected(lw, 0);
 }
 
 static void
@@ -132,9 +162,9 @@ list_window_last(struct list_window *lw, unsigned length)
 {
 	lw->xoffset = 0;
 	if (length > 0)
-		lw->selected = length - 1;
+		list_window_set_selected(lw, length - 1);
 	else
-		lw->selected = 0;
+		list_window_set_selected(lw, 0);
 }
 
 static void
@@ -143,7 +173,7 @@ list_window_next_page(struct list_window *lw, unsigned length)
 	if (lw->rows < 2)
 		return;
 	if (lw->selected + lw->rows < length)
-		lw->selected += lw->rows - 1;
+		list_window_set_selected(lw, lw->selected + lw->rows - 1);
 	else
 		list_window_last(lw, length);
 }
@@ -154,7 +184,7 @@ list_window_previous_page(struct list_window *lw)
 	if (lw->rows < 2)
 		return;
 	if (lw->selected > lw->rows - 1)
-		lw->selected -= lw->rows - 1;
+		list_window_set_selected(lw, lw->selected - lw->rows - 1);
 	else
 		list_window_first(lw);
 }
@@ -185,7 +215,7 @@ list_window_paint(struct list_window *lw,
 		wmove(lw->w, i, 0);
 
 		if (label) {
-			bool selected = lw->start + i == lw->selected;
+			bool selected = (lw->start + i >= lw->selected_start && lw->start + i <= lw->selected_end);
 			unsigned len = utf8_width(label);
 
 			if (highlight)
@@ -227,6 +257,10 @@ list_window_find(struct list_window *lw,
 		while ((label = callback(i,&h,callback_data))) {
 			if (str && label && match_line(label, str)) {
 				lw->selected = i;
+				if(!lw->visual_selection || i > lw->selected_end)
+					  lw->selected_end = i;
+				if(!lw->visual_selection || i < lw->selected_start)
+					  lw->selected_start = i;
 				return true;
 			}
 			if (wrap && i == lw->selected)
@@ -266,6 +300,10 @@ list_window_rfind(struct list_window *lw,
 		while (i >= 0 && (label = callback(i,&h,callback_data))) {
 			if( str && label && match_line(label, str) ) {
 				lw->selected = i;
+				if(!lw->visual_selection || i > (int)lw->selected_end)
+					  lw->selected_end = i;
+				if(!lw->visual_selection || i < (int)lw->selected_start)
+					  lw->selected_start = i;
 				return true;
 			}
 			if (wrap && i == (int)lw->selected)
@@ -305,6 +343,18 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 		break;
 	case CMD_LIST_PREVIOUS_PAGE:
 		list_window_previous_page(lw);
+		break;
+	case CMD_LIST_VISUAL_SELECT:
+		if(lw->visual_selection)
+		{
+			lw->visual_selection = false;
+			list_window_set_selected(lw, lw->selected);
+		}
+		else
+		{
+			lw->visual_base = lw->selected;
+			lw->visual_selection = true;
+		}
 		break;
 	default:
 		return false;

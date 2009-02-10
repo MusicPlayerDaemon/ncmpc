@@ -1,7 +1,7 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -84,6 +84,8 @@ static command_definition_t cmds[] = {
 	  N_("Page up") },
 	{ { PGDN, 0, 0 }, 0, CMD_LIST_NEXT_PAGE, "pgdn",
 	  N_("Page down") },
+	{ { 'v',  0, 0 }, 0, CMD_LIST_VISUAL_SELECT, "visual-select",
+	  N_("Visual selection") },
 
 
 	/* basic screens */

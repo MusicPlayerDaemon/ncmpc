@@ -1,7 +1,7 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -81,9 +81,12 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 	case PLAYLIST_EVENT_DELETE:
 		break;
 	case PLAYLIST_EVENT_MOVE:
-		lw->selected = *((int *) data);
-		if (lw->selected < lw->start)
-			lw->start--;
+		if(lw->visual_selection < 0)
+		{
+			lw->selected = *((int *) data);
+			if (lw->selected < lw->start)
+				lw->start--;
+		}
 		break;
 	default:
 		break;
@@ -153,6 +156,8 @@ center_playing_item(mpdclient_t *c)
 
 	/* make sure the cursor is in the window */
 	lw->selected = lw->start+offset;
+	lw->selected_start = lw->selected;
+	lw->selected_end = lw->selected;
 	list_window_check_selected(lw, length);
 }
 
@@ -568,8 +573,21 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		mpdclient_cmd_play(c, lw->selected);
 		return true;
 	case CMD_DELETE:
-		mpdclient_cmd_delete(c, lw->selected);
+	{
+		int i = lw->selected_end, start = lw->selected_start;
+		for(; i >= start; --i)
+			mpdclient_cmd_delete(c, i);
+
+		i++;
+		if(i >= (int)playlist_length(&c->playlist))
+			i--;
+		lw->selected = i;
+		lw->selected_start = i;
+		lw->selected_end = i;
+		lw->visual_selection = false;
+
 		return true;
+	}
 	case CMD_SAVE_PLAYLIST:
 		playlist_save(c, NULL, NULL);
 		return true;
@@ -580,12 +598,39 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		center_playing_item(c);
 		playlist_repaint();
 		return false;
-
 	case CMD_LIST_MOVE_UP:
-		mpdclient_cmd_move(c, lw->selected, lw->selected-1);
+		if(lw->selected_start == 0)
+			return false;
+		if(lw->visual_selection)
+		{
+			unsigned i = lw->selected_start;
+			unsigned last_selected = lw->selected;
+			for(; i <= lw->selected_end; ++i)
+				mpdclient_cmd_move(c, i, i-1);
+			lw->selected_start--;
+			lw->selected_end--;
+			lw->selected = last_selected - 1;
+			lw->visual_base--;
+		}
+		else
+			mpdclient_cmd_move(c, lw->selected, lw->selected-1);
 		return true;
 	case CMD_LIST_MOVE_DOWN:
-		mpdclient_cmd_move(c, lw->selected, lw->selected+1);
+		if(lw->selected_end+1 >= playlist_length(&c->playlist))
+			return false;
+		if(lw->visual_selection)
+		{
+			int i = lw->selected_end;
+			unsigned last_selected = lw->selected;
+			for(; i >= (int)lw->selected_start; --i)
+				mpdclient_cmd_move(c, i, i+1);
+			lw->selected_start++;
+			lw->selected_end++;
+			lw->selected = last_selected + 1;
+			lw->visual_base++;
+		}
+		else
+			mpdclient_cmd_move(c, lw->selected, lw->selected+1);
 		return true;
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:

@@ -1,7 +1,7 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -612,22 +612,33 @@ artist_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_ADD:
 		switch(mode) {
 		case LIST_ARTISTS:
-			selected = g_ptr_array_index(artist_list,
-						     browser.lw->selected);
-			add_query(c, MPD_TABLE_ARTIST, selected);
-			cmd = CMD_LIST_NEXT; /* continue and select next item... */
-			break;
-
-		case LIST_ALBUMS:
-			if (browser.lw->selected == album_list->len + 1)
-				add_query(c, MPD_TABLE_ARTIST, artist);
-			else if (browser.lw->selected > 0) {
-				selected = g_ptr_array_index(album_list,
-							     browser.lw->selected - 1);
-				add_query(c, MPD_TABLE_ALBUM, selected);
+		{
+			unsigned i;
+			for(i = browser.lw->selected_start; i <= browser.lw->selected_end; ++i)
+			{
+				selected = g_ptr_array_index(artist_list, i);
+				add_query(c, MPD_TABLE_ARTIST, selected);
 				cmd = CMD_LIST_NEXT; /* continue and select next item... */
 			}
 			break;
+		}
+		case LIST_ALBUMS:
+		{
+			unsigned i;
+			for(i = browser.lw->selected_start; i <= browser.lw->selected_end; ++i)
+			{
+				if(i == album_list->len + 1)
+					add_query(c, MPD_TABLE_ARTIST, artist);
+				else if (i > 0)
+				{
+					selected = g_ptr_array_index(album_list,
+								     browser.lw->selected - 1);
+					add_query(c, MPD_TABLE_ALBUM, selected);
+					cmd = CMD_LIST_NEXT; /* continue and select next item... */
+				}
+			}
+			break;
+		}
 
 		case LIST_SONGS:
 			/* handled by browser_cmd() */
