@@ -321,6 +321,41 @@ list_window_rfind(struct list_window *lw,
 	return false;
 }
 
+bool
+list_window_jump(struct list_window *lw,
+		 list_window_callback_fn_t callback,
+		 void *callback_data,
+		 const char *str)
+{
+	bool h;
+	unsigned i = 0;
+	const char *label;
+
+	while ((label = callback(i,&h,callback_data))) {
+		if (label && label[0] != '[')
+		{
+			if (str && label && g_ascii_strncasecmp(label, str, strlen(str)) == 0) {
+				lw->selected = i;
+				if(!lw->visual_selection || i > lw->selected_end)
+					  lw->selected_end = i;
+				if(!lw->visual_selection || i < lw->selected_start)
+					  lw->selected_start = i;
+				return true;
+			}
+		}
+		else if (str && label && g_ascii_strncasecmp(label+1, str, strlen(str)) == 0) {
+				lw->selected = i;
+				if(!lw->visual_selection || i > lw->selected_end)
+					  lw->selected_end = i;
+				if(!lw->visual_selection || i < lw->selected_start)
+					  lw->selected_start = i;
+				return true;
+			}
+		i++;
+	}
+	return false;
+}
+
 /* perform basic list window commands (movement) */
 bool
 list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)

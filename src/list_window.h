@@ -114,4 +114,11 @@ list_window_rfind(struct list_window *lw,
 		  bool bell_on_wrap,
 		  unsigned rows);
 
+/* find a string in a list window which begins with the given characters in *str */
+bool
+list_window_jump(struct list_window *lw,
+		 list_window_callback_fn_t callback,
+		 void *callback_data,
+		 const char *str);
+
 #endif
