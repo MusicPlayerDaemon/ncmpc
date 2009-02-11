@@ -672,6 +672,22 @@ artist_cmd(mpdclient_t *c, command_t cmd)
 			/* handled by browser_cmd() */
 			break;
 		}
+	case CMD_LIST_JUMP:
+		switch (mode) {
+		case LIST_ARTISTS:
+			screen_jump(browser.lw, artist_lw_callback, artist_list);
+			artist_repaint();
+			return true;
+
+		case LIST_ALBUMS:
+			screen_jump(browser.lw, artist_lw_callback, album_list);
+			artist_repaint();
+			return true;
+
+		case LIST_SONGS:
+			/* handled by browser_cmd() */
+			break;
+		}
 
 		break;
 
