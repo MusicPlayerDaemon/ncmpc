@@ -408,8 +408,10 @@ _wreadln(WINDOW *w,
 	/* make shure the cursor is visible */
 	curs_set(1);
 	/* print prompt string */
-	if (prompt)
+	if (prompt) {
 		waddstr(w, prompt);
+		waddstr(w, ": ");
+	}
 	/* retrive y and x0 position */
 	getyx(w, wr.y, wr.x);
 	/* check the x1 value */

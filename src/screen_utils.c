@@ -29,8 +29,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define FIND_PROMPT  _("Find: ")
-#define RFIND_PROMPT _("Find backward: ")
+#define FIND_PROMPT  _("Find")
+#define RFIND_PROMPT _("Find backward")
 
 void
 screen_bell(void)
