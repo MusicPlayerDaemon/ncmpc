@@ -468,6 +468,9 @@ browser_cmd(struct screen_browser *browser,
 			    cmd, browser_lw_callback,
 			    browser->filelist);
 		return true;
+	case CMD_LIST_JUMP:
+		screen_jump(browser->lw, browser_lw_callback, browser->filelist);
+		return true;
 
 #ifdef HAVE_GETMOUSE
 	case CMD_MOUSE_EVENT:
