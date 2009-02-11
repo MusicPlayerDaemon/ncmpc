@@ -25,12 +25,16 @@
 #include "options.h"
 #include "colors.h"
 #include "wreadln.h"
+#ifndef NCMPC_H
+#include "ncmpc.h"
+#endif /* NCMPC_H */
 
 #include <stdlib.h>
 #include <unistd.h>
 
 #define FIND_PROMPT  _("Find")
 #define RFIND_PROMPT _("Find backward")
+#define JUMP_PROMPT _("Jump")
 
 void
 screen_bell(void)
@@ -211,6 +215,57 @@ screen_find(list_window_t *lw,
 		break;
 	}
 	return 0;
+}
+
+/* query user for a string and jump to the entry
+ * which begins with this string while the users types */
+void
+screen_jump(struct list_window *lw,
+		list_window_callback_fn_t callback_fn,
+		void *callback_data)
+{
+	char *search_str, *iter;
+	const int WRLN_MAX_LINE_SIZE = 1024;
+	int key = 65;
+	command_t cmd;
+
+	if (screen.findbuf) {
+		g_free(screen.findbuf);
+		screen.findbuf = NULL;
+	}
+	screen.findbuf = g_malloc0(WRLN_MAX_LINE_SIZE);
+	/* In screen.findbuf is the whole string which is displayed in the status_window
+	 * and search_str is the string the user entered (without the prompt) */
+	search_str = screen.findbuf + g_snprintf(screen.findbuf, WRLN_MAX_LINE_SIZE, "%s: ", JUMP_PROMPT);
+	iter = search_str;
+
+	/* unfortunately wgetch returns "next/previous-page" not as an ascii-char */
+	while(!g_ascii_iscntrl(key) && key != KEY_NPAGE && key != KEY_PPAGE) {
+		key = screen_getch(screen.status_window.w, screen.findbuf);
+		/* if backspace was pressed */
+		if (key == KEY_BACKSPACE) {
+			/* don't end the loop */
+			key = 65;
+			if (search_str <= g_utf8_find_prev_char(screen.findbuf, iter))
+				iter = g_utf8_find_prev_char(screen.findbuf, iter);
+			*iter = '\0';
+			continue;
+		}
+		else {
+			*iter = key;
+			if (iter < screen.findbuf + WRLN_MAX_LINE_SIZE - 3)
+				++iter;
+		}
+		list_window_jump(lw, callback_fn, callback_data, search_str);
+		/* repaint the list_window */
+		list_window_paint(lw, callback_fn, callback_data);
+		wrefresh(lw->w);
+	}
+
+	/* ncmpc should get the command */
+	ungetch(key);
+	if ((cmd=get_keyboard_command()) != CMD_NONE)
+		do_input_event(cmd);
 }
 
 void

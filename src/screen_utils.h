@@ -51,6 +51,12 @@ int screen_find(struct list_window *lw,
 		list_window_callback_fn_t callback_fn,
 		void *callback_data);
 
+/* query user for a string and jump to the entry
+ * which begins with this string while the users types */
+void screen_jump(struct list_window *lw,
+		list_window_callback_fn_t callback_fn,
+		void *callback_data);
+
 gint screen_auth(struct mpdclient *c);
 
 void screen_display_completion_list(GList *list);
