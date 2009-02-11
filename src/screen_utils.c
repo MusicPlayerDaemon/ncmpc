@@ -47,7 +47,7 @@ screen_getch(WINDOW *w, const char *prompt)
 	int key = -1;
 
 	colors_use(w, COLOR_STATUS_ALERT);
-	wclear(w);
+	werase(w);
 	wmove(w, 0, 0);
 	waddstr(w, prompt);
 
