@@ -22,6 +22,9 @@
 #include "screen_utils.h"
 #include "charset.h"
 
+#include <glib/gprintf.h>
+#include <string.h>
+
 static list_window_t *lw;
 
 static struct {
@@ -164,18 +167,79 @@ const struct screen_functions screen_song = {
 };
 
 static void
-screen_song_append(const char *label, const char *value)
+screen_song_append(const char *label, const char *value, int label_col)
 {
-	assert(label != NULL);
+	int value_col, linebreaks, entry_size, label_size;
+	int i, k;
+	gchar *entry, *entry_iter;
+	const gchar *value_iter;
 
-	if (value != NULL)
-		g_ptr_array_add(current.lines,
-				g_strdup_printf("%s: %s", label, value));
+	assert(label != NULL);
+	assert(g_utf8_validate(label, -1, NULL));
+
+	if (value != NULL) {
+		assert(g_utf8_validate(value, -1, NULL));
+		/* +2 for ': ' */
+		label_col += 2;
+		value_col = lw->cols - label_col;
+		/* calculate the number of required linebreaks */
+		linebreaks = (utf8_width(value) - 1) / value_col + 1;
+		value_iter = value;
+		label_size = strlen(label) + label_col - utf8_width(label);
+		entry_size = label_size + strlen(value) + 2;
+
+		for (i = 0; i < linebreaks; ++i)
+		{
+			entry = g_malloc(entry_size);
+			if (i == 0) {
+				entry_iter = entry + g_sprintf(entry, "%s: ", label);
+				/* fill the label column with whitespaces */
+				for ( ; entry_iter < entry + label_size; ++entry_iter)
+					*entry_iter = ' ';
+			}
+			else {
+				entry_iter = entry;
+				/* fill the label column with whitespaces */
+				for ( ; entry_iter < entry + label_col; ++entry_iter)
+					*entry_iter = ' ';
+			}
+			/* skip whitespaces */
+			while (g_ascii_isspace(*value_iter)) ++value_iter;
+			k = 0;
+			while (value_iter && k < value_col)
+			{
+				g_utf8_strncpy(entry_iter, value_iter, 1);
+				value_iter = g_utf8_find_next_char(value_iter, NULL);
+				entry_iter = g_utf8_find_next_char(entry_iter, NULL);
+				++k;
+			}
+			*entry_iter = '\0';
+			g_ptr_array_add(current.lines, entry);
+		}
+	}
 }
 
 void
 screen_song_switch(struct mpdclient *c, const struct mpd_song *song)
 {
+	unsigned int i, max_label_width;
+	enum label {
+		ARTIST, TITLE, ALBUM, COMPOSER, NAME, DISC, TRACK,
+		DATE, GENRE, COMMENT, PATH
+	};
+	const char *labels[] = { [ARTIST] = _("Artist"),
+				[TITLE] = _("Title"),
+				[ALBUM] = _("Album"),
+				[COMPOSER] = _("Composer"),
+				[NAME] = _("Name"),
+				[DISC] = _("Disc"),
+				[TRACK] = _("Track"),
+				[DATE] = _("Date"),
+				[GENRE] = _("Genre"),
+				[COMMENT] = _("Comment"),
+				[PATH] = _("Path"),
+	};
+
 	assert(song != NULL);
 	assert(song->file != NULL);
 
@@ -183,18 +247,24 @@ screen_song_switch(struct mpdclient *c, const struct mpd_song *song)
 
 	current.song = mpd_songDup(song);
 
-	g_ptr_array_add(current.lines, g_strdup(song->file));
+	/* Determine the width of the longest label */
+	max_label_width = utf8_width(labels[0]);
+	for (i = 1; i < G_N_ELEMENTS(labels); ++i) {
+		if (utf8_width(labels[i]) > max_label_width)
+			max_label_width = utf8_width(labels[i]);
+	}
 
-	screen_song_append(_("Artist"), song->artist);
-	screen_song_append(_("Title"), song->title);
-	screen_song_append(_("Album"), song->album);
-	screen_song_append(_("Composer"), song->composer);
-	screen_song_append(_("Name"), song->name);
-	screen_song_append(_("Disc"), song->disc);
-	screen_song_append(_("Track"), song->track);
-	screen_song_append(_("Date"), song->date);
-	screen_song_append(_("Genre"), song->genre);
-	screen_song_append(_("Comment"), song->comment);
+	screen_song_append(labels[ARTIST], song->artist, max_label_width);
+	screen_song_append(labels[TITLE], song->title, max_label_width);
+	screen_song_append(labels[ALBUM], song->album, max_label_width);
+	screen_song_append(labels[COMPOSER], song->composer, max_label_width);
+	screen_song_append(labels[NAME], song->name, max_label_width);
+	screen_song_append(labels[DISC], song->disc, max_label_width);
+	screen_song_append(labels[TRACK], song->track, max_label_width);
+	screen_song_append(labels[DATE], song->date, max_label_width);
+	screen_song_append(labels[GENRE], song->genre, max_label_width);
+	screen_song_append(labels[COMMENT], song->comment, max_label_width);
+	screen_song_append(labels[PATH], song->file, max_label_width);
 
 	screen_switch(&screen_song, c);
 }
