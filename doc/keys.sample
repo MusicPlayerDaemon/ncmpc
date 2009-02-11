@@ -134,6 +134,9 @@ key rfind = 63
 ## Backward find previous
 key rfind-next = 'p'
 
+## Jump to
+key jump = '.'
+
 ## Key configuration screen
 #key screen-keyedit = 'K'
 

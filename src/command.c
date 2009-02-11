@@ -190,6 +190,11 @@ static command_definition_t cmds[] = {
 	  N_("Backward find") },
 	{ { 'p', 0, 0 }, 0, CMD_LIST_RFIND_NEXT, "rfind-next",
 	  N_("Backward find previous") },
+	{ { '.', 0, 0 }, 0, CMD_LIST_JUMP, "jump",
+		/* translators: this queries the user for a string
+		 * and jumps directly (while the user is typing)
+		 * to the entry which begins with this string */
+	  N_("Jump to") },
 
 
 	/* extra screens */

@@ -1,5 +1,7 @@
 ncmpc 0.14 - not yet released
   * bell on wrapped search (optionally)
+  * added new "jump" ('.') command, which queries the user for a string and
+    jumps to the entry which begins with that string while the user is typing.
 
 
 ncmpc 0.13 - 2009-01-09
