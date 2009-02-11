@@ -24,6 +24,8 @@
 #include "match.h"
 #include "command.h"
 #include "colors.h"
+#include "screen.h"
+#include "i18n.h"
 
 #include <assert.h>
 #include <stdlib.h>
@@ -382,11 +384,13 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 	case CMD_LIST_VISUAL_SELECT:
 		if(lw->visual_selection)
 		{
+			screen_status_printf(_("Visual selection disabled"));
 			lw->visual_selection = false;
 			list_window_set_selected(lw, lw->selected);
 		}
 		else
 		{
+			screen_status_printf(_("Visual selection enabled"));
 			lw->visual_base = lw->selected;
 			lw->visual_selection = true;
 		}
