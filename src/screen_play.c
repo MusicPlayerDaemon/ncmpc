@@ -655,6 +655,10 @@ play_cmd(mpdclient_t *c, command_t cmd)
 			    cmd, list_callback, NULL);
 		playlist_repaint();
 		return true;
+	case CMD_LIST_JUMP:
+		screen_jump(lw, list_callback, NULL);
+		playlist_repaint();
+		return true;
 
 #ifdef HAVE_GETMOUSE
 	case CMD_MOUSE_EVENT:
