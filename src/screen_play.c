@@ -230,7 +230,7 @@ playlist_save(mpdclient_t *c, char *name, char *defaultname)
 
 		/* query the user for a filename */
 		filename = screen_readln(screen.status_window.w,
-					 _("Save playlist as: "),
+					 _("Save playlist as"),
 					 defaultname,
 					 NULL,
 					 gcmp);
@@ -368,7 +368,7 @@ handle_add_to_playlist(mpdclient_t *c)
 
 	/* get path */
 	path = screen_readln(screen.status_window.w,
-			     _("Add: "),
+			     _("Add"),
 			     NULL,
 			     NULL,
 #ifdef NCMPC_MINI

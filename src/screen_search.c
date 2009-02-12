@@ -306,7 +306,7 @@ search_new(mpdclient_t *c)
 
 	g_free(pattern);
 	pattern = screen_readln(screen.status_window.w,
-				_("Search: "),
+				_("Search"),
 				NULL,
 				&search_history,
 				NULL);

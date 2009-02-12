@@ -115,7 +115,7 @@ screen_read_password(WINDOW *w, const char *prompt)
 	colors_use(w, COLOR_STATUS_ALERT);
 
 	if (prompt == NULL)
-		prompt = _("Password: ");
+		prompt = _("Password");
 	ret = wreadln_masked(w, prompt, NULL, COLS, NULL, NULL);
 
 	curs_set(0);
