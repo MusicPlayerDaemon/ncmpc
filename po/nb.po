@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-06 18:21+0100\n"
-"PO-Revision-Date: 2009-01-13 13:52+0100\n"
+"POT-Creation-Date: 2009-02-12 08:48+0100\n"
+"PO-Revision-Date: 2009-02-12 15:56+0100\n"
 "Last-Translator: Jon Bergli Heier <snakebite@jvnv.net>\n"
 "Language-Team: no <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -48,24 +48,24 @@ msgstr "Koblet til %s"
 msgid "press %s for the key editor"
 msgstr "trykk %s for å rette"
 
-#: src/screen.c:153 src/screen_help.c:217
+#: src/screen.c:153 src/screen_help.c:218
 msgid "Help"
 msgstr "Hjelp"
 
-#: src/screen.c:155 src/screen_play.c:472
+#: src/screen.c:155 src/screen_play.c:477
 msgid "Playlist"
 msgstr "Spilleliste"
 
 #. translators: caption of the browser screen
-#: src/screen.c:156 src/screen_file.c:205
+#: src/screen.c:156 src/screen_file.c:213
 msgid "Browse"
 msgstr "Filer"
 
-#: src/screen.c:158 src/screen_search.c:80 src/screen_song.c:188
+#: src/screen.c:158 src/screen_search.c:80 src/screen_song.c:230
 msgid "Artist"
 msgstr "Artist"
 
-#: src/screen.c:161 src/screen_help.c:124
+#: src/screen.c:161 src/screen_help.c:125
 msgid "Search"
 msgstr "Søk"
 
@@ -133,11 +133,11 @@ msgstr "Tilfeldigjort spillelisten"
 msgid "Cleared playlist"
 msgstr "Sletter spillelisten"
 
-#: src/screen.c:769 src/screen_file.c:265
+#: src/screen.c:769 src/screen_file.c:273
 msgid "Database update started"
 msgstr "Oppdaterer databasen"
 
-#: src/screen.c:771 src/screen_file.c:272
+#: src/screen.c:771 src/screen_file.c:280
 msgid "Database update running..."
 msgstr "Databasen oppdateres..."
 
@@ -192,70 +192,75 @@ msgid "Adding '%s' to playlist"
 msgstr "Legger '%s' til spillelisten"
 
 #: src/screen_utils.c:32
-msgid "Find: "
-msgstr "Søk: "
+msgid "Find"
+msgstr "Søk"
 
 #: src/screen_utils.c:33
-msgid "Find backward: "
-msgstr "Søk (bakover): "
+msgid "Find backward"
+msgstr "Søk (bakover)"
 
 #: src/screen_utils.c:114
 msgid "Password: "
 msgstr "Passord: "
 
-#: src/screen_utils.c:203
+#: src/screen_utils.c:205
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Fant ikke '%s'"
 
-#: src/screen_play.c:228
+#: src/screen_play.c:233
 msgid "Save playlist as: "
 msgstr "Lagre spillelisten som: "
 
-#: src/screen_play.c:261
+#: src/screen_play.c:266
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Erstatt '%s' [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_play.c:282 src/screen_file.c:140 src/screen_keydef.c:163
+#: src/screen_play.c:287 src/screen_file.c:147 src/screen_keydef.c:163
 msgid "Aborted"
 msgstr "Avbrutt"
 
 #. success
-#: src/screen_play.c:290
+#: src/screen_play.c:295
 #, c-format
 msgid "Saved %s"
 msgstr "Lagret %s"
 
-#: src/screen_play.c:366
+#: src/screen_play.c:371
 msgid "Add: "
 msgstr "Legg til: "
 
-#: src/screen_play.c:474
+#: src/screen_play.c:479
 #, c-format
 msgid "Playlist on %s"
 msgstr "Spilleliste på %s"
 
+#: src/screen_play.c:612
+#, fuzzy
+msgid "Shuffled selection!"
+msgstr "Tilfeldigjort spillelisten"
+
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/screen_file.c:127
+#: src/screen_file.c:134
 msgid "Deleting this item is not possible"
 msgstr ""
 
-#: src/screen_file.c:134
+#: src/screen_file.c:141
 #, c-format
 msgid "Delete playlist %s [%s/%s] ? "
 msgstr "Slette '%s' [%s/%s] ? "
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/screen_file.c:149
+#: src/screen_file.c:156
 msgid "Playlist deleted"
 msgstr "Spillelisten slettet"
 
-#: src/screen_file.c:261
+#: src/screen_file.c:269
 #, c-format
 msgid "Database update of %s started"
 msgstr "oppdaterer databasen ifra %s"
@@ -304,11 +309,11 @@ msgstr "kommentar"
 msgid "file"
 msgstr "fil"
 
-#: src/screen_search.c:79 src/screen_song.c:189
+#: src/screen_search.c:79 src/screen_song.c:231
 msgid "Title"
 msgstr "Tittel"
 
-#: src/screen_search.c:81 src/screen_song.c:190
+#: src/screen_search.c:81 src/screen_song.c:232
 msgid "Album"
 msgstr "Album"
 
@@ -433,83 +438,83 @@ msgstr "Endre taster for '%s'"
 msgid "Movement"
 msgstr ""
 
-#: src/screen_help.c:64
+#: src/screen_help.c:65
 msgid "Global"
 msgstr "Global"
 
-#: src/screen_help.c:94 src/command.c:93
+#: src/screen_help.c:95 src/command.c:95
 msgid "Playlist screen"
 msgstr "Spilleliste"
 
-#: src/screen_help.c:96
+#: src/screen_help.c:97
 msgid "Play"
 msgstr "Start/spill markert"
 
-#: src/screen_help.c:99
+#: src/screen_help.c:100
 msgid "Move song up"
 msgstr "Flytt den markerte sangen opp i spillelisten"
 
-#: src/screen_help.c:100
+#: src/screen_help.c:101
 msgid "Move song down"
 msgstr "Flytt den markerte sangen opp i spillelisten"
 
-#: src/screen_help.c:103
+#: src/screen_help.c:104
 msgid "Center"
 msgstr "Sentrer"
 
-#: src/screen_help.c:108 src/command.c:95
+#: src/screen_help.c:109 src/command.c:97
 msgid "Browse screen"
 msgstr "Filer"
 
-#: src/screen_help.c:110
+#: src/screen_help.c:111
 msgid "Enter directory/Select and play song"
 msgstr "Velg bibliotek/Legg til spillisten og spill sang"
 
-#: src/screen_help.c:112 src/screen_help.c:127
+#: src/screen_help.c:113 src/screen_help.c:128
 msgid "Append song to playlist"
 msgstr "Legg sang til spillelisten"
 
-#: src/screen_help.c:114
+#: src/screen_help.c:115
 msgid "Delete playlist"
 msgstr "Slett spilleliste"
 
-#: src/screen_help.c:122 src/command.c:200
+#: src/screen_help.c:123 src/command.c:202
 msgid "Search screen"
 msgstr "Database søk"
 
-#: src/screen_help.c:125
+#: src/screen_help.c:126
 msgid "Select and play"
 msgstr "Legg til spillelisten og spill"
 
-#: src/screen_help.c:134 src/command.c:207
+#: src/screen_help.c:135 src/command.c:209
 msgid "Lyrics screen"
 msgstr ""
 
-#: src/screen_help.c:136
+#: src/screen_help.c:137
 msgid "View Lyrics"
 msgstr ""
 
-#: src/screen_help.c:137
+#: src/screen_help.c:138
 msgid "(Re)load lyrics"
 msgstr ""
 
-#: src/screen_help.c:138
+#: src/screen_help.c:139
 msgid "Interrupt retrieval"
 msgstr ""
 
-#: src/screen_help.c:139
+#: src/screen_help.c:140
 msgid "Explicitly download lyrics"
 msgstr ""
 
-#: src/screen_help.c:140
+#: src/screen_help.c:141
 msgid "Save lyrics"
 msgstr ""
 
-#: src/screen_help.c:145 src/command.c:218
+#: src/screen_help.c:146 src/command.c:220
 msgid "Outputs screen"
 msgstr ""
 
-#: src/screen_help.c:147
+#: src/screen_help.c:148
 msgid "Enable/disable output"
 msgstr ""
 
@@ -539,37 +544,41 @@ msgstr ""
 msgid "Output '%s' disabled"
 msgstr ""
 
-#: src/screen_song.c:106
+#: src/screen_song.c:109
 msgid "Song viewer"
 msgstr ""
 
-#: src/screen_song.c:191
+#: src/screen_song.c:233
 msgid "Composer"
 msgstr ""
 
-#: src/screen_song.c:192
+#: src/screen_song.c:234
 msgid "Name"
 msgstr "Navn"
 
-#: src/screen_song.c:193
+#: src/screen_song.c:235
 msgid "Disc"
 msgstr "Plate"
 
-#: src/screen_song.c:194
+#: src/screen_song.c:236
 msgid "Track"
 msgstr "Spor"
 
-#: src/screen_song.c:195
+#: src/screen_song.c:237
 msgid "Date"
 msgstr "Dato"
 
-#: src/screen_song.c:196
+#: src/screen_song.c:238
 msgid "Genre"
 msgstr "Sjanger"
 
-#: src/screen_song.c:197
+#: src/screen_song.c:239
 msgid "Comment"
 msgstr "Kommentar"
+
+#: src/screen_song.c:240
+msgid "Path"
+msgstr ""
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -587,11 +596,11 @@ msgstr "Flytt markør opp"
 msgid "Move cursor down"
 msgstr "Flytt markør ned"
 
-#: src/command.c:80 src/command.c:260
+#: src/command.c:80 src/command.c:262
 msgid "Home"
 msgstr ""
 
-#: src/command.c:82 src/command.c:262
+#: src/command.c:82 src/command.c:264
 msgid "End"
 msgstr ""
 
@@ -603,237 +612,241 @@ msgstr "Markøren en side opp"
 msgid "Page down"
 msgstr "Markøren en side ned"
 
-#: src/command.c:91
+#: src/command.c:88
+msgid "Visual selection"
+msgstr ""
+
+#: src/command.c:93
 msgid "Help screen"
 msgstr "Hjelp"
 
-#: src/command.c:100
+#: src/command.c:102
 msgid "Play/Enter directory"
 msgstr "Spill/Velg mappe"
 
-#: src/command.c:102
+#: src/command.c:104
 msgid "Pause"
 msgstr "Pause"
 
-#: src/command.c:104
+#: src/command.c:106
 msgid "Stop"
 msgstr "Stopp"
 
-#: src/command.c:106
+#: src/command.c:108
 msgid "Crop"
 msgstr ""
 
-#: src/command.c:108
+#: src/command.c:110
 msgid "Next track"
 msgstr "Neste"
 
-#: src/command.c:110
+#: src/command.c:112
 msgid "Previous track"
 msgstr "Forrige"
 
-#: src/command.c:112
+#: src/command.c:114
 msgid "Seek forward"
 msgstr "Spol/Søk framover"
 
-#: src/command.c:114
+#: src/command.c:116
 msgid "Seek backward"
 msgstr "Spol/Søk tilbake"
 
-#: src/command.c:116
+#: src/command.c:118
 msgid "Increase volume"
 msgstr "Øk volumet"
 
-#: src/command.c:118
+#: src/command.c:120
 msgid "Decrease volume"
 msgstr "Demp volumet"
 
-#: src/command.c:120
+#: src/command.c:122
 msgid "Select/deselect song in playlist"
 msgstr "Legg til/Fjern fra spillelisten"
 
-#: src/command.c:122
+#: src/command.c:124
 msgid "Select all listed items"
 msgstr "Velg alle i listen"
 
-#: src/command.c:124
+#: src/command.c:126
 msgid "Delete song from playlist"
 msgstr "Ta bort/slett"
 
-#: src/command.c:126
+#: src/command.c:128
 msgid "Shuffle playlist"
 msgstr "Tilfeldiggjør spilleliste"
 
-#: src/command.c:128
+#: src/command.c:130
 msgid "Clear playlist"
 msgstr "Tøm spillelisten"
 
-#: src/command.c:130
+#: src/command.c:132
 msgid "Toggle repeat mode"
 msgstr "Repeat På/Av"
 
-#: src/command.c:132
+#: src/command.c:134
 msgid "Toggle random mode"
 msgstr "Random På/Av"
 
-#: src/command.c:134
+#: src/command.c:136
 msgid "Toggle crossfade mode"
 msgstr "Crossfade På/Av"
 
-#: src/command.c:136
+#: src/command.c:138
 msgid "Start a music database update"
 msgstr "Oppdater databasen"
 
-#: src/command.c:138
+#: src/command.c:140
 msgid "Save playlist"
 msgstr "Lagre spillelisten"
 
-#: src/command.c:140
+#: src/command.c:142
 msgid "Add url/file to playlist"
 msgstr "Legg til URL eller fil til spillelisten"
 
-#: src/command.c:143
+#: src/command.c:145
 msgid "Go to root directory"
 msgstr "Gå til rotmappe"
 
-#: src/command.c:145
+#: src/command.c:147
 msgid "Go to parent directory"
 msgstr "Gå ett nivå opp"
 
-#: src/command.c:149
+#: src/command.c:151
 msgid "View the song"
 msgstr "Vis sangen"
 
-#: src/command.c:153
+#: src/command.c:155
 msgid "Locate song in browser"
 msgstr ""
 
-#: src/command.c:157
+#: src/command.c:159
 msgid "Move item up"
 msgstr "Flytt opp"
 
-#: src/command.c:159
+#: src/command.c:161
 msgid "Move item down"
 msgstr "Flytt ned"
 
-#: src/command.c:161
+#: src/command.c:163
 msgid "Refresh screen"
 msgstr "Oppdater skjermbilde"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/command.c:168
+#: src/command.c:170
 msgid "Toggle find mode"
 msgstr "Endre søkeinnstillinger"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/command.c:172
+#: src/command.c:174
 msgid "Toggle auto center mode"
 msgstr "Automatisk sentrering på/av"
 
-#: src/command.c:177
+#: src/command.c:179
 msgid "Next screen"
 msgstr "Neste skjerm"
 
-#: src/command.c:179
+#: src/command.c:181
 msgid "Previous screen"
 msgstr "Forrige skjerm"
 
-#: src/command.c:184
+#: src/command.c:186
 msgid "Forward find"
 msgstr "Søk fremover"
 
-#: src/command.c:186
+#: src/command.c:188
 msgid "Forward find next"
 msgstr "Søk neste (fremover)"
 
-#: src/command.c:188
+#: src/command.c:190
 msgid "Backward find"
 msgstr "Søk bakover"
 
-#: src/command.c:190
+#: src/command.c:192
 msgid "Backward find previous"
 msgstr "Søk neste (bakover)"
 
-#: src/command.c:196
+#: src/command.c:198
 msgid "Artist screen"
 msgstr "Artistskjerm"
 
-#: src/command.c:202
+#: src/command.c:204
 msgid "Change search mode"
 msgstr "Endre søkemodus"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/command.c:211
+#: src/command.c:213
 msgid "Interrupt action"
 msgstr "Avbryt handling"
 
-#: src/command.c:213
+#: src/command.c:215
 msgid "Update Lyrics"
 msgstr "Oppdater sangtekster"
 
-#: src/command.c:242
+#: src/command.c:244
 msgid "Undefined"
 msgstr "Ikke definert"
 
-#: src/command.c:244
+#: src/command.c:246
 msgid "Space"
 msgstr "Mellomrom"
 
-#: src/command.c:246
+#: src/command.c:248
 msgid "Enter"
 msgstr "Enter"
 
-#: src/command.c:248
+#: src/command.c:250
 msgid "Backspace"
 msgstr "Tilbaketast"
 
-#: src/command.c:250
+#: src/command.c:252
 msgid "Delete"
 msgstr "Del"
 
-#: src/command.c:252
+#: src/command.c:254
 msgid "Up"
 msgstr "Opp"
 
-#: src/command.c:254
+#: src/command.c:256
 msgid "Down"
 msgstr "Ned"
 
-#: src/command.c:256
+#: src/command.c:258
 msgid "Left"
 msgstr "Venstrepil"
 
-#: src/command.c:258
+#: src/command.c:260
 msgid "Right"
 msgstr "Høyrepil"
 
-#: src/command.c:264
+#: src/command.c:266
 msgid "PageDown"
 msgstr "PageDown"
 
-#: src/command.c:266
+#: src/command.c:268
 msgid "PageUp"
 msgstr "PageUp"
 
-#: src/command.c:268
+#: src/command.c:270
 msgid "Tab"
 msgstr "Tab"
 
-#: src/command.c:270
+#: src/command.c:272
 msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
-#: src/command.c:272
+#: src/command.c:274
 msgid "Esc"
 msgstr "Esc"
 
-#: src/command.c:274
+#: src/command.c:276
 msgid "Insert"
 msgstr "Ins"
 
-#: src/command.c:485 src/command.c:491
+#: src/command.c:487 src/command.c:493
 #, c-format
 msgid "Key %s assigned to %s and %s"
 msgstr "%s-tasten satt til %s og %s"
@@ -857,22 +870,22 @@ msgid "Terminal lacks color capabilities"
 msgstr "Terminalen mangler støtte for farger"
 
 #. To translators: prefix for error messages
-#: src/conf.c:89
+#: src/conf.c:90
 msgid "Error"
 msgstr "Feil"
 
-#: src/conf.c:97 src/conf.c:106
+#: src/conf.c:98 src/conf.c:107
 msgid "Malformed hotkey definition"
 msgstr "Malformert hurtigtastdefinisjon"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:133
+#: src/conf.c:134
 msgid "Unknown command"
 msgstr "Ukjent kommando"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:146
+#: src/conf.c:147
 msgid "Incomplete hotkey configuration"
 msgstr "Uferdig hurtigtastkonfigurasjon"
 
@@ -880,45 +893,45 @@ msgstr "Uferdig hurtigtastkonfigurasjon"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:178
+#: src/conf.c:179
 msgid "Bad time display type"
 msgstr "Ugyldig tidsvisningstype"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:193
+#: src/conf.c:194
 msgid "Missing '='"
 msgstr "Mangler '='"
 
-#: src/conf.c:249
+#: src/conf.c:250
 msgid "Bad color name"
 msgstr "Ugyldig fargenavn"
 
-#: src/conf.c:258
+#: src/conf.c:259
 msgid "Incomplete color definition"
 msgstr "Uferdig fargedefinisjon"
 
-#: src/conf.c:264
+#: src/conf.c:265
 msgid "Invalid number"
 msgstr "Ugyldig tall"
 
-#: src/conf.c:272
+#: src/conf.c:273
 msgid "Malformed color definition"
 msgstr "Malformert fargedefinisjon"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:307
+#: src/conf.c:308
 msgid "Unknown screen name"
 msgstr "Ukjent skjermnavn"
 
-#: src/conf.c:462
+#: src/conf.c:465
 msgid "Unknown configuration parameter"
 msgstr "Ukjent konfiurasjonsparameter"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:218 src/options.c:221
+#: src/options.c:219 src/options.c:222
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"

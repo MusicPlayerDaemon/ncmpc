@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-06 18:21+0100\n"
+"POT-Creation-Date: 2009-02-12 08:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,24 +47,24 @@ msgstr ""
 msgid "press %s for the key editor"
 msgstr ""
 
-#: src/screen.c:153 src/screen_help.c:217
+#: src/screen.c:153 src/screen_help.c:218
 msgid "Help"
 msgstr ""
 
-#: src/screen.c:155 src/screen_play.c:472
+#: src/screen.c:155 src/screen_play.c:477
 msgid "Playlist"
 msgstr ""
 
 #. translators: caption of the browser screen
-#: src/screen.c:156 src/screen_file.c:205
+#: src/screen.c:156 src/screen_file.c:213
 msgid "Browse"
 msgstr ""
 
-#: src/screen.c:158 src/screen_search.c:80 src/screen_song.c:188
+#: src/screen.c:158 src/screen_search.c:80 src/screen_song.c:230
 msgid "Artist"
 msgstr ""
 
-#: src/screen.c:161 src/screen_help.c:124
+#: src/screen.c:161 src/screen_help.c:125
 msgid "Search"
 msgstr ""
 
@@ -132,11 +132,11 @@ msgstr ""
 msgid "Cleared playlist"
 msgstr ""
 
-#: src/screen.c:769 src/screen_file.c:265
+#: src/screen.c:769 src/screen_file.c:273
 msgid "Database update started"
 msgstr ""
 
-#: src/screen.c:771 src/screen_file.c:272
+#: src/screen.c:771 src/screen_file.c:280
 msgid "Database update running..."
 msgstr ""
 
@@ -191,70 +191,74 @@ msgid "Adding '%s' to playlist"
 msgstr ""
 
 #: src/screen_utils.c:32
-msgid "Find: "
+msgid "Find"
 msgstr ""
 
 #: src/screen_utils.c:33
-msgid "Find backward: "
+msgid "Find backward"
 msgstr ""
 
 #: src/screen_utils.c:114
 msgid "Password: "
 msgstr ""
 
-#: src/screen_utils.c:203
+#: src/screen_utils.c:205
 #, c-format
 msgid "Unable to find '%s'"
 msgstr ""
 
-#: src/screen_play.c:228
+#: src/screen_play.c:233
 msgid "Save playlist as: "
 msgstr ""
 
-#: src/screen_play.c:261
+#: src/screen_play.c:266
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr ""
 
 #. translators: a dialog was aborted by the user
-#: src/screen_play.c:282 src/screen_file.c:140 src/screen_keydef.c:163
+#: src/screen_play.c:287 src/screen_file.c:147 src/screen_keydef.c:163
 msgid "Aborted"
 msgstr ""
 
 #. success
-#: src/screen_play.c:290
+#: src/screen_play.c:295
 #, c-format
 msgid "Saved %s"
 msgstr ""
 
-#: src/screen_play.c:366
+#: src/screen_play.c:371
 msgid "Add: "
 msgstr ""
 
-#: src/screen_play.c:474
+#: src/screen_play.c:479
 #, c-format
 msgid "Playlist on %s"
+msgstr ""
+
+#: src/screen_play.c:612
+msgid "Shuffled selection!"
 msgstr ""
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/screen_file.c:127
+#: src/screen_file.c:134
 msgid "Deleting this item is not possible"
 msgstr ""
 
-#: src/screen_file.c:134
+#: src/screen_file.c:141
 #, c-format
 msgid "Delete playlist %s [%s/%s] ? "
 msgstr ""
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/screen_file.c:149
+#: src/screen_file.c:156
 msgid "Playlist deleted"
 msgstr ""
 
-#: src/screen_file.c:261
+#: src/screen_file.c:269
 #, c-format
 msgid "Database update of %s started"
 msgstr ""
@@ -303,11 +307,11 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: src/screen_search.c:79 src/screen_song.c:189
+#: src/screen_search.c:79 src/screen_song.c:231
 msgid "Title"
 msgstr ""
 
-#: src/screen_search.c:81 src/screen_song.c:190
+#: src/screen_search.c:81 src/screen_song.c:232
 msgid "Album"
 msgstr ""
 
@@ -432,83 +436,83 @@ msgstr ""
 msgid "Movement"
 msgstr ""
 
-#: src/screen_help.c:64
+#: src/screen_help.c:65
 msgid "Global"
 msgstr ""
 
-#: src/screen_help.c:94 src/command.c:93
+#: src/screen_help.c:95 src/command.c:95
 msgid "Playlist screen"
 msgstr ""
 
-#: src/screen_help.c:96
+#: src/screen_help.c:97
 msgid "Play"
 msgstr ""
 
-#: src/screen_help.c:99
+#: src/screen_help.c:100
 msgid "Move song up"
 msgstr ""
 
-#: src/screen_help.c:100
+#: src/screen_help.c:101
 msgid "Move song down"
 msgstr ""
 
-#: src/screen_help.c:103
+#: src/screen_help.c:104
 msgid "Center"
 msgstr ""
 
-#: src/screen_help.c:108 src/command.c:95
+#: src/screen_help.c:109 src/command.c:97
 msgid "Browse screen"
 msgstr ""
 
-#: src/screen_help.c:110
+#: src/screen_help.c:111
 msgid "Enter directory/Select and play song"
 msgstr ""
 
-#: src/screen_help.c:112 src/screen_help.c:127
+#: src/screen_help.c:113 src/screen_help.c:128
 msgid "Append song to playlist"
 msgstr ""
 
-#: src/screen_help.c:114
+#: src/screen_help.c:115
 msgid "Delete playlist"
 msgstr ""
 
-#: src/screen_help.c:122 src/command.c:200
+#: src/screen_help.c:123 src/command.c:202
 msgid "Search screen"
 msgstr ""
 
-#: src/screen_help.c:125
+#: src/screen_help.c:126
 msgid "Select and play"
 msgstr ""
 
-#: src/screen_help.c:134 src/command.c:207
+#: src/screen_help.c:135 src/command.c:209
 msgid "Lyrics screen"
 msgstr ""
 
-#: src/screen_help.c:136
+#: src/screen_help.c:137
 msgid "View Lyrics"
 msgstr ""
 
-#: src/screen_help.c:137
+#: src/screen_help.c:138
 msgid "(Re)load lyrics"
 msgstr ""
 
-#: src/screen_help.c:138
+#: src/screen_help.c:139
 msgid "Interrupt retrieval"
 msgstr ""
 
-#: src/screen_help.c:139
+#: src/screen_help.c:140
 msgid "Explicitly download lyrics"
 msgstr ""
 
-#: src/screen_help.c:140
+#: src/screen_help.c:141
 msgid "Save lyrics"
 msgstr ""
 
-#: src/screen_help.c:145 src/command.c:218
+#: src/screen_help.c:146 src/command.c:220
 msgid "Outputs screen"
 msgstr ""
 
-#: src/screen_help.c:147
+#: src/screen_help.c:148
 msgid "Enable/disable output"
 msgstr ""
 
@@ -538,36 +542,40 @@ msgstr ""
 msgid "Output '%s' disabled"
 msgstr ""
 
-#: src/screen_song.c:106
+#: src/screen_song.c:109
 msgid "Song viewer"
 msgstr ""
 
-#: src/screen_song.c:191
+#: src/screen_song.c:233
 msgid "Composer"
 msgstr ""
 
-#: src/screen_song.c:192
+#: src/screen_song.c:234
 msgid "Name"
 msgstr ""
 
-#: src/screen_song.c:193
+#: src/screen_song.c:235
 msgid "Disc"
 msgstr ""
 
-#: src/screen_song.c:194
+#: src/screen_song.c:236
 msgid "Track"
 msgstr ""
 
-#: src/screen_song.c:195
+#: src/screen_song.c:237
 msgid "Date"
 msgstr ""
 
-#: src/screen_song.c:196
+#: src/screen_song.c:238
 msgid "Genre"
 msgstr ""
 
-#: src/screen_song.c:197
+#: src/screen_song.c:239
 msgid "Comment"
+msgstr ""
+
+#: src/screen_song.c:240
+msgid "Path"
 msgstr ""
 
 #: src/command.c:69
@@ -586,11 +594,11 @@ msgstr ""
 msgid "Move cursor down"
 msgstr ""
 
-#: src/command.c:80 src/command.c:260
+#: src/command.c:80 src/command.c:262
 msgid "Home"
 msgstr ""
 
-#: src/command.c:82 src/command.c:262
+#: src/command.c:82 src/command.c:264
 msgid "End"
 msgstr ""
 
@@ -602,237 +610,241 @@ msgstr ""
 msgid "Page down"
 msgstr ""
 
-#: src/command.c:91
+#: src/command.c:88
+msgid "Visual selection"
+msgstr ""
+
+#: src/command.c:93
 msgid "Help screen"
 msgstr ""
 
-#: src/command.c:100
+#: src/command.c:102
 msgid "Play/Enter directory"
 msgstr ""
 
-#: src/command.c:102
+#: src/command.c:104
 msgid "Pause"
 msgstr ""
 
-#: src/command.c:104
+#: src/command.c:106
 msgid "Stop"
 msgstr ""
 
-#: src/command.c:106
+#: src/command.c:108
 msgid "Crop"
 msgstr ""
 
-#: src/command.c:108
+#: src/command.c:110
 msgid "Next track"
 msgstr ""
 
-#: src/command.c:110
+#: src/command.c:112
 msgid "Previous track"
 msgstr ""
 
-#: src/command.c:112
+#: src/command.c:114
 msgid "Seek forward"
 msgstr ""
 
-#: src/command.c:114
+#: src/command.c:116
 msgid "Seek backward"
 msgstr ""
 
-#: src/command.c:116
+#: src/command.c:118
 msgid "Increase volume"
 msgstr ""
 
-#: src/command.c:118
+#: src/command.c:120
 msgid "Decrease volume"
 msgstr ""
 
-#: src/command.c:120
+#: src/command.c:122
 msgid "Select/deselect song in playlist"
 msgstr ""
 
-#: src/command.c:122
+#: src/command.c:124
 msgid "Select all listed items"
 msgstr ""
 
-#: src/command.c:124
+#: src/command.c:126
 msgid "Delete song from playlist"
 msgstr ""
 
-#: src/command.c:126
+#: src/command.c:128
 msgid "Shuffle playlist"
 msgstr ""
 
-#: src/command.c:128
+#: src/command.c:130
 msgid "Clear playlist"
 msgstr ""
 
-#: src/command.c:130
+#: src/command.c:132
 msgid "Toggle repeat mode"
 msgstr ""
 
-#: src/command.c:132
+#: src/command.c:134
 msgid "Toggle random mode"
 msgstr ""
 
-#: src/command.c:134
+#: src/command.c:136
 msgid "Toggle crossfade mode"
 msgstr ""
 
-#: src/command.c:136
+#: src/command.c:138
 msgid "Start a music database update"
 msgstr ""
 
-#: src/command.c:138
+#: src/command.c:140
 msgid "Save playlist"
 msgstr ""
 
-#: src/command.c:140
+#: src/command.c:142
 msgid "Add url/file to playlist"
 msgstr ""
 
-#: src/command.c:143
+#: src/command.c:145
 msgid "Go to root directory"
 msgstr ""
 
-#: src/command.c:145
+#: src/command.c:147
 msgid "Go to parent directory"
 msgstr ""
 
-#: src/command.c:149
+#: src/command.c:151
 msgid "View the song"
 msgstr ""
 
-#: src/command.c:153
+#: src/command.c:155
 msgid "Locate song in browser"
 msgstr ""
 
-#: src/command.c:157
+#: src/command.c:159
 msgid "Move item up"
 msgstr ""
 
-#: src/command.c:159
+#: src/command.c:161
 msgid "Move item down"
 msgstr ""
 
-#: src/command.c:161
+#: src/command.c:163
 msgid "Refresh screen"
 msgstr ""
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/command.c:168
+#: src/command.c:170
 msgid "Toggle find mode"
 msgstr ""
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/command.c:172
+#: src/command.c:174
 msgid "Toggle auto center mode"
 msgstr ""
 
-#: src/command.c:177
+#: src/command.c:179
 msgid "Next screen"
 msgstr ""
 
-#: src/command.c:179
+#: src/command.c:181
 msgid "Previous screen"
 msgstr ""
 
-#: src/command.c:184
+#: src/command.c:186
 msgid "Forward find"
 msgstr ""
 
-#: src/command.c:186
+#: src/command.c:188
 msgid "Forward find next"
 msgstr ""
 
-#: src/command.c:188
+#: src/command.c:190
 msgid "Backward find"
 msgstr ""
 
-#: src/command.c:190
+#: src/command.c:192
 msgid "Backward find previous"
 msgstr ""
 
-#: src/command.c:196
+#: src/command.c:198
 msgid "Artist screen"
 msgstr ""
 
-#: src/command.c:202
+#: src/command.c:204
 msgid "Change search mode"
 msgstr ""
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/command.c:211
+#: src/command.c:213
 msgid "Interrupt action"
 msgstr ""
 
-#: src/command.c:213
+#: src/command.c:215
 msgid "Update Lyrics"
 msgstr ""
 
-#: src/command.c:242
+#: src/command.c:244
 msgid "Undefined"
 msgstr ""
 
-#: src/command.c:244
+#: src/command.c:246
 msgid "Space"
 msgstr ""
 
-#: src/command.c:246
+#: src/command.c:248
 msgid "Enter"
 msgstr ""
 
-#: src/command.c:248
+#: src/command.c:250
 msgid "Backspace"
 msgstr ""
 
-#: src/command.c:250
+#: src/command.c:252
 msgid "Delete"
 msgstr ""
 
-#: src/command.c:252
+#: src/command.c:254
 msgid "Up"
 msgstr ""
 
-#: src/command.c:254
+#: src/command.c:256
 msgid "Down"
 msgstr ""
 
-#: src/command.c:256
+#: src/command.c:258
 msgid "Left"
 msgstr ""
 
-#: src/command.c:258
+#: src/command.c:260
 msgid "Right"
 msgstr ""
 
-#: src/command.c:264
+#: src/command.c:266
 msgid "PageDown"
 msgstr ""
 
-#: src/command.c:266
+#: src/command.c:268
 msgid "PageUp"
 msgstr ""
 
-#: src/command.c:268
+#: src/command.c:270
 msgid "Tab"
 msgstr ""
 
-#: src/command.c:270
+#: src/command.c:272
 msgid "Shift+Tab"
 msgstr ""
 
-#: src/command.c:272
+#: src/command.c:274
 msgid "Esc"
 msgstr ""
 
-#: src/command.c:274
+#: src/command.c:276
 msgid "Insert"
 msgstr ""
 
-#: src/command.c:485 src/command.c:491
+#: src/command.c:487 src/command.c:493
 #, c-format
 msgid "Key %s assigned to %s and %s"
 msgstr ""
@@ -856,22 +868,22 @@ msgid "Terminal lacks color capabilities"
 msgstr ""
 
 #. To translators: prefix for error messages
-#: src/conf.c:89
+#: src/conf.c:90
 msgid "Error"
 msgstr ""
 
-#: src/conf.c:97 src/conf.c:106
+#: src/conf.c:98 src/conf.c:107
 msgid "Malformed hotkey definition"
 msgstr ""
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:133
+#: src/conf.c:134
 msgid "Unknown command"
 msgstr ""
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:146
+#: src/conf.c:147
 msgid "Incomplete hotkey configuration"
 msgstr ""
 
@@ -879,44 +891,44 @@ msgstr ""
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:178
+#: src/conf.c:179
 msgid "Bad time display type"
 msgstr ""
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:193
+#: src/conf.c:194
 msgid "Missing '='"
 msgstr ""
 
-#: src/conf.c:249
+#: src/conf.c:250
 msgid "Bad color name"
 msgstr ""
 
-#: src/conf.c:258
+#: src/conf.c:259
 msgid "Incomplete color definition"
 msgstr ""
 
-#: src/conf.c:264
+#: src/conf.c:265
 msgid "Invalid number"
 msgstr ""
 
-#: src/conf.c:272
+#: src/conf.c:273
 msgid "Malformed color definition"
 msgstr ""
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:307
+#: src/conf.c:308
 msgid "Unknown screen name"
 msgstr ""
 
-#: src/conf.c:462
+#: src/conf.c:465
 msgid "Unknown configuration parameter"
 msgstr ""
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:218 src/options.c:221
+#: src/options.c:219 src/options.c:222
 msgid "translator-credits"
 msgstr ""
