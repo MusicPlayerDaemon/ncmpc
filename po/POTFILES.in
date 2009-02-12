@@ -19,3 +19,4 @@ src/command.c
 src/colors.c
 src/conf.c
 src/options.c
+src/list_window.c
