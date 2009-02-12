@@ -624,7 +624,12 @@ play_cmd(mpdclient_t *c, command_t cmd)
 			lw->visual_base--;
 		}
 		else
+		{
 			mpdclient_cmd_move(c, lw->selected, lw->selected-1);
+			lw->selected--;
+			lw->selected_start--;
+			lw->selected_end--;
+		}
 		return true;
 	case CMD_LIST_MOVE_DOWN:
 		if(lw->selected_end+1 >= playlist_length(&c->playlist))
@@ -641,7 +646,12 @@ play_cmd(mpdclient_t *c, command_t cmd)
 			lw->visual_base++;
 		}
 		else
+		{
 			mpdclient_cmd_move(c, lw->selected, lw->selected+1);
+			lw->selected++;
+			lw->selected_start++;
+			lw->selected_end++;
+		}
 		return true;
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
