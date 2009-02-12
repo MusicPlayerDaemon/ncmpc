@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 13:11+0100\n"
+"POT-Creation-Date: 2009-02-12 18:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,7 @@ msgstr ""
 msgid "Artist"
 msgstr ""
 
-#: src/screen.c:161 src/screen_help.c:126
+#: src/screen.c:161 src/screen_search.c:309 src/screen_help.c:126
 msgid "Search"
 msgstr ""
 
@@ -203,7 +203,7 @@ msgid "Jump"
 msgstr ""
 
 #: src/screen_utils.c:118
-msgid "Password: "
+msgid "Password"
 msgstr ""
 
 #: src/screen_utils.c:209
@@ -212,7 +212,7 @@ msgid "Unable to find '%s'"
 msgstr ""
 
 #: src/screen_play.c:233
-msgid "Save playlist as: "
+msgid "Save playlist as"
 msgstr ""
 
 #: src/screen_play.c:266
@@ -232,7 +232,7 @@ msgid "Saved %s"
 msgstr ""
 
 #: src/screen_play.c:371
-msgid "Add: "
+msgid "Add"
 msgstr ""
 
 #: src/screen_play.c:479
@@ -335,10 +335,6 @@ msgstr ""
 #: src/screen_search.c:249
 #, c-format
 msgid "No argument for search tag %s"
-msgstr ""
-
-#: src/screen_search.c:309
-msgid "Search: "
 msgstr ""
 
 #. if( pattern==NULL )

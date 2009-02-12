@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 08:48+0100\n"
-"PO-Revision-Date: 2009-02-12 15:56+0100\n"
+"POT-Creation-Date: 2009-02-12 18:46+0100\n"
+"PO-Revision-Date: 2009-02-12 19:14+0100\n"
 "Last-Translator: Jon Bergli Heier <snakebite@jvnv.net>\n"
 "Language-Team: no <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr "Koblet til %s"
 msgid "press %s for the key editor"
 msgstr "trykk %s for å rette"
 
-#: src/screen.c:153 src/screen_help.c:218
+#: src/screen.c:153 src/screen_help.c:219
 msgid "Help"
 msgstr "Hjelp"
 
@@ -65,7 +65,7 @@ msgstr "Filer"
 msgid "Artist"
 msgstr "Artist"
 
-#: src/screen.c:161 src/screen_help.c:125
+#: src/screen.c:161 src/screen_search.c:309 src/screen_help.c:126
 msgid "Search"
 msgstr "Søk"
 
@@ -191,26 +191,30 @@ msgstr "Henter spilleliste %s..."
 msgid "Adding '%s' to playlist"
 msgstr "Legger '%s' til spillelisten"
 
-#: src/screen_utils.c:32
+#: src/screen_utils.c:35
 msgid "Find"
 msgstr "Søk"
 
-#: src/screen_utils.c:33
+#: src/screen_utils.c:36
 msgid "Find backward"
 msgstr "Søk (bakover)"
 
-#: src/screen_utils.c:114
-msgid "Password: "
-msgstr "Passord: "
+#: src/screen_utils.c:37
+msgid "Jump"
+msgstr ""
 
-#: src/screen_utils.c:205
+#: src/screen_utils.c:118
+msgid "Password"
+msgstr "Passord"
+
+#: src/screen_utils.c:209
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Fant ikke '%s'"
 
 #: src/screen_play.c:233
-msgid "Save playlist as: "
-msgstr "Lagre spillelisten som: "
+msgid "Save playlist as"
+msgstr "Lagre spillelisten som"
 
 #: src/screen_play.c:266
 #, c-format
@@ -229,8 +233,8 @@ msgid "Saved %s"
 msgstr "Lagret %s"
 
 #: src/screen_play.c:371
-msgid "Add: "
-msgstr "Legg til: "
+msgid "Add"
+msgstr "Legg til"
 
 #: src/screen_play.c:479
 #, c-format
@@ -335,10 +339,6 @@ msgstr ""
 msgid "No argument for search tag %s"
 msgstr ""
 
-#: src/screen_search.c:309
-msgid "Search: "
-msgstr "Søk: "
-
 #. if( pattern==NULL )
 #. search_new(screen, c);
 #. else
@@ -442,79 +442,79 @@ msgstr ""
 msgid "Global"
 msgstr "Global"
 
-#: src/screen_help.c:95 src/command.c:95
+#: src/screen_help.c:96 src/command.c:95
 msgid "Playlist screen"
 msgstr "Spilleliste"
 
-#: src/screen_help.c:97
+#: src/screen_help.c:98
 msgid "Play"
 msgstr "Start/spill markert"
 
-#: src/screen_help.c:100
+#: src/screen_help.c:101
 msgid "Move song up"
 msgstr "Flytt den markerte sangen opp i spillelisten"
 
-#: src/screen_help.c:101
+#: src/screen_help.c:102
 msgid "Move song down"
 msgstr "Flytt den markerte sangen opp i spillelisten"
 
-#: src/screen_help.c:104
+#: src/screen_help.c:105
 msgid "Center"
 msgstr "Sentrer"
 
-#: src/screen_help.c:109 src/command.c:97
+#: src/screen_help.c:110 src/command.c:97
 msgid "Browse screen"
 msgstr "Filer"
 
-#: src/screen_help.c:111
+#: src/screen_help.c:112
 msgid "Enter directory/Select and play song"
 msgstr "Velg bibliotek/Legg til spillisten og spill sang"
 
-#: src/screen_help.c:113 src/screen_help.c:128
+#: src/screen_help.c:114 src/screen_help.c:129
 msgid "Append song to playlist"
 msgstr "Legg sang til spillelisten"
 
-#: src/screen_help.c:115
+#: src/screen_help.c:116
 msgid "Delete playlist"
 msgstr "Slett spilleliste"
 
-#: src/screen_help.c:123 src/command.c:202
+#: src/screen_help.c:124 src/command.c:207
 msgid "Search screen"
 msgstr "Database søk"
 
-#: src/screen_help.c:126
+#: src/screen_help.c:127
 msgid "Select and play"
 msgstr "Legg til spillelisten og spill"
 
-#: src/screen_help.c:135 src/command.c:209
+#: src/screen_help.c:136 src/command.c:214
 msgid "Lyrics screen"
 msgstr ""
 
-#: src/screen_help.c:137
+#: src/screen_help.c:138
 msgid "View Lyrics"
 msgstr ""
 
-#: src/screen_help.c:138
+#: src/screen_help.c:139
 msgid "(Re)load lyrics"
 msgstr ""
 
-#: src/screen_help.c:139
+#: src/screen_help.c:140
 msgid "Interrupt retrieval"
 msgstr ""
 
-#: src/screen_help.c:140
+#: src/screen_help.c:141
 msgid "Explicitly download lyrics"
 msgstr ""
 
-#: src/screen_help.c:141
+#: src/screen_help.c:142
 msgid "Save lyrics"
 msgstr ""
 
-#: src/screen_help.c:146 src/command.c:220
+#: src/screen_help.c:147 src/command.c:225
 msgid "Outputs screen"
 msgstr ""
 
-#: src/screen_help.c:148
+#: src/screen_help.c:149
 msgid "Enable/disable output"
 msgstr ""
 
@@ -596,11 +596,11 @@ msgstr "Flytt markør opp"
 msgid "Move cursor down"
 msgstr "Flytt markør ned"
 
-#: src/command.c:80 src/command.c:262
+#: src/command.c:80 src/command.c:267
 msgid "Home"
 msgstr ""
 
-#: src/command.c:82 src/command.c:264
+#: src/command.c:82 src/command.c:269
 msgid "End"
 msgstr ""
 
@@ -768,85 +768,92 @@ msgstr "Søk bakover"
 msgid "Backward find previous"
 msgstr "Søk neste (bakover)"
 
-#: src/command.c:198
+#. translators: this queries the user for a string
+#. * and jumps directly (while the user is typing)
+#. * to the entry which begins with this string
+#: src/command.c:197
+msgid "Jump to"
+msgstr ""
+
+#: src/command.c:203
 msgid "Artist screen"
 msgstr "Artistskjerm"
 
-#: src/command.c:204
+#: src/command.c:209
 msgid "Change search mode"
 msgstr "Endre søkemodus"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/command.c:213
+#: src/command.c:218
 msgid "Interrupt action"
 msgstr "Avbryt handling"
 
-#: src/command.c:215
+#: src/command.c:220
 msgid "Update Lyrics"
 msgstr "Oppdater sangtekster"
 
-#: src/command.c:244
+#: src/command.c:249
 msgid "Undefined"
 msgstr "Ikke definert"
 
-#: src/command.c:246
+#: src/command.c:251
 msgid "Space"
 msgstr "Mellomrom"
 
-#: src/command.c:248
+#: src/command.c:253
 msgid "Enter"
 msgstr "Enter"
 
-#: src/command.c:250
+#: src/command.c:255
 msgid "Backspace"
 msgstr "Tilbaketast"
 
-#: src/command.c:252
+#: src/command.c:257
 msgid "Delete"
 msgstr "Del"
 
-#: src/command.c:254
+#: src/command.c:259
 msgid "Up"
 msgstr "Opp"
 
-#: src/command.c:256
+#: src/command.c:261
 msgid "Down"
 msgstr "Ned"
 
-#: src/command.c:258
+#: src/command.c:263
 msgid "Left"
 msgstr "Venstrepil"
 
-#: src/command.c:260
+#: src/command.c:265
 msgid "Right"
 msgstr "Høyrepil"
 
-#: src/command.c:266
+#: src/command.c:271
 msgid "PageDown"
 msgstr "PageDown"
 
-#: src/command.c:268
+#: src/command.c:273
 msgid "PageUp"
 msgstr "PageUp"
 
-#: src/command.c:270
+#: src/command.c:275
 msgid "Tab"
 msgstr "Tab"
 
-#: src/command.c:272
+#: src/command.c:277
 msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
-#: src/command.c:274
+#: src/command.c:279
 msgid "Esc"
 msgstr "Esc"
 
-#: src/command.c:276
+#: src/command.c:281
 msgid "Insert"
 msgstr "Ins"
 
-#: src/command.c:487 src/command.c:493
+#: src/command.c:492 src/command.c:498
 #, c-format
 msgid "Key %s assigned to %s and %s"
 msgstr "%s-tasten satt til %s og %s"
@@ -937,6 +944,17 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Jon Bergli Heier https://launchpad.net/~snakebite-jvnv\n"
 "  Ole R. Thorsen https://launchpad.net/~ole-rth"
+
+#: src/list_window.c:387
+msgid "Visual selection disabled"
+msgstr ""
+
+#: src/list_window.c:393
+msgid "Visual selection enabled"
+msgstr ""
+
+#~ msgid "Search: "
+#~ msgstr "Søk: "
 
 #~ msgid "Adding directory %s...\n"
 #~ msgstr "Legger til mappen %s...\n"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 08:48+0100\n"
-"PO-Revision-Date: 2009-02-12 15:56+0100\n"
+"POT-Creation-Date: 2009-02-12 18:46+0100\n"
+"PO-Revision-Date: 2009-02-12 19:15+0100\n"
 "Last-Translator: Max Arnold <amv_cbx@mail.ru>\n"
 "Language-Team: ru <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr "Подключено к %s"
 msgid "press %s for the key editor"
 msgstr "%s - редактор клавиш"
 
-#: src/screen.c:153 src/screen_help.c:218
+#: src/screen.c:153 src/screen_help.c:219
 msgid "Help"
 msgstr "Помощь"
 
@@ -65,7 +65,7 @@ msgstr "Навигация"
 msgid "Artist"
 msgstr "Исполнитель"
 
-#: src/screen.c:161 src/screen_help.c:125
+#: src/screen.c:161 src/screen_search.c:309 src/screen_help.c:126
 msgid "Search"
 msgstr "Поиск"
 
@@ -191,26 +191,30 @@ msgstr "Загружается плейлист %s..."
 msgid "Adding '%s' to playlist"
 msgstr "В плейлист добавляется '%s'"
 
-#: src/screen_utils.c:32
+#: src/screen_utils.c:35
 msgid "Find"
 msgstr "Поиск"
 
-#: src/screen_utils.c:33
+#: src/screen_utils.c:36
 msgid "Find backward"
 msgstr "Поиск назад"
 
-#: src/screen_utils.c:114
-msgid "Password: "
-msgstr "Пароль: "
+#: src/screen_utils.c:37
+msgid "Jump"
+msgstr ""
 
-#: src/screen_utils.c:205
+#: src/screen_utils.c:118
+msgid "Password"
+msgstr "Пароль"
+
+#: src/screen_utils.c:209
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Не удалось найти '%s'"
 
 #: src/screen_play.c:233
-msgid "Save playlist as: "
-msgstr "Сохранить плейлист как: "
+msgid "Save playlist as"
+msgstr "Сохранить плейлист как"
 
 #: src/screen_play.c:266
 #, c-format
@@ -229,8 +233,8 @@ msgid "Saved %s"
 msgstr "Сохранено в %s"
 
 #: src/screen_play.c:371
-msgid "Add: "
-msgstr "Добавить: "
+msgid "Add"
+msgstr "Добавить"
 
 #: src/screen_play.c:479
 #, c-format
@@ -336,10 +340,6 @@ msgstr "Неверный тег поиска %s"
 msgid "No argument for search tag %s"
 msgstr "Не задан критерий поиска по тегу %s"
 
-#: src/screen_search.c:309
-msgid "Search: "
-msgstr "Поиск: "
-
 #. if( pattern==NULL )
 #. search_new(screen, c);
 #. else
@@ -443,79 +443,79 @@ msgstr "Перемещение"
 msgid "Global"
 msgstr "Глобальные"
 
-#: src/screen_help.c:95 src/command.c:95
+#: src/screen_help.c:96 src/command.c:95
 msgid "Playlist screen"
 msgstr "Экран плейлиста"
 
-#: src/screen_help.c:97
+#: src/screen_help.c:98
 msgid "Play"
 msgstr "Воспроизведение"
 
-#: src/screen_help.c:100
+#: src/screen_help.c:101
 msgid "Move song up"
 msgstr "Переместить композицию вверх"
 
-#: src/screen_help.c:101
+#: src/screen_help.c:102
 msgid "Move song down"
 msgstr "Переместить композицию вниз"
 
-#: src/screen_help.c:104
+#: src/screen_help.c:105
 msgid "Center"
 msgstr "Центрировать"
 
-#: src/screen_help.c:109 src/command.c:97
+#: src/screen_help.c:110 src/command.c:97
 msgid "Browse screen"
 msgstr "Экран навигации"
 
-#: src/screen_help.c:111
+#: src/screen_help.c:112
 msgid "Enter directory/Select and play song"
 msgstr "Перейти в директорию/Выбрать и проиграть композицию"
 
-#: src/screen_help.c:113 src/screen_help.c:128
+#: src/screen_help.c:114 src/screen_help.c:129
 msgid "Append song to playlist"
 msgstr "Добавить композицию в плейлист"
 
-#: src/screen_help.c:115
+#: src/screen_help.c:116
 msgid "Delete playlist"
 msgstr "Удалить плейлист"
 
-#: src/screen_help.c:123 src/command.c:202
+#: src/screen_help.c:124 src/command.c:207
 msgid "Search screen"
 msgstr "Экран поиска"
 
-#: src/screen_help.c:126
+#: src/screen_help.c:127
 msgid "Select and play"
 msgstr "Выбрать и проиграть"
 
-#: src/screen_help.c:135 src/command.c:209
+#: src/screen_help.c:136 src/command.c:214
 msgid "Lyrics screen"
 msgstr "Экран текста песни"
 
-#: src/screen_help.c:137
+#: src/screen_help.c:138
 msgid "View Lyrics"
 msgstr "Показать текст"
 
-#: src/screen_help.c:138
+#: src/screen_help.c:139
 msgid "(Re)load lyrics"
 msgstr "(Пере)загрузить текст"
 
-#: src/screen_help.c:139
+#: src/screen_help.c:140
 msgid "Interrupt retrieval"
 msgstr "Прервать загрузку"
 
-#: src/screen_help.c:140
+#: src/screen_help.c:141
 msgid "Explicitly download lyrics"
 msgstr "Принудительно загрузить текст"
 
-#: src/screen_help.c:141
+#: src/screen_help.c:142
 msgid "Save lyrics"
 msgstr "Сохранить текст"
 
-#: src/screen_help.c:146 src/command.c:220
+#: src/screen_help.c:147 src/command.c:225
 msgid "Outputs screen"
 msgstr "Экран аудиовыходов"
 
-#: src/screen_help.c:148
+#: src/screen_help.c:149
 msgid "Enable/disable output"
 msgstr "Вкл/выкл аудиовыход"
 
@@ -598,11 +598,11 @@ msgstr "Курсор вверх"
 msgid "Move cursor down"
 msgstr "Курсор вниз"
 
-#: src/command.c:80 src/command.c:262
+#: src/command.c:80 src/command.c:267
 msgid "Home"
 msgstr "В начало"
 
-#: src/command.c:82 src/command.c:264
+#: src/command.c:82 src/command.c:269
 msgid "End"
 msgstr "В конец"
 
@@ -770,85 +770,92 @@ msgstr "Поиск назад"
 msgid "Backward find previous"
 msgstr "Продолжить поиск назад"
 
-#: src/command.c:198
+#. translators: this queries the user for a string
+#. * and jumps directly (while the user is typing)
+#. * to the entry which begins with this string
+#: src/command.c:197
+msgid "Jump to"
+msgstr ""
+
+#: src/command.c:203
 msgid "Artist screen"
 msgstr "Экран исполнителей"
 
-#: src/command.c:204
+#: src/command.c:209
 msgid "Change search mode"
 msgstr "Изменить поле для поиска"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/command.c:213
+#: src/command.c:218
 msgid "Interrupt action"
 msgstr "Прервать операцию"
 
-#: src/command.c:215
+#: src/command.c:220
 msgid "Update Lyrics"
 msgstr "Обновить текст"
 
-#: src/command.c:244
+#: src/command.c:249
 msgid "Undefined"
 msgstr "Не задано"
 
-#: src/command.c:246
+#: src/command.c:251
 msgid "Space"
 msgstr "Пробел"
 
-#: src/command.c:248
+#: src/command.c:253
 msgid "Enter"
 msgstr "Ввод"
 
-#: src/command.c:250
+#: src/command.c:255
 msgid "Backspace"
 msgstr "Backspace"
 
-#: src/command.c:252
+#: src/command.c:257
 msgid "Delete"
 msgstr "Delete"
 
-#: src/command.c:254
+#: src/command.c:259
 msgid "Up"
 msgstr "Вверх"
 
-#: src/command.c:256
+#: src/command.c:261
 msgid "Down"
 msgstr "Вниз"
 
-#: src/command.c:258
+#: src/command.c:263
 msgid "Left"
 msgstr "Влево"
 
-#: src/command.c:260
+#: src/command.c:265
 msgid "Right"
 msgstr "Вправо"
 
-#: src/command.c:266
+#: src/command.c:271
 msgid "PageDown"
 msgstr "PageDown"
 
-#: src/command.c:268
+#: src/command.c:273
 msgid "PageUp"
 msgstr "PageUp"
 
-#: src/command.c:270
+#: src/command.c:275
 msgid "Tab"
 msgstr "Tab"
 
-#: src/command.c:272
+#: src/command.c:277
 msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
-#: src/command.c:274
+#: src/command.c:279
 msgid "Esc"
 msgstr "Esc"
 
-#: src/command.c:276
+#: src/command.c:281
 msgid "Insert"
 msgstr "Insert"
 
-#: src/command.c:487 src/command.c:493
+#: src/command.c:492 src/command.c:498
 #, c-format
 msgid "Key %s assigned to %s and %s"
 msgstr "Клавиша %s назначена для %s и %s"
@@ -937,6 +944,17 @@ msgstr "Неизвестный параметр конфигурации"
 #: src/options.c:219 src/options.c:222
 msgid "translator-credits"
 msgstr "Перевод: Max Arnold <lwarxx@gmail.com>"
+
+#: src/list_window.c:387
+msgid "Visual selection disabled"
+msgstr ""
+
+#: src/list_window.c:393
+msgid "Visual selection enabled"
+msgstr ""
+
+#~ msgid "Search: "
+#~ msgstr "Поиск: "
 
 #~ msgid "Adding directory %s...\n"
 #~ msgstr "Добавляется директория %s...\n"

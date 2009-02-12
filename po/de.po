@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 13:11+0100\n"
-"PO-Revision-Date: 2009-02-12 18:43+0100\n"
+"POT-Creation-Date: 2009-02-12 18:46+0100\n"
+"PO-Revision-Date: 2009-02-12 19:05+0100\n"
 "Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Stöbern"
 msgid "Artist"
 msgstr "Künstler"
 
-#: src/screen.c:161 src/screen_help.c:126
+#: src/screen.c:161 src/screen_search.c:309 src/screen_help.c:126
 msgid "Search"
 msgstr "Suche"
 
@@ -204,8 +204,8 @@ msgid "Jump"
 msgstr "Springe zu"
 
 #: src/screen_utils.c:118
-msgid "Password: "
-msgstr "Passwort: "
+msgid "Password"
+msgstr "Passwort"
 
 #: src/screen_utils.c:209
 #, c-format
@@ -213,8 +213,8 @@ msgid "Unable to find '%s'"
 msgstr "Kann '%s' nicht finden"
 
 #: src/screen_play.c:233
-msgid "Save playlist as: "
-msgstr "Speichere Playlist als: "
+msgid "Save playlist as"
+msgstr "Speichere Playlist als"
 
 #: src/screen_play.c:266
 #, c-format
@@ -233,8 +233,8 @@ msgid "Saved %s"
 msgstr "%s gespeichert"
 
 #: src/screen_play.c:371
-msgid "Add: "
-msgstr "Hinzufügen: "
+msgid "Add"
+msgstr "Hinzufügen"
 
 #: src/screen_play.c:479
 #, c-format
@@ -337,10 +337,6 @@ msgstr "Tag nicht erkannt: %s"
 #, c-format
 msgid "No argument for search tag %s"
 msgstr "Kein Argument für Tag %s"
-
-#: src/screen_search.c:309
-msgid "Search: "
-msgstr "Suche: "
 
 #. if( pattern==NULL )
 #. search_new(screen, c);
@@ -952,6 +948,9 @@ msgstr "Auswahlmodus deaktiviert"
 #: src/list_window.c:393
 msgid "Visual selection enabled"
 msgstr "Auswahlmodus aktiviert"
+
+#~ msgid "Search: "
+#~ msgstr "Suche: "
 
 #~ msgid "Adding directory %s...\n"
 #~ msgstr "Füge Verzeichnis %s hinzu...\n"
