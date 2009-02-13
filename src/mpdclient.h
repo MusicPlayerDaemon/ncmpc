@@ -53,6 +53,7 @@ gint mpdclient_cmd_next(mpdclient_t *c);
 gint mpdclient_cmd_prev(mpdclient_t *c);
 gint mpdclient_cmd_seek(mpdclient_t *c, gint id, gint pos);
 gint mpdclient_cmd_shuffle(mpdclient_t *c);
+gint mpdclient_cmd_shuffle_range(mpdclient_t *c, gint start, gint end);
 gint mpdclient_cmd_clear(mpdclient_t *c);
 gint mpdclient_cmd_repeat(mpdclient_t *c, gint value);
 gint mpdclient_cmd_random(mpdclient_t *c, gint value);

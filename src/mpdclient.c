@@ -1,7 +1,7 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -338,6 +338,14 @@ gint
 mpdclient_cmd_shuffle(mpdclient_t *c)
 {
 	mpd_sendShuffleCommand(c->connection);
+	c->need_update = TRUE;
+	return mpdclient_finish_command(c);
+}
+
+gint
+mpdclient_cmd_shuffle_range(mpdclient_t *c, gint start, gint end)
+{
+	mpd_sendShuffleRangeCommand(c->connection, start, end);
 	c->need_update = TRUE;
 	return mpdclient_finish_command(c);
 }

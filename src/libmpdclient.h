@@ -423,6 +423,8 @@ void mpd_sendRmCommand(mpd_Connection * connection, const char * name);
 
 void mpd_sendShuffleCommand(mpd_Connection * connection);
 
+void mpd_sendShuffleRangeCommand(mpd_Connection * connection, int start, int end);
+
 void mpd_sendClearCommand(mpd_Connection * connection);
 
 /* use this to start playing at the beginning, useful when in random mode */
