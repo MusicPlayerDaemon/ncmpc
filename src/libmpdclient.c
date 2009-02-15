@@ -1277,9 +1277,9 @@ void mpd_sendShuffleCommand(mpd_Connection * connection) {
 	mpd_executeCommand(connection,"shuffle\n");
 }
 
-void mpd_sendShuffleRangeCommand(mpd_Connection * connection, int start, int end) {
+void mpd_sendShuffleRangeCommand(mpd_Connection * connection, unsigned start, unsigned end) {
 	char * string = malloc(strlen("shufflerange")+25);
-	sprintf(string,"shuffle \"%i:%i\"\n", start, end);
+	sprintf(string,"shuffle \"%u:%u\"\n", start, end);
 	mpd_executeCommand(connection,string);
 	free(string);
 }

@@ -343,7 +343,7 @@ mpdclient_cmd_shuffle(mpdclient_t *c)
 }
 
 gint
-mpdclient_cmd_shuffle_range(mpdclient_t *c, gint start, gint end)
+mpdclient_cmd_shuffle_range(mpdclient_t *c, guint start, guint end)
 {
 	mpd_sendShuffleRangeCommand(c->connection, start, end);
 	c->need_update = TRUE;
