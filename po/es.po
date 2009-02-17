@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 18:46+0100\n"
-"PO-Revision-Date: 2009-02-12 19:11+0100\n"
+"POT-Creation-Date: 2009-02-17 14:52+0100\n"
+"PO-Revision-Date: 2009-02-17 14:54+0100\n"
 "Last-Translator: Johám-Luís Miguéns Vila <ashtophet@ashtophet.org>\n"
 "Language-Team: es\n"
 "MIME-Version: 1.0\n"
@@ -130,7 +130,7 @@ msgstr "Desvanecimiento de %d segundos"
 msgid "Database updated"
 msgstr "Base de datos actualizada"
 
-#: src/screen.c:748
+#: src/screen.c:748 src/screen_play.c:608
 msgid "Shuffled playlist"
 msgstr "Lista de canciones barajada"
 
@@ -245,10 +245,6 @@ msgstr "Añadir"
 #, c-format
 msgid "Playlist on %s"
 msgstr "Lista de reproducción en %s"
-
-#: src/screen_play.c:612
-msgid "Shuffled selection!"
-msgstr "Lista de canciones barajada"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song

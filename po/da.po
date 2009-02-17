@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 18:46+0100\n"
-"PO-Revision-Date: 2009-02-12 18:58+0100\n"
+"POT-Creation-Date: 2009-02-17 14:52+0100\n"
+"PO-Revision-Date: 2009-02-17 14:53+0100\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -125,7 +125,7 @@ msgstr "Crossfade %d sekunder"
 msgid "Database updated"
 msgstr "Databasen er opdateret"
 
-#: src/screen.c:748
+#: src/screen.c:748 src/screen_play.c:608
 msgid "Shuffled playlist"
 msgstr "Afspilninsglisten blandet"
 
@@ -240,11 +240,6 @@ msgstr "Tilføj"
 #, c-format
 msgid "Playlist on %s"
 msgstr "Afspilningsliste på %s"
-
-#: src/screen_play.c:612
-#, fuzzy
-msgid "Shuffled selection!"
-msgstr "Afspilninsglisten blandet"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song

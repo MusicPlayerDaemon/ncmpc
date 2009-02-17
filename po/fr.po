@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 18:46+0100\n"
-"PO-Revision-Date: 2009-02-12 19:12+0100\n"
+"POT-Creation-Date: 2009-02-17 14:52+0100\n"
+"PO-Revision-Date: 2009-02-17 14:54+0100\n"
 "Last-Translator: Yann Cézard <eesprit@free.fr>\n"
 "Language-Team: fr <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgstr "Fondu sur %d seconde(s)"
 msgid "Database updated"
 msgstr "Base de données mise à jour"
 
-#: src/screen.c:748
+#: src/screen.c:748 src/screen_play.c:608
 msgid "Shuffled playlist"
 msgstr "Liste de lecture aléatoire"
 
@@ -238,11 +238,6 @@ msgstr "Ajouter"
 #, c-format
 msgid "Playlist on %s"
 msgstr "Liste de lecture sur %s"
-
-#: src/screen_play.c:612
-#, fuzzy
-msgid "Shuffled selection!"
-msgstr "Liste de lecture aléatoire"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song

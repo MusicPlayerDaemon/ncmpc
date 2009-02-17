@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 18:46+0100\n"
+"POT-Creation-Date: 2009-02-17 14:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Database updated"
 msgstr ""
 
-#: src/screen.c:748
+#: src/screen.c:748 src/screen_play.c:608
 msgid "Shuffled playlist"
 msgstr ""
 
@@ -238,10 +238,6 @@ msgstr ""
 #: src/screen_play.c:479
 #, c-format
 msgid "Playlist on %s"
-msgstr ""
-
-#: src/screen_play.c:612
-msgid "Shuffled selection!"
 msgstr ""
 
 #. translators: the "delete" command is only possible

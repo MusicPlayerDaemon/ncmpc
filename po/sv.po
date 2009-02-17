@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 18:46+0100\n"
-"PO-Revision-Date: 2009-02-12 19:17+0100\n"
+"POT-Creation-Date: 2009-02-17 14:52+0100\n"
+"PO-Revision-Date: 2009-02-17 14:55+0100\n"
 "Last-Translator: Björn Pettersson <bjorn@hygiena.org>\n"
 "Language-Team: sv <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -125,7 +125,7 @@ msgstr "Mjuk övergång %d sekunder"
 msgid "Database updated"
 msgstr "Databas uppdaterad"
 
-#: src/screen.c:748
+#: src/screen.c:748 src/screen_play.c:608
 msgid "Shuffled playlist"
 msgstr "Spellistan slumpsorterades"
 
@@ -240,11 +240,6 @@ msgstr "Lägg till"
 #, c-format
 msgid "Playlist on %s"
 msgstr "Spellista på %s"
-
-#: src/screen_play.c:612
-#, fuzzy
-msgid "Shuffled selection!"
-msgstr "Spellistan slumpsorterades"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song

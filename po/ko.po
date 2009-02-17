@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 18:46+0100\n"
-"PO-Revision-Date: 2009-02-12 19:13+0100\n"
+"POT-Creation-Date: 2009-02-17 14:52+0100\n"
+"PO-Revision-Date: 2009-02-17 14:55+0100\n"
 "Last-Translator: atie <atie.at.matrix@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -125,7 +125,7 @@ msgstr "곡바뀜 %d 초"
 msgid "Database updated"
 msgstr "데이터베이스를 업데이트 하였습니다."
 
-#: src/screen.c:748
+#: src/screen.c:748 src/screen_play.c:608
 msgid "Shuffled playlist"
 msgstr "섞여진 연주목록"
 
@@ -240,11 +240,6 @@ msgstr "더하기"
 #, c-format
 msgid "Playlist on %s"
 msgstr "%s 상의 연주목록"
-
-#: src/screen_play.c:612
-#, fuzzy
-msgid "Shuffled selection!"
-msgstr "섞여진 연주목록"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
