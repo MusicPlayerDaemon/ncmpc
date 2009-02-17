@@ -1,0 +1,948 @@
+# Simplified Chinese translation for ncmpc
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the ncmpc package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ncmpc\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-02-17 14:52+0100\n"
+"PO-Revision-Date: 2009-02-17 17:15+0000\n"
+"Last-Translator: Gao Jie <kindmail@gmail.com>\n"
+"Language-Team: Simplified Chinese <zh_CN@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-02-17 20:20+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: src/i18n.h:42
+msgid "y"
+msgstr "y"
+
+#: src/i18n.h:43
+msgid "n"
+msgstr "n"
+
+#: src/main.c:215
+#, c-format
+msgid "Connecting to %s...  [Press %s to abort]"
+msgstr "连接到 %s... [按 %s 键取消]"
+
+#: src/main.c:233
+#, c-format
+msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
+msgstr "错误: MPD版本%d.%d.%d过低(需要 %s)"
+
+#: src/main.c:247
+#, c-format
+msgid "Connected to %s"
+msgstr "连接到 %s"
+
+#. to translators: a key was bound twice in the key editor,
+#. and this is a hint for the user what to press to correct
+#. that
+#: src/main.c:366
+#, c-format
+msgid "press %s for the key editor"
+msgstr "按 %s 编辑快捷键"
+
+#: src/screen.c:153 src/screen_help.c:219
+msgid "Help"
+msgstr "帮助"
+
+#: src/screen.c:155 src/screen_play.c:477
+msgid "Playlist"
+msgstr "列表"
+
+#. translators: caption of the browser screen
+#: src/screen.c:156 src/screen_file.c:213
+msgid "Browse"
+msgstr "目录"
+
+#: src/screen.c:158 src/screen_search.c:80 src/screen_song.c:230
+msgid "Artist"
+msgstr "艺术家"
+
+#: src/screen.c:161 src/screen_search.c:309 src/screen_help.c:126
+msgid "Search"
+msgstr "查找"
+
+#: src/screen.c:164 src/screen_lyrics.c:203 src/screen_lyrics.c:211
+#: src/screen_lyrics.c:215
+msgid "Lyrics"
+msgstr "歌词"
+
+#: src/screen.c:167 src/screen_outputs.c:162
+msgid "Outputs"
+msgstr "输出"
+
+#: src/screen.c:173
+#, c-format
+msgid "Volume n/a "
+msgstr "音量 n/a "
+
+#: src/screen.c:175
+#, c-format
+msgid " Volume %d%%"
+msgstr " 音量 %d%%"
+
+#: src/screen.c:282
+msgid "Playing:"
+msgstr "播放中"
+
+#: src/screen.c:285
+msgid "[Paused]"
+msgstr "暂停"
+
+#: src/screen.c:407 src/screen.c:480
+msgid "Error: Screen too small"
+msgstr "错误: 屏幕太小"
+
+#: src/screen.c:603
+msgid "Repeat is on"
+msgstr "循环 开"
+
+#: src/screen.c:604
+msgid "Repeat is off"
+msgstr "循环 关"
+
+#: src/screen.c:608
+msgid "Random is on"
+msgstr "随机 开"
+
+#: src/screen.c:609
+msgid "Random is off"
+msgstr "随机 关"
+
+#: src/screen.c:612
+#, c-format
+msgid "Crossfade %d seconds"
+msgstr "淡入淡出 %d 秒"
+
+#: src/screen.c:615
+msgid "Database updated"
+msgstr "数据库已更新"
+
+#: src/screen.c:748 src/screen_play.c:608
+msgid "Shuffled playlist"
+msgstr "乱序播放列表"
+
+#: src/screen.c:752
+msgid "Cleared playlist"
+msgstr "清空播放列表"
+
+#: src/screen.c:769 src/screen_file.c:273
+msgid "Database update started"
+msgstr "更新数据库中"
+
+#: src/screen.c:771 src/screen_file.c:280
+msgid "Database update running..."
+msgstr "正在更新数据库..."
+
+#: src/screen.c:807
+msgid "Find mode: Wrapped"
+msgstr "查找模式: 循环"
+
+#: src/screen.c:808
+msgid "Find mode: Normal"
+msgstr "查找模式: 普通"
+
+#: src/screen.c:813
+msgid "Auto center mode: On"
+msgstr "自动居中模式: 开"
+
+#: src/screen.c:814
+msgid "Auto center mode: Off"
+msgstr "自动居中模式: 关"
+
+#: src/screen_artist.c:74
+msgid "All tracks"
+msgstr "全部音轨"
+
+#: src/screen_artist.c:383
+#, c-format
+msgid "All artists"
+msgstr "全部艺术家"
+
+#: src/screen_artist.c:388
+#, c-format
+msgid "Albums of artist: %s"
+msgstr "%s 的专辑:"
+
+#: src/screen_artist.c:397
+#, c-format
+msgid "Album: %s - %s"
+msgstr "专辑: %s - %s"
+
+#: src/screen_artist.c:401
+#, c-format
+msgid "All tracks of artist: %s"
+msgstr "%s 的所有曲目"
+
+#: src/screen_browser.c:236
+#, c-format
+msgid "Loading playlist %s..."
+msgstr "加载播放列表 %s..."
+
+#: src/screen_browser.c:259 src/screen_browser.c:317 src/screen_browser.c:343
+#, c-format
+msgid "Adding '%s' to playlist"
+msgstr "添加 '%s' 到播放列表"
+
+#: src/screen_utils.c:35
+msgid "Find"
+msgstr "查找"
+
+#: src/screen_utils.c:36
+msgid "Find backward"
+msgstr "查找前一个"
+
+#: src/screen_utils.c:37
+msgid "Jump"
+msgstr "跳转"
+
+#: src/screen_utils.c:118
+msgid "Password"
+msgstr "密码"
+
+#: src/screen_utils.c:209
+#, c-format
+msgid "Unable to find '%s'"
+msgstr "找不到 '%s'"
+
+#: src/screen_play.c:233
+msgid "Save playlist as"
+msgstr "播放列表另存为"
+
+#: src/screen_play.c:266
+#, c-format
+msgid "Replace %s [%s/%s] ? "
+msgstr "替换 %s [%s/%s]? "
+
+#. translators: a dialog was aborted by the user
+#: src/screen_play.c:287 src/screen_file.c:147 src/screen_keydef.c:163
+msgid "Aborted"
+msgstr "已放弃"
+
+#. success
+#: src/screen_play.c:295
+#, c-format
+msgid "Saved %s"
+msgstr "保存到 %s"
+
+#: src/screen_play.c:371
+msgid "Add"
+msgstr "增加"
+
+#: src/screen_play.c:479
+#, c-format
+msgid "Playlist on %s"
+msgstr "%s 上的播放列表"
+
+#. translators: the "delete" command is only possible
+#. for playlists; the user attempted to delete a song
+#. or a directory or something else
+#: src/screen_file.c:134
+msgid "Deleting this item is not possible"
+msgstr "此项目不能被删除"
+
+#: src/screen_file.c:141
+#, c-format
+msgid "Delete playlist %s [%s/%s] ? "
+msgstr "确定要删除列表 %s[%s/%s] ? "
+
+#. translators: MPD deleted the playlist, as requested by the
+#. user
+#: src/screen_file.c:156
+msgid "Playlist deleted"
+msgstr "播放列表已删除"
+
+#: src/screen_file.c:269
+#, c-format
+msgid "Database update of %s started"
+msgstr "开始更新数据库 %s"
+
+#: src/screen_search.c:39
+msgid "artist"
+msgstr "艺术家"
+
+#: src/screen_search.c:40
+msgid "album"
+msgstr "专辑"
+
+#: src/screen_search.c:41
+msgid "title"
+msgstr "标题"
+
+#: src/screen_search.c:42
+msgid "track"
+msgstr "曲目"
+
+#: src/screen_search.c:43
+msgid "name"
+msgstr "名称"
+
+#: src/screen_search.c:44
+msgid "genre"
+msgstr "流派"
+
+#: src/screen_search.c:45
+msgid "date"
+msgstr "日期"
+
+#: src/screen_search.c:46
+msgid "composer"
+msgstr "作曲"
+
+#: src/screen_search.c:47
+msgid "performer"
+msgstr "歌手"
+
+#: src/screen_search.c:48
+msgid "comment"
+msgstr "注释"
+
+#: src/screen_search.c:49
+msgid "file"
+msgstr "文件"
+
+#: src/screen_search.c:79 src/screen_song.c:231
+msgid "Title"
+msgstr "标题"
+
+#: src/screen_search.c:81 src/screen_song.c:232
+msgid "Album"
+msgstr "专辑"
+
+#: src/screen_search.c:82
+msgid "Filename"
+msgstr "文件名"
+
+#: src/screen_search.c:83
+msgid "Artist + Title"
+msgstr "艺术家 + 标题"
+
+#: src/screen_search.c:245
+#, c-format
+msgid "Bad search tag %s"
+msgstr "不正确的搜索条目 %s"
+
+#: src/screen_search.c:249
+#, c-format
+msgid "No argument for search tag %s"
+msgstr "搜索条目 %s 没有参数"
+
+#. if( pattern==NULL )
+#. search_new(screen, c);
+#. else
+#: src/screen_search.c:369
+#, c-format
+msgid "Press %s for a new search"
+msgstr "按 %s 开始新的搜索"
+
+#: src/screen_search.c:397
+#, c-format
+msgid "Search: %s"
+msgstr "查找: %s"
+
+#: src/screen_search.c:400
+#, c-format
+msgid "Search: Results for %s [%s]"
+msgstr "查找: %s [%s] 的结果"
+
+#: src/screen_search.c:404
+#, c-format
+msgid "Search: Press %s for a new search [%s]"
+msgstr "查找: 按 %s 开始新的搜索 [%s]"
+
+#: src/screen_search.c:419
+#, c-format
+msgid "Search mode: %s"
+msgstr "搜索模式: %s"
+
+#: src/screen_keydef.c:41
+msgid "===> Apply & Save key bindings  "
+msgstr "应用 & 保存快捷键设置  "
+
+#: src/screen_keydef.c:42
+msgid "===> Apply key bindings "
+msgstr "应用快捷键设置 "
+
+#: src/screen_keydef.c:70
+msgid "You have new key bindings"
+msgstr "你有新绑定的快捷键"
+
+#: src/screen_keydef.c:72
+msgid "Keybindings unchanged."
+msgstr "取消快捷键变更."
+
+#: src/screen_keydef.c:82
+#, c-format
+msgid "Error: Unable to create direcory ~/.ncmpc - %s"
+msgstr "错误: 无法创建文件夹 ~/.ncmpc - %s"
+
+#: src/screen_keydef.c:91 src/screen_keydef.c:98
+#, c-format
+msgid "Error: %s - %s"
+msgstr "错误 %s - %s"
+
+#: src/screen_keydef.c:100
+#, c-format
+msgid "Wrote %s"
+msgstr "写入 %s"
+
+#: src/screen_keydef.c:137
+msgid "Deleted"
+msgstr "已删除"
+
+#: src/screen_keydef.c:158
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "为 %s 输入新的按键: "
+
+#: src/screen_keydef.c:169
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "键 %s 已经绑定到 %s"
+
+#: src/screen_keydef.c:179
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "分配 %s 到 %s"
+
+#: src/screen_keydef.c:217
+msgid "Add new key"
+msgstr "添加新的键"
+
+#: src/screen_keydef.c:276
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "提示: 你忘记了保存你的设置?"
+
+#: src/screen_keydef.c:283
+msgid "Edit key bindings"
+msgstr "编辑快捷键设置"
+
+#: src/screen_keydef.c:285
+#, c-format
+msgid "Edit keys for %s"
+msgstr "为 %s 编辑快捷键"
+
+#: src/screen_help.c:38
+msgid "Movement"
+msgstr "移动"
+
+#: src/screen_help.c:65
+msgid "Global"
+msgstr "全局设定"
+
+#: src/screen_help.c:96 src/command.c:95
+msgid "Playlist screen"
+msgstr "列表页面"
+
+#: src/screen_help.c:98
+msgid "Play"
+msgstr "播放"
+
+#: src/screen_help.c:101
+msgid "Move song up"
+msgstr "上移"
+
+#: src/screen_help.c:102
+msgid "Move song down"
+msgstr "下移"
+
+#: src/screen_help.c:105
+msgid "Center"
+msgstr "当前播放项居中显示"
+
+#: src/screen_help.c:110 src/command.c:97
+msgid "Browse screen"
+msgstr "目录页面"
+
+#: src/screen_help.c:112
+msgid "Enter directory/Select and play song"
+msgstr "进入选中目录/播放选中歌曲"
+
+#: src/screen_help.c:114 src/screen_help.c:129
+msgid "Append song to playlist"
+msgstr "添加到播放列表"
+
+#: src/screen_help.c:116
+msgid "Delete playlist"
+msgstr "删除播放列表"
+
+#: src/screen_help.c:124 src/command.c:207
+msgid "Search screen"
+msgstr "查找页面"
+
+#: src/screen_help.c:127
+msgid "Select and play"
+msgstr "选中并播放"
+
+#: src/screen_help.c:136 src/command.c:214
+msgid "Lyrics screen"
+msgstr "歌词页面"
+
+#: src/screen_help.c:138
+msgid "View Lyrics"
+msgstr "查看歌词"
+
+#: src/screen_help.c:139
+msgid "(Re)load lyrics"
+msgstr "(重新)加载歌词"
+
+#: src/screen_help.c:140
+msgid "Interrupt retrieval"
+msgstr ""
+
+#: src/screen_help.c:141
+msgid "Explicitly download lyrics"
+msgstr "精确下载歌词"
+
+#: src/screen_help.c:142
+msgid "Save lyrics"
+msgstr "保存歌词"
+
+#: src/screen_help.c:147 src/command.c:225
+msgid "Outputs screen"
+msgstr "输出页面"
+
+#: src/screen_help.c:149
+msgid "Enable/disable output"
+msgstr "启用/禁用音频输出"
+
+#. translators: no lyrics were found for the song
+#: src/screen_lyrics.c:104
+msgid "No lyrics"
+msgstr "无歌词"
+
+#. translators: this message is displayed
+#. while data is retrieved
+#: src/screen_lyrics.c:206
+msgid "loading..."
+msgstr "正在载入..."
+
+#. lyrics for the song were saved on hard disk
+#: src/screen_lyrics.c:241
+msgid "Lyrics saved"
+msgstr "歌词已保存"
+
+#: src/screen_outputs.c:58
+#, c-format
+msgid "Output '%s' enabled"
+msgstr "启用 '%s' 输出"
+
+#: src/screen_outputs.c:64
+#, c-format
+msgid "Output '%s' disabled"
+msgstr "禁用 '%s' 输出"
+
+#: src/screen_song.c:109
+msgid "Song viewer"
+msgstr ""
+
+#: src/screen_song.c:233
+msgid "Composer"
+msgstr "作曲"
+
+#: src/screen_song.c:234
+msgid "Name"
+msgstr "名字"
+
+#: src/screen_song.c:235
+msgid "Disc"
+msgstr "碟片"
+
+#: src/screen_song.c:236
+msgid "Track"
+msgstr "音轨"
+
+#: src/screen_song.c:237
+msgid "Date"
+msgstr "日期"
+
+#: src/screen_song.c:238
+msgid "Genre"
+msgstr "流派"
+
+#: src/screen_song.c:239
+msgid "Comment"
+msgstr "注释"
+
+#: src/screen_song.c:240
+msgid "Path"
+msgstr "路径"
+
+#: src/command.c:69
+msgid "Key configuration screen"
+msgstr "快捷键设置页面"
+
+#: src/command.c:72
+msgid "Quit"
+msgstr "退出"
+
+#: src/command.c:76
+msgid "Move cursor up"
+msgstr "向上移动光标"
+
+#: src/command.c:78
+msgid "Move cursor down"
+msgstr "向下移动光标"
+
+#: src/command.c:80 src/command.c:267
+msgid "Home"
+msgstr "Home"
+
+#: src/command.c:82 src/command.c:269
+msgid "End"
+msgstr "End"
+
+#: src/command.c:84
+msgid "Page up"
+msgstr "上一页"
+
+#: src/command.c:86
+msgid "Page down"
+msgstr "下一页"
+
+#: src/command.c:88
+msgid "Visual selection"
+msgstr "可视化选择"
+
+#: src/command.c:93
+msgid "Help screen"
+msgstr "帮助页面"
+
+#: src/command.c:102
+msgid "Play/Enter directory"
+msgstr "播放/进入 目录"
+
+#: src/command.c:104
+msgid "Pause"
+msgstr "暂停"
+
+#: src/command.c:106
+msgid "Stop"
+msgstr "停止"
+
+#: src/command.c:108
+msgid "Crop"
+msgstr "剪切"
+
+#: src/command.c:110
+msgid "Next track"
+msgstr "下一曲"
+
+#: src/command.c:112
+msgid "Previous track"
+msgstr "上一曲"
+
+#: src/command.c:114
+msgid "Seek forward"
+msgstr "快进"
+
+#: src/command.c:116
+msgid "Seek backward"
+msgstr "快退"
+
+#: src/command.c:118
+msgid "Increase volume"
+msgstr "增加音量"
+
+#: src/command.c:120
+msgid "Decrease volume"
+msgstr "降低音量"
+
+#: src/command.c:122
+msgid "Select/deselect song in playlist"
+msgstr "添加/删除选中文件到播放列表"
+
+#: src/command.c:124
+msgid "Select all listed items"
+msgstr "选中所有列出的项"
+
+#: src/command.c:126
+msgid "Delete song from playlist"
+msgstr "从播放列表中删除歌曲"
+
+#: src/command.c:128
+msgid "Shuffle playlist"
+msgstr "随机列表"
+
+#: src/command.c:130
+msgid "Clear playlist"
+msgstr "清除播放列表"
+
+#: src/command.c:132
+msgid "Toggle repeat mode"
+msgstr "切换重复模式"
+
+#: src/command.c:134
+msgid "Toggle random mode"
+msgstr "切换随机模式"
+
+#: src/command.c:136
+msgid "Toggle crossfade mode"
+msgstr "切换淡入淡出模式"
+
+#: src/command.c:138
+msgid "Start a music database update"
+msgstr "更新此数据库"
+
+#: src/command.c:140
+msgid "Save playlist"
+msgstr "保存播放列表"
+
+#: src/command.c:142
+msgid "Add url/file to playlist"
+msgstr "添加链接/路径到播放列表"
+
+#: src/command.c:145
+msgid "Go to root directory"
+msgstr "进入根目录"
+
+#: src/command.c:147
+msgid "Go to parent directory"
+msgstr "进入父目录"
+
+#: src/command.c:151
+msgid "View the song"
+msgstr "查看歌曲信息"
+
+#: src/command.c:155
+msgid "Locate song in browser"
+msgstr "定位到音乐所在目录"
+
+#: src/command.c:159
+msgid "Move item up"
+msgstr "上移"
+
+#: src/command.c:161
+msgid "Move item down"
+msgstr "下移"
+
+#: src/command.c:163
+msgid "Refresh screen"
+msgstr "刷新页面"
+
+#. translators: toggle between wrapping and non-wrapping
+#. search
+#: src/command.c:170
+msgid "Toggle find mode"
+msgstr "切换查找模式"
+
+#. translators: the auto center mode always centers the song
+#. currently being played
+#: src/command.c:174
+msgid "Toggle auto center mode"
+msgstr "切换自动居中模式"
+
+#: src/command.c:179
+msgid "Next screen"
+msgstr "下一页面"
+
+#: src/command.c:181
+msgid "Previous screen"
+msgstr "上一页面"
+
+#: src/command.c:186
+msgid "Forward find"
+msgstr "前向查找"
+
+#: src/command.c:188
+msgid "Forward find next"
+msgstr "查找下一个"
+
+#: src/command.c:190
+msgid "Backward find"
+msgstr "后向查找"
+
+#: src/command.c:192
+msgid "Backward find previous"
+msgstr "查找前一个"
+
+#. translators: this queries the user for a string
+#. * and jumps directly (while the user is typing)
+#. * to the entry which begins with this string
+#: src/command.c:197
+msgid "Jump to"
+msgstr "跳转到"
+
+#: src/command.c:203
+msgid "Artist screen"
+msgstr "艺术家页面"
+
+#: src/command.c:209
+msgid "Change search mode"
+msgstr "更改搜索模式"
+
+#. translators: interrupt the current background action,
+#. e.g. stop loading lyrics from the internet
+#: src/command.c:218
+msgid "Interrupt action"
+msgstr ""
+
+#: src/command.c:220
+msgid "Update Lyrics"
+msgstr "更新歌词"
+
+#: src/command.c:249
+msgid "Undefined"
+msgstr "未定义的"
+
+#: src/command.c:251
+msgid "Space"
+msgstr "Space"
+
+#: src/command.c:253
+msgid "Enter"
+msgstr "Enter"
+
+#: src/command.c:255
+msgid "Backspace"
+msgstr "Backspace"
+
+#: src/command.c:257
+msgid "Delete"
+msgstr "Delete"
+
+#: src/command.c:259
+msgid "Up"
+msgstr "Up"
+
+#: src/command.c:261
+msgid "Down"
+msgstr "Down"
+
+#: src/command.c:263
+msgid "Left"
+msgstr "Left"
+
+#: src/command.c:265
+msgid "Right"
+msgstr "Right"
+
+#: src/command.c:271
+msgid "PageDown"
+msgstr "PageDown"
+
+#: src/command.c:273
+msgid "PageUp"
+msgstr "PageUp"
+
+#: src/command.c:275
+msgid "Tab"
+msgstr "Tab"
+
+#: src/command.c:277
+msgid "Shift+Tab"
+msgstr "Shift+Tab"
+
+#: src/command.c:279
+msgid "Esc"
+msgstr "Esc"
+
+#: src/command.c:281
+msgid "Insert"
+msgstr "Insert"
+
+#: src/command.c:492 src/command.c:498
+#, c-format
+msgid "Key %s assigned to %s and %s"
+msgstr ""
+
+#: src/colors.c:164
+#, c-format
+msgid "Warning: Unknown color - %s\n"
+msgstr "警告: 未知的颜色 -  %s\n"
+
+#: src/colors.c:207
+#, c-format
+msgid "Warning: Unknown color field - %s\n"
+msgstr "警告: 未知的颜色块 - %s\n"
+
+#: src/colors.c:240
+msgid "Terminal lacks support for changing colors"
+msgstr "终端不支持改变颜色"
+
+#: src/colors.c:251
+msgid "Terminal lacks color capabilities"
+msgstr "终端不支持彩色"
+
+#. To translators: prefix for error messages
+#: src/conf.c:90
+msgid "Error"
+msgstr "错误"
+
+#: src/conf.c:98 src/conf.c:107
+msgid "Malformed hotkey definition"
+msgstr "不正确的快捷键定义"
+
+#. the hotkey configuration contains an unknown
+#. command
+#: src/conf.c:134
+msgid "Unknown command"
+msgstr "未知命令"
+
+#. the hotkey configuration line is incomplete
+#: src/conf.c:147
+msgid "Incomplete hotkey configuration"
+msgstr "不完整的快捷键配置"
+
+#. translators: ncmpc supports displaying the
+#. "elapsed" or "remaining" time of a song being
+#. played; in this case, the configuration file
+#. contained an invalid setting
+#: src/conf.c:179
+msgid "Bad time display type"
+msgstr "错误的时间显示格式"
+
+#. an equals sign '=' was expected while parsing a
+#. configuration file line
+#: src/conf.c:194
+msgid "Missing '='"
+msgstr "缺少 '='"
+
+#: src/conf.c:250
+msgid "Bad color name"
+msgstr "错误的颜色名"
+
+#: src/conf.c:259
+msgid "Incomplete color definition"
+msgstr "不完整的颜色定义"
+
+#: src/conf.c:265
+msgid "Invalid number"
+msgstr "无效的数字"
+
+#: src/conf.c:273
+msgid "Malformed color definition"
+msgstr "不正确的颜色定义"
+
+#. an unknown screen name was specified in the
+#. configuration file
+#: src/conf.c:308
+msgid "Unknown screen name"
+msgstr "未知的页面名"
+
+#: src/conf.c:465
+msgid "Unknown configuration parameter"
+msgstr "未知的配置参数"
+
+#. To translators: these credits are shown
+#. when ncmpc is started with "--version"
+#: src/options.c:219 src/options.c:222
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Gao Jie https://launchpad.net/~kindmail"
+
+#: src/list_window.c:387
+msgid "Visual selection disabled"
+msgstr "关闭可视选择模式"
+
+#: src/list_window.c:393
+msgid "Visual selection enabled"
+msgstr "打开可视选择模式"
