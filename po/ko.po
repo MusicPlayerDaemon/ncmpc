@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-17 14:52+0100\n"
-"PO-Revision-Date: 2009-02-17 14:55+0100\n"
+"PO-Revision-Date: 2009-02-20 15:22+0000\n"
 "Last-Translator: atie <atie.at.matrix@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-02 08:44+0000\n"
+"X-Launchpad-Export-Date: 2009-02-24 13:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -38,7 +38,7 @@ msgstr "MPD 버전 %d%d%d (은)는 너무 낮습니다. (필요한 버전 %s)"
 #: src/main.c:247
 #, c-format
 msgid "Connected to %s"
-msgstr ""
+msgstr "%s로 접속함"
 
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
@@ -46,7 +46,7 @@ msgstr ""
 #: src/main.c:366
 #, c-format
 msgid "press %s for the key editor"
-msgstr ""
+msgstr "키 편집기 사용을 위하여 %s(을)를 누르십시오."
 
 #: src/screen.c:153 src/screen_help.c:219
 msgid "Help"
@@ -59,7 +59,7 @@ msgstr "연주 목록"
 #. translators: caption of the browser screen
 #: src/screen.c:156 src/screen_file.c:213
 msgid "Browse"
-msgstr ""
+msgstr "열람"
 
 #: src/screen.c:158 src/screen_search.c:80 src/screen_song.c:230
 msgid "Artist"
@@ -143,7 +143,7 @@ msgstr "데이터베이스 업데이트를 실행 중..."
 
 #: src/screen.c:807
 msgid "Find mode: Wrapped"
-msgstr ""
+msgstr "찾기 방식: 줄 이어짐"
 
 #: src/screen.c:808
 msgid "Find mode: Normal"
@@ -151,11 +151,11 @@ msgstr "찾기 방식: 보통"
 
 #: src/screen.c:813
 msgid "Auto center mode: On"
-msgstr ""
+msgstr "자동 가운데 방식: 켜짐"
 
 #: src/screen.c:814
 msgid "Auto center mode: Off"
-msgstr ""
+msgstr "자동 가운데 방식: 꺼짐"
 
 #: src/screen_artist.c:74
 msgid "All tracks"
@@ -201,7 +201,7 @@ msgstr "거꾸로 찾기"
 
 #: src/screen_utils.c:37
 msgid "Jump"
-msgstr ""
+msgstr "이동"
 
 #: src/screen_utils.c:118
 msgid "Password"
@@ -427,11 +427,11 @@ msgstr "키 조합 편집하기"
 #: src/screen_keydef.c:285
 #, c-format
 msgid "Edit keys for %s"
-msgstr ""
+msgstr "%s(을)를 위한 키 편집"
 
 #: src/screen_help.c:38
 msgid "Movement"
-msgstr ""
+msgstr "이동"
 
 #: src/screen_help.c:65
 msgid "Global"
@@ -467,11 +467,11 @@ msgstr "디렉토리를 입력하고 곡을 선택하여 연주합니다."
 
 #: src/screen_help.c:114 src/screen_help.c:129
 msgid "Append song to playlist"
-msgstr ""
+msgstr "연주목록에 곡을 더하기"
 
 #: src/screen_help.c:116
 msgid "Delete playlist"
-msgstr ""
+msgstr "연주목록 지우기"
 
 #: src/screen_help.c:124 src/command.c:207
 msgid "Search screen"
@@ -495,7 +495,7 @@ msgstr "가사 (다시)올리기"
 
 #: src/screen_help.c:140
 msgid "Interrupt retrieval"
-msgstr ""
+msgstr "가사 가져오기 중지"
 
 #: src/screen_help.c:141
 msgid "Explicitly download lyrics"
@@ -511,7 +511,7 @@ msgstr "출력 화면"
 
 #: src/screen_help.c:149
 msgid "Enable/disable output"
-msgstr ""
+msgstr "출력 사용하기/안하기"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -532,16 +532,16 @@ msgstr "가사를 저장하였습니다."
 #: src/screen_outputs.c:58
 #, c-format
 msgid "Output '%s' enabled"
-msgstr ""
+msgstr "출력 '%s'(을)를 사용합니다"
 
 #: src/screen_outputs.c:64
 #, c-format
 msgid "Output '%s' disabled"
-msgstr ""
+msgstr "출력 '%s'(을)를 사용 안합니다"
 
 #: src/screen_song.c:109
 msgid "Song viewer"
-msgstr ""
+msgstr "곡 보기"
 
 #: src/screen_song.c:233
 msgid "Composer"
@@ -573,11 +573,11 @@ msgstr "주석"
 
 #: src/screen_song.c:240
 msgid "Path"
-msgstr ""
+msgstr "경로"
 
 #: src/command.c:69
 msgid "Key configuration screen"
-msgstr ""
+msgstr "키 설정 화면"
 
 #: src/command.c:72
 msgid "Quit"
@@ -593,11 +593,11 @@ msgstr "커서를 아래로 내리기"
 
 #: src/command.c:80 src/command.c:267
 msgid "Home"
-msgstr "홈"
+msgstr "Home"
 
 #: src/command.c:82 src/command.c:269
 msgid "End"
-msgstr "끝"
+msgstr "End"
 
 #: src/command.c:84
 msgid "Page up"
@@ -609,7 +609,7 @@ msgstr "아래쪽 페이지"
 
 #: src/command.c:88
 msgid "Visual selection"
-msgstr ""
+msgstr "비쥬얼 선택"
 
 #: src/command.c:93
 msgid "Help screen"
@@ -629,7 +629,7 @@ msgstr "멈춤"
 
 #: src/command.c:108
 msgid "Crop"
-msgstr ""
+msgstr "연주중인 곡만 선택"
 
 #: src/command.c:110
 msgid "Next track"
@@ -689,7 +689,7 @@ msgstr "곡바꿈 모드 토글"
 
 #: src/command.c:138
 msgid "Start a music database update"
-msgstr ""
+msgstr "음악 데이타베이스 업데이트를 시작"
 
 #: src/command.c:140
 msgid "Save playlist"
@@ -713,7 +713,7 @@ msgstr "곡 보기"
 
 #: src/command.c:155
 msgid "Locate song in browser"
-msgstr ""
+msgstr "열람 화면에 곡을 위치하기"
 
 #: src/command.c:159
 msgid "Move item up"
@@ -768,7 +768,7 @@ msgstr "뒤로 이전 찾기"
 #. * to the entry which begins with this string
 #: src/command.c:197
 msgid "Jump to"
-msgstr ""
+msgstr "직접 이동"
 
 #: src/command.c:203
 msgid "Artist screen"
@@ -782,7 +782,7 @@ msgstr "찾기 모드 변경"
 #. e.g. stop loading lyrics from the internet
 #: src/command.c:218
 msgid "Interrupt action"
-msgstr ""
+msgstr "백그라운드 실행을 중지"
 
 #: src/command.c:220
 msgid "Update Lyrics"
@@ -806,11 +806,11 @@ msgstr "Backspace"
 
 #: src/command.c:257
 msgid "Delete"
-msgstr ""
+msgstr "지우기"
 
 #: src/command.c:259
 msgid "Up"
-msgstr ""
+msgstr "Up"
 
 #: src/command.c:261
 msgid "Down"
@@ -856,12 +856,12 @@ msgstr ""
 #: src/colors.c:164
 #, c-format
 msgid "Warning: Unknown color - %s\n"
-msgstr ""
+msgstr "경고: 알 수 없는 색상 - %s\n"
 
 #: src/colors.c:207
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
-msgstr ""
+msgstr "경고: 알 수 없는 색상 항목 - %s\n"
 
 #: src/colors.c:240
 msgid "Terminal lacks support for changing colors"
@@ -897,7 +897,7 @@ msgstr "단축키 설정이 불완전합니다."
 #. contained an invalid setting
 #: src/conf.c:179
 msgid "Bad time display type"
-msgstr ""
+msgstr "잘못된 시간 표시 형식"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
@@ -942,11 +942,11 @@ msgstr ""
 
 #: src/list_window.c:387
 msgid "Visual selection disabled"
-msgstr ""
+msgstr "비쥬얼 선택을 사용하지 않습니다"
 
 #: src/list_window.c:393
 msgid "Visual selection enabled"
-msgstr ""
+msgstr "비쥬얼 선택을 사용합니다"
 
 #~ msgid "Search: "
 #~ msgstr "찾기: "
