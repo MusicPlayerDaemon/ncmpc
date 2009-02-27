@@ -186,7 +186,7 @@ list_window_previous_page(struct list_window *lw)
 	if (lw->rows < 2)
 		return;
 	if (lw->selected > lw->rows - 1)
-		list_window_set_selected(lw, lw->selected - lw->rows - 1);
+		list_window_set_selected(lw, lw->selected - lw->rows + 1);
 	else
 		list_window_first(lw);
 }
