@@ -153,6 +153,30 @@ list_window_previous(struct list_window *lw, unsigned length)
 }
 
 static void
+list_window_top(struct list_window *lw)
+{
+	list_window_set_selected(lw, lw->start);
+}
+
+static void
+list_window_middle(struct list_window *lw, unsigned length)
+{
+	if (length >= lw->rows)
+		list_window_set_selected(lw, lw->start + lw->rows / 2);
+	else
+		list_window_set_selected(lw, length / 2);
+}
+
+static void
+list_window_bottom(struct list_window *lw, unsigned length)
+{
+	if (length >= lw->rows)
+		list_window_set_selected(lw, lw->start + lw->rows - 1);
+	else
+		list_window_set_selected(lw, length - 1);
+}
+
+static void
 list_window_first(struct list_window *lw)
 {
 	lw->xoffset = 0;
@@ -368,6 +392,15 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 		break;
 	case CMD_LIST_NEXT:
 		list_window_next(lw, rows);
+		break;
+	case CMD_LIST_TOP:
+		list_window_top(lw);
+		break;
+	case CMD_LIST_MIDDLE:
+		list_window_middle(lw,rows);
+		break;
+	case CMD_LIST_BOTTOM:
+		list_window_bottom(lw,rows);
 		break;
 	case CMD_LIST_FIRST:
 		list_window_first(lw);
