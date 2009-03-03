@@ -123,9 +123,15 @@ list_window_set_selected(struct list_window *lw, unsigned n)
 	if(lw->visual_selection)
 	{
 		if(n >= lw->visual_base)
+		{
 			lw->selected_end = n;
+			lw->selected_start = lw->visual_base;
+		}
 		if(n <= lw->visual_base)
+		{
 			lw->selected_start = n;
+			lw->selected_end = lw->visual_base;
+		}
 	}
 	else
 	{
