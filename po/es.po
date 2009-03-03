@@ -12,13 +12,14 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-17 14:52+0100\n"
-"PO-Revision-Date: 2009-02-17 14:54+0100\n"
-"Last-Translator: Johám-Luís Miguéns Vila <ashtophet@ashtophet.org>\n"
+"PO-Revision-Date: 2009-02-26 11:52+0000\n"
+"Last-Translator: Feder Sáiz <federsaiz@googlemail.com>\n"
 "Language-Team: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"X-Launchpad-Export-Date: 2009-03-03 07:48+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -206,7 +207,7 @@ msgstr "Buscar hacia atrás"
 
 #: src/screen_utils.c:37
 msgid "Jump"
-msgstr ""
+msgstr "Saltar"
 
 #: src/screen_utils.c:118
 msgid "Password"
@@ -369,7 +370,7 @@ msgstr "Modo de búsqueda: %s"
 
 #: src/screen_keydef.c:41
 msgid "===> Apply & Save key bindings  "
-msgstr "===> Aplicar y guardar las teclas de acceso rápido "
+msgstr "===> Aplicar y guardar las teclas de acceso rápido  "
 
 #: src/screen_keydef.c:42
 msgid "===> Apply key bindings "
@@ -578,7 +579,7 @@ msgstr "Comentario"
 
 #: src/screen_song.c:240
 msgid "Path"
-msgstr ""
+msgstr "Ruta"
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -614,7 +615,7 @@ msgstr "Página abajo"
 
 #: src/command.c:88
 msgid "Visual selection"
-msgstr ""
+msgstr "Selección visual"
 
 #: src/command.c:93
 msgid "Help screen"
@@ -686,7 +687,7 @@ msgstr "Alternar modo repetición"
 
 #: src/command.c:134
 msgid "Toggle random mode"
-msgstr "Alternar modo aleatorio "
+msgstr "Alternar modo aleatorio"
 
 #: src/command.c:136
 msgid "Toggle crossfade mode"
@@ -773,7 +774,7 @@ msgstr "Buscar anterior"
 #. * to the entry which begins with this string
 #: src/command.c:197
 msgid "Jump to"
-msgstr ""
+msgstr "Saltar a"
 
 #: src/command.c:203
 msgid "Artist screen"
@@ -940,22 +941,27 @@ msgstr "Parámetro de configuración desconocido"
 #. when ncmpc is started with "--version"
 #: src/options.c:219 src/options.c:222
 msgid "translator-credits"
-msgstr "ashtophet"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Feder Sáiz https://launchpad.net/~federsaiz\n"
+"  Johám-Luís Miguéns Vila https://launchpad.net/~ashtophet"
 
 #: src/list_window.c:387
 msgid "Visual selection disabled"
-msgstr ""
+msgstr "Selección visual deshabilitada"
 
 #: src/list_window.c:393
 msgid "Visual selection enabled"
-msgstr ""
+msgstr "Selección visual habilitada"
+
+#, c-format
+#~ msgid "Adding directory %s...\n"
+#~ msgstr "Añadiendo directorio %s...\n"
 
 #~ msgid "Search: "
 #~ msgstr "Buscar: "
 
-#~ msgid "Adding directory %s...\n"
-#~ msgstr "Añadiendo directorio %s...\n"
-
+#, c-format
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr ""
 #~ "Tecla %s asignada a %s y %s (pressiona %s para accer al editor de teclas)"
