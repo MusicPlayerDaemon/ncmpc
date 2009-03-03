@@ -99,7 +99,8 @@ handle_save(mpdclient_t *c)
 		}
 	}
 
-	defaultname = utf8_to_locale(defaultname);
+	if(defaultname)
+		defaultname = utf8_to_locale(defaultname);
 	ret = playlist_save(c, NULL, defaultname);
 	g_free(defaultname);
 
