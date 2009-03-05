@@ -60,6 +60,7 @@ static gboolean welcome = TRUE;
 
 struct screen screen;
 static const struct screen_functions *mode_fn = &screen_playlist;
+static const struct screen_functions *mode_fn_prev = &screen_playlist;
 static int seek_id = -1;
 static int seek_target_time = 0;
 
@@ -76,6 +77,8 @@ screen_switch(const struct screen_functions *sf, struct mpdclient *c)
 
 	if (sf == mode_fn)
 		return;
+
+	mode_fn_prev = mode_fn;
 
 	/* close the old mode */
 	if (mode_fn->close != NULL)
@@ -857,7 +860,11 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_SCREEN_OUTPUTS:
 		screen_switch(&screen_outputs, c);
 		break;
+	case CMD_SCREEN_SWAP:
+		screen_switch(mode_fn_prev, c);
+		break;
 #endif
+
 	default:
 		break;
 	}

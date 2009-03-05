@@ -193,6 +193,8 @@ static command_definition_t cmds[] = {
 	  N_("Next screen") },
 	{ { STAB, 0, 0 }, 0, CMD_SCREEN_PREVIOUS, "screen-prev",
 	  N_("Previous screen") },
+    { { '~', 0, 0 }, 0, CMD_SCREEN_SWAP, "screen-swap",
+	  N_("Swap to most recent screen") },
 
 
 	/* find */
