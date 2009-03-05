@@ -507,11 +507,13 @@ bool
 list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 {
 	switch (cmd) {
+	case CMD_LIST_SCROLL_UP_LINE:
 	case CMD_LIST_PREVIOUS:
 		if (lw->start > 0)
 			lw->start--;
 		break;
 
+	case CMD_LIST_SCROLL_DOWN_LINE:
 	case CMD_LIST_NEXT:
 		if (lw->start + lw->rows < rows)
 			lw->start++;
@@ -543,6 +545,23 @@ list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 			lw->start -= lw->rows;
 		else
 			lw->start = 0;
+		break;
+
+	case CMD_LIST_SCROLL_UP_HALF:
+		if (lw->start > (lw->rows - 1) / 2)
+			lw->start -= (lw->rows - 1) / 2;
+		else
+			lw->start = 0;
+		break;
+
+	case CMD_LIST_SCROLL_DOWN_HALF:
+		lw->start += (lw->rows - 1) / 2;
+		if (lw->start + lw->rows > rows) {
+			if (rows > lw->rows)
+				lw->start = rows - lw->rows;
+			else
+				lw->start = 0;
+		}
 		break;
 
 	default:
