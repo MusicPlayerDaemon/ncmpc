@@ -578,7 +578,7 @@ list_window_mouse(struct list_window *lw, unsigned rows,
 {
 	assert(lw != NULL);
 
-	/* if the even occured above the list window move up */
+	/* if the even occurred above the list window move up */
 	if (y < 0) {
 		if (bstate & BUTTON3_CLICKED)
 			list_window_first(lw);
@@ -587,7 +587,7 @@ list_window_mouse(struct list_window *lw, unsigned rows,
 		return true;
 	}
 
-	/* if the even occured below the list window move down */
+	/* if the even occurred below the list window move down */
 	if ((unsigned)y >= rows) {
 		if (bstate & BUTTON3_CLICKED)
 			list_window_last(lw, rows);

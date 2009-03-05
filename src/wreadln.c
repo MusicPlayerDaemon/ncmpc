@@ -137,7 +137,7 @@ screen_to_bytes(const gchar *data, unsigned width)
 #endif
 }
 
-/** returns the screen colum where the cursor is located */
+/** returns the screen column where the cursor is located */
 static unsigned
 cursor_column(const struct wreadln *wr)
 {
@@ -405,14 +405,14 @@ _wreadln(WINDOW *w,
 
 	/* turn off echo */
 	noecho();
-	/* make shure the cursor is visible */
+	/* make sure the cursor is visible */
 	curs_set(1);
 	/* print prompt string */
 	if (prompt) {
 		waddstr(w, prompt);
 		waddstr(w, ": ");
 	}
-	/* retrive y and x0 position */
+	/* retrieve y and x0 position */
 	getyx(w, wr.y, wr.x);
 	/* check the x1 value */
 	if (x1 <= wr.x || x1 > (unsigned)COLS)
@@ -463,7 +463,7 @@ _wreadln(WINDOW *w,
 #ifdef HAVE_GETMOUSE
 		case KEY_MOUSE: /* ignore mouse events */
 #endif
-		case ERR: /* ingnore errors */
+		case ERR: /* ignore errors */
 			break;
 
 		case TAB:

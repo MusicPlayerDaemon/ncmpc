@@ -87,7 +87,7 @@ sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl)
 	}
 }
 
-/* the playlist have been updated -> fix highlights */
+/* the playlist has been updated -> fix highlights */
 void
 browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
 			 int event, gpointer data)

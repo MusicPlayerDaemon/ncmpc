@@ -71,7 +71,7 @@ static command_definition_t cmds[] = {
 	{ { 'q', 'Q', 3 }, 0, CMD_QUIT, "quit",
 	  N_("Quit") },
 
-	/* movment */
+	/* movement */
 	{ { UP, 'k', 0 }, 0, CMD_LIST_PREVIOUS, "up",
 	  N_("Move cursor up") },
 	{ { DWN, 'j', 0 }, 0, CMD_LIST_NEXT, "down",

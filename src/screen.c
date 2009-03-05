@@ -48,7 +48,7 @@ static const GTime SCREEN_WELCOME_TIME = 10;
 /** status message time [s] */
 static const GTime SCREEN_STATUS_MESSAGE_TIME = 3;
 
-/* minumum window size */
+/* minimum window size */
 static const int SCREEN_MIN_COLS = 14;
 static const int SCREEN_MIN_ROWS = 5;
 
@@ -676,7 +676,7 @@ screen_get_mouse_event(mpdclient_t *c, unsigned long *bstate, int *row)
 {
 	MEVENT event;
 
-	/* retreive the mouse event from ncurses */
+	/* retrieve the mouse event from ncurses */
 	getmouse(&event);
 	/* calculate the selected row in the list window */
 	*row = event.y - screen.top_window.rows;

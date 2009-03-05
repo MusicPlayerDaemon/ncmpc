@@ -300,11 +300,11 @@ options_parse(int argc, const char *argv[])
 		if (g_str_has_prefix(arg, "--")) {
 			char *name, *value;
 
-			/* make shure we got an argument for the previous option */
+			/* make sure we got an argument for the previous option */
 			if( opt && opt->argument )
 				option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
 
-			/* retreive a option argument */
+			/* retrieve a option argument */
 			if ((value=g_strrstr(arg+2, "="))) {
 				*value = '\0';
 				name = g_strdup(arg);
@@ -318,7 +318,7 @@ options_parse(int argc, const char *argv[])
 				option_error(ERROR_UNKNOWN_OPTION, name, NULL);
 			g_free(name);
 
-			/* abort if we got an argument to the option and dont want one */
+			/* abort if we got an argument to the option and don't want one */
 			if( value && opt->argument==NULL )
 				option_error(ERROR_GOT_ARGUMENT, arg, value);
 
@@ -333,7 +333,7 @@ options_parse(int argc, const char *argv[])
 			size_t j;
 
 			for(j=1; j<len; j++) {
-				/* make shure we got an argument for the previous option */
+				/* make sure we got an argument for the previous option */
 				if (opt && opt->argument)
 					option_error(ERROR_MISSING_ARGUMENT,
 						     opt->longopt, opt->argument);
@@ -371,7 +371,7 @@ options_init(void)
 	const char *value;
 	char *tmp;
 
-	/* get initial values for host and password from MPD_HOST (enviroment) */
+	/* get initial values for host and password from MPD_HOST (environment) */
 	if ((value = g_getenv(MPD_HOST_ENV)))
 		options.host = g_strdup(value);
 	else
@@ -385,7 +385,7 @@ options_init(void)
 		g_free(oldhost);
 	}
 
-	/* get initial values for port from MPD_PORT (enviroment) */
+	/* get initial values for port from MPD_PORT (environment) */
 	if ((value = g_getenv(MPD_PORT_ENV)))
 		options.port = atoi(value);
 

@@ -1551,7 +1551,7 @@ char * mpd_getNextCommand(mpd_Connection * connection) {
 
 void mpd_startSearch(mpd_Connection * connection,int exact) {
 	if(connection->request) {
-		/* search/find allready in progress */
+		/* search/find already in progress */
 		/* TODO: set error here?  */
 		return;
 	}
@@ -1566,7 +1566,7 @@ void mpd_startSearch(mpd_Connection * connection,int exact) {
 
 void mpd_startFieldSearch(mpd_Connection * connection,int field) {
 	if(connection->request) {
-		/* search/find allready in progress */
+		/* search/find already in progress */
 		/* TODO: set error here?  */
 		return;
 	}
@@ -1614,7 +1614,7 @@ void mpd_addConstraintSearch(mpd_Connection *connection,
 			 2+
 			 /* length of search term */
 			 strlen(arg)+
-			 /* closign " +\0 that is added sprintf */
+			 /* closing " +\0 that is added sprintf */
 			 2
 			)*sizeof(char));
 	/* and form the query */

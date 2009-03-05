@@ -79,7 +79,7 @@ save_keys(void)
 	char *filename;
 
 	if (check_user_conf_dir()) {
-		screen_status_printf(_("Error: Unable to create direcory ~/.ncmpc - %s"),
+		screen_status_printf(_("Error: Unable to create directory ~/.ncmpc - %s"),
 				     strerror(errno));
 		screen_bell();
 		return -1;

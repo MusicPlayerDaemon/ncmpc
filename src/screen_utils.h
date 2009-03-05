@@ -35,7 +35,7 @@ struct mpdclient;
 /* sound an audible and/or visible bell */
 void screen_bell(void);
 
-/* read a characher from the status window */
+/* read a character from the status window */
 int screen_getch(WINDOW *w, const char *prompt);
 
 /* read a string from the status window */

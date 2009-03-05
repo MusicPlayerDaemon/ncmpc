@@ -311,7 +311,7 @@ void
 set_xterm_title(const char *format, ...)
 {
 	/* the current xterm title exists under the WM_NAME property */
-	/* and can be retreived with xprop -id $WINDOWID */
+	/* and can be retrieved with xprop -id $WINDOWID */
 
 	if (options.enable_xterm_title) {
 		if (g_getenv("WINDOWID")) {

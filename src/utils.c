@@ -69,7 +69,7 @@ string_list_remove(GList *string_list, const gchar *str)
 	return list;
 }
 
-/* create a list suiteble for GCompletion from path */
+/* create a list suitable for GCompletion from path */
 GList *
 gcmp_list_from_path(mpdclient_t *c, const gchar *path, GList *list, gint types)
 {

@@ -218,7 +218,7 @@ mpdclient_update(mpdclient_t *c)
 	if (c->status)
 		mpd_freeStatus(c->status);
 
-	/* retreive new status */
+	/* retrieve new status */
 	mpd_sendStatusCommand(c->connection);
 	c->status = mpd_getStatus(c->connection);
 	if ((retval=mpdclient_finish_command(c)))
@@ -422,7 +422,7 @@ mpdclient_cmd_add(mpdclient_t *c, struct mpd_song *song)
 	/* add the song to playlist */
 	playlist_append(&c->playlist, song);
 
-	/* increment the playlist id, so we dont retrives a new playlist */
+	/* increment the playlist id, so we don't retrieve a new playlist */
 	c->playlist.id++;
 
 	/* call playlist updated callback */
@@ -455,7 +455,7 @@ mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 		return retval;
 
 #ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_DELETE
-	/* increment the playlist id, so we dont retrive a new playlist */
+	/* increment the playlist id, so we don't retrieve a new playlist */
 	c->playlist.id++;
 
 	/* remove the song from the playlist */
@@ -505,7 +505,7 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 	/* update the playlist */
 	playlist_swap(&c->playlist, old_index, new_index);
 
-	/* increment the playlist id, so we dont retrives a new playlist */
+	/* increment the playlist id, so we don't retrieve a new playlist */
 	c->playlist.id++;
 
 #else
@@ -550,7 +550,7 @@ mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename_utf8)
 
 
 /****************************************************************************/
-/*** Callback managment functions *******************************************/
+/*** Callback management functions ******************************************/
 /****************************************************************************/
 
 static void
@@ -615,7 +615,7 @@ mpdclient_remove_error_callback(mpdclient_t *c, mpdc_error_cb_t cb)
 
 
 /****************************************************************************/
-/*** Playlist managment functions *******************************************/
+/*** Playlist management functions ******************************************/
 /****************************************************************************/
 
 /* update playlist */

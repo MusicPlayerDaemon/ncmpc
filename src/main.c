@@ -310,7 +310,7 @@ int do_input_event(command_t cmd)
 	screen_cmd(mpd, cmd);
 
 	if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN) {
-		/* make sure we dont update the volume yet */
+		/* make sure we don't update the volume yet */
 		g_source_remove(update_source_id);
 		update_source_id = g_timeout_add(update_interval,
 						 timer_mpd_update,

@@ -111,7 +111,7 @@ artist_repaint_if_active(void)
 }
 
 #ifndef NCMPC_MINI
-/* the playlist have been updated -> fix highlights */
+/* the playlist has been updated -> fix highlights */
 static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 {

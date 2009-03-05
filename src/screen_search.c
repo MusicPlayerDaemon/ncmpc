@@ -136,7 +136,7 @@ search_repaint_if_active(void)
 		search_repaint();
 }
 
-/* the playlist have been updated -> fix highlights */
+/* the playlist has been updated -> fix highlights */
 static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 {

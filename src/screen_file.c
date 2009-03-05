@@ -51,7 +51,7 @@ file_repaint_if_active(void)
 		file_repaint();
 }
 
-/* the db have changed -> update the filelist */
+/* the db has changed -> update the filelist */
 static void
 file_changed_callback(mpdclient_t *c, G_GNUC_UNUSED int event,
 		      G_GNUC_UNUSED gpointer data)
@@ -66,7 +66,7 @@ file_changed_callback(mpdclient_t *c, G_GNUC_UNUSED int event,
 }
 
 #ifndef NCMPC_MINI
-/* the playlist have been updated -> fix highlights */
+/* the playlist has been updated -> fix highlights */
 static void
 playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 {
@@ -273,7 +273,7 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 				} else
 					screen_status_printf(_("Database update started"));
 
-				/* set updatingDb to make shure the browse callback gets called
+				/* set updatingDb to make sure the browse callback gets called
 				 * even if the updated has finished before status is updated */
 				c->status->updatingDb = 1;
 			}
