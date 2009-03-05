@@ -498,7 +498,7 @@ play_update(mpdclient_t *c)
 		prev_song_id = current_song_id;
 
 		/* center the cursor */
-		if (options.auto_center && current_song_id != -1)
+		if (options.auto_center && current_song_id != -1 && ! lw->visual_selection)
 			center_playing_item(c);
 
 		playlist_repaint();
