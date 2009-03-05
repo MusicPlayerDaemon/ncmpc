@@ -96,6 +96,10 @@ static command_definition_t cmds[] = {
 	  N_("Scroll up one line") },
 	{ { 2,  0, 0 }, 0, CMD_LIST_SCROLL_UP_LINE, "scroll-up-line",
 	  N_("Scroll down one line") },
+	{ { 'N',  0, 0 }, 0, CMD_LIST_SCROLL_DOWN_HALF, "scroll-down-half",
+	  N_("Scroll up half a screen") },
+	{ { 'B',  0, 0 }, 0, CMD_LIST_SCROLL_UP_HALF, "scroll-up-half",
+	  N_("Scroll down half a screen") },
 
 
 	/* basic screens */

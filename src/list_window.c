@@ -490,6 +490,12 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 	case CMD_LIST_SCROLL_DOWN_LINE:
 		list_window_scroll_down(lw, rows, 1);
 		break;
+	case CMD_LIST_SCROLL_UP_HALF:
+		list_window_scroll_up(lw, (lw->rows - 1) / 2);
+		break;
+	case CMD_LIST_SCROLL_DOWN_HALF:
+		list_window_scroll_down(lw, rows, (lw->rows - 1) / 2);
+		break;
 	default:
 		return false;
 	}
