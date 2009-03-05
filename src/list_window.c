@@ -221,6 +221,56 @@ list_window_previous_page(struct list_window *lw)
 		list_window_first(lw);
 }
 
+static void
+list_window_scroll_up(struct list_window *lw, unsigned n)
+{
+	if (lw->start > 0) {
+		if (n > lw->start)
+			lw->start = 0;
+		else
+			lw->start -= n;
+		if (lw->selected > lw->start + lw->rows - 1) {
+			lw->selected = lw->start + lw->rows - 1;
+			if (lw->visual_selection) {
+				if (lw->selected < lw->visual_base) {
+					lw->selected_start = lw->selected;
+					lw->selected_end = lw->visual_base;
+				} else {
+					lw->selected_end = lw->selected;
+				}
+			} else {
+				lw->selected_start = lw->selected;
+				lw->selected_end = lw->selected;
+			}
+		}
+	}
+}
+
+static void
+list_window_scroll_down(struct list_window *lw, unsigned length, unsigned n)
+{
+	if (lw->start + lw->rows < length - 1)
+	{
+		if ( lw->start + lw->rows + n > length - 1)
+			lw->start = length-1;
+		else
+			lw->start += n;
+		if (lw->selected < lw->start) {
+			lw->selected = lw->start;
+			if (lw->visual_selection) {
+				if (lw->selected > lw->visual_base) {
+					lw->selected_end = lw->selected;
+					lw->selected_start = lw->visual_base;
+				} else {
+					lw->selected_start = lw->selected;
+				}
+			} else {
+				lw->selected_start = lw->selected;
+				lw->selected_end = lw->selected;
+			}
+		}
+	}
+}
 
 void
 list_window_paint(struct list_window *lw,
@@ -433,6 +483,12 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 			lw->visual_base = lw->selected;
 			lw->visual_selection = true;
 		}
+		break;
+	case CMD_LIST_SCROLL_UP_LINE:
+		list_window_scroll_up(lw, 1);
+		break;
+	case CMD_LIST_SCROLL_DOWN_LINE:
+		list_window_scroll_down(lw, rows, 1);
 		break;
 	default:
 		return false;

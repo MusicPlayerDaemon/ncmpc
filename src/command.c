@@ -92,6 +92,10 @@ static command_definition_t cmds[] = {
 	  N_("Page down") },
 	{ { 'v',  0, 0 }, 0, CMD_LIST_VISUAL_SELECT, "visual-select",
 	  N_("Visual selection") },
+	{ { 14,  0, 0 }, 0, CMD_LIST_SCROLL_DOWN_LINE, "scroll-down-line",
+	  N_("Scroll up one line") },
+	{ { 2,  0, 0 }, 0, CMD_LIST_SCROLL_UP_LINE, "scroll-up-line",
+	  N_("Scroll down one line") },
 
 
 	/* basic screens */
