@@ -140,7 +140,6 @@ static void
 center_playing_item(mpdclient_t *c)
 {
 	unsigned length = c->playlist.list->len;
-	unsigned offset = lw->selected - lw->start;
 	int idx;
 
 	if (!c->song || length < lw->rows ||
@@ -155,10 +154,25 @@ center_playing_item(mpdclient_t *c)
 	list_window_center(lw, length, idx);
 
 	/* make sure the cursor is in the window */
-	lw->selected = lw->start+offset;
-	lw->selected_start = lw->selected;
-	lw->selected_end = lw->selected;
-	list_window_check_selected(lw, length);
+	if (lw->selected < lw->start) {
+		lw->selected = lw->start;
+		if (lw->visual_selection) {
+			lw->selected_start = lw->visual_base;
+			lw->selected_end = lw->selected;
+		} else {
+			lw->selected_start = lw->selected;
+			lw->selected_end = lw->selected;
+		}
+	} else if (lw->selected > lw->start + lw->rows - 1) {
+		lw->selected = lw->start + lw->rows - 1;
+		if (lw->visual_selection) {
+			lw->selected_start = lw->selected;
+			lw->selected_end = lw->visual_base;
+		} else {
+			lw->selected_start = lw->selected;
+			lw->selected_end = lw->selected;
+		}
+	}
 }
 
 #ifndef NCMPC_MINI
