@@ -316,6 +316,8 @@ keydef_cmd(G_GNUC_UNUSED mpdclient_t *c, command_t cmd)
 			} else {
 				subcmd = lw->selected;
 				lw->selected=0;
+				lw->selected_start = lw->selected;
+				lw->selected_end = lw->selected;
 				check_subcmd_length();
 
 				keydef_repaint();
@@ -323,6 +325,8 @@ keydef_cmd(G_GNUC_UNUSED mpdclient_t *c, command_t cmd)
 		} else {
 			if (lw->selected == 0) { /* up */
 				lw->selected = subcmd;
+				lw->selected_start = lw->selected;
+				lw->selected_end = lw->selected;
 				subcmd = -1;
 
 				keydef_repaint();
