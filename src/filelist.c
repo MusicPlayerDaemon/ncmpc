@@ -110,12 +110,61 @@ filelist_compare_indirect(gconstpointer ap, gconstpointer bp, gpointer data)
 	return compare_func(a, b);
 }
 
+/* Sorts the whole filelist, at the moment used by filelist_search */
 void
-filelist_sort(struct filelist *filelist, GCompareFunc compare_func)
+filelist_sort_all(struct filelist *filelist, GCompareFunc compare_func)
 {
 	g_ptr_array_sort_with_data(filelist->entries,
-				   filelist_compare_indirect,
-				   compare_func);
+			filelist_compare_indirect,
+			compare_func);
+}
+
+
+/* Only sorts the directories and playlist files.
+ * The songs stay in the order it came from mpd. */
+void
+filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func)
+{
+	unsigned first, last;
+	const mpd_InfoEntity *iter;
+
+	assert(filelist && filelist->entries);
+
+	if (filelist->entries->len < 2)
+		return;
+	iter = ((struct filelist_entry*) g_ptr_array_index(filelist->entries, 0))->entity;
+	/* This can only happen at the beginning of the filelist,
+	 * because NULL stands for "[..]" */
+	if (iter == NULL) {
+		iter = ((struct filelist_entry*) g_ptr_array_index(filelist->entries, 1))->entity;
+		first = 1;
+	}
+	else
+		first = 0;
+	/* find the last directory entry */
+	for (last = first+1; last < filelist->entries->len; last++) {
+		iter = ((struct filelist_entry*) g_ptr_array_index(filelist->entries, last))->entity;
+		if (iter->type != MPD_INFO_ENTITY_TYPE_DIRECTORY)
+			break;
+	}
+	if (last == filelist->entries->len - 1)
+		last++;
+	/* sort the directories */
+	if (last - first > 1)
+		g_qsort_with_data(filelist->entries->pdata + first,
+				last - first, sizeof(gpointer),
+				filelist_compare_indirect, compare_func);
+	/* find the first playlist entry */
+	for (first = last; first < filelist->entries->len; first++) {
+		iter = ((struct filelist_entry*) g_ptr_array_index(filelist->entries, first))->entity;
+		if (iter->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE)
+			break;
+	}
+	/* sort the playlist entries */
+	if (filelist->entries->len - first > 1)
+		g_qsort_with_data(filelist->entries->pdata + first,
+				filelist->entries->len - first, sizeof(gpointer),
+				filelist_compare_indirect, compare_func);
 }
 
 int

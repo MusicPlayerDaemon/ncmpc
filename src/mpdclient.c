@@ -44,7 +44,7 @@ extern GList *string_list_free(GList *string_list);
 
 /* filelist sorting functions */
 static gint
-compare_filelistentry_dir(gconstpointer filelist_entry1,
+compare_filelistentry(gconstpointer filelist_entry1,
 			  gconstpointer filelist_entry2)
 {
 	const mpd_InfoEntity *e1, *e2;
@@ -53,12 +53,19 @@ compare_filelistentry_dir(gconstpointer filelist_entry1,
 	e1 = ((const filelist_entry_t *)filelist_entry1)->entity;
 	e2 = ((const filelist_entry_t *)filelist_entry2)->entity;
 
-	if (e1 && e2 &&
-	    e1->type == MPD_INFO_ENTITY_TYPE_DIRECTORY &&
-	    e2->type == MPD_INFO_ENTITY_TYPE_DIRECTORY)
-		n = g_utf8_collate(e1->info.directory->path,
-				   e2->info.directory->path);
-
+	if (e1 && e2 && e1->type == e2->type) {
+		switch (e1->type) {
+		case MPD_INFO_ENTITY_TYPE_DIRECTORY:
+			n = g_utf8_collate(e1->info.directory->path,
+					e2->info.directory->path);
+			break;
+		case MPD_INFO_ENTITY_TYPE_SONG:
+			break;
+		case MPD_INFO_ENTITY_TYPE_PLAYLISTFILE:
+			n = g_utf8_collate(e1->info.playlistFile->path,
+					e2->info.playlistFile->path);
+		}
+	}
 	return n;
 }
 
@@ -707,7 +714,6 @@ mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 {
 	mpdclient_filelist_t *filelist;
 	mpd_InfoEntity *entity;
-	gboolean has_dirs_only = TRUE;
 
 	mpd_sendLsInfoCommand(c->connection, path);
 	filelist = filelist_new(path);
@@ -717,18 +723,12 @@ mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 
 	while ((entity=mpd_getNextInfoEntity(c->connection))) {
 		filelist_append(filelist, entity);
-
-		if (has_dirs_only && entity->type != MPD_INFO_ENTITY_TYPE_DIRECTORY) {
-			has_dirs_only = FALSE;
-		}
 	}
 
 	/* If there's an error, ignore it.  We'll return an empty filelist. */
 	mpdclient_finish_command(c);
 
-	// If there are only directory entities in the filelist, we sort it
-	if (has_dirs_only)
-		filelist_sort(filelist, compare_filelistentry_dir);
+	filelist_sort_dir_play(filelist, compare_filelistentry);
 
 	return filelist;
 }

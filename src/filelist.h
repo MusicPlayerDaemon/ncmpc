@@ -70,8 +70,14 @@ filelist_prepend(struct filelist *filelist, struct mpd_InfoEntity *entity);
 void
 filelist_move(struct filelist *filelist, struct filelist *from);
 
+/* Sorts the whole filelist, at the moment used by filelist_search */
 void
-filelist_sort(struct filelist *filelist, GCompareFunc compare_func);
+filelist_sort_all(struct filelist *filelist, GCompareFunc compare_func);
+
+/* Only sorts the directories and playlist files.
+ * The songs stay in the order it came from mpd. */
+void
+filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func);
 
 int
 filelist_find_song(struct filelist *flist, const struct mpd_song *song);

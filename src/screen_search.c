@@ -193,7 +193,7 @@ filelist_search(mpdclient_t *c, G_GNUC_UNUSED int exact_match, int table,
 			filelist_free(list2);
 		}
 
-		filelist_sort(list, compare_filelistentry_format);
+		filelist_sort_all(list, compare_filelistentry_format);
 	} else {
 		list = mpdclient_filelist_search(c, FALSE, table, filter_utf8);
 		if (list == NULL)
