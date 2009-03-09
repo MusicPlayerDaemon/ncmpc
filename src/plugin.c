@@ -72,6 +72,19 @@ register_plugin(struct plugin_list *list, char *path)
 	return true;
 }
 
+static gint 
+plugin_compare_func_alpha(gconstpointer plugin1, gconstpointer plugin2)
+{
+	return strcmp(* (char * const *) plugin1, * (char * const *) plugin2);
+}
+
+static void
+plugin_list_sort(struct plugin_list *list, GCompareFunc compare_func)
+{
+	g_ptr_array_sort(list->plugins,
+			compare_func);
+}
+
 bool
 plugin_list_load_directory(struct plugin_list *list, const char *path)
 {
@@ -92,6 +105,9 @@ plugin_list_load_directory(struct plugin_list *list, const char *path)
 	}
 
 	g_dir_close(dir);
+
+	plugin_list_sort(list, plugin_compare_func_alpha);
+
 	return true;
 }
 
