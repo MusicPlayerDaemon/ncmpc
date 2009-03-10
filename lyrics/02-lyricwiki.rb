@@ -29,4 +29,5 @@ url = "http://lyricwiki.org/api.php" + \
 response = Net::HTTP.get(URI.parse(url))
 
 exit(2) unless response =~ /<pre>\s*(.*?)\s*<\/pre>/im
+exit(2) if $1 == "Not found"
 puts $1
