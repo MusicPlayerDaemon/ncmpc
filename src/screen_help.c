@@ -152,7 +152,7 @@ static help_text_row_t help_text[] = {
 	{ 0, CMD_SELECT, N_("(Re)load lyrics") },
 	{ 0, CMD_INTERRUPT, N_("Interrupt retrieval") },
 	{ 0, CMD_LYRICS_UPDATE, N_("Explicitly download lyrics") },
-	{ 0, CMD_ADD, N_("Save lyrics") },
+	{ 0, CMD_SAVE_PLAYLIST, N_("Save lyrics") },
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
 	{ 0, CMD_NONE, NULL },

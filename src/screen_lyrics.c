@@ -234,7 +234,7 @@ lyrics_cmd(mpdclient_t *c, command_t cmd)
 			screen_text_clear(&text);
 		}
 		return true;
-	case CMD_ADD:
+	case CMD_SAVE_PLAYLIST:
 		if (current.loader == NULL && current.artist != NULL &&
 		    current.title != NULL && store_lyr_hd() == 0)
 			/* lyrics for the song were saved on hard disk */
