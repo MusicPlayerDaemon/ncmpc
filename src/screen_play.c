@@ -137,13 +137,13 @@ list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED void *data)
 }
 
 static void
-center_playing_item(mpdclient_t *c)
+center_playing_item(mpdclient_t *c, bool center_cursor)
 {
 	unsigned length = c->playlist.list->len;
 	int idx;
 
-	if (!c->song || length < lw->rows ||
-	    c->status == NULL || IS_STOPPED(c->status->state))
+	if (!c->song || c->status == NULL || 
+		IS_STOPPED(c->status->state))
 		return;
 
 	/* try to center the song that are playing */
@@ -151,7 +151,19 @@ center_playing_item(mpdclient_t *c)
 	if (idx < 0)
 		return;
 
+	if (length < lw->rows)
+	{
+		if (center_cursor)
+			list_window_set_selected(lw, idx);
+		return;
+	}
+
 	list_window_center(lw, length, idx);
+
+	if (center_cursor) {
+		list_window_set_selected(lw, idx);
+		return;
+	}
 
 	/* make sure the cursor is in the window */
 	if (lw->selected < lw->start) {
@@ -513,7 +525,7 @@ play_update(mpdclient_t *c)
 
 		/* center the cursor */
 		if (options.auto_center && current_song_id != -1 && ! lw->visual_selection)
-			center_playing_item(c);
+			center_playing_item(c, false);
 
 		playlist_repaint();
 #ifndef NCMPC_MINI
@@ -568,6 +580,10 @@ handle_mouse_event(struct mpdclient *c)
 static bool
 play_cmd(mpdclient_t *c, command_t cmd)
 {
+	static command_t cached_cmd = CMD_NONE;
+	command_t prev_cmd = cached_cmd;
+	cached_cmd = cmd;
+
 	lw->hide_cursor = false;
 
 	if (options.hide_cursor > 0) {
@@ -609,7 +625,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		handle_add_to_playlist(c);
 		return true;
 	case CMD_SCREEN_UPDATE:
-		center_playing_item(c);
+		center_playing_item(c, prev_cmd == CMD_SCREEN_UPDATE);
 		playlist_repaint();
 		return false;
 	case CMD_SHUFFLE:
