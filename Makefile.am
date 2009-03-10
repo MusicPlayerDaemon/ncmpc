@@ -24,7 +24,7 @@ sparse-check:
 # lyrics plugins
 #
 
-lyrics_plugins = hd.sh leoslyrics.py lyricswiki.rb
+lyrics_plugins = 01-hd.sh 02-lyricwiki.rb 03-leoslyrics.py
 
 if ENABLE_LYRICS_SCREEN
 

@@ -18,7 +18,7 @@
 #
 
 #
-# Load lyrics from lyricswiki.org
+# Load lyrics from lyricwiki.org
 #
 
 require 'uri'
