@@ -300,6 +300,9 @@ keydef_cmd(G_GNUC_UNUSED mpdclient_t *c, command_t cmd)
 	if (subcmd >= 0)
 		length = subcmd_length;
 
+	if (cmd == CMD_LIST_VISUAL_SELECT)
+		return false;
+
 	if (list_window_cmd(lw, length, cmd)) {
 		keydef_repaint();
 		return true;
