@@ -45,9 +45,6 @@
 static const GTime SCREEN_WELCOME_TIME = 10;
 #endif
 
-/** status message time [s] */
-static const GTime SCREEN_STATUS_MESSAGE_TIME = 3;
-
 /* minimum window size */
 static const int SCREEN_MIN_COLS = 14;
 static const int SCREEN_MIN_ROWS = 5;
@@ -273,7 +270,7 @@ paint_status_window(mpdclient_t *c)
 	const char *str = NULL;
 	int x = 0;
 
-	if( time(NULL) - screen.status_timestamp <= SCREEN_STATUS_MESSAGE_TIME )
+	if( time(NULL) - screen.status_timestamp <= options.status_message_time )
 		return;
 
 	wmove(w, 0, 0);

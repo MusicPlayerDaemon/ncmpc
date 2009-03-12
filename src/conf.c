@@ -56,6 +56,7 @@
 #define CONF_AUDIBLE_BELL "audible-bell"
 #define CONF_VISIBLE_BELL "visible-bell"
 #define CONF_BELL_ON_WRAP "bell-on-wrap"
+#define CONF_STATUS_MESSAGE_TIME "status-message-time"
 #define CONF_XTERM_TITLE "set-xterm-title"
 #define CONF_ENABLE_MOUSE "enable-mouse"
 #define CONF_CROSSFADE_TIME "crossfade-time"
@@ -414,6 +415,8 @@ parse_line(char *line)
 		options.visible_bell = str2bool(value);
 	else if (!strcasecmp(CONF_BELL_ON_WRAP, name))
 		options.bell_on_wrap = str2bool(value);
+	else if (!strcasecmp(CONF_STATUS_MESSAGE_TIME, name))
+		options.status_message_time = atoi(value);
 	else if (!strcasecmp(CONF_XTERM_TITLE, name))
 		options.enable_xterm_title = str2bool(value);
 	else if (!strcasecmp(CONF_ENABLE_MOUSE, name))

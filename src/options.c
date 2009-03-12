@@ -59,6 +59,7 @@ options_t options = {
 	.wide_cursor = true,
 	.audible_bell = true,
 	.bell_on_wrap = true,
+	.status_message_time = 3,
 #ifndef NCMPC_MINI
 	.scroll = DEFAULT_SCROLL,
 	.welcome_screen_list = true,

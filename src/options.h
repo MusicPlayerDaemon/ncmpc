@@ -23,6 +23,7 @@
 #include "config.h"
 
 #include <stdbool.h>
+#include <glib.h>
 
 #define MPD_HOST_ENV "MPD_HOST"
 #define MPD_PORT_ENV "MPD_PORT"
@@ -60,6 +61,7 @@ typedef struct {
 	bool audible_bell;
 	bool visible_bell;
 	bool bell_on_wrap;
+	GTime status_message_time;
 #ifndef NCMPC_MINI
 	bool enable_xterm_title;
 #endif
