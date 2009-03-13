@@ -27,8 +27,11 @@
 
 static list_window_t *lw;
 
+static const struct mpd_song *next_song;
+
 static struct {
-	struct mpd_song *song;
+	struct mpd_song *selected_song;
+	struct mpd_song *played_song;
 	GPtrArray *lines;
 } current;
 
@@ -40,9 +43,13 @@ screen_song_clear(void)
 
 	g_ptr_array_set_size(current.lines, 0);
 
-	if (current.song != NULL) {
-		mpd_freeSong(current.song);
-		current.song = NULL;
+	if (current.selected_song != NULL) {
+		mpd_freeSong(current.selected_song);
+		current.selected_song = NULL;
+	}
+	if (current.played_song != NULL) {
+		mpd_freeSong(current.played_song);
+		current.played_song = NULL;
 	}
 }
 
@@ -80,7 +87,8 @@ screen_song_list_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
 static void
 screen_song_init(WINDOW *w, int cols, int rows)
 {
-	current.lines = g_ptr_array_new();
+	/* We will need at least 10 lines, so this saves 10 reallocations :) */
+	current.lines = g_ptr_array_sized_new(10);
 	lw = list_window_init(w, cols, rows);
 	lw->hide_cursor = true;
 }
@@ -115,59 +123,10 @@ screen_song_paint(void)
 	list_window_paint(lw, screen_song_list_callback, NULL);
 }
 
-static bool
-screen_song_cmd(mpdclient_t *c, command_t cmd)
-{
-	if (list_window_scroll_cmd(lw, current.lines->len, cmd)) {
-		screen_song_repaint();
-		return true;
-	}
-
-	switch(cmd) {
-	case CMD_LOCATE:
-		if (current.song != NULL) {
-			screen_file_goto_song(c, current.song);
-			return true;
-		}
-
-		return false;
-
-#ifdef ENABLE_LYRICS_SCREEN
-	case CMD_SCREEN_LYRICS:
-		if (current.song != NULL) {
-			screen_lyrics_switch(c, current.song);
-			return true;
-		}
-
-		return false;
-#endif
-
-	default:
-		break;
-	}
-
-	if (screen_find(lw, current.lines->len,
-			cmd, screen_song_list_callback, NULL)) {
-		/* center the row */
-		list_window_center(lw, current.lines->len, lw->selected);
-		screen_song_repaint();
-		return true;
-	}
-
-	return false;
-}
-
-const struct screen_functions screen_song = {
-	.init = screen_song_init,
-	.exit = screen_song_exit,
-	.resize = screen_song_resize,
-	.paint = screen_song_paint,
-	.cmd = screen_song_cmd,
-	.get_title = screen_song_title,
-};
-
+/* Appends a line with a fixed width for the label column
+ * Handles NULL strings gracefully */
 static void
-screen_song_append(const char *label, const char *value, int label_col)
+screen_song_append(const char *label, const char *value, unsigned label_col)
 {
 	int value_col, linebreaks, entry_size, label_size;
 	int i, k;
@@ -219,40 +178,35 @@ screen_song_append(const char *label, const char *value, int label_col)
 	}
 }
 
-void
-screen_song_switch(struct mpdclient *c, const struct mpd_song *song)
+static void
+screen_song_add_song(const struct mpd_song *song, const mpdclient_t *c)
 {
-	unsigned int i, max_label_width;
+	unsigned i, max_label_width;
 	enum label {
 		ARTIST, TITLE, ALBUM, COMPOSER, NAME, DISC, TRACK,
-		DATE, GENRE, COMMENT, PATH
+		DATE, GENRE, COMMENT, PATH, BITRATE
 	};
 	const char *labels[] = { [ARTIST] = _("Artist"),
-				[TITLE] = _("Title"),
-				[ALBUM] = _("Album"),
-				[COMPOSER] = _("Composer"),
-				[NAME] = _("Name"),
-				[DISC] = _("Disc"),
-				[TRACK] = _("Track"),
-				[DATE] = _("Date"),
-				[GENRE] = _("Genre"),
-				[COMMENT] = _("Comment"),
-				[PATH] = _("Path"),
+		[TITLE] = _("Title"),
+		[ALBUM] = _("Album"),
+		[COMPOSER] = _("Composer"),
+		[NAME] = _("Name"),
+		[DISC] = _("Disc"),
+		[TRACK] = _("Track"),
+		[DATE] = _("Date"),
+		[GENRE] = _("Genre"),
+		[COMMENT] = _("Comment"),
+		[PATH] = _("Path"),
+		[BITRATE] = _("Bitrate"),
 	};
-
-	assert(song != NULL);
-	assert(song->file != NULL);
-
-	screen_song_clear();
-
-	current.song = mpd_songDup(song);
-
 	/* Determine the width of the longest label */
 	max_label_width = utf8_width(labels[0]);
 	for (i = 1; i < G_N_ELEMENTS(labels); ++i) {
 		if (utf8_width(labels[i]) > max_label_width)
 			max_label_width = utf8_width(labels[i]);
 	}
+
+	assert(song != NULL);
 
 	screen_song_append(labels[ARTIST], song->artist, max_label_width);
 	screen_song_append(labels[TITLE], song->title, max_label_width);
@@ -265,6 +219,126 @@ screen_song_switch(struct mpdclient *c, const struct mpd_song *song)
 	screen_song_append(labels[GENRE], song->genre, max_label_width);
 	screen_song_append(labels[COMMENT], song->comment, max_label_width);
 	screen_song_append(labels[PATH], song->file, max_label_width);
+	if (c->status != NULL && c->song != NULL && g_strcmp0(c->song->file, song->file) == 0) {
+		char buf[16];
+		g_snprintf(buf, sizeof(buf), _("%d kbps"), c->status->bitRate);
+		screen_song_append(labels[BITRATE], buf, max_label_width);
+	}
+}
 
+static void
+screen_song_update(mpdclient_t *c)
+{
+	/* if any song changed */
+/*	if ((c->song != NULL &&
+				(current.played_song == NULL ||
+				 g_strcmp0(c->song->file, current.played_song->file) != 0) ) ||
+			next_song != NULL)
+	{*/
+	for (guint i = 0; i < current.lines->len; ++i)
+		g_free(g_ptr_array_index(current.lines, i));
+	g_ptr_array_set_size(current.lines, 0);
+
+	/* if a song was selected before the song screen was opened */
+	if (next_song != NULL) {
+		assert(current.selected_song == NULL);
+		current.selected_song = mpd_songDup(next_song);
+		next_song = NULL;
+	}
+
+	if (current.selected_song != NULL &&
+			(c->song == NULL ||
+			 g_strcmp0(current.selected_song->file, c->song->file) != 0 ||
+			(c->status->state != MPD_STATUS_STATE_PLAY &&
+			 c->status->state != MPD_STATUS_STATE_PAUSE)) ) {
+		g_ptr_array_add(current.lines, g_strdup(_("Selected song")) );
+		screen_song_add_song(current.selected_song, c);
+		g_ptr_array_add(current.lines, g_strdup("\0"));
+	}
+
+	if (c->song != NULL && (c->status->state == MPD_STATUS_STATE_PLAY || c->status->state == MPD_STATUS_STATE_PAUSE) ) {
+		if (current.played_song != NULL) {
+			mpd_freeSong(current.played_song);
+		}
+		current.played_song = mpd_songDup(c->song);
+		g_ptr_array_add(current.lines, g_strdup(_("Currently playing song")));
+		screen_song_add_song(current.played_song, c);
+		g_ptr_array_add(current.lines, g_strdup("\0"));
+	}
+
+	screen_song_repaint();
+	//}
+}
+
+static bool
+screen_song_cmd(mpdclient_t *c, command_t cmd)
+{
+	if (list_window_scroll_cmd(lw, current.lines->len, cmd)) {
+		screen_song_repaint();
+		return true;
+	}
+
+	switch(cmd) {
+	case CMD_LOCATE:
+		if (current.selected_song != NULL) {
+			screen_file_goto_song(c, current.selected_song);
+			return true;
+		}
+		if (current.played_song != NULL) {
+			screen_file_goto_song(c, current.played_song);
+			return true;
+		}
+
+		return false;
+
+#ifdef ENABLE_LYRICS_SCREEN
+	case CMD_SCREEN_LYRICS:
+		if (current.selected_song != NULL) {
+			screen_lyrics_switch(c, current.selected_song);
+			return true;
+		}
+		if (current.played_song != NULL) {
+			screen_lyrics_switch(c, current.played_song);
+			return true;
+		}
+
+		return false;
+#endif
+
+	default:
+		break;
+	}
+
+	if (screen_find(lw, current.lines->len,
+			cmd, screen_song_list_callback, NULL)) {
+		/* center the row */
+		list_window_center(lw, current.lines->len, lw->selected);
+		screen_song_repaint();
+		return true;
+	}
+
+	return false;
+}
+
+const struct screen_functions screen_song = {
+	.init = screen_song_init,
+	.exit = screen_song_exit,
+	.open = screen_song_update,
+	.close = screen_song_clear,
+	.resize = screen_song_resize,
+	.paint = screen_song_paint,
+	.update = screen_song_update,
+	.cmd = screen_song_cmd,
+	.get_title = screen_song_title,
+};
+
+void
+screen_song_switch(mpdclient_t *c, const struct mpd_song *song)
+{
+	assert(song != NULL);
+	assert(current.selected_song == NULL);
+	assert(current.played_song == NULL);
+
+	next_song = song;
 	screen_switch(&screen_song, c);
 }
