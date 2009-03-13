@@ -248,7 +248,7 @@ lyrics_cmd(mpdclient_t *c, command_t cmd)
 		return true;
 
 #ifdef ENABLE_SONG_SCREEN
-	case CMD_VIEW:
+	case CMD_SCREEN_SONG:
 		if (current.song != NULL) {
 			screen_song_switch(c, current.song);
 			return true;

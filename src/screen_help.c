@@ -100,7 +100,7 @@ static help_text_row_t help_text[] = {
 	{ 0, CMD_LIST_JUMP, NULL },
 	{ 0, CMD_TOGGLE_FIND_WRAP, NULL },
 	{ 0, CMD_LOCATE, NULL },
-	{ 0, CMD_VIEW, NULL },
+	{ 0, CMD_SCREEN_SONG, NULL },
 	{ 0, CMD_NONE, NULL },
 	{ 0, CMD_QUIT, NULL },
 

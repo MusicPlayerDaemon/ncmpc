@@ -702,7 +702,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 #endif
 
 #ifdef ENABLE_SONG_SCREEN
-	case CMD_VIEW:
+	case CMD_SCREEN_SONG:
 		if (lw->selected < playlist_length(&c->playlist)) {
 			screen_song_switch(c, playlist_get(&c->playlist, lw->selected));
 			return true;

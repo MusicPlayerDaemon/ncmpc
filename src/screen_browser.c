@@ -479,7 +479,7 @@ browser_cmd(struct screen_browser *browser,
 #endif
 
 #ifdef ENABLE_SONG_SCREEN
-	case CMD_VIEW:
+	case CMD_SCREEN_SONG:
 		entry = browser_get_selected(browser);
 		if (entry == NULL || entry->entity == NULL ||
 		    entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)

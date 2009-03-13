@@ -160,11 +160,6 @@ static command_definition_t cmds[] = {
 	{ { '"', 0, 0 }, 0, CMD_GO_PARENT_DIRECTORY, "go-parent-directory",
 	  N_("Go to parent directory") },
 
-#ifdef ENABLE_SONG_SCREEN
-	{ { 'i', 0, 0 }, 0, CMD_VIEW, "view",
-	  N_("View the song") },
-#endif
-
 	{ { 'G', 0, 0 }, 0, CMD_LOCATE, "locate",
 	  N_("Locate song in browser") },
 
@@ -224,7 +219,10 @@ static command_definition_t cmds[] = {
 	{ {'m', 0, 0 }, 0, CMD_SEARCH_MODE, "search-mode",
 	  N_("Change search mode") },
 #endif
-
+#ifdef ENABLE_SONG_SCREEN
+	{ { 'i', 0, 0 }, 0, CMD_SCREEN_SONG, "view",
+	  N_("View the selected and the currently playing song") },
+#endif
 #ifdef ENABLE_LYRICS_SCREEN
 	{ {'7', F7, 0 }, 0, CMD_SCREEN_LYRICS, "screen-lyrics",
 	  N_("Lyrics screen") },

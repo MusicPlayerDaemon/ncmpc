@@ -843,6 +843,11 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 		screen_switch(&screen_artist, c);
 		break;
 #endif
+#ifdef ENABLE_SONG_SCREEN
+	case CMD_SCREEN_SONG:
+		screen_switch(&screen_song, c);
+		break;
+#endif
 #ifdef ENABLE_KEYDEF_SCREEN
 	case CMD_SCREEN_KEYDEF:
 		screen_switch(&screen_keydef, c);
