@@ -41,4 +41,7 @@ GList *gcmp_list_from_path(mpdclient_t *c,
 			   GList *list,
 			   gint types);
 
+char *
+time_seconds_to_durationstr(unsigned long time_seconds);
+
 #endif

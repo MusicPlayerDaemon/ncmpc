@@ -21,6 +21,7 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "charset.h"
+#include "utils.h"
 
 #include <glib/gprintf.h>
 #include <string.h>
@@ -227,6 +228,63 @@ screen_song_add_song(const struct mpd_song *song, const mpdclient_t *c)
 }
 
 static void
+screen_song_add_stats(const mpdclient_t *c)
+{
+	unsigned i, max_label_width;
+	char buf[64];
+	char *duration;
+	GDate *date;
+	enum label {
+		ARTISTS, ALBUMS, SONGS, UPTIME,
+		DBUPTIME, PLAYTIME, DBPLAYTIME
+	};
+	const char *labels[] = { [ARTISTS] = _("Number of artists"),
+		[ALBUMS] = _("Number of albums"),
+		[SONGS] = _("Number of songs"),
+		[UPTIME] = _("Uptime"),
+		[DBUPTIME] =_("DB last updated"),
+		[PLAYTIME] = _("Playtime"),
+		[DBPLAYTIME] = _("DB playtime")
+	};
+	mpd_Stats *mpd_stats = NULL;
+	if (c->connection != NULL) {
+		mpd_sendStatsCommand(c->connection);
+		mpd_stats = mpd_getStats(c->connection);
+	}
+
+	if (mpd_stats != NULL) {
+		/* Determine the width of the longest label */
+		max_label_width = utf8_width(labels[0]);
+		for (i = 1; i < G_N_ELEMENTS(labels); ++i) {
+			if (utf8_width(labels[i]) > max_label_width)
+				max_label_width = utf8_width(labels[i]);
+		}
+
+		g_ptr_array_add(current.lines, g_strdup(_("MPD Statistics")) );
+		g_snprintf(buf, sizeof(buf), "%d", mpd_stats->numberOfArtists);
+		screen_song_append(labels[ARTISTS], buf, max_label_width);
+		g_snprintf(buf, sizeof(buf), "%d", mpd_stats->numberOfAlbums);
+		screen_song_append(labels[ALBUMS], buf, max_label_width);
+		g_snprintf(buf, sizeof(buf), "%d", mpd_stats->numberOfSongs);
+		screen_song_append(labels[SONGS], buf, max_label_width);
+		duration = time_seconds_to_durationstr(mpd_stats->dbPlayTime);
+		screen_song_append(labels[DBPLAYTIME], duration, max_label_width);
+		g_free(duration);
+		duration = time_seconds_to_durationstr(mpd_stats->playTime);
+		screen_song_append(labels[PLAYTIME], duration, max_label_width);
+		g_free(duration);
+		duration = time_seconds_to_durationstr(mpd_stats->uptime);
+		screen_song_append(labels[UPTIME], duration, max_label_width);
+		g_free(duration);
+		date = g_date_new();
+		g_date_set_time_t(date, mpd_stats->dbUpdateTime);
+		g_date_strftime(buf, sizeof(buf), "%x", date);
+		screen_song_append(labels[DBUPTIME], buf, max_label_width);
+		g_date_free(date);
+	}
+}
+
+static void
 screen_song_update(mpdclient_t *c)
 {
 	/* if any song changed */
@@ -265,6 +323,10 @@ screen_song_update(mpdclient_t *c)
 		screen_song_add_song(current.played_song, c);
 		g_ptr_array_add(current.lines, g_strdup("\0"));
 	}
+
+	/* Add some statistics about mpd */
+	if (c->connection != NULL)
+		screen_song_add_stats(c);
 
 	screen_song_repaint();
 	//}
