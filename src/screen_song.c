@@ -220,7 +220,10 @@ screen_song_add_song(const struct mpd_song *song, const mpdclient_t *c)
 	screen_song_append(labels[GENRE], song->genre, max_label_width);
 	screen_song_append(labels[COMMENT], song->comment, max_label_width);
 	screen_song_append(labels[PATH], song->file, max_label_width);
-	if (c->status != NULL && c->song != NULL && g_strcmp0(c->song->file, song->file) == 0) {
+	if (c->status != NULL && c->song != NULL &&
+			 g_strcmp0(c->song->file, song->file) == 0 &&
+			(c->status->state == MPD_STATUS_STATE_PLAY ||
+			 c->status->state == MPD_STATUS_STATE_PAUSE) ) {
 		char buf[16];
 		g_snprintf(buf, sizeof(buf), _("%d kbps"), c->status->bitRate);
 		screen_song_append(labels[BITRATE], buf, max_label_width);
@@ -260,7 +263,7 @@ screen_song_add_stats(const mpdclient_t *c)
 				max_label_width = utf8_width(labels[i]);
 		}
 
-		g_ptr_array_add(current.lines, g_strdup(_("MPD Statistics")) );
+		g_ptr_array_add(current.lines, g_strdup(_("MPD statistics")) );
 		g_snprintf(buf, sizeof(buf), "%d", mpd_stats->numberOfArtists);
 		screen_song_append(labels[ARTISTS], buf, max_label_width);
 		g_snprintf(buf, sizeof(buf), "%d", mpd_stats->numberOfAlbums);
@@ -287,17 +290,12 @@ screen_song_add_stats(const mpdclient_t *c)
 static void
 screen_song_update(mpdclient_t *c)
 {
-	/* if any song changed */
-/*	if ((c->song != NULL &&
-				(current.played_song == NULL ||
-				 g_strcmp0(c->song->file, current.played_song->file) != 0) ) ||
-			next_song != NULL)
-	{*/
+	/* Clear all lines */
 	for (guint i = 0; i < current.lines->len; ++i)
 		g_free(g_ptr_array_index(current.lines, i));
 	g_ptr_array_set_size(current.lines, 0);
 
-	/* if a song was selected before the song screen was opened */
+	/* If a song was selected before the song screen was opened */
 	if (next_song != NULL) {
 		assert(current.selected_song == NULL);
 		current.selected_song = mpd_songDup(next_song);
@@ -314,7 +312,9 @@ screen_song_update(mpdclient_t *c)
 		g_ptr_array_add(current.lines, g_strdup("\0"));
 	}
 
-	if (c->song != NULL && (c->status->state == MPD_STATUS_STATE_PLAY || c->status->state == MPD_STATUS_STATE_PAUSE) ) {
+	if (c->song != NULL &&
+			(c->status->state == MPD_STATUS_STATE_PLAY ||
+			 c->status->state == MPD_STATUS_STATE_PAUSE) ) {
 		if (current.played_song != NULL) {
 			mpd_freeSong(current.played_song);
 		}
@@ -329,7 +329,6 @@ screen_song_update(mpdclient_t *c)
 		screen_song_add_stats(c);
 
 	screen_song_repaint();
-	//}
 }
 
 static bool
