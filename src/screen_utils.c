@@ -242,8 +242,8 @@ screen_jump(struct list_window *lw,
 	/* unfortunately wgetch returns "next/previous-page" not as an ascii-char */
 	while(!g_ascii_iscntrl(key) && key != KEY_NPAGE && key != KEY_PPAGE) {
 		key = screen_getch(screen.status_window.w, screen.findbuf);
-		/* if backspace was pressed */
-		if (key == KEY_BACKSPACE) {
+		/* if backspace or delete was pressed */
+		if (key == KEY_BACKSPACE || key == 330) {
 			/* don't end the loop */
 			key = 65;
 			if (search_str <= g_utf8_find_prev_char(screen.findbuf, iter))
