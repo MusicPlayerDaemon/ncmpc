@@ -416,7 +416,7 @@ list_window_jump(struct list_window *lw,
 	while ((label = callback(i,&h,callback_data))) {
 		if (label && label[0] != '[')
 		{
-			if (str && label && g_ascii_strncasecmp(label, str, strlen(str)) == 0) {
+			if (str && label && find_occurence(label, str, strlen(str)) == 0) {
 				lw->selected = i;
 				if(!lw->visual_selection || i > lw->selected_end)
 					  lw->selected_end = i;
@@ -425,7 +425,7 @@ list_window_jump(struct list_window *lw,
 				return true;
 			}
 		}
-		else if (str && label && g_ascii_strncasecmp(label+1, str, strlen(str)) == 0) {
+		else if (str && label && find_occurence(label+1, str, strlen(str)) == 0) {
 				lw->selected = i;
 				if(!lw->visual_selection || i > lw->selected_end)
 					  lw->selected_end = i;

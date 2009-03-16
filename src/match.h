@@ -34,6 +34,12 @@ match_line(const char *line, const char *needle)
 	return strstr(line, needle) != NULL;
 }
 
+static inline int
+find_occurence(const char *str_orig, const char *str_occur, const int str_occur_len)
+{
+	return g_ascii_strncasecmp(str_orig, str_occur, str_occur_len);
+}
+
 #else
 
 /**
@@ -42,6 +48,9 @@ match_line(const char *line, const char *needle)
  */
 bool
 match_line(const char *line, const char *needle);
+
+int
+find_occurence(const char *str_orig, const char *str_occur, const int str_occur_len);
 
 #endif
 
