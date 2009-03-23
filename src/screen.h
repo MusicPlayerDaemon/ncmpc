@@ -115,6 +115,8 @@ gint screen_get_id(const char *name);
 
 void
 screen_switch(const struct screen_functions *sf, struct mpdclient *c);
+void 
+screen_swap(struct mpdclient *c, const struct mpd_song *song);
 
 gboolean
 screen_is_visible(const struct screen_functions *sf);

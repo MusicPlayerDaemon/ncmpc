@@ -728,6 +728,9 @@ play_cmd(mpdclient_t *c, command_t cmd)
 
 		break;
 #endif
+	case CMD_SCREEN_SWAP:
+		screen_swap(c, playlist_get(&c->playlist, lw->selected));
+		return true;
 
 	default:
 		break;

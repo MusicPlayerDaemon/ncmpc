@@ -91,6 +91,22 @@ screen_switch(const struct screen_functions *sf, struct mpdclient *c)
 	screen_paint(c);
 }
 
+void 
+screen_swap(struct mpdclient *c, const struct mpd_song *song)
+{
+	if (song != NULL)
+	{
+		if (mode_fn_prev == &screen_song)
+			screen_song_switch(c, song);
+		else if (mode_fn_prev == &screen_lyrics)
+			screen_lyrics_switch(c, song);
+		else
+			screen_switch(mode_fn_prev, c);
+	}
+	else
+		screen_switch(mode_fn_prev, c);
+}
+
 static int
 find_configured_screen(const char *name)
 {
@@ -863,7 +879,7 @@ screen_cmd(mpdclient_t *c, command_t cmd)
 		screen_switch(&screen_outputs, c);
 		break;
 	case CMD_SCREEN_SWAP:
-		screen_switch(mode_fn_prev, c);
+		screen_swap(c, NULL);
 		break;
 #endif
 

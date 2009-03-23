@@ -511,6 +511,14 @@ browser_cmd(struct screen_browser *browser,
 		screen_lyrics_switch(c, entry->entity->info.song);
 		return true;
 #endif
+	case CMD_SCREEN_SWAP:
+		entry = browser_get_selected(browser);
+		if (entry->entity != NULL &&
+			entry->entity->type == MPD_INFO_ENTITY_TYPE_SONG)
+			screen_swap(c, entry->entity->info.song);
+		else
+			screen_swap(c, NULL);
+		return true;
 
 	default:
 		break;

@@ -256,6 +256,9 @@ lyrics_cmd(mpdclient_t *c, command_t cmd)
 
 		break;
 #endif
+	case CMD_SCREEN_SWAP:
+		screen_swap(c, current.song);
+		return true;
 
 	case CMD_LOCATE:
 		if (current.song != NULL) {

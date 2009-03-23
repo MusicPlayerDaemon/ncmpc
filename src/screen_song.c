@@ -362,9 +362,17 @@ screen_song_cmd(mpdclient_t *c, command_t cmd)
 			screen_lyrics_switch(c, current.played_song);
 			return true;
 		}
-
 		return false;
+
 #endif
+
+	case CMD_SCREEN_SWAP:
+		if (current.selected_song != NULL)
+			screen_swap(c, current.selected_song);
+		else
+		// No need to check if this is null - we'd pass null anyway
+			screen_swap(c, current.played_song);
+		return true;
 
 	default:
 		break;
