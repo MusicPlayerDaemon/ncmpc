@@ -151,7 +151,7 @@ static help_text_row_t help_text[] = {
 	{ 0, CMD_SCREEN_LYRICS, N_("View Lyrics") },
 	{ 0, CMD_SELECT, N_("(Re)load lyrics") },
 	{ 0, CMD_INTERRUPT, N_("Interrupt retrieval") },
-	{ 0, CMD_LYRICS_UPDATE, N_("Explicitly download lyrics") },
+	{ 0, CMD_LYRICS_UPDATE, N_("Download lyrics for currently playing song") },
 	{ 0, CMD_SAVE_PLAYLIST, N_("Save lyrics") },
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
@@ -160,6 +160,16 @@ static help_text_row_t help_text[] = {
 	{ 1, CMD_NONE, N_("Outputs screen") },
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_PLAY, N_("Enable/disable output") },
+#endif
+#ifdef ENABLE_KEYDEF_SCREEN
+	{ 0, CMD_NONE, NULL },
+	{ 0, CMD_NONE, NULL },
+	{ 1, CMD_NONE, N_("Keydef screen") },
+	{ 2, CMD_NONE, NULL },
+	{ 0, CMD_PLAY, N_("Edit keydefs for selected command") },
+	{ 0, CMD_DELETE, N_("Remove selected keydef") },
+	{ 0, CMD_GO_PARENT_DIRECTORY, N_("Go up a level") },
+	{ 0, CMD_SAVE_PLAYLIST, N_("Apply and save changes") },
 #endif
 };
 
