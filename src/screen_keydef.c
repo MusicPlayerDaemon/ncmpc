@@ -339,6 +339,16 @@ keydef_cmd(G_GNUC_UNUSED mpdclient_t *c, command_t cmd)
 					       lw->selected - STATIC_SUB_ITEMS);
 		}
 		return true;
+	case CMD_GO_PARENT_DIRECTORY:
+		if (subcmd >=0) {
+			lw->selected = subcmd;
+			lw->selected_start = lw->selected;
+			lw->selected_end = lw->selected;
+			subcmd = -1;
+
+			keydef_repaint();
+		}
+		break;
 	case CMD_DELETE:
 		if (subcmd >= 0 && lw->selected >= STATIC_SUB_ITEMS)
 			delete_key(subcmd, lw->selected - STATIC_SUB_ITEMS);
