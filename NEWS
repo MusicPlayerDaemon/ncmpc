@@ -2,6 +2,13 @@ ncmpc 0.14 - not yet released
   * bell on wrapped search (optionally)
   * added new "jump" ('.') command, which queries the user for a string and
     jumps to the entry which begins with that string while the user is typing.
+  * added new "select range" ('v') command, which lets the user perform various
+    actions (e.g. add to playlist, delete, move, shuffle) on ranges of songs
+  * added commands ('H', 'M', 'L') to jump to top, middle, and bottom of screen
+  * added scrolling commands ('^B', '^N', 'B', 'N') to scroll up/down one line
+    or up/down half a screen
+  * added screen swap ('`') command to switch to the most recently used screen
+  * added MPD information and currently playing song to the info screen ('i')
 
 
 ncmpc 0.13 - 2009-01-09
