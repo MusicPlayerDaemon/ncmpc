@@ -279,13 +279,23 @@ browser_get_selected(const struct screen_browser *browser)
 	return filelist_get(browser->filelist, browser->lw->selected);
 }
 
+static struct filelist_entry *
+browser_get_index(const struct screen_browser *browser, unsigned i)
+{
+	if (browser->filelist == NULL ||
+	    i >= filelist_length(browser->filelist))
+		return NULL;
+
+	return filelist_get(browser->filelist, i);
+}
+
 static bool
 browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 {
 	struct filelist_entry *entry = browser_get_selected(browser);
 	mpd_InfoEntity *entity;
 
-	if( entry==NULL )
+	if( entry==NULL || browser->lw->selected_start < browser->lw->selected_end)
 		return false;
 
 	entity = entry->entity;
@@ -361,23 +371,49 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 static bool
 browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
 {
-	struct filelist_entry *entry = browser_get_selected(browser);
+	struct filelist_entry *entry;
 
-	if (entry == NULL || entry->entity == NULL)
+	if (browser->lw->visual_selection) {
+		for (unsigned i = browser->lw->selected_start;
+		         i <= browser->lw->selected_end; i++) {
+			entry = browser_get_index(browser, i);
+
+			if (entry != NULL && entry->entity != NULL)
+				browser_select_entry(c, entry, TRUE);
+		}
 		return false;
+	} else {
+		entry = browser_get_selected(browser);
 
-	return browser_select_entry(c, entry, TRUE);
+		if (entry == NULL || entry->entity == NULL)
+			return false;
+
+		return browser_select_entry(c, entry, TRUE);
+	}
 }
 
 static bool
 browser_handle_add(struct screen_browser *browser, mpdclient_t *c)
 {
-	struct filelist_entry *entry = browser_get_selected(browser);
+	struct filelist_entry *entry;
 
-	if (entry == NULL || entry->entity == NULL)
+	if (browser->lw->visual_selection) {
+		for (unsigned i = browser->lw->selected_start;
+		         i <= browser->lw->selected_end; i++) {
+			entry = browser_get_index(browser, i);
+
+			if (entry != NULL && entry->entity != NULL)
+				browser_select_entry(c, entry, FALSE);
+		}
 		return false;
+	} else {
+		entry = browser_get_selected(browser);
 
-	return browser_select_entry(c, entry, FALSE);
+		if (entry == NULL || entry->entity == NULL)
+			return false;
+
+		return browser_select_entry(c, entry, FALSE);
+	}
 }
 
 static void
