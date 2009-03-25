@@ -43,7 +43,6 @@
 #define CONF_ENABLE_COLORS "enable-colors"
 #define CONF_AUTO_CENTER "auto-center"
 #define CONF_WIDE_CURSOR "wide-cursor"
-#define CONF_ENABLE_BELL "enable-bell"
 #define CONF_KEY_DEFINITION "key"
 #define CONF_COLOR "color"
 #define CONF_COLOR_DEFINITION "colordef"
@@ -303,15 +302,17 @@ check_screen_list(char *value)
 	j=0;
 	while( tmp && tmp[i] ) {
 		char *name = g_ascii_strdown(tmp[i], -1);
-		if (screen_lookup_name(name) == NULL) {
-			/* an unknown screen name was specified in the
-			   configuration file */
-			print_error(_("Unknown screen name"), name);
-			free(name);
-		} else {
-			screen = g_realloc(screen, (j+2)*sizeof(char *));
-			screen[j++] = name;
-			screen[j] = NULL;
+		if (*name != '\0') {
+			if (screen_lookup_name(name) == NULL) {
+				/* an unknown screen name was specified in the
+				   configuration file */
+				print_error(_("Unknown screen name"), name);
+				free(name);
+			} else {
+				screen = g_realloc(screen, (j+2)*sizeof(char *));
+				screen[j++] = name;
+				screen[j] = NULL;
+			}
 		}
 		i++;
 	}
