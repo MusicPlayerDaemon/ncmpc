@@ -323,6 +323,47 @@ check_screen_list(char *value)
 	return screen;
 }
 
+static int
+get_search_mode(char *value)
+{
+	char * test;
+	int mode;
+	mode= strtol(value, &test, 10);
+	if (*test == '\0')
+	{
+		if (0 <= mode && mode <= 4)
+			return mode;
+		else
+		{
+			print_error(_("Invalid search mode"),value);
+			return 0;
+		}
+	}
+	else
+	{
+		for (int i = 0; value[i] != '\0'; i++)
+			value[i] = tolower(value[i]);
+
+		// TODO: modify screen_search so that its own list of modes can be used
+		// for comparison instead of specifying them here
+		if (strcmp(value, "title") == 0)
+			return 0;
+		else if (strcmp(value, "artist") == 0)
+			return 1;
+		else if (strcmp(value, "album") == 0)
+			return 2;
+		else if (strcmp(value, "filename") == 0)
+			return 3;
+		else if (strcmp(value, "artist+album") == 0)
+			return 4;
+		else
+		{
+			print_error(_("Unknown search mode"),value);
+			return 0;
+		}
+	}
+}
+
 static bool
 parse_line(char *line)
 {
@@ -429,7 +470,7 @@ parse_line(char *line)
 	else if (!strcasecmp(CONF_CROSSFADE_TIME, name))
 		options.crossfade_time = atoi(value);
 	else if (!strcasecmp(CONF_SEARCH_MODE, name))
-		options.search_mode = atoi(value);
+		options.search_mode = get_search_mode(value);
 	else if (!strcasecmp(CONF_HIDE_CURSOR, name))
 		options.hide_cursor = atoi(value);
 	else if (!strcasecmp(CONF_SEEK_TIME, name))
