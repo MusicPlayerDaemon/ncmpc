@@ -96,10 +96,16 @@ screen_swap(struct mpdclient *c, const struct mpd_song *song)
 {
 	if (song != NULL)
 	{
+		if (false)
+			{ /* just a hack to make the ifdefs less ugly */ }
+#ifdef ENABLE_SONG_SCREEN
 		if (mode_fn_prev == &screen_song)
 			screen_song_switch(c, song);
+#endif
+#ifdef ENABLE_LYRICS_SCREEN
 		else if (mode_fn_prev == &screen_lyrics)
 			screen_lyrics_switch(c, song);
+#endif
 		else
 			screen_switch(mode_fn_prev, c);
 	}
