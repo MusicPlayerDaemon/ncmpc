@@ -43,7 +43,7 @@ list_window_init(WINDOW *w, unsigned width, unsigned height)
 	lw->w = w;
 	lw->cols = width;
 	lw->rows = height;
-	lw->visual_selection = false;
+	lw->range_selection = false;
 	return lw;
 }
 
@@ -62,8 +62,8 @@ list_window_reset(struct list_window *lw)
 	lw->selected = 0;
 	lw->selected_start = 0;
 	lw->selected_end = 0;
-	lw->visual_selection = false;
-	lw->visual_base = 0;
+	lw->range_selection = false;
+	lw->range_base = 0;
 	lw->xoffset = 0;
 	lw->start = 0;
 }
@@ -86,11 +86,11 @@ list_window_check_selected(struct list_window *lw, unsigned length)
 	else if (lw->selected >= length)
 		lw->selected = length - 1;
 
-	if(lw->visual_selection)
+	if(lw->range_selection)
 	{
-		if(lw->visual_base > lw->selected_end)
+		if(lw->range_base > lw->selected_end)
 			  lw->selected_end = lw->selected;
-		if(lw->visual_base < lw->selected_start)
+		if(lw->range_base < lw->selected_start)
 			  lw->selected_start = lw->selected;
 	}
 	else
@@ -120,17 +120,17 @@ void
 list_window_set_selected(struct list_window *lw, unsigned n)
 {
 	lw->selected = n;
-	if(lw->visual_selection)
+	if(lw->range_selection)
 	{
-		if(n >= lw->visual_base)
+		if(n >= lw->range_base)
 		{
 			lw->selected_end = n;
-			lw->selected_start = lw->visual_base;
+			lw->selected_start = lw->range_base;
 		}
-		if(n <= lw->visual_base)
+		if(n <= lw->range_base)
 		{
 			lw->selected_start = n;
-			lw->selected_end = lw->visual_base;
+			lw->selected_end = lw->range_base;
 		}
 	}
 	else
@@ -231,10 +231,10 @@ list_window_scroll_up(struct list_window *lw, unsigned n)
 			lw->start -= n;
 		if (lw->selected > lw->start + lw->rows - 1) {
 			lw->selected = lw->start + lw->rows - 1;
-			if (lw->visual_selection) {
-				if (lw->selected < lw->visual_base) {
+			if (lw->range_selection) {
+				if (lw->selected < lw->range_base) {
 					lw->selected_start = lw->selected;
-					lw->selected_end = lw->visual_base;
+					lw->selected_end = lw->range_base;
 				} else {
 					lw->selected_end = lw->selected;
 				}
@@ -257,10 +257,10 @@ list_window_scroll_down(struct list_window *lw, unsigned length, unsigned n)
 			lw->start += n;
 		if (lw->selected < lw->start) {
 			lw->selected = lw->start;
-			if (lw->visual_selection) {
-				if (lw->selected > lw->visual_base) {
+			if (lw->range_selection) {
+				if (lw->selected > lw->range_base) {
 					lw->selected_end = lw->selected;
-					lw->selected_start = lw->visual_base;
+					lw->selected_start = lw->range_base;
 				} else {
 					lw->selected_start = lw->selected;
 				}
@@ -339,9 +339,9 @@ list_window_find(struct list_window *lw,
 		while ((label = callback(i,&h,callback_data))) {
 			if (str && label && match_line(label, str)) {
 				lw->selected = i;
-				if(!lw->visual_selection || i > lw->selected_end)
+				if(!lw->range_selection || i > lw->selected_end)
 					  lw->selected_end = i;
-				if(!lw->visual_selection || i < lw->selected_start)
+				if(!lw->range_selection || i < lw->selected_start)
 					  lw->selected_start = i;
 				return true;
 			}
@@ -382,9 +382,9 @@ list_window_rfind(struct list_window *lw,
 		while (i >= 0 && (label = callback(i,&h,callback_data))) {
 			if( str && label && match_line(label, str) ) {
 				lw->selected = i;
-				if(!lw->visual_selection || i > (int)lw->selected_end)
+				if(!lw->range_selection || i > (int)lw->selected_end)
 					  lw->selected_end = i;
-				if(!lw->visual_selection || i < (int)lw->selected_start)
+				if(!lw->range_selection || i < (int)lw->selected_start)
 					  lw->selected_start = i;
 				return true;
 			}
@@ -418,18 +418,18 @@ list_window_jump(struct list_window *lw,
 		{
 			if (str && label && find_occurence(label, str, strlen(str)) == 0) {
 				lw->selected = i;
-				if(!lw->visual_selection || i > lw->selected_end)
+				if(!lw->range_selection || i > lw->selected_end)
 					  lw->selected_end = i;
-				if(!lw->visual_selection || i < lw->selected_start)
+				if(!lw->range_selection || i < lw->selected_start)
 					  lw->selected_start = i;
 				return true;
 			}
 		}
 		else if (str && label && find_occurence(label+1, str, strlen(str)) == 0) {
 				lw->selected = i;
-				if(!lw->visual_selection || i > lw->selected_end)
+				if(!lw->range_selection || i > lw->selected_end)
 					  lw->selected_end = i;
-				if(!lw->visual_selection || i < lw->selected_start)
+				if(!lw->range_selection || i < lw->selected_start)
 					  lw->selected_start = i;
 				return true;
 			}
@@ -470,18 +470,18 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 	case CMD_LIST_PREVIOUS_PAGE:
 		list_window_previous_page(lw);
 		break;
-	case CMD_LIST_VISUAL_SELECT:
-		if(lw->visual_selection)
+	case CMD_LIST_RANGE_SELECT:
+		if(lw->range_selection)
 		{
-			screen_status_printf(_("Visual selection disabled"));
-			lw->visual_selection = false;
+			screen_status_printf(_("Range selection disabled"));
+			lw->range_selection = false;
 			list_window_set_selected(lw, lw->selected);
 		}
 		else
 		{
-			screen_status_printf(_("Visual selection enabled"));
-			lw->visual_base = lw->selected;
-			lw->visual_selection = true;
+			screen_status_printf(_("Range selection enabled"));
+			lw->range_base = lw->selected;
+			lw->range_selection = true;
 		}
 		break;
 	case CMD_LIST_SCROLL_UP_LINE:

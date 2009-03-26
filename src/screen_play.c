@@ -81,7 +81,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 	case PLAYLIST_EVENT_DELETE:
 		break;
 	case PLAYLIST_EVENT_MOVE:
-		if(lw->visual_selection < 0)
+		if(lw->range_selection < 0)
 		{
 			lw->selected = *((int *) data);
 			if (lw->selected < lw->start)
@@ -142,7 +142,7 @@ center_playing_item(mpdclient_t *c, bool center_cursor)
 	unsigned length = c->playlist.list->len;
 	int idx;
 
-	if (!c->song || c->status == NULL || 
+	if (!c->song || c->status == NULL ||
 		IS_STOPPED(c->status->state))
 		return;
 
@@ -168,8 +168,8 @@ center_playing_item(mpdclient_t *c, bool center_cursor)
 	/* make sure the cursor is in the window */
 	if (lw->selected < lw->start) {
 		lw->selected = lw->start;
-		if (lw->visual_selection) {
-			lw->selected_start = lw->visual_base;
+		if (lw->range_selection) {
+			lw->selected_start = lw->range_base;
 			lw->selected_end = lw->selected;
 		} else {
 			lw->selected_start = lw->selected;
@@ -177,9 +177,9 @@ center_playing_item(mpdclient_t *c, bool center_cursor)
 		}
 	} else if (lw->selected > lw->start + lw->rows - 1) {
 		lw->selected = lw->start + lw->rows - 1;
-		if (lw->visual_selection) {
+		if (lw->range_selection) {
 			lw->selected_start = lw->selected;
-			lw->selected_end = lw->visual_base;
+			lw->selected_end = lw->range_base;
 		} else {
 			lw->selected_start = lw->selected;
 			lw->selected_end = lw->selected;
@@ -524,7 +524,7 @@ play_update(mpdclient_t *c)
 		prev_song_id = current_song_id;
 
 		/* center the cursor */
-		if (options.auto_center && current_song_id != -1 && ! lw->visual_selection)
+		if (options.auto_center && current_song_id != -1 && ! lw->range_selection)
 			center_playing_item(c, false);
 
 		playlist_repaint();
@@ -614,7 +614,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		lw->selected = i;
 		lw->selected_start = i;
 		lw->selected_end = i;
-		lw->visual_selection = false;
+		lw->range_selection = false;
 
 		return true;
 	}
@@ -630,8 +630,8 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		return false;
 	case CMD_SHUFFLE:
 	{
-		if(!lw->visual_selection)
-			/* No visual selection, shuffle all list. */
+		if(!lw->range_selection)
+			/* No range selection, shuffle all list. */
 			break;
 
 		if (mpdclient_cmd_shuffle_range(c, lw->selected_start, lw->selected_end+1) == 0)
@@ -642,7 +642,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_LIST_MOVE_UP:
 		if(lw->selected_start == 0)
 			return false;
-		if(lw->visual_selection)
+		if(lw->range_selection)
 		{
 			unsigned i = lw->selected_start;
 			unsigned last_selected = lw->selected;
@@ -651,7 +651,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 			lw->selected_start--;
 			lw->selected_end--;
 			lw->selected = last_selected - 1;
-			lw->visual_base--;
+			lw->range_base--;
 		}
 		else
 		{
@@ -664,7 +664,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 	case CMD_LIST_MOVE_DOWN:
 		if(lw->selected_end+1 >= playlist_length(&c->playlist))
 			return false;
-		if(lw->visual_selection)
+		if(lw->range_selection)
 		{
 			int i = lw->selected_end;
 			unsigned last_selected = lw->selected;
@@ -673,7 +673,7 @@ play_cmd(mpdclient_t *c, command_t cmd)
 			lw->selected_start++;
 			lw->selected_end++;
 			lw->selected = last_selected + 1;
-			lw->visual_base++;
+			lw->range_base++;
 		}
 		else
 		{

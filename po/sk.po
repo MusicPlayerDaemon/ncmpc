@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-14 15:51+0100\n"
+"POT-Creation-Date: 2009-03-27 00:24+0100\n"
 "PO-Revision-Date: 2009-02-17 14:55+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
@@ -46,112 +46,112 @@ msgstr "Pripojený k %s"
 msgid "press %s for the key editor"
 msgstr "stlačte %s pre editor klávesov"
 
-#: src/screen.c:153 src/screen_help.c:232
+#: src/screen.c:175 src/screen_help.c:242
 msgid "Help"
 msgstr "Pomoc"
 
-#: src/screen.c:155 src/screen_play.c:503
+#: src/screen.c:177 src/screen_play.c:503
 msgid "Playlist"
 msgstr "Playlist"
 
 #. translators: caption of the browser screen
-#: src/screen.c:156 src/screen_file.c:214
+#: src/screen.c:178 src/screen_file.c:214
 msgid "Browse"
 msgstr "Listovať"
 
-#: src/screen.c:158 src/screen_search.c:80 src/screen_song.c:190
+#: src/screen.c:180 src/screen_search.c:80 src/screen_song.c:190
 msgid "Artist"
 msgstr "Interpret"
 
-#: src/screen.c:161 src/screen_search.c:309 src/screen_help.c:139
+#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:139
 msgid "Search"
 msgstr "Hľadanie"
 
-#: src/screen.c:164 src/screen_lyrics.c:203 src/screen_lyrics.c:211
+#: src/screen.c:186 src/screen_lyrics.c:203 src/screen_lyrics.c:211
 #: src/screen_lyrics.c:215
 msgid "Lyrics"
 msgstr "Text piesne"
 
-#: src/screen.c:167 src/screen_outputs.c:162
+#: src/screen.c:189 src/screen_outputs.c:162
 msgid "Outputs"
 msgstr "Výstupy"
 
-#: src/screen.c:173
+#: src/screen.c:195
 #, c-format
 msgid "Volume n/a "
 msgstr "Hlasitosť n/a"
 
-#: src/screen.c:175
+#: src/screen.c:197
 #, c-format
 msgid " Volume %d%%"
 msgstr " Hlasitosť %d%%"
 
-#: src/screen.c:282
+#: src/screen.c:304
 msgid "Playing:"
 msgstr "Prehrávam:"
 
-#: src/screen.c:285
+#: src/screen.c:307
 msgid "[Paused]"
 msgstr "[Pozastavené]"
 
-#: src/screen.c:407 src/screen.c:480
+#: src/screen.c:429 src/screen.c:502
 msgid "Error: Screen too small"
 msgstr "Chyba: Okno je príliš malé"
 
-#: src/screen.c:603
+#: src/screen.c:625
 msgid "Repeat is on"
 msgstr "Opakovanie je zapnuté"
 
-#: src/screen.c:604
+#: src/screen.c:626
 msgid "Repeat is off"
 msgstr "Opakovanie je vypnuté"
 
-#: src/screen.c:608
+#: src/screen.c:630
 msgid "Random is on"
 msgstr "Náhodný režim zapnutý"
 
-#: src/screen.c:609
+#: src/screen.c:631
 msgid "Random is off"
 msgstr "Náhodný režim vypnutý"
 
-#: src/screen.c:612
+#: src/screen.c:634
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Prelínanie %d sekúnd"
 
-#: src/screen.c:615
+#: src/screen.c:637
 msgid "Database updated"
 msgstr "Databáza aktualizovaná"
 
-#: src/screen.c:748 src/screen_play.c:638
+#: src/screen.c:770 src/screen_play.c:638
 msgid "Shuffled playlist"
 msgstr "Zamiešaný playlist"
 
-#: src/screen.c:752
+#: src/screen.c:774
 msgid "Cleared playlist"
 msgstr "Vyčistený playlist"
 
-#: src/screen.c:769 src/screen_file.c:274
+#: src/screen.c:791 src/screen_file.c:274
 msgid "Database update started"
 msgstr "Bola spustená aktualizácia databáze"
 
-#: src/screen.c:771 src/screen_file.c:281
+#: src/screen.c:793 src/screen_file.c:281
 msgid "Database update running..."
 msgstr "Prebieha aktualizácia databáze..."
 
-#: src/screen.c:807
+#: src/screen.c:829
 msgid "Find mode: Wrapped"
 msgstr "Režim vyhľadávania: Zabalený"
 
-#: src/screen.c:808
+#: src/screen.c:830
 msgid "Find mode: Normal"
 msgstr "Režim vyhľadávanie: Normálny"
 
-#: src/screen.c:813
+#: src/screen.c:835
 msgid "Auto center mode: On"
 msgstr "Automatické centrovanie: Zapnuté"
 
-#: src/screen.c:814
+#: src/screen.c:836
 msgid "Auto center mode: Off"
 msgstr "Automatické centrovanie: Vypnuté"
 
@@ -184,7 +184,7 @@ msgstr "Všetky stopy od interpreta: %s"
 msgid "Loading playlist %s..."
 msgstr "Nahrávam playlist %s..."
 
-#: src/screen_browser.c:259 src/screen_browser.c:317 src/screen_browser.c:343
+#: src/screen_browser.c:259 src/screen_browser.c:327 src/screen_browser.c:353
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr "Pridávam '%s' do playlistu"
@@ -496,8 +496,8 @@ msgid "Interrupt retrieval"
 msgstr "Zachytené prerušenie"
 
 #: src/screen_help.c:154
-msgid "Explicitly download lyrics"
-msgstr "Explicitne sťahovať texty"
+msgid "Download lyrics for currently playing song"
+msgstr ""
 
 #: src/screen_help.c:155
 msgid "Save lyrics"
@@ -510,6 +510,28 @@ msgstr "Obrazovka výstupov"
 #: src/screen_help.c:162
 msgid "Enable/disable output"
 msgstr "Povoliť/vypnúť výstup"
+
+#: src/screen_help.c:167
+#, fuzzy
+msgid "Keydef screen"
+msgstr "Okno s pomocou"
+
+#: src/screen_help.c:169
+#, fuzzy
+msgid "Edit keydefs for selected command"
+msgstr "Upraviť klávesy pre %s"
+
+#: src/screen_help.c:170
+msgid "Remove selected keydef"
+msgstr ""
+
+#: src/screen_help.c:171
+msgid "Go up a level"
+msgstr ""
+
+#: src/screen_help.c:172
+msgid "Apply and save changes"
+msgstr ""
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -673,7 +695,7 @@ msgid "Page down"
 msgstr "Page down"
 
 #: src/command.c:94
-msgid "Visual selection"
+msgid "Range selection"
 msgstr ""
 
 #: src/command.c:96
@@ -1023,12 +1045,15 @@ msgid "translator-credits"
 msgstr "Jozef Riha <jose1711@gmail.com>"
 
 #: src/list_window.c:476
-msgid "Visual selection disabled"
+msgid "Range selection disabled"
 msgstr ""
 
 #: src/list_window.c:482
-msgid "Visual selection enabled"
+msgid "Range selection enabled"
 msgstr ""
+
+#~ msgid "Explicitly download lyrics"
+#~ msgstr "Explicitne sťahovať texty"
 
 #~ msgid "Search: "
 #~ msgstr "Vyhľadať: "

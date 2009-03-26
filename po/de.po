@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-14 15:51+0100\n"
+"POT-Creation-Date: 2009-03-27 00:24+0100\n"
 "PO-Revision-Date: 2009-03-14 15:32+0100\n"
 "Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
 "Language-Team: de <de@li.org>\n"
@@ -47,112 +47,112 @@ msgstr "Verbunden mit %s"
 msgid "press %s for the key editor"
 msgstr "drücke %s für den Tasteneditor"
 
-#: src/screen.c:153 src/screen_help.c:232
+#: src/screen.c:175 src/screen_help.c:242
 msgid "Help"
 msgstr "Hilfe"
 
-#: src/screen.c:155 src/screen_play.c:503
+#: src/screen.c:177 src/screen_play.c:503
 msgid "Playlist"
 msgstr "Playlist"
 
 #. translators: caption of the browser screen
-#: src/screen.c:156 src/screen_file.c:214
+#: src/screen.c:178 src/screen_file.c:214
 msgid "Browse"
 msgstr "Stöbern"
 
-#: src/screen.c:158 src/screen_search.c:80 src/screen_song.c:190
+#: src/screen.c:180 src/screen_search.c:80 src/screen_song.c:190
 msgid "Artist"
 msgstr "Künstler"
 
-#: src/screen.c:161 src/screen_search.c:309 src/screen_help.c:139
+#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:139
 msgid "Search"
 msgstr "Suche"
 
-#: src/screen.c:164 src/screen_lyrics.c:203 src/screen_lyrics.c:211
+#: src/screen.c:186 src/screen_lyrics.c:203 src/screen_lyrics.c:211
 #: src/screen_lyrics.c:215
 msgid "Lyrics"
 msgstr "Liedtexte"
 
-#: src/screen.c:167 src/screen_outputs.c:162
+#: src/screen.c:189 src/screen_outputs.c:162
 msgid "Outputs"
 msgstr "Ausgabegeräte"
 
-#: src/screen.c:173
+#: src/screen.c:195
 #, c-format
 msgid "Volume n/a "
 msgstr "Lautstärke n/a "
 
-#: src/screen.c:175
+#: src/screen.c:197
 #, c-format
 msgid " Volume %d%%"
 msgstr " Lautstärke %d%%"
 
-#: src/screen.c:282
+#: src/screen.c:304
 msgid "Playing:"
 msgstr "Spiele:"
 
-#: src/screen.c:285
+#: src/screen.c:307
 msgid "[Paused]"
 msgstr "[Pause]"
 
-#: src/screen.c:407 src/screen.c:480
+#: src/screen.c:429 src/screen.c:502
 msgid "Error: Screen too small"
 msgstr "Fehler: Anzeige zu klein"
 
-#: src/screen.c:603
+#: src/screen.c:625
 msgid "Repeat is on"
 msgstr "Wiederholung ist an"
 
-#: src/screen.c:604
+#: src/screen.c:626
 msgid "Repeat is off"
 msgstr "Wiederholung ist aus"
 
-#: src/screen.c:608
+#: src/screen.c:630
 msgid "Random is on"
 msgstr "Zufallswiedergabe ist an"
 
-#: src/screen.c:609
+#: src/screen.c:631
 msgid "Random is off"
 msgstr "Zufallswiedergabe ist aus"
 
-#: src/screen.c:612
+#: src/screen.c:634
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "%d Sekunden Crossfade"
 
-#: src/screen.c:615
+#: src/screen.c:637
 msgid "Database updated"
 msgstr "Datenbank aktualisiert"
 
-#: src/screen.c:748 src/screen_play.c:638
+#: src/screen.c:770 src/screen_play.c:638
 msgid "Shuffled playlist"
 msgstr "Playlist gemischt"
 
-#: src/screen.c:752
+#: src/screen.c:774
 msgid "Cleared playlist"
 msgstr "Playlist gelöscht"
 
-#: src/screen.c:769 src/screen_file.c:274
+#: src/screen.c:791 src/screen_file.c:274
 msgid "Database update started"
 msgstr "Datenbankaktualisierung gestartet"
 
-#: src/screen.c:771 src/screen_file.c:281
+#: src/screen.c:793 src/screen_file.c:281
 msgid "Database update running..."
 msgstr "Datenbankaktualisierung läuft..."
 
-#: src/screen.c:807
+#: src/screen.c:829
 msgid "Find mode: Wrapped"
 msgstr "Suchmodus: Wrapped"
 
-#: src/screen.c:808
+#: src/screen.c:830
 msgid "Find mode: Normal"
 msgstr "Suchmodus: Normal"
 
-#: src/screen.c:813
+#: src/screen.c:835
 msgid "Auto center mode: On"
 msgstr "Autozentriermodus: an"
 
-#: src/screen.c:814
+#: src/screen.c:836
 msgid "Auto center mode: Off"
 msgstr "Autozentriermodus: aus"
 
@@ -185,7 +185,7 @@ msgstr "Alle Lieder des Künstlers: %s"
 msgid "Loading playlist %s..."
 msgstr "Lade Playlist %s..."
 
-#: src/screen_browser.c:259 src/screen_browser.c:317 src/screen_browser.c:343
+#: src/screen_browser.c:259 src/screen_browser.c:327 src/screen_browser.c:353
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr "Füge '%s' der Playlist hinzu"
@@ -497,8 +497,9 @@ msgid "Interrupt retrieval"
 msgstr "Laden unterbrechen"
 
 #: src/screen_help.c:154
-msgid "Explicitly download lyrics"
-msgstr "Texte explizit herunterladen"
+#, fuzzy
+msgid "Download lyrics for currently playing song"
+msgstr "Gerade laufendes Lied"
 
 #: src/screen_help.c:155
 msgid "Save lyrics"
@@ -511,6 +512,28 @@ msgstr "Anzeige der Ausgabegeräte"
 #: src/screen_help.c:162
 msgid "Enable/disable output"
 msgstr "Ausgabegerät aktivieren/deaktivieren"
+
+#: src/screen_help.c:167
+#, fuzzy
+msgid "Keydef screen"
+msgstr "Hilfeanzeige"
+
+#: src/screen_help.c:169
+#, fuzzy
+msgid "Edit keydefs for selected command"
+msgstr "Editiere Tasten für %s"
+
+#: src/screen_help.c:170
+msgid "Remove selected keydef"
+msgstr ""
+
+#: src/screen_help.c:171
+msgid "Go up a level"
+msgstr ""
+
+#: src/screen_help.c:172
+msgid "Apply and save changes"
+msgstr ""
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -668,7 +691,8 @@ msgid "Page down"
 msgstr "Bild ab"
 
 #: src/command.c:94
-msgid "Visual selection"
+#, fuzzy
+msgid "Range selection"
 msgstr "Auswahlmodus"
 
 #: src/command.c:96
@@ -1018,12 +1042,17 @@ msgid "translator-credits"
 msgstr "Übersetzer"
 
 #: src/list_window.c:476
-msgid "Visual selection disabled"
+#, fuzzy
+msgid "Range selection disabled"
 msgstr "Auswahlmodus deaktiviert"
 
 #: src/list_window.c:482
-msgid "Visual selection enabled"
+#, fuzzy
+msgid "Range selection enabled"
 msgstr "Auswahlmodus aktiviert"
+
+#~ msgid "Explicitly download lyrics"
+#~ msgstr "Texte explizit herunterladen"
 
 #~ msgid "Search: "
 #~ msgstr "Suche: "

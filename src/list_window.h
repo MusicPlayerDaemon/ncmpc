@@ -42,10 +42,10 @@ typedef struct list_window {
 
 	unsigned start;
 	unsigned selected;
-	unsigned selected_start;     /* for visual selection, first selected item */
-	unsigned selected_end;       /* for visual selection, last selected item */
-	unsigned visual_base;        /* represents the base item. */
-	bool visual_selection;       /* visual selection activated */
+	unsigned selected_start;     /* for range selection, first selected item */
+	unsigned selected_end;       /* for range selection, last selected item */
+	unsigned range_base;        /* represents the base item. */
+	bool range_selection;       /* range selection activated */
 	unsigned xoffset;
 
 	bool hide_cursor;
