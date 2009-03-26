@@ -1,16 +1,18 @@
+# translation of fr.po to
 # Français (French)
 # Copyright (C) 2005 Yann Cézard
 # This file is distributed under the same license as the PACKAGE package.
-# Yann Cézard <eesprit@free.fr>, 2005-2008.
 #
+# Yann Cézard <eesprit@free.fr>, 2005-2008.
+# Romain Bignon <romain@peerfuse.org>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: ncmpc 0.12.0\n"
+"Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 00:24+0100\n"
-"PO-Revision-Date: 2009-02-17 14:54+0100\n"
-"Last-Translator: Yann Cézard <eesprit@free.fr>\n"
-"Language-Team: fr <fr@li.org>\n"
+"PO-Revision-Date: 2009-03-27 00:44+0100\n"
+"Last-Translator: Romain Bignon <romain@peerfuse.org>\n"
+"Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -199,7 +201,7 @@ msgstr "Trouver avant"
 
 #: src/screen_utils.c:37
 msgid "Jump"
-msgstr ""
+msgstr "Sauter"
 
 #: src/screen_utils.c:118
 msgid "Password"
@@ -377,9 +379,9 @@ msgid "Keybindings unchanged."
 msgstr "La correspondance des touches n'a pas été changée."
 
 #: src/screen_keydef.c:82
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "Erreur: Impossible de créer le répertoire ~/.ncmpc - %s"
+msgstr "Erreur : Impossible de créer le répertoire ~/.ncmpc - %s"
 
 #: src/screen_keydef.c:91 src/screen_keydef.c:98
 #, c-format
@@ -497,7 +499,7 @@ msgstr "Récupération interrompue"
 
 #: src/screen_help.c:154
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "Télécharger les paroles de la chanson en lecture"
 
 #: src/screen_help.c:155
 msgid "Save lyrics"
@@ -512,26 +514,24 @@ msgid "Enable/disable output"
 msgstr "Activer/désactiver une sortie"
 
 #: src/screen_help.c:167
-#, fuzzy
 msgid "Keydef screen"
-msgstr "Ecran d'aide"
+msgstr "Écran du paramétrage des raccourcis"
 
 #: src/screen_help.c:169
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "Editer les touches pour %s"
+msgstr "Éditer les raccourcis pour la commande sélectionnée"
 
 #: src/screen_help.c:170
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "Supprimer le raccourci sélectionné"
 
 #: src/screen_help.c:171
 msgid "Go up a level"
-msgstr ""
+msgstr "Aller au dossier parent"
 
 #: src/screen_help.c:172
 msgid "Apply and save changes"
-msgstr ""
+msgstr "Appliquer et sauvegarder les changements"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -593,60 +593,56 @@ msgstr "Commentaire"
 
 #: src/screen_song.c:200
 msgid "Path"
-msgstr ""
+msgstr "Chemin"
 
 #: src/screen_song.c:201
 msgid "Bitrate"
-msgstr ""
+msgstr "Débit"
 
 #: src/screen_song.c:228
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kbps"
 
 #: src/screen_song.c:244
-#, fuzzy
 msgid "Number of artists"
-msgstr "Albums de l'artiste : %s"
+msgstr "Nombre d'artistes"
 
 #: src/screen_song.c:245
 msgid "Number of albums"
-msgstr ""
+msgstr "Nombre d'albums"
 
 #: src/screen_song.c:246
 msgid "Number of songs"
-msgstr ""
+msgstr "Nombre de chansons"
 
 #: src/screen_song.c:247
 msgid "Uptime"
-msgstr ""
+msgstr "Temps de service"
 
 #: src/screen_song.c:248
-#, fuzzy
 msgid "DB last updated"
-msgstr "Base de données mise à jour"
+msgstr "Dernière mise à jour de la BD"
 
 #: src/screen_song.c:249
-#, fuzzy
 msgid "Playtime"
-msgstr "Lire"
+msgstr "Temps de lecture"
 
 #: src/screen_song.c:250
 msgid "DB playtime"
-msgstr ""
+msgstr "Temps de lecture de la BD"
 
 #: src/screen_song.c:266
 msgid "MPD statistics"
-msgstr ""
+msgstr "Statistiques MPD"
 
 #: src/screen_song.c:310
-#, fuzzy
 msgid "Selected song"
-msgstr "Voir la chanson"
+msgstr "Chanson sélectionnée"
 
 #: src/screen_song.c:322
 msgid "Currently playing song"
-msgstr ""
+msgstr "Chanson actuellement jouée"
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -665,18 +661,16 @@ msgid "Move cursor down"
 msgstr "Déplacer le curseur vers le bas"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to top of screen"
-msgstr "Déplacer le curseur vers le bas"
+msgstr "Déplacer le curseur vers le haut de l'écran"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to middle of screen"
-msgstr "Déplacer le curseur vers le bas"
+msgstr "Déplacer le curseur vers le milieu de l'écran"
 
 #: src/command.c:84
 msgid "Move cursor to bottom of screen"
-msgstr ""
+msgstr "Déplacer le curseur au bas de l'écran"
 
 #: src/command.c:86 src/command.c:281
 msgid "Home"
@@ -696,23 +690,23 @@ msgstr "Descendre d'une page"
 
 #: src/command.c:94
 msgid "Range selection"
-msgstr ""
+msgstr "Sélection multi-ligne"
 
 #: src/command.c:96
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Défiler d'une ligne vers le haut"
 
 #: src/command.c:98
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Défiler d'une ligne vers le bas"
 
 #: src/command.c:100
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Défiler d'une moitié d'écran vers le haut"
 
 #: src/command.c:102
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Défiler d'une moitié d'écran vers le bas"
 
 #: src/command.c:107
 msgid "Help screen"
@@ -848,7 +842,7 @@ msgstr "Ecran précédent"
 
 #: src/command.c:192
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Passer à l'écran le plus récent"
 
 #: src/command.c:197
 msgid "Forward find"
@@ -871,7 +865,7 @@ msgstr "Chercher avant/précédent"
 #. * to the entry which begins with this string
 #: src/command.c:208
 msgid "Jump to"
-msgstr ""
+msgstr "Aller à"
 
 #: src/command.c:214
 msgid "Artist screen"
@@ -883,7 +877,7 @@ msgstr "Changer le mode de recherche"
 
 #: src/command.c:224
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "Voir la chanson sélectionnée et actuellement jouée"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
@@ -1046,37 +1040,9 @@ msgstr "Traduction française : Yann Cézard <eesprit@free.fr>"
 
 #: src/list_window.c:476
 msgid "Range selection disabled"
-msgstr ""
+msgstr "Sélection multi-ligne désactivée"
 
 #: src/list_window.c:482
 msgid "Range selection enabled"
-msgstr ""
+msgstr "Sélection multi-ligne activée"
 
-#~ msgid "Explicitly download lyrics"
-#~ msgstr "Forcer le téléchargement des paroles"
-
-#~ msgid "Search: "
-#~ msgstr "Rechercher: "
-
-#~ msgid "Adding directory %s...\n"
-#~ msgstr "Ajout du répertoire %s...\n"
-
-#~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-#~ msgstr ""
-#~ "La touche %s est assignée à %s et à %s (appuyez sur %s pour l'éditeur de "
-#~ "touches)"
-
-#~ msgid "Screen updated!"
-#~ msgstr "Ecran mis à jour!"
-
-#~ msgid "Clock"
-#~ msgstr "Horloge"
-
-#~ msgid "Clock screen"
-#~ msgstr "Ecran d'horloge"
-
-#~ msgid "Error: Unable to convert characters to %s"
-#~ msgstr "Erreur: Impossible de convertir les caractères pour %s"
-
-#~ msgid "Error: Unable to convert characters to UTF-8"
-#~ msgstr "Erreur: Impossible de convertir les caractères en UTF-8"
