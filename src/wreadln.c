@@ -1,7 +1,7 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -42,6 +42,7 @@
 #define KEY_CTRL_N   14
 #define KEY_CTRL_P   16
 #define KEY_CTRL_U   21
+#define KEY_CTRL_W   23
 #define KEY_CTRL_Z   26
 #define KEY_BCKSPC   8
 #define TAB          9
@@ -524,6 +525,20 @@ _wreadln(WINDOW *w,
 			for (i = 0; i < wr.cursor; i++)
 				wr.line[i] = '\0';
 			wr.cursor = 0;
+			break;
+		case KEY_CTRL_W:
+			/* Firstly remove trailing spaces. */
+			for (i = wr.cursor; i > 0 && wr.line[i-1] == ' '; i--)
+			{
+				cursor_move_left(&wr);
+				wreadln_delete_char(&wr, wr.cursor);
+			}
+			/* Then remove word until next space. */
+			for (; i > 0 && wr.line[i-1] != ' '; i--)
+			{
+				cursor_move_left(&wr);
+				wreadln_delete_char(&wr, wr.cursor);
+			}
 			break;
 		case 127:
 		case KEY_BCKSPC:	/* handle backspace: copy all */
