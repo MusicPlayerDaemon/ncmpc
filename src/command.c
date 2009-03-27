@@ -146,6 +146,8 @@ static command_definition_t cmds[] = {
 	  N_("Toggle repeat mode") },
 	{ { 'z', 0, 0 }, 0, CMD_RANDOM, "random",
 	  N_("Toggle random mode") },
+	{ { 'y', 0, 0 }, 0, CMD_SINGLE, "single",
+	  N_("Toggle single mode") },
 	{ { 'x', 0, 0 }, 0, CMD_CROSSFADE, "crossfade",
 	  N_("Toggle crossfade mode") },
 	{ { 21, 0, 0 }, 0, CMD_DB_UPDATE, "db-update",

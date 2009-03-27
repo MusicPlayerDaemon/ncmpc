@@ -1,7 +1,7 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -91,7 +91,7 @@ screen_switch(const struct screen_functions *sf, struct mpdclient *c)
 	screen_paint(c);
 }
 
-void 
+void
 screen_swap(struct mpdclient *c, const struct mpd_song *song)
 {
 	if (song != NULL)
@@ -204,7 +204,9 @@ paint_top_window2(const char *header, mpdclient_t *c)
 		if (c->status->repeat)
 			g_strlcat(flags, "r", sizeof(flags));
 		if (c->status->random)
-			g_strlcat(flags, "z", sizeof(flags));;
+			g_strlcat(flags, "z", sizeof(flags));
+		if (c->status->single)
+			g_strlcat(flags, "s", sizeof(flags));
 		if (c->status->crossfade)
 			g_strlcat(flags, "x", sizeof(flags));
 		if (c->status->updatingDb)
@@ -608,6 +610,7 @@ screen_update(mpdclient_t *c)
 #ifndef NCMPC_MINI
 	static int repeat = -1;
 	static int random_enabled = -1;
+	static int single = -1;
 	static int crossfade = -1;
 	static int dbupdate = -1;
 
@@ -616,6 +619,7 @@ screen_update(mpdclient_t *c)
 		if (repeat < 0) {
 			repeat = c->status->repeat;
 			random_enabled = c->status->random;
+			single = c->status->single;
 			crossfade = c->status->crossfade;
 			dbupdate = c->status->updatingDb;
 		}
@@ -630,6 +634,11 @@ screen_update(mpdclient_t *c)
 					     _("Random is on") :
 					     _("Random is off"));
 
+		if (single != c->status->single)
+			screen_status_printf(c->status->single ?
+					     _("Single is on") :
+					     _("Single is off"));
+
 		if (crossfade != c->status->crossfade)
 			screen_status_printf(_("Crossfade %d seconds"), c->status->crossfade);
 
@@ -639,6 +648,7 @@ screen_update(mpdclient_t *c)
 		}
 
 		repeat = c->status->repeat;
+		single = c->status->single;
 		random_enabled = c->status->random;
 		crossfade = c->status->crossfade;
 		dbupdate = c->status->updatingDb;
@@ -778,6 +788,9 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 		break;
 	case CMD_RANDOM:
 		mpdclient_cmd_random(c, !c->status->random);
+		break;
+	case CMD_SINGLE:
+		mpdclient_cmd_single(c, !c->status->single);
 		break;
 	case CMD_CROSSFADE:
 		if (c->status->crossfade)
