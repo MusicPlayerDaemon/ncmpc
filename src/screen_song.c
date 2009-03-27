@@ -305,6 +305,7 @@ screen_song_update(mpdclient_t *c)
 	if (current.selected_song != NULL &&
 			(c->song == NULL ||
 			 g_strcmp0(current.selected_song->file, c->song->file) != 0 ||
+			 c->status == NULL ||
 			(c->status->state != MPD_STATUS_STATE_PLAY &&
 			 c->status->state != MPD_STATUS_STATE_PAUSE)) ) {
 		g_ptr_array_add(current.lines, g_strdup(_("Selected song")) );
@@ -312,7 +313,7 @@ screen_song_update(mpdclient_t *c)
 		g_ptr_array_add(current.lines, g_strdup("\0"));
 	}
 
-	if (c->song != NULL &&
+	if (c->song != NULL && c->status != NULL &&
 			(c->status->state == MPD_STATUS_STATE_PLAY ||
 			 c->status->state == MPD_STATUS_STATE_PAUSE) ) {
 		if (current.played_song != NULL) {
