@@ -74,6 +74,7 @@
 #define CONF_VISIBLE_BITRATE "visible-bitrate"
 #define CONF_WELCOME_SCREEN_LIST "welcome-screen-list"
 #define CONF_DISPLAY_TIME "display-time"
+#define CONF_JUMP_PREFIX_ONLY "jump-prefix-only"
 
 static bool
 str2bool(char *str)
@@ -502,6 +503,12 @@ parse_line(char *line)
 		{}
 #else
 		options.display_time = str2bool(value);
+#endif
+	else if (!strcasecmp(CONF_JUMP_PREFIX_ONLY, name))
+#ifdef NCMPC_MINI
+		{}
+#else
+		options.jump_prefix_only = str2bool(value);
 #endif
 	else
 		match_found = false;

@@ -64,6 +64,7 @@ options_t options = {
 	.scroll = DEFAULT_SCROLL,
 	.welcome_screen_list = true,
 	.display_time = true,
+	.jump_prefix_only = true,
 #endif
 };
 

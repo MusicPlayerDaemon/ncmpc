@@ -50,29 +50,3 @@ match_line(const char *line, const char *needle)
 
 	return ret;
 }
-
-int
-find_occurence(const char *str_orig, const char *str_occur, const int str_occur_len)
-{
-	const int str_orig_len = strlen (str_orig);
-	int i, j;
-
-	if (str_occur_len > str_orig_len)
-	return -1;
-
-	for (i = 0; i < str_orig_len; i++) {
-		if ((i + str_occur_len) > str_orig_len)
-			return -1;
-
-		for (j = 0; j < str_occur_len; j++) {
-			if (tolower (str_occur[j])  != tolower (str_orig[i+j]))
-				break;
-
-			if (j == str_occur_len - 1)
-				return 0;
-		}
-	}
-
-	return -1;
-}
-

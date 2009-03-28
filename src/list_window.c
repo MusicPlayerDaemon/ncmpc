@@ -414,25 +414,23 @@ list_window_jump(struct list_window *lw,
 	const char *label;
 
 	while ((label = callback(i,&h,callback_data))) {
-		if (label && label[0] != '[')
+		if (label && label[0] == '[')
+			label++;
+#ifndef NCMPC_MINI
+		if (str && label &&
+				((options.jump_prefix_only && g_ascii_strncasecmp(label, str, strlen(str)) == 0) ||
+				 (!options.jump_prefix_only && match_line(label, str))) )
+#else
+		if (str && label && g_ascii_strncasecmp(label, str, strlen(str)) == 0)
+#endif
 		{
-			if (str && label && find_occurence(label, str, strlen(str)) == 0) {
-				lw->selected = i;
-				if(!lw->range_selection || i > lw->selected_end)
-					  lw->selected_end = i;
-				if(!lw->range_selection || i < lw->selected_start)
-					  lw->selected_start = i;
-				return true;
-			}
+			lw->selected = i;
+			if(!lw->range_selection || i > lw->selected_end)
+				lw->selected_end = i;
+			if(!lw->range_selection || i < lw->selected_start)
+				lw->selected_start = i;
+			return true;
 		}
-		else if (str && label && find_occurence(label+1, str, strlen(str)) == 0) {
-				lw->selected = i;
-				if(!lw->range_selection || i > lw->selected_end)
-					  lw->selected_end = i;
-				if(!lw->range_selection || i < lw->selected_start)
-					  lw->selected_start = i;
-				return true;
-			}
 		i++;
 	}
 	return false;
