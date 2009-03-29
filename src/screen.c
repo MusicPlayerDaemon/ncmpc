@@ -207,6 +207,8 @@ paint_top_window2(const char *header, mpdclient_t *c)
 			g_strlcat(flags, "z", sizeof(flags));
 		if (c->status->single)
 			g_strlcat(flags, "s", sizeof(flags));
+		if (c->status->consume)
+			g_strlcat(flags, "c", sizeof(flags));
 		if (c->status->crossfade)
 			g_strlcat(flags, "x", sizeof(flags));
 		if (c->status->updatingDb)
@@ -611,6 +613,7 @@ screen_update(mpdclient_t *c)
 	static int repeat = -1;
 	static int random_enabled = -1;
 	static int single = -1;
+	static int consume = -1;
 	static int crossfade = -1;
 	static int dbupdate = -1;
 
@@ -620,6 +623,7 @@ screen_update(mpdclient_t *c)
 			repeat = c->status->repeat;
 			random_enabled = c->status->random;
 			single = c->status->single;
+			consume = c->status->consume;
 			crossfade = c->status->crossfade;
 			dbupdate = c->status->updatingDb;
 		}
@@ -639,6 +643,11 @@ screen_update(mpdclient_t *c)
 					     _("Single is on") :
 					     _("Single is off"));
 
+		if (consume != c->status->consume)
+			screen_status_printf(c->status->consume ?
+					     _("Consume is on") :
+					     _("Consume is off"));
+
 		if (crossfade != c->status->crossfade)
 			screen_status_printf(_("Crossfade %d seconds"), c->status->crossfade);
 
@@ -649,6 +658,7 @@ screen_update(mpdclient_t *c)
 
 		repeat = c->status->repeat;
 		single = c->status->single;
+		consume = c->status->consume;
 		random_enabled = c->status->random;
 		crossfade = c->status->crossfade;
 		dbupdate = c->status->updatingDb;
@@ -791,6 +801,9 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 		break;
 	case CMD_SINGLE:
 		mpdclient_cmd_single(c, !c->status->single);
+		break;
+	case CMD_CONSUME:
+		mpdclient_cmd_consume(c, !c->status->consume);
 		break;
 	case CMD_CROSSFADE:
 		if (c->status->crossfade)

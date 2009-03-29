@@ -58,6 +58,7 @@ gint mpdclient_cmd_clear(mpdclient_t *c);
 gint mpdclient_cmd_repeat(mpdclient_t *c, gint value);
 gint mpdclient_cmd_random(mpdclient_t *c, gint value);
 gint mpdclient_cmd_single(mpdclient_t *c, gint value);
+gint mpdclient_cmd_consume(mpdclient_t *c, gint value);
 gint mpdclient_cmd_crossfade(mpdclient_t *c, gint value);
 gint mpdclient_cmd_db_update(mpdclient_t *c, gchar *path);
 gint mpdclient_cmd_volume(mpdclient_t *c, gint value);

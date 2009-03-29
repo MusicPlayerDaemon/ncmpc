@@ -392,6 +392,13 @@ mpdclient_cmd_single(mpdclient_t *c, gint value)
 }
 
 gint
+mpdclient_cmd_consume(mpdclient_t *c, gint value)
+{
+	mpd_sendConsumeCommand(c->connection, value);
+	return mpdclient_finish_command(c);
+}
+
+gint
 mpdclient_cmd_crossfade(mpdclient_t *c, gint value)
 {
 	mpd_sendCrossfadeCommand(c->connection, value);
