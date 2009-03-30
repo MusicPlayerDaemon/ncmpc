@@ -64,6 +64,7 @@ options_t options = {
 	.scroll = DEFAULT_SCROLL,
 	.welcome_screen_list = true,
 	.display_time = true,
+	.jump_prefix_only = true,
 #endif
 };
 
@@ -272,11 +273,13 @@ handle_option(int c, const char *arg)
 		/* the splash screen was removed */
 		break;
 #ifndef NDEBUG
+#ifndef NCMPC_MINI
 	case 'K': /* --dump-keys */
 		read_configuration();
 		write_key_bindings(stdout, KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
 		exit(EXIT_SUCCESS);
 		break;
+#endif
 #endif
 	default:
 		fprintf(stderr,"Unknown Option %c = %s\n", c, arg);

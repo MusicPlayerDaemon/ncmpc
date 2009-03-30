@@ -259,7 +259,7 @@ help_cmd(G_GNUC_UNUSED mpdclient_t *c, command_t cmd)
 		return true;
 	}
 
-	lw->selected = lw->start+lw->rows;
+	lw->selected = lw->start;
 	if (screen_find(lw,  help_text_rows,
 			cmd, list_callback, NULL)) {
 		/* center the row */

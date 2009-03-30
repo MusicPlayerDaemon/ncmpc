@@ -133,8 +133,8 @@ time_seconds_to_durationstr(unsigned long time_seconds)
 	duration = g_malloc(length);
 	iter = duration;
 	if (time_seconds / 31536000 > 0) {
-		if (time_seconds % 31536000 == 1)
-			bytes_written = g_snprintf(iter, length, "%lu %s, ", time_seconds / 31536000, year);
+		if (time_seconds / 31536000 == 1)
+			bytes_written = g_snprintf(iter, length, "%d %s, ", 1, year);
 		else
 			bytes_written = g_snprintf(iter, length, "%lu %s, ", time_seconds / 31536000, years);
 		time_seconds %= 31536000;
@@ -142,8 +142,8 @@ time_seconds_to_durationstr(unsigned long time_seconds)
 		iter += bytes_written;
 	}
 	if (time_seconds / 604800 > 0) {
-		if (time_seconds % 604800 == 1)
-			bytes_written = g_snprintf(iter, length, "%lu %s, ", time_seconds / 604800, week);
+		if (time_seconds / 604800 == 1)
+			bytes_written = g_snprintf(iter, length, "%d %s, ", 1, week);
 		else
 			bytes_written = g_snprintf(iter, length, "%lu %s, ", time_seconds / 604800, weeks);
 		time_seconds %= 604800;
@@ -151,8 +151,8 @@ time_seconds_to_durationstr(unsigned long time_seconds)
 		iter += bytes_written;
 	}
 	if (time_seconds / 86400 > 0) {
-		if (time_seconds % 86400 == 1)
-			bytes_written = g_snprintf(iter, length, "%lu %s, ", time_seconds / 86400, day);
+		if (time_seconds / 86400 == 1)
+			bytes_written = g_snprintf(iter, length, "%d %s, ", 1, day);
 		else
 			bytes_written = g_snprintf(iter, length, "%lu %s, ", time_seconds / 86400, days);
 		time_seconds %= 86400;

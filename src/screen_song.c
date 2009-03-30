@@ -245,7 +245,7 @@ screen_song_add_stats(const mpdclient_t *c)
 		[ALBUMS] = _("Number of albums"),
 		[SONGS] = _("Number of songs"),
 		[UPTIME] = _("Uptime"),
-		[DBUPTIME] =_("DB last updated"),
+		[DBUPTIME] =_("Most recent db update"),
 		[PLAYTIME] = _("Playtime"),
 		[DBPLAYTIME] = _("DB playtime")
 	};

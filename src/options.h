@@ -73,6 +73,7 @@ typedef struct {
 	bool visible_bitrate;
 	bool welcome_screen_list;
 	bool display_time;
+	bool jump_prefix_only;
 #endif
 } options_t;
 

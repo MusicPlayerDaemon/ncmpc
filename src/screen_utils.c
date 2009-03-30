@@ -244,11 +244,13 @@ screen_jump(struct list_window *lw,
 		key = screen_getch(screen.status_window.w, screen.findbuf);
 		/* if backspace or delete was pressed */
 		if (key == KEY_BACKSPACE || key == 330) {
+			int i;
 			/* don't end the loop */
 			key = 65;
 			if (search_str <= g_utf8_find_prev_char(screen.findbuf, iter))
 				iter = g_utf8_find_prev_char(screen.findbuf, iter);
-			*iter = '\0';
+			for (i = 0; *(iter + i) != '\0'; i++)
+				*(iter + i) = '\0';
 			continue;
 		}
 		else {
