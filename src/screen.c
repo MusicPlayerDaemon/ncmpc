@@ -630,23 +630,23 @@ screen_update(mpdclient_t *c)
 
 		if (repeat != c->status->repeat)
 			screen_status_printf(c->status->repeat ?
-					     _("Repeat is on") :
-					     _("Repeat is off"));
+					     _("Repeat mode is on") :
+					     _("Repeat mode is off"));
 
 		if (random_enabled != c->status->random)
 			screen_status_printf(c->status->random ?
-					     _("Random is on") :
-					     _("Random is off"));
+					     _("Random mode is on") :
+					     _("Random mode is off"));
 
 		if (single != c->status->single)
 			screen_status_printf(c->status->single ?
-					     _("Single is on") :
-					     _("Single is off"));
+					     _("Single mode is on") :
+					     _("Single mode is off"));
 
 		if (consume != c->status->consume)
 			screen_status_printf(c->status->consume ?
-					     _("Consume is on") :
-					     _("Consume is off"));
+					     _("Consume mode is on") :
+					     _("Consume mode is off"));
 
 		if (crossfade != c->status->crossfade)
 			screen_status_printf(_("Crossfade %d seconds"), c->status->crossfade);
