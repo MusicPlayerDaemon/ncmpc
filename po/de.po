@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-27 00:24+0100\n"
+"POT-Creation-Date: 2009-03-31 21:24+0200\n"
 "PO-Revision-Date: 2009-03-14 15:32+0100\n"
 "Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
 "Language-Team: de <de@li.org>\n"
@@ -47,7 +47,7 @@ msgstr "Verbunden mit %s"
 msgid "press %s for the key editor"
 msgstr "drücke %s für den Tasteneditor"
 
-#: src/screen.c:175 src/screen_help.c:242
+#: src/screen.c:175 src/screen_help.c:244
 msgid "Help"
 msgstr "Hilfe"
 
@@ -64,7 +64,7 @@ msgstr "Stöbern"
 msgid "Artist"
 msgstr "Künstler"
 
-#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:139
+#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:141
 msgid "Search"
 msgstr "Suche"
 
@@ -87,72 +87,92 @@ msgstr "Lautstärke n/a "
 msgid " Volume %d%%"
 msgstr " Lautstärke %d%%"
 
-#: src/screen.c:304
+#: src/screen.c:308
 msgid "Playing:"
 msgstr "Spiele:"
 
-#: src/screen.c:307
+#: src/screen.c:311
 msgid "[Paused]"
 msgstr "[Pause]"
 
-#: src/screen.c:429 src/screen.c:502
+#: src/screen.c:433 src/screen.c:506
 msgid "Error: Screen too small"
 msgstr "Fehler: Anzeige zu klein"
 
-#: src/screen.c:625
-msgid "Repeat is on"
+#: src/screen.c:633
+#, fuzzy
+msgid "Repeat mode is on"
 msgstr "Wiederholung ist an"
 
-#: src/screen.c:626
-msgid "Repeat is off"
+#: src/screen.c:634
+#, fuzzy
+msgid "Repeat mode is off"
 msgstr "Wiederholung ist aus"
 
-#: src/screen.c:630
-msgid "Random is on"
+#: src/screen.c:638
+#, fuzzy
+msgid "Random mode is on"
 msgstr "Zufallswiedergabe ist an"
 
-#: src/screen.c:631
-msgid "Random is off"
+#: src/screen.c:639
+#, fuzzy
+msgid "Random mode is off"
 msgstr "Zufallswiedergabe ist aus"
 
-#: src/screen.c:634
+#: src/screen.c:643
+msgid "Single mode is on"
+msgstr ""
+
+#: src/screen.c:644
+msgid "Single mode is off"
+msgstr ""
+
+#: src/screen.c:648
+msgid "Consume mode is on"
+msgstr ""
+
+#: src/screen.c:649
+msgid "Consume mode is off"
+msgstr ""
+
+#: src/screen.c:652
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "%d Sekunden Crossfade"
 
-#: src/screen.c:637
+#: src/screen.c:655
 msgid "Database updated"
 msgstr "Datenbank aktualisiert"
 
-#: src/screen.c:770 src/screen_play.c:638
+#: src/screen.c:790 src/screen_play.c:638
 msgid "Shuffled playlist"
 msgstr "Playlist gemischt"
 
-#: src/screen.c:774
+#: src/screen.c:794
 msgid "Cleared playlist"
 msgstr "Playlist gelöscht"
 
-#: src/screen.c:791 src/screen_file.c:274
+#: src/screen.c:817 src/screen_file.c:274
 msgid "Database update started"
 msgstr "Datenbankaktualisierung gestartet"
 
-#: src/screen.c:793 src/screen_file.c:281
+#: src/screen.c:819 src/screen_file.c:281
 msgid "Database update running..."
 msgstr "Datenbankaktualisierung läuft..."
 
-#: src/screen.c:829
+#: src/screen.c:855
 msgid "Find mode: Wrapped"
 msgstr "Suchmodus: Wrapped"
 
-#: src/screen.c:830
+#: src/screen.c:856
 msgid "Find mode: Normal"
 msgstr "Suchmodus: Normal"
 
-#: src/screen.c:835
+#: src/screen.c:861
 msgid "Auto center mode: On"
 msgstr "Autozentriermodus: an"
 
-#: src/screen.c:836
+#: src/screen.c:862
 msgid "Auto center mode: Off"
 msgstr "Autozentriermodus: aus"
 
@@ -436,102 +456,102 @@ msgstr "Bewegung"
 msgid "Global"
 msgstr "Global"
 
-#: src/screen_help.c:109 src/command.c:109
+#: src/screen_help.c:111 src/command.c:109
 msgid "Playlist screen"
 msgstr "Playlistenanzeige"
 
-#: src/screen_help.c:111
+#: src/screen_help.c:113
 msgid "Play"
 msgstr "Abspielen"
 
-#: src/screen_help.c:114
+#: src/screen_help.c:116
 msgid "Move song up"
 msgstr "Stück nach oben bewegen"
 
-#: src/screen_help.c:115
+#: src/screen_help.c:117
 msgid "Move song down"
 msgstr "Stück nach unten bewegen"
 
-#: src/screen_help.c:118
+#: src/screen_help.c:120
 msgid "Center"
 msgstr "Zentrieren"
 
-#: src/screen_help.c:123 src/command.c:111
+#: src/screen_help.c:125 src/command.c:111
 msgid "Browse screen"
 msgstr "Anzeige durchstöbern"
 
-#: src/screen_help.c:125
+#: src/screen_help.c:127
 msgid "Enter directory/Select and play song"
 msgstr "Verzeichnis öffnen/Stück auswählen und abspielen"
 
-#: src/screen_help.c:127 src/screen_help.c:142
+#: src/screen_help.c:129 src/screen_help.c:144
 msgid "Append song to playlist"
 msgstr "Song zur Playlist hinzufügen"
 
-#: src/screen_help.c:129
+#: src/screen_help.c:131
 msgid "Delete playlist"
 msgstr "Lösche Playlist"
 
-#: src/screen_help.c:137 src/command.c:218
+#: src/screen_help.c:139 src/command.c:222
 msgid "Search screen"
 msgstr "Suchanzeige"
 
-#: src/screen_help.c:140
+#: src/screen_help.c:142
 msgid "Select and play"
 msgstr "Auswählen und abspielen"
 
-#: src/screen_help.c:149 src/command.c:228
+#: src/screen_help.c:151 src/command.c:232
 msgid "Lyrics screen"
 msgstr "Liedtextanzeige"
 
-#: src/screen_help.c:151
+#: src/screen_help.c:153
 msgid "View Lyrics"
 msgstr "Liedtext lesen"
 
-#: src/screen_help.c:152
+#: src/screen_help.c:154
 msgid "(Re)load lyrics"
 msgstr "Text (neu) laden"
 
-#: src/screen_help.c:153
+#: src/screen_help.c:155
 msgid "Interrupt retrieval"
 msgstr "Laden unterbrechen"
 
-#: src/screen_help.c:154
+#: src/screen_help.c:156
 #, fuzzy
 msgid "Download lyrics for currently playing song"
 msgstr "Gerade laufendes Lied"
 
-#: src/screen_help.c:155
+#: src/screen_help.c:157
 msgid "Save lyrics"
 msgstr "Liedtext speichern"
 
-#: src/screen_help.c:160 src/command.c:239
+#: src/screen_help.c:162 src/command.c:243
 msgid "Outputs screen"
 msgstr "Anzeige der Ausgabegeräte"
 
-#: src/screen_help.c:162
+#: src/screen_help.c:164
 msgid "Enable/disable output"
 msgstr "Ausgabegerät aktivieren/deaktivieren"
 
-#: src/screen_help.c:167
+#: src/screen_help.c:169
 #, fuzzy
 msgid "Keydef screen"
 msgstr "Hilfeanzeige"
 
-#: src/screen_help.c:169
+#: src/screen_help.c:171
 #, fuzzy
 msgid "Edit keydefs for selected command"
 msgstr "Editiere Tasten für %s"
 
-#: src/screen_help.c:170
+#: src/screen_help.c:172
 msgid "Remove selected keydef"
 msgstr ""
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Go up a level"
 msgstr ""
 
-#: src/screen_help.c:172
+#: src/screen_help.c:174
 msgid "Apply and save changes"
 msgstr ""
 
@@ -623,8 +643,9 @@ msgid "Uptime"
 msgstr "Laufzeit"
 
 #: src/screen_song.c:248
-msgid "DB last updated"
-msgstr "DB zuletzt aktualisiert"
+#, fuzzy
+msgid "Most recent db update"
+msgstr "Anzeige aktualisiert!"
 
 #: src/screen_song.c:249
 msgid "Playtime"
@@ -638,11 +659,11 @@ msgstr "DB Spielzeit"
 msgid "MPD statistics"
 msgstr "MPD Statistik"
 
-#: src/screen_song.c:310
+#: src/screen_song.c:311
 msgid "Selected song"
 msgstr "Lied anzeigen"
 
-#: src/screen_song.c:322
+#: src/screen_song.c:323
 msgid "Currently playing song"
 msgstr "Gerade laufendes Lied"
 
@@ -674,11 +695,11 @@ msgstr "Cursor zur Mitte der Anzeige bewegen"
 msgid "Move cursor to bottom of screen"
 msgstr "Cursor zum Ende der Anzeige bewegen"
 
-#: src/command.c:86 src/command.c:281
+#: src/command.c:86 src/command.c:285
 msgid "Home"
 msgstr "Pos1"
 
-#: src/command.c:88 src/command.c:283
+#: src/command.c:88 src/command.c:287
 msgid "End"
 msgstr "Ende"
 
@@ -784,175 +805,185 @@ msgid "Toggle random mode"
 msgstr "Schalte Zufallswiedergabe ein/aus"
 
 #: src/command.c:150
+#, fuzzy
+msgid "Toggle single mode"
+msgstr "Wechsle den Suchmodus"
+
+#: src/command.c:152
+#, fuzzy
+msgid "Toggle consume mode"
+msgstr "Schalte Crossfade-Wiedergabe ein/aus"
+
+#: src/command.c:154
 msgid "Toggle crossfade mode"
 msgstr "Schalte Crossfade-Wiedergabe ein/aus"
 
-#: src/command.c:152
+#: src/command.c:156
 msgid "Start a music database update"
 msgstr "Starte eine Aktualisierung der Musikdatenbank"
 
-#: src/command.c:154
+#: src/command.c:158
 msgid "Save playlist"
 msgstr "Speichere Playlist"
 
-#: src/command.c:156
+#: src/command.c:160
 msgid "Add url/file to playlist"
 msgstr "Füge eine URL/Datei der Playlist hinzu"
 
-#: src/command.c:159
+#: src/command.c:163
 msgid "Go to root directory"
 msgstr "Basis-Verzeichnis öffnen"
 
-#: src/command.c:161
+#: src/command.c:165
 msgid "Go to parent directory"
 msgstr "Übergeordnetes Verzeichnis öffnen"
 
-#: src/command.c:164
+#: src/command.c:168
 msgid "Locate song in browser"
 msgstr "Lied in Datenbank orten"
 
-#: src/command.c:168
+#: src/command.c:172
 msgid "Move item up"
 msgstr "Bewege es nach oben"
 
-#: src/command.c:170
+#: src/command.c:174
 msgid "Move item down"
 msgstr "Bewege es nach unten"
 
-#: src/command.c:172
+#: src/command.c:176
 msgid "Refresh screen"
 msgstr "Aktualisiere Anzeige"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/command.c:179
+#: src/command.c:183
 msgid "Toggle find mode"
 msgstr "Wechsle den Suchmodus"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/command.c:183
+#: src/command.c:187
 msgid "Toggle auto center mode"
 msgstr "Schalte den Autozentrier-Modus ein/aus"
 
-#: src/command.c:188
+#: src/command.c:192
 msgid "Next screen"
 msgstr "Nächste Anzeige"
 
-#: src/command.c:190
+#: src/command.c:194
 msgid "Previous screen"
 msgstr "Vorherige Anzeige"
 
-#: src/command.c:192
+#: src/command.c:196
 msgid "Swap to most recent screen"
 msgstr "Wechsle zur zuletzt benutzten Anzeige"
 
-#: src/command.c:197
+#: src/command.c:201
 msgid "Forward find"
 msgstr "Vorwärtssuche"
 
-#: src/command.c:199
+#: src/command.c:203
 msgid "Forward find next"
 msgstr "Vorwärtssuche fortsetzen"
 
-#: src/command.c:201
+#: src/command.c:205
 msgid "Backward find"
 msgstr "Rückwärtssuche"
 
-#: src/command.c:203
+#: src/command.c:207
 msgid "Backward find previous"
 msgstr "Rückwärtssuche fortsetzen"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/command.c:208
+#: src/command.c:212
 msgid "Jump to"
 msgstr "Springe zu"
 
-#: src/command.c:214
+#: src/command.c:218
 msgid "Artist screen"
 msgstr "Künstlerdatenbank"
 
-#: src/command.c:220
+#: src/command.c:224
 msgid "Change search mode"
 msgstr "Suchmodus wechseln"
 
-#: src/command.c:224
+#: src/command.c:228
 msgid "View the selected and the currently playing song"
 msgstr "Zeige das ausgewählte und das gerade laufende Lied an"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/command.c:232
+#: src/command.c:236
 msgid "Interrupt action"
 msgstr "Kommando Unterbrechen"
 
-#: src/command.c:234
+#: src/command.c:238
 msgid "Update Lyrics"
 msgstr "Liedtext aktualisieren"
 
-#: src/command.c:263
+#: src/command.c:267
 msgid "Undefined"
 msgstr "Undefiniert"
 
-#: src/command.c:265
+#: src/command.c:269
 msgid "Space"
 msgstr "Leertaste"
 
-#: src/command.c:267
+#: src/command.c:271
 msgid "Enter"
 msgstr "Enter"
 
-#: src/command.c:269
+#: src/command.c:273
 msgid "Backspace"
 msgstr "Backspace"
 
-#: src/command.c:271
+#: src/command.c:275
 msgid "Delete"
 msgstr "Entf"
 
-#: src/command.c:273
+#: src/command.c:277
 msgid "Up"
 msgstr "Oben"
 
-#: src/command.c:275
+#: src/command.c:279
 msgid "Down"
 msgstr "Unten"
 
-#: src/command.c:277
+#: src/command.c:281
 msgid "Left"
 msgstr "Links"
 
-#: src/command.c:279
+#: src/command.c:283
 msgid "Right"
 msgstr "Rechts"
 
-#: src/command.c:285
+#: src/command.c:289
 msgid "PageDown"
 msgstr "Bild ab"
 
-#: src/command.c:287
+#: src/command.c:291
 msgid "PageUp"
 msgstr "Bild auf"
 
-#: src/command.c:289
+#: src/command.c:293
 msgid "Tab"
 msgstr "Tab"
 
-#: src/command.c:291
+#: src/command.c:295
 msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
-#: src/command.c:293
+#: src/command.c:297
 msgid "Esc"
 msgstr "Esc"
 
-#: src/command.c:295
+#: src/command.c:299
 msgid "Insert"
 msgstr "Einfg"
 
-#: src/command.c:506 src/command.c:512
+#: src/command.c:510 src/command.c:516
 #, c-format
 msgid "Key %s assigned to %s and %s"
 msgstr "Taste %s ist %s und %s zugeordnet"
@@ -1027,11 +1058,21 @@ msgstr "Fehlerhafte Farbdefinition"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:309
+#: src/conf.c:310
 msgid "Unknown screen name"
 msgstr "Unbekannter Anzeigenname"
 
-#: src/conf.c:468
+#: src/conf.c:339
+#, fuzzy
+msgid "Invalid search mode"
+msgstr "Suchmodus wechseln"
+
+#: src/conf.c:362
+#, fuzzy
+msgid "Unknown search mode"
+msgstr "Suchmodus wechseln"
+
+#: src/conf.c:517
 msgid "Unknown configuration parameter"
 msgstr "Unbekannter Konfigurationsparameter"
 
@@ -1041,15 +1082,18 @@ msgstr "Unbekannter Konfigurationsparameter"
 msgid "translator-credits"
 msgstr "Übersetzer"
 
-#: src/list_window.c:476
+#: src/list_window.c:474
 #, fuzzy
 msgid "Range selection disabled"
 msgstr "Auswahlmodus deaktiviert"
 
-#: src/list_window.c:482
+#: src/list_window.c:480
 #, fuzzy
 msgid "Range selection enabled"
 msgstr "Auswahlmodus aktiviert"
+
+#~ msgid "DB last updated"
+#~ msgstr "DB zuletzt aktualisiert"
 
 #~ msgid "Explicitly download lyrics"
 #~ msgstr "Texte explizit herunterladen"
@@ -1074,9 +1118,6 @@ msgstr "Auswahlmodus aktiviert"
 
 #~ msgid "End "
 #~ msgstr "Ende "
-
-#~ msgid "Screen updated!"
-#~ msgstr "Anzeige aktualisiert!"
 
 #~ msgid "Clock"
 #~ msgstr "Uhr"
