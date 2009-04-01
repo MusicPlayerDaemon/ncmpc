@@ -101,40 +101,36 @@ msgid "Error: Screen too small"
 msgstr "Ошибка: Экран слишком мал"
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
 msgstr "Повтор включен"
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
 msgstr "Повтор выключен"
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
 msgstr "Случаный режим включен"
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
 msgstr "Случайный режим выключен"
 
 #: src/screen.c:643
 msgid "Single mode is on"
-msgstr ""
+msgstr "Одиночный режим включен"
 
 #: src/screen.c:644
 msgid "Single mode is off"
-msgstr ""
+msgstr "Одиночный режим выключен"
 
 #: src/screen.c:648
 msgid "Consume mode is on"
-msgstr ""
+msgstr "Режим удаления после проигрывания включен"
 
 #: src/screen.c:649
 msgid "Consume mode is off"
-msgstr ""
+msgstr "Режим удаления после проигрывания выключен"
 
 #: src/screen.c:652
 #, c-format
@@ -221,7 +217,7 @@ msgstr "Поиск назад"
 
 #: src/screen_utils.c:37
 msgid "Jump"
-msgstr ""
+msgstr "Перейти"
 
 #: src/screen_utils.c:118
 msgid "Password"
@@ -265,7 +261,6 @@ msgstr "Плейлист на %s"
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/screen_file.c:135
-#, fuzzy
 msgid "Deleting this item is not possible"
 msgstr "Удаление этого элемента невозможно"
 
@@ -400,7 +395,6 @@ msgid "Keybindings unchanged."
 msgstr "Клавиатурные комбинации не изменились."
 
 #: src/screen_keydef.c:82
-#, fuzzy, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "Ошибка: Не удалось создать директорию ~/.ncmpc - %s"
 
@@ -520,7 +514,7 @@ msgstr "Прервать загрузку"
 
 #: src/screen_help.c:156
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "Загрузить текст проигрываемой композиции"
 
 #: src/screen_help.c:157
 msgid "Save lyrics"
@@ -535,26 +529,24 @@ msgid "Enable/disable output"
 msgstr "Вкл/выкл аудиовыход"
 
 #: src/screen_help.c:169
-#, fuzzy
 msgid "Keydef screen"
-msgstr "Экран помощи"
+msgstr "Экран клавиатурных комбинаций"
 
 #: src/screen_help.c:171
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "Изменение клавиатурных комбинаций для %s"
+msgstr "Изменить комбинации для выбранной команды"
 
 #: src/screen_help.c:172
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "Удалить выбранную комбинацию"
 
 #: src/screen_help.c:173
 msgid "Go up a level"
-msgstr ""
+msgstr "Перейти на уровень выше"
 
 #: src/screen_help.c:174
 msgid "Apply and save changes"
-msgstr ""
+msgstr "Применить и сохранить изменения"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -617,60 +609,56 @@ msgstr "Комментарий"
 
 #: src/screen_song.c:200
 msgid "Path"
-msgstr ""
+msgstr "Путь"
 
 #: src/screen_song.c:201
 msgid "Bitrate"
-msgstr ""
+msgstr "Битрейт"
 
 #: src/screen_song.c:228
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d кбит/с"
 
 #: src/screen_song.c:244
-#, fuzzy
 msgid "Number of artists"
-msgstr "Альбомы исполнителя: %s"
+msgstr "Количество исполнителей"
 
 #: src/screen_song.c:245
 msgid "Number of albums"
-msgstr ""
+msgstr "Количество альбомов"
 
 #: src/screen_song.c:246
 msgid "Number of songs"
-msgstr ""
+msgstr "Количество композиций"
 
 #: src/screen_song.c:247
 msgid "Uptime"
-msgstr ""
+msgstr "Время работы"
 
 #: src/screen_song.c:248
-#, fuzzy
 msgid "Most recent db update"
-msgstr "Экран обновлен!"
+msgstr "Последнее обновление базы"
 
 #: src/screen_song.c:249
-#, fuzzy
 msgid "Playtime"
-msgstr "Воспроизведение"
+msgstr "Время воспроизведения"
 
 #: src/screen_song.c:250
 msgid "DB playtime"
-msgstr ""
+msgstr "Время воспроизведения базы"
 
 #: src/screen_song.c:266
 msgid "MPD statistics"
-msgstr ""
+msgstr "Статистика MPD"
 
 #: src/screen_song.c:311
-#, fuzzy
 msgid "Selected song"
-msgstr "Показать информацию"
+msgstr "Выбранная композиция"
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
-msgstr ""
+msgstr "Проигрываемая композиция"
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -689,18 +677,16 @@ msgid "Move cursor down"
 msgstr "Курсор вниз"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to top of screen"
-msgstr "Курсор вниз"
+msgstr "Переместить курсор в верх экрана"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to middle of screen"
-msgstr "Курсор вниз"
+msgstr "Переместить курсор в середину экрана"
 
 #: src/command.c:84
 msgid "Move cursor to bottom of screen"
-msgstr ""
+msgstr "Переместить курсор в низ экрана"
 
 #: src/command.c:86 src/command.c:285
 msgid "Home"
@@ -720,23 +706,23 @@ msgstr "На страницу вниз"
 
 #: src/command.c:94
 msgid "Range selection"
-msgstr ""
+msgstr "Выбор диапазона"
 
 #: src/command.c:96
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Прокрутка на одну строку вверх"
 
 #: src/command.c:98
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Прокрутка на одну строку вниз"
 
 #: src/command.c:100
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Прокрутка на половину экрана вверх"
 
 #: src/command.c:102
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Прокрутка на половину экрана вниз"
 
 #: src/command.c:107
 msgid "Help screen"
@@ -784,7 +770,7 @@ msgstr "Уменьшить громкость"
 
 #: src/command.c:136
 msgid "Select/deselect song in playlist"
-msgstr "Пометить/Убрать пометку с композиции"
+msgstr "Добавить/убрать композицию из плейлиста"
 
 #: src/command.c:138
 msgid "Select all listed items"
@@ -811,14 +797,12 @@ msgid "Toggle random mode"
 msgstr "Вкл/Выкл случайный режим"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "Переключить режим поиска"
+msgstr "Вкл/Выкл одиночный режим"
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "Вкл/Выкл режим плавного перехода"
+msgstr "Вкл/Выкл режим удаления после проигрывания"
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -882,7 +866,7 @@ msgstr "Предыдущий экран"
 
 #: src/command.c:196
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Последний посещённый экран"
 
 #: src/command.c:201
 msgid "Forward find"
@@ -905,7 +889,7 @@ msgstr "Продолжить поиск назад"
 #. * to the entry which begins with this string
 #: src/command.c:212
 msgid "Jump to"
-msgstr ""
+msgstr "Перейти к"
 
 #: src/command.c:218
 msgid "Artist screen"
@@ -917,7 +901,7 @@ msgstr "Изменить поле для поиска"
 
 #: src/command.c:228
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "Просмотр выбранной и проигрываемой композиций"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
@@ -1069,17 +1053,14 @@ msgid "Unknown screen name"
 msgstr "Неизвестное название экрана"
 
 #: src/conf.c:339
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "Изменить поле для поиска"
+msgstr "Неверный режим поиска"
 
 #: src/conf.c:362
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "Изменить поле для поиска"
+msgstr "Неизвестный режим поиска"
 
 #: src/conf.c:517
-#, fuzzy
 msgid "Unknown configuration parameter"
 msgstr "Неизвестный параметр конфигурации"
 
@@ -1091,11 +1072,11 @@ msgstr "Перевод: Max Arnold <lwarxx@gmail.com>"
 
 #: src/list_window.c:474
 msgid "Range selection disabled"
-msgstr ""
+msgstr "Выбор диапазона выключен"
 
 #: src/list_window.c:480
 msgid "Range selection enabled"
-msgstr ""
+msgstr "Выбор диапазона включен"
 
 #, fuzzy
 #~ msgid "DB last updated"
