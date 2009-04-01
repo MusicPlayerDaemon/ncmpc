@@ -640,11 +640,20 @@ screen_update(mpdclient_t *c)
 
 		if (single != c->status->single)
 			screen_status_printf(c->status->single ?
+					     /* "single" mode means
+						that MPD will
+						automatically stop
+						after playing one
+						single song */
 					     _("Single mode is on") :
 					     _("Single mode is off"));
 
 		if (consume != c->status->consume)
 			screen_status_printf(c->status->consume ?
+					     /* "consume" mode means
+						that MPD removes each
+						song which has
+						finished playing */
 					     _("Consume mode is on") :
 					     _("Consume mode is off"));
 

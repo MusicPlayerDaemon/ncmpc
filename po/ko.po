@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-31 21:24+0200\n"
+"POT-Creation-Date: 2009-04-01 23:16+0200\n"
 "PO-Revision-Date: 2009-04-01 10:17+0000\n"
 "Last-Translator: atie <atie.at.matrix@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -116,60 +116,69 @@ msgstr "무작위 모드 켜짐"
 msgid "Random mode is off"
 msgstr "무작위 모드 꺼짐"
 
-#: src/screen.c:643
+#. "single" mode means
+#. that MPD will
+#. automatically stop
+#. after playing one
+#. single song
+#: src/screen.c:648
 msgid "Single mode is on"
 msgstr "싱글 모드 켜짐"
 
-#: src/screen.c:644
+#: src/screen.c:649
 msgid "Single mode is off"
 msgstr "싱글 모드 꺼짐"
 
-#: src/screen.c:648
+#. "consume" mode means
+#. that MPD removes each
+#. song which has
+#. finished playing
+#: src/screen.c:657
 msgid "Consume mode is on"
 msgstr "소비 모드 켜짐"
 
-#: src/screen.c:649
+#: src/screen.c:658
 msgid "Consume mode is off"
 msgstr "소비 모드 꺼짐"
 
-#: src/screen.c:652
+#: src/screen.c:661
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "곡바뀜 %d 초"
 
-#: src/screen.c:655
+#: src/screen.c:664
 msgid "Database updated"
 msgstr "데이터베이스를 업데이트 하였습니다."
 
-#: src/screen.c:790 src/screen_play.c:638
+#: src/screen.c:799 src/screen_play.c:638
 msgid "Shuffled playlist"
 msgstr "섞여진 연주목록"
 
-#: src/screen.c:794
+#: src/screen.c:803
 msgid "Cleared playlist"
 msgstr "지워진 연주목록"
 
-#: src/screen.c:817 src/screen_file.c:274
+#: src/screen.c:826 src/screen_file.c:274
 msgid "Database update started"
 msgstr "데이터베이스 업데이트를 시작합니다."
 
-#: src/screen.c:819 src/screen_file.c:281
+#: src/screen.c:828 src/screen_file.c:281
 msgid "Database update running..."
 msgstr "데이터베이스 업데이트를 실행 중..."
 
-#: src/screen.c:855
+#: src/screen.c:864
 msgid "Find mode: Wrapped"
 msgstr "찾기 방식: 줄 이어짐"
 
-#: src/screen.c:856
+#: src/screen.c:865
 msgid "Find mode: Normal"
 msgstr "찾기 방식: 보통"
 
-#: src/screen.c:861
+#: src/screen.c:870
 msgid "Auto center mode: On"
 msgstr "자동 가운데 방식: 켜짐"
 
-#: src/screen.c:862
+#: src/screen.c:871
 msgid "Auto center mode: Off"
 msgstr "자동 가운데 방식: 꺼짐"
 

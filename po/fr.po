@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-31 21:24+0200\n"
+"POT-Creation-Date: 2009-04-01 23:16+0200\n"
 "PO-Revision-Date: 2009-03-27 00:44+0100\n"
 "Last-Translator: Romain Bignon <romain@peerfuse.org>\n"
 "Language-Team:  <fr@li.org>\n"
@@ -120,60 +120,69 @@ msgstr "Mode Aléatoire activé"
 msgid "Random mode is off"
 msgstr "Mode Aléatoire désactivé"
 
-#: src/screen.c:643
+#. "single" mode means
+#. that MPD will
+#. automatically stop
+#. after playing one
+#. single song
+#: src/screen.c:648
 msgid "Single mode is on"
 msgstr ""
 
-#: src/screen.c:644
+#: src/screen.c:649
 msgid "Single mode is off"
 msgstr ""
 
-#: src/screen.c:648
+#. "consume" mode means
+#. that MPD removes each
+#. song which has
+#. finished playing
+#: src/screen.c:657
 msgid "Consume mode is on"
 msgstr ""
 
-#: src/screen.c:649
+#: src/screen.c:658
 msgid "Consume mode is off"
 msgstr ""
 
-#: src/screen.c:652
+#: src/screen.c:661
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Fondu sur %d seconde(s)"
 
-#: src/screen.c:655
+#: src/screen.c:664
 msgid "Database updated"
 msgstr "Base de données mise à jour"
 
-#: src/screen.c:790 src/screen_play.c:638
+#: src/screen.c:799 src/screen_play.c:638
 msgid "Shuffled playlist"
 msgstr "Liste de lecture aléatoire"
 
-#: src/screen.c:794
+#: src/screen.c:803
 msgid "Cleared playlist"
 msgstr "Liste de lecture vidée"
 
-#: src/screen.c:817 src/screen_file.c:274
+#: src/screen.c:826 src/screen_file.c:274
 msgid "Database update started"
 msgstr "Début de la mise à jour de la base de données"
 
-#: src/screen.c:819 src/screen_file.c:281
+#: src/screen.c:828 src/screen_file.c:281
 msgid "Database update running..."
 msgstr "Mise à jour de la base de données en cours..."
 
-#: src/screen.c:855
+#: src/screen.c:864
 msgid "Find mode: Wrapped"
 msgstr "Mode de recherche: Enveloppe"
 
-#: src/screen.c:856
+#: src/screen.c:865
 msgid "Find mode: Normal"
 msgstr "Mode de recherche: Normal"
 
-#: src/screen.c:861
+#: src/screen.c:870
 msgid "Auto center mode: On"
 msgstr "Mode d'auto-centrage: Actif"
 
-#: src/screen.c:862
+#: src/screen.c:871
 msgid "Auto center mode: Off"
 msgstr "Mode d'auto-centrage: Inactif"
 

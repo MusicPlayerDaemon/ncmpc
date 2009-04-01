@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-31 21:24+0200\n"
+"POT-Creation-Date: 2009-04-01 23:16+0200\n"
 "PO-Revision-Date: 2009-02-17 14:55+0100\n"
 "Last-Translator: Jon Bergli Heier <snakebite@jvnv.net>\n"
 "Language-Team: no <no@li.org>\n"
@@ -120,60 +120,69 @@ msgstr "Random er på"
 msgid "Random mode is off"
 msgstr "Random er av"
 
-#: src/screen.c:643
+#. "single" mode means
+#. that MPD will
+#. automatically stop
+#. after playing one
+#. single song
+#: src/screen.c:648
 msgid "Single mode is on"
 msgstr ""
 
-#: src/screen.c:644
+#: src/screen.c:649
 msgid "Single mode is off"
 msgstr ""
 
-#: src/screen.c:648
+#. "consume" mode means
+#. that MPD removes each
+#. song which has
+#. finished playing
+#: src/screen.c:657
 msgid "Consume mode is on"
 msgstr ""
 
-#: src/screen.c:649
+#: src/screen.c:658
 msgid "Consume mode is off"
 msgstr ""
 
-#: src/screen.c:652
+#: src/screen.c:661
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Crossfade %d sekunder"
 
-#: src/screen.c:655
+#: src/screen.c:664
 msgid "Database updated"
 msgstr "Databasen er oppdatert"
 
-#: src/screen.c:790 src/screen_play.c:638
+#: src/screen.c:799 src/screen_play.c:638
 msgid "Shuffled playlist"
 msgstr "Tilfeldigjort spillelisten"
 
-#: src/screen.c:794
+#: src/screen.c:803
 msgid "Cleared playlist"
 msgstr "Sletter spillelisten"
 
-#: src/screen.c:817 src/screen_file.c:274
+#: src/screen.c:826 src/screen_file.c:274
 msgid "Database update started"
 msgstr "Oppdaterer databasen"
 
-#: src/screen.c:819 src/screen_file.c:281
+#: src/screen.c:828 src/screen_file.c:281
 msgid "Database update running..."
 msgstr "Databasen oppdateres..."
 
-#: src/screen.c:855
+#: src/screen.c:864
 msgid "Find mode: Wrapped"
 msgstr "Søkt rundt (starter på ny)"
 
-#: src/screen.c:856
+#: src/screen.c:865
 msgid "Find mode: Normal"
 msgstr "Søk normalt (til slutt/begynnelse)"
 
-#: src/screen.c:861
+#: src/screen.c:870
 msgid "Auto center mode: On"
 msgstr "Automatisk sentrering er på"
 
-#: src/screen.c:862
+#: src/screen.c:871
 msgid "Auto center mode: Off"
 msgstr "Automatisk centrering er av"
 
