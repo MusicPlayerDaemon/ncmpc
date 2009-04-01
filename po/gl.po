@@ -1,15 +1,15 @@
 # GALICIAN (AGAL) TRANSLATION OF NCMPC.
-# Copyright (C) 2006-2008
+# Copyright (C) 2006-2009
 # This file is distributed under the same license as the ncmpc package.
-# Johám-Luís Miguéns Vila <galiza.ceivet@gmail.com>, 2006-2008
+# Johám-Luís Miguéns Vila <miluxovi@ashtophet.org>, 2006-2009
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-31 21:24+0200\n"
-"PO-Revision-Date: 2009-02-17 14:54+0100\n"
-"Last-Translator: Johám-Luís Miguéns Vila <galiza.ceive@gmail.com>\n"
+"PO-Revision-Date: 2009-04-01 16:28+0200\n"
+"Last-Translator: Johám-Luís Miguéns Vila <miluxovi@ashtophet.org>\n"
 "Language-Team: galician\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -100,40 +100,36 @@ msgid "Error: Screen too small"
 msgstr "Erro: O écrã é demasiado pequeno"
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
-msgstr "Repetiçom activada"
+msgstr "Modo de repetiçom activado"
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
-msgstr "Repetiçom desactivada"
+msgstr "Modo de repetiçom desactivado"
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
-msgstr "Aleatório activado"
+msgstr "Modo aleatório activado"
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
-msgstr "Aleatório desactivado"
+msgstr "Modo aleatório desactivado"
 
 #: src/screen.c:643
 msgid "Single mode is on"
-msgstr ""
+msgstr "Modo compacto activado"
 
 #: src/screen.c:644
 msgid "Single mode is off"
-msgstr ""
+msgstr "Modo compacto desactivado"
 
 #: src/screen.c:648
 msgid "Consume mode is on"
-msgstr ""
+msgstr "Modo completo activado"
 
 #: src/screen.c:649
 msgid "Consume mode is off"
-msgstr ""
+msgstr "Modo completo desactivado"
 
 #: src/screen.c:652
 #, c-format
@@ -221,12 +217,11 @@ msgstr "Procurar atrás"
 
 #: src/screen_utils.c:37
 msgid "Jump"
-msgstr ""
+msgstr "Ir a"
 
 #: src/screen_utils.c:118
-#, fuzzy
 msgid "Password"
-msgstr "Contrasinal :"
+msgstr "Contrasinal"
 
 #: src/screen_utils.c:209
 #, c-format
@@ -234,9 +229,8 @@ msgid "Unable to find '%s'"
 msgstr "Nom se puido atopar '%s'"
 
 #: src/screen_play.c:259
-#, fuzzy
 msgid "Save playlist as"
-msgstr "Guardar lista como: "
+msgstr "Guardar a lista como"
 
 #: src/screen_play.c:292
 #, c-format
@@ -252,12 +246,11 @@ msgstr "Abortado"
 #: src/screen_play.c:321
 #, c-format
 msgid "Saved %s"
-msgstr "Guardado %s"
+msgstr "Guardou-se %s"
 
 #: src/screen_play.c:397
-#, fuzzy
 msgid "Add"
-msgstr "Engadir: "
+msgstr "Engadir"
 
 #: src/screen_play.c:505
 #, c-format
@@ -269,7 +262,7 @@ msgstr "Lista em %s"
 #. or a directory or something else
 #: src/screen_file.c:135
 msgid "Deleting this item is not possible"
-msgstr "Nom é possíbel eliminar o elemento"
+msgstr "Nom é possíbel eliminar esse elemento"
 
 #: src/screen_file.c:142
 #, c-format
@@ -399,12 +392,12 @@ msgstr "Tes novos atalhos de teclado"
 
 #: src/screen_keydef.c:72
 msgid "Keybindings unchanged."
-msgstr "Atalhos de teclado sem mudanças"
+msgstr "Nom se mudárom os atalhos de teclado"
 
 #: src/screen_keydef.c:82
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "Erro: impossível criar o cartafol ~/.ncmpc - %s"
+msgstr "Erro: Nom se puido criar o cartafol ~/.ncmpc - %s"
 
 #: src/screen_keydef.c:91 src/screen_keydef.c:98
 #, c-format
@@ -522,7 +515,7 @@ msgstr "Interromper a descarga"
 
 #: src/screen_help.c:156
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "Obter as letras da cançom reproduzida"
 
 #: src/screen_help.c:157
 msgid "Save lyrics"
@@ -537,26 +530,24 @@ msgid "Enable/disable output"
 msgstr "Habilitar/Deshabilitar saída"
 
 #: src/screen_help.c:169
-#, fuzzy
 msgid "Keydef screen"
-msgstr "Écrã de ajuda"
+msgstr "Écrã de atalhos"
 
 #: src/screen_help.c:171
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "Editar atalhos para %s"
+msgstr "Editar atalhos para o comando seleccionado"
 
 #: src/screen_help.c:172
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "Eliminar o atalho seleccionado"
 
 #: src/screen_help.c:173
 msgid "Go up a level"
-msgstr ""
+msgstr "Subir um nível"
 
 #: src/screen_help.c:174
 msgid "Apply and save changes"
-msgstr ""
+msgstr "Aplicar e guardar as mudanças"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -618,60 +609,56 @@ msgstr "Comentário"
 
 #: src/screen_song.c:200
 msgid "Path"
-msgstr ""
+msgstr "Rota"
 
 #: src/screen_song.c:201
 msgid "Bitrate"
-msgstr ""
+msgstr "Bitrate"
 
 #: src/screen_song.c:228
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kbps"
 
 #: src/screen_song.c:244
-#, fuzzy
 msgid "Number of artists"
-msgstr "Albumes do artista: %s"
+msgstr "Número de artistas"
 
 #: src/screen_song.c:245
 msgid "Number of albums"
-msgstr ""
+msgstr "Número de álbuns"
 
 #: src/screen_song.c:246
 msgid "Number of songs"
-msgstr ""
+msgstr "Número de canções"
 
 #: src/screen_song.c:247
 msgid "Uptime"
-msgstr ""
+msgstr "Tempo de execuçom"
 
 #: src/screen_song.c:248
-#, fuzzy
 msgid "Most recent db update"
-msgstr "Écrã actualizado!"
+msgstr "Última actualizaçom da BD"
 
 #: src/screen_song.c:249
-#, fuzzy
 msgid "Playtime"
-msgstr "Tocar"
+msgstr "Tempo de reproduçom"
 
 #: src/screen_song.c:250
 msgid "DB playtime"
-msgstr ""
+msgstr "Duraçom acumulada da BD"
 
 #: src/screen_song.c:266
 msgid "MPD statistics"
-msgstr ""
+msgstr "Estatísticas do MPD"
 
 #: src/screen_song.c:311
-#, fuzzy
 msgid "Selected song"
-msgstr "Ver a cançom"
+msgstr "Cançom seleccionada"
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
-msgstr ""
+msgstr "Cançom que se está a reproduzir"
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -690,18 +677,16 @@ msgid "Move cursor down"
 msgstr "Mover o cursor abaixo"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to top of screen"
-msgstr "Mover o cursor abaixo"
+msgstr "Mover o cursor até ao começo do écrã"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to middle of screen"
-msgstr "Mover o cursor abaixo"
+msgstr "Mover o cursor até à metada do écrã"
 
 #: src/command.c:84
 msgid "Move cursor to bottom of screen"
-msgstr ""
+msgstr "Mover o cursor até ao pé do écrâ"
 
 #: src/command.c:86 src/command.c:285
 msgid "Home"
@@ -721,23 +706,23 @@ msgstr "Retrocesso página"
 
 #: src/command.c:94
 msgid "Range selection"
-msgstr ""
+msgstr "Selección do rango"
 
 #: src/command.c:96
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Subir umha linha"
 
 #: src/command.c:98
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Descer umha linha"
 
 #: src/command.c:100
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Subir medio écrã"
 
 #: src/command.c:102
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Descer medio écrã"
 
 #: src/command.c:107
 msgid "Help screen"
@@ -812,14 +797,12 @@ msgid "Toggle random mode"
 msgstr "Activar/desactivar o modo aleatório"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "Alternar o modo de procura"
+msgstr "Alternar o modo compacto"
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "Activar/desactivar o modo esvaecimento"
+msgstr "Alternar o modo completo"
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -883,7 +866,7 @@ msgstr "Écrã anterior"
 
 #: src/command.c:196
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Voltar ao écrã anterior"
 
 #: src/command.c:201
 msgid "Forward find"
@@ -906,7 +889,7 @@ msgstr "Procurar cara atrás, anterior"
 #. * to the entry which begins with this string
 #: src/command.c:212
 msgid "Jump to"
-msgstr ""
+msgstr "Ir a"
 
 #: src/command.c:218
 msgid "Artist screen"
@@ -918,7 +901,7 @@ msgstr "Mudar o modo de procura"
 
 #: src/command.c:228
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "Ver a cançom seleccionada e a que se está a reproduzir"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
@@ -1070,14 +1053,12 @@ msgid "Unknown screen name"
 msgstr "Nome de écrã desconhecido"
 
 #: src/conf.c:339
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "Mudar o modo de procura"
+msgstr "O modo de procura nom é válido"
 
 #: src/conf.c:362
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "Mudar o modo de procura"
+msgstr "Nom se reconhece o modo de procura"
 
 #: src/conf.c:517
 msgid "Unknown configuration parameter"
@@ -1091,11 +1072,11 @@ msgstr "ashtophet"
 
 #: src/list_window.c:474
 msgid "Range selection disabled"
-msgstr ""
+msgstr "A selecçom de rango está deshabilitada"
 
 #: src/list_window.c:480
 msgid "Range selection enabled"
-msgstr ""
+msgstr "A selecçom de rango está habilitada"
 
 #, fuzzy
 #~ msgid "DB last updated"
