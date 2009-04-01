@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-01 23:16+0200\n"
-"PO-Revision-Date: 2009-02-17 14:55+0100\n"
+"PO-Revision-Date: 2009-04-01 22:58+0200\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -99,22 +99,18 @@ msgid "Error: Screen too small"
 msgstr "Chyba: Okno je príliš malé"
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
-msgstr "Opakovanie je zapnuté"
+msgstr "Režim opakovania zapnutý"
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
-msgstr "Opakovanie je vypnuté"
+msgstr "Režim opakovania vypnutý"
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
 msgstr "Náhodný režim zapnutý"
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
 msgstr "Náhodný režim vypnutý"
 
@@ -125,11 +121,11 @@ msgstr "Náhodný režim vypnutý"
 #. single song
 #: src/screen.c:648
 msgid "Single mode is on"
-msgstr ""
+msgstr "Jednotlivý režim zapnutý"
 
 #: src/screen.c:649
 msgid "Single mode is off"
-msgstr ""
+msgstr "Jednotlivý režim vypnutý"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -137,11 +133,11 @@ msgstr ""
 #. finished playing
 #: src/screen.c:657
 msgid "Consume mode is on"
-msgstr ""
+msgstr "Spotrebný režim zapnutý"
 
 #: src/screen.c:658
 msgid "Consume mode is off"
-msgstr ""
+msgstr "Spotrebný režim vypnutý"
 
 #: src/screen.c:661
 #, c-format
@@ -228,7 +224,7 @@ msgstr "Vyhľadať spätne"
 
 #: src/screen_utils.c:37
 msgid "Jump"
-msgstr ""
+msgstr "Skok"
 
 #: src/screen_utils.c:118
 msgid "Password"
@@ -406,7 +402,7 @@ msgid "Keybindings unchanged."
 msgstr "Priradenie klávesov sa nezmenilo."
 
 #: src/screen_keydef.c:82
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "Chyba: Nepodarilo sa vytvoriť adresár ~/.ncmpc - %s"
 
@@ -526,7 +522,7 @@ msgstr "Zachytené prerušenie"
 
 #: src/screen_help.c:156
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "Stiahnuť text pre momentálne prehrávanú pieseň"
 
 #: src/screen_help.c:157
 msgid "Save lyrics"
@@ -541,26 +537,24 @@ msgid "Enable/disable output"
 msgstr "Povoliť/vypnúť výstup"
 
 #: src/screen_help.c:169
-#, fuzzy
 msgid "Keydef screen"
-msgstr "Okno s pomocou"
+msgstr "Obrazovka s nastavením kláves"
 
 #: src/screen_help.c:171
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "Upraviť klávesy pre %s"
+msgstr "Upraviť kláves pre vybraný príkaz"
 
 #: src/screen_help.c:172
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "Odstrániť vybrané nastavenie kláves"
 
 #: src/screen_help.c:173
 msgid "Go up a level"
-msgstr ""
+msgstr "Prejsť o úroveň vyššie"
 
 #: src/screen_help.c:174
 msgid "Apply and save changes"
-msgstr ""
+msgstr "Použiť a uložiť zmeny"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -622,60 +616,56 @@ msgstr "Komentár"
 
 #: src/screen_song.c:200
 msgid "Path"
-msgstr ""
+msgstr "Cesta"
 
 #: src/screen_song.c:201
 msgid "Bitrate"
-msgstr ""
+msgstr "Bitový tok"
 
 #: src/screen_song.c:228
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kbps"
 
 #: src/screen_song.c:244
-#, fuzzy
 msgid "Number of artists"
-msgstr "Albumy od interpreta: %s"
+msgstr "Počet interpretov"
 
 #: src/screen_song.c:245
 msgid "Number of albums"
-msgstr ""
+msgstr "Počet albumov"
 
 #: src/screen_song.c:246
 msgid "Number of songs"
-msgstr ""
+msgstr "Počet piesní"
 
 #: src/screen_song.c:247
 msgid "Uptime"
-msgstr ""
+msgstr "Uptime"
 
 #: src/screen_song.c:248
-#, fuzzy
 msgid "Most recent db update"
-msgstr "Okno obnovené!"
+msgstr "Najčerstvejší update databáze"
 
 #: src/screen_song.c:249
-#, fuzzy
 msgid "Playtime"
-msgstr "Prehrávať"
+msgstr "Čas hrania"
 
 #: src/screen_song.c:250
 msgid "DB playtime"
-msgstr ""
+msgstr "Čas hrania databáze"
 
 #: src/screen_song.c:266
 msgid "MPD statistics"
-msgstr ""
+msgstr "Štatistiky MPD"
 
 #: src/screen_song.c:311
-#, fuzzy
 msgid "Selected song"
-msgstr "Zobraziť skladbu"
+msgstr "Vybraná pieseň"
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
-msgstr ""
+msgstr "Momentálne prehrávaná pieseň"
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -694,18 +684,16 @@ msgid "Move cursor down"
 msgstr "Presunúť kurzor nadol"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to top of screen"
-msgstr "Presunúť kurzor nadol"
+msgstr "Presunúť na vrch obrazovky"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to middle of screen"
-msgstr "Presunúť kurzor nadol"
+msgstr "Presunúť kurzor do stredu obrazovky"
 
 #: src/command.c:84
 msgid "Move cursor to bottom of screen"
-msgstr ""
+msgstr "Presuňte kurzor na spodok obrazovky"
 
 #: src/command.c:86 src/command.c:285
 msgid "Home"
@@ -725,23 +713,23 @@ msgstr "Page down"
 
 #: src/command.c:94
 msgid "Range selection"
-msgstr ""
+msgstr "Výber rozsahu"
 
 #: src/command.c:96
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Posun o jeden riadok nahor"
 
 #: src/command.c:98
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Posun o jeden riadok nadol"
 
 #: src/command.c:100
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Posun o polovicu obrazovky nahor"
 
 #: src/command.c:102
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Posun o polovicu obrazovky nadol"
 
 #: src/command.c:107
 msgid "Help screen"
@@ -816,14 +804,12 @@ msgid "Toggle random mode"
 msgstr "Prepnúť náhodný režim"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "Prepnúť režim vyhľadávania"
+msgstr "Prepnúť jednotlivý režim"
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "Prepnúť režím prelínania skladieb"
+msgstr "Prepnúť spotrebný režim"
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -887,7 +873,7 @@ msgstr "Predchádzajúca obrazovka"
 
 #: src/command.c:196
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Prepnúť na predchádzajúcu obrazovku"
 
 #: src/command.c:201
 msgid "Forward find"
@@ -910,7 +896,7 @@ msgstr "Pokračovať v hľadaní vzad"
 #. * to the entry which begins with this string
 #: src/command.c:212
 msgid "Jump to"
-msgstr ""
+msgstr "Skok na"
 
 #: src/command.c:218
 msgid "Artist screen"
@@ -922,7 +908,7 @@ msgstr "Zmeniť režim vyhľadávania"
 
 #: src/command.c:228
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "Zobraziť vybranú a momentálne prehrávanú pieseň"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
@@ -1074,14 +1060,12 @@ msgid "Unknown screen name"
 msgstr "Neznámy názov obrazovky"
 
 #: src/conf.c:339
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "Zmeniť režim vyhľadávania"
+msgstr "Neplatný režim vyhľadávania"
 
 #: src/conf.c:362
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "Zmeniť režim vyhľadávania"
+msgstr "Neznámy režim vyhľadávania"
 
 #: src/conf.c:517
 msgid "Unknown configuration parameter"
@@ -1095,11 +1079,11 @@ msgstr "Jozef Riha <jose1711@gmail.com>"
 
 #: src/list_window.c:474
 msgid "Range selection disabled"
-msgstr ""
+msgstr "Výber rozsahu vypnutý"
 
 #: src/list_window.c:480
 msgid "Range selection enabled"
-msgstr ""
+msgstr "Výber rozsahu zapnutý"
 
 #, fuzzy
 #~ msgid "DB last updated"
