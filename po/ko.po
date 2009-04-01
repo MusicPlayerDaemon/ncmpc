@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-31 21:24+0200\n"
-"PO-Revision-Date: 2009-02-20 15:22+0000\n"
+"PO-Revision-Date: 2009-04-01 10:17+0000\n"
 "Last-Translator: atie <atie.at.matrix@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-24 13:16+0000\n"
+"X-Launchpad-Export-Date: 2009-04-01 10:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -101,40 +101,36 @@ msgid "Error: Screen too small"
 msgstr "오류: 화면이 너무 작습니다."
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
-msgstr "반복연주 켜짐"
+msgstr "반복 모드 켜짐"
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
-msgstr "반복연주 꺼짐"
+msgstr "반복 모드 꺼짐"
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
-msgstr "무작위연주 켜짐"
+msgstr "무작위 모드 켜짐"
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
-msgstr "무작위연주 꺼짐"
+msgstr "무작위 모드 꺼짐"
 
 #: src/screen.c:643
 msgid "Single mode is on"
-msgstr ""
+msgstr "싱글 모드 켜짐"
 
 #: src/screen.c:644
 msgid "Single mode is off"
-msgstr ""
+msgstr "싱글 모드 꺼짐"
 
 #: src/screen.c:648
 msgid "Consume mode is on"
-msgstr ""
+msgstr "소비 모드 켜짐"
 
 #: src/screen.c:649
 msgid "Consume mode is off"
-msgstr ""
+msgstr "소비 모드 꺼짐"
 
 #: src/screen.c:652
 #, c-format
@@ -399,9 +395,9 @@ msgid "Keybindings unchanged."
 msgstr "키 조합을 바꾸지 않았습니다."
 
 #: src/screen_keydef.c:82
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "디렉토리 ~/.ncmpc를 만들 수 없습니다. - %s"
+msgstr "오류: ~/.ncmpc 폴더를 만들 수 없습니다. - %s"
 
 #: src/screen_keydef.c:91 src/screen_keydef.c:98
 #, c-format
@@ -519,7 +515,7 @@ msgstr "가사 가져오기 중지"
 
 #: src/screen_help.c:156
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "현재 연주중인 노래의 가사를 다운로드"
 
 #: src/screen_help.c:157
 msgid "Save lyrics"
@@ -534,26 +530,24 @@ msgid "Enable/disable output"
 msgstr "출력 사용하기/안하기"
 
 #: src/screen_help.c:169
-#, fuzzy
 msgid "Keydef screen"
-msgstr "도움말 화면"
+msgstr "키설정 화면"
 
 #: src/screen_help.c:171
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "%s(을)를 위한 키 편집"
+msgstr "선택한 명령을 위한 키설정 편집하기"
 
 #: src/screen_help.c:172
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "선택한 키설정 삭제하기"
 
 #: src/screen_help.c:173
 msgid "Go up a level"
-msgstr ""
+msgstr "한 단계 위로 가기"
 
 #: src/screen_help.c:174
 msgid "Apply and save changes"
-msgstr ""
+msgstr "적용하고 변경사항을 저장하기"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -619,55 +613,52 @@ msgstr "경로"
 
 #: src/screen_song.c:201
 msgid "Bitrate"
-msgstr ""
+msgstr "비트 전송률"
 
 #: src/screen_song.c:228
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kbps"
 
 #: src/screen_song.c:244
-#, fuzzy
 msgid "Number of artists"
-msgstr "아티스트의 앨범: %s"
+msgstr "아티스트 수"
 
 #: src/screen_song.c:245
 msgid "Number of albums"
-msgstr ""
+msgstr "앨범 수"
 
 #: src/screen_song.c:246
 msgid "Number of songs"
-msgstr ""
+msgstr "곡 수"
 
 #: src/screen_song.c:247
 msgid "Uptime"
-msgstr ""
+msgstr "업타임"
 
 #: src/screen_song.c:248
 msgid "Most recent db update"
-msgstr ""
+msgstr "가장 최근의 데이타베이스 업데이트"
 
 #: src/screen_song.c:249
-#, fuzzy
 msgid "Playtime"
-msgstr "연주"
+msgstr "연주시간"
 
 #: src/screen_song.c:250
 msgid "DB playtime"
-msgstr ""
+msgstr "데이타베이스 연주시간"
 
 #: src/screen_song.c:266
 msgid "MPD statistics"
-msgstr ""
+msgstr "MPD 통계"
 
 #: src/screen_song.c:311
-#, fuzzy
 msgid "Selected song"
-msgstr "곡 보기"
+msgstr "선택한 곡"
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
-msgstr ""
+msgstr "현재 연주중인 곡"
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -686,18 +677,16 @@ msgid "Move cursor down"
 msgstr "커서를 아래로 내리기"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to top of screen"
-msgstr "커서를 아래로 내리기"
+msgstr "화면 상단으로 커서를 옮기기"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to middle of screen"
-msgstr "커서를 아래로 내리기"
+msgstr "화면 중간으로 커서를 옮기기"
 
 #: src/command.c:84
 msgid "Move cursor to bottom of screen"
-msgstr ""
+msgstr "화면 하단으로 커서를 옮기기"
 
 #: src/command.c:86 src/command.c:285
 msgid "Home"
@@ -716,25 +705,24 @@ msgid "Page down"
 msgstr "아래쪽 페이지"
 
 #: src/command.c:94
-#, fuzzy
 msgid "Range selection"
-msgstr "비쥬얼 선택"
+msgstr "범위 선택"
 
 #: src/command.c:96
 msgid "Scroll up one line"
-msgstr ""
+msgstr "한 줄 위로 올리기"
 
 #: src/command.c:98
 msgid "Scroll down one line"
-msgstr ""
+msgstr "한 줄 아래로 내리기"
 
 #: src/command.c:100
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "화면 반 위로 올리기"
 
 #: src/command.c:102
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "화면 반 아래로 내리기"
 
 #: src/command.c:107
 msgid "Help screen"
@@ -809,14 +797,12 @@ msgid "Toggle random mode"
 msgstr "무작위연주 모드 토클"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "찾기 모드 토글"
+msgstr "싱글 모드 토글"
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "곡바꿈 모드 토글"
+msgstr "소비 모드 토글"
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -880,7 +866,7 @@ msgstr "이전 화면"
 
 #: src/command.c:196
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "가장 최근 화면으로 교환"
 
 #: src/command.c:201
 msgid "Forward find"
@@ -915,7 +901,7 @@ msgstr "찾기 모드 변경"
 
 #: src/command.c:228
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "선택하고 현재 연주중인 곡을 보기"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
@@ -990,7 +976,7 @@ msgstr "Insert"
 #: src/command.c:510 src/command.c:516
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr ""
+msgstr "키 %s (이)가 %s (와)과 %s (으)로 지정되었습니다."
 
 #: src/colors.c:164
 #, c-format
@@ -1067,14 +1053,12 @@ msgid "Unknown screen name"
 msgstr "알 수 없는 화면 이름"
 
 #: src/conf.c:339
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "찾기 모드 변경"
+msgstr "잘못된 검색 모드"
 
 #: src/conf.c:362
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "찾기 모드 변경"
+msgstr "알 수 없는 검색 모드"
 
 #: src/conf.c:517
 msgid "Unknown configuration parameter"
@@ -1090,21 +1074,15 @@ msgstr ""
 "  bluejay https://launchpad.net/~jaypedia"
 
 #: src/list_window.c:474
-#, fuzzy
 msgid "Range selection disabled"
-msgstr "비쥬얼 선택을 사용하지 않습니다"
+msgstr "범위 선택 기능을 사용하지 않습니다."
 
 #: src/list_window.c:480
-#, fuzzy
 msgid "Range selection enabled"
-msgstr "비쥬얼 선택을 사용합니다"
-
-#, fuzzy
-#~ msgid "DB last updated"
-#~ msgstr "데이터베이스를 업데이트 하였습니다."
-
-#~ msgid "Explicitly download lyrics"
-#~ msgstr "가사를 명식적으로 다운로드"
+msgstr "범위 선택 기능을 사용합니다."
 
 #~ msgid "Search: "
 #~ msgstr "찾기: "
+
+#~ msgid "Explicitly download lyrics"
+#~ msgstr "가사를 명식적으로 다운로드"
