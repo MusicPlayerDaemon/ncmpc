@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-31 21:24+0200\n"
-"PO-Revision-Date: 2009-03-30 15:53+0000\n"
+"PO-Revision-Date: 2009-04-01 09:24+0000\n"
 "Last-Translator: Vojtěch Trefný <vojtech.trefny@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-31 19:20+0000\n"
+"X-Launchpad-Export-Date: 2009-04-01 09:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -101,22 +101,18 @@ msgid "Error: Screen too small"
 msgstr "Chyba: Příliš malá obrazovka"
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
 msgstr "Opakování je zapnuto"
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
 msgstr "Opakování je vypnuto"
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
 msgstr "Náhodné přehrávání je zapnuto"
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
 msgstr "Náhodné přehrávání je vypnuto"
 
@@ -399,7 +395,7 @@ msgid "Keybindings unchanged."
 msgstr "Klávesové zkratky nezměněny"
 
 #: src/screen_keydef.c:82
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "Chyba: Nemohu vytvořit adresář ~/.ncmpc - %s"
 
@@ -519,7 +515,7 @@ msgstr "Přerušit načítání"
 
 #: src/screen_help.c:156
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "Stáhnout text pro aktuálně přehrávanou skladbu"
 
 #: src/screen_help.c:157
 msgid "Save lyrics"
@@ -534,14 +530,12 @@ msgid "Enable/disable output"
 msgstr "Povolit/zakázat výstup"
 
 #: src/screen_help.c:169
-#, fuzzy
 msgid "Keydef screen"
-msgstr "Obrazovka nápovědy"
+msgstr ""
 
 #: src/screen_help.c:171
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "Upravit klávesové zkratky pro %s"
+msgstr ""
 
 #: src/screen_help.c:172
 msgid "Remove selected keydef"
@@ -619,38 +613,36 @@ msgstr "Cesta"
 
 #: src/screen_song.c:201
 msgid "Bitrate"
-msgstr ""
+msgstr "Bitrate"
 
 #: src/screen_song.c:228
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kbps"
 
 #: src/screen_song.c:244
-#, fuzzy
 msgid "Number of artists"
-msgstr "Alba interpreta: %s"
+msgstr "Počet interpretů"
 
 #: src/screen_song.c:245
 msgid "Number of albums"
-msgstr ""
+msgstr "Počet alb"
 
 #: src/screen_song.c:246
 msgid "Number of songs"
-msgstr ""
+msgstr "Počet skladeb"
 
 #: src/screen_song.c:247
 msgid "Uptime"
-msgstr ""
+msgstr "Doba běhu"
 
 #: src/screen_song.c:248
 msgid "Most recent db update"
 msgstr ""
 
 #: src/screen_song.c:249
-#, fuzzy
 msgid "Playtime"
-msgstr "Přehrát"
+msgstr "Čas přehrávání"
 
 #: src/screen_song.c:250
 msgid "DB playtime"
@@ -658,16 +650,15 @@ msgstr ""
 
 #: src/screen_song.c:266
 msgid "MPD statistics"
-msgstr ""
+msgstr "MPD statistiky"
 
 #: src/screen_song.c:311
-#, fuzzy
 msgid "Selected song"
-msgstr "Zobrazit skladbu"
+msgstr "Vybraná skladba"
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
-msgstr ""
+msgstr "Právě přehrávaná skladba"
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -686,18 +677,16 @@ msgid "Move cursor down"
 msgstr "Posunout kurzoru dolů"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to top of screen"
-msgstr "Posunout kurzoru dolů"
+msgstr "Přesunout kurzor k horní části obrazovky"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to middle of screen"
-msgstr "Posunout kurzoru dolů"
+msgstr "Přesunout kurzor ke středu obrazovky"
 
 #: src/command.c:84
 msgid "Move cursor to bottom of screen"
-msgstr ""
+msgstr "Přesunout kurzor k dolní části obrazovky"
 
 #: src/command.c:86 src/command.c:285
 msgid "Home"
@@ -716,9 +705,8 @@ msgid "Page down"
 msgstr "Page down"
 
 #: src/command.c:94
-#, fuzzy
 msgid "Range selection"
-msgstr "Vizuální výběr"
+msgstr ""
 
 #: src/command.c:96
 msgid "Scroll up one line"
@@ -809,14 +797,12 @@ msgid "Toggle random mode"
 msgstr "Přepnout náhodný režim"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "Přepnout na režim vyhledávání"
+msgstr ""
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "Zapnout režim přerušení"
+msgstr ""
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -1067,14 +1053,12 @@ msgid "Unknown screen name"
 msgstr "Neznámé jméno obrazovky"
 
 #: src/conf.c:339
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "Změnit režim hledání"
+msgstr ""
 
 #: src/conf.c:362
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "Změnit režim hledání"
+msgstr ""
 
 #: src/conf.c:517
 msgid "Unknown configuration parameter"
@@ -1089,14 +1073,12 @@ msgstr ""
 "  Vojtěch Trefný https://launchpad.net/~vojtech.trefny"
 
 #: src/list_window.c:474
-#, fuzzy
 msgid "Range selection disabled"
-msgstr "Vizuální výběr povolen"
+msgstr ""
 
 #: src/list_window.c:480
-#, fuzzy
 msgid "Range selection enabled"
-msgstr "Vizuální výběr zakázán"
+msgstr ""
 
 #~ msgid "Explicitly download lyrics"
 #~ msgstr "Výslověn stažený text psíně"
