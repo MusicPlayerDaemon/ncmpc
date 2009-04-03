@@ -52,8 +52,10 @@ static help_text_row_t help_text[] = {
 	{ 0, CMD_LIST_SCROLL_UP_HALF, NULL},
 	{ 0, CMD_LIST_SCROLL_DOWN_HALF, NULL},
 	{ 0, CMD_NONE, NULL },
+
 	{ 0, CMD_SCREEN_PREVIOUS,NULL },
 	{ 0, CMD_SCREEN_NEXT, NULL },
+    { 0, CMD_SCREEN_SWAP, NULL },
 	{ 0, CMD_SCREEN_HELP, NULL },
 	{ 0, CMD_SCREEN_PLAY, NULL },
 	{ 0, CMD_SCREEN_FILE, NULL },
