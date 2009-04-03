@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-01 23:16+0200\n"
-"PO-Revision-Date: 2009-03-27 00:44+0100\n"
+"PO-Revision-Date: 2009-04-04 00:21+0200\n"
 "Last-Translator: Romain Bignon <romain@peerfuse.org>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -101,22 +101,18 @@ msgid "Error: Screen too small"
 msgstr "Erreur: Ecran trop petit"
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
-msgstr "Mode de répetition activé"
+msgstr "Répétition activé"
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
-msgstr "Mode de répetition désactivé"
+msgstr "Répétition désactivé"
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
 msgstr "Mode Aléatoire activé"
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
 msgstr "Mode Aléatoire désactivé"
 
@@ -127,11 +123,11 @@ msgstr "Mode Aléatoire désactivé"
 #. single song
 #: src/screen.c:648
 msgid "Single mode is on"
-msgstr ""
+msgstr "Mode seul activé"
 
 #: src/screen.c:649
 msgid "Single mode is off"
-msgstr ""
+msgstr "Mode seul désactivé"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -139,11 +135,11 @@ msgstr ""
 #. finished playing
 #: src/screen.c:657
 msgid "Consume mode is on"
-msgstr ""
+msgstr "Mode consommateur activé"
 
 #: src/screen.c:658
 msgid "Consume mode is off"
-msgstr ""
+msgstr "Mode consommateur activé"
 
 #: src/screen.c:661
 #, c-format
@@ -651,7 +647,7 @@ msgstr "Temps de service"
 
 #: src/screen_song.c:248
 msgid "Most recent db update"
-msgstr ""
+msgstr "Mise à jour de la BD la plus récente"
 
 #: src/screen_song.c:249
 msgid "Playtime"
@@ -810,14 +806,12 @@ msgid "Toggle random mode"
 msgstr "Activer/désactiver le mode aléatoire"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "Activer le mode de recherche"
+msgstr "Basculer le mode seul"
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "Activer/désactiver le mode de fondu"
+msgstr "Basculer le mode consommation"
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -1068,14 +1062,12 @@ msgid "Unknown screen name"
 msgstr "Nom d'écran inconnu"
 
 #: src/conf.c:339
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "Changer le mode de recherche"
+msgstr "Mode de recherche invalide"
 
 #: src/conf.c:362
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "Changer le mode de recherche"
+msgstr "Mode de recherche inconnu"
 
 #: src/conf.c:517
 msgid "Unknown configuration parameter"
@@ -1095,5 +1087,3 @@ msgstr "Sélection multi-ligne désactivée"
 msgid "Range selection enabled"
 msgstr "Sélection multi-ligne activée"
 
-#~ msgid "DB last updated"
-#~ msgstr "Dernière mise à jour de la BD"
