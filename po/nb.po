@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-01 23:16+0200\n"
-"PO-Revision-Date: 2009-02-17 14:55+0100\n"
-"Last-Translator: Jon Bergli Heier <snakebite@jvnv.net>\n"
+"PO-Revision-Date: 2009-04-04 08:23+0000\n"
+"Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: no <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-01-13 12:40+0000\n"
+"X-Launchpad-Export-Date: 2009-04-06 09:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -98,27 +98,23 @@ msgstr "[Pause]"
 
 #: src/screen.c:433 src/screen.c:506
 msgid "Error: Screen too small"
-msgstr ""
+msgstr "Feil: Skjermbildet er for lite"
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
-msgstr "Repeter er på"
+msgstr ""
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
-msgstr "Repeter er av"
+msgstr ""
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
-msgstr "Random er på"
+msgstr ""
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
-msgstr "Random er av"
+msgstr ""
 
 #. "single" mode means
 #. that MPD will
@@ -230,7 +226,7 @@ msgstr "Søk (bakover)"
 
 #: src/screen_utils.c:37
 msgid "Jump"
-msgstr ""
+msgstr "Hopp"
 
 #: src/screen_utils.c:118
 msgid "Password"
@@ -275,7 +271,7 @@ msgstr "Spilleliste på %s"
 #. or a directory or something else
 #: src/screen_file.c:135
 msgid "Deleting this item is not possible"
-msgstr ""
+msgstr "Kan ikke slette dette elementet"
 
 #: src/screen_file.c:142
 #, c-format
@@ -323,11 +319,11 @@ msgstr "dato"
 
 #: src/screen_search.c:46
 msgid "composer"
-msgstr ""
+msgstr "komponist"
 
 #: src/screen_search.c:47
 msgid "performer"
-msgstr ""
+msgstr "utøver"
 
 #: src/screen_search.c:48
 msgid "comment"
@@ -408,9 +404,9 @@ msgid "Keybindings unchanged."
 msgstr "Tastatursnarveier uforandret!"
 
 #: src/screen_keydef.c:82
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "Feil: Kan ikke lage ~/.ncmpc - %s"
+msgstr ""
 
 #: src/screen_keydef.c:91 src/screen_keydef.c:98
 #, c-format
@@ -460,7 +456,7 @@ msgstr "Endre taster for '%s'"
 
 #: src/screen_help.c:38
 msgid "Movement"
-msgstr ""
+msgstr "Navigasjon"
 
 #: src/screen_help.c:78
 msgid "Global"
@@ -543,14 +539,12 @@ msgid "Enable/disable output"
 msgstr ""
 
 #: src/screen_help.c:169
-#, fuzzy
 msgid "Keydef screen"
-msgstr "Oppdater"
+msgstr ""
 
 #: src/screen_help.c:171
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "Endre taster for '%s'"
+msgstr ""
 
 #: src/screen_help.c:172
 msgid "Remove selected keydef"
@@ -596,7 +590,7 @@ msgstr ""
 
 #: src/screen_song.c:193
 msgid "Composer"
-msgstr ""
+msgstr "Komponist"
 
 #: src/screen_song.c:194
 msgid "Name"
@@ -633,12 +627,11 @@ msgstr ""
 #: src/screen_song.c:228
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kbps"
 
 #: src/screen_song.c:244
-#, fuzzy
 msgid "Number of artists"
-msgstr "Albumer fra artist: %s"
+msgstr ""
 
 #: src/screen_song.c:245
 msgid "Number of albums"
@@ -646,21 +639,19 @@ msgstr ""
 
 #: src/screen_song.c:246
 msgid "Number of songs"
-msgstr ""
+msgstr "Antall sanger"
 
 #: src/screen_song.c:247
 msgid "Uptime"
-msgstr ""
+msgstr "Oppetid"
 
 #: src/screen_song.c:248
-#, fuzzy
 msgid "Most recent db update"
-msgstr "pppdatert!"
+msgstr ""
 
 #: src/screen_song.c:249
-#, fuzzy
 msgid "Playtime"
-msgstr "Start/spill markert"
+msgstr ""
 
 #: src/screen_song.c:250
 msgid "DB playtime"
@@ -671,9 +662,8 @@ msgid "MPD statistics"
 msgstr ""
 
 #: src/screen_song.c:311
-#, fuzzy
 msgid "Selected song"
-msgstr "Vis sangen"
+msgstr ""
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
@@ -696,14 +686,12 @@ msgid "Move cursor down"
 msgstr "Flytt markør ned"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to top of screen"
-msgstr "Flytt markør ned"
+msgstr ""
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to middle of screen"
-msgstr "Flytt markør ned"
+msgstr ""
 
 #: src/command.c:84
 msgid "Move cursor to bottom of screen"
@@ -818,14 +806,12 @@ msgid "Toggle random mode"
 msgstr "Random På/Av"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "Endre søkeinnstillinger"
+msgstr ""
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "Crossfade På/Av"
+msgstr ""
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -1076,14 +1062,12 @@ msgid "Unknown screen name"
 msgstr "Ukjent skjermnavn"
 
 #: src/conf.c:339
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "Endre søkemodus"
+msgstr ""
 
 #: src/conf.c:362
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "Endre søkemodus"
+msgstr ""
 
 #: src/conf.c:517
 msgid "Unknown configuration parameter"
@@ -1096,7 +1080,8 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Jon Bergli Heier https://launchpad.net/~snakebite-jvnv\n"
-"  Ole R. Thorsen https://launchpad.net/~ole-rth"
+"  Ole R. Thorsen https://launchpad.net/~ole-rth\n"
+"  Niels Anker https://launchpad.net/~nanker"
 
 #: src/list_window.c:474
 msgid "Range selection disabled"
@@ -1106,24 +1091,23 @@ msgstr ""
 msgid "Range selection enabled"
 msgstr ""
 
-#, fuzzy
-#~ msgid "DB last updated"
-#~ msgstr "Databasen er oppdatert"
-
-#~ msgid "Search: "
-#~ msgstr "Søk: "
-
-#~ msgid "Adding directory %s...\n"
-#~ msgstr "Legger til mappen %s...\n"
-
+#, c-format
 #~ msgid "Error: Screen to small\n"
 #~ msgstr "Feil: Terminalen er for liten\n"
+
+#, c-format
+#~ msgid "Adding directory %s...\n"
+#~ msgstr "Legger til mappen %s...\n"
 
 #~ msgid "You can only delete playlists"
 #~ msgstr "Du kan bare slette spillelister"
 
+#, c-format
 #~ msgid "Browse: %s"
 #~ msgstr "Filer: %s"
+
+#~ msgid "Search: "
+#~ msgstr "Søk: "
 
 #~ msgid "Keys - Movement"
 #~ msgstr "Taster - Navigasjon"
@@ -1146,6 +1130,7 @@ msgstr ""
 #~ msgid "End "
 #~ msgstr "Markøren til den siste raden "
 
+#, c-format
 #~ msgid "Error: Key %s assigned to %s and %s\n"
 #~ msgstr "Feil: Tasten %s er tildelt både %s og %s\n"
 

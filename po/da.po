@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-01 23:16+0200\n"
-"PO-Revision-Date: 2009-02-17 14:53+0100\n"
+"PO-Revision-Date: 2009-04-04 08:17+0000\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-01-02 08:41+0000\n"
+"X-Launchpad-Export-Date: 2009-04-06 09:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -101,24 +101,20 @@ msgid "Error: Screen too small"
 msgstr "Fejl: Skærm for lille"
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
-msgstr "Gentag er aktiv"
+msgstr "Gentagelse er slået til"
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
-msgstr "Gentag er inaktiv"
+msgstr "Gentagelse er slået fra"
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
-msgstr "Tilfældig er aktiv"
+msgstr ""
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
-msgstr "Tilfældig er inaktiv"
+msgstr ""
 
 #. "single" mode means
 #. that MPD will
@@ -230,7 +226,7 @@ msgstr "Søg (baglæns)"
 
 #: src/screen_utils.c:37
 msgid "Jump"
-msgstr ""
+msgstr "Spring"
 
 #: src/screen_utils.c:118
 msgid "Password"
@@ -408,9 +404,9 @@ msgid "Keybindings unchanged."
 msgstr "Taste bindinger uændrede!"
 
 #: src/screen_keydef.c:82
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "Fejl: Kan ikke oprette mappen ~/.ncmpc - %s"
+msgstr "Fejl: Kunne ikke oprette mappe ~/.ncmpc - %s"
 
 #: src/screen_keydef.c:91 src/screen_keydef.c:98
 #, c-format
@@ -543,14 +539,12 @@ msgid "Enable/disable output"
 msgstr "Slå output til/fra"
 
 #: src/screen_help.c:169
-#, fuzzy
 msgid "Keydef screen"
-msgstr "Hjælp"
+msgstr ""
 
 #: src/screen_help.c:171
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "Modificer tast for '%s'"
+msgstr ""
 
 #: src/screen_help.c:172
 msgid "Remove selected keydef"
@@ -558,7 +552,7 @@ msgstr ""
 
 #: src/screen_help.c:173
 msgid "Go up a level"
-msgstr ""
+msgstr "Gå et niveau op"
 
 #: src/screen_help.c:174
 msgid "Apply and save changes"
@@ -624,43 +618,40 @@ msgstr "Kommentar"
 
 #: src/screen_song.c:200
 msgid "Path"
-msgstr ""
+msgstr "Sti"
 
 #: src/screen_song.c:201
 msgid "Bitrate"
-msgstr ""
+msgstr "Bithastighed"
 
 #: src/screen_song.c:228
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kb/sek"
 
 #: src/screen_song.c:244
-#, fuzzy
 msgid "Number of artists"
-msgstr "Album fra kunstneren: %s"
+msgstr "Antal kunstnere"
 
 #: src/screen_song.c:245
 msgid "Number of albums"
-msgstr ""
+msgstr "Antal albums"
 
 #: src/screen_song.c:246
 msgid "Number of songs"
-msgstr ""
+msgstr "Antal sange"
 
 #: src/screen_song.c:247
 msgid "Uptime"
 msgstr ""
 
 #: src/screen_song.c:248
-#, fuzzy
 msgid "Most recent db update"
-msgstr "Skærm opdateret!"
+msgstr ""
 
 #: src/screen_song.c:249
-#, fuzzy
 msgid "Playtime"
-msgstr "Afspil"
+msgstr "Spilletid"
 
 #: src/screen_song.c:250
 msgid "DB playtime"
@@ -668,12 +659,11 @@ msgstr ""
 
 #: src/screen_song.c:266
 msgid "MPD statistics"
-msgstr ""
+msgstr "MPD statistik"
 
 #: src/screen_song.c:311
-#, fuzzy
 msgid "Selected song"
-msgstr "Vis sangen"
+msgstr "Valgt nummer"
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
@@ -696,18 +686,16 @@ msgid "Move cursor down"
 msgstr "Flyt markør ned"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to top of screen"
-msgstr "Flyt markør ned"
+msgstr "Flyt curser til top af skærm"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to middle of screen"
-msgstr "Flyt markør ned"
+msgstr "Flyt curser til midten af skærm"
 
 #: src/command.c:84
 msgid "Move cursor to bottom of screen"
-msgstr ""
+msgstr "Flyt curser til bund af skærm"
 
 #: src/command.c:86 src/command.c:285
 msgid "Home"
@@ -731,19 +719,19 @@ msgstr ""
 
 #: src/command.c:96
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Scroll en linie op"
 
 #: src/command.c:98
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Scroll en linie ned"
 
 #: src/command.c:100
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Scroll en halv skærm op"
 
 #: src/command.c:102
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Scroll en halv skærm ned"
 
 #: src/command.c:107
 msgid "Help screen"
@@ -818,14 +806,12 @@ msgid "Toggle random mode"
 msgstr "Aktiver/deaktiver tilfældigt valg"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "Ændre søge tilstand"
+msgstr ""
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "Aktiver/deaktiver crossfade mellem sange"
+msgstr ""
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -912,7 +898,7 @@ msgstr "Gentag søg baglæns"
 #. * to the entry which begins with this string
 #: src/command.c:212
 msgid "Jump to"
-msgstr ""
+msgstr "Spring til"
 
 #: src/command.c:218
 msgid "Artist screen"
@@ -1076,14 +1062,12 @@ msgid "Unknown screen name"
 msgstr "Ukendt skærm navn"
 
 #: src/conf.c:339
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "Ændre søge tilstand"
+msgstr ""
 
 #: src/conf.c:362
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "Ændre søge tilstand"
+msgstr ""
 
 #: src/conf.c:517
 msgid "Unknown configuration parameter"
@@ -1106,19 +1090,17 @@ msgstr ""
 msgid "Range selection enabled"
 msgstr ""
 
-#, fuzzy
-#~ msgid "DB last updated"
-#~ msgstr "Databasen er opdateret"
-
-#~ msgid "Explicitly download lyrics"
-#~ msgstr "Hent kun sangtekster"
+#, c-format
+#~ msgid "Adding directory %s...\n"
+#~ msgstr "Tilføjer mappen %s...\n"
 
 #~ msgid "Search: "
 #~ msgstr "Søg: "
 
-#~ msgid "Adding directory %s...\n"
-#~ msgstr "Tilføjer mappen %s...\n"
+#~ msgid "Explicitly download lyrics"
+#~ msgstr "Hent kun sangtekster"
 
+#, c-format
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr "Tast %s bundet til kommando %s og %s (tryk på %s for at redigere)"
 

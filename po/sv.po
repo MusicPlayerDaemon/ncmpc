@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-01 23:16+0200\n"
-"PO-Revision-Date: 2009-02-17 14:55+0100\n"
-"Last-Translator: Björn Pettersson <bjorn@hygiena.org>\n"
+"PO-Revision-Date: 2009-04-04 08:20+0000\n"
+"Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: sv <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-01-05 14:16+0000\n"
+"X-Launchpad-Export-Date: 2009-04-06 09:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -101,24 +101,20 @@ msgid "Error: Screen too small"
 msgstr "Fel: Terminalen är för liten"
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
-msgstr "Upprepning påslaget"
+msgstr ""
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
-msgstr "Upprepning avslaget"
+msgstr ""
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
-msgstr "Slumpning påslaget"
+msgstr ""
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
-msgstr "Slumpning avslaget"
+msgstr ""
 
 #. "single" mode means
 #. that MPD will
@@ -408,9 +404,9 @@ msgid "Keybindings unchanged."
 msgstr "Tangentdefinitioner oförändrade."
 
 #: src/screen_keydef.c:82
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "Fel: Kan inte skapa katalog ~/.ncmpc - %s"
+msgstr ""
 
 #: src/screen_keydef.c:91 src/screen_keydef.c:98
 #, c-format
@@ -543,14 +539,12 @@ msgid "Enable/disable output"
 msgstr "Slå på/av utgång"
 
 #: src/screen_help.c:169
-#, fuzzy
 msgid "Keydef screen"
-msgstr "Hjälp"
+msgstr ""
 
 #: src/screen_help.c:171
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "Ändra tangenter för kommandot %s"
+msgstr ""
 
 #: src/screen_help.c:172
 msgid "Remove selected keydef"
@@ -628,17 +622,16 @@ msgstr ""
 
 #: src/screen_song.c:201
 msgid "Bitrate"
-msgstr ""
+msgstr "Bithastighet"
 
 #: src/screen_song.c:228
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kb/s"
 
 #: src/screen_song.c:244
-#, fuzzy
 msgid "Number of artists"
-msgstr "Album av artist: %s"
+msgstr ""
 
 #: src/screen_song.c:245
 msgid "Number of albums"
@@ -646,21 +639,19 @@ msgstr ""
 
 #: src/screen_song.c:246
 msgid "Number of songs"
-msgstr ""
+msgstr "Antal låtar"
 
 #: src/screen_song.c:247
 msgid "Uptime"
 msgstr ""
 
 #: src/screen_song.c:248
-#, fuzzy
 msgid "Most recent db update"
-msgstr "Uppdaterat!"
+msgstr ""
 
 #: src/screen_song.c:249
-#, fuzzy
 msgid "Playtime"
-msgstr "Starta/Spela markerad"
+msgstr "Speltid"
 
 #: src/screen_song.c:250
 msgid "DB playtime"
@@ -671,9 +662,8 @@ msgid "MPD statistics"
 msgstr ""
 
 #: src/screen_song.c:311
-#, fuzzy
 msgid "Selected song"
-msgstr "Visa spår"
+msgstr ""
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
@@ -696,14 +686,12 @@ msgid "Move cursor down"
 msgstr "Markör nedåt"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to top of screen"
-msgstr "Markör nedåt"
+msgstr ""
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to middle of screen"
-msgstr "Markör nedåt"
+msgstr ""
 
 #: src/command.c:84
 msgid "Move cursor to bottom of screen"
@@ -818,14 +806,12 @@ msgid "Toggle random mode"
 msgstr "Slumpning på/av"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "Ändra sökinställningar"
+msgstr ""
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "Mjuk övergång på/av"
+msgstr ""
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -1076,14 +1062,12 @@ msgid "Unknown screen name"
 msgstr "Skärmnamn okänt"
 
 #: src/conf.c:339
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "Ändra måltyp för databassökning"
+msgstr ""
 
 #: src/conf.c:362
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "Ändra måltyp för databassökning"
+msgstr ""
 
 #: src/conf.c:517
 msgid "Unknown configuration parameter"
@@ -1097,7 +1081,7 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Björn Pettersson https://launchpad.net/~bjorn-hygiena\n"
 "  Kalle Wallin https://launchpad.net/~kaw\n"
-"  nanker https://launchpad.net/~nanker"
+"  Niels Anker https://launchpad.net/~nanker"
 
 #: src/list_window.c:474
 msgid "Range selection disabled"
@@ -1107,19 +1091,17 @@ msgstr ""
 msgid "Range selection enabled"
 msgstr ""
 
-#, fuzzy
-#~ msgid "DB last updated"
-#~ msgstr "Databas uppdaterad"
-
-#~ msgid "Explicitly download lyrics"
-#~ msgstr "Ladda ner texter explicit"
+#, c-format
+#~ msgid "Adding directory %s...\n"
+#~ msgstr "Lägger till katalog %s...\n"
 
 #~ msgid "Search: "
 #~ msgstr "Sök: "
 
-#~ msgid "Adding directory %s...\n"
-#~ msgstr "Lägger till katalog %s...\n"
+#~ msgid "Explicitly download lyrics"
+#~ msgstr "Ladda ner texter explicit"
 
+#, c-format
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr "%s tilldelat kommandona %s och %s (tryck på %s för att korrigera)"
 
