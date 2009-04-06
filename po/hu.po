@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-01 23:16+0200\n"
-"PO-Revision-Date: 2009-02-17 14:54+0100\n"
+"PO-Revision-Date: 2009-04-04 13:18+0000\n"
 "Last-Translator: Laszlo Ashin <kodest@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-01-02 08:41+0000\n"
+"X-Launchpad-Export-Date: 2009-04-06 09:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -101,24 +101,20 @@ msgid "Error: Screen too small"
 msgstr "Hiba: a képernyő túl kicsi"
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
-msgstr "Ismétlés elindítva"
+msgstr "Ismétlő mód be"
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
-msgstr "Ismétlés leállítva"
+msgstr "Ismétlő mód ki"
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
-msgstr "Véletlenszerű lejátszás bekapcsolva"
+msgstr "Véletlen mód be"
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
-msgstr "Véletlenszerű lejátszás kikapcsolva"
+msgstr "Véletlen mód ki"
 
 #. "single" mode means
 #. that MPD will
@@ -127,11 +123,11 @@ msgstr "Véletlenszerű lejátszás kikapcsolva"
 #. single song
 #: src/screen.c:648
 msgid "Single mode is on"
-msgstr ""
+msgstr "Egyszeri lejátszás mód be"
 
 #: src/screen.c:649
 msgid "Single mode is off"
-msgstr ""
+msgstr "Egyszeri lejátszás mód ki"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -139,11 +135,11 @@ msgstr ""
 #. finished playing
 #: src/screen.c:657
 msgid "Consume mode is on"
-msgstr ""
+msgstr "Fogyasztó mód be"
 
 #: src/screen.c:658
 msgid "Consume mode is off"
-msgstr ""
+msgstr "Fogyasztó mód ki"
 
 #: src/screen.c:661
 #, c-format
@@ -230,7 +226,7 @@ msgstr "Keresés visszafelé"
 
 #: src/screen_utils.c:37
 msgid "Jump"
-msgstr ""
+msgstr "Ugrás"
 
 #: src/screen_utils.c:118
 msgid "Password"
@@ -408,9 +404,9 @@ msgid "Keybindings unchanged."
 msgstr "A billentyű beállítások változatlanok."
 
 #: src/screen_keydef.c:82
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "Hiba: Nem sikerül létrehozni a ~/.ncmpc könyvtárat - %s"
+msgstr "Hiba: nem sikerül létrehozni a ~/.ncmpc katalógust - %s"
 
 #: src/screen_keydef.c:91 src/screen_keydef.c:98
 #, c-format
@@ -528,7 +524,7 @@ msgstr "Újrapróbálkozás megszakítása"
 
 #: src/screen_help.c:156
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "Dalszöveg letöltése a jelenlegi zenéhez"
 
 #: src/screen_help.c:157
 msgid "Save lyrics"
@@ -543,26 +539,24 @@ msgid "Enable/disable output"
 msgstr "Kimenet engedélyezése/tiltása"
 
 #: src/screen_help.c:169
-#, fuzzy
 msgid "Keydef screen"
-msgstr "Segítség"
+msgstr "Billentyű beállító képernyő"
 
 #: src/screen_help.c:171
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "Gombok módosítása a következőhöz: %s"
+msgstr "Billentyű szerkesztése a kiválasztott parancshoz"
 
 #: src/screen_help.c:172
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "Billentyű hozzárendelés megszűntetése"
 
 #: src/screen_help.c:173
 msgid "Go up a level"
-msgstr ""
+msgstr "Egy szinttel feljebb"
 
 #: src/screen_help.c:174
 msgid "Apply and save changes"
-msgstr ""
+msgstr "Alkalmaz és menti a változásokat"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -624,59 +618,56 @@ msgstr "Megjegyzés"
 
 #: src/screen_song.c:200
 msgid "Path"
-msgstr ""
+msgstr "Elérési út"
 
 #: src/screen_song.c:201
 msgid "Bitrate"
-msgstr ""
+msgstr "Bitráta"
 
 #: src/screen_song.c:228
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kbps"
 
 #: src/screen_song.c:244
-#, fuzzy
 msgid "Number of artists"
-msgstr "%s előadó albumai"
+msgstr "Előadók száma"
 
 #: src/screen_song.c:245
 msgid "Number of albums"
-msgstr ""
+msgstr "Albumok száma"
 
 #: src/screen_song.c:246
 msgid "Number of songs"
-msgstr ""
+msgstr "Zenék száma"
 
 #: src/screen_song.c:247
 msgid "Uptime"
-msgstr ""
+msgstr "Üzemidő"
 
 #: src/screen_song.c:248
 msgid "Most recent db update"
-msgstr ""
+msgstr "Legutóbbi adatbázis frissítés"
 
 #: src/screen_song.c:249
-#, fuzzy
 msgid "Playtime"
-msgstr "Lejátszás"
+msgstr "Lejátszási idő"
 
 #: src/screen_song.c:250
 msgid "DB playtime"
-msgstr ""
+msgstr "Teljes adatbázis lejátszási ideje"
 
 #: src/screen_song.c:266
 msgid "MPD statistics"
-msgstr ""
+msgstr "MPD statisztika"
 
 #: src/screen_song.c:311
-#, fuzzy
 msgid "Selected song"
-msgstr "A szám megtekintése"
+msgstr "Kiválasztott zene"
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
-msgstr ""
+msgstr "Jelenlegi zene"
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -695,18 +686,16 @@ msgid "Move cursor down"
 msgstr "Kurzormozgatás lefelé"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to top of screen"
-msgstr "Kurzormozgatás lefelé"
+msgstr "Kurzor mozgatása a képernyő tetejére"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to middle of screen"
-msgstr "Kurzormozgatás lefelé"
+msgstr "Kurzor mozgatása a képernyő közepére"
 
 #: src/command.c:84
 msgid "Move cursor to bottom of screen"
-msgstr ""
+msgstr "Kurzor mozgatása a képernyő aljára"
 
 #: src/command.c:86 src/command.c:285
 msgid "Home"
@@ -726,23 +715,23 @@ msgstr "Egy oldalt le"
 
 #: src/command.c:94
 msgid "Range selection"
-msgstr ""
+msgstr "Tartomány kiválasztása"
 
 #: src/command.c:96
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Görgetés egy sorral fel"
 
 #: src/command.c:98
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Görgetés egy sorral le"
 
 #: src/command.c:100
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Görgetés fél képernyőnyivel fel"
 
 #: src/command.c:102
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Görgetés fél képernyőnyivel le"
 
 #: src/command.c:107
 msgid "Help screen"
@@ -817,14 +806,12 @@ msgid "Toggle random mode"
 msgstr "Véletlenszerű lejátszás ki- és bekapcsolása"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "Kereső mód ki- és bekapcsolása"
+msgstr "Egyszeri mód átkapcsolása"
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "Egymásba mosás ki- és bekapcsolása"
+msgstr "Fogyasztó mód átkapcsolása"
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -888,7 +875,7 @@ msgstr "Előző képernyő"
 
 #: src/command.c:196
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Váltás a legutóbbi képernyőre"
 
 #: src/command.c:201
 msgid "Forward find"
@@ -911,7 +898,7 @@ msgstr "Előző keresése hátra"
 #. * to the entry which begins with this string
 #: src/command.c:212
 msgid "Jump to"
-msgstr ""
+msgstr "Ugrás oda"
 
 #: src/command.c:218
 msgid "Artist screen"
@@ -923,7 +910,7 @@ msgstr "Kereső mód váltása"
 
 #: src/command.c:228
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "A kiválasztott és épp lejátszott szám megtekintése"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
@@ -1075,14 +1062,12 @@ msgid "Unknown screen name"
 msgstr "Ismeretlen képernyő név"
 
 #: src/conf.c:339
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "Kereső mód váltása"
+msgstr "Érvénytelen keresési mód"
 
 #: src/conf.c:362
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "Kereső mód váltása"
+msgstr "Ismeretlen keresési mód"
 
 #: src/conf.c:517
 msgid "Unknown configuration parameter"
@@ -1094,30 +1079,30 @@ msgstr "Ismeretlen konfigurációs paraméter"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Laszlo Ashin https://launchpad.net/~kodest\n"
+"\n"
+"Launchpad Contributions:\n"
 "  Laszlo Ashin https://launchpad.net/~kodest"
 
 #: src/list_window.c:474
 msgid "Range selection disabled"
-msgstr ""
+msgstr "Tartomány kiválasztás letiltva"
 
 #: src/list_window.c:480
 msgid "Range selection enabled"
-msgstr ""
+msgstr "Tartomány kiválasztás engedélyezve"
 
-#, fuzzy
-#~ msgid "DB last updated"
-#~ msgstr "Adatbázis frissítve"
-
-#~ msgid "Explicitly download lyrics"
-#~ msgstr "Dalszövegek kifejezett letöltése"
+#, c-format
+#~ msgid "Adding directory %s...\n"
+#~ msgstr "%s könyvtár hozzáadása...\n"
 
 #~ msgid "Search: "
 #~ msgstr "Keresés: "
 
-#~ msgid "Adding directory %s...\n"
-#~ msgstr "%s könyvtár hozzáadása...\n"
+#~ msgid "Explicitly download lyrics"
+#~ msgstr "Dalszövegek kifejezett letöltése"
 
+#, c-format
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr ""
-#~ "%s gomb hozzárendelve a következőkhöz: %s és %s (nyomj %s-t a "
-#~ "szerkesztéshez)"
+#~ "%s gomb hozzárendelve a következőkhöz: %s és %s (nyomj %s-t a szerkesztéshez)"
