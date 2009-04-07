@@ -41,6 +41,7 @@
 
 /* configuration field names */
 #define CONF_ENABLE_COLORS "enable-colors"
+#define CONF_SCROLL_OFFSET "scroll-offset"
 #define CONF_AUTO_CENTER "auto-center"
 #define CONF_WIDE_CURSOR "wide-cursor"
 #define CONF_KEY_DEFINITION "key"
@@ -404,6 +405,8 @@ parse_line(char *line)
 #else
 	{}
 #endif
+	else if (!strcasecmp(CONF_SCROLL_OFFSET, name))
+		options.scroll_offset = atoi(value);
 	/* auto center */
 	else if (!strcasecmp(CONF_AUTO_CENTER, name))
 		options.auto_center = str2bool(value);

@@ -53,6 +53,7 @@ typedef struct {
 	bool find_wrap;
 	bool find_show_last_pattern;
 	bool list_wrap;
+	int scroll_offset;
 	bool auto_center;
 	bool wide_cursor;
 #ifdef ENABLE_COLORS

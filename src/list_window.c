@@ -161,7 +161,13 @@ list_window_previous(struct list_window *lw, unsigned length)
 static void
 list_window_top(struct list_window *lw)
 {
-	list_window_set_selected(lw, lw->start);
+	if (lw->start == 0)
+		list_window_set_selected(lw, lw->start);
+	else
+		if ((unsigned) options.scroll_offset * 2 >= lw->rows)
+			list_window_set_selected(lw, lw->start + lw->rows / 2);
+		else
+			list_window_set_selected(lw, lw->start + options.scroll_offset);
 }
 
 static void
@@ -177,7 +183,13 @@ static void
 list_window_bottom(struct list_window *lw, unsigned length)
 {
 	if (length >= lw->rows)
-		list_window_set_selected(lw, lw->start + lw->rows - 1);
+		if ((unsigned) options.scroll_offset * 2 >= lw->rows)
+			list_window_set_selected(lw, lw->start + lw->rows / 2);
+		else
+			if (lw->start + lw->rows == length)
+				list_window_set_selected(lw, length - 1);
+			else
+				list_window_set_selected(lw, lw->start + lw->rows - 1 - options.scroll_offset);
 	else
 		list_window_set_selected(lw, length - 1);
 }
@@ -229,8 +241,8 @@ list_window_scroll_up(struct list_window *lw, unsigned n)
 			lw->start = 0;
 		else
 			lw->start -= n;
-		if (lw->selected > lw->start + lw->rows - 1) {
-			lw->selected = lw->start + lw->rows - 1;
+		if (lw->selected > lw->start + lw->rows - 1 - options.scroll_offset) {
+			lw->selected = lw->start + lw->rows - 1 - options.scroll_offset;
 			if (lw->range_selection) {
 				if (lw->selected < lw->range_base) {
 					lw->selected_start = lw->selected;
@@ -249,14 +261,14 @@ list_window_scroll_up(struct list_window *lw, unsigned n)
 static void
 list_window_scroll_down(struct list_window *lw, unsigned length, unsigned n)
 {
-	if (lw->start + lw->rows < length - 1)
+	if (lw->start + lw->rows < length)
 	{
 		if ( lw->start + lw->rows + n > length - 1)
-			lw->start = length-1;
+			lw->start = length - lw->rows;
 		else
 			lw->start += n;
-		if (lw->selected < lw->start) {
-			lw->selected = lw->start;
+		if (lw->selected < lw->start + options.scroll_offset) {
+			lw->selected = lw->start + options.scroll_offset;
 			if (lw->range_selection) {
 				if (lw->selected > lw->range_base) {
 					lw->selected_end = lw->selected;
@@ -280,18 +292,36 @@ list_window_paint(struct list_window *lw,
 	unsigned i;
 	bool fill = options.wide_cursor;
 	bool show_cursor = !lw->hide_cursor;
+	bool highlight = false;
 
 	if (show_cursor) {
-		if (lw->selected < lw->start)
-			lw->start = lw->selected;
+		int start = lw->start;
+		if ((unsigned) options.scroll_offset * 2 >= lw->rows)
+			// Center if the offset is more than half the screen
+			start = lw->selected - lw->rows / 2;
+		else
+		{
+			if (lw->selected < lw->start + options.scroll_offset)
+				start = lw->selected - options.scroll_offset;
 
-		if (lw->selected >= lw->start + lw->rows)
-			lw->start = lw->selected - lw->rows + 1;
+			if (lw->selected >= lw->start + lw->rows - options.scroll_offset)
+			{
+				start = lw->selected - lw->rows + 1 + options.scroll_offset;
+			}
+		}
+		if (start < 0)
+			lw->start = 0;
+		else
+		{
+			while ( start > 0 && callback(start + lw->rows - 1, &highlight, callback_data) == NULL)
+				start--;
+			lw->start = start;
+		}
 	}
 
 	for (i = 0; i < lw->rows; i++) {
-		bool highlight = false;
 		const char *label;
+		highlight = false;
 
 		label = callback(lw->start + i, &highlight, callback_data);
 		wmove(lw->w, i, 0);

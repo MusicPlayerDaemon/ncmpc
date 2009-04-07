@@ -56,6 +56,7 @@ options_t options = {
 	.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT,
 #endif
 	.find_wrap = true,
+	.scroll_offset = 0,
 	.wide_cursor = true,
 	.audible_bell = true,
 	.bell_on_wrap = true,
