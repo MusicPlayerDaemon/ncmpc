@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-01 23:16+0200\n"
-"PO-Revision-Date: 2009-04-04 08:17+0000\n"
+"PO-Revision-Date: 2009-04-06 15:17+0000\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-06 09:12+0000\n"
+"X-Launchpad-Export-Date: 2009-04-07 18:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -110,11 +110,11 @@ msgstr "Gentagelse er slået fra"
 
 #: src/screen.c:638
 msgid "Random mode is on"
-msgstr ""
+msgstr "Tilfældig orden slået til"
 
 #: src/screen.c:639
 msgid "Random mode is off"
-msgstr ""
+msgstr "Tilfældig orden slået fra"
 
 #. "single" mode means
 #. that MPD will
@@ -123,11 +123,11 @@ msgstr ""
 #. single song
 #: src/screen.c:648
 msgid "Single mode is on"
-msgstr ""
+msgstr "Single afspilning slået til"
 
 #: src/screen.c:649
 msgid "Single mode is off"
-msgstr ""
+msgstr "Single afspilning slået fra"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -524,7 +524,7 @@ msgstr "Abryd hentning"
 
 #: src/screen_help.c:156
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "Download tekst for det nummer der afspilles"
 
 #: src/screen_help.c:157
 msgid "Save lyrics"
@@ -544,11 +544,11 @@ msgstr ""
 
 #: src/screen_help.c:171
 msgid "Edit keydefs for selected command"
-msgstr ""
+msgstr "Redigér tastdefinitioner for udvalgte kommandoer"
 
 #: src/screen_help.c:172
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "Fjern valgte tastdefinitioner"
 
 #: src/screen_help.c:173
 msgid "Go up a level"
@@ -556,7 +556,7 @@ msgstr "Gå et niveau op"
 
 #: src/screen_help.c:174
 msgid "Apply and save changes"
-msgstr ""
+msgstr "Anvend og gem ændringer"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -643,11 +643,11 @@ msgstr "Antal sange"
 
 #: src/screen_song.c:247
 msgid "Uptime"
-msgstr ""
+msgstr "Oppetid"
 
 #: src/screen_song.c:248
 msgid "Most recent db update"
-msgstr ""
+msgstr "Seneste db opdatering"
 
 #: src/screen_song.c:249
 msgid "Playtime"
@@ -667,7 +667,7 @@ msgstr "Valgt nummer"
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
-msgstr ""
+msgstr "Nummer der afspilles"
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -875,7 +875,7 @@ msgstr "Forrige skærm"
 
 #: src/command.c:196
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Skift til seneste skærm"
 
 #: src/command.c:201
 msgid "Forward find"
@@ -910,7 +910,7 @@ msgstr "Ændre søge tilstand"
 
 #: src/command.c:228
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "Vis valgte numre og det der afspilles"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
@@ -1063,11 +1063,11 @@ msgstr "Ukendt skærm navn"
 
 #: src/conf.c:339
 msgid "Invalid search mode"
-msgstr ""
+msgstr "Ugyldig søgetilstand"
 
 #: src/conf.c:362
 msgid "Unknown search mode"
-msgstr ""
+msgstr "Ukendt søgetilstand"
 
 #: src/conf.c:517
 msgid "Unknown configuration parameter"
