@@ -9,6 +9,7 @@ ncmpc 0.14 - not yet released
     or up/down half a screen
   * added screen swap ('`') command to switch to the most recently used screen
   * added MPD information and currently playing song to the info screen ('i')
+  * new translations: Czech, Simplified Chinese, Korean, Ukrainian
 
 
 ncmpc 0.13 - 2009-01-09

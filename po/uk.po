@@ -1,0 +1,1121 @@
+# Ukrainian translations for ncmpc package.
+# This file is distributed under the same license as the ncmpc package.
+# Oleksandr Kovalenko <alx.kovalenko@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ncmpc\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-01 23:16+0200\n"
+"PO-Revision-Date: 2009-04-07 21:57+0300\n"
+"Last-Translator: Oleksandr Kovalenko <alx.kovalenko@gmail.com>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Ukrainian\n"
+"X-Poedit-Country: UKRAINE\n"
+
+#: src/i18n.h:42
+msgid "y"
+msgstr "y"
+
+#: src/i18n.h:43
+msgid "n"
+msgstr "n"
+
+#: src/main.c:215
+#, c-format
+msgid "Connecting to %s...  [Press %s to abort]"
+msgstr "Встановлення з'єднання з %s...  [Натисніть %s щоб припинити]"
+
+#: src/main.c:233
+#, c-format
+msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
+msgstr "Помилка: MPD версії %d.%d.%d застаріла (необхідна %s)"
+
+#: src/main.c:247
+#, c-format
+msgid "Connected to %s"
+msgstr "Встановлене з'єднання з %s"
+
+#. to translators: a key was bound twice in the key editor,
+#. and this is a hint for the user what to press to correct
+#. that
+#: src/main.c:366
+#, c-format
+msgid "press %s for the key editor"
+msgstr "натисніть %s щоб редагувати клавіші"
+
+#: src/screen.c:175
+#: src/screen_help.c:244
+msgid "Help"
+msgstr "Допомога"
+
+#: src/screen.c:177
+#: src/screen_play.c:503
+msgid "Playlist"
+msgstr "Перелік програвання"
+
+#. translators: caption of the browser screen
+#: src/screen.c:178
+#: src/screen_file.c:214
+msgid "Browse"
+msgstr "Огляд"
+
+#: src/screen.c:180
+#: src/screen_search.c:80
+#: src/screen_song.c:190
+msgid "Artist"
+msgstr "Виконавець"
+
+#: src/screen.c:183
+#: src/screen_search.c:309
+#: src/screen_help.c:141
+msgid "Search"
+msgstr "Пошук"
+
+#: src/screen.c:186
+#: src/screen_lyrics.c:203
+#: src/screen_lyrics.c:211
+#: src/screen_lyrics.c:215
+msgid "Lyrics"
+msgstr "Тексти пісень"
+
+#: src/screen.c:189
+#: src/screen_outputs.c:162
+msgid "Outputs"
+msgstr "Виходи"
+
+#: src/screen.c:195
+#, c-format
+msgid "Volume n/a "
+msgstr "Гучність недоступна"
+
+#: src/screen.c:197
+#, c-format
+msgid " Volume %d%%"
+msgstr " Гучність %d%%"
+
+#: src/screen.c:308
+msgid "Playing:"
+msgstr "Програється:"
+
+#: src/screen.c:311
+msgid "[Paused]"
+msgstr "[Призупинено]"
+
+#: src/screen.c:433
+#: src/screen.c:506
+msgid "Error: Screen too small"
+msgstr "Помилка: екран занадто маленький"
+
+#: src/screen.c:633
+msgid "Repeat mode is on"
+msgstr "Режим повторення увімкнений"
+
+#: src/screen.c:634
+msgid "Repeat mode is off"
+msgstr "Режим повторення вимкнений"
+
+#: src/screen.c:638
+msgid "Random mode is on"
+msgstr "Режим випадкового програвання увімкнений"
+
+#: src/screen.c:639
+msgid "Random mode is off"
+msgstr "Режим випадкового програвання вимкнений"
+
+#. "single" mode means
+#. that MPD will
+#. automatically stop
+#. after playing one
+#. single song
+#: src/screen.c:648
+msgid "Single mode is on"
+msgstr "Режим повторення однієї доріжки увімкнений"
+
+#: src/screen.c:649
+msgid "Single mode is off"
+msgstr "Режим повторення однієї доріжки вимкнений"
+
+#. "consume" mode means
+#. that MPD removes each
+#. song which has
+#. finished playing
+#: src/screen.c:657
+msgid "Consume mode is on"
+msgstr "Режим вичерпання увімкнений"
+
+#: src/screen.c:658
+msgid "Consume mode is off"
+msgstr "Режим вичерпання вимкнений"
+
+#: src/screen.c:661
+#, c-format
+msgid "Crossfade %d seconds"
+msgstr "Плавний перехід: %dс"
+
+#: src/screen.c:664
+msgid "Database updated"
+msgstr "База даних оновлена"
+
+#: src/screen.c:799
+#: src/screen_play.c:638
+msgid "Shuffled playlist"
+msgstr "Перемішаний перелік програвання"
+
+#: src/screen.c:803
+msgid "Cleared playlist"
+msgstr "Очищений перелік програвання"
+
+#: src/screen.c:826
+#: src/screen_file.c:274
+msgid "Database update started"
+msgstr "Початок оновлення бази даних"
+
+#: src/screen.c:828
+#: src/screen_file.c:281
+msgid "Database update running..."
+msgstr "Працює оновлення бази даних..."
+
+#: src/screen.c:864
+msgid "Find mode: Wrapped"
+msgstr "Режим пошуку: завернутий (розділений???)"
+
+#: src/screen.c:865
+msgid "Find mode: Normal"
+msgstr "Режим пошуку: звичайний"
+
+#: src/screen.c:870
+msgid "Auto center mode: On"
+msgstr "Режим автоматичного центрування: увімкнено"
+
+#: src/screen.c:871
+msgid "Auto center mode: Off"
+msgstr "Режим автоматичного центрування: вимкнено"
+
+#: src/screen_artist.c:74
+msgid "All tracks"
+msgstr "Всі доріжки"
+
+#: src/screen_artist.c:383
+#, c-format
+msgid "All artists"
+msgstr "Всі виконавці"
+
+#: src/screen_artist.c:388
+#, c-format
+msgid "Albums of artist: %s"
+msgstr "Альбоми виконавця: %s"
+
+#: src/screen_artist.c:397
+#, c-format
+msgid "Album: %s - %s"
+msgstr "Альбом: %s - %s"
+
+#: src/screen_artist.c:401
+#, c-format
+msgid "All tracks of artist: %s"
+msgstr "Всі доріжки виконавця: %s"
+
+#: src/screen_browser.c:236
+#, c-format
+msgid "Loading playlist %s..."
+msgstr "Завантажується перелік програвання %s..."
+
+#: src/screen_browser.c:259
+#: src/screen_browser.c:327
+#: src/screen_browser.c:353
+#, c-format
+msgid "Adding '%s' to playlist"
+msgstr "Додається '%s' до переліку програвання"
+
+#: src/screen_utils.c:35
+msgid "Find"
+msgstr "Знайти"
+
+#: src/screen_utils.c:36
+msgid "Find backward"
+msgstr "Знайти позаду"
+
+#: src/screen_utils.c:37
+msgid "Jump"
+msgstr "Перейти"
+
+#: src/screen_utils.c:118
+msgid "Password"
+msgstr "Пароль"
+
+#: src/screen_utils.c:209
+#, c-format
+msgid "Unable to find '%s'"
+msgstr "Не вдається знайти '%s'"
+
+#: src/screen_play.c:259
+msgid "Save playlist as"
+msgstr "Зберегти перелік програвання як"
+
+#: src/screen_play.c:292
+#, c-format
+msgid "Replace %s [%s/%s] ? "
+msgstr "Замінити %s [%s/%s] ? "
+
+#. translators: a dialog was aborted by the user
+#: src/screen_play.c:313
+#: src/screen_file.c:148
+#: src/screen_keydef.c:163
+msgid "Aborted"
+msgstr "Перервано"
+
+#. success
+#: src/screen_play.c:321
+#, c-format
+msgid "Saved %s"
+msgstr "Збережений %s"
+
+#: src/screen_play.c:397
+msgid "Add"
+msgstr "Додати"
+
+#: src/screen_play.c:505
+#, c-format
+msgid "Playlist on %s"
+msgstr "Перелік програвання %s"
+
+#. translators: the "delete" command is only possible
+#. for playlists; the user attempted to delete a song
+#. or a directory or something else
+#: src/screen_file.c:135
+msgid "Deleting this item is not possible"
+msgstr "Видалити цей елемент неможливо"
+
+#: src/screen_file.c:142
+#, c-format
+msgid "Delete playlist %s [%s/%s] ? "
+msgstr "Видалити перелік програвання %s [%s/%s] ? "
+
+#. translators: MPD deleted the playlist, as requested by the
+#. user
+#: src/screen_file.c:157
+msgid "Playlist deleted"
+msgstr "Перелік програвання видалений"
+
+#: src/screen_file.c:270
+#, c-format
+msgid "Database update of %s started"
+msgstr "Оновлення бази даних %s розпочате"
+
+#: src/screen_search.c:39
+msgid "artist"
+msgstr "artist"
+
+#: src/screen_search.c:40
+msgid "album"
+msgstr "album"
+
+#: src/screen_search.c:41
+msgid "title"
+msgstr "title"
+
+#: src/screen_search.c:42
+msgid "track"
+msgstr "track"
+
+#: src/screen_search.c:43
+msgid "name"
+msgstr "name"
+
+#: src/screen_search.c:44
+msgid "genre"
+msgstr "genre"
+
+#: src/screen_search.c:45
+msgid "date"
+msgstr "date"
+
+#: src/screen_search.c:46
+msgid "composer"
+msgstr "composer"
+
+#: src/screen_search.c:47
+msgid "performer"
+msgstr "performer"
+
+#: src/screen_search.c:48
+msgid "comment"
+msgstr "comment"
+
+#: src/screen_search.c:49
+msgid "file"
+msgstr "file"
+
+#: src/screen_search.c:79
+#: src/screen_song.c:191
+msgid "Title"
+msgstr "Назва"
+
+#: src/screen_search.c:81
+#: src/screen_song.c:192
+msgid "Album"
+msgstr "Альбом"
+
+#: src/screen_search.c:82
+msgid "Filename"
+msgstr "Назва файлу"
+
+#: src/screen_search.c:83
+msgid "Artist + Title"
+msgstr "Виконавець + Назва"
+
+#: src/screen_search.c:245
+#, c-format
+msgid "Bad search tag %s"
+msgstr "Нерівна мітка %s"
+
+#: src/screen_search.c:249
+#, c-format
+msgid "No argument for search tag %s"
+msgstr "Немає аргументу для пошуку по мітці %s"
+
+#. if( pattern==NULL )
+#. search_new(screen, c);
+#. else
+#: src/screen_search.c:369
+#, c-format
+msgid "Press %s for a new search"
+msgstr "Натисніть %s для нового пошуку"
+
+#: src/screen_search.c:397
+#, c-format
+msgid "Search: %s"
+msgstr "Пошук: %s"
+
+#: src/screen_search.c:400
+#, c-format
+msgid "Search: Results for %s [%s]"
+msgstr "Пошук: наслідки пошуку для %s [%s]"
+
+#: src/screen_search.c:404
+#, c-format
+msgid "Search: Press %s for a new search [%s]"
+msgstr "Пошук: натисніть %s для нового пошуку [%s]"
+
+#: src/screen_search.c:419
+#, c-format
+msgid "Search mode: %s"
+msgstr "Режим пошуку: %s"
+
+#: src/screen_keydef.c:41
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Застосування та збереження прив'язки клавіші  "
+
+#: src/screen_keydef.c:42
+msgid "===> Apply key bindings "
+msgstr "===> Застосування прив'язки клавіші "
+
+#: src/screen_keydef.c:70
+msgid "You have new key bindings"
+msgstr "Ви маєте нову прив'язку клавіші"
+
+#: src/screen_keydef.c:72
+msgid "Keybindings unchanged."
+msgstr "Прив'язки клавіш не змінені."
+
+#: src/screen_keydef.c:82
+#, c-format
+msgid "Error: Unable to create directory ~/.ncmpc - %s"
+msgstr "Помилка: неможливо створити теку ~/.ncmpc - %s"
+
+#: src/screen_keydef.c:91
+#: src/screen_keydef.c:98
+#, c-format
+msgid "Error: %s - %s"
+msgstr "Помилка: %s - %s"
+
+#: src/screen_keydef.c:100
+#, c-format
+msgid "Wrote %s"
+msgstr "Записаний %s"
+
+#: src/screen_keydef.c:137
+msgid "Deleted"
+msgstr "Видалена"
+
+#: src/screen_keydef.c:158
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "Введіть нову клавішу для %s: "
+
+#: src/screen_keydef.c:169
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "Помилка: клавіша %s вже використовується для %s"
+
+#: src/screen_keydef.c:179
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "Призначення %s до %s"
+
+#: src/screen_keydef.c:217
+msgid "Add new key"
+msgstr "Додати нову клавішу"
+
+#: src/screen_keydef.c:276
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "Примітка: ви забули \"Застосувати\" зроблені зміни?"
+
+#: src/screen_keydef.c:283
+msgid "Edit key bindings"
+msgstr "Редагувати прив'язки клавіш"
+
+#: src/screen_keydef.c:285
+#, c-format
+msgid "Edit keys for %s"
+msgstr "Редагувати клавішу для %s"
+
+#: src/screen_help.c:38
+msgid "Movement"
+msgstr "Переміщення"
+
+#: src/screen_help.c:78
+msgid "Global"
+msgstr "Загальні"
+
+#: src/screen_help.c:111
+#: src/command.c:109
+msgid "Playlist screen"
+msgstr "Екран переліку програвання"
+
+#: src/screen_help.c:113
+msgid "Play"
+msgstr "Програти"
+
+#: src/screen_help.c:116
+msgid "Move song up"
+msgstr "Перемістити пісню вгору"
+
+#: src/screen_help.c:117
+msgid "Move song down"
+msgstr "Перемістити пісню вниз"
+
+#: src/screen_help.c:120
+msgid "Center"
+msgstr "По центру"
+
+#: src/screen_help.c:125
+#: src/command.c:111
+msgid "Browse screen"
+msgstr "Екран перегляду"
+
+#: src/screen_help.c:127
+msgid "Enter directory/Select and play song"
+msgstr "Ввести теку чи вибрати та програти пісню"
+
+#: src/screen_help.c:129
+#: src/screen_help.c:144
+msgid "Append song to playlist"
+msgstr "Долучити пісню до переліку програвання"
+
+#: src/screen_help.c:131
+msgid "Delete playlist"
+msgstr "Видалити перелік програвання"
+
+#: src/screen_help.c:139
+#: src/command.c:222
+msgid "Search screen"
+msgstr "Екран пошуку"
+
+#: src/screen_help.c:142
+msgid "Select and play"
+msgstr "Вибрати та програти"
+
+#: src/screen_help.c:151
+#: src/command.c:232
+msgid "Lyrics screen"
+msgstr "Екран текстів пісень"
+
+#: src/screen_help.c:153
+msgid "View Lyrics"
+msgstr "Переглянути текст пісні"
+
+#: src/screen_help.c:154
+msgid "(Re)load lyrics"
+msgstr "(Пере)завантажити текст пісні"
+
+#: src/screen_help.c:155
+msgid "Interrupt retrieval"
+msgstr "Пошук переривання"
+
+#: src/screen_help.c:156
+msgid "Download lyrics for currently playing song"
+msgstr "Завантажити текст для пісні, що зараз програється"
+
+#: src/screen_help.c:157
+msgid "Save lyrics"
+msgstr "Зберегти текст пісні"
+
+#: src/screen_help.c:162
+#: src/command.c:243
+msgid "Outputs screen"
+msgstr "Екран виходів"
+
+#: src/screen_help.c:164
+msgid "Enable/disable output"
+msgstr "Увімкнути/вимкнути вихід"
+
+#: src/screen_help.c:169
+msgid "Keydef screen"
+msgstr "Екран призначення клавіш"
+
+#: src/screen_help.c:171
+msgid "Edit keydefs for selected command"
+msgstr "Редагувати призначену клавішу для вибраної команди"
+
+#: src/screen_help.c:172
+msgid "Remove selected keydef"
+msgstr "Вилучити вибране призначення клавіші"
+
+#: src/screen_help.c:173
+msgid "Go up a level"
+msgstr "На рівень вище"
+
+#: src/screen_help.c:174
+msgid "Apply and save changes"
+msgstr "Застосувати та зберегти зміни"
+
+#. translators: no lyrics were found for the song
+#: src/screen_lyrics.c:104
+msgid "No lyrics"
+msgstr "Немає тексту пісні"
+
+#. translators: this message is displayed
+#. while data is retrieved
+#: src/screen_lyrics.c:206
+msgid "loading..."
+msgstr "завантаження..."
+
+#. lyrics for the song were saved on hard disk
+#: src/screen_lyrics.c:241
+msgid "Lyrics saved"
+msgstr "Текст пісні збережений"
+
+#: src/screen_outputs.c:58
+#, c-format
+msgid "Output '%s' enabled"
+msgstr "Вихід '%s' увімкнений"
+
+#: src/screen_outputs.c:64
+#, c-format
+msgid "Output '%s' disabled"
+msgstr "Вихід '%s' вимкнений"
+
+#: src/screen_song.c:118
+msgid "Song viewer"
+msgstr "Переглядач пісень"
+
+#: src/screen_song.c:193
+msgid "Composer"
+msgstr "Композитор"
+
+#: src/screen_song.c:194
+msgid "Name"
+msgstr "Назва"
+
+#: src/screen_song.c:195
+msgid "Disc"
+msgstr "Диск"
+
+#: src/screen_song.c:196
+msgid "Track"
+msgstr "Доріжка"
+
+#: src/screen_song.c:197
+msgid "Date"
+msgstr "Дата"
+
+#: src/screen_song.c:198
+msgid "Genre"
+msgstr "Жанр"
+
+#: src/screen_song.c:199
+msgid "Comment"
+msgstr "Коментар"
+
+#: src/screen_song.c:200
+msgid "Path"
+msgstr "Шлях"
+
+#: src/screen_song.c:201
+msgid "Bitrate"
+msgstr "Бітрейт"
+
+#: src/screen_song.c:228
+#, c-format
+msgid "%d kbps"
+msgstr "%d кбіт/с"
+
+#: src/screen_song.c:244
+msgid "Number of artists"
+msgstr "Кількість артистів"
+
+#: src/screen_song.c:245
+msgid "Number of albums"
+msgstr "Кількість альбомів"
+
+#: src/screen_song.c:246
+msgid "Number of songs"
+msgstr "Кількість пісень"
+
+#: src/screen_song.c:247
+msgid "Uptime"
+msgstr "Час роботи"
+
+#: src/screen_song.c:248
+msgid "Most recent db update"
+msgstr "Останнє оновлення бази даних"
+
+#: src/screen_song.c:249
+msgid "Playtime"
+msgstr "Час програвання"
+
+#: src/screen_song.c:250
+msgid "DB playtime"
+msgstr "Час програвання всієї БД"
+
+#: src/screen_song.c:266
+msgid "MPD statistics"
+msgstr "Статистика MPD"
+
+#: src/screen_song.c:311
+msgid "Selected song"
+msgstr "Вибрана пісня"
+
+#: src/screen_song.c:323
+msgid "Currently playing song"
+msgstr "Пісня, що зараз програється"
+
+#: src/command.c:69
+msgid "Key configuration screen"
+msgstr "Екран конфігурації клавіш"
+
+#: src/command.c:72
+msgid "Quit"
+msgstr "Вийти"
+
+#: src/command.c:76
+msgid "Move cursor up"
+msgstr "Перемістити курсор доверху"
+
+#: src/command.c:78
+msgid "Move cursor down"
+msgstr "Перемістити курсор донизу"
+
+#: src/command.c:80
+msgid "Move cursor to top of screen"
+msgstr "Перемістити курсор до початку екрану"
+
+#: src/command.c:82
+msgid "Move cursor to middle of screen"
+msgstr "Перемістити курсор до середини екрану"
+
+#: src/command.c:84
+msgid "Move cursor to bottom of screen"
+msgstr "Перемістити курсор до низу екрану"
+
+#: src/command.c:86
+#: src/command.c:285
+msgid "Home"
+msgstr "Home"
+
+#: src/command.c:88
+#: src/command.c:287
+msgid "End"
+msgstr "End"
+
+#: src/command.c:90
+msgid "Page up"
+msgstr "Сторінка догори"
+
+#: src/command.c:92
+msgid "Page down"
+msgstr "Сторінка донизу"
+
+#: src/command.c:94
+msgid "Range selection"
+msgstr "Вибір обсягу"
+
+#: src/command.c:96
+msgid "Scroll up one line"
+msgstr "Прогорнути один рядок догори"
+
+#: src/command.c:98
+msgid "Scroll down one line"
+msgstr "Прогорнути один рядок донизу"
+
+#: src/command.c:100
+msgid "Scroll up half a screen"
+msgstr "Прогорнути півекрану догори"
+
+#: src/command.c:102
+msgid "Scroll down half a screen"
+msgstr "Прогорнути півекрану донизу"
+
+#: src/command.c:107
+msgid "Help screen"
+msgstr "Екран допомоги"
+
+#: src/command.c:116
+msgid "Play/Enter directory"
+msgstr "Програти чи увійти до каталогу"
+
+#: src/command.c:118
+msgid "Pause"
+msgstr "Призупинити"
+
+#: src/command.c:120
+msgid "Stop"
+msgstr "Зупинити"
+
+#: src/command.c:122
+msgid "Crop"
+msgstr "Обрізати"
+
+#: src/command.c:124
+msgid "Next track"
+msgstr "Наступна доріжка"
+
+#: src/command.c:126
+msgid "Previous track"
+msgstr "Попередня доріжка"
+
+#: src/command.c:128
+msgid "Seek forward"
+msgstr "Шукати попереду"
+
+#: src/command.c:130
+msgid "Seek backward"
+msgstr "Шукати позаду"
+
+#: src/command.c:132
+msgid "Increase volume"
+msgstr "Збільшити гучність"
+
+#: src/command.c:134
+msgid "Decrease volume"
+msgstr "Зменшити гучність"
+
+#: src/command.c:136
+msgid "Select/deselect song in playlist"
+msgstr "Вибрати чи зняти виділення пісні в переліку програвання"
+
+#: src/command.c:138
+msgid "Select all listed items"
+msgstr "Вибрати всі перелічені елементи"
+
+#: src/command.c:140
+msgid "Delete song from playlist"
+msgstr "Видалити пісню з переліку програвання"
+
+#: src/command.c:142
+msgid "Shuffle playlist"
+msgstr "Перемішати перелік програвання"
+
+#: src/command.c:144
+msgid "Clear playlist"
+msgstr "Очистити перелік програвання"
+
+#: src/command.c:146
+msgid "Toggle repeat mode"
+msgstr "Перемкнути режим повторення"
+
+#: src/command.c:148
+msgid "Toggle random mode"
+msgstr "Перемкнути випадковий режим"
+
+#: src/command.c:150
+msgid "Toggle single mode"
+msgstr "Перемкнути режим повторення однієї пісні"
+
+#: src/command.c:152
+msgid "Toggle consume mode"
+msgstr "Перемкнути режим вичерпання"
+
+#: src/command.c:154
+msgid "Toggle crossfade mode"
+msgstr "Перемкнути режим плавного переходу"
+
+#: src/command.c:156
+msgid "Start a music database update"
+msgstr "Розпочати оновлення бази даних музики"
+
+#: src/command.c:158
+msgid "Save playlist"
+msgstr "Зберегти перелік програвання"
+
+#: src/command.c:160
+msgid "Add url/file to playlist"
+msgstr "Додати url-посилання чи файл до переліку програвання"
+
+#: src/command.c:163
+msgid "Go to root directory"
+msgstr "Перейти до кореневої теки"
+
+#: src/command.c:165
+msgid "Go to parent directory"
+msgstr "Перейти до батьківської теки"
+
+#: src/command.c:168
+msgid "Locate song in browser"
+msgstr "Визначити розміщення пісні в оглядачі"
+
+#: src/command.c:172
+msgid "Move item up"
+msgstr "Перемістити елемент догори"
+
+#: src/command.c:174
+msgid "Move item down"
+msgstr "Перемістити елемент донизу"
+
+#: src/command.c:176
+msgid "Refresh screen"
+msgstr "Оновити екран"
+
+#. translators: toggle between wrapping and non-wrapping
+#. search
+#: src/command.c:183
+msgid "Toggle find mode"
+msgstr "Перемкнути режим пошуку"
+
+#. translators: the auto center mode always centers the song
+#. currently being played
+#: src/command.c:187
+msgid "Toggle auto center mode"
+msgstr "Перемкнути режим автоматичного центрування"
+
+#: src/command.c:192
+msgid "Next screen"
+msgstr "Наступний екран"
+
+#: src/command.c:194
+msgid "Previous screen"
+msgstr "Попередній екран"
+
+#: src/command.c:196
+msgid "Swap to most recent screen"
+msgstr "Поміняти останні екрани"
+
+#: src/command.c:201
+msgid "Forward find"
+msgstr "Знайти попереду"
+
+#: src/command.c:203
+msgid "Forward find next"
+msgstr "Знайти попереду наступне"
+
+#: src/command.c:205
+msgid "Backward find"
+msgstr "Знайти позаду"
+
+#: src/command.c:207
+msgid "Backward find previous"
+msgstr "Знайти позаду попереднє"
+
+#. translators: this queries the user for a string
+#. * and jumps directly (while the user is typing)
+#. * to the entry which begins with this string
+#: src/command.c:212
+msgid "Jump to"
+msgstr "Перейти до"
+
+#: src/command.c:218
+msgid "Artist screen"
+msgstr "Екран виконавців"
+
+#: src/command.c:224
+msgid "Change search mode"
+msgstr "Змінити режим пошуку"
+
+#: src/command.c:228
+msgid "View the selected and the currently playing song"
+msgstr "Переглянути вибрану та пісню, що зараз програється"
+
+#. translators: interrupt the current background action,
+#. e.g. stop loading lyrics from the internet
+#: src/command.c:236
+msgid "Interrupt action"
+msgstr "Припинити дію"
+
+#: src/command.c:238
+msgid "Update Lyrics"
+msgstr "Оновити текст пісні"
+
+#: src/command.c:267
+msgid "Undefined"
+msgstr "Не визначений"
+
+#: src/command.c:269
+msgid "Space"
+msgstr "Space"
+
+#: src/command.c:271
+msgid "Enter"
+msgstr "Enter"
+
+#: src/command.c:273
+msgid "Backspace"
+msgstr "Backspace"
+
+#: src/command.c:275
+msgid "Delete"
+msgstr "Delete"
+
+#: src/command.c:277
+msgid "Up"
+msgstr "Up"
+
+#: src/command.c:279
+msgid "Down"
+msgstr "Down"
+
+#: src/command.c:281
+msgid "Left"
+msgstr "Left"
+
+#: src/command.c:283
+msgid "Right"
+msgstr "Right"
+
+#: src/command.c:289
+msgid "PageDown"
+msgstr "PageDown"
+
+#: src/command.c:291
+msgid "PageUp"
+msgstr "PageUp"
+
+#: src/command.c:293
+msgid "Tab"
+msgstr "Tab"
+
+#: src/command.c:295
+msgid "Shift+Tab"
+msgstr "Shift+Tab"
+
+#: src/command.c:297
+msgid "Esc"
+msgstr "Esc"
+
+#: src/command.c:299
+msgid "Insert"
+msgstr "Insert"
+
+#: src/command.c:510
+#: src/command.c:516
+#, c-format
+msgid "Key %s assigned to %s and %s"
+msgstr "Клавіша %s призначена до %s та %s"
+
+#: src/colors.c:164
+#, c-format
+msgid "Warning: Unknown color - %s\n"
+msgstr "Застереження: невідомий колір - %s\n"
+
+#: src/colors.c:207
+#, c-format
+msgid "Warning: Unknown color field - %s\n"
+msgstr "Застереження: невідоме поле кольору - %s\n"
+
+#: src/colors.c:240
+msgid "Terminal lacks support for changing colors"
+msgstr "Терміналу бракує підтримки зміни кольорів"
+
+#: src/colors.c:251
+msgid "Terminal lacks color capabilities"
+msgstr "Терміналу бракує підтримки можливостей кольорів"
+
+#. To translators: prefix for error messages
+#: src/conf.c:91
+msgid "Error"
+msgstr "Помилка"
+
+#: src/conf.c:99
+#: src/conf.c:108
+msgid "Malformed hotkey definition"
+msgstr "Невірно сформоване визначення гарячої клавіші"
+
+#. the hotkey configuration contains an unknown
+#. command
+#: src/conf.c:135
+msgid "Unknown command"
+msgstr "Невідома команда"
+
+#. the hotkey configuration line is incomplete
+#: src/conf.c:148
+msgid "Incomplete hotkey configuration"
+msgstr "Незавершена конфігурація гарячих клавіш"
+
+#. translators: ncmpc supports displaying the
+#. "elapsed" or "remaining" time of a song being
+#. played; in this case, the configuration file
+#. contained an invalid setting
+#: src/conf.c:180
+msgid "Bad time display type"
+msgstr "Невірний тип показу часу"
+
+#. an equals sign '=' was expected while parsing a
+#. configuration file line
+#: src/conf.c:195
+msgid "Missing '='"
+msgstr "Відсутній \"=\""
+
+#: src/conf.c:251
+msgid "Bad color name"
+msgstr "Невірна назва кольору"
+
+#: src/conf.c:260
+msgid "Incomplete color definition"
+msgstr "Незавершене визначення кольору"
+
+#: src/conf.c:266
+msgid "Invalid number"
+msgstr "Невірне число"
+
+#: src/conf.c:274
+msgid "Malformed color definition"
+msgstr "Невірно сформоване визначення кольору"
+
+#. an unknown screen name was specified in the
+#. configuration file
+#: src/conf.c:310
+msgid "Unknown screen name"
+msgstr "Невідома назва екрану"
+
+#: src/conf.c:339
+msgid "Invalid search mode"
+msgstr "Помилковий режим пошуку"
+
+#: src/conf.c:362
+msgid "Unknown search mode"
+msgstr "Невідомий режим пошуку"
+
+#: src/conf.c:517
+msgid "Unknown configuration parameter"
+msgstr "Невідомий конфігураційний параметр"
+
+#. To translators: these credits are shown
+#. when ncmpc is started with "--version"
+#: src/options.c:220
+#: src/options.c:223
+msgid "translator-credits"
+msgstr "Oleksandr Kovalenko <alx.kovalenko@gmail.com>"
+
+#: src/list_window.c:474
+msgid "Range selection disabled"
+msgstr "Вибір обсягу вимкнений"
+
+#: src/list_window.c:480
+msgid "Range selection enabled"
+msgstr "Вибір обсягу увімкнений"
+
