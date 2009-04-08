@@ -1,94 +1,150 @@
 ##
 ## Configuration file for ncmpc (~/.ncmpc/config)
-## 
+##
 
-## screen list - used when navigating with next-screen (tab) and 
-## previous-screen (shift+tab) 
-## names: playlist browse help artist clock
-#screen-list = playlist artist
+############## Connection ###################
+## Connect to mpd running on a specified host
+#host = "localhost"
 
-## auto center (center the playing track in the playlist)
-#auto-center = no
+## Connect to mpd on the specified port.
+#port = 6600
 
-## wide_cursor - make the cursor as wide as the screen
-#wide-cursor = yes
+## Connect to mpd using the specified password.
+#password = "secret"
 
-## wrapped cursor movement
-#wrap-around = no
-
-## wrapped find mode
-#find-wrap = yes
-
-## ring bell when find wraps around
-#bell-on-wrap = no
-
-## show last pattern when using find
-#find-show-last = no
-
-## list-format
-#list-format = "%name%|[%artist% - ]%title%|%file%"
-
-## status-format
-#status-format = "[%artist% - ]%title%|%shortfile%"
-
-## sound audible bell on alerts
-#audible-bell = yes
-
-## enable visible bell on alerts
-#visible-bell = no
-
-## hide playlist cursor after x seconds (0 disables this feature)
-#hide-cursor = 5
-
-## change the xterm title 
-#set-xterm-title = no
-
-## xterm title format
-#xterm-title-format = "ncmpc: [ %name%|[%artist% - ]%title%|%file%]"
-
-## enable mouse events 
+############## Interface ####################
+## Enable mouse support (if enabled at compile time).
 #enable-mouse = no
 
-## seek time (default 1s)
-#seek-time = 3
+## A list of screens to cycle through when using
+## the previous/next screen commands (tab and shift+tab).
+## names: playlist browse help artist search song keydef lyrics outputs
+#screen-list = playlist browse
 
-## mpd crossfade time 
-##crossfade-time = 10
+## Default search mode for the search screen. The mode is an
+## integer index, with  0  for title, 1 for artist, 2 for album,
+## 3 for filename, and 4 for artist+title.
+#search-mode = 0
 
-## scroll long titles
+## Auto center (center the playing track in the playlist)
+#auto-center = no
+
+## Show the most recent query when using find.
+#find-show-last = no
+
+## Wrapped find mode.
+#find-wrap = yes
+
+## Wrapped cursor movement.
+#wrap-around = no
+
+## Ring bell when find wraps around.
+#bell-on-wrap = yes
+
+## Sound audible bell on alerts.
+#audible-bell = yes
+
+## Enable visible bell on alerts.
+#visible-bell = no
+
+## Default crossfade time in seconds.
+#crossfade-time = 10
+
+## Seek forward/backward by NUM seconds.
+#seek-time = 1
+
+############## Display ######################
+## Show a list of the screens in the top line on startup.
+#welcome-screen-list = yes
+
+## Make the cursor as wide as the screen.
+#wide-cursor = yes
+
+## Hide playlist cursor after x seconds (0 disables this feature).
+#hide-cursor = 5
+
+## Scroll the title if it is too long for the screen.
 #scroll = yes
 
-## separator to use when scrolling
+## The separator to show at the end of the scrolling title.
 #scroll-sep = " *** "
 
+## list-format
+## The format used to display songs in the main window.
+#list-format = "%name%|[%artist% - ]%title%|%file%"
+
+## The format used to display songs on the status line.
+#status-format = "[%artist% - ]%title%|%shortfile%"
+
+## The time, in seconds, for which status messages will be displayed.
+#status-message-time = 3
+
+## Display the time in the status bar when idle.
+#display-time = yes
+
+## Sets whether to display remaining or elapsed time in
+## the status window. Default is elapsed.
+#timedisplay-type = elapsed
+
+## Show the bitrate in the status bar when playing a stream.
+#visible-bitrate = no
+
+## Change the XTerm title (ncmpc will not restore the title).
+#set-xterm-title = no
+
+## The format used to for the xterm title when ncmpc is playing.
+#xterm-title-format = "ncmpc: [ %name%|[%artist% - ]%title%|%file%]"
+
+############## Colors #######################
 ##
-## Color configuration
-##
-## colors: black,red,green,yellow,blue,magenta,cyan,white 
+## base colors: black, red, green, yellow, blue, magenta, cyan, white
 ##
 
-## enable/disable colors
+## Enable/disable colors.
 #enable-colors = no
 
-## background colors: black,red,green,yellow,blue,magenta,cyan,white, none 
+## Set the background color. If the background color is assigned
+## to the keyword none, ncmpc will not change the background color.
 #color background = black
 
 ## text colors: black, red, green, yellow, blue, magenta, cyan, white,
 ##              brightblack, brightred, brightgreen, brightyellow, brightblue,
 ##              brightmagenta, brightcyan, brightwhite
 
-
+## Set the text color for the title row.
 #color title = yellow
+
+## Set the text color for the title row (the bold part).
 #color title-bold = brightyellow
+
+## Set the color of the line on the second row.
 #color line = white
+
+## Set the text color used to indicate mpd flags on the second row.
 #color line-flags = brightwhite
+
+## Set the text color in the main area of ncmpc.
 #color list = green
+
+## Set the bold text color in the main area of ncmpc.
 #color list-bold = brightgreen
+
+## Set the color of the progress indicator.
 #color progressbar = white
+
+## Set the text color used to display mpd status in the status window.
 #color status-state = brightyellow
+
+## Set the text color used to display song names in the status window.
 #color status-song  = yellow
+
+## Set the text color used to display time the status window.
 #color status-time  = red
+
+## Text color used to display alerts in the status window.
 #color alert = brightred
 
-
-
+## Redefine any of the base colors.
+## The RGB values must be an integer value between 0 and 1000.
+## Note: Only some terminals allow redefinitions of colors!
+#colordef yellow = 255, 140, 0
