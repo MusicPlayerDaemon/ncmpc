@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-09 08:20+0200\n"
+"POT-Creation-Date: 2009-04-09 12:56+0200\n"
 "PO-Revision-Date: 2009-04-06 15:17+0000\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
@@ -686,15 +686,18 @@ msgid "Move cursor down"
 msgstr "Flyt markør ned"
 
 #: src/command.c:80
-msgid "Move cursor to top of screen"
+#, fuzzy
+msgid "Move cursor to the top of screen"
 msgstr "Flyt curser til top af skærm"
 
 #: src/command.c:82
-msgid "Move cursor to middle of screen"
+#, fuzzy
+msgid "Move cursor to the middle of screen"
 msgstr "Flyt curser til midten af skærm"
 
 #: src/command.c:84
-msgid "Move cursor to bottom of screen"
+#, fuzzy
+msgid "Move cursor to the bottom of screen"
 msgstr "Flyt curser til bund af skærm"
 
 #: src/command.c:86

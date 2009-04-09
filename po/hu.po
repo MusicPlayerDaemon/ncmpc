@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-09 08:20+0200\n"
+"POT-Creation-Date: 2009-04-09 12:56+0200\n"
 "PO-Revision-Date: 2009-04-04 13:18+0000\n"
 "Last-Translator: Laszlo Ashin <kodest@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -686,15 +686,18 @@ msgid "Move cursor down"
 msgstr "Kurzormozgatás lefelé"
 
 #: src/command.c:80
-msgid "Move cursor to top of screen"
+#, fuzzy
+msgid "Move cursor to the top of screen"
 msgstr "Kurzor mozgatása a képernyő tetejére"
 
 #: src/command.c:82
-msgid "Move cursor to middle of screen"
+#, fuzzy
+msgid "Move cursor to the middle of screen"
 msgstr "Kurzor mozgatása a képernyő közepére"
 
 #: src/command.c:84
-msgid "Move cursor to bottom of screen"
+#, fuzzy
+msgid "Move cursor to the bottom of screen"
 msgstr "Kurzor mozgatása a képernyő aljára"
 
 #: src/command.c:86
