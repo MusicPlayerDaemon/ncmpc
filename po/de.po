@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-01 23:16+0200\n"
+"POT-Creation-Date: 2009-04-09 08:20+0200\n"
 "PO-Revision-Date: 2009-03-14 15:32+0100\n"
 "Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
 "Language-Team: de <de@li.org>\n"
@@ -47,7 +47,7 @@ msgstr "Verbunden mit %s"
 msgid "press %s for the key editor"
 msgstr "drücke %s für den Tasteneditor"
 
-#: src/screen.c:175 src/screen_help.c:244
+#: src/screen.c:175 src/screen_help.c:246
 msgid "Help"
 msgstr "Hilfe"
 
@@ -64,7 +64,7 @@ msgstr "Stöbern"
 msgid "Artist"
 msgstr "Künstler"
 
-#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:141
+#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:143
 msgid "Search"
 msgstr "Suche"
 
@@ -461,106 +461,106 @@ msgstr "Editiere Tasten für %s"
 msgid "Movement"
 msgstr "Bewegung"
 
-#: src/screen_help.c:78
+#: src/screen_help.c:80
 msgid "Global"
 msgstr "Global"
 
-#: src/screen_help.c:111 src/command.c:109
+#: src/screen_help.c:113 src/command.c:109
 msgid "Playlist screen"
 msgstr "Playlistenanzeige"
 
-#: src/screen_help.c:113
+#: src/screen_help.c:115
 msgid "Play"
 msgstr "Abspielen"
 
-#: src/screen_help.c:116
+#: src/screen_help.c:118
 msgid "Move song up"
 msgstr "Stück nach oben bewegen"
 
-#: src/screen_help.c:117
+#: src/screen_help.c:119
 msgid "Move song down"
 msgstr "Stück nach unten bewegen"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:122
 msgid "Center"
 msgstr "Zentrieren"
 
-#: src/screen_help.c:125 src/command.c:111
+#: src/screen_help.c:127 src/command.c:111
 msgid "Browse screen"
 msgstr "Anzeige durchstöbern"
 
-#: src/screen_help.c:127
+#: src/screen_help.c:129
 msgid "Enter directory/Select and play song"
 msgstr "Verzeichnis öffnen/Stück auswählen und abspielen"
 
-#: src/screen_help.c:129 src/screen_help.c:144
+#: src/screen_help.c:131 src/screen_help.c:146
 msgid "Append song to playlist"
 msgstr "Song zur Playlist hinzufügen"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:133
 msgid "Delete playlist"
 msgstr "Lösche Playlist"
 
-#: src/screen_help.c:139 src/command.c:222
+#: src/screen_help.c:141 src/command.c:222
 msgid "Search screen"
 msgstr "Suchanzeige"
 
-#: src/screen_help.c:142
+#: src/screen_help.c:144
 msgid "Select and play"
 msgstr "Auswählen und abspielen"
 
-#: src/screen_help.c:151 src/command.c:232
+#: src/screen_help.c:153 src/command.c:232
 msgid "Lyrics screen"
 msgstr "Liedtextanzeige"
 
-#: src/screen_help.c:153
+#: src/screen_help.c:155
 msgid "View Lyrics"
 msgstr "Liedtext lesen"
 
-#: src/screen_help.c:154
+#: src/screen_help.c:156
 msgid "(Re)load lyrics"
 msgstr "Text (neu) laden"
 
-#: src/screen_help.c:155
+#: src/screen_help.c:157
 msgid "Interrupt retrieval"
 msgstr "Laden unterbrechen"
 
-#: src/screen_help.c:156
+#: src/screen_help.c:158
 #, fuzzy
 msgid "Download lyrics for currently playing song"
 msgstr "Gerade laufendes Lied"
 
-#: src/screen_help.c:157
+#: src/screen_help.c:159
 msgid "Save lyrics"
 msgstr "Liedtext speichern"
 
-#: src/screen_help.c:162 src/command.c:243
+#: src/screen_help.c:164 src/command.c:243
 msgid "Outputs screen"
 msgstr "Anzeige der Ausgabegeräte"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:166
 msgid "Enable/disable output"
 msgstr "Ausgabegerät aktivieren/deaktivieren"
 
-#: src/screen_help.c:169
+#: src/screen_help.c:171
 #, fuzzy
 msgid "Keydef screen"
 msgstr "Hilfeanzeige"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 #, fuzzy
 msgid "Edit keydefs for selected command"
 msgstr "Editiere Tasten für %s"
 
-#: src/screen_help.c:172
+#: src/screen_help.c:174
 msgid "Remove selected keydef"
 msgstr ""
 
-#: src/screen_help.c:173
+#: src/screen_help.c:175
 msgid "Go up a level"
 msgstr ""
 
-#: src/screen_help.c:174
+#: src/screen_help.c:176
 msgid "Apply and save changes"
 msgstr ""
 
@@ -704,13 +704,15 @@ msgstr "Cursor zur Mitte der Anzeige bewegen"
 msgid "Move cursor to bottom of screen"
 msgstr "Cursor zum Ende der Anzeige bewegen"
 
-#: src/command.c:86 src/command.c:285
-msgid "Home"
-msgstr "Pos1"
+#: src/command.c:86
+#, fuzzy
+msgid "Move cursor to the top of the list"
+msgstr "Cursor zum Beginn der Anzeige bewegen"
 
-#: src/command.c:88 src/command.c:287
-msgid "End"
-msgstr "Ende"
+#: src/command.c:88
+#, fuzzy
+msgid "Move cursor to the bottom of the list"
+msgstr "Cursor zum Ende der Anzeige bewegen"
 
 #: src/command.c:90
 msgid "Page up"
@@ -968,6 +970,14 @@ msgstr "Links"
 msgid "Right"
 msgstr "Rechts"
 
+#: src/command.c:285
+msgid "Home"
+msgstr "Pos1"
+
+#: src/command.c:287
+msgid "End"
+msgstr "Ende"
+
 #: src/command.c:289
 msgid "PageDown"
 msgstr "Bild ab"
@@ -1016,22 +1026,22 @@ msgid "Terminal lacks color capabilities"
 msgstr "Das Terminal unterstützt keine Farben"
 
 #. To translators: prefix for error messages
-#: src/conf.c:91
+#: src/conf.c:92
 msgid "Error"
 msgstr "Fehler"
 
-#: src/conf.c:99 src/conf.c:108
+#: src/conf.c:100 src/conf.c:109
 msgid "Malformed hotkey definition"
 msgstr "Fehlerhafte Definition der Tastenbelegung"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:135
+#: src/conf.c:136
 msgid "Unknown command"
 msgstr "Unbekannter Befehl"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:148
+#: src/conf.c:149
 msgid "Incomplete hotkey configuration"
 msgstr "Unvollständige Konfiguration für Tastenbelegung"
 
@@ -1039,64 +1049,64 @@ msgstr "Unvollständige Konfiguration für Tastenbelegung"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:180
+#: src/conf.c:181
 msgid "Bad time display type"
 msgstr "Ungültige Anzeigeart"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:195
+#: src/conf.c:196
 msgid "Missing '='"
 msgstr "Es fehlt ein '='"
 
-#: src/conf.c:251
+#: src/conf.c:252
 msgid "Bad color name"
 msgstr "Ungültiger Farbname"
 
-#: src/conf.c:260
+#: src/conf.c:261
 msgid "Incomplete color definition"
 msgstr "Unvollständige Farbkonfiguration"
 
-#: src/conf.c:266
+#: src/conf.c:267
 msgid "Invalid number"
 msgstr "Ungültige Zahl"
 
-#: src/conf.c:274
+#: src/conf.c:275
 msgid "Malformed color definition"
 msgstr "Fehlerhafte Farbdefinition"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:310
+#: src/conf.c:311
 msgid "Unknown screen name"
 msgstr "Unbekannter Anzeigenname"
 
-#: src/conf.c:339
+#: src/conf.c:340
 #, fuzzy
 msgid "Invalid search mode"
 msgstr "Suchmodus wechseln"
 
-#: src/conf.c:362
+#: src/conf.c:363
 #, fuzzy
 msgid "Unknown search mode"
 msgstr "Suchmodus wechseln"
 
-#: src/conf.c:517
+#: src/conf.c:520
 msgid "Unknown configuration parameter"
 msgstr "Unbekannter Konfigurationsparameter"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:220 src/options.c:223
+#: src/options.c:221 src/options.c:224
 msgid "translator-credits"
 msgstr "Übersetzer"
 
-#: src/list_window.c:474
+#: src/list_window.c:504
 #, fuzzy
 msgid "Range selection disabled"
 msgstr "Auswahlmodus deaktiviert"
 
-#: src/list_window.c:480
+#: src/list_window.c:510
 #, fuzzy
 msgid "Range selection enabled"
 msgstr "Auswahlmodus aktiviert"

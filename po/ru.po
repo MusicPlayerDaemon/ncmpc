@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-01 23:16+0200\n"
+"POT-Creation-Date: 2009-04-09 08:20+0200\n"
 "PO-Revision-Date: 2009-02-17 14:55+0100\n"
 "Last-Translator: Max Arnold <amv_cbx@mail.ru>\n"
 "Language-Team: ru <ru@li.org>\n"
@@ -48,7 +48,7 @@ msgstr "Подключено к %s"
 msgid "press %s for the key editor"
 msgstr "%s - редактор клавиш"
 
-#: src/screen.c:175 src/screen_help.c:244
+#: src/screen.c:175 src/screen_help.c:246
 msgid "Help"
 msgstr "Помощь"
 
@@ -65,7 +65,7 @@ msgstr "Навигация"
 msgid "Artist"
 msgstr "Исполнитель"
 
-#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:141
+#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:143
 msgid "Search"
 msgstr "Поиск"
 
@@ -458,103 +458,103 @@ msgstr "Изменение клавиатурных комбинаций для %s"
 msgid "Movement"
 msgstr "Перемещение"
 
-#: src/screen_help.c:78
+#: src/screen_help.c:80
 msgid "Global"
 msgstr "Глобальные"
 
-#: src/screen_help.c:111 src/command.c:109
+#: src/screen_help.c:113 src/command.c:109
 msgid "Playlist screen"
 msgstr "Экран плейлиста"
 
-#: src/screen_help.c:113
+#: src/screen_help.c:115
 msgid "Play"
 msgstr "Воспроизведение"
 
-#: src/screen_help.c:116
+#: src/screen_help.c:118
 msgid "Move song up"
 msgstr "Переместить композицию вверх"
 
-#: src/screen_help.c:117
+#: src/screen_help.c:119
 msgid "Move song down"
 msgstr "Переместить композицию вниз"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:122
 msgid "Center"
 msgstr "Центрировать"
 
-#: src/screen_help.c:125 src/command.c:111
+#: src/screen_help.c:127 src/command.c:111
 msgid "Browse screen"
 msgstr "Экран навигации"
 
-#: src/screen_help.c:127
+#: src/screen_help.c:129
 msgid "Enter directory/Select and play song"
 msgstr "Перейти в директорию/Выбрать и проиграть композицию"
 
-#: src/screen_help.c:129 src/screen_help.c:144
+#: src/screen_help.c:131 src/screen_help.c:146
 msgid "Append song to playlist"
 msgstr "Добавить композицию в плейлист"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:133
 msgid "Delete playlist"
 msgstr "Удалить плейлист"
 
-#: src/screen_help.c:139 src/command.c:222
+#: src/screen_help.c:141 src/command.c:222
 msgid "Search screen"
 msgstr "Экран поиска"
 
-#: src/screen_help.c:142
+#: src/screen_help.c:144
 msgid "Select and play"
 msgstr "Выбрать и проиграть"
 
-#: src/screen_help.c:151 src/command.c:232
+#: src/screen_help.c:153 src/command.c:232
 msgid "Lyrics screen"
 msgstr "Экран текста песни"
 
-#: src/screen_help.c:153
+#: src/screen_help.c:155
 msgid "View Lyrics"
 msgstr "Показать текст"
 
-#: src/screen_help.c:154
+#: src/screen_help.c:156
 msgid "(Re)load lyrics"
 msgstr "(Пере)загрузить текст"
 
-#: src/screen_help.c:155
+#: src/screen_help.c:157
 msgid "Interrupt retrieval"
 msgstr "Прервать загрузку"
 
-#: src/screen_help.c:156
+#: src/screen_help.c:158
 msgid "Download lyrics for currently playing song"
 msgstr "Загрузить текст проигрываемой композиции"
 
-#: src/screen_help.c:157
+#: src/screen_help.c:159
 msgid "Save lyrics"
 msgstr "Сохранить текст"
 
-#: src/screen_help.c:162 src/command.c:243
+#: src/screen_help.c:164 src/command.c:243
 msgid "Outputs screen"
 msgstr "Экран аудиовыходов"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:166
 msgid "Enable/disable output"
 msgstr "Вкл/выкл аудиовыход"
 
-#: src/screen_help.c:169
+#: src/screen_help.c:171
 msgid "Keydef screen"
 msgstr "Экран клавиатурных комбинаций"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Edit keydefs for selected command"
 msgstr "Изменить комбинации для выбранной команды"
 
-#: src/screen_help.c:172
+#: src/screen_help.c:174
 msgid "Remove selected keydef"
 msgstr "Удалить выбранную комбинацию"
 
-#: src/screen_help.c:173
+#: src/screen_help.c:175
 msgid "Go up a level"
 msgstr "Перейти на уровень выше"
 
-#: src/screen_help.c:174
+#: src/screen_help.c:176
 msgid "Apply and save changes"
 msgstr "Применить и сохранить изменения"
 
@@ -698,13 +698,15 @@ msgstr "Переместить курсор в середину экрана"
 msgid "Move cursor to bottom of screen"
 msgstr "Переместить курсор в низ экрана"
 
-#: src/command.c:86 src/command.c:285
-msgid "Home"
-msgstr "В начало"
+#: src/command.c:86
+#, fuzzy
+msgid "Move cursor to the top of the list"
+msgstr "Переместить курсор в верх экрана"
 
-#: src/command.c:88 src/command.c:287
-msgid "End"
-msgstr "В конец"
+#: src/command.c:88
+#, fuzzy
+msgid "Move cursor to the bottom of the list"
+msgstr "Переместить курсор в низ экрана"
 
 #: src/command.c:90
 msgid "Page up"
@@ -959,6 +961,14 @@ msgstr "Влево"
 msgid "Right"
 msgstr "Вправо"
 
+#: src/command.c:285
+msgid "Home"
+msgstr "В начало"
+
+#: src/command.c:287
+msgid "End"
+msgstr "В конец"
+
 #: src/command.c:289
 msgid "PageDown"
 msgstr "PageDown"
@@ -1007,22 +1017,22 @@ msgid "Terminal lacks color capabilities"
 msgstr "Терминал не поддерживает цвета"
 
 #. To translators: prefix for error messages
-#: src/conf.c:91
+#: src/conf.c:92
 msgid "Error"
 msgstr "Ошибка"
 
-#: src/conf.c:99 src/conf.c:108
+#: src/conf.c:100 src/conf.c:109
 msgid "Malformed hotkey definition"
 msgstr "Неправильное значение клавиатурной комбинации"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:135
+#: src/conf.c:136
 msgid "Unknown command"
 msgstr "Неизвестная команда"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:148
+#: src/conf.c:149
 msgid "Incomplete hotkey configuration"
 msgstr "Неопределённое значение клавиатурной комбинации"
 
@@ -1030,61 +1040,61 @@ msgstr "Неопределённое значение клавиатурной комбинации"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:180
+#: src/conf.c:181
 msgid "Bad time display type"
 msgstr "Неверный тип отображения времени"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:195
+#: src/conf.c:196
 msgid "Missing '='"
 msgstr "Пропущен символ '='"
 
-#: src/conf.c:251
+#: src/conf.c:252
 msgid "Bad color name"
 msgstr "Неверное название цвета"
 
-#: src/conf.c:260
+#: src/conf.c:261
 msgid "Incomplete color definition"
 msgstr "Неопределённое значение цвета"
 
-#: src/conf.c:266
+#: src/conf.c:267
 msgid "Invalid number"
 msgstr "Неверное число"
 
-#: src/conf.c:274
+#: src/conf.c:275
 msgid "Malformed color definition"
 msgstr "Неправильное значение цвета"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:310
+#: src/conf.c:311
 msgid "Unknown screen name"
 msgstr "Неизвестное название экрана"
 
-#: src/conf.c:339
+#: src/conf.c:340
 msgid "Invalid search mode"
 msgstr "Неверный режим поиска"
 
-#: src/conf.c:362
+#: src/conf.c:363
 msgid "Unknown search mode"
 msgstr "Неизвестный режим поиска"
 
-#: src/conf.c:517
+#: src/conf.c:520
 msgid "Unknown configuration parameter"
 msgstr "Неизвестный параметр конфигурации"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:220 src/options.c:223
+#: src/options.c:221 src/options.c:224
 msgid "translator-credits"
 msgstr "Перевод: Max Arnold <lwarxx@gmail.com>"
 
-#: src/list_window.c:474
+#: src/list_window.c:504
 msgid "Range selection disabled"
 msgstr "Выбор диапазона выключен"
 
-#: src/list_window.c:480
+#: src/list_window.c:510
 msgid "Range selection enabled"
 msgstr "Выбор диапазона включен"
 

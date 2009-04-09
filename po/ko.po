@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-01 23:16+0200\n"
+"POT-Creation-Date: 2009-04-09 08:20+0200\n"
 "PO-Revision-Date: 2009-04-01 10:17+0000\n"
 "Last-Translator: atie <atie.at.matrix@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -48,7 +48,7 @@ msgstr "%s로 접속함"
 msgid "press %s for the key editor"
 msgstr "키 편집기 사용을 위하여 %s(을)를 누르십시오."
 
-#: src/screen.c:175 src/screen_help.c:244
+#: src/screen.c:175 src/screen_help.c:246
 msgid "Help"
 msgstr "도움말"
 
@@ -65,7 +65,7 @@ msgstr "열람"
 msgid "Artist"
 msgstr "아티스트"
 
-#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:141
+#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:143
 msgid "Search"
 msgstr "찾기"
 
@@ -458,103 +458,103 @@ msgstr "%s(을)를 위한 키 편집"
 msgid "Movement"
 msgstr "이동"
 
-#: src/screen_help.c:78
+#: src/screen_help.c:80
 msgid "Global"
 msgstr "전체"
 
-#: src/screen_help.c:111 src/command.c:109
+#: src/screen_help.c:113 src/command.c:109
 msgid "Playlist screen"
 msgstr "연주목록 화면"
 
-#: src/screen_help.c:113
+#: src/screen_help.c:115
 msgid "Play"
 msgstr "연주"
 
-#: src/screen_help.c:116
+#: src/screen_help.c:118
 msgid "Move song up"
 msgstr "곡을 위로 올리기"
 
-#: src/screen_help.c:117
+#: src/screen_help.c:119
 msgid "Move song down"
 msgstr "곡을 아래로 내리기"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:122
 msgid "Center"
 msgstr "가운데"
 
-#: src/screen_help.c:125 src/command.c:111
+#: src/screen_help.c:127 src/command.c:111
 msgid "Browse screen"
 msgstr "열람하기 화면"
 
-#: src/screen_help.c:127
+#: src/screen_help.c:129
 msgid "Enter directory/Select and play song"
 msgstr "디렉토리를 입력하고 곡을 선택하여 연주합니다."
 
-#: src/screen_help.c:129 src/screen_help.c:144
+#: src/screen_help.c:131 src/screen_help.c:146
 msgid "Append song to playlist"
 msgstr "연주목록에 곡을 더하기"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:133
 msgid "Delete playlist"
 msgstr "연주목록 지우기"
 
-#: src/screen_help.c:139 src/command.c:222
+#: src/screen_help.c:141 src/command.c:222
 msgid "Search screen"
 msgstr "찾기 화면"
 
-#: src/screen_help.c:142
+#: src/screen_help.c:144
 msgid "Select and play"
 msgstr "선택하고 연주"
 
-#: src/screen_help.c:151 src/command.c:232
+#: src/screen_help.c:153 src/command.c:232
 msgid "Lyrics screen"
 msgstr "가사 화면"
 
-#: src/screen_help.c:153
+#: src/screen_help.c:155
 msgid "View Lyrics"
 msgstr "가사 보기"
 
-#: src/screen_help.c:154
+#: src/screen_help.c:156
 msgid "(Re)load lyrics"
 msgstr "가사 (다시)올리기"
 
-#: src/screen_help.c:155
+#: src/screen_help.c:157
 msgid "Interrupt retrieval"
 msgstr "가사 가져오기 중지"
 
-#: src/screen_help.c:156
+#: src/screen_help.c:158
 msgid "Download lyrics for currently playing song"
 msgstr "현재 연주중인 노래의 가사를 다운로드"
 
-#: src/screen_help.c:157
+#: src/screen_help.c:159
 msgid "Save lyrics"
 msgstr "가사 저장하기"
 
-#: src/screen_help.c:162 src/command.c:243
+#: src/screen_help.c:164 src/command.c:243
 msgid "Outputs screen"
 msgstr "출력 화면"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:166
 msgid "Enable/disable output"
 msgstr "출력 사용하기/안하기"
 
-#: src/screen_help.c:169
+#: src/screen_help.c:171
 msgid "Keydef screen"
 msgstr "키설정 화면"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Edit keydefs for selected command"
 msgstr "선택한 명령을 위한 키설정 편집하기"
 
-#: src/screen_help.c:172
+#: src/screen_help.c:174
 msgid "Remove selected keydef"
 msgstr "선택한 키설정 삭제하기"
 
-#: src/screen_help.c:173
+#: src/screen_help.c:175
 msgid "Go up a level"
 msgstr "한 단계 위로 가기"
 
-#: src/screen_help.c:174
+#: src/screen_help.c:176
 msgid "Apply and save changes"
 msgstr "적용하고 변경사항을 저장하기"
 
@@ -697,13 +697,15 @@ msgstr "화면 중간으로 커서를 옮기기"
 msgid "Move cursor to bottom of screen"
 msgstr "화면 하단으로 커서를 옮기기"
 
-#: src/command.c:86 src/command.c:285
-msgid "Home"
-msgstr "Home"
+#: src/command.c:86
+#, fuzzy
+msgid "Move cursor to the top of the list"
+msgstr "화면 상단으로 커서를 옮기기"
 
-#: src/command.c:88 src/command.c:287
-msgid "End"
-msgstr "End"
+#: src/command.c:88
+#, fuzzy
+msgid "Move cursor to the bottom of the list"
+msgstr "화면 하단으로 커서를 옮기기"
 
 #: src/command.c:90
 msgid "Page up"
@@ -958,6 +960,14 @@ msgstr "Left"
 msgid "Right"
 msgstr "Right"
 
+#: src/command.c:285
+msgid "Home"
+msgstr "Home"
+
+#: src/command.c:287
+msgid "End"
+msgstr "End"
+
 #: src/command.c:289
 msgid "PageDown"
 msgstr "PageDown"
@@ -1006,22 +1016,22 @@ msgid "Terminal lacks color capabilities"
 msgstr "색상 기능이 없는 터미널입니다."
 
 #. To translators: prefix for error messages
-#: src/conf.c:91
+#: src/conf.c:92
 msgid "Error"
 msgstr "오류"
 
-#: src/conf.c:99 src/conf.c:108
+#: src/conf.c:100 src/conf.c:109
 msgid "Malformed hotkey definition"
 msgstr "잘못된 단축키 정의"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:135
+#: src/conf.c:136
 msgid "Unknown command"
 msgstr "알 수 없는 명령"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:148
+#: src/conf.c:149
 msgid "Incomplete hotkey configuration"
 msgstr "단축키 설정이 불완전합니다."
 
@@ -1029,64 +1039,64 @@ msgstr "단축키 설정이 불완전합니다."
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:180
+#: src/conf.c:181
 msgid "Bad time display type"
 msgstr "잘못된 시간 표시 형식"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:195
+#: src/conf.c:196
 msgid "Missing '='"
 msgstr "'=' 기호가 없습니다."
 
-#: src/conf.c:251
+#: src/conf.c:252
 msgid "Bad color name"
 msgstr "잘못된 색상 이름"
 
-#: src/conf.c:260
+#: src/conf.c:261
 msgid "Incomplete color definition"
 msgstr "불완전한 색상 지정"
 
-#: src/conf.c:266
+#: src/conf.c:267
 msgid "Invalid number"
 msgstr "유효하지 않은 숫자"
 
-#: src/conf.c:274
+#: src/conf.c:275
 msgid "Malformed color definition"
 msgstr "잘못된 색상 지정"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:310
+#: src/conf.c:311
 msgid "Unknown screen name"
 msgstr "알 수 없는 화면 이름"
 
-#: src/conf.c:339
+#: src/conf.c:340
 msgid "Invalid search mode"
 msgstr "잘못된 검색 모드"
 
-#: src/conf.c:362
+#: src/conf.c:363
 msgid "Unknown search mode"
 msgstr "알 수 없는 검색 모드"
 
-#: src/conf.c:517
+#: src/conf.c:520
 msgid "Unknown configuration parameter"
 msgstr "알 수 없는 설정 요소"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:220 src/options.c:223
+#: src/options.c:221 src/options.c:224
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  atie https://launchpad.net/~atie-at-matrix\n"
 "  bluejay https://launchpad.net/~jaypedia"
 
-#: src/list_window.c:474
+#: src/list_window.c:504
 msgid "Range selection disabled"
 msgstr "범위 선택 기능을 사용하지 않습니다."
 
-#: src/list_window.c:480
+#: src/list_window.c:510
 msgid "Range selection enabled"
 msgstr "범위 선택 기능을 사용합니다."
 

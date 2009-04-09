@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-01 23:16+0200\n"
+"POT-Creation-Date: 2009-04-09 08:20+0200\n"
 "PO-Revision-Date: 2009-04-01 22:58+0200\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
@@ -46,7 +46,7 @@ msgstr "Pripojený k %s"
 msgid "press %s for the key editor"
 msgstr "stlačte %s pre editor klávesov"
 
-#: src/screen.c:175 src/screen_help.c:244
+#: src/screen.c:175 src/screen_help.c:246
 msgid "Help"
 msgstr "Pomoc"
 
@@ -63,7 +63,7 @@ msgstr "Listovať"
 msgid "Artist"
 msgstr "Interpret"
 
-#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:141
+#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:143
 msgid "Search"
 msgstr "Hľadanie"
 
@@ -456,103 +456,103 @@ msgstr "Upraviť klávesy pre %s"
 msgid "Movement"
 msgstr "Pohyb"
 
-#: src/screen_help.c:78
+#: src/screen_help.c:80
 msgid "Global"
 msgstr "Globálne"
 
-#: src/screen_help.c:111 src/command.c:109
+#: src/screen_help.c:113 src/command.c:109
 msgid "Playlist screen"
 msgstr "Okno playlistu"
 
-#: src/screen_help.c:113
+#: src/screen_help.c:115
 msgid "Play"
 msgstr "Prehrávať"
 
-#: src/screen_help.c:116
+#: src/screen_help.c:118
 msgid "Move song up"
 msgstr "Presunúť skladbu nahor"
 
-#: src/screen_help.c:117
+#: src/screen_help.c:119
 msgid "Move song down"
 msgstr "Presunúť skladbu nadol"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:122
 msgid "Center"
 msgstr "Do stredu"
 
-#: src/screen_help.c:125 src/command.c:111
+#: src/screen_help.c:127 src/command.c:111
 msgid "Browse screen"
 msgstr "Okno listovania"
 
-#: src/screen_help.c:127
+#: src/screen_help.c:129
 msgid "Enter directory/Select and play song"
 msgstr "Vstúpiť do adresára/Vybrať a prehrať skladbu"
 
-#: src/screen_help.c:129 src/screen_help.c:144
+#: src/screen_help.c:131 src/screen_help.c:146
 msgid "Append song to playlist"
 msgstr "Pridať skladbu do playlistu"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:133
 msgid "Delete playlist"
 msgstr "Vymazať playlist"
 
-#: src/screen_help.c:139 src/command.c:222
+#: src/screen_help.c:141 src/command.c:222
 msgid "Search screen"
 msgstr "Okno vyhľadávania"
 
-#: src/screen_help.c:142
+#: src/screen_help.c:144
 msgid "Select and play"
 msgstr "Vybrať a prehrať"
 
-#: src/screen_help.c:151 src/command.c:232
+#: src/screen_help.c:153 src/command.c:232
 msgid "Lyrics screen"
 msgstr "Okno textu piesne"
 
-#: src/screen_help.c:153
+#: src/screen_help.c:155
 msgid "View Lyrics"
 msgstr "Zobraziť text piesne"
 
-#: src/screen_help.c:154
+#: src/screen_help.c:156
 msgid "(Re)load lyrics"
 msgstr "(Znovu)načítať text"
 
-#: src/screen_help.c:155
+#: src/screen_help.c:157
 msgid "Interrupt retrieval"
 msgstr "Zachytené prerušenie"
 
-#: src/screen_help.c:156
+#: src/screen_help.c:158
 msgid "Download lyrics for currently playing song"
 msgstr "Stiahnuť text pre momentálne prehrávanú pieseň"
 
-#: src/screen_help.c:157
+#: src/screen_help.c:159
 msgid "Save lyrics"
 msgstr "Uložiť text piesne"
 
-#: src/screen_help.c:162 src/command.c:243
+#: src/screen_help.c:164 src/command.c:243
 msgid "Outputs screen"
 msgstr "Obrazovka výstupov"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:166
 msgid "Enable/disable output"
 msgstr "Povoliť/vypnúť výstup"
 
-#: src/screen_help.c:169
+#: src/screen_help.c:171
 msgid "Keydef screen"
 msgstr "Obrazovka s nastavením kláves"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Edit keydefs for selected command"
 msgstr "Upraviť kláves pre vybraný príkaz"
 
-#: src/screen_help.c:172
+#: src/screen_help.c:174
 msgid "Remove selected keydef"
 msgstr "Odstrániť vybrané nastavenie kláves"
 
-#: src/screen_help.c:173
+#: src/screen_help.c:175
 msgid "Go up a level"
 msgstr "Prejsť o úroveň vyššie"
 
-#: src/screen_help.c:174
+#: src/screen_help.c:176
 msgid "Apply and save changes"
 msgstr "Použiť a uložiť zmeny"
 
@@ -695,13 +695,15 @@ msgstr "Presunúť kurzor do stredu obrazovky"
 msgid "Move cursor to bottom of screen"
 msgstr "Presuňte kurzor na spodok obrazovky"
 
-#: src/command.c:86 src/command.c:285
-msgid "Home"
-msgstr "Home"
+#: src/command.c:86
+#, fuzzy
+msgid "Move cursor to the top of the list"
+msgstr "Presunúť na vrch obrazovky"
 
-#: src/command.c:88 src/command.c:287
-msgid "End"
-msgstr "End"
+#: src/command.c:88
+#, fuzzy
+msgid "Move cursor to the bottom of the list"
+msgstr "Presuňte kurzor na spodok obrazovky"
 
 #: src/command.c:90
 msgid "Page up"
@@ -956,6 +958,14 @@ msgstr "Vľavo"
 msgid "Right"
 msgstr "Vpravo"
 
+#: src/command.c:285
+msgid "Home"
+msgstr "Home"
+
+#: src/command.c:287
+msgid "End"
+msgstr "End"
+
 #: src/command.c:289
 msgid "PageDown"
 msgstr "PageDown"
@@ -1004,22 +1014,22 @@ msgid "Terminal lacks color capabilities"
 msgstr "Terminál nemá schopnosti zobrazovania farieb"
 
 #. To translators: prefix for error messages
-#: src/conf.c:91
+#: src/conf.c:92
 msgid "Error"
 msgstr "Chyba"
 
-#: src/conf.c:99 src/conf.c:108
+#: src/conf.c:100 src/conf.c:109
 msgid "Malformed hotkey definition"
 msgstr "Chybne zadaná definícia klávesovej skratky"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:135
+#: src/conf.c:136
 msgid "Unknown command"
 msgstr "Neznámy príkaz"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:148
+#: src/conf.c:149
 msgid "Incomplete hotkey configuration"
 msgstr "Neúplná konfigurácie klavesových skratiek"
 
@@ -1027,61 +1037,61 @@ msgstr "Neúplná konfigurácie klavesových skratiek"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:180
+#: src/conf.c:181
 msgid "Bad time display type"
 msgstr "Nesprávny typ zobrazovania času"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:195
+#: src/conf.c:196
 msgid "Missing '='"
 msgstr "Chýba '='"
 
-#: src/conf.c:251
+#: src/conf.c:252
 msgid "Bad color name"
 msgstr "Nesprávny názov farby"
 
-#: src/conf.c:260
+#: src/conf.c:261
 msgid "Incomplete color definition"
 msgstr "Neúplná definícia farby"
 
-#: src/conf.c:266
+#: src/conf.c:267
 msgid "Invalid number"
 msgstr "Neplatné číslo"
 
-#: src/conf.c:274
+#: src/conf.c:275
 msgid "Malformed color definition"
 msgstr "Zle zadaná definícia farby"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:310
+#: src/conf.c:311
 msgid "Unknown screen name"
 msgstr "Neznámy názov obrazovky"
 
-#: src/conf.c:339
+#: src/conf.c:340
 msgid "Invalid search mode"
 msgstr "Neplatný režim vyhľadávania"
 
-#: src/conf.c:362
+#: src/conf.c:363
 msgid "Unknown search mode"
 msgstr "Neznámy režim vyhľadávania"
 
-#: src/conf.c:517
+#: src/conf.c:520
 msgid "Unknown configuration parameter"
 msgstr "Neznámy parameter konfigurácie"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:220 src/options.c:223
+#: src/options.c:221 src/options.c:224
 msgid "translator-credits"
 msgstr "Jozef Riha <jose1711@gmail.com>"
 
-#: src/list_window.c:474
+#: src/list_window.c:504
 msgid "Range selection disabled"
 msgstr "Výber rozsahu vypnutý"
 
-#: src/list_window.c:480
+#: src/list_window.c:510
 msgid "Range selection enabled"
 msgstr "Výber rozsahu zapnutý"
 

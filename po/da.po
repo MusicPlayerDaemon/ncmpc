@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-01 23:16+0200\n"
+"POT-Creation-Date: 2009-04-09 08:20+0200\n"
 "PO-Revision-Date: 2009-04-06 15:17+0000\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
@@ -48,7 +48,7 @@ msgstr "Forbundet til %s"
 msgid "press %s for the key editor"
 msgstr "tryk på %s for at redigere"
 
-#: src/screen.c:175 src/screen_help.c:244
+#: src/screen.c:175 src/screen_help.c:246
 msgid "Help"
 msgstr "Hjælp"
 
@@ -65,7 +65,7 @@ msgstr "Gennemse"
 msgid "Artist"
 msgstr "Kunstner"
 
-#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:141
+#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:143
 msgid "Search"
 msgstr "Søg"
 
@@ -458,103 +458,103 @@ msgstr "Modificer tast for '%s'"
 msgid "Movement"
 msgstr "Navigation"
 
-#: src/screen_help.c:78
+#: src/screen_help.c:80
 msgid "Global"
 msgstr "Globale"
 
-#: src/screen_help.c:111 src/command.c:109
+#: src/screen_help.c:113 src/command.c:109
 msgid "Playlist screen"
 msgstr "Afspilningsliste"
 
-#: src/screen_help.c:113
+#: src/screen_help.c:115
 msgid "Play"
 msgstr "Afspil"
 
-#: src/screen_help.c:116
+#: src/screen_help.c:118
 msgid "Move song up"
 msgstr "Flyt markøren op i afspilningslisten"
 
-#: src/screen_help.c:117
+#: src/screen_help.c:119
 msgid "Move song down"
 msgstr "Flyt markøren ned i afspilningslisten"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:122
 msgid "Center"
 msgstr "Centrer"
 
-#: src/screen_help.c:125 src/command.c:111
+#: src/screen_help.c:127 src/command.c:111
 msgid "Browse screen"
 msgstr "Gennemse"
 
-#: src/screen_help.c:127
+#: src/screen_help.c:129
 msgid "Enter directory/Select and play song"
 msgstr "Skift til bibliotek/Tilføj til afspilningslisten og afspil"
 
-#: src/screen_help.c:129 src/screen_help.c:144
+#: src/screen_help.c:131 src/screen_help.c:146
 msgid "Append song to playlist"
 msgstr "Tilføj spor til afspilningsliste"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:133
 msgid "Delete playlist"
 msgstr "Slet afspilningsliste"
 
-#: src/screen_help.c:139 src/command.c:222
+#: src/screen_help.c:141 src/command.c:222
 msgid "Search screen"
 msgstr "Database søgning"
 
-#: src/screen_help.c:142
+#: src/screen_help.c:144
 msgid "Select and play"
 msgstr "Vælg og afspil"
 
-#: src/screen_help.c:151 src/command.c:232
+#: src/screen_help.c:153 src/command.c:232
 msgid "Lyrics screen"
 msgstr "Sangtekst skærm"
 
-#: src/screen_help.c:153
+#: src/screen_help.c:155
 msgid "View Lyrics"
 msgstr "Gennemse sangtekster"
 
-#: src/screen_help.c:154
+#: src/screen_help.c:156
 msgid "(Re)load lyrics"
 msgstr "(Gen)indlæs santekster"
 
-#: src/screen_help.c:155
+#: src/screen_help.c:157
 msgid "Interrupt retrieval"
 msgstr "Abryd hentning"
 
-#: src/screen_help.c:156
+#: src/screen_help.c:158
 msgid "Download lyrics for currently playing song"
 msgstr "Download tekst for det nummer der afspilles"
 
-#: src/screen_help.c:157
+#: src/screen_help.c:159
 msgid "Save lyrics"
 msgstr "Gem sagtekster"
 
-#: src/screen_help.c:162 src/command.c:243
+#: src/screen_help.c:164 src/command.c:243
 msgid "Outputs screen"
 msgstr "Output skærm"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:166
 msgid "Enable/disable output"
 msgstr "Slå output til/fra"
 
-#: src/screen_help.c:169
+#: src/screen_help.c:171
 msgid "Keydef screen"
 msgstr ""
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Edit keydefs for selected command"
 msgstr "Redigér tastdefinitioner for udvalgte kommandoer"
 
-#: src/screen_help.c:172
+#: src/screen_help.c:174
 msgid "Remove selected keydef"
 msgstr "Fjern valgte tastdefinitioner"
 
-#: src/screen_help.c:173
+#: src/screen_help.c:175
 msgid "Go up a level"
 msgstr "Gå et niveau op"
 
-#: src/screen_help.c:174
+#: src/screen_help.c:176
 msgid "Apply and save changes"
 msgstr "Anvend og gem ændringer"
 
@@ -697,13 +697,15 @@ msgstr "Flyt curser til midten af skærm"
 msgid "Move cursor to bottom of screen"
 msgstr "Flyt curser til bund af skærm"
 
-#: src/command.c:86 src/command.c:285
-msgid "Home"
-msgstr "Hjem"
+#: src/command.c:86
+#, fuzzy
+msgid "Move cursor to the top of the list"
+msgstr "Flyt curser til top af skærm"
 
-#: src/command.c:88 src/command.c:287
-msgid "End"
-msgstr "Slut"
+#: src/command.c:88
+#, fuzzy
+msgid "Move cursor to the bottom of the list"
+msgstr "Flyt curser til bund af skærm"
 
 #: src/command.c:90
 msgid "Page up"
@@ -958,6 +960,14 @@ msgstr "Venstre"
 msgid "Right"
 msgstr "Højre"
 
+#: src/command.c:285
+msgid "Home"
+msgstr "Hjem"
+
+#: src/command.c:287
+msgid "End"
+msgstr "Slut"
+
 #: src/command.c:289
 msgid "PageDown"
 msgstr "PageDown"
@@ -1006,22 +1016,22 @@ msgid "Terminal lacks color capabilities"
 msgstr "Terminalen understøtter ikke farver"
 
 #. To translators: prefix for error messages
-#: src/conf.c:91
+#: src/conf.c:92
 msgid "Error"
 msgstr "Fejl"
 
-#: src/conf.c:99 src/conf.c:108
+#: src/conf.c:100 src/conf.c:109
 msgid "Malformed hotkey definition"
 msgstr "Forkert hotkey definition"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:135
+#: src/conf.c:136
 msgid "Unknown command"
 msgstr "Ukendt kommando"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:148
+#: src/conf.c:149
 msgid "Incomplete hotkey configuration"
 msgstr "Ufuldstændig hotkey konfiguration"
 
@@ -1029,68 +1039,67 @@ msgstr "Ufuldstændig hotkey konfiguration"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:180
+#: src/conf.c:181
 msgid "Bad time display type"
 msgstr "Ringe tidsvisningstype"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:195
+#: src/conf.c:196
 msgid "Missing '='"
 msgstr "Mangler '='"
 
-#: src/conf.c:251
+#: src/conf.c:252
 msgid "Bad color name"
 msgstr "Dårligt farvenavn"
 
-#: src/conf.c:260
+#: src/conf.c:261
 msgid "Incomplete color definition"
 msgstr "Ufuldstændig farve definition"
 
-#: src/conf.c:266
+#: src/conf.c:267
 msgid "Invalid number"
 msgstr "Ugyldigt tal."
 
-#: src/conf.c:274
+#: src/conf.c:275
 msgid "Malformed color definition"
 msgstr "Forkert farve definition"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:310
+#: src/conf.c:311
 msgid "Unknown screen name"
 msgstr "Ukendt skærm navn"
 
-#: src/conf.c:339
+#: src/conf.c:340
 msgid "Invalid search mode"
 msgstr "Ugyldig søgetilstand"
 
-#: src/conf.c:362
+#: src/conf.c:363
 msgid "Unknown search mode"
 msgstr "Ukendt søgetilstand"
 
-#: src/conf.c:517
+#: src/conf.c:520
 msgid "Unknown configuration parameter"
 msgstr "Ukendt konfigurations parameter"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:220 src/options.c:223
+#: src/options.c:221 src/options.c:224
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Mikkel Kirkgaard Nielsen https://launchpad.net/~ncmpc\n"
 "  Niels Anker https://launchpad.net/~nanker"
 
-#: src/list_window.c:474
+#: src/list_window.c:504
 msgid "Range selection disabled"
 msgstr ""
 
-#: src/list_window.c:480
+#: src/list_window.c:510
 msgid "Range selection enabled"
 msgstr ""
 
-#, c-format
 #~ msgid "Adding directory %s...\n"
 #~ msgstr "Tilføjer mappen %s...\n"
 
@@ -1100,7 +1109,6 @@ msgstr ""
 #~ msgid "Explicitly download lyrics"
 #~ msgstr "Hent kun sangtekster"
 
-#, c-format
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr "Tast %s bundet til kommando %s og %s (tryk på %s for at redigere)"
 

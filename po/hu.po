@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-01 23:16+0200\n"
+"POT-Creation-Date: 2009-04-09 08:20+0200\n"
 "PO-Revision-Date: 2009-04-04 13:18+0000\n"
 "Last-Translator: Laszlo Ashin <kodest@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -48,7 +48,7 @@ msgstr "Csatlakoztatva ide: %s"
 msgid "press %s for the key editor"
 msgstr "nyomj %s-t a szerkesztéshez"
 
-#: src/screen.c:175 src/screen_help.c:244
+#: src/screen.c:175 src/screen_help.c:246
 msgid "Help"
 msgstr "Súgó"
 
@@ -65,7 +65,7 @@ msgstr "Tallózás"
 msgid "Artist"
 msgstr "Előadó"
 
-#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:141
+#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:143
 msgid "Search"
 msgstr "Keresés"
 
@@ -458,103 +458,103 @@ msgstr "Gombok módosítása a következőhöz: %s"
 msgid "Movement"
 msgstr "Mozgás"
 
-#: src/screen_help.c:78
+#: src/screen_help.c:80
 msgid "Global"
 msgstr "Általános"
 
-#: src/screen_help.c:111 src/command.c:109
+#: src/screen_help.c:113 src/command.c:109
 msgid "Playlist screen"
 msgstr "Lejátszólista"
 
-#: src/screen_help.c:113
+#: src/screen_help.c:115
 msgid "Play"
 msgstr "Lejátszás"
 
-#: src/screen_help.c:116
+#: src/screen_help.c:118
 msgid "Move song up"
 msgstr "Szám mozgatása felfelé"
 
-#: src/screen_help.c:117
+#: src/screen_help.c:119
 msgid "Move song down"
 msgstr "Szám mozgatása lefelé"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:122
 msgid "Center"
 msgstr "Közép"
 
-#: src/screen_help.c:125 src/command.c:111
+#: src/screen_help.c:127 src/command.c:111
 msgid "Browse screen"
 msgstr "Tallózás"
 
-#: src/screen_help.c:127
+#: src/screen_help.c:129
 msgid "Enter directory/Select and play song"
 msgstr "Könyvtár megadása/szám kiválasztása és lejátszása"
 
-#: src/screen_help.c:129 src/screen_help.c:144
+#: src/screen_help.c:131 src/screen_help.c:146
 msgid "Append song to playlist"
 msgstr "Szám hozzáadása a lejátszólistához"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:133
 msgid "Delete playlist"
 msgstr "Lejátszólista törlése"
 
-#: src/screen_help.c:139 src/command.c:222
+#: src/screen_help.c:141 src/command.c:222
 msgid "Search screen"
 msgstr "Kereső képernyő"
 
-#: src/screen_help.c:142
+#: src/screen_help.c:144
 msgid "Select and play"
 msgstr "Kiválasztás és lejátszás"
 
-#: src/screen_help.c:151 src/command.c:232
+#: src/screen_help.c:153 src/command.c:232
 msgid "Lyrics screen"
 msgstr "Dalszöveg képernyő"
 
-#: src/screen_help.c:153
+#: src/screen_help.c:155
 msgid "View Lyrics"
 msgstr "Dalszövegek megtekintése"
 
-#: src/screen_help.c:154
+#: src/screen_help.c:156
 msgid "(Re)load lyrics"
 msgstr "Dalszövegek (újra)töltése"
 
-#: src/screen_help.c:155
+#: src/screen_help.c:157
 msgid "Interrupt retrieval"
 msgstr "Újrapróbálkozás megszakítása"
 
-#: src/screen_help.c:156
+#: src/screen_help.c:158
 msgid "Download lyrics for currently playing song"
 msgstr "Dalszöveg letöltése a jelenlegi zenéhez"
 
-#: src/screen_help.c:157
+#: src/screen_help.c:159
 msgid "Save lyrics"
 msgstr "Dalszövegek mentése"
 
-#: src/screen_help.c:162 src/command.c:243
+#: src/screen_help.c:164 src/command.c:243
 msgid "Outputs screen"
 msgstr "Kimenetek"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:166
 msgid "Enable/disable output"
 msgstr "Kimenet engedélyezése/tiltása"
 
-#: src/screen_help.c:169
+#: src/screen_help.c:171
 msgid "Keydef screen"
 msgstr "Billentyű beállító képernyő"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Edit keydefs for selected command"
 msgstr "Billentyű szerkesztése a kiválasztott parancshoz"
 
-#: src/screen_help.c:172
+#: src/screen_help.c:174
 msgid "Remove selected keydef"
 msgstr "Billentyű hozzárendelés megszűntetése"
 
-#: src/screen_help.c:173
+#: src/screen_help.c:175
 msgid "Go up a level"
 msgstr "Egy szinttel feljebb"
 
-#: src/screen_help.c:174
+#: src/screen_help.c:176
 msgid "Apply and save changes"
 msgstr "Alkalmaz és menti a változásokat"
 
@@ -697,13 +697,15 @@ msgstr "Kurzor mozgatása a képernyő közepére"
 msgid "Move cursor to bottom of screen"
 msgstr "Kurzor mozgatása a képernyő aljára"
 
-#: src/command.c:86 src/command.c:285
-msgid "Home"
-msgstr "Home"
+#: src/command.c:86
+#, fuzzy
+msgid "Move cursor to the top of the list"
+msgstr "Kurzor mozgatása a képernyő tetejére"
 
-#: src/command.c:88 src/command.c:287
-msgid "End"
-msgstr "End"
+#: src/command.c:88
+#, fuzzy
+msgid "Move cursor to the bottom of the list"
+msgstr "Kurzor mozgatása a képernyő aljára"
 
 #: src/command.c:90
 msgid "Page up"
@@ -958,6 +960,14 @@ msgstr "Left"
 msgid "Right"
 msgstr "Right"
 
+#: src/command.c:285
+msgid "Home"
+msgstr "Home"
+
+#: src/command.c:287
+msgid "End"
+msgstr "End"
+
 #: src/command.c:289
 msgid "PageDown"
 msgstr "PageDown"
@@ -1006,22 +1016,22 @@ msgid "Terminal lacks color capabilities"
 msgstr "A terminál nem támogatja a színeket"
 
 #. To translators: prefix for error messages
-#: src/conf.c:91
+#: src/conf.c:92
 msgid "Error"
 msgstr "Hiba"
 
-#: src/conf.c:99 src/conf.c:108
+#: src/conf.c:100 src/conf.c:109
 msgid "Malformed hotkey definition"
 msgstr "Hibás gyorsbillentyű definíció"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:135
+#: src/conf.c:136
 msgid "Unknown command"
 msgstr "Ismeretlen parancs"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:148
+#: src/conf.c:149
 msgid "Incomplete hotkey configuration"
 msgstr "Hiányos gyorsbillentyű definíció"
 
@@ -1029,53 +1039,53 @@ msgstr "Hiányos gyorsbillentyű definíció"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:180
+#: src/conf.c:181
 msgid "Bad time display type"
 msgstr "Hibás időkijelzési típus"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:195
+#: src/conf.c:196
 msgid "Missing '='"
 msgstr "Hiányzó egyenlőség jel"
 
-#: src/conf.c:251
+#: src/conf.c:252
 msgid "Bad color name"
 msgstr "Hibás szín megnevezés"
 
-#: src/conf.c:260
+#: src/conf.c:261
 msgid "Incomplete color definition"
 msgstr "Hiányos szín megadás"
 
-#: src/conf.c:266
+#: src/conf.c:267
 msgid "Invalid number"
 msgstr "Érvénytelen szám"
 
-#: src/conf.c:274
+#: src/conf.c:275
 msgid "Malformed color definition"
 msgstr "Hibás szín megadás"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:310
+#: src/conf.c:311
 msgid "Unknown screen name"
 msgstr "Ismeretlen képernyő név"
 
-#: src/conf.c:339
+#: src/conf.c:340
 msgid "Invalid search mode"
 msgstr "Érvénytelen keresési mód"
 
-#: src/conf.c:362
+#: src/conf.c:363
 msgid "Unknown search mode"
 msgstr "Ismeretlen keresési mód"
 
-#: src/conf.c:517
+#: src/conf.c:520
 msgid "Unknown configuration parameter"
 msgstr "Ismeretlen konfigurációs paraméter"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:220 src/options.c:223
+#: src/options.c:221 src/options.c:224
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -1084,15 +1094,14 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Laszlo Ashin https://launchpad.net/~kodest"
 
-#: src/list_window.c:474
+#: src/list_window.c:504
 msgid "Range selection disabled"
 msgstr "Tartomány kiválasztás letiltva"
 
-#: src/list_window.c:480
+#: src/list_window.c:510
 msgid "Range selection enabled"
 msgstr "Tartomány kiválasztás engedélyezve"
 
-#, c-format
 #~ msgid "Adding directory %s...\n"
 #~ msgstr "%s könyvtár hozzáadása...\n"
 
@@ -1102,7 +1111,7 @@ msgstr "Tartomány kiválasztás engedélyezve"
 #~ msgid "Explicitly download lyrics"
 #~ msgstr "Dalszövegek kifejezett letöltése"
 
-#, c-format
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr ""
-#~ "%s gomb hozzárendelve a következőkhöz: %s és %s (nyomj %s-t a szerkesztéshez)"
+#~ "%s gomb hozzárendelve a következőkhöz: %s és %s (nyomj %s-t a "
+#~ "szerkesztéshez)"
