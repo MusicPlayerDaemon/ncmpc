@@ -64,7 +64,6 @@ list_window_reset(struct list_window *lw)
 	lw->selected_end = 0;
 	lw->range_selection = false;
 	lw->range_base = 0;
-	lw->xoffset = 0;
 	lw->start = 0;
 }
 
@@ -197,14 +196,12 @@ list_window_bottom(struct list_window *lw, unsigned length)
 static void
 list_window_first(struct list_window *lw)
 {
-	lw->xoffset = 0;
 	list_window_set_selected(lw, 0);
 }
 
 static void
 list_window_last(struct list_window *lw, unsigned length)
 {
-	lw->xoffset = 0;
 	if (length > 0)
 		list_window_set_selected(lw, length - 1);
 	else

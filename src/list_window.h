@@ -46,7 +46,6 @@ typedef struct list_window {
 	unsigned selected_end;       /* for range selection, last selected item */
 	unsigned range_base;        /* represents the base item. */
 	bool range_selection;       /* range selection activated */
-	unsigned xoffset;
 
 	bool hide_cursor;
 } list_window_t;
