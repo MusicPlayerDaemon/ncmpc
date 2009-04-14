@@ -98,14 +98,14 @@ lw_search_help_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
 {
 	unsigned text_rows;
 	static const char *text[] = {
-		"Quick  - just enter a string and ncmpc will search according",
-		"               to the current search mode (displayed above).",
+		"Quick     -  Enter a string and ncmpc will search according",
+		"             to the current search mode (displayed above).",
 		"",
 		"Advanced  -  <tag>:<search term> [<tag>:<search term>...]",
-		"			Example: artist:radiohead album:pablo honey",
+		"		Example: artist:radiohead album:pablo honey",
 		"",
-		"		   avalible tags: artist, album, title, track,",
-		"	           name, genre, date composer, performer, comment, file",
+		"		Available tags: artist, album, title, track,",
+		"		name, genre, date composer, performer, comment, file",
 		"",
 		NULL
 	};
