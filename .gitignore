@@ -17,4 +17,5 @@ po/*.gmo
 mkinstalldirs
 stamp-*
 src/ncmpc
+src/ncmpc-tiny
 build
