@@ -87,6 +87,19 @@ list_window_check_selected(struct list_window *lw, unsigned length)
 
 	if(lw->range_selection)
 	{
+		if (length == 0) {
+			lw->selected_start = 0;
+			lw->selected_end = 0;
+			lw->range_base = 0;
+		} else {
+			if (lw->selected_start >= length)
+				lw->selected_start = length - 1;
+			if (lw->selected_end >= length)
+				lw->selected_end = length - 1;
+			if (lw->range_base >= length)
+				lw->range_base = length - 1;
+		}
+
 		if(lw->range_base > lw->selected_end)
 			  lw->selected_end = lw->selected;
 		if(lw->range_base < lw->selected_start)
