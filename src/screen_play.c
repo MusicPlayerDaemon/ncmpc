@@ -166,8 +166,9 @@ center_playing_item(mpdclient_t *c, bool center_cursor)
 	}
 
 	/* make sure the cursor is in the window */
-	if (lw->selected < lw->start) {
-		lw->selected = lw->start;
+	if (lw->selected < lw->start + options.scroll_offset) {
+		if (lw->start > 0)
+			lw->selected = lw->start + options.scroll_offset;
 		if (lw->range_selection) {
 			lw->selected_start = lw->range_base;
 			lw->selected_end = lw->selected;
@@ -175,8 +176,9 @@ center_playing_item(mpdclient_t *c, bool center_cursor)
 			lw->selected_start = lw->selected;
 			lw->selected_end = lw->selected;
 		}
-	} else if (lw->selected > lw->start + lw->rows - 1) {
-		lw->selected = lw->start + lw->rows - 1;
+	} else if (lw->selected > lw->start + lw->rows - 1 - options.scroll_offset) {
+		if (lw->start + lw->rows < length)
+			lw->selected = lw->start + lw->rows - 1 - options.scroll_offset;
 		if (lw->range_selection) {
 			lw->selected_start = lw->selected;
 			lw->selected_end = lw->range_base;
