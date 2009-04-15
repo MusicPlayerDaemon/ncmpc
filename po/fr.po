@@ -10,12 +10,14 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-09 12:56+0200\n"
-"PO-Revision-Date: 2009-04-04 00:21+0200\n"
-"Last-Translator: Romain Bignon <romain@peerfuse.org>\n"
-"Language-Team:  <fr@li.org>\n"
+"PO-Revision-Date: 2009-04-15 20:09+0000\n"
+"Last-Translator: Bastien Leblanc <bass000@gmail.com>\n"
+"Language-Team: <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-04-15 20:16+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -686,29 +688,24 @@ msgid "Move cursor down"
 msgstr "Déplacer le curseur vers le bas"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to the top of screen"
 msgstr "Déplacer le curseur vers le haut de l'écran"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to the middle of screen"
 msgstr "Déplacer le curseur vers le milieu de l'écran"
 
 #: src/command.c:84
-#, fuzzy
 msgid "Move cursor to the bottom of screen"
-msgstr "Déplacer le curseur au bas de l'écran"
+msgstr "Déplacer le curseur vers le bas de l'écran"
 
 #: src/command.c:86
-#, fuzzy
 msgid "Move cursor to the top of the list"
-msgstr "Déplacer le curseur vers le haut de l'écran"
+msgstr "Déplacer le curseur vers le haut de la liste"
 
 #: src/command.c:88
-#, fuzzy
 msgid "Move cursor to the bottom of the list"
-msgstr "Déplacer le curseur au bas de l'écran"
+msgstr "Déplacer le curseur vers le bas de la liste"
 
 #: src/command.c:90
 msgid "Page up"
@@ -1090,7 +1087,13 @@ msgstr "Paramètre de configuration inconnu"
 #. when ncmpc is started with "--version"
 #: src/options.c:221 src/options.c:224
 msgid "translator-credits"
-msgstr "Traduction française : Yann Cézard <eesprit@free.fr>"
+msgstr ""
+"Traduction française : Yann Cézard <eesprit@free.fr>\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Bastien Leblanc https://launchpad.net/~bass000\n"
+"  Romain Bignon https://launchpad.net/~romain-peerfuse\n"
+"  Yann Cézard https://launchpad.net/~eesprit"
 
 #: src/list_window.c:504
 msgid "Range selection disabled"
