@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-16 06:50+0200\n"
-"PO-Revision-Date: 2009-04-16 02:25+0000\n"
+"PO-Revision-Date: 2009-04-16 05:06+0000\n"
 "Last-Translator: Gao Jie <kindmail@gmail.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-16 04:48+0000\n"
+"X-Launchpad-Export-Date: 2009-04-16 05:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -522,7 +522,7 @@ msgstr "(重新)加载歌词"
 #. from the server
 #: src/screen_help.c:159
 msgid "Interrupt retrieval"
-msgstr ""
+msgstr "中断歌词下载"
 
 #: src/screen_help.c:160
 msgid "Download lyrics for currently playing song"
