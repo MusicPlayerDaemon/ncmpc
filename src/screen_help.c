@@ -154,6 +154,8 @@ static help_text_row_t help_text[] = {
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_SCREEN_LYRICS, N_("View Lyrics") },
 	{ 0, CMD_SELECT, N_("(Re)load lyrics") },
+	/* to translators: this hotkey aborts the retrieval of lyrics
+	   from the server */
 	{ 0, CMD_INTERRUPT, N_("Interrupt retrieval") },
 	{ 0, CMD_LYRICS_UPDATE, N_("Download lyrics for currently playing song") },
 	{ 0, CMD_SAVE_PLAYLIST, N_("Save lyrics") },

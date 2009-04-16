@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-09 12:56+0200\n"
+"POT-Creation-Date: 2009-04-16 06:50+0200\n"
 "PO-Revision-Date: 2009-04-01 16:38+0200\n"
 "Last-Translator: Johám-Luís Miguéns Vila <miluxovi@ashtophet.org>\n"
 "Language-Team: es\n"
@@ -53,7 +53,7 @@ msgstr "Conectado a %s"
 msgid "press %s for the key editor"
 msgstr "pressiona %s para accer al editor de teclas"
 
-#: src/screen.c:175 src/screen_help.c:246
+#: src/screen.c:175 src/screen_help.c:248
 msgid "Help"
 msgstr "Ayuda"
 
@@ -523,43 +523,45 @@ msgstr "Ver letras"
 msgid "(Re)load lyrics"
 msgstr "(Re)cargar letras"
 
-#: src/screen_help.c:157
+#. to translators: this hotkey aborts the retrieval of lyrics
+#. from the server
+#: src/screen_help.c:159
 msgid "Interrupt retrieval"
 msgstr "Interrumpir la descarga"
 
-#: src/screen_help.c:158
+#: src/screen_help.c:160
 msgid "Download lyrics for currently playing song"
 msgstr "Obtener las letras de la canción reproducida"
 
-#: src/screen_help.c:159
+#: src/screen_help.c:161
 msgid "Save lyrics"
 msgstr "Guardar las letras"
 
-#: src/screen_help.c:164 src/command.c:243
+#: src/screen_help.c:166 src/command.c:243
 msgid "Outputs screen"
 msgstr "Pantalla de salidas"
 
-#: src/screen_help.c:166
+#: src/screen_help.c:168
 msgid "Enable/disable output"
 msgstr "Activar/desactivar la salida"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Keydef screen"
 msgstr "Pantalla de teclas de acceso"
 
-#: src/screen_help.c:173
+#: src/screen_help.c:175
 msgid "Edit keydefs for selected command"
 msgstr "Cambia las teclas de acceso rápido para el comando seleccionado"
 
-#: src/screen_help.c:174
+#: src/screen_help.c:176
 msgid "Remove selected keydef"
 msgstr "ELiminar la tecla de acceso rápido seleccionada"
 
-#: src/screen_help.c:175
+#: src/screen_help.c:177
 msgid "Go up a level"
 msgstr "Subir un nivel"
 
-#: src/screen_help.c:176
+#: src/screen_help.c:178
 msgid "Apply and save changes"
 msgstr "Aplicar y guardar los cambios"
 
@@ -1100,11 +1102,11 @@ msgstr ""
 "  Feder Sáiz https://launchpad.net/~federsaiz\n"
 "  ashtophet"
 
-#: src/list_window.c:504
+#: src/list_window.c:514
 msgid "Range selection disabled"
 msgstr "Selección de rango desactivada"
 
-#: src/list_window.c:510
+#: src/list_window.c:520
 msgid "Range selection enabled"
 msgstr "Selección de rango activada"
 

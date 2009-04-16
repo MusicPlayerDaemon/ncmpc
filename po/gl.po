@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-09 12:56+0200\n"
+"POT-Creation-Date: 2009-04-16 06:50+0200\n"
 "PO-Revision-Date: 2009-04-01 16:28+0200\n"
 "Last-Translator: Johám-Luís Miguéns Vila <miluxovi@ashtophet.org>\n"
 "Language-Team: galician\n"
@@ -47,7 +47,7 @@ msgstr "Conectado com %s"
 msgid "press %s for the key editor"
 msgstr "preme %s para ir ao editor de atalhos"
 
-#: src/screen.c:175 src/screen_help.c:246
+#: src/screen.c:175 src/screen_help.c:248
 msgid "Help"
 msgstr "Ajuda"
 
@@ -518,43 +518,45 @@ msgstr "Ver Letras"
 msgid "(Re)load lyrics"
 msgstr "(Re)carregar letras"
 
-#: src/screen_help.c:157
+#. to translators: this hotkey aborts the retrieval of lyrics
+#. from the server
+#: src/screen_help.c:159
 msgid "Interrupt retrieval"
 msgstr "Interromper a descarga"
 
-#: src/screen_help.c:158
+#: src/screen_help.c:160
 msgid "Download lyrics for currently playing song"
 msgstr "Obter as letras da cançom reproduzida"
 
-#: src/screen_help.c:159
+#: src/screen_help.c:161
 msgid "Save lyrics"
 msgstr "Guardar as letras"
 
-#: src/screen_help.c:164 src/command.c:243
+#: src/screen_help.c:166 src/command.c:243
 msgid "Outputs screen"
 msgstr "Écrã de saída"
 
-#: src/screen_help.c:166
+#: src/screen_help.c:168
 msgid "Enable/disable output"
 msgstr "Habilitar/Deshabilitar saída"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Keydef screen"
 msgstr "Écrã de atalhos"
 
-#: src/screen_help.c:173
+#: src/screen_help.c:175
 msgid "Edit keydefs for selected command"
 msgstr "Editar atalhos para o comando seleccionado"
 
-#: src/screen_help.c:174
+#: src/screen_help.c:176
 msgid "Remove selected keydef"
 msgstr "Eliminar o atalho seleccionado"
 
-#: src/screen_help.c:175
+#: src/screen_help.c:177
 msgid "Go up a level"
 msgstr "Subir um nível"
 
-#: src/screen_help.c:176
+#: src/screen_help.c:178
 msgid "Apply and save changes"
 msgstr "Aplicar e guardar as mudanças"
 
@@ -1092,11 +1094,11 @@ msgstr "Parâmetro de configuraçom desconhecido"
 msgid "translator-credits"
 msgstr "ashtophet"
 
-#: src/list_window.c:504
+#: src/list_window.c:514
 msgid "Range selection disabled"
 msgstr "A selecçom de rango está deshabilitada"
 
-#: src/list_window.c:510
+#: src/list_window.c:520
 msgid "Range selection enabled"
 msgstr "A selecçom de rango está habilitada"
 
