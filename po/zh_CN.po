@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-09 12:56+0200\n"
-"PO-Revision-Date: 2009-02-17 17:15+0000\n"
+"PO-Revision-Date: 2009-04-16 02:25+0000\n"
 "Last-Translator: Gao Jie <kindmail@gmail.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-17 20:20+0000\n"
+"X-Launchpad-Export-Date: 2009-04-16 04:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -101,24 +101,20 @@ msgid "Error: Screen too small"
 msgstr "错误: 屏幕太小"
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
-msgstr "循环 开"
+msgstr "重复播放 开"
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
-msgstr "循环 关"
+msgstr "重复播放 关"
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
-msgstr "随机 开"
+msgstr "随机播放 开"
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
-msgstr "随机 关"
+msgstr "随机播放 关"
 
 #. "single" mode means
 #. that MPD will
@@ -127,11 +123,11 @@ msgstr "随机 关"
 #. single song
 #: src/screen.c:648
 msgid "Single mode is on"
-msgstr ""
+msgstr "单曲播放 开"
 
 #: src/screen.c:649
 msgid "Single mode is off"
-msgstr ""
+msgstr "单曲播放 关"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -139,11 +135,11 @@ msgstr ""
 #. finished playing
 #: src/screen.c:657
 msgid "Consume mode is on"
-msgstr ""
+msgstr "消除模式 开"
 
 #: src/screen.c:658
 msgid "Consume mode is off"
-msgstr ""
+msgstr "消除模式 关"
 
 #: src/screen.c:661
 #, c-format
@@ -408,7 +404,7 @@ msgid "Keybindings unchanged."
 msgstr "取消快捷键变更."
 
 #: src/screen_keydef.c:82
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "错误: 无法创建文件夹 ~/.ncmpc - %s"
 
@@ -528,7 +524,7 @@ msgstr ""
 
 #: src/screen_help.c:158
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "为当前曲目下载歌词"
 
 #: src/screen_help.c:159
 msgid "Save lyrics"
@@ -543,26 +539,24 @@ msgid "Enable/disable output"
 msgstr "启用/禁用音频输出"
 
 #: src/screen_help.c:171
-#, fuzzy
 msgid "Keydef screen"
-msgstr "帮助页面"
+msgstr "键定义页面"
 
 #: src/screen_help.c:173
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "为 %s 编辑快捷键"
+msgstr "为选择的命令定义快捷键"
 
 #: src/screen_help.c:174
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "去除选择的快捷键设定"
 
 #: src/screen_help.c:175
 msgid "Go up a level"
-msgstr ""
+msgstr "上一级"
 
 #: src/screen_help.c:176
 msgid "Apply and save changes"
-msgstr ""
+msgstr "保存设置"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -592,7 +586,7 @@ msgstr "禁用 '%s' 输出"
 
 #: src/screen_song.c:118
 msgid "Song viewer"
-msgstr ""
+msgstr "歌曲查看器"
 
 #: src/screen_song.c:193
 msgid "Composer"
@@ -628,55 +622,52 @@ msgstr "路径"
 
 #: src/screen_song.c:201
 msgid "Bitrate"
-msgstr ""
+msgstr "比特率"
 
 #: src/screen_song.c:228
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kbps"
 
 #: src/screen_song.c:244
-#, fuzzy
 msgid "Number of artists"
-msgstr "%s 的专辑:"
+msgstr "艺术家总数"
 
 #: src/screen_song.c:245
 msgid "Number of albums"
-msgstr ""
+msgstr "专辑总数"
 
 #: src/screen_song.c:246
 msgid "Number of songs"
-msgstr ""
+msgstr "歌曲总数"
 
 #: src/screen_song.c:247
 msgid "Uptime"
-msgstr ""
+msgstr "启动时间"
 
 #: src/screen_song.c:248
 msgid "Most recent db update"
-msgstr ""
+msgstr "最新DB更新"
 
 #: src/screen_song.c:249
-#, fuzzy
 msgid "Playtime"
-msgstr "播放"
+msgstr "播放时间"
 
 #: src/screen_song.c:250
 msgid "DB playtime"
-msgstr ""
+msgstr "DB 播放时间"
 
 #: src/screen_song.c:266
 msgid "MPD statistics"
-msgstr ""
+msgstr "MPD统计"
 
 #: src/screen_song.c:311
-#, fuzzy
 msgid "Selected song"
-msgstr "查看歌曲信息"
+msgstr "选中曲目"
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
-msgstr ""
+msgstr "当前播放曲目"
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -695,29 +686,24 @@ msgid "Move cursor down"
 msgstr "向下移动光标"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to the top of screen"
-msgstr "向下移动光标"
+msgstr "光标移到顶部"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to the middle of screen"
-msgstr "向下移动光标"
+msgstr "光标移到中部"
 
 #: src/command.c:84
-#, fuzzy
 msgid "Move cursor to the bottom of screen"
-msgstr "向下移动光标"
+msgstr "光标移到底部"
 
 #: src/command.c:86
-#, fuzzy
 msgid "Move cursor to the top of the list"
-msgstr "向下移动光标"
+msgstr "光标移到列表顶部"
 
 #: src/command.c:88
-#, fuzzy
 msgid "Move cursor to the bottom of the list"
-msgstr "向下移动光标"
+msgstr "光标移到列表底部"
 
 #: src/command.c:90
 msgid "Page up"
@@ -728,25 +714,24 @@ msgid "Page down"
 msgstr "下一页"
 
 #: src/command.c:94
-#, fuzzy
 msgid "Range selection"
-msgstr "可视化选择"
+msgstr "区段选择"
 
 #: src/command.c:96
 msgid "Scroll up one line"
-msgstr ""
+msgstr "向上滚动一行"
 
 #: src/command.c:98
 msgid "Scroll down one line"
-msgstr ""
+msgstr "向下滚动一行"
 
 #: src/command.c:100
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "向上滚动半屏"
 
 #: src/command.c:102
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "向下滚动半屏"
 
 #: src/command.c:107
 msgid "Help screen"
@@ -821,14 +806,12 @@ msgid "Toggle random mode"
 msgstr "切换随机模式"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "切换查找模式"
+msgstr "切换单曲模式"
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "切换淡入淡出模式"
+msgstr "切换消除模式"
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -892,7 +875,7 @@ msgstr "上一页面"
 
 #: src/command.c:196
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "却换到上一个页面"
 
 #: src/command.c:201
 msgid "Forward find"
@@ -927,13 +910,13 @@ msgstr "更改搜索模式"
 
 #: src/command.c:228
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "参看选择当前播放的曲目"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
 #: src/command.c:236
 msgid "Interrupt action"
-msgstr ""
+msgstr "中断后台操作"
 
 #: src/command.c:238
 msgid "Update Lyrics"
@@ -1010,7 +993,7 @@ msgstr "Insert"
 #: src/command.c:510 src/command.c:516
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr ""
+msgstr "按键 %s 分配给 %s 和 %s"
 
 #: src/colors.c:164
 #, c-format
@@ -1087,14 +1070,12 @@ msgid "Unknown screen name"
 msgstr "未知的页面名"
 
 #: src/conf.c:340
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "更改搜索模式"
+msgstr "无效的搜索模式"
 
 #: src/conf.c:363
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "更改搜索模式"
+msgstr "未知的搜索模式"
 
 #: src/conf.c:520
 msgid "Unknown configuration parameter"
@@ -1109,18 +1090,12 @@ msgstr ""
 "  Gao Jie https://launchpad.net/~kindmail"
 
 #: src/list_window.c:504
-#, fuzzy
 msgid "Range selection disabled"
-msgstr "关闭可视选择模式"
+msgstr "禁用区段选取"
 
 #: src/list_window.c:510
-#, fuzzy
 msgid "Range selection enabled"
-msgstr "打开可视选择模式"
-
-#, fuzzy
-#~ msgid "DB last updated"
-#~ msgstr "数据库已更新"
+msgstr "开启区段选取"
 
 #~ msgid "Explicitly download lyrics"
 #~ msgstr "精确下载歌词"
