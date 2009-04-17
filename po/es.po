@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-16 06:50+0200\n"
-"PO-Revision-Date: 2009-04-01 16:38+0200\n"
+"PO-Revision-Date: 2009-04-16 21:29+0200\n"
 "Last-Translator: Johám-Luís Miguéns Vila <miluxovi@ashtophet.org>\n"
 "Language-Team: es\n"
 "MIME-Version: 1.0\n"
@@ -693,29 +693,24 @@ msgid "Move cursor down"
 msgstr "Mover el cursor hacia abajo"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to the top of screen"
 msgstr "Mover el cursor hasta el principio de la pantalla"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to the middle of screen"
 msgstr "Mover el cursor hasta la mitad de la pantalla"
 
 #: src/command.c:84
-#, fuzzy
 msgid "Move cursor to the bottom of screen"
 msgstr "Mover el cursor hasta el final de la pantalla"
 
 #: src/command.c:86
-#, fuzzy
 msgid "Move cursor to the top of the list"
-msgstr "Mover el cursor hasta el principio de la pantalla"
+msgstr "Mover el cursor hasta el principio de la lista"
 
 #: src/command.c:88
-#, fuzzy
 msgid "Move cursor to the bottom of the list"
-msgstr "Mover el cursor hasta el final de la pantalla"
+msgstr "Mover el cursor hasta el final de la lista"
 
 #: src/command.c:90
 msgid "Page up"
