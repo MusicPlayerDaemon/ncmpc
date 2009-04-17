@@ -9,12 +9,14 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-16 06:50+0200\n"
-"PO-Revision-Date: 2009-03-14 15:32+0100\n"
+"PO-Revision-Date: 2009-04-17 16:44+0000\n"
 "Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-04-17 17:40+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -100,24 +102,20 @@ msgid "Error: Screen too small"
 msgstr "Fehler: Anzeige zu klein"
 
 #: src/screen.c:633
-#, fuzzy
 msgid "Repeat mode is on"
-msgstr "Wiederholung ist an"
+msgstr "Wiederhol-Modus ist aktiviert"
 
 #: src/screen.c:634
-#, fuzzy
 msgid "Repeat mode is off"
-msgstr "Wiederholung ist aus"
+msgstr "Wiederhol-Modus ist deaktiviert"
 
 #: src/screen.c:638
-#, fuzzy
 msgid "Random mode is on"
-msgstr "Zufallswiedergabe ist an"
+msgstr "Zufalls-Modus ist aktiviert"
 
 #: src/screen.c:639
-#, fuzzy
 msgid "Random mode is off"
-msgstr "Zufallswiedergabe ist aus"
+msgstr "Zufalls-Modus ist deaktiviert"
 
 #. "single" mode means
 #. that MPD will
@@ -126,11 +124,11 @@ msgstr "Zufallswiedergabe ist aus"
 #. single song
 #: src/screen.c:648
 msgid "Single mode is on"
-msgstr ""
+msgstr "Einzelabspiel-Modus ist aktiviert"
 
 #: src/screen.c:649
 msgid "Single mode is off"
-msgstr ""
+msgstr "Einzelabspiel-Modus ist deaktiviert"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -247,7 +245,7 @@ msgstr "Speichere Playlist als"
 #: src/screen_play.c:292
 #, c-format
 msgid "Replace %s [%s/%s] ? "
-msgstr "Ersetze %s [%s/%s] ?"
+msgstr "Ersetze %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
 #: src/screen_play.c:313 src/screen_file.c:148 src/screen_keydef.c:163
@@ -528,9 +526,8 @@ msgid "Interrupt retrieval"
 msgstr "Laden unterbrechen"
 
 #: src/screen_help.c:160
-#, fuzzy
 msgid "Download lyrics for currently playing song"
-msgstr "Gerade laufendes Lied"
+msgstr "Liedtexte für aktuell laufendes Stück herunterladen"
 
 #: src/screen_help.c:161
 msgid "Save lyrics"
@@ -545,18 +542,16 @@ msgid "Enable/disable output"
 msgstr "Ausgabegerät aktivieren/deaktivieren"
 
 #: src/screen_help.c:173
-#, fuzzy
 msgid "Keydef screen"
-msgstr "Hilfeanzeige"
+msgstr "Tastenbelegungsanzeige"
 
 #: src/screen_help.c:175
-#, fuzzy
 msgid "Edit keydefs for selected command"
-msgstr "Editiere Tasten für %s"
+msgstr "Tastenbelegung für ausgewählten Befehl bearbeiten"
 
 #: src/screen_help.c:176
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "Ausgewählte Tastenbelegung entfernen"
 
 #: src/screen_help.c:177
 msgid "Go up a level"
@@ -564,7 +559,7 @@ msgstr ""
 
 #: src/screen_help.c:178
 msgid "Apply and save changes"
-msgstr ""
+msgstr "Änderungen bestätigen und speichern"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -654,9 +649,8 @@ msgid "Uptime"
 msgstr "Laufzeit"
 
 #: src/screen_song.c:248
-#, fuzzy
 msgid "Most recent db update"
-msgstr "Anzeige aktualisiert!"
+msgstr "Letzte db-Aktualisierung"
 
 #: src/screen_song.c:249
 msgid "Playtime"
@@ -695,29 +689,24 @@ msgid "Move cursor down"
 msgstr "Cursor nach unten bewegen"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to the top of screen"
-msgstr "Cursor zum Beginn der Anzeige bewegen"
+msgstr "Markierung an den Anfang der Anzeige setzen"
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to the middle of screen"
-msgstr "Cursor zur Mitte der Anzeige bewegen"
+msgstr "Markierung in die Mitte der Anzeige setzen"
 
 #: src/command.c:84
-#, fuzzy
 msgid "Move cursor to the bottom of screen"
-msgstr "Cursor zum Ende der Anzeige bewegen"
+msgstr "Markierung ans Ende der Anzeige setzen"
 
 #: src/command.c:86
-#, fuzzy
 msgid "Move cursor to the top of the list"
-msgstr "Cursor zum Beginn der Anzeige bewegen"
+msgstr "Markierung an den Anfang der Liste setzen"
 
 #: src/command.c:88
-#, fuzzy
 msgid "Move cursor to the bottom of the list"
-msgstr "Cursor zum Ende der Anzeige bewegen"
+msgstr "Markierung ans Ende der Liste setzen"
 
 #: src/command.c:90
 msgid "Page up"
@@ -728,9 +717,8 @@ msgid "Page down"
 msgstr "Bild ab"
 
 #: src/command.c:94
-#, fuzzy
 msgid "Range selection"
-msgstr "Auswahlmodus"
+msgstr "Mehrfachauswahl"
 
 #: src/command.c:96
 msgid "Scroll up one line"
@@ -821,14 +809,12 @@ msgid "Toggle random mode"
 msgstr "Schalte Zufallswiedergabe ein/aus"
 
 #: src/command.c:150
-#, fuzzy
 msgid "Toggle single mode"
-msgstr "Wechsle den Suchmodus"
+msgstr "Einzelabspiel-Modus umschalten"
 
 #: src/command.c:152
-#, fuzzy
 msgid "Toggle consume mode"
-msgstr "Schalte Crossfade-Wiedergabe ein/aus"
+msgstr ""
 
 #: src/command.c:154
 msgid "Toggle crossfade mode"
@@ -1087,14 +1073,12 @@ msgid "Unknown screen name"
 msgstr "Unbekannter Anzeigenname"
 
 #: src/conf.c:340
-#, fuzzy
 msgid "Invalid search mode"
-msgstr "Suchmodus wechseln"
+msgstr "Ungültiger Suchmodus"
 
 #: src/conf.c:363
-#, fuzzy
 msgid "Unknown search mode"
-msgstr "Suchmodus wechseln"
+msgstr "Unbekannter Suchmodus"
 
 #: src/conf.c:520
 msgid "Unknown configuration parameter"
@@ -1104,44 +1088,46 @@ msgstr "Unbekannter Konfigurationsparameter"
 #. when ncmpc is started with "--version"
 #: src/options.c:221 src/options.c:224
 msgid "translator-credits"
-msgstr "Übersetzer"
+msgstr ""
+"Übersetzer\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Monika Brinkert https://launchpad.net/~moni-sunpig"
 
 #: src/list_window.c:514
-#, fuzzy
 msgid "Range selection disabled"
-msgstr "Auswahlmodus deaktiviert"
+msgstr "Mehrfachauswahl deaktiviert"
 
 #: src/list_window.c:520
-#, fuzzy
 msgid "Range selection enabled"
-msgstr "Auswahlmodus aktiviert"
+msgstr "Mehrfachauswahl aktiviert"
 
-#~ msgid "DB last updated"
-#~ msgstr "DB zuletzt aktualisiert"
-
-#~ msgid "Explicitly download lyrics"
-#~ msgstr "Texte explizit herunterladen"
-
-#~ msgid "Search: "
-#~ msgstr "Suche: "
-
+#, c-format
 #~ msgid "Adding directory %s...\n"
 #~ msgstr "Füge Verzeichnis %s hinzu...\n"
-
-#~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-#~ msgstr "Taste %s ist %s und %s zugeordnet (drücke %s für den Tasteneditor)"
 
 #~ msgid "You can only delete playlists"
 #~ msgstr "Du kannst nur Playlisten löschen"
 
+#, c-format
 #~ msgid "Browse: %s"
 #~ msgstr "Stöbern: %s"
+
+#~ msgid "Search: "
+#~ msgstr "Suche: "
+
+#~ msgid "Explicitly download lyrics"
+#~ msgstr "Texte explizit herunterladen"
 
 #~ msgid "Home "
 #~ msgstr "Anfang "
 
 #~ msgid "End "
 #~ msgstr "Ende "
+
+#, c-format
+#~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
+#~ msgstr "Taste %s ist %s und %s zugeordnet (drücke %s für den Tasteneditor)"
 
 #~ msgid "Clock"
 #~ msgstr "Uhr"
@@ -1164,166 +1150,5 @@ msgstr "Auswahlmodus aktiviert"
 #~ msgid "Error: Unable to convert characters to UTF-8"
 #~ msgstr "Fehler: kann Zeichen nicht nach UTF-8 konvertieren"
 
-#, fuzzy
-#~ msgid "playlist browse"
-#~ msgstr "Playlist auf %s"
-
-#, fuzzy
-#~ msgid "charset: %s\n"
-#~ msgstr "Stöbern: %s"
-
-#, fuzzy
-#~ msgid "playlist"
-#~ msgstr "Playlist"
-
-#, fuzzy
-#~ msgid "help"
-#~ msgstr "Hilfe"
-
-#, fuzzy
-#~ msgid "search"
-#~ msgstr "Suche"
-
-#, fuzzy
-#~ msgid "clock"
-#~ msgstr "Uhr"
-
-#, fuzzy
-#~ msgid "U"
-#~ msgstr "Oben"
-
-#, fuzzy
-#~ msgid "Saving playlist as '%s '...\n"
-#~ msgstr "Lade Playlist %s..."
-
-#, fuzzy
-#~ msgid "<Playlist> %s"
-#~ msgstr "Playlist auf %s"
-
-#, fuzzy
-#~ msgid "filename"
-#~ msgstr "Dateiname"
-
-#, fuzzy
-#~ msgid "%artist%"
-#~ msgstr "Künstler"
-
-#, fuzzy
-#~ msgid "%title%"
-#~ msgstr "Titel"
-
-#, fuzzy
-#~ msgid "quit"
-#~ msgstr "Beenden"
-
-#, fuzzy
-#~ msgid "down"
-#~ msgstr "Unten"
-
-#, fuzzy
-#~ msgid "home"
-#~ msgstr "Pos1"
-
-#, fuzzy
-#~ msgid "end"
-#~ msgstr "Ende"
-
-#, fuzzy
-#~ msgid "screen-playlist"
-#~ msgstr "Lösche Playlist"
-
-#, fuzzy
-#~ msgid "play"
-#~ msgstr "Abspielen"
-
-#, fuzzy
-#~ msgid "pause"
-#~ msgstr "Pause"
-
-#, fuzzy
-#~ msgid "stop"
-#~ msgstr "Stop"
-
-#, fuzzy
-#~ msgid "next"
-#~ msgstr "Einfg"
-
-#, fuzzy
-#~ msgid "seek-forward"
-#~ msgstr "Vorspulen"
-
-#, fuzzy
-#~ msgid "seek-backward"
-#~ msgstr "Zurückspulen"
-
-#, fuzzy
-#~ msgid "select"
-#~ msgstr "Entf"
-
-#, fuzzy
-#~ msgid "delete"
-#~ msgstr "Entf"
-
-#, fuzzy
-#~ msgid "crossfade"
-#~ msgstr "Schalte Crossfade-Wiedergabe ein/aus"
-
-#, fuzzy
-#~ msgid "move-down"
-#~ msgstr "Stück nach unten bewegen"
-
-#, fuzzy
-#~ msgid "autocenter-mode"
-#~ msgstr "Autozentriermodus: an"
-
-#, fuzzy
-#~ msgid "find"
-#~ msgstr "Undefiniert"
-
-#, fuzzy
-#~ msgid "find-next"
-#~ msgstr "Vorwärtssuche fortsetzen"
-
-#, fuzzy
-#~ msgid "rfind-next"
-#~ msgstr "Vorwärtssuche fortsetzen"
-
-#, fuzzy
-#~ msgid "search-mode"
-#~ msgstr "Suchmodus: %s"
-
-#, fuzzy
-#~ msgid "list"
-#~ msgstr "Playlist"
-
-#, fuzzy
-#~ msgid "black"
-#~ msgstr "Uhr"
-
-#, fuzzy
-#~ msgid "white"
-#~ msgstr "Titel"
-
-#, fuzzy
-#~ msgid "mouse"
-#~ msgstr "Pause"
-
-#, fuzzy
-#~ msgid "Read configuration from file"
-#~ msgstr "Tastenkonfigurationsanzeige"
-
-#, fuzzy
-#~ msgid " artist-screen"
-#~ msgstr "Playlistenanzeige"
-
-#, fuzzy
-#~ msgid " search-screen"
-#~ msgstr "Suchanzeige"
-
-#, fuzzy
-#~ msgid " key-screen"
-#~ msgstr "Nächste Anzeige"
-
-#, fuzzy
-#~ msgid " clock-screen"
-#~ msgstr "Uhr-Anzeige"
+#~ msgid "DB last updated"
+#~ msgstr "DB zuletzt aktualisiert"
