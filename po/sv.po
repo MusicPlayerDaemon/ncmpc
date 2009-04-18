@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-16 06:50+0200\n"
-"PO-Revision-Date: 2009-04-04 08:20+0000\n"
+"PO-Revision-Date: 2009-04-17 19:52+0000\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: sv <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-06 09:16+0000\n"
+"X-Launchpad-Export-Date: 2009-04-18 10:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -226,7 +226,7 @@ msgstr "Sök bakåt"
 
 #: src/screen_utils.c:37
 msgid "Jump"
-msgstr ""
+msgstr "Hopp"
 
 #: src/screen_utils.c:118
 msgid "Password"
@@ -620,7 +620,7 @@ msgstr "Kommentar"
 
 #: src/screen_song.c:200
 msgid "Path"
-msgstr ""
+msgstr "Sökväg"
 
 #: src/screen_song.c:201
 msgid "Bitrate"
@@ -633,11 +633,11 @@ msgstr "%d kb/s"
 
 #: src/screen_song.c:244
 msgid "Number of artists"
-msgstr ""
+msgstr "Antal artister"
 
 #: src/screen_song.c:245
 msgid "Number of albums"
-msgstr ""
+msgstr "Antal album"
 
 #: src/screen_song.c:246
 msgid "Number of songs"
@@ -645,7 +645,7 @@ msgstr "Antal låtar"
 
 #: src/screen_song.c:247
 msgid "Uptime"
-msgstr ""
+msgstr "Upptid"
 
 #: src/screen_song.c:248
 msgid "Most recent db update"
@@ -900,7 +900,7 @@ msgstr "Upprepa sökning bakåt"
 #. * to the entry which begins with this string
 #: src/command.c:212
 msgid "Jump to"
-msgstr ""
+msgstr "Hoppa till"
 
 #: src/command.c:218
 msgid "Artist screen"
@@ -1101,6 +1101,7 @@ msgstr ""
 msgid "Range selection enabled"
 msgstr ""
 
+#, c-format
 #~ msgid "Adding directory %s...\n"
 #~ msgstr "Lägger till katalog %s...\n"
 
@@ -1110,6 +1111,7 @@ msgstr ""
 #~ msgid "Explicitly download lyrics"
 #~ msgstr "Ladda ner texter explicit"
 
+#, c-format
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr "%s tilldelat kommandona %s och %s (tryck på %s för att korrigera)"
 
