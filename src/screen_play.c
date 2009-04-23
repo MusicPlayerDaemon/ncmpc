@@ -630,6 +630,9 @@ play_cmd(mpdclient_t *c, command_t cmd)
 		center_playing_item(c, prev_cmd == CMD_SCREEN_UPDATE);
 		playlist_repaint();
 		return false;
+	case CMD_SELECT_PLAYING:
+		list_window_set_selected(lw, playlist_get_index(c, c->song));
+		return true;
 	case CMD_SHUFFLE:
 	{
 		if(!lw->range_selection)

@@ -120,6 +120,7 @@ static help_text_row_t help_text[] = {
 	{ 0, CMD_ADD, NULL },
 	{ 0, CMD_SAVE_PLAYLIST, NULL },
 	{ 0, CMD_SCREEN_UPDATE, N_("Center") },
+	{ 0, CMD_SELECT_PLAYING, NULL },
 	{ 0, CMD_TOGGLE_AUTOCENTER, NULL },
 
 	{ 0, CMD_NONE, NULL },

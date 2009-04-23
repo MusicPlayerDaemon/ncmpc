@@ -100,6 +100,8 @@ static command_definition_t cmds[] = {
 	  N_("Scroll up half a screen") },
 	{ { 'B',  0, 0 }, 0, CMD_LIST_SCROLL_UP_HALF, "scroll-up-half",
 	  N_("Scroll down half a screen") },
+	{ { 'l', 0, 0 }, 0, CMD_SELECT_PLAYING, "select-playing",
+	  N_("Select currently playing song") },
 
 
 	/* basic screens */
