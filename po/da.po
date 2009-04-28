@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-16 06:50+0200\n"
-"PO-Revision-Date: 2009-04-17 19:49+0000\n"
+"PO-Revision-Date: 2009-04-26 11:59+0000\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-18 10:16+0000\n"
+"X-Launchpad-Export-Date: 2009-04-28 19:04+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -135,11 +135,11 @@ msgstr "Single afspilning slået fra"
 #. finished playing
 #: src/screen.c:657
 msgid "Consume mode is on"
-msgstr ""
+msgstr "\"Consume mode\" er slået til"
 
 #: src/screen.c:658
 msgid "Consume mode is off"
-msgstr ""
+msgstr "\"Consume mode\" er slået fra"
 
 #: src/screen.c:661
 #, c-format
