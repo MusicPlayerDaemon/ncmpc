@@ -142,10 +142,7 @@ SPARSE_FLAGS = -Wdecl -Wdefault-bitfield-sign -Wdo-while -Wenum-mismatch \
 	-D__transparent_union__=unused
 
 sparse-check:
-	for i in $(src_ncmpc_SOURCES); \
-	do \
-		$(SPARSE) -I. -I.. -I/usr/lib/gcc/$(shell gcc -dumpmachine)/4.3/include -I/usr/lib/gcc/$(shell gcc -dumpmachine)/4.3/include-fixed $(AM_CPPFLAGS) $(SPARSE_FLAGS) $(srcdir)/$$i || exit; \
-	done
+	$(SPARSE) -I. -I/usr/lib/gcc/$(shell gcc -dumpmachine)/4.3/include -I/usr/lib/gcc/$(shell gcc -dumpmachine)/4.3/include-fixed $(AM_CPPFLAGS) $(SPARSE_FLAGS) $(src_ncmpc_SOURCES)
 
 #
 # lyrics plugins
