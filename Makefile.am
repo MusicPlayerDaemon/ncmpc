@@ -151,13 +151,12 @@ sparse-check:
 # lyrics plugins
 #
 
-lyrics_plugins = 01-hd.sh 02-lyricwiki.rb 03-leoslyrics.py
+lyrics_plugins = lyrics/01-hd.sh lyrics/02-lyricwiki.rb lyrics/03-leoslyrics.py
 
 if ENABLE_LYRICS_SCREEN
 
-install-exec-local:
-	install -m 0755 -d $(DESTDIR)$(lyrics_plugin_dir)
-	cd lyrics && install -m 0755 $(lyrics_plugins) $(DESTDIR)$(lyrics_plugin_dir)
+lyricsdir = $(lyrics_plugin_dir)
+lyrics_SCRIPTS = $(lyrics_plugins)
 
 endif
 
@@ -175,5 +174,5 @@ man_MANS = doc/ncmpc.1
 #
 
 EXTRA_DIST = autogen.sh \
-	$(addprefix lyrics/,$(lyrics_plugins)) \
+	$(lyrics_plugins) \
 	$(man_MANS) $(doc_DATA)
