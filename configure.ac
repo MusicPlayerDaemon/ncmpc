@@ -442,5 +442,5 @@ dnl
 dnl Generate output files
 dnl
 
-AC_CONFIG_FILES([Makefile src/Makefile doc/Makefile po/Makefile.in po/Makefile])
+AC_CONFIG_FILES([Makefile po/Makefile.in po/Makefile])
 AC_OUTPUT
