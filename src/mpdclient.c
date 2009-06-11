@@ -95,7 +95,7 @@ compare_filelistentry_format(gconstpointer filelist_entry1,
 
 /* Error callbacks */
 static gint
-error_cb(mpdclient_t *c, gint error, gchar *msg)
+error_cb(mpdclient_t *c, gint error, const gchar *msg)
 {
 	GList *list = c->error_callbacks;
 
