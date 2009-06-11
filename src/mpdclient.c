@@ -283,11 +283,16 @@ mpdclient_cmd_pause(mpdclient_t *c, gint value)
 gint
 mpdclient_cmd_crop(mpdclient_t *c)
 {
+	gint error;
 	mpd_Status *status;
 	int length;
 
 	mpd_sendStatusCommand(c->connection);
 	status = mpd_getStatus(c->connection);
+	error = mpdclient_finish_command(c);
+	if (error)
+		return error;
+
 	length = status->playlistLength - 1;
 
 	if (length <= 0) {
