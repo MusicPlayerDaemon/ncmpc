@@ -159,9 +159,18 @@ print_hotkey(WINDOW *w, command_t cmd, const char *label)
 }
 #endif
 
+static inline int
+get_volume(const struct mpd_Status *status)
+{
+	return status != NULL
+		? status->volume
+		: MPD_STATUS_NO_VOLUME;
+}
+
 static void
 paint_top_window2(const char *header, mpdclient_t *c)
 {
+	int volume;
 	char flags[5];
 	WINDOW *w = screen.top_window.w;
 	char buf[32];
@@ -191,11 +200,12 @@ paint_top_window2(const char *header, mpdclient_t *c)
 #endif
 	}
 
-	if (c->status == NULL || c->status->volume == MPD_STATUS_NO_VOLUME) {
+	volume = get_volume(c->status);
+	if (volume == MPD_STATUS_NO_VOLUME)
 		g_snprintf(buf, 32, _("Volume n/a"));
-	} else {
-		g_snprintf(buf, 32, _("Volume %d%%"), c->status->volume);
-	}
+	else
+		g_snprintf(buf, 32, _("Volume %d%%"), volume);
+
 	colors_use(w, COLOR_TITLE);
 	mvwaddstr(w, 0, screen.top_window.cols - utf8_width(buf), buf);
 
