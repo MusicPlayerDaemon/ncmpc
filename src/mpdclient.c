@@ -37,7 +37,12 @@
 
 #define BUFSIZE 1024
 
-#define MPD_ERROR(c) (c==NULL || c->connection==NULL || c->connection->error)
+static bool
+MPD_ERROR(const struct mpdclient *client)
+{
+	return client == NULL || client->connection==NULL ||
+		client->connection->error != MPD_ERROR_SUCCESS;
+}
 
 /* filelist sorting functions */
 static gint
