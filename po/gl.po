@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-16 06:50+0200\n"
+"POT-Creation-Date: 2009-06-11 16:32+0200\n"
 "PO-Revision-Date: 2009-04-16 21:28+0200\n"
 "Last-Translator: Johám-Luís Miguéns Vila <miluxovi@ashtophet.org>\n"
 "Language-Team: galician\n"
@@ -47,11 +47,11 @@ msgstr "Conectado com %s"
 msgid "press %s for the key editor"
 msgstr "preme %s para ir ao editor de atalhos"
 
-#: src/screen.c:175 src/screen_help.c:248
+#: src/screen.c:175 src/screen_help.c:249
 msgid "Help"
 msgstr "Ajuda"
 
-#: src/screen.c:177 src/screen_play.c:503
+#: src/screen.c:177 src/screen_play.c:505
 msgid "Playlist"
 msgstr "Lista"
 
@@ -64,7 +64,7 @@ msgstr "Navegar"
 msgid "Artist"
 msgstr "Artista"
 
-#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:143
+#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:144
 msgid "Search"
 msgstr "Procura"
 
@@ -149,7 +149,7 @@ msgstr "Esvaecemento %d segundos"
 msgid "Database updated"
 msgstr "Base de dados actualizada"
 
-#: src/screen.c:799 src/screen_play.c:638
+#: src/screen.c:799 src/screen_play.c:643
 msgid "Shuffled playlist"
 msgstr "Lista aleatorizada"
 
@@ -237,31 +237,31 @@ msgstr "Contrasinal"
 msgid "Unable to find '%s'"
 msgstr "Nom se puido atopar '%s'"
 
-#: src/screen_play.c:259
+#: src/screen_play.c:261
 msgid "Save playlist as"
 msgstr "Guardar a lista como"
 
-#: src/screen_play.c:292
+#: src/screen_play.c:294
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Reemprazar %s [%s/%s] ?"
 
 #. translators: a dialog was aborted by the user
-#: src/screen_play.c:313 src/screen_file.c:148 src/screen_keydef.c:163
+#: src/screen_play.c:315 src/screen_file.c:148 src/screen_keydef.c:163
 msgid "Aborted"
 msgstr "Abortado"
 
 #. success
-#: src/screen_play.c:321
+#: src/screen_play.c:323
 #, c-format
 msgid "Saved %s"
 msgstr "Guardou-se %s"
 
-#: src/screen_play.c:397
+#: src/screen_play.c:399
 msgid "Add"
 msgstr "Engadir"
 
-#: src/screen_play.c:505
+#: src/screen_play.c:507
 #, c-format
 msgid "Playlist on %s"
 msgstr "Lista em %s"
@@ -462,7 +462,7 @@ msgstr "Movimento"
 msgid "Global"
 msgstr "Global"
 
-#: src/screen_help.c:113 src/command.c:109
+#: src/screen_help.c:113 src/command.c:111
 msgid "Playlist screen"
 msgstr "Écrã da lista"
 
@@ -482,81 +482,81 @@ msgstr "Mover a cançom abaixo"
 msgid "Center"
 msgstr "Centrar"
 
-#: src/screen_help.c:127 src/command.c:111
+#: src/screen_help.c:128 src/command.c:113
 msgid "Browse screen"
 msgstr "Écrã de navegaçom"
 
-#: src/screen_help.c:129
+#: src/screen_help.c:130
 msgid "Enter directory/Select and play song"
 msgstr "Entra no cartafol/Selecciona e toca a cançom"
 
-#: src/screen_help.c:131 src/screen_help.c:146
+#: src/screen_help.c:132 src/screen_help.c:147
 msgid "Append song to playlist"
 msgstr "Engadir a cançom à lista"
 
-#: src/screen_help.c:133
+#: src/screen_help.c:134
 msgid "Delete playlist"
 msgstr "Eliminar lista"
 
-#: src/screen_help.c:141 src/command.c:222
+#: src/screen_help.c:142 src/command.c:224
 msgid "Search screen"
 msgstr "Écrã de procura"
 
-#: src/screen_help.c:144
+#: src/screen_help.c:145
 msgid "Select and play"
 msgstr "Seleccionar e tocar"
 
-#: src/screen_help.c:153 src/command.c:232
+#: src/screen_help.c:154 src/command.c:234
 msgid "Lyrics screen"
 msgstr "Ecrã das letras"
 
-#: src/screen_help.c:155
+#: src/screen_help.c:156
 msgid "View Lyrics"
 msgstr "Ver Letras"
 
-#: src/screen_help.c:156
+#: src/screen_help.c:157
 msgid "(Re)load lyrics"
 msgstr "(Re)carregar letras"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
-#: src/screen_help.c:159
+#: src/screen_help.c:160
 msgid "Interrupt retrieval"
 msgstr "Interromper a descarga"
 
-#: src/screen_help.c:160
+#: src/screen_help.c:161
 msgid "Download lyrics for currently playing song"
 msgstr "Obter as letras da cançom reproduzida"
 
-#: src/screen_help.c:161
+#: src/screen_help.c:162
 msgid "Save lyrics"
 msgstr "Guardar as letras"
 
-#: src/screen_help.c:166 src/command.c:243
+#: src/screen_help.c:167 src/command.c:245
 msgid "Outputs screen"
 msgstr "Écrã de saída"
 
-#: src/screen_help.c:168
+#: src/screen_help.c:169
 msgid "Enable/disable output"
 msgstr "Habilitar/Deshabilitar saída"
 
-#: src/screen_help.c:173
+#: src/screen_help.c:174
 msgid "Keydef screen"
 msgstr "Écrã de atalhos"
 
-#: src/screen_help.c:175
+#: src/screen_help.c:176
 msgid "Edit keydefs for selected command"
 msgstr "Editar atalhos para o comando seleccionado"
 
-#: src/screen_help.c:176
+#: src/screen_help.c:177
 msgid "Remove selected keydef"
 msgstr "Eliminar o atalho seleccionado"
 
-#: src/screen_help.c:177
+#: src/screen_help.c:178
 msgid "Go up a level"
 msgstr "Subir um nível"
 
-#: src/screen_help.c:178
+#: src/screen_help.c:179
 msgid "Apply and save changes"
 msgstr "Aplicar e guardar as mudanças"
 
@@ -735,264 +735,269 @@ msgstr "Subir medio écrã"
 msgid "Scroll down half a screen"
 msgstr "Descer medio écrã"
 
-#: src/command.c:107
+#: src/command.c:104
+#, fuzzy
+msgid "Select currently playing song"
+msgstr "Cançom que se está a reproduzir"
+
+#: src/command.c:109
 msgid "Help screen"
 msgstr "Écrã de ajuda"
 
-#: src/command.c:116
+#: src/command.c:118
 msgid "Play/Enter directory"
 msgstr "Tocar/Entrar num cartafol"
 
-#: src/command.c:118
+#: src/command.c:120
 msgid "Pause"
 msgstr "Pausar"
 
-#: src/command.c:120
+#: src/command.c:122
 msgid "Stop"
 msgstr "Parar"
 
-#: src/command.c:122
+#: src/command.c:124
 msgid "Crop"
 msgstr "Cortar"
 
-#: src/command.c:124
+#: src/command.c:126
 msgid "Next track"
 msgstr "Seguinte"
 
-#: src/command.c:126
+#: src/command.c:128
 msgid "Previous track"
 msgstr "Anterior"
 
-#: src/command.c:128
+#: src/command.c:130
 msgid "Seek forward"
 msgstr "Avançar"
 
-#: src/command.c:130
+#: src/command.c:132
 msgid "Seek backward"
 msgstr "Retroceder"
 
-#: src/command.c:132
+#: src/command.c:134
 msgid "Increase volume"
 msgstr "Aumentar volume"
 
-#: src/command.c:134
+#: src/command.c:136
 msgid "Decrease volume"
 msgstr "Diminuir volume"
 
-#: src/command.c:136
+#: src/command.c:138
 msgid "Select/deselect song in playlist"
 msgstr "Seleccionar/desseleccionar a cançom na lista"
 
-#: src/command.c:138
+#: src/command.c:140
 msgid "Select all listed items"
 msgstr "Seleccionar todos"
 
-#: src/command.c:140
+#: src/command.c:142
 msgid "Delete song from playlist"
 msgstr "Eliminar a cançom da lista"
 
-#: src/command.c:142
+#: src/command.c:144
 msgid "Shuffle playlist"
 msgstr "Aleatorizar a lista"
 
-#: src/command.c:144
+#: src/command.c:146
 msgid "Clear playlist"
 msgstr "Limpar a lista"
 
-#: src/command.c:146
+#: src/command.c:148
 msgid "Toggle repeat mode"
 msgstr "Activar/desactivar o modo repetiçom"
 
-#: src/command.c:148
+#: src/command.c:150
 msgid "Toggle random mode"
 msgstr "Activar/desactivar o modo aleatório"
 
-#: src/command.c:150
+#: src/command.c:152
 msgid "Toggle single mode"
 msgstr "Alternar o modo compacto"
 
-#: src/command.c:152
+#: src/command.c:154
 msgid "Toggle consume mode"
 msgstr "Alternar o modo completo"
 
-#: src/command.c:154
+#: src/command.c:156
 msgid "Toggle crossfade mode"
 msgstr "Activar/desactivar o modo esvaecimento"
 
-#: src/command.c:156
+#: src/command.c:158
 msgid "Start a music database update"
 msgstr "Começar umha actualizaçom da BD"
 
-#: src/command.c:158
+#: src/command.c:160
 msgid "Save playlist"
 msgstr "Guardar lista"
 
-#: src/command.c:160
+#: src/command.c:162
 msgid "Add url/file to playlist"
 msgstr "Engadir url/ficheiro à lista"
 
-#: src/command.c:163
+#: src/command.c:165
 msgid "Go to root directory"
 msgstr "Ir ao cartafol raíz"
 
-#: src/command.c:165
+#: src/command.c:167
 msgid "Go to parent directory"
 msgstr "Ir ao cartafol pai"
 
-#: src/command.c:168
+#: src/command.c:170
 msgid "Locate song in browser"
 msgstr "Atopar a cançom no navegador"
 
-#: src/command.c:172
+#: src/command.c:174
 msgid "Move item up"
 msgstr "Mover o elemento arriba"
 
-#: src/command.c:174
+#: src/command.c:176
 msgid "Move item down"
 msgstr "Mover o elemento abaixo"
 
-#: src/command.c:176
+#: src/command.c:178
 msgid "Refresh screen"
 msgstr "Actualizar o écrã"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/command.c:183
+#: src/command.c:185
 msgid "Toggle find mode"
 msgstr "Alternar o modo de procura"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/command.c:187
+#: src/command.c:189
 msgid "Toggle auto center mode"
 msgstr "Alternar o modo de auto-centrado"
 
-#: src/command.c:192
+#: src/command.c:194
 msgid "Next screen"
 msgstr "Seguinte écrã"
 
-#: src/command.c:194
+#: src/command.c:196
 msgid "Previous screen"
 msgstr "Écrã anterior"
 
-#: src/command.c:196
+#: src/command.c:198
 msgid "Swap to most recent screen"
 msgstr "Voltar ao écrã anterior"
 
-#: src/command.c:201
+#: src/command.c:203
 msgid "Forward find"
 msgstr "Procurar cara adiante"
 
-#: src/command.c:203
+#: src/command.c:205
 msgid "Forward find next"
 msgstr "Procurar para adiante, seguinte"
 
-#: src/command.c:205
+#: src/command.c:207
 msgid "Backward find"
 msgstr "Procurar cara atrás"
 
-#: src/command.c:207
+#: src/command.c:209
 msgid "Backward find previous"
 msgstr "Procurar cara atrás, anterior"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/command.c:212
+#: src/command.c:214
 msgid "Jump to"
 msgstr "Ir a"
 
-#: src/command.c:218
+#: src/command.c:220
 msgid "Artist screen"
 msgstr "Navegador de Artistas"
 
-#: src/command.c:224
+#: src/command.c:226
 msgid "Change search mode"
 msgstr "Mudar o modo de procura"
 
-#: src/command.c:228
+#: src/command.c:230
 msgid "View the selected and the currently playing song"
 msgstr "Ver a cançom seleccionada e a que se está a reproduzir"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/command.c:236
+#: src/command.c:238
 msgid "Interrupt action"
 msgstr "Interromper a acçom"
 
-#: src/command.c:238
+#: src/command.c:240
 msgid "Update Lyrics"
 msgstr "Actualizar as letras"
 
-#: src/command.c:267
+#: src/command.c:269
 msgid "Undefined"
 msgstr "Nom definido"
 
-#: src/command.c:269
+#: src/command.c:271
 msgid "Space"
 msgstr "Espaço"
 
-#: src/command.c:271
+#: src/command.c:273
 msgid "Enter"
 msgstr "Enter"
 
-#: src/command.c:273
+#: src/command.c:275
 msgid "Backspace"
 msgstr "Backspace"
 
-#: src/command.c:275
+#: src/command.c:277
 msgid "Delete"
 msgstr "Supr"
 
-#: src/command.c:277
+#: src/command.c:279
 msgid "Up"
 msgstr "Arriba"
 
-#: src/command.c:279
+#: src/command.c:281
 msgid "Down"
 msgstr "Abaixo"
 
-#: src/command.c:281
+#: src/command.c:283
 msgid "Left"
 msgstr "Esquerda"
 
-#: src/command.c:283
+#: src/command.c:285
 msgid "Right"
 msgstr "Direita"
 
-#: src/command.c:285
+#: src/command.c:287
 msgid "Home"
 msgstr "Home"
 
-#: src/command.c:287
+#: src/command.c:289
 msgid "End"
 msgstr "Fim"
 
-#: src/command.c:289
+#: src/command.c:291
 msgid "PageDown"
 msgstr "Re. Pág."
 
-#: src/command.c:291
+#: src/command.c:293
 msgid "PageUp"
 msgstr "Av. Pág."
 
-#: src/command.c:293
+#: src/command.c:295
 msgid "Tab"
 msgstr "Tab"
 
-#: src/command.c:295
+#: src/command.c:297
 msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
-#: src/command.c:297
+#: src/command.c:299
 msgid "Esc"
 msgstr "Esc"
 
-#: src/command.c:299
+#: src/command.c:301
 msgid "Insert"
 msgstr "Insert"
 
-#: src/command.c:510 src/command.c:516
+#: src/command.c:512 src/command.c:518
 #, c-format
 msgid "Key %s assigned to %s and %s"
 msgstr "A tecla %s assignou-se a %s e a %s"
