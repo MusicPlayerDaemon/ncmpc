@@ -296,6 +296,7 @@ paint_status_window(mpdclient_t *c)
 {
 	WINDOW *w = screen.status_window.w;
 	mpd_Status *status = c->status;
+	int state;
 	mpd_Song *song = c->song;
 	int elapsedTime = 0;
 #ifdef NCMPC_MINI
@@ -313,7 +314,9 @@ paint_status_window(mpdclient_t *c)
 	wclrtoeol(w);
 	colors_use(w, COLOR_STATUS_BOLD);
 
-	switch (status == NULL ? MPD_STATUS_STATE_STOP : status->state) {
+	state = status == NULL ? MPD_STATUS_STATE_UNKNOWN : status->state;
+
+	switch (state) {
 	case MPD_STATUS_STATE_PLAY:
 		str = _("Playing:");
 		break;
@@ -332,8 +335,7 @@ paint_status_window(mpdclient_t *c)
 
 	/* create time string */
 	memset(screen.buf, 0, screen.buf_size);
-	if (status != NULL && (IS_PLAYING(status->state) ||
-			       IS_PAUSED(status->state))) {
+	if (IS_PLAYING(state) || IS_PAUSED(state)) {
 		if (status->totalTime > 0) {
 			/*checks the conf to see whether to display elapsed or remaining time */
 			if(!strcmp(options.timedisplay_type,"elapsed"))
