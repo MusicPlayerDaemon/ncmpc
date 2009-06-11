@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-16 06:50+0200\n"
-"PO-Revision-Date: 2009-04-17 19:52+0000\n"
-"Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
+"PO-Revision-Date: 2009-05-18 12:09+0000\n"
+"Last-Translator: Björn Pettersson <bjorn@hygiena.org>\n"
 "Language-Team: sv <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-18 10:16+0000\n"
+"X-Launchpad-Export-Date: 2009-06-11 13:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -102,19 +102,19 @@ msgstr "Fel: Terminalen är för liten"
 
 #: src/screen.c:633
 msgid "Repeat mode is on"
-msgstr ""
+msgstr "Upprepningsläge på"
 
 #: src/screen.c:634
 msgid "Repeat mode is off"
-msgstr ""
+msgstr "Upprepningsläge av"
 
 #: src/screen.c:638
 msgid "Random mode is on"
-msgstr ""
+msgstr "Slumpningsläge på"
 
 #: src/screen.c:639
 msgid "Random mode is off"
-msgstr ""
+msgstr "Slumpningsläge av"
 
 #. "single" mode means
 #. that MPD will
@@ -135,11 +135,11 @@ msgstr ""
 #. finished playing
 #: src/screen.c:657
 msgid "Consume mode is on"
-msgstr ""
+msgstr "Förtäringsläge på"
 
 #: src/screen.c:658
 msgid "Consume mode is off"
-msgstr ""
+msgstr "Förtäringsläge av"
 
 #: src/screen.c:661
 #, c-format
@@ -406,7 +406,7 @@ msgstr "Tangentdefinitioner oförändrade."
 #: src/screen_keydef.c:82
 #, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr ""
+msgstr "Fel: Kunde inte skapa mappen ~/.ncmpc - %s"
 
 #: src/screen_keydef.c:91 src/screen_keydef.c:98
 #, c-format
@@ -526,7 +526,7 @@ msgstr "Avbryt hämtning"
 
 #: src/screen_help.c:160
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "Ladda ner texter till låten som spelas just nu"
 
 #: src/screen_help.c:161
 msgid "Save lyrics"
@@ -554,11 +554,11 @@ msgstr ""
 
 #: src/screen_help.c:177
 msgid "Go up a level"
-msgstr ""
+msgstr "Gå upp en nivå"
 
 #: src/screen_help.c:178
 msgid "Apply and save changes"
-msgstr ""
+msgstr "Verkställ och spara förändringar"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:104
@@ -649,7 +649,7 @@ msgstr "Upptid"
 
 #: src/screen_song.c:248
 msgid "Most recent db update"
-msgstr ""
+msgstr "Senaste databasuppdateringen"
 
 #: src/screen_song.c:249
 msgid "Playtime"
@@ -661,11 +661,11 @@ msgstr ""
 
 #: src/screen_song.c:266
 msgid "MPD statistics"
-msgstr ""
+msgstr "MPD-statistik"
 
 #: src/screen_song.c:311
 msgid "Selected song"
-msgstr ""
+msgstr "Markerad låt"
 
 #: src/screen_song.c:323
 msgid "Currently playing song"
@@ -701,11 +701,11 @@ msgstr ""
 
 #: src/command.c:86
 msgid "Move cursor to the top of the list"
-msgstr ""
+msgstr "Flytta markören längst upp i listan"
 
 #: src/command.c:88
 msgid "Move cursor to the bottom of the list"
-msgstr ""
+msgstr "Flytta markören längst ner i listan"
 
 #: src/command.c:90
 msgid "Page up"
@@ -721,11 +721,11 @@ msgstr ""
 
 #: src/command.c:96
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Gå upp en rad"
 
 #: src/command.c:98
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Gå ner en rad"
 
 #: src/command.c:100
 msgid "Scroll up half a screen"
@@ -1100,29 +1100,3 @@ msgstr ""
 #: src/list_window.c:520
 msgid "Range selection enabled"
 msgstr ""
-
-#, c-format
-#~ msgid "Adding directory %s...\n"
-#~ msgstr "Lägger till katalog %s...\n"
-
-#~ msgid "Search: "
-#~ msgstr "Sök: "
-
-#~ msgid "Explicitly download lyrics"
-#~ msgstr "Ladda ner texter explicit"
-
-#, c-format
-#~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-#~ msgstr "%s tilldelat kommandona %s och %s (tryck på %s för att korrigera)"
-
-#~ msgid "Clock"
-#~ msgstr "Klocka"
-
-#~ msgid "Clock screen"
-#~ msgstr "Klocka"
-
-#~ msgid "Error: Unable to convert characters to %s"
-#~ msgstr "Fel vid konvertering av tecken från UTF-8 till %s"
-
-#~ msgid "Error: Unable to convert characters to UTF-8"
-#~ msgstr "Fel vid konvertering av tecken till UTF-8"
