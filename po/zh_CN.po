@@ -80,13 +80,13 @@ msgstr "输出"
 
 #: src/screen.c:195
 #, c-format
-msgid "Volume n/a "
-msgstr "音量 n/a "
+msgid "Volume n/a"
+msgstr "音量 n/a"
 
 #: src/screen.c:197
 #, c-format
-msgid " Volume %d%%"
-msgstr " 音量 %d%%"
+msgid "Volume %d%%"
+msgstr "音量 %d%%"
 
 #: src/screen.c:308
 msgid "Playing:"

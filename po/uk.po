@@ -81,13 +81,13 @@ msgstr "Виходи"
 
 #: src/screen.c:195
 #, c-format
-msgid "Volume n/a "
+msgid "Volume n/a"
 msgstr "Гучність недоступна"
 
 #: src/screen.c:197
 #, c-format
-msgid " Volume %d%%"
-msgstr " Гучність %d%%"
+msgid "Volume %d%%"
+msgstr "Гучність %d%%"
 
 #: src/screen.c:308
 msgid "Playing:"

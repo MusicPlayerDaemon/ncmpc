@@ -192,9 +192,9 @@ paint_top_window2(const char *header, mpdclient_t *c)
 	}
 
 	if (c->status == NULL || c->status->volume == MPD_STATUS_NO_VOLUME) {
-		g_snprintf(buf, 32, _("Volume n/a "));
+		g_snprintf(buf, 32, _("Volume n/a"));
 	} else {
-		g_snprintf(buf, 32, _(" Volume %d%%"), c->status->volume);
+		g_snprintf(buf, 32, _("Volume %d%%"), c->status->volume);
 	}
 	colors_use(w, COLOR_TITLE);
 	mvwaddstr(w, 0, screen.top_window.cols - utf8_width(buf), buf);

@@ -80,13 +80,13 @@ msgstr "Аудиовыходы"
 
 #: src/screen.c:195
 #, c-format
-msgid "Volume n/a "
-msgstr "Громкость н/д "
+msgid "Volume n/a"
+msgstr "Громкость н/д"
 
 #: src/screen.c:197
 #, c-format
-msgid " Volume %d%%"
-msgstr " Громкость %d%%"
+msgid "Volume %d%%"
+msgstr "Громкость %d%%"
 
 #: src/screen.c:308
 msgid "Playing:"

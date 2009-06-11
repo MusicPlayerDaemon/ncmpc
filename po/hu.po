@@ -80,13 +80,13 @@ msgstr "Kimenetek"
 
 #: src/screen.c:195
 #, c-format
-msgid "Volume n/a "
-msgstr "Hangerő ismeretlen "
+msgid "Volume n/a"
+msgstr "Hangerő ismeretlen"
 
 #: src/screen.c:197
 #, c-format
-msgid " Volume %d%%"
-msgstr " Hangerő %d%%"
+msgid "Volume %d%%"
+msgstr "Hangerő %d%%"
 
 #: src/screen.c:308
 msgid "Playing:"

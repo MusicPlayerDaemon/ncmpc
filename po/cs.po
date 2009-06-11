@@ -80,13 +80,13 @@ msgstr "Výstupy"
 
 #: src/screen.c:195
 #, c-format
-msgid "Volume n/a "
-msgstr "Hlasitost n/a "
+msgid "Volume n/a"
+msgstr "Hlasitost n/a"
 
 #: src/screen.c:197
 #, c-format
-msgid " Volume %d%%"
-msgstr " Hlasitost %d%%"
+msgid "Volume %d%%"
+msgstr "Hlasitost %d%%"
 
 #: src/screen.c:308
 msgid "Playing:"

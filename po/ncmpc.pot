@@ -79,12 +79,12 @@ msgstr ""
 
 #: src/screen.c:195
 #, c-format
-msgid "Volume n/a "
+msgid "Volume n/a"
 msgstr ""
 
 #: src/screen.c:197
 #, c-format
-msgid " Volume %d%%"
+msgid "Volume %d%%"
 msgstr ""
 
 #: src/screen.c:308

@@ -81,13 +81,13 @@ msgstr "Ausgabegeräte"
 
 #: src/screen.c:195
 #, c-format
-msgid "Volume n/a "
-msgstr "Lautstärke n/a "
+msgid "Volume n/a"
+msgstr "Lautstärke n/a"
 
 #: src/screen.c:197
 #, c-format
-msgid " Volume %d%%"
-msgstr " Lautstärke %d%%"
+msgid "Volume %d%%"
+msgstr "Lautstärke %d%%"
 
 #: src/screen.c:308
 msgid "Playing:"

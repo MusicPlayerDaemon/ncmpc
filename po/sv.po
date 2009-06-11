@@ -80,13 +80,13 @@ msgstr "Utgångar"
 
 #: src/screen.c:195
 #, c-format
-msgid "Volume n/a "
-msgstr "Volym: n/a "
+msgid "Volume n/a"
+msgstr "Volym: n/a"
 
 #: src/screen.c:197
 #, c-format
-msgid " Volume %d%%"
-msgstr " Volym: %d%%"
+msgid "Volume %d%%"
+msgstr "Volym: %d%%"
 
 #: src/screen.c:308
 msgid "Playing:"
