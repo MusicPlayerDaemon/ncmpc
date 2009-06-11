@@ -285,7 +285,8 @@ mpdclient_cmd_crop(mpdclient_t *c)
 {
 	gint error;
 	mpd_Status *status;
-	int length;
+	bool playing;
+	int length, current;
 
 	mpd_sendStatusCommand(c->connection);
 	status = mpd_getStatus(c->connection);
@@ -293,27 +294,23 @@ mpdclient_cmd_crop(mpdclient_t *c)
 	if (error)
 		return error;
 
-	length = status->playlistLength - 1;
+	playing = status->state == MPD_STATUS_STATE_PLAY ||
+		status->state == MPD_STATUS_STATE_PAUSE;
+	length = status->playlistLength;
+	current = status->song;
 
-	if (length <= 0) {
-		mpd_freeStatus(status);
-	} else if (status->state == 3 || status->state == 2) {
-		/* If playing or paused */
+	mpd_freeStatus(status);
 
-		mpd_sendCommandListBegin( c->connection );
+	if (!playing || length < 2)
+		return 0;
 
-		while (length >= 0) {
-			if (length != status->song)
-				mpd_sendDeleteCommand(c->connection, length);
+	mpd_sendCommandListBegin( c->connection );
 
-			length--;
-		}
+	while (--length >= 0)
+		if (length != current)
+			mpd_sendDeleteCommand(c->connection, length);
 
-		mpd_sendCommandListEnd(c->connection);
-		mpd_freeStatus(status);
-	} else {
-		mpd_freeStatus(status);
-	}
+	mpd_sendCommandListEnd(c->connection);
 
 	return mpdclient_finish_command(c);
 }
