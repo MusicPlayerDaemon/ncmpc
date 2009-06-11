@@ -22,6 +22,7 @@
 #include "config.h"
 #include "options.h"
 #include "strfsong.h"
+#include "utils.h"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -37,10 +38,6 @@
 #define BUFSIZE 1024
 
 #define MPD_ERROR(c) (c==NULL || c->connection==NULL || c->connection->error)
-
-/* from utils.c */
-extern GList *string_list_free(GList *string_list);
-
 
 /* filelist sorting functions */
 static gint
