@@ -412,8 +412,18 @@ mpdclient_cmd_crossfade(mpdclient_t *c, gint value)
 gint
 mpdclient_cmd_db_update(mpdclient_t *c, gchar *path)
 {
+	gint ret;
+
 	mpd_sendUpdateCommand(c->connection, path ? path : "");
-	return mpdclient_finish_command(c);
+	ret = mpdclient_finish_command(c);
+
+	if (ret == 0)
+		/* set updatingDb to make sure the browse callback
+		   gets called even if the update has finished before
+		   status is updated */
+		c->status->updatingDb = 1;
+
+	return ret;
 }
 
 gint

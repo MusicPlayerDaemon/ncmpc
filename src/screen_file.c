@@ -272,10 +272,6 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 					g_free(path_locale);
 				} else
 					screen_status_printf(_("Database update started"));
-
-				/* set updatingDb to make sure the browse callback gets called
-				 * even if the updated has finished before status is updated */
-				c->status->updatingDb = 1;
 			}
 		} else
 			screen_status_printf(_("Database update running..."));
