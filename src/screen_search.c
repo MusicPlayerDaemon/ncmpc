@@ -63,11 +63,6 @@ search_get_tag_id(char *name)
 	return -1;
 }
 
-#define SEARCH_TITLE    0
-#define SEARCH_ARTIST   1
-#define SEARCH_ALBUM    2
-#define SEARCH_FILE     3
-
 #define SEARCH_ARTIST_TITLE 999
 
 typedef struct {
