@@ -28,6 +28,8 @@ typedef struct mpdclient {
 	mpd_Song       *song;
 
 	gboolean       need_update;
+
+	int updatingdb;
 } mpdclient_t;
 
 /** functions ***************************************************************/

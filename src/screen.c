@@ -674,7 +674,6 @@ screen_update(mpdclient_t *c)
 
 		if (dbupdate && dbupdate != c->status->updatingDb) {
 			screen_status_printf(_("Database updated"));
-			mpdclient_browse_callback(c, BROWSE_DB_UPDATED, NULL);
 		}
 
 		repeat = c->status->repeat;

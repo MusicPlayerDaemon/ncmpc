@@ -233,6 +233,11 @@ mpdclient_update(mpdclient_t *c)
 	if ((retval=mpdclient_finish_command(c)))
 		return retval;
 
+	if (c->updatingdb && c->updatingdb != c->status->updatingDb)
+		mpdclient_browse_callback(c, BROWSE_DB_UPDATED, NULL);
+
+	c->updatingdb = c->status->updatingDb;
+
 	/* check if the playlist needs an update */
 	if (c->playlist.id != c->status->playlist) {
 		if (playlist_is_empty(&c->playlist))
@@ -421,7 +426,7 @@ mpdclient_cmd_db_update(mpdclient_t *c, gchar *path)
 		/* set updatingDb to make sure the browse callback
 		   gets called even if the update has finished before
 		   status is updated */
-		c->status->updatingDb = 1;
+		c->updatingdb = 1;
 
 	return ret;
 }
