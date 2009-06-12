@@ -150,6 +150,7 @@ mpdclient_new(void)
 
 	c = g_malloc0(sizeof(mpdclient_t));
 	playlist_init(&c->playlist);
+	c->volume = MPD_STATUS_NO_VOLUME;
 
 	return c;
 }
@@ -220,6 +221,8 @@ mpdclient_update(mpdclient_t *c)
 {
 	gint retval = 0;
 
+	c->volume = MPD_STATUS_NO_VOLUME;
+
 	if (MPD_ERROR(c))
 		return -1;
 
@@ -237,6 +240,7 @@ mpdclient_update(mpdclient_t *c)
 		mpdclient_browse_callback(c, BROWSE_DB_UPDATED, NULL);
 
 	c->updatingdb = c->status->updatingDb;
+	c->volume = c->status->volume;
 
 	/* check if the playlist needs an update */
 	if (c->playlist.id != c->status->playlist) {
@@ -436,6 +440,34 @@ mpdclient_cmd_volume(mpdclient_t *c, gint value)
 {
 	mpd_sendSetvolCommand(c->connection, value);
 	return mpdclient_finish_command(c);
+}
+
+gint mpdclient_cmd_volume_up(struct mpdclient *c)
+{
+	if (c->status == NULL || c->status->volume == MPD_STATUS_NO_VOLUME)
+		return 0;
+
+	if (c->volume == MPD_STATUS_NO_VOLUME)
+		c->volume = c->status->volume;
+
+	if (c->volume >= 100)
+		return 0;
+
+	return mpdclient_cmd_volume(c, ++c->volume);
+}
+
+gint mpdclient_cmd_volume_down(struct mpdclient *c)
+{
+	if (c->status == NULL || c->status->volume == MPD_STATUS_NO_VOLUME)
+		return 0;
+
+	if (c->volume == MPD_STATUS_NO_VOLUME)
+		c->volume = c->status->volume;
+
+	if (c->volume <= 0)
+		return 0;
+
+	return mpdclient_cmd_volume(c, --c->volume);
 }
 
 gint

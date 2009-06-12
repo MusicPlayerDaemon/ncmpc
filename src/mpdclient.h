@@ -29,6 +29,7 @@ typedef struct mpdclient {
 
 	gboolean       need_update;
 
+	int volume;
 	int updatingdb;
 } mpdclient_t;
 
@@ -64,6 +65,8 @@ gint mpdclient_cmd_consume(mpdclient_t *c, gint value);
 gint mpdclient_cmd_crossfade(mpdclient_t *c, gint value);
 gint mpdclient_cmd_db_update(mpdclient_t *c, gchar *path);
 gint mpdclient_cmd_volume(mpdclient_t *c, gint value);
+gint mpdclient_cmd_volume_up(struct mpdclient *c);
+gint mpdclient_cmd_volume_down(struct mpdclient *c);
 gint mpdclient_cmd_add_path(mpdclient_t *c, gchar *path);
 
 gint mpdclient_cmd_add(mpdclient_t *c, struct mpd_song *song);

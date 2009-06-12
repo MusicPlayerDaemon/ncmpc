@@ -839,12 +839,10 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 			screen_status_printf(_("Database update running..."));
 		break;
 	case CMD_VOLUME_UP:
-		if( c->status->volume!=MPD_STATUS_NO_VOLUME && c->status->volume<100 )
-			mpdclient_cmd_volume(c, ++c->status->volume);
+		mpdclient_cmd_volume_up(c);
 		break;
 	case CMD_VOLUME_DOWN:
-		if( c->status->volume!=MPD_STATUS_NO_VOLUME && c->status->volume>0 )
-			mpdclient_cmd_volume(c, --c->status->volume);
+		mpdclient_cmd_volume_down(c);
 		break;
 
 	default:
