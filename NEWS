@@ -1,4 +1,6 @@
 ncmpc 0.15 - not yet released
+* added CMD_SELECT_PLAYING
+* display song duration in the playlist
 
 
 ncmpc 0.14 - 2009-04-21
