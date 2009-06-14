@@ -1,7 +1,7 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -89,7 +89,7 @@ static struct screen_browser browser;
 /* search info */
 static const char *
 lw_search_help_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
-			G_GNUC_UNUSED void *data)
+			G_GNUC_UNUSED char** sc, G_GNUC_UNUSED void *data)
 {
 	unsigned text_rows;
 	static const char *text[] = {

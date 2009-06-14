@@ -34,6 +34,7 @@
 
 typedef const char *(*list_window_callback_fn_t)(unsigned index,
 						 bool *highlight,
+						 char **second_column,
 						 void *data);
 
 typedef struct list_window {

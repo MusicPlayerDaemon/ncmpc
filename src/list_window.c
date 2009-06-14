@@ -323,7 +323,7 @@ list_window_paint(struct list_window *lw,
 			lw->start = 0;
 		else
 		{
-			while ( start > 0 && callback(start + lw->rows - 1, &highlight, callback_data) == NULL)
+			while ( start > 0 && callback(start + lw->rows - 1, &highlight, NULL, callback_data) == NULL)
 				start--;
 			lw->start = start;
 		}
@@ -331,9 +331,10 @@ list_window_paint(struct list_window *lw,
 
 	for (i = 0; i < lw->rows; i++) {
 		const char *label;
+		char *second_column = NULL;
 		highlight = false;
 
-		label = callback(lw->start + i, &highlight, callback_data);
+		label = callback(lw->start + i, &highlight, &second_column, callback_data);
 		wmove(lw->w, i, 0);
 
 		if (label) {
@@ -352,6 +353,19 @@ list_window_paint(struct list_window *lw,
 			waddstr(lw->w, label);
 			if (fill && len < lw->cols)
 				whline(lw->w,  ' ', lw->cols-len);
+
+			if(second_column)
+			{
+				unsigned sc_len = utf8_width(second_column) + 1;
+				if(lw->cols > sc_len)
+				{
+					wmove(lw->w, i, lw->cols - sc_len);
+					waddstr(lw->w, " ");
+					wmove(lw->w, i, lw->cols - sc_len + 1);
+					waddstr(lw->w, second_column);
+				}
+				g_free(second_column);
+			}
 
 			if (selected)
 				wattroff(lw->w, A_REVERSE);
@@ -376,7 +390,7 @@ list_window_find(struct list_window *lw,
 	const char *label;
 
 	do {
-		while ((label = callback(i,&h,callback_data))) {
+		while ((label = callback(i,&h,NULL,callback_data))) {
 			if (str && label && match_line(label, str)) {
 				lw->selected = i;
 				if(!lw->range_selection || i > lw->selected_end)
@@ -419,7 +433,7 @@ list_window_rfind(struct list_window *lw,
 		return false;
 
 	do {
-		while (i >= 0 && (label = callback(i,&h,callback_data))) {
+		while (i >= 0 && (label = callback(i,&h,NULL,callback_data))) {
 			if( str && label && match_line(label, str) ) {
 				lw->selected = i;
 				if(!lw->range_selection || i > (int)lw->selected_end)
@@ -453,7 +467,7 @@ list_window_jump(struct list_window *lw,
 	unsigned i = 0;
 	const char *label;
 
-	while ((label = callback(i,&h,callback_data))) {
+	while ((label = callback(i,&h,NULL,callback_data))) {
 		if (label && label[0] == '[')
 			label++;
 #ifndef NCMPC_MINI

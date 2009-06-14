@@ -117,7 +117,7 @@ browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
 
 /* list_window callback */
 const char *
-browser_lw_callback(unsigned idx, bool *highlight, void *data)
+browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_column, void *data)
 {
 	static char buf[BUFSIZE];
 	mpdclient_filelist_t *fl = (mpdclient_filelist_t *) data;

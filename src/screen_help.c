@@ -185,7 +185,7 @@ static help_text_row_t help_text[] = {
 static list_window_t *lw;
 
 static const char *
-list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED void *data)
+list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char** second_column, G_GNUC_UNUSED void *data)
 {
 	static char buf[512];
 

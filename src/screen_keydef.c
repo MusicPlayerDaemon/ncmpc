@@ -188,7 +188,7 @@ assign_new_key(WINDOW *w, int cmd_index, int key_index)
 }
 
 static const char *
-list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED void *data)
+list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char** sc, G_GNUC_UNUSED void *data)
 {
 	static char buf[BUFSIZE];
 

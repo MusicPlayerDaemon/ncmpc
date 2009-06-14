@@ -97,7 +97,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 }
 
 static const char *
-list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED void *data)
+list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
 #ifndef NCMPC_MINI
@@ -115,22 +115,31 @@ list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED void *data)
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, song);
 
 #ifndef NCMPC_MINI
-	if (options.scroll && (unsigned)song->pos == lw->selected &&
-	    utf8_width(songname) > (unsigned)COLS) {
-		static unsigned current_song;
-		char *tmp;
+	if(second_column)
+		*second_column = g_strdup_printf("%d:%02d", song->time/60, song->time%60);
 
-		if (current_song != lw->selected) {
-			st.offset = 0;
-			current_song = lw->selected;
+	if ((unsigned)song->pos == lw->selected)
+	{
+		if (options.scroll && utf8_width(songname) > (unsigned)COLS)
+		{
+			static unsigned current_song;
+			char *tmp;
+
+			if (current_song != lw->selected) {
+				st.offset = 0;
+				current_song = lw->selected;
+			}
+
+			tmp = strscroll(songname, options.scroll_sep,
+					MAX_SONG_LENGTH, &st);
+			g_strlcpy(songname, tmp, MAX_SONG_LENGTH);
+			g_free(tmp);
 		}
-
-		tmp = strscroll(songname, options.scroll_sep,
-				MAX_SONG_LENGTH, &st);
-		g_strlcpy(songname, tmp, MAX_SONG_LENGTH);
-		g_free(tmp);
-	} else if ((unsigned)song->pos == lw->selected)
-		st.offset = 0;
+		else
+			st.offset = 0;
+	}
+#else
+	(void)second_column;
 #endif
 
 	return songname;

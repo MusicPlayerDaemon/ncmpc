@@ -61,7 +61,7 @@ compare_utf8(gconstpointer s1, gconstpointer s2)
 /* list_window callback */
 static const char *
 artist_lw_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
-		   G_GNUC_UNUSED void *data)
+		   G_GNUC_UNUSED char** sc, G_GNUC_UNUSED void *data)
 {
 	GPtrArray *list = data;
 	static char buf[BUFSIZE];

@@ -1,7 +1,7 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -70,7 +70,7 @@ void
 screen_text_set(struct screen_text *text, const GString *str);
 
 const char *
-screen_text_list_callback(unsigned idx, bool *highlight, void *data);
+screen_text_list_callback(unsigned idx, bool *highlight, char** sc, void *data);
 
 static inline void
 screen_text_paint(struct screen_text *text)
