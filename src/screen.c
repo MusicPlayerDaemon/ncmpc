@@ -604,14 +604,22 @@ screen_paint(mpdclient_t *c)
 	else
 		paint_top_window("", c, 1);
 
+	/* paint the bottom window */
+
+	paint_progress_window(c);
+	paint_status_window(c);
+
 	/* paint the main window */
+
 	wclear(screen.main_window.w);
 	if (mode_fn->paint != NULL)
 		mode_fn->paint();
 
-	paint_progress_window(c);
-	paint_status_window(c);
-	wmove(screen.main_window.w, 0, 0);
+	/* move the cursor to the origin */
+
+	if (!options.hardware_cursor)
+		wmove(screen.main_window.w, 0, 0);
+
 	wnoutrefresh(screen.main_window.w);
 
 	/* tell curses to update */
@@ -699,18 +707,21 @@ screen_update(mpdclient_t *c)
 	} else
 		paint_top_window("", c, 0);
 
-	/* update the main window */
-	if (mode_fn->update != NULL)
-		mode_fn->update(c);
-
 	/* update progress window */
 	paint_progress_window(c);
 
 	/* update status window */
 	paint_status_window(c);
 
+	/* update the main window */
+	if (mode_fn->update != NULL)
+		mode_fn->update(c);
+
 	/* move the cursor to the origin */
-	wmove(screen.main_window.w, 0, 0);
+
+	if (!options.hardware_cursor)
+		wmove(screen.main_window.w, 0, 0);
+
 	wnoutrefresh(screen.main_window.w);
 
 	/* tell curses to update */

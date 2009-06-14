@@ -346,7 +346,8 @@ list_window_paint(struct list_window *lw,
 			else
 				colors_use(lw->w, COLOR_LIST);
 
-			if (show_cursor && selected)
+			if (show_cursor && selected &&
+			    (!options.hardware_cursor || lw->range_selection))
 				wattron(lw->w, A_REVERSE);
 
 			//waddnstr(lw->w, label, lw->cols);
@@ -374,6 +375,12 @@ list_window_paint(struct list_window *lw,
 				wclrtoeol(lw->w);
 		} else
 			wclrtoeol(lw->w);
+	}
+
+	if (options.hardware_cursor && lw->selected >= lw->start &&
+	    lw->selected < lw->start + lw->rows) {
+		curs_set(1);
+		wmove(lw->w, lw->selected - lw->start, 0);
 	}
 }
 

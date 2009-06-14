@@ -420,6 +420,8 @@ parse_line(char *line)
 	/* wide cursor */
 	else if (!strcasecmp(CONF_WIDE_CURSOR, name))
 		options.wide_cursor = str2bool(value);
+	else if (strcasecmp(name, "hardware-cursor") == 0)
+		options.hardware_cursor = str2bool(value);
 	/* welcome screen list */
 	else if (!strcasecmp(CONF_WELCOME_SCREEN_LIST, name))
 		options.welcome_screen_list = str2bool(value);

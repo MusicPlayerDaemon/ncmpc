@@ -60,6 +60,9 @@
 ## Make the cursor as wide as the screen.
 #wide-cursor = yes
 
+## Use the terminal's hardware cursor instead of inverse colors
+#hardware-cursor = yes
+
 ## Hide playlist cursor after x seconds (0 disables this feature).
 #hide-cursor = 5
 

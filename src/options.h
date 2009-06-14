@@ -56,6 +56,8 @@ typedef struct {
 	int scroll_offset;
 	bool auto_center;
 	bool wide_cursor;
+	bool hardware_cursor;
+
 #ifdef ENABLE_COLORS
 	bool enable_colors;
 #endif
