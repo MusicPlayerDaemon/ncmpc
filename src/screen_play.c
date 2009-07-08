@@ -127,7 +127,7 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 	if(second_column)
 		*second_column = format_duration(song->time);
 
-	if ((unsigned)song->pos == lw->selected)
+	if (idx == lw->selected)
 	{
 		if (options.scroll && utf8_width(songname) > (unsigned)COLS)
 		{
