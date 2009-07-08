@@ -20,6 +20,7 @@
 #include "filelist.h"
 #include "libmpdclient.h"
 
+#include <stdbool.h>
 #include <string.h>
 #include <assert.h>
 
@@ -167,6 +168,12 @@ filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func)
 				filelist_compare_indirect, compare_func);
 }
 
+static bool
+same_song(const struct mpd_song *a, const struct mpd_song *b)
+{
+	return strcmp(a->file, b->file) == 0;
+}
+
 int
 filelist_find_song(struct filelist *fl, const struct mpd_song *song)
 {
@@ -181,7 +188,7 @@ filelist_find_song(struct filelist *fl, const struct mpd_song *song)
 		if (entity && entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
 			struct mpd_song *song2 = entity->info.song;
 
-			if (strcmp(song->file, song2->file) == 0)
+			if (same_song(song, song2))
 				return i;
 		}
 	}
