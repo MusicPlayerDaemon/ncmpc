@@ -96,6 +96,12 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 	playlist_repaint_if_active();
 }
 
+static char *
+format_duration(int duration)
+{
+	return g_strdup_printf("%d:%02d", duration / 60, duration % 60);
+}
+
 static const char *
 list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED void *data)
 {
@@ -116,7 +122,7 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 
 #ifndef NCMPC_MINI
 	if(second_column)
-		*second_column = g_strdup_printf("%d:%02d", song->time/60, song->time%60);
+		*second_column = format_duration(song->time);
 
 	if ((unsigned)song->pos == lw->selected)
 	{
