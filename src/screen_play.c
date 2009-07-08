@@ -99,6 +99,9 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 static char *
 format_duration(int duration)
 {
+	if (duration == MPD_SONG_NO_TIME)
+		return NULL;
+
 	return g_strdup_printf("%d:%02d", duration / 60, duration % 60);
 }
 
