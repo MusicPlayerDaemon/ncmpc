@@ -133,4 +133,11 @@ playlist_get_index_from_id(const struct mpdclient *c, gint id);
 gint
 playlist_get_index_from_file(const struct mpdclient *c, const gchar *filename);
 
+static inline gint
+playlist_get_index_from_same_song(const struct mpdclient *c,
+				  const struct mpd_song *song)
+{
+	return playlist_get_index_from_file(c, song->file);
+}
+
 #endif

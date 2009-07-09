@@ -79,7 +79,7 @@ sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl)
 		if ( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG ) {
 			mpd_Song *song = entity->info.song;
 
-			if( playlist_get_index_from_file(c, song->file) >= 0 )
+			if (playlist_get_index_from_same_song(c, song) >= 0)
 				entry->flags |= HIGHLIGHT;
 			else
 				entry->flags &= ~HIGHLIGHT;
@@ -264,7 +264,7 @@ enqueue_and_play(mpdclient_t *c, filelist_entry_t *entry)
 	}
 #endif
 
-	idx = playlist_get_index_from_file(c, song->file);
+	idx = playlist_get_index_from_same_song(c, song);
 	mpdclient_cmd_play(c, idx);
 	return true;
 }
@@ -360,7 +360,7 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 
 		entry->flags &= ~HIGHLIGHT;
 
-		while ((idx = playlist_get_index_from_file(c, song->file)) >=0)
+		while ((idx = playlist_get_index_from_same_song(c, song)) >= 0)
 			mpdclient_cmd_delete(c, idx);
 #endif
 	}
