@@ -124,10 +124,13 @@ struct mpd_song *playlist_lookup_song(struct mpdclient *c, gint id);
 
 struct mpd_song *playlist_get_song(struct mpdclient *c, gint index);
 
-gint playlist_get_index(struct mpdclient *c, struct mpd_song *song);
+gint
+playlist_get_index(const struct mpdclient *c, const struct mpd_song *song);
 
-gint playlist_get_index_from_id(struct mpdclient *c, gint id);
+gint
+playlist_get_index_from_id(const struct mpdclient *c, gint id);
 
-gint playlist_get_index_from_file(struct mpdclient *c, gchar *filename);
+gint
+playlist_get_index_from_file(const struct mpdclient *c, const gchar *filename);
 
 #endif
