@@ -34,11 +34,13 @@
 #include <ncurses.h>
 #endif
 
+static SCREEN *ncu_screen;
+
 void
 ncu_init(void)
 {
 	/* initialize the curses library */
-	initscr();
+	ncu_screen = newterm(NULL, stdout, stdin);
 
 	/* initialize color support */
 #ifdef ENABLE_COLORS
@@ -68,4 +70,6 @@ void
 ncu_deinit(void)
 {
 	endwin();
+
+	delscreen(ncu_screen);
 }
