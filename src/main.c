@@ -62,6 +62,10 @@ static gboolean connected = FALSE;
 static GMainLoop *main_loop;
 static guint reconnect_source_id, idle_source_id, update_source_id;
 
+#ifndef NCMPC_MINI
+static guint check_key_bindings_source_id;
+#endif
+
 static const gchar *
 error_msg(const gchar *msg)
 {
@@ -344,10 +348,12 @@ timer_check_key_bindings(G_GNUC_UNUSED gpointer data)
 	gboolean key_error;
 
 	key_error = check_key_bindings(NULL, buf, sizeof(buf));
-	if (!key_error)
+	if (!key_error) {
 		/* no error: disable this timer for the rest of this
 		   process */
+		check_key_bindings_source_id = 0;
 		return FALSE;
+	}
 
 #ifdef ENABLE_KEYDEF_SCREEN
 	g_strchomp(buf);
@@ -506,7 +512,7 @@ main(int argc, const char *argv[])
 					 timer_mpd_update,
 					 GINT_TO_POINTER(TRUE));
 #ifndef NCMPC_MINI
-	g_timeout_add(10000, timer_check_key_bindings, NULL);
+	check_key_bindings_source_id = g_timeout_add(10000, timer_check_key_bindings, NULL);
 #endif
 	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
 
@@ -515,6 +521,14 @@ main(int argc, const char *argv[])
 	g_main_loop_run(main_loop);
 
 	/* cleanup */
+
+	g_source_remove(update_source_id);
+	g_source_remove(idle_source_id);
+
+#ifndef NCMPC_MINI
+	if (check_key_bindings_source_id != 0)
+		g_source_remove(check_key_bindings_source_id);
+#endif
 
 	g_main_loop_unref(main_loop);
 	g_io_channel_unref(keyboard_channel);
