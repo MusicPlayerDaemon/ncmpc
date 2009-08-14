@@ -435,6 +435,11 @@ screen_exit(void)
 	string_list_free(screen.find_history);
 	g_free(screen.buf);
 	g_free(screen.findbuf);
+
+	delwin(screen.top_window.w);
+	delwin(screen.main_window.w);
+	delwin(screen.progress_window.w);
+	delwin(screen.status_window.w);
 }
 
 void
