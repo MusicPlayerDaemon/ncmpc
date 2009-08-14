@@ -141,14 +141,6 @@ exit_and_cleanup(void)
 		mpdclient_disconnect(mpd);
 		mpdclient_free(mpd);
 	}
-
-	g_free(options.host);
-	g_free(options.password);
-	g_free(options.list_format);
-	g_free(options.status_format);
-#ifndef NCMPC_MINI
-	g_free(options.scroll_sep);
-#endif
 }
 
 static void
@@ -540,6 +532,7 @@ main(int argc, const char *argv[])
 #endif
 
 	ncu_deinit();
+	options_deinit();
 
 	return 0;
 }

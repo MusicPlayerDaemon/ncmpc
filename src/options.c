@@ -398,3 +398,21 @@ options_init(void)
 	options.scroll_sep = g_strdup(DEFAULT_SCROLL_SEP);
 #endif
 }
+
+void
+options_deinit(void)
+{
+	g_free(options.host);
+	g_free(options.username);
+	g_free(options.password);
+	g_free(options.config_file);
+	g_free(options.key_file);
+	g_free(options.list_format);
+	g_free(options.status_format);
+	g_strfreev(options.screen_list);
+#ifndef NCMPC_MINI
+	g_free(options.xterm_title_format);
+	g_free(options.scroll_sep);
+#endif
+	g_free(options.timedisplay_type);
+}
