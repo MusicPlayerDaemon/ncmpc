@@ -284,6 +284,8 @@ screen_song_add_stats(const mpdclient_t *c)
 		g_date_strftime(buf, sizeof(buf), "%x", date);
 		screen_song_append(labels[DBUPTIME], buf, max_label_width);
 		g_date_free(date);
+
+		mpd_freeStats(mpd_stats);
 	}
 }
 
