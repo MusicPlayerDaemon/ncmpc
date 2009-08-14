@@ -251,23 +251,19 @@ handle_option(int c, const char *arg)
 		options.port = atoi(arg);
 		break;
 	case 'h': /* --host */
-		if( options.host )
-			g_free(options.host);
+		g_free(options.host);
 		options.host = g_strdup(arg);
 		break;
 	case 'P': /* --password */
-		if( options.password )
-			g_free(options.password);
+		g_free(options.password);
 		options.password = locale_to_utf8(arg);
 		break;
 	case 'f': /* --config */
-		if( options.config_file )
-			g_free(options.config_file);
+		g_free(options.config_file);
 		options.config_file = g_strdup(arg);
 		break;
 	case 'k': /* --key-file */
-		if( options.key_file )
-			g_free(options.key_file);
+		g_free(options.key_file);
 		options.key_file = g_strdup(arg);
 		break;
 	case 'S': /* --key-file */
