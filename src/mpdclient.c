@@ -189,10 +189,10 @@ mpdclient_disconnect(mpdclient_t *c)
 
 gint
 mpdclient_connect(mpdclient_t *c,
-		  gchar *host,
+		  const gchar *host,
 		  gint port,
 		  gfloat _timeout,
-		  gchar *password)
+		  const gchar *password)
 {
 	gint retval = 0;
 
@@ -419,7 +419,7 @@ mpdclient_cmd_crossfade(mpdclient_t *c, gint value)
 }
 
 gint
-mpdclient_cmd_db_update(mpdclient_t *c, gchar *path)
+mpdclient_cmd_db_update(mpdclient_t *c, const gchar *path)
 {
 	gint ret;
 
@@ -471,7 +471,7 @@ gint mpdclient_cmd_volume_down(struct mpdclient *c)
 }
 
 gint
-mpdclient_cmd_add_path(mpdclient_t *c, gchar *path_utf8)
+mpdclient_cmd_add_path(mpdclient_t *c, const gchar *path_utf8)
 {
 	mpd_sendAddCommand(c->connection, path_utf8);
 	return mpdclient_finish_command(c);
@@ -591,7 +591,7 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 }
 
 gint
-mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename_utf8)
+mpdclient_cmd_save_playlist(mpdclient_t *c, const gchar *filename_utf8)
 {
 	gint retval = 0;
 
@@ -602,7 +602,7 @@ mpdclient_cmd_save_playlist(mpdclient_t *c, gchar *filename_utf8)
 }
 
 gint
-mpdclient_cmd_load_playlist(mpdclient_t *c, gchar *filename_utf8)
+mpdclient_cmd_load_playlist(mpdclient_t *c, const gchar *filename_utf8)
 {
 	mpd_sendLoadCommand(c->connection, filename_utf8);
 	c->need_update = TRUE;
@@ -610,7 +610,7 @@ mpdclient_cmd_load_playlist(mpdclient_t *c, gchar *filename_utf8)
 }
 
 gint
-mpdclient_cmd_delete_playlist(mpdclient_t *c, gchar *filename_utf8)
+mpdclient_cmd_delete_playlist(mpdclient_t *c, const gchar *filename_utf8)
 {
 	gint retval = 0;
 
@@ -880,7 +880,7 @@ mpdclient_get_artists(mpdclient_t *c)
 }
 
 GList *
-mpdclient_get_albums(mpdclient_t *c, gchar *artist_utf8)
+mpdclient_get_albums(mpdclient_t *c, const gchar *artist_utf8)
 {
 	gchar *str = NULL;
 	GList *list = NULL;
