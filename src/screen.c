@@ -238,6 +238,18 @@ paint_top_window2(const char *header, mpdclient_t *c)
 	wnoutrefresh(w);
 }
 
+static inline int
+volume_length(int volume)
+{
+	if (volume == 100)
+		return 3;
+	if (volume >= 10 && volume < 100)
+		return 2;
+	if (volume >= 0 && volume < 10)
+		return 1;
+	return -1;
+}
+
 static void
 paint_top_window(const char *header, mpdclient_t *c, int full_repaint)
 {
@@ -249,6 +261,10 @@ paint_top_window(const char *header, mpdclient_t *c, int full_repaint)
 		prev_header_len = utf8_width(header);
 		full_repaint = 1;
 	}
+
+	if (c->status &&
+	    volume_length(prev_volume) != volume_length(c->status->volume))
+		full_repaint = 1;
 
 	if (full_repaint) {
 		wmove(w, 0, 0);
