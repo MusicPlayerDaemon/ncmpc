@@ -69,7 +69,7 @@ gint mpdclient_cmd_volume_up(struct mpdclient *c);
 gint mpdclient_cmd_volume_down(struct mpdclient *c);
 gint mpdclient_cmd_add_path(mpdclient_t *c, const gchar *path);
 
-gint mpdclient_cmd_add(mpdclient_t *c, struct mpd_song *song);
+gint mpdclient_cmd_add(mpdclient_t *c, const struct mpd_song *song);
 gint mpdclient_cmd_delete(mpdclient_t *c, gint index);
 gint mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index);
 

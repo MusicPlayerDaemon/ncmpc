@@ -478,7 +478,7 @@ mpdclient_cmd_add_path(mpdclient_t *c, const gchar *path_utf8)
 }
 
 gint
-mpdclient_cmd_add(mpdclient_t *c, struct mpd_song *song)
+mpdclient_cmd_add(mpdclient_t *c, const struct mpd_song *song)
 {
 	gint retval = 0;
 
