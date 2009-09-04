@@ -1,0 +1,1096 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ncmpc\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-06-11 16:32+0200\n"
+"PO-Revision-Date: 2009-09-04 12:15+0200\n"
+"Last-Translator: Itai Kloog <zeltak@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/i18n.h:42
+msgid "y"
+msgstr "כן"
+
+#: src/i18n.h:43
+msgid "n"
+msgstr "לא"
+
+#: src/main.c:215
+#, c-format
+msgid "Connecting to %s...  [Press %s to abort]"
+msgstr "מתחבר ל %s [לחץ על %s לביטול]"
+
+#: src/main.c:233
+#, c-format
+msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
+msgstr "שגיאה: גרסת התוכנה %d.%d.%d ישנה מדי (צריך %s)"
+
+#: src/main.c:247
+#, c-format
+msgid "Connected to %s"
+msgstr "מתחבר ל %s"
+
+#. to translators: a key was bound twice in the key editor,
+#. and this is a hint for the user what to press to correct
+#. that
+#: src/main.c:366
+#, c-format
+msgid "press %s for the key editor"
+msgstr " %s לעורך המקשים לחץ"
+
+#: src/screen.c:175 src/screen_help.c:249
+msgid "Help"
+msgstr "עזרה"
+
+#: src/screen.c:177 src/screen_play.c:505
+msgid "Playlist"
+msgstr "רשימת שירים"
+
+#. translators: caption of the browser screen
+#: src/screen.c:178 src/screen_file.c:214
+msgid "Browse"
+msgstr "דפדף"
+
+#: src/screen.c:180 src/screen_search.c:80 src/screen_song.c:190
+msgid "Artist"
+msgstr "אומן"
+
+#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:144
+msgid "Search"
+msgstr "חיפוש "
+
+#: src/screen.c:186 src/screen_lyrics.c:203 src/screen_lyrics.c:211
+#: src/screen_lyrics.c:215
+msgid "Lyrics"
+msgstr "מילים"
+
+#: src/screen.c:189 src/screen_outputs.c:162
+msgid "Outputs"
+msgstr "פלטים"
+
+#: src/screen.c:195
+#, c-format
+msgid "Volume n/a"
+msgstr "ב n/a"
+
+#: src/screen.c:197
+#, c-format
+msgid "Volume %d%%"
+msgstr "ווליום %d%%"
+
+#: src/screen.c:308
+msgid "Playing:"
+msgstr "מנגן:"
+
+#: src/screen.c:311
+msgid "[Paused]"
+msgstr "[הפסקה]"
+
+#: src/screen.c:433 src/screen.c:506
+msgid "Error: Screen too small"
+msgstr "שגיאה: המסך קטן מידי"
+
+#: src/screen.c:633
+msgid "Repeat mode is on"
+msgstr "מצב חזרה מופעל"
+
+#: src/screen.c:634
+msgid "Repeat mode is off"
+msgstr "מצב חזרה מופסק"
+
+#: src/screen.c:638
+msgid "Random mode is on"
+msgstr "מצב רנדומלי מופעל "
+
+#: src/screen.c:639
+msgid "Random mode is off"
+msgstr "מצב רנדומלי מופסק "
+
+#. "single" mode means
+#. that MPD will
+#. automatically stop
+#. after playing one
+#. single song
+#: src/screen.c:648
+msgid "Single mode is on"
+msgstr "מצב יחיד מופעל"
+
+#: src/screen.c:649
+msgid "Single mode is off"
+msgstr "מצב יחיד מופסק"
+
+#. "consume" mode means
+#. that MPD removes each
+#. song which has
+#. finished playing
+#: src/screen.c:657
+msgid "Consume mode is on"
+msgstr "מצב מתכלה מופעל"
+
+#: src/screen.c:658
+msgid "Consume mode is off"
+msgstr "מצב יחיד מופסק"
+
+#: src/screen.c:661
+#, c-format
+msgid "Crossfade %d seconds"
+msgstr "קרוספייד שניות %d"
+
+#: src/screen.c:664
+msgid "Database updated"
+msgstr "בסיס הנתונים עודכן"
+
+#: src/screen.c:799 src/screen_play.c:643
+msgid "Shuffled playlist"
+msgstr "רשימת שירים מעורבבת"
+
+#: src/screen.c:803
+msgid "Cleared playlist"
+msgstr "רשימת שירים מנוקה"
+
+#: src/screen.c:826 src/screen_file.c:274
+msgid "Database update started"
+msgstr "עדכון בסיס הנתנונים החל"
+
+#: src/screen.c:828 src/screen_file.c:281
+msgid "Database update running..."
+msgstr "עדכון בסיס הנתנונים פועל...."
+
+#: src/screen.c:864
+msgid "Find mode: Wrapped"
+msgstr "מצב סופי: כרוך"
+
+#: src/screen.c:865
+msgid "Find mode: Normal"
+msgstr "מצב סופי: נורמלי"
+
+#: src/screen.c:870
+msgid "Auto center mode: On"
+msgstr "מצב מרכז אוטומטי: מופעל"
+
+#: src/screen.c:871
+msgid "Auto center mode: Off"
+msgstr "מצב מרכז אוטומטי: מופסק"
+
+#: src/screen_artist.c:74
+msgid "All tracks"
+msgstr "כל השירים"
+
+#: src/screen_artist.c:383
+#, c-format
+msgid "All artists"
+msgstr "כל האמנים"
+
+#: src/screen_artist.c:388
+#, c-format
+msgid "Albums of artist: %s"
+msgstr "אלבום של אומן %s"
+
+#: src/screen_artist.c:397
+#, c-format
+msgid "Album: %s - %s"
+msgstr "אלבום:%s-%s"
+
+#: src/screen_artist.c:401
+#, c-format
+msgid "All tracks of artist: %s"
+msgstr "כל השירים של אומן: %s"
+
+#: src/screen_browser.c:236
+#, c-format
+msgid "Loading playlist %s..."
+msgstr "טוען רשימת שירים %s...."
+
+#: src/screen_browser.c:259 src/screen_browser.c:327 src/screen_browser.c:353
+#, c-format
+msgid "Adding '%s' to playlist"
+msgstr "מוסיף %s לרשימת השירים"
+
+#: src/screen_utils.c:35
+msgid "Find"
+msgstr "חיפוש"
+
+#: src/screen_utils.c:36
+msgid "Find backward"
+msgstr "חיפוש לאחור"
+
+#: src/screen_utils.c:37
+msgid "Jump"
+msgstr "קפיצה"
+
+#: src/screen_utils.c:118
+msgid "Password"
+msgstr "סיסמה"
+
+#: src/screen_utils.c:209
+#, c-format
+msgid "Unable to find '%s'"
+msgstr "לא ניתן למצוא את '%s'"
+
+#: src/screen_play.c:261
+msgid "Save playlist as"
+msgstr "שמירת רשימת שירים כ"
+
+#: src/screen_play.c:294
+#, c-format
+msgid "Replace %s [%s/%s] ? "
+msgstr "החלף  %s [%s/%s] ? "
+
+#. translators: a dialog was aborted by the user
+#: src/screen_play.c:315 src/screen_file.c:148 src/screen_keydef.c:163
+msgid "Aborted"
+msgstr "בוטל"
+
+#. success
+#: src/screen_play.c:323
+#, c-format
+msgid "Saved %s"
+msgstr "שמירת %s"
+
+#: src/screen_play.c:399
+msgid "Add"
+msgstr "הוסף"
+
+#: src/screen_play.c:507
+#, c-format
+msgid "Playlist on %s"
+msgstr "רשימת שירים ב %s"
+
+#. translators: the "delete" command is only possible
+#. for playlists; the user attempted to delete a song
+#. or a directory or something else
+#: src/screen_file.c:135
+msgid "Deleting this item is not possible"
+msgstr "מחיקת פריט זה בלתי אפשרית"
+
+#: src/screen_file.c:142, c-format
+msgid "Delete playlist %s [%s/%s] ? "
+msgstr " %s [%s/%s] ? מחיקת רשימת שירים"
+
+#. translators: MPD deleted the playlist, as requested by the
+#. user
+#: src/screen_file.c:157
+msgid "Playlist deleted"
+msgstr "רשימת שירים נמחקה"
+
+#: src/screen_file.c:270
+#, c-format
+msgid "Database update of %s started"
+msgstr "עדכון בסיס הנתנונים החל %s"
+
+#: src/screen_search.c:39
+msgid "artist"
+msgstr "אומן "
+
+#: src/screen_search.c:40
+msgid "album"
+msgstr "אלבום"
+
+#: src/screen_search.c:41
+msgid "title"
+msgstr "שם"
+
+#: src/screen_search.c:42
+msgid "track"
+msgstr "רצועה"
+
+#: src/screen_search.c:43
+msgid "name"
+msgstr "שם"
+
+#: src/screen_search.c:44
+msgid "genre"
+msgstr "ג'אנר"
+
+#: src/screen_search.c:45
+msgid "date"
+msgstr "תאריך"
+
+#: src/screen_search.c:46
+msgid "composer"
+msgstr "מלחין"
+
+#: src/screen_search.c:47
+msgid "performer"
+msgstr "מבצע"
+
+#: src/screen_search.c:48
+msgid "comment"
+msgstr "הערות"
+
+#: src/screen_search.c:49
+msgid "file"
+msgstr "קובץ"
+
+#: src/screen_search.c:79 src/screen_song.c:191
+msgid "Title"
+msgstr "שם"
+
+#: src/screen_search.c:81 src/screen_song.c:192
+msgid "Album"
+msgstr "אלבום"
+
+#: src/screen_search.c:82
+msgid "Filename"
+msgstr "שם קובץ"
+
+#: src/screen_search.c:83
+msgid "Artist + Title"
+msgstr "אומן+שם"
+
+#: src/screen_search.c:245
+#, c-format
+msgid "Bad search tag %s"
+msgstr "חיפוש לא תקין של תגית %s"
+
+#: src/screen_search.c:249
+#, c-format
+msgid "No argument for search tag %s"
+msgstr "אין טעון לחיפוש תגית %s"
+
+#. if( pattern==NULL )
+#. search_new(screen, c);
+#. else
+#: src/screen_search.c:369
+#, c-format
+msgid "Press %s for a new search"
+msgstr "לחץ %s לביצוע חיפוש חדש"
+
+#: src/screen_search.c:397
+#, c-format
+msgid "Search: %s"
+msgstr "חיפוש: %s"
+
+#: src/screen_search.c:400
+#, c-format
+msgid "Search: Results for %s [%s]"
+msgstr "חיפוש: תוצאוצ חיפוש ל %s"
+
+#: src/screen_search.c:404
+#, c-format
+msgid "Search: Press %s for a new search [%s]"
+msgstr "חיפוש: לחץ %s לחיפוש חדש [%s]"
+
+#: src/screen_search.c:419
+#, c-format
+msgid "Search mode: %s"
+msgstr "צורת חיפוש: %s"
+
+#: src/screen_keydef.c:41
+msgid "===> Apply & Save key bindings  "
+msgstr "=====> ישם ושמור תצורת מקשים"
+
+#: src/screen_keydef.c:42
+msgid "===> Apply key bindings "
+msgstr "=====> ישם תצורת מקשים"
+
+#: src/screen_keydef.c:70
+msgid "You have new key bindings"
+msgstr "יש תצורת מקשים חדשה"
+
+#: src/screen_keydef.c:72
+msgid "Keybindings unchanged."
+msgstr "תצורת מקשים לא שונתה."
+
+#: src/screen_keydef.c:82
+#, c-format
+msgid "Error: Unable to create directory ~/.ncmpc - %s"
+msgstr "שגיאה: לא ניתן ליצור את התיקיה ~/.ncmpc - %s"
+
+#: src/screen_keydef.c:91 src/screen_keydef.c:98
+#, c-format
+msgid "Error: %s - %s"
+msgstr "שגיאה:  %s - %s"
+
+#: src/screen_keydef.c:100
+#, c-format
+msgid "Wrote %s"
+msgstr "נכתב %s"
+
+#: src/screen_keydef.c:137
+msgid "Deleted"
+msgstr "נמחק"
+
+#: src/screen_keydef.c:158
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "הכנס מקש חדש ל %s"
+
+#: src/screen_keydef.c:169
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "שגיאה: המקש %s כבר קיים ל %s"
+
+#: src/screen_keydef.c:179
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "הוקצה  %s ל %s"
+
+#: src/screen_keydef.c:217
+msgid "Add new key"
+msgstr "הוסף מקש חדש"
+
+#: src/screen_keydef.c:276
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "הזהרה: האם שכחת 'לישם' את השינוים"
+
+#: src/screen_keydef.c:283
+msgid "Edit key bindings"
+msgstr "ערוך את תצורת המקשים"
+
+#: src/screen_keydef.c:285
+#, c-format
+msgid "Edit keys for %s"
+msgstr "ערוך את המקש ל %s"
+
+#: src/screen_help.c:38
+msgid "Movement"
+msgstr "תנועה"
+
+#: src/screen_help.c:80
+msgid "Global"
+msgstr "גלובלי"
+
+#: src/screen_help.c:113 src/command.c:111
+msgid "Playlist screen"
+msgstr "מסך רשימת שירים"
+
+#: src/screen_help.c:115
+msgid "Play"
+msgstr "נגן"
+
+#: src/screen_help.c:118
+msgid "Move song up"
+msgstr "הזז שיר למעלה"
+
+#: src/screen_help.c:119
+msgid "Move song down"
+msgstr "הזז שיר למטה"
+
+#: src/screen_help.c:122
+msgid "Center"
+msgstr "מרכז"
+
+#: src/screen_help.c:128 src/command.c:113
+msgid "Browse screen"
+msgstr "דפדף במסך"
+
+#: src/screen_help.c:130
+msgid "Enter directory/Select and play song"
+msgstr "הכנס תיקיה/בחר ונגן שיר"
+
+#: src/screen_help.c:132 src/screen_help.c:147
+msgid "Append song to playlist"
+msgstr "הוסף שיר לרשימת שירים"
+
+#: src/screen_help.c:134
+msgid "Delete playlist"
+msgstr "מחק רשימת שירים"
+
+#: src/screen_help.c:142 src/command.c:224
+msgid "Search screen"
+msgstr "חפש במסך"
+
+#: src/screen_help.c:145
+msgid "Select and play"
+msgstr "בחר ונגן"
+
+#: src/screen_help.c:154 src/command.c:234
+msgid "Lyrics screen"
+msgstr "מסך מילות השיר"
+
+#: src/screen_help.c:156
+msgid "View Lyrics"
+msgstr "הצג מילים לשיר"
+
+#: src/screen_help.c:157
+msgid "(Re)load lyrics"
+msgstr "הטען מחדש מילים לשיר"
+
+#. to translators: this hotkey aborts the retrieval of lyrics
+#. from the server
+#: src/screen_help.c:160
+msgid "Interrupt retrieval"
+msgstr "שליפת המידע הופסקה"
+
+#: src/screen_help.c:161
+msgid "Download lyrics for currently playing song"
+msgstr "הורד מילים לשיר המנגן כרגע"
+
+#: src/screen_help.c:162
+msgid "Save lyrics"
+msgstr "שמור מילים לשיר"
+
+#: src/screen_help.c:167 src/command.c:245
+msgid "Outputs screen"
+msgstr "מסך הפלט"
+
+#: src/screen_help.c:169
+msgid "Enable/disable output"
+msgstr "אשר/אסור על פלט"
+
+#: src/screen_help.c:174
+msgid "Keydef screen"
+msgstr "מסך שוני מקשים"
+
+#: src/screen_help.c:176
+msgid "Edit keydefs for selected command"
+msgstr "ערוך שוני מקשים לפקודות שונות"
+
+#: src/screen_help.c:177
+msgid "Remove selected keydef"
+msgstr "הסר שוני מקשים"
+
+#: src/screen_help.c:178
+msgid "Go up a level"
+msgstr "עלה רמה אחת"
+
+#: src/screen_help.c:179
+msgid "Apply and save changes"
+msgstr "ישם ושמור שינויים"
+
+#. translators: no lyrics were found for the song
+#: src/screen_lyrics.c:104
+msgid "No lyrics"
+msgstr "אין מילים לשיר"
+
+#. translators: this message is displayed
+#. while data is retrieved
+#: src/screen_lyrics.c:206
+msgid "loading..."
+msgstr "טוען...."
+
+#. lyrics for the song were saved on hard disk
+#: src/screen_lyrics.c:241
+msgid "Lyrics saved"
+msgstr "מילים לשיר נשמרו"
+
+#: src/screen_outputs.c:58
+#, c-format
+msgid "Output '%s' enabled"
+msgstr "פלט  '%s' אפשרי"
+
+#: src/screen_outputs.c:64
+#, c-format
+msgid "Output '%s' disabled"
+msgstr "פלט  '%s' אינו אפשרי"
+
+#: src/screen_song.c:118
+msgid "Song viewer"
+msgstr "הצגת השיר"
+
+#: src/screen_song.c:193
+msgid "Composer"
+msgstr "מלחון"
+
+#: src/screen_song.c:194
+msgid "Name"
+msgstr "שם"
+
+#: src/screen_song.c:195
+msgid "Disc"
+msgstr "דיסק"
+
+#: src/screen_song.c:196
+msgid "Track"
+msgstr "רצועה"
+
+#: src/screen_song.c:197
+msgid "Date"
+msgstr "תאריך"
+
+#: src/screen_song.c:198
+msgid "Genre"
+msgstr "ג'אנר"
+
+#: src/screen_song.c:199
+msgid "Comment"
+msgstr "הערה"
+
+#: src/screen_song.c:200
+msgid "Path"
+msgstr "נתיב"
+
+#: src/screen_song.c:201
+msgid "Bitrate"
+msgstr "ביטרייט"
+
+#: src/screen_song.c:228
+#, c-format
+msgid "%d kbps"
+msgstr "%d kbps"
+
+#: src/screen_song.c:244
+msgid "Number of artists"
+msgstr "מספר אומנים"
+
+#: src/screen_song.c:245
+msgid "Number of albums"
+msgstr "מספר אלבומים"
+
+#: src/screen_song.c:246
+msgid "Number of songs"
+msgstr "מספר שירים"
+
+#: src/screen_song.c:247
+msgid "Uptime"
+msgstr "זמן פעילות"
+
+#: src/screen_song.c:248
+msgid "Most recent db update"
+msgstr "עדכון עדכני אחרון של בסיב נתונים"
+
+#: src/screen_song.c:249
+msgid "Playtime"
+msgstr "זמן נגינה"
+
+#: src/screen_song.c:250
+msgid "DB playtime"
+msgstr "זמן נגינה בסיס נתונים"
+
+#: src/screen_song.c:266
+msgid "MPD statistics"
+msgstr "סטטיסטיקה MPD"
+
+#: src/screen_song.c:311
+msgid "Selected song"
+msgstr "בחר שיר"
+
+#: src/screen_song.c:323
+msgid "Currently playing song"
+msgstr "שיר עכשווי"
+
+#: src/command.c:69
+msgid "Key configuration screen"
+msgstr "מסך קינפוג מקשים"
+
+#: src/command.c:72
+msgid "Quit"
+msgstr "צא מהתוכנה"
+
+#: src/command.c:76
+msgid "Move cursor up"
+msgstr "הזז סמן למעלה"
+
+#: src/command.c:78
+msgid "Move cursor down"
+msgstr "הזז סמן למטה"
+
+#: src/command.c:80
+msgid "Move cursor to the top of screen"
+msgstr "הזז סמן לקצה העליון של המסך"
+
+#: src/command.c:82
+msgid "Move cursor to the middle of screen"
+msgstr "הזז סמן לאמצע של המסך"
+
+#: src/command.c:84
+msgid "Move cursor to the bottom of screen"
+msgstr "הזז סמן לקצה התחתון של המסך"
+
+#: src/command.c:86
+msgid "Move cursor to the top of the list"
+msgstr "הזז סמן לקצה העליון של הרשימה"
+
+#: src/command.c:88
+msgid "Move cursor to the bottom of the list"
+msgstr "הזז סמן לקצה התחתון של הרשימה"
+
+#: src/command.c:90
+msgid "Page up"
+msgstr "דף למעלה"
+
+#: src/command.c:92
+msgid "Page down"
+msgstr "דף למטה"
+
+#: src/command.c:94
+msgid "Range selection"
+msgstr "בחירת טווח"
+
+#: src/command.c:96
+msgid "Scroll up one line"
+msgstr "גלול שורה אחת למעלה"
+
+#: src/command.c:98
+msgid "Scroll down one line"
+msgstr "גלול שורה אחת "
+
+#: src/command.c:100
+msgid "Scroll up half a screen"
+msgstr "גלול חצי מסך למעלה"
+
+#: src/command.c:102
+msgid "Scroll down half a screen"
+msgstr "גלול חצי מסך למטה"
+
+#: src/command.c:104
+msgid "Select currently playing song"
+msgstr "בחר בשיר שכרגע מנגן"
+
+#: src/command.c:109
+msgid "Help screen"
+msgstr "מסך עזרה"
+
+#: src/command.c:118
+msgid "Play/Enter directory"
+msgstr "נגן/הכנס תיקיה"
+
+#: src/command.c:120
+msgid "Pause"
+msgstr "הפסק"
+
+#: src/command.c:122
+msgid "Stop"
+msgstr "עצור"
+
+#: src/command.c:124
+msgid "Crop"
+msgstr "חתוך"
+
+#: src/command.c:126
+msgid "Next track"
+msgstr "רצועה הבאה"
+
+#: src/command.c:128
+msgid "Previous track"
+msgstr "רצועה קודמת"
+
+#: src/command.c:130
+msgid "Seek forward"
+msgstr "דלג קדימה"
+
+#: src/command.c:132
+msgid "Seek backward"
+msgstr "דלג אחורה"
+
+#: src/command.c:134
+msgid "Increase volume"
+msgstr "הגבר"
+
+#: src/command.c:136
+msgid "Decrease volume"
+msgstr "הנמך"
+
+#: src/command.c:138
+msgid "Select/deselect song in playlist"
+msgstr "בחר/הסר שיר ברשימת שירים"
+
+#: src/command.c:140
+msgid "Select all listed items"
+msgstr "בחר את הכל"
+
+#: src/command.c:142
+msgid "Delete song from playlist"
+msgstr "מחק שיר מרשימת השירים"
+
+#: src/command.c:144
+msgid "Shuffle playlist"
+msgstr "ערבב את רשימת שירים"
+
+#: src/command.c:146
+msgid "Clear playlist"
+msgstr "מחק את רשימת שירים"
+
+#: src/command.c:148
+msgid "Toggle repeat mode"
+msgstr "הפעל מצב חזרה"
+
+#: src/command.c:150
+msgid "Toggle random mode"
+msgstr "הפעל מצב רנדומלי"
+
+#: src/command.c:152
+msgid "Toggle single mode"
+msgstr "הפעל מצב יחיד"
+
+#: src/command.c:154
+msgid "Toggle consume mode"
+msgstr "הפעל מצב מתכלה"
+
+#: src/command.c:156
+msgid "Toggle crossfade mode"
+msgstr "הפעל קרוספייד"
+
+#: src/command.c:158
+msgid "Start a music database update"
+msgstr "התחל עדכון בסיס הנתונים המוזיקלי"
+
+#: src/command.c:160
+msgid "Save playlist"
+msgstr "שמור רשימת שירים"
+
+#: src/command.c:162
+msgid "Add url/file to playlist"
+msgstr "  הוסף לינק/קובץ לרשימת שירים"
+
+#: src/command.c:165
+msgid "Go to root directory"
+msgstr "לך לתיקיה שורש"
+
+#: src/command.c:167
+msgid "Go to parent directory"
+msgstr "לך לתיקיה עליונה"
+
+#: src/command.c:170
+msgid "Locate song in browser"
+msgstr "מצא שיר בדפדפן"
+
+#: src/command.c:174
+msgid "Move item up"
+msgstr "הזז למעלה"
+
+#: src/command.c:176
+msgid "Move item down"
+msgstr "הזז למטה"
+
+#: src/command.c:178
+msgid "Refresh screen"
+msgstr "רענן מסך"
+
+#. translators: toggle between wrapping and non-wrapping
+#. search
+#: src/command.c:185
+msgid "Toggle find mode"
+msgstr "הפעל מצב חיפוש"
+
+#. translators: the auto center mode always centers the song
+#. currently being played
+#: src/command.c:189
+msgid "Toggle auto center mode"
+msgstr "הפעל מירכוז אוטומטי"
+
+#: src/command.c:194
+msgid "Next screen"
+msgstr "מסך הבא"
+
+#: src/command.c:196
+msgid "Previous screen"
+msgstr "מסך קודם"
+
+#: src/command.c:198
+msgid "Swap to most recent screen"
+msgstr "החלף למסך אחרון"
+
+#: src/command.c:203
+msgid "Forward find"
+msgstr "מצא קדימה"
+
+#: src/command.c:205
+msgid "Forward find next"
+msgstr "מצא קדימה הבא"
+
+#: src/command.c:207
+msgid "Backward find"
+msgstr "מצא אחורה"
+
+#: src/command.c:209
+msgid "Backward find previous"
+msgstr "מצא אחורה הבא"
+
+#. translators: this queries the user for a string
+#. * and jumps directly (while the user is typing)
+#. * to the entry which begins with this string
+#: src/command.c:214
+msgid "Jump to"
+msgstr "קפוץ ל"
+
+#: src/command.c:220
+msgid "Artist screen"
+msgstr "מסך אומן"
+
+#: src/command.c:226
+msgid "Change search mode"
+msgstr "שנה תצורת מסך"
+
+#: src/command.c:230
+msgid "View the selected and the currently playing song"
+msgstr "הראה את השיר הנבחר והמנגן"
+
+#. translators: interrupt the current background action,
+#. e.g. stop loading lyrics from the internet
+#: src/command.c:238
+msgid "Interrupt action"
+msgstr "הפסק פעולה"
+
+#: src/command.c:240
+msgid "Update Lyrics"
+msgstr "רענן מילים לשיר"
+
+#: src/command.c:269
+msgid "Undefined"
+msgstr "לא מוגדר"
+
+#: src/command.c:271
+msgid "Space"
+msgstr "רווח"
+
+#: src/command.c:273
+msgid "Enter"
+msgstr "הכנס"
+
+#: src/command.c:275
+msgid "Backspace"
+msgstr "אחורה"
+
+#: src/command.c:277
+msgid "Delete"
+msgstr "מחק"
+
+#: src/command.c:279
+msgid "Up"
+msgstr "למעלה"
+
+#: src/command.c:281
+msgid "Down"
+msgstr "למטה"
+
+#: src/command.c:283
+msgid "Left"
+msgstr "שמאלה"
+
+#: src/command.c:285
+msgid "Right"
+msgstr "חמינה"
+
+#: src/command.c:287
+msgid "Home"
+msgstr "בית"
+
+#: src/command.c:289
+msgid "End"
+msgstr "סוף"
+
+#: src/command.c:291
+msgid "PageDown"
+msgstr "דף למטה"
+
+#: src/command.c:293
+msgid "PageUp"
+msgstr "דף למעלה"
+
+#: src/command.c:295
+msgid "Tab"
+msgstr "טאב"
+
+#: src/command.c:297
+msgid "Shift+Tab"
+msgstr "Shift+Tab"
+
+#: src/command.c:299
+msgid "Esc"
+msgstr "esc"
+
+#: src/command.c:301
+msgid "Insert"
+msgstr "Insert"
+
+#: src/command.c:512 src/command.c:518
+#, c-format
+msgid "Key %s assigned to %s and %s"
+msgstr "מקש %s מוקצה ל %s ו %s"
+
+#: src/colors.c:164
+#, c-format
+msgid "Warning: Unknown color - %s\n"
+msgstr "אזהרה: צבע לא מוכר  - %s\n"
+
+#: src/colors.c:207
+#, c-format
+msgid "Warning: Unknown color field - %s\n"
+msgstr "אזהרה: צבע לא מוכ בתחום  - %s\n"
+
+#: src/colors.c:240
+msgid "Terminal lacks support for changing colors"
+msgstr "המסוף ללא תמיכה בצבעים"
+
+#: src/colors.c:251
+msgid "Terminal lacks color capabilities"
+msgstr "המסוף ללא  יכולת תמיכה בצבעים"
+
+#. To translators: prefix for error messages
+#: src/conf.c:92
+msgid "Error"
+msgstr "שגיאה"
+
+#: src/conf.c:100 src/conf.c:109
+msgid "Malformed hotkey definition"
+msgstr "הגדרת המקשים החמים שגויה"
+
+#. the hotkey configuration contains an unknown
+#. command
+#: src/conf.c:136
+msgid "Unknown command"
+msgstr "פקודה לא ידועה"
+
+#. the hotkey configuration line is incomplete
+#: src/conf.c:149
+msgid "Incomplete hotkey configuration"
+msgstr "הגדרת המקשים החמים חסרה"
+
+#. translators: ncmpc supports displaying the
+#. "elapsed" or "remaining" time of a song being
+#. played; in this case, the configuration file
+#. contained an invalid setting
+#: src/conf.c:181
+msgid "Bad time display type"
+msgstr "תצוגת זמן שגויה"
+
+#. an equals sign '=' was expected while parsing a
+#. configuration file line
+#: src/conf.c:196
+msgid "Missing '='"
+msgstr "חסר '='"
+
+#: src/conf.c:252
+msgid "Bad color name"
+msgstr "צבע שגוי"
+
+#: src/conf.c:261
+msgid "Incomplete color definition"
+msgstr "הגדרת צבעים חסרה"
+
+#: src/conf.c:267
+msgid "Invalid number"
+msgstr "מספר לא תקין"
+
+#: src/conf.c:275
+msgid "Malformed color definition"
+msgstr "הגדרת צבעים שגויה"
+
+#. an unknown screen name was specified in the
+#. configuration file
+#: src/conf.c:311
+msgid "Unknown screen name"
+msgstr "שם מסך לא ידוע"
+
+#: src/conf.c:340
+msgid "Invalid search mode"
+msgstr "חיפוש לא תקין"
+
+#: src/conf.c:363
+msgid "Unknown search mode"
+msgstr "מצב חיפוש לא ידוע"
+
+#: src/conf.c:520
+msgid "Unknown configuration parameter"
+msgstr "פרמטר קונפיג לא ידוע"
+
+#. To translators: these credits are shown
+#. when ncmpc is started with "--version"
+#: src/options.c:221 src/options.c:224
+msgid "translator-credits"
+msgstr "zeltak"
+
+#: src/list_window.c:514
+msgid "Range selection disabled"
+msgstr "טווח בחירה מאושר"
+
+#: src/list_window.c:520
+msgid "Range selection enabled"
+msgstr "טווח בחירה מבוטל"
+

@@ -2,6 +2,7 @@ ncmpc 0.15 - not yet released
 * added CMD_SELECT_PLAYING
 * display song duration in the playlist
 * added the "hardware_cursor" option
+* new translation: Hebrew
 
 
 ncmpc 0.14 - 2009-04-21
