@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-06-11 16:32+0200\n"
-"PO-Revision-Date: 2009-09-04 12:53+0200\n"
+"PO-Revision-Date: 2009-09-04 12:58+0200\n"
 "Last-Translator: Itai Kloog <zeltak@gmail.com>\n"
 "Language-Team: he <he@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -369,7 +369,7 @@ msgstr "חיפוש: %s"
 #: src/screen_search.c:400
 #, c-format
 msgid "Search: Results for %s [%s]"
-msgstr "חיפוש: תוצאוצ חיפוש ל %s< [%s]"
+msgstr "חיפוש: תוצאוצ חיפוש ל %s [%s]"
 
 #: src/screen_search.c:404
 #, c-format
