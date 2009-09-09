@@ -30,4 +30,11 @@ response = Net::HTTP.get(URI.parse(url))
 
 exit(2) unless response =~ /<pre>\s*(.*?)\s*<\/pre>/im
 exit(2) if $1 == "Not found"
-puts $1
+
+url = $1
+url =~ /<a href='\s*(.*?)\s*'>/im
+
+response = Net::HTTP.get(URI.parse(url))
+exit(2) unless response =~ /<div class='lyricbox' >\s*(.*?)\s*<p>/im
+
+puts $1.gsub(/<br \/>/, "\n")
