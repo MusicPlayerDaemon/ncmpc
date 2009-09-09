@@ -82,6 +82,51 @@ lyrics_repaint_if_active(void)
 	}
 }
 
+static bool
+exists_lyr_file(const char *artist, const char *title)
+{
+	char path[1024];
+	struct stat result;
+
+	snprintf(path, 1024, "%s/.lyrics/%s - %s.txt",
+		 getenv("HOME"), artist, title);
+
+	return (stat(path, &result) == 0);
+}
+
+static FILE *
+create_lyr_file(const char *artist, const char *title)
+{
+	char path[1024];
+
+	snprintf(path, 1024, "%s/.lyrics",
+		 getenv("HOME"));
+	mkdir(path, S_IRWXU);
+
+	snprintf(path, 1024, "%s/.lyrics/%s - %s.txt",
+		 getenv("HOME"), artist, title);
+
+	return fopen(path, "w");
+}
+
+static int
+store_lyr_hd(void)
+{
+	FILE *lyr_file;
+	unsigned i;
+
+	lyr_file = create_lyr_file(current.artist, current.title);
+	if (lyr_file == NULL)
+		return -1;
+
+	for (i = 0; i < text.lines->len; ++i)
+		fprintf(lyr_file, "%s\n",
+			(const char*)g_ptr_array_index(text.lines, i));
+
+	fclose(lyr_file);
+	return 0;
+}
+
 static void
 screen_lyrics_set(const GString *str)
 {
@@ -90,6 +135,10 @@ screen_lyrics_set(const GString *str)
 	/* paint new data */
 
 	lyrics_repaint_if_active();
+
+	if (options.lyrics_autosave &&
+	    !exists_lyr_file(current.artist, current.title))
+		store_lyr_hd();
 }
 
 static void
@@ -127,37 +176,6 @@ screen_lyrics_load(const struct mpd_song *song)
 
 	current.loader = lyrics_load(current.artist, current.title,
 				     screen_lyrics_callback, NULL);
-}
-
-static FILE *create_lyr_file(const char *artist, const char *title)
-{
-	char path[1024];
-
-	snprintf(path, 1024, "%s/.lyrics",
-		 getenv("HOME"));
-	mkdir(path, S_IRWXU);
-
-	snprintf(path, 1024, "%s/.lyrics/%s - %s.txt",
-		 getenv("HOME"), artist, title);
-
-	return fopen(path, "w");
-}
-
-static int store_lyr_hd(void)
-{
-	FILE *lyr_file;
-	unsigned i;
-
-	lyr_file = create_lyr_file(current.artist, current.title);
-	if (lyr_file == NULL)
-		return -1;
-
-	for (i = 0; i < text.lines->len; ++i)
-		fprintf(lyr_file, "%s\n",
-			(const char*)g_ptr_array_index(text.lines, i));
-
-	fclose(lyr_file);
-	return 0;
 }
 
 static void

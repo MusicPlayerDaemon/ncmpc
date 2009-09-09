@@ -98,6 +98,9 @@
 ## The format used to for the xterm title when ncmpc is playing.
 #xterm-title-format = "ncmpc: [ %name%|[%artist% - ]%title%|%file%]"
 
+## Automatically save the lyrics after receiving them.
+#lyrics-autosave = no
+
 ############## Colors #######################
 ##
 ## base colors: black, red, green, yellow, blue, magenta, cyan, white

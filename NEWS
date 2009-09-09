@@ -1,4 +1,5 @@
 ncmpc 0.15 - not yet released
+* added the "lyrics-autosave" option
 * added CMD_SELECT_PLAYING
 * display song duration in the playlist
 * added the "hardware_cursor" option

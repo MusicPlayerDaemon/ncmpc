@@ -76,6 +76,7 @@
 #define CONF_WELCOME_SCREEN_LIST "welcome-screen-list"
 #define CONF_DISPLAY_TIME "display-time"
 #define CONF_JUMP_PREFIX_ONLY "jump-prefix-only"
+#define CONF_LYRICS_AUTOSAVE "lyrics-autosave"
 
 static bool
 str2bool(char *str)
@@ -514,6 +515,12 @@ parse_line(char *line)
 		{}
 #else
 		options.jump_prefix_only = str2bool(value);
+#endif
+	else if (!strcasecmp(CONF_LYRICS_AUTOSAVE, name))
+#ifdef ENABLE_LYRICS_SCREEN
+		options.lyrics_autosave = str2bool(value);
+#else
+	{}
 #endif
 	else
 		match_found = false;

@@ -54,6 +54,7 @@ options_t options = {
 	.seek_time = 1,
 #ifdef ENABLE_LYRICS_SCREEN
 	.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT,
+	.lyrics_autosave = false,
 #endif
 	.find_wrap = true,
 	.scroll_offset = 0,

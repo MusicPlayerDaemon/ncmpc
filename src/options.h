@@ -49,6 +49,7 @@ typedef struct {
 	int seek_time;
 #ifdef ENABLE_LYRICS_SCREEN
 	int lyrics_timeout;
+	bool lyrics_autosave;
 #endif
 	bool find_wrap;
 	bool find_show_last_pattern;
