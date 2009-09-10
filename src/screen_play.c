@@ -129,7 +129,7 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 
 	if (idx == lw->selected)
 	{
-		if (options.scroll && utf8_width(songname) > (unsigned)COLS)
+		if (options.scroll && utf8_width(songname) > (unsigned)(COLS - strlen(*second_column) - 1) )
 		{
 			static unsigned current_song;
 			char *tmp;

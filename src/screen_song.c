@@ -184,12 +184,13 @@ screen_song_add_song(const struct mpd_song *song, const mpdclient_t *c)
 {
 	unsigned i, max_label_width;
 	enum label {
-		ARTIST, TITLE, ALBUM, COMPOSER, NAME, DISC, TRACK,
+		ARTIST, TITLE, ALBUM, LENGTH, COMPOSER, NAME, DISC, TRACK,
 		DATE, GENRE, COMMENT, PATH, BITRATE
 	};
 	const char *labels[] = { [ARTIST] = _("Artist"),
 		[TITLE] = _("Title"),
 		[ALBUM] = _("Album"),
+		[LENGTH] = _("Length"),
 		[COMPOSER] = _("Composer"),
 		[NAME] = _("Name"),
 		[DISC] = _("Disc"),
@@ -212,6 +213,20 @@ screen_song_add_song(const struct mpd_song *song, const mpdclient_t *c)
 	screen_song_append(labels[ARTIST], song->artist, max_label_width);
 	screen_song_append(labels[TITLE], song->title, max_label_width);
 	screen_song_append(labels[ALBUM], song->album, max_label_width);
+	/* create time string and add it */
+	if (song->time != MPD_SONG_NO_TIME) {
+		char length[16];
+		/*write out the time, using hours if time over 60 minutes*/
+		if (song->time > 3600) {
+			g_snprintf(length, sizeof(length),
+					"%i:%02i:%02i",
+					song->time/3600, (song->time%3600)/60, song->time%60);
+		} else {
+			g_snprintf(length, sizeof(length),
+					"%i:%02i", song->time/60, song->time%60);
+		}
+		screen_song_append(labels[LENGTH], length, max_label_width);
+	}
 	screen_song_append(labels[COMPOSER], song->composer, max_label_width);
 	screen_song_append(labels[NAME], song->name, max_label_width);
 	screen_song_append(labels[DISC], song->disc, max_label_width);
