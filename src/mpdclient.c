@@ -120,27 +120,31 @@ error_cb(mpdclient_t *c, gint error, const gchar *msg)
 /*** mpdclient functions ****************************************************/
 /****************************************************************************/
 
+static gint
+mpdclient_handle_error(mpdclient_t *c)
+{
+	enum mpd_error error = c->connection->error;
+
+	if (error == MPD_ERROR_SUCCESS)
+		return 0;
+
+	if (error == MPD_ERROR_ACK &&
+	    c->connection->errorCode == MPD_ACK_ERROR_PERMISSION &&
+	    screen_auth(c) == 0)
+		return 0;
+
+	if (error == MPD_ERROR_ACK)
+		error = error | (c->connection->errorCode << 8);
+
+	error_cb(c, error, c->connection->errorStr);
+	return error;
+}
+
 gint
 mpdclient_finish_command(mpdclient_t *c)
 {
 	mpd_finishCommand(c->connection);
-
-	if (c->connection->error) {
-		gint error = c->connection->error;
-
-		if (error == MPD_ERROR_ACK &&
-		    c->connection->errorCode == MPD_ACK_ERROR_PERMISSION &&
-		    screen_auth(c) == 0)
-			return 0;
-
-		if (error == MPD_ERROR_ACK)
-			error = error | (c->connection->errorCode << 8);
-
-		error_cb(c, error, c->connection->errorStr);
-		return error;
-	}
-
-	return 0;
+	return mpdclient_handle_error(c);
 }
 
 mpdclient_t *
