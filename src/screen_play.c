@@ -745,7 +745,14 @@ play_cmd(mpdclient_t *c, command_t cmd)
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
 		if (lw->selected < playlist_length(&c->playlist)) {
-			screen_lyrics_switch(c, playlist_get(&c->playlist, lw->selected));
+			struct mpd_song *selected = playlist_get(&c->playlist, lw->selected);
+			bool follow = false;
+
+			if (c->song && selected &&
+			    !strcmp(selected->file, c->song->file))
+				follow = true;
+
+			screen_lyrics_switch(c, selected, follow);
 			return true;
 		}
 

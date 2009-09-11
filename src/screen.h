@@ -133,7 +133,7 @@ screen_song_switch(struct mpdclient *c, const struct mpd_song *song);
 
 #ifdef ENABLE_LYRICS_SCREEN
 void
-screen_lyrics_switch(struct mpdclient *c, const struct mpd_song *song);
+screen_lyrics_switch(struct mpdclient *c, const struct mpd_song *song, bool follow);
 #endif
 
 #endif

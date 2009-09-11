@@ -544,7 +544,7 @@ browser_cmd(struct screen_browser *browser,
 		    entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
 			return true;
 
-		screen_lyrics_switch(c, entry->entity->info.song);
+		screen_lyrics_switch(c, entry->entity->info.song, false);
 		return true;
 #endif
 	case CMD_SCREEN_SWAP:

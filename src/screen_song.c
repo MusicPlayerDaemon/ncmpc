@@ -373,11 +373,11 @@ screen_song_cmd(mpdclient_t *c, command_t cmd)
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
 		if (current.selected_song != NULL) {
-			screen_lyrics_switch(c, current.selected_song);
+			screen_lyrics_switch(c, current.selected_song, false);
 			return true;
 		}
 		if (current.played_song != NULL) {
-			screen_lyrics_switch(c, current.played_song);
+			screen_lyrics_switch(c, current.played_song, true);
 			return true;
 		}
 		return false;

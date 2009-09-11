@@ -36,6 +36,7 @@
 static struct screen_text text;
 
 static const struct mpd_song *next_song;
+static bool follow = false;
 
 static struct {
 	struct mpd_song *song;
@@ -212,6 +213,21 @@ lyrics_open(mpdclient_t *c)
 	next_song = NULL;
 }
 
+static void
+lyrics_update(mpdclient_t *c)
+{
+	if (!follow)
+		return;
+
+	next_song = c->song;
+
+	if (next_song != NULL &&
+	    (current.song == NULL ||
+	     strcmp(next_song->file, current.song->file) != 0))
+		screen_lyrics_load(next_song);
+
+	next_song = NULL;
+}
 
 static const char *
 lyrics_title(char *str, size_t size)
@@ -297,6 +313,7 @@ const struct screen_functions screen_lyrics = {
 	.init = lyrics_screen_init,
 	.exit = lyrics_exit,
 	.open = lyrics_open,
+	.update = lyrics_update,
 	.close = NULL,
 	.resize = lyrics_resize,
 	.paint = lyrics_paint,
@@ -305,10 +322,11 @@ const struct screen_functions screen_lyrics = {
 };
 
 void
-screen_lyrics_switch(struct mpdclient *c, const struct mpd_song *song)
+screen_lyrics_switch(struct mpdclient *c, const struct mpd_song *song, bool f)
 {
 	assert(song != NULL);
 
+	follow = f;
 	next_song = song;
 	screen_switch(&screen_lyrics, c);
 }

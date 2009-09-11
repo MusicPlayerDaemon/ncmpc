@@ -104,7 +104,7 @@ screen_swap(struct mpdclient *c, const struct mpd_song *song)
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
 		else if (mode_fn_prev == &screen_lyrics)
-			screen_lyrics_switch(c, song);
+			screen_lyrics_switch(c, song, true);
 #endif
 		else
 			screen_switch(mode_fn_prev, c);
