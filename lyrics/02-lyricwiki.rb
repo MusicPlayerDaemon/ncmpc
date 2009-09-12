@@ -18,23 +18,21 @@
 #
 
 #
-# Load lyrics from lyricwiki.org
+# Load lyrics from lyrics.wikia.com, formerly lyricwiki.org
 #
 
 require 'uri'
 require 'net/http'
 
-url = "http://lyricwiki.org/api.php" + \
-    "?artist=#{URI.escape(ARGV[0])}&song=#{URI.escape(ARGV[1])}"
+url = "http://lyrics.wikia.com/api.php?action=lyrics&fmt=xml&func=getSong" + \
+    "&artist=#{URI.escape(ARGV[0])}&song=#{URI.escape(ARGV[1])}"
 response = Net::HTTP.get(URI.parse(url))
 
-exit(2) unless response =~ /<pre>\s*(.*?)\s*<\/pre>/im
-exit(2) if $1 == "Not found"
-
-url = $1
-url =~ /<a href='\s*(.*?)\s*'>/im
+exit(2) unless response =~ /<url>\s*(.*?)\s*<\/url>/im
+url = $1.gsub(/wikia.com/, "wikia.com/lyrics");
+exit(2) if $1 =~ /action=edit$/
 
 response = Net::HTTP.get(URI.parse(url))
-exit(2) unless response =~ /<div class='lyricbox' >\s*(.*?)\s*<p>/im
+exit(2) unless response =~ /<div class='lyricbox' >\s*(.*?)\s*<!--/im
 
 puts $1.gsub(/<br \/>/, "\n")
