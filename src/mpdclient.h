@@ -130,8 +130,6 @@ mpdclient_filelist_t *mpdclient_filelist_search(mpdclient_t *c,
 						int exact_match,
 						int table,
 						gchar *filter_utf8);
-mpdclient_filelist_t *mpdclient_filelist_update(mpdclient_t *c,
-						mpdclient_filelist_t *flist);
 
 /* add all songs in filelist to the playlist */
 int mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl);

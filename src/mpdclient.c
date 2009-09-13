@@ -785,7 +785,7 @@ mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
 	mpd_InfoEntity *entity;
 
 	mpd_sendLsInfoCommand(c->connection, path);
-	filelist = filelist_new(path);
+	filelist = filelist_new();
 	if (path && path[0] && strcmp(path, "/"))
 		/* add a dummy entry for ./.. */
 		filelist_append(filelist, NULL);
@@ -815,7 +815,7 @@ mpdclient_filelist_search(mpdclient_t *c,
 		mpd_sendFindCommand(c->connection, table, filter_utf8);
 	else
 		mpd_sendSearchCommand(c->connection, table, filter_utf8);
-	filelist = filelist_new(NULL);
+	filelist = filelist_new();
 
 	while ((entity=mpd_getNextInfoEntity(c->connection)))
 		filelist_append(filelist, entity);
@@ -826,20 +826,6 @@ mpdclient_filelist_search(mpdclient_t *c,
 	}
 
 	return filelist;
-}
-
-mpdclient_filelist_t *
-mpdclient_filelist_update(mpdclient_t *c, mpdclient_filelist_t *filelist)
-{
-	if (filelist != NULL) {
-		gchar *path = g_strdup(filelist->path);
-
-		filelist_free(filelist);
-		filelist = mpdclient_filelist_get(c, path);
-		g_free(path);
-		return filelist;
-	}
-	return NULL;
 }
 
 int

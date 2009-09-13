@@ -228,7 +228,7 @@ load_song_list(struct mpdclient *c)
 						  MPD_TABLE_ALBUM,
 						  album);
 	if (browser.filelist == NULL)
-		browser.filelist = filelist_new(NULL);
+		browser.filelist = filelist_new();
 
 	/* add a dummy entry for ".." */
 	filelist_prepend(browser.filelist, NULL);

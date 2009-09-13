@@ -30,15 +30,12 @@ typedef struct filelist_entry {
 } filelist_entry_t;
 
 typedef struct filelist {
-	/* path */
-	gchar *path;
-
 	/* the list */
 	GPtrArray *entries;
 } mpdclient_filelist_t;
 
 struct filelist *
-filelist_new(const char *path);
+filelist_new(void);
 
 void
 filelist_free(struct filelist *filelist);

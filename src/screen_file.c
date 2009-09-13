@@ -33,6 +33,7 @@
 #include <glib.h>
 
 static struct screen_browser browser;
+static char *current_path;
 
 static void
 browse_paint(void);
@@ -51,12 +52,22 @@ file_repaint_if_active(void)
 		file_repaint();
 }
 
+static void
+file_reload(struct mpdclient *c)
+{
+	if (browser.filelist != NULL)
+		filelist_free(browser.filelist);
+
+	browser.filelist = mpdclient_filelist_get(c, current_path);
+}
+
 /* the db has changed -> update the filelist */
 static void
 file_changed_callback(mpdclient_t *c, G_GNUC_UNUSED int event,
 		      G_GNUC_UNUSED gpointer data)
 {
-	browser.filelist = mpdclient_filelist_update(c, browser.filelist);
+	file_reload(c);
+
 #ifndef NCMPC_MINI
 	sync_highlights(c, browser.filelist);
 #endif
@@ -93,7 +104,7 @@ file_change_directory(mpdclient_t *c, filelist_entry_t *entry,
 	if( entity==NULL ) {
 		if( entry || 0==strcmp(new_path, "..") ) {
 			/* return to parent */
-			char *parent = g_path_get_dirname(browser.filelist->path);
+			char *parent = g_path_get_dirname(current_path);
 			if( strcmp(parent, ".") == 0 )
 				parent[0] = '\0';
 			path = g_strdup(parent);
@@ -109,13 +120,11 @@ file_change_directory(mpdclient_t *c, filelist_entry_t *entry,
 	} else
 		return false;
 
-	if (browser.filelist != NULL) {
-		old_path = g_strdup(browser.filelist->path);
-		filelist_free(browser.filelist);
-	} else
-		old_path = NULL;
+	old_path = current_path;
+	current_path = g_strdup(path);
 
-	browser.filelist = mpdclient_filelist_get(c, path);
+	file_reload(c);
+
 #ifndef NCMPC_MINI
 	sync_highlights(c, browser.filelist);
 #endif
@@ -238,6 +247,8 @@ handle_delete(mpdclient_t *c)
 static void
 browse_init(WINDOW *w, int cols, int rows)
 {
+	current_path = g_strdup("");
+
 	browser.lw = list_window_init(w, cols, rows);
 }
 
@@ -254,6 +265,8 @@ browse_exit(void)
 	if (browser.filelist)
 		filelist_free(browser.filelist);
 	list_window_free(browser.lw);
+
+	g_free(current_path);
 }
 
 static void
@@ -271,7 +284,7 @@ browse_open(G_GNUC_UNUSED mpdclient_t *c)
 static const char *
 browse_title(char *str, size_t size)
 {
-	const char *path = NULL, *prev = NULL, *slash = browser.filelist->path;
+	const char *path = NULL, *prev = NULL, *slash = current_path;
 	char *path_locale;
 
 	/* determine the last 2 parts of the path */
@@ -282,7 +295,7 @@ browse_title(char *str, size_t size)
 
 	if (path == NULL)
 		/* fall back to full path */
-		path = browser.filelist->path;
+		path = current_path;
 
 	path_locale = utf8_to_locale(path);
 	g_snprintf(str, size, "%s: %s",
@@ -303,8 +316,11 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 {
 	switch(cmd) {
 	case CMD_PLAY:
-		if (file_handle_enter(c))
+		if (file_handle_enter(c)) {
+			file_repaint();
 			return true;
+		}
+
 		break;
 
 	case CMD_GO_ROOT_DIRECTORY:
@@ -330,7 +346,7 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 		handle_save(c);
 		break;
 	case CMD_SCREEN_UPDATE:
-		browser.filelist = mpdclient_filelist_update(c, browser.filelist);
+		file_reload(c);
 #ifndef NCMPC_MINI
 		sync_highlights(c, browser.filelist);
 #endif
@@ -344,10 +360,10 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 			return true;
 
 		if (!c->status->updatingDb) {
-			if (mpdclient_cmd_db_update(c, browser.filelist->path) == 0) {
-				if (strcmp(browser.filelist->path, "")) {
+			if (mpdclient_cmd_db_update(c, current_path) == 0) {
+				if (strcmp(current_path, "") != 0) {
 					char *path_locale =
-						utf8_to_locale(browser.filelist->path);
+						utf8_to_locale(current_path);
 					screen_status_printf(_("Database update of %s started"),
 							     path_locale);
 					g_free(path_locale);

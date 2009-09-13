@@ -160,7 +160,7 @@ search_clear(mpdclient_t *c,
 	if (browser.filelist) {
 		mpdclient_remove_playlist_callback(c, playlist_changed_callback);
 		filelist_free(browser.filelist);
-		browser.filelist = filelist_new(NULL);
+		browser.filelist = filelist_new();
 	}
 	if (clear_pattern && pattern) {
 		g_free(pattern);
@@ -179,7 +179,7 @@ filelist_search(mpdclient_t *c, G_GNUC_UNUSED int exact_match, int table,
 		list = mpdclient_filelist_search(c, FALSE, MPD_TABLE_ARTIST,
 						 filter_utf8);
 		if (list == NULL)
-			list = filelist_new(NULL);
+			list = filelist_new();
 
 		list2 = mpdclient_filelist_search(c, FALSE, MPD_TABLE_TITLE,
 						  filter_utf8);
@@ -192,7 +192,7 @@ filelist_search(mpdclient_t *c, G_GNUC_UNUSED int exact_match, int table,
 	} else {
 		list = mpdclient_filelist_search(c, FALSE, table, filter_utf8);
 		if (list == NULL)
-			list = filelist_new(NULL);
+			list = filelist_new();
 	}
 
 	g_free(filter_utf8);
@@ -278,7 +278,7 @@ search_advanced_query(char *query, mpdclient_t *c)
 
 		mpd_commitSearch(c->connection);
 
-		fl = filelist_new(NULL);
+		fl = filelist_new();
 
 		while ((entity=mpd_getNextInfoEntity(c->connection)))
 			filelist_append(fl, entity);
@@ -325,7 +325,7 @@ search_new(mpdclient_t *c)
 						  pattern);
 
 	if (browser.filelist == NULL)
-		browser.filelist = filelist_new(NULL);
+		browser.filelist = filelist_new();
 
 	sync_highlights(c, browser.filelist);
 	mpdclient_install_playlist_callback(c, playlist_changed_callback);

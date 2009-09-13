@@ -25,11 +25,10 @@
 #include <assert.h>
 
 struct filelist *
-filelist_new(const char *path)
+filelist_new(void)
 {
 	struct filelist *filelist = g_malloc(sizeof(*filelist));
 
-	filelist->path = g_strdup(path);
 	filelist->entries = g_ptr_array_new();
 
 	return filelist;
@@ -50,7 +49,6 @@ filelist_free(struct filelist *filelist)
 	}
 
 	g_ptr_array_free(filelist->entries, TRUE);
-	g_free(filelist->path);
 	g_free(filelist);
 }
 
