@@ -88,10 +88,10 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 #endif
 
 static bool
-file_change_directory(mpdclient_t *c, filelist_entry_t *entry,
+file_change_directory(mpdclient_t *c, const filelist_entry_t *entry,
 		      const char *new_path)
 {
-	mpd_InfoEntity *entity = NULL;
+	const mpd_InfoEntity *entity = NULL;
 	gchar *path = NULL;
 	char *old_path;
 	int idx;
@@ -148,8 +148,8 @@ file_change_directory(mpdclient_t *c, filelist_entry_t *entry,
 static bool
 file_handle_enter(struct mpdclient *c)
 {
-	struct filelist_entry *entry = browser_get_selected_entry(&browser);
-	struct mpd_InfoEntity *entity;
+	const struct filelist_entry *entry = browser_get_selected_entry(&browser);
+	const struct mpd_InfoEntity *entity;
 
 	if (entry == NULL)
 		return false;

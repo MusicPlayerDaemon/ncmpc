@@ -148,7 +148,7 @@ browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_c
 		g_free(directory);
 		return buf;
 	} else if( entity->type==MPD_INFO_ENTITY_TYPE_SONG ) {
-		mpd_Song *song = entity->info.song;
+		const mpd_Song *song = entity->info.song;
 
 		strfsong(buf, BUFSIZE, options.list_format, song);
 		return buf;
@@ -217,20 +217,20 @@ browser_get_selected_entry(const struct screen_browser *browser)
 	return filelist_get(browser->filelist, browser->lw->selected);
 }
 
-static struct mpd_InfoEntity *
+static const struct mpd_InfoEntity *
 browser_get_selected_entity(const struct screen_browser *browser)
 {
-	struct filelist_entry *entry = browser_get_selected_entry(browser);
+	const struct filelist_entry *entry = browser_get_selected_entry(browser);
 
 	return entry != NULL
 		? entry->entity
 		: NULL;
 }
 
-static struct mpd_song *
+static const struct mpd_song *
 browser_get_selected_song(const struct screen_browser *browser)
 {
-	struct mpd_InfoEntity *entity = browser_get_selected_entity(browser);
+	const struct mpd_InfoEntity *entity = browser_get_selected_entity(browser);
 
 	return entity != NULL && entity->type == MPD_INFO_ENTITY_TYPE_SONG
 		? entity->info.song
@@ -428,7 +428,7 @@ bool
 browser_cmd(struct screen_browser *browser,
 	    struct mpdclient *c, command_t cmd)
 {
-	struct mpd_song *song;
+	const struct mpd_song *song;
 
 	if (browser->filelist == NULL)
 		return false;
