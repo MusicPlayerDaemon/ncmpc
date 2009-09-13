@@ -273,6 +273,7 @@ static struct filelist_entry *
 browser_get_selected(const struct screen_browser *browser)
 {
 	if (browser->filelist == NULL ||
+	    browser->lw->selected_start < browser->lw->selected_end ||
 	    browser->lw->selected >= filelist_length(browser->filelist))
 		return NULL;
 
@@ -295,7 +296,7 @@ browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 	struct filelist_entry *entry = browser_get_selected(browser);
 	mpd_InfoEntity *entity;
 
-	if( entry==NULL || browser->lw->selected_start < browser->lw->selected_end)
+	if (entry == NULL)
 		return false;
 
 	entity = entry->entity;
