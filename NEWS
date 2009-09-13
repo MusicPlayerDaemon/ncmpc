@@ -4,6 +4,7 @@ ncmpc 0.15 - not yet released
 * display song duration in the playlist
 * added the "hardware_cursor" option
 * show plugin error messages on the screen
+* fixed NULL pointer dereference when not yet connected
 * new translation: Hebrew
 
 
