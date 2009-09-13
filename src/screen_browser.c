@@ -226,10 +226,8 @@ browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 }
 
 static bool
-load_playlist(mpdclient_t *c, filelist_entry_t *entry)
+load_playlist(mpdclient_t *c, const mpd_PlaylistFile *plf)
 {
-	mpd_InfoEntity *entity = entry->entity;
-	mpd_PlaylistFile *plf = entity->info.playlistFile;
 	char *filename = utf8_to_locale(plf->path);
 
 	if (mpdclient_cmd_load_playlist(c, plf->path) == 0)
@@ -303,7 +301,7 @@ browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 	if (entity == NULL || entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY)
 		return browser_change_directory(browser, c, entry, NULL);
 	else if (entity->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE)
-		return load_playlist(c, entry);
+		return load_playlist(c, entity->info.playlistFile);
 	else if (entity->type == MPD_INFO_ENTITY_TYPE_SONG)
 		return enqueue_and_play(c, entry);
 	return false;
@@ -317,7 +315,7 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 	assert(entry->entity != NULL);
 
 	if (entry->entity->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE)
-		return load_playlist(c, entry);
+		return load_playlist(c, entry->entity->info.playlistFile);
 
 	if (entry->entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY) {
 		mpd_Directory *dir = entry->entity->info.directory;
