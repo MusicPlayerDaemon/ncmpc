@@ -164,67 +164,6 @@ browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_c
 	return "Error: Unknown entry!";
 }
 
-/* chdir */
-bool
-browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
-			 filelist_entry_t *entry, const char *new_path)
-{
-	mpd_InfoEntity *entity = NULL;
-	gchar *path = NULL;
-	char *old_path;
-	int idx;
-
-	if( entry!=NULL )
-		entity = entry->entity;
-	else if( new_path==NULL )
-		return false;
-
-	if( entity==NULL ) {
-		if( entry || 0==strcmp(new_path, "..") ) {
-			/* return to parent */
-			char *parent = g_path_get_dirname(browser->filelist->path);
-			if( strcmp(parent, ".") == 0 )
-				parent[0] = '\0';
-			path = g_strdup(parent);
-			g_free(parent);
-		} else {
-			/* entry==NULL, then new_path ("" is root) */
-			path = g_strdup(new_path);
-		}
-	} else if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY) {
-		/* enter sub */
-		mpd_Directory *dir = entity->info.directory;
-		path = g_strdup(dir->path);
-	} else
-		return false;
-
-	if (browser->filelist != NULL) {
-		old_path = g_strdup(browser->filelist->path);
-		filelist_free(browser->filelist);
-	} else
-		old_path = NULL;
-
-	browser->filelist = mpdclient_filelist_get(c, path);
-#ifndef NCMPC_MINI
-	sync_highlights(c, browser->filelist);
-#endif
-
-	idx = old_path != NULL
-		? filelist_find_directory(browser->filelist, old_path)
-		: -1;
-	g_free(old_path);
-
-	list_window_reset(browser->lw);
-	if (idx >= 0) {
-		list_window_set_selected(browser->lw, idx);
-		list_window_center(browser->lw,
-				   filelist_length(browser->filelist), idx);
-	}
-
-	g_free(path);
-	return true;
-}
-
 static bool
 load_playlist(mpdclient_t *c, const mpd_PlaylistFile *plf)
 {
@@ -318,9 +257,10 @@ browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 		return false;
 
 	entity = entry->entity;
-	if (entity == NULL || entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY)
-		return browser_change_directory(browser, c, entry, NULL);
-	else if (entity->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE)
+	if (entity == NULL)
+		return false;
+
+	if (entity->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE)
 		return load_playlist(c, entity->info.playlistFile);
 	else if (entity->type == MPD_INFO_ENTITY_TYPE_SONG)
 		return enqueue_and_play(c, entry);
