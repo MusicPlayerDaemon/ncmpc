@@ -124,7 +124,7 @@ browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_c
 	filelist_entry_t *entry;
 	mpd_InfoEntity *entity;
 
-	if (idx >= filelist_length(fl))
+	if (fl == NULL || idx >= filelist_length(fl))
 		return NULL;
 
 	entry = filelist_get(fl, idx);
@@ -429,6 +429,9 @@ browser_cmd(struct screen_browser *browser,
 	    struct mpdclient *c, command_t cmd)
 {
 	struct mpd_song *song;
+
+	if (browser->filelist == NULL)
+		return false;
 
 	switch (cmd) {
 	case CMD_PLAY:
