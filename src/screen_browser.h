@@ -48,6 +48,9 @@ browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
 
 const char *browser_lw_callback(unsigned index, bool *highlight, char** second_column, void *filelist);
 
+struct filelist_entry *
+browser_get_selected_entry(const struct screen_browser *browser);
+
 bool
 browser_change_directory(struct screen_browser *browser, mpdclient_t *c,
 			 filelist_entry_t *entry, const char *new_path);
