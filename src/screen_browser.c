@@ -278,6 +278,26 @@ browser_get_selected(const struct screen_browser *browser)
 	return filelist_get(browser->filelist, browser->lw->selected);
 }
 
+static struct mpd_InfoEntity *
+browser_get_selected_entity(const struct screen_browser *browser)
+{
+	struct filelist_entry *entry = browser_get_selected(browser);
+
+	return entry != NULL
+		? entry->entity
+		: NULL;
+}
+
+static struct mpd_song *
+browser_get_selected_song(const struct screen_browser *browser)
+{
+	struct mpd_InfoEntity *entity = browser_get_selected_entity(browser);
+
+	return entity != NULL && entity->type == MPD_INFO_ENTITY_TYPE_SONG
+		? entity->info.song
+		: NULL;
+}
+
 static struct filelist_entry *
 browser_get_index(const struct screen_browser *browser, unsigned i)
 {
@@ -468,7 +488,7 @@ bool
 browser_cmd(struct screen_browser *browser,
 	    struct mpdclient *c, command_t cmd)
 {
-	struct filelist_entry *entry;
+	struct mpd_song *song;
 
 	switch (cmd) {
 	case CMD_PLAY:
@@ -515,44 +535,33 @@ browser_cmd(struct screen_browser *browser,
 
 #ifdef ENABLE_SONG_SCREEN
 	case CMD_SCREEN_SONG:
-		entry = browser_get_selected(browser);
-		if (entry == NULL || entry->entity == NULL ||
-		    entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
+		song = browser_get_selected_song(browser);
+		if (song == NULL)
 			return false;
 
-		screen_song_switch(c, entry->entity->info.song);
+		screen_song_switch(c, song);
 		return true;
 #endif
 
 	case CMD_LOCATE:
-		entry = browser_get_selected(browser);
-		if (entry == NULL || entry->entity == NULL ||
-		    entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
+		song = browser_get_selected_song(browser);
+		if (song == NULL)
 			return false;
 
-		screen_file_goto_song(c, entry->entity->info.song);
+		screen_file_goto_song(c, song);
 		return true;
 
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
-		entry = browser_get_selected(browser);
-		if (entry == NULL)
+		song = browser_get_selected_song(browser);
+		if (song == NULL)
 			return false;
 
-		if (entry->entity == NULL ||
-		    entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
-			return true;
-
-		screen_lyrics_switch(c, entry->entity->info.song, false);
+		screen_lyrics_switch(c, song, false);
 		return true;
 #endif
 	case CMD_SCREEN_SWAP:
-		entry = browser_get_selected(browser);
-		if (entry->entity != NULL &&
-			entry->entity->type == MPD_INFO_ENTITY_TYPE_SONG)
-			screen_swap(c, entry->entity->info.song);
-		else
-			screen_swap(c, NULL);
+		screen_swap(c, browser_get_selected_song(browser));
 		return true;
 
 	default:
