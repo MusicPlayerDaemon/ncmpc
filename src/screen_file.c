@@ -87,41 +87,14 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 }
 #endif
 
+/**
+ * Change to the specified absolute directory.
+ */
 static bool
-file_change_directory(mpdclient_t *c, const filelist_entry_t *entry,
-		      const char *new_path)
+file_change_directory(mpdclient_t *c, const char *new_path)
 {
-	const mpd_InfoEntity *entity = NULL;
-	gchar *path = NULL;
-	char *old_path;
-	int idx;
-
-	if( entry!=NULL )
-		entity = entry->entity;
-	else if( new_path==NULL )
-		return false;
-
-	if( entity==NULL ) {
-		if( entry || 0==strcmp(new_path, "..") ) {
-			/* return to parent */
-			char *parent = g_path_get_dirname(current_path);
-			if( strcmp(parent, ".") == 0 )
-				parent[0] = '\0';
-			path = g_strdup(parent);
-			g_free(parent);
-		} else {
-			/* entry==NULL, then new_path ("" is root) */
-			path = g_strdup(new_path);
-		}
-	} else if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY) {
-		/* enter sub */
-		mpd_Directory *dir = entity->info.directory;
-		path = g_strdup(dir->path);
-	} else
-		return false;
-
-	old_path = current_path;
-	current_path = g_strdup(path);
+	g_free(current_path);
+	current_path = g_strdup(new_path);
 
 	file_reload(c);
 
@@ -129,36 +102,72 @@ file_change_directory(mpdclient_t *c, const filelist_entry_t *entry,
 	sync_highlights(c, browser.filelist);
 #endif
 
-	idx = old_path != NULL
+	list_window_reset(browser.lw);
+
+	return browser.filelist != NULL;
+}
+
+/**
+ * Change to the parent directory of the current directory.
+ */
+static bool
+file_change_to_parent(mpdclient_t *c)
+{
+	char *parent = g_path_get_dirname(current_path);
+	char *old_path;
+	int idx;
+	bool success;
+
+	if (strcmp(parent, ".") == 0)
+		parent[0] = '\0';
+
+	old_path = current_path;
+	current_path = NULL;
+
+	success = file_change_directory(c, parent);
+	g_free(parent);
+
+	idx = success
 		? filelist_find_directory(browser.filelist, old_path)
 		: -1;
 	g_free(old_path);
 
-	list_window_reset(browser.lw);
-	if (idx >= 0) {
+	if (success && idx >= 0) {
+		/* set the cursor on the previous working directory */
 		list_window_set_selected(browser.lw, idx);
 		list_window_center(browser.lw,
 				   filelist_length(browser.filelist), idx);
 	}
 
-	g_free(path);
-	return true;
+	return success;
+}
+
+/**
+ * Change to the directory referred by the specified filelist_entry_t
+ * object.
+ */
+static bool
+file_change_to_entry(mpdclient_t *c, const filelist_entry_t *entry)
+{
+	assert(entry != NULL);
+
+	if (entry->entity == NULL)
+		return file_change_to_parent(c);
+	else if (entry->entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY)
+		return file_change_directory(c, entry->entity->info.directory->path);
+	else
+		return false;
 }
 
 static bool
 file_handle_enter(struct mpdclient *c)
 {
 	const struct filelist_entry *entry = browser_get_selected_entry(&browser);
-	const struct mpd_InfoEntity *entity;
 
 	if (entry == NULL)
 		return false;
 
-	entity = entry->entity;
-	if (entity == NULL || entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY)
-		return file_change_directory(c, entry, NULL);
-	else
-		return false;
+	return file_change_to_entry(c, entry);
 }
 
 static int
@@ -324,11 +333,11 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 		break;
 
 	case CMD_GO_ROOT_DIRECTORY:
-		file_change_directory(c, NULL, "");
+		file_change_directory(c, "");
 		file_repaint();
 		return true;
 	case CMD_GO_PARENT_DIRECTORY:
-		file_change_directory(c, NULL, "..");
+		file_change_to_parent(c);
 		file_repaint();
 		return true;
 
@@ -420,7 +429,7 @@ screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song)
 	else
 		parent = "";
 
-	ret = file_change_directory(c, NULL, parent);
+	ret = file_change_directory(c, parent);
 	g_free(allocated);
 	if (!ret)
 		return false;
