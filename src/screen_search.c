@@ -297,6 +297,9 @@ search_advanced_query(char *query, mpdclient_t *c)
 static void
 search_new(mpdclient_t *c)
 {
+	if (c->connection == NULL)
+		return;
+
 	search_clear(c, TRUE);
 
 	g_free(pattern);

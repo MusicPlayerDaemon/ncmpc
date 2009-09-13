@@ -96,6 +96,9 @@ fill_outputs_list(mpdclient_t *c)
 
 	assert(mpd_outputs != NULL);
 
+	if (c->connection == NULL)
+		return;
+
 	mpd_sendOutputsCommand(c->connection);
 	while ((output = mpd_getNextOutput(c->connection)) != NULL) {
 		g_ptr_array_add(mpd_outputs, output);
