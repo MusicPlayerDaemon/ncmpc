@@ -130,7 +130,7 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 	if (idx == lw->selected)
 	{
 		int second_column_len = 0;
-		if (second_column)
+		if (second_column != NULL && *second_column != NULL)
 			second_column_len = strlen(*second_column);
 		if (options.scroll && utf8_width(songname) > (unsigned)(COLS - second_column_len - 1) )
 		{
