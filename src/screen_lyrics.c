@@ -35,7 +35,7 @@
 
 static struct screen_text text;
 
-static const struct mpd_song *next_song;
+static struct mpd_song *next_song;
 static bool follow = false;
 
 static struct {
@@ -210,6 +210,8 @@ lyrics_open(mpdclient_t *c)
 	     strcmp(next_song->file, current.song->file) != 0))
 		screen_lyrics_load(next_song);
 
+	if (next_song != c->song)
+		mpd_freeSong(next_song);
 	next_song = NULL;
 }
 
@@ -327,6 +329,6 @@ screen_lyrics_switch(struct mpdclient *c, const struct mpd_song *song, bool f)
 	assert(song != NULL);
 
 	follow = f;
-	next_song = song;
+	next_song = mpd_songDup(song);
 	screen_switch(&screen_lyrics, c);
 }

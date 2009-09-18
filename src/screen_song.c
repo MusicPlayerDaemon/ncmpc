@@ -28,7 +28,7 @@
 
 static list_window_t *lw;
 
-static const struct mpd_song *next_song;
+static struct mpd_song *next_song;
 
 static struct {
 	struct mpd_song *selected_song;
@@ -315,7 +315,7 @@ screen_song_update(mpdclient_t *c)
 	/* If a song was selected before the song screen was opened */
 	if (next_song != NULL) {
 		assert(current.selected_song == NULL);
-		current.selected_song = mpd_songDup(next_song);
+		current.selected_song = next_song;
 		next_song = NULL;
 	}
 
@@ -426,6 +426,6 @@ screen_song_switch(mpdclient_t *c, const struct mpd_song *song)
 	assert(current.selected_song == NULL);
 	assert(current.played_song == NULL);
 
-	next_song = song;
+	next_song = mpd_songDup(song);
 	screen_switch(&screen_song, c);
 }
