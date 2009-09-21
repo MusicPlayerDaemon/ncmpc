@@ -96,6 +96,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 	playlist_repaint_if_active();
 }
 
+#ifndef NCMPC_MINI
 static char *
 format_duration(int duration)
 {
@@ -104,6 +105,7 @@ format_duration(int duration)
 
 	return g_strdup_printf("%d:%02d", duration / 60, duration % 60);
 }
+#endif
 
 static const char *
 list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED void *data)
