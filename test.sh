@@ -47,4 +47,4 @@ make -j2 install
 CFLAGS="-Os" ./configure --prefix=$PREFIX/mini --disable-debug --enable-werror \
     --enable-mini
 make -j2 install
-make ncmpc-tiny
+make src/ncmpc-tiny
