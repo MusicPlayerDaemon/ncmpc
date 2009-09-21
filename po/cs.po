@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-11 16:32+0200\n"
+"POT-Creation-Date: 2009-09-21 20:10+0200\n"
 "PO-Revision-Date: 2009-04-01 09:24+0000\n"
 "Last-Translator: Vojtěch Trefný <vojtech.trefny@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -25,17 +25,17 @@ msgstr "a"
 msgid "n"
 msgstr "n"
 
-#: src/main.c:215
+#: src/main.c:211
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr "Připojuji se k %s... [Pro přerušení stiskněte %s]"
 
-#: src/main.c:233
+#: src/main.c:229
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
 msgstr "Chyba: MPD verze %d.%d.%d je příliš stará (potřebuji %s)"
 
-#: src/main.c:247
+#: src/main.c:243
 #, c-format
 msgid "Connected to %s"
 msgstr "Připojeno k %s"
@@ -43,76 +43,76 @@ msgstr "Připojeno k %s"
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
 #. that
-#: src/main.c:366
+#: src/main.c:364
 #, c-format
 msgid "press %s for the key editor"
 msgstr "stiskněte %s pro otevření správce klávesových zkratek"
 
-#: src/screen.c:175 src/screen_help.c:249
+#: src/screen.c:184 src/screen_help.c:249
 msgid "Help"
 msgstr "Nápověda"
 
-#: src/screen.c:177 src/screen_play.c:505
+#: src/screen.c:186 src/screen_play.c:528
 msgid "Playlist"
 msgstr "Seznam skladeb"
 
 #. translators: caption of the browser screen
-#: src/screen.c:178 src/screen_file.c:214
+#: src/screen.c:187 src/screen_file.c:312
 msgid "Browse"
 msgstr "Procházet"
 
-#: src/screen.c:180 src/screen_search.c:80 src/screen_song.c:190
+#: src/screen.c:189 src/screen_search.c:75 src/screen_song.c:190
 msgid "Artist"
 msgstr "Interpret"
 
-#: src/screen.c:183 src/screen_search.c:309 src/screen_help.c:144
+#: src/screen.c:192 src/screen_search.c:307 src/screen_help.c:144
 msgid "Search"
 msgstr "Vyhledávání"
 
-#: src/screen.c:186 src/screen_lyrics.c:203 src/screen_lyrics.c:211
-#: src/screen_lyrics.c:215
+#: src/screen.c:195 src/screen_lyrics.c:239 src/screen_lyrics.c:247
+#: src/screen_lyrics.c:251
 msgid "Lyrics"
 msgstr "Text písně"
 
-#: src/screen.c:189 src/screen_outputs.c:162
+#: src/screen.c:198 src/screen_outputs.c:165
 msgid "Outputs"
 msgstr "Výstupy"
 
-#: src/screen.c:195
+#: src/screen.c:205
 #, c-format
 msgid "Volume n/a"
 msgstr "Hlasitost n/a"
 
-#: src/screen.c:197
+#: src/screen.c:207
 #, c-format
 msgid "Volume %d%%"
 msgstr "Hlasitost %d%%"
 
-#: src/screen.c:308
+#: src/screen.c:337
 msgid "Playing:"
 msgstr "Přehrávání:"
 
-#: src/screen.c:311
+#: src/screen.c:340
 msgid "[Paused]"
 msgstr "[Pozastaveno]"
 
-#: src/screen.c:433 src/screen.c:506
+#: src/screen.c:466 src/screen.c:539
 msgid "Error: Screen too small"
 msgstr "Chyba: Příliš malá obrazovka"
 
-#: src/screen.c:633
+#: src/screen.c:674
 msgid "Repeat mode is on"
 msgstr "Opakování je zapnuto"
 
-#: src/screen.c:634
+#: src/screen.c:675
 msgid "Repeat mode is off"
 msgstr "Opakování je vypnuto"
 
-#: src/screen.c:638
+#: src/screen.c:679
 msgid "Random mode is on"
 msgstr "Náhodné přehrávání je zapnuto"
 
-#: src/screen.c:639
+#: src/screen.c:680
 msgid "Random mode is off"
 msgstr "Náhodné přehrávání je vypnuto"
 
@@ -121,11 +121,11 @@ msgstr "Náhodné přehrávání je vypnuto"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.c:648
+#: src/screen.c:689
 msgid "Single mode is on"
 msgstr ""
 
-#: src/screen.c:649
+#: src/screen.c:690
 msgid "Single mode is off"
 msgstr ""
 
@@ -133,52 +133,52 @@ msgstr ""
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.c:657
+#: src/screen.c:698
 msgid "Consume mode is on"
 msgstr ""
 
-#: src/screen.c:658
+#: src/screen.c:699
 msgid "Consume mode is off"
 msgstr ""
 
-#: src/screen.c:661
+#: src/screen.c:702
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Přerušení %d sekund"
 
-#: src/screen.c:664
+#: src/screen.c:705
 msgid "Database updated"
 msgstr "Databáze aktualizována"
 
-#: src/screen.c:799 src/screen_play.c:643
+#: src/screen.c:842 src/screen_play.c:666
 msgid "Shuffled playlist"
 msgstr "Seznam skladeb zamíchán"
 
-#: src/screen.c:803
+#: src/screen.c:846
 msgid "Cleared playlist"
 msgstr "Seznam skladeb smazán"
 
-#: src/screen.c:826 src/screen_file.c:274
+#: src/screen.c:869 src/screen_file.c:380
 msgid "Database update started"
 msgstr "Aktualizace databáze zahájena"
 
-#: src/screen.c:828 src/screen_file.c:281
+#: src/screen.c:871 src/screen_file.c:383
 msgid "Database update running..."
 msgstr "Probíhá aktualizace databáze"
 
-#: src/screen.c:864
+#: src/screen.c:905
 msgid "Find mode: Wrapped"
 msgstr "Režim vyhledávání: Zabalený"
 
-#: src/screen.c:865
+#: src/screen.c:906
 msgid "Find mode: Normal"
 msgstr "Režim vyhledávání: Normální"
 
-#: src/screen.c:870
+#: src/screen.c:911
 msgid "Auto center mode: On"
 msgstr "Automatické centrování zapnuto"
 
-#: src/screen.c:871
+#: src/screen.c:912
 msgid "Auto center mode: Off"
 msgstr "Automatické centrování vypnuto"
 
@@ -206,12 +206,12 @@ msgstr "Album: %s - %s"
 msgid "All tracks of artist: %s"
 msgstr "Všechny skladby interpreta: %s"
 
-#: src/screen_browser.c:236
+#: src/screen_browser.c:173
 #, c-format
 msgid "Loading playlist %s..."
 msgstr "Načítám seznam skladeb: %s..."
 
-#: src/screen_browser.c:259 src/screen_browser.c:327 src/screen_browser.c:353
+#: src/screen_browser.c:196 src/screen_browser.c:286 src/screen_browser.c:312
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr "Přidávám '%s' do seznamu skladeb"
@@ -237,31 +237,31 @@ msgstr "Heslo"
 msgid "Unable to find '%s'"
 msgstr "Nemohu najít '%s'"
 
-#: src/screen_play.c:261
+#: src/screen_play.c:284
 msgid "Save playlist as"
 msgstr "Uložit seznam skladeb jako"
 
-#: src/screen_play.c:294
+#: src/screen_play.c:317
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Nahradit %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_play.c:315 src/screen_file.c:148 src/screen_keydef.c:163
+#: src/screen_play.c:338 src/screen_file.c:242 src/screen_keydef.c:163
 msgid "Aborted"
 msgstr "Přerušeno"
 
 #. success
-#: src/screen_play.c:323
+#: src/screen_play.c:346
 #, c-format
 msgid "Saved %s"
 msgstr "Uloženo %s"
 
-#: src/screen_play.c:399
+#: src/screen_play.c:422
 msgid "Add"
 msgstr "Přidat"
 
-#: src/screen_play.c:507
+#: src/screen_play.c:530
 #, c-format
 msgid "Playlist on %s"
 msgstr "Seznam skladeb %s"
@@ -269,22 +269,22 @@ msgstr "Seznam skladeb %s"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/screen_file.c:135
+#: src/screen_file.c:229
 msgid "Deleting this item is not possible"
 msgstr "Smazání této položky není možné"
 
-#: src/screen_file.c:142
+#: src/screen_file.c:236
 #, c-format
 msgid "Delete playlist %s [%s/%s] ? "
 msgstr "Smazat seznam skladeb %s[%s/%s] ? "
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/screen_file.c:157
+#: src/screen_file.c:251
 msgid "Playlist deleted"
 msgstr "Seznam skladeb smazán"
 
-#: src/screen_file.c:270
+#: src/screen_file.c:376
 #, c-format
 msgid "Database update of %s started"
 msgstr "Aktualizace databáze %s zahájena"
@@ -333,28 +333,28 @@ msgstr "poznámka"
 msgid "file"
 msgstr "soubor"
 
-#: src/screen_search.c:79 src/screen_song.c:191
+#: src/screen_search.c:74 src/screen_song.c:191
 msgid "Title"
 msgstr "Název"
 
-#: src/screen_search.c:81 src/screen_song.c:192
+#: src/screen_search.c:76 src/screen_song.c:192
 msgid "Album"
 msgstr "Album"
 
-#: src/screen_search.c:82
+#: src/screen_search.c:77
 msgid "Filename"
 msgstr "Název souboru"
 
-#: src/screen_search.c:83
+#: src/screen_search.c:78
 msgid "Artist + Title"
 msgstr "Interpret + Název"
 
-#: src/screen_search.c:245
+#: src/screen_search.c:240
 #, c-format
 msgid "Bad search tag %s"
 msgstr "Chybný tag vyhledávání %s"
 
-#: src/screen_search.c:249
+#: src/screen_search.c:244
 #, c-format
 msgid "No argument for search tag %s"
 msgstr "Žádný argument vyhledávání %s"
@@ -362,27 +362,27 @@ msgstr "Žádný argument vyhledávání %s"
 #. if( pattern==NULL )
 #. search_new(screen, c);
 #. else
-#: src/screen_search.c:369
+#: src/screen_search.c:367
 #, c-format
 msgid "Press %s for a new search"
 msgstr "Pro nové hledání stiskněte %s"
 
-#: src/screen_search.c:397
+#: src/screen_search.c:395
 #, c-format
 msgid "Search: %s"
 msgstr "Hledání: %s"
 
-#: src/screen_search.c:400
+#: src/screen_search.c:398
 #, c-format
 msgid "Search: Results for %s [%s]"
 msgstr "Hledání: Výsledky pro %s [%s]"
 
-#: src/screen_search.c:404
+#: src/screen_search.c:402
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
 msgstr "Hledání: Stiskněte %s pro nové hledání [%s]"
 
-#: src/screen_search.c:419
+#: src/screen_search.c:417
 #, c-format
 msgid "Search mode: %s"
 msgstr "Režim vyhledávání: %s"
@@ -561,18 +561,18 @@ msgid "Apply and save changes"
 msgstr ""
 
 #. translators: no lyrics were found for the song
-#: src/screen_lyrics.c:104
+#: src/screen_lyrics.c:154
 msgid "No lyrics"
 msgstr "Žádný text písně"
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/screen_lyrics.c:206
+#: src/screen_lyrics.c:242
 msgid "loading..."
 msgstr "načítám..."
 
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:241
+#: src/screen_lyrics.c:277
 msgid "Lyrics saved"
 msgstr "Text písně uložen"
 
@@ -591,83 +591,88 @@ msgid "Song viewer"
 msgstr "Prohlížeč skladeb"
 
 #: src/screen_song.c:193
+#, fuzzy
+msgid "Length"
+msgstr "Doleva"
+
+#: src/screen_song.c:194
 msgid "Composer"
 msgstr "Skladatel"
 
-#: src/screen_song.c:194
+#: src/screen_song.c:195
 msgid "Name"
 msgstr "Název"
 
-#: src/screen_song.c:195
+#: src/screen_song.c:196
 msgid "Disc"
 msgstr "Disk"
 
-#: src/screen_song.c:196
+#: src/screen_song.c:197
 msgid "Track"
 msgstr "Skladba"
 
-#: src/screen_song.c:197
+#: src/screen_song.c:198
 msgid "Date"
 msgstr "Datum"
 
-#: src/screen_song.c:198
+#: src/screen_song.c:199
 msgid "Genre"
 msgstr "Žánr"
 
-#: src/screen_song.c:199
+#: src/screen_song.c:200
 msgid "Comment"
 msgstr "Poznámka"
 
-#: src/screen_song.c:200
+#: src/screen_song.c:201
 msgid "Path"
 msgstr "Cesta"
 
-#: src/screen_song.c:201
+#: src/screen_song.c:202
 msgid "Bitrate"
 msgstr "Bitrate"
 
-#: src/screen_song.c:228
+#: src/screen_song.c:243
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/screen_song.c:244
+#: src/screen_song.c:259
 msgid "Number of artists"
 msgstr "Počet interpretů"
 
-#: src/screen_song.c:245
+#: src/screen_song.c:260
 msgid "Number of albums"
 msgstr "Počet alb"
 
-#: src/screen_song.c:246
+#: src/screen_song.c:261
 msgid "Number of songs"
 msgstr "Počet skladeb"
 
-#: src/screen_song.c:247
+#: src/screen_song.c:262
 msgid "Uptime"
 msgstr "Doba běhu"
 
-#: src/screen_song.c:248
+#: src/screen_song.c:263
 msgid "Most recent db update"
 msgstr ""
 
-#: src/screen_song.c:249
+#: src/screen_song.c:264
 msgid "Playtime"
 msgstr "Čas přehrávání"
 
-#: src/screen_song.c:250
+#: src/screen_song.c:265
 msgid "DB playtime"
 msgstr ""
 
-#: src/screen_song.c:266
+#: src/screen_song.c:281
 msgid "MPD statistics"
 msgstr "MPD statistiky"
 
-#: src/screen_song.c:311
+#: src/screen_song.c:328
 msgid "Selected song"
 msgstr "Vybraná skladba"
 
-#: src/screen_song.c:323
+#: src/screen_song.c:340
 msgid "Currently playing song"
 msgstr "Právě přehrávaná skladba"
 
@@ -1026,22 +1031,22 @@ msgid "Terminal lacks color capabilities"
 msgstr "Terminál postrádá podporu barev"
 
 #. To translators: prefix for error messages
-#: src/conf.c:92
+#: src/conf.c:93
 msgid "Error"
 msgstr "Chyba"
 
-#: src/conf.c:100 src/conf.c:109
+#: src/conf.c:101 src/conf.c:110
 msgid "Malformed hotkey definition"
 msgstr "Neplatná definice klávesové zkratky"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:136
+#: src/conf.c:137
 msgid "Unknown command"
 msgstr "Neznámý příkaz"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:149
+#: src/conf.c:150
 msgid "Incomplete hotkey configuration"
 msgstr "Neúplné nastavení klávesových zkratek"
 
@@ -1049,63 +1054,63 @@ msgstr "Neúplné nastavení klávesových zkratek"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:181
+#: src/conf.c:182
 msgid "Bad time display type"
 msgstr "Chybný typ zobrazení času"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:196
+#: src/conf.c:197
 msgid "Missing '='"
 msgstr "Chybí '='"
 
-#: src/conf.c:252
+#: src/conf.c:253
 msgid "Bad color name"
 msgstr "Chybné jméno barvy"
 
-#: src/conf.c:261
+#: src/conf.c:262
 msgid "Incomplete color definition"
 msgstr "Neúplná definice barvy"
 
-#: src/conf.c:267
+#: src/conf.c:268
 msgid "Invalid number"
 msgstr "Neplatné číslo"
 
-#: src/conf.c:275
+#: src/conf.c:276
 msgid "Malformed color definition"
 msgstr "Neplatná definice barvy"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:311
+#: src/conf.c:312
 msgid "Unknown screen name"
 msgstr "Neznámé jméno obrazovky"
 
-#: src/conf.c:340
+#: src/conf.c:341
 msgid "Invalid search mode"
 msgstr ""
 
-#: src/conf.c:363
+#: src/conf.c:364
 msgid "Unknown search mode"
 msgstr ""
 
-#: src/conf.c:520
+#: src/conf.c:529
 msgid "Unknown configuration parameter"
 msgstr "Neznámý parametr nastavení"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:221 src/options.c:224
+#: src/options.c:222 src/options.c:225
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Vojtěch Trefný https://launchpad.net/~vojtech.trefny"
 
-#: src/list_window.c:514
+#: src/list_window.c:535
 msgid "Range selection disabled"
 msgstr ""
 
-#: src/list_window.c:520
+#: src/list_window.c:541
 msgid "Range selection enabled"
 msgstr ""
 
