@@ -7,14 +7,13 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-21 20:10+0200\n"
-"PO-Revision-Date: 2009-04-09 18:47+0300\n"
+"PO-Revision-Date: 2009-09-22 20:41+0300\n"
 "Last-Translator: Oleksandr Kovalenko <alx.kovalenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: UKRAINE\n"
 
@@ -49,33 +48,43 @@ msgstr "Встановлене з'єднання з %s"
 msgid "press %s for the key editor"
 msgstr "натисніть %s щоб редагувати клавіші"
 
-#: src/screen.c:184 src/screen_help.c:249
+#: src/screen.c:184
+#: src/screen_help.c:249
 msgid "Help"
 msgstr "Допомога"
 
-#: src/screen.c:186 src/screen_play.c:528
+#: src/screen.c:186
+#: src/screen_play.c:528
 msgid "Playlist"
 msgstr "Перелік програвання"
 
 #. translators: caption of the browser screen
-#: src/screen.c:187 src/screen_file.c:312
+#: src/screen.c:187
+#: src/screen_file.c:312
 msgid "Browse"
 msgstr "Огляд"
 
-#: src/screen.c:189 src/screen_search.c:75 src/screen_song.c:190
+#: src/screen.c:189
+#: src/screen_search.c:75
+#: src/screen_song.c:190
 msgid "Artist"
 msgstr "Виконавець"
 
-#: src/screen.c:192 src/screen_search.c:307 src/screen_help.c:144
+#: src/screen.c:192
+#: src/screen_search.c:307
+#: src/screen_help.c:144
 msgid "Search"
 msgstr "Пошук"
 
-#: src/screen.c:195 src/screen_lyrics.c:239 src/screen_lyrics.c:247
+#: src/screen.c:195
+#: src/screen_lyrics.c:239
+#: src/screen_lyrics.c:247
 #: src/screen_lyrics.c:251
 msgid "Lyrics"
 msgstr "Тексти пісень"
 
-#: src/screen.c:198 src/screen_outputs.c:165
+#: src/screen.c:198
+#: src/screen_outputs.c:165
 msgid "Outputs"
 msgstr "Виходи"
 
@@ -97,7 +106,8 @@ msgstr "Програється:"
 msgid "[Paused]"
 msgstr "[Призупинено]"
 
-#: src/screen.c:466 src/screen.c:539
+#: src/screen.c:466
+#: src/screen.c:539
 msgid "Error: Screen too small"
 msgstr "Помилка: екран занадто маленький"
 
@@ -151,7 +161,8 @@ msgstr "Плавний перехід: %dс"
 msgid "Database updated"
 msgstr "База даних оновлена"
 
-#: src/screen.c:842 src/screen_play.c:666
+#: src/screen.c:842
+#: src/screen_play.c:666
 msgid "Shuffled playlist"
 msgstr "Перемішаний перелік програвання"
 
@@ -159,11 +170,13 @@ msgstr "Перемішаний перелік програвання"
 msgid "Cleared playlist"
 msgstr "Очищений перелік програвання"
 
-#: src/screen.c:869 src/screen_file.c:380
+#: src/screen.c:869
+#: src/screen_file.c:380
 msgid "Database update started"
 msgstr "Початок оновлення бази даних"
 
-#: src/screen.c:871 src/screen_file.c:383
+#: src/screen.c:871
+#: src/screen_file.c:383
 msgid "Database update running..."
 msgstr "Працює оновлення бази даних..."
 
@@ -212,7 +225,9 @@ msgstr "Всі доріжки виконавця: %s"
 msgid "Loading playlist %s..."
 msgstr "Завантажується перелік програвання %s..."
 
-#: src/screen_browser.c:196 src/screen_browser.c:286 src/screen_browser.c:312
+#: src/screen_browser.c:196
+#: src/screen_browser.c:286
+#: src/screen_browser.c:312
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr "Додається '%s' до переліку програвання"
@@ -248,7 +263,9 @@ msgid "Replace %s [%s/%s] ? "
 msgstr "Замінити %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_play.c:338 src/screen_file.c:242 src/screen_keydef.c:163
+#: src/screen_play.c:338
+#: src/screen_file.c:242
+#: src/screen_keydef.c:163
 msgid "Aborted"
 msgstr "Перервано"
 
@@ -334,11 +351,13 @@ msgstr "comment"
 msgid "file"
 msgstr "file"
 
-#: src/screen_search.c:74 src/screen_song.c:191
+#: src/screen_search.c:74
+#: src/screen_song.c:191
 msgid "Title"
 msgstr "Назва"
 
-#: src/screen_search.c:76 src/screen_song.c:192
+#: src/screen_search.c:76
+#: src/screen_song.c:192
 msgid "Album"
 msgstr "Альбом"
 
@@ -358,7 +377,7 @@ msgstr "Нерівна мітка %s"
 #: src/screen_search.c:244
 #, c-format
 msgid "No argument for search tag %s"
-msgstr "Немає аргументу для пошуку по мітці %s"
+msgstr "Немає аргументу для пошуку за міткою %s"
 
 #. if( pattern==NULL )
 #. search_new(screen, c);
@@ -409,7 +428,8 @@ msgstr "Прив'язки клавіш не змінені."
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "Помилка: неможливо створити теку ~/.ncmpc - %s"
 
-#: src/screen_keydef.c:91 src/screen_keydef.c:98
+#: src/screen_keydef.c:91
+#: src/screen_keydef.c:98
 #, c-format
 msgid "Error: %s - %s"
 msgstr "Помилка: %s - %s"
@@ -463,7 +483,8 @@ msgstr "Переміщення"
 msgid "Global"
 msgstr "Загальні"
 
-#: src/screen_help.c:113 src/command.c:111
+#: src/screen_help.c:113
+#: src/command.c:111
 msgid "Playlist screen"
 msgstr "Екран переліку програвання"
 
@@ -483,7 +504,8 @@ msgstr "Перемістити пісню вниз"
 msgid "Center"
 msgstr "По центру"
 
-#: src/screen_help.c:128 src/command.c:113
+#: src/screen_help.c:128
+#: src/command.c:113
 msgid "Browse screen"
 msgstr "Екран перегляду"
 
@@ -491,7 +513,8 @@ msgstr "Екран перегляду"
 msgid "Enter directory/Select and play song"
 msgstr "Ввести теку чи вибрати та програти пісню"
 
-#: src/screen_help.c:132 src/screen_help.c:147
+#: src/screen_help.c:132
+#: src/screen_help.c:147
 msgid "Append song to playlist"
 msgstr "Долучити пісню до переліку програвання"
 
@@ -499,7 +522,8 @@ msgstr "Долучити пісню до переліку програвання
 msgid "Delete playlist"
 msgstr "Видалити перелік програвання"
 
-#: src/screen_help.c:142 src/command.c:224
+#: src/screen_help.c:142
+#: src/command.c:224
 msgid "Search screen"
 msgstr "Екран пошуку"
 
@@ -507,7 +531,8 @@ msgstr "Екран пошуку"
 msgid "Select and play"
 msgstr "Вибрати та програти"
 
-#: src/screen_help.c:154 src/command.c:234
+#: src/screen_help.c:154
+#: src/command.c:234
 msgid "Lyrics screen"
 msgstr "Екран текстів пісень"
 
@@ -523,7 +548,7 @@ msgstr "(Пере)завантажити текст пісні"
 #. from the server
 #: src/screen_help.c:160
 msgid "Interrupt retrieval"
-msgstr "Пошук переривання"
+msgstr "Припинити отримання"
 
 #: src/screen_help.c:161
 msgid "Download lyrics for currently playing song"
@@ -533,7 +558,8 @@ msgstr "Завантажити текст для пісні, що зараз п�
 msgid "Save lyrics"
 msgstr "Зберегти текст пісні"
 
-#: src/screen_help.c:167 src/command.c:245
+#: src/screen_help.c:167
+#: src/command.c:245
 msgid "Outputs screen"
 msgstr "Екран виходів"
 
@@ -592,9 +618,8 @@ msgid "Song viewer"
 msgstr "Переглядач пісень"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Length"
-msgstr "Left"
+msgstr "Тривалість"
 
 #: src/screen_song.c:194
 msgid "Composer"
@@ -622,7 +647,7 @@ msgstr "Жанр"
 
 #: src/screen_song.c:200
 msgid "Comment"
-msgstr "Коментар"
+msgstr "Примітка"
 
 #: src/screen_song.c:201
 msgid "Path"
@@ -639,7 +664,7 @@ msgstr "%d кбіт/с"
 
 #: src/screen_song.c:259
 msgid "Number of artists"
-msgstr "Кількість артистів"
+msgstr "Кількість виконавців"
 
 #: src/screen_song.c:260
 msgid "Number of albums"
@@ -742,9 +767,8 @@ msgid "Scroll down half a screen"
 msgstr "Прогорнути півекрану донизу"
 
 #: src/command.c:104
-#, fuzzy
 msgid "Select currently playing song"
-msgstr "Пісня, що зараз програється"
+msgstr "Вибрати пісню, що зараз програється"
 
 #: src/command.c:109
 msgid "Help screen"
@@ -1003,7 +1027,8 @@ msgstr "Esc"
 msgid "Insert"
 msgstr "Insert"
 
-#: src/command.c:512 src/command.c:518
+#: src/command.c:512
+#: src/command.c:518
 #, c-format
 msgid "Key %s assigned to %s and %s"
 msgstr "Клавіша %s призначена до %s та %s"
@@ -1031,7 +1056,8 @@ msgstr "Терміналу бракує підтримки можливосте�
 msgid "Error"
 msgstr "Помилка"
 
-#: src/conf.c:101 src/conf.c:110
+#: src/conf.c:101
+#: src/conf.c:110
 msgid "Malformed hotkey definition"
 msgstr "Невірно сформоване визначення гарячої клавіші"
 
@@ -1096,7 +1122,8 @@ msgstr "Невідомий конфігураційний параметр"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:222 src/options.c:225
+#: src/options.c:222
+#: src/options.c:225
 msgid "translator-credits"
 msgstr "Oleksandr Kovalenko <alx.kovalenko@gmail.com>"
 
@@ -1107,3 +1134,4 @@ msgstr "Вибір обсягу вимкнений"
 #: src/list_window.c:541
 msgid "Range selection enabled"
 msgstr "Вибір обсягу увімкнений"
+
