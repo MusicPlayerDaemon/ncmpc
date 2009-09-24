@@ -50,7 +50,7 @@ static const struct {
 };
 
 static int
-search_get_tag_id(char *name)
+search_get_tag_id(const char *name)
 {
 	unsigned i;
 
