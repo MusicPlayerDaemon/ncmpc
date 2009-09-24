@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-21 20:10+0200\n"
-"PO-Revision-Date: 2009-05-15 19:31+0000\n"
-"Last-Translator: Espen Jones <ep.jones92@gmail.com>\n"
+"PO-Revision-Date: 2009-09-24 10:26+0200\n"
+"Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: no <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-06-11 13:52+0000\n"
+"X-Launchpad-Export-Date: 2009-09-24 08:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -102,11 +102,11 @@ msgstr "Feil: Skjermbildet er for lite"
 
 #: src/screen.c:674
 msgid "Repeat mode is on"
-msgstr ""
+msgstr "Repeter er på"
 
 #: src/screen.c:675
 msgid "Repeat mode is off"
-msgstr ""
+msgstr "Repeter er av"
 
 #: src/screen.c:679
 msgid "Random mode is on"
@@ -591,9 +591,8 @@ msgid "Song viewer"
 msgstr ""
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Length"
-msgstr "Venstrepil"
+msgstr ""
 
 #: src/screen_song.c:194
 msgid "Composer"
@@ -629,7 +628,7 @@ msgstr ""
 
 #: src/screen_song.c:202
 msgid "Bitrate"
-msgstr ""
+msgstr "Bitrate"
 
 #: src/screen_song.c:243
 #, c-format
@@ -654,19 +653,19 @@ msgstr "Oppetid"
 
 #: src/screen_song.c:263
 msgid "Most recent db update"
-msgstr ""
+msgstr "Nyeste db oppdatering"
 
 #: src/screen_song.c:264
 msgid "Playtime"
-msgstr ""
+msgstr "Spilletid"
 
 #: src/screen_song.c:265
 msgid "DB playtime"
-msgstr ""
+msgstr "DB spilletid"
 
 #: src/screen_song.c:281
 msgid "MPD statistics"
-msgstr ""
+msgstr "MPD statestikk"
 
 #: src/screen_song.c:328
 msgid "Selected song"
@@ -694,7 +693,7 @@ msgstr "Flytt markør ned"
 
 #: src/command.c:80
 msgid "Move cursor to the top of screen"
-msgstr ""
+msgstr "Flytt peker til toppen av skjermen"
 
 #: src/command.c:82
 msgid "Move cursor to the middle of screen"

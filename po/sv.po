@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-21 20:10+0200\n"
-"PO-Revision-Date: 2009-05-18 12:09+0000\n"
-"Last-Translator: Björn Pettersson <bjorn@hygiena.org>\n"
+"PO-Revision-Date: 2009-09-22 20:15+0000\n"
+"Last-Translator: nanker <Unknown>\n"
 "Language-Team: sv <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-06-11 13:52+0000\n"
+"X-Launchpad-Export-Date: 2009-09-24 08:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -591,9 +591,8 @@ msgid "Song viewer"
 msgstr "Spår"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Length"
-msgstr "Vänsterpil"
+msgstr "Längd"
 
 #: src/screen_song.c:194
 msgid "Composer"
@@ -694,15 +693,15 @@ msgstr "Markör nedåt"
 
 #: src/command.c:80
 msgid "Move cursor to the top of screen"
-msgstr ""
+msgstr "Flytta markören längst upp"
 
 #: src/command.c:82
 msgid "Move cursor to the middle of screen"
-msgstr ""
+msgstr "Flytta markören till mitten"
 
 #: src/command.c:84
 msgid "Move cursor to the bottom of screen"
-msgstr ""
+msgstr "Flytta markören längst ner"
 
 #: src/command.c:86
 msgid "Move cursor to the top of the list"
@@ -734,16 +733,15 @@ msgstr "Gå ner en rad"
 
 #: src/command.c:100
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Gå upp en halv skärm"
 
 #: src/command.c:102
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Gå ner en halv skärm"
 
 #: src/command.c:104
-#, fuzzy
 msgid "Select currently playing song"
-msgstr "Ladda ner texter till låten som spelas just nu"
+msgstr ""
 
 #: src/command.c:109
 msgid "Help screen"
@@ -1101,7 +1099,7 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Björn Pettersson https://launchpad.net/~bjorn-hygiena\n"
 "  Kalle Wallin https://launchpad.net/~kaw\n"
-"  Niels Anker https://launchpad.net/~nanker"
+"  nanker https://launchpad.net/~nanker"
 
 #: src/list_window.c:535
 msgid "Range selection disabled"

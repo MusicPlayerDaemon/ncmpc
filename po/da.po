@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-21 20:10+0200\n"
-"PO-Revision-Date: 2009-04-26 11:59+0000\n"
+"PO-Revision-Date: 2009-09-24 10:26+0200\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-28 19:04+0000\n"
+"X-Launchpad-Export-Date: 2009-09-24 08:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -591,9 +591,8 @@ msgid "Song viewer"
 msgstr "Sang viser"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Length"
-msgstr "Venstre"
+msgstr "Længde"
 
 #: src/screen_song.c:194
 msgid "Composer"
@@ -722,7 +721,7 @@ msgstr "Side ned"
 
 #: src/command.c:94
 msgid "Range selection"
-msgstr ""
+msgstr "Valg af interval"
 
 #: src/command.c:96
 msgid "Scroll up one line"
@@ -741,9 +740,8 @@ msgid "Scroll down half a screen"
 msgstr "Scroll en halv skærm ned"
 
 #: src/command.c:104
-#, fuzzy
 msgid "Select currently playing song"
-msgstr "Nummer der afspilles"
+msgstr "Vælg den sang der spilles nu"
 
 #: src/command.c:109
 msgid "Help screen"
@@ -819,11 +817,11 @@ msgstr "Aktiver/deaktiver tilfældigt valg"
 
 #: src/command.c:152
 msgid "Toggle single mode"
-msgstr ""
+msgstr "Aktiver/deaktiver enkelt valg"
 
 #: src/command.c:154
 msgid "Toggle consume mode"
-msgstr ""
+msgstr "Aktiver/deaktiver consume valg"
 
 #: src/command.c:156
 msgid "Toggle crossfade mode"
@@ -1104,11 +1102,11 @@ msgstr ""
 
 #: src/list_window.c:535
 msgid "Range selection disabled"
-msgstr ""
+msgstr "Valg af interval slået fra"
 
 #: src/list_window.c:541
 msgid "Range selection enabled"
-msgstr ""
+msgstr "Valg af interval slået til"
 
 #~ msgid "Adding directory %s...\n"
 #~ msgstr "Tilføjer mappen %s...\n"
