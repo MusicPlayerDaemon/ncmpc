@@ -28,13 +28,60 @@
 #define IS_STOPPED(s) (!(IS_PLAYING(s) | IS_PAUSED(s)))
 
 int seek_id = -1;
-int seek_target_time = 0;
+int seek_target_time;
+
+static guint seek_source_id;
+
+static void
+commit_seek(struct mpdclient *c)
+{
+	if (seek_id < 0)
+		return;
+
+	if (c->song != NULL && (unsigned)seek_id == mpd_song_get_id(c->song))
+		mpdclient_cmd_seek(c, seek_id, seek_target_time);
+
+	seek_id = -1;
+}
+
+/**
+ * This timer is invoked after seeking when the user hasn't typed a
+ * key for 500ms.  It is used to do the real seeking.
+ */
+static gboolean
+seek_timer(gpointer data)
+{
+	struct mpdclient *c = data;
+
+	seek_source_id = 0;
+	commit_seek(c);
+	return false;
+}
+
+static void
+schedule_seek_timer(struct mpdclient *c)
+{
+	assert(seek_source_id == 0);
+
+	seek_source_id = g_timeout_add(500, seek_timer, c);
+}
+
+void
+cancel_seek_timer(void)
+{
+	if (seek_source_id != 0) {
+		g_source_remove(seek_source_id);
+		seek_source_id = 0;
+	}
+}
 
 bool
 handle_player_command(struct mpdclient *c, command_t cmd)
 {
 	if (c->connection == NULL || c->status == NULL)
 		return false;
+
+	cancel_seek_timer();
 
 	switch(cmd) {
 		/*
@@ -59,10 +106,9 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 				seek_target_time = mpd_status_get_elapsed_time(c->status);
 			}
 			seek_target_time+=options.seek_time;
-			if (seek_target_time < (int)mpd_status_get_total_time(c->status))
-				break;
-			seek_target_time = mpd_status_get_total_time(c->status);
-			/* seek_target_time=0; */
+			if (seek_target_time > (int)mpd_status_get_total_time(c->status))
+				seek_target_time = mpd_status_get_total_time(c->status);
+			schedule_seek_timer(c);
 		}
 		break;
 		/* fall through... */
@@ -79,6 +125,7 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 			seek_target_time-=options.seek_time;
 			if (seek_target_time < 0)
 				seek_target_time=0;
+			schedule_seek_timer(c);
 		}
 		break;
 	case CMD_TRACK_PREVIOUS:

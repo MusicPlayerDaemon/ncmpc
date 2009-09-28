@@ -56,8 +56,6 @@ struct screen {
 	GTime start_timestamp;
 	GTime status_timestamp;
 
-	command_t last_cmd;
-
 	unsigned cols, rows;
 
 	char *buf;
@@ -112,7 +110,6 @@ void screen_status_printf(const char *format, ...);
 char *screen_error(void);
 void screen_paint(struct mpdclient *c);
 void screen_update(struct mpdclient *c);
-void screen_idle(struct mpdclient *c);
 void screen_cmd(struct mpdclient *c, command_t cmd);
 gint screen_get_id(const char *name);
 

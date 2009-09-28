@@ -28,6 +28,7 @@
 #include "screen_utils.h"
 #include "strfsong.h"
 #include "i18n.h"
+#include "player_command.h"
 
 #ifndef NCMPC_MINI
 #include "conf.h"
@@ -57,12 +58,10 @@ static const guint update_interval = 500;
 
 #define BUFSIZE 1024
 
-static const guint idle_interval = 500;
-
 static struct mpdclient *mpd = NULL;
 static gboolean connected = FALSE;
 static GMainLoop *main_loop;
-static guint reconnect_source_id, idle_source_id, update_source_id;
+static guint reconnect_source_id, update_source_id;
 
 #ifndef NCMPC_MINI
 static guint check_key_bindings_source_id;
@@ -273,28 +272,13 @@ timer_mpd_update(gpointer data)
 	return GPOINTER_TO_INT(data);
 }
 
-/**
- * This idle timer is invoked when the user hasn't typed a key for
- * 500ms.  It is used for delayed seeking.
- */
-static gboolean
-timer_idle(G_GNUC_UNUSED gpointer data)
-{
-	screen_idle(mpd);
-	return TRUE;
-}
-
 void begin_input_event(void)
 {
-	/* remove the idle timeout; add it later with fresh interval */
-	g_source_remove(idle_source_id);
 }
 
 void end_input_event(void)
 {
 	screen_update(mpd);
-
-	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
 }
 
 int do_input_event(command_t cmd)
@@ -515,7 +499,6 @@ main(int argc, const char *argv[])
 #ifndef NCMPC_MINI
 	check_key_bindings_source_id = g_timeout_add(10000, timer_check_key_bindings, NULL);
 #endif
-	idle_source_id = g_timeout_add(idle_interval, timer_idle, NULL);
 
 	screen_paint(mpd);
 
@@ -523,8 +506,9 @@ main(int argc, const char *argv[])
 
 	/* cleanup */
 
+	cancel_seek_timer();
+
 	g_source_remove(update_source_id);
-	g_source_remove(idle_source_id);
 
 #ifndef NCMPC_MINI
 	if (check_key_bindings_source_id != 0)

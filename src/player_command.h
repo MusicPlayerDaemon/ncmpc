@@ -29,6 +29,13 @@ struct mpdclient;
 extern int seek_id;
 extern int seek_target_time;
 
+/**
+ * Call this before exiting; it will unschedule the timer for delayed
+ * seeking.
+ */
+void
+cancel_seek_timer(void);
+
 bool
 handle_player_command(struct mpdclient *c, command_t cmd);
 

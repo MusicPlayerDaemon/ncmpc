@@ -557,7 +557,6 @@ screen_init(struct mpdclient *c)
 	screen.buf_size = screen.cols;
 	screen.findbuf = NULL;
 	screen.start_timestamp = time(NULL);
-	screen.last_cmd = CMD_NONE;
 
 	/* create top window */
 	screen.top_window.rows = 2;
@@ -729,7 +728,6 @@ screen_update(struct mpdclient *c)
 
 	/* update title/header window */
 	if (welcome && options.welcome_screen_list &&
-	    screen.last_cmd==CMD_NONE &&
 	    time(NULL)-screen.start_timestamp <= SCREEN_WELCOME_TIME)
 		paint_top_window("", c, 0);
 	else
@@ -763,18 +761,6 @@ screen_update(struct mpdclient *c)
 	doupdate();
 }
 
-void
-screen_idle(struct mpdclient *c)
-{
-	if (c->song != NULL && seek_id == (int)mpd_song_get_id(c->song) &&
-	    (screen.last_cmd == CMD_SEEK_FORWARD ||
-	     screen.last_cmd == CMD_SEEK_BACKWARD))
-		mpdclient_cmd_seek(c, seek_id, seek_target_time);
-
-	screen.last_cmd = CMD_NONE;
-	seek_id = -1;
-}
-
 #ifdef HAVE_GETMOUSE
 int
 screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row)
@@ -800,7 +786,6 @@ screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row)
 void
 screen_cmd(struct mpdclient *c, command_t cmd)
 {
-	screen.last_cmd = cmd;
 #ifndef NCMPC_MINI
 	welcome = FALSE;
 #endif
