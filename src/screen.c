@@ -28,6 +28,7 @@
 #include "options.h"
 #include "colors.h"
 #include "strfsong.h"
+#include "player_command.h"
 
 #ifndef NCMPC_MINI
 #include "hscroll.h"
@@ -60,8 +61,6 @@ static gboolean welcome = TRUE;
 struct screen screen;
 static const struct screen_functions *mode_fn = &screen_playlist;
 static const struct screen_functions *mode_fn_prev = &screen_playlist;
-static int seek_id = -1;
-static int seek_target_time = 0;
 
 gboolean
 screen_is_visible(const struct screen_functions *sf)
@@ -798,108 +797,6 @@ screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row)
 }
 #endif
 
-static int
-screen_client_cmd(struct mpdclient *c, command_t cmd)
-{
-	if (c->connection == NULL || c->status == NULL)
-		return 0;
-
-	switch(cmd) {
-		/*
-	case CMD_PLAY:
-		mpdclient_cmd_play(c, MPD_PLAY_AT_BEGINNING);
-		break;
-		*/
-	case CMD_PAUSE:
-		mpdclient_cmd_pause(c, !IS_PAUSED(mpd_status_get_state(c->status)));
-		break;
-	case CMD_STOP:
-		mpdclient_cmd_stop(c);
-		break;
-	case CMD_CROP:
-		mpdclient_cmd_crop(c);
-		break;
-	case CMD_SEEK_FORWARD:
-		if (!IS_STOPPED(mpd_status_get_state(c->status))) {
-			if (c->song != NULL &&
-			    seek_id != (int)mpd_song_get_id(c->song)) {
-				seek_id = mpd_song_get_id(c->song);
-				seek_target_time = mpd_status_get_elapsed_time(c->status);
-			}
-			seek_target_time+=options.seek_time;
-			if (seek_target_time < (int)mpd_status_get_total_time(c->status))
-				break;
-			seek_target_time = mpd_status_get_total_time(c->status);
-			/* seek_target_time=0; */
-		}
-		break;
-		/* fall through... */
-	case CMD_TRACK_NEXT:
-		if (!IS_STOPPED(mpd_status_get_state(c->status)))
-			mpdclient_cmd_next(c);
-		break;
-	case CMD_SEEK_BACKWARD:
-		if (!IS_STOPPED(mpd_status_get_state(c->status))) {
-			if (seek_id != (int)mpd_song_get_id(c->song)) {
-				seek_id = mpd_song_get_id(c->song);
-				seek_target_time = mpd_status_get_elapsed_time(c->status);
-			}
-			seek_target_time-=options.seek_time;
-			if (seek_target_time < 0)
-				seek_target_time=0;
-		}
-		break;
-	case CMD_TRACK_PREVIOUS:
-		if (!IS_STOPPED(mpd_status_get_state(c->status)))
-			mpdclient_cmd_prev(c);
-		break;
-	case CMD_SHUFFLE:
-		if (mpdclient_cmd_shuffle(c) == 0)
-			screen_status_message(_("Shuffled playlist"));
-		break;
-	case CMD_CLEAR:
-		if (mpdclient_cmd_clear(c) == 0)
-			screen_status_message(_("Cleared playlist"));
-		break;
-	case CMD_REPEAT:
-		mpdclient_cmd_repeat(c, !mpd_status_get_repeat(c->status));
-		break;
-	case CMD_RANDOM:
-		mpdclient_cmd_random(c, !mpd_status_get_random(c->status));
-		break;
-	case CMD_SINGLE:
-		mpdclient_cmd_single(c, !mpd_status_get_single(c->status));
-		break;
-	case CMD_CONSUME:
-		mpdclient_cmd_consume(c, !mpd_status_get_consume(c->status));
-		break;
-	case CMD_CROSSFADE:
-		if (mpd_status_get_crossfade(c->status))
-			mpdclient_cmd_crossfade(c, 0);
-		else
-			mpdclient_cmd_crossfade(c, options.crossfade_time);
-		break;
-	case CMD_DB_UPDATE:
-		if (!mpd_status_get_update_id(c->status)) {
-			if( mpdclient_cmd_db_update(c,NULL)==0 )
-				screen_status_printf(_("Database update started"));
-		} else
-			screen_status_printf(_("Database update running..."));
-		break;
-	case CMD_VOLUME_UP:
-		mpdclient_cmd_volume_up(c);
-		break;
-	case CMD_VOLUME_DOWN:
-		mpdclient_cmd_volume_down(c);
-		break;
-
-	default:
-		return 0;
-	}
-
-	return 1;
-}
-
 void
 screen_cmd(struct mpdclient *c, command_t cmd)
 {
@@ -911,7 +808,7 @@ screen_cmd(struct mpdclient *c, command_t cmd)
 	if (mode_fn->cmd != NULL && mode_fn->cmd(c, cmd))
 		return;
 
-	if (screen_client_cmd(c, cmd))
+	if (handle_player_command(c, cmd))
 		return;
 
 	switch(cmd) {

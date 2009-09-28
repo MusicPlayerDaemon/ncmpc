@@ -20,6 +20,7 @@ ncmpc_headers = \
 	src/conf.h \
 	src/command.h \
 	src/ncu.h \
+	src/player_command.h \
 	src/screen.h \
 	src/screen_list.h \
 	src/screen_play.h \
@@ -59,6 +60,7 @@ src_ncmpc_SOURCES = \
 	src/options.c \
 	src/command.c \
 	src/ncu.c \
+	src/player_command.c \
 	src/screen.c \
 	src/screen_list.c \
 	src/screen_utils.c \
