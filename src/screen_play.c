@@ -52,6 +52,8 @@ typedef struct
 	GList **dir_list;
 	struct mpdclient *c;
 } completion_callback_data_t;
+
+static bool must_scroll;
 #endif
 
 static struct mpdclient_playlist *playlist;
@@ -140,6 +142,8 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 		{
 			static unsigned current_song;
 			char *tmp;
+
+			must_scroll = true;
 
 			if (current_song != lw->selected) {
 				st.offset = 0;
@@ -537,6 +541,10 @@ play_title(char *str, size_t size)
 static void
 play_paint(void)
 {
+#ifndef NCMPC_MINI
+	must_scroll = false;
+#endif
+
 	list_window_paint(lw, list_callback, NULL);
 }
 
@@ -558,7 +566,7 @@ play_update(struct mpdclient *c)
 
 		playlist_repaint();
 #ifndef NCMPC_MINI
-	} else if (options.scroll) {
+	} else if (options.scroll && must_scroll) {
 		/* always repaint if horizontal scrolling is
 		   enabled */
 		playlist_repaint();
