@@ -18,7 +18,8 @@
 */
 
 #include "filelist.h"
-#include "libmpdclient.h"
+
+#include <mpd/client.h>
 
 #include <stdbool.h>
 #include <string.h>
@@ -43,7 +44,7 @@ filelist_free(struct filelist *filelist)
 		struct filelist_entry *entry = filelist_get(filelist, i);
 
 		if (entry->entity)
-			mpd_freeInfoEntity(entry->entity);
+			mpd_entity_free(entry->entity);
 
 		g_slice_free(struct filelist_entry, entry);
 	}
@@ -53,7 +54,7 @@ filelist_free(struct filelist *filelist)
 }
 
 struct filelist_entry *
-filelist_append(struct filelist *filelist, struct mpd_InfoEntity *entity)
+filelist_append(struct filelist *filelist, struct mpd_entity *entity)
 {
 	struct filelist_entry *entry = g_slice_new(struct filelist_entry);
 
@@ -66,7 +67,7 @@ filelist_append(struct filelist *filelist, struct mpd_InfoEntity *entity)
 }
 
 struct filelist_entry *
-filelist_prepend(struct filelist *filelist, struct mpd_InfoEntity *entity)
+filelist_prepend(struct filelist *filelist, struct mpd_entity *entity)
 {
 	struct filelist_entry *entry = filelist_append(filelist, entity);
 
@@ -125,7 +126,7 @@ void
 filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func)
 {
 	unsigned first, last;
-	const mpd_InfoEntity *iter;
+	const struct mpd_entity *iter;
 
 	assert(filelist && filelist->entries);
 
@@ -143,7 +144,7 @@ filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func)
 	/* find the last directory entry */
 	for (last = first+1; last < filelist->entries->len; last++) {
 		iter = ((struct filelist_entry*) g_ptr_array_index(filelist->entries, last))->entity;
-		if (iter->type != MPD_INFO_ENTITY_TYPE_DIRECTORY)
+		if (mpd_entity_get_type(iter) != MPD_ENTITY_TYPE_DIRECTORY)
 			break;
 	}
 	if (last == filelist->entries->len - 1)
@@ -156,7 +157,7 @@ filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func)
 	/* find the first playlist entry */
 	for (first = last; first < filelist->entries->len; first++) {
 		iter = ((struct filelist_entry*) g_ptr_array_index(filelist->entries, first))->entity;
-		if (iter->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE)
+		if (mpd_entity_get_type(iter) == MPD_ENTITY_TYPE_PLAYLIST)
 			break;
 	}
 	/* sort the playlist entries */
@@ -169,7 +170,7 @@ filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func)
 static bool
 same_song(const struct mpd_song *a, const struct mpd_song *b)
 {
-	return strcmp(a->file, b->file) == 0;
+	return strcmp(mpd_song_get_uri(a), mpd_song_get_uri(b)) == 0;
 }
 
 int
@@ -181,10 +182,12 @@ filelist_find_song(struct filelist *fl, const struct mpd_song *song)
 
 	for (i = 0; i < filelist_length(fl); ++i) {
 		struct filelist_entry *entry = filelist_get(fl, i);
-		mpd_InfoEntity *entity  = entry->entity;
+		const struct mpd_entity *entity  = entry->entity;
 
-		if (entity && entity->type == MPD_INFO_ENTITY_TYPE_SONG) {
-			struct mpd_song *song2 = entity->info.song;
+		if (entity != NULL &&
+		    mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
+			const struct mpd_song *song2 =
+				mpd_entity_get_song(entity);
 
 			if (same_song(song, song2))
 				return i;
@@ -203,10 +206,12 @@ filelist_find_directory(struct filelist *filelist, const char *name)
 
 	for (i = 0; i < filelist_length(filelist); ++i) {
 		struct filelist_entry *entry = filelist_get(filelist, i);
-		mpd_InfoEntity *entity  = entry->entity;
+		const struct mpd_entity *entity  = entry->entity;
 
-		if (entity && entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY &&
-		    strcmp(entity->info.directory->path, name) == 0)
+		if (entity != NULL &&
+		    mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY &&
+		    strcmp(mpd_directory_get_path(mpd_entity_get_directory(entity)),
+			   name) == 0)
 			return i;
 	}
 

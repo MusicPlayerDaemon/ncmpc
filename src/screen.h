@@ -24,6 +24,8 @@
 #include "mpdclient.h"
 #include "command.h"
 
+#include <mpd/client.h>
+
 #include <glib.h>
 
 #ifdef HAVE_NCURSESW_NCURSES_H
@@ -32,8 +34,8 @@
 #include <ncurses.h>
 #endif
 
-#define IS_PLAYING(s) (s==MPD_STATUS_STATE_PLAY)
-#define IS_PAUSED(s) (s==MPD_STATUS_STATE_PAUSE)
+#define IS_PLAYING(s) (s==MPD_STATE_PLAY)
+#define IS_PAUSED(s) (s==MPD_STATE_PAUSE)
 #define IS_STOPPED(s) (!(IS_PLAYING(s) | IS_PAUSED(s)))
 
 #define MAX_SONGNAME_LENGTH   512

@@ -20,6 +20,8 @@
 #include "strfsong.h"
 #include "charset.h"
 
+#include <mpd/client.h>
+
 #include <string.h>
 
 static const gchar *
@@ -44,6 +46,16 @@ skip(const gchar * p)
 	}
 
 	return p;
+}
+
+static char *
+song_tag_locale(const struct mpd_song *song, enum mpd_tag_type tag)
+{
+	const char *value = mpd_song_get_tag(song, tag, 0);
+	if (value == NULL)
+		return NULL;
+
+	return utf8_to_locale(value);
 }
 
 static gsize
@@ -134,15 +146,15 @@ _strfsong(gchar *s,
 		if(*end != '%')
 			n--;
 		else if (strncmp("%file%", p, n) == 0)
-			temp = utf8_to_locale(song->file);
+			temp = utf8_to_locale(mpd_song_get_uri(song));
 		else if (strncmp("%artist%", p, n) == 0)
-			temp = song->artist ? utf8_to_locale(song->artist) : NULL;
+			temp = song_tag_locale(song, MPD_TAG_ARTIST);
 		else if (strncmp("%title%", p, n) == 0)
-			temp = song->title ? utf8_to_locale(song->title) : NULL;
+			temp = song_tag_locale(song, MPD_TAG_TITLE);
 		else if (strncmp("%album%", p, n) == 0)
-			temp = song->album ? utf8_to_locale(song->album) : NULL;
+			temp = song_tag_locale(song, MPD_TAG_ALBUM);
 		else if (strncmp("%shortalbum%", p, n) == 0) {
-			temp = song->album ? utf8_to_locale(song->album) : NULL;
+			temp = song_tag_locale(song, MPD_TAG_ALBUM);
 			if (temp) {
 				gchar *temp2 = g_strndup(temp, 25);
 				if (strlen(temp) > 25) {
@@ -155,29 +167,32 @@ _strfsong(gchar *s,
 			}
 		}
 		else if (strncmp("%track%", p, n) == 0)
-			temp = song->track ? utf8_to_locale(song->track) : NULL;
+			temp = song_tag_locale(song, MPD_TAG_TRACK);
 		else if (strncmp("%name%", p, n) == 0)
-			temp = song->name ? utf8_to_locale(song->name) : NULL;
+			temp = song_tag_locale(song, MPD_TAG_NAME);
 		else if (strncmp("%date%", p, n) == 0)
-			temp = song->date ? utf8_to_locale(song->date) : NULL;
+			temp = song_tag_locale(song, MPD_TAG_DATE);
 		else if (strncmp("%genre%", p, n) == 0)
-			temp = song->genre ? utf8_to_locale(song->genre) : NULL;
+			temp = song_tag_locale(song, MPD_TAG_GENRE);
 		else if (strncmp("%shortfile%", p, n) == 0) {
-			if( strstr(song->file, "://") )
-				temp = utf8_to_locale(song->file);
+			const char *uri = mpd_song_get_uri(song);
+			if (strstr(uri, "://") != NULL)
+				temp = utf8_to_locale(uri);
 			else
-				temp = utf8_to_locale(g_basename(song->file));
+				temp = utf8_to_locale(g_basename(uri));
 		} else if (strncmp("%time%", p, n) == 0) {
-			if (song->time != MPD_SONG_NO_TIME)  {
-				if (song->time > 3600) {
+			unsigned duration = mpd_song_get_duration(song);
+
+			if (duration > 0)  {
+				if (duration > 3600) {
 					temp = g_strdup_printf("%d:%02d:%02d",
-							       song->time / 3600,
-							       (song->time % 3600) / 60,
-							       song->time % 60);
+							       duration / 3600,
+							       (duration % 3600) / 60,
+							       duration % 60);
 				} else {
 					temp = g_strdup_printf("%d:%02d",
-							       song->time / 60,
-							       song->time % 60);
+							       duration / 60,
+							       duration % 60);
 				}
 			}
 		}

@@ -1,18 +1,10 @@
 #ifndef MPDCLIENT_H
 #define MPDCLIENT_H
 
-#include "libmpdclient.h"
 #include "playlist.h"
 #include "filelist.h"
 
-#define MPD_VERSION_EQ(c,x,y,z) (c->connection->version[0] == x && \
-                                 c->connection->version[1] == y && \
-                                 c->connection->version[2] == z )
-
-#define MPD_VERSION_LT(c,x,y,z) ( c->connection->version[0]<x  || \
- (c->connection->version[0]==x && c->connection->version[1]<y) || \
- (c->connection->version[0]==x && c->connection->version[1]==y && \
-  c->connection->version[2]<z) )
+#include <mpd/tag.h>
 
 typedef struct mpdclient {
 	/* playlist */
@@ -23,14 +15,14 @@ typedef struct mpdclient {
 	GList *playlist_callbacks;
 	GList *browse_callbacks;
 
-	mpd_Connection *connection;
-	mpd_Status     *status;
-	mpd_Song       *song;
+	struct mpd_connection *connection;
+	struct mpd_status *status;
+	struct mpd_song *song;
 
 	gboolean       need_update;
 
 	int volume;
-	int updatingdb;
+	unsigned updatingdb;
 } mpdclient_t;
 
 /** functions ***************************************************************/
@@ -128,7 +120,7 @@ void mpdclient_playlist_callback(mpdclient_t *c, int event, gpointer data);
 mpdclient_filelist_t *mpdclient_filelist_get(mpdclient_t *c, const gchar *path);
 mpdclient_filelist_t *mpdclient_filelist_search(mpdclient_t *c,
 						int exact_match,
-						int table,
+						enum mpd_tag_type tag,
 						gchar *filter_utf8);
 
 /* add all songs in filelist to the playlist */

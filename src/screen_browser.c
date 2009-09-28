@@ -24,6 +24,8 @@
 #include "strfsong.h"
 #include "screen_utils.h"
 
+#include <mpd/client.h>
+
 #include <string.h>
 
 #define BUFSIZE 1024
@@ -51,7 +53,7 @@ clear_highlights(mpdclient_filelist_t *fl)
 
 /* change the highlight flag for a song */
 static void
-set_highlight(mpdclient_filelist_t *fl, mpd_Song *song, int highlight)
+set_highlight(mpdclient_filelist_t *fl, struct mpd_song *song, int highlight)
 {
 	int i = filelist_find_song(fl, song);
 	struct filelist_entry *entry;
@@ -74,10 +76,11 @@ sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl)
 
 	for (i = 0; i < filelist_length(fl); ++i) {
 		struct filelist_entry *entry = filelist_get(fl, i);
-		mpd_InfoEntity *entity = entry->entity;
+		struct mpd_entity *entity = entry->entity;
 
-		if ( entity && entity->type==MPD_INFO_ENTITY_TYPE_SONG ) {
-			mpd_Song *song = entity->info.song;
+		if (entity != NULL && mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
+			const struct mpd_song *song =
+				mpd_entity_get_song(entity);
 
 			if (playlist_get_index_from_same_song(c, song) >= 0)
 				entry->flags |= HIGHLIGHT;
@@ -100,10 +103,10 @@ browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
 		clear_highlights(browser->filelist);
 		break;
 	case PLAYLIST_EVENT_ADD:
-		set_highlight(browser->filelist, (mpd_Song *) data, 1);
+		set_highlight(browser->filelist, (struct mpd_song *) data, 1);
 		break;
 	case PLAYLIST_EVENT_DELETE:
-		set_highlight(browser->filelist, (mpd_Song *) data, 0);
+		set_highlight(browser->filelist, (struct mpd_song *) data, 0);
 		break;
 	case PLAYLIST_EVENT_MOVE:
 		break;
@@ -122,7 +125,7 @@ browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_c
 	static char buf[BUFSIZE];
 	mpdclient_filelist_t *fl = (mpdclient_filelist_t *) data;
 	filelist_entry_t *entry;
-	mpd_InfoEntity *entity;
+	struct mpd_entity *entity;
 
 	if (fl == NULL || idx >= filelist_length(fl))
 		return NULL;
@@ -140,21 +143,23 @@ browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_c
 	if( entity == NULL )
 		return "[..]";
 
-	if( entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY ) {
-		mpd_Directory *dir = entity->info.directory;
-		char *directory = utf8_to_locale(g_basename(dir->path));
+	if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY) {
+		const struct mpd_directory *dir =
+			mpd_entity_get_directory(entity);
+		char *directory = utf8_to_locale(g_basename(mpd_directory_get_path(dir)));
 
 		g_snprintf(buf, BUFSIZE, "[%s]", directory);
 		g_free(directory);
 		return buf;
-	} else if( entity->type==MPD_INFO_ENTITY_TYPE_SONG ) {
-		const mpd_Song *song = entity->info.song;
+	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
+		const struct mpd_song *song = mpd_entity_get_song(entity);
 
 		strfsong(buf, BUFSIZE, options.list_format, song);
 		return buf;
-	} else if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
-		mpd_PlaylistFile *plf = entity->info.playlistFile;
-		char *filename = utf8_to_locale(g_basename(plf->path));
+	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
+		const struct mpd_playlist *playlist =
+			mpd_entity_get_playlist(entity);
+		char *filename = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
 
 		g_snprintf(buf, BUFSIZE, playlist_format, filename);
 		g_free(filename);
@@ -165,11 +170,11 @@ browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_c
 }
 
 static bool
-load_playlist(mpdclient_t *c, const mpd_PlaylistFile *plf)
+load_playlist(mpdclient_t *c, const struct mpd_playlist *playlist)
 {
-	char *filename = utf8_to_locale(plf->path);
+	char *filename = utf8_to_locale(mpd_playlist_get_path(playlist));
 
-	if (mpdclient_cmd_load_playlist(c, plf->path) == 0)
+	if (mpdclient_cmd_load_playlist(c, mpd_playlist_get_path(playlist)) == 0)
 		screen_status_printf(_("Loading playlist %s..."),
 				     g_basename(filename));
 	g_free(filename);
@@ -180,8 +185,7 @@ static bool
 enqueue_and_play(mpdclient_t *c, filelist_entry_t *entry)
 {
 	int idx;
-	mpd_InfoEntity *entity = entry->entity;
-	mpd_Song *song = entity->info.song;
+	const struct mpd_song *song = mpd_entity_get_song(entry->entity);
 
 #ifndef NCMPC_MINI
 	if (!(entry->flags & HIGHLIGHT)) {
@@ -217,7 +221,7 @@ browser_get_selected_entry(const struct screen_browser *browser)
 	return filelist_get(browser->filelist, browser->lw->selected);
 }
 
-static const struct mpd_InfoEntity *
+static const struct mpd_entity *
 browser_get_selected_entity(const struct screen_browser *browser)
 {
 	const struct filelist_entry *entry = browser_get_selected_entry(browser);
@@ -230,10 +234,11 @@ browser_get_selected_entity(const struct screen_browser *browser)
 static const struct mpd_song *
 browser_get_selected_song(const struct screen_browser *browser)
 {
-	const struct mpd_InfoEntity *entity = browser_get_selected_entity(browser);
+	const struct mpd_entity *entity = browser_get_selected_entity(browser);
 
-	return entity != NULL && entity->type == MPD_INFO_ENTITY_TYPE_SONG
-		? entity->info.song
+	return entity != NULL &&
+		mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG
+		? mpd_entity_get_song(entity)
 		: NULL;
 }
 
@@ -251,7 +256,7 @@ static bool
 browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 {
 	struct filelist_entry *entry = browser_get_selected_entry(browser);
-	mpd_InfoEntity *entity;
+	struct mpd_entity *entity;
 
 	if (entry == NULL)
 		return false;
@@ -260,9 +265,9 @@ browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 	if (entity == NULL)
 		return false;
 
-	if (entity->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE)
-		return load_playlist(c, entity->info.playlistFile);
-	else if (entity->type == MPD_INFO_ENTITY_TYPE_SONG)
+	if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST)
+		return load_playlist(c, mpd_entity_get_playlist(entity));
+	else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG)
 		return enqueue_and_play(c, entry);
 	return false;
 }
@@ -274,14 +279,15 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 	assert(entry != NULL);
 	assert(entry->entity != NULL);
 
-	if (entry->entity->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE)
-		return load_playlist(c, entry->entity->info.playlistFile);
+	if (mpd_entity_get_type(entry->entity) == MPD_ENTITY_TYPE_PLAYLIST)
+		return load_playlist(c, mpd_entity_get_playlist(entry->entity));
 
-	if (entry->entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY) {
-		mpd_Directory *dir = entry->entity->info.directory;
+	if (mpd_entity_get_type(entry->entity) == MPD_ENTITY_TYPE_DIRECTORY) {
+		const struct mpd_directory *dir =
+			mpd_entity_get_directory(entry->entity);
 
-		if (mpdclient_cmd_add_path(c, dir->path) == 0) {
-			char *tmp = utf8_to_locale(dir->path);
+		if (mpdclient_cmd_add_path(c, mpd_directory_get_path(dir)) == 0) {
+			char *tmp = utf8_to_locale(mpd_directory_get_path(dir));
 
 			screen_status_printf(_("Adding \'%s\' to playlist"), tmp);
 			g_free(tmp);
@@ -290,16 +296,15 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 		return true;
 	}
 
-	if (entry->entity->type != MPD_INFO_ENTITY_TYPE_SONG)
+	if (mpd_entity_get_type(entry->entity) != MPD_ENTITY_TYPE_SONG)
 		return false;
-
-	assert(entry->entity->info.song != NULL);
 
 #ifndef NCMPC_MINI
 	if (!toggle || (entry->flags & HIGHLIGHT) == 0)
 #endif
 	{
-		mpd_Song *song = entry->entity->info.song;
+		const struct mpd_song *song =
+			mpd_entity_get_song(entry->entity);
 
 #ifndef NCMPC_MINI
 		entry->flags |= HIGHLIGHT;
@@ -314,7 +319,8 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 #ifndef NCMPC_MINI
 	} else {
 		/* remove song from playlist */
-		mpd_Song *song = entry->entity->info.song;
+		const struct mpd_song *song =
+			mpd_entity_get_song(entry->entity);
 		int idx;
 
 		entry->flags &= ~HIGHLIGHT;

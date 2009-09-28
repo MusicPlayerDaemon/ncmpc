@@ -20,7 +20,7 @@
 #ifndef MPDCLIENT_PLAYLIST_H
 #define MPDCLIENT_PLAYLIST_H
 
-#include "libmpdclient.h"
+#include <mpd/client.h>
 
 #include <assert.h>
 #include <glib.h>
@@ -29,7 +29,7 @@ struct mpdclient;
 
 typedef struct mpdclient_playlist {
 	/* playlist id */
-	long long id;
+	unsigned id;
 
 	/* the list */
 	GPtrArray *list;
@@ -69,25 +69,25 @@ playlist_get(const struct mpdclient_playlist *playlist, guint idx)
 }
 
 static inline void
-playlist_append(struct mpdclient_playlist *playlist, const mpd_Song *song)
+playlist_append(struct mpdclient_playlist *playlist, const struct mpd_song *song)
 {
-	g_ptr_array_add(playlist->list, mpd_songDup(song));
+	g_ptr_array_add(playlist->list, mpd_song_dup(song));
 }
 
 static inline void
 playlist_set(const struct mpdclient_playlist *playlist, guint idx,
-	     const mpd_Song *song)
+	     const struct mpd_song *song)
 {
 	assert(idx < playlist_length(playlist));
 
-	g_ptr_array_index(playlist->list, idx) = mpd_songDup(song);
+	g_ptr_array_index(playlist->list, idx) = mpd_song_dup(song);
 }
 
 static inline void
 playlist_replace(struct mpdclient_playlist *playlist, guint idx,
-		 const mpd_Song *song)
+		 const struct mpd_song *song)
 {
-	mpd_freeSong(playlist_get(playlist, idx));
+	mpd_song_free(playlist_get(playlist, idx));
 	playlist_set(playlist, idx, song);
 }
 
@@ -100,27 +100,27 @@ playlist_remove_reuse(struct mpdclient_playlist *playlist, guint idx)
 static inline void
 playlist_remove(struct mpdclient_playlist *playlist, guint idx)
 {
-	mpd_freeSong(playlist_remove_reuse(playlist, idx));
+	mpd_song_free(playlist_remove_reuse(playlist, idx));
 }
 
 static inline void
 playlist_swap(struct mpdclient_playlist *playlist, guint idx1, guint idx2)
 {
-	mpd_Song *song1 = playlist_get(playlist, idx1);
-	mpd_Song *song2 = playlist_get(playlist, idx2);
-	gint n;
+	struct mpd_song *song1 = playlist_get(playlist, idx1);
+	struct mpd_song *song2 = playlist_get(playlist, idx2);
+	int n;
 
 	/* update the songs position field */
-	n = song1->pos;
-	song1->pos = song2->pos;
-	song2->pos = n;
+	n = mpd_song_get_pos(song1);
+	mpd_song_set_pos(song1, mpd_song_get_pos(song2));
+	mpd_song_set_pos(song2, n);
 
 	/* update the array */
 	g_ptr_array_index(playlist->list, idx1) = song2;
 	g_ptr_array_index(playlist->list, idx2) = song1;
 }
 
-struct mpd_song *playlist_lookup_song(struct mpdclient *c, gint id);
+struct mpd_song *playlist_lookup_song(struct mpdclient *c, unsigned id);
 
 struct mpd_song *playlist_get_song(struct mpdclient *c, gint index);
 
@@ -128,7 +128,7 @@ gint
 playlist_get_index(const struct mpdclient *c, const struct mpd_song *song);
 
 gint
-playlist_get_index_from_id(const struct mpdclient *c, gint id);
+playlist_get_index_from_id(const struct mpdclient *c, unsigned id);
 
 gint
 playlist_get_index_from_file(const struct mpdclient *c, const gchar *filename);
@@ -137,7 +137,7 @@ static inline gint
 playlist_get_index_from_same_song(const struct mpdclient *c,
 				  const struct mpd_song *song)
 {
-	return playlist_get_index_from_file(c, song->file);
+	return playlist_get_index_from_file(c, mpd_song_get_uri(song));
 }
 
 #endif

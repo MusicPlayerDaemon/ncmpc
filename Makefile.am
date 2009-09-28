@@ -5,15 +5,14 @@ ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS = foreign 1.9 dist-bzip2
 
 AM_CPPFLAGS = \
+	$(LIBMPDCLIENT_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	$(LIBLIRCCLIENT_CFLAGS) \
 	-DLOCALE_DIR=\""$(datadir)/locale"\"\
 	-DSYSCONFDIR=\""$(sysconfdir)"\"
 
 ncmpc_headers = \
-	src/libmpdclient.h \
 	src/resolver.h \
-	src/song.h \
 	src/mpdclient.h \
 	src/playlist.h \
 	src/filelist.h \
@@ -46,14 +45,13 @@ ncmpc_headers = \
 bin_PROGRAMS = src/ncmpc
 
 src_ncmpc_LDADD = \
+	$(LIBMPDCLIENT_LIBS) \
 	$(GLIB_LIBS) \
 	$(LIBLIRCCLIENT_LIBS)
 
 src_ncmpc_SOURCES = \
 	$(ncmpc_headers) \
-	src/libmpdclient.c \
 	src/resolver.c \
-	src/song.c \
 	src/main.c \
 	src/mpdclient.c \
 	src/playlist.c \

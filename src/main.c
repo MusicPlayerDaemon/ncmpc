@@ -41,6 +41,8 @@
 #include "lirc.h"
 #endif
 
+#include <mpd/client.h>
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
@@ -88,10 +90,7 @@ error_callback(G_GNUC_UNUSED mpdclient_t *c, gint error, const gchar *_msg)
 
 	error = error & 0xFF;
 	switch (error) {
-	case MPD_ERROR_CONNPORT:
-	case MPD_ERROR_NORESPONSE:
-		break;
-	case MPD_ERROR_ACK:
+	case MPD_ERROR_SERVER:
 		screen_status_printf("%s", error_msg(msg));
 		screen_bell();
 		break;
@@ -111,8 +110,8 @@ update_xterm_title(void)
 {
 	static char title[BUFSIZE];
 	char tmp[BUFSIZE];
-	mpd_Status *status = NULL;
-	mpd_Song *song = NULL;
+	struct mpd_status *status = NULL;
+	struct mpd_song *song = NULL;
 
 	if (mpd) {
 		status = mpd->status;
@@ -120,7 +119,7 @@ update_xterm_title(void)
 	}
 
 	if (options.xterm_title_format && status && song &&
-	    IS_PLAYING(status->state))
+	    IS_PLAYING(mpd_status_get_state(status)))
 		strfsong(tmp, BUFSIZE, options.xterm_title_format, song);
 	else
 		g_strlcpy(tmp, PACKAGE " version " VERSION, BUFSIZE);
@@ -225,11 +224,11 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.11.0 - song id not supported by mpd */
-	if (MPD_VERSION_LT(mpd, 0, 11, 0)) {
+	if (mpd_connection_cmp_server_version(mpd->connection, 0, 11, 0) < 0) {
+		const unsigned *version =
+			mpd_connection_get_server_version(mpd->connection);
 		screen_status_printf(_("Error: MPD version %d.%d.%d is to old (%s needed)"),
-				     mpd->connection->version[0],
-				     mpd->connection->version[1],
-				     mpd->connection->version[2],
+				     version[0], version[1], version[2],
 				     "0.11.0");
 		mpdclient_disconnect(mpd);
 		doupdate();
@@ -240,7 +239,9 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 	}
 #endif
 
-	screen_status_printf(_("Connected to %s"), options.host);
+	screen_status_printf(_("Connected to %s"),
+			     options.host != NULL
+			     ? options.host : "localhost");
 	doupdate();
 
 	connected = TRUE;

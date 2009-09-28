@@ -143,7 +143,7 @@ string_array_free(GPtrArray *array)
 
 	for (i = 0; i < array->len; ++i) {
 		char *value = g_ptr_array_index(array, i);
-		free(value);
+		g_free(value);
 	}
 
 	g_ptr_array_free(array, TRUE);
@@ -220,12 +220,12 @@ load_song_list(struct mpdclient *c)
 	if (album[0] == 0)
 		browser.filelist =
 			mpdclient_filelist_search(c, TRUE,
-						  MPD_TABLE_ARTIST,
+						  MPD_TAG_ARTIST,
 						  artist);
 	else
 		browser.filelist =
 			mpdclient_filelist_search(c, TRUE,
-						  MPD_TABLE_ALBUM,
+						  MPD_TAG_ALBUM,
 						  album);
 	if (browser.filelist == NULL)
 		browser.filelist = filelist_new();
@@ -407,7 +407,7 @@ get_title(char *str, size_t size)
 }
 
 static void
-add_query(mpdclient_t *c, int table, char *_filter)
+add_query(mpdclient_t *c, enum mpd_tag_type table, char *_filter)
 {
 	char *str;
 	mpdclient_filelist_t *addlist;
@@ -415,7 +415,7 @@ add_query(mpdclient_t *c, int table, char *_filter)
 	assert(filter != NULL);
 
 	str = utf8_to_locale(_filter);
-	if (table== MPD_TABLE_ALBUM)
+	if (table == MPD_TAG_ALBUM)
 		screen_status_printf("Adding album %s...", str);
 	else
 		screen_status_printf("Adding %s...", str);
@@ -617,7 +617,7 @@ artist_cmd(mpdclient_t *c, command_t cmd)
 			for(i = browser.lw->selected_start; i <= browser.lw->selected_end; ++i)
 			{
 				selected = g_ptr_array_index(artist_list, i);
-				add_query(c, MPD_TABLE_ARTIST, selected);
+				add_query(c, MPD_TAG_ARTIST, selected);
 				cmd = CMD_LIST_NEXT; /* continue and select next item... */
 			}
 			break;
@@ -628,12 +628,12 @@ artist_cmd(mpdclient_t *c, command_t cmd)
 			for(i = browser.lw->selected_start; i <= browser.lw->selected_end; ++i)
 			{
 				if(i == album_list->len + 1)
-					add_query(c, MPD_TABLE_ARTIST, artist);
+					add_query(c, MPD_TAG_ARTIST, artist);
 				else if (i > 0)
 				{
 					selected = g_ptr_array_index(album_list,
 								     browser.lw->selected - 1);
-					add_query(c, MPD_TABLE_ALBUM, selected);
+					add_query(c, MPD_TAG_ALBUM, selected);
 					cmd = CMD_LIST_NEXT; /* continue and select next item... */
 				}
 			}

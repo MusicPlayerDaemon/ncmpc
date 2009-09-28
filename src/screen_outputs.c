@@ -21,6 +21,8 @@
 #include "screen.h"
 #include "list_window.h"
 
+#include <mpd/client.h>
+
 #include <glib.h>
 
 static list_window_t *lw = NULL;
@@ -41,7 +43,7 @@ static int
 toggle_output(mpdclient_t *c, unsigned int output_index)
 {
 	int return_value;
-	mpd_OutputEntity *output;
+	struct mpd_output *output;
 
 	assert(mpd_outputs != NULL);
 
@@ -50,18 +52,22 @@ toggle_output(mpdclient_t *c, unsigned int output_index)
 
 	output = g_ptr_array_index(mpd_outputs, output_index);
 
-	if (output->enabled == 0) {
-		mpd_sendEnableOutputCommand(c->connection, output->id);
+	if (!mpd_output_get_enabled(output)) {
+		mpd_send_enable_output(c->connection,
+				       mpd_output_get_id(output));
 
-		output->enabled = 1;
+		/* XXX reload */
 
-		screen_status_printf(_("Output '%s' enabled"), output->name);
+		screen_status_printf(_("Output '%s' enabled"),
+				     mpd_output_get_name(output));
 	} else {
-		mpd_sendDisableOutputCommand(c->connection, output->id);
+		mpd_send_disable_output(c->connection,
+					mpd_output_get_id(output));
 
-		output->enabled = 0;
+		/* XXX reload */
 
-		screen_status_printf(_("Output '%s' disabled"), output->name);
+		screen_status_printf(_("Output '%s' disabled"),
+				     mpd_output_get_name(output));
 	}
 
 	return_value = mpdclient_finish_command(c);
@@ -74,7 +80,7 @@ toggle_output(mpdclient_t *c, unsigned int output_index)
 static void
 clear_output_element(gpointer data, G_GNUC_UNUSED gpointer user_data)
 {
-	mpd_freeOutputElement(data);
+	mpd_output_free(data);
 }
 
 static void
@@ -92,15 +98,15 @@ clear_outputs_list(void)
 static void
 fill_outputs_list(mpdclient_t *c)
 {
-	mpd_OutputEntity *output;
+	struct mpd_output *output;
 
 	assert(mpd_outputs != NULL);
 
 	if (c->connection == NULL)
 		return;
 
-	mpd_sendOutputsCommand(c->connection);
-	while ((output = mpd_getNextOutput(c->connection)) != NULL) {
+	mpd_send_outputs(c->connection);
+	while ((output = mpd_recv_output(c->connection)) != NULL) {
 		g_ptr_array_add(mpd_outputs, output);
 	}
 }
@@ -109,7 +115,7 @@ static const char *
 outputs_list_callback(unsigned int output_index, bool *highlight,
 		      G_GNUC_UNUSED char **sc, G_GNUC_UNUSED void *data)
 {
-	mpd_OutputEntity *output;
+	struct mpd_output *output;
 
 	assert(mpd_outputs != NULL);
 
@@ -118,10 +124,10 @@ outputs_list_callback(unsigned int output_index, bool *highlight,
 
 	output = g_ptr_array_index(mpd_outputs, output_index);
 
-	if (output->enabled)
+	if (mpd_output_get_enabled(output))
 		*highlight = true;
 
-	return output->name;
+	return mpd_output_get_name(output);
 }
 
 static void

@@ -32,21 +32,24 @@
 #include <string.h>
 #include <glib.h>
 
+enum {
+	SEARCH_URI = MPD_TAG_COUNT + 100,
+};
+
 static const struct {
 	const char *name;
 	const char *localname;
-} search_tag[MPD_TAG_NUM_OF_ITEM_TYPES] = {
-	[MPD_TAG_ITEM_ARTIST] = { "artist", N_("artist") },
-	[MPD_TAG_ITEM_ALBUM] = { "album", N_("album") },
-	[MPD_TAG_ITEM_TITLE] = { "title", N_("title") },
-	[MPD_TAG_ITEM_TRACK] = { "track", N_("track") },
-	[MPD_TAG_ITEM_NAME] = { "name", N_("name") },
-	[MPD_TAG_ITEM_GENRE] = { "genre", N_("genre") },
-	[MPD_TAG_ITEM_DATE] = { "date", N_("date") },
-	[MPD_TAG_ITEM_COMPOSER] = { "composer", N_("composer") },
-	[MPD_TAG_ITEM_PERFORMER] = { "performer", N_("performer") },
-	[MPD_TAG_ITEM_COMMENT] = { "comment", N_("comment") },
-	[MPD_TAG_ITEM_FILENAME] = { "filename", N_("file") },
+} search_tag[MPD_TAG_COUNT] = {
+	[MPD_TAG_ARTIST] = { "artist", N_("artist") },
+	[MPD_TAG_ALBUM] = { "album", N_("album") },
+	[MPD_TAG_TITLE] = { "title", N_("title") },
+	[MPD_TAG_TRACK] = { "track", N_("track") },
+	[MPD_TAG_NAME] = { "name", N_("name") },
+	[MPD_TAG_GENRE] = { "genre", N_("genre") },
+	[MPD_TAG_DATE] = { "date", N_("date") },
+	[MPD_TAG_COMPOSER] = { "composer", N_("composer") },
+	[MPD_TAG_PERFORMER] = { "performer", N_("performer") },
+	[MPD_TAG_COMMENT] = { "comment", N_("comment") },
 };
 
 static int
@@ -54,7 +57,11 @@ search_get_tag_id(const char *name)
 {
 	unsigned i;
 
-	for (i = 0; i < MPD_TAG_NUM_OF_ITEM_TYPES; ++i)
+	if (g_ascii_strcasecmp(name, "file") == 0 ||
+	    strcasecmp(name, _("file")) == 0)
+		return SEARCH_URI;
+
+	for (i = 0; i < MPD_TAG_COUNT; ++i)
 		if (search_tag[i].name != NULL &&
 		    (strcasecmp(search_tag[i].name, name) == 0 ||
 		     strcasecmp(search_tag[i].localname, name) == 0))
@@ -66,15 +73,15 @@ search_get_tag_id(const char *name)
 #define SEARCH_ARTIST_TITLE 999
 
 typedef struct {
-	int table;
+	enum mpd_tag_type table;
 	const char *label;
 } search_type_t;
 
 static search_type_t mode[] = {
-	{ MPD_TABLE_TITLE, N_("Title") },
-	{ MPD_TABLE_ARTIST, N_("Artist") },
-	{ MPD_TABLE_ALBUM, N_("Album") },
-	{ MPD_TABLE_FILENAME, N_("Filename") },
+	{ MPD_TAG_TITLE, N_("Title") },
+	{ MPD_TAG_ARTIST, N_("Artist") },
+	{ MPD_TAG_ALBUM, N_("Album") },
+	{ SEARCH_URI, N_("file") },
 	{ SEARCH_ARTIST_TITLE, N_("Artist + Title") },
 	{ 0, NULL }
 };
@@ -176,12 +183,12 @@ filelist_search(mpdclient_t *c, G_GNUC_UNUSED int exact_match, int table,
 	gchar *filter_utf8 = locale_to_utf8(local_pattern);
 
 	if (table == SEARCH_ARTIST_TITLE) {
-		list = mpdclient_filelist_search(c, FALSE, MPD_TABLE_ARTIST,
+		list = mpdclient_filelist_search(c, FALSE, MPD_TAG_ARTIST,
 						 filter_utf8);
 		if (list == NULL)
 			list = filelist_new();
 
-		list2 = mpdclient_filelist_search(c, FALSE, MPD_TABLE_TITLE,
+		list2 = mpdclient_filelist_search(c, FALSE, MPD_TAG_TITLE,
 						  filter_utf8);
 		if (list2 != NULL) {
 			filelist_move(list, list2);
@@ -261,7 +268,7 @@ search_advanced_query(char *query, mpdclient_t *c)
 
 	if (advanced_search_mode && j > 0) {
 		int iter;
-		mpd_InfoEntity *entity;
+		struct mpd_entity *entity;
 
 		/*-----------------------------------------------------------------------
 		 * NOTE (again): This code exists to test a new search ui,
@@ -270,17 +277,24 @@ search_advanced_query(char *query, mpdclient_t *c)
 		 *-----------------------------------------------------------------------
 		 */
 		/** stupid - but this is just a test...... (fulhack)  */
-		mpd_startSearch(c->connection, FALSE);
+		mpd_search_db_songs(c->connection, false);
 
-		for(iter = 0; iter < 10; iter++) {
-			mpd_addConstraintSearch(c->connection, table[iter], arg[iter]);
+		for(iter = 0; iter < 10 && arg[iter] != NULL; iter++) {
+			if (table[iter] == SEARCH_URI)
+				mpd_search_add_uri_constraint(c->connection,
+							      MPD_OPERATOR_DEFAULT,
+							      arg[iter]);
+			else
+				mpd_search_add_tag_constraint(c->connection,
+							      MPD_OPERATOR_DEFAULT,
+							      table[iter], arg[iter]);
 		}
 
-		mpd_commitSearch(c->connection);
+		mpd_search_commit(c->connection);
 
 		fl = filelist_new();
 
-		while ((entity=mpd_getNextInfoEntity(c->connection)))
+		while ((entity = mpd_recv_entity(c->connection)) != NULL)
 			filelist_append(fl, entity);
 
 		if (mpdclient_finish_command(c) && fl)
@@ -319,7 +333,7 @@ search_new(mpdclient_t *c)
 		browser.filelist = NULL;
 	}
 
-	if (!MPD_VERSION_LT(c, 0, 12, 0))
+	if (mpd_connection_cmp_server_version(c->connection, 0, 12, 0) >= 0)
 		browser.filelist = search_advanced_query(pattern, c);
 
 	if (!advanced_search_mode && browser.filelist == NULL)

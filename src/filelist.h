@@ -26,7 +26,7 @@ struct mpd_song;
 
 typedef struct filelist_entry {
 	guint flags;
-	struct mpd_InfoEntity *entity;
+	struct mpd_entity *entity;
 } filelist_entry_t;
 
 typedef struct filelist {
@@ -59,10 +59,10 @@ filelist_get(const struct filelist *filelist, guint i)
 }
 
 struct filelist_entry *
-filelist_append(struct filelist *filelist, struct mpd_InfoEntity *entity);
+filelist_append(struct filelist *filelist, struct mpd_entity *entity);
 
 struct filelist_entry *
-filelist_prepend(struct filelist *filelist, struct mpd_InfoEntity *entity);
+filelist_prepend(struct filelist *filelist, struct mpd_entity *entity);
 
 void
 filelist_move(struct filelist *filelist, struct filelist *from);

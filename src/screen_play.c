@@ -35,6 +35,8 @@
 #include "hscroll.h"
 #endif
 
+#include <mpd/client.h>
+
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
@@ -98,9 +100,9 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
 
 #ifndef NCMPC_MINI
 static char *
-format_duration(int duration)
+format_duration(unsigned duration)
 {
-	if (duration == MPD_SONG_NO_TIME)
+	if (duration == 0)
 		return NULL;
 
 	return g_strdup_printf("%d:%02d", duration / 60, duration % 60);
@@ -114,20 +116,20 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 #ifndef NCMPC_MINI
 	static scroll_state_t st;
 #endif
-	mpd_Song *song;
+	struct mpd_song *song;
 
 	if (playlist == NULL || idx >= playlist_length(playlist))
 		return NULL;
 
 	song = playlist_get(playlist, idx);
-	if (song->id == current_song_id)
+	if ((int)mpd_song_get_id(song) == current_song_id)
 		*highlight = true;
 
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, song);
 
 #ifndef NCMPC_MINI
 	if(second_column)
-		*second_column = format_duration(song->time);
+		*second_column = format_duration(mpd_song_get_duration(song));
 
 	if (idx == lw->selected)
 	{
@@ -166,7 +168,7 @@ center_playing_item(mpdclient_t *c, bool center_cursor)
 	int idx;
 
 	if (!c->song || c->status == NULL ||
-		IS_STOPPED(c->status->state))
+	    IS_STOPPED(mpd_status_get_state(c->status)))
 		return;
 
 	/* try to center the song that are playing */
@@ -310,7 +312,7 @@ playlist_save(mpdclient_t *c, char *name, char *defaultname)
 	if (error) {
 		gint code = GET_ACK_ERROR_CODE(error);
 
-		if (code == MPD_ACK_ERROR_EXIST) {
+		if (code == MPD_SERVER_ERROR_EXIST) {
 			char *buf;
 			int key;
 
@@ -468,7 +470,8 @@ timer_hide_cursor(gpointer data)
 
 	/* hide the cursor when mpd is playing and the user is inactive */
 
-	if (c->status != NULL && c->status->state == MPD_STATUS_STATE_PLAY) {
+	if (c->status != NULL &&
+	    mpd_status_get_state(c->status) == MPD_STATE_PLAY) {
 		lw->hide_cursor = true;
 		playlist_repaint();
 	} else
@@ -524,7 +527,7 @@ play_exit(void)
 static const char *
 play_title(char *str, size_t size)
 {
-	if( strcmp(options.host, "localhost") == 0 )
+	if (options.host == NULL)
 		return _("Playlist");
 
 	g_snprintf(str, size, _("Playlist on %s"), options.host);
@@ -543,7 +546,8 @@ play_update(mpdclient_t *c)
 	static int prev_song_id = -1;
 
 	current_song_id = c->song != NULL && c->status != NULL &&
-		!IS_STOPPED(c->status->state) ? c->song->id : -1;
+		!IS_STOPPED(mpd_status_get_state(c->status))
+		? (int)mpd_song_get_id(c->song) : -1;
 
 	if (current_song_id != prev_song_id) {
 		prev_song_id = current_song_id;
@@ -754,7 +758,8 @@ play_cmd(mpdclient_t *c, command_t cmd)
 			bool follow = false;
 
 			if (c->song && selected &&
-			    !strcmp(selected->file, c->song->file))
+			    !strcmp(mpd_song_get_uri(selected),
+				    mpd_song_get_uri(c->song)))
 				follow = true;
 
 			screen_lyrics_switch(c, selected, follow);

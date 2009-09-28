@@ -33,6 +33,8 @@
 #include "hscroll.h"
 #endif
 
+#include <mpd/client.h>
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
@@ -160,10 +162,10 @@ print_hotkey(WINDOW *w, command_t cmd, const char *label)
 #endif
 
 static inline int
-get_volume(const struct mpd_Status *status)
+get_volume(const struct mpd_status *status)
 {
 	return status != NULL
-		? status->volume
+		? mpd_status_get_volume(status)
 		: MPD_STATUS_NO_VOLUME;
 }
 
@@ -211,17 +213,17 @@ paint_top_window2(const char *header, mpdclient_t *c)
 
 	flags[0] = 0;
 	if (c->status != NULL) {
-		if (c->status->repeat)
+		if (mpd_status_get_repeat(c->status))
 			g_strlcat(flags, "r", sizeof(flags));
-		if (c->status->random)
+		if (mpd_status_get_random(c->status))
 			g_strlcat(flags, "z", sizeof(flags));
-		if (c->status->single)
+		if (mpd_status_get_single(c->status))
 			g_strlcat(flags, "s", sizeof(flags));
-		if (c->status->consume)
+		if (mpd_status_get_consume(c->status))
 			g_strlcat(flags, "c", sizeof(flags));
-		if (c->status->crossfade)
+		if (mpd_status_get_crossfade(c->status))
 			g_strlcat(flags, "x", sizeof(flags));
-		if (c->status->updatingDb)
+		if (mpd_status_get_update_id(c->status) != 0)
 			g_strlcat(flags, "U", sizeof(flags));
 	}
 
@@ -263,7 +265,8 @@ paint_top_window(const char *header, mpdclient_t *c, int full_repaint)
 	}
 
 	if (c->status &&
-	    volume_length(prev_volume) != volume_length(c->status->volume))
+	    volume_length(prev_volume) !=
+	    volume_length(mpd_status_get_volume(c->status)))
 		full_repaint = 1;
 
 	if (full_repaint) {
@@ -271,7 +274,8 @@ paint_top_window(const char *header, mpdclient_t *c, int full_repaint)
 		wclrtoeol(w);
 	}
 
-	if ((c->status != NULL && prev_volume != c->status->volume) ||
+	if ((c->status != NULL &&
+	     prev_volume != mpd_status_get_volume(c->status)) ||
 	    full_repaint)
 		paint_top_window2(header, c);
 }
@@ -283,19 +287,19 @@ paint_progress_window(mpdclient_t *c)
 	int width;
 	int elapsedTime;
 
-	if (c->status==NULL || IS_STOPPED(c->status->state)) {
+	if (c->status==NULL || IS_STOPPED(mpd_status_get_state(c->status))) {
 		mvwhline(screen.progress_window.w, 0, 0, ACS_HLINE,
 			 screen.progress_window.cols);
 		wnoutrefresh(screen.progress_window.w);
 		return;
 	}
 
-	if (c->song && seek_id == c->song->id)
+	if (c->song != NULL && seek_id == (int)mpd_song_get_id(c->song))
 		elapsedTime = seek_target_time;
 	else
-		elapsedTime = c->status->elapsedTime;
+		elapsedTime = mpd_status_get_elapsed_time(c->status);
 
-	p = ((double) elapsedTime) / ((double) c->status->totalTime);
+	p = ((double) elapsedTime) / ((double) mpd_status_get_total_time(c->status));
 
 	width = (int) (p * (double) screen.progress_window.cols);
 	mvwhline(screen.progress_window.w,
@@ -311,9 +315,9 @@ static void
 paint_status_window(mpdclient_t *c)
 {
 	WINDOW *w = screen.status_window.w;
-	mpd_Status *status = c->status;
-	int state;
-	mpd_Song *song = c->song;
+	const struct mpd_status *status = c->status;
+	enum mpd_state state;
+	const struct mpd_song *song = c->song;
 	int elapsedTime = 0;
 #ifdef NCMPC_MINI
 	static char bitrate[1];
@@ -330,16 +334,17 @@ paint_status_window(mpdclient_t *c)
 	wclrtoeol(w);
 	colors_use(w, COLOR_STATUS_BOLD);
 
-	state = status == NULL ? MPD_STATUS_STATE_UNKNOWN : status->state;
+	state = status == NULL ? MPD_STATE_UNKNOWN
+		: mpd_status_get_state(status);
 
 	switch (state) {
-	case MPD_STATUS_STATE_PLAY:
+	case MPD_STATE_PLAY:
 		str = _("Playing:");
 		break;
-	case MPD_STATUS_STATE_PAUSE:
+	case MPD_STATE_PAUSE:
 		str = _("[Paused]");
 		break;
-	case MPD_STATUS_STATE_STOP:
+	case MPD_STATE_STOP:
 	default:
 		break;
 	}
@@ -352,42 +357,49 @@ paint_status_window(mpdclient_t *c)
 	/* create time string */
 	memset(screen.buf, 0, screen.buf_size);
 	if (IS_PLAYING(state) || IS_PAUSED(state)) {
-		if (status->totalTime > 0) {
+		int total_time = mpd_status_get_total_time(status);
+		if (total_time > 0) {
 			/*checks the conf to see whether to display elapsed or remaining time */
 			if(!strcmp(options.timedisplay_type,"elapsed"))
-				elapsedTime = c->status->elapsedTime;
+				elapsedTime = mpd_status_get_elapsed_time(c->status);
 			else if(!strcmp(options.timedisplay_type,"remaining"))
-				elapsedTime = (c->status->totalTime - c->status->elapsedTime);
+				elapsedTime = total_time -
+					mpd_status_get_elapsed_time(c->status);
 
-			if( c->song && seek_id == c->song->id )
+			if (c->song != NULL &&
+			    seek_id == (int)mpd_song_get_id(c->song))
 				elapsedTime = seek_target_time;
 
 			/* display bitrate if visible-bitrate is true */
 #ifndef NCMPC_MINI
 			if (options.visible_bitrate) {
 				g_snprintf(bitrate, 16,
-				           " [%d kbps]", status->bitRate);
+					   " [%d kbps]",
+					   mpd_status_get_kbit_rate(status));
 			} else {
 				bitrate[0] = '\0';
 			}
 #endif
 
 			/*write out the time, using hours if time over 60 minutes*/
-			if (c->status->totalTime > 3600) {
+			if (total_time > 3600) {
 				g_snprintf(screen.buf, screen.buf_size,
 					   "%s [%i:%02i:%02i/%i:%02i:%02i]",
 					   bitrate, elapsedTime/3600, (elapsedTime%3600)/60, elapsedTime%60,
-					   status->totalTime/3600, (status->totalTime%3600)/60,  status->totalTime%60);
+					   total_time / 3600,
+					   (total_time % 3600)/60,
+					   total_time % 60);
 			} else {
 				g_snprintf(screen.buf, screen.buf_size,
 					   "%s [%i:%02i/%i:%02i]",
 					   bitrate, elapsedTime/60, elapsedTime%60,
-					   status->totalTime/60,   status->totalTime%60 );
+					   total_time / 60, total_time % 60);
 			}
 #ifndef NCMPC_MINI
 		} else {
 			g_snprintf(screen.buf, screen.buf_size,
-				   " [%d kbps]", status->bitRate );
+				   " [%d kbps]",
+				   mpd_status_get_kbit_rate(status));
 #endif
 		}
 #ifndef NCMPC_MINI
@@ -402,8 +414,7 @@ paint_status_window(mpdclient_t *c)
 	}
 
 	/* display song */
-	if (status != NULL && (IS_PLAYING(status->state) ||
-			       IS_PAUSED(status->state))) {
+	if (IS_PLAYING(state) || IS_PAUSED(state)) {
 		char songname[MAX_SONGNAME_LENGTH];
 #ifndef NCMPC_MINI
 		int width = COLS - x - utf8_width(screen.buf);
@@ -651,36 +662,38 @@ void
 screen_update(mpdclient_t *c)
 {
 #ifndef NCMPC_MINI
-	static int repeat = -1;
-	static int random_enabled = -1;
-	static int single = -1;
-	static int consume = -1;
-	static int crossfade = -1;
-	static int dbupdate = -1;
+	static bool initialized = false;
+	static bool repeat;
+	static bool random_enabled;
+	static bool single;
+	static bool consume;
+	static unsigned crossfade;
+	static unsigned dbupdate;
 
 	/* print a message if mpd status has changed */
 	if (c->status != NULL) {
-		if (repeat < 0) {
-			repeat = c->status->repeat;
-			random_enabled = c->status->random;
-			single = c->status->single;
-			consume = c->status->consume;
-			crossfade = c->status->crossfade;
-			dbupdate = c->status->updatingDb;
+		if (!initialized) {
+			repeat = mpd_status_get_repeat(c->status);
+			random_enabled = mpd_status_get_random(c->status);
+			single = mpd_status_get_single(c->status);
+			consume = mpd_status_get_consume(c->status);
+			crossfade = mpd_status_get_crossfade(c->status);
+			dbupdate = mpd_status_get_update_id(c->status);
+			initialized = true;
 		}
 
-		if (repeat != c->status->repeat)
-			screen_status_printf(c->status->repeat ?
+		if (repeat != mpd_status_get_repeat(c->status))
+			screen_status_printf(mpd_status_get_repeat(c->status) ?
 					     _("Repeat mode is on") :
 					     _("Repeat mode is off"));
 
-		if (random_enabled != c->status->random)
-			screen_status_printf(c->status->random ?
+		if (random_enabled != mpd_status_get_random(c->status))
+			screen_status_printf(mpd_status_get_random(c->status) ?
 					     _("Random mode is on") :
 					     _("Random mode is off"));
 
-		if (single != c->status->single)
-			screen_status_printf(c->status->single ?
+		if (single != mpd_status_get_single(c->status))
+			screen_status_printf(mpd_status_get_single(c->status) ?
 					     /* "single" mode means
 						that MPD will
 						automatically stop
@@ -689,8 +702,8 @@ screen_update(mpdclient_t *c)
 					     _("Single mode is on") :
 					     _("Single mode is off"));
 
-		if (consume != c->status->consume)
-			screen_status_printf(c->status->consume ?
+		if (consume != mpd_status_get_consume(c->status))
+			screen_status_printf(mpd_status_get_consume(c->status) ?
 					     /* "consume" mode means
 						that MPD removes each
 						song which has
@@ -698,19 +711,21 @@ screen_update(mpdclient_t *c)
 					     _("Consume mode is on") :
 					     _("Consume mode is off"));
 
-		if (crossfade != c->status->crossfade)
-			screen_status_printf(_("Crossfade %d seconds"), c->status->crossfade);
+		if (crossfade != mpd_status_get_crossfade(c->status))
+			screen_status_printf(_("Crossfade %d seconds"),
+					     mpd_status_get_crossfade(c->status));
 
-		if (dbupdate && dbupdate != c->status->updatingDb) {
+		if (dbupdate != 0 &&
+		    dbupdate != mpd_status_get_update_id(c->status)) {
 			screen_status_printf(_("Database updated"));
 		}
 
-		repeat = c->status->repeat;
-		single = c->status->single;
-		consume = c->status->consume;
-		random_enabled = c->status->random;
-		crossfade = c->status->crossfade;
-		dbupdate = c->status->updatingDb;
+		repeat = mpd_status_get_repeat(c->status);
+		random_enabled = mpd_status_get_random(c->status);
+		single = mpd_status_get_single(c->status);
+		consume = mpd_status_get_consume(c->status);
+		crossfade = mpd_status_get_crossfade(c->status);
+		dbupdate = mpd_status_get_update_id(c->status);
 	}
 
 	/* update title/header window */
@@ -752,7 +767,7 @@ screen_update(mpdclient_t *c)
 void
 screen_idle(mpdclient_t *c)
 {
-	if (c->song && seek_id == c->song->id &&
+	if (c->song != NULL && seek_id == (int)mpd_song_get_id(c->song) &&
 	    (screen.last_cmd == CMD_SEEK_FORWARD ||
 	     screen.last_cmd == CMD_SEEK_BACKWARD))
 		mpdclient_cmd_seek(c, seek_id, seek_target_time);
@@ -796,7 +811,7 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 		break;
 		*/
 	case CMD_PAUSE:
-		mpdclient_cmd_pause(c, !IS_PAUSED(c->status->state));
+		mpdclient_cmd_pause(c, !IS_PAUSED(mpd_status_get_state(c->status)));
 		break;
 	case CMD_STOP:
 		mpdclient_cmd_stop(c);
@@ -805,28 +820,29 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 		mpdclient_cmd_crop(c);
 		break;
 	case CMD_SEEK_FORWARD:
-		if (!IS_STOPPED(c->status->state)) {
-			if (c->song && seek_id != c->song->id) {
-				seek_id = c->song->id;
-				seek_target_time = c->status->elapsedTime;
+		if (!IS_STOPPED(mpd_status_get_state(c->status))) {
+			if (c->song != NULL &&
+			    seek_id != (int)mpd_song_get_id(c->song)) {
+				seek_id = mpd_song_get_id(c->song);
+				seek_target_time = mpd_status_get_elapsed_time(c->status);
 			}
 			seek_target_time+=options.seek_time;
-			if (seek_target_time < c->status->totalTime)
+			if (seek_target_time < (int)mpd_status_get_total_time(c->status))
 				break;
-			seek_target_time = c->status->totalTime;
+			seek_target_time = mpd_status_get_total_time(c->status);
 			/* seek_target_time=0; */
 		}
 		break;
 		/* fall through... */
 	case CMD_TRACK_NEXT:
-		if (!IS_STOPPED(c->status->state))
+		if (!IS_STOPPED(mpd_status_get_state(c->status)))
 			mpdclient_cmd_next(c);
 		break;
 	case CMD_SEEK_BACKWARD:
-		if (!IS_STOPPED(c->status->state)) {
-			if (seek_id != c->song->id) {
-				seek_id = c->song->id;
-				seek_target_time = c->status->elapsedTime;
+		if (!IS_STOPPED(mpd_status_get_state(c->status))) {
+			if (seek_id != (int)mpd_song_get_id(c->song)) {
+				seek_id = mpd_song_get_id(c->song);
+				seek_target_time = mpd_status_get_elapsed_time(c->status);
 			}
 			seek_target_time-=options.seek_time;
 			if (seek_target_time < 0)
@@ -834,7 +850,7 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 		}
 		break;
 	case CMD_TRACK_PREVIOUS:
-		if (!IS_STOPPED(c->status->state))
+		if (!IS_STOPPED(mpd_status_get_state(c->status)))
 			mpdclient_cmd_prev(c);
 		break;
 	case CMD_SHUFFLE:
@@ -846,25 +862,25 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 			screen_status_message(_("Cleared playlist"));
 		break;
 	case CMD_REPEAT:
-		mpdclient_cmd_repeat(c, !c->status->repeat);
+		mpdclient_cmd_repeat(c, !mpd_status_get_repeat(c->status));
 		break;
 	case CMD_RANDOM:
-		mpdclient_cmd_random(c, !c->status->random);
+		mpdclient_cmd_random(c, !mpd_status_get_random(c->status));
 		break;
 	case CMD_SINGLE:
-		mpdclient_cmd_single(c, !c->status->single);
+		mpdclient_cmd_single(c, !mpd_status_get_single(c->status));
 		break;
 	case CMD_CONSUME:
-		mpdclient_cmd_consume(c, !c->status->consume);
+		mpdclient_cmd_consume(c, !mpd_status_get_consume(c->status));
 		break;
 	case CMD_CROSSFADE:
-		if (c->status->crossfade)
+		if (mpd_status_get_crossfade(c->status))
 			mpdclient_cmd_crossfade(c, 0);
 		else
 			mpdclient_cmd_crossfade(c, options.crossfade_time);
 		break;
 	case CMD_DB_UPDATE:
-		if (!c->status->updatingDb) {
+		if (!mpd_status_get_update_id(c->status)) {
 			if( mpdclient_cmd_db_update(c,NULL)==0 )
 				screen_status_printf(_("Database update started"));
 		} else

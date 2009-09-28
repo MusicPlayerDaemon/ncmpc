@@ -146,6 +146,10 @@ dnl Check for glib-2.4
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.4],,
 	[AC_MSG_ERROR([glib 2.4 is required])])
 
+dnl Check for libmpdclient 2.0
+PKG_CHECK_MODULES([LIBMPDCLIENT], [libmpdclient >= 2.0],,
+	[AC_MSG_ERROR([libmpdclient2 is required])])
+
 
 dnl i18n
 
@@ -362,27 +366,6 @@ if test "x$outputs_screen" = "xyes" ; then
 fi
 
 AM_CONDITIONAL(ENABLE_OUTPUTS_SCREEN, test x$outputs_screen = xyes)
-
-dnl Default host
-AC_MSG_CHECKING([for default MPD host])
-AC_ARG_WITH([default-host],
-	    AC_HELP_STRING([--with-default-host=ARG],
-	                   [Default MPD host @<:@localhost@:>@]),
-            [DEFAULT_HOST="$withval"],
-            [DEFAULT_HOST="localhost"])
-AC_MSG_RESULT([$DEFAULT_HOST])
-AC_DEFINE_UNQUOTED([DEFAULT_HOST], ["$DEFAULT_HOST"], [Default MPD host])
-
-dnl Default port
-AC_MSG_CHECKING([for default MPD port])
-AC_ARG_WITH([default-port],
-            AC_HELP_STRING([--with-default-port=ARG],
-                           [Default port @<:@6600@:>@]),
-            [DEFAULT_PORT="$withval"],
-            [DEFAULT_PORT="6600"])
-AC_MSG_RESULT([$DEFAULT_PORT])
-AC_DEFINE_UNQUOTED([DEFAULT_PORT],     [$DEFAULT_PORT],   [Default MPD port])
-AC_DEFINE_UNQUOTED([DEFAULT_PORT_STR], ["$DEFAULT_PORT"], [Default MPD port])
 
 dnl Default timedisplay type
 AC_MSG_CHECKING([for default timedisplay type])

@@ -49,7 +49,6 @@ typedef void (*option_callback_fn_t)(int c, const char *arg);
 
 
 options_t options = {
-	.port = DEFAULT_PORT,
 	.crossfade_time = DEFAULT_CROSSFADE_TIME,
 	.seek_time = 1,
 #ifdef ENABLE_LYRICS_SCREEN
@@ -80,8 +79,8 @@ static const arg_opt_t option_table[] = {
 	{ 'M', "no-mouse", NULL, "Disable mouse" },
 #endif
 	{ 'e', "exit", NULL, "Exit on connection errors" },
-	{ 'p', "port", "PORT", "Connect to server on port [" DEFAULT_PORT_STR "]" },
-	{ 'h', "host", "HOST", "Connect to server on host [" DEFAULT_HOST "]" },
+	{ 'p', "port", "PORT", "Connect to server on port" },
+	{ 'h', "host", "HOST", "Connect to server on host" },
 	{ 'P', "password","PASSWORD", "Connect with password" },
 	{ 'f', "config", "FILE", "Read configuration from file" },
 	{ 'k', "key-file","FILE", "Read configuration from file" },
@@ -369,15 +368,7 @@ options_parse(int argc, const char *argv[])
 void
 options_init(void)
 {
-	const char *value;
-	char *tmp;
-
-	/* get initial values for host and password from MPD_HOST (environment) */
-	if ((value = g_getenv(MPD_HOST_ENV)))
-		options.host = g_strdup(value);
-	else
-		options.host = g_strdup(DEFAULT_HOST);
-
+	/* XXX
 	if ((tmp = g_strstr_len(options.host, strlen(options.host), "@"))) {
 		char *oldhost = options.host;
 		*tmp  = '\0';
@@ -385,10 +376,7 @@ options_init(void)
 		options.host = g_strdup(tmp+1);
 		g_free(oldhost);
 	}
-
-	/* get initial values for port from MPD_PORT (environment) */
-	if ((value = g_getenv(MPD_PORT_ENV)))
-		options.port = atoi(value);
+	*/
 
 	/* default option values */
 	options.list_format = g_strdup(DEFAULT_LIST_FORMAT);

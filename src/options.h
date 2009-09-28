@@ -25,9 +25,6 @@
 #include <stdbool.h>
 #include <glib.h>
 
-#define MPD_HOST_ENV "MPD_HOST"
-#define MPD_PORT_ENV "MPD_PORT"
-
 typedef struct {
 	char *host;
 	char *username;

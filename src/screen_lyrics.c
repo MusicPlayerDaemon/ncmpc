@@ -65,7 +65,7 @@ screen_lyrics_abort(void)
 	}
 
 	if (current.song != NULL) {
-		mpd_freeSong(current.song);
+		mpd_song_free(current.song);
 		current.song = NULL;
 	}
 }
@@ -167,7 +167,7 @@ screen_lyrics_load(const struct mpd_song *song)
 	screen_lyrics_abort();
 	screen_text_clear(&text);
 
-	current.song = mpd_songDup(song);
+	current.song = mpd_song_dup(song);
 
 	strfsong(buffer, sizeof(buffer), "%artist%", song);
 	current.artist = g_strdup(buffer);
@@ -207,11 +207,12 @@ lyrics_open(mpdclient_t *c)
 
 	if (next_song != NULL &&
 	    (current.song == NULL ||
-	     strcmp(next_song->file, current.song->file) != 0))
+	     strcmp(mpd_song_get_uri(next_song),
+		    mpd_song_get_uri(current.song)) != 0))
 		screen_lyrics_load(next_song);
 
 	if (next_song != c->song)
-		mpd_freeSong(next_song);
+		mpd_song_free(next_song);
 	next_song = NULL;
 }
 
@@ -225,7 +226,8 @@ lyrics_update(mpdclient_t *c)
 
 	if (next_song != NULL &&
 	    (current.song == NULL ||
-	     strcmp(next_song->file, current.song->file) != 0))
+	     strcmp(mpd_song_get_uri(next_song),
+		    mpd_song_get_uri(current.song)) != 0))
 		screen_lyrics_load(next_song);
 
 	next_song = NULL;
@@ -329,6 +331,6 @@ screen_lyrics_switch(struct mpdclient *c, const struct mpd_song *song, bool f)
 	assert(song != NULL);
 
 	follow = f;
-	next_song = mpd_songDup(song);
+	next_song = mpd_song_dup(song);
 	screen_switch(&screen_lyrics, c);
 }

@@ -81,30 +81,34 @@ gcmp_list_from_path(mpdclient_t *c, const gchar *path, GList *list, gint types)
 		return list;
 
 	for (i = 0; i < filelist_length(filelist); ++i) {
-		struct filelist_entry *entry = filelist_get(filelist, i);
-		mpd_InfoEntity *entity = entry ? entry->entity : NULL;
+		const struct filelist_entry *entry = filelist_get(filelist, i);
+		const struct mpd_entity *entity = entry ? entry->entity : NULL;
 		char *name = NULL;
 
-		if (entity && entity->type==MPD_INFO_ENTITY_TYPE_DIRECTORY &&
+		if (entity != NULL &&
+		    mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY &&
 		    types & GCMP_TYPE_DIR) {
-			mpd_Directory *dir = entity->info.directory;
-			gchar *tmp = utf8_to_locale(dir->path);
+			const struct mpd_directory *dir =
+				mpd_entity_get_directory(entity);
+			gchar *tmp = utf8_to_locale(mpd_directory_get_path(dir));
 			gsize size = strlen(tmp)+2;
 
 			name = g_malloc(size);
 			g_strlcpy(name, tmp, size);
 			g_strlcat(name, "/", size);
 			g_free(tmp);
-		} else if (entity &&
-			   entity->type == MPD_INFO_ENTITY_TYPE_SONG &&
+		} else if (entity != NULL &&
+			   mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG &&
 			   types & GCMP_TYPE_FILE) {
-			mpd_Song *song = entity->info.song;
-			name = utf8_to_locale(song->file);
-		} else if (entity &&
-			   entity->type == MPD_INFO_ENTITY_TYPE_PLAYLISTFILE &&
+			const struct mpd_song *song =
+				mpd_entity_get_song(entity);
+			name = utf8_to_locale(mpd_song_get_uri(song));
+		} else if (entity != NULL &&
+			   mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST &&
 			   types & GCMP_TYPE_PLAYLIST) {
-			mpd_PlaylistFile *plf = entity->info.playlistFile;
-			name = utf8_to_locale(plf->path);
+			const struct mpd_playlist *playlist =
+				mpd_entity_get_playlist(entity);
+			name = utf8_to_locale(mpd_playlist_get_path(playlist));
 		}
 
 		if (name)

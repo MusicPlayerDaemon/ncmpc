@@ -27,6 +27,8 @@
 #include "screen_browser.h"
 #include "screen_play.h"
 
+#include <mpd/client.h>
+
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
@@ -153,8 +155,8 @@ file_change_to_entry(mpdclient_t *c, const filelist_entry_t *entry)
 
 	if (entry->entity == NULL)
 		return file_change_to_parent(c);
-	else if (entry->entity->type == MPD_INFO_ENTITY_TYPE_DIRECTORY)
-		return file_change_directory(c, entry->entity->info.directory->path);
+	else if (mpd_entity_get_type(entry->entity) == MPD_ENTITY_TYPE_DIRECTORY)
+		return file_change_directory(c, mpd_directory_get_path(mpd_entity_get_directory(entry->entity)));
 	else
 		return false;
 }
@@ -174,7 +176,8 @@ static int
 handle_save(mpdclient_t *c)
 {
 	filelist_entry_t *entry;
-	char *defaultname = NULL;
+	const char *defaultname = NULL;
+	char *defaultname_utf8 = NULL;
 	int ret;
 	unsigned selected;
 
@@ -185,18 +188,19 @@ handle_save(mpdclient_t *c)
 	{
 		entry = filelist_get(browser.filelist, selected);
 		if( entry && entry->entity ) {
-			mpd_InfoEntity *entity = entry->entity;
-			if( entity->type==MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
-				mpd_PlaylistFile *plf = entity->info.playlistFile;
-				defaultname = plf->path;
+			struct mpd_entity *entity = entry->entity;
+			if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
+				const struct mpd_playlist *playlist =
+					mpd_entity_get_playlist(entity);
+				defaultname = mpd_playlist_get_path(playlist);
 			}
 		}
 	}
 
 	if(defaultname)
-		defaultname = utf8_to_locale(defaultname);
-	ret = playlist_save(c, NULL, defaultname);
-	g_free(defaultname);
+		defaultname_utf8 = utf8_to_locale(defaultname);
+	ret = playlist_save(c, NULL, defaultname_utf8);
+	g_free(defaultname_utf8);
 
 	return ret;
 }
@@ -205,8 +209,8 @@ static int
 handle_delete(mpdclient_t *c)
 {
 	filelist_entry_t *entry;
-	mpd_InfoEntity *entity;
-	mpd_PlaylistFile *plf;
+	struct mpd_entity *entity;
+	const struct mpd_playlist *playlist;
 	char *str, *buf;
 	int key;
 	unsigned selected;
@@ -222,7 +226,7 @@ handle_delete(mpdclient_t *c)
 
 		entity = entry->entity;
 
-		if( entity->type!=MPD_INFO_ENTITY_TYPE_PLAYLISTFILE ) {
+		if (mpd_entity_get_type(entity) != MPD_ENTITY_TYPE_PLAYLIST) {
 			/* translators: the "delete" command is only possible
 			   for playlists; the user attempted to delete a song
 			   or a directory or something else */
@@ -231,8 +235,8 @@ handle_delete(mpdclient_t *c)
 			continue;
 		}
 
-		plf = entity->info.playlistFile;
-		str = utf8_to_locale(g_basename(plf->path));
+		playlist = mpd_entity_get_playlist(entity);
+		str = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
 		buf = g_strdup_printf(_("Delete playlist %s [%s/%s] ? "), str, YES, NO);
 		g_free(str);
 		key = tolower(screen_getch(screen.status_window.w, buf));
@@ -243,7 +247,7 @@ handle_delete(mpdclient_t *c)
 			return 0;
 		}
 
-		if( mpdclient_cmd_delete_playlist(c, plf->path) )
+		if (mpdclient_cmd_delete_playlist(c, mpd_playlist_get_path(playlist)))
 			continue;
 
 		/* translators: MPD deleted the playlist, as requested by the
@@ -368,9 +372,9 @@ browse_cmd(mpdclient_t *c, command_t cmd)
 		if (c->status == NULL)
 			return true;
 
-		if (!c->status->updatingDb) {
+		if (mpd_status_get_update_id(c->status) == 0) {
 			if (mpdclient_cmd_db_update(c, current_path) == 0) {
-				if (strcmp(current_path, "") != 0) {
+				if (strcmp(current_path, "")) {
 					char *path_locale =
 						utf8_to_locale(current_path);
 					screen_status_printf(_("Database update of %s started"),
@@ -409,23 +413,24 @@ const struct screen_functions screen_browse = {
 bool
 screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song)
 {
-	const char *slash, *parent;
+	const char *uri, *slash, *parent;
 	char *allocated = NULL;
 	bool ret;
 	int i;
 
 	assert(song != NULL);
-	assert(song->file != NULL);
 
-	if (strstr(song->file, "//") != NULL)
+	uri = mpd_song_get_uri(song);
+
+	if (strstr(uri, "//") != NULL)
 		/* an URL? */
 		return false;
 
 	/* determine the song's parent directory and go there */
 
-	slash = strrchr(song->file, '/');
+	slash = strrchr(uri, '/');
 	if (slash != NULL)
-		parent = allocated = g_strndup(song->file, slash - song->file);
+		parent = allocated = g_strndup(uri, slash - uri);
 	else
 		parent = "";
 

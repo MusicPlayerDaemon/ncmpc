@@ -29,6 +29,8 @@
 #include "ncmpc.h"
 #endif /* NCMPC_H */
 
+#include <mpd/client.h>
+
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -127,7 +129,7 @@ _screen_auth(struct mpdclient *c, gint recursion)
 {
 	char *password;
 
-	mpd_clearError(c->connection);
+	mpd_connection_clear_error(c->connection);
 	if (recursion > 2)
 		return 1;
 
@@ -135,12 +137,14 @@ _screen_auth(struct mpdclient *c, gint recursion)
 	if (password == NULL)
 		return 1;
 
-	mpd_sendPasswordCommand(c->connection, password);
+	mpd_send_password(c->connection, password);
 	g_free(password);
 
-	mpd_finishCommand(c->connection);
+	mpd_response_finish(c->connection);
 	mpdclient_update(c);
-	if (c->connection->errorCode == MPD_ACK_ERROR_PASSWORD)
+
+	if (mpd_connection_get_error(c->connection) == MPD_ERROR_SERVER &&
+	    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_PASSWORD)
 		return  _screen_auth(c, ++recursion);
 	return 0;
 }
