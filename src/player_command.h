@@ -22,12 +22,14 @@
 
 #include "command.h"
 
+#include <stdbool.h>
+
 struct mpdclient;
 
 extern int seek_id;
 extern int seek_target_time;
 
-int
+bool
 handle_player_command(struct mpdclient *c, command_t cmd);
 
 #endif

@@ -30,11 +30,11 @@
 int seek_id = -1;
 int seek_target_time = 0;
 
-int
+bool
 handle_player_command(struct mpdclient *c, command_t cmd)
 {
 	if (c->connection == NULL || c->status == NULL)
-		return 0;
+		return false;
 
 	switch(cmd) {
 		/*
@@ -126,8 +126,8 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 		break;
 
 	default:
-		return 0;
+		return false;
 	}
 
-	return 1;
+	return true;
 }
