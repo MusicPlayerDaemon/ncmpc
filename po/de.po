@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-21 20:10+0200\n"
-"PO-Revision-Date: 2009-04-17 16:44+0000\n"
-"Last-Translator: Monika Brinkert <moni@sunpig.de>\n"
+"PO-Revision-Date: 2009-09-28 17:13+0200\n"
+"Last-Translator: Samuel Creshal <creshal@yaki-syndicate.de>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-17 17:40+0000\n"
+"X-Launchpad-Export-Date: 2009-09-28 15:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -555,7 +555,7 @@ msgstr "Ausgewählte Tastenbelegung entfernen"
 
 #: src/screen_help.c:178
 msgid "Go up a level"
-msgstr ""
+msgstr "Eine Ebene nach oben"
 
 #: src/screen_help.c:179
 msgid "Apply and save changes"
@@ -592,9 +592,8 @@ msgid "Song viewer"
 msgstr "Liedbetrachter"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Length"
-msgstr "Links"
+msgstr "Länge"
 
 #: src/screen_song.c:194
 msgid "Composer"
@@ -742,9 +741,8 @@ msgid "Scroll down half a screen"
 msgstr "Die halbe Anzeige nach unten scrollen"
 
 #: src/command.c:104
-#, fuzzy
 msgid "Select currently playing song"
-msgstr "Gerade laufendes Lied"
+msgstr "Derzeit spielenden Song auswählen"
 
 #: src/command.c:109
 msgid "Help screen"
@@ -1102,7 +1100,8 @@ msgstr ""
 "Übersetzer\n"
 "\n"
 "Launchpad Contributions:\n"
-"  Monika Brinkert https://launchpad.net/~moni-sunpig"
+"  Monika Brinkert https://launchpad.net/~moni-sunpig\n"
+"  Samuel Creshal https://launchpad.net/~samuel-creshal"
 
 #: src/list_window.c:535
 msgid "Range selection disabled"
