@@ -50,19 +50,19 @@ playlist_clear(struct mpdclient_playlist *playlist)
 }
 
 gint
-mpdclient_playlist_free(mpdclient_playlist_t *playlist)
+mpdclient_playlist_free(struct mpdclient_playlist *playlist)
 {
 	if (playlist->list != NULL) {
 		playlist_clear(playlist);
 		g_ptr_array_free(playlist->list, TRUE);
 	}
 
-	memset(playlist, 0, sizeof(mpdclient_playlist_t));
+	memset(playlist, 0, sizeof(*playlist));
 	return 0;
 }
 
 struct mpd_song *
-playlist_get_song(mpdclient_t *c, gint idx)
+playlist_get_song(struct mpdclient *c, gint idx)
 {
 	if (idx < 0 || (guint)idx >= c->playlist.list->len)
 		return NULL;
@@ -71,7 +71,7 @@ playlist_get_song(mpdclient_t *c, gint idx)
 }
 
 struct mpd_song *
-playlist_lookup_song(mpdclient_t *c, unsigned id)
+playlist_lookup_song(struct mpdclient *c, unsigned id)
 {
 	guint i;
 

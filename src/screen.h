@@ -21,7 +21,6 @@
 #define SCREEN_H
 
 #include "config.h"
-#include "mpdclient.h"
 #include "command.h"
 
 #include <mpd/client.h>
@@ -39,6 +38,8 @@
 #define IS_STOPPED(s) (!(IS_PLAYING(s) | IS_PAUSED(s)))
 
 #define MAX_SONGNAME_LENGTH   512
+
+struct mpdclient;
 
 struct window {
 	WINDOW *w;
@@ -94,25 +95,25 @@ extern const struct screen_functions screen_outputs;
 typedef struct screen_functions {
 	void (*init)(WINDOW *w, int cols, int rows);
 	void (*exit)(void);
-	void (*open)(mpdclient_t *c);
+	void (*open)(struct mpdclient *c);
 	void (*close)(void);
 	void (*resize)(int cols, int rows);
 	void (*paint)(void);
-	void (*update)(mpdclient_t *c);
-	bool (*cmd)(mpdclient_t *c, command_t cmd);
+	void (*update)(struct mpdclient *c);
+	bool (*cmd)(struct mpdclient *c, command_t cmd);
 	const char *(*get_title)(char *s, size_t size);
 } screen_functions_t;
 
-void screen_init(mpdclient_t *c);
+void screen_init(struct mpdclient *c);
 void screen_exit(void);
 void screen_resize(struct mpdclient *c);
 void screen_status_message(const char *msg);
 void screen_status_printf(const char *format, ...);
 char *screen_error(void);
-void screen_paint(mpdclient_t *c);
-void screen_update(mpdclient_t *c);
-void screen_idle(mpdclient_t *c);
-void screen_cmd(mpdclient_t *c, command_t cmd);
+void screen_paint(struct mpdclient *c);
+void screen_update(struct mpdclient *c);
+void screen_idle(struct mpdclient *c);
+void screen_cmd(struct mpdclient *c, command_t cmd);
 gint screen_get_id(const char *name);
 
 void
@@ -123,7 +124,8 @@ screen_swap(struct mpdclient *c, const struct mpd_song *song);
 gboolean
 screen_is_visible(const struct screen_functions *sf);
 
-int screen_get_mouse_event(mpdclient_t *c, unsigned long *bstate, int *row);
+int
+screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row);
 
 bool
 screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song);

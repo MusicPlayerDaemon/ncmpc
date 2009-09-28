@@ -20,9 +20,9 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "mpdclient.h"
-
 #include <glib.h>
+
+struct mpdclient;
 
 /* functions for lists containing strings */
 GList *string_list_free(GList *string_list);
@@ -36,10 +36,9 @@ GList *string_list_remove(GList *string_list, const gchar *str);
 #define GCMP_TYPE_RFILE     (GCMP_TYPE_DIR | GCMP_TYPE_FILE)
 #define GCMP_TYPE_RPLAYLIST (GCMP_TYPE_DIR | GCMP_TYPE_PLAYLIST)
 
-GList *gcmp_list_from_path(mpdclient_t *c,
-			   const gchar *path,
-			   GList *list,
-			   gint types);
+GList *
+gcmp_list_from_path(struct mpdclient *c, const gchar *path,
+		    GList *list, gint types);
 
 char *
 time_seconds_to_durationstr(unsigned long time_seconds);

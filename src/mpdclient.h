@@ -2,13 +2,14 @@
 #define MPDCLIENT_H
 
 #include "playlist.h"
-#include "filelist.h"
 
 #include <mpd/tag.h>
 
-typedef struct mpdclient {
+struct filelist;
+
+struct mpdclient {
 	/* playlist */
-	mpdclient_playlist_t playlist;
+	struct mpdclient_playlist playlist;
 
 	/* Callbacks */
 	GList *error_callbacks;
@@ -23,55 +24,57 @@ typedef struct mpdclient {
 
 	int volume;
 	unsigned updatingdb;
-} mpdclient_t;
+};
 
 /** functions ***************************************************************/
 
 gint
-mpdclient_finish_command(mpdclient_t *c);
+mpdclient_finish_command(struct mpdclient *c);
 
-mpdclient_t *mpdclient_new(void);
-void mpdclient_free(mpdclient_t *c);
-gint mpdclient_connect(mpdclient_t *c, const gchar *host, gint port,
+struct mpdclient *
+mpdclient_new(void);
+
+void mpdclient_free(struct mpdclient *c);
+gint mpdclient_connect(struct mpdclient *c, const gchar *host, gint port,
 		       gfloat timeout_, const gchar *password);
-gint mpdclient_disconnect(mpdclient_t *c);
-gint mpdclient_update(mpdclient_t *c);
+gint mpdclient_disconnect(struct mpdclient *c);
+gint mpdclient_update(struct mpdclient *c);
 
 
 /*** MPD Commands  **********************************************************/
-gint mpdclient_cmd_play(mpdclient_t *c, gint index);
-gint mpdclient_cmd_pause(mpdclient_t *c, gint value);
+gint mpdclient_cmd_play(struct mpdclient *c, gint index);
+gint mpdclient_cmd_pause(struct mpdclient *c, gint value);
 gint
-mpdclient_cmd_crop(mpdclient_t *c);
-gint mpdclient_cmd_stop(mpdclient_t *c);
-gint mpdclient_cmd_next(mpdclient_t *c);
-gint mpdclient_cmd_prev(mpdclient_t *c);
-gint mpdclient_cmd_seek(mpdclient_t *c, gint id, gint pos);
-gint mpdclient_cmd_shuffle(mpdclient_t *c);
-gint mpdclient_cmd_shuffle_range(mpdclient_t *c, guint start, guint end);
-gint mpdclient_cmd_clear(mpdclient_t *c);
-gint mpdclient_cmd_repeat(mpdclient_t *c, gint value);
-gint mpdclient_cmd_random(mpdclient_t *c, gint value);
-gint mpdclient_cmd_single(mpdclient_t *c, gint value);
-gint mpdclient_cmd_consume(mpdclient_t *c, gint value);
-gint mpdclient_cmd_crossfade(mpdclient_t *c, gint value);
-gint mpdclient_cmd_db_update(mpdclient_t *c, const gchar *path);
-gint mpdclient_cmd_volume(mpdclient_t *c, gint value);
+mpdclient_cmd_crop(struct mpdclient *c);
+gint mpdclient_cmd_stop(struct mpdclient *c);
+gint mpdclient_cmd_next(struct mpdclient *c);
+gint mpdclient_cmd_prev(struct mpdclient *c);
+gint mpdclient_cmd_seek(struct mpdclient *c, gint id, gint pos);
+gint mpdclient_cmd_shuffle(struct mpdclient *c);
+gint mpdclient_cmd_shuffle_range(struct mpdclient *c, guint start, guint end);
+gint mpdclient_cmd_clear(struct mpdclient *c);
+gint mpdclient_cmd_repeat(struct mpdclient *c, gint value);
+gint mpdclient_cmd_random(struct mpdclient *c, gint value);
+gint mpdclient_cmd_single(struct mpdclient *c, gint value);
+gint mpdclient_cmd_consume(struct mpdclient *c, gint value);
+gint mpdclient_cmd_crossfade(struct mpdclient *c, gint value);
+gint mpdclient_cmd_db_update(struct mpdclient *c, const gchar *path);
+gint mpdclient_cmd_volume(struct mpdclient *c, gint value);
 gint mpdclient_cmd_volume_up(struct mpdclient *c);
 gint mpdclient_cmd_volume_down(struct mpdclient *c);
-gint mpdclient_cmd_add_path(mpdclient_t *c, const gchar *path);
+gint mpdclient_cmd_add_path(struct mpdclient *c, const gchar *path);
 
-gint mpdclient_cmd_add(mpdclient_t *c, const struct mpd_song *song);
-gint mpdclient_cmd_delete(mpdclient_t *c, gint index);
-gint mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index);
+gint mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song);
+gint mpdclient_cmd_delete(struct mpdclient *c, gint index);
+gint mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index);
 
-gint mpdclient_cmd_save_playlist(mpdclient_t *c, const gchar *filename);
-gint mpdclient_cmd_load_playlist(mpdclient_t *c, const gchar *filename_utf8);
-gint mpdclient_cmd_delete_playlist(mpdclient_t *c, const gchar *filename_utf8);
+gint mpdclient_cmd_save_playlist(struct mpdclient *c, const gchar *filename);
+gint mpdclient_cmd_load_playlist(struct mpdclient *c, const gchar *filename_utf8);
+gint mpdclient_cmd_delete_playlist(struct mpdclient *c, const gchar *filename_utf8);
 
 /* list functions */
-GList *mpdclient_get_artists(mpdclient_t *c);
-GList *mpdclient_get_albums(mpdclient_t *c, const gchar *artist_utf8);
+GList *mpdclient_get_artists(struct mpdclient *c);
+GList *mpdclient_get_albums(struct mpdclient *c, const gchar *artist_utf8);
 
 
 /*** error callbacks *****************************************************/
@@ -79,10 +82,10 @@ GList *mpdclient_get_albums(mpdclient_t *c, const gchar *artist_utf8);
 #define IS_ACK_ERROR(n)       (n & MPD_ERROR_ACK)
 #define GET_ACK_ERROR_CODE(n) ((n & 0xFF00) >> 8)
 
-typedef void (*mpdc_error_cb_t) (mpdclient_t *c, gint error, const gchar *msg);
+typedef void (*mpdc_error_cb_t) (struct mpdclient *c, gint error, const gchar *msg);
 
-void mpdclient_install_error_callback(mpdclient_t *c, mpdc_error_cb_t cb);
-void mpdclient_remove_error_callback(mpdclient_t *c, mpdc_error_cb_t cb);
+void mpdclient_install_error_callback(struct mpdclient *c, mpdc_error_cb_t cb);
+void mpdclient_remove_error_callback(struct mpdclient *c, mpdc_error_cb_t cb);
 
 /*** playlist functions  **************************************************/
 
@@ -102,29 +105,32 @@ gint mpdclient_playlist_update_changes(struct mpdclient *c);
 #define PLAYLIST_EVENT_MOVE        0x05
 
 
-typedef void (*mpdc_list_cb_t) (mpdclient_t *c, int event, gpointer data);
+typedef void (*mpdc_list_cb_t) (struct mpdclient *c, int event, gpointer data);
 
 /* install a playlist callback function */
-void mpdclient_install_playlist_callback(mpdclient_t *c, mpdc_list_cb_t cb);
+void mpdclient_install_playlist_callback(struct mpdclient *c, mpdc_list_cb_t cb);
 
 /* remove a playlist callback function */
-void mpdclient_remove_playlist_callback(mpdclient_t *c, mpdc_list_cb_t cb);
+void mpdclient_remove_playlist_callback(struct mpdclient *c, mpdc_list_cb_t cb);
 
 
 /* issue a playlist callback */
-void mpdclient_playlist_callback(mpdclient_t *c, int event, gpointer data);
+void mpdclient_playlist_callback(struct mpdclient *c, int event, gpointer data);
 
 
 /*** filelist functions  ***************************************************/
 
-mpdclient_filelist_t *mpdclient_filelist_get(mpdclient_t *c, const gchar *path);
-mpdclient_filelist_t *mpdclient_filelist_search(mpdclient_t *c,
-						int exact_match,
-						enum mpd_tag_type tag,
-						gchar *filter_utf8);
+struct filelist *
+mpdclient_filelist_get(struct mpdclient *c, const gchar *path);
+
+struct filelist *
+mpdclient_filelist_search(struct mpdclient *c, int exact_match,
+			  enum mpd_tag_type tag,
+			  gchar *filter_utf8);
 
 /* add all songs in filelist to the playlist */
-int mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl);
+int
+mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl);
 
 /*** mpdclient browse callbacks ********************************************/
 
@@ -134,14 +140,14 @@ int mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl);
 
 
 /* install a playlist callback function */
-void mpdclient_install_browse_callback(mpdclient_t *c, mpdc_list_cb_t cb);
+void mpdclient_install_browse_callback(struct mpdclient *c, mpdc_list_cb_t cb);
 
 /* remove a playlist callback function */
-void mpdclient_remove_browse_callback(mpdclient_t *c, mpdc_list_cb_t cb);
+void mpdclient_remove_browse_callback(struct mpdclient *c, mpdc_list_cb_t cb);
 
 
 /* issue a playlist callback */
-void mpdclient_browse_callback(mpdclient_t *c, int event, gpointer data);
+void mpdclient_browse_callback(struct mpdclient *c, int event, gpointer data);
 
 /* sort by list-format */
 gint compare_filelistentry_format(gconstpointer filelist_entry1, gconstpointer filelist_entry2);

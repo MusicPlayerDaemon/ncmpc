@@ -200,7 +200,7 @@ lyrics_exit(void)
 }
 
 static void
-lyrics_open(mpdclient_t *c)
+lyrics_open(struct mpdclient *c)
 {
 	if (next_song == NULL)
 		next_song = c->song;
@@ -217,7 +217,7 @@ lyrics_open(mpdclient_t *c)
 }
 
 static void
-lyrics_update(mpdclient_t *c)
+lyrics_update(struct mpdclient *c)
 {
 	if (!follow)
 		return;
@@ -260,7 +260,7 @@ lyrics_paint(void)
 }
 
 static bool
-lyrics_cmd(mpdclient_t *c, command_t cmd)
+lyrics_cmd(struct mpdclient *c, command_t cmd)
 {
 	if (screen_text_cmd(&text, c, cmd))
 		return true;

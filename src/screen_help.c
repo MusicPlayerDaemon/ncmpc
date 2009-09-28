@@ -256,7 +256,7 @@ help_paint(void)
 }
 
 static bool
-help_cmd(G_GNUC_UNUSED mpdclient_t *c, command_t cmd)
+help_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(lw, help_text_rows, cmd)) {
 		list_window_paint(lw, list_callback, NULL);

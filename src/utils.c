@@ -21,6 +21,8 @@
 #include "options.h"
 #include "charset.h"
 #include "i18n.h"
+#include "mpdclient.h"
+#include "filelist.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -72,10 +74,11 @@ string_list_remove(GList *string_list, const gchar *str)
 
 /* create a list suitable for GCompletion from path */
 GList *
-gcmp_list_from_path(mpdclient_t *c, const gchar *path, GList *list, gint types)
+gcmp_list_from_path(struct mpdclient *c, const gchar *path,
+		    GList *list, gint types)
 {
 	guint i;
-	mpdclient_filelist_t *filelist;
+	struct filelist *filelist;
 
 	if ((filelist = mpdclient_filelist_get(c, path)) == NULL)
 		return list;

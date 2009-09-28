@@ -18,6 +18,7 @@
 */
 
 #include "mpdclient.h"
+#include "filelist.h"
 #include "screen_utils.h"
 #include "config.h"
 #include "options.h"
@@ -54,8 +55,8 @@ compare_filelistentry(gconstpointer filelist_entry1,
 	const struct mpd_entity *e1, *e2;
 	int n = 0;
 
-	e1 = ((const filelist_entry_t *)filelist_entry1)->entity;
-	e2 = ((const filelist_entry_t *)filelist_entry2)->entity;
+	e1 = ((const struct filelist_entry *)filelist_entry1)->entity;
+	e2 = ((const struct filelist_entry *)filelist_entry2)->entity;
 
 	if (e1 != NULL && e2 != NULL &&
 	    mpd_entity_get_type(e1) == mpd_entity_get_type(e2)) {
@@ -85,8 +86,8 @@ compare_filelistentry_format(gconstpointer filelist_entry1,
 	char key1[BUFSIZE], key2[BUFSIZE];
 	int n = 0;
 
-	e1 = ((const filelist_entry_t *)filelist_entry1)->entity;
-	e2 = ((const filelist_entry_t *)filelist_entry2)->entity;
+	e1 = ((const struct filelist_entry *)filelist_entry1)->entity;
+	e2 = ((const struct filelist_entry *)filelist_entry2)->entity;
 
 	if (e1 && e2 &&
 	    mpd_entity_get_type(e1) == MPD_ENTITY_TYPE_SONG &&
@@ -102,7 +103,7 @@ compare_filelistentry_format(gconstpointer filelist_entry1,
 
 /* Error callbacks */
 static gint
-error_cb(mpdclient_t *c, gint error, const gchar *msg)
+error_cb(struct mpdclient *c, gint error, const gchar *msg)
 {
 	GList *list = c->error_callbacks;
 
@@ -126,7 +127,7 @@ error_cb(mpdclient_t *c, gint error, const gchar *msg)
 /****************************************************************************/
 
 static gint
-mpdclient_handle_error(mpdclient_t *c)
+mpdclient_handle_error(struct mpdclient *c)
 {
 	enum mpd_error error = mpd_connection_get_error(c->connection);
 	bool is_fatal = error != MPD_ERROR_SERVER;
@@ -150,18 +151,18 @@ mpdclient_handle_error(mpdclient_t *c)
 }
 
 gint
-mpdclient_finish_command(mpdclient_t *c)
+mpdclient_finish_command(struct mpdclient *c)
 {
 	return mpd_response_finish(c->connection)
 		? 0 : mpdclient_handle_error(c);
 }
 
-mpdclient_t *
+struct mpdclient *
 mpdclient_new(void)
 {
-	mpdclient_t *c;
+	struct mpdclient *c;
 
-	c = g_malloc0(sizeof(mpdclient_t));
+	c = g_new0(struct mpdclient, 1);
 	playlist_init(&c->playlist);
 	c->volume = MPD_STATUS_NO_VOLUME;
 
@@ -169,7 +170,7 @@ mpdclient_new(void)
 }
 
 void
-mpdclient_free(mpdclient_t *c)
+mpdclient_free(struct mpdclient *c)
 {
 	mpdclient_disconnect(c);
 
@@ -182,7 +183,7 @@ mpdclient_free(mpdclient_t *c)
 }
 
 gint
-mpdclient_disconnect(mpdclient_t *c)
+mpdclient_disconnect(struct mpdclient *c)
 {
 	if (c->connection)
 		mpd_connection_free(c->connection);
@@ -201,7 +202,7 @@ mpdclient_disconnect(mpdclient_t *c)
 }
 
 gint
-mpdclient_connect(mpdclient_t *c,
+mpdclient_connect(struct mpdclient *c,
 		  const gchar *host,
 		  gint port,
 		  gfloat _timeout,
@@ -240,7 +241,7 @@ mpdclient_connect(mpdclient_t *c,
 }
 
 gint
-mpdclient_update(mpdclient_t *c)
+mpdclient_update(struct mpdclient *c)
 {
 	gint retval = 0;
 
@@ -289,7 +290,7 @@ mpdclient_update(mpdclient_t *c)
 /****************************************************************************/
 
 gint
-mpdclient_cmd_play(mpdclient_t *c, gint idx)
+mpdclient_cmd_play(struct mpdclient *c, gint idx)
 {
 #ifdef ENABLE_SONG_ID
 	struct mpd_song *song = playlist_get_song(c, idx);
@@ -312,7 +313,7 @@ mpdclient_cmd_play(mpdclient_t *c, gint idx)
 }
 
 gint
-mpdclient_cmd_pause(mpdclient_t *c, gint value)
+mpdclient_cmd_pause(struct mpdclient *c, gint value)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -322,7 +323,7 @@ mpdclient_cmd_pause(mpdclient_t *c, gint value)
 }
 
 gint
-mpdclient_cmd_crop(mpdclient_t *c)
+mpdclient_cmd_crop(struct mpdclient *c)
 {
 	struct mpd_status *status;
 	bool playing;
@@ -357,7 +358,7 @@ mpdclient_cmd_crop(mpdclient_t *c)
 }
 
 gint
-mpdclient_cmd_stop(mpdclient_t *c)
+mpdclient_cmd_stop(struct mpdclient *c)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -367,7 +368,7 @@ mpdclient_cmd_stop(mpdclient_t *c)
 }
 
 gint
-mpdclient_cmd_next(mpdclient_t *c)
+mpdclient_cmd_next(struct mpdclient *c)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -378,7 +379,7 @@ mpdclient_cmd_next(mpdclient_t *c)
 }
 
 gint
-mpdclient_cmd_prev(mpdclient_t *c)
+mpdclient_cmd_prev(struct mpdclient *c)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -389,7 +390,7 @@ mpdclient_cmd_prev(mpdclient_t *c)
 }
 
 gint
-mpdclient_cmd_seek(mpdclient_t *c, gint id, gint pos)
+mpdclient_cmd_seek(struct mpdclient *c, gint id, gint pos)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -399,7 +400,7 @@ mpdclient_cmd_seek(mpdclient_t *c, gint id, gint pos)
 }
 
 gint
-mpdclient_cmd_shuffle(mpdclient_t *c)
+mpdclient_cmd_shuffle(struct mpdclient *c)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -410,7 +411,7 @@ mpdclient_cmd_shuffle(mpdclient_t *c)
 }
 
 gint
-mpdclient_cmd_shuffle_range(mpdclient_t *c, guint start, guint end)
+mpdclient_cmd_shuffle_range(struct mpdclient *c, guint start, guint end)
 {
 	mpd_send_shuffle_range(c->connection, start, end);
 	c->need_update = TRUE;
@@ -418,7 +419,7 @@ mpdclient_cmd_shuffle_range(mpdclient_t *c, guint start, guint end)
 }
 
 gint
-mpdclient_cmd_clear(mpdclient_t *c)
+mpdclient_cmd_clear(struct mpdclient *c)
 {
 	gint retval = 0;
 
@@ -434,7 +435,7 @@ mpdclient_cmd_clear(mpdclient_t *c)
 }
 
 gint
-mpdclient_cmd_repeat(mpdclient_t *c, gint value)
+mpdclient_cmd_repeat(struct mpdclient *c, gint value)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -444,7 +445,7 @@ mpdclient_cmd_repeat(mpdclient_t *c, gint value)
 }
 
 gint
-mpdclient_cmd_random(mpdclient_t *c, gint value)
+mpdclient_cmd_random(struct mpdclient *c, gint value)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -454,7 +455,7 @@ mpdclient_cmd_random(mpdclient_t *c, gint value)
 }
 
 gint
-mpdclient_cmd_single(mpdclient_t *c, gint value)
+mpdclient_cmd_single(struct mpdclient *c, gint value)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -464,7 +465,7 @@ mpdclient_cmd_single(mpdclient_t *c, gint value)
 }
 
 gint
-mpdclient_cmd_consume(mpdclient_t *c, gint value)
+mpdclient_cmd_consume(struct mpdclient *c, gint value)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -474,7 +475,7 @@ mpdclient_cmd_consume(mpdclient_t *c, gint value)
 }
 
 gint
-mpdclient_cmd_crossfade(mpdclient_t *c, gint value)
+mpdclient_cmd_crossfade(struct mpdclient *c, gint value)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -484,7 +485,7 @@ mpdclient_cmd_crossfade(mpdclient_t *c, gint value)
 }
 
 gint
-mpdclient_cmd_db_update(mpdclient_t *c, const gchar *path)
+mpdclient_cmd_db_update(struct mpdclient *c, const gchar *path)
 {
 	gint ret;
 
@@ -504,7 +505,7 @@ mpdclient_cmd_db_update(mpdclient_t *c, const gchar *path)
 }
 
 gint
-mpdclient_cmd_volume(mpdclient_t *c, gint value)
+mpdclient_cmd_volume(struct mpdclient *c, gint value)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -550,7 +551,7 @@ gint mpdclient_cmd_volume_down(struct mpdclient *c)
 }
 
 gint
-mpdclient_cmd_add_path(mpdclient_t *c, const gchar *path_utf8)
+mpdclient_cmd_add_path(struct mpdclient *c, const gchar *path_utf8)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -560,7 +561,7 @@ mpdclient_cmd_add_path(mpdclient_t *c, const gchar *path_utf8)
 }
 
 gint
-mpdclient_cmd_add(mpdclient_t *c, const struct mpd_song *song)
+mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 {
 	gint retval = 0;
 
@@ -592,7 +593,7 @@ mpdclient_cmd_add(mpdclient_t *c, const struct mpd_song *song)
 }
 
 gint
-mpdclient_cmd_delete(mpdclient_t *c, gint idx)
+mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 {
 	gint retval = 0;
 	struct mpd_song *song;
@@ -640,7 +641,7 @@ mpdclient_cmd_delete(mpdclient_t *c, gint idx)
 }
 
 gint
-mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
+mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
 {
 	gint n;
 	struct mpd_song *song1, *song2;
@@ -683,7 +684,7 @@ mpdclient_cmd_move(mpdclient_t *c, gint old_index, gint new_index)
 }
 
 gint
-mpdclient_cmd_save_playlist(mpdclient_t *c, const gchar *filename_utf8)
+mpdclient_cmd_save_playlist(struct mpdclient *c, const gchar *filename_utf8)
 {
 	gint retval = 0;
 
@@ -697,7 +698,7 @@ mpdclient_cmd_save_playlist(mpdclient_t *c, const gchar *filename_utf8)
 }
 
 gint
-mpdclient_cmd_load_playlist(mpdclient_t *c, const gchar *filename_utf8)
+mpdclient_cmd_load_playlist(struct mpdclient *c, const gchar *filename_utf8)
 {
 	if (MPD_ERROR(c))
 		return -1;
@@ -708,7 +709,7 @@ mpdclient_cmd_load_playlist(mpdclient_t *c, const gchar *filename_utf8)
 }
 
 gint
-mpdclient_cmd_delete_playlist(mpdclient_t *c, const gchar *filename_utf8)
+mpdclient_cmd_delete_playlist(struct mpdclient *c, const gchar *filename_utf8)
 {
 	gint retval = 0;
 
@@ -727,7 +728,7 @@ mpdclient_cmd_delete_playlist(mpdclient_t *c, const gchar *filename_utf8)
 /****************************************************************************/
 
 static void
-do_list_callbacks(mpdclient_t *c, GList *list, gint event, gpointer data)
+do_list_callbacks(struct mpdclient *c, GList *list, gint event, gpointer data)
 {
 	while (list) {
 		mpdc_list_cb_t fn = list->data;
@@ -738,50 +739,50 @@ do_list_callbacks(mpdclient_t *c, GList *list, gint event, gpointer data)
 }
 
 void
-mpdclient_playlist_callback(mpdclient_t *c, int event, gpointer data)
+mpdclient_playlist_callback(struct mpdclient *c, int event, gpointer data)
 {
 	do_list_callbacks(c, c->playlist_callbacks, event, data);
 }
 
 void
-mpdclient_install_playlist_callback(mpdclient_t *c,mpdc_list_cb_t cb)
+mpdclient_install_playlist_callback(struct mpdclient *c,mpdc_list_cb_t cb)
 {
 	c->playlist_callbacks = g_list_append(c->playlist_callbacks, cb);
 }
 
 void
-mpdclient_remove_playlist_callback(mpdclient_t *c, mpdc_list_cb_t cb)
+mpdclient_remove_playlist_callback(struct mpdclient *c, mpdc_list_cb_t cb)
 {
 	c->playlist_callbacks = g_list_remove(c->playlist_callbacks, cb);
 }
 
 void
-mpdclient_browse_callback(mpdclient_t *c, int event, gpointer data)
+mpdclient_browse_callback(struct mpdclient *c, int event, gpointer data)
 {
 	do_list_callbacks(c, c->browse_callbacks, event, data);
 }
 
 
 void
-mpdclient_install_browse_callback(mpdclient_t *c,mpdc_list_cb_t cb)
+mpdclient_install_browse_callback(struct mpdclient *c,mpdc_list_cb_t cb)
 {
 	c->browse_callbacks = g_list_append(c->browse_callbacks, cb);
 }
 
 void
-mpdclient_remove_browse_callback(mpdclient_t *c, mpdc_list_cb_t cb)
+mpdclient_remove_browse_callback(struct mpdclient *c, mpdc_list_cb_t cb)
 {
 	c->browse_callbacks = g_list_remove(c->browse_callbacks, cb);
 }
 
 void
-mpdclient_install_error_callback(mpdclient_t *c, mpdc_error_cb_t cb)
+mpdclient_install_error_callback(struct mpdclient *c, mpdc_error_cb_t cb)
 {
 	c->error_callbacks = g_list_append(c->error_callbacks, cb);
 }
 
 void
-mpdclient_remove_error_callback(mpdclient_t *c, mpdc_error_cb_t cb)
+mpdclient_remove_error_callback(struct mpdclient *c, mpdc_error_cb_t cb)
 {
 	c->error_callbacks = g_list_remove(c->error_callbacks, cb);
 }
@@ -793,7 +794,7 @@ mpdclient_remove_error_callback(mpdclient_t *c, mpdc_error_cb_t cb)
 
 /* update playlist */
 gint
-mpdclient_playlist_update(mpdclient_t *c)
+mpdclient_playlist_update(struct mpdclient *c)
 {
 	struct mpd_entity *entity;
 
@@ -823,7 +824,7 @@ mpdclient_playlist_update(mpdclient_t *c)
 
 /* update playlist (plchanges) */
 gint
-mpdclient_playlist_update_changes(mpdclient_t *c)
+mpdclient_playlist_update_changes(struct mpdclient *c)
 {
 	struct mpd_song *song;
 	guint length;
@@ -867,7 +868,7 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 
 #else
 gint
-mpdclient_playlist_update_changes(mpdclient_t *c)
+mpdclient_playlist_update_changes(struct mpdclient *c)
 {
 	return mpdclient_playlist_update(c);
 }
@@ -878,10 +879,10 @@ mpdclient_playlist_update_changes(mpdclient_t *c)
 /*** Filelist functions *****************************************************/
 /****************************************************************************/
 
-mpdclient_filelist_t *
-mpdclient_filelist_get(mpdclient_t *c, const gchar *path)
+struct filelist *
+mpdclient_filelist_get(struct mpdclient *c, const gchar *path)
 {
-	mpdclient_filelist_t *filelist;
+	struct filelist *filelist;
 	struct mpd_entity *entity;
 
 	if (MPD_ERROR(c))
@@ -923,8 +924,8 @@ mpdclient_recv_filelist_response(struct mpdclient *c)
 	return filelist;
 }
 
-mpdclient_filelist_t *
-mpdclient_filelist_search(mpdclient_t *c,
+struct filelist *
+mpdclient_filelist_search(struct mpdclient *c,
 			  int exact_match,
 			  enum mpd_tag_type tag,
 			  gchar *filter_utf8)
@@ -941,7 +942,7 @@ mpdclient_filelist_search(mpdclient_t *c,
 }
 
 int
-mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl)
+mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl)
 {
 	guint i;
 
@@ -954,7 +955,7 @@ mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl)
 	mpd_command_list_begin(c->connection, false);
 
 	for (i = 0; i < filelist_length(fl); ++i) {
-		filelist_entry_t *entry = filelist_get(fl, i);
+		struct filelist_entry *entry = filelist_get(fl, i);
 		struct mpd_entity *entity  = entry->entity;
 
 		if (entity != NULL &&
@@ -973,7 +974,7 @@ mpdclient_filelist_add_all(mpdclient_t *c, mpdclient_filelist_t *fl)
 }
 
 GList *
-mpdclient_get_artists(mpdclient_t *c)
+mpdclient_get_artists(struct mpdclient *c)
 {
 	GList *list = NULL;
 	struct mpd_pair *pair;
@@ -997,7 +998,7 @@ mpdclient_get_artists(mpdclient_t *c)
 }
 
 GList *
-mpdclient_get_albums(mpdclient_t *c, const gchar *artist_utf8)
+mpdclient_get_albums(struct mpdclient *c, const gchar *artist_utf8)
 {
 	GList *list = NULL;
 	struct mpd_pair *pair;

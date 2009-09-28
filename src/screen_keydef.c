@@ -246,7 +246,7 @@ keydef_exit(void)
 }
 
 static void
-keydef_open(G_GNUC_UNUSED mpdclient_t *c)
+keydef_open(G_GNUC_UNUSED struct mpdclient *c)
 {
 	if (cmds == NULL) {
 		command_definition_t *current_cmds = get_command_definitions();
@@ -293,7 +293,7 @@ keydef_paint(void)
 }
 
 static bool
-keydef_cmd(G_GNUC_UNUSED mpdclient_t *c, command_t cmd)
+keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 {
 	int length = LIST_LENGTH();
 

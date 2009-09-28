@@ -27,6 +27,7 @@
 #include "screen.h"
 #include "screen_utils.h"
 #include "screen_browser.h"
+#include "filelist.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -113,7 +114,7 @@ artist_repaint_if_active(void)
 #ifndef NCMPC_MINI
 /* the playlist has been updated -> fix highlights */
 static void
-playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
+playlist_changed_callback(struct mpdclient *c, int event, gpointer data)
 {
 	browser_playlist_changed(&browser, c, event, data);
 
@@ -308,7 +309,7 @@ reload_lists(struct mpdclient *c)
 
 /* db updated */
 static void
-browse_callback(mpdclient_t *c, int event, G_GNUC_UNUSED gpointer data)
+browse_callback(struct mpdclient *c, int event, G_GNUC_UNUSED gpointer data)
 {
 	switch(event) {
 	case BROWSE_DB_UPDATED:
@@ -337,7 +338,7 @@ quit(void)
 }
 
 static void
-open(mpdclient_t *c)
+open(struct mpdclient *c)
 {
 	static gboolean callback_installed = FALSE;
 
@@ -407,10 +408,10 @@ get_title(char *str, size_t size)
 }
 
 static void
-add_query(mpdclient_t *c, enum mpd_tag_type table, char *_filter)
+add_query(struct mpdclient *c, enum mpd_tag_type table, char *_filter)
 {
 	char *str;
-	mpdclient_filelist_t *addlist;
+	struct filelist *addlist;
 
 	assert(filter != NULL);
 
@@ -469,7 +470,7 @@ string_array_find(GPtrArray *array, const char *value)
 }
 
 static bool
-artist_cmd(mpdclient_t *c, command_t cmd)
+artist_cmd(struct mpdclient *c, command_t cmd)
 {
 	char *selected;
 	char *old;

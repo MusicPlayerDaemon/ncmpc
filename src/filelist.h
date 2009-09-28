@@ -24,15 +24,15 @@
 
 struct mpd_song;
 
-typedef struct filelist_entry {
+struct filelist_entry {
 	guint flags;
 	struct mpd_entity *entity;
-} filelist_entry_t;
+};
 
-typedef struct filelist {
+struct filelist {
 	/* the list */
 	GPtrArray *entries;
-} mpdclient_filelist_t;
+};
 
 struct filelist *
 filelist_new(void);

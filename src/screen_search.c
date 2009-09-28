@@ -16,6 +16,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+
 #include "i18n.h"
 #include "options.h"
 #include "charset.h"
@@ -26,6 +27,7 @@
 #include "utils.h"
 #include "screen_utils.h"
 #include "screen_browser.h"
+#include "filelist.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -140,7 +142,7 @@ search_repaint_if_active(void)
 
 /* the playlist has been updated -> fix highlights */
 static void
-playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
+playlist_changed_callback(struct mpdclient *c, int event, gpointer data)
 {
 	browser_playlist_changed(&browser, c, event, data);
 	search_repaint_if_active();
@@ -161,7 +163,7 @@ search_check_mode(void)
 }
 
 static void
-search_clear(mpdclient_t *c,
+search_clear(struct mpdclient *c,
 	     gboolean clear_pattern)
 {
 	if (browser.filelist) {
@@ -175,11 +177,11 @@ search_clear(mpdclient_t *c,
 	}
 }
 
-static mpdclient_filelist_t *
-filelist_search(mpdclient_t *c, G_GNUC_UNUSED int exact_match, int table,
+static struct filelist *
+filelist_search(struct mpdclient *c, G_GNUC_UNUSED int exact_match, int table,
 		gchar *local_pattern)
 {
-	mpdclient_filelist_t *list, *list2;
+	struct filelist *list, *list2;
 	gchar *filter_utf8 = locale_to_utf8(local_pattern);
 
 	if (table == SEARCH_ARTIST_TITLE) {
@@ -211,14 +213,14 @@ filelist_search(mpdclient_t *c, G_GNUC_UNUSED int exact_match, int table,
  *       Its ugly and MUST be redesigned before the next release!
  *-----------------------------------------------------------------------
  */
-static mpdclient_filelist_t *
-search_advanced_query(char *query, mpdclient_t *c)
+static struct filelist *
+search_advanced_query(char *query, struct mpdclient *c)
 {
 	int i,j;
 	char **strv;
 	int table[10];
 	char *arg[10];
-	mpdclient_filelist_t *fl = NULL;
+	struct filelist *fl = NULL;
 
 	advanced_search_mode = FALSE;
 	if( g_strrstr(query, ":") == NULL )
@@ -309,7 +311,7 @@ search_advanced_query(char *query, mpdclient_t *c)
 }
 
 static void
-search_new(mpdclient_t *c)
+search_new(struct mpdclient *c)
 {
 	if (c->connection == NULL)
 		return;
@@ -373,7 +375,7 @@ quit(void)
 }
 
 static void
-open(G_GNUC_UNUSED mpdclient_t *c)
+open(G_GNUC_UNUSED struct mpdclient *c)
 {
 	//  if( pattern==NULL )
 	//    search_new(screen, c);
@@ -421,7 +423,7 @@ get_title(char *str, size_t size)
 }
 
 static bool
-search_cmd(mpdclient_t *c, command_t cmd)
+search_cmd(struct mpdclient *c, command_t cmd)
 {
 	switch (cmd) {
 	case CMD_SEARCH_MODE:

@@ -23,6 +23,8 @@
 #include "charset.h"
 #include "strfsong.h"
 #include "screen_utils.h"
+#include "mpdclient.h"
+#include "filelist.h"
 
 #include <mpd/client.h>
 
@@ -40,7 +42,7 @@ static const char playlist_format[] = "*%s*";
 
 /* clear the highlight flag for all items in the filelist */
 static void
-clear_highlights(mpdclient_filelist_t *fl)
+clear_highlights(struct filelist *fl)
 {
 	guint i;
 
@@ -53,7 +55,7 @@ clear_highlights(mpdclient_filelist_t *fl)
 
 /* change the highlight flag for a song */
 static void
-set_highlight(mpdclient_filelist_t *fl, struct mpd_song *song, int highlight)
+set_highlight(struct filelist *fl, struct mpd_song *song, int highlight)
 {
 	int i = filelist_find_song(fl, song);
 	struct filelist_entry *entry;
@@ -70,7 +72,7 @@ set_highlight(mpdclient_filelist_t *fl, struct mpd_song *song, int highlight)
 
 /* sync highlight flags with playlist */
 void
-sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl)
+sync_highlights(struct mpdclient *c, struct filelist *fl)
 {
 	guint i;
 
@@ -92,7 +94,7 @@ sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl)
 
 /* the playlist has been updated -> fix highlights */
 void
-browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
+browser_playlist_changed(struct screen_browser *browser, struct mpdclient *c,
 			 int event, gpointer data)
 {
 	if (browser->filelist == NULL)
@@ -122,9 +124,9 @@ browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
 const char *
 browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_column, void *data)
 {
+	struct filelist *fl = (struct filelist *) data;
 	static char buf[BUFSIZE];
-	mpdclient_filelist_t *fl = (mpdclient_filelist_t *) data;
-	filelist_entry_t *entry;
+	struct filelist_entry *entry;
 	struct mpd_entity *entity;
 
 	if (fl == NULL || idx >= filelist_length(fl))
@@ -170,7 +172,7 @@ browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_c
 }
 
 static bool
-load_playlist(mpdclient_t *c, const struct mpd_playlist *playlist)
+load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 {
 	char *filename = utf8_to_locale(mpd_playlist_get_path(playlist));
 
@@ -182,7 +184,7 @@ load_playlist(mpdclient_t *c, const struct mpd_playlist *playlist)
 }
 
 static bool
-enqueue_and_play(mpdclient_t *c, filelist_entry_t *entry)
+enqueue_and_play(struct mpdclient *c, struct filelist_entry *entry)
 {
 	int idx;
 	const struct mpd_song *song = mpd_entity_get_song(entry->entity);
@@ -253,7 +255,7 @@ browser_get_index(const struct screen_browser *browser, unsigned i)
 }
 
 static bool
-browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
+browser_handle_enter(struct screen_browser *browser, struct mpdclient *c)
 {
 	struct filelist_entry *entry = browser_get_selected_entry(browser);
 	struct mpd_entity *entity;
@@ -273,7 +275,7 @@ browser_handle_enter(struct screen_browser *browser, mpdclient_t *c)
 }
 
 static bool
-browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
+browser_select_entry(struct mpdclient *c, struct filelist_entry *entry,
 		     G_GNUC_UNUSED gboolean toggle)
 {
 	assert(entry != NULL);
@@ -334,7 +336,7 @@ browser_select_entry(mpdclient_t *c, filelist_entry_t *entry,
 }
 
 static bool
-browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
+browser_handle_select(struct screen_browser *browser, struct mpdclient *c)
 {
 	struct filelist_entry *entry;
 
@@ -358,7 +360,7 @@ browser_handle_select(struct screen_browser *browser, mpdclient_t *c)
 }
 
 static bool
-browser_handle_add(struct screen_browser *browser, mpdclient_t *c)
+browser_handle_add(struct screen_browser *browser, struct mpdclient *c)
 {
 	struct filelist_entry *entry;
 
@@ -382,7 +384,7 @@ browser_handle_add(struct screen_browser *browser, mpdclient_t *c)
 }
 
 static void
-browser_handle_select_all(struct screen_browser *browser, mpdclient_t *c)
+browser_handle_select_all(struct screen_browser *browser, struct mpdclient *c)
 {
 	guint i;
 
@@ -399,7 +401,7 @@ browser_handle_select_all(struct screen_browser *browser, mpdclient_t *c)
 
 #ifdef HAVE_GETMOUSE
 static int
-browser_handle_mouse_event(struct screen_browser *browser, mpdclient_t *c)
+browser_handle_mouse_event(struct screen_browser *browser, struct mpdclient *c)
 {
 	int row;
 	unsigned prev_selected = browser->lw->selected;

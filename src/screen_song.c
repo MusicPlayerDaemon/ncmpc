@@ -22,10 +22,12 @@
 #include "screen_utils.h"
 #include "charset.h"
 #include "utils.h"
+#include "mpdclient.h"
 
 #include <mpd/client.h>
 
 #include <glib/gprintf.h>
+#include <assert.h>
 #include <string.h>
 
 static list_window_t *lw;
@@ -193,7 +195,7 @@ screen_song_append_tag(const char *label, const struct mpd_song *song,
 }
 
 static void
-screen_song_add_song(const struct mpd_song *song, const mpdclient_t *c)
+screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 {
 	unsigned i, max_label_width;
 	enum label {
@@ -271,7 +273,7 @@ screen_song_add_song(const struct mpd_song *song, const mpdclient_t *c)
 }
 
 static void
-screen_song_add_stats(const mpdclient_t *c)
+screen_song_add_stats(const struct mpdclient *c)
 {
 	unsigned i, max_label_width;
 	char buf[64];
@@ -333,7 +335,7 @@ screen_song_add_stats(const mpdclient_t *c)
 }
 
 static void
-screen_song_update(mpdclient_t *c)
+screen_song_update(struct mpdclient *c)
 {
 	/* Clear all lines */
 	for (guint i = 0; i < current.lines->len; ++i)
@@ -379,7 +381,7 @@ screen_song_update(mpdclient_t *c)
 }
 
 static bool
-screen_song_cmd(mpdclient_t *c, command_t cmd)
+screen_song_cmd(struct mpdclient *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(lw, current.lines->len, cmd)) {
 		screen_song_repaint();
@@ -449,7 +451,7 @@ const struct screen_functions screen_song = {
 };
 
 void
-screen_song_switch(mpdclient_t *c, const struct mpd_song *song)
+screen_song_switch(struct mpdclient *c, const struct mpd_song *song)
 {
 	assert(song != NULL);
 	assert(current.selected_song == NULL);

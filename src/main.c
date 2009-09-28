@@ -59,7 +59,7 @@ static const guint update_interval = 500;
 
 static const guint idle_interval = 500;
 
-static mpdclient_t *mpd = NULL;
+static struct mpdclient *mpd = NULL;
 static gboolean connected = FALSE;
 static GMainLoop *main_loop;
 static guint reconnect_source_id, idle_source_id, update_source_id;
@@ -84,7 +84,7 @@ error_msg(const gchar *msg)
 }
 
 static void
-error_callback(G_GNUC_UNUSED mpdclient_t *c, gint error, const gchar *_msg)
+error_callback(G_GNUC_UNUSED struct mpdclient *c, gint error, const gchar *_msg)
 {
 	char *msg = utf8_to_locale(_msg);
 

@@ -27,13 +27,13 @@
 
 struct mpdclient;
 
-typedef struct mpdclient_playlist {
+struct mpdclient_playlist {
 	/* playlist id */
 	unsigned id;
 
 	/* the list */
 	GPtrArray *list;
-} mpdclient_playlist_t;
+};
 
 void
 playlist_init(struct mpdclient_playlist *playlist);
@@ -43,7 +43,8 @@ void
 playlist_clear(struct mpdclient_playlist *playlist);
 
 /* free a playlist */
-gint mpdclient_playlist_free(mpdclient_playlist_t *playlist);
+gint
+mpdclient_playlist_free(struct mpdclient_playlist *playlist);
 
 static inline guint
 playlist_length(const struct mpdclient_playlist *playlist)

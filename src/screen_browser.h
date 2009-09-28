@@ -21,27 +21,28 @@
 #define SCREEN_BROWSER_H
 
 #include "screen.h"
-#include "mpdclient.h"
 #include "config.h"
 
 #include <stdbool.h>
 
+struct mpdclient;
+struct filelist;
 struct list_window;
 struct list_window_state;
 
 struct screen_browser {
 	struct list_window *lw;
 
-	mpdclient_filelist_t *filelist;
+	struct filelist *filelist;
 };
 
 #ifndef NCMPC_MINI
 
 void
-sync_highlights(mpdclient_t *c, mpdclient_filelist_t *fl);
+sync_highlights(struct mpdclient *c, struct filelist *fl);
 
 void
-browser_playlist_changed(struct screen_browser *browser, mpdclient_t *c,
+browser_playlist_changed(struct screen_browser *browser, struct mpdclient *c,
 			 int event, gpointer data);
 
 #endif

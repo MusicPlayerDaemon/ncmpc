@@ -128,7 +128,7 @@ find_configured_screen(const char *name)
 }
 
 static void
-screen_next_mode(mpdclient_t *c, int offset)
+screen_next_mode(struct mpdclient *c, int offset)
 {
 	int max = g_strv_length(options.screen_list);
 	int current, next;
@@ -170,7 +170,7 @@ get_volume(const struct mpd_status *status)
 }
 
 static void
-paint_top_window2(const char *header, mpdclient_t *c)
+paint_top_window2(const char *header, struct mpdclient *c)
 {
 	int volume;
 	char flags[5];
@@ -253,7 +253,7 @@ volume_length(int volume)
 }
 
 static void
-paint_top_window(const char *header, mpdclient_t *c, int full_repaint)
+paint_top_window(const char *header, struct mpdclient *c, int full_repaint)
 {
 	static int prev_volume = -1;
 	static unsigned prev_header_len = -1;
@@ -281,7 +281,7 @@ paint_top_window(const char *header, mpdclient_t *c, int full_repaint)
 }
 
 static void
-paint_progress_window(mpdclient_t *c)
+paint_progress_window(struct mpdclient *c)
 {
 	double p;
 	int width;
@@ -312,7 +312,7 @@ paint_progress_window(mpdclient_t *c)
 }
 
 static void
-paint_status_window(mpdclient_t *c)
+paint_status_window(struct mpdclient *c)
 {
 	WINDOW *w = screen.status_window.w;
 	const struct mpd_status *status = c->status;
@@ -544,7 +544,7 @@ screen_status_printf(const char *format, ...)
 }
 
 void
-screen_init(mpdclient_t *c)
+screen_init(struct mpdclient *c)
 {
 	if (COLS < SCREEN_MIN_COLS || LINES < SCREEN_MIN_ROWS) {
 		fprintf(stderr, "%s\n", _("Error: Screen too small"));
@@ -623,7 +623,7 @@ screen_init(mpdclient_t *c)
 }
 
 void
-screen_paint(mpdclient_t *c)
+screen_paint(struct mpdclient *c)
 {
 	const char *title = NULL;
 
@@ -659,7 +659,7 @@ screen_paint(mpdclient_t *c)
 }
 
 void
-screen_update(mpdclient_t *c)
+screen_update(struct mpdclient *c)
 {
 #ifndef NCMPC_MINI
 	static bool initialized = false;
@@ -765,7 +765,7 @@ screen_update(mpdclient_t *c)
 }
 
 void
-screen_idle(mpdclient_t *c)
+screen_idle(struct mpdclient *c)
 {
 	if (c->song != NULL && seek_id == (int)mpd_song_get_id(c->song) &&
 	    (screen.last_cmd == CMD_SEEK_FORWARD ||
@@ -778,7 +778,7 @@ screen_idle(mpdclient_t *c)
 
 #ifdef HAVE_GETMOUSE
 int
-screen_get_mouse_event(mpdclient_t *c, unsigned long *bstate, int *row)
+screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row)
 {
 	MEVENT event;
 
@@ -799,7 +799,7 @@ screen_get_mouse_event(mpdclient_t *c, unsigned long *bstate, int *row)
 #endif
 
 static int
-screen_client_cmd(mpdclient_t *c, command_t cmd)
+screen_client_cmd(struct mpdclient *c, command_t cmd)
 {
 	if (c->connection == NULL || c->status == NULL)
 		return 0;
@@ -901,7 +901,7 @@ screen_client_cmd(mpdclient_t *c, command_t cmd)
 }
 
 void
-screen_cmd(mpdclient_t *c, command_t cmd)
+screen_cmd(struct mpdclient *c, command_t cmd)
 {
 	screen.last_cmd = cmd;
 #ifndef NCMPC_MINI

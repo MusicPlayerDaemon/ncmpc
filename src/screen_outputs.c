@@ -20,10 +20,12 @@
 #include "i18n.h"
 #include "screen.h"
 #include "list_window.h"
+#include "mpdclient.h"
 
 #include <mpd/client.h>
 
 #include <glib.h>
+#include <assert.h>
 
 static list_window_t *lw = NULL;
 
@@ -40,7 +42,7 @@ outputs_repaint(void)
 }
 
 static int
-toggle_output(mpdclient_t *c, unsigned int output_index)
+toggle_output(struct mpdclient *c, unsigned int output_index)
 {
 	int return_value;
 	struct mpd_output *output;
@@ -96,7 +98,7 @@ clear_outputs_list(void)
 }
 
 static void
-fill_outputs_list(mpdclient_t *c)
+fill_outputs_list(struct mpdclient *c)
 {
 	struct mpd_output *output;
 
@@ -154,7 +156,7 @@ outputs_exit(void)
 }
 
 static void
-outputs_open(mpdclient_t *c)
+outputs_open(struct mpdclient *c)
 {
 	fill_outputs_list(c);
 }
@@ -178,7 +180,7 @@ outputs_paint(void)
 }
 
 static bool
-outputs_cmd(mpdclient_t *c, command_t cmd)
+outputs_cmd(struct mpdclient *c, command_t cmd)
 {
 	assert(mpd_outputs != NULL);
 

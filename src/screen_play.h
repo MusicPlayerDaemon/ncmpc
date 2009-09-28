@@ -17,4 +17,5 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-int playlist_save(mpdclient_t *c, char *name, char *defaultname);
+int
+playlist_save(struct mpdclient *c, char *name, char *defaultname);

@@ -50,7 +50,7 @@ typedef struct
 {
 	GList **list;
 	GList **dir_list;
-	mpdclient_t *c;
+	struct mpdclient *c;
 } completion_callback_data_t;
 #endif
 
@@ -77,7 +77,7 @@ playlist_repaint_if_active(void)
 }
 
 static void
-playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
+playlist_changed_callback(struct mpdclient *c, int event, gpointer data)
 {
 	switch (event) {
 	case PLAYLIST_EVENT_DELETE:
@@ -162,7 +162,7 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 }
 
 static void
-center_playing_item(mpdclient_t *c, bool center_cursor)
+center_playing_item(struct mpdclient *c, bool center_cursor)
 {
 	unsigned length = c->playlist.list->len;
 	int idx;
@@ -221,7 +221,7 @@ save_pre_completion_cb(GCompletion *gcmp, G_GNUC_UNUSED gchar *line,
 {
 	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
 	GList **list = tmp->list;
-	mpdclient_t *c = tmp->c;
+	struct mpdclient *c = tmp->c;
 
 	if( *list == NULL ) {
 		/* create completion list */
@@ -254,7 +254,7 @@ completion_strncmp(const gchar *s1, const gchar *s2, gsize n)
 #endif
 
 int
-playlist_save(mpdclient_t *c, char *name, char *defaultname)
+playlist_save(struct mpdclient *c, char *name, char *defaultname)
 {
 	gchar *filename, *filename_utf8;
 	gint error;
@@ -352,7 +352,7 @@ playlist_save(mpdclient_t *c, char *name, char *defaultname)
 
 #ifndef NCMPC_MINI
 static void add_dir(GCompletion *gcmp, gchar *dir, GList **dir_list,
-		    GList **list, mpdclient_t *c)
+		    GList **list, struct mpdclient *c)
 {
 	g_completion_remove_items(gcmp, *list);
 	*list = string_list_remove(*list, dir);
@@ -366,7 +366,7 @@ static void add_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
 	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
 	GList **dir_list = tmp->dir_list;
 	GList **list = tmp->list;
-	mpdclient_t *c = tmp->c;
+	struct mpdclient *c = tmp->c;
 
 	if (*list == NULL) {
 		/* create initial list */
@@ -385,7 +385,7 @@ static void add_post_completion_cb(GCompletion *gcmp, gchar *line,
 	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
 	GList **dir_list = tmp->dir_list;
 	GList **list = tmp->list;
-	mpdclient_t *c = tmp->c;
+	struct mpdclient *c = tmp->c;
 
 	if (g_list_length(items) >= 1)
 		screen_display_completion_list(items);
@@ -399,7 +399,7 @@ static void add_post_completion_cb(GCompletion *gcmp, gchar *line,
 #endif
 
 static int
-handle_add_to_playlist(mpdclient_t *c)
+handle_add_to_playlist(struct mpdclient *c)
 {
 	gchar *path;
 #ifndef NCMPC_MINI
@@ -482,7 +482,7 @@ timer_hide_cursor(gpointer data)
 }
 
 static void
-play_open(mpdclient_t *c)
+play_open(struct mpdclient *c)
 {
 	static gboolean install_cb = TRUE;
 
@@ -541,7 +541,7 @@ play_paint(void)
 }
 
 static void
-play_update(mpdclient_t *c)
+play_update(struct mpdclient *c)
 {
 	static int prev_song_id = -1;
 
@@ -607,7 +607,7 @@ handle_mouse_event(struct mpdclient *c)
 #endif
 
 static bool
-play_cmd(mpdclient_t *c, command_t cmd)
+play_cmd(struct mpdclient *c, command_t cmd)
 {
 	static command_t cached_cmd = CMD_NONE;
 	command_t prev_cmd = cached_cmd;

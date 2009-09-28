@@ -16,11 +16,13 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+
 #include "config.h"
 #include "i18n.h"
 #include "options.h"
 #include "charset.h"
 #include "mpdclient.h"
+#include "filelist.h"
 #include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
@@ -65,7 +67,7 @@ file_reload(struct mpdclient *c)
 
 /* the db has changed -> update the filelist */
 static void
-file_changed_callback(mpdclient_t *c, G_GNUC_UNUSED int event,
+file_changed_callback(struct mpdclient *c, G_GNUC_UNUSED int event,
 		      G_GNUC_UNUSED gpointer data)
 {
 	file_reload(c);
@@ -81,7 +83,7 @@ file_changed_callback(mpdclient_t *c, G_GNUC_UNUSED int event,
 #ifndef NCMPC_MINI
 /* the playlist has been updated -> fix highlights */
 static void
-playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
+playlist_changed_callback(struct mpdclient *c, int event, gpointer data)
 {
 	browser_playlist_changed(&browser, c, event, data);
 
@@ -93,7 +95,7 @@ playlist_changed_callback(mpdclient_t *c, int event, gpointer data)
  * Change to the specified absolute directory.
  */
 static bool
-file_change_directory(mpdclient_t *c, const char *new_path)
+file_change_directory(struct mpdclient *c, const char *new_path)
 {
 	g_free(current_path);
 	current_path = g_strdup(new_path);
@@ -113,7 +115,7 @@ file_change_directory(mpdclient_t *c, const char *new_path)
  * Change to the parent directory of the current directory.
  */
 static bool
-file_change_to_parent(mpdclient_t *c)
+file_change_to_parent(struct mpdclient *c)
 {
 	char *parent = g_path_get_dirname(current_path);
 	char *old_path;
@@ -145,11 +147,11 @@ file_change_to_parent(mpdclient_t *c)
 }
 
 /**
- * Change to the directory referred by the specified filelist_entry_t
+ * Change to the directory referred by the specified #filelist_entry
  * object.
  */
 static bool
-file_change_to_entry(mpdclient_t *c, const filelist_entry_t *entry)
+file_change_to_entry(struct mpdclient *c, const struct filelist_entry *entry)
 {
 	assert(entry != NULL);
 
@@ -173,9 +175,9 @@ file_handle_enter(struct mpdclient *c)
 }
 
 static int
-handle_save(mpdclient_t *c)
+handle_save(struct mpdclient *c)
 {
-	filelist_entry_t *entry;
+	struct filelist_entry *entry;
 	const char *defaultname = NULL;
 	char *defaultname_utf8 = NULL;
 	int ret;
@@ -206,9 +208,9 @@ handle_save(mpdclient_t *c)
 }
 
 static int
-handle_delete(mpdclient_t *c)
+handle_delete(struct mpdclient *c)
 {
-	filelist_entry_t *entry;
+	struct filelist_entry *entry;
 	struct mpd_entity *entity;
 	const struct mpd_playlist *playlist;
 	char *str, *buf;
@@ -283,7 +285,7 @@ browse_exit(void)
 }
 
 static void
-browse_open(G_GNUC_UNUSED mpdclient_t *c)
+browse_open(G_GNUC_UNUSED struct mpdclient *c)
 {
 	if (browser.filelist == NULL) {
 		browser.filelist = mpdclient_filelist_get(c, "");
@@ -325,7 +327,7 @@ browse_paint(void)
 }
 
 static bool
-browse_cmd(mpdclient_t *c, command_t cmd)
+browse_cmd(struct mpdclient *c, command_t cmd)
 {
 	switch(cmd) {
 	case CMD_PLAY:
