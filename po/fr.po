@@ -10,13 +10,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-21 20:10+0200\n"
-"PO-Revision-Date: 2009-04-15 20:09+0000\n"
-"Last-Translator: Bastien Leblanc <bass000@gmail.com>\n"
+"PO-Revision-Date: 2009-09-28 17:11+0200\n"
+"Last-Translator: François Blondel <francois@blondel-geraudie.fr>\n"
 "Language-Team: <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-15 20:16+0000\n"
+"X-Launchpad-Export-Date: 2009-09-28 15:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -593,9 +593,8 @@ msgid "Song viewer"
 msgstr "Visualiseur de chanson"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Length"
-msgstr "Gauche"
+msgstr ""
 
 #: src/screen_song.c:194
 msgid "Composer"
@@ -743,9 +742,8 @@ msgid "Scroll down half a screen"
 msgstr "Défiler d'une moitié d'écran vers le bas"
 
 #: src/command.c:104
-#, fuzzy
 msgid "Select currently playing song"
-msgstr "Chanson actuellement jouée"
+msgstr "Sélectionner la chanson actuellement jouée"
 
 #: src/command.c:109
 msgid "Help screen"
@@ -1104,6 +1102,7 @@ msgstr ""
 "\n"
 "Launchpad Contributions:\n"
 "  Bastien Leblanc https://launchpad.net/~bass000\n"
+"  François Blondel https://launchpad.net/~francoisblondel\n"
 "  Romain Bignon https://launchpad.net/~romain-peerfuse\n"
 "  Yann Cézard https://launchpad.net/~eesprit"
 
