@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-21 20:10+0200\n"
-"PO-Revision-Date: 2009-04-16 05:06+0000\n"
-"Last-Translator: Gao Jie <kindmail@gmail.com>\n"
+"PO-Revision-Date: 2009-09-28 08:09+0000\n"
+"Last-Translator: Kyle WANG <waxaca@163.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-16 05:16+0000\n"
+"X-Launchpad-Export-Date: 2009-09-28 15:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -591,9 +591,8 @@ msgid "Song viewer"
 msgstr "歌曲查看器"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Length"
-msgstr "Left"
+msgstr "时长"
 
 #: src/screen_song.c:194
 msgid "Composer"
@@ -741,9 +740,8 @@ msgid "Scroll down half a screen"
 msgstr "向下滚动半屏"
 
 #: src/command.c:104
-#, fuzzy
 msgid "Select currently playing song"
-msgstr "当前播放曲目"
+msgstr "选择当前播放曲目"
 
 #: src/command.c:109
 msgid "Help screen"
@@ -887,7 +885,7 @@ msgstr "上一页面"
 
 #: src/command.c:198
 msgid "Swap to most recent screen"
-msgstr "却换到上一个页面"
+msgstr "切换到最近一个页面"
 
 #: src/command.c:203
 msgid "Forward find"
@@ -1099,7 +1097,8 @@ msgstr "未知的配置参数"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Gao Jie https://launchpad.net/~kindmail"
+"  Gao Jie https://launchpad.net/~kindmail\n"
+"  Kyle WANG https://launchpad.net/~osfans"
 
 #: src/list_window.c:535
 msgid "Range selection disabled"
