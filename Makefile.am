@@ -21,6 +21,7 @@ ncmpc_headers = \
 	src/command.h \
 	src/ncu.h \
 	src/player_command.h \
+	src/window.h \
 	src/screen.h \
 	src/screen_list.h \
 	src/screen_play.h \

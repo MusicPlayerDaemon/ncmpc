@@ -559,41 +559,24 @@ screen_init(struct mpdclient *c)
 	screen.start_timestamp = time(NULL);
 
 	/* create top window */
-	screen.top_window.rows = 2;
-	screen.top_window.cols = screen.cols;
-	screen.top_window.w = newwin(screen.top_window.rows,
-				      screen.top_window.cols,
-				      0, 0);
+	window_init(&screen.top_window, 2, screen.cols, 0, 0);
 	leaveok(screen.top_window.w, TRUE);
 	keypad(screen.top_window.w, TRUE);
 
 	/* create main window */
-	screen.main_window.rows = screen.rows-4;
-	screen.main_window.cols = screen.cols;
-	screen.main_window.w = newwin(screen.main_window.rows,
-				       screen.main_window.cols,
-				       2,
-				       0);
+	window_init(&screen.main_window, screen.rows - 4, screen.cols, 2, 0);
 
 	//  leaveok(screen.main_window.w, TRUE); temporary disabled
 	keypad(screen.main_window.w, TRUE);
 
 	/* create progress window */
-	screen.progress_window.rows = 1;
-	screen.progress_window.cols = screen.cols;
-	screen.progress_window.w = newwin(screen.progress_window.rows,
-					   screen.progress_window.cols,
-					   screen.rows-2,
-					   0);
+	window_init(&screen.progress_window, 1, screen.cols,
+		    screen.rows - 2, 0);
 	leaveok(screen.progress_window.w, TRUE);
 
 	/* create status window */
-	screen.status_window.rows = 1;
-	screen.status_window.cols = screen.cols;
-	screen.status_window.w = newwin(screen.status_window.rows,
-					 screen.status_window.cols,
-					 screen.rows-1,
-					 0);
+	window_init(&screen.status_window, 1, screen.cols,
+		    screen.rows - 1, 0);
 
 	leaveok(screen.status_window.w, FALSE);
 	keypad(screen.status_window.w, TRUE);

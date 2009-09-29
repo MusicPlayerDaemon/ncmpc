@@ -22,6 +22,7 @@
 
 #include "config.h"
 #include "command.h"
+#include "window.h"
 
 #include <mpd/client.h>
 
@@ -40,11 +41,6 @@
 #define MAX_SONGNAME_LENGTH   512
 
 struct mpdclient;
-
-struct window {
-	WINDOW *w;
-	unsigned rows, cols;
-};
 
 struct screen {
 	struct window top_window;
