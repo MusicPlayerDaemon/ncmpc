@@ -203,8 +203,7 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 {
 	int ret;
 
-	if (connected)
-		return FALSE;
+	assert(!connected);
 
 	screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
 			     options.host, get_key_names(CMD_QUIT,0) );
