@@ -35,7 +35,6 @@
 #undef  ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_ADD /* broken with song id's */
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_DELETE
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_MOVE
-#define ENABLE_SONG_ID
 #define ENABLE_PLCHANGES
 
 #define BUFSIZE 1024
@@ -273,7 +272,6 @@ mpdclient_update(struct mpdclient *c)
 gint
 mpdclient_cmd_play(struct mpdclient *c, gint idx)
 {
-#ifdef ENABLE_SONG_ID
 	struct mpd_song *song = playlist_get_song(c, idx);
 
 	if (MPD_ERROR(c))
@@ -283,12 +281,7 @@ mpdclient_cmd_play(struct mpdclient *c, gint idx)
 		mpd_send_play_id(c->connection, mpd_song_get_id(song));
 	else
 		mpd_send_play(c->connection);
-#else
-	if (MPD_ERROR(c))
-		return -1;
 
-	mpd_sendPlayCommand(c->connection, idx);
-#endif
 	c->need_update = TRUE;
 	return mpdclient_finish_command(c);
 }
@@ -588,11 +581,7 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 	song = playlist_get(&c->playlist, idx);
 
 	/* send the delete command to mpd */
-#ifdef ENABLE_SONG_ID
 	mpd_send_delete_id(c->connection, mpd_song_get_id(song));
-#else
-	mpd_send_delete(c->connection, idx);
-#endif
 	if( (retval=mpdclient_finish_command(c)) )
 		return retval;
 
@@ -638,12 +627,8 @@ mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
 	song2 = playlist_get(&c->playlist, new_index);
 
 	/* send the move command to mpd */
-#ifdef ENABLE_SONG_ID
 	mpd_send_swap_id(c->connection,
 			 mpd_song_get_id(song1), mpd_song_get_id(song2));
-#else
-	mpd_send_move(c->connection, old_index, new_index);
-#endif
 	if( (n=mpdclient_finish_command(c)) )
 		return n;
 
