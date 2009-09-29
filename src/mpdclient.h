@@ -29,9 +29,6 @@ struct mpdclient {
 gint
 mpdclient_handle_error(struct mpdclient *c);
 
-gint
-mpdclient_finish_command(struct mpdclient *c);
-
 struct mpdclient *
 mpdclient_new(void);
 

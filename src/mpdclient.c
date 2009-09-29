@@ -130,7 +130,7 @@ mpdclient_handle_error(struct mpdclient *c)
 	return error;
 }
 
-gint
+static gint
 mpdclient_finish_command(struct mpdclient *c)
 {
 	return mpd_response_finish(c->connection)

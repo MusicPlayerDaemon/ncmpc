@@ -44,7 +44,6 @@ outputs_repaint(void)
 static int
 toggle_output(struct mpdclient *c, unsigned int output_index)
 {
-	int return_value;
 	struct mpd_output *output;
 
 	assert(mpd_outputs != NULL);
@@ -55,16 +54,22 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 	output = g_ptr_array_index(mpd_outputs, output_index);
 
 	if (!mpd_output_get_enabled(output)) {
-		mpd_send_enable_output(c->connection,
-				       mpd_output_get_id(output));
+		if (!mpd_run_enable_output(c->connection,
+					   mpd_output_get_id(output))) {
+			mpdclient_handle_error(c);
+			return -1;
+		}
 
 		/* XXX reload */
 
 		screen_status_printf(_("Output '%s' enabled"),
 				     mpd_output_get_name(output));
 	} else {
-		mpd_send_disable_output(c->connection,
-					mpd_output_get_id(output));
+		if (!mpd_run_disable_output(c->connection,
+					    mpd_output_get_id(output))) {
+			mpdclient_handle_error(c);
+			return -1;
+		}
 
 		/* XXX reload */
 
@@ -72,11 +77,9 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 				     mpd_output_get_name(output));
 	}
 
-	return_value = mpdclient_finish_command(c);
-
 	outputs_repaint();
 
-	return return_value;
+	return 0;
 }
 
 static void
