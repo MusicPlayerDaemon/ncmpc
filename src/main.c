@@ -66,39 +66,16 @@ static guint reconnect_source_id, update_source_id;
 static guint check_key_bindings_source_id;
 #endif
 
-static const gchar *
-error_msg(const gchar *msg)
-{
-	gchar *p;
-
-	if ((p = strchr(msg, '}')) == NULL)
-		return msg;
-
-	do {
-		p++;
-	} while (*p == '}' || * p== ' ');
-
-	return p;
-}
-
 static void
-error_callback(G_GNUC_UNUSED struct mpdclient *c, gint error, const gchar *_msg)
+error_callback(G_GNUC_UNUSED struct mpdclient *c, G_GNUC_UNUSED gint error,
+	       const gchar *_msg)
 {
 	char *msg = utf8_to_locale(_msg);
-
-	error = error & 0xFF;
-	switch (error) {
-	case MPD_ERROR_SERVER:
-		screen_status_printf("%s", error_msg(msg));
-		screen_bell();
-		break;
-	default:
-		screen_status_printf("%s", msg);
-		screen_bell();
-		doupdate();
-	}
-
+	screen_status_printf("%s", msg);
 	g_free(msg);
+
+	screen_bell();
+	doupdate();
 }
 
 #ifndef NCMPC_MINI
