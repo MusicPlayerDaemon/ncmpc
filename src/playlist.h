@@ -25,8 +25,6 @@
 #include <assert.h>
 #include <glib.h>
 
-struct mpdclient;
-
 struct mpdclient_playlist {
 	/* playlist id */
 	unsigned id;
@@ -121,24 +119,29 @@ playlist_swap(struct mpdclient_playlist *playlist, guint idx1, guint idx2)
 	g_ptr_array_index(playlist->list, idx2) = song1;
 }
 
-struct mpd_song *playlist_lookup_song(struct mpdclient *c, unsigned id);
+struct mpd_song *
+playlist_lookup_song(struct mpdclient_playlist *playlist, unsigned id);
 
-struct mpd_song *playlist_get_song(struct mpdclient *c, gint index);
-
-gint
-playlist_get_index(const struct mpdclient *c, const struct mpd_song *song);
-
-gint
-playlist_get_index_from_id(const struct mpdclient *c, unsigned id);
+struct mpd_song *
+playlist_get_song(struct mpdclient_playlist *playlist, gint index);
 
 gint
-playlist_get_index_from_file(const struct mpdclient *c, const gchar *filename);
+playlist_get_index(const struct mpdclient_playlist *playlist,
+		   const struct mpd_song *song);
+
+gint
+playlist_get_index_from_id(const struct mpdclient_playlist *playlist,
+			   unsigned id);
+
+gint
+playlist_get_index_from_file(const struct mpdclient_playlist *playlist,
+			     const gchar *filename);
 
 static inline gint
-playlist_get_index_from_same_song(const struct mpdclient *c,
+playlist_get_index_from_same_song(const struct mpdclient_playlist *playlist,
 				  const struct mpd_song *song)
 {
-	return playlist_get_index_from_file(c, mpd_song_get_uri(song));
+	return playlist_get_index_from_file(playlist, mpd_song_get_uri(song));
 }
 
 #endif

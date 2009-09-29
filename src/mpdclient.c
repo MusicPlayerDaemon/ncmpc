@@ -254,7 +254,8 @@ mpdclient_update(struct mpdclient *c)
 
 	/* update the current song */
 	if (!c->song || mpd_status_get_song_id(c->status)) {
-		c->song = playlist_get_song(c, mpd_status_get_song_pos(c->status));
+		c->song = playlist_get_song(&c->playlist,
+					    mpd_status_get_song_pos(c->status));
 	}
 
 	return retval;
@@ -268,7 +269,7 @@ mpdclient_update(struct mpdclient *c)
 gint
 mpdclient_cmd_play(struct mpdclient *c, gint idx)
 {
-	struct mpd_song *song = playlist_get_song(c, idx);
+	struct mpd_song *song = playlist_get_song(&c->playlist, idx);
 
 	if (MPD_ERROR(c))
 		return -1;

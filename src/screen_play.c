@@ -176,7 +176,7 @@ center_playing_item(struct mpdclient *c, bool center_cursor)
 		return;
 
 	/* try to center the song that are playing */
-	idx = playlist_get_index(c, c->song);
+	idx = playlist_get_index(&c->playlist, c->song);
 	if (idx < 0)
 		return;
 
@@ -666,7 +666,8 @@ play_cmd(struct mpdclient *c, command_t cmd)
 		playlist_repaint();
 		return false;
 	case CMD_SELECT_PLAYING:
-		list_window_set_selected(lw, playlist_get_index(c, c->song));
+		list_window_set_selected(lw, playlist_get_index(&c->playlist,
+								c->song));
 		return true;
 	case CMD_SHUFFLE:
 	{

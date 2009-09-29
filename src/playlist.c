@@ -18,7 +18,6 @@
 */
 
 #include "playlist.h"
-#include "mpdclient.h"
 
 #include <string.h>
 
@@ -62,21 +61,19 @@ mpdclient_playlist_free(struct mpdclient_playlist *playlist)
 }
 
 struct mpd_song *
-playlist_get_song(struct mpdclient *c, gint idx)
+playlist_get_song(struct mpdclient_playlist *playlist, gint idx)
 {
-	if (idx < 0 || (guint)idx >= c->playlist.list->len)
+	if (idx < 0 || (guint)idx >= playlist_length(playlist))
 		return NULL;
 
-	return playlist_get(&c->playlist, idx);
+	return playlist_get(playlist, idx);
 }
 
 struct mpd_song *
-playlist_lookup_song(struct mpdclient *c, unsigned id)
+playlist_lookup_song(struct mpdclient_playlist *playlist, unsigned id)
 {
-	guint i;
-
-	for (i = 0; i < c->playlist.list->len; ++i) {
-		struct mpd_song *song = playlist_get(&c->playlist, i);
+	for (guint i = 0; i < playlist_length(playlist); ++i) {
+		struct mpd_song *song = playlist_get(playlist, i);
 		if (mpd_song_get_id(song) == id)
 			return song;
 	}
@@ -85,12 +82,11 @@ playlist_lookup_song(struct mpdclient *c, unsigned id)
 }
 
 gint
-playlist_get_index(const struct mpdclient *c, const struct mpd_song *song)
+playlist_get_index(const struct mpdclient_playlist *playlist,
+		   const struct mpd_song *song)
 {
-	guint i;
-
-	for (i = 0; i < c->playlist.list->len; ++i) {
-		if (playlist_get(&c->playlist, i) == song)
+	for (guint i = 0; i < playlist_length(playlist); ++i) {
+		if (playlist_get(playlist, i) == song)
 			return (gint)i;
 	}
 
@@ -98,12 +94,11 @@ playlist_get_index(const struct mpdclient *c, const struct mpd_song *song)
 }
 
 gint
-playlist_get_index_from_id(const struct mpdclient *c, unsigned id)
+playlist_get_index_from_id(const struct mpdclient_playlist *playlist,
+			   unsigned id)
 {
-	guint i;
-
-	for (i = 0; i < c->playlist.list->len; ++i) {
-		const struct mpd_song *song = playlist_get(&c->playlist, i);
+	for (guint i = 0; i < playlist_length(playlist); ++i) {
+		const struct mpd_song *song = playlist_get(playlist, i);
 		if (mpd_song_get_id(song) == id)
 			return (gint)i;
 	}
@@ -112,12 +107,11 @@ playlist_get_index_from_id(const struct mpdclient *c, unsigned id)
 }
 
 gint
-playlist_get_index_from_file(const struct mpdclient *c, const gchar *filename)
+playlist_get_index_from_file(const struct mpdclient_playlist *playlist,
+			     const gchar *filename)
 {
-	guint i;
-
-	for (i = 0; i < c->playlist.list->len; ++i) {
-		const struct mpd_song *song = playlist_get(&c->playlist, i);
+	for (guint i = 0; i < playlist_length(playlist); ++i) {
+		const struct mpd_song *song = playlist_get(playlist, i);
 
 		if (strcmp(mpd_song_get_uri(song), filename) == 0)
 			return (gint)i;
