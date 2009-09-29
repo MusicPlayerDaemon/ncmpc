@@ -114,6 +114,9 @@ fill_outputs_list(struct mpdclient *c)
 	while ((output = mpd_recv_output(c->connection)) != NULL) {
 		g_ptr_array_add(mpd_outputs, output);
 	}
+
+	if (!mpd_response_finish(c->connection))
+		mpdclient_handle_error(c);
 }
 
 static const char *
