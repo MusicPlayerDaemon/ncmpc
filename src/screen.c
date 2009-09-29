@@ -282,32 +282,22 @@ paint_top_window(const char *header, struct mpdclient *c, int full_repaint)
 static void
 paint_progress_window(struct mpdclient *c)
 {
-	double p;
-	int width;
-	int elapsedTime;
-
-	if (c->status==NULL || IS_STOPPED(mpd_status_get_state(c->status))) {
-		mvwhline(screen.progress_window.w, 0, 0, ACS_HLINE,
-			 screen.progress_window.cols);
-		wnoutrefresh(screen.progress_window.w);
-		return;
-	}
+	unsigned elapsed, duration;
 
 	if (c->song != NULL && seek_id == (int)mpd_song_get_id(c->song))
-		elapsedTime = seek_target_time;
+		elapsed = seek_target_time;
+	else if (c->status != NULL)
+		elapsed = mpd_status_get_elapsed_time(c->status);
 	else
-		elapsedTime = mpd_status_get_elapsed_time(c->status);
+		elapsed = 0;
 
-	p = ((double) elapsedTime) / ((double) mpd_status_get_total_time(c->status));
+	duration = c->status != NULL &&
+		!IS_STOPPED(mpd_status_get_state(c->status))
+		? mpd_status_get_total_time(c->status)
+		: 0;
 
-	width = (int) (p * (double) screen.progress_window.cols);
-	mvwhline(screen.progress_window.w,
-		 0, 0,
-		 ACS_HLINE,
-		 screen.progress_window.cols);
-	whline(screen.progress_window.w, '=', width-1);
-	mvwaddch(screen.progress_window.w, 0, width-1, 'O');
-	wnoutrefresh(screen.progress_window.w);
+	if (progress_bar_set(&screen.progress_bar, elapsed, duration))
+		progress_bar_paint(&screen.progress_bar);
 }
 
 static void
@@ -464,7 +454,7 @@ screen_exit(void)
 
 	delwin(screen.top_window.w);
 	delwin(screen.main_window.w);
-	delwin(screen.progress_window.w);
+	delwin(screen.progress_bar.window.w);
 	delwin(screen.status_window.w);
 }
 
@@ -493,9 +483,11 @@ screen_resize(struct mpdclient *c)
 	wclear(screen.main_window.w);
 
 	/* progress window */
-	screen.progress_window.cols = screen.cols;
-	wresize(screen.progress_window.w, 1, screen.cols);
-	mvwin(screen.progress_window.w, screen.rows-2, 0);
+	screen.progress_bar.window.cols = screen.cols;
+	wresize(screen.progress_bar.window.w, 1, screen.cols);
+	mvwin(screen.progress_bar.window.w, screen.rows-2, 0);
+	progress_bar_resize(&screen.progress_bar);
+	progress_bar_paint(&screen.progress_bar);
 
 	/* status window */
 	screen.status_window.cols = screen.cols;
@@ -570,9 +562,10 @@ screen_init(struct mpdclient *c)
 	keypad(screen.main_window.w, TRUE);
 
 	/* create progress window */
-	window_init(&screen.progress_window, 1, screen.cols,
-		    screen.rows - 2, 0);
-	leaveok(screen.progress_window.w, TRUE);
+	progress_bar_init(&screen.progress_bar, 1, screen.cols,
+			  screen.rows - 2, 0);
+
+	leaveok(screen.progress_bar.window.w, TRUE);
 
 	/* create status window */
 	window_init(&screen.status_window, 1, screen.cols,
@@ -587,9 +580,10 @@ screen_init(struct mpdclient *c)
 		wbkgd(stdscr, COLOR_PAIR(COLOR_LIST));
 		wbkgd(screen.main_window.w,     COLOR_PAIR(COLOR_LIST));
 		wbkgd(screen.top_window.w,      COLOR_PAIR(COLOR_TITLE));
-		wbkgd(screen.progress_window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
+		wbkgd(screen.progress_bar.window.w,
+		      COLOR_PAIR(COLOR_PROGRESSBAR));
 		wbkgd(screen.status_window.w,   COLOR_PAIR(COLOR_STATUS));
-		colors_use(screen.progress_window.w, COLOR_PROGRESSBAR);
+		colors_use(screen.progress_bar.window.w, COLOR_PROGRESSBAR);
 	}
 #endif
 

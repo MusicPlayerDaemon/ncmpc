@@ -23,6 +23,7 @@
 #include "config.h"
 #include "command.h"
 #include "window.h"
+#include "progress_bar.h"
 
 #include <mpd/client.h>
 
@@ -45,7 +46,7 @@ struct mpdclient;
 struct screen {
 	struct window top_window;
 	struct window main_window;
-	struct window progress_window;
+	struct progress_bar progress_bar;
 	struct window status_window;
 
 	/* GTime is equivalent to time_t */
