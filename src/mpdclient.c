@@ -162,7 +162,7 @@ mpdclient_free(struct mpdclient *c)
 	g_free(c);
 }
 
-gint
+void
 mpdclient_disconnect(struct mpdclient *c)
 {
 	if (c->connection)
@@ -177,8 +177,6 @@ mpdclient_disconnect(struct mpdclient *c)
 
 	if (c->song)
 		c->song = NULL;
-
-	return 0;
 }
 
 gint

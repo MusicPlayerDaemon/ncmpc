@@ -42,7 +42,10 @@ mpdclient_is_connected(const struct mpdclient *c)
 
 gint mpdclient_connect(struct mpdclient *c, const gchar *host, gint port,
 		       gfloat timeout_, const gchar *password);
-gint mpdclient_disconnect(struct mpdclient *c);
+
+void
+mpdclient_disconnect(struct mpdclient *c);
+
 gint mpdclient_update(struct mpdclient *c);
 
 
