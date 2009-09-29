@@ -49,7 +49,5 @@ _screen_auth(struct mpdclient *c, gint recursion)
 gint
 screen_auth(struct mpdclient *c)
 {
-	gint ret = _screen_auth(c, 0);
-	mpdclient_update(c);
-	return ret;
+	return _screen_auth(c, 0);
 }
