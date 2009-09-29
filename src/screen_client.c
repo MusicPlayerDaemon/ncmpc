@@ -51,6 +51,5 @@ screen_auth(struct mpdclient *c)
 {
 	gint ret = _screen_auth(c, 0);
 	mpdclient_update(c);
-	curs_set(0);
 	return ret;
 }
