@@ -217,7 +217,7 @@ mpdclient_connect(struct mpdclient *c,
 	/* connect to MPD */
 	c->connection = mpd_connection_new(host, port, _timeout * 1000);
 	if (c->connection == NULL)
-		return error_cb(c, MPD_ERROR_OOM, "Out of memory");
+		g_error("Out of memory");
 
 	if (mpd_connection_get_error(c->connection) != MPD_ERROR_SUCCESS) {
 		retval = error_cb(c, mpd_connection_get_error(c->connection),
