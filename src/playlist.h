@@ -119,11 +119,11 @@ playlist_swap(struct mpdclient_playlist *playlist, guint idx1, guint idx2)
 	g_ptr_array_index(playlist->list, idx2) = song1;
 }
 
-struct mpd_song *
-playlist_lookup_song(struct mpdclient_playlist *playlist, unsigned id);
+const struct mpd_song *
+playlist_lookup_song(const struct mpdclient_playlist *playlist, unsigned id);
 
-struct mpd_song *
-playlist_get_song(struct mpdclient_playlist *playlist, gint index);
+const struct mpd_song *
+playlist_get_song(const struct mpdclient_playlist *playlist, gint index);
 
 gint
 playlist_get_index(const struct mpdclient_playlist *playlist,

@@ -202,16 +202,16 @@ lyrics_exit(void)
 static void
 lyrics_open(struct mpdclient *c)
 {
-	if (next_song == NULL)
-		next_song = c->song;
+	const struct mpd_song *next_song_c =
+		next_song != NULL ? next_song : c->song;
 
-	if (next_song != NULL &&
+	if (next_song_c != NULL &&
 	    (current.song == NULL ||
-	     strcmp(mpd_song_get_uri(next_song),
+	     strcmp(mpd_song_get_uri(next_song_c),
 		    mpd_song_get_uri(current.song)) != 0))
-		screen_lyrics_load(next_song);
+		screen_lyrics_load(next_song_c);
 
-	if (next_song != c->song)
+	if (next_song != NULL)
 		mpd_song_free(next_song);
 	next_song = NULL;
 }
@@ -222,15 +222,11 @@ lyrics_update(struct mpdclient *c)
 	if (!follow)
 		return;
 
-	next_song = c->song;
-
-	if (next_song != NULL &&
+	if (c->song != NULL &&
 	    (current.song == NULL ||
-	     strcmp(mpd_song_get_uri(next_song),
+	     strcmp(mpd_song_get_uri(c->song),
 		    mpd_song_get_uri(current.song)) != 0))
-		screen_lyrics_load(next_song);
-
-	next_song = NULL;
+		screen_lyrics_load(c->song);
 }
 
 static const char *

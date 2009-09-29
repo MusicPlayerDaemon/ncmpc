@@ -269,7 +269,7 @@ mpdclient_update(struct mpdclient *c)
 gint
 mpdclient_cmd_play(struct mpdclient *c, gint idx)
 {
-	struct mpd_song *song = playlist_get_song(&c->playlist, idx);
+	const struct mpd_song *song = playlist_get_song(&c->playlist, idx);
 
 	if (MPD_ERROR(c))
 		return -1;

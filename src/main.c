@@ -85,7 +85,7 @@ update_xterm_title(void)
 	static char title[BUFSIZE];
 	char tmp[BUFSIZE];
 	struct mpd_status *status = NULL;
-	struct mpd_song *song = NULL;
+	const struct mpd_song *song = NULL;
 
 	if (mpd) {
 		status = mpd->status;

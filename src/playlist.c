@@ -60,8 +60,8 @@ mpdclient_playlist_free(struct mpdclient_playlist *playlist)
 	return 0;
 }
 
-struct mpd_song *
-playlist_get_song(struct mpdclient_playlist *playlist, gint idx)
+const struct mpd_song *
+playlist_get_song(const struct mpdclient_playlist *playlist, gint idx)
 {
 	if (idx < 0 || (guint)idx >= playlist_length(playlist))
 		return NULL;
@@ -69,8 +69,8 @@ playlist_get_song(struct mpdclient_playlist *playlist, gint idx)
 	return playlist_get(playlist, idx);
 }
 
-struct mpd_song *
-playlist_lookup_song(struct mpdclient_playlist *playlist, unsigned id)
+const struct mpd_song *
+playlist_lookup_song(const struct mpdclient_playlist *playlist, unsigned id)
 {
 	for (guint i = 0; i < playlist_length(playlist); ++i) {
 		struct mpd_song *song = playlist_get(playlist, i);

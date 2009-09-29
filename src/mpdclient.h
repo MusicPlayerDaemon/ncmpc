@@ -18,7 +18,7 @@ struct mpdclient {
 
 	struct mpd_connection *connection;
 	struct mpd_status *status;
-	struct mpd_song *song;
+	const struct mpd_song *song;
 
 	int volume;
 	unsigned updatingdb;
