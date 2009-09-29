@@ -186,8 +186,6 @@ mpdclient_connect(struct mpdclient *c,
 		  gfloat _timeout,
 		  const gchar *password)
 {
-	gint retval = 0;
-
 	/* close any open connection */
 	if( c->connection )
 		mpdclient_disconnect(c);
@@ -204,9 +202,10 @@ mpdclient_connect(struct mpdclient *c,
 	}
 
 	/* send password */
-	if( password ) {
-		mpd_send_password(c->connection, password);
-		retval = mpdclient_finish_command(c);
+	if (password != NULL && !mpd_run_password(c->connection, password)) {
+		mpdclient_handle_error(c);
+		mpdclient_disconnect(c);
+		return false;
 	}
 
 	return true;
