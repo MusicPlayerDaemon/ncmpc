@@ -28,6 +28,7 @@
 #include "screen_utils.h"
 #include "screen_browser.h"
 #include "screen_play.h"
+#include "screen_client.h"
 
 #include <mpd/client.h>
 
@@ -374,19 +375,7 @@ browse_cmd(struct mpdclient *c, command_t cmd)
 		if (c->status == NULL)
 			return true;
 
-		if (mpd_status_get_update_id(c->status) == 0) {
-			if (mpdclient_cmd_db_update(c, current_path) == 0) {
-				if (strcmp(current_path, "")) {
-					char *path_locale =
-						utf8_to_locale(current_path);
-					screen_status_printf(_("Database update of %s started"),
-							     path_locale);
-					g_free(path_locale);
-				} else
-					screen_status_printf(_("Database update started"));
-			}
-		} else
-			screen_status_printf(_("Database update running..."));
+		screen_database_update(c, current_path);
 		return true;
 
 	default:

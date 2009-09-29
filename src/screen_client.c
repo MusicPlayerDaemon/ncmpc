@@ -19,7 +19,10 @@
 
 #include "screen_client.h"
 #include "screen_utils.h"
+#include "screen.h"
 #include "mpdclient.h"
+#include "i18n.h"
+#include "charset.h"
 
 static bool
 _screen_auth(struct mpdclient *c, gint recursion)
@@ -51,4 +54,27 @@ bool
 screen_auth(struct mpdclient *c)
 {
 	return _screen_auth(c, 0);
+}
+
+void
+screen_database_update(struct mpdclient *c, const char *path)
+{
+	assert(c != NULL);
+	assert(c->connection != NULL);
+	assert(c->status != NULL);
+
+	if (mpd_status_get_update_id(c->status) != 0) {
+		screen_status_printf(_("Database update running..."));
+		return;
+	}
+
+	if (mpdclient_cmd_db_update(c, path) != 0)
+		return;
+
+	if (path != NULL && *path != 0) {
+		char *path_locale = utf8_to_locale(path);
+		screen_status_printf(_("Database update of %s started"), path);
+		g_free(path_locale);
+	} else
+		screen_status_message(_("Database update started"));
 }

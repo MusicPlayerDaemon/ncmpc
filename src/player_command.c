@@ -22,6 +22,7 @@
 #include "options.h"
 #include "screen.h"
 #include "i18n.h"
+#include "screen_client.h"
 
 #define IS_PLAYING(s) (s==MPD_STATE_PLAY)
 #define IS_PAUSED(s) (s==MPD_STATE_PAUSE)
@@ -159,11 +160,7 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 			mpdclient_cmd_crossfade(c, options.crossfade_time);
 		break;
 	case CMD_DB_UPDATE:
-		if (!mpd_status_get_update_id(c->status)) {
-			if( mpdclient_cmd_db_update(c,NULL)==0 )
-				screen_status_printf(_("Database update started"));
-		} else
-			screen_status_printf(_("Database update running..."));
+		screen_database_update(c, NULL);
 		break;
 	case CMD_VOLUME_UP:
 		mpdclient_cmd_volume_up(c);
