@@ -101,27 +101,6 @@ compare_filelistentry_format(gconstpointer filelist_entry1,
 }
 
 
-/* Error callbacks */
-static gint
-error_cb(struct mpdclient *c, gint error, const gchar *msg)
-{
-	GList *list = c->error_callbacks;
-
-	if (list == NULL)
-		fprintf(stderr, "error [%d]: %s\n", (error & 0xFF), msg);
-
-	while (list) {
-		mpdc_error_cb_t cb = list->data;
-		if (cb)
-			cb(c, error, msg);
-		list = list->next;
-	}
-
-	mpd_connection_clear_error(c->connection);
-	return error;
-}
-
-
 /****************************************************************************/
 /*** mpdclient functions ****************************************************/
 /****************************************************************************/
@@ -130,7 +109,6 @@ static gint
 mpdclient_handle_error(struct mpdclient *c)
 {
 	enum mpd_error error = mpd_connection_get_error(c->connection);
-	bool is_fatal = error != MPD_ERROR_SERVER;
 
 	assert(error != MPD_ERROR_SUCCESS);
 
@@ -142,9 +120,13 @@ mpdclient_handle_error(struct mpdclient *c)
 	if (error == MPD_ERROR_SERVER)
 		error = error | (mpd_connection_get_server_error(c->connection) << 8);
 
-	error_cb(c, error, mpd_connection_get_error_message(c->connection));
+	for (GList *list = c->error_callbacks; list != NULL;
+	     list = list->next) {
+		mpdc_error_cb_t cb = list->data;
+		cb(c, error, mpd_connection_get_error_message(c->connection));
+	}
 
-	if (is_fatal)
+	if (!mpd_connection_clear_error(c->connection))
 		mpdclient_disconnect(c);
 
 	return error;
@@ -220,8 +202,7 @@ mpdclient_connect(struct mpdclient *c,
 		g_error("Out of memory");
 
 	if (mpd_connection_get_error(c->connection) != MPD_ERROR_SUCCESS) {
-		retval = error_cb(c, mpd_connection_get_error(c->connection),
-				  mpd_connection_get_error_message(c->connection));
+		retval = mpdclient_handle_error(c);
 		if (retval != 0) {
 			mpd_connection_free(c->connection);
 			c->connection = NULL;
