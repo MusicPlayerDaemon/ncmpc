@@ -57,6 +57,7 @@ static bool must_scroll;
 #endif
 
 static struct mpdclient_playlist *playlist;
+static unsigned visible_version = -1;
 static int current_song_id = -1;
 static list_window_t *lw = NULL;
 static guint timer_hide_cursor_id;
@@ -69,13 +70,6 @@ playlist_repaint(void)
 {
 	play_paint();
 	wrefresh(lw->w);
-}
-
-static void
-playlist_repaint_if_active(void)
-{
-	if (screen_is_visible(&screen_playlist))
-		playlist_repaint();
 }
 
 static void
@@ -97,7 +91,6 @@ playlist_changed_callback(struct mpdclient *c, int event, gpointer data)
 	}
 
 	list_window_check_selected(lw, c->playlist.list->len);
-	playlist_repaint_if_active();
 }
 
 #ifndef NCMPC_MINI
@@ -552,6 +545,8 @@ play_paint(void)
 #endif
 
 	list_window_paint(lw, list_callback, NULL);
+
+	visible_version = playlist->id;
 }
 
 static void
@@ -577,6 +572,10 @@ play_update(struct mpdclient *c)
 		   enabled */
 		playlist_repaint();
 #endif
+	} else if (visible_version != playlist->id) {
+		/* the playlist has changed, we must paint the new
+		   version */
+		playlist_repaint();
 	}
 }
 
