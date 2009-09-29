@@ -20,8 +20,6 @@ struct mpdclient {
 	struct mpd_status *status;
 	struct mpd_song *song;
 
-	gboolean       need_update;
-
 	int volume;
 	unsigned updatingdb;
 };
