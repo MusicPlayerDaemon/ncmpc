@@ -35,7 +35,6 @@
 #undef  ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_ADD /* broken with song id's */
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_DELETE
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_MOVE
-#define ENABLE_PLCHANGES
 
 #define BUFSIZE 1024
 
@@ -786,8 +785,6 @@ mpdclient_playlist_update(struct mpdclient *c)
 	return mpdclient_finish_command(c);
 }
 
-#ifdef ENABLE_PLCHANGES
-
 /* update playlist (plchanges) */
 gint
 mpdclient_playlist_update_changes(struct mpdclient *c)
@@ -831,14 +828,6 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 
 	return 0;
 }
-
-#else
-gint
-mpdclient_playlist_update_changes(struct mpdclient *c)
-{
-	return mpdclient_playlist_update(c);
-}
-#endif
 
 
 /****************************************************************************/
