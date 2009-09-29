@@ -59,7 +59,6 @@ static const guint update_interval = 500;
 #define BUFSIZE 1024
 
 static struct mpdclient *mpd = NULL;
-static gboolean connected = FALSE;
 static GMainLoop *main_loop;
 static guint reconnect_source_id, update_source_id;
 
@@ -97,7 +96,6 @@ error_callback(G_GNUC_UNUSED struct mpdclient *c, gint error, const gchar *_msg)
 		screen_status_printf("%s", msg);
 		screen_bell();
 		doupdate();
-		connected = FALSE;
 	}
 
 	g_free(msg);
@@ -203,7 +201,7 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 {
 	int ret;
 
-	assert(!connected);
+	assert(!mpdclient_is_connected(mpd));
 
 	screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
 			     options.host, get_key_names(CMD_QUIT,0) );
@@ -242,8 +240,6 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 			     ? options.host : "localhost");
 	doupdate();
 
-	connected = TRUE;
-
 	/* update immediately */
 	g_timeout_add(1, timer_mpd_update, GINT_TO_POINTER(FALSE));
 
@@ -255,7 +251,7 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 static gboolean
 timer_mpd_update(gpointer data)
 {
-	if (connected)
+	if (mpdclient_is_connected(mpd))
 		mpdclient_update(mpd);
 	else if (reconnect_source_id == 0)
 		reconnect_source_id = g_timeout_add(1000, timer_reconnect,

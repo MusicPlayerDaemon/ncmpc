@@ -35,6 +35,13 @@ struct mpdclient *
 mpdclient_new(void);
 
 void mpdclient_free(struct mpdclient *c);
+
+static inline bool
+mpdclient_is_connected(const struct mpdclient *c)
+{
+	return c->connection != NULL;
+}
+
 gint mpdclient_connect(struct mpdclient *c, const gchar *host, gint port,
 		       gfloat timeout_, const gchar *password);
 gint mpdclient_disconnect(struct mpdclient *c);
