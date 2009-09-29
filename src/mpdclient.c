@@ -19,7 +19,7 @@
 
 #include "mpdclient.h"
 #include "filelist.h"
-#include "screen_utils.h"
+#include "screen_client.h"
 #include "config.h"
 #include "options.h"
 #include "strfsong.h"

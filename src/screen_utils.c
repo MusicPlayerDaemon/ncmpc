@@ -98,7 +98,7 @@ screen_getstr(WINDOW *w, const char *prompt)
 	return screen_readln(w, prompt, NULL, NULL, NULL);
 }
 
-static char *
+char *
 screen_read_password(WINDOW *w, const char *prompt)
 {
 	char *ret;
@@ -120,40 +120,6 @@ screen_read_password(WINDOW *w, const char *prompt)
 		prompt = _("Password");
 	ret = wreadln_masked(w, prompt, NULL, COLS, NULL, NULL);
 
-	curs_set(0);
-	return ret;
-}
-
-static gint
-_screen_auth(struct mpdclient *c, gint recursion)
-{
-	char *password;
-
-	mpd_connection_clear_error(c->connection);
-	if (recursion > 2)
-		return 1;
-
-	password = screen_read_password(NULL, NULL);
-	if (password == NULL)
-		return 1;
-
-	mpd_send_password(c->connection, password);
-	g_free(password);
-
-	mpd_response_finish(c->connection);
-	mpdclient_update(c);
-
-	if (mpd_connection_get_error(c->connection) == MPD_ERROR_SERVER &&
-	    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_PASSWORD)
-		return  _screen_auth(c, ++recursion);
-	return 0;
-}
-
-gint
-screen_auth(struct mpdclient *c)
-{
-	gint ret = _screen_auth(c, 0);
-	mpdclient_update(c);
 	curs_set(0);
 	return ret;
 }

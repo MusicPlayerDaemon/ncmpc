@@ -40,6 +40,10 @@ int screen_getch(WINDOW *w, const char *prompt);
 
 /* read a string from the status window */
 char *screen_getstr(WINDOW *w, const char *prompt);
+
+char *
+screen_read_password(WINDOW *w, const char *prompt);
+
 char *screen_readln(WINDOW *w, const char *prompt, const char *value,
 		    GList **history, GCompletion *gcmp);
 char *screen_readln_masked(WINDOW *w, const char *prompt);
@@ -56,8 +60,6 @@ int screen_find(struct list_window *lw,
 void screen_jump(struct list_window *lw,
 		list_window_callback_fn_t callback_fn,
 		void *callback_data);
-
-gint screen_auth(struct mpdclient *c);
 
 void screen_display_completion_list(GList *list);
 
