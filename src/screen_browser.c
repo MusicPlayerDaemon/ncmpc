@@ -187,29 +187,39 @@ load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 static bool
 enqueue_and_play(struct mpdclient *c, struct filelist_entry *entry)
 {
-	int idx;
 	const struct mpd_song *song = mpd_entity_get_song(entry->entity);
+	int id;
 
 #ifndef NCMPC_MINI
-	if (!(entry->flags & HIGHLIGHT)) {
+	if (!(entry->flags & HIGHLIGHT))
+		id = -1;
+	else
 #endif
-		if (mpdclient_cmd_add(c, song) == 0) {
-			char buf[BUFSIZE];
+		id = playlist_get_id_from_same_song(&c->playlist, song);
 
-#ifndef NCMPC_MINI
-			entry->flags |= HIGHLIGHT;
-#endif
-			strfsong(buf, BUFSIZE, options.list_format, song);
-			screen_status_printf(_("Adding \'%s\' to playlist"), buf);
-			mpdclient_update(c); /* get song id */
-		} else
+	if (id < 0) {
+		char buf[BUFSIZE];
+
+		id = mpd_run_add_id(c->connection, mpd_song_get_uri(song));
+		if (id < 0) {
+			mpdclient_handle_error(c);
 			return false;
+		}
+
+#ifndef NCMPC_MINI
+		entry->flags |= HIGHLIGHT;
+#endif
+		strfsong(buf, BUFSIZE, options.list_format, song);
+		screen_status_printf(_("Adding \'%s\' to playlist"), buf);
 #ifndef NCMPC_MINI
 	}
 #endif
 
-	idx = playlist_get_index_from_same_song(&c->playlist, song);
-	mpdclient_cmd_play(c, idx);
+	if (!mpd_run_play_id(c->connection, id)) {
+		mpdclient_handle_error(c);
+		return false;
+	}
+
 	return true;
 }
 

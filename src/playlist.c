@@ -119,3 +119,17 @@ playlist_get_index_from_file(const struct mpdclient_playlist *playlist,
 
 	return -1;
 }
+
+gint
+playlist_get_id_from_uri(const struct mpdclient_playlist *playlist,
+			 const gchar *uri)
+{
+	for (guint i = 0; i < playlist_length(playlist); ++i) {
+		const struct mpd_song *song = playlist_get(playlist, i);
+
+		if (strcmp(mpd_song_get_uri(song), uri) == 0)
+			return mpd_song_get_id(song);
+	}
+
+	return -1;
+}

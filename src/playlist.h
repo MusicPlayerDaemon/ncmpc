@@ -144,4 +144,15 @@ playlist_get_index_from_same_song(const struct mpdclient_playlist *playlist,
 	return playlist_get_index_from_file(playlist, mpd_song_get_uri(song));
 }
 
+gint
+playlist_get_id_from_uri(const struct mpdclient_playlist *playlist,
+			 const gchar *uri);
+
+static inline gint
+playlist_get_id_from_same_song(const struct mpdclient_playlist *playlist,
+			       const struct mpd_song *song)
+{
+	return playlist_get_id_from_uri(playlist, mpd_song_get_uri(song));
+}
+
 #endif
