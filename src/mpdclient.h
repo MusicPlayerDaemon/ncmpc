@@ -27,6 +27,9 @@ struct mpdclient {
 /** functions ***************************************************************/
 
 gint
+mpdclient_handle_error(struct mpdclient *c);
+
+gint
 mpdclient_finish_command(struct mpdclient *c);
 
 struct mpdclient *

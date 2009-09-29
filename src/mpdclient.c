@@ -103,7 +103,7 @@ compare_filelistentry_format(gconstpointer filelist_entry1,
 /*** mpdclient functions ****************************************************/
 /****************************************************************************/
 
-static gint
+gint
 mpdclient_handle_error(struct mpdclient *c)
 {
 	enum mpd_error error = mpd_connection_get_error(c->connection);
