@@ -311,7 +311,6 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 
 	filename_utf8 = locale_to_utf8(filename);
 	error = mpdclient_cmd_save_playlist(c, filename_utf8);
-	g_free(filename_utf8);
 
 	if (error) {
 		gint code = GET_ACK_ERROR_CODE(error);
@@ -326,27 +325,34 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 						   buf));
 			g_free(buf);
 
-			if (key == YES[0]) {
-				filename_utf8 = locale_to_utf8(filename);
-				error = mpdclient_cmd_delete_playlist(c, filename_utf8);
+			if (key != YES[0]) {
 				g_free(filename_utf8);
+				g_free(filename);
+				screen_status_printf(_("Aborted"));
+				return -1;
+			}
 
-				if (error) {
-					g_free(filename);
-					return -1;
-				}
+			error = mpdclient_cmd_delete_playlist(c, filename_utf8);
+			if (error) {
+				g_free(filename_utf8);
+				g_free(filename);
+				return -1;
+			}
 
-				error = playlist_save(c, filename, NULL);
+			error = mpdclient_cmd_save_playlist(c, filename_utf8);
+			if (error) {
+				g_free(filename_utf8);
 				g_free(filename);
 				return error;
 			}
-
-			screen_status_printf(_("Aborted"));
+		} else {
+			g_free(filename_utf8);
+			g_free(filename);
+			return -1;
 		}
-
-		g_free(filename);
-		return -1;
 	}
+
+	g_free(filename_utf8);
 
 	/* success */
 	screen_status_printf(_("Saved %s"), filename);
