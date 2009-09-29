@@ -112,7 +112,7 @@ mpdclient_handle_error(struct mpdclient *c)
 
 	if (error == MPD_ERROR_SERVER &&
 	    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_PERMISSION &&
-	    screen_auth(c) == 0)
+	    screen_auth(c))
 		return 0;
 
 	if (error == MPD_ERROR_SERVER)

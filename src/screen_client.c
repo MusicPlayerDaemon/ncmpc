@@ -21,18 +21,18 @@
 #include "screen_utils.h"
 #include "mpdclient.h"
 
-static gint
+static bool
 _screen_auth(struct mpdclient *c, gint recursion)
 {
 	char *password;
 
 	mpd_connection_clear_error(c->connection);
 	if (recursion > 2)
-		return 1;
+		return false;
 
 	password = screen_read_password(NULL, NULL);
 	if (password == NULL)
-		return 1;
+		return false;
 
 	mpd_send_password(c->connection, password);
 	g_free(password);
@@ -43,10 +43,11 @@ _screen_auth(struct mpdclient *c, gint recursion)
 	if (mpd_connection_get_error(c->connection) == MPD_ERROR_SERVER &&
 	    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_PASSWORD)
 		return  _screen_auth(c, ++recursion);
-	return 0;
+
+	return true;
 }
 
-gint
+bool
 screen_auth(struct mpdclient *c)
 {
 	return _screen_auth(c, 0);

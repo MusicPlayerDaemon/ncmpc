@@ -20,11 +20,11 @@
 #ifndef NCMPC_SCREEN_CLIENT_H
 #define NCMPC_SCREEN_CLIENT_H
 
-#include <glib.h>
+#include <stdbool.h>
 
 struct mpdclient;
 
-gint
+bool
 screen_auth(struct mpdclient *c);
 
 #endif
