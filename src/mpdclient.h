@@ -63,7 +63,6 @@ gint mpdclient_cmd_random(struct mpdclient *c, gint value);
 gint mpdclient_cmd_single(struct mpdclient *c, gint value);
 gint mpdclient_cmd_consume(struct mpdclient *c, gint value);
 gint mpdclient_cmd_crossfade(struct mpdclient *c, gint value);
-gint mpdclient_cmd_db_update(struct mpdclient *c, const gchar *path);
 gint mpdclient_cmd_volume(struct mpdclient *c, gint value);
 gint mpdclient_cmd_volume_up(struct mpdclient *c);
 gint mpdclient_cmd_volume_down(struct mpdclient *c);

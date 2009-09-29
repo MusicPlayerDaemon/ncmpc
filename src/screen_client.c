@@ -59,17 +59,25 @@ screen_auth(struct mpdclient *c)
 void
 screen_database_update(struct mpdclient *c, const char *path)
 {
+	unsigned id;
+
 	assert(c != NULL);
 	assert(c->connection != NULL);
-	assert(c->status != NULL);
 
-	if (mpd_status_get_update_id(c->status) != 0) {
-		screen_status_printf(_("Database update running..."));
+	id = mpd_run_update(c->connection, path);
+	if (id == 0) {
+		if (mpd_connection_get_error(c->connection) == MPD_ERROR_SERVER &&
+		    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_UPDATE_ALREADY) {
+			screen_status_printf(_("Database update running..."));
+			mpd_connection_clear_error(c->connection);
+		} else
+			mpdclient_handle_error(c);
 		return;
 	}
 
-	if (mpdclient_cmd_db_update(c, path) != 0)
-		return;
+	/* set updatingDb to make sure the browse callback gets called
+	   even if the update has finished before status is updated */
+	c->updatingdb = id;
 
 	if (path != NULL && *path != 0) {
 		char *path_locale = utf8_to_locale(path);

@@ -1,5 +1,6 @@
 ncmpc 0.16 - not yet released
 * using libmpdclient 2.0 instead of built-in libmpdclient
+* allow multiple queued database updates
 
 
 ncmpc 0.15 - 2009-09-24

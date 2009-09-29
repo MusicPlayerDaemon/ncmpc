@@ -449,26 +449,6 @@ mpdclient_cmd_crossfade(struct mpdclient *c, gint value)
 }
 
 gint
-mpdclient_cmd_db_update(struct mpdclient *c, const gchar *path)
-{
-	gint ret;
-
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_update(c->connection, path ? path : "");
-	ret = mpdclient_finish_command(c);
-
-	if (ret == 0)
-		/* set updatingDb to make sure the browse callback
-		   gets called even if the update has finished before
-		   status is updated */
-		c->updatingdb = 1;
-
-	return ret;
-}
-
-gint
 mpdclient_cmd_volume(struct mpdclient *c, gint value)
 {
 	if (MPD_ERROR(c))
