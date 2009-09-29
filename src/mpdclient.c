@@ -246,7 +246,7 @@ mpdclient_update(struct mpdclient *c)
 
 	/* check if the playlist needs an update */
 	if (c->playlist.id != mpd_status_get_queue_version(c->status)) {
-		if (playlist_is_empty(&c->playlist))
+		if (!playlist_is_empty(&c->playlist))
 			retval = mpdclient_playlist_update_changes(c);
 		else
 			retval = mpdclient_playlist_update(c);
