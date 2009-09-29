@@ -299,8 +299,10 @@ search_advanced_query(char *query, struct mpdclient *c)
 		while ((entity = mpd_recv_entity(c->connection)) != NULL)
 			filelist_append(fl, entity);
 
-		if (mpdclient_finish_command(c) && fl)
+		if (mpdclient_finish_command(c)) {
 			filelist_free(fl);
+			fl = NULL;
+		}
 	}
 
 	i=0;
