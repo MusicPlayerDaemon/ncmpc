@@ -40,8 +40,9 @@ mpdclient_is_connected(const struct mpdclient *c)
 	return c->connection != NULL;
 }
 
-gint mpdclient_connect(struct mpdclient *c, const gchar *host, gint port,
-		       gfloat timeout_, const gchar *password);
+bool
+mpdclient_connect(struct mpdclient *c, const gchar *host, gint port,
+		  gfloat timeout_, const gchar *password);
 
 void
 mpdclient_disconnect(struct mpdclient *c);

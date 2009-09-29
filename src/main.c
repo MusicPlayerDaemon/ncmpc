@@ -176,7 +176,7 @@ timer_mpd_update(gpointer data);
 static gboolean
 timer_reconnect(G_GNUC_UNUSED gpointer data)
 {
-	int ret;
+	bool success;
 
 	assert(!mpdclient_is_connected(mpd));
 
@@ -185,11 +185,11 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 	doupdate();
 
 	mpdclient_disconnect(mpd);
-	ret = mpdclient_connect(mpd,
-				options.host, options.port,
-				1.5,
-				options.password);
-	if (ret != 0) {
+	success = mpdclient_connect(mpd,
+				    options.host, options.port,
+				    1.5,
+				    options.password);
+	if (!success) {
 		/* try again in 5 seconds */
 		g_timeout_add(5000, timer_reconnect, NULL);
 		return FALSE;

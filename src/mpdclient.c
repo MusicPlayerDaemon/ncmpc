@@ -179,7 +179,7 @@ mpdclient_disconnect(struct mpdclient *c)
 		c->song = NULL;
 }
 
-gint
+bool
 mpdclient_connect(struct mpdclient *c,
 		  const gchar *host,
 		  gint port,
@@ -198,13 +198,9 @@ mpdclient_connect(struct mpdclient *c,
 		g_error("Out of memory");
 
 	if (mpd_connection_get_error(c->connection) != MPD_ERROR_SUCCESS) {
-		retval = mpdclient_handle_error(c);
-		if (retval != 0) {
-			mpd_connection_free(c->connection);
-			c->connection = NULL;
-		}
-
-		return retval;
+		mpdclient_handle_error(c);
+		mpdclient_disconnect(c);
+		return false;
 	}
 
 	/* send password */
@@ -213,7 +209,7 @@ mpdclient_connect(struct mpdclient *c,
 		retval = mpdclient_finish_command(c);
 	}
 
-	return retval;
+	return true;
 }
 
 gint
