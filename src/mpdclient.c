@@ -212,15 +212,15 @@ mpdclient_connect(struct mpdclient *c,
 	return true;
 }
 
-gint
+bool
 mpdclient_update(struct mpdclient *c)
 {
-	gint retval = 0;
+	bool retval;
 
 	c->volume = MPD_STATUS_NO_VOLUME;
 
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	/* free the old status */
 	if (c->status)
@@ -229,7 +229,7 @@ mpdclient_update(struct mpdclient *c)
 	/* retrieve new status */
 	c->status = mpd_run_status(c->connection);
 	if (c->status == NULL)
-		return mpdclient_handle_error(c);
+		return mpdclient_handle_error(c) == 0;
 
 	if (c->updatingdb &&
 	    c->updatingdb != mpd_status_get_update_id(c->status))
@@ -713,13 +713,13 @@ mpdclient_remove_error_callback(struct mpdclient *c, mpdc_error_cb_t cb)
 /****************************************************************************/
 
 /* update playlist */
-gint
+bool
 mpdclient_playlist_update(struct mpdclient *c)
 {
 	struct mpd_entity *entity;
 
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	playlist_clear(&c->playlist);
 
@@ -737,18 +737,18 @@ mpdclient_playlist_update(struct mpdclient *c)
 	/* call playlist updated callbacks */
 	mpdclient_playlist_callback(c, PLAYLIST_EVENT_UPDATED, NULL);
 
-	return mpdclient_finish_command(c);
+	return mpdclient_finish_command(c) == 0;
 }
 
 /* update playlist (plchanges) */
-gint
+bool
 mpdclient_playlist_update_changes(struct mpdclient *c)
 {
 	struct mpd_song *song;
 	guint length;
 
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	mpd_send_queue_changes_meta(c->connection, c->playlist.id);
 
@@ -781,7 +781,7 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 
 	mpdclient_playlist_callback(c, PLAYLIST_EVENT_UPDATED, NULL);
 
-	return 0;
+	return mpdclient_finish_command(c) == 0;
 }
 
 

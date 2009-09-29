@@ -47,7 +47,8 @@ mpdclient_connect(struct mpdclient *c, const gchar *host, gint port,
 void
 mpdclient_disconnect(struct mpdclient *c);
 
-gint mpdclient_update(struct mpdclient *c);
+bool
+mpdclient_update(struct mpdclient *c);
 
 
 /*** MPD Commands  **********************************************************/
@@ -98,10 +99,12 @@ void mpdclient_remove_error_callback(struct mpdclient *c, mpdc_error_cb_t cb);
 /*** playlist functions  **************************************************/
 
 /* update the complete playlist */
-gint mpdclient_playlist_update(struct mpdclient *c);
+bool
+mpdclient_playlist_update(struct mpdclient *c);
 
 /* get playlist changes */
-gint mpdclient_playlist_update_changes(struct mpdclient *c);
+bool
+mpdclient_playlist_update_changes(struct mpdclient *c);
 
 
 /*** mpdclient playlist callbacks *****************************************/
