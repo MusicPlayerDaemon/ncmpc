@@ -1,5 +1,6 @@
 ncmpc 0.16 - not yet released
 * using libmpdclient 2.0 instead of built-in libmpdclient
+* require MPD 0.12
 * allow multiple queued database updates
 * reactivate incremental playlist changes
 
