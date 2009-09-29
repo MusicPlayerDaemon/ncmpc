@@ -117,10 +117,9 @@ playlist_get_index_from_file(const struct mpdclient *c, const gchar *filename)
 	guint i;
 
 	for (i = 0; i < c->playlist.list->len; ++i) {
-		struct mpd_song *song = playlist_get(&c->playlist, i);
-		const char *uri = mpd_song_get_uri(song);
+		const struct mpd_song *song = playlist_get(&c->playlist, i);
 
-		if (uri != NULL && strcmp(uri, filename) == 0)
+		if (strcmp(mpd_song_get_uri(song), filename) == 0)
 			return (gint)i;
 	}
 
