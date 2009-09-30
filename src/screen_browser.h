@@ -41,10 +41,6 @@ struct screen_browser {
 void
 sync_highlights(struct mpdclient *c, struct filelist *fl);
 
-void
-browser_playlist_changed(struct screen_browser *browser, struct mpdclient *c,
-			 int event, gpointer data);
-
 #endif
 
 const char *browser_lw_callback(unsigned index, bool *highlight, char** second_column, void *filelist);

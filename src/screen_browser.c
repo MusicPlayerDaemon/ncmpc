@@ -40,36 +40,6 @@ static const char playlist_format[] = "*%s*";
 
 #ifndef NCMPC_MINI
 
-/* clear the highlight flag for all items in the filelist */
-static void
-clear_highlights(struct filelist *fl)
-{
-	guint i;
-
-	for (i = 0; i < filelist_length(fl); ++i) {
-		struct filelist_entry *entry = filelist_get(fl, i);
-
-		entry->flags &= ~HIGHLIGHT;
-	}
-}
-
-/* change the highlight flag for a song */
-static void
-set_highlight(struct filelist *fl, struct mpd_song *song, int highlight)
-{
-	int i = filelist_find_song(fl, song);
-	struct filelist_entry *entry;
-
-	if (i < 0)
-		return;
-
-	entry = filelist_get(fl, i);
-	if (highlight)
-		entry->flags |= HIGHLIGHT;
-	else
-		entry->flags &= ~HIGHLIGHT;
-}
-
 /* sync highlight flags with playlist */
 void
 sync_highlights(struct mpdclient *c, struct filelist *fl)
@@ -90,32 +60,6 @@ sync_highlights(struct mpdclient *c, struct filelist *fl)
 			else
 				entry->flags &= ~HIGHLIGHT;
 		}
-	}
-}
-
-/* the playlist has been updated -> fix highlights */
-void
-browser_playlist_changed(struct screen_browser *browser, struct mpdclient *c,
-			 int event, gpointer data)
-{
-	if (browser->filelist == NULL)
-		return;
-
-	switch(event) {
-	case PLAYLIST_EVENT_CLEAR:
-		clear_highlights(browser->filelist);
-		break;
-	case PLAYLIST_EVENT_ADD:
-		set_highlight(browser->filelist, (struct mpd_song *) data, 1);
-		break;
-	case PLAYLIST_EVENT_DELETE:
-		set_highlight(browser->filelist, (struct mpd_song *) data, 0);
-		break;
-	case PLAYLIST_EVENT_MOVE:
-		break;
-	default:
-		sync_highlights(c, browser->filelist);
-		break;
 	}
 }
 
