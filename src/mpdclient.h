@@ -12,7 +12,6 @@ struct mpdclient {
 	struct mpdclient_playlist playlist;
 
 	/* Callbacks */
-	GList *error_callbacks;
 	GList *playlist_callbacks;
 	GList *browse_callbacks;
 
@@ -50,6 +49,12 @@ mpdclient_disconnect(struct mpdclient *c);
 bool
 mpdclient_update(struct mpdclient *c);
 
+/**
+ * To be implemented by the application: mpdclient.c calls this to
+ * display an error message.
+ */
+void
+mpdclient_ui_error(const char *message);
 
 /*** MPD Commands  **********************************************************/
 gint mpdclient_cmd_play(struct mpdclient *c, gint index);
@@ -77,13 +82,7 @@ GList *mpdclient_get_albums(struct mpdclient *c, const gchar *artist_utf8);
 
 /*** error callbacks *****************************************************/
 
-#define IS_ACK_ERROR(n)       (n & MPD_ERROR_ACK)
 #define GET_ACK_ERROR_CODE(n) ((n & 0xFF00) >> 8)
-
-typedef void (*mpdc_error_cb_t) (struct mpdclient *c, gint error, const gchar *msg);
-
-void mpdclient_install_error_callback(struct mpdclient *c, mpdc_error_cb_t cb);
-void mpdclient_remove_error_callback(struct mpdclient *c, mpdc_error_cb_t cb);
 
 /*** playlist functions  **************************************************/
 

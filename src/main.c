@@ -66,18 +66,6 @@ static guint reconnect_source_id, update_source_id;
 static guint check_key_bindings_source_id;
 #endif
 
-static void
-error_callback(G_GNUC_UNUSED struct mpdclient *c, G_GNUC_UNUSED gint error,
-	       const gchar *_msg)
-{
-	char *msg = utf8_to_locale(_msg);
-	screen_status_printf("%s", msg);
-	g_free(msg);
-
-	screen_bell();
-	doupdate();
-}
-
 #ifndef NCMPC_MINI
 static void
 update_xterm_title(void)
@@ -441,7 +429,6 @@ main(int argc, const char *argv[])
 
 	/* create mpdclient instance */
 	mpd = mpdclient_new();
-	mpdclient_install_error_callback(mpd, error_callback);
 
 	/* initialize curses */
 	screen_init(mpd);

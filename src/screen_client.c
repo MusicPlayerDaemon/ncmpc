@@ -57,6 +57,17 @@ screen_auth(struct mpdclient *c)
 }
 
 void
+mpdclient_ui_error(const char *message_utf8)
+{
+	char *message_locale = utf8_to_locale(message_utf8);
+	screen_status_printf("%s", message_locale);
+	g_free(message_locale);
+
+	screen_bell();
+	doupdate();
+}
+
+void
 screen_database_update(struct mpdclient *c, const char *path)
 {
 	unsigned id;

@@ -118,11 +118,7 @@ mpdclient_handle_error(struct mpdclient *c)
 	if (error == MPD_ERROR_SERVER)
 		error = error | (mpd_connection_get_server_error(c->connection) << 8);
 
-	for (GList *list = c->error_callbacks; list != NULL;
-	     list = list->next) {
-		mpdc_error_cb_t cb = list->data;
-		cb(c, error, mpd_connection_get_error_message(c->connection));
-	}
+	mpdclient_ui_error(mpd_connection_get_error_message(c->connection));
 
 	if (!mpd_connection_clear_error(c->connection))
 		mpdclient_disconnect(c);
@@ -156,7 +152,6 @@ mpdclient_free(struct mpdclient *c)
 
 	mpdclient_playlist_free(&c->playlist);
 
-	g_list_free(c->error_callbacks);
 	g_list_free(c->playlist_callbacks);
 	g_list_free(c->browse_callbacks);
 	g_free(c);
@@ -582,18 +577,6 @@ void
 mpdclient_remove_browse_callback(struct mpdclient *c, mpdc_list_cb_t cb)
 {
 	c->browse_callbacks = g_list_remove(c->browse_callbacks, cb);
-}
-
-void
-mpdclient_install_error_callback(struct mpdclient *c, mpdc_error_cb_t cb)
-{
-	c->error_callbacks = g_list_append(c->error_callbacks, cb);
-}
-
-void
-mpdclient_remove_error_callback(struct mpdclient *c, mpdc_error_cb_t cb)
-{
-	c->error_callbacks = g_list_remove(c->error_callbacks, cb);
 }
 
 
