@@ -24,24 +24,18 @@
 #include "list_window.h"
 #include "command.h"
 
-#ifdef HAVE_NCURSESW_NCURSES_H
-#include <ncursesw/ncurses.h>
-#else
-#include <ncurses.h>
-#endif
-
 struct mpdclient;
 
 /* sound an audible and/or visible bell */
 void screen_bell(void);
 
 /* read a character from the status window */
-int screen_getch(WINDOW *w, const char *prompt);
+int screen_getch(const char *prompt);
 
 char *
-screen_read_password(WINDOW *w, const char *prompt);
+screen_read_password(const char *prompt);
 
-char *screen_readln(WINDOW *w, const char *prompt, const char *value,
+char *screen_readln(const char *prompt, const char *value,
 		    GList **history, GCompletion *gcmp);
 
 /* query user for a string and find it in a list window */

@@ -33,7 +33,7 @@ _screen_auth(struct mpdclient *c, gint recursion)
 	if (recursion > 2)
 		return false;
 
-	password = screen_read_password(NULL, NULL);
+	password = screen_read_password(NULL);
 	if (password == NULL)
 		return false;
 

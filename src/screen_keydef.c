@@ -149,14 +149,14 @@ delete_key(int cmd_index, int key_index)
 }
 
 static void
-assign_new_key(WINDOW *w, int cmd_index, int key_index)
+assign_new_key(int cmd_index, int key_index)
 {
 	int key;
 	char *buf;
 	command_t cmd;
 
 	buf = g_strdup_printf(_("Enter new key for %s: "), cmds[cmd_index].name);
-	key = screen_getch(w, buf);
+	key = screen_getch(buf);
 	g_free(buf);
 
 	if (key==ERR) {
@@ -334,8 +334,7 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 
 				keydef_repaint();
 			} else
-				assign_new_key(screen.status_window.w,
-					       subcmd,
+				assign_new_key(subcmd,
 					       lw->selected - STATIC_SUB_ITEMS);
 		}
 		return true;

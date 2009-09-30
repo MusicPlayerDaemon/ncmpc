@@ -323,8 +323,7 @@ search_new(struct mpdclient *c)
 	search_clear(c, TRUE);
 
 	g_free(pattern);
-	pattern = screen_readln(screen.status_window.w,
-				_("Search"),
+	pattern = screen_readln(_("Search"),
 				NULL,
 				&search_history,
 				NULL);

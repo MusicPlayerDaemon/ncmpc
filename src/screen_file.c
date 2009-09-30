@@ -242,7 +242,7 @@ handle_delete(struct mpdclient *c)
 		str = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
 		buf = g_strdup_printf(_("Delete playlist %s [%s/%s] ? "), str, YES, NO);
 		g_free(str);
-		key = tolower(screen_getch(screen.status_window.w, buf));
+		key = tolower(screen_getch(buf));
 		g_free(buf);
 		if( key != YES[0] ) {
 			/* translators: a dialog was aborted by the user */

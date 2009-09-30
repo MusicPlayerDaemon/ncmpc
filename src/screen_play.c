@@ -279,8 +279,7 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 
 
 		/* query the user for a filename */
-		filename = screen_readln(screen.status_window.w,
-					 _("Save playlist as"),
+		filename = screen_readln(_("Save playlist as"),
 					 defaultname,
 					 NULL,
 					 gcmp);
@@ -314,8 +313,7 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 
 			buf = g_strdup_printf(_("Replace %s [%s/%s] ? "),
 					      filename, YES, NO);
-			key = tolower(screen_getch(screen.status_window.w,
-						   buf));
+			key = tolower(screen_getch(buf));
 			g_free(buf);
 
 			if (key != YES[0]) {
@@ -423,8 +421,7 @@ handle_add_to_playlist(struct mpdclient *c)
 #endif
 
 	/* get path */
-	path = screen_readln(screen.status_window.w,
-			     _("Add"),
+	path = screen_readln(_("Add"),
 			     NULL,
 			     NULL,
 #ifdef NCMPC_MINI

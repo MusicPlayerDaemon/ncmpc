@@ -48,8 +48,9 @@ screen_bell(void)
 }
 
 int
-screen_getch(WINDOW *w, const char *prompt)
+screen_getch(const char *prompt)
 {
+	WINDOW *w = screen.status_window.w;
 	int key = -1;
 
 	colors_use(w, COLOR_STATUS_ALERT);
@@ -66,7 +67,7 @@ screen_getch(WINDOW *w, const char *prompt)
 #ifdef HAVE_GETMOUSE
 	/* ignore mouse events */
 	if (key == KEY_MOUSE)
-		return screen_getch(w, prompt);
+		return screen_getch(prompt);
 #endif
 
 	noecho();
@@ -76,35 +77,29 @@ screen_getch(WINDOW *w, const char *prompt)
 }
 
 char *
-screen_readln(WINDOW *w,
-	      const char *prompt,
+screen_readln(const char *prompt,
 	      const char *value,
 	      GList **history,
 	      GCompletion *gcmp)
 {
+	struct window *window = &screen.status_window;
+	WINDOW *w = window->w;
 	char *line = NULL;
 
 	wmove(w, 0,0);
 	curs_set(1);
 	colors_use(w, COLOR_STATUS_ALERT);
-	line = wreadln(w, prompt, value, COLS, history, gcmp);
+	line = wreadln(w, prompt, value, window->cols, history, gcmp);
 	curs_set(0);
 	return line;
 }
 
 char *
-screen_read_password(WINDOW *w, const char *prompt)
+screen_read_password(const char *prompt)
 {
+	struct window *window = &screen.status_window;
+	WINDOW *w = window->w;
 	char *ret;
-
-	if (w == NULL) {
-		int rows, cols;
-		getmaxyx(stdscr, rows, cols);
-		/* create window for input */
-		w = newwin(1,  cols, rows-1, 0);
-		leaveok(w, FALSE);
-		keypad(w, TRUE);
-	}
 
 	wmove(w, 0,0);
 	curs_set(1);
@@ -112,7 +107,7 @@ screen_read_password(WINDOW *w, const char *prompt)
 
 	if (prompt == NULL)
 		prompt = _("Password");
-	ret = wreadln_masked(w, prompt, NULL, COLS, NULL, NULL);
+	ret = wreadln_masked(w, prompt, NULL, window->cols, NULL, NULL);
 
 	curs_set(0);
 	return ret;
@@ -148,8 +143,7 @@ screen_find(list_window_t *lw,
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
 		if (!screen.findbuf)
-			screen.findbuf=screen_readln(screen.status_window.w,
-						     prompt,
+			screen.findbuf=screen_readln(prompt,
 						     value,
 						     &screen.find_history,
 						     NULL);
@@ -205,7 +199,7 @@ screen_jump(struct list_window *lw,
 
 	/* unfortunately wgetch returns "next/previous-page" not as an ascii-char */
 	while(!g_ascii_iscntrl(key) && key != KEY_NPAGE && key != KEY_PPAGE) {
-		key = screen_getch(screen.status_window.w, screen.findbuf);
+		key = screen_getch(screen.findbuf);
 		/* if backspace or delete was pressed */
 		if (key == KEY_BACKSPACE || key == 330) {
 			int i;
