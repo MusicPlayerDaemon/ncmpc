@@ -31,7 +31,26 @@
 
 #include <mpd/client.h>
 
+#include <assert.h>
 #include <string.h>
+
+static gboolean
+status_bar_clear_message(gpointer data)
+{
+	struct status_bar *p = data;
+	WINDOW *w = p->window.w;
+
+	assert(p != NULL);
+	assert(p->message_source_id != 0);
+
+	p->message_source_id = 0;
+
+	wmove(w, 0, 0);
+	wclrtoeol(w);
+	wrefresh(w);
+
+	return false;
+}
 
 void
 status_bar_paint(const struct status_bar *p, const struct mpd_status *status,
@@ -49,7 +68,7 @@ status_bar_paint(const struct status_bar *p, const struct mpd_status *status,
 	int x = 0;
 	char buffer[p->window.cols * 4 + 1];
 
-	if (time(NULL) - p->message_timestamp <= options.status_message_time)
+	if (p->message_source_id != 0)
 		return;
 
 	wmove(w, 0, 0);
@@ -192,5 +211,8 @@ status_bar_message(struct status_bar *p, const char *msg)
 	waddstr(w, msg);
 	wnoutrefresh(w);
 
-	p->message_timestamp = time(NULL);
+	if (p->message_source_id != 0)
+		g_source_remove(p->message_source_id);
+	p->message_source_id = g_timeout_add(options.status_message_time * 1000,
+					     status_bar_clear_message, p);
 }

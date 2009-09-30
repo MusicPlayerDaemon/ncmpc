@@ -32,7 +32,7 @@ struct mpd_song;
 struct status_bar {
 	struct window window;
 
-	GTime message_timestamp;
+	guint message_source_id;
 };
 
 static inline void
@@ -43,13 +43,16 @@ status_bar_init(struct status_bar *p, unsigned width, int y, int x)
 	leaveok(p->window.w, false);
 	keypad(p->window.w, true);
 
-	p->message_timestamp = 0;
+	p->message_source_id = 0;
 }
 
 static inline void
 status_bar_deinit(struct status_bar *p)
 {
 	delwin(p->window.w);
+
+	if (p->message_source_id != 0)
+		g_source_remove(p->message_source_id);
 }
 
 void
