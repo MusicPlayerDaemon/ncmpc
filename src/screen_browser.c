@@ -43,7 +43,8 @@ static const char playlist_format[] = "*%s*";
 
 /* sync highlight flags with playlist */
 void
-sync_highlights(struct mpdclient *c, struct filelist *fl)
+screen_browser_sync_highlights(struct filelist *fl,
+			       const struct mpdclient_playlist *playlist)
 {
 	guint i;
 
@@ -55,7 +56,7 @@ sync_highlights(struct mpdclient *c, struct filelist *fl)
 			const struct mpd_song *song =
 				mpd_entity_get_song(entity);
 
-			if (playlist_get_index_from_same_song(&c->playlist,
+			if (playlist_get_index_from_same_song(playlist,
 							      song) >= 0)
 				entry->flags |= HIGHLIGHT;
 			else

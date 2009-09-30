@@ -26,6 +26,7 @@
 #include <stdbool.h>
 
 struct mpdclient;
+struct mpdclient_playlist;
 struct filelist;
 struct list_window;
 struct list_window_state;
@@ -39,7 +40,8 @@ struct screen_browser {
 #ifndef NCMPC_MINI
 
 void
-sync_highlights(struct mpdclient *c, struct filelist *fl);
+screen_browser_sync_highlights(struct filelist *fl,
+			       const struct mpdclient_playlist *playlist);
 
 #endif
 

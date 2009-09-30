@@ -78,7 +78,7 @@ change_directory(struct mpdclient *c, const char *new_path)
 	screen_file_reload(c);
 
 #ifndef NCMPC_MINI
-	sync_highlights(c, browser.filelist);
+	screen_browser_sync_highlights(browser.filelist, &c->playlist);
 #endif
 
 	list_window_reset(browser.lw);
@@ -308,7 +308,7 @@ screen_file_update(struct mpdclient *c)
 #ifndef NCMPC_MINI
 	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST |
 			 MPD_IDLE_PLAYLIST))
-		sync_highlights(c, browser.filelist);
+		screen_browser_sync_highlights(browser.filelist, &c->playlist);
 #endif
 
 	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST
@@ -356,7 +356,7 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_SCREEN_UPDATE:
 		screen_file_reload(c);
 #ifndef NCMPC_MINI
-		sync_highlights(c, browser.filelist);
+		screen_browser_sync_highlights(browser.filelist, &c->playlist);
 #endif
 		list_window_check_selected(browser.lw,
 					   filelist_length(browser.filelist));

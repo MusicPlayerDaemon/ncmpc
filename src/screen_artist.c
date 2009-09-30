@@ -214,7 +214,7 @@ load_song_list(struct mpdclient *c)
 
 #ifndef NCMPC_MINI
 	/* fix highlights */
-	sync_highlights(c, browser.filelist);
+	screen_browser_sync_highlights(browser.filelist, &c->playlist);
 #endif
 }
 
@@ -377,7 +377,7 @@ screen_artist_update(struct mpdclient *c)
 
 #ifndef NCMPC_MINI
 	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_PLAYLIST))
-		sync_highlights(c, browser.filelist);
+		screen_browser_sync_highlights(browser.filelist, &c->playlist);
 #endif
 
 	if (c->events & (MPD_IDLE_DATABASE

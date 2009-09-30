@@ -332,7 +332,7 @@ search_new(struct mpdclient *c)
 	if (browser.filelist == NULL)
 		browser.filelist = filelist_new();
 
-	sync_highlights(c, browser.filelist);
+	screen_browser_sync_highlights(browser.filelist, &c->playlist);
 	list_window_check_selected(browser.lw, filelist_length(browser.filelist));
 }
 
@@ -409,7 +409,7 @@ static void
 screen_search_update(struct mpdclient *c)
 {
 	if (browser.filelist != NULL && c->events & MPD_IDLE_PLAYLIST) {
-		sync_highlights(c, browser.filelist);
+		screen_browser_sync_highlights(browser.filelist, &c->playlist);
 		search_repaint();
 	}
 }
@@ -432,7 +432,8 @@ screen_search_cmd(struct mpdclient *c, command_t cmd)
 							  FALSE,
 							  mode[options.search_mode].table,
 							  pattern);
-			sync_highlights(c, browser.filelist);
+			screen_browser_sync_highlights(browser.filelist,
+						       &c->playlist);
 		}
 		search_repaint();
 		return true;
