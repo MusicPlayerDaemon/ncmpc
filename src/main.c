@@ -229,6 +229,8 @@ timer_mpd_update(gpointer data)
 
 	screen_update(mpd);
 
+	mpd->events = 0;
+
 	return GPOINTER_TO_INT(data);
 }
 

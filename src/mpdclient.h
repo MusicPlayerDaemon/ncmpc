@@ -21,6 +21,11 @@ struct mpdclient {
 
 	int volume;
 	unsigned update_id;
+
+	/**
+	 * A bit mask of idle events occured since the last update.
+	 */
+	enum mpd_idle events;
 };
 
 /** functions ***************************************************************/

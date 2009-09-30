@@ -141,6 +141,7 @@ mpdclient_new(void)
 	c = g_new0(struct mpdclient, 1);
 	playlist_init(&c->playlist);
 	c->volume = -1;
+	c->events = 0;
 
 	return c;
 }
@@ -216,6 +217,10 @@ mpdclient_update(struct mpdclient *c)
 	if (MPD_ERROR(c))
 		return false;
 
+	/* always announce these options as long as we don't have real
+	   "idle" support */
+	c->events |= MPD_IDLE_PLAYER|MPD_IDLE_OPTIONS;
+
 	/* free the old status */
 	if (c->status)
 		mpd_status_free(c->status);
@@ -225,15 +230,28 @@ mpdclient_update(struct mpdclient *c)
 	if (c->status == NULL)
 		return mpdclient_handle_error(c) == 0;
 
+	if (c->update_id != mpd_status_get_update_id(c->status)) {
+		c->events |= MPD_IDLE_UPDATE;
+
+		if (c->update_id > 0)
+			c->events |= MPD_IDLE_DATABASE;
+	}
+
 	if (c->update_id > 0 &&
 	    c->update_id != mpd_status_get_update_id(c->status))
 		mpdclient_browse_callback(c, BROWSE_DB_UPDATED, NULL);
 
 	c->update_id = mpd_status_get_update_id(c->status);
+
+	if (c->volume != mpd_status_get_volume(c->status))
+		c->events |= MPD_IDLE_MIXER;
+
 	c->volume = mpd_status_get_volume(c->status);
 
 	/* check if the playlist needs an update */
 	if (c->playlist.id != mpd_status_get_queue_version(c->status)) {
+		c->events |= MPD_IDLE_PLAYLIST;
+
 		if (!playlist_is_empty(&c->playlist))
 			retval = mpdclient_playlist_update_changes(c);
 		else
@@ -497,8 +515,11 @@ mpdclient_cmd_save_playlist(struct mpdclient *c, const gchar *filename_utf8)
 		return -1;
 
 	mpd_send_save(c->connection, filename_utf8);
-	if ((retval = mpdclient_finish_command(c)) == 0)
+	if ((retval = mpdclient_finish_command(c)) == 0) {
 		mpdclient_browse_callback(c, BROWSE_PLAYLIST_SAVED, NULL);
+		c->events |= MPD_IDLE_STORED_PLAYLIST;
+	}
+
 	return retval;
 }
 
@@ -521,8 +542,11 @@ mpdclient_cmd_delete_playlist(struct mpdclient *c, const gchar *filename_utf8)
 		return -1;
 
 	mpd_send_rm(c->connection, filename_utf8);
-	if ((retval = mpdclient_finish_command(c)) == 0)
+	if ((retval = mpdclient_finish_command(c)) == 0) {
 		mpdclient_browse_callback(c, BROWSE_PLAYLIST_DELETED, NULL);
+		c->events |= MPD_IDLE_STORED_PLAYLIST;
+	}
+
 	return retval;
 }
 
