@@ -146,99 +146,6 @@ screen_next_mode(struct mpdclient *c, int offset)
 		screen_switch(sf, c);
 }
 
-#ifndef NCMPC_MINI
-static void
-print_hotkey(WINDOW *w, command_t cmd, const char *label)
-{
-	colors_use(w, COLOR_TITLE_BOLD);
-	waddstr(w, get_key_names(cmd, FALSE));
-	colors_use(w, COLOR_TITLE);
-	waddch(w, ':');
-	waddstr(w, label);
-	waddch(w, ' ');
-	waddch(w, ' ');
-}
-#endif
-
-static inline int
-get_volume(const struct mpd_status *status)
-{
-	return status != NULL
-		? mpd_status_get_volume(status)
-		: -1;
-}
-
-static void
-paint_top_window2(const char *header, struct mpdclient *c)
-{
-	int volume;
-	char flags[5];
-	WINDOW *w = screen.top_window.w;
-	char buf[32];
-
-	if (header[0]) {
-		colors_use(w, COLOR_TITLE_BOLD);
-		mvwaddstr(w, 0, 0, header);
-#ifndef NCMPC_MINI
-	} else {
-#ifdef ENABLE_HELP_SCREEN
-		print_hotkey(w, CMD_SCREEN_HELP, _("Help"));
-#endif
-		print_hotkey(w, CMD_SCREEN_PLAY, _("Playlist"));
-		print_hotkey(w, CMD_SCREEN_FILE, _("Browse"));
-#ifdef ENABLE_ARTIST_SCREEN
-		print_hotkey(w, CMD_SCREEN_ARTIST, _("Artist"));
-#endif
-#ifdef ENABLE_SEARCH_SCREEN
-		print_hotkey(w, CMD_SCREEN_SEARCH, _("Search"));
-#endif
-#ifdef ENABLE_LYRICS_SCREEN
-		print_hotkey(w, CMD_SCREEN_LYRICS, _("Lyrics"));
-#endif
-#ifdef ENABLE_OUTPUTS_SCREEN
-		print_hotkey(w, CMD_SCREEN_OUTPUTS, _("Outputs"));
-#endif
-#endif
-	}
-
-	volume = get_volume(c->status);
-	if (volume < 0)
-		g_snprintf(buf, 32, _("Volume n/a"));
-	else
-		g_snprintf(buf, 32, _("Volume %d%%"), volume);
-
-	colors_use(w, COLOR_TITLE);
-	mvwaddstr(w, 0, screen.top_window.cols - utf8_width(buf), buf);
-
-	flags[0] = 0;
-	if (c->status != NULL) {
-		if (mpd_status_get_repeat(c->status))
-			g_strlcat(flags, "r", sizeof(flags));
-		if (mpd_status_get_random(c->status))
-			g_strlcat(flags, "z", sizeof(flags));
-		if (mpd_status_get_single(c->status))
-			g_strlcat(flags, "s", sizeof(flags));
-		if (mpd_status_get_consume(c->status))
-			g_strlcat(flags, "c", sizeof(flags));
-		if (mpd_status_get_crossfade(c->status))
-			g_strlcat(flags, "x", sizeof(flags));
-		if (mpd_status_get_update_id(c->status) != 0)
-			g_strlcat(flags, "U", sizeof(flags));
-	}
-
-	colors_use(w, COLOR_LINE);
-	mvwhline(w, 1, 0, ACS_HLINE, screen.top_window.cols);
-	if (flags[0]) {
-		wmove(w,1,screen.top_window.cols-strlen(flags)-3);
-		waddch(w, '[');
-		colors_use(w, COLOR_LINE_BOLD);
-		waddstr(w, flags);
-		colors_use(w, COLOR_LINE);
-		waddch(w, ']');
-	}
-	wnoutrefresh(w);
-}
-
 static inline int
 volume_length(int volume)
 {
@@ -252,31 +159,9 @@ volume_length(int volume)
 }
 
 static void
-paint_top_window(const char *header, struct mpdclient *c, int full_repaint)
+paint_top_window(const char *header, const struct mpdclient *c)
 {
-	static int prev_volume = -1;
-	static unsigned prev_header_len = -1;
-	WINDOW *w = screen.top_window.w;
-
-	if (prev_header_len != utf8_width(header)) {
-		prev_header_len = utf8_width(header);
-		full_repaint = 1;
-	}
-
-	if (c->status &&
-	    volume_length(prev_volume) !=
-	    volume_length(mpd_status_get_volume(c->status)))
-		full_repaint = 1;
-
-	if (full_repaint) {
-		wmove(w, 0, 0);
-		wclrtoeol(w);
-	}
-
-	if ((c->status != NULL &&
-	     prev_volume != mpd_status_get_volume(c->status)) ||
-	    full_repaint)
-		paint_top_window2(header, c);
+	title_bar_paint(&screen.title_bar, header, c->status);
 }
 
 static void
@@ -452,7 +337,7 @@ screen_exit(void)
 	g_free(screen.buf);
 	g_free(screen.findbuf);
 
-	delwin(screen.top_window.w);
+	title_bar_deinit(&screen.title_bar);
 	delwin(screen.main_window.w);
 	progress_bar_deinit(&screen.progress_bar);
 	delwin(screen.status_window.w);
@@ -472,9 +357,7 @@ screen_resize(struct mpdclient *c)
 	screen.cols = COLS;
 	screen.rows = LINES;
 
-	/* top window */
-	screen.top_window.cols = screen.cols;
-	wresize(screen.top_window.w, 2, screen.cols);
+	title_bar_resize(&screen.title_bar, screen.cols);
 
 	/* main window */
 	screen.main_window.cols = screen.cols;
@@ -549,9 +432,7 @@ screen_init(struct mpdclient *c)
 	screen.start_timestamp = time(NULL);
 
 	/* create top window */
-	window_init(&screen.top_window, 2, screen.cols, 0, 0);
-	leaveok(screen.top_window.w, TRUE);
-	keypad(screen.top_window.w, TRUE);
+	title_bar_init(&screen.title_bar, screen.cols, 0, 0);
 
 	/* create main window */
 	window_init(&screen.main_window, screen.rows - 4, screen.cols, 2, 0);
@@ -576,7 +457,7 @@ screen_init(struct mpdclient *c)
 		/* set background attributes */
 		wbkgd(stdscr, COLOR_PAIR(COLOR_LIST));
 		wbkgd(screen.main_window.w,     COLOR_PAIR(COLOR_LIST));
-		wbkgd(screen.top_window.w,      COLOR_PAIR(COLOR_TITLE));
+		wbkgd(screen.title_bar.window.w, COLOR_PAIR(COLOR_TITLE));
 		wbkgd(screen.progress_bar.window.w,
 		      COLOR_PAIR(COLOR_PROGRESSBAR));
 		wbkgd(screen.status_window.w,   COLOR_PAIR(COLOR_STATUS));
@@ -604,9 +485,9 @@ screen_paint(struct mpdclient *c)
 
 	/* paint the title/header window */
 	if( title )
-		paint_top_window(title, c, 1);
+		paint_top_window(title, c);
 	else
-		paint_top_window("", c, 1);
+		paint_top_window("", c);
 
 	/* paint the bottom window */
 
@@ -703,16 +584,16 @@ screen_update(struct mpdclient *c)
 	/* update title/header window */
 	if (welcome && options.welcome_screen_list &&
 	    time(NULL)-screen.start_timestamp <= SCREEN_WELCOME_TIME)
-		paint_top_window("", c, 0);
+		paint_top_window("", c);
 	else
 #endif
 	if (mode_fn->get_title != NULL) {
-		paint_top_window(mode_fn->get_title(screen.buf,screen.buf_size), c, 0);
+		paint_top_window(mode_fn->get_title(screen.buf,screen.buf_size), c);
 #ifndef NCMPC_MINI
 		welcome = FALSE;
 #endif
 	} else
-		paint_top_window("", c, 0);
+		paint_top_window("", c);
 
 	/* update progress window */
 	paint_progress_window(c);
@@ -744,7 +625,7 @@ screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row)
 	/* retrieve the mouse event from ncurses */
 	getmouse(&event);
 	/* calculate the selected row in the list window */
-	*row = event.y - screen.top_window.rows;
+	*row = event.y - screen.title_bar.window.rows;
 	/* copy button state bits */
 	*bstate = event.bstate;
 	/* if button 2 was pressed switch screen */

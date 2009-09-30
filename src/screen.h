@@ -23,6 +23,7 @@
 #include "config.h"
 #include "command.h"
 #include "window.h"
+#include "title_bar.h"
 #include "progress_bar.h"
 
 #include <mpd/client.h>
@@ -44,7 +45,7 @@
 struct mpdclient;
 
 struct screen {
-	struct window top_window;
+	struct title_bar title_bar;
 	struct window main_window;
 	struct progress_bar progress_bar;
 	struct window status_window;

@@ -22,6 +22,7 @@ ncmpc_headers = \
 	src/ncu.h \
 	src/player_command.h \
 	src/window.h \
+	src/title_bar.h \
 	src/progress_bar.h \
 	src/screen.h \
 	src/screen_list.h \
@@ -64,6 +65,7 @@ src_ncmpc_SOURCES = \
 	src/command.c \
 	src/ncu.c \
 	src/player_command.c \
+	src/title_bar.c \
 	src/progress_bar.c \
 	src/screen.c \
 	src/screen_list.c \
