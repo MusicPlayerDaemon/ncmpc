@@ -61,8 +61,8 @@ compare_utf8(gconstpointer s1, gconstpointer s2)
 
 /* list_window callback */
 static const char *
-artist_lw_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
-		   G_GNUC_UNUSED char** sc, G_GNUC_UNUSED void *data)
+screen_artist_lw_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
+			  G_GNUC_UNUSED char** sc, G_GNUC_UNUSED void *data)
 {
 	GPtrArray *list = data;
 	static char buf[BUFSIZE];
@@ -95,12 +95,12 @@ artist_lw_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
 }
 
 static void
-paint(void);
+screen_artist_paint(void);
 
 static void
 artist_repaint(void)
 {
-	paint();
+	screen_artist_paint();
 	wrefresh(browser.lw->w);
 }
 
@@ -285,7 +285,7 @@ reload_lists(struct mpdclient *c)
 }
 
 static void
-init(WINDOW *w, int cols, int rows)
+screen_artist_init(WINDOW *w, int cols, int rows)
 {
 	browser.lw = list_window_init(w, cols, rows);
 	artist = NULL;
@@ -293,14 +293,14 @@ init(WINDOW *w, int cols, int rows)
 }
 
 static void
-quit(void)
+screen_artist_quit(void)
 {
 	free_state(NULL);
 	list_window_free(browser.lw);
 }
 
 static void
-open(struct mpdclient *c)
+screen_artist_open(struct mpdclient *c)
 {
 	if (artist_list == NULL && album_list == NULL &&
 	    browser.filelist == NULL)
@@ -308,22 +308,24 @@ open(struct mpdclient *c)
 }
 
 static void
-resize(int cols, int rows)
+screen_artist_resize(int cols, int rows)
 {
 	browser.lw->cols = cols;
 	browser.lw->rows = rows;
 }
 
 static void
-paint(void)
+screen_artist_paint(void)
 {
 	if (browser.filelist) {
 		list_window_paint(browser.lw, browser_lw_callback,
 				  browser.filelist);
 	} else if (album_list != NULL)
-		list_window_paint(browser.lw, artist_lw_callback, album_list);
+		list_window_paint(browser.lw, screen_artist_lw_callback,
+				  album_list);
 	else if (artist_list != NULL)
-		list_window_paint(browser.lw, artist_lw_callback, artist_list);
+		list_window_paint(browser.lw, screen_artist_lw_callback,
+				  artist_list);
 	else {
 		wmove(browser.lw->w, 0, 0);
 		wclrtobot(browser.lw->w);
@@ -331,7 +333,7 @@ paint(void)
 }
 
 static const char *
-get_title(char *str, size_t size)
+screen_artist_get_title(char *str, size_t size)
 {
 	char *s1, *s2;
 
@@ -420,7 +422,7 @@ metalist_length(void)
 }
 
 static int
-artist_lw_cmd(struct mpdclient *c, command_t cmd)
+screen_artist_lw_cmd(struct mpdclient *c, command_t cmd)
 {
 	switch (mode) {
 	case LIST_ARTISTS:
@@ -449,7 +451,7 @@ string_array_find(GPtrArray *array, const char *value)
 }
 
 static bool
-artist_cmd(struct mpdclient *c, command_t cmd)
+screen_artist_cmd(struct mpdclient *c, command_t cmd)
 {
 	char *selected;
 	char *old;
@@ -638,13 +640,15 @@ artist_cmd(struct mpdclient *c, command_t cmd)
 		switch (mode) {
 		case LIST_ARTISTS:
 			screen_find(browser.lw, artist_list->len,
-				    cmd, artist_lw_callback, artist_list);
+				    cmd, screen_artist_lw_callback,
+				    artist_list);
 			artist_repaint();
 			return true;
 
 		case LIST_ALBUMS:
 			screen_find(browser.lw, album_list->len + 2,
-				    cmd, artist_lw_callback, album_list);
+				    cmd, screen_artist_lw_callback,
+				    album_list);
 			artist_repaint();
 			return true;
 
@@ -655,12 +659,14 @@ artist_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_LIST_JUMP:
 		switch (mode) {
 		case LIST_ARTISTS:
-			screen_jump(browser.lw, artist_lw_callback, artist_list);
+			screen_jump(browser.lw, screen_artist_lw_callback,
+				    artist_list);
 			artist_repaint();
 			return true;
 
 		case LIST_ALBUMS:
-			screen_jump(browser.lw, artist_lw_callback, album_list);
+			screen_jump(browser.lw, screen_artist_lw_callback,
+				    album_list);
 			artist_repaint();
 			return true;
 
@@ -675,7 +681,7 @@ artist_cmd(struct mpdclient *c, command_t cmd)
 		break;
 	}
 
-	if (artist_lw_cmd(c, cmd)) {
+	if (screen_artist_lw_cmd(c, cmd)) {
 		if (screen_is_visible(&screen_artist))
 			artist_repaint();
 		return true;
@@ -685,12 +691,12 @@ artist_cmd(struct mpdclient *c, command_t cmd)
 }
 
 const struct screen_functions screen_artist = {
-	.init = init,
-	.exit = quit,
-	.open = open,
-	.resize = resize,
-	.paint = paint,
+	.init = screen_artist_init,
+	.exit = screen_artist_quit,
+	.open = screen_artist_open,
+	.resize = screen_artist_resize,
+	.paint = screen_artist_paint,
 	.update = screen_artist_update,
-	.cmd = artist_cmd,
-	.get_title = get_title,
+	.cmd = screen_artist_cmd,
+	.get_title = screen_artist_get_title,
 };
