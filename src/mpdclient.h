@@ -53,21 +53,10 @@ mpdclient_update(struct mpdclient *c);
 
 /*** MPD Commands  **********************************************************/
 gint mpdclient_cmd_play(struct mpdclient *c, gint index);
-gint mpdclient_cmd_pause(struct mpdclient *c, gint value);
 gint
 mpdclient_cmd_crop(struct mpdclient *c);
-gint mpdclient_cmd_stop(struct mpdclient *c);
-gint mpdclient_cmd_next(struct mpdclient *c);
-gint mpdclient_cmd_prev(struct mpdclient *c);
-gint mpdclient_cmd_seek(struct mpdclient *c, gint id, gint pos);
-gint mpdclient_cmd_shuffle(struct mpdclient *c);
 gint mpdclient_cmd_shuffle_range(struct mpdclient *c, guint start, guint end);
 gint mpdclient_cmd_clear(struct mpdclient *c);
-gint mpdclient_cmd_repeat(struct mpdclient *c, gint value);
-gint mpdclient_cmd_random(struct mpdclient *c, gint value);
-gint mpdclient_cmd_single(struct mpdclient *c, gint value);
-gint mpdclient_cmd_consume(struct mpdclient *c, gint value);
-gint mpdclient_cmd_crossfade(struct mpdclient *c, gint value);
 gint mpdclient_cmd_volume(struct mpdclient *c, gint value);
 gint mpdclient_cmd_volume_up(struct mpdclient *c);
 gint mpdclient_cmd_volume_down(struct mpdclient *c);

@@ -40,7 +40,8 @@ commit_seek(struct mpdclient *c)
 		return;
 
 	if (c->song != NULL && (unsigned)seek_id == mpd_song_get_id(c->song))
-		mpdclient_cmd_seek(c, seek_id, seek_target_time);
+		if (!mpd_run_seek_id(c->connection, seek_id, seek_target_time))
+			mpdclient_handle_error(c);
 
 	seek_id = -1;
 }
@@ -91,10 +92,13 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 		break;
 		*/
 	case CMD_PAUSE:
-		mpdclient_cmd_pause(c, !IS_PAUSED(mpd_status_get_state(c->status)));
+		if (!mpd_run_pause(c->connection,
+				   !IS_PAUSED(mpd_status_get_state(c->status))))
+			mpdclient_handle_error(c);
 		break;
 	case CMD_STOP:
-		mpdclient_cmd_stop(c);
+		if (!mpd_run_stop(c->connection))
+			mpdclient_handle_error(c);
 		break;
 	case CMD_CROP:
 		mpdclient_cmd_crop(c);
@@ -114,8 +118,8 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 		break;
 		/* fall through... */
 	case CMD_TRACK_NEXT:
-		if (!IS_STOPPED(mpd_status_get_state(c->status)))
-			mpdclient_cmd_next(c);
+		if (!mpd_run_next(c->connection))
+			mpdclient_handle_error(c);
 		break;
 	case CMD_SEEK_BACKWARD:
 		if (!IS_STOPPED(mpd_status_get_state(c->status))) {
@@ -130,34 +134,44 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 		}
 		break;
 	case CMD_TRACK_PREVIOUS:
-		if (!IS_STOPPED(mpd_status_get_state(c->status)))
-			mpdclient_cmd_prev(c);
+		if (!mpd_run_previous(c->connection))
+			mpdclient_handle_error(c);
 		break;
 	case CMD_SHUFFLE:
-		if (mpdclient_cmd_shuffle(c) == 0)
+		if (mpd_run_shuffle(c->connection))
 			screen_status_message(_("Shuffled playlist"));
+		else
+			mpdclient_handle_error(c);
 		break;
 	case CMD_CLEAR:
 		if (mpdclient_cmd_clear(c) == 0)
 			screen_status_message(_("Cleared playlist"));
 		break;
 	case CMD_REPEAT:
-		mpdclient_cmd_repeat(c, !mpd_status_get_repeat(c->status));
+		if (!mpd_run_repeat(c->connection,
+				    !mpd_status_get_repeat(c->status)))
+			mpdclient_handle_error(c);
 		break;
 	case CMD_RANDOM:
-		mpdclient_cmd_random(c, !mpd_status_get_random(c->status));
+		if (!mpd_run_random(c->connection,
+				    !mpd_status_get_random(c->status)))
+			mpdclient_handle_error(c);
 		break;
 	case CMD_SINGLE:
-		mpdclient_cmd_single(c, !mpd_status_get_single(c->status));
+		if (!mpd_run_single(c->connection,
+				    !mpd_status_get_single(c->status)))
+			mpdclient_handle_error(c);
 		break;
 	case CMD_CONSUME:
-		mpdclient_cmd_consume(c, !mpd_status_get_consume(c->status));
+		if (!mpd_run_consume(c->connection,
+				     !mpd_status_get_consume(c->status)))
+			mpdclient_handle_error(c);
 		break;
 	case CMD_CROSSFADE:
-		if (mpd_status_get_crossfade(c->status))
-			mpdclient_cmd_crossfade(c, 0);
-		else
-			mpdclient_cmd_crossfade(c, options.crossfade_time);
+		if (!mpd_run_crossfade(c->connection,
+				       mpd_status_get_crossfade(c->status) > 0
+				       ? 0 : options.crossfade_time))
+			mpdclient_handle_error(c);
 		break;
 	case CMD_DB_UPDATE:
 		screen_database_update(c, NULL);

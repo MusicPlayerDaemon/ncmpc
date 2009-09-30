@@ -277,16 +277,6 @@ mpdclient_cmd_play(struct mpdclient *c, gint idx)
 }
 
 gint
-mpdclient_cmd_pause(struct mpdclient *c, gint value)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_pause(c->connection, value);
-	return mpdclient_finish_command(c);
-}
-
-gint
 mpdclient_cmd_crop(struct mpdclient *c)
 {
 	struct mpd_status *status;
@@ -322,56 +312,6 @@ mpdclient_cmd_crop(struct mpdclient *c)
 }
 
 gint
-mpdclient_cmd_stop(struct mpdclient *c)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_stop(c->connection);
-	return mpdclient_finish_command(c);
-}
-
-gint
-mpdclient_cmd_next(struct mpdclient *c)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_next(c->connection);
-	return mpdclient_finish_command(c);
-}
-
-gint
-mpdclient_cmd_prev(struct mpdclient *c)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_previous(c->connection);
-	return mpdclient_finish_command(c);
-}
-
-gint
-mpdclient_cmd_seek(struct mpdclient *c, gint id, gint pos)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_seek_id(c->connection, id, pos);
-	return mpdclient_finish_command(c);
-}
-
-gint
-mpdclient_cmd_shuffle(struct mpdclient *c)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_shuffle(c->connection);
-	return mpdclient_finish_command(c);
-}
-
-gint
 mpdclient_cmd_shuffle_range(struct mpdclient *c, guint start, guint end)
 {
 	mpd_send_shuffle_range(c->connection, start, end);
@@ -391,56 +331,6 @@ mpdclient_cmd_clear(struct mpdclient *c)
 	/* call playlist updated callback */
 	mpdclient_playlist_callback(c, PLAYLIST_EVENT_CLEAR, NULL);
 	return retval;
-}
-
-gint
-mpdclient_cmd_repeat(struct mpdclient *c, gint value)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_repeat(c->connection, value);
-	return mpdclient_finish_command(c);
-}
-
-gint
-mpdclient_cmd_random(struct mpdclient *c, gint value)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_random(c->connection, value);
-	return mpdclient_finish_command(c);
-}
-
-gint
-mpdclient_cmd_single(struct mpdclient *c, gint value)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_single(c->connection, value);
-	return mpdclient_finish_command(c);
-}
-
-gint
-mpdclient_cmd_consume(struct mpdclient *c, gint value)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_consume(c->connection, value);
-	return mpdclient_finish_command(c);
-}
-
-gint
-mpdclient_cmd_crossfade(struct mpdclient *c, gint value)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_crossfade(c->connection, value);
-	return mpdclient_finish_command(c);
 }
 
 gint
