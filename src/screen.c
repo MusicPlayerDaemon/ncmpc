@@ -564,6 +564,7 @@ screen_init(struct mpdclient *c)
 	/* create progress window */
 	progress_bar_init(&screen.progress_bar, 1, screen.cols,
 			  screen.rows - 2, 0);
+	progress_bar_paint(&screen.progress_bar);
 
 	leaveok(screen.progress_bar.window.w, TRUE);
 
