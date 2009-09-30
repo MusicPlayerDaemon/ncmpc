@@ -365,17 +365,15 @@ screen_update(struct mpdclient *c)
 	static bool single;
 	static bool consume;
 	static unsigned crossfade;
-	static unsigned dbupdate;
 
 	/* print a message if mpd status has changed */
-	if (c->status != NULL) {
+	if ((c->events & MPD_IDLE_OPTIONS) && c->status != NULL) {
 		if (!initialized) {
 			repeat = mpd_status_get_repeat(c->status);
 			random_enabled = mpd_status_get_random(c->status);
 			single = mpd_status_get_single(c->status);
 			consume = mpd_status_get_consume(c->status);
 			crossfade = mpd_status_get_crossfade(c->status);
-			dbupdate = mpd_status_get_update_id(c->status);
 			initialized = true;
 		}
 
@@ -412,18 +410,15 @@ screen_update(struct mpdclient *c)
 			screen_status_printf(_("Crossfade %d seconds"),
 					     mpd_status_get_crossfade(c->status));
 
-		if (dbupdate != 0 &&
-		    dbupdate != mpd_status_get_update_id(c->status)) {
-			screen_status_printf(_("Database updated"));
-		}
-
 		repeat = mpd_status_get_repeat(c->status);
 		random_enabled = mpd_status_get_random(c->status);
 		single = mpd_status_get_single(c->status);
 		consume = mpd_status_get_consume(c->status);
 		crossfade = mpd_status_get_crossfade(c->status);
-		dbupdate = mpd_status_get_update_id(c->status);
 	}
+
+	if (c->events & MPD_IDLE_DATABASE)
+		screen_status_printf(_("Database updated"));
 
 	/* update title/header window */
 	if (welcome && options.welcome_screen_list &&
