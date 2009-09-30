@@ -124,12 +124,12 @@ lw_search_help_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
 }
 
 static void
-paint(void);
+screen_search_paint(void);
 
 static void
 search_repaint(void)
 {
-	paint();
+	screen_search_paint();
 	wrefresh(browser.lw->w);
 }
 
@@ -336,16 +336,14 @@ search_new(struct mpdclient *c)
 	list_window_check_selected(browser.lw, filelist_length(browser.filelist));
 }
 
-
-
 static void
-init(WINDOW *w, int cols, int rows)
+screen_search_init(WINDOW *w, int cols, int rows)
 {
 	browser.lw = list_window_init(w, cols, rows);
 }
 
 static void
-quit(void)
+screen_search_quit(void)
 {
 	if (search_history)
 		string_list_free(search_history);
@@ -360,7 +358,7 @@ quit(void)
 }
 
 static void
-open(G_GNUC_UNUSED struct mpdclient *c)
+screen_search_open(G_GNUC_UNUSED struct mpdclient *c)
 {
 	//  if( pattern==NULL )
 	//    search_new(screen, c);
@@ -371,14 +369,14 @@ open(G_GNUC_UNUSED struct mpdclient *c)
 }
 
 static void
-resize(int cols, int rows)
+screen_search_resize(int cols, int rows)
 {
 	browser.lw->cols = cols;
 	browser.lw->rows = rows;
 }
 
 static void
-paint(void)
+screen_search_paint(void)
 {
 	if (browser.filelist) {
 		browser.lw->hide_cursor = false;
@@ -390,7 +388,7 @@ paint(void)
 }
 
 static const char *
-get_title(char *str, size_t size)
+screen_search_get_title(char *str, size_t size)
 {
 	if (advanced_search_mode && pattern)
 		g_snprintf(str, size, _("Search: %s"), pattern);
@@ -417,7 +415,7 @@ screen_search_update(struct mpdclient *c)
 }
 
 static bool
-search_cmd(struct mpdclient *c, command_t cmd)
+screen_search_cmd(struct mpdclient *c, command_t cmd)
 {
 	switch (cmd) {
 	case CMD_SEARCH_MODE:
@@ -465,12 +463,12 @@ search_cmd(struct mpdclient *c, command_t cmd)
 }
 
 const struct screen_functions screen_search = {
-	.init = init,
-	.exit = quit,
-	.open = open,
-	.resize = resize,
-	.paint = paint,
+	.init = screen_search_init,
+	.exit = screen_search_quit,
+	.open = screen_search_open,
+	.resize = screen_search_resize,
+	.paint = screen_search_paint,
 	.update = screen_search_update,
-	.cmd = search_cmd,
-	.get_title = get_title,
+	.cmd = screen_search_cmd,
+	.get_title = screen_search_get_title,
 };
