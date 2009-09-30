@@ -25,6 +25,7 @@
 #include "window.h"
 #include "title_bar.h"
 #include "progress_bar.h"
+#include "status_bar.h"
 
 #include <mpd/client.h>
 
@@ -48,11 +49,10 @@ struct screen {
 	struct title_bar title_bar;
 	struct window main_window;
 	struct progress_bar progress_bar;
-	struct window status_window;
+	struct status_bar status_bar;
 
 	/* GTime is equivalent to time_t */
 	GTime start_timestamp;
-	GTime status_timestamp;
 
 	unsigned cols, rows;
 

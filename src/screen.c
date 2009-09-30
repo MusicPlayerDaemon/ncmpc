@@ -27,12 +27,7 @@
 #include "utils.h"
 #include "options.h"
 #include "colors.h"
-#include "strfsong.h"
 #include "player_command.h"
-
-#ifndef NCMPC_MINI
-#include "hscroll.h"
-#endif
 
 #include <mpd/client.h>
 
@@ -185,146 +180,6 @@ paint_progress_window(struct mpdclient *c)
 		progress_bar_paint(&screen.progress_bar);
 }
 
-static void
-paint_status_window(struct mpdclient *c)
-{
-	WINDOW *w = screen.status_window.w;
-	const struct mpd_status *status = c->status;
-	enum mpd_state state;
-	const struct mpd_song *song = c->song;
-	int elapsedTime = 0;
-#ifdef NCMPC_MINI
-	static char bitrate[1];
-#else
-	char bitrate[16];
-#endif
-	const char *str = NULL;
-	int x = 0;
-
-	if( time(NULL) - screen.status_timestamp <= options.status_message_time )
-		return;
-
-	wmove(w, 0, 0);
-	wclrtoeol(w);
-	colors_use(w, COLOR_STATUS_BOLD);
-
-	state = status == NULL ? MPD_STATE_UNKNOWN
-		: mpd_status_get_state(status);
-
-	switch (state) {
-	case MPD_STATE_PLAY:
-		str = _("Playing:");
-		break;
-	case MPD_STATE_PAUSE:
-		str = _("[Paused]");
-		break;
-	case MPD_STATE_STOP:
-	default:
-		break;
-	}
-
-	if (str) {
-		waddstr(w, str);
-		x += utf8_width(str) + 1;
-	}
-
-	/* create time string */
-	memset(screen.buf, 0, screen.buf_size);
-	if (IS_PLAYING(state) || IS_PAUSED(state)) {
-		int total_time = mpd_status_get_total_time(status);
-		if (total_time > 0) {
-			/*checks the conf to see whether to display elapsed or remaining time */
-			if(!strcmp(options.timedisplay_type,"elapsed"))
-				elapsedTime = mpd_status_get_elapsed_time(c->status);
-			else if(!strcmp(options.timedisplay_type,"remaining"))
-				elapsedTime = total_time -
-					mpd_status_get_elapsed_time(c->status);
-
-			if (c->song != NULL &&
-			    seek_id == (int)mpd_song_get_id(c->song))
-				elapsedTime = seek_target_time;
-
-			/* display bitrate if visible-bitrate is true */
-#ifndef NCMPC_MINI
-			if (options.visible_bitrate) {
-				g_snprintf(bitrate, 16,
-					   " [%d kbps]",
-					   mpd_status_get_kbit_rate(status));
-			} else {
-				bitrate[0] = '\0';
-			}
-#endif
-
-			/*write out the time, using hours if time over 60 minutes*/
-			if (total_time > 3600) {
-				g_snprintf(screen.buf, screen.buf_size,
-					   "%s [%i:%02i:%02i/%i:%02i:%02i]",
-					   bitrate, elapsedTime/3600, (elapsedTime%3600)/60, elapsedTime%60,
-					   total_time / 3600,
-					   (total_time % 3600)/60,
-					   total_time % 60);
-			} else {
-				g_snprintf(screen.buf, screen.buf_size,
-					   "%s [%i:%02i/%i:%02i]",
-					   bitrate, elapsedTime/60, elapsedTime%60,
-					   total_time / 60, total_time % 60);
-			}
-#ifndef NCMPC_MINI
-		} else {
-			g_snprintf(screen.buf, screen.buf_size,
-				   " [%d kbps]",
-				   mpd_status_get_kbit_rate(status));
-#endif
-		}
-#ifndef NCMPC_MINI
-	} else {
-		if (options.display_time) {
-			time_t timep;
-
-			time(&timep);
-			strftime(screen.buf, screen.buf_size, "%X ",localtime(&timep));
-		}
-#endif
-	}
-
-	/* display song */
-	if (IS_PLAYING(state) || IS_PAUSED(state)) {
-		char songname[MAX_SONGNAME_LENGTH];
-#ifndef NCMPC_MINI
-		int width = COLS - x - utf8_width(screen.buf);
-#endif
-
-		if (song)
-			strfsong(songname, MAX_SONGNAME_LENGTH,
-				 options.status_format, song);
-		else
-			songname[0] = '\0';
-
-		colors_use(w, COLOR_STATUS);
-		/* scroll if the song name is to long */
-#ifndef NCMPC_MINI
-		if (options.scroll && utf8_width(songname) > (unsigned)width) {
-			static  scroll_state_t st = { 0, 0 };
-			char *tmp = strscroll(songname, options.scroll_sep, width, &st);
-
-			g_strlcpy(songname, tmp, MAX_SONGNAME_LENGTH);
-			g_free(tmp);
-		}
-#endif
-		//mvwaddnstr(w, 0, x, songname, width);
-		mvwaddstr(w, 0, x, songname);
-	}
-
-	/* display time string */
-	if (screen.buf[0]) {
-		x = screen.status_window.cols - strlen(screen.buf);
-		colors_use(w, COLOR_STATUS_TIME);
-		mvwaddstr(w, 0, x, screen.buf);
-	}
-
-	wnoutrefresh(w);
-}
-
 void
 screen_exit(void)
 {
@@ -340,7 +195,7 @@ screen_exit(void)
 	title_bar_deinit(&screen.title_bar);
 	delwin(screen.main_window.w);
 	progress_bar_deinit(&screen.progress_bar);
-	delwin(screen.status_window.w);
+	status_bar_deinit(&screen.status_bar);
 }
 
 void
@@ -371,9 +226,8 @@ screen_resize(struct mpdclient *c)
 	progress_bar_paint(&screen.progress_bar);
 
 	/* status window */
-	screen.status_window.cols = screen.cols;
-	wresize(screen.status_window.w, 1, screen.cols);
-	mvwin(screen.status_window.w, screen.rows-1, 0);
+	status_bar_resize(&screen.status_bar, screen.cols, screen.rows - 1, 0);
+	status_bar_paint(&screen.status_bar, c->status, c->song);
 
 	screen.buf_size = screen.cols;
 	g_free(screen.buf);
@@ -392,14 +246,7 @@ screen_resize(struct mpdclient *c)
 void
 screen_status_message(const char *msg)
 {
-	WINDOW *w = screen.status_window.w;
-
-	wmove(w, 0, 0);
-	wclrtoeol(w);
-	colors_use(w, COLOR_STATUS_ALERT);
-	waddstr(w, msg);
-	wnoutrefresh(w);
-	screen.status_timestamp = time(NULL);
+	status_bar_message(&screen.status_bar, msg);
 }
 
 void
@@ -446,11 +293,8 @@ screen_init(struct mpdclient *c)
 	progress_bar_paint(&screen.progress_bar);
 
 	/* create status window */
-	window_init(&screen.status_window, 1, screen.cols,
-		    screen.rows - 1, 0);
-
-	leaveok(screen.status_window.w, FALSE);
-	keypad(screen.status_window.w, TRUE);
+	status_bar_init(&screen.status_bar, screen.cols, screen.rows - 1, 0);
+	status_bar_paint(&screen.status_bar, c->status, c->song);
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
@@ -460,7 +304,7 @@ screen_init(struct mpdclient *c)
 		wbkgd(screen.title_bar.window.w, COLOR_PAIR(COLOR_TITLE));
 		wbkgd(screen.progress_bar.window.w,
 		      COLOR_PAIR(COLOR_PROGRESSBAR));
-		wbkgd(screen.status_window.w,   COLOR_PAIR(COLOR_STATUS));
+		wbkgd(screen.status_bar.window.w, COLOR_PAIR(COLOR_STATUS));
 		colors_use(screen.progress_bar.window.w, COLOR_PROGRESSBAR);
 	}
 #endif
@@ -492,7 +336,7 @@ screen_paint(struct mpdclient *c)
 	/* paint the bottom window */
 
 	paint_progress_window(c);
-	paint_status_window(c);
+	status_bar_paint(&screen.status_bar, c->status, c->song);
 
 	/* paint the main window */
 
@@ -599,7 +443,7 @@ screen_update(struct mpdclient *c)
 	paint_progress_window(c);
 
 	/* update status window */
-	paint_status_window(c);
+	status_bar_paint(&screen.status_bar, c->status, c->song);
 
 	/* update the main window */
 	if (mode_fn->update != NULL)

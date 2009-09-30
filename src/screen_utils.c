@@ -50,7 +50,7 @@ screen_bell(void)
 int
 screen_getch(const char *prompt)
 {
-	WINDOW *w = screen.status_window.w;
+	WINDOW *w = screen.status_bar.window.w;
 	int key = -1;
 
 	colors_use(w, COLOR_STATUS_ALERT);
@@ -82,7 +82,7 @@ screen_readln(const char *prompt,
 	      GList **history,
 	      GCompletion *gcmp)
 {
-	struct window *window = &screen.status_window;
+	struct window *window = &screen.status_bar.window;
 	WINDOW *w = window->w;
 	char *line = NULL;
 
@@ -97,7 +97,7 @@ screen_readln(const char *prompt,
 char *
 screen_read_password(const char *prompt)
 {
-	struct window *window = &screen.status_window;
+	struct window *window = &screen.status_bar.window;
 	WINDOW *w = window->w;
 	char *ret;
 
