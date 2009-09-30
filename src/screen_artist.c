@@ -104,24 +104,6 @@ artist_repaint(void)
 	wrefresh(browser.lw->w);
 }
 
-static void
-artist_repaint_if_active(void)
-{
-	if (screen_is_visible(&screen_artist))
-		artist_repaint();
-}
-
-#ifndef NCMPC_MINI
-/* the playlist has been updated -> fix highlights */
-static void
-playlist_changed_callback(struct mpdclient *c, int event, gpointer data)
-{
-	browser_playlist_changed(&browser, c, event, data);
-
-	artist_repaint_if_active();
-}
-#endif
-
 static GPtrArray *
 g_list_to_ptr_array(GList *in)
 {
@@ -164,10 +146,6 @@ free_lists(G_GNUC_UNUSED struct mpdclient *c)
 	}
 
 	if (browser.filelist) {
-#ifndef NCMPC_MINI
-		if (c != NULL)
-			mpdclient_remove_playlist_callback(c, playlist_changed_callback);
-#endif
 		filelist_free(browser.filelist);
 		browser.filelist = NULL;
 	}
@@ -235,9 +213,8 @@ load_song_list(struct mpdclient *c)
 	filelist_prepend(browser.filelist, NULL);
 
 #ifndef NCMPC_MINI
-	/* install playlist callback and fix highlights */
+	/* fix highlights */
 	sync_highlights(c, browser.filelist);
-	mpdclient_install_playlist_callback(c, playlist_changed_callback);
 #endif
 }
 
@@ -307,21 +284,6 @@ reload_lists(struct mpdclient *c)
 	}
 }
 
-/* db updated */
-static void
-browse_callback(struct mpdclient *c, int event, G_GNUC_UNUSED gpointer data)
-{
-	switch(event) {
-	case BROWSE_DB_UPDATED:
-		reload_lists(c);
-		break;
-	default:
-		break;
-	}
-
-	artist_repaint_if_active();
-}
-
 static void
 init(WINDOW *w, int cols, int rows)
 {
@@ -340,15 +302,9 @@ quit(void)
 static void
 open(struct mpdclient *c)
 {
-	static gboolean callback_installed = FALSE;
-
 	if (artist_list == NULL && album_list == NULL &&
 	    browser.filelist == NULL)
 		reload_lists(c);
-	if (!callback_installed) {
-		mpdclient_install_browse_callback(c, browse_callback);
-		callback_installed = TRUE;
-	}
 }
 
 static void
@@ -405,6 +361,29 @@ get_title(char *str, size_t size)
 	}
 
 	return str;
+}
+
+static void
+screen_artist_update(struct mpdclient *c)
+{
+	if (browser.filelist == NULL)
+		return;
+
+	if (c->events & MPD_IDLE_DATABASE)
+		/* the db has changed -> update the list */
+		reload_lists(c);
+
+#ifndef NCMPC_MINI
+	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_PLAYLIST))
+		sync_highlights(c, browser.filelist);
+#endif
+
+	if (c->events & (MPD_IDLE_DATABASE
+#ifndef NCMPC_MINI
+			 | MPD_IDLE_PLAYLIST
+#endif
+			 ))
+		artist_repaint();
 }
 
 static void
@@ -711,6 +690,7 @@ const struct screen_functions screen_artist = {
 	.open = open,
 	.resize = resize,
 	.paint = paint,
+	.update = screen_artist_update,
 	.cmd = artist_cmd,
 	.get_title = get_title,
 };
