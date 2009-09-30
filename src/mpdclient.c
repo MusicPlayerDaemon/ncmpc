@@ -689,15 +689,14 @@ mpdclient_filelist_get(struct mpdclient *c, const gchar *path)
 
 	mpd_send_list_meta(c->connection, path);
 	filelist = filelist_new();
-	if (path && path[0] && strcmp(path, "/"))
-		/* add a dummy entry for ./.. */
-		filelist_append(filelist, NULL);
 
 	while ((entity = mpd_recv_entity(c->connection)) != NULL)
 		filelist_append(filelist, entity);
 
-	/* If there's an error, ignore it.  We'll return an empty filelist. */
-	mpdclient_finish_command(c);
+	if (mpdclient_finish_command(c)) {
+		filelist_free(filelist);
+		return NULL;
+	}
 
 	filelist_sort_dir_play(filelist, compare_filelistentry);
 

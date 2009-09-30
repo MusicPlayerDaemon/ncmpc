@@ -64,6 +64,12 @@ file_reload(struct mpdclient *c)
 		filelist_free(browser.filelist);
 
 	browser.filelist = mpdclient_filelist_get(c, current_path);
+	if (browser.filelist == NULL)
+		browser.filelist = filelist_new();
+
+	if (*current_path != 0)
+		/* add a dummy entry for ./.. */
+		filelist_prepend(browser.filelist, NULL);
 }
 
 /* the db has changed -> update the filelist */
@@ -289,7 +295,8 @@ static void
 browse_open(G_GNUC_UNUSED struct mpdclient *c)
 {
 	if (browser.filelist == NULL) {
-		browser.filelist = mpdclient_filelist_get(c, "");
+		file_reload(c);
+
 #ifndef NCMPC_MINI
 		mpdclient_install_playlist_callback(c, playlist_changed_callback);
 #endif
