@@ -64,6 +64,8 @@ ncu_init(void)
 	if (options.enable_mouse)
 		mousemask(ALL_MOUSE_EVENTS, NULL);
 #endif
+
+	refresh();
 }
 
 void
