@@ -11,10 +11,6 @@ struct mpdclient {
 	/* playlist */
 	struct mpdclient_playlist playlist;
 
-	/* Callbacks */
-	GList *playlist_callbacks;
-	GList *browse_callbacks;
-
 	struct mpd_connection *connection;
 	struct mpd_status *status;
 	const struct mpd_song *song;
@@ -100,28 +96,6 @@ bool
 mpdclient_playlist_update_changes(struct mpdclient *c);
 
 
-/*** mpdclient playlist callbacks *****************************************/
-
-#define PLAYLIST_EVENT_UPDATED     0x01
-#define PLAYLIST_EVENT_CLEAR       0x02
-#define PLAYLIST_EVENT_DELETE      0x03
-#define PLAYLIST_EVENT_ADD         0x04
-#define PLAYLIST_EVENT_MOVE        0x05
-
-
-typedef void (*mpdc_list_cb_t) (struct mpdclient *c, int event, gpointer data);
-
-/* install a playlist callback function */
-void mpdclient_install_playlist_callback(struct mpdclient *c, mpdc_list_cb_t cb);
-
-/* remove a playlist callback function */
-void mpdclient_remove_playlist_callback(struct mpdclient *c, mpdc_list_cb_t cb);
-
-
-/* issue a playlist callback */
-void mpdclient_playlist_callback(struct mpdclient *c, int event, gpointer data);
-
-
 /*** filelist functions  ***************************************************/
 
 struct filelist *
@@ -135,23 +109,6 @@ mpdclient_filelist_search(struct mpdclient *c, int exact_match,
 /* add all songs in filelist to the playlist */
 int
 mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl);
-
-/*** mpdclient browse callbacks ********************************************/
-
-#define BROWSE_DB_UPDATED          0x01
-#define BROWSE_PLAYLIST_SAVED      0x02
-#define BROWSE_PLAYLIST_DELETED    0x03
-
-
-/* install a playlist callback function */
-void mpdclient_install_browse_callback(struct mpdclient *c, mpdc_list_cb_t cb);
-
-/* remove a playlist callback function */
-void mpdclient_remove_browse_callback(struct mpdclient *c, mpdc_list_cb_t cb);
-
-
-/* issue a playlist callback */
-void mpdclient_browse_callback(struct mpdclient *c, int event, gpointer data);
 
 /* sort by list-format */
 gint compare_filelistentry_format(gconstpointer filelist_entry1, gconstpointer filelist_entry2);

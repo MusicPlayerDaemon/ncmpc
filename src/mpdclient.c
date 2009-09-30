@@ -153,8 +153,6 @@ mpdclient_free(struct mpdclient *c)
 
 	mpdclient_playlist_free(&c->playlist);
 
-	g_list_free(c->playlist_callbacks);
-	g_list_free(c->browse_callbacks);
 	g_free(c);
 }
 
@@ -236,10 +234,6 @@ mpdclient_update(struct mpdclient *c)
 		if (c->update_id > 0)
 			c->events |= MPD_IDLE_DATABASE;
 	}
-
-	if (c->update_id > 0 &&
-	    c->update_id != mpd_status_get_update_id(c->status))
-		mpdclient_browse_callback(c, BROWSE_DB_UPDATED, NULL);
 
 	c->update_id = mpd_status_get_update_id(c->status);
 
@@ -341,8 +335,10 @@ mpdclient_cmd_clear(struct mpdclient *c)
 
 	mpd_send_clear(c->connection);
 	retval = mpdclient_finish_command(c);
-	/* call playlist updated callback */
-	mpdclient_playlist_callback(c, PLAYLIST_EVENT_CLEAR, NULL);
+
+	if (retval)
+		c->events |= MPD_IDLE_PLAYLIST;
+
 	return retval;
 }
 
@@ -424,8 +420,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 	/* increment the playlist id, so we don't retrieve a new playlist */
 	c->playlist.id++;
 
-	/* call playlist updated callback */
-	mpdclient_playlist_callback(c, PLAYLIST_EVENT_ADD, (gpointer) song);
+	c->events |= MPD_IDLE_PLAYLIST;
 #endif
 
 	return 0;
@@ -457,8 +452,7 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 	/* remove the song from the playlist */
 	playlist_remove_reuse(&c->playlist, idx);
 
-	/* call playlist updated callback */
-	mpdclient_playlist_callback(c, PLAYLIST_EVENT_DELETE, (gpointer) song);
+	c->events |= MPD_IDLE_PLAYLIST;
 
 	/* remove references to the song */
 	if (c->song == song)
@@ -500,8 +494,7 @@ mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
 	c->playlist.id++;
 #endif
 
-	/* call playlist updated callback */
-	mpdclient_playlist_callback(c, PLAYLIST_EVENT_MOVE, (gpointer) &new_index);
+	c->events |= MPD_IDLE_PLAYLIST;
 
 	return 0;
 }
@@ -516,7 +509,6 @@ mpdclient_cmd_save_playlist(struct mpdclient *c, const gchar *filename_utf8)
 
 	mpd_send_save(c->connection, filename_utf8);
 	if ((retval = mpdclient_finish_command(c)) == 0) {
-		mpdclient_browse_callback(c, BROWSE_PLAYLIST_SAVED, NULL);
 		c->events |= MPD_IDLE_STORED_PLAYLIST;
 	}
 
@@ -542,65 +534,10 @@ mpdclient_cmd_delete_playlist(struct mpdclient *c, const gchar *filename_utf8)
 		return -1;
 
 	mpd_send_rm(c->connection, filename_utf8);
-	if ((retval = mpdclient_finish_command(c)) == 0) {
-		mpdclient_browse_callback(c, BROWSE_PLAYLIST_DELETED, NULL);
+	if ((retval = mpdclient_finish_command(c)) == 0)
 		c->events |= MPD_IDLE_STORED_PLAYLIST;
-	}
 
 	return retval;
-}
-
-
-/****************************************************************************/
-/*** Callback management functions ******************************************/
-/****************************************************************************/
-
-static void
-do_list_callbacks(struct mpdclient *c, GList *list, gint event, gpointer data)
-{
-	while (list) {
-		mpdc_list_cb_t fn = list->data;
-
-		fn(c, event, data);
-		list = list->next;
-	}
-}
-
-void
-mpdclient_playlist_callback(struct mpdclient *c, int event, gpointer data)
-{
-	do_list_callbacks(c, c->playlist_callbacks, event, data);
-}
-
-void
-mpdclient_install_playlist_callback(struct mpdclient *c,mpdc_list_cb_t cb)
-{
-	c->playlist_callbacks = g_list_append(c->playlist_callbacks, cb);
-}
-
-void
-mpdclient_remove_playlist_callback(struct mpdclient *c, mpdc_list_cb_t cb)
-{
-	c->playlist_callbacks = g_list_remove(c->playlist_callbacks, cb);
-}
-
-void
-mpdclient_browse_callback(struct mpdclient *c, int event, gpointer data)
-{
-	do_list_callbacks(c, c->browse_callbacks, event, data);
-}
-
-
-void
-mpdclient_install_browse_callback(struct mpdclient *c,mpdc_list_cb_t cb)
-{
-	c->browse_callbacks = g_list_append(c->browse_callbacks, cb);
-}
-
-void
-mpdclient_remove_browse_callback(struct mpdclient *c, mpdc_list_cb_t cb)
-{
-	c->browse_callbacks = g_list_remove(c->browse_callbacks, cb);
 }
 
 
@@ -629,9 +566,6 @@ mpdclient_playlist_update(struct mpdclient *c)
 
 	c->playlist.id = mpd_status_get_queue_version(c->status);
 	c->song = NULL;
-
-	/* call playlist updated callbacks */
-	mpdclient_playlist_callback(c, PLAYLIST_EVENT_UPDATED, NULL);
 
 	return mpdclient_finish_command(c) == 0;
 }
@@ -674,8 +608,6 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 
 	c->song = NULL;
 	c->playlist.id = mpd_status_get_queue_version(c->status);
-
-	mpdclient_playlist_callback(c, PLAYLIST_EVENT_UPDATED, NULL);
 
 	return mpdclient_finish_command(c) == 0;
 }
