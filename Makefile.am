@@ -41,6 +41,7 @@ ncmpc_headers = \
 	src/ncmpc.h \
 	src/defaults.h \
 	src/i18n.h \
+	src/screen_file.h \
 	src/screen_browser.h \
 	src/screen_text.h \
 	src/plugin.h \

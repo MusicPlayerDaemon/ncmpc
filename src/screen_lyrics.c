@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-#include <sys/stat.h>
+#include "screen_file.h"
 #include "i18n.h"
 #include "options.h"
 #include "mpdclient.h"
@@ -27,6 +27,7 @@
 #include "lyrics.h"
 #include "screen_text.h"
 
+#include <sys/stat.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>

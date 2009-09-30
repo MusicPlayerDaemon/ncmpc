@@ -18,6 +18,7 @@
 */
 
 #include "screen_browser.h"
+#include "screen_file.h"
 #include "i18n.h"
 #include "options.h"
 #include "charset.h"

@@ -122,9 +122,6 @@ screen_is_visible(const struct screen_functions *sf);
 int
 screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row);
 
-bool
-screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song);
-
 #ifdef ENABLE_SONG_SCREEN
 void
 screen_song_switch(struct mpdclient *c, const struct mpd_song *song);
