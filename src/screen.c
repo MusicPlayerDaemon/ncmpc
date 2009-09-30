@@ -454,7 +454,7 @@ screen_exit(void)
 
 	delwin(screen.top_window.w);
 	delwin(screen.main_window.w);
-	delwin(screen.progress_bar.window.w);
+	progress_bar_deinit(&screen.progress_bar);
 	delwin(screen.status_window.w);
 }
 
@@ -483,10 +483,8 @@ screen_resize(struct mpdclient *c)
 	wclear(screen.main_window.w);
 
 	/* progress window */
-	screen.progress_bar.window.cols = screen.cols;
-	wresize(screen.progress_bar.window.w, 1, screen.cols);
-	mvwin(screen.progress_bar.window.w, screen.rows-2, 0);
-	progress_bar_resize(&screen.progress_bar);
+	progress_bar_resize(&screen.progress_bar, screen.cols,
+			    screen.rows - 2, 0);
 	progress_bar_paint(&screen.progress_bar);
 
 	/* status window */
@@ -562,11 +560,9 @@ screen_init(struct mpdclient *c)
 	keypad(screen.main_window.w, TRUE);
 
 	/* create progress window */
-	progress_bar_init(&screen.progress_bar, 1, screen.cols,
+	progress_bar_init(&screen.progress_bar, screen.cols,
 			  screen.rows - 2, 0);
 	progress_bar_paint(&screen.progress_bar);
-
-	leaveok(screen.progress_bar.window.w, TRUE);
 
 	/* create status window */
 	window_init(&screen.status_window, 1, screen.cols,

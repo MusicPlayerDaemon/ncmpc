@@ -40,12 +40,10 @@ progress_bar_paint(const struct progress_bar *p)
 	wnoutrefresh(p->window.w);
 }
 
-bool
-progress_bar_resize(struct progress_bar *p)
+static bool
+progress_bar_calc(struct progress_bar *p)
 {
 	unsigned old_width;
-
-	assert(p != NULL);
 
 	if (p->max == 0)
 		return false;
@@ -55,6 +53,18 @@ progress_bar_resize(struct progress_bar *p)
 	assert(p->width < p->window.cols);
 
 	return p->width != old_width;
+}
+
+void
+progress_bar_resize(struct progress_bar *p, unsigned width, int y, int x)
+{
+	assert(p != NULL);
+
+	p->window.cols = width;
+	wresize(p->window.w, 1, width);
+	mvwin(p->window.w, y, x);
+
+	progress_bar_calc(p);
 }
 
 bool
@@ -72,5 +82,5 @@ progress_bar_set(struct progress_bar *p, unsigned current, unsigned max)
 	p->max = max;
 	p->current = current;
 
-	return progress_bar_resize(p) || modified;
+	return progress_bar_calc(p) || modified;
 }

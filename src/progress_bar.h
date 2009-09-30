@@ -33,21 +33,27 @@ struct progress_bar {
 };
 
 static inline void
-progress_bar_init(struct progress_bar *p, unsigned height, unsigned width,
-		  int y, int x)
+progress_bar_init(struct progress_bar *p, unsigned width, int y, int x)
 {
-	window_init(&p->window, height, width, y, x);
+	window_init(&p->window, 1, width, y, x);
+	leaveok(p->window.w, TRUE);
 
 	p->current = 0;
 	p->max = 0;
 	p->width = 0;
 }
 
+static inline void
+progress_bar_deinit(struct progress_bar *p)
+{
+	delwin(p->window.w);
+}
+
 void
 progress_bar_paint(const struct progress_bar *p);
 
-bool
-progress_bar_resize(struct progress_bar *p);
+void
+progress_bar_resize(struct progress_bar *p, unsigned width, int y, int x);
 
 bool
 progress_bar_set(struct progress_bar *p, unsigned current, unsigned max);
