@@ -1,4 +1,6 @@
 .deps
+.dirstamp
+.stgit-*
 *.o
 *~
 *.tar.*
@@ -14,6 +16,7 @@ Makefile.in
 po/Makefile.in.in
 po/POTFILES
 po/*.gmo
+po/.pot
 mkinstalldirs
 stamp-*
 src/ncmpc
