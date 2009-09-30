@@ -18,6 +18,7 @@
 */
 
 #include "screen_list.h"
+#include "screen_interface.h"
 #include "screen.h"
 
 #include <string.h>

@@ -26,6 +26,7 @@ ncmpc_headers = \
 	src/progress_bar.h \
 	src/status_bar.h \
 	src/screen.h \
+	src/screen_interface.h \
 	src/screen_list.h \
 	src/screen_play.h \
 	src/screen_utils.h \

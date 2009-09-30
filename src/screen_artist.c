@@ -24,7 +24,7 @@
 #include "utils.h"
 #include "strfsong.h"
 #include "command.h"
-#include "screen.h"
+#include "screen_interface.h"
 #include "screen_utils.h"
 #include "screen_browser.h"
 #include "filelist.h"

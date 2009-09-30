@@ -18,6 +18,7 @@
 */
 
 #include "screen.h"
+#include "screen_interface.h"
 #include "screen_list.h"
 #include "screen_utils.h"
 #include "config.h"

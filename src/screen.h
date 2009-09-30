@@ -87,19 +87,6 @@ extern const struct screen_functions screen_lyrics;
 extern const struct screen_functions screen_outputs;
 #endif
 
-
-typedef struct screen_functions {
-	void (*init)(WINDOW *w, int cols, int rows);
-	void (*exit)(void);
-	void (*open)(struct mpdclient *c);
-	void (*close)(void);
-	void (*resize)(int cols, int rows);
-	void (*paint)(void);
-	void (*update)(struct mpdclient *c);
-	bool (*cmd)(struct mpdclient *c, command_t cmd);
-	const char *(*get_title)(char *s, size_t size);
-} screen_functions_t;
-
 void screen_init(struct mpdclient *c);
 void screen_exit(void);
 void screen_resize(struct mpdclient *c);
