@@ -32,7 +32,6 @@
 #include <time.h>
 #include <string.h>
 
-#define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_DELETE
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_MOVE
 
 #define BUFSIZE 1024
@@ -462,10 +461,10 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 gint
 mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 {
-	gint retval = 0;
-	struct mpd_song *song;
+	const struct mpd_song *song;
+	struct mpd_status *status;
 
-	if (MPD_ERROR(c))
+	if (MPD_ERROR(c) || c->status == NULL)
 		return -1;
 
 	if (idx < 0 || (guint)idx >= playlist_length(&c->playlist))
@@ -473,26 +472,41 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 
 	song = playlist_get(&c->playlist, idx);
 
-	/* send the delete command to mpd */
-	mpd_send_delete_id(c->connection, mpd_song_get_id(song));
-	if( (retval=mpdclient_finish_command(c)) )
-		return retval;
+	/* send the delete command to mpd; at the same time, get the
+	   new status (to verify the playlist id) */
 
-#ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_DELETE
-	/* increment the playlist id, so we don't retrieve a new playlist */
-	c->playlist.version++;
-
-	/* remove the song from the playlist */
-	playlist_remove_reuse(&c->playlist, idx);
+	if (!mpd_command_list_begin(c->connection, false) ||
+	    !mpd_send_delete_id(c->connection, mpd_song_get_id(song)) ||
+	    !mpd_send_status(c->connection) ||
+	    !mpd_command_list_end(c->connection))
+		return mpdclient_handle_error(c);
 
 	c->events |= MPD_IDLE_PLAYLIST;
 
-	/* remove references to the song */
-	if (c->song == song)
-		c->song = NULL;
+	status = mpd_recv_status(c->connection);
+	if (status != NULL) {
+		if (c->status != NULL)
+			mpd_status_free(c->status);
+		c->status = status;
+	}
 
-	mpd_song_free(song);
-#endif
+	if (!mpd_response_finish(c->connection))
+		return mpdclient_handle_error(c);
+
+	if (mpd_status_get_queue_length(status) == playlist_length(&c->playlist) - 1 &&
+	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
+		/* the cheap route: match on the new playlist length
+		   and its version, we can keep our local playlist
+		   copy in sync */
+		c->playlist.version = mpd_status_get_queue_version(status);
+
+		/* remove the song from the local playlist */
+		playlist_remove(&c->playlist, idx);
+
+		/* remove references to the song */
+		if (c->song == song)
+			c->song = NULL;
+	}
 
 	return 0;
 }
