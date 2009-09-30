@@ -61,7 +61,7 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 			return -1;
 		}
 
-		/* XXX reload */
+		c->events |= MPD_IDLE_OUTPUT;
 
 		screen_status_printf(_("Output '%s' enabled"),
 				     mpd_output_get_name(output));
@@ -72,13 +72,11 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 			return -1;
 		}
 
-		/* XXX reload */
+		c->events |= MPD_IDLE_OUTPUT;
 
 		screen_status_printf(_("Output '%s' disabled"),
 				     mpd_output_get_name(output));
 	}
-
-	outputs_repaint();
 
 	return 0;
 }
@@ -186,6 +184,16 @@ outputs_paint(void)
 	list_window_paint(lw, outputs_list_callback, NULL);
 }
 
+static void
+screen_outputs_update(struct mpdclient *c)
+{
+	if (c->events & MPD_IDLE_OUTPUT) {
+		clear_outputs_list();
+		fill_outputs_list(c);
+		outputs_repaint();
+	}
+}
+
 static bool
 outputs_cmd(struct mpdclient *c, command_t cmd)
 {
@@ -211,6 +219,7 @@ const struct screen_functions screen_outputs = {
 	.close     = outputs_close,
 	.resize    = outputs_resize,
 	.paint     = outputs_paint,
+	.update = screen_outputs_update,
 	.cmd       = outputs_cmd,
 	.get_title = outputs_title,
 };
