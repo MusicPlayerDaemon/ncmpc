@@ -79,8 +79,7 @@ playlist_changed_callback(struct mpdclient *c, int event, gpointer data)
 	case PLAYLIST_EVENT_DELETE:
 		break;
 	case PLAYLIST_EVENT_MOVE:
-		if(lw->range_selection < 0)
-		{
+		if (!lw->range_selection) {
 			lw->selected = *((int *) data);
 			if (lw->selected < lw->start)
 				lw->start--;
