@@ -182,11 +182,12 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 static void
 center_playing_item(struct mpdclient *c, bool center_cursor)
 {
+	const struct mpd_song *song;
 	unsigned length = c->playlist.list->len;
 	int idx;
 
-	if (!c->song || c->status == NULL ||
-	    IS_STOPPED(mpd_status_get_state(c->status)))
+	song = mpdclient_get_current_song(c);
+	if (song == NULL)
 		return;
 
 	/* try to center the song that are playing */

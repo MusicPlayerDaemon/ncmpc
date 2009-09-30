@@ -24,9 +24,7 @@
 #include "i18n.h"
 #include "screen_client.h"
 
-#define IS_PLAYING(s) (s==MPD_STATE_PLAY)
 #define IS_PAUSED(s) (s==MPD_STATE_PAUSE)
-#define IS_STOPPED(s) (!(IS_PLAYING(s) | IS_PAUSED(s)))
 
 int seek_id = -1;
 int seek_target_time;
@@ -80,6 +78,8 @@ cancel_seek_timer(void)
 bool
 handle_player_command(struct mpdclient *c, command_t cmd)
 {
+	const struct mpd_song *song;
+
 	if (c->connection == NULL || c->status == NULL)
 		return false;
 
@@ -104,10 +104,10 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 		mpdclient_cmd_crop(c);
 		break;
 	case CMD_SEEK_FORWARD:
-		if (!IS_STOPPED(mpd_status_get_state(c->status))) {
-			if (c->song != NULL &&
-			    seek_id != (int)mpd_song_get_id(c->song)) {
-				seek_id = mpd_song_get_id(c->song);
+		song = mpdclient_get_current_song(c);
+		if (song != NULL) {
+			if (seek_id != (int)mpd_song_get_id(song)) {
+				seek_id = mpd_song_get_id(song);
 				seek_target_time = mpd_status_get_elapsed_time(c->status);
 			}
 			seek_target_time+=options.seek_time;
@@ -122,8 +122,9 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 			mpdclient_handle_error(c);
 		break;
 	case CMD_SEEK_BACKWARD:
-		if (!IS_STOPPED(mpd_status_get_state(c->status))) {
-			if (seek_id != (int)mpd_song_get_id(c->song)) {
+		song = mpdclient_get_current_song(c);
+		if (song != NULL) {
+			if (seek_id != (int)mpd_song_get_id(song)) {
 				seek_id = mpd_song_get_id(c->song);
 				seek_target_time = mpd_status_get_elapsed_time(c->status);
 			}

@@ -40,6 +40,16 @@ mpdclient_is_connected(const struct mpdclient *c)
 	return c->connection != NULL;
 }
 
+static inline const struct mpd_song *
+mpdclient_get_current_song(const struct mpdclient *c)
+{
+	return c->song != NULL && c->status != NULL &&
+		(mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
+		 mpd_status_get_state(c->status) == MPD_STATE_PAUSE)
+		? c->song
+		: NULL;
+}
+
 bool
 mpdclient_connect(struct mpdclient *c, const gchar *host, gint port,
 		  gfloat timeout_, const gchar *password);
