@@ -243,7 +243,8 @@ mpdclient_update(struct mpdclient *c)
 			retval = mpdclient_playlist_update_changes(c);
 		else
 			retval = mpdclient_playlist_update(c);
-	}
+	} else
+		retval = true;
 
 	/* update the current song */
 	if (!c->song || mpd_status_get_song_id(c->status)) {
