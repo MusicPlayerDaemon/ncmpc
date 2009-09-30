@@ -21,7 +21,7 @@ struct mpdclient {
 	const struct mpd_song *song;
 
 	int volume;
-	unsigned updatingdb;
+	unsigned update_id;
 };
 
 /** functions ***************************************************************/
