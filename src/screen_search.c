@@ -133,21 +133,6 @@ search_repaint(void)
 	wrefresh(browser.lw->w);
 }
 
-static void
-search_repaint_if_active(void)
-{
-	if (screen_is_visible(&screen_search))
-		search_repaint();
-}
-
-/* the playlist has been updated -> fix highlights */
-static void
-playlist_changed_callback(struct mpdclient *c, int event, gpointer data)
-{
-	browser_playlist_changed(&browser, c, event, data);
-	search_repaint_if_active();
-}
-
 /* sanity check search mode value */
 static void
 search_check_mode(void)
@@ -163,11 +148,9 @@ search_check_mode(void)
 }
 
 static void
-search_clear(struct mpdclient *c,
-	     gboolean clear_pattern)
+search_clear(bool clear_pattern)
 {
 	if (browser.filelist) {
-		mpdclient_remove_playlist_callback(c, playlist_changed_callback);
 		filelist_free(browser.filelist);
 		browser.filelist = filelist_new();
 	}
@@ -320,7 +303,7 @@ search_new(struct mpdclient *c)
 	if (c->connection == NULL)
 		return;
 
-	search_clear(c, TRUE);
+	search_clear(true);
 
 	g_free(pattern);
 	pattern = screen_readln(_("Search"),
@@ -350,7 +333,6 @@ search_new(struct mpdclient *c)
 		browser.filelist = filelist_new();
 
 	sync_highlights(c, browser.filelist);
-	mpdclient_install_playlist_callback(c, playlist_changed_callback);
 	list_window_check_selected(browser.lw, filelist_length(browser.filelist));
 }
 
@@ -425,6 +407,15 @@ get_title(char *str, size_t size)
 	return str;
 }
 
+static void
+screen_search_update(struct mpdclient *c)
+{
+	if (browser.filelist != NULL && c->events & MPD_IDLE_PLAYLIST) {
+		sync_highlights(c, browser.filelist);
+		search_repaint();
+	}
+}
+
 static bool
 search_cmd(struct mpdclient *c, command_t cmd)
 {
@@ -438,7 +429,7 @@ search_cmd(struct mpdclient *c, command_t cmd)
 		/* continue and update... */
 	case CMD_SCREEN_UPDATE:
 		if (pattern) {
-			search_clear(c, FALSE);
+			search_clear(false);
 			browser.filelist = filelist_search(c,
 							  FALSE,
 							  mode[options.search_mode].table,
@@ -454,7 +445,7 @@ search_cmd(struct mpdclient *c, command_t cmd)
 		return true;
 
 	case CMD_CLEAR:
-		search_clear(c, TRUE);
+		search_clear(true);
 		list_window_reset(browser.lw);
 		search_repaint();
 		return true;
@@ -479,6 +470,7 @@ const struct screen_functions screen_search = {
 	.open = open,
 	.resize = resize,
 	.paint = paint,
+	.update = screen_search_update,
 	.cmd = search_cmd,
 	.get_title = get_title,
 };
