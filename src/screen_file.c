@@ -42,17 +42,17 @@ static struct screen_browser browser;
 static char *current_path;
 
 static void
-browse_paint(void);
+screen_file_paint(void);
 
 static void
-file_repaint(void)
+screen_file_repaint(void)
 {
-	browse_paint();
+	screen_file_paint();
 	wrefresh(browser.lw->w);
 }
 
 static void
-file_reload(struct mpdclient *c)
+screen_file_reload(struct mpdclient *c)
 {
 	if (browser.filelist != NULL)
 		filelist_free(browser.filelist);
@@ -70,12 +70,12 @@ file_reload(struct mpdclient *c)
  * Change to the specified absolute directory.
  */
 static bool
-file_change_directory(struct mpdclient *c, const char *new_path)
+change_directory(struct mpdclient *c, const char *new_path)
 {
 	g_free(current_path);
 	current_path = g_strdup(new_path);
 
-	file_reload(c);
+	screen_file_reload(c);
 
 #ifndef NCMPC_MINI
 	sync_highlights(c, browser.filelist);
@@ -90,7 +90,7 @@ file_change_directory(struct mpdclient *c, const char *new_path)
  * Change to the parent directory of the current directory.
  */
 static bool
-file_change_to_parent(struct mpdclient *c)
+change_to_parent(struct mpdclient *c)
 {
 	char *parent = g_path_get_dirname(current_path);
 	char *old_path;
@@ -103,7 +103,7 @@ file_change_to_parent(struct mpdclient *c)
 	old_path = current_path;
 	current_path = NULL;
 
-	success = file_change_directory(c, parent);
+	success = change_directory(c, parent);
 	g_free(parent);
 
 	idx = success
@@ -126,27 +126,27 @@ file_change_to_parent(struct mpdclient *c)
  * object.
  */
 static bool
-file_change_to_entry(struct mpdclient *c, const struct filelist_entry *entry)
+change_to_entry(struct mpdclient *c, const struct filelist_entry *entry)
 {
 	assert(entry != NULL);
 
 	if (entry->entity == NULL)
-		return file_change_to_parent(c);
+		return change_to_parent(c);
 	else if (mpd_entity_get_type(entry->entity) == MPD_ENTITY_TYPE_DIRECTORY)
-		return file_change_directory(c, mpd_directory_get_path(mpd_entity_get_directory(entry->entity)));
+		return change_directory(c, mpd_directory_get_path(mpd_entity_get_directory(entry->entity)));
 	else
 		return false;
 }
 
 static bool
-file_handle_enter(struct mpdclient *c)
+screen_file_handle_enter(struct mpdclient *c)
 {
 	const struct filelist_entry *entry = browser_get_selected_entry(&browser);
 
 	if (entry == NULL)
 		return false;
 
-	return file_change_to_entry(c, entry);
+	return change_to_entry(c, entry);
 }
 
 static int
@@ -235,7 +235,7 @@ handle_delete(struct mpdclient *c)
 }
 
 static void
-browse_init(WINDOW *w, int cols, int rows)
+screen_file_init(WINDOW *w, int cols, int rows)
 {
 	current_path = g_strdup("");
 
@@ -243,14 +243,14 @@ browse_init(WINDOW *w, int cols, int rows)
 }
 
 static void
-browse_resize(int cols, int rows)
+screen_file_resize(int cols, int rows)
 {
 	browser.lw->cols = cols;
 	browser.lw->rows = rows;
 }
 
 static void
-browse_exit(void)
+screen_file_exit(void)
 {
 	if (browser.filelist)
 		filelist_free(browser.filelist);
@@ -260,13 +260,13 @@ browse_exit(void)
 }
 
 static void
-browse_open(struct mpdclient *c)
+screen_file_open(struct mpdclient *c)
 {
-	file_reload(c);
+	screen_file_reload(c);
 }
 
 static const char *
-browse_title(char *str, size_t size)
+screen_file_get_title(char *str, size_t size)
 {
 	const char *path = NULL, *prev = NULL, *slash = current_path;
 	char *path_locale;
@@ -290,7 +290,7 @@ browse_title(char *str, size_t size)
 }
 
 static void
-browse_paint(void)
+screen_file_paint(void)
 {
 	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
 }
@@ -300,7 +300,7 @@ screen_file_update(struct mpdclient *c)
 {
 	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST)) {
 		/* the db has changed -> update the filelist */
-		file_reload(c);
+		screen_file_reload(c);
 		list_window_check_selected(browser.lw,
 					   filelist_length(browser.filelist));
 	}
@@ -316,28 +316,28 @@ screen_file_update(struct mpdclient *c)
 			 | MPD_IDLE_PLAYLIST
 #endif
 			 ))
-		file_repaint();
+		screen_file_repaint();
 }
 
 static bool
-browse_cmd(struct mpdclient *c, command_t cmd)
+screen_file_cmd(struct mpdclient *c, command_t cmd)
 {
 	switch(cmd) {
 	case CMD_PLAY:
-		if (file_handle_enter(c)) {
-			file_repaint();
+		if (screen_file_handle_enter(c)) {
+			screen_file_repaint();
 			return true;
 		}
 
 		break;
 
 	case CMD_GO_ROOT_DIRECTORY:
-		file_change_directory(c, "");
-		file_repaint();
+		change_directory(c, "");
+		screen_file_repaint();
 		return true;
 	case CMD_GO_PARENT_DIRECTORY:
-		file_change_to_parent(c);
-		file_repaint();
+		change_to_parent(c);
+		screen_file_repaint();
 		return true;
 
 	case CMD_LOCATE:
@@ -348,19 +348,19 @@ browse_cmd(struct mpdclient *c, command_t cmd)
 
 	case CMD_DELETE:
 		handle_delete(c);
-		file_repaint();
+		screen_file_repaint();
 		break;
 	case CMD_SAVE_PLAYLIST:
 		handle_save(c);
 		break;
 	case CMD_SCREEN_UPDATE:
-		file_reload(c);
+		screen_file_reload(c);
 #ifndef NCMPC_MINI
 		sync_highlights(c, browser.filelist);
 #endif
 		list_window_check_selected(browser.lw,
 					   filelist_length(browser.filelist));
-		file_repaint();
+		screen_file_repaint();
 		return false;
 
 	case CMD_DB_UPDATE:
@@ -376,7 +376,7 @@ browse_cmd(struct mpdclient *c, command_t cmd)
 
 	if (browser_cmd(&browser, c, cmd)) {
 		if (screen_is_visible(&screen_browse))
-			file_repaint();
+			screen_file_repaint();
 		return true;
 	}
 
@@ -384,14 +384,14 @@ browse_cmd(struct mpdclient *c, command_t cmd)
 }
 
 const struct screen_functions screen_browse = {
-	.init = browse_init,
-	.exit = browse_exit,
-	.open = browse_open,
-	.resize = browse_resize,
-	.paint = browse_paint,
+	.init = screen_file_init,
+	.exit = screen_file_exit,
+	.open = screen_file_open,
+	.resize = screen_file_resize,
+	.paint = screen_file_paint,
 	.update = screen_file_update,
-	.cmd = browse_cmd,
-	.get_title = browse_title,
+	.cmd = screen_file_cmd,
+	.get_title = screen_file_get_title,
 };
 
 bool
@@ -418,7 +418,7 @@ screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song)
 	else
 		parent = "";
 
-	ret = file_change_directory(c, parent);
+	ret = change_directory(c, parent);
 	g_free(allocated);
 	if (!ret)
 		return false;
