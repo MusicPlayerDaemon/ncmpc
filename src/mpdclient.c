@@ -402,10 +402,10 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 {
 	gint retval = 0;
 
-	if (MPD_ERROR(c))
-		return -1;
+	assert(c != NULL);
+	assert(song != NULL);
 
-	if (song == NULL)
+	if (MPD_ERROR(c))
 		return -1;
 
 	/* send the add command to mpd */
