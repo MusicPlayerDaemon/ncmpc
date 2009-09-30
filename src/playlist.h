@@ -26,8 +26,8 @@
 #include <glib.h>
 
 struct mpdclient_playlist {
-	/* playlist id */
-	unsigned id;
+	/* queue version number (obtained from mpd_status) */
+	unsigned version;
 
 	/* the list */
 	GPtrArray *list;

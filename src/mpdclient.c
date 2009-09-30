@@ -243,7 +243,7 @@ mpdclient_update(struct mpdclient *c)
 	c->volume = mpd_status_get_volume(c->status);
 
 	/* check if the playlist needs an update */
-	if (c->playlist.id != mpd_status_get_queue_version(c->status)) {
+	if (c->playlist.version != mpd_status_get_queue_version(c->status)) {
 		c->events |= MPD_IDLE_PLAYLIST;
 
 		if (!playlist_is_empty(&c->playlist))
@@ -418,7 +418,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 	playlist_append(&c->playlist, song);
 
 	/* increment the playlist id, so we don't retrieve a new playlist */
-	c->playlist.id++;
+	c->playlist.version++;
 
 	c->events |= MPD_IDLE_PLAYLIST;
 #endif
@@ -447,7 +447,7 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 
 #ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_DELETE
 	/* increment the playlist id, so we don't retrieve a new playlist */
-	c->playlist.id++;
+	c->playlist.version++;
 
 	/* remove the song from the playlist */
 	playlist_remove_reuse(&c->playlist, idx);
@@ -491,7 +491,7 @@ mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
 	playlist_swap(&c->playlist, old_index, new_index);
 
 	/* increment the playlist id, so we don't retrieve a new playlist */
-	c->playlist.id++;
+	c->playlist.version++;
 #endif
 
 	c->events |= MPD_IDLE_PLAYLIST;
@@ -564,7 +564,7 @@ mpdclient_playlist_update(struct mpdclient *c)
 		mpd_entity_free(entity);
 	}
 
-	c->playlist.id = mpd_status_get_queue_version(c->status);
+	c->playlist.version = mpd_status_get_queue_version(c->status);
 	c->song = NULL;
 
 	return mpdclient_finish_command(c) == 0;
@@ -580,7 +580,7 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 	if (MPD_ERROR(c))
 		return false;
 
-	mpd_send_queue_changes_meta(c->connection, c->playlist.id);
+	mpd_send_queue_changes_meta(c->connection, c->playlist.version);
 
 	while ((song = mpd_recv_song(c->connection)) != NULL) {
 		int pos = mpd_song_get_pos(song);
@@ -607,7 +607,7 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 	}
 
 	c->song = NULL;
-	c->playlist.id = mpd_status_get_queue_version(c->status);
+	c->playlist.version = mpd_status_get_queue_version(c->status);
 
 	return mpdclient_finish_command(c) == 0;
 }

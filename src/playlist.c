@@ -28,7 +28,7 @@
 void
 playlist_init(struct mpdclient_playlist *playlist)
 {
-	playlist->id = 0;
+	playlist->version = 0;
 	playlist->list = g_ptr_array_sized_new(1024);
 }
 
@@ -37,7 +37,7 @@ playlist_clear(struct mpdclient_playlist *playlist)
 {
 	guint i;
 
-	playlist->id = 0;
+	playlist->version = 0;
 
 	for (i = 0; i < playlist->list->len; ++i) {
 		struct mpd_song *song = playlist_get(playlist, i);
