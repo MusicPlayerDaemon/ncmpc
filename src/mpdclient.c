@@ -32,7 +32,6 @@
 #include <time.h>
 #include <string.h>
 
-#undef  ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_ADD /* broken with song id's */
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_DELETE
 #define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_MOVE
 
@@ -400,30 +399,64 @@ mpdclient_cmd_add_path(struct mpdclient *c, const gchar *path_utf8)
 gint
 mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 {
-	gint retval = 0;
+	struct mpd_status *status;
+	struct mpd_song *new_song;
 
 	assert(c != NULL);
 	assert(song != NULL);
 
-	if (MPD_ERROR(c))
+	if (MPD_ERROR(c) || c->status == NULL)
 		return -1;
 
-	/* send the add command to mpd */
-	mpd_send_add(c->connection, mpd_song_get_uri(song));
-	if( (retval=mpdclient_finish_command(c)) )
-		return retval;
+	/* send the add command to mpd; at the same time, get the new
+	   status (to verify the new playlist id) and the last song
+	   (we hope that's the song we just added) */
 
-#ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_ADD
-	/* add the song to playlist */
-	playlist_append(&c->playlist, song);
-
-	/* increment the playlist id, so we don't retrieve a new playlist */
-	c->playlist.version++;
+	if (!mpd_command_list_begin(c->connection, true) ||
+	    !mpd_send_add(c->connection, mpd_song_get_uri(song)) ||
+	    !mpd_send_status(c->connection) ||
+	    !mpd_send_get_queue_song_pos(c->connection,
+					 playlist_length(&c->playlist)) ||
+	    !mpd_command_list_end(c->connection) ||
+	    !mpd_response_next(c->connection))
+		return mpdclient_handle_error(c);
 
 	c->events |= MPD_IDLE_PLAYLIST;
-#endif
 
-	return 0;
+	status = mpd_recv_status(c->connection);
+	if (status != NULL) {
+		if (c->status != NULL)
+			mpd_status_free(c->status);
+		c->status = status;
+	}
+
+	if (!mpd_response_next(c->connection))
+		return mpdclient_handle_error(c);
+
+	new_song = mpd_recv_song(c->connection);
+	if (!mpd_response_finish(c->connection) || new_song == NULL) {
+		if (new_song != NULL)
+			mpd_song_free(new_song);
+
+		return mpd_connection_clear_error(c->connection)
+			? 0 : mpdclient_handle_error(c);
+	}
+
+	if (mpd_status_get_queue_length(status) == playlist_length(&c->playlist) + 1 &&
+	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
+		/* the cheap route: match on the new playlist length
+		   and its version, we can keep our local playlist
+		   copy in sync */
+		c->playlist.version = mpd_status_get_queue_version(status);
+
+		/* the song we just received has the correct id;
+		   append it to the local playlist */
+		playlist_append(&c->playlist, new_song);
+	}
+
+	mpd_song_free(new_song);
+
+	return -0;
 }
 
 gint
