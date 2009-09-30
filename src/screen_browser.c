@@ -211,9 +211,7 @@ enqueue_and_play(struct mpdclient *c, struct filelist_entry *entry)
 #endif
 		strfsong(buf, BUFSIZE, options.list_format, song);
 		screen_status_printf(_("Adding \'%s\' to playlist"), buf);
-#ifndef NCMPC_MINI
 	}
-#endif
 
 	if (!mpd_run_play_id(c->connection, id)) {
 		mpdclient_handle_error(c);
