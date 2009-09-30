@@ -204,9 +204,19 @@ outputs_cmd(struct mpdclient *c, command_t cmd)
 		return true;
 	}
 
-	if (cmd == CMD_PLAY) {
+	switch (cmd) {
+	case CMD_PLAY:
 		toggle_output(c, lw->selected);
 		return true;
+
+	case CMD_SCREEN_UPDATE:
+		clear_outputs_list();
+		fill_outputs_list(c);
+		outputs_repaint();
+		return true;
+
+	default:
+		break;
 	}
 
 	return false;
