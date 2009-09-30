@@ -165,7 +165,7 @@ get_volume(const struct mpd_status *status)
 {
 	return status != NULL
 		? mpd_status_get_volume(status)
-		: MPD_STATUS_NO_VOLUME;
+		: -1;
 }
 
 static void
@@ -202,7 +202,7 @@ paint_top_window2(const char *header, struct mpdclient *c)
 	}
 
 	volume = get_volume(c->status);
-	if (volume == MPD_STATUS_NO_VOLUME)
+	if (volume < 0)
 		g_snprintf(buf, 32, _("Volume n/a"));
 	else
 		g_snprintf(buf, 32, _("Volume %d%%"), volume);

@@ -144,7 +144,7 @@ mpdclient_new(void)
 
 	c = g_new0(struct mpdclient, 1);
 	playlist_init(&c->playlist);
-	c->volume = MPD_STATUS_NO_VOLUME;
+	c->volume = -1;
 
 	return c;
 }
@@ -216,7 +216,7 @@ mpdclient_update(struct mpdclient *c)
 {
 	bool retval;
 
-	c->volume = MPD_STATUS_NO_VOLUME;
+	c->volume = -1;
 
 	if (MPD_ERROR(c))
 		return false;
@@ -458,10 +458,10 @@ gint mpdclient_cmd_volume_up(struct mpdclient *c)
 		return -1;
 
 	if (c->status == NULL ||
-	    mpd_status_get_volume(c->status) == MPD_STATUS_NO_VOLUME)
+	    mpd_status_get_volume(c->status) == -1)
 		return 0;
 
-	if (c->volume == MPD_STATUS_NO_VOLUME)
+	if (c->volume < 0)
 		c->volume = mpd_status_get_volume(c->status);
 
 	if (c->volume >= 100)
@@ -475,11 +475,10 @@ gint mpdclient_cmd_volume_down(struct mpdclient *c)
 	if (MPD_ERROR(c))
 		return -1;
 
-	if (c->status == NULL ||
-	    mpd_status_get_volume(c->status) == MPD_STATUS_NO_VOLUME)
+	if (c->status == NULL || mpd_status_get_volume(c->status) < 0)
 		return 0;
 
-	if (c->volume == MPD_STATUS_NO_VOLUME)
+	if (c->volume < 0)
 		c->volume = mpd_status_get_volume(c->status);
 
 	if (c->volume <= 0)
