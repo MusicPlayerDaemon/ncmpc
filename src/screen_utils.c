@@ -93,12 +93,6 @@ screen_readln(WINDOW *w,
 }
 
 char *
-screen_getstr(WINDOW *w, const char *prompt)
-{
-	return screen_readln(w, prompt, NULL, NULL, NULL);
-}
-
-char *
 screen_read_password(WINDOW *w, const char *prompt)
 {
 	char *ret;

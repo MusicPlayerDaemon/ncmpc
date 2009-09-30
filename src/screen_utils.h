@@ -38,16 +38,12 @@ void screen_bell(void);
 /* read a character from the status window */
 int screen_getch(WINDOW *w, const char *prompt);
 
-/* read a string from the status window */
-char *screen_getstr(WINDOW *w, const char *prompt);
-
 char *
 screen_read_password(WINDOW *w, const char *prompt);
 
 char *screen_readln(WINDOW *w, const char *prompt, const char *value,
 		    GList **history, GCompletion *gcmp);
-char *screen_readln_masked(WINDOW *w, const char *prompt);
-char *screen_read_pasword(WINDOW *w, const char *prompt);
+
 /* query user for a string and find it in a list window */
 int screen_find(struct list_window *lw,
 		int rows,
