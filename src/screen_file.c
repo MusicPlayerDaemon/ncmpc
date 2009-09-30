@@ -51,13 +51,6 @@ file_repaint(void)
 }
 
 static void
-file_repaint_if_active(void)
-{
-	if (screen_is_visible(&screen_browse))
-		file_repaint();
-}
-
-static void
 file_reload(struct mpdclient *c)
 {
 	if (browser.filelist != NULL)
@@ -71,32 +64,6 @@ file_reload(struct mpdclient *c)
 		/* add a dummy entry for ./.. */
 		filelist_prepend(browser.filelist, NULL);
 }
-
-/* the db has changed -> update the filelist */
-static void
-file_changed_callback(struct mpdclient *c, G_GNUC_UNUSED int event,
-		      G_GNUC_UNUSED gpointer data)
-{
-	file_reload(c);
-
-#ifndef NCMPC_MINI
-	sync_highlights(c, browser.filelist);
-#endif
-	list_window_check_selected(browser.lw, filelist_length(browser.filelist));
-
-	file_repaint_if_active();
-}
-
-#ifndef NCMPC_MINI
-/* the playlist has been updated -> fix highlights */
-static void
-playlist_changed_callback(struct mpdclient *c, int event, gpointer data)
-{
-	browser_playlist_changed(&browser, c, event, data);
-
-	file_repaint_if_active();
-}
-#endif
 
 /**
  * Change to the specified absolute directory.
@@ -292,16 +259,9 @@ browse_exit(void)
 }
 
 static void
-browse_open(G_GNUC_UNUSED struct mpdclient *c)
+browse_open(struct mpdclient *c)
 {
-	if (browser.filelist == NULL) {
-		file_reload(c);
-
-#ifndef NCMPC_MINI
-		mpdclient_install_playlist_callback(c, playlist_changed_callback);
-#endif
-		mpdclient_install_browse_callback(c, file_changed_callback);
-	}
+	file_reload(c);
 }
 
 static const char *
@@ -332,6 +292,30 @@ static void
 browse_paint(void)
 {
 	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
+}
+
+static void
+screen_file_update(struct mpdclient *c)
+{
+	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST)) {
+		/* the db has changed -> update the filelist */
+		file_reload(c);
+		list_window_check_selected(browser.lw,
+					   filelist_length(browser.filelist));
+	}
+
+#ifndef NCMPC_MINI
+	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST |
+			 MPD_IDLE_PLAYLIST))
+		sync_highlights(c, browser.filelist);
+#endif
+
+	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST
+#ifndef NCMPC_MINI
+			 | MPD_IDLE_PLAYLIST
+#endif
+			 ))
+		file_repaint();
 }
 
 static bool
@@ -404,6 +388,7 @@ const struct screen_functions screen_browse = {
 	.open = browse_open,
 	.resize = browse_resize,
 	.paint = browse_paint,
+	.update = screen_file_update,
 	.cmd = browse_cmd,
 	.get_title = browse_title,
 };
