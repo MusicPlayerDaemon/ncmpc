@@ -72,6 +72,15 @@ playlist_repaint(void)
 	wrefresh(lw->w);
 }
 
+static const struct mpd_song *
+playlist_selected_song(void)
+{
+	return !lw->range_selection &&
+		lw->selected < playlist_length(playlist)
+		? playlist_get(playlist, lw->selected)
+		: NULL;
+}
+
 static void
 playlist_changed_callback(struct mpdclient *c, int event, gpointer data)
 {
@@ -745,8 +754,8 @@ play_cmd(struct mpdclient *c, command_t cmd)
 
 #ifdef ENABLE_SONG_SCREEN
 	case CMD_SCREEN_SONG:
-		if (lw->selected < playlist_length(&c->playlist)) {
-			screen_song_switch(c, playlist_get(&c->playlist, lw->selected));
+		if (playlist_selected_song()) {
+			screen_song_switch(c, playlist_selected_song());
 			return true;
 		}
 
@@ -754,8 +763,8 @@ play_cmd(struct mpdclient *c, command_t cmd)
 #endif
 
 	case CMD_LOCATE:
-		if (lw->selected < playlist_length(&c->playlist)) {
-			screen_file_goto_song(c, playlist_get(&c->playlist, lw->selected));
+		if (playlist_selected_song()) {
+			screen_file_goto_song(c, playlist_selected_song());
 			return true;
 		}
 
