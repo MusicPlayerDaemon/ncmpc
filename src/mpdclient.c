@@ -32,8 +32,6 @@
 #include <time.h>
 #include <string.h>
 
-#define ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_MOVE
-
 #define BUFSIZE 1024
 
 static bool
@@ -592,8 +590,8 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 gint
 mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
 {
-	gint n;
-	struct mpd_song *song1, *song2;
+	const struct mpd_song *song1, *song2;
+	struct mpd_status *status;
 
 	if (MPD_ERROR(c))
 		return -1;
@@ -605,21 +603,38 @@ mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
 	song1 = playlist_get(&c->playlist, old_index);
 	song2 = playlist_get(&c->playlist, new_index);
 
-	/* send the move command to mpd */
-	mpd_send_swap_id(c->connection,
-			 mpd_song_get_id(song1), mpd_song_get_id(song2));
-	if( (n=mpdclient_finish_command(c)) )
-		return n;
+	/* send the delete command to mpd; at the same time, get the
+	   new status (to verify the playlist id) */
 
-#ifdef ENABLE_FANCY_PLAYLIST_MANAGMENT_CMD_MOVE
-	/* update the playlist */
-	playlist_swap(&c->playlist, old_index, new_index);
-
-	/* increment the playlist id, so we don't retrieve a new playlist */
-	c->playlist.version++;
-#endif
+	if (!mpd_command_list_begin(c->connection, false) ||
+	    !mpd_send_swap_id(c->connection, mpd_song_get_id(song1),
+			      mpd_song_get_id(song2)) ||
+	    !mpd_send_status(c->connection) ||
+	    !mpd_command_list_end(c->connection))
+		return mpdclient_handle_error(c);
 
 	c->events |= MPD_IDLE_PLAYLIST;
+
+	status = mpd_recv_status(c->connection);
+	if (status != NULL) {
+		if (c->status != NULL)
+			mpd_status_free(c->status);
+		c->status = status;
+	}
+
+	if (!mpd_response_finish(c->connection))
+		return mpdclient_handle_error(c);
+
+	if (mpd_status_get_queue_length(status) == playlist_length(&c->playlist) &&
+	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
+		/* the cheap route: match on the new playlist length
+		   and its version, we can keep our local playlist
+		   copy in sync */
+		c->playlist.version = mpd_status_get_queue_version(status);
+
+		/* swap songs in the local playlist */
+		playlist_swap(&c->playlist, old_index, new_index);
+	}
 
 	return 0;
 }
