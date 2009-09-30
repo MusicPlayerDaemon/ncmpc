@@ -42,7 +42,7 @@ outputs_repaint(void)
 	wrefresh(lw->w);
 }
 
-static int
+static bool
 toggle_output(struct mpdclient *c, unsigned int output_index)
 {
 	struct mpd_output *output;
@@ -50,7 +50,7 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 	assert(mpd_outputs != NULL);
 
 	if (output_index >= mpd_outputs->len)
-		return -1;
+		return false;
 
 	output = g_ptr_array_index(mpd_outputs, output_index);
 
@@ -58,7 +58,7 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 		if (!mpd_run_enable_output(c->connection,
 					   mpd_output_get_id(output))) {
 			mpdclient_handle_error(c);
-			return -1;
+			return false;
 		}
 
 		c->events |= MPD_IDLE_OUTPUT;
@@ -69,7 +69,7 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 		if (!mpd_run_disable_output(c->connection,
 					    mpd_output_get_id(output))) {
 			mpdclient_handle_error(c);
-			return -1;
+			return false;
 		}
 
 		c->events |= MPD_IDLE_OUTPUT;
@@ -78,7 +78,7 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 				     mpd_output_get_name(output));
 	}
 
-	return 0;
+	return true;
 }
 
 static void
