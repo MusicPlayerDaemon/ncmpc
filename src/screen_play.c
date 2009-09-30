@@ -663,22 +663,17 @@ play_cmd(struct mpdclient *c, command_t cmd)
 		mpdclient_cmd_play(c, lw->selected);
 		return true;
 	case CMD_DELETE:
-	{
-		int i = lw->selected_end, start = lw->selected_start;
-		for(; i >= start; --i)
-			mpdclient_cmd_delete(c, i);
+		if (lw->range_selection) {
+			mpdclient_cmd_delete_range(c, lw->selected_start,
+						   lw->selected_end + 1);
+		} else {
+			mpdclient_cmd_delete(c, lw->selected);
+		}
 
-		i++;
-		if(i >= (int)playlist_length(&c->playlist))
-			i--;
-		lw->selected = i;
-		lw->selected_start = i;
-		lw->selected_end = i;
+		lw->selected = lw->selected_end = lw->selected_start;
 		lw->range_selection = false;
-
-		playlist_save_selection();
 		return true;
-	}
+
 	case CMD_SAVE_PLAYLIST:
 		playlist_save(c, NULL, NULL);
 		return true;
