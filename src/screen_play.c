@@ -57,7 +57,6 @@ static bool must_scroll;
 #endif
 
 static struct mpdclient_playlist *playlist;
-static unsigned visible_version = -1;
 static int current_song_id = -1;
 static int selected_song_id = -1;
 static list_window_t *lw = NULL;
@@ -112,13 +111,6 @@ playlist_restore_selection(void)
 
 	list_window_check_selected(lw, playlist_length(playlist));
 	playlist_save_selection();
-}
-
-static void
-playlist_changed_callback(G_GNUC_UNUSED struct mpdclient *c,
-			  G_GNUC_UNUSED int event, G_GNUC_UNUSED gpointer data)
-{
-	playlist_restore_selection();
 }
 
 #ifndef NCMPC_MINI
@@ -512,8 +504,6 @@ timer_hide_cursor(gpointer data)
 static void
 play_open(struct mpdclient *c)
 {
-	static gboolean install_cb = TRUE;
-
 	playlist = &c->playlist;
 
 	assert(timer_hide_cursor_id == 0);
@@ -523,10 +513,7 @@ play_open(struct mpdclient *c)
 						     timer_hide_cursor, c);
 	}
 
-	if (install_cb) {
-		mpdclient_install_playlist_callback(c, playlist_changed_callback);
-		install_cb = FALSE;
-	}
+	playlist_restore_selection();
 }
 
 static void
@@ -570,14 +557,15 @@ play_paint(void)
 #endif
 
 	list_window_paint(lw, list_callback, NULL);
-
-	visible_version = playlist->id;
 }
 
 static void
 play_update(struct mpdclient *c)
 {
 	static int prev_song_id = -1;
+
+	if (c->events & MPD_IDLE_PLAYLIST)
+		playlist_restore_selection();
 
 	current_song_id = c->song != NULL && c->status != NULL &&
 		!IS_STOPPED(mpd_status_get_state(c->status))
@@ -597,7 +585,7 @@ play_update(struct mpdclient *c)
 		   enabled */
 		playlist_repaint();
 #endif
-	} else if (visible_version != playlist->id) {
+	} else if (c->events & MPD_IDLE_PLAYLIST) {
 		/* the playlist has changed, we must paint the new
 		   version */
 		playlist_repaint();
