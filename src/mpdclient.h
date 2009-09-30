@@ -3,7 +3,7 @@
 
 #include "playlist.h"
 
-#include <mpd/tag.h>
+#include <mpd/client.h>
 
 struct filelist;
 
