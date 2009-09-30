@@ -511,6 +511,84 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 	return 0;
 }
 
+/**
+ * Fallback for mpdclient_cmd_delete_range() on MPD older than 0.16.
+ * It emulates the "delete range" command with a list of simple
+ * "delete" commands.
+ */
+static gint
+mpdclient_cmd_delete_range_fallback(struct mpdclient *c,
+				    unsigned start, unsigned end)
+{
+	if (!mpd_command_list_begin(c->connection, false))
+		return mpdclient_handle_error(c);
+
+	for (; start < end; --end)
+		mpd_send_delete(c->connection, start);
+
+	if (!mpd_command_list_end(c->connection) ||
+	    !mpd_response_finish(c->connection))
+		return mpdclient_handle_error(c);
+
+	return 0;
+}
+
+gint
+mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
+{
+	struct mpd_status *status;
+
+	if (MPD_ERROR(c))
+		return -1;
+
+	if (mpd_connection_cmp_server_version(c->connection, 0, 16, 0) < 0)
+		return mpdclient_cmd_delete_range_fallback(c, start, end);
+
+	/* MPD 0.16 supports "delete" with a range argument */
+
+	/* send the delete command to mpd; at the same time, get the
+	   new status (to verify the playlist id) */
+
+	if (!mpd_command_list_begin(c->connection, false) ||
+	    !mpd_send_delete_range(c->connection, start, end) ||
+	    !mpd_send_status(c->connection) ||
+	    !mpd_command_list_end(c->connection))
+		return mpdclient_handle_error(c);
+
+	c->events |= MPD_IDLE_PLAYLIST;
+
+	status = mpd_recv_status(c->connection);
+	if (status != NULL) {
+		if (c->status != NULL)
+			mpd_status_free(c->status);
+		c->status = status;
+	}
+
+	if (!mpd_response_finish(c->connection))
+		return mpdclient_handle_error(c);
+
+	if (mpd_status_get_queue_length(status) == playlist_length(&c->playlist) - (end - start) &&
+	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
+		/* the cheap route: match on the new playlist length
+		   and its version, we can keep our local playlist
+		   copy in sync */
+		c->playlist.version = mpd_status_get_queue_version(status);
+
+		/* remove the song from the local playlist */
+		while (end > start) {
+			--end;
+
+			/* remove references to the song */
+			if (c->song == playlist_get(&c->playlist, end))
+				c->song = NULL;
+
+			playlist_remove(&c->playlist, end);
+		}
+	}
+
+	return 0;
+}
+
 gint
 mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
 {

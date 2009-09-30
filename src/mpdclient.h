@@ -80,6 +80,10 @@ gint mpdclient_cmd_add_path(struct mpdclient *c, const gchar *path);
 
 gint mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song);
 gint mpdclient_cmd_delete(struct mpdclient *c, gint index);
+
+gint
+mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end);
+
 gint mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index);
 
 gint mpdclient_cmd_save_playlist(struct mpdclient *c, const gchar *filename);
