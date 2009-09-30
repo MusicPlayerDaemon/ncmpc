@@ -59,6 +59,7 @@ static bool must_scroll;
 static struct mpdclient_playlist *playlist;
 static unsigned visible_version = -1;
 static int current_song_id = -1;
+static int selected_song_id = -1;
 static list_window_t *lw = NULL;
 static guint timer_hide_cursor_id;
 
@@ -82,23 +83,42 @@ playlist_selected_song(void)
 }
 
 static void
-playlist_changed_callback(struct mpdclient *c, int event, gpointer data)
+playlist_save_selection(void)
 {
-	switch (event) {
-	case PLAYLIST_EVENT_DELETE:
-		break;
-	case PLAYLIST_EVENT_MOVE:
-		if (!lw->range_selection) {
-			lw->selected = *((int *) data);
-			if (lw->selected < lw->start)
-				lw->start--;
-		}
-		break;
-	default:
-		break;
-	}
+	selected_song_id = playlist_selected_song() != NULL
+		? (int)mpd_song_get_id(playlist_selected_song())
+		: -1;
+}
 
-	list_window_check_selected(lw, c->playlist.list->len);
+static void
+playlist_restore_selection(void)
+{
+	const struct mpd_song *song;
+	int pos;
+
+	if (selected_song_id < 0)
+		/* there was no selection */
+		return;
+
+	song = playlist_selected_song();
+	if (song != NULL &&
+	    mpd_song_get_id(song) == (unsigned)selected_song_id)
+		/* selection is still valid */
+		return;
+
+	pos = playlist_get_index_from_id(playlist, selected_song_id);
+	if (pos >= 0)
+		lw->selected = pos;
+
+	list_window_check_selected(lw, playlist_length(playlist));
+	playlist_save_selection();
+}
+
+static void
+playlist_changed_callback(G_GNUC_UNUSED struct mpdclient *c,
+			  G_GNUC_UNUSED int event, G_GNUC_UNUSED gpointer data)
+{
+	playlist_restore_selection();
 }
 
 #ifndef NCMPC_MINI
@@ -618,6 +638,7 @@ handle_mouse_event(struct mpdclient *c)
 
 	lw->selected = selected;
 	list_window_check_selected(lw, playlist_length(playlist));
+	playlist_save_selection();
 	playlist_repaint();
 
 	return true;
@@ -641,6 +662,7 @@ play_cmd(struct mpdclient *c, command_t cmd)
 	}
 
 	if (list_window_cmd(lw, playlist_length(&c->playlist), cmd)) {
+		playlist_save_selection();
 		playlist_repaint();
 		return true;
 	}
@@ -663,6 +685,7 @@ play_cmd(struct mpdclient *c, command_t cmd)
 		lw->selected_end = i;
 		lw->range_selection = false;
 
+		playlist_save_selection();
 		return true;
 	}
 	case CMD_SAVE_PLAYLIST:
@@ -678,6 +701,7 @@ play_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_SELECT_PLAYING:
 		list_window_set_selected(lw, playlist_get_index(&c->playlist,
 								c->song));
+		playlist_save_selection();
 		return true;
 	case CMD_SHUFFLE:
 	{
@@ -711,6 +735,8 @@ play_cmd(struct mpdclient *c, command_t cmd)
 			lw->selected_start--;
 			lw->selected_end--;
 		}
+
+		playlist_save_selection();
 		return true;
 	case CMD_LIST_MOVE_DOWN:
 		if(lw->selected_end+1 >= playlist_length(&c->playlist))
@@ -733,6 +759,8 @@ play_cmd(struct mpdclient *c, command_t cmd)
 			lw->selected_start++;
 			lw->selected_end++;
 		}
+
+		playlist_save_selection();
 		return true;
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
@@ -740,10 +768,12 @@ play_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_LIST_RFIND_NEXT:
 		screen_find(lw, playlist_length(&c->playlist),
 			    cmd, list_callback, NULL);
+		playlist_save_selection();
 		playlist_repaint();
 		return true;
 	case CMD_LIST_JUMP:
 		screen_jump(lw, list_callback, NULL);
+		playlist_save_selection();
 		playlist_repaint();
 		return true;
 
