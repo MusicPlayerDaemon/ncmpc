@@ -50,7 +50,7 @@ screen_browser_sync_highlights(struct filelist *fl,
 
 	for (i = 0; i < filelist_length(fl); ++i) {
 		struct filelist_entry *entry = filelist_get(fl, i);
-		struct mpd_entity *entity = entry->entity;
+		const struct mpd_entity *entity = entry->entity;
 
 		if (entity != NULL && mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 			const struct mpd_song *song =
@@ -71,10 +71,10 @@ screen_browser_sync_highlights(struct filelist *fl,
 const char *
 browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_column, void *data)
 {
-	struct filelist *fl = (struct filelist *) data;
+	const struct filelist *fl = (const struct filelist *) data;
 	static char buf[BUFSIZE];
-	struct filelist_entry *entry;
-	struct mpd_entity *entity;
+	const struct filelist_entry *entry;
+	const struct mpd_entity *entity;
 
 	if (fl == NULL || idx >= filelist_length(fl))
 		return NULL;
