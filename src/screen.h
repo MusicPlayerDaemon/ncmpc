@@ -37,8 +37,6 @@
 #include <ncurses.h>
 #endif
 
-#define MAX_SONGNAME_LENGTH   512
-
 struct mpdclient;
 struct screen_functions;
 
