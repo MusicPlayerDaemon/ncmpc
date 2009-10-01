@@ -81,7 +81,7 @@ update_xterm_title(void)
 	}
 
 	if (options.xterm_title_format && status && song &&
-	    IS_PLAYING(mpd_status_get_state(status)))
+	    mpd_status_get_state(status) == MPD_STATE_PLAY)
 		strfsong(tmp, BUFSIZE, options.xterm_title_format, song);
 	else
 		g_strlcpy(tmp, PACKAGE " version " VERSION, BUFSIZE);

@@ -570,7 +570,8 @@ play_update(struct mpdclient *c)
 		playlist_restore_selection();
 
 	current_song_id = c->status != NULL &&
-		!IS_STOPPED(mpd_status_get_state(c->status))
+		(mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
+		 mpd_status_get_state(c->status) == MPD_STATE_PAUSE)
 		? (int)mpd_status_get_song_id(c->status) : -1;
 
 	if (current_song_id != prev_song_id) {

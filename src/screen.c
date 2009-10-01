@@ -170,7 +170,8 @@ paint_progress_window(struct mpdclient *c)
 		elapsed = 0;
 
 	duration = c->status != NULL &&
-		!IS_STOPPED(mpd_status_get_state(c->status))
+		(mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
+		 mpd_status_get_state(c->status) == MPD_STATE_PAUSE)
 		? mpd_status_get_total_time(c->status)
 		: 0;
 

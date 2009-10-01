@@ -24,8 +24,6 @@
 #include "i18n.h"
 #include "screen_client.h"
 
-#define IS_PAUSED(s) (s==MPD_STATE_PAUSE)
-
 int seek_id = -1;
 int seek_target_time;
 
@@ -93,7 +91,7 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 		*/
 	case CMD_PAUSE:
 		if (!mpd_run_pause(c->connection,
-				   !IS_PAUSED(mpd_status_get_state(c->status))))
+				   mpd_status_get_state(c->status) != MPD_STATE_PAUSE))
 			mpdclient_handle_error(c);
 		break;
 	case CMD_STOP:
