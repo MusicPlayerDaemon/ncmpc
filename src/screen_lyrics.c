@@ -24,7 +24,6 @@
 #include "mpdclient.h"
 #include "command.h"
 #include "screen.h"
-#include "strfsong.h"
 #include "lyrics.h"
 #include "screen_text.h"
 
@@ -162,20 +161,19 @@ screen_lyrics_callback(const GString *result, G_GNUC_UNUSED void *data)
 static void
 screen_lyrics_load(const struct mpd_song *song)
 {
-	char buffer[MAX_SONGNAME_LENGTH];
+	const char *artist, *title;
 
 	assert(song != NULL);
 
 	screen_lyrics_abort();
 	screen_text_clear(&text);
 
+	artist = mpd_song_get_tag(song, MPD_TAG_ARTIST, 0);
+	title = mpd_song_get_tag(song, MPD_TAG_TITLE, 0);
+
 	current.song = mpd_song_dup(song);
-
-	strfsong(buffer, sizeof(buffer), "%artist%", song);
-	current.artist = g_strdup(buffer);
-
-	strfsong(buffer, sizeof(buffer), "%title%", song);
-	current.title = g_strdup(buffer);
+	current.artist = g_strdup(artist);
+	current.title = g_strdup(title);
 
 	current.loader = lyrics_load(current.artist, current.title,
 				     screen_lyrics_callback, NULL);
