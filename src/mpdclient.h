@@ -71,7 +71,6 @@ mpdclient_ui_error(const char *message);
 gint mpdclient_cmd_play(struct mpdclient *c, gint index);
 gint
 mpdclient_cmd_crop(struct mpdclient *c);
-gint mpdclient_cmd_shuffle_range(struct mpdclient *c, guint start, guint end);
 gint mpdclient_cmd_clear(struct mpdclient *c);
 gint mpdclient_cmd_volume(struct mpdclient *c, gint value);
 gint mpdclient_cmd_volume_up(struct mpdclient *c);
@@ -86,18 +85,9 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end);
 
 gint mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index);
 
-gint mpdclient_cmd_save_playlist(struct mpdclient *c, const gchar *filename);
-gint mpdclient_cmd_load_playlist(struct mpdclient *c, const gchar *filename_utf8);
-gint mpdclient_cmd_delete_playlist(struct mpdclient *c, const gchar *filename_utf8);
-
 /* list functions */
 GList *mpdclient_get_artists(struct mpdclient *c);
 GList *mpdclient_get_albums(struct mpdclient *c, const gchar *artist_utf8);
-
-
-/*** error callbacks *****************************************************/
-
-#define GET_ACK_ERROR_CODE(n) ((n & 0xFF00) >> 8)
 
 /*** playlist functions  **************************************************/
 

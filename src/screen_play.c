@@ -277,7 +277,6 @@ int
 playlist_save(struct mpdclient *c, char *name, char *defaultname)
 {
 	gchar *filename, *filename_utf8;
-	gint error;
 #ifndef NCMPC_MINI
 	GCompletion *gcmp;
 	GList *list = NULL;
@@ -325,14 +324,14 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 	/* send save command to mpd */
 
 	filename_utf8 = locale_to_utf8(filename);
-	error = mpdclient_cmd_save_playlist(c, filename_utf8);
 
-	if (error) {
-		gint code = GET_ACK_ERROR_CODE(error);
-
-		if (code == MPD_SERVER_ERROR_EXIST) {
+	if (!mpd_run_save(c->connection, filename_utf8)) {
+		if (mpd_connection_get_error(c->connection) == MPD_ERROR_SERVER &&
+		    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_EXIST) {
 			char *buf;
 			int key;
+
+			mpd_connection_clear_error(c->connection);
 
 			buf = g_strdup_printf(_("Replace %s [%s/%s] ? "),
 					      filename, YES, NO);
@@ -346,25 +345,22 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 				return -1;
 			}
 
-			error = mpdclient_cmd_delete_playlist(c, filename_utf8);
-			if (error) {
+			if (!mpd_run_rm(c->connection, filename_utf8) ||
+			    !mpd_run_save(c->connection, filename_utf8)) {
+				mpdclient_handle_error(c);
 				g_free(filename_utf8);
 				g_free(filename);
 				return -1;
 			}
-
-			error = mpdclient_cmd_save_playlist(c, filename_utf8);
-			if (error) {
-				g_free(filename_utf8);
-				g_free(filename);
-				return error;
-			}
 		} else {
+			mpdclient_handle_error(c);
 			g_free(filename_utf8);
 			g_free(filename);
 			return -1;
 		}
 	}
+
+	c->events |= MPD_IDLE_STORED_PLAYLIST;
 
 	g_free(filename_utf8);
 
@@ -696,9 +692,11 @@ play_cmd(struct mpdclient *c, command_t cmd)
 			/* No range selection, shuffle all list. */
 			break;
 
-		if (mpdclient_cmd_shuffle_range(c, lw->selected_start, lw->selected_end+1) == 0)
+		if (mpd_run_shuffle_range(c->connection, lw->selected_start,
+					  lw->selected_end + 1))
 			screen_status_message(_("Shuffled playlist"));
-
+		else
+			mpdclient_handle_error(c);
 		return true;
 	}
 	case CMD_LIST_MOVE_UP:

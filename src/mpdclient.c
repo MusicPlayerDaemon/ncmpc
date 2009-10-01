@@ -315,13 +315,6 @@ mpdclient_cmd_crop(struct mpdclient *c)
 }
 
 gint
-mpdclient_cmd_shuffle_range(struct mpdclient *c, guint start, guint end)
-{
-	mpd_send_shuffle_range(c->connection, start, end);
-	return mpdclient_finish_command(c);
-}
-
-gint
 mpdclient_cmd_clear(struct mpdclient *c)
 {
 	gint retval = 0;
@@ -637,47 +630,6 @@ mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
 	}
 
 	return 0;
-}
-
-gint
-mpdclient_cmd_save_playlist(struct mpdclient *c, const gchar *filename_utf8)
-{
-	gint retval = 0;
-
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_save(c->connection, filename_utf8);
-	if ((retval = mpdclient_finish_command(c)) == 0) {
-		c->events |= MPD_IDLE_STORED_PLAYLIST;
-	}
-
-	return retval;
-}
-
-gint
-mpdclient_cmd_load_playlist(struct mpdclient *c, const gchar *filename_utf8)
-{
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_load(c->connection, filename_utf8);
-	return mpdclient_finish_command(c);
-}
-
-gint
-mpdclient_cmd_delete_playlist(struct mpdclient *c, const gchar *filename_utf8)
-{
-	gint retval = 0;
-
-	if (MPD_ERROR(c))
-		return -1;
-
-	mpd_send_rm(c->connection, filename_utf8);
-	if ((retval = mpdclient_finish_command(c)) == 0)
-		c->events |= MPD_IDLE_STORED_PLAYLIST;
-
-	return retval;
 }
 
 

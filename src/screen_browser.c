@@ -127,9 +127,13 @@ load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 {
 	char *filename = utf8_to_locale(mpd_playlist_get_path(playlist));
 
-	if (mpdclient_cmd_load_playlist(c, mpd_playlist_get_path(playlist)) == 0)
+	if (mpd_run_load(c->connection, mpd_playlist_get_path(playlist))) {
 		screen_status_printf(_("Loading playlist %s..."),
 				     g_basename(filename));
+		c->events |= MPD_IDLE_QUEUE;
+	} else
+		mpdclient_handle_error(c);
+
 	g_free(filename);
 	return true;
 }

@@ -224,8 +224,12 @@ handle_delete(struct mpdclient *c)
 			return 0;
 		}
 
-		if (mpdclient_cmd_delete_playlist(c, mpd_playlist_get_path(playlist)))
-			continue;
+		if (!mpd_run_rm(c->connection, mpd_playlist_get_path(playlist))) {
+			mpdclient_handle_error(c);
+			break;
+		}
+
+		c->events |= MPD_IDLE_STORED_PLAYLIST;
 
 		/* translators: MPD deleted the playlist, as requested by the
 		   user */
