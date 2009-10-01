@@ -26,7 +26,7 @@ struct mpdclient {
 
 /** functions ***************************************************************/
 
-gint
+bool
 mpdclient_handle_error(struct mpdclient *c);
 
 struct mpdclient *
@@ -68,22 +68,39 @@ void
 mpdclient_ui_error(const char *message);
 
 /*** MPD Commands  **********************************************************/
-gint mpdclient_cmd_play(struct mpdclient *c, gint index);
-gint
+
+bool
+mpdclient_cmd_play(struct mpdclient *c, gint index);
+
+bool
 mpdclient_cmd_crop(struct mpdclient *c);
-gint mpdclient_cmd_clear(struct mpdclient *c);
-gint mpdclient_cmd_volume(struct mpdclient *c, gint value);
-gint mpdclient_cmd_volume_up(struct mpdclient *c);
-gint mpdclient_cmd_volume_down(struct mpdclient *c);
-gint mpdclient_cmd_add_path(struct mpdclient *c, const gchar *path);
 
-gint mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song);
-gint mpdclient_cmd_delete(struct mpdclient *c, gint index);
+bool
+mpdclient_cmd_clear(struct mpdclient *c);
 
-gint
+bool
+mpdclient_cmd_volume(struct mpdclient *c, gint value);
+
+bool
+mpdclient_cmd_volume_up(struct mpdclient *c);
+
+bool
+mpdclient_cmd_volume_down(struct mpdclient *c);
+
+bool
+mpdclient_cmd_add_path(struct mpdclient *c, const gchar *path);
+
+bool
+mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song);
+
+bool
+mpdclient_cmd_delete(struct mpdclient *c, gint index);
+
+bool
 mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end);
 
-gint mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index);
+bool
+mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index);
 
 /* list functions */
 GList *mpdclient_get_artists(struct mpdclient *c);
@@ -111,7 +128,7 @@ mpdclient_filelist_search(struct mpdclient *c, int exact_match,
 			  gchar *filter_utf8);
 
 /* add all songs in filelist to the playlist */
-int
+bool
 mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl);
 
 /* sort by list-format */

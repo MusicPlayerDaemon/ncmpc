@@ -143,7 +143,7 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 			mpdclient_handle_error(c);
 		break;
 	case CMD_CLEAR:
-		if (mpdclient_cmd_clear(c) == 0)
+		if (mpdclient_cmd_clear(c))
 			screen_status_message(_("Cleared playlist"));
 		break;
 	case CMD_REPEAT:

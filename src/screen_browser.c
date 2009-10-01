@@ -251,7 +251,7 @@ browser_select_entry(struct mpdclient *c, struct filelist_entry *entry,
 		const struct mpd_directory *dir =
 			mpd_entity_get_directory(entry->entity);
 
-		if (mpdclient_cmd_add_path(c, mpd_directory_get_path(dir)) == 0) {
+		if (mpdclient_cmd_add_path(c, mpd_directory_get_path(dir))) {
 			char *tmp = utf8_to_locale(mpd_directory_get_path(dir));
 
 			screen_status_printf(_("Adding \'%s\' to playlist"), tmp);
@@ -275,7 +275,7 @@ browser_select_entry(struct mpdclient *c, struct filelist_entry *entry,
 		entry->flags |= HIGHLIGHT;
 #endif
 
-		if (mpdclient_cmd_add(c, song) == 0) {
+		if (mpdclient_cmd_add(c, song)) {
 			char buf[BUFSIZE];
 
 			strfsong(buf, BUFSIZE, options.list_format, song);

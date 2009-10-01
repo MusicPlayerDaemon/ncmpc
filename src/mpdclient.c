@@ -99,7 +99,7 @@ compare_filelistentry_format(gconstpointer filelist_entry1,
 /*** mpdclient functions ****************************************************/
 /****************************************************************************/
 
-gint
+bool
 mpdclient_handle_error(struct mpdclient *c)
 {
 	enum mpd_error error = mpd_connection_get_error(c->connection);
@@ -109,24 +109,21 @@ mpdclient_handle_error(struct mpdclient *c)
 	if (error == MPD_ERROR_SERVER &&
 	    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_PERMISSION &&
 	    screen_auth(c))
-		return 0;
-
-	if (error == MPD_ERROR_SERVER)
-		error = error | (mpd_connection_get_server_error(c->connection) << 8);
+		return true;
 
 	mpdclient_ui_error(mpd_connection_get_error_message(c->connection));
 
 	if (!mpd_connection_clear_error(c->connection))
 		mpdclient_disconnect(c);
 
-	return error;
+	return false;
 }
 
-static gint
+static bool
 mpdclient_finish_command(struct mpdclient *c)
 {
 	return mpd_response_finish(c->connection)
-		? 0 : mpdclient_handle_error(c);
+		? true : mpdclient_handle_error(c);
 }
 
 struct mpdclient *
@@ -222,7 +219,7 @@ mpdclient_update(struct mpdclient *c)
 	/* retrieve new status */
 	c->status = mpd_run_status(c->connection);
 	if (c->status == NULL)
-		return mpdclient_handle_error(c) == 0;
+		return mpdclient_handle_error(c);
 
 	if (c->update_id != mpd_status_get_update_id(c->status)) {
 		c->events |= MPD_IDLE_UPDATE;
@@ -263,13 +260,13 @@ mpdclient_update(struct mpdclient *c)
 /*** MPD Commands  **********************************************************/
 /****************************************************************************/
 
-gint
+bool
 mpdclient_cmd_play(struct mpdclient *c, gint idx)
 {
 	const struct mpd_song *song = playlist_get_song(&c->playlist, idx);
 
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	if (song)
 		mpd_send_play_id(c->connection, mpd_song_get_id(song));
@@ -279,7 +276,7 @@ mpdclient_cmd_play(struct mpdclient *c, gint idx)
 	return mpdclient_finish_command(c);
 }
 
-gint
+bool
 mpdclient_cmd_crop(struct mpdclient *c)
 {
 	struct mpd_status *status;
@@ -287,7 +284,7 @@ mpdclient_cmd_crop(struct mpdclient *c)
 	int length, current;
 
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	status = mpd_run_status(c->connection);
 	if (status == NULL)
@@ -301,7 +298,7 @@ mpdclient_cmd_crop(struct mpdclient *c)
 	mpd_status_free(status);
 
 	if (!playing || length < 2)
-		return 0;
+		return true;
 
 	mpd_command_list_begin(c->connection, false);
 
@@ -314,13 +311,13 @@ mpdclient_cmd_crop(struct mpdclient *c)
 	return mpdclient_finish_command(c);
 }
 
-gint
+bool
 mpdclient_cmd_clear(struct mpdclient *c)
 {
-	gint retval = 0;
+	bool retval;
 
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	mpd_send_clear(c->connection);
 	retval = mpdclient_finish_command(c);
@@ -331,62 +328,64 @@ mpdclient_cmd_clear(struct mpdclient *c)
 	return retval;
 }
 
-gint
+bool
 mpdclient_cmd_volume(struct mpdclient *c, gint value)
 {
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	mpd_send_set_volume(c->connection, value);
 	return mpdclient_finish_command(c);
 }
 
-gint mpdclient_cmd_volume_up(struct mpdclient *c)
+bool
+mpdclient_cmd_volume_up(struct mpdclient *c)
 {
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	if (c->status == NULL ||
 	    mpd_status_get_volume(c->status) == -1)
-		return 0;
+		return true;
 
 	if (c->volume < 0)
 		c->volume = mpd_status_get_volume(c->status);
 
 	if (c->volume >= 100)
-		return 0;
+		return true;
 
 	return mpdclient_cmd_volume(c, ++c->volume);
 }
 
-gint mpdclient_cmd_volume_down(struct mpdclient *c)
+bool
+mpdclient_cmd_volume_down(struct mpdclient *c)
 {
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	if (c->status == NULL || mpd_status_get_volume(c->status) < 0)
-		return 0;
+		return true;
 
 	if (c->volume < 0)
 		c->volume = mpd_status_get_volume(c->status);
 
 	if (c->volume <= 0)
-		return 0;
+		return true;
 
 	return mpdclient_cmd_volume(c, --c->volume);
 }
 
-gint
+bool
 mpdclient_cmd_add_path(struct mpdclient *c, const gchar *path_utf8)
 {
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	mpd_send_add(c->connection, path_utf8);
 	return mpdclient_finish_command(c);
 }
 
-gint
+bool
 mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 {
 	struct mpd_status *status;
@@ -396,7 +395,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 	assert(song != NULL);
 
 	if (MPD_ERROR(c) || c->status == NULL)
-		return -1;
+		return false;
 
 	/* send the add command to mpd; at the same time, get the new
 	   status (to verify the new playlist id) and the last song
@@ -428,8 +427,8 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 		if (new_song != NULL)
 			mpd_song_free(new_song);
 
-		return mpd_connection_clear_error(c->connection)
-			? 0 : mpdclient_handle_error(c);
+		return mpd_connection_clear_error(c->connection) ||
+			mpdclient_handle_error(c);
 	}
 
 	if (mpd_status_get_queue_length(status) == playlist_length(&c->playlist) + 1 &&
@@ -446,20 +445,20 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 
 	mpd_song_free(new_song);
 
-	return -0;
+	return true;
 }
 
-gint
+bool
 mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 {
 	const struct mpd_song *song;
 	struct mpd_status *status;
 
 	if (MPD_ERROR(c) || c->status == NULL)
-		return -1;
+		return false;
 
 	if (idx < 0 || (guint)idx >= playlist_length(&c->playlist))
-		return -1;
+		return false;
 
 	song = playlist_get(&c->playlist, idx);
 
@@ -499,7 +498,7 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 			c->song = NULL;
 	}
 
-	return 0;
+	return true;
 }
 
 /**
@@ -507,7 +506,7 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
  * It emulates the "delete range" command with a list of simple
  * "delete" commands.
  */
-static gint
+static bool
 mpdclient_cmd_delete_range_fallback(struct mpdclient *c,
 				    unsigned start, unsigned end)
 {
@@ -521,16 +520,16 @@ mpdclient_cmd_delete_range_fallback(struct mpdclient *c,
 	    !mpd_response_finish(c->connection))
 		return mpdclient_handle_error(c);
 
-	return 0;
+	return true;
 }
 
-gint
+bool
 mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 {
 	struct mpd_status *status;
 
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	if (mpd_connection_cmp_server_version(c->connection, 0, 16, 0) < 0)
 		return mpdclient_cmd_delete_range_fallback(c, start, end);
@@ -577,21 +576,21 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 		}
 	}
 
-	return 0;
+	return true;
 }
 
-gint
+bool
 mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
 {
 	const struct mpd_song *song1, *song2;
 	struct mpd_status *status;
 
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	if (old_index == new_index || new_index < 0 ||
 	    (guint)new_index >= c->playlist.list->len)
-		return -1;
+		return false;
 
 	song1 = playlist_get(&c->playlist, old_index);
 	song2 = playlist_get(&c->playlist, new_index);
@@ -629,7 +628,7 @@ mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
 		playlist_swap(&c->playlist, old_index, new_index);
 	}
 
-	return 0;
+	return true;
 }
 
 
@@ -659,7 +658,7 @@ mpdclient_playlist_update(struct mpdclient *c)
 	c->playlist.version = mpd_status_get_queue_version(c->status);
 	c->song = NULL;
 
-	return mpdclient_finish_command(c) == 0;
+	return mpdclient_finish_command(c);
 }
 
 /* update playlist (plchanges) */
@@ -701,7 +700,7 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 	c->song = NULL;
 	c->playlist.version = mpd_status_get_queue_version(c->status);
 
-	return mpdclient_finish_command(c) == 0;
+	return mpdclient_finish_command(c);
 }
 
 
@@ -724,7 +723,7 @@ mpdclient_filelist_get(struct mpdclient *c, const gchar *path)
 	while ((entity = mpd_recv_entity(c->connection)) != NULL)
 		filelist_append(filelist, entity);
 
-	if (mpdclient_finish_command(c)) {
+	if (!mpdclient_finish_command(c)) {
 		filelist_free(filelist);
 		return NULL;
 	}
@@ -745,7 +744,7 @@ mpdclient_recv_filelist_response(struct mpdclient *c)
 	while ((entity = mpd_recv_entity(c->connection)) != NULL)
 		filelist_append(filelist, entity);
 
-	if (mpdclient_finish_command(c)) {
+	if (!mpdclient_finish_command(c)) {
 		filelist_free(filelist);
 		return NULL;
 	}
@@ -770,16 +769,16 @@ mpdclient_filelist_search(struct mpdclient *c,
 	return mpdclient_recv_filelist_response(c);
 }
 
-int
+bool
 mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl)
 {
 	guint i;
 
 	if (MPD_ERROR(c))
-		return -1;
+		return false;
 
 	if (filelist_is_empty(fl))
-		return 0;
+		return true;
 
 	mpd_command_list_begin(c->connection, false);
 
@@ -820,7 +819,7 @@ mpdclient_get_artists(struct mpdclient *c)
 		mpd_return_pair(c->connection, pair);
 	}
 
-	if (mpdclient_finish_command(c))
+	if (!mpdclient_finish_command(c))
 		return string_list_free(list);
 
 	return list;
@@ -848,7 +847,7 @@ mpdclient_get_albums(struct mpdclient *c, const gchar *artist_utf8)
 		mpd_return_pair(c->connection, pair);
 	}
 
-	if (mpdclient_finish_command(c))
+	if (!mpdclient_finish_command(c))
 		return string_list_free(list);
 
 	return list;
