@@ -19,9 +19,9 @@
 
 #include "screen_help.h"
 #include "screen_interface.h"
+#include "screen_find.h"
 #include "config.h"
 #include "i18n.h"
-#include "screen_utils.h"
 
 #include <glib.h>
 

@@ -18,7 +18,7 @@
 */
 
 #include "screen_text.h"
-#include "screen_utils.h"
+#include "screen_find.h"
 #include "charset.h"
 
 #include <assert.h>

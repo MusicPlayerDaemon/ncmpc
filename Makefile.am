@@ -29,6 +29,7 @@ ncmpc_headers = \
 	src/screen_message.h \
 	src/screen_interface.h \
 	src/screen_list.h \
+	src/screen_find.h \
 	src/screen_utils.h \
 	src/screen_client.h \
 	src/list_window.h \
@@ -82,6 +83,7 @@ src_ncmpc_SOURCES = \
 	src/screen.c \
 	src/screen_message.c \
 	src/screen_list.c \
+	src/screen_find.c \
 	src/screen_utils.c \
 	src/screen_client.c \
 	src/screen_play.c \
