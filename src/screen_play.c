@@ -655,27 +655,6 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 	}
 
 	switch(cmd) {
-	case CMD_PLAY:
-		mpdclient_cmd_play(c, lw->selected);
-		return true;
-	case CMD_DELETE:
-		if (lw->range_selection) {
-			mpdclient_cmd_delete_range(c, lw->selected_start,
-						   lw->selected_end + 1);
-		} else {
-			mpdclient_cmd_delete(c, lw->selected);
-		}
-
-		lw->selected = lw->selected_end = lw->selected_start;
-		lw->range_selection = false;
-		return true;
-
-	case CMD_SAVE_PLAYLIST:
-		playlist_save(c, NULL, NULL);
-		return true;
-	case CMD_ADD:
-		handle_add_to_playlist(c);
-		return true;
 	case CMD_SCREEN_UPDATE:
 		center_playing_item(c, prev_cmd == CMD_SCREEN_UPDATE);
 		playlist_repaint();
@@ -685,67 +664,7 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 								c->song));
 		playlist_save_selection();
 		return true;
-	case CMD_SHUFFLE:
-	{
-		if(!lw->range_selection)
-			/* No range selection, shuffle all list. */
-			break;
 
-		if (mpd_run_shuffle_range(c->connection, lw->selected_start,
-					  lw->selected_end + 1))
-			screen_status_message(_("Shuffled playlist"));
-		else
-			mpdclient_handle_error(c);
-		return true;
-	}
-	case CMD_LIST_MOVE_UP:
-		if(lw->selected_start == 0)
-			return false;
-		if(lw->range_selection)
-		{
-			unsigned i = lw->selected_start;
-			unsigned last_selected = lw->selected;
-			for(; i <= lw->selected_end; ++i)
-				mpdclient_cmd_move(c, i, i-1);
-			lw->selected_start--;
-			lw->selected_end--;
-			lw->selected = last_selected - 1;
-			lw->range_base--;
-		}
-		else
-		{
-			mpdclient_cmd_move(c, lw->selected, lw->selected-1);
-			lw->selected--;
-			lw->selected_start--;
-			lw->selected_end--;
-		}
-
-		playlist_save_selection();
-		return true;
-	case CMD_LIST_MOVE_DOWN:
-		if(lw->selected_end+1 >= playlist_length(&c->playlist))
-			return false;
-		if(lw->range_selection)
-		{
-			int i = lw->selected_end;
-			unsigned last_selected = lw->selected;
-			for(; i >= (int)lw->selected_start; --i)
-				mpdclient_cmd_move(c, i, i+1);
-			lw->selected_start++;
-			lw->selected_end++;
-			lw->selected = last_selected + 1;
-			lw->range_base++;
-		}
-		else
-		{
-			mpdclient_cmd_move(c, lw->selected, lw->selected+1);
-			lw->selected++;
-			lw->selected_start++;
-			lw->selected_end++;
-		}
-
-		playlist_save_selection();
-		return true;
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
@@ -776,14 +695,6 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 		break;
 #endif
 
-	case CMD_LOCATE:
-		if (playlist_selected_song()) {
-			screen_file_goto_song(c, playlist_selected_song());
-			return true;
-		}
-
-		break;
-
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
 		if (lw->selected < playlist_length(&c->playlist)) {
@@ -804,6 +715,110 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_SCREEN_SWAP:
 		screen_swap(c, playlist_get(&c->playlist, lw->selected));
 		return true;
+
+	default:
+		break;
+	}
+
+	if (!mpdclient_is_connected(c))
+		return false;
+
+	switch(cmd) {
+	case CMD_PLAY:
+		mpdclient_cmd_play(c, lw->selected);
+		return true;
+
+	case CMD_DELETE:
+		if (lw->range_selection) {
+			mpdclient_cmd_delete_range(c, lw->selected_start,
+						   lw->selected_end + 1);
+		} else {
+			mpdclient_cmd_delete(c, lw->selected);
+		}
+
+		lw->selected = lw->selected_end = lw->selected_start;
+		lw->range_selection = false;
+		return true;
+
+	case CMD_SAVE_PLAYLIST:
+		playlist_save(c, NULL, NULL);
+		return true;
+
+	case CMD_ADD:
+		handle_add_to_playlist(c);
+		return true;
+
+	case CMD_SHUFFLE:
+	{
+		if(!lw->range_selection)
+			/* No range selection, shuffle all list. */
+			break;
+
+		if (mpd_run_shuffle_range(c->connection, lw->selected_start,
+					  lw->selected_end + 1))
+			screen_status_message(_("Shuffled playlist"));
+		else
+			mpdclient_handle_error(c);
+		return true;
+	}
+
+	case CMD_LIST_MOVE_UP:
+		if(lw->selected_start == 0)
+			return false;
+		if(lw->range_selection)
+		{
+			unsigned i = lw->selected_start;
+			unsigned last_selected = lw->selected;
+			for(; i <= lw->selected_end; ++i)
+				mpdclient_cmd_move(c, i, i-1);
+			lw->selected_start--;
+			lw->selected_end--;
+			lw->selected = last_selected - 1;
+			lw->range_base--;
+		}
+		else
+		{
+			mpdclient_cmd_move(c, lw->selected, lw->selected-1);
+			lw->selected--;
+			lw->selected_start--;
+			lw->selected_end--;
+		}
+
+		playlist_save_selection();
+		return true;
+
+	case CMD_LIST_MOVE_DOWN:
+		if(lw->selected_end+1 >= playlist_length(&c->playlist))
+			return false;
+		if(lw->range_selection)
+		{
+			int i = lw->selected_end;
+			unsigned last_selected = lw->selected;
+			for(; i >= (int)lw->selected_start; --i)
+				mpdclient_cmd_move(c, i, i+1);
+			lw->selected_start++;
+			lw->selected_end++;
+			lw->selected = last_selected + 1;
+			lw->range_base++;
+		}
+		else
+		{
+			mpdclient_cmd_move(c, lw->selected, lw->selected+1);
+			lw->selected++;
+			lw->selected_start++;
+			lw->selected_end++;
+		}
+
+		playlist_save_selection();
+		return true;
+
+	case CMD_LOCATE:
+		if (playlist_selected_song()) {
+			screen_file_goto_song(c, playlist_selected_song());
+			return true;
+		}
+
+		break;
 
 	default:
 		break;
