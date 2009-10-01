@@ -65,12 +65,12 @@ static list_window_t *lw = NULL;
 static guint timer_hide_cursor_id;
 
 static void
-play_paint(void);
+screen_playlist_paint(void);
 
 static void
 playlist_repaint(void)
 {
-	play_paint();
+	screen_playlist_paint();
 	wrefresh(lw->w);
 }
 
@@ -471,7 +471,7 @@ handle_add_to_playlist(struct mpdclient *c)
 }
 
 static void
-play_init(WINDOW *w, int cols, int rows)
+screen_playlist_init(WINDOW *w, int cols, int rows)
 {
 	lw = list_window_init(w, cols, rows);
 }
@@ -500,7 +500,7 @@ timer_hide_cursor(gpointer data)
 }
 
 static void
-play_open(struct mpdclient *c)
+screen_playlist_open(struct mpdclient *c)
 {
 	playlist = &c->playlist;
 
@@ -515,7 +515,7 @@ play_open(struct mpdclient *c)
 }
 
 static void
-play_close(void)
+screen_playlist_close(void)
 {
 	if (timer_hide_cursor_id != 0) {
 		g_source_remove(timer_hide_cursor_id);
@@ -524,7 +524,7 @@ play_close(void)
 }
 
 static void
-play_resize(int cols, int rows)
+screen_playlist_resize(int cols, int rows)
 {
 	lw->cols = cols;
 	lw->rows = rows;
@@ -532,13 +532,13 @@ play_resize(int cols, int rows)
 
 
 static void
-play_exit(void)
+screen_playlist_exit(void)
 {
 	list_window_free(lw);
 }
 
 static const char *
-play_title(char *str, size_t size)
+screen_playlist_title(char *str, size_t size)
 {
 	if (options.host == NULL)
 		return _("Playlist");
@@ -548,7 +548,7 @@ play_title(char *str, size_t size)
 }
 
 static void
-play_paint(void)
+screen_playlist_paint(void)
 {
 #ifndef NCMPC_MINI
 	must_scroll = false;
@@ -558,7 +558,7 @@ play_paint(void)
 }
 
 static void
-play_update(struct mpdclient *c)
+screen_playlist_update(struct mpdclient *c)
 {
 	static int prev_song_id = -1;
 
@@ -633,7 +633,7 @@ handle_mouse_event(struct mpdclient *c)
 #endif
 
 static bool
-play_cmd(struct mpdclient *c, command_t cmd)
+screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 {
 	static command_t cached_cmd = CMD_NONE;
 	command_t prev_cmd = cached_cmd;
@@ -813,13 +813,13 @@ play_cmd(struct mpdclient *c, command_t cmd)
 }
 
 const struct screen_functions screen_playlist = {
-	.init = play_init,
-	.exit = play_exit,
-	.open = play_open,
-	.close = play_close,
-	.resize = play_resize,
-	.paint = play_paint,
-	.update = play_update,
-	.cmd = play_cmd,
-	.get_title = play_title,
+	.init = screen_playlist_init,
+	.exit = screen_playlist_exit,
+	.open = screen_playlist_open,
+	.close = screen_playlist_close,
+	.resize = screen_playlist_resize,
+	.paint = screen_playlist_paint,
+	.update = screen_playlist_update,
+	.cmd = screen_playlist_cmd,
+	.get_title = screen_playlist_title,
 };
