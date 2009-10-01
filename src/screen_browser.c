@@ -405,31 +405,11 @@ browser_cmd(struct screen_browser *browser,
 	if (browser->filelist == NULL)
 		return false;
 
+	if (list_window_cmd(browser->lw, filelist_length(browser->filelist),
+			    cmd))
+		return true;
+
 	switch (cmd) {
-	case CMD_PLAY:
-		browser_handle_enter(browser, c);
-		return true;
-
-	case CMD_SELECT:
-		if (browser_handle_select(browser, c))
-			/* continue and select next item... */
-			cmd = CMD_LIST_NEXT;
-
-		/* call list_window_cmd to go to the next item */
-		break;
-
-	case CMD_ADD:
-		if (browser_handle_add(browser, c))
-			/* continue and select next item... */
-			cmd = CMD_LIST_NEXT;
-
-		/* call list_window_cmd to go to the next item */
-		break;
-
-	case CMD_SELECT_ALL:
-		browser_handle_select_all(browser, c);
-		return true;
-
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
@@ -458,14 +438,6 @@ browser_cmd(struct screen_browser *browser,
 		return true;
 #endif
 
-	case CMD_LOCATE:
-		song = browser_get_selected_song(browser);
-		if (song == NULL)
-			return false;
-
-		screen_file_goto_song(c, song);
-		return true;
-
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
 		song = browser_get_selected_song(browser);
@@ -483,9 +455,45 @@ browser_cmd(struct screen_browser *browser,
 		break;
 	}
 
-	if (list_window_cmd(browser->lw, filelist_length(browser->filelist),
-			    cmd))
+	if (!mpdclient_is_connected(c))
+		return false;
+
+	switch (cmd) {
+	case CMD_PLAY:
+		browser_handle_enter(browser, c);
 		return true;
+
+	case CMD_SELECT:
+		if (browser_handle_select(browser, c))
+			/* continue and select next item... */
+			cmd = CMD_LIST_NEXT;
+
+		/* call list_window_cmd to go to the next item */
+		break;
+
+	case CMD_ADD:
+		if (browser_handle_add(browser, c))
+			/* continue and select next item... */
+			cmd = CMD_LIST_NEXT;
+
+		/* call list_window_cmd to go to the next item */
+		break;
+
+	case CMD_SELECT_ALL:
+		browser_handle_select_all(browser, c);
+		return true;
+
+	case CMD_LOCATE:
+		song = browser_get_selected_song(browser);
+		if (song == NULL)
+			return false;
+
+		screen_file_goto_song(c, song);
+		return true;
+
+	default:
+		break;
+	}
 
 	return false;
 }
