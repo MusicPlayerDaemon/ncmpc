@@ -21,6 +21,7 @@
 #include "screen_interface.h"
 #include "screen_list.h"
 #include "screen_utils.h"
+#include "screen_message.h"
 #include "config.h"
 #include "i18n.h"
 #include "charset.h"
@@ -43,7 +44,6 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdarg.h>
 #include <string.h>
 #include <time.h>
 #include <locale.h>
@@ -240,25 +240,6 @@ screen_resize(struct mpdclient *c)
 	curs_set(0);
 
 	screen_paint(c);
-}
-
-void
-screen_status_message(const char *msg)
-{
-	status_bar_message(&screen.status_bar, msg);
-}
-
-void
-screen_status_printf(const char *format, ...)
-{
-	char *msg;
-	va_list ap;
-
-	va_start(ap,format);
-	msg = g_strdup_vprintf(format,ap);
-	va_end(ap);
-	screen_status_message(msg);
-	g_free(msg);
 }
 
 void

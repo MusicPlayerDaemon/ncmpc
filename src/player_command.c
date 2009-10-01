@@ -20,9 +20,9 @@
 #include "player_command.h"
 #include "mpdclient.h"
 #include "options.h"
-#include "screen.h"
 #include "i18n.h"
 #include "screen_client.h"
+#include "screen_message.h"
 
 int seek_id = -1;
 int seek_target_time;

@@ -24,7 +24,7 @@
 #include "match.h"
 #include "command.h"
 #include "colors.h"
-#include "screen.h"
+#include "screen_message.h"
 #include "i18n.h"
 
 #include <assert.h>

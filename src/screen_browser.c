@@ -21,6 +21,8 @@
 #include "screen_file.h"
 #include "screen_song.h"
 #include "screen_lyrics.h"
+#include "screen_message.h"
+#include "screen.h"
 #include "i18n.h"
 #include "options.h"
 #include "charset.h"

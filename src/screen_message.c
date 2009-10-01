@@ -1,57 +1,42 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
-
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*/
+ */
 
-#ifndef SCREEN_BROWSER_H
-#define SCREEN_BROWSER_H
+#include "screen_message.h"
+#include "screen.h"
 
-#include "command.h"
-#include "config.h"
-
-#include <stdbool.h>
-
-struct mpdclient;
-struct mpdclient_playlist;
-struct filelist;
-struct list_window;
-struct list_window_state;
-
-struct screen_browser {
-	struct list_window *lw;
-
-	struct filelist *filelist;
-};
-
-#ifndef NCMPC_MINI
+#include <stdarg.h>
 
 void
-screen_browser_sync_highlights(struct filelist *fl,
-			       const struct mpdclient_playlist *playlist);
+screen_status_message(const char *msg)
+{
+	status_bar_message(&screen.status_bar, msg);
+}
 
-#endif
+void
+screen_status_printf(const char *format, ...)
+{
+	char *msg;
+	va_list ap;
 
-const char *browser_lw_callback(unsigned index, bool *highlight, char** second_column, void *filelist);
-
-struct filelist_entry *
-browser_get_selected_entry(const struct screen_browser *browser);
-
-bool
-browser_cmd(struct screen_browser *browser,
-	    struct mpdclient *c, command_t cmd);
-
-#endif
+	va_start(ap,format);
+	msg = g_strdup_vprintf(format,ap);
+	va_end(ap);
+	screen_status_message(msg);
+	g_free(msg);
+}

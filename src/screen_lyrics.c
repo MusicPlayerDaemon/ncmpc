@@ -19,6 +19,7 @@
 
 #include "screen_lyrics.h"
 #include "screen_interface.h"
+#include "screen_message.h"
 #include "screen_file.h"
 #include "screen_song.h"
 #include "i18n.h"

@@ -26,6 +26,7 @@
 #include "ncu.h"
 #include "screen.h"
 #include "screen_utils.h"
+#include "screen_message.h"
 #include "strfsong.h"
 #include "i18n.h"
 #include "player_command.h"

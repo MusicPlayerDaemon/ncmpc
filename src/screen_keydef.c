@@ -19,6 +19,7 @@
 
 #include "screen_keydef.h"
 #include "screen_interface.h"
+#include "screen_message.h"
 #include "i18n.h"
 #include "conf.h"
 #include "screen.h"

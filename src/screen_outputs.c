@@ -19,8 +19,8 @@
 
 #include "screen_outputs.h"
 #include "screen_interface.h"
+#include "screen_message.h"
 #include "i18n.h"
-#include "screen.h"
 #include "list_window.h"
 #include "mpdclient.h"
 

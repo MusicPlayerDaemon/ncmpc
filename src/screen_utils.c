@@ -18,6 +18,7 @@
 */
 
 #include "screen_utils.h"
+#include "screen_message.h"
 #include "screen.h"
 #include "mpdclient.h"
 #include "config.h"
