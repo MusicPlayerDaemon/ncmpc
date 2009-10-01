@@ -45,7 +45,4 @@ screen_get_name(const struct screen_functions *sf);
 const struct screen_functions *
 screen_lookup_name(const char *name);
 
-int
-screen_get_id(const char *name);
-
 #endif

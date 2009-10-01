@@ -75,7 +75,6 @@ char *screen_error(void);
 void screen_paint(struct mpdclient *c);
 void screen_update(struct mpdclient *c);
 void screen_cmd(struct mpdclient *c, command_t cmd);
-gint screen_get_id(const char *name);
 
 void
 screen_switch(const struct screen_functions *sf, struct mpdclient *c);
