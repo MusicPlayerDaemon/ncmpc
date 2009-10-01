@@ -25,6 +25,8 @@
 struct mpdclient;
 struct mpd_song;
 
+extern const struct screen_functions screen_browse;
+
 bool
 screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song);
 

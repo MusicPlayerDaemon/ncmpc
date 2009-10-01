@@ -17,17 +17,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+#include "screen_keydef.h"
 #include "screen_interface.h"
 #include "i18n.h"
-#include "mpdclient.h"
-#include "options.h"
 #include "conf.h"
-#include "command.h"
 #include "screen.h"
 #include "screen_utils.h"
 
 #include <errno.h>
-#include <stdlib.h>
 #include <string.h>
 #include <glib.h>
 

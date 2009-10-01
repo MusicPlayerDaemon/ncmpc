@@ -19,6 +19,8 @@
 
 #include "screen_browser.h"
 #include "screen_file.h"
+#include "screen_song.h"
+#include "screen_lyrics.h"
 #include "i18n.h"
 #include "options.h"
 #include "charset.h"

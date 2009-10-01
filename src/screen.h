@@ -44,6 +44,7 @@
 #define MAX_SONGNAME_LENGTH   512
 
 struct mpdclient;
+struct screen_functions;
 
 struct screen {
 	struct title_bar title_bar;
@@ -64,28 +65,6 @@ struct screen {
 };
 
 extern struct screen screen;
-
-extern const struct screen_functions screen_playlist;
-extern const struct screen_functions screen_browse;
-#ifdef ENABLE_ARTIST_SCREEN
-extern const struct screen_functions screen_artist;
-#endif
-extern const struct screen_functions screen_help;
-#ifdef ENABLE_SEARCH_SCREEN
-extern const struct screen_functions screen_search;
-#endif
-#ifdef ENABLE_SONG_SCREEN
-extern const struct screen_functions screen_song;
-#endif
-#ifdef ENABLE_KEYDEF_SCREEN
-extern const struct screen_functions screen_keydef;
-#endif
-#ifdef ENABLE_LYRICS_SCREEN
-extern const struct screen_functions screen_lyrics;
-#endif
-#ifdef ENABLE_OUTPUTS_SCREEN
-extern const struct screen_functions screen_outputs;
-#endif
 
 void screen_init(struct mpdclient *c);
 void screen_exit(void);
@@ -108,15 +87,5 @@ screen_is_visible(const struct screen_functions *sf);
 
 int
 screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row);
-
-#ifdef ENABLE_SONG_SCREEN
-void
-screen_song_switch(struct mpdclient *c, const struct mpd_song *song);
-#endif
-
-#ifdef ENABLE_LYRICS_SCREEN
-void
-screen_lyrics_switch(struct mpdclient *c, const struct mpd_song *song, bool follow);
-#endif
 
 #endif

@@ -20,6 +20,15 @@
 #include "screen_list.h"
 #include "screen_interface.h"
 #include "screen.h"
+#include "screen_help.h"
+#include "screen_play.h"
+#include "screen_file.h"
+#include "screen_artist.h"
+#include "screen_search.h"
+#include "screen_song.h"
+#include "screen_keydef.h"
+#include "screen_lyrics.h"
+#include "screen_outputs.h"
 
 #include <string.h>
 

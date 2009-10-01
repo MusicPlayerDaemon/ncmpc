@@ -17,14 +17,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_SCREEN_PLAY_H
-#define NCMPC_SCREEN_PLAY_H
+#ifndef NCMPC_SCREEN_KEYDEF_H
+#define NCMPC_SCREEN_KEYDEF_H
 
-struct mpdclient;
+#include "config.h"
 
-extern const struct screen_functions screen_playlist;
-
-int
-playlist_save(struct mpdclient *c, char *name, char *defaultname);
+#ifdef ENABLE_KEYDEF_SCREEN
+extern const struct screen_functions screen_keydef;
+#endif /* ENABLE_KEYDEF_SCREEN */
 
 #endif

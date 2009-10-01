@@ -28,28 +28,7 @@
 #include <ncurses.h>
 #endif
 
-extern const struct screen_functions screen_playlist;
-extern const struct screen_functions screen_browse;
-#ifdef ENABLE_ARTIST_SCREEN
-extern const struct screen_functions screen_artist;
-#endif
-extern const struct screen_functions screen_help;
-#ifdef ENABLE_SEARCH_SCREEN
-extern const struct screen_functions screen_search;
-#endif
-#ifdef ENABLE_SONG_SCREEN
-extern const struct screen_functions screen_song;
-#endif
-#ifdef ENABLE_KEYDEF_SCREEN
-extern const struct screen_functions screen_keydef;
-#endif
-#ifdef ENABLE_LYRICS_SCREEN
-extern const struct screen_functions screen_lyrics;
-#endif
-#ifdef ENABLE_OUTPUTS_SCREEN
-extern const struct screen_functions screen_outputs;
-#endif
-
+struct screen_functions;
 
 void
 screen_list_init(WINDOW *w, unsigned cols, unsigned rows);

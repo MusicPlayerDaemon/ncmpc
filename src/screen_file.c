@@ -18,16 +18,14 @@
 */
 
 #include "screen_file.h"
+#include "screen_browser.h"
 #include "screen_interface.h"
 #include "config.h"
 #include "i18n.h"
-#include "options.h"
 #include "charset.h"
 #include "mpdclient.h"
 #include "filelist.h"
-#include "command.h"
 #include "screen_utils.h"
-#include "screen_browser.h"
 #include "screen_play.h"
 #include "screen_client.h"
 

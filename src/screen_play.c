@@ -17,8 +17,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-#include "screen_file.h"
+#include "screen_play.h"
 #include "screen_interface.h"
+#include "screen_file.h"
 #include "config.h"
 #include "i18n.h"
 #include "charset.h"
@@ -27,11 +28,11 @@
 #include "utils.h"
 #include "strfsong.h"
 #include "wreadln.h"
-#include "command.h"
 #include "colors.h"
 #include "screen.h"
 #include "screen_utils.h"
-#include "screen_play.h"
+#include "screen_song.h"
+#include "screen_lyrics.h"
 
 #ifndef NCMPC_MINI
 #include "hscroll.h"
@@ -40,9 +41,7 @@
 #include <mpd/client.h>
 
 #include <ctype.h>
-#include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include <glib.h>
 
 #define MAX_SONG_LENGTH 512

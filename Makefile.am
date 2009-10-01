@@ -28,7 +28,6 @@ ncmpc_headers = \
 	src/screen.h \
 	src/screen_interface.h \
 	src/screen_list.h \
-	src/screen_play.h \
 	src/screen_utils.h \
 	src/screen_client.h \
 	src/list_window.h \
@@ -42,8 +41,16 @@ ncmpc_headers = \
 	src/ncmpc.h \
 	src/defaults.h \
 	src/i18n.h \
+	src/screen_help.h \
+	src/screen_play.h \
 	src/screen_file.h \
+	src/screen_artist.h \
 	src/screen_browser.h \
+	src/screen_search.h \
+	src/screen_song.h \
+	src/screen_keydef.h \
+	src/screen_lyrics.h \
+	src/screen_outputs.h \
 	src/screen_text.h \
 	src/plugin.h \
 	src/lyrics.h \
