@@ -142,18 +142,6 @@ screen_next_mode(struct mpdclient *c, int offset)
 		screen_switch(sf, c);
 }
 
-static inline int
-volume_length(int volume)
-{
-	if (volume == 100)
-		return 3;
-	if (volume >= 10 && volume < 100)
-		return 2;
-	if (volume >= 0 && volume < 10)
-		return 1;
-	return -1;
-}
-
 static void
 paint_top_window(const char *header, const struct mpdclient *c)
 {
