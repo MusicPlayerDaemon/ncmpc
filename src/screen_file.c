@@ -350,13 +350,6 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 		   segmentation fault in the current implementation */
 		return false;
 
-	case CMD_DELETE:
-		handle_delete(c);
-		screen_file_repaint();
-		break;
-	case CMD_SAVE_PLAYLIST:
-		handle_save(c);
-		break;
 	case CMD_SCREEN_UPDATE:
 		screen_file_reload(c);
 #ifndef NCMPC_MINI
@@ -367,13 +360,6 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 		screen_file_repaint();
 		return false;
 
-	case CMD_DB_UPDATE:
-		if (c->status == NULL)
-			return true;
-
-		screen_database_update(c, current_path);
-		return true;
-
 	default:
 		break;
 	}
@@ -382,6 +368,27 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 		if (screen_is_visible(&screen_browse))
 			screen_file_repaint();
 		return true;
+	}
+
+	if (!mpdclient_is_connected(c))
+		return false;
+
+	switch(cmd) {
+	case CMD_DELETE:
+		handle_delete(c);
+		screen_file_repaint();
+		break;
+
+	case CMD_SAVE_PLAYLIST:
+		handle_save(c);
+		break;
+
+	case CMD_DB_UPDATE:
+		screen_database_update(c, current_path);
+		return true;
+
+	default:
+		break;
 	}
 
 	return false;
