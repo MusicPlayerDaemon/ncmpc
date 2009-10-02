@@ -217,3 +217,20 @@ filelist_find_directory(struct filelist *filelist, const char *name)
 
 	return -1;
 }
+
+void
+filelist_recv(struct filelist *filelist, struct mpd_connection *connection)
+{
+	struct mpd_entity *entity;
+
+	while ((entity = mpd_recv_entity(connection)) != NULL)
+		filelist_append(filelist, entity);
+}
+
+struct filelist *
+filelist_new_recv(struct mpd_connection *connection)
+{
+	struct filelist *filelist = filelist_new();
+	filelist_recv(filelist, connection);
+	return filelist;
+}

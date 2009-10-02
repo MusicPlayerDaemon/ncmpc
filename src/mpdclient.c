@@ -708,25 +708,21 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 /*** Filelist functions *****************************************************/
 /****************************************************************************/
 
+static struct filelist *
+mpdclient_recv_filelist_response(struct mpdclient *c);
+
 struct filelist *
 mpdclient_filelist_get(struct mpdclient *c, const gchar *path)
 {
 	struct filelist *filelist;
-	struct mpd_entity *entity;
 
 	if (MPD_ERROR(c))
 		return NULL;
 
 	mpd_send_list_meta(c->connection, path);
-	filelist = filelist_new();
-
-	while ((entity = mpd_recv_entity(c->connection)) != NULL)
-		filelist_append(filelist, entity);
-
-	if (!mpdclient_finish_command(c)) {
-		filelist_free(filelist);
+	filelist = mpdclient_recv_filelist_response(c);
+	if (filelist == NULL)
 		return NULL;
-	}
 
 	filelist_sort_dir_play(filelist, compare_filelistentry);
 
@@ -737,12 +733,8 @@ static struct filelist *
 mpdclient_recv_filelist_response(struct mpdclient *c)
 {
 	struct filelist *filelist;
-	struct mpd_entity *entity;
 
-	filelist = filelist_new();
-
-	while ((entity = mpd_recv_entity(c->connection)) != NULL)
-		filelist_append(filelist, entity);
+	filelist = filelist_new_recv(c->connection);
 
 	if (!mpdclient_finish_command(c)) {
 		filelist_free(filelist);

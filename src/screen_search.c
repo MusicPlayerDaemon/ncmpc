@@ -204,7 +204,6 @@ search_advanced_query(struct mpd_connection *connection, char *query)
 	int table[10];
 	char *arg[10];
 	struct filelist *fl = NULL;
-	struct mpd_entity *entity;
 
 	advanced_search_mode = FALSE;
 	if (strchr(query, ':') == NULL)
@@ -273,12 +272,7 @@ search_advanced_query(struct mpd_connection *connection, char *query)
 	}
 
 	mpd_search_commit(connection);
-
-	fl = filelist_new();
-
-	while ((entity = mpd_recv_entity(connection)) != NULL)
-		filelist_append(fl, entity);
-
+	fl = filelist_new_recv(connection);
 	if (!mpd_response_finish(connection)) {
 		filelist_free(fl);
 		fl = NULL;

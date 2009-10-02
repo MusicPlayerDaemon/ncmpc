@@ -22,6 +22,7 @@
 
 #include <glib.h>
 
+struct mpd_connection;
 struct mpd_song;
 
 struct filelist_entry {
@@ -81,5 +82,20 @@ filelist_find_song(struct filelist *flist, const struct mpd_song *song);
 
 int
 filelist_find_directory(struct filelist *filelist, const char *name);
+
+/**
+ * Receives entities from the connection, and appends them to the
+ * specified filelist.  This does not finish the response, and does
+ * not check for errors.
+ */
+void
+filelist_recv(struct filelist *filelist, struct mpd_connection *connection);
+
+/**
+ * Creates a new filelist and receives entities from the connection.
+ * This does not finish the response, and does not check for errors.
+ */
+struct filelist *
+filelist_new_recv(struct mpd_connection *connection);
 
 #endif
