@@ -40,7 +40,7 @@ GList *
 gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 		    GList *list, gint types);
 
-char *
-format_duration_long(unsigned long duration);
+void
+format_duration_long(char *buffer, size_t length, unsigned long duration);
 
 #endif

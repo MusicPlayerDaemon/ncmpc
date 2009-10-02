@@ -281,7 +281,6 @@ screen_song_add_stats(const struct mpdclient *c)
 {
 	unsigned i, max_label_width;
 	char buf[64];
-	char *duration;
 	GDate *date;
 	enum label {
 		ARTISTS, ALBUMS, SONGS, UPTIME,
@@ -319,15 +318,19 @@ screen_song_add_stats(const struct mpdclient *c)
 		g_snprintf(buf, sizeof(buf), "%d",
 			   mpd_stats_get_number_of_songs(mpd_stats));
 		screen_song_append(labels[SONGS], buf, max_label_width);
-		duration = format_duration_long(mpd_stats_get_db_play_time(mpd_stats));
-		screen_song_append(labels[DBPLAYTIME], duration, max_label_width);
-		g_free(duration);
-		duration = format_duration_long(mpd_stats_get_play_time(mpd_stats));
-		screen_song_append(labels[PLAYTIME], duration, max_label_width);
-		g_free(duration);
-		duration = format_duration_long(mpd_stats_get_uptime(mpd_stats));
-		screen_song_append(labels[UPTIME], duration, max_label_width);
-		g_free(duration);
+
+		format_duration_long(buf, sizeof(buf),
+				     mpd_stats_get_db_play_time(mpd_stats));
+		screen_song_append(labels[DBPLAYTIME], buf, max_label_width);
+
+		format_duration_long(buf, sizeof(buf),
+				     mpd_stats_get_play_time(mpd_stats));
+		screen_song_append(labels[PLAYTIME], buf, max_label_width);
+
+		format_duration_long(buf, sizeof(buf),
+				     mpd_stats_get_uptime(mpd_stats));
+		screen_song_append(labels[UPTIME], buf, max_label_width);
+
 		date = g_date_new();
 		g_date_set_time_t(date, mpd_stats_get_db_update_time(mpd_stats));
 		g_date_strftime(buf, sizeof(buf), "%x", date);
