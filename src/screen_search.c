@@ -197,7 +197,7 @@ search_simple_query(struct mpdclient *c, G_GNUC_UNUSED int exact_match,
  *-----------------------------------------------------------------------
  */
 static struct filelist *
-search_advanced_query(char *query, struct mpdclient *c)
+search_advanced_query(struct mpd_connection *connection, char *query)
 {
 	int i,j;
 	char **strv;
@@ -259,31 +259,29 @@ search_advanced_query(char *query, struct mpdclient *c)
 	 *-----------------------------------------------------------------------
 	 */
 	/** stupid - but this is just a test...... (fulhack)  */
-	mpd_search_db_songs(c->connection, false);
+	mpd_search_db_songs(connection, false);
 
 	for (i = 0; i < 10 && arg[i] != NULL; i++) {
 		if (table[i] == SEARCH_URI)
-			mpd_search_add_uri_constraint(c->connection,
+			mpd_search_add_uri_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,
 						      arg[i]);
 		else
-			mpd_search_add_tag_constraint(c->connection,
+			mpd_search_add_tag_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,
 						      table[i], arg[i]);
 	}
 
-	mpd_search_commit(c->connection);
+	mpd_search_commit(connection);
 
 	fl = filelist_new();
 
-	while ((entity = mpd_recv_entity(c->connection)) != NULL)
+	while ((entity = mpd_recv_entity(connection)) != NULL)
 		filelist_append(fl, entity);
 
-	if (!mpd_response_finish(c->connection)) {
+	if (!mpd_response_finish(connection)) {
 		filelist_free(fl);
 		fl = NULL;
-
-		mpdclient_handle_error(c);
 	}
 
 	for (i = 0; arg[i] != NULL; ++i)
@@ -297,13 +295,18 @@ do_search(struct mpdclient *c, char *query)
 {
 	struct filelist *fl;
 
-	fl = search_advanced_query(query, c);
-	if (!advanced_search_mode && browser.filelist == NULL)
-		return search_simple_query(c, FALSE,
-					   mode[options.search_mode].table,
-					   query);
+	fl = search_advanced_query(c->connection, query);
+	if (fl != NULL)
+		return fl;
 
-	return fl;
+	if (mpd_connection_get_error(c->connection) != MPD_ERROR_SUCCESS) {
+		mpdclient_handle_error(c);
+		return NULL;
+	}
+
+	return search_simple_query(c, FALSE,
+				   mode[options.search_mode].table,
+				   query);
 }
 
 static void
