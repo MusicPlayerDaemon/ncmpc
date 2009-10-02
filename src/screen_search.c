@@ -297,6 +297,20 @@ search_advanced_query(char *query, struct mpdclient *c)
 	return fl;
 }
 
+static struct filelist *
+do_search(struct mpdclient *c, char *query)
+{
+	struct filelist *fl;
+
+	fl = search_advanced_query(query, c);
+	if (!advanced_search_mode && browser.filelist == NULL)
+		return filelist_search(c, FALSE,
+				       mode[options.search_mode].table,
+				       query);
+
+	return fl;
+}
+
 static void
 search_new(struct mpdclient *c)
 {
@@ -321,12 +335,7 @@ search_new(struct mpdclient *c)
 		browser.filelist = NULL;
 	}
 
-	browser.filelist = search_advanced_query(pattern, c);
-	if (!advanced_search_mode && browser.filelist == NULL)
-		browser.filelist = filelist_search(c, FALSE,
-						  mode[options.search_mode].table,
-						  pattern);
-
+	browser.filelist = do_search(c, pattern);
 	if (browser.filelist == NULL)
 		browser.filelist = filelist_new();
 
