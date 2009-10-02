@@ -782,10 +782,8 @@ mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl)
 		    mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 			const struct mpd_song *song =
 				mpd_entity_get_song(entity);
-			const char *uri = mpd_song_get_uri(song);
 
-			if (uri != NULL)
-				mpd_send_add(c->connection, uri);
+			mpd_send_add(c->connection, mpd_song_get_uri(song));
 		}
 	}
 
