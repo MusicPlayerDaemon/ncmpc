@@ -204,6 +204,7 @@ search_advanced_query(char *query, struct mpdclient *c)
 	int table[10];
 	char *arg[10];
 	struct filelist *fl = NULL;
+	struct mpd_entity *entity;
 
 	advanced_search_mode = FALSE;
 	if (strchr(query, ':') == NULL)
@@ -245,49 +246,48 @@ search_advanced_query(char *query, struct mpdclient *c)
 
 	g_strfreev(strv);
 
-
-	if (advanced_search_mode && j > 0) {
-		int iter;
-		struct mpd_entity *entity;
-
-		/*-----------------------------------------------------------------------
-		 * NOTE (again): This code exists to test a new search ui,
-		 *               Its ugly and MUST be redesigned before the next release!
-		 *             + the code below should live in mpdclient.c
-		 *-----------------------------------------------------------------------
-		 */
-		/** stupid - but this is just a test...... (fulhack)  */
-		mpd_search_db_songs(c->connection, false);
-
-		for(iter = 0; iter < 10 && arg[iter] != NULL; iter++) {
-			if (table[iter] == SEARCH_URI)
-				mpd_search_add_uri_constraint(c->connection,
-							      MPD_OPERATOR_DEFAULT,
-							      arg[iter]);
-			else
-				mpd_search_add_tag_constraint(c->connection,
-							      MPD_OPERATOR_DEFAULT,
-							      table[iter], arg[iter]);
-		}
-
-		mpd_search_commit(c->connection);
-
-		fl = filelist_new();
-
-		while ((entity = mpd_recv_entity(c->connection)) != NULL)
-			filelist_append(fl, entity);
-
-		if (!mpd_response_finish(c->connection)) {
-			filelist_free(fl);
-			fl = NULL;
-
-			mpdclient_handle_error(c);
-		}
+	if (!advanced_search_mode || j == 0) {
+		for (i = 0; arg[i] != NULL; ++i)
+			g_free(arg[i]);
+		return NULL;
 	}
 
-	i=0;
-	while( arg[i] )
-		g_free(arg[i++]);
+	/*-----------------------------------------------------------------------
+	 * NOTE (again): This code exists to test a new search ui,
+	 *               Its ugly and MUST be redesigned before the next release!
+	 *             + the code below should live in mpdclient.c
+	 *-----------------------------------------------------------------------
+	 */
+	/** stupid - but this is just a test...... (fulhack)  */
+	mpd_search_db_songs(c->connection, false);
+
+	for (i = 0; i < 10 && arg[i] != NULL; i++) {
+		if (table[i] == SEARCH_URI)
+			mpd_search_add_uri_constraint(c->connection,
+						      MPD_OPERATOR_DEFAULT,
+						      arg[i]);
+		else
+			mpd_search_add_tag_constraint(c->connection,
+						      MPD_OPERATOR_DEFAULT,
+						      table[i], arg[i]);
+	}
+
+	mpd_search_commit(c->connection);
+
+	fl = filelist_new();
+
+	while ((entity = mpd_recv_entity(c->connection)) != NULL)
+		filelist_append(fl, entity);
+
+	if (!mpd_response_finish(c->connection)) {
+		filelist_free(fl);
+		fl = NULL;
+
+		mpdclient_handle_error(c);
+	}
+
+	for (i = 0; arg[i] != NULL; ++i)
+		g_free(arg[i]);
 
 	return fl;
 }
