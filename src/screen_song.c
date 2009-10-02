@@ -319,13 +319,13 @@ screen_song_add_stats(const struct mpdclient *c)
 		g_snprintf(buf, sizeof(buf), "%d",
 			   mpd_stats_get_number_of_songs(mpd_stats));
 		screen_song_append(labels[SONGS], buf, max_label_width);
-		duration = time_seconds_to_durationstr(mpd_stats_get_db_play_time(mpd_stats));
+		duration = format_duration_long(mpd_stats_get_db_play_time(mpd_stats));
 		screen_song_append(labels[DBPLAYTIME], duration, max_label_width);
 		g_free(duration);
-		duration = time_seconds_to_durationstr(mpd_stats_get_play_time(mpd_stats));
+		duration = format_duration_long(mpd_stats_get_play_time(mpd_stats));
 		screen_song_append(labels[PLAYTIME], duration, max_label_width);
 		g_free(duration);
-		duration = time_seconds_to_durationstr(mpd_stats_get_uptime(mpd_stats));
+		duration = format_duration_long(mpd_stats_get_uptime(mpd_stats));
 		screen_song_append(labels[UPTIME], duration, max_label_width);
 		g_free(duration);
 		date = g_date_new();

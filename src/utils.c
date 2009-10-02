@@ -123,7 +123,7 @@ gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 }
 
 char *
-time_seconds_to_durationstr(unsigned long time_seconds)
+format_duration_long(unsigned long duration)
 {
 	const char *year = _("year");
 	const char *years = _("years");
@@ -131,46 +131,43 @@ time_seconds_to_durationstr(unsigned long time_seconds)
 	const char *weeks = _("weeks");
 	const char *day = _("day");
 	const char *days = _("days");
-	char *duration;
-	char *iter;
+	char *buffer, *p;
 	unsigned bytes_written = 0;
 	unsigned length = utf8_width(years) +
 		utf8_width(weeks) + utf8_width(days) + 32;
 
-	duration = g_malloc(length);
-	iter = duration;
-	if (time_seconds / 31536000 > 0) {
-		if (time_seconds / 31536000 == 1)
-			bytes_written = g_snprintf(iter, length, "%d %s, ", 1, year);
+	buffer = g_malloc(length);
+	p = buffer;
+	if (duration / 31536000 > 0) {
+		if (duration / 31536000 == 1)
+			bytes_written = g_snprintf(p, length, "%d %s, ", 1, year);
 		else
-			bytes_written = g_snprintf(iter, length, "%lu %s, ", time_seconds / 31536000, years);
-		time_seconds %= 31536000;
+			bytes_written = g_snprintf(p, length, "%lu %s, ", duration / 31536000, years);
+		duration %= 31536000;
 		length -= bytes_written;
-		iter += bytes_written;
+		p += bytes_written;
 	}
-	if (time_seconds / 604800 > 0) {
-		if (time_seconds / 604800 == 1)
-			bytes_written = g_snprintf(iter, length, "%d %s, ", 1, week);
+	if (duration / 604800 > 0) {
+		if (duration / 604800 == 1)
+			bytes_written = g_snprintf(p, length, "%d %s, ", 1, week);
 		else
-			bytes_written = g_snprintf(iter, length, "%lu %s, ", time_seconds / 604800, weeks);
-		time_seconds %= 604800;
+			bytes_written = g_snprintf(p, length, "%lu %s, ", duration / 604800, weeks);
+		duration %= 604800;
 		length -= bytes_written;
-		iter += bytes_written;
+		p += bytes_written;
 	}
-	if (time_seconds / 86400 > 0) {
-		if (time_seconds / 86400 == 1)
-			bytes_written = g_snprintf(iter, length, "%d %s, ", 1, day);
+	if (duration / 86400 > 0) {
+		if (duration / 86400 == 1)
+			bytes_written = g_snprintf(p, length, "%d %s, ", 1, day);
 		else
-			bytes_written = g_snprintf(iter, length, "%lu %s, ", time_seconds / 86400, days);
-		time_seconds %= 86400;
+			bytes_written = g_snprintf(p, length, "%lu %s, ", duration / 86400, days);
+		duration %= 86400;
 		length -= bytes_written;
-		iter += bytes_written;
+		p += bytes_written;
 	}
-	g_snprintf(iter, length, "%02lu:%02lu:%02lu",
-			time_seconds / 3600,
-			time_seconds % 3600 / 60,
-			time_seconds % 3600 % 60);
-	return duration;
+	g_snprintf(p, length, "%02lu:%02lu:%02lu", duration / 3600,
+		   duration % 3600 / 60, duration % 3600 % 60);
+	return buffer;
 }
 
 
