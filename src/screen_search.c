@@ -321,9 +321,7 @@ search_new(struct mpdclient *c)
 		browser.filelist = NULL;
 	}
 
-	if (mpd_connection_cmp_server_version(c->connection, 0, 12, 0) >= 0)
-		browser.filelist = search_advanced_query(pattern, c);
-
+	browser.filelist = search_advanced_query(pattern, c);
 	if (!advanced_search_mode && browser.filelist == NULL)
 		browser.filelist = filelist_search(c, FALSE,
 						  mode[options.search_mode].table,
