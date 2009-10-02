@@ -267,8 +267,8 @@ screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 	}
 }
 
-static void
-screen_song_add_stats(const struct mpdclient *c)
+static bool
+screen_song_add_stats(struct mpd_connection *connection)
 {
 	unsigned i, max_label_width;
 	char buf[64];
@@ -285,51 +285,50 @@ screen_song_add_stats(const struct mpdclient *c)
 		[PLAYTIME] = _("Playtime"),
 		[DBPLAYTIME] = _("DB playtime")
 	};
-	struct mpd_stats *mpd_stats = NULL;
+	struct mpd_stats *mpd_stats;
 
-	if (c->connection != NULL) {
-		mpd_stats = mpd_run_stats(c->connection);
+	mpd_stats = mpd_run_stats(connection);
+	if (mpd_stats == NULL)
+		return false;
+
+	/* Determine the width of the longest label */
+	max_label_width = utf8_width(labels[0]);
+	for (i = 1; i < G_N_ELEMENTS(labels); ++i) {
+		if (utf8_width(labels[i]) > max_label_width)
+			max_label_width = utf8_width(labels[i]);
 	}
 
-	if (mpd_stats != NULL) {
-		/* Determine the width of the longest label */
-		max_label_width = utf8_width(labels[0]);
-		for (i = 1; i < G_N_ELEMENTS(labels); ++i) {
-			if (utf8_width(labels[i]) > max_label_width)
-				max_label_width = utf8_width(labels[i]);
-		}
+	g_ptr_array_add(current.lines, g_strdup(_("MPD statistics")) );
+	g_snprintf(buf, sizeof(buf), "%d",
+		   mpd_stats_get_number_of_artists(mpd_stats));
+	screen_song_append(labels[ARTISTS], buf, max_label_width);
+	g_snprintf(buf, sizeof(buf), "%d",
+		   mpd_stats_get_number_of_albums(mpd_stats));
+	screen_song_append(labels[ALBUMS], buf, max_label_width);
+	g_snprintf(buf, sizeof(buf), "%d",
+		   mpd_stats_get_number_of_songs(mpd_stats));
+	screen_song_append(labels[SONGS], buf, max_label_width);
 
-		g_ptr_array_add(current.lines, g_strdup(_("MPD statistics")) );
-		g_snprintf(buf, sizeof(buf), "%d",
-			   mpd_stats_get_number_of_artists(mpd_stats));
-		screen_song_append(labels[ARTISTS], buf, max_label_width);
-		g_snprintf(buf, sizeof(buf), "%d",
-			   mpd_stats_get_number_of_albums(mpd_stats));
-		screen_song_append(labels[ALBUMS], buf, max_label_width);
-		g_snprintf(buf, sizeof(buf), "%d",
-			   mpd_stats_get_number_of_songs(mpd_stats));
-		screen_song_append(labels[SONGS], buf, max_label_width);
+	format_duration_long(buf, sizeof(buf),
+			     mpd_stats_get_db_play_time(mpd_stats));
+	screen_song_append(labels[DBPLAYTIME], buf, max_label_width);
 
-		format_duration_long(buf, sizeof(buf),
-				     mpd_stats_get_db_play_time(mpd_stats));
-		screen_song_append(labels[DBPLAYTIME], buf, max_label_width);
+	format_duration_long(buf, sizeof(buf),
+			     mpd_stats_get_play_time(mpd_stats));
+	screen_song_append(labels[PLAYTIME], buf, max_label_width);
 
-		format_duration_long(buf, sizeof(buf),
-				     mpd_stats_get_play_time(mpd_stats));
-		screen_song_append(labels[PLAYTIME], buf, max_label_width);
+	format_duration_long(buf, sizeof(buf),
+			     mpd_stats_get_uptime(mpd_stats));
+	screen_song_append(labels[UPTIME], buf, max_label_width);
 
-		format_duration_long(buf, sizeof(buf),
-				     mpd_stats_get_uptime(mpd_stats));
-		screen_song_append(labels[UPTIME], buf, max_label_width);
+	date = g_date_new();
+	g_date_set_time_t(date, mpd_stats_get_db_update_time(mpd_stats));
+	g_date_strftime(buf, sizeof(buf), "%x", date);
+	screen_song_append(labels[DBUPTIME], buf, max_label_width);
+	g_date_free(date);
 
-		date = g_date_new();
-		g_date_set_time_t(date, mpd_stats_get_db_update_time(mpd_stats));
-		g_date_strftime(buf, sizeof(buf), "%x", date);
-		screen_song_append(labels[DBUPTIME], buf, max_label_width);
-		g_date_free(date);
-
-		mpd_stats_free(mpd_stats);
-	}
+	mpd_stats_free(mpd_stats);
+	return true;
 }
 
 static void
@@ -372,8 +371,10 @@ screen_song_update(struct mpdclient *c)
 	}
 
 	/* Add some statistics about mpd */
-	if (c->connection != NULL)
-		screen_song_add_stats(c);
+	if (mpdclient_is_connected(c)) {
+		if (!screen_song_add_stats(c->connection))
+			mpdclient_handle_error(c);
+	}
 
 	screen_song_repaint();
 }
