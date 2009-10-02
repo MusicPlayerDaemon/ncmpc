@@ -161,8 +161,8 @@ search_clear(bool clear_pattern)
 }
 
 static struct filelist *
-filelist_search(struct mpdclient *c, G_GNUC_UNUSED int exact_match, int table,
-		gchar *local_pattern)
+search_simple_query(struct mpdclient *c, G_GNUC_UNUSED int exact_match,
+		    int table, gchar *local_pattern)
 {
 	struct filelist *list, *list2;
 	gchar *filter_utf8 = locale_to_utf8(local_pattern);
@@ -304,9 +304,9 @@ do_search(struct mpdclient *c, char *query)
 
 	fl = search_advanced_query(query, c);
 	if (!advanced_search_mode && browser.filelist == NULL)
-		return filelist_search(c, FALSE,
-				       mode[options.search_mode].table,
-				       query);
+		return search_simple_query(c, FALSE,
+					   mode[options.search_mode].table,
+					   query);
 
 	return fl;
 }
