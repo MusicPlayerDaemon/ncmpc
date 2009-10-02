@@ -150,8 +150,8 @@ status_bar_paint(const struct status_bar *p, const struct mpd_status *status,
 			time(&timep);
 			strftime(buffer, sizeof(buffer), "%X ",localtime(&timep));
 		} else
-			buffer[0] = 0;
 #endif
+			buffer[0] = 0;
 	}
 
 	/* display song */
