@@ -211,11 +211,6 @@ search_advanced_query(char *query, struct mpdclient *c)
 
 	strv = g_strsplit_set(query, ": ", 0);
 
-	i=0;
-	while (strv[i]) {
-		i++;
-	}
-
 	memset(table, 0, 10*sizeof(int));
 	memset(arg, 0, 10*sizeof(char *));
 
