@@ -300,7 +300,7 @@ search_advanced_query(char *query, struct mpdclient *c)
 static void
 search_new(struct mpdclient *c)
 {
-	if (c->connection == NULL)
+	if (!mpdclient_is_connected(c))
 		return;
 
 	search_clear(true);

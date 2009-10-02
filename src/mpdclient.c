@@ -37,7 +37,7 @@
 static bool
 MPD_ERROR(const struct mpdclient *client)
 {
-	return client->connection == NULL ||
+	return !mpdclient_is_connected(client) ||
 		mpd_connection_get_error(client->connection) != MPD_ERROR_SUCCESS;
 }
 

@@ -73,7 +73,7 @@ screen_database_update(struct mpdclient *c, const char *path)
 	unsigned id;
 
 	assert(c != NULL);
-	assert(c->connection != NULL);
+	assert(mpdclient_is_connected(c));
 
 	id = mpd_run_update(c->connection, path);
 	if (id == 0) {

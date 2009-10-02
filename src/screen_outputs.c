@@ -107,7 +107,7 @@ fill_outputs_list(struct mpdclient *c)
 
 	assert(mpd_outputs != NULL);
 
-	if (c->connection == NULL)
+	if (!mpdclient_is_connected(c))
 		return;
 
 	mpd_send_outputs(c->connection);

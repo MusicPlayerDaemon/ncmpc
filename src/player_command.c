@@ -35,6 +35,11 @@ commit_seek(struct mpdclient *c)
 	if (seek_id < 0)
 		return;
 
+	if (!mpdclient_is_connected(c)) {
+		seek_id = -1;
+		return;
+	}
+
 	if (c->song != NULL && (unsigned)seek_id == mpd_song_get_id(c->song))
 		if (!mpd_run_seek_id(c->connection, seek_id, seek_target_time))
 			mpdclient_handle_error(c);
@@ -78,7 +83,7 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 {
 	const struct mpd_song *song;
 
-	if (c->connection == NULL || c->status == NULL)
+	if (!mpdclient_is_connected(c) || c->status == NULL)
 		return false;
 
 	cancel_seek_timer();
