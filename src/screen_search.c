@@ -435,10 +435,7 @@ screen_search_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_SCREEN_UPDATE:
 		if (pattern) {
 			search_clear(false);
-			browser.filelist = filelist_search(c,
-							  FALSE,
-							  mode[options.search_mode].table,
-							  pattern);
+			browser.filelist = do_search(c, pattern);
 			screen_browser_sync_highlights(browser.filelist,
 						       &c->playlist);
 		}
