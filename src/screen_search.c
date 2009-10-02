@@ -161,30 +161,38 @@ search_clear(bool clear_pattern)
 }
 
 static struct filelist *
-search_simple_query(struct mpdclient *c, G_GNUC_UNUSED int exact_match,
+search_simple_query(struct mpd_connection *connection, bool exact_match,
 		    int table, gchar *local_pattern)
 {
-	struct filelist *list, *list2;
+	struct filelist *list;
 	gchar *filter_utf8 = locale_to_utf8(local_pattern);
 
 	if (table == SEARCH_ARTIST_TITLE) {
-		list = mpdclient_filelist_search(c, FALSE, MPD_TAG_ARTIST,
-						 filter_utf8);
-		if (list == NULL)
-			list = filelist_new();
+		mpd_command_list_begin(connection, false);
 
-		list2 = mpdclient_filelist_search(c, FALSE, MPD_TAG_TITLE,
-						  filter_utf8);
-		if (list2 != NULL) {
-			filelist_move(list, list2);
-			filelist_free(list2);
-		}
+		mpd_search_db_songs(connection, exact_match);
+		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
+					      MPD_TAG_ARTIST, filter_utf8);
+		mpd_search_commit(connection);
 
-		filelist_sort_all(list, compare_filelistentry_format);
+		mpd_search_db_songs(connection, exact_match);
+		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
+					      MPD_TAG_TITLE, filter_utf8);
+		mpd_search_commit(connection);
+
+		mpd_command_list_end(connection);
+
+		list = filelist_new_recv(connection);
+
+		if (list != NULL)
+			filelist_sort_all(list, compare_filelistentry_format);
 	} else {
-		list = mpdclient_filelist_search(c, FALSE, table, filter_utf8);
-		if (list == NULL)
-			list = filelist_new();
+		mpd_search_db_songs(connection, exact_match);
+		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
+					      table, filter_utf8);
+		mpd_search_commit(connection);
+
+		list = filelist_new_recv(connection);
 	}
 
 	g_free(filter_utf8);
@@ -298,9 +306,12 @@ do_search(struct mpdclient *c, char *query)
 		return NULL;
 	}
 
-	return search_simple_query(c, FALSE,
-				   mode[options.search_mode].table,
-				   query);
+	fl = search_simple_query(c->connection, FALSE,
+				 mode[options.search_mode].table,
+				 query);
+	if (fl == NULL)
+		mpdclient_handle_error(c);
+	return fl;
 }
 
 static void
