@@ -236,18 +236,9 @@ screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 			       max_label_width);
 	/* create time string and add it */
 	if (mpd_song_get_duration(song) > 0) {
-		unsigned t = mpd_song_get_duration(song);
 		char length[16];
-
-		/*write out the time, using hours if time over 60 minutes*/
-		if (t > 3600) {
-			g_snprintf(length, sizeof(length),
-					"%i:%02i:%02i",
-					t/3600, (t%3600)/60, t%60);
-		} else {
-			g_snprintf(length, sizeof(length),
-					"%i:%02i", t/60, t%60);
-		}
+		format_duration_short(length, sizeof(length),
+				      mpd_song_get_duration(song));
 		screen_song_append(labels[LENGTH], length, max_label_width);
 	}
 	screen_song_append_tag(labels[COMPOSER], song, MPD_TAG_COMPOSER,

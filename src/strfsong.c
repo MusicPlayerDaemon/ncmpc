@@ -19,6 +19,7 @@
 
 #include "strfsong.h"
 #include "charset.h"
+#include "utils.h"
 
 #include <mpd/client.h>
 
@@ -184,16 +185,10 @@ _strfsong(gchar *s,
 			unsigned duration = mpd_song_get_duration(song);
 
 			if (duration > 0)  {
-				if (duration > 3600) {
-					temp = g_strdup_printf("%d:%02d:%02d",
-							       duration / 3600,
-							       (duration % 3600) / 60,
-							       duration % 60);
-				} else {
-					temp = g_strdup_printf("%d:%02d",
-							       duration / 60,
-							       duration % 60);
-				}
+				char buffer[32];
+				format_duration_short(buffer, sizeof(buffer),
+						      duration);
+				temp = g_strdup(buffer);
 			}
 		}
 

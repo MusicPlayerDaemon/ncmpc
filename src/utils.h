@@ -41,6 +41,9 @@ gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 		    GList *list, gint types);
 
 void
+format_duration_short(char *buffer, size_t length, unsigned duration);
+
+void
 format_duration_long(char *buffer, size_t length, unsigned long duration);
 
 #endif

@@ -24,6 +24,7 @@
 #include "charset.h"
 #include "strfsong.h"
 #include "player_command.h"
+#include "utils.h"
 
 #ifndef NCMPC_MINI
 #include "hscroll.h"
@@ -99,6 +100,8 @@ status_bar_paint(const struct status_bar *p, const struct mpd_status *status,
 	if (state == MPD_STATE_PLAY || state == MPD_STATE_PAUSE) {
 		int total_time = mpd_status_get_total_time(status);
 		if (total_time > 0) {
+			char elapsed_string[32], duration_string[32];
+
 			/*checks the conf to see whether to display elapsed or remaining time */
 			if(!strcmp(options.timedisplay_type,"elapsed"))
 				elapsedTime = mpd_status_get_elapsed_time(status);
@@ -121,20 +124,16 @@ status_bar_paint(const struct status_bar *p, const struct mpd_status *status,
 			}
 #endif
 
-			/*write out the time, using hours if time over 60 minutes*/
-			if (total_time > 3600) {
-				g_snprintf(buffer, sizeof(buffer),
-					   "%s [%i:%02i:%02i/%i:%02i:%02i]",
-					   bitrate, elapsedTime/3600, (elapsedTime%3600)/60, elapsedTime%60,
-					   total_time / 3600,
-					   (total_time % 3600)/60,
-					   total_time % 60);
-			} else {
-				g_snprintf(buffer, sizeof(buffer),
-					   "%s [%i:%02i/%i:%02i]",
-					   bitrate, elapsedTime/60, elapsedTime%60,
-					   total_time / 60, total_time % 60);
-			}
+			/* write out the time */
+			format_duration_short(elapsed_string,
+					      sizeof(elapsed_string),
+					      elapsedTime);
+			format_duration_short(duration_string,
+					      sizeof(duration_string),
+					      total_time);
+
+			g_snprintf(buffer, sizeof(buffer), "%s [%s/%s]",
+				   bitrate, elapsed_string, duration_string);
 #ifndef NCMPC_MINI
 		} else {
 			g_snprintf(buffer, sizeof(buffer),

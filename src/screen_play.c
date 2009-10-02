@@ -116,17 +116,6 @@ playlist_restore_selection(void)
 	playlist_save_selection();
 }
 
-#ifndef NCMPC_MINI
-static char *
-format_duration(unsigned duration)
-{
-	if (duration == 0)
-		return NULL;
-
-	return g_strdup_printf("%d:%02d", duration / 60, duration % 60);
-}
-#endif
-
 static const char *
 list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED void *data)
 {
@@ -146,8 +135,12 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, song);
 
 #ifndef NCMPC_MINI
-	if(second_column)
-		*second_column = format_duration(mpd_song_get_duration(song));
+	if (second_column != NULL && mpd_song_get_duration(song) > 0) {
+		char duration[32];
+		format_duration_short(duration, sizeof(duration),
+				      mpd_song_get_duration(song));
+		*second_column = g_strdup(duration);
+	}
 
 	if (idx == lw->selected)
 	{

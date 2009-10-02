@@ -123,6 +123,18 @@ gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 }
 
 void
+format_duration_short(char *buffer, size_t length, unsigned duration)
+{
+	if (duration < 3600)
+		g_snprintf(buffer, length,
+			   "%i:%02i", duration / 60, duration % 60);
+	else
+		g_snprintf(buffer, length,
+			   "%i:%02i:%02i", duration / 3600,
+			   (duration % 3600) / 60, duration % 60);
+}
+
+void
 format_duration_long(char *p, size_t length, unsigned long duration)
 {
 	const char *year = _("year");
