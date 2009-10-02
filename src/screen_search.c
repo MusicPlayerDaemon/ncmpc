@@ -206,7 +206,7 @@ search_advanced_query(char *query, struct mpdclient *c)
 	struct filelist *fl = NULL;
 
 	advanced_search_mode = FALSE;
-	if( g_strrstr(query, ":") == NULL )
+	if (strchr(query, ':') == NULL)
 		return NULL;
 
 	strv = g_strsplit_set(query, ": ", 0);
