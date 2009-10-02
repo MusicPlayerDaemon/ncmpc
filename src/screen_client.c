@@ -78,10 +78,10 @@ screen_database_update(struct mpdclient *c, const char *path)
 	id = mpd_run_update(c->connection, path);
 	if (id == 0) {
 		if (mpd_connection_get_error(c->connection) == MPD_ERROR_SERVER &&
-		    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_UPDATE_ALREADY) {
+		    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_UPDATE_ALREADY &&
+		    mpd_connection_clear_error(c->connection))
 			screen_status_printf(_("Database update running..."));
-			mpd_connection_clear_error(c->connection);
-		} else
+		else
 			mpdclient_handle_error(c);
 		return;
 	}
