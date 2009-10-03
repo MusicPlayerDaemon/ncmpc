@@ -744,23 +744,6 @@ mpdclient_recv_filelist_response(struct mpdclient *c)
 	return filelist;
 }
 
-struct filelist *
-mpdclient_filelist_search(struct mpdclient *c,
-			  int exact_match,
-			  enum mpd_tag_type tag,
-			  gchar *filter_utf8)
-{
-	if (MPD_ERROR(c))
-		return NULL;
-
-	mpd_search_db_songs(c->connection, exact_match);
-	mpd_search_add_tag_constraint(c->connection, MPD_OPERATOR_DEFAULT,
-				      tag, filter_utf8);
-	mpd_search_commit(c->connection);
-
-	return mpdclient_recv_filelist_response(c);
-}
-
 bool
 mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl)
 {
