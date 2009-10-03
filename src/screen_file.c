@@ -54,16 +54,29 @@ screen_file_repaint(void)
 static void
 screen_file_reload(struct mpdclient *c)
 {
+	struct mpd_connection *connection;
+
 	if (browser.filelist != NULL)
 		filelist_free(browser.filelist);
 
-	browser.filelist = mpdclient_filelist_get(c, current_path);
-	if (browser.filelist == NULL)
-		browser.filelist = filelist_new();
-
+	browser.filelist = filelist_new();
 	if (*current_path != 0)
 		/* add a dummy entry for ./.. */
-		filelist_prepend(browser.filelist, NULL);
+		filelist_append(browser.filelist, NULL);
+
+	if (!mpdclient_is_connected(c))
+		return;
+
+	connection = c->connection;
+
+	mpd_send_list_meta(connection, current_path);
+	filelist_recv(browser.filelist, connection);
+
+	if (mpd_response_finish(connection))
+		filelist_sort_dir_play(browser.filelist,
+				       compare_filelist_entry_path);
+	else
+		mpdclient_handle_error(c);
 }
 
 /**
