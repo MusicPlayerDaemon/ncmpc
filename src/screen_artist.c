@@ -204,13 +204,14 @@ load_song_list(struct mpdclient *c)
 					      MPD_TAG_ALBUM, album);
 	mpd_search_commit(connection);
 
-	browser.filelist = filelist_new_recv(connection);
+	browser.filelist = filelist_new();
+	/* add a dummy entry for ".." */
+	filelist_append(browser.filelist, NULL);
+
+	filelist_recv(browser.filelist, connection);
 
 	if (!mpd_response_finish(connection))
 		mpdclient_handle_error(c);
-
-	/* add a dummy entry for ".." */
-	filelist_prepend(browser.filelist, NULL);
 
 #ifndef NCMPC_MINI
 	/* fix highlights */
