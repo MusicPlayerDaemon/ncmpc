@@ -56,10 +56,8 @@ typedef struct
 	struct mpdclient *c;
 } completion_callback_data_t;
 
-#ifndef NCMPC_MINI
 static struct hscroll hscroll;
-#endif
-static bool must_scroll;
+static guint scroll_source_id;
 #endif
 
 static struct mpdclient_playlist *playlist;
@@ -119,6 +117,18 @@ playlist_restore_selection(void)
 	playlist_save_selection();
 }
 
+#ifndef NCMPC_MINI
+static gboolean
+scroll_timer_callback(G_GNUC_UNUSED gpointer data)
+{
+	scroll_source_id = 0;
+
+	hscroll_step(&hscroll);
+	playlist_repaint();
+	return false;
+}
+#endif
+
 static const char *
 list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED void *data)
 {
@@ -152,8 +162,6 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 			static unsigned current_song;
 			char *tmp;
 
-			must_scroll = true;
-
 			if (current_song != lw->selected) {
 				hscroll_reset(&hscroll);
 				current_song = lw->selected;
@@ -163,9 +171,20 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 					MAX_SONG_LENGTH);
 			g_strlcpy(songname, tmp, MAX_SONG_LENGTH);
 			g_free(tmp);
-		}
-		else
+
+			if (scroll_source_id == 0)
+				scroll_source_id =
+					g_timeout_add(1000,
+						      scroll_timer_callback,
+						      NULL);
+		} else {
 			hscroll_reset(&hscroll);
+
+			if (scroll_source_id != 0) {
+				g_source_remove(scroll_source_id);
+				scroll_source_id = 0;
+			}
+		}
 	}
 #else
 	(void)second_column;
@@ -544,10 +563,6 @@ screen_playlist_title(char *str, size_t size)
 static void
 screen_playlist_paint(void)
 {
-#ifndef NCMPC_MINI
-	must_scroll = false;
-#endif
-
 	list_window_paint(lw, list_callback, NULL);
 }
 
@@ -572,12 +587,6 @@ screen_playlist_update(struct mpdclient *c)
 			center_playing_item(c, false);
 
 		playlist_repaint();
-#ifndef NCMPC_MINI
-	} else if (options.scroll && must_scroll) {
-		/* always repaint if horizontal scrolling is
-		   enabled */
-		playlist_repaint();
-#endif
 	} else if (c->events & MPD_IDLE_PLAYLIST) {
 		/* the playlist has changed, we must paint the new
 		   version */

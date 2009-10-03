@@ -31,6 +31,21 @@
 #include <assert.h>
 #include <string.h>
 
+#ifndef NCMPC_MINI
+static gboolean
+scroll_timer_callback(gpointer data)
+{
+	struct status_bar *p = data;
+
+	p->scroll_source_id = 0;
+
+	hscroll_step(&p->hscroll);
+	status_bar_paint(p, p->prev_status, p->prev_song);
+	doupdate();
+	return false;
+}
+#endif
+
 static gboolean
 status_bar_clear_message(gpointer data)
 {
@@ -64,6 +79,11 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 	const char *str = NULL;
 	int x = 0;
 	char buffer[p->window.cols * 4 + 1];
+
+#ifndef NCMPC_MINI
+	p->prev_status = status;
+	p->prev_song = song;
+#endif
 
 	if (p->message_source_id != 0)
 		return;
@@ -171,10 +191,24 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 
 			g_strlcpy(songname, tmp, sizeof(songname));
 			g_free(tmp);
+
+			if (p->scroll_source_id == 0)
+				p->scroll_source_id =
+					g_timeout_add(1000,
+						      scroll_timer_callback,
+						      p);
+		} else if (p->scroll_source_id != 0) {
+			g_source_remove(p->scroll_source_id);
+			p->scroll_source_id = 0;
 		}
 #endif
 		//mvwaddnstr(w, 0, x, songname, width);
 		mvwaddstr(w, 0, x, songname);
+#ifndef NCMPC_MINI
+	} else if (p->scroll_source_id != 0) {
+		g_source_remove(p->scroll_source_id);
+		p->scroll_source_id = 0;
+#endif
 	}
 
 	/* display time string */

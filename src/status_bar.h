@@ -40,6 +40,10 @@ struct status_bar {
 
 #ifndef NCMPC_MINI
 	struct hscroll hscroll;
+	guint scroll_source_id;
+
+	const struct mpd_status *prev_status;
+	const struct mpd_song *prev_song;
 #endif
 };
 
@@ -55,7 +59,9 @@ status_bar_init(struct status_bar *p, unsigned width, int y, int x)
 
 #ifndef NCMPC_MINI
 	hscroll_reset(&p->hscroll);
-	p->hscroll.t = 0;
+	p->scroll_source_id = 0;
+	p->prev_status = NULL;
+	p->prev_song = NULL;
 #endif
 }
 

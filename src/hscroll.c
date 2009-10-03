@@ -34,10 +34,8 @@ strscroll(struct hscroll *hscroll, char *str, char *separator, unsigned width)
 	assert(str != NULL);
 	assert(separator != NULL);
 
-	if (hscroll->offset == 0) {
-		++hscroll->offset;
+	if (hscroll->offset == 0)
 		return g_strdup(str);
-	}
 
 	/* create a buffer containing the string and the separator */
 	size = strlen(str)+strlen(separator)+1;
@@ -62,11 +60,6 @@ strscroll(struct hscroll *hscroll, char *str, char *separator, unsigned width)
 		g_strlcpy(buf, tmp + hscroll->offset, size);
 		if (strlen(buf) < (size_t)width)
 			g_strlcat(buf, tmp, size);
-	}
-
-	if (time(NULL) - hscroll->t >= 1) {
-		hscroll->t = time(NULL);
-		hscroll->offset++;
 	}
 
 	g_free(tmp);
