@@ -22,7 +22,6 @@
 #include "charset.h"
 #include "i18n.h"
 #include "mpdclient.h"
-#include "filelist.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -77,19 +76,17 @@ GList *
 gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 		    GList *list, gint types)
 {
-	guint i;
-	struct filelist *filelist;
+	struct mpd_connection *connection;
+	struct mpd_entity *entity;
 
-	if ((filelist = mpdclient_filelist_get(c, path)) == NULL)
+	if (!mpdclient_is_connected(c))
 		return list;
 
-	for (i = 0; i < filelist_length(filelist); ++i) {
-		const struct mpd_entity *entity =
-			filelist_get(filelist, i)->entity;
-		char *name;
+	connection = c->connection;
+	mpd_send_list_meta(connection, path);
 
-		if (entity == NULL)
-			continue;
+	while ((entity = mpd_recv_entity(connection)) != NULL) {
+		char *name;
 
 		if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY &&
 		    types & GCMP_TYPE_DIR) {
@@ -112,13 +109,15 @@ gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 			const struct mpd_playlist *playlist =
 				mpd_entity_get_playlist(entity);
 			name = utf8_to_locale(mpd_playlist_get_path(playlist));
-		} else
+		} else {
+			mpd_entity_free(entity);
 			continue;
+		}
 
 		list = g_list_append(list, name);
+		mpd_entity_free(entity);
 	}
 
-	filelist_free(filelist);
 	return list;
 }
 
