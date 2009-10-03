@@ -190,6 +190,8 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 
 	assert(!mpdclient_is_connected(mpd));
 
+	reconnect_source_id = 0;
+
 	screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
 			     options.host, get_key_names(CMD_QUIT,0) );
 	doupdate();
@@ -201,7 +203,8 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 				    options.password);
 	if (!success) {
 		/* try again in 5 seconds */
-		g_timeout_add(5000, timer_reconnect, NULL);
+		reconnect_source_id = g_timeout_add(5000,
+						    timer_reconnect, NULL);
 		return FALSE;
 	}
 
@@ -217,7 +220,8 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 		doupdate();
 
 		/* try again after 30 seconds */
-		g_timeout_add(30000, timer_reconnect, NULL);
+		reconnect_source_id = g_timeout_add(30000,
+						    timer_reconnect, NULL);
 		return FALSE;
 	}
 #endif
@@ -230,9 +234,7 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 	/* update immediately */
 	g_timeout_add(1, timer_mpd_update, GINT_TO_POINTER(FALSE));
 
-	reconnect_source_id = 0;
 	return FALSE;
-
 }
 
 static gboolean
@@ -489,6 +491,9 @@ main(int argc, const char *argv[])
 	cancel_seek_timer();
 
 	disable_update_timer();
+
+	if (reconnect_source_id != 0)
+		g_source_remove(reconnect_source_id);
 
 #ifndef NCMPC_MINI
 	if (check_key_bindings_source_id != 0)
