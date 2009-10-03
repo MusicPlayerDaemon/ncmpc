@@ -26,10 +26,6 @@
 #include "player_command.h"
 #include "utils.h"
 
-#ifndef NCMPC_MINI
-#include "hscroll.h"
-#endif
-
 #include <mpd/client.h>
 
 #include <assert.h>
@@ -54,7 +50,7 @@ status_bar_clear_message(gpointer data)
 }
 
 void
-status_bar_paint(const struct status_bar *p, const struct mpd_status *status,
+status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 		 const struct mpd_song *song)
 {
 	WINDOW *w = p->window.w;
@@ -170,8 +166,7 @@ status_bar_paint(const struct status_bar *p, const struct mpd_status *status,
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
 		if (options.scroll && utf8_width(songname) > (unsigned)width) {
-			static struct hscroll hscroll = { 0, 0 };
-			char *tmp = strscroll(&hscroll, songname,
+			char *tmp = strscroll(&p->hscroll, songname,
 					      options.scroll_sep, width);
 
 			g_strlcpy(songname, tmp, sizeof(songname));

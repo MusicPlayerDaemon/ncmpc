@@ -22,6 +22,10 @@
 
 #include "window.h"
 
+#ifndef NCMPC_MINI
+#include "hscroll.h"
+#endif
+
 #include <glib.h>
 
 #include <stdbool.h>
@@ -33,6 +37,10 @@ struct status_bar {
 	struct window window;
 
 	guint message_source_id;
+
+#ifndef NCMPC_MINI
+	struct hscroll hscroll;
+#endif
 };
 
 static inline void
@@ -44,6 +52,11 @@ status_bar_init(struct status_bar *p, unsigned width, int y, int x)
 	keypad(p->window.w, true);
 
 	p->message_source_id = 0;
+
+#ifndef NCMPC_MINI
+	hscroll_reset(&p->hscroll);
+	p->hscroll.t = 0;
+#endif
 }
 
 static inline void
@@ -56,7 +69,7 @@ status_bar_deinit(struct status_bar *p)
 }
 
 void
-status_bar_paint(const struct status_bar *p, const struct mpd_status *status,
+status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 		 const struct mpd_song *song);
 
 void
