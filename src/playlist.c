@@ -21,10 +21,6 @@
 
 #include <string.h>
 
-#define ENABLE_PLCHANGES
-
-#define MPD_ERROR(c) (c==NULL || c->connection==NULL || c->connection->error)
-
 void
 playlist_init(struct mpdclient_playlist *playlist)
 {
