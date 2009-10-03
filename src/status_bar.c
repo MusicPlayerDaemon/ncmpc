@@ -170,8 +170,9 @@ status_bar_paint(const struct status_bar *p, const struct mpd_status *status,
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
 		if (options.scroll && utf8_width(songname) > (unsigned)width) {
-			static  scroll_state_t st = { 0, 0 };
-			char *tmp = strscroll(songname, options.scroll_sep, width, &st);
+			static struct hscroll hscroll = { 0, 0 };
+			char *tmp = strscroll(&hscroll, songname,
+					      options.scroll_sep, width);
 
 			g_strlcpy(songname, tmp, sizeof(songname));
 			g_free(tmp);

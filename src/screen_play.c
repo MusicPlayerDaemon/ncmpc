@@ -121,7 +121,7 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 {
 	static char songname[MAX_SONG_LENGTH];
 #ifndef NCMPC_MINI
-	static scroll_state_t st;
+	static struct hscroll hscroll;
 #endif
 	struct mpd_song *song;
 
@@ -155,17 +155,17 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 			must_scroll = true;
 
 			if (current_song != lw->selected) {
-				st.offset = 0;
+				hscroll.offset = 0;
 				current_song = lw->selected;
 			}
 
-			tmp = strscroll(songname, options.scroll_sep,
-					MAX_SONG_LENGTH, &st);
+			tmp = strscroll(&hscroll, songname, options.scroll_sep,
+					MAX_SONG_LENGTH);
 			g_strlcpy(songname, tmp, MAX_SONG_LENGTH);
 			g_free(tmp);
 		}
 		else
-			st.offset = 0;
+			hscroll.offset = 0;
 	}
 #else
 	(void)second_column;

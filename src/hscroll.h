@@ -22,11 +22,12 @@
 
 #include <glib.h>
 
-typedef struct {
+struct hscroll {
 	gsize offset;
 	GTime t; /* GTime is equivalent to time_t */
-} scroll_state_t;
+};
 
-char *strscroll(char *str, char *separator, int width, scroll_state_t *st);
+char *
+strscroll(struct hscroll *hscroll, char *str, char *separator, unsigned width);
 
 #endif
