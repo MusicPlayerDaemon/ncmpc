@@ -158,6 +158,27 @@ catch_sigwinch(G_GNUC_UNUSED int sig)
 static gboolean
 timer_mpd_update(gpointer data);
 
+static void
+enable_update_timer(void)
+{
+	if (update_source_id != 0)
+		return;
+
+	update_source_id = g_timeout_add(update_interval,
+					 timer_mpd_update,
+					 GINT_TO_POINTER(TRUE));
+}
+
+static void
+disable_update_timer(void)
+{
+	if (update_source_id == 0)
+		return;
+
+	g_source_remove(update_source_id);
+	update_source_id = 0;
+}
+
 /**
  * This timer is installed when the connection to the MPD server is
  * broken.  It tries to recover by reconnecting periodically.
@@ -255,10 +276,8 @@ int do_input_event(command_t cmd)
 
 	if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN) {
 		/* make sure we don't update the volume yet */
-		g_source_remove(update_source_id);
-		update_source_id = g_timeout_add(update_interval,
-						 timer_mpd_update,
-						 GINT_TO_POINTER(TRUE));
+		disable_update_timer();
+		enable_update_timer();
 	}
 
 	return 0;
@@ -455,9 +474,8 @@ main(int argc, const char *argv[])
 	/* attempt to connect */
 	reconnect_source_id = g_timeout_add(1, timer_reconnect, NULL);
 
-	update_source_id = g_timeout_add(update_interval,
-					 timer_mpd_update,
-					 GINT_TO_POINTER(TRUE));
+	enable_update_timer();
+
 #ifndef NCMPC_MINI
 	check_key_bindings_source_id = g_timeout_add(10000, timer_check_key_bindings, NULL);
 #endif
@@ -470,7 +488,7 @@ main(int argc, const char *argv[])
 
 	cancel_seek_timer();
 
-	g_source_remove(update_source_id);
+	disable_update_timer();
 
 #ifndef NCMPC_MINI
 	if (check_key_bindings_source_id != 0)
