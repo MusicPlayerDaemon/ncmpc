@@ -66,28 +66,6 @@ filelist_append(struct filelist *filelist, struct mpd_entity *entity)
 	return entry;
 }
 
-struct filelist_entry *
-filelist_prepend(struct filelist *filelist, struct mpd_entity *entity)
-{
-	struct filelist_entry *entry = filelist_append(filelist, entity);
-
-	/* this is very slow, but we should optimize screen_artist.c
-	   later so that this function can be removed, so I'm not in
-	   the mood to implement something better here */
-
-	if (!filelist_is_empty(filelist)) {
-		guint i;
-
-		for (i = filelist_length(filelist) - 1; i > 0; --i)
-			g_ptr_array_index(filelist->entries, i) =
-				filelist_get(filelist, i - 1);
-
-		g_ptr_array_index(filelist->entries, 0) = entry;
-	}
-
-	return entry;
-}
-
 void
 filelist_move(struct filelist *filelist, struct filelist *from)
 {
