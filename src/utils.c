@@ -84,8 +84,8 @@ gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 		return list;
 
 	for (i = 0; i < filelist_length(filelist); ++i) {
-		const struct filelist_entry *entry = filelist_get(filelist, i);
-		const struct mpd_entity *entity = entry ? entry->entity : NULL;
+		const struct mpd_entity *entity =
+			filelist_get(filelist, i)->entity;
 		char *name = NULL;
 
 		if (entity != NULL &&
