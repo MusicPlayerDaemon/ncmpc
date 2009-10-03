@@ -151,14 +151,16 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 			g_snprintf(buffer, sizeof(buffer), "%s [%s/%s]",
 				   bitrate, elapsed_string, duration_string);
 #ifndef NCMPC_MINI
-		} else {
+		} else if (options.visible_bitrate) {
 			g_snprintf(buffer, sizeof(buffer),
 				   " [%d kbps]",
 				   mpd_status_get_kbit_rate(status));
 #endif
+		} else {
+			buffer[0] = 0;
 		}
-#ifndef NCMPC_MINI
 	} else {
+#ifndef NCMPC_MINI
 		if (options.display_time) {
 			time_t timep;
 
