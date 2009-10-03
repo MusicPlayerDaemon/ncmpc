@@ -243,12 +243,15 @@ screen_resize(struct mpdclient *c)
 	screen_paint(c);
 }
 
+#ifndef NCMPC_MINI
 static gboolean
 welcome_timer_callback(gpointer data)
 {
 	struct mpdclient *c = data;
 
+#ifndef NCMPC_MINI
 	screen.welcome_source_id = 0;
+#endif
 
 	paint_top_window(mode_fn->get_title != NULL
 			 ? mode_fn->get_title(screen.buf, screen.buf_size)
@@ -258,6 +261,7 @@ welcome_timer_callback(gpointer data)
 
 	return false;
 }
+#endif
 
 void
 screen_init(struct mpdclient *c)
