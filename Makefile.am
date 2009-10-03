@@ -13,6 +13,7 @@ AM_CPPFLAGS = \
 
 ncmpc_headers = \
 	src/resolver.h \
+	src/gidle.h \
 	src/mpdclient.h \
 	src/playlist.h \
 	src/filelist.h \
@@ -70,6 +71,7 @@ src_ncmpc_SOURCES = \
 	$(ncmpc_headers) \
 	src/resolver.c \
 	src/main.c \
+	src/gidle.c \
 	src/mpdclient.c \
 	src/playlist.c \
 	src/filelist.c \

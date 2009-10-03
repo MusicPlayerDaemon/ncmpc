@@ -1,0 +1,363 @@
+/* ncmpc (Ncurses MPD Client)
+   (c) 2004-2009 The Music Player Daemon Project
+   Project homepage: http://musicpd.org
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+
+   - Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+   - Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR
+   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+#include "gidle.h"
+
+#include <mpd/async.h>
+#include <mpd/parser.h>
+
+#include <glib.h>
+#include <assert.h>
+#include <string.h>
+#include <sys/select.h>
+#include <errno.h>
+
+struct mpd_glib_source {
+	struct mpd_connection *connection;
+	struct mpd_async *async;
+	struct mpd_parser *parser;
+
+	mpd_glib_callback_t callback;
+	void *callback_ctx;
+
+	GIOChannel *channel;
+
+	enum mpd_async_event io_events;
+
+	guint id;
+
+	enum mpd_idle idle_events;
+};
+
+struct mpd_glib_source *
+mpd_glib_new(struct mpd_connection *connection,
+	     mpd_glib_callback_t callback, void *callback_ctx)
+{
+	struct mpd_glib_source *source = g_new(struct mpd_glib_source, 1);
+
+	source->connection = connection;
+	source->async = mpd_connection_get_async(connection);
+	source->parser = mpd_parser_new();
+	/* XXX check source->parser!=NULL */
+
+	source->callback = callback;
+	source->callback_ctx = callback_ctx;
+
+	source->channel = g_io_channel_unix_new(mpd_async_get_fd(source->async));
+	source->io_events = 0;
+	source->id = 0;
+
+	return source;
+}
+
+void
+mpd_glib_free(struct mpd_glib_source *source)
+{
+	if (source->id != 0)
+		g_source_remove(source->id);
+
+	g_io_channel_unref(source->channel);
+}
+
+static void
+mpd_glib_invoke(const struct mpd_glib_source *source)
+{
+	assert(source->id == 0);
+
+	if (source->idle_events != 0)
+		source->callback(MPD_ERROR_SUCCESS, 0, NULL,
+				 source->idle_events, source->callback_ctx);
+}
+
+static void
+mpd_glib_invoke_error(const struct mpd_glib_source *source,
+		      enum mpd_error error, enum mpd_server_error server_error,
+		      const char *message)
+{
+	assert(source->id == 0);
+
+	source->callback(error, server_error, message,
+			 0, source->callback_ctx);
+}
+
+static void
+mpd_glib_invoke_async_error(const struct mpd_glib_source *source)
+{
+	assert(source->id == 0);
+
+	mpd_glib_invoke_error(source, mpd_async_get_error(source->async), 0,
+			      mpd_async_get_error_message(source->async));
+}
+
+/**
+ * Converts a GIOCondition bit mask to #mpd_async_event.
+ */
+static enum mpd_async_event
+g_io_condition_to_mpd_async_event(GIOCondition condition)
+{
+	enum mpd_async_event events = 0;
+
+	if (condition & G_IO_IN)
+		events |= MPD_ASYNC_EVENT_READ;
+
+	if (condition & G_IO_OUT)
+		events |= MPD_ASYNC_EVENT_WRITE;
+
+	if (condition & G_IO_HUP)
+		events |= MPD_ASYNC_EVENT_HUP;
+
+	if (condition & G_IO_ERR)
+		events |= MPD_ASYNC_EVENT_ERROR;
+
+	return events;
+}
+
+/**
+ * Converts a #mpd_async_event bit mask to GIOCondition.
+ */
+static GIOCondition
+mpd_async_events_to_g_io_condition(enum mpd_async_event events)
+{
+	GIOCondition condition = 0;
+
+	if (events & MPD_ASYNC_EVENT_READ)
+		condition |= G_IO_IN;
+
+	if (events & MPD_ASYNC_EVENT_WRITE)
+		condition |= G_IO_OUT;
+
+	if (events & MPD_ASYNC_EVENT_HUP)
+		condition |= G_IO_HUP;
+
+	if (events & MPD_ASYNC_EVENT_ERROR)
+		condition |= G_IO_ERR;
+
+	return condition;
+}
+
+/**
+ * Parses a response line from MPD.
+ *
+ * @return true on success, false on error
+ */
+static bool
+mpd_glib_feed(struct mpd_glib_source *source, char *line)
+{
+	enum mpd_parser_result result;
+
+	result = mpd_parser_feed(source->parser, line);
+	switch (result) {
+	case MPD_PARSER_MALFORMED:
+		source->id = 0;
+		source->io_events = 0;
+
+		mpd_glib_invoke_error(source, MPD_ERROR_MALFORMED, 0,
+				      "Malformed MPD response");
+		return false;
+
+	case MPD_PARSER_SUCCESS:
+		source->id = 0;
+		source->io_events = 0;
+
+		mpd_glib_invoke(source);
+		return false;
+
+	case MPD_PARSER_ERROR:
+		source->id = 0;
+		source->io_events = 0;
+
+		mpd_glib_invoke_error(source, MPD_ERROR_SERVER,
+				      mpd_parser_get_server_error(source->parser),
+				      mpd_parser_get_message(source->parser));
+		return false;
+
+	case MPD_PARSER_PAIR:
+		if (strcmp(mpd_parser_get_name(source->parser),
+			   "changed") == 0)
+			source->idle_events |=
+				mpd_idle_name_parse(mpd_parser_get_value(source->parser));
+
+		break;
+	}
+
+	return true;
+}
+
+/**
+ * Receives and evaluates a portion of the MPD response.
+ *
+ * @return true on success, false on error
+ */
+static bool
+mpd_glib_recv(struct mpd_glib_source *source)
+{
+	char *line;
+	bool success;
+
+	while ((line = mpd_async_recv_line(source->async)) != NULL) {
+		success = mpd_glib_feed(source, line);
+		if (!success)
+			return false;
+	}
+
+	if (mpd_async_get_error(source->async) != MPD_ERROR_SUCCESS) {
+		source->id = 0;
+		source->io_events = 0;
+
+		mpd_glib_invoke_async_error(source);
+		return false;
+	}
+
+	return true;
+}
+
+static gboolean
+mpd_glib_source_callback(G_GNUC_UNUSED GIOChannel *_source,
+			 GIOCondition condition, gpointer data)
+{
+	struct mpd_glib_source *source = data;
+	bool success;
+	enum mpd_async_event events;
+
+	assert(source->id != 0);
+	assert(source->io_events != 0);
+
+	/* let libmpdclient do some I/O */
+
+	success = mpd_async_io(source->async,
+			       g_io_condition_to_mpd_async_event(condition));
+	if (!success) {
+		source->id = 0;
+		source->io_events = 0;
+
+		mpd_glib_invoke_async_error(source);
+		return false;
+	}
+
+	/* receive the response */
+
+	if ((condition & G_IO_IN) != 0) {
+		success = mpd_glib_recv(source);
+		if (!success)
+			return false;
+	}
+
+	/* continue polling? */
+
+	events = mpd_async_events(source->async);
+	if (events == 0) {
+		/* no events - disable watch */
+		source->id = 0;
+		source->io_events = 0;
+
+		return false;
+	} else if (events != source->io_events) {
+		/* different event mask: make new watch */
+
+		g_source_remove(source->id);
+
+		condition = mpd_async_events_to_g_io_condition(events);
+		source->id = g_io_add_watch(source->channel, condition,
+					    mpd_glib_source_callback, source);
+		source->io_events = events;
+
+		return false;
+	} else
+		/* same event mask as before, enable the old watch */
+		return true;
+}
+
+static void
+mpd_glib_add_watch(struct mpd_glib_source *source)
+{
+	enum mpd_async_event events = mpd_async_events(source->async);
+	GIOCondition condition;
+
+	assert(source->io_events == 0);
+	assert(source->id == 0);
+
+	condition = mpd_async_events_to_g_io_condition(events);
+
+	source->id = g_io_add_watch(source->channel, condition,
+				    mpd_glib_source_callback, source);
+	source->io_events = events;
+}
+
+void
+mpd_glib_enter(struct mpd_glib_source *source)
+{
+	bool success;
+
+	assert(source->io_events == 0);
+	assert(source->id == 0);
+
+	source->idle_events = 0;
+
+	success = mpd_async_send_command(source->async, "idle", NULL);
+	if (!success) {
+		mpd_glib_invoke_async_error(source);
+		return;
+	}
+
+	mpd_glib_add_watch(source);
+}
+
+void
+mpd_glib_leave(struct mpd_glib_source *source)
+{
+	enum mpd_idle events;
+
+	if (source->id == 0)
+		/* already left, callback was invoked */
+		return;
+
+	g_source_remove(source->id);
+	source->id = 0;
+	source->io_events = 0;
+
+	events = source->idle_events == 0
+		? mpd_run_noidle(source->connection)
+		: mpd_recv_idle(source->connection, false);
+
+	if (events == 0 &&
+	    mpd_connection_get_error(source->connection) != MPD_ERROR_SUCCESS) {
+		enum mpd_error error =
+			mpd_connection_get_error(source->connection);
+		enum mpd_server_error server_error =
+			error == MPD_ERROR_SERVER
+			? mpd_connection_get_server_error(source->connection)
+			: 0;
+
+		mpd_glib_invoke_error(source, error, server_error,
+				      mpd_connection_get_error_message(source->connection));
+		return;
+	}
+
+	source->idle_events |= events;
+	mpd_glib_invoke(source);
+}
