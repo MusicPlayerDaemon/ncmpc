@@ -46,9 +46,6 @@ struct screen {
 	struct progress_bar progress_bar;
 	struct status_bar status_bar;
 
-	/* GTime is equivalent to time_t */
-	GTime start_timestamp;
-
 	unsigned cols, rows;
 
 	char *buf;
@@ -56,6 +53,14 @@ struct screen {
 
 	char *findbuf;
 	GList *find_history;
+
+#ifndef NCMPC_MINI
+	/**
+	 * Non-zero when the welcome message is currently being
+	 * displayed.  The associated timer will disable it.
+	 */
+	guint welcome_source_id;
+#endif
 };
 
 extern struct screen screen;

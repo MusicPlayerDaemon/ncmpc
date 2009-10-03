@@ -59,10 +59,6 @@ static const int SCREEN_MIN_ROWS = 5;
 
 /* screens */
 
-#ifndef NCMPC_MINI
-static gboolean welcome = TRUE;
-#endif
-
 struct screen screen;
 static const struct screen_functions *mode_fn = &screen_playlist;
 static const struct screen_functions *mode_fn_prev = &screen_playlist;
@@ -195,6 +191,11 @@ screen_exit(void)
 	delwin(screen.main_window.w);
 	progress_bar_deinit(&screen.progress_bar);
 	status_bar_deinit(&screen.status_bar);
+
+#ifndef NCMPC_MINI
+	if (screen.welcome_source_id != 0)
+		g_source_remove(screen.welcome_source_id);
+#endif
 }
 
 void
@@ -242,6 +243,22 @@ screen_resize(struct mpdclient *c)
 	screen_paint(c);
 }
 
+static gboolean
+welcome_timer_callback(gpointer data)
+{
+	struct mpdclient *c = data;
+
+	screen.welcome_source_id = 0;
+
+	paint_top_window(mode_fn->get_title != NULL
+			 ? mode_fn->get_title(screen.buf, screen.buf_size)
+			 : "",
+			 c);
+	doupdate();
+
+	return false;
+}
+
 void
 screen_init(struct mpdclient *c)
 {
@@ -256,7 +273,13 @@ screen_init(struct mpdclient *c)
 	screen.buf  = g_malloc(screen.cols);
 	screen.buf_size = screen.cols;
 	screen.findbuf = NULL;
-	screen.start_timestamp = time(NULL);
+
+#ifndef NCMPC_MINI
+	if (options.welcome_screen_list)
+		screen.welcome_source_id =
+			g_timeout_add(SCREEN_WELCOME_TIME * 1000,
+				      welcome_timer_callback, c);
+#endif
 
 	/* create top window */
 	title_bar_init(&screen.title_bar, screen.cols, 0, 0);
@@ -401,16 +424,12 @@ screen_update(struct mpdclient *c)
 		screen_status_printf(_("Database updated"));
 
 	/* update title/header window */
-	if (welcome && options.welcome_screen_list &&
-	    time(NULL)-screen.start_timestamp <= SCREEN_WELCOME_TIME)
+	if (screen.welcome_source_id != 0)
 		paint_top_window("", c);
 	else
 #endif
 	if (mode_fn->get_title != NULL) {
 		paint_top_window(mode_fn->get_title(screen.buf,screen.buf_size), c);
-#ifndef NCMPC_MINI
-		welcome = FALSE;
-#endif
 	} else
 		paint_top_window("", c);
 
@@ -461,7 +480,10 @@ void
 screen_cmd(struct mpdclient *c, command_t cmd)
 {
 #ifndef NCMPC_MINI
-	welcome = FALSE;
+	if (screen.welcome_source_id != 0) {
+		g_source_remove(screen.welcome_source_id);
+		screen.welcome_source_id = 0;
+	}
 #endif
 
 	if (mode_fn->cmd != NULL && mode_fn->cmd(c, cmd))
