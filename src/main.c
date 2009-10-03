@@ -165,8 +165,7 @@ enable_update_timer(void)
 		return;
 
 	update_source_id = g_timeout_add(update_interval,
-					 timer_mpd_update,
-					 GINT_TO_POINTER(TRUE));
+					 timer_mpd_update, NULL);
 }
 
 static void
@@ -177,6 +176,26 @@ disable_update_timer(void)
 
 	g_source_remove(update_source_id);
 	update_source_id = 0;
+}
+
+static void
+check_reconnect(void);
+
+static void
+do_mpd_update(void)
+{
+	if (mpdclient_is_connected(mpd))
+		mpdclient_update(mpd);
+
+#ifndef NCMPC_MINI
+	if (options.enable_xterm_title)
+		update_xterm_title();
+#endif
+
+	screen_update(mpd);
+	mpd->events = 0;
+
+	check_reconnect();
 }
 
 /**
@@ -232,7 +251,11 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 	doupdate();
 
 	/* update immediately */
-	g_timeout_add(1, timer_mpd_update, GINT_TO_POINTER(FALSE));
+	mpd->events = MPD_IDLE_DATABASE|MPD_IDLE_STORED_PLAYLIST|
+		MPD_IDLE_QUEUE|MPD_IDLE_PLAYER|MPD_IDLE_MIXER|MPD_IDLE_OUTPUT|
+		MPD_IDLE_OPTIONS|MPD_IDLE_UPDATE;
+
+	do_mpd_update();
 
 	return FALSE;
 }
@@ -247,22 +270,11 @@ check_reconnect(void)
 }
 
 static gboolean
-timer_mpd_update(gpointer data)
+timer_mpd_update(G_GNUC_UNUSED gpointer data)
 {
-	if (mpdclient_is_connected(mpd))
-		mpdclient_update(mpd);
+	do_mpd_update();
 
-#ifndef NCMPC_MINI
-	if (options.enable_xterm_title)
-		update_xterm_title();
-#endif
-
-	screen_update(mpd);
-	mpd->events = 0;
-
-	check_reconnect();
-
-	return GPOINTER_TO_INT(data);
+	return true;
 }
 
 void begin_input_event(void)

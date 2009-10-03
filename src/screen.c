@@ -366,6 +366,7 @@ void
 screen_update(struct mpdclient *c)
 {
 #ifndef NCMPC_MINI
+	static bool was_connected;
 	static bool initialized = false;
 	static bool repeat;
 	static bool random_enabled;
@@ -424,8 +425,9 @@ screen_update(struct mpdclient *c)
 		crossfade = mpd_status_get_crossfade(c->status);
 	}
 
-	if (c->events & MPD_IDLE_DATABASE)
+	if ((c->events & MPD_IDLE_DATABASE) != 0 && was_connected)
 		screen_status_printf(_("Database updated"));
+	was_connected = mpdclient_is_connected(c);
 
 	/* update title/header window */
 	if (screen.welcome_source_id != 0)
