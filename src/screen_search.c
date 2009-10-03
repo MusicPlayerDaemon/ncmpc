@@ -322,6 +322,26 @@ do_search(struct mpdclient *c, char *query)
 }
 
 static void
+screen_search_reload(struct mpdclient *c)
+{
+	if (pattern == NULL)
+		return;
+
+	if (browser.filelist != NULL) {
+		filelist_free(browser.filelist);
+		browser.filelist = NULL;
+	}
+
+	browser.filelist = do_search(c, pattern);
+	if (browser.filelist == NULL)
+		browser.filelist = filelist_new();
+
+	screen_browser_sync_highlights(browser.filelist, &c->playlist);
+	list_window_check_selected(browser.lw,
+				   filelist_length(browser.filelist));
+}
+
+static void
 search_new(struct mpdclient *c)
 {
 	if (!mpdclient_is_connected(c))
@@ -340,17 +360,7 @@ search_new(struct mpdclient *c)
 		return;
 	}
 
-	if (browser.filelist != NULL) {
-		filelist_free(browser.filelist);
-		browser.filelist = NULL;
-	}
-
-	browser.filelist = do_search(c, pattern);
-	if (browser.filelist == NULL)
-		browser.filelist = filelist_new();
-
-	screen_browser_sync_highlights(browser.filelist, &c->playlist);
-	list_window_check_selected(browser.lw, filelist_length(browser.filelist));
+	screen_search_reload(c);
 }
 
 static void
@@ -443,12 +453,7 @@ screen_search_cmd(struct mpdclient *c, command_t cmd)
 				     _(mode[options.search_mode].label));
 		/* continue and update... */
 	case CMD_SCREEN_UPDATE:
-		if (pattern) {
-			search_clear(false);
-			browser.filelist = do_search(c, pattern);
-			screen_browser_sync_highlights(browser.filelist,
-						       &c->playlist);
-		}
+		screen_search_reload(c);
 		search_repaint();
 		return true;
 
