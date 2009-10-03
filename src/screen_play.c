@@ -155,7 +155,7 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 			must_scroll = true;
 
 			if (current_song != lw->selected) {
-				hscroll.offset = 0;
+				hscroll_reset(&hscroll);
 				current_song = lw->selected;
 			}
 
@@ -165,7 +165,7 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 			g_free(tmp);
 		}
 		else
-			hscroll.offset = 0;
+			hscroll_reset(&hscroll);
 	}
 #else
 	(void)second_column;

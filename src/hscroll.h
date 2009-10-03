@@ -27,6 +27,12 @@ struct hscroll {
 	GTime t; /* GTime is equivalent to time_t */
 };
 
+static inline void
+hscroll_reset(struct hscroll *hscroll)
+{
+	hscroll->offset = 0;
+}
+
 char *
 strscroll(struct hscroll *hscroll, char *str, char *separator, unsigned width);
 
