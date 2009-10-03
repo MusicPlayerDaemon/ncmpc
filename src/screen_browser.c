@@ -465,19 +465,17 @@ browser_cmd(struct screen_browser *browser,
 
 	case CMD_SELECT:
 		if (browser_handle_select(browser, c))
-			/* continue and select next item... */
-			cmd = CMD_LIST_NEXT;
-
-		/* call list_window_cmd to go to the next item */
-		break;
+			list_window_cmd(browser->lw,
+					filelist_length(browser->filelist),
+					CMD_LIST_NEXT);
+		return true;
 
 	case CMD_ADD:
 		if (browser_handle_add(browser, c))
-			/* continue and select next item... */
-			cmd = CMD_LIST_NEXT;
-
-		/* call list_window_cmd to go to the next item */
-		break;
+			list_window_cmd(browser->lw,
+					filelist_length(browser->filelist),
+					CMD_LIST_NEXT);
+		return true;
 
 	case CMD_SELECT_ALL:
 		browser_handle_select_all(browser, c);
