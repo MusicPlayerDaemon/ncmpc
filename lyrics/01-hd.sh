@@ -24,7 +24,7 @@
 FILENAME=~/.lyrics/"$1 - $2".txt
 
 if [ -e "$FILENAME" ] ; then
-	cat "$FILENAME" 2>/dev/null
+	exec cat "$FILENAME"
 else
 	exit 69
 fi

@@ -33,12 +33,17 @@ if not response =~ /<url>\s*(.*?)\s*<\/url>/im
 	exit(1)
 end
 
-url = $1.gsub(/wikia.com/, "wikia.com/lyrics");
-exit(69) if $1 =~ /action=edit$/
+url = $1
+exit(69) if url =~ /action=edit$/
 
 response = Net::HTTP.get(URI.parse(url))
 if not response =~ /<div class='lyricbox'>\s*(.*?)\s*<!--/im
 	$stderr.puts "No <div class='lyricbox'> in lyrics page!\n"
+	exit(1)
+end
+
+if not $1 =~ /^.*<\/div>(.*?)$/im
+	$stderr.puts "Couldn't remove leading XML tags in lyricbox!\n"
 	exit(1)
 end
 
