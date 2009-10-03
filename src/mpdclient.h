@@ -12,6 +12,23 @@ struct mpdclient {
 	struct mpdclient_playlist playlist;
 
 	struct mpd_connection *connection;
+
+	/**
+	 * If this object is non-NULL, it tracks idle events.  It is
+	 * automatically called by mpdclient_get_connection() and
+	 * mpdclient_put_connection().  It is not created by the
+	 * mpdclient library; the user of this library has to
+	 * initialize it.  However, it is freed when the MPD
+	 * connection is closed.
+	 */
+	struct mpd_glib_source *source;
+
+	/**
+	 * This attribute is true when the connection is currently in
+	 * "idle" mode, and the #mpd_glib_source waits for an event.
+	 */
+	bool idle;
+
 	struct mpd_status *status;
 	const struct mpd_song *song;
 

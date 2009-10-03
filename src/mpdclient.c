@@ -24,6 +24,7 @@
 #include "options.h"
 #include "strfsong.h"
 #include "utils.h"
+#include "gidle.h"
 
 #include <mpd/client.h>
 
@@ -115,6 +116,12 @@ mpdclient_free(struct mpdclient *c)
 void
 mpdclient_disconnect(struct mpdclient *c)
 {
+	if (c->source != NULL) {
+		mpd_glib_free(c->source);
+		c->source = NULL;
+		c->idle = false;
+	}
+
 	if (c->connection)
 		mpd_connection_free(c->connection);
 	c->connection = NULL;
@@ -172,9 +179,10 @@ mpdclient_update(struct mpdclient *c)
 	if (connection == NULL)
 		return false;
 
-	/* always announce these options as long as we don't have real
+	/* always announce these options as long as we don't have
 	   "idle" support */
-	c->events |= MPD_IDLE_PLAYER|MPD_IDLE_OPTIONS;
+	if (c->source == NULL)
+		c->events |= MPD_IDLE_PLAYER|MPD_IDLE_OPTIONS;
 
 	/* free the old status */
 	if (c->status)
@@ -185,7 +193,8 @@ mpdclient_update(struct mpdclient *c)
 	if (c->status == NULL)
 		return mpdclient_handle_error(c);
 
-	if (c->update_id != mpd_status_get_update_id(c->status)) {
+	if (c->source == NULL &&
+	    c->update_id != mpd_status_get_update_id(c->status)) {
 		c->events |= MPD_IDLE_UPDATE;
 
 		if (c->update_id > 0)
@@ -194,14 +203,16 @@ mpdclient_update(struct mpdclient *c)
 
 	c->update_id = mpd_status_get_update_id(c->status);
 
-	if (c->volume != mpd_status_get_volume(c->status))
+	if (c->source == NULL &&
+	    c->volume != mpd_status_get_volume(c->status))
 		c->events |= MPD_IDLE_MIXER;
 
 	c->volume = mpd_status_get_volume(c->status);
 
 	/* check if the playlist needs an update */
 	if (c->playlist.version != mpd_status_get_queue_version(c->status)) {
-		c->events |= MPD_IDLE_PLAYLIST;
+		if (c->source == NULL)
+			c->events |= MPD_IDLE_PLAYLIST;
 
 		if (!playlist_is_empty(&c->playlist))
 			retval = mpdclient_playlist_update_changes(c);
@@ -222,12 +233,23 @@ mpdclient_update(struct mpdclient *c)
 struct mpd_connection *
 mpdclient_get_connection(struct mpdclient *c)
 {
+	if (c->source != NULL && c->idle) {
+		c->idle = false;
+		mpd_glib_leave(c->source);
+	}
+
 	return c->connection;
 }
 
 void
-mpdclient_put_connection(G_GNUC_UNUSED struct mpdclient *c)
+mpdclient_put_connection(struct mpdclient *c)
 {
+	assert(c->source == NULL || c->connection != NULL);
+
+	if (c->source != NULL && !c->idle) {
+		c->idle = true;
+		mpd_glib_enter(c->source);
+	}
 }
 
 

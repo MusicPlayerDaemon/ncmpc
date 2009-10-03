@@ -6,6 +6,7 @@ ncmpc 0.16 - not yet released
 * optimize "add+play song" with addid/playid
 * handle stderr messages from lyrics plugins
 * search: eliminate duplicate results
+* use the "idle" command to reduce CPU and network usage
 
 
 ncmpc 0.15 - 2009-09-24

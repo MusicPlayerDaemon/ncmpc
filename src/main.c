@@ -20,6 +20,7 @@
 #include "config.h"
 #include "ncmpc.h"
 #include "mpdclient.h"
+#include "gidle.h"
 #include "charset.h"
 #include "options.h"
 #include "command.h"
@@ -155,6 +156,12 @@ catch_sigwinch(G_GNUC_UNUSED int sig)
 	timer_sigwinch_id = g_timeout_add(100, timer_sigwinch, NULL);
 }
 
+static void
+idle_callback(enum mpd_error error,
+	      G_GNUC_UNUSED enum mpd_server_error server_error,
+	      const char *message, enum mpd_idle events,
+	      G_GNUC_UNUSED void *ctx);
+
 static gboolean
 timer_mpd_update(gpointer data);
 
@@ -181,7 +188,10 @@ disable_update_timer(void)
 static bool
 should_enable_update_timer(void)
 {
-	return mpdclient_is_connected(mpd)
+	return (mpdclient_is_connected(mpd) &&
+		(mpd->source == NULL || /* "idle" not supported */
+		 (mpd->status != NULL &&
+		  mpd_status_get_state(mpd->status) == MPD_STATE_PLAY)))
 #ifndef NCMPC_MINI
 		|| options.display_time
 #endif
@@ -268,6 +278,11 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 	}
 #endif
 
+	if (mpd_connection_cmp_server_version(connection,
+					      0, 14, 0) >= 0)
+		mpd->source = mpd_glib_new(connection,
+					   idle_callback, mpd);
+
 	screen_status_printf(_("Connected to %s"),
 			     options.host != NULL
 			     ? options.host : "localhost");
@@ -292,6 +307,67 @@ check_reconnect(void)
 		/* reconnect when the connection is lost */
 		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
 						    NULL);
+}
+
+/**
+ * This function is called by the gidle.c library when MPD sends us an
+ * idle event (or when the connectiond dies).
+ */
+static void
+idle_callback(enum mpd_error error, enum mpd_server_error server_error,
+	      const char *message, enum mpd_idle events,
+	      void *ctx)
+{
+	struct mpdclient *c = ctx;
+	struct mpd_connection *connection;
+
+	c->idle = false;
+
+	connection = mpdclient_get_connection(c);
+	assert(connection != NULL);
+
+	if (error != MPD_ERROR_SUCCESS) {
+		char *allocated;
+
+		if (error == MPD_ERROR_SERVER &&
+		    server_error == MPD_SERVER_ERROR_UNKNOWN_CMD) {
+			/* the "idle" command is not supported - fall
+			   back to timer based polling */
+			mpd_glib_free(c->source);
+			c->source = NULL;
+			auto_update_timer();
+			return;
+		}
+
+		if (error == MPD_ERROR_SERVER)
+			message = allocated = utf8_to_locale(message);
+		else
+			allocated = NULL;
+		screen_status_message(message);
+		g_free(allocated);
+		screen_bell();
+		doupdate();
+
+		mpdclient_disconnect(c);
+		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
+						    NULL);
+		return;
+	}
+
+	c->events |= events;
+	mpdclient_update(c);
+
+#ifndef NCMPC_MINI
+	if (options.enable_xterm_title)
+		update_xterm_title();
+#endif
+
+	screen_update(mpd);
+	c->events = 0;
+
+	mpdclient_put_connection(c);
+	check_reconnect();
+	auto_update_timer();
 }
 
 static gboolean
