@@ -78,6 +78,12 @@ filelist_sort_all(struct filelist *filelist, GCompareFunc compare_func);
 void
 filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func);
 
+/**
+ * Eliminates duplicate songs from the filelist.
+ */
+void
+filelist_no_duplicates(struct filelist *filelist);
+
 int
 filelist_find_song(struct filelist *flist, const struct mpd_song *song);
 

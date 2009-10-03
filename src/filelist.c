@@ -174,6 +174,26 @@ filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func)
 				filelist_compare_indirect, compare_func);
 }
 
+void
+filelist_no_duplicates(struct filelist *filelist)
+{
+	for (int i = filelist_length(filelist) - 1; i >= 0; --i) {
+		struct filelist_entry *entry = filelist_get(filelist, i);
+		const struct mpd_song *song;
+
+		if (entry->entity == NULL ||
+		    mpd_entity_get_type(entry->entity) != MPD_ENTITY_TYPE_SONG)
+			continue;
+
+		song = mpd_entity_get_song(entry->entity);
+		if (filelist_find_song(filelist, song) < i) {
+			g_ptr_array_remove_index(filelist->entries, i);
+			mpd_entity_free(entry->entity);
+			g_slice_free(struct filelist_entry, entry);
+		}
+	}
+}
+
 static bool
 same_song(const struct mpd_song *a, const struct mpd_song *b)
 {

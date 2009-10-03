@@ -183,9 +183,7 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 		mpd_command_list_end(connection);
 
 		list = filelist_new_recv(connection);
-
-		if (list != NULL)
-			filelist_sort_all(list, compare_filelistentry_format);
+		filelist_no_duplicates(list);
 	} else if (table == SEARCH_URI) {
 		mpd_search_db_songs(connection, exact_match);
 		mpd_search_add_uri_constraint(connection, MPD_OPERATOR_DEFAULT,
