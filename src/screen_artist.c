@@ -189,23 +189,25 @@ load_album_list(struct mpdclient *c)
 static void
 load_song_list(struct mpdclient *c)
 {
+	struct mpd_connection *connection = c->connection;
+
 	assert(mode == LIST_SONGS);
 	assert(artist != NULL);
 	assert(album != NULL);
 	assert(browser.filelist == NULL);
 
-	if (album[0] == 0)
-		browser.filelist =
-			mpdclient_filelist_search(c, TRUE,
-						  MPD_TAG_ARTIST,
-						  artist);
-	else
-		browser.filelist =
-			mpdclient_filelist_search(c, TRUE,
-						  MPD_TAG_ALBUM,
-						  album);
-	if (browser.filelist == NULL)
-		browser.filelist = filelist_new();
+	mpd_search_db_songs(connection, true);
+	mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
+				      MPD_TAG_ARTIST, artist);
+	if (album[0] != 0)
+		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
+					      MPD_TAG_ALBUM, album);
+	mpd_search_commit(connection);
+
+	browser.filelist = filelist_new_recv(connection);
+
+	if (!mpd_response_finish(connection))
+		mpdclient_handle_error(c);
 
 	/* add a dummy entry for ".." */
 	filelist_prepend(browser.filelist, NULL);
@@ -389,6 +391,7 @@ screen_artist_update(struct mpdclient *c)
 static void
 add_query(struct mpdclient *c, enum mpd_tag_type table, char *_filter)
 {
+	struct mpd_connection *connection = c->connection;
 	char *str;
 	struct filelist *addlist;
 
@@ -401,11 +404,19 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, char *_filter)
 		screen_status_printf("Adding %s...", str);
 	g_free(str);
 
-	addlist = mpdclient_filelist_search(c, TRUE, table, _filter);
-	if (addlist) {
+	mpd_search_db_songs(connection, true);
+	mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
+				      table, _filter);
+	mpd_search_commit(connection);
+
+	addlist = filelist_new_recv(connection);
+
+	if (mpd_response_finish(connection))
 		mpdclient_filelist_add_all(c, addlist);
-		filelist_free(addlist);
-	}
+	else
+		mpdclient_handle_error(c);
+
+	filelist_free(addlist);
 }
 
 static unsigned
