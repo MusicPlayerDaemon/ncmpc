@@ -252,7 +252,6 @@ timer_mpd_update(gpointer data)
 #endif
 
 	screen_update(mpd);
-
 	mpd->events = 0;
 
 	return GPOINTER_TO_INT(data);
@@ -265,6 +264,7 @@ void begin_input_event(void)
 void end_input_event(void)
 {
 	screen_update(mpd);
+	mpd->events = 0;
 }
 
 int do_input_event(command_t cmd)
