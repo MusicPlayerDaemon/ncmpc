@@ -242,9 +242,6 @@ timer_mpd_update(gpointer data)
 {
 	if (mpdclient_is_connected(mpd))
 		mpdclient_update(mpd);
-	else if (reconnect_source_id == 0)
-		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
-						    NULL);
 
 #ifndef NCMPC_MINI
 	if (options.enable_xterm_title)
@@ -253,6 +250,11 @@ timer_mpd_update(gpointer data)
 
 	screen_update(mpd);
 	mpd->events = 0;
+
+	if (!mpdclient_is_connected(mpd) && reconnect_source_id == 0)
+		/* reconnect when the connection is lost */
+		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
+						    NULL);
 
 	return GPOINTER_TO_INT(data);
 }
