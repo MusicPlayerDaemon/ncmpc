@@ -603,21 +603,17 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_ADD:
 		switch(mode) {
 		case LIST_ARTISTS:
-		{
-			unsigned i;
-			for(i = browser.lw->selected_start; i <= browser.lw->selected_end; ++i)
-			{
+			for (unsigned i = browser.lw->selected_start;
+			     i <= browser.lw->selected_end; ++i) {
 				selected = g_ptr_array_index(artist_list, i);
 				add_query(c, MPD_TAG_ARTIST, selected);
 				cmd = CMD_LIST_NEXT; /* continue and select next item... */
 			}
 			break;
-		}
+
 		case LIST_ALBUMS:
-		{
-			unsigned i;
-			for(i = browser.lw->selected_start; i <= browser.lw->selected_end; ++i)
-			{
+			for (unsigned i = browser.lw->selected_start;
+			     i <= browser.lw->selected_end; ++i) {
 				if(i == album_list->len + 1)
 					add_query(c, MPD_TAG_ARTIST, artist);
 				else if (i > 0)
@@ -629,7 +625,6 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 				}
 			}
 			break;
-		}
 
 		case LIST_SONGS:
 			/* handled by browser_cmd() */
