@@ -60,6 +60,12 @@ mpdclient_disconnect(struct mpdclient *c);
 bool
 mpdclient_update(struct mpdclient *c);
 
+struct mpd_connection *
+mpdclient_get_connection(struct mpdclient *c);
+
+void
+mpdclient_put_connection(struct mpdclient *c);
+
 /**
  * To be implemented by the application: mpdclient.c calls this to
  * display an error message.

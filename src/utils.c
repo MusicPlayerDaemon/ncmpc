@@ -82,7 +82,7 @@ gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 	if (!mpdclient_is_connected(c))
 		return list;
 
-	connection = c->connection;
+	connection = mpdclient_get_connection(c);
 	mpd_send_list_meta(connection, path);
 
 	while ((entity = mpd_recv_entity(connection)) != NULL) {

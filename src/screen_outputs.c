@@ -46,17 +46,20 @@ outputs_repaint(void)
 static bool
 toggle_output(struct mpdclient *c, unsigned int output_index)
 {
+	struct mpd_connection *connection;
 	struct mpd_output *output;
 
 	assert(mpd_outputs != NULL);
 
-	if (output_index >= mpd_outputs->len)
+	if (!mpdclient_is_connected(c) ||
+	    output_index >= mpd_outputs->len)
 		return false;
 
+	connection = mpdclient_get_connection(c);
 	output = g_ptr_array_index(mpd_outputs, output_index);
 
 	if (!mpd_output_get_enabled(output)) {
-		if (!mpd_run_enable_output(c->connection,
+		if (!mpd_run_enable_output(connection,
 					   mpd_output_get_id(output))) {
 			mpdclient_handle_error(c);
 			return false;
@@ -67,7 +70,7 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 		screen_status_printf(_("Output '%s' enabled"),
 				     mpd_output_get_name(output));
 	} else {
-		if (!mpd_run_disable_output(c->connection,
+		if (!mpd_run_disable_output(connection,
 					    mpd_output_get_id(output))) {
 			mpdclient_handle_error(c);
 			return false;
@@ -103,6 +106,7 @@ clear_outputs_list(void)
 static void
 fill_outputs_list(struct mpdclient *c)
 {
+	struct mpd_connection *connection;
 	struct mpd_output *output;
 
 	assert(mpd_outputs != NULL);
@@ -110,12 +114,13 @@ fill_outputs_list(struct mpdclient *c)
 	if (!mpdclient_is_connected(c))
 		return;
 
-	mpd_send_outputs(c->connection);
-	while ((output = mpd_recv_output(c->connection)) != NULL) {
+	connection = mpdclient_get_connection(c);
+	mpd_send_outputs(connection);
+	while ((output = mpd_recv_output(connection)) != NULL) {
 		g_ptr_array_add(mpd_outputs, output);
 	}
 
-	if (!mpd_response_finish(c->connection))
+	if (!mpd_response_finish(connection))
 		mpdclient_handle_error(c);
 }
 

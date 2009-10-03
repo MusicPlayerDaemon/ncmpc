@@ -300,18 +300,19 @@ search_advanced_query(struct mpd_connection *connection, char *query)
 static struct filelist *
 do_search(struct mpdclient *c, char *query)
 {
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	struct filelist *fl;
 
-	fl = search_advanced_query(c->connection, query);
+	fl = search_advanced_query(connection, query);
 	if (fl != NULL)
 		return fl;
 
-	if (mpd_connection_get_error(c->connection) != MPD_ERROR_SUCCESS) {
+	if (mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS) {
 		mpdclient_handle_error(c);
 		return NULL;
 	}
 
-	fl = search_simple_query(c->connection, FALSE,
+	fl = search_simple_query(connection, FALSE,
 				 mode[options.search_mode].table,
 				 query);
 	if (fl == NULL)

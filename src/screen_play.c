@@ -289,6 +289,7 @@ completion_strncmp(const gchar *s1, const gchar *s2, gsize n)
 int
 playlist_save(struct mpdclient *c, char *name, char *defaultname)
 {
+	struct mpd_connection *connection;
 	gchar *filename, *filename_utf8;
 #ifndef NCMPC_MINI
 	GCompletion *gcmp;
@@ -338,10 +339,11 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 
 	filename_utf8 = locale_to_utf8(filename);
 
-	if (!mpd_run_save(c->connection, filename_utf8)) {
-		if (mpd_connection_get_error(c->connection) == MPD_ERROR_SERVER &&
-		    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_EXIST &&
-		    mpd_connection_clear_error(c->connection)) {
+	connection = mpdclient_get_connection(c);
+	if (!mpd_run_save(connection, filename_utf8)) {
+		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
+		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_EXIST &&
+		    mpd_connection_clear_error(connection)) {
 			char *buf;
 			int key;
 
@@ -357,8 +359,8 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 				return -1;
 			}
 
-			if (!mpd_run_rm(c->connection, filename_utf8) ||
-			    !mpd_run_save(c->connection, filename_utf8)) {
+			if (!mpd_run_rm(connection, filename_utf8) ||
+			    !mpd_run_save(connection, filename_utf8)) {
 				mpdclient_handle_error(c);
 				g_free(filename_utf8);
 				g_free(filename);
@@ -638,6 +640,7 @@ handle_mouse_event(struct mpdclient *c)
 static bool
 screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 {
+	struct mpd_connection *connection;
 	static command_t cached_cmd = CMD_NONE;
 	command_t prev_cmd = cached_cmd;
 	cached_cmd = cmd;
@@ -752,18 +755,17 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 		return true;
 
 	case CMD_SHUFFLE:
-	{
 		if(!lw->range_selection)
 			/* No range selection, shuffle all list. */
 			break;
 
-		if (mpd_run_shuffle_range(c->connection, lw->selected_start,
+		connection = mpdclient_get_connection(c);
+		if (mpd_run_shuffle_range(connection, lw->selected_start,
 					  lw->selected_end + 1))
 			screen_status_message(_("Shuffled playlist"));
 		else
 			mpdclient_handle_error(c);
 		return true;
-	}
 
 	case CMD_LIST_MOVE_UP:
 		if(lw->selected_start == 0)

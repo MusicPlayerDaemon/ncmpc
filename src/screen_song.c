@@ -371,10 +371,9 @@ screen_song_update(struct mpdclient *c)
 	}
 
 	/* Add some statistics about mpd */
-	if (mpdclient_is_connected(c)) {
-		if (!screen_song_add_stats(c->connection))
-			mpdclient_handle_error(c);
-	}
+	if (mpdclient_is_connected(c) &&
+	    !screen_song_add_stats(mpdclient_get_connection(c)))
+		mpdclient_handle_error(c);
 
 	screen_song_repaint();
 }

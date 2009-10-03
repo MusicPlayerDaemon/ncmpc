@@ -67,7 +67,7 @@ screen_file_reload(struct mpdclient *c)
 	if (!mpdclient_is_connected(c))
 		return;
 
-	connection = c->connection;
+	connection = mpdclient_get_connection(c);
 
 	mpd_send_list_meta(connection, current_path);
 	filelist_recv(browser.filelist, connection);
@@ -198,6 +198,7 @@ handle_save(struct mpdclient *c)
 static int
 handle_delete(struct mpdclient *c)
 {
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	struct filelist_entry *entry;
 	struct mpd_entity *entity;
 	const struct mpd_playlist *playlist;
@@ -237,7 +238,7 @@ handle_delete(struct mpdclient *c)
 			return 0;
 		}
 
-		if (!mpd_run_rm(c->connection, mpd_playlist_get_path(playlist))) {
+		if (!mpd_run_rm(connection, mpd_playlist_get_path(playlist))) {
 			mpdclient_handle_error(c);
 			break;
 		}

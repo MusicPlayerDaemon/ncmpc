@@ -125,9 +125,10 @@ browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_c
 static bool
 load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 {
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	char *filename = utf8_to_locale(mpd_playlist_get_path(playlist));
 
-	if (mpd_run_load(c->connection, mpd_playlist_get_path(playlist))) {
+	if (mpd_run_load(connection, mpd_playlist_get_path(playlist))) {
 		screen_status_printf(_("Loading playlist %s..."),
 				     g_basename(filename));
 		c->events |= MPD_IDLE_QUEUE;
@@ -141,6 +142,7 @@ load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 static bool
 enqueue_and_play(struct mpdclient *c, struct filelist_entry *entry)
 {
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	const struct mpd_song *song = mpd_entity_get_song(entry->entity);
 	int id;
 
@@ -154,7 +156,7 @@ enqueue_and_play(struct mpdclient *c, struct filelist_entry *entry)
 	if (id < 0) {
 		char buf[BUFSIZE];
 
-		id = mpd_run_add_id(c->connection, mpd_song_get_uri(song));
+		id = mpd_run_add_id(connection, mpd_song_get_uri(song));
 		if (id < 0) {
 			mpdclient_handle_error(c);
 			return false;
@@ -167,7 +169,7 @@ enqueue_and_play(struct mpdclient *c, struct filelist_entry *entry)
 		screen_status_printf(_("Adding \'%s\' to playlist"), buf);
 	}
 
-	if (!mpd_run_play_id(c->connection, id)) {
+	if (!mpd_run_play_id(connection, id)) {
 		mpdclient_handle_error(c);
 		return false;
 	}

@@ -27,9 +27,12 @@
 static bool
 _screen_auth(struct mpdclient *c, gint recursion)
 {
+	struct mpd_connection *connection;
 	char *password;
 
-	mpd_connection_clear_error(c->connection);
+	connection = mpdclient_get_connection(c);
+
+	mpd_connection_clear_error(connection);
 	if (recursion > 2)
 		return false;
 
@@ -37,14 +40,14 @@ _screen_auth(struct mpdclient *c, gint recursion)
 	if (password == NULL)
 		return false;
 
-	mpd_send_password(c->connection, password);
+	mpd_send_password(connection, password);
 	g_free(password);
 
-	mpd_response_finish(c->connection);
+	mpd_response_finish(connection);
 	mpdclient_update(c);
 
-	if (mpd_connection_get_error(c->connection) == MPD_ERROR_SERVER &&
-	    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_PASSWORD)
+	if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
+	    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_PASSWORD)
 		return  _screen_auth(c, ++recursion);
 
 	return true;
@@ -70,16 +73,19 @@ mpdclient_ui_error(const char *message_utf8)
 void
 screen_database_update(struct mpdclient *c, const char *path)
 {
+	struct mpd_connection *connection;
 	unsigned id;
 
 	assert(c != NULL);
 	assert(mpdclient_is_connected(c));
 
-	id = mpd_run_update(c->connection, path);
+	connection = mpdclient_get_connection(c);
+
+	id = mpd_run_update(connection, path);
 	if (id == 0) {
-		if (mpd_connection_get_error(c->connection) == MPD_ERROR_SERVER &&
-		    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_UPDATE_ALREADY &&
-		    mpd_connection_clear_error(c->connection))
+		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
+		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_UPDATE_ALREADY &&
+		    mpd_connection_clear_error(connection))
 			screen_status_printf(_("Database update running..."));
 		else
 			mpdclient_handle_error(c);

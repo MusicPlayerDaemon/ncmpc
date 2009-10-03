@@ -32,6 +32,8 @@ static guint seek_source_id;
 static void
 commit_seek(struct mpdclient *c)
 {
+	struct mpd_connection *connection;
+
 	if (seek_id < 0)
 		return;
 
@@ -40,8 +42,10 @@ commit_seek(struct mpdclient *c)
 		return;
 	}
 
+	connection = mpdclient_get_connection(c);
+
 	if (c->song != NULL && (unsigned)seek_id == mpd_song_get_id(c->song))
-		if (!mpd_run_seek_id(c->connection, seek_id, seek_target_time))
+		if (!mpd_run_seek_id(connection, seek_id, seek_target_time))
 			mpdclient_handle_error(c);
 
 	seek_id = -1;
@@ -58,6 +62,7 @@ seek_timer(gpointer data)
 
 	seek_source_id = 0;
 	commit_seek(c);
+	mpdclient_put_connection(c);
 	return false;
 }
 
@@ -81,6 +86,7 @@ cancel_seek_timer(void)
 bool
 handle_player_command(struct mpdclient *c, command_t cmd)
 {
+	struct mpd_connection *connection;
 	const struct mpd_song *song;
 
 	if (!mpdclient_is_connected(c) || c->status == NULL)
@@ -95,12 +101,14 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 		break;
 		*/
 	case CMD_PAUSE:
-		if (!mpd_run_pause(c->connection,
+		connection = mpdclient_get_connection(c);
+		if (!mpd_run_pause(connection,
 				   mpd_status_get_state(c->status) != MPD_STATE_PAUSE))
 			mpdclient_handle_error(c);
 		break;
 	case CMD_STOP:
-		if (!mpd_run_stop(c->connection))
+		connection = mpdclient_get_connection(c);
+		if (!mpd_run_stop(connection))
 			mpdclient_handle_error(c);
 		break;
 	case CMD_CROP:
@@ -119,9 +127,9 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 			schedule_seek_timer(c);
 		}
 		break;
-		/* fall through... */
 	case CMD_TRACK_NEXT:
-		if (!mpd_run_next(c->connection))
+		connection = mpdclient_get_connection(c);
+		if (!mpd_run_next(connection))
 			mpdclient_handle_error(c);
 		break;
 	case CMD_SEEK_BACKWARD:
@@ -138,41 +146,49 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 		}
 		break;
 	case CMD_TRACK_PREVIOUS:
-		if (!mpd_run_previous(c->connection))
+		connection = mpdclient_get_connection(c);
+		if (!mpd_run_previous(connection))
 			mpdclient_handle_error(c);
 		break;
 	case CMD_SHUFFLE:
-		if (mpd_run_shuffle(c->connection))
+		connection = mpdclient_get_connection(c);
+		if (mpd_run_shuffle(connection))
 			screen_status_message(_("Shuffled playlist"));
 		else
 			mpdclient_handle_error(c);
 		break;
 	case CMD_CLEAR:
+		connection = mpdclient_get_connection(c);
 		if (mpdclient_cmd_clear(c))
 			screen_status_message(_("Cleared playlist"));
 		break;
 	case CMD_REPEAT:
-		if (!mpd_run_repeat(c->connection,
+		connection = mpdclient_get_connection(c);
+		if (!mpd_run_repeat(connection,
 				    !mpd_status_get_repeat(c->status)))
 			mpdclient_handle_error(c);
 		break;
 	case CMD_RANDOM:
-		if (!mpd_run_random(c->connection,
+		connection = mpdclient_get_connection(c);
+		if (!mpd_run_random(connection,
 				    !mpd_status_get_random(c->status)))
 			mpdclient_handle_error(c);
 		break;
 	case CMD_SINGLE:
-		if (!mpd_run_single(c->connection,
+		connection = mpdclient_get_connection(c);
+		if (!mpd_run_single(connection,
 				    !mpd_status_get_single(c->status)))
 			mpdclient_handle_error(c);
 		break;
 	case CMD_CONSUME:
-		if (!mpd_run_consume(c->connection,
+		connection = mpdclient_get_connection(c);
+		if (!mpd_run_consume(connection,
 				     !mpd_status_get_consume(c->status)))
 			mpdclient_handle_error(c);
 		break;
 	case CMD_CROSSFADE:
-		if (!mpd_run_crossfade(c->connection,
+		connection = mpdclient_get_connection(c);
+		if (!mpd_run_crossfade(connection,
 				       mpd_status_get_crossfade(c->status) > 0
 				       ? 0 : options.crossfade_time))
 			mpdclient_handle_error(c);

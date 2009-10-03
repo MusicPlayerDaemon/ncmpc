@@ -189,7 +189,7 @@ load_album_list(struct mpdclient *c)
 static void
 load_song_list(struct mpdclient *c)
 {
-	struct mpd_connection *connection = c->connection;
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 
 	assert(mode == LIST_SONGS);
 	assert(artist != NULL);
@@ -392,7 +392,7 @@ screen_artist_update(struct mpdclient *c)
 static void
 add_query(struct mpdclient *c, enum mpd_tag_type table, char *_filter)
 {
-	struct mpd_connection *connection = c->connection;
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	char *str;
 	struct filelist *addlist;
 

@@ -214,6 +214,7 @@ do_mpd_update(void)
 	screen_update(mpd);
 	mpd->events = 0;
 
+	mpdclient_put_connection(mpd);
 	check_reconnect();
 }
 
@@ -225,6 +226,7 @@ static gboolean
 timer_reconnect(G_GNUC_UNUSED gpointer data)
 {
 	bool success;
+	struct mpd_connection *connection;
 
 	assert(!mpdclient_is_connected(mpd));
 
@@ -246,11 +248,13 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 		return FALSE;
 	}
 
+	connection = mpdclient_get_connection(mpd);
+
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.11.0 - song id not supported by mpd */
-	if (mpd_connection_cmp_server_version(mpd->connection, 0, 12, 0) < 0) {
+	if (mpd_connection_cmp_server_version(connection, 0, 12, 0) < 0) {
 		const unsigned *version =
-			mpd_connection_get_server_version(mpd->connection);
+			mpd_connection_get_server_version(connection);
 		screen_status_printf(_("Error: MPD version %d.%d.%d is to old (%s needed)"),
 				     version[0], version[1], version[2],
 				     "0.12.0");
@@ -312,6 +316,7 @@ void end_input_event(void)
 	screen_update(mpd);
 	mpd->events = 0;
 
+	mpdclient_put_connection(mpd);
 	check_reconnect();
 	auto_update_timer();
 }
