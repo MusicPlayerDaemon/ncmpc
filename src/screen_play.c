@@ -56,6 +56,9 @@ typedef struct
 	struct mpdclient *c;
 } completion_callback_data_t;
 
+#ifndef NCMPC_MINI
+static struct hscroll hscroll;
+#endif
 static bool must_scroll;
 #endif
 
@@ -120,9 +123,6 @@ static const char *
 list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
-#ifndef NCMPC_MINI
-	static struct hscroll hscroll;
-#endif
 	struct mpd_song *song;
 
 	if (playlist == NULL || idx >= playlist_length(playlist))
