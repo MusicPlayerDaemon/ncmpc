@@ -80,5 +80,5 @@ def lyrics(hid):
 
 hid = search(argv[1], argv[2])
 if hid is None:
-    exit(2)
+    exit(69)
 print lyrics(hid).encode('utf-8')

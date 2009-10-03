@@ -21,4 +21,10 @@
 # Load lyrics from the user's home directory
 #
 
-cat ~/.lyrics/"$1 - $2".txt 2>/dev/null
+FILENAME=~/.lyrics/"$1 - $2".txt
+
+if [ -e "$FILENAME" ] ; then
+	cat "$FILENAME" 2>/dev/null
+else
+	exit 69
+fi

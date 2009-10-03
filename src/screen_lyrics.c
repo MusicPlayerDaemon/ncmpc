@@ -140,22 +140,26 @@ screen_lyrics_set(const GString *str)
 	/* paint new data */
 
 	lyrics_repaint_if_active();
-
-	if (options.lyrics_autosave &&
-	    !exists_lyr_file(current.artist, current.title))
-		store_lyr_hd();
 }
 
 static void
-screen_lyrics_callback(const GString *result, G_GNUC_UNUSED void *data)
+screen_lyrics_callback(const GString *result, const bool success,
+		       G_GNUC_UNUSED void *data)
 {
 	assert(current.loader != NULL);
 
+	/* Display result, which may be lyrics or error messages */
 	if (result != NULL)
 		screen_lyrics_set(result);
-	else
+
+	if (success == true) {
+		if (options.lyrics_autosave &&
+		    !exists_lyr_file(current.artist, current.title))
+			store_lyr_hd();
+	} else {
 		/* translators: no lyrics were found for the song */
 		screen_status_message (_("No lyrics"));
+	}
 
 	plugin_stop(current.loader);
 	current.loader = NULL;

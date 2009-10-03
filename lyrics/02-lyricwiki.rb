@@ -28,11 +28,18 @@ url = "http://lyrics.wikia.com/api.php?action=lyrics&fmt=xml&func=getSong" + \
     "&artist=#{URI.escape(ARGV[0])}&song=#{URI.escape(ARGV[1])}"
 response = Net::HTTP.get(URI.parse(url))
 
-exit(2) unless response =~ /<url>\s*(.*?)\s*<\/url>/im
+if not response =~ /<url>\s*(.*?)\s*<\/url>/im
+	$stderr.puts "No URL in response!"
+	exit(1)
+end
+
 url = $1.gsub(/wikia.com/, "wikia.com/lyrics");
-exit(2) if $1 =~ /action=edit$/
+exit(69) if $1 =~ /action=edit$/
 
 response = Net::HTTP.get(URI.parse(url))
-exit(2) unless response =~ /<div class='lyricbox' >\s*(.*?)\s*<!--/im
+if not response =~ /<div class='lyricbox'>\s*(.*?)\s*<!--/im
+	$stderr.puts "No <div class='lyricbox'> in lyrics page!\n"
+	exit(1)
+end
 
 puts $1.gsub(/<br \/>/, "\n")

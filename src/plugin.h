@@ -34,10 +34,14 @@ struct plugin_list {
  * When a plugin cycle is finished, this function is called.  In any
  * case, plugin_stop() has to be called to free all memory.
  *
- * @param result the plugin's output (stdout) on success; NULL on failure
+ * @param result the plugin's output (stdout) on success; summary of all error
+ * messages on failure as determined by success
+ * @param success result of the plugin cycle; true if result is meaningful
+ * output, false if result contains error messages
  * @param data the caller defined pointer passed to plugin_run()
  */
-typedef void (*plugin_callback_t)(const GString *result, void *data);
+typedef void (*plugin_callback_t)(const GString *result, const bool success,
+				  void *data);
 
 /**
  * This object represents a cycle through all available plugins, until
