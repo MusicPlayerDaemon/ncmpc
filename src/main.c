@@ -178,6 +178,25 @@ disable_update_timer(void)
 	update_source_id = 0;
 }
 
+static bool
+should_enable_update_timer(void)
+{
+	return mpdclient_is_connected(mpd)
+#ifndef NCMPC_MINI
+		|| options.display_time
+#endif
+		;
+}
+
+static void
+auto_update_timer(void)
+{
+	if (should_enable_update_timer())
+		enable_update_timer();
+	else
+		disable_update_timer();
+}
+
 static void
 check_reconnect(void);
 
@@ -257,6 +276,8 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 
 	do_mpd_update();
 
+	auto_update_timer();
+
 	return FALSE;
 }
 
@@ -274,7 +295,12 @@ timer_mpd_update(G_GNUC_UNUSED gpointer data)
 {
 	do_mpd_update();
 
-	return true;
+	if (should_enable_update_timer())
+		return true;
+	else {
+		update_source_id = 0;
+		return false;
+	}
 }
 
 void begin_input_event(void)
@@ -287,6 +313,7 @@ void end_input_event(void)
 	mpd->events = 0;
 
 	check_reconnect();
+	auto_update_timer();
 }
 
 int do_input_event(command_t cmd)
@@ -298,11 +325,9 @@ int do_input_event(command_t cmd)
 
 	screen_cmd(mpd, cmd);
 
-	if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN) {
+	if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN)
 		/* make sure we don't update the volume yet */
 		disable_update_timer();
-		enable_update_timer();
-	}
 
 	return 0;
 }
@@ -498,7 +523,7 @@ main(int argc, const char *argv[])
 	/* attempt to connect */
 	reconnect_source_id = g_timeout_add(1, timer_reconnect, NULL);
 
-	enable_update_timer();
+	auto_update_timer();
 
 #ifndef NCMPC_MINI
 	check_key_bindings_source_id = g_timeout_add(10000, timer_check_key_bindings, NULL);
