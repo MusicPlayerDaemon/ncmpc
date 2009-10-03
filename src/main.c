@@ -237,6 +237,15 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 	return FALSE;
 }
 
+static void
+check_reconnect(void)
+{
+	if (!mpdclient_is_connected(mpd) && reconnect_source_id == 0)
+		/* reconnect when the connection is lost */
+		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
+						    NULL);
+}
+
 static gboolean
 timer_mpd_update(gpointer data)
 {
@@ -251,10 +260,7 @@ timer_mpd_update(gpointer data)
 	screen_update(mpd);
 	mpd->events = 0;
 
-	if (!mpdclient_is_connected(mpd) && reconnect_source_id == 0)
-		/* reconnect when the connection is lost */
-		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
-						    NULL);
+	check_reconnect();
 
 	return GPOINTER_TO_INT(data);
 }
@@ -267,6 +273,8 @@ void end_input_event(void)
 {
 	screen_update(mpd);
 	mpd->events = 0;
+
+	check_reconnect();
 }
 
 int do_input_event(command_t cmd)
