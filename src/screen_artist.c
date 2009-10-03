@@ -470,6 +470,9 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_PLAY:
 		switch (mode) {
 		case LIST_ARTISTS:
+			if (browser.lw->selected >= artist_list->len)
+				return true;
+
 			selected = g_ptr_array_index(artist_list,
 						     browser.lw->selected);
 			open_album_list(c, g_strdup(selected));
@@ -603,6 +606,9 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_ADD:
 		switch(mode) {
 		case LIST_ARTISTS:
+			if (browser.lw->selected >= artist_list->len)
+				return true;
+
 			for (unsigned i = browser.lw->selected_start;
 			     i <= browser.lw->selected_end; ++i) {
 				selected = g_ptr_array_index(artist_list, i);
