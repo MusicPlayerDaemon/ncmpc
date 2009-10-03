@@ -678,42 +678,6 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 /*** Filelist functions *****************************************************/
 /****************************************************************************/
 
-static struct filelist *
-mpdclient_recv_filelist_response(struct mpdclient *c);
-
-struct filelist *
-mpdclient_filelist_get(struct mpdclient *c, const gchar *path)
-{
-	struct filelist *filelist;
-
-	if (MPD_ERROR(c))
-		return NULL;
-
-	mpd_send_list_meta(c->connection, path);
-	filelist = mpdclient_recv_filelist_response(c);
-	if (filelist == NULL)
-		return NULL;
-
-	filelist_sort_dir_play(filelist, compare_filelist_entry_path);
-
-	return filelist;
-}
-
-static struct filelist *
-mpdclient_recv_filelist_response(struct mpdclient *c)
-{
-	struct filelist *filelist;
-
-	filelist = filelist_new_recv(c->connection);
-
-	if (!mpdclient_finish_command(c)) {
-		filelist_free(filelist);
-		return NULL;
-	}
-
-	return filelist;
-}
-
 bool
 mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl)
 {

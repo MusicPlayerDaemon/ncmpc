@@ -116,12 +116,6 @@ mpdclient_playlist_update(struct mpdclient *c);
 bool
 mpdclient_playlist_update_changes(struct mpdclient *c);
 
-
-/*** filelist functions  ***************************************************/
-
-struct filelist *
-mpdclient_filelist_get(struct mpdclient *c, const gchar *path);
-
 /* add all songs in filelist to the playlist */
 bool
 mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl);
