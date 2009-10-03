@@ -41,36 +41,6 @@ MPD_ERROR(const struct mpdclient *client)
 		mpd_connection_get_error(client->connection) != MPD_ERROR_SUCCESS;
 }
 
-/* filelist sorting functions */
-static gint
-compare_filelistentry(gconstpointer filelist_entry1,
-			  gconstpointer filelist_entry2)
-{
-	const struct mpd_entity *e1, *e2;
-	int n = 0;
-
-	e1 = ((const struct filelist_entry *)filelist_entry1)->entity;
-	e2 = ((const struct filelist_entry *)filelist_entry2)->entity;
-
-	if (e1 != NULL && e2 != NULL &&
-	    mpd_entity_get_type(e1) == mpd_entity_get_type(e2)) {
-		switch (mpd_entity_get_type(e1)) {
-		case MPD_ENTITY_TYPE_UNKNOWN:
-			break;
-		case MPD_ENTITY_TYPE_DIRECTORY:
-			n = g_utf8_collate(mpd_directory_get_path(mpd_entity_get_directory(e1)),
-					   mpd_directory_get_path(mpd_entity_get_directory(e2)));
-			break;
-		case MPD_ENTITY_TYPE_SONG:
-			break;
-		case MPD_ENTITY_TYPE_PLAYLIST:
-			n = g_utf8_collate(mpd_playlist_get_path(mpd_entity_get_playlist(e1)),
-					   mpd_playlist_get_path(mpd_entity_get_playlist(e2)));
-		}
-	}
-	return n;
-}
-
 /* sort by list-format */
 gint
 compare_filelistentry_format(gconstpointer filelist_entry1,
@@ -724,7 +694,7 @@ mpdclient_filelist_get(struct mpdclient *c, const gchar *path)
 	if (filelist == NULL)
 		return NULL;
 
-	filelist_sort_dir_play(filelist, compare_filelistentry);
+	filelist_sort_dir_play(filelist, compare_filelist_entry_path);
 
 	return filelist;
 }

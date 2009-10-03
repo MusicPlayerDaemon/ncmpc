@@ -68,6 +68,10 @@ filelist_prepend(struct filelist *filelist, struct mpd_entity *entity);
 void
 filelist_move(struct filelist *filelist, struct filelist *from);
 
+gint
+compare_filelist_entry_path(gconstpointer filelist_entry1,
+			    gconstpointer filelist_entry2);
+
 /* Sorts the whole filelist, at the moment used by filelist_search */
 void
 filelist_sort_all(struct filelist *filelist, GCompareFunc compare_func);

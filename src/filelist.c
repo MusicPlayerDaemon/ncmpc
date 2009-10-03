@@ -110,6 +110,35 @@ filelist_compare_indirect(gconstpointer ap, gconstpointer bp, gpointer data)
 	return compare_func(a, b);
 }
 
+gint
+compare_filelist_entry_path(gconstpointer filelist_entry1,
+			    gconstpointer filelist_entry2)
+{
+	const struct mpd_entity *e1, *e2;
+	int n = 0;
+
+	e1 = ((const struct filelist_entry *)filelist_entry1)->entity;
+	e2 = ((const struct filelist_entry *)filelist_entry2)->entity;
+
+	if (e1 != NULL && e2 != NULL &&
+	    mpd_entity_get_type(e1) == mpd_entity_get_type(e2)) {
+		switch (mpd_entity_get_type(e1)) {
+		case MPD_ENTITY_TYPE_UNKNOWN:
+			break;
+		case MPD_ENTITY_TYPE_DIRECTORY:
+			n = g_utf8_collate(mpd_directory_get_path(mpd_entity_get_directory(e1)),
+					   mpd_directory_get_path(mpd_entity_get_directory(e2)));
+			break;
+		case MPD_ENTITY_TYPE_SONG:
+			break;
+		case MPD_ENTITY_TYPE_PLAYLIST:
+			n = g_utf8_collate(mpd_playlist_get_path(mpd_entity_get_playlist(e1)),
+					   mpd_playlist_get_path(mpd_entity_get_playlist(e2)));
+		}
+	}
+	return n;
+}
+
 /* Sorts the whole filelist, at the moment used by filelist_search */
 void
 filelist_sort_all(struct filelist *filelist, GCompareFunc compare_func)
