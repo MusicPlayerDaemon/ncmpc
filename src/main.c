@@ -213,7 +213,10 @@ check_reconnect(void);
 static void
 do_mpd_update(void)
 {
-	if (mpdclient_is_connected(mpd))
+	if (mpdclient_is_connected(mpd) &&
+	    (mpd->source == NULL || mpd->events != 0 ||
+	     (mpd->status != NULL &&
+	      mpd_status_get_state(mpd->status) == MPD_STATE_PLAY)))
 		mpdclient_update(mpd);
 
 #ifndef NCMPC_MINI
