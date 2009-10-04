@@ -21,7 +21,7 @@
 # Load lyrics from leoslyrics.com
 #
 
-from sys import argv, exit
+from sys import argv, exit, stderr
 from urllib import urlencode, urlopen
 from xml.sax import make_parser, SAXException
 from xml.sax.handler import ContentHandler
@@ -47,7 +47,11 @@ def search(artist, title):
     handler = SearchContentHandler()
     parser = make_parser()
     parser.setContentHandler(handler)
-    parser.parse(f)
+    try:
+        parser.parse(f)
+    except SAXException:
+        stderr.write("Failed to parse the search result!\n")
+        exit(1)
     return handler.hid
 
 class LyricsContentHandler(ContentHandler):
@@ -75,10 +79,14 @@ def lyrics(hid):
     handler = LyricsContentHandler()
     parser = make_parser()
     parser.setContentHandler(handler)
-    parser.parse(f)
+    try:
+        parser.parse(f)
+    except SAXException:
+        stderr.write("Failed to parse the lyrics!\n")
+        exit(1)
     return handler.text
 
 hid = search(argv[1], argv[2])
 if hid is None:
     exit(69)
-print lyrics(hid).encode('utf-8')
+print lyrics(hid).encode('utf-8').rstrip()
