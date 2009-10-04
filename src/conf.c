@@ -169,18 +169,20 @@ parse_key_definition(char *str)
 	return assign_keys(cmd, keys);
 }
 
-static const char *
+static bool
 parse_timedisplay_type(const char *str)
 {
-	if (!strcmp(str,"elapsed") || !strcmp(str,"remaining"))
-		return str;
+	if (strcmp(str, "elapsed") == 0)
+		return false;
+	else if (strcmp(str, "remaining") == 0)
+		return true;
 	else {
 		/* translators: ncmpc supports displaying the
 		   "elapsed" or "remaining" time of a song being
 		   played; in this case, the configuration file
 		   contained an invalid setting */
 		print_error(_("Bad time display type"), str);
-		return DEFAULT_TIMEDISPLAY_TYPE;
+		return false;
 	}
 }
 
@@ -430,11 +432,10 @@ parse_line(char *line)
 	else if (!strcasecmp(CONF_VISIBLE_BITRATE, name))
 		options.visible_bitrate = str2bool(value);
 	/* timer display type */
-	else if (!strcasecmp(CONF_TIMEDISPLAY_TYPE, name)) {
-		g_free(options.timedisplay_type);
-		options.timedisplay_type=g_strdup(parse_timedisplay_type(value));
+	else if (!strcasecmp(CONF_TIMEDISPLAY_TYPE, name))
+		options.display_remaining_time = parse_timedisplay_type(value);
 		/* color definition */
-	} else if (!strcasecmp(CONF_COLOR_DEFINITION, name))
+	else if (!strcasecmp(CONF_COLOR_DEFINITION, name))
 #ifdef ENABLE_COLORS
 		parse_color_definition(value);
 #else

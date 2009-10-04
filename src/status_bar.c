@@ -119,15 +119,14 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 			char elapsed_string[32], duration_string[32];
 
 			/*checks the conf to see whether to display elapsed or remaining time */
-			if(!strcmp(options.timedisplay_type,"elapsed"))
-				elapsedTime = mpd_status_get_elapsed_time(status);
-			else if(!strcmp(options.timedisplay_type,"remaining"))
-				elapsedTime = total_time -
-					mpd_status_get_elapsed_time(status);
-
 			if (song != NULL &&
 			    seek_id == (int)mpd_song_get_id(song))
 				elapsedTime = seek_target_time;
+			else if (options.display_remaining_time)
+				elapsedTime = total_time -
+					mpd_status_get_elapsed_time(status);
+			else
+				elapsedTime = mpd_status_get_elapsed_time(status);
 
 			/* display bitrate if visible-bitrate is true */
 #ifndef NCMPC_MINI

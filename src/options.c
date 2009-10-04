@@ -381,7 +381,6 @@ options_init(void)
 	options.list_format = g_strdup(DEFAULT_LIST_FORMAT);
 	options.status_format = g_strdup(DEFAULT_STATUS_FORMAT);
 	options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
-	options.timedisplay_type = g_strdup(DEFAULT_TIMEDISPLAY_TYPE);
 #ifndef NCMPC_MINI
 	options.scroll_sep = g_strdup(DEFAULT_SCROLL_SEP);
 #endif
@@ -402,5 +401,4 @@ options_deinit(void)
 	g_free(options.xterm_title_format);
 	g_free(options.scroll_sep);
 #endif
-	g_free(options.timedisplay_type);
 }

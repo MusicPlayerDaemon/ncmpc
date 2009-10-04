@@ -367,16 +367,6 @@ fi
 
 AM_CONDITIONAL(ENABLE_OUTPUTS_SCREEN, test x$outputs_screen = xyes)
 
-dnl Default timedisplay type
-AC_MSG_CHECKING([for default timedisplay type])
-AC_ARG_WITH([default-timedisplay_type],
-	    AC_HELP_STRING([--with-default-timedisplay_type=ARG],
-	                   [default_timedisplay]),
-            [DEFAULT_TIMEDISPLAY_TYPE="$withval"],
-            [DEFAULT_TIMEDISPLAY_TYPE="elapsed"])
-AC_MSG_RESULT([$DEFAULT_TIMEDISPLAY_TYPE])
-AC_DEFINE_UNQUOTED([DEFAULT_TIMEDISPLAY_TYPE], ["$DEFAULT_TIMEDISPLAY_TYPE"], [Default way to display time, either 'elapsed' or 'remaining'])
-
 
 dnl
 dnl build options

@@ -38,7 +38,7 @@ typedef struct {
 	char *scroll_sep;
 #endif
 	char **screen_list;
-	char *timedisplay_type;
+	bool display_remaining_time;
 	int port;
 	int crossfade_time;
 	int search_mode;
