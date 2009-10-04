@@ -32,7 +32,6 @@ charset_init(void)
 {
 	noconvert = g_get_charset(&charset);
 	return charset;
-	return NULL;
 }
 #endif
 
