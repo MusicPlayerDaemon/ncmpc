@@ -154,7 +154,7 @@ paint_top_window(const char *header, const struct mpdclient *c)
 }
 
 static void
-paint_progress_window(struct mpdclient *c)
+update_progress_window(struct mpdclient *c, bool repaint)
 {
 	unsigned elapsed, duration;
 
@@ -171,7 +171,8 @@ paint_progress_window(struct mpdclient *c)
 		? mpd_status_get_total_time(c->status)
 		: 0;
 
-	if (progress_bar_set(&screen.progress_bar, elapsed, duration))
+	if (progress_bar_set(&screen.progress_bar, elapsed, duration) ||
+	    repaint)
 		progress_bar_paint(&screen.progress_bar);
 }
 
@@ -342,7 +343,7 @@ screen_paint(struct mpdclient *c)
 
 	/* paint the bottom window */
 
-	paint_progress_window(c);
+	update_progress_window(c, true);
 	status_bar_paint(&screen.status_bar, c->status, c->song);
 
 	/* paint the main window */
@@ -440,7 +441,7 @@ screen_update(struct mpdclient *c)
 		paint_top_window("", c);
 
 	/* update progress window */
-	paint_progress_window(c);
+	update_progress_window(c, false);
 
 	/* update status window */
 	status_bar_paint(&screen.status_bar, c->status, c->song);
