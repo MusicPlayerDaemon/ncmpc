@@ -10,13 +10,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-21 20:10+0200\n"
-"PO-Revision-Date: 2009-09-28 17:11+0200\n"
-"Last-Translator: François Blondel <francois@blondel-geraudie.fr>\n"
+"PO-Revision-Date: 2009-10-03 19:42+0000\n"
+"Last-Translator: François Blondel <Unknown>\n"
 "Language-Team: <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-09-28 15:08+0000\n"
+"X-Launchpad-Export-Date: 2009-10-04 22:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -594,7 +594,7 @@ msgstr "Visualiseur de chanson"
 
 #: src/screen_song.c:193
 msgid "Length"
-msgstr ""
+msgstr "Durée"
 
 #: src/screen_song.c:194
 msgid "Composer"
