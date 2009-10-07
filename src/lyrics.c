@@ -22,16 +22,18 @@
 
 #include <assert.h>
 
-static struct plugin_list plugins;
+static struct plugin_list empty, plugins;
 
 void lyrics_init(void)
 {
+	plugin_list_init(&empty);
 	plugin_list_init(&plugins);
 	plugin_list_load_directory(&plugins, LYRICS_PLUGIN_DIR);
 }
 
 void lyrics_deinit(void)
 {
+	plugin_list_deinit(&empty);
 	plugin_list_deinit(&plugins);
 }
 
@@ -41,8 +43,8 @@ lyrics_load(const char *artist, const char *title,
 {
 	const char *args[3] = { artist, title, NULL };
 
-	assert(artist != NULL);
-	assert(title != NULL);
+	if (artist == NULL || title == NULL)
+		return plugin_run(&empty, args, callback, data);
 
 	return plugin_run(&plugins, args, callback, data);
 }

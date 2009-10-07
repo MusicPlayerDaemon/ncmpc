@@ -340,9 +340,8 @@ make_argv(const char*const* args)
 	/* reserve space for the program name */
 	*ret++ = NULL;
 
-	do {
+	while (*args != NULL)
 		*ret++ = g_strdup(*args++);
-	} while (*args != NULL);
 
 	/* end of argument vector */
 	*ret++ = NULL;
