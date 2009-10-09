@@ -669,6 +669,7 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 		list_window_set_selected(lw, playlist_get_index(&c->playlist,
 								c->song));
 		playlist_save_selection();
+		playlist_repaint();
 		return true;
 
 	case CMD_LIST_FIND:
