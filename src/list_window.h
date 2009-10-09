@@ -37,7 +37,7 @@ typedef const char *(*list_window_callback_fn_t)(unsigned index,
 						 char **second_column,
 						 void *data);
 
-typedef struct list_window {
+struct list_window {
 	WINDOW *w;
 	unsigned rows, cols;
 
@@ -49,8 +49,7 @@ typedef struct list_window {
 	bool range_selection;       /* range selection activated */
 
 	bool hide_cursor;
-} list_window_t;
-
+};
 
 /* create a new list window */
 struct list_window *list_window_init(WINDOW *w,

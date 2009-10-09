@@ -179,7 +179,7 @@ static help_text_row_t help_text[] = {
 
 #define help_text_rows (sizeof(help_text) / sizeof(help_text[0]))
 
-static list_window_t *lw;
+static struct list_window *lw;
 
 static const char *
 list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char** second_column, G_GNUC_UNUSED void *data)

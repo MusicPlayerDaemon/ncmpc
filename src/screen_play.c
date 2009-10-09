@@ -63,7 +63,7 @@ static guint scroll_source_id;
 static struct mpdclient_playlist *playlist;
 static int current_song_id = -1;
 static int selected_song_id = -1;
-static list_window_t *lw = NULL;
+static struct list_window *lw;
 static guint timer_hide_cursor_id;
 
 static void

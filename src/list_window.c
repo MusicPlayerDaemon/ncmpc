@@ -39,7 +39,7 @@ list_window_init(WINDOW *w, unsigned width, unsigned height)
 {
 	struct list_window *lw;
 
-	lw = g_malloc0(sizeof(list_window_t));
+	lw = g_malloc0(sizeof(*lw));
 	lw->w = w;
 	lw->cols = width;
 	lw->rows = height;

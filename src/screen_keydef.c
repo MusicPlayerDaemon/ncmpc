@@ -42,7 +42,7 @@
 #define LIST_ITEM_APPLY_LABEL _("===> Apply key bindings ")
 
 
-static list_window_t *lw = NULL;
+static struct list_window *lw;
 static unsigned command_list_length = 0;
 static command_definition_t *cmds = NULL;
 

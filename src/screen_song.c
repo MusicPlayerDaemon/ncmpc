@@ -34,7 +34,7 @@
 #include <assert.h>
 #include <string.h>
 
-static list_window_t *lw;
+static struct list_window *lw;
 
 static struct mpd_song *next_song;
 
