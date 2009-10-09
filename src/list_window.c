@@ -299,6 +299,16 @@ list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
 		      const char *text, const char *second_column)
 {
 	unsigned text_width = utf8_width(text);
+	unsigned second_column_width;
+
+	if (second_column != NULL) {
+		second_column_width = utf8_width(second_column) + 1;
+		if (second_column_width < width)
+			width -= second_column_width;
+		else
+			second_column_width = 0;
+	} else
+		second_column_width = 0;
 
 	if (highlight)
 		colors_use(w, COLOR_LIST_BOLD);
@@ -312,20 +322,25 @@ list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
 	if (options.wide_cursor && text_width < width)
 		whline(w, ' ', width - text_width);
 
-	if (second_column != NULL) {
-		unsigned second_column_width = utf8_width(second_column) + 1;
-		if (width > second_column_width) {
-			wmove(w, y, width - second_column_width);
-			waddch(w, ' ');
-			waddstr(w, second_column);
-		}
+	if (second_column_width > 0) {
+		wmove(w, y, width);
+		waddch(w, ' ');
+		waddstr(w, second_column);
 	}
 
 	if (selected)
 		wattroff(w, A_REVERSE);
 
-	if (!options.wide_cursor && text_width < width)
-		wclrtoeol(w);
+	if (!options.wide_cursor && text_width < width) {
+		if (second_column_width == 0)
+			/* the cursor is at the end of the text; clear
+			   the rest of this row */
+			wclrtoeol(w);
+		else
+			/* there's a second column: clear the space
+			   between the first and the second column */
+			mvwhline(w, y, text_width, ' ', width - text_width);
+	}
 }
 
 void

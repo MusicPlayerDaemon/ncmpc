@@ -8,6 +8,7 @@ ncmpc 0.16 - not yet released
 * search: eliminate duplicate results
 * use the "idle" command to reduce CPU and network usage
 * disable the status bar clock by default
+* list_window: fix narrow cursor drawing
 
 
 ncmpc 0.15 - 2009-09-24
