@@ -316,8 +316,7 @@ list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
 		unsigned second_column_width = utf8_width(second_column) + 1;
 		if (width > second_column_width) {
 			wmove(w, y, width - second_column_width);
-			waddstr(w, " ");
-			wmove(w, y, width - second_column_width + 1);
+			waddch(w, ' ');
 			waddstr(w, second_column);
 		}
 	}
