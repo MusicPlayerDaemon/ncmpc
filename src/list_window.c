@@ -293,13 +293,48 @@ list_window_scroll_down(struct list_window *lw, unsigned length, unsigned n)
 	}
 }
 
+static void
+list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
+		      bool selected, bool highlight,
+		      const char *text, const char *second_column)
+{
+	unsigned text_width = utf8_width(text);
+
+	if (highlight)
+		colors_use(w, COLOR_LIST_BOLD);
+	else
+		colors_use(w, COLOR_LIST);
+
+	if (selected)
+		wattron(w, A_REVERSE);
+
+	waddstr(w, text);
+	if (options.wide_cursor && text_width < width)
+		whline(w, ' ', width - text_width);
+
+	if (second_column != NULL) {
+		unsigned second_column_width = utf8_width(second_column) + 1;
+		if (width > second_column_width) {
+			wmove(w, y, width - second_column_width);
+			waddstr(w, " ");
+			wmove(w, y, width - second_column_width + 1);
+			waddstr(w, second_column);
+		}
+	}
+
+	if (selected)
+		wattroff(w, A_REVERSE);
+
+	if (!options.wide_cursor && text_width < width)
+		wclrtoeol(w);
+}
+
 void
 list_window_paint(struct list_window *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data)
 {
 	unsigned i;
-	bool fill = options.wide_cursor;
 	bool show_cursor = !lw->hide_cursor;
 	bool highlight = false;
 
@@ -340,42 +375,15 @@ list_window_paint(struct list_window *lw,
 		wmove(lw->w, i, 0);
 
 		if (label) {
-			bool selected = show_cursor &&
-				lw->start + i >= lw->selected_start &&
-				lw->start + i <= lw->selected_end;
-			unsigned len = utf8_width(label);
+			list_window_paint_row(lw->w, i, lw->cols,
+					      show_cursor &&
+					      lw->start + i >= lw->selected_start &&
+					      lw->start + i <= lw->selected_end,
+					      highlight,
+					      label, second_column);
 
-			if (highlight)
-				colors_use(lw->w, COLOR_LIST_BOLD);
-			else
-				colors_use(lw->w, COLOR_LIST);
-
-			if (selected)
-				wattron(lw->w, A_REVERSE);
-
-			//waddnstr(lw->w, label, lw->cols);
-			waddstr(lw->w, label);
-			if (fill && len < lw->cols)
-				whline(lw->w,  ' ', lw->cols-len);
-
-			if(second_column)
-			{
-				unsigned sc_len = utf8_width(second_column) + 1;
-				if(lw->cols > sc_len)
-				{
-					wmove(lw->w, i, lw->cols - sc_len);
-					waddstr(lw->w, " ");
-					wmove(lw->w, i, lw->cols - sc_len + 1);
-					waddstr(lw->w, second_column);
-				}
+			if (second_column != NULL)
 				g_free(second_column);
-			}
-
-			if (selected)
-				wattroff(lw->w, A_REVERSE);
-
-			if (!fill && len < lw->cols)
-				wclrtoeol(lw->w);
 		} else
 			wclrtoeol(lw->w);
 	}
