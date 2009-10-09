@@ -383,7 +383,7 @@ browser_handle_mouse_event(struct screen_browser *browser, struct mpdclient *c)
 	    list_window_mouse(browser->lw, length, bstate, row))
 		return 1;
 
-	browser->lw->selected = browser->lw->start + row;
+	list_window_set_cursor(browser->lw, browser->lw->start + row);
 	list_window_check_selected(browser->lw, length);
 
 	if( bstate & BUTTON1_CLICKED ) {

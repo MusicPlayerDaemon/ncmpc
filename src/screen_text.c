@@ -103,7 +103,7 @@ screen_text_cmd(struct screen_text *text,
 		return true;
 	}
 
-	text->lw->selected = text->lw->start;
+	list_window_set_cursor(text->lw, text->lw->start);
 	if (screen_find(text->lw, text->lines->len,
 			cmd, screen_text_list_callback, text)) {
 		/* center the row */

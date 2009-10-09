@@ -327,9 +327,7 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 			}
 		} else {
 			if (lw->selected == 0) { /* up */
-				lw->selected = subcmd;
-				lw->selected_start = lw->selected;
-				lw->selected_end = lw->selected;
+				list_window_set_cursor(lw, subcmd);
 				subcmd = -1;
 
 				keydef_repaint();
@@ -340,9 +338,7 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 		return true;
 	case CMD_GO_PARENT_DIRECTORY:
 		if (subcmd >=0) {
-			lw->selected = subcmd;
-			lw->selected_start = lw->selected;
-			lw->selected_end = lw->selected;
+			list_window_set_cursor(lw, subcmd);
 			subcmd = -1;
 
 			keydef_repaint();

@@ -261,7 +261,7 @@ help_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 		return true;
 	}
 
-	lw->selected = lw->start;
+	list_window_set_cursor(lw, lw->start);
 	if (screen_find(lw,  help_text_rows,
 			cmd, list_callback, NULL)) {
 		/* center the row */

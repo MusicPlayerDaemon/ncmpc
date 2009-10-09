@@ -111,7 +111,7 @@ playlist_restore_selection(void)
 
 	pos = playlist_get_index_from_id(playlist, selected_song_id);
 	if (pos >= 0)
-		lw->selected = pos;
+		list_window_set_cursor(lw, pos);
 
 	list_window_check_selected(lw, playlist_length(playlist));
 	playlist_save_selection();
@@ -608,7 +608,7 @@ handle_mouse_event(struct mpdclient *c)
 			mpdclient_cmd_delete(c, lw->selected);
 	}
 
-	lw->selected = selected;
+	list_window_set_cursor(lw, selected);
 	list_window_check_selected(lw, playlist_length(playlist));
 	playlist_save_selection();
 	playlist_repaint();
@@ -723,8 +723,7 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 			mpdclient_cmd_delete(c, lw->selected);
 		}
 
-		lw->selected = lw->selected_end = lw->selected_start;
-		lw->range_selection = false;
+		list_window_set_cursor(lw, lw->selected_start);
 		return true;
 
 	case CMD_SAVE_PLAYLIST:
