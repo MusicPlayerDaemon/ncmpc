@@ -128,7 +128,16 @@ list_window_center(struct list_window *lw, unsigned rows, unsigned n)
 }
 
 void
-list_window_set_selected(struct list_window *lw, unsigned n)
+list_window_set_cursor(struct list_window *lw, unsigned i)
+{
+	lw->range_selection = false;
+	lw->selected = i;
+	lw->selected_start = i;
+	lw->selected_end = i;
+}
+
+void
+list_window_move_cursor(struct list_window *lw, unsigned n)
 {
 	lw->selected = n;
 	if(lw->range_selection)
@@ -155,39 +164,39 @@ static void
 list_window_next(struct list_window *lw, unsigned length)
 {
 	if (lw->selected + 1 < length)
-		list_window_set_selected(lw, lw->selected + 1);
+		list_window_move_cursor(lw, lw->selected + 1);
 	else if (options.list_wrap)
-		list_window_set_selected(lw, 0);
+		list_window_move_cursor(lw, 0);
 }
 
 static void
 list_window_previous(struct list_window *lw, unsigned length)
 {
 	if (lw->selected > 0)
-		list_window_set_selected(lw, lw->selected - 1);
+		list_window_move_cursor(lw, lw->selected - 1);
 	else if (options.list_wrap)
-		list_window_set_selected(lw, length-1);
+		list_window_move_cursor(lw, length-1);
 }
 
 static void
 list_window_top(struct list_window *lw)
 {
 	if (lw->start == 0)
-		list_window_set_selected(lw, lw->start);
+		list_window_move_cursor(lw, lw->start);
 	else
 		if ((unsigned) options.scroll_offset * 2 >= lw->rows)
-			list_window_set_selected(lw, lw->start + lw->rows / 2);
+			list_window_move_cursor(lw, lw->start + lw->rows / 2);
 		else
-			list_window_set_selected(lw, lw->start + options.scroll_offset);
+			list_window_move_cursor(lw, lw->start + options.scroll_offset);
 }
 
 static void
 list_window_middle(struct list_window *lw, unsigned length)
 {
 	if (length >= lw->rows)
-		list_window_set_selected(lw, lw->start + lw->rows / 2);
+		list_window_move_cursor(lw, lw->start + lw->rows / 2);
 	else
-		list_window_set_selected(lw, length / 2);
+		list_window_move_cursor(lw, length / 2);
 }
 
 static void
@@ -195,29 +204,29 @@ list_window_bottom(struct list_window *lw, unsigned length)
 {
 	if (length >= lw->rows)
 		if ((unsigned) options.scroll_offset * 2 >= lw->rows)
-			list_window_set_selected(lw, lw->start + lw->rows / 2);
+			list_window_move_cursor(lw, lw->start + lw->rows / 2);
 		else
 			if (lw->start + lw->rows == length)
-				list_window_set_selected(lw, length - 1);
+				list_window_move_cursor(lw, length - 1);
 			else
-				list_window_set_selected(lw, lw->start + lw->rows - 1 - options.scroll_offset);
+				list_window_move_cursor(lw, lw->start + lw->rows - 1 - options.scroll_offset);
 	else
-		list_window_set_selected(lw, length - 1);
+		list_window_move_cursor(lw, length - 1);
 }
 
 static void
 list_window_first(struct list_window *lw)
 {
-	list_window_set_selected(lw, 0);
+	list_window_move_cursor(lw, 0);
 }
 
 static void
 list_window_last(struct list_window *lw, unsigned length)
 {
 	if (length > 0)
-		list_window_set_selected(lw, length - 1);
+		list_window_move_cursor(lw, length - 1);
 	else
-		list_window_set_selected(lw, 0);
+		list_window_move_cursor(lw, 0);
 }
 
 static void
@@ -226,7 +235,7 @@ list_window_next_page(struct list_window *lw, unsigned length)
 	if (lw->rows < 2)
 		return;
 	if (lw->selected + lw->rows < length)
-		list_window_set_selected(lw, lw->selected + lw->rows - 1);
+		list_window_move_cursor(lw, lw->selected + lw->rows - 1);
 	else
 		list_window_last(lw, length);
 }
@@ -237,7 +246,7 @@ list_window_previous_page(struct list_window *lw)
 	if (lw->rows < 2)
 		return;
 	if (lw->selected > lw->rows - 1)
-		list_window_set_selected(lw, lw->selected - lw->rows + 1);
+		list_window_move_cursor(lw, lw->selected - lw->rows + 1);
 	else
 		list_window_first(lw);
 }
@@ -558,8 +567,7 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 		if(lw->range_selection)
 		{
 			screen_status_printf(_("Range selection disabled"));
-			lw->range_selection = false;
-			list_window_set_selected(lw, lw->selected);
+			list_window_set_cursor(lw, lw->selected);
 		}
 		else
 		{

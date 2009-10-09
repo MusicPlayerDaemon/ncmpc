@@ -91,8 +91,20 @@ void
 list_window_center(struct list_window *lw, unsigned rows, unsigned n);
 
 /* select functions */
-void list_window_set_selected(struct list_window *lw, unsigned n);
 void list_window_check_selected(struct list_window *lw, unsigned length);
+
+/**
+ * Sets the position of the cursor.  Disables range selection.
+ */
+void
+list_window_set_cursor(struct list_window *lw, unsigned i);
+
+/**
+ * Moves the cursor.  Modifies the range if range selection is
+ * enabled.
+ */
+void
+list_window_move_cursor(struct list_window *lw, unsigned n);
 
 /* find a string in a list window */
 bool

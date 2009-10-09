@@ -126,7 +126,7 @@ change_to_parent(struct mpdclient *c)
 
 	if (success && idx >= 0) {
 		/* set the cursor on the previous working directory */
-		list_window_set_selected(browser.lw, idx);
+		list_window_set_cursor(browser.lw, idx);
 		list_window_center(browser.lw,
 				   filelist_length(browser.filelist), idx);
 	}
@@ -454,7 +454,7 @@ screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song)
 	if (i < 0)
 		i = 0;
 
-	list_window_set_selected(browser.lw, i);
+	list_window_set_cursor(browser.lw, i);
 
 	/* finally, switch to the file screen */
 	screen_switch(&screen_browse, c);

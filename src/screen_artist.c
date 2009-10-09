@@ -494,7 +494,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 				g_free(old);
 
 				if (idx >= 0) {
-					list_window_set_selected(browser.lw, idx);
+					list_window_set_cursor(browser.lw, idx);
 					list_window_center(browser.lw,
 							   artist_list->len, idx);
 				}
@@ -528,7 +528,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 
 				if (idx >= 0) {
 					++idx;
-					list_window_set_selected(browser.lw, idx);
+					list_window_set_cursor(browser.lw, idx);
 					list_window_center(browser.lw,
 							   album_list->len, idx);
 				}
@@ -557,7 +557,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 			g_free(old);
 
 			if (idx >= 0) {
-				list_window_set_selected(browser.lw, idx);
+				list_window_set_cursor(browser.lw, idx);
 				list_window_center(browser.lw,
 						   artist_list->len, idx);
 			}
@@ -576,7 +576,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 
 			if (idx >= 0) {
 				++idx;
-				list_window_set_selected(browser.lw, idx);
+				list_window_set_cursor(browser.lw, idx);
 				list_window_center(browser.lw,
 						   album_list->len, idx);
 			}

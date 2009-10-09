@@ -212,14 +212,14 @@ center_playing_item(struct mpdclient *c, bool center_cursor)
 	if (length < lw->rows)
 	{
 		if (center_cursor)
-			list_window_set_selected(lw, idx);
+			list_window_set_cursor(lw, idx);
 		return;
 	}
 
 	list_window_center(lw, length, idx);
 
 	if (center_cursor) {
-		list_window_set_selected(lw, idx);
+		list_window_set_cursor(lw, idx);
 		return;
 	}
 
@@ -666,8 +666,8 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 		playlist_repaint();
 		return false;
 	case CMD_SELECT_PLAYING:
-		list_window_set_selected(lw, playlist_get_index(&c->playlist,
-								c->song));
+		list_window_set_cursor(lw, playlist_get_index(&c->playlist,
+							      c->song));
 		playlist_save_selection();
 		playlist_repaint();
 		return true;
