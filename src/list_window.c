@@ -50,10 +50,9 @@ list_window_init(WINDOW *w, unsigned width, unsigned height)
 void
 list_window_free(struct list_window *lw)
 {
-	if (lw) {
-		memset(lw, 0, sizeof(list_window_t));
-		g_free(lw);
-	}
+	assert(lw != NULL);
+
+	g_free(lw);
 }
 
 void
