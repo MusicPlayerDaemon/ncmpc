@@ -106,6 +106,13 @@ list_window_set_cursor(struct list_window *lw, unsigned i);
 void
 list_window_move_cursor(struct list_window *lw, unsigned n);
 
+/**
+ * Ensures that the cursor is visible on the screen, i.e. it is not
+ * outside the current scrolling range.
+ */
+void
+list_window_fetch_cursor(struct list_window *lw, unsigned length);
+
 /* find a string in a list window */
 bool
 list_window_find(struct list_window *lw,
