@@ -328,6 +328,9 @@ list_window_paint(struct list_window *lw,
 		}
 	}
 
+	show_cursor = show_cursor &&
+		(!options.hardware_cursor || lw->range_selection);
+
 	for (i = 0; i < lw->rows; i++) {
 		const char *label;
 		char *second_column = NULL;
@@ -337,7 +340,9 @@ list_window_paint(struct list_window *lw,
 		wmove(lw->w, i, 0);
 
 		if (label) {
-			bool selected = (lw->start + i >= lw->selected_start && lw->start + i <= lw->selected_end);
+			bool selected = show_cursor &&
+				lw->start + i >= lw->selected_start &&
+				lw->start + i <= lw->selected_end;
 			unsigned len = utf8_width(label);
 
 			if (highlight)
@@ -345,8 +350,7 @@ list_window_paint(struct list_window *lw,
 			else
 				colors_use(lw->w, COLOR_LIST);
 
-			if (show_cursor && selected &&
-			    (!options.hardware_cursor || lw->range_selection))
+			if (selected)
 				wattron(lw->w, A_REVERSE);
 
 			//waddnstr(lw->w, label, lw->cols);
