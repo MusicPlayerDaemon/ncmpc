@@ -759,12 +759,25 @@ mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl)
 	return mpdclient_finish_command(c);
 }
 
+static GList *
+recv_tag_values(struct mpd_connection *connection, enum mpd_tag_type tag)
+{
+	GList *list = NULL;
+	struct mpd_pair *pair;
+
+	while ((pair = mpd_recv_pair_tag(connection, tag)) != NULL) {
+		list = g_list_append(list, g_strdup(pair->value));
+		mpd_return_pair(connection, pair);
+	}
+
+	return list;
+}
+
 GList *
 mpdclient_get_artists(struct mpdclient *c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
-	GList *list = NULL;
-	struct mpd_pair *pair;
+	GList *list;
 
 	if (connection == NULL)
 		return NULL;
@@ -772,11 +785,7 @@ mpdclient_get_artists(struct mpdclient *c)
 	mpd_search_db_tags(connection, MPD_TAG_ARTIST);
 	mpd_search_commit(connection);
 
-	while ((pair = mpd_recv_pair_tag(connection,
-					 MPD_TAG_ARTIST)) != NULL) {
-		list = g_list_append(list, g_strdup(pair->value));
-		mpd_return_pair(connection, pair);
-	}
+	list = recv_tag_values(connection, MPD_TAG_ARTIST);
 
 	if (!mpdclient_finish_command(c))
 		return string_list_free(list);
@@ -788,8 +797,7 @@ GList *
 mpdclient_get_albums(struct mpdclient *c, const gchar *artist_utf8)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
-	GList *list = NULL;
-	struct mpd_pair *pair;
+	GList *list;
 
 	if (connection == NULL)
 		return NULL;
@@ -801,11 +809,7 @@ mpdclient_get_albums(struct mpdclient *c, const gchar *artist_utf8)
 					      MPD_TAG_ARTIST, artist_utf8);
 	mpd_search_commit(connection);
 
-	while ((pair = mpd_recv_pair_tag(connection,
-					 MPD_TAG_ALBUM)) != NULL) {
-		list = g_list_append(list, g_strdup(pair->value));
-		mpd_return_pair(connection, pair);
-	}
+	list = recv_tag_values(connection, MPD_TAG_ALBUM);
 
 	if (!mpdclient_finish_command(c))
 		return string_list_free(list);
