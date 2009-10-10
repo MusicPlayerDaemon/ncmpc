@@ -380,13 +380,12 @@ list_window_paint(const struct list_window *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data)
 {
-	bool show_cursor = !lw->hide_cursor;
+	bool show_cursor = !lw->hide_cursor &&
+		(!options.hardware_cursor || lw->range_selection);
 	struct list_window_range range;
 
-	show_cursor = show_cursor &&
-		(!options.hardware_cursor || lw->range_selection);
-
-	list_window_get_range(lw, &range);
+	if (show_cursor)
+		list_window_get_range(lw, &range);
 
 	for (unsigned i = 0; i < lw->rows; i++) {
 		const char *label;
