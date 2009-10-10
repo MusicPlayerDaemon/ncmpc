@@ -94,33 +94,27 @@ static gboolean advanced_search_mode = FALSE;
 
 static struct screen_browser browser;
 
+static const char *const help_text[] = {
+	"Quick     -  Enter a string and ncmpc will search according",
+	"             to the current search mode (displayed above).",
+	"",
+	"Advanced  -  <tag>:<search term> [<tag>:<search term>...]",
+	"		Example: artist:radiohead album:pablo honey",
+	"",
+	"		Available tags: artist, album, title, track,",
+	"		name, genre, date composer, performer, comment, file",
+	"",
+};
 
 /* search info */
 static const char *
 lw_search_help_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
 			G_GNUC_UNUSED char** sc, G_GNUC_UNUSED void *data)
 {
-	unsigned text_rows;
-	static const char *text[] = {
-		"Quick     -  Enter a string and ncmpc will search according",
-		"             to the current search mode (displayed above).",
-		"",
-		"Advanced  -  <tag>:<search term> [<tag>:<search term>...]",
-		"		Example: artist:radiohead album:pablo honey",
-		"",
-		"		Available tags: artist, album, title, track,",
-		"		name, genre, date composer, performer, comment, file",
-		"",
-		NULL
-	};
+	if (idx >= G_N_ELEMENTS(help_text))
+		return NULL;
 
-	text_rows=0;
-	while (text[text_rows])
-		text_rows++;
-
-	if (idx < text_rows)
-		return text[idx];
-	return NULL;
+	return help_text[idx];
 }
 
 static void
