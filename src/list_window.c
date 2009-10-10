@@ -378,6 +378,7 @@ list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
 
 #ifdef NCMPC_MINI
 	second_column = NULL;
+	highlight = false;
 #endif /* NCMPC_MINI */
 
 	if (second_column != NULL) {
@@ -429,15 +430,14 @@ list_window_paint(const struct list_window *lw,
 {
 	unsigned i;
 	bool show_cursor = !lw->hide_cursor;
-	bool highlight = false;
 
 	show_cursor = show_cursor &&
 		(!options.hardware_cursor || lw->range_selection);
 
 	for (i = 0; i < lw->rows; i++) {
 		const char *label;
+		bool highlight = false;
 		char *second_column = NULL;
-		highlight = false;
 
 		wmove(lw->w, i, 0);
 
@@ -448,6 +448,11 @@ list_window_paint(const struct list_window *lw,
 
 		label = callback(lw->start + i, &highlight, &second_column, callback_data);
 		assert(label != NULL);
+
+#ifdef NCMPC_MINI
+		highlight = false;
+		second_column = NULL;
+#endif /* NCMPC_MINI */
 
 		list_window_paint_row(lw->w, i, lw->cols,
 				      show_cursor &&
