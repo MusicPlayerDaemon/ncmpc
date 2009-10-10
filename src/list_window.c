@@ -123,16 +123,13 @@ list_window_check_origin(struct list_window *lw)
 	if ((unsigned) options.scroll_offset * 2 >= lw->rows)
 		// Center if the offset is more than half the screen
 		start = lw->selected - lw->rows / 2;
-	else
-		{
-			if (lw->selected < lw->start + options.scroll_offset)
-				start = lw->selected - options.scroll_offset;
+	else {
+		if (lw->selected < lw->start + options.scroll_offset)
+			start = lw->selected - options.scroll_offset;
 
-			if (lw->selected >= lw->start + lw->rows - options.scroll_offset)
-				{
-					start = lw->selected - lw->rows + 1 + options.scroll_offset;
-				}
-		}
+		if (lw->selected >= lw->start + lw->rows - options.scroll_offset)
+			start = lw->selected - lw->rows + 1 + options.scroll_offset;
+	}
 
 	if (start + lw->rows > lw->length)
 		start = lw->length - lw->rows;
