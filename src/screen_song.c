@@ -374,7 +374,7 @@ screen_song_update(struct mpdclient *c)
 	    !screen_song_add_stats(mpdclient_get_connection(c)))
 		mpdclient_handle_error(c);
 
-	list_window_set_length(lw, 0);
+	list_window_set_length(lw, current.lines->len);
 	screen_song_repaint();
 }
 
