@@ -111,11 +111,45 @@ list_window_check_selected(struct list_window *lw)
 	}
 }
 
+/**
+ * Scroll after the cursor was moved, the list was changed or the
+ * window was resized.
+ */
+static void
+list_window_check_origin(struct list_window *lw)
+{
+	int start = lw->start;
+
+	if ((unsigned) options.scroll_offset * 2 >= lw->rows)
+		// Center if the offset is more than half the screen
+		start = lw->selected - lw->rows / 2;
+	else
+		{
+			if (lw->selected < lw->start + options.scroll_offset)
+				start = lw->selected - options.scroll_offset;
+
+			if (lw->selected >= lw->start + lw->rows - options.scroll_offset)
+				{
+					start = lw->selected - lw->rows + 1 + options.scroll_offset;
+				}
+		}
+
+	if (start + lw->rows > lw->length)
+		start = lw->length - lw->rows;
+
+	if (start < 0 || lw->length == 0)
+		start = 0;
+
+	lw->start = start;
+}
+
 void
 list_window_resize(struct list_window *lw, unsigned width, unsigned height)
 {
 	lw->cols = width;
 	lw->rows = height;
+
+	list_window_check_origin(lw);
 }
 
 void
@@ -124,6 +158,7 @@ list_window_set_length(struct list_window *lw, unsigned length)
 	lw->length = length;
 
 	list_window_check_selected(lw);
+	list_window_check_origin(lw);
 }
 
 void
@@ -151,6 +186,7 @@ list_window_set_cursor(struct list_window *lw, unsigned i)
 	lw->selected_end = i;
 
 	list_window_check_selected(lw);
+	list_window_check_origin(lw);
 }
 
 void
@@ -175,6 +211,9 @@ list_window_move_cursor(struct list_window *lw, unsigned n)
 		lw->selected_start = n;
 		lw->selected_end = n;
 	}
+
+	list_window_check_selected(lw);
+	list_window_check_origin(lw);
 }
 
 void
@@ -384,38 +423,13 @@ list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
 }
 
 void
-list_window_paint(struct list_window *lw,
+list_window_paint(const struct list_window *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data)
 {
 	unsigned i;
 	bool show_cursor = !lw->hide_cursor;
 	bool highlight = false;
-
-	if (show_cursor) {
-		int start = lw->start;
-		if ((unsigned) options.scroll_offset * 2 >= lw->rows)
-			// Center if the offset is more than half the screen
-			start = lw->selected - lw->rows / 2;
-		else
-		{
-			if (lw->selected < lw->start + options.scroll_offset)
-				start = lw->selected - options.scroll_offset;
-
-			if (lw->selected >= lw->start + lw->rows - options.scroll_offset)
-			{
-				start = lw->selected - lw->rows + 1 + options.scroll_offset;
-			}
-		}
-
-		if (start + lw->rows > lw->length)
-			start = lw->length - lw->rows;
-
-		if (start < 0 || lw->length == 0)
-			start = 0;
-
-		lw->start = start;
-	}
 
 	show_cursor = show_cursor &&
 		(!options.hardware_cursor || lw->range_selection);

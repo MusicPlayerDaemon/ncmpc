@@ -73,7 +73,7 @@ void
 list_window_set_length(struct list_window *lw, unsigned length);
 
 /* paint a list window */
-void list_window_paint(struct list_window *lw,
+void list_window_paint(const struct list_window *lw,
 		       list_window_callback_fn_t callback,
 		       void *callback_data);
 
