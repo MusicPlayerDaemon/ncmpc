@@ -92,6 +92,9 @@ mpd_glib_free(struct mpd_glib_source *source)
 		g_source_remove(source->id);
 
 	g_io_channel_unref(source->channel);
+
+	mpd_parser_free(source->parser);
+	g_free(source);
 }
 
 static void
