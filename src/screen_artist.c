@@ -472,6 +472,7 @@ string_array_find(GPtrArray *array, const char *value)
 static bool
 screen_artist_cmd(struct mpdclient *c, command_t cmd)
 {
+	struct list_window_range range;
 	char *selected;
 	char *old;
 	int idx;
@@ -615,8 +616,8 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 			if (browser.lw->selected >= artist_list->len)
 				return true;
 
-			for (unsigned i = browser.lw->selected_start;
-			     i <= browser.lw->selected_end; ++i) {
+			list_window_get_range(browser.lw, &range);
+			for (unsigned i = range.start; i < range.end; ++i) {
 				selected = g_ptr_array_index(artist_list, i);
 				add_query(c, MPD_TAG_ARTIST, selected);
 				cmd = CMD_LIST_NEXT; /* continue and select next item... */
@@ -624,8 +625,8 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 			break;
 
 		case LIST_ALBUMS:
-			for (unsigned i = browser.lw->selected_start;
-			     i <= browser.lw->selected_end; ++i) {
+			list_window_get_range(browser.lw, &range);
+			for (unsigned i = range.start; i < range.end; ++i) {
 				if(i == album_list->len + 1)
 					add_query(c, MPD_TAG_ARTIST, artist);
 				else if (i > 0)

@@ -180,12 +180,17 @@ enqueue_and_play(struct mpdclient *c, struct filelist_entry *entry)
 struct filelist_entry *
 browser_get_selected_entry(const struct screen_browser *browser)
 {
+	struct list_window_range range;
+
+	list_window_get_range(browser->lw, &range);
+
 	if (browser->filelist == NULL ||
-	    browser->lw->selected_start < browser->lw->selected_end ||
-	    browser->lw->selected >= filelist_length(browser->filelist))
+	    range.end <= range.start ||
+	    range.end > range.start + 1 ||
+	    range.start >= filelist_length(browser->filelist))
 		return NULL;
 
-	return filelist_get(browser->filelist, browser->lw->selected);
+	return filelist_get(browser->filelist, range.start);
 }
 
 static const struct mpd_entity *
@@ -304,49 +309,37 @@ browser_select_entry(struct mpdclient *c, struct filelist_entry *entry,
 static bool
 browser_handle_select(struct screen_browser *browser, struct mpdclient *c)
 {
+	struct list_window_range range;
 	struct filelist_entry *entry;
+	bool success;
 
-	if (browser->lw->range_selection) {
-		for (unsigned i = browser->lw->selected_start;
-		         i <= browser->lw->selected_end; i++) {
-			entry = browser_get_index(browser, i);
+	list_window_get_range(browser->lw, &range);
+	for (unsigned i = range.start; i < range.end; ++i) {
+		entry = browser_get_index(browser, i);
 
-			if (entry != NULL && entry->entity != NULL)
-				browser_select_entry(c, entry, TRUE);
-		}
-		return false;
-	} else {
-		entry = browser_get_selected_entry(browser);
-
-		if (entry == NULL || entry->entity == NULL)
-			return false;
-
-		return browser_select_entry(c, entry, TRUE);
+		if (entry != NULL && entry->entity != NULL)
+			success = browser_select_entry(c, entry, TRUE);
 	}
+
+	return range.end == range.start + 1 && success;
 }
 
 static bool
 browser_handle_add(struct screen_browser *browser, struct mpdclient *c)
 {
+	struct list_window_range range;
 	struct filelist_entry *entry;
+	bool success;
 
-	if (browser->lw->range_selection) {
-		for (unsigned i = browser->lw->selected_start;
-		         i <= browser->lw->selected_end; i++) {
-			entry = browser_get_index(browser, i);
+	list_window_get_range(browser->lw, &range);
+	for (unsigned i = range.start; i < range.end; ++i) {
+		entry = browser_get_index(browser, i);
 
-			if (entry != NULL && entry->entity != NULL)
-				browser_select_entry(c, entry, FALSE);
-		}
-		return false;
-	} else {
-		entry = browser_get_selected_entry(browser);
-
-		if (entry == NULL || entry->entity == NULL)
-			return false;
-
-		return browser_select_entry(c, entry, FALSE);
+		if (entry != NULL && entry->entity != NULL)
+			success = browser_select_entry(c, entry, FALSE);
 	}
+
+	return range.end == range.start + 1 && success;
 }
 
 static void

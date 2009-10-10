@@ -59,8 +59,6 @@ void
 list_window_reset(struct list_window *lw)
 {
 	lw->selected = 0;
-	lw->selected_start = 0;
-	lw->selected_end = 0;
 	lw->range_selection = false;
 	lw->range_base = 0;
 	lw->start = 0;
@@ -83,19 +81,8 @@ list_window_check_selected(struct list_window *lw)
 	lw->selected = list_window_validate_index(lw, lw->selected);
 
 	if(lw->range_selection)
-	{
-		lw->selected_start =
-			list_window_validate_index(lw, lw->selected_start);
-		lw->selected_end =
-			list_window_validate_index(lw, lw->selected_end);
 		lw->range_base =
 			list_window_validate_index(lw, lw->range_base);
-	}
-	else
-	{
-		lw->selected_start = lw->selected;
-		lw->selected_end = lw->selected;
-	}
 }
 
 /**
@@ -166,8 +153,6 @@ list_window_set_cursor(struct list_window *lw, unsigned i)
 {
 	lw->range_selection = false;
 	lw->selected = i;
-	lw->selected_start = i;
-	lw->selected_end = i;
 
 	list_window_check_selected(lw);
 	list_window_check_origin(lw);
@@ -177,24 +162,6 @@ void
 list_window_move_cursor(struct list_window *lw, unsigned n)
 {
 	lw->selected = n;
-	if(lw->range_selection)
-	{
-		if(n >= lw->range_base)
-		{
-			lw->selected_end = n;
-			lw->selected_start = lw->range_base;
-		}
-		if(n <= lw->range_base)
-		{
-			lw->selected_start = n;
-			lw->selected_end = lw->range_base;
-		}
-	}
-	else
-	{
-		lw->selected_start = n;
-		lw->selected_end = n;
-	}
 
 	list_window_check_selected(lw);
 	list_window_check_origin(lw);
@@ -209,6 +176,30 @@ list_window_fetch_cursor(struct list_window *lw)
 	else if (lw->start + lw->rows < lw->length &&
 		 lw->selected > lw->start + lw->rows - 1 - options.scroll_offset)
 		list_window_move_cursor(lw, lw->start + lw->rows - 1 - options.scroll_offset);
+}
+
+void
+list_window_get_range(const struct list_window *lw,
+		      struct list_window_range *range)
+{
+	if (lw->length == 0) {
+		/* empty list - no selection */
+		range->start = 0;
+		range->end = 0;
+	} else if (lw->range_selection) {
+		/* a range selection */
+		if (lw->range_base < lw->selected) {
+			range->start = lw->range_base;
+			range->end = lw->selected + 1;
+		} else {
+			range->start = lw->selected;
+			range->end = lw->range_base + 1;
+		}
+	} else {
+		/* no range, just the cursor */
+		range->start = lw->selected;
+		range->end = lw->selected + 1;
+	}
 }
 
 static void
@@ -389,13 +380,15 @@ list_window_paint(const struct list_window *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data)
 {
-	unsigned i;
 	bool show_cursor = !lw->hide_cursor;
+	struct list_window_range range;
 
 	show_cursor = show_cursor &&
 		(!options.hardware_cursor || lw->range_selection);
 
-	for (i = 0; i < lw->rows; i++) {
+	list_window_get_range(lw, &range);
+
+	for (unsigned i = 0; i < lw->rows; i++) {
 		const char *label;
 		bool highlight = false;
 		char *second_column = NULL;
@@ -417,8 +410,8 @@ list_window_paint(const struct list_window *lw,
 
 		list_window_paint_row(lw->w, i, lw->cols,
 				      show_cursor &&
-				      lw->start + i >= lw->selected_start &&
-				      lw->start + i <= lw->selected_end,
+				      lw->start + i >= range.start &&
+				      lw->start + i < range.end,
 				      highlight,
 				      label, second_column);
 

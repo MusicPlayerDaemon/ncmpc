@@ -167,18 +167,18 @@ screen_file_handle_enter(struct mpdclient *c)
 static int
 handle_save(struct mpdclient *c)
 {
-	struct filelist_entry *entry;
+	struct list_window_range range;
 	const char *defaultname = NULL;
 	char *defaultname_utf8 = NULL;
 	int ret;
-	unsigned selected;
 
-	if (browser.lw->selected >= filelist_length(browser.filelist))
+	list_window_get_range(browser.lw, &range);
+	if (range.start == range.end)
 		return -1;
 
-	for(selected = browser.lw->selected_start; selected <= browser.lw->selected_end; ++selected)
-	{
-		entry = filelist_get(browser.filelist, selected);
+	for (unsigned i = range.start; i < range.end; ++i) {
+		struct filelist_entry *entry =
+			filelist_get(browser.filelist, i);
 		if( entry && entry->entity ) {
 			struct mpd_entity *entity = entry->entity;
 			if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
@@ -201,19 +201,16 @@ static int
 handle_delete(struct mpdclient *c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
-	struct filelist_entry *entry;
+	struct list_window_range range;
 	struct mpd_entity *entity;
 	const struct mpd_playlist *playlist;
 	char *str, *buf;
 	int key;
-	unsigned selected;
 
-	for(selected = browser.lw->selected_start; selected <= browser.lw->selected_end; ++selected)
-	{
-		if (selected >= filelist_length(browser.filelist))
-			return -1;
-
-		entry = filelist_get(browser.filelist, selected);
+	list_window_get_range(browser.lw, &range);
+	for (unsigned i = range.start; i < range.end; ++i) {
+		struct filelist_entry *entry =
+			filelist_get(browser.filelist, i);
 		if( entry==NULL || entry->entity==NULL )
 			continue;
 

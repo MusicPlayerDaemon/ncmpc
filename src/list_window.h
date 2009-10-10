@@ -48,12 +48,26 @@ struct list_window {
 
 	unsigned start;
 	unsigned selected;
-	unsigned selected_start;     /* for range selection, first selected item */
-	unsigned selected_end;       /* for range selection, last selected item */
 	unsigned range_base;        /* represents the base item. */
 	bool range_selection;       /* range selection activated */
 
 	bool hide_cursor;
+};
+
+/**
+ * The bounds of a range selection, see list_window_get_range().
+ */
+struct list_window_range {
+	/**
+	 * The index of the first selected item.
+	 */
+	unsigned start;
+
+	/**
+	 * The index after the last selected item.  The selection is
+	 * empty when this is the same as "start".
+	 */
+	unsigned end;
 };
 
 /* create a new list window */
@@ -119,6 +133,15 @@ list_window_move_cursor(struct list_window *lw, unsigned n);
  */
 void
 list_window_fetch_cursor(struct list_window *lw);
+
+/**
+ * Determines the lower and upper bound of the range selection.  If
+ * range selection is disabled, it returns the cursor position (range
+ * length is 1).
+ */
+void
+list_window_get_range(const struct list_window *lw,
+		      struct list_window_range *range);
 
 /* find a string in a list window */
 bool

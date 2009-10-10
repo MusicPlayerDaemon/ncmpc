@@ -622,6 +622,8 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 	struct mpd_connection *connection;
 	static command_t cached_cmd = CMD_NONE;
 	command_t prev_cmd = cached_cmd;
+	struct list_window_range range;
+
 	cached_cmd = cmd;
 
 	lw->hide_cursor = false;
@@ -714,14 +716,10 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 		return true;
 
 	case CMD_DELETE:
-		if (lw->range_selection) {
-			mpdclient_cmd_delete_range(c, lw->selected_start,
-						   lw->selected_end + 1);
-		} else {
-			mpdclient_cmd_delete(c, lw->selected);
-		}
+		list_window_get_range(lw, &range);
+		mpdclient_cmd_delete_range(c, range.start, range.end);
 
-		list_window_set_cursor(lw, lw->selected_start);
+		list_window_set_cursor(lw, range.start);
 		return true;
 
 	case CMD_SAVE_PLAYLIST:
@@ -733,64 +731,42 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 		return true;
 
 	case CMD_SHUFFLE:
-		if(!lw->range_selection)
+		list_window_get_range(lw, &range);
+		if (range.end < range.start + 1)
 			/* No range selection, shuffle all list. */
 			break;
 
 		connection = mpdclient_get_connection(c);
-		if (mpd_run_shuffle_range(connection, lw->selected_start,
-					  lw->selected_end + 1))
+		if (mpd_run_shuffle_range(connection, range.start, range.end))
 			screen_status_message(_("Shuffled playlist"));
 		else
 			mpdclient_handle_error(c);
 		return true;
 
 	case CMD_LIST_MOVE_UP:
-		if(lw->selected_start == 0)
+		list_window_get_range(lw, &range);
+		if (range.start == 0 || range.end <= range.start)
 			return false;
-		if(lw->range_selection)
-		{
-			unsigned i = lw->selected_start;
-			unsigned last_selected = lw->selected;
-			for(; i <= lw->selected_end; ++i)
-				mpdclient_cmd_move(c, i, i-1);
-			lw->selected_start--;
-			lw->selected_end--;
-			lw->selected = last_selected - 1;
-			lw->range_base--;
-		}
-		else
-		{
-			mpdclient_cmd_move(c, lw->selected, lw->selected-1);
-			lw->selected--;
-			lw->selected_start--;
-			lw->selected_end--;
-		}
+
+		for (unsigned i = range.start; i < range.end; ++i)
+			mpdclient_cmd_move(c, i, i - 1);
+
+		lw->selected--;
+		lw->range_base--;
 
 		playlist_save_selection();
 		return true;
 
 	case CMD_LIST_MOVE_DOWN:
-		if(lw->selected_end+1 >= playlist_length(&c->playlist))
+		list_window_get_range(lw, &range);
+		if (range.end >= playlist_length(&c->playlist))
 			return false;
-		if(lw->range_selection)
-		{
-			int i = lw->selected_end;
-			unsigned last_selected = lw->selected;
-			for(; i >= (int)lw->selected_start; --i)
-				mpdclient_cmd_move(c, i, i+1);
-			lw->selected_start++;
-			lw->selected_end++;
-			lw->selected = last_selected + 1;
-			lw->range_base++;
-		}
-		else
-		{
-			mpdclient_cmd_move(c, lw->selected, lw->selected+1);
-			lw->selected++;
-			lw->selected_start++;
-			lw->selected_end++;
-		}
+
+		for (int i = range.end - 1; i >= (int)range.start; --i)
+			mpdclient_cmd_move(c, i, i + 1);
+
+		lw->selected++;
+		lw->range_base++;
 
 		playlist_save_selection();
 		return true;
