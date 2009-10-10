@@ -33,6 +33,7 @@ screen_text_clear(struct screen_text *text)
 		g_free(g_ptr_array_index(text->lines, i));
 
 	g_ptr_array_set_size(text->lines, 0);
+	list_window_set_length(text->lw, 0);
 }
 
 void
@@ -74,6 +75,8 @@ screen_text_set(struct screen_text *text, const GString *str)
 
 	if (*p != 0)
 		g_ptr_array_add(text->lines, g_strdup(p));
+
+	list_window_set_length(text->lw, text->lines->len);
 }
 
 const char *
@@ -98,17 +101,15 @@ bool
 screen_text_cmd(struct screen_text *text,
 		G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 {
-	if (list_window_scroll_cmd(text->lw, text->lines->len, cmd)) {
+	if (list_window_scroll_cmd(text->lw, cmd)) {
 		screen_text_repaint(text);
 		return true;
 	}
 
 	list_window_set_cursor(text->lw, text->lw->start);
-	if (screen_find(text->lw, text->lines->len,
-			cmd, screen_text_list_callback, text)) {
+	if (screen_find(text->lw, cmd, screen_text_list_callback, text)) {
 		/* center the row */
-		list_window_center(text->lw, text->lines->len,
-				   text->lw->selected);
+		list_window_center(text->lw, text->lw->selected);
 		screen_text_repaint(text);
 		return true;
 	}

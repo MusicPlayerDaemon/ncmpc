@@ -166,6 +166,7 @@ load_artist_list(struct mpdclient *c)
 	list = g_list_sort(list, compare_utf8);
 
 	artist_list = g_list_to_ptr_array(list);
+	list_window_set_length(browser.lw, artist_list->len);
 }
 
 static void
@@ -184,6 +185,7 @@ load_album_list(struct mpdclient *c)
 	list = g_list_sort(list, compare_utf8);
 
 	album_list = g_list_to_ptr_array(list);
+	list_window_set_length(browser.lw, album_list->len + 2);
 }
 
 static void
@@ -217,6 +219,7 @@ load_song_list(struct mpdclient *c)
 	/* fix highlights */
 	screen_browser_sync_highlights(browser.filelist, &c->playlist);
 #endif
+	list_window_set_length(browser.lw, filelist_length(browser.filelist));
 }
 
 static void
@@ -420,24 +423,13 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, char *_filter)
 	filelist_free(addlist);
 }
 
-static unsigned
-metalist_length(void)
-{
-	assert(mode != LIST_ARTISTS || artist_list != NULL);
-	assert(mode != LIST_ALBUMS || album_list != NULL);
-
-	return mode == LIST_ALBUMS
-		? album_list->len + 2
-		: artist_list->len;
-}
-
 static int
 screen_artist_lw_cmd(struct mpdclient *c, command_t cmd)
 {
 	switch (mode) {
 	case LIST_ARTISTS:
 	case LIST_ALBUMS:
-		return list_window_cmd(browser.lw, metalist_length(), cmd);
+		return list_window_cmd(browser.lw, cmd);
 
 	case LIST_SONGS:
 		return browser_cmd(&browser, c, cmd);
@@ -495,8 +487,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 
 				if (idx >= 0) {
 					list_window_set_cursor(browser.lw, idx);
-					list_window_center(browser.lw,
-							   artist_list->len, idx);
+					list_window_center(browser.lw, idx);
 				}
 			} else if (browser.lw->selected == album_list->len + 1) {
 				/* handle "show all" */
@@ -529,8 +520,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 				if (idx >= 0) {
 					++idx;
 					list_window_set_cursor(browser.lw, idx);
-					list_window_center(browser.lw,
-							   album_list->len, idx);
+					list_window_center(browser.lw, idx);
 				}
 
 				artist_repaint();
@@ -558,8 +548,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 
 			if (idx >= 0) {
 				list_window_set_cursor(browser.lw, idx);
-				list_window_center(browser.lw,
-						   artist_list->len, idx);
+				list_window_center(browser.lw, idx);
 			}
 			break;
 
@@ -577,8 +566,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 			if (idx >= 0) {
 				++idx;
 				list_window_set_cursor(browser.lw, idx);
-				list_window_center(browser.lw,
-						   album_list->len, idx);
+				list_window_center(browser.lw, idx);
 			}
 			break;
 		}
@@ -650,16 +638,14 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_LIST_RFIND_NEXT:
 		switch (mode) {
 		case LIST_ARTISTS:
-			screen_find(browser.lw, artist_list->len,
-				    cmd, screen_artist_lw_callback,
-				    artist_list);
+			screen_find(browser.lw, cmd,
+				    screen_artist_lw_callback, artist_list);
 			artist_repaint();
 			return true;
 
 		case LIST_ALBUMS:
-			screen_find(browser.lw, album_list->len + 2,
-				    cmd, screen_artist_lw_callback,
-				    album_list);
+			screen_find(browser.lw, cmd,
+				    screen_artist_lw_callback, album_list);
 			artist_repaint();
 			return true;
 

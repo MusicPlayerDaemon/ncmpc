@@ -117,6 +117,7 @@ check_subcmd_length(void)
 	} else
 		subcmd_addpos = 0;
 	subcmd_length += STATIC_SUB_ITEMS;
+	list_window_set_length(lw, subcmd_length);
 }
 
 static void
@@ -263,7 +264,7 @@ keydef_open(G_GNUC_UNUSED struct mpdclient *c)
 	}
 
 	subcmd = -1;
-	list_window_check_selected(lw, LIST_LENGTH());
+	list_window_set_length(lw, LIST_LENGTH());
 }
 
 static void
@@ -295,15 +296,10 @@ keydef_paint(void)
 static bool
 keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 {
-	int length = LIST_LENGTH();
-
-	if (subcmd >= 0)
-		length = subcmd_length;
-
 	if (cmd == CMD_LIST_RANGE_SELECT)
 		return false;
 
-	if (list_window_cmd(lw, length, cmd)) {
+	if (list_window_cmd(lw, cmd)) {
 		keydef_repaint();
 		return true;
 	}
@@ -325,6 +321,7 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 			}
 		} else {
 			if (lw->selected == 0) { /* up */
+				list_window_set_length(lw, LIST_LENGTH());
 				list_window_set_cursor(lw, subcmd);
 				subcmd = -1;
 
@@ -336,6 +333,7 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 		return true;
 	case CMD_GO_PARENT_DIRECTORY:
 		if (subcmd >=0) {
+			list_window_set_length(lw, LIST_LENGTH());
 			list_window_set_cursor(lw, subcmd);
 			subcmd = -1;
 
@@ -355,8 +353,7 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(lw, length,
-			    cmd, list_callback, NULL);
+		screen_find(lw, cmd, list_callback, NULL);
 		keydef_repaint();
 		return true;
 

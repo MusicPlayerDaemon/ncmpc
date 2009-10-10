@@ -31,9 +31,7 @@
 
 /* query user for a string and find it in a list window */
 int
-screen_find(struct list_window *lw,
-	    int rows,
-	    command_t findcmd,
+screen_find(struct list_window *lw, command_t findcmd,
 	    list_window_callback_fn_t callback_fn,
 	    void *callback_data)
 {
@@ -72,8 +70,7 @@ screen_find(struct list_window *lw,
 					    callback_fn, callback_data,
 					    screen.findbuf,
 					    options.find_wrap,
-					    options.bell_on_wrap,
-					    rows)
+					    options.bell_on_wrap)
 			: list_window_find(lw,
 					   callback_fn, callback_data,
 					   screen.findbuf,

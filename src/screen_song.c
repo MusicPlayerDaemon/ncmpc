@@ -375,13 +375,14 @@ screen_song_update(struct mpdclient *c)
 	    !screen_song_add_stats(mpdclient_get_connection(c)))
 		mpdclient_handle_error(c);
 
+	list_window_set_length(lw, 0);
 	screen_song_repaint();
 }
 
 static bool
 screen_song_cmd(struct mpdclient *c, command_t cmd)
 {
-	if (list_window_scroll_cmd(lw, current.lines->len, cmd)) {
+	if (list_window_scroll_cmd(lw, cmd)) {
 		screen_song_repaint();
 		return true;
 	}
@@ -425,10 +426,9 @@ screen_song_cmd(struct mpdclient *c, command_t cmd)
 		break;
 	}
 
-	if (screen_find(lw, current.lines->len,
-			cmd, screen_song_list_callback, NULL)) {
+	if (screen_find(lw, cmd, screen_song_list_callback, NULL)) {
 		/* center the row */
-		list_window_center(lw, current.lines->len, lw->selected);
+		list_window_center(lw, lw->selected);
 		screen_song_repaint();
 		return true;
 	}

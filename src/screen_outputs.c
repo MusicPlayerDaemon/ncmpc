@@ -122,6 +122,8 @@ fill_outputs_list(struct mpdclient *c)
 
 	if (!mpd_response_finish(connection))
 		mpdclient_handle_error(c);
+
+	list_window_set_length(lw, mpd_outputs->len);
 }
 
 static const char *
@@ -205,7 +207,7 @@ outputs_cmd(struct mpdclient *c, command_t cmd)
 {
 	assert(mpd_outputs != NULL);
 
-	if (list_window_cmd(lw, mpd_outputs->len, cmd)) {
+	if (list_window_cmd(lw, cmd)) {
 		outputs_repaint();
 		return true;
 	}

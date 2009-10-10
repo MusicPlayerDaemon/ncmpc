@@ -147,6 +147,7 @@ search_clear(bool clear_pattern)
 	if (browser.filelist) {
 		filelist_free(browser.filelist);
 		browser.filelist = filelist_new();
+		list_window_set_length(browser.lw, 0);
 	}
 	if (clear_pattern && pattern) {
 		g_free(pattern);
@@ -328,10 +329,9 @@ screen_search_reload(struct mpdclient *c)
 	browser.filelist = do_search(c, pattern);
 	if (browser.filelist == NULL)
 		browser.filelist = filelist_new();
+	list_window_set_length(browser.lw, filelist_length(browser.filelist));
 
 	screen_browser_sync_highlights(browser.filelist, &c->playlist);
-	list_window_check_selected(browser.lw,
-				   filelist_length(browser.filelist));
 }
 
 static void
@@ -360,6 +360,7 @@ static void
 screen_search_init(WINDOW *w, int cols, int rows)
 {
 	browser.lw = list_window_init(w, cols, rows);
+	list_window_set_length(browser.lw, G_N_ELEMENTS(help_text));
 }
 
 static void

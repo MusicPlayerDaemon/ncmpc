@@ -66,12 +66,12 @@ list_window_reset(struct list_window *lw)
 	lw->start = 0;
 }
 
-void
-list_window_check_selected(struct list_window *lw, unsigned length)
+static void
+list_window_check_selected(struct list_window *lw)
 {
-	if (lw->start + lw->rows > length) {
-		if (length > lw->rows)
-			lw->start = length - lw->rows;
+	if (lw->start + lw->rows > lw->length) {
+		if (lw->length > lw->rows)
+			lw->start = lw->length - lw->rows;
 		else
 			lw->start = 0;
 	}
@@ -79,24 +79,24 @@ list_window_check_selected(struct list_window *lw, unsigned length)
 	if (lw->selected < lw->start)
 		lw->selected = lw->start;
 
-	if (length == 0)
+	if (lw->length == 0)
 		lw->selected = 0;
-	else if (lw->selected >= length)
-		lw->selected = length - 1;
+	else if (lw->selected >= lw->length)
+		lw->selected = lw->length - 1;
 
 	if(lw->range_selection)
 	{
-		if (length == 0) {
+		if (lw->length == 0) {
 			lw->selected_start = 0;
 			lw->selected_end = 0;
 			lw->range_base = 0;
 		} else {
-			if (lw->selected_start >= length)
-				lw->selected_start = length - 1;
-			if (lw->selected_end >= length)
-				lw->selected_end = length - 1;
-			if (lw->range_base >= length)
-				lw->range_base = length - 1;
+			if (lw->selected_start >= lw->length)
+				lw->selected_start = lw->length - 1;
+			if (lw->selected_end >= lw->length)
+				lw->selected_end = lw->length - 1;
+			if (lw->range_base >= lw->length)
+				lw->range_base = lw->length - 1;
 		}
 
 		if(lw->range_base > lw->selected_end)
@@ -112,16 +112,24 @@ list_window_check_selected(struct list_window *lw, unsigned length)
 }
 
 void
-list_window_center(struct list_window *lw, unsigned rows, unsigned n)
+list_window_set_length(struct list_window *lw, unsigned length)
+{
+	lw->length = length;
+
+	list_window_check_selected(lw);
+}
+
+void
+list_window_center(struct list_window *lw, unsigned n)
 {
 	if (n > lw->rows / 2)
 		lw->start = n - lw->rows / 2;
 	else
 		lw->start = 0;
 
-	if (lw->start + lw->rows > rows) {
-		if (lw->rows < rows)
-			lw->start = rows - lw->rows;
+	if (lw->start + lw->rows > lw->length) {
+		if (lw->rows < lw->length)
+			lw->start = lw->length - lw->rows;
 		else
 			lw->start = 0;
 	}
@@ -134,6 +142,8 @@ list_window_set_cursor(struct list_window *lw, unsigned i)
 	lw->selected = i;
 	lw->selected_start = i;
 	lw->selected_end = i;
+
+	list_window_check_selected(lw);
 }
 
 void
@@ -161,7 +171,7 @@ list_window_move_cursor(struct list_window *lw, unsigned n)
 }
 
 void
-list_window_fetch_cursor(struct list_window *lw, unsigned length)
+list_window_fetch_cursor(struct list_window *lw)
 {
 	if (lw->selected < lw->start + options.scroll_offset) {
 		if (lw->start > 0)
@@ -178,7 +188,7 @@ list_window_fetch_cursor(struct list_window *lw, unsigned length)
 			lw->selected_end = lw->selected;
 		}
 	} else if (lw->selected > lw->start + lw->rows - 1 - options.scroll_offset) {
-		if (lw->start + lw->rows < length)
+		if (lw->start + lw->rows < lw->length)
 			lw->selected = lw->start + lw->rows - 1 - options.scroll_offset;
 		if (lw->range_selection) {
 			if (lw->selected < lw->range_base) {
@@ -195,21 +205,21 @@ list_window_fetch_cursor(struct list_window *lw, unsigned length)
 }
 
 static void
-list_window_next(struct list_window *lw, unsigned length)
+list_window_next(struct list_window *lw)
 {
-	if (lw->selected + 1 < length)
+	if (lw->selected + 1 < lw->length)
 		list_window_move_cursor(lw, lw->selected + 1);
 	else if (options.list_wrap)
 		list_window_move_cursor(lw, 0);
 }
 
 static void
-list_window_previous(struct list_window *lw, unsigned length)
+list_window_previous(struct list_window *lw)
 {
 	if (lw->selected > 0)
 		list_window_move_cursor(lw, lw->selected - 1);
 	else if (options.list_wrap)
-		list_window_move_cursor(lw, length-1);
+		list_window_move_cursor(lw, lw->length - 1);
 }
 
 static void
@@ -225,27 +235,27 @@ list_window_top(struct list_window *lw)
 }
 
 static void
-list_window_middle(struct list_window *lw, unsigned length)
+list_window_middle(struct list_window *lw)
 {
-	if (length >= lw->rows)
+	if (lw->length >= lw->rows)
 		list_window_move_cursor(lw, lw->start + lw->rows / 2);
 	else
-		list_window_move_cursor(lw, length / 2);
+		list_window_move_cursor(lw, lw->length / 2);
 }
 
 static void
-list_window_bottom(struct list_window *lw, unsigned length)
+list_window_bottom(struct list_window *lw)
 {
-	if (length >= lw->rows)
+	if (lw->length >= lw->rows)
 		if ((unsigned) options.scroll_offset * 2 >= lw->rows)
 			list_window_move_cursor(lw, lw->start + lw->rows / 2);
 		else
-			if (lw->start + lw->rows == length)
-				list_window_move_cursor(lw, length - 1);
+			if (lw->start + lw->rows == lw->length)
+				list_window_move_cursor(lw, lw->length - 1);
 			else
 				list_window_move_cursor(lw, lw->start + lw->rows - 1 - options.scroll_offset);
 	else
-		list_window_move_cursor(lw, length - 1);
+		list_window_move_cursor(lw, lw->length - 1);
 }
 
 static void
@@ -255,23 +265,23 @@ list_window_first(struct list_window *lw)
 }
 
 static void
-list_window_last(struct list_window *lw, unsigned length)
+list_window_last(struct list_window *lw)
 {
-	if (length > 0)
-		list_window_move_cursor(lw, length - 1);
+	if (lw->length > 0)
+		list_window_move_cursor(lw, lw->length - 1);
 	else
 		list_window_move_cursor(lw, 0);
 }
 
 static void
-list_window_next_page(struct list_window *lw, unsigned length)
+list_window_next_page(struct list_window *lw)
 {
 	if (lw->rows < 2)
 		return;
-	if (lw->selected + lw->rows < length)
+	if (lw->selected + lw->rows < lw->length)
 		list_window_move_cursor(lw, lw->selected + lw->rows - 1);
 	else
-		list_window_last(lw, length);
+		list_window_last(lw);
 }
 
 static void
@@ -286,7 +296,7 @@ list_window_previous_page(struct list_window *lw)
 }
 
 static void
-list_window_scroll_up(struct list_window *lw, unsigned length, unsigned n)
+list_window_scroll_up(struct list_window *lw, unsigned n)
 {
 	if (lw->start > 0) {
 		if (n > lw->start)
@@ -294,21 +304,21 @@ list_window_scroll_up(struct list_window *lw, unsigned length, unsigned n)
 		else
 			lw->start -= n;
 
-		list_window_fetch_cursor(lw, length);
+		list_window_fetch_cursor(lw);
 	}
 }
 
 static void
-list_window_scroll_down(struct list_window *lw, unsigned length, unsigned n)
+list_window_scroll_down(struct list_window *lw, unsigned n)
 {
-	if (lw->start + lw->rows < length)
+	if (lw->start + lw->rows < lw->length)
 	{
-		if ( lw->start + lw->rows + n > length - 1)
-			lw->start = length - lw->rows;
+		if ( lw->start + lw->rows + n > lw->length - 1)
+			lw->start = lw->length - lw->rows;
 		else
 			lw->start += n;
 
-		list_window_fetch_cursor(lw, length);
+		list_window_fetch_cursor(lw);
 	}
 }
 
@@ -390,14 +400,14 @@ list_window_paint(struct list_window *lw,
 				start = lw->selected - lw->rows + 1 + options.scroll_offset;
 			}
 		}
-		if (start < 0)
-			lw->start = 0;
-		else
-		{
-			while ( start > 0 && callback(start + lw->rows - 1, &highlight, NULL, callback_data) == NULL)
-				start--;
-			lw->start = start;
-		}
+
+		if (start + lw->rows > lw->length)
+			start = lw->length - lw->rows;
+
+		if (start < 0 || lw->length == 0)
+			start = 0;
+
+		lw->start = start;
 	}
 
 	show_cursor = show_cursor &&
@@ -477,14 +487,13 @@ list_window_rfind(struct list_window *lw,
 		  void *callback_data,
 		  const char *str,
 		  bool wrap,
-		  bool bell_on_wrap,
-		  unsigned rows)
+		  bool bell_on_wrap)
 {
 	bool h;
 	int i = lw->selected - 1;
 	const char *label;
 
-	if (rows == 0)
+	if (lw->length == 0)
 		return false;
 
 	do {
@@ -502,7 +511,7 @@ list_window_rfind(struct list_window *lw,
 			i--;
 		}
 		if (wrap) {
-			i = rows - 1; /* last item */
+			i = lw->length - 1; /* last item */
 			if (bell_on_wrap) {
 				screen_bell();
 			}
@@ -547,32 +556,32 @@ list_window_jump(struct list_window *lw,
 
 /* perform basic list window commands (movement) */
 bool
-list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
+list_window_cmd(struct list_window *lw, command_t cmd)
 {
 	switch (cmd) {
 	case CMD_LIST_PREVIOUS:
-		list_window_previous(lw, rows);
+		list_window_previous(lw);
 		break;
 	case CMD_LIST_NEXT:
-		list_window_next(lw, rows);
+		list_window_next(lw);
 		break;
 	case CMD_LIST_TOP:
 		list_window_top(lw);
 		break;
 	case CMD_LIST_MIDDLE:
-		list_window_middle(lw,rows);
+		list_window_middle(lw);
 		break;
 	case CMD_LIST_BOTTOM:
-		list_window_bottom(lw,rows);
+		list_window_bottom(lw);
 		break;
 	case CMD_LIST_FIRST:
 		list_window_first(lw);
 		break;
 	case CMD_LIST_LAST:
-		list_window_last(lw, rows);
+		list_window_last(lw);
 		break;
 	case CMD_LIST_NEXT_PAGE:
-		list_window_next_page(lw, rows);
+		list_window_next_page(lw);
 		break;
 	case CMD_LIST_PREVIOUS_PAGE:
 		list_window_previous_page(lw);
@@ -591,16 +600,16 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 		}
 		break;
 	case CMD_LIST_SCROLL_UP_LINE:
-		list_window_scroll_up(lw, rows, 1);
+		list_window_scroll_up(lw, 1);
 		break;
 	case CMD_LIST_SCROLL_DOWN_LINE:
-		list_window_scroll_down(lw, rows, 1);
+		list_window_scroll_down(lw, 1);
 		break;
 	case CMD_LIST_SCROLL_UP_HALF:
-		list_window_scroll_up(lw, rows, (lw->rows - 1) / 2);
+		list_window_scroll_up(lw, (lw->rows - 1) / 2);
 		break;
 	case CMD_LIST_SCROLL_DOWN_HALF:
-		list_window_scroll_down(lw, rows, (lw->rows - 1) / 2);
+		list_window_scroll_down(lw, (lw->rows - 1) / 2);
 		break;
 	default:
 		return false;
@@ -610,7 +619,7 @@ list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 }
 
 bool
-list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
+list_window_scroll_cmd(struct list_window *lw, command_t cmd)
 {
 	switch (cmd) {
 	case CMD_LIST_SCROLL_UP_LINE:
@@ -621,7 +630,7 @@ list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 
 	case CMD_LIST_SCROLL_DOWN_LINE:
 	case CMD_LIST_NEXT:
-		if (lw->start + lw->rows < rows)
+		if (lw->start + lw->rows < lw->length)
 			lw->start++;
 		break;
 
@@ -630,17 +639,17 @@ list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 		break;
 
 	case CMD_LIST_LAST:
-		if (rows > lw->rows)
-			lw->start = rows - lw->rows;
+		if (lw->length > lw->rows)
+			lw->start = lw->length - lw->rows;
 		else
 			lw->start = 0;
 		break;
 
 	case CMD_LIST_NEXT_PAGE:
 		lw->start += lw->rows - 1;
-		if (lw->start + lw->rows > rows) {
-			if (rows > lw->rows)
-				lw->start = rows - lw->rows;
+		if (lw->start + lw->rows > lw->length) {
+			if (lw->length > lw->rows)
+				lw->start = lw->length - lw->rows;
 			else
 				lw->start = 0;
 		}
@@ -662,9 +671,9 @@ list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 
 	case CMD_LIST_SCROLL_DOWN_HALF:
 		lw->start += (lw->rows - 1) / 2;
-		if (lw->start + lw->rows > rows) {
-			if (rows > lw->rows)
-				lw->start = rows - lw->rows;
+		if (lw->start + lw->rows > lw->length) {
+			if (lw->length > lw->rows)
+				lw->start = lw->length - lw->rows;
 			else
 				lw->start = 0;
 		}
@@ -679,8 +688,7 @@ list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd)
 
 #ifdef HAVE_GETMOUSE
 bool
-list_window_mouse(struct list_window *lw, unsigned rows,
-		  unsigned long bstate, int y)
+list_window_mouse(struct list_window *lw, unsigned long bstate, int y)
 {
 	assert(lw != NULL);
 
@@ -694,11 +702,11 @@ list_window_mouse(struct list_window *lw, unsigned rows,
 	}
 
 	/* if the even occurred below the list window move down */
-	if ((unsigned)y >= rows) {
+	if ((unsigned)y >= lw->length) {
 		if (bstate & BUTTON3_CLICKED)
-			list_window_last(lw, rows);
+			list_window_last(lw);
 		else
-			list_window_next_page(lw, rows);
+			list_window_next_page(lw);
 		return true;
 	}
 

@@ -41,6 +41,11 @@ struct list_window {
 	WINDOW *w;
 	unsigned rows, cols;
 
+	/**
+	 * Number of items in this list.
+	 */
+	unsigned length;
+
 	unsigned start;
 	unsigned selected;
 	unsigned selected_start;     /* for range selection, first selected item */
@@ -61,6 +66,9 @@ void list_window_free(struct list_window *lw);
 /* reset a list window (selected=0, start=0) */
 void list_window_reset(struct list_window *lw);
 
+void
+list_window_set_length(struct list_window *lw, unsigned length);
+
 /* paint a list window */
 void list_window_paint(struct list_window *lw,
 		       list_window_callback_fn_t callback,
@@ -68,14 +76,14 @@ void list_window_paint(struct list_window *lw,
 
 /* perform basic list window commands (movement) */
 bool
-list_window_cmd(struct list_window *lw, unsigned rows, command_t cmd);
+list_window_cmd(struct list_window *lw, command_t cmd);
 
 /**
  * Scroll the window.  Returns non-zero if the command has been
  * consumed.
  */
 bool
-list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd);
+list_window_scroll_cmd(struct list_window *lw, command_t cmd);
 
 #ifdef HAVE_GETMOUSE
 /**
@@ -83,15 +91,11 @@ list_window_scroll_cmd(struct list_window *lw, unsigned rows, command_t cmd);
  * Returns non-zero if the mouse event has been handled.
  */
 bool
-list_window_mouse(struct list_window *lw, unsigned rows,
-		  unsigned long bstate, int y);
+list_window_mouse(struct list_window *lw, unsigned long bstate, int y);
 #endif
 
 void
-list_window_center(struct list_window *lw, unsigned rows, unsigned n);
-
-/* select functions */
-void list_window_check_selected(struct list_window *lw, unsigned length);
+list_window_center(struct list_window *lw, unsigned n);
 
 /**
  * Sets the position of the cursor.  Disables range selection.
@@ -111,7 +115,7 @@ list_window_move_cursor(struct list_window *lw, unsigned n);
  * outside the current scrolling range.
  */
 void
-list_window_fetch_cursor(struct list_window *lw, unsigned length);
+list_window_fetch_cursor(struct list_window *lw);
 
 /* find a string in a list window */
 bool
@@ -129,8 +133,7 @@ list_window_rfind(struct list_window *lw,
 		  void *callback_data,
 		  const char *str,
 		  bool wrap,
-		  bool bell_on_wrap,
-		  unsigned rows);
+		  bool bell_on_wrap);
 
 /* find a string in a list window which begins with the given characters in *str */
 bool

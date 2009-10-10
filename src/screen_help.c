@@ -224,6 +224,7 @@ help_init(WINDOW *w, int cols, int rows)
 {
   lw = list_window_init(w, cols, rows);
 	lw->hide_cursor = true;
+	list_window_set_length(lw, G_N_ELEMENTS(help_text));
 }
 
 static void
@@ -255,17 +256,16 @@ help_paint(void)
 static bool
 help_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 {
-	if (list_window_scroll_cmd(lw, help_text_rows, cmd)) {
+	if (list_window_scroll_cmd(lw, cmd)) {
 		list_window_paint(lw, list_callback, NULL);
 		wrefresh(lw->w);
 		return true;
 	}
 
 	list_window_set_cursor(lw, lw->start);
-	if (screen_find(lw,  help_text_rows,
-			cmd, list_callback, NULL)) {
+	if (screen_find(lw,  cmd, list_callback, NULL)) {
 		/* center the row */
-		list_window_center(lw, help_text_rows, lw->selected);
+		list_window_center(lw, lw->selected);
 		list_window_paint(lw, list_callback, NULL);
 		wrefresh(lw->w);
 		return true;

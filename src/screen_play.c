@@ -99,6 +99,8 @@ playlist_restore_selection(void)
 	const struct mpd_song *song;
 	int pos;
 
+	list_window_set_length(lw, playlist_length(playlist));
+
 	if (selected_song_id < 0)
 		/* there was no selection */
 		return;
@@ -113,7 +115,6 @@ playlist_restore_selection(void)
 	if (pos >= 0)
 		list_window_set_cursor(lw, pos);
 
-	list_window_check_selected(lw, playlist_length(playlist));
 	playlist_save_selection();
 }
 
@@ -216,7 +217,7 @@ center_playing_item(struct mpdclient *c, bool center_cursor)
 		return;
 	}
 
-	list_window_center(lw, length, idx);
+	list_window_center(lw, idx);
 
 	if (center_cursor) {
 		list_window_set_cursor(lw, idx);
@@ -224,7 +225,7 @@ center_playing_item(struct mpdclient *c, bool center_cursor)
 	}
 
 	/* make sure the cursor is in the window */
-	list_window_fetch_cursor(lw, length);
+	list_window_fetch_cursor(lw);
 }
 
 #ifndef NCMPC_MINI
@@ -585,7 +586,7 @@ handle_mouse_event(struct mpdclient *c)
 	unsigned long bstate;
 
 	if (screen_get_mouse_event(c, &bstate, &row) ||
-	    list_window_mouse(lw, playlist_length(playlist), bstate, row)) {
+	    list_window_mouse(lw, bstate, row)) {
 		playlist_repaint();
 		return true;
 	}
@@ -609,7 +610,6 @@ handle_mouse_event(struct mpdclient *c)
 	}
 
 	list_window_set_cursor(lw, selected);
-	list_window_check_selected(lw, playlist_length(playlist));
 	playlist_save_selection();
 	playlist_repaint();
 
@@ -634,7 +634,7 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 						     timer_hide_cursor, c);
 	}
 
-	if (list_window_cmd(lw, playlist_length(&c->playlist), cmd)) {
+	if (list_window_cmd(lw, cmd)) {
 		playlist_save_selection();
 		playlist_repaint();
 		return true;
@@ -656,8 +656,7 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(lw, playlist_length(&c->playlist),
-			    cmd, list_callback, NULL);
+		screen_find(lw, cmd, list_callback, NULL);
 		playlist_save_selection();
 		playlist_repaint();
 		return true;

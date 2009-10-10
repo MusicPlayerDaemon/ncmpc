@@ -372,19 +372,12 @@ browser_handle_mouse_event(struct screen_browser *browser, struct mpdclient *c)
 	int row;
 	unsigned prev_selected = browser->lw->selected;
 	unsigned long bstate;
-	int length;
-
-	if (browser->filelist)
-		length = filelist_length(browser->filelist);
-	else
-		length = 0;
 
 	if (screen_get_mouse_event(c, &bstate, &row) ||
-	    list_window_mouse(browser->lw, length, bstate, row))
+	    list_window_mouse(browser->lw, bstate, row))
 		return 1;
 
 	list_window_set_cursor(browser->lw, browser->lw->start + row);
-	list_window_check_selected(browser->lw, length);
 
 	if( bstate & BUTTON1_CLICKED ) {
 		if (prev_selected == browser->lw->selected)
@@ -407,8 +400,7 @@ browser_cmd(struct screen_browser *browser,
 	if (browser->filelist == NULL)
 		return false;
 
-	if (list_window_cmd(browser->lw, filelist_length(browser->filelist),
-			    cmd))
+	if (list_window_cmd(browser->lw, cmd))
 		return true;
 
 	switch (cmd) {
@@ -416,8 +408,7 @@ browser_cmd(struct screen_browser *browser,
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(browser->lw, filelist_length(browser->filelist),
-			    cmd, browser_lw_callback,
+		screen_find(browser->lw, cmd, browser_lw_callback,
 			    browser->filelist);
 		return true;
 	case CMD_LIST_JUMP:
@@ -467,16 +458,12 @@ browser_cmd(struct screen_browser *browser,
 
 	case CMD_SELECT:
 		if (browser_handle_select(browser, c))
-			list_window_cmd(browser->lw,
-					filelist_length(browser->filelist),
-					CMD_LIST_NEXT);
+			list_window_cmd(browser->lw, CMD_LIST_NEXT);
 		return true;
 
 	case CMD_ADD:
 		if (browser_handle_add(browser, c))
-			list_window_cmd(browser->lw,
-					filelist_length(browser->filelist),
-					CMD_LIST_NEXT);
+			list_window_cmd(browser->lw, CMD_LIST_NEXT);
 		return true;
 
 	case CMD_SELECT_ALL:

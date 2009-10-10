@@ -77,6 +77,9 @@ screen_file_reload(struct mpdclient *c)
 				       compare_filelist_entry_path);
 	else
 		mpdclient_handle_error(c);
+
+	list_window_set_length(browser.lw,
+			       filelist_length(browser.filelist));
 }
 
 /**
@@ -127,8 +130,7 @@ change_to_parent(struct mpdclient *c)
 	if (success && idx >= 0) {
 		/* set the cursor on the previous working directory */
 		list_window_set_cursor(browser.lw, idx);
-		list_window_center(browser.lw,
-				   filelist_length(browser.filelist), idx);
+		list_window_center(browser.lw, idx);
 	}
 
 	return success;
@@ -319,8 +321,6 @@ screen_file_update(struct mpdclient *c)
 	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST)) {
 		/* the db has changed -> update the filelist */
 		screen_file_reload(c);
-		list_window_check_selected(browser.lw,
-					   filelist_length(browser.filelist));
 	}
 
 #ifndef NCMPC_MINI
@@ -369,8 +369,6 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 #ifndef NCMPC_MINI
 		screen_browser_sync_highlights(browser.filelist, &c->playlist);
 #endif
-		list_window_check_selected(browser.lw,
-					   filelist_length(browser.filelist));
 		screen_file_repaint();
 		return false;
 
