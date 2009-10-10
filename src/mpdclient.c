@@ -136,7 +136,7 @@ mpdclient_disconnect(struct mpdclient *c)
 		c->song = NULL;
 
 	/* everything has changed after a disconnect */
-	c->idle |= MPD_IDLE_DATABASE|MPD_IDLE_STORED_PLAYLIST|
+	c->events |= MPD_IDLE_DATABASE|MPD_IDLE_STORED_PLAYLIST|
 		MPD_IDLE_QUEUE|MPD_IDLE_PLAYER|MPD_IDLE_MIXER|MPD_IDLE_OUTPUT|
 		MPD_IDLE_OPTIONS|MPD_IDLE_UPDATE;
 }

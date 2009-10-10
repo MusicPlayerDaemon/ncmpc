@@ -136,8 +136,8 @@ list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED
 	static char songname[MAX_SONG_LENGTH];
 	struct mpd_song *song;
 
-	if (playlist == NULL || idx >= playlist_length(playlist))
-		return NULL;
+	assert(playlist != NULL);
+	assert(idx < playlist_length(playlist));
 
 	song = playlist_get(playlist, idx);
 	if ((int)mpd_song_get_id(song) == current_song_id)

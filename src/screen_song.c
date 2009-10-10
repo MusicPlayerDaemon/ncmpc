@@ -82,8 +82,7 @@ screen_song_list_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
 	static char buffer[256];
 	char *value;
 
-	if (idx >= current.lines->len)
-		return NULL;
+	assert(idx < current.lines->len);
 
 	value = utf8_to_locale(g_ptr_array_index(current.lines, idx));
 	g_strlcpy(buffer, value, sizeof(buffer));

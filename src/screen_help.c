@@ -25,6 +25,8 @@
 
 #include <glib.h>
 
+#include <assert.h>
+
 typedef struct {
 	signed char highlight;
 	command_t command;
@@ -177,8 +179,6 @@ static help_text_row_t help_text[] = {
 #endif
 };
 
-#define help_text_rows (sizeof(help_text) / sizeof(help_text[0]))
-
 static struct list_window *lw;
 
 static const char *
@@ -186,8 +186,7 @@ list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char** second_column,
 {
 	static char buf[512];
 
-	if (idx >= help_text_rows)
-		return NULL;
+	assert(idx < G_N_ELEMENTS(help_text));
 
 	if (help_text[idx].highlight)
 		*highlight = true;

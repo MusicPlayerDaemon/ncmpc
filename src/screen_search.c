@@ -111,8 +111,7 @@ static const char *
 lw_search_help_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
 			G_GNUC_UNUSED char** sc, G_GNUC_UNUSED void *data)
 {
-	if (idx >= G_N_ELEMENTS(help_text))
-		return NULL;
+	assert(idx < G_N_ELEMENTS(help_text));
 
 	return help_text[idx];
 }

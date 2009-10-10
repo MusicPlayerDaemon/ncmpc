@@ -418,21 +418,25 @@ list_window_paint(struct list_window *lw,
 		char *second_column = NULL;
 		highlight = false;
 
-		label = callback(lw->start + i, &highlight, &second_column, callback_data);
 		wmove(lw->w, i, 0);
 
-		if (label) {
-			list_window_paint_row(lw->w, i, lw->cols,
-					      show_cursor &&
-					      lw->start + i >= lw->selected_start &&
-					      lw->start + i <= lw->selected_end,
-					      highlight,
-					      label, second_column);
+		if (lw->start + i >= lw->length) {
+			wclrtobot(lw->w);
+			break;
+		}
 
-			if (second_column != NULL)
-				g_free(second_column);
-		} else
-			wclrtoeol(lw->w);
+		label = callback(lw->start + i, &highlight, &second_column, callback_data);
+		assert(label != NULL);
+
+		list_window_paint_row(lw->w, i, lw->cols,
+				      show_cursor &&
+				      lw->start + i >= lw->selected_start &&
+				      lw->start + i <= lw->selected_end,
+				      highlight,
+				      label, second_column);
+
+		if (second_column != NULL)
+			g_free(second_column);
 	}
 
 	if (options.hardware_cursor && lw->selected >= lw->start &&
@@ -455,7 +459,10 @@ list_window_find(struct list_window *lw,
 	const char *label;
 
 	do {
-		while ((label = callback(i,&h,NULL,callback_data))) {
+		while (i < lw->length) {
+			label = callback(i, &h, NULL, callback_data);
+			assert(label != NULL);
+
 			if (str && label && match_line(label, str)) {
 				lw->selected = i;
 				if(!lw->range_selection || i > lw->selected_end)
@@ -497,7 +504,10 @@ list_window_rfind(struct list_window *lw,
 		return false;
 
 	do {
-		while (i >= 0 && (label = callback(i,&h,NULL,callback_data))) {
+		while (i >= 0) {
+			label = callback(i, &h, NULL, callback_data);
+			assert(label != NULL);
+
 			if( str && label && match_line(label, str) ) {
 				lw->selected = i;
 				if(!lw->range_selection || i > (int)lw->selected_end)
@@ -528,11 +538,13 @@ list_window_jump(struct list_window *lw,
 		 const char *str)
 {
 	bool h;
-	unsigned i = 0;
 	const char *label;
 
-	while ((label = callback(i,&h,NULL,callback_data))) {
-		if (label && label[0] == '[')
+	for (unsigned i = 0; i < lw->length; ++i) {
+		label = callback(i, &h, NULL, callback_data);
+		assert(label != NULL);
+
+		if (label[0] == '[')
 			label++;
 #ifndef NCMPC_MINI
 		if (str && label &&
@@ -549,7 +561,6 @@ list_window_jump(struct list_window *lw,
 				lw->selected_start = i;
 			return true;
 		}
-		i++;
 	}
 	return false;
 }

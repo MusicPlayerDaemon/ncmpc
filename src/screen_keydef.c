@@ -26,6 +26,7 @@
 #include "screen.h"
 #include "screen_utils.h"
 
+#include <assert.h>
 #include <errno.h>
 #include <string.h>
 #include <glib.h>
@@ -194,33 +195,35 @@ list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char** sc, G_GNUC_UNU
 	static char buf[BUFSIZE];
 
 	if (subcmd < 0) {
-		if (idx < (unsigned)command_list_length) {
-			if (cmds[idx].flags & COMMAND_KEY_CONFLICT)
-				*highlight = true;
-			return cmds[idx].name;
-		} else if (idx == LIST_ITEM_APPLY())
+		if (idx == LIST_ITEM_APPLY())
 			return LIST_ITEM_APPLY_LABEL;
 		else if (idx == LIST_ITEM_SAVE())
 			return LIST_ITEM_SAVE_LABEL;
+
+		assert(idx < (unsigned)command_list_length);
+
+		if (cmds[idx].flags & COMMAND_KEY_CONFLICT)
+			*highlight = true;
+		return cmds[idx].name;
 	} else {
 		if (idx == 0)
 			return "[..]";
 		idx--;
-		if (idx < MAX_COMMAND_KEYS && cmds[subcmd].keys[idx] > 0) {
-			g_snprintf(buf,
-				   BUFSIZE, "%d. %-20s   (%d) ",
-				   idx + 1,
-				   key2str(cmds[subcmd].keys[idx]),
-				   cmds[subcmd].keys[idx]);
-			return buf;
-		} else if (idx == subcmd_addpos) {
+		if (idx == subcmd_addpos) {
 			g_snprintf(buf, BUFSIZE, "%d. %s",
 				   idx + 1, _("Add new key"));
 			return buf;
 		}
-	}
 
-	return NULL;
+		assert(idx < MAX_COMMAND_KEYS && cmds[subcmd].keys[idx] > 0);
+
+		g_snprintf(buf,
+			   BUFSIZE, "%d. %-20s   (%d) ",
+			   idx + 1,
+			   key2str(cmds[subcmd].keys[idx]),
+			   cmds[subcmd].keys[idx]);
+		return buf;
+	}
 }
 
 static void

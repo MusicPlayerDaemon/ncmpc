@@ -133,9 +133,7 @@ outputs_list_callback(unsigned int output_index, bool *highlight,
 	struct mpd_output *output;
 
 	assert(mpd_outputs != NULL);
-
-	if (output_index >= mpd_outputs->len)
-		return NULL;
+	assert(output_index < mpd_outputs->len);
 
 	output = g_ptr_array_index(mpd_outputs, output_index);
 

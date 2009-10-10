@@ -80,8 +80,8 @@ browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_c
 	const struct filelist_entry *entry;
 	const struct mpd_entity *entity;
 
-	if (fl == NULL || idx >= filelist_length(fl))
-		return NULL;
+	assert(fl != NULL);
+	assert(idx < filelist_length(fl));
 
 	entry = filelist_get(fl, idx);
 	assert(entry != NULL);

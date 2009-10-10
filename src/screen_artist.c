@@ -79,8 +79,7 @@ screen_artist_lw_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
 		--idx;
 	}
 
-	if (idx >= list->len)
-		return NULL;
+	assert(idx < list->len);
 
 	str_utf8 = g_ptr_array_index(list, idx);
 	assert(str_utf8 != NULL);

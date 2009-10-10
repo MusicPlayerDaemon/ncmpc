@@ -87,8 +87,7 @@ screen_text_list_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
 	static char buffer[256];
 	char *value;
 
-	if (idx >= text->lines->len)
-		return NULL;
+	assert(idx < text->lines->len);
 
 	value = utf8_to_locale(g_ptr_array_index(text->lines, idx));
 	g_strlcpy(buffer, value, sizeof(buffer));
