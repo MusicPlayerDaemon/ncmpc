@@ -351,8 +351,14 @@ list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
 		wattron(w, A_REVERSE);
 
 	waddstr(w, text);
-	if (options.wide_cursor && text_width < width)
-		whline(w, ' ', width - text_width);
+
+	/* erase the unused space after the text */
+	if (text_width < width) {
+		if (options.wide_cursor)
+			whline(w, ' ', width - text_width);
+		else
+			wclrtoeol(w);
+	}
 
 	if (second_column_width > 0) {
 		wmove(w, y, width);
@@ -362,17 +368,6 @@ list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
 
 	if (selected)
 		wattroff(w, A_REVERSE);
-
-	if (!options.wide_cursor && text_width < width) {
-		if (second_column_width == 0)
-			/* the cursor is at the end of the text; clear
-			   the rest of this row */
-			wclrtoeol(w);
-		else
-			/* there's a second column: clear the space
-			   between the first and the second column */
-			mvwhline(w, y, text_width, ' ', width - text_width);
-	}
 }
 
 void
