@@ -479,12 +479,14 @@ list_window_find(struct list_window *lw,
 	unsigned i = lw->selected + 1;
 	const char *label;
 
+	assert(str != NULL);
+
 	do {
 		while (i < lw->length) {
 			label = callback(i, &h, NULL, callback_data);
 			assert(label != NULL);
 
-			if (str && label && match_line(label, str)) {
+			if (match_line(label, str)) {
 				list_window_move_cursor(lw, i);
 				return true;
 			}
@@ -517,6 +519,8 @@ list_window_rfind(struct list_window *lw,
 	int i = lw->selected - 1;
 	const char *label;
 
+	assert(str != NULL);
+
 	if (lw->length == 0)
 		return false;
 
@@ -525,7 +529,7 @@ list_window_rfind(struct list_window *lw,
 			label = callback(i, &h, NULL, callback_data);
 			assert(label != NULL);
 
-			if( str && label && match_line(label, str) ) {
+			if (match_line(label, str)) {
 				list_window_move_cursor(lw, i);
 				return true;
 			}
@@ -553,6 +557,8 @@ list_window_jump(struct list_window *lw,
 	bool h;
 	const char *label;
 
+	assert(str != NULL);
+
 	for (unsigned i = 0; i < lw->length; ++i) {
 		label = callback(i, &h, NULL, callback_data);
 		assert(label != NULL);
@@ -560,11 +566,10 @@ list_window_jump(struct list_window *lw,
 		if (label[0] == '[')
 			label++;
 #ifndef NCMPC_MINI
-		if (str && label &&
-				((options.jump_prefix_only && g_ascii_strncasecmp(label, str, strlen(str)) == 0) ||
-				 (!options.jump_prefix_only && match_line(label, str))) )
+		if ((options.jump_prefix_only && g_ascii_strncasecmp(label, str, strlen(str)) == 0) ||
+		     (!options.jump_prefix_only && match_line(label, str)))
 #else
-		if (str && label && g_ascii_strncasecmp(label, str, strlen(str)) == 0)
+		if (g_ascii_strncasecmp(label, str, strlen(str)) == 0)
 #endif
 		{
 			list_window_move_cursor(lw, i);
