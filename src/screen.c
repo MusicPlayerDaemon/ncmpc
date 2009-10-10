@@ -426,7 +426,8 @@ screen_update(struct mpdclient *c)
 		crossfade = mpd_status_get_crossfade(c->status);
 	}
 
-	if ((c->events & MPD_IDLE_DATABASE) != 0 && was_connected)
+	if ((c->events & MPD_IDLE_DATABASE) != 0 && was_connected &&
+	    mpdclient_is_connected(c))
 		screen_status_printf(_("Database updated"));
 	was_connected = mpdclient_is_connected(c);
 
