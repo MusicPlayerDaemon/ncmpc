@@ -49,14 +49,62 @@ skip(const gchar * p)
 	return p;
 }
 
+#ifndef NCMPC_MINI
+
+static char *
+concat_tag_values(const char *a, const char *b)
+{
+	return g_strconcat(a, ", ", b, NULL);
+}
+
+static char *
+song_more_tag_values(const struct mpd_song *song, enum mpd_tag_type tag,
+		     const char *first)
+{
+	const char *p = mpd_song_get_tag(song, tag, 1);
+	char *buffer, *prev;
+
+	if (p == NULL)
+		return NULL;
+
+	buffer = concat_tag_values(first, p);
+	for (unsigned i = 2; (p = mpd_song_get_tag(song, tag, i)) != NULL;
+	     ++i) {
+		prev = buffer;
+		buffer = concat_tag_values(buffer, p);
+		g_free(prev);
+	}
+
+	return buffer;
+}
+
+#endif /* !NCMPC_MINI */
+
 static char *
 song_tag_locale(const struct mpd_song *song, enum mpd_tag_type tag)
 {
 	const char *value = mpd_song_get_tag(song, tag, 0);
+	char *result;
+#ifndef NCMPC_MINI
+	char *all;
+#endif /* !NCMPC_MINI */
+
 	if (value == NULL)
 		return NULL;
 
-	return utf8_to_locale(value);
+#ifndef NCMPC_MINI
+	all = song_more_tag_values(song, tag, value);
+	if (all != NULL)
+		value = all;
+#endif /* !NCMPC_MINI */
+
+	result = utf8_to_locale(value);
+
+#ifndef NCMPC_MINI
+	g_free(all);
+#endif /* !NCMPC_MINI */
+
+	return result;
 }
 
 static gsize

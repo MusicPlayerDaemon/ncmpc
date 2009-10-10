@@ -11,6 +11,7 @@ ncmpc 0.16 - not yet released
 * list_window: fix narrow cursor drawing
 * screen_play: repaint after the "select-playing" command
 * screen_text: start searching at window origin, not bottom
+* strfsong: support multiple values for a tag
 
 
 ncmpc 0.15 - 2009-09-24
