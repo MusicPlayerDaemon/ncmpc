@@ -46,11 +46,12 @@ static struct screen_browser browser;
 static gint
 compare_utf8(gconstpointer s1, gconstpointer s2)
 {
+	const char *const*t1 = s1, *const*t2 = s2;
 	char *key1, *key2;
 	int n;
 
-	key1 = g_utf8_collate_key(s1,-1);
-	key2 = g_utf8_collate_key(s2,-1);
+	key1 = g_utf8_collate_key(*t1,-1);
+	key2 = g_utf8_collate_key(*t2,-1);
 	n = strcmp(key1,key2);
 	g_free(key1);
 	g_free(key2);
@@ -101,21 +102,6 @@ artist_repaint(void)
 	wrefresh(browser.lw->w);
 }
 
-static GPtrArray *
-g_list_to_ptr_array(GList *in)
-{
-	GPtrArray *out = g_ptr_array_sized_new(g_list_length(in));
-	GList *head = in;
-
-	while (in != NULL) {
-		g_ptr_array_add(out, in->data);
-		in = g_list_next(in);
-	}
-
-	g_list_free(head);
-	return out;
-}
-
 static void
 string_array_free(GPtrArray *array)
 {
@@ -149,9 +135,21 @@ free_lists(void)
 }
 
 static void
+recv_tag_values(struct mpd_connection *connection, enum mpd_tag_type tag,
+		GPtrArray *list)
+{
+	struct mpd_pair *pair;
+
+	while ((pair = mpd_recv_pair_tag(connection, tag)) != NULL) {
+		g_ptr_array_add(list, g_strdup(pair->value));
+		mpd_return_pair(connection, pair);
+	}
+}
+
+static void
 load_artist_list(struct mpdclient *c)
 {
-	GList *list;
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 
 	assert(mode == LIST_ARTISTS);
 	assert(artist == NULL);
@@ -160,18 +158,26 @@ load_artist_list(struct mpdclient *c)
 	assert(album_list == NULL);
 	assert(browser.filelist == NULL);
 
-	list = mpdclient_get_artists(c);
-	/* sort list */
-	list = g_list_sort(list, compare_utf8);
+	artist_list = g_ptr_array_new();
 
-	artist_list = g_list_to_ptr_array(list);
+	if (connection != NULL) {
+		mpd_search_db_tags(connection, MPD_TAG_ARTIST);
+		mpd_search_commit(connection);
+		recv_tag_values(connection, MPD_TAG_ARTIST, artist_list);
+
+		if (!mpd_response_finish(connection))
+			mpdclient_handle_error(c);
+	}
+
+	/* sort list */
+	g_ptr_array_sort(artist_list, compare_utf8);
 	list_window_set_length(browser.lw, artist_list->len);
 }
 
 static void
 load_album_list(struct mpdclient *c)
 {
-	GList *list;
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 
 	assert(mode == LIST_ALBUMS);
 	assert(artist != NULL);
@@ -179,11 +185,24 @@ load_album_list(struct mpdclient *c)
 	assert(album_list == NULL);
 	assert(browser.filelist == NULL);
 
-	list = mpdclient_get_albums(c, artist);
-	/* sort list */
-	list = g_list_sort(list, compare_utf8);
+	album_list = g_ptr_array_new();
 
-	album_list = g_list_to_ptr_array(list);
+	if (connection != NULL) {
+		mpd_search_db_tags(connection, MPD_TAG_ALBUM);
+		mpd_search_add_tag_constraint(connection,
+					      MPD_OPERATOR_DEFAULT,
+					      MPD_TAG_ARTIST, artist);
+		mpd_search_commit(connection);
+
+		recv_tag_values(connection, MPD_TAG_ALBUM, album_list);
+
+		if (!mpd_response_finish(connection))
+			mpdclient_handle_error(c);
+	}
+
+	/* sort list */
+	g_ptr_array_sort(album_list, compare_utf8);
+
 	list_window_set_length(browser.lw, album_list->len + 2);
 }
 

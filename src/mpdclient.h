@@ -125,10 +125,6 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end);
 bool
 mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index);
 
-/* list functions */
-GList *mpdclient_get_artists(struct mpdclient *c);
-GList *mpdclient_get_albums(struct mpdclient *c, const gchar *artist_utf8);
-
 /*** playlist functions  **************************************************/
 
 /* update the complete playlist */
