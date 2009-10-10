@@ -52,6 +52,15 @@ struct mpd_glib_source {
 	guint id;
 
 	enum mpd_idle idle_events;
+
+	/**
+	 * This flag is a hack: it is set while mpd_glib_leave() is
+	 * executed.  mpd_glib_leave() might invoke the callback, and
+	 * the callback might invoke mpd_glib_enter(), awkwardly
+	 * leaving mpd_glib_leave() in idle mode.  As long as this
+	 * flag is set, mpd_glib_enter() is a no-op to prevent this.
+	 */
+	bool leaving;
 };
 
 struct mpd_glib_source *
@@ -71,6 +80,7 @@ mpd_glib_new(struct mpd_connection *connection,
 	source->channel = g_io_channel_unix_new(mpd_async_get_fd(source->async));
 	source->io_events = 0;
 	source->id = 0;
+	source->leaving = false;
 
 	return source;
 }
@@ -316,6 +326,9 @@ mpd_glib_enter(struct mpd_glib_source *source)
 	assert(source->io_events == 0);
 	assert(source->id == 0);
 
+	if (source->leaving)
+		return;
+
 	source->idle_events = 0;
 
 	success = mpd_async_send_command(source->async, "idle", NULL);
@@ -344,6 +357,8 @@ mpd_glib_leave(struct mpd_glib_source *source)
 		? mpd_run_noidle(source->connection)
 		: mpd_recv_idle(source->connection, false);
 
+	source->leaving = true;
+
 	if (events == 0 &&
 	    mpd_connection_get_error(source->connection) != MPD_ERROR_SUCCESS) {
 		enum mpd_error error =
@@ -355,9 +370,12 @@ mpd_glib_leave(struct mpd_glib_source *source)
 
 		mpd_glib_invoke_error(source, error, server_error,
 				      mpd_connection_get_error_message(source->connection));
+		source->leaving = false;
 		return;
 	}
 
 	source->idle_events |= events;
 	mpd_glib_invoke(source);
+
+	source->leaving = false;
 }
