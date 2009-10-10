@@ -544,6 +544,11 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 	struct mpd_connection *connection;
 	struct mpd_status *status;
 
+	if (end == start + 1)
+		/* if that's not really a range, we choose to use the
+		   safer "deleteid" version */
+		return mpdclient_cmd_delete(c, start);
+
 	connection = mpdclient_get_connection(c);
 	if (connection == NULL)
 		return false;
