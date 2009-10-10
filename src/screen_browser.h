@@ -45,7 +45,8 @@ screen_browser_sync_highlights(struct filelist *fl,
 
 #endif
 
-const char *browser_lw_callback(unsigned index, bool *highlight, char** second_column, void *filelist);
+void
+screen_browser_paint(const struct screen_browser *browser);
 
 struct filelist_entry *
 browser_get_selected_entry(const struct screen_browser *browser);

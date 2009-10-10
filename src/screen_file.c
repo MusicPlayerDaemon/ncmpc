@@ -308,7 +308,7 @@ screen_file_get_title(char *str, size_t size)
 static void
 screen_file_paint(void)
 {
-	list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
+	screen_browser_paint(&browser);
 }
 
 static void

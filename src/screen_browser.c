@@ -72,7 +72,7 @@ screen_browser_sync_highlights(struct filelist *fl,
 #endif
 
 /* list_window callback */
-const char *
+static const char *
 browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_column, void *data)
 {
 	const struct filelist *fl = (const struct filelist *) data;
@@ -476,4 +476,10 @@ browser_cmd(struct screen_browser *browser,
 	}
 
 	return false;
+}
+
+void
+screen_browser_paint(const struct screen_browser *browser)
+{
+	list_window_paint(browser->lw, browser_lw_callback, browser->filelist);
 }

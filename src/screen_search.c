@@ -399,7 +399,7 @@ screen_search_paint(void)
 {
 	if (browser.filelist) {
 		browser.lw->hide_cursor = false;
-		list_window_paint(browser.lw, browser_lw_callback, browser.filelist);
+		screen_browser_paint(&browser);
 	} else {
 		browser.lw->hide_cursor = true;
 		list_window_paint(browser.lw, lw_search_help_callback, NULL);

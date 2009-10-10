@@ -339,8 +339,7 @@ static void
 screen_artist_paint(void)
 {
 	if (browser.filelist) {
-		list_window_paint(browser.lw, browser_lw_callback,
-				  browser.filelist);
+		screen_browser_paint(&browser);
 	} else if (album_list != NULL)
 		list_window_paint(browser.lw, screen_artist_lw_callback,
 				  album_list);
