@@ -66,28 +66,30 @@ list_window_reset(struct list_window *lw)
 	lw->start = 0;
 }
 
+static unsigned
+list_window_validate_index(const struct list_window *lw, unsigned i)
+{
+	if (lw->length == 0)
+		return 0;
+	else if (i >= lw->length)
+		return lw->length - 1;
+	else
+		return i;
+}
+
 static void
 list_window_check_selected(struct list_window *lw)
 {
-	if (lw->length == 0)
-		lw->selected = 0;
-	else if (lw->selected >= lw->length)
-		lw->selected = lw->length - 1;
+	lw->selected = list_window_validate_index(lw, lw->selected);
 
 	if(lw->range_selection)
 	{
-		if (lw->length == 0) {
-			lw->selected_start = 0;
-			lw->selected_end = 0;
-			lw->range_base = 0;
-		} else {
-			if (lw->selected_start >= lw->length)
-				lw->selected_start = lw->length - 1;
-			if (lw->selected_end >= lw->length)
-				lw->selected_end = lw->length - 1;
-			if (lw->range_base >= lw->length)
-				lw->range_base = lw->length - 1;
-		}
+		lw->selected_start =
+			list_window_validate_index(lw, lw->selected_start);
+		lw->selected_end =
+			list_window_validate_index(lw, lw->selected_end);
+		lw->range_base =
+			list_window_validate_index(lw, lw->range_base);
 
 		if(lw->range_base > lw->selected_end)
 			  lw->selected_end = lw->selected;
