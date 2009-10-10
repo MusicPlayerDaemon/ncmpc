@@ -130,7 +130,7 @@ string_array_free(GPtrArray *array)
 }
 
 static void
-free_lists(G_GNUC_UNUSED struct mpdclient *c)
+free_lists(void)
 {
 	if (artist_list != NULL) {
 		string_array_free(artist_list);
@@ -222,20 +222,20 @@ load_song_list(struct mpdclient *c)
 }
 
 static void
-free_state(struct mpdclient *c)
+free_state(void)
 {
 	g_free(artist);
 	g_free(album);
 	artist = NULL;
 	album = NULL;
 
-	free_lists(c);
+	free_lists();
 }
 
 static void
 open_artist_list(struct mpdclient *c)
 {
-	free_state(c);
+	free_state();
 
 	mode = LIST_ARTISTS;
 	load_artist_list(c);
@@ -246,7 +246,7 @@ open_album_list(struct mpdclient *c, char *_artist)
 {
 	assert(_artist != NULL);
 
-	free_state(c);
+	free_state();
 
 	mode = LIST_ALBUMS;
 	artist = _artist;
@@ -259,7 +259,7 @@ open_song_list(struct mpdclient *c, char *_artist, char *_album)
 	assert(_artist != NULL);
 	assert(_album != NULL);
 
-	free_state(c);
+	free_state();
 
 	mode = LIST_SONGS;
 	artist = _artist;
@@ -270,7 +270,7 @@ open_song_list(struct mpdclient *c, char *_artist, char *_album)
 static void
 reload_lists(struct mpdclient *c)
 {
-	free_lists(c);
+	free_lists();
 
 	switch (mode) {
 	case LIST_ARTISTS:
@@ -298,7 +298,7 @@ screen_artist_init(WINDOW *w, int cols, int rows)
 static void
 screen_artist_quit(void)
 {
-	free_state(NULL);
+	free_state();
 	list_window_free(browser.lw);
 }
 
