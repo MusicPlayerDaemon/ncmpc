@@ -320,6 +320,10 @@ list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
 	unsigned text_width = utf8_width(text);
 	unsigned second_column_width;
 
+#ifdef NCMPC_MINI
+	second_column = NULL;
+#endif /* NCMPC_MINI */
+
 	if (second_column != NULL) {
 		second_column_width = utf8_width(second_column) + 1;
 		if (second_column_width < width)
