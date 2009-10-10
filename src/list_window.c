@@ -90,11 +90,6 @@ list_window_check_selected(struct list_window *lw)
 			list_window_validate_index(lw, lw->selected_end);
 		lw->range_base =
 			list_window_validate_index(lw, lw->range_base);
-
-		if(lw->range_base > lw->selected_end)
-			  lw->selected_end = lw->selected;
-		if(lw->range_base < lw->selected_start)
-			  lw->selected_start = lw->selected;
 	}
 	else
 	{
