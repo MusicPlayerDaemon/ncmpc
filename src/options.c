@@ -367,16 +367,6 @@ options_parse(int argc, const char *argv[])
 void
 options_init(void)
 {
-	/* XXX
-	if ((tmp = g_strstr_len(options.host, strlen(options.host), "@"))) {
-		char *oldhost = options.host;
-		*tmp  = '\0';
-		options.password = locale_to_utf8(oldhost);
-		options.host = g_strdup(tmp+1);
-		g_free(oldhost);
-	}
-	*/
-
 	/* default option values */
 	options.list_format = g_strdup(DEFAULT_LIST_FORMAT);
 	options.status_format = g_strdup(DEFAULT_STATUS_FORMAT);
