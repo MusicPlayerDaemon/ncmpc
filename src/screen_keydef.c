@@ -318,9 +318,7 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 				save_keys();
 			} else {
 				subcmd = lw->selected;
-				lw->selected=0;
-				lw->selected_start = lw->selected;
-				lw->selected_end = lw->selected;
+				list_window_reset(lw);
 				check_subcmd_length();
 
 				keydef_repaint();
