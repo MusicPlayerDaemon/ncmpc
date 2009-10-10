@@ -203,35 +203,12 @@ list_window_move_cursor(struct list_window *lw, unsigned n)
 void
 list_window_fetch_cursor(struct list_window *lw)
 {
-	if (lw->selected < lw->start + options.scroll_offset) {
-		if (lw->start > 0)
-			lw->selected = lw->start + options.scroll_offset;
-		if (lw->range_selection) {
-			if (lw->selected > lw->range_base) {
-				lw->selected_end = lw->selected;
-				lw->selected_start = lw->range_base;
-			} else {
-				lw->selected_start = lw->selected;
-			}
-		} else {
-			lw->selected_start = lw->selected;
-			lw->selected_end = lw->selected;
-		}
-	} else if (lw->selected > lw->start + lw->rows - 1 - options.scroll_offset) {
-		if (lw->start + lw->rows < lw->length)
-			lw->selected = lw->start + lw->rows - 1 - options.scroll_offset;
-		if (lw->range_selection) {
-			if (lw->selected < lw->range_base) {
-				lw->selected_start = lw->selected;
-				lw->selected_end = lw->range_base;
-			} else {
-				lw->selected_end = lw->selected;
-			}
-		} else {
-			lw->selected_start = lw->selected;
-			lw->selected_end = lw->selected;
-		}
-	}
+	if (lw->start > 0 &&
+	    lw->selected < lw->start + options.scroll_offset)
+		list_window_move_cursor(lw, lw->start + options.scroll_offset);
+	else if (lw->start + lw->rows < lw->length &&
+		 lw->selected > lw->start + lw->rows - 1 - options.scroll_offset)
+		list_window_move_cursor(lw, lw->start + lw->rows - 1 - options.scroll_offset);
 }
 
 static void
