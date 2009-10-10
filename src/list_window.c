@@ -464,11 +464,7 @@ list_window_find(struct list_window *lw,
 			assert(label != NULL);
 
 			if (str && label && match_line(label, str)) {
-				lw->selected = i;
-				if(!lw->range_selection || i > lw->selected_end)
-					  lw->selected_end = i;
-				if(!lw->range_selection || i < lw->selected_start)
-					  lw->selected_start = i;
+				list_window_move_cursor(lw, i);
 				return true;
 			}
 			if (wrap && i == lw->selected)
@@ -509,11 +505,7 @@ list_window_rfind(struct list_window *lw,
 			assert(label != NULL);
 
 			if( str && label && match_line(label, str) ) {
-				lw->selected = i;
-				if(!lw->range_selection || i > (int)lw->selected_end)
-					  lw->selected_end = i;
-				if(!lw->range_selection || i < (int)lw->selected_start)
-					  lw->selected_start = i;
+				list_window_move_cursor(lw, i);
 				return true;
 			}
 			if (wrap && i == (int)lw->selected)
@@ -554,11 +546,7 @@ list_window_jump(struct list_window *lw,
 		if (str && label && g_ascii_strncasecmp(label, str, strlen(str)) == 0)
 #endif
 		{
-			lw->selected = i;
-			if(!lw->range_selection || i > lw->selected_end)
-				lw->selected_end = i;
-			if(!lw->range_selection || i < lw->selected_start)
-				lw->selected_start = i;
+			list_window_move_cursor(lw, i);
 			return true;
 		}
 	}
