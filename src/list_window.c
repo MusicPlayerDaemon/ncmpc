@@ -548,6 +548,23 @@ list_window_rfind(struct list_window *lw,
 	return false;
 }
 
+static bool
+jump_match(const char *haystack, const char *needle)
+{
+#ifdef NCMPC_MINI
+	bool jump_prefix_only = true;
+#else
+	bool jump_prefix_only = options.jump_prefix_only;
+#endif
+
+	assert(haystack != NULL);
+	assert(needle != NULL);
+
+	return jump_prefix_only
+		? g_ascii_strncasecmp(haystack, needle, strlen(needle)) == 0
+		: match_line(haystack, needle);
+}
+
 bool
 list_window_jump(struct list_window *lw,
 		 list_window_callback_fn_t callback,
@@ -565,13 +582,8 @@ list_window_jump(struct list_window *lw,
 
 		if (label[0] == '[')
 			label++;
-#ifndef NCMPC_MINI
-		if ((options.jump_prefix_only && g_ascii_strncasecmp(label, str, strlen(str)) == 0) ||
-		     (!options.jump_prefix_only && match_line(label, str)))
-#else
-		if (g_ascii_strncasecmp(label, str, strlen(str)) == 0)
-#endif
-		{
+
+		if (jump_match(label, str)) {
 			list_window_move_cursor(lw, i);
 			return true;
 		}
