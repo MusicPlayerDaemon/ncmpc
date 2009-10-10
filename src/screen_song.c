@@ -115,8 +115,7 @@ screen_song_exit(void)
 static void
 screen_song_resize(int cols, int rows)
 {
-	lw->cols = cols;
-	lw->rows = rows;
+	list_window_resize(lw, cols, rows);
 }
 
 static const char *

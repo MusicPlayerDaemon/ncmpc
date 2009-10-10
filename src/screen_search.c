@@ -391,8 +391,7 @@ screen_search_open(G_GNUC_UNUSED struct mpdclient *c)
 static void
 screen_search_resize(int cols, int rows)
 {
-	browser.lw->cols = cols;
-	browser.lw->rows = rows;
+	list_window_resize(browser.lw, cols, rows);
 }
 
 static void

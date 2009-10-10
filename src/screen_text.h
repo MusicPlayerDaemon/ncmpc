@@ -56,8 +56,7 @@ screen_text_deinit(struct screen_text *text)
 static inline void
 screen_text_resize(struct screen_text *text, int cols, int rows)
 {
-	text->lw->cols = cols;
-	text->lw->rows = rows;
+	list_window_resize(text->lw, cols, rows);
 }
 
 static inline bool

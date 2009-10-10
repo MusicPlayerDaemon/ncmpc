@@ -67,6 +67,9 @@ void list_window_free(struct list_window *lw);
 void list_window_reset(struct list_window *lw);
 
 void
+list_window_resize(struct list_window *lw, unsigned width, unsigned height);
+
+void
 list_window_set_length(struct list_window *lw, unsigned length);
 
 /* paint a list window */

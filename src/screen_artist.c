@@ -313,8 +313,7 @@ screen_artist_open(struct mpdclient *c)
 static void
 screen_artist_resize(int cols, int rows)
 {
-	browser.lw->cols = cols;
-	browser.lw->rows = rows;
+	list_window_resize(browser.lw, cols, rows);
 }
 
 static void

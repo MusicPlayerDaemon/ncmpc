@@ -229,8 +229,7 @@ help_init(WINDOW *w, int cols, int rows)
 static void
 help_resize(int cols, int rows)
 {
-  lw->cols = cols;
-  lw->rows = rows;
+	list_window_resize(lw, cols, rows);
 }
 
 static void

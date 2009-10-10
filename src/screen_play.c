@@ -522,8 +522,7 @@ screen_playlist_close(void)
 static void
 screen_playlist_resize(int cols, int rows)
 {
-	lw->cols = cols;
-	lw->rows = rows;
+	list_window_resize(lw, cols, rows);
 }
 
 

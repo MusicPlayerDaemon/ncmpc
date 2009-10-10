@@ -265,8 +265,7 @@ screen_file_init(WINDOW *w, int cols, int rows)
 static void
 screen_file_resize(int cols, int rows)
 {
-	browser.lw->cols = cols;
-	browser.lw->rows = rows;
+	list_window_resize(browser.lw, cols, rows);
 }
 
 static void
