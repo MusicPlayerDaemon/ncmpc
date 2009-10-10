@@ -69,16 +69,6 @@ list_window_reset(struct list_window *lw)
 static void
 list_window_check_selected(struct list_window *lw)
 {
-	if (lw->start + lw->rows > lw->length) {
-		if (lw->length > lw->rows)
-			lw->start = lw->length - lw->rows;
-		else
-			lw->start = 0;
-	}
-
-	if (lw->selected < lw->start)
-		lw->selected = lw->start;
-
 	if (lw->length == 0)
 		lw->selected = 0;
 	else if (lw->selected >= lw->length)
