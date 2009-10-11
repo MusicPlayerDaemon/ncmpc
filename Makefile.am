@@ -34,6 +34,7 @@ ncmpc_headers = \
 	src/screen_utils.h \
 	src/screen_client.h \
 	src/list_window.h \
+	src/song_paint.h \
 	src/colors.h \
 	src/paint.h \
 	src/hscroll.h \
@@ -93,6 +94,7 @@ src_ncmpc_SOURCES = \
 	src/screen_browser.c \
 	src/screen_file.c \
 	src/list_window.c \
+	src/song_paint.c \
 	src/colors.c \
 	src/charset.c \
 	src/wreadln.c \
