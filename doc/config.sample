@@ -135,6 +135,12 @@
 ## Set the bold text color in the main area of ncmpc.
 #color list-bold = brightgreen
 
+## Sets the text color of directories in the browser
+#color browser-directory = yellow
+
+## Sets the text color of playlists in the browser
+#color browser-playlist = red
+
 ## Set the color of the progress indicator.
 #color progressbar = white
 

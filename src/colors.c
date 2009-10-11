@@ -82,6 +82,16 @@ static color_entry_t colors[COLOR_END] = {
 	[COLOR_STATUS_BOLD] = { NAME_STATUS_BOLD, COLOR_BRIGHT_YELLOW, A_BOLD },
 	[COLOR_STATUS_TIME] = { NAME_STATUS_TIME, COLOR_RED, A_NORMAL },
 	[COLOR_STATUS_ALERT] = { NAME_ALERT, COLOR_BRIGHT_RED, A_BOLD },
+	[COLOR_DIRECTORY] = {
+		.name = "browser-directory",
+		.fg = COLOR_YELLOW,
+		.attrs = A_NORMAL,
+	},
+	[COLOR_PLAYLIST] = {
+		.name = "browser-playlist",
+		.fg = COLOR_RED,
+		.attrs = A_NORMAL,
+	},
 };
 
 #ifdef ENABLE_COLORS

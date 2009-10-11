@@ -30,6 +30,8 @@
 #include "strfsong.h"
 #include "mpdclient.h"
 #include "filelist.h"
+#include "colors.h"
+#include "paint.h"
 
 #include <mpd/client.h>
 
@@ -384,6 +386,10 @@ browser_handle_mouse_event(struct screen_browser *browser, struct mpdclient *c)
 }
 #endif
 
+static void
+screen_browser_paint_callback(WINDOW *w, unsigned i, unsigned y,
+			      unsigned width, bool selected, void *data);
+
 bool
 browser_cmd(struct screen_browser *browser,
 	    struct mpdclient *c, command_t cmd)
@@ -406,7 +412,7 @@ browser_cmd(struct screen_browser *browser,
 		return true;
 	case CMD_LIST_JUMP:
 		screen_jump(browser->lw, browser_lw_callback,
-			    NULL, browser->filelist);
+			    screen_browser_paint_callback, browser->filelist);
 		return true;
 
 #ifdef HAVE_GETMOUSE
@@ -479,8 +485,107 @@ browser_cmd(struct screen_browser *browser,
 	return false;
 }
 
+static void
+screen_browser_paint_directory(WINDOW *w, unsigned width,
+			       bool selected, const char *name)
+{
+	row_color(w, COLOR_DIRECTORY, selected);
+
+	waddch(w, '[');
+	waddstr(w, name);
+	waddch(w, ']');
+
+	/* erase the unused space after the text */
+	row_clear_to_eol(w, width, selected);
+}
+
+static void
+screen_browser_paint_song(WINDOW *w, unsigned width, bool selected,
+			  bool highlight, const struct mpd_song *song)
+{
+	char buffer[width * 4];
+
+	strfsong(buffer, sizeof(buffer), options.list_format, song);
+	row_paint_text(w, width, highlight ? COLOR_LIST_BOLD : COLOR_LIST,
+		       selected, buffer);
+}
+
+static void
+screen_browser_paint_playlist(WINDOW *w, unsigned width,
+			      bool selected, const char *name)
+{
+	row_paint_text(w, width, COLOR_PLAYLIST, selected, name);
+}
+
+static void
+screen_browser_paint_callback(WINDOW *w, unsigned i,
+			      G_GNUC_UNUSED unsigned y, unsigned width,
+			      bool selected, void *data)
+{
+	const struct filelist *fl = (const struct filelist *) data;
+	const struct filelist_entry *entry;
+	const struct mpd_entity *entity;
+	bool highlight;
+	const struct mpd_directory *directory;
+	const struct mpd_playlist *playlist;
+	char *p;
+
+	assert(fl != NULL);
+	assert(i < filelist_length(fl));
+
+	entry = filelist_get(fl, i);
+	assert(entry != NULL);
+
+	entity = entry->entity;
+	if (entity == NULL) {
+		screen_browser_paint_directory(w, width, selected, "..");
+		return;
+	}
+
+#ifndef NCMPC_MINI
+	highlight = (entry->flags & HIGHLIGHT) != 0;
+#else
+	highlight = false;
+#endif
+
+	if (highlight)
+		colors_use(w, COLOR_LIST_BOLD);
+	else
+		colors_use(w, COLOR_LIST);
+
+	switch (mpd_entity_get_type(entity)) {
+	case MPD_ENTITY_TYPE_DIRECTORY:
+		directory = mpd_entity_get_directory(entity);
+		p = utf8_to_locale(g_basename(mpd_directory_get_path(directory)));
+		screen_browser_paint_directory(w, width, selected, p);
+		g_free(p);
+		break;
+
+	case MPD_ENTITY_TYPE_SONG:
+		screen_browser_paint_song(w, width, selected, highlight,
+					  mpd_entity_get_song(entity));
+		break;
+
+	case MPD_ENTITY_TYPE_PLAYLIST:
+		playlist = mpd_entity_get_playlist(entity);
+		p = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
+		screen_browser_paint_playlist(w, width, selected, p);
+		g_free(p);
+		break;
+
+	default:
+		waddstr(w, "<unknown>");
+	}
+
+	whline(w, ' ', width);
+
+	if (selected)
+		wattroff(w, A_REVERSE);
+}
+
 void
 screen_browser_paint(const struct screen_browser *browser)
 {
-	list_window_paint(browser->lw, browser_lw_callback, browser->filelist);
+	list_window_paint2(browser->lw, screen_browser_paint_callback,
+			   browser->filelist);
 }
