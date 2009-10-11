@@ -405,7 +405,8 @@ browser_cmd(struct screen_browser *browser,
 			    browser->filelist);
 		return true;
 	case CMD_LIST_JUMP:
-		screen_jump(browser->lw, browser_lw_callback, browser->filelist);
+		screen_jump(browser->lw, browser_lw_callback,
+			    NULL, browser->filelist);
 		return true;
 
 #ifdef HAVE_GETMOUSE

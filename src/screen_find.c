@@ -93,6 +93,7 @@ screen_find(struct list_window *lw, command_t findcmd,
 void
 screen_jump(struct list_window *lw,
 		list_window_callback_fn_t callback_fn,
+	    list_window_paint_callback_t paint_callback,
 		void *callback_data)
 {
 	char *search_str, *iter;
@@ -130,8 +131,12 @@ screen_jump(struct list_window *lw,
 				++iter;
 		}
 		list_window_jump(lw, callback_fn, callback_data, search_str);
+
 		/* repaint the list_window */
-		list_window_paint(lw, callback_fn, callback_data);
+		if (paint_callback != NULL)
+			list_window_paint2(lw, paint_callback, callback_data);
+		else
+			list_window_paint(lw, callback_fn, callback_data);
 		wrefresh(lw->w);
 	}
 

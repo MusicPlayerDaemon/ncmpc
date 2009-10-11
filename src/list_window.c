@@ -408,6 +408,46 @@ list_window_paint(const struct list_window *lw,
 	}
 }
 
+void
+list_window_paint2(const struct list_window *lw,
+		   list_window_paint_callback_t paint_callback,
+		   void *callback_data)
+{
+	bool show_cursor = !lw->hide_cursor &&
+		(!options.hardware_cursor || lw->range_selection);
+	struct list_window_range range;
+
+	if (show_cursor)
+		list_window_get_range(lw, &range);
+
+	for (unsigned i = 0; i < lw->rows; i++) {
+		bool selected;
+
+		wmove(lw->w, i, 0);
+
+		if (lw->start + i >= lw->length) {
+			wclrtobot(lw->w);
+			break;
+		}
+
+		selected = show_cursor &&
+			lw->start + i >= range.start &&
+			lw->start + i < range.end;
+
+		paint_callback(lw->w, lw->start + i, i, lw->cols,
+			       selected, callback_data);
+
+		if (selected)
+			wattroff(lw->w, A_REVERSE);
+	}
+
+	if (options.hardware_cursor && lw->selected >= lw->start &&
+	    lw->selected < lw->start + lw->rows) {
+		curs_set(1);
+		wmove(lw->w, lw->selected - lw->start, 0);
+	}
+}
+
 bool
 list_window_find(struct list_window *lw,
 		 list_window_callback_fn_t callback,

@@ -662,7 +662,7 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 		playlist_repaint();
 		return true;
 	case CMD_LIST_JUMP:
-		screen_jump(lw, list_callback, NULL);
+		screen_jump(lw, list_callback, NULL, NULL);
 		playlist_save_selection();
 		playlist_repaint();
 		return true;

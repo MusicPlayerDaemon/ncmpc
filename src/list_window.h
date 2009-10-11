@@ -22,6 +22,7 @@
 
 #include "config.h"
 #include "command.h"
+#include "colors.h"
 
 #include <glib.h>
 #include <stdbool.h>
@@ -36,6 +37,12 @@ typedef const char *(*list_window_callback_fn_t)(unsigned index,
 						 bool *highlight,
 						 char **second_column,
 						 void *data);
+
+typedef void
+(*list_window_paint_callback_t)(WINDOW *w, unsigned i,
+				unsigned y, unsigned width,
+				bool selected,
+				void *data);
 
 struct list_window {
 	WINDOW *w;
@@ -90,6 +97,11 @@ list_window_set_length(struct list_window *lw, unsigned length);
 void list_window_paint(const struct list_window *lw,
 		       list_window_callback_fn_t callback,
 		       void *callback_data);
+
+void
+list_window_paint2(const struct list_window *lw,
+		   list_window_paint_callback_t paint_callback,
+		   void *callback_data);
 
 /* perform basic list window commands (movement) */
 bool

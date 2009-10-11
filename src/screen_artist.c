@@ -674,13 +674,13 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 		switch (mode) {
 		case LIST_ARTISTS:
 			screen_jump(browser.lw, screen_artist_lw_callback,
-				    artist_list);
+				    NULL, artist_list);
 			artist_repaint();
 			return true;
 
 		case LIST_ALBUMS:
 			screen_jump(browser.lw, screen_artist_lw_callback,
-				    album_list);
+				    NULL, album_list);
 			artist_repaint();
 			return true;
 
