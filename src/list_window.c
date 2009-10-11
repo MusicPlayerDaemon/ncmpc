@@ -24,6 +24,7 @@
 #include "match.h"
 #include "command.h"
 #include "colors.h"
+#include "paint.h"
 #include "screen_message.h"
 #include "i18n.h"
 
@@ -325,7 +326,6 @@ list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
 		      bool selected, bool highlight,
 		      const char *text, const char *second_column)
 {
-	unsigned text_width = utf8_width(text);
 	unsigned second_column_width;
 
 #ifdef NCMPC_MINI
@@ -342,32 +342,18 @@ list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
 	} else
 		second_column_width = 0;
 
-	if (highlight)
-		colors_use(w, COLOR_LIST_BOLD);
-	else
-		colors_use(w, COLOR_LIST);
-
-	if (selected)
-		wattron(w, A_REVERSE);
+	row_color(w, highlight ? COLOR_LIST_BOLD : COLOR_LIST, selected);
 
 	waddstr(w, text);
 
 	/* erase the unused space after the text */
-	if (text_width < width) {
-		if (options.wide_cursor)
-			whline(w, ' ', width - text_width);
-		else
-			wclrtoeol(w);
-	}
+	row_clear_to_eol(w, width, selected);
 
 	if (second_column_width > 0) {
 		wmove(w, y, width);
 		waddch(w, ' ');
 		waddstr(w, second_column);
 	}
-
-	if (selected)
-		wattroff(w, A_REVERSE);
 }
 
 void
@@ -412,6 +398,8 @@ list_window_paint(const struct list_window *lw,
 		if (second_column != NULL)
 			g_free(second_column);
 	}
+
+	row_color_end(lw->w);
 
 	if (options.hardware_cursor && lw->selected >= lw->start &&
 	    lw->selected < lw->start + lw->rows) {

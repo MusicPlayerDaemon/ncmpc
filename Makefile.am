@@ -35,6 +35,7 @@ ncmpc_headers = \
 	src/screen_client.h \
 	src/list_window.h \
 	src/colors.h \
+	src/paint.h \
 	src/hscroll.h \
 	src/charset.h \
 	src/match.h \
