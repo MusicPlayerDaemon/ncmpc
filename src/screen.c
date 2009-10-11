@@ -31,7 +31,7 @@
 #include "colors.h"
 #include "player_command.h"
 #include "screen_help.h"
-#include "screen_play.h"
+#include "screen_queue.h"
 #include "screen_file.h"
 #include "screen_artist.h"
 #include "screen_search.h"
@@ -60,8 +60,8 @@ static const int SCREEN_MIN_ROWS = 5;
 /* screens */
 
 struct screen screen;
-static const struct screen_functions *mode_fn = &screen_playlist;
-static const struct screen_functions *mode_fn_prev = &screen_playlist;
+static const struct screen_functions *mode_fn = &screen_queue;
+static const struct screen_functions *mode_fn_prev = &screen_queue;
 
 gboolean
 screen_is_visible(const struct screen_functions *sf)
@@ -523,7 +523,7 @@ screen_cmd(struct mpdclient *c, command_t cmd)
 		screen_next_mode(c, 1);
 		break;
 	case CMD_SCREEN_PLAY:
-		screen_switch(&screen_playlist, c);
+		screen_switch(&screen_queue, c);
 		break;
 	case CMD_SCREEN_FILE:
 		screen_switch(&screen_browse, c);

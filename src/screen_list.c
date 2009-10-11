@@ -21,7 +21,7 @@
 #include "screen_interface.h"
 #include "screen.h"
 #include "screen_help.h"
-#include "screen_play.h"
+#include "screen_queue.h"
 #include "screen_file.h"
 #include "screen_artist.h"
 #include "screen_search.h"
@@ -37,7 +37,7 @@ static const struct
 	const char *name;
 	const struct screen_functions *functions;
 } screens[] = {
-	{ "playlist", &screen_playlist },
+	{ "playlist", &screen_queue },
 	{ "browse", &screen_browse },
 #ifdef ENABLE_ARTIST_SCREEN
 	{ "artist", &screen_artist },

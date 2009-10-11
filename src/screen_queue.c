@@ -1,23 +1,23 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2009 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
-
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*/
+ */
 
-#include "screen_play.h"
+#include "screen_queue.h"
 #include "screen_interface.h"
 #include "screen_file.h"
 #include "screen_message.h"
@@ -67,17 +67,17 @@ static struct list_window *lw;
 static guint timer_hide_cursor_id;
 
 static void
-screen_playlist_paint(void);
+screen_queue_paint(void);
 
 static void
-playlist_repaint(void)
+screen_queue_repaint(void)
 {
-	screen_playlist_paint();
+	screen_queue_paint();
 	wrefresh(lw->w);
 }
 
 static const struct mpd_song *
-playlist_selected_song(void)
+screen_queue_selected_song(void)
 {
 	return !lw->range_selection &&
 		lw->selected < playlist_length(playlist)
@@ -86,15 +86,15 @@ playlist_selected_song(void)
 }
 
 static void
-playlist_save_selection(void)
+screen_queue_save_selection(void)
 {
-	selected_song_id = playlist_selected_song() != NULL
-		? (int)mpd_song_get_id(playlist_selected_song())
+	selected_song_id = screen_queue_selected_song() != NULL
+		? (int)mpd_song_get_id(screen_queue_selected_song())
 		: -1;
 }
 
 static void
-playlist_restore_selection(void)
+screen_queue_restore_selection(void)
 {
 	const struct mpd_song *song;
 	int pos;
@@ -105,7 +105,7 @@ playlist_restore_selection(void)
 		/* there was no selection */
 		return;
 
-	song = playlist_selected_song();
+	song = screen_queue_selected_song();
 	if (song != NULL &&
 	    mpd_song_get_id(song) == (unsigned)selected_song_id)
 		/* selection is still valid */
@@ -115,7 +115,7 @@ playlist_restore_selection(void)
 	if (pos >= 0)
 		list_window_set_cursor(lw, pos);
 
-	playlist_save_selection();
+	screen_queue_save_selection();
 }
 
 #ifndef NCMPC_MINI
@@ -125,13 +125,14 @@ scroll_timer_callback(G_GNUC_UNUSED gpointer data)
 	scroll_source_id = 0;
 
 	hscroll_step(&hscroll);
-	playlist_repaint();
+	screen_queue_repaint();
 	return false;
 }
 #endif
 
 static const char *
-list_callback(unsigned idx, bool *highlight, char **second_column, G_GNUC_UNUSED void *data)
+screen_queue_lw_callback(unsigned idx, bool *highlight, char **second_column,
+			 G_GNUC_UNUSED void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
 	struct mpd_song *song;
@@ -467,7 +468,7 @@ handle_add_to_playlist(struct mpdclient *c)
 }
 
 static void
-screen_playlist_init(WINDOW *w, int cols, int rows)
+screen_queue_init(WINDOW *w, int cols, int rows)
 {
 	lw = list_window_init(w, cols, rows);
 }
@@ -487,7 +488,7 @@ timer_hide_cursor(gpointer data)
 	if (c->status != NULL &&
 	    mpd_status_get_state(c->status) == MPD_STATE_PLAY) {
 		lw->hide_cursor = true;
-		playlist_repaint();
+		screen_queue_repaint();
 	} else
 		timer_hide_cursor_id = g_timeout_add(options.hide_cursor * 1000,
 						     timer_hide_cursor, c);
@@ -496,7 +497,7 @@ timer_hide_cursor(gpointer data)
 }
 
 static void
-screen_playlist_open(struct mpdclient *c)
+screen_queue_open(struct mpdclient *c)
 {
 	playlist = &c->playlist;
 
@@ -507,11 +508,11 @@ screen_playlist_open(struct mpdclient *c)
 						     timer_hide_cursor, c);
 	}
 
-	playlist_restore_selection();
+	screen_queue_restore_selection();
 }
 
 static void
-screen_playlist_close(void)
+screen_queue_close(void)
 {
 	if (timer_hide_cursor_id != 0) {
 		g_source_remove(timer_hide_cursor_id);
@@ -520,20 +521,20 @@ screen_playlist_close(void)
 }
 
 static void
-screen_playlist_resize(int cols, int rows)
+screen_queue_resize(int cols, int rows)
 {
 	list_window_resize(lw, cols, rows);
 }
 
 
 static void
-screen_playlist_exit(void)
+screen_queue_exit(void)
 {
 	list_window_free(lw);
 }
 
 static const char *
-screen_playlist_title(char *str, size_t size)
+screen_queue_title(char *str, size_t size)
 {
 	if (options.host == NULL)
 		return _("Playlist");
@@ -543,18 +544,18 @@ screen_playlist_title(char *str, size_t size)
 }
 
 static void
-screen_playlist_paint(void)
+screen_queue_paint(void)
 {
-	list_window_paint(lw, list_callback, NULL);
+	list_window_paint(lw, screen_queue_lw_callback, NULL);
 }
 
 static void
-screen_playlist_update(struct mpdclient *c)
+screen_queue_update(struct mpdclient *c)
 {
 	static int prev_song_id = -1;
 
 	if (c->events & MPD_IDLE_PLAYLIST)
-		playlist_restore_selection();
+		screen_queue_restore_selection();
 
 	current_song_id = c->status != NULL &&
 		(mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
@@ -568,11 +569,11 @@ screen_playlist_update(struct mpdclient *c)
 		if (options.auto_center && current_song_id != -1 && ! lw->range_selection)
 			center_playing_item(c, false);
 
-		playlist_repaint();
+		screen_queue_repaint();
 	} else if (c->events & MPD_IDLE_PLAYLIST) {
 		/* the playlist has changed, we must paint the new
 		   version */
-		playlist_repaint();
+		screen_queue_repaint();
 	}
 }
 
@@ -586,7 +587,7 @@ handle_mouse_event(struct mpdclient *c)
 
 	if (screen_get_mouse_event(c, &bstate, &row) ||
 	    list_window_mouse(lw, bstate, row)) {
-		playlist_repaint();
+		screen_queue_repaint();
 		return true;
 	}
 
@@ -609,15 +610,15 @@ handle_mouse_event(struct mpdclient *c)
 	}
 
 	list_window_set_cursor(lw, selected);
-	playlist_save_selection();
-	playlist_repaint();
+	screen_queue_save_selection();
+	screen_queue_repaint();
 
 	return true;
 }
 #endif
 
 static bool
-screen_playlist_cmd(struct mpdclient *c, command_t cmd)
+screen_queue_cmd(struct mpdclient *c, command_t cmd)
 {
 	struct mpd_connection *connection;
 	static command_t cached_cmd = CMD_NONE;
@@ -636,35 +637,35 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 	}
 
 	if (list_window_cmd(lw, cmd)) {
-		playlist_save_selection();
-		playlist_repaint();
+		screen_queue_save_selection();
+		screen_queue_repaint();
 		return true;
 	}
 
 	switch(cmd) {
 	case CMD_SCREEN_UPDATE:
 		center_playing_item(c, prev_cmd == CMD_SCREEN_UPDATE);
-		playlist_repaint();
+		screen_queue_repaint();
 		return false;
 	case CMD_SELECT_PLAYING:
 		list_window_set_cursor(lw, playlist_get_index(&c->playlist,
 							      c->song));
-		playlist_save_selection();
-		playlist_repaint();
+		screen_queue_save_selection();
+		screen_queue_repaint();
 		return true;
 
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(lw, cmd, list_callback, NULL);
-		playlist_save_selection();
-		playlist_repaint();
+		screen_find(lw, cmd, screen_queue_lw_callback, NULL);
+		screen_queue_save_selection();
+		screen_queue_repaint();
 		return true;
 	case CMD_LIST_JUMP:
-		screen_jump(lw, list_callback, NULL, NULL);
-		playlist_save_selection();
-		playlist_repaint();
+		screen_jump(lw, screen_queue_lw_callback, NULL, NULL);
+		screen_queue_save_selection();
+		screen_queue_repaint();
 		return true;
 
 #ifdef HAVE_GETMOUSE
@@ -674,8 +675,8 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 
 #ifdef ENABLE_SONG_SCREEN
 	case CMD_SCREEN_SONG:
-		if (playlist_selected_song()) {
-			screen_song_switch(c, playlist_selected_song());
+		if (screen_queue_selected_song() != NULL) {
+			screen_song_switch(c, screen_queue_selected_song());
 			return true;
 		}
 
@@ -754,7 +755,7 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 		lw->selected--;
 		lw->range_base--;
 
-		playlist_save_selection();
+		screen_queue_save_selection();
 		return true;
 
 	case CMD_LIST_MOVE_DOWN:
@@ -768,12 +769,12 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 		lw->selected++;
 		lw->range_base++;
 
-		playlist_save_selection();
+		screen_queue_save_selection();
 		return true;
 
 	case CMD_LOCATE:
-		if (playlist_selected_song()) {
-			screen_file_goto_song(c, playlist_selected_song());
+		if (screen_queue_selected_song() != NULL) {
+			screen_file_goto_song(c, screen_queue_selected_song());
 			return true;
 		}
 
@@ -786,14 +787,14 @@ screen_playlist_cmd(struct mpdclient *c, command_t cmd)
 	return false;
 }
 
-const struct screen_functions screen_playlist = {
-	.init = screen_playlist_init,
-	.exit = screen_playlist_exit,
-	.open = screen_playlist_open,
-	.close = screen_playlist_close,
-	.resize = screen_playlist_resize,
-	.paint = screen_playlist_paint,
-	.update = screen_playlist_update,
-	.cmd = screen_playlist_cmd,
-	.get_title = screen_playlist_title,
+const struct screen_functions screen_queue = {
+	.init = screen_queue_init,
+	.exit = screen_queue_exit,
+	.open = screen_queue_open,
+	.close = screen_queue_close,
+	.resize = screen_queue_resize,
+	.paint = screen_queue_paint,
+	.update = screen_queue_update,
+	.cmd = screen_queue_cmd,
+	.get_title = screen_queue_title,
 };

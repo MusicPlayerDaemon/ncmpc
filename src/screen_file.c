@@ -21,6 +21,7 @@
 #include "screen_browser.h"
 #include "screen_interface.h"
 #include "screen_message.h"
+#include "screen_queue.h"
 #include "screen.h"
 #include "config.h"
 #include "i18n.h"
@@ -28,7 +29,6 @@
 #include "mpdclient.h"
 #include "filelist.h"
 #include "screen_utils.h"
-#include "screen_play.h"
 #include "screen_client.h"
 
 #include <mpd/client.h>

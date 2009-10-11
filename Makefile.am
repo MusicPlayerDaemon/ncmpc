@@ -46,7 +46,7 @@ ncmpc_headers = \
 	src/defaults.h \
 	src/i18n.h \
 	src/screen_help.h \
-	src/screen_play.h \
+	src/screen_queue.h \
 	src/screen_file.h \
 	src/screen_artist.h \
 	src/screen_browser.h \
@@ -89,7 +89,7 @@ src_ncmpc_SOURCES = \
 	src/screen_find.c \
 	src/screen_utils.c \
 	src/screen_client.c \
-	src/screen_play.c \
+	src/screen_queue.c \
 	src/screen_browser.c \
 	src/screen_file.c \
 	src/list_window.c \
