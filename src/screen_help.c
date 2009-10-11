@@ -255,7 +255,7 @@ static bool
 help_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(lw, cmd)) {
-		list_window_paint(lw, list_callback, NULL);
+		help_paint();
 		wrefresh(lw->w);
 		return true;
 	}
@@ -264,7 +264,7 @@ help_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 	if (screen_find(lw,  cmd, list_callback, NULL)) {
 		/* center the row */
 		list_window_center(lw, lw->selected);
-		list_window_paint(lw, list_callback, NULL);
+		help_paint();
 		wrefresh(lw->w);
 		return true;
 	}
