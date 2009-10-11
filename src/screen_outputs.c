@@ -20,6 +20,7 @@
 #include "screen_outputs.h"
 #include "screen_interface.h"
 #include "screen_message.h"
+#include "paint.h"
 #include "i18n.h"
 #include "list_window.h"
 #include "mpdclient.h"
@@ -126,23 +127,6 @@ fill_outputs_list(struct mpdclient *c)
 	list_window_set_length(lw, mpd_outputs->len);
 }
 
-static const char *
-outputs_list_callback(unsigned int output_index, bool *highlight,
-		      G_GNUC_UNUSED char **sc, G_GNUC_UNUSED void *data)
-{
-	struct mpd_output *output;
-
-	assert(mpd_outputs != NULL);
-	assert(output_index < mpd_outputs->len);
-
-	output = g_ptr_array_index(mpd_outputs, output_index);
-
-	if (mpd_output_get_enabled(output))
-		*highlight = true;
-
-	return mpd_output_get_name(output);
-}
-
 static void
 outputs_init(WINDOW *w, int cols, int rows)
 {
@@ -184,9 +168,27 @@ outputs_title(G_GNUC_UNUSED char *str, G_GNUC_UNUSED size_t size)
 }
 
 static void
+screen_outputs_paint_callback(WINDOW *w, unsigned i,
+			      G_GNUC_UNUSED unsigned y, unsigned width,
+			      bool selected, G_GNUC_UNUSED void *data)
+{
+	const struct mpd_output *output;
+
+	assert(mpd_outputs != NULL);
+	assert(i < mpd_outputs->len);
+
+	output = g_ptr_array_index(mpd_outputs, i);
+
+	row_color(w, COLOR_LIST, selected);
+	waddstr(w, mpd_output_get_enabled(output) ? "[X] " : "[ ] ");
+	waddstr(w, mpd_output_get_name(output));
+	row_clear_to_eol(w, width, selected);
+}
+
+static void
 outputs_paint(void)
 {
-	list_window_paint(lw, outputs_list_callback, NULL);
+	list_window_paint2(lw, screen_outputs_paint_callback, NULL);
 }
 
 static void
