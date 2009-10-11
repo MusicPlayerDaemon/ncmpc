@@ -13,6 +13,7 @@ ncmpc 0.16 - not yet released
 * screen_text: start searching at window origin, not bottom
 * strfsong: support multiple values for a tag
 * screen_browser: different colors for directories and playlists
+* screen_browser: display song duration
 
 
 ncmpc 0.15 - 2009-09-24

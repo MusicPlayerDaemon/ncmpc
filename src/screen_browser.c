@@ -32,6 +32,7 @@
 #include "filelist.h"
 #include "colors.h"
 #include "paint.h"
+#include "utils.h"
 
 #include <mpd/client.h>
 
@@ -498,7 +499,8 @@ screen_browser_paint_directory(WINDOW *w, unsigned width,
 }
 
 static void
-screen_browser_paint_song(WINDOW *w, unsigned width, bool selected,
+screen_browser_paint_song(WINDOW *w, G_GNUC_UNUSED unsigned y,
+			  unsigned width, bool selected,
 			  bool highlight, const struct mpd_song *song)
 {
 	char buffer[width * 4];
@@ -506,6 +508,17 @@ screen_browser_paint_song(WINDOW *w, unsigned width, bool selected,
 	strfsong(buffer, sizeof(buffer), options.list_format, song);
 	row_paint_text(w, width, highlight ? COLOR_LIST_BOLD : COLOR_LIST,
 		       selected, buffer);
+
+#ifndef NCMPC_MINI
+	if (mpd_song_get_duration(song) > 0) {
+		char duration[32];
+		format_duration_short(duration, sizeof(duration),
+				      mpd_song_get_duration(song));
+		wmove(w, y, width - strlen(duration) - 1);
+		waddch(w, ' ');
+		waddstr(w, duration);
+	}
+#endif
 }
 
 static void
@@ -517,7 +530,7 @@ screen_browser_paint_playlist(WINDOW *w, unsigned width,
 
 static void
 screen_browser_paint_callback(WINDOW *w, unsigned i,
-			      G_GNUC_UNUSED unsigned y, unsigned width,
+			      unsigned y, unsigned width,
 			      bool selected, void *data)
 {
 	const struct filelist *fl = (const struct filelist *) data;
@@ -560,7 +573,7 @@ screen_browser_paint_callback(WINDOW *w, unsigned i,
 		break;
 
 	case MPD_ENTITY_TYPE_SONG:
-		screen_browser_paint_song(w, width, selected, highlight,
+		screen_browser_paint_song(w, y, width, selected, highlight,
 					  mpd_entity_get_song(entity));
 		break;
 
