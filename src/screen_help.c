@@ -184,40 +184,21 @@ static const struct help_text_row help_text[] = {
 static struct list_window *lw;
 
 static const char *
-list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char** second_column, G_GNUC_UNUSED void *data)
+list_callback(unsigned i,
+	      G_GNUC_UNUSED bool *highlight, G_GNUC_UNUSED char** second_column,
+	      G_GNUC_UNUSED void *data)
 {
-	static char buf[512];
+	const struct help_text_row *row = &help_text[i];
 
-	assert(idx < G_N_ELEMENTS(help_text));
+	assert(i < G_N_ELEMENTS(help_text));
 
-	if (help_text[idx].highlight)
-		*highlight = true;
+	if (row->text != NULL)
+		return _(row->text);
 
-	if (help_text[idx].command == CMD_NONE) {
-		if (help_text[idx].text)
-			g_snprintf(buf, sizeof(buf), "      %s", _(help_text[idx].text));
-		else if (help_text[idx].highlight == 2) {
-			int i;
+	if (row->command != CMD_NONE)
+		return get_key_description(row->command);
 
-			for (i = 3; i < COLS - 3 && i < (int)sizeof(buf); i++)
-				buf[i] = '-';
-			buf[i] = '\0';
-		} else
-			g_strlcpy(buf, " ", sizeof(buf));
-		return buf;
-	}
-
-	if (help_text[idx].text)
-		g_snprintf(buf, sizeof(buf),
-			   "%20s : %s   ",
-			   get_key_names(help_text[idx].command, TRUE),
-			   _(help_text[idx].text));
-	else
-		g_snprintf(buf, sizeof(buf),
-			   "%20s : %s   ",
-			   get_key_names(help_text[idx].command, TRUE),
-			   get_key_description(help_text[idx].command));
-	return buf;
+	return "";
 }
 
 static void
