@@ -30,7 +30,7 @@
 #include "utils.h"
 #include "strfsong.h"
 #include "wreadln.h"
-#include "colors.h"
+#include "song_paint.h"
 #include "screen.h"
 #include "screen_utils.h"
 #include "screen_song.h"
@@ -544,9 +544,26 @@ screen_queue_title(char *str, size_t size)
 }
 
 static void
+screen_queue_paint_callback(WINDOW *w, unsigned i,
+			    unsigned y, unsigned width,
+			    bool selected, G_GNUC_UNUSED void *data)
+{
+	const struct mpd_song *song;
+
+	assert(playlist != NULL);
+	assert(i < playlist_length(playlist));
+
+	song = playlist_get(playlist, i);
+
+	paint_song_row(w, y, width, selected,
+		       (int)mpd_song_get_id(song) == current_song_id,
+		       song);
+}
+
+static void
 screen_queue_paint(void)
 {
-	list_window_paint(lw, screen_queue_lw_callback, NULL);
+	list_window_paint2(lw, screen_queue_paint_callback, NULL);
 }
 
 G_GNUC_PURE
