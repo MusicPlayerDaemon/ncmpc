@@ -184,9 +184,7 @@ static const struct help_text_row help_text[] = {
 static struct list_window *lw;
 
 static const char *
-list_callback(unsigned i,
-	      G_GNUC_UNUSED bool *highlight, G_GNUC_UNUSED char** second_column,
-	      G_GNUC_UNUSED void *data)
+list_callback(unsigned i, G_GNUC_UNUSED void *data)
 {
 	const struct help_text_row *row = &help_text[i];
 

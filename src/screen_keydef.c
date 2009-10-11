@@ -190,7 +190,7 @@ assign_new_key(int cmd_index, int key_index)
 }
 
 static const char *
-list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char** sc, G_GNUC_UNUSED void *data)
+list_callback(unsigned idx, G_GNUC_UNUSED void *data)
 {
 	static char buf[BUFSIZE];
 
@@ -202,8 +202,6 @@ list_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char** sc, G_GNUC_UNU
 
 		assert(idx < (unsigned)command_list_length);
 
-		if (cmds[idx].flags & COMMAND_KEY_CONFLICT)
-			*highlight = true;
 		return cmds[idx].name;
 	} else {
 		if (idx == 0)

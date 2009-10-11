@@ -56,8 +56,10 @@ typedef struct
 	struct mpdclient *c;
 } completion_callback_data_t;
 
+/*
 static struct hscroll hscroll;
 static guint scroll_source_id;
+*/
 #endif
 
 static struct mpdclient_playlist *playlist;
@@ -118,6 +120,7 @@ screen_queue_restore_selection(void)
 	screen_queue_save_selection();
 }
 
+/*
 #ifndef NCMPC_MINI
 static gboolean
 scroll_timer_callback(G_GNUC_UNUSED gpointer data)
@@ -129,10 +132,10 @@ scroll_timer_callback(G_GNUC_UNUSED gpointer data)
 	return false;
 }
 #endif
+*/
 
 static const char *
-screen_queue_lw_callback(unsigned idx, bool *highlight, char **second_column,
-			 G_GNUC_UNUSED void *data)
+screen_queue_lw_callback(unsigned idx, G_GNUC_UNUSED void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
 	struct mpd_song *song;
@@ -141,26 +144,14 @@ screen_queue_lw_callback(unsigned idx, bool *highlight, char **second_column,
 	assert(idx < playlist_length(playlist));
 
 	song = playlist_get(playlist, idx);
-	if ((int)mpd_song_get_id(song) == current_song_id)
-		*highlight = true;
 
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, song);
 
+	/*
 #ifndef NCMPC_MINI
-	if (second_column != NULL && mpd_song_get_duration(song) > 0) {
-		char duration[32];
-		format_duration_short(duration, sizeof(duration),
-				      mpd_song_get_duration(song));
-		*second_column = g_strdup(duration);
-	}
-
 	if (idx == lw->selected)
 	{
-		int second_column_len = 0;
-		if (second_column != NULL && *second_column != NULL)
-			second_column_len = strlen(*second_column);
-		if (options.scroll && utf8_width(songname) > (unsigned)(COLS - second_column_len - 1) )
-		{
+		if (options.scroll && utf8_width(songname) > (unsigned)COLS) {
 			static unsigned current_song;
 			char *tmp;
 
@@ -188,9 +179,8 @@ screen_queue_lw_callback(unsigned idx, bool *highlight, char **second_column,
 			}
 		}
 	}
-#else
-	(void)second_column;
 #endif
+	*/
 
 	return songname;
 }

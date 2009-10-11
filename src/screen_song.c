@@ -76,8 +76,7 @@ screen_song_repaint(void)
 }
 
 static const char *
-screen_song_list_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
-			  G_GNUC_UNUSED char** sc, G_GNUC_UNUSED void *data)
+screen_song_list_callback(unsigned idx, G_GNUC_UNUSED void *data)
 {
 	static char buffer[256];
 	char *value;

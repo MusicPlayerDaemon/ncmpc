@@ -69,7 +69,7 @@ void
 screen_text_set(struct screen_text *text, const GString *str);
 
 const char *
-screen_text_list_callback(unsigned idx, bool *highlight, char** sc, void *data);
+screen_text_list_callback(unsigned idx, void *data);
 
 static inline void
 screen_text_paint(struct screen_text *text)

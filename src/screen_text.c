@@ -80,8 +80,7 @@ screen_text_set(struct screen_text *text, const GString *str)
 }
 
 const char *
-screen_text_list_callback(unsigned idx, G_GNUC_UNUSED bool *highlight,
-			  G_GNUC_UNUSED char** sc, void *data)
+screen_text_list_callback(unsigned idx, void *data)
 {
 	const struct screen_text *text = data;
 	static char buffer[256];

@@ -33,10 +33,8 @@
 #include <ncurses.h>
 #endif
 
-typedef const char *(*list_window_callback_fn_t)(unsigned index,
-						 bool *highlight,
-						 char **second_column,
-						 void *data);
+typedef const char *
+(*list_window_callback_fn_t)(unsigned i, void *data);
 
 typedef void
 (*list_window_paint_callback_t)(WINDOW *w, unsigned i,

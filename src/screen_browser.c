@@ -76,7 +76,7 @@ screen_browser_sync_highlights(struct filelist *fl,
 
 /* list_window callback */
 static const char *
-browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_column, void *data)
+browser_lw_callback(unsigned idx, void *data)
 {
 	const struct filelist *fl = (const struct filelist *) data;
 	static char buf[BUFSIZE];
@@ -90,11 +90,6 @@ browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_c
 	assert(entry != NULL);
 
 	entity = entry->entity;
-#ifndef NCMPC_MINI
-	*highlight = (entry->flags & HIGHLIGHT) != 0;
-#else
-	*highlight = false;
-#endif
 
 	if( entity == NULL )
 		return "..";

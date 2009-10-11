@@ -322,38 +322,11 @@ list_window_scroll_down(struct list_window *lw, unsigned n)
 }
 
 static void
-list_window_paint_row(WINDOW *w, unsigned y, unsigned width,
-		      bool selected, bool highlight,
-		      const char *text, const char *second_column)
+list_window_paint_row(WINDOW *w, unsigned width, bool selected,
+		      const char *text)
 {
-	unsigned second_column_width;
-
-#ifdef NCMPC_MINI
-	second_column = NULL;
-	highlight = false;
-#endif /* NCMPC_MINI */
-
-	if (second_column != NULL) {
-		second_column_width = utf8_width(second_column) + 1;
-		if (second_column_width < width)
-			width -= second_column_width;
-		else
-			second_column_width = 0;
-	} else
-		second_column_width = 0;
-
-	row_color(w, highlight ? COLOR_LIST_BOLD : COLOR_LIST, selected);
-
-	waddstr(w, text);
-
-	/* erase the unused space after the text */
-	row_clear_to_eol(w, width, selected);
-
-	if (second_column_width > 0) {
-		wmove(w, y, width);
-		waddch(w, ' ');
-		waddstr(w, second_column);
-	}
+	row_paint_text(w, width, COLOR_LIST,
+		       selected, text);
 }
 
 void
@@ -370,8 +343,6 @@ list_window_paint(const struct list_window *lw,
 
 	for (unsigned i = 0; i < lw->rows; i++) {
 		const char *label;
-		bool highlight = false;
-		char *second_column = NULL;
 
 		wmove(lw->w, i, 0);
 
@@ -380,23 +351,14 @@ list_window_paint(const struct list_window *lw,
 			break;
 		}
 
-		label = callback(lw->start + i, &highlight, &second_column, callback_data);
+		label = callback(lw->start + i, callback_data);
 		assert(label != NULL);
 
-#ifdef NCMPC_MINI
-		highlight = false;
-		second_column = NULL;
-#endif /* NCMPC_MINI */
-
-		list_window_paint_row(lw->w, i, lw->cols,
+		list_window_paint_row(lw->w, lw->cols,
 				      show_cursor &&
 				      lw->start + i >= range.start &&
 				      lw->start + i < range.end,
-				      highlight,
-				      label, second_column);
-
-		if (second_column != NULL)
-			g_free(second_column);
+				      label);
 	}
 
 	row_color_end(lw->w);
@@ -456,7 +418,6 @@ list_window_find(struct list_window *lw,
 		 bool wrap,
 		 bool bell_on_wrap)
 {
-	bool h;
 	unsigned i = lw->selected + 1;
 	const char *label;
 
@@ -464,7 +425,7 @@ list_window_find(struct list_window *lw,
 
 	do {
 		while (i < lw->length) {
-			label = callback(i, &h, NULL, callback_data);
+			label = callback(i, callback_data);
 			assert(label != NULL);
 
 			if (match_line(label, str)) {
@@ -496,7 +457,6 @@ list_window_rfind(struct list_window *lw,
 		  bool wrap,
 		  bool bell_on_wrap)
 {
-	bool h;
 	int i = lw->selected - 1;
 	const char *label;
 
@@ -507,7 +467,7 @@ list_window_rfind(struct list_window *lw,
 
 	do {
 		while (i >= 0) {
-			label = callback(i, &h, NULL, callback_data);
+			label = callback(i, callback_data);
 			assert(label != NULL);
 
 			if (match_line(label, str)) {
@@ -552,13 +512,12 @@ list_window_jump(struct list_window *lw,
 		 void *callback_data,
 		 const char *str)
 {
-	bool h;
 	const char *label;
 
 	assert(str != NULL);
 
 	for (unsigned i = 0; i < lw->length; ++i) {
-		label = callback(i, &h, NULL, callback_data);
+		label = callback(i, callback_data);
 		assert(label != NULL);
 
 		if (jump_match(label, str)) {
