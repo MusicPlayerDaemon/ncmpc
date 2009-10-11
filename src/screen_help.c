@@ -20,6 +20,8 @@
 #include "screen_help.h"
 #include "screen_interface.h"
 #include "screen_find.h"
+#include "paint.h"
+#include "charset.h"
 #include "config.h"
 #include "i18n.h"
 
@@ -246,9 +248,42 @@ help_title(G_GNUC_UNUSED char *str, G_GNUC_UNUSED size_t size)
 }
 
 static void
+screen_help_paint_callback(WINDOW *w, unsigned i,
+			   unsigned y, unsigned width,
+			   G_GNUC_UNUSED bool selected,
+			   G_GNUC_UNUSED void *data)
+{
+	const struct help_text_row *row = &help_text[i];
+
+	assert(i < G_N_ELEMENTS(help_text));
+
+	row_color(w, row->highlight ? COLOR_LIST_BOLD : COLOR_LIST, false);
+
+	wclrtoeol(w);
+
+	if (row->command == CMD_NONE) {
+		if (row->text != NULL)
+			mvwaddstr(w, y, 6, row->text);
+		else if (row->highlight == 2)
+			mvwhline(w, y, 3, '-', width - 6);
+	} else {
+		const char *key = get_key_names(row->command, true);
+
+		if (utf8_width(key) < 20)
+			wmove(w, y, 20 - utf8_width(key));
+		waddstr(w, key);
+		mvwaddch(w, y, 21, ':');
+		mvwaddstr(w, y, 23,
+			  row->text != NULL
+			  ? _(row->text)
+			  : get_key_description(row->command));
+	}
+}
+
+static void
 help_paint(void)
 {
-	list_window_paint(lw, list_callback, NULL);
+	list_window_paint2(lw, screen_help_paint_callback, NULL);
 }
 
 static bool
