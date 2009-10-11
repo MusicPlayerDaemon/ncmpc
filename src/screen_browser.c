@@ -96,15 +96,13 @@ browser_lw_callback(unsigned idx, bool *highlight, G_GNUC_UNUSED char **second_c
 #endif
 
 	if( entity == NULL )
-		return "[..]";
+		return "..";
 
 	if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY) {
 		const struct mpd_directory *dir =
 			mpd_entity_get_directory(entity);
 		char *directory = utf8_to_locale(g_basename(mpd_directory_get_path(dir)));
-
-		g_snprintf(buf, BUFSIZE, "[%s]", directory);
-		g_free(directory);
+		g_strlcpy(buf, directory, sizeof(buf));
 		return buf;
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 		const struct mpd_song *song = mpd_entity_get_song(entity);

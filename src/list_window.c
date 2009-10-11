@@ -561,9 +561,6 @@ list_window_jump(struct list_window *lw,
 		label = callback(i, &h, NULL, callback_data);
 		assert(label != NULL);
 
-		if (label[0] == '[')
-			label++;
-
 		if (jump_match(label, str)) {
 			list_window_move_cursor(lw, i);
 			return true;
