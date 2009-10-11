@@ -549,21 +549,26 @@ screen_queue_paint(void)
 	list_window_paint(lw, screen_queue_lw_callback, NULL);
 }
 
+G_GNUC_PURE
+static int
+get_current_song_id(const struct mpd_status *status)
+{
+	return status != NULL &&
+		(mpd_status_get_state(status) == MPD_STATE_PLAY ||
+		 mpd_status_get_state(status) == MPD_STATE_PAUSE)
+		? (int)mpd_status_get_song_id(status)
+		: -1;
+}
+
 static void
 screen_queue_update(struct mpdclient *c)
 {
-	static int prev_song_id = -1;
-
 	if (c->events & MPD_IDLE_PLAYLIST)
 		screen_queue_restore_selection();
 
-	current_song_id = c->status != NULL &&
-		(mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
-		 mpd_status_get_state(c->status) == MPD_STATE_PAUSE)
-		? (int)mpd_status_get_song_id(c->status) : -1;
-
-	if (current_song_id != prev_song_id) {
-		prev_song_id = current_song_id;
+	if ((c->events & MPD_IDLE_PLAYER) != 0 &&
+	    get_current_song_id(c->status) != current_song_id) {
+		current_song_id = get_current_song_id(c->status);
 
 		/* center the cursor */
 		if (options.auto_center && current_song_id != -1 && ! lw->range_selection)
