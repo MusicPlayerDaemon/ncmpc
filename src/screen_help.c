@@ -27,13 +27,13 @@
 
 #include <assert.h>
 
-typedef struct {
+struct help_text_row {
 	signed char highlight;
 	command_t command;
 	const char *text;
-} help_text_row_t;
+};
 
-static help_text_row_t help_text[] = {
+static const struct help_text_row help_text[] = {
 	{ 1, CMD_NONE, N_("Movement") },
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_LIST_PREVIOUS, NULL },
