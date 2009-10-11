@@ -22,8 +22,9 @@
 
 #include "config.h"
 
+#include <glib.h>
+
 #include <stdbool.h>
-#include <stddef.h>
 
 #ifdef ENABLE_LOCALE
 const char *
@@ -33,6 +34,7 @@ charset_init(void);
 /**
  * Returns the number of terminal cells occupied by this string.
  */
+G_GNUC_PURE
 unsigned
 utf8_width(const char *str);
 
