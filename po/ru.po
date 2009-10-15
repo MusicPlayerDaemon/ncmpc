@@ -2,19 +2,18 @@
 # Copyright (C) 2004 Kalle Wallin 
 # This file is distributed under the same license as the ncmpc package.
 # Original translation by Nikolay Pavlov <quetzal@roks.biz>, 2004.
-# Encoding and typos fixed, stylistic improvement by Max Arnold, 2006-12-09
-# Further improvements by Max Arnold, 2008-11-26
+# Currently maintained by Max Arnold <lwarxx@gmail.com>, 2009.
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ncmpc 0.11.0\n"
+"Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-21 20:10+0200\n"
-"PO-Revision-Date: 2009-04-16 19:15+0700\n"
+"PO-Revision-Date: 2009-10-15 20:21+0700\n"
 "Last-Translator: Max Arnold <lwarxx@gmail.com>\n"
 "Language-Team: ru <ru@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=koi8-r\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/i18n.h:42
@@ -28,17 +27,17 @@ msgstr "n"
 #: src/main.c:211
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
-msgstr "Подключение к %s...  [Нажмите %s для отмены]"
+msgstr "п÷п╬п╢п╨п╩я▌я┤п╣п╫п╦п╣ п╨ %s...  [п²п╟п╤п╪п╦я┌п╣ %s п╢п╩я▐ п╬я┌п╪п╣п╫я▀]"
 
 #: src/main.c:229
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
-msgstr "Ошибка: MPD версии %d.%d.%d устарел (необходим %s)"
+msgstr "п·я┬п╦п╠п╨п╟: MPD п╡п╣я─я│п╦п╦ %d.%d.%d я┐я│я┌п╟я─п╣п╩ (п╫п╣п╬п╠я┘п╬п╢п╦п╪ %s)"
 
 #: src/main.c:243
 #, c-format
 msgid "Connected to %s"
-msgstr "Подключено к %s"
+msgstr "п÷п╬п╢п╨п╩я▌я┤п╣п╫п╬ п╨ %s"
 
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
@@ -46,75 +45,75 @@ msgstr "Подключено к %s"
 #: src/main.c:364
 #, c-format
 msgid "press %s for the key editor"
-msgstr "%s - редактор клавиш"
+msgstr "%s - я─п╣п╢п╟п╨я┌п╬я─ п╨п╩п╟п╡п╦я┬"
 
 #: src/screen.c:184 src/screen_help.c:249
 msgid "Help"
-msgstr "Помощь"
+msgstr "п÷п╬п╪п╬я┴я▄"
 
 #: src/screen.c:186 src/screen_play.c:528
 msgid "Playlist"
-msgstr "Плейлист"
+msgstr "п÷п╩п╣п╧п╩п╦я│я┌"
 
 #. translators: caption of the browser screen
 #: src/screen.c:187 src/screen_file.c:312
 msgid "Browse"
-msgstr "Навигация"
+msgstr "п²п╟п╡п╦пЁп╟я├п╦я▐"
 
 #: src/screen.c:189 src/screen_search.c:75 src/screen_song.c:190
 msgid "Artist"
-msgstr "Исполнитель"
+msgstr "п≤я│п©п╬п╩п╫п╦я┌п╣п╩я▄"
 
 #: src/screen.c:192 src/screen_search.c:307 src/screen_help.c:144
 msgid "Search"
-msgstr "Поиск"
+msgstr "п÷п╬п╦я│п╨"
 
 #: src/screen.c:195 src/screen_lyrics.c:239 src/screen_lyrics.c:247
 #: src/screen_lyrics.c:251
 msgid "Lyrics"
-msgstr "Текст"
+msgstr "п╒п╣п╨я│я┌"
 
 #: src/screen.c:198 src/screen_outputs.c:165
 msgid "Outputs"
-msgstr "Аудиовыходы"
+msgstr "п░я┐п╢п╦п╬п╡я▀я┘п╬п╢я▀"
 
 #: src/screen.c:205
 #, c-format
 msgid "Volume n/a"
-msgstr "Громкость н/д"
+msgstr "п⌠я─п╬п╪п╨п╬я│я┌я▄ п╫/п╢"
 
 #: src/screen.c:207
 #, c-format
 msgid "Volume %d%%"
-msgstr "Громкость %d%%"
+msgstr "п⌠я─п╬п╪п╨п╬я│я┌я▄ %d%%"
 
 #: src/screen.c:337
 msgid "Playing:"
-msgstr "Проигрывается:"
+msgstr "п÷я─п╬п╦пЁя─я▀п╡п╟п╣я┌я│я▐:"
 
 #: src/screen.c:340
 msgid "[Paused]"
-msgstr "[Пауза]"
+msgstr "[п÷п╟я┐п╥п╟]"
 
 #: src/screen.c:466 src/screen.c:539
 msgid "Error: Screen too small"
-msgstr "Ошибка: Экран слишком мал"
+msgstr "п·я┬п╦п╠п╨п╟: п╜п╨я─п╟п╫ я│п╩п╦я┬п╨п╬п╪ п╪п╟п╩"
 
 #: src/screen.c:674
 msgid "Repeat mode is on"
-msgstr "Повтор включен"
+msgstr "п÷п╬п╡я┌п╬я─ п╡п╨п╩я▌я┤п╣п╫"
 
 #: src/screen.c:675
 msgid "Repeat mode is off"
-msgstr "Повтор выключен"
+msgstr "п÷п╬п╡я┌п╬я─ п╡я▀п╨п╩я▌я┤п╣п╫"
 
 #: src/screen.c:679
 msgid "Random mode is on"
-msgstr "Случаный режим включен"
+msgstr "п║п╩я┐я┤п╟п╫я▀п╧ я─п╣п╤п╦п╪ п╡п╨п╩я▌я┤п╣п╫"
 
 #: src/screen.c:680
 msgid "Random mode is off"
-msgstr "Случайный режим выключен"
+msgstr "п║п╩я┐я┤п╟п╧п╫я▀п╧ я─п╣п╤п╦п╪ п╡я▀п╨п╩я▌я┤п╣п╫"
 
 #. "single" mode means
 #. that MPD will
@@ -123,11 +122,11 @@ msgstr "Случайный режим выключен"
 #. single song
 #: src/screen.c:689
 msgid "Single mode is on"
-msgstr "Одиночный режим включен"
+msgstr "п·п╢п╦п╫п╬я┤п╫я▀п╧ я─п╣п╤п╦п╪ п╡п╨п╩я▌я┤п╣п╫"
 
 #: src/screen.c:690
 msgid "Single mode is off"
-msgstr "Одиночный режим выключен"
+msgstr "п·п╢п╦п╫п╬я┤п╫я▀п╧ я─п╣п╤п╦п╪ п╡я▀п╨п╩я▌я┤п╣п╫"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -135,159 +134,159 @@ msgstr "Одиночный режим выключен"
 #. finished playing
 #: src/screen.c:698
 msgid "Consume mode is on"
-msgstr "Режим удаления после проигрывания включен"
+msgstr "п═п╣п╤п╦п╪ я┐п╢п╟п╩п╣п╫п╦я▐ п©п╬я│п╩п╣ п©я─п╬п╦пЁя─я▀п╡п╟п╫п╦я▐ п╡п╨п╩я▌я┤п╣п╫"
 
 #: src/screen.c:699
 msgid "Consume mode is off"
-msgstr "Режим удаления после проигрывания выключен"
+msgstr "п═п╣п╤п╦п╪ я┐п╢п╟п╩п╣п╫п╦я▐ п©п╬я│п╩п╣ п©я─п╬п╦пЁя─я▀п╡п╟п╫п╦я▐ п╡я▀п╨п╩я▌я┤п╣п╫"
 
 #: src/screen.c:702
 #, c-format
 msgid "Crossfade %d seconds"
-msgstr "Плавный переход %d секунд"
+msgstr "п÷п╩п╟п╡п╫я▀п╧ п©п╣я─п╣я┘п╬п╢ %d я│п╣п╨я┐п╫п╢"
 
 #: src/screen.c:705
 msgid "Database updated"
-msgstr "База обновлена"
+msgstr "п▒п╟п╥п╟ п╬п╠п╫п╬п╡п╩п╣п╫п╟"
 
 #: src/screen.c:842 src/screen_play.c:666
 msgid "Shuffled playlist"
-msgstr "Плейлист перемешан"
+msgstr "п÷п╩п╣п╧п╩п╦я│я┌ п©п╣я─п╣п╪п╣я┬п╟п╫"
 
 #: src/screen.c:846
 msgid "Cleared playlist"
-msgstr "Плейлист очищен"
+msgstr "п÷п╩п╣п╧п╩п╦я│я┌ п╬я┤п╦я┴п╣п╫"
 
 #: src/screen.c:869 src/screen_file.c:380
 msgid "Database update started"
-msgstr "Начато обновление базы"
+msgstr "п²п╟я┤п╟я┌п╬ п╬п╠п╫п╬п╡п╩п╣п╫п╦п╣ п╠п╟п╥я▀"
 
 #: src/screen.c:871 src/screen_file.c:383
 msgid "Database update running..."
-msgstr "Идет обновление базы..."
+msgstr "п≤п╢п╣я┌ п╬п╠п╫п╬п╡п╩п╣п╫п╦п╣ п╠п╟п╥я▀..."
 
 #: src/screen.c:905
 msgid "Find mode: Wrapped"
-msgstr "Режим поиска: Циклический"
+msgstr "п═п╣п╤п╦п╪ п©п╬п╦я│п╨п╟: п╕п╦п╨п╩п╦я┤п╣я│п╨п╦п╧"
 
 #: src/screen.c:906
 msgid "Find mode: Normal"
-msgstr "Режим поиска: Нормальный"
+msgstr "п═п╣п╤п╦п╪ п©п╬п╦я│п╨п╟: п²п╬я─п╪п╟п╩я▄п╫я▀п╧"
 
 #: src/screen.c:911
 msgid "Auto center mode: On"
-msgstr "Режим автоцентрирования: вкл."
+msgstr "п═п╣п╤п╦п╪ п╟п╡я┌п╬я├п╣п╫я┌я─п╦я─п╬п╡п╟п╫п╦я▐: п╡п╨п╩."
 
 #: src/screen.c:912
 msgid "Auto center mode: Off"
-msgstr "Режим автоцентрирования: выкл."
+msgstr "п═п╣п╤п╦п╪ п╟п╡я┌п╬я├п╣п╫я┌я─п╦я─п╬п╡п╟п╫п╦я▐: п╡я▀п╨п╩."
 
 #: src/screen_artist.c:74
 msgid "All tracks"
-msgstr "Все композиции"
+msgstr "п▓я│п╣ п╨п╬п╪п©п╬п╥п╦я├п╦п╦"
 
 #: src/screen_artist.c:383
 #, c-format
 msgid "All artists"
-msgstr "Все исполнители"
+msgstr "п▓я│п╣ п╦я│п©п╬п╩п╫п╦я┌п╣п╩п╦"
 
 #: src/screen_artist.c:388
 #, c-format
 msgid "Albums of artist: %s"
-msgstr "Альбомы исполнителя: %s"
+msgstr "п░п╩я▄п╠п╬п╪я▀ п╦я│п©п╬п╩п╫п╦я┌п╣п╩я▐: %s"
 
 #: src/screen_artist.c:397
 #, c-format
 msgid "Album: %s - %s"
-msgstr "Альбом: %s - %s"
+msgstr "п░п╩я▄п╠п╬п╪: %s - %s"
 
 #: src/screen_artist.c:401
 #, c-format
 msgid "All tracks of artist: %s"
-msgstr "Все композиции исполнителя: %s"
+msgstr "п▓я│п╣ п╨п╬п╪п©п╬п╥п╦я├п╦п╦ п╦я│п©п╬п╩п╫п╦я┌п╣п╩я▐: %s"
 
 #: src/screen_browser.c:173
 #, c-format
 msgid "Loading playlist %s..."
-msgstr "Загружается плейлист %s..."
+msgstr "п≈п╟пЁя─я┐п╤п╟п╣я┌я│я▐ п©п╩п╣п╧п╩п╦я│я┌ %s..."
 
 #: src/screen_browser.c:196 src/screen_browser.c:286 src/screen_browser.c:312
 #, c-format
 msgid "Adding '%s' to playlist"
-msgstr "В плейлист добавляется '%s'"
+msgstr "п▓ п©п╩п╣п╧п╩п╦я│я┌ п╢п╬п╠п╟п╡п╩я▐п╣я┌я│я▐ '%s'"
 
 #: src/screen_utils.c:35
 msgid "Find"
-msgstr "Поиск"
+msgstr "п÷п╬п╦я│п╨"
 
 #: src/screen_utils.c:36
 msgid "Find backward"
-msgstr "Поиск назад"
+msgstr "п÷п╬п╦я│п╨ п╫п╟п╥п╟п╢"
 
 #: src/screen_utils.c:37
 msgid "Jump"
-msgstr "Перейти"
+msgstr "п÷п╣я─п╣п╧я┌п╦"
 
 #: src/screen_utils.c:118
 msgid "Password"
-msgstr "Пароль"
+msgstr "п÷п╟я─п╬п╩я▄"
 
 #: src/screen_utils.c:209
 #, c-format
 msgid "Unable to find '%s'"
-msgstr "Не удалось найти '%s'"
+msgstr "п²п╣ я┐п╢п╟п╩п╬я│я▄ п╫п╟п╧я┌п╦ '%s'"
 
 #: src/screen_play.c:284
 msgid "Save playlist as"
-msgstr "Сохранить плейлист как"
+msgstr "п║п╬я┘я─п╟п╫п╦я┌я▄ п©п╩п╣п╧п╩п╦я│я┌ п╨п╟п╨"
 
 #: src/screen_play.c:317
 #, c-format
 msgid "Replace %s [%s/%s] ? "
-msgstr "Заменить %s [%s/%s] ? "
+msgstr "п≈п╟п╪п╣п╫п╦я┌я▄ %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
 #: src/screen_play.c:338 src/screen_file.c:242 src/screen_keydef.c:163
 msgid "Aborted"
-msgstr "Прервано"
+msgstr "п÷я─п╣я─п╡п╟п╫п╬"
 
 #. success
 #: src/screen_play.c:346
 #, c-format
 msgid "Saved %s"
-msgstr "Сохранено в %s"
+msgstr "п║п╬я┘я─п╟п╫п╣п╫п╬ п╡ %s"
 
 #: src/screen_play.c:422
 msgid "Add"
-msgstr "Добавить"
+msgstr "п■п╬п╠п╟п╡п╦я┌я▄"
 
 #: src/screen_play.c:530
 #, c-format
 msgid "Playlist on %s"
-msgstr "Плейлист на %s"
+msgstr "п÷п╩п╣п╧п╩п╦я│я┌ п╫п╟ %s"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/screen_file.c:229
 msgid "Deleting this item is not possible"
-msgstr "Удаление этого элемента невозможно"
+msgstr "пёп╢п╟п╩п╣п╫п╦п╣ я█я┌п╬пЁп╬ я█п╩п╣п╪п╣п╫я┌п╟ п╫п╣п╡п╬п╥п╪п╬п╤п╫п╬"
 
 #: src/screen_file.c:236
 #, c-format
 msgid "Delete playlist %s [%s/%s] ? "
-msgstr "Удалить плейлист %s [%s/%s] ? "
+msgstr "пёп╢п╟п╩п╦я┌я▄ п©п╩п╣п╧п╩п╦я│я┌ %s [%s/%s] ? "
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
 #: src/screen_file.c:251
 msgid "Playlist deleted"
-msgstr "Плейлист удален"
+msgstr "п÷п╩п╣п╧п╩п╦я│я┌ я┐п╢п╟п╩п╣п╫"
 
 #: src/screen_file.c:376
 #, c-format
 msgid "Database update of %s started"
-msgstr "Обновление базы %s запущено"
+msgstr "п·п╠п╫п╬п╡п╩п╣п╫п╦п╣ п╠п╟п╥я▀ %s п╥п╟п©я┐я┴п╣п╫п╬"
 
 #: src/screen_search.c:39
 msgid "artist"
@@ -335,29 +334,29 @@ msgstr "file"
 
 #: src/screen_search.c:74 src/screen_song.c:191
 msgid "Title"
-msgstr "Композиция"
+msgstr "п п╬п╪п©п╬п╥п╦я├п╦я▐"
 
 #: src/screen_search.c:76 src/screen_song.c:192
 msgid "Album"
-msgstr "Альбом"
+msgstr "п░п╩я▄п╠п╬п╪"
 
 #: src/screen_search.c:77
 msgid "Filename"
-msgstr "Имя файла"
+msgstr "п≤п╪я▐ я└п╟п╧п╩п╟"
 
 #: src/screen_search.c:78
 msgid "Artist + Title"
-msgstr "Исполнитель + Композиция"
+msgstr "п≤я│п©п╬п╩п╫п╦я┌п╣п╩я▄ + п п╬п╪п©п╬п╥п╦я├п╦я▐"
 
 #: src/screen_search.c:240
 #, c-format
 msgid "Bad search tag %s"
-msgstr "Неверный тег поиска %s"
+msgstr "п²п╣п╡п╣я─п╫я▀п╧ я┌п╣пЁ п©п╬п╦я│п╨п╟ %s"
 
 #: src/screen_search.c:244
 #, c-format
 msgid "No argument for search tag %s"
-msgstr "Не задан критерий поиска по тегу %s"
+msgstr "п²п╣ п╥п╟п╢п╟п╫ п╨я─п╦я┌п╣я─п╦п╧ п©п╬п╦я│п╨п╟ п©п╬ я┌п╣пЁя┐ %s"
 
 #. if( pattern==NULL )
 #. search_new(screen, c);
@@ -365,587 +364,585 @@ msgstr "Не задан критерий поиска по тегу %s"
 #: src/screen_search.c:367
 #, c-format
 msgid "Press %s for a new search"
-msgstr "Нажмите %s для поиска"
+msgstr "п²п╟п╤п╪п╦я┌п╣ %s п╢п╩я▐ п©п╬п╦я│п╨п╟"
 
 #: src/screen_search.c:395
 #, c-format
 msgid "Search: %s"
-msgstr "Поиск: %s"
+msgstr "п÷п╬п╦я│п╨: %s"
 
 #: src/screen_search.c:398
 #, c-format
 msgid "Search: Results for %s [%s]"
-msgstr "Поиск: Результаты поиска '%s' в поле [%s]"
+msgstr "п÷п╬п╦я│п╨: п═п╣п╥я┐п╩я▄я┌п╟я┌я▀ п©п╬п╦я│п╨п╟ '%s' п╡ п©п╬п╩п╣ [%s]"
 
 #: src/screen_search.c:402
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
-msgstr "Поиск: Нажмите %s для поиска по полю [%s]"
+msgstr "п÷п╬п╦я│п╨: п²п╟п╤п╪п╦я┌п╣ %s п╢п╩я▐ п©п╬п╦я│п╨п╟ п©п╬ п©п╬п╩я▌ [%s]"
 
 #: src/screen_search.c:417
 #, c-format
 msgid "Search mode: %s"
-msgstr "Поле для поиска: %s"
+msgstr "п÷п╬п╩п╣ п╢п╩я▐ п©п╬п╦я│п╨п╟: %s"
 
 #: src/screen_keydef.c:41
 msgid "===> Apply & Save key bindings  "
-msgstr "===> Применить и сохранить клавиатурные комбинации  "
+msgstr "===> п÷я─п╦п╪п╣п╫п╦я┌я▄ п╦ я│п╬я┘я─п╟п╫п╦я┌я▄ п╨п╩п╟п╡п╦п╟я┌я┐я─п╫я▀п╣ п╨п╬п╪п╠п╦п╫п╟я├п╦п╦  "
 
 #: src/screen_keydef.c:42
 msgid "===> Apply key bindings "
-msgstr "===> Применить клавиатурные комбинации "
+msgstr "===> п÷я─п╦п╪п╣п╫п╦я┌я▄ п╨п╩п╟п╡п╦п╟я┌я┐я─п╫я▀п╣ п╨п╬п╪п╠п╦п╫п╟я├п╦п╦ "
 
 #: src/screen_keydef.c:70
 msgid "You have new key bindings"
-msgstr "Новые клавиатурные комбинации задействованы"
+msgstr "п²п╬п╡я▀п╣ п╨п╩п╟п╡п╦п╟я┌я┐я─п╫я▀п╣ п╨п╬п╪п╠п╦п╫п╟я├п╦п╦ п╥п╟п╢п╣п╧я│я┌п╡п╬п╡п╟п╫я▀"
 
 #: src/screen_keydef.c:72
 msgid "Keybindings unchanged."
-msgstr "Клавиатурные комбинации не изменились."
+msgstr "п п╩п╟п╡п╦п╟я┌я┐я─п╫я▀п╣ п╨п╬п╪п╠п╦п╫п╟я├п╦п╦ п╫п╣ п╦п╥п╪п╣п╫п╦п╩п╦я│я▄."
 
 #: src/screen_keydef.c:82
 #, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "Ошибка: Не удалось создать директорию ~/.ncmpc - %s"
+msgstr "п·я┬п╦п╠п╨п╟: п²п╣ я┐п╢п╟п╩п╬я│я▄ я│п╬п╥п╢п╟я┌я▄ п╢п╦я─п╣п╨я┌п╬я─п╦я▌ ~/.ncmpc - %s"
 
 #: src/screen_keydef.c:91 src/screen_keydef.c:98
 #, c-format
 msgid "Error: %s - %s"
-msgstr "Ошибка: %s - %s"
+msgstr "п·я┬п╦п╠п╨п╟: %s - %s"
 
 #: src/screen_keydef.c:100
 #, c-format
 msgid "Wrote %s"
-msgstr "Записано %s"
+msgstr "п≈п╟п©п╦я│п╟п╫п╬ %s"
 
 #: src/screen_keydef.c:137
 msgid "Deleted"
-msgstr "Удалено"
+msgstr "пёп╢п╟п╩п╣п╫п╬"
 
 #: src/screen_keydef.c:158
 #, c-format
 msgid "Enter new key for %s: "
-msgstr "Нажмите новую клавишу для %s: "
+msgstr "п²п╟п╤п╪п╦я┌п╣ п╫п╬п╡я┐я▌ п╨п╩п╟п╡п╦я┬я┐ п╢п╩я▐ %s: "
 
 #: src/screen_keydef.c:169
 #, c-format
 msgid "Error: key %s is already used for %s"
-msgstr "Ошибка: клавиша %s уже используется для %s"
+msgstr "п·я┬п╦п╠п╨п╟: п╨п╩п╟п╡п╦я┬п╟ %s я┐п╤п╣ п╦я│п©п╬п╩я▄п╥я┐п╣я┌я│я▐ п╢п╩я▐ %s"
 
 #: src/screen_keydef.c:179
 #, c-format
 msgid "Assigned %s to %s"
-msgstr "Назначено %s для %s"
+msgstr "п²п╟п╥п╫п╟я┤п╣п╫п╬ %s п╢п╩я▐ %s"
 
 #: src/screen_keydef.c:217
 msgid "Add new key"
-msgstr "Добавить новую клавишу"
+msgstr "п■п╬п╠п╟п╡п╦я┌я▄ п╫п╬п╡я┐я▌ п╨п╩п╟п╡п╦я┬я┐"
 
 #: src/screen_keydef.c:276
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Внимание: Вы не забыли применить сделанные изменения?"
+msgstr "п▓п╫п╦п╪п╟п╫п╦п╣: п▓я▀ п╫п╣ п╥п╟п╠я▀п╩п╦ п©я─п╦п╪п╣п╫п╦я┌я▄ я│п╢п╣п╩п╟п╫п╫я▀п╣ п╦п╥п╪п╣п╫п╣п╫п╦я▐?"
 
 #: src/screen_keydef.c:283
 msgid "Edit key bindings"
-msgstr "Изменение клавиатурных комбинаций"
+msgstr "п≤п╥п╪п╣п╫п╣п╫п╦п╣ п╨п╩п╟п╡п╦п╟я┌я┐я─п╫я▀я┘ п╨п╬п╪п╠п╦п╫п╟я├п╦п╧"
 
 #: src/screen_keydef.c:285
 #, c-format
 msgid "Edit keys for %s"
-msgstr "Изменение клавиатурных комбинаций для %s"
+msgstr "п≤п╥п╪п╣п╫п╣п╫п╦п╣ п╨п╩п╟п╡п╦п╟я┌я┐я─п╫я▀я┘ п╨п╬п╪п╠п╦п╫п╟я├п╦п╧ п╢п╩я▐ %s"
 
 #: src/screen_help.c:38
 msgid "Movement"
-msgstr "Перемещение"
+msgstr "п÷п╣я─п╣п╪п╣я┴п╣п╫п╦п╣"
 
 #: src/screen_help.c:80
 msgid "Global"
-msgstr "Глобальные"
+msgstr "п⌠п╩п╬п╠п╟п╩я▄п╫я▀п╣"
 
 #: src/screen_help.c:113 src/command.c:111
 msgid "Playlist screen"
-msgstr "Экран плейлиста"
+msgstr "п╜п╨я─п╟п╫ п©п╩п╣п╧п╩п╦я│я┌п╟"
 
 #: src/screen_help.c:115
 msgid "Play"
-msgstr "Воспроизведение"
+msgstr "п▓п╬я│п©я─п╬п╦п╥п╡п╣п╢п╣п╫п╦п╣"
 
 #: src/screen_help.c:118
 msgid "Move song up"
-msgstr "Переместить композицию вверх"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄ п╨п╬п╪п©п╬п╥п╦я├п╦я▌ п╡п╡п╣я─я┘"
 
 #: src/screen_help.c:119
 msgid "Move song down"
-msgstr "Переместить композицию вниз"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄ п╨п╬п╪п©п╬п╥п╦я├п╦я▌ п╡п╫п╦п╥"
 
 #: src/screen_help.c:122
 msgid "Center"
-msgstr "Центрировать"
+msgstr "п╕п╣п╫я┌я─п╦я─п╬п╡п╟я┌я▄"
 
 #: src/screen_help.c:128 src/command.c:113
 msgid "Browse screen"
-msgstr "Экран навигации"
+msgstr "п╜п╨я─п╟п╫ п╫п╟п╡п╦пЁп╟я├п╦п╦"
 
 #: src/screen_help.c:130
 msgid "Enter directory/Select and play song"
-msgstr "Перейти в директорию/Выбрать и проиграть композицию"
+msgstr "п÷п╣я─п╣п╧я┌п╦ п╡ п╢п╦я─п╣п╨я┌п╬я─п╦я▌/п▓я▀п╠я─п╟я┌я▄ п╦ п©я─п╬п╦пЁя─п╟я┌я▄ п╨п╬п╪п©п╬п╥п╦я├п╦я▌"
 
 #: src/screen_help.c:132 src/screen_help.c:147
 msgid "Append song to playlist"
-msgstr "Добавить композицию в плейлист"
+msgstr "п■п╬п╠п╟п╡п╦я┌я▄ п╨п╬п╪п©п╬п╥п╦я├п╦я▌ п╡ п©п╩п╣п╧п╩п╦я│я┌"
 
 #: src/screen_help.c:134
 msgid "Delete playlist"
-msgstr "Удалить плейлист"
+msgstr "пёп╢п╟п╩п╦я┌я▄ п©п╩п╣п╧п╩п╦я│я┌"
 
 #: src/screen_help.c:142 src/command.c:224
 msgid "Search screen"
-msgstr "Экран поиска"
+msgstr "п╜п╨я─п╟п╫ п©п╬п╦я│п╨п╟"
 
 #: src/screen_help.c:145
 msgid "Select and play"
-msgstr "Выбрать и проиграть"
+msgstr "п▓я▀п╠я─п╟я┌я▄ п╦ п©я─п╬п╦пЁя─п╟я┌я▄"
 
 #: src/screen_help.c:154 src/command.c:234
 msgid "Lyrics screen"
-msgstr "Экран текста песни"
+msgstr "п╜п╨я─п╟п╫ я┌п╣п╨я│я┌п╟ п©п╣я│п╫п╦"
 
 #: src/screen_help.c:156
 msgid "View Lyrics"
-msgstr "Показать текст"
+msgstr "п÷п╬п╨п╟п╥п╟я┌я▄ я┌п╣п╨я│я┌"
 
 #: src/screen_help.c:157
 msgid "(Re)load lyrics"
-msgstr "(Пере)загрузить текст"
+msgstr "(п÷п╣я─п╣)п╥п╟пЁя─я┐п╥п╦я┌я▄ я┌п╣п╨я│я┌"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
 #: src/screen_help.c:160
 msgid "Interrupt retrieval"
-msgstr "Прервать загрузку"
+msgstr "п÷я─п╣я─п╡п╟я┌я▄ п╥п╟пЁя─я┐п╥п╨я┐"
 
 #: src/screen_help.c:161
 msgid "Download lyrics for currently playing song"
-msgstr "Загрузить текст проигрываемой композиции"
+msgstr "п≈п╟пЁя─я┐п╥п╦я┌я▄ я┌п╣п╨я│я┌ п©я─п╬п╦пЁя─я▀п╡п╟п╣п╪п╬п╧ п╨п╬п╪п©п╬п╥п╦я├п╦п╦"
 
 #: src/screen_help.c:162
 msgid "Save lyrics"
-msgstr "Сохранить текст"
+msgstr "п║п╬я┘я─п╟п╫п╦я┌я▄ я┌п╣п╨я│я┌"
 
 #: src/screen_help.c:167 src/command.c:245
 msgid "Outputs screen"
-msgstr "Экран аудиовыходов"
+msgstr "п╜п╨я─п╟п╫ п╟я┐п╢п╦п╬п╡я▀я┘п╬п╢п╬п╡"
 
 #: src/screen_help.c:169
 msgid "Enable/disable output"
-msgstr "Вкл/выкл аудиовыход"
+msgstr "п▓п╨п╩/п╡я▀п╨п╩ п╟я┐п╢п╦п╬п╡я▀я┘п╬п╢"
 
 #: src/screen_help.c:174
 msgid "Keydef screen"
-msgstr "Экран клавиатурных комбинаций"
+msgstr "п╜п╨я─п╟п╫ п╨п╩п╟п╡п╦п╟я┌я┐я─п╫я▀я┘ п╨п╬п╪п╠п╦п╫п╟я├п╦п╧"
 
 #: src/screen_help.c:176
 msgid "Edit keydefs for selected command"
-msgstr "Изменить комбинации для выбранной команды"
+msgstr "п≤п╥п╪п╣п╫п╦я┌я▄ п╨п╬п╪п╠п╦п╫п╟я├п╦п╦ п╢п╩я▐ п╡я▀п╠я─п╟п╫п╫п╬п╧ п╨п╬п╪п╟п╫п╢я▀"
 
 #: src/screen_help.c:177
 msgid "Remove selected keydef"
-msgstr "Удалить выбранную комбинацию"
+msgstr "пёп╢п╟п╩п╦я┌я▄ п╡я▀п╠я─п╟п╫п╫я┐я▌ п╨п╬п╪п╠п╦п╫п╟я├п╦я▌"
 
 #: src/screen_help.c:178
 msgid "Go up a level"
-msgstr "Перейти на уровень выше"
+msgstr "п÷п╣я─п╣п╧я┌п╦ п╫п╟ я┐я─п╬п╡п╣п╫я▄ п╡я▀я┬п╣"
 
 #: src/screen_help.c:179
 msgid "Apply and save changes"
-msgstr "Применить и сохранить изменения"
+msgstr "п÷я─п╦п╪п╣п╫п╦я┌я▄ п╦ я│п╬я┘я─п╟п╫п╦я┌я▄ п╦п╥п╪п╣п╫п╣п╫п╦я▐"
 
 #. translators: no lyrics were found for the song
 #: src/screen_lyrics.c:154
 msgid "No lyrics"
-msgstr "Текст отсутствует"
+msgstr "п╒п╣п╨я│я┌ п╬я┌я│я┐я┌я│я┌п╡я┐п╣я┌"
 
 #. translators: this message is displayed
 #. while data is retrieved
 #: src/screen_lyrics.c:242
 msgid "loading..."
-msgstr "загружается..."
+msgstr "п╥п╟пЁя─я┐п╤п╟п╣я┌я│я▐..."
 
 #. lyrics for the song were saved on hard disk
 #: src/screen_lyrics.c:277
 msgid "Lyrics saved"
-msgstr "Текст сохранен"
+msgstr "п╒п╣п╨я│я┌ я│п╬я┘я─п╟п╫п╣п╫"
 
 #: src/screen_outputs.c:58
 #, c-format
 msgid "Output '%s' enabled"
-msgstr "Аудиовыход '%s' включен"
+msgstr "п░я┐п╢п╦п╬п╡я▀я┘п╬п╢ '%s' п╡п╨п╩я▌я┤п╣п╫"
 
 #: src/screen_outputs.c:64
 #, c-format
 msgid "Output '%s' disabled"
-msgstr "Аудиовыход '%s' выключен"
+msgstr "п░я┐п╢п╦п╬п╡я▀я┘п╬п╢ '%s' п╡я▀п╨п╩я▌я┤п╣п╫"
 
 # Several translations for Song Viewer:
 #: src/screen_song.c:118
 msgid "Song viewer"
-msgstr "Информация о композиции"
+msgstr "п≤п╫я└п╬я─п╪п╟я├п╦я▐ п╬ п╨п╬п╪п©п╬п╥п╦я├п╦п╦"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Length"
-msgstr "Влево"
+msgstr "п■п╩п╦я┌п╣п╩я▄п╫п╬я│я┌я▄"
 
 #: src/screen_song.c:194
 msgid "Composer"
-msgstr "Композитор"
+msgstr "п п╬п╪п©п╬п╥п╦я┌п╬я─"
 
 #: src/screen_song.c:195
 msgid "Name"
-msgstr "Название"
+msgstr "п²п╟п╥п╡п╟п╫п╦п╣"
 
 #: src/screen_song.c:196
 msgid "Disc"
-msgstr "Диск"
+msgstr "п■п╦я│п╨"
 
 #: src/screen_song.c:197
 msgid "Track"
-msgstr "Дорожка"
+msgstr "п■п╬я─п╬п╤п╨п╟"
 
 #: src/screen_song.c:198
 msgid "Date"
-msgstr "Дата"
+msgstr "п■п╟я┌п╟"
 
 #: src/screen_song.c:199
 msgid "Genre"
-msgstr "Жанр"
+msgstr "п√п╟п╫я─"
 
 #: src/screen_song.c:200
 msgid "Comment"
-msgstr "Комментарий"
+msgstr "п п╬п╪п╪п╣п╫я┌п╟я─п╦п╧"
 
 #: src/screen_song.c:201
 msgid "Path"
-msgstr "Путь"
+msgstr "п÷я┐я┌я▄"
 
 #: src/screen_song.c:202
 msgid "Bitrate"
-msgstr "Битрейт"
+msgstr "п▒п╦я┌я─п╣п╧я┌"
 
 #: src/screen_song.c:243
 #, c-format
 msgid "%d kbps"
-msgstr "%d кбит/с"
+msgstr "%d п╨п╠п╦я┌/я│"
 
 #: src/screen_song.c:259
 msgid "Number of artists"
-msgstr "Количество исполнителей"
+msgstr "п п╬п╩п╦я┤п╣я│я┌п╡п╬ п╦я│п©п╬п╩п╫п╦я┌п╣п╩п╣п╧"
 
 #: src/screen_song.c:260
 msgid "Number of albums"
-msgstr "Количество альбомов"
+msgstr "п п╬п╩п╦я┤п╣я│я┌п╡п╬ п╟п╩я▄п╠п╬п╪п╬п╡"
 
 #: src/screen_song.c:261
 msgid "Number of songs"
-msgstr "Количество композиций"
+msgstr "п п╬п╩п╦я┤п╣я│я┌п╡п╬ п╨п╬п╪п©п╬п╥п╦я├п╦п╧"
 
 #: src/screen_song.c:262
 msgid "Uptime"
-msgstr "Время работы"
+msgstr "п▓я─п╣п╪я▐ я─п╟п╠п╬я┌я▀"
 
 #: src/screen_song.c:263
 msgid "Most recent db update"
-msgstr "Последнее обновление базы"
+msgstr "п÷п╬я│п╩п╣п╢п╫п╣п╣ п╬п╠п╫п╬п╡п╩п╣п╫п╦п╣ п╠п╟п╥я▀"
 
 #: src/screen_song.c:264
 msgid "Playtime"
-msgstr "Время воспроизведения"
+msgstr "п▓я─п╣п╪я▐ п╡п╬я│п©я─п╬п╦п╥п╡п╣п╢п╣п╫п╦я▐"
 
 #: src/screen_song.c:265
 msgid "DB playtime"
-msgstr "Время воспроизведения базы"
+msgstr "п▓я─п╣п╪я▐ п╡п╬я│п©я─п╬п╦п╥п╡п╣п╢п╣п╫п╦я▐ п╠п╟п╥я▀"
 
 #: src/screen_song.c:281
 msgid "MPD statistics"
-msgstr "Статистика MPD"
+msgstr "п║я┌п╟я┌п╦я│я┌п╦п╨п╟ MPD"
 
 #: src/screen_song.c:328
 msgid "Selected song"
-msgstr "Выбранная композиция"
+msgstr "п▓я▀п╠я─п╟п╫п╫п╟я▐ п╨п╬п╪п©п╬п╥п╦я├п╦я▐"
 
 #: src/screen_song.c:340
 msgid "Currently playing song"
-msgstr "Проигрываемая композиция"
+msgstr "п÷я─п╬п╦пЁя─я▀п╡п╟п╣п╪п╟я▐ п╨п╬п╪п©п╬п╥п╦я├п╦я▐"
 
 #: src/command.c:69
 msgid "Key configuration screen"
-msgstr "Экран клавиатурных комбинаций"
+msgstr "п╜п╨я─п╟п╫ п╨п╩п╟п╡п╦п╟я┌я┐я─п╫я▀я┘ п╨п╬п╪п╠п╦п╫п╟я├п╦п╧"
 
 #: src/command.c:72
 msgid "Quit"
-msgstr "Выход"
+msgstr "п▓я▀я┘п╬п╢"
 
 #: src/command.c:76
 msgid "Move cursor up"
-msgstr "Курсор вверх"
+msgstr "п я┐я─я│п╬я─ п╡п╡п╣я─я┘"
 
 #: src/command.c:78
 msgid "Move cursor down"
-msgstr "Курсор вниз"
+msgstr "п я┐я─я│п╬я─ п╡п╫п╦п╥"
 
 #: src/command.c:80
 msgid "Move cursor to the top of screen"
-msgstr "Переместить курсор в верх экрана"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄ п╨я┐я─я│п╬я─ п╡ п╡п╣я─я┘ я█п╨я─п╟п╫п╟"
 
 #: src/command.c:82
 msgid "Move cursor to the middle of screen"
-msgstr "Переместить курсор в середину экрана"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄ п╨я┐я─я│п╬я─ п╡ я│п╣я─п╣п╢п╦п╫я┐ я█п╨я─п╟п╫п╟"
 
 #: src/command.c:84
 msgid "Move cursor to the bottom of screen"
-msgstr "Переместить курсор в низ экрана"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄ п╨я┐я─я│п╬я─ п╡ п╫п╦п╥ я█п╨я─п╟п╫п╟"
 
 #: src/command.c:86
 msgid "Move cursor to the top of the list"
-msgstr "Переместить курсор в начало списка"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄ п╨я┐я─я│п╬я─ п╡ п╫п╟я┤п╟п╩п╬ я│п©п╦я│п╨п╟"
 
 #: src/command.c:88
 msgid "Move cursor to the bottom of the list"
-msgstr "Переместить курсор в конец списка"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄ п╨я┐я─я│п╬я─ п╡ п╨п╬п╫п╣я├ я│п©п╦я│п╨п╟"
 
 #: src/command.c:90
 msgid "Page up"
-msgstr "На страницу вверх"
+msgstr "п²п╟ я│я┌я─п╟п╫п╦я├я┐ п╡п╡п╣я─я┘"
 
 #: src/command.c:92
 msgid "Page down"
-msgstr "На страницу вниз"
+msgstr "п²п╟ я│я┌я─п╟п╫п╦я├я┐ п╡п╫п╦п╥"
 
 #: src/command.c:94
 msgid "Range selection"
-msgstr "Выбор диапазона"
+msgstr "п▓я▀п╠п╬я─ п╢п╦п╟п©п╟п╥п╬п╫п╟"
 
 #: src/command.c:96
 msgid "Scroll up one line"
-msgstr "Прокрутка на одну строку вверх"
+msgstr "п÷я─п╬п╨я─я┐я┌п╨п╟ п╫п╟ п╬п╢п╫я┐ я│я┌я─п╬п╨я┐ п╡п╡п╣я─я┘"
 
 #: src/command.c:98
 msgid "Scroll down one line"
-msgstr "Прокрутка на одну строку вниз"
+msgstr "п÷я─п╬п╨я─я┐я┌п╨п╟ п╫п╟ п╬п╢п╫я┐ я│я┌я─п╬п╨я┐ п╡п╫п╦п╥"
 
 #: src/command.c:100
 msgid "Scroll up half a screen"
-msgstr "Прокрутка на половину экрана вверх"
+msgstr "п÷я─п╬п╨я─я┐я┌п╨п╟ п╫п╟ п©п╬п╩п╬п╡п╦п╫я┐ я█п╨я─п╟п╫п╟ п╡п╡п╣я─я┘"
 
 #: src/command.c:102
 msgid "Scroll down half a screen"
-msgstr "Прокрутка на половину экрана вниз"
+msgstr "п÷я─п╬п╨я─я┐я┌п╨п╟ п╫п╟ п©п╬п╩п╬п╡п╦п╫я┐ я█п╨я─п╟п╫п╟ п╡п╫п╦п╥"
 
 #: src/command.c:104
-#, fuzzy
 msgid "Select currently playing song"
-msgstr "Проигрываемая композиция"
+msgstr "п▓я▀п╠я─п╟я┌я▄ я┌п╣п╨я┐я┴я┐я▌ п╨п╬п╪п©п╬п╥п╦я├п╦я▌"
 
 #: src/command.c:109
 msgid "Help screen"
-msgstr "Экран помощи"
+msgstr "п╜п╨я─п╟п╫ п©п╬п╪п╬я┴п╦"
 
 #: src/command.c:118
 msgid "Play/Enter directory"
-msgstr "Воспроизвести/Перейти в директорию"
+msgstr "п▓п╬я│п©я─п╬п╦п╥п╡п╣я│я┌п╦/п÷п╣я─п╣п╧я┌п╦ п╡ п╢п╦я─п╣п╨я┌п╬я─п╦я▌"
 
 #: src/command.c:120
 msgid "Pause"
-msgstr "Пауза"
+msgstr "п÷п╟я┐п╥п╟"
 
 #: src/command.c:122
 msgid "Stop"
-msgstr "Останов"
+msgstr "п·я│я┌п╟п╫п╬п╡"
 
 #: src/command.c:124
 msgid "Crop"
-msgstr "Удалить из плейлиста все композиции кроме текущей"
+msgstr "пёп╢п╟п╩п╦я┌я▄ п╦п╥ п©п╩п╣п╧п╩п╦я│я┌п╟ п╡я│п╣ п╨п╬п╪п©п╬п╥п╦я├п╦п╦ п╨я─п╬п╪п╣ я┌п╣п╨я┐я┴п╣п╧"
 
 #: src/command.c:126
 msgid "Next track"
-msgstr "Следующая композиция"
+msgstr "п║п╩п╣п╢я┐я▌я┴п╟я▐ п╨п╬п╪п©п╬п╥п╦я├п╦я▐"
 
 #: src/command.c:128
 msgid "Previous track"
-msgstr "Предыдущая композиция"
+msgstr "п÷я─п╣п╢я▀п╢я┐я┴п╟я▐ п╨п╬п╪п©п╬п╥п╦я├п╦я▐"
 
 #: src/command.c:130
 msgid "Seek forward"
-msgstr "Перемотка вперед"
+msgstr "п÷п╣я─п╣п╪п╬я┌п╨п╟ п╡п©п╣я─п╣п╢"
 
 #: src/command.c:132
 msgid "Seek backward"
-msgstr "Перемотка назад"
+msgstr "п÷п╣я─п╣п╪п╬я┌п╨п╟ п╫п╟п╥п╟п╢"
 
 #: src/command.c:134
 msgid "Increase volume"
-msgstr "Увеличить громкость"
+msgstr "пёп╡п╣п╩п╦я┤п╦я┌я▄ пЁя─п╬п╪п╨п╬я│я┌я▄"
 
 #: src/command.c:136
 msgid "Decrease volume"
-msgstr "Уменьшить громкость"
+msgstr "пёп╪п╣п╫я▄я┬п╦я┌я▄ пЁя─п╬п╪п╨п╬я│я┌я▄"
 
 #: src/command.c:138
 msgid "Select/deselect song in playlist"
-msgstr "Добавить/убрать композицию из плейлиста"
+msgstr "п■п╬п╠п╟п╡п╦я┌я▄/я┐п╠я─п╟я┌я▄ п╨п╬п╪п©п╬п╥п╦я├п╦я▌ п╦п╥ п©п╩п╣п╧п╩п╦я│я┌п╟"
 
 #: src/command.c:140
 msgid "Select all listed items"
-msgstr "Добавить все композиции в плейлист"
+msgstr "п■п╬п╠п╟п╡п╦я┌я▄ п╡я│п╣ п╨п╬п╪п©п╬п╥п╦я├п╦п╦ п╡ п©п╩п╣п╧п╩п╦я│я┌"
 
 #: src/command.c:142
 msgid "Delete song from playlist"
-msgstr "Удалить композицию из плейлиста"
+msgstr "пёп╢п╟п╩п╦я┌я▄ п╨п╬п╪п©п╬п╥п╦я├п╦я▌ п╦п╥ п©п╩п╣п╧п╩п╦я│я┌п╟"
 
 #: src/command.c:144
 msgid "Shuffle playlist"
-msgstr "Перемешать плейлист"
+msgstr "п÷п╣я─п╣п╪п╣я┬п╟я┌я▄ п©п╩п╣п╧п╩п╦я│я┌"
 
 #: src/command.c:146
 msgid "Clear playlist"
-msgstr "Очистить плейлист"
+msgstr "п·я┤п╦я│я┌п╦я┌я▄ п©п╩п╣п╧п╩п╦я│я┌"
 
 #: src/command.c:148
 msgid "Toggle repeat mode"
-msgstr "Вкл/выкл режим повтора"
+msgstr "п▓п╨п╩/п╡я▀п╨п╩ я─п╣п╤п╦п╪ п©п╬п╡я┌п╬я─п╟"
 
 #: src/command.c:150
 msgid "Toggle random mode"
-msgstr "Вкл/выкл случайный режим"
+msgstr "п▓п╨п╩/п╡я▀п╨п╩ я│п╩я┐я┤п╟п╧п╫я▀п╧ я─п╣п╤п╦п╪"
 
 #: src/command.c:152
 msgid "Toggle single mode"
-msgstr "Вкл/выкл одиночный режим"
+msgstr "п▓п╨п╩/п╡я▀п╨п╩ п╬п╢п╦п╫п╬я┤п╫я▀п╧ я─п╣п╤п╦п╪"
 
 #: src/command.c:154
 msgid "Toggle consume mode"
-msgstr "Вкл/выкл режим удаления после проигрывания"
+msgstr "п▓п╨п╩/п╡я▀п╨п╩ я─п╣п╤п╦п╪ я┐п╢п╟п╩п╣п╫п╦я▐ п©п╬я│п╩п╣ п©я─п╬п╦пЁя─я▀п╡п╟п╫п╦я▐"
 
 #: src/command.c:156
 msgid "Toggle crossfade mode"
-msgstr "Вкл/выкл режим плавного перехода"
+msgstr "п▓п╨п╩/п╡я▀п╨п╩ я─п╣п╤п╦п╪ п©п╩п╟п╡п╫п╬пЁп╬ п©п╣я─п╣я┘п╬п╢п╟"
 
 #: src/command.c:158
 msgid "Start a music database update"
-msgstr "Обновить музыкальную базу"
+msgstr "п·п╠п╫п╬п╡п╦я┌я▄ п╪я┐п╥я▀п╨п╟п╩я▄п╫я┐я▌ п╠п╟п╥я┐"
 
 #: src/command.c:160
 msgid "Save playlist"
-msgstr "Сохранить плейлист"
+msgstr "п║п╬я┘я─п╟п╫п╦я┌я▄ п©п╩п╣п╧п╩п╦я│я┌"
 
 #: src/command.c:162
 msgid "Add url/file to playlist"
-msgstr "Добавить url/файл в плейлист"
+msgstr "п■п╬п╠п╟п╡п╦я┌я▄ url/я└п╟п╧п╩ п╡ п©п╩п╣п╧п╩п╦я│я┌"
 
 #: src/command.c:165
 msgid "Go to root directory"
-msgstr "Перейти к корневой директории"
+msgstr "п÷п╣я─п╣п╧я┌п╦ п╨ п╨п╬я─п╫п╣п╡п╬п╧ п╢п╦я─п╣п╨я┌п╬я─п╦п╦"
 
 #: src/command.c:167
 msgid "Go to parent directory"
-msgstr "Перейти к родительской директории"
+msgstr "п÷п╣я─п╣п╧я┌п╦ п╨ я─п╬п╢п╦я┌п╣п╩я▄я│п╨п╬п╧ п╢п╦я─п╣п╨я┌п╬я─п╦п╦"
 
 #: src/command.c:170
 msgid "Locate song in browser"
-msgstr "Перейти к файлу композиции"
+msgstr "п÷п╣я─п╣п╧я┌п╦ п╨ я└п╟п╧п╩я┐ п╨п╬п╪п©п╬п╥п╦я├п╦п╦"
 
 #: src/command.c:174
 msgid "Move item up"
-msgstr "Переместить вверх"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄ п╡п╡п╣я─я┘"
 
 #: src/command.c:176
 msgid "Move item down"
-msgstr "Переместить вниз"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄ п╡п╫п╦п╥"
 
 #: src/command.c:178
 msgid "Refresh screen"
-msgstr "Обновить экран"
+msgstr "п·п╠п╫п╬п╡п╦я┌я▄ я█п╨я─п╟п╫"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
 #: src/command.c:185
 msgid "Toggle find mode"
-msgstr "Переключить режим поиска"
+msgstr "п÷п╣я─п╣п╨п╩я▌я┤п╦я┌я▄ я─п╣п╤п╦п╪ п©п╬п╦я│п╨п╟"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
 #: src/command.c:189
 msgid "Toggle auto center mode"
-msgstr "Вкл/выкл режим автоцентрирования"
+msgstr "п▓п╨п╩/п╡я▀п╨п╩ я─п╣п╤п╦п╪ п╟п╡я┌п╬я├п╣п╫я┌я─п╦я─п╬п╡п╟п╫п╦я▐"
 
 #: src/command.c:194
 msgid "Next screen"
-msgstr "Следующий экран"
+msgstr "п║п╩п╣п╢я┐я▌я┴п╦п╧ я█п╨я─п╟п╫"
 
 #: src/command.c:196
 msgid "Previous screen"
-msgstr "Предыдущий экран"
+msgstr "п÷я─п╣п╢я▀п╢я┐я┴п╦п╧ я█п╨я─п╟п╫"
 
 #: src/command.c:198
 msgid "Swap to most recent screen"
-msgstr "Последний посещённый экран"
+msgstr "п÷п╬я│п╩п╣п╢п╫п╦п╧ п©п╬я│п╣я┴я▒п╫п╫я▀п╧ я█п╨я─п╟п╫"
 
 #: src/command.c:203
 msgid "Forward find"
-msgstr "Поиск вперед"
+msgstr "п÷п╬п╦я│п╨ п╡п©п╣я─п╣п╢"
 
 #: src/command.c:205
 msgid "Forward find next"
-msgstr "Продолжить поиск вперёд"
+msgstr "п÷я─п╬п╢п╬п╩п╤п╦я┌я▄ п©п╬п╦я│п╨ п╡п©п╣я─я▒п╢"
 
 #: src/command.c:207
 msgid "Backward find"
-msgstr "Поиск назад"
+msgstr "п÷п╬п╦я│п╨ п╫п╟п╥п╟п╢"
 
 #: src/command.c:209
 msgid "Backward find previous"
-msgstr "Продолжить поиск назад"
+msgstr "п÷я─п╬п╢п╬п╩п╤п╦я┌я▄ п©п╬п╦я│п╨ п╫п╟п╥п╟п╢"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
 #: src/command.c:214
 msgid "Jump to"
-msgstr "Перейти к"
+msgstr "п÷п╣я─п╣п╧я┌п╦ п╨"
 
 #: src/command.c:220
 msgid "Artist screen"
-msgstr "Экран исполнителей"
+msgstr "п╜п╨я─п╟п╫ п╦я│п©п╬п╩п╫п╦я┌п╣п╩п╣п╧"
 
 #: src/command.c:226
 msgid "Change search mode"
-msgstr "Изменить поле для поиска"
+msgstr "п≤п╥п╪п╣п╫п╦я┌я▄ п©п╬п╩п╣ п╢п╩я▐ п©п╬п╦я│п╨п╟"
 
 #: src/command.c:230
 msgid "View the selected and the currently playing song"
-msgstr "Просмотр выбранной и проигрываемой композиций"
+msgstr "п÷я─п╬я│п╪п╬я┌я─ п╡я▀п╠я─п╟п╫п╫п╬п╧ п╦ п©я─п╬п╦пЁя─я▀п╡п╟п╣п╪п╬п╧ п╨п╬п╪п©п╬п╥п╦я├п╦п╧"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
 #: src/command.c:238
 msgid "Interrupt action"
-msgstr "Прервать операцию"
+msgstr "п÷я─п╣я─п╡п╟я┌я▄ п╬п©п╣я─п╟я├п╦я▌"
 
 #: src/command.c:240
 msgid "Update Lyrics"
-msgstr "Обновить текст"
+msgstr "п·п╠п╫п╬п╡п╦я┌я▄ я┌п╣п╨я│я┌"
 
 #: src/command.c:269
 msgid "Undefined"
-msgstr "Не задано"
+msgstr "п²п╣ п╥п╟п╢п╟п╫п╬"
 
 #: src/command.c:271
 msgid "Space"
-msgstr "Пробел"
+msgstr "п÷я─п╬п╠п╣п╩"
 
 #: src/command.c:273
 msgid "Enter"
-msgstr "Ввод"
+msgstr "п▓п╡п╬п╢"
 
 #: src/command.c:275
 msgid "Backspace"
@@ -957,27 +954,27 @@ msgstr "Delete"
 
 #: src/command.c:279
 msgid "Up"
-msgstr "Вверх"
+msgstr "п▓п╡п╣я─я┘"
 
 #: src/command.c:281
 msgid "Down"
-msgstr "Вниз"
+msgstr "п▓п╫п╦п╥"
 
 #: src/command.c:283
 msgid "Left"
-msgstr "Влево"
+msgstr "п▓п╩п╣п╡п╬"
 
 #: src/command.c:285
 msgid "Right"
-msgstr "Вправо"
+msgstr "п▓п©я─п╟п╡п╬"
 
 #: src/command.c:287
 msgid "Home"
-msgstr "В начало"
+msgstr "п▓ п╫п╟я┤п╟п╩п╬"
 
 #: src/command.c:289
 msgid "End"
-msgstr "В конец"
+msgstr "п▓ п╨п╬п╫п╣я├"
 
 #: src/command.c:291
 msgid "PageDown"
@@ -1006,45 +1003,45 @@ msgstr "Insert"
 #: src/command.c:512 src/command.c:518
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Клавиша %s назначена для %s и %s"
+msgstr "п п╩п╟п╡п╦я┬п╟ %s п╫п╟п╥п╫п╟я┤п╣п╫п╟ п╢п╩я▐ %s п╦ %s"
 
 #: src/colors.c:164
 #, c-format
 msgid "Warning: Unknown color - %s\n"
-msgstr "Внимание: Неизвестный цвет - %s\n"
+msgstr "п▓п╫п╦п╪п╟п╫п╦п╣: п²п╣п╦п╥п╡п╣я│я┌п╫я▀п╧ я├п╡п╣я┌ - %s\n"
 
 #: src/colors.c:207
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
-msgstr "Внимание: Неизвестное цветовое поле - %s\n"
+msgstr "п▓п╫п╦п╪п╟п╫п╦п╣: п²п╣п╦п╥п╡п╣я│я┌п╫п╬п╣ я├п╡п╣я┌п╬п╡п╬п╣ п©п╬п╩п╣ - %s\n"
 
 #: src/colors.c:240
 msgid "Terminal lacks support for changing colors"
-msgstr "Терминал не поддерживает смену цветов"
+msgstr "п╒п╣я─п╪п╦п╫п╟п╩ п╫п╣ п©п╬п╢п╢п╣я─п╤п╦п╡п╟п╣я┌ я│п╪п╣п╫я┐ я├п╡п╣я┌п╬п╡"
 
 #: src/colors.c:251
 msgid "Terminal lacks color capabilities"
-msgstr "Терминал не поддерживает цвета"
+msgstr "п╒п╣я─п╪п╦п╫п╟п╩ п╫п╣ п©п╬п╢п╢п╣я─п╤п╦п╡п╟п╣я┌ я├п╡п╣я┌п╟"
 
 #. To translators: prefix for error messages
 #: src/conf.c:93
 msgid "Error"
-msgstr "Ошибка"
+msgstr "п·я┬п╦п╠п╨п╟"
 
 #: src/conf.c:101 src/conf.c:110
 msgid "Malformed hotkey definition"
-msgstr "Неправильное значение клавиатурной комбинации"
+msgstr "п²п╣п©я─п╟п╡п╦п╩я▄п╫п╬п╣ п╥п╫п╟я┤п╣п╫п╦п╣ п╨п╩п╟п╡п╦п╟я┌я┐я─п╫п╬п╧ п╨п╬п╪п╠п╦п╫п╟я├п╦п╦"
 
 #. the hotkey configuration contains an unknown
 #. command
 #: src/conf.c:137
 msgid "Unknown command"
-msgstr "Неизвестная команда"
+msgstr "п²п╣п╦п╥п╡п╣я│я┌п╫п╟я▐ п╨п╬п╪п╟п╫п╢п╟"
 
 #. the hotkey configuration line is incomplete
 #: src/conf.c:150
 msgid "Incomplete hotkey configuration"
-msgstr "Неопределённое значение клавиатурной комбинации"
+msgstr "п²п╣п╬п©я─п╣п╢п╣п╩я▒п╫п╫п╬п╣ п╥п╫п╟я┤п╣п╫п╦п╣ п╨п╩п╟п╡п╦п╟я┌я┐я─п╫п╬п╧ п╨п╬п╪п╠п╦п╫п╟я├п╦п╦"
 
 #. translators: ncmpc supports displaying the
 #. "elapsed" or "remaining" time of a song being
@@ -1052,86 +1049,86 @@ msgstr "Неопределённое значение клавиатурной комбинации"
 #. contained an invalid setting
 #: src/conf.c:182
 msgid "Bad time display type"
-msgstr "Неверный тип отображения времени"
+msgstr "п²п╣п╡п╣я─п╫я▀п╧ я┌п╦п© п╬я┌п╬п╠я─п╟п╤п╣п╫п╦я▐ п╡я─п╣п╪п╣п╫п╦"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/conf.c:197
 msgid "Missing '='"
-msgstr "Пропущен символ '='"
+msgstr "п÷я─п╬п©я┐я┴п╣п╫ я│п╦п╪п╡п╬п╩ '='"
 
 #: src/conf.c:253
 msgid "Bad color name"
-msgstr "Неверное название цвета"
+msgstr "п²п╣п╡п╣я─п╫п╬п╣ п╫п╟п╥п╡п╟п╫п╦п╣ я├п╡п╣я┌п╟"
 
 #: src/conf.c:262
 msgid "Incomplete color definition"
-msgstr "Неопределённое значение цвета"
+msgstr "п²п╣п╬п©я─п╣п╢п╣п╩я▒п╫п╫п╬п╣ п╥п╫п╟я┤п╣п╫п╦п╣ я├п╡п╣я┌п╟"
 
 #: src/conf.c:268
 msgid "Invalid number"
-msgstr "Неверное число"
+msgstr "п²п╣п╡п╣я─п╫п╬п╣ я┤п╦я│п╩п╬"
 
 #: src/conf.c:276
 msgid "Malformed color definition"
-msgstr "Неправильное значение цвета"
+msgstr "п²п╣п©я─п╟п╡п╦п╩я▄п╫п╬п╣ п╥п╫п╟я┤п╣п╫п╦п╣ я├п╡п╣я┌п╟"
 
 #. an unknown screen name was specified in the
 #. configuration file
 #: src/conf.c:312
 msgid "Unknown screen name"
-msgstr "Неизвестное название экрана"
+msgstr "п²п╣п╦п╥п╡п╣я│я┌п╫п╬п╣ п╫п╟п╥п╡п╟п╫п╦п╣ я█п╨я─п╟п╫п╟"
 
 #: src/conf.c:341
 msgid "Invalid search mode"
-msgstr "Неверный режим поиска"
+msgstr "п²п╣п╡п╣я─п╫я▀п╧ я─п╣п╤п╦п╪ п©п╬п╦я│п╨п╟"
 
 #: src/conf.c:364
 msgid "Unknown search mode"
-msgstr "Неизвестный режим поиска"
+msgstr "п²п╣п╦п╥п╡п╣я│я┌п╫я▀п╧ я─п╣п╤п╦п╪ п©п╬п╦я│п╨п╟"
 
 #: src/conf.c:529
 msgid "Unknown configuration parameter"
-msgstr "Неизвестный параметр конфигурации"
+msgstr "п²п╣п╦п╥п╡п╣я│я┌п╫я▀п╧ п©п╟я─п╟п╪п╣я┌я─ п╨п╬п╫я└п╦пЁя┐я─п╟я├п╦п╦"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
 #: src/options.c:222 src/options.c:225
 msgid "translator-credits"
-msgstr "Перевод: Max Arnold <lwarxx@gmail.com>"
+msgstr "п÷п╣я─п╣п╡п╬п╢: Max Arnold <lwarxx@gmail.com>"
 
 #: src/list_window.c:535
 msgid "Range selection disabled"
-msgstr "Выбор диапазона выключен"
+msgstr "п▓я▀п╠п╬я─ п╢п╦п╟п©п╟п╥п╬п╫п╟ п╡я▀п╨п╩я▌я┤п╣п╫"
 
 #: src/list_window.c:541
 msgid "Range selection enabled"
-msgstr "Выбор диапазона включен"
+msgstr "п▓я▀п╠п╬я─ п╢п╦п╟п©п╟п╥п╬п╫п╟ п╡п╨п╩я▌я┤п╣п╫"
 
 #, fuzzy
 #~ msgid "DB last updated"
-#~ msgstr "База обновлена"
+#~ msgstr "п▒п╟п╥п╟ п╬п╠п╫п╬п╡п╩п╣п╫п╟"
 
 #~ msgid "Explicitly download lyrics"
-#~ msgstr "Принудительно загрузить текст"
+#~ msgstr "п÷я─п╦п╫я┐п╢п╦я┌п╣п╩я▄п╫п╬ п╥п╟пЁя─я┐п╥п╦я┌я▄ я┌п╣п╨я│я┌"
 
 #~ msgid "Search: "
-#~ msgstr "Поиск: "
+#~ msgstr "п÷п╬п╦я│п╨: "
 
 #~ msgid "Adding directory %s...\n"
-#~ msgstr "Добавляется директория %s...\n"
+#~ msgstr "п■п╬п╠п╟п╡п╩я▐п╣я┌я│я▐ п╢п╦я─п╣п╨я┌п╬я─п╦я▐ %s...\n"
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-#~ msgstr "Клавиша %s назначена для %s и %s (%s - редактор клавиш)"
+#~ msgstr "п п╩п╟п╡п╦я┬п╟ %s п╫п╟п╥п╫п╟я┤п╣п╫п╟ п╢п╩я▐ %s п╦ %s (%s - я─п╣п╢п╟п╨я┌п╬я─ п╨п╩п╟п╡п╦я┬)"
 
 #~ msgid "Clock"
-#~ msgstr "Часы"
+#~ msgstr "п╖п╟я│я▀"
 
 #~ msgid "Clock screen"
-#~ msgstr "Экран часов"
+#~ msgstr "п╜п╨я─п╟п╫ я┤п╟я│п╬п╡"
 
 #~ msgid "Error: Unable to convert characters to %s"
-#~ msgstr "Ошибка: Не удалось конвертировать символы в %s"
+#~ msgstr "п·я┬п╦п╠п╨п╟: п²п╣ я┐п╢п╟п╩п╬я│я▄ п╨п╬п╫п╡п╣я─я┌п╦я─п╬п╡п╟я┌я▄ я│п╦п╪п╡п╬п╩я▀ п╡ %s"
 
 #~ msgid "Error: Unable to convert characters to UTF-8"
-#~ msgstr "Ошибка: Не удалось конвертировать символы в UTF-8"
+#~ msgstr "п·я┬п╦п╠п╨п╟: п²п╣ я┐п╢п╟п╩п╬я│я▄ п╨п╬п╫п╡п╣я─я┌п╦я─п╬п╡п╟я┌я▄ я│п╦п╪п╡п╬п╩я▀ п╡ UTF-8"
