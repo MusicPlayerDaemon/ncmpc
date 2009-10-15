@@ -242,7 +242,7 @@ screen_help_paint_callback(WINDOW *w, unsigned i,
 
 	if (row->command == CMD_NONE) {
 		if (row->text != NULL)
-			mvwaddstr(w, y, 6, row->text);
+			mvwaddstr(w, y, 6, _(row->text));
 		else if (row->highlight == 2)
 			mvwhline(w, y, 3, '-', width - 6);
 	} else {
