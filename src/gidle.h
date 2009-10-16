@@ -45,7 +45,13 @@ mpd_glib_new(struct mpd_connection *connection,
 void
 mpd_glib_free(struct mpd_glib_source *source);
 
-void
+/**
+ * Enters idle mode.
+ *
+ * @return true if idle mode has been entered, false if not
+ * (e.g. blocked during the callback, or I/O error)
+ */
+bool
 mpd_glib_enter(struct mpd_glib_source *source);
 
 /**

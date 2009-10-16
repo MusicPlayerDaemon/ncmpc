@@ -337,7 +337,7 @@ mpd_glib_add_watch(struct mpd_glib_source *source)
 	source->io_events = events;
 }
 
-void
+bool
 mpd_glib_enter(struct mpd_glib_source *source)
 {
 	bool success;
@@ -347,17 +347,18 @@ mpd_glib_enter(struct mpd_glib_source *source)
 	assert(!source->destroyed);
 
 	if (source->leaving)
-		return;
+		return false;
 
 	source->idle_events = 0;
 
 	success = mpd_async_send_command(source->async, "idle", NULL);
 	if (!success) {
 		mpd_glib_invoke_async_error(source);
-		return;
+		return false;
 	}
 
 	mpd_glib_add_watch(source);
+	return true;
 }
 
 bool

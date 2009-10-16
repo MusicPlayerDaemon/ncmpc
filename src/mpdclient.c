@@ -252,8 +252,7 @@ mpdclient_put_connection(struct mpdclient *c)
 	assert(c->source == NULL || c->connection != NULL);
 
 	if (c->source != NULL && !c->idle) {
-		c->idle = true;
-		mpd_glib_enter(c->source);
+		c->idle = mpd_glib_enter(c->source);
 	}
 }
 
