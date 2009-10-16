@@ -48,7 +48,13 @@ mpd_glib_free(struct mpd_glib_source *source);
 void
 mpd_glib_enter(struct mpd_glib_source *source);
 
-void
+/**
+ * Leaves idle mode and invokes the callback if there were events.
+ *
+ * @return true on success, false if this object was deleted by the
+ * callback
+ */
+bool
 mpd_glib_leave(struct mpd_glib_source *source);
 
 #endif

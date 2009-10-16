@@ -61,6 +61,13 @@ struct mpd_glib_source {
 	 * flag is set, mpd_glib_enter() is a no-op to prevent this.
 	 */
 	bool leaving;
+
+	/**
+	 * This flag is true when mpd_glib_free() has been called
+	 * during a callback invoked from mpd_glib_leave().
+	 * mpd_glib_leave() will do the real g_free() call then.
+	 */
+	bool destroyed;
 };
 
 struct mpd_glib_source *
@@ -81,6 +88,7 @@ mpd_glib_new(struct mpd_connection *connection,
 	source->io_events = 0;
 	source->id = 0;
 	source->leaving = false;
+	source->destroyed = false;
 
 	return source;
 }
@@ -88,19 +96,26 @@ mpd_glib_new(struct mpd_connection *connection,
 void
 mpd_glib_free(struct mpd_glib_source *source)
 {
+	assert(!source->destroyed);
+
 	if (source->id != 0)
 		g_source_remove(source->id);
 
 	g_io_channel_unref(source->channel);
 
 	mpd_parser_free(source->parser);
-	g_free(source);
+
+	if (source->leaving)
+		source->destroyed = true;
+	else
+		g_free(source);
 }
 
 static void
 mpd_glib_invoke(const struct mpd_glib_source *source)
 {
 	assert(source->id == 0);
+	assert(!source->destroyed);
 
 	if (source->idle_events != 0)
 		source->callback(MPD_ERROR_SUCCESS, 0, NULL,
@@ -113,6 +128,7 @@ mpd_glib_invoke_error(const struct mpd_glib_source *source,
 		      const char *message)
 {
 	assert(source->id == 0);
+	assert(!source->destroyed);
 
 	source->callback(error, server_error, message,
 			 0, source->callback_ctx);
@@ -328,6 +344,7 @@ mpd_glib_enter(struct mpd_glib_source *source)
 
 	assert(source->io_events == 0);
 	assert(source->id == 0);
+	assert(!source->destroyed);
 
 	if (source->leaving)
 		return;
@@ -343,14 +360,16 @@ mpd_glib_enter(struct mpd_glib_source *source)
 	mpd_glib_add_watch(source);
 }
 
-void
+bool
 mpd_glib_leave(struct mpd_glib_source *source)
 {
 	enum mpd_idle events;
 
+	assert(!source->destroyed);
+
 	if (source->id == 0)
 		/* already left, callback was invoked */
-		return;
+		return true;
 
 	g_source_remove(source->id);
 	source->id = 0;
@@ -373,12 +392,24 @@ mpd_glib_leave(struct mpd_glib_source *source)
 
 		mpd_glib_invoke_error(source, error, server_error,
 				      mpd_connection_get_error_message(source->connection));
+
+		if (source->destroyed) {
+			g_free(source);
+			return false;
+		}
+
 		source->leaving = false;
-		return;
+		return true;
 	}
 
 	source->idle_events |= events;
 	mpd_glib_invoke(source);
 
+	if (source->destroyed) {
+		g_free(source);
+		return false;
+	}
+
 	source->leaving = false;
+	return true;
 }
