@@ -52,10 +52,27 @@ screen_file_repaint(void)
 }
 
 static void
-screen_file_reload(struct mpdclient *c)
+screen_file_load_list(struct mpdclient *c, struct filelist *filelist)
 {
 	struct mpd_connection *connection;
 
+	if (!mpdclient_is_connected(c))
+		return;
+
+	connection = mpdclient_get_connection(c);
+
+	mpd_send_list_meta(connection, current_path);
+	filelist_recv(filelist, connection);
+
+	if (mpd_response_finish(connection))
+		filelist_sort_dir_play(filelist, compare_filelist_entry_path);
+	else
+		mpdclient_handle_error(c);
+}
+
+static void
+screen_file_reload(struct mpdclient *c)
+{
 	if (browser.filelist != NULL)
 		filelist_free(browser.filelist);
 
@@ -64,19 +81,7 @@ screen_file_reload(struct mpdclient *c)
 		/* add a dummy entry for ./.. */
 		filelist_append(browser.filelist, NULL);
 
-	if (!mpdclient_is_connected(c))
-		return;
-
-	connection = mpdclient_get_connection(c);
-
-	mpd_send_list_meta(connection, current_path);
-	filelist_recv(browser.filelist, connection);
-
-	if (mpd_response_finish(connection))
-		filelist_sort_dir_play(browser.filelist,
-				       compare_filelist_entry_path);
-	else
-		mpdclient_handle_error(c);
+	screen_file_load_list(c, browser.filelist);
 
 	list_window_set_length(browser.lw,
 			       filelist_length(browser.filelist));
