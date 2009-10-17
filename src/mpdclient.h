@@ -93,9 +93,6 @@ mpdclient_ui_error(const char *message);
 /*** MPD Commands  **********************************************************/
 
 bool
-mpdclient_cmd_play(struct mpdclient *c, gint index);
-
-bool
 mpdclient_cmd_crop(struct mpdclient *c);
 
 bool

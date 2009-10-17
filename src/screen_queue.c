@@ -616,8 +616,16 @@ handle_mouse_event(struct mpdclient *c)
 
 	if (bstate & BUTTON1_CLICKED) {
 		/* play */
-		if (lw->selected < playlist_length(playlist))
-			mpdclient_cmd_play(c, lw->start + row);
+		const struct mpd_song *song = screen_queue_selected_song();
+		if (song != NULL) {
+			struct mpd_connection *connection =
+				mpdclient_get_connection(c);
+
+			if (connection != NULL &&
+			    !mpd_run_play_id(connection,
+					     mpd_song_get_id(song)))
+				mpdclient_handle_error(c);
+		}
 	} else if (bstate & BUTTON3_CLICKED) {
 		/* delete */
 		if (lw->selected == old_selected)
@@ -640,6 +648,7 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 	static command_t cached_cmd = CMD_NONE;
 	command_t prev_cmd = cached_cmd;
 	struct list_window_range range;
+	const struct mpd_song *song;
 
 	cached_cmd = cmd;
 
@@ -729,7 +738,15 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 
 	switch(cmd) {
 	case CMD_PLAY:
-		mpdclient_cmd_play(c, lw->selected);
+		song = screen_queue_selected_song();
+		if (song == NULL)
+			return false;
+
+		connection = mpdclient_get_connection(c);
+		if (connection != NULL &&
+		    !mpd_run_play_id(connection, mpd_song_get_id(song)))
+			mpdclient_handle_error(c);
+
 		return true;
 
 	case CMD_DELETE:

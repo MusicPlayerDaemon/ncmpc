@@ -262,23 +262,6 @@ mpdclient_put_connection(struct mpdclient *c)
 /****************************************************************************/
 
 bool
-mpdclient_cmd_play(struct mpdclient *c, gint idx)
-{
-	struct mpd_connection *connection = mpdclient_get_connection(c);
-	const struct mpd_song *song = playlist_get_song(&c->playlist, idx);
-
-	if (connection == NULL)
-		return false;
-
-	if (song)
-		mpd_send_play_id(connection, mpd_song_get_id(song));
-	else
-		mpd_send_play(connection);
-
-	return mpdclient_finish_command(c);
-}
-
-bool
 mpdclient_cmd_crop(struct mpdclient *c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
