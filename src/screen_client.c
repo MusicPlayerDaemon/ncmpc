@@ -31,6 +31,8 @@ _screen_auth(struct mpdclient *c, gint recursion)
 	char *password;
 
 	connection = mpdclient_get_connection(c);
+	if (connection == NULL)
+		return false;
 
 	mpd_connection_clear_error(connection);
 	if (recursion > 2)
@@ -80,6 +82,8 @@ screen_database_update(struct mpdclient *c, const char *path)
 	assert(mpdclient_is_connected(c));
 
 	connection = mpdclient_get_connection(c);
+	if (connection == NULL)
+		return;
 
 	id = mpd_run_update(connection, path);
 	if (id == 0) {

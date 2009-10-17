@@ -79,10 +79,10 @@ gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 	struct mpd_connection *connection;
 	struct mpd_entity *entity;
 
-	if (!mpdclient_is_connected(c))
+	connection = mpdclient_get_connection(c);
+	if (connection == NULL)
 		return list;
 
-	connection = mpdclient_get_connection(c);
 	mpd_send_list_meta(connection, path);
 
 	while ((entity = mpd_recv_entity(connection)) != NULL) {

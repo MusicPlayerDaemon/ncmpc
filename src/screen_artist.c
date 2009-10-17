@@ -418,6 +418,9 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, char *_filter)
 
 	assert(filter != NULL);
 
+	if (connection == NULL)
+		return;
+
 	str = utf8_to_locale(_filter);
 	if (table == MPD_TAG_ALBUM)
 		screen_status_printf("Adding album %s...", str);

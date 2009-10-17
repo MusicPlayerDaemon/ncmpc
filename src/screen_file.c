@@ -56,10 +56,9 @@ screen_file_load_list(struct mpdclient *c, struct filelist *filelist)
 {
 	struct mpd_connection *connection;
 
-	if (!mpdclient_is_connected(c))
-		return;
-
 	connection = mpdclient_get_connection(c);
+	if (connection == NULL)
+		return;
 
 	mpd_send_list_meta(connection, current_path);
 	filelist_recv(filelist, connection);
@@ -208,6 +207,9 @@ handle_delete(struct mpdclient *c)
 	const struct mpd_playlist *playlist;
 	char *str, *buf;
 	int key;
+
+	if (connection == NULL)
+		return;
 
 	list_window_get_range(browser.lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {

@@ -309,9 +309,11 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 
 	/* send save command to mpd */
 
-	filename_utf8 = locale_to_utf8(filename);
-
 	connection = mpdclient_get_connection(c);
+	if (connection == NULL)
+		return -1;
+
+	filename_utf8 = locale_to_utf8(filename);
 	if (!mpd_run_save(connection, filename_utf8)) {
 		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_EXIST &&
@@ -750,6 +752,9 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 			break;
 
 		connection = mpdclient_get_connection(c);
+		if (connection == NULL)
+			return true;
+
 		if (mpd_run_shuffle_range(connection, range.start, range.end))
 			screen_status_message(_("Shuffled playlist"));
 		else

@@ -52,11 +52,13 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 
 	assert(mpd_outputs != NULL);
 
-	if (!mpdclient_is_connected(c) ||
-	    output_index >= mpd_outputs->len)
+	if (output_index >= mpd_outputs->len)
 		return false;
 
 	connection = mpdclient_get_connection(c);
+	if (connection == NULL)
+		return false;
+
 	output = g_ptr_array_index(mpd_outputs, output_index);
 
 	if (!mpd_output_get_enabled(output)) {
@@ -113,10 +115,10 @@ fill_outputs_list(struct mpdclient *c)
 
 	assert(mpd_outputs != NULL);
 
-	if (!mpdclient_is_connected(c))
+	connection = mpdclient_get_connection(c);
+	if (connection == NULL)
 		return;
 
-	connection = mpdclient_get_connection(c);
 	mpd_send_outputs(connection);
 	while ((output = mpd_recv_output(connection)) != NULL) {
 		g_ptr_array_add(mpd_outputs, output);

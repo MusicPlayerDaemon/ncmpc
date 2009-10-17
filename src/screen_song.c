@@ -331,6 +331,8 @@ screen_song_add_stats(struct mpd_connection *connection)
 static void
 screen_song_update(struct mpdclient *c)
 {
+	struct mpd_connection *connection;
+
 	/* Clear all lines */
 	for (guint i = 0; i < current.lines->len; ++i)
 		g_free(g_ptr_array_index(current.lines, i));
@@ -368,8 +370,8 @@ screen_song_update(struct mpdclient *c)
 	}
 
 	/* Add some statistics about mpd */
-	if (mpdclient_is_connected(c) &&
-	    !screen_song_add_stats(mpdclient_get_connection(c)))
+	connection = mpdclient_get_connection(c);
+	if (connection != NULL && !screen_song_add_stats(connection))
 		mpdclient_handle_error(c);
 
 	list_window_set_length(lw, current.lines->len);
