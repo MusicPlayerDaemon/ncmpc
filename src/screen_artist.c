@@ -215,22 +215,24 @@ load_song_list(struct mpdclient *c)
 	assert(album != NULL);
 	assert(browser.filelist == NULL);
 
-	mpd_search_db_songs(connection, true);
-	mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-				      MPD_TAG_ARTIST, artist);
-	if (album[0] != 0)
-		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_ALBUM, album);
-	mpd_search_commit(connection);
-
 	browser.filelist = filelist_new();
 	/* add a dummy entry for ".." */
 	filelist_append(browser.filelist, NULL);
 
-	filelist_recv(browser.filelist, connection);
+	if (connection != NULL) {
+		mpd_search_db_songs(connection, true);
+		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
+					      MPD_TAG_ARTIST, artist);
+		if (album[0] != 0)
+			mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
+						      MPD_TAG_ALBUM, album);
+		mpd_search_commit(connection);
 
-	if (!mpd_response_finish(connection))
-		mpdclient_handle_error(c);
+		filelist_recv(browser.filelist, connection);
+
+		if (!mpd_response_finish(connection))
+			mpdclient_handle_error(c);
+	}
 
 #ifndef NCMPC_MINI
 	/* fix highlights */
