@@ -596,8 +596,8 @@ static bool
 handle_mouse_event(struct mpdclient *c)
 {
 	int row;
-	unsigned selected;
 	unsigned long bstate;
+	unsigned old_selected;
 
 	if (screen_get_mouse_event(c, &bstate, &row) ||
 	    list_window_mouse(lw, bstate, row)) {
@@ -611,21 +611,21 @@ handle_mouse_event(struct mpdclient *c)
 		return true;
 	}
 
-	selected = lw->start + row;
+	old_selected = lw->selected;
+	list_window_set_cursor(lw, lw->start + row);
 
 	if (bstate & BUTTON1_CLICKED) {
 		/* play */
-		if (lw->start + row < playlist_length(playlist))
+		if (lw->selected < playlist_length(playlist))
 			mpdclient_cmd_play(c, lw->start + row);
 	} else if (bstate & BUTTON3_CLICKED) {
 		/* delete */
-		if (selected == lw->selected)
+		if (lw->selected == old_selected)
 			mpdclient_cmd_delete(c, lw->selected);
 
 		list_window_set_length(lw, playlist_length(playlist));
 	}
 
-	list_window_set_cursor(lw, selected);
 	screen_queue_save_selection();
 	screen_queue_repaint();
 
