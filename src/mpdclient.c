@@ -256,6 +256,23 @@ mpdclient_put_connection(struct mpdclient *c)
 	}
 }
 
+static struct mpd_status *
+mpdclient_recv_status(struct mpdclient *c)
+{
+	struct mpd_status *status;
+
+	assert(c->connection != NULL);
+
+	status = mpd_recv_status(c->connection);
+	if (status == NULL) {
+		mpdclient_handle_error(c);
+		return NULL;
+	}
+
+	if (c->status != NULL)
+		mpd_status_free(c->status);
+	return c->status = status;
+}
 
 /****************************************************************************/
 /*** MPD Commands  **********************************************************/
@@ -317,9 +334,9 @@ mpdclient_cmd_clear(struct mpdclient *c)
 
 	/* receive the new status, store it in the mpdclient struct */
 
-	status = mpd_recv_status(connection);
+	status = mpdclient_recv_status(c);
 	if (status == NULL)
-		return mpdclient_handle_error(c);
+		return false;
 
 	if (c->status != NULL)
 		mpd_status_free(c->status);
@@ -431,12 +448,9 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 
 	c->events |= MPD_IDLE_PLAYLIST;
 
-	status = mpd_recv_status(connection);
-	if (status != NULL) {
-		if (c->status != NULL)
-			mpd_status_free(c->status);
-		c->status = status;
-	}
+	status = mpdclient_recv_status(c);
+	if (status == NULL)
+		return false;
 
 	if (!mpd_response_next(connection))
 		return mpdclient_handle_error(c);
@@ -493,12 +507,9 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 
 	c->events |= MPD_IDLE_PLAYLIST;
 
-	status = mpd_recv_status(connection);
-	if (status != NULL) {
-		if (c->status != NULL)
-			mpd_status_free(c->status);
-		c->status = status;
-	}
+	status = mpdclient_recv_status(c);
+	if (status == NULL)
+		return false;
 
 	if (!mpd_response_finish(connection))
 		return mpdclient_handle_error(c);
@@ -578,12 +589,9 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 
 	c->events |= MPD_IDLE_PLAYLIST;
 
-	status = mpd_recv_status(connection);
-	if (status != NULL) {
-		if (c->status != NULL)
-			mpd_status_free(c->status);
-		c->status = status;
-	}
+	status = mpdclient_recv_status(c);
+	if (status == NULL)
+		return false;
 
 	if (!mpd_response_finish(connection))
 		return mpdclient_handle_error(c);
@@ -639,12 +647,9 @@ mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
 
 	c->events |= MPD_IDLE_PLAYLIST;
 
-	status = mpd_recv_status(connection);
-	if (status != NULL) {
-		if (c->status != NULL)
-			mpd_status_free(c->status);
-		c->status = status;
-	}
+	status = mpdclient_recv_status(c);
+	if (status == NULL)
+		return false;
 
 	if (!mpd_response_finish(connection))
 		return mpdclient_handle_error(c);
