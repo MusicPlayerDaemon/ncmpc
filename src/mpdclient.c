@@ -284,9 +284,15 @@ mpdclient_cmd_crop(struct mpdclient *c)
 
 	mpd_command_list_begin(connection, false);
 
-	while (--length >= 0)
-		if (length != current)
-			mpd_send_delete(connection, length);
+	if (mpd_connection_cmp_server_version(connection, 0, 16, 0) >= 0) {
+		if (current < length - 1)
+			mpd_send_delete_range(connection, current + 1, length);
+		if (current > 0)
+			mpd_send_delete_range(connection, 0, current);
+	} else
+		while (--length >= 0)
+			if (length != current)
+				mpd_send_delete(connection, length);
 
 	mpd_command_list_end(connection);
 
