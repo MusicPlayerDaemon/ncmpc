@@ -301,18 +301,43 @@ bool
 mpdclient_cmd_clear(struct mpdclient *c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
-	bool retval;
+	struct mpd_status *status;
 
 	if (connection == NULL)
 		return false;
 
-	mpd_send_clear(connection);
-	retval = mpdclient_finish_command(c);
+	/* send "clear" and "status" */
+	if (!mpd_command_list_begin(connection, false) ||
+	    !mpd_send_clear(connection) ||
+	    !mpd_send_status(connection) ||
+	    !mpd_command_list_end(connection))
+		return mpdclient_handle_error(c);
 
-	if (retval)
-		c->events |= MPD_IDLE_PLAYLIST;
+	/* receive the new status, store it in the mpdclient struct */
 
-	return retval;
+	status = mpd_recv_status(connection);
+	if (status == NULL)
+		return mpdclient_handle_error(c);
+
+	if (c->status != NULL)
+		mpd_status_free(c->status);
+	c->status = status;
+
+	if (!mpd_response_finish(connection))
+		return mpdclient_handle_error(c);
+
+	/* update mpdclient.playlist */
+
+	if (mpd_status_get_queue_length(status) == 0) {
+		/* after the "clear" command, the queue is really
+		   empty - this means we can clear it locally,
+		   reducing the UI latency */
+		playlist_clear(&c->playlist);
+		c->playlist.version = mpd_status_get_queue_version(status);
+	}
+
+	c->events |= MPD_IDLE_QUEUE;
+	return true;
 }
 
 bool
