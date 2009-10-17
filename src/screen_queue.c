@@ -786,7 +786,7 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 			return false;
 
 		for (unsigned i = range.start; i < range.end; ++i)
-			mpdclient_cmd_move(c, i, i - 1);
+			mpdclient_cmd_swap(c, i, i - 1);
 
 		lw->selected--;
 		lw->range_base--;
@@ -800,7 +800,7 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 			return false;
 
 		for (int i = range.end - 1; i >= (int)range.start; --i)
-			mpdclient_cmd_move(c, i, i + 1);
+			mpdclient_cmd_swap(c, i, i + 1);
 
 		lw->selected++;
 		lw->range_base++;

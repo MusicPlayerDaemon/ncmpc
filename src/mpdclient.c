@@ -619,7 +619,7 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 }
 
 bool
-mpdclient_cmd_move(struct mpdclient *c, gint old_index, gint new_index)
+mpdclient_cmd_swap(struct mpdclient *c, gint old_index, gint new_index)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	const struct mpd_song *song1, *song2;
