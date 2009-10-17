@@ -169,17 +169,16 @@ screen_file_handle_enter(struct mpdclient *c)
 	return change_to_entry(c, entry);
 }
 
-static int
+static void
 handle_save(struct mpdclient *c)
 {
 	struct list_window_range range;
 	const char *defaultname = NULL;
 	char *defaultname_utf8 = NULL;
-	int ret;
 
 	list_window_get_range(browser.lw, &range);
 	if (range.start == range.end)
-		return -1;
+		return;
 
 	for (unsigned i = range.start; i < range.end; ++i) {
 		struct filelist_entry *entry =
@@ -196,13 +195,11 @@ handle_save(struct mpdclient *c)
 
 	if(defaultname)
 		defaultname_utf8 = utf8_to_locale(defaultname);
-	ret = playlist_save(c, NULL, defaultname_utf8);
+	playlist_save(c, NULL, defaultname_utf8);
 	g_free(defaultname_utf8);
-
-	return ret;
 }
 
-static int
+static void
 handle_delete(struct mpdclient *c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
@@ -239,7 +236,7 @@ handle_delete(struct mpdclient *c)
 		if( key != YES[0] ) {
 			/* translators: a dialog was aborted by the user */
 			screen_status_printf(_("Aborted"));
-			return 0;
+			return;
 		}
 
 		if (!mpd_run_rm(connection, mpd_playlist_get_path(playlist))) {
@@ -253,7 +250,6 @@ handle_delete(struct mpdclient *c)
 		   user */
 		screen_status_printf(_("Playlist deleted"));
 	}
-	return 0;
 }
 
 static void
