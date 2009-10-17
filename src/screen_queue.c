@@ -621,6 +621,8 @@ handle_mouse_event(struct mpdclient *c)
 		/* delete */
 		if (selected == lw->selected)
 			mpdclient_cmd_delete(c, lw->selected);
+
+		list_window_set_length(lw, playlist_length(playlist));
 	}
 
 	list_window_set_cursor(lw, selected);
