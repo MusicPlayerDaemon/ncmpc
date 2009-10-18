@@ -24,7 +24,8 @@
 #include <string.h>
 
 char *
-strscroll(struct hscroll *hscroll, char *str, char *separator, unsigned width)
+strscroll(struct hscroll *hscroll, const char *str, const char *separator,
+	  unsigned width)
 {
 	gchar *tmp, *buf;
 	gsize len, size;

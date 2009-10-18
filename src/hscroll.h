@@ -39,6 +39,7 @@ hscroll_step(struct hscroll *hscroll)
 }
 
 char *
-strscroll(struct hscroll *hscroll, char *str, char *separator, unsigned width);
+strscroll(struct hscroll *hscroll, const char *str, const char *separator,
+	  unsigned width);
 
 #endif
