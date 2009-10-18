@@ -21,7 +21,6 @@
 #include "charset.h"
 
 #include <assert.h>
-#include <ctype.h>
 #include <string.h>
 
 char *
