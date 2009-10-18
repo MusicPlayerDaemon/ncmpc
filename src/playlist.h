@@ -102,17 +102,6 @@ playlist_remove(struct mpdclient_playlist *playlist, guint idx)
 	mpd_song_free(playlist_remove_reuse(playlist, idx));
 }
 
-static inline void
-playlist_swap(struct mpdclient_playlist *playlist, guint idx1, guint idx2)
-{
-	struct mpd_song *song1 = playlist_get(playlist, idx1);
-	struct mpd_song *song2 = playlist_get(playlist, idx2);
-
-	/* update the array */
-	g_ptr_array_index(playlist->list, idx1) = song2;
-	g_ptr_array_index(playlist->list, idx2) = song1;
-}
-
 void
 playlist_move(struct mpdclient_playlist *playlist,
 	      unsigned dest, unsigned src);
