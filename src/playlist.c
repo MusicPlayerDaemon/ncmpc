@@ -65,6 +65,32 @@ playlist_get_song(const struct mpdclient_playlist *playlist, gint idx)
 	return playlist_get(playlist, idx);
 }
 
+void
+playlist_move(struct mpdclient_playlist *playlist,
+	      unsigned dest, unsigned src)
+{
+	struct mpd_song *song;
+
+	assert(playlist != NULL);
+	assert(src < playlist_length(playlist));
+	assert(dest < playlist_length(playlist));
+	assert(src != dest);
+
+	song = playlist_get(playlist, src);
+
+	if (src < dest) {
+		memmove(&playlist->list->pdata[src],
+			&playlist->list->pdata[src + 1],
+			sizeof(playlist->list->pdata[0]) * (dest - src));
+		playlist->list->pdata[dest] = song;
+	} else {
+		memmove(&playlist->list->pdata[dest + 1],
+			&playlist->list->pdata[dest],
+			sizeof(playlist->list->pdata[0]) * (src - dest));
+		playlist->list->pdata[dest] = song;
+	}
+}
+
 const struct mpd_song *
 playlist_lookup_song(const struct mpdclient_playlist *playlist, unsigned id)
 {

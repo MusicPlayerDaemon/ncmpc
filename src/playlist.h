@@ -113,6 +113,10 @@ playlist_swap(struct mpdclient_playlist *playlist, guint idx1, guint idx2)
 	g_ptr_array_index(playlist->list, idx2) = song1;
 }
 
+void
+playlist_move(struct mpdclient_playlist *playlist,
+	      unsigned dest, unsigned src);
+
 const struct mpd_song *
 playlist_lookup_song(const struct mpdclient_playlist *playlist, unsigned id);
 
