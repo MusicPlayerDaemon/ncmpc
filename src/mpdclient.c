@@ -338,10 +338,6 @@ mpdclient_cmd_clear(struct mpdclient *c)
 	if (status == NULL)
 		return false;
 
-	if (c->status != NULL)
-		mpd_status_free(c->status);
-	c->status = status;
-
 	if (!mpd_response_finish(connection))
 		return mpdclient_handle_error(c);
 
