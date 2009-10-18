@@ -122,6 +122,9 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end);
 bool
 mpdclient_cmd_swap(struct mpdclient *c, gint old_index, gint new_index);
 
+bool
+mpdclient_cmd_move(struct mpdclient *c, unsigned dest, unsigned src);
+
 /*** playlist functions  **************************************************/
 
 /* update the complete playlist */

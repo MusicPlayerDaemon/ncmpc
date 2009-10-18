@@ -668,6 +668,51 @@ mpdclient_cmd_swap(struct mpdclient *c, gint old_index, gint new_index)
 	return true;
 }
 
+bool
+mpdclient_cmd_move(struct mpdclient *c, unsigned dest_pos, unsigned src_pos)
+{
+	struct mpd_connection *connection;
+	struct mpd_status *status;
+
+	if (dest_pos == src_pos)
+		return true;
+
+	connection = mpdclient_get_connection(c);
+	if (connection == NULL)
+		return false;
+
+	/* send the "move" command to MPD; at the same time, get the
+	   new status (to verify the playlist id) */
+
+	if (!mpd_command_list_begin(connection, false) ||
+	    !mpd_send_move(connection, src_pos, dest_pos) ||
+	    !mpd_send_status(connection) ||
+	    !mpd_command_list_end(connection))
+		return mpdclient_handle_error(c);
+
+	c->events |= MPD_IDLE_QUEUE;
+
+	status = mpdclient_recv_status(c);
+	if (status == NULL)
+		return false;
+
+	if (!mpd_response_finish(connection))
+		return mpdclient_handle_error(c);
+
+	if (mpd_status_get_queue_length(status) == playlist_length(&c->playlist) &&
+	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
+		/* the cheap route: match on the new playlist length
+		   and its version, we can keep our local playlist
+		   copy in sync */
+		c->playlist.version = mpd_status_get_queue_version(status);
+
+		/* swap songs in the local playlist */
+		playlist_move(&c->playlist, dest_pos, src_pos);
+	}
+
+	return true;
+}
+
 
 /****************************************************************************/
 /*** Playlist management functions ******************************************/
