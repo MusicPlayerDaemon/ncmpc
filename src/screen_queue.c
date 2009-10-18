@@ -785,8 +785,8 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 		if (range.start == 0 || range.end <= range.start)
 			return false;
 
-		for (unsigned i = range.start; i < range.end; ++i)
-			mpdclient_cmd_swap(c, i, i - 1);
+		if (!mpdclient_cmd_move(c, range.end - 1, range.start - 1))
+			return true;
 
 		lw->selected--;
 		lw->range_base--;
@@ -799,8 +799,8 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 		if (range.end >= playlist_length(&c->playlist))
 			return false;
 
-		for (int i = range.end - 1; i >= (int)range.start; --i)
-			mpdclient_cmd_swap(c, i, i + 1);
+		if (!mpdclient_cmd_move(c, range.start, range.end))
+			return true;
 
 		lw->selected++;
 		lw->range_base++;
