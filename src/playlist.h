@@ -107,12 +107,6 @@ playlist_swap(struct mpdclient_playlist *playlist, guint idx1, guint idx2)
 {
 	struct mpd_song *song1 = playlist_get(playlist, idx1);
 	struct mpd_song *song2 = playlist_get(playlist, idx2);
-	int n;
-
-	/* update the songs position field */
-	n = mpd_song_get_pos(song1);
-	mpd_song_set_pos(song1, mpd_song_get_pos(song2));
-	mpd_song_set_pos(song2, n);
 
 	/* update the array */
 	g_ptr_array_index(playlist->list, idx1) = song2;
