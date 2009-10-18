@@ -99,6 +99,7 @@ browser_lw_callback(unsigned idx, void *data)
 			mpd_entity_get_directory(entity);
 		char *directory = utf8_to_locale(g_basename(mpd_directory_get_path(dir)));
 		g_strlcpy(buf, directory, sizeof(buf));
+		g_free(directory);
 		return buf;
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 		const struct mpd_song *song = mpd_entity_get_song(entity);
