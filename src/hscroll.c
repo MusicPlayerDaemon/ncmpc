@@ -38,10 +38,7 @@ strscroll(struct hscroll *hscroll, const char *str, const char *separator,
 		return g_strdup(str);
 
 	/* create a buffer containing the string and the separator */
-	size = strlen(str)+strlen(separator)+1;
-	tmp = g_malloc(size);
-	g_strlcpy(tmp, str, size);
-	g_strlcat(tmp, separator, size);
+	tmp = g_strconcat(str, separator, NULL);
 	len = utf8_width(tmp);
 
 	if (hscroll->offset >= len)
