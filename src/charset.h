@@ -41,4 +41,19 @@ utf8_width(const char *str);
 char *utf8_to_locale(const char *str);
 char *locale_to_utf8(const char *str);
 
+/**
+ * Converts the UTF-8 string to the locale, and frees the source
+ * pointer.  Returns the source pointer as-is if no conversion is
+ * required.
+ */
+char *
+replace_utf8_to_locale(char *src);
+
+/**
+ * Converts the locale string to UTF-8, and frees the source pointer.
+ * Returns the source pointer as-is if no conversion is required.
+ */
+char *
+replace_locale_to_utf8(char *src);
+
 #endif

@@ -93,8 +93,7 @@ byte_to_screen(const gchar *data, size_t x)
 
 	dup = g_strdup(data);
 	dup[x] = 0;
-	p = locale_to_utf8(dup);
-	g_free(dup);
+	p = replace_locale_to_utf8(dup);
 
 	width = utf8_width(p);
 	g_free(p);

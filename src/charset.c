@@ -107,3 +107,34 @@ locale_to_utf8(const char *localestr)
 	return g_strdup(localestr);
 #endif
 }
+
+char *
+replace_utf8_to_locale(char *src)
+{
+#ifdef ENABLE_LOCALE
+	assert(src != NULL);
+
+	if (noconvert)
+		return src;
+
+	return utf8_to_locale(src);
+#else
+	return src;
+#endif
+}
+
+
+char *
+replace_locale_to_utf8(char *src)
+{
+#ifdef ENABLE_LOCALE
+	assert(src != NULL);
+
+	if (noconvert)
+		return src;
+
+	return locale_to_utf8(src);
+#else
+	return src;
+#endif
+}
