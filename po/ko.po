@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-21 20:10+0200\n"
-"PO-Revision-Date: 2009-04-16 23:04+0000\n"
-"Last-Translator: atie <atie.at.matrix@gmail.com>\n"
+"PO-Revision-Date: 2009-10-16 17:35+0000\n"
+"Last-Translator: Jay Whang <jaypedia@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-17 07:52+0000\n"
+"X-Launchpad-Export-Date: 2009-10-19 13:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -591,9 +591,8 @@ msgid "Song viewer"
 msgstr "곡 보기"
 
 #: src/screen_song.c:193
-#, fuzzy
 msgid "Length"
-msgstr "Left"
+msgstr "길이"
 
 #: src/screen_song.c:194
 msgid "Composer"
@@ -741,9 +740,8 @@ msgid "Scroll down half a screen"
 msgstr "화면 반 아래로 내리기"
 
 #: src/command.c:104
-#, fuzzy
 msgid "Select currently playing song"
-msgstr "현재 연주중인 곡"
+msgstr "현재 재생중인 곡을 선택"
 
 #: src/command.c:109
 msgid "Help screen"
