@@ -28,32 +28,24 @@ strscroll(struct hscroll *hscroll, const char *str, const char *separator,
 	  unsigned width)
 {
 	gchar *tmp, *buf;
-	gsize len, size, ulen;
 
 	assert(hscroll != NULL);
 	assert(str != NULL);
 	assert(separator != NULL);
 
-	if (hscroll->offset == 0)
-		return g_strdup(str);
-
 	/* create a buffer containing the string and the separator */
-	tmp = replace_locale_to_utf8(g_strconcat(str, separator, NULL));
-	len = utf8_width(tmp);
+	tmp = replace_locale_to_utf8(g_strconcat(str, separator,
+						 str, separator, NULL));
 
-	if (hscroll->offset >= len)
+	if (hscroll->offset >= (unsigned)g_utf8_strlen(tmp, -1) / 2)
 		hscroll->offset = 0;
 
 	/* create the new scrolled string */
-	size = width+1;
-	buf = g_malloc(size * 6);// max length of utf8 char is 6
-	g_utf8_strncpy(buf, g_utf8_offset_to_pointer(tmp,
-						     hscroll->offset), size);
-	if ((ulen = g_utf8_strlen(buf, -1)) < width)
-		g_utf8_strncpy(buf + strlen(buf), tmp, size - ulen - 1);
+	buf = g_utf8_offset_to_pointer(tmp, hscroll->offset);
+	utf8_cut_width(buf, width);
 
+	/* convert back to locale */
+	buf = utf8_to_locale(buf);
 	g_free(tmp);
-	tmp = utf8_to_locale(buf);
-	g_free(buf);
-	return tmp;
+	return buf;
 }
