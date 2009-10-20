@@ -22,3 +22,5 @@ stamp-*
 src/ncmpc
 src/ncmpc-tiny
 build
+
+test/run_hscroll
