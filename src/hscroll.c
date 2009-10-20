@@ -28,7 +28,7 @@ strscroll(struct hscroll *hscroll, const char *str, const char *separator,
 	  unsigned width)
 {
 	gchar *tmp, *buf;
-	gsize len, size;
+	gsize len, size, ulen;
 
 	assert(hscroll != NULL);
 	assert(str != NULL);
@@ -38,7 +38,7 @@ strscroll(struct hscroll *hscroll, const char *str, const char *separator,
 		return g_strdup(str);
 
 	/* create a buffer containing the string and the separator */
-	tmp = g_strconcat(str, separator, NULL);
+	tmp = replace_locale_to_utf8(g_strconcat(str, separator, NULL));
 	len = utf8_width(tmp);
 
 	if (hscroll->offset >= len)
@@ -46,19 +46,14 @@ strscroll(struct hscroll *hscroll, const char *str, const char *separator,
 
 	/* create the new scrolled string */
 	size = width+1;
-	if (g_utf8_validate(tmp, -1, NULL) ) {
-		size_t ulen;
-		buf = g_malloc(size*6);// max length of utf8 char is 6
-		g_utf8_strncpy(buf, g_utf8_offset_to_pointer(tmp, hscroll->offset), size);
-		if( (ulen = g_utf8_strlen(buf, -1)) < width )
-			g_utf8_strncpy(buf+strlen(buf), tmp, size - ulen - 1);
-	} else {
-		buf = g_malloc(size);
-		g_strlcpy(buf, tmp + hscroll->offset, size);
-		if (strlen(buf) < (size_t)width)
-			g_strlcat(buf, tmp, size);
-	}
+	buf = g_malloc(size * 6);// max length of utf8 char is 6
+	g_utf8_strncpy(buf, g_utf8_offset_to_pointer(tmp,
+						     hscroll->offset), size);
+	if ((ulen = g_utf8_strlen(buf, -1)) < width)
+		g_utf8_strncpy(buf + strlen(buf), tmp, size - ulen - 1);
 
 	g_free(tmp);
-	return buf;
+	tmp = utf8_to_locale(buf);
+	g_free(buf);
+	return tmp;
 }
