@@ -38,6 +38,15 @@ G_GNUC_PURE
 unsigned
 utf8_width(const char *str);
 
+/**
+ * Limits the width of the specified string.  Cuts it off before the
+ * specified width is exceeded.
+ *
+ * @return the resulting width of the string
+ */
+unsigned
+utf8_cut_width(char *p, unsigned max_width);
+
 char *utf8_to_locale(const char *str);
 char *locale_to_utf8(const char *str);
 
