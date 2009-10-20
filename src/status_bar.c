@@ -31,6 +31,33 @@
 #include <assert.h>
 #include <string.h>
 
+void
+status_bar_init(struct status_bar *p, unsigned width, int y, int x)
+{
+	window_init(&p->window, 1, width, y, x);
+
+	leaveok(p->window.w, false);
+	keypad(p->window.w, true);
+
+	p->message_source_id = 0;
+
+#ifndef NCMPC_MINI
+	hscroll_reset(&p->hscroll);
+	p->scroll_source_id = 0;
+	p->prev_status = NULL;
+	p->prev_song = NULL;
+#endif
+}
+
+void
+status_bar_deinit(struct status_bar *p)
+{
+	delwin(p->window.w);
+
+	if (p->message_source_id != 0)
+		g_source_remove(p->message_source_id);
+}
+
 #ifndef NCMPC_MINI
 static gboolean
 scroll_timer_callback(gpointer data)

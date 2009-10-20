@@ -28,8 +28,6 @@
 
 #include <glib.h>
 
-#include <stdbool.h>
-
 struct mpd_status;
 struct mpd_song;
 
@@ -47,32 +45,11 @@ struct status_bar {
 #endif
 };
 
-static inline void
-status_bar_init(struct status_bar *p, unsigned width, int y, int x)
-{
-	window_init(&p->window, 1, width, y, x);
+void
+status_bar_init(struct status_bar *p, unsigned width, int y, int x);
 
-	leaveok(p->window.w, false);
-	keypad(p->window.w, true);
-
-	p->message_source_id = 0;
-
-#ifndef NCMPC_MINI
-	hscroll_reset(&p->hscroll);
-	p->scroll_source_id = 0;
-	p->prev_status = NULL;
-	p->prev_song = NULL;
-#endif
-}
-
-static inline void
-status_bar_deinit(struct status_bar *p)
-{
-	delwin(p->window.w);
-
-	if (p->message_source_id != 0)
-		g_source_remove(p->message_source_id);
-}
+void
+status_bar_deinit(struct status_bar *p);
 
 void
 status_bar_paint(struct status_bar *p, const struct mpd_status *status,
