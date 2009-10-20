@@ -26,8 +26,7 @@ dnl
 
 AC_ARG_ENABLE(mini,
     AS_HELP_STRING([--enable-mini],
-		[Build ncmpc-mini, i.e. without all optional features (default: disabled)]),
-    [enable_mini=$enableval],
+		[Build ncmpc-mini, i.e. without all optional features (default: disabled)]),,
     [enable_mini=no])
 
 AM_CONDITIONAL(NCMPC_MINI, test x$enable_mini = xyes)
@@ -67,8 +66,7 @@ AC_CHECK_FUNC([gethostbyname],
 dnl wide character support
 AC_ARG_ENABLE([wide],
     AC_HELP_STRING([--enable-wide],
-                   [Enable wide character support]),
-                   [enable_wide=$enableval],
+		[Enable wide character support]),,
                    [enable_wide=auto])
 
 
@@ -130,8 +128,7 @@ dnl multi-byte character support
 
 AC_ARG_ENABLE([multibyte],
 	AC_HELP_STRING([--disable-multibyte],
-		[Disable multibyte character support (default: enabled)]),
-		[enable_multibyte=$enableval],
+		[Disable multibyte character support (default: enabled)]),,
 		[enable_multibyte=$disable_mini])
 
 if test x$enable_multibyte = xyes; then
@@ -155,8 +152,7 @@ dnl i18n
 
 AC_ARG_ENABLE([locale],
 	AC_HELP_STRING([--disable-locale],
-		[Disable locale support (default: auto)]),
-		[enable_locale=$enableval],
+		[Disable locale support (default: auto)]),,
 		[enable_locale=$auto_mini])
 
 if test x$enable_locale = xyes; then
@@ -199,11 +195,10 @@ dnl enable colors
 AC_MSG_CHECKING([color support])
 AC_ARG_ENABLE([colors],
 	AC_HELP_STRING([--enable-colors],
-		       [Enable color support]),
-		       [use_colors=$enableval], 
-	[use_colors=$disable_mini])
-AC_MSG_RESULT([$use_colors])
-if test "x$use_colors" = "xyes" ; then
+		[Enable color support]),,
+	[enable_colors=$disable_mini])
+AC_MSG_RESULT([$enable_colors])
+if test "x$enable_colors" = "xyes" ; then
     AC_DEFINE([ENABLE_COLORS], [1], [Enable color support])
 fi
 
@@ -211,8 +206,7 @@ dnl test for LIRC support
 
 AC_ARG_ENABLE([lirc],
 	AC_HELP_STRING([--enable-lirc],
-		[Enable LIRC support]),
-	[enable_lirc=$enableval],
+		[Enable LIRC support]),,
 	[enable_lirc=no])
 if test x$enable_lirc = xyes; then
 	PKG_CHECK_MODULES([LIBLIRCCLIENT], [liblircclient0],,
@@ -227,25 +221,23 @@ dnl Optional screen - help screen
 AC_MSG_CHECKING([whether to include the help screen])
 AC_ARG_ENABLE([help-screen],
 	AS_HELP_STRING([--enable-help-screen],
-		[Enable the help screen @<:@default=yes@:>@]),
-	[help_screen="$enableval"],
-	[help_screen=$disable_mini])
-AC_MSG_RESULT([$help_screen])
-if test "x$help_screen" = "xyes" ; then
+		[Enable the help screen @<:@default=yes@:>@]),,
+	[enable_help_screen=$disable_mini])
+AC_MSG_RESULT([$enable_help_screen])
+if test "x$enable_help_screen" = "xyes" ; then
 	AC_DEFINE(ENABLE_HELP_SCREEN, 1, [Enable the help screen])
 fi
 
-AM_CONDITIONAL(ENABLE_HELP_SCREEN, test x$help_screen = xyes)
+AM_CONDITIONAL(ENABLE_HELP_SCREEN, test x$enable_help_screen = xyes)
 
 dnl Optional screen - browse screen
 #AC_MSG_CHECKING([whether to include the browse screen])r
 #AC_ARG_ENABLE([browse-screen], 
 #              AC_HELP_STRING([--enable-browse-screen],
-#	                     [Enable the browse screen @<:@default=yes@:>@]),
-#	      [browse_screen="$enableval"],
-#	      [browse_screen=yes])
-#AC_MSG_RESULT([$browse_screen])
-#if test "x$browse_screen" = "xyes" ; then
+#		[Enable the browse screen @<:@default=yes@:>@]),,
+#	[enable_browse_screen=yes])
+#AC_MSG_RESULT([$enable_browse_screen])
+#if test "x$enable_browse_screen" = "xyes" ; then
 #   AC_DEFINE(ENABLE_BROWSE_SCREEN, 1, [Enable the browse screen])
 #fi
 
@@ -253,11 +245,10 @@ dnl Optional - curses getmouse support
 AC_MSG_CHECKING([whether to include mouse support])
 AC_ARG_ENABLE([mouse], 
               AC_HELP_STRING([--enable-mouse],
-	                     [Enable curses getmouse support @<:@default=yes@:>@]),
-	      [getmouse="$enableval"],
-	      [getmouse=$disable_mini])
-AC_MSG_RESULT([$getmouse])
-if test "x$getmouse" = "xyes" ; then
+		[Enable curses getmouse support @<:@default=yes@:>@]),,
+	[enable_mouse=$disable_mini])
+AC_MSG_RESULT([$enable_mouse])
+if test "x$enable_mouse" = "xyes" ; then
    AC_CHECK_LIB([$ncurses], 
 	        [getmouse],
 		[AC_DEFINE([HAVE_GETMOUSE], [1], [$ncurses - getmouse()])],
@@ -268,72 +259,67 @@ dnl Optional screen - artist
 AC_MSG_CHECKING([whether to include the artist screen])
 AC_ARG_ENABLE([artist-screen], 
               AC_HELP_STRING([--enable-artist-screen],
-	                     [Enable artist screen @<:@default=yes@:>@]),
-	      [artist_screen="$enableval"],
-	      [artist_screen=$disable_mini])
-AC_MSG_RESULT([$artist_screen])
-if test "x$artist_screen" = "xyes" ; then
+		[Enable artist screen @<:@default=yes@:>@]),,
+	[enable_artist_screen=$disable_mini])
+AC_MSG_RESULT([$enable_artist_screen])
+if test "x$enable_artist_screen" = "xyes" ; then
     AC_DEFINE(ENABLE_ARTIST_SCREEN, 1, [Enable artist screen])
 fi
 
-AM_CONDITIONAL(ENABLE_ARTIST_SCREEN, test x$artist_screen = xyes)
+AM_CONDITIONAL(ENABLE_ARTIST_SCREEN, test x$enable_artist_screen = xyes)
 
 dnl Optional screen - search
 AC_MSG_CHECKING([whether to include the search screen])
 AC_ARG_ENABLE([search-screen], 
               AC_HELP_STRING([--enable-search-screen],
-	                     [Enable search screen (EXPERIMENTAL) @<:@default=yes@:>@]),
-	      [search_screen="$enableval"],
-	      [search_screen=$disable_mini])
-AC_MSG_RESULT([$search_screen])
-if test "x$search_screen" = "xyes" ; then
+		[Enable search screen (EXPERIMENTAL) @<:@default=yes@:>@]),,
+	[enable_search_screen=$disable_mini])
+AC_MSG_RESULT([$enable_search_screen])
+if test "x$enable_search_screen" = "xyes" ; then
     AC_DEFINE(ENABLE_SEARCH_SCREEN, 1, [Enable search screen])
 fi
 
-AM_CONDITIONAL(ENABLE_SEARCH_SCREEN, test x$search_screen = xyes)
+AM_CONDITIONAL(ENABLE_SEARCH_SCREEN, test x$enable_search_screen = xyes)
 
 dnl Optional screen - song viewer
 AC_MSG_CHECKING([whether to include the song viewer screen])
 AC_ARG_ENABLE([song-screen],
 	AC_HELP_STRING([--enable-song-screen],
-		[Enable song viewer screen @<:@default=yes@:>@]),
-	[song_screen="$enableval"],
-	[song_screen=$disable_mini])
-AC_MSG_RESULT([$song_screen])
-if test "x$song_screen" = "xyes" ; then
+		[Enable song viewer screen @<:@default=yes@:>@]),,
+	[enable_song_screen=$disable_mini])
+AC_MSG_RESULT([$enable_song_screen])
+if test "x$enable_song_screen" = "xyes" ; then
 	AC_DEFINE(ENABLE_SONG_SCREEN, 1, [Enable song viewer screen])
 fi
 
-AM_CONDITIONAL(ENABLE_SONG_SCREEN, test x$song_screen = xyes)
+AM_CONDITIONAL(ENABLE_SONG_SCREEN, test x$enable_song_screen = xyes)
   
 dnl Optional screen - key editor
 AC_MSG_CHECKING([whether to include the key editor screen])
 AC_ARG_ENABLE([key-screen], 
               AC_HELP_STRING([--enable-key-screen],
-	                     [Enable key editor screen @<:@default=yes@:>@]),
-	      [keydef_screen="$enableval"],
-	      [keydef_screen=$disable_mini])
-AC_MSG_RESULT([$keydef_screen])
-if test "x$keydef_screen" = "xyes" ; then
+		[Enable key editor screen @<:@default=yes@:>@]),,
+	[enable_key_screen=$disable_mini])
+AC_MSG_RESULT([$enable_key_screen])
+if test "x$enable_key_screen" = "xyes" ; then
     AC_DEFINE(ENABLE_KEYDEF_SCREEN, 1, [Enable key editor screen])
 fi
 
-AM_CONDITIONAL(ENABLE_KEYDEF_SCREEN, test x$keydef_screen = xyes)
+AM_CONDITIONAL(ENABLE_KEYDEF_SCREEN, test x$enable_key_screen = xyes)
 
 dnl Optional screen - lyrics
 AC_MSG_CHECKING([whether to include the lyrics screen]) 
 AC_ARG_ENABLE([lyrics-screen], 
               AC_HELP_STRING([--enable-lyrics-screen],
-	                     [Enable lyrics screen @<:@default=no@:>@]),
-	      [lyrics_screen="$enableval"],
-	      [lyrics_screen=no])	
-if test "x$lyrics_screen" = "xyes" ; then
+		[Enable lyrics screen @<:@default=no@:>@]),,
+	[enable_lyrics_screen=no])
+if test "x$enable_lyrics_screen" = "xyes" ; then
     AC_DEFINE(ENABLE_LYRICS_SCREEN, 1, [Enable lyrics screen])
 fi
 
-AM_CONDITIONAL(ENABLE_LYRICS_SCREEN, test x$lyrics_screen = xyes)
+AM_CONDITIONAL(ENABLE_LYRICS_SCREEN, test x$enable_lyrics_screen = xyes)
 
-AC_MSG_RESULT([$lyrics_screen])
+AC_MSG_RESULT([$enable_lyrics_screen])
 
 AC_ARG_WITH([lyrics-plugin-dir],
         AC_HELP_STRING([[--with-lyrics-plugin-dir[=DIRECTORY]]],
@@ -351,21 +337,20 @@ AC_DEFINE_UNQUOTED([LYRICS_PLUGIN_DIR], ["$lyrics_plugin_dir"],
                   [Directory to search for lyrics plugins])
 AC_SUBST(lyrics_plugin_dir)
 
-AM_CONDITIONAL(ENABLE_PLUGIN_LIBRARY, test x$lyrics_screen = xyes)
-AM_CONDITIONAL(ENABLE_SCREEN_TEXT, test x$lyrics_screen = xyes)
+AM_CONDITIONAL(ENABLE_PLUGIN_LIBRARY, test x$enable_lyrics_screen = xyes)
+AM_CONDITIONAL(ENABLE_SCREEN_TEXT, test x$enable_lyrics_screen = xyes)
 
 dnl Optional screen - outputs
 AC_MSG_CHECKING([whether to include the outputs screen])
 AC_ARG_ENABLE([outputs-screen],
 	AC_HELP_STRING([--enable-outputs-screen],
-		[Enable outputs screen @<:@default=yes@:>@]),
-	[outputs_screen=$enableval],
-	[outputs_screen=$disable_mini])
-if test "x$outputs_screen" = "xyes" ; then
+		[Enable outputs screen @<:@default=yes@:>@]),,
+	[enable_outputs_screen=$disable_mini])
+if test "x$enable_outputs_screen" = "xyes" ; then
 	AC_DEFINE(ENABLE_OUTPUTS_SCREEN, 1, [Enable outputs screen])
 fi
 
-AM_CONDITIONAL(ENABLE_OUTPUTS_SCREEN, test x$outputs_screen = xyes)
+AM_CONDITIONAL(ENABLE_OUTPUTS_SCREEN, test x$enable_outputs_screen = xyes)
 
 
 dnl
@@ -374,21 +359,19 @@ dnl
 
 AC_ARG_ENABLE(werror,
 	AS_HELP_STRING([--enable-werror],
-		[Treat warnings as errors (default: disabled)]),
-	ENABLE_WERROR=$enableval,
-	ENABLE_WERROR=no)
+		[Treat warnings as errors (default: disabled)]),,
+	enable_werror=no)
 
-if test "x$ENABLE_WERROR" = xyes; then
+if test "x$enable_werror" = xyes; then
 	AM_CFLAGS="$AM_CFLAGS -Werror"
 fi
 
 AC_ARG_ENABLE(debug,
 	AS_HELP_STRING([--enable-debug],
-		[Enable debugging (default: disabled)]),
-	ENABLE_DEBUG=$enableval,
-	ENABLE_DEBUG=no)
+		[Enable debugging (default: disabled)]),,
+	enable_debug=no)
 
-if test "x$ENABLE_DEBUG" = xno; then
+if test "x$enable_debug" = xno; then
 	AM_CFLAGS="$AM_CFLAGS -DNDEBUG"
 fi
 
