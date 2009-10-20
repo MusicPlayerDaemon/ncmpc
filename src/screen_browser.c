@@ -312,7 +312,7 @@ browser_handle_select(struct screen_browser *browser, struct mpdclient *c)
 {
 	struct list_window_range range;
 	struct filelist_entry *entry;
-	bool success;
+	bool success = false;
 
 	list_window_get_range(browser->lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {
