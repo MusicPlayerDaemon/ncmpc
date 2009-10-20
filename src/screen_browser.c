@@ -551,7 +551,7 @@ screen_browser_paint_callback(WINDOW *w, unsigned i,
 
 	case MPD_ENTITY_TYPE_SONG:
 		paint_song_row(w, y, width, selected, highlight,
-			       mpd_entity_get_song(entity));
+			       mpd_entity_get_song(entity), NULL);
 		break;
 
 	case MPD_ENTITY_TYPE_PLAYLIST:

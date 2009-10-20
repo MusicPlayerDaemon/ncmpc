@@ -29,6 +29,7 @@
 #endif
 
 struct mpd_song;
+struct hscroll;
 
 /**
  * Paints a song into a list window row.  The cursor must be set to
@@ -40,9 +41,11 @@ struct mpd_song;
  * @param selected true if the row is selected
  * @param highlight true if the row is highlighted
  * @param song the song object
+ * @param hscroll an optional hscroll object
  */
 void
 paint_song_row(WINDOW *w, unsigned y, unsigned width,
-	       bool selected, bool highlight, const struct mpd_song *song);
+	       bool selected, bool highlight, const struct mpd_song *song,
+	       struct hscroll *hscroll);
 
 #endif

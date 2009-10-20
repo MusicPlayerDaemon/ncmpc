@@ -42,8 +42,9 @@ status_bar_init(struct status_bar *p, unsigned width, int y, int x)
 	p->message_source_id = 0;
 
 #ifndef NCMPC_MINI
-	hscroll_reset(&p->hscroll);
-	p->scroll_source_id = 0;
+	if (options.scroll)
+		hscroll_init(&p->hscroll, p->window.w, options.scroll_sep);
+
 	p->prev_status = NULL;
 	p->prev_song = NULL;
 #endif
@@ -54,24 +55,11 @@ status_bar_deinit(struct status_bar *p)
 {
 	delwin(p->window.w);
 
-	if (p->message_source_id != 0)
-		g_source_remove(p->message_source_id);
-}
-
 #ifndef NCMPC_MINI
-static gboolean
-scroll_timer_callback(gpointer data)
-{
-	struct status_bar *p = data;
-
-	p->scroll_source_id = 0;
-
-	hscroll_step(&p->hscroll);
-	status_bar_paint(p, p->prev_status, p->prev_song);
-	doupdate();
-	return false;
-}
+	if (options.scroll)
+		hscroll_clear(&p->hscroll);
 #endif
+}
 
 static gboolean
 status_bar_clear_message(gpointer data)
@@ -214,28 +202,19 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
 		if (options.scroll && utf8_width(songname) > (unsigned)width) {
-			char *tmp = strscroll(&p->hscroll, songname,
-					      options.scroll_sep, width);
-
-			g_strlcpy(songname, tmp, sizeof(songname));
-			g_free(tmp);
-
-			if (p->scroll_source_id == 0)
-				p->scroll_source_id =
-					g_timeout_add(1000,
-						      scroll_timer_callback,
-						      p);
-		} else if (p->scroll_source_id != 0) {
-			g_source_remove(p->scroll_source_id);
-			p->scroll_source_id = 0;
+			hscroll_set(&p->hscroll, x, 0, width, songname);
+			hscroll_draw(&p->hscroll);
+		} else {
+			if (options.scroll)
+				hscroll_clear(&p->hscroll);
+			mvwaddstr(w, 0, x, songname);
 		}
-#endif
-		//mvwaddnstr(w, 0, x, songname, width);
+#else
 		mvwaddstr(w, 0, x, songname);
+#endif
 #ifndef NCMPC_MINI
-	} else if (p->scroll_source_id != 0) {
-		g_source_remove(p->scroll_source_id);
-		p->scroll_source_id = 0;
+	} else if (options.scroll) {
+		hscroll_clear(&p->hscroll);
 #endif
 	}
 
@@ -261,6 +240,11 @@ void
 status_bar_message(struct status_bar *p, const char *msg)
 {
 	WINDOW *w = p->window.w;
+
+#ifndef NCMPC_MINI
+	if (options.scroll)
+		hscroll_clear(&p->hscroll);
+#endif
 
 	wmove(w, 0, 0);
 	wclrtoeol(w);

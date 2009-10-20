@@ -21,6 +21,8 @@
 #include "paint.h"
 #include "strfsong.h"
 #include "utils.h"
+#include "hscroll.h"
+#include "charset.h"
 #include "config.h"
 
 #include <mpd/client.h>
@@ -31,7 +33,8 @@
 
 void
 paint_song_row(WINDOW *w, G_GNUC_UNUSED unsigned y, unsigned width,
-	       bool selected, bool highlight, const struct mpd_song *song)
+	       bool selected, bool highlight, const struct mpd_song *song,
+	       G_GNUC_UNUSED struct hscroll *hscroll)
 {
 	char buffer[width * 4];
 
@@ -44,9 +47,15 @@ paint_song_row(WINDOW *w, G_GNUC_UNUSED unsigned y, unsigned width,
 		char duration[32];
 		format_duration_short(duration, sizeof(duration),
 				      mpd_song_get_duration(song));
-		wmove(w, y, width - strlen(duration) - 1);
+		width -= strlen(duration) + 1;
+		wmove(w, y, width);
 		waddch(w, ' ');
 		waddstr(w, duration);
+	}
+
+	if (hscroll != NULL && utf8_width(buffer) >= width) {
+		hscroll_set(hscroll, 0, y, width, buffer);
+		hscroll_draw(hscroll);
 	}
 #endif
 }

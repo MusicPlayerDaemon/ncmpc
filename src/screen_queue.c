@@ -56,10 +56,7 @@ typedef struct
 	struct mpdclient *c;
 } completion_callback_data_t;
 
-/*
 static struct hscroll hscroll;
-static guint scroll_source_id;
-*/
 #endif
 
 static struct mpdclient_playlist *playlist;
@@ -120,20 +117,6 @@ screen_queue_restore_selection(void)
 	screen_queue_save_selection();
 }
 
-/*
-#ifndef NCMPC_MINI
-static gboolean
-scroll_timer_callback(G_GNUC_UNUSED gpointer data)
-{
-	scroll_source_id = 0;
-
-	hscroll_step(&hscroll);
-	screen_queue_repaint();
-	return false;
-}
-#endif
-*/
-
 static const char *
 screen_queue_lw_callback(unsigned idx, G_GNUC_UNUSED void *data)
 {
@@ -146,41 +129,6 @@ screen_queue_lw_callback(unsigned idx, G_GNUC_UNUSED void *data)
 	song = playlist_get(playlist, idx);
 
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, song);
-
-	/*
-#ifndef NCMPC_MINI
-	if (idx == lw->selected)
-	{
-		if (options.scroll && utf8_width(songname) > (unsigned)COLS) {
-			static unsigned current_song;
-			char *tmp;
-
-			if (current_song != lw->selected) {
-				hscroll_reset(&hscroll);
-				current_song = lw->selected;
-			}
-
-			tmp = strscroll(&hscroll, songname, options.scroll_sep,
-					MAX_SONG_LENGTH);
-			g_strlcpy(songname, tmp, MAX_SONG_LENGTH);
-			g_free(tmp);
-
-			if (scroll_source_id == 0)
-				scroll_source_id =
-					g_timeout_add(1000,
-						      scroll_timer_callback,
-						      NULL);
-		} else {
-			hscroll_reset(&hscroll);
-
-			if (scroll_source_id != 0) {
-				g_source_remove(scroll_source_id);
-				scroll_source_id = 0;
-			}
-		}
-	}
-#endif
-	*/
 
 	return songname;
 }
@@ -463,6 +411,11 @@ static void
 screen_queue_init(WINDOW *w, int cols, int rows)
 {
 	lw = list_window_init(w, cols, rows);
+
+#ifndef NCMPC_MINI
+	if (options.scroll)
+		hscroll_init(&hscroll, w, options.scroll_sep);
+#endif
 }
 
 static gboolean
@@ -510,6 +463,11 @@ screen_queue_close(void)
 		g_source_remove(timer_hide_cursor_id);
 		timer_hide_cursor_id = 0;
 	}
+
+#ifndef NCMPC_MINI
+	if (options.scroll)
+		hscroll_clear(&hscroll);
+#endif
 }
 
 static void
@@ -541,20 +499,33 @@ screen_queue_paint_callback(WINDOW *w, unsigned i,
 			    bool selected, G_GNUC_UNUSED void *data)
 {
 	const struct mpd_song *song;
+	struct hscroll *row_hscroll;
 
 	assert(playlist != NULL);
 	assert(i < playlist_length(playlist));
 
 	song = playlist_get(playlist, i);
 
+#ifdef NCMPC_MINI
+	row_hscroll = NULL;
+#else
+	row_hscroll = selected && options.scroll && lw->selected == i
+		? &hscroll : NULL;
+#endif
+
 	paint_song_row(w, y, width, selected,
 		       (int)mpd_song_get_id(song) == current_song_id,
-		       song);
+		       song, row_hscroll);
 }
 
 static void
 screen_queue_paint(void)
 {
+#ifndef NCMPC_MINI
+	if (options.scroll)
+		hscroll_clear(&hscroll);
+#endif
+
 	list_window_paint2(lw, screen_queue_paint_callback, NULL);
 }
 

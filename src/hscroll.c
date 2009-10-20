@@ -49,3 +49,86 @@ strscroll(struct hscroll *hscroll, const char *str, const char *separator,
 	g_free(tmp);
 	return buf;
 }
+
+/**
+ * This timer scrolls the area by one and redraws.
+ */
+static gboolean
+hscroll_timer_callback(gpointer data)
+{
+	struct hscroll *hscroll = data;
+
+	hscroll_step(hscroll);
+	hscroll_draw(hscroll);
+	wrefresh(hscroll->w);
+	return true;
+}
+
+void
+hscroll_set(struct hscroll *hscroll, unsigned x, unsigned y, unsigned width,
+	    const char *text)
+{
+	assert(hscroll != NULL);
+	assert(hscroll->w != NULL);
+	assert(text != NULL);
+
+	if (hscroll->text != NULL && hscroll->x == x && hscroll->y == y &&
+	    hscroll->width == width && strcmp(hscroll->text, text) == 0)
+		/* no change, do nothing (and, most importantly, do
+		   not reset the current offset!) */
+		return;
+
+	hscroll_clear(hscroll);
+
+	hscroll->x = x;
+	hscroll->y = y;
+	hscroll->width = width;
+
+	/* obtain the ncurses attributes and the current color, store
+	   them */
+	wattr_get(hscroll->w, &hscroll->attrs, &hscroll->pair, NULL);
+
+	hscroll->text = g_strdup(text);
+	hscroll->offset = 0;
+	hscroll->source_id = g_timeout_add_seconds(1, hscroll_timer_callback,
+						   hscroll);
+}
+
+void
+hscroll_clear(struct hscroll *hscroll)
+{
+	assert(hscroll != NULL);
+
+	if (hscroll->text == NULL)
+		return;
+
+	g_source_remove(hscroll->source_id);
+
+	g_free(hscroll->text);
+	hscroll->text = NULL;
+}
+
+void
+hscroll_draw(struct hscroll *hscroll)
+{
+	attr_t old_attrs;
+	short old_pair;
+	char *p;
+
+	assert(hscroll != NULL);
+	assert(hscroll->w != NULL);
+	assert(hscroll->text != NULL);
+
+	/* set stored attributes and color */
+	wattr_get(hscroll->w, &old_attrs, &old_pair, NULL);
+	wattr_set(hscroll->w, hscroll->attrs, hscroll->pair, NULL);
+
+	/* scroll the string, and draw it */
+	p = strscroll(hscroll, hscroll->text, hscroll->separator,
+		      hscroll->width);
+	mvwaddstr(hscroll->w, hscroll->y, hscroll->x, p);
+	g_free(p);
+
+	/* restore previous attributes and color */
+	wattr_set(hscroll->w, old_attrs, old_pair, NULL);
+}
