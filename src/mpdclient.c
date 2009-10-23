@@ -177,7 +177,6 @@ bool
 mpdclient_update(struct mpdclient *c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
-	bool retval;
 
 	c->volume = -1;
 
@@ -216,6 +215,8 @@ mpdclient_update(struct mpdclient *c)
 
 	/* check if the playlist needs an update */
 	if (c->playlist.version != mpd_status_get_queue_version(c->status)) {
+		bool retval;
+
 		if (c->source == NULL)
 			c->events |= MPD_IDLE_PLAYLIST;
 
@@ -223,8 +224,9 @@ mpdclient_update(struct mpdclient *c)
 			retval = mpdclient_playlist_update_changes(c);
 		else
 			retval = mpdclient_playlist_update(c);
-	} else
-		retval = true;
+		if (!retval)
+			return false;
+	}
 
 	/* update the current song */
 	if (!c->song || mpd_status_get_song_id(c->status)) {
@@ -232,7 +234,7 @@ mpdclient_update(struct mpdclient *c)
 					    mpd_status_get_song_pos(c->status));
 	}
 
-	return retval;
+	return true;
 }
 
 struct mpd_connection *
