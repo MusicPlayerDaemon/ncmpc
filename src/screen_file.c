@@ -282,6 +282,9 @@ static void
 screen_file_open(struct mpdclient *c)
 {
 	screen_file_reload(c);
+#ifndef NCMPC_MINI
+	screen_browser_sync_highlights(browser.filelist, &c->playlist);
+#endif
 }
 
 static const char *
