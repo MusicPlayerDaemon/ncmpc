@@ -97,9 +97,7 @@ change_directory(struct mpdclient *c, const char *new_path)
 
 	screen_file_reload(c);
 
-#ifndef NCMPC_MINI
 	screen_browser_sync_highlights(browser.filelist, &c->playlist);
-#endif
 
 	list_window_reset(browser.lw);
 
@@ -282,9 +280,7 @@ static void
 screen_file_open(struct mpdclient *c)
 {
 	screen_file_reload(c);
-#ifndef NCMPC_MINI
 	screen_browser_sync_highlights(browser.filelist, &c->playlist);
-#endif
 }
 
 static const char *
@@ -325,18 +321,14 @@ screen_file_update(struct mpdclient *c)
 		screen_file_reload(c);
 	}
 
-#ifndef NCMPC_MINI
-	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST |
-			 MPD_IDLE_PLAYLIST))
-		screen_browser_sync_highlights(browser.filelist, &c->playlist);
-#endif
-
 	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST
 #ifndef NCMPC_MINI
 			 | MPD_IDLE_PLAYLIST
 #endif
-			 ))
+			 )) {
+		screen_browser_sync_highlights(browser.filelist, &c->playlist);
 		screen_file_repaint();
+	}
 }
 
 static bool
@@ -368,9 +360,7 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 
 	case CMD_SCREEN_UPDATE:
 		screen_file_reload(c);
-#ifndef NCMPC_MINI
 		screen_browser_sync_highlights(browser.filelist, &c->playlist);
-#endif
 		screen_file_repaint();
 		return false;
 

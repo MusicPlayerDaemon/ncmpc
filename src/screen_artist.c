@@ -234,10 +234,8 @@ load_song_list(struct mpdclient *c)
 			mpdclient_handle_error(c);
 	}
 
-#ifndef NCMPC_MINI
 	/* fix highlights */
 	screen_browser_sync_highlights(browser.filelist, &c->playlist);
-#endif
 	list_window_set_length(browser.lw, filelist_length(browser.filelist));
 }
 
@@ -396,10 +394,8 @@ screen_artist_update(struct mpdclient *c)
 		/* the db has changed -> update the list */
 		reload_lists(c);
 
-#ifndef NCMPC_MINI
 	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_PLAYLIST))
 		screen_browser_sync_highlights(browser.filelist, &c->playlist);
-#endif
 
 	if (c->events & (MPD_IDLE_DATABASE
 #ifndef NCMPC_MINI
