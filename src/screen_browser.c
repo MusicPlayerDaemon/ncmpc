@@ -560,9 +560,6 @@ screen_browser_paint_callback(WINDOW *w, unsigned i,
 		row_paint_text(w, width, highlight ? COLOR_LIST_BOLD : COLOR_LIST,
 			       selected, "<unknown>");
 	}
-
-	if (selected)
-		wattroff(w, A_REVERSE);
 }
 
 void
