@@ -301,10 +301,8 @@ check_screen_list(char *value)
 {
 	char **tmp = g_strsplit_set(value, " \t,", 100);
 	char **screen = NULL;
-	int i,j;
+	int i = 0, j = 0;
 
-	i=0;
-	j=0;
 	while( tmp && tmp[i] ) {
 		char *name = g_ascii_strdown(tmp[i], -1);
 		if (*name != '\0') {
@@ -372,13 +370,12 @@ get_search_mode(char *value)
 static bool
 parse_line(char *line)
 {
-	size_t len = strlen(line), i = 0, j;
+	size_t len = strlen(line), i = 0, j = 0;
 	char name[MAX_LINE_LENGTH];
 	char value[MAX_LINE_LENGTH];
 	bool match_found;
 
 	/* get the name part */
-	j = 0;
 	while (i < len && line[i] != '=' &&
 	       !g_ascii_isspace(line[i])) {
 		name[j++] = line[i++];
