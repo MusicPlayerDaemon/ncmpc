@@ -194,7 +194,7 @@ static command_definition_t cmds[] = {
 	  N_("Next screen") },
 	{ { STAB, 0, 0 }, 0, CMD_SCREEN_PREVIOUS, "screen-prev",
 	  N_("Previous screen") },
-    { { '`', 0, 0 }, 0, CMD_SCREEN_SWAP, "screen-swap",
+	{ { '`', 0, 0 }, 0, CMD_SCREEN_SWAP, "screen-swap",
 	  N_("Swap to most recent screen") },
 
 
@@ -355,28 +355,28 @@ set_key_flags(command_definition_t *cp, command_t command, int flags)
 const char *
 get_key_names(command_t command, int all)
 {
-  int i;
+	int i;
 
-  i=0;
-  while (cmds[i].description) {
-	  if (cmds[i].command == command) {
-		  int j;
-		  static char keystr[80];
+	i=0;
+	while (cmds[i].description) {
+		if (cmds[i].command == command) {
+			int j;
+			static char keystr[80];
 
-		  g_strlcpy(keystr, key2str(cmds[i].keys[0]), sizeof(keystr));
-		  if (!all)
-			  return keystr;
-		  j=1;
-		  while (j < MAX_COMMAND_KEYS && cmds[i].keys[j] > 0) {
-			  g_strlcat(keystr, " ", sizeof(keystr));
-			  g_strlcat(keystr, key2str(cmds[i].keys[j]), sizeof(keystr));
-			  j++;
-		  }
-		  return keystr;
-	  }
-	  i++;
-  }
-  return NULL;
+			g_strlcpy(keystr, key2str(cmds[i].keys[0]), sizeof(keystr));
+			if (!all)
+				return keystr;
+			j=1;
+			while (j < MAX_COMMAND_KEYS && cmds[i].keys[j] > 0) {
+				g_strlcat(keystr, " ", sizeof(keystr));
+				g_strlcat(keystr, key2str(cmds[i].keys[j]), sizeof(keystr));
+				j++;
+			}
+			return keystr;
+		}
+		i++;
+	}
+	return NULL;
 }
 
 const char *
