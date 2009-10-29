@@ -358,8 +358,8 @@ screen_song_update(struct mpdclient *c)
 	}
 
 	if (c->song != NULL && c->status != NULL &&
-	    (mpd_status_get_state(c->status) != MPD_STATE_PLAY &&
-	     mpd_status_get_state(c->status) != MPD_STATE_PAUSE)) {
+	    (mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
+	     mpd_status_get_state(c->status) == MPD_STATE_PAUSE)) {
 		if (current.played_song != NULL) {
 			mpd_song_free(current.played_song);
 		}
