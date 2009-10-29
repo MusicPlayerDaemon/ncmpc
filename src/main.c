@@ -126,9 +126,9 @@ catch_sigcont(G_GNUC_UNUSED int sig)
 void
 sigstop(void)
 {
-  def_prog_mode();  /* save the tty modes */
-  endwin();         /* end curses mode temporarily */
-  kill(0, SIGSTOP); /* issue SIGSTOP */
+	def_prog_mode();  /* save the tty modes */
+	endwin();         /* end curses mode temporarily */
+	kill(0, SIGSTOP); /* issue SIGSTOP */
 }
 
 static guint timer_sigwinch_id;
