@@ -398,9 +398,6 @@ list_window_paint2(const struct list_window *lw,
 
 		paint_callback(lw->w, lw->start + i, i, lw->cols,
 			       selected, callback_data);
-
-		if (selected)
-			wattroff(lw->w, A_REVERSE);
 	}
 
 	if (options.hardware_cursor && lw->selected >= lw->start &&
