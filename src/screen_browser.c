@@ -562,10 +562,9 @@ screen_browser_paint_callback(WINDOW *w, unsigned i,
 		break;
 
 	default:
-		waddstr(w, "<unknown>");
+		row_paint_text(w, width, highlight ? COLOR_LIST_BOLD : COLOR_LIST,
+			       selected, "<unknown>");
 	}
-
-	whline(w, ' ', width);
 
 	if (selected)
 		wattroff(w, A_REVERSE);
