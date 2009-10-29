@@ -41,7 +41,7 @@ extern wrln_gcmp_pre_cb_t wrln_pre_completion_callback;
 
 /* post completion callback */
 typedef void (*wrln_gcmp_post_cb_t) (GCompletion *gcmp, gchar *s, GList *l,
-                                     void *data);
+				     void *data);
 extern wrln_gcmp_post_cb_t wrln_post_completion_callback;
 
 #endif
