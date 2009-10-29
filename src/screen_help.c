@@ -56,7 +56,7 @@ static const struct help_text_row help_text[] = {
 
 	{ 0, CMD_SCREEN_PREVIOUS,NULL },
 	{ 0, CMD_SCREEN_NEXT, NULL },
-    { 0, CMD_SCREEN_SWAP, NULL },
+	{ 0, CMD_SCREEN_SWAP, NULL },
 	{ 0, CMD_SCREEN_HELP, NULL },
 	{ 0, CMD_SCREEN_PLAY, NULL },
 	{ 0, CMD_SCREEN_FILE, NULL },
@@ -202,7 +202,7 @@ list_callback(unsigned i, G_GNUC_UNUSED void *data)
 static void
 help_init(WINDOW *w, int cols, int rows)
 {
-  lw = list_window_init(w, cols, rows);
+	lw = list_window_init(w, cols, rows);
 	lw->hide_cursor = true;
 	list_window_set_length(lw, G_N_ELEMENTS(help_text));
 }
@@ -216,7 +216,7 @@ help_resize(int cols, int rows)
 static void
 help_exit(void)
 {
-  list_window_free(lw);
+	list_window_free(lw);
 }
 
 
