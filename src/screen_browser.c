@@ -536,11 +536,6 @@ screen_browser_paint_callback(WINDOW *w, unsigned i,
 	highlight = false;
 #endif
 
-	if (highlight)
-		colors_use(w, COLOR_LIST_BOLD);
-	else
-		colors_use(w, COLOR_LIST);
-
 	switch (mpd_entity_get_type(entity)) {
 	case MPD_ENTITY_TYPE_DIRECTORY:
 		directory = mpd_entity_get_directory(entity);
