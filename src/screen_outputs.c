@@ -104,7 +104,11 @@ clear_outputs_list(void)
 
 	g_ptr_array_foreach(mpd_outputs, clear_output_element, NULL);
 	g_ptr_array_remove_range(mpd_outputs, 0, mpd_outputs->len);
-	list_window_set_length(lw, 0);
+
+	/* not updating the list_window length here, because that
+	   would clear the cursor position, and fill_outputs_list()
+	   will be called after this function anyway */
+	/* list_window_set_length(lw, 0); */
 }
 
 static void
