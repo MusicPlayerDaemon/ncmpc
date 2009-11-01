@@ -23,6 +23,7 @@
 
 require 'uri'
 require 'net/http'
+require 'cgi'
 
 url = "http://lyrics.wikia.com/api.php?action=lyrics&fmt=xml&func=getSong" + \
     "&artist=#{URI.escape(ARGV[0])}&song=#{URI.escape(ARGV[1])}"
@@ -47,4 +48,4 @@ if not $1 =~ /^.*<\/div>(.*?)$/im
 	exit(1)
 end
 
-puts $1.gsub(/<br \/>/, "\n")
+puts CGI::unescapeHTML($1.gsub(/<br \/>/, "\n"))
