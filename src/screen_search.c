@@ -83,7 +83,7 @@ static search_type_t mode[] = {
 	{ MPD_TAG_TITLE, N_("Title") },
 	{ MPD_TAG_ARTIST, N_("Artist") },
 	{ MPD_TAG_ALBUM, N_("Album") },
-	{ SEARCH_URI, N_("file") },
+	{ SEARCH_URI, N_("Filename") },
 	{ SEARCH_ARTIST_TITLE, N_("Artist + Title") },
 	{ 0, NULL }
 };
