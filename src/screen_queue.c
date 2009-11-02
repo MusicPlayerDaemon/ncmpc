@@ -134,12 +134,17 @@ screen_queue_lw_callback(unsigned idx, G_GNUC_UNUSED void *data)
 }
 
 static void
-center_playing_item(struct mpdclient *c, bool center_cursor)
+center_playing_item(const struct mpd_status *status, bool center_cursor)
 {
 	int idx;
 
+	if (status == NULL ||
+	    (mpd_status_get_state(status) != MPD_STATE_PLAY &&
+	     mpd_status_get_state(status) != MPD_STATE_PAUSE))
+		return;
+
 	/* try to center the song that are playing */
-	idx = playlist_get_index(&c->playlist, c->song);
+	idx = mpd_status_get_song_pos(status);
 	if (idx < 0)
 		return;
 
@@ -538,8 +543,8 @@ screen_queue_update(struct mpdclient *c)
 		current_song_id = get_current_song_id(c->status);
 
 		/* center the cursor */
-		if (options.auto_center && current_song_id != -1 && ! lw->range_selection)
-			center_playing_item(c, false);
+		if (options.auto_center && !lw->range_selection)
+			center_playing_item(c->status, false);
 
 		screen_queue_repaint();
 	} else if (c->events & MPD_IDLE_PLAYLIST) {
@@ -627,7 +632,7 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 
 	switch(cmd) {
 	case CMD_SCREEN_UPDATE:
-		center_playing_item(c, prev_cmd == CMD_SCREEN_UPDATE);
+		center_playing_item(c->status, prev_cmd == CMD_SCREEN_UPDATE);
 		screen_queue_repaint();
 		return false;
 	case CMD_SELECT_PLAYING:
