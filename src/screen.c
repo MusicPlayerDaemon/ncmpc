@@ -158,12 +158,12 @@ update_progress_window(struct mpdclient *c, bool repaint)
 {
 	unsigned elapsed, duration;
 
-	if (c->song != NULL && seek_id == (int)mpd_song_get_id(c->song))
-		elapsed = seek_target_time;
-	else if (c->status != NULL)
-		elapsed = mpd_status_get_elapsed_time(c->status);
-	else
+	if (c->status == NULL)
 		elapsed = 0;
+	else if (seek_id >= 0 && seek_id == mpd_status_get_song_id(c->status))
+		elapsed = seek_target_time;
+	else
+		elapsed = mpd_status_get_elapsed_time(c->status);
 
 	duration = mpdclient_is_playing(c)
 		? mpd_status_get_total_time(c->status)

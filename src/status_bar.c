@@ -134,8 +134,8 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 			char elapsed_string[32], duration_string[32];
 
 			/*checks the conf to see whether to display elapsed or remaining time */
-			if (song != NULL &&
-			    seek_id == (int)mpd_song_get_id(song))
+			if (seek_id >= 0 &&
+			    seek_id == mpd_status_get_song_id(status))
 				elapsedTime = seek_target_time;
 			else if (options.display_remaining_time)
 				elapsedTime = total_time -

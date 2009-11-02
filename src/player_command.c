@@ -85,14 +85,11 @@ cancel_seek_timer(void)
 static bool
 setup_seek(struct mpdclient *c)
 {
-	const struct mpd_song *song;
-
-	song = mpdclient_get_current_song(c);
-	if (song == NULL)
+	if (!mpdclient_is_playing(c))
 		return false;
 
-	if (seek_id != (int)mpd_song_get_id(song)) {
-		seek_id = mpd_song_get_id(song);
+	if (seek_id != (int)mpd_status_get_song_id(c->status)) {
+		seek_id = mpd_status_get_song_id(c->status);
 		seek_target_time = mpd_status_get_elapsed_time(c->status);
 	}
 
