@@ -158,14 +158,14 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 		if (i == 0) {
 			entry_iter = entry + g_sprintf(entry, "%s: ", label);
 			/* fill the label column with whitespaces */
-			for ( ; entry_iter < entry + label_size; ++entry_iter)
-				*entry_iter = ' ';
+			memset(entry_iter, ' ',
+			       entry + label_size - entry_iter);
+			entry_iter = entry + label_size;
 		}
 		else {
-			entry_iter = entry;
 			/* fill the label column with whitespaces */
-			for ( ; entry_iter < entry + label_col; ++entry_iter)
-				*entry_iter = ' ';
+			memset(entry, ' ', label_col);
+			entry_iter = entry + label_col;
 		}
 		/* skip whitespaces */
 		while (g_ascii_isspace(*value_iter)) ++value_iter;
