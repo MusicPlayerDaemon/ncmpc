@@ -134,10 +134,11 @@ screen_song_paint(void)
 static void
 screen_song_append(const char *label, const char *value, unsigned label_col)
 {
-	int value_col, linebreaks, entry_size, label_size;
-	int i, k;
+	int value_col, entry_size, label_size;
 	gchar *entry, *entry_iter;
 	const gchar *value_iter;
+	char *p;
+	unsigned width;
 
 	assert(label != NULL);
 	assert(g_utf8_validate(label, -1, NULL));
@@ -148,14 +149,13 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 	label_col += 2;
 	value_col = lw->cols - label_col;
 	/* calculate the number of required linebreaks */
-	linebreaks = (utf8_width(value) - 1) / value_col + 1;
 	value_iter = value;
 	label_size = strlen(label) + label_col - utf8_width(label);
 	entry_size = label_size + strlen(value) + 2;
 
-	for (i = 0; i < linebreaks; ++i) {
+	while (*value_iter != 0) {
 		entry = g_malloc(entry_size);
-		if (i == 0) {
+		if (value_iter == value) {
 			entry_iter = entry + g_sprintf(entry, "%s: ", label);
 			/* fill the label column with whitespaces */
 			memset(entry_iter, ' ',
@@ -169,14 +169,17 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 		}
 		/* skip whitespaces */
 		while (g_ascii_isspace(*value_iter)) ++value_iter;
-		k = 0;
-		while (value_iter && k < value_col) {
-			g_utf8_strncpy(entry_iter, value_iter, 1);
-			value_iter = g_utf8_find_next_char(value_iter, NULL);
-			entry_iter = g_utf8_find_next_char(entry_iter, NULL);
-			++k;
-		}
-		*entry_iter = '\0';
+
+		p = g_strdup(value_iter);
+		width = utf8_cut_width(p, value_col);
+		if (width == 0)
+			/* not enough room for anything - bail out */
+			break;
+
+		value_iter += strlen(p);
+		strcpy(entry_iter, p);
+		g_free(p);
+
 		g_ptr_array_add(current.lines, entry);
 	}
 }
