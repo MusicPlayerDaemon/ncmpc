@@ -39,6 +39,13 @@ unsigned
 utf8_width(const char *str);
 
 /**
+ * Returns the number of terminal cells occupied by this string.
+ */
+G_GNUC_PURE
+unsigned
+locale_width(const char *p);
+
+/**
  * Limits the width of the specified string.  Cuts it off before the
  * specified width is exceeded.
  *

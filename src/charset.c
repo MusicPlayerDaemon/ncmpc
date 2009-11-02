@@ -62,6 +62,26 @@ utf8_width(const char *str)
 #endif
 }
 
+unsigned
+locale_width(const char *p)
+{
+#if defined(ENABLE_LOCALE) && defined(ENABLE_MULTIBYTE)
+	char *utf8;
+	unsigned width;
+
+	if (noconvert)
+		return utf8_width(p);
+
+	utf8 = locale_to_utf8(p);
+	width = utf8_width(utf8);
+	g_free(utf8);
+
+	return width;
+#else
+	return strlen(str);
+#endif
+}
+
 static inline unsigned
 ascii_cut_width(char *p, unsigned max_width)
 {
