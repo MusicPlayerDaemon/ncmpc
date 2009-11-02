@@ -34,6 +34,50 @@
 #include <assert.h>
 #include <string.h>
 
+enum {
+	LABEL_LENGTH = MPD_TAG_COUNT,
+	LABEL_BITRATE,
+};
+
+static const char *const tag_labels[] = {
+	[MPD_TAG_ARTIST] = N_("Artist"),
+	[MPD_TAG_TITLE] = N_("Title"),
+	[MPD_TAG_ALBUM] = N_("Album"),
+	[LABEL_LENGTH] = N_("Length"),
+	[MPD_TAG_COMPOSER] = N_("Composer"),
+	[MPD_TAG_NAME] = N_("Name"),
+	[MPD_TAG_DISC] = N_("Disc"),
+	[MPD_TAG_TRACK] = N_("Track"),
+	[MPD_TAG_DATE] = N_("Date"),
+	[MPD_TAG_GENRE] = N_("Genre"),
+	[MPD_TAG_COMMENT] = N_("Comment"),
+	[LABEL_BITRATE] = N_("Bitrate"),
+};
+
+static unsigned max_tag_label_width;
+
+enum stats_label {
+	STATS_ARTISTS,
+	STATS_ALBUMS,
+	STATS_SONGS,
+	STATS_UPTIME,
+	STATS_DBUPTIME,
+	STATS_PLAYTIME,
+	STATS_DBPLAYTIME,
+};
+
+static const char *const stats_labels[] = {
+	[STATS_ARTISTS] = N_("Number of artists"),
+	[STATS_ALBUMS] = N_("Number of albums"),
+	[STATS_SONGS] = N_("Number of songs"),
+	[STATS_UPTIME] = N_("Uptime"),
+	[STATS_DBUPTIME] = N_("Most recent db update"),
+	[STATS_PLAYTIME] = N_("Playtime"),
+	[STATS_DBPLAYTIME] = N_("DB playtime"),
+};
+
+static unsigned max_stats_label_width;
+
 static struct list_window *lw;
 
 static struct mpd_song *next_song;
@@ -87,6 +131,24 @@ screen_song_list_callback(unsigned idx, G_GNUC_UNUSED void *data)
 static void
 screen_song_init(WINDOW *w, int cols, int rows)
 {
+	for (unsigned i = 0; i < G_N_ELEMENTS(tag_labels); ++i) {
+		if (tag_labels[i] != NULL) {
+			unsigned width = utf8_width(_(tag_labels[i]));
+
+			if (width > max_tag_label_width)
+				max_tag_label_width = width;
+		}
+	}
+
+	for (unsigned i = 0; i < G_N_ELEMENTS(stats_labels); ++i) {
+		if (stats_labels[i] != NULL) {
+			unsigned width = utf8_width(_(stats_labels[i]));
+
+			if (width > max_stats_label_width)
+				max_stats_label_width = width;
+		}
+	}
+
 	/* We will need at least 10 lines, so this saves 10 reallocations :) */
 	current.lines = g_ptr_array_sized_new(10);
 	lw = list_window_init(w, cols, rows);
@@ -180,141 +242,102 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 }
 
 static void
-screen_song_append_tag(const char *label, const struct mpd_song *song,
-		       enum mpd_tag_type tag, unsigned label_col)
+screen_song_append_tag(const struct mpd_song *song, enum mpd_tag_type tag)
 {
+	const char *label = _(tag_labels[tag]);
 	unsigned i = 0;
 	const char *value;
 
+	assert((unsigned)tag < G_N_ELEMENTS(tag_labels));
+	assert(label != NULL);
+
 	while ((value = mpd_song_get_tag(song, tag, i++)) != NULL)
-		screen_song_append(label, value, label_col);
+		screen_song_append(label, value, max_tag_label_width);
 }
 
 static void
 screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 {
-	unsigned i, max_label_width;
-	enum label {
-		ARTIST, TITLE, ALBUM, LENGTH, COMPOSER, NAME, DISC, TRACK,
-		DATE, GENRE, COMMENT, BITRATE
-	};
-	const char *labels[] = { [ARTIST] = _("Artist"),
-		[TITLE] = _("Title"),
-		[ALBUM] = _("Album"),
-		[LENGTH] = _("Length"),
-		[COMPOSER] = _("Composer"),
-		[NAME] = _("Name"),
-		[DISC] = _("Disc"),
-		[TRACK] = _("Track"),
-		[DATE] = _("Date"),
-		[GENRE] = _("Genre"),
-		[COMMENT] = _("Comment"),
-		[BITRATE] = _("Bitrate"),
-	};
-	/* Determine the width of the longest label */
-	max_label_width = utf8_width(labels[0]);
-	for (i = 1; i < G_N_ELEMENTS(labels); ++i) {
-		if (utf8_width(labels[i]) > max_label_width)
-			max_label_width = utf8_width(labels[i]);
-	}
-
 	assert(song != NULL);
 
-	screen_song_append_tag(labels[ARTIST], song, MPD_TAG_ARTIST,
-			       max_label_width);
-	screen_song_append_tag(labels[TITLE], song, MPD_TAG_TITLE,
-			       max_label_width);
-	screen_song_append_tag(labels[ALBUM], song, MPD_TAG_ALBUM,
-			       max_label_width);
+	screen_song_append_tag(song, MPD_TAG_ARTIST);
+	screen_song_append_tag(song, MPD_TAG_TITLE);
+	screen_song_append_tag(song, MPD_TAG_ALBUM);
+
 	/* create time string and add it */
 	if (mpd_song_get_duration(song) > 0) {
 		char length[16];
 		format_duration_short(length, sizeof(length),
 				      mpd_song_get_duration(song));
-		screen_song_append(labels[LENGTH], length, max_label_width);
+		screen_song_append(_(tag_labels[LABEL_LENGTH]), length,
+				   max_tag_label_width);
 	}
-	screen_song_append_tag(labels[COMPOSER], song, MPD_TAG_COMPOSER,
-			       max_label_width);
-	screen_song_append_tag(labels[NAME], song, MPD_TAG_NAME,
-			       max_label_width);
-	screen_song_append_tag(labels[DISC], song, MPD_TAG_DISC,
-			       max_label_width);
-	screen_song_append_tag(labels[TRACK], song, MPD_TAG_TRACK,
-			       max_label_width);
-	screen_song_append_tag(labels[DATE], song, MPD_TAG_DATE,
-			       max_label_width);
-	screen_song_append_tag(labels[GENRE], song, MPD_TAG_GENRE,
-			       max_label_width);
-	screen_song_append_tag(labels[COMMENT], song, MPD_TAG_COMMENT,
-			       max_label_width);
-	screen_song_append(_("Path"), mpd_song_get_uri(song), max_label_width);
+
+	screen_song_append_tag(song, MPD_TAG_COMPOSER);
+	screen_song_append_tag(song, MPD_TAG_NAME);
+	screen_song_append_tag(song, MPD_TAG_DISC);
+	screen_song_append_tag(song, MPD_TAG_TRACK);
+	screen_song_append_tag(song, MPD_TAG_DATE);
+	screen_song_append_tag(song, MPD_TAG_GENRE);
+	screen_song_append_tag(song, MPD_TAG_COMMENT);
+
+	screen_song_append(_("Path"), mpd_song_get_uri(song),
+			   max_tag_label_width);
 	if (mpdclient_is_playing(c) && c->song != NULL &&
 	    strcmp(mpd_song_get_uri(c->song), mpd_song_get_uri(song)) == 0) {
 		char buf[16];
 		g_snprintf(buf, sizeof(buf), _("%d kbps"),
 			   mpd_status_get_kbit_rate(c->status));
-		screen_song_append(labels[BITRATE], buf, max_label_width);
+		screen_song_append(_(tag_labels[LABEL_BITRATE]), buf,
+				   max_tag_label_width);
 	}
+}
+
+static void
+screen_song_append_stats(enum stats_label label, const char *value)
+{
+	screen_song_append(_(stats_labels[label]), value,
+			   max_stats_label_width);
 }
 
 static bool
 screen_song_add_stats(struct mpd_connection *connection)
 {
-	unsigned i, max_label_width;
 	char buf[64];
 	GDate *date;
-	enum label {
-		ARTISTS, ALBUMS, SONGS, UPTIME,
-		DBUPTIME, PLAYTIME, DBPLAYTIME
-	};
-	const char *labels[] = { [ARTISTS] = _("Number of artists"),
-		[ALBUMS] = _("Number of albums"),
-		[SONGS] = _("Number of songs"),
-		[UPTIME] = _("Uptime"),
-		[DBUPTIME] =_("Most recent db update"),
-		[PLAYTIME] = _("Playtime"),
-		[DBPLAYTIME] = _("DB playtime")
-	};
 	struct mpd_stats *mpd_stats;
 
 	mpd_stats = mpd_run_stats(connection);
 	if (mpd_stats == NULL)
 		return false;
 
-	/* Determine the width of the longest label */
-	max_label_width = utf8_width(labels[0]);
-	for (i = 1; i < G_N_ELEMENTS(labels); ++i) {
-		if (utf8_width(labels[i]) > max_label_width)
-			max_label_width = utf8_width(labels[i]);
-	}
-
 	g_ptr_array_add(current.lines, g_strdup(_("MPD statistics")) );
 	g_snprintf(buf, sizeof(buf), "%d",
 		   mpd_stats_get_number_of_artists(mpd_stats));
-	screen_song_append(labels[ARTISTS], buf, max_label_width);
+	screen_song_append_stats(STATS_ARTISTS, buf);
 	g_snprintf(buf, sizeof(buf), "%d",
 		   mpd_stats_get_number_of_albums(mpd_stats));
-	screen_song_append(labels[ALBUMS], buf, max_label_width);
+	screen_song_append_stats(STATS_ALBUMS, buf);
 	g_snprintf(buf, sizeof(buf), "%d",
 		   mpd_stats_get_number_of_songs(mpd_stats));
-	screen_song_append(labels[SONGS], buf, max_label_width);
+	screen_song_append_stats(STATS_SONGS, buf);
 
 	format_duration_long(buf, sizeof(buf),
 			     mpd_stats_get_db_play_time(mpd_stats));
-	screen_song_append(labels[DBPLAYTIME], buf, max_label_width);
+	screen_song_append_stats(STATS_DBPLAYTIME, buf);
 
 	format_duration_long(buf, sizeof(buf),
 			     mpd_stats_get_play_time(mpd_stats));
-	screen_song_append(labels[PLAYTIME], buf, max_label_width);
+	screen_song_append_stats(STATS_PLAYTIME, buf);
 
 	format_duration_long(buf, sizeof(buf),
 			     mpd_stats_get_uptime(mpd_stats));
-	screen_song_append(labels[UPTIME], buf, max_label_width);
+	screen_song_append_stats(STATS_UPTIME, buf);
 
 	date = g_date_new();
 	g_date_set_time_t(date, mpd_stats_get_db_update_time(mpd_stats));
 	g_date_strftime(buf, sizeof(buf), "%x", date);
-	screen_song_append(labels[DBUPTIME], buf, max_label_width);
+	screen_song_append_stats(STATS_DBUPTIME, buf);
 	g_date_free(date);
 
 	mpd_stats_free(mpd_stats);
