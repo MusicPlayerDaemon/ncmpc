@@ -136,13 +136,8 @@ screen_queue_lw_callback(unsigned idx, G_GNUC_UNUSED void *data)
 static void
 center_playing_item(struct mpdclient *c, bool center_cursor)
 {
-	const struct mpd_song *song;
 	unsigned length = c->playlist.list->len;
 	int idx;
-
-	song = mpdclient_get_current_song(c);
-	if (song == NULL)
-		return;
 
 	/* try to center the song that are playing */
 	idx = playlist_get_index(&c->playlist, c->song);
