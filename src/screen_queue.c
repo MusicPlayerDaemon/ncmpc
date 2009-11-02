@@ -159,6 +159,32 @@ center_playing_item(const struct mpd_status *status, bool center_cursor)
 	list_window_fetch_cursor(lw);
 }
 
+G_GNUC_PURE
+static int
+get_current_song_id(const struct mpd_status *status)
+{
+	return status != NULL &&
+		(mpd_status_get_state(status) == MPD_STATE_PLAY ||
+		 mpd_status_get_state(status) == MPD_STATE_PAUSE)
+		? (int)mpd_status_get_song_id(status)
+		: -1;
+}
+
+static bool
+screen_queue_song_change(const struct mpd_status *status)
+{
+	if (get_current_song_id(status) == current_song_id)
+		return false;
+
+	current_song_id = get_current_song_id(status);
+
+	/* center the cursor */
+	if (options.auto_center && !lw->range_selection)
+		center_playing_item(status, false);
+
+	return true;
+}
+
 #ifndef NCMPC_MINI
 static void
 save_pre_completion_cb(GCompletion *gcmp, G_GNUC_UNUSED gchar *line,
@@ -446,6 +472,7 @@ screen_queue_open(struct mpdclient *c)
 	}
 
 	screen_queue_restore_selection();
+	screen_queue_song_change(c->status);
 }
 
 static void
@@ -521,37 +548,18 @@ screen_queue_paint(void)
 	list_window_paint2(lw, screen_queue_paint_callback, NULL);
 }
 
-G_GNUC_PURE
-static int
-get_current_song_id(const struct mpd_status *status)
-{
-	return status != NULL &&
-		(mpd_status_get_state(status) == MPD_STATE_PLAY ||
-		 mpd_status_get_state(status) == MPD_STATE_PAUSE)
-		? (int)mpd_status_get_song_id(status)
-		: -1;
-}
-
 static void
 screen_queue_update(struct mpdclient *c)
 {
 	if (c->events & MPD_IDLE_PLAYLIST)
 		screen_queue_restore_selection();
 
-	if ((c->events & MPD_IDLE_PLAYER) != 0 &&
-	    get_current_song_id(c->status) != current_song_id) {
-		current_song_id = get_current_song_id(c->status);
-
-		/* center the cursor */
-		if (options.auto_center && !lw->range_selection)
-			center_playing_item(c->status, false);
-
+	if (((c->events & MPD_IDLE_PLAYER) != 0 &&
+	     screen_queue_song_change(c->status)) ||
+	    c->events & MPD_IDLE_PLAYLIST)
+		/* the queue or the current song has changed, we must
+		   paint the new version */
 		screen_queue_repaint();
-	} else if (c->events & MPD_IDLE_PLAYLIST) {
-		/* the playlist has changed, we must paint the new
-		   version */
-		screen_queue_repaint();
-	}
 }
 
 #ifdef HAVE_GETMOUSE
