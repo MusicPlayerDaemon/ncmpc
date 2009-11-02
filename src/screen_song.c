@@ -253,10 +253,8 @@ screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 	screen_song_append_tag(labels[COMMENT], song, MPD_TAG_COMMENT,
 			       max_label_width);
 	screen_song_append(_("Path"), mpd_song_get_uri(song), max_label_width);
-	if (c->status != NULL && c->song != NULL &&
-	    strcmp(mpd_song_get_uri(c->song), mpd_song_get_uri(song)) == 0 &&
-	    (mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
-	     mpd_status_get_state(c->status) == MPD_STATE_PAUSE)) {
+	if (mpdclient_is_playing(c) && c->song != NULL &&
+	    strcmp(mpd_song_get_uri(c->song), mpd_song_get_uri(song)) == 0) {
 		char buf[16];
 		g_snprintf(buf, sizeof(buf), _("%d kbps"),
 			   mpd_status_get_kbit_rate(c->status));
@@ -349,17 +347,13 @@ screen_song_update(struct mpdclient *c)
 			(c->song == NULL ||
 			 strcmp(mpd_song_get_uri(current.selected_song),
 				mpd_song_get_uri(c->song)) != 0 ||
-			 c->status == NULL ||
-			 (mpd_status_get_state(c->status) != MPD_STATE_PLAY &&
-			  mpd_status_get_state(c->status) != MPD_STATE_PAUSE))) {
+			 !mpdclient_is_playing(c))) {
 		g_ptr_array_add(current.lines, g_strdup(_("Selected song")) );
 		screen_song_add_song(current.selected_song, c);
 		g_ptr_array_add(current.lines, g_strdup("\0"));
 	}
 
-	if (c->song != NULL && c->status != NULL &&
-	    (mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
-	     mpd_status_get_state(c->status) == MPD_STATE_PAUSE)) {
+	if (c->song != NULL && mpdclient_is_playing(c)) {
 		if (current.played_song != NULL) {
 			mpd_song_free(current.played_song);
 		}

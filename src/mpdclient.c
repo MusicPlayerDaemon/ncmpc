@@ -286,15 +286,12 @@ mpdclient_cmd_crop(struct mpdclient *c)
 	struct mpd_connection *connection;
 	int length, current;
 
-	if (c->status == NULL)
+	if (!mpdclient_is_playing(c))
 		return false;
 
 	length = mpd_status_get_queue_length(c->status);
 	current = mpd_status_get_song_pos(c->status);
-	if (current < 0 ||
-	    (mpd_status_get_state(c->status) != MPD_STATE_PLAY &&
-	     mpd_status_get_state(c->status) != MPD_STATE_PAUSE) ||
-	    mpd_status_get_queue_length(c->status) < 2)
+	if (current < 0 || mpd_status_get_queue_length(c->status) < 2)
 		return true;
 
 	connection = mpdclient_get_connection(c);

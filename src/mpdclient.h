@@ -57,12 +57,19 @@ mpdclient_is_connected(const struct mpdclient *c)
 	return c->connection != NULL;
 }
 
+G_GNUC_PURE
+static inline bool
+mpdclient_is_playing(const struct mpdclient *c)
+{
+	return c->status != NULL &&
+		(mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
+		 mpd_status_get_state(c->status) == MPD_STATE_PAUSE);
+}
+
 static inline const struct mpd_song *
 mpdclient_get_current_song(const struct mpdclient *c)
 {
-	return c->song != NULL && c->status != NULL &&
-		(mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
-		 mpd_status_get_state(c->status) == MPD_STATE_PAUSE)
+	return c->song != NULL && mpdclient_is_playing(c)
 		? c->song
 		: NULL;
 }

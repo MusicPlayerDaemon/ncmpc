@@ -165,9 +165,7 @@ update_progress_window(struct mpdclient *c, bool repaint)
 	else
 		elapsed = 0;
 
-	duration = c->status != NULL &&
-		(mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
-		 mpd_status_get_state(c->status) == MPD_STATE_PAUSE)
+	duration = mpdclient_is_playing(c)
 		? mpd_status_get_total_time(c->status)
 		: 0;
 
