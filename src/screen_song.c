@@ -257,7 +257,7 @@ screen_song_append_tag(const struct mpd_song *song, enum mpd_tag_type tag)
 }
 
 static void
-screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
+screen_song_add_song(const struct mpd_song *song)
 {
 	assert(song != NULL);
 
@@ -314,25 +314,6 @@ screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 
 	screen_song_append(_(tag_labels[LABEL_PATH]), mpd_song_get_uri(song),
 			   max_tag_label_width);
-	if (mpdclient_is_playing(c) && c->song != NULL &&
-	    strcmp(mpd_song_get_uri(c->song), mpd_song_get_uri(song)) == 0 &&
-	    mpd_status_get_kbit_rate(c->status)) {
-		char buf[16];
-		g_snprintf(buf, sizeof(buf), _("%d kbps"),
-			   mpd_status_get_kbit_rate(c->status));
-		screen_song_append(_(tag_labels[LABEL_BITRATE]), buf,
-				   max_tag_label_width);
-
-		const struct mpd_audio_format *format =
-			mpd_status_get_audio_format(c->status);
-		if (format) {
-			g_snprintf(buf, sizeof(buf), _("%u:%u:%u"),
-				   format->sample_rate, format->bits,
-				   format->channels);
-			screen_song_append(_(tag_labels[LABEL_FORMAT]), buf,
-					   max_tag_label_width);
-		}
-	}
 }
 
 static void
@@ -405,7 +386,7 @@ screen_song_update(struct mpdclient *c)
 				mpd_song_get_uri(c->song)) != 0 ||
 			 !mpdclient_is_playing(c))) {
 		g_ptr_array_add(current.lines, g_strdup(_("Selected song")) );
-		screen_song_add_song(current.selected_song, c);
+		screen_song_add_song(current.selected_song);
 		g_ptr_array_add(current.lines, g_strdup("\0"));
 	}
 
@@ -415,7 +396,27 @@ screen_song_update(struct mpdclient *c)
 		}
 		current.played_song = mpd_song_dup(c->song);
 		g_ptr_array_add(current.lines, g_strdup(_("Currently playing song")));
-		screen_song_add_song(current.played_song, c);
+		screen_song_add_song(current.played_song);
+
+		if (mpd_status_get_kbit_rate(c->status) > 0) {
+			char buf[16];
+			g_snprintf(buf, sizeof(buf), _("%d kbps"),
+				   mpd_status_get_kbit_rate(c->status));
+			screen_song_append(_(tag_labels[LABEL_BITRATE]), buf,
+					   max_tag_label_width);
+		}
+
+		const struct mpd_audio_format *format =
+			mpd_status_get_audio_format(c->status);
+		if (format) {
+			char buf[32];
+			g_snprintf(buf, sizeof(buf), _("%u:%u:%u"),
+				   format->sample_rate, format->bits,
+				   format->channels);
+			screen_song_append(_(tag_labels[LABEL_FORMAT]), buf,
+					   max_tag_label_width);
+		}
+
 		g_ptr_array_add(current.lines, g_strdup("\0"));
 	}
 
