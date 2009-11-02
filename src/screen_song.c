@@ -141,46 +141,43 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 
 	assert(label != NULL);
 	assert(g_utf8_validate(label, -1, NULL));
+	assert(value != NULL);
+	assert(g_utf8_validate(value, -1, NULL));
 
-	if (value != NULL) {
-		assert(g_utf8_validate(value, -1, NULL));
-		/* +2 for ': ' */
-		label_col += 2;
-		value_col = lw->cols - label_col;
-		/* calculate the number of required linebreaks */
-		linebreaks = (utf8_width(value) - 1) / value_col + 1;
-		value_iter = value;
-		label_size = strlen(label) + label_col - utf8_width(label);
-		entry_size = label_size + strlen(value) + 2;
+	/* +2 for ': ' */
+	label_col += 2;
+	value_col = lw->cols - label_col;
+	/* calculate the number of required linebreaks */
+	linebreaks = (utf8_width(value) - 1) / value_col + 1;
+	value_iter = value;
+	label_size = strlen(label) + label_col - utf8_width(label);
+	entry_size = label_size + strlen(value) + 2;
 
-		for (i = 0; i < linebreaks; ++i)
-		{
-			entry = g_malloc(entry_size);
-			if (i == 0) {
-				entry_iter = entry + g_sprintf(entry, "%s: ", label);
-				/* fill the label column with whitespaces */
-				for ( ; entry_iter < entry + label_size; ++entry_iter)
-					*entry_iter = ' ';
-			}
-			else {
-				entry_iter = entry;
-				/* fill the label column with whitespaces */
-				for ( ; entry_iter < entry + label_col; ++entry_iter)
-					*entry_iter = ' ';
-			}
-			/* skip whitespaces */
-			while (g_ascii_isspace(*value_iter)) ++value_iter;
-			k = 0;
-			while (value_iter && k < value_col)
-			{
-				g_utf8_strncpy(entry_iter, value_iter, 1);
-				value_iter = g_utf8_find_next_char(value_iter, NULL);
-				entry_iter = g_utf8_find_next_char(entry_iter, NULL);
-				++k;
-			}
-			*entry_iter = '\0';
-			g_ptr_array_add(current.lines, entry);
+	for (i = 0; i < linebreaks; ++i) {
+		entry = g_malloc(entry_size);
+		if (i == 0) {
+			entry_iter = entry + g_sprintf(entry, "%s: ", label);
+			/* fill the label column with whitespaces */
+			for ( ; entry_iter < entry + label_size; ++entry_iter)
+				*entry_iter = ' ';
 		}
+		else {
+			entry_iter = entry;
+			/* fill the label column with whitespaces */
+			for ( ; entry_iter < entry + label_col; ++entry_iter)
+				*entry_iter = ' ';
+		}
+		/* skip whitespaces */
+		while (g_ascii_isspace(*value_iter)) ++value_iter;
+		k = 0;
+		while (value_iter && k < value_col) {
+			g_utf8_strncpy(entry_iter, value_iter, 1);
+			value_iter = g_utf8_find_next_char(value_iter, NULL);
+			entry_iter = g_utf8_find_next_char(entry_iter, NULL);
+			++k;
+		}
+		*entry_iter = '\0';
+		g_ptr_array_add(current.lines, entry);
 	}
 }
 
