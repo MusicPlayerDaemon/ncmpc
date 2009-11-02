@@ -82,11 +82,29 @@ cancel_seek_timer(void)
 	}
 }
 
+static bool
+setup_seek(struct mpdclient *c)
+{
+	const struct mpd_song *song;
+
+	song = mpdclient_get_current_song(c);
+	if (song == NULL)
+		return false;
+
+	if (seek_id != (int)mpd_song_get_id(song)) {
+		seek_id = mpd_song_get_id(song);
+		seek_target_time = mpd_status_get_elapsed_time(c->status);
+	}
+
+	schedule_seek_timer(c);
+
+	return true;
+}
+
 bool
 handle_player_command(struct mpdclient *c, command_t cmd)
 {
 	struct mpd_connection *connection;
-	const struct mpd_song *song;
 
 	if (!mpdclient_is_connected(c) || c->status == NULL)
 		return false;
@@ -120,20 +138,12 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 		mpdclient_cmd_crop(c);
 		break;
 	case CMD_SEEK_FORWARD:
-		song = mpdclient_get_current_song(c);
-		if (song == NULL)
+		if (!setup_seek(c))
 			break;
-
-		if (seek_id != (int)mpd_song_get_id(song)) {
-			seek_id = mpd_song_get_id(song);
-			seek_target_time = mpd_status_get_elapsed_time(c->status);
-		}
 
 		seek_target_time += options.seek_time;
 		if (seek_target_time > (int)mpd_status_get_total_time(c->status))
 			seek_target_time = mpd_status_get_total_time(c->status);
-
-		schedule_seek_timer(c);
 		break;
 
 	case CMD_TRACK_NEXT:
@@ -145,20 +155,12 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 			mpdclient_handle_error(c);
 		break;
 	case CMD_SEEK_BACKWARD:
-		song = mpdclient_get_current_song(c);
-		if (song == NULL)
+		if (!setup_seek(c))
 			break;
-
-		if (seek_id != (int)mpd_song_get_id(song)) {
-			seek_id = mpd_song_get_id(c->song);
-			seek_target_time = mpd_status_get_elapsed_time(c->status);
-		}
 
 		seek_target_time -= options.seek_time;
 		if (seek_target_time < 0)
 			seek_target_time = 0;
-
-		schedule_seek_timer(c);
 		break;
 
 	case CMD_TRACK_PREVIOUS:
