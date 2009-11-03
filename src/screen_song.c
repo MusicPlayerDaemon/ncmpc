@@ -78,16 +78,9 @@ screen_song_repaint(void)
 static const char *
 screen_song_list_callback(unsigned idx, G_GNUC_UNUSED void *data)
 {
-	static char buffer[256];
-	char *value;
-
 	assert(idx < current.lines->len);
 
-	value = utf8_to_locale(g_ptr_array_index(current.lines, idx));
-	g_strlcpy(buffer, value, sizeof(buffer));
-	g_free(value);
-
-	return buffer;
+	return g_ptr_array_index(current.lines, idx);
 }
 
 
@@ -134,14 +127,14 @@ screen_song_paint(void)
 static void
 screen_song_append(const char *label, const char *value, unsigned label_col)
 {
-	int value_col, entry_size, label_size;
+	unsigned label_width = locale_width(label) + 2;
+	int value_col, label_size;
 	gchar *entry, *entry_iter;
 	const gchar *value_iter;
-	char *p;
+	char *p, *q;
 	unsigned width;
 
 	assert(label != NULL);
-	assert(g_utf8_validate(label, -1, NULL));
 	assert(value != NULL);
 	assert(g_utf8_validate(value, -1, NULL));
 
@@ -150,17 +143,15 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 	value_col = lw->cols - label_col;
 	/* calculate the number of required linebreaks */
 	value_iter = value;
-	label_size = strlen(label) + label_col - utf8_width(label);
-	entry_size = label_size + strlen(value) + 2;
+	label_size = strlen(label) + label_col;
 
 	while (*value_iter != 0) {
-		entry = g_malloc(entry_size);
+		entry = g_malloc(label_size);
 		if (value_iter == value) {
 			entry_iter = entry + g_sprintf(entry, "%s: ", label);
 			/* fill the label column with whitespaces */
-			memset(entry_iter, ' ',
-			       entry + label_size - entry_iter);
-			entry_iter = entry + label_size;
+			memset(entry_iter, ' ', label_col - label_width);
+			entry_iter += label_col - label_width;
 		}
 		else {
 			/* fill the label column with whitespaces */
@@ -176,11 +167,15 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 			/* not enough room for anything - bail out */
 			break;
 
+		*entry_iter = 0;
+
 		value_iter += strlen(p);
-		strcpy(entry_iter, p);
+		p = replace_utf8_to_locale(p);
+		q = g_strconcat(entry, p, NULL);
+		g_free(entry);
 		g_free(p);
 
-		g_ptr_array_add(current.lines, entry);
+		g_ptr_array_add(current.lines, q);
 	}
 }
 
