@@ -551,12 +551,12 @@ screen_queue_paint(void)
 static void
 screen_queue_update(struct mpdclient *c)
 {
-	if (c->events & MPD_IDLE_PLAYLIST)
+	if (c->events & MPD_IDLE_QUEUE)
 		screen_queue_restore_selection();
 
 	if (((c->events & MPD_IDLE_PLAYER) != 0 &&
 	     screen_queue_song_change(c->status)) ||
-	    c->events & MPD_IDLE_PLAYLIST)
+	    c->events & MPD_IDLE_QUEUE)
 		/* the queue or the current song has changed, we must
 		   paint the new version */
 		screen_queue_repaint();

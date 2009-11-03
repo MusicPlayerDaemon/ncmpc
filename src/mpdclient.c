@@ -218,7 +218,7 @@ mpdclient_update(struct mpdclient *c)
 		bool retval;
 
 		if (c->source == NULL)
-			c->events |= MPD_IDLE_PLAYLIST;
+			c->events |= MPD_IDLE_QUEUE;
 
 		if (!playlist_is_empty(&c->playlist))
 			retval = mpdclient_playlist_update_changes(c);
@@ -441,7 +441,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 	    !mpd_response_next(connection))
 		return mpdclient_handle_error(c);
 
-	c->events |= MPD_IDLE_PLAYLIST;
+	c->events |= MPD_IDLE_QUEUE;
 
 	status = mpdclient_recv_status(c);
 	if (status == NULL)
@@ -500,7 +500,7 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 	    !mpd_command_list_end(connection))
 		return mpdclient_handle_error(c);
 
-	c->events |= MPD_IDLE_PLAYLIST;
+	c->events |= MPD_IDLE_QUEUE;
 
 	status = mpdclient_recv_status(c);
 	if (status == NULL)
@@ -582,7 +582,7 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 	    !mpd_command_list_end(connection))
 		return mpdclient_handle_error(c);
 
-	c->events |= MPD_IDLE_PLAYLIST;
+	c->events |= MPD_IDLE_QUEUE;
 
 	status = mpdclient_recv_status(c);
 	if (status == NULL)

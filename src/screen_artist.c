@@ -394,12 +394,12 @@ screen_artist_update(struct mpdclient *c)
 		/* the db has changed -> update the list */
 		reload_lists(c);
 
-	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_PLAYLIST))
+	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_QUEUE))
 		screen_browser_sync_highlights(browser.filelist, &c->playlist);
 
 	if (c->events & (MPD_IDLE_DATABASE
 #ifndef NCMPC_MINI
-			 | MPD_IDLE_PLAYLIST
+			 | MPD_IDLE_QUEUE
 #endif
 			 ))
 		artist_repaint();

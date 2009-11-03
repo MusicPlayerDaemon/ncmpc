@@ -323,7 +323,7 @@ screen_file_update(struct mpdclient *c)
 
 	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST
 #ifndef NCMPC_MINI
-			 | MPD_IDLE_PLAYLIST
+			 | MPD_IDLE_QUEUE
 #endif
 			 )) {
 		screen_browser_sync_highlights(browser.filelist, &c->playlist);

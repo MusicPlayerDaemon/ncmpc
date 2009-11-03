@@ -426,7 +426,7 @@ screen_search_get_title(char *str, size_t size)
 static void
 screen_search_update(struct mpdclient *c)
 {
-	if (browser.filelist != NULL && c->events & MPD_IDLE_PLAYLIST) {
+	if (browser.filelist != NULL && c->events & MPD_IDLE_QUEUE) {
 		screen_browser_sync_highlights(browser.filelist, &c->playlist);
 		search_repaint();
 	}
