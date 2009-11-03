@@ -352,6 +352,7 @@ idle_callback(enum mpd_error error, enum mpd_server_error server_error,
 		doupdate();
 
 		mpdclient_disconnect(c);
+		screen_update(mpd);
 		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
 						    NULL);
 		return;
