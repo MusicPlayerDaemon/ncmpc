@@ -120,8 +120,10 @@ fill_outputs_list(struct mpdclient *c)
 	assert(mpd_outputs != NULL);
 
 	connection = mpdclient_get_connection(c);
-	if (connection == NULL)
+	if (connection == NULL) {
+		list_window_set_length(lw, 0);
 		return;
+	}
 
 	mpd_send_outputs(connection);
 	while ((output = mpd_recv_output(connection)) != NULL) {
