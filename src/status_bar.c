@@ -100,7 +100,6 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 {
 	WINDOW *w = p->window.w;
 	enum mpd_state state;
-	int elapsedTime = 0;
 	const char *str = NULL;
 	int x = 0;
 	char buffer[p->window.cols * 4 + 1];
@@ -139,8 +138,12 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 
 	/* create time string */
 	if (state == MPD_STATE_PLAY || state == MPD_STATE_PAUSE) {
+		int elapsedTime = seek_id >= 0 &&
+			seek_id == mpd_status_get_song_id(status)
+			? (unsigned)seek_target_time
+			: mpd_status_get_elapsed_time(status);
 		int total_time = mpd_status_get_total_time(status);
-		if (total_time > 0) {
+		if (elapsedTime > 0 || total_time > 0) {
 #ifdef NCMPC_MINI
 			static const char bitrate[1];
 #else
@@ -149,12 +152,6 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 			char elapsed_string[32], duration_string[32];
 
 			/*checks the conf to see whether to display elapsed or remaining time */
-			if (seek_id >= 0 &&
-			    seek_id == mpd_status_get_song_id(status))
-				elapsedTime = seek_target_time;
-			else
-				elapsedTime = mpd_status_get_elapsed_time(status);
-
 			if (options.display_remaining_time)
 				elapsedTime = elapsedTime < total_time
 					? total_time - elapsedTime
