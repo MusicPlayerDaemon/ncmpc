@@ -79,6 +79,21 @@ status_bar_clear_message(gpointer data)
 	return false;
 }
 
+#ifndef NCMPC_MINI
+
+static void
+format_bitrate(char *p, size_t max_length, const struct mpd_status *status)
+{
+	if (options.visible_bitrate && mpd_status_get_kbit_rate(status) > 0)
+		g_snprintf(p, max_length,
+			   " [%d kbps]",
+			   mpd_status_get_kbit_rate(status));
+	else
+		p[0] = '\0';
+}
+
+#endif /* !NCMPC_MINI */
+
 void
 status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 		 const struct mpd_song *song)
@@ -145,13 +160,7 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 
 			/* display bitrate if visible-bitrate is true */
 #ifndef NCMPC_MINI
-			if (options.visible_bitrate) {
-				g_snprintf(bitrate, 16,
-					   " [%d kbps]",
-					   mpd_status_get_kbit_rate(status));
-			} else {
-				bitrate[0] = '\0';
-			}
+			format_bitrate(bitrate, sizeof(bitrate), status);
 #endif
 
 			/* write out the time */
@@ -165,13 +174,11 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 			g_snprintf(buffer, sizeof(buffer), "%s [%s/%s]",
 				   bitrate, elapsed_string, duration_string);
 #ifndef NCMPC_MINI
-		} else if (options.visible_bitrate) {
-			g_snprintf(buffer, sizeof(buffer),
-				   " [%d kbps]",
-				   mpd_status_get_kbit_rate(status));
-#endif
 		} else {
+			format_bitrate(buffer, sizeof(buffer), status);
+#else
 			buffer[0] = 0;
+#endif
 		}
 	} else {
 #ifndef NCMPC_MINI
