@@ -229,7 +229,7 @@ mpdclient_update(struct mpdclient *c)
 	}
 
 	/* update the current song */
-	if (!c->song || mpd_status_get_song_id(c->status)) {
+	if (!c->song || mpd_status_get_song_id(c->status) >= 0) {
 		c->song = playlist_get_song(&c->playlist,
 					    mpd_status_get_song_pos(c->status));
 	}
