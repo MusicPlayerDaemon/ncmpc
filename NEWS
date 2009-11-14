@@ -15,6 +15,7 @@ ncmpc 0.16 - not yet released
 * screen_browser: different colors for directories and playlists
 * screen_browser: display song duration
 * screen_queue: move ranges with one single "move" command
+* status_bar: fix display_remaining_time while seeking
 
 
 ncmpc 0.15 - 2009-09-24

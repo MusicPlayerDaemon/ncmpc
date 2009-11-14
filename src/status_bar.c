@@ -152,11 +152,13 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 			if (seek_id >= 0 &&
 			    seek_id == mpd_status_get_song_id(status))
 				elapsedTime = seek_target_time;
-			else if (options.display_remaining_time)
-				elapsedTime = total_time -
-					mpd_status_get_elapsed_time(status);
 			else
 				elapsedTime = mpd_status_get_elapsed_time(status);
+
+			if (options.display_remaining_time)
+				elapsedTime = elapsedTime < total_time
+					? total_time - elapsedTime
+					: 0;
 
 			/* display bitrate if visible-bitrate is true */
 #ifndef NCMPC_MINI
