@@ -101,11 +101,6 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 	WINDOW *w = p->window.w;
 	enum mpd_state state;
 	int elapsedTime = 0;
-#ifdef NCMPC_MINI
-	static char bitrate[1];
-#else
-	char bitrate[16];
-#endif
 	const char *str = NULL;
 	int x = 0;
 	char buffer[p->window.cols * 4 + 1];
@@ -146,6 +141,11 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 	if (state == MPD_STATE_PLAY || state == MPD_STATE_PAUSE) {
 		int total_time = mpd_status_get_total_time(status);
 		if (total_time > 0) {
+#ifdef NCMPC_MINI
+			static const char bitrate[1];
+#else
+			char bitrate[16];
+#endif
 			char elapsed_string[32], duration_string[32];
 
 			/*checks the conf to see whether to display elapsed or remaining time */
