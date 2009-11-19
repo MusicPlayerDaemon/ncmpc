@@ -35,6 +35,17 @@ charset_init(void)
 }
 #endif
 
+#ifdef ENABLE_WIDE
+static inline unsigned
+unicode_char_width(gunichar ch)
+{
+	if (g_unichar_iswide(ch))
+		return 2;
+
+	return 1;
+}
+#endif /* ENABLE_WIDE */
+
 unsigned
 utf8_width(const char *str)
 {
@@ -51,7 +62,7 @@ utf8_width(const char *str)
 
 		while (len--) {
 			c = g_utf8_get_char(str);
-			width += g_unichar_iswide(c) ? 2 : 1;
+			width += unicode_char_width(c);
 			str += g_unichar_to_utf8(c, NULL);
 		}
 
