@@ -43,7 +43,7 @@ paint_song_row(WINDOW *w, G_GNUC_UNUSED unsigned y, unsigned width,
 		       selected, buffer);
 
 #ifndef NCMPC_MINI
-	if (mpd_song_get_duration(song) > 0) {
+	if (options.second_column && mpd_song_get_duration(song) > 0) {
 		char duration[32];
 		format_duration_short(duration, sizeof(duration),
 				      mpd_song_get_duration(song));

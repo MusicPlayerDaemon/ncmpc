@@ -75,6 +75,7 @@ typedef struct {
 	bool welcome_screen_list;
 	bool display_time;
 	bool jump_prefix_only;
+	bool second_column;
 #endif
 } options_t;
 

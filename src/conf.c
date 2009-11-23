@@ -77,6 +77,7 @@
 #define CONF_DISPLAY_TIME "display-time"
 #define CONF_JUMP_PREFIX_ONLY "jump-prefix-only"
 #define CONF_LYRICS_AUTOSAVE "lyrics-autosave"
+#define CONF_SECOND_COLUMN "second-column"
 
 static bool
 str2bool(char *str)
@@ -519,6 +520,12 @@ parse_line(char *line)
 		options.lyrics_autosave = str2bool(value);
 #else
 	{}
+#endif
+	else if (!strcasecmp(CONF_SECOND_COLUMN, name))
+#ifdef NCMPC_MINI
+		{}
+#else
+		options.second_column = str2bool(value);
 #endif
 	else
 		match_found = false;
