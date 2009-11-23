@@ -299,7 +299,7 @@ colors_use(WINDOW *w, enum color id)
 #endif
 		/* mono mode */
 		if (attrs != entry->attrs)
-			wattrset(w, entry->attrs);
+			(void)wattrset(w, entry->attrs);
 #ifdef ENABLE_COLORS
 	}
 #endif
