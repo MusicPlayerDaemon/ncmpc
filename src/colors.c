@@ -29,7 +29,7 @@
 #include <string.h>
 #include <glib.h>
 
-#define COLOR_BRIGHT_MASK (1<<7)
+#define COLOR_BRIGHT_MASK (1<<8)
 
 #define COLOR_BRIGHT_BLACK (COLOR_BLACK | COLOR_BRIGHT_MASK)
 #define COLOR_BRIGHT_RED (COLOR_RED | COLOR_BRIGHT_MASK)
@@ -136,6 +136,8 @@ colors_update_pair(enum color id)
 short
 colors_str2color(const char *str)
 {
+	short color;
+
 	if (!strcasecmp(str, "black"))
 		return COLOR_BLACK;
 	else if (!strcasecmp(str, "red"))
@@ -170,6 +172,12 @@ colors_str2color(const char *str)
 		return COLOR_BRIGHT_BLACK;
 	else if (!strcasecmp(str, "none"))
 		return -1;
+
+	if (!strcmp(str, "0"))
+		return 0;
+	color = atoi(str);
+	if (color > 0)
+		return color;
 
 	fprintf(stderr,_("Warning: Unknown color - %s\n"), str);
 	return -2;
