@@ -176,39 +176,39 @@ The format used to for the xterm title when ncmpc is playing.
 Enable/disable colors.
 .TP 
 .B color background = COLOR
-Set the background color. If the background color is assigned to the keyword \fBnone\fR, ncmpc will not change the background color. Valid background colors are the base colors: black, red, green, yellow, blue, magenta, cyan and white. 
+Set the background color. If the background color is assigned to the keyword \fBnone\fR, ncmpc will not change the background color. Standard colors are: black, red, green, yellow, blue, magenta, cyan and white. Terminal specific colors can also be given as integers.
 .TP 
-.B color title = TEXTCOLOR
-Set the text color for the title row.  Possible text colors are the base colors plus grey, brightred, brightgreen, brightyellow, brightblue, brightmagenta, brightcyan and brightwhite.
+.B color title = COLOR[,ATTRIBUTE]...
+Set the text color and attributes for the title row.  Text colors are the same as for the background.  Valid attributes are: standout, underline, reverse, blink, dim, and bold.
 .TP 
-.B color title\-bold = TEXTCOLOR
+.B color title\-bold = COLOR[,ATTRIBUTE]...
 Set the text color for the title row (the bold part).
 .TP 
-.B color line = TEXTCOLOR
+.B color line = COLOR
 Set the color of the line on the second row.
 .TP 
-.B color line\-flags = TEXTCOLOR
+.B color line\-flags = COLOR[,ATTRIBUTE]...
 Set the text color used to indicate mpd flags on the second row.
 .TP 
-.B color list = TEXTCOLOR
+.B color list = COLOR[,ATTRIBUTE]...
 Set the text color in the main area of ncmpc.
 .TP 
-.B color list\-bold = TEXTCOLOR
+.B color list\-bold = COLOR[,ATTRIBUTE]...
 Set the bold text color in the main area of ncmpc.
 .TP 
-.B color progressbar = TEXTCOLOR
+.B color progressbar = COLOR[,ATTRIBUTE]...
 Set the color of the progress indicator.
 .TP 
-.B color status\-state = TEXTCOLOR
+.B color status\-state = COLOR[,ATTRIBUTE]...
 Set the text color used to display mpd status in the status window.
 .TP 
-.B color status\-song = TEXTCOLOR
+.B color status\-song = COLOR[,ATTRIBUTE]...
 Set the text color used to display song names in the status window.
 .TP 
-.B color status\-time = TEXTCOLOR
+.B color status\-time = COLOR[,ATTRIBUTE]...
 Set the text color used to display time the status window. 
 .TP 
-.B color alert = TEXTCOLOR
+.B color alert = COLOR[,ATTRIBUTE]...
 Text color used to display alerts in the status window.
 .TP 
 .B colordef COLOR = R, G, B

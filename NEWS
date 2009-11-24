@@ -18,6 +18,7 @@ ncmpc 0.16 - not yet released
 * status_bar: fix display_remaining_time while seeking
 * status_bar: display elapsed time event when total time is unknown
 * charset: added support for zero-width characters
+* colors: added support for 256 colors and text attributes
 
 
 ncmpc 0.15 - 2009-09-24

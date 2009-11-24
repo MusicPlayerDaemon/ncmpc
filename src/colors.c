@@ -29,7 +29,7 @@
 #include <string.h>
 #include <glib.h>
 
-#define COLOR_NONE  -1
+#define COLOR_NONE  G_MININT /* left most bit only */
 #define COLOR_ERROR -2
 
 #ifdef ENABLE_COLORS
@@ -82,66 +82,85 @@ colors_lookup_by_name(const char *name)
 static int
 colors_update_pair(enum color id)
 {
-	short fg, bg;
+	int fg, bg;
 
 	assert(id > 0 && id < COLOR_END);
 
 	fg = colors[id].color;
 	bg = colors[COLOR_BACKGROUND].color;
 
-	/* COLOR_NONE is negative, which
-	 * results in a default colors */
-	init_pair(id, fg, bg);
+	/* If color == COLOR_NONE (negative),
+	 * pass -1 to avoid cast errors */
+	init_pair(id,
+		(fg < 0 ? -1 : fg),
+		(bg < 0 ? -1 : bg));
 	return 0;
 }
 
 int
 colors_str2color(const char *str)
 {
-	int color;
-	char *endptr;
+	int i, color = 0;
+	char **parts = g_strsplit(str, ",", 0);
+	for (i = 0; parts[i]; i++) {
+		char *cur = parts[i];
 
-	if (!strcasecmp(str, "black"))
-		return COLOR_BLACK;
-	else if (!strcasecmp(str, "red"))
-		return COLOR_RED;
-	else if (!strcasecmp(str, "green"))
-		return COLOR_GREEN;
-	else if (!strcasecmp(str, "yellow"))
-		return COLOR_YELLOW;
-	else if (!strcasecmp(str, "blue"))
-		return COLOR_BLUE;
-	else if (!strcasecmp(str, "magenta"))
-		return COLOR_MAGENTA;
-	else if (!strcasecmp(str, "cyan"))
-		return COLOR_CYAN;
-	else if (!strcasecmp(str, "white"))
-		return COLOR_WHITE;
-	else if (!strcasecmp(str, "brightred"))
-		return COLOR_RED | A_BOLD;
-	else if (!strcasecmp(str, "brightgreen"))
-		return COLOR_GREEN | A_BOLD;
-	else if (!strcasecmp(str, "brightyellow"))
-		return COLOR_YELLOW | A_BOLD;
-	else if (!strcasecmp(str, "brightblue"))
-		return COLOR_BLUE | A_BOLD;
-	else if (!strcasecmp(str, "brightmagenta"))
-		return COLOR_MAGENTA | A_BOLD;
-	else if (!strcasecmp(str, "brightcyan"))
-		return COLOR_CYAN | A_BOLD;
-	else if (!strcasecmp(str, "brightwhite"))
-		return COLOR_WHITE | A_BOLD;
-	else if (!strcasecmp(str, "grey") || !strcasecmp(str, "gray"))
-		return COLOR_BLACK | A_BOLD;
-	else if (!strcasecmp(str, "none"))
-		return COLOR_NONE;
+		/* Legacy colors (brightblue,etc) */
+		if (!strncasecmp(cur, "bright", 6)) {
+			color |= A_BOLD;
+			cur += 6;
+		}
 
-	color = strtol(str, &endptr, 10);
-	if (str != endptr && endptr[0] == '\0')
-		return color;
+		/* Colors */
+		if (!strcasecmp(cur, "none"))
+			color |= COLOR_NONE;
+		else if (!strcasecmp(cur, "black"))
+			color |= COLOR_BLACK;
+		else if (!strcasecmp(cur, "red"))
+			color |= COLOR_RED;
+		else if (!strcasecmp(cur, "green"))
+			color |= COLOR_GREEN;
+		else if (!strcasecmp(cur, "yellow"))
+			color |= COLOR_YELLOW;
+		else if (!strcasecmp(cur, "blue"))
+			color |= COLOR_BLUE;
+		else if (!strcasecmp(cur, "magenta"))
+			color |= COLOR_MAGENTA;
+		else if (!strcasecmp(cur, "cyan"))
+			color |= COLOR_CYAN;
+		else if (!strcasecmp(cur, "white"))
+			color |= COLOR_WHITE;
+		else if (!strcasecmp(cur, "grey") || !strcasecmp(cur, "gray"))
+			color |= COLOR_BLACK | A_BOLD;
 
-	fprintf(stderr,_("Warning: Unknown color - %s\n"), str);
-	return -2;
+		/* Attributes */
+		else if (!strcasecmp(cur, "standout"))
+			color |= A_STANDOUT;
+		else if (!strcasecmp(cur, "underline"))
+			color |= A_UNDERLINE;
+		else if (!strcasecmp(cur, "reverse"))
+			color |= A_REVERSE;
+		else if (!strcasecmp(cur, "blink"))
+			color |= A_BLINK;
+		else if (!strcasecmp(cur, "dim"))
+			color |= A_DIM;
+		else if (!strcasecmp(cur, "bold"))
+			color |= A_BOLD;
+		else {
+			/* Numerical colors */
+			char *endptr;
+			int tmp = strtol(cur, &endptr, 10);
+			if (cur != endptr && endptr[0] == '\0') {
+				color |= tmp;
+			} else {
+				fprintf(stderr,_("Warning: Unknown color - %s\n"), str);
+				return COLOR_ERROR;
+			}
+		}
+
+	}
+	g_strfreev(parts);
+	return color;
 }
 
 /* This function is called from conf.c before curses have been started,
@@ -253,8 +272,8 @@ colors_use(WINDOW *w, enum color id)
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* color mode */
-		if ((int)attrs != entry->mono || (short)id != pair)
-			wattr_set(w, entry->mono, id, NULL);
+		if ((int)attrs != entry->color || (short)id != pair)
+			wattr_set(w, entry->color, id, NULL);
 	} else {
 #endif
 		/* mono mode */
