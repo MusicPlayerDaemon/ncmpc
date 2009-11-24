@@ -42,10 +42,11 @@ enum color {
 	COLOR_STATUS_ALERT,
 	COLOR_DIRECTORY,
 	COLOR_PLAYLIST,
+	COLOR_BACKGROUND,
 	COLOR_END
 };
 
-short colors_str2color(const char *str);
+int colors_str2color(const char *str);
 
 #ifdef ENABLE_COLORS
 int colors_assign(const char *name, const char *value);

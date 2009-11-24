@@ -29,32 +29,8 @@
 #include <string.h>
 #include <glib.h>
 
-#define COLOR_BRIGHT_MASK (1<<8)
-
-#define COLOR_BRIGHT_BLACK (COLOR_BLACK | COLOR_BRIGHT_MASK)
-#define COLOR_BRIGHT_RED (COLOR_RED | COLOR_BRIGHT_MASK)
-#define COLOR_BRIGHT_GREEN (COLOR_GREEN | COLOR_BRIGHT_MASK)
-#define COLOR_BRIGHT_YELLOW (COLOR_YELLOW | COLOR_BRIGHT_MASK)
-#define COLOR_BRIGHT_BLUE (COLOR_BLUE | COLOR_BRIGHT_MASK)
-#define COLOR_BRIGHT_MAGENTA (COLOR_MAGENTA | COLOR_BRIGHT_MASK)
-#define COLOR_BRIGHT_CYAN (COLOR_CYAN | COLOR_BRIGHT_MASK)
-#define COLOR_BRIGHT_WHITE (COLOR_WHITE | COLOR_BRIGHT_MASK)
-
-#define IS_BRIGHT(color) (color & COLOR_BRIGHT_MASK)
-
-/* name of the color fields */
-#define NAME_TITLE "title"
-#define NAME_TITLE_BOLD "title-bold"
-#define NAME_LINE "line"
-#define NAME_LINE_BOLD "line-flags"
-#define NAME_LIST "list"
-#define NAME_LIST_BOLD "list-bold"
-#define NAME_PROGRESS "progressbar"
-#define NAME_STATUS "status-song"
-#define NAME_STATUS_BOLD "status-state"
-#define NAME_STATUS_TIME "status-time"
-#define NAME_ALERT "alert"
-#define NAME_BGCOLOR "background"
+#define COLOR_NONE  -1
+#define COLOR_ERROR -2
 
 #ifdef ENABLE_COLORS
 typedef struct {
@@ -65,39 +41,29 @@ typedef struct {
 
 typedef struct {
 	const char *name;
-	short fg;
-	attr_t attrs;
+	int color;
+	int mono;
 } color_entry_t;
 
 static color_entry_t colors[COLOR_END] = {
-	/* color pair = field name, color, mono attribute */
-	[COLOR_TITLE] = { NAME_TITLE, COLOR_YELLOW, A_NORMAL },
-	[COLOR_TITLE_BOLD] = { NAME_TITLE_BOLD, COLOR_BRIGHT_YELLOW, A_BOLD },
-	[COLOR_LINE] = { NAME_LINE, COLOR_WHITE, A_NORMAL },
-	[COLOR_LINE_BOLD] = { NAME_LINE_BOLD, COLOR_BRIGHT_WHITE, A_BOLD },
-	[COLOR_LIST] = { NAME_LIST, COLOR_GREEN, A_NORMAL },
-	[COLOR_LIST_BOLD] = { NAME_LIST_BOLD, COLOR_BRIGHT_GREEN, A_BOLD },
-	[COLOR_PROGRESSBAR] = { NAME_PROGRESS, COLOR_WHITE, A_NORMAL },
-	[COLOR_STATUS] = { NAME_STATUS, COLOR_YELLOW, A_NORMAL },
-	[COLOR_STATUS_BOLD] = { NAME_STATUS_BOLD, COLOR_BRIGHT_YELLOW, A_BOLD },
-	[COLOR_STATUS_TIME] = { NAME_STATUS_TIME, COLOR_RED, A_NORMAL },
-	[COLOR_STATUS_ALERT] = { NAME_ALERT, COLOR_BRIGHT_RED, A_BOLD },
-	[COLOR_DIRECTORY] = {
-		.name = "browser-directory",
-		.fg = COLOR_YELLOW,
-		.attrs = A_NORMAL,
-	},
-	[COLOR_PLAYLIST] = {
-		.name = "browser-playlist",
-		.fg = COLOR_RED,
-		.attrs = A_NORMAL,
-	},
+	/* color pair = field name, color, mono */
+	[COLOR_TITLE]        = {"title",             COLOR_YELLOW,          A_NORMAL},
+	[COLOR_TITLE_BOLD]   = {"title-bold",        COLOR_YELLOW | A_BOLD, A_BOLD  },
+	[COLOR_LINE]         = {"line",              COLOR_WHITE,           A_NORMAL},
+	[COLOR_LINE_BOLD]    = {"line-bold",         COLOR_WHITE  | A_BOLD, A_BOLD  },
+	[COLOR_LIST]         = {"list",              COLOR_GREEN,           A_NORMAL},
+	[COLOR_LIST_BOLD]    = {"list-bold",         COLOR_GREEN  | A_BOLD, A_BOLD  },
+	[COLOR_PROGRESSBAR]  = {"progressbar",       COLOR_WHITE,           A_NORMAL},
+	[COLOR_STATUS]       = {"status-song",       COLOR_YELLOW,          A_NORMAL},
+	[COLOR_STATUS_BOLD]  = {"status-state",      COLOR_YELLOW | A_BOLD, A_BOLD  },
+	[COLOR_STATUS_TIME]  = {"status-time",       COLOR_RED,             A_NORMAL},
+	[COLOR_STATUS_ALERT] = {"alert",             COLOR_RED    | A_BOLD, A_BOLD  },
+	[COLOR_DIRECTORY]    = {"browser-directory", COLOR_YELLOW,          A_NORMAL},
+	[COLOR_PLAYLIST]     = {"browser-playlist",  COLOR_RED,             A_NORMAL},
+	[COLOR_BACKGROUND]   = {"background",        COLOR_BLACK,           A_NORMAL},
 };
 
 #ifdef ENABLE_COLORS
-
-/* background color */
-static short bg = COLOR_BLACK;
 
 static GList *color_definition_list = NULL;
 
@@ -116,27 +82,24 @@ colors_lookup_by_name(const char *name)
 static int
 colors_update_pair(enum color id)
 {
-	color_entry_t *entry = &colors[id];
-	short fg = -1;
+	short fg, bg;
 
 	assert(id > 0 && id < COLOR_END);
 
-	if (IS_BRIGHT(entry->fg)) {
-		entry->attrs = A_BOLD;
-		fg = entry->fg & ~COLOR_BRIGHT_MASK;
-	} else {
-		entry->attrs = A_NORMAL;
-		fg = entry->fg;
-	}
+	fg = colors[id].color;
+	bg = colors[COLOR_BACKGROUND].color;
 
+	/* COLOR_NONE is negative, which
+	 * results in a default colors */
 	init_pair(id, fg, bg);
 	return 0;
 }
 
-short
+int
 colors_str2color(const char *str)
 {
-	short color;
+	int color;
+	char *endptr;
 
 	if (!strcasecmp(str, "black"))
 		return COLOR_BLACK;
@@ -155,28 +118,26 @@ colors_str2color(const char *str)
 	else if (!strcasecmp(str, "white"))
 		return COLOR_WHITE;
 	else if (!strcasecmp(str, "brightred"))
-		return COLOR_BRIGHT_RED;
+		return COLOR_RED | A_BOLD;
 	else if (!strcasecmp(str, "brightgreen"))
-		return COLOR_BRIGHT_GREEN;
+		return COLOR_GREEN | A_BOLD;
 	else if (!strcasecmp(str, "brightyellow"))
-		return COLOR_BRIGHT_YELLOW;
+		return COLOR_YELLOW | A_BOLD;
 	else if (!strcasecmp(str, "brightblue"))
-		return COLOR_BRIGHT_BLUE;
+		return COLOR_BLUE | A_BOLD;
 	else if (!strcasecmp(str, "brightmagenta"))
-		return COLOR_BRIGHT_MAGENTA;
+		return COLOR_MAGENTA | A_BOLD;
 	else if (!strcasecmp(str, "brightcyan"))
-		return COLOR_BRIGHT_CYAN;
+		return COLOR_CYAN | A_BOLD;
 	else if (!strcasecmp(str, "brightwhite"))
-		return COLOR_BRIGHT_WHITE;
+		return COLOR_WHITE | A_BOLD;
 	else if (!strcasecmp(str, "grey") || !strcasecmp(str, "gray"))
-		return COLOR_BRIGHT_BLACK;
+		return COLOR_BLACK | A_BOLD;
 	else if (!strcasecmp(str, "none"))
-		return -1;
+		return COLOR_NONE;
 
-	if (!strcmp(str, "0"))
-		return 0;
-	color = atoi(str);
-	if (color > 0)
+	color = strtol(str, &endptr, 10);
+	if (str != endptr && endptr[0] == '\0')
 		return color;
 
 	fprintf(stderr,_("Warning: Unknown color - %s\n"), str);
@@ -190,10 +151,10 @@ int
 colors_define(const char *name, short r, short g, short b)
 {
 	color_definition_entry_t *entry;
-	short color = colors_str2color(name);
+	int color = colors_str2color(name);
 
 	if (color < 0)
-		return -1;
+		return color;
 
 	entry = g_malloc(sizeof(color_definition_entry_t));
 	entry->color = color;
@@ -210,26 +171,17 @@ int
 colors_assign(const char *name, const char *value)
 {
 	color_entry_t *entry = colors_lookup_by_name(name);
-	short color;
+	int color;
 
 	if (!entry) {
-		if (!strcasecmp(NAME_BGCOLOR, name)) {
-			if ((color = colors_str2color(value)) < -1)
-				return -1;
-			if (color > COLORS)
-				color = color & ~COLOR_BRIGHT_MASK;
-			bg = color;
-			return 0;
-		}
-
 		fprintf(stderr,_("Warning: Unknown color field - %s\n"), name);
 		return -1;
 	}
 
-	if ((color = colors_str2color(value)) < -1)
+	if ((color = colors_str2color(value)) == COLOR_ERROR)
 		return -1;
 
-	entry->fg = color;
+	entry->color = color;
 	return 0;
 }
 
@@ -301,13 +253,13 @@ colors_use(WINDOW *w, enum color id)
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* color mode */
-		if (attrs != entry->attrs || (short)id != pair)
-			wattr_set(w, entry->attrs, id, NULL);
+		if ((int)attrs != entry->mono || (short)id != pair)
+			wattr_set(w, entry->mono, id, NULL);
 	} else {
 #endif
 		/* mono mode */
-		if (attrs != entry->attrs)
-			(void)wattrset(w, entry->attrs);
+		if ((int)attrs != entry->mono)
+			(void)wattrset(w, entry->mono);
 #ifdef ENABLE_COLORS
 	}
 #endif
