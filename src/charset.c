@@ -94,7 +94,7 @@ locale_width(const char *p)
 
 	return width;
 #else
-	return strlen(str);
+	return strlen(p);
 #endif
 }
 
