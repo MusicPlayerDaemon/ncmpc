@@ -376,8 +376,8 @@ static int
 handle_add_to_playlist(struct mpdclient *c)
 {
 	gchar *path;
-#ifndef NCMPC_MINI
 	GCompletion *gcmp;
+#ifndef NCMPC_MINI
 	GList *list = NULL;
 	GList *dir_list = NULL;
 	completion_callback_data_t data;
@@ -391,18 +391,15 @@ handle_add_to_playlist(struct mpdclient *c)
 	wrln_completion_callback_data = &data;
 	wrln_pre_completion_callback = add_pre_completion_cb;
 	wrln_post_completion_callback = add_post_completion_cb;
+#else
+	gcmp = NULL;
 #endif
 
 	/* get path */
 	path = screen_readln(_("Add"),
 			     NULL,
 			     NULL,
-#ifdef NCMPC_MINI
-			     NULL
-#else
-			     gcmp
-#endif
-			     );
+			     gcmp);
 
 	/* destroy completion data */
 #ifndef NCMPC_MINI
