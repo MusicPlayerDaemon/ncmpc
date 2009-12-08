@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-10 08:06+0100\n"
-"PO-Revision-Date: 2009-09-28 17:13+0200\n"
-"Last-Translator: Samuel Creshal <creshal@yaki-syndicate.de>\n"
+"PO-Revision-Date: 2009-11-09 15:51+0000\n"
+"Last-Translator: BBO <Unknown>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-09-28 15:08+0000\n"
+"X-Launchpad-Export-Date: 2009-12-08 07:40+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -96,11 +96,11 @@ msgstr "Einzelabspiel-Modus ist deaktiviert"
 #. finished playing
 #: src/screen.c:413
 msgid "Consume mode is on"
-msgstr ""
+msgstr "Verbrauchs-Modus Aktiviert"
 
 #: src/screen.c:414
 msgid "Consume mode is off"
-msgstr ""
+msgstr "Verbrauchs-Modus Deaktiviert"
 
 #: src/screen.c:417
 #, c-format
@@ -824,7 +824,7 @@ msgstr "Einzelabspiel-Modus umschalten"
 
 #: src/command.c:154
 msgid "Toggle consume mode"
-msgstr ""
+msgstr "Verbrauchs-Modus Umschalten"
 
 #: src/command.c:156
 msgid "Toggle crossfade mode"
@@ -1102,6 +1102,7 @@ msgstr ""
 "Übersetzer\n"
 "\n"
 "Launchpad Contributions:\n"
+"  BBO https://launchpad.net/~bbo\n"
 "  Monika Brinkert https://launchpad.net/~moni-sunpig\n"
 "  Samuel Creshal https://launchpad.net/~samuel-creshal"
 
