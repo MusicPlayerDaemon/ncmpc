@@ -140,8 +140,8 @@ else
 fi
 
 dnl Check for glib-2.4
-PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.4],,
-	[AC_MSG_ERROR([glib 2.4 is required])])
+PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.12],,
+	[AC_MSG_ERROR([glib 2.12 is required])])
 
 dnl Check for libmpdclient 2.0
 PKG_CHECK_MODULES([LIBMPDCLIENT], [libmpdclient >= 2.0],,

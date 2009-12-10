@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-01 16:19+0100\n"
+"POT-Creation-Date: 2009-12-10 08:06+0100\n"
 "PO-Revision-Date: 2009-04-15 17:58+0000\n"
 "Last-Translator: Laszlo Ashin <kodest@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -43,36 +43,36 @@ msgstr "Csatlakoztatva ide: %s"
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
 #. that
-#: src/main.c:464
+#: src/main.c:465
 #, c-format
 msgid "press %s for the key editor"
 msgstr "nyomj %s-t a szerkesztéshez"
 
-#: src/player_command.c:170 src/screen_queue.c:749
+#: src/player_command.c:177 src/screen_queue.c:746
 msgid "Shuffled playlist"
 msgstr "Lejátszólista összekeverve"
 
-#: src/player_command.c:180
+#: src/player_command.c:187
 msgid "Cleared playlist"
 msgstr "Lejátszólista törölve"
 
-#: src/screen.c:207 src/screen.c:271
+#: src/screen.c:205 src/screen.c:269
 msgid "Error: Screen too small"
 msgstr "Hiba: a képernyő túl kicsi"
 
-#: src/screen.c:391
+#: src/screen.c:389
 msgid "Repeat mode is on"
 msgstr "Ismétlő mód be"
 
-#: src/screen.c:392
+#: src/screen.c:390
 msgid "Repeat mode is off"
 msgstr "Ismétlő mód ki"
 
-#: src/screen.c:396
+#: src/screen.c:394
 msgid "Random mode is on"
 msgstr "Véletlen mód be"
 
-#: src/screen.c:397
+#: src/screen.c:395
 msgid "Random mode is off"
 msgstr "Véletlen mód ki"
 
@@ -81,11 +81,11 @@ msgstr "Véletlen mód ki"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.c:406
+#: src/screen.c:404
 msgid "Single mode is on"
 msgstr "Egyszeri lejátszás mód be"
 
-#: src/screen.c:407
+#: src/screen.c:405
 msgid "Single mode is off"
 msgstr "Egyszeri lejátszás mód ki"
 
@@ -93,36 +93,36 @@ msgstr "Egyszeri lejátszás mód ki"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.c:415
+#: src/screen.c:413
 msgid "Consume mode is on"
 msgstr "Fogyasztó mód be"
 
-#: src/screen.c:416
+#: src/screen.c:414
 msgid "Consume mode is off"
 msgstr "Fogyasztó mód ki"
 
-#: src/screen.c:419
+#: src/screen.c:417
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Egymásba mosás %d másodperc"
 
-#: src/screen.c:431
+#: src/screen.c:429
 msgid "Database updated"
 msgstr "Adatbázis frissítve"
 
-#: src/screen.c:507
+#: src/screen.c:505
 msgid "Find mode: Wrapped"
 msgstr "Keresési mód: újrakezdő"
 
-#: src/screen.c:508
+#: src/screen.c:506
 msgid "Find mode: Normal"
 msgstr "Keresési mód: normál"
 
-#: src/screen.c:513
+#: src/screen.c:511
 msgid "Auto center mode: On"
 msgstr "Középre igazítás bekapcsolva"
 
-#: src/screen.c:514
+#: src/screen.c:512
 msgid "Auto center mode: Off"
 msgstr "Középre igazítás kikapcsolva"
 
@@ -195,36 +195,36 @@ msgid "Password"
 msgstr "Jelszó"
 
 #. query the user for a filename
-#: src/screen_queue.c:238
+#: src/screen_queue.c:256
 msgid "Save playlist as"
 msgstr "Lejátszólista mentése másként"
 
-#: src/screen_queue.c:272
+#: src/screen_queue.c:290
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Cserélni a következőt: %s [%s/%s]? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:280 src/screen_file.c:238 src/screen_keydef.c:165
+#: src/screen_queue.c:298 src/screen_file.c:238 src/screen_keydef.c:165
 msgid "Aborted"
 msgstr "Megszakítva"
 
 #. success
-#: src/screen_queue.c:304
+#: src/screen_queue.c:322
 #, c-format
 msgid "Saved %s"
 msgstr "%s elmentve"
 
 #. get path
-#: src/screen_queue.c:379
+#: src/screen_queue.c:399
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: src/screen_queue.c:490 src/title_bar.c:77
+#: src/screen_queue.c:506 src/title_bar.c:77
 msgid "Playlist"
 msgstr "Lejátszólista"
 
-#: src/screen_queue.c:492
+#: src/screen_queue.c:508
 #, c-format
 msgid "Playlist on %s"
 msgstr "Lejátszólista itt: %s"
@@ -296,15 +296,15 @@ msgstr "megjegyzés"
 msgid "file"
 msgstr "fájl"
 
-#: src/screen_search.c:83 src/screen_song.c:207
+#: src/screen_search.c:83 src/screen_song.c:202
 msgid "Title"
 msgstr "Cím"
 
-#: src/screen_search.c:84 src/screen_song.c:206 src/title_bar.c:80
+#: src/screen_search.c:84 src/screen_song.c:201 src/title_bar.c:80
 msgid "Artist"
 msgstr "Előadó"
 
-#: src/screen_search.c:85 src/screen_song.c:208
+#: src/screen_search.c:85 src/screen_song.c:203
 msgid "Album"
 msgstr "Album"
 
@@ -566,105 +566,105 @@ msgstr "Kimenet engedélyezve: %s"
 msgid "Output '%s' disabled"
 msgstr "Kimenet tiltva: %s"
 
-#: src/screen_outputs.c:174 src/title_bar.c:89
+#: src/screen_outputs.c:176 src/title_bar.c:89
 msgid "Outputs"
 msgstr "Kimenetek"
 
-#: src/screen_song.c:123
+#: src/screen_song.c:116
 msgid "Song viewer"
 msgstr "Szám néző"
 
-#: src/screen_song.c:209
+#: src/screen_song.c:204
 #, fuzzy
 msgid "Length"
 msgstr "Left"
 
-#: src/screen_song.c:210
+#: src/screen_song.c:205
 msgid "Composer"
 msgstr "Zeneszerző"
 
-#: src/screen_song.c:211
+#: src/screen_song.c:206
 msgid "Name"
 msgstr "Név"
 
-#: src/screen_song.c:212
+#: src/screen_song.c:207
 msgid "Disc"
 msgstr "Lemez"
 
-#: src/screen_song.c:213
+#: src/screen_song.c:208
 msgid "Track"
 msgstr "Szám"
 
-#: src/screen_song.c:214
+#: src/screen_song.c:209
 msgid "Date"
 msgstr "Dátum"
 
-#: src/screen_song.c:215
+#: src/screen_song.c:210
 msgid "Genre"
 msgstr "Műfaj"
 
-#: src/screen_song.c:216
+#: src/screen_song.c:211
 msgid "Comment"
 msgstr "Megjegyzés"
 
-#: src/screen_song.c:217
+#: src/screen_song.c:212
 msgid "Bitrate"
 msgstr "Bitráta"
 
-#: src/screen_song.c:255
+#: src/screen_song.c:250
 msgid "Path"
 msgstr "Elérési út"
 
-#: src/screen_song.c:261
+#: src/screen_song.c:254
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/screen_song.c:277
+#: src/screen_song.c:270
 msgid "Number of artists"
 msgstr "Előadók száma"
 
-#: src/screen_song.c:278
+#: src/screen_song.c:271
 msgid "Number of albums"
 msgstr "Albumok száma"
 
-#: src/screen_song.c:279
+#: src/screen_song.c:272
 msgid "Number of songs"
 msgstr "Zenék száma"
 
-#: src/screen_song.c:280
+#: src/screen_song.c:273
 msgid "Uptime"
 msgstr "Üzemidő"
 
-#: src/screen_song.c:281
+#: src/screen_song.c:274
 msgid "Most recent db update"
 msgstr "Legutóbbi adatbázis frissítés"
 
-#: src/screen_song.c:282
+#: src/screen_song.c:275
 msgid "Playtime"
 msgstr "Lejátszási idő"
 
-#: src/screen_song.c:283
+#: src/screen_song.c:276
 msgid "DB playtime"
 msgstr "Teljes adatbázis lejátszási ideje"
 
-#: src/screen_song.c:298
+#: src/screen_song.c:291
 msgid "MPD statistics"
 msgstr "MPD statisztika"
 
-#: src/screen_song.c:355
+#: src/screen_song.c:346
 msgid "Selected song"
 msgstr "Kiválasztott zene"
 
-#: src/screen_song.c:367
+#: src/screen_song.c:356
 msgid "Currently playing song"
 msgstr "Jelenlegi zene"
 
-#: src/status_bar.c:115
+#: src/status_bar.c:124
 msgid "Playing:"
 msgstr "Ami szól:"
 
-#: src/status_bar.c:118
+#: src/status_bar.c:127
 msgid "[Paused]"
 msgstr "[Szüneteltetve]"
 
@@ -1009,41 +1009,41 @@ msgstr "Insert"
 msgid "Key %s assigned to %s and %s"
 msgstr "A(z) %s gomb a követlezőkhoz van rendelve: %s és %s"
 
-#: src/colors.c:174
+#: src/colors.c:156
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr "Figyelem: ismeretlen szín - %s\n"
 
-#: src/colors.c:217
+#: src/colors.c:196
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Figyelem: ismeretlen szín mező - %s\n"
 
-#: src/colors.c:250
+#: src/colors.c:229
 msgid "Terminal lacks support for changing colors"
 msgstr "A terminál nem támogatja a színek változtatását"
 
-#: src/colors.c:261
+#: src/colors.c:240
 msgid "Terminal lacks color capabilities"
 msgstr "A terminál nem támogatja a színeket"
 
 #. To translators: prefix for error messages
-#: src/conf.c:93
+#: src/conf.c:94
 msgid "Error"
 msgstr "Hiba"
 
-#: src/conf.c:101 src/conf.c:110
+#: src/conf.c:102 src/conf.c:111
 msgid "Malformed hotkey definition"
 msgstr "Hibás gyorsbillentyű definíció"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:137
+#: src/conf.c:138
 msgid "Unknown command"
 msgstr "Ismeretlen parancs"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:150
+#: src/conf.c:151
 msgid "Incomplete hotkey configuration"
 msgstr "Hiányos gyorsbillentyű definíció"
 
@@ -1051,53 +1051,53 @@ msgstr "Hiányos gyorsbillentyű definíció"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:184
+#: src/conf.c:185
 msgid "Bad time display type"
 msgstr "Hibás időkijelzési típus"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:199
+#: src/conf.c:200
 msgid "Missing '='"
 msgstr "Hiányzó egyenlőség jel"
 
-#: src/conf.c:255
+#: src/conf.c:256
 msgid "Bad color name"
 msgstr "Hibás szín megnevezés"
 
-#: src/conf.c:264
+#: src/conf.c:265
 msgid "Incomplete color definition"
 msgstr "Hiányos szín megadás"
 
-#: src/conf.c:270
+#: src/conf.c:271
 msgid "Invalid number"
 msgstr "Érvénytelen szám"
 
-#: src/conf.c:278
+#: src/conf.c:279
 msgid "Malformed color definition"
 msgstr "Hibás szín megadás"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:312
+#: src/conf.c:313
 msgid "Unknown screen name"
 msgstr "Ismeretlen képernyő név"
 
-#: src/conf.c:341
+#: src/conf.c:342
 msgid "Invalid search mode"
 msgstr "Érvénytelen keresési mód"
 
-#: src/conf.c:364
+#: src/conf.c:365
 msgid "Unknown search mode"
 msgstr "Ismeretlen keresési mód"
 
-#: src/conf.c:527
+#: src/conf.c:534
 msgid "Unknown configuration parameter"
 msgstr "Ismeretlen konfigurációs paraméter"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:220 src/options.c:223
+#: src/options.c:221 src/options.c:224
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"

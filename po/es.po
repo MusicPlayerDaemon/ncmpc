@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-01 16:19+0100\n"
+"POT-Creation-Date: 2009-12-10 08:06+0100\n"
 "PO-Revision-Date: 2009-10-30 17:58+0000\n"
 "Last-Translator: Paco Molinero <paco@byasl.com>\n"
 "Language-Team: es\n"
@@ -50,36 +50,36 @@ msgstr "Conectado a %s"
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
 #. that
-#: src/main.c:464
+#: src/main.c:465
 #, c-format
 msgid "press %s for the key editor"
 msgstr "pressiona %s para accer al editor de teclas"
 
-#: src/player_command.c:170 src/screen_queue.c:749
+#: src/player_command.c:177 src/screen_queue.c:746
 msgid "Shuffled playlist"
 msgstr "Lista de canciones barajada"
 
-#: src/player_command.c:180
+#: src/player_command.c:187
 msgid "Cleared playlist"
 msgstr "Vaciada la lista de canciones"
 
-#: src/screen.c:207 src/screen.c:271
+#: src/screen.c:205 src/screen.c:269
 msgid "Error: Screen too small"
 msgstr "Error: La ventana/pantalla es muy pequeña"
 
-#: src/screen.c:391
+#: src/screen.c:389
 msgid "Repeat mode is on"
 msgstr "Modo repetición activado"
 
-#: src/screen.c:392
+#: src/screen.c:390
 msgid "Repeat mode is off"
 msgstr "Modo repetición desactivado"
 
-#: src/screen.c:396
+#: src/screen.c:394
 msgid "Random mode is on"
 msgstr "Modo aleatorio activado"
 
-#: src/screen.c:397
+#: src/screen.c:395
 msgid "Random mode is off"
 msgstr "Modo aleatorio desactivado"
 
@@ -88,11 +88,11 @@ msgstr "Modo aleatorio desactivado"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.c:406
+#: src/screen.c:404
 msgid "Single mode is on"
 msgstr "Modo compacto activado"
 
-#: src/screen.c:407
+#: src/screen.c:405
 msgid "Single mode is off"
 msgstr "Modo compacto desactivado"
 
@@ -100,36 +100,36 @@ msgstr "Modo compacto desactivado"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.c:415
+#: src/screen.c:413
 msgid "Consume mode is on"
 msgstr "Modo completo activado"
 
-#: src/screen.c:416
+#: src/screen.c:414
 msgid "Consume mode is off"
 msgstr "Modo compacto desactivado"
 
-#: src/screen.c:419
+#: src/screen.c:417
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Desvanecimiento de %d segundos"
 
-#: src/screen.c:431
+#: src/screen.c:429
 msgid "Database updated"
 msgstr "Base de datos actualizada"
 
-#: src/screen.c:507
+#: src/screen.c:505
 msgid "Find mode: Wrapped"
 msgstr "Tipo de búsqueda: simple"
 
-#: src/screen.c:508
+#: src/screen.c:506
 msgid "Find mode: Normal"
 msgstr "Tipo de búsqueda: Normal"
 
-#: src/screen.c:513
+#: src/screen.c:511
 msgid "Auto center mode: On"
 msgstr "Modo autocentrado activado"
 
-#: src/screen.c:514
+#: src/screen.c:512
 msgid "Auto center mode: Off"
 msgstr "Modo autocentrado desactivado"
 
@@ -202,36 +202,36 @@ msgid "Password"
 msgstr "Contraseña"
 
 #. query the user for a filename
-#: src/screen_queue.c:238
+#: src/screen_queue.c:256
 msgid "Save playlist as"
 msgstr "Guardar la lista como"
 
-#: src/screen_queue.c:272
+#: src/screen_queue.c:290
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Sustituir %s [%s%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:280 src/screen_file.c:238 src/screen_keydef.c:165
+#: src/screen_queue.c:298 src/screen_file.c:238 src/screen_keydef.c:165
 msgid "Aborted"
 msgstr "Ejecución interrumpida"
 
 #. success
-#: src/screen_queue.c:304
+#: src/screen_queue.c:322
 #, c-format
 msgid "Saved %s"
 msgstr "%s Guardada"
 
 #. get path
-#: src/screen_queue.c:379
+#: src/screen_queue.c:399
 msgid "Add"
 msgstr "Añadir"
 
-#: src/screen_queue.c:490 src/title_bar.c:77
+#: src/screen_queue.c:506 src/title_bar.c:77
 msgid "Playlist"
 msgstr "Lista de canciones"
 
-#: src/screen_queue.c:492
+#: src/screen_queue.c:508
 #, c-format
 msgid "Playlist on %s"
 msgstr "Lista de reproducción en %s"
@@ -303,15 +303,15 @@ msgstr "comentario"
 msgid "file"
 msgstr "fichero"
 
-#: src/screen_search.c:83 src/screen_song.c:207
+#: src/screen_search.c:83 src/screen_song.c:202
 msgid "Title"
 msgstr "Título"
 
-#: src/screen_search.c:84 src/screen_song.c:206 src/title_bar.c:80
+#: src/screen_search.c:84 src/screen_song.c:201 src/title_bar.c:80
 msgid "Artist"
 msgstr "Artista"
 
-#: src/screen_search.c:85 src/screen_song.c:208
+#: src/screen_search.c:85 src/screen_song.c:203
 msgid "Album"
 msgstr "Álbum"
 
@@ -573,104 +573,104 @@ msgstr "Se activó la salida '%s'"
 msgid "Output '%s' disabled"
 msgstr "Se desactivó la salida '%s'"
 
-#: src/screen_outputs.c:174 src/title_bar.c:89
+#: src/screen_outputs.c:176 src/title_bar.c:89
 msgid "Outputs"
 msgstr "Salidas"
 
-#: src/screen_song.c:123
+#: src/screen_song.c:116
 msgid "Song viewer"
 msgstr "Visor de la canción"
 
-#: src/screen_song.c:209
+#: src/screen_song.c:204
 msgid "Length"
 msgstr "Duración"
 
-#: src/screen_song.c:210
+#: src/screen_song.c:205
 msgid "Composer"
 msgstr "Compositor"
 
-#: src/screen_song.c:211
+#: src/screen_song.c:206
 msgid "Name"
 msgstr "Nombre"
 
-#: src/screen_song.c:212
+#: src/screen_song.c:207
 msgid "Disc"
 msgstr "Disco"
 
-#: src/screen_song.c:213
+#: src/screen_song.c:208
 msgid "Track"
 msgstr "Pista"
 
-#: src/screen_song.c:214
+#: src/screen_song.c:209
 msgid "Date"
 msgstr "Fecha"
 
-#: src/screen_song.c:215
+#: src/screen_song.c:210
 msgid "Genre"
 msgstr "Estilo"
 
-#: src/screen_song.c:216
+#: src/screen_song.c:211
 msgid "Comment"
 msgstr "Comentario"
 
-#: src/screen_song.c:217
+#: src/screen_song.c:212
 msgid "Bitrate"
 msgstr "Bitrate"
 
-#: src/screen_song.c:255
+#: src/screen_song.c:250
 msgid "Path"
 msgstr "Ruta"
 
-#: src/screen_song.c:261
+#: src/screen_song.c:254
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/screen_song.c:277
+#: src/screen_song.c:270
 msgid "Number of artists"
 msgstr "Número de artistas"
 
-#: src/screen_song.c:278
+#: src/screen_song.c:271
 msgid "Number of albums"
 msgstr "Número de álbumes"
 
-#: src/screen_song.c:279
+#: src/screen_song.c:272
 msgid "Number of songs"
 msgstr "Número de canciones"
 
-#: src/screen_song.c:280
+#: src/screen_song.c:273
 msgid "Uptime"
 msgstr "Tiempo de ejecución"
 
-#: src/screen_song.c:281
+#: src/screen_song.c:274
 msgid "Most recent db update"
 msgstr "Actualización más reciente de la BD"
 
-#: src/screen_song.c:282
+#: src/screen_song.c:275
 msgid "Playtime"
 msgstr "Tiempo de reproducción"
 
-#: src/screen_song.c:283
+#: src/screen_song.c:276
 msgid "DB playtime"
 msgstr "Duración de la BD"
 
-#: src/screen_song.c:298
+#: src/screen_song.c:291
 msgid "MPD statistics"
 msgstr "Estadísticas del MPD"
 
-#: src/screen_song.c:355
+#: src/screen_song.c:346
 msgid "Selected song"
 msgstr "Canción seleccionada"
 
-#: src/screen_song.c:367
+#: src/screen_song.c:356
 msgid "Currently playing song"
 msgstr "Canción reproducida"
 
-#: src/status_bar.c:115
+#: src/status_bar.c:124
 msgid "Playing:"
 msgstr "Escuchando:"
 
-#: src/status_bar.c:118
+#: src/status_bar.c:127
 msgid "[Paused]"
 msgstr "[Parado]"
 
@@ -1014,41 +1014,41 @@ msgstr "Insertar"
 msgid "Key %s assigned to %s and %s"
 msgstr "Tecla %s asignada a %s y %s"
 
-#: src/colors.c:174
+#: src/colors.c:156
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr "Advertencia: Color %s - no reconocido\n"
 
-#: src/colors.c:217
+#: src/colors.c:196
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Advertencia: Propiedad del color - %s no reconocida\n"
 
-#: src/colors.c:250
+#: src/colors.c:229
 msgid "Terminal lacks support for changing colors"
 msgstr "La terminal no soporta el cambio de colores"
 
-#: src/colors.c:261
+#: src/colors.c:240
 msgid "Terminal lacks color capabilities"
 msgstr "La terminal no tiene la opcion de diferentes colores"
 
 #. To translators: prefix for error messages
-#: src/conf.c:93
+#: src/conf.c:94
 msgid "Error"
 msgstr "Error"
 
-#: src/conf.c:101 src/conf.c:110
+#: src/conf.c:102 src/conf.c:111
 msgid "Malformed hotkey definition"
 msgstr "Definición incorrecta de la tecla de acceso"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:137
+#: src/conf.c:138
 msgid "Unknown command"
 msgstr "Comando desconocido"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:150
+#: src/conf.c:151
 msgid "Incomplete hotkey configuration"
 msgstr "Configuración incompleta de la tecla de acceso"
 
@@ -1056,53 +1056,53 @@ msgstr "Configuración incompleta de la tecla de acceso"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:184
+#: src/conf.c:185
 msgid "Bad time display type"
 msgstr "Configuración incorrecta del tipo de duración mostrada"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:199
+#: src/conf.c:200
 msgid "Missing '='"
 msgstr "Falta un '='"
 
-#: src/conf.c:255
+#: src/conf.c:256
 msgid "Bad color name"
 msgstr "Nombre de color incorrecto"
 
-#: src/conf.c:264
+#: src/conf.c:265
 msgid "Incomplete color definition"
 msgstr "Definición de color incompleta"
 
-#: src/conf.c:270
+#: src/conf.c:271
 msgid "Invalid number"
 msgstr "Número inválido"
 
-#: src/conf.c:278
+#: src/conf.c:279
 msgid "Malformed color definition"
 msgstr "Definición de color erronea"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:312
+#: src/conf.c:313
 msgid "Unknown screen name"
 msgstr "Nombre de pantalla desconocido"
 
-#: src/conf.c:341
+#: src/conf.c:342
 msgid "Invalid search mode"
 msgstr "Modo de búsqueda inválido"
 
-#: src/conf.c:364
+#: src/conf.c:365
 msgid "Unknown search mode"
 msgstr "No se reconoce el modo de búsqueda"
 
-#: src/conf.c:527
+#: src/conf.c:534
 msgid "Unknown configuration parameter"
 msgstr "Parámetro de configuración desconocido"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:220 src/options.c:223
+#: src/options.c:221 src/options.c:224
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"

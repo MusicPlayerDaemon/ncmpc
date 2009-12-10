@@ -19,6 +19,7 @@
 
 #include "hscroll.h"
 #include "charset.h"
+#include "glib_compat.h"
 
 #include <assert.h>
 #include <string.h>

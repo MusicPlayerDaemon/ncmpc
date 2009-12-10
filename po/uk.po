@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-01 16:19+0100\n"
+"POT-Creation-Date: 2009-12-10 08:06+0100\n"
 "PO-Revision-Date: 2009-09-22 20:41+0300\n"
 "Last-Translator: Oleksandr Kovalenko <alx.kovalenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -44,36 +44,36 @@ msgstr "Встановлене з'єднання з %s"
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
 #. that
-#: src/main.c:464
+#: src/main.c:465
 #, c-format
 msgid "press %s for the key editor"
 msgstr "натисніть %s щоб редагувати клавіші"
 
-#: src/player_command.c:170 src/screen_queue.c:749
+#: src/player_command.c:177 src/screen_queue.c:746
 msgid "Shuffled playlist"
 msgstr "Перемішаний перелік програвання"
 
-#: src/player_command.c:180
+#: src/player_command.c:187
 msgid "Cleared playlist"
 msgstr "Очищений перелік програвання"
 
-#: src/screen.c:207 src/screen.c:271
+#: src/screen.c:205 src/screen.c:269
 msgid "Error: Screen too small"
 msgstr "Помилка: екран занадто маленький"
 
-#: src/screen.c:391
+#: src/screen.c:389
 msgid "Repeat mode is on"
 msgstr "Режим повторення увімкнений"
 
-#: src/screen.c:392
+#: src/screen.c:390
 msgid "Repeat mode is off"
 msgstr "Режим повторення вимкнений"
 
-#: src/screen.c:396
+#: src/screen.c:394
 msgid "Random mode is on"
 msgstr "Режим випадкового програвання увімкнений"
 
-#: src/screen.c:397
+#: src/screen.c:395
 msgid "Random mode is off"
 msgstr "Режим випадкового програвання вимкнений"
 
@@ -82,11 +82,11 @@ msgstr "Режим випадкового програвання вимкнен�
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.c:406
+#: src/screen.c:404
 msgid "Single mode is on"
 msgstr "Режим повторення однієї доріжки увімкнений"
 
-#: src/screen.c:407
+#: src/screen.c:405
 msgid "Single mode is off"
 msgstr "Режим повторення однієї доріжки вимкнений"
 
@@ -94,36 +94,36 @@ msgstr "Режим повторення однієї доріжки вимкне
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.c:415
+#: src/screen.c:413
 msgid "Consume mode is on"
 msgstr "Режим вичерпання увімкнений"
 
-#: src/screen.c:416
+#: src/screen.c:414
 msgid "Consume mode is off"
 msgstr "Режим вичерпання вимкнений"
 
-#: src/screen.c:419
+#: src/screen.c:417
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Плавний перехід: %dс"
 
-#: src/screen.c:431
+#: src/screen.c:429
 msgid "Database updated"
 msgstr "База даних оновлена"
 
-#: src/screen.c:507
+#: src/screen.c:505
 msgid "Find mode: Wrapped"
 msgstr "Режим пошуку: завернутий (розділений???)"
 
-#: src/screen.c:508
+#: src/screen.c:506
 msgid "Find mode: Normal"
 msgstr "Режим пошуку: звичайний"
 
-#: src/screen.c:513
+#: src/screen.c:511
 msgid "Auto center mode: On"
 msgstr "Режим автоматичного центрування: увімкнено"
 
-#: src/screen.c:514
+#: src/screen.c:512
 msgid "Auto center mode: Off"
 msgstr "Режим автоматичного центрування: вимкнено"
 
@@ -196,36 +196,36 @@ msgid "Password"
 msgstr "Пароль"
 
 #. query the user for a filename
-#: src/screen_queue.c:238
+#: src/screen_queue.c:256
 msgid "Save playlist as"
 msgstr "Зберегти перелік програвання як"
 
-#: src/screen_queue.c:272
+#: src/screen_queue.c:290
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Замінити %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:280 src/screen_file.c:238 src/screen_keydef.c:165
+#: src/screen_queue.c:298 src/screen_file.c:238 src/screen_keydef.c:165
 msgid "Aborted"
 msgstr "Перервано"
 
 #. success
-#: src/screen_queue.c:304
+#: src/screen_queue.c:322
 #, c-format
 msgid "Saved %s"
 msgstr "Збережений %s"
 
 #. get path
-#: src/screen_queue.c:379
+#: src/screen_queue.c:399
 msgid "Add"
 msgstr "Додати"
 
-#: src/screen_queue.c:490 src/title_bar.c:77
+#: src/screen_queue.c:506 src/title_bar.c:77
 msgid "Playlist"
 msgstr "Перелік програвання"
 
-#: src/screen_queue.c:492
+#: src/screen_queue.c:508
 #, c-format
 msgid "Playlist on %s"
 msgstr "Перелік програвання %s"
@@ -297,15 +297,15 @@ msgstr "comment"
 msgid "file"
 msgstr "file"
 
-#: src/screen_search.c:83 src/screen_song.c:207
+#: src/screen_search.c:83 src/screen_song.c:202
 msgid "Title"
 msgstr "Назва"
 
-#: src/screen_search.c:84 src/screen_song.c:206 src/title_bar.c:80
+#: src/screen_search.c:84 src/screen_song.c:201 src/title_bar.c:80
 msgid "Artist"
 msgstr "Виконавець"
 
-#: src/screen_search.c:85 src/screen_song.c:208
+#: src/screen_search.c:85 src/screen_song.c:203
 msgid "Album"
 msgstr "Альбом"
 
@@ -567,104 +567,104 @@ msgstr "Вихід '%s' увімкнений"
 msgid "Output '%s' disabled"
 msgstr "Вихід '%s' вимкнений"
 
-#: src/screen_outputs.c:174 src/title_bar.c:89
+#: src/screen_outputs.c:176 src/title_bar.c:89
 msgid "Outputs"
 msgstr "Виходи"
 
-#: src/screen_song.c:123
+#: src/screen_song.c:116
 msgid "Song viewer"
 msgstr "Переглядач пісень"
 
-#: src/screen_song.c:209
+#: src/screen_song.c:204
 msgid "Length"
 msgstr "Тривалість"
 
-#: src/screen_song.c:210
+#: src/screen_song.c:205
 msgid "Composer"
 msgstr "Композитор"
 
-#: src/screen_song.c:211
+#: src/screen_song.c:206
 msgid "Name"
 msgstr "Назва"
 
-#: src/screen_song.c:212
+#: src/screen_song.c:207
 msgid "Disc"
 msgstr "Диск"
 
-#: src/screen_song.c:213
+#: src/screen_song.c:208
 msgid "Track"
 msgstr "Доріжка"
 
-#: src/screen_song.c:214
+#: src/screen_song.c:209
 msgid "Date"
 msgstr "Дата"
 
-#: src/screen_song.c:215
+#: src/screen_song.c:210
 msgid "Genre"
 msgstr "Жанр"
 
-#: src/screen_song.c:216
+#: src/screen_song.c:211
 msgid "Comment"
 msgstr "Примітка"
 
-#: src/screen_song.c:217
+#: src/screen_song.c:212
 msgid "Bitrate"
 msgstr "Бітрейт"
 
-#: src/screen_song.c:255
+#: src/screen_song.c:250
 msgid "Path"
 msgstr "Шлях"
 
-#: src/screen_song.c:261
+#: src/screen_song.c:254
 #, c-format
 msgid "%d kbps"
 msgstr "%d кбіт/с"
 
-#: src/screen_song.c:277
+#: src/screen_song.c:270
 msgid "Number of artists"
 msgstr "Кількість виконавців"
 
-#: src/screen_song.c:278
+#: src/screen_song.c:271
 msgid "Number of albums"
 msgstr "Кількість альбомів"
 
-#: src/screen_song.c:279
+#: src/screen_song.c:272
 msgid "Number of songs"
 msgstr "Кількість пісень"
 
-#: src/screen_song.c:280
+#: src/screen_song.c:273
 msgid "Uptime"
 msgstr "Час роботи"
 
-#: src/screen_song.c:281
+#: src/screen_song.c:274
 msgid "Most recent db update"
 msgstr "Останнє оновлення бази даних"
 
-#: src/screen_song.c:282
+#: src/screen_song.c:275
 msgid "Playtime"
 msgstr "Час програвання"
 
-#: src/screen_song.c:283
+#: src/screen_song.c:276
 msgid "DB playtime"
 msgstr "Час програвання всієї БД"
 
-#: src/screen_song.c:298
+#: src/screen_song.c:291
 msgid "MPD statistics"
 msgstr "Статистика MPD"
 
-#: src/screen_song.c:355
+#: src/screen_song.c:346
 msgid "Selected song"
 msgstr "Вибрана пісня"
 
-#: src/screen_song.c:367
+#: src/screen_song.c:356
 msgid "Currently playing song"
 msgstr "Пісня, що зараз програється"
 
-#: src/status_bar.c:115
+#: src/status_bar.c:124
 msgid "Playing:"
 msgstr "Програється:"
 
-#: src/status_bar.c:118
+#: src/status_bar.c:127
 msgid "[Paused]"
 msgstr "[Призупинено]"
 
@@ -1008,41 +1008,41 @@ msgstr "Insert"
 msgid "Key %s assigned to %s and %s"
 msgstr "Клавіша %s призначена до %s та %s"
 
-#: src/colors.c:174
+#: src/colors.c:156
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr "Застереження: невідомий колір - %s\n"
 
-#: src/colors.c:217
+#: src/colors.c:196
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Застереження: невідоме поле кольору - %s\n"
 
-#: src/colors.c:250
+#: src/colors.c:229
 msgid "Terminal lacks support for changing colors"
 msgstr "Терміналу бракує підтримки зміни кольорів"
 
-#: src/colors.c:261
+#: src/colors.c:240
 msgid "Terminal lacks color capabilities"
 msgstr "Терміналу бракує підтримки можливостей кольорів"
 
 #. To translators: prefix for error messages
-#: src/conf.c:93
+#: src/conf.c:94
 msgid "Error"
 msgstr "Помилка"
 
-#: src/conf.c:101 src/conf.c:110
+#: src/conf.c:102 src/conf.c:111
 msgid "Malformed hotkey definition"
 msgstr "Невірно сформоване визначення гарячої клавіші"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:137
+#: src/conf.c:138
 msgid "Unknown command"
 msgstr "Невідома команда"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:150
+#: src/conf.c:151
 msgid "Incomplete hotkey configuration"
 msgstr "Незавершена конфігурація гарячих клавіш"
 
@@ -1050,53 +1050,53 @@ msgstr "Незавершена конфігурація гарячих клав�
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:184
+#: src/conf.c:185
 msgid "Bad time display type"
 msgstr "Невірний тип показу часу"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:199
+#: src/conf.c:200
 msgid "Missing '='"
 msgstr "Відсутній \"=\""
 
-#: src/conf.c:255
+#: src/conf.c:256
 msgid "Bad color name"
 msgstr "Невірна назва кольору"
 
-#: src/conf.c:264
+#: src/conf.c:265
 msgid "Incomplete color definition"
 msgstr "Незавершене визначення кольору"
 
-#: src/conf.c:270
+#: src/conf.c:271
 msgid "Invalid number"
 msgstr "Невірне число"
 
-#: src/conf.c:278
+#: src/conf.c:279
 msgid "Malformed color definition"
 msgstr "Невірно сформоване визначення кольору"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:312
+#: src/conf.c:313
 msgid "Unknown screen name"
 msgstr "Невідома назва екрану"
 
-#: src/conf.c:341
+#: src/conf.c:342
 msgid "Invalid search mode"
 msgstr "Помилковий режим пошуку"
 
-#: src/conf.c:364
+#: src/conf.c:365
 msgid "Unknown search mode"
 msgstr "Невідомий режим пошуку"
 
-#: src/conf.c:527
+#: src/conf.c:534
 msgid "Unknown configuration parameter"
 msgstr "Невідомий конфігураційний параметр"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:220 src/options.c:223
+#: src/options.c:221 src/options.c:224
 msgid "translator-credits"
 msgstr "Oleksandr Kovalenko <alx.kovalenko@gmail.com>"
 
