@@ -330,14 +330,15 @@ browser_handle_add(struct screen_browser *browser, struct mpdclient *c)
 {
 	struct list_window_range range;
 	struct filelist_entry *entry;
-	bool success;
+	bool success = false;
 
 	list_window_get_range(browser->lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {
 		entry = browser_get_index(browser, i);
 
 		if (entry != NULL && entry->entity != NULL)
-			success = browser_select_entry(c, entry, FALSE);
+			success = browser_select_entry(c, entry, FALSE) ||
+				success;
 	}
 
 	return range.end == range.start + 1 && success;
