@@ -167,7 +167,7 @@ check_PROGRAMS = \
 	test/run_hscroll
 
 test_run_hscroll_SOURCES = test/run_hscroll.c src/hscroll.c src/charset.c
-test_run_hscroll_CPPFLAGS = -Isrc $(AM_CPPFLAGS)
+test_run_hscroll_CPPFLAGS = -I$(srcdir)/src $(AM_CPPFLAGS)
 test_run_hscroll_LDFLAGS = $(GLIB_LIBS)
 
 #
