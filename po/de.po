@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-10 08:06+0100\n"
+"POT-Creation-Date: 2009-12-25 12:54+0100\n"
 "PO-Revision-Date: 2009-11-09 15:51+0000\n"
 "Last-Translator: BBO <Unknown>\n"
 "Language-Team: de <de@li.org>\n"
@@ -127,26 +127,26 @@ msgstr "Autozentriermodus: an"
 msgid "Auto center mode: Off"
 msgstr "Autozentriermodus: aus"
 
-#: src/screen_artist.c:73
+#: src/screen_artist.c:74 src/screen_artist.c:367
 msgid "All tracks"
 msgstr "Alle Stücke"
 
-#: src/screen_artist.c:361
+#: src/screen_artist.c:399
 #, c-format
 msgid "All artists"
 msgstr "Alle Künstler"
 
-#: src/screen_artist.c:366
+#: src/screen_artist.c:404
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "Alben des Künstlers: %s"
 
-#: src/screen_artist.c:375
+#: src/screen_artist.c:413
 #, c-format
 msgid "Album: %s - %s"
 msgstr "Album: %s - %s"
 
-#: src/screen_artist.c:379
+#: src/screen_artist.c:417
 #, c-format
 msgid "All tracks of artist: %s"
 msgstr "Alle Lieder des Künstlers: %s"

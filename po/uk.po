@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-10 08:06+0100\n"
+"POT-Creation-Date: 2009-12-25 12:54+0100\n"
 "PO-Revision-Date: 2009-09-22 20:41+0300\n"
 "Last-Translator: Oleksandr Kovalenko <alx.kovalenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -127,26 +127,26 @@ msgstr "Режим автоматичного центрування: увімк
 msgid "Auto center mode: Off"
 msgstr "Режим автоматичного центрування: вимкнено"
 
-#: src/screen_artist.c:73
+#: src/screen_artist.c:74 src/screen_artist.c:367
 msgid "All tracks"
 msgstr "Всі доріжки"
 
-#: src/screen_artist.c:361
+#: src/screen_artist.c:399
 #, c-format
 msgid "All artists"
 msgstr "Всі виконавці"
 
-#: src/screen_artist.c:366
+#: src/screen_artist.c:404
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "Альбоми виконавця: %s"
 
-#: src/screen_artist.c:375
+#: src/screen_artist.c:413
 #, c-format
 msgid "Album: %s - %s"
 msgstr "Альбом: %s - %s"
 
-#: src/screen_artist.c:379
+#: src/screen_artist.c:417
 #, c-format
 msgid "All tracks of artist: %s"
 msgstr "Всі доріжки виконавця: %s"

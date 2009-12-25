@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-10 08:06+0100\n"
+"POT-Creation-Date: 2009-12-25 12:54+0100\n"
 "PO-Revision-Date: 2009-10-16 17:35+0000\n"
 "Last-Translator: Jay Whang <jaypedia@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -126,26 +126,26 @@ msgstr "자동 가운데 방식: 켜짐"
 msgid "Auto center mode: Off"
 msgstr "자동 가운데 방식: 꺼짐"
 
-#: src/screen_artist.c:73
+#: src/screen_artist.c:74 src/screen_artist.c:367
 msgid "All tracks"
 msgstr "모든 트랙"
 
-#: src/screen_artist.c:361
+#: src/screen_artist.c:399
 #, c-format
 msgid "All artists"
 msgstr "모든 아티스트"
 
-#: src/screen_artist.c:366
+#: src/screen_artist.c:404
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "아티스트의 앨범: %s"
 
-#: src/screen_artist.c:375
+#: src/screen_artist.c:413
 #, c-format
 msgid "Album: %s - %s"
 msgstr "앨범: %s - %s"
 
-#: src/screen_artist.c:379
+#: src/screen_artist.c:417
 #, c-format
 msgid "All tracks of artist: %s"
 msgstr "아티스트의 모든 트랙: %s"
