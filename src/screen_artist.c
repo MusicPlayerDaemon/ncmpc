@@ -69,11 +69,9 @@ screen_artist_lw_callback(unsigned idx, void *data)
 
 	if (mode == LIST_ALBUMS) {
 		if (idx == 0)
-			return "[..]";
-		else if (idx == list->len + 1) {
-			g_snprintf(buf, BUFSIZE, "[%s]", _("All tracks"));
-			return buf;
-		}
+			return "..";
+		else if (idx == list->len + 1)
+			return _("All tracks");
 
 		--idx;
 	}
@@ -84,7 +82,7 @@ screen_artist_lw_callback(unsigned idx, void *data)
 	assert(str_utf8 != NULL);
 
 	str = utf8_to_locale(str_utf8);
-	g_snprintf(buf, BUFSIZE, "[%s]", str);
+	g_strlcpy(buf, str, sizeof(buf));
 	g_free(str);
 
 	return buf;
