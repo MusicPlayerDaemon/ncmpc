@@ -2,11 +2,11 @@ The current ncmpc development team
 ==================================
 
 Max Kellermann <max@duempel.org>
-Mikael Svantesson <mikael@distopic.net>
 Thomas Jansen <mithi@mithi.net>
 Romain Bignon <romain@peerfuse.org>
 Patrick Hallen <patrick.hallen@rwth-aachen.de>
 Jeffrey Middleton <jefromi@gmail.com>
+Andy Spencer <andy753421@gmail.com>
 
 
 Translators
@@ -37,6 +37,7 @@ Jon Bergli Heier <snakebite@jvnv.net>
        Norwegian
 
 Yann Cézard <yann.cezard@free.fr>
+François Blondel <francois@blondel-geraudie.fr>
        French
 
 Jay Whang <jaypedia@gmail.com>, Atie <atie.at.matrix@gmail.com>
@@ -68,5 +69,6 @@ Kalle Wallin <kaw@linux.se>, Author and maintainer (2004-2006)
 Jonathan Fors <etnoy@broach.se>
 Andreas Obergrusberger <tradiaz@yahoo.de>, Maintainer (2006-2008)
 J. Alexander Treuman <jat@spatialrift.net>
+Mikael Svantesson <mikael@distopic.net>
 
 Other authors whom may have gone unmentioned are listed in the repository logs.
