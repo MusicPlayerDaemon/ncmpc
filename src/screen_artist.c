@@ -21,6 +21,7 @@
 #include "screen_interface.h"
 #include "screen_message.h"
 #include "screen_find.h"
+#include "screen_browser.h"
 #include "screen.h"
 #include "i18n.h"
 #include "charset.h"
@@ -332,17 +333,58 @@ screen_artist_resize(int cols, int rows)
 	list_window_resize(browser.lw, cols, rows);
 }
 
+/**
+ * Paint one item in the artist list.
+ */
+static void
+paint_artist_callback(WINDOW *w, unsigned i,
+		      G_GNUC_UNUSED unsigned y, unsigned width,
+		      bool selected, void *data)
+{
+	GPtrArray *list = data;
+	char *p = utf8_to_locale(g_ptr_array_index(list, i));
+
+	screen_browser_paint_directory(w, width, selected, p);
+	g_free(p);
+}
+
+/**
+ * Paint one item in the album list.  There are two virtual items
+ * inserted: at the beginning, there's the special item ".." to go to
+ * the parent directory, and at the end, there's the item "All tracks"
+ * to view the tracks of all albums.
+ */
+static void
+paint_album_callback(WINDOW *w, unsigned i,
+		     G_GNUC_UNUSED unsigned y, unsigned width,
+		     bool selected, void *data)
+{
+	GPtrArray *list = data;
+	const char *p;
+	char *q = NULL;
+
+	if (i == 0)
+		p = "..";
+	else if (i == list->len + 1)
+		p = _("All tracks");
+	else
+		p = q = utf8_to_locale(g_ptr_array_index(list, i - 1));
+
+	screen_browser_paint_directory(w, width, selected, p);
+	g_free(q);
+}
+
 static void
 screen_artist_paint(void)
 {
 	if (browser.filelist) {
 		screen_browser_paint(&browser);
 	} else if (album_list != NULL)
-		list_window_paint(browser.lw, screen_artist_lw_callback,
-				  album_list);
+		list_window_paint2(browser.lw,
+				   paint_album_callback, album_list);
 	else if (artist_list != NULL)
-		list_window_paint(browser.lw, screen_artist_lw_callback,
-				  artist_list);
+		list_window_paint2(browser.lw,
+				   paint_artist_callback, artist_list);
 	else {
 		wmove(browser.lw->w, 0, 0);
 		wclrtobot(browser.lw->w);
@@ -672,13 +714,13 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 		switch (mode) {
 		case LIST_ARTISTS:
 			screen_jump(browser.lw, screen_artist_lw_callback,
-				    NULL, artist_list);
+				    paint_artist_callback, artist_list);
 			artist_repaint();
 			return true;
 
 		case LIST_ALBUMS:
 			screen_jump(browser.lw, screen_artist_lw_callback,
-				    NULL, album_list);
+				    paint_album_callback, album_list);
 			artist_repaint();
 			return true;
 
