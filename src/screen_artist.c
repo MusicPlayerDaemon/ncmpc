@@ -70,9 +70,7 @@ screen_artist_lw_callback(unsigned idx, void *data)
 		if (idx == 0)
 			return "[..]";
 		else if (idx == list->len + 1) {
-			str = utf8_to_locale(_("All tracks"));
-			g_snprintf(buf, BUFSIZE, "[%s]", str);
-			g_free(str);
+			g_snprintf(buf, BUFSIZE, "[%s]", _("All tracks"));
 			return buf;
 		}
 
