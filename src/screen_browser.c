@@ -485,7 +485,7 @@ browser_cmd(struct screen_browser *browser,
 	return false;
 }
 
-static void
+void
 screen_browser_paint_directory(WINDOW *w, unsigned width,
 			       bool selected, const char *name)
 {

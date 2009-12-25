@@ -25,6 +25,12 @@
 
 #include <stdbool.h>
 
+#ifdef HAVE_NCURSESW_NCURSES_H
+#include <ncursesw/ncurses.h>
+#else
+#include <ncurses.h>
+#endif
+
 struct mpdclient;
 struct mpdclient_playlist;
 struct filelist;
@@ -53,6 +59,10 @@ screen_browser_sync_highlights(G_GNUC_UNUSED struct filelist *fl,
 }
 
 #endif
+
+void
+screen_browser_paint_directory(WINDOW *w, unsigned width,
+			       bool selected, const char *name);
 
 void
 screen_browser_paint(const struct screen_browser *browser);
