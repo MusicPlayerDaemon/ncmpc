@@ -20,6 +20,8 @@
 #ifndef NCMPC_SONG_PAINT_H
 #define NCMPC_SONG_PAINT_H
 
+#include "config.h"
+
 #include <stdbool.h>
 
 #ifdef HAVE_NCURSESW_NCURSES_H

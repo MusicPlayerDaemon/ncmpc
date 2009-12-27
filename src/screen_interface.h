@@ -20,6 +20,7 @@
 #ifndef NCMPC_SCREEN_INTERFACE_H
 #define NCMPC_SCREEN_INTERFACE_H
 
+#include "config.h"
 #include "command.h"
 
 #include <stdbool.h>

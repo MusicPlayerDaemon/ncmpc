@@ -20,6 +20,8 @@
 #ifndef NCMPC_WINDOW_H
 #define NCMPC_WINDOW_H
 
+#include "config.h"
+
 #ifdef HAVE_NCURSESW_NCURSES_H
 #include <ncursesw/ncurses.h>
 #else

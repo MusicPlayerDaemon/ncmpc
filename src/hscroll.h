@@ -20,6 +20,8 @@
 #ifndef HSCROLL_H
 #define HSCROLL_H
 
+#include "config.h"
+
 #include <glib.h>
 
 #ifdef HAVE_NCURSESW_NCURSES_H
