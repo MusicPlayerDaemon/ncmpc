@@ -222,9 +222,9 @@ You can view ncmpc's key bindings by pressing '1' (help) when
 ncmpc is running. To edit key bindings use the key editor in ncmpc (press 'K').
 .SH "SONG FORMAT"
 Format of song display for status and the list window.
-The  metadata  delimeters  are: %name%, %artist%, %track%, %time%, %file%, %shortfile%.
+The  metadata  delimiters  are: %name%, %artist%, %track%, %time%, %file%, %shortfile%.
 
-The [] operators is used to group output such that if no metadata delimeters are found or matched between '[' and ']', then none of  the  characters between '[' and ']' are outputed. '&' and '|' are logical operators for and and or. '#'  is used to escape characters. 
+The [] operators is used to group output such that if no metadata delimiters are found or matched between '[' and ']', then none of  the  characters between '[' and ']' are output. '&' and '|' are logical operators for AND and OR. '#'  is used to escape characters. 
 
 Some  useful examples for format are: 
 
@@ -237,7 +237,7 @@ and
 Report bugs on http://www.musicpd.org/mantis/
 .SH "NOTE"
 Since MPD uses UTF\-8, ncmpc needs to convert characters to the 
-charset used by the local system. If you get character conversion errors when your running ncmpc you probably need to set up your locale. This is done by setting any of the LC_CTYPE, LANG or LC_ALL enviroment variables (LC_CTYPE only affects character handling).
+charset used by the local system. If you get character conversion errors when your running ncmpc you probably need to set up your locale. This is done by setting any of the LC_CTYPE, LANG or LC_ALL environment variables (LC_CTYPE only affects character handling).
 
 .SH "SEE ALSO"
 mpc(1), mpd(1), locale(5), locale(7)
