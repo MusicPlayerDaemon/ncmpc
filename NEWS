@@ -1,4 +1,5 @@
 ncmpc 0.17 - not yet released
+* screen_queue: always update the list size
 
 
 ncmpc 0.16 - (12/25/2009)
