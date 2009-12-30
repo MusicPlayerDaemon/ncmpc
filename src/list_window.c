@@ -127,6 +127,9 @@ list_window_resize(struct list_window *lw, unsigned width, unsigned height)
 void
 list_window_set_length(struct list_window *lw, unsigned length)
 {
+	if (length == lw->length)
+		return;
+
 	lw->length = length;
 
 	list_window_check_selected(lw);
