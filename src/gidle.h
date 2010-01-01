@@ -1,5 +1,5 @@
 /* ncmpc (Ncurses MPD Client)
-   (c) 2004-2009 The Music Player Daemon Project
+   (c) 2004-2010 The Music Player Daemon Project
    Project homepage: http://musicpd.org
 
    Redistribution and use in source and binary forms, with or without
