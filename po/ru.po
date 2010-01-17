@@ -69,7 +69,7 @@ msgstr "Повтор выключен"
 
 #: src/screen.c:394
 msgid "Random mode is on"
-msgstr "Случаный режим включен"
+msgstr "Случайный режим включен"
 
 #: src/screen.c:395
 msgid "Random mode is off"
@@ -335,7 +335,7 @@ msgstr "Поиск"
 #: src/screen_search.c:385
 #, c-format
 msgid "Press %s for a new search"
-msgstr "Нажмите %s для поиска"
+msgstr "Нажмите %s для нового поиска"
 
 #: src/screen_search.c:412
 #, c-format
