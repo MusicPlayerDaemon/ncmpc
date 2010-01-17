@@ -45,8 +45,6 @@
 #define HIGHLIGHT  (0x01)
 #endif
 
-static const char playlist_format[] = "*%s*";
-
 #ifndef NCMPC_MINI
 
 /* sync highlight flags with playlist */
@@ -112,7 +110,7 @@ browser_lw_callback(unsigned idx, void *data)
 			mpd_entity_get_playlist(entity);
 		char *filename = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
 
-		g_snprintf(buf, BUFSIZE, playlist_format, filename);
+		g_strlcpy(buf, filename, sizeof(buf));
 		g_free(filename);
 		return buf;
 	}
