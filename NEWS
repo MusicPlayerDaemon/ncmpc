@@ -1,4 +1,4 @@
-ncmpc 0.17 - not yet released
+ncmpc 0.16.1 - (01/17/2009)
 * screen_queue: always update the list size
 * screen_browser: fixed jump to playlist file
 
