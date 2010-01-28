@@ -111,19 +111,20 @@ screen_jump(struct list_window *lw,
 	search_str = screen.findbuf + g_snprintf(screen.findbuf, WRLN_MAX_LINE_SIZE, "%s: ", JUMP_PROMPT);
 	iter = search_str;
 
-	/* unfortunately wgetch returns "next/previous-page" not as an ascii-char */
-	while(!g_ascii_iscntrl(key) && key != KEY_NPAGE && key != KEY_PPAGE) {
+	while(1) {
 		key = screen_getch(screen.findbuf);
-		/* if backspace or delete was pressed */
-		if (key == KEY_BACKSPACE || key == 330) {
+		/* if backspace or delete was pressed, process instead of ending loop */
+		if (key == 127 || key == 330) {
 			int i;
-			/* don't end the loop */
-			key = 65;
 			if (search_str <= g_utf8_find_prev_char(screen.findbuf, iter))
 				iter = g_utf8_find_prev_char(screen.findbuf, iter);
 			for (i = 0; *(iter + i) != '\0'; i++)
 				*(iter + i) = '\0';
 			continue;
+		}
+		/* if a control key was pressed, end loop */
+		else if (g_ascii_iscntrl(key) || key == KEY_NPAGE || key == KEY_PPAGE) {
+			break;
 		}
 		else {
 			*iter = key;
