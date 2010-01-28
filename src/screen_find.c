@@ -96,7 +96,7 @@ screen_jump(struct list_window *lw,
 	    list_window_paint_callback_t paint_callback,
 		void *callback_data)
 {
-	char *search_str, *iter;
+	char *search_str, *iter, *temp;
 	const int WRLN_MAX_LINE_SIZE = 1024;
 	int key = 65;
 	command_t cmd;
@@ -145,4 +145,8 @@ screen_jump(struct list_window *lw,
 	ungetch(key);
 	if ((cmd=get_keyboard_command()) != CMD_NONE)
 		do_input_event(cmd);
+
+	temp = g_strdup(search_str);
+	g_free(screen.findbuf);
+	screen.findbuf = temp;
 }
