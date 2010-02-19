@@ -1,0 +1,1137 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ncmpc\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-25 12:54+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Carlos Eduardo C. B. Shinagawa <cadu.coelho@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: src/i18n.h:42
+msgid "y"
+msgstr "y (sim)"
+
+#: src/i18n.h:43
+msgid "n"
+msgstr "n (não)"
+
+#: src/main.c:248
+#, c-format
+msgid "Connecting to %s...  [Press %s to abort]"
+msgstr "Conectando a %s... [Pressione %s para abortar]"
+
+#: src/main.c:271
+#, c-format
+msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
+msgstr "Erro: Versão do MPD %d.%d.%d é muito antiga (necessária %s)"
+
+#: src/main.c:289
+#, c-format
+msgid "Connected to %s"
+msgstr "Conectado à %s"
+
+#. to translators: a key was bound twice in the key editor,
+#. and this is a hint for the user what to press to correct
+#. that
+#: src/main.c:465
+#, c-format
+msgid "press %s for the key editor"
+msgstr "press %s para o editor de teclas"
+
+#: src/player_command.c:177
+#: src/screen_queue.c:746
+msgid "Shuffled playlist"
+msgstr "Lista de Reprodução misturada"
+
+#: src/player_command.c:187
+msgid "Cleared playlist"
+msgstr "Lista de Reprodução apagada"
+
+#: src/screen.c:205
+#: src/screen.c:269
+msgid "Error: Screen too small"
+msgstr "Erro: Tela é muito pequena"
+
+#: src/screen.c:389
+msgid "Repeat mode is on"
+msgstr "Modo de Repetição está ligado"
+
+#: src/screen.c:390
+msgid "Repeat mode is off"
+msgstr "Modo de Repetição está desligado"
+
+#: src/screen.c:394
+msgid "Random mode is on"
+msgstr "Modo Aleatório está ligado"
+
+#: src/screen.c:395
+msgid "Random mode is off"
+msgstr "Modo Aleatório está desligado"
+
+#. "single" mode means
+#. that MPD will
+#. automatically stop
+#. after playing one
+#. single song
+#: src/screen.c:404
+msgid "Single mode is on"
+msgstr "Modo de Faixa Única está ligado"
+
+#: src/screen.c:405
+msgid "Single mode is off"
+msgstr "Modo de Faixa Única está desligado"
+
+#. "consume" mode means
+#. that MPD removes each
+#. song which has
+#. finished playing
+#: src/screen.c:413
+msgid "Consume mode is on"
+msgstr "Modo de Deleção de Faixa Reproduzida está ligado"
+
+#: src/screen.c:414
+msgid "Consume mode is off"
+msgstr "Modo de Deleção de Faixa Reproduzida está desligado"
+
+#: src/screen.c:417
+#, c-format
+msgid "Crossfade %d seconds"
+msgstr "Inter-mixagem de %d segundos"
+
+#: src/screen.c:429
+msgid "Database updated"
+msgstr "Banco de Dados atualizado"
+
+#: src/screen.c:505
+msgid "Find mode: Wrapped"
+msgstr "Modo de Busca: Envolvido"
+
+#: src/screen.c:506
+msgid "Find mode: Normal"
+msgstr "Modo de Busca: Normal"
+
+#: src/screen.c:511
+msgid "Auto center mode: On"
+msgstr "Modo de Auto-Centralização: Ligado"
+
+#: src/screen.c:512
+msgid "Auto center mode: Off"
+msgstr "Modo de Auto-Centralização: Desligado"
+
+#: src/screen_artist.c:74
+#: src/screen_artist.c:367
+msgid "All tracks"
+msgstr "Todas as faixas"
+
+#: src/screen_artist.c:399
+#, c-format
+msgid "All artists"
+msgstr "Todos os artistas"
+
+#: src/screen_artist.c:404
+#, c-format
+msgid "Albums of artist: %s"
+msgstr "Álbuns do artista: %s"
+
+#: src/screen_artist.c:413
+#, c-format
+msgid "Album: %s - %s"
+msgstr "Álbum: %s - %s"
+
+#: src/screen_artist.c:417
+#, c-format
+msgid "All tracks of artist: %s"
+msgstr "Todas as faixas do artista: %s"
+
+#: src/screen_browser.c:132
+#, c-format
+msgid "Loading playlist %s..."
+msgstr "Carregando Lista de Reprodução %s..."
+
+#: src/screen_browser.c:170
+#: src/screen_browser.c:265
+#: src/screen_browser.c:290
+#, c-format
+msgid "Adding '%s' to playlist"
+msgstr "Adicionando '%s' á Lista de Reprodução"
+
+#: src/screen_client.c:93
+msgid "Database update running..."
+msgstr "Atualização de Banco de Dados em progresso..."
+
+#: src/screen_client.c:105
+#, c-format
+msgid "Database update of %s started"
+msgstr "Atualização do Banco de Dados %s começou"
+
+#: src/screen_client.c:108
+msgid "Database update started"
+msgstr "Atualização de Banco de Dados iniciada"
+
+#: src/screen_find.c:28
+msgid "Find"
+msgstr "Procurar"
+
+#: src/screen_find.c:29
+msgid "Find backward"
+msgstr "Procurar para trás"
+
+#: src/screen_find.c:30
+msgid "Jump"
+msgstr "Pular"
+
+#: src/screen_find.c:80
+#, c-format
+msgid "Unable to find '%s'"
+msgstr "'%s' não pôde ser encontrado"
+
+#: src/screen_utils.c:99
+msgid "Password"
+msgstr "Senha"
+
+#. query the user for a filename
+#: src/screen_queue.c:256
+msgid "Save playlist as"
+msgstr "Salvar Lista de Reprodução como"
+
+#: src/screen_queue.c:290
+#, c-format
+msgid "Replace %s [%s/%s] ? "
+msgstr "Substituir %s [%s/%s] ?"
+
+#. translators: a dialog was aborted by the user
+#: src/screen_queue.c:298
+#: src/screen_file.c:238
+#: src/screen_keydef.c:165
+msgid "Aborted"
+msgstr "Abortado"
+
+#. success
+#: src/screen_queue.c:322
+#, c-format
+msgid "Saved %s"
+msgstr "%s salvo"
+
+#. get path
+#: src/screen_queue.c:399
+msgid "Add"
+msgstr "Adicionar"
+
+#: src/screen_queue.c:506
+#: src/title_bar.c:77
+msgid "Playlist"
+msgstr "Lista de Reprodução"
+
+#: src/screen_queue.c:508
+#, c-format
+msgid "Playlist on %s"
+msgstr "Lista de Reprodução em %s"
+
+#. translators: the "delete" command is only possible
+#. for playlists; the user attempted to delete a song
+#. or a directory or something else
+#: src/screen_file.c:225
+msgid "Deleting this item is not possible"
+msgstr "Deletar este item não é possível"
+
+#: src/screen_file.c:232
+#, c-format
+msgid "Delete playlist %s [%s/%s] ? "
+msgstr "Deletar Lista de Reprodução %s [%s/%s] ?"
+
+#. translators: MPD deleted the playlist, as requested by the
+#. user
+#: src/screen_file.c:251
+msgid "Playlist deleted"
+msgstr "Lista de Reprodução deletada"
+
+#. translators: caption of the browser screen
+#: src/screen_file.c:305
+#: src/title_bar.c:78
+msgid "Browse"
+msgstr "Navegar"
+
+#: src/screen_search.c:45
+msgid "artist"
+msgstr "artista"
+
+#: src/screen_search.c:46
+msgid "album"
+msgstr "álbum"
+
+#: src/screen_search.c:47
+msgid "title"
+msgstr "título"
+
+#: src/screen_search.c:48
+msgid "track"
+msgstr "faixa"
+
+#: src/screen_search.c:49
+msgid "name"
+msgstr "nome"
+
+#: src/screen_search.c:50
+msgid "genre"
+msgstr "estilo"
+
+#: src/screen_search.c:51
+msgid "date"
+msgstr "data"
+
+#: src/screen_search.c:52
+msgid "composer"
+msgstr "compositor"
+
+#: src/screen_search.c:53
+msgid "performer"
+msgstr "intérprete"
+
+#: src/screen_search.c:54
+msgid "comment"
+msgstr "comentário"
+
+#: src/screen_search.c:63
+msgid "file"
+msgstr "arquivo"
+
+#: src/screen_search.c:83
+#: src/screen_song.c:202
+msgid "Title"
+msgstr "Título"
+
+#: src/screen_search.c:84
+#: src/screen_song.c:201
+#: src/title_bar.c:80
+msgid "Artist"
+msgstr "Artista"
+
+#: src/screen_search.c:85
+#: src/screen_song.c:203
+msgid "Album"
+msgstr "Álbum"
+
+#: src/screen_search.c:86
+msgid "Filename"
+msgstr "Nome de Arquivo"
+
+#: src/screen_search.c:87
+msgid "Artist + Title"
+msgstr "Artista + Título"
+
+#: src/screen_search.c:233
+#, c-format
+msgid "Bad search tag %s"
+msgstr "Tag de pesquisa ruim %s"
+
+#: src/screen_search.c:237
+#, c-format
+msgid "No argument for search tag %s"
+msgstr "Sem argumento para tag de pesquisa %s"
+
+#: src/screen_search.c:344
+#: src/screen_help.c:145
+#: src/title_bar.c:83
+msgid "Search"
+msgstr "Pesquisa"
+
+#. if( pattern==NULL )
+#. search_new(screen, c);
+#. else
+#: src/screen_search.c:385
+#, c-format
+msgid "Press %s for a new search"
+msgstr "Pressione %s para uma nova pesquisa"
+
+#: src/screen_search.c:412
+#, c-format
+msgid "Search: %s"
+msgstr "Pesquisa: %s"
+
+#: src/screen_search.c:415
+#, c-format
+msgid "Search: Results for %s [%s]"
+msgstr "Pesquisa: Resultados para %s [%s]"
+
+#: src/screen_search.c:419
+#, c-format
+msgid "Search: Press %s for a new search [%s]"
+msgstr "Pesquisa: Pressione %s para uma nova pesquisa [%s]"
+
+#: src/screen_search.c:443
+#, c-format
+msgid "Search mode: %s"
+msgstr "Modo de Pesquisa: %s"
+
+#: src/screen_keydef.c:42
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Aplicar e salvar teclas de atalho"
+
+#: src/screen_keydef.c:43
+msgid "===> Apply key bindings "
+msgstr "===> Aplicar teclas de atalho"
+
+#: src/screen_keydef.c:71
+msgid "You have new key bindings"
+msgstr "Você tem novas teclas de atalho"
+
+#: src/screen_keydef.c:73
+msgid "Keybindings unchanged."
+msgstr "Teclas de atalho inalteradas."
+
+#: src/screen_keydef.c:83
+#, c-format
+msgid "Error: Unable to create directory ~/.ncmpc - %s"
+msgstr "Erro: Não foi possível criar diretório ~/.ncmpc - %s"
+
+#: src/screen_keydef.c:92
+#: src/screen_keydef.c:99
+#, c-format
+msgid "Error: %s - %s"
+msgstr "Erro: %s - %s"
+
+#: src/screen_keydef.c:101
+#, c-format
+msgid "Wrote %s"
+msgstr "Gravei %s"
+
+#: src/screen_keydef.c:139
+msgid "Deleted"
+msgstr "Deletada"
+
+#: src/screen_keydef.c:160
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "Entre nova tecla para %s:"
+
+#: src/screen_keydef.c:171
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "Erro: tecla %s já está sendo usada para %s"
+
+#: src/screen_keydef.c:181
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "Tecla %s definida para %s"
+
+#: src/screen_keydef.c:212
+msgid "Add new key"
+msgstr "Adicionar nova tecla"
+
+#: src/screen_keydef.c:277
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "Nota: Você esqueceu de 'Aplicar' suas mudanças?"
+
+#: src/screen_keydef.c:284
+msgid "Edit key bindings"
+msgstr "Editar teclas de atalho"
+
+#: src/screen_keydef.c:286
+#, c-format
+msgid "Edit keys for %s"
+msgstr "Editar teclas para %s"
+
+#: src/screen_help.c:39
+msgid "Movement"
+msgstr "Movimento"
+
+#: src/screen_help.c:81
+msgid "Global"
+msgstr "Global"
+
+#: src/screen_help.c:114
+#: src/command.c:111
+msgid "Playlist screen"
+msgstr "Tela da Lista de Reprodução"
+
+#: src/screen_help.c:116
+msgid "Play"
+msgstr "Reproduzir"
+
+#: src/screen_help.c:119
+msgid "Move song up"
+msgstr "Mover trilha para cima"
+
+#: src/screen_help.c:120
+msgid "Move song down"
+msgstr "Mover faixa para baixo"
+
+#: src/screen_help.c:123
+msgid "Center"
+msgstr "Centralizar"
+
+#: src/screen_help.c:129
+#: src/command.c:113
+msgid "Browse screen"
+msgstr "Tela de Navegação"
+
+#: src/screen_help.c:131
+msgid "Enter directory/Select and play song"
+msgstr "Adentrar diretório/Selecionar e reproduzir trilha"
+
+#: src/screen_help.c:133
+#: src/screen_help.c:148
+msgid "Append song to playlist"
+msgstr "Adicionar trilha à Lista de Reprodução"
+
+#: src/screen_help.c:135
+msgid "Delete playlist"
+msgstr "Deletar Lista de Reprodução"
+
+#: src/screen_help.c:143
+#: src/command.c:224
+msgid "Search screen"
+msgstr "Tela de pesquisa"
+
+#: src/screen_help.c:146
+msgid "Select and play"
+msgstr "Selecionar e reproduzir"
+
+#: src/screen_help.c:155
+#: src/command.c:234
+msgid "Lyrics screen"
+msgstr "Tela de Letra de Música"
+
+#: src/screen_help.c:157
+msgid "View Lyrics"
+msgstr "Ver Letra de Música"
+
+#: src/screen_help.c:158
+msgid "(Re)load lyrics"
+msgstr "(Re)Carregar letra de música"
+
+#. to translators: this hotkey aborts the retrieval of lyrics
+#. from the server
+#: src/screen_help.c:161
+#, fuzzy
+msgid "Interrupt retrieval"
+msgstr "Recuperação de Interrupção"
+
+#: src/screen_help.c:162
+msgid "Download lyrics for currently playing song"
+msgstr "Baixar letra de música da faixa em reprodução"
+
+#: src/screen_help.c:163
+msgid "Save lyrics"
+msgstr "Salvar letra de música."
+
+#: src/screen_help.c:168
+#: src/command.c:245
+msgid "Outputs screen"
+msgstr "Tela de Saídas"
+
+#: src/screen_help.c:170
+msgid "Enable/disable output"
+msgstr "Habilitar/desabilitar saída"
+
+#: src/screen_help.c:175
+#, fuzzy
+msgid "Keydef screen"
+msgstr "Tela de Keydef"
+
+#: src/screen_help.c:177
+#, fuzzy
+msgid "Edit keydefs for selected command"
+msgstr "Editar keydefs para comando selecionado"
+
+#: src/screen_help.c:178
+msgid "Remove selected keydef"
+msgstr "Remover keydef selecionado"
+
+#: src/screen_help.c:179
+msgid "Go up a level"
+msgstr "Subir um nível"
+
+#: src/screen_help.c:180
+msgid "Apply and save changes"
+msgstr "Aplicar mudanças e salvar"
+
+#: src/screen_help.c:226
+#: src/title_bar.c:75
+msgid "Help"
+msgstr "Ajuda"
+
+#. translators: no lyrics were found for the song
+#: src/screen_lyrics.c:161
+msgid "No lyrics"
+msgstr "Sem letra de música"
+
+#: src/screen_lyrics.c:244
+#: src/screen_lyrics.c:252
+#: src/screen_lyrics.c:256
+#: src/title_bar.c:86
+msgid "Lyrics"
+msgstr "Letra de Música"
+
+#. translators: this message is displayed
+#. while data is retrieved
+#: src/screen_lyrics.c:247
+msgid "loading..."
+msgstr "carregando..."
+
+#. lyrics for the song were saved on hard disk
+#: src/screen_lyrics.c:282
+msgid "Lyrics saved"
+msgstr "Letra de Música salva"
+
+#: src/screen_outputs.c:73
+#, c-format
+msgid "Output '%s' enabled"
+msgstr "Saída '%s' habilitada"
+
+#: src/screen_outputs.c:84
+#, c-format
+msgid "Output '%s' disabled"
+msgstr "Saída '%s' desabilitada"
+
+#: src/screen_outputs.c:176
+#: src/title_bar.c:89
+msgid "Outputs"
+msgstr "Saídas"
+
+#: src/screen_song.c:116
+msgid "Song viewer"
+msgstr "Visualizador de Trilha"
+
+#: src/screen_song.c:204
+msgid "Length"
+msgstr "Duração"
+
+#: src/screen_song.c:205
+msgid "Composer"
+msgstr "Compositor"
+
+#: src/screen_song.c:206
+msgid "Name"
+msgstr "Nome"
+
+#: src/screen_song.c:207
+msgid "Disc"
+msgstr "Disco"
+
+#: src/screen_song.c:208
+msgid "Track"
+msgstr "Faixa"
+
+#: src/screen_song.c:209
+msgid "Date"
+msgstr "Data"
+
+#: src/screen_song.c:210
+msgid "Genre"
+msgstr "Estilo"
+
+#: src/screen_song.c:211
+msgid "Comment"
+msgstr "Comentário"
+
+#: src/screen_song.c:212
+msgid "Bitrate"
+msgstr "Taxa de Amostragem"
+
+#: src/screen_song.c:250
+msgid "Path"
+msgstr "Caminho"
+
+#: src/screen_song.c:254
+#, c-format
+msgid "%d kbps"
+msgstr "%d kbps"
+
+#: src/screen_song.c:270
+msgid "Number of artists"
+msgstr "Número de artistas"
+
+#: src/screen_song.c:271
+msgid "Number of albums"
+msgstr "Número de álbuns"
+
+#: src/screen_song.c:272
+msgid "Number of songs"
+msgstr "Número de faixas"
+
+#: src/screen_song.c:273
+msgid "Uptime"
+msgstr "Tempo rodando"
+
+#: src/screen_song.c:274
+msgid "Most recent db update"
+msgstr "Atualização do BD mais recente"
+
+#: src/screen_song.c:275
+msgid "Playtime"
+msgstr "Tempo de reprodução"
+
+#: src/screen_song.c:276
+msgid "DB playtime"
+msgstr "Tempo de reprodução do BD"
+
+#: src/screen_song.c:291
+msgid "MPD statistics"
+msgstr "Estatísticas do MPD"
+
+#: src/screen_song.c:346
+msgid "Selected song"
+msgstr "Faixa selecionada"
+
+#: src/screen_song.c:356
+msgid "Currently playing song"
+msgstr "Faixa atualmente em reprodução"
+
+#: src/status_bar.c:124
+msgid "Playing:"
+msgstr "Reproduzindo:"
+
+#: src/status_bar.c:127
+msgid "[Paused]"
+msgstr "[Pausado]"
+
+#: src/title_bar.c:96
+#, c-format
+msgid "Volume n/a"
+msgstr "Volume n/a"
+
+#: src/title_bar.c:98
+#, c-format
+msgid "Volume %d%%"
+msgstr "Volume %d%%"
+
+#: src/command.c:69
+msgid "Key configuration screen"
+msgstr "Tela de configuração de teclas"
+
+#: src/command.c:72
+msgid "Quit"
+msgstr "Sair"
+
+#: src/command.c:76
+msgid "Move cursor up"
+msgstr "Mover cursor para cima"
+
+#: src/command.c:78
+msgid "Move cursor down"
+msgstr "Mover cursor para baixo"
+
+#: src/command.c:80
+msgid "Move cursor to the top of screen"
+msgstr "Mover cursor para o topo da tela"
+
+#: src/command.c:82
+msgid "Move cursor to the middle of screen"
+msgstr "Mover cursor para o meio da tela"
+
+#: src/command.c:84
+msgid "Move cursor to the bottom of screen"
+msgstr "Mover cursor para o final da tela"
+
+#: src/command.c:86
+msgid "Move cursor to the top of the list"
+msgstr "Mover cursor para o topo da lista"
+
+#: src/command.c:88
+msgid "Move cursor to the bottom of the list"
+msgstr "Mover cursor para o final da lista"
+
+#: src/command.c:90
+msgid "Page up"
+msgstr "Sobe uma página"
+
+#: src/command.c:92
+msgid "Page down"
+msgstr "Desce uma página"
+
+#: src/command.c:94
+msgid "Range selection"
+msgstr "Seleção de Intervalo"
+
+#: src/command.c:96
+msgid "Scroll up one line"
+msgstr "Subir uma linha"
+
+#: src/command.c:98
+msgid "Scroll down one line"
+msgstr "Descer uma linha"
+
+#: src/command.c:100
+msgid "Scroll up half a screen"
+msgstr "Subir meia tela"
+
+#: src/command.c:102
+msgid "Scroll down half a screen"
+msgstr "Descer meia tela"
+
+#: src/command.c:104
+msgid "Select currently playing song"
+msgstr "Selecionar faixa atualmente em reprodução"
+
+#: src/command.c:109
+msgid "Help screen"
+msgstr "Tela de Ajuda"
+
+#: src/command.c:118
+msgid "Play/Enter directory"
+msgstr "Reproduzir/Adentrar diretório"
+
+#: src/command.c:120
+msgid "Pause"
+msgstr "Pause"
+
+#: src/command.c:122
+msgid "Stop"
+msgstr "Parar"
+
+#: src/command.c:124
+msgid "Crop"
+msgstr "Cortar"
+
+#: src/command.c:126
+msgid "Next track"
+msgstr "Próxima faixa"
+
+#: src/command.c:128
+msgid "Previous track"
+msgstr "Faixa anterior"
+
+#: src/command.c:130
+msgid "Seek forward"
+msgstr "Correr para frente"
+
+#: src/command.c:132
+msgid "Seek backward"
+msgstr "Correr para trás"
+
+#: src/command.c:134
+msgid "Increase volume"
+msgstr "Aumentar volume"
+
+#: src/command.c:136
+msgid "Decrease volume"
+msgstr "Abaixar volume"
+
+#: src/command.c:138
+msgid "Select/deselect song in playlist"
+msgstr "Selecionar/De-selecionar trilha na Lista de Reprodução"
+
+#: src/command.c:140
+msgid "Select all listed items"
+msgstr "Selecionar todos os itens listados "
+
+#: src/command.c:142
+msgid "Delete song from playlist"
+msgstr "Deletar faixa da lista de reprodução"
+
+#: src/command.c:144
+msgid "Shuffle playlist"
+msgstr "Randomizar lista de reprodução"
+
+#: src/command.c:146
+msgid "Clear playlist"
+msgstr "Limpar lista de reprodução"
+
+#: src/command.c:148
+msgid "Toggle repeat mode"
+msgstr "Liga/Desliga modo de repetição"
+
+#: src/command.c:150
+msgid "Toggle random mode"
+msgstr "Liga/Desliga modo aleatório"
+
+#: src/command.c:152
+msgid "Toggle single mode"
+msgstr "Liga/Desliga modo de única reprodução"
+
+#: src/command.c:154
+msgid "Toggle consume mode"
+msgstr "Liga/Desliga modo de deleção de faixa reproduzida"
+
+#: src/command.c:156
+msgid "Toggle crossfade mode"
+msgstr "Liga/Desliga inter-mixagem "
+
+#: src/command.c:158
+msgid "Start a music database update"
+msgstr "Iniciar a atualização do banco de dados de faixas"
+
+#: src/command.c:160
+msgid "Save playlist"
+msgstr "Salvar lista de reprodução"
+
+#: src/command.c:162
+msgid "Add url/file to playlist"
+msgstr "Adicionar URL/arquivo à lista de reprodução"
+
+#: src/command.c:165
+msgid "Go to root directory"
+msgstr "Ir para raiz"
+
+#: src/command.c:167
+msgid "Go to parent directory"
+msgstr "Ir para diretório pai"
+
+#: src/command.c:170
+msgid "Locate song in browser"
+msgstr "Localizar musica no navegador"
+
+#: src/command.c:174
+msgid "Move item up"
+msgstr "Mover item para cima"
+
+#: src/command.c:176
+msgid "Move item down"
+msgstr "Mover item para baixo"
+
+#: src/command.c:178
+msgid "Refresh screen"
+msgstr "Redesenhar tela"
+
+#. translators: toggle between wrapping and non-wrapping
+#. search
+#: src/command.c:185
+msgid "Toggle find mode"
+msgstr "Liga/Desliga modo de procura"
+
+#. translators: the auto center mode always centers the song
+#. currently being played
+#: src/command.c:189
+msgid "Toggle auto center mode"
+msgstr "Liga/Desliga modo de centralização automática"
+
+#: src/command.c:194
+msgid "Next screen"
+msgstr "Próxima tela"
+
+#: src/command.c:196
+msgid "Previous screen"
+msgstr "Tela anterior"
+
+#: src/command.c:198
+msgid "Swap to most recent screen"
+msgstr "Troca para a tela mais recente"
+
+#: src/command.c:203
+msgid "Forward find"
+msgstr "Pesquisa para frente"
+
+#: src/command.c:205
+msgid "Forward find next"
+msgstr "Pesquisa para a frente - próximo"
+
+#: src/command.c:207
+msgid "Backward find"
+msgstr "Pesquisa para trás "
+
+#: src/command.c:209
+msgid "Backward find previous"
+msgstr "Pesquisa para trás - anterior"
+
+#. translators: this queries the user for a string
+#. * and jumps directly (while the user is typing)
+#. * to the entry which begins with this string
+#: src/command.c:214
+msgid "Jump to"
+msgstr "Pular para"
+
+#: src/command.c:220
+msgid "Artist screen"
+msgstr "Tela de artista"
+
+#: src/command.c:226
+msgid "Change search mode"
+msgstr "Mudar modo de pesquisa"
+
+#: src/command.c:230
+msgid "View the selected and the currently playing song"
+msgstr "Ver a trilha selecionada e a em atual reprodução"
+
+#. translators: interrupt the current background action,
+#. e.g. stop loading lyrics from the internet
+#: src/command.c:238
+msgid "Interrupt action"
+msgstr "Interromper ação"
+
+#: src/command.c:240
+msgid "Update Lyrics"
+msgstr "Atualizar letra de música"
+
+#: src/command.c:269
+msgid "Undefined"
+msgstr "Não-definido"
+
+#: src/command.c:271
+msgid "Space"
+msgstr "Espaço"
+
+#: src/command.c:273
+msgid "Enter"
+msgstr "Enter"
+
+#: src/command.c:275
+msgid "Backspace"
+msgstr "Backspace"
+
+#: src/command.c:277
+msgid "Delete"
+msgstr "Delete"
+
+#: src/command.c:279
+msgid "Up"
+msgstr "Cima"
+
+#: src/command.c:281
+msgid "Down"
+msgstr "Baixo"
+
+#: src/command.c:283
+msgid "Left"
+msgstr "Esquerda"
+
+#: src/command.c:285
+msgid "Right"
+msgstr "Direita"
+
+#: src/command.c:287
+msgid "Home"
+msgstr "Home"
+
+#: src/command.c:289
+msgid "End"
+msgstr "End"
+
+#: src/command.c:291
+msgid "PageDown"
+msgstr "PageDown"
+
+#: src/command.c:293
+msgid "PageUp"
+msgstr "PageUp"
+
+#: src/command.c:295
+msgid "Tab"
+msgstr "Tab"
+
+#: src/command.c:297
+msgid "Shift+Tab"
+msgstr "Shift+Tab"
+
+#: src/command.c:299
+msgid "Esc"
+msgstr "Esc"
+
+#: src/command.c:301
+msgid "Insert"
+msgstr "Insert"
+
+#: src/command.c:503
+#: src/command.c:509
+#, c-format
+msgid "Key %s assigned to %s and %s"
+msgstr "Tecla %s definida para %s e %s"
+
+#: src/colors.c:156
+#, c-format
+msgid "Warning: Unknown color - %s\n"
+msgstr "Aviso: Cor desconhecida - %s\n"
+
+#: src/colors.c:196
+#, fuzzy, c-format
+msgid "Warning: Unknown color field - %s\n"
+msgstr "Aviso: Campo de cor desconhecida - %s\n"
+
+#: src/colors.c:229
+msgid "Terminal lacks support for changing colors"
+msgstr "Terminal não tem suporte para mudar cores"
+
+#: src/colors.c:240
+msgid "Terminal lacks color capabilities"
+msgstr "Terminal não tem capacidade para trabalhar com cores"
+
+#. To translators: prefix for error messages
+#: src/conf.c:94
+msgid "Error"
+msgstr "Erro"
+
+#: src/conf.c:102
+#: src/conf.c:111
+msgid "Malformed hotkey definition"
+msgstr "Definição de tecla de atalho malformada"
+
+#. the hotkey configuration contains an unknown
+#. command
+#: src/conf.c:138
+msgid "Unknown command"
+msgstr "Comando desconhecido"
+
+#. the hotkey configuration line is incomplete
+#: src/conf.c:151
+msgid "Incomplete hotkey configuration"
+msgstr "Configuração de teclas de atalho incompleta"
+
+#. translators: ncmpc supports displaying the
+#. "elapsed" or "remaining" time of a song being
+#. played; in this case, the configuration file
+#. contained an invalid setting
+#: src/conf.c:185
+msgid "Bad time display type"
+msgstr "Tipo de visualização de tempo ruim"
+
+#. an equals sign '=' was expected while parsing a
+#. configuration file line
+#: src/conf.c:200
+msgid "Missing '='"
+msgstr "Falta '='"
+
+#: src/conf.c:256
+msgid "Bad color name"
+msgstr "Nome de cor ruim"
+
+#: src/conf.c:265
+msgid "Incomplete color definition"
+msgstr "Definição de cor incompleta"
+
+#: src/conf.c:271
+msgid "Invalid number"
+msgstr "Número inválido"
+
+#: src/conf.c:279
+msgid "Malformed color definition"
+msgstr "Definição de cor malformada"
+
+#. an unknown screen name was specified in the
+#. configuration file
+#: src/conf.c:313
+msgid "Unknown screen name"
+msgstr "Nome de tela desconhecido"
+
+#: src/conf.c:342
+msgid "Invalid search mode"
+msgstr "Modo de pesquisa inválido"
+
+#: src/conf.c:365
+msgid "Unknown search mode"
+msgstr "Modo de pesquisa desconhecido"
+
+#: src/conf.c:534
+msgid "Unknown configuration parameter"
+msgstr "Parâmetro de configuração desconhecido"
+
+#. To translators: these credits are shown
+#. when ncmpc is started with "--version"
+#: src/options.c:221
+#: src/options.c:224
+msgid "translator-credits"
+msgstr "Traduzido por Carlos Eduardo C. B. Shinagawa <cadu.coelho at gmail.com>"
+
+#: src/list_window.c:563
+msgid "Range selection disabled"
+msgstr "Seleção de intervalo desabilitada"
+
+#: src/list_window.c:568
+msgid "Range selection enabled"
+msgstr "Seleção de intervalo habilitada"
+
