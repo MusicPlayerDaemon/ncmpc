@@ -87,14 +87,21 @@ lyrics_repaint_if_active(void)
 	}
 }
 
+static void
+path_lyr_file(char *path, size_t size,
+		const char *artist, const char *title)
+{
+	snprintf(path, size, "%s/.lyrics/%s - %s.txt",
+			getenv("HOME"), artist, title);
+}
+
 static bool
 exists_lyr_file(const char *artist, const char *title)
 {
 	char path[1024];
 	struct stat result;
 
-	snprintf(path, 1024, "%s/.lyrics/%s - %s.txt",
-		 getenv("HOME"), artist, title);
+	path_lyr_file(path, 1024, artist, title);
 
 	return (stat(path, &result) == 0);
 }
@@ -108,8 +115,7 @@ create_lyr_file(const char *artist, const char *title)
 		 getenv("HOME"));
 	mkdir(path, S_IRWXU);
 
-	snprintf(path, 1024, "%s/.lyrics/%s - %s.txt",
-		 getenv("HOME"), artist, title);
+	path_lyr_file(path, 1024, artist, title);
 
 	return fopen(path, "w");
 }
