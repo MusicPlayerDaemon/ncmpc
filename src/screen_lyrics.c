@@ -302,6 +302,26 @@ lyrics_cmd(struct mpdclient *c, command_t cmd)
 			/* lyrics for the song were saved on hard disk */
 			screen_status_message (_("Lyrics saved"));
 		return true;
+	case CMD_DELETE:
+		{
+			int success;
+
+			if (current.loader == NULL && current.artist != NULL &&
+			    current.title != NULL) {
+				success = delete_lyr_hd();
+				switch (success) {
+				case 0:
+					screen_status_message
+						(_("Lyrics deleted"));
+					break;
+				case -1:
+					screen_status_message
+						(_("No saved lyrics"));
+					break;
+				}
+			}
+			return true;
+		}
 	case CMD_LYRICS_UPDATE:
 		if (c->song != NULL) {
 			screen_lyrics_load(c->song);

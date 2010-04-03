@@ -161,6 +161,7 @@ static const struct help_text_row help_text[] = {
 	{ 0, CMD_INTERRUPT, N_("Interrupt retrieval") },
 	{ 0, CMD_LYRICS_UPDATE, N_("Download lyrics for currently playing song") },
 	{ 0, CMD_SAVE_PLAYLIST, N_("Save lyrics") },
+	{ 0, CMD_DELETE, N_("Delete saved lyrics") },
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
 	{ 0, CMD_NONE, NULL },
