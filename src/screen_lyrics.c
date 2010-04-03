@@ -138,6 +138,21 @@ store_lyr_hd(void)
 	return 0;
 }
 
+static int
+delete_lyr_hd(void)
+{
+	char path[1024];
+
+	if (!exists_lyr_file(current.artist, current.title))
+		return -1;
+
+	path_lyr_file(path, 1024, current.artist, current.title);
+	if (unlink(path) != 0)
+		return -2;
+
+	return 0;
+}
+
 static void
 screen_lyrics_set(const GString *str)
 {
