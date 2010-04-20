@@ -1,4 +1,5 @@
 ncmpc 0.17 - not yet released
+* screen_queue: fix range selection check on "shuffle"
 * po: added Brazilian Portuguese translation
 
 

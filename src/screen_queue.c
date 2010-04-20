@@ -738,7 +738,7 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 
 	case CMD_SHUFFLE:
 		list_window_get_range(lw, &range);
-		if (range.end < range.start + 1)
+		if (range.end <= range.start + 1)
 			/* No range selection, shuffle all list. */
 			break;
 
