@@ -363,6 +363,11 @@ options_parse(int argc, const char *argv[])
 		option_cb (opt->shortopt, NULL);
 	else if (opt && opt->argument)
 		option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
+
+	if (!options.host && getenv("MPD_HOST")) {
+		g_free(options.host);
+		options.host = g_strdup(getenv("MPD_HOST"));
+	}
 }
 
 void
