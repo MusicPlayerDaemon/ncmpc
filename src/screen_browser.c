@@ -143,6 +143,9 @@ static bool
 enqueue_and_play(struct mpdclient *c, struct filelist_entry *entry)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
+	if (connection == NULL)
+		return false;
+
 	const struct mpd_song *song = mpd_entity_get_song(entry->entity);
 	int id;
 
