@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-19 17:24+0200\n"
-"PO-Revision-Date: 2009-09-22 20:15+0000\n"
-"Last-Translator: nanker <Unknown>\n"
+"PO-Revision-Date: 2010-04-14 05:21+0000\n"
+"Last-Translator: Rickard Närström <rickard.narstrom@gmail.com>\n"
 "Language-Team: sv <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-09-24 08:24+0000\n"
+"X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -786,7 +786,7 @@ msgstr "Nästa spår"
 
 #: src/command.c:128
 msgid "Previous track"
-msgstr "Föregånde spår"
+msgstr "Föregående spår"
 
 #: src/command.c:130
 msgid "Seek forward"
@@ -1116,6 +1116,7 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Björn Pettersson https://launchpad.net/~bjorn-hygiena\n"
 "  Kalle Wallin https://launchpad.net/~kaw\n"
+"  Rickard Närström https://launchpad.net/~riccetn\n"
 "  nanker https://launchpad.net/~nanker"
 
 #: src/list_window.c:566
