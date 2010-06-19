@@ -2,18 +2,19 @@
 # Copyright (C) 2004 Kalle Wallin
 # This file is distributed under the same license as the ncmpc package.
 # Jozef Riha <jose1711@gmail.com>, 2006, 2008.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-19 17:24+0200\n"
-"PO-Revision-Date: 2009-04-15 22:29+0200\n"
-"Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
+"PO-Revision-Date: 2010-04-07 01:36+0000\n"
+"Last-Translator: Roman Horník <Unknown>\n"
 "Language-Team: sk <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -584,9 +585,8 @@ msgid "Outputs"
 msgstr "Výstupy"
 
 #: src/screen_song.c:46
-#, fuzzy
 msgid "Length"
-msgstr "Vľavo"
+msgstr "Dĺžka"
 
 #: src/screen_song.c:47
 msgid "Composer"
@@ -756,9 +756,8 @@ msgid "Scroll down half a screen"
 msgstr "Posun o polovicu obrazovky nadol"
 
 #: src/command.c:104
-#, fuzzy
 msgid "Select currently playing song"
-msgstr "Momentálne prehrávaná pieseň"
+msgstr "Zvoľiť práve prehrávanú skladbu"
 
 #: src/command.c:109
 msgid "Help screen"
@@ -1112,7 +1111,12 @@ msgstr "Neznámy parameter konfigurácie"
 #. when ncmpc is started with "--version"
 #: src/options.c:221 src/options.c:224
 msgid "translator-credits"
-msgstr "Jozef Riha <jose1711@gmail.com>"
+msgstr ""
+"Jozef Riha <jose1711@gmail.com>\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Jose Riha https://launchpad.net/~jose1711\n"
+"  Roman Horník https://launchpad.net/~roman.hornik"
 
 #: src/list_window.c:566
 msgid "Range selection disabled"
@@ -1121,10 +1125,6 @@ msgstr "Výber rozsahu vypnutý"
 #: src/list_window.c:571
 msgid "Range selection enabled"
 msgstr "Výber rozsahu zapnutý"
-
-#, fuzzy
-#~ msgid "DB last updated"
-#~ msgstr "Databáza aktualizovaná"
 
 #~ msgid "Explicitly download lyrics"
 #~ msgstr "Explicitne sťahovať texty"
