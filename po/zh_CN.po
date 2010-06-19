@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 12:54+0100\n"
+"POT-Creation-Date: 2010-06-19 17:24+0200\n"
 "PO-Revision-Date: 2009-09-28 08:09+0000\n"
 "Last-Translator: Kyle WANG <waxaca@163.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
@@ -48,7 +48,7 @@ msgstr "连接到 %s"
 msgid "press %s for the key editor"
 msgstr "按 %s 编辑快捷键"
 
-#: src/player_command.c:177 src/screen_queue.c:746
+#: src/player_command.c:177 src/screen_queue.c:750
 msgid "Shuffled playlist"
 msgstr "乱序播放列表"
 
@@ -150,12 +150,12 @@ msgstr "专辑: %s - %s"
 msgid "All tracks of artist: %s"
 msgstr "%s 的所有曲目"
 
-#: src/screen_browser.c:132
+#: src/screen_browser.c:131
 #, c-format
 msgid "Loading playlist %s..."
 msgstr "加载播放列表 %s..."
 
-#: src/screen_browser.c:170 src/screen_browser.c:265 src/screen_browser.c:290
+#: src/screen_browser.c:172 src/screen_browser.c:267 src/screen_browser.c:292
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr "添加 '%s' 到播放列表"
@@ -296,15 +296,15 @@ msgstr "注释"
 msgid "file"
 msgstr "文件"
 
-#: src/screen_search.c:83 src/screen_song.c:202
+#: src/screen_search.c:83 src/screen_song.c:44
 msgid "Title"
 msgstr "标题"
 
-#: src/screen_search.c:84 src/screen_song.c:201 src/title_bar.c:80
+#: src/screen_search.c:84 src/screen_song.c:43 src/title_bar.c:80
 msgid "Artist"
 msgstr "艺术家"
 
-#: src/screen_search.c:85 src/screen_song.c:203
+#: src/screen_search.c:85 src/screen_song.c:45
 msgid "Album"
 msgstr "专辑"
 
@@ -503,58 +503,73 @@ msgstr "为当前曲目下载歌词"
 msgid "Save lyrics"
 msgstr "保存歌词"
 
-#: src/screen_help.c:168 src/command.c:245
+#: src/screen_help.c:164
+#, fuzzy
+msgid "Delete saved lyrics"
+msgstr "保存歌词"
+
+#: src/screen_help.c:169 src/command.c:245
 msgid "Outputs screen"
 msgstr "输出页面"
 
-#: src/screen_help.c:170
+#: src/screen_help.c:171
 msgid "Enable/disable output"
 msgstr "启用/禁用音频输出"
 
-#: src/screen_help.c:175
+#: src/screen_help.c:176
 msgid "Keydef screen"
 msgstr "键定义页面"
 
-#: src/screen_help.c:177
+#: src/screen_help.c:178
 msgid "Edit keydefs for selected command"
 msgstr "为选择的命令定义快捷键"
 
-#: src/screen_help.c:178
+#: src/screen_help.c:179
 msgid "Remove selected keydef"
 msgstr "去除选择的快捷键设定"
 
-#: src/screen_help.c:179
+#: src/screen_help.c:180
 msgid "Go up a level"
 msgstr "上一级"
 
-#: src/screen_help.c:180
+#: src/screen_help.c:181
 msgid "Apply and save changes"
 msgstr "保存设置"
 
-#: src/screen_help.c:226 src/title_bar.c:75
+#: src/screen_help.c:227 src/title_bar.c:75
 msgid "Help"
 msgstr "帮助"
 
 #. translators: no lyrics were found for the song
-#: src/screen_lyrics.c:161
+#: src/screen_lyrics.c:182
 msgid "No lyrics"
 msgstr "无歌词"
 
-#: src/screen_lyrics.c:244 src/screen_lyrics.c:252 src/screen_lyrics.c:256
+#: src/screen_lyrics.c:265 src/screen_lyrics.c:273 src/screen_lyrics.c:277
 #: src/title_bar.c:86
 msgid "Lyrics"
 msgstr "歌词"
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/screen_lyrics.c:247
+#: src/screen_lyrics.c:268
 msgid "loading..."
 msgstr "正在载入..."
 
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:282
+#: src/screen_lyrics.c:303
 msgid "Lyrics saved"
 msgstr "歌词已保存"
+
+#: src/screen_lyrics.c:310
+#, fuzzy
+msgid "Lyrics deleted"
+msgstr "播放列表已删除"
+
+#: src/screen_lyrics.c:313
+#, fuzzy
+msgid "No saved lyrics"
+msgstr "保存歌词"
 
 #: src/screen_outputs.c:73
 #, c-format
@@ -570,92 +585,92 @@ msgstr "禁用 '%s' 输出"
 msgid "Outputs"
 msgstr "输出"
 
-#: src/screen_song.c:116
-msgid "Song viewer"
-msgstr "歌曲查看器"
-
-#: src/screen_song.c:204
+#: src/screen_song.c:46
 msgid "Length"
 msgstr "时长"
 
-#: src/screen_song.c:205
+#: src/screen_song.c:47
 msgid "Composer"
 msgstr "作曲"
 
-#: src/screen_song.c:206
+#: src/screen_song.c:48
 msgid "Name"
 msgstr "名字"
 
-#: src/screen_song.c:207
+#: src/screen_song.c:49
 msgid "Disc"
 msgstr "碟片"
 
-#: src/screen_song.c:208
+#: src/screen_song.c:50
 msgid "Track"
 msgstr "音轨"
 
-#: src/screen_song.c:209
+#: src/screen_song.c:51
 msgid "Date"
 msgstr "日期"
 
-#: src/screen_song.c:210
+#: src/screen_song.c:52
 msgid "Genre"
 msgstr "流派"
 
-#: src/screen_song.c:211
+#: src/screen_song.c:53
 msgid "Comment"
 msgstr "注释"
 
-#: src/screen_song.c:212
+#: src/screen_song.c:54
 msgid "Bitrate"
 msgstr "比特率"
 
-#: src/screen_song.c:250
+#: src/screen_song.c:70
+msgid "Number of artists"
+msgstr "艺术家总数"
+
+#: src/screen_song.c:71
+msgid "Number of albums"
+msgstr "专辑总数"
+
+#: src/screen_song.c:72
+msgid "Number of songs"
+msgstr "歌曲总数"
+
+#: src/screen_song.c:73
+msgid "Uptime"
+msgstr "启动时间"
+
+#: src/screen_song.c:74
+msgid "Most recent db update"
+msgstr "最新DB更新"
+
+#: src/screen_song.c:75
+msgid "Playtime"
+msgstr "播放时间"
+
+#: src/screen_song.c:76
+msgid "DB playtime"
+msgstr "DB 播放时间"
+
+#: src/screen_song.c:178
+msgid "Song viewer"
+msgstr "歌曲查看器"
+
+#: src/screen_song.c:284
 msgid "Path"
 msgstr "路径"
 
-#: src/screen_song.c:254
+#: src/screen_song.c:289
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/screen_song.c:270
-msgid "Number of artists"
-msgstr "艺术家总数"
-
-#: src/screen_song.c:271
-msgid "Number of albums"
-msgstr "专辑总数"
-
-#: src/screen_song.c:272
-msgid "Number of songs"
-msgstr "歌曲总数"
-
-#: src/screen_song.c:273
-msgid "Uptime"
-msgstr "启动时间"
-
-#: src/screen_song.c:274
-msgid "Most recent db update"
-msgstr "最新DB更新"
-
-#: src/screen_song.c:275
-msgid "Playtime"
-msgstr "播放时间"
-
-#: src/screen_song.c:276
-msgid "DB playtime"
-msgstr "DB 播放时间"
-
-#: src/screen_song.c:291
+#: src/screen_song.c:314
 msgid "MPD statistics"
 msgstr "MPD统计"
 
-#: src/screen_song.c:346
+#: src/screen_song.c:369
 msgid "Selected song"
 msgstr "选中曲目"
 
-#: src/screen_song.c:356
+#: src/screen_song.c:379
 msgid "Currently playing song"
 msgstr "当前播放曲目"
 
@@ -1102,11 +1117,11 @@ msgstr ""
 "  Gao Jie https://launchpad.net/~kindmail\n"
 "  Kyle WANG https://launchpad.net/~osfans"
 
-#: src/list_window.c:563
+#: src/list_window.c:566
 msgid "Range selection disabled"
 msgstr "禁用区段选取"
 
-#: src/list_window.c:568
+#: src/list_window.c:571
 msgid "Range selection enabled"
 msgstr "开启区段选取"
 

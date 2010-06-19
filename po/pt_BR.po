@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 12:54+0100\n"
+"POT-Creation-Date: 2010-06-19 17:24+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Carlos Eduardo C. B. Shinagawa <cadu.coelho@gmail.com>\n"
 "Language-Team: \n"
@@ -44,8 +44,7 @@ msgstr "Conectado à %s"
 msgid "press %s for the key editor"
 msgstr "press %s para o editor de teclas"
 
-#: src/player_command.c:177
-#: src/screen_queue.c:746
+#: src/player_command.c:177 src/screen_queue.c:750
 msgid "Shuffled playlist"
 msgstr "Lista de Reprodução misturada"
 
@@ -53,8 +52,7 @@ msgstr "Lista de Reprodução misturada"
 msgid "Cleared playlist"
 msgstr "Lista de Reprodução apagada"
 
-#: src/screen.c:205
-#: src/screen.c:269
+#: src/screen.c:205 src/screen.c:269
 msgid "Error: Screen too small"
 msgstr "Erro: Tela é muito pequena"
 
@@ -124,8 +122,7 @@ msgstr "Modo de Auto-Centralização: Ligado"
 msgid "Auto center mode: Off"
 msgstr "Modo de Auto-Centralização: Desligado"
 
-#: src/screen_artist.c:74
-#: src/screen_artist.c:367
+#: src/screen_artist.c:74 src/screen_artist.c:367
 msgid "All tracks"
 msgstr "Todas as faixas"
 
@@ -149,14 +146,12 @@ msgstr "Álbum: %s - %s"
 msgid "All tracks of artist: %s"
 msgstr "Todas as faixas do artista: %s"
 
-#: src/screen_browser.c:132
+#: src/screen_browser.c:131
 #, c-format
 msgid "Loading playlist %s..."
 msgstr "Carregando Lista de Reprodução %s..."
 
-#: src/screen_browser.c:170
-#: src/screen_browser.c:265
-#: src/screen_browser.c:290
+#: src/screen_browser.c:172 src/screen_browser.c:267 src/screen_browser.c:292
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr "Adicionando '%s' á Lista de Reprodução"
@@ -206,9 +201,7 @@ msgid "Replace %s [%s/%s] ? "
 msgstr "Substituir %s [%s/%s] ?"
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:298
-#: src/screen_file.c:238
-#: src/screen_keydef.c:165
+#: src/screen_queue.c:298 src/screen_file.c:238 src/screen_keydef.c:165
 msgid "Aborted"
 msgstr "Abortado"
 
@@ -223,8 +216,7 @@ msgstr "%s salvo"
 msgid "Add"
 msgstr "Adicionar"
 
-#: src/screen_queue.c:506
-#: src/title_bar.c:77
+#: src/screen_queue.c:506 src/title_bar.c:77
 msgid "Playlist"
 msgstr "Lista de Reprodução"
 
@@ -252,8 +244,7 @@ msgid "Playlist deleted"
 msgstr "Lista de Reprodução deletada"
 
 #. translators: caption of the browser screen
-#: src/screen_file.c:305
-#: src/title_bar.c:78
+#: src/screen_file.c:305 src/title_bar.c:78
 msgid "Browse"
 msgstr "Navegar"
 
@@ -301,19 +292,15 @@ msgstr "comentário"
 msgid "file"
 msgstr "arquivo"
 
-#: src/screen_search.c:83
-#: src/screen_song.c:202
+#: src/screen_search.c:83 src/screen_song.c:44
 msgid "Title"
 msgstr "Título"
 
-#: src/screen_search.c:84
-#: src/screen_song.c:201
-#: src/title_bar.c:80
+#: src/screen_search.c:84 src/screen_song.c:43 src/title_bar.c:80
 msgid "Artist"
 msgstr "Artista"
 
-#: src/screen_search.c:85
-#: src/screen_song.c:203
+#: src/screen_search.c:85 src/screen_song.c:45
 msgid "Album"
 msgstr "Álbum"
 
@@ -335,9 +322,7 @@ msgstr "Tag de pesquisa ruim %s"
 msgid "No argument for search tag %s"
 msgstr "Sem argumento para tag de pesquisa %s"
 
-#: src/screen_search.c:344
-#: src/screen_help.c:145
-#: src/title_bar.c:83
+#: src/screen_search.c:344 src/screen_help.c:145 src/title_bar.c:83
 msgid "Search"
 msgstr "Pesquisa"
 
@@ -390,8 +375,7 @@ msgstr "Teclas de atalho inalteradas."
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "Erro: Não foi possível criar diretório ~/.ncmpc - %s"
 
-#: src/screen_keydef.c:92
-#: src/screen_keydef.c:99
+#: src/screen_keydef.c:92 src/screen_keydef.c:99
 #, c-format
 msgid "Error: %s - %s"
 msgstr "Erro: %s - %s"
@@ -445,8 +429,7 @@ msgstr "Movimento"
 msgid "Global"
 msgstr "Global"
 
-#: src/screen_help.c:114
-#: src/command.c:111
+#: src/screen_help.c:114 src/command.c:111
 msgid "Playlist screen"
 msgstr "Tela da Lista de Reprodução"
 
@@ -466,8 +449,7 @@ msgstr "Mover faixa para baixo"
 msgid "Center"
 msgstr "Centralizar"
 
-#: src/screen_help.c:129
-#: src/command.c:113
+#: src/screen_help.c:129 src/command.c:113
 msgid "Browse screen"
 msgstr "Tela de Navegação"
 
@@ -475,8 +457,7 @@ msgstr "Tela de Navegação"
 msgid "Enter directory/Select and play song"
 msgstr "Adentrar diretório/Selecionar e reproduzir trilha"
 
-#: src/screen_help.c:133
-#: src/screen_help.c:148
+#: src/screen_help.c:133 src/screen_help.c:148
 msgid "Append song to playlist"
 msgstr "Adicionar trilha à Lista de Reprodução"
 
@@ -484,8 +465,7 @@ msgstr "Adicionar trilha à Lista de Reprodução"
 msgid "Delete playlist"
 msgstr "Deletar Lista de Reprodução"
 
-#: src/screen_help.c:143
-#: src/command.c:224
+#: src/screen_help.c:143 src/command.c:224
 msgid "Search screen"
 msgstr "Tela de pesquisa"
 
@@ -493,8 +473,7 @@ msgstr "Tela de pesquisa"
 msgid "Select and play"
 msgstr "Selecionar e reproduzir"
 
-#: src/screen_help.c:155
-#: src/command.c:234
+#: src/screen_help.c:155 src/command.c:234
 msgid "Lyrics screen"
 msgstr "Tela de Letra de Música"
 
@@ -521,64 +500,75 @@ msgstr "Baixar letra de música da faixa em reprodução"
 msgid "Save lyrics"
 msgstr "Salvar letra de música."
 
-#: src/screen_help.c:168
-#: src/command.c:245
+#: src/screen_help.c:164
+#, fuzzy
+msgid "Delete saved lyrics"
+msgstr "Salvar letra de música."
+
+#: src/screen_help.c:169 src/command.c:245
 msgid "Outputs screen"
 msgstr "Tela de Saídas"
 
-#: src/screen_help.c:170
+#: src/screen_help.c:171
 msgid "Enable/disable output"
 msgstr "Habilitar/desabilitar saída"
 
-#: src/screen_help.c:175
+#: src/screen_help.c:176
 #, fuzzy
 msgid "Keydef screen"
 msgstr "Tela de Keydef"
 
-#: src/screen_help.c:177
+#: src/screen_help.c:178
 #, fuzzy
 msgid "Edit keydefs for selected command"
 msgstr "Editar keydefs para comando selecionado"
 
-#: src/screen_help.c:178
+#: src/screen_help.c:179
 msgid "Remove selected keydef"
 msgstr "Remover keydef selecionado"
 
-#: src/screen_help.c:179
+#: src/screen_help.c:180
 msgid "Go up a level"
 msgstr "Subir um nível"
 
-#: src/screen_help.c:180
+#: src/screen_help.c:181
 msgid "Apply and save changes"
 msgstr "Aplicar mudanças e salvar"
 
-#: src/screen_help.c:226
-#: src/title_bar.c:75
+#: src/screen_help.c:227 src/title_bar.c:75
 msgid "Help"
 msgstr "Ajuda"
 
 #. translators: no lyrics were found for the song
-#: src/screen_lyrics.c:161
+#: src/screen_lyrics.c:182
 msgid "No lyrics"
 msgstr "Sem letra de música"
 
-#: src/screen_lyrics.c:244
-#: src/screen_lyrics.c:252
-#: src/screen_lyrics.c:256
+#: src/screen_lyrics.c:265 src/screen_lyrics.c:273 src/screen_lyrics.c:277
 #: src/title_bar.c:86
 msgid "Lyrics"
 msgstr "Letra de Música"
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/screen_lyrics.c:247
+#: src/screen_lyrics.c:268
 msgid "loading..."
 msgstr "carregando..."
 
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:282
+#: src/screen_lyrics.c:303
 msgid "Lyrics saved"
 msgstr "Letra de Música salva"
+
+#: src/screen_lyrics.c:310
+#, fuzzy
+msgid "Lyrics deleted"
+msgstr "Lista de Reprodução deletada"
+
+#: src/screen_lyrics.c:313
+#, fuzzy
+msgid "No saved lyrics"
+msgstr "Salvar letra de música."
 
 #: src/screen_outputs.c:73
 #, c-format
@@ -590,97 +580,96 @@ msgstr "Saída '%s' habilitada"
 msgid "Output '%s' disabled"
 msgstr "Saída '%s' desabilitada"
 
-#: src/screen_outputs.c:176
-#: src/title_bar.c:89
+#: src/screen_outputs.c:176 src/title_bar.c:89
 msgid "Outputs"
 msgstr "Saídas"
 
-#: src/screen_song.c:116
-msgid "Song viewer"
-msgstr "Visualizador de Trilha"
-
-#: src/screen_song.c:204
+#: src/screen_song.c:46
 msgid "Length"
 msgstr "Duração"
 
-#: src/screen_song.c:205
+#: src/screen_song.c:47
 msgid "Composer"
 msgstr "Compositor"
 
-#: src/screen_song.c:206
+#: src/screen_song.c:48
 msgid "Name"
 msgstr "Nome"
 
-#: src/screen_song.c:207
+#: src/screen_song.c:49
 msgid "Disc"
 msgstr "Disco"
 
-#: src/screen_song.c:208
+#: src/screen_song.c:50
 msgid "Track"
 msgstr "Faixa"
 
-#: src/screen_song.c:209
+#: src/screen_song.c:51
 msgid "Date"
 msgstr "Data"
 
-#: src/screen_song.c:210
+#: src/screen_song.c:52
 msgid "Genre"
 msgstr "Estilo"
 
-#: src/screen_song.c:211
+#: src/screen_song.c:53
 msgid "Comment"
 msgstr "Comentário"
 
-#: src/screen_song.c:212
+#: src/screen_song.c:54
 msgid "Bitrate"
 msgstr "Taxa de Amostragem"
 
-#: src/screen_song.c:250
+#: src/screen_song.c:70
+msgid "Number of artists"
+msgstr "Número de artistas"
+
+#: src/screen_song.c:71
+msgid "Number of albums"
+msgstr "Número de álbuns"
+
+#: src/screen_song.c:72
+msgid "Number of songs"
+msgstr "Número de faixas"
+
+#: src/screen_song.c:73
+msgid "Uptime"
+msgstr "Tempo rodando"
+
+#: src/screen_song.c:74
+msgid "Most recent db update"
+msgstr "Atualização do BD mais recente"
+
+#: src/screen_song.c:75
+msgid "Playtime"
+msgstr "Tempo de reprodução"
+
+#: src/screen_song.c:76
+msgid "DB playtime"
+msgstr "Tempo de reprodução do BD"
+
+#: src/screen_song.c:178
+msgid "Song viewer"
+msgstr "Visualizador de Trilha"
+
+#: src/screen_song.c:284
 msgid "Path"
 msgstr "Caminho"
 
-#: src/screen_song.c:254
+#: src/screen_song.c:289
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/screen_song.c:270
-msgid "Number of artists"
-msgstr "Número de artistas"
-
-#: src/screen_song.c:271
-msgid "Number of albums"
-msgstr "Número de álbuns"
-
-#: src/screen_song.c:272
-msgid "Number of songs"
-msgstr "Número de faixas"
-
-#: src/screen_song.c:273
-msgid "Uptime"
-msgstr "Tempo rodando"
-
-#: src/screen_song.c:274
-msgid "Most recent db update"
-msgstr "Atualização do BD mais recente"
-
-#: src/screen_song.c:275
-msgid "Playtime"
-msgstr "Tempo de reprodução"
-
-#: src/screen_song.c:276
-msgid "DB playtime"
-msgstr "Tempo de reprodução do BD"
-
-#: src/screen_song.c:291
+#: src/screen_song.c:314
 msgid "MPD statistics"
 msgstr "Estatísticas do MPD"
 
-#: src/screen_song.c:346
+#: src/screen_song.c:369
 msgid "Selected song"
 msgstr "Faixa selecionada"
 
-#: src/screen_song.c:356
+#: src/screen_song.c:379
 msgid "Currently playing song"
 msgstr "Faixa atualmente em reprodução"
 
@@ -1027,8 +1016,7 @@ msgstr "Esc"
 msgid "Insert"
 msgstr "Insert"
 
-#: src/command.c:503
-#: src/command.c:509
+#: src/command.c:503 src/command.c:509
 #, c-format
 msgid "Key %s assigned to %s and %s"
 msgstr "Tecla %s definida para %s e %s"
@@ -1056,8 +1044,7 @@ msgstr "Terminal não tem capacidade para trabalhar com cores"
 msgid "Error"
 msgstr "Erro"
 
-#: src/conf.c:102
-#: src/conf.c:111
+#: src/conf.c:102 src/conf.c:111
 msgid "Malformed hotkey definition"
 msgstr "Definição de tecla de atalho malformada"
 
@@ -1122,16 +1109,15 @@ msgstr "Parâmetro de configuração desconhecido"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:221
-#: src/options.c:224
+#: src/options.c:221 src/options.c:224
 msgid "translator-credits"
-msgstr "Traduzido por Carlos Eduardo C. B. Shinagawa <cadu.coelho at gmail.com>"
+msgstr ""
+"Traduzido por Carlos Eduardo C. B. Shinagawa <cadu.coelho at gmail.com>"
 
-#: src/list_window.c:563
+#: src/list_window.c:566
 msgid "Range selection disabled"
 msgstr "Seleção de intervalo desabilitada"
 
-#: src/list_window.c:568
+#: src/list_window.c:571
 msgid "Range selection enabled"
 msgstr "Seleção de intervalo habilitada"
-

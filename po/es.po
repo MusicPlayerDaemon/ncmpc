@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 12:54+0100\n"
+"POT-Creation-Date: 2010-06-19 17:24+0200\n"
 "PO-Revision-Date: 2009-10-30 17:58+0000\n"
 "Last-Translator: Paco Molinero <paco@byasl.com>\n"
 "Language-Team: es\n"
@@ -55,7 +55,7 @@ msgstr "Conectado a %s"
 msgid "press %s for the key editor"
 msgstr "pressiona %s para accer al editor de teclas"
 
-#: src/player_command.c:177 src/screen_queue.c:746
+#: src/player_command.c:177 src/screen_queue.c:750
 msgid "Shuffled playlist"
 msgstr "Lista de canciones barajada"
 
@@ -157,12 +157,12 @@ msgstr "Álbum: %s - %s"
 msgid "All tracks of artist: %s"
 msgstr "Todas las pistas del artista: %s"
 
-#: src/screen_browser.c:132
+#: src/screen_browser.c:131
 #, c-format
 msgid "Loading playlist %s..."
 msgstr "Cargando la lista %s..."
 
-#: src/screen_browser.c:170 src/screen_browser.c:265 src/screen_browser.c:290
+#: src/screen_browser.c:172 src/screen_browser.c:267 src/screen_browser.c:292
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr "Añadiendo '%s' a la lista de canciones"
@@ -303,15 +303,15 @@ msgstr "comentario"
 msgid "file"
 msgstr "fichero"
 
-#: src/screen_search.c:83 src/screen_song.c:202
+#: src/screen_search.c:83 src/screen_song.c:44
 msgid "Title"
 msgstr "Título"
 
-#: src/screen_search.c:84 src/screen_song.c:201 src/title_bar.c:80
+#: src/screen_search.c:84 src/screen_song.c:43 src/title_bar.c:80
 msgid "Artist"
 msgstr "Artista"
 
-#: src/screen_search.c:85 src/screen_song.c:203
+#: src/screen_search.c:85 src/screen_song.c:45
 msgid "Album"
 msgstr "Álbum"
 
@@ -510,58 +510,73 @@ msgstr "Obtener las letras de la canción reproducida"
 msgid "Save lyrics"
 msgstr "Guardar las letras"
 
-#: src/screen_help.c:168 src/command.c:245
+#: src/screen_help.c:164
+#, fuzzy
+msgid "Delete saved lyrics"
+msgstr "Guardar las letras"
+
+#: src/screen_help.c:169 src/command.c:245
 msgid "Outputs screen"
 msgstr "Pantalla de salidas"
 
-#: src/screen_help.c:170
+#: src/screen_help.c:171
 msgid "Enable/disable output"
 msgstr "Activar/desactivar la salida"
 
-#: src/screen_help.c:175
+#: src/screen_help.c:176
 msgid "Keydef screen"
 msgstr "Pantalla de teclas de acceso"
 
-#: src/screen_help.c:177
+#: src/screen_help.c:178
 msgid "Edit keydefs for selected command"
 msgstr "Cambia las teclas de acceso rápido para el comando seleccionado"
 
-#: src/screen_help.c:178
+#: src/screen_help.c:179
 msgid "Remove selected keydef"
 msgstr "ELiminar la tecla de acceso rápido seleccionada"
 
-#: src/screen_help.c:179
+#: src/screen_help.c:180
 msgid "Go up a level"
 msgstr "Subir un nivel"
 
-#: src/screen_help.c:180
+#: src/screen_help.c:181
 msgid "Apply and save changes"
 msgstr "Aplicar y guardar los cambios"
 
-#: src/screen_help.c:226 src/title_bar.c:75
+#: src/screen_help.c:227 src/title_bar.c:75
 msgid "Help"
 msgstr "Ayuda"
 
 #. translators: no lyrics were found for the song
-#: src/screen_lyrics.c:161
+#: src/screen_lyrics.c:182
 msgid "No lyrics"
 msgstr "No hay letras disponibles"
 
-#: src/screen_lyrics.c:244 src/screen_lyrics.c:252 src/screen_lyrics.c:256
+#: src/screen_lyrics.c:265 src/screen_lyrics.c:273 src/screen_lyrics.c:277
 #: src/title_bar.c:86
 msgid "Lyrics"
 msgstr "Letras"
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/screen_lyrics.c:247
+#: src/screen_lyrics.c:268
 msgid "loading..."
 msgstr "cargando..."
 
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:282
+#: src/screen_lyrics.c:303
 msgid "Lyrics saved"
 msgstr "Letras guardadas"
+
+#: src/screen_lyrics.c:310
+#, fuzzy
+msgid "Lyrics deleted"
+msgstr "Lista de reproducción borrada"
+
+#: src/screen_lyrics.c:313
+#, fuzzy
+msgid "No saved lyrics"
+msgstr "Guardar las letras"
 
 #: src/screen_outputs.c:73
 #, c-format
@@ -577,92 +592,92 @@ msgstr "Se desactivó la salida '%s'"
 msgid "Outputs"
 msgstr "Salidas"
 
-#: src/screen_song.c:116
-msgid "Song viewer"
-msgstr "Visor de la canción"
-
-#: src/screen_song.c:204
+#: src/screen_song.c:46
 msgid "Length"
 msgstr "Duración"
 
-#: src/screen_song.c:205
+#: src/screen_song.c:47
 msgid "Composer"
 msgstr "Compositor"
 
-#: src/screen_song.c:206
+#: src/screen_song.c:48
 msgid "Name"
 msgstr "Nombre"
 
-#: src/screen_song.c:207
+#: src/screen_song.c:49
 msgid "Disc"
 msgstr "Disco"
 
-#: src/screen_song.c:208
+#: src/screen_song.c:50
 msgid "Track"
 msgstr "Pista"
 
-#: src/screen_song.c:209
+#: src/screen_song.c:51
 msgid "Date"
 msgstr "Fecha"
 
-#: src/screen_song.c:210
+#: src/screen_song.c:52
 msgid "Genre"
 msgstr "Estilo"
 
-#: src/screen_song.c:211
+#: src/screen_song.c:53
 msgid "Comment"
 msgstr "Comentario"
 
-#: src/screen_song.c:212
+#: src/screen_song.c:54
 msgid "Bitrate"
 msgstr "Bitrate"
 
-#: src/screen_song.c:250
+#: src/screen_song.c:70
+msgid "Number of artists"
+msgstr "Número de artistas"
+
+#: src/screen_song.c:71
+msgid "Number of albums"
+msgstr "Número de álbumes"
+
+#: src/screen_song.c:72
+msgid "Number of songs"
+msgstr "Número de canciones"
+
+#: src/screen_song.c:73
+msgid "Uptime"
+msgstr "Tiempo de ejecución"
+
+#: src/screen_song.c:74
+msgid "Most recent db update"
+msgstr "Actualización más reciente de la BD"
+
+#: src/screen_song.c:75
+msgid "Playtime"
+msgstr "Tiempo de reproducción"
+
+#: src/screen_song.c:76
+msgid "DB playtime"
+msgstr "Duración de la BD"
+
+#: src/screen_song.c:178
+msgid "Song viewer"
+msgstr "Visor de la canción"
+
+#: src/screen_song.c:284
 msgid "Path"
 msgstr "Ruta"
 
-#: src/screen_song.c:254
+#: src/screen_song.c:289
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/screen_song.c:270
-msgid "Number of artists"
-msgstr "Número de artistas"
-
-#: src/screen_song.c:271
-msgid "Number of albums"
-msgstr "Número de álbumes"
-
-#: src/screen_song.c:272
-msgid "Number of songs"
-msgstr "Número de canciones"
-
-#: src/screen_song.c:273
-msgid "Uptime"
-msgstr "Tiempo de ejecución"
-
-#: src/screen_song.c:274
-msgid "Most recent db update"
-msgstr "Actualización más reciente de la BD"
-
-#: src/screen_song.c:275
-msgid "Playtime"
-msgstr "Tiempo de reproducción"
-
-#: src/screen_song.c:276
-msgid "DB playtime"
-msgstr "Duración de la BD"
-
-#: src/screen_song.c:291
+#: src/screen_song.c:314
 msgid "MPD statistics"
 msgstr "Estadísticas del MPD"
 
-#: src/screen_song.c:346
+#: src/screen_song.c:369
 msgid "Selected song"
 msgstr "Canción seleccionada"
 
-#: src/screen_song.c:356
+#: src/screen_song.c:379
 msgid "Currently playing song"
 msgstr "Canción reproducida"
 
@@ -1109,11 +1124,11 @@ msgstr ""
 "  Feder Sáiz https://launchpad.net/~federsaiz\n"
 "  Paco Molinero https://launchpad.net/~franciscomol"
 
-#: src/list_window.c:563
+#: src/list_window.c:566
 msgid "Range selection disabled"
 msgstr "Selección de rango desactivada"
 
-#: src/list_window.c:568
+#: src/list_window.c:571
 msgid "Range selection enabled"
 msgstr "Selección de rango activada"
 

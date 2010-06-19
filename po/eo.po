@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 12:54+0100\n"
+"POT-Creation-Date: 2010-06-19 17:24+0200\n"
 "PO-Revision-Date: 2009-11-30 18:18+0000\n"
 "Last-Translator: Kristjan <Unknown>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
@@ -48,7 +48,7 @@ msgstr "Konektite al %s"
 msgid "press %s for the key editor"
 msgstr ""
 
-#: src/player_command.c:177 src/screen_queue.c:746
+#: src/player_command.c:177 src/screen_queue.c:750
 msgid "Shuffled playlist"
 msgstr ""
 
@@ -150,12 +150,12 @@ msgstr ""
 msgid "All tracks of artist: %s"
 msgstr ""
 
-#: src/screen_browser.c:132
+#: src/screen_browser.c:131
 #, c-format
 msgid "Loading playlist %s..."
 msgstr ""
 
-#: src/screen_browser.c:170 src/screen_browser.c:265 src/screen_browser.c:290
+#: src/screen_browser.c:172 src/screen_browser.c:267 src/screen_browser.c:292
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr ""
@@ -296,15 +296,15 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: src/screen_search.c:83 src/screen_song.c:202
+#: src/screen_search.c:83 src/screen_song.c:44
 msgid "Title"
 msgstr ""
 
-#: src/screen_search.c:84 src/screen_song.c:201 src/title_bar.c:80
+#: src/screen_search.c:84 src/screen_song.c:43 src/title_bar.c:80
 msgid "Artist"
 msgstr ""
 
-#: src/screen_search.c:85 src/screen_song.c:203
+#: src/screen_search.c:85 src/screen_song.c:45
 msgid "Album"
 msgstr ""
 
@@ -503,57 +503,69 @@ msgstr ""
 msgid "Save lyrics"
 msgstr ""
 
-#: src/screen_help.c:168 src/command.c:245
+#: src/screen_help.c:164
+msgid "Delete saved lyrics"
+msgstr ""
+
+#: src/screen_help.c:169 src/command.c:245
 msgid "Outputs screen"
 msgstr ""
 
-#: src/screen_help.c:170
+#: src/screen_help.c:171
 msgid "Enable/disable output"
 msgstr ""
 
-#: src/screen_help.c:175
+#: src/screen_help.c:176
 msgid "Keydef screen"
 msgstr ""
 
-#: src/screen_help.c:177
+#: src/screen_help.c:178
 msgid "Edit keydefs for selected command"
 msgstr ""
 
-#: src/screen_help.c:178
+#: src/screen_help.c:179
 msgid "Remove selected keydef"
 msgstr ""
 
-#: src/screen_help.c:179
+#: src/screen_help.c:180
 msgid "Go up a level"
 msgstr ""
 
-#: src/screen_help.c:180
+#: src/screen_help.c:181
 msgid "Apply and save changes"
 msgstr ""
 
-#: src/screen_help.c:226 src/title_bar.c:75
+#: src/screen_help.c:227 src/title_bar.c:75
 msgid "Help"
 msgstr "Helpo"
 
 #. translators: no lyrics were found for the song
-#: src/screen_lyrics.c:161
+#: src/screen_lyrics.c:182
 msgid "No lyrics"
 msgstr ""
 
-#: src/screen_lyrics.c:244 src/screen_lyrics.c:252 src/screen_lyrics.c:256
+#: src/screen_lyrics.c:265 src/screen_lyrics.c:273 src/screen_lyrics.c:277
 #: src/title_bar.c:86
 msgid "Lyrics"
 msgstr ""
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/screen_lyrics.c:247
+#: src/screen_lyrics.c:268
 msgid "loading..."
 msgstr ""
 
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:282
+#: src/screen_lyrics.c:303
 msgid "Lyrics saved"
+msgstr ""
+
+#: src/screen_lyrics.c:310
+msgid "Lyrics deleted"
+msgstr ""
+
+#: src/screen_lyrics.c:313
+msgid "No saved lyrics"
 msgstr ""
 
 #: src/screen_outputs.c:73
@@ -570,92 +582,92 @@ msgstr ""
 msgid "Outputs"
 msgstr ""
 
-#: src/screen_song.c:116
-msgid "Song viewer"
-msgstr ""
-
-#: src/screen_song.c:204
+#: src/screen_song.c:46
 msgid "Length"
 msgstr ""
 
-#: src/screen_song.c:205
+#: src/screen_song.c:47
 msgid "Composer"
 msgstr ""
 
-#: src/screen_song.c:206
+#: src/screen_song.c:48
 msgid "Name"
 msgstr ""
 
-#: src/screen_song.c:207
+#: src/screen_song.c:49
 msgid "Disc"
 msgstr ""
 
-#: src/screen_song.c:208
+#: src/screen_song.c:50
 msgid "Track"
 msgstr ""
 
-#: src/screen_song.c:209
+#: src/screen_song.c:51
 msgid "Date"
 msgstr ""
 
-#: src/screen_song.c:210
+#: src/screen_song.c:52
 msgid "Genre"
 msgstr ""
 
-#: src/screen_song.c:211
+#: src/screen_song.c:53
 msgid "Comment"
 msgstr ""
 
-#: src/screen_song.c:212
+#: src/screen_song.c:54
 msgid "Bitrate"
 msgstr ""
 
-#: src/screen_song.c:250
+#: src/screen_song.c:70
+msgid "Number of artists"
+msgstr ""
+
+#: src/screen_song.c:71
+msgid "Number of albums"
+msgstr ""
+
+#: src/screen_song.c:72
+msgid "Number of songs"
+msgstr ""
+
+#: src/screen_song.c:73
+msgid "Uptime"
+msgstr ""
+
+#: src/screen_song.c:74
+msgid "Most recent db update"
+msgstr ""
+
+#: src/screen_song.c:75
+msgid "Playtime"
+msgstr ""
+
+#: src/screen_song.c:76
+msgid "DB playtime"
+msgstr ""
+
+#: src/screen_song.c:178
+msgid "Song viewer"
+msgstr ""
+
+#: src/screen_song.c:284
 msgid "Path"
 msgstr ""
 
-#: src/screen_song.c:254
+#: src/screen_song.c:289
 #, c-format
 msgid "%d kbps"
 msgstr ""
 
-#: src/screen_song.c:270
-msgid "Number of artists"
-msgstr ""
-
-#: src/screen_song.c:271
-msgid "Number of albums"
-msgstr ""
-
-#: src/screen_song.c:272
-msgid "Number of songs"
-msgstr ""
-
-#: src/screen_song.c:273
-msgid "Uptime"
-msgstr ""
-
-#: src/screen_song.c:274
-msgid "Most recent db update"
-msgstr ""
-
-#: src/screen_song.c:275
-msgid "Playtime"
-msgstr ""
-
-#: src/screen_song.c:276
-msgid "DB playtime"
-msgstr ""
-
-#: src/screen_song.c:291
+#: src/screen_song.c:314
 msgid "MPD statistics"
 msgstr ""
 
-#: src/screen_song.c:346
+#: src/screen_song.c:369
 msgid "Selected song"
 msgstr ""
 
-#: src/screen_song.c:356
+#: src/screen_song.c:379
 msgid "Currently playing song"
 msgstr ""
 
@@ -1102,10 +1114,10 @@ msgstr ""
 "  Aleksej R. Serdjukov https://launchpad.net/~aleksejrs\n"
 "  Kristjan https://launchpad.net/~kristjan-eo"
 
-#: src/list_window.c:563
+#: src/list_window.c:566
 msgid "Range selection disabled"
 msgstr ""
 
-#: src/list_window.c:568
+#: src/list_window.c:571
 msgid "Range selection enabled"
 msgstr ""

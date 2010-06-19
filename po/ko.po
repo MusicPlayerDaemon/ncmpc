@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 12:54+0100\n"
+"POT-Creation-Date: 2010-06-19 17:24+0200\n"
 "PO-Revision-Date: 2009-10-16 17:35+0000\n"
 "Last-Translator: Jay Whang <jaypedia@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -48,7 +48,7 @@ msgstr "%s로 접속함"
 msgid "press %s for the key editor"
 msgstr "키 편집기 사용을 위하여 %s(을)를 누르십시오."
 
-#: src/player_command.c:177 src/screen_queue.c:746
+#: src/player_command.c:177 src/screen_queue.c:750
 msgid "Shuffled playlist"
 msgstr "섞여진 연주목록"
 
@@ -150,12 +150,12 @@ msgstr "앨범: %s - %s"
 msgid "All tracks of artist: %s"
 msgstr "아티스트의 모든 트랙: %s"
 
-#: src/screen_browser.c:132
+#: src/screen_browser.c:131
 #, c-format
 msgid "Loading playlist %s..."
 msgstr "연주목록 %s(을)를 올리는 중..."
 
-#: src/screen_browser.c:170 src/screen_browser.c:265 src/screen_browser.c:290
+#: src/screen_browser.c:172 src/screen_browser.c:267 src/screen_browser.c:292
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr "'%s'(을)를 연주목록에 더하기"
@@ -296,15 +296,15 @@ msgstr "주석"
 msgid "file"
 msgstr "파일"
 
-#: src/screen_search.c:83 src/screen_song.c:202
+#: src/screen_search.c:83 src/screen_song.c:44
 msgid "Title"
 msgstr "제목"
 
-#: src/screen_search.c:84 src/screen_song.c:201 src/title_bar.c:80
+#: src/screen_search.c:84 src/screen_song.c:43 src/title_bar.c:80
 msgid "Artist"
 msgstr "아티스트"
 
-#: src/screen_search.c:85 src/screen_song.c:203
+#: src/screen_search.c:85 src/screen_song.c:45
 msgid "Album"
 msgstr "앨범"
 
@@ -503,58 +503,73 @@ msgstr "현재 연주중인 노래의 가사를 다운로드"
 msgid "Save lyrics"
 msgstr "가사 저장하기"
 
-#: src/screen_help.c:168 src/command.c:245
+#: src/screen_help.c:164
+#, fuzzy
+msgid "Delete saved lyrics"
+msgstr "가사 저장하기"
+
+#: src/screen_help.c:169 src/command.c:245
 msgid "Outputs screen"
 msgstr "출력 화면"
 
-#: src/screen_help.c:170
+#: src/screen_help.c:171
 msgid "Enable/disable output"
 msgstr "출력 사용하기/안하기"
 
-#: src/screen_help.c:175
+#: src/screen_help.c:176
 msgid "Keydef screen"
 msgstr "키설정 화면"
 
-#: src/screen_help.c:177
+#: src/screen_help.c:178
 msgid "Edit keydefs for selected command"
 msgstr "선택한 명령을 위한 키설정 편집하기"
 
-#: src/screen_help.c:178
+#: src/screen_help.c:179
 msgid "Remove selected keydef"
 msgstr "선택한 키설정 삭제하기"
 
-#: src/screen_help.c:179
+#: src/screen_help.c:180
 msgid "Go up a level"
 msgstr "한 단계 위로 가기"
 
-#: src/screen_help.c:180
+#: src/screen_help.c:181
 msgid "Apply and save changes"
 msgstr "적용하고 변경사항을 저장하기"
 
-#: src/screen_help.c:226 src/title_bar.c:75
+#: src/screen_help.c:227 src/title_bar.c:75
 msgid "Help"
 msgstr "도움말"
 
 #. translators: no lyrics were found for the song
-#: src/screen_lyrics.c:161
+#: src/screen_lyrics.c:182
 msgid "No lyrics"
 msgstr "가사 없음"
 
-#: src/screen_lyrics.c:244 src/screen_lyrics.c:252 src/screen_lyrics.c:256
+#: src/screen_lyrics.c:265 src/screen_lyrics.c:273 src/screen_lyrics.c:277
 #: src/title_bar.c:86
 msgid "Lyrics"
 msgstr "가사"
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/screen_lyrics.c:247
+#: src/screen_lyrics.c:268
 msgid "loading..."
 msgstr "올리는 중..."
 
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:282
+#: src/screen_lyrics.c:303
 msgid "Lyrics saved"
 msgstr "가사를 저장하였습니다."
+
+#: src/screen_lyrics.c:310
+#, fuzzy
+msgid "Lyrics deleted"
+msgstr "연주목록을 삭제하였습니다."
+
+#: src/screen_lyrics.c:313
+#, fuzzy
+msgid "No saved lyrics"
+msgstr "가사 저장하기"
 
 #: src/screen_outputs.c:73
 #, c-format
@@ -570,92 +585,92 @@ msgstr "출력 '%s'(을)를 사용 안합니다"
 msgid "Outputs"
 msgstr "출력"
 
-#: src/screen_song.c:116
-msgid "Song viewer"
-msgstr "곡 보기"
-
-#: src/screen_song.c:204
+#: src/screen_song.c:46
 msgid "Length"
 msgstr "길이"
 
-#: src/screen_song.c:205
+#: src/screen_song.c:47
 msgid "Composer"
 msgstr "작곡가"
 
-#: src/screen_song.c:206
+#: src/screen_song.c:48
 msgid "Name"
 msgstr "이름"
 
-#: src/screen_song.c:207
+#: src/screen_song.c:49
 msgid "Disc"
 msgstr "디스크"
 
-#: src/screen_song.c:208
+#: src/screen_song.c:50
 msgid "Track"
 msgstr "트랙"
 
-#: src/screen_song.c:209
+#: src/screen_song.c:51
 msgid "Date"
 msgstr "날짜"
 
-#: src/screen_song.c:210
+#: src/screen_song.c:52
 msgid "Genre"
 msgstr "장르"
 
-#: src/screen_song.c:211
+#: src/screen_song.c:53
 msgid "Comment"
 msgstr "주석"
 
-#: src/screen_song.c:212
+#: src/screen_song.c:54
 msgid "Bitrate"
 msgstr "비트 전송률"
 
-#: src/screen_song.c:250
+#: src/screen_song.c:70
+msgid "Number of artists"
+msgstr "아티스트 수"
+
+#: src/screen_song.c:71
+msgid "Number of albums"
+msgstr "앨범 수"
+
+#: src/screen_song.c:72
+msgid "Number of songs"
+msgstr "곡 수"
+
+#: src/screen_song.c:73
+msgid "Uptime"
+msgstr "업타임"
+
+#: src/screen_song.c:74
+msgid "Most recent db update"
+msgstr "가장 최근의 데이타베이스 업데이트"
+
+#: src/screen_song.c:75
+msgid "Playtime"
+msgstr "연주시간"
+
+#: src/screen_song.c:76
+msgid "DB playtime"
+msgstr "데이타베이스 연주시간"
+
+#: src/screen_song.c:178
+msgid "Song viewer"
+msgstr "곡 보기"
+
+#: src/screen_song.c:284
 msgid "Path"
 msgstr "경로"
 
-#: src/screen_song.c:254
+#: src/screen_song.c:289
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/screen_song.c:270
-msgid "Number of artists"
-msgstr "아티스트 수"
-
-#: src/screen_song.c:271
-msgid "Number of albums"
-msgstr "앨범 수"
-
-#: src/screen_song.c:272
-msgid "Number of songs"
-msgstr "곡 수"
-
-#: src/screen_song.c:273
-msgid "Uptime"
-msgstr "업타임"
-
-#: src/screen_song.c:274
-msgid "Most recent db update"
-msgstr "가장 최근의 데이타베이스 업데이트"
-
-#: src/screen_song.c:275
-msgid "Playtime"
-msgstr "연주시간"
-
-#: src/screen_song.c:276
-msgid "DB playtime"
-msgstr "데이타베이스 연주시간"
-
-#: src/screen_song.c:291
+#: src/screen_song.c:314
 msgid "MPD statistics"
 msgstr "MPD 통계"
 
-#: src/screen_song.c:346
+#: src/screen_song.c:369
 msgid "Selected song"
 msgstr "선택한 곡"
 
-#: src/screen_song.c:356
+#: src/screen_song.c:379
 msgid "Currently playing song"
 msgstr "현재 연주중인 곡"
 
@@ -1102,11 +1117,11 @@ msgstr ""
 "  atie https://launchpad.net/~atie-at-matrix\n"
 "  bluejay https://launchpad.net/~jaypedia"
 
-#: src/list_window.c:563
+#: src/list_window.c:566
 msgid "Range selection disabled"
 msgstr "범위 선택 기능을 사용하지 않습니다."
 
-#: src/list_window.c:568
+#: src/list_window.c:571
 msgid "Range selection enabled"
 msgstr "범위 선택 기능을 사용합니다."
 
