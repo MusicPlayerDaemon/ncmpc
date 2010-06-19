@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-19 17:24+0200\n"
-"PO-Revision-Date: 2009-04-01 09:24+0000\n"
-"Last-Translator: Vojtěch Trefný <vojtech.trefny@gmail.com>\n"
+"PO-Revision-Date: 2010-05-21 06:25+0000\n"
+"Last-Translator: Konki <pavel.konkol@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-01 09:52+0000\n"
+"X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -83,11 +83,11 @@ msgstr "Náhodné přehrávání je vypnuto"
 #. single song
 #: src/screen.c:404
 msgid "Single mode is on"
-msgstr ""
+msgstr "Jednoduchý mód je zapnutý"
 
 #: src/screen.c:405
 msgid "Single mode is off"
-msgstr ""
+msgstr "Jednoduchý mód je vypnutý"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -530,11 +530,11 @@ msgstr ""
 
 #: src/screen_help.c:180
 msgid "Go up a level"
-msgstr ""
+msgstr "Jít o úroveň výš"
 
 #: src/screen_help.c:181
 msgid "Apply and save changes"
-msgstr ""
+msgstr "Aplikovat a uložit změny"
 
 #: src/screen_help.c:227 src/title_bar.c:75
 msgid "Help"
@@ -586,9 +586,8 @@ msgid "Outputs"
 msgstr "Výstupy"
 
 #: src/screen_song.c:46
-#, fuzzy
 msgid "Length"
-msgstr "Doleva"
+msgstr "Délka"
 
 #: src/screen_song.c:47
 msgid "Composer"
@@ -710,29 +709,24 @@ msgid "Move cursor down"
 msgstr "Posunout kurzoru dolů"
 
 #: src/command.c:80
-#, fuzzy
 msgid "Move cursor to the top of screen"
-msgstr "Přesunout kurzor k horní části obrazovky"
+msgstr ""
 
 #: src/command.c:82
-#, fuzzy
 msgid "Move cursor to the middle of screen"
-msgstr "Přesunout kurzor ke středu obrazovky"
+msgstr ""
 
 #: src/command.c:84
-#, fuzzy
 msgid "Move cursor to the bottom of screen"
-msgstr "Přesunout kurzor k dolní části obrazovky"
+msgstr ""
 
 #: src/command.c:86
-#, fuzzy
 msgid "Move cursor to the top of the list"
-msgstr "Přesunout kurzor k horní části obrazovky"
+msgstr ""
 
 #: src/command.c:88
-#, fuzzy
 msgid "Move cursor to the bottom of the list"
-msgstr "Přesunout kurzor k dolní části obrazovky"
+msgstr ""
 
 #: src/command.c:90
 msgid "Page up"
@@ -744,7 +738,7 @@ msgstr "Page down"
 
 #: src/command.c:94
 msgid "Range selection"
-msgstr ""
+msgstr "Výběr rozsahu"
 
 #: src/command.c:96
 msgid "Scroll up one line"
@@ -763,9 +757,8 @@ msgid "Scroll down half a screen"
 msgstr ""
 
 #: src/command.c:104
-#, fuzzy
 msgid "Select currently playing song"
-msgstr "Právě přehrávaná skladba"
+msgstr "Zvolit právě hrající skladbu"
 
 #: src/command.c:109
 msgid "Help screen"
@@ -841,7 +834,7 @@ msgstr "Přepnout náhodný režim"
 
 #: src/command.c:152
 msgid "Toggle single mode"
-msgstr ""
+msgstr "Přepnout jednoduchý mód"
 
 #: src/command.c:154
 msgid "Toggle consume mode"
@@ -1105,11 +1098,11 @@ msgstr "Neznámé jméno obrazovky"
 
 #: src/conf.c:342
 msgid "Invalid search mode"
-msgstr ""
+msgstr "Chybný vyhledávací mód"
 
 #: src/conf.c:365
 msgid "Unknown search mode"
-msgstr ""
+msgstr "Neznámý vyhledávací mód"
 
 #: src/conf.c:534
 msgid "Unknown configuration parameter"
@@ -1121,15 +1114,16 @@ msgstr "Neznámý parametr nastavení"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Konki https://launchpad.net/~pavel-konkol\n"
 "  Vojtěch Trefný https://launchpad.net/~vojtech.trefny"
 
 #: src/list_window.c:566
 msgid "Range selection disabled"
-msgstr ""
+msgstr "Výběr rozsahu vypnut"
 
 #: src/list_window.c:571
 msgid "Range selection enabled"
-msgstr ""
+msgstr "Výběr rozsahu zapnut"
 
 #~ msgid "Explicitly download lyrics"
 #~ msgstr "Výslověn stažený text psíně"
