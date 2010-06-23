@@ -1,4 +1,4 @@
-ncmpc 0.17 - not yet released
+ncmpc 0.17 - (06/22/2010)
 * screen_queue: fix range selection check on "shuffle"
 * screen_browser: check for error before adding song to playlist
 * po: added Brazilian Portuguese translation
