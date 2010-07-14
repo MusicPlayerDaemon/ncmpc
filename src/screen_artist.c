@@ -41,6 +41,7 @@ static artist_mode_t mode = LIST_ARTISTS;
 static GPtrArray *artist_list, *album_list;
 static char *artist = NULL;
 static char *album  = NULL;
+static char ALL_TRACKS[] = "";
 
 static struct screen_browser browser;
 
@@ -220,7 +221,7 @@ load_song_list(struct mpdclient *c)
 		mpd_search_db_songs(connection, true);
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
 					      MPD_TAG_ARTIST, artist);
-		if (album[0] != 0)
+		if (album != ALL_TRACKS)
 			mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
 						      MPD_TAG_ALBUM, album);
 		mpd_search_commit(connection);
@@ -240,7 +241,8 @@ static void
 free_state(void)
 {
 	g_free(artist);
-	g_free(album);
+	if (album != ALL_TRACKS)
+		g_free(album);
 	artist = NULL;
 	album = NULL;
 
@@ -407,14 +409,17 @@ screen_artist_get_title(char *str, size_t size)
 
 	case LIST_SONGS:
 		s1 = utf8_to_locale(artist);
-		if (*album != 0) {
-			s2 = utf8_to_locale(album);
+
+		if (album == ALL_TRACKS)
 			g_snprintf(str, size,
-				   _("Album: %s - %s"), s1, s2);
+				   _("All tracks of artist: %s"), s1);
+		else if (*album != 0) {
+			s2 = utf8_to_locale(album);
+			g_snprintf(str, size, _("Album: %s - %s"), s1, s2);
 			g_free(s2);
 		} else
 			g_snprintf(str, size,
-				   _("All tracks of artist: %s"), s1);
+				   _("Tracks of no album of artist: %s"), s1);
 		g_free(s1);
 		break;
 	}
@@ -512,6 +517,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 	struct list_window_range range;
 	char *selected;
 	char *old;
+	char *old_ptr;
 	int idx;
 
 	switch(cmd) {
@@ -546,7 +552,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 				}
 			} else if (browser.lw->selected == album_list->len + 1) {
 				/* handle "show all" */
-				open_song_list(c, g_strdup(artist), g_strdup("\0"));
+				open_song_list(c, g_strdup(artist), ALL_TRACKS);
 				list_window_reset(browser.lw);
 			} else {
 				/* select album */
@@ -563,11 +569,12 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 			if (browser.lw->selected == 0) {
 				/* handle ".." */
 				old = g_strdup(album);
+				old_ptr = album;
 
 				open_album_list(c, g_strdup(artist));
 				list_window_reset(browser.lw);
 				/* restore previous list window state */
-				idx = *old == 0
+				idx = old_ptr == ALL_TRACKS
 					? (int)album_list->len
 					: string_array_find(album_list, old);
 				g_free(old);
@@ -609,11 +616,12 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 
 		case LIST_SONGS:
 			old = g_strdup(album);
+			old_ptr = album;
 
 			open_album_list(c, g_strdup(artist));
 			list_window_reset(browser.lw);
 			/* restore previous list window state */
-			idx = *old == 0
+			idx = old_ptr == ALL_TRACKS
 				? (int)album_list->len
 				: string_array_find(album_list, old);
 			g_free(old);
