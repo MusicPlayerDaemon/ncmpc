@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-19 17:24+0200\n"
-"PO-Revision-Date: 2009-11-09 15:51+0000\n"
-"Last-Translator: BBO <Unknown>\n"
+"PO-Revision-Date: 2010-07-05 06:44+0000\n"
+"Last-Translator: cmdrhenner <cmdrhenner@gmail.com>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-12-08 07:40+0000\n"
+"X-Launchpad-Export-Date: 2010-07-21 05:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -505,9 +505,8 @@ msgid "Save lyrics"
 msgstr "Liedtext speichern"
 
 #: src/screen_help.c:164
-#, fuzzy
 msgid "Delete saved lyrics"
-msgstr "Liedtext speichern"
+msgstr "Lösche gespeicherte Texte"
 
 #: src/screen_help.c:169 src/command.c:245
 msgid "Outputs screen"
@@ -563,14 +562,12 @@ msgid "Lyrics saved"
 msgstr "Liedtext gespeichert"
 
 #: src/screen_lyrics.c:310
-#, fuzzy
 msgid "Lyrics deleted"
-msgstr "Playlist gelöscht"
+msgstr "Texte gelöscht"
 
 #: src/screen_lyrics.c:313
-#, fuzzy
 msgid "No saved lyrics"
-msgstr "Liedtext speichern"
+msgstr "Keine gespeicherten Texte"
 
 #: src/screen_outputs.c:73
 #, c-format
@@ -1118,8 +1115,10 @@ msgstr ""
 "\n"
 "Launchpad Contributions:\n"
 "  BBO https://launchpad.net/~bbo\n"
+"  Max Kellermann https://launchpad.net/~max-duempel\n"
 "  Monika Brinkert https://launchpad.net/~moni-sunpig\n"
-"  Samuel Creshal https://launchpad.net/~samuel-creshal"
+"  Samuel Creshal https://launchpad.net/~samuel-creshal\n"
+"  cmdrhenner https://launchpad.net/~cmdrhenner"
 
 #: src/list_window.c:566
 msgid "Range selection disabled"
