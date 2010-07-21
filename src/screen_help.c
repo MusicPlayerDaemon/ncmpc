@@ -105,7 +105,9 @@ static const struct help_text_row help_text[] = {
 	{ 0, CMD_LIST_JUMP, NULL },
 	{ 0, CMD_TOGGLE_FIND_WRAP, NULL },
 	{ 0, CMD_LOCATE, NULL },
+#ifdef ENABLE_SONG_SCREEN
 	{ 0, CMD_SCREEN_SONG, NULL },
+#endif
 	{ 0, CMD_NONE, NULL },
 	{ 0, CMD_QUIT, NULL },
 
