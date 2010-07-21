@@ -43,7 +43,11 @@ def search(artist, title):
                        'artist': artist,
                        'songtitle': title})
     url = "http://api.leoslyrics.com/api_search.php?" + query
-    f = urlopen(url)
+    try:
+        f = urlopen(url)
+    except IOError:
+        stderr.write("Failed to connect to http://api.leoslyrics.com, it seems down!\n")
+        exit(1)
     handler = SearchContentHandler()
     parser = make_parser()
     parser.setContentHandler(handler)
