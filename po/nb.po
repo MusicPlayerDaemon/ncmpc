@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-19 17:24+0200\n"
-"PO-Revision-Date: 2009-09-24 10:26+0200\n"
-"Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
+"PO-Revision-Date: 2010-07-03 16:34+0000\n"
+"Last-Translator: Mathias Bøhn Grytemark <Unknown>\n"
 "Language-Team: no <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-09-24 08:24+0000\n"
+"X-Launchpad-Export-Date: 2010-07-21 05:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -504,9 +504,8 @@ msgid "Save lyrics"
 msgstr ""
 
 #: src/screen_help.c:164
-#, fuzzy
 msgid "Delete saved lyrics"
-msgstr "Slett spilleliste"
+msgstr ""
 
 #: src/screen_help.c:169 src/command.c:245
 msgid "Outputs screen"
@@ -562,14 +561,12 @@ msgid "Lyrics saved"
 msgstr "Sangteksten er lagret"
 
 #: src/screen_lyrics.c:310
-#, fuzzy
 msgid "Lyrics deleted"
-msgstr "Spillelisten slettet"
+msgstr ""
 
 #: src/screen_lyrics.c:313
-#, fuzzy
 msgid "No saved lyrics"
-msgstr "Ingen sangtekst"
+msgstr ""
 
 #: src/screen_outputs.c:73
 #, c-format
@@ -587,7 +584,7 @@ msgstr ""
 
 #: src/screen_song.c:46
 msgid "Length"
-msgstr ""
+msgstr "Lengde"
 
 #: src/screen_song.c:47
 msgid "Composer"
@@ -925,7 +922,7 @@ msgstr "Søk neste (bakover)"
 #. * to the entry which begins with this string
 #: src/command.c:214
 msgid "Jump to"
-msgstr ""
+msgstr "Gå til"
 
 #: src/command.c:220
 msgid "Artist screen"
@@ -1116,6 +1113,7 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Espen Jones https://launchpad.net/~epqr\n"
 "  Jon Bergli Heier https://launchpad.net/~snakebite-jvnv\n"
+"  Mathias Bøhn Grytemark https://launchpad.net/~mboehn\n"
 "  Ole R. Thorsen https://launchpad.net/~ole-rth\n"
 "  Niels Anker https://launchpad.net/~nanker"
 
