@@ -269,7 +269,34 @@ screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 		char length[16];
 		format_duration_short(length, sizeof(length),
 				      mpd_song_get_duration(song));
-		screen_song_append(_(tag_labels[LABEL_LENGTH]), length,
+
+		const char *value = length;
+
+#if LIBMPDCLIENT_CHECK_VERSION(2,3,0)
+		char buffer[64];
+
+		if (mpd_song_get_end(song) > 0) {
+			char start[16], end[16];
+			format_duration_short(start, sizeof(start),
+					      mpd_song_get_start(song));
+			format_duration_short(end, sizeof(end),
+					      mpd_song_get_end(song));
+
+			snprintf(buffer, sizeof(buffer), "%s [%s-%s]\n",
+				 length, start, end);
+			value = buffer;
+		} else if (mpd_song_get_start(song) > 0) {
+			char start[16];
+			format_duration_short(start, sizeof(start),
+					      mpd_song_get_start(song));
+
+			snprintf(buffer, sizeof(buffer), "%s [%s-]\n",
+				 length, start);
+			value = buffer;
+		}
+#endif
+
+		screen_song_append(_(tag_labels[LABEL_LENGTH]), value,
 				   max_tag_label_width);
 	}
 
