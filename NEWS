@@ -1,5 +1,6 @@
 ncmpc 0.18 - not yet released
 * screen_song: show song range
+* screen_artist: respect artist when adding albums
 * po: added Italian translation
 
 

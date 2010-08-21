@@ -470,6 +470,9 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, char *_filter)
 	mpd_search_db_songs(connection, true);
 	mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
 				      table, _filter);
+	if (table == MPD_TAG_ALBUM)
+		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
+					      MPD_TAG_ARTIST, artist);
 	mpd_search_commit(connection);
 
 	addlist = filelist_new_recv(connection);
