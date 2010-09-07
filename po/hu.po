@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-19 17:24+0200\n"
-"PO-Revision-Date: 2009-04-15 17:58+0000\n"
-"Last-Translator: Laszlo Ashin <kodest@gmail.com>\n"
+"PO-Revision-Date: 2009-09-24 21:45+0000\n"
+"Last-Translator: Kiszel Kristóf <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-15 18:12+0000\n"
+"X-Launchpad-Export-Date: 2010-09-07 18:28+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/i18n.h:42
@@ -504,9 +504,8 @@ msgid "Save lyrics"
 msgstr "Dalszövegek mentése"
 
 #: src/screen_help.c:164
-#, fuzzy
 msgid "Delete saved lyrics"
-msgstr "Dalszövegek mentése"
+msgstr ""
 
 #: src/screen_help.c:169 src/command.c:245
 msgid "Outputs screen"
@@ -562,14 +561,12 @@ msgid "Lyrics saved"
 msgstr "Dalszövegek elmentve"
 
 #: src/screen_lyrics.c:310
-#, fuzzy
 msgid "Lyrics deleted"
-msgstr "Lejátszólista törölve"
+msgstr ""
 
 #: src/screen_lyrics.c:313
-#, fuzzy
 msgid "No saved lyrics"
-msgstr "Dalszövegek mentése"
+msgstr ""
 
 #: src/screen_outputs.c:73
 #, c-format
@@ -586,9 +583,8 @@ msgid "Outputs"
 msgstr "Kimenetek"
 
 #: src/screen_song.c:46
-#, fuzzy
 msgid "Length"
-msgstr "Left"
+msgstr "Hossz"
 
 #: src/screen_song.c:47
 msgid "Composer"
@@ -758,9 +754,8 @@ msgid "Scroll down half a screen"
 msgstr "Görgetés fél képernyőnyivel le"
 
 #: src/command.c:104
-#, fuzzy
 msgid "Select currently playing song"
-msgstr "Jelenlegi zene"
+msgstr "Most lejátszott szám kiválasztása"
 
 #: src/command.c:109
 msgid "Help screen"
@@ -1116,6 +1111,7 @@ msgstr "Ismeretlen konfigurációs paraméter"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Kiszel Kristóf https://launchpad.net/~ulysses\n"
 "  Laszlo Ashin https://launchpad.net/~kodest"
 
 #: src/list_window.c:566
@@ -1137,5 +1133,4 @@ msgstr "Tartomány kiválasztás engedélyezve"
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr ""
-#~ "%s gomb hozzárendelve a következőkhöz: %s és %s (nyomj %s-t a "
-#~ "szerkesztéshez)"
+#~ "%s gomb hozzárendelve a következőkhöz: %s és %s (nyomj %s-t a szerkesztéshez)"
