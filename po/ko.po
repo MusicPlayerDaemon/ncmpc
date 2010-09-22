@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-19 17:24+0200\n"
+"POT-Creation-Date: 2010-09-22 18:19+0200\n"
 "PO-Revision-Date: 2009-10-16 17:35+0000\n"
 "Last-Translator: Jay Whang <jaypedia@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -126,29 +127,44 @@ msgstr "자동 가운데 방식: 켜짐"
 msgid "Auto center mode: Off"
 msgstr "자동 가운데 방식: 꺼짐"
 
-#: src/screen_artist.c:74 src/screen_artist.c:367
+#: src/screen_artist.c:75 src/screen_artist.c:369
 msgid "All tracks"
 msgstr "모든 트랙"
 
-#: src/screen_artist.c:399
+#: src/screen_artist.c:401
 #, c-format
 msgid "All artists"
 msgstr "모든 아티스트"
 
-#: src/screen_artist.c:404
+#: src/screen_artist.c:406
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "아티스트의 앨범: %s"
 
-#: src/screen_artist.c:413
+#: src/screen_artist.c:415
+#, c-format
+msgid "All tracks of artist: %s"
+msgstr "아티스트의 모든 트랙: %s"
+
+#: src/screen_artist.c:418
 #, c-format
 msgid "Album: %s - %s"
 msgstr "앨범: %s - %s"
 
-#: src/screen_artist.c:417
-#, c-format
-msgid "All tracks of artist: %s"
-msgstr "아티스트의 모든 트랙: %s"
+#: src/screen_artist.c:422
+#, fuzzy, c-format
+msgid "Tracks of no album of artist: %s"
+msgstr "아티스트의 앨범: %s"
+
+#: src/screen_artist.c:465
+#, fuzzy, c-format
+msgid "Adding album %s..."
+msgstr "연주목록 %s(을)를 올리는 중..."
+
+#: src/screen_artist.c:467
+#, fuzzy, c-format
+msgid "Adding %s..."
+msgstr "올리는 중..."
 
 #: src/screen_browser.c:131
 #, c-format
@@ -326,7 +342,7 @@ msgstr "잘못된 찾기 태그 %s"
 msgid "No argument for search tag %s"
 msgstr "찾기 태그 %s위한 인자가 없습니다."
 
-#: src/screen_search.c:344 src/screen_help.c:145 src/title_bar.c:83
+#: src/screen_search.c:344 src/screen_help.c:147 src/title_bar.c:83
 msgid "Search"
 msgstr "찾기"
 
@@ -433,110 +449,110 @@ msgstr "이동"
 msgid "Global"
 msgstr "전체"
 
-#: src/screen_help.c:114 src/command.c:111
+#: src/screen_help.c:116 src/command.c:111
 msgid "Playlist screen"
 msgstr "연주목록 화면"
 
-#: src/screen_help.c:116
+#: src/screen_help.c:118
 msgid "Play"
 msgstr "연주"
 
-#: src/screen_help.c:119
+#: src/screen_help.c:121
 msgid "Move song up"
 msgstr "곡을 위로 올리기"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:122
 msgid "Move song down"
 msgstr "곡을 아래로 내리기"
 
-#: src/screen_help.c:123
+#: src/screen_help.c:125
 msgid "Center"
 msgstr "가운데"
 
-#: src/screen_help.c:129 src/command.c:113
+#: src/screen_help.c:131 src/command.c:113
 msgid "Browse screen"
 msgstr "열람하기 화면"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:133
 msgid "Enter directory/Select and play song"
 msgstr "디렉토리를 입력하고 곡을 선택하여 연주합니다."
 
-#: src/screen_help.c:133 src/screen_help.c:148
+#: src/screen_help.c:135 src/screen_help.c:150
 msgid "Append song to playlist"
 msgstr "연주목록에 곡을 더하기"
 
-#: src/screen_help.c:135
+#: src/screen_help.c:137
 msgid "Delete playlist"
 msgstr "연주목록 지우기"
 
-#: src/screen_help.c:143 src/command.c:224
+#: src/screen_help.c:145 src/command.c:224
 msgid "Search screen"
 msgstr "찾기 화면"
 
-#: src/screen_help.c:146
+#: src/screen_help.c:148
 msgid "Select and play"
 msgstr "선택하고 연주"
 
-#: src/screen_help.c:155 src/command.c:234
+#: src/screen_help.c:157 src/command.c:234
 msgid "Lyrics screen"
 msgstr "가사 화면"
 
-#: src/screen_help.c:157
+#: src/screen_help.c:159
 msgid "View Lyrics"
 msgstr "가사 보기"
 
-#: src/screen_help.c:158
+#: src/screen_help.c:160
 msgid "(Re)load lyrics"
 msgstr "가사 (다시)올리기"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
-#: src/screen_help.c:161
+#: src/screen_help.c:163
 msgid "Interrupt retrieval"
 msgstr "가사 가져오기 중지"
 
-#: src/screen_help.c:162
+#: src/screen_help.c:164
 msgid "Download lyrics for currently playing song"
 msgstr "현재 연주중인 노래의 가사를 다운로드"
 
-#: src/screen_help.c:163
+#: src/screen_help.c:165
 msgid "Save lyrics"
 msgstr "가사 저장하기"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:166
 #, fuzzy
 msgid "Delete saved lyrics"
 msgstr "가사 저장하기"
 
-#: src/screen_help.c:169 src/command.c:245
+#: src/screen_help.c:171 src/command.c:245
 msgid "Outputs screen"
 msgstr "출력 화면"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Enable/disable output"
 msgstr "출력 사용하기/안하기"
 
-#: src/screen_help.c:176
+#: src/screen_help.c:178
 msgid "Keydef screen"
 msgstr "키설정 화면"
 
-#: src/screen_help.c:178
+#: src/screen_help.c:180
 msgid "Edit keydefs for selected command"
 msgstr "선택한 명령을 위한 키설정 편집하기"
 
-#: src/screen_help.c:179
+#: src/screen_help.c:181
 msgid "Remove selected keydef"
 msgstr "선택한 키설정 삭제하기"
 
-#: src/screen_help.c:180
+#: src/screen_help.c:182
 msgid "Go up a level"
 msgstr "한 단계 위로 가기"
 
-#: src/screen_help.c:181
+#: src/screen_help.c:183
 msgid "Apply and save changes"
 msgstr "적용하고 변경사항을 저장하기"
 
-#: src/screen_help.c:227 src/title_bar.c:75
+#: src/screen_help.c:229 src/title_bar.c:75
 msgid "Help"
 msgstr "도움말"
 
@@ -653,24 +669,24 @@ msgstr "데이타베이스 연주시간"
 msgid "Song viewer"
 msgstr "곡 보기"
 
-#: src/screen_song.c:284
+#: src/screen_song.c:311
 msgid "Path"
 msgstr "경로"
 
-#: src/screen_song.c:289
+#: src/screen_song.c:316
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/screen_song.c:314
+#: src/screen_song.c:341
 msgid "MPD statistics"
 msgstr "MPD 통계"
 
-#: src/screen_song.c:369
+#: src/screen_song.c:396
 msgid "Selected song"
 msgstr "선택한 곡"
 
-#: src/screen_song.c:379
+#: src/screen_song.c:406
 msgid "Currently playing song"
 msgstr "현재 연주중인 곡"
 

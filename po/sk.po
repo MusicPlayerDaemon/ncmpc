@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-19 17:24+0200\n"
+"POT-Creation-Date: 2010-09-22 18:19+0200\n"
 "PO-Revision-Date: 2010-04-07 01:36+0000\n"
 "Last-Translator: Roman Horník <Unknown>\n"
 "Language-Team: sk <sk@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -125,29 +126,44 @@ msgstr "Automatické centrovanie: Zapnuté"
 msgid "Auto center mode: Off"
 msgstr "Automatické centrovanie: Vypnuté"
 
-#: src/screen_artist.c:74 src/screen_artist.c:367
+#: src/screen_artist.c:75 src/screen_artist.c:369
 msgid "All tracks"
 msgstr "Všetky stopy"
 
-#: src/screen_artist.c:399
+#: src/screen_artist.c:401
 #, c-format
 msgid "All artists"
 msgstr "Všetci interpreti"
 
-#: src/screen_artist.c:404
+#: src/screen_artist.c:406
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "Albumy od interpreta: %s"
 
-#: src/screen_artist.c:413
+#: src/screen_artist.c:415
+#, c-format
+msgid "All tracks of artist: %s"
+msgstr "Všetky stopy od interpreta: %s"
+
+#: src/screen_artist.c:418
 #, c-format
 msgid "Album: %s - %s"
 msgstr "Album: %s - %s"
 
-#: src/screen_artist.c:417
-#, c-format
-msgid "All tracks of artist: %s"
-msgstr "Všetky stopy od interpreta: %s"
+#: src/screen_artist.c:422
+#, fuzzy, c-format
+msgid "Tracks of no album of artist: %s"
+msgstr "Albumy od interpreta: %s"
+
+#: src/screen_artist.c:465
+#, fuzzy, c-format
+msgid "Adding album %s..."
+msgstr "Nahrávam playlist %s..."
+
+#: src/screen_artist.c:467
+#, fuzzy, c-format
+msgid "Adding %s..."
+msgstr "Pridávam adresár %s...\n"
 
 #: src/screen_browser.c:131
 #, c-format
@@ -325,7 +341,7 @@ msgstr "Zlá značka vyhľadávania %s"
 msgid "No argument for search tag %s"
 msgstr "Chýba argument pre značku vyhľadávania %s"
 
-#: src/screen_search.c:344 src/screen_help.c:145 src/title_bar.c:83
+#: src/screen_search.c:344 src/screen_help.c:147 src/title_bar.c:83
 msgid "Search"
 msgstr "Hľadanie"
 
@@ -432,110 +448,110 @@ msgstr "Pohyb"
 msgid "Global"
 msgstr "Globálne"
 
-#: src/screen_help.c:114 src/command.c:111
+#: src/screen_help.c:116 src/command.c:111
 msgid "Playlist screen"
 msgstr "Okno playlistu"
 
-#: src/screen_help.c:116
+#: src/screen_help.c:118
 msgid "Play"
 msgstr "Prehrávať"
 
-#: src/screen_help.c:119
+#: src/screen_help.c:121
 msgid "Move song up"
 msgstr "Presunúť skladbu nahor"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:122
 msgid "Move song down"
 msgstr "Presunúť skladbu nadol"
 
-#: src/screen_help.c:123
+#: src/screen_help.c:125
 msgid "Center"
 msgstr "Do stredu"
 
-#: src/screen_help.c:129 src/command.c:113
+#: src/screen_help.c:131 src/command.c:113
 msgid "Browse screen"
 msgstr "Okno listovania"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:133
 msgid "Enter directory/Select and play song"
 msgstr "Vstúpiť do adresára/Vybrať a prehrať skladbu"
 
-#: src/screen_help.c:133 src/screen_help.c:148
+#: src/screen_help.c:135 src/screen_help.c:150
 msgid "Append song to playlist"
 msgstr "Pridať skladbu do playlistu"
 
-#: src/screen_help.c:135
+#: src/screen_help.c:137
 msgid "Delete playlist"
 msgstr "Vymazať playlist"
 
-#: src/screen_help.c:143 src/command.c:224
+#: src/screen_help.c:145 src/command.c:224
 msgid "Search screen"
 msgstr "Okno vyhľadávania"
 
-#: src/screen_help.c:146
+#: src/screen_help.c:148
 msgid "Select and play"
 msgstr "Vybrať a prehrať"
 
-#: src/screen_help.c:155 src/command.c:234
+#: src/screen_help.c:157 src/command.c:234
 msgid "Lyrics screen"
 msgstr "Okno textu piesne"
 
-#: src/screen_help.c:157
+#: src/screen_help.c:159
 msgid "View Lyrics"
 msgstr "Zobraziť text piesne"
 
-#: src/screen_help.c:158
+#: src/screen_help.c:160
 msgid "(Re)load lyrics"
 msgstr "(Znovu)načítať text"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
-#: src/screen_help.c:161
+#: src/screen_help.c:163
 msgid "Interrupt retrieval"
 msgstr "Zachytené prerušenie"
 
-#: src/screen_help.c:162
+#: src/screen_help.c:164
 msgid "Download lyrics for currently playing song"
 msgstr "Stiahnuť text pre momentálne prehrávanú pieseň"
 
-#: src/screen_help.c:163
+#: src/screen_help.c:165
 msgid "Save lyrics"
 msgstr "Uložiť text piesne"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:166
 #, fuzzy
 msgid "Delete saved lyrics"
 msgstr "Uložiť text piesne"
 
-#: src/screen_help.c:169 src/command.c:245
+#: src/screen_help.c:171 src/command.c:245
 msgid "Outputs screen"
 msgstr "Obrazovka výstupov"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Enable/disable output"
 msgstr "Povoliť/vypnúť výstup"
 
-#: src/screen_help.c:176
+#: src/screen_help.c:178
 msgid "Keydef screen"
 msgstr "Obrazovka s nastavením kláves"
 
-#: src/screen_help.c:178
+#: src/screen_help.c:180
 msgid "Edit keydefs for selected command"
 msgstr "Upraviť kláves pre vybraný príkaz"
 
-#: src/screen_help.c:179
+#: src/screen_help.c:181
 msgid "Remove selected keydef"
 msgstr "Odstrániť vybrané nastavenie kláves"
 
-#: src/screen_help.c:180
+#: src/screen_help.c:182
 msgid "Go up a level"
 msgstr "Prejsť o úroveň vyššie"
 
-#: src/screen_help.c:181
+#: src/screen_help.c:183
 msgid "Apply and save changes"
 msgstr "Použiť a uložiť zmeny"
 
-#: src/screen_help.c:227 src/title_bar.c:75
+#: src/screen_help.c:229 src/title_bar.c:75
 msgid "Help"
 msgstr "Pomoc"
 
@@ -652,24 +668,24 @@ msgstr "Čas hrania databáze"
 msgid "Song viewer"
 msgstr "Prehliadač piesní"
 
-#: src/screen_song.c:284
+#: src/screen_song.c:311
 msgid "Path"
 msgstr "Cesta"
 
-#: src/screen_song.c:289
+#: src/screen_song.c:316
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/screen_song.c:314
+#: src/screen_song.c:341
 msgid "MPD statistics"
 msgstr "Štatistiky MPD"
 
-#: src/screen_song.c:369
+#: src/screen_song.c:396
 msgid "Selected song"
 msgstr "Vybraná pieseň"
 
-#: src/screen_song.c:379
+#: src/screen_song.c:406
 msgid "Currently playing song"
 msgstr "Momentálne prehrávaná pieseň"
 
@@ -1131,9 +1147,6 @@ msgstr "Výber rozsahu zapnutý"
 
 #~ msgid "Search: "
 #~ msgstr "Vyhľadať: "
-
-#~ msgid "Adding directory %s...\n"
-#~ msgstr "Pridávam adresár %s...\n"
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr "Kláves %s priradený k %s a %s (stlačte %s pre editor klávesov)"

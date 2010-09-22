@@ -6,15 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-19 17:24+0200\n"
+"POT-Creation-Date: 2010-09-22 18:19+0200\n"
 "PO-Revision-Date: 2009-09-22 20:41+0300\n"
 "Last-Translator: Oleksandr Kovalenko <alx.kovalenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: UKRAINE\n"
 
@@ -127,29 +128,44 @@ msgstr "Режим автоматичного центрування: увімк
 msgid "Auto center mode: Off"
 msgstr "Режим автоматичного центрування: вимкнено"
 
-#: src/screen_artist.c:74 src/screen_artist.c:367
+#: src/screen_artist.c:75 src/screen_artist.c:369
 msgid "All tracks"
 msgstr "Всі доріжки"
 
-#: src/screen_artist.c:399
+#: src/screen_artist.c:401
 #, c-format
 msgid "All artists"
 msgstr "Всі виконавці"
 
-#: src/screen_artist.c:404
+#: src/screen_artist.c:406
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "Альбоми виконавця: %s"
 
-#: src/screen_artist.c:413
+#: src/screen_artist.c:415
+#, c-format
+msgid "All tracks of artist: %s"
+msgstr "Всі доріжки виконавця: %s"
+
+#: src/screen_artist.c:418
 #, c-format
 msgid "Album: %s - %s"
 msgstr "Альбом: %s - %s"
 
-#: src/screen_artist.c:417
-#, c-format
-msgid "All tracks of artist: %s"
-msgstr "Всі доріжки виконавця: %s"
+#: src/screen_artist.c:422
+#, fuzzy, c-format
+msgid "Tracks of no album of artist: %s"
+msgstr "Альбоми виконавця: %s"
+
+#: src/screen_artist.c:465
+#, fuzzy, c-format
+msgid "Adding album %s..."
+msgstr "Завантажується перелік програвання %s..."
+
+#: src/screen_artist.c:467
+#, fuzzy, c-format
+msgid "Adding %s..."
+msgstr "завантаження..."
 
 #: src/screen_browser.c:131
 #, c-format
@@ -327,7 +343,7 @@ msgstr "Нерівна мітка %s"
 msgid "No argument for search tag %s"
 msgstr "Немає аргументу для пошуку за міткою %s"
 
-#: src/screen_search.c:344 src/screen_help.c:145 src/title_bar.c:83
+#: src/screen_search.c:344 src/screen_help.c:147 src/title_bar.c:83
 msgid "Search"
 msgstr "Пошук"
 
@@ -434,110 +450,110 @@ msgstr "Переміщення"
 msgid "Global"
 msgstr "Загальні"
 
-#: src/screen_help.c:114 src/command.c:111
+#: src/screen_help.c:116 src/command.c:111
 msgid "Playlist screen"
 msgstr "Екран переліку програвання"
 
-#: src/screen_help.c:116
+#: src/screen_help.c:118
 msgid "Play"
 msgstr "Програти"
 
-#: src/screen_help.c:119
+#: src/screen_help.c:121
 msgid "Move song up"
 msgstr "Перемістити пісню вгору"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:122
 msgid "Move song down"
 msgstr "Перемістити пісню вниз"
 
-#: src/screen_help.c:123
+#: src/screen_help.c:125
 msgid "Center"
 msgstr "По центру"
 
-#: src/screen_help.c:129 src/command.c:113
+#: src/screen_help.c:131 src/command.c:113
 msgid "Browse screen"
 msgstr "Екран перегляду"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:133
 msgid "Enter directory/Select and play song"
 msgstr "Ввести теку чи вибрати та програти пісню"
 
-#: src/screen_help.c:133 src/screen_help.c:148
+#: src/screen_help.c:135 src/screen_help.c:150
 msgid "Append song to playlist"
 msgstr "Долучити пісню до переліку програвання"
 
-#: src/screen_help.c:135
+#: src/screen_help.c:137
 msgid "Delete playlist"
 msgstr "Видалити перелік програвання"
 
-#: src/screen_help.c:143 src/command.c:224
+#: src/screen_help.c:145 src/command.c:224
 msgid "Search screen"
 msgstr "Екран пошуку"
 
-#: src/screen_help.c:146
+#: src/screen_help.c:148
 msgid "Select and play"
 msgstr "Вибрати та програти"
 
-#: src/screen_help.c:155 src/command.c:234
+#: src/screen_help.c:157 src/command.c:234
 msgid "Lyrics screen"
 msgstr "Екран текстів пісень"
 
-#: src/screen_help.c:157
+#: src/screen_help.c:159
 msgid "View Lyrics"
 msgstr "Переглянути текст пісні"
 
-#: src/screen_help.c:158
+#: src/screen_help.c:160
 msgid "(Re)load lyrics"
 msgstr "(Пере)завантажити текст пісні"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
-#: src/screen_help.c:161
+#: src/screen_help.c:163
 msgid "Interrupt retrieval"
 msgstr "Припинити отримання"
 
-#: src/screen_help.c:162
+#: src/screen_help.c:164
 msgid "Download lyrics for currently playing song"
 msgstr "Завантажити текст для пісні, що зараз програється"
 
-#: src/screen_help.c:163
+#: src/screen_help.c:165
 msgid "Save lyrics"
 msgstr "Зберегти текст пісні"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:166
 #, fuzzy
 msgid "Delete saved lyrics"
 msgstr "Зберегти текст пісні"
 
-#: src/screen_help.c:169 src/command.c:245
+#: src/screen_help.c:171 src/command.c:245
 msgid "Outputs screen"
 msgstr "Екран виходів"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Enable/disable output"
 msgstr "Увімкнути/вимкнути вихід"
 
-#: src/screen_help.c:176
+#: src/screen_help.c:178
 msgid "Keydef screen"
 msgstr "Екран призначення клавіш"
 
-#: src/screen_help.c:178
+#: src/screen_help.c:180
 msgid "Edit keydefs for selected command"
 msgstr "Редагувати призначену клавішу для вибраної команди"
 
-#: src/screen_help.c:179
+#: src/screen_help.c:181
 msgid "Remove selected keydef"
 msgstr "Вилучити вибране призначення клавіші"
 
-#: src/screen_help.c:180
+#: src/screen_help.c:182
 msgid "Go up a level"
 msgstr "На рівень вище"
 
-#: src/screen_help.c:181
+#: src/screen_help.c:183
 msgid "Apply and save changes"
 msgstr "Застосувати та зберегти зміни"
 
-#: src/screen_help.c:227 src/title_bar.c:75
+#: src/screen_help.c:229 src/title_bar.c:75
 msgid "Help"
 msgstr "Допомога"
 
@@ -654,24 +670,24 @@ msgstr "Час програвання всієї БД"
 msgid "Song viewer"
 msgstr "Переглядач пісень"
 
-#: src/screen_song.c:284
+#: src/screen_song.c:311
 msgid "Path"
 msgstr "Шлях"
 
-#: src/screen_song.c:289
+#: src/screen_song.c:316
 #, c-format
 msgid "%d kbps"
 msgstr "%d кбіт/с"
 
-#: src/screen_song.c:314
+#: src/screen_song.c:341
 msgid "MPD statistics"
 msgstr "Статистика MPD"
 
-#: src/screen_song.c:369
+#: src/screen_song.c:396
 msgid "Selected song"
 msgstr "Вибрана пісня"
 
-#: src/screen_song.c:379
+#: src/screen_song.c:406
 msgid "Currently playing song"
 msgstr "Пісня, що зараз програється"
 

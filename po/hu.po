@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-19 17:24+0200\n"
+"POT-Creation-Date: 2010-09-22 18:19+0200\n"
 "PO-Revision-Date: 2009-09-24 21:45+0000\n"
 "Last-Translator: Kiszel Kristóf <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -126,29 +127,44 @@ msgstr "Középre igazítás bekapcsolva"
 msgid "Auto center mode: Off"
 msgstr "Középre igazítás kikapcsolva"
 
-#: src/screen_artist.c:74 src/screen_artist.c:367
+#: src/screen_artist.c:75 src/screen_artist.c:369
 msgid "All tracks"
 msgstr "Minden szám"
 
-#: src/screen_artist.c:399
+#: src/screen_artist.c:401
 #, c-format
 msgid "All artists"
 msgstr "Minden előadó"
 
-#: src/screen_artist.c:404
+#: src/screen_artist.c:406
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "%s előadó albumai"
 
-#: src/screen_artist.c:413
+#: src/screen_artist.c:415
+#, c-format
+msgid "All tracks of artist: %s"
+msgstr "%s előadó minden száma"
+
+#: src/screen_artist.c:418
 #, c-format
 msgid "Album: %s - %s"
 msgstr "Album: %s - %s"
 
-#: src/screen_artist.c:417
-#, c-format
-msgid "All tracks of artist: %s"
-msgstr "%s előadó minden száma"
+#: src/screen_artist.c:422
+#, fuzzy, c-format
+msgid "Tracks of no album of artist: %s"
+msgstr "%s előadó albumai"
+
+#: src/screen_artist.c:465
+#, fuzzy, c-format
+msgid "Adding album %s..."
+msgstr "%s lejátszólista betöltése..."
+
+#: src/screen_artist.c:467
+#, fuzzy, c-format
+msgid "Adding %s..."
+msgstr "%s könyvtár hozzáadása...\n"
 
 #: src/screen_browser.c:131
 #, c-format
@@ -326,7 +342,7 @@ msgstr "Hibás keresési elem %s"
 msgid "No argument for search tag %s"
 msgstr "Nincs argumentuma a(z) %s keresési elemnek"
 
-#: src/screen_search.c:344 src/screen_help.c:145 src/title_bar.c:83
+#: src/screen_search.c:344 src/screen_help.c:147 src/title_bar.c:83
 msgid "Search"
 msgstr "Keresés"
 
@@ -433,109 +449,109 @@ msgstr "Mozgás"
 msgid "Global"
 msgstr "Általános"
 
-#: src/screen_help.c:114 src/command.c:111
+#: src/screen_help.c:116 src/command.c:111
 msgid "Playlist screen"
 msgstr "Lejátszólista"
 
-#: src/screen_help.c:116
+#: src/screen_help.c:118
 msgid "Play"
 msgstr "Lejátszás"
 
-#: src/screen_help.c:119
+#: src/screen_help.c:121
 msgid "Move song up"
 msgstr "Szám mozgatása felfelé"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:122
 msgid "Move song down"
 msgstr "Szám mozgatása lefelé"
 
-#: src/screen_help.c:123
+#: src/screen_help.c:125
 msgid "Center"
 msgstr "Közép"
 
-#: src/screen_help.c:129 src/command.c:113
+#: src/screen_help.c:131 src/command.c:113
 msgid "Browse screen"
 msgstr "Tallózás"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:133
 msgid "Enter directory/Select and play song"
 msgstr "Könyvtár megadása/szám kiválasztása és lejátszása"
 
-#: src/screen_help.c:133 src/screen_help.c:148
+#: src/screen_help.c:135 src/screen_help.c:150
 msgid "Append song to playlist"
 msgstr "Szám hozzáadása a lejátszólistához"
 
-#: src/screen_help.c:135
+#: src/screen_help.c:137
 msgid "Delete playlist"
 msgstr "Lejátszólista törlése"
 
-#: src/screen_help.c:143 src/command.c:224
+#: src/screen_help.c:145 src/command.c:224
 msgid "Search screen"
 msgstr "Kereső képernyő"
 
-#: src/screen_help.c:146
+#: src/screen_help.c:148
 msgid "Select and play"
 msgstr "Kiválasztás és lejátszás"
 
-#: src/screen_help.c:155 src/command.c:234
+#: src/screen_help.c:157 src/command.c:234
 msgid "Lyrics screen"
 msgstr "Dalszöveg képernyő"
 
-#: src/screen_help.c:157
+#: src/screen_help.c:159
 msgid "View Lyrics"
 msgstr "Dalszövegek megtekintése"
 
-#: src/screen_help.c:158
+#: src/screen_help.c:160
 msgid "(Re)load lyrics"
 msgstr "Dalszövegek (újra)töltése"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
-#: src/screen_help.c:161
+#: src/screen_help.c:163
 msgid "Interrupt retrieval"
 msgstr "Újrapróbálkozás megszakítása"
 
-#: src/screen_help.c:162
+#: src/screen_help.c:164
 msgid "Download lyrics for currently playing song"
 msgstr "Dalszöveg letöltése a jelenlegi zenéhez"
 
-#: src/screen_help.c:163
+#: src/screen_help.c:165
 msgid "Save lyrics"
 msgstr "Dalszövegek mentése"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:166
 msgid "Delete saved lyrics"
 msgstr ""
 
-#: src/screen_help.c:169 src/command.c:245
+#: src/screen_help.c:171 src/command.c:245
 msgid "Outputs screen"
 msgstr "Kimenetek"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Enable/disable output"
 msgstr "Kimenet engedélyezése/tiltása"
 
-#: src/screen_help.c:176
+#: src/screen_help.c:178
 msgid "Keydef screen"
 msgstr "Billentyű beállító képernyő"
 
-#: src/screen_help.c:178
+#: src/screen_help.c:180
 msgid "Edit keydefs for selected command"
 msgstr "Billentyű szerkesztése a kiválasztott parancshoz"
 
-#: src/screen_help.c:179
+#: src/screen_help.c:181
 msgid "Remove selected keydef"
 msgstr "Billentyű hozzárendelés megszűntetése"
 
-#: src/screen_help.c:180
+#: src/screen_help.c:182
 msgid "Go up a level"
 msgstr "Egy szinttel feljebb"
 
-#: src/screen_help.c:181
+#: src/screen_help.c:183
 msgid "Apply and save changes"
 msgstr "Alkalmaz és menti a változásokat"
 
-#: src/screen_help.c:227 src/title_bar.c:75
+#: src/screen_help.c:229 src/title_bar.c:75
 msgid "Help"
 msgstr "Súgó"
 
@@ -650,24 +666,24 @@ msgstr "Teljes adatbázis lejátszási ideje"
 msgid "Song viewer"
 msgstr "Szám néző"
 
-#: src/screen_song.c:284
+#: src/screen_song.c:311
 msgid "Path"
 msgstr "Elérési út"
 
-#: src/screen_song.c:289
+#: src/screen_song.c:316
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/screen_song.c:314
+#: src/screen_song.c:341
 msgid "MPD statistics"
 msgstr "MPD statisztika"
 
-#: src/screen_song.c:369
+#: src/screen_song.c:396
 msgid "Selected song"
 msgstr "Kiválasztott zene"
 
-#: src/screen_song.c:379
+#: src/screen_song.c:406
 msgid "Currently playing song"
 msgstr "Jelenlegi zene"
 
@@ -1122,9 +1138,6 @@ msgstr "Tartomány kiválasztás letiltva"
 msgid "Range selection enabled"
 msgstr "Tartomány kiválasztás engedélyezve"
 
-#~ msgid "Adding directory %s...\n"
-#~ msgstr "%s könyvtár hozzáadása...\n"
-
 #~ msgid "Search: "
 #~ msgstr "Keresés: "
 
@@ -1133,4 +1146,5 @@ msgstr "Tartomány kiválasztás engedélyezve"
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr ""
-#~ "%s gomb hozzárendelve a következőkhöz: %s és %s (nyomj %s-t a szerkesztéshez)"
+#~ "%s gomb hozzárendelve a következőkhöz: %s és %s (nyomj %s-t a "
+#~ "szerkesztéshez)"

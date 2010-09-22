@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-19 17:24+0200\n"
+"POT-Creation-Date: 2010-09-22 18:19+0200\n"
 "PO-Revision-Date: 2010-04-14 05:21+0000\n"
 "Last-Translator: Rickard Närström <rickard.narstrom@gmail.com>\n"
 "Language-Team: sv <sv@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -126,29 +127,44 @@ msgstr "Automatisk centrering påslaget"
 msgid "Auto center mode: Off"
 msgstr "Automatisk centrering avslaget"
 
-#: src/screen_artist.c:74 src/screen_artist.c:367
+#: src/screen_artist.c:75 src/screen_artist.c:369
 msgid "All tracks"
 msgstr "Alla spår"
 
-#: src/screen_artist.c:399
+#: src/screen_artist.c:401
 #, c-format
 msgid "All artists"
 msgstr "Alla artister"
 
-#: src/screen_artist.c:404
+#: src/screen_artist.c:406
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "Album av artist: %s"
 
-#: src/screen_artist.c:413
+#: src/screen_artist.c:415
+#, c-format
+msgid "All tracks of artist: %s"
+msgstr "Alla spår av artist: %s"
+
+#: src/screen_artist.c:418
 #, c-format
 msgid "Album: %s - %s"
 msgstr "Album: %s - %s"
 
-#: src/screen_artist.c:417
-#, c-format
-msgid "All tracks of artist: %s"
-msgstr "Alla spår av artist: %s"
+#: src/screen_artist.c:422
+#, fuzzy, c-format
+msgid "Tracks of no album of artist: %s"
+msgstr "Album av artist: %s"
+
+#: src/screen_artist.c:465
+#, fuzzy, c-format
+msgid "Adding album %s..."
+msgstr "Laddar spellista %s..."
+
+#: src/screen_artist.c:467
+#, fuzzy, c-format
+msgid "Adding %s..."
+msgstr "laddar..."
 
 #: src/screen_browser.c:131
 #, c-format
@@ -326,7 +342,7 @@ msgstr "Felaktig söktyp %s"
 msgid "No argument for search tag %s"
 msgstr "Argumentet för söktyp %s saknas"
 
-#: src/screen_search.c:344 src/screen_help.c:145 src/title_bar.c:83
+#: src/screen_search.c:344 src/screen_help.c:147 src/title_bar.c:83
 msgid "Search"
 msgstr "Sök"
 
@@ -433,110 +449,110 @@ msgstr "Navigation"
 msgid "Global"
 msgstr "Globala"
 
-#: src/screen_help.c:114 src/command.c:111
+#: src/screen_help.c:116 src/command.c:111
 msgid "Playlist screen"
 msgstr "Spellista"
 
-#: src/screen_help.c:116
+#: src/screen_help.c:118
 msgid "Play"
 msgstr "Starta/Spela markerad"
 
-#: src/screen_help.c:119
+#: src/screen_help.c:121
 msgid "Move song up"
 msgstr "Flytta spår uppåt"
 
-#: src/screen_help.c:120
+#: src/screen_help.c:122
 msgid "Move song down"
 msgstr "Flytta spår nedåt"
 
-#: src/screen_help.c:123
+#: src/screen_help.c:125
 msgid "Center"
 msgstr "Centrera"
 
-#: src/screen_help.c:129 src/command.c:113
+#: src/screen_help.c:131 src/command.c:113
 msgid "Browse screen"
 msgstr "Filer"
 
-#: src/screen_help.c:131
+#: src/screen_help.c:133
 msgid "Enter directory/Select and play song"
 msgstr "Välj katalog/Markera och spela upp"
 
-#: src/screen_help.c:133 src/screen_help.c:148
+#: src/screen_help.c:135 src/screen_help.c:150
 msgid "Append song to playlist"
 msgstr "Lägg till i spellista"
 
-#: src/screen_help.c:135
+#: src/screen_help.c:137
 msgid "Delete playlist"
 msgstr "Ta bort spellista"
 
-#: src/screen_help.c:143 src/command.c:224
+#: src/screen_help.c:145 src/command.c:224
 msgid "Search screen"
 msgstr "Databassökning"
 
-#: src/screen_help.c:146
+#: src/screen_help.c:148
 msgid "Select and play"
 msgstr "Lägg till spellistan och spela"
 
-#: src/screen_help.c:155 src/command.c:234
+#: src/screen_help.c:157 src/command.c:234
 msgid "Lyrics screen"
 msgstr "Texter"
 
-#: src/screen_help.c:157
+#: src/screen_help.c:159
 msgid "View Lyrics"
 msgstr "Visa texter"
 
-#: src/screen_help.c:158
+#: src/screen_help.c:160
 msgid "(Re)load lyrics"
 msgstr "Ladda (om) texter"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
-#: src/screen_help.c:161
+#: src/screen_help.c:163
 msgid "Interrupt retrieval"
 msgstr "Avbryt hämtning"
 
-#: src/screen_help.c:162
+#: src/screen_help.c:164
 msgid "Download lyrics for currently playing song"
 msgstr "Ladda ner texter till låten som spelas just nu"
 
-#: src/screen_help.c:163
+#: src/screen_help.c:165
 msgid "Save lyrics"
 msgstr "Spara texter"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:166
 #, fuzzy
 msgid "Delete saved lyrics"
 msgstr "Spara texter"
 
-#: src/screen_help.c:169 src/command.c:245
+#: src/screen_help.c:171 src/command.c:245
 msgid "Outputs screen"
 msgstr "Utgångar"
 
-#: src/screen_help.c:171
+#: src/screen_help.c:173
 msgid "Enable/disable output"
 msgstr "Slå på/av utgång"
 
-#: src/screen_help.c:176
+#: src/screen_help.c:178
 msgid "Keydef screen"
 msgstr ""
 
-#: src/screen_help.c:178
+#: src/screen_help.c:180
 msgid "Edit keydefs for selected command"
 msgstr ""
 
-#: src/screen_help.c:179
+#: src/screen_help.c:181
 msgid "Remove selected keydef"
 msgstr ""
 
-#: src/screen_help.c:180
+#: src/screen_help.c:182
 msgid "Go up a level"
 msgstr "Gå upp en nivå"
 
-#: src/screen_help.c:181
+#: src/screen_help.c:183
 msgid "Apply and save changes"
 msgstr "Verkställ och spara förändringar"
 
-#: src/screen_help.c:227 src/title_bar.c:75
+#: src/screen_help.c:229 src/title_bar.c:75
 msgid "Help"
 msgstr "Hjälp"
 
@@ -653,24 +669,24 @@ msgstr ""
 msgid "Song viewer"
 msgstr "Spår"
 
-#: src/screen_song.c:284
+#: src/screen_song.c:311
 msgid "Path"
 msgstr "Sökväg"
 
-#: src/screen_song.c:289
+#: src/screen_song.c:316
 #, c-format
 msgid "%d kbps"
 msgstr "%d kb/s"
 
-#: src/screen_song.c:314
+#: src/screen_song.c:341
 msgid "MPD statistics"
 msgstr "MPD-statistik"
 
-#: src/screen_song.c:369
+#: src/screen_song.c:396
 msgid "Selected song"
 msgstr "Markerad låt"
 
-#: src/screen_song.c:379
+#: src/screen_song.c:406
 msgid "Currently playing song"
 msgstr ""
 
