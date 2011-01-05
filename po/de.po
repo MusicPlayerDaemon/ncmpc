@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-22 18:19+0200\n"
-"PO-Revision-Date: 2010-07-05 06:44+0000\n"
+"PO-Revision-Date: 2010-09-26 09:04+0000\n"
 "Last-Translator: cmdrhenner <cmdrhenner@gmail.com>\n"
 "Language-Team: de <de@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-07-21 05:36+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
+"X-Generator: Launchpad (build 12138)\n"
+"Language: \n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -153,19 +153,19 @@ msgid "Album: %s - %s"
 msgstr "Album: %s - %s"
 
 #: src/screen_artist.c:422
-#, fuzzy, c-format
+#, c-format
 msgid "Tracks of no album of artist: %s"
-msgstr "Alben des Künstlers: %s"
+msgstr "Titel von keinem Album des Künstlers: %s"
 
 #: src/screen_artist.c:465
-#, fuzzy, c-format
+#, c-format
 msgid "Adding album %s..."
-msgstr "Lade Playlist %s..."
+msgstr "Füge Album %s... hinzu"
 
 #: src/screen_artist.c:467
-#, fuzzy, c-format
+#, c-format
 msgid "Adding %s..."
-msgstr "Füge Verzeichnis %s hinzu...\n"
+msgstr "Hinzufügen %s..."
 
 #: src/screen_browser.c:131
 #, c-format
@@ -1143,6 +1143,17 @@ msgstr "Mehrfachauswahl deaktiviert"
 #: src/list_window.c:571
 msgid "Range selection enabled"
 msgstr "Mehrfachauswahl aktiviert"
+
+#, c-format
+#~ msgid "Volume n/a "
+#~ msgstr "Lautstärke n/a "
+
+#, c-format
+#~ msgid " Volume %d%%"
+#~ msgstr " Lautstärke %d%%"
+
+#~ msgid "Adding directory %s...\n"
+#~ msgstr "Füge Verzeichnis %s hinzu...\n"
 
 #~ msgid "You can only delete playlists"
 #~ msgstr "Du kannst nur Playlisten löschen"
