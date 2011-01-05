@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-22 18:19+0200\n"
-"PO-Revision-Date: 2010-08-31 13:25+0000\n"
-"Last-Translator: Guilherme Lindner <Unknown>\n"
+"PO-Revision-Date: 2010-12-19 01:05+0000\n"
+"Last-Translator: Jamerson Albuquerque Tiossi <jamersontiossi@yahoo.com.br>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-09-07 18:28+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
+"X-Generator: Launchpad (build 12138)\n"
 "X-Poedit-Country: BRAZIL\n"
+"Language: \n"
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
@@ -150,19 +150,19 @@ msgid "Album: %s - %s"
 msgstr "Álbum: %s - %s"
 
 #: src/screen_artist.c:422
-#, fuzzy, c-format
+#, c-format
 msgid "Tracks of no album of artist: %s"
-msgstr "Álbuns do artista: %s"
+msgstr "Faixas sem álbuns do artista: %s"
 
 #: src/screen_artist.c:465
-#, fuzzy, c-format
+#, c-format
 msgid "Adding album %s..."
-msgstr "Carregando Lista de Reprodução %s..."
+msgstr "Adicionando álbum %s..."
 
 #: src/screen_artist.c:467
-#, fuzzy, c-format
+#, c-format
 msgid "Adding %s..."
-msgstr "carregando..."
+msgstr "Adicionando %s..."
 
 #: src/screen_browser.c:131
 #, c-format
@@ -1129,6 +1129,8 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Cadu https://launchpad.net/~cadu-coelho\n"
 "  Guilherme Lindner https://launchpad.net/~gui666\n"
+"  Jamerson Albuquerque Tiossi https://launchpad.net/~tiossi\n"
+"  Max Kellermann https://launchpad.net/~max-duempel\n"
 "  Osni Leandro https://launchpad.net/~osni"
 
 #: src/list_window.c:566
