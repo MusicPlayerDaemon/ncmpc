@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-22 18:19+0200\n"
-"PO-Revision-Date: 2010-05-21 06:25+0000\n"
+"PO-Revision-Date: 2010-06-19 16:22+0000\n"
 "Last-Translator: Konki <pavel.konkol@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
+"X-Generator: Launchpad (build 12138)\n"
+"Language: cs\n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -152,19 +152,19 @@ msgid "Album: %s - %s"
 msgstr "Album: %s - %s"
 
 #: src/screen_artist.c:422
-#, fuzzy, c-format
+#, c-format
 msgid "Tracks of no album of artist: %s"
-msgstr "Alba interpreta: %s"
+msgstr ""
 
 #: src/screen_artist.c:465
-#, fuzzy, c-format
+#, c-format
 msgid "Adding album %s..."
-msgstr "Načítám seznam skladeb: %s..."
+msgstr ""
 
 #: src/screen_artist.c:467
-#, fuzzy, c-format
+#, c-format
 msgid "Adding %s..."
-msgstr "načítám..."
+msgstr ""
 
 #: src/screen_browser.c:131
 #, c-format
@@ -520,9 +520,8 @@ msgid "Save lyrics"
 msgstr "Uložit text písně"
 
 #: src/screen_help.c:166
-#, fuzzy
 msgid "Delete saved lyrics"
-msgstr "Uložit text písně"
+msgstr ""
 
 #: src/screen_help.c:171 src/command.c:245
 msgid "Outputs screen"
@@ -578,14 +577,12 @@ msgid "Lyrics saved"
 msgstr "Text písně uložen"
 
 #: src/screen_lyrics.c:310
-#, fuzzy
 msgid "Lyrics deleted"
-msgstr "Seznam skladeb smazán"
+msgstr ""
 
 #: src/screen_lyrics.c:313
-#, fuzzy
 msgid "No saved lyrics"
-msgstr "Uložit text písně"
+msgstr ""
 
 #: src/screen_outputs.c:73
 #, c-format
@@ -1140,6 +1137,14 @@ msgstr "Výběr rozsahu vypnut"
 #: src/list_window.c:571
 msgid "Range selection enabled"
 msgstr "Výběr rozsahu zapnut"
+
+#, c-format
+#~ msgid "Volume n/a "
+#~ msgstr "Hlasitost n/a "
+
+#, c-format
+#~ msgid " Volume %d%%"
+#~ msgstr " Hlasitost %d%%"
 
 #~ msgid "Explicitly download lyrics"
 #~ msgstr "Výslověn stažený text psíně"
