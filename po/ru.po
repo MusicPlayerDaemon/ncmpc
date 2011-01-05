@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-22 18:19+0200\n"
-"PO-Revision-Date: 2009-10-15 20:21+0700\n"
+"PO-Revision-Date: 2011-01-05 20:20+0600\n"
 "Last-Translator: Max Arnold <lwarxx@gmail.com>\n"
 "Language-Team: ru <ru@li.org>\n"
 "Language: \n"
@@ -58,7 +58,7 @@ msgstr "Плейлист очищен"
 
 #: src/screen.c:205 src/screen.c:269
 msgid "Error: Screen too small"
-msgstr "Ошибка: Экран слишком мал"
+msgstr "Ошибка: экран слишком мал"
 
 #: src/screen.c:389
 msgid "Repeat mode is on"
@@ -112,11 +112,11 @@ msgstr "База обновлена"
 
 #: src/screen.c:505
 msgid "Find mode: Wrapped"
-msgstr "Режим поиска: Циклический"
+msgstr "Режим поиска: циклический"
 
 #: src/screen.c:506
 msgid "Find mode: Normal"
-msgstr "Режим поиска: Нормальный"
+msgstr "Режим поиска: нормальный"
 
 #: src/screen.c:511
 msgid "Auto center mode: On"
@@ -151,19 +151,19 @@ msgid "Album: %s - %s"
 msgstr "Альбом: %s - %s"
 
 #: src/screen_artist.c:422
-#, fuzzy, c-format
+#, c-format
 msgid "Tracks of no album of artist: %s"
-msgstr "Альбомы исполнителя: %s"
+msgstr "Композиции исполнителя: %s"
 
 #: src/screen_artist.c:465
-#, fuzzy, c-format
+#, c-format
 msgid "Adding album %s..."
-msgstr "Загружается плейлист %s..."
+msgstr "Добавляется альбом %s..."
 
 #: src/screen_artist.c:467
-#, fuzzy, c-format
+#, c-format
 msgid "Adding %s..."
-msgstr "Добавляется директория %s...\n"
+msgstr "Добавляется %s...\n"
 
 #: src/screen_browser.c:131
 #, c-format
@@ -177,7 +177,7 @@ msgstr "В плейлист добавляется '%s'"
 
 #: src/screen_client.c:93
 msgid "Database update running..."
-msgstr "Идет обновление базы..."
+msgstr "Идёт обновление базы..."
 
 #: src/screen_client.c:105
 #, c-format
@@ -260,7 +260,7 @@ msgstr "Удалить плейлист %s [%s/%s] ? "
 #. user
 #: src/screen_file.c:251
 msgid "Playlist deleted"
-msgstr "Плейлист удален"
+msgstr "Плейлист удалён"
 
 #. translators: caption of the browser screen
 #: src/screen_file.c:305 src/title_bar.c:78
@@ -361,12 +361,12 @@ msgstr "Поиск: %s"
 #: src/screen_search.c:415
 #, c-format
 msgid "Search: Results for %s [%s]"
-msgstr "Поиск: Результаты поиска '%s' в поле [%s]"
+msgstr "Поиск: результаты поиска '%s' в поле [%s]"
 
 #: src/screen_search.c:419
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
-msgstr "Поиск: Нажмите %s для поиска по полю [%s]"
+msgstr "Поиск: нажмите %s для поиска по полю [%s]"
 
 #: src/screen_search.c:443
 #, c-format
@@ -392,7 +392,7 @@ msgstr "Клавиатурные комбинации не изменились.
 #: src/screen_keydef.c:83
 #, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "Ошибка: Не удалось создать директорию ~/.ncmpc - %s"
+msgstr "Ошибка: не удалось создать директорию ~/.ncmpc - %s"
 
 #: src/screen_keydef.c:92 src/screen_keydef.c:99
 #, c-format
@@ -429,7 +429,7 @@ msgstr "Добавить новую клавишу"
 
 #: src/screen_keydef.c:277
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Внимание: Вы не забыли применить сделанные изменения?"
+msgstr "Внимание: вы не забыли применить сделанные изменения?"
 
 #: src/screen_keydef.c:284
 msgid "Edit key bindings"
@@ -519,9 +519,8 @@ msgid "Save lyrics"
 msgstr "Сохранить текст"
 
 #: src/screen_help.c:166
-#, fuzzy
 msgid "Delete saved lyrics"
-msgstr "Сохранить текст"
+msgstr "Удалить сохранённый текст"
 
 #: src/screen_help.c:171 src/command.c:245
 msgid "Outputs screen"
@@ -574,17 +573,15 @@ msgstr "загружается..."
 #. lyrics for the song were saved on hard disk
 #: src/screen_lyrics.c:303
 msgid "Lyrics saved"
-msgstr "Текст сохранен"
+msgstr "Текст сохранён"
 
 #: src/screen_lyrics.c:310
-#, fuzzy
 msgid "Lyrics deleted"
-msgstr "Плейлист удален"
+msgstr "Текст удалён"
 
 #: src/screen_lyrics.c:313
-#, fuzzy
 msgid "No saved lyrics"
-msgstr "Сохранить текст"
+msgstr "Сохранённый текст отсутствует"
 
 #: src/screen_outputs.c:73
 #, c-format
@@ -806,7 +803,7 @@ msgstr "Предыдущая композиция"
 
 #: src/command.c:130
 msgid "Seek forward"
-msgstr "Перемотка вперед"
+msgstr "Перемотка вперёд"
 
 #: src/command.c:132
 msgid "Seek backward"
@@ -922,7 +919,7 @@ msgstr "Последний посещённый экран"
 
 #: src/command.c:203
 msgid "Forward find"
-msgstr "Поиск вперед"
+msgstr "Поиск вперёд"
 
 #: src/command.c:205
 msgid "Forward find next"
@@ -1041,12 +1038,12 @@ msgstr "Клавиша %s назначена для %s и %s"
 #: src/colors.c:156
 #, c-format
 msgid "Warning: Unknown color - %s\n"
-msgstr "Внимание: Неизвестный цвет - %s\n"
+msgstr "Внимание: неизвестный цвет - %s\n"
 
 #: src/colors.c:196
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
-msgstr "Внимание: Неизвестное цветовое поле - %s\n"
+msgstr "Внимание: неизвестное цветовое поле - %s\n"
 
 #: src/colors.c:229
 msgid "Terminal lacks support for changing colors"
@@ -1158,7 +1155,7 @@ msgstr "Выбор диапазона включен"
 #~ msgstr "Экран часов"
 
 #~ msgid "Error: Unable to convert characters to %s"
-#~ msgstr "Ошибка: Не удалось конвертировать символы в %s"
+#~ msgstr "Ошибка: не удалось конвертировать символы в %s"
 
 #~ msgid "Error: Unable to convert characters to UTF-8"
-#~ msgstr "Ошибка: Не удалось конвертировать символы в UTF-8"
+#~ msgstr "Ошибка: не удалось конвертировать символы в UTF-8"
