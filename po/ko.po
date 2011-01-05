@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 18:19+0200\n"
+"POT-Creation-Date: 2011-01-05 21:32+0100\n"
 "PO-Revision-Date: 2009-10-16 17:35+0000\n"
 "Last-Translator: Jay Whang <jaypedia@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -26,17 +26,17 @@ msgstr "y"
 msgid "n"
 msgstr "n"
 
-#: src/main.c:248
+#: src/main.c:305
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr "%s(으)로 연결중입니다. [취소하려면 %s키를 누르십시오]"
 
-#: src/main.c:271
+#: src/main.c:329
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
 msgstr "MPD 버전 %d%d%d (은)는 너무 낮습니다. (필요한 버전 %s)"
 
-#: src/main.c:289
+#: src/main.c:348
 #, c-format
 msgid "Connected to %s"
 msgstr "%s로 접속함"
@@ -44,7 +44,7 @@ msgstr "%s로 접속함"
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
 #. that
-#: src/main.c:465
+#: src/main.c:523
 #, c-format
 msgid "press %s for the key editor"
 msgstr "키 편집기 사용을 위하여 %s(을)를 누르십시오."

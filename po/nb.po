@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 18:19+0200\n"
+"POT-Creation-Date: 2011-01-05 21:32+0100\n"
 "PO-Revision-Date: 2010-07-03 16:34+0000\n"
 "Last-Translator: Mathias Bøhn Grytemark <Unknown>\n"
 "Language-Team: no <no@li.org>\n"
@@ -26,17 +26,17 @@ msgstr "j"
 msgid "n"
 msgstr "n"
 
-#: src/main.c:248
+#: src/main.c:305
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr "Kobler til %s... [Trykk %s for å avslutte]"
 
-#: src/main.c:271
+#: src/main.c:329
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
 msgstr "MPD versjon %d.%d.%d er for gammel - oppgrader til versjon %s"
 
-#: src/main.c:289
+#: src/main.c:348
 #, c-format
 msgid "Connected to %s"
 msgstr "Koblet til %s"
@@ -44,7 +44,7 @@ msgstr "Koblet til %s"
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
 #. that
-#: src/main.c:465
+#: src/main.c:523
 #, c-format
 msgid "press %s for the key editor"
 msgstr "trykk %s for å rette"

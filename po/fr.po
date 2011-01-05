@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 18:19+0200\n"
+"POT-Creation-Date: 2011-01-05 21:32+0100\n"
 "PO-Revision-Date: 2010-09-23 11:15+0000\n"
 "Last-Translator: Thibault Févry <Unknown>\n"
 "Language-Team: <fr@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
 "X-Generator: Launchpad (build 12138)\n"
-"Language: \n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -28,17 +28,17 @@ msgstr "o"
 msgid "n"
 msgstr "n"
 
-#: src/main.c:248
+#: src/main.c:305
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr "Connexion à %s...  [Appuyez sur %s pour annuler]"
 
-#: src/main.c:271
+#: src/main.c:329
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
 msgstr "Erreur: la version %d.%d.%d de MPD est trop ancienne (%s requise)"
 
-#: src/main.c:289
+#: src/main.c:348
 #, c-format
 msgid "Connected to %s"
 msgstr "Connecté à %s"
@@ -46,7 +46,7 @@ msgstr "Connecté à %s"
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
 #. that
-#: src/main.c:465
+#: src/main.c:523
 #, c-format
 msgid "press %s for the key editor"
 msgstr "appuyez sur %s pour l'éditeur de touches"
@@ -1146,10 +1146,8 @@ msgstr "Sélection multi-ligne désactivée"
 msgid "Range selection enabled"
 msgstr "Sélection multi-ligne activée"
 
-#, c-format
 #~ msgid "Volume n/a "
 #~ msgstr "Volume n/a "
 
-#, c-format
 #~ msgid " Volume %d%%"
 #~ msgstr " Volume %d%%"

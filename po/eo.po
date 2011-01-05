@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 18:19+0200\n"
+"POT-Creation-Date: 2011-01-05 21:32+0100\n"
 "PO-Revision-Date: 2010-09-22 17:53+0000\n"
 "Last-Translator: Aleksej <Unknown>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
 "X-Generator: Launchpad (build 12138)\n"
-"Language: eo\n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -26,17 +26,17 @@ msgstr "j"
 msgid "n"
 msgstr "n"
 
-#: src/main.c:248
+#: src/main.c:305
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr ""
 
-#: src/main.c:271
+#: src/main.c:329
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
 msgstr ""
 
-#: src/main.c:289
+#: src/main.c:348
 #, c-format
 msgid "Connected to %s"
 msgstr "Konektite al %s"
@@ -44,7 +44,7 @@ msgstr "Konektite al %s"
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
 #. that
-#: src/main.c:465
+#: src/main.c:523
 #, c-format
 msgid "press %s for the key editor"
 msgstr ""
