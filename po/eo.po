@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-22 18:19+0200\n"
-"PO-Revision-Date: 2009-11-30 18:18+0000\n"
-"Last-Translator: Kristjan <Unknown>\n"
+"PO-Revision-Date: 2010-09-22 17:53+0000\n"
+"Last-Translator: Aleksej <Unknown>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
-"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-12-08 07:40+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
+"X-Generator: Launchpad (build 12138)\n"
+"Language: eo\n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -169,12 +169,12 @@ msgstr ""
 #: src/screen_browser.c:131
 #, c-format
 msgid "Loading playlist %s..."
-msgstr ""
+msgstr "Ŝargas ludliston %s..."
 
 #: src/screen_browser.c:172 src/screen_browser.c:267 src/screen_browser.c:292
 #, c-format
 msgid "Adding '%s' to playlist"
-msgstr ""
+msgstr "Aldonas \"%s\" al la ludlisto"
 
 #: src/screen_client.c:93
 msgid "Database update running..."
@@ -294,7 +294,7 @@ msgstr ""
 
 #: src/screen_search.c:51
 msgid "date"
-msgstr ""
+msgstr "dato"
 
 #: src/screen_search.c:52
 msgid "composer"
@@ -310,7 +310,7 @@ msgstr ""
 
 #: src/screen_search.c:63
 msgid "file"
-msgstr ""
+msgstr "dosiero"
 
 #: src/screen_search.c:83 src/screen_song.c:44
 msgid "Title"
@@ -326,7 +326,7 @@ msgstr ""
 
 #: src/screen_search.c:86
 msgid "Filename"
-msgstr ""
+msgstr "Dosiernomo"
 
 #: src/screen_search.c:87
 msgid "Artist + Title"
@@ -1127,8 +1127,9 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Aleksej R. Serdjukov https://launchpad.net/~aleksejrs\n"
-"  Kristjan https://launchpad.net/~kristjan-eo"
+"  Aleksej https://launchpad.net/~aleksejrs\n"
+"  Kristjan SCHMIDT https://launchpad.net/~kristjan-eo\n"
+"  Max Kellermann https://launchpad.net/~max-duempel"
 
 #: src/list_window.c:566
 msgid "Range selection disabled"
