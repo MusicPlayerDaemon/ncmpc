@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-22 18:19+0200\n"
-"PO-Revision-Date: 2010-06-22 18:02+0000\n"
-"Last-Translator: Luis Miguel D.P. <Unknown>\n"
+"PO-Revision-Date: 2010-10-31 19:53+0000\n"
+"Last-Translator: simone.sandri <Unknown>\n"
 "Language-Team: Italian <it@li.org>\n"
-"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-07-01 07:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
+"X-Generator: Launchpad (build 12138)\n"
+"Language: it\n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -154,19 +154,19 @@ msgid "Album: %s - %s"
 msgstr "Album: %s - %s"
 
 #: src/screen_artist.c:422
-#, fuzzy, c-format
+#, c-format
 msgid "Tracks of no album of artist: %s"
-msgstr "Album del artista: %s"
+msgstr ""
 
 #: src/screen_artist.c:465
-#, fuzzy, c-format
+#, c-format
 msgid "Adding album %s..."
-msgstr "Caricando la lista %s"
+msgstr "Aggiungendo album %s..."
 
 #: src/screen_artist.c:467
-#, fuzzy, c-format
+#, c-format
 msgid "Adding %s..."
-msgstr "caricamento in corso..."
+msgstr "Aggiungendo %s..."
 
 #: src/screen_browser.c:131
 #, c-format
@@ -400,7 +400,7 @@ msgstr "Errore: Non si ha potuto creare la cartella ~/.ncmpc - %s"
 #: src/screen_keydef.c:92 src/screen_keydef.c:99
 #, c-format
 msgid "Error: %s - %s"
-msgstr ""
+msgstr "Errore: %s - %s"
 
 #: src/screen_keydef.c:101
 #, c-format
@@ -700,12 +700,12 @@ msgstr "[Pausato]"
 #: src/title_bar.c:96
 #, c-format
 msgid "Volume n/a"
-msgstr ""
+msgstr "Volume n/a"
 
 #: src/title_bar.c:98
 #, c-format
 msgid "Volume %d%%"
-msgstr ""
+msgstr "Volume %d%%"
 
 #: src/command.c:69
 msgid "Key configuration screen"
@@ -713,43 +713,43 @@ msgstr ""
 
 #: src/command.c:72
 msgid "Quit"
-msgstr ""
+msgstr "Esci"
 
 #: src/command.c:76
 msgid "Move cursor up"
-msgstr ""
+msgstr "Muovi cursore in alto"
 
 #: src/command.c:78
 msgid "Move cursor down"
-msgstr ""
+msgstr "Muovi cursore in basso"
 
 #: src/command.c:80
 msgid "Move cursor to the top of screen"
-msgstr ""
+msgstr "Muovi cursore in cima allo schermo"
 
 #: src/command.c:82
 msgid "Move cursor to the middle of screen"
-msgstr ""
+msgstr "Muovi cursore in mezzo allo schermo"
 
 #: src/command.c:84
 msgid "Move cursor to the bottom of screen"
-msgstr ""
+msgstr "Muovi cursore in fondo allo schermo"
 
 #: src/command.c:86
 msgid "Move cursor to the top of the list"
-msgstr ""
+msgstr "Muovi cursore in cima alla lista"
 
 #: src/command.c:88
 msgid "Move cursor to the bottom of the list"
-msgstr ""
+msgstr "Muovi cursore in fondo alla lista"
 
 #: src/command.c:90
 msgid "Page up"
-msgstr ""
+msgstr "Pagina sopra"
 
 #: src/command.c:92
 msgid "Page down"
-msgstr ""
+msgstr "Pagina sotto"
 
 #: src/command.c:94
 msgid "Range selection"
@@ -781,15 +781,15 @@ msgstr ""
 
 #: src/command.c:118
 msgid "Play/Enter directory"
-msgstr ""
+msgstr "Esegui/Entra nella cartella"
 
 #: src/command.c:120
 msgid "Pause"
-msgstr ""
+msgstr "Pausa"
 
 #: src/command.c:122
 msgid "Stop"
-msgstr ""
+msgstr "Ferma"
 
 #: src/command.c:124
 msgid "Crop"
@@ -797,11 +797,11 @@ msgstr ""
 
 #: src/command.c:126
 msgid "Next track"
-msgstr ""
+msgstr "Prossima traccia"
 
 #: src/command.c:128
 msgid "Previous track"
-msgstr ""
+msgstr "Traccia precedente"
 
 #: src/command.c:130
 msgid "Seek forward"
@@ -813,11 +813,11 @@ msgstr ""
 
 #: src/command.c:134
 msgid "Increase volume"
-msgstr ""
+msgstr "Alza volume"
 
 #: src/command.c:136
 msgid "Decrease volume"
-msgstr ""
+msgstr "Abbassa volume"
 
 #: src/command.c:138
 msgid "Select/deselect song in playlist"
@@ -825,7 +825,7 @@ msgstr ""
 
 #: src/command.c:140
 msgid "Select all listed items"
-msgstr ""
+msgstr "Seleziona tutti gli oggetti della lista"
 
 #: src/command.c:142
 msgid "Delete song from playlist"
@@ -865,7 +865,7 @@ msgstr ""
 
 #: src/command.c:160
 msgid "Save playlist"
-msgstr ""
+msgstr "Salva playlist"
 
 #: src/command.c:162
 msgid "Add url/file to playlist"
@@ -1129,7 +1129,9 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Luis Miguel D.P. https://launchpad.net/~lmdp"
+"  Luis Miguel D.P. https://launchpad.net/~lmdp\n"
+"  Max Kellermann https://launchpad.net/~max-duempel\n"
+"  simone.sandri https://launchpad.net/~lexluxsox"
 
 #: src/list_window.c:566
 msgid "Range selection disabled"
