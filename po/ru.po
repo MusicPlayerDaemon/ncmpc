@@ -3,13 +3,12 @@
 # This file is distributed under the same license as the ncmpc package.
 # Original translation by Nikolay Pavlov <quetzal@roks.biz>, 2004.
 # Currently maintained by Max Arnold <lwarxx@gmail.com>, 2009.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-22 18:19+0200\n"
-"PO-Revision-Date: 2011-01-05 20:20+0600\n"
+"PO-Revision-Date: 2011-01-05 21:31+0100\n"
 "Last-Translator: Max Arnold <lwarxx@gmail.com>\n"
 "Language-Team: ru <ru@li.org>\n"
 "Language: \n"
@@ -163,7 +162,7 @@ msgstr "Добавляется альбом %s..."
 #: src/screen_artist.c:467
 #, c-format
 msgid "Adding %s..."
-msgstr "Добавляется %s...\n"
+msgstr "Добавляется %s..."
 
 #: src/screen_browser.c:131
 #, c-format
