@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-22 18:19+0200\n"
-"PO-Revision-Date: 2010-07-01 09:25+0200\n"
+"PO-Revision-Date: 2010-09-22 20:14+0000\n"
 "Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
 "Language-Team: galician\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-07-01 07:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
+"X-Generator: Launchpad (build 12138)\n"
+"Language: \n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -152,19 +152,19 @@ msgid "Album: %s - %s"
 msgstr "Álbum: %s - %s"
 
 #: src/screen_artist.c:422
-#, fuzzy, c-format
+#, c-format
 msgid "Tracks of no album of artist: %s"
-msgstr "Álbumes do artista: %s"
+msgstr ""
 
 #: src/screen_artist.c:465
-#, fuzzy, c-format
+#, c-format
 msgid "Adding album %s..."
-msgstr "Cargando a lista de reprodución %s..."
+msgstr ""
 
 #: src/screen_artist.c:467
-#, fuzzy, c-format
+#, c-format
 msgid "Adding %s..."
-msgstr "Engadindo o cartafol %s...\n"
+msgstr ""
 
 #: src/screen_browser.c:131
 #, c-format
@@ -1130,6 +1130,7 @@ msgstr ""
 "\n"
 "Launchpad Contributions:\n"
 "  Johám-Luís Miguéns Vila https://launchpad.net/~galiza-ceive\n"
+"  Johám-Luís Miguéns Vila https://launchpad.net/~miluxovi\n"
 "  Miguel Anxo Bouzada https://launchpad.net/~mbouzada"
 
 #: src/list_window.c:566
@@ -1140,11 +1141,22 @@ msgstr "A selección de rango está desactivada"
 msgid "Range selection enabled"
 msgstr "A selección de rango está sactivada"
 
+#, c-format
+#~ msgid "Volume n/a "
+#~ msgstr "Volume n/a "
+
+#, c-format
+#~ msgid " Volume %d%%"
+#~ msgstr " Volume %d%%"
+
 #~ msgid "Explicitly download lyrics"
 #~ msgstr "Forçar a descarga das letras"
 
 #~ msgid "Search: "
 #~ msgstr "Procurar: "
+
+#~ msgid "Adding directory %s...\n"
+#~ msgstr "Engadindo o cartafol %s...\n"
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr ""
