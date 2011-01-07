@@ -48,6 +48,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <signal.h>
 #include <string.h>
 
@@ -63,6 +64,7 @@ static const guint update_interval = 500;
 static struct mpdclient *mpd = NULL;
 static GMainLoop *main_loop;
 static guint reconnect_source_id, update_source_id;
+static int sigwinch_pipes[2];
 
 #ifndef NCMPC_MINI
 static guint check_key_bindings_source_id;
@@ -120,7 +122,9 @@ catch_sigint(G_GNUC_UNUSED int sig)
 static void
 catch_sigcont(G_GNUC_UNUSED int sig)
 {
-	screen_resize(mpd);
+	char irrelevant = 'a';
+	if (1 != write(sigwinch_pipes[1], &irrelevant, 1))
+		exit(EXIT_FAILURE);
 }
 
 void
@@ -131,29 +135,27 @@ sigstop(void)
 	kill(0, SIGSTOP); /* issue SIGSTOP */
 }
 
-static guint timer_sigwinch_id;
-
 static gboolean
-timer_sigwinch(G_GNUC_UNUSED gpointer data)
+sigwinch_event(G_GNUC_UNUSED GIOChannel *source,
+               G_GNUC_UNUSED GIOCondition condition, G_GNUC_UNUSED gpointer data)
 {
-	/* the following causes the screen to flicker.  There might be
-	   better solutions, but I believe it isn't all that
-	   important. */
+	char ignoreme[64];
+	if (1 > read(sigwinch_pipes[0], ignoreme, 64))
+		exit(EXIT_FAILURE);
 
 	endwin();
 	refresh();
 	screen_resize(mpd);
 
-	return FALSE;
+	return TRUE;
 }
 
 static void
 catch_sigwinch(G_GNUC_UNUSED int sig)
 {
-	if (timer_sigwinch_id != 0)
-		g_source_remove(timer_sigwinch_id);
-
-	timer_sigwinch_id = g_timeout_add(100, timer_sigwinch, NULL);
+	char irrelevant = 'a';
+	if (1 != write(sigwinch_pipes[1], &irrelevant, 1))
+		exit(EXIT_FAILURE);
 }
 
 static void
@@ -545,6 +547,7 @@ main(int argc, const char *argv[])
 	int lirc_socket;
 	GIOChannel *lirc_channel = NULL;
 #endif
+	GIOChannel *sigwinch_channel = NULL;
 
 #ifdef ENABLE_LOCALE
 	/* time and date formatting */
@@ -663,6 +666,16 @@ main(int argc, const char *argv[])
 	}
 #endif
 
+	if (!pipe(sigwinch_pipes) &&
+		!fcntl(sigwinch_pipes[1], F_SETFL, O_NONBLOCK)) {
+		sigwinch_channel = g_io_channel_unix_new(sigwinch_pipes[0]);
+		g_io_add_watch(sigwinch_channel, G_IO_IN, sigwinch_event, NULL);
+	}
+	else {
+		perror("sigwinch pipe creation failed");
+		exit(EXIT_FAILURE);
+	}
+
 	/* attempt to connect */
 	reconnect_source_id = g_timeout_add(1, timer_reconnect, NULL);
 
@@ -692,6 +705,9 @@ main(int argc, const char *argv[])
 
 	g_main_loop_unref(main_loop);
 	g_io_channel_unref(keyboard_channel);
+	g_io_channel_unref(sigwinch_channel);
+	close(sigwinch_pipes[0]);
+	close(sigwinch_pipes[1]);
 
 #ifdef ENABLE_LIRC
 	if (lirc_socket >= 0)
