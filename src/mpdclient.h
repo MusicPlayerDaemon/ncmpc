@@ -36,7 +36,7 @@ struct mpdclient {
 	unsigned update_id;
 
 	/**
-	 * A bit mask of idle events occured since the last update.
+	 * A bit mask of idle events occurred since the last update.
 	 */
 	enum mpd_idle events;
 };
