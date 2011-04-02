@@ -114,7 +114,7 @@ screen_jump(struct list_window *lw,
 	while(1) {
 		key = screen_getch(screen.findbuf);
 		/* if backspace or delete was pressed, process instead of ending loop */
-		if (key == 127 || key == 330) {
+		if (key == KEY_BACKSPACE || key == KEY_DC) {
 			int i;
 			if (search_str <= g_utf8_find_prev_char(screen.findbuf, iter))
 				iter = g_utf8_find_prev_char(screen.findbuf, iter);
