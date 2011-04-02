@@ -35,6 +35,14 @@ match_line(const char *line, const char *needle)
 }
 #else
 
+#include <glib.h>
+
+GRegex *
+compile_regex(const char *src, bool anchor);
+
+bool
+match_regex(GRegex *regex, const char *line);
+
 /**
  * Checks whether the specified line matches the search string.  Case
  * is ignored.

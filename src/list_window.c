@@ -489,44 +489,60 @@ list_window_rfind(struct list_window *lw,
 	return false;
 }
 
-static bool
-jump_match(const char *haystack, const char *needle)
-{
 #ifdef NCMPC_MINI
-	bool jump_prefix_only = true;
-#else
-	bool jump_prefix_only = options.jump_prefix_only;
-#endif
-
-	assert(haystack != NULL);
-	assert(needle != NULL);
-
-	return jump_prefix_only
-		? g_ascii_strncasecmp(haystack, needle, strlen(needle)) == 0
-		: match_line(haystack, needle);
-}
-
 bool
 list_window_jump(struct list_window *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str)
 {
+	unsigned i;
 	const char *label;
 
 	assert(str != NULL);
 
-	for (unsigned i = 0; i < lw->length; ++i) {
+	for (i = 0; i < lw->length; i++) {
 		label = callback(i, callback_data);
 		assert(label != NULL);
 
-		if (jump_match(label, str)) {
+		if (g_ascii_strncasecmp(label, str, strlen(str)) == 0) {
 			list_window_move_cursor(lw, i);
 			return true;
 		}
 	}
 	return false;
 }
+#else
+bool
+list_window_jump(struct list_window *lw,
+		 list_window_callback_fn_t callback,
+		 void *callback_data,
+		 const char *str)
+{
+	unsigned i;
+	const char *label;
+	GRegex *regex;
+
+	assert(str != NULL);
+
+	regex = compile_regex(str, options.jump_prefix_only);
+	if (regex == NULL)
+		return false;
+
+	for (i = 0; i < lw->length; i++) {
+		label = callback(i, callback_data);
+		assert(label != NULL);
+
+		if (match_regex(regex, label)) {
+			g_regex_unref(regex);
+			list_window_move_cursor(lw, i);
+			return true;
+		}
+	}
+	g_regex_unref(regex);
+	return false;
+}
+#endif
 
 /* perform basic list window commands (movement) */
 bool
