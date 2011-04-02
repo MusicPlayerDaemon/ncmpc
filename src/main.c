@@ -382,12 +382,10 @@ idle_callback(enum mpd_error error, enum mpd_server_error server_error,
 	      void *ctx)
 {
 	struct mpdclient *c = ctx;
-	struct mpd_connection *connection;
 
 	c->idle = false;
 
-	connection = mpdclient_get_connection(c);
-	assert(connection != NULL);
+	assert(mpdclient_get_connection(c) != NULL);
 
 	if (error != MPD_ERROR_SUCCESS) {
 		char *allocated;
