@@ -240,7 +240,7 @@ settings_name(const struct mpd_settings *settings)
 {
 	const char *host = mpd_settings_get_host(settings);
 	if (host == NULL)
-		host = "unknown";
+		host = _("unknown");
 
 	if (host[0] == '/')
 		return g_strdup(host);
@@ -262,7 +262,7 @@ default_settings_name(void)
 		mpd_settings_new(options.host, options.port, 0,
 				 NULL, options.password);
 	if (settings == NULL)
-		return g_strdup("unknown");
+		return g_strdup(_("unknown"));
 
 	char *name = settings_name(settings);
 	mpd_settings_free(settings);
@@ -280,7 +280,7 @@ connection_settings_name(const struct mpd_connection *connection)
 	const struct mpd_settings *settings =
 		mpd_connection_get_settings(connection);
 	if (settings == NULL)
-		return g_strdup("unknown");
+		return g_strdup(_("unknown"));
 
 	return settings_name(settings);
 #else
