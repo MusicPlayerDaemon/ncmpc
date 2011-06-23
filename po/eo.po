@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-23 10:54+0200\n"
-"PO-Revision-Date: 2010-09-22 17:53+0000\n"
+"PO-Revision-Date: 2011-05-16 15:13+0000\n"
 "Last-Translator: Aleksej <Unknown>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
-"X-Generator: Launchpad (build 12138)\n"
+"X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
+"X-Generator: Launchpad (build 13265)\n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -33,12 +33,12 @@ msgstr ""
 #: src/main.c:313
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
-msgstr ""
+msgstr "Konektiĝado al %s...  [Premu %s por ĉesigi]"
 
 #: src/main.c:337
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
-msgstr ""
+msgstr "Problemo: la versio %d.%d.%d de MPD estas tro malnova (necesas %s)"
 
 #: src/main.c:356
 #, c-format
@@ -173,7 +173,7 @@ msgstr ""
 #: src/screen_browser.c:131
 #, c-format
 msgid "Loading playlist %s..."
-msgstr "Ŝargas ludliston %s..."
+msgstr ""
 
 #: src/screen_browser.c:172 src/screen_browser.c:267 src/screen_browser.c:292
 #, c-format
@@ -208,7 +208,7 @@ msgstr ""
 #: src/screen_find.c:80
 #, c-format
 msgid "Unable to find '%s'"
-msgstr ""
+msgstr "Ne troviĝis \"%s\""
 
 #: src/screen_utils.c:99
 msgid "Password"
@@ -238,7 +238,7 @@ msgstr ""
 #. get path
 #: src/screen_queue.c:399
 msgid "Add"
-msgstr ""
+msgstr "Aldoni"
 
 #: src/screen_queue.c:506 src/title_bar.c:77
 msgid "Playlist"
@@ -318,7 +318,7 @@ msgstr "dosiero"
 
 #: src/screen_search.c:83 src/screen_song.c:44
 msgid "Title"
-msgstr ""
+msgstr "Titolo"
 
 #: src/screen_search.c:84 src/screen_song.c:43 src/title_bar.c:80
 msgid "Artist"
