@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-23 10:54+0200\n"
-"PO-Revision-Date: 2010-09-26 09:04+0000\n"
-"Last-Translator: cmdrhenner <cmdrhenner@gmail.com>\n"
+"PO-Revision-Date: 2011-06-21 08:19+0000\n"
+"Last-Translator: Christoph Mende <angelos@gentoo.org>\n"
 "Language-Team: de <de@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
-"X-Generator: Launchpad (build 12138)\n"
+"X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
+"X-Generator: Launchpad (build 13265)\n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -34,7 +34,7 @@ msgstr ""
 #: src/main.c:313
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
-msgstr "Verbinde mit %s...   [%s drücken, um abzubrechen]"
+msgstr "Verbinde mit %s…   [%s drücken, um abzubrechen]"
 
 #: src/main.c:337
 #, c-format
@@ -52,7 +52,7 @@ msgstr "Verbunden mit %s"
 #: src/main.c:529
 #, c-format
 msgid "press %s for the key editor"
-msgstr "drücke %s für den Tasteneditor"
+msgstr "drücken Sie %s für den Tasteneditor"
 
 #: src/player_command.c:177 src/screen_queue.c:750
 msgid "Shuffled playlist"
@@ -1135,6 +1135,7 @@ msgstr ""
 "\n"
 "Launchpad Contributions:\n"
 "  BBO https://launchpad.net/~bbo\n"
+"  Christoph Mende https://launchpad.net/~cmende\n"
 "  Max Kellermann https://launchpad.net/~max-duempel\n"
 "  Monika Brinkert https://launchpad.net/~moni-sunpig\n"
 "  Samuel Creshal https://launchpad.net/~samuel-creshal\n"
