@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-05 21:32+0100\n"
+"POT-Creation-Date: 2011-06-23 10:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,17 +25,21 @@ msgstr ""
 msgid "n"
 msgstr ""
 
-#: src/main.c:305
+#: src/main.c:243 src/main.c:265 src/main.c:283
+msgid "unknown"
+msgstr ""
+
+#: src/main.c:313
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr ""
 
-#: src/main.c:329
+#: src/main.c:337
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
 msgstr ""
 
-#: src/main.c:348
+#: src/main.c:356
 #, c-format
 msgid "Connected to %s"
 msgstr ""
@@ -43,7 +47,7 @@ msgstr ""
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
 #. that
-#: src/main.c:523
+#: src/main.c:529
 #, c-format
 msgid "press %s for the key editor"
 msgstr ""
@@ -1126,10 +1130,10 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 
-#: src/list_window.c:566
+#: src/list_window.c:582
 msgid "Range selection disabled"
 msgstr ""
 
-#: src/list_window.c:571
+#: src/list_window.c:587
 msgid "Range selection enabled"
 msgstr ""

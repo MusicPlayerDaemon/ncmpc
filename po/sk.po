@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-05 21:32+0100\n"
+"POT-Creation-Date: 2011-06-23 10:54+0200\n"
 "PO-Revision-Date: 2010-04-07 01:36+0000\n"
 "Last-Translator: Roman Horník <Unknown>\n"
 "Language-Team: sk <sk@li.org>\n"
@@ -25,17 +25,21 @@ msgstr "a"
 msgid "n"
 msgstr "n"
 
-#: src/main.c:305
+#: src/main.c:243 src/main.c:265 src/main.c:283
+msgid "unknown"
+msgstr ""
+
+#: src/main.c:313
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr "Pripájam sa k %s... [Stlačte %s pre zrušenie]"
 
-#: src/main.c:329
+#: src/main.c:337
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
 msgstr "Chyba: MPD verzie %d.%d.%d je príliš staré (%s je potrebná)"
 
-#: src/main.c:348
+#: src/main.c:356
 #, c-format
 msgid "Connected to %s"
 msgstr "Pripojený k %s"
@@ -43,7 +47,7 @@ msgstr "Pripojený k %s"
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
 #. that
-#: src/main.c:523
+#: src/main.c:529
 #, c-format
 msgid "press %s for the key editor"
 msgstr "stlačte %s pre editor klávesov"
@@ -1134,11 +1138,11 @@ msgstr ""
 "  Jose Riha https://launchpad.net/~jose1711\n"
 "  Roman Horník https://launchpad.net/~roman.hornik"
 
-#: src/list_window.c:566
+#: src/list_window.c:582
 msgid "Range selection disabled"
 msgstr "Výber rozsahu vypnutý"
 
-#: src/list_window.c:571
+#: src/list_window.c:587
 msgid "Range selection enabled"
 msgstr "Výber rozsahu zapnutý"
 

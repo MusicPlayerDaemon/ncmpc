@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-05 21:32+0100\n"
+"POT-Creation-Date: 2011-06-23 10:54+0200\n"
 "PO-Revision-Date: 2010-05-07 14:02+0000\n"
 "Last-Translator: Katja Viljakainen <fly5@kapsi.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -26,17 +26,21 @@ msgstr "k"
 msgid "n"
 msgstr "e"
 
-#: src/main.c:305
+#: src/main.c:243 src/main.c:265 src/main.c:283
+msgid "unknown"
+msgstr ""
+
+#: src/main.c:313
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr ""
 
-#: src/main.c:329
+#: src/main.c:337
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
 msgstr ""
 
-#: src/main.c:348
+#: src/main.c:356
 #, c-format
 msgid "Connected to %s"
 msgstr ""
@@ -44,7 +48,7 @@ msgstr ""
 #. to translators: a key was bound twice in the key editor,
 #. and this is a hint for the user what to press to correct
 #. that
-#: src/main.c:523
+#: src/main.c:529
 #, c-format
 msgid "press %s for the key editor"
 msgstr ""
@@ -1129,10 +1133,10 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Katja Viljakainen https://launchpad.net/~katja-viljakainen"
 
-#: src/list_window.c:566
+#: src/list_window.c:582
 msgid "Range selection disabled"
 msgstr ""
 
-#: src/list_window.c:571
+#: src/list_window.c:587
 msgid "Range selection enabled"
 msgstr ""
