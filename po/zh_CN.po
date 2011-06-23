@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-23 10:54+0200\n"
-"PO-Revision-Date: 2009-09-28 08:09+0000\n"
-"Last-Translator: Kyle WANG <waxaca@163.com>\n"
+"PO-Revision-Date: 2011-05-12 15:00+0000\n"
+"Last-Translator: snowdream <yanghui1986527@gmail.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-09-28 15:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
+"X-Generator: Launchpad (build 13265)\n"
 
 #: src/i18n.h:42
 msgid "y"
@@ -156,19 +156,19 @@ msgid "Album: %s - %s"
 msgstr "专辑: %s - %s"
 
 #: src/screen_artist.c:422
-#, fuzzy, c-format
+#, c-format
 msgid "Tracks of no album of artist: %s"
-msgstr "%s 的专辑:"
+msgstr "艺术家的无专辑曲目: %s"
 
 #: src/screen_artist.c:465
-#, fuzzy, c-format
+#, c-format
 msgid "Adding album %s..."
-msgstr "加载播放列表 %s..."
+msgstr "添加专辑 %s..."
 
 #: src/screen_artist.c:467
-#, fuzzy, c-format
+#, c-format
 msgid "Adding %s..."
-msgstr "正在载入..."
+msgstr "添加 %s..."
 
 #: src/screen_browser.c:131
 #, c-format
@@ -524,9 +524,8 @@ msgid "Save lyrics"
 msgstr "保存歌词"
 
 #: src/screen_help.c:166
-#, fuzzy
 msgid "Delete saved lyrics"
-msgstr "保存歌词"
+msgstr "删除已保存歌词"
 
 #: src/screen_help.c:171 src/command.c:245
 msgid "Outputs screen"
@@ -582,14 +581,12 @@ msgid "Lyrics saved"
 msgstr "歌词已保存"
 
 #: src/screen_lyrics.c:310
-#, fuzzy
 msgid "Lyrics deleted"
-msgstr "播放列表已删除"
+msgstr "歌词已被删除"
 
 #: src/screen_lyrics.c:313
-#, fuzzy
 msgid "No saved lyrics"
-msgstr "保存歌词"
+msgstr "没有歌词"
 
 #: src/screen_outputs.c:73
 #, c-format
@@ -1135,7 +1132,9 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Gao Jie https://launchpad.net/~kindmail\n"
-"  Kyle WANG https://launchpad.net/~osfans"
+"  Kyle WANG https://launchpad.net/~osfans-deactivatedaccount-"
+"deactivatedaccount\n"
+"  snowdream https://launchpad.net/~yanghui"
 
 #: src/list_window.c:582
 msgid "Range selection disabled"
@@ -1144,6 +1143,12 @@ msgstr "禁用区段选取"
 #: src/list_window.c:587
 msgid "Range selection enabled"
 msgstr "开启区段选取"
+
+#~ msgid "Volume n/a "
+#~ msgstr "音量 n/a "
+
+#~ msgid " Volume %d%%"
+#~ msgstr " 音量 %d%%"
 
 #~ msgid "Explicitly download lyrics"
 #~ msgstr "精确下载歌词"
