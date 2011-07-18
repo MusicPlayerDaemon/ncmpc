@@ -455,7 +455,7 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, char *_filter)
 	char *str;
 	struct filelist *addlist;
 
-	assert(filter != NULL);
+	assert(_filter != NULL);
 
 	if (connection == NULL)
 		return;
