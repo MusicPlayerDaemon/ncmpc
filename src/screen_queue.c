@@ -276,8 +276,10 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 	/* send save command to mpd */
 
 	connection = mpdclient_get_connection(c);
-	if (connection == NULL)
+	if (connection == NULL) {
+		g_free(filename);
 		return -1;
+	}
 
 	filename_utf8 = locale_to_utf8(filename);
 	if (!mpd_run_save(connection, filename_utf8)) {
