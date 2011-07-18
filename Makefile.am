@@ -22,6 +22,7 @@ ncmpc_headers = \
 	src/conf.h \
 	src/command.h \
 	src/ncu.h \
+	src/ncfix.h \
 	src/player_command.h \
 	src/window.h \
 	src/title_bar.h \

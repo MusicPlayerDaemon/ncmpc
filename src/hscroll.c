@@ -19,6 +19,7 @@
 
 #include "hscroll.h"
 #include "charset.h"
+#include "ncfix.h"
 #include "glib_compat.h"
 
 #include <assert.h>
@@ -87,7 +88,7 @@ hscroll_set(struct hscroll *hscroll, unsigned x, unsigned y, unsigned width,
 
 	/* obtain the ncurses attributes and the current color, store
 	   them */
-	wattr_get(hscroll->w, &hscroll->attrs, &hscroll->pair, NULL);
+	fix_wattr_get(hscroll->w, &hscroll->attrs, &hscroll->pair, NULL);
 
 	hscroll->text = g_strdup(text);
 	hscroll->offset = 0;
@@ -121,7 +122,7 @@ hscroll_draw(struct hscroll *hscroll)
 	assert(hscroll->text != NULL);
 
 	/* set stored attributes and color */
-	wattr_get(hscroll->w, &old_attrs, &old_pair, NULL);
+	fix_wattr_get(hscroll->w, &old_attrs, &old_pair, NULL);
 	wattr_set(hscroll->w, hscroll->attrs, hscroll->pair, NULL);
 
 	/* scroll the string, and draw it */

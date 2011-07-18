@@ -19,6 +19,8 @@
 
 #include "colors.h"
 #include "i18n.h"
+#include "ncfix.h"
+
 #ifdef ENABLE_COLORS
 #include "options.h"
 #endif
@@ -267,7 +269,7 @@ colors_use(WINDOW *w, enum color id)
 
 	assert(id > 0 && id < COLOR_END);
 
-	wattr_get(w, &attrs, &pair, NULL);
+	fix_wattr_get(w, &attrs, &pair, NULL);
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
