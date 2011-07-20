@@ -348,6 +348,7 @@ mpdclient_cmd_clear(struct mpdclient *c)
 		   reducing the UI latency */
 		playlist_clear(&c->playlist);
 		c->playlist.version = mpd_status_get_queue_version(status);
+		c->song = NULL;
 	}
 
 	c->events |= MPD_IDLE_QUEUE;
