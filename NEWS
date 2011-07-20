@@ -2,6 +2,7 @@ ncmpc 0.19 - not yet released
 * require libmpdclient 2.2
 * show real server address in status message
 * fix crash after "clear" command
+* po: added Polish translation
 
 
 ncmpc 0.18 - (09/22/2010)
