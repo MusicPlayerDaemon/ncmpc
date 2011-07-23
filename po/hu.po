@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-23 10:54+0200\n"
+"POT-Creation-Date: 2011-07-23 21:08+0200\n"
 "PO-Revision-Date: 2009-09-24 21:45+0000\n"
 "Last-Translator: Kiszel Kristóf <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -53,7 +53,7 @@ msgstr "Csatlakoztatva ide: %s"
 msgid "press %s for the key editor"
 msgstr "nyomj %s-t a szerkesztéshez"
 
-#: src/player_command.c:177 src/screen_queue.c:750
+#: src/player_command.c:177 src/screen_queue.c:752
 msgid "Shuffled playlist"
 msgstr "Lejátszólista összekeverve"
 
@@ -219,32 +219,32 @@ msgstr "Jelszó"
 msgid "Save playlist as"
 msgstr "Lejátszólista mentése másként"
 
-#: src/screen_queue.c:290
+#: src/screen_queue.c:292
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Cserélni a következőt: %s [%s/%s]? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:298 src/screen_file.c:238 src/screen_keydef.c:165
+#: src/screen_queue.c:300 src/screen_file.c:238 src/screen_keydef.c:165
 msgid "Aborted"
 msgstr "Megszakítva"
 
 #. success
-#: src/screen_queue.c:322
+#: src/screen_queue.c:324
 #, c-format
 msgid "Saved %s"
 msgstr "%s elmentve"
 
 #. get path
-#: src/screen_queue.c:399
+#: src/screen_queue.c:401
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: src/screen_queue.c:506 src/title_bar.c:77
+#: src/screen_queue.c:508 src/title_bar.c:77
 msgid "Playlist"
 msgstr "Lejátszólista"
 
-#: src/screen_queue.c:508
+#: src/screen_queue.c:510
 #, c-format
 msgid "Playlist on %s"
 msgstr "Lejátszólista itt: %s"
@@ -1039,21 +1039,21 @@ msgstr "Insert"
 msgid "Key %s assigned to %s and %s"
 msgstr "A(z) %s gomb a követlezőkhoz van rendelve: %s és %s"
 
-#: src/colors.c:156
+#: src/colors.c:158
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr "Figyelem: ismeretlen szín - %s\n"
 
-#: src/colors.c:196
+#: src/colors.c:198
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Figyelem: ismeretlen szín mező - %s\n"
 
-#: src/colors.c:229
+#: src/colors.c:231
 msgid "Terminal lacks support for changing colors"
 msgstr "A terminál nem támogatja a színek változtatását"
 
-#: src/colors.c:240
+#: src/colors.c:242
 msgid "Terminal lacks color capabilities"
 msgstr "A terminál nem támogatja a színeket"
 

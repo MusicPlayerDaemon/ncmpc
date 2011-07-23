@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-23 10:54+0200\n"
+"POT-Creation-Date: 2011-07-23 21:08+0200\n"
 "PO-Revision-Date: 2010-09-23 11:15+0000\n"
 "Last-Translator: Thibault Févry <Unknown>\n"
 "Language-Team: <fr@li.org>\n"
@@ -55,7 +55,7 @@ msgstr "Connecté à %s"
 msgid "press %s for the key editor"
 msgstr "appuyez sur %s pour l'éditeur de touches"
 
-#: src/player_command.c:177 src/screen_queue.c:750
+#: src/player_command.c:177 src/screen_queue.c:752
 msgid "Shuffled playlist"
 msgstr "Liste de lecture aléatoire"
 
@@ -221,32 +221,32 @@ msgstr "Mot de passe"
 msgid "Save playlist as"
 msgstr "Enregistrer la liste de lecture sous"
 
-#: src/screen_queue.c:290
+#: src/screen_queue.c:292
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Remplacer %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:298 src/screen_file.c:238 src/screen_keydef.c:165
+#: src/screen_queue.c:300 src/screen_file.c:238 src/screen_keydef.c:165
 msgid "Aborted"
 msgstr "Annulé"
 
 #. success
-#: src/screen_queue.c:322
+#: src/screen_queue.c:324
 #, c-format
 msgid "Saved %s"
 msgstr "%s enregistré"
 
 #. get path
-#: src/screen_queue.c:399
+#: src/screen_queue.c:401
 msgid "Add"
 msgstr "Ajouter"
 
-#: src/screen_queue.c:506 src/title_bar.c:77
+#: src/screen_queue.c:508 src/title_bar.c:77
 msgid "Playlist"
 msgstr "Liste de lecture"
 
-#: src/screen_queue.c:508
+#: src/screen_queue.c:510
 #, c-format
 msgid "Playlist on %s"
 msgstr "Liste de lecture sur %s"
@@ -1041,21 +1041,21 @@ msgstr "Inser"
 msgid "Key %s assigned to %s and %s"
 msgstr "La touche %s est assignée à %s et à %s"
 
-#: src/colors.c:156
+#: src/colors.c:158
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr "Attention: Couleur inconnue - %s\n"
 
-#: src/colors.c:196
+#: src/colors.c:198
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Attention: Champ de couleur inconnu - %s\n"
 
-#: src/colors.c:229
+#: src/colors.c:231
 msgid "Terminal lacks support for changing colors"
 msgstr "Le terminal ne supporte pas le changement de couleurs"
 
-#: src/colors.c:240
+#: src/colors.c:242
 msgid "Terminal lacks color capabilities"
 msgstr "Le terminal ne dispose pas de la gestion des couleurs"
 

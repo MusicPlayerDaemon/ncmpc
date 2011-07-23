@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-23 10:54+0200\n"
+"POT-Creation-Date: 2011-07-23 21:08+0200\n"
 "PO-Revision-Date: 2011-03-02 13:59+0000\n"
 "Last-Translator: Zbyněk Schwarz <Unknown>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -53,7 +53,7 @@ msgstr "Připojeno k %s"
 msgid "press %s for the key editor"
 msgstr "stiskněte %s pro otevření správce klávesových zkratek"
 
-#: src/player_command.c:177 src/screen_queue.c:750
+#: src/player_command.c:177 src/screen_queue.c:752
 msgid "Shuffled playlist"
 msgstr "Seznam skladeb zamíchán"
 
@@ -219,32 +219,32 @@ msgstr "Heslo"
 msgid "Save playlist as"
 msgstr "Uložit seznam skladeb jako"
 
-#: src/screen_queue.c:290
+#: src/screen_queue.c:292
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Nahradit %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:298 src/screen_file.c:238 src/screen_keydef.c:165
+#: src/screen_queue.c:300 src/screen_file.c:238 src/screen_keydef.c:165
 msgid "Aborted"
 msgstr "Přerušeno"
 
 #. success
-#: src/screen_queue.c:322
+#: src/screen_queue.c:324
 #, c-format
 msgid "Saved %s"
 msgstr "Uloženo %s"
 
 #. get path
-#: src/screen_queue.c:399
+#: src/screen_queue.c:401
 msgid "Add"
 msgstr "Přidat"
 
-#: src/screen_queue.c:506 src/title_bar.c:77
+#: src/screen_queue.c:508 src/title_bar.c:77
 msgid "Playlist"
 msgstr "Seznam skladeb"
 
-#: src/screen_queue.c:508
+#: src/screen_queue.c:510
 #, c-format
 msgid "Playlist on %s"
 msgstr "Seznam skladeb %s"
@@ -1039,21 +1039,21 @@ msgstr "Insert"
 msgid "Key %s assigned to %s and %s"
 msgstr "Klávesa %s je přiřazena k %s a %s"
 
-#: src/colors.c:156
+#: src/colors.c:158
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr "Varování: Neznámá barva - %s\n"
 
-#: src/colors.c:196
+#: src/colors.c:198
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Varování: Neznámé barevné pole - %s\n"
 
-#: src/colors.c:229
+#: src/colors.c:231
 msgid "Terminal lacks support for changing colors"
 msgstr "Terminál postrádá podporu změny barev"
 
-#: src/colors.c:240
+#: src/colors.c:242
 msgid "Terminal lacks color capabilities"
 msgstr "Terminál postrádá podporu barev"
 

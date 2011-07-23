@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-23 10:54+0200\n"
+"POT-Creation-Date: 2011-07-23 21:08+0200\n"
 "PO-Revision-Date: 2010-09-07 20:35+0200\n"
 "Last-Translator: zeltak <Unknown>\n"
 "Language-Team: he <he@li.org>\n"
@@ -48,7 +48,7 @@ msgstr "מתחבר ל %s"
 msgid "press %s for the key editor"
 msgstr "%s לעורך המקשים לחץ"
 
-#: src/player_command.c:177 src/screen_queue.c:750
+#: src/player_command.c:177 src/screen_queue.c:752
 msgid "Shuffled playlist"
 msgstr "רשימת שירים מעורבבת"
 
@@ -214,32 +214,32 @@ msgstr "סיסמה"
 msgid "Save playlist as"
 msgstr "שמירת רשימת שירים כ"
 
-#: src/screen_queue.c:290
+#: src/screen_queue.c:292
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "החלף  %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:298 src/screen_file.c:238 src/screen_keydef.c:165
+#: src/screen_queue.c:300 src/screen_file.c:238 src/screen_keydef.c:165
 msgid "Aborted"
 msgstr "בוטל"
 
 #. success
-#: src/screen_queue.c:322
+#: src/screen_queue.c:324
 #, c-format
 msgid "Saved %s"
 msgstr "שמירת %s"
 
 #. get path
-#: src/screen_queue.c:399
+#: src/screen_queue.c:401
 msgid "Add"
 msgstr "הוסף"
 
-#: src/screen_queue.c:506 src/title_bar.c:77
+#: src/screen_queue.c:508 src/title_bar.c:77
 msgid "Playlist"
 msgstr "רשימת שירים"
 
-#: src/screen_queue.c:508
+#: src/screen_queue.c:510
 #, c-format
 msgid "Playlist on %s"
 msgstr "רשימת שירים ב %s"
@@ -1034,21 +1034,21 @@ msgstr "Insert"
 msgid "Key %s assigned to %s and %s"
 msgstr "מקש %s מוקצה ל %s ו %s"
 
-#: src/colors.c:156
+#: src/colors.c:158
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr "אזהרה: צבע לא מוכר  - %s\n"
 
-#: src/colors.c:196
+#: src/colors.c:198
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr "אזהרה: צבע לא מוכ בתחום  - %s\n"
 
-#: src/colors.c:229
+#: src/colors.c:231
 msgid "Terminal lacks support for changing colors"
 msgstr "המסוף ללא תמיכה בצבעים"
 
-#: src/colors.c:240
+#: src/colors.c:242
 msgid "Terminal lacks color capabilities"
 msgstr "המסוף ללא  יכולת תמיכה בצבעים"
 

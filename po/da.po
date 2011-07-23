@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-23 10:54+0200\n"
+"POT-Creation-Date: 2011-07-23 21:08+0200\n"
 "PO-Revision-Date: 2009-09-24 10:26+0200\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
@@ -53,7 +53,7 @@ msgstr "Forbundet til %s"
 msgid "press %s for the key editor"
 msgstr "tryk på %s for at redigere"
 
-#: src/player_command.c:177 src/screen_queue.c:750
+#: src/player_command.c:177 src/screen_queue.c:752
 msgid "Shuffled playlist"
 msgstr "Afspilninsglisten blandet"
 
@@ -219,32 +219,32 @@ msgstr "Adgangskode"
 msgid "Save playlist as"
 msgstr "Gem afspilningslisten som"
 
-#: src/screen_queue.c:290
+#: src/screen_queue.c:292
 #, c-format
 msgid "Replace %s [%s/%s] ? "
 msgstr "Erstat '%s' [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:298 src/screen_file.c:238 src/screen_keydef.c:165
+#: src/screen_queue.c:300 src/screen_file.c:238 src/screen_keydef.c:165
 msgid "Aborted"
 msgstr "Afbrudt"
 
 #. success
-#: src/screen_queue.c:322
+#: src/screen_queue.c:324
 #, c-format
 msgid "Saved %s"
 msgstr "Gemt %s"
 
 #. get path
-#: src/screen_queue.c:399
+#: src/screen_queue.c:401
 msgid "Add"
 msgstr "Tilføj"
 
-#: src/screen_queue.c:506 src/title_bar.c:77
+#: src/screen_queue.c:508 src/title_bar.c:77
 msgid "Playlist"
 msgstr "Afspilningsliste"
 
-#: src/screen_queue.c:508
+#: src/screen_queue.c:510
 #, c-format
 msgid "Playlist on %s"
 msgstr "Afspilningsliste på %s"
@@ -1042,21 +1042,21 @@ msgstr "Indsæt"
 msgid "Key %s assigned to %s and %s"
 msgstr "Tast %s tildelt %s og %s"
 
-#: src/colors.c:156
+#: src/colors.c:158
 #, c-format
 msgid "Warning: Unknown color - %s\n"
 msgstr "Advarsel: Ukendt farve - %s\n"
 
-#: src/colors.c:196
+#: src/colors.c:198
 #, c-format
 msgid "Warning: Unknown color field - %s\n"
 msgstr "Advarsel: Ukendt farve felt - %s.\n"
 
-#: src/colors.c:229
+#: src/colors.c:231
 msgid "Terminal lacks support for changing colors"
 msgstr "Terminalen understøtter ikke at ændre farver"
 
-#: src/colors.c:240
+#: src/colors.c:242
 msgid "Terminal lacks color capabilities"
 msgstr "Terminalen understøtter ikke farver"
 
