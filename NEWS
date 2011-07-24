@@ -1,4 +1,4 @@
-ncmpc 0.19 - not yet released
+ncmpc 0.19 - (07/23/2011)
 * require libmpdclient 2.2
 * show real server address in status message
 * fix crash after "clear" command
