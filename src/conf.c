@@ -69,7 +69,6 @@
 #define CONF_PORT "port"
 #define CONF_PASSWORD "password"
 #define CONF_LYRICS_TIMEOUT "lyrics-timeout"
-#define CONF_SHOW_SPLASH "show-splash"
 #define CONF_SCROLL "scroll"
 #define CONF_SCROLL_SEP "scroll-sep"
 #define CONF_VISIBLE_BITRATE "visible-bitrate"
@@ -484,8 +483,6 @@ parse_line(char *line)
 	else if (!strcasecmp(CONF_SCREEN_LIST, name)) {
 		g_strfreev(options.screen_list);
 		options.screen_list = check_screen_list(value);
-	} else if (!strcasecmp(CONF_SHOW_SPLASH, name)) {
-		/* the splash screen was removed */
 	} else if (!strcasecmp(CONF_HOST, name))
 		options.host = get_format(value);
 	else if (!strcasecmp(CONF_PORT, name))

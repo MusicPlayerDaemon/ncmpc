@@ -84,7 +84,6 @@ static const arg_opt_t option_table[] = {
 	{ 'P', "password","PASSWORD", "Connect with password" },
 	{ 'f', "config", "FILE", "Read configuration from file" },
 	{ 'k', "key-file","FILE", "Read configuration from file" },
-	{ 'S', "no-splash", NULL, "Don't show the splash screen" },
 #ifndef NDEBUG
 	{ 'K', "dump-keys", NULL, "Dump key bindings to stdout" },
 #endif
@@ -265,9 +264,6 @@ handle_option(int c, const char *arg)
 	case 'k': /* --key-file */
 		g_free(options.key_file);
 		options.key_file = g_strdup(arg);
-		break;
-	case 'S': /* --key-file */
-		/* the splash screen was removed */
 		break;
 #ifndef NDEBUG
 #ifndef NCMPC_MINI
