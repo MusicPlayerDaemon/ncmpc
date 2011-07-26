@@ -287,8 +287,7 @@ options_parse(int argc, const char *argv[])
 	const arg_opt_t *opt = NULL;
 	option_callback_fn_t option_cb = handle_option;
 
-	i=1;
-	while (i < argc) {
+	for (i = 1; i < argc; i++) {
 		const char *arg = argv[i];
 		size_t len = strlen(arg);
 
@@ -352,7 +351,6 @@ options_parse(int argc, const char *argv[])
 			} else
 				option_error(ERROR_BAD_ARGUMENT, arg, NULL);
 		}
-		i++;
 	}
 
 	if (opt && opt->argument == NULL)
