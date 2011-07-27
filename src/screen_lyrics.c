@@ -165,6 +165,7 @@ screen_lyrics_set(const GString *str)
 
 static void
 screen_lyrics_callback(const GString *result, const bool success,
+		       G_GNUC_UNUSED const char *plugin_name,
 		       G_GNUC_UNUSED void *data)
 {
 	assert(current.loader != NULL);

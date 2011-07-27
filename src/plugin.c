@@ -168,7 +168,7 @@ plugin_eof(struct plugin_cycle *cycle, struct plugin_pipe *p)
 	} else {
 		/* success: invoke the callback */
 		cycle->callback(cycle->pipe_stdout.data, true,
-				cycle->callback_data);
+				cycle->argv[0], cycle->callback_data);
 	}
 }
 
@@ -217,7 +217,7 @@ plugin_delayed_fail(gpointer data)
 	assert(cycle->pipe_stderr.fd < 0);
 	assert(cycle->pid < 0);
 
-	cycle->callback(cycle->all_errors, false, cycle->callback_data);
+	cycle->callback(cycle->all_errors, false, NULL, cycle->callback_data);
 
 	return FALSE;
 }
