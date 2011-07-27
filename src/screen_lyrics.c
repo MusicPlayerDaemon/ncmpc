@@ -45,7 +45,7 @@ static bool follow = false;
 static struct {
 	struct mpd_song *song;
 
-	char *artist, *title;
+	char *artist, *title, *plugin_name;
 
 	struct plugin_cycle *loader;
 } current;
@@ -56,6 +56,11 @@ screen_lyrics_abort(void)
 	if (current.loader != NULL) {
 		plugin_stop(current.loader);
 		current.loader = NULL;
+	}
+
+	if (current.plugin_name != NULL) {
+		g_free(current.plugin_name);
+		current.plugin_name = NULL;
 	}
 
 	if (current.artist != NULL) {
@@ -165,10 +170,11 @@ screen_lyrics_set(const GString *str)
 
 static void
 screen_lyrics_callback(const GString *result, const bool success,
-		       G_GNUC_UNUSED const char *plugin_name,
-		       G_GNUC_UNUSED void *data)
+		       const char *plugin_name, G_GNUC_UNUSED void *data)
 {
 	assert(current.loader != NULL);
+
+	current.plugin_name = g_strdup(plugin_name);
 
 	/* Display result, which may be lyrics or error messages */
 	if (result != NULL)
@@ -270,9 +276,13 @@ lyrics_title(char *str, size_t size)
 		return str;
 	} else if (current.artist != NULL && current.title != NULL &&
 		   !screen_text_is_empty(&text)) {
-		snprintf(str, size, "%s: %s - %s",
-			 _("Lyrics"),
-			 current.artist, current.title);
+		int n;
+		n = snprintf(str, size, "%s: %s - %s",
+			     _("Lyrics"),
+			     current.artist, current.title);
+		if (options.lyrics_show_plugin && current.plugin_name != NULL)
+			snprintf(str + n, size - n, " (%s)",
+				 current.plugin_name);
 		return str;
 	} else
 		return _("Lyrics");

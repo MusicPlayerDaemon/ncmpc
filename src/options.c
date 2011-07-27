@@ -54,6 +54,7 @@ options_t options = {
 #ifdef ENABLE_LYRICS_SCREEN
 	.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT,
 	.lyrics_autosave = false,
+	.lyrics_show_plugin = false,
 #endif
 	.find_wrap = true,
 	.scroll_offset = 0,

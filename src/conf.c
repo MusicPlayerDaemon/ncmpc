@@ -76,6 +76,7 @@
 #define CONF_DISPLAY_TIME "display-time"
 #define CONF_JUMP_PREFIX_ONLY "jump-prefix-only"
 #define CONF_LYRICS_AUTOSAVE "lyrics-autosave"
+#define CONF_LYRICS_SHOW_PLUGIN "lyrics-show-plugin"
 #define CONF_SECOND_COLUMN "second-column"
 
 static bool
@@ -517,6 +518,12 @@ parse_line(char *line)
 		options.lyrics_autosave = str2bool(value);
 #else
 	{}
+#endif
+	else if (!strcasecmp(CONF_LYRICS_SHOW_PLUGIN, name))
+#ifdef ENABLE_LYRICS_SCREEN
+		options.lyrics_show_plugin = str2bool(value);
+#else
+		{}
 #endif
 	else if (!strcasecmp(CONF_SECOND_COLUMN, name))
 #ifdef NCMPC_MINI
