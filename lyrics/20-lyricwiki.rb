@@ -26,8 +26,14 @@ require 'net/http'
 require 'cgi'
 require 'iconv'
 
+# We need this because URI.escape doesn't escape ampersands.
+def escape(string)
+	new = URI.escape(string)
+	new.gsub(/&/, "%26")
+end
+
 url = "http://lyrics.wikia.com/api.php?action=lyrics&fmt=xml&func=getSong" + \
-    "&artist=#{URI.escape(ARGV[0])}&song=#{URI.escape(ARGV[1])}"
+    "&artist=#{escape(ARGV[0])}&song=#{escape(ARGV[1])}"
 response = Net::HTTP.get(URI.parse(url))
 
 if not response =~ /<url>\s*(.*?)\s*<\/url>/im
