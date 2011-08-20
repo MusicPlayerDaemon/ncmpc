@@ -48,6 +48,8 @@ static struct {
 	char *artist, *title, *plugin_name;
 
 	struct plugin_cycle *loader;
+
+	guint loader_timeout;
 } current;
 
 static void
@@ -56,6 +58,11 @@ screen_lyrics_abort(void)
 	if (current.loader != NULL) {
 		plugin_stop(current.loader);
 		current.loader = NULL;
+	}
+
+	if (current.loader_timeout != 0) {
+		g_source_remove(current.loader_timeout);
+		current.loader_timeout = 0;
 	}
 
 	if (current.plugin_name != NULL) {
@@ -189,8 +196,26 @@ screen_lyrics_callback(const GString *result, const bool success,
 		screen_status_message (_("No lyrics"));
 	}
 
+	if (current.loader_timeout != 0) {
+		g_source_remove(current.loader_timeout);
+		current.loader_timeout = 0;
+	}
+
 	plugin_stop(current.loader);
 	current.loader = NULL;
+}
+
+static gboolean
+screen_lyrics_timeout_callback(gpointer G_GNUC_UNUSED data)
+{
+	plugin_stop(current.loader);
+	current.loader = NULL;
+
+	screen_status_printf(_("Lyrics timeout occurred after %d seconds"),
+			     options.lyrics_timeout);
+
+	current.loader_timeout = 0;
+	return FALSE;
 }
 
 static void
@@ -212,6 +237,13 @@ screen_lyrics_load(const struct mpd_song *song)
 
 	current.loader = lyrics_load(current.artist, current.title,
 				     screen_lyrics_callback, NULL);
+
+	if (options.lyrics_timeout != 0) {
+		current.loader_timeout =
+			g_timeout_add_seconds(options.lyrics_timeout,
+					      screen_lyrics_timeout_callback,
+					      NULL);
+	}
 }
 
 static void
