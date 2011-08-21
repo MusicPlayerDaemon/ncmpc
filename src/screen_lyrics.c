@@ -278,9 +278,10 @@ lyrics_open(struct mpdclient *c)
 		    mpd_song_get_uri(current.song)) != 0))
 		screen_lyrics_load(next_song_c);
 
-	if (next_song != NULL)
+	if (next_song != NULL) {
 		mpd_song_free(next_song);
-	next_song = NULL;
+		next_song = NULL;
+	}
 }
 
 static void
