@@ -38,8 +38,8 @@ struct plugin_list {
  * messages on failure as determined by success
  * @param success result of the plugin cycle; true if result is meaningful
  * output, false if result contains error messages
- * @param plugin_name the name of the plugin which succeeded; may become invalid
- * once the callback returns (i.e. strdup it if you need it afterwards).
+ * @param plugin_name the name of the plugin which succeeded; becomes invalid
+ * when plugin_stop is called (i.e. strdup it if you need it afterwards).
  * @param data the caller defined pointer passed to plugin_run()
  */
 typedef void (*plugin_callback_t)(const GString *result, const bool success,
