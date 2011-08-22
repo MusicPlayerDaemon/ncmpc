@@ -77,7 +77,7 @@ screen_lyrics_abort(void)
 
 	if (current.title != NULL) {
 		g_free(current.title);
-		current.artist = NULL;
+		current.title = NULL;
 	}
 
 	if (current.song != NULL) {
