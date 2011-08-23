@@ -76,7 +76,7 @@ mpdclient_get_current_song(const struct mpdclient *c)
 
 bool
 mpdclient_connect(struct mpdclient *c, const gchar *host, gint port,
-		  gfloat timeout_, const gchar *password);
+		  unsigned timeout_ms, const gchar *password);
 
 void
 mpdclient_disconnect(struct mpdclient *c);

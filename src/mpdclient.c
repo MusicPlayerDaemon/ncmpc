@@ -145,7 +145,7 @@ bool
 mpdclient_connect(struct mpdclient *c,
 		  const gchar *host,
 		  gint port,
-		  gfloat _timeout,
+		  unsigned timeout_ms,
 		  const gchar *password)
 {
 	/* close any open connection */
@@ -153,7 +153,7 @@ mpdclient_connect(struct mpdclient *c,
 		mpdclient_disconnect(c);
 
 	/* connect to MPD */
-	c->connection = mpd_connection_new(host, port, _timeout * 1000);
+	c->connection = mpd_connection_new(host, port, timeout_ms);
 	if (c->connection == NULL)
 		g_error("Out of memory");
 
