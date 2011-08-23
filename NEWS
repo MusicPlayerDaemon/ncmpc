@@ -1,4 +1,5 @@
 ncmpc 0.20 - not yet released
+* increase connection timeout to 5 seconds
 
 
 ncmpc 0.19 - (07/23/2011)
