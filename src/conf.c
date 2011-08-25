@@ -377,10 +377,8 @@ parse_line(char *line)
 	bool match_found;
 
 	/* get the name part */
-	while (i < len && line[i] != '=' &&
-	       !g_ascii_isspace(line[i])) {
+	while (i < len && line[i] != '=' && !g_ascii_isspace(line[i]))
 		name[j++] = line[i++];
-	}
 
 	name[j] = '\0';
 
@@ -535,8 +533,7 @@ parse_line(char *line)
 		match_found = false;
 
 	if (!match_found)
-		print_error(_("Unknown configuration parameter"),
-			    name);
+		print_error(_("Unknown configuration parameter"), name);
 
 	return match_found;
 }
