@@ -448,8 +448,11 @@ screen_artist_update(struct mpdclient *c)
 		artist_repaint();
 }
 
+/* _artist is actually only used in the ALBUM case to distinguish albums with
+   the same name from different artists. */
 static void
-add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter)
+add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
+	  const char *_artist)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	char *str;
@@ -472,7 +475,7 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter)
 				      table, _filter);
 	if (table == MPD_TAG_ALBUM)
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_ARTIST, artist);
+					      MPD_TAG_ARTIST, _artist);
 	mpd_search_commit(connection);
 
 	addlist = filelist_new_recv(connection);
@@ -667,7 +670,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 			list_window_get_range(browser.lw, &range);
 			for (unsigned i = range.start; i < range.end; ++i) {
 				selected = g_ptr_array_index(artist_list, i);
-				add_query(c, MPD_TAG_ARTIST, selected);
+				add_query(c, MPD_TAG_ARTIST, selected, NULL);
 				cmd = CMD_LIST_NEXT; /* continue and select next item... */
 			}
 			break;
@@ -676,12 +679,12 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 			list_window_get_range(browser.lw, &range);
 			for (unsigned i = range.start; i < range.end; ++i) {
 				if(i == album_list->len + 1)
-					add_query(c, MPD_TAG_ARTIST, artist);
+					add_query(c, MPD_TAG_ARTIST, artist, NULL);
 				else if (i > 0)
 				{
 					selected = g_ptr_array_index(album_list,
 								     browser.lw->selected - 1);
-					add_query(c, MPD_TAG_ALBUM, selected);
+					add_query(c, MPD_TAG_ALBUM, selected, artist);
 					cmd = CMD_LIST_NEXT; /* continue and select next item... */
 				}
 			}
