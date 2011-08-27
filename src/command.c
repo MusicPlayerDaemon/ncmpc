@@ -63,14 +63,14 @@
 #define F6   KEY_F(6)
 #define F7   KEY_F(7)
 #define F8   KEY_F(8)
-
+#define C(x) KEY_CTL(x)
 
 static command_definition_t cmds[] = {
 #ifdef ENABLE_KEYDEF_SCREEN
 	{ {'K', 0, 0 }, 0, CMD_SCREEN_KEYDEF, "screen-keyedit",
 	  N_("Key configuration screen") },
 #endif
-	{ { 'q', 'Q', 3 }, 0, CMD_QUIT, "quit",
+	{ { 'q', 'Q', C('C') }, 0, CMD_QUIT, "quit",
 	  N_("Quit") },
 
 	/* movement */
@@ -84,9 +84,9 @@ static command_definition_t cmds[] = {
 	  N_("Move cursor to the middle of screen") },
 	{ { 'L', 0, 0 }, 0, CMD_LIST_BOTTOM, "bottom",
 	  N_("Move cursor to the bottom of screen") },
-	{ { HOME, 0x01, 0 }, 0, CMD_LIST_FIRST, "home",
+	{ { HOME, C('A'), 0 }, 0, CMD_LIST_FIRST, "home",
 	  N_("Move cursor to the top of the list") },
-	{ { END, 0x05, 0 }, 0, CMD_LIST_LAST, "end",
+	{ { END, C('E'), 0 }, 0, CMD_LIST_LAST, "end",
 	  N_("Move cursor to the bottom of the list") },
 	{ { PGUP, 0, 0 }, 0, CMD_LIST_PREVIOUS_PAGE, "pgup",
 	  N_("Page up") },
@@ -94,9 +94,9 @@ static command_definition_t cmds[] = {
 	  N_("Page down") },
 	{ { 'v',  0, 0 }, 0, CMD_LIST_RANGE_SELECT, "range-select",
 	  N_("Range selection") },
-	{ { 14,  0, 0 }, 0, CMD_LIST_SCROLL_DOWN_LINE, "scroll-down-line",
+	{ { C('N'),  0, 0 }, 0, CMD_LIST_SCROLL_DOWN_LINE, "scroll-down-line",
 	  N_("Scroll up one line") },
-	{ { 2,  0, 0 }, 0, CMD_LIST_SCROLL_UP_LINE, "scroll-up-line",
+	{ { C('B'),  0, 0 }, 0, CMD_LIST_SCROLL_UP_LINE, "scroll-up-line",
 	  N_("Scroll down one line") },
 	{ { 'N',  0, 0 }, 0, CMD_LIST_SCROLL_DOWN_HALF, "scroll-down-half",
 	  N_("Scroll up half a screen") },
@@ -156,7 +156,7 @@ static command_definition_t cmds[] = {
 	  N_("Toggle consume mode") },
 	{ { 'x', 0, 0 }, 0, CMD_CROSSFADE, "crossfade",
 	  N_("Toggle crossfade mode") },
-	{ { 21, 0, 0 }, 0, CMD_DB_UPDATE, "db-update",
+	{ { C('U'), 0, 0 }, 0, CMD_DB_UPDATE, "db-update",
 	  N_("Start a music database update") },
 	{ { 'S', 0, 0 }, 0, CMD_SAVE_PLAYLIST, "save",
 	  N_("Save playlist") },
@@ -172,11 +172,11 @@ static command_definition_t cmds[] = {
 	  N_("Locate song in browser") },
 
 	/* lists */
-	{ { 11, 0, 0 }, 0, CMD_LIST_MOVE_UP, "move-up",
+	{ { C('K'), 0, 0 }, 0, CMD_LIST_MOVE_UP, "move-up",
 	  N_("Move item up") },
-	{ { 10, 0, 0 }, 0, CMD_LIST_MOVE_DOWN, "move-down",
+	{ { C('J'), 0, 0 }, 0, CMD_LIST_MOVE_DOWN, "move-down",
 	  N_("Move item down") },
-	{ { 12, 0, 0 }, 0, CMD_SCREEN_UPDATE, "update",
+	{ { C('L'), 0, 0 }, 0, CMD_SCREEN_UPDATE, "update",
 	  N_("Refresh screen") },
 
 
