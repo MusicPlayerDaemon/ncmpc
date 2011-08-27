@@ -448,7 +448,8 @@ screen_artist_update(struct mpdclient *c)
 		artist_repaint();
 }
 
-/* _artist is actually only used in the ALBUM case to distinguish albums with
+/* add_query - Add all songs satisfying specified criteria.
+   _artist is actually only used in the ALBUM case to distinguish albums with
    the same name from different artists. */
 static void
 add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
