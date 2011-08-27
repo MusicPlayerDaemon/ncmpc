@@ -40,27 +40,27 @@
 #define DK(x)
 #endif
 
-#define BS KEY_BACKSPACE
-#define DEL KEY_DC
-#define UP KEY_UP
-#define DWN KEY_DOWN
+#define BS   KEY_BACKSPACE
+#define DEL  KEY_DC
+#define UP   KEY_UP
+#define DWN  KEY_DOWN
 #define LEFT KEY_LEFT
 #define RGHT KEY_RIGHT
 #define HOME KEY_HOME
-#define END KEY_END
+#define END  KEY_END
 #define PGDN KEY_NPAGE
 #define PGUP KEY_PPAGE
-#define TAB 0x09
+#define TAB  0x09
 #define STAB 0x161
-#define ESC 0x1B
-#define F1 KEY_F(1)
-#define F2 KEY_F(2)
-#define F3 KEY_F(3)
-#define F4 KEY_F(4)
-#define F5 KEY_F(5)
-#define F6 KEY_F(6)
-#define F7 KEY_F(7)
-#define F8 KEY_F(8)
+#define ESC  0x1B
+#define F1   KEY_F(1)
+#define F2   KEY_F(2)
+#define F3   KEY_F(3)
+#define F4   KEY_F(4)
+#define F5   KEY_F(5)
+#define F6   KEY_F(6)
+#define F7   KEY_F(7)
+#define F8   KEY_F(8)
 
 
 static command_definition_t cmds[] = {
