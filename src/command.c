@@ -55,6 +55,7 @@
 #define TAB  0x09
 #define STAB 0x161
 #define ESC  0x1B
+#define RET  '\r'
 #define F1   KEY_F(1)
 #define F2   KEY_F(2)
 #define F3   KEY_F(3)
@@ -116,7 +117,7 @@ static command_definition_t cmds[] = {
 
 
 	/* player commands */
-	{ { 13, 0, 0 }, 0, CMD_PLAY, "play",
+	{ { RET, 0, 0 }, 0, CMD_PLAY, "play",
 	  N_("Play/Enter directory") },
 	{ { 'P', 0, 0 }, 0, CMD_PAUSE,"pause",
 	  N_("Pause") },
@@ -271,7 +272,7 @@ key2str(int key)
 		return _("Undefined");
 	case ' ':
 		return _("Space");
-	case 13:
+	case RET:
 		return _("Enter");
 	case BS:
 		return _("Backspace");
