@@ -40,6 +40,8 @@
 #define DK(x)
 #endif
 
+#define KEY_CTL(x) ((x) & 0x1f) /* KEY_CTL(A) == ^A == \1 */
+
 #define BS   KEY_BACKSPACE
 #define DEL  KEY_DC
 #define UP   KEY_UP
