@@ -106,7 +106,7 @@ bool
 list_window_cmd(struct list_window *lw, command_t cmd);
 
 /**
- * Scroll the window.  Returns non-zero if the command has been
+ * Scroll the window.  Returns true if the command has been
  * consumed.
  */
 bool
