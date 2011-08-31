@@ -121,6 +121,9 @@ bool
 list_window_mouse(struct list_window *lw, unsigned long bstate, int y);
 #endif
 
+/**
+ * Centers the visible range around item n on the list.
+ */
 void
 list_window_center(struct list_window *lw, unsigned n);
 
