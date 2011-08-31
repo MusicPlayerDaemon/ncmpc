@@ -36,6 +36,7 @@
 
 enum {
 	SEARCH_URI = MPD_TAG_COUNT + 100,
+	SEARCH_ARTIST_TITLE
 };
 
 static const struct {
@@ -71,8 +72,6 @@ search_get_tag_id(const char *name)
 
 	return -1;
 }
-
-#define SEARCH_ARTIST_TITLE 999
 
 typedef struct {
 	enum mpd_tag_type table;

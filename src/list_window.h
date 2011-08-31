@@ -106,7 +106,7 @@ bool
 list_window_cmd(struct list_window *lw, command_t cmd);
 
 /**
- * Scroll the window.  Returns non-zero if the command has been
+ * Scroll the window.  Returns true if the command has been
  * consumed.
  */
 bool
@@ -121,6 +121,9 @@ bool
 list_window_mouse(struct list_window *lw, unsigned long bstate, int y);
 #endif
 
+/**
+ * Centers the visible range around item n on the list.
+ */
 void
 list_window_center(struct list_window *lw, unsigned n);
 

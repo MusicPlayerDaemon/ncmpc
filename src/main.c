@@ -380,7 +380,7 @@ check_reconnect(void)
 
 /**
  * This function is called by the gidle.c library when MPD sends us an
- * idle event (or when the connectiond dies).
+ * idle event (or when the connection dies).
  */
 static void
 idle_callback(enum mpd_error error, enum mpd_server_error server_error,
