@@ -97,9 +97,9 @@ lookup_option(int s, char *l)
 
 	for (i = 0; i < option_table_size; ++i) {
 		if (l && strcmp(l, option_table[i].longopt) == 0)
-			return &option_table[i];;
+			return &option_table[i];
 		if (s && s == option_table[i].shortopt)
-			return &option_table[i];;
+			return &option_table[i];
 	}
 
 	return NULL;
