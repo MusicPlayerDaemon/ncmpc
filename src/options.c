@@ -82,7 +82,7 @@ static const arg_opt_t option_table[] = {
 	{ 'h', "host", "HOST", "Connect to server on host" },
 	{ 'P', "password","PASSWORD", "Connect with password" },
 	{ 'f', "config", "FILE", "Read configuration from file" },
-	{ 'k', "key-file","FILE", "Read configuration from file" },
+	{ 'k', "key-file","FILE", "Read key bindings from file" },
 #ifndef NDEBUG
 	{ 'K', "dump-keys", NULL, "Dump key bindings to stdout" },
 #endif
