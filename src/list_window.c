@@ -315,7 +315,7 @@ list_window_scroll_down(struct list_window *lw, unsigned n)
 {
 	if (lw->start + lw->rows < lw->length)
 	{
-		if ( lw->start + lw->rows + n > lw->length - 1)
+		if (lw->start + lw->rows + n > lw->length - 1)
 			lw->start = lw->length - lw->rows;
 		else
 			lw->start += n;
