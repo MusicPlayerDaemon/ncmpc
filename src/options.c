@@ -30,8 +30,6 @@
 #include <string.h>
 #include <glib.h>
 
-#define MAX_LONGOPT_LENGTH 32
-
 #define ERROR_UNKNOWN_OPTION    0x01
 #define ERROR_BAD_ARGUMENT      0x02
 #define ERROR_GOT_ARGUMENT      0x03
@@ -139,10 +137,10 @@ display_help(void)
 	printf("Usage: %s [OPTION]...\n", PACKAGE);
 
 	for (i = 0; i < option_table_size; ++i) {
-		char tmp[MAX_LONGOPT_LENGTH];
+		char tmp[32];
 
 		if (option_table[i].argument)
-			g_snprintf(tmp, MAX_LONGOPT_LENGTH, "%s=%s",
+			g_snprintf(tmp, sizeof(tmp), "%s=%s",
 				   option_table[i].longopt,
 				   option_table[i].argument);
 		else
