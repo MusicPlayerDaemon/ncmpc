@@ -762,7 +762,8 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 		if (!mpdclient_cmd_move(c, range.end - 1, range.start - 1))
 			return true;
 
-		list_window_move_cursor(lw, lw->selected - 1);
+		lw->selected--;
+		lw->range_base--;
 
 		screen_queue_save_selection();
 		return true;
@@ -775,7 +776,8 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 		if (!mpdclient_cmd_move(c, range.start, range.end))
 			return true;
 
-		list_window_move_cursor(lw, lw->selected + 1);
+		lw->selected++;
+		lw->range_base++;
 
 		screen_queue_save_selection();
 		return true;
