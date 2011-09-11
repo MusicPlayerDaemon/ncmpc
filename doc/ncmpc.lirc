@@ -1,7 +1,7 @@
 #
 # Sample .lirc file for usage with irpty and ncmpc
 # 
-# $ irpty ./ncmpc.lirc -- ncmcp 
+# $ irpty ./ncmpc.lirc -- ncmpc
 # 
 
 
