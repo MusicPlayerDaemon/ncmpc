@@ -544,6 +544,9 @@ main(int argc, const char *argv[])
 {
 	struct sigaction act;
 #ifdef ENABLE_LOCALE
+#ifndef ENABLE_NLS
+	G_GNUC_UNUSED
+#endif
 	const char *charset = NULL;
 #endif
 	GIOChannel *keyboard_channel;
