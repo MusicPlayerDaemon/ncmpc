@@ -139,7 +139,7 @@ else
 	fi
 fi
 
-dnl Check for glib-2.4
+dnl Check for glib-2.12
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.12],,
 	[AC_MSG_ERROR([glib 2.12 is required])])
 
