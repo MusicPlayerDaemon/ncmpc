@@ -62,17 +62,17 @@ Read key bindings from FILE.
 .TP
 Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options.
 .SH "CONFIGURATION"
-When ncmpc start it tries to read user setting from the ~/.ncmpc/config. If no user configuration is found ncmpc tries to load global settings from $SYSCONFDIR/ncmpc/config (the actual path is displayed on the help screen). An example configuration file (config.sample) should be provided with ncmpc.
+When ncmpc starts it tries to read the user's configuration file, ~/.ncmpc/config. If no user configuration file is found then ncmpc tries to load the global settings from $SYSCONFDIR/ncmpc/config (the actual path is displayed on the help screen). An example configuration file (config.sample) should be provided with ncmpc.
 
 
 
 .SS Connection
 .TP
 .B host = HOST
-Connect to mpd running on specified host
+Connect to mpd running on the specified host.
 .TP
 .B port = PORT
-Connect to mpd on the specified port
+Connect to mpd on the specified port.
 .TP
 .B password = PASSWORD
 Connect to mpd using the specified password.
@@ -113,7 +113,7 @@ Sound audible bell on alerts.
 Visible bell on alerts.
 .TP
 .B crossfade\-time = CROSSFADE TIME
-Default crossfade time in seconds
+Default crossfade time in seconds.
 .TP
 .B seek\-time = NUM
 Seek forward/backward by NUM seconds.
@@ -150,7 +150,7 @@ Hide the playlist cursor after NUM seconds of inactivity.
 Scroll the title if it is too long for the screen.
 .TP
 .B scroll\-sep = STRING
-The separator to show at the end of the scrolling title.
+the separator to show at the end of the scrolling title.
 .TP 
 .B list\-format = SONG FORMAT
 The format used to display songs in the main window.
@@ -221,22 +221,22 @@ Set the text color used to display song names in the status window.
 Set the text color used to display time the status window. 
 .TP 
 .B color alert = COLOR[,ATTRIBUTE]...
-Text color used to display alerts in the status window.
+Set the text color used to display alerts in the status window.
 .TP 
 .B colordef COLOR = R, G, B
-Redefine any of the base colors. The RGB values must be an integer value between 0 and 1000. 
+Redefine any of the base colors. The RGB values must be integer values between 0 and 1000. 
 \fBNote\fR: Only some terminals allow redefinitions of colors! 
 
 .SH "KEYS"
-When ncmpc start it tries to read user key bindings from the ~/.ncmpc/keys file. If no user key bindings is found ncmpc tries to load global key bindings from $SYSCONFDIR/ncmpc/keys (the actual path is displayed on the help screen). 
+When ncmpc starts it tries to read user-defined key bindings from the ~/.ncmpc/keys file. If no user-defined key bindings are found then ncmpc tries to load the global key bindings from $SYSCONFDIR/ncmpc/keys (the actual path is displayed on the help screen). 
 
 You can view ncmpc's key bindings by pressing '1' (help) when 
-ncmpc is running. To edit key bindings use the key editor in ncmpc (press 'K').
+ncmpc is running. To edit key bindings press 'K' and use the key editor in ncmpc.
 .SH "SONG FORMAT"
 Format of song display for status and the list window.
 The  metadata  delimiters  are: %name%, %artist%, %track%, %time%, %file%, %shortfile%.
 
-The [] operators is used to group output such that if no metadata delimiters are found or matched between '[' and ']', then none of  the  characters between '[' and ']' are output. '&' and '|' are logical operators for AND and OR. '#'  is used to escape characters. 
+The [] operators are used to group output such that if no metadata delimiters are found or matched between '[' and ']', then none of  the  characters between '[' and ']' are output. '&' and '|' are logical operators for AND and OR. '#'  is used to escape characters. 
 
 Some  useful examples for format are: 
 
