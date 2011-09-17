@@ -128,6 +128,13 @@ void
 list_window_center(struct list_window *lw, unsigned n);
 
 /**
+ * Scrolls the view to item n, as if the cursor would have been moved
+ * to the position.
+ */
+void
+list_window_scroll_to(struct list_window *lw, unsigned n);
+
+/**
  * Sets the position of the cursor.  Disables range selection.
  */
 void

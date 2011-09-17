@@ -93,26 +93,7 @@ list_window_check_selected(struct list_window *lw)
 static void
 list_window_check_origin(struct list_window *lw)
 {
-	int start = lw->start;
-
-	if ((unsigned) options.scroll_offset * 2 >= lw->rows)
-		// Center if the offset is more than half the screen
-		start = lw->selected - lw->rows / 2;
-	else {
-		if (lw->selected < lw->start + options.scroll_offset)
-			start = lw->selected - options.scroll_offset;
-
-		if (lw->selected >= lw->start + lw->rows - options.scroll_offset)
-			start = lw->selected - lw->rows + 1 + options.scroll_offset;
-	}
-
-	if (start + lw->rows > lw->length)
-		start = lw->length - lw->rows;
-
-	if (start < 0 || lw->length == 0)
-		start = 0;
-
-	lw->start = start;
+	list_window_scroll_to(lw, lw->selected);
 }
 
 void
@@ -150,6 +131,31 @@ list_window_center(struct list_window *lw, unsigned n)
 		else
 			lw->start = 0;
 	}
+}
+
+void
+list_window_scroll_to(struct list_window *lw, unsigned n)
+{
+	int start = lw->start;
+
+	if ((unsigned) options.scroll_offset * 2 >= lw->rows)
+		// Center if the offset is more than half the screen
+		start = n - lw->rows / 2;
+	else {
+		if (n < lw->start + options.scroll_offset)
+			start = n - options.scroll_offset;
+
+		if (n >= lw->start + lw->rows - options.scroll_offset)
+			start = n - lw->rows + 1 + options.scroll_offset;
+	}
+
+	if (start + lw->rows > lw->length)
+		start = lw->length - lw->rows;
+
+	if (start < 0 || lw->length == 0)
+		start = 0;
+
+	lw->start = start;
 }
 
 void
