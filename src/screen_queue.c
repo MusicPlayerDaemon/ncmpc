@@ -765,6 +765,10 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 		lw->selected--;
 		lw->range_base--;
 
+		if (lw->range_selection)
+			list_window_scroll_to(lw, lw->range_base);
+		list_window_scroll_to(lw, lw->selected);
+
 		screen_queue_save_selection();
 		return true;
 
@@ -778,6 +782,10 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 
 		lw->selected++;
 		lw->range_base++;
+
+		if (lw->range_selection)
+			list_window_scroll_to(lw, lw->range_base);
+		list_window_scroll_to(lw, lw->selected);
 
 		screen_queue_save_selection();
 		return true;
