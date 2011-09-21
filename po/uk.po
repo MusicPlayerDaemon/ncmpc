@@ -1,13 +1,13 @@
 # Ukrainian translations for ncmpc package.
 # This file is distributed under the same license as the ncmpc package.
-# Oleksandr Kovalenko <alx.kovalenko@gmail.com>, 2009.
+# Oleksandr Kovalenko <alx.kovalenko@gmail.com>, 2009-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-07-23 21:08+0200\n"
-"PO-Revision-Date: 2009-09-22 20:41+0300\n"
+"PO-Revision-Date: 2011-08-11 10:30+0300\n"
 "Last-Translator: Oleksandr Kovalenko <alx.kovalenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "Language: uk\n"
@@ -29,7 +29,7 @@ msgstr "n"
 
 #: src/main.c:243 src/main.c:265 src/main.c:283
 msgid "unknown"
-msgstr ""
+msgstr "невідомо"
 
 #: src/main.c:313
 #, c-format
@@ -157,19 +157,19 @@ msgid "Album: %s - %s"
 msgstr "Альбом: %s - %s"
 
 #: src/screen_artist.c:422
-#, fuzzy, c-format
+#, c-format
 msgid "Tracks of no album of artist: %s"
-msgstr "Альбоми виконавця: %s"
+msgstr "Доріжки без альбому виконавця: %s"
 
 #: src/screen_artist.c:465
-#, fuzzy, c-format
+#, c-format
 msgid "Adding album %s..."
-msgstr "Завантажується перелік програвання %s..."
+msgstr "Додається альбом %s..."
 
 #: src/screen_artist.c:467
-#, fuzzy, c-format
+#, c-format
 msgid "Adding %s..."
-msgstr "завантаження..."
+msgstr "Додається %s..."
 
 #: src/screen_browser.c:131
 #, c-format
@@ -183,7 +183,7 @@ msgstr "Додається '%s' до переліку програвання"
 
 #: src/screen_client.c:93
 msgid "Database update running..."
-msgstr "Працює оновлення бази даних..."
+msgstr "Виконується оновлення бази даних..."
 
 #: src/screen_client.c:105
 #, c-format
@@ -340,7 +340,7 @@ msgstr "Виконавець + Назва"
 #: src/screen_search.c:233
 #, c-format
 msgid "Bad search tag %s"
-msgstr "Нерівна мітка %s"
+msgstr "Неправильна мітка %s"
 
 #: src/screen_search.c:237
 #, c-format
@@ -525,9 +525,8 @@ msgid "Save lyrics"
 msgstr "Зберегти текст пісні"
 
 #: src/screen_help.c:166
-#, fuzzy
 msgid "Delete saved lyrics"
-msgstr "Зберегти текст пісні"
+msgstr "Видалити збережений текст пісні"
 
 #: src/screen_help.c:171 src/command.c:245
 msgid "Outputs screen"
@@ -583,14 +582,12 @@ msgid "Lyrics saved"
 msgstr "Текст пісні збережений"
 
 #: src/screen_lyrics.c:310
-#, fuzzy
 msgid "Lyrics deleted"
-msgstr "Перелік програвання видалений"
+msgstr "Текст пісні видалений"
 
 #: src/screen_lyrics.c:313
-#, fuzzy
 msgid "No saved lyrics"
-msgstr "Зберегти текст пісні"
+msgstr "Немає збереженого тексту пісні"
 
 #: src/screen_outputs.c:73
 #, c-format
@@ -1068,7 +1065,7 @@ msgstr "Помилка"
 
 #: src/conf.c:102 src/conf.c:111
 msgid "Malformed hotkey definition"
-msgstr "Невірно сформоване визначення гарячої клавіші"
+msgstr "Неправильне визначення гарячої клавіші"
 
 #. the hotkey configuration contains an unknown
 #. command
@@ -1087,7 +1084,7 @@ msgstr "Незавершена конфігурація гарячих клав�
 #. contained an invalid setting
 #: src/conf.c:185
 msgid "Bad time display type"
-msgstr "Невірний тип показу часу"
+msgstr "Неправильний тип показу часу"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
@@ -1097,7 +1094,7 @@ msgstr "Відсутній \"=\""
 
 #: src/conf.c:256
 msgid "Bad color name"
-msgstr "Невірна назва кольору"
+msgstr "Неправильна назва кольору"
 
 #: src/conf.c:265
 msgid "Incomplete color definition"
@@ -1105,11 +1102,11 @@ msgstr "Незавершене визначення кольору"
 
 #: src/conf.c:271
 msgid "Invalid number"
-msgstr "Невірне число"
+msgstr "Неправильне число"
 
 #: src/conf.c:279
 msgid "Malformed color definition"
-msgstr "Невірно сформоване визначення кольору"
+msgstr "Неправильне визначення кольору"
 
 #. an unknown screen name was specified in the
 #. configuration file
