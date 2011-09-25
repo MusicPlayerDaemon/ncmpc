@@ -30,7 +30,7 @@
 #define JUMP_PROMPT _("Jump")
 
 /* query user for a string and find it in a list window */
-int
+bool
 screen_find(struct list_window *lw, command_t findcmd,
 	    list_window_callback_fn_t callback_fn,
 	    void *callback_data)

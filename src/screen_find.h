@@ -23,11 +23,19 @@
 #include "command.h"
 #include "list_window.h"
 
-/* query user for a string and find it in a list window */
-int screen_find(struct list_window *lw,
-		command_t findcmd,
-		list_window_callback_fn_t callback_fn,
-		void *callback_data);
+/**
+ * query user for a string and find it in a list window
+ *
+ * @param lw the list window to search
+ * @param findcmd the search command/mode
+ * @param callback_fn a function returning the text of a given line
+ * @param callback_data a pointer passed to callback_fn
+ * @return true if the command has been handled, false if not
+ */
+bool screen_find(struct list_window *lw,
+		 command_t findcmd,
+		 list_window_callback_fn_t callback_fn,
+		 void *callback_data);
 
 /* query user for a string and jump to the entry
  * which begins with this string while the users types */
