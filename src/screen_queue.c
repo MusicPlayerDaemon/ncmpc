@@ -554,7 +554,7 @@ screen_queue_update(struct mpdclient *c)
 		screen_queue_restore_selection();
 	else
 		/* the queue size may have changed, even if we havn't
-		   revceived the QUEUE idle event yet */
+		   received the QUEUE idle event yet */
 		list_window_set_length(lw, playlist_length(playlist));
 
 	if (((c->events & MPD_IDLE_PLAYER) != 0 &&
