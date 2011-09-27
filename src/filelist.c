@@ -139,15 +139,11 @@ filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func)
 
 	if (filelist->entries->len < 2)
 		return;
+
+	/* If the first entry is NULL, skip it, because NULL stands for "[..]" */
 	iter = ((struct filelist_entry*) g_ptr_array_index(filelist->entries, 0))->entity;
-	/* This can only happen at the beginning of the filelist,
-	 * because NULL stands for "[..]" */
-	if (iter == NULL) {
-		iter = ((struct filelist_entry*) g_ptr_array_index(filelist->entries, 1))->entity;
-		first = 1;
-	}
-	else
-		first = 0;
+	first = (iter == NULL)? 1 : 0;
+
 	/* find the last directory entry */
 	for (last = first+1; last < filelist->entries->len; last++) {
 		iter = ((struct filelist_entry*) g_ptr_array_index(filelist->entries, last))->entity;
