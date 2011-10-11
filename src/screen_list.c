@@ -62,14 +62,12 @@ static const struct
 #endif
 };
 
-static const unsigned NUM_SCREENS = sizeof(screens) / sizeof(screens[0]);
-
 void
 screen_list_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	unsigned i;
 
-	for (i = 0; i < NUM_SCREENS; ++i) {
+	for (i = 0; i < G_N_ELEMENTS(screens); ++i) {
 		const struct screen_functions *sf = screens[i].functions;
 
 		if (sf->init)
@@ -82,7 +80,7 @@ screen_list_exit(void)
 {
 	unsigned i;
 
-	for (i = 0; i < NUM_SCREENS; ++i) {
+	for (i = 0; i < G_N_ELEMENTS(screens); ++i) {
 		const struct screen_functions *sf = screens[i].functions;
 
 		if (sf->exit)
@@ -95,7 +93,7 @@ screen_list_resize(unsigned cols, unsigned rows)
 {
 	unsigned i;
 
-	for (i = 0; i < NUM_SCREENS; ++i) {
+	for (i = 0; i < G_N_ELEMENTS(screens); ++i) {
 		const struct screen_functions *sf = screens[i].functions;
 
 		if (sf->resize)
@@ -108,7 +106,7 @@ screen_get_name(const struct screen_functions *sf)
 {
 	unsigned i;
 
-	for (i = 0; i < NUM_SCREENS; ++i)
+	for (i = 0; i < G_N_ELEMENTS(screens); ++i)
 		if (screens[i].functions == sf)
 			return screens[i].name;
 
@@ -120,7 +118,7 @@ screen_lookup_name(const char *name)
 {
 	unsigned i;
 
-	for (i = 0; i < NUM_SCREENS; ++i)
+	for (i = 0; i < G_N_ELEMENTS(screens); ++i)
 		if (strcmp(name, screens[i].name) == 0)
 			return screens[i].functions;
 
