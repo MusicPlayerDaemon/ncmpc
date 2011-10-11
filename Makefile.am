@@ -153,7 +153,7 @@ src_ncmpc_SOURCES += src/lirc.c
 endif
 
 
-# build the smalles possible ncmpc binary
+# build the smallest possible ncmpc binary
 src/ncmpc-tiny: $(filter-out %.h,$(src_ncmpc_SOURCES))
 	$(COMPILE) --combine -fwhole-program $(src_ncmpc_LDFLAGS) $(src_ncmpc_LDADD) $(LIBS) $^ -o $@
 	strip --strip-all $@
