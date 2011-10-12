@@ -34,7 +34,7 @@
 
 struct mpdclient;
 
-typedef struct screen_functions {
+struct screen_functions {
 	void (*init)(WINDOW *w, int cols, int rows);
 	void (*exit)(void);
 	void (*open)(struct mpdclient *c);
@@ -44,6 +44,6 @@ typedef struct screen_functions {
 	void (*update)(struct mpdclient *c);
 	bool (*cmd)(struct mpdclient *c, command_t cmd);
 	const char *(*get_title)(char *s, size_t size);
-} screen_functions_t;
+};
 
 #endif
