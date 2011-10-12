@@ -560,10 +560,10 @@ screen_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_SCREEN_OUTPUTS:
 		screen_switch(&screen_outputs, c);
 		break;
+#endif
 	case CMD_SCREEN_SWAP:
 		screen_swap(c, NULL);
 		break;
-#endif
 
 	default:
 		break;
