@@ -313,9 +313,12 @@ lyrics_title(char *str, size_t size)
 		n = snprintf(str, size, "%s: %s - %s",
 			     _("Lyrics"),
 			     current.artist, current.title);
-		if (options.lyrics_show_plugin && current.plugin_name != NULL)
+
+		if (options.lyrics_show_plugin && current.plugin_name != NULL &&
+		    (unsigned int) n < size - 1)
 			snprintf(str + n, size - n, " (%s)",
 				 current.plugin_name);
+
 		return str;
 	} else
 		return _("Lyrics");
