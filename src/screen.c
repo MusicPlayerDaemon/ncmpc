@@ -290,7 +290,9 @@ screen_init(struct mpdclient *c)
 	/* create main window */
 	window_init(&screen.main_window, screen.rows - 4, screen.cols, 2, 0);
 
-	//  leaveok(screen.main_window.w, TRUE); temporary disabled
+	if (!options.hardware_cursor)
+		leaveok(screen.main_window.w, TRUE);
+
 	keypad(screen.main_window.w, TRUE);
 
 	/* create progress window */
