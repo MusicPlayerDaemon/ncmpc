@@ -245,7 +245,7 @@ const struct screen_functions screen_outputs = {
 	.close     = outputs_close,
 	.resize    = outputs_resize,
 	.paint     = outputs_paint,
-	.update = screen_outputs_update,
+	.update    = screen_outputs_update,
 	.cmd       = outputs_cmd,
 	.get_title = outputs_title,
 };
