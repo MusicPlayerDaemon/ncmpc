@@ -33,7 +33,6 @@
 #include "config.h"
 #include "resolver.h"
 
-#include <netdb.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,6 +41,7 @@
 #  include <ws2tcpip.h>
 #  include <winsock.h>
 #else
+#  include <netdb.h>
 #  include <netinet/in.h>
 #  include <arpa/inet.h>
 #  include <sys/socket.h>
