@@ -149,7 +149,7 @@ mpdclient_connect(struct mpdclient *c,
 		  const gchar *password)
 {
 	/* close any open connection */
-	if( c->connection )
+	if (c->connection)
 		mpdclient_disconnect(c);
 
 	/* connect to MPD */
