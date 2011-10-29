@@ -3,7 +3,7 @@ AC_INIT(ncmpc, 0.20~git, max@duempel.org)
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_AUX_DIR(build)
 AM_INIT_AUTOMAKE([foreign 1.10 dist-bzip2 subdir-objects])
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
 dnl Check for programs
