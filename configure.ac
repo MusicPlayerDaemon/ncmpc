@@ -363,7 +363,7 @@ AC_ARG_ENABLE(werror,
 	enable_werror=no)
 
 if test "x$enable_werror" = xyes; then
-	AM_CFLAGS="$AM_CFLAGS -Werror"
+	CHECK_CFLAG([-Werror])
 fi
 
 AC_ARG_ENABLE(debug,
