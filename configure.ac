@@ -351,6 +351,8 @@ if test "x$enable_outputs_screen" = "xyes" ; then
 fi
 
 AM_CONDITIONAL(ENABLE_OUTPUTS_SCREEN, test x$enable_outputs_screen = xyes)
+AC_MSG_RESULT([$enable_outputs_screen])
+
 
 
 dnl
