@@ -112,6 +112,7 @@ exit_and_cleanup(void)
 	}
 }
 
+#ifndef WIN32
 static void
 catch_sigint(G_GNUC_UNUSED int sig)
 {
@@ -157,6 +158,7 @@ catch_sigwinch(G_GNUC_UNUSED int sig)
 	if (1 != write(sigwinch_pipes[1], &irrelevant, 1))
 		exit(EXIT_FAILURE);
 }
+#endif /* WIN32 */
 
 static void
 idle_callback(enum mpd_error error,
@@ -542,7 +544,9 @@ timer_check_key_bindings(G_GNUC_UNUSED gpointer data)
 int
 main(int argc, const char *argv[])
 {
+#ifndef WIN32
 	struct sigaction act;
+#endif
 #ifdef ENABLE_LOCALE
 #ifndef ENABLE_NLS
 	G_GNUC_UNUSED
@@ -595,6 +599,7 @@ main(int argc, const char *argv[])
 	/* parse command line options - 2 pass */
 	options_parse(argc, argv);
 
+#ifndef WIN32
 	/* setup signal behavior - SIGINT */
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = 0;
@@ -644,6 +649,7 @@ main(int argc, const char *argv[])
 		perror("sigaction(SIGPIPE)");
 		exit(EXIT_FAILURE);
 	}
+#endif
 
 	ncu_init();
 
@@ -673,6 +679,7 @@ main(int argc, const char *argv[])
 	}
 #endif
 
+#ifndef WIN32
 	if (!pipe(sigwinch_pipes) &&
 		!fcntl(sigwinch_pipes[1], F_SETFL, O_NONBLOCK)) {
 		sigwinch_channel = g_io_channel_unix_new(sigwinch_pipes[0]);
@@ -682,6 +689,7 @@ main(int argc, const char *argv[])
 		perror("sigwinch pipe creation failed");
 		exit(EXIT_FAILURE);
 	}
+#endif
 
 	/* attempt to connect */
 	reconnect_source_id = g_timeout_add(1, timer_reconnect, NULL);
