@@ -34,7 +34,6 @@
 #include <glib.h>
 #include <assert.h>
 #include <string.h>
-#include <sys/select.h>
 #include <errno.h>
 
 struct mpd_glib_source {
