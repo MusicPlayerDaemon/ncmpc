@@ -471,8 +471,12 @@ screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row)
 {
 	MEVENT event;
 
-	/* retrieve the mouse event from ncurses */
+	/* retrieve the mouse event from curses */
+#ifdef PDCURSES
+	nc_getmouse(&event);
+#else
 	getmouse(&event);
+#endif
 	/* calculate the selected row in the list window */
 	*row = event.y - screen.title_bar.window.rows;
 	/* copy button state bits */
