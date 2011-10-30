@@ -575,7 +575,11 @@ check_user_conf_dir(void)
 		return 0;
 	}
 
+#ifndef WIN32
 	retval = mkdir(directory, 0755);
+#else
+	retval = mkdir(directory);
+#endif
 	g_free(directory);
 	return retval;
 }
