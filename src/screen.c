@@ -205,8 +205,11 @@ screen_resize(struct mpdclient *c)
 		fprintf(stderr, "%s", _("Error: Screen too small"));
 		exit(EXIT_FAILURE);
 	}
-
+#ifdef PDCURSES
+	resize_term(LINES, COLS);
+#else 
 	resizeterm(LINES, COLS);
+#endif
 
 	screen.cols = COLS;
 	screen.rows = LINES;
