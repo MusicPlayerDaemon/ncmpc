@@ -27,7 +27,7 @@
 #include <string.h>
 #include <glib.h>
 
-#if defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)
+#if (defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)) && !defined(WIN32)
 #include <sys/poll.h>
 #endif
 
@@ -322,7 +322,7 @@ static void
 wreadln_insert_byte(struct wreadln *wr, gint key)
 {
 	size_t rest = strlen(wr->line + wr->cursor) + 1;
-#if defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)
+#if (defined(ENABLE_WIDE) || defined(ENABLE_MULTIBYTE)) && !defined (WIN32)
 	char buffer[32] = { key };
 	size_t length = 1;
 	struct pollfd pfd = {
