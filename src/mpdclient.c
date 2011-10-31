@@ -83,13 +83,6 @@ mpdclient_handle_error(struct mpdclient *c)
 	return false;
 }
 
-static bool
-mpdclient_finish_command(struct mpdclient *c)
-{
-	return mpd_response_finish(c->connection)
-		? true : mpdclient_handle_error(c);
-}
-
 struct mpdclient *
 mpdclient_new(void)
 {

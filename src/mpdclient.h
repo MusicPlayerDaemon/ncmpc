@@ -2,6 +2,7 @@
 #define MPDCLIENT_H
 
 #include "playlist.h"
+#include "mpdclient.h"
 
 #include <mpd/client.h>
 
@@ -65,6 +66,13 @@ enum {
 
 bool
 mpdclient_handle_error(struct mpdclient *c);
+
+static inline bool
+mpdclient_finish_command(struct mpdclient *c)
+{
+	return mpd_response_finish(c->connection)
+		? true : mpdclient_handle_error(c);
+}
 
 struct mpdclient *
 mpdclient_new(void);
