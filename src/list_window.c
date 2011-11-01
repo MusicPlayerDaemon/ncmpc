@@ -642,7 +642,7 @@ list_window_scroll_cmd(struct list_window *lw, command_t cmd)
 		break;
 
 	case CMD_LIST_NEXT_PAGE:
-		lw->start += lw->rows - 1;
+		lw->start += lw->rows;
 		if (lw->start + lw->rows > lw->length) {
 			if (lw->length > lw->rows)
 				lw->start = lw->length - lw->rows;
