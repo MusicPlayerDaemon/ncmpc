@@ -162,8 +162,7 @@ load_artist_list(struct mpdclient *c)
 		mpd_search_commit(connection);
 		recv_tag_values(connection, MPD_TAG_ARTIST, artist_list);
 
-		if (!mpd_response_finish(connection))
-			mpdclient_handle_error(c);
+		mpdclient_finish_command(c);
 	}
 
 	/* sort list */
@@ -193,8 +192,7 @@ load_album_list(struct mpdclient *c)
 
 		recv_tag_values(connection, MPD_TAG_ALBUM, album_list);
 
-		if (!mpd_response_finish(connection))
-			mpdclient_handle_error(c);
+		mpdclient_finish_command(c);
 	}
 
 	/* sort list */
@@ -228,8 +226,7 @@ load_song_list(struct mpdclient *c)
 
 		filelist_recv(browser.filelist, connection);
 
-		if (!mpd_response_finish(connection))
-			mpdclient_handle_error(c);
+		mpdclient_finish_command(c);
 	}
 
 	/* fix highlights */
@@ -481,10 +478,8 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
 
 	addlist = filelist_new_recv(connection);
 
-	if (mpd_response_finish(connection))
+	if (mpdclient_finish_command(c))
 		mpdclient_filelist_add_all(c, addlist);
-	else
-		mpdclient_handle_error(c);
 
 	filelist_free(addlist);
 }

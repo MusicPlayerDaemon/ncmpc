@@ -130,8 +130,7 @@ fill_outputs_list(struct mpdclient *c)
 		g_ptr_array_add(mpd_outputs, output);
 	}
 
-	if (!mpd_response_finish(connection))
-		mpdclient_handle_error(c);
+	mpdclient_finish_command(c);
 
 	list_window_set_length(lw, mpd_outputs->len);
 }

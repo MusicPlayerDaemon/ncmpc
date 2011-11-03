@@ -63,10 +63,8 @@ screen_file_load_list(struct mpdclient *c, struct filelist *filelist)
 	mpd_send_list_meta(connection, current_path);
 	filelist_recv(filelist, connection);
 
-	if (mpd_response_finish(connection))
+	if (mpdclient_finish_command(c))
 		filelist_sort_dir_play(filelist, compare_filelist_entry_path);
-	else
-		mpdclient_handle_error(c);
 }
 
 static void
