@@ -22,6 +22,7 @@
 
 #include "command.h"
 
+/** put the terminal in a sane mode and stop/suspend ncmpc */
 void
 sigstop(void);
 
