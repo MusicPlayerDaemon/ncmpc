@@ -230,17 +230,6 @@ fi
 
 AM_CONDITIONAL(ENABLE_HELP_SCREEN, test x$enable_help_screen = xyes)
 
-dnl Optional screen - browse screen
-#AC_MSG_CHECKING([whether to include the browse screen])r
-#AC_ARG_ENABLE([browse-screen], 
-#              AS_HELP_STRING([--enable-browse-screen],
-#		[Enable the browse screen @<:@default=yes@:>@]),,
-#	[enable_browse_screen=yes])
-#AC_MSG_RESULT([$enable_browse_screen])
-#if test "x$enable_browse_screen" = "xyes" ; then
-#   AC_DEFINE(ENABLE_BROWSE_SCREEN, 1, [Enable the browse screen])
-#fi
-
 dnl Optional - curses getmouse support
 AC_MSG_CHECKING([whether to include mouse support])
 AC_ARG_ENABLE([mouse], 
