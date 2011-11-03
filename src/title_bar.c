@@ -23,6 +23,8 @@
 #include "i18n.h"
 #include "charset.h"
 
+#include "config.h"
+
 #include <mpd/client.h>
 
 #include <glib.h>

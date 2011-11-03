@@ -149,7 +149,7 @@ mpdclient_connect(struct mpdclient *c,
 		  const gchar *password)
 {
 	/* close any open connection */
-	if( c->connection )
+	if (c->connection)
 		mpdclient_disconnect(c);
 
 	/* connect to MPD */
@@ -412,8 +412,8 @@ mpdclient_cmd_add_path(struct mpdclient *c, const gchar *path_utf8)
 	if (connection == NULL)
 		return false;
 
-	mpd_send_add(connection, path_utf8);
-	return mpdclient_finish_command(c);
+	return mpd_send_add(connection, path_utf8)?
+		mpdclient_finish_command(c) : false;
 }
 
 bool

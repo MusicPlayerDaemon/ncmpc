@@ -393,7 +393,7 @@ idle_callback(enum mpd_error error, enum mpd_server_error server_error,
 
 	c->idle = false;
 
-	assert(mpdclient_get_connection(c) != NULL);
+	assert(mpdclient_is_connected(c));
 
 	if (error != MPD_ERROR_SUCCESS) {
 		char *allocated;

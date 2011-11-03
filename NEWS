@@ -1,5 +1,7 @@
 ncmpc 0.20 - not yet released
 * increase connection timeout to 5 seconds
+* screen_queue: follow songs when they are moved out of the visible
+  range
 
 
 ncmpc 0.19 - (07/23/2011)
@@ -104,7 +106,7 @@ ncmpc 0.12 - 2008-12-05
 ncmpc 0.11.1 - 2005-01-24
  + Spanish translations from Jose Cedeno
  + Russian translations from Nikolay Pavlov
- + French translations from Yann Cézard
+ + French translations from Yann CÃ©zard
  + ncmpc now supports SIGSTOP and SIGCONT (Ctrl-Z)
  + ncmpc now hides the cursor on the help screen
  + ncmpc now can enqueue and play a song from the browse screen (Enter)
