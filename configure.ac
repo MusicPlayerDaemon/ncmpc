@@ -65,17 +65,17 @@ AC_CHECK_FUNC([gethostbyname],
 
 dnl wide character support
 AC_ARG_ENABLE([wide],
-    AC_HELP_STRING([--enable-wide],
+    AS_HELP_STRING([--enable-wide],
 		[Enable wide character support]),,
                    [enable_wide=auto])
 
 
 dnl ncurses
 AC_ARG_WITH([ncurses],
-	    AC_HELP_STRING([--with-ncurses], [compile/link with ncurses library] ),
+	    AS_HELP_STRING([--with-ncurses], [compile/link with ncurses library] ),
 	    [ncurses=ncurses])
 AC_ARG_WITH(ncursesw,
-	    AC_HELP_STRING([--with-ncursesw], [compile/link with wide-char ncurses library @<:@default@:>@]),
+	    AS_HELP_STRING([--with-ncursesw], [compile/link with wide-char ncurses library @<:@default@:>@]),
 	    [ncurses=ncursesw])
 
 if test "x$enable_wide" = "xno"; then
@@ -127,7 +127,7 @@ fi
 dnl multi-byte character support
 
 AC_ARG_ENABLE([multibyte],
-	AC_HELP_STRING([--disable-multibyte],
+	AS_HELP_STRING([--disable-multibyte],
 		[Disable multibyte character support (default: enabled)]),,
 		[enable_multibyte=$disable_mini])
 
@@ -151,7 +151,7 @@ PKG_CHECK_MODULES([LIBMPDCLIENT], [libmpdclient >= 2.2],,
 dnl i18n
 
 AC_ARG_ENABLE([locale],
-	AC_HELP_STRING([--disable-locale],
+	AS_HELP_STRING([--disable-locale],
 		[Disable locale support (default: auto)]),,
 		[enable_locale=$auto_mini])
 
@@ -194,7 +194,7 @@ fi
 dnl enable colors
 AC_MSG_CHECKING([color support])
 AC_ARG_ENABLE([colors],
-	AC_HELP_STRING([--enable-colors],
+	AS_HELP_STRING([--enable-colors],
 		[Enable color support]),,
 	[enable_colors=$disable_mini])
 AC_MSG_RESULT([$enable_colors])
@@ -205,7 +205,7 @@ fi
 dnl test for LIRC support
 
 AC_ARG_ENABLE([lirc],
-	AC_HELP_STRING([--enable-lirc],
+	AS_HELP_STRING([--enable-lirc],
 		[Enable LIRC support]),,
 	[enable_lirc=no])
 if test x$enable_lirc = xyes; then
@@ -233,7 +233,7 @@ AM_CONDITIONAL(ENABLE_HELP_SCREEN, test x$enable_help_screen = xyes)
 dnl Optional screen - browse screen
 #AC_MSG_CHECKING([whether to include the browse screen])r
 #AC_ARG_ENABLE([browse-screen], 
-#              AC_HELP_STRING([--enable-browse-screen],
+#              AS_HELP_STRING([--enable-browse-screen],
 #		[Enable the browse screen @<:@default=yes@:>@]),,
 #	[enable_browse_screen=yes])
 #AC_MSG_RESULT([$enable_browse_screen])
@@ -244,7 +244,7 @@ dnl Optional screen - browse screen
 dnl Optional - curses getmouse support
 AC_MSG_CHECKING([whether to include mouse support])
 AC_ARG_ENABLE([mouse], 
-              AC_HELP_STRING([--enable-mouse],
+              AS_HELP_STRING([--enable-mouse],
 		[Enable curses getmouse support @<:@default=yes@:>@]),,
 	[enable_mouse=$disable_mini])
 AC_MSG_RESULT([$enable_mouse])
@@ -258,7 +258,7 @@ fi
 dnl Optional screen - artist
 AC_MSG_CHECKING([whether to include the artist screen])
 AC_ARG_ENABLE([artist-screen], 
-              AC_HELP_STRING([--enable-artist-screen],
+              AS_HELP_STRING([--enable-artist-screen],
 		[Enable artist screen @<:@default=yes@:>@]),,
 	[enable_artist_screen=$disable_mini])
 AC_MSG_RESULT([$enable_artist_screen])
@@ -271,7 +271,7 @@ AM_CONDITIONAL(ENABLE_ARTIST_SCREEN, test x$enable_artist_screen = xyes)
 dnl Optional screen - search
 AC_MSG_CHECKING([whether to include the search screen])
 AC_ARG_ENABLE([search-screen], 
-              AC_HELP_STRING([--enable-search-screen],
+              AS_HELP_STRING([--enable-search-screen],
 		[Enable search screen (EXPERIMENTAL) @<:@default=yes@:>@]),,
 	[enable_search_screen=$disable_mini])
 AC_MSG_RESULT([$enable_search_screen])
@@ -284,7 +284,7 @@ AM_CONDITIONAL(ENABLE_SEARCH_SCREEN, test x$enable_search_screen = xyes)
 dnl Optional screen - song viewer
 AC_MSG_CHECKING([whether to include the song viewer screen])
 AC_ARG_ENABLE([song-screen],
-	AC_HELP_STRING([--enable-song-screen],
+	AS_HELP_STRING([--enable-song-screen],
 		[Enable song viewer screen @<:@default=yes@:>@]),,
 	[enable_song_screen=$disable_mini])
 AC_MSG_RESULT([$enable_song_screen])
@@ -297,7 +297,7 @@ AM_CONDITIONAL(ENABLE_SONG_SCREEN, test x$enable_song_screen = xyes)
 dnl Optional screen - key editor
 AC_MSG_CHECKING([whether to include the key editor screen])
 AC_ARG_ENABLE([key-screen], 
-              AC_HELP_STRING([--enable-key-screen],
+              AS_HELP_STRING([--enable-key-screen],
 		[Enable key editor screen @<:@default=yes@:>@]),,
 	[enable_key_screen=$disable_mini])
 AC_MSG_RESULT([$enable_key_screen])
@@ -310,7 +310,7 @@ AM_CONDITIONAL(ENABLE_KEYDEF_SCREEN, test x$enable_key_screen = xyes)
 dnl Optional screen - lyrics
 AC_MSG_CHECKING([whether to include the lyrics screen]) 
 AC_ARG_ENABLE([lyrics-screen], 
-              AC_HELP_STRING([--enable-lyrics-screen],
+              AS_HELP_STRING([--enable-lyrics-screen],
 		[Enable lyrics screen @<:@default=no@:>@]),,
 	[enable_lyrics_screen=no])
 if test "x$enable_lyrics_screen" = "xyes" ; then
@@ -322,7 +322,7 @@ AM_CONDITIONAL(ENABLE_LYRICS_SCREEN, test x$enable_lyrics_screen = xyes)
 AC_MSG_RESULT([$enable_lyrics_screen])
 
 AC_ARG_WITH([lyrics-plugin-dir],
-        AC_HELP_STRING([[--with-lyrics-plugin-dir[=DIRECTORY]]],
+        AS_HELP_STRING([[--with-lyrics-plugin-dir[=DIRECTORY]]],
                        [Directory where lyrics plugins are stored @<:@default=PREFIX/lib/ncmpc/lyrics@:>@]),
        [lyrics_plugin_dir=$withval],
        [lyrics_plugin_dir=""])
@@ -343,7 +343,7 @@ AM_CONDITIONAL(ENABLE_SCREEN_TEXT, test x$enable_lyrics_screen = xyes)
 dnl Optional screen - outputs
 AC_MSG_CHECKING([whether to include the outputs screen])
 AC_ARG_ENABLE([outputs-screen],
-	AC_HELP_STRING([--enable-outputs-screen],
+	AS_HELP_STRING([--enable-outputs-screen],
 		[Enable outputs screen @<:@default=yes@:>@]),,
 	[enable_outputs_screen=$disable_mini])
 if test "x$enable_outputs_screen" = "xyes" ; then
