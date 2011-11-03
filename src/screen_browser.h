@@ -22,14 +22,9 @@
 
 #include "command.h"
 #include "config.h"
+#include "ncmpc_curses.h"
 
 #include <stdbool.h>
-
-#ifdef HAVE_NCURSESW_NCURSES_H
-#include <ncursesw/ncurses.h>
-#else
-#include <ncurses.h>
-#endif
 
 struct mpdclient;
 struct mpdclient_playlist;

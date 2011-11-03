@@ -5,6 +5,7 @@ ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS = foreign 1.10 dist-bzip2 subdir-objects
 
 AM_CPPFLAGS = \
+	$(CURSES_LIB) \
 	$(LIBMPDCLIENT_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	$(LIBLIRCCLIENT_CFLAGS) \
@@ -62,11 +63,13 @@ ncmpc_headers = \
 	src/plugin.h \
 	src/lyrics.h \
 	src/str_pool.h \
-	src/lirc.h
+	src/lirc.h \
+	src/ncmpc_curses.h
 
 bin_PROGRAMS = src/ncmpc
 
 src_ncmpc_LDADD = \
+	$(CURSES_LIB) \
 	$(LIBMPDCLIENT_LIBS) \
 	$(GLIB_LIBS) \
 	$(LIBLIRCCLIENT_LIBS)

@@ -21,14 +21,9 @@
 #define WREADLN_H
 
 #include "config.h"
+#include "ncmpc_curses.h"
 
 #include <glib.h>
-
-#ifdef HAVE_NCURSESW_NCURSES_H
-#include <ncursesw/ncurses.h>
-#else
-#include <ncurses.h>
-#endif
 
 #ifndef NCMPC_MINI
 

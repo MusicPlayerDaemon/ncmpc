@@ -17,56 +17,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-#include "ncu.h"
-#include "config.h"
-#include "ncmpc_curses.h"
-
-#ifdef ENABLE_COLORS
-#include "colors.h"
+#if defined(HAVE_NCURSESW_CURSES_H)
+#  include <ncursesw/curses.h>
+#elif defined(HAVE_NCURSESW_H)
+#  include <ncursesw.h>
+#elif defined(HAVE_NCURSES_CURSES_H)
+#  include <ncurses/curses.h>
+#elif defined(HAVE_NCURSES_H)
+#  include <ncurses.h>
+#elif defined(HAVE_CURSES_H)
+#  include <curses.h>
+#else
+#  error "SysV or X/Open-compatible Curses header file required"
 #endif
-
-#ifdef HAVE_GETMOUSE
-#include "options.h"
-#endif
-
-static SCREEN *ncu_screen;
-
-void
-ncu_init(void)
-{
-	/* initialize the curses library */
-	ncu_screen = newterm(NULL, stdout, stdin);
-
-	/* initialize color support */
-#ifdef ENABLE_COLORS
-	colors_start();
-#endif
-
-	/* tell curses not to do NL->CR/NL on output */
-	nonl();
-
-	/* don't echo input */
-	noecho();
-
-	/* set cursor invisible */
-	curs_set(0);
-
-	/* enable extra keys */
-	keypad(stdscr, TRUE);
-
-	/* initialize mouse support */
-#ifdef HAVE_GETMOUSE
-	if (options.enable_mouse)
-		mousemask(ALL_MOUSE_EVENTS, NULL);
-#endif
-
-	refresh();
-}
-
-void
-ncu_deinit(void)
-{
-	endwin();
-
-	delscreen(ncu_screen);
-}

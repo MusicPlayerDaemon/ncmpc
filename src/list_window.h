@@ -23,15 +23,10 @@
 #include "config.h"
 #include "command.h"
 #include "colors.h"
+#include "ncmpc_curses.h"
 
 #include <glib.h>
 #include <stdbool.h>
-
-#ifdef HAVE_NCURSESW_NCURSES_H
-#include <ncursesw/ncurses.h>
-#else
-#include <ncurses.h>
-#endif
 
 typedef const char *
 (*list_window_callback_fn_t)(unsigned i, void *data);

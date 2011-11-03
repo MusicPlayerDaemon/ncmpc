@@ -9,6 +9,11 @@ AC_CONFIG_MACRO_DIR([m4])
 dnl Check for programs
 AC_PROG_CC_C99
 AC_PROG_INSTALL
+AX_WITH_CURSES
+
+AS_IF([ test "x$ax_cv_curses" = xno ],
+	[AC_MSG_ERROR([No curses support detected.])
+	])
 
 dnl =======================================================
 dnl initialize variables
@@ -35,12 +40,10 @@ if test "x$enable_mini" = xyes; then
     auto=no
     disable_mini=no
     auto_mini=no
-    ncurses=ncurses
 else
     auto=auto
     disable_mini=yes
     auto_mini=auto
-    ncurses=auto
 fi
 
 AC_CANONICAL_HOST
@@ -49,6 +52,7 @@ case "$host_os" in
 mingw32* | windows*)
 	LIBS="$LIBS -lws2_32"
 	;;
+
 *)
 	AC_CHECK_FUNC([socket],
 		[],
@@ -63,68 +67,6 @@ mingw32* | windows*)
 		])
 esac
 
-
-dnl wide character support
-AC_ARG_ENABLE([wide],
-    AS_HELP_STRING([--enable-wide],
-		[Enable wide character support]),,
-                   [enable_wide=auto])
-
-
-dnl ncurses
-AC_ARG_WITH([ncurses],
-	    AS_HELP_STRING([--with-ncurses], [compile/link with ncurses library] ),
-	    [ncurses=ncurses])
-AC_ARG_WITH(ncursesw,
-	    AS_HELP_STRING([--with-ncursesw], [compile/link with wide-char ncurses library @<:@default@:>@]),
-	    [ncurses=ncursesw])
-
-if test "x$enable_wide" = "xno"; then
-    if test "x$ncurses" = "xauto"; then
-        dnl select narrow ncurses
-        ncurses=ncurses
-    fi
-
-    if test "x$ncurses" = "xncursesw"; then
-        AC_MSG_WARN([Narrow ncmpc linking against wide libncurses])
-    fi
-fi
-
-if test "x$ncurses" = "xauto"; then
-	AC_CHECK_LIB([ncursesw], 
-		     [initscr],
-		     [ncurses=ncursesw],
-		     [ncurses=ncurses])
-fi
-
-AC_CHECK_LIB([$ncurses], 
-	     [initscr],
-	     [LIBS="$LIBS -l$ncurses"], 
-	     [AC_MSG_ERROR($ncurses library is required)])
-
-if test "x$ncurses" = "xncursesw"; then
-    AC_CHECK_HEADER([ncursesw/ncurses.h],
-                    AC_DEFINE([HAVE_NCURSESW_NCURSES_H], [1], [ncursesw/ncurses.h]),
-                    ,)
-fi
-
-
-dnl wide character support II
-
-if test "x$enable_wide" = "xauto" ; then
-    AC_CHECK_LIB([$ncurses], 
-	         [wget_wch],
-	         [enable_wide=yes],
-	         [enable_wide=no])
-fi
-
-AC_MSG_CHECKING([wide character support])
-AC_MSG_RESULT([$enable_wide])
-
-if test "x$enable_wide" = "xyes" ; then
-    AC_DEFINE([ENABLE_WIDE], [1], [Enable wide character support])
-fi
-
 dnl multi-byte character support
 
 AC_ARG_ENABLE([multibyte],
@@ -135,7 +77,7 @@ AC_ARG_ENABLE([multibyte],
 if test x$enable_multibyte = xyes; then
 	AC_DEFINE([ENABLE_MULTIBYTE], [1], [Enable multibyte character support])
 else
-	if test x$enable_wide = xyes; then
+	if test "x$ax_cv_ncursesw" = xyes; then
 		AC_MSG_WARN(wide characters without multibyte characters makes little sense)
 	fi
 fi
@@ -193,15 +135,28 @@ else
 fi
 
 dnl enable colors
-AC_MSG_CHECKING([color support])
 AC_ARG_ENABLE([colors],
 	AS_HELP_STRING([--enable-colors],
-		[Enable color support]),,
-	[enable_colors=$disable_mini])
-AC_MSG_RESULT([$enable_colors])
-if test "x$enable_colors" = "xyes" ; then
-    AC_DEFINE([ENABLE_COLORS], [1], [Enable color support])
-fi
+		[Enable color support]),
+		[enable_colors=$enableval],
+		[enable_colors=auto])
+AC_MSG_CHECKING([whether to include color support])
+AS_IF([ test "x$enable_colors" = xyes || test "x$enable_colors" = xauto ],
+	[AS_IF([ test "x$disable_mini" = xyes],
+		[AS_IF([ test "x$ax_cv_curses_color" = xyes ],
+			[AC_MSG_RESULT([yes])
+				AC_DEFINE([ENABLE_COLORS], [1], [Enable color support])],
+				[AS_IF([ test "x$enable_colors" = xyes ],
+					AC_MSG_ERROR(["No color support found in curses library"])
+					AC_MSG_RESULT([no]),
+					AC_MSG_RESULT([no])
+				)
+			])
+		],
+		[AC_MSG_RESULT([no])
+		AC_MSG_WARN(["Colors disabled due to mini mode being enabled."])]
+	)],
+	[AC_MSG_RESULT([no])])
 
 dnl test for LIRC support
 
@@ -232,18 +187,36 @@ fi
 AM_CONDITIONAL(ENABLE_HELP_SCREEN, test x$enable_help_screen = xyes)
 
 dnl Optional - curses getmouse support
-AC_MSG_CHECKING([whether to include mouse support])
+
+dnl AC_CHECK_LIB depends on being able to prepend a '-l', remove the '-l' from CURSES_LIB first
+AC_CHECK_LIB([$(expr substr $CURSES_LIB 3 99)],
+		[getmouse],
+		[ax_cv_curses_mouse=yes],
+		[ax_cv_curses_mouse=no])
+
 AC_ARG_ENABLE([mouse], 
-              AS_HELP_STRING([--enable-mouse],
-		[Enable curses getmouse support @<:@default=yes@:>@]),,
-	[enable_mouse=$disable_mini])
-AC_MSG_RESULT([$enable_mouse])
-if test "x$enable_mouse" = "xyes" ; then
-   AC_CHECK_LIB([$ncurses], 
-	        [getmouse],
-		[AC_DEFINE([HAVE_GETMOUSE], [1], [$ncurses - getmouse()])],
-		[])
-fi
+	AS_HELP_STRING([--enable-mouse],
+		[Enable curses getmouse support @<:@default=yes@:>@]),
+		[enable_mouse=$enableval],
+		[enable_mouse=auto])
+
+AC_MSG_CHECKING([whether to include mouse support])
+
+AS_IF([ test "x$enable_mouse" = xyes || test "x$enable_mouse" = xauto ],
+	[AS_IF([ test "x$disable_mini" = xyes],
+		[AS_IF([ test "x$ax_cv_curses_mouse" = xyes ],
+			[AC_MSG_RESULT([yes])
+			AC_DEFINE([HAVE_GETMOUSE], [1], [Enable mouse support])],
+			[AC_MSG_RESULT([no])
+			AS_IF([ test "x$enable_mouse" = xyes ],
+				[AC_MSG_ERROR(["No mouse support found in curses library"])
+				])
+			])
+		],
+		[AC_MSG_RESULT([no])
+		AC_MSG_WARN("Mouse disabled due to mini mode being enabled.")]
+	)],
+	[AC_MSG_RESULT([no])])
 
 dnl Optional screen - artist
 AC_MSG_CHECKING([whether to include the artist screen])
@@ -301,8 +274,17 @@ dnl Optional screen - lyrics
 AC_MSG_CHECKING([whether to include the lyrics screen]) 
 AC_ARG_ENABLE([lyrics-screen], 
               AS_HELP_STRING([--enable-lyrics-screen],
-		[Enable lyrics screen @<:@default=no@:>@]),,
+		[Enable lyrics screen @<:@default=no@:>@]),
+	[enable_lyrics_screen=$enableval],
 	[enable_lyrics_screen=no])
+
+case "$host_os" in
+mingw32* | windows*)
+	AS_IF([ test "x$enable_lyrics_screen" = xyes ],
+		[AC_MSG_ERROR([Lyrics screen is not yet compatible with windows.])
+		])
+esac
+
 if test "x$enable_lyrics_screen" = "xyes" ; then
     AC_DEFINE(ENABLE_LYRICS_SCREEN, 1, [Enable lyrics screen])
 fi

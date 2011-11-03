@@ -21,12 +21,7 @@
 #define COLORS_H
 
 #include "config.h"
-
-#ifdef HAVE_NCURSESW_NCURSES_H
-#include <ncursesw/ncurses.h>
-#else
-#include <ncurses.h>
-#endif
+#include "ncmpc_curses.h"
 
 enum color {
 	COLOR_TITLE = 1,

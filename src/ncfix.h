@@ -24,11 +24,7 @@
 #ifndef NCFIX_H
 #define NCFIX_H
 
-#ifdef HAVE_NCURSESW_NCURSES_H
-#include <ncursesw/ncurses.h>
-#else
-#include <ncurses.h>
-#endif
+#include "ncmpc_curses.h"
 
 /**
  * Workaround for "comparison will always evaluate as 'true' for the

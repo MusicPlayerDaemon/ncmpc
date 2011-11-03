@@ -172,7 +172,7 @@ handle_option(int c, const char *arg)
 #ifdef ENABLE_MULTIBYTE
 		     " multibyte"
 #endif
-#ifdef ENABLE_WIDE
+#ifdef HAVE_CURSES_ENHANCED
 		     " wide"
 #endif
 #ifdef ENABLE_LOCALE

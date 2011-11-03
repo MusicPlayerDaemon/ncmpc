@@ -26,16 +26,11 @@
 #include "title_bar.h"
 #include "progress_bar.h"
 #include "status_bar.h"
+#include "ncmpc_curses.h"
 
 #include <mpd/client.h>
 
 #include <glib.h>
-
-#ifdef HAVE_NCURSESW_NCURSES_H
-#include <ncursesw/ncurses.h>
-#else
-#include <ncurses.h>
-#endif
 
 struct mpdclient;
 struct screen_functions;

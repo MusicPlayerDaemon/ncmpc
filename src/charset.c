@@ -35,7 +35,7 @@ charset_init(void)
 }
 #endif
 
-#ifdef ENABLE_WIDE
+#ifdef HAVE_CURSES_ENHANCED
 static inline unsigned
 unicode_char_width(gunichar ch)
 {
@@ -49,17 +49,17 @@ unicode_char_width(gunichar ch)
 
 	return 1;
 }
-#endif /* ENABLE_WIDE */
+#endif /* HAVE_CURSES_ENHANCED */
 
 unsigned
 utf8_width(const char *str)
 {
 	assert(str != NULL);
 
-#if defined(ENABLE_MULTIBYTE) && !defined(ENABLE_WIDE)
+#if defined(ENABLE_MULTIBYTE) && !defined(HAVE_CURSES_ENHANCED)
 	return g_utf8_strlen(str, -1);
 #else
-#ifdef ENABLE_WIDE
+#ifdef HAVE_CURSES_ENHANCED
 	if (g_utf8_validate(str, -1, NULL)) {
 		size_t len = g_utf8_strlen(str, -1);
 		unsigned width = 0;
@@ -148,12 +148,12 @@ utf8_cut_width(char *p, unsigned max_width)
 {
 	assert(p != NULL);
 
-#ifdef ENABLE_WIDE
+#ifdef HAVE_CURSES_ENHANCED
 	if (!g_utf8_validate(p, -1, NULL))
 		return ascii_cut_width(p, max_width);
 
 	return wide_cut_width(p, max_width);
-#elif defined(ENABLE_MULTIBYTE) && !defined(ENABLE_WIDE)
+#elif defined(ENABLE_MULTIBYTE) && !defined(HAVE_CURSES_ENHANCED)
 	return narrow_cut_width(p, max_width);
 #else
 	return ascii_cut_width(p, max_width);

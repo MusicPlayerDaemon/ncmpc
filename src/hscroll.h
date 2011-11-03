@@ -21,14 +21,9 @@
 #define HSCROLL_H
 
 #include "config.h"
+#include "ncmpc_curses.h"
 
 #include <glib.h>
-
-#ifdef HAVE_NCURSESW_NCURSES_H
-#include <ncursesw/ncurses.h>
-#else
-#include <ncurses.h>
-#endif
 
 /**
  * This class is used to auto-scroll text which does not fit on the
