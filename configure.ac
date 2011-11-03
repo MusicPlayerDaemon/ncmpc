@@ -355,7 +355,7 @@ AC_ARG_ENABLE(werror,
 	enable_werror=no)
 
 if test "x$enable_werror" = xyes; then
-	CHECK_CFLAG([-Werror])
+	AX_APPEND_COMPILE_FLAGS([-Werror])
 fi
 
 AC_ARG_ENABLE(debug,
@@ -381,15 +381,15 @@ dnl
 
 AC_SUBST(AM_CFLAGS)
 
-CHECK_CFLAG([-Wall])
-CHECK_CFLAG([-Wextra])
-CHECK_CFLAG([-Wno-deprecated-declarations])
-CHECK_CFLAG([-Wmissing-prototypes])
-CHECK_CFLAG([-Wshadow])
-CHECK_CFLAG([-Wpointer-arith])
-CHECK_CFLAG([-Wstrict-prototypes])
-CHECK_CFLAG([-Wcast-qual])
-CHECK_CFLAG([-Wwrite-strings])
+AX_APPEND_COMPILE_FLAGS([-Wall])
+AX_APPEND_COMPILE_FLAGS([-Wextra])
+AX_APPEND_COMPILE_FLAGS([-Wno-deprecated-declarations])
+AX_APPEND_COMPILE_FLAGS([-Wmissing-prototypes])
+AX_APPEND_COMPILE_FLAGS([-Wshadow])
+AX_APPEND_COMPILE_FLAGS([-Wpointer-arith])
+AX_APPEND_COMPILE_FLAGS([-Wstrict-prototypes])
+AX_APPEND_COMPILE_FLAGS([-Wcast-qual])
+AX_APPEND_COMPILE_FLAGS([-Wwrite-strings])
 
 
 dnl
