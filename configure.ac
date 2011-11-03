@@ -43,24 +43,25 @@ else
     ncurses=auto
 fi
 
+AC_CANONICAL_HOST
 
-dnl
-dnl Check for libraries
-dnl
+case "$host_os" in
+mingw32* | windows*)
+	LIBS="$LIBS -lws2_32"
+	;;
+*)
+	AC_CHECK_FUNC([socket],
+		[],
+        	[AC_CHECK_LIB([socket],[socket],[LIBS="$LIBS -lsocket"],
+		[AC_MSG_ERROR(No UNIX socket API found)])
+		])
 
-dnl Try to find the socket functions
-AC_CHECK_FUNC([socket],
-	      [], 
-              [AC_CHECK_LIB([socket],[socket],[LIBS="$LIBS -lsocket"],
-	                    [AC_MSG_ERROR(No UNIX socket API found)])
-              ])
-
-dnl Try to find the gethostbyname functions
-AC_CHECK_FUNC([gethostbyname],
-	      [], 
-              [AC_CHECK_LIB([nsl],[gethostbyname],[LIBS="$LIBS -lnsl"],
-	                    [AC_MSG_ERROR(No UNIX gethostbyname API found)])
-              ])
+	AC_CHECK_FUNC([gethostbyname],
+		[], 
+		[AC_CHECK_LIB([nsl],[gethostbyname],[LIBS="$LIBS -lnsl"],
+		[AC_MSG_ERROR(No UNIX gethostbyname API found)])
+		])
+esac
 
 
 dnl wide character support
