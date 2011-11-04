@@ -41,6 +41,26 @@ struct mpdclient {
 	enum mpd_idle events;
 };
 
+enum {
+	/**
+	 * all idle events the version of libmpdclient, ncmpc is compiled
+	 * against, supports
+	 */
+	MPD_IDLE_ALL = MPD_IDLE_DATABASE
+		| MPD_IDLE_STORED_PLAYLIST
+		| MPD_IDLE_QUEUE
+		| MPD_IDLE_PLAYER
+		| MPD_IDLE_MIXER
+		| MPD_IDLE_OUTPUT
+		| MPD_IDLE_OPTIONS
+		| MPD_IDLE_UPDATE
+#if LIBMPDCLIENT_CHECK_VERSION(2,5,0)
+		| MPD_IDLE_STICKER
+		| MPD_IDLE_SUBSCRIPTION
+		| MPD_IDLE_MESSAGE
+#endif
+};
+
 /** functions ***************************************************************/
 
 bool
