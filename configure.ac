@@ -77,7 +77,7 @@ AC_ARG_ENABLE([multibyte],
 if test x$enable_multibyte = xyes; then
 	AC_DEFINE([ENABLE_MULTIBYTE], [1], [Enable multibyte character support])
 else
-	if test "x$ax_cv_ncursesw" = xyes; then
+	if test "x$ax_cv_curses_enhanced" = xyes; then
 		AC_MSG_WARN(wide characters without multibyte characters makes little sense)
 	fi
 fi
