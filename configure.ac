@@ -318,7 +318,7 @@ AC_ARG_ENABLE([outputs-screen],
 	AS_HELP_STRING([--enable-outputs-screen],
 		[Enable outputs screen @<:@default=yes@:>@]),,
 	[enable_outputs_screen=$disable_mini])
-AC_MSG_RESULT([$enable_outputs_screen])
+
 if test "x$enable_outputs_screen" = "xyes" ; then
 	AC_DEFINE(ENABLE_OUTPUTS_SCREEN, 1, [Enable outputs screen])
 fi
