@@ -31,7 +31,7 @@ dnl
 
 AC_ARG_ENABLE(mini,
     AS_HELP_STRING([--enable-mini],
-		[Build ncmpc-mini, i.e. without all optional features (default: disabled)]),,
+		[Build ncmpc-mini, i.e. without all optional features @<:@default=no@:>@]),,
     [enable_mini=no])
 
 AM_CONDITIONAL(NCMPC_MINI, test x$enable_mini = xyes)
@@ -71,7 +71,7 @@ dnl multi-byte character support
 
 AC_ARG_ENABLE([multibyte],
 	AS_HELP_STRING([--disable-multibyte],
-		[Disable multibyte character support (default: enabled)]),,
+		[Disable multibyte character support @<:@default=yes@:>@]),,
 		[enable_multibyte=$disable_mini])
 
 if test x$enable_multibyte = xyes; then
@@ -95,7 +95,7 @@ dnl i18n
 
 AC_ARG_ENABLE([locale],
 	AS_HELP_STRING([--disable-locale],
-		[Disable locale support (default: auto)]),,
+		[Disable locale support @<:@default=auto@:>@]),,
 		[enable_locale=$auto_mini])
 
 if test x$enable_locale = xyes; then
@@ -334,7 +334,7 @@ dnl
 
 AC_ARG_ENABLE(werror,
 	AS_HELP_STRING([--enable-werror],
-		[Treat warnings as errors (default: disabled)]),,
+		[Treat warnings as errors @<:@default=no@:>@]),,
 	enable_werror=no)
 
 if test "x$enable_werror" = xyes; then
@@ -343,7 +343,7 @@ fi
 
 AC_ARG_ENABLE(debug,
 	AS_HELP_STRING([--enable-debug],
-		[Enable debugging (default: disabled)]),,
+		[Enable debugging @<:@default=no@:>@]),,
 	enable_debug=no)
 
 if test "x$enable_debug" = xno; then
