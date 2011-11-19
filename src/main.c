@@ -271,7 +271,12 @@ default_settings_name(void)
 
 	return name;
 #else
-	return g_strdup(options.host);
+	/*
+	 * localhost is actually not correct, we only know that
+	 * mpd_connection_new() has connected to the "default host".
+	 */
+	const char *name = options.host ?: "localhost";
+	return g_strdup(name);
 #endif
 }
 
@@ -288,12 +293,7 @@ connection_settings_name(const struct mpd_connection *connection)
 #else
 	(void)connection;
 
-	/*
-	 * localhost is actually not correct, we only know that
-	 * mpd_connection_new() has connected to the "default host".
-	 */
-	const char *name = options.host ?: "localhost";
-	return g_strdup(name);
+	return default_settings_name();
 #endif
 }
 
