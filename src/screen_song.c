@@ -311,7 +311,8 @@ screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 	screen_song_append(_("Path"), mpd_song_get_uri(song),
 			   max_tag_label_width);
 	if (mpdclient_is_playing(c) && c->song != NULL &&
-	    strcmp(mpd_song_get_uri(c->song), mpd_song_get_uri(song)) == 0) {
+	    strcmp(mpd_song_get_uri(c->song), mpd_song_get_uri(song)) == 0 &&
+	    mpd_status_get_kbit_rate(c->status)) {
 		char buf[16];
 		g_snprintf(buf, sizeof(buf), _("%d kbps"),
 			   mpd_status_get_kbit_rate(c->status));
