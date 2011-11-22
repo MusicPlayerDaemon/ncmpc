@@ -482,19 +482,16 @@ assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
 int
 check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 {
-	int i = 0;
+	int i;
 	int retval = 0;
 
 	if (cp == NULL)
 		cp = cmds;
 
-	while (cp[i].name) {
+	for (i = 0; cp[i].name; i++)
 		cp[i].flags &= ~COMMAND_KEY_CONFLICT;
-		i++;
-	}
 
-	i = 0;
-	while (cp[i].name) {
+	for (i = 0; cp[i].name; i++) {
 		int j;
 		command_t cmd;
 
@@ -520,8 +517,8 @@ check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 				retval = -1;
 			}
 		}
-		i++;
 	}
+
 	return retval;
 }
 
