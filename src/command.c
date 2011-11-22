@@ -498,7 +498,7 @@ check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 		int j;
 		command_t cmd;
 
-		for(j=0; j<MAX_COMMAND_KEYS; j++)
+		for(j=0; j<MAX_COMMAND_KEYS; j++) {
 			if (cp[i].keys[j] &&
 			    (cmd = find_key_command(cp[i].keys[j],cp)) != cp[i].command) {
 				if (buf) {
@@ -519,6 +519,7 @@ check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 				set_key_flags(cp, cmd, COMMAND_KEY_CONFLICT);
 				retval = -1;
 			}
+		}
 		i++;
 	}
 	return retval;
