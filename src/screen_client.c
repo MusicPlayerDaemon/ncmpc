@@ -19,7 +19,7 @@
 
 #include "screen_client.h"
 #include "screen_utils.h"
-#include "screen_message.h"
+#include "screen_status.h"
 #include "mpdclient.h"
 #include "i18n.h"
 #include "charset.h"

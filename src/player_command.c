@@ -22,7 +22,7 @@
 #include "options.h"
 #include "i18n.h"
 #include "screen_client.h"
-#include "screen_message.h"
+#include "screen_status.h"
 
 int seek_id = -1;
 int seek_target_time;

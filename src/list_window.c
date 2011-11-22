@@ -25,7 +25,7 @@
 #include "command.h"
 #include "colors.h"
 #include "paint.h"
-#include "screen_message.h"
+#include "screen_status.h"
 #include "i18n.h"
 
 #include <assert.h>

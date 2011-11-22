@@ -19,7 +19,7 @@
 
 #include "screen_outputs.h"
 #include "screen_interface.h"
-#include "screen_message.h"
+#include "screen_status.h"
 #include "paint.h"
 #include "i18n.h"
 #include "list_window.h"

@@ -30,7 +30,7 @@ ncmpc_headers = \
 	src/progress_bar.h \
 	src/status_bar.h \
 	src/screen.h \
-	src/screen_message.h \
+	src/screen_status.h \
 	src/screen_interface.h \
 	src/screen_list.h \
 	src/screen_find.h \
@@ -90,7 +90,7 @@ src_ncmpc_SOURCES = \
 	src/progress_bar.c \
 	src/status_bar.c \
 	src/screen.c \
-	src/screen_message.c \
+	src/screen_status.c \
 	src/screen_list.c \
 	src/screen_find.c \
 	src/screen_utils.c \
