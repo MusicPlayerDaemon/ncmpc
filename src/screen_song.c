@@ -36,6 +36,7 @@
 
 enum {
 	LABEL_LENGTH = MPD_TAG_COUNT,
+	LABEL_PATH,
 	LABEL_BITRATE,
 };
 
@@ -51,6 +52,7 @@ static const char *const tag_labels[] = {
 	[MPD_TAG_DATE] = N_("Date"),
 	[MPD_TAG_GENRE] = N_("Genre"),
 	[MPD_TAG_COMMENT] = N_("Comment"),
+	[LABEL_PATH] = N_("Path"),
 	[LABEL_BITRATE] = N_("Bitrate"),
 };
 
@@ -308,7 +310,7 @@ screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 	screen_song_append_tag(song, MPD_TAG_GENRE);
 	screen_song_append_tag(song, MPD_TAG_COMMENT);
 
-	screen_song_append(_("Path"), mpd_song_get_uri(song),
+	screen_song_append(_(tag_labels[LABEL_PATH]), mpd_song_get_uri(song),
 			   max_tag_label_width);
 	if (mpdclient_is_playing(c) && c->song != NULL &&
 	    strcmp(mpd_song_get_uri(c->song), mpd_song_get_uri(song)) == 0 &&
