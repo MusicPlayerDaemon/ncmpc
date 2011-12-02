@@ -1,21 +1,21 @@
 /* ncmpc (Ncurses MPD Client)
  * (c) 2004-2010 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
-
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*/
+ */
 
 #include "options.h"
 #include "config.h"
@@ -264,14 +264,12 @@ handle_option(int c, const char *arg)
 		g_free(options.key_file);
 		options.key_file = g_strdup(arg);
 		break;
-#ifndef NDEBUG
-#ifndef NCMPC_MINI
+#if !defined(NDEBUG) && !defined(NCMPC_MINI)
 	case 'K': /* --dump-keys */
 		read_configuration();
 		write_key_bindings(stdout, KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
 		exit(EXIT_SUCCESS);
 		break;
-#endif
 #endif
 	default:
 		fprintf(stderr,"Unknown Option %c = %s\n", c, arg);

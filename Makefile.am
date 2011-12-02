@@ -30,7 +30,7 @@ ncmpc_headers = \
 	src/progress_bar.h \
 	src/status_bar.h \
 	src/screen.h \
-	src/screen_message.h \
+	src/screen_status.h \
 	src/screen_interface.h \
 	src/screen_list.h \
 	src/screen_find.h \
@@ -90,7 +90,7 @@ src_ncmpc_SOURCES = \
 	src/progress_bar.c \
 	src/status_bar.c \
 	src/screen.c \
-	src/screen_message.c \
+	src/screen_status.c \
 	src/screen_list.c \
 	src/screen_find.c \
 	src/screen_utils.c \
@@ -209,10 +209,32 @@ doc_DATA = \
 	AUTHORS NEWS README
 man_MANS = doc/ncmpc.1
 
+if ENABLE_DOCUMENTATION
+doc/api/html/index.html: doc/doxygen.conf
+	@mkdir -p $(@D)
+	$(DOXYGEN) $<
+
+all-local: doc/api/html/index.html
+
+clean-local:
+	rm -rf doc/api
+
+# copied from MPD, disabled  --jn
+#---------------------------------------
+#install-data-local: doc/api/html/index.html
+#	$(mkinstalldirs) $(DESTDIR)$(docdir)/api/html
+#	$(INSTALL_DATA) -c -m 644 doc/api/html/*.* \
+#		$(DESTDIR)$(docdir)/api/html
+#
+#uninstall-local:
+#	rm -f $(DESTDIR)$(docdir)/api/html/*.*
+#---------------------------------------
+endif
+
 #
 # Distribution
 #
 
 EXTRA_DIST = autogen.sh \
 	$(lyrics_plugins) \
-	$(man_MANS) $(doc_DATA)
+	$(man_MANS) $(doc_DATA) doc/doxygen.conf

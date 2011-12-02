@@ -2,6 +2,8 @@ ncmpc 0.20 - not yet released
 * increase connection timeout to 5 seconds
 * screen_queue: follow songs when they are moved out of the visible
   range
+* add a doxygen configuration file. Documentation will be generated if the
+  configure script is called with --enable-documentation
 
 
 ncmpc 0.19 - (07/23/2011)

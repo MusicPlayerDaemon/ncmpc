@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*/
+ */
 
 #include "config.h"
 #include "ncmpc.h"
@@ -27,7 +27,7 @@
 #include "ncu.h"
 #include "screen.h"
 #include "screen_utils.h"
-#include "screen_message.h"
+#include "screen_status.h"
 #include "strfsong.h"
 #include "i18n.h"
 #include "player_command.h"

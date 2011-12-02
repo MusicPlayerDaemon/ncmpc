@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "screen_message.h"
+#include "screen_status.h"
 #include "screen.h"
 
 #include <stdarg.h>

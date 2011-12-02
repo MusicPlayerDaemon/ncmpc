@@ -24,3 +24,6 @@ src/ncmpc-tiny
 build
 
 test/run_hscroll
+
+doc/doxygen.conf
+doc/api/

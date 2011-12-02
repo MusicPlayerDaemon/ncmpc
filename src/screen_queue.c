@@ -20,7 +20,7 @@
 #include "screen_queue.h"
 #include "screen_interface.h"
 #include "screen_file.h"
-#include "screen_message.h"
+#include "screen_status.h"
 #include "screen_find.h"
 #include "config.h"
 #include "i18n.h"
