@@ -28,9 +28,12 @@
 #include "screen.h"
 #include "lyrics.h"
 #include "screen_text.h"
+#include "ncu.h"
 
 #include <assert.h>
+#include <errno.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
@@ -341,6 +344,59 @@ lyrics_paint(void)
 	screen_text_paint(&text);
 }
 
+/* save current lyrics to a file and run editor on it */
+static void
+lyrics_edit(void)
+{
+	char *editor = options.text_editor;
+	int status;
+
+	if (editor == NULL) {
+		screen_status_message(_("Editor not configured"));
+		return;
+	}
+
+	if (store_lyr_hd() < 0)
+		return;
+
+	ncu_deinit();
+
+	/* TODO: fork/exec/wait won't work on Windows, but building a command
+	   string for system() is too tricky */
+	pid_t pid = fork();
+	if (pid == -1) {
+		screen_status_printf(("%s (%s)"), _("Can't start editor"), g_strerror(errno));
+	} else if (pid == 0) {
+		char path[1024];
+		path_lyr_file(path, sizeof(path), current.artist, current.title);
+		execlp(editor, editor, path, NULL);
+		/* exec failed, do what system does */
+		_exit(127);
+	} else {
+		int ret;
+		do {
+			ret = waitpid(pid, &status, 0);
+		} while (ret == -1 && errno == EINTR);
+	}
+
+	ncu_init();
+
+	/* TODO: hardly portable */
+	if (WIFEXITED(status)) {
+		if (WEXITSTATUS(status) == 0)
+			/* update to get the changes */
+			screen_lyrics_reload();
+		else if (WEXITSTATUS(status) == 127)
+			screen_status_message(_("Can't start editor"));
+		else
+			screen_status_printf(_("Editor exited unexpectedly (%d)"),
+					     WEXITSTATUS(status));
+	} else if (WIFSIGNALED(status)) {
+		screen_status_printf(_("Editor exited unexpectedly (signal %d)"),
+				     WTERMSIG(status));
+	}
+}
+
 static bool
 lyrics_cmd(struct mpdclient *c, command_t cmd)
 {
@@ -378,6 +434,9 @@ lyrics_cmd(struct mpdclient *c, command_t cmd)
 			screen_lyrics_load(c->song);
 			screen_text_repaint(&text);
 		}
+		return true;
+	case CMD_LYRICS_EDIT:
+		lyrics_edit();
 		return true;
 	case CMD_SELECT:
 		screen_lyrics_reload();

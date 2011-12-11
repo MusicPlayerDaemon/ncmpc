@@ -162,6 +162,7 @@ static const struct help_text_row help_text[] = {
 	   from the server */
 	{ 0, CMD_INTERRUPT, N_("Interrupt retrieval") },
 	{ 0, CMD_LYRICS_UPDATE, N_("Download lyrics for currently playing song") },
+	{ 0, CMD_LYRICS_EDIT, N_("Add or edit lyrics") },
 	{ 0, CMD_SAVE_PLAYLIST, N_("Save lyrics") },
 	{ 0, CMD_DELETE, N_("Delete saved lyrics") },
 #endif
