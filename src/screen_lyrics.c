@@ -247,6 +247,17 @@ screen_lyrics_load(const struct mpd_song *song)
 }
 
 static void
+screen_lyrics_reload(void)
+{
+	if (current.loader == NULL && current.artist != NULL &&
+	    current.title != NULL) {
+		current.loader = lyrics_load(current.artist, current.title,
+					     screen_lyrics_callback, NULL);
+		screen_text_repaint(&text);
+	}
+}
+
+static void
 lyrics_screen_init(WINDOW *w, int cols, int rows)
 {
 	screen_text_init(&text, w, cols, rows);
@@ -369,12 +380,7 @@ lyrics_cmd(struct mpdclient *c, command_t cmd)
 		}
 		return true;
 	case CMD_SELECT:
-		if (current.loader == NULL && current.artist != NULL &&
-		    current.title != NULL) {
-			current.loader = lyrics_load(current.artist, current.title,
-						     screen_lyrics_callback, NULL);
-			screen_text_repaint(&text);
-		}
+		screen_lyrics_reload();
 		return true;
 
 #ifdef ENABLE_SONG_SCREEN
