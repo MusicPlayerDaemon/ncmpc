@@ -77,6 +77,7 @@
 #define CONF_JUMP_PREFIX_ONLY "jump-prefix-only"
 #define CONF_LYRICS_AUTOSAVE "lyrics-autosave"
 #define CONF_LYRICS_SHOW_PLUGIN "lyrics-show-plugin"
+#define CONF_TEXT_EDITOR "text-editor"
 #define CONF_SECOND_COLUMN "second-column"
 
 static bool
@@ -520,6 +521,15 @@ parse_line(char *line)
 	else if (!strcasecmp(CONF_LYRICS_SHOW_PLUGIN, name))
 #ifdef ENABLE_LYRICS_SCREEN
 		options.lyrics_show_plugin = str2bool(value);
+#else
+		{}
+#endif
+	else if (!strcasecmp(name, CONF_TEXT_EDITOR))
+#ifdef ENABLE_LYRICS_SCREEN
+		{
+			g_free(options.text_editor);
+			options.text_editor = get_format(value);
+		}
 #else
 		{}
 #endif

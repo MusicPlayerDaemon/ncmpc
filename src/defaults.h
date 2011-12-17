@@ -34,6 +34,8 @@
 
 #define DEFAULT_LYRICS_TIMEOUT 100
 
+#define DEFAULT_TEXT_EDITOR "editor"
+
 #define DEFAULT_SCROLL TRUE
 #define DEFAULT_SCROLL_SEP " *** "
 

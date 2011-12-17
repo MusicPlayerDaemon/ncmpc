@@ -48,6 +48,7 @@ typedef struct {
 	int lyrics_timeout;
 	bool lyrics_autosave;
 	bool lyrics_show_plugin;
+	char *text_editor;
 #endif
 	bool find_wrap;
 	bool find_show_last_pattern;

@@ -101,6 +101,9 @@
 ## Automatically save the lyrics after receiving them.
 #lyrics-autosave = no
 
+## The text editor used for editing lyrics.
+#text-editor = emacs
+
 ## Display song length in second column
 #second-column = yes
 
