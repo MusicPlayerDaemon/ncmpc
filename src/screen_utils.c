@@ -27,6 +27,7 @@
 #include "wreadln.h"
 
 #include <mpd/client.h>
+#include <ctype.h>
 
 void
 screen_bell(void)
@@ -64,6 +65,21 @@ screen_getch(const char *prompt)
 	curs_set(0);
 
 	return key;
+}
+
+bool
+screen_get_yesno(const char *prompt, bool def)
+{
+	/* NOTE: if one day a translator decides to use a multi-byte character
+	   for one of the yes/no keys, we'll have to parse it properly */
+
+	int key = tolower(screen_getch(prompt));
+	if (key == YES[0])
+		return true;
+	else if (key == NO[0])
+		return false;
+	else
+		return def;
 }
 
 char *

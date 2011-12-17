@@ -32,6 +32,15 @@ void screen_bell(void);
 /* read a character from the status window */
 int screen_getch(const char *prompt);
 
+/**
+ * display a prompt, wait for the user to press a key, and compare it with
+ * the default keys for "yes" and "no" (and their upper-case pendants).
+ *
+ * @returns true, if the user pressed the key for "yes"; false, if the user
+ *	    pressed the key for "no"; def otherwise
+ */
+bool screen_get_yesno(const char *prompt, bool def);
+
 char *
 screen_read_password(const char *prompt);
 
