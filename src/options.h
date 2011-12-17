@@ -50,6 +50,7 @@ typedef struct {
 	bool lyrics_autosave;
 	bool lyrics_show_plugin;
 	char *text_editor;
+	bool text_editor_ask;
 #endif
 	bool find_wrap;
 	bool find_show_last_pattern;

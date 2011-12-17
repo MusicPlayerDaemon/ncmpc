@@ -79,6 +79,7 @@
 #define CONF_LYRICS_AUTOSAVE "lyrics-autosave"
 #define CONF_LYRICS_SHOW_PLUGIN "lyrics-show-plugin"
 #define CONF_TEXT_EDITOR "text-editor"
+#define CONF_TEXT_EDITOR_ASK "text-editor-ask"
 #define CONF_SECOND_COLUMN "second-column"
 
 static bool
@@ -534,6 +535,12 @@ parse_line(char *line)
 			g_free(options.text_editor);
 			options.text_editor = get_format(value);
 		}
+#else
+		{}
+#endif
+	else if (!strcasecmp(name, CONF_TEXT_EDITOR_ASK))
+#ifdef ENABLE_LYRICS_SCREEN
+		options.text_editor_ask = str2bool(value);
 #else
 		{}
 #endif

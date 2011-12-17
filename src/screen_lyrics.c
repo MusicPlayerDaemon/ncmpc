@@ -28,6 +28,7 @@
 #include "screen.h"
 #include "lyrics.h"
 #include "screen_text.h"
+#include "screen_utils.h"
 #include "ncu.h"
 
 #include <assert.h>
@@ -354,6 +355,18 @@ lyrics_edit(void)
 	if (editor == NULL) {
 		screen_status_message(_("Editor not configured"));
 		return;
+	}
+
+	if (options.text_editor_ask) {
+		char *buf = g_strdup_printf(
+		    _("Do you really want to start an editor and edit these lyrics [%s/%s]? "),
+					    YES, NO);
+		bool really = screen_get_yesno(buf, false);
+		g_free(buf);
+		if (!really) {
+			screen_status_message(_("Aborted"));
+			return;
+		}
 	}
 
 	if (store_lyr_hd() < 0)

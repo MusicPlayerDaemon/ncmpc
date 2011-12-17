@@ -104,6 +104,9 @@
 ## The text editor used for editing lyrics.
 #text-editor = emacs
 
+## Ask before starting an editor.
+#text-editor-ask = yes
+
 ## Display song length in second column
 #second-column = yes
 

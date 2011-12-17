@@ -53,6 +53,7 @@ options_t options = {
 	.lyrics_timeout = DEFAULT_LYRICS_TIMEOUT,
 	.lyrics_autosave = false,
 	.lyrics_show_plugin = false,
+	.text_editor_ask = true,
 #endif
 	.find_wrap = true,
 	.scroll_offset = 0,
