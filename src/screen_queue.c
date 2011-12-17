@@ -287,14 +287,14 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_EXIST &&
 		    mpd_connection_clear_error(connection)) {
 			char *buf;
-			int key;
+			bool replace;
 
 			buf = g_strdup_printf(_("Replace %s [%s/%s] ? "),
 					      filename, YES, NO);
-			key = tolower(screen_getch(buf));
+			replace = screen_get_yesno(buf, false);
 			g_free(buf);
 
-			if (key != YES[0]) {
+			if (!replace) {
 				g_free(filename_utf8);
 				g_free(filename);
 				screen_status_printf(_("Aborted"));

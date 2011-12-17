@@ -202,7 +202,6 @@ handle_delete(struct mpdclient *c)
 	struct mpd_entity *entity;
 	const struct mpd_playlist *playlist;
 	char *str, *buf;
-	int key;
 
 	if (connection == NULL)
 		return;
@@ -229,9 +228,10 @@ handle_delete(struct mpdclient *c)
 		str = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
 		buf = g_strdup_printf(_("Delete playlist %s [%s/%s] ? "), str, YES, NO);
 		g_free(str);
-		key = tolower(screen_getch(buf));
+		bool delete = screen_get_yesno(buf, false);
 		g_free(buf);
-		if( key != YES[0] ) {
+
+		if (!delete) {
 			/* translators: a dialog was aborted by the user */
 			screen_status_printf(_("Aborted"));
 			return;
