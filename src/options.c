@@ -395,4 +395,7 @@ options_deinit(void)
 	g_free(options.xterm_title_format);
 	g_free(options.scroll_sep);
 #endif
+#ifdef ENABLE_LYRICS_SCREEN
+	g_free(options.text_editor);
+#endif
 }
