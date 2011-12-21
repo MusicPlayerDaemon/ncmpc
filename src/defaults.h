@@ -34,8 +34,6 @@
 
 #define DEFAULT_LYRICS_TIMEOUT 100
 
-#define DEFAULT_TEXT_EDITOR "editor"
-
 #define DEFAULT_MPD_TIMEOUT 5000 /* 5 seconds */
 
 #define DEFAULT_SCROLL TRUE
