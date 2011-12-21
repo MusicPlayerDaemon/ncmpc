@@ -37,7 +37,14 @@ struct screen_functions {
 	void (*resize)(int cols, int rows);
 	void (*paint)(void);
 	void (*update)(struct mpdclient *c);
+
+	/**
+	 * Handle a command.
+	 *
+	 * @returns true if the command should not be handled by the ncmpc core.
+	 */
 	bool (*cmd)(struct mpdclient *c, command_t cmd);
+
 	const char *(*get_title)(char *s, size_t size);
 };
 
