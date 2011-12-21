@@ -427,7 +427,10 @@ find_key_command(int key, command_definition_t *c)
 {
 	int i = 0;
 
-	while (key && c && c[i].name) {
+	assert(key != 0);
+	assert(c != NULL);
+
+	while (c[i].name) {
 		if (c[i].keys[0] == key ||
 		    c[i].keys[1] == key ||
 		    c[i].keys[2] == key)
