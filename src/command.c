@@ -307,13 +307,13 @@ key2str(int key)
 	default:
 		for (i = 0; i <= 63; i++)
 			if (key == KEY_F(i)) {
-				g_snprintf(buf, 32, "F%d", i );
+				g_snprintf(buf, 32, _("F%d"), i );
 				return buf;
 			}
 		if (!(key & ~037))
-			g_snprintf(buf, 32, "Ctrl-%c", 'A'+(key & 037)-1 );
+			g_snprintf(buf, 32, _("Ctrl-%c"), 'A'+(key & 037)-1 );
 		else if ((key & ~037) == 224)
-			g_snprintf(buf, 32, "Alt-%c", 'A'+(key & 037)-1 );
+			g_snprintf(buf, 32, _("Alt-%c"), 'A'+(key & 037)-1 );
 		else if (key > 32 && key < 256)
 			g_snprintf(buf, 32, "%c", key);
 		else
