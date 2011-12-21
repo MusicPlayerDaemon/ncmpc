@@ -448,7 +448,7 @@ lyrics_cmd(struct mpdclient *c, command_t cmd)
 			screen_text_repaint(&text);
 		}
 		return true;
-	case CMD_LYRICS_EDIT:
+	case CMD_EDIT:
 		lyrics_edit();
 		return true;
 	case CMD_SELECT:

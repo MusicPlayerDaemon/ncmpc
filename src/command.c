@@ -241,8 +241,10 @@ static command_definition_t cmds[] = {
 	  N_("Interrupt action") },
 	{ {'u', 0, 0 }, 0, CMD_LYRICS_UPDATE, "lyrics-update",
 	  N_("Update Lyrics") },
-	{ {'e', 0, 0 }, 0, CMD_LYRICS_EDIT, "lyrics-edit",
-	  N_("Edit Lyrics") },
+	/* this command may move out of #ifdef ENABLE_LYRICS_SCREEN
+	   at some point */
+	{ {'e', 0, 0 }, 0, CMD_EDIT, "edit",
+	  N_("Edit the current item") },
 #endif
 
 #ifdef ENABLE_OUTPUTS_SCREEN
