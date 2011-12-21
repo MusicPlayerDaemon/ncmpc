@@ -530,4 +530,4 @@ write_key_bindings(FILE *f, int flags)
 	return ferror(f);
 }
 
-#endif
+#endif /* NCMPC_MINI */
