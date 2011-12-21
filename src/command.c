@@ -407,10 +407,9 @@ find_key_command(int key, command_definition_t *c)
 	assert(c != NULL);
 
 	for (int i = 0; c[i].name; i++) {
-		if (c[i].keys[0] == key ||
-		    c[i].keys[1] == key ||
-		    c[i].keys[2] == key)
-			return c[i].command;
+		for (int j = 0; j < MAX_COMMAND_KEYS; j++)
+			if (c[i].keys[j] == key)
+				return c[i].command;
 	}
 
 	return CMD_NONE;
