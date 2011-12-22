@@ -12,6 +12,9 @@
 ## Connect to mpd using the specified password.
 #password = "secret"
 
+## Reconnect after NUM seconds of MPD not responding.
+#timeout = 5
+
 ############## Interface ####################
 ## Enable mouse support (if enabled at compile time).
 #enable-mouse = no
