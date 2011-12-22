@@ -335,17 +335,15 @@ command_dump_keys(void)
 
 #ifndef NCMPC_MINI
 
-static int
+static void
 set_key_flags(command_definition_t *cp, command_t command, int flags)
 {
 	for (int i = 0; cp[i].name; i++) {
 		if (cp[i].command == command) {
 			cp[i].flags |= flags;
-			return 0;
+			break;
 		}
 	}
-
-	return 1;
 }
 
 #endif
