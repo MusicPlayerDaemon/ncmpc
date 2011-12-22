@@ -23,6 +23,7 @@
 #include "config.h"
 
 #include <stddef.h>
+#include <stdbool.h>
 
 #ifndef NCMPC_MINI
 #include <stdio.h>
@@ -142,7 +143,7 @@ int write_key_bindings(FILE *f, int all);
 const char *key2str(int key);
 const char *get_key_description(command_t command);
 const char *get_key_command_name(command_t command);
-const char *get_key_names(command_t command, int all);
+const char *get_key_names(command_t command, bool all);
 command_t get_key_command(int key);
 command_t get_key_command_from_name(char *name);
 int assign_keys(command_t command, int keys[MAX_COMMAND_KEYS]);

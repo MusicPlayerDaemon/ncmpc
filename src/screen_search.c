@@ -382,7 +382,7 @@ screen_search_open(G_GNUC_UNUSED struct mpdclient *c)
 	//    search_new(screen, c);
 	// else
 	screen_status_printf(_("Press %s for a new search"),
-			     get_key_names(CMD_SCREEN_SEARCH,0));
+			     get_key_names(CMD_SCREEN_SEARCH, false));
 	search_check_mode();
 }
 
@@ -416,7 +416,7 @@ screen_search_get_title(char *str, size_t size)
 			   _(mode[options.search_mode].label));
 	else
 		g_snprintf(str, size, _("Search: Press %s for a new search [%s]"),
-			   get_key_names(CMD_SCREEN_SEARCH,0),
+			   get_key_names(CMD_SCREEN_SEARCH, false),
 			   _(mode[options.search_mode].label));
 
 	return str;

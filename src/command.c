@@ -330,7 +330,9 @@ command_dump_keys(void)
 {
 	for (int i = 0; cmds[i].description; i++)
 		if (cmds[i].command != CMD_NONE)
-			printf(" %20s : %s\n", get_key_names(cmds[i].command,1),cmds[i].name);
+			printf(" %20s : %s\n",
+			       get_key_names(cmds[i].command, true),
+			       cmds[i].name);
 }
 
 #ifndef NCMPC_MINI
@@ -349,7 +351,7 @@ set_key_flags(command_definition_t *cp, command_t command, int flags)
 #endif
 
 const char *
-get_key_names(command_t command, int all)
+get_key_names(command_t command, bool all)
 {
 	for (int i = 0; cmds[i].description; i++) {
 		if (cmds[i].command == command) {

@@ -313,7 +313,7 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 
 	char *name = default_settings_name();
 	screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
-			     name, get_key_names(CMD_QUIT,0) );
+			     name, get_key_names(CMD_QUIT, false));
 	g_free(name);
 	doupdate();
 
@@ -527,7 +527,7 @@ timer_check_key_bindings(G_GNUC_UNUSED gpointer data)
 	   and this is a hint for the user what to press to correct
 	   that */
 	g_snprintf(comment, sizeof(comment), _("press %s for the key editor"),
-		   get_key_names(CMD_SCREEN_KEYDEF, 0));
+		   get_key_names(CMD_SCREEN_KEYDEF, false));
 	g_strlcat(buf, comment, sizeof(buf));
 	g_strlcat(buf, ")", sizeof(buf));
 #endif
