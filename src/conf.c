@@ -68,6 +68,7 @@
 #define CONF_HOST "host"
 #define CONF_PORT "port"
 #define CONF_PASSWORD "password"
+#define CONF_TIMEOUT "timeout"
 #define CONF_LYRICS_TIMEOUT "lyrics-timeout"
 #define CONF_SCROLL "scroll"
 #define CONF_SCROLL_SEP "scroll-sep"
@@ -489,6 +490,9 @@ parse_line(char *line)
 		options.port = atoi(get_format(value));
 	else if (!strcasecmp(CONF_PASSWORD, name))
 		options.password = get_format(value);
+	else if (!strcasecmp(CONF_TIMEOUT, name))
+		options.timeout_ms = atoi(get_format(value))
+				     * 1000 /* seconds -> milliseconds */;
 	else if (!strcasecmp(CONF_LYRICS_TIMEOUT, name))
 #ifdef ENABLE_LYRICS_SCREEN
 		options.lyrics_timeout = atoi(get_format(value));

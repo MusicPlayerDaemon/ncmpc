@@ -4,6 +4,7 @@ ncmpc 0.20 - not yet released
   range
 * add a doxygen configuration file. Documentation will be generated if the
   configure script is called with --enable-documentation
+* configurable timeout for MPD connections
 
 
 ncmpc 0.19 - (07/23/2011)

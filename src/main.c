@@ -320,7 +320,7 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 	mpdclient_disconnect(mpd);
 	success = mpdclient_connect(mpd,
 				    options.host, options.port,
-				    5000,
+				    options.timeout_ms,
 				    options.password);
 	if (!success) {
 		/* try again in 5 seconds */

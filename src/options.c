@@ -60,6 +60,7 @@ options_t options = {
 	.audible_bell = true,
 	.bell_on_wrap = true,
 	.status_message_time = 3,
+	.timeout_ms = DEFAULT_MPD_TIMEOUT,
 #ifndef NCMPC_MINI
 	.scroll = DEFAULT_SCROLL,
 	.welcome_screen_list = true,
@@ -374,6 +375,9 @@ options_init(void)
 #ifndef NCMPC_MINI
 	options.scroll_sep = g_strdup(DEFAULT_SCROLL_SEP);
 #endif
+	if (getenv("MPD_TIMEOUT") != NULL)
+		/* let libmpdclient parse the environment variable */
+		options.timeout_ms = 0;
 }
 
 void

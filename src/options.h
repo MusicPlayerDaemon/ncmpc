@@ -40,6 +40,7 @@ typedef struct {
 	char **screen_list;
 	bool display_remaining_time;
 	int port;
+	int timeout_ms;
 	int crossfade_time;
 	int search_mode;
 	int hide_cursor;
