@@ -33,7 +33,6 @@
 
 #define STATIC_ITEMS      0
 #define STATIC_SUB_ITEMS  1
-#define BUFSIZE 256
 
 #define LIST_ITEM_APPLY()   ((unsigned)command_list_length)
 #define LIST_ITEM_SAVE()    (LIST_ITEM_APPLY()+1)
@@ -203,7 +202,7 @@ assign_new_key(int cmd_index, int key_index)
 static const char *
 list_callback(unsigned idx, G_GNUC_UNUSED void *data)
 {
-	static char buf[BUFSIZE];
+	static char buf[256];
 
 	if (subcmd < 0) {
 		if (idx == LIST_ITEM_APPLY())
@@ -219,15 +218,15 @@ list_callback(unsigned idx, G_GNUC_UNUSED void *data)
 			return "[..]";
 		idx--;
 		if (idx == subcmd_addpos) {
-			g_snprintf(buf, BUFSIZE, "%d. %s",
+			g_snprintf(buf, sizeof(buf), "%d. %s",
 				   idx + 1, _("Add new key"));
 			return buf;
 		}
 
 		assert(idx < MAX_COMMAND_KEYS && cmds[subcmd].keys[idx] > 0);
 
-		g_snprintf(buf,
-			   BUFSIZE, "%d. %-20s   (%d) ",
+		g_snprintf(buf, sizeof(buf),
+			   "%d. %-20s   (%d) ",
 			   idx + 1,
 			   key2str(cmds[subcmd].keys[idx]),
 			   cmds[subcmd].keys[idx]);
