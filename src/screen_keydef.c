@@ -131,17 +131,28 @@ keydef_repaint(void)
 	wrefresh(lw->w);
 }
 
+/**
+ * Delete a key from a given command's definition
+ * @param cmd_index the command
+ * @param key_index the key (see below)
+ */
 static void
 delete_key(int cmd_index, int key_index)
 {
+	/* shift the keys to close the gap that appeared */
 	int i = key_index+1;
-
-	screen_status_printf(_("Deleted"));
 	while (i < MAX_COMMAND_KEYS && cmds[cmd_index].keys[i])
 		cmds[cmd_index].keys[key_index++] = cmds[cmd_index].keys[i++];
+
+	/* As key_index now holds the index of the last key slot that contained
+	   a key, we use it to empty this slot, because this key has been copied
+	   to the previous slot in the loop above */
 	cmds[cmd_index].keys[key_index] = 0;
+
 	cmds[cmd_index].flags |= COMMAND_KEY_MODIFIED;
 	check_subcmd_length();
+
+	screen_status_printf(_("Deleted"));
 
 	/* repaint */
 	keydef_repaint();
