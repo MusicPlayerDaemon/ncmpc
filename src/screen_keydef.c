@@ -241,7 +241,24 @@ list_callback(unsigned idx, G_GNUC_UNUSED void *data)
 
 		assert(idx < (unsigned) command_n_commands);
 
-		return cmds[idx].name;
+		/*
+		 * Format the lines in two aligned columnes for the key name and
+		 * the description, like this:
+		 *
+		 *	this-command - do this
+		 *	that-one     - do that
+		 */
+		size_t len = strlen(cmds[idx].name);
+		strncpy(buf, cmds[idx].name, sizeof(buf));
+
+		if (len < get_cmds_max_name_width(cmds))
+			memset(buf + len, ' ', get_cmds_max_name_width(cmds) - len);
+
+		g_snprintf(buf + get_cmds_max_name_width(cmds),
+			   sizeof(buf) - get_cmds_max_name_width(cmds),
+			   " - %s", _(cmds[idx].description));
+
+		return buf;
 	} else {
 		if (idx == subcmd_item_up)
 			return "[..]";

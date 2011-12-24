@@ -6,6 +6,7 @@ ncmpc 0.20 - not yet released
   configure script is called with --enable-documentation
 * screen_lyrics: You can now edit lyrics by pressing 'e'
 * configurable timeout for MPD connections
+* screen_keydef: show command descriptions
 
 
 ncmpc 0.19 - (07/23/2011)

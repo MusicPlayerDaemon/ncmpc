@@ -262,6 +262,30 @@ get_command_definitions(void)
 {
 	return cmds;
 }
+
+size_t
+get_cmds_max_name_width(command_definition_t *c)
+{
+	static size_t max = 0;
+
+	if (max != 0)
+		return max;
+
+	size_t len;
+	command_definition_t *p;
+
+	for (p = c; p->name != NULL; p++) {
+		/*
+		 * width and length are considered the same here, as command
+		 * names are not translated.
+		 */
+		len = (size_t) strlen(p->name);
+		if (len > max)
+			max = len;
+	}
+
+	return max;
+}
 #endif
 
 const char *

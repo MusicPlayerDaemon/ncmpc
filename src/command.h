@@ -127,6 +127,7 @@ typedef struct  {
 
 #ifdef ENABLE_KEYDEF_SCREEN
 command_definition_t *get_command_definitions(void);
+size_t get_cmds_max_name_width(command_definition_t *cmds);
 #endif
 
 command_t find_key_command(int key, command_definition_t *cmds);
