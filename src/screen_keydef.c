@@ -38,9 +38,6 @@
 #define LIST_ITEM_SAVE()    (LIST_ITEM_APPLY()+1)
 #define LIST_LENGTH()       (LIST_ITEM_SAVE()+1)
 
-#define LIST_ITEM_SAVE_LABEL  _("===> Apply & Save key bindings  ")
-#define LIST_ITEM_APPLY_LABEL _("===> Apply key bindings ")
-
 
 static struct list_window *lw;
 static unsigned command_list_length = 0;
@@ -206,9 +203,9 @@ list_callback(unsigned idx, G_GNUC_UNUSED void *data)
 
 	if (subcmd < 0) {
 		if (idx == LIST_ITEM_APPLY())
-			return LIST_ITEM_APPLY_LABEL;
+			return _("===> Apply key bindings ");
 		else if (idx == LIST_ITEM_SAVE())
-			return LIST_ITEM_SAVE_LABEL;
+			return _("===> Apply & Save key bindings  ");
 
 		assert(idx < (unsigned)command_list_length);
 
