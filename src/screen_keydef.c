@@ -189,12 +189,15 @@ delete_key(int cmd_index, int key_index)
 	check_key_bindings(cmds, NULL, 0);
 }
 
+/* assigns a new key to a key slot */
 static void
-assign_new_key(int cmd_index, int key_index)
+overwrite_key(int cmd_index, int key_index)
 {
 	int key;
 	char *buf;
 	command_t cmd;
+
+	assert(key_index < MAX_COMMAND_KEYS);
 
 	buf = g_strdup_printf(_("Enter new key for %s: "), cmds[cmd_index].name);
 	key = screen_getch(buf);
@@ -226,6 +229,14 @@ assign_new_key(int cmd_index, int key_index)
 
 	/* update key conflict flags */
 	check_key_bindings(cmds, NULL, 0);
+}
+
+/* assign a new key to a new slot */
+static void
+add_key(int cmd_index)
+{
+	if (subcmd_n_keys < MAX_COMMAND_KEYS)
+		overwrite_key(cmd_index, subcmd_n_keys);
 }
 
 static const char *
@@ -381,10 +392,12 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 				subcmd = -1;
 
 				keydef_repaint();
+			} else if (lw->selected == subcmd_item_add) {
+				add_key(subcmd);
 			} else {
-				/* TODO: subcmd_item_add should be handled
-				   separately, just for clarity */
-				assign_new_key(subcmd, subcmd_item_to_key_id(lw->selected));
+				/* just to be sure ;-) */
+				assert(subcmd_item_is_key(lw->selected));
+				overwrite_key(subcmd, subcmd_item_to_key_id(lw->selected));
 			}
 		}
 		return true;
