@@ -346,16 +346,15 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 
 			keydef_repaint();
 		}
-		break;
+		return true;
 	case CMD_DELETE:
 		if (subcmd >= 0 && lw->selected >= STATIC_SUB_ITEMS)
 			delete_key(subcmd, lw->selected - STATIC_SUB_ITEMS);
 		return true;
-		break;
 	case CMD_SAVE_PLAYLIST:
 		apply_keys();
 		save_keys();
-		break;
+		return true;
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
@@ -365,9 +364,11 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 		return true;
 
 	default:
-		break;
+		return false;
 	}
 
+	/* unreachable */
+	assert(0);
 	return false;
 }
 
