@@ -31,27 +31,60 @@
 #include <string.h>
 #include <glib.h>
 
-#define STATIC_ITEMS      0
-#define STATIC_SUB_ITEMS  1
-
-#define LIST_ITEM_APPLY()   ((unsigned)command_list_length)
-#define LIST_ITEM_SAVE()    (LIST_ITEM_APPLY()+1)
-#define LIST_LENGTH()       (LIST_ITEM_SAVE()+1)
-
-
 static struct list_window *lw;
-static unsigned command_list_length = 0;
+
 static command_definition_t *cmds = NULL;
 
+/** the number of commands */
+static unsigned command_n_commands = 0;
+
+/**
+ * the position of the "apply" item. It's the same as command_n_commands,
+ * because array subscripts start at 0, while numbers of items start at 1.
+ */
+#define command_item_apply (command_n_commands)
+
+/** the position of the "apply and save" item */
+#define command_item_save  (command_item_apply + 1)
+
+/** the number of items on the "command" view */
+#define command_length     (command_item_save + 1)
+
+
+/**
+ * The command being edited, represented by a array subscript to @cmds, or -1,
+ * if no command is being edited
+ */
 static int subcmd = -1;
-static unsigned subcmd_length = 0;
-static unsigned subcmd_addpos = 0;
+
+/** The number of keys assigned to the current command */
+static unsigned subcmd_n_keys = 0;
+
+/** The position of the up ("[..]") item */
+#define subcmd_item_up	0
+
+/** The position of the "add a key" item */
+#define subcmd_item_add (subcmd_n_keys + 1)
+
+/** The number of items in the list_window, if there's a command being edited */
+#define subcmd_length	(subcmd_item_add + 1)
+
+/** Check whether a given item is a key */
+#define subcmd_item_is_key(i) \
+			((i) > subcmd_item_up && (i) < subcmd_item_add)
+
+/**
+ * Convert an item id (as in lw->selected) into a "key id", which is an array
+ * subscript to cmds[subcmd].keys.
+ */
+#define subcmd_item_to_key_id(i) ((i) - 1)
+
 
 static int
 keybindings_changed(void)
 {
 	command_definition_t *orginal_cmds = get_command_definitions();
-	size_t size = command_list_length * sizeof(command_definition_t);
+	size_t size = command_n_commands * sizeof(command_definition_t);
 
 	return memcmp(orginal_cmds, cmds, size);
 }
@@ -61,7 +94,7 @@ apply_keys(void)
 {
 	if (keybindings_changed()) {
 		command_definition_t *orginal_cmds = get_command_definitions();
-		size_t size = command_list_length * sizeof(command_definition_t);
+		size_t size = command_n_commands * sizeof(command_definition_t);
 
 		memcpy(orginal_cmds, cmds, size);
 		screen_status_printf(_("You have new key bindings"));
@@ -100,20 +133,19 @@ save_keys(void)
 	return fclose(f);
 }
 
+/* TODO: rename to check_n_keys / subcmd_count_keys? */
 static void
 check_subcmd_length(void)
 {
-	subcmd_length = 0;
-	while (subcmd_length < MAX_COMMAND_KEYS &&
-	       cmds[subcmd].keys[subcmd_length] > 0)
-		++subcmd_length;
+	unsigned i;
 
-	if (subcmd_length < MAX_COMMAND_KEYS) {
-		subcmd_addpos = subcmd_length;
-		subcmd_length++;
-	} else
-		subcmd_addpos = 0;
-	subcmd_length += STATIC_SUB_ITEMS;
+	/* this loops counts the continous valid keys at the start of the the keys
+	   array, so make sure you don't have gaps */
+	for (i = 0; i < MAX_COMMAND_KEYS; i++)
+		if (cmds[subcmd].keys[i] == 0)
+			break;
+	subcmd_n_keys = i;
+
 	list_window_set_length(lw, subcmd_length);
 }
 
@@ -201,32 +233,31 @@ list_callback(unsigned idx, G_GNUC_UNUSED void *data)
 {
 	static char buf[256];
 
-	if (subcmd < 0) {
-		if (idx == LIST_ITEM_APPLY())
+	if (subcmd == -1) {
+		if (idx == command_item_apply)
 			return _("===> Apply key bindings ");
-		else if (idx == LIST_ITEM_SAVE())
+		if (idx == command_item_save)
 			return _("===> Apply & Save key bindings  ");
 
-		assert(idx < (unsigned)command_list_length);
+		assert(idx < (unsigned) command_n_commands);
 
 		return cmds[idx].name;
 	} else {
-		if (idx == 0)
+		if (idx == subcmd_item_up)
 			return "[..]";
-		idx--;
-		if (idx == subcmd_addpos) {
+
+		if (idx == subcmd_item_add) {
 			g_snprintf(buf, sizeof(buf), "%d. %s",
-				   idx + 1, _("Add new key"));
+				   idx, _("Add new key"));
 			return buf;
 		}
 
-		assert(idx < MAX_COMMAND_KEYS && cmds[subcmd].keys[idx] > 0);
+		assert(subcmd_item_is_key(idx));
 
 		g_snprintf(buf, sizeof(buf),
-			   "%d. %-20s   (%d) ",
-			   idx + 1,
-			   key2str(cmds[subcmd].keys[idx]),
-			   cmds[subcmd].keys[idx]);
+			   "%d. %-20s   (%d) ", idx,
+			   key2str(cmds[subcmd].keys[subcmd_item_to_key_id(idx)]),
+			   cmds[subcmd].keys[subcmd_item_to_key_id(idx)]);
 		return buf;
 	}
 }
@@ -260,18 +291,18 @@ keydef_open(G_GNUC_UNUSED struct mpdclient *c)
 		command_definition_t *current_cmds = get_command_definitions();
 		size_t cmds_size;
 
-		command_list_length = 0;
-		while (current_cmds[command_list_length].name)
-			command_list_length++;
+		command_n_commands = 0;
+		while (current_cmds[command_n_commands].name)
+			command_n_commands++;
 
-		cmds_size = (command_list_length+1) * sizeof(command_definition_t);
+		/* +1 for the terminator element */
+		cmds_size = (command_n_commands + 1) * sizeof(command_definition_t);
 		cmds = g_malloc0(cmds_size);
 		memcpy(cmds, current_cmds, cmds_size);
-		command_list_length += STATIC_ITEMS;
 	}
 
 	subcmd = -1;
-	list_window_set_length(lw, LIST_LENGTH());
+	list_window_set_length(lw, command_length);
 }
 
 static void
@@ -287,7 +318,7 @@ keydef_close(void)
 static const char *
 keydef_title(char *str, size_t size)
 {
-	if (subcmd < 0)
+	if (subcmd == -1)
 		return _("Edit key bindings");
 
 	g_snprintf(str, size, _("Edit keys for %s"), cmds[subcmd].name);
@@ -313,10 +344,10 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 
 	switch(cmd) {
 	case CMD_PLAY:
-		if (subcmd < 0) {
-			if (lw->selected == LIST_ITEM_APPLY())
+		if (subcmd == -1) {
+			if (lw->selected == command_item_apply) {
 				apply_keys();
-			else if (lw->selected == LIST_ITEM_SAVE()) {
+			} else if (lw->selected == command_item_save) {
 				apply_keys();
 				save_keys();
 			} else {
@@ -327,20 +358,22 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 				keydef_repaint();
 			}
 		} else {
-			if (lw->selected == 0) { /* up */
-				list_window_set_length(lw, LIST_LENGTH());
+			if (lw->selected == subcmd_item_up) {
+				list_window_set_length(lw, command_length);
 				list_window_set_cursor(lw, subcmd);
 				subcmd = -1;
 
 				keydef_repaint();
-			} else
-				assign_new_key(subcmd,
-					       lw->selected - STATIC_SUB_ITEMS);
+			} else {
+				/* TODO: subcmd_item_add should be handled
+				   separately, just for clarity */
+				assign_new_key(subcmd, subcmd_item_to_key_id(lw->selected));
+			}
 		}
 		return true;
 	case CMD_GO_PARENT_DIRECTORY:
-		if (subcmd >=0) {
-			list_window_set_length(lw, LIST_LENGTH());
+		if (subcmd != -1) {
+			list_window_set_length(lw, command_length);
 			list_window_set_cursor(lw, subcmd);
 			subcmd = -1;
 
@@ -348,8 +381,9 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 		}
 		return true;
 	case CMD_DELETE:
-		if (subcmd >= 0 && lw->selected >= STATIC_SUB_ITEMS)
-			delete_key(subcmd, lw->selected - STATIC_SUB_ITEMS);
+		if (subcmd != -1 && subcmd_item_is_key(lw->selected))
+			delete_key(subcmd, subcmd_item_to_key_id(lw->selected));
+
 		return true;
 	case CMD_SAVE_PLAYLIST:
 		apply_keys();
