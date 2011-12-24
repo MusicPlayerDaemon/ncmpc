@@ -206,7 +206,7 @@ assign_new_key(int cmd_index, int key_index)
 	}
 
 	cmd = find_key_command(key, cmds);
-	if (cmd != CMD_NONE && cmd != cmds[cmd_index].command) {
+	if (cmd != CMD_NONE) {
 		screen_status_printf(_("Error: key %s is already used for %s"),
 				     key2str(key),
 				     get_key_command_name(cmd));
