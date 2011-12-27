@@ -31,10 +31,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #include <glib.h>
+#include <glib/gstdio.h>
 
 #define MAX_LINE_LENGTH 1024
 #define COMMENT_TOKEN '#'
@@ -596,11 +595,7 @@ check_user_conf_dir(void)
 		return 0;
 	}
 
-#ifndef WIN32
-	retval = mkdir(directory, 0755);
-#else
-	retval = mkdir(directory);
-#endif
+	retval = g_mkdir(directory, 0755);
 	g_free(directory);
 	return retval;
 }
