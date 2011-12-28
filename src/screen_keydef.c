@@ -425,6 +425,7 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 		}
 		return true;
 	case CMD_GO_PARENT_DIRECTORY:
+	case CMD_GO_ROOT_DIRECTORY:
 		if (subcmd != -1)
 			switch_to_command_mode();
 		return true;
