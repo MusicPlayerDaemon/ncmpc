@@ -433,6 +433,10 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 			delete_key(subcmd, subcmd_item_to_key_id(lw->selected));
 
 		return true;
+	case CMD_ADD:
+		if (subcmd != -1)
+			add_key(subcmd);
+		return true;
 	case CMD_SAVE_PLAYLIST:
 		apply_keys();
 		save_keys();

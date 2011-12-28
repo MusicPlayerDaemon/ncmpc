@@ -180,6 +180,7 @@ static const struct help_text_row help_text[] = {
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_PLAY, N_("Edit keydefs for selected command") },
 	{ 0, CMD_DELETE, N_("Remove selected keydef") },
+	{ 0, CMD_ADD, N_("Add a keydef") },
 	{ 0, CMD_GO_PARENT_DIRECTORY, N_("Go up a level") },
 	{ 0, CMD_SAVE_PLAYLIST, N_("Apply and save changes") },
 #endif
