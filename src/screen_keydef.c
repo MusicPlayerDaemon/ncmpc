@@ -159,10 +159,15 @@ keydef_repaint(void)
 	wrefresh(lw->w);
 }
 
+/** lw->start the last time switch_to_subcmd_mode() was called */
+static unsigned saved_start = 0;
+
 static void
 switch_to_subcmd_mode(int cmd)
 {
 	assert(subcmd == -1);
+
+	saved_start = lw->start;
 
 	subcmd = cmd;
 	list_window_reset(lw);
@@ -179,6 +184,8 @@ switch_to_command_mode(void)
 	list_window_set_length(lw, command_length);
 	list_window_set_cursor(lw, subcmd);
 	subcmd = -1;
+
+	lw->start = saved_start;
 
 	keydef_repaint();
 }
