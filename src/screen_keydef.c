@@ -159,6 +159,30 @@ keydef_repaint(void)
 	wrefresh(lw->w);
 }
 
+static void
+switch_to_subcmd_mode(int cmd)
+{
+	assert(subcmd == -1);
+
+	subcmd = cmd;
+	list_window_reset(lw);
+	check_subcmd_length();
+
+	keydef_repaint();
+}
+
+static void
+switch_to_command_mode(void)
+{
+	assert(subcmd != -1);
+
+	list_window_set_length(lw, command_length);
+	list_window_set_cursor(lw, subcmd);
+	subcmd = -1;
+
+	keydef_repaint();
+}
+
 /**
  * Delete a key from a given command's definition
  * @param cmd_index the command
@@ -379,19 +403,11 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 				apply_keys();
 				save_keys();
 			} else {
-				subcmd = lw->selected;
-				list_window_reset(lw);
-				check_subcmd_length();
-
-				keydef_repaint();
+				switch_to_subcmd_mode(lw->selected);
 			}
 		} else {
 			if (lw->selected == subcmd_item_up) {
-				list_window_set_length(lw, command_length);
-				list_window_set_cursor(lw, subcmd);
-				subcmd = -1;
-
-				keydef_repaint();
+				switch_to_command_mode();
 			} else if (lw->selected == subcmd_item_add) {
 				add_key(subcmd);
 			} else {
@@ -402,13 +418,8 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 		}
 		return true;
 	case CMD_GO_PARENT_DIRECTORY:
-		if (subcmd != -1) {
-			list_window_set_length(lw, command_length);
-			list_window_set_cursor(lw, subcmd);
-			subcmd = -1;
-
-			keydef_repaint();
-		}
+		if (subcmd != -1)
+			switch_to_command_mode();
 		return true;
 	case CMD_DELETE:
 		if (subcmd != -1 && subcmd_item_is_key(lw->selected))
