@@ -72,6 +72,7 @@
 #define CONF_SCROLL "scroll"
 #define CONF_SCROLL_SEP "scroll-sep"
 #define CONF_VISIBLE_BITRATE "visible-bitrate"
+#define CONF_HARDWARE_CURSOR "hardware-cursor"
 #define CONF_WELCOME_SCREEN_LIST "welcome-screen-list"
 #define CONF_DISPLAY_TIME "display-time"
 #define CONF_JUMP_PREFIX_ONLY "jump-prefix-only"
@@ -421,7 +422,7 @@ parse_line(char *line)
 	/* wide cursor */
 	else if (!strcasecmp(CONF_WIDE_CURSOR, name))
 		options.wide_cursor = str2bool(value);
-	else if (strcasecmp(name, "hardware-cursor") == 0)
+	else if (strcasecmp(name, CONF_HARDWARE_CURSOR) == 0)
 		options.hardware_cursor = str2bool(value);
 	/* welcome screen list */
 	else if (!strcasecmp(CONF_WELCOME_SCREEN_LIST, name))
