@@ -619,7 +619,7 @@ build_user_key_binding_filename(void)
 	return g_build_filename(g_get_home_dir(), "." PACKAGE, "keys", NULL);
 }
 
-int
+void
 read_configuration(void)
 {
 	char *filename = NULL;
@@ -681,6 +681,4 @@ read_configuration(void)
 		g_free(filename);
 		filename = NULL;
 	}
-
-	return 0;
 }
