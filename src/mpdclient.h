@@ -15,6 +15,12 @@ struct mpdclient {
 	struct mpd_connection *connection;
 
 	/**
+	 * This attribute is incremented whenever the connection changes
+	 * (i.e. on disconnection and (re-)connection).
+	 */
+	unsigned connection_id;
+
+	/**
 	 * If this object is non-NULL, it tracks idle events.  It is
 	 * automatically called by mpdclient_get_connection() and
 	 * mpdclient_put_connection().  It is not created by the

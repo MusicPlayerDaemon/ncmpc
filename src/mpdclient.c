@@ -115,8 +115,10 @@ mpdclient_disconnect(struct mpdclient *c)
 		c->idle = false;
 	}
 
-	if (c->connection)
+	if (c->connection) {
 		mpd_connection_free(c->connection);
+		++c->connection_id;
+	}
 	c->connection = NULL;
 
 	if (c->status)
@@ -160,6 +162,8 @@ mpdclient_connect(struct mpdclient *c,
 		mpdclient_disconnect(c);
 		return false;
 	}
+
+	++c->connection_id;
 
 	return true;
 }
