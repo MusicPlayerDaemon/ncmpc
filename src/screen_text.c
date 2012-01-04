@@ -37,13 +37,11 @@ screen_text_clear(struct screen_text *text)
 }
 
 void
-screen_text_set(struct screen_text *text, const char *str)
+screen_text_append(struct screen_text *text, const char *str)
 {
 	const char *eol, *next;
 
 	assert(str != NULL);
-
-	screen_text_clear(text);
 
 	while ((eol = strchr(str, '\n')) != NULL) {
 		char *line;
