@@ -181,7 +181,7 @@ static const struct help_text_row help_text[] = {
 	{ 0, CMD_NONE, NULL },
 	{ 1, CMD_NONE, N_("Chat screen") },
 	{ 2, CMD_NONE, NULL },
-	{ 0, CMD_PLAY, N_("Write a message (not yet implemented)") },
+	{ 0, CMD_PLAY, N_("Write a message") },
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
 	{ 0, CMD_NONE, NULL },
