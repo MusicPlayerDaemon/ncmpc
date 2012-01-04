@@ -602,6 +602,18 @@ check_user_conf_dir(void)
 }
 
 char *
+build_user_conf_filename(void)
+{
+	return g_build_filename(g_get_home_dir(), "." PACKAGE, "config", NULL);
+}
+
+char *
+build_system_conf_filename(void)
+{
+	return g_build_filename(SYSCONFDIR, PACKAGE, "config", NULL);
+}
+
+char *
 build_user_key_binding_filename(void)
 {
 	return g_build_filename(g_get_home_dir(), "." PACKAGE, "keys", NULL);
@@ -618,8 +630,7 @@ read_configuration(void)
 
 	/* check for user configuration ~/.ncmpc/config */
 	if (filename == NULL) {
-		filename = g_build_filename(g_get_home_dir(),
-					    "." PACKAGE, "config", NULL);
+		filename = build_user_conf_filename();
 		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
 			g_free(filename);
 			filename = NULL;
@@ -628,7 +639,7 @@ read_configuration(void)
 
 	/* check for  global configuration SYSCONFDIR/ncmpc/config */
 	if (filename == NULL) {
-		filename = g_build_filename(SYSCONFDIR, PACKAGE, "config", NULL);
+		filename = build_system_conf_filename();
 		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
 			g_free(filename);
 			filename = NULL;

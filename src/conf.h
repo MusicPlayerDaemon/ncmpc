@@ -21,6 +21,9 @@
 
 int check_user_conf_dir(void);
 
+char *build_user_conf_filename(void);
+char *build_system_conf_filename(void);
+
 char *build_user_key_binding_filename(void);
 
 int read_configuration(void);
