@@ -42,13 +42,25 @@ static unsigned command_n_commands = 0;
  * the position of the "apply" item. It's the same as command_n_commands,
  * because array subscripts start at 0, while numbers of items start at 1.
  */
-#define command_item_apply (command_n_commands)
+static G_GNUC_PURE inline unsigned
+command_item_apply(void)
+{
+	return command_n_commands;
+}
 
 /** the position of the "apply and save" item */
-#define command_item_save  (command_item_apply + 1)
+static G_GNUC_PURE inline unsigned
+command_item_save(void)
+{
+	return command_item_apply() + 1;
+}
 
-/** the number of items on the "command" view */
-#define command_length     (command_item_save + 1)
+/** the number of items in the "command" view */
+static G_GNUC_PURE inline unsigned
+command_length(void)
+{
+	return command_item_save() + 1;
+}
 
 
 /**
@@ -61,23 +73,42 @@ static int subcmd = -1;
 static unsigned subcmd_n_keys = 0;
 
 /** The position of the up ("[..]") item */
-#define subcmd_item_up	0
+static G_GNUC_CONST inline unsigned
+subcmd_item_up(void)
+{
+	return 0;
+}
 
 /** The position of the "add a key" item */
-#define subcmd_item_add (subcmd_n_keys + 1)
+static G_GNUC_PURE inline unsigned
+subcmd_item_add(void)
+{
+	return subcmd_n_keys + 1;
+}
 
 /** The number of items in the list_window, if there's a command being edited */
-#define subcmd_length	(subcmd_item_add + 1)
+static G_GNUC_PURE inline unsigned
+subcmd_length(void)
+{
+	return subcmd_item_add() + 1;
+}
 
 /** Check whether a given item is a key */
-#define subcmd_item_is_key(i) \
-			((i) > subcmd_item_up && (i) < subcmd_item_add)
+static G_GNUC_PURE inline bool
+subcmd_item_is_key(unsigned i)
+{
+	return (i > subcmd_item_up() && i < subcmd_item_add());
+}
 
 /**
  * Convert an item id (as in lw->selected) into a "key id", which is an array
  * subscript to cmds[subcmd].keys.
  */
-#define subcmd_item_to_key_id(i) ((i) - 1)
+static G_GNUC_CONST inline unsigned
+subcmd_item_to_key_id(unsigned i)
+{
+	return i - 1;
+}
 
 
 static int
@@ -146,7 +177,7 @@ check_subcmd_length(void)
 			break;
 	subcmd_n_keys = i;
 
-	list_window_set_length(lw, subcmd_length);
+	list_window_set_length(lw, subcmd_length());
 }
 
 static void
@@ -181,7 +212,7 @@ switch_to_command_mode(void)
 {
 	assert(subcmd != -1);
 
-	list_window_set_length(lw, command_length);
+	list_window_set_length(lw, command_length());
 	list_window_set_cursor(lw, subcmd);
 	subcmd = -1;
 
@@ -275,9 +306,9 @@ list_callback(unsigned idx, G_GNUC_UNUSED void *data)
 	static char buf[256];
 
 	if (subcmd == -1) {
-		if (idx == command_item_apply)
+		if (idx == command_item_apply())
 			return _("===> Apply key bindings ");
-		if (idx == command_item_save)
+		if (idx == command_item_save())
 			return _("===> Apply & Save key bindings  ");
 
 		assert(idx < (unsigned) command_n_commands);
@@ -301,10 +332,10 @@ list_callback(unsigned idx, G_GNUC_UNUSED void *data)
 
 		return buf;
 	} else {
-		if (idx == subcmd_item_up)
+		if (idx == subcmd_item_up())
 			return "[..]";
 
-		if (idx == subcmd_item_add) {
+		if (idx == subcmd_item_add()) {
 			g_snprintf(buf, sizeof(buf), "%d. %s",
 				   idx, _("Add new key"));
 			return buf;
@@ -360,7 +391,7 @@ keydef_open(G_GNUC_UNUSED struct mpdclient *c)
 	}
 
 	subcmd = -1;
-	list_window_set_length(lw, command_length);
+	list_window_set_length(lw, command_length());
 }
 
 static void
@@ -403,18 +434,18 @@ keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
 	switch(cmd) {
 	case CMD_PLAY:
 		if (subcmd == -1) {
-			if (lw->selected == command_item_apply) {
+			if (lw->selected == command_item_apply()) {
 				apply_keys();
-			} else if (lw->selected == command_item_save) {
+			} else if (lw->selected == command_item_save()) {
 				apply_keys();
 				save_keys();
 			} else {
 				switch_to_subcmd_mode(lw->selected);
 			}
 		} else {
-			if (lw->selected == subcmd_item_up) {
+			if (lw->selected == subcmd_item_up()) {
 				switch_to_command_mode();
-			} else if (lw->selected == subcmd_item_add) {
+			} else if (lw->selected == subcmd_item_add()) {
 				add_key(subcmd);
 			} else {
 				/* just to be sure ;-) */
