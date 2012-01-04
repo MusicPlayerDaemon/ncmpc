@@ -325,7 +325,6 @@ AC_DEFINE_UNQUOTED([LYRICS_PLUGIN_DIR], ["$lyrics_plugin_dir"],
 AC_SUBST(lyrics_plugin_dir)
 
 AM_CONDITIONAL(ENABLE_PLUGIN_LIBRARY, test x$enable_lyrics_screen = xyes)
-AM_CONDITIONAL(ENABLE_SCREEN_TEXT, test x$enable_lyrics_screen = xyes)
 
 dnl Optional screen - outputs
 AC_MSG_CHECKING([whether to include the outputs screen])
@@ -360,6 +359,8 @@ if test "x$enable_chat_screen" = "xyes" ; then
 fi
 AM_CONDITIONAL(ENABLE_CHAT_SCREEN, test x$enable_chat_screen = xyes)
 
+AM_CONDITIONAL(ENABLE_SCREEN_TEXT,
+	test x$enable_lyrics_screen = xyes -o x$enable_chat_screen = xyes)
 
 dnl
 dnl Windows OS Resource File
