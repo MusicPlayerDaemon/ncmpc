@@ -165,6 +165,24 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end);
 bool
 mpdclient_cmd_move(struct mpdclient *c, unsigned dest, unsigned src);
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,5,0)
+bool
+mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel);
+
+bool
+mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel);
+
+bool
+mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
+			   const char *text);
+
+bool
+mpdclient_send_read_messages(struct mpdclient *c);
+
+struct mpd_message *
+mpdclient_recv_message(struct mpdclient *c);
+#endif
+
 /*** playlist functions  **************************************************/
 
 /* update the complete playlist */
