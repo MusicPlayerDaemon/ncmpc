@@ -268,7 +268,7 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 			filename=g_strstrip(filename);
 	} else
 #endif
-			filename=g_strdup(name);
+		filename=g_strdup(name);
 
 	if (filename == NULL)
 		return -1;

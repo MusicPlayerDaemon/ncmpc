@@ -32,14 +32,6 @@
 #include <signal.h>
 #include <unistd.h>
 
-#undef DEBUG_KEYS
-
-#ifdef DEBUG_KEYS
-#define DK(x) x
-#else
-#define DK(x)
-#endif
-
 #define KEY_CTL(x) ((x) & 0x1f) /* KEY_CTL(A) == ^A == \1 */
 
 #define BS   KEY_BACKSPACE

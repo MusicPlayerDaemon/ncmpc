@@ -62,7 +62,6 @@ ncmpc_headers = \
 	src/screen_text.h \
 	src/plugin.h \
 	src/lyrics.h \
-	src/str_pool.h \
 	src/lirc.h \
 	src/ncmpc_curses.h
 
@@ -104,8 +103,7 @@ src_ncmpc_SOURCES = \
 	src/charset.c \
 	src/wreadln.c \
 	src/strfsong.c \
-	src/utils.c \
-	src/str_pool.c
+	src/utils.c
 
 if NCMPC_MINI
 else
