@@ -602,7 +602,7 @@ check_user_conf_dir(void)
 }
 
 char *
-get_user_key_binding_filename(void)
+build_user_key_binding_filename(void)
 {
 	return g_build_filename(g_get_home_dir(), "." PACKAGE, "keys", NULL);
 }
@@ -648,7 +648,7 @@ read_configuration(void)
 
 	/* check for  user key bindings ~/.ncmpc/keys */
 	if (filename == NULL) {
-		filename = get_user_key_binding_filename();
+		filename = build_user_key_binding_filename();
 		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
 			g_free(filename);
 			filename = NULL;

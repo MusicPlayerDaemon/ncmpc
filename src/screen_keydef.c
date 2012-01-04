@@ -115,7 +115,7 @@ save_keys(void)
 		return -1;
 	}
 
-	filename = get_user_key_binding_filename();
+	filename = build_user_key_binding_filename();
 
 	if ((f = fopen(filename,"w")) == NULL) {
 		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
