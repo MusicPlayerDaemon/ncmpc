@@ -79,6 +79,7 @@ mpdclient_new(void);
 
 void mpdclient_free(struct mpdclient *c);
 
+G_GNUC_PURE
 static inline bool
 mpdclient_is_connected(const struct mpdclient *c)
 {
@@ -94,6 +95,7 @@ mpdclient_is_playing(const struct mpdclient *c)
 		 mpd_status_get_state(c->status) == MPD_STATE_PAUSE);
 }
 
+G_GNUC_PURE
 static inline const struct mpd_song *
 mpdclient_get_current_song(const struct mpdclient *c)
 {
