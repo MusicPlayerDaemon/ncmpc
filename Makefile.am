@@ -5,7 +5,6 @@ ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS = foreign 1.10 dist-bzip2 subdir-objects
 
 AM_CPPFLAGS = \
-	$(CURSES_LIB) \
 	$(LIBMPDCLIENT_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	$(LIBLIRCCLIENT_CFLAGS) \
