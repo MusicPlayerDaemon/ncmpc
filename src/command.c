@@ -445,7 +445,7 @@ get_keyboard_command(void)
 	int key;
 
 	key = wgetch(stdscr);
-	if (key == ERR)
+	if (key == ERR || key == '\0')
 		return CMD_NONE;
 
 #ifdef HAVE_GETMOUSE
