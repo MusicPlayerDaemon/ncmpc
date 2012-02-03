@@ -265,8 +265,13 @@ overwrite_key(int cmd_index, int key_index)
 	key = screen_getch(buf);
 	g_free(buf);
 
-	if (key==ERR) {
+	if (key == ERR) {
 		screen_status_printf(_("Aborted"));
+		return;
+	}
+
+	if (key == '\0') {
+		screen_status_printf(_("Ctrl-Space can't be used"));
 		return;
 	}
 
