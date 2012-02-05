@@ -1,5 +1,5 @@
 AC_PREREQ(2.60)
-AC_INIT(ncmpc, 0.20~git, max@duempel.org)
+AC_INIT(ncmpc, 0.20, max@duempel.org)
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_AUX_DIR(build)
 AM_INIT_AUTOMAKE([foreign 1.10 dist-bzip2 subdir-objects])
