@@ -1,3 +1,6 @@
+ncmpc 0.21 - not yet released
+
+
 ncmpc 0.20 - (02/05/2012)
 * increase connection timeout to 5 seconds
 * screen_queue: follow songs when they are moved out of the visible
