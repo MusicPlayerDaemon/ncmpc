@@ -604,13 +604,38 @@ check_user_conf_dir(void)
 char *
 build_user_conf_filename(void)
 {
+#ifdef WIN32
+	return g_build_filename(g_get_user_config_dir(), PACKAGE, "ncmpc.conf", NULL);
+#else
 	return g_build_filename(g_get_home_dir(), "." PACKAGE, "config", NULL);
+#endif
 }
 
 char *
 build_system_conf_filename(void)
 {
+#ifdef WIN32
+	const gchar* const *system_data_dirs;
+	gchar *pathname = NULL;
+
+	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != NULL; system_data_dirs++)
+	{
+		g_message (*system_data_dirs);
+		pathname = g_build_filename(*system_data_dirs, PACKAGE, "ncmpc.conf", NULL);
+		if (g_file_test(pathname, G_FILE_TEST_EXISTS))
+		{
+			break;
+		}
+		else
+		{
+			g_free (pathname);
+			pathname = NULL;
+		}
+	}
+	return pathname;
+#else
 	return g_build_filename(SYSCONFDIR, PACKAGE, "config", NULL);
+#endif
 }
 
 char *
