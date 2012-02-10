@@ -648,6 +648,12 @@ build_user_key_binding_filename(void)
 #endif
 }
 
+static char *
+g_build_system_key_binding_filename(void)
+{
+	return g_build_filename(SYSCONFDIR, PACKAGE, "keys", NULL);
+}
+
 void
 read_configuration(void)
 {
@@ -697,7 +703,7 @@ read_configuration(void)
 
 	/* check for  global key bindings SYSCONFDIR/ncmpc/keys */
 	if (filename == NULL) {
-		filename = g_build_filename(SYSCONFDIR, PACKAGE, "keys", NULL);
+		filename = g_build_system_key_binding_filename();
 		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
 			g_free(filename);
 			filename = NULL;
