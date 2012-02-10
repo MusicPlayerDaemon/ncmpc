@@ -641,7 +641,11 @@ build_system_conf_filename(void)
 char *
 build_user_key_binding_filename(void)
 {
+#ifdef WIN32
+	return g_build_filename(g_get_user_config_dir(), PACKAGE, "keys.conf", NULL);
+#else
 	return g_build_filename(g_get_home_dir(), "." PACKAGE, "keys", NULL);
+#endif
 }
 
 void
