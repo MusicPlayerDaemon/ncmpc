@@ -651,7 +651,28 @@ build_user_key_binding_filename(void)
 static char *
 g_build_system_key_binding_filename(void)
 {
+#ifdef WIN32
+	const gchar* const *system_data_dirs;
+	gchar *pathname = NULL;
+
+	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != NULL; system_data_dirs++)
+	{
+		g_message (*system_data_dirs);
+		pathname = g_build_filename(*system_data_dirs, PACKAGE, "keys.conf", NULL);
+		if (g_file_test(pathname, G_FILE_TEST_EXISTS))
+		{
+			break;
+		}
+		else
+		{
+			g_free (pathname);
+			pathname = NULL;
+		}
+	}
+	return pathname;
+#else
 	return g_build_filename(SYSCONFDIR, PACKAGE, "keys", NULL);
+#endif
 }
 
 void
