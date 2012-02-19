@@ -1,5 +1,11 @@
 AC_PREREQ(2.60)
 AC_INIT(ncmpc, 0.21~git, max@duempel.org)
+
+VERSION_MAJOR=0
+VERSION_MINOR=21
+VERSION_REVISION=0
+VERSION_EXTRA=0
+
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_AUX_DIR(build)
 AM_INIT_AUTOMAKE([foreign 1.10 dist-bzip2 subdir-objects])
@@ -51,8 +57,13 @@ AC_CANONICAL_HOST
 case "$host_os" in
 mingw32* | windows*)
 	LIBS="$LIBS -lws2_32"
-	;;
 
+	AC_CONFIG_FILES([
+		src/win/ncmpc_win32_rc.rc
+	])
+	AC_CHECK_TOOL(WINDRES, windres)
+	HAVE_WINDOWS=1
+	;;
 *)
 	AC_CHECK_FUNC([socket],
 		[],
@@ -66,6 +77,7 @@ mingw32* | windows*)
 		[AC_MSG_ERROR(No UNIX gethostbyname API found)])
 		])
 esac
+AM_CONDITIONAL([HAVE_WINDOWS], [test $HAVE_WINDOWS -eq 1])
 
 dnl multi-byte character support
 
@@ -327,6 +339,13 @@ AM_CONDITIONAL(ENABLE_OUTPUTS_SCREEN, test x$enable_outputs_screen = xyes)
 AC_MSG_RESULT([$enable_outputs_screen])
 
 
+dnl
+dnl Windows OS Resource File
+dnl
+AC_SUBST(VERSION_MAJOR)
+AC_SUBST(VERSION_MINOR)
+AC_SUBST(VERSION_REVISION)
+AC_SUBST(VERSION_EXTRA)
 
 dnl
 dnl build options

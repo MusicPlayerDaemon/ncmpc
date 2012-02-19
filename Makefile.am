@@ -102,7 +102,22 @@ src_ncmpc_SOURCES = \
 	src/charset.c \
 	src/wreadln.c \
 	src/strfsong.c \
-	src/utils.c
+	src/utils.c \
+	src/win/ncmpc.rc
+
+#
+# Windows resource file
+#
+
+src/win/ncmpc_win32_rc.$(OBJEXT): src/win/ncmpc_win32_rc.rc
+	$(WINDRES) -i $< -o $@
+
+if HAVE_WINDOWS
+noinst_DATA = src/win/ncmpc_win32_rc.rc
+
+src_ncmpc_DEPENDENCIES = src/win/ncmpc_win32_rc.$(OBJEXT)
+src_ncmpc_LDFLAGS = -Wl,src/win/ncmpc_win32_rc.$(OBJEXT)
+endif
 
 if NCMPC_MINI
 else
@@ -234,4 +249,5 @@ endif
 
 EXTRA_DIST = autogen.sh \
 	$(lyrics_plugins) \
-	$(man_MANS) $(doc_DATA) doc/doxygen.conf
+	$(man_MANS) $(doc_DATA) doc/doxygen.conf \
+	src/win/ncmpc_win32_rc.rc.in
