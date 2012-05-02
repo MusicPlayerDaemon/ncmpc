@@ -76,6 +76,8 @@ mingw32* | windows*)
 		[AC_CHECK_LIB([nsl],[gethostbyname],[LIBS="$LIBS -lnsl"],
 		[AC_MSG_ERROR(No UNIX gethostbyname API found)])
 		])
+
+	HAVE_WINDOWS=0
 esac
 AM_CONDITIONAL([HAVE_WINDOWS], [test $HAVE_WINDOWS -eq 1])
 
