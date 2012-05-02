@@ -72,6 +72,9 @@ static const struct help_text_row help_text[] = {
 #ifdef ENABLE_OUTPUTS_SCREEN
 	{ 0, CMD_SCREEN_OUTPUTS, NULL },
 #endif
+#ifdef ENABLE_CHAT_SCREEN
+	{ 0, CMD_SCREEN_CHAT, NULL },
+#endif
 #ifdef ENABLE_KEYDEF_SCREEN
 	{ 0, CMD_SCREEN_KEYDEF, NULL },
 #endif
@@ -172,6 +175,13 @@ static const struct help_text_row help_text[] = {
 	{ 1, CMD_NONE, N_("Outputs screen") },
 	{ 2, CMD_NONE, NULL },
 	{ 0, CMD_PLAY, N_("Enable/disable output") },
+#endif
+#ifdef ENABLE_CHAT_SCREEN
+	{ 0, CMD_NONE, NULL },
+	{ 0, CMD_NONE, NULL },
+	{ 1, CMD_NONE, N_("Chat screen") },
+	{ 2, CMD_NONE, NULL },
+	{ 0, CMD_PLAY, N_("Write a message (not yet implemented)") },
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
 	{ 0, CMD_NONE, NULL },

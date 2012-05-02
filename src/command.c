@@ -56,6 +56,7 @@
 #define F6   KEY_F(6)
 #define F7   KEY_F(7)
 #define F8   KEY_F(8)
+#define F9   KEY_F(9)
 #define C(x) KEY_CTL(x)
 
 static command_definition_t cmds[] = {
@@ -244,6 +245,10 @@ static command_definition_t cmds[] = {
 	  N_("Outputs screen") },
 #endif
 
+#ifdef ENABLE_CHAT_SCREEN
+	{ {'9', F9, 0}, 0, CMD_SCREEN_CHAT, "screen-chat",
+	  N_("Chat screen") },
+#endif
 
 	{ { -1, -1, -1 }, 0, CMD_NONE, NULL, NULL }
 };

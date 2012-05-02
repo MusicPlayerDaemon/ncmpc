@@ -58,6 +58,7 @@ ncmpc_headers = \
 	src/screen_keydef.h \
 	src/screen_lyrics.h \
 	src/screen_outputs.h \
+	src/screen_chat.h \
 	src/screen_text.h \
 	src/plugin.h \
 	src/lyrics.h \
@@ -161,6 +162,10 @@ endif
 
 if ENABLE_OUTPUTS_SCREEN
 src_ncmpc_SOURCES += src/screen_outputs.c
+endif
+
+if ENABLE_CHAT_SCREEN
+src_ncmpc_SOURCES += src/screen_chat.c
 endif
 
 if ENABLE_LIRC

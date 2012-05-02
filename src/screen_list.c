@@ -29,6 +29,7 @@
 #include "screen_keydef.h"
 #include "screen_lyrics.h"
 #include "screen_outputs.h"
+#include "screen_chat.h"
 
 #include <string.h>
 
@@ -59,6 +60,9 @@ static const struct
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
 	{ "outputs", &screen_outputs },
+#endif
+#ifdef ENABLE_CHAT_SCREEN
+	{ "chat", &screen_chat },
 #endif
 };
 

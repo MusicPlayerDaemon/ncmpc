@@ -21,7 +21,7 @@
 
 ## A list of screens to cycle through when using
 ## the previous/next screen commands (tab and shift+tab).
-## names: playlist browse help artist search song keydef lyrics outputs
+## names: playlist browse help artist search song keydef lyrics outputs chat
 #screen-list = playlist browse
 
 ## Default search mode for the search screen. The mode is an

@@ -339,6 +339,20 @@ AM_CONDITIONAL(ENABLE_OUTPUTS_SCREEN, test x$enable_outputs_screen = xyes)
 AC_MSG_RESULT([$enable_outputs_screen])
 
 
+dnl Optional screen - client-to-client chat
+AC_MSG_CHECKING([whether to include the chat screen])
+AC_ARG_ENABLE([chat-screen],
+              AC_HELP_STRING([--enable-chat-screen],
+		[Enable chat screen @<:@default=no@:>@]),,
+	[enable_chat_screen=no])
+AC_MSG_RESULT([$enable_chat_screen])
+if test "x$enable_chat_screen" = "xyes" ; then
+    AC_DEFINE(ENABLE_CHAT_SCREEN, 1, [Enable chat screen])
+fi
+
+AM_CONDITIONAL(ENABLE_CHAT_SCREEN, test x$enable_chat_screen = xyes)
+
+
 dnl
 dnl Windows OS Resource File
 dnl
