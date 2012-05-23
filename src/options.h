@@ -52,6 +52,9 @@ typedef struct {
 	char *text_editor;
 	bool text_editor_ask;
 #endif
+#ifdef ENABLE_CHAT_SCREEN
+	char *chat_prefix;
+#endif
 	bool find_wrap;
 	bool find_show_last_pattern;
 	bool list_wrap;

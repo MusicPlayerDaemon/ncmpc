@@ -409,4 +409,7 @@ options_deinit(void)
 #ifdef ENABLE_LYRICS_SCREEN
 	g_free(options.text_editor);
 #endif
+#ifdef ENABLE_CHAT_SCREEN
+	g_free(options.chat_prefix);
+#endif
 }
