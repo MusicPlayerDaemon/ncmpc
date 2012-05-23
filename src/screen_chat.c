@@ -26,6 +26,7 @@
 #include "mpdclient.h"
 #include "i18n.h"
 #include "charset.h"
+#include "options.h"
 
 #include <glib.h>
 #include <mpd/idle.h>
@@ -138,13 +139,28 @@ screen_chat_update(struct mpdclient *c)
 	}
 }
 
+static char *
+screen_chat_get_prefix(void)
+{
+	static char *prefix = NULL;
+
+	if (prefix)
+		return prefix;
+
+	prefix = g_strconcat("<", g_get_user_name(), "> ", NULL);
+	return prefix;
+}
+
 static void
 screen_chat_send_message(struct mpdclient *c, char *msg)
 {
 	char *utf8 = locale_to_utf8(msg);
-
-	(void) mpdclient_cmd_send_message(c, chat_channel, utf8);
+	char *prefix = screen_chat_get_prefix();
+	char *full_msg = g_strconcat(prefix, utf8, NULL);
 	g_free(utf8);
+
+	(void) mpdclient_cmd_send_message(c, chat_channel, full_msg);
+	g_free(full_msg);
 }
 
 static bool
