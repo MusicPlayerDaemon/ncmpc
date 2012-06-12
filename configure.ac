@@ -104,6 +104,9 @@ dnl Check for libmpdclient 2.2
 PKG_CHECK_MODULES([LIBMPDCLIENT], [libmpdclient >= 2.2],,
 	[AC_MSG_ERROR([libmpdclient2 is required])])
 
+dnl Check for libmpdclient 2.5 (the chat screen requires this version)
+PKG_CHECK_EXISTS([libmpdclient >= 2.5],
+	[have_libmpdclient_2_5=yes], [have_libmpdclient_2_5=no])
 
 dnl i18n
 
@@ -324,7 +327,6 @@ AC_DEFINE_UNQUOTED([LYRICS_PLUGIN_DIR], ["$lyrics_plugin_dir"],
 AC_SUBST(lyrics_plugin_dir)
 
 AM_CONDITIONAL(ENABLE_PLUGIN_LIBRARY, test x$enable_lyrics_screen = xyes)
-AM_CONDITIONAL(ENABLE_SCREEN_TEXT, test x$enable_lyrics_screen = xyes)
 
 dnl Optional screen - outputs
 AC_MSG_CHECKING([whether to include the outputs screen])
@@ -340,6 +342,27 @@ fi
 AM_CONDITIONAL(ENABLE_OUTPUTS_SCREEN, test x$enable_outputs_screen = xyes)
 AC_MSG_RESULT([$enable_outputs_screen])
 
+
+dnl Optional screen - client-to-client chat
+AC_MSG_CHECKING([whether to include the chat screen])
+AC_ARG_ENABLE([chat-screen],
+              AC_HELP_STRING([--enable-chat-screen],
+		[Enable chat screen @<:@default=no@:>@]),,
+	[enable_chat_screen=no])
+if test "x$enable_chat_screen" = "xauto"; then
+	enable_chat_screen=$have_libmpdclient_2_5
+fi
+AC_MSG_RESULT([$enable_chat_screen])
+if test "x$enable_chat_screen" = "xyes" ; then
+	if test "x$have_libmpdclient_2_5" = "xno"; then
+		AC_MSG_ERROR(The chat screen requires at least libmpclient 2.5)
+	fi
+	AC_DEFINE(ENABLE_CHAT_SCREEN, 1, [Enable chat screen])
+fi
+AM_CONDITIONAL(ENABLE_CHAT_SCREEN, test x$enable_chat_screen = xyes)
+
+AM_CONDITIONAL(ENABLE_SCREEN_TEXT,
+	test x$enable_lyrics_screen = xyes -o x$enable_chat_screen = xyes)
 
 dnl
 dnl Windows OS Resource File

@@ -215,6 +215,9 @@ handle_option(int c, const char *arg)
 #ifdef ENABLE_OUTPUTS_SCREEN
 		     " outputs-screen"
 #endif
+#ifdef ENABLE_CHAT_SCREEN
+		     " chat-screen"
+#endif
 
 		     "\n");
 #ifndef NCMPC_MINI
@@ -405,5 +408,8 @@ options_deinit(void)
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
 	g_free(options.text_editor);
+#endif
+#ifdef ENABLE_CHAT_SCREEN
+	g_free(options.chat_prefix);
 #endif
 }

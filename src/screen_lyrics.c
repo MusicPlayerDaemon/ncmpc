@@ -172,7 +172,7 @@ delete_lyr_hd(void)
 static void
 screen_lyrics_set(const GString *str)
 {
-	screen_text_set(&text, str);
+	screen_text_set(&text, str->str);
 
 	/* paint new data */
 

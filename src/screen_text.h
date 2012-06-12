@@ -66,7 +66,14 @@ screen_text_is_empty(const struct screen_text *text)
 }
 
 void
-screen_text_set(struct screen_text *text, const GString *str);
+screen_text_append(struct screen_text *text, const char *str);
+
+static inline void
+screen_text_set(struct screen_text *text, const char *str)
+{
+	screen_text_clear(text);
+	screen_text_append(text, str);
+}
 
 const char *
 screen_text_list_callback(unsigned idx, void *data);

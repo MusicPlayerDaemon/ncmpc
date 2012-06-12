@@ -15,6 +15,12 @@ struct mpdclient {
 	struct mpd_connection *connection;
 
 	/**
+	 * This attribute is incremented whenever the connection changes
+	 * (i.e. on disconnection and (re-)connection).
+	 */
+	unsigned connection_id;
+
+	/**
 	 * If this object is non-NULL, it tracks idle events.  It is
 	 * automatically called by mpdclient_get_connection() and
 	 * mpdclient_put_connection().  It is not created by the
@@ -158,6 +164,24 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end);
 
 bool
 mpdclient_cmd_move(struct mpdclient *c, unsigned dest, unsigned src);
+
+#if LIBMPDCLIENT_CHECK_VERSION(2,5,0)
+bool
+mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel);
+
+bool
+mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel);
+
+bool
+mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
+			   const char *text);
+
+bool
+mpdclient_send_read_messages(struct mpdclient *c);
+
+struct mpd_message *
+mpdclient_recv_message(struct mpdclient *c);
+#endif
 
 /*** playlist functions  **************************************************/
 

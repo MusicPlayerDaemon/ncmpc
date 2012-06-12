@@ -37,44 +37,41 @@ screen_text_clear(struct screen_text *text)
 }
 
 void
-screen_text_set(struct screen_text *text, const GString *str)
+screen_text_append(struct screen_text *text, const char *str)
 {
-	const char *p, *eol, *next;
+	const char *eol, *next;
 
 	assert(str != NULL);
 
-	screen_text_clear(text);
-
-	p = str->str;
-	while ((eol = strchr(p, '\n')) != NULL) {
+	while ((eol = strchr(str, '\n')) != NULL) {
 		char *line;
 
 		next = eol + 1;
 
 		/* strip whitespace at end */
 
-		while (eol > p && (unsigned char)eol[-1] <= 0x20)
+		while (eol > str && (unsigned char)eol[-1] <= 0x20)
 			--eol;
 
 		/* create copy and append it to text->lines */
 
-		line = g_malloc(eol - p + 1);
-		memcpy(line, p, eol - p);
-		line[eol - p] = 0;
+		line = g_malloc(eol - str + 1);
+		memcpy(line, str, eol - str);
+		line[eol - str] = 0;
 
 		g_ptr_array_add(text->lines, line);
 
 		/* reset control characters */
 
-		for (eol = line + (eol - p); line < eol; ++line)
+		for (eol = line + (eol - str); line < eol; ++line)
 			if ((unsigned char)*line < 0x20)
 				*line = ' ';
 
-		p = next;
+		str = next;
 	}
 
-	if (*p != 0)
-		g_ptr_array_add(text->lines, g_strdup(p));
+	if (*str != 0)
+		g_ptr_array_add(text->lines, g_strdup(str));
 
 	list_window_set_length(text->lw, text->lines->len);
 }

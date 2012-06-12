@@ -115,8 +115,10 @@ mpdclient_disconnect(struct mpdclient *c)
 		c->idle = false;
 	}
 
-	if (c->connection)
+	if (c->connection) {
 		mpd_connection_free(c->connection);
+		++c->connection_id;
+	}
 	c->connection = NULL;
 
 	if (c->status)
@@ -160,6 +162,8 @@ mpdclient_connect(struct mpdclient *c,
 		mpdclient_disconnect(c);
 		return false;
 	}
+
+	++c->connection_id;
 
 	return true;
 }
@@ -650,6 +654,76 @@ mpdclient_cmd_move(struct mpdclient *c, unsigned dest_pos, unsigned src_pos)
 	return true;
 }
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,5,0)
+/* The client-to-client protocol (MPD 0.17.0) */
+
+bool
+mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel)
+{
+	struct mpd_connection *connection = mpdclient_get_connection(c);
+
+	if (connection == NULL)
+		return false;
+
+	if (!mpd_send_subscribe(connection, channel))
+		return mpdclient_handle_error(c);
+
+	return mpdclient_finish_command(c);
+}
+
+bool
+mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel)
+{
+	struct mpd_connection *connection = mpdclient_get_connection(c);
+	if (connection == NULL)
+		return false;
+
+	if (!mpd_send_unsubscribe(connection, channel))
+		return mpdclient_handle_error(c);
+
+	return mpdclient_finish_command(c);
+}
+
+bool
+mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
+			   const char *text)
+{
+	struct mpd_connection *connection = mpdclient_get_connection(c);
+	if (connection == NULL)
+		return false;
+
+	if (!mpd_send_send_message(connection, channel, text))
+		return mpdclient_handle_error(c);
+
+	return mpdclient_finish_command(c);
+}
+
+bool
+mpdclient_send_read_messages(struct mpdclient *c)
+{
+	struct mpd_connection *connection = mpdclient_get_connection(c);
+	if (connection == NULL)
+		return false;
+
+	return mpd_send_read_messages(connection)?
+		true : mpdclient_handle_error(c);
+}
+
+struct mpd_message *
+mpdclient_recv_message(struct mpdclient *c)
+{
+	struct mpd_connection *connection = mpdclient_get_connection(c);
+	if (connection == NULL)
+		return false;
+
+	struct mpd_message *message = mpd_recv_message(connection);
+	if (message == NULL &&
+	    mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS)
+		mpdclient_handle_error(c);
+
+	return message;
+}
+#endif
 
 /****************************************************************************/
 /*** Playlist management functions ******************************************/

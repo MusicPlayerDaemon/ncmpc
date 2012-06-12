@@ -39,6 +39,7 @@
 #include "screen_keydef.h"
 #include "screen_lyrics.h"
 #include "screen_outputs.h"
+#include "screen_chat.h"
 
 #include <mpd/client.h>
 
@@ -568,6 +569,11 @@ screen_cmd(struct mpdclient *c, command_t cmd)
 #ifdef ENABLE_OUTPUTS_SCREEN
 	case CMD_SCREEN_OUTPUTS:
 		screen_switch(&screen_outputs, c);
+		break;
+#endif
+#ifdef ENABLE_CHAT_SCREEN
+	case CMD_SCREEN_CHAT:
+		screen_switch(&screen_chat, c);
 		break;
 #endif
 	case CMD_SCREEN_SWAP:

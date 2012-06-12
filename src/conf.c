@@ -80,6 +80,7 @@
 #define CONF_LYRICS_SHOW_PLUGIN "lyrics-show-plugin"
 #define CONF_TEXT_EDITOR "text-editor"
 #define CONF_TEXT_EDITOR_ASK "text-editor-ask"
+#define CONF_CHAT_PREFIX "chat-prefix"
 #define CONF_SECOND_COLUMN "second-column"
 
 static bool
@@ -541,6 +542,12 @@ parse_line(char *line)
 	else if (!strcasecmp(name, CONF_TEXT_EDITOR_ASK))
 #ifdef ENABLE_LYRICS_SCREEN
 		options.text_editor_ask = str2bool(value);
+#else
+		{}
+#endif
+	else if (!strcasecmp(name, CONF_CHAT_PREFIX))
+#ifdef ENABLE_CHAT_SCREEN
+		options.chat_prefix = get_format(value);
 #else
 		{}
 #endif

@@ -90,6 +90,9 @@ title_bar_paint(const struct title_bar *p, const char *title,
 #ifdef ENABLE_OUTPUTS_SCREEN
 		print_hotkey(w, CMD_SCREEN_OUTPUTS, _("Outputs"));
 #endif
+#ifdef ENABLE_CHAT_SCREEN
+		print_hotkey(w, CMD_SCREEN_CHAT, _("Chat"));
+#endif
 #endif
 	}
 
