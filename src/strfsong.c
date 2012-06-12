@@ -118,6 +118,9 @@ _strfsong(gchar *s,
 	gchar *temp;
 	gsize n, length = 0;
 	gboolean found = FALSE;
+	/* "missed" helps handling the case of mere literal text like
+	   found==TRUE instead of found==FALSE. */
+	gboolean missed = FALSE;
 
 	s[0] = '\0';
 
@@ -128,9 +131,10 @@ _strfsong(gchar *s,
 		/* OR */
 		if (p[0] == '|') {
 			++p;
-			if(!found) {
+			if(missed && !found) {
 				s[0] = '\0';
 				length = 0;
+				missed = FALSE;
 			} else {
 				p = skip(p);
 			}
@@ -140,10 +144,11 @@ _strfsong(gchar *s,
 		/* AND */
 		if (p[0] == '&') {
 			++p;
-			if(!found) {
+			if(missed && !found) {
 				p = skip(p);
 			} else {
 				found = FALSE;
+				missed = FALSE;
 			}
 			continue;
 		}
@@ -155,6 +160,8 @@ _strfsong(gchar *s,
 				g_strlcat(s, temp, max);
 				length = strlen(s);
 				found = TRUE;
+			} else {
+				missed = TRUE;
 			}
 			g_free(temp);
 			continue;
@@ -163,7 +170,7 @@ _strfsong(gchar *s,
 		/* EXPRESSION END */
 		if (p[0] == ']') {
 			if(last) *last = p+1;
-			if(!found && length) {
+			if(missed && !found && length) {
 				s[0] = '\0';
 				length = 0;
 			}
@@ -252,6 +259,8 @@ _strfsong(gchar *s,
 			g_strlcat(s, ident, max);
 			length+=templen;
 			g_free(ident);
+
+			missed = TRUE;
 		} else {
 			gsize templen = strlen(temp);
 

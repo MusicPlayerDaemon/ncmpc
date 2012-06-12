@@ -248,7 +248,7 @@ ncmpc is running. To edit key bindings press 'K' and use the key editor in ncmpc
 Format of song display for status and the list window.
 The  metadata  delimiters  are: %name%, %artist%, %track%, %time%, %file%, %shortfile%.
 
-The [] operators are used to group output such that if no metadata delimiters are found or matched between '[' and ']', then none of  the  characters between '[' and ']' are output. '&' and '|' are logical operators for AND and OR. '#'  is used to escape characters. 
+The [] operators are used to group output such that if none of the metadata delimiters between '[' and ']' are matched, then none of  the  characters between '[' and ']' are output; literal text is always output. '&' and '|' are logical operators for AND and OR. '#'  is used to escape characters.
 
 Some  useful examples for format are: 
 
@@ -257,6 +257,11 @@ Some  useful examples for format are:
 and 
 
    "[[%artist% \- ]%title%]|[%file]" 
+
+Another one is:
+
+   "[%artist%|(artist n/a)] - [%title%|(title n/a)]"
+
 .SH "CHAT PROTOCOL"
 If ncmpc has been compiled with "chat" support, it uses the client-to-client protocol available in MPD 0.17 or higher to communicate with other clients. In order to receive messages it subscribes to the channel with the name "chat", and displays any message sent there as-is. When the user enters a message, it is first with the prefix specified by the \fBchat-prefix\fR option (or the default prefix), and then sent to the "chat" channel for others to read.
 .SH "BUGS"
