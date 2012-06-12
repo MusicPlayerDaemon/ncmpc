@@ -119,7 +119,8 @@ _strfsong(gchar *s,
 	gsize n, length = 0;
 	gboolean found = FALSE;
 
-	memset(s, 0, max);
+	s[0] = '\0';
+
 	if (song == NULL)
 		return 0;
 
@@ -128,7 +129,7 @@ _strfsong(gchar *s,
 		if (p[0] == '|') {
 			++p;
 			if(!found) {
-				memset(s, 0, max);
+				s[0] = '\0';
 				length = 0;
 			} else {
 				p = skip(p);
@@ -163,7 +164,7 @@ _strfsong(gchar *s,
 		if (p[0] == ']') {
 			if(last) *last = p+1;
 			if(!found && length) {
-				memset(s, 0, max);
+				s[0] = '\0';
 				length = 0;
 			}
 			return length;
@@ -172,6 +173,7 @@ _strfsong(gchar *s,
 		/* pass-through non-escaped portions of the format string */
 		if (p[0] != '#' && p[0] != '%' && length<max) {
 			s[length++] = *p;
+			s[length] = '\0';
 			p++;
 			continue;
 		}
@@ -179,6 +181,7 @@ _strfsong(gchar *s,
 		/* let the escape character escape itself */
 		if (p[0] == '#' && p[1] != '\0' && length<max) {
 			s[length++] = *(p+1);
+			s[length] = '\0';
 			p+=2;
 			continue;
 		}
