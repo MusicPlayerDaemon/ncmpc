@@ -110,6 +110,9 @@
 ## Ask before starting an editor.
 #text-editor-ask = yes
 
+## The prefix of chat messages
+#chat-prefix = "<user> "
+
 ## Display song length in second column
 #second-column = yes
 
