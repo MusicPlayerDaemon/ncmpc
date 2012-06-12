@@ -257,6 +257,8 @@ Some  useful examples for format are:
 and 
 
    "[[%artist% \- ]%title%]|[%file]" 
+.SH "CHAT PROTOCOL"
+If ncmpc has been compiled with "chat" support, it uses the client-to-client protocol available in MPD 0.17 or higher to communicate with other clients. In order to receive messages it subscribes to the channel with the name "chat", and displays any message sent there as-is. When the user enters a message, it is first with the prefix specified by the \fBchat-prefix\fR option (or the default prefix), and then sent to the "chat" channel for others to read.
 .SH "BUGS"
 Report bugs on http://www.musicpd.org/mantis/
 .SH "NOTE"
