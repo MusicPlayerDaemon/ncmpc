@@ -293,9 +293,10 @@ static struct filelist *
 do_search(struct mpdclient *c, char *query)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
-	struct filelist *fl;
+	if (connection == NULL)
+		return NULL;
 
-	fl = search_advanced_query(connection, query);
+	struct filelist *fl = search_advanced_query(connection, query);
 	if (fl != NULL)
 		return fl;
 
