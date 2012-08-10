@@ -208,6 +208,12 @@ _strfsong(gchar *s,
 			temp = utf8_to_locale(mpd_song_get_uri(song));
 		else if (strncmp("%artist%", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_ARTIST);
+		else if (strncmp("%albumartist", p, n) == 0)
+			temp = song_tag_locale(song, MPD_TAG_ALBUM_ARTIST);
+		else if (strncmp("%composer%", p, n) == 0)
+			temp = song_tag_locale(song, MPD_TAG_COMPOSER);
+		else if (strncmp("%performer%", p, n) == 0)
+			temp = song_tag_locale(song, MPD_TAG_PERFORMER);
 		else if (strncmp("%title%", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_TITLE);
 		else if (strncmp("%album%", p, n) == 0)
