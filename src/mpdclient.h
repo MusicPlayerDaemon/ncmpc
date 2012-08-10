@@ -2,7 +2,6 @@
 #define MPDCLIENT_H
 
 #include "playlist.h"
-#include "mpdclient.h"
 
 #include <mpd/client.h>
 
