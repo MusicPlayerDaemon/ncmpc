@@ -2,6 +2,7 @@ ncmpc 0.21 - not yet released
 * add a chat screen for communication with other clients on the same server
 * song format: evaluate literal strings as true
 * fix crash on search screen when disconnected
+* screen_queue: fix crash on CMD_SCREEN_SWAP when the queue is empty
 
 
 ncmpc 0.20 - (02/05/2012)

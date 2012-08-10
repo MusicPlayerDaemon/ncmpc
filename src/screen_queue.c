@@ -700,7 +700,10 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 		break;
 #endif
 	case CMD_SCREEN_SWAP:
-		screen_swap(c, playlist_get(&c->playlist, lw->selected));
+		if (playlist_length(&c->playlist) > 0)
+			screen_swap(c, playlist_get(&c->playlist, lw->selected));
+		else
+			screen_swap(c, NULL);
 		return true;
 
 	default:
