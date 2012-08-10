@@ -74,7 +74,7 @@ struct list_window_range {
 struct list_window *list_window_init(WINDOW *w,
 				     unsigned width, unsigned height);
 
-/* destroy a list window (returns NULL) */
+/* destroy a list window */
 void list_window_free(struct list_window *lw);
 
 /* reset a list window (selected=0, start=0) */
