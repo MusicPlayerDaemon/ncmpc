@@ -45,6 +45,8 @@ static struct screen_text text;
 
 static struct mpd_song *next_song;
 static bool follow = false;
+/** Set if the cursor position shall be kept during the next lyrics update. */
+static bool reloading = false;
 
 static struct {
 	struct mpd_song *song;
@@ -172,7 +174,19 @@ delete_lyr_hd(void)
 static void
 screen_lyrics_set(const GString *str)
 {
-	screen_text_set(&text, str->str);
+	if (reloading) {
+		unsigned saved_start = text.lw->start;
+
+		screen_text_set(&text, str->str);
+
+		/* restore the cursor and ensure that it's still valid */
+		text.lw->start = saved_start;
+		list_window_fetch_cursor(text.lw);
+	} else {
+		screen_text_set(&text, str->str);
+	}
+
+	reloading = false;
 
 	/* paint new data */
 
@@ -255,6 +269,7 @@ screen_lyrics_reload(void)
 {
 	if (current.loader == NULL && current.artist != NULL &&
 	    current.title != NULL) {
+		reloading = true;
 		current.loader = lyrics_load(current.artist, current.title,
 					     screen_lyrics_callback, NULL);
 		screen_text_repaint(&text);
