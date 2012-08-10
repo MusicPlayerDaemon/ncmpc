@@ -5,7 +5,7 @@ ncmpc \- curses Music Player Daemon (MPD) client.
 .B ncmpc
 [options]
 .SH "DESCRIPTION"
-ncmpc is  a client for MPD, the Music Player Daemon. 
+ncmpc is a client for MPD, the Music Player Daemon.
 ncmpc connects to a MPD running on a machine on the local 
 network.
 
@@ -27,19 +27,19 @@ Read more about MPD on http://www.musicpd.org
 .B \-?, \-\-help
 Display help.
 .TP 
-.B \-V,  \-\-version
+.B \-V, \-\-version
 Display version information and build-time configuration.
 .TP 
-.B \-c,  \-\-colors
+.B \-c, \-\-colors
 Enable colors.
 .TP 
-.B \-C,  \-\-no\-colors
+.B \-C, \-\-no\-colors
 Disable colors.
 .TP
-.B \-m,  \-\-mouse
+.B \-m, \-\-mouse
 Enable mouse.
 .TP
-.B \-M,  \-\-no\-mouse
+.B \-M, \-\-no\-mouse
 Disable mouse.
 .TP 
 .B \-h, \-\-host=HOSTNAME
@@ -197,7 +197,7 @@ Enable/disable colors.
 Set the background color. If the background color is assigned to the keyword \fBnone\fR, ncmpc will not change the background color. Standard colors are: black, red, green, yellow, blue, magenta, cyan and white. Terminal specific colors can also be given as integers.
 .TP 
 .B color title = COLOR[,ATTRIBUTE]...
-Set the text color and attributes for the title row.  Text colors are the same as for the background.  Valid attributes are: standout, underline, reverse, blink, dim, and bold.
+Set the text color and attributes for the title row. Text colors are the same as for the background. Valid attributes are: standout, underline, reverse, blink, dim, and bold.
 .TP 
 .B color title\-bold = COLOR[,ATTRIBUTE]...
 Set the text color for the title row (the bold part).
@@ -248,9 +248,9 @@ ncmpc is running. To edit key bindings press 'K' and use the key editor in ncmpc
 Format of song display for status and the list window.
 The metadata delimiters are: %artist%, %albumartist%, %composer%, %performer%, %title%, %album%, %shortalbum%, %track%, %genre%, %name%, %time%, %date%, %file%, %shortfile%.
 
-The [] operators are used to group output such that if none of the metadata delimiters between '[' and ']' are matched, then none of  the  characters between '[' and ']' are output; literal text is always output. '&' and '|' are logical operators for AND and OR. '#'  is used to escape characters.
+The [] operators are used to group output such that if none of the metadata delimiters between '[' and ']' are matched, then none of the characters between '[' and ']' are output; literal text is always output. '&' and '|' are logical operators for AND and OR. '#' is used to escape characters.
 
-Some  useful examples for format are: 
+Some useful examples for format are:
 
    "%file%" 
 
