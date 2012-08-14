@@ -38,6 +38,7 @@ enum {
 	LABEL_LENGTH = MPD_TAG_COUNT,
 	LABEL_PATH,
 	LABEL_BITRATE,
+	LABEL_POSITION,
 };
 
 static const char *const tag_labels[] = {
@@ -45,6 +46,7 @@ static const char *const tag_labels[] = {
 	[MPD_TAG_TITLE] = N_("Title"),
 	[MPD_TAG_ALBUM] = N_("Album"),
 	[LABEL_LENGTH] = N_("Length"),
+	[LABEL_POSITION] = N_("Position"),
 	[MPD_TAG_COMPOSER] = N_("Composer"),
 	[MPD_TAG_NAME] = N_("Name"),
 	[MPD_TAG_DISC] = N_("Disc"),
@@ -261,6 +263,11 @@ static void
 screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 {
 	assert(song != NULL);
+
+	char songpos[16];
+	g_snprintf(songpos, sizeof(songpos), "%d", mpd_song_get_pos(song) + 1);
+	screen_song_append(_(tag_labels[LABEL_POSITION]), songpos,
+			   max_tag_label_width);
 
 	screen_song_append_tag(song, MPD_TAG_ARTIST);
 	screen_song_append_tag(song, MPD_TAG_TITLE);
