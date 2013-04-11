@@ -19,7 +19,7 @@ autoheader
 
 # Generate Makefile.in from Makefile.am
 echo "automake..."
-automake --add-missing
+automake --add-missing $AUTOMAKE_FLAGS
 
 
 # configure
