@@ -103,8 +103,7 @@ src_ncmpc_SOURCES = \
 	src/charset.c \
 	src/wreadln.c \
 	src/strfsong.c \
-	src/utils.c \
-	src/win/ncmpc.rc
+	src/utils.c
 
 #
 # Windows resource file
