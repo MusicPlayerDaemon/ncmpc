@@ -394,6 +394,8 @@ lyrics_edit(void)
 	pid_t pid = fork();
 	if (pid == -1) {
 		screen_status_printf(("%s (%s)"), _("Can't start editor"), g_strerror(errno));
+		ncu_init();
+		return;
 	} else if (pid == 0) {
 		char path[1024];
 		path_lyr_file(path, sizeof(path), current.artist, current.title);
