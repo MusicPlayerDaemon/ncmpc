@@ -24,7 +24,6 @@
 require 'uri'
 require 'net/http'
 require 'cgi'
-require 'iconv'
 
 # We need this because URI.escape doesn't escape ampersands.
 def escape(string)
@@ -55,6 +54,11 @@ if not $1 =~ /^.*<\/div>(.*?)$/im
 	exit(1)
 end
 
-# lyrics come in Latin1, but we need UTF-8
-lyrics_latin1 = CGI::unescapeHTML($1.gsub(/<br \/>/, "\n"))
-puts Iconv.conv('UTF-8//TRANSLIT//IGNORE', 'Latin1', lyrics_latin1)
+lyrics = $1.gsub(/<br \/>/, "\n")
+
+if lyrics.respond_to?(:force_encoding)
+  puts CGI::unescapeHTML(lyrics.force_encoding(Encoding::UTF_8))
+else
+  $KCODE = 'U'
+  puts CGI::unescapeHTML(lyrics)
+end

@@ -3,6 +3,7 @@ ncmpc 0.21 - not yet released
 * song format: evaluate literal strings as true
 * fix crash on search screen when disconnected
 * screen_queue: fix crash on CMD_SCREEN_SWAP when the queue is empty
+* lyricswiki: fix Ruby 2.0 and UTF-8
 
 
 ncmpc 0.20 - (02/05/2012)
