@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-23 21:08+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=glib&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-04-11 10:23+0200\n"
 "PO-Revision-Date: 2011-03-06 16:02+0000\n"
 "Last-Translator: Sami Sankala <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -26,21 +27,21 @@ msgstr "k"
 msgid "n"
 msgstr "e"
 
-#: src/main.c:243 src/main.c:265 src/main.c:283
+#: src/main.c:245 ../src/main.c:267 ../src/main.c:290
 msgid "unknown"
 msgstr ""
 
-#: src/main.c:313
+#: src/main.c:315
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr "Yhdistetään kohteeseen %s... [Paina %s keskeyttääksesi]"
 
-#: src/main.c:337
+#: src/main.c:339
 #, c-format
 msgid "Error: MPD version %d.%d.%d is to old (%s needed)"
 msgstr "Virhe: MPD versio %d.%d.%d on liian vanha (tarvitaan %s)"
 
-#: src/main.c:356
+#: src/main.c:358
 #, c-format
 msgid "Connected to %s"
 msgstr "Yhdistetty kohteeseen %s"
@@ -53,7 +54,7 @@ msgstr "Yhdistetty kohteeseen %s"
 msgid "press %s for the key editor"
 msgstr "Painalla %s pääset näppäineditoriin"
 
-#: src/player_command.c:177 src/screen_queue.c:752
+#: src/player_command.c:177 ../src/screen_queue.c:755
 msgid "Shuffled playlist"
 msgstr "Sekoitettu soittolista"
 
@@ -61,23 +62,23 @@ msgstr "Sekoitettu soittolista"
 msgid "Cleared playlist"
 msgstr "Tyhjennetty soittolista"
 
-#: src/screen.c:205 src/screen.c:269
+#: src/screen.c:206 ../src/screen.c:273
 msgid "Error: Screen too small"
 msgstr "Virhe: Ruutu on liian pieni"
 
-#: src/screen.c:389
+#: src/screen.c:395
 msgid "Repeat mode is on"
 msgstr "Jatkuva toisto on päällä"
 
-#: src/screen.c:390
+#: src/screen.c:396
 msgid "Repeat mode is off"
 msgstr "Jatkuva toisto on poissa päältä"
 
-#: src/screen.c:394
+#: src/screen.c:400
 msgid "Random mode is on"
 msgstr "Satunnaistoisto on päällä"
 
-#: src/screen.c:395
+#: src/screen.c:401
 msgid "Random mode is off"
 msgstr "Satunnaistoisto poissa päältä"
 
@@ -86,11 +87,11 @@ msgstr "Satunnaistoisto poissa päältä"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.c:404
+#: src/screen.c:410
 msgid "Single mode is on"
 msgstr "Kertatoisto on päällä"
 
-#: src/screen.c:405
+#: src/screen.c:411
 msgid "Single mode is off"
 msgstr "Kertatoisto on poissa päältä"
 
@@ -98,74 +99,74 @@ msgstr "Kertatoisto on poissa päältä"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.c:413
+#: src/screen.c:419
 msgid "Consume mode is on"
 msgstr "Kertakäyttökuuntelu päällä"
 
-#: src/screen.c:414
+#: src/screen.c:420
 msgid "Consume mode is off"
 msgstr "Kertakäyttökuuntelu poissa päältä"
 
-#: src/screen.c:417
+#: src/screen.c:423
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Ristiinhäivytys %d sekuntia"
 
-#: src/screen.c:429
+#: src/screen.c:435
 msgid "Database updated"
 msgstr "Tietokanta päivitetty"
 
-#: src/screen.c:505
+#: src/screen.c:515
 msgid "Find mode: Wrapped"
 msgstr "Hakutyyli: 'Wrapped'"
 
-#: src/screen.c:506
+#: src/screen.c:516
 msgid "Find mode: Normal"
 msgstr "Hakutyyli: Normaali"
 
-#: src/screen.c:511
+#: src/screen.c:521
 msgid "Auto center mode: On"
 msgstr ""
 
-#: src/screen.c:512
+#: src/screen.c:522
 msgid "Auto center mode: Off"
 msgstr ""
 
-#: src/screen_artist.c:75 src/screen_artist.c:369
+#: src/screen_artist.c:75 ../src/screen_artist.c:366
 msgid "All tracks"
 msgstr "Kaikki kappaleet"
 
-#: src/screen_artist.c:401
+#: src/screen_artist.c:398
 #, c-format
 msgid "All artists"
 msgstr "Kaikki esittäjät"
 
-#: src/screen_artist.c:406
+#: src/screen_artist.c:403
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "Kaikki albumit esittäjältä: %s"
 
-#: src/screen_artist.c:415
+#: src/screen_artist.c:412
 #, c-format
 msgid "All tracks of artist: %s"
 msgstr "Kaikki kappaleet esittäjältä: %s"
 
-#: src/screen_artist.c:418
+#: src/screen_artist.c:415
 #, c-format
 msgid "Album: %s - %s"
 msgstr "Levy: %s - %s"
 
-#: src/screen_artist.c:422
+#: src/screen_artist.c:419
 #, c-format
 msgid "Tracks of no album of artist: %s"
 msgstr "Kappaleet tuntemattomista albumeista esittäjältä: %s"
 
-#: src/screen_artist.c:465
+#: src/screen_artist.c:466
 #, c-format
 msgid "Adding album %s..."
 msgstr "Lisätään albumia %s..."
 
-#: src/screen_artist.c:467
+#: src/screen_artist.c:468
 #, c-format
 msgid "Adding %s..."
 msgstr "Lisätään %s..."
@@ -175,7 +176,8 @@ msgstr "Lisätään %s..."
 msgid "Loading playlist %s..."
 msgstr "Ladataan soittolistaa %s..."
 
-#: src/screen_browser.c:172 src/screen_browser.c:267 src/screen_browser.c:292
+#: src/screen_browser.c:172 ../src/screen_browser.c:267
+#: src/screen_browser.c:292
 #, c-format
 msgid "Adding '%s' to playlist"
 msgstr "Soittolistaan lisätään '%s'"
@@ -192,6 +194,25 @@ msgstr "Tietokannan %s päivitys käynnistyi"
 #: src/screen_client.c:108
 msgid "Database update started"
 msgstr "Tietokannan päivitys käynnistyi"
+
+#: src/screen_chat.c:59
+#, c-format
+msgid ""
+"connected to MPD %u.%u.%u (you need at least \n"
+"version 0.17.0 to use the chat feature)"
+msgstr ""
+
+#: src/screen_chat.c:179
+msgid "Your message"
+msgstr ""
+
+#: src/screen_chat.c:188
+msgid "Message could not be sent"
+msgstr ""
+
+#: src/screen_chat.c:201 ../src/title_bar.c:94
+msgid "Chat"
+msgstr ""
 
 #: src/screen_find.c:28
 msgid "Find"
@@ -210,7 +231,7 @@ msgstr "Siirry"
 msgid "Unable to find '%s'"
 msgstr "Haku '%s' ei tuottanut tuloksia"
 
-#: src/screen_utils.c:99
+#: src/screen_utils.c:115
 msgid "Password"
 msgstr "Salasana"
 
@@ -225,7 +246,8 @@ msgid "Replace %s [%s/%s] ? "
 msgstr "Korvaa %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:300 src/screen_file.c:238 src/screen_keydef.c:165
+#: src/screen_queue.c:300 ../src/screen_file.c:236 src/screen_keydef.c:269
+#: ../src/screen_lyrics.c:382
 msgid "Aborted"
 msgstr "Keskeytetty"
 
@@ -240,7 +262,7 @@ msgstr "Tallennettu %s"
 msgid "Add"
 msgstr "Lisää"
 
-#: src/screen_queue.c:508 src/title_bar.c:77
+#: src/screen_queue.c:508 ../src/title_bar.c:79
 msgid "Playlist"
 msgstr "Soittolista"
 
@@ -252,101 +274,101 @@ msgstr ""
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/screen_file.c:225
+#: src/screen_file.c:222
 msgid "Deleting this item is not possible"
 msgstr "Tämän kohteen poistaminen ei ole mahdollista"
 
-#: src/screen_file.c:232
+#: src/screen_file.c:229
 #, c-format
 msgid "Delete playlist %s [%s/%s] ? "
 msgstr ""
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/screen_file.c:251
+#: src/screen_file.c:249
 msgid "Playlist deleted"
 msgstr "Soittolista poistettu"
 
 #. translators: caption of the browser screen
-#: src/screen_file.c:305 src/title_bar.c:78
+#: src/screen_file.c:303 ../src/title_bar.c:80
 msgid "Browse"
 msgstr "Selaa"
 
-#: src/screen_search.c:45
+#: src/screen_search.c:46
 msgid "artist"
 msgstr "esittäjä"
 
-#: src/screen_search.c:46
+#: src/screen_search.c:47
 msgid "album"
 msgstr "levy"
 
-#: src/screen_search.c:47
+#: src/screen_search.c:48
 msgid "title"
 msgstr "nimi"
 
-#: src/screen_search.c:48
+#: src/screen_search.c:49
 msgid "track"
 msgstr "kappale"
 
-#: src/screen_search.c:49
+#: src/screen_search.c:50
 msgid "name"
 msgstr "nimi"
 
-#: src/screen_search.c:50
+#: src/screen_search.c:51
 msgid "genre"
 msgstr "tyylilaji"
 
-#: src/screen_search.c:51
+#: src/screen_search.c:52
 msgid "date"
 msgstr "päiväys:"
 
-#: src/screen_search.c:52
+#: src/screen_search.c:53
 msgid "composer"
 msgstr "säveltäjä"
 
-#: src/screen_search.c:53
+#: src/screen_search.c:54
 msgid "performer"
 msgstr "esittäjä"
 
-#: src/screen_search.c:54
+#: src/screen_search.c:55
 msgid "comment"
 msgstr "kommentti"
 
-#: src/screen_search.c:63
+#: src/screen_search.c:64
 msgid "file"
 msgstr "tiedosto"
 
-#: src/screen_search.c:83 src/screen_song.c:44
+#: src/screen_search.c:82 ../src/screen_song.c:46
 msgid "Title"
 msgstr "Kappale"
 
-#: src/screen_search.c:84 src/screen_song.c:43 src/title_bar.c:80
+#: src/screen_search.c:83 ../src/screen_song.c:45 ../src/title_bar.c:82
 msgid "Artist"
 msgstr "Esittäjä"
 
-#: src/screen_search.c:85 src/screen_song.c:45
+#: src/screen_search.c:84 ../src/screen_song.c:47
 msgid "Album"
 msgstr "Albumi"
 
-#: src/screen_search.c:86
+#: src/screen_search.c:85
 msgid "Filename"
 msgstr "Tiedostonimi"
 
-#: src/screen_search.c:87
+#: src/screen_search.c:86
 msgid "Artist + Title"
 msgstr "Esittäjä + Kappale"
 
-#: src/screen_search.c:233
+#: src/screen_search.c:232
 #, c-format
 msgid "Bad search tag %s"
 msgstr ""
 
-#: src/screen_search.c:237
+#: src/screen_search.c:236
 #, c-format
 msgid "No argument for search tag %s"
 msgstr ""
 
-#: src/screen_search.c:344 src/screen_help.c:147 src/title_bar.c:83
+#: src/screen_search.c:344 ../src/screen_help.c:150 ../src/title_bar.c:85
 msgid "Search"
 msgstr "Haku"
 
@@ -378,69 +400,73 @@ msgstr "Haku: Paina %s hakeaksesi uudelleen [%s]"
 msgid "Search mode: %s"
 msgstr "Hakutyyli: %s"
 
-#: src/screen_keydef.c:42
-msgid "===> Apply & Save key bindings  "
-msgstr ""
-
-#: src/screen_keydef.c:43
-msgid "===> Apply key bindings "
-msgstr ""
-
-#: src/screen_keydef.c:71
+#: src/screen_keydef.c:131
 msgid "You have new key bindings"
 msgstr "Uusia näppäinmäärittelyjä"
 
-#: src/screen_keydef.c:73
+#: src/screen_keydef.c:133
 msgid "Keybindings unchanged."
 msgstr "Näppäinmäärittelyjä ei muutettu"
 
-#: src/screen_keydef.c:83
+#: src/screen_keydef.c:143
 #, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "Virhe: Hakemistoa ~/ncmpc - %s ei pystytty luomaan"
 
-#: src/screen_keydef.c:92 src/screen_keydef.c:99
+#: src/screen_keydef.c:152 ../src/screen_keydef.c:159
 #, c-format
 msgid "Error: %s - %s"
 msgstr "Virhe: %s - %s"
 
-#: src/screen_keydef.c:101
+#: src/screen_keydef.c:161
 #, c-format
 msgid "Wrote %s"
 msgstr "Kirjoitettiin %s"
 
-#: src/screen_keydef.c:139
+#: src/screen_keydef.c:245
 msgid "Deleted"
 msgstr "Poistettu"
 
-#: src/screen_keydef.c:160
+#: src/screen_keydef.c:264
 #, c-format
 msgid "Enter new key for %s: "
 msgstr ""
 
-#: src/screen_keydef.c:171
+#: src/screen_keydef.c:274
+msgid "Ctrl-Space can't be used"
+msgstr ""
+
+#: src/screen_keydef.c:280
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "Virhe: näppäin %s on jo %s käytössä"
 
-#: src/screen_keydef.c:181
+#: src/screen_keydef.c:289
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "Asetettu %s %s:ksi"
 
-#: src/screen_keydef.c:212
+#: src/screen_keydef.c:315
+msgid "===> Apply key bindings "
+msgstr ""
+
+#: src/screen_keydef.c:317
+msgid "===> Apply & Save key bindings  "
+msgstr ""
+
+#: src/screen_keydef.c:345
 msgid "Add new key"
 msgstr "Lisää uusi näppäin"
 
-#: src/screen_keydef.c:277
+#: src/screen_keydef.c:409
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Huomio: Unohditko 'Toteuttaa' muutokset?"
 
-#: src/screen_keydef.c:284
+#: src/screen_keydef.c:416
 msgid "Edit key bindings"
 msgstr "Muuta näppäinasetteluja"
 
-#: src/screen_keydef.c:286
+#: src/screen_keydef.c:418
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Muokkaa %s näppäimiä"
@@ -449,142 +475,189 @@ msgstr "Muokkaa %s näppäimiä"
 msgid "Movement"
 msgstr ""
 
-#: src/screen_help.c:81
+#: src/screen_help.c:84
 msgid "Global"
 msgstr ""
 
-#: src/screen_help.c:116 src/command.c:111
+#: src/screen_help.c:119 ../src/command.c:107
 msgid "Playlist screen"
 msgstr "Soittolista näyttö"
 
-#: src/screen_help.c:118
+#: src/screen_help.c:121
 msgid "Play"
 msgstr "Toista"
 
-#: src/screen_help.c:121
+#: src/screen_help.c:124
 msgid "Move song up"
 msgstr "Siirrä kappaletta ylemmäksi"
 
-#: src/screen_help.c:122
+#: src/screen_help.c:125
 msgid "Move song down"
 msgstr "Siirrä kappaletta alemmaksi"
 
-#: src/screen_help.c:125
+#: src/screen_help.c:128
 msgid "Center"
 msgstr ""
 
-#: src/screen_help.c:131 src/command.c:113
+#: src/screen_help.c:134 ../src/command.c:109
 msgid "Browse screen"
 msgstr "Selailunäkymä"
 
-#: src/screen_help.c:133
+#: src/screen_help.c:136
 msgid "Enter directory/Select and play song"
 msgstr ""
 
-#: src/screen_help.c:135 src/screen_help.c:150
+#: src/screen_help.c:138 ../src/screen_help.c:153
 msgid "Append song to playlist"
 msgstr "Lisää kappale soittolistaan"
 
-#: src/screen_help.c:137
+#: src/screen_help.c:140
 msgid "Delete playlist"
 msgstr "Poista soittolista"
 
-#: src/screen_help.c:145 src/command.c:224
+#: src/screen_help.c:148 ../src/command.c:220
 msgid "Search screen"
 msgstr "Hakunäkymä"
 
-#: src/screen_help.c:148
+#: src/screen_help.c:151
 msgid "Select and play"
 msgstr "Valitse ja toista"
 
-#: src/screen_help.c:157 src/command.c:234
+#: src/screen_help.c:160 ../src/command.c:230
 msgid "Lyrics screen"
 msgstr "Sanoitusnäkymä"
 
-#: src/screen_help.c:159
+#: src/screen_help.c:162
 msgid "View Lyrics"
 msgstr "Näytä sanoitukset"
 
-#: src/screen_help.c:160
+#: src/screen_help.c:163
 msgid "(Re)load lyrics"
 msgstr "Lataa sanoitukset"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
-#: src/screen_help.c:163
+#: src/screen_help.c:166
 msgid "Interrupt retrieval"
 msgstr "Keskeytä sanoitusten noutaminen"
 
-#: src/screen_help.c:164
+#: src/screen_help.c:167
 msgid "Download lyrics for currently playing song"
 msgstr "Lataa sanoitukset toistettavaan kappaleeseen"
 
-#: src/screen_help.c:165
+#: src/screen_help.c:168
+#, fuzzy
+msgid "Add or edit lyrics"
+msgstr "Ei talletettuja sanoituksia"
+
+#: src/screen_help.c:169
 msgid "Save lyrics"
 msgstr "Tallenna sanoitukset"
 
-#: src/screen_help.c:166
+#: src/screen_help.c:170
 msgid "Delete saved lyrics"
 msgstr "Poista tallennettut sanoitukset"
 
-#: src/screen_help.c:171 src/command.c:245
+#: src/screen_help.c:175 ../src/command.c:245
 msgid "Outputs screen"
 msgstr ""
 
-#: src/screen_help.c:173
+#: src/screen_help.c:177
 msgid "Enable/disable output"
 msgstr "Ulostulo päälle/poissa"
 
-#: src/screen_help.c:178
+#: src/screen_help.c:182 ../src/command.c:250
+#, fuzzy
+msgid "Chat screen"
+msgstr "Soittolista näyttö"
+
+#: src/screen_help.c:184
+msgid "Write a message"
+msgstr ""
+
+#: src/screen_help.c:189
 msgid "Keydef screen"
 msgstr "Näppäinmäärittely ruutu"
 
-#: src/screen_help.c:180
+#: src/screen_help.c:191
 msgid "Edit keydefs for selected command"
 msgstr "Muokkaa näppäinmäärittelyjä halutulle komennolle"
 
-#: src/screen_help.c:181
+#: src/screen_help.c:192
 msgid "Remove selected keydef"
 msgstr "Poista valittu näppäinmäärittely"
 
-#: src/screen_help.c:182
+#: src/screen_help.c:193
+#, fuzzy
+msgid "Add a keydef"
+msgstr "Lisää uusi näppäin"
+
+#: src/screen_help.c:194
 msgid "Go up a level"
 msgstr "Siirry taso ylöspäin"
 
-#: src/screen_help.c:183
+#: src/screen_help.c:195
 msgid "Apply and save changes"
 msgstr "Toteuta ja tallenna muutokset"
 
-#: src/screen_help.c:229 src/title_bar.c:75
+#: src/screen_help.c:241 ../src/title_bar.c:77
 msgid "Help"
 msgstr "Ohje"
 
 #. translators: no lyrics were found for the song
-#: src/screen_lyrics.c:182
+#: src/screen_lyrics.c:214
 msgid "No lyrics"
 msgstr "Sanoituksia ei löytynyt"
 
-#: src/screen_lyrics.c:265 src/screen_lyrics.c:273 src/screen_lyrics.c:277
-#: src/title_bar.c:86
+#: src/screen_lyrics.c:232
+#, c-format
+msgid "Lyrics timeout occurred after %d seconds"
+msgstr ""
+
+#: src/screen_lyrics.c:335 ../src/screen_lyrics.c:344 src/screen_lyrics.c:354
+#: ../src/title_bar.c:88
 msgid "Lyrics"
 msgstr "Sanoitukset"
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/screen_lyrics.c:268
+#: src/screen_lyrics.c:338
 msgid "loading..."
 msgstr "latautuu..."
 
+#: src/screen_lyrics.c:371
+msgid "Editor not configured"
+msgstr ""
+
+#: src/screen_lyrics.c:377
+#, c-format
+msgid "Do you really want to start an editor and edit these lyrics [%s/%s]? "
+msgstr ""
+
+#: src/screen_lyrics.c:396 ../src/screen_lyrics.c:420
+msgid "Can't start editor"
+msgstr ""
+
+#: src/screen_lyrics.c:422
+#, c-format
+msgid "Editor exited unexpectedly (%d)"
+msgstr ""
+
+#: src/screen_lyrics.c:425
+#, c-format
+msgid "Editor exited unexpectedly (signal %d)"
+msgstr ""
+
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:303
+#: src/screen_lyrics.c:447
 msgid "Lyrics saved"
 msgstr "Sanoitukset talletettu"
 
-#: src/screen_lyrics.c:310
+#: src/screen_lyrics.c:454
 msgid "Lyrics deleted"
 msgstr "Sanoitukset poistettu"
 
-#: src/screen_lyrics.c:313
+#: src/screen_lyrics.c:457
 msgid "No saved lyrics"
 msgstr "Ei talletettuja sanoituksia"
 
@@ -598,96 +671,100 @@ msgstr "Ulostulo '%s' päällä"
 msgid "Output '%s' disabled"
 msgstr "Ulostulo '%s' poissa päältä"
 
-#: src/screen_outputs.c:176 src/title_bar.c:89
+#: src/screen_outputs.c:175 ../src/title_bar.c:91
 msgid "Outputs"
 msgstr "Ulostulot"
 
-#: src/screen_song.c:46
+#: src/screen_song.c:48
 msgid "Length"
 msgstr "Kesto"
 
-#: src/screen_song.c:47
+#: src/screen_song.c:49
+msgid "Position"
+msgstr ""
+
+#: src/screen_song.c:50
 msgid "Composer"
 msgstr "Säveltäjä"
 
-#: src/screen_song.c:48
+#: src/screen_song.c:51
 msgid "Name"
 msgstr "Nimi"
 
-#: src/screen_song.c:49
+#: src/screen_song.c:52
 msgid "Disc"
 msgstr "Levy"
 
-#: src/screen_song.c:50
+#: src/screen_song.c:53
 msgid "Track"
 msgstr "Kappale"
 
-#: src/screen_song.c:51
+#: src/screen_song.c:54
 msgid "Date"
 msgstr ""
 
-#: src/screen_song.c:52
+#: src/screen_song.c:55
 msgid "Genre"
 msgstr ""
 
-#: src/screen_song.c:53
+#: src/screen_song.c:56
 msgid "Comment"
 msgstr ""
 
-#: src/screen_song.c:54
-msgid "Bitrate"
-msgstr ""
-
-#: src/screen_song.c:70
-msgid "Number of artists"
-msgstr ""
-
-#: src/screen_song.c:71
-msgid "Number of albums"
-msgstr ""
-
-#: src/screen_song.c:72
-msgid "Number of songs"
-msgstr ""
-
-#: src/screen_song.c:73
-msgid "Uptime"
-msgstr ""
-
-#: src/screen_song.c:74
-msgid "Most recent db update"
-msgstr ""
-
-#: src/screen_song.c:75
-msgid "Playtime"
-msgstr ""
-
-#: src/screen_song.c:76
-msgid "DB playtime"
-msgstr ""
-
-#: src/screen_song.c:178
-msgid "Song viewer"
-msgstr ""
-
-#: src/screen_song.c:311
+#: src/screen_song.c:57
 msgid "Path"
 msgstr ""
 
-#: src/screen_song.c:316
+#: src/screen_song.c:58
+msgid "Bitrate"
+msgstr ""
+
+#: src/screen_song.c:74
+msgid "Number of artists"
+msgstr ""
+
+#: src/screen_song.c:75
+msgid "Number of albums"
+msgstr ""
+
+#: src/screen_song.c:76
+msgid "Number of songs"
+msgstr ""
+
+#: src/screen_song.c:77
+msgid "Uptime"
+msgstr ""
+
+#: src/screen_song.c:78
+msgid "Most recent db update"
+msgstr ""
+
+#: src/screen_song.c:79
+msgid "Playtime"
+msgstr ""
+
+#: src/screen_song.c:80
+msgid "DB playtime"
+msgstr ""
+
+#: src/screen_song.c:182
+msgid "Song viewer"
+msgstr ""
+
+#: src/screen_song.c:326
 #, c-format
 msgid "%d kbps"
 msgstr ""
 
-#: src/screen_song.c:341
+#: src/screen_song.c:351
 msgid "MPD statistics"
 msgstr ""
 
-#: src/screen_song.c:396
+#: src/screen_song.c:406
 msgid "Selected song"
 msgstr ""
 
-#: src/screen_song.c:406
+#: src/screen_song.c:416
 msgid "Currently playing song"
 msgstr ""
 
@@ -699,342 +776,361 @@ msgstr ""
 msgid "[Paused]"
 msgstr ""
 
-#: src/title_bar.c:96
+#: src/title_bar.c:101
 #, c-format
 msgid "Volume n/a"
 msgstr ""
 
-#: src/title_bar.c:98
+#: src/title_bar.c:103
 #, c-format
 msgid "Volume %d%%"
 msgstr ""
 
-#: src/command.c:69
+#: src/command.c:65
 msgid "Key configuration screen"
 msgstr ""
 
-#: src/command.c:72
+#: src/command.c:68
 msgid "Quit"
 msgstr ""
 
-#: src/command.c:76
+#: src/command.c:72
 msgid "Move cursor up"
 msgstr ""
 
-#: src/command.c:78
+#: src/command.c:74
 msgid "Move cursor down"
 msgstr ""
 
-#: src/command.c:80
+#: src/command.c:76
 msgid "Move cursor to the top of screen"
 msgstr ""
 
-#: src/command.c:82
+#: src/command.c:78
 msgid "Move cursor to the middle of screen"
 msgstr ""
 
-#: src/command.c:84
+#: src/command.c:80
 msgid "Move cursor to the bottom of screen"
 msgstr ""
 
-#: src/command.c:86
+#: src/command.c:82
 msgid "Move cursor to the top of the list"
 msgstr ""
 
-#: src/command.c:88
+#: src/command.c:84
 msgid "Move cursor to the bottom of the list"
 msgstr ""
 
-#: src/command.c:90
+#: src/command.c:86
 msgid "Page up"
 msgstr ""
 
-#: src/command.c:92
+#: src/command.c:88
 msgid "Page down"
 msgstr ""
 
-#: src/command.c:94
+#: src/command.c:90
 msgid "Range selection"
 msgstr ""
 
-#: src/command.c:96
+#: src/command.c:92
 msgid "Scroll up one line"
 msgstr ""
 
-#: src/command.c:98
+#: src/command.c:94
 msgid "Scroll down one line"
 msgstr ""
 
-#: src/command.c:100
+#: src/command.c:96
 msgid "Scroll up half a screen"
 msgstr ""
 
-#: src/command.c:102
+#: src/command.c:98
 msgid "Scroll down half a screen"
 msgstr ""
 
-#: src/command.c:104
+#: src/command.c:100
 msgid "Select currently playing song"
 msgstr ""
 
-#: src/command.c:109
+#: src/command.c:105
 msgid "Help screen"
 msgstr ""
 
-#: src/command.c:118
+#: src/command.c:114
 msgid "Play/Enter directory"
 msgstr ""
 
-#: src/command.c:120
+#: src/command.c:116
 msgid "Pause"
 msgstr ""
 
-#: src/command.c:122
+#: src/command.c:118
 msgid "Stop"
 msgstr ""
 
-#: src/command.c:124
+#: src/command.c:120
 msgid "Crop"
 msgstr ""
 
-#: src/command.c:126
+#: src/command.c:122
 msgid "Next track"
 msgstr ""
 
-#: src/command.c:128
+#: src/command.c:124
 msgid "Previous track"
 msgstr ""
 
-#: src/command.c:130
+#: src/command.c:126
 msgid "Seek forward"
 msgstr ""
 
-#: src/command.c:132
+#: src/command.c:128
 msgid "Seek backward"
 msgstr ""
 
-#: src/command.c:134
+#: src/command.c:130
 msgid "Increase volume"
 msgstr ""
 
-#: src/command.c:136
+#: src/command.c:132
 msgid "Decrease volume"
 msgstr ""
 
-#: src/command.c:138
+#: src/command.c:134
 msgid "Select/deselect song in playlist"
 msgstr ""
 
-#: src/command.c:140
+#: src/command.c:136
 msgid "Select all listed items"
 msgstr ""
 
-#: src/command.c:142
+#: src/command.c:138
 msgid "Delete song from playlist"
 msgstr ""
 
-#: src/command.c:144
+#: src/command.c:140
 msgid "Shuffle playlist"
 msgstr ""
 
-#: src/command.c:146
+#: src/command.c:142
 msgid "Clear playlist"
 msgstr ""
 
-#: src/command.c:148
+#: src/command.c:144
 msgid "Toggle repeat mode"
 msgstr ""
 
-#: src/command.c:150
+#: src/command.c:146
 msgid "Toggle random mode"
 msgstr ""
 
-#: src/command.c:152
+#: src/command.c:148
 msgid "Toggle single mode"
 msgstr ""
 
-#: src/command.c:154
+#: src/command.c:150
 msgid "Toggle consume mode"
 msgstr ""
 
-#: src/command.c:156
+#: src/command.c:152
 msgid "Toggle crossfade mode"
 msgstr ""
 
-#: src/command.c:158
+#: src/command.c:154
 msgid "Start a music database update"
 msgstr ""
 
-#: src/command.c:160
+#: src/command.c:156
 msgid "Save playlist"
 msgstr ""
 
-#: src/command.c:162
+#: src/command.c:158
 msgid "Add url/file to playlist"
 msgstr ""
 
-#: src/command.c:165
+#: src/command.c:161
 msgid "Go to root directory"
 msgstr ""
 
-#: src/command.c:167
+#: src/command.c:163
 msgid "Go to parent directory"
 msgstr ""
 
-#: src/command.c:170
+#: src/command.c:166
 msgid "Locate song in browser"
 msgstr ""
 
-#: src/command.c:174
+#: src/command.c:170
 msgid "Move item up"
 msgstr ""
 
-#: src/command.c:176
+#: src/command.c:172
 msgid "Move item down"
 msgstr ""
 
-#: src/command.c:178
+#: src/command.c:174
 msgid "Refresh screen"
 msgstr ""
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/command.c:185
+#: src/command.c:181
 msgid "Toggle find mode"
 msgstr ""
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/command.c:189
+#: src/command.c:185
 msgid "Toggle auto center mode"
 msgstr ""
 
-#: src/command.c:194
+#: src/command.c:190
 msgid "Next screen"
 msgstr ""
 
-#: src/command.c:196
+#: src/command.c:192
 msgid "Previous screen"
 msgstr ""
 
-#: src/command.c:198
+#: src/command.c:194
 msgid "Swap to most recent screen"
 msgstr ""
 
-#: src/command.c:203
+#: src/command.c:199
 msgid "Forward find"
 msgstr ""
 
-#: src/command.c:205
+#: src/command.c:201
 msgid "Forward find next"
 msgstr ""
 
-#: src/command.c:207
+#: src/command.c:203
 msgid "Backward find"
 msgstr ""
 
-#: src/command.c:209
+#: src/command.c:205
 msgid "Backward find previous"
 msgstr ""
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/command.c:214
+#: src/command.c:210
 msgid "Jump to"
 msgstr ""
 
-#: src/command.c:220
+#: src/command.c:216
 msgid "Artist screen"
 msgstr ""
 
-#: src/command.c:226
+#: src/command.c:222
 msgid "Change search mode"
 msgstr ""
 
-#: src/command.c:230
+#: src/command.c:226
 msgid "View the selected and the currently playing song"
 msgstr ""
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/command.c:238
+#: src/command.c:234
 msgid "Interrupt action"
 msgstr ""
 
-#: src/command.c:240
+#: src/command.c:236
 msgid "Update Lyrics"
 msgstr ""
 
-#: src/command.c:269
-msgid "Undefined"
-msgstr ""
-
-#: src/command.c:271
-msgid "Space"
-msgstr ""
-
-#: src/command.c:273
-msgid "Enter"
-msgstr ""
-
-#: src/command.c:275
-msgid "Backspace"
-msgstr ""
-
-#: src/command.c:277
-msgid "Delete"
-msgstr ""
-
-#: src/command.c:279
-msgid "Up"
-msgstr ""
-
-#: src/command.c:281
-msgid "Down"
-msgstr ""
-
-#: src/command.c:283
-msgid "Left"
-msgstr ""
-
-#: src/command.c:285
-msgid "Right"
-msgstr ""
-
-#: src/command.c:287
-msgid "Home"
-msgstr ""
-
-#: src/command.c:289
-msgid "End"
-msgstr ""
-
-#: src/command.c:291
-msgid "PageDown"
-msgstr ""
-
-#: src/command.c:293
-msgid "PageUp"
-msgstr ""
-
-#: src/command.c:295
-msgid "Tab"
+#: src/command.c:240
+msgid "Edit the current item"
 msgstr ""
 
 #: src/command.c:297
-msgid "Shift+Tab"
+msgid "Undefined"
 msgstr ""
 
 #: src/command.c:299
-msgid "Esc"
+msgid "Space"
 msgstr ""
 
 #: src/command.c:301
+msgid "Enter"
+msgstr ""
+
+#: src/command.c:303
+msgid "Backspace"
+msgstr ""
+
+#: src/command.c:305
+msgid "Delete"
+msgstr ""
+
+#: src/command.c:307
+msgid "Up"
+msgstr ""
+
+#: src/command.c:309
+msgid "Down"
+msgstr ""
+
+#: src/command.c:311
+msgid "Left"
+msgstr ""
+
+#: src/command.c:313
+msgid "Right"
+msgstr ""
+
+#: src/command.c:315
+msgid "Home"
+msgstr ""
+
+#: src/command.c:317
+msgid "End"
+msgstr ""
+
+#: src/command.c:319
+msgid "PageDown"
+msgstr ""
+
+#: src/command.c:321
+msgid "PageUp"
+msgstr ""
+
+#: src/command.c:323
+msgid "Tab"
+msgstr ""
+
+#: src/command.c:325
+msgid "Shift+Tab"
+msgstr ""
+
+#: src/command.c:327
+msgid "Esc"
+msgstr ""
+
+#: src/command.c:329
 msgid "Insert"
 msgstr ""
 
-#: src/command.c:503 src/command.c:509
+#: src/command.c:333
+#, c-format
+msgid "F%d"
+msgstr ""
+
+#: src/command.c:337
+#, c-format
+msgid "Ctrl-%c"
+msgstr ""
+
+#: src/command.c:339
+#, c-format
+msgid "Alt-%c"
+msgstr ""
+
+#: src/command.c:503 ../src/command.c:509
 #, c-format
 msgid "Key %s assigned to %s and %s"
 msgstr ""
@@ -1058,22 +1154,22 @@ msgid "Terminal lacks color capabilities"
 msgstr ""
 
 #. To translators: prefix for error messages
-#: src/conf.c:94
+#: src/conf.c:98
 msgid "Error"
 msgstr ""
 
-#: src/conf.c:102 src/conf.c:111
+#: src/conf.c:106 ../src/conf.c:115
 msgid "Malformed hotkey definition"
 msgstr ""
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.c:138
+#: src/conf.c:142
 msgid "Unknown command"
 msgstr ""
 
 #. the hotkey configuration line is incomplete
-#: src/conf.c:151
+#: src/conf.c:155
 msgid "Incomplete hotkey configuration"
 msgstr ""
 
@@ -1081,63 +1177,63 @@ msgstr ""
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.c:185
+#: src/conf.c:189
 msgid "Bad time display type"
 msgstr ""
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.c:200
+#: src/conf.c:204
 msgid "Missing '='"
 msgstr ""
 
-#: src/conf.c:256
+#: src/conf.c:260
 msgid "Bad color name"
 msgstr ""
 
-#: src/conf.c:265
+#: src/conf.c:269
 msgid "Incomplete color definition"
 msgstr ""
 
-#: src/conf.c:271
+#: src/conf.c:275
 msgid "Invalid number"
 msgstr ""
 
-#: src/conf.c:279
+#: src/conf.c:283
 msgid "Malformed color definition"
 msgstr ""
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.c:313
+#: src/conf.c:317
 msgid "Unknown screen name"
 msgstr ""
 
-#: src/conf.c:342
+#: src/conf.c:346
 msgid "Invalid search mode"
 msgstr ""
 
-#: src/conf.c:365
+#: src/conf.c:369
 msgid "Unknown search mode"
 msgstr ""
 
-#: src/conf.c:534
+#: src/conf.c:564
 msgid "Unknown configuration parameter"
 msgstr ""
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.c:221 src/options.c:224
+#: src/options.c:234 ../src/options.c:237
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Katja Viljakainen https://launchpad.net/~katja-viljakainen\n"
 "  Sami Sankala https://launchpad.net/~valijumi"
 
-#: src/list_window.c:582
+#: src/list_window.c:588
 msgid "Range selection disabled"
 msgstr ""
 
-#: src/list_window.c:587
+#: src/list_window.c:593
 msgid "Range selection enabled"
 msgstr ""
