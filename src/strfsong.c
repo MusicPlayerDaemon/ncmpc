@@ -206,17 +206,24 @@ _strfsong(gchar *s,
 			n--;
 		else if (strncmp("%file%", p, n) == 0)
 			temp = utf8_to_locale(mpd_song_get_uri(song));
-		else if (strncmp("%artist%", p, n) == 0)
+		else if (strncmp("%artist%", p, n) == 0) {
 			temp = song_tag_locale(song, MPD_TAG_ARTIST);
-		else if (strncmp("%albumartist", p, n) == 0)
+			if (temp == NULL) {
+				temp = song_tag_locale(song, MPD_TAG_PERFORMER);
+				if (temp == NULL)
+					temp = song_tag_locale(song, MPD_TAG_COMPOSER);
+			}
+		} else if (strncmp("%albumartist", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_ALBUM_ARTIST);
 		else if (strncmp("%composer%", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_COMPOSER);
 		else if (strncmp("%performer%", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_PERFORMER);
-		else if (strncmp("%title%", p, n) == 0)
+		else if (strncmp("%title%", p, n) == 0) {
 			temp = song_tag_locale(song, MPD_TAG_TITLE);
-		else if (strncmp("%album%", p, n) == 0)
+			if (temp == NULL)
+				temp = song_tag_locale(song, MPD_TAG_NAME);
+		} else if (strncmp("%album%", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_ALBUM);
 		else if (strncmp("%shortalbum%", p, n) == 0) {
 			temp = song_tag_locale(song, MPD_TAG_ALBUM);
