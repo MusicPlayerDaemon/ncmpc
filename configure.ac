@@ -1,5 +1,5 @@
 AC_PREREQ(2.60)
-AC_INIT(ncmpc, 0.21~git, max@duempel.org)
+AC_INIT(ncmpc, 0.21, max@duempel.org)
 
 VERSION_MAJOR=0
 VERSION_MINOR=21
