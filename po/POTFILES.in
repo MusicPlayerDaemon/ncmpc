@@ -7,6 +7,7 @@ src/screen.c
 src/screen_artist.c
 src/screen_browser.c
 src/screen_client.c
+src/screen_chat.c
 src/screen_find.c
 src/screen_list.c
 src/screen_utils.c
