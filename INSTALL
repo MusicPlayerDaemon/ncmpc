@@ -7,7 +7,7 @@ Requirements
   * a C99 compliant compiler (e.g. gcc)
   * libmpdclient 2.2
   * ncurses (ncursesw for unicode / wide character support)
-  * glib-2.2 (2.4 for NLS support)
+  * GLib 2.14
 
 
 Configure and compile
