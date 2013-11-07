@@ -12,7 +12,6 @@ AM_CPPFLAGS = \
 	-DSYSCONFDIR=\""$(sysconfdir)"\"
 
 ncmpc_headers = \
-	src/glib_compat.h \
 	src/resolver.h \
 	src/gidle.h \
 	src/mpdclient.h \

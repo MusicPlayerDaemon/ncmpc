@@ -20,7 +20,6 @@
 #include "hscroll.h"
 #include "charset.h"
 #include "ncfix.h"
-#include "glib_compat.h"
 
 #include <assert.h>
 #include <string.h>
