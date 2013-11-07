@@ -392,6 +392,11 @@ AC_ARG_ENABLE(debug,
 
 if test "x$enable_debug" = xno; then
 	AM_CFLAGS="$AM_CFLAGS -DNDEBUG"
+
+	AX_APPEND_COMPILE_FLAGS([-ffunction-sections])
+	AX_APPEND_COMPILE_FLAGS([-fdata-sections])
+
+	AX_APPEND_LINK_FLAGS([-Wl,--gc-sections])
 fi
 
 AC_ARG_ENABLE(test,
@@ -425,6 +430,10 @@ dnl CFLAGS
 dnl
 
 AC_SUBST(AM_CFLAGS)
+
+AX_APPEND_COMPILE_FLAGS([-fvisibility=hidden])
+AX_APPEND_COMPILE_FLAGS([-ffast-math])
+AX_APPEND_COMPILE_FLAGS([-ftree-vectorize])
 
 AX_APPEND_COMPILE_FLAGS([-Wall])
 AX_APPEND_COMPILE_FLAGS([-Wextra])
