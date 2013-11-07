@@ -12,7 +12,6 @@ AM_CPPFLAGS = \
 	-DSYSCONFDIR=\""$(sysconfdir)"\"
 
 ncmpc_headers = \
-	src/resolver.h \
 	src/gidle.h \
 	src/mpdclient.h \
 	src/playlist.h \
@@ -74,7 +73,6 @@ src_ncmpc_LDADD = \
 
 src_ncmpc_SOURCES = \
 	$(ncmpc_headers) \
-	src/resolver.c \
 	src/main.c \
 	src/gidle.c \
 	src/mpdclient.c \
