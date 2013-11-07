@@ -39,10 +39,8 @@ charset_init(void)
 static inline unsigned
 unicode_char_width(gunichar ch)
 {
-#if GLIB_CHECK_VERSION(2,14,0)
 	if (g_unichar_iszerowidth(ch))
 		return 0;
-#endif
 
 	if (g_unichar_iswide(ch))
 		return 2;
