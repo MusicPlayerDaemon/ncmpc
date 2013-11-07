@@ -253,7 +253,7 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 
 
 		/* query the user for a filename */
-		filename = screen_readln(_("Save playlist as"),
+		filename = screen_readln(_("Save queue as"),
 					 defaultname,
 					 NULL,
 					 gcmp);
@@ -505,9 +505,9 @@ static const char *
 screen_queue_title(char *str, size_t size)
 {
 	if (options.host == NULL)
-		return _("Playlist");
+		return _("Queue");
 
-	g_snprintf(str, size, _("Playlist on %s"), options.host);
+	g_snprintf(str, size, _("Queue on %s"), options.host);
 	return str;
 }
 
@@ -752,7 +752,7 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 			return true;
 
 		if (mpd_run_shuffle_range(connection, range.start, range.end))
-			screen_status_message(_("Shuffled playlist"));
+			screen_status_message(_("Shuffled queue"));
 		else
 			mpdclient_handle_error(c);
 		return true;

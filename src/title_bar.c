@@ -76,7 +76,7 @@ title_bar_paint(const struct title_bar *p, const char *title,
 #ifdef ENABLE_HELP_SCREEN
 		print_hotkey(w, CMD_SCREEN_HELP, _("Help"));
 #endif
-		print_hotkey(w, CMD_SCREEN_PLAY, _("Playlist"));
+		print_hotkey(w, CMD_SCREEN_PLAY, _("Queue"));
 		print_hotkey(w, CMD_SCREEN_FILE, _("Browse"));
 #ifdef ENABLE_ARTIST_SCREEN
 		print_hotkey(w, CMD_SCREEN_ARTIST, _("Artist"));

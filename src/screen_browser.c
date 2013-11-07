@@ -169,7 +169,7 @@ enqueue_and_play(struct mpdclient *c, struct filelist_entry *entry)
 		entry->flags |= HIGHLIGHT;
 #endif
 		strfsong(buf, BUFSIZE, options.list_format, song);
-		screen_status_printf(_("Adding \'%s\' to playlist"), buf);
+		screen_status_printf(_("Adding \'%s\' to queue"), buf);
 	}
 
 	if (!mpd_run_play_id(connection, id)) {
@@ -264,7 +264,7 @@ browser_select_entry(struct mpdclient *c, struct filelist_entry *entry,
 		if (mpdclient_cmd_add_path(c, mpd_directory_get_path(dir))) {
 			char *tmp = utf8_to_locale(mpd_directory_get_path(dir));
 
-			screen_status_printf(_("Adding \'%s\' to playlist"), tmp);
+			screen_status_printf(_("Adding \'%s\' to queue"), tmp);
 			g_free(tmp);
 		}
 
@@ -289,7 +289,7 @@ browser_select_entry(struct mpdclient *c, struct filelist_entry *entry,
 			char buf[BUFSIZE];
 
 			strfsong(buf, BUFSIZE, options.list_format, song);
-			screen_status_printf(_("Adding \'%s\' to playlist"), buf);
+			screen_status_printf(_("Adding \'%s\' to queue"), buf);
 		}
 #ifndef NCMPC_MINI
 	} else {

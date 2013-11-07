@@ -174,7 +174,7 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 			break;
 
 		if (mpd_run_shuffle(connection))
-			screen_status_message(_("Shuffled playlist"));
+			screen_status_message(_("Shuffled queue"));
 		else
 			mpdclient_handle_error(c);
 		break;
@@ -184,7 +184,7 @@ handle_player_command(struct mpdclient *c, command_t cmd)
 			break;
 
 		if (mpdclient_cmd_clear(c))
-			screen_status_message(_("Cleared playlist"));
+			screen_status_message(_("Cleared queue"));
 		break;
 	case CMD_REPEAT:
 		connection = mpdclient_get_connection(c);
