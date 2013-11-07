@@ -295,15 +295,10 @@ mpdclient_cmd_crop(struct mpdclient *c)
 
 	mpd_command_list_begin(connection, false);
 
-	if (mpd_connection_cmp_server_version(connection, 0, 16, 0) >= 0) {
-		if (current < length - 1)
-			mpd_send_delete_range(connection, current + 1, length);
-		if (current > 0)
-			mpd_send_delete_range(connection, 0, current);
-	} else
-		while (--length >= 0)
-			if (length != current)
-				mpd_send_delete(connection, length);
+	if (current < length - 1)
+		mpd_send_delete_range(connection, current + 1, length);
+	if (current > 0)
+		mpd_send_delete_range(connection, 0, current);
 
 	mpd_command_list_end(connection);
 
@@ -523,32 +518,6 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 	return true;
 }
 
-/**
- * Fallback for mpdclient_cmd_delete_range() on MPD older than 0.16.
- * It emulates the "delete range" command with a list of simple
- * "delete" commands.
- */
-static bool
-mpdclient_cmd_delete_range_fallback(struct mpdclient *c,
-				    unsigned start, unsigned end)
-{
-	struct mpd_connection *connection = mpdclient_get_connection(c);
-	if (connection == NULL)
-		return false;
-
-	if (!mpd_command_list_begin(connection, false))
-		return mpdclient_handle_error(c);
-
-	for (; start < end; --end)
-		mpd_send_delete(connection, start);
-
-	if (!mpd_command_list_end(connection) ||
-	    !mpd_response_finish(connection))
-		return mpdclient_handle_error(c);
-
-	return true;
-}
-
 bool
 mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 {
@@ -563,11 +532,6 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 	connection = mpdclient_get_connection(c);
 	if (connection == NULL)
 		return false;
-
-	if (mpd_connection_cmp_server_version(connection, 0, 16, 0) < 0)
-		return mpdclient_cmd_delete_range_fallback(c, start, end);
-
-	/* MPD 0.16 supports "delete" with a range argument */
 
 	/* send the delete command to mpd; at the same time, get the
 	   new status (to verify the playlist id) */
