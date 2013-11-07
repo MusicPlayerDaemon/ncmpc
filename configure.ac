@@ -8,9 +8,11 @@ VERSION_EXTRA=0
 
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_AUX_DIR(build)
-AM_INIT_AUTOMAKE([foreign 1.10 dist-bzip2 subdir-objects])
+AM_INIT_AUTOMAKE([foreign 1.11 dist-bzip2 dist-xz subdir-objects])
+AM_SILENT_RULES
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
+
 
 dnl Check for programs
 AC_PROG_CC_C99
