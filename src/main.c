@@ -114,14 +114,14 @@ exit_and_cleanup(void)
 
 #ifndef WIN32
 static void
-catch_sigint(G_GNUC_UNUSED int sig)
+catch_sigint(gcc_unused int sig)
 {
 	g_main_loop_quit(main_loop);
 }
 
 
 static void
-catch_sigcont(G_GNUC_UNUSED int sig)
+catch_sigcont(gcc_unused int sig)
 {
 	char irrelevant = 'a';
 	if (1 != write(sigwinch_pipes[1], &irrelevant, 1))
@@ -137,8 +137,8 @@ sigstop(void)
 }
 
 static gboolean
-sigwinch_event(G_GNUC_UNUSED GIOChannel *source,
-               G_GNUC_UNUSED GIOCondition condition, G_GNUC_UNUSED gpointer data)
+sigwinch_event(gcc_unused GIOChannel *source,
+               gcc_unused GIOCondition condition, gcc_unused gpointer data)
 {
 	char ignoreme[64];
 	if (1 > read(sigwinch_pipes[0], ignoreme, 64))
@@ -152,7 +152,7 @@ sigwinch_event(G_GNUC_UNUSED GIOChannel *source,
 }
 
 static void
-catch_sigwinch(G_GNUC_UNUSED int sig)
+catch_sigwinch(gcc_unused int sig)
 {
 	char irrelevant = 'a';
 	if (1 != write(sigwinch_pipes[1], &irrelevant, 1))
@@ -162,9 +162,9 @@ catch_sigwinch(G_GNUC_UNUSED int sig)
 
 static void
 idle_callback(enum mpd_error error,
-	      G_GNUC_UNUSED enum mpd_server_error server_error,
+	      gcc_unused enum mpd_server_error server_error,
 	      const char *message, enum mpd_idle events,
-	      G_GNUC_UNUSED void *ctx);
+	      gcc_unused void *ctx);
 
 static gboolean
 timer_mpd_update(gpointer data);
@@ -285,7 +285,7 @@ default_settings_name(void)
  * broken.  It tries to recover by reconnecting periodically.
  */
 static gboolean
-timer_reconnect(G_GNUC_UNUSED gpointer data)
+timer_reconnect(gcc_unused gpointer data)
 {
 	bool success;
 	struct mpd_connection *connection;
@@ -418,7 +418,7 @@ idle_callback(enum mpd_error error, enum mpd_server_error server_error,
 }
 
 static gboolean
-timer_mpd_update(G_GNUC_UNUSED gpointer data)
+timer_mpd_update(gcc_unused gpointer data)
 {
 	do_mpd_update();
 
@@ -461,9 +461,9 @@ int do_input_event(command_t cmd)
 }
 
 static gboolean
-keyboard_event(G_GNUC_UNUSED GIOChannel *source,
-	       G_GNUC_UNUSED GIOCondition condition,
-	       G_GNUC_UNUSED gpointer data)
+keyboard_event(gcc_unused GIOChannel *source,
+	       gcc_unused GIOCondition condition,
+	       gcc_unused gpointer data)
 {
 	command_t cmd;
 
@@ -483,7 +483,7 @@ keyboard_event(G_GNUC_UNUSED GIOChannel *source,
  * message every 10 seconds.
  */
 static gboolean
-timer_check_key_bindings(G_GNUC_UNUSED gpointer data)
+timer_check_key_bindings(gcc_unused gpointer data)
 {
 	char buf[256];
 #ifdef ENABLE_KEYDEF_SCREEN
@@ -526,7 +526,7 @@ main(int argc, const char *argv[])
 #endif
 #ifdef ENABLE_LOCALE
 #ifndef ENABLE_NLS
-	G_GNUC_UNUSED
+	gcc_unused
 #endif
 	const char *charset = NULL;
 #endif

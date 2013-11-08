@@ -196,7 +196,7 @@ screen_chat_cmd(struct mpdclient *c, command_t cmd)
 }
 
 static const char *
-screen_chat_title(G_GNUC_UNUSED char *s, G_GNUC_UNUSED size_t size)
+screen_chat_title(gcc_unused char *s, gcc_unused size_t size)
 {
 	return _("Chat");
 }

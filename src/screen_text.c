@@ -94,7 +94,7 @@ screen_text_list_callback(unsigned idx, void *data)
 
 bool
 screen_text_cmd(struct screen_text *text,
-		G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
+		gcc_unused struct mpdclient *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(text->lw, cmd)) {
 		screen_text_repaint(text);

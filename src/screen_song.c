@@ -124,7 +124,7 @@ screen_song_repaint(void)
 }
 
 static const char *
-screen_song_list_callback(unsigned idx, G_GNUC_UNUSED void *data)
+screen_song_list_callback(unsigned idx, gcc_unused void *data)
 {
 	assert(idx < current.lines->len);
 
@@ -177,7 +177,7 @@ screen_song_resize(int cols, int rows)
 }
 
 static const char *
-screen_song_title(G_GNUC_UNUSED char *str, G_GNUC_UNUSED size_t size)
+screen_song_title(gcc_unused char *str, gcc_unused size_t size)
 {
 	return _("Song viewer");
 }

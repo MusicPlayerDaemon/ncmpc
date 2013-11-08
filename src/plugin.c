@@ -18,6 +18,7 @@
  */
 
 #include "plugin.h"
+#include "Compiler.h"
 
 #include <assert.h>
 #include <stdlib.h>
@@ -82,7 +83,7 @@ register_plugin(struct plugin_list *list, char *path)
 	return true;
 }
 
-static gint 
+static gint
 plugin_compare_func_alpha(gconstpointer plugin1, gconstpointer plugin2)
 {
 	return strcmp(* (char * const *) plugin1, * (char * const *) plugin2);
@@ -173,8 +174,8 @@ plugin_eof(struct plugin_cycle *cycle, struct plugin_pipe *p)
 }
 
 static gboolean
-plugin_data(G_GNUC_UNUSED GIOChannel *source,
-	    G_GNUC_UNUSED GIOCondition condition, gpointer data)
+plugin_data(gcc_unused GIOChannel *source,
+	    gcc_unused GIOCondition condition, gpointer data)
 {
 	struct plugin_cycle *cycle = data;
 	struct plugin_pipe *p = NULL;

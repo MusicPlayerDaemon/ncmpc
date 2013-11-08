@@ -32,9 +32,9 @@
 #include <string.h>
 
 void
-paint_song_row(WINDOW *w, G_GNUC_UNUSED unsigned y, unsigned width,
+paint_song_row(WINDOW *w, gcc_unused unsigned y, unsigned width,
 	       bool selected, bool highlight, const struct mpd_song *song,
-	       G_GNUC_UNUSED struct hscroll *hscroll)
+	       gcc_unused struct hscroll *hscroll)
 {
 	char buffer[width * 4];
 

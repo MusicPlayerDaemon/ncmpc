@@ -199,7 +199,7 @@ static const struct help_text_row help_text[] = {
 static struct list_window *lw;
 
 static const char *
-list_callback(unsigned i, G_GNUC_UNUSED void *data)
+list_callback(unsigned i, gcc_unused void *data)
 {
 	const struct help_text_row *row = &help_text[i];
 
@@ -236,7 +236,7 @@ help_exit(void)
 
 
 static const char *
-help_title(G_GNUC_UNUSED char *str, G_GNUC_UNUSED size_t size)
+help_title(gcc_unused char *str, gcc_unused size_t size)
 {
 	return _("Help");
 }
@@ -244,8 +244,8 @@ help_title(G_GNUC_UNUSED char *str, G_GNUC_UNUSED size_t size)
 static void
 screen_help_paint_callback(WINDOW *w, unsigned i,
 			   unsigned y, unsigned width,
-			   G_GNUC_UNUSED bool selected,
-			   G_GNUC_UNUSED void *data)
+			   gcc_unused bool selected,
+			   gcc_unused void *data)
 {
 	const struct help_text_row *row = &help_text[i];
 
@@ -281,7 +281,7 @@ help_paint(void)
 }
 
 static bool
-help_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
+help_cmd(gcc_unused struct mpdclient *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(lw, cmd)) {
 		help_paint();

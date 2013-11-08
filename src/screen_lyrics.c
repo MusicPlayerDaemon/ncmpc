@@ -195,7 +195,7 @@ screen_lyrics_set(const GString *str)
 
 static void
 screen_lyrics_callback(const GString *result, const bool success,
-		       const char *plugin_name, G_GNUC_UNUSED void *data)
+		       const char *plugin_name, gcc_unused void *data)
 {
 	assert(current.loader != NULL);
 
@@ -224,7 +224,7 @@ screen_lyrics_callback(const GString *result, const bool success,
 }
 
 static gboolean
-screen_lyrics_timeout_callback(gpointer G_GNUC_UNUSED data)
+screen_lyrics_timeout_callback(gpointer gcc_unused data)
 {
 	plugin_stop(current.loader);
 	current.loader = NULL;

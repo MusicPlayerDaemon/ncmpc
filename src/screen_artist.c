@@ -335,7 +335,7 @@ screen_artist_resize(int cols, int rows)
  */
 static void
 paint_artist_callback(WINDOW *w, unsigned i,
-		      G_GNUC_UNUSED unsigned y, unsigned width,
+		      gcc_unused unsigned y, unsigned width,
 		      bool selected, void *data)
 {
 	GPtrArray *list = data;
@@ -353,7 +353,7 @@ paint_artist_callback(WINDOW *w, unsigned i,
  */
 static void
 paint_album_callback(WINDOW *w, unsigned i,
-		     G_GNUC_UNUSED unsigned y, unsigned width,
+		     gcc_unused unsigned y, unsigned width,
 		     bool selected, void *data)
 {
 	GPtrArray *list = data;

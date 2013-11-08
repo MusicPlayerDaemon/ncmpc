@@ -89,7 +89,7 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 }
 
 static void
-clear_output_element(gpointer data, G_GNUC_UNUSED gpointer user_data)
+clear_output_element(gpointer data, gcc_unused gpointer user_data)
 {
 	mpd_output_free(data);
 }
@@ -170,15 +170,15 @@ outputs_close(void)
 }
 
 static const char *
-outputs_title(G_GNUC_UNUSED char *str, G_GNUC_UNUSED size_t size)
+outputs_title(gcc_unused char *str, gcc_unused size_t size)
 {
 	return _("Outputs");
 }
 
 static void
 screen_outputs_paint_callback(WINDOW *w, unsigned i,
-			      G_GNUC_UNUSED unsigned y, unsigned width,
-			      bool selected, G_GNUC_UNUSED void *data)
+			      gcc_unused unsigned y, unsigned width,
+			      bool selected, gcc_unused void *data)
 {
 	const struct mpd_output *output;
 

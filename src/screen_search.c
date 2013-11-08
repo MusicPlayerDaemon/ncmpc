@@ -107,7 +107,7 @@ static const char *const help_text[] = {
 
 /* search info */
 static const char *
-lw_search_help_callback(unsigned idx, G_GNUC_UNUSED void *data)
+lw_search_help_callback(unsigned idx, gcc_unused void *data)
 {
 	assert(idx < G_N_ELEMENTS(help_text));
 
@@ -377,7 +377,7 @@ screen_search_quit(void)
 }
 
 static void
-screen_search_open(G_GNUC_UNUSED struct mpdclient *c)
+screen_search_open(gcc_unused struct mpdclient *c)
 {
 	//  if( pattern==NULL )
 	//    search_new(screen, c);

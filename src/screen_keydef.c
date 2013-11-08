@@ -25,6 +25,7 @@
 #include "conf.h"
 #include "screen.h"
 #include "screen_utils.h"
+#include "Compiler.h"
 
 #include <assert.h>
 #include <errno.h>
@@ -42,21 +43,24 @@ static unsigned command_n_commands = 0;
  * the position of the "apply" item. It's the same as command_n_commands,
  * because array subscripts start at 0, while numbers of items start at 1.
  */
-static G_GNUC_PURE inline unsigned
+gcc_pure
+static inline unsigned
 command_item_apply(void)
 {
 	return command_n_commands;
 }
 
 /** the position of the "apply and save" item */
-static G_GNUC_PURE inline unsigned
+gcc_pure
+static inline unsigned
 command_item_save(void)
 {
 	return command_item_apply() + 1;
 }
 
 /** the number of items in the "command" view */
-static G_GNUC_PURE inline unsigned
+gcc_pure
+static inline unsigned
 command_length(void)
 {
 	return command_item_save() + 1;
@@ -73,28 +77,32 @@ static int subcmd = -1;
 static unsigned subcmd_n_keys = 0;
 
 /** The position of the up ("[..]") item */
-static G_GNUC_CONST inline unsigned
+gcc_const
+static inline unsigned
 subcmd_item_up(void)
 {
 	return 0;
 }
 
 /** The position of the "add a key" item */
-static G_GNUC_PURE inline unsigned
+gcc_pure
+static inline unsigned
 subcmd_item_add(void)
 {
 	return subcmd_n_keys + 1;
 }
 
 /** The number of items in the list_window, if there's a command being edited */
-static G_GNUC_PURE inline unsigned
+gcc_pure
+static inline unsigned
 subcmd_length(void)
 {
 	return subcmd_item_add() + 1;
 }
 
 /** Check whether a given item is a key */
-static G_GNUC_PURE inline bool
+gcc_pure
+static inline bool
 subcmd_item_is_key(unsigned i)
 {
 	return (i > subcmd_item_up() && i < subcmd_item_add());
@@ -104,7 +112,8 @@ subcmd_item_is_key(unsigned i)
  * Convert an item id (as in lw->selected) into a "key id", which is an array
  * subscript to cmds[subcmd].keys.
  */
-static G_GNUC_CONST inline unsigned
+gcc_const
+static inline unsigned
 subcmd_item_to_key_id(unsigned i)
 {
 	return i - 1;
@@ -306,7 +315,7 @@ add_key(int cmd_index)
 }
 
 static const char *
-list_callback(unsigned idx, G_GNUC_UNUSED void *data)
+list_callback(unsigned idx, gcc_unused void *data)
 {
 	static char buf[256];
 
@@ -379,7 +388,7 @@ keydef_exit(void)
 }
 
 static void
-keydef_open(G_GNUC_UNUSED struct mpdclient *c)
+keydef_open(gcc_unused struct mpdclient *c)
 {
 	if (cmds == NULL) {
 		command_definition_t *current_cmds = get_command_definitions();
@@ -426,7 +435,7 @@ keydef_paint(void)
 }
 
 static bool
-keydef_cmd(G_GNUC_UNUSED struct mpdclient *c, command_t cmd)
+keydef_cmd(gcc_unused struct mpdclient *c, command_t cmd)
 {
 	if (cmd == CMD_LIST_RANGE_SELECT)
 		return false;

@@ -17,9 +17,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <lirc/lirc_client.h>
 #include "lirc.h"
 #include "ncmpc.h"
+#include "Compiler.h"
+
+#include <lirc/lirc_client.h>
 
 static struct lirc_config *lc = NULL;
 
@@ -47,8 +49,8 @@ void ncmpc_lirc_close()
 }
 
 gboolean
-lirc_event(G_GNUC_UNUSED GIOChannel *source,
-	   G_GNUC_UNUSED GIOCondition condition, G_GNUC_UNUSED gpointer data)
+lirc_event(gcc_unused GIOChannel *source,
+	   gcc_unused GIOCondition condition, gcc_unused gpointer data)
 {
 	char *code, *txt;
 	command_t cmd;

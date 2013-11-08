@@ -249,7 +249,7 @@ browser_handle_enter(struct screen_browser *browser, struct mpdclient *c)
 
 static bool
 browser_select_entry(struct mpdclient *c, struct filelist_entry *entry,
-		     G_GNUC_UNUSED gboolean toggle)
+		     gcc_unused gboolean toggle)
 {
 	assert(entry != NULL);
 	assert(entry->entity != NULL);

@@ -27,11 +27,13 @@
 */
 
 #include "gidle.h"
+#include "Compiler.h"
 
 #include <mpd/async.h>
 #include <mpd/parser.h>
 
 #include <glib.h>
+
 #include <assert.h>
 #include <string.h>
 #include <errno.h>
@@ -265,7 +267,7 @@ mpd_glib_recv(struct mpd_glib_source *source)
 }
 
 static gboolean
-mpd_glib_source_callback(G_GNUC_UNUSED GIOChannel *_source,
+mpd_glib_source_callback(gcc_unused GIOChannel *_source,
 			 GIOCondition condition, gpointer data)
 {
 	struct mpd_glib_source *source = data;

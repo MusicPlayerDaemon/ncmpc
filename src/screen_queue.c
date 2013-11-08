@@ -35,6 +35,7 @@
 #include "screen_utils.h"
 #include "screen_song.h"
 #include "screen_lyrics.h"
+#include "Compiler.h"
 
 #ifndef NCMPC_MINI
 #include "hscroll.h"
@@ -118,7 +119,7 @@ screen_queue_restore_selection(void)
 }
 
 static const char *
-screen_queue_lw_callback(unsigned idx, G_GNUC_UNUSED void *data)
+screen_queue_lw_callback(unsigned idx, gcc_unused void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
 	struct mpd_song *song;
@@ -159,7 +160,7 @@ center_playing_item(const struct mpd_status *status, bool center_cursor)
 	list_window_fetch_cursor(lw);
 }
 
-G_GNUC_PURE
+gcc_pure
 static int
 get_current_song_id(const struct mpd_status *status)
 {
@@ -187,7 +188,7 @@ screen_queue_song_change(const struct mpd_status *status)
 
 #ifndef NCMPC_MINI
 static void
-save_pre_completion_cb(GCompletion *gcmp, G_GNUC_UNUSED gchar *line,
+save_pre_completion_cb(GCompletion *gcmp, gcc_unused gchar *line,
 		       void *data)
 {
 	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
@@ -202,9 +203,9 @@ save_pre_completion_cb(GCompletion *gcmp, G_GNUC_UNUSED gchar *line,
 }
 
 static void
-save_post_completion_cb(G_GNUC_UNUSED GCompletion *gcmp,
-			G_GNUC_UNUSED gchar *line, GList *items,
-			G_GNUC_UNUSED void *data)
+save_post_completion_cb(gcc_unused GCompletion *gcmp,
+			gcc_unused gchar *line, GList *items,
+			gcc_unused void *data)
 {
 	if (g_list_length(items) >= 1)
 		screen_display_completion_list(items);
@@ -514,7 +515,7 @@ screen_queue_title(char *str, size_t size)
 static void
 screen_queue_paint_callback(WINDOW *w, unsigned i,
 			    unsigned y, unsigned width,
-			    bool selected, G_GNUC_UNUSED void *data)
+			    bool selected, gcc_unused void *data)
 {
 	const struct mpd_song *song;
 	struct hscroll *row_hscroll;

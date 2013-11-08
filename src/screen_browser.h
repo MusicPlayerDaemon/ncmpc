@@ -48,8 +48,8 @@ screen_browser_sync_highlights(struct filelist *fl,
 
 #include <glib.h>
 static inline void
-screen_browser_sync_highlights(G_GNUC_UNUSED struct filelist *fl,
-			       G_GNUC_UNUSED const struct mpdclient_playlist *playlist)
+screen_browser_sync_highlights(gcc_unused struct filelist *fl,
+			       gcc_unused const struct mpdclient_playlist *playlist)
 {
 }
 
