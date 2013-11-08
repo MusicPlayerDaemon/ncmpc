@@ -21,6 +21,9 @@
 #define NCMPC_SCREEN_STATUS_H
 
 void
+screen_status_clear_message(void);
+
+void
 screen_status_message(const char *msg);
 
 void

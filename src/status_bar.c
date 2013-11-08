@@ -61,22 +61,21 @@ status_bar_deinit(struct status_bar *p)
 #endif
 }
 
-static gboolean
-status_bar_clear_message(gpointer data)
+void
+status_bar_clear_message(struct status_bar *p)
 {
-	struct status_bar *p = data;
-	WINDOW *w = p->window.w;
-
 	assert(p != NULL);
-	assert(p->message_source_id != 0);
 
-	p->message_source_id = 0;
+	if (p->message_source_id != 0) {
+		g_source_remove(p->message_source_id);
+		p->message_source_id = 0;
+	}
+
+	WINDOW *w = p->window.w;
 
 	wmove(w, 0, 0);
 	wclrtoeol(w);
 	wrefresh(w);
-
-	return false;
 }
 
 #ifndef NCMPC_MINI
@@ -242,6 +241,17 @@ status_bar_resize(struct status_bar *p, unsigned width, int y, int x)
 	mvwin(p->window.w, y, x);
 }
 
+static gboolean
+status_bar_clear_message_cb(gpointer data)
+{
+	struct status_bar *p = data;
+	assert(p->message_source_id != 0);
+	p->message_source_id = 0;
+
+	status_bar_clear_message(p);
+	return false;
+}
+
 void
 status_bar_message(struct status_bar *p, const char *msg)
 {
@@ -261,5 +271,5 @@ status_bar_message(struct status_bar *p, const char *msg)
 	if (p->message_source_id != 0)
 		g_source_remove(p->message_source_id);
 	p->message_source_id = g_timeout_add(options.status_message_time * 1000,
-					     status_bar_clear_message, p);
+					     status_bar_clear_message_cb, p);
 }

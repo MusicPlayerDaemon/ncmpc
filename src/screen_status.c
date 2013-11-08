@@ -23,6 +23,12 @@
 #include <stdarg.h>
 
 void
+screen_status_clear_message(void)
+{
+	status_bar_clear_message(&screen.status_bar);
+}
+
+void
 screen_status_message(const char *msg)
 {
 	status_bar_message(&screen.status_bar, msg);

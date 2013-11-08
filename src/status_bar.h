@@ -60,4 +60,7 @@ status_bar_resize(struct status_bar *p, unsigned width, int y, int x);
 void
 status_bar_message(struct status_bar *p, const char *msg);
 
+void
+status_bar_clear_message(struct status_bar *p);
+
 #endif
