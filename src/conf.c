@@ -678,66 +678,66 @@ g_build_system_key_binding_filename(void)
 #endif
 }
 
+static char *
+find_config_file(void)
+{
+	/* check for command line configuration file */
+	if (options.config_file != NULL)
+		return g_strdup(options.config_file);
+
+	/* check for user configuration ~/.ncmpc/config */
+	char *filename = build_user_conf_filename();
+	if (g_file_test(filename, G_FILE_TEST_IS_REGULAR))
+		return filename;
+
+	g_free(filename);
+
+	/* check for  global configuration SYSCONFDIR/ncmpc/config */
+	filename = build_system_conf_filename();
+	if (g_file_test(filename, G_FILE_TEST_IS_REGULAR))
+		return filename;
+
+	g_free(filename);
+	return NULL;
+}
+
+static char *
+find_keys_file(void)
+{
+	/* check for command line key binding file */
+	if (options.key_file != NULL)
+		return g_strdup(options.key_file);
+
+	/* check for  user key bindings ~/.ncmpc/keys */
+	char *filename = build_user_key_binding_filename();
+	if (g_file_test(filename, G_FILE_TEST_IS_REGULAR))
+		return filename;
+
+	g_free(filename);
+
+	/* check for  global key bindings SYSCONFDIR/ncmpc/keys */
+	filename = g_build_system_key_binding_filename();
+	if (g_file_test(filename, G_FILE_TEST_IS_REGULAR))
+		return filename;
+
+	g_free(filename);
+	return NULL;
+}
+
 void
 read_configuration(void)
 {
-	char *filename = NULL;
-
-	/* check for command line configuration file */
-	if (options.config_file)
-		filename = g_strdup(options.config_file);
-
-	/* check for user configuration ~/.ncmpc/config */
-	if (filename == NULL) {
-		filename = build_user_conf_filename();
-		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
-			g_free(filename);
-			filename = NULL;
-		}
-	}
-
-	/* check for  global configuration SYSCONFDIR/ncmpc/config */
-	if (filename == NULL) {
-		filename = build_system_conf_filename();
-		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
-			g_free(filename);
-			filename = NULL;
-		}
-	}
-
 	/* load configuration */
-	if (filename) {
+	char *filename = find_config_file();
+	if (filename != NULL) {
 		read_rc_file(filename);
 		g_free(filename);
-		filename = NULL;
-	}
-
-	/* check for command line key binding file */
-	if (options.key_file)
-		filename = g_strdup(options.key_file);
-
-	/* check for  user key bindings ~/.ncmpc/keys */
-	if (filename == NULL) {
-		filename = build_user_key_binding_filename();
-		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
-			g_free(filename);
-			filename = NULL;
-		}
-	}
-
-	/* check for  global key bindings SYSCONFDIR/ncmpc/keys */
-	if (filename == NULL) {
-		filename = g_build_system_key_binding_filename();
-		if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
-			g_free(filename);
-			filename = NULL;
-		}
 	}
 
 	/* load key bindings */
-	if (filename) {
+	filename = find_keys_file();
+	if (filename != NULL) {
 		read_rc_file(filename);
 		g_free(filename);
-		filename = NULL;
 	}
 }
