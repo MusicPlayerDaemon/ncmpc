@@ -378,7 +378,6 @@ parse_line(char *line)
 	size_t len = strlen(line), i = 0, j = 0;
 	char name[MAX_LINE_LENGTH];
 	char value[MAX_LINE_LENGTH];
-	bool match_found;
 
 	/* get the name part */
 	while (i < len && line[i] != '=' && !g_ascii_isspace(line[i]))
@@ -395,8 +394,6 @@ parse_line(char *line)
 	while (i < len)
 		value[j++] = line[i++];
 	value[j] = '\0';
-
-	match_found = true;
 
 	/* key definition */
 	if (!strcasecmp(CONF_KEY_DEFINITION, name))
@@ -557,13 +554,12 @@ parse_line(char *line)
 #else
 		options.second_column = str2bool(value);
 #endif
-	else
-		match_found = false;
-
-	if (!match_found)
+	else {
 		print_error(_("Unknown configuration parameter"), name);
+		return false;
+	}
 
-	return match_found;
+	return true;
 }
 
 static int
