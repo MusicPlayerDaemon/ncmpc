@@ -102,8 +102,8 @@ dnl Check for GLib
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.14],,
 	[AC_MSG_ERROR([glib 2.14 is required])])
 
-dnl Check for libmpdclient 2.2
-PKG_CHECK_MODULES([LIBMPDCLIENT], [libmpdclient >= 2.2],,
+dnl Check for libmpdclient 2.3
+PKG_CHECK_MODULES([LIBMPDCLIENT], [libmpdclient >= 2.3],,
 	[AC_MSG_ERROR([libmpdclient2 is required])])
 
 dnl Check for libmpdclient 2.5 (the chat screen requires this version)

@@ -281,7 +281,6 @@ screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 
 		const char *value = length;
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,3,0)
 		char buffer[64];
 
 		if (mpd_song_get_end(song) > 0) {
@@ -303,7 +302,6 @@ screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 				 length, start);
 			value = buffer;
 		}
-#endif
 
 		screen_song_append(_(tag_labels[LABEL_LENGTH]), value,
 				   max_tag_label_width);
