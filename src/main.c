@@ -280,23 +280,6 @@ default_settings_name(void)
 #endif
 }
 
-static char *
-connection_settings_name(const struct mpd_connection *connection)
-{
-#if LIBMPDCLIENT_CHECK_VERSION(2,4,0)
-	const struct mpd_settings *settings =
-		mpd_connection_get_settings(connection);
-	if (settings == NULL)
-		return g_strdup(_("unknown"));
-
-	return settings_name(settings);
-#else
-	(void)connection;
-
-	return default_settings_name();
-#endif
-}
-
 /**
  * This timer is installed when the connection to the MPD server is
  * broken.  It tries to recover by reconnecting periodically.
@@ -352,9 +335,7 @@ timer_reconnect(G_GNUC_UNUSED gpointer data)
 	mpd->source = mpd_glib_new(connection,
 				   idle_callback, mpd);
 
-	name = connection_settings_name(connection);
-	screen_status_printf(_("Connected to %s"), name);
-	g_free(name);
+	screen_status_clear_message();
 	doupdate();
 
 	/* update immediately */
