@@ -42,7 +42,6 @@ int
 screen_getch(const char *prompt)
 {
 	WINDOW *w = screen.status_bar.window.w;
-	int key = -1;
 
 	colors_use(w, COLOR_STATUS_ALERT);
 	werase(w);
@@ -52,6 +51,7 @@ screen_getch(const char *prompt)
 	echo();
 	curs_set(1);
 
+	int key;
 	while ((key = wgetch(w)) == ERR)
 		;
 
@@ -105,7 +105,6 @@ screen_read_password(const char *prompt)
 {
 	struct window *window = &screen.status_bar.window;
 	WINDOW *w = window->w;
-	char *ret;
 
 	wmove(w, 0,0);
 	curs_set(1);
@@ -113,7 +112,7 @@ screen_read_password(const char *prompt)
 
 	if (prompt == NULL)
 		prompt = _("Password");
-	ret = wreadln_masked(w, prompt, NULL, window->cols, NULL, NULL);
+	char *ret = wreadln_masked(w, prompt, NULL, window->cols, NULL, NULL);
 
 	curs_set(0);
 	return ret;
@@ -126,9 +125,8 @@ screen_display_completion_list(GList *list)
 	static guint prev_length = 0;
 	static guint offset = 0;
 	WINDOW *w = screen.main_window.w;
-	guint length, y=0;
 
-	length = g_list_length(list);
+	unsigned length = g_list_length(list);
 	if (list == prev_list && length == prev_length) {
 		offset += screen.main_window.rows;
 		if (offset >= length)
@@ -140,6 +138,8 @@ screen_display_completion_list(GList *list)
 	}
 
 	colors_use(w, COLOR_STATUS_ALERT);
+
+	unsigned y = 0;
 	while (y < screen.main_window.rows) {
 		GList *item = g_list_nth(list, y+offset);
 
@@ -166,11 +166,9 @@ set_xterm_title(const char *format, ...)
 
 	if (options.enable_xterm_title) {
 		if (g_getenv("WINDOWID")) {
-			char *msg;
 			va_list ap;
-
 			va_start(ap,format);
-			msg = g_strdup_vprintf(format,ap);
+			char *msg = g_strdup_vprintf(format,ap);
 			va_end(ap);
 			printf("%c]0;%s%c", '\033', msg, '\007');
 			g_free(msg);

@@ -145,9 +145,6 @@ apply_keys(void)
 static int
 save_keys(void)
 {
-	FILE *f;
-	char *filename;
-
 	if (check_user_conf_dir()) {
 		screen_status_printf(_("Error: Unable to create directory ~/.ncmpc - %s"),
 				     strerror(errno));
@@ -155,9 +152,9 @@ save_keys(void)
 		return -1;
 	}
 
-	filename = build_user_key_binding_filename();
-
-	if ((f = fopen(filename,"w")) == NULL) {
+	char *filename = build_user_key_binding_filename();
+	FILE *f = fopen(filename, "w");
+	if (f == NULL) {
 		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
 		screen_bell();
 		g_free(filename);
@@ -264,14 +261,11 @@ delete_key(int cmd_index, int key_index)
 static void
 overwrite_key(int cmd_index, int key_index)
 {
-	int key;
-	char *buf;
-	command_t cmd;
-
 	assert(key_index < MAX_COMMAND_KEYS);
 
-	buf = g_strdup_printf(_("Enter new key for %s: "), cmds[cmd_index].name);
-	key = screen_getch(buf);
+	char *buf = g_strdup_printf(_("Enter new key for %s: "),
+				    cmds[cmd_index].name);
+	const int key = screen_getch(buf);
 	g_free(buf);
 
 	if (key == ERR) {
@@ -284,7 +278,7 @@ overwrite_key(int cmd_index, int key_index)
 		return;
 	}
 
-	cmd = find_key_command(key, cmds);
+	const command_t cmd = find_key_command(key, cmds);
 	if (cmd != CMD_NONE) {
 		screen_status_printf(_("Error: key %s is already used for %s"),
 				     key2str(key), get_key_command_name(cmd));
@@ -392,14 +386,13 @@ keydef_open(gcc_unused struct mpdclient *c)
 {
 	if (cmds == NULL) {
 		command_definition_t *current_cmds = get_command_definitions();
-		size_t cmds_size;
-
 		command_n_commands = 0;
 		while (current_cmds[command_n_commands].name)
 			command_n_commands++;
 
 		/* +1 for the terminator element */
-		cmds_size = (command_n_commands + 1) * sizeof(command_definition_t);
+		size_t cmds_size = (command_n_commands + 1)
+			* sizeof(command_definition_t);
 		cmds = g_malloc0(cmds_size);
 		memcpy(cmds, current_cmds, cmds_size);
 	}

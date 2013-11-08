@@ -247,11 +247,8 @@ static bool
 mpd_glib_recv(struct mpd_glib_source *source)
 {
 	char *line;
-	bool success;
-
 	while ((line = mpd_async_recv_line(source->async)) != NULL) {
-		success = mpd_glib_feed(source, line);
-		if (!success)
+		if (!mpd_glib_feed(source, line))
 			return false;
 	}
 
@@ -271,17 +268,14 @@ mpd_glib_source_callback(gcc_unused GIOChannel *_source,
 			 GIOCondition condition, gpointer data)
 {
 	struct mpd_glib_source *source = data;
-	bool success;
-	enum mpd_async_event events;
 
 	assert(source->id != 0);
 	assert(source->io_events != 0);
 
 	/* let libmpdclient do some I/O */
 
-	success = mpd_async_io(source->async,
-			       g_io_condition_to_mpd_async_event(condition));
-	if (!success) {
+	if (!mpd_async_io(source->async,
+			  g_io_condition_to_mpd_async_event(condition))) {
 		source->id = 0;
 		source->io_events = 0;
 
@@ -292,14 +286,13 @@ mpd_glib_source_callback(gcc_unused GIOChannel *_source,
 	/* receive the response */
 
 	if ((condition & G_IO_IN) != 0) {
-		success = mpd_glib_recv(source);
-		if (!success)
+		if (!mpd_glib_recv(source))
 			return false;
 	}
 
 	/* continue polling? */
 
-	events = mpd_async_events(source->async);
+	enum mpd_async_event events = mpd_async_events(source->async);
 	if (events == 0) {
 		/* no events - disable watch */
 		source->id = 0;
@@ -326,13 +319,11 @@ static void
 mpd_glib_add_watch(struct mpd_glib_source *source)
 {
 	enum mpd_async_event events = mpd_async_events(source->async);
-	GIOCondition condition;
 
 	assert(source->io_events == 0);
 	assert(source->id == 0);
 
-	condition = mpd_async_events_to_g_io_condition(events);
-
+	GIOCondition condition = mpd_async_events_to_g_io_condition(events);
 	source->id = g_io_add_watch(source->channel, condition,
 				    mpd_glib_source_callback, source);
 	source->io_events = events;
@@ -341,8 +332,6 @@ mpd_glib_add_watch(struct mpd_glib_source *source)
 bool
 mpd_glib_enter(struct mpd_glib_source *source)
 {
-	bool success;
-
 	assert(source->io_events == 0);
 	assert(source->id == 0);
 	assert(!source->destroyed);
@@ -352,8 +341,7 @@ mpd_glib_enter(struct mpd_glib_source *source)
 
 	source->idle_events = 0;
 
-	success = mpd_async_send_command(source->async, "idle", NULL);
-	if (!success) {
+	if (!mpd_async_send_command(source->async, "idle", NULL)) {
 		mpd_glib_invoke_async_error(source);
 		return false;
 	}
@@ -365,8 +353,6 @@ mpd_glib_enter(struct mpd_glib_source *source)
 bool
 mpd_glib_leave(struct mpd_glib_source *source)
 {
-	enum mpd_idle events;
-
 	assert(!source->destroyed);
 
 	if (source->id == 0)
@@ -377,7 +363,7 @@ mpd_glib_leave(struct mpd_glib_source *source)
 	source->id = 0;
 	source->io_events = 0;
 
-	events = source->idle_events == 0
+	enum mpd_idle events = source->idle_events == 0
 		? mpd_run_noidle(source->connection)
 		: mpd_recv_idle(source->connection, false);
 

@@ -62,15 +62,13 @@ song_more_tag_values(const struct mpd_song *song, enum mpd_tag_type tag,
 		     const char *first)
 {
 	const char *p = mpd_song_get_tag(song, tag, 1);
-	char *buffer, *prev;
-
 	if (p == NULL)
 		return NULL;
 
-	buffer = concat_tag_values(first, p);
+	char *buffer = concat_tag_values(first, p);
 	for (unsigned i = 2; (p = mpd_song_get_tag(song, tag, i)) != NULL;
 	     ++i) {
-		prev = buffer;
+		char *prev = buffer;
 		buffer = concat_tag_values(buffer, p);
 		g_free(prev);
 	}
@@ -84,21 +82,16 @@ static char *
 song_tag_locale(const struct mpd_song *song, enum mpd_tag_type tag)
 {
 	const char *value = mpd_song_get_tag(song, tag, 0);
-	char *result;
-#ifndef NCMPC_MINI
-	char *all;
-#endif /* !NCMPC_MINI */
-
 	if (value == NULL)
 		return NULL;
 
 #ifndef NCMPC_MINI
-	all = song_more_tag_values(song, tag, value);
+	char *all = song_more_tag_values(song, tag, value);
 	if (all != NULL)
 		value = all;
 #endif /* !NCMPC_MINI */
 
-	result = utf8_to_locale(value);
+	char *result = utf8_to_locale(value);
 
 #ifndef NCMPC_MINI
 	g_free(all);
@@ -114,19 +107,18 @@ _strfsong(gchar *s,
 	  const struct mpd_song *song,
 	  const gchar **last)
 {
-	const gchar *p, *end;
-	gchar *temp;
-	gsize n, length = 0;
-	gboolean found = FALSE;
+	bool found = false;
 	/* "missed" helps handling the case of mere literal text like
-	   found==TRUE instead of found==FALSE. */
-	gboolean missed = FALSE;
+	   found==true instead of found==false. */
+	bool missed = false;
 
 	s[0] = '\0';
 
 	if (song == NULL)
 		return 0;
 
+	const char *p;
+	size_t length = 0;
 	for (p = format; *p != '\0' && length<max;) {
 		/* OR */
 		if (p[0] == '|') {
@@ -134,7 +126,7 @@ _strfsong(gchar *s,
 			if(missed && !found) {
 				s[0] = '\0';
 				length = 0;
-				missed = FALSE;
+				missed = false;
 			} else {
 				p = skip(p);
 			}
@@ -147,21 +139,21 @@ _strfsong(gchar *s,
 			if(missed && !found) {
 				p = skip(p);
 			} else {
-				found = FALSE;
-				missed = FALSE;
+				found = false;
+				missed = false;
 			}
 			continue;
 		}
 
 		/* EXPRESSION START */
 		if (p[0] == '[') {
-			temp = g_malloc0(max);
+			char *temp = g_malloc0(max);
 			if( _strfsong(temp, max, p+1, song, &p) >0 ) {
 				g_strlcat(s, temp, max);
 				length = strlen(s);
-				found = TRUE;
+				found = true;
 			} else {
-				missed = TRUE;
+				missed = true;
 			}
 			g_free(temp);
 			continue;
@@ -196,12 +188,12 @@ _strfsong(gchar *s,
 		/* advance past the esc character */
 
 		/* find the extent of this format specifier (stop at \0, ' ', or esc) */
-		temp = NULL;
-		end  = p+1;
+		char *temp = NULL;
+		const char *end = p + 1;
 		while(*end >= 'a' && *end <= 'z') {
 			end++;
 		}
-		n = end - p + 1;
+		size_t n = end - p + 1;
 		if(*end != '%')
 			n--;
 		else if (strncmp("%file%", p, n) == 0)
@@ -273,11 +265,11 @@ _strfsong(gchar *s,
 			length+=templen;
 			g_free(ident);
 
-			missed = TRUE;
+			missed = true;
 		} else {
 			gsize templen = strlen(temp);
 
-			found = TRUE;
+			found = true;
 			if( length+templen > max )
 				templen = max-length;
 			g_strlcat(s, temp, max);

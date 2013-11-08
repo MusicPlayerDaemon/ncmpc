@@ -85,17 +85,13 @@ static unsigned
 byte_to_screen(const gchar *data, size_t x)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
-	gchar *dup;
-	char *p;
-	unsigned width;
-
 	assert(x <= strlen(data));
 
-	dup = g_strdup(data);
+	char *dup = g_strdup(data);
 	dup[x] = 0;
-	p = replace_locale_to_utf8(dup);
+	char *p = replace_locale_to_utf8(dup);
 
-	width = utf8_width(p);
+	unsigned width = utf8_width(p);
 	g_free(p);
 
 	return width;
@@ -113,13 +109,11 @@ screen_to_bytes(const gchar *data, unsigned width)
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	size_t length = strlen(data);
 	gchar *dup = g_strdup(data);
-	char *p;
-	unsigned p_width;
 
 	while (true) {
 		dup[length] = 0;
-		p = locale_to_utf8(dup);
-		p_width = utf8_width(p);
+		char *p = locale_to_utf8(dup);
+		unsigned p_width = utf8_width(p);
 		g_free(p);
 		if (p_width <= width)
 			break;
@@ -162,14 +156,13 @@ right_align_bytes(const gchar *data, size_t right, unsigned width)
 	while (dup[start] != 0) {
 		char *p = locale_to_utf8(dup + start), *q;
 		unsigned p_width = utf8_width(p);
-		gunichar c;
 
 		if (p_width < width) {
 			g_free(p);
 			break;
 		}
 
-		c = g_utf8_get_char(p);
+		gunichar c = g_utf8_get_char(p);
 		p[g_unichar_to_utf8(c, NULL)] = 0;
 		q = utf8_to_locale(p);
 		g_free(p);
@@ -194,15 +187,13 @@ next_char_size(const gchar *data)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	char *p = locale_to_utf8(data), *q;
-	gunichar c;
-	size_t size;
 
-	c = g_utf8_get_char(p);
+	gunichar c = g_utf8_get_char(p);
 	p[g_unichar_to_utf8(c, NULL)] = 0;
 	q = utf8_to_locale(p);
 	g_free(p);
 
-	size = strlen(q);
+	size_t size = strlen(q);
 	g_free(q);
 
 	return size;
@@ -218,16 +209,14 @@ static inline size_t
 prev_char_size(const gchar *data, size_t x)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
-	char *p = locale_to_utf8(data), *q;
-	gunichar c;
-	size_t size;
-
 	assert(x > 0);
 
-	q = p;
+	char *p = locale_to_utf8(data);
+
+	char *q = p;
 	while (true) {
-		c = g_utf8_get_char(q);
-		size = g_unichar_to_utf8(c, NULL);
+		gunichar c = g_utf8_get_char(q);
+		size_t size = g_unichar_to_utf8(c, NULL);
 		if (size > x)
 			size = x;
 		x -= size;
@@ -249,12 +238,10 @@ prev_char_size(const gchar *data, size_t x)
 /* move the cursor one step to the right */
 static inline void cursor_move_right(struct wreadln *wr)
 {
-	size_t size;
-
 	if (wr->line[wr->cursor] == 0)
 		return;
 
-	size = next_char_size(wr->line + wr->cursor);
+	size_t size = next_char_size(wr->line + wr->cursor);
 	wr->cursor += size;
 	if (cursor_column(wr) >= wr->width)
 		wr->start = right_align_bytes(wr->line, wr->cursor, wr->width);
@@ -263,12 +250,10 @@ static inline void cursor_move_right(struct wreadln *wr)
 /* move the cursor one step to the left */
 static inline void cursor_move_left(struct wreadln *wr)
 {
-	size_t size;
-
 	if (wr->cursor == 0)
 		return;
 
-	size = prev_char_size(wr->line, wr->cursor);
+	size_t size = prev_char_size(wr->line, wr->cursor);
 	assert(wr->cursor >= size);
 	wr->cursor -= size;
 	if (wr->cursor < wr->start)
@@ -329,7 +314,6 @@ wreadln_insert_byte(struct wreadln *wr, gint key)
 		.fd = 0,
 		.events = POLLIN,
 	};
-	int ret;
 
 	/* wide version: try to complete the multibyte sequence */
 
@@ -340,8 +324,7 @@ wreadln_insert_byte(struct wreadln *wr, gint key)
 
 		/* poll for more bytes on stdin, without timeout */
 
-		ret = poll(&pfd, 1, 0);
-		if (ret <= 0)
+		if (poll(&pfd, 1, 0) <= 0)
 			/* no more input from keyboard */
 			break;
 
@@ -369,12 +352,10 @@ wreadln_insert_byte(struct wreadln *wr, gint key)
 static void
 wreadln_delete_char(struct wreadln *wr, size_t x)
 {
-	size_t rest, length;
-
 	assert(x < strlen(wr->line));
 
-	length = next_char_size(&wr->line[x]);
-	rest = strlen(&wr->line[x + length]) + 1;
+	size_t length = next_char_size(&wr->line[x]);
+	size_t rest = strlen(&wr->line[x + length]) + 1;
 	memmove(&wr->line[x], &wr->line[x + length], rest);
 }
 
@@ -396,8 +377,6 @@ _wreadln(WINDOW *w,
 		.start = 0,
 	};
 	GList *hlist = NULL, *hcurrent = NULL;
-	gint key = 0;
-	size_t i;
 
 #ifdef NCMPC_MINI
 	(void)gcmp;
@@ -449,17 +428,20 @@ _wreadln(WINDOW *w,
 		drawline(&wr);
 	}
 
+	gint key = 0;
 	while (key != 13 && key != '\n') {
 		key = wgetch(w);
 
 		/* check if key is a function key */
-		for (i = 0; i < 63; i++)
+		for (size_t i = 0; i < 63; i++)
 			if (key == (int)KEY_F(i)) {
 				key = KEY_F(1);
 				i = 64;
 			}
 
 		switch (key) {
+			size_t i;
+
 #ifdef HAVE_GETMOUSE
 		case KEY_MOUSE: /* ignore mouse events */
 #endif

@@ -96,22 +96,19 @@ screen_queue_save_selection(void)
 static void
 screen_queue_restore_selection(void)
 {
-	const struct mpd_song *song;
-	int pos;
-
 	list_window_set_length(lw, playlist_length(playlist));
 
 	if (selected_song_id < 0)
 		/* there was no selection */
 		return;
 
-	song = screen_queue_selected_song();
+	const struct mpd_song *song = screen_queue_selected_song();
 	if (song != NULL &&
 	    mpd_song_get_id(song) == (unsigned)selected_song_id)
 		/* selection is still valid */
 		return;
 
-	pos = playlist_get_index_from_id(playlist, selected_song_id);
+	int pos = playlist_get_index_from_id(playlist, selected_song_id);
 	if (pos >= 0)
 		list_window_set_cursor(lw, pos);
 
@@ -122,12 +119,11 @@ static const char *
 screen_queue_lw_callback(unsigned idx, gcc_unused void *data)
 {
 	static char songname[MAX_SONG_LENGTH];
-	struct mpd_song *song;
 
 	assert(playlist != NULL);
 	assert(idx < playlist_length(playlist));
 
-	song = playlist_get(playlist, idx);
+	struct mpd_song *song = playlist_get(playlist, idx);
 
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, song);
 
@@ -137,15 +133,13 @@ screen_queue_lw_callback(unsigned idx, gcc_unused void *data)
 static void
 center_playing_item(const struct mpd_status *status, bool center_cursor)
 {
-	int idx;
-
 	if (status == NULL ||
 	    (mpd_status_get_state(status) != MPD_STATE_PLAY &&
 	     mpd_status_get_state(status) != MPD_STATE_PAUSE))
 		return;
 
 	/* try to center the song that are playing */
-	idx = mpd_status_get_song_pos(status);
+	int idx = mpd_status_get_song_pos(status);
 	if (idx < 0)
 		return;
 
@@ -229,12 +223,7 @@ int
 playlist_save(struct mpdclient *c, char *name, char *defaultname)
 {
 	struct mpd_connection *connection;
-	gchar *filename, *filename_utf8;
-#ifndef NCMPC_MINI
-	GCompletion *gcmp;
-	GList *list = NULL;
-	completion_callback_data_t data;
-#endif
+	gchar *filename;
 
 #ifdef NCMPC_MINI
 	(void)defaultname;
@@ -243,11 +232,14 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 #ifndef NCMPC_MINI
 	if (name == NULL) {
 		/* initialize completion support */
-		gcmp = g_completion_new(NULL);
+		GCompletion *gcmp = g_completion_new(NULL);
 		g_completion_set_compare(gcmp, completion_strncmp);
-		data.list = &list;
-		data.dir_list = NULL;
-		data.c = c;
+		GList *list = NULL;
+		completion_callback_data_t data = {
+			.list = &list,
+			.dir_list = NULL,
+			.c = c,
+		};
 		wrln_completion_callback_data = &data;
 		wrln_pre_completion_callback = save_pre_completion_cb;
 		wrln_post_completion_callback = save_post_completion_cb;
@@ -282,17 +274,14 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 		return -1;
 	}
 
-	filename_utf8 = locale_to_utf8(filename);
+	char *filename_utf8 = locale_to_utf8(filename);
 	if (!mpd_run_save(connection, filename_utf8)) {
 		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_EXIST &&
 		    mpd_connection_clear_error(connection)) {
-			char *buf;
-			bool replace;
-
-			buf = g_strdup_printf(_("Replace %s [%s/%s] ? "),
-					      filename, YES, NO);
-			replace = screen_get_yesno(buf, false);
+			char *buf = g_strdup_printf(_("Replace %s [%s/%s] ? "),
+						    filename, YES, NO);
+			bool replace = screen_get_yesno(buf, false);
 			g_free(buf);
 
 			if (!replace) {
@@ -378,31 +367,31 @@ static void add_post_completion_cb(GCompletion *gcmp, gchar *line,
 static int
 handle_add_to_playlist(struct mpdclient *c)
 {
-	gchar *path;
-	GCompletion *gcmp;
 #ifndef NCMPC_MINI
+	/* initialize completion support */
+	GCompletion *gcmp = g_completion_new(NULL);
+	g_completion_set_compare(gcmp, completion_strncmp);
+
 	GList *list = NULL;
 	GList *dir_list = NULL;
-	completion_callback_data_t data;
+	completion_callback_data_t data = {
+		.list = &list,
+		.dir_list = &dir_list,
+		.c = c,
+	};
 
-	/* initialize completion support */
-	gcmp = g_completion_new(NULL);
-	g_completion_set_compare(gcmp, completion_strncmp);
-	data.list = &list;
-	data.dir_list = &dir_list;
-	data.c = c;
 	wrln_completion_callback_data = &data;
 	wrln_pre_completion_callback = add_pre_completion_cb;
 	wrln_post_completion_callback = add_post_completion_cb;
 #else
-	gcmp = NULL;
+	GCompletion *gcmp = NULL;
 #endif
 
 	/* get path */
-	path = screen_readln(_("Add"),
-			     NULL,
-			     NULL,
-			     gcmp);
+	char *path = screen_readln(_("Add"),
+				   NULL,
+				   NULL,
+				   gcmp);
 
 	/* destroy completion data */
 #ifndef NCMPC_MINI
@@ -517,17 +506,13 @@ screen_queue_paint_callback(WINDOW *w, unsigned i,
 			    unsigned y, unsigned width,
 			    bool selected, gcc_unused void *data)
 {
-	const struct mpd_song *song;
-	struct hscroll *row_hscroll;
-
 	assert(playlist != NULL);
 	assert(i < playlist_length(playlist));
 
-	song = playlist_get(playlist, i);
+	const struct mpd_song *song = playlist_get(playlist, i);
 
-#ifdef NCMPC_MINI
-	row_hscroll = NULL;
-#else
+	struct hscroll *row_hscroll = NULL;
+#ifndef NCMPC_MINI
 	row_hscroll = selected && options.scroll && lw->selected == i
 		? &hscroll : NULL;
 #endif
@@ -570,10 +555,8 @@ screen_queue_update(struct mpdclient *c)
 static bool
 handle_mouse_event(struct mpdclient *c)
 {
-	int row;
 	unsigned long bstate;
-	unsigned old_selected;
-
+	int row;
 	if (screen_get_mouse_event(c, &bstate, &row) ||
 	    list_window_mouse(lw, bstate, row)) {
 		screen_queue_repaint();
@@ -586,7 +569,7 @@ handle_mouse_event(struct mpdclient *c)
 		return true;
 	}
 
-	old_selected = lw->selected;
+	const unsigned old_selected = lw->selected;
 	list_window_set_cursor(lw, lw->start + row);
 
 	if (bstate & BUTTON1_CLICKED) {
@@ -621,10 +604,8 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 {
 	struct mpd_connection *connection;
 	static command_t cached_cmd = CMD_NONE;
-	command_t prev_cmd = cached_cmd;
-	struct list_window_range range;
-	const struct mpd_song *song;
 
+	const command_t prev_cmd = cached_cmd;
 	cached_cmd = cmd;
 
 	lw->hide_cursor = false;
@@ -715,6 +696,9 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 		return false;
 
 	switch(cmd) {
+		const struct mpd_song *song;
+		struct list_window_range range;
+
 	case CMD_PLAY:
 		song = screen_queue_selected_song();
 		if (song == NULL)

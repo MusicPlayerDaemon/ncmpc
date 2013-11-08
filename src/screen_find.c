@@ -35,15 +35,13 @@ screen_find(struct list_window *lw, command_t findcmd,
 	    list_window_callback_fn_t callback_fn,
 	    void *callback_data)
 {
-	int reversed = 0;
 	bool found;
 	const char *prompt = FIND_PROMPT;
-	char *value = options.find_show_last_pattern ? (char *) -1 : NULL;
 
-	if (findcmd == CMD_LIST_RFIND || findcmd == CMD_LIST_RFIND_NEXT) {
+	const bool reversed =
+		findcmd == CMD_LIST_RFIND || findcmd == CMD_LIST_RFIND_NEXT;
+	if (reversed)
 		prompt = RFIND_PROMPT;
-		reversed = 1;
-	}
 
 	switch (findcmd) {
 	case CMD_LIST_FIND:
@@ -56,11 +54,14 @@ screen_find(struct list_window *lw, command_t findcmd,
 
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		if (!screen.findbuf)
+		if (!screen.findbuf) {
+			char *value = options.find_show_last_pattern
+				? (char *) -1 : NULL;
 			screen.findbuf=screen_readln(prompt,
 						     value,
 						     &screen.find_history,
 						     NULL);
+		}
 
 		if (screen.findbuf == NULL)
 			return 1;
@@ -96,10 +97,8 @@ screen_jump(struct list_window *lw,
 	    list_window_paint_callback_t paint_callback,
 		void *callback_data)
 {
-	char *search_str, *iter, *temp;
 	const int WRLN_MAX_LINE_SIZE = 1024;
 	int key = 65;
-	command_t cmd;
 
 	if (screen.findbuf) {
 		g_free(screen.findbuf);
@@ -108,8 +107,8 @@ screen_jump(struct list_window *lw,
 	screen.findbuf = g_malloc0(WRLN_MAX_LINE_SIZE);
 	/* In screen.findbuf is the whole string which is displayed in the status_window
 	 * and search_str is the string the user entered (without the prompt) */
-	search_str = screen.findbuf + g_snprintf(screen.findbuf, WRLN_MAX_LINE_SIZE, "%s: ", JUMP_PROMPT);
-	iter = search_str;
+	char *search_str = screen.findbuf + g_snprintf(screen.findbuf, WRLN_MAX_LINE_SIZE, "%s: ", JUMP_PROMPT);
+	char *iter = search_str;
 
 	while(1) {
 		key = screen_getch(screen.findbuf);
@@ -143,10 +142,12 @@ screen_jump(struct list_window *lw,
 
 	/* ncmpc should get the command */
 	ungetch(key);
+
+	command_t cmd;
 	if ((cmd=get_keyboard_command()) != CMD_NONE)
 		do_input_event(cmd);
 
-	temp = g_strdup(search_str);
+	char *temp = g_strdup(search_str);
 	g_free(screen.findbuf);
 	screen.findbuf = temp;
 }

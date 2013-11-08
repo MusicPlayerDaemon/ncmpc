@@ -75,7 +75,6 @@ static void
 update_xterm_title(void)
 {
 	static char title[BUFSIZE];
-	char tmp[BUFSIZE];
 	struct mpd_status *status = NULL;
 	const struct mpd_song *song = NULL;
 
@@ -84,6 +83,7 @@ update_xterm_title(void)
 		song = mpd->song;
 	}
 
+	char tmp[BUFSIZE];
 	if (options.xterm_title_format && status && song &&
 	    mpd_status_get_state(status) == MPD_STATE_PLAY)
 		strfsong(tmp, BUFSIZE, options.xterm_title_format, song);
@@ -287,9 +287,6 @@ default_settings_name(void)
 static gboolean
 timer_reconnect(gcc_unused gpointer data)
 {
-	bool success;
-	struct mpd_connection *connection;
-
 	assert(!mpdclient_is_connected(mpd));
 
 	reconnect_source_id = 0;
@@ -301,18 +298,16 @@ timer_reconnect(gcc_unused gpointer data)
 	doupdate();
 
 	mpdclient_disconnect(mpd);
-	success = mpdclient_connect(mpd,
-				    options.host, options.port,
-				    options.timeout_ms,
-				    options.password);
-	if (!success) {
+	if (!mpdclient_connect(mpd, options.host, options.port,
+			       options.timeout_ms,
+			       options.password)) {
 		/* try again in 5 seconds */
 		reconnect_source_id = g_timeout_add(5000,
 						    timer_reconnect, NULL);
 		return FALSE;
 	}
 
-	connection = mpdclient_get_connection(mpd);
+	struct mpd_connection *connection = mpdclient_get_connection(mpd);
 
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.14 - song id not supported by mpd */
@@ -465,11 +460,10 @@ keyboard_event(gcc_unused GIOChannel *source,
 	       gcc_unused GIOCondition condition,
 	       gcc_unused gpointer data)
 {
-	command_t cmd;
-
 	begin_input_event();
 
-	if ((cmd=get_keyboard_command()) != CMD_NONE)
+	command_t cmd = get_keyboard_command();
+	if (cmd != CMD_NONE)
 		if (do_input_event(cmd) != 0)
 			return FALSE;
 
@@ -521,23 +515,11 @@ timer_check_key_bindings(gcc_unused gpointer data)
 int
 main(int argc, const char *argv[])
 {
-#ifndef WIN32
-	struct sigaction act;
-#endif
 #ifdef ENABLE_LOCALE
 #ifndef ENABLE_NLS
 	gcc_unused
 #endif
 	const char *charset = NULL;
-#endif
-	GIOChannel *keyboard_channel;
-#ifdef ENABLE_LIRC
-	int lirc_socket;
-	GIOChannel *lirc_channel = NULL;
-#endif
-	GIOChannel *sigwinch_channel = NULL;
-
-#ifdef ENABLE_LOCALE
 	/* time and date formatting */
 	setlocale(LC_TIME,"");
 	/* care about sorting order etc */
@@ -578,6 +560,7 @@ main(int argc, const char *argv[])
 
 #ifndef WIN32
 	/* setup signal behavior - SIGINT */
+	struct sigaction act;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = 0;
 	act.sa_handler = catch_sigint;
@@ -644,12 +627,13 @@ main(int argc, const char *argv[])
 	main_loop = g_main_loop_new(NULL, FALSE);
 
 	/* watch out for keyboard input */
-	keyboard_channel = g_io_channel_unix_new(STDIN_FILENO);
+	GIOChannel *keyboard_channel = g_io_channel_unix_new(STDIN_FILENO);
 	g_io_add_watch(keyboard_channel, G_IO_IN, keyboard_event, NULL);
 
 #ifdef ENABLE_LIRC
 	/* watch out for lirc input */
-	lirc_socket = ncmpc_lirc_open();
+	int lirc_socket = ncmpc_lirc_open();
+	GIOChannel *lirc_channel = NULL;
 	if (lirc_socket >= 0) {
 		lirc_channel = g_io_channel_unix_new(lirc_socket);
 		g_io_add_watch(lirc_channel, G_IO_IN, lirc_event, NULL);
@@ -657,6 +641,7 @@ main(int argc, const char *argv[])
 #endif
 
 #ifndef WIN32
+	GIOChannel *sigwinch_channel = NULL;
 	if (!pipe(sigwinch_pipes) &&
 		!fcntl(sigwinch_pipes[1], F_SETFL, O_NONBLOCK)) {
 		sigwinch_channel = g_io_channel_unix_new(sigwinch_pipes[0]);

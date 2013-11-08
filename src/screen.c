@@ -132,18 +132,17 @@ static void
 screen_next_mode(struct mpdclient *c, int offset)
 {
 	int max = g_strv_length(options.screen_list);
-	int current, next;
-	const struct screen_functions *sf;
 
 	/* find current screen */
-	current = find_configured_screen(screen_get_name(mode_fn));
-	next = current + offset;
+	int current = find_configured_screen(screen_get_name(mode_fn));
+	int next = current + offset;
 	if (next<0)
 		next = max-1;
 	else if (next>=max)
 		next = 0;
 
-	sf = screen_lookup_name(options.screen_list[next]);
+	const struct screen_functions *sf =
+		screen_lookup_name(options.screen_list[next]);
 	if (sf != NULL)
 		screen_switch(sf, c);
 }
@@ -157,8 +156,7 @@ paint_top_window(const char *header, const struct mpdclient *c)
 static void
 update_progress_window(struct mpdclient *c, bool repaint)
 {
-	unsigned elapsed, duration;
-
+	unsigned elapsed;
 	if (c->status == NULL)
 		elapsed = 0;
 	else if (seek_id >= 0 && seek_id == mpd_status_get_song_id(c->status))
@@ -166,7 +164,7 @@ update_progress_window(struct mpdclient *c, bool repaint)
 	else
 		elapsed = mpd_status_get_elapsed_time(c->status);
 
-	duration = mpdclient_is_playing(c)
+	unsigned duration = mpdclient_is_playing(c)
 		? mpd_status_get_total_time(c->status)
 		: 0;
 

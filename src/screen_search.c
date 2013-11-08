@@ -58,13 +58,11 @@ static const struct {
 static int
 search_get_tag_id(const char *name)
 {
-	unsigned i;
-
 	if (g_ascii_strcasecmp(name, "file") == 0 ||
 	    strcasecmp(name, _("file")) == 0)
 		return SEARCH_URI;
 
-	for (i = 0; i < MPD_TAG_COUNT; ++i)
+	for (unsigned i = 0; i < MPD_TAG_COUNT; ++i)
 		if (search_tag[i].name != NULL &&
 		    (strcasecmp(search_tag[i].name, name) == 0 ||
 		     strcasecmp(search_tag[i].localname, name) == 0))
@@ -204,23 +202,19 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 static struct filelist *
 search_advanced_query(struct mpd_connection *connection, char *query)
 {
-	int i,j;
-	char **strv;
-	int table[10];
-	char *arg[10];
-	struct filelist *fl = NULL;
-
 	advanced_search_mode = FALSE;
 	if (strchr(query, ':') == NULL)
 		return NULL;
 
-	strv = g_strsplit_set(query, ": ", 0);
+	char **strv = g_strsplit_set(query, ": ", 0);
 
+	int table[10];
 	memset(table, 0, 10*sizeof(int));
+
+	char *arg[10];
 	memset(arg, 0, 10*sizeof(char *));
 
-	i=0;
-	j=0;
+	int i = 0, j = 0;
 	while (strv[i] && strlen(strv[i]) > 0 && i < 9) {
 		int id = search_get_tag_id(strv[i]);
 		if (id == -1) {
@@ -277,7 +271,7 @@ search_advanced_query(struct mpd_connection *connection, char *query)
 	}
 
 	mpd_search_commit(connection);
-	fl = filelist_new_recv(connection);
+	struct filelist *fl = filelist_new_recv(connection);
 	if (!mpd_response_finish(connection)) {
 		filelist_free(fl);
 		fl = NULL;

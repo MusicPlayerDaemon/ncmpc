@@ -106,14 +106,12 @@ screen_chat_paint(void)
 static void
 process_message(struct mpd_message *message)
 {
-	char *message_text;
-
 	assert(message != NULL);
 	/* You'll have to move this out of screen_chat, if you want to use
 	   client-to-client messages anywhere else */
 	assert(g_strcmp0(mpd_message_get_channel(message), chat_channel) == 0);
 
-	message_text = utf8_to_locale(mpd_message_get_text(message));
+	char *message_text = utf8_to_locale(mpd_message_get_text(message));
 	screen_text_append(&text, message_text);
 	g_free(message_text);
 

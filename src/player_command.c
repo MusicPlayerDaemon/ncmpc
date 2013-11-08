@@ -32,12 +32,10 @@ static guint seek_source_id;
 static void
 commit_seek(struct mpdclient *c)
 {
-	struct mpd_connection *connection;
-
 	if (seek_id < 0)
 		return;
 
-	connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == NULL) {
 		seek_id = -1;
 		return;
@@ -101,14 +99,14 @@ setup_seek(struct mpdclient *c)
 bool
 handle_player_command(struct mpdclient *c, command_t cmd)
 {
-	struct mpd_connection *connection;
-
 	if (!mpdclient_is_connected(c) || c->status == NULL)
 		return false;
 
 	cancel_seek_timer();
 
 	switch(cmd) {
+		struct mpd_connection *connection;
+
 		/*
 	case CMD_PLAY:
 		mpdclient_cmd_play(c, MPD_PLAY_AT_BEGINNING);

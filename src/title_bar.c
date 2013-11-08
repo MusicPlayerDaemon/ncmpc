@@ -59,9 +59,6 @@ title_bar_paint(const struct title_bar *p, const char *title,
 		const struct mpd_status *status)
 {
 	WINDOW *w = p->window.w;
-	int volume;
-	char flags[5];
-	char buf[32];
 
 	assert(p != NULL);
 
@@ -96,7 +93,8 @@ title_bar_paint(const struct title_bar *p, const char *title,
 #endif
 	}
 
-	volume = get_volume(status);
+	int volume = get_volume(status);
+	char buf[32];
 	if (volume < 0)
 		g_snprintf(buf, 32, _("Volume n/a"));
 	else
@@ -105,6 +103,7 @@ title_bar_paint(const struct title_bar *p, const char *title,
 	colors_use(w, COLOR_TITLE);
 	mvwaddstr(w, 0, p->window.cols - utf8_width(buf), buf);
 
+	char flags[5];
 	flags[0] = 0;
 	if (status != NULL) {
 		if (mpd_status_get_repeat(status))

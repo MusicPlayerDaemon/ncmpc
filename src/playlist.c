@@ -31,11 +31,9 @@ playlist_init(struct mpdclient_playlist *playlist)
 void
 playlist_clear(struct mpdclient_playlist *playlist)
 {
-	guint i;
-
 	playlist->version = 0;
 
-	for (i = 0; i < playlist->list->len; ++i) {
+	for (unsigned i = 0; i < playlist->list->len; ++i) {
 		struct mpd_song *song = playlist_get(playlist, i);
 
 		mpd_song_free(song);
@@ -69,14 +67,12 @@ void
 playlist_move(struct mpdclient_playlist *playlist,
 	      unsigned dest, unsigned src)
 {
-	struct mpd_song *song;
-
 	assert(playlist != NULL);
 	assert(src < playlist_length(playlist));
 	assert(dest < playlist_length(playlist));
 	assert(src != dest);
 
-	song = playlist_get(playlist, src);
+	struct mpd_song *song = playlist_get(playlist, src);
 
 	if (src < dest) {
 		memmove(&playlist->list->pdata[src],

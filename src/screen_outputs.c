@@ -47,20 +47,17 @@ outputs_repaint(void)
 static bool
 toggle_output(struct mpdclient *c, unsigned int output_index)
 {
-	struct mpd_connection *connection;
-	struct mpd_output *output;
-
 	assert(mpd_outputs != NULL);
 
 	if (output_index >= mpd_outputs->len)
 		return false;
 
-	connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == NULL)
 		return false;
 
-	output = g_ptr_array_index(mpd_outputs, output_index);
-
+	struct mpd_output *output =
+		g_ptr_array_index(mpd_outputs, output_index);
 	if (!mpd_output_get_enabled(output)) {
 		if (!mpd_run_enable_output(connection,
 					   mpd_output_get_id(output))) {
@@ -114,18 +111,17 @@ clear_outputs_list(void)
 static void
 fill_outputs_list(struct mpdclient *c)
 {
-	struct mpd_connection *connection;
-	struct mpd_output *output;
-
 	assert(mpd_outputs != NULL);
 
-	connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == NULL) {
 		list_window_set_length(lw, 0);
 		return;
 	}
 
 	mpd_send_outputs(connection);
+
+	struct mpd_output *output;
 	while ((output = mpd_recv_output(connection)) != NULL) {
 		g_ptr_array_add(mpd_outputs, output);
 	}

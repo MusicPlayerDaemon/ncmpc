@@ -38,9 +38,7 @@ filelist_new(void)
 void
 filelist_free(struct filelist *filelist)
 {
-	guint i;
-
-	for (i = 0; i < filelist_length(filelist); ++i) {
+	for (unsigned i = 0; i < filelist_length(filelist); ++i) {
 		struct filelist_entry *entry = filelist_get(filelist, i);
 
 		if (entry->entity)
@@ -69,9 +67,7 @@ filelist_append(struct filelist *filelist, struct mpd_entity *entity)
 void
 filelist_move(struct filelist *filelist, struct filelist *from)
 {
-	guint i;
-
-	for (i = 0; i < filelist_length(from); ++i)
+	for (unsigned i = 0; i < filelist_length(from); ++i)
 		g_ptr_array_add(filelist->entries,
 				g_ptr_array_index(from->entries, i));
 
@@ -93,11 +89,11 @@ compare_filelist_entry_path(gconstpointer filelist_entry1,
 			    gconstpointer filelist_entry2)
 {
 	const struct mpd_entity *e1, *e2;
-	int n = 0;
 
 	e1 = ((const struct filelist_entry *)filelist_entry1)->entity;
 	e2 = ((const struct filelist_entry *)filelist_entry2)->entity;
 
+	int n = 0;
 	if (e1 != NULL && e2 != NULL &&
 	    mpd_entity_get_type(e1) == mpd_entity_get_type(e2)) {
 		switch (mpd_entity_get_type(e1)) {
@@ -132,7 +128,6 @@ filelist_sort_all(struct filelist *filelist, GCompareFunc compare_func)
 void
 filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func)
 {
-	unsigned first, last;
 	const struct mpd_entity *iter;
 
 	assert(filelist && filelist->entries);
@@ -142,7 +137,7 @@ filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func)
 
 	/* If the first entry is NULL, skip it, because NULL stands for "[..]" */
 	iter = ((struct filelist_entry*) g_ptr_array_index(filelist->entries, 0))->entity;
-	first = (iter == NULL)? 1 : 0;
+	unsigned first = iter == NULL ? 1 : 0, last;
 
 	/* find the last directory entry */
 	for (last = first+1; last < filelist->entries->len; last++) {
@@ -199,11 +194,9 @@ same_song(const struct mpd_song *a, const struct mpd_song *b)
 int
 filelist_find_song(const struct filelist *fl, const struct mpd_song *song)
 {
-	guint i;
-
 	assert(song != NULL);
 
-	for (i = 0; i < filelist_length(fl); ++i) {
+	for (unsigned i = 0; i < filelist_length(fl); ++i) {
 		struct filelist_entry *entry = filelist_get(fl, i);
 		const struct mpd_entity *entity  = entry->entity;
 
@@ -223,11 +216,9 @@ filelist_find_song(const struct filelist *fl, const struct mpd_song *song)
 int
 filelist_find_directory(const struct filelist *filelist, const char *name)
 {
-	guint i;
-
 	assert(name != NULL);
 
-	for (i = 0; i < filelist_length(filelist); ++i) {
+	for (unsigned i = 0; i < filelist_length(filelist); ++i) {
 		struct filelist_entry *entry = filelist_get(filelist, i);
 		const struct mpd_entity *entity  = entry->entity;
 

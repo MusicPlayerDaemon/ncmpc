@@ -109,20 +109,16 @@ static bool
 change_to_parent(struct mpdclient *c)
 {
 	char *parent = g_path_get_dirname(current_path);
-	char *old_path;
-	int idx;
-	bool success;
-
 	if (strcmp(parent, ".") == 0)
 		parent[0] = '\0';
 
-	old_path = current_path;
+	char *old_path = current_path;
 	current_path = NULL;
 
-	success = change_directory(c, parent);
+	bool success = change_directory(c, parent);
 	g_free(parent);
 
-	idx = success
+	int idx = success
 		? filelist_find_directory(browser.filelist, old_path)
 		: -1;
 	g_free(old_path);
@@ -169,7 +165,6 @@ handle_save(struct mpdclient *c)
 {
 	struct list_window_range range;
 	const char *defaultname = NULL;
-	char *defaultname_utf8 = NULL;
 
 	list_window_get_range(browser.lw, &range);
 	if (range.start == range.end)
@@ -188,6 +183,7 @@ handle_save(struct mpdclient *c)
 		}
 	}
 
+	char *defaultname_utf8 = NULL;
 	if(defaultname)
 		defaultname_utf8 = utf8_to_locale(defaultname);
 	playlist_save(c, NULL, defaultname_utf8);
@@ -198,14 +194,11 @@ static void
 handle_delete(struct mpdclient *c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
-	struct list_window_range range;
-	struct mpd_entity *entity;
-	const struct mpd_playlist *playlist;
-	char *str, *buf;
 
 	if (connection == NULL)
 		return;
 
+	struct list_window_range range;
 	list_window_get_range(browser.lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {
 		struct filelist_entry *entry =
@@ -213,7 +206,7 @@ handle_delete(struct mpdclient *c)
 		if( entry==NULL || entry->entity==NULL )
 			continue;
 
-		entity = entry->entity;
+		struct mpd_entity *entity = entry->entity;
 
 		if (mpd_entity_get_type(entity) != MPD_ENTITY_TYPE_PLAYLIST) {
 			/* translators: the "delete" command is only possible
@@ -224,9 +217,9 @@ handle_delete(struct mpdclient *c)
 			continue;
 		}
 
-		playlist = mpd_entity_get_playlist(entity);
-		str = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
-		buf = g_strdup_printf(_("Delete playlist %s [%s/%s] ? "), str, YES, NO);
+		const struct mpd_playlist *playlist = mpd_entity_get_playlist(entity);
+		char *str = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
+		char *buf = g_strdup_printf(_("Delete playlist %s [%s/%s] ? "), str, YES, NO);
 		g_free(str);
 		bool delete = screen_get_yesno(buf, false);
 		g_free(buf);
@@ -285,7 +278,6 @@ static const char *
 screen_file_get_title(char *str, size_t size)
 {
 	const char *path = NULL, *prev = NULL, *slash = current_path;
-	char *path_locale;
 
 	/* determine the last 2 parts of the path */
 	while ((slash = strchr(slash, '/')) != NULL) {
@@ -297,7 +289,7 @@ screen_file_get_title(char *str, size_t size)
 		/* fall back to full path */
 		path = current_path;
 
-	path_locale = utf8_to_locale(path);
+	char *path_locale = utf8_to_locale(path);
 	g_snprintf(str, size, "%s: %s",
 		   /* translators: caption of the browser screen */
 		   _("Browse"), path_locale);
@@ -412,8 +404,6 @@ screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song)
 {
 	const char *uri, *slash, *parent;
 	char *allocated = NULL;
-	bool ret;
-	int i;
 
 	assert(song != NULL);
 
@@ -431,14 +421,14 @@ screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song)
 	else
 		parent = "";
 
-	ret = change_directory(c, parent);
+	bool ret = change_directory(c, parent);
 	g_free(allocated);
 	if (!ret)
 		return false;
 
 	/* select the specified song */
 
-	i = filelist_find_song(browser.filelist, song);
+	int i = filelist_find_song(browser.filelist, song);
 	if (i < 0)
 		i = 0;
 

@@ -123,10 +123,9 @@ wide_cut_width(char *p, unsigned max_width)
 {
 	size_t length = g_utf8_strlen(p, -1);
 	unsigned width = 0, prev_width;
-	gunichar c;
 
 	while (length-- > 0) {
-		c = g_utf8_get_char(p);
+		gunichar c = g_utf8_get_char(p);
 		prev_width = width;
 		width += g_unichar_iswide(c) ? 2 : 1;
 		if (width > max_width) {
@@ -162,16 +161,14 @@ char *
 utf8_to_locale(const char *utf8str)
 {
 #ifdef ENABLE_LOCALE
-	gchar *str;
-
 	assert(utf8str != NULL);
 
 	if (noconvert)
 		return g_strdup(utf8str);
 
-	str = g_convert_with_fallback(utf8str, -1,
-				      charset, "utf-8",
-				      NULL, NULL, NULL, NULL);
+	gchar *str = g_convert_with_fallback(utf8str, -1,
+					     charset, "utf-8",
+					     NULL, NULL, NULL, NULL);
 	if (str == NULL)
 		return g_strdup(utf8str);
 
@@ -185,16 +182,14 @@ char *
 locale_to_utf8(const char *localestr)
 {
 #ifdef ENABLE_LOCALE
-	gchar *str;
-
 	assert(localestr != NULL);
 
 	if (noconvert)
 		return g_strdup(localestr);
 
-	str = g_convert_with_fallback(localestr, -1,
-				      "utf-8", charset,
-				      NULL, NULL, NULL, NULL);
+	gchar *str = g_convert_with_fallback(localestr, -1,
+					     "utf-8", charset,
+					     NULL, NULL, NULL, NULL);
 	if (str == NULL)
 		return g_strdup(localestr);
 

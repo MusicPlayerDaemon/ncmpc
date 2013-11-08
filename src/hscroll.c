@@ -28,21 +28,18 @@ char *
 strscroll(struct hscroll *hscroll, const char *str, const char *separator,
 	  unsigned width)
 {
-	gchar *tmp, *buf;
-
 	assert(hscroll != NULL);
 	assert(str != NULL);
 	assert(separator != NULL);
 
 	/* create a buffer containing the string and the separator */
-	tmp = replace_locale_to_utf8(g_strconcat(str, separator,
-						 str, separator, NULL));
-
+	char *tmp = replace_locale_to_utf8(g_strconcat(str, separator,
+						       str, separator, NULL));
 	if (hscroll->offset >= (unsigned)g_utf8_strlen(tmp, -1) / 2)
 		hscroll->offset = 0;
 
 	/* create the new scrolled string */
-	buf = g_utf8_offset_to_pointer(tmp, hscroll->offset);
+	char *buf = g_utf8_offset_to_pointer(tmp, hscroll->offset);
 	utf8_cut_width(buf, width);
 
 	/* convert back to locale */
@@ -112,21 +109,19 @@ hscroll_clear(struct hscroll *hscroll)
 void
 hscroll_draw(struct hscroll *hscroll)
 {
-	attr_t old_attrs;
-	short old_pair;
-	char *p;
-
 	assert(hscroll != NULL);
 	assert(hscroll->w != NULL);
 	assert(hscroll->text != NULL);
 
 	/* set stored attributes and color */
+	attr_t old_attrs;
+	short old_pair;
 	fix_wattr_get(hscroll->w, &old_attrs, &old_pair, NULL);
 	wattr_set(hscroll->w, hscroll->attrs, hscroll->pair, NULL);
 
 	/* scroll the string, and draw it */
-	p = strscroll(hscroll, hscroll->text, hscroll->separator,
-		      hscroll->width);
+	char *p = strscroll(hscroll, hscroll->text, hscroll->separator,
+			    hscroll->width);
 	mvwaddstr(hscroll->w, hscroll->y, hscroll->x, p);
 	g_free(p);
 

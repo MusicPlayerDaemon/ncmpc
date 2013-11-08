@@ -49,12 +49,10 @@ static gint
 compare_utf8(gconstpointer s1, gconstpointer s2)
 {
 	const char *const*t1 = s1, *const*t2 = s2;
-	char *key1, *key2;
-	int n;
 
-	key1 = g_utf8_collate_key(*t1,-1);
-	key2 = g_utf8_collate_key(*t2,-1);
-	n = strcmp(key1,key2);
+	char *key1 = g_utf8_collate_key(*t1,-1);
+	char *key2 = g_utf8_collate_key(*t2,-1);
+	int n = strcmp(key1,key2);
 	g_free(key1);
 	g_free(key2);
 	return n;
@@ -65,8 +63,6 @@ static const char *
 screen_artist_lw_callback(unsigned idx, void *data)
 {
 	GPtrArray *list = data;
-	static char buf[BUFSIZE];
-	char *str, *str_utf8;
 
 	if (mode == LIST_ALBUMS) {
 		if (idx == 0)
@@ -79,10 +75,12 @@ screen_artist_lw_callback(unsigned idx, void *data)
 
 	assert(idx < list->len);
 
-	str_utf8 = g_ptr_array_index(list, idx);
+	char *str_utf8 = g_ptr_array_index(list, idx);
 	assert(str_utf8 != NULL);
 
-	str = utf8_to_locale(str_utf8);
+	char *str = utf8_to_locale(str_utf8);
+
+	static char buf[BUFSIZE];
 	g_strlcpy(buf, str, sizeof(buf));
 	g_free(str);
 
@@ -102,9 +100,7 @@ artist_repaint(void)
 static void
 string_array_free(GPtrArray *array)
 {
-	unsigned i;
-
-	for (i = 0; i < array->len; ++i) {
+	for (unsigned i = 0; i < array->len; ++i) {
 		char *value = g_ptr_array_index(array, i);
 		g_free(value);
 	}
@@ -391,9 +387,9 @@ screen_artist_paint(void)
 static const char *
 screen_artist_get_title(char *str, size_t size)
 {
-	char *s1, *s2;
-
 	switch(mode) {
+		char *s1, *s2;
+
 	case LIST_ARTISTS:
 		g_snprintf(str, size, _("All artists"));
 		break;
@@ -453,15 +449,13 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
 	  const char *_artist)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
-	char *str;
-	struct filelist *addlist;
 
 	assert(_filter != NULL);
 
 	if (connection == NULL)
 		return;
 
-	str = utf8_to_locale(_filter);
+	char *str = utf8_to_locale(_filter);
 	if (table == MPD_TAG_ALBUM)
 		screen_status_printf(_("Adding album %s..."), str);
 	else
@@ -476,7 +470,7 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
 					      MPD_TAG_ARTIST, _artist);
 	mpd_search_commit(connection);
 
-	addlist = filelist_new_recv(connection);
+	struct filelist *addlist = filelist_new_recv(connection);
 
 	if (mpdclient_finish_command(c))
 		mpdclient_filelist_add_all(c, addlist);
@@ -516,13 +510,13 @@ string_array_find(GPtrArray *array, const char *value)
 static bool
 screen_artist_cmd(struct mpdclient *c, command_t cmd)
 {
-	struct list_window_range range;
-	char *selected;
-	char *old;
-	char *old_ptr;
-	int idx;
-
 	switch(cmd) {
+		struct list_window_range range;
+		char *selected;
+		char *old;
+		char *old_ptr;
+		int idx;
+
 	case CMD_PLAY:
 		switch (mode) {
 		case LIST_ARTISTS:

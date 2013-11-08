@@ -27,10 +27,7 @@
 static bool
 _screen_auth(struct mpdclient *c, gint recursion)
 {
-	struct mpd_connection *connection;
-	char *password;
-
-	connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == NULL)
 		return false;
 
@@ -38,7 +35,7 @@ _screen_auth(struct mpdclient *c, gint recursion)
 	if (recursion > 2)
 		return false;
 
-	password = screen_read_password(NULL);
+	char *password = screen_read_password(NULL);
 	if (password == NULL)
 		return false;
 
@@ -75,17 +72,14 @@ mpdclient_ui_error(const char *message_utf8)
 void
 screen_database_update(struct mpdclient *c, const char *path)
 {
-	struct mpd_connection *connection;
-	unsigned id;
-
 	assert(c != NULL);
 	assert(mpdclient_is_connected(c));
 
-	connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == NULL)
 		return;
 
-	id = mpd_run_update(connection, path);
+	unsigned id = mpd_run_update(connection, path);
 	if (id == 0) {
 		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_UPDATE_ALREADY &&

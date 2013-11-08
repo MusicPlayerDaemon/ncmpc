@@ -98,9 +98,6 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 		 const struct mpd_song *song)
 {
 	WINDOW *w = p->window.w;
-	enum mpd_state state;
-	const char *str = NULL;
-	int x = 0;
 	char buffer[p->window.cols * 4 + 1];
 
 #ifndef NCMPC_MINI
@@ -115,9 +112,10 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 	wclrtoeol(w);
 	colors_use(w, COLOR_STATUS_BOLD);
 
-	state = status == NULL ? MPD_STATE_UNKNOWN
+	enum mpd_state state = status == NULL ? MPD_STATE_UNKNOWN
 		: mpd_status_get_state(status);
 
+	const char *str = NULL;
 	switch (state) {
 	case MPD_STATE_PLAY:
 		str = _("Playing:");
@@ -130,6 +128,7 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 		break;
 	}
 
+	int x = 0;
 	if (str) {
 		waddstr(w, str);
 		x += utf8_width(str) + 1;

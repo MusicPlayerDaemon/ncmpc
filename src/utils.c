@@ -76,15 +76,13 @@ GList *
 gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 		    GList *list, gint types)
 {
-	struct mpd_connection *connection;
-	struct mpd_entity *entity;
-
-	connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == NULL)
 		return list;
 
 	mpd_send_list_meta(connection, path);
 
+	struct mpd_entity *entity;
 	while ((entity = mpd_recv_entity(connection)) != NULL) {
 		char *name;
 
@@ -136,37 +134,35 @@ format_duration_short(char *buffer, size_t length, unsigned duration)
 void
 format_duration_long(char *p, size_t length, unsigned long duration)
 {
-	const char *year = _("year");
-	const char *years = _("years");
-	const char *week = _("week");
-	const char *weeks = _("weeks");
-	const char *day = _("day");
-	const char *days = _("days");
 	unsigned bytes_written = 0;
 
 	if (duration / 31536000 > 0) {
 		if (duration / 31536000 == 1)
-			bytes_written = g_snprintf(p, length, "%d %s, ", 1, year);
+			bytes_written = g_snprintf(p, length, "%d %s, ", 1, _("year"));
 		else
-			bytes_written = g_snprintf(p, length, "%lu %s, ", duration / 31536000, years);
+			bytes_written = g_snprintf(p, length, "%lu %s, ", duration / 31536000, _("years"));
 		duration %= 31536000;
 		length -= bytes_written;
 		p += bytes_written;
 	}
 	if (duration / 604800 > 0) {
 		if (duration / 604800 == 1)
-			bytes_written = g_snprintf(p, length, "%d %s, ", 1, week);
+			bytes_written = g_snprintf(p, length, "%d %s, ",
+						   1, _("week"));
 		else
-			bytes_written = g_snprintf(p, length, "%lu %s, ", duration / 604800, weeks);
+			bytes_written = g_snprintf(p, length, "%lu %s, ",
+						   duration / 604800, _("weeks"));
 		duration %= 604800;
 		length -= bytes_written;
 		p += bytes_written;
 	}
 	if (duration / 86400 > 0) {
 		if (duration / 86400 == 1)
-			bytes_written = g_snprintf(p, length, "%d %s, ", 1, day);
+			bytes_written = g_snprintf(p, length, "%d %s, ",
+						   1, _("day"));
 		else
-			bytes_written = g_snprintf(p, length, "%lu %s, ", duration / 86400, days);
+			bytes_written = g_snprintf(p, length, "%lu %s, ",
+						   duration / 86400, _("days"));
 		duration %= 86400;
 		length -= bytes_written;
 		p += bytes_written;

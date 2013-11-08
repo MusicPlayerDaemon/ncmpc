@@ -39,14 +39,13 @@ screen_text_clear(struct screen_text *text)
 void
 screen_text_append(struct screen_text *text, const char *str)
 {
-	const char *eol, *next;
-
 	assert(str != NULL);
 
+	const char *eol;
 	while ((eol = strchr(str, '\n')) != NULL) {
 		char *line;
 
-		next = eol + 1;
+		const char *next = eol + 1;
 
 		/* strip whitespace at end */
 
@@ -80,12 +79,12 @@ const char *
 screen_text_list_callback(unsigned idx, void *data)
 {
 	const struct screen_text *text = data;
-	static char buffer[256];
-	char *value;
 
 	assert(idx < text->lines->len);
 
-	value = utf8_to_locale(g_ptr_array_index(text->lines, idx));
+	char *value = utf8_to_locale(g_ptr_array_index(text->lines, idx));
+
+	static char buffer[256];
 	g_strlcpy(buffer, value, sizeof(buffer));
 	g_free(value);
 

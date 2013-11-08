@@ -117,10 +117,9 @@ static bool
 exists_lyr_file(const char *artist, const char *title)
 {
 	char path[1024];
-	struct stat result;
-
 	path_lyr_file(path, 1024, artist, title);
 
+	struct stat result;
 	return (stat(path, &result) == 0);
 }
 
@@ -128,7 +127,6 @@ static FILE *
 create_lyr_file(const char *artist, const char *title)
 {
 	char path[1024];
-
 	snprintf(path, 1024, "%s/.lyrics",
 		 getenv("HOME"));
 	mkdir(path, S_IRWXU);
@@ -141,14 +139,11 @@ create_lyr_file(const char *artist, const char *title)
 static int
 store_lyr_hd(void)
 {
-	FILE *lyr_file;
-	unsigned i;
-
-	lyr_file = create_lyr_file(current.artist, current.title);
+	FILE *lyr_file = create_lyr_file(current.artist, current.title);
 	if (lyr_file == NULL)
 		return -1;
 
-	for (i = 0; i < text.lines->len; ++i)
+	for (unsigned i = 0; i < text.lines->len; ++i)
 		fprintf(lyr_file, "%s\n",
 			(const char*)g_ptr_array_index(text.lines, i));
 
@@ -159,11 +154,10 @@ store_lyr_hd(void)
 static int
 delete_lyr_hd(void)
 {
-	char path[1024];
-
 	if (!exists_lyr_file(current.artist, current.title))
 		return -1;
 
+	char path[1024];
 	path_lyr_file(path, 1024, current.artist, current.title);
 	if (unlink(path) != 0)
 		return -2;
@@ -239,15 +233,13 @@ screen_lyrics_timeout_callback(gpointer gcc_unused data)
 static void
 screen_lyrics_load(const struct mpd_song *song)
 {
-	const char *artist, *title;
-
 	assert(song != NULL);
 
 	screen_lyrics_abort();
 	screen_text_clear(&text);
 
-	artist = mpd_song_get_tag(song, MPD_TAG_ARTIST, 0);
-	title = mpd_song_get_tag(song, MPD_TAG_TITLE, 0);
+	const char *artist = mpd_song_get_tag(song, MPD_TAG_ARTIST, 0);
+	const char *title = mpd_song_get_tag(song, MPD_TAG_TITLE, 0);
 
 	current.song = mpd_song_dup(song);
 	current.artist = g_strdup(artist);
@@ -365,8 +357,6 @@ static void
 lyrics_edit(void)
 {
 	char *editor = options.text_editor;
-	int status;
-
 	if (editor == NULL) {
 		screen_status_message(_("Editor not configured"));
 		return;
@@ -391,6 +381,7 @@ lyrics_edit(void)
 
 	/* TODO: fork/exec/wait won't work on Windows, but building a command
 	   string for system() is too tricky */
+	int status;
 	pid_t pid = fork();
 	if (pid == -1) {
 		screen_status_printf(("%s (%s)"), _("Can't start editor"), g_strerror(errno));

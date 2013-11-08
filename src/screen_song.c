@@ -193,12 +193,7 @@ screen_song_paint(void)
 static void
 screen_song_append(const char *label, const char *value, unsigned label_col)
 {
-	unsigned label_width = locale_width(label) + 2;
-	int value_col, label_size;
-	gchar *entry, *entry_iter;
-	const gchar *value_iter;
-	char *p, *q;
-	unsigned width;
+	const unsigned label_width = locale_width(label) + 2;
 
 	assert(label != NULL);
 	assert(value != NULL);
@@ -206,13 +201,13 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 
 	/* +2 for ': ' */
 	label_col += 2;
-	value_col = lw->cols - label_col;
+	const int value_col = lw->cols - label_col;
 	/* calculate the number of required linebreaks */
-	value_iter = value;
-	label_size = strlen(label) + label_col;
+	const gchar *value_iter = value;
+	const int label_size = strlen(label) + label_col;
 
 	while (*value_iter != 0) {
-		entry = g_malloc(label_size);
+		char *entry = g_malloc(label_size), *entry_iter;
 		if (value_iter == value) {
 			entry_iter = entry + g_sprintf(entry, "%s: ", label);
 			/* fill the label column with whitespaces */
@@ -227,8 +222,8 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 		/* skip whitespaces */
 		while (g_ascii_isspace(*value_iter)) ++value_iter;
 
-		p = g_strdup(value_iter);
-		width = utf8_cut_width(p, value_col);
+		char *p = g_strdup(value_iter);
+		unsigned width = utf8_cut_width(p, value_col);
 		if (width == 0)
 			/* not enough room for anything - bail out */
 			break;
@@ -237,7 +232,7 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 
 		value_iter += strlen(p);
 		p = replace_utf8_to_locale(p);
-		q = g_strconcat(entry, p, NULL);
+		char *q = g_strconcat(entry, p, NULL);
 		g_free(entry);
 		g_free(p);
 
@@ -338,15 +333,13 @@ screen_song_append_stats(enum stats_label label, const char *value)
 static bool
 screen_song_add_stats(struct mpd_connection *connection)
 {
-	char buf[64];
-	GDate *date;
-	struct mpd_stats *mpd_stats;
-
-	mpd_stats = mpd_run_stats(connection);
+	struct mpd_stats *mpd_stats = mpd_run_stats(connection);
 	if (mpd_stats == NULL)
 		return false;
 
 	g_ptr_array_add(current.lines, g_strdup(_("MPD statistics")) );
+
+	char buf[64];
 	g_snprintf(buf, sizeof(buf), "%d",
 		   mpd_stats_get_number_of_artists(mpd_stats));
 	screen_song_append_stats(STATS_ARTISTS, buf);
@@ -369,7 +362,7 @@ screen_song_add_stats(struct mpd_connection *connection)
 			     mpd_stats_get_uptime(mpd_stats));
 	screen_song_append_stats(STATS_UPTIME, buf);
 
-	date = g_date_new();
+	GDate *date = g_date_new();
 	g_date_set_time_t(date, mpd_stats_get_db_update_time(mpd_stats));
 	g_date_strftime(buf, sizeof(buf), "%x", date);
 	screen_song_append_stats(STATS_DBUPTIME, buf);
@@ -382,8 +375,6 @@ screen_song_add_stats(struct mpd_connection *connection)
 static void
 screen_song_update(struct mpdclient *c)
 {
-	struct mpd_connection *connection;
-
 	/* Clear all lines */
 	for (guint i = 0; i < current.lines->len; ++i)
 		g_free(g_ptr_array_index(current.lines, i));
@@ -417,7 +408,7 @@ screen_song_update(struct mpdclient *c)
 	}
 
 	/* Add some statistics about mpd */
-	connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection != NULL && !screen_song_add_stats(connection))
 		mpdclient_handle_error(c);
 

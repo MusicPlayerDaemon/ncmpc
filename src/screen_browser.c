@@ -52,9 +52,7 @@ void
 screen_browser_sync_highlights(struct filelist *fl,
 			       const struct mpdclient_playlist *playlist)
 {
-	guint i;
-
-	for (i = 0; i < filelist_length(fl); ++i) {
+	for (unsigned i = 0; i < filelist_length(fl); ++i) {
 		struct filelist_entry *entry = filelist_get(fl, i);
 		const struct mpd_entity *entity = entry->entity;
 
@@ -79,16 +77,14 @@ browser_lw_callback(unsigned idx, void *data)
 {
 	const struct filelist *fl = (const struct filelist *) data;
 	static char buf[BUFSIZE];
-	const struct filelist_entry *entry;
-	const struct mpd_entity *entity;
 
 	assert(fl != NULL);
 	assert(idx < filelist_length(fl));
 
-	entry = filelist_get(fl, idx);
+	const struct filelist_entry *entry = filelist_get(fl, idx);
 	assert(entry != NULL);
 
-	entity = entry->entity;
+	const struct mpd_entity *entity = entry->entity;
 
 	if( entity == NULL )
 		return "..";
@@ -231,12 +227,10 @@ static bool
 browser_handle_enter(struct screen_browser *browser, struct mpdclient *c)
 {
 	struct filelist_entry *entry = browser_get_selected_entry(browser);
-	struct mpd_entity *entity;
-
 	if (entry == NULL)
 		return false;
 
-	entity = entry->entity;
+	struct mpd_entity *entity = entry->entity;
 	if (entity == NULL)
 		return false;
 
@@ -313,13 +307,11 @@ static bool
 browser_handle_select(struct screen_browser *browser, struct mpdclient *c)
 {
 	struct list_window_range range;
-	struct filelist_entry *entry;
 	bool success = false;
 
 	list_window_get_range(browser->lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {
-		entry = browser_get_index(browser, i);
-
+		struct filelist_entry *entry = browser_get_index(browser, i);
 		if (entry != NULL && entry->entity != NULL)
 			success = browser_select_entry(c, entry, TRUE);
 	}
@@ -331,13 +323,11 @@ static bool
 browser_handle_add(struct screen_browser *browser, struct mpdclient *c)
 {
 	struct list_window_range range;
-	struct filelist_entry *entry;
 	bool success = false;
 
 	list_window_get_range(browser->lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {
-		entry = browser_get_index(browser, i);
-
+		struct filelist_entry *entry = browser_get_index(browser, i);
 		if (entry != NULL && entry->entity != NULL)
 			success = browser_select_entry(c, entry, FALSE) ||
 				success;
@@ -349,12 +339,10 @@ browser_handle_add(struct screen_browser *browser, struct mpdclient *c)
 static void
 browser_handle_select_all(struct screen_browser *browser, struct mpdclient *c)
 {
-	guint i;
-
 	if (browser->filelist == NULL)
 		return;
 
-	for (i = 0; i < filelist_length(browser->filelist); ++i) {
+	for (unsigned i = 0; i < filelist_length(browser->filelist); ++i) {
 		struct filelist_entry *entry = filelist_get(browser->filelist, i);
 
 		if (entry != NULL && entry->entity != NULL)
@@ -396,8 +384,6 @@ bool
 browser_cmd(struct screen_browser *browser,
 	    struct mpdclient *c, command_t cmd)
 {
-	const struct mpd_song *song;
-
 	if (browser->filelist == NULL)
 		return false;
 
@@ -405,6 +391,10 @@ browser_cmd(struct screen_browser *browser,
 		return true;
 
 	switch (cmd) {
+#if defined(ENABLE_SONG_SCREEN) || defined(ENABLE_LYRICS_SCREEN)
+		const struct mpd_song *song;
+#endif
+
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
@@ -454,6 +444,8 @@ browser_cmd(struct screen_browser *browser,
 		return false;
 
 	switch (cmd) {
+		const struct mpd_song *song;
+
 	case CMD_PLAY:
 		browser_handle_enter(browser, c);
 		return true;
@@ -514,32 +506,30 @@ screen_browser_paint_callback(WINDOW *w, unsigned i,
 			      bool selected, void *data)
 {
 	const struct filelist *fl = (const struct filelist *) data;
-	const struct filelist_entry *entry;
-	const struct mpd_entity *entity;
-	bool highlight;
-	const struct mpd_directory *directory;
-	const struct mpd_playlist *playlist;
-	char *p;
 
 	assert(fl != NULL);
 	assert(i < filelist_length(fl));
 
-	entry = filelist_get(fl, i);
+	const struct filelist_entry *entry = filelist_get(fl, i);
 	assert(entry != NULL);
 
-	entity = entry->entity;
+	const struct mpd_entity *entity = entry->entity;
 	if (entity == NULL) {
 		screen_browser_paint_directory(w, width, selected, "..");
 		return;
 	}
 
 #ifndef NCMPC_MINI
-	highlight = (entry->flags & HIGHLIGHT) != 0;
+	const bool highlight = (entry->flags & HIGHLIGHT) != 0;
 #else
-	highlight = false;
+	const bool highlight = false;
 #endif
 
 	switch (mpd_entity_get_type(entity)) {
+		const struct mpd_directory *directory;
+		const struct mpd_playlist *playlist;
+		char *p;
+
 	case MPD_ENTITY_TYPE_DIRECTORY:
 		directory = mpd_entity_get_directory(entity);
 		p = utf8_to_locale(g_basename(mpd_directory_get_path(directory)));

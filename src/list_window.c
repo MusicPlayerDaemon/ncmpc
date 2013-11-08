@@ -351,8 +351,6 @@ list_window_paint(const struct list_window *lw,
 		list_window_get_range(lw, &range);
 
 	for (unsigned i = 0; i < lw->rows; i++) {
-		const char *label;
-
 		wmove(lw->w, i, 0);
 
 		if (lw->start + i >= lw->length) {
@@ -360,7 +358,7 @@ list_window_paint(const struct list_window *lw,
 			break;
 		}
 
-		label = callback(lw->start + i, callback_data);
+		const char *label = callback(lw->start + i, callback_data);
 		assert(label != NULL);
 
 		list_window_paint_row(lw->w, lw->cols,
@@ -392,8 +390,6 @@ list_window_paint2(const struct list_window *lw,
 		list_window_get_range(lw, &range);
 
 	for (unsigned i = 0; i < lw->rows; i++) {
-		bool selected;
-
 		wmove(lw->w, i, 0);
 
 		if (lw->start + i >= lw->length) {
@@ -401,7 +397,7 @@ list_window_paint2(const struct list_window *lw,
 			break;
 		}
 
-		selected = show_cursor &&
+		bool selected = show_cursor &&
 			lw->start + i >= range.start &&
 			lw->start + i < range.end;
 
@@ -425,13 +421,12 @@ list_window_find(struct list_window *lw,
 		 bool bell_on_wrap)
 {
 	unsigned i = lw->selected + 1;
-	const char *label;
 
 	assert(str != NULL);
 
 	do {
 		while (i < lw->length) {
-			label = callback(i, callback_data);
+			const char *label = callback(i, callback_data);
 			assert(label != NULL);
 
 			if (match_line(label, str)) {
@@ -464,7 +459,6 @@ list_window_rfind(struct list_window *lw,
 		  bool bell_on_wrap)
 {
 	int i = lw->selected - 1;
-	const char *label;
 
 	assert(str != NULL);
 
@@ -473,7 +467,7 @@ list_window_rfind(struct list_window *lw,
 
 	do {
 		while (i >= 0) {
-			label = callback(i, callback_data);
+			const char *label = callback(i, callback_data);
 			assert(label != NULL);
 
 			if (match_line(label, str)) {
@@ -502,13 +496,10 @@ list_window_jump(struct list_window *lw,
 		 void *callback_data,
 		 const char *str)
 {
-	unsigned i;
-	const char *label;
-
 	assert(str != NULL);
 
-	for (i = 0; i < lw->length; i++) {
-		label = callback(i, callback_data);
+	for (unsigned i = 0; i < lw->length; i++) {
+		const char *label = callback(i, callback_data);
 		assert(label != NULL);
 
 		if (g_ascii_strncasecmp(label, str, strlen(str)) == 0) {
@@ -525,18 +516,14 @@ list_window_jump(struct list_window *lw,
 		 void *callback_data,
 		 const char *str)
 {
-	unsigned i;
-	const char *label;
-	GRegex *regex;
-
 	assert(str != NULL);
 
-	regex = compile_regex(str, options.jump_prefix_only);
+	GRegex *regex = compile_regex(str, options.jump_prefix_only);
 	if (regex == NULL)
 		return false;
 
-	for (i = 0; i < lw->length; i++) {
-		label = callback(i, callback_data);
+	for (unsigned i = 0; i < lw->length; i++) {
+		const char *label = callback(i, callback_data);
 		assert(label != NULL);
 
 		if (match_regex(regex, label)) {

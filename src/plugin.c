@@ -72,11 +72,8 @@ struct plugin_cycle {
 static bool
 register_plugin(struct plugin_list *list, char *path)
 {
-	int ret;
 	struct stat st;
-
-	ret = stat(path, &st);
-	if (ret < 0)
+	if (stat(path, &st) < 0)
 		return false;
 
 	g_ptr_array_add(list->plugins, path);
@@ -99,19 +96,14 @@ plugin_list_sort(struct plugin_list *list, GCompareFunc compare_func)
 bool
 plugin_list_load_directory(struct plugin_list *list, const char *path)
 {
-	GDir *dir;
-	const char *name;
-	char *plugin;
-	bool ret;
-
-	dir = g_dir_open(path, 0, NULL);
+	GDir *dir = g_dir_open(path, 0, NULL);
 	if (dir == NULL)
 		return false;
 
+	const char *name;
 	while ((name = g_dir_read_name(dir)) != NULL) {
-		plugin = g_build_filename(path, name, NULL);
-		ret = register_plugin(list, plugin);
-		if (!ret)
+		char *plugin = g_build_filename(path, name, NULL);
+		if (!register_plugin(list, plugin))
 			g_free(plugin);
 	}
 
@@ -135,8 +127,6 @@ next_plugin(struct plugin_cycle *cycle);
 static void
 plugin_eof(struct plugin_cycle *cycle, struct plugin_pipe *p)
 {
-	int ret, status;
-
 	g_io_channel_unref(p->channel);
 	close(p->fd);
 	p->fd = -1;
@@ -145,7 +135,7 @@ plugin_eof(struct plugin_cycle *cycle, struct plugin_pipe *p)
 	if (cycle->pipe_stdout.fd != -1 || cycle->pipe_stderr.fd != -1)
 		return;
 
-	ret = waitpid(cycle->pid, &status, 0);
+	int status, ret = waitpid(cycle->pid, &status, 0);
 	cycle->pid = -1;
 
 	if (ret < 0 || !WIFEXITED(status) || WEXITSTATUS(status) != 0) {
@@ -178,12 +168,10 @@ plugin_data(gcc_unused GIOChannel *source,
 	    gcc_unused GIOCondition condition, gpointer data)
 {
 	struct plugin_cycle *cycle = data;
-	struct plugin_pipe *p = NULL;
-	char buffer[256];
-	ssize_t nbytes;
-
 	assert(cycle != NULL);
 	assert(cycle->pid > 0);
+
+	struct plugin_pipe *p = NULL;
 	if (source == cycle->pipe_stdout.channel)
 		p = &cycle->pipe_stdout;
 	else if (source == cycle->pipe_stderr.channel)
@@ -191,7 +179,10 @@ plugin_data(gcc_unused GIOChannel *source,
 	assert(p != NULL);
 	assert(p->fd >= 0);
 
-	nbytes = condition & G_IO_IN ? read(p->fd, buffer, sizeof(buffer)) : 0;
+	char buffer[256];
+	ssize_t nbytes = condition & G_IO_IN
+		? read(p->fd, buffer, sizeof(buffer))
+		: 0;
 	if (nbytes <= 0) {
 		plugin_eof(cycle, p);
 		return FALSE;
@@ -236,9 +227,6 @@ plugin_fd_add(struct plugin_cycle *cycle, struct plugin_pipe *p, int fd)
 static int
 start_plugin(struct plugin_cycle *cycle, const char *plugin_path)
 {
-	int ret, fds_stdout[2], fds_stderr[2];
-	pid_t pid;
-
 	assert(cycle != NULL);
 	assert(cycle->pid < 0);
 	assert(cycle->pipe_stdout.fd < 0);
@@ -251,17 +239,18 @@ start_plugin(struct plugin_cycle *cycle, const char *plugin_path)
 	g_free(cycle->argv[0]);
 	cycle->argv[0] = g_path_get_basename(plugin_path);
 
-	ret = pipe(fds_stdout);
-	if (ret < 0)
+	int fds_stdout[2];
+	if (pipe(fds_stdout) < 0)
 		return -1;
-	ret = pipe(fds_stderr);
-	if (ret < 0) {
+
+	int fds_stderr[2];
+	if (pipe(fds_stderr) < 0) {
 		close(fds_stdout[0]);
 		close(fds_stdout[1]);
 		return -1;
 	}
 
-	pid = fork();
+	pid_t pid = fork();
 
 	if (pid < 0) {
 		close(fds_stdout[0]);
@@ -301,9 +290,6 @@ start_plugin(struct plugin_cycle *cycle, const char *plugin_path)
 static void
 next_plugin(struct plugin_cycle *cycle)
 {
-	const char *plugin_path;
-	int ret = -1;
-
 	assert(cycle->pid < 0);
 	assert(cycle->pipe_stdout.fd < 0);
 	assert(cycle->pipe_stderr.fd < 0);
@@ -316,10 +302,9 @@ next_plugin(struct plugin_cycle *cycle)
 		return;
 	}
 
-	plugin_path = g_ptr_array_index(cycle->list->plugins,
-					cycle->next_plugin++);
-	ret = start_plugin(cycle, plugin_path);
-	if (ret < 0) {
+	const char *plugin_path = g_ptr_array_index(cycle->list->plugins,
+						    cycle->next_plugin++);
+	if (start_plugin(cycle, plugin_path) < 0) {
 		/* system error */
 		g_timeout_add(0, plugin_delayed_fail, cycle);
 		return;
@@ -330,13 +315,11 @@ static char **
 make_argv(const char*const* args)
 {
 	unsigned num = 0;
-	char **ret;
-
 	while (args[num] != NULL)
 		++num;
 	num += 2;
 
-	ret = g_new(char*, num);
+	char **ret = g_new(char *, num);
 
 	/* reserve space for the program name */
 	*ret++ = NULL;

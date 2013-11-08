@@ -72,9 +72,7 @@ static GList *color_definition_list = NULL;
 static color_entry_t *
 colors_lookup_by_name(const char *name)
 {
-	enum color i;
-
-	for (i = 1; i < COLOR_END; ++i)
+	for (enum color i = 1; i < COLOR_END; ++i)
 		if (!strcasecmp(colors[i].name, name))
 			return &colors[i];
 
@@ -84,12 +82,10 @@ colors_lookup_by_name(const char *name)
 static int
 colors_update_pair(enum color id)
 {
-	int fg, bg;
-
 	assert(id > 0 && id < COLOR_END);
 
-	fg = colors[id].color;
-	bg = colors[COLOR_BACKGROUND].color;
+	int fg = colors[id].color;
+	int bg = colors[COLOR_BACKGROUND].color;
 
 	/* If color == COLOR_NONE (negative),
 	 * pass -1 to avoid cast errors */
@@ -102,9 +98,9 @@ colors_update_pair(enum color id)
 int
 colors_str2color(const char *str)
 {
-	int i, color = 0;
+	int color = 0;
 	char **parts = g_strsplit(str, ",", 0);
-	for (i = 0; parts[i]; i++) {
+	for (int i = 0; parts[i]; i++) {
 		char *cur = parts[i];
 
 		/* Legacy colors (brightblue,etc) */
@@ -171,13 +167,13 @@ colors_str2color(const char *str)
 int
 colors_define(const char *name, short r, short g, short b)
 {
-	color_definition_entry_t *entry;
 	int color = colors_str2color(name);
 
 	if (color < 0)
 		return color;
 
-	entry = g_malloc(sizeof(color_definition_entry_t));
+	color_definition_entry_t *entry =
+		g_malloc(sizeof(color_definition_entry_t));
 	entry->color = color;
 	entry->r = r;
 	entry->g = g;
@@ -192,14 +188,14 @@ int
 colors_assign(const char *name, const char *value)
 {
 	color_entry_t *entry = colors_lookup_by_name(name);
-	int color;
 
 	if (!entry) {
 		fprintf(stderr,_("Warning: Unknown color field - %s\n"), name);
 		return -1;
 	}
 
-	if ((color = colors_str2color(value)) == COLOR_ERROR)
+	const int color = colors_str2color(value);
+	if (color == COLOR_ERROR)
 		return -1;
 
 	entry->color = color;
@@ -231,9 +227,7 @@ colors_start(void)
 				_("Terminal lacks support for changing colors"));
 
 		if (options.enable_colors) {
-			enum color i;
-
-			for (i = 1; i < COLOR_END; ++i)
+			for (enum color i = 1; i < COLOR_END; ++i)
 				/* update the color pairs */
 				colors_update_pair(i);
 		}
@@ -264,11 +258,11 @@ int
 colors_use(WINDOW *w, enum color id)
 {
 	color_entry_t *entry = &colors[id];
-	short pair;
-	attr_t attrs;
 
 	assert(id > 0 && id < COLOR_END);
 
+	attr_t attrs;
+	short pair;
 	fix_wattr_get(w, &attrs, &pair, NULL);
 
 #ifdef ENABLE_COLORS

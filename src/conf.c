@@ -124,20 +124,17 @@ parse_key_value(char *str, char **end)
 static int
 parse_key_definition(char *str)
 {
-	char buf[MAX_LINE_LENGTH];
-	char *p;
-	size_t len = strlen(str), i;
-	int j,key;
-	int keys[MAX_COMMAND_KEYS];
-	command_t cmd;
-
 	/* get the command name */
-	i=0;
-	j=0;
+	const size_t len = strlen(str);
+	size_t i = 0;
+	int j = 0;
+	char buf[MAX_LINE_LENGTH];
 	memset(buf, 0, MAX_LINE_LENGTH);
 	while (i < len && str[i] != '=' && !g_ascii_isspace(str[i]))
 		buf[j++] = str[i++];
-	if( (cmd=get_key_command_from_name(buf)) == CMD_NONE ) {
+
+	command_t cmd = get_key_command_from_name(buf);
+	if(cmd == CMD_NONE) {
 		/* the hotkey configuration contains an unknown
 		   command */
 		print_error(_("Unknown command"), buf);
@@ -159,8 +156,10 @@ parse_key_definition(char *str)
 
 	/* parse key values */
 	i = 0;
-	key = 0;
-	p = buf;
+	int key = 0;
+	char *p = buf;
+
+	int keys[MAX_COMMAND_KEYS];
 	memset(keys, 0, sizeof(int)*MAX_COMMAND_KEYS);
 	while (i < MAX_COMMAND_KEYS && *p != 0 &&
 	       (key = parse_key_value(p, &p)) >= 0) {
@@ -196,9 +195,7 @@ parse_timedisplay_type(const char *str)
 static char *
 separate_value(char *p)
 {
-	char *value;
-
-	value = strchr(p, '=');
+	char *value = strchr(p, '=');
 	if (value == NULL) {
 		/* an equals sign '=' was expected while parsing a
 		   configuration file line */
@@ -215,9 +212,7 @@ separate_value(char *p)
 static int
 parse_color(char *str)
 {
-	char *value;
-
-	value = separate_value(str);
+	char *value = separate_value(str);
 	if (value == NULL)
 		return -1;
 
@@ -247,23 +242,21 @@ after_comma(char *p)
 static int
 parse_color_definition(char *str)
 {
-	char buf[MAX_LINE_LENGTH];
-	char *value;
-	short color, rgb[3];
-
-	value = separate_value(str);
+	char *value = separate_value(str);
 	if (value == NULL)
 		return -1;
 
 	/* get the command name */
-	color = colors_str2color(str);
+	short color = colors_str2color(str);
 	if (color < 0) {
+		char buf[MAX_LINE_LENGTH];
 		print_error(_("Bad color name"), buf);
 		return -1;
 	}
 
 	/* parse r,g,b values */
 
+	short rgb[3];
 	for (unsigned i = 0; i < 3; ++i) {
 		char *next = after_comma(value), *endptr;
 		if (*value == 0) {
@@ -336,8 +329,7 @@ static int
 get_search_mode(char *value)
 {
 	char * test;
-	int mode;
-	mode= strtol(value, &test, 10);
+	const int mode = strtol(value, &test, 10);
 	if (*test == '\0')
 	{
 		if (0 <= mode && mode <= 4)
@@ -377,10 +369,9 @@ static bool
 parse_line(char *line)
 {
 	size_t len = strlen(line), i = 0, j = 0;
-	char name[MAX_LINE_LENGTH];
-	char value[MAX_LINE_LENGTH];
 
 	/* get the name part */
+	char name[MAX_LINE_LENGTH];
 	while (i < len && line[i] != '=' && !g_ascii_isspace(line[i]))
 		name[j++] = line[i++];
 
@@ -391,6 +382,7 @@ parse_line(char *line)
 		i++;
 
 	/* get the value part */
+	char value[MAX_LINE_LENGTH];
 	j = 0;
 	while (i < len)
 		value[j++] = line[i++];
@@ -568,15 +560,13 @@ read_rc_file(char *filename)
 {
 	assert(filename != NULL);
 
-	FILE *file;
-	char line[MAX_LINE_LENGTH];
-
-	file = fopen(filename, "r");
+	FILE *file = fopen(filename, "r");
 	if (file == NULL) {
-			perror(filename);
-			return -1;
-		}
+		perror(filename);
+		return -1;
+	}
 
+	char line[MAX_LINE_LENGTH];
 	while (fgets(line, sizeof(line), file) != NULL) {
 		char *p = g_strchug(line);
 
@@ -591,7 +581,6 @@ read_rc_file(char *filename)
 int
 check_user_conf_dir(void)
 {
-	int retval;
 	char *directory = g_build_filename(g_get_home_dir(), "." PACKAGE, NULL);
 
 	if (g_file_test(directory, G_FILE_TEST_IS_DIR)) {
@@ -599,7 +588,7 @@ check_user_conf_dir(void)
 		return 0;
 	}
 
-	retval = g_mkdir(directory, 0755);
+	int retval = g_mkdir(directory, 0755);
 	g_free(directory);
 	return retval;
 }

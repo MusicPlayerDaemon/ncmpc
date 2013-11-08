@@ -134,11 +134,9 @@ option_error(int error, const char *option, const char *arg)
 static void
 display_help(void)
 {
-	unsigned i;
-
 	printf("Usage: %s [OPTION]...\n", PACKAGE);
 
-	for (i = 0; i < option_table_size; ++i) {
+	for (unsigned i = 0; i < option_table_size; ++i) {
 		char tmp[32];
 
 		if (option_table[i].argument)
@@ -295,11 +293,10 @@ handle_option(int c, const char *arg)
 void
 options_parse(int argc, const char *argv[])
 {
-	int i;
 	const arg_opt_t *opt = NULL;
 	option_callback_fn_t option_cb = handle_option;
 
-	for (i = 1; i < argc; i++) {
+	for (int i = 1; i < argc; i++) {
 		const char *arg = argv[i];
 		size_t len = strlen(arg);
 
