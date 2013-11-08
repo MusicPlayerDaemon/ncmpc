@@ -25,6 +25,7 @@
 #include "colors.h"
 #include "screen_list.h"
 
+#include <assert.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <errno.h>
@@ -565,11 +566,10 @@ parse_line(char *line)
 static int
 read_rc_file(char *filename)
 {
+	assert(filename != NULL);
+
 	FILE *file;
 	char line[MAX_LINE_LENGTH];
-
-	if (filename == NULL)
-		return -1;
 
 	file = fopen(filename, "r");
 	if (file == NULL) {
