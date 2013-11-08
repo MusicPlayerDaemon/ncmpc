@@ -21,8 +21,7 @@
 #define CHARSET_H
 
 #include "config.h"
-
-#include <glib.h>
+#include "Compiler.h"
 
 #include <stdbool.h>
 
@@ -34,14 +33,14 @@ charset_init(void);
 /**
  * Returns the number of terminal cells occupied by this string.
  */
-G_GNUC_PURE
+gcc_pure
 unsigned
 utf8_width(const char *str);
 
 /**
  * Returns the number of terminal cells occupied by this string.
  */
-G_GNUC_PURE
+gcc_pure
 unsigned
 locale_width(const char *p);
 

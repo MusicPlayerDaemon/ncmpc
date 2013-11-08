@@ -2,6 +2,7 @@
 #define MPDCLIENT_H
 
 #include "playlist.h"
+#include "Compiler.h"
 
 #include <mpd/client.h>
 
@@ -84,14 +85,14 @@ mpdclient_new(void);
 
 void mpdclient_free(struct mpdclient *c);
 
-G_GNUC_PURE
+gcc_pure
 static inline bool
 mpdclient_is_connected(const struct mpdclient *c)
 {
 	return c->connection != NULL;
 }
 
-G_GNUC_PURE
+gcc_pure
 static inline bool
 mpdclient_is_playing(const struct mpdclient *c)
 {
@@ -100,7 +101,7 @@ mpdclient_is_playing(const struct mpdclient *c)
 		 mpd_status_get_state(c->status) == MPD_STATE_PAUSE);
 }
 
-G_GNUC_PURE
+gcc_pure
 static inline const struct mpd_song *
 mpdclient_get_current_song(const struct mpdclient *c)
 {
@@ -197,6 +198,7 @@ bool
 mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl);
 
 /* sort by list-format */
+gcc_pure
 gint compare_filelistentry_format(gconstpointer filelist_entry1, gconstpointer filelist_entry2);
 
 #endif

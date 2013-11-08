@@ -414,7 +414,7 @@ get_key_command_name(command_t command)
 }
 
 command_t
-get_key_command_from_name(char *name)
+get_key_command_from_name(const char *name)
 {
 	for (int i = 0; cmds[i].name; i++)
 		if (strcmp(name, cmds[i].name) == 0)
@@ -424,7 +424,7 @@ get_key_command_from_name(char *name)
 }
 
 command_t
-find_key_command(int key, command_definition_t *c)
+find_key_command(int key, const command_definition_t *c)
 {
 	assert(key != 0);
 	assert(c != NULL);

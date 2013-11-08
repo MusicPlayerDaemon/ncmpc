@@ -72,6 +72,7 @@ src_ncmpc_LDADD = \
 	$(LIBLIRCCLIENT_LIBS)
 
 src_ncmpc_SOURCES = \
+	src/Compiler.h \
 	$(ncmpc_headers) \
 	src/main.c \
 	src/gidle.c \

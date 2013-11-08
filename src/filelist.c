@@ -197,7 +197,7 @@ same_song(const struct mpd_song *a, const struct mpd_song *b)
 }
 
 int
-filelist_find_song(struct filelist *fl, const struct mpd_song *song)
+filelist_find_song(const struct filelist *fl, const struct mpd_song *song)
 {
 	guint i;
 
@@ -221,7 +221,7 @@ filelist_find_song(struct filelist *fl, const struct mpd_song *song)
 }
 
 int
-filelist_find_directory(struct filelist *filelist, const char *name)
+filelist_find_directory(const struct filelist *filelist, const char *name)
 {
 	guint i;
 

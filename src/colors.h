@@ -22,6 +22,7 @@
 
 #include "config.h"
 #include "ncmpc_curses.h"
+#include "Compiler.h"
 
 enum color {
 	COLOR_TITLE = 1,
@@ -41,6 +42,7 @@ enum color {
 	COLOR_END
 };
 
+gcc_pure
 int colors_str2color(const char *str);
 
 #ifdef ENABLE_COLORS

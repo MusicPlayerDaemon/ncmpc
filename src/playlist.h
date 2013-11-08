@@ -20,6 +20,8 @@
 #ifndef MPDCLIENT_PLAYLIST_H
 #define MPDCLIENT_PLAYLIST_H
 
+#include "Compiler.h"
+
 #include <mpd/client.h>
 
 #include <assert.h>
@@ -131,10 +133,12 @@ playlist_get_index_from_same_song(const struct mpdclient_playlist *playlist,
 	return playlist_get_index_from_file(playlist, mpd_song_get_uri(song));
 }
 
+gcc_pure
 gint
 playlist_get_id_from_uri(const struct mpdclient_playlist *playlist,
 			 const gchar *uri);
 
+gcc_pure
 static inline gint
 playlist_get_id_from_same_song(const struct mpdclient_playlist *playlist,
 			       const struct mpd_song *song)

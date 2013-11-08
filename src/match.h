@@ -21,6 +21,7 @@
 #define MATCH_H
 
 #include "config.h"
+#include "Compiler.h"
 
 #include <stdbool.h>
 
@@ -40,6 +41,7 @@ match_line(const char *line, const char *needle)
 GRegex *
 compile_regex(const char *src, bool anchor);
 
+gcc_pure
 bool
 match_regex(GRegex *regex, const char *line);
 
@@ -47,6 +49,7 @@ match_regex(GRegex *regex, const char *line);
  * Checks whether the specified line matches the search string.  Case
  * is ignored.
  */
+gcc_pure
 bool
 match_line(const char *line, const char *needle);
 

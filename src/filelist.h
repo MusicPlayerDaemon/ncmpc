@@ -20,6 +20,8 @@
 #ifndef FILELIST_H
 #define FILELIST_H
 
+#include "Compiler.h"
+
 #include <glib.h>
 
 struct mpd_connection;
@@ -53,6 +55,7 @@ filelist_is_empty(const struct filelist *filelist)
 	return filelist_length(filelist) == 0;
 }
 
+gcc_pure
 static inline struct filelist_entry *
 filelist_get(const struct filelist *filelist, guint i)
 {
@@ -65,6 +68,7 @@ filelist_append(struct filelist *filelist, struct mpd_entity *entity);
 void
 filelist_move(struct filelist *filelist, struct filelist *from);
 
+gcc_pure
 gint
 compare_filelist_entry_path(gconstpointer filelist_entry1,
 			    gconstpointer filelist_entry2);
@@ -84,11 +88,13 @@ filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func);
 void
 filelist_no_duplicates(struct filelist *filelist);
 
+gcc_pure
 int
-filelist_find_song(struct filelist *flist, const struct mpd_song *song);
+filelist_find_song(const struct filelist *flist, const struct mpd_song *song);
 
+gcc_pure
 int
-filelist_find_directory(struct filelist *filelist, const char *name);
+filelist_find_directory(const struct filelist *filelist, const char *name);
 
 /**
  * Receives entities from the connection, and appends them to the

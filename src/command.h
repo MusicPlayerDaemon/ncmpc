@@ -21,6 +21,7 @@
 #define COMMAND_H
 
 #include "config.h"
+#include "Compiler.h"
 
 #include <stddef.h>
 #include <stdbool.h>
@@ -131,7 +132,9 @@ command_definition_t *get_command_definitions(void);
 size_t get_cmds_max_name_width(command_definition_t *cmds);
 #endif
 
-command_t find_key_command(int key, command_definition_t *cmds);
+gcc_pure
+command_t
+find_key_command(int key, const command_definition_t *cmds);
 
 void command_dump_keys(void);
 
@@ -142,14 +145,28 @@ int write_key_bindings(FILE *f, int all);
 
 #endif
 
+gcc_pure
 const char *key2str(int key);
+
+gcc_pure
 const char *get_key_description(command_t command);
+
+gcc_pure
 const char *get_key_command_name(command_t command);
+
+gcc_pure
 const char *get_key_names(command_t command, bool all);
+
+gcc_pure
 command_t get_key_command(int key);
-command_t get_key_command_from_name(char *name);
+
+gcc_pure
+command_t
+get_key_command_from_name(const char *name);
+
 int assign_keys(command_t command, int keys[MAX_COMMAND_KEYS]);
 
+gcc_pure
 command_t get_keyboard_command(void);
 
 #endif
