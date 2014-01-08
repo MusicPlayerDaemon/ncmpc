@@ -53,6 +53,7 @@ static color_entry_t colors[COLOR_END] = {
 	[COLOR_TITLE_BOLD]   = {"title-bold",        COLOR_YELLOW | A_BOLD, A_BOLD  },
 	[COLOR_LINE]         = {"line",              COLOR_WHITE,           A_NORMAL},
 	[COLOR_LINE_BOLD]    = {"line-bold",         COLOR_WHITE  | A_BOLD, A_BOLD  },
+	[COLOR_LINE_FLAGS]   = {"line-flags",        COLOR_YELLOW,          A_NORMAL},
 	[COLOR_LIST]         = {"list",              COLOR_GREEN,           A_NORMAL},
 	[COLOR_LIST_BOLD]    = {"list-bold",         COLOR_GREEN  | A_BOLD, A_BOLD  },
 	[COLOR_PROGRESSBAR]  = {"progressbar",       COLOR_WHITE,           A_NORMAL},

@@ -2,6 +2,7 @@ ncmpc 0.22 - not yet released
 * rename "playlist" to "queue"
 * remove useless "Connected to ..." message
 * require libmpdclient 2.3, MPD 0.16
+* patched color line-flags
 
 
 ncmpc 0.21 - (2013-04-11)

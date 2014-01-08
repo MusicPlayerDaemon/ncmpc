@@ -125,7 +125,7 @@ title_bar_paint(const struct title_bar *p, const char *title,
 	if (flags[0]) {
 		wmove(w, 1, p->window.cols - strlen(flags) - 3);
 		waddch(w, '[');
-		colors_use(w, COLOR_LINE_BOLD);
+		colors_use(w, COLOR_LINE_FLAGS);
 		waddstr(w, flags);
 		colors_use(w, COLOR_LINE);
 		waddch(w, ']');
