@@ -170,7 +170,8 @@ set_xterm_title(const char *format, ...)
 			va_start(ap,format);
 			char *msg = g_strdup_vprintf(format,ap);
 			va_end(ap);
-			printf("%c]0;%s%c", '\033', msg, '\007');
+			printf("\033]0;%s\033\\", msg);
+			fflush(stdout);
 			g_free(msg);
 		} else
 			options.enable_xterm_title = FALSE;
