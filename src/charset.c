@@ -96,7 +96,8 @@ locale_width(const char *p)
 #endif
 }
 
-static inline unsigned
+gcc_unused
+static unsigned
 ascii_cut_width(char *p, unsigned max_width)
 {
 	size_t length = strlen(p);
@@ -107,7 +108,8 @@ ascii_cut_width(char *p, unsigned max_width)
 	return max_width;
 }
 
-static inline unsigned
+gcc_unused
+static unsigned
 narrow_cut_width(char *p, unsigned max_width)
 {
 	size_t length = g_utf8_strlen(p, -1);
@@ -118,7 +120,8 @@ narrow_cut_width(char *p, unsigned max_width)
 	return max_width;
 }
 
-static inline unsigned
+gcc_unused
+static unsigned
 wide_cut_width(char *p, unsigned max_width)
 {
 	size_t length = g_utf8_strlen(p, -1);
