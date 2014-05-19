@@ -34,11 +34,11 @@
 void
 paint_song_row(WINDOW *w, gcc_unused unsigned y, unsigned width,
 	       bool selected, bool highlight, const struct mpd_song *song,
-	       gcc_unused struct hscroll *hscroll)
+	       gcc_unused struct hscroll *hscroll, const char *format)
 {
 	char buffer[width * 4];
 
-	strfsong(buffer, sizeof(buffer), options.list_format, song);
+	strfsong(buffer, sizeof(buffer), format, song);
 	row_paint_text(w, width, highlight ? COLOR_LIST_BOLD : COLOR_LIST,
 		       selected, buffer);
 

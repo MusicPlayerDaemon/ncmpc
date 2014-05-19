@@ -39,10 +39,11 @@ struct hscroll;
  * @param highlight true if the row is highlighted
  * @param song the song object
  * @param hscroll an optional hscroll object
+ * @param format the song format
  */
 void
 paint_song_row(WINDOW *w, unsigned y, unsigned width,
 	       bool selected, bool highlight, const struct mpd_song *song,
-	       struct hscroll *hscroll);
+	       struct hscroll *hscroll, const char *format);
 
 #endif

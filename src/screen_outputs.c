@@ -174,7 +174,7 @@ outputs_title(gcc_unused char *str, gcc_unused size_t size)
 static void
 screen_outputs_paint_callback(WINDOW *w, unsigned i,
 			      gcc_unused unsigned y, unsigned width,
-			      bool selected, gcc_unused void *data)
+			      bool selected, gcc_unused const void *data)
 {
 	const struct mpd_output *output;
 

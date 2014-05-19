@@ -79,6 +79,9 @@
 ## The format used to display songs in the main window.
 #list-format = "%name%|[%artist% - ]%title%|%file%"
 
+## The format used to display songs in the search window.
+#search-format = "%name%|[%artist% - ]%title%|%file%"
+
 ## The format used to display songs on the status line.
 #status-format = "[%artist% - ]%title%|%shortfile%"
 

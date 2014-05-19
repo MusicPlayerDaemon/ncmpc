@@ -352,6 +352,11 @@ static void
 screen_search_init(WINDOW *w, int cols, int rows)
 {
 	browser.lw = list_window_init(w, cols, rows);
+	if (options.search_format != NULL) {
+		browser.song_format = options.search_format;
+	} else {
+		browser.song_format = options.list_format;
+	}
 	list_window_set_length(browser.lw, G_N_ELEMENTS(help_text));
 }
 

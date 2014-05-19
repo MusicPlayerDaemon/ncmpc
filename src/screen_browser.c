@@ -378,7 +378,7 @@ browser_handle_mouse_event(struct screen_browser *browser, struct mpdclient *c)
 
 static void
 screen_browser_paint_callback(WINDOW *w, unsigned i, unsigned y,
-			      unsigned width, bool selected, void *data);
+			      unsigned width, bool selected, const void *data);
 
 bool
 browser_cmd(struct screen_browser *browser,
@@ -503,14 +503,15 @@ screen_browser_paint_playlist(WINDOW *w, unsigned width,
 static void
 screen_browser_paint_callback(WINDOW *w, unsigned i,
 			      unsigned y, unsigned width,
-			      bool selected, void *data)
+			      bool selected, const void *data)
 {
-	const struct filelist *fl = (const struct filelist *) data;
+	const struct screen_browser *browser = (const struct screen_browser *) data;
 
-	assert(fl != NULL);
-	assert(i < filelist_length(fl));
+	assert(browser != NULL);
+	assert(browser->filelist != NULL);
+	assert(i < filelist_length(browser->filelist));
 
-	const struct filelist_entry *entry = filelist_get(fl, i);
+	const struct filelist_entry *entry = filelist_get(browser->filelist, i);
 	assert(entry != NULL);
 
 	const struct mpd_entity *entity = entry->entity;
@@ -539,7 +540,7 @@ screen_browser_paint_callback(WINDOW *w, unsigned i,
 
 	case MPD_ENTITY_TYPE_SONG:
 		paint_song_row(w, y, width, selected, highlight,
-			       mpd_entity_get_song(entity), NULL);
+			       mpd_entity_get_song(entity), NULL, browser->song_format);
 		break;
 
 	case MPD_ENTITY_TYPE_PLAYLIST:
@@ -559,5 +560,5 @@ void
 screen_browser_paint(const struct screen_browser *browser)
 {
 	list_window_paint2(browser->lw, screen_browser_paint_callback,
-			   browser->filelist);
+			   browser);
 }

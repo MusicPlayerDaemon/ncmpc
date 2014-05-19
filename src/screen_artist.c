@@ -28,6 +28,7 @@
 #include "mpdclient.h"
 #include "screen_browser.h"
 #include "filelist.h"
+#include "options.h"
 
 #include <assert.h>
 #include <string.h>
@@ -301,6 +302,7 @@ static void
 screen_artist_init(WINDOW *w, int cols, int rows)
 {
 	browser.lw = list_window_init(w, cols, rows);
+	browser.song_format = options.list_format;
 	artist = NULL;
 	album = NULL;
 }
@@ -332,9 +334,9 @@ screen_artist_resize(int cols, int rows)
 static void
 paint_artist_callback(WINDOW *w, unsigned i,
 		      gcc_unused unsigned y, unsigned width,
-		      bool selected, void *data)
+		      bool selected, const void *data)
 {
-	GPtrArray *list = data;
+	const GPtrArray *list = data;
 	char *p = utf8_to_locale(g_ptr_array_index(list, i));
 
 	screen_browser_paint_directory(w, width, selected, p);
@@ -350,9 +352,9 @@ paint_artist_callback(WINDOW *w, unsigned i,
 static void
 paint_album_callback(WINDOW *w, unsigned i,
 		     gcc_unused unsigned y, unsigned width,
-		     bool selected, void *data)
+		     bool selected, const void *data)
 {
-	GPtrArray *list = data;
+	const GPtrArray *list = data;
 	const char *p;
 	char *q = NULL;
 

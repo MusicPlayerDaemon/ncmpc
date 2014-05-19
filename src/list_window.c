@@ -380,7 +380,7 @@ list_window_paint(const struct list_window *lw,
 void
 list_window_paint2(const struct list_window *lw,
 		   list_window_paint_callback_t paint_callback,
-		   void *callback_data)
+		   const void *callback_data)
 {
 	bool show_cursor = !lw->hide_cursor &&
 		(!options.hardware_cursor || lw->range_selection);

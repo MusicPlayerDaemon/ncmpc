@@ -504,7 +504,7 @@ screen_queue_title(char *str, size_t size)
 static void
 screen_queue_paint_callback(WINDOW *w, unsigned i,
 			    unsigned y, unsigned width,
-			    bool selected, gcc_unused void *data)
+			    bool selected, gcc_unused const void *data)
 {
 	assert(playlist != NULL);
 	assert(i < playlist_length(playlist));
@@ -519,7 +519,7 @@ screen_queue_paint_callback(WINDOW *w, unsigned i,
 
 	paint_song_row(w, y, width, selected,
 		       (int)mpd_song_get_id(song) == current_song_id,
-		       song, row_hscroll);
+		       song, row_hscroll, options.list_format);
 }
 
 static void

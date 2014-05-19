@@ -48,6 +48,7 @@
 #define CONF_COLOR "color"
 #define CONF_COLOR_DEFINITION "colordef"
 #define CONF_LIST_FORMAT "list-format"
+#define CONF_SEARCH_FORMAT "search-format"
 #define CONF_STATUS_FORMAT "status-format"
 #define CONF_XTERM_TITLE_FORMAT "xterm-title-format"
 #define CONF_LIST_WRAP "wrap-around"
@@ -435,6 +436,10 @@ parse_line(char *line)
 	else if (!strcasecmp(CONF_LIST_FORMAT, name)) {
 		g_free(options.list_format);
 		options.list_format = get_format(value);
+		/* search format string */
+	} else if (!strcasecmp(CONF_SEARCH_FORMAT, name)) {
+		g_free(options.search_format);
+		options.search_format = get_format(value);
 		/* status format string */
 	} else if (!strcasecmp(CONF_STATUS_FORMAT, name)) {
 		g_free(options.status_format);

@@ -30,6 +30,7 @@
 #include "filelist.h"
 #include "screen_utils.h"
 #include "screen_client.h"
+#include "options.h"
 
 #include <mpd/client.h>
 
@@ -249,6 +250,7 @@ screen_file_init(WINDOW *w, int cols, int rows)
 	current_path = g_strdup("");
 
 	browser.lw = list_window_init(w, cols, rows);
+	browser.song_format = options.list_format;
 }
 
 static void

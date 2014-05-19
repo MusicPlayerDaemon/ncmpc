@@ -378,6 +378,7 @@ options_init(void)
 {
 	/* default option values */
 	options.list_format = g_strdup(DEFAULT_LIST_FORMAT);
+	options.search_format = NULL;
 	options.status_format = g_strdup(DEFAULT_STATUS_FORMAT);
 	options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
 #ifndef NCMPC_MINI
@@ -397,6 +398,7 @@ options_deinit(void)
 	g_free(options.config_file);
 	g_free(options.key_file);
 	g_free(options.list_format);
+	g_free(options.search_format);
 	g_free(options.status_format);
 	g_strfreev(options.screen_list);
 #ifndef NCMPC_MINI
