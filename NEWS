@@ -5,6 +5,7 @@ ncmpc 0.22 - not yet released
 * patched color line-flags
 * configuration option "search-format"
 * remove broken leoslyrics plugin
+* show audio format in song screen
 
 
 ncmpc 0.21 - (2013-04-11)

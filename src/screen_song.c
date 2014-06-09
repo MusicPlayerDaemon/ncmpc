@@ -38,6 +38,7 @@ enum {
 	LABEL_LENGTH = MPD_TAG_COUNT,
 	LABEL_PATH,
 	LABEL_BITRATE,
+	LABEL_FORMAT,
 	LABEL_POSITION,
 };
 
@@ -56,6 +57,7 @@ static const char *const tag_labels[] = {
 	[MPD_TAG_COMMENT] = N_("Comment"),
 	[LABEL_PATH] = N_("Path"),
 	[LABEL_BITRATE] = N_("Bitrate"),
+	[LABEL_FORMAT] = N_("Format"),
 };
 
 static unsigned max_tag_label_width;
@@ -320,6 +322,16 @@ screen_song_add_song(const struct mpd_song *song, const struct mpdclient *c)
 			   mpd_status_get_kbit_rate(c->status));
 		screen_song_append(_(tag_labels[LABEL_BITRATE]), buf,
 				   max_tag_label_width);
+
+		const struct mpd_audio_format *format =
+			mpd_status_get_audio_format(c->status);
+		if (format) {
+			g_snprintf(buf, sizeof(buf), _("%u:%u:%u"),
+				   format->sample_rate, format->bits,
+				   format->channels);
+			screen_song_append(_(tag_labels[LABEL_FORMAT]), buf,
+					   max_tag_label_width);
+		}
 	}
 }
 
