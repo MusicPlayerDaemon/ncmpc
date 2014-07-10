@@ -28,7 +28,7 @@ dnl initialize variables
 dnl =======================================================
 
 dnl i18n
-ALL_LINGUAS=`grep -v '^\#' po/LINGUAS`
+ALL_LINGUAS=`grep -v '^\#' $srcdir/po/LINGUAS`
 
 set -- $CFLAGS
 
