@@ -1,3 +1,6 @@
+ncmpc 0.23 - not yet released
+
+
 ncmpc 0.22 - (2014-06-09)
 * rename "playlist" to "queue"
 * remove useless "Connected to ..." message
