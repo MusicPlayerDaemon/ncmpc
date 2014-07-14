@@ -17,7 +17,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-int check_user_conf_dir(void);
+#include <stdbool.h>
+
+bool
+check_user_conf_dir(void);
 
 char *build_user_conf_filename(void);
 char *build_system_conf_filename(void);
