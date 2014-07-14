@@ -25,6 +25,7 @@
 #include "conf.h"
 #include "screen.h"
 #include "screen_utils.h"
+#include "options.h"
 #include "Compiler.h"
 
 #include <assert.h>
@@ -145,19 +146,24 @@ apply_keys(void)
 static int
 save_keys(void)
 {
-	if (!check_user_conf_dir()) {
-		screen_status_printf(_("Error: Unable to create directory ~/.ncmpc - %s"),
-				     strerror(errno));
-		screen_bell();
-		return -1;
+	char *allocated = NULL;
+	const char *filename = options.key_file;
+	if (filename == NULL) {
+		if (!check_user_conf_dir()) {
+			screen_status_printf(_("Error: Unable to create directory ~/.ncmpc - %s"),
+					     strerror(errno));
+			screen_bell();
+			return -1;
+		}
+
+		filename = allocated = build_user_key_binding_filename();
 	}
 
-	char *filename = build_user_key_binding_filename();
 	FILE *f = fopen(filename, "w");
 	if (f == NULL) {
 		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
 		screen_bell();
-		g_free(filename);
+		g_free(allocated);
 		return -1;
 	}
 
@@ -166,7 +172,7 @@ save_keys(void)
 	else
 		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
 
-	g_free(filename);
+	g_free(allocated);
 	return fclose(f);
 }
 
