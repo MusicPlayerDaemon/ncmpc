@@ -93,9 +93,9 @@ screen_find(struct list_window *lw, command_t findcmd,
  * which begins with this string while the users types */
 void
 screen_jump(struct list_window *lw,
-		list_window_callback_fn_t callback_fn,
+	    list_window_callback_fn_t callback_fn,
 	    list_window_paint_callback_t paint_callback,
-		void *callback_data)
+	    void *callback_data)
 {
 	const int WRLN_MAX_LINE_SIZE = 1024;
 	int key = 65;
