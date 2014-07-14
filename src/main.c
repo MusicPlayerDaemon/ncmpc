@@ -74,10 +74,8 @@ static guint check_key_bindings_source_id;
 static void
 update_xterm_title(void)
 {
-	static char title[BUFSIZE];
 	struct mpd_status *status = NULL;
 	const struct mpd_song *song = NULL;
-
 	if (mpd) {
 		status = mpd->status;
 		song = mpd->song;
@@ -90,6 +88,7 @@ update_xterm_title(void)
 	else
 		g_strlcpy(tmp, PACKAGE " version " VERSION, BUFSIZE);
 
+	static char title[BUFSIZE];
 	if (strncmp(title, tmp, BUFSIZE)) {
 		g_strlcpy(title, tmp, BUFSIZE);
 		set_xterm_title("%s", title);
@@ -368,8 +367,6 @@ idle_callback(enum mpd_error error, enum mpd_server_error server_error,
 	assert(mpdclient_is_connected(c));
 
 	if (error != MPD_ERROR_SUCCESS) {
-		char *allocated;
-
 		if (error == MPD_ERROR_SERVER &&
 		    server_error == MPD_SERVER_ERROR_UNKNOWN_CMD) {
 			/* the "idle" command is not supported - fall
@@ -380,6 +377,7 @@ idle_callback(enum mpd_error error, enum mpd_server_error server_error,
 			return;
 		}
 
+		char *allocated;
 		if (error == MPD_ERROR_SERVER)
 			message = allocated = utf8_to_locale(message);
 		else
@@ -480,9 +478,6 @@ static gboolean
 timer_check_key_bindings(gcc_unused gpointer data)
 {
 	char buf[256];
-#ifdef ENABLE_KEYDEF_SCREEN
-	char comment[64];
-#endif
 
 	if (check_key_bindings(NULL, buf, sizeof(buf))) {
 		/* no error: disable this timer for the rest of this
@@ -497,6 +492,7 @@ timer_check_key_bindings(gcc_unused gpointer data)
 	/* to translators: a key was bound twice in the key editor,
 	   and this is a hint for the user what to press to correct
 	   that */
+	char comment[64];
 	g_snprintf(comment, sizeof(comment), _("press %s for the key editor"),
 		   get_key_names(CMD_SCREEN_KEYDEF, false));
 	g_strlcat(buf, comment, sizeof(buf));
