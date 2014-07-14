@@ -122,7 +122,7 @@ parse_key_value(char *str, char **end)
 	}
 }
 
-static int
+static bool
 parse_key_definition(char *str)
 {
 	/* get the command name */
@@ -139,7 +139,7 @@ parse_key_definition(char *str)
 		/* the hotkey configuration contains an unknown
 		   command */
 		print_error(_("Unknown command"), buf);
-		return -1;
+		return false;
 	}
 
 	/* skip whitespace */
@@ -152,7 +152,7 @@ parse_key_definition(char *str)
 	if (*buf == 0) {
 		/* the hotkey configuration line is incomplete */
 		print_error(_("Incomplete hotkey configuration"), str);
-		return -1;
+		return false;
 	}
 
 	/* parse key values */
@@ -170,7 +170,7 @@ parse_key_definition(char *str)
 	}
 
 	if (key < 0)
-		return -1;
+		return false;
 
 	return assign_keys(cmd, keys);
 }

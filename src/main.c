@@ -483,10 +483,8 @@ timer_check_key_bindings(gcc_unused gpointer data)
 #ifdef ENABLE_KEYDEF_SCREEN
 	char comment[64];
 #endif
-	gboolean key_error;
 
-	key_error = check_key_bindings(NULL, buf, sizeof(buf));
-	if (!key_error) {
+	if (check_key_bindings(NULL, buf, sizeof(buf))) {
 		/* no error: disable this timer for the rest of this
 		   process */
 		check_key_bindings_source_id = 0;

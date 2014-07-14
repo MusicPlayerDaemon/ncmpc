@@ -140,8 +140,17 @@ void command_dump_keys(void);
 
 #ifndef NCMPC_MINI
 
-int check_key_bindings(command_definition_t *cmds, char *buf, size_t size);
-int write_key_bindings(FILE *f, int all);
+/**
+ * @return true on success, false on error
+ */
+bool
+check_key_bindings(command_definition_t *cmds, char *buf, size_t size);
+
+/**
+ * @return true on success, false on error
+ */
+bool
+write_key_bindings(FILE *f, int all);
 
 #endif
 
@@ -164,7 +173,11 @@ gcc_pure
 command_t
 get_key_command_from_name(const char *name);
 
-int assign_keys(command_t command, int keys[MAX_COMMAND_KEYS]);
+/**
+ * @return true on success, false on error
+ */
+bool
+assign_keys(command_t command, int keys[MAX_COMMAND_KEYS]);
 
 gcc_pure
 command_t get_keyboard_command(void);

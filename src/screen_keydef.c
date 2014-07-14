@@ -162,9 +162,9 @@ save_keys(void)
 	}
 
 	if (write_key_bindings(f, KEYDEF_WRITE_HEADER))
-		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
-	else
 		screen_status_printf(_("Wrote %s"), filename);
+	else
+		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
 
 	g_free(filename);
 	return fclose(f);

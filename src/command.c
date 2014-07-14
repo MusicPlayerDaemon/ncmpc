@@ -453,7 +453,7 @@ get_keyboard_command(void)
 	return get_key_command(key);
 }
 
-int
+bool
 assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
 {
 	for (size_t i = 0; cmds[i].name; i++) {
@@ -462,19 +462,19 @@ assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
 #ifndef NCMPC_MINI
 			cmds[i].flags |= COMMAND_KEY_MODIFIED;
 #endif
-			return 0;
+			return true;
 		}
 	}
 
-	return -1;
+	return false;
 }
 
 #ifndef NCMPC_MINI
 
-int
+bool
 check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 {
-	int retval = 0;
+	bool success = true;
 
 	if (cp == NULL)
 		cp = cmds;
@@ -505,15 +505,15 @@ check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 				}
 				cp[i].flags |= COMMAND_KEY_CONFLICT;
 				set_key_flags(cp, cmd, COMMAND_KEY_CONFLICT);
-				retval = -1;
+				success = false;
 			}
 		}
 	}
 
-	return retval;
+	return success;
 }
 
-int
+bool
 write_key_bindings(FILE *f, int flags)
 {
 	if (flags & KEYDEF_WRITE_HEADER)
@@ -541,7 +541,7 @@ write_key_bindings(FILE *f, int flags)
 		}
 	}
 
-	return ferror(f);
+	return ferror(f) == 0;
 }
 
 #endif /* NCMPC_MINI */
