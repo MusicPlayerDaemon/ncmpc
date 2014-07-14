@@ -1,4 +1,4 @@
-ncmpc 0.24 - not yet released
+ncmpc 0.24 - (2014-07-14)
 * fix crash on "jump" (hotkey ".")
 * save keys to path specified by --key-file
 
