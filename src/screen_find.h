@@ -42,8 +42,7 @@ screen_find(struct list_window *lw,
  * which begins with this string while the users types */
 void
 screen_jump(struct list_window *lw,
-	    list_window_callback_fn_t callback_fn,
-	    list_window_paint_callback_t paint_callback,
-	    void *callback_data);
+	    list_window_callback_fn_t callback_fn, void *callback_data,
+	    list_window_paint_callback_t paint_callback, void *paint_data);
 
 #endif

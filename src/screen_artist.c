@@ -717,13 +717,15 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_LIST_JUMP:
 		switch (mode) {
 		case LIST_ARTISTS:
-			screen_jump(browser.lw, screen_artist_lw_callback,
+			screen_jump(browser.lw,
+				    screen_artist_lw_callback, artist_list,
 				    paint_artist_callback, artist_list);
 			artist_repaint();
 			return true;
 
 		case LIST_ALBUMS:
-			screen_jump(browser.lw, screen_artist_lw_callback,
+			screen_jump(browser.lw,
+				    screen_artist_lw_callback, album_list,
 				    paint_album_callback, album_list);
 			artist_repaint();
 			return true;

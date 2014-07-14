@@ -644,7 +644,7 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 		screen_queue_repaint();
 		return true;
 	case CMD_LIST_JUMP:
-		screen_jump(lw, screen_queue_lw_callback, NULL, NULL);
+		screen_jump(lw, screen_queue_lw_callback, NULL, NULL, NULL);
 		screen_queue_save_selection();
 		screen_queue_repaint();
 		return true;
