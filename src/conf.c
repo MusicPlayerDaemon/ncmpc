@@ -617,7 +617,6 @@ build_system_conf_filename(void)
 
 	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != NULL; system_data_dirs++)
 	{
-		g_message (*system_data_dirs);
 		pathname = g_build_filename(*system_data_dirs, PACKAGE, "ncmpc.conf", NULL);
 		if (g_file_test(pathname, G_FILE_TEST_EXISTS))
 		{
@@ -654,7 +653,6 @@ g_build_system_key_binding_filename(void)
 
 	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != NULL; system_data_dirs++)
 	{
-		g_message (*system_data_dirs);
 		pathname = g_build_filename(*system_data_dirs, PACKAGE, "keys.conf", NULL);
 		if (g_file_test(pathname, G_FILE_TEST_EXISTS))
 		{
