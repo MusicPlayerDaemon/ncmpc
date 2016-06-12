@@ -49,11 +49,6 @@ if not response =~ /<div class='lyricbox'>\s*(.*?)\s*<!--/im
 	exit(1)
 end
 
-if not $1 =~ /^.*<\/script>(.*?)$/im
-	$stderr.puts "Couldn't remove leading XML tags in lyricbox!\n"
-	exit(1)
-end
-
 lyrics = $1.gsub(/<br \/>/, "\n")
 
 if lyrics.respond_to?(:force_encoding)
