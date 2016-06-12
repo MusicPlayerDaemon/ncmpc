@@ -22,7 +22,7 @@
 #
 
 require 'uri'
-require 'net/http'
+require 'open-uri'
 require 'cgi'
 
 # We need this because URI.escape doesn't escape ampersands.
@@ -33,7 +33,7 @@ end
 
 url = "http://lyrics.wikia.com/api.php?action=lyrics&fmt=xml&func=getSong" + \
     "&artist=#{escape(ARGV[0])}&song=#{escape(ARGV[1])}"
-response = Net::HTTP.get(URI.parse(url))
+response = open(URI.parse(url)).read
 
 if not response =~ /<url>\s*(.*?)\s*<\/url>/im
 	$stderr.puts "No URL in response!"
@@ -43,7 +43,7 @@ end
 url = $1
 exit(69) if url =~ /action=edit$/
 
-response = Net::HTTP.get(URI.parse(url))
+response = open(URI.parse(url)).read
 if not response =~ /<div class='lyricbox'>\s*(.*?)\s*<!--/im
 	$stderr.puts "No <div class='lyricbox'> in lyrics page!\n"
 	exit(1)
