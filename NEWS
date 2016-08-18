@@ -1,4 +1,5 @@
 ncmpc 0.25 - not yet released
+* implement "%disc%"
 * lyricswiki: handle redirects
 * lyricswiki: update XML format
 

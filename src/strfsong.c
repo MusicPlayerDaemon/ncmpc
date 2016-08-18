@@ -232,6 +232,8 @@ _strfsong(gchar *s,
 		}
 		else if (strncmp("%track%", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_TRACK);
+		else if (strncmp("%disc%", p, n) == 0)
+			temp = song_tag_locale(song, MPD_TAG_DISC);
 		else if (strncmp("%name%", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_NAME);
 		else if (strncmp("%date%", p, n) == 0)
