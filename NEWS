@@ -1,5 +1,5 @@
 ncmpc 0.26 - not yet released
-
+* adapt to lirc 0.9.4
 
 ncmpc 0.25 - (2016-08-18)
 * implement "%disc%"

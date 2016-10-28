@@ -184,8 +184,12 @@ AC_ARG_ENABLE([lirc],
 		[Enable LIRC support]),,
 	[enable_lirc=no])
 if test x$enable_lirc = xyes; then
-	PKG_CHECK_MODULES([LIBLIRCCLIENT], [liblircclient0],,
-		[AC_MSG_ERROR([liblircclient0 not found])])
+	PKG_CHECK_MODULES([LIBLIRCCLIENT], [lirc],,
+		[PKG_CHECK_MODULES([LIBLIRCCLIENT], [liblircclient0],,
+			[AC_MSG_ERROR([lirc not found])]
+		)]
+	)
+
 	AC_DEFINE([ENABLE_LIRC], [1], [Enable LIRC support])
 fi
 
