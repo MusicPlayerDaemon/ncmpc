@@ -44,7 +44,7 @@ url = $1
 exit(69) if url =~ /action=edit$/
 
 response = open(URI.parse(url)).read
-if not response =~ /<div class='lyricbox'>\s*(.*?)\s*<!--/im
+if not response =~ /<div class='lyricbox'>\s*(.*?)\s*<div class='lyricsbreak'>/im
 	$stderr.puts "No <div class='lyricbox'> in lyrics page!\n"
 	exit(1)
 end
