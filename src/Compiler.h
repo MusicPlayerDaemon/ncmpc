@@ -38,6 +38,14 @@
 #  define CLANG_VERSION 0
 #endif
 
+/**
+ * Are we building with gcc (not clang or any other compiler) and a
+ * version older than the specified one?
+ */
+#define GCC_OLDER_THAN(major, minor) \
+  (GCC_VERSION && !CLANG_VERSION && \
+   GCC_VERSION < GCC_MAKE_VERSION(major, minor, 0))
+
 #if GCC_CHECK_VERSION(4,0)
 
 /* GCC 4.x */
@@ -132,7 +140,7 @@
 #if defined(__cplusplus)
 
 /* support for C++11 "override" was added in gcc 4.7 */
-#if !defined(__clang__) && !GCC_CHECK_VERSION(4,7)
+#if GCC_OLDER_THAN(4,7)
 #define override
 #define final
 #endif
