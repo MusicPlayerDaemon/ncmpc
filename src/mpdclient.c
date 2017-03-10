@@ -599,7 +599,6 @@ mpdclient_cmd_move(struct mpdclient *c, unsigned dest_pos, unsigned src_pos)
 	return true;
 }
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,5,0)
 /* The client-to-client protocol (MPD 0.17.0) */
 
 bool
@@ -668,7 +667,6 @@ mpdclient_recv_message(struct mpdclient *c)
 
 	return message;
 }
-#endif
 
 /****************************************************************************/
 /*** Playlist management functions ******************************************/

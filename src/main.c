@@ -234,8 +234,6 @@ do_mpd_update(void)
 	check_reconnect();
 }
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,4,0)
-
 static char *
 settings_name(const struct mpd_settings *settings)
 {
@@ -253,12 +251,9 @@ settings_name(const struct mpd_settings *settings)
 	return g_strdup_printf("%s:%u", host, port);
 }
 
-#endif
-
 static char *
 default_settings_name(void)
 {
-#if LIBMPDCLIENT_CHECK_VERSION(2,4,0)
 	struct mpd_settings *settings =
 		mpd_settings_new(options.host, options.port, 0,
 				 NULL, options.password);
@@ -269,14 +264,6 @@ default_settings_name(void)
 	mpd_settings_free(settings);
 
 	return name;
-#else
-	/*
-	 * localhost is actually not correct, we only know that
-	 * mpd_connection_new() has connected to the "default host".
-	 */
-	const char *name = options.host ?: "localhost";
-	return g_strdup(name);
-#endif
 }
 
 /**

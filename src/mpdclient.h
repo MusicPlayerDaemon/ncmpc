@@ -61,11 +61,9 @@ enum {
 		| MPD_IDLE_OUTPUT
 		| MPD_IDLE_OPTIONS
 		| MPD_IDLE_UPDATE
-#if LIBMPDCLIENT_CHECK_VERSION(2,5,0)
 		| MPD_IDLE_STICKER
 		| MPD_IDLE_SUBSCRIPTION
 		| MPD_IDLE_MESSAGE
-#endif
 };
 
 /** functions ***************************************************************/
@@ -165,7 +163,6 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end);
 bool
 mpdclient_cmd_move(struct mpdclient *c, unsigned dest, unsigned src);
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,5,0)
 bool
 mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel);
 
@@ -181,7 +178,6 @@ mpdclient_send_read_messages(struct mpdclient *c);
 
 struct mpd_message *
 mpdclient_recv_message(struct mpdclient *c);
-#endif
 
 /*** playlist functions  **************************************************/
 
