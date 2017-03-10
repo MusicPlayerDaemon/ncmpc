@@ -366,6 +366,15 @@ screen_song_add_stats(struct mpd_connection *connection)
 }
 
 static void
+audio_format_to_string(char *buffer, size_t size,
+		       const struct mpd_audio_format *format)
+{
+	g_snprintf(buffer, size, _("%u:%u:%u"),
+		   format->sample_rate, format->bits,
+		   format->channels);
+}
+
+static void
 screen_song_update(struct mpdclient *c)
 {
 	/* Clear all lines */
@@ -410,9 +419,7 @@ screen_song_update(struct mpdclient *c)
 			mpd_status_get_audio_format(c->status);
 		if (format) {
 			char buf[32];
-			g_snprintf(buf, sizeof(buf), _("%u:%u:%u"),
-				   format->sample_rate, format->bits,
-				   format->channels);
+			audio_format_to_string(buf, sizeof(buf), format);
 			screen_song_append(_(tag_labels[LABEL_FORMAT]), buf,
 					   max_tag_label_width);
 		}
