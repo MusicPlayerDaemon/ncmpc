@@ -369,6 +369,22 @@ static void
 audio_format_to_string(char *buffer, size_t size,
 		       const struct mpd_audio_format *format)
 {
+#if LIBMPDCLIENT_CHECK_VERSION(2,10,0)
+	if (format->bits == MPD_SAMPLE_FORMAT_FLOAT) {
+		g_snprintf(buffer, size, _("%u:f:%u"),
+			   format->sample_rate,
+			   format->channels);
+		return;
+	}
+
+	if (format->bits == MPD_SAMPLE_FORMAT_DSD) {
+		g_snprintf(buffer, size, _("%u:dsd:%u"),
+			   format->sample_rate,
+			   format->channels);
+		return;
+	}
+#endif
+
 	g_snprintf(buffer, size, _("%u:%u:%u"),
 		   format->sample_rate, format->bits,
 		   format->channels);
