@@ -20,10 +20,6 @@
 #ifndef COMPILER_H
 #define COMPILER_H
 
-#define GCC_CHECK_VERSION(major, minor) \
-  (defined(__GNUC__) &&                                                 \
-   (__GNUC__ > (major) || (__GNUC__ == (major) && __GNUC_MINOR__ >= (minor))))
-
 #define GCC_MAKE_VERSION(major, minor, patchlevel) ((major) * 10000 + (minor) * 100 + patchlevel)
 
 #ifdef __GNUC__
@@ -37,6 +33,9 @@
 #else
 #  define CLANG_VERSION 0
 #endif
+
+#define GCC_CHECK_VERSION(major, minor) \
+  (GCC_VERSION >= GCC_MAKE_VERSION(major, minor, 0))
 
 /**
  * Are we building with clang (any version) or at least the specified
