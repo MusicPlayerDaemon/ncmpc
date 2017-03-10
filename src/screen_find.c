@@ -49,8 +49,8 @@ screen_find(struct list_window *lw, command_t findcmd,
 		if (screen.findbuf) {
 			g_free(screen.findbuf);
 			screen.findbuf=NULL;
-		}
-		/* continue... */
+	}
+		/* fall through */
 
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:

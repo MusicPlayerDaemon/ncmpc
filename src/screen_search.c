@@ -441,7 +441,7 @@ screen_search_cmd(struct mpdclient *c, command_t cmd)
 			options.search_mode = 0;
 		screen_status_printf(_("Search mode: %s"),
 				     _(mode[options.search_mode].label));
-		/* continue and update... */
+		/* fall through */
 	case CMD_SCREEN_UPDATE:
 		screen_search_reload(c);
 		search_repaint();
