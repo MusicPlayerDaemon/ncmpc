@@ -378,6 +378,16 @@ audio_format_to_string(char *buffer, size_t size,
 	}
 
 	if (format->bits == MPD_SAMPLE_FORMAT_DSD) {
+		if (format->sample_rate > 0 &&
+		    format->sample_rate % 44100 == 0) {
+			/* use shortcuts such as "dsd64" which implies the
+			   sample rate */
+			g_snprintf(buffer, size, _("dsd%u:%u"),
+				   format->sample_rate * 8 / 44100,
+				   format->channels);
+			return;
+		}
+
 		g_snprintf(buffer, size, _("%u:dsd:%u"),
 			   format->sample_rate,
 			   format->channels);
