@@ -153,8 +153,7 @@ sigwinch_event(gcc_unused GIOChannel *source,
 static void
 catch_sigwinch(gcc_unused int sig)
 {
-	char irrelevant = 'a';
-	if (1 != write(sigwinch_pipes[1], &irrelevant, 1))
+	if (1 != write(sigwinch_pipes[1], "", 1))
 		exit(EXIT_FAILURE);
 }
 #endif /* WIN32 */
