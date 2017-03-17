@@ -24,7 +24,7 @@
 #include "charset.h"
 
 static bool
-_screen_auth(struct mpdclient *c, gint recursion)
+_mpdclient_auth_callback(struct mpdclient *c, gint recursion)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == NULL)
@@ -46,19 +46,19 @@ _screen_auth(struct mpdclient *c, gint recursion)
 
 	if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 	    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_PASSWORD)
-		return  _screen_auth(c, ++recursion);
+		return _mpdclient_auth_callback(c, ++recursion);
 
 	return true;
 }
 
 bool
-screen_auth(struct mpdclient *c)
+mpdclient_auth_callback(struct mpdclient *c)
 {
-	return _screen_auth(c, 0);
+	return _mpdclient_auth_callback(c, 0);
 }
 
 void
-mpdclient_ui_error(const char *message_utf8)
+mpdclient_error_callback(const char *message_utf8)
 {
 	char *message_locale = utf8_to_locale(message_utf8);
 	screen_status_printf("%s", message_locale);

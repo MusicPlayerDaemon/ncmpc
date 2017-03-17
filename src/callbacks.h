@@ -29,9 +29,9 @@ struct mpdclient;
  * display an error message.
  */
 void
-mpdclient_ui_error(const char *message);
+mpdclient_error_callback(const char *message);
 
 bool
-screen_auth(struct mpdclient *c);
+mpdclient_auth_callback(struct mpdclient *c);
 
 #endif

@@ -73,10 +73,10 @@ mpdclient_handle_error(struct mpdclient *c)
 
 	if (error == MPD_ERROR_SERVER &&
 	    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_PERMISSION &&
-	    screen_auth(c))
+	    mpdclient_auth_callback(c))
 		return true;
 
-	mpdclient_ui_error(mpd_connection_get_error_message(c->connection));
+	mpdclient_error_callback(mpd_connection_get_error_message(c->connection));
 
 	if (!mpd_connection_clear_error(c->connection))
 		mpdclient_disconnect(c);
