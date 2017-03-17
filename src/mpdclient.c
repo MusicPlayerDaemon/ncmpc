@@ -118,6 +118,16 @@ mpdclient_free(struct mpdclient *c)
 	g_free(c);
 }
 
+static void
+mpdclient_status_free(struct mpdclient *c)
+{
+	if (c->status == NULL)
+		return;
+
+	mpd_status_free(c->status);
+	c->status = NULL;
+}
+
 void
 mpdclient_disconnect(struct mpdclient *c)
 {
@@ -133,9 +143,7 @@ mpdclient_disconnect(struct mpdclient *c)
 	}
 	c->connection = NULL;
 
-	if (c->status)
-		mpd_status_free(c->status);
-	c->status = NULL;
+	mpdclient_status_free(c);
 
 	playlist_clear(&c->playlist);
 
@@ -194,8 +202,7 @@ mpdclient_update(struct mpdclient *c)
 		return false;
 
 	/* free the old status */
-	if (c->status)
-		mpd_status_free(c->status);
+	mpdclient_status_free(c);
 
 	/* retrieve new status */
 	c->status = mpd_run_status(connection);
