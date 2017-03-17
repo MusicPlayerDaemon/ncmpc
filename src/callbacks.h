@@ -27,6 +27,19 @@
 struct mpdclient;
 
 /**
+ * A connection to MPD has been established.
+ */
+void
+mpdclient_connected_callback(void);
+
+/**
+ * An attempt to connect to MPD has failed.
+ * mpdclient_error_callback() has been called already.
+ */
+void
+mpdclient_failed_callback(void);
+
+/**
  * The connection to MPD was lost.  If this was due to an error, then
  * mpdclient_error_callback() has already been called.
  */

@@ -263,14 +263,26 @@ timer_reconnect(gcc_unused gpointer data)
 	doupdate();
 
 	mpdclient_disconnect(mpd);
-	if (!mpdclient_connect(mpd, options.host, options.port,
-			       options.timeout_ms,
-			       options.password)) {
-		/* try again in 5 seconds */
-		reconnect_source_id = g_timeout_add(5000,
-						    timer_reconnect, NULL);
-		return FALSE;
-	}
+	mpdclient_connect(mpd, options.host, options.port,
+			  options.timeout_ms,
+			  options.password);
+
+	return FALSE;
+}
+
+static void
+check_reconnect(void)
+{
+	if (mpdclient_is_dead(mpd) && reconnect_source_id == 0)
+		/* reconnect when the connection is lost */
+		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
+						    NULL);
+}
+
+void
+mpdclient_connected_callback(void)
+{
+	assert(reconnect_source_id == 0);
 
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.14 - song id not supported by mpd */
@@ -287,7 +299,7 @@ timer_reconnect(gcc_unused gpointer data)
 		/* try again after 30 seconds */
 		reconnect_source_id = g_timeout_add(30000,
 						    timer_reconnect, NULL);
-		return FALSE;
+		return;
 	}
 #endif
 
@@ -300,17 +312,16 @@ timer_reconnect(gcc_unused gpointer data)
 	do_mpd_update();
 
 	auto_update_timer();
-
-	return FALSE;
 }
 
-static void
-check_reconnect(void)
+void
+mpdclient_failed_callback(void)
 {
-	if (mpdclient_is_dead(mpd) && reconnect_source_id == 0)
-		/* reconnect when the connection is lost */
-		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
-						    NULL);
+	assert(reconnect_source_id == 0);
+
+	/* try again in 5 seconds */
+	reconnect_source_id = g_timeout_add(5000,
+					    timer_reconnect, NULL);
 }
 
 void

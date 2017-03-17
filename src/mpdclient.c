@@ -177,6 +177,7 @@ mpdclient_connect(struct mpdclient *c,
 	if (mpd_connection_get_error(c->connection) != MPD_ERROR_SUCCESS) {
 		mpdclient_handle_error(c);
 		mpdclient_disconnect(c);
+		mpdclient_failed_callback();
 		return false;
 	}
 
@@ -184,6 +185,7 @@ mpdclient_connect(struct mpdclient *c,
 	if (password != NULL && !mpd_run_password(c->connection, password)) {
 		mpdclient_handle_error(c);
 		mpdclient_disconnect(c);
+		mpdclient_failed_callback();
 		return false;
 	}
 
@@ -191,6 +193,8 @@ mpdclient_connect(struct mpdclient *c,
 				 mpdclient_gidle_callback, c);
 
 	++c->connection_id;
+
+	mpdclient_connected_callback();
 
 	return true;
 }
