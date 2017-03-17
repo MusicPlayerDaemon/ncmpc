@@ -15,25 +15,19 @@ struct mpdclient {
 	struct mpd_connection *connection;
 
 	/**
-	 * This attribute is incremented whenever the connection changes
-	 * (i.e. on disconnection and (re-)connection).
-	 */
-	unsigned connection_id;
-
-	/**
 	 * Tracks idle events.  It is automatically called by
 	 * mpdclient_get_connection() and mpdclient_put_connection().
 	 */
 	struct mpd_glib_source *source;
 
-	/**
-	 * This attribute is true when the connection is currently in
-	 * "idle" mode, and the #mpd_glib_source waits for an event.
-	 */
-	bool idle;
-
 	struct mpd_status *status;
 	const struct mpd_song *song;
+
+	/**
+	 * This attribute is incremented whenever the connection changes
+	 * (i.e. on disconnection and (re-)connection).
+	 */
+	unsigned connection_id;
 
 	int volume;
 
@@ -41,6 +35,12 @@ struct mpdclient {
 	 * A bit mask of idle events occurred since the last update.
 	 */
 	enum mpd_idle events;
+
+	/**
+	 * This attribute is true when the connection is currently in
+	 * "idle" mode, and the #mpd_glib_source waits for an event.
+	 */
+	bool idle;
 };
 
 enum {
