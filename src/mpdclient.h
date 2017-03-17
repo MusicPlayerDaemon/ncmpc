@@ -41,6 +41,11 @@ struct mpdclient {
 	 * "idle" mode, and the #mpd_glib_source waits for an event.
 	 */
 	bool idle;
+
+	/**
+	 * Is MPD currently playing?
+	 */
+	bool playing;
 };
 
 enum {

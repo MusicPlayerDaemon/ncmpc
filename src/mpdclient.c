@@ -104,6 +104,7 @@ mpdclient_new(void)
 	playlist_init(&c->playlist);
 	c->volume = -1;
 	c->events = 0;
+	c->playing = false;
 
 	return c;
 }
@@ -128,6 +129,7 @@ mpdclient_status_free(struct mpdclient *c)
 	c->status = NULL;
 
 	c->volume = -1;
+	c->playing = false;
 }
 
 void
@@ -210,6 +212,7 @@ mpdclient_update(struct mpdclient *c)
 		return mpdclient_handle_error(c);
 
 	c->volume = mpd_status_get_volume(c->status);
+	c->playing = mpd_status_get_state(c->status) == MPD_STATE_PLAY;
 
 	/* check if the playlist needs an update */
 	if (c->playlist.version != mpd_status_get_queue_version(c->status)) {

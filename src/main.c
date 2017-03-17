@@ -74,12 +74,10 @@ static guint check_key_bindings_source_id;
 static void
 update_xterm_title(void)
 {
-	struct mpd_status *status = mpd->status;
 	const struct mpd_song *song = mpd->song;
 
 	char tmp[BUFSIZE];
-	if (options.xterm_title_format && status && song &&
-	    mpd_status_get_state(status) == MPD_STATE_PLAY)
+	if (options.xterm_title_format && mpd->playing && song)
 		strfsong(tmp, BUFSIZE, options.xterm_title_format, song);
 	else
 		g_strlcpy(tmp, PACKAGE " version " VERSION, BUFSIZE);
@@ -177,9 +175,7 @@ disable_update_timer(void)
 static bool
 should_enable_update_timer(void)
 {
-	return (mpdclient_is_connected(mpd) &&
-		mpd->status != NULL &&
-		mpd_status_get_state(mpd->status) == MPD_STATE_PLAY)
+	return mpd->playing
 #ifndef NCMPC_MINI
 		|| options.display_time
 #endif
@@ -202,9 +198,7 @@ static void
 do_mpd_update(void)
 {
 	if (mpdclient_is_connected(mpd) &&
-	    (mpd->events != 0 ||
-	     (mpd->status != NULL &&
-	      mpd_status_get_state(mpd->status) == MPD_STATE_PLAY)))
+	    (mpd->events != 0 || mpd->playing))
 		mpdclient_update(mpd);
 
 #ifndef NCMPC_MINI
