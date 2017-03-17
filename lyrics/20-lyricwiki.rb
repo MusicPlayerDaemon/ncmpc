@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-#  (c) 2004-2008 The Music Player Daemon Project
+#  (c) 2004-2017 The Music Player Daemon Project
 #  http://www.musicpd.org/
 #
 #  This program is free software; you can redistribute it and/or modify
