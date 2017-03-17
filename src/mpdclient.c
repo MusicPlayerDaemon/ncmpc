@@ -126,6 +126,8 @@ mpdclient_status_free(struct mpdclient *c)
 
 	mpd_status_free(c->status);
 	c->status = NULL;
+
+	c->volume = -1;
 }
 
 void
@@ -195,8 +197,6 @@ bool
 mpdclient_update(struct mpdclient *c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
-
-	c->volume = -1;
 
 	if (connection == NULL)
 		return false;
