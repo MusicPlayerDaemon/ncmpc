@@ -106,7 +106,6 @@ exit_and_cleanup(void)
 	printf("\n");
 
 	if (mpd) {
-		mpdclient_disconnect(mpd);
 		mpdclient_free(mpd);
 	}
 }
