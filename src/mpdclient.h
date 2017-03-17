@@ -21,12 +21,8 @@ struct mpdclient {
 	unsigned connection_id;
 
 	/**
-	 * If this object is non-NULL, it tracks idle events.  It is
-	 * automatically called by mpdclient_get_connection() and
-	 * mpdclient_put_connection().  It is not created by the
-	 * mpdclient library; the user of this library has to
-	 * initialize it.  However, it is freed when the MPD
-	 * connection is closed.
+	 * Tracks idle events.  It is automatically called by
+	 * mpdclient_get_connection() and mpdclient_put_connection().
 	 */
 	struct mpd_glib_source *source;
 
