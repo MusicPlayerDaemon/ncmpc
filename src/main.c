@@ -74,12 +74,8 @@ static guint check_key_bindings_source_id;
 static void
 update_xterm_title(void)
 {
-	struct mpd_status *status = NULL;
-	const struct mpd_song *song = NULL;
-	if (mpd) {
-		status = mpd->status;
-		song = mpd->song;
-	}
+	struct mpd_status *status = mpd->status;
+	const struct mpd_song *song = mpd->song;
 
 	char tmp[BUFSIZE];
 	if (options.xterm_title_format && status && song &&
@@ -105,9 +101,7 @@ exit_and_cleanup(void)
 #endif
 	printf("\n");
 
-	if (mpd) {
-		mpdclient_free(mpd);
-	}
+	mpdclient_free(mpd);
 }
 
 #ifndef WIN32
