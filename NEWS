@@ -3,6 +3,7 @@ ncmpc 0.26 - not yet released
 * adapt to lirc 0.9.4
 * lyricswiki: update regex
 * screen_song: show "f" and "dsd" formats
+* connect asynchronously
 * fix gcc 7 warnings
 
 ncmpc 0.25 - (2016-08-18)

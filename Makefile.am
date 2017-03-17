@@ -61,6 +61,16 @@ src_ncmpc_SOURCES = \
 	src/strfsong.c src/strfsong.h \
 	src/utils.c src/utils.h
 
+if ENABLE_ASYNC_CONNECT
+src_ncmpc_SOURCES += \
+	src/net/types.h \
+	src/net/socket.c src/net/socket.h \
+	src/net/resolver.c src/net/resolver.h \
+	src/net/async_connect.c src/net/async_connect.h \
+	src/net/async_rconnect.c src/net/async_rconnect.h \
+	src/aconnect.c src/aconnect.h
+endif
+
 #
 # Windows resource file
 #

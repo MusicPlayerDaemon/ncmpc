@@ -149,6 +149,27 @@ else
   AM_PO_SUBDIRS
 fi
 
+dnl Networking
+
+AC_ARG_ENABLE(tcp,
+	AS_HELP_STRING([--disable-tcp],
+		[Disable TCP support @<:@default=enabled@:>@]),,
+	[enable_tcp=$disable_mini])
+if test "x$enable_tcp" = xyes; then
+	AC_DEFINE([ENABLE_TCP], 1, [Define to enable TCP support])
+	AC_SEARCH_LIBS([gethostbyname], [nsl])
+	AC_CHECK_FUNCS([getaddrinfo])
+fi
+
+AC_ARG_ENABLE([async-connect],
+	AS_HELP_STRING([--enable-async-connect],
+		[Disable asynchronous connect @<:@default=yes@:>@]),,
+		[enable_async_connect=$disable_mini])
+AM_CONDITIONAL(ENABLE_ASYNC_CONNECT, test x$enable_async_connect = xyes)
+if test "x$enable_async_connect" = xyes; then
+	AC_DEFINE([ENABLE_ASYNC_CONNECT], [1], [Enable asynchronous connect?])
+fi
+
 dnl enable colors
 AC_ARG_ENABLE([colors],
 	AS_HELP_STRING([--enable-colors],

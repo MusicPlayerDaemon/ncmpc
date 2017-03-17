@@ -24,6 +24,10 @@
 #include "gidle.h"
 #include "charset.h"
 
+#ifdef ENABLE_ASYNC_CONNECT
+#include "aconnect.h"
+#endif
+
 #include <mpd/client.h>
 
 #include <assert.h>
@@ -155,8 +159,16 @@ mpdclient_new(const gchar *host, unsigned port,
 {
 	struct mpdclient *c = g_new0(struct mpdclient, 1);
 
+#ifdef ENABLE_ASYNC_CONNECT
+	c->settings = mpd_settings_new(host, port, timeout_ms,
+				       NULL, NULL);
+	if (c->settings == NULL)
+		g_error("Out of memory");
+#else
 	c->host = host;
 	c->port = port;
+#endif
+
 	c->timeout_ms = timeout_ms;
 	c->password = password;
 
@@ -174,6 +186,10 @@ mpdclient_free(struct mpdclient *c)
 	mpdclient_disconnect(c);
 
 	mpdclient_playlist_free(&c->playlist);
+
+#ifdef ENABLE_ASYNC_CONNECT
+	mpd_settings_free(c->settings);
+#endif
 
 	g_free(c);
 }
@@ -194,6 +210,13 @@ mpdclient_status_free(struct mpdclient *c)
 void
 mpdclient_disconnect(struct mpdclient *c)
 {
+#ifdef ENABLE_ASYNC_CONNECT
+	if (c->async_connect != NULL) {
+		aconnect_cancel(c->async_connect);
+		c->async_connect = NULL;
+	}
+#endif
+
 	mpdclient_cancel_enter_idle(c);
 
 	if (c->source != NULL) {
@@ -232,6 +255,11 @@ mpdclient_connected(struct mpdclient *c,
 		return false;
 	}
 
+#ifdef ENABLE_ASYNC_CONNECT
+	if (c->timeout_ms > 0)
+		mpd_connection_set_timeout(connection, c->timeout_ms);
+#endif
+
 	/* send password */
 	if (c->password != NULL &&
 	    !mpd_run_password(connection, c->password)) {
@@ -251,19 +279,56 @@ mpdclient_connected(struct mpdclient *c,
 	return true;
 }
 
-bool
+#ifdef ENABLE_ASYNC_CONNECT
+
+static void
+mpdclient_connect_success(struct mpd_connection *connection, void *ctx)
+{
+	struct mpdclient *c = ctx;
+	assert(c->async_connect != NULL);
+	c->async_connect = NULL;
+
+	mpdclient_connected(c, connection);
+}
+
+static void
+mpdclient_connect_error(const char *message, void *ctx)
+{
+	struct mpdclient *c = ctx;
+	assert(c->async_connect != NULL);
+	c->async_connect = NULL;
+
+	mpdclient_error_callback(message);
+	mpdclient_failed_callback();
+}
+
+static const struct aconnect_handler mpdclient_connect_handler = {
+	.success = mpdclient_connect_success,
+	.error = mpdclient_connect_error,
+};
+
+#endif
+
+void
 mpdclient_connect(struct mpdclient *c)
 {
 	/* close any open connection */
 	mpdclient_disconnect(c);
 
+#ifdef ENABLE_ASYNC_CONNECT
+	aconnect_start(&c->async_connect,
+		       mpd_settings_get_host(c->settings),
+		       mpd_settings_get_port(c->settings),
+		       &mpdclient_connect_handler, c);
+#else
 	/* connect to MPD */
 	struct mpd_connection *connection =
 		mpd_connection_new(c->host, c->port, c->timeout_ms);
 	if (connection == NULL)
 		g_error("Out of memory");
 
-	return mpdclient_connected(c, connection);
+	mpdclient_connected(c, connection);
+#endif
 }
 
 bool

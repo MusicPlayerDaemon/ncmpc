@@ -1,6 +1,7 @@
 #ifndef MPDCLIENT_H
 #define MPDCLIENT_H
 
+#include "config.h"
 #include "playlist.h"
 #include "Compiler.h"
 
@@ -9,8 +10,12 @@
 struct filelist;
 
 struct mpdclient {
+#ifdef ENABLE_ASYNC_CONNECT
+	struct mpd_settings *settings;
+#else
 	const char *host;
 	unsigned port;
+#endif
 
 	unsigned timeout_ms;
 
@@ -18,6 +23,10 @@ struct mpdclient {
 
 	/* playlist */
 	struct mpdclient_playlist playlist;
+
+#ifdef ENABLE_ASYNC_CONNECT
+	struct aconnect *async_connect;
+#endif
 
 	struct mpd_connection *connection;
 
@@ -112,7 +121,11 @@ gcc_pure
 static inline bool
 mpdclient_is_dead(const struct mpdclient *c)
 {
-	return c->connection == NULL;
+	return c->connection == NULL
+#ifdef ENABLE_ASYNC_CONNECT
+		&& c->async_connect == NULL
+#endif
+		;
 }
 
 gcc_pure
@@ -133,7 +146,7 @@ mpdclient_get_current_song(const struct mpdclient *c)
 		: NULL;
 }
 
-bool
+void
 mpdclient_connect(struct mpdclient *c);
 
 void
