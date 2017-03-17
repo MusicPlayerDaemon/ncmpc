@@ -35,31 +35,6 @@
 
 #define BUFSIZE 1024
 
-/* sort by song format */
-gint
-compare_filelistentry_format(gconstpointer filelist_entry1,
-			     gconstpointer filelist_entry2,
-			     const char *song_format)
-{
-	const struct mpd_entity *e1 =
-		((const struct filelist_entry *)filelist_entry1)->entity;
-	const struct mpd_entity *e2 =
-		((const struct filelist_entry *)filelist_entry2)->entity;
-
-	int n = 0;
-	if (e1 && e2 &&
-	    mpd_entity_get_type(e1) == MPD_ENTITY_TYPE_SONG &&
-	    mpd_entity_get_type(e2) == MPD_ENTITY_TYPE_SONG) {
-		char key1[BUFSIZE], key2[BUFSIZE];
-		strfsong(key1, BUFSIZE, song_format, mpd_entity_get_song(e1));
-		strfsong(key2, BUFSIZE, song_format, mpd_entity_get_song(e2));
-		n = strcmp(key1,key2);
-	}
-
-	return n;
-}
-
-
 /****************************************************************************/
 /*** mpdclient functions ****************************************************/
 /****************************************************************************/
