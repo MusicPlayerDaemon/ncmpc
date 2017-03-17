@@ -106,10 +106,6 @@ dnl Check for libmpdclient 2.9
 PKG_CHECK_MODULES([LIBMPDCLIENT], [libmpdclient >= 2.9],,
 	[AC_MSG_ERROR([libmpdclient2 is required])])
 
-dnl Check for libmpdclient 2.5 (the chat screen requires this version)
-PKG_CHECK_EXISTS([libmpdclient >= 2.5],
-	[have_libmpdclient_2_5=yes], [have_libmpdclient_2_5=no])
-
 dnl i18n
 
 AC_ARG_ENABLE([locale],
@@ -356,13 +352,10 @@ AC_ARG_ENABLE([chat-screen],
 		[Enable chat screen @<:@default=no@:>@]),,
 	[enable_chat_screen=no])
 if test "x$enable_chat_screen" = "xauto"; then
-	enable_chat_screen=$have_libmpdclient_2_5
+	enable_chat_screen=yes
 fi
 AC_MSG_RESULT([$enable_chat_screen])
 if test "x$enable_chat_screen" = "xyes" ; then
-	if test "x$have_libmpdclient_2_5" = "xno"; then
-		AC_MSG_ERROR(The chat screen requires at least libmpclient 2.5)
-	fi
 	AC_DEFINE(ENABLE_CHAT_SCREEN, 1, [Enable chat screen])
 fi
 AM_CONDITIONAL(ENABLE_CHAT_SCREEN, test x$enable_chat_screen = xyes)
