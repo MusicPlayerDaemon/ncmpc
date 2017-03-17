@@ -166,8 +166,7 @@ mpdclient_connect(struct mpdclient *c,
 		  const gchar *password)
 {
 	/* close any open connection */
-	if (c->connection)
-		mpdclient_disconnect(c);
+	mpdclient_disconnect(c);
 
 	/* connect to MPD */
 	c->connection = mpd_connection_new(host, port, timeout_ms);
