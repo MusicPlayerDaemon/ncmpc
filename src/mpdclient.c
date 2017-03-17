@@ -21,17 +21,9 @@
 #include "callbacks.h"
 #include "filelist.h"
 #include "config.h"
-#include "options.h"
-#include "strfsong.h"
-#include "utils.h"
 #include "gidle.h"
 
 #include <mpd/client.h>
-
-#include <stdlib.h>
-#include <unistd.h>
-#include <time.h>
-#include <string.h>
 
 /****************************************************************************/
 /*** mpdclient functions ****************************************************/
