@@ -28,6 +28,7 @@ src_ncmpc_SOURCES = \
 	src/main.c \
 	src/gidle.c src/gidle.h \
 	src/mpdclient.c src/mpdclient.h \
+	src/callbacks.c src/callbacks.h \
 	src/playlist.c src/playlist.h \
 	src/filelist.c src/filelist.h \
 	src/options.c src/options.h \

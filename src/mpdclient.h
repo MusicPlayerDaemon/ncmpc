@@ -124,13 +124,6 @@ mpdclient_get_connection(struct mpdclient *c);
 void
 mpdclient_put_connection(struct mpdclient *c);
 
-/**
- * To be implemented by the application: mpdclient.c calls this to
- * display an error message.
- */
-void
-mpdclient_ui_error(const char *message);
-
 /*** MPD Commands  **********************************************************/
 
 bool
