@@ -325,53 +325,29 @@ check_reconnect(void)
 						    NULL);
 }
 
+void
+mpdclient_lost_callback(void)
+{
+	assert(reconnect_source_id == 0);
+
+	screen_update(mpd);
+
+	reconnect_source_id = g_timeout_add(1000, timer_reconnect, NULL);
+}
+
 /**
  * This function is called by the gidle.c library when MPD sends us an
  * idle event (or when the connection dies).
  */
 void
-mpdclient_idle_callback(enum mpd_error error,
-			gcc_unused enum mpd_server_error server_error,
-			const char *message, enum mpd_idle events,
-			void *ctx)
+mpdclient_idle_callback(gcc_unused enum mpd_idle events)
 {
-	struct mpdclient *c = ctx;
-
-	c->idle = false;
-
-	assert(mpdclient_is_connected(c));
-
-	if (error != MPD_ERROR_SUCCESS) {
-		char *allocated;
-		if (error == MPD_ERROR_SERVER)
-			message = allocated = utf8_to_locale(message);
-		else
-			allocated = NULL;
-		screen_status_message(message);
-		g_free(allocated);
-		screen_bell();
-		doupdate();
-
-		mpdclient_disconnect(c);
-		screen_update(mpd);
-		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
-						    NULL);
-		return;
-	}
-
-	c->events |= events;
-	mpdclient_update(c);
-
 #ifndef NCMPC_MINI
 	if (options.enable_xterm_title)
 		update_xterm_title();
 #endif
 
 	screen_update(mpd);
-	c->events = 0;
-
-	mpdclient_put_connection(c);
-	check_reconnect();
 	auto_update_timer();
 }
 

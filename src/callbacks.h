@@ -27,6 +27,13 @@
 struct mpdclient;
 
 /**
+ * The connection to MPD was lost.  If this was due to an error, then
+ * mpdclient_error_callback() has already been called.
+ */
+void
+mpdclient_lost_callback(void);
+
+/**
  * To be implemented by the application: mpdclient.c calls this to
  * display an error message.
  *
@@ -39,9 +46,6 @@ bool
 mpdclient_auth_callback(struct mpdclient *c);
 
 void
-mpdclient_idle_callback(enum mpd_error error,
-			enum mpd_server_error server_error,
-			const char *message, enum mpd_idle events,
-			void *ctx);
+mpdclient_idle_callback(enum mpd_idle events);
 
 #endif

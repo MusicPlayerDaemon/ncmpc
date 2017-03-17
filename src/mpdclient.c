@@ -43,6 +43,35 @@ mpdclient_invoke_error_callback(enum mpd_error error,
 	g_free(allocated);
 }
 
+static void
+mpdclient_gidle_callback(enum mpd_error error,
+			 gcc_unused enum mpd_server_error server_error,
+			 const char *message, enum mpd_idle events,
+			 void *ctx)
+{
+	struct mpdclient *c = ctx;
+
+	c->idle = false;
+
+	assert(mpdclient_is_connected(c));
+
+	if (error != MPD_ERROR_SUCCESS) {
+		mpdclient_invoke_error_callback(error, message);
+		mpdclient_disconnect(c);
+		mpdclient_lost_callback();
+		return;
+	}
+
+	c->events |= events;
+	mpdclient_update(c);
+
+	mpdclient_idle_callback(c->events);
+
+	c->events = 0;
+
+	mpdclient_put_connection(c);
+}
+
 /****************************************************************************/
 /*** mpdclient functions ****************************************************/
 /****************************************************************************/
@@ -147,7 +176,7 @@ mpdclient_connect(struct mpdclient *c,
 	}
 
 	c->source = mpd_glib_new(c->connection,
-				 mpdclient_idle_callback, c);
+				 mpdclient_gidle_callback, c);
 
 	++c->connection_id;
 
