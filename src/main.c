@@ -252,7 +252,7 @@ default_settings_name(void)
 static gboolean
 timer_reconnect(gcc_unused gpointer data)
 {
-	assert(!mpdclient_is_connected(mpd));
+	assert(mpdclient_is_dead(mpd));
 
 	reconnect_source_id = 0;
 
@@ -307,7 +307,7 @@ timer_reconnect(gcc_unused gpointer data)
 static void
 check_reconnect(void)
 {
-	if (!mpdclient_is_connected(mpd) && reconnect_source_id == 0)
+	if (mpdclient_is_dead(mpd) && reconnect_source_id == 0)
 		/* reconnect when the connection is lost */
 		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
 						    NULL);

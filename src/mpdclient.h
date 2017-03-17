@@ -90,6 +90,17 @@ mpdclient_is_connected(const struct mpdclient *c)
 	return c->connection != NULL;
 }
 
+/**
+ * Is this object "dead"?  i.e. not connected and not currently doing
+ * anything to connect.
+ */
+gcc_pure
+static inline bool
+mpdclient_is_dead(const struct mpdclient *c)
+{
+	return c->connection == NULL;
+}
+
 gcc_pure
 static inline bool
 mpdclient_is_playing(const struct mpdclient *c)
