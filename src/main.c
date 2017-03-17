@@ -191,9 +191,8 @@ static bool
 should_enable_update_timer(void)
 {
 	return (mpdclient_is_connected(mpd) &&
-		(mpd->source == NULL || /* "idle" not supported */
-		 (mpd->status != NULL &&
-		  mpd_status_get_state(mpd->status) == MPD_STATE_PLAY)))
+		mpd->status != NULL &&
+		mpd_status_get_state(mpd->status) == MPD_STATE_PLAY)
 #ifndef NCMPC_MINI
 		|| options.display_time
 #endif
@@ -216,7 +215,7 @@ static void
 do_mpd_update(void)
 {
 	if (mpdclient_is_connected(mpd) &&
-	    (mpd->source == NULL || mpd->events != 0 ||
+	    (mpd->events != 0 ||
 	     (mpd->status != NULL &&
 	      mpd_status_get_state(mpd->status) == MPD_STATE_PLAY)))
 		mpdclient_update(mpd);
@@ -342,7 +341,8 @@ check_reconnect(void)
  * idle event (or when the connection dies).
  */
 static void
-idle_callback(enum mpd_error error, enum mpd_server_error server_error,
+idle_callback(enum mpd_error error,
+	      gcc_unused enum mpd_server_error server_error,
 	      const char *message, enum mpd_idle events,
 	      void *ctx)
 {
@@ -353,16 +353,6 @@ idle_callback(enum mpd_error error, enum mpd_server_error server_error,
 	assert(mpdclient_is_connected(c));
 
 	if (error != MPD_ERROR_SUCCESS) {
-		if (error == MPD_ERROR_SERVER &&
-		    server_error == MPD_SERVER_ERROR_UNKNOWN_CMD) {
-			/* the "idle" command is not supported - fall
-			   back to timer based polling */
-			mpd_glib_free(c->source);
-			c->source = NULL;
-			auto_update_timer();
-			return;
-		}
-
 		char *allocated;
 		if (error == MPD_ERROR_SERVER)
 			message = allocated = utf8_to_locale(message);

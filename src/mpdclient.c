@@ -177,11 +177,6 @@ mpdclient_update(struct mpdclient *c)
 	if (connection == NULL)
 		return false;
 
-	/* always announce these options as long as we don't have
-	   "idle" support */
-	if (c->source == NULL)
-		c->events |= MPD_IDLE_PLAYER|MPD_IDLE_OPTIONS;
-
 	/* free the old status */
 	if (c->status)
 		mpd_status_free(c->status);
@@ -191,28 +186,13 @@ mpdclient_update(struct mpdclient *c)
 	if (c->status == NULL)
 		return mpdclient_handle_error(c);
 
-	if (c->source == NULL &&
-	    c->update_id != mpd_status_get_update_id(c->status)) {
-		c->events |= MPD_IDLE_UPDATE;
-
-		if (c->update_id > 0)
-			c->events |= MPD_IDLE_DATABASE;
-	}
-
 	c->update_id = mpd_status_get_update_id(c->status);
-
-	if (c->source == NULL &&
-	    c->volume != mpd_status_get_volume(c->status))
-		c->events |= MPD_IDLE_MIXER;
 
 	c->volume = mpd_status_get_volume(c->status);
 
 	/* check if the playlist needs an update */
 	if (c->playlist.version != mpd_status_get_queue_version(c->status)) {
 		bool retval;
-
-		if (c->source == NULL)
-			c->events |= MPD_IDLE_QUEUE;
 
 		if (!playlist_is_empty(&c->playlist))
 			retval = mpdclient_playlist_update_changes(c);
