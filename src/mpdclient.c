@@ -161,7 +161,7 @@ mpdclient_disconnect(struct mpdclient *c)
 bool
 mpdclient_connect(struct mpdclient *c,
 		  const gchar *host,
-		  gint port,
+		  unsigned port,
 		  unsigned timeout_ms,
 		  const gchar *password)
 {

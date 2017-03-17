@@ -120,7 +120,7 @@ mpdclient_get_current_song(const struct mpdclient *c)
 }
 
 bool
-mpdclient_connect(struct mpdclient *c, const gchar *host, gint port,
+mpdclient_connect(struct mpdclient *c, const gchar *host, unsigned port,
 		  unsigned timeout_ms, const gchar *password);
 
 void
