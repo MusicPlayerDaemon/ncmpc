@@ -22,16 +22,25 @@
 #include "filelist.h"
 #include "config.h"
 #include "gidle.h"
+#include "charset.h"
 
 #include <mpd/client.h>
 
 #include <assert.h>
 
 static void
-mpdclient_invoke_error_callback(gcc_unused enum mpd_error error,
+mpdclient_invoke_error_callback(enum mpd_error error,
 				const char *message)
 {
+	char *allocated;
+	if (error == MPD_ERROR_SERVER)
+		/* server errors are UTF-8, the others are locale */
+		message = allocated = utf8_to_locale(message);
+	else
+		allocated = NULL;
+
 	mpdclient_error_callback(message);
+	g_free(allocated);
 }
 
 /****************************************************************************/

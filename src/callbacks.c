@@ -21,7 +21,6 @@
 #include "screen_utils.h"
 #include "screen_status.h"
 #include "mpdclient.h"
-#include "charset.h"
 
 static bool
 _mpdclient_auth_callback(struct mpdclient *c, gint recursion)
@@ -58,12 +57,9 @@ mpdclient_auth_callback(struct mpdclient *c)
 }
 
 void
-mpdclient_error_callback(const char *message_utf8)
+mpdclient_error_callback(const char *message)
 {
-	char *message_locale = utf8_to_locale(message_utf8);
-	screen_status_printf("%s", message_locale);
-	g_free(message_locale);
-
+	screen_status_message(message);
 	screen_bell();
 	doupdate();
 }

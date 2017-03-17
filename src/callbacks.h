@@ -29,6 +29,8 @@ struct mpdclient;
 /**
  * To be implemented by the application: mpdclient.c calls this to
  * display an error message.
+ *
+ * @param message a human-readable error message in the locale charset
  */
 void
 mpdclient_error_callback(const char *message);
