@@ -20,6 +20,8 @@
 #ifndef NCMPC_CALLBACKS_H
 #define NCMPC_CALLBACKS_H
 
+#include <mpd/client.h>
+
 #include <stdbool.h>
 
 struct mpdclient;
@@ -33,5 +35,11 @@ mpdclient_error_callback(const char *message);
 
 bool
 mpdclient_auth_callback(struct mpdclient *c);
+
+void
+mpdclient_idle_callback(enum mpd_error error,
+			enum mpd_server_error server_error,
+			const char *message, enum mpd_idle events,
+			void *ctx);
 
 #endif

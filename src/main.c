@@ -20,7 +20,7 @@
 #include "config.h"
 #include "ncmpc.h"
 #include "mpdclient.h"
-#include "gidle.h"
+#include "callbacks.h"
 #include "charset.h"
 #include "options.h"
 #include "command.h"
@@ -157,12 +157,6 @@ catch_sigwinch(gcc_unused int sig)
 }
 #endif /* WIN32 */
 
-static void
-idle_callback(enum mpd_error error,
-	      gcc_unused enum mpd_server_error server_error,
-	      const char *message, enum mpd_idle events,
-	      gcc_unused void *ctx);
-
 static gboolean
 timer_mpd_update(gpointer data);
 
@@ -290,10 +284,9 @@ timer_reconnect(gcc_unused gpointer data)
 		return FALSE;
 	}
 
-	struct mpd_connection *connection = mpdclient_get_connection(mpd);
-
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.14 - song id not supported by mpd */
+	struct mpd_connection *connection = mpdclient_get_connection(mpd);
 	if (mpd_connection_cmp_server_version(connection, 0, 16, 0) < 0) {
 		const unsigned *version =
 			mpd_connection_get_server_version(connection);
@@ -309,9 +302,6 @@ timer_reconnect(gcc_unused gpointer data)
 		return FALSE;
 	}
 #endif
-
-	mpd->source = mpd_glib_new(connection,
-				   idle_callback, mpd);
 
 	screen_status_clear_message();
 	doupdate();
@@ -339,11 +329,11 @@ check_reconnect(void)
  * This function is called by the gidle.c library when MPD sends us an
  * idle event (or when the connection dies).
  */
-static void
-idle_callback(enum mpd_error error,
-	      gcc_unused enum mpd_server_error server_error,
-	      const char *message, enum mpd_idle events,
-	      void *ctx)
+void
+mpdclient_idle_callback(enum mpd_error error,
+			gcc_unused enum mpd_server_error server_error,
+			const char *message, enum mpd_idle events,
+			void *ctx)
 {
 	struct mpdclient *c = ctx;
 

@@ -162,6 +162,9 @@ mpdclient_connect(struct mpdclient *c,
 		return false;
 	}
 
+	c->source = mpd_glib_new(c->connection,
+				 mpdclient_idle_callback, c);
+
 	++c->connection_id;
 
 	return true;
