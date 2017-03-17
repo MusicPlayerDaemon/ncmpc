@@ -11,58 +11,6 @@ AM_CPPFLAGS = \
 	-DLOCALE_DIR=\""$(datadir)/locale"\"\
 	-DSYSCONFDIR=\""$(sysconfdir)"\"
 
-ncmpc_headers = \
-	src/gidle.h \
-	src/mpdclient.h \
-	src/playlist.h \
-	src/filelist.h \
-	src/options.h \
-	src/conf.h \
-	src/command.h \
-	src/ncu.h \
-	src/ncfix.h \
-	src/player_command.h \
-	src/window.h \
-	src/title_bar.h \
-	src/progress_bar.h \
-	src/status_bar.h \
-	src/screen.h \
-	src/screen_status.h \
-	src/screen_interface.h \
-	src/screen_list.h \
-	src/screen_find.h \
-	src/screen_utils.h \
-	src/screen_client.h \
-	src/list_window.h \
-	src/song_paint.h \
-	src/colors.h \
-	src/paint.h \
-	src/hscroll.h \
-	src/charset.h \
-	src/match.h \
-	src/wreadln.h \
-	src/strfsong.h \
-	src/utils.h \
-	src/ncmpc.h \
-	src/defaults.h \
-	src/i18n.h \
-	src/screen_help.h \
-	src/screen_queue.h \
-	src/screen_file.h \
-	src/screen_artist.h \
-	src/screen_browser.h \
-	src/screen_search.h \
-	src/screen_song.h \
-	src/screen_keydef.h \
-	src/screen_lyrics.h \
-	src/screen_outputs.h \
-	src/screen_chat.h \
-	src/screen_text.h \
-	src/plugin.h \
-	src/lyrics.h \
-	src/lirc.h \
-	src/ncmpc_curses.h
-
 bin_PROGRAMS = src/ncmpc
 
 src_ncmpc_LDADD = \
@@ -73,35 +21,42 @@ src_ncmpc_LDADD = \
 
 src_ncmpc_SOURCES = \
 	src/Compiler.h \
-	$(ncmpc_headers) \
+	src/ncmpc.h \
+	src/defaults.h \
+	src/ncmpc_curses.h \
+	src/i18n.h \
 	src/main.c \
-	src/gidle.c \
-	src/mpdclient.c \
-	src/playlist.c \
-	src/filelist.c \
-	src/options.c \
-	src/command.c \
-	src/ncu.c \
-	src/player_command.c \
-	src/title_bar.c \
-	src/progress_bar.c \
-	src/status_bar.c \
-	src/screen.c \
-	src/screen_status.c \
-	src/screen_list.c \
-	src/screen_find.c \
-	src/screen_utils.c \
-	src/screen_client.c \
-	src/screen_queue.c \
-	src/screen_browser.c \
-	src/screen_file.c \
-	src/list_window.c \
-	src/song_paint.c \
-	src/colors.c \
-	src/charset.c \
-	src/wreadln.c \
-	src/strfsong.c \
-	src/utils.c
+	src/gidle.c src/gidle.h \
+	src/mpdclient.c src/mpdclient.h \
+	src/playlist.c src/playlist.h \
+	src/filelist.c src/filelist.h \
+	src/options.c src/options.h \
+	src/command.c src/command.h \
+	src/ncfix.h \
+	src/ncu.c src/ncu.h \
+	src/player_command.c src/player_command.h \
+	src/title_bar.c src/title_bar.h \
+	src/progress_bar.c src/progress_bar.h \
+	src/status_bar.c src/status_bar.h \
+	src/screen.c src/screen.h \
+	src/screen_interface.h \
+	src/screen_utils.c src/screen_utils.h \
+	src/screen_status.c src/screen_status.h \
+	src/screen_list.c src/screen_list.h \
+	src/screen_find.c src/screen_find.h \
+	src/screen_client.c src/screen_client.h \
+	src/screen_queue.c src/screen_queue.h \
+	src/screen_browser.c src/screen_browser.h \
+	src/screen_file.c src/screen_file.h \
+	src/list_window.c src/list_window.h \
+	src/paint.h \
+	src/song_paint.c src/song_paint.h \
+	src/colors.c src/colors.h \
+	src/charset.c src/charset.h \
+	src/window.h \
+	src/wreadln.c src/wreadln.h \
+	src/strfsong.c src/strfsong.h \
+	src/utils.c src/utils.h
 
 #
 # Windows resource file
@@ -120,53 +75,55 @@ endif
 if NCMPC_MINI
 else
 src_ncmpc_SOURCES += \
-	src/hscroll.c \
-	src/match.c \
-	src/conf.c
+	src/hscroll.c src/hscroll.h \
+	src/match.c src/match.h \
+	src/conf.c src/conf.h
 endif
 
 if ENABLE_HELP_SCREEN
-src_ncmpc_SOURCES += src/screen_help.c
+src_ncmpc_SOURCES += src/screen_help.c src/screen_help.h
 endif
 
 if ENABLE_ARTIST_SCREEN
-src_ncmpc_SOURCES += src/screen_artist.c
+src_ncmpc_SOURCES += src/screen_artist.c src/screen_artist.h
 endif
 
 if ENABLE_SEARCH_SCREEN
-src_ncmpc_SOURCES += src/screen_search.c
+src_ncmpc_SOURCES += src/screen_search.c src/screen_search.h
 endif
 
 if ENABLE_SONG_SCREEN
-src_ncmpc_SOURCES += src/screen_song.c
+src_ncmpc_SOURCES += src/screen_song.c src/screen_song.h
 endif
 
 if ENABLE_KEYDEF_SCREEN
-src_ncmpc_SOURCES += src/screen_keydef.c
+src_ncmpc_SOURCES += src/screen_keydef.c src/screen_keydef.h
 endif
 
 if ENABLE_PLUGIN_LIBRARY
-src_ncmpc_SOURCES += src/plugin.c
+src_ncmpc_SOURCES += src/plugin.c src/plugin.h
 endif
 
 if ENABLE_SCREEN_TEXT
-src_ncmpc_SOURCES += src/screen_text.c
+src_ncmpc_SOURCES += src/screen_text.c src/screen_text.h
 endif
 
 if ENABLE_LYRICS_SCREEN
-src_ncmpc_SOURCES += src/screen_lyrics.c src/lyrics.c
+src_ncmpc_SOURCES += \
+	src/screen_lyrics.c src/screen_lyrics.h \
+	src/lyrics.c src/lyrics.h
 endif
 
 if ENABLE_OUTPUTS_SCREEN
-src_ncmpc_SOURCES += src/screen_outputs.c
+src_ncmpc_SOURCES += src/screen_outputs.c src/screen_outputs.h
 endif
 
 if ENABLE_CHAT_SCREEN
-src_ncmpc_SOURCES += src/screen_chat.c
+src_ncmpc_SOURCES += src/screen_chat.c src/screen_chat.h
 endif
 
 if ENABLE_LIRC
-src_ncmpc_SOURCES += src/lirc.c
+src_ncmpc_SOURCES += src/lirc.c src/lirc.h
 endif
 
 
