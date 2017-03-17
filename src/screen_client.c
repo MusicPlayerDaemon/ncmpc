@@ -44,10 +44,6 @@ screen_database_update(struct mpdclient *c, const char *path)
 		return;
 	}
 
-	/* set update_id to make sure the browse callback gets called
-	   even if the update has finished before status is updated */
-	c->update_id = id;
-
 	if (path != NULL && *path != 0) {
 		char *path_locale = utf8_to_locale(path);
 		screen_status_printf(_("Database update of %s started"), path);

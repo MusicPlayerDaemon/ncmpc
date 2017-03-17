@@ -202,8 +202,6 @@ mpdclient_update(struct mpdclient *c)
 	if (c->status == NULL)
 		return mpdclient_handle_error(c);
 
-	c->update_id = mpd_status_get_update_id(c->status);
-
 	c->volume = mpd_status_get_volume(c->status);
 
 	/* check if the playlist needs an update */

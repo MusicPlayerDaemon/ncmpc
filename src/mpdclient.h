@@ -36,7 +36,6 @@ struct mpdclient {
 	const struct mpd_song *song;
 
 	int volume;
-	unsigned update_id;
 
 	/**
 	 * A bit mask of idle events occurred since the last update.
