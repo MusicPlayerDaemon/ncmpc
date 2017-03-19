@@ -103,14 +103,6 @@ catch_sigcont(gcc_unused int sig)
 		exit(EXIT_FAILURE);
 }
 
-void
-sigstop(void)
-{
-	def_prog_mode();  /* save the tty modes */
-	endwin();         /* end curses mode temporarily */
-	kill(0, SIGSTOP); /* issue SIGSTOP */
-}
-
 static gboolean
 sigwinch_event(gcc_unused GIOChannel *source,
                gcc_unused GIOCondition condition, gcc_unused gpointer data)

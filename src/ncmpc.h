@@ -24,10 +24,6 @@
 
 #include <stdbool.h>
 
-/** put the terminal in a sane mode and stop/suspend ncmpc */
-void
-sigstop(void);
-
 void begin_input_event(void);
 void end_input_event(void);
 
