@@ -73,6 +73,8 @@ noinst_DATA = src/win/ncmpc_win32_rc.rc
 
 src_ncmpc_DEPENDENCIES = src/win/ncmpc_win32_rc.$(OBJEXT)
 src_ncmpc_LDFLAGS = -Wl,src/win/ncmpc_win32_rc.$(OBJEXT)
+else
+src_ncmpc_SOURCES += src/signals.c src/signals.h
 endif
 
 if NCMPC_MINI

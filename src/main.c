@@ -33,6 +33,7 @@
 #include "player_command.h"
 #include "keyboard.h"
 #include "lirc.h"
+#include "signals.h"
 
 #ifndef NCMPC_MINI
 #include "conf.h"
@@ -43,10 +44,6 @@
 #endif
 
 #include <mpd/client.h>
-
-#ifndef WIN32
-#include <glib-unix.h>
-#endif
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -66,7 +63,6 @@ static const guint update_interval = 500;
 static struct mpdclient *mpd = NULL;
 static GMainLoop *main_loop;
 static guint reconnect_source_id, update_source_id;
-static int sigwinch_pipes[2];
 
 #ifndef NCMPC_MINI
 static guint check_key_bindings_source_id;
@@ -91,37 +87,6 @@ update_xterm_title(void)
 	}
 }
 #endif
-
-#ifndef WIN32
-static gboolean
-handle_quit_signal(gcc_unused gpointer data)
-{
-	g_main_loop_quit(main_loop);
-	return false;
-}
-
-static gboolean
-sigwinch_event(gcc_unused GIOChannel *source,
-               gcc_unused GIOCondition condition, gcc_unused gpointer data)
-{
-	char ignoreme[64];
-	if (1 > read(sigwinch_pipes[0], ignoreme, 64))
-		exit(EXIT_FAILURE);
-
-	endwin();
-	refresh();
-	screen_resize(mpd);
-
-	return TRUE;
-}
-
-static void
-catch_sigwinch(gcc_unused int sig)
-{
-	if (1 != write(sigwinch_pipes[1], "", 1))
-		exit(EXIT_FAILURE);
-}
-#endif /* WIN32 */
 
 static gboolean
 timer_mpd_update(gpointer data);
@@ -451,42 +416,6 @@ main(int argc, const char *argv[])
 	/* parse command line options - 2 pass */
 	options_parse(argc, argv);
 
-#ifndef WIN32
-	/* setup quit signals */
-	g_unix_signal_add(SIGTERM, handle_quit_signal, NULL);
-	g_unix_signal_add(SIGINT, handle_quit_signal, NULL);
-	g_unix_signal_add(SIGHUP, handle_quit_signal, NULL);
-
-	/* setup signal behavior - SIGCONT */
-
-	struct sigaction act;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = 0;
-
-	act.sa_handler = catch_sigwinch;
-	if (sigaction(SIGCONT, &act, NULL) < 0) {
-		perror("sigaction(SIGCONT)");
-		exit(EXIT_FAILURE);
-	}
-
-	/* setup SIGWINCH */
-
-	act.sa_flags = SA_RESTART;
-	act.sa_handler = catch_sigwinch;
-	if (sigaction(SIGWINCH, &act, NULL) < 0) {
-		perror("sigaction(SIGWINCH)");
-		exit(EXIT_FAILURE);
-	}
-
-	/* ignore SIGPIPE */
-
-	act.sa_handler = SIG_IGN;
-	if (sigaction(SIGPIPE, &act, NULL) < 0) {
-		perror("sigaction(SIGPIPE)");
-		exit(EXIT_FAILURE);
-	}
-#endif
-
 	ncu_init();
 
 #ifdef ENABLE_LYRICS_SCREEN
@@ -508,18 +437,7 @@ main(int argc, const char *argv[])
 	/* watch out for lirc input */
 	ncmpc_lirc_init();
 
-#ifndef WIN32
-	if (!pipe(sigwinch_pipes) &&
-		!fcntl(sigwinch_pipes[1], F_SETFL, O_NONBLOCK)) {
-		GIOChannel *sigwinch_channel = g_io_channel_unix_new(sigwinch_pipes[0]);
-		g_io_add_watch(sigwinch_channel, G_IO_IN, sigwinch_event, NULL);
-		g_io_channel_unref(sigwinch_channel);
-	}
-	else {
-		perror("sigwinch pipe creation failed");
-		exit(EXIT_FAILURE);
-	}
-#endif
+	signals_init(main_loop, mpd);
 
 	/* attempt to connect */
 	reconnect_source_id = g_timeout_add(1, timer_reconnect, NULL);
@@ -549,9 +467,7 @@ main(int argc, const char *argv[])
 		g_source_remove(check_key_bindings_source_id);
 #endif
 
-	close(sigwinch_pipes[0]);
-	close(sigwinch_pipes[1]);
-
+	signals_deinit();
 	ncmpc_lirc_deinit();
 
 	screen_exit();
