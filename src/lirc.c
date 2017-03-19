@@ -49,7 +49,7 @@ lirc_event(gcc_unused GIOChannel *source,
 }
 
 void
-ncmpc_lirc_open()
+ncmpc_lirc_init()
 {
 	char prog[] = "ncmpc";
 	int lirc_socket = 0;
@@ -67,7 +67,8 @@ ncmpc_lirc_open()
 	g_io_channel_unref(channel);
 }
 
-void ncmpc_lirc_close()
+void
+ncmpc_lirc_deinit()
 {
 	if (lc)
 		lirc_freeconfig(lc);

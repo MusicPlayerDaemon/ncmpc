@@ -21,7 +21,9 @@
 #define LIRC_H
 
 void
-ncmpc_lirc_open(void);
-void ncmpc_lirc_close(void);
+ncmpc_lirc_init(void);
+
+void
+ncmpc_lirc_deinit(void);
 
 #endif

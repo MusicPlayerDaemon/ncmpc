@@ -555,7 +555,7 @@ main(int argc, const char *argv[])
 
 #ifdef ENABLE_LIRC
 	/* watch out for lirc input */
-	ncmpc_lirc_open();
+	ncmpc_lirc_init();
 #endif
 
 #ifndef WIN32
@@ -603,7 +603,7 @@ main(int argc, const char *argv[])
 	close(sigwinch_pipes[1]);
 
 #ifdef ENABLE_LIRC
-	ncmpc_lirc_close();
+	ncmpc_lirc_deinit();
 #endif
 
 	screen_exit();
