@@ -555,12 +555,7 @@ main(int argc, const char *argv[])
 
 #ifdef ENABLE_LIRC
 	/* watch out for lirc input */
-	int lirc_socket = ncmpc_lirc_open();
-	if (lirc_socket >= 0) {
-		GIOChannel *lirc_channel = g_io_channel_unix_new(lirc_socket);
-		g_io_add_watch(lirc_channel, G_IO_IN, lirc_event, NULL);
-		g_io_channel_unref(lirc_channel);
-	}
+	ncmpc_lirc_open();
 #endif
 
 #ifndef WIN32
