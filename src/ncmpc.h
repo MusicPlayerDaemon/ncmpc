@@ -22,12 +22,19 @@
 
 #include "command.h"
 
+#include <stdbool.h>
+
 /** put the terminal in a sane mode and stop/suspend ncmpc */
 void
 sigstop(void);
 
 void begin_input_event(void);
 void end_input_event(void);
-int do_input_event(command_t cmd);
+
+/**
+ * @return false if the application shall quit
+ */
+bool
+do_input_event(command_t cmd);
 
 #endif /* NCMPC_H */

@@ -35,7 +35,7 @@ keyboard_event(gcc_unused GIOChannel *source,
 
 	command_t cmd = get_keyboard_command();
 	if (cmd != CMD_NONE)
-		if (do_input_event(cmd) != 0)
+		if (!do_input_event(cmd))
 			return FALSE;
 
 	end_input_event();

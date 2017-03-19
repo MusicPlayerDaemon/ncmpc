@@ -362,11 +362,12 @@ void end_input_event(void)
 	auto_update_timer();
 }
 
-int do_input_event(command_t cmd)
+bool
+do_input_event(command_t cmd)
 {
 	if (cmd == CMD_QUIT) {
 		g_main_loop_quit(main_loop);
-		return -1;
+		return false;
 	}
 
 	screen_cmd(mpd, cmd);
@@ -375,7 +376,7 @@ int do_input_event(command_t cmd)
 		/* make sure we don't update the volume yet */
 		disable_update_timer();
 
-	return 0;
+	return true;
 }
 
 #ifndef NCMPC_MINI

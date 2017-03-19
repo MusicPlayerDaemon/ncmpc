@@ -39,7 +39,7 @@ lirc_event(gcc_unused GIOChannel *source,
 	if (lirc_nextcode(&code) == 0) {
 		while (lirc_code2char(lc, code, &txt) == 0 && txt != NULL) {
 			cmd = get_key_command_from_name(txt);
-			if (do_input_event(cmd) != 0)
+			if (!do_input_event(cmd))
 				return FALSE;
 		}
 	}
