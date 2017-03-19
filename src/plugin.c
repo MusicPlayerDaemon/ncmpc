@@ -29,6 +29,8 @@
 #include <sys/wait.h>
 
 struct plugin_pipe {
+	struct plugin_cycle *cycle;
+
 	/** the pipe to the plugin process, or -1 if none is currently
 	    open */
 	int fd;
@@ -167,17 +169,12 @@ static gboolean
 plugin_data(gcc_unused GIOChannel *source,
 	    gcc_unused GIOCondition condition, gpointer data)
 {
-	struct plugin_cycle *cycle = data;
+	struct plugin_pipe *p = data;
+	assert(p->fd >= 0);
+
+	struct plugin_cycle *cycle = p->cycle;
 	assert(cycle != NULL);
 	assert(cycle->pid > 0);
-
-	struct plugin_pipe *p = NULL;
-	if (source == cycle->pipe_stdout.channel)
-		p = &cycle->pipe_stdout;
-	else if (source == cycle->pipe_stderr.channel)
-		p = &cycle->pipe_stderr;
-	assert(p != NULL);
-	assert(p->fd >= 0);
 
 	char buffer[256];
 	ssize_t nbytes = condition & G_IO_IN
@@ -217,6 +214,7 @@ plugin_delayed_fail(gpointer data)
 static void
 plugin_fd_add(struct plugin_cycle *cycle, struct plugin_pipe *p, int fd)
 {
+	p->cycle = cycle;
 	p->fd = fd;
 	p->data = g_string_new(NULL);
 	p->channel = g_io_channel_unix_new(fd);
