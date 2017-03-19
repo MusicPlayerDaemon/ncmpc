@@ -141,8 +141,10 @@ mpdclient_handle_error(struct mpdclient *c)
 	mpdclient_invoke_error_callback(error,
 					mpd_connection_get_error_message(c->connection));
 
-	if (!mpd_connection_clear_error(c->connection))
+	if (!mpd_connection_clear_error(c->connection)) {
 		mpdclient_disconnect(c);
+		mpdclient_lost_callback();
+	}
 
 	return false;
 }
