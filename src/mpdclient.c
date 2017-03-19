@@ -78,6 +78,21 @@ mpdclient_invoke_error_callback(enum mpd_error error,
 }
 
 static void
+mpdclient_invoke_error_callback1(struct mpdclient *c)
+{
+	assert(c != NULL);
+	assert(c->connection != NULL);
+
+	struct mpd_connection *connection = c->connection;
+
+	enum mpd_error error = mpd_connection_get_error(connection);
+	assert(error != MPD_ERROR_SUCCESS);
+
+	mpdclient_invoke_error_callback(error,
+					mpd_connection_get_error_message(connection));
+}
+
+static void
 mpdclient_gidle_callback(enum mpd_error error,
 			 gcc_unused enum mpd_server_error server_error,
 			 const char *message, enum mpd_idle events,
@@ -214,7 +229,7 @@ mpdclient_connect(struct mpdclient *c)
 		g_error("Out of memory");
 
 	if (mpd_connection_get_error(c->connection) != MPD_ERROR_SUCCESS) {
-		mpdclient_handle_error(c);
+		mpdclient_invoke_error_callback1(c);
 		mpdclient_disconnect(c);
 		mpdclient_failed_callback();
 		return false;
@@ -223,7 +238,7 @@ mpdclient_connect(struct mpdclient *c)
 	/* send password */
 	if (c->password != NULL &&
 	    !mpd_run_password(c->connection, c->password)) {
-		mpdclient_handle_error(c);
+		mpdclient_invoke_error_callback1(c);
 		mpdclient_disconnect(c);
 		mpdclient_failed_callback();
 		return false;
