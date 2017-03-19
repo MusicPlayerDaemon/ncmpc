@@ -409,19 +409,12 @@ mpdclient_cmd_volume(struct mpdclient *c, gint value)
 bool
 mpdclient_cmd_volume_up(struct mpdclient *c)
 {
+	if (c->volume < 0 || c->volume >= 100)
+		return true;
+
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == NULL)
 		return false;
-
-	if (c->status == NULL ||
-	    mpd_status_get_volume(c->status) == -1)
-		return true;
-
-	if (c->volume < 0)
-		c->volume = mpd_status_get_volume(c->status);
-
-	if (c->volume >= 100)
-		return true;
 
 	return mpdclient_cmd_volume(c, ++c->volume);
 }
@@ -429,18 +422,12 @@ mpdclient_cmd_volume_up(struct mpdclient *c)
 bool
 mpdclient_cmd_volume_down(struct mpdclient *c)
 {
+	if (c->volume <= 0)
+		return true;
+
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == NULL)
 		return false;
-
-	if (c->status == NULL || mpd_status_get_volume(c->status) < 0)
-		return true;
-
-	if (c->volume < 0)
-		c->volume = mpd_status_get_volume(c->status);
-
-	if (c->volume <= 0)
-		return true;
 
 	return mpdclient_cmd_volume(c, --c->volume);
 }
