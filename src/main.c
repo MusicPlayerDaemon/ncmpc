@@ -31,6 +31,7 @@
 #include "strfsong.h"
 #include "i18n.h"
 #include "player_command.h"
+#include "lirc.h"
 
 #ifndef NCMPC_MINI
 #include "conf.h"
@@ -38,10 +39,6 @@
 
 #ifdef ENABLE_LYRICS_SCREEN
 #include "lyrics.h"
-#endif
-
-#ifdef ENABLE_LIRC
-#include "lirc.h"
 #endif
 
 #include <mpd/client.h>
@@ -553,10 +550,8 @@ main(int argc, const char *argv[])
 	g_io_add_watch(keyboard_channel, G_IO_IN, keyboard_event, NULL);
 	g_io_channel_unref(keyboard_channel);
 
-#ifdef ENABLE_LIRC
 	/* watch out for lirc input */
 	ncmpc_lirc_init();
-#endif
 
 #ifndef WIN32
 	if (!pipe(sigwinch_pipes) &&
@@ -602,9 +597,7 @@ main(int argc, const char *argv[])
 	close(sigwinch_pipes[0]);
 	close(sigwinch_pipes[1]);
 
-#ifdef ENABLE_LIRC
 	ncmpc_lirc_deinit();
-#endif
 
 	screen_exit();
 #ifndef NCMPC_MINI

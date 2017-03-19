@@ -20,10 +20,24 @@
 #ifndef LIRC_H
 #define LIRC_H
 
+#include "config.h"
+
+#ifdef ENABLE_LIRC
+
 void
 ncmpc_lirc_init(void);
 
 void
 ncmpc_lirc_deinit(void);
+
+#else
+
+static inline void
+ncmpc_lirc_init(void) {}
+
+static inline void
+ncmpc_lirc_deinit(void) {}
+
+#endif
 
 #endif
