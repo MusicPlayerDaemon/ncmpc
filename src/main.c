@@ -201,7 +201,6 @@ timer_reconnect(gcc_unused gpointer data)
 	g_free(name);
 	doupdate();
 
-	mpdclient_disconnect(mpd);
 	mpdclient_connect(mpd);
 
 	return FALSE;
