@@ -5,6 +5,7 @@ ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS = foreign 1.11 dist-xz subdir-objects
 
 AM_CPPFLAGS = \
+	$(CURSES_CFLAGS) \
 	$(LIBMPDCLIENT_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	$(LIBLIRCCLIENT_CFLAGS) \
@@ -14,7 +15,7 @@ AM_CPPFLAGS = \
 bin_PROGRAMS = src/ncmpc
 
 src_ncmpc_LDADD = \
-	$(CURSES_LIB) \
+	$(CURSES_LIBS) \
 	$(LIBMPDCLIENT_LIBS) \
 	$(GLIB_LIBS) \
 	$(LIBLIRCCLIENT_LIBS)
