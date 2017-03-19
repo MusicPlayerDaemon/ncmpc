@@ -59,7 +59,6 @@ seek_timer(gpointer data)
 
 	seek_source_id = 0;
 	commit_seek(c);
-	mpdclient_put_connection(c);
 	return false;
 }
 

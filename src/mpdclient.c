@@ -28,6 +28,40 @@
 
 #include <assert.h>
 
+static gboolean
+mpdclient_enter_idle_callback(gpointer user_data)
+{
+	struct mpdclient *c = user_data;
+	assert(c->enter_idle_source_id != 0);
+	assert(c->source != NULL);
+	assert(!c->idle);
+
+	c->enter_idle_source_id = 0;
+	c->idle = mpd_glib_enter(c->source);
+	return false;
+}
+
+static void
+mpdclient_schedule_enter_idle(struct mpdclient *c)
+{
+	assert(c != NULL);
+	assert(c->source != NULL);
+
+	if (c->enter_idle_source_id == 0)
+		/* automatically re-enter MPD "idle" mode */
+		c->enter_idle_source_id =
+			g_idle_add(mpdclient_enter_idle_callback, c);
+}
+
+static void
+mpdclient_cancel_enter_idle(struct mpdclient *c)
+{
+	if (c->enter_idle_source_id != 0) {
+		g_source_remove(c->enter_idle_source_id);
+		c->enter_idle_source_id = 0;
+	}
+}
+
 static void
 mpdclient_invoke_error_callback(enum mpd_error error,
 				const char *message)
@@ -69,7 +103,8 @@ mpdclient_gidle_callback(enum mpd_error error,
 
 	c->events = 0;
 
-	mpdclient_put_connection(c);
+	if (c->source != NULL)
+		mpdclient_schedule_enter_idle(c);
 }
 
 /****************************************************************************/
@@ -142,6 +177,8 @@ mpdclient_status_free(struct mpdclient *c)
 void
 mpdclient_disconnect(struct mpdclient *c)
 {
+	mpdclient_cancel_enter_idle(c);
+
 	if (c->source != NULL) {
 		mpd_glib_free(c->source);
 		c->source = NULL;
@@ -194,6 +231,7 @@ mpdclient_connect(struct mpdclient *c)
 
 	c->source = mpd_glib_new(c->connection,
 				 mpdclient_gidle_callback, c);
+	mpdclient_schedule_enter_idle(c);
 
 	++c->connection_id;
 
@@ -248,19 +286,11 @@ mpdclient_get_connection(struct mpdclient *c)
 	if (c->source != NULL && c->idle) {
 		c->idle = false;
 		mpd_glib_leave(c->source);
+
+		mpdclient_schedule_enter_idle(c);
 	}
 
 	return c->connection;
-}
-
-void
-mpdclient_put_connection(struct mpdclient *c)
-{
-	assert(c->source == NULL || c->connection != NULL);
-
-	if (c->source != NULL && !c->idle) {
-		c->idle = mpd_glib_enter(c->source);
-	}
 }
 
 static struct mpd_status *

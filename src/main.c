@@ -148,7 +148,6 @@ do_mpd_update(void)
 	screen_update(mpd);
 	mpd->events = 0;
 
-	mpdclient_put_connection(mpd);
 	check_reconnect();
 }
 
@@ -308,7 +307,6 @@ void end_input_event(void)
 	screen_update(mpd);
 	mpd->events = 0;
 
-	mpdclient_put_connection(mpd);
 	check_reconnect();
 	auto_update_timer();
 }

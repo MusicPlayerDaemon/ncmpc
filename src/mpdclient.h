@@ -23,12 +23,18 @@ struct mpdclient {
 
 	/**
 	 * Tracks idle events.  It is automatically called by
-	 * mpdclient_get_connection() and mpdclient_put_connection().
+	 * mpdclient_get_connection().
 	 */
 	struct mpd_glib_source *source;
 
 	struct mpd_status *status;
 	const struct mpd_song *song;
+
+	/**
+	 * The GLib source id which re-enters MPD idle mode before the
+	 * next main loop interation.
+	 */
+	unsigned enter_idle_source_id;
 
 	/**
 	 * This attribute is incremented whenever the connection changes
@@ -138,9 +144,6 @@ mpdclient_update(struct mpdclient *c);
 
 struct mpd_connection *
 mpdclient_get_connection(struct mpdclient *c);
-
-void
-mpdclient_put_connection(struct mpdclient *c);
 
 /*** MPD Commands  **********************************************************/
 
