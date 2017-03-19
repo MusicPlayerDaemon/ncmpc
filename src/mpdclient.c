@@ -219,18 +219,13 @@ mpdclient_disconnect(struct mpdclient *c)
 	c->events |= MPD_IDLE_ALL;
 }
 
-bool
-mpdclient_connect(struct mpdclient *c)
+static bool
+mpdclient_connected(struct mpdclient *c,
+		    struct mpd_connection *connection)
 {
-	/* close any open connection */
-	mpdclient_disconnect(c);
+	c->connection = connection;
 
-	/* connect to MPD */
-	c->connection = mpd_connection_new(c->host, c->port, c->timeout_ms);
-	if (c->connection == NULL)
-		g_error("Out of memory");
-
-	if (mpd_connection_get_error(c->connection) != MPD_ERROR_SUCCESS) {
+	if (mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS) {
 		mpdclient_invoke_error_callback1(c);
 		mpdclient_disconnect(c);
 		mpdclient_failed_callback();
@@ -239,22 +234,36 @@ mpdclient_connect(struct mpdclient *c)
 
 	/* send password */
 	if (c->password != NULL &&
-	    !mpd_run_password(c->connection, c->password)) {
+	    !mpd_run_password(connection, c->password)) {
 		mpdclient_invoke_error_callback1(c);
 		mpdclient_disconnect(c);
 		mpdclient_failed_callback();
 		return false;
 	}
 
-	c->source = mpd_glib_new(c->connection,
+	c->source = mpd_glib_new(connection,
 				 mpdclient_gidle_callback, c);
 	mpdclient_schedule_enter_idle(c);
 
 	++c->connection_id;
 
 	mpdclient_connected_callback();
-
 	return true;
+}
+
+bool
+mpdclient_connect(struct mpdclient *c)
+{
+	/* close any open connection */
+	mpdclient_disconnect(c);
+
+	/* connect to MPD */
+	struct mpd_connection *connection =
+		mpd_connection_new(c->host, c->port, c->timeout_ms);
+	if (connection == NULL)
+		g_error("Out of memory");
+
+	return mpdclient_connected(c, connection);
 }
 
 bool
