@@ -33,6 +33,7 @@ src_ncmpc_SOURCES = \
 	src/filelist.c src/filelist.h \
 	src/options.c src/options.h \
 	src/command.c src/command.h \
+	src/keyboard.c src/keyboard.h \
 	src/ncfix.h \
 	src/ncu.c src/ncu.h \
 	src/player_command.c src/player_command.h \

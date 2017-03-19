@@ -31,6 +31,7 @@
 #include "strfsong.h"
 #include "i18n.h"
 #include "player_command.h"
+#include "keyboard.h"
 #include "lirc.h"
 
 #ifndef NCMPC_MINI
@@ -377,22 +378,6 @@ int do_input_event(command_t cmd)
 	return 0;
 }
 
-static gboolean
-keyboard_event(gcc_unused GIOChannel *source,
-	       gcc_unused GIOCondition condition,
-	       gcc_unused gpointer data)
-{
-	begin_input_event();
-
-	command_t cmd = get_keyboard_command();
-	if (cmd != CMD_NONE)
-		if (do_input_event(cmd) != 0)
-			return FALSE;
-
-	end_input_event();
-	return TRUE;
-}
-
 #ifndef NCMPC_MINI
 /**
  * Check the configured key bindings for errors, and display a status
@@ -545,9 +530,7 @@ main(int argc, const char *argv[])
 	main_loop = g_main_loop_new(NULL, FALSE);
 
 	/* watch out for keyboard input */
-	GIOChannel *keyboard_channel = g_io_channel_unix_new(STDIN_FILENO);
-	g_io_add_watch(keyboard_channel, G_IO_IN, keyboard_event, NULL);
-	g_io_channel_unref(keyboard_channel);
+	keyboard_init();
 
 	/* watch out for lirc input */
 	ncmpc_lirc_init();
