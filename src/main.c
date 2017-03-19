@@ -551,23 +551,24 @@ main(int argc, const char *argv[])
 	/* watch out for keyboard input */
 	GIOChannel *keyboard_channel = g_io_channel_unix_new(STDIN_FILENO);
 	g_io_add_watch(keyboard_channel, G_IO_IN, keyboard_event, NULL);
+	g_io_channel_unref(keyboard_channel);
 
 #ifdef ENABLE_LIRC
 	/* watch out for lirc input */
 	int lirc_socket = ncmpc_lirc_open();
-	GIOChannel *lirc_channel = NULL;
 	if (lirc_socket >= 0) {
-		lirc_channel = g_io_channel_unix_new(lirc_socket);
+		GIOChannel *lirc_channel = g_io_channel_unix_new(lirc_socket);
 		g_io_add_watch(lirc_channel, G_IO_IN, lirc_event, NULL);
+		g_io_channel_unref(lirc_channel);
 	}
 #endif
 
 #ifndef WIN32
-	GIOChannel *sigwinch_channel = NULL;
 	if (!pipe(sigwinch_pipes) &&
 		!fcntl(sigwinch_pipes[1], F_SETFL, O_NONBLOCK)) {
-		sigwinch_channel = g_io_channel_unix_new(sigwinch_pipes[0]);
+		GIOChannel *sigwinch_channel = g_io_channel_unix_new(sigwinch_pipes[0]);
 		g_io_add_watch(sigwinch_channel, G_IO_IN, sigwinch_event, NULL);
+		g_io_channel_unref(sigwinch_channel);
 	}
 	else {
 		perror("sigwinch pipe creation failed");
@@ -587,6 +588,7 @@ main(int argc, const char *argv[])
 	screen_paint(mpd);
 
 	g_main_loop_run(main_loop);
+	g_main_loop_unref(main_loop);
 
 	/* cleanup */
 
@@ -602,15 +604,10 @@ main(int argc, const char *argv[])
 		g_source_remove(check_key_bindings_source_id);
 #endif
 
-	g_main_loop_unref(main_loop);
-	g_io_channel_unref(keyboard_channel);
-	g_io_channel_unref(sigwinch_channel);
 	close(sigwinch_pipes[0]);
 	close(sigwinch_pipes[1]);
 
 #ifdef ENABLE_LIRC
-	if (lirc_socket >= 0)
-		g_io_channel_unref(lirc_channel);
 	ncmpc_lirc_close();
 #endif
 
