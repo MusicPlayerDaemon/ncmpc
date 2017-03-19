@@ -95,14 +95,6 @@ catch_sigint(gcc_unused int sig)
 	g_main_loop_quit(main_loop);
 }
 
-
-static void
-catch_sigcont(gcc_unused int sig)
-{
-	if (1 != write(sigwinch_pipes[1], "", 1))
-		exit(EXIT_FAILURE);
-}
-
 static gboolean
 sigwinch_event(gcc_unused GIOChannel *source,
                gcc_unused GIOCondition condition, gcc_unused gpointer data)
@@ -475,7 +467,7 @@ main(int argc, const char *argv[])
 
 	/* setup signal behavior - SIGCONT */
 
-	act.sa_handler = catch_sigcont;
+	act.sa_handler = catch_sigwinch;
 	if (sigaction(SIGCONT, &act, NULL) < 0) {
 		perror("sigaction(SIGCONT)");
 		exit(EXIT_FAILURE);
