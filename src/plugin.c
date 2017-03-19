@@ -34,9 +34,7 @@ struct plugin_pipe {
 	/** the pipe to the plugin process, or -1 if none is currently
 	    open */
 	int fd;
-	/** the GLib channel of #fd */
-	GIOChannel *channel;
-	/** the GLib IO watch of #channel */
+	/** the GLib IO watch of #fd */
 	guint event_id;
 	/** the output of the current plugin */
 	GString *data;
@@ -129,7 +127,6 @@ next_plugin(struct plugin_cycle *cycle);
 static void
 plugin_eof(struct plugin_cycle *cycle, struct plugin_pipe *p)
 {
-	g_io_channel_unref(p->channel);
 	close(p->fd);
 	p->fd = -1;
 
@@ -217,9 +214,10 @@ plugin_fd_add(struct plugin_cycle *cycle, struct plugin_pipe *p, int fd)
 	p->cycle = cycle;
 	p->fd = fd;
 	p->data = g_string_new(NULL);
-	p->channel = g_io_channel_unix_new(fd);
-	p->event_id = g_io_add_watch(p->channel, G_IO_IN|G_IO_HUP,
+	GIOChannel *channel = g_io_channel_unix_new(fd);
+	p->event_id = g_io_add_watch(channel, G_IO_IN|G_IO_HUP,
 				     plugin_data, cycle);
+	g_io_channel_unref(channel);
 }
 
 static int
@@ -361,7 +359,6 @@ plugin_fd_remove(struct plugin_pipe *p)
 {
 	if (p->fd >= 0) {
 		g_source_remove(p->event_id);
-		g_io_channel_unref(p->channel);
 		close(p->fd);
 	}
 }
