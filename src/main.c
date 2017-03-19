@@ -44,6 +44,10 @@
 
 #include <mpd/client.h>
 
+#ifndef WIN32
+#include <glib-unix.h>
+#endif
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -89,10 +93,11 @@ update_xterm_title(void)
 #endif
 
 #ifndef WIN32
-static void
-catch_sigint(gcc_unused int sig)
+static gboolean
+handle_quit_signal(gcc_unused gpointer data)
 {
 	g_main_loop_quit(main_loop);
+	return false;
 }
 
 static gboolean
@@ -447,37 +452,20 @@ main(int argc, const char *argv[])
 	options_parse(argc, argv);
 
 #ifndef WIN32
-	/* setup signal behavior - SIGINT */
+	/* setup quit signals */
+	g_unix_signal_add(SIGTERM, handle_quit_signal, NULL);
+	g_unix_signal_add(SIGINT, handle_quit_signal, NULL);
+	g_unix_signal_add(SIGHUP, handle_quit_signal, NULL);
+
+	/* setup signal behavior - SIGCONT */
+
 	struct sigaction act;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = 0;
-	act.sa_handler = catch_sigint;
-	if (sigaction(SIGINT, &act, NULL) < 0) {
-		perror("signal");
-		exit(EXIT_FAILURE);
-	}
-
-	/* setup signal behavior - SIGTERM */
-
-	act.sa_handler = catch_sigint;
-	if (sigaction(SIGTERM, &act, NULL) < 0) {
-		perror("sigaction()");
-		exit(EXIT_FAILURE);
-	}
-
-	/* setup signal behavior - SIGCONT */
 
 	act.sa_handler = catch_sigwinch;
 	if (sigaction(SIGCONT, &act, NULL) < 0) {
 		perror("sigaction(SIGCONT)");
-		exit(EXIT_FAILURE);
-	}
-
-	/* setup signal behaviour - SIGHUP*/
-
-	act.sa_handler = catch_sigint;
-	if (sigaction(SIGHUP, &act, NULL) < 0) {
-		perror("sigaction(SIGHUP)");
 		exit(EXIT_FAILURE);
 	}
 
