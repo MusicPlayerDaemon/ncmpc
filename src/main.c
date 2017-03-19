@@ -98,8 +98,7 @@ catch_sigint(gcc_unused int sig)
 static void
 catch_sigcont(gcc_unused int sig)
 {
-	char irrelevant = 'a';
-	if (1 != write(sigwinch_pipes[1], &irrelevant, 1))
+	if (1 != write(sigwinch_pipes[1], "", 1))
 		exit(EXIT_FAILURE);
 }
 
