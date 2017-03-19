@@ -152,8 +152,7 @@ fi
 dnl enable colors
 AC_ARG_ENABLE([colors],
 	AS_HELP_STRING([--enable-colors],
-		[Enable color support]),
-		[enable_colors=$enableval],
+		[Enable color support]),,
 		[enable_colors=auto])
 AC_MSG_CHECKING([whether to include color support])
 AS_IF([ test "x$enable_colors" = xyes || test "x$enable_colors" = xauto ],
@@ -215,8 +214,7 @@ AC_CHECK_LIB([$(expr substr $CURSES_LIB 3 99)],
 
 AC_ARG_ENABLE([mouse], 
 	AS_HELP_STRING([--enable-mouse],
-		[Enable curses getmouse support @<:@default=yes@:>@]),
-		[enable_mouse=$enableval],
+		[Enable curses getmouse support @<:@default=yes@:>@]),,
 		[enable_mouse=auto])
 
 AC_MSG_CHECKING([whether to include mouse support])
@@ -293,8 +291,7 @@ dnl Optional screen - lyrics
 AC_MSG_CHECKING([whether to include the lyrics screen]) 
 AC_ARG_ENABLE([lyrics-screen], 
               AS_HELP_STRING([--enable-lyrics-screen],
-		[Enable lyrics screen @<:@default=no@:>@]),
-	[enable_lyrics_screen=$enableval],
+		[Enable lyrics screen @<:@default=no@:>@]),,
 	[enable_lyrics_screen=no])
 
 case "$host_os" in
