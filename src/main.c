@@ -131,9 +131,6 @@ auto_update_timer(void)
 }
 
 static void
-check_reconnect(void);
-
-static void
 do_mpd_update(void)
 {
 	if (mpdclient_is_connected(mpd) &&
@@ -147,8 +144,6 @@ do_mpd_update(void)
 
 	screen_update(mpd);
 	mpd->events = 0;
-
-	check_reconnect();
 }
 
 static char *
@@ -203,15 +198,6 @@ timer_reconnect(gcc_unused gpointer data)
 	mpdclient_connect(mpd);
 
 	return FALSE;
-}
-
-static void
-check_reconnect(void)
-{
-	if (mpdclient_is_dead(mpd) && reconnect_source_id == 0)
-		/* reconnect when the connection is lost */
-		reconnect_source_id = g_timeout_add(1000, timer_reconnect,
-						    NULL);
 }
 
 void
@@ -307,7 +293,6 @@ void end_input_event(void)
 	screen_update(mpd);
 	mpd->events = 0;
 
-	check_reconnect();
 	auto_update_timer();
 }
 
