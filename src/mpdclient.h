@@ -9,6 +9,13 @@
 struct filelist;
 
 struct mpdclient {
+	const char *host;
+	unsigned port;
+
+	unsigned timeout_ms;
+
+	const char *password;
+
 	/* playlist */
 	struct mpdclient_playlist playlist;
 
@@ -79,7 +86,8 @@ mpdclient_finish_command(struct mpdclient *c)
 }
 
 struct mpdclient *
-mpdclient_new(void);
+mpdclient_new(const gchar *host, unsigned port,
+	      unsigned timeout_ms, const gchar *password);
 
 void mpdclient_free(struct mpdclient *c);
 
@@ -120,8 +128,7 @@ mpdclient_get_current_song(const struct mpdclient *c)
 }
 
 bool
-mpdclient_connect(struct mpdclient *c, const gchar *host, unsigned port,
-		  unsigned timeout_ms, const gchar *password);
+mpdclient_connect(struct mpdclient *c);
 
 void
 mpdclient_disconnect(struct mpdclient *c);

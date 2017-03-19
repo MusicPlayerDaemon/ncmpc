@@ -98,9 +98,16 @@ mpdclient_handle_error(struct mpdclient *c)
 }
 
 struct mpdclient *
-mpdclient_new(void)
+mpdclient_new(const gchar *host, unsigned port,
+	      unsigned timeout_ms, const gchar *password)
 {
 	struct mpdclient *c = g_new0(struct mpdclient, 1);
+
+	c->host = host;
+	c->port = port;
+	c->timeout_ms = timeout_ms;
+	c->password = password;
+
 	playlist_init(&c->playlist);
 	c->volume = -1;
 	c->events = 0;
@@ -159,17 +166,13 @@ mpdclient_disconnect(struct mpdclient *c)
 }
 
 bool
-mpdclient_connect(struct mpdclient *c,
-		  const gchar *host,
-		  unsigned port,
-		  unsigned timeout_ms,
-		  const gchar *password)
+mpdclient_connect(struct mpdclient *c)
 {
 	/* close any open connection */
 	mpdclient_disconnect(c);
 
 	/* connect to MPD */
-	c->connection = mpd_connection_new(host, port, timeout_ms);
+	c->connection = mpd_connection_new(c->host, c->port, c->timeout_ms);
 	if (c->connection == NULL)
 		g_error("Out of memory");
 
@@ -181,7 +184,8 @@ mpdclient_connect(struct mpdclient *c,
 	}
 
 	/* send password */
-	if (password != NULL && !mpd_run_password(c->connection, password)) {
+	if (c->password != NULL &&
+	    !mpd_run_password(c->connection, c->password)) {
 		mpdclient_handle_error(c);
 		mpdclient_disconnect(c);
 		mpdclient_failed_callback();

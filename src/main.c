@@ -202,9 +202,7 @@ timer_reconnect(gcc_unused gpointer data)
 	doupdate();
 
 	mpdclient_disconnect(mpd);
-	mpdclient_connect(mpd, options.host, options.port,
-			  options.timeout_ms,
-			  options.password);
+	mpdclient_connect(mpd);
 
 	return FALSE;
 }
@@ -423,7 +421,9 @@ main(int argc, const char *argv[])
 #endif
 
 	/* create mpdclient instance */
-	mpd = mpdclient_new();
+	mpd = mpdclient_new(options.host, options.port,
+			    options.timeout_ms,
+			    options.password);
 
 	/* initialize curses */
 	screen_init(mpd);
