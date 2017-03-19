@@ -90,18 +90,6 @@ update_xterm_title(void)
 }
 #endif
 
-static void
-exit_and_cleanup(void)
-{
-	screen_exit();
-#ifndef NCMPC_MINI
-	set_xterm_title("");
-#endif
-	printf("\n");
-
-	mpdclient_free(mpd);
-}
-
 #ifndef WIN32
 static void
 catch_sigint(gcc_unused int sig)
@@ -626,7 +614,13 @@ main(int argc, const char *argv[])
 	ncmpc_lirc_close();
 #endif
 
-	exit_and_cleanup();
+	screen_exit();
+#ifndef NCMPC_MINI
+	set_xterm_title("");
+#endif
+	printf("\n");
+
+	mpdclient_free(mpd);
 
 #ifdef ENABLE_LYRICS_SCREEN
 	lyrics_deinit();
