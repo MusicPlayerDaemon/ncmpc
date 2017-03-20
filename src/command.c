@@ -18,12 +18,10 @@
  */
 
 #include "command.h"
-#include "config.h"
-#include "ncmpc.h"
 #include "i18n.h"
-#include "mpdclient.h"
-#include "screen.h"
+#include "ncmpc_curses.h"
 
+#include <assert.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
