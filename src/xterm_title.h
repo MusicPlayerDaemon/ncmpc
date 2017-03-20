@@ -21,6 +21,6 @@
 #define XTERM_TITLE_H
 
 void
-set_xterm_title(const char *format, ...);
+set_xterm_title(const char *title);
 
 #endif

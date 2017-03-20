@@ -83,7 +83,7 @@ update_xterm_title(void)
 	static char title[BUFSIZE];
 	if (strncmp(title, tmp, BUFSIZE)) {
 		g_strlcpy(title, tmp, BUFSIZE);
-		set_xterm_title("%s", title);
+		set_xterm_title(title);
 	}
 }
 #endif

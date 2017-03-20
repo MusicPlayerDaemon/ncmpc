@@ -20,25 +20,18 @@
 #include "xterm_title.h"
 #include "options.h"
 
-#include <glib.h>
-
 #include <stdio.h>
 
 void
-set_xterm_title(const char *format, ...)
+set_xterm_title(const char *title)
 {
 	/* the current xterm title exists under the WM_NAME property */
 	/* and can be retrieved with xprop -id $WINDOWID */
 
 	if (options.enable_xterm_title) {
 		if (g_getenv("WINDOWID")) {
-			va_list ap;
-			va_start(ap,format);
-			char *msg = g_strdup_vprintf(format,ap);
-			va_end(ap);
-			printf("\033]0;%s\033\\", msg);
+			printf("\033]0;%s\033\\", title);
 			fflush(stdout);
-			g_free(msg);
 		} else
 			options.enable_xterm_title = FALSE;
 	}
