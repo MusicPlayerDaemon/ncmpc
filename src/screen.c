@@ -300,11 +300,9 @@ screen_init(struct mpdclient *c)
 	/* create progress window */
 	progress_bar_init(&screen.progress_bar, screen.cols,
 			  screen.rows - 2, 0);
-	progress_bar_paint(&screen.progress_bar);
 
 	/* create status window */
 	status_bar_init(&screen.status_bar, screen.cols, screen.rows - 1, 0);
-	status_bar_paint(&screen.status_bar, c->status, c->song);
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
