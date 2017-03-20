@@ -16,8 +16,8 @@ src/screen_client.c
 src/screen_file.c
 src/screen_find.c
 src/screen_help.c
+src/screen_init.c
 src/screen_keydef.c
-src/screen_list.c
 src/screen_lyrics.c
 src/screen_outputs.c
 src/screen_queue.c
@@ -26,3 +26,4 @@ src/screen_song.c
 src/screen_utils.c
 src/status_bar.c
 src/title_bar.c
+src/utils.c
