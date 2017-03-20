@@ -17,9 +17,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_SCREEN_QUEUE_H
-#define NCMPC_SCREEN_QUEUE_H
+#ifndef SAVE_PLAYLIST_H
+#define SAVE_PLAYLIST_H
 
-extern const struct screen_functions screen_queue;
+struct mpdclient;
+
+int
+playlist_save(struct mpdclient *c, char *name, char *defaultname);
 
 #endif

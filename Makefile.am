@@ -54,6 +54,7 @@ src_ncmpc_SOURCES = \
 	src/screen_browser.c src/screen_browser.h \
 	src/screen_file.c src/screen_file.h \
 	src/list_window.c src/list_window.h \
+	src/save_playlist.c src/save_playlist.h \
 	src/paint.h \
 	src/song_paint.c src/song_paint.h \
 	src/colors.c src/colors.h \

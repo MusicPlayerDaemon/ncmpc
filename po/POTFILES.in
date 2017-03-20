@@ -8,6 +8,7 @@ src/list_window.c
 src/main.c
 src/options.c
 src/player_command.c
+src/save_playlist.c
 src/screen.c
 src/screen_artist.c
 src/screen_browser.c
