@@ -327,19 +327,19 @@ screen_init(struct mpdclient *c)
 		mode_fn->open(c);
 }
 
-void
-screen_paint(struct mpdclient *c)
+static void
+screen_refresh(struct mpdclient *c, bool main_dirty)
 {
-	const char *title = NULL;
-
-	if (mode_fn->get_title != NULL)
-		title = mode_fn->get_title(screen.buf, screen.buf_size);
-
-	/* paint the title/header window */
-	if( title )
-		paint_top_window(title, c);
-	else
-		paint_top_window("", c);
+	/* update title/header window */
+	const char *title =
+#ifndef NCMPC_MINI
+		screen.welcome_source_id == 0 &&
+#endif
+		mode_fn->get_title != NULL
+		? mode_fn->get_title(screen.buf, screen.buf_size)
+		: "";
+	assert(title != NULL);
+	paint_top_window(title, c);
 
 	/* paint the bottom window */
 
@@ -348,9 +348,11 @@ screen_paint(struct mpdclient *c)
 
 	/* paint the main window */
 
-	wclear(screen.main_window.w);
-	if (mode_fn->paint != NULL)
-		mode_fn->paint();
+	if (main_dirty) {
+		wclear(screen.main_window.w);
+		if (mode_fn->paint != NULL)
+			mode_fn->paint();
+	}
 
 	/* move the cursor to the origin */
 
@@ -361,6 +363,12 @@ screen_paint(struct mpdclient *c)
 
 	/* tell curses to update */
 	doupdate();
+}
+
+void
+screen_paint(struct mpdclient *c)
+{
+	screen_refresh(c, true);
 }
 
 void
@@ -430,36 +438,13 @@ screen_update(struct mpdclient *c)
 	    mpdclient_is_connected(c))
 		screen_status_printf(_("Database updated"));
 	was_connected = mpdclient_is_connected(c);
-
-	/* update title/header window */
-	if (screen.welcome_source_id != 0)
-		paint_top_window("", c);
-	else
 #endif
-	if (mode_fn->get_title != NULL) {
-		paint_top_window(mode_fn->get_title(screen.buf,screen.buf_size), c);
-	} else
-		paint_top_window("", c);
-
-	/* update progress window */
-	update_progress_window(c, false);
-
-	/* update status window */
-	status_bar_paint(&screen.status_bar, c->status, c->song);
 
 	/* update the main window */
 	if (mode_fn->update != NULL)
 		mode_fn->update(c);
 
-	/* move the cursor to the origin */
-
-	if (!options.hardware_cursor)
-		wmove(screen.main_window.w, 0, 0);
-
-	wnoutrefresh(screen.main_window.w);
-
-	/* tell curses to update */
-	doupdate();
+	screen_refresh(c, false);
 }
 
 #ifdef HAVE_GETMOUSE
