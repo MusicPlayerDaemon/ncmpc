@@ -41,7 +41,12 @@ screen_bell(void)
 static bool
 ignore_key(int key)
 {
-	return key == ERR;
+	return
+#ifdef HAVE_GETMOUSE
+		/* ignore mouse events */
+		key == KEY_MOUSE ||
+#endif
+		key == ERR;
 }
 
 int
@@ -59,12 +64,6 @@ screen_getch(const char *prompt)
 
 	int key;
 	while (ignore_key(key = wgetch(w))) {}
-
-#ifdef HAVE_GETMOUSE
-	/* ignore mouse events */
-	if (key == KEY_MOUSE)
-		return screen_getch(prompt);
-#endif
 
 	noecho();
 	curs_set(0);
