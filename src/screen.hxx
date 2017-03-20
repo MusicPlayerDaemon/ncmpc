@@ -9,6 +9,7 @@
 #include "StatusBar.hxx"
 #include "page/Container.hxx"
 #include "page/FindSupport.hxx"
+#include "dialogs/ModalDock.hxx"
 #include "ui/Point.hxx"
 #include "ui/Window.hxx"
 #include "event/IdleEvent.hxx"
@@ -24,10 +25,11 @@ struct mpd_song;
 struct mpdclient;
 struct PageMeta;
 class Page;
+class ModalDialog;
 class DelayedSeek;
 class EventLoop;
 
-class ScreenManager final : public PageContainer {
+class ScreenManager final : public ModalDock, public PageContainer {
 	/**
 	 * This event defers Paint() calls until after the EventLoop
 	 * has handled all other events.
@@ -60,6 +62,10 @@ class ScreenManager final : public PageContainer {
 		constexpr Point GetStatus() const noexcept {
 			return {status_x, (int)size.height - 1};
 		}
+
+		constexpr Size GetStatusSize() const noexcept {
+			return {size.width, 1U};
+		}
 	};
 
 	Layout layout;
@@ -81,6 +87,8 @@ private:
 	PageMap::iterator current_page = pages.begin();
 
 	const PageMeta *mode_fn_prev;
+
+	ModalDialog *modal = nullptr;
 
 	char *buf;
 	size_t buf_size;
@@ -128,6 +136,10 @@ public:
 	void Switch(const PageMeta &sf, struct mpdclient &c) noexcept;
 	void Swap(struct mpdclient &c, const struct mpd_song *song) noexcept;
 
+	bool CancelModalDialog() noexcept;
+
+	bool OnModalDialogKey(int key);
+
 	void PaintTopWindow() noexcept;
 
 	void Update(struct mpdclient &c, const DelayedSeek &seek) noexcept;
@@ -152,6 +164,11 @@ private:
 	void Paint() noexcept;
 
 public:
+	// virtual methods from ModalDock
+	void ShowModalDialog(ModalDialog &m) noexcept override;
+	void HideModalDialog(ModalDialog &m) noexcept override;
+	void CancelModalDialog(ModalDialog &m) noexcept override;
+
 	// virtual methods from PageContainer
 	void SchedulePaint(Page &page) noexcept override;
 };

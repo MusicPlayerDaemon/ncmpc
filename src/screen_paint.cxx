@@ -3,6 +3,7 @@
 
 #include "screen.hxx"
 #include "page/Page.hxx"
+#include "dialogs/ModalDialog.hxx"
 #include "ui/Options.hxx"
 
 void
@@ -23,7 +24,8 @@ ScreenManager::Paint() noexcept
 	progress_bar.Paint();
 
 	const auto &page = GetCurrentPage();
-	if (!page.PaintStatusBarOverride(status_bar.GetWindow()))
+	if (modal == nullptr &&
+	    !page.PaintStatusBarOverride(status_bar.GetWindow()))
 		status_bar.Paint();
 
 	/* paint the main window */
@@ -35,10 +37,16 @@ ScreenManager::Paint() noexcept
 
 	/* move the cursor to the origin */
 
-	if (!ui_options.hardware_cursor)
+	if (modal == nullptr && !ui_options.hardware_cursor)
 		main_window.MoveCursor({0, 0});
 
 	main_window.RefreshNoOut();
+
+	if (modal != nullptr) {
+		const auto &window = status_bar.GetWindow();
+		modal->Paint(window);
+		window.RefreshNoOut();
+	}
 
 	/* tell curses to update */
 	doupdate();

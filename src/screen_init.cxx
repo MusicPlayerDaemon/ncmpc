@@ -6,6 +6,7 @@
 #include "config.h"
 #include "Styles.hxx"
 #include "page/Page.hxx"
+#include "dialogs/ModalDialog.hxx"
 #include "ui/Options.hxx"
 
 /* minimum window size */
@@ -44,6 +45,8 @@ ScreenManager::~ScreenManager() noexcept
 void
 ScreenManager::Exit() noexcept
 {
+	CancelModalDialog();
+
 	GetCurrentPage().OnClose();
 	current_page = pages.end();
 	pages.clear();
@@ -75,6 +78,11 @@ ScreenManager::OnResize() noexcept
 	buf_size = layout.size.width;
 	delete[] buf;
 	buf = new char[buf_size];
+
+	if (modal != nullptr) {
+		const auto &window = status_bar.GetWindow();
+		modal->OnResize(window, layout.GetStatusSize());
+	}
 
 	/* resize all screens */
 	GetCurrentPage().Resize(layout.GetMainSize());

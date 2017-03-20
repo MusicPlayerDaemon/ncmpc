@@ -43,4 +43,12 @@ public:
 	 */
 	virtual bool OnMouse(Point p, mmask_t bstate) noexcept = 0;
 #endif
+
+	/**
+	 * Cancel the topmost modal dialog.
+	 *
+	 * @return true if a modal dialog was canceled, false if there
+	 * was none
+	 */
+	virtual bool CancelModalDialog() noexcept = 0;
 };

@@ -4,6 +4,7 @@
 #include "Instance.hxx"
 #include "Options.hxx"
 #include "event/SignalMonitor.hxx"
+#include "util/Exception.hxx" // for GetFullMessage()
 
 #include <signal.h>
 
@@ -85,7 +86,15 @@ Instance::Run()
 
 bool
 Instance::OnRawKey(int key) noexcept
+try {
+	return screen_manager.OnModalDialogKey(key);
+} catch (...) {
+	screen_manager.status_bar.SetMessage(GetFullMessage(std::current_exception()));
+	return true;
+}
+
+bool
+Instance::CancelModalDialog() noexcept
 {
-	(void)key;
-	return false;
+	return screen_manager.CancelModalDialog();
 }

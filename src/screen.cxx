@@ -17,6 +17,7 @@
 #include "LyricsPage.hxx"
 #include "QueuePage.hxx"
 #include "page/Page.hxx"
+#include "dialogs/ModalDialog.hxx"
 #include "ui/Options.hxx"
 #include "util/StringAPI.hxx"
 
@@ -319,6 +320,66 @@ ScreenManager::OnMouse(struct mpdclient &c, DelayedSeek &seek,
 }
 
 #endif
+
+void
+ScreenManager::ShowModalDialog(ModalDialog &m) noexcept
+{
+	assert(&m != modal);
+
+	status_bar.ClearMessage();
+
+	CancelModalDialog();
+	assert(modal == nullptr);
+
+	modal = &m;
+
+	m.OnResize(status_bar.GetWindow(), layout.GetStatusSize());
+
+	SchedulePaint();
+}
+
+void
+ScreenManager::HideModalDialog([[maybe_unused]] ModalDialog &m) noexcept
+{
+	assert(&m == modal);
+	modal = nullptr;
+
+	m.OnLeave(status_bar.GetWindow());
+
+	SchedulePaint();
+}
+
+void
+ScreenManager::CancelModalDialog(ModalDialog &m) noexcept
+{
+	assert(&m == modal);
+
+	modal = nullptr;
+	m.OnLeave(status_bar.GetWindow());
+	m.InvokeCancel();
+
+	SchedulePaint();
+}
+
+bool
+ScreenManager::CancelModalDialog() noexcept
+{
+	if (modal == nullptr)
+		return false;
+
+	CancelModalDialog(*modal);
+	return true;
+}
+
+bool
+ScreenManager::OnModalDialogKey(int key)
+{
+	if (modal == nullptr)
+		return false;
+
+	modal->OnKey(status_bar.GetWindow(), key);
+	return true;
+}
 
 void
 ScreenManager::SchedulePaint(Page &page) noexcept

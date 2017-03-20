@@ -124,4 +124,5 @@ private:
 #ifdef HAVE_GETMOUSE
 	bool OnMouse(Point p, mmask_t bstate) noexcept override;
 #endif
+	bool CancelModalDialog() noexcept override;
 };

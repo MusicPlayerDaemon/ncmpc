@@ -35,6 +35,14 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 
 #ifdef HAVE_GETMOUSE
 	if (key == KEY_MOUSE) {
+		if (handler.CancelModalDialog()) {
+			/* cancel the modal dialog on mouse click;
+			   though some day, we may allow modal dialogs
+			   to handle mouse events */
+			end_input_event();
+			return;
+		}
+
 		MEVENT event;
 
 		/* retrieve the mouse event from curses */

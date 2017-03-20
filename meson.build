@@ -381,6 +381,7 @@ subdir('src/system')
 subdir('src/net')
 subdir('src/event')
 subdir('src/ui')
+subdir('src/dialogs')
 subdir('src/page')
 
 ncmpc = executable('ncmpc',
@@ -441,6 +442,7 @@ ncmpc = executable('ncmpc',
     libmpdclient_dep,
     fmt_dep,
     ui_dep,
+    dialogs_dep,
     page_dep,
   ],
   install: true
