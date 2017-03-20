@@ -38,6 +38,12 @@ screen_bell(void)
 		flash();
 }
 
+static bool
+ignore_key(int key)
+{
+	return key == ERR;
+}
+
 int
 screen_getch(const char *prompt)
 {
@@ -52,8 +58,7 @@ screen_getch(const char *prompt)
 	curs_set(1);
 
 	int key;
-	while ((key = wgetch(w)) == ERR)
-		;
+	while (ignore_key(key = wgetch(w))) {}
 
 #ifdef HAVE_GETMOUSE
 	/* ignore mouse events */
