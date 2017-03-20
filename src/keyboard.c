@@ -21,6 +21,7 @@
 #include "command.h"
 #include "ncmpc.h"
 #include "ncmpc_curses.h"
+#include "screen.h"
 #include "Compiler.h"
 
 #include <glib.h>
@@ -45,7 +46,7 @@ translate_key(int key)
 static command_t
 get_keyboard_command(void)
 {
-	return translate_key(wgetch(stdscr));
+	return translate_key(wgetch(screen.main_window.w));
 }
 
 static gboolean

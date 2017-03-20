@@ -4,6 +4,7 @@ ncmpc 0.26 - not yet released
 * lyricswiki: update regex
 * screen_song: show "f" and "dsd" formats
 * connect asynchronously
+* fix flickering in color mode
 * fix gcc 7 warnings
 
 ncmpc 0.25 - (2016-08-18)
