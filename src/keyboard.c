@@ -75,9 +75,7 @@ keyboard_init(void)
 void
 keyboard_unread(int key)
 {
-	ungetch(key);
-
-	command_t cmd = get_keyboard_command();
+	command_t cmd = translate_key(key);
 	if (cmd != CMD_NONE)
 		do_input_event(cmd);
 }
