@@ -319,8 +319,6 @@ screen_init(struct mpdclient *c)
 	}
 #endif
 
-	doupdate();
-
 	/* initialize screens */
 	screen_list_init(screen.main_window.w,
 			 screen.main_window.cols, screen.main_window.rows);
