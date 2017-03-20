@@ -148,9 +148,18 @@ screen_next_mode(struct mpdclient *c, int offset)
 }
 
 static void
-paint_top_window(const char *header, const struct mpdclient *c)
+paint_top_window(const struct mpdclient *c)
 {
-	title_bar_paint(&screen.title_bar, header, c->status);
+	const char *title =
+#ifndef NCMPC_MINI
+		screen.welcome_source_id == 0 &&
+#endif
+		mode_fn->get_title != NULL
+		? mode_fn->get_title(screen.buf, screen.buf_size)
+		: "";
+	assert(title != NULL);
+
+	title_bar_paint(&screen.title_bar, title, c->status);
 }
 
 static void
@@ -249,10 +258,7 @@ welcome_timer_callback(gpointer data)
 
 	screen.welcome_source_id = 0;
 
-	paint_top_window(mode_fn->get_title != NULL
-			 ? mode_fn->get_title(screen.buf, screen.buf_size)
-			 : "",
-			 c);
+	paint_top_window(c);
 	doupdate();
 
 	return false;
@@ -324,15 +330,7 @@ static void
 screen_refresh(struct mpdclient *c, bool main_dirty)
 {
 	/* update title/header window */
-	const char *title =
-#ifndef NCMPC_MINI
-		screen.welcome_source_id == 0 &&
-#endif
-		mode_fn->get_title != NULL
-		? mode_fn->get_title(screen.buf, screen.buf_size)
-		: "";
-	assert(title != NULL);
-	paint_top_window(title, c);
+	paint_top_window(c);
 
 	/* paint the bottom window */
 
