@@ -1,9 +1,11 @@
 dialogs = static_library(
   'dialogs',
   'ModalDialog.cxx',
+  'YesNoDialog.cxx',
   include_directories: inc,
   dependencies: [
     ui_dep,
+    intl_dep,
   ],
 )
 

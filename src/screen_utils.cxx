@@ -75,25 +75,6 @@ screen_getch(ScreenManager &screen, const char *prompt) noexcept
 	return key;
 }
 
-bool
-screen_get_yesno(ScreenManager &screen, const char *_prompt, bool def) noexcept
-{
-	/* NOTE: if one day a translator decides to use a multi-byte character
-	   for one of the yes/no keys, we'll have to parse it properly */
-
-	char prompt[256];
-	snprintf(prompt, sizeof(prompt),
-		 "%s [%s/%s] ", _prompt,
-		 YES_TRANSLATION, NO_TRANSLATION);
-	int key = tolower(screen_getch(screen, prompt));
-	if (key == YES_TRANSLATION[0])
-		return true;
-	else if (key == NO_TRANSLATION[0])
-		return false;
-	else
-		return def;
-}
-
 std::string
 screen_readln(ScreenManager &screen, const char *prompt,
 	      const char *value,

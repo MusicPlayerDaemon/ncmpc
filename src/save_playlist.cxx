@@ -9,7 +9,9 @@
 #include "charset.hxx"
 #include "mpdclient.hxx"
 #include "Completion.hxx"
+#include "screen.hxx"
 #include "screen_utils.hxx"
+#include "dialogs/YesNoDialog.hxx"
 #include "co/InvokeTask.hxx"
 
 #include <mpd/client.h>
@@ -89,8 +91,14 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 			char prompt[256];
 			snprintf(prompt, sizeof(prompt),
 				 _("Replace %s?"), filename.c_str());
-			bool replace = screen_get_yesno(screen, prompt, false);
-			if (!replace)
+
+			if (co_await YesNoDialog{screen, prompt} != YesNoResult::YES)
+				co_return;
+
+			/* obtain a new connection pointer after
+			   resuming this coroutine */
+			connection = c.GetConnection();
+			if (connection == nullptr)
 				co_return;
 
 			if (!mpd_run_rm(connection, filename_utf8.c_str()) ||

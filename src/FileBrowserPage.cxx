@@ -12,10 +12,10 @@
 #include "charset.hxx"
 #include "mpdclient.hxx"
 #include "filelist.hxx"
-#include "screen_utils.hxx"
 #include "screen_client.hxx"
 #include "Command.hxx"
 #include "Options.hxx"
+#include "dialogs/YesNoDialog.hxx"
 #include "ui/Bell.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "util/UriUtil.hxx"
@@ -243,8 +243,8 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 		snprintf(prompt, sizeof(prompt),
 			 _("Delete playlist %s?"),
 			 Utf8ToLocaleZ{GetUriFilename(mpd_playlist_get_path(playlist))}.c_str());
-		bool confirmed = screen_get_yesno(screen, prompt, false);
-		if (!confirmed)
+
+		if (co_await YesNoDialog{screen, prompt} != YesNoResult::YES)
 			co_return;
 
 		auto *connection = c.GetConnection();
