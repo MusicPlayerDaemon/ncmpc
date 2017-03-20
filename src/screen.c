@@ -247,9 +247,7 @@ welcome_timer_callback(gpointer data)
 {
 	struct mpdclient *c = data;
 
-#ifndef NCMPC_MINI
 	screen.welcome_source_id = 0;
-#endif
 
 	paint_top_window(mode_fn->get_title != NULL
 			 ? mode_fn->get_title(screen.buf, screen.buf_size)
