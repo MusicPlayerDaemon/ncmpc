@@ -91,7 +91,7 @@ screen_switch(const struct screen_functions *sf, struct mpdclient *c)
 	if (mode_fn->open != NULL)
 		mode_fn->open(c);
 
-	screen_paint(c);
+	screen_paint(c, true);
 }
 
 void
@@ -247,7 +247,7 @@ screen_resize(struct mpdclient *c)
 	curs_set(1);
 	curs_set(0);
 
-	screen_paint(c);
+	screen_paint(c, true);
 }
 
 #ifndef NCMPC_MINI
@@ -326,8 +326,8 @@ screen_init(struct mpdclient *c)
 		mode_fn->open(c);
 }
 
-static void
-screen_refresh(struct mpdclient *c, bool main_dirty)
+void
+screen_paint(struct mpdclient *c, bool main_dirty)
 {
 	/* update title/header window */
 	paint_top_window(c);
@@ -354,12 +354,6 @@ screen_refresh(struct mpdclient *c, bool main_dirty)
 
 	/* tell curses to update */
 	doupdate();
-}
-
-void
-screen_paint(struct mpdclient *c)
-{
-	screen_refresh(c, true);
 }
 
 void
@@ -435,7 +429,7 @@ screen_update(struct mpdclient *c)
 	if (mode_fn->update != NULL)
 		mode_fn->update(c);
 
-	screen_refresh(c, false);
+	screen_paint(c, false);
 }
 
 #ifdef HAVE_GETMOUSE
@@ -494,7 +488,7 @@ screen_cmd(struct mpdclient *c, command_t cmd)
 				     _("Auto center mode: Off"));
 		break;
 	case CMD_SCREEN_UPDATE:
-		screen_paint(c);
+		screen_paint(c, true);
 		break;
 	case CMD_SCREEN_PREVIOUS:
 		screen_next_mode(c, -1);

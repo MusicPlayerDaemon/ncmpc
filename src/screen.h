@@ -63,7 +63,10 @@ extern struct screen screen;
 void screen_init(struct mpdclient *c);
 void screen_exit(void);
 void screen_resize(struct mpdclient *c);
-void screen_paint(struct mpdclient *c);
+
+void
+screen_paint(struct mpdclient *c, bool main_dirty);
+
 void screen_update(struct mpdclient *c);
 void screen_cmd(struct mpdclient *c, command_t cmd);
 
