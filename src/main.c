@@ -422,7 +422,7 @@ main(int argc, const char *argv[])
 	signals_init(main_loop, mpd);
 
 	/* attempt to connect */
-	reconnect_source_id = g_timeout_add(1, timer_reconnect, NULL);
+	reconnect_source_id = g_idle_add(timer_reconnect, NULL);
 
 	auto_update_timer();
 
