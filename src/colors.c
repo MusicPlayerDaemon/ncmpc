@@ -152,7 +152,8 @@ colors_str2color(const char *str)
 			if (cur != endptr && endptr[0] == '\0') {
 				color |= tmp;
 			} else {
-				fprintf(stderr,_("Warning: Unknown color - %s\n"), str);
+				fprintf(stderr, "%s: %s\n",
+					_("Unknown color"), str);
 				return COLOR_ERROR;
 			}
 		}
@@ -191,7 +192,8 @@ colors_assign(const char *name, const char *value)
 	color_entry_t *entry = colors_lookup_by_name(name);
 
 	if (!entry) {
-		fprintf(stderr,_("Warning: Unknown color field - %s\n"), name);
+		fprintf(stderr, "%s: %s",
+			_("Unknown color field"), name);
 		return -1;
 	}
 
