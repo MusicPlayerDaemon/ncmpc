@@ -358,7 +358,7 @@ audio_format_to_string(char *buffer, size_t size,
 {
 #if LIBMPDCLIENT_CHECK_VERSION(2,10,0)
 	if (format->bits == MPD_SAMPLE_FORMAT_FLOAT) {
-		g_snprintf(buffer, size, _("%u:f:%u"),
+		g_snprintf(buffer, size, "%u:f:%u",
 			   format->sample_rate,
 			   format->channels);
 		return;
@@ -369,20 +369,20 @@ audio_format_to_string(char *buffer, size_t size,
 		    format->sample_rate % 44100 == 0) {
 			/* use shortcuts such as "dsd64" which implies the
 			   sample rate */
-			g_snprintf(buffer, size, _("dsd%u:%u"),
+			g_snprintf(buffer, size, "dsd%u:%u",
 				   format->sample_rate * 8 / 44100,
 				   format->channels);
 			return;
 		}
 
-		g_snprintf(buffer, size, _("%u:dsd:%u"),
+		g_snprintf(buffer, size, "%u:dsd:%u",
 			   format->sample_rate,
 			   format->channels);
 		return;
 	}
 #endif
 
-	g_snprintf(buffer, size, _("%u:%u:%u"),
+	g_snprintf(buffer, size, "%u:%u:%u",
 		   format->sample_rate, format->bits,
 		   format->channels);
 }
