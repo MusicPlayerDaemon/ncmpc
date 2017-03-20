@@ -501,11 +501,8 @@ parse_line(char *line)
 		g_free(options.scroll_sep);
 		options.scroll_sep = get_format(value);
 	} else if (!strcasecmp(CONF_DISPLAY_TIME, name))
-#ifdef NCMPC_MINI
+		/* obsolete, ignore */
 		{}
-#else
-		options.display_time = str2bool(value);
-#endif
 	else if (!strcasecmp(CONF_JUMP_PREFIX_ONLY, name))
 #ifdef NCMPC_MINI
 		{}

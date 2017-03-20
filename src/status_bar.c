@@ -178,15 +178,7 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 #endif
 		}
 	} else {
-#ifndef NCMPC_MINI
-		if (options.display_time) {
-			time_t timep;
-
-			time(&timep);
-			strftime(buffer, sizeof(buffer), "%X ",localtime(&timep));
-		} else
-#endif
-			buffer[0] = 0;
+		buffer[0] = 0;
 	}
 
 	/* display song */

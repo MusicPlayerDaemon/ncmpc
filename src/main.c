@@ -114,11 +114,7 @@ disable_update_timer(void)
 static bool
 should_enable_update_timer(void)
 {
-	return mpd->playing
-#ifndef NCMPC_MINI
-		|| options.display_time
-#endif
-		;
+	return mpd->playing;
 }
 
 static void

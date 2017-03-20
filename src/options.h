@@ -81,7 +81,6 @@ typedef struct {
 	bool scroll;
 	bool visible_bitrate;
 	bool welcome_screen_list;
-	bool display_time;
 	bool jump_prefix_only;
 	bool second_column;
 #endif

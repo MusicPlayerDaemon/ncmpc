@@ -88,9 +88,6 @@
 ## The time, in seconds, for which status messages will be displayed.
 #status-message-time = 3
 
-## Display the time in the status bar when idle.
-#display-time = yes
-
 ## Sets whether to display remaining or elapsed time in
 ## the status window. Default is elapsed.
 #timedisplay-type = elapsed
