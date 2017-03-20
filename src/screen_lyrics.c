@@ -269,13 +269,13 @@ screen_lyrics_reload(void)
 }
 
 static void
-lyrics_screen_init(WINDOW *w, int cols, int rows)
+lyrics_screen_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	screen_text_init(&text, w, cols, rows);
 }
 
 static void
-lyrics_resize(int cols, int rows)
+lyrics_resize(unsigned cols, unsigned rows)
 {
 	screen_text_resize(&text, cols, rows);
 }

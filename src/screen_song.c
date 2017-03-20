@@ -122,7 +122,7 @@ screen_song_list_callback(unsigned idx, gcc_unused void *data)
 
 
 static void
-screen_song_init(WINDOW *w, int cols, int rows)
+screen_song_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	for (unsigned i = 0; i < G_N_ELEMENTS(tag_labels); ++i) {
 		if (tag_labels[i] != NULL) {
@@ -160,7 +160,7 @@ screen_song_exit(void)
 }
 
 static void
-screen_song_resize(int cols, int rows)
+screen_song_resize(unsigned cols, unsigned rows)
 {
 	list_window_resize(lw, cols, rows);
 }

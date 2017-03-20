@@ -30,11 +30,11 @@
 struct mpdclient;
 
 struct screen_functions {
-	void (*init)(WINDOW *w, int cols, int rows);
+	void (*init)(WINDOW *w, unsigned cols, unsigned rows);
 	void (*exit)(void);
 	void (*open)(struct mpdclient *c);
 	void (*close)(void);
-	void (*resize)(int cols, int rows);
+	void (*resize)(unsigned cols, unsigned rows);
 	void (*paint)(void);
 	void (*update)(struct mpdclient *c);
 

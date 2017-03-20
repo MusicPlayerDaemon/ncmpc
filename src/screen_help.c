@@ -215,7 +215,7 @@ list_callback(unsigned i, gcc_unused void *data)
 }
 
 static void
-help_init(WINDOW *w, int cols, int rows)
+help_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	lw = list_window_init(w, cols, rows);
 	lw->hide_cursor = true;
@@ -223,7 +223,7 @@ help_init(WINDOW *w, int cols, int rows)
 }
 
 static void
-help_resize(int cols, int rows)
+help_resize(unsigned cols, unsigned rows)
 {
 	list_window_resize(lw, cols, rows);
 }

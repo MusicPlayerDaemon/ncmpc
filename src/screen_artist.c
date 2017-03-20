@@ -289,7 +289,7 @@ reload_lists(struct mpdclient *c)
 }
 
 static void
-screen_artist_init(WINDOW *w, int cols, int rows)
+screen_artist_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	browser.lw = list_window_init(w, cols, rows);
 	browser.song_format = options.list_format;
@@ -313,7 +313,7 @@ screen_artist_open(struct mpdclient *c)
 }
 
 static void
-screen_artist_resize(int cols, int rows)
+screen_artist_resize(unsigned cols, unsigned rows)
 {
 	list_window_resize(browser.lw, cols, rows);
 }

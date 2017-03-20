@@ -235,7 +235,7 @@ handle_delete(struct mpdclient *c)
 }
 
 static void
-screen_file_init(WINDOW *w, int cols, int rows)
+screen_file_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	current_path = g_strdup("");
 
@@ -244,7 +244,7 @@ screen_file_init(WINDOW *w, int cols, int rows)
 }
 
 static void
-screen_file_resize(int cols, int rows)
+screen_file_resize(unsigned cols, unsigned rows)
 {
 	list_window_resize(browser.lw, cols, rows);
 }

@@ -339,7 +339,7 @@ search_new(struct mpdclient *c)
 }
 
 static void
-screen_search_init(WINDOW *w, int cols, int rows)
+screen_search_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	browser.lw = list_window_init(w, cols, rows);
 	if (options.search_format != NULL) {
@@ -377,7 +377,7 @@ screen_search_open(gcc_unused struct mpdclient *c)
 }
 
 static void
-screen_search_resize(int cols, int rows)
+screen_search_resize(unsigned cols, unsigned rows)
 {
 	list_window_resize(browser.lw, cols, rows);
 }

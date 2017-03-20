@@ -415,7 +415,7 @@ handle_add_to_playlist(struct mpdclient *c)
 }
 
 static void
-screen_queue_init(WINDOW *w, int cols, int rows)
+screen_queue_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	lw = list_window_init(w, cols, rows);
 
@@ -479,7 +479,7 @@ screen_queue_close(void)
 }
 
 static void
-screen_queue_resize(int cols, int rows)
+screen_queue_resize(unsigned cols, unsigned rows)
 {
 	list_window_resize(lw, cols, rows);
 }

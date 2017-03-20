@@ -74,7 +74,7 @@ check_chat_support(struct mpdclient *c)
 }
 
 static void
-screen_chat_init(WINDOW *w, int cols, int rows)
+screen_chat_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	screen_text_init(&text, w, cols, rows);
 }
@@ -92,7 +92,7 @@ screen_chat_open(struct mpdclient *c)
 }
 
 static void
-screen_chat_resize(int cols, int rows)
+screen_chat_resize(unsigned cols, unsigned rows)
 {
 	screen_text_resize(&text, cols, rows);
 }

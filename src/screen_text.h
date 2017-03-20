@@ -33,7 +33,7 @@ struct screen_text {
 };
 
 static inline void
-screen_text_init(struct screen_text *text, WINDOW *w, int cols, int rows)
+screen_text_init(struct screen_text *text, WINDOW *w, unsigned cols, unsigned rows)
 {
 	text->lines = g_ptr_array_new();
 
@@ -54,7 +54,7 @@ screen_text_deinit(struct screen_text *text)
 }
 
 static inline void
-screen_text_resize(struct screen_text *text, int cols, int rows)
+screen_text_resize(struct screen_text *text, unsigned cols, unsigned rows)
 {
 	list_window_resize(text->lw, cols, rows);
 }

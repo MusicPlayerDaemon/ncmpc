@@ -359,13 +359,13 @@ list_callback(unsigned idx, gcc_unused void *data)
 }
 
 static void
-keydef_init(WINDOW *w, int cols, int rows)
+keydef_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	lw = list_window_init(w, cols, rows);
 }
 
 static void
-keydef_resize(int cols, int rows)
+keydef_resize(unsigned cols, unsigned rows)
 {
 	list_window_resize(lw, cols, rows);
 }

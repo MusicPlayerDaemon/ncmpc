@@ -122,7 +122,7 @@ fill_outputs_list(struct mpdclient *c)
 }
 
 static void
-outputs_init(WINDOW *w, int cols, int rows)
+outputs_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	lw = list_window_init(w, cols, rows);
 
@@ -130,7 +130,7 @@ outputs_init(WINDOW *w, int cols, int rows)
 }
 
 static void
-outputs_resize(int cols, int rows)
+outputs_resize(unsigned cols, unsigned rows)
 {
 	list_window_resize(lw, cols, rows);
 }
