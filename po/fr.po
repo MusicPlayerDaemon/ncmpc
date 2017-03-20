@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=glib&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-20 13:43+0100\n"
+"POT-Creation-Date: 2017-03-20 21:03+0100\n"
 "PO-Revision-Date: 2010-09-23 11:15+0000\n"
 "Last-Translator: Thibault Févry <Unknown>\n"
 "Language-Team: <fr@li.org>\n"
@@ -43,12 +43,13 @@ msgstr "Connexion à %s...  [Appuyez sur %s pour annuler]"
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "Erreur: la version %d.%d.%d de MPD est trop ancienne (%s requise)"
 
-#: src/main.c:340
+#: src/main.c:339
 #, c-format
 msgid "press %s for the key editor"
 msgstr "appuyez sur %s pour l'éditeur de touches"
 
-#: src/player_command.c:174 src/screen_queue.c:740
+#: src/player_command.c:174
+#: src/screen_queue.c:740
 msgid "Shuffled queue"
 msgstr ""
 
@@ -56,23 +57,19 @@ msgstr ""
 msgid "Cleared queue"
 msgstr ""
 
-#: src/screen.c:204 src/screen.c:271
-msgid "Error: Screen too small"
-msgstr "Erreur: Ecran trop petit"
-
-#: src/screen.c:399
+#: src/screen.c:158
 msgid "Repeat mode is on"
 msgstr "Répétition activé"
 
-#: src/screen.c:400
+#: src/screen.c:159
 msgid "Repeat mode is off"
 msgstr "Répétition désactivé"
 
-#: src/screen.c:404
+#: src/screen.c:163
 msgid "Random mode is on"
 msgstr "Mode Aléatoire activé"
 
-#: src/screen.c:405
+#: src/screen.c:164
 msgid "Random mode is off"
 msgstr "Mode Aléatoire désactivé"
 
@@ -81,11 +78,11 @@ msgstr "Mode Aléatoire désactivé"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.c:414
+#: src/screen.c:173
 msgid "Single mode is on"
 msgstr "Mode seul activé"
 
-#: src/screen.c:415
+#: src/screen.c:174
 msgid "Single mode is off"
 msgstr "Mode seul désactivé"
 
@@ -93,40 +90,41 @@ msgstr "Mode seul désactivé"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.c:423
+#: src/screen.c:182
 msgid "Consume mode is on"
 msgstr "Mode consommateur activé"
 
-#: src/screen.c:424
+#: src/screen.c:183
 msgid "Consume mode is off"
 msgstr "Mode consommateur activé"
 
-#: src/screen.c:427
+#: src/screen.c:186
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Fondu sur %d seconde(s)"
 
-#: src/screen.c:439
+#: src/screen.c:198
 msgid "Database updated"
 msgstr "Base de données mise à jour"
 
-#: src/screen.c:496
+#: src/screen.c:256
 msgid "Find mode: Wrapped"
 msgstr "Mode de recherche: Enveloppe"
 
-#: src/screen.c:497
+#: src/screen.c:257
 msgid "Find mode: Normal"
 msgstr "Mode de recherche: Normal"
 
-#: src/screen.c:502
+#: src/screen.c:262
 msgid "Auto center mode: On"
 msgstr "Mode d'auto-centrage: Actif"
 
-#: src/screen.c:503
+#: src/screen.c:263
 msgid "Auto center mode: Off"
 msgstr "Mode d'auto-centrage: Inactif"
 
-#: src/screen_artist.c:72 src/screen_artist.c:354
+#: src/screen_artist.c:72
+#: src/screen_artist.c:354
 msgid "All tracks"
 msgstr "Toutes les pistes"
 
@@ -170,7 +168,9 @@ msgstr "Ajout de %s en cours..."
 msgid "Loading playlist %s..."
 msgstr "Chargement de la liste de lecture %s..."
 
-#: src/screen_browser.c:168 src/screen_browser.c:261 src/screen_browser.c:286
+#: src/screen_browser.c:168
+#: src/screen_browser.c:261
+#: src/screen_browser.c:286
 #, fuzzy, c-format
 msgid "Adding '%s' to queue"
 msgstr "Ajout de '%s' à la liste de lecture"
@@ -203,7 +203,8 @@ msgstr ""
 msgid "Message could not be sent"
 msgstr ""
 
-#: src/screen_chat.c:199 src/title_bar.c:91
+#: src/screen_chat.c:199
+#: src/title_bar.c:91
 msgid "Chat"
 msgstr ""
 
@@ -224,7 +225,7 @@ msgstr "Sauter"
 msgid "Unable to find '%s'"
 msgstr "Impossible de trouver '%s'"
 
-#: src/screen_utils.c:114
+#: src/screen_utils.c:118
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -239,7 +240,9 @@ msgid "Replace %s [%s/%s] ? "
 msgstr "Remplacer %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:290 src/screen_file.c:220 src/screen_keydef.c:271
+#: src/screen_queue.c:290
+#: src/screen_file.c:220
+#: src/screen_keydef.c:271
 #: src/screen_lyrics.c:372
 msgid "Aborted"
 msgstr "Annulé"
@@ -255,7 +258,8 @@ msgstr "%s enregistré"
 msgid "Add"
 msgstr "Ajouter"
 
-#: src/screen_queue.c:498 src/title_bar.c:76
+#: src/screen_queue.c:498
+#: src/title_bar.c:76
 msgid "Queue"
 msgstr ""
 
@@ -283,7 +287,8 @@ msgid "Playlist deleted"
 msgstr "Liste de lecture effacée"
 
 #. translators: caption of the browser screen
-#: src/screen_file.c:287 src/title_bar.c:77
+#: src/screen_file.c:287
+#: src/title_bar.c:77
 msgid "Browse"
 msgstr "Parcourir"
 
@@ -331,15 +336,19 @@ msgstr "commentaire"
 msgid "file"
 msgstr "fichier"
 
-#: src/screen_search.c:80 src/screen_song.c:47
+#: src/screen_search.c:80
+#: src/screen_song.c:47
 msgid "Title"
 msgstr "Titre"
 
-#: src/screen_search.c:81 src/screen_song.c:46 src/title_bar.c:79
+#: src/screen_search.c:81
+#: src/screen_song.c:46
+#: src/title_bar.c:79
 msgid "Artist"
 msgstr "Artiste"
 
-#: src/screen_search.c:82 src/screen_song.c:48
+#: src/screen_search.c:82
+#: src/screen_song.c:48
 msgid "Album"
 msgstr "Album"
 
@@ -361,7 +370,9 @@ msgstr "Mauvais champ recherché %s"
 msgid "No argument for search tag %s"
 msgstr "Pas d'argument pour le champ recherché %s"
 
-#: src/screen_search.c:328 src/screen_help.c:150 src/title_bar.c:82
+#: src/screen_search.c:328
+#: src/screen_help.c:150
+#: src/title_bar.c:82
 msgid "Search"
 msgstr "Rechercher"
 
@@ -406,7 +417,8 @@ msgstr "La correspondance des touches n'a pas été changée."
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "Erreur : Impossible de créer le répertoire ~/.ncmpc - %s"
 
-#: src/screen_keydef.c:164 src/screen_keydef.c:173
+#: src/screen_keydef.c:164
+#: src/screen_keydef.c:173
 #, c-format
 msgid "Error: %s - %s"
 msgstr "Erreur: %s - %s"
@@ -472,7 +484,8 @@ msgstr "Déplacements"
 msgid "Global"
 msgstr "Globales"
 
-#: src/screen_help.c:119 src/command.c:105
+#: src/screen_help.c:119
+#: src/command.c:105
 #, fuzzy
 msgid "Queue screen"
 msgstr "Écran du paramétrage des raccourcis"
@@ -493,7 +506,8 @@ msgstr "Déplacer la chanson vers le bas"
 msgid "Center"
 msgstr "Centrer"
 
-#: src/screen_help.c:134 src/command.c:107
+#: src/screen_help.c:134
+#: src/command.c:107
 msgid "Browse screen"
 msgstr "Ecran de Navigation"
 
@@ -501,7 +515,8 @@ msgstr "Ecran de Navigation"
 msgid "Enter directory/Select and play song"
 msgstr "Entrer dans le répertoire/Sélectionner et lire la chanson"
 
-#: src/screen_help.c:138 src/screen_help.c:153
+#: src/screen_help.c:138
+#: src/screen_help.c:153
 #, fuzzy
 msgid "Append song to queue"
 msgstr "Ajouter la chanson à la liste de lecture"
@@ -510,7 +525,8 @@ msgstr "Ajouter la chanson à la liste de lecture"
 msgid "Delete playlist"
 msgstr "Effacer la liste de lecture"
 
-#: src/screen_help.c:148 src/command.c:218
+#: src/screen_help.c:148
+#: src/command.c:218
 msgid "Search screen"
 msgstr "Ecran de recherche"
 
@@ -518,7 +534,8 @@ msgstr "Ecran de recherche"
 msgid "Select and play"
 msgstr "Sélectionner et Lire"
 
-#: src/screen_help.c:160 src/command.c:228
+#: src/screen_help.c:160
+#: src/command.c:228
 msgid "Lyrics screen"
 msgstr "Ecran des paroles"
 
@@ -553,7 +570,8 @@ msgstr "Enregistrer les paroles"
 msgid "Delete saved lyrics"
 msgstr "Supprimer les paroles sauvées"
 
-#: src/screen_help.c:175 src/command.c:243
+#: src/screen_help.c:175
+#: src/command.c:243
 msgid "Outputs screen"
 msgstr "Ecran des sorties"
 
@@ -561,7 +579,8 @@ msgstr "Ecran des sorties"
 msgid "Enable/disable output"
 msgstr "Activer/désactiver une sortie"
 
-#: src/screen_help.c:182 src/command.c:248
+#: src/screen_help.c:182
+#: src/command.c:248
 #, fuzzy
 msgid "Chat screen"
 msgstr "Ecran suivant"
@@ -595,7 +614,8 @@ msgstr "Aller au dossier parent"
 msgid "Apply and save changes"
 msgstr "Appliquer et sauvegarder les changements"
 
-#: src/screen_help.c:241 src/title_bar.c:74
+#: src/screen_help.c:241
+#: src/title_bar.c:74
 msgid "Help"
 msgstr "Aide"
 
@@ -609,7 +629,9 @@ msgstr "Pas de paroles"
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr ""
 
-#: src/screen_lyrics.c:327 src/screen_lyrics.c:336 src/screen_lyrics.c:346
+#: src/screen_lyrics.c:327
+#: src/screen_lyrics.c:336
+#: src/screen_lyrics.c:346
 #: src/title_bar.c:85
 msgid "Lyrics"
 msgstr "Paroles"
@@ -629,7 +651,8 @@ msgstr ""
 msgid "Do you really want to start an editor and edit these lyrics [%s/%s]? "
 msgstr ""
 
-#: src/screen_lyrics.c:387 src/screen_lyrics.c:411
+#: src/screen_lyrics.c:387
+#: src/screen_lyrics.c:411
 msgid "Can't start editor"
 msgstr ""
 
@@ -666,7 +689,8 @@ msgstr "Sortie %s activée"
 msgid "Output '%s' disabled"
 msgstr "Sortie %s désactivée"
 
-#: src/screen_outputs.c:161 src/title_bar.c:88
+#: src/screen_outputs.c:161
+#: src/title_bar.c:88
 msgid "Outputs"
 msgstr "Sorties"
 
@@ -1137,21 +1161,21 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "La touche %s est assignée à %s et à %s"
 
-#: src/colors.c:155
-#, c-format
-msgid "Warning: Unknown color - %s\n"
-msgstr "Attention: Couleur inconnue - %s\n"
+#: src/colors.c:156
+#, fuzzy
+msgid "Unknown color"
+msgstr "Commande inconnue"
 
-#: src/colors.c:194
-#, c-format
-msgid "Warning: Unknown color field - %s\n"
+#: src/colors.c:196
+#, fuzzy
+msgid "Unknown color field"
 msgstr "Attention: Champ de couleur inconnu - %s\n"
 
-#: src/colors.c:228
+#: src/colors.c:230
 msgid "Terminal lacks support for changing colors"
 msgstr "Le terminal ne supporte pas le changement de couleurs"
 
-#: src/colors.c:237
+#: src/colors.c:239
 msgid "Terminal lacks color capabilities"
 msgstr "Le terminal ne dispose pas de la gestion des couleurs"
 
@@ -1219,7 +1243,7 @@ msgstr "Mode de recherche invalide"
 msgid "Unknown search mode"
 msgstr "Mode de recherche inconnu"
 
-#: src/conf.c:555
+#: src/conf.c:552
 msgid "Unknown configuration parameter"
 msgstr "Paramètre de configuration inconnu"
 
@@ -1245,6 +1269,12 @@ msgstr "Sélection multi-ligne désactivée"
 #: src/list_window.c:580
 msgid "Range selection enabled"
 msgstr "Sélection multi-ligne activée"
+
+#~ msgid "Error: Screen too small"
+#~ msgstr "Erreur: Ecran trop petit"
+
+#~ msgid "Warning: Unknown color - %s\n"
+#~ msgstr "Attention: Couleur inconnue - %s\n"
 
 #~ msgid "Connected to %s"
 #~ msgstr "Connecté à %s"

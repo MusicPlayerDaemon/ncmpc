@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=glib&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-20 13:43+0100\n"
+"POT-Creation-Date: 2017-03-20 21:03+0100\n"
 "PO-Revision-Date: 2010-09-07 20:35+0200\n"
 "Last-Translator: zeltak <Unknown>\n"
 "Language-Team: he <he@li.org>\n"
@@ -36,12 +36,13 @@ msgstr "מתחבר ל %s [לחץ על %s לביטול]"
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "שגיאה: גרסת התוכנה %d.%d.%d ישנה מדי (צריך %s)"
 
-#: src/main.c:340
+#: src/main.c:339
 #, c-format
 msgid "press %s for the key editor"
 msgstr "%s לעורך המקשים לחץ"
 
-#: src/player_command.c:174 src/screen_queue.c:740
+#: src/player_command.c:174
+#: src/screen_queue.c:740
 msgid "Shuffled queue"
 msgstr ""
 
@@ -49,23 +50,19 @@ msgstr ""
 msgid "Cleared queue"
 msgstr ""
 
-#: src/screen.c:204 src/screen.c:271
-msgid "Error: Screen too small"
-msgstr "שגיאה: המסך קטן מידי"
-
-#: src/screen.c:399
+#: src/screen.c:158
 msgid "Repeat mode is on"
 msgstr "מצב חזרה מופעל"
 
-#: src/screen.c:400
+#: src/screen.c:159
 msgid "Repeat mode is off"
 msgstr "מצב חזרה מופסק"
 
-#: src/screen.c:404
+#: src/screen.c:163
 msgid "Random mode is on"
 msgstr "מצב רנדומלי מופעל"
 
-#: src/screen.c:405
+#: src/screen.c:164
 msgid "Random mode is off"
 msgstr "מצב רנדומלי מופסק"
 
@@ -74,11 +71,11 @@ msgstr "מצב רנדומלי מופסק"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.c:414
+#: src/screen.c:173
 msgid "Single mode is on"
 msgstr "מצב יחיד מופעל"
 
-#: src/screen.c:415
+#: src/screen.c:174
 msgid "Single mode is off"
 msgstr "מצב יחיד מופסק"
 
@@ -86,40 +83,41 @@ msgstr "מצב יחיד מופסק"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.c:423
+#: src/screen.c:182
 msgid "Consume mode is on"
 msgstr "מצב מתכלה מופעל"
 
-#: src/screen.c:424
+#: src/screen.c:183
 msgid "Consume mode is off"
 msgstr "מצב יחיד מופסק"
 
-#: src/screen.c:427
+#: src/screen.c:186
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "קרוספייד שניות %d"
 
-#: src/screen.c:439
+#: src/screen.c:198
 msgid "Database updated"
 msgstr "בסיס הנתונים עודכן"
 
-#: src/screen.c:496
+#: src/screen.c:256
 msgid "Find mode: Wrapped"
 msgstr "מצב סופי: כרוך"
 
-#: src/screen.c:497
+#: src/screen.c:257
 msgid "Find mode: Normal"
 msgstr "מצב סופי: נורמלי"
 
-#: src/screen.c:502
+#: src/screen.c:262
 msgid "Auto center mode: On"
 msgstr "מצב מרכז אוטומטי: מופעל"
 
-#: src/screen.c:503
+#: src/screen.c:263
 msgid "Auto center mode: Off"
 msgstr "מצב מרכז אוטומטי: מופסק"
 
-#: src/screen_artist.c:72 src/screen_artist.c:354
+#: src/screen_artist.c:72
+#: src/screen_artist.c:354
 msgid "All tracks"
 msgstr "כל השירים"
 
@@ -163,7 +161,9 @@ msgstr "טוען...."
 msgid "Loading playlist %s..."
 msgstr "טוען רשימת שירים %s...."
 
-#: src/screen_browser.c:168 src/screen_browser.c:261 src/screen_browser.c:286
+#: src/screen_browser.c:168
+#: src/screen_browser.c:261
+#: src/screen_browser.c:286
 #, fuzzy, c-format
 msgid "Adding '%s' to queue"
 msgstr "מוסיף %s לרשימת השירים"
@@ -196,7 +196,8 @@ msgstr ""
 msgid "Message could not be sent"
 msgstr ""
 
-#: src/screen_chat.c:199 src/title_bar.c:91
+#: src/screen_chat.c:199
+#: src/title_bar.c:91
 msgid "Chat"
 msgstr ""
 
@@ -217,7 +218,7 @@ msgstr "קפיצה"
 msgid "Unable to find '%s'"
 msgstr "לא ניתן למצוא את '%s'"
 
-#: src/screen_utils.c:114
+#: src/screen_utils.c:118
 msgid "Password"
 msgstr "סיסמה"
 
@@ -232,7 +233,9 @@ msgid "Replace %s [%s/%s] ? "
 msgstr "החלף  %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:290 src/screen_file.c:220 src/screen_keydef.c:271
+#: src/screen_queue.c:290
+#: src/screen_file.c:220
+#: src/screen_keydef.c:271
 #: src/screen_lyrics.c:372
 msgid "Aborted"
 msgstr "בוטל"
@@ -248,7 +251,8 @@ msgstr "שמירת %s"
 msgid "Add"
 msgstr "הוסף"
 
-#: src/screen_queue.c:498 src/title_bar.c:76
+#: src/screen_queue.c:498
+#: src/title_bar.c:76
 msgid "Queue"
 msgstr ""
 
@@ -276,7 +280,8 @@ msgid "Playlist deleted"
 msgstr "רשימת שירים נמחקה"
 
 #. translators: caption of the browser screen
-#: src/screen_file.c:287 src/title_bar.c:77
+#: src/screen_file.c:287
+#: src/title_bar.c:77
 msgid "Browse"
 msgstr "דפדף"
 
@@ -324,15 +329,19 @@ msgstr "הערות"
 msgid "file"
 msgstr "קובץ"
 
-#: src/screen_search.c:80 src/screen_song.c:47
+#: src/screen_search.c:80
+#: src/screen_song.c:47
 msgid "Title"
 msgstr "שם"
 
-#: src/screen_search.c:81 src/screen_song.c:46 src/title_bar.c:79
+#: src/screen_search.c:81
+#: src/screen_song.c:46
+#: src/title_bar.c:79
 msgid "Artist"
 msgstr "אומן"
 
-#: src/screen_search.c:82 src/screen_song.c:48
+#: src/screen_search.c:82
+#: src/screen_song.c:48
 msgid "Album"
 msgstr "אלבום"
 
@@ -354,7 +363,9 @@ msgstr "חיפוש לא תקין של תגית %s"
 msgid "No argument for search tag %s"
 msgstr "אין טעון לחיפוש תגית %s"
 
-#: src/screen_search.c:328 src/screen_help.c:150 src/title_bar.c:82
+#: src/screen_search.c:328
+#: src/screen_help.c:150
+#: src/title_bar.c:82
 msgid "Search"
 msgstr "חיפוש"
 
@@ -399,7 +410,8 @@ msgstr "תצורת מקשים לא שונתה."
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "שגיאה: לא ניתן ליצור את התיקיה ~/.ncmpc - %s"
 
-#: src/screen_keydef.c:164 src/screen_keydef.c:173
+#: src/screen_keydef.c:164
+#: src/screen_keydef.c:173
 #, c-format
 msgid "Error: %s - %s"
 msgstr "שגיאה:  %s - %s"
@@ -465,7 +477,8 @@ msgstr "תנועה"
 msgid "Global"
 msgstr "גלובלי"
 
-#: src/screen_help.c:119 src/command.c:105
+#: src/screen_help.c:119
+#: src/command.c:105
 #, fuzzy
 msgid "Queue screen"
 msgstr "מסך שוני מקשים"
@@ -486,7 +499,8 @@ msgstr "הזז שיר למטה"
 msgid "Center"
 msgstr "מרכז"
 
-#: src/screen_help.c:134 src/command.c:107
+#: src/screen_help.c:134
+#: src/command.c:107
 msgid "Browse screen"
 msgstr "דפדף במסך"
 
@@ -494,7 +508,8 @@ msgstr "דפדף במסך"
 msgid "Enter directory/Select and play song"
 msgstr "הכנס תיקיה/בחר ונגן שיר"
 
-#: src/screen_help.c:138 src/screen_help.c:153
+#: src/screen_help.c:138
+#: src/screen_help.c:153
 #, fuzzy
 msgid "Append song to queue"
 msgstr "הוסף שיר לרשימת שירים"
@@ -503,7 +518,8 @@ msgstr "הוסף שיר לרשימת שירים"
 msgid "Delete playlist"
 msgstr "מחק רשימת שירים"
 
-#: src/screen_help.c:148 src/command.c:218
+#: src/screen_help.c:148
+#: src/command.c:218
 msgid "Search screen"
 msgstr "חפש במסך"
 
@@ -511,7 +527,8 @@ msgstr "חפש במסך"
 msgid "Select and play"
 msgstr "בחר ונגן"
 
-#: src/screen_help.c:160 src/command.c:228
+#: src/screen_help.c:160
+#: src/command.c:228
 msgid "Lyrics screen"
 msgstr "מסך מילות השיר"
 
@@ -545,7 +562,8 @@ msgstr "שמור מילים לשיר"
 msgid "Delete saved lyrics"
 msgstr ""
 
-#: src/screen_help.c:175 src/command.c:243
+#: src/screen_help.c:175
+#: src/command.c:243
 msgid "Outputs screen"
 msgstr "מסך הפלט"
 
@@ -553,7 +571,8 @@ msgstr "מסך הפלט"
 msgid "Enable/disable output"
 msgstr "אשר/אסור על פלט"
 
-#: src/screen_help.c:182 src/command.c:248
+#: src/screen_help.c:182
+#: src/command.c:248
 #, fuzzy
 msgid "Chat screen"
 msgstr "מסך הבא"
@@ -587,7 +606,8 @@ msgstr "עלה רמה אחת"
 msgid "Apply and save changes"
 msgstr "ישם ושמור שינויים"
 
-#: src/screen_help.c:241 src/title_bar.c:74
+#: src/screen_help.c:241
+#: src/title_bar.c:74
 msgid "Help"
 msgstr "עזרה"
 
@@ -601,7 +621,9 @@ msgstr "אין מילים לשיר"
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr ""
 
-#: src/screen_lyrics.c:327 src/screen_lyrics.c:336 src/screen_lyrics.c:346
+#: src/screen_lyrics.c:327
+#: src/screen_lyrics.c:336
+#: src/screen_lyrics.c:346
 #: src/title_bar.c:85
 msgid "Lyrics"
 msgstr "מילים"
@@ -621,7 +643,8 @@ msgstr ""
 msgid "Do you really want to start an editor and edit these lyrics [%s/%s]? "
 msgstr ""
 
-#: src/screen_lyrics.c:387 src/screen_lyrics.c:411
+#: src/screen_lyrics.c:387
+#: src/screen_lyrics.c:411
 msgid "Can't start editor"
 msgstr ""
 
@@ -658,7 +681,8 @@ msgstr "פלט  '%s' אפשרי"
 msgid "Output '%s' disabled"
 msgstr "פלט  '%s' אינו אפשרי"
 
-#: src/screen_outputs.c:161 src/title_bar.c:88
+#: src/screen_outputs.c:161
+#: src/title_bar.c:88
 msgid "Outputs"
 msgstr "פלטים"
 
@@ -1129,21 +1153,21 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "מקש %s מוקצה ל %s ו %s"
 
-#: src/colors.c:155
-#, c-format
-msgid "Warning: Unknown color - %s\n"
-msgstr "אזהרה: צבע לא מוכר  - %s\n"
+#: src/colors.c:156
+#, fuzzy
+msgid "Unknown color"
+msgstr "פקודה לא ידועה"
 
-#: src/colors.c:194
-#, c-format
-msgid "Warning: Unknown color field - %s\n"
+#: src/colors.c:196
+#, fuzzy
+msgid "Unknown color field"
 msgstr "אזהרה: צבע לא מוכ בתחום  - %s\n"
 
-#: src/colors.c:228
+#: src/colors.c:230
 msgid "Terminal lacks support for changing colors"
 msgstr "המסוף ללא תמיכה בצבעים"
 
-#: src/colors.c:237
+#: src/colors.c:239
 msgid "Terminal lacks color capabilities"
 msgstr "המסוף ללא  יכולת תמיכה בצבעים"
 
@@ -1211,7 +1235,7 @@ msgstr "חיפוש לא תקין"
 msgid "Unknown search mode"
 msgstr "מצב חיפוש לא ידוע"
 
-#: src/conf.c:555
+#: src/conf.c:552
 msgid "Unknown configuration parameter"
 msgstr "פרמטר קונפיג לא ידוע"
 
@@ -1230,6 +1254,12 @@ msgstr "טווח בחירה מאושר"
 #: src/list_window.c:580
 msgid "Range selection enabled"
 msgstr "טווח בחירה מבוטל"
+
+#~ msgid "Error: Screen too small"
+#~ msgstr "שגיאה: המסך קטן מידי"
+
+#~ msgid "Warning: Unknown color - %s\n"
+#~ msgstr "אזהרה: צבע לא מוכר  - %s\n"
 
 #~ msgid "Connected to %s"
 #~ msgstr "מתחבר ל %s"

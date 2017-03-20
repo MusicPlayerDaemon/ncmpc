@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=glib&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-20 13:43+0100\n"
+"POT-Creation-Date: 2017-03-20 21:03+0100\n"
 "PO-Revision-Date: 2011-07-23 21:08+0200\n"
 "Last-Translator:  <krzysztof.krakowiak@gmail.com>\n"
 "Language-Team: Polish\n"
@@ -42,12 +42,13 @@ msgstr "Łączenie z %s... [Wciśnij %s by anulować]"
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "Błąd: MPD w wersji %d.%d.%d jest za stary (potrzebny jest %s)"
 
-#: src/main.c:340
+#: src/main.c:339
 #, c-format
 msgid "press %s for the key editor"
 msgstr "wciśnij %s by odpalić edytor klawiszy"
 
-#: src/player_command.c:174 src/screen_queue.c:740
+#: src/player_command.c:174
+#: src/screen_queue.c:740
 msgid "Shuffled queue"
 msgstr ""
 
@@ -55,23 +56,19 @@ msgstr ""
 msgid "Cleared queue"
 msgstr ""
 
-#: src/screen.c:204 src/screen.c:271
-msgid "Error: Screen too small"
-msgstr "Błąd: Ekran za mały"
-
-#: src/screen.c:399
+#: src/screen.c:158
 msgid "Repeat mode is on"
 msgstr "Tryb powtarzania jest włączony"
 
-#: src/screen.c:400
+#: src/screen.c:159
 msgid "Repeat mode is off"
 msgstr "Tryb powtarzania jest wyłączony"
 
-#: src/screen.c:404
+#: src/screen.c:163
 msgid "Random mode is on"
 msgstr "Tryb losowy jest włączony"
 
-#: src/screen.c:405
+#: src/screen.c:164
 msgid "Random mode is off"
 msgstr "Tryb losowy jest wyłączony"
 
@@ -80,11 +77,11 @@ msgstr "Tryb losowy jest wyłączony"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.c:414
+#: src/screen.c:173
 msgid "Single mode is on"
 msgstr "Tryb pojedynczej piosenki jest włączony"
 
-#: src/screen.c:415
+#: src/screen.c:174
 msgid "Single mode is off"
 msgstr "Tryb pojedynczej piosenki jest wyłączony"
 
@@ -92,40 +89,41 @@ msgstr "Tryb pojedynczej piosenki jest wyłączony"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.c:423
+#: src/screen.c:182
 msgid "Consume mode is on"
 msgstr "Tryb pożerania jest włączony"
 
-#: src/screen.c:424
+#: src/screen.c:183
 msgid "Consume mode is off"
 msgstr "Tryb pożerania jest wyłączony"
 
-#: src/screen.c:427
+#: src/screen.c:186
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Przenikaj %d sekund"
 
-#: src/screen.c:439
+#: src/screen.c:198
 msgid "Database updated"
 msgstr "Baza zaktualizowana"
 
-#: src/screen.c:496
+#: src/screen.c:256
 msgid "Find mode: Wrapped"
 msgstr "Tryb wyszukiwania: Zawinięty"
 
-#: src/screen.c:497
+#: src/screen.c:257
 msgid "Find mode: Normal"
 msgstr "Tryb wyszukiwania: Normalny"
 
-#: src/screen.c:502
+#: src/screen.c:262
 msgid "Auto center mode: On"
 msgstr "Tryb automatycznego centrowania: Włączony"
 
-#: src/screen.c:503
+#: src/screen.c:263
 msgid "Auto center mode: Off"
 msgstr "Tryb automatycznego centrowania: Wyłączony"
 
-#: src/screen_artist.c:72 src/screen_artist.c:354
+#: src/screen_artist.c:72
+#: src/screen_artist.c:354
 msgid "All tracks"
 msgstr "Wszystkie ścieżki"
 
@@ -169,7 +167,9 @@ msgstr "Dodawanie %s..."
 msgid "Loading playlist %s..."
 msgstr "Ładowany listy odtwarzania %s..."
 
-#: src/screen_browser.c:168 src/screen_browser.c:261 src/screen_browser.c:286
+#: src/screen_browser.c:168
+#: src/screen_browser.c:261
+#: src/screen_browser.c:286
 #, fuzzy, c-format
 msgid "Adding '%s' to queue"
 msgstr "Dodawanie '%s' do listy odtwarzania"
@@ -202,7 +202,8 @@ msgstr ""
 msgid "Message could not be sent"
 msgstr ""
 
-#: src/screen_chat.c:199 src/title_bar.c:91
+#: src/screen_chat.c:199
+#: src/title_bar.c:91
 msgid "Chat"
 msgstr ""
 
@@ -223,7 +224,7 @@ msgstr "Skocz"
 msgid "Unable to find '%s'"
 msgstr "Nie można znaleźć '%s'"
 
-#: src/screen_utils.c:114
+#: src/screen_utils.c:118
 msgid "Password"
 msgstr "Hasło"
 
@@ -238,7 +239,9 @@ msgid "Replace %s [%s/%s] ? "
 msgstr "Zamień %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:290 src/screen_file.c:220 src/screen_keydef.c:271
+#: src/screen_queue.c:290
+#: src/screen_file.c:220
+#: src/screen_keydef.c:271
 #: src/screen_lyrics.c:372
 msgid "Aborted"
 msgstr "Anulowano"
@@ -254,7 +257,8 @@ msgstr "Zapisano %s"
 msgid "Add"
 msgstr "Dodaj"
 
-#: src/screen_queue.c:498 src/title_bar.c:76
+#: src/screen_queue.c:498
+#: src/title_bar.c:76
 msgid "Queue"
 msgstr ""
 
@@ -282,7 +286,8 @@ msgid "Playlist deleted"
 msgstr "Lista odtwarzania usunięta"
 
 #. translators: caption of the browser screen
-#: src/screen_file.c:287 src/title_bar.c:77
+#: src/screen_file.c:287
+#: src/title_bar.c:77
 msgid "Browse"
 msgstr "Przeglądaj"
 
@@ -330,15 +335,19 @@ msgstr "komentarz"
 msgid "file"
 msgstr "plik"
 
-#: src/screen_search.c:80 src/screen_song.c:47
+#: src/screen_search.c:80
+#: src/screen_song.c:47
 msgid "Title"
 msgstr "Tytuł"
 
-#: src/screen_search.c:81 src/screen_song.c:46 src/title_bar.c:79
+#: src/screen_search.c:81
+#: src/screen_song.c:46
+#: src/title_bar.c:79
 msgid "Artist"
 msgstr "Artysta"
 
-#: src/screen_search.c:82 src/screen_song.c:48
+#: src/screen_search.c:82
+#: src/screen_song.c:48
 msgid "Album"
 msgstr "Album"
 
@@ -360,7 +369,9 @@ msgstr "Nieprawidłowy wyszukiwany znacznik %s"
 msgid "No argument for search tag %s"
 msgstr "Brak argumentu przy wyszukiwaniu znacznika %s"
 
-#: src/screen_search.c:328 src/screen_help.c:150 src/title_bar.c:82
+#: src/screen_search.c:328
+#: src/screen_help.c:150
+#: src/title_bar.c:82
 msgid "Search"
 msgstr "Znajdź"
 
@@ -405,7 +416,8 @@ msgstr "Wiązania klawiszy niezmienione."
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "Błąd: Nie można stworzyć katalogu ~/.ncmpc -%s"
 
-#: src/screen_keydef.c:164 src/screen_keydef.c:173
+#: src/screen_keydef.c:164
+#: src/screen_keydef.c:173
 #, c-format
 msgid "Error: %s - %s"
 msgstr "Błąd: %s - %s"
@@ -471,7 +483,8 @@ msgstr "Poruszanie"
 msgid "Global"
 msgstr "Globalne"
 
-#: src/screen_help.c:119 src/command.c:105
+#: src/screen_help.c:119
+#: src/command.c:105
 #, fuzzy
 msgid "Queue screen"
 msgstr "Ekran definicji klawiszy"
@@ -492,7 +505,8 @@ msgstr "Przesuń piosenkę w dół"
 msgid "Center"
 msgstr "Wycentruj"
 
-#: src/screen_help.c:134 src/command.c:107
+#: src/screen_help.c:134
+#: src/command.c:107
 msgid "Browse screen"
 msgstr "Ekran przeglądania"
 
@@ -500,7 +514,8 @@ msgstr "Ekran przeglądania"
 msgid "Enter directory/Select and play song"
 msgstr "Podaj katalog/Wybierz i odtwarzaj piosenkę"
 
-#: src/screen_help.c:138 src/screen_help.c:153
+#: src/screen_help.c:138
+#: src/screen_help.c:153
 #, fuzzy
 msgid "Append song to queue"
 msgstr "Dodaj piosenkę do listy odtwarzania"
@@ -509,7 +524,8 @@ msgstr "Dodaj piosenkę do listy odtwarzania"
 msgid "Delete playlist"
 msgstr "Usuń listę odtwarzania"
 
-#: src/screen_help.c:148 src/command.c:218
+#: src/screen_help.c:148
+#: src/command.c:218
 msgid "Search screen"
 msgstr "Ekran wyszukiwania"
 
@@ -517,7 +533,8 @@ msgstr "Ekran wyszukiwania"
 msgid "Select and play"
 msgstr "Wybierz i odtwarzaj"
 
-#: src/screen_help.c:160 src/command.c:228
+#: src/screen_help.c:160
+#: src/command.c:228
 msgid "Lyrics screen"
 msgstr "Ekran z tekstem piosenki"
 
@@ -552,7 +569,8 @@ msgstr "Zapisz tekst piosenku"
 msgid "Delete saved lyrics"
 msgstr "Usuń zapisany tekst piosenki"
 
-#: src/screen_help.c:175 src/command.c:243
+#: src/screen_help.c:175
+#: src/command.c:243
 msgid "Outputs screen"
 msgstr "Ekran z wyjściami dźwiękowymi"
 
@@ -560,7 +578,8 @@ msgstr "Ekran z wyjściami dźwiękowymi"
 msgid "Enable/disable output"
 msgstr "Włącz/wyłącz wyjście"
 
-#: src/screen_help.c:182 src/command.c:248
+#: src/screen_help.c:182
+#: src/command.c:248
 #, fuzzy
 msgid "Chat screen"
 msgstr "Następny ekran"
@@ -594,7 +613,8 @@ msgstr "Idź poziom wyżej"
 msgid "Apply and save changes"
 msgstr "Zastosuj i zapisz zmiany"
 
-#: src/screen_help.c:241 src/title_bar.c:74
+#: src/screen_help.c:241
+#: src/title_bar.c:74
 msgid "Help"
 msgstr "Pomoc"
 
@@ -608,7 +628,9 @@ msgstr "Brak tekstu piosenki"
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr ""
 
-#: src/screen_lyrics.c:327 src/screen_lyrics.c:336 src/screen_lyrics.c:346
+#: src/screen_lyrics.c:327
+#: src/screen_lyrics.c:336
+#: src/screen_lyrics.c:346
 #: src/title_bar.c:85
 msgid "Lyrics"
 msgstr "Teskt piosenki"
@@ -628,7 +650,8 @@ msgstr ""
 msgid "Do you really want to start an editor and edit these lyrics [%s/%s]? "
 msgstr ""
 
-#: src/screen_lyrics.c:387 src/screen_lyrics.c:411
+#: src/screen_lyrics.c:387
+#: src/screen_lyrics.c:411
 msgid "Can't start editor"
 msgstr ""
 
@@ -665,7 +688,8 @@ msgstr "Wyjście '%s' włączone"
 msgid "Output '%s' disabled"
 msgstr "Wyjście '%s' wyłączone"
 
-#: src/screen_outputs.c:161 src/title_bar.c:88
+#: src/screen_outputs.c:161
+#: src/title_bar.c:88
 msgid "Outputs"
 msgstr "Wyjścia"
 
@@ -1136,21 +1160,21 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "Klawisz %s przypisany do %s oraz %s"
 
-#: src/colors.c:155
-#, c-format
-msgid "Warning: Unknown color - %s\n"
-msgstr "Ostrzeżenie: Nieznany kolor - %s\n"
+#: src/colors.c:156
+#, fuzzy
+msgid "Unknown color"
+msgstr "Nieznane polecenie"
 
-#: src/colors.c:194
-#, c-format
-msgid "Warning: Unknown color field - %s\n"
+#: src/colors.c:196
+#, fuzzy
+msgid "Unknown color field"
 msgstr "Ostrzeżenie: Nieznany kolor pola - %s\n"
 
-#: src/colors.c:228
+#: src/colors.c:230
 msgid "Terminal lacks support for changing colors"
 msgstr "Terminal nie obsługuje zmiany kolorów"
 
-#: src/colors.c:237
+#: src/colors.c:239
 msgid "Terminal lacks color capabilities"
 msgstr "Terminal nie obsługuje kolorów"
 
@@ -1218,7 +1242,7 @@ msgstr "Nieprawidłowy tryb wyszukiwania"
 msgid "Unknown search mode"
 msgstr "Nieznany tryb wyszukiwania"
 
-#: src/conf.c:555
+#: src/conf.c:552
 msgid "Unknown configuration parameter"
 msgstr "Nieznany parametr konfiguracyjny"
 
@@ -1235,6 +1259,12 @@ msgstr "Wielozaznaczanie wyłączone"
 #: src/list_window.c:580
 msgid "Range selection enabled"
 msgstr "Wielozaznaczanie włączone"
+
+#~ msgid "Error: Screen too small"
+#~ msgstr "Błąd: Ekran za mały"
+
+#~ msgid "Warning: Unknown color - %s\n"
+#~ msgstr "Ostrzeżenie: Nieznany kolor - %s\n"
 
 #~ msgid "Connected to %s"
 #~ msgstr "Połączony z %s"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=glib&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-20 13:43+0100\n"
+"POT-Creation-Date: 2017-03-20 21:03+0100\n"
 "PO-Revision-Date: 2009-09-24 10:26+0200\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
@@ -41,12 +41,13 @@ msgstr "Forbinder til %s... [Tryk %s for at afbryde]"
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "Fejl: MPD version %d.%d.%d er for gammel (mindst %s er nødvendig)"
 
-#: src/main.c:340
+#: src/main.c:339
 #, c-format
 msgid "press %s for the key editor"
 msgstr "tryk på %s for at redigere"
 
-#: src/player_command.c:174 src/screen_queue.c:740
+#: src/player_command.c:174
+#: src/screen_queue.c:740
 msgid "Shuffled queue"
 msgstr ""
 
@@ -54,23 +55,19 @@ msgstr ""
 msgid "Cleared queue"
 msgstr ""
 
-#: src/screen.c:204 src/screen.c:271
-msgid "Error: Screen too small"
-msgstr "Fejl: Skærm for lille"
-
-#: src/screen.c:399
+#: src/screen.c:158
 msgid "Repeat mode is on"
 msgstr "Gentagelse er slået til"
 
-#: src/screen.c:400
+#: src/screen.c:159
 msgid "Repeat mode is off"
 msgstr "Gentagelse er slået fra"
 
-#: src/screen.c:404
+#: src/screen.c:163
 msgid "Random mode is on"
 msgstr "Tilfældig orden slået til"
 
-#: src/screen.c:405
+#: src/screen.c:164
 msgid "Random mode is off"
 msgstr "Tilfældig orden slået fra"
 
@@ -79,11 +76,11 @@ msgstr "Tilfældig orden slået fra"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.c:414
+#: src/screen.c:173
 msgid "Single mode is on"
 msgstr "Single afspilning slået til"
 
-#: src/screen.c:415
+#: src/screen.c:174
 msgid "Single mode is off"
 msgstr "Single afspilning slået fra"
 
@@ -91,40 +88,41 @@ msgstr "Single afspilning slået fra"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.c:423
+#: src/screen.c:182
 msgid "Consume mode is on"
 msgstr "\"Consume mode\" er slået til"
 
-#: src/screen.c:424
+#: src/screen.c:183
 msgid "Consume mode is off"
 msgstr "\"Consume mode\" er slået fra"
 
-#: src/screen.c:427
+#: src/screen.c:186
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Crossfade %d sekunder"
 
-#: src/screen.c:439
+#: src/screen.c:198
 msgid "Database updated"
 msgstr "Databasen er opdateret"
 
-#: src/screen.c:496
+#: src/screen.c:256
 msgid "Find mode: Wrapped"
 msgstr "Søg (begynd forfra)"
 
-#: src/screen.c:497
+#: src/screen.c:257
 msgid "Find mode: Normal"
 msgstr "Søg normalt (start/slut)"
 
-#: src/screen.c:502
+#: src/screen.c:262
 msgid "Auto center mode: On"
 msgstr "Automatisk centrering er aktiv"
 
-#: src/screen.c:503
+#: src/screen.c:263
 msgid "Auto center mode: Off"
 msgstr "Automatisk centrering er inaktiv"
 
-#: src/screen_artist.c:72 src/screen_artist.c:354
+#: src/screen_artist.c:72
+#: src/screen_artist.c:354
 msgid "All tracks"
 msgstr "Alle spor"
 
@@ -168,7 +166,9 @@ msgstr "Tilføjer mappen %s...\n"
 msgid "Loading playlist %s..."
 msgstr "Henter %s..."
 
-#: src/screen_browser.c:168 src/screen_browser.c:261 src/screen_browser.c:286
+#: src/screen_browser.c:168
+#: src/screen_browser.c:261
+#: src/screen_browser.c:286
 #, fuzzy, c-format
 msgid "Adding '%s' to queue"
 msgstr "Tilføjer '%s' til listen"
@@ -201,7 +201,8 @@ msgstr ""
 msgid "Message could not be sent"
 msgstr ""
 
-#: src/screen_chat.c:199 src/title_bar.c:91
+#: src/screen_chat.c:199
+#: src/title_bar.c:91
 msgid "Chat"
 msgstr ""
 
@@ -222,7 +223,7 @@ msgstr "Spring"
 msgid "Unable to find '%s'"
 msgstr "Kan ikke finde '%s'"
 
-#: src/screen_utils.c:114
+#: src/screen_utils.c:118
 msgid "Password"
 msgstr "Adgangskode"
 
@@ -237,7 +238,9 @@ msgid "Replace %s [%s/%s] ? "
 msgstr "Erstat '%s' [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:290 src/screen_file.c:220 src/screen_keydef.c:271
+#: src/screen_queue.c:290
+#: src/screen_file.c:220
+#: src/screen_keydef.c:271
 #: src/screen_lyrics.c:372
 msgid "Aborted"
 msgstr "Afbrudt"
@@ -253,7 +256,8 @@ msgstr "Gemt %s"
 msgid "Add"
 msgstr "Tilføj"
 
-#: src/screen_queue.c:498 src/title_bar.c:76
+#: src/screen_queue.c:498
+#: src/title_bar.c:76
 msgid "Queue"
 msgstr ""
 
@@ -281,7 +285,8 @@ msgid "Playlist deleted"
 msgstr "Afspilningslisten slettet"
 
 #. translators: caption of the browser screen
-#: src/screen_file.c:287 src/title_bar.c:77
+#: src/screen_file.c:287
+#: src/title_bar.c:77
 msgid "Browse"
 msgstr "Gennemse"
 
@@ -329,15 +334,19 @@ msgstr "kommentar"
 msgid "file"
 msgstr "fil"
 
-#: src/screen_search.c:80 src/screen_song.c:47
+#: src/screen_search.c:80
+#: src/screen_song.c:47
 msgid "Title"
 msgstr "Titel"
 
-#: src/screen_search.c:81 src/screen_song.c:46 src/title_bar.c:79
+#: src/screen_search.c:81
+#: src/screen_song.c:46
+#: src/title_bar.c:79
 msgid "Artist"
 msgstr "Kunstner"
 
-#: src/screen_search.c:82 src/screen_song.c:48
+#: src/screen_search.c:82
+#: src/screen_song.c:48
 msgid "Album"
 msgstr "Album"
 
@@ -359,7 +368,9 @@ msgstr "Ugyldigt søge tag %s"
 msgid "No argument for search tag %s"
 msgstr "Inter argument for søge tag %s"
 
-#: src/screen_search.c:328 src/screen_help.c:150 src/title_bar.c:82
+#: src/screen_search.c:328
+#: src/screen_help.c:150
+#: src/title_bar.c:82
 msgid "Search"
 msgstr "Søg"
 
@@ -404,7 +415,8 @@ msgstr "Taste bindinger uændrede!"
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "Fejl: Kunne ikke oprette mappe ~/.ncmpc - %s"
 
-#: src/screen_keydef.c:164 src/screen_keydef.c:173
+#: src/screen_keydef.c:164
+#: src/screen_keydef.c:173
 #, c-format
 msgid "Error: %s - %s"
 msgstr "Fejl: %s - %s"
@@ -470,7 +482,8 @@ msgstr "Navigation"
 msgid "Global"
 msgstr "Globale"
 
-#: src/screen_help.c:119 src/command.c:105
+#: src/screen_help.c:119
+#: src/command.c:105
 #, fuzzy
 msgid "Queue screen"
 msgstr "Tastdefinitions skærm"
@@ -491,7 +504,8 @@ msgstr "Flyt markøren ned i afspilningslisten"
 msgid "Center"
 msgstr "Centrer"
 
-#: src/screen_help.c:134 src/command.c:107
+#: src/screen_help.c:134
+#: src/command.c:107
 msgid "Browse screen"
 msgstr "Gennemse"
 
@@ -499,7 +513,8 @@ msgstr "Gennemse"
 msgid "Enter directory/Select and play song"
 msgstr "Skift til bibliotek/Tilføj til afspilningslisten og afspil"
 
-#: src/screen_help.c:138 src/screen_help.c:153
+#: src/screen_help.c:138
+#: src/screen_help.c:153
 #, fuzzy
 msgid "Append song to queue"
 msgstr "Tilføj spor til afspilningsliste"
@@ -508,7 +523,8 @@ msgstr "Tilføj spor til afspilningsliste"
 msgid "Delete playlist"
 msgstr "Slet afspilningsliste"
 
-#: src/screen_help.c:148 src/command.c:218
+#: src/screen_help.c:148
+#: src/command.c:218
 msgid "Search screen"
 msgstr "Database søgning"
 
@@ -516,7 +532,8 @@ msgstr "Database søgning"
 msgid "Select and play"
 msgstr "Vælg og afspil"
 
-#: src/screen_help.c:160 src/command.c:228
+#: src/screen_help.c:160
+#: src/command.c:228
 msgid "Lyrics screen"
 msgstr "Sangtekst skærm"
 
@@ -552,7 +569,8 @@ msgstr "Gem sagtekster"
 msgid "Delete saved lyrics"
 msgstr "Gem sagtekster"
 
-#: src/screen_help.c:175 src/command.c:243
+#: src/screen_help.c:175
+#: src/command.c:243
 msgid "Outputs screen"
 msgstr "Output skærm"
 
@@ -560,7 +578,8 @@ msgstr "Output skærm"
 msgid "Enable/disable output"
 msgstr "Slå output til/fra"
 
-#: src/screen_help.c:182 src/command.c:248
+#: src/screen_help.c:182
+#: src/command.c:248
 #, fuzzy
 msgid "Chat screen"
 msgstr "Næste skærm"
@@ -594,7 +613,8 @@ msgstr "Gå et niveau op"
 msgid "Apply and save changes"
 msgstr "Anvend og gem ændringer"
 
-#: src/screen_help.c:241 src/title_bar.c:74
+#: src/screen_help.c:241
+#: src/title_bar.c:74
 msgid "Help"
 msgstr "Hjælp"
 
@@ -608,7 +628,9 @@ msgstr "Ingen sangtekster"
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr ""
 
-#: src/screen_lyrics.c:327 src/screen_lyrics.c:336 src/screen_lyrics.c:346
+#: src/screen_lyrics.c:327
+#: src/screen_lyrics.c:336
+#: src/screen_lyrics.c:346
 #: src/title_bar.c:85
 msgid "Lyrics"
 msgstr "Sangtekster"
@@ -628,7 +650,8 @@ msgstr ""
 msgid "Do you really want to start an editor and edit these lyrics [%s/%s]? "
 msgstr ""
 
-#: src/screen_lyrics.c:387 src/screen_lyrics.c:411
+#: src/screen_lyrics.c:387
+#: src/screen_lyrics.c:411
 msgid "Can't start editor"
 msgstr ""
 
@@ -667,7 +690,8 @@ msgstr "Output '%s' slået til"
 msgid "Output '%s' disabled"
 msgstr "Output '%s' slået fra"
 
-#: src/screen_outputs.c:161 src/title_bar.c:88
+#: src/screen_outputs.c:161
+#: src/title_bar.c:88
 msgid "Outputs"
 msgstr "Output"
 
@@ -1138,21 +1162,21 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "Tast %s tildelt %s og %s"
 
-#: src/colors.c:155
-#, c-format
-msgid "Warning: Unknown color - %s\n"
-msgstr "Advarsel: Ukendt farve - %s\n"
+#: src/colors.c:156
+#, fuzzy
+msgid "Unknown color"
+msgstr "Ukendt kommando"
 
-#: src/colors.c:194
-#, c-format
-msgid "Warning: Unknown color field - %s\n"
+#: src/colors.c:196
+#, fuzzy
+msgid "Unknown color field"
 msgstr "Advarsel: Ukendt farve felt - %s.\n"
 
-#: src/colors.c:228
+#: src/colors.c:230
 msgid "Terminal lacks support for changing colors"
 msgstr "Terminalen understøtter ikke at ændre farver"
 
-#: src/colors.c:237
+#: src/colors.c:239
 msgid "Terminal lacks color capabilities"
 msgstr "Terminalen understøtter ikke farver"
 
@@ -1220,7 +1244,7 @@ msgstr "Ugyldig søgetilstand"
 msgid "Unknown search mode"
 msgstr "Ukendt søgetilstand"
 
-#: src/conf.c:555
+#: src/conf.c:552
 msgid "Unknown configuration parameter"
 msgstr "Ukendt konfigurations parameter"
 
@@ -1240,6 +1264,12 @@ msgstr "Valg af interval slået fra"
 #: src/list_window.c:580
 msgid "Range selection enabled"
 msgstr "Valg af interval slået til"
+
+#~ msgid "Error: Screen too small"
+#~ msgstr "Fejl: Skærm for lille"
+
+#~ msgid "Warning: Unknown color - %s\n"
+#~ msgstr "Advarsel: Ukendt farve - %s\n"
 
 #~ msgid "Connected to %s"
 #~ msgstr "Forbundet til %s"
