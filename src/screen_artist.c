@@ -89,16 +89,6 @@ screen_artist_lw_callback(unsigned idx, void *data)
 }
 
 static void
-screen_artist_paint(void);
-
-static void
-artist_repaint(void)
-{
-	screen_artist_paint();
-	wrefresh(browser.lw->w);
-}
-
-static void
 string_array_free(GPtrArray *array)
 {
 	for (unsigned i = 0; i < array->len; ++i) {
@@ -440,7 +430,7 @@ screen_artist_update(struct mpdclient *c)
 			 | MPD_IDLE_QUEUE
 #endif
 			 ))
-		artist_repaint();
+		screen_artist_paint();
 }
 
 /* add_query - Add all songs satisfying specified criteria.
@@ -530,7 +520,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 			open_album_list(c, g_strdup(selected));
 			list_window_reset(browser.lw);
 
-			artist_repaint();
+			screen_artist_paint();
 			return true;
 
 		case LIST_ALBUMS:
@@ -560,7 +550,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 				list_window_reset(browser.lw);
 			}
 
-			artist_repaint();
+			screen_artist_paint();
 			return true;
 
 		case LIST_SONGS:
@@ -583,7 +573,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 					list_window_center(browser.lw, idx);
 				}
 
-				artist_repaint();
+				screen_artist_paint();
 				return true;
 			}
 			break;
@@ -632,7 +622,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 			break;
 		}
 
-		artist_repaint();
+		screen_artist_paint();
 		break;
 
 	case CMD_GO_ROOT_DIRECTORY:
@@ -649,7 +639,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 			break;
 		}
 
-		artist_repaint();
+		screen_artist_paint();
 		break;
 
 	case CMD_SELECT:
@@ -701,13 +691,13 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 		case LIST_ARTISTS:
 			screen_find(browser.lw, cmd,
 				    screen_artist_lw_callback, artist_list);
-			artist_repaint();
+			screen_artist_paint();
 			return true;
 
 		case LIST_ALBUMS:
 			screen_find(browser.lw, cmd,
 				    screen_artist_lw_callback, album_list);
-			artist_repaint();
+			screen_artist_paint();
 			return true;
 
 		case LIST_SONGS:
@@ -720,14 +710,14 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 			screen_jump(browser.lw,
 				    screen_artist_lw_callback, artist_list,
 				    paint_artist_callback, artist_list);
-			artist_repaint();
+			screen_artist_paint();
 			return true;
 
 		case LIST_ALBUMS:
 			screen_jump(browser.lw,
 				    screen_artist_lw_callback, album_list,
 				    paint_album_callback, album_list);
-			artist_repaint();
+			screen_artist_paint();
 			return true;
 
 		case LIST_SONGS:
@@ -743,7 +733,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 
 	if (screen_artist_lw_cmd(c, cmd)) {
 		if (screen_is_visible(&screen_artist))
-			artist_repaint();
+			screen_artist_paint();
 		return true;
 	}
 

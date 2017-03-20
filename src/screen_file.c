@@ -43,16 +43,6 @@ static struct screen_browser browser;
 static char *current_path;
 
 static void
-screen_file_paint(void);
-
-static void
-screen_file_repaint(void)
-{
-	screen_file_paint();
-	wrefresh(browser.lw->w);
-}
-
-static void
 screen_file_load_list(struct mpdclient *c, struct filelist *filelist)
 {
 	struct mpd_connection *connection;
@@ -319,7 +309,7 @@ screen_file_update(struct mpdclient *c)
 #endif
 			 )) {
 		screen_browser_sync_highlights(browser.filelist, &c->playlist);
-		screen_file_repaint();
+		screen_file_paint();
 	}
 }
 
@@ -329,7 +319,7 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 	switch(cmd) {
 	case CMD_PLAY:
 		if (screen_file_handle_enter(c)) {
-			screen_file_repaint();
+			screen_file_paint();
 			return true;
 		}
 
@@ -337,11 +327,11 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 
 	case CMD_GO_ROOT_DIRECTORY:
 		change_directory(c, "");
-		screen_file_repaint();
+		screen_file_paint();
 		return true;
 	case CMD_GO_PARENT_DIRECTORY:
 		change_to_parent(c);
-		screen_file_repaint();
+		screen_file_paint();
 		return true;
 
 	case CMD_LOCATE:
@@ -353,7 +343,7 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_SCREEN_UPDATE:
 		screen_file_reload(c);
 		screen_browser_sync_highlights(browser.filelist, &c->playlist);
-		screen_file_repaint();
+		screen_file_paint();
 		return false;
 
 	default:
@@ -362,7 +352,7 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 
 	if (browser_cmd(&browser, c, cmd)) {
 		if (screen_is_visible(&screen_browse))
-			screen_file_repaint();
+			screen_file_paint();
 		return true;
 	}
 
@@ -372,7 +362,7 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 	switch(cmd) {
 	case CMD_DELETE:
 		handle_delete(c);
-		screen_file_repaint();
+		screen_file_paint();
 		break;
 
 	case CMD_SAVE_PLAYLIST:

@@ -285,7 +285,6 @@ help_cmd(gcc_unused struct mpdclient *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(lw, cmd)) {
 		help_paint();
-		wrefresh(lw->w);
 		return true;
 	}
 
@@ -294,7 +293,6 @@ help_cmd(gcc_unused struct mpdclient *c, command_t cmd)
 		/* center the row */
 		list_window_center(lw, lw->selected);
 		help_paint();
-		wrefresh(lw->w);
 		return true;
 	}
 

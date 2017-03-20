@@ -195,13 +195,6 @@ check_subcmd_length(void)
 static void
 keydef_paint(void);
 
-static void
-keydef_repaint(void)
-{
-	keydef_paint();
-	wrefresh(lw->w);
-}
-
 /** lw->start the last time switch_to_subcmd_mode() was called */
 static unsigned saved_start = 0;
 
@@ -216,7 +209,7 @@ switch_to_subcmd_mode(int cmd)
 	list_window_reset(lw);
 	check_subcmd_length();
 
-	keydef_repaint();
+	keydef_paint();
 }
 
 static void
@@ -230,7 +223,7 @@ switch_to_command_mode(void)
 
 	lw->start = saved_start;
 
-	keydef_repaint();
+	keydef_paint();
 }
 
 /**
@@ -257,7 +250,7 @@ delete_key(int cmd_index, int key_index)
 	screen_status_printf(_("Deleted"));
 
 	/* repaint */
-	keydef_repaint();
+	keydef_paint();
 
 	/* update key conflict flags */
 	check_key_bindings(cmds, NULL, 0);
@@ -300,7 +293,7 @@ overwrite_key(int cmd_index, int key_index)
 	check_subcmd_length();
 
 	/* repaint */
-	keydef_repaint();
+	keydef_paint();
 
 	/* update key conflict flags */
 	check_key_bindings(cmds, NULL, 0);
@@ -440,7 +433,7 @@ keydef_cmd(gcc_unused struct mpdclient *c, command_t cmd)
 		return false;
 
 	if (list_window_cmd(lw, cmd)) {
-		keydef_repaint();
+		keydef_paint();
 		return true;
 	}
 
@@ -490,7 +483,7 @@ keydef_cmd(gcc_unused struct mpdclient *c, command_t cmd)
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
 		screen_find(lw, cmd, list_callback, NULL);
-		keydef_repaint();
+		keydef_paint();
 		return true;
 
 	default:

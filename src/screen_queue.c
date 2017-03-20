@@ -548,7 +548,7 @@ screen_queue_update(struct mpdclient *c)
 	    c->events & MPD_IDLE_QUEUE)
 		/* the queue or the current song has changed, we must
 		   paint the new version */
-		screen_queue_repaint();
+		screen_queue_paint();
 }
 
 #ifdef HAVE_GETMOUSE
@@ -559,7 +559,7 @@ handle_mouse_event(struct mpdclient *c)
 	int row;
 	if (screen_get_mouse_event(c, &bstate, &row) ||
 	    list_window_mouse(lw, bstate, row)) {
-		screen_queue_repaint();
+		screen_queue_paint();
 		return true;
 	}
 
@@ -593,7 +593,7 @@ handle_mouse_event(struct mpdclient *c)
 	}
 
 	screen_queue_save_selection();
-	screen_queue_repaint();
+	screen_queue_paint();
 
 	return true;
 }
@@ -619,20 +619,20 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 
 	if (list_window_cmd(lw, cmd)) {
 		screen_queue_save_selection();
-		screen_queue_repaint();
+		screen_queue_paint();
 		return true;
 	}
 
 	switch(cmd) {
 	case CMD_SCREEN_UPDATE:
 		center_playing_item(c->status, prev_cmd == CMD_SCREEN_UPDATE);
-		screen_queue_repaint();
+		screen_queue_paint();
 		return false;
 	case CMD_SELECT_PLAYING:
 		list_window_set_cursor(lw, playlist_get_index(&c->playlist,
 							      c->song));
 		screen_queue_save_selection();
-		screen_queue_repaint();
+		screen_queue_paint();
 		return true;
 
 	case CMD_LIST_FIND:
@@ -641,12 +641,12 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_LIST_RFIND_NEXT:
 		screen_find(lw, cmd, screen_queue_lw_callback, NULL);
 		screen_queue_save_selection();
-		screen_queue_repaint();
+		screen_queue_paint();
 		return true;
 	case CMD_LIST_JUMP:
 		screen_jump(lw, screen_queue_lw_callback, NULL, NULL, NULL);
 		screen_queue_save_selection();
-		screen_queue_repaint();
+		screen_queue_paint();
 		return true;
 
 #ifdef HAVE_GETMOUSE

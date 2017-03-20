@@ -112,19 +112,6 @@ screen_song_clear(void)
 	}
 }
 
-static void
-screen_song_paint(void);
-
-/**
- * Repaint and update the screen.
- */
-static void
-screen_song_repaint(void)
-{
-	screen_song_paint();
-	wrefresh(lw->w);
-}
-
 static const char *
 screen_song_list_callback(unsigned idx, gcc_unused void *data)
 {
@@ -459,14 +446,14 @@ screen_song_update(struct mpdclient *c)
 		mpdclient_handle_error(c);
 
 	list_window_set_length(lw, current.lines->len);
-	screen_song_repaint();
+	screen_song_paint();
 }
 
 static bool
 screen_song_cmd(struct mpdclient *c, command_t cmd)
 {
 	if (list_window_scroll_cmd(lw, cmd)) {
-		screen_song_repaint();
+		screen_song_paint();
 		return true;
 	}
 
@@ -512,7 +499,7 @@ screen_song_cmd(struct mpdclient *c, command_t cmd)
 	if (screen_find(lw, cmd, screen_song_list_callback, NULL)) {
 		/* center the row */
 		list_window_center(lw, lw->selected);
-		screen_song_repaint();
+		screen_song_paint();
 		return true;
 	}
 

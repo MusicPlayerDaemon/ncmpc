@@ -112,16 +112,6 @@ lw_search_help_callback(unsigned idx, gcc_unused void *data)
 	return help_text[idx];
 }
 
-static void
-screen_search_paint(void);
-
-static void
-search_repaint(void)
-{
-	screen_search_paint();
-	wrefresh(browser.lw->w);
-}
-
 /* sanity check search mode value */
 static void
 search_check_mode(void)
@@ -427,7 +417,7 @@ screen_search_update(struct mpdclient *c)
 {
 	if (browser.filelist != NULL && c->events & MPD_IDLE_QUEUE) {
 		screen_browser_sync_highlights(browser.filelist, &c->playlist);
-		search_repaint();
+		screen_search_paint();
 	}
 }
 
@@ -444,18 +434,18 @@ screen_search_cmd(struct mpdclient *c, command_t cmd)
 		/* fall through */
 	case CMD_SCREEN_UPDATE:
 		screen_search_reload(c);
-		search_repaint();
+		screen_search_paint();
 		return true;
 
 	case CMD_SCREEN_SEARCH:
 		search_new(c);
-		search_repaint();
+		screen_search_paint();
 		return true;
 
 	case CMD_CLEAR:
 		search_clear(true);
 		list_window_reset(browser.lw);
-		search_repaint();
+		screen_search_paint();
 		return true;
 
 	default:
@@ -465,7 +455,7 @@ screen_search_cmd(struct mpdclient *c, command_t cmd)
 	if (browser.filelist != NULL &&
 	    browser_cmd(&browser, c, cmd)) {
 		if (screen_is_visible(&screen_search))
-			search_repaint();
+			screen_search_paint();
 		return true;
 	}
 

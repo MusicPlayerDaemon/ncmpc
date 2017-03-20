@@ -34,16 +34,6 @@ static struct list_window *lw;
 
 static GPtrArray *mpd_outputs = NULL;
 
-static void
-outputs_paint(void);
-
-static void
-outputs_repaint(void)
-{
-	outputs_paint();
-	wrefresh(lw->w);
-}
-
 static bool
 toggle_output(struct mpdclient *c, unsigned int output_index)
 {
@@ -201,7 +191,7 @@ screen_outputs_update(struct mpdclient *c)
 	if (c->events & MPD_IDLE_OUTPUT) {
 		clear_outputs_list();
 		fill_outputs_list(c);
-		outputs_repaint();
+		outputs_paint();
 	}
 }
 
@@ -211,7 +201,7 @@ outputs_cmd(struct mpdclient *c, command_t cmd)
 	assert(mpd_outputs != NULL);
 
 	if (list_window_cmd(lw, cmd)) {
-		outputs_repaint();
+		outputs_paint();
 		return true;
 	}
 
@@ -223,7 +213,7 @@ outputs_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_SCREEN_UPDATE:
 		clear_outputs_list();
 		fill_outputs_list(c);
-		outputs_repaint();
+		outputs_paint();
 		return true;
 
 	default:

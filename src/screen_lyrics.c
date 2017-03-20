@@ -453,7 +453,7 @@ lyrics_cmd(struct mpdclient *c, command_t cmd)
 	case CMD_LYRICS_UPDATE:
 		if (c->song != NULL) {
 			screen_lyrics_load(c->song);
-			screen_text_repaint(&text);
+			screen_text_paint(&text);
 		}
 		return true;
 	case CMD_EDIT:
