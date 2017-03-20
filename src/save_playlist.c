@@ -109,6 +109,8 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 					 defaultname,
 					 NULL,
 					 gcmp);
+		if (filename == NULL)
+			return -1;
 
 		/* destroy completion support */
 		wrln_completion_callback_data = NULL;
@@ -116,14 +118,10 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 		wrln_post_completion_callback = NULL;
 		g_completion_free(gcmp);
 		list = string_list_free(list);
-		if( filename )
-			filename=g_strstrip(filename);
+		filename = g_strstrip(filename);
 	} else
 #endif
 		filename=g_strdup(name);
-
-	if (filename == NULL)
-		return -1;
 
 	/* send save command to mpd */
 
