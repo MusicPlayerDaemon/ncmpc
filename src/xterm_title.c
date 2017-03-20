@@ -17,36 +17,29 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef SCREEN_UTILS_H
-#define SCREEN_UTILS_H
+#include "xterm_title.h"
+#include "options.h"
 
-#include "config.h"
-#include "list_window.h"
-#include "command.h"
+#include <glib.h>
 
-struct mpdclient;
+#include <stdio.h>
 
-/* sound an audible and/or visible bell */
-void screen_bell(void);
+void
+set_xterm_title(const char *format, ...)
+{
+	/* the current xterm title exists under the WM_NAME property */
+	/* and can be retrieved with xprop -id $WINDOWID */
 
-/* read a character from the status window */
-int screen_getch(const char *prompt);
-
-/**
- * display a prompt, wait for the user to press a key, and compare it with
- * the default keys for "yes" and "no" (and their upper-case pendants).
- *
- * @returns true, if the user pressed the key for "yes"; false, if the user
- *	    pressed the key for "no"; def otherwise
- */
-bool screen_get_yesno(const char *prompt, bool def);
-
-char *
-screen_read_password(const char *prompt);
-
-char *screen_readln(const char *prompt, const char *value,
-		    GList **history, GCompletion *gcmp);
-
-void screen_display_completion_list(GList *list);
-
-#endif
+	if (options.enable_xterm_title) {
+		if (g_getenv("WINDOWID")) {
+			va_list ap;
+			va_start(ap,format);
+			char *msg = g_strdup_vprintf(format,ap);
+			va_end(ap);
+			printf("\033]0;%s\033\\", msg);
+			fflush(stdout);
+			g_free(msg);
+		} else
+			options.enable_xterm_title = FALSE;
+	}
+}

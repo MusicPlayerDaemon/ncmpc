@@ -17,36 +17,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef SCREEN_UTILS_H
-#define SCREEN_UTILS_H
+#ifndef XTERM_TITLE_H
+#define XTERM_TITLE_H
 
-#include "config.h"
-#include "list_window.h"
-#include "command.h"
-
-struct mpdclient;
-
-/* sound an audible and/or visible bell */
-void screen_bell(void);
-
-/* read a character from the status window */
-int screen_getch(const char *prompt);
-
-/**
- * display a prompt, wait for the user to press a key, and compare it with
- * the default keys for "yes" and "no" (and their upper-case pendants).
- *
- * @returns true, if the user pressed the key for "yes"; false, if the user
- *	    pressed the key for "no"; def otherwise
- */
-bool screen_get_yesno(const char *prompt, bool def);
-
-char *
-screen_read_password(const char *prompt);
-
-char *screen_readln(const char *prompt, const char *value,
-		    GList **history, GCompletion *gcmp);
-
-void screen_display_completion_list(GList *list);
+void
+set_xterm_title(const char *format, ...);
 
 #endif

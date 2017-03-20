@@ -155,25 +155,3 @@ screen_display_completion_list(GList *list)
 	wrefresh(w);
 	colors_use(w, COLOR_LIST);
 }
-
-#ifndef NCMPC_MINI
-void
-set_xterm_title(const char *format, ...)
-{
-	/* the current xterm title exists under the WM_NAME property */
-	/* and can be retrieved with xprop -id $WINDOWID */
-
-	if (options.enable_xterm_title) {
-		if (g_getenv("WINDOWID")) {
-			va_list ap;
-			va_start(ap,format);
-			char *msg = g_strdup_vprintf(format,ap);
-			va_end(ap);
-			printf("\033]0;%s\033\\", msg);
-			fflush(stdout);
-			g_free(msg);
-		} else
-			options.enable_xterm_title = FALSE;
-	}
-}
-#endif
