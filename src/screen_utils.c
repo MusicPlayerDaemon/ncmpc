@@ -153,7 +153,6 @@ screen_display_completion_list(GList *list)
 	}
 
 	wrefresh(w);
-	doupdate();
 	colors_use(w, COLOR_LIST);
 }
 
