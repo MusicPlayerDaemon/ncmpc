@@ -28,11 +28,17 @@
 
 #include <unistd.h>
 
+static bool
+ignore_key(int key)
+{
+	return key == ERR || key == '\0';
+}
+
 gcc_pure
 static command_t
 translate_key(int key)
 {
-	if (key == ERR || key == '\0')
+	if (ignore_key(key))
 		return CMD_NONE;
 
 #ifdef HAVE_GETMOUSE
