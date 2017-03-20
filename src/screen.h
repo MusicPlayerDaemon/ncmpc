@@ -41,8 +41,6 @@ struct screen {
 	struct progress_bar progress_bar;
 	struct status_bar status_bar;
 
-	unsigned cols, rows;
-
 	char *buf;
 	size_t buf_size;
 

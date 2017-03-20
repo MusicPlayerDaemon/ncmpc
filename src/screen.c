@@ -55,8 +55,8 @@ static const GTime SCREEN_WELCOME_TIME = 10;
 #endif
 
 /* minimum window size */
-static const int SCREEN_MIN_COLS = 14;
-static const int SCREEN_MIN_ROWS = 5;
+static const unsigned SCREEN_MIN_COLS = 14;
+static const unsigned SCREEN_MIN_ROWS = 5;
 
 /* screens */
 
@@ -208,37 +208,35 @@ screen_exit(void)
 void
 screen_resize(struct mpdclient *c)
 {
-	if (COLS<SCREEN_MIN_COLS || LINES<SCREEN_MIN_ROWS) {
+	const unsigned cols = COLS, rows = LINES;
+	if (cols < SCREEN_MIN_COLS || rows < SCREEN_MIN_ROWS) {
 		screen_exit();
 		fprintf(stderr, "%s\n", _("Error: Screen too small"));
 		exit(EXIT_FAILURE);
 	}
+
 #ifdef PDCURSES
-	resize_term(LINES, COLS);
+	resize_term(rows, cols);
 #else 
-	resizeterm(LINES, COLS);
+	resizeterm(rows, cols);
 #endif
 
-	screen.cols = COLS;
-	screen.rows = LINES;
-
-	title_bar_resize(&screen.title_bar, screen.cols);
+	title_bar_resize(&screen.title_bar, cols);
 
 	/* main window */
-	screen.main_window.cols = screen.cols;
-	screen.main_window.rows = screen.rows-4;
-	wresize(screen.main_window.w, screen.main_window.rows, screen.cols);
+	screen.main_window.cols = cols;
+	screen.main_window.rows = rows - 4;
+	wresize(screen.main_window.w, screen.main_window.rows, cols);
 
 	/* progress window */
-	progress_bar_resize(&screen.progress_bar, screen.cols,
-			    screen.rows - 2, 0);
+	progress_bar_resize(&screen.progress_bar, cols, rows - 2, 0);
 
 	/* status window */
-	status_bar_resize(&screen.status_bar, screen.cols, screen.rows - 1, 0);
+	status_bar_resize(&screen.status_bar, cols, rows - 1, 0);
 
-	screen.buf_size = screen.cols;
+	screen.buf_size = cols;
 	g_free(screen.buf);
-	screen.buf = g_malloc(screen.cols);
+	screen.buf = g_malloc(cols);
 
 	/* resize all screens */
 	screen_list_resize(screen.main_window.cols, screen.main_window.rows);
@@ -268,16 +266,14 @@ welcome_timer_callback(gpointer data)
 void
 screen_init(struct mpdclient *c)
 {
-	if (COLS < SCREEN_MIN_COLS || LINES < SCREEN_MIN_ROWS) {
+	const unsigned cols = COLS, rows = LINES;
+	if (cols < SCREEN_MIN_COLS || rows < SCREEN_MIN_ROWS) {
 		fprintf(stderr, "%s\n", _("Error: Screen too small"));
 		exit(EXIT_FAILURE);
 	}
 
-	screen.cols = COLS;
-	screen.rows = LINES;
-
-	screen.buf  = g_malloc(screen.cols);
-	screen.buf_size = screen.cols;
+	screen.buf = g_malloc(cols);
+	screen.buf_size = cols;
 	screen.findbuf = NULL;
 
 #ifndef NCMPC_MINI
@@ -288,10 +284,10 @@ screen_init(struct mpdclient *c)
 #endif
 
 	/* create top window */
-	title_bar_init(&screen.title_bar, screen.cols, 0, 0);
+	title_bar_init(&screen.title_bar, cols, 0, 0);
 
 	/* create main window */
-	window_init(&screen.main_window, screen.rows - 4, screen.cols, 2, 0);
+	window_init(&screen.main_window, rows - 4, cols, 2, 0);
 
 	if (!options.hardware_cursor)
 		leaveok(screen.main_window.w, TRUE);
@@ -299,11 +295,10 @@ screen_init(struct mpdclient *c)
 	keypad(screen.main_window.w, TRUE);
 
 	/* create progress window */
-	progress_bar_init(&screen.progress_bar, screen.cols,
-			  screen.rows - 2, 0);
+	progress_bar_init(&screen.progress_bar, cols, rows - 2, 0);
 
 	/* create status window */
-	status_bar_init(&screen.status_bar, screen.cols, screen.rows - 1, 0);
+	status_bar_init(&screen.status_bar, cols, rows - 1, 0);
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
