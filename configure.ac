@@ -227,11 +227,10 @@ AM_CONDITIONAL(ENABLE_HELP_SCREEN, test x$enable_help_screen = xyes)
 
 dnl Optional - curses getmouse support
 
-dnl AC_CHECK_LIB depends on being able to prepend a '-l', remove the '-l' from CURSES_LIB first
-AC_CHECK_LIB([$(expr substr $CURSES_LIB 3 99)],
-		[getmouse],
+MPD_WITH_LIBRARY([CURSES],
+	[AC_CHECK_FUNC([getmouse],
 		[ax_cv_curses_mouse=yes],
-		[ax_cv_curses_mouse=no])
+		[ax_cv_curses_mouse=no])])
 
 AC_ARG_ENABLE([mouse], 
 	AS_HELP_STRING([--enable-mouse],
