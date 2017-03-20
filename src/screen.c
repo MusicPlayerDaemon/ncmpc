@@ -143,41 +143,6 @@ screen_next_mode(struct mpdclient *c, int offset)
 		screen_switch(sf, c);
 }
 
-static void
-paint_top_window(const struct mpdclient *c)
-{
-	const char *title =
-#ifndef NCMPC_MINI
-		screen.welcome_source_id == 0 &&
-#endif
-		screen.current_page->get_title != NULL
-		? screen.current_page->get_title(screen.buf, screen.buf_size)
-		: "";
-	assert(title != NULL);
-
-	title_bar_paint(&screen.title_bar, title, c->status);
-}
-
-static void
-update_progress_window(struct mpdclient *c, bool repaint)
-{
-	unsigned elapsed;
-	if (c->status == NULL)
-		elapsed = 0;
-	else if (seek_id >= 0 && seek_id == mpd_status_get_song_id(c->status))
-		elapsed = seek_target_time;
-	else
-		elapsed = mpd_status_get_elapsed_time(c->status);
-
-	unsigned duration = mpdclient_is_playing(c)
-		? mpd_status_get_total_time(c->status)
-		: 0;
-
-	if (progress_bar_set(&screen.progress_bar, elapsed, duration) ||
-	    repaint)
-		progress_bar_paint(&screen.progress_bar);
-}
-
 void
 screen_exit(void)
 {
@@ -315,36 +280,6 @@ screen_init(struct mpdclient *c)
 
 	if (screen.current_page->open != NULL)
 		screen.current_page->open(c);
-}
-
-void
-screen_paint(struct mpdclient *c, bool main_dirty)
-{
-	/* update title/header window */
-	paint_top_window(c);
-
-	/* paint the bottom window */
-
-	update_progress_window(c, true);
-	status_bar_paint(&screen.status_bar, c->status, c->song);
-
-	/* paint the main window */
-
-	if (main_dirty) {
-		wclear(screen.main_window.w);
-		if (screen.current_page->paint != NULL)
-			screen.current_page->paint();
-	}
-
-	/* move the cursor to the origin */
-
-	if (!options.hardware_cursor)
-		wmove(screen.main_window.w, 0, 0);
-
-	wnoutrefresh(screen.main_window.w);
-
-	/* tell curses to update */
-	doupdate();
 }
 
 void

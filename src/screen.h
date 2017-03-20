@@ -67,6 +67,9 @@ void screen_exit(void);
 void screen_resize(struct mpdclient *c);
 
 void
+paint_top_window(const struct mpdclient *c);
+
+void
 screen_paint(struct mpdclient *c, bool main_dirty);
 
 void screen_update(struct mpdclient *c);
