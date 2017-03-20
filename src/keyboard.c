@@ -27,7 +27,7 @@
 
 #include <unistd.h>
 
-command_t
+static command_t
 get_keyboard_command(void)
 {
 	int key = wgetch(stdscr);
@@ -64,4 +64,14 @@ keyboard_init(void)
 	GIOChannel *channel = g_io_channel_unix_new(STDIN_FILENO);
 	g_io_add_watch(channel, G_IO_IN, keyboard_event, NULL);
 	g_io_channel_unref(channel);
+}
+
+void
+keyboard_unread(int key)
+{
+	ungetch(key);
+
+	command_t cmd = get_keyboard_command();
+	if (cmd != CMD_NONE)
+		do_input_event(cmd);
 }

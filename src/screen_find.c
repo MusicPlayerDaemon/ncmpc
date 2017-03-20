@@ -140,14 +140,10 @@ screen_jump(struct list_window *lw,
 		wrefresh(lw->w);
 	}
 
-	/* ncmpc should get the command */
-	ungetch(key);
-
-	command_t cmd;
-	if ((cmd=get_keyboard_command()) != CMD_NONE)
-		do_input_event(cmd);
-
 	char *temp = g_strdup(search_str);
 	g_free(screen.findbuf);
 	screen.findbuf = temp;
+
+	/* ncmpc should get the command */
+	keyboard_unread(key);
 }
