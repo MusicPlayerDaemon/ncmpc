@@ -32,6 +32,8 @@
 
 #include <glib.h>
 
+#include <stdbool.h>
+
 struct mpdclient;
 struct screen_functions;
 
@@ -40,6 +42,8 @@ struct screen {
 	struct window main_window;
 	struct progress_bar progress_bar;
 	struct status_bar status_bar;
+
+	const struct screen_functions *current_page;
 
 	char *buf;
 	size_t buf_size;
@@ -73,8 +77,11 @@ screen_switch(const struct screen_functions *sf, struct mpdclient *c);
 void 
 screen_swap(struct mpdclient *c, const struct mpd_song *song);
 
-gboolean
-screen_is_visible(const struct screen_functions *sf);
+static inline bool
+screen_is_visible(const struct screen_functions *sf)
+{
+	return sf == screen.current_page;
+}
 
 int
 screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row);

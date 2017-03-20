@@ -60,36 +60,32 @@ static const unsigned SCREEN_MIN_ROWS = 5;
 
 /* screens */
 
-struct screen screen;
-static const struct screen_functions *mode_fn = &screen_queue;
-static const struct screen_functions *mode_fn_prev = &screen_queue;
+struct screen screen = {
+	.current_page = &screen_queue,
+};
 
-gboolean
-screen_is_visible(const struct screen_functions *sf)
-{
-	return sf == mode_fn;
-}
+static const struct screen_functions *mode_fn_prev = &screen_queue;
 
 void
 screen_switch(const struct screen_functions *sf, struct mpdclient *c)
 {
 	assert(sf != NULL);
 
-	if (sf == mode_fn)
+	if (sf == screen.current_page)
 		return;
 
-	mode_fn_prev = mode_fn;
+	mode_fn_prev = screen.current_page;
 
 	/* close the old mode */
-	if (mode_fn->close != NULL)
-		mode_fn->close();
+	if (screen.current_page->close != NULL)
+		screen.current_page->close();
 
 	/* get functions for the new mode */
-	mode_fn = sf;
+	screen.current_page = sf;
 
 	/* open the new mode */
-	if (mode_fn->open != NULL)
-		mode_fn->open(c);
+	if (sf->open != NULL)
+		sf->open(c);
 
 	screen_paint(c, true);
 }
@@ -134,7 +130,7 @@ screen_next_mode(struct mpdclient *c, int offset)
 	int max = g_strv_length(options.screen_list);
 
 	/* find current screen */
-	int current = find_configured_screen(screen_get_name(mode_fn));
+	int current = find_configured_screen(screen_get_name(screen.current_page));
 	int next = current + offset;
 	if (next<0)
 		next = max-1;
@@ -154,8 +150,8 @@ paint_top_window(const struct mpdclient *c)
 #ifndef NCMPC_MINI
 		screen.welcome_source_id == 0 &&
 #endif
-		mode_fn->get_title != NULL
-		? mode_fn->get_title(screen.buf, screen.buf_size)
+		screen.current_page->get_title != NULL
+		? screen.current_page->get_title(screen.buf, screen.buf_size)
 		: "";
 	assert(title != NULL);
 
@@ -185,8 +181,8 @@ update_progress_window(struct mpdclient *c, bool repaint)
 void
 screen_exit(void)
 {
-	if (mode_fn->close != NULL)
-		mode_fn->close();
+	if (screen.current_page->close != NULL)
+		screen.current_page->close();
 
 	screen_list_exit();
 
@@ -317,8 +313,8 @@ screen_init(struct mpdclient *c)
 	screen_list_init(screen.main_window.w,
 			 screen.main_window.cols, screen.main_window.rows);
 
-	if (mode_fn->open != NULL)
-		mode_fn->open(c);
+	if (screen.current_page->open != NULL)
+		screen.current_page->open(c);
 }
 
 void
@@ -336,8 +332,8 @@ screen_paint(struct mpdclient *c, bool main_dirty)
 
 	if (main_dirty) {
 		wclear(screen.main_window.w);
-		if (mode_fn->paint != NULL)
-			mode_fn->paint();
+		if (screen.current_page->paint != NULL)
+			screen.current_page->paint();
 	}
 
 	/* move the cursor to the origin */
@@ -421,8 +417,8 @@ screen_update(struct mpdclient *c)
 #endif
 
 	/* update the main window */
-	if (mode_fn->update != NULL)
-		mode_fn->update(c);
+	if (screen.current_page->update != NULL)
+		screen.current_page->update(c);
 
 	screen_paint(c, false);
 }
@@ -463,7 +459,8 @@ screen_cmd(struct mpdclient *c, command_t cmd)
 	}
 #endif
 
-	if (mode_fn->cmd != NULL && mode_fn->cmd(c, cmd))
+	if (screen.current_page->cmd != NULL &&
+	    screen.current_page->cmd(c, cmd))
 		return;
 
 	if (handle_player_command(c, cmd))
