@@ -75,17 +75,18 @@ update_xterm_title(void)
 	const struct mpd_song *song = mpd->song;
 
 	char tmp[BUFSIZE];
+	const char *new_title = NULL;
 	if (options.xterm_title_format && mpd->playing && song)
-		strfsong(tmp, BUFSIZE, options.xterm_title_format, song);
-	else
-		*tmp = 0;
+		new_title = strfsong(tmp, BUFSIZE, options.xterm_title_format, song) > 0
+			? tmp
+			: NULL;
 
-	if (*tmp == 0)
-		g_strlcpy(tmp, PACKAGE " version " VERSION, BUFSIZE);
+	if (new_title == NULL)
+		new_title = PACKAGE " version " VERSION;
 
 	static char title[BUFSIZE];
-	if (strncmp(title, tmp, BUFSIZE)) {
-		g_strlcpy(title, tmp, BUFSIZE);
+	if (strncmp(title, new_title, BUFSIZE)) {
+		g_strlcpy(title, new_title, BUFSIZE);
 		set_xterm_title(title);
 	}
 }
