@@ -210,7 +210,7 @@ handle_delete(struct mpdclient *c)
 
 		const struct mpd_playlist *playlist = mpd_entity_get_playlist(entity);
 		char *str = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
-		char *buf = g_strdup_printf(_("Delete playlist %s [%s/%s] ? "), str, YES, NO);
+		char *buf = g_strdup_printf(_("Delete playlist %s?"), str);
 		g_free(str);
 		bool delete = screen_get_yesno(buf, false);
 		g_free(buf);

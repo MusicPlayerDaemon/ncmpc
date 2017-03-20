@@ -363,11 +363,9 @@ lyrics_edit(void)
 	}
 
 	if (options.text_editor_ask) {
-		char *buf = g_strdup_printf(
-		    _("Do you really want to start an editor and edit these lyrics [%s/%s]? "),
-					    YES, NO);
-		bool really = screen_get_yesno(buf, false);
-		g_free(buf);
+		const char *prompt =
+			_("Do you really want to start an editor and edit these lyrics?");
+		bool really = screen_get_yesno(prompt, false);
 		if (!really) {
 			screen_status_message(_("Aborted"));
 			return;

@@ -279,8 +279,7 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_EXIST &&
 		    mpd_connection_clear_error(connection)) {
-			char *buf = g_strdup_printf(_("Replace %s [%s/%s] ? "),
-						    filename, YES, NO);
+			char *buf = g_strdup_printf(_("Replace %s?"), filename);
 			bool replace = screen_get_yesno(buf, false);
 			g_free(buf);
 

@@ -72,12 +72,15 @@ screen_getch(const char *prompt)
 }
 
 bool
-screen_get_yesno(const char *prompt, bool def)
+screen_get_yesno(const char *_prompt, bool def)
 {
 	/* NOTE: if one day a translator decides to use a multi-byte character
 	   for one of the yes/no keys, we'll have to parse it properly */
 
+	char *prompt = g_strdup_printf(_("%s [%s/%s] "), _prompt, YES, NO);
 	int key = tolower(screen_getch(prompt));
+	g_free(prompt);
+
 	if (key == YES[0])
 		return true;
 	else if (key == NO[0])
