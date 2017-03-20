@@ -219,16 +219,13 @@ screen_resize(struct mpdclient *c)
 	screen.main_window.cols = screen.cols;
 	screen.main_window.rows = screen.rows-4;
 	wresize(screen.main_window.w, screen.main_window.rows, screen.cols);
-	wclear(screen.main_window.w);
 
 	/* progress window */
 	progress_bar_resize(&screen.progress_bar, screen.cols,
 			    screen.rows - 2, 0);
-	progress_bar_paint(&screen.progress_bar);
 
 	/* status window */
 	status_bar_resize(&screen.status_bar, screen.cols, screen.rows - 1, 0);
-	status_bar_paint(&screen.status_bar, c->status, c->song);
 
 	screen.buf_size = screen.cols;
 	g_free(screen.buf);
