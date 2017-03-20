@@ -158,7 +158,7 @@ check_PROGRAMS = \
 
 test_run_hscroll_SOURCES = test/run_hscroll.c src/hscroll.c src/charset.c
 test_run_hscroll_CPPFLAGS = -I$(srcdir)/src $(AM_CPPFLAGS)
-test_run_hscroll_LDADD = @CURSES_LIB@ $(GLIB_LIBS)
+test_run_hscroll_LDADD = $(CURSES_LIBS) $(GLIB_LIBS)
 
 #
 # sparse
