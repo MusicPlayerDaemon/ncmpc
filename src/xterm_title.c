@@ -21,6 +21,7 @@
 #include "options.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 void
 set_xterm_title(const char *title)
@@ -31,7 +32,7 @@ set_xterm_title(const char *title)
 	if (!options.enable_xterm_title)
 		return;
 
-	if (g_getenv("WINDOWID") == NULL) {
+	if (getenv("WINDOWID") == NULL) {
 		options.enable_xterm_title = FALSE;
 		return;
 	}
