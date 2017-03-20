@@ -43,6 +43,7 @@ src_ncmpc_SOURCES = \
 	src/status_bar.c src/status_bar.h \
 	src/screen.c src/screen.h \
 	src/screen_interface.h \
+	src/screen_init.c \
 	src/screen_paint.c \
 	src/screen_utils.c src/screen_utils.h \
 	src/screen_status.c src/screen_status.h \
