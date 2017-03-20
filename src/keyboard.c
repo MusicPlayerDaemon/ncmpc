@@ -20,11 +20,27 @@
 #include "keyboard.h"
 #include "command.h"
 #include "ncmpc.h"
+#include "ncmpc_curses.h"
 #include "Compiler.h"
 
 #include <glib.h>
 
 #include <unistd.h>
+
+command_t
+get_keyboard_command(void)
+{
+	int key = wgetch(stdscr);
+	if (key == ERR || key == '\0')
+		return CMD_NONE;
+
+#ifdef HAVE_GETMOUSE
+	if (key == KEY_MOUSE)
+		return CMD_MOUSE_EVENT;
+#endif
+
+	return get_key_command(key);
+}
 
 static gboolean
 keyboard_event(gcc_unused GIOChannel *source,

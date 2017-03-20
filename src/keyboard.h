@@ -20,7 +20,12 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
+#include "command.h"
+
 void
 keyboard_init(void);
+
+command_t
+get_keyboard_command(void);
 
 #endif

@@ -21,6 +21,7 @@
 #include "screen_utils.h"
 #include "screen_status.h"
 #include "screen.h"
+#include "keyboard.h"
 #include "i18n.h"
 #include "options.h"
 #include "ncmpc.h"

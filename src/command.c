@@ -436,21 +436,6 @@ get_key_command(int key)
 	return find_key_command(key, cmds);
 }
 
-command_t
-get_keyboard_command(void)
-{
-	int key = wgetch(stdscr);
-	if (key == ERR || key == '\0')
-		return CMD_NONE;
-
-#ifdef HAVE_GETMOUSE
-	if (key == KEY_MOUSE)
-		return CMD_MOUSE_EVENT;
-#endif
-
-	return get_key_command(key);
-}
-
 bool
 assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
 {
