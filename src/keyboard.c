@@ -38,9 +38,6 @@ gcc_pure
 static command_t
 translate_key(int key)
 {
-	if (ignore_key(key))
-		return CMD_NONE;
-
 #ifdef HAVE_GETMOUSE
 	if (key == KEY_MOUSE)
 		return CMD_MOUSE_EVENT;
@@ -49,23 +46,23 @@ translate_key(int key)
 	return get_key_command(key);
 }
 
-static command_t
-get_keyboard_command(void)
-{
-	return translate_key(wgetch(screen.main_window.w));
-}
-
 static gboolean
 keyboard_event(gcc_unused GIOChannel *source,
 	       gcc_unused GIOCondition condition,
 	       gcc_unused gpointer data)
 {
+	int key = wgetch(screen.main_window.w);
+	if (ignore_key(key))
+		return true;
+
+	command_t cmd = translate_key(key);
+	if (cmd == CMD_NONE)
+		return true;
+
 	begin_input_event();
 
-	command_t cmd = get_keyboard_command();
-	if (cmd != CMD_NONE)
-		if (!do_input_event(cmd))
-			return FALSE;
+	if (!do_input_event(cmd))
+		return FALSE;
 
 	end_input_event();
 	return TRUE;
@@ -82,6 +79,9 @@ keyboard_init(void)
 void
 keyboard_unread(int key)
 {
+	if (ignore_key(key))
+		return;
+
 	command_t cmd = translate_key(key);
 	if (cmd != CMD_NONE)
 		do_input_event(cmd);
