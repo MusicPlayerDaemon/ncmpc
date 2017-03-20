@@ -28,11 +28,14 @@ set_xterm_title(const char *title)
 	/* the current xterm title exists under the WM_NAME property */
 	/* and can be retrieved with xprop -id $WINDOWID */
 
-	if (options.enable_xterm_title) {
-		if (g_getenv("WINDOWID")) {
-			printf("\033]0;%s\033\\", title);
-			fflush(stdout);
-		} else
-			options.enable_xterm_title = FALSE;
+	if (!options.enable_xterm_title)
+		return;
+
+	if (g_getenv("WINDOWID") == NULL) {
+		options.enable_xterm_title = FALSE;
+		return;
 	}
+
+	printf("\033]0;%s\033\\", title);
+	fflush(stdout);
 }
