@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=glib&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-20 21:03+0100\n"
+"POT-Creation-Date: 2017-03-20 21:11+0100\n"
 "PO-Revision-Date: 2010-09-23 11:15+0000\n"
 "Last-Translator: Thibault Févry <Unknown>\n"
 "Language-Team: <fr@li.org>\n"
@@ -48,8 +48,7 @@ msgstr "Erreur: la version %d.%d.%d de MPD est trop ancienne (%s requise)"
 msgid "press %s for the key editor"
 msgstr "appuyez sur %s pour l'éditeur de touches"
 
-#: src/player_command.c:174
-#: src/screen_queue.c:740
+#: src/player_command.c:174 src/screen_queue.c:739
 msgid "Shuffled queue"
 msgstr ""
 
@@ -123,8 +122,7 @@ msgstr "Mode d'auto-centrage: Actif"
 msgid "Auto center mode: Off"
 msgstr "Mode d'auto-centrage: Inactif"
 
-#: src/screen_artist.c:72
-#: src/screen_artist.c:354
+#: src/screen_artist.c:72 src/screen_artist.c:354
 msgid "All tracks"
 msgstr "Toutes les pistes"
 
@@ -168,9 +166,7 @@ msgstr "Ajout de %s en cours..."
 msgid "Loading playlist %s..."
 msgstr "Chargement de la liste de lecture %s..."
 
-#: src/screen_browser.c:168
-#: src/screen_browser.c:261
-#: src/screen_browser.c:286
+#: src/screen_browser.c:168 src/screen_browser.c:261 src/screen_browser.c:286
 #, fuzzy, c-format
 msgid "Adding '%s' to queue"
 msgstr "Ajout de '%s' à la liste de lecture"
@@ -203,8 +199,7 @@ msgstr ""
 msgid "Message could not be sent"
 msgstr ""
 
-#: src/screen_chat.c:199
-#: src/title_bar.c:91
+#: src/screen_chat.c:199 src/title_bar.c:91
 msgid "Chat"
 msgstr ""
 
@@ -225,7 +220,14 @@ msgstr "Sauter"
 msgid "Unable to find '%s'"
 msgstr "Impossible de trouver '%s'"
 
-#: src/screen_utils.c:118
+#. NOTE: if one day a translator decides to use a multi-byte character
+#. for one of the yes/no keys, we'll have to parse it properly
+#: src/screen_utils.c:80
+#, fuzzy, c-format
+msgid "%s [%s/%s] "
+msgstr "Remplacer %s [%s/%s] ? "
+
+#: src/screen_utils.c:121
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -235,35 +237,32 @@ msgid "Save queue as"
 msgstr ""
 
 #: src/screen_queue.c:282
-#, c-format
-msgid "Replace %s [%s/%s] ? "
+#, fuzzy, c-format
+msgid "Replace %s?"
 msgstr "Remplacer %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:290
-#: src/screen_file.c:220
-#: src/screen_keydef.c:271
-#: src/screen_lyrics.c:372
+#: src/screen_queue.c:289 src/screen_file.c:220 src/screen_keydef.c:271
+#: src/screen_lyrics.c:370
 msgid "Aborted"
 msgstr "Annulé"
 
 #. success
-#: src/screen_queue.c:314
+#: src/screen_queue.c:313
 #, c-format
 msgid "Saved %s"
 msgstr "%s enregistré"
 
 #. get path
-#: src/screen_queue.c:391
+#: src/screen_queue.c:390
 msgid "Add"
 msgstr "Ajouter"
 
-#: src/screen_queue.c:498
-#: src/title_bar.c:76
+#: src/screen_queue.c:497 src/title_bar.c:76
 msgid "Queue"
 msgstr ""
 
-#: src/screen_queue.c:500
+#: src/screen_queue.c:499
 #, c-format
 msgid "Queue on %s"
 msgstr ""
@@ -276,9 +275,9 @@ msgid "Deleting this item is not possible"
 msgstr "Impossible d'effacer ce type d'objet"
 
 #: src/screen_file.c:213
-#, c-format
-msgid "Delete playlist %s [%s/%s] ? "
-msgstr "Effacer la liste de lecture %s [%s/%s] ? "
+#, fuzzy, c-format
+msgid "Delete playlist %s?"
+msgstr "Effacer la liste de lecture"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
@@ -287,8 +286,7 @@ msgid "Playlist deleted"
 msgstr "Liste de lecture effacée"
 
 #. translators: caption of the browser screen
-#: src/screen_file.c:287
-#: src/title_bar.c:77
+#: src/screen_file.c:287 src/title_bar.c:77
 msgid "Browse"
 msgstr "Parcourir"
 
@@ -336,19 +334,15 @@ msgstr "commentaire"
 msgid "file"
 msgstr "fichier"
 
-#: src/screen_search.c:80
-#: src/screen_song.c:47
+#: src/screen_search.c:80 src/screen_song.c:47
 msgid "Title"
 msgstr "Titre"
 
-#: src/screen_search.c:81
-#: src/screen_song.c:46
-#: src/title_bar.c:79
+#: src/screen_search.c:81 src/screen_song.c:46 src/title_bar.c:79
 msgid "Artist"
 msgstr "Artiste"
 
-#: src/screen_search.c:82
-#: src/screen_song.c:48
+#: src/screen_search.c:82 src/screen_song.c:48
 msgid "Album"
 msgstr "Album"
 
@@ -370,9 +364,7 @@ msgstr "Mauvais champ recherché %s"
 msgid "No argument for search tag %s"
 msgstr "Pas d'argument pour le champ recherché %s"
 
-#: src/screen_search.c:328
-#: src/screen_help.c:150
-#: src/title_bar.c:82
+#: src/screen_search.c:328 src/screen_help.c:150 src/title_bar.c:82
 msgid "Search"
 msgstr "Rechercher"
 
@@ -417,8 +409,7 @@ msgstr "La correspondance des touches n'a pas été changée."
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "Erreur : Impossible de créer le répertoire ~/.ncmpc - %s"
 
-#: src/screen_keydef.c:164
-#: src/screen_keydef.c:173
+#: src/screen_keydef.c:164 src/screen_keydef.c:173
 #, c-format
 msgid "Error: %s - %s"
 msgstr "Erreur: %s - %s"
@@ -484,8 +475,7 @@ msgstr "Déplacements"
 msgid "Global"
 msgstr "Globales"
 
-#: src/screen_help.c:119
-#: src/command.c:105
+#: src/screen_help.c:119 src/command.c:105
 #, fuzzy
 msgid "Queue screen"
 msgstr "Écran du paramétrage des raccourcis"
@@ -506,8 +496,7 @@ msgstr "Déplacer la chanson vers le bas"
 msgid "Center"
 msgstr "Centrer"
 
-#: src/screen_help.c:134
-#: src/command.c:107
+#: src/screen_help.c:134 src/command.c:107
 msgid "Browse screen"
 msgstr "Ecran de Navigation"
 
@@ -515,8 +504,7 @@ msgstr "Ecran de Navigation"
 msgid "Enter directory/Select and play song"
 msgstr "Entrer dans le répertoire/Sélectionner et lire la chanson"
 
-#: src/screen_help.c:138
-#: src/screen_help.c:153
+#: src/screen_help.c:138 src/screen_help.c:153
 #, fuzzy
 msgid "Append song to queue"
 msgstr "Ajouter la chanson à la liste de lecture"
@@ -525,8 +513,7 @@ msgstr "Ajouter la chanson à la liste de lecture"
 msgid "Delete playlist"
 msgstr "Effacer la liste de lecture"
 
-#: src/screen_help.c:148
-#: src/command.c:218
+#: src/screen_help.c:148 src/command.c:218
 msgid "Search screen"
 msgstr "Ecran de recherche"
 
@@ -534,8 +521,7 @@ msgstr "Ecran de recherche"
 msgid "Select and play"
 msgstr "Sélectionner et Lire"
 
-#: src/screen_help.c:160
-#: src/command.c:228
+#: src/screen_help.c:160 src/command.c:228
 msgid "Lyrics screen"
 msgstr "Ecran des paroles"
 
@@ -570,8 +556,7 @@ msgstr "Enregistrer les paroles"
 msgid "Delete saved lyrics"
 msgstr "Supprimer les paroles sauvées"
 
-#: src/screen_help.c:175
-#: src/command.c:243
+#: src/screen_help.c:175 src/command.c:243
 msgid "Outputs screen"
 msgstr "Ecran des sorties"
 
@@ -579,8 +564,7 @@ msgstr "Ecran des sorties"
 msgid "Enable/disable output"
 msgstr "Activer/désactiver une sortie"
 
-#: src/screen_help.c:182
-#: src/command.c:248
+#: src/screen_help.c:182 src/command.c:248
 #, fuzzy
 msgid "Chat screen"
 msgstr "Ecran suivant"
@@ -614,8 +598,7 @@ msgstr "Aller au dossier parent"
 msgid "Apply and save changes"
 msgstr "Appliquer et sauvegarder les changements"
 
-#: src/screen_help.c:241
-#: src/title_bar.c:74
+#: src/screen_help.c:241 src/title_bar.c:74
 msgid "Help"
 msgstr "Aide"
 
@@ -629,9 +612,7 @@ msgstr "Pas de paroles"
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr ""
 
-#: src/screen_lyrics.c:327
-#: src/screen_lyrics.c:336
-#: src/screen_lyrics.c:346
+#: src/screen_lyrics.c:327 src/screen_lyrics.c:336 src/screen_lyrics.c:346
 #: src/title_bar.c:85
 msgid "Lyrics"
 msgstr "Paroles"
@@ -647,35 +628,33 @@ msgid "Editor not configured"
 msgstr ""
 
 #: src/screen_lyrics.c:367
-#, c-format
-msgid "Do you really want to start an editor and edit these lyrics [%s/%s]? "
+msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr ""
 
-#: src/screen_lyrics.c:387
-#: src/screen_lyrics.c:411
+#: src/screen_lyrics.c:385 src/screen_lyrics.c:409
 msgid "Can't start editor"
 msgstr ""
 
-#: src/screen_lyrics.c:413
+#: src/screen_lyrics.c:411
 #, c-format
 msgid "Editor exited unexpectedly (%d)"
 msgstr ""
 
-#: src/screen_lyrics.c:416
+#: src/screen_lyrics.c:414
 #, c-format
 msgid "Editor exited unexpectedly (signal %d)"
 msgstr ""
 
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:438
+#: src/screen_lyrics.c:436
 msgid "Lyrics saved"
 msgstr "Paroles enregistrées"
 
-#: src/screen_lyrics.c:445
+#: src/screen_lyrics.c:443
 msgid "Lyrics deleted"
 msgstr "Paroles supprimées"
 
-#: src/screen_lyrics.c:448
+#: src/screen_lyrics.c:446
 msgid "No saved lyrics"
 msgstr "Aucune parole sauvée"
 
@@ -689,8 +668,7 @@ msgstr "Sortie %s activée"
 msgid "Output '%s' disabled"
 msgstr "Sortie %s désactivée"
 
-#: src/screen_outputs.c:161
-#: src/title_bar.c:88
+#: src/screen_outputs.c:161 src/title_bar.c:88
 msgid "Outputs"
 msgstr "Sorties"
 
@@ -1269,6 +1247,9 @@ msgstr "Sélection multi-ligne désactivée"
 #: src/list_window.c:580
 msgid "Range selection enabled"
 msgstr "Sélection multi-ligne activée"
+
+#~ msgid "Delete playlist %s [%s/%s] ? "
+#~ msgstr "Effacer la liste de lecture %s [%s/%s] ? "
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Erreur: Ecran trop petit"

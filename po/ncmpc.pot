@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=glib&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-20 21:03+0100\n"
+"POT-Creation-Date: 2017-03-20 21:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgid "press %s for the key editor"
 msgstr ""
 
 #: src/player_command.c:174
-#: src/screen_queue.c:740
+#: src/screen_queue.c:739
 msgid "Shuffled queue"
 msgstr ""
 
@@ -222,7 +222,14 @@ msgstr ""
 msgid "Unable to find '%s'"
 msgstr ""
 
-#: src/screen_utils.c:118
+#. NOTE: if one day a translator decides to use a multi-byte character
+#. for one of the yes/no keys, we'll have to parse it properly
+#: src/screen_utils.c:80
+#, c-format
+msgid "%s [%s/%s] "
+msgstr ""
+
+#: src/screen_utils.c:121
 msgid "Password"
 msgstr ""
 
@@ -233,34 +240,34 @@ msgstr ""
 
 #: src/screen_queue.c:282
 #, c-format
-msgid "Replace %s [%s/%s] ? "
+msgid "Replace %s?"
 msgstr ""
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:290
+#: src/screen_queue.c:289
 #: src/screen_file.c:220
 #: src/screen_keydef.c:271
-#: src/screen_lyrics.c:372
+#: src/screen_lyrics.c:370
 msgid "Aborted"
 msgstr ""
 
 #. success
-#: src/screen_queue.c:314
+#: src/screen_queue.c:313
 #, c-format
 msgid "Saved %s"
 msgstr ""
 
 #. get path
-#: src/screen_queue.c:391
+#: src/screen_queue.c:390
 msgid "Add"
 msgstr ""
 
-#: src/screen_queue.c:498
+#: src/screen_queue.c:497
 #: src/title_bar.c:76
 msgid "Queue"
 msgstr ""
 
-#: src/screen_queue.c:500
+#: src/screen_queue.c:499
 #, c-format
 msgid "Queue on %s"
 msgstr ""
@@ -274,7 +281,7 @@ msgstr ""
 
 #: src/screen_file.c:213
 #, c-format
-msgid "Delete playlist %s [%s/%s] ? "
+msgid "Delete playlist %s?"
 msgstr ""
 
 #. translators: MPD deleted the playlist, as requested by the
@@ -639,35 +646,34 @@ msgid "Editor not configured"
 msgstr ""
 
 #: src/screen_lyrics.c:367
-#, c-format
-msgid "Do you really want to start an editor and edit these lyrics [%s/%s]? "
+msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr ""
 
-#: src/screen_lyrics.c:387
-#: src/screen_lyrics.c:411
+#: src/screen_lyrics.c:385
+#: src/screen_lyrics.c:409
 msgid "Can't start editor"
 msgstr ""
 
-#: src/screen_lyrics.c:413
+#: src/screen_lyrics.c:411
 #, c-format
 msgid "Editor exited unexpectedly (%d)"
 msgstr ""
 
-#: src/screen_lyrics.c:416
+#: src/screen_lyrics.c:414
 #, c-format
 msgid "Editor exited unexpectedly (signal %d)"
 msgstr ""
 
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:438
+#: src/screen_lyrics.c:436
 msgid "Lyrics saved"
 msgstr ""
 
-#: src/screen_lyrics.c:445
+#: src/screen_lyrics.c:443
 msgid "Lyrics deleted"
 msgstr ""
 
-#: src/screen_lyrics.c:448
+#: src/screen_lyrics.c:446
 msgid "No saved lyrics"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=glib&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-20 21:03+0100\n"
+"POT-Creation-Date: 2017-03-20 21:11+0100\n"
 "PO-Revision-Date: 2010-04-07 01:36+0000\n"
 "Last-Translator: Roman Horník <Unknown>\n"
 "Language-Team: sk <sk@li.org>\n"
@@ -45,8 +45,7 @@ msgstr "Chyba: MPD verzie %d.%d.%d je príliš staré (%s je potrebná)"
 msgid "press %s for the key editor"
 msgstr "stlačte %s pre editor klávesov"
 
-#: src/player_command.c:174
-#: src/screen_queue.c:740
+#: src/player_command.c:174 src/screen_queue.c:739
 msgid "Shuffled queue"
 msgstr ""
 
@@ -120,8 +119,7 @@ msgstr "Automatické centrovanie: Zapnuté"
 msgid "Auto center mode: Off"
 msgstr "Automatické centrovanie: Vypnuté"
 
-#: src/screen_artist.c:72
-#: src/screen_artist.c:354
+#: src/screen_artist.c:72 src/screen_artist.c:354
 msgid "All tracks"
 msgstr "Všetky stopy"
 
@@ -165,9 +163,7 @@ msgstr "Pridávam adresár %s...\n"
 msgid "Loading playlist %s..."
 msgstr "Nahrávam playlist %s..."
 
-#: src/screen_browser.c:168
-#: src/screen_browser.c:261
-#: src/screen_browser.c:286
+#: src/screen_browser.c:168 src/screen_browser.c:261 src/screen_browser.c:286
 #, fuzzy, c-format
 msgid "Adding '%s' to queue"
 msgstr "Pridávam '%s' do playlistu"
@@ -200,8 +196,7 @@ msgstr ""
 msgid "Message could not be sent"
 msgstr ""
 
-#: src/screen_chat.c:199
-#: src/title_bar.c:91
+#: src/screen_chat.c:199 src/title_bar.c:91
 msgid "Chat"
 msgstr ""
 
@@ -222,7 +217,14 @@ msgstr "Skok"
 msgid "Unable to find '%s'"
 msgstr "Nepodarilo sa nájsť '%s'"
 
-#: src/screen_utils.c:118
+#. NOTE: if one day a translator decides to use a multi-byte character
+#. for one of the yes/no keys, we'll have to parse it properly
+#: src/screen_utils.c:80
+#, fuzzy, c-format
+msgid "%s [%s/%s] "
+msgstr "Nahradiť %s [%s/%s] ? "
+
+#: src/screen_utils.c:121
 msgid "Password"
 msgstr "Heslo"
 
@@ -232,35 +234,32 @@ msgid "Save queue as"
 msgstr ""
 
 #: src/screen_queue.c:282
-#, c-format
-msgid "Replace %s [%s/%s] ? "
+#, fuzzy, c-format
+msgid "Replace %s?"
 msgstr "Nahradiť %s [%s/%s] ? "
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:290
-#: src/screen_file.c:220
-#: src/screen_keydef.c:271
-#: src/screen_lyrics.c:372
+#: src/screen_queue.c:289 src/screen_file.c:220 src/screen_keydef.c:271
+#: src/screen_lyrics.c:370
 msgid "Aborted"
 msgstr "Zrušené"
 
 #. success
-#: src/screen_queue.c:314
+#: src/screen_queue.c:313
 #, c-format
 msgid "Saved %s"
 msgstr "Uložený %s"
 
 #. get path
-#: src/screen_queue.c:391
+#: src/screen_queue.c:390
 msgid "Add"
 msgstr "Pridať"
 
-#: src/screen_queue.c:498
-#: src/title_bar.c:76
+#: src/screen_queue.c:497 src/title_bar.c:76
 msgid "Queue"
 msgstr ""
 
-#: src/screen_queue.c:500
+#: src/screen_queue.c:499
 #, c-format
 msgid "Queue on %s"
 msgstr ""
@@ -273,9 +272,9 @@ msgid "Deleting this item is not possible"
 msgstr "Zmazanie tejto položky nie je možné"
 
 #: src/screen_file.c:213
-#, c-format
-msgid "Delete playlist %s [%s/%s] ? "
-msgstr "Vymazať playlist %s [%s/%s] ? "
+#, fuzzy, c-format
+msgid "Delete playlist %s?"
+msgstr "Vymazať playlist"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
@@ -284,8 +283,7 @@ msgid "Playlist deleted"
 msgstr "Playlist vymazaný"
 
 #. translators: caption of the browser screen
-#: src/screen_file.c:287
-#: src/title_bar.c:77
+#: src/screen_file.c:287 src/title_bar.c:77
 msgid "Browse"
 msgstr "Listovať"
 
@@ -333,19 +331,15 @@ msgstr "komentár"
 msgid "file"
 msgstr "súbor"
 
-#: src/screen_search.c:80
-#: src/screen_song.c:47
+#: src/screen_search.c:80 src/screen_song.c:47
 msgid "Title"
 msgstr "Názov"
 
-#: src/screen_search.c:81
-#: src/screen_song.c:46
-#: src/title_bar.c:79
+#: src/screen_search.c:81 src/screen_song.c:46 src/title_bar.c:79
 msgid "Artist"
 msgstr "Interpret"
 
-#: src/screen_search.c:82
-#: src/screen_song.c:48
+#: src/screen_search.c:82 src/screen_song.c:48
 msgid "Album"
 msgstr "Album"
 
@@ -367,9 +361,7 @@ msgstr "Zlá značka vyhľadávania %s"
 msgid "No argument for search tag %s"
 msgstr "Chýba argument pre značku vyhľadávania %s"
 
-#: src/screen_search.c:328
-#: src/screen_help.c:150
-#: src/title_bar.c:82
+#: src/screen_search.c:328 src/screen_help.c:150 src/title_bar.c:82
 msgid "Search"
 msgstr "Hľadanie"
 
@@ -414,8 +406,7 @@ msgstr "Priradenie klávesov sa nezmenilo."
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr "Chyba: Nepodarilo sa vytvoriť adresár ~/.ncmpc - %s"
 
-#: src/screen_keydef.c:164
-#: src/screen_keydef.c:173
+#: src/screen_keydef.c:164 src/screen_keydef.c:173
 #, c-format
 msgid "Error: %s - %s"
 msgstr "Chyba: %s - %s"
@@ -481,8 +472,7 @@ msgstr "Pohyb"
 msgid "Global"
 msgstr "Globálne"
 
-#: src/screen_help.c:119
-#: src/command.c:105
+#: src/screen_help.c:119 src/command.c:105
 #, fuzzy
 msgid "Queue screen"
 msgstr "Obrazovka s nastavením kláves"
@@ -503,8 +493,7 @@ msgstr "Presunúť skladbu nadol"
 msgid "Center"
 msgstr "Do stredu"
 
-#: src/screen_help.c:134
-#: src/command.c:107
+#: src/screen_help.c:134 src/command.c:107
 msgid "Browse screen"
 msgstr "Okno listovania"
 
@@ -512,8 +501,7 @@ msgstr "Okno listovania"
 msgid "Enter directory/Select and play song"
 msgstr "Vstúpiť do adresára/Vybrať a prehrať skladbu"
 
-#: src/screen_help.c:138
-#: src/screen_help.c:153
+#: src/screen_help.c:138 src/screen_help.c:153
 #, fuzzy
 msgid "Append song to queue"
 msgstr "Pridať skladbu do playlistu"
@@ -522,8 +510,7 @@ msgstr "Pridať skladbu do playlistu"
 msgid "Delete playlist"
 msgstr "Vymazať playlist"
 
-#: src/screen_help.c:148
-#: src/command.c:218
+#: src/screen_help.c:148 src/command.c:218
 msgid "Search screen"
 msgstr "Okno vyhľadávania"
 
@@ -531,8 +518,7 @@ msgstr "Okno vyhľadávania"
 msgid "Select and play"
 msgstr "Vybrať a prehrať"
 
-#: src/screen_help.c:160
-#: src/command.c:228
+#: src/screen_help.c:160 src/command.c:228
 msgid "Lyrics screen"
 msgstr "Okno textu piesne"
 
@@ -568,8 +554,7 @@ msgstr "Uložiť text piesne"
 msgid "Delete saved lyrics"
 msgstr "Uložiť text piesne"
 
-#: src/screen_help.c:175
-#: src/command.c:243
+#: src/screen_help.c:175 src/command.c:243
 msgid "Outputs screen"
 msgstr "Obrazovka výstupov"
 
@@ -577,8 +562,7 @@ msgstr "Obrazovka výstupov"
 msgid "Enable/disable output"
 msgstr "Povoliť/vypnúť výstup"
 
-#: src/screen_help.c:182
-#: src/command.c:248
+#: src/screen_help.c:182 src/command.c:248
 #, fuzzy
 msgid "Chat screen"
 msgstr "Ďalšia obrazovka"
@@ -612,8 +596,7 @@ msgstr "Prejsť o úroveň vyššie"
 msgid "Apply and save changes"
 msgstr "Použiť a uložiť zmeny"
 
-#: src/screen_help.c:241
-#: src/title_bar.c:74
+#: src/screen_help.c:241 src/title_bar.c:74
 msgid "Help"
 msgstr "Pomoc"
 
@@ -627,9 +610,7 @@ msgstr "Bez textu"
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr ""
 
-#: src/screen_lyrics.c:327
-#: src/screen_lyrics.c:336
-#: src/screen_lyrics.c:346
+#: src/screen_lyrics.c:327 src/screen_lyrics.c:336 src/screen_lyrics.c:346
 #: src/title_bar.c:85
 msgid "Lyrics"
 msgstr "Text piesne"
@@ -645,36 +626,34 @@ msgid "Editor not configured"
 msgstr ""
 
 #: src/screen_lyrics.c:367
-#, c-format
-msgid "Do you really want to start an editor and edit these lyrics [%s/%s]? "
+msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr ""
 
-#: src/screen_lyrics.c:387
-#: src/screen_lyrics.c:411
+#: src/screen_lyrics.c:385 src/screen_lyrics.c:409
 msgid "Can't start editor"
 msgstr ""
 
-#: src/screen_lyrics.c:413
+#: src/screen_lyrics.c:411
 #, c-format
 msgid "Editor exited unexpectedly (%d)"
 msgstr ""
 
-#: src/screen_lyrics.c:416
+#: src/screen_lyrics.c:414
 #, c-format
 msgid "Editor exited unexpectedly (signal %d)"
 msgstr ""
 
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:438
+#: src/screen_lyrics.c:436
 msgid "Lyrics saved"
 msgstr "Text piesne uložený"
 
-#: src/screen_lyrics.c:445
+#: src/screen_lyrics.c:443
 #, fuzzy
 msgid "Lyrics deleted"
 msgstr "Playlist vymazaný"
 
-#: src/screen_lyrics.c:448
+#: src/screen_lyrics.c:446
 #, fuzzy
 msgid "No saved lyrics"
 msgstr "Uložiť text piesne"
@@ -689,8 +668,7 @@ msgstr "Výstup '%s' povolený"
 msgid "Output '%s' disabled"
 msgstr "Výstup '%s' vypnutý"
 
-#: src/screen_outputs.c:161
-#: src/title_bar.c:88
+#: src/screen_outputs.c:161 src/title_bar.c:88
 msgid "Outputs"
 msgstr "Výstupy"
 
@@ -1265,6 +1243,9 @@ msgstr "Výber rozsahu vypnutý"
 #: src/list_window.c:580
 msgid "Range selection enabled"
 msgstr "Výber rozsahu zapnutý"
+
+#~ msgid "Delete playlist %s [%s/%s] ? "
+#~ msgstr "Vymazať playlist %s [%s/%s] ? "
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Chyba: Okno je príliš malé"

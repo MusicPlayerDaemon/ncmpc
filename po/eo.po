@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=glib&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-20 21:03+0100\n"
+"POT-Creation-Date: 2017-03-20 21:11+0100\n"
 "PO-Revision-Date: 2011-05-16 15:13+0000\n"
 "Last-Translator: Aleksej <Unknown>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
@@ -46,8 +46,7 @@ msgstr "Problemo: la versio %d.%d.%d de MPD estas tro malnova (necesas %s)"
 msgid "press %s for the key editor"
 msgstr ""
 
-#: src/player_command.c:174
-#: src/screen_queue.c:740
+#: src/player_command.c:174 src/screen_queue.c:739
 msgid "Shuffled queue"
 msgstr ""
 
@@ -121,8 +120,7 @@ msgstr ""
 msgid "Auto center mode: Off"
 msgstr ""
 
-#: src/screen_artist.c:72
-#: src/screen_artist.c:354
+#: src/screen_artist.c:72 src/screen_artist.c:354
 msgid "All tracks"
 msgstr ""
 
@@ -166,9 +164,7 @@ msgstr ""
 msgid "Loading playlist %s..."
 msgstr ""
 
-#: src/screen_browser.c:168
-#: src/screen_browser.c:261
-#: src/screen_browser.c:286
+#: src/screen_browser.c:168 src/screen_browser.c:261 src/screen_browser.c:286
 #, fuzzy, c-format
 msgid "Adding '%s' to queue"
 msgstr "Aldonas \"%s\" al la ludlisto"
@@ -201,8 +197,7 @@ msgstr ""
 msgid "Message could not be sent"
 msgstr ""
 
-#: src/screen_chat.c:199
-#: src/title_bar.c:91
+#: src/screen_chat.c:199 src/title_bar.c:91
 msgid "Chat"
 msgstr ""
 
@@ -223,7 +218,14 @@ msgstr ""
 msgid "Unable to find '%s'"
 msgstr "Ne troviĝis \"%s\""
 
-#: src/screen_utils.c:118
+#. NOTE: if one day a translator decides to use a multi-byte character
+#. for one of the yes/no keys, we'll have to parse it properly
+#: src/screen_utils.c:80
+#, c-format
+msgid "%s [%s/%s] "
+msgstr ""
+
+#: src/screen_utils.c:121
 msgid "Password"
 msgstr ""
 
@@ -234,34 +236,31 @@ msgstr ""
 
 #: src/screen_queue.c:282
 #, c-format
-msgid "Replace %s [%s/%s] ? "
+msgid "Replace %s?"
 msgstr ""
 
 #. translators: a dialog was aborted by the user
-#: src/screen_queue.c:290
-#: src/screen_file.c:220
-#: src/screen_keydef.c:271
-#: src/screen_lyrics.c:372
+#: src/screen_queue.c:289 src/screen_file.c:220 src/screen_keydef.c:271
+#: src/screen_lyrics.c:370
 msgid "Aborted"
 msgstr ""
 
 #. success
-#: src/screen_queue.c:314
+#: src/screen_queue.c:313
 #, c-format
 msgid "Saved %s"
 msgstr ""
 
 #. get path
-#: src/screen_queue.c:391
+#: src/screen_queue.c:390
 msgid "Add"
 msgstr "Aldoni"
 
-#: src/screen_queue.c:498
-#: src/title_bar.c:76
+#: src/screen_queue.c:497 src/title_bar.c:76
 msgid "Queue"
 msgstr ""
 
-#: src/screen_queue.c:500
+#: src/screen_queue.c:499
 #, c-format
 msgid "Queue on %s"
 msgstr ""
@@ -275,7 +274,7 @@ msgstr ""
 
 #: src/screen_file.c:213
 #, c-format
-msgid "Delete playlist %s [%s/%s] ? "
+msgid "Delete playlist %s?"
 msgstr ""
 
 #. translators: MPD deleted the playlist, as requested by the
@@ -285,8 +284,7 @@ msgid "Playlist deleted"
 msgstr ""
 
 #. translators: caption of the browser screen
-#: src/screen_file.c:287
-#: src/title_bar.c:77
+#: src/screen_file.c:287 src/title_bar.c:77
 msgid "Browse"
 msgstr ""
 
@@ -334,19 +332,15 @@ msgstr ""
 msgid "file"
 msgstr "dosiero"
 
-#: src/screen_search.c:80
-#: src/screen_song.c:47
+#: src/screen_search.c:80 src/screen_song.c:47
 msgid "Title"
 msgstr "Titolo"
 
-#: src/screen_search.c:81
-#: src/screen_song.c:46
-#: src/title_bar.c:79
+#: src/screen_search.c:81 src/screen_song.c:46 src/title_bar.c:79
 msgid "Artist"
 msgstr ""
 
-#: src/screen_search.c:82
-#: src/screen_song.c:48
+#: src/screen_search.c:82 src/screen_song.c:48
 msgid "Album"
 msgstr ""
 
@@ -368,9 +362,7 @@ msgstr ""
 msgid "No argument for search tag %s"
 msgstr ""
 
-#: src/screen_search.c:328
-#: src/screen_help.c:150
-#: src/title_bar.c:82
+#: src/screen_search.c:328 src/screen_help.c:150 src/title_bar.c:82
 msgid "Search"
 msgstr ""
 
@@ -415,8 +407,7 @@ msgstr ""
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
 msgstr ""
 
-#: src/screen_keydef.c:164
-#: src/screen_keydef.c:173
+#: src/screen_keydef.c:164 src/screen_keydef.c:173
 #, c-format
 msgid "Error: %s - %s"
 msgstr ""
@@ -482,8 +473,7 @@ msgstr ""
 msgid "Global"
 msgstr ""
 
-#: src/screen_help.c:119
-#: src/command.c:105
+#: src/screen_help.c:119 src/command.c:105
 msgid "Queue screen"
 msgstr ""
 
@@ -503,8 +493,7 @@ msgstr ""
 msgid "Center"
 msgstr ""
 
-#: src/screen_help.c:134
-#: src/command.c:107
+#: src/screen_help.c:134 src/command.c:107
 msgid "Browse screen"
 msgstr ""
 
@@ -512,8 +501,7 @@ msgstr ""
 msgid "Enter directory/Select and play song"
 msgstr ""
 
-#: src/screen_help.c:138
-#: src/screen_help.c:153
+#: src/screen_help.c:138 src/screen_help.c:153
 msgid "Append song to queue"
 msgstr ""
 
@@ -521,8 +509,7 @@ msgstr ""
 msgid "Delete playlist"
 msgstr ""
 
-#: src/screen_help.c:148
-#: src/command.c:218
+#: src/screen_help.c:148 src/command.c:218
 msgid "Search screen"
 msgstr ""
 
@@ -530,8 +517,7 @@ msgstr ""
 msgid "Select and play"
 msgstr ""
 
-#: src/screen_help.c:160
-#: src/command.c:228
+#: src/screen_help.c:160 src/command.c:228
 msgid "Lyrics screen"
 msgstr ""
 
@@ -565,8 +551,7 @@ msgstr ""
 msgid "Delete saved lyrics"
 msgstr ""
 
-#: src/screen_help.c:175
-#: src/command.c:243
+#: src/screen_help.c:175 src/command.c:243
 msgid "Outputs screen"
 msgstr ""
 
@@ -574,8 +559,7 @@ msgstr ""
 msgid "Enable/disable output"
 msgstr ""
 
-#: src/screen_help.c:182
-#: src/command.c:248
+#: src/screen_help.c:182 src/command.c:248
 msgid "Chat screen"
 msgstr ""
 
@@ -607,8 +591,7 @@ msgstr ""
 msgid "Apply and save changes"
 msgstr ""
 
-#: src/screen_help.c:241
-#: src/title_bar.c:74
+#: src/screen_help.c:241 src/title_bar.c:74
 msgid "Help"
 msgstr "Helpo"
 
@@ -622,9 +605,7 @@ msgstr ""
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr ""
 
-#: src/screen_lyrics.c:327
-#: src/screen_lyrics.c:336
-#: src/screen_lyrics.c:346
+#: src/screen_lyrics.c:327 src/screen_lyrics.c:336 src/screen_lyrics.c:346
 #: src/title_bar.c:85
 msgid "Lyrics"
 msgstr ""
@@ -640,35 +621,33 @@ msgid "Editor not configured"
 msgstr ""
 
 #: src/screen_lyrics.c:367
-#, c-format
-msgid "Do you really want to start an editor and edit these lyrics [%s/%s]? "
+msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr ""
 
-#: src/screen_lyrics.c:387
-#: src/screen_lyrics.c:411
+#: src/screen_lyrics.c:385 src/screen_lyrics.c:409
 msgid "Can't start editor"
 msgstr ""
 
-#: src/screen_lyrics.c:413
+#: src/screen_lyrics.c:411
 #, c-format
 msgid "Editor exited unexpectedly (%d)"
 msgstr ""
 
-#: src/screen_lyrics.c:416
+#: src/screen_lyrics.c:414
 #, c-format
 msgid "Editor exited unexpectedly (signal %d)"
 msgstr ""
 
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:438
+#: src/screen_lyrics.c:436
 msgid "Lyrics saved"
 msgstr ""
 
-#: src/screen_lyrics.c:445
+#: src/screen_lyrics.c:443
 msgid "Lyrics deleted"
 msgstr ""
 
-#: src/screen_lyrics.c:448
+#: src/screen_lyrics.c:446
 msgid "No saved lyrics"
 msgstr ""
 
@@ -682,8 +661,7 @@ msgstr ""
 msgid "Output '%s' disabled"
 msgstr ""
 
-#: src/screen_outputs.c:161
-#: src/title_bar.c:88
+#: src/screen_outputs.c:161 src/title_bar.c:88
 msgid "Outputs"
 msgstr ""
 
