@@ -277,8 +277,8 @@ screen_init(struct mpdclient *c)
 #ifndef NCMPC_MINI
 	if (options.welcome_screen_list)
 		screen.welcome_source_id =
-			g_timeout_add(SCREEN_WELCOME_TIME * 1000,
-				      welcome_timer_callback, c);
+			g_timeout_add_seconds(SCREEN_WELCOME_TIME,
+					      welcome_timer_callback, c);
 #endif
 
 	/* create top window */

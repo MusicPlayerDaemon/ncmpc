@@ -261,6 +261,6 @@ status_bar_message(struct status_bar *p, const char *msg)
 
 	if (p->message_source_id != 0)
 		g_source_remove(p->message_source_id);
-	p->message_source_id = g_timeout_add(options.status_message_time * 1000,
-					     status_bar_clear_message_cb, p);
+	p->message_source_id = g_timeout_add_seconds(options.status_message_time,
+						     status_bar_clear_message_cb, p);
 }

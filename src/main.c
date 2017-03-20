@@ -218,8 +218,8 @@ mpdclient_connected_callback(void)
 		doupdate();
 
 		/* try again after 30 seconds */
-		reconnect_source_id = g_timeout_add(30000,
-						    timer_reconnect, NULL);
+		reconnect_source_id =
+			g_timeout_add_seconds(30, timer_reconnect, NULL);
 		return;
 	}
 #endif
@@ -241,8 +241,7 @@ mpdclient_failed_callback(void)
 	assert(reconnect_source_id == 0);
 
 	/* try again in 5 seconds */
-	reconnect_source_id = g_timeout_add(5000,
-					    timer_reconnect, NULL);
+	reconnect_source_id = g_timeout_add_seconds(5, timer_reconnect, NULL);
 }
 
 void
@@ -252,7 +251,7 @@ mpdclient_lost_callback(void)
 
 	screen_update(mpd);
 
-	reconnect_source_id = g_timeout_add(1000, timer_reconnect, NULL);
+	reconnect_source_id = g_timeout_add_seconds(1, timer_reconnect, NULL);
 }
 
 /**
@@ -427,7 +426,8 @@ main(int argc, const char *argv[])
 	auto_update_timer();
 
 #ifndef NCMPC_MINI
-	check_key_bindings_source_id = g_timeout_add(10000, timer_check_key_bindings, NULL);
+	check_key_bindings_source_id =
+		g_timeout_add_seconds(10, timer_check_key_bindings, NULL);
 #endif
 
 	screen_paint(mpd);

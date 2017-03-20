@@ -442,8 +442,8 @@ timer_hide_cursor(gpointer data)
 		lw->hide_cursor = true;
 		screen_queue_repaint();
 	} else
-		timer_hide_cursor_id = g_timeout_add(options.hide_cursor * 1000,
-						     timer_hide_cursor, c);
+		timer_hide_cursor_id = g_timeout_add_seconds(options.hide_cursor,
+							     timer_hide_cursor, c);
 
 	return FALSE;
 }
@@ -456,8 +456,8 @@ screen_queue_open(struct mpdclient *c)
 	assert(timer_hide_cursor_id == 0);
 	if (options.hide_cursor > 0) {
 		lw->hide_cursor = false;
-		timer_hide_cursor_id = g_timeout_add(options.hide_cursor * 1000,
-						     timer_hide_cursor, c);
+		timer_hide_cursor_id = g_timeout_add_seconds(options.hide_cursor,
+							     timer_hide_cursor, c);
 	}
 
 	screen_queue_restore_selection();
@@ -613,8 +613,8 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 	if (options.hide_cursor > 0) {
 		if (timer_hide_cursor_id != 0)
 			g_source_remove(timer_hide_cursor_id);
-		timer_hide_cursor_id = g_timeout_add(options.hide_cursor * 1000,
-						     timer_hide_cursor, c);
+		timer_hide_cursor_id = g_timeout_add_seconds(options.hide_cursor,
+							     timer_hide_cursor, c);
 	}
 
 	if (list_window_cmd(lw, cmd)) {
