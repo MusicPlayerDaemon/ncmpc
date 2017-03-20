@@ -27,10 +27,10 @@
 
 #include <unistd.h>
 
+gcc_pure
 static command_t
-get_keyboard_command(void)
+translate_key(int key)
 {
-	int key = wgetch(stdscr);
 	if (key == ERR || key == '\0')
 		return CMD_NONE;
 
@@ -40,6 +40,12 @@ get_keyboard_command(void)
 #endif
 
 	return get_key_command(key);
+}
+
+static command_t
+get_keyboard_command(void)
+{
+	return translate_key(wgetch(stdscr));
 }
 
 static gboolean
