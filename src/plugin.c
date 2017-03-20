@@ -294,7 +294,7 @@ next_plugin(struct plugin_cycle *cycle)
 
 	if (cycle->next_plugin >= cycle->list->plugins->len) {
 		/* no plugins left */
-		g_timeout_add(0, plugin_delayed_fail, cycle);
+		g_idle_add(plugin_delayed_fail, cycle);
 		return;
 	}
 
@@ -302,7 +302,7 @@ next_plugin(struct plugin_cycle *cycle)
 						    cycle->next_plugin++);
 	if (start_plugin(cycle, plugin_path) < 0) {
 		/* system error */
-		g_timeout_add(0, plugin_delayed_fail, cycle);
+		g_idle_add(plugin_delayed_fail, cycle);
 		return;
 	}
 }
