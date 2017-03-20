@@ -78,6 +78,9 @@ update_xterm_title(void)
 	if (options.xterm_title_format && mpd->playing && song)
 		strfsong(tmp, BUFSIZE, options.xterm_title_format, song);
 	else
+		*tmp = 0;
+
+	if (*tmp == 0)
 		g_strlcpy(tmp, PACKAGE " version " VERSION, BUFSIZE);
 
 	static char title[BUFSIZE];
