@@ -21,8 +21,6 @@
 #include "charset.h"
 #include "mpdclient.h"
 
-#include <string.h>
-
 GList *
 gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 		    GList *list, gint types)
@@ -42,11 +40,7 @@ gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 			const struct mpd_directory *dir =
 				mpd_entity_get_directory(entity);
 			gchar *tmp = utf8_to_locale(mpd_directory_get_path(dir));
-			gsize size = strlen(tmp)+2;
-
-			name = g_malloc(size);
-			g_strlcpy(name, tmp, size);
-			g_strlcat(name, "/", size);
+			name = g_strconcat(tmp, "/", NULL);
 			g_free(tmp);
 		} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG &&
 			   types & GCMP_TYPE_FILE) {
