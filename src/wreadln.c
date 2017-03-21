@@ -592,13 +592,15 @@ _wreadln(WINDOW *w,
 			*history = g_list_delete_link(*history, hcurrent);
 		}
 
-		while (g_list_length(*history) > wrln_max_history_length) {
+		unsigned history_length = g_list_length(*history);
+		while (history_length > wrln_max_history_length) {
 			GList *first = g_list_first(*history);
 
 			/* remove the oldest history entry  */
 			g_free(first->data);
 			first->data = NULL;
 			*history = g_list_delete_link(*history, first);
+			--history_length;
 		}
 	}
 
