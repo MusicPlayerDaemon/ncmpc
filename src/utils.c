@@ -30,15 +30,7 @@
 GList *
 string_list_free(GList *string_list)
 {
-	GList *list = g_list_first(string_list);
-
-	while (list) {
-		g_free(list->data);
-		list->data = NULL;
-		list = list->next;
-	}
-
-	g_list_free(string_list);
+	g_list_free_full(string_list, g_free);
 	return NULL;
 }
 

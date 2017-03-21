@@ -240,14 +240,7 @@ colors_start(void)
 
 	/* free the color_definition_list */
 	if (color_definition_list) {
-		GList *list = color_definition_list;
-
-		while (list) {
-			g_free(list->data);
-			list=list->next;
-		}
-
-		g_list_free(color_definition_list);
+		g_list_free_full(color_definition_list, g_free);
 		color_definition_list = NULL;
 	}
 }
