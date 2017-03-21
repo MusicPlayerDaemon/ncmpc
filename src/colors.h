@@ -24,6 +24,8 @@
 #include "ncmpc_curses.h"
 #include "Compiler.h"
 
+#include <stdbool.h>
+
 enum color {
 	COLOR_TITLE = 1,
 	COLOR_TITLE_BOLD,
@@ -47,8 +49,11 @@ gcc_pure
 int colors_str2color(const char *str);
 
 #ifdef ENABLE_COLORS
-int colors_assign(const char *name, const char *value);
-int colors_define(const char *name, short r, short g, short b);
+bool
+colors_assign(const char *name, const char *value);
+
+bool
+colors_define(const char *name, short r, short g, short b);
 
 void
 colors_start(void);

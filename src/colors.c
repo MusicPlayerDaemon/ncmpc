@@ -165,13 +165,13 @@ colors_str2color(const char *str)
 /* This function is called from conf.c before curses have been started,
  * it adds the definition to the color_definition_list and init_color() is
  * done in colors_start() */
-int
+bool
 colors_define(const char *name, short r, short g, short b)
 {
 	int color = colors_str2color(name);
 
 	if (color < 0)
-		return color;
+		return false;
 
 	color_definition_entry_t *entry =
 		g_malloc(sizeof(color_definition_entry_t));
@@ -182,10 +182,10 @@ colors_define(const char *name, short r, short g, short b)
 
 	color_definition_list = g_list_append(color_definition_list, entry);
 
-	return 0;
+	return true;
 }
 
-int
+bool
 colors_assign(const char *name, const char *value)
 {
 	color_entry_t *entry = colors_lookup_by_name(name);
@@ -193,15 +193,15 @@ colors_assign(const char *name, const char *value)
 	if (!entry) {
 		fprintf(stderr, "%s: %s",
 			_("Unknown color field"), name);
-		return -1;
+		return false;
 	}
 
 	const int color = colors_str2color(value);
 	if (color == COLOR_ERROR)
-		return -1;
+		return false;
 
 	entry->color = color;
-	return 0;
+	return true;
 }
 
 void

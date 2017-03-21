@@ -209,12 +209,12 @@ separate_value(char *p)
 	return g_strchug(value);
 }
 
-static int
+static bool
 parse_color(char *str)
 {
 	char *value = separate_value(str);
 	if (value == NULL)
-		return -1;
+		return false;
 
 	return colors_assign(str, value);
 }
@@ -239,19 +239,19 @@ after_comma(char *p)
 	return comma;
 }
 
-static int
+static bool
 parse_color_definition(char *str)
 {
 	char *value = separate_value(str);
 	if (value == NULL)
-		return -1;
+		return false;
 
 	/* get the command name */
 	short color = colors_str2color(str);
 	if (color < 0) {
 		char buf[MAX_LINE_LENGTH];
 		print_error(_("Bad color name"), buf);
-		return -1;
+		return false;
 	}
 
 	/* parse r,g,b values */
@@ -261,13 +261,13 @@ parse_color_definition(char *str)
 		char *next = after_comma(value), *endptr;
 		if (*value == 0) {
 			print_error(_("Incomplete color definition"), str);
-			return -1;
+			return false;
 		}
 
 		rgb[i] = strtol(value, &endptr, 0);
 		if (endptr == value || *endptr != 0) {
 			print_error(_("Invalid number"), value);
-			return -1;
+			return false;
 		}
 
 		value = next;
@@ -275,7 +275,7 @@ parse_color_definition(char *str)
 
 	if (*value != 0) {
 		print_error(_("Malformed color definition"), str);
-		return -1;
+		return false;
 	}
 
 	return colors_define(str, rgb[0], rgb[1], rgb[2]);
