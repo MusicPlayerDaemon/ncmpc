@@ -93,6 +93,7 @@ endif
 if NCMPC_MINI
 else
 src_ncmpc_SOURCES += \
+	src/db_completion.c src/db_completion.h \
 	src/xterm_title.c src/xterm_title.h \
 	src/hscroll.c src/hscroll.h \
 	src/match.c src/match.h \

@@ -36,6 +36,7 @@
 #include "screen_utils.h"
 #include "screen_song.h"
 #include "screen_lyrics.h"
+#include "db_completion.h"
 #include "Compiler.h"
 
 #ifndef NCMPC_MINI

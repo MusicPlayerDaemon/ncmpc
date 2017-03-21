@@ -18,12 +18,8 @@
  */
 
 #include "utils.h"
-#include "options.h"
-#include "charset.h"
 #include "i18n.h"
-#include "mpdclient.h"
 
-#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -60,54 +56,6 @@ string_list_remove(GList *string_list, const gchar *str)
 		}
 		list = list->next;
 	}
-	return list;
-}
-
-/* create a list suitable for GCompletion from path */
-GList *
-gcmp_list_from_path(struct mpdclient *c, const gchar *path,
-		    GList *list, gint types)
-{
-	struct mpd_connection *connection = mpdclient_get_connection(c);
-	if (connection == NULL)
-		return list;
-
-	mpd_send_list_meta(connection, path);
-
-	struct mpd_entity *entity;
-	while ((entity = mpd_recv_entity(connection)) != NULL) {
-		char *name;
-
-		if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY &&
-		    types & GCMP_TYPE_DIR) {
-			const struct mpd_directory *dir =
-				mpd_entity_get_directory(entity);
-			gchar *tmp = utf8_to_locale(mpd_directory_get_path(dir));
-			gsize size = strlen(tmp)+2;
-
-			name = g_malloc(size);
-			g_strlcpy(name, tmp, size);
-			g_strlcat(name, "/", size);
-			g_free(tmp);
-		} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG &&
-			   types & GCMP_TYPE_FILE) {
-			const struct mpd_song *song =
-				mpd_entity_get_song(entity);
-			name = utf8_to_locale(mpd_song_get_uri(song));
-		} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST &&
-			   types & GCMP_TYPE_PLAYLIST) {
-			const struct mpd_playlist *playlist =
-				mpd_entity_get_playlist(entity);
-			name = utf8_to_locale(mpd_playlist_get_path(playlist));
-		} else {
-			mpd_entity_free(entity);
-			continue;
-		}
-
-		list = g_list_append(list, name);
-		mpd_entity_free(entity);
-	}
-
 	return list;
 }
 

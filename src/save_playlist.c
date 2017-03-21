@@ -18,6 +18,7 @@
  */
 
 #include "save_playlist.h"
+#include "db_completion.h"
 #include "screen_status.h"
 #include "config.h"
 #include "i18n.h"
