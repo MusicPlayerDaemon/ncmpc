@@ -24,7 +24,7 @@
 #include "charset.h"
 #include "strfsong.h"
 #include "player_command.h"
-#include "utils.h"
+#include "time_format.h"
 
 #include <mpd/client.h>
 

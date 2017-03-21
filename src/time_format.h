@@ -17,14 +17,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef TIME_FORMAT_H
+#define TIME_FORMAT_H
 
-#include <glib.h>
+#include <stddef.h>
 
-/* functions for lists containing strings */
-GList *string_list_free(GList *string_list);
-GList *string_list_find(GList *string_list, const gchar *str);
-GList *string_list_remove(GList *string_list, const gchar *str);
+void
+format_duration_short(char *buffer, size_t length, unsigned duration);
+
+void
+format_duration_long(char *buffer, size_t length, unsigned long duration);
 
 #endif

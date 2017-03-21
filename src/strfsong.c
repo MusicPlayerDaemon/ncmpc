@@ -19,7 +19,7 @@
 
 #include "strfsong.h"
 #include "charset.h"
-#include "utils.h"
+#include "time_format.h"
 
 #include <mpd/client.h>
 

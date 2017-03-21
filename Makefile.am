@@ -62,6 +62,7 @@ src_ncmpc_SOURCES = \
 	src/window.h \
 	src/wreadln.c src/wreadln.h \
 	src/strfsong.c src/strfsong.h \
+	src/time_format.c src/time_format.h \
 	src/utils.c src/utils.h
 
 if ENABLE_ASYNC_CONNECT

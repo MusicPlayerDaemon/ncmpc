@@ -25,7 +25,7 @@
 #include "i18n.h"
 #include "screen.h"
 #include "charset.h"
-#include "utils.h"
+#include "time_format.h"
 #include "mpdclient.h"
 
 #include <mpd/client.h>

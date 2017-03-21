@@ -20,7 +20,7 @@
 #include "song_paint.h"
 #include "paint.h"
 #include "strfsong.h"
-#include "utils.h"
+#include "time_format.h"
 #include "hscroll.h"
 #include "charset.h"
 #include "config.h"
