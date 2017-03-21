@@ -49,9 +49,12 @@ int colors_str2color(const char *str);
 #ifdef ENABLE_COLORS
 int colors_assign(const char *name, const char *value);
 int colors_define(const char *name, short r, short g, short b);
-int colors_start(void);
+
+void
+colors_start(void);
 #endif
 
-int colors_use(WINDOW *w, enum color id);
+void
+colors_use(WINDOW *w, enum color id);
 
 #endif /* COLORS_H */

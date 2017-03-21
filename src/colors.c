@@ -80,7 +80,7 @@ colors_lookup_by_name(const char *name)
 	return NULL;
 }
 
-static int
+static void
 colors_update_pair(enum color id)
 {
 	assert(id > 0 && id < COLOR_END);
@@ -93,7 +93,6 @@ colors_update_pair(enum color id)
 	init_pair(id,
 		(fg < 0 ? -1 : fg),
 		(bg < 0 ? -1 : bg));
-	return 0;
 }
 
 int
@@ -205,8 +204,7 @@ colors_assign(const char *name, const char *value)
 	return 0;
 }
 
-
-int
+void
 colors_start(void)
 {
 	if (has_colors()) {
@@ -252,12 +250,10 @@ colors_start(void)
 		g_list_free(color_definition_list);
 		color_definition_list = NULL;
 	}
-
-	return 0;
 }
 #endif
 
-int
+void
 colors_use(WINDOW *w, enum color id)
 {
 	color_entry_t *entry = &colors[id];
@@ -281,6 +277,4 @@ colors_use(WINDOW *w, enum color id)
 #ifdef ENABLE_COLORS
 	}
 #endif
-
-	return 0;
 }
