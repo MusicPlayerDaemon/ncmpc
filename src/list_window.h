@@ -48,8 +48,16 @@ struct list_window {
 
 	unsigned start;
 	unsigned selected;
-	unsigned range_base;        /* represents the base item. */
-	bool range_selection;       /* range selection activated */
+
+	/**
+	 * Represents the base item.
+	 */
+	unsigned range_base;
+
+	/**
+	 * Range selection activated?
+	 */
+	bool range_selection;
 
 	bool hide_cursor;
 };
