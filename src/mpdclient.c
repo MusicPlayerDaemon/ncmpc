@@ -194,6 +194,44 @@ mpdclient_free(struct mpdclient *c)
 	g_free(c);
 }
 
+static char *
+settings_name(const struct mpd_settings *settings)
+{
+	assert(settings != NULL);
+
+	const char *host = mpd_settings_get_host(settings);
+	if (host == NULL)
+		host = "unknown";
+
+	if (host[0] == '/')
+		return g_strdup(host);
+
+	unsigned port = mpd_settings_get_port(settings);
+	if (port == 0 || port == 6600)
+		return g_strdup(host);
+
+	return g_strdup_printf("%s:%u", host, port);
+}
+
+char *
+mpdclient_settings_name(const struct mpdclient *c)
+{
+	assert(c != NULL);
+
+#ifdef ENABLE_ASYNC_CONNECT
+	return settings_name(c->settings);
+#else
+	struct mpd_settings *settings =
+		mpd_settings_new(c->host, c->port, 0, NULL, NULL);
+	if (settings == NULL)
+		return g_strdup("unknown");
+
+	char *name = settings_name(settings);
+	mpd_settings_free(settings);
+	return name;
+#endif
+}
+
 static void
 mpdclient_status_free(struct mpdclient *c)
 {

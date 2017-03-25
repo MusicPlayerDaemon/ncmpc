@@ -106,6 +106,16 @@ mpdclient_new(const gchar *host, unsigned port,
 
 void mpdclient_free(struct mpdclient *c);
 
+/**
+ * Determine a human-readable "name" of the settings currently used to
+ * connect to MPD.
+ *
+ * @return an allocated string that needs to be freed (with g_free())
+ * by the caller
+ */
+char *
+mpdclient_settings_name(const struct mpdclient *c);
+
 gcc_pure
 static inline bool
 mpdclient_is_connected(const struct mpdclient *c)

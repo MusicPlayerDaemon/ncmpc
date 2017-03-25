@@ -146,38 +146,6 @@ do_mpd_update(void)
 	mpd->events = 0;
 }
 
-static char *
-settings_name(const struct mpd_settings *settings)
-{
-	const char *host = mpd_settings_get_host(settings);
-	if (host == NULL)
-		host = _("unknown");
-
-	if (host[0] == '/')
-		return g_strdup(host);
-
-	unsigned port = mpd_settings_get_port(settings);
-	if (port == 0 || port == 6600)
-		return g_strdup(host);
-
-	return g_strdup_printf("%s:%u", host, port);
-}
-
-static char *
-default_settings_name(void)
-{
-	struct mpd_settings *settings =
-		mpd_settings_new(options.host, options.port, 0,
-				 NULL, options.password);
-	if (settings == NULL)
-		return g_strdup(_("unknown"));
-
-	char *name = settings_name(settings);
-	mpd_settings_free(settings);
-
-	return name;
-}
-
 /**
  * This timer is installed when the connection to the MPD server is
  * broken.  It tries to recover by reconnecting periodically.
@@ -189,7 +157,7 @@ timer_reconnect(gcc_unused gpointer data)
 
 	reconnect_source_id = 0;
 
-	char *name = default_settings_name();
+	char *name = mpdclient_settings_name(mpd);
 	screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
 			     name, get_key_names(CMD_QUIT, false));
 	g_free(name);
