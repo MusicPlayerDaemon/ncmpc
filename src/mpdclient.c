@@ -345,6 +345,16 @@ static const struct aconnect_handler mpdclient_connect_handler = {
 	.error = mpdclient_connect_error,
 };
 
+static void
+mpdclient_aconnect_start(struct mpdclient *c,
+			 const struct mpd_settings *settings)
+{
+	aconnect_start(&c->async_connect,
+		       mpd_settings_get_host(settings),
+		       mpd_settings_get_port(settings),
+		       &mpdclient_connect_handler, c);
+}
+
 #endif
 
 void
@@ -354,10 +364,7 @@ mpdclient_connect(struct mpdclient *c)
 	mpdclient_disconnect(c);
 
 #ifdef ENABLE_ASYNC_CONNECT
-	aconnect_start(&c->async_connect,
-		       mpd_settings_get_host(c->settings),
-		       mpd_settings_get_port(c->settings),
-		       &mpdclient_connect_handler, c);
+	mpdclient_aconnect_start(c, c->settings);
 #else
 	/* connect to MPD */
 	struct mpd_connection *connection =
