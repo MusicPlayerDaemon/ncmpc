@@ -2,6 +2,7 @@ ncmpc 0.27 - not yet released
 * work around connect failure if /var/run/mpd/socket does not exist
 * remove the status bar clock (option "display-time")
 * fix assertion failure after connect failure
+* several Windows build fixes
 
 ncmpc 0.26 - (2017-03-20)
 * require libmpdclient 2.9

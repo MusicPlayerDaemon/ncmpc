@@ -40,7 +40,6 @@
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
-#include <sys/socket.h>
 
 struct aconnect {
 	const struct aconnect_handler *handler;
