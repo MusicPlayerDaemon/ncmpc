@@ -1,4 +1,5 @@
 ncmpc 0.27 - not yet released
+* work around connect failure if /var/run/mpd/socket does not exist
 * remove the status bar clock (option "display-time")
 * fix assertion failure after connect failure
 

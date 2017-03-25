@@ -11,7 +11,21 @@ struct filelist;
 
 struct mpdclient {
 #ifdef ENABLE_ASYNC_CONNECT
+	/**
+	 * These settings are used to connect to MPD asynchronously.
+	 */
 	struct mpd_settings *settings;
+
+#ifndef WIN32
+	/**
+	 * A second set of settings, just in case #settings did not
+	 * work.  This is only used if #settings refers to a local
+	 * socket path, and this one is supposed to be a fallback to
+	 * IP on the default port (6600).
+	 */
+	struct mpd_settings *settings2;
+#endif
+
 #else
 	const char *host;
 	unsigned port;
@@ -57,6 +71,10 @@ struct mpdclient {
 	 * A bit mask of idle events occurred since the last update.
 	 */
 	enum mpd_idle events;
+
+#if defined(ENABLE_ASYNC_CONNECT) && !defined(WIN32)
+	bool connecting2;
+#endif
 
 	/**
 	 * This attribute is true when the connection is currently in

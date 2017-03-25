@@ -153,6 +153,25 @@ mpdclient_handle_error(struct mpdclient *c)
 	return false;
 }
 
+#ifdef ENABLE_ASYNC_CONNECT
+#ifndef WIN32
+
+static bool
+is_local_socket(const char *host)
+{
+	return *host == '/' || *host == '@';
+}
+
+static bool
+settings_is_local_socket(const struct mpd_settings *settings)
+{
+	const char *host = mpd_settings_get_host(settings);
+	return host != NULL && is_local_socket(host);
+}
+
+#endif
+#endif
+
 struct mpdclient *
 mpdclient_new(const gchar *host, unsigned port,
 	      unsigned timeout_ms, const gchar *password)
@@ -164,6 +183,14 @@ mpdclient_new(const gchar *host, unsigned port,
 				       NULL, NULL);
 	if (c->settings == NULL)
 		g_error("Out of memory");
+
+#ifndef WIN32
+	c->settings2 = host == NULL && port == 0 &&
+		settings_is_local_socket(c->settings)
+		? mpd_settings_new(host, 6600, timeout_ms, NULL, NULL)
+		: NULL;
+#endif
+
 #else
 	c->host = host;
 	c->port = port;
@@ -189,6 +216,11 @@ mpdclient_free(struct mpdclient *c)
 
 #ifdef ENABLE_ASYNC_CONNECT
 	mpd_settings_free(c->settings);
+
+#ifndef WIN32
+	if (c->settings2 != NULL)
+		mpd_settings_free(c->settings2);
+#endif
 #endif
 
 	g_free(c);
@@ -320,6 +352,10 @@ mpdclient_connected(struct mpdclient *c,
 #ifdef ENABLE_ASYNC_CONNECT
 
 static void
+mpdclient_aconnect_start(struct mpdclient *c,
+			 const struct mpd_settings *settings);
+
+static void
 mpdclient_connect_success(struct mpd_connection *connection, void *ctx)
 {
 	struct mpdclient *c = ctx;
@@ -335,6 +371,14 @@ mpdclient_connect_error(const char *message, void *ctx)
 	struct mpdclient *c = ctx;
 	assert(c->async_connect != NULL);
 	c->async_connect = NULL;
+
+#ifndef WIN32
+	if (!c->connecting2 && c->settings2 != NULL) {
+		c->connecting2 = true;
+		mpdclient_aconnect_start(c, c->settings2);
+		return;
+	}
+#endif
 
 	mpdclient_error_callback(message);
 	mpdclient_failed_callback();
@@ -364,6 +408,9 @@ mpdclient_connect(struct mpdclient *c)
 	mpdclient_disconnect(c);
 
 #ifdef ENABLE_ASYNC_CONNECT
+#ifndef WIN32
+	c->connecting2 = false;
+#endif
 	mpdclient_aconnect_start(c, c->settings);
 #else
 	/* connect to MPD */
