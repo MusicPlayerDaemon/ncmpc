@@ -31,6 +31,10 @@
 
 #include <glib.h>
 
+#ifdef WIN32
+#include <ws2tcpip.h>
+#endif
+
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
