@@ -286,7 +286,7 @@ static inline void drawline(const struct wreadln *wr)
 	doupdate();
 }
 
-#if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
+#if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(WIN32)
 static bool
 multibyte_is_complete(const char *p, size_t length)
 {
