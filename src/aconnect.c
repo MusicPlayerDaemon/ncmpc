@@ -144,10 +144,10 @@ aconnect_start(struct aconnect **acp,
 	ac->handler = handler;
 	ac->handler_ctx = ctx;
 
+	*acp = ac;
+
 	async_rconnect_start(&ac->rconnect, host, port,
 			     &aconnect_rconnect_handler, ac);
-
-	*acp = ac;
 }
 
 void
