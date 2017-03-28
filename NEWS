@@ -1,3 +1,5 @@
+ncmpc 0.28 - not yet released
+
 ncmpc 0.27 - (2017-03-25)
 * work around connect failure if /var/run/mpd/socket does not exist
 * remove the status bar clock (option "display-time")
