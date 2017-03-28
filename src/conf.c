@@ -84,6 +84,28 @@
 #define CONF_CHAT_PREFIX "chat-prefix"
 #define CONF_SECOND_COLUMN "second-column"
 
+gcc_const
+static bool
+is_space_not_null(char ch)
+{
+	unsigned char uch = (unsigned char)ch;
+	return uch <= 0x20 && uch > 0;
+}
+
+/**
+ * Returns the first non-space character (or a pointer to the null
+ * terminator).  Similar to g_strchug(), but just moves the pointer
+ * forward without modifying the string contents.
+ */
+gcc_pure
+static char *
+skip_spaces(char *p)
+{
+	while (is_space_not_null(*p))
+		++p;
+	return p;
+}
+
 static bool
 str2bool(char *str)
 {
@@ -206,7 +228,7 @@ separate_value(char *p)
 	*value++ = 0;
 
 	g_strchomp(p);
-	return g_strchug(value);
+	return skip_spaces(value);
 }
 
 static bool
@@ -231,7 +253,7 @@ after_comma(char *p)
 
 	if (comma != NULL) {
 		*comma++ = 0;
-		comma = g_strchug(comma);
+		comma = skip_spaces(comma);
 	} else
 		comma = p + strlen(p);
 
@@ -569,7 +591,7 @@ read_rc_file(char *filename)
 
 	char line[MAX_LINE_LENGTH];
 	while (fgets(line, sizeof(line), file) != NULL) {
-		char *p = g_strchug(line);
+		char *p = skip_spaces(line);
 
 		if (*p != 0 && *p != COMMENT_TOKEN)
 			parse_line(g_strchomp(p));
