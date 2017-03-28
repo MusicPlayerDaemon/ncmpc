@@ -369,6 +369,28 @@ Another one is::
  "[%artist%|(artist n/a)] - [%title%|(title n/a)]"
 
 
+Tables
+------
+
+As an experimental feature, the queue can be displayed as a table.
+Beware, this feature is really experimental, and future versions may
+do incompatible changes.
+
+To configure this, add columns to the configuration file, e.g.::
+
+ song-table-column = "Artist" "%artist%|%name%|%file%" min=20 fraction=2
+ song-table-column = "Title" "%title%" min=20 fraction=2
+ song-table-column = "Album" "%album%" min=10 fraction=1
+ song-table-column = "Time" "%time%" min=8 fraction=0
+
+Each column has a caption, a format string specifying what is being
+displayed, a minimum width (in terminal cells) and a fraction
+specifying how much of excess width will be assigned to this column.
+
+In the above example, the "Time" column will have a fixed width of 8
+because ``fraction=0``.
+
+
 Chat Protocol
 -------------
 

@@ -30,6 +30,10 @@
 
 #ifndef NCMPC_MINI
 #include "hscroll.hxx"
+#include "TableGlue.hxx"
+#include "TableStructure.hxx"
+#include "TableLayout.hxx"
+#include "TablePaint.hxx"
 #endif
 
 #include <mpd/client.h>
@@ -46,6 +50,8 @@ class QueuePage final : public ListPage, ListRenderer, ListText {
 
 #ifndef NCMPC_MINI
 	mutable class hscroll hscroll;
+
+	TableLayout table_layout;
 #endif
 
 	CoarseTimerEvent hide_cursor_timer;
@@ -67,10 +73,14 @@ public:
 #ifndef NCMPC_MINI
 		 hscroll(screen.GetEventLoop(),
 			 w, options.scroll_sep.c_str()),
+		 table_layout(song_table_structure),
 #endif
 		 hide_cursor_timer(screen.GetEventLoop(),
 				   BIND_THIS_METHOD(OnHideCursorTimer))
 	{
+#ifndef NCMPC_MINI
+		table_layout.Calculate(size.width);
+#endif
 	}
 
 private:
@@ -111,6 +121,14 @@ public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) noexcept override;
 	void OnClose() noexcept override;
+
+	void OnResize(Size size) noexcept override {
+		ListPage::OnResize(size);
+#ifndef NCMPC_MINI
+		table_layout.Calculate(size.width);
+#endif
+	}
+
 	void Paint() const noexcept override;
 	bool PaintStatusBarOverride(const Window &window) const noexcept override;
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
@@ -367,6 +385,15 @@ QueuePage::PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
 	assert(playlist != nullptr);
 	assert(i < playlist->size());
 	const auto &song = (*playlist)[i];
+
+#ifndef NCMPC_MINI
+	if (!song_table_structure.columns.empty()) {
+		PaintTableRow(w, width, selected,
+			      (int)mpd_song_get_id(&song) == current_song_id,
+			      song, table_layout);
+		return;
+	}
+#endif
 
 	class hscroll *row_hscroll = nullptr;
 #ifndef NCMPC_MINI

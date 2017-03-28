@@ -1,5 +1,6 @@
 ncmpc 0.48 - not yet released
 * improve scroll-offset handling
+* experimental table layout
 
 ncmpc 0.47 - (2022-06-30)
 * handle Ctrl-C in search prompt

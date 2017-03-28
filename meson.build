@@ -209,6 +209,12 @@ is_linux = host_machine.system() == 'linux'
 is_windows = host_machine.system() == 'windows'
 
 thread_dep = dependency('threads')
+
+m_dep = []
+if not mini
+  m_dep = cc.find_library('m', required: false)
+endif
+
 libmpdclient_dep = dependency('libmpdclient', version: '>= 2.16')
 
 if not mini
@@ -252,6 +258,9 @@ if not mini
     'src/hscroll.cxx',
     'src/ConfigFile.cxx',
     'src/ConfigParser.cxx',
+    'src/TableLayout.cxx',
+    'src/TablePaint.cxx',
+    'src/TableGlue.cxx',
   ]
 
   if host_machine.system() != 'windows'
@@ -441,6 +450,7 @@ ncmpc = executable('ncmpc',
     pcre_dep,
     intl_dep,
     iconv_dep,
+    m_dep,
     curses_dep,
     lirc_dep,
     libmpdclient_dep,
