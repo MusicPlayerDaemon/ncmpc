@@ -424,7 +424,7 @@ parse_line(char *line)
 		++line;
 		line = skip_spaces(line);
 	} else if (line == name_end) {
-		print_error(_("'=' expected"), name_end);
+		print_error(_("Missing '='"), name_end);
 		return false;
 	}
 
