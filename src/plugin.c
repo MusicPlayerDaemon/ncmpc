@@ -216,7 +216,7 @@ plugin_fd_add(struct plugin_cycle *cycle, struct plugin_pipe *p, int fd)
 	p->data = g_string_new(NULL);
 	GIOChannel *channel = g_io_channel_unix_new(fd);
 	p->event_id = g_io_add_watch(channel, G_IO_IN|G_IO_HUP,
-				     plugin_data, cycle);
+				     plugin_data, p);
 	g_io_channel_unref(channel);
 }
 
