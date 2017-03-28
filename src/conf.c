@@ -121,6 +121,29 @@ print_error(const char *msg, const char *input)
 		_("Error"), msg, input);
 }
 
+gcc_const
+static bool
+is_word_char(char ch)
+{
+	return g_ascii_isalnum(ch) || ch == '-' || ch == '_';
+}
+
+static char *
+after_unquoted_word(char *p)
+{
+	if (!is_word_char(*p)) {
+		print_error(_("Word expected"), p);
+		return NULL;
+	}
+
+	++p;
+
+	while (is_word_char(*p))
+		++p;
+
+	return p;
+}
+
 static int
 parse_key_value(char *str, char **end)
 {
@@ -390,25 +413,25 @@ get_search_mode(char *value)
 static bool
 parse_line(char *line)
 {
-	size_t len = strlen(line), i = 0, j = 0;
-
 	/* get the name part */
-	char name[MAX_LINE_LENGTH];
-	while (i < len && line[i] != '=' && !g_ascii_isspace(line[i]))
-		name[j++] = line[i++];
+	char *const name = line;
+	char *const name_end = after_unquoted_word(line);
+	if (name_end == NULL)
+		return false;
 
-	name[j] = '\0';
+	line = skip_spaces(name_end);
+	if (*line == '=') {
+		++line;
+		line = skip_spaces(line);
+	} else if (line == name_end) {
+		print_error(_("'=' expected"), name_end);
+		return false;
+	}
 
-	/* skip '=' and whitespace */
-	while (i < len && (line[i] == '=' || g_ascii_isspace(line[i])))
-		i++;
+	*name_end = 0;
 
 	/* get the value part */
-	char value[MAX_LINE_LENGTH];
-	j = 0;
-	while (i < len)
-		value[j++] = line[i++];
-	value[j] = '\0';
+	char *const value = line;
 
 	/* key definition */
 	if (!strcasecmp(CONF_KEY_DEFINITION, name))
