@@ -213,9 +213,12 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 
 		char *p = g_strdup(value_iter);
 		unsigned width = utf8_cut_width(p, value_col);
-		if (width == 0)
+		if (width == 0) {
 			/* not enough room for anything - bail out */
+			g_free(entry);
+			g_free(p);
 			break;
+		}
 
 		*entry_iter = 0;
 

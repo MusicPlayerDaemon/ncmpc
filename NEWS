@@ -1,5 +1,6 @@
 ncmpc 0.28 - not yet released
 * fix crash on lyrics screen
+* fix memory leak
 
 ncmpc 0.27 - (2017-03-25)
 * work around connect failure if /var/run/mpd/socket does not exist
