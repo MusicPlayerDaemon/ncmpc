@@ -37,6 +37,11 @@
 #include "util/ScopeExit.hxx"
 #include "util/StringStrip.hxx"
 
+#ifndef NCMPC_MINI
+#include "TableGlue.hxx"
+#include "TableStructure.hxx"
+#endif
+
 #include <algorithm>
 #include <array>
 
@@ -125,6 +130,92 @@ after_unquoted_word(char *p)
 
 	return p;
 }
+
+#ifndef NCMPC_MINI
+
+static constexpr bool
+IsValueChar(char ch) noexcept
+{
+	return IsAlphaNumericASCII(ch) || ch == '-' || ch == '_' || ch == '.';
+}
+
+gcc_pure
+static char *
+AfterUnquotedValue(char *p) noexcept
+{
+	while (IsValueChar(*p))
+		++p;
+
+	return p;
+}
+
+/**
+ * Throws on error.
+ */
+static char *
+NextUnquotedValue(char *&pp)
+{
+	char *value = pp;
+
+	char *end = AfterUnquotedValue(value);
+	if (*end == 0) {
+		pp = end;
+	} else if (IsWhitespaceFast(*end)) {
+		*end = 0;
+		pp = StripLeft(end + 1);
+	} else
+		throw FormatRuntimeError("%s: %s",
+					 _("Whitespace expected"), end);
+
+	return value;
+}
+
+/**
+ * Throws on error.
+ */
+static char *
+NextQuotedValue(char *&pp)
+{
+	char *p = pp;
+	if (*p != '"')
+		throw FormatRuntimeError("%s: %s",
+					 _("Quoted value expected"), p);
+
+	++p;
+
+	char *const result = p;
+
+	char *end = strchr(p, '"');
+	if (end == nullptr)
+		throw FormatRuntimeError("%s: %s",
+					 _("Closing quote missing"), p);
+
+	*end = 0;
+	pp = end + 1;
+	return result;
+}
+
+/**
+ * Throws on error.
+ */
+static std::pair<char *, char *>
+NextNameValue(char *&p)
+{
+	char *name = p;
+
+	p = after_unquoted_word(p);
+	if (*p != '=')
+		throw FormatRuntimeError("%s: %s",
+					 _("Syntax error"), p);
+
+	*p++ = 0;
+
+	char *value = NextUnquotedValue(p);
+
+	return std::make_pair(name, value);
+}
+
+#endif
 
 /**
  * Throws on error.
@@ -434,6 +525,62 @@ get_search_mode(char *value)
 	}
 }
 
+#ifndef NCMPC_MINI
+
+/**
+ * Throws on error.
+ */
+static TableColumn
+ParseTableColumn(char *s)
+{
+	TableColumn column;
+
+	column.caption = NextQuotedValue(s);
+	s = StripLeft(s);
+	column.format = NextQuotedValue(s);
+	s = StripLeft(s);
+
+	while (*s != 0) {
+		auto nv = NextNameValue(s);
+		s = StripLeft(s);
+
+		const char *name = nv.first;
+		const char *value = nv.second;
+
+		if (strcmp(name, "min") == 0) {
+			char *endptr;
+			column.min_width = strtoul(value, &endptr, 10);
+			if (endptr == value || *endptr != 0 ||
+			    column.min_width == 0 || column.min_width > 1000)
+				throw FormatRuntimeError("%s: %s",
+							 _("Invalid column width"),
+							 value);
+		} else if (strcmp(name, "fraction") == 0) {
+			char *endptr;
+			column.fraction_width = strtod(value, &endptr);
+			if (endptr == value || *endptr != 0 ||
+			    column.fraction_width < 0 ||
+			    column.fraction_width > 1000)
+				throw FormatRuntimeError("%s: %s",
+							 _("Invalid column fraction width"),
+							 value);
+		}
+	}
+
+	return column;
+}
+
+/**
+ * Throws on error.
+ */
+static void
+ParseTableColumn(TableStructure &t, char *s)
+{
+	t.columns.emplace_back(ParseTableColumn(s));
+}
+
+#endif
+
 /**
  * Throws on error.
  */
@@ -504,6 +651,11 @@ parse_line(char *line)
 	/* list format string */
 	else if (!strcasecmp(CONF_LIST_FORMAT, name)) {
 		options.list_format = GetStringValue(value);
+	} else if (!strcasecmp("song-table-column", name)) {
+#ifndef NCMPC_MINI
+		ParseTableColumn(song_table_structure, value);
+#endif
+
 		/* search format string */
 	} else if (!strcasecmp(CONF_SEARCH_FORMAT, name)) {
 		options.search_format = GetStringValue(value);
