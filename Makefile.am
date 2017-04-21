@@ -198,7 +198,7 @@ endif
 
 doc_DATA = \
 	doc/config.sample doc/keys.sample doc/ncmpc.lirc \
-	AUTHORS NEWS README
+	AUTHORS NEWS README.rst
 man_MANS = doc/ncmpc.1
 
 if ENABLE_DOCUMENTATION
