@@ -1,19 +1,8 @@
 ncmpc
 =====
 
-Overview
---------
-
 ncmpc is a curses client for the `Music Player Daemon
-<http://www.musicpd.org/>`__.  ncmpc connects to a MPD running on a
-machine on the local network, and controls this with an interface
-inspired by cplay.
-
-Music Player Daemon (MPD) allows remote access for playing music (MP3, 
-Ogg Vorbis, FLAC, AAC, and wave files) and managing playlists. MPD is 
-designed for integrating a computer into a stereo system that provides 
-control for music playback over a local network. Read more at musicpd.org
-
+<http://www.musicpd.org/>`__.
 
 
 How to compile and install ncmpc
