@@ -25,17 +25,10 @@ and ``--port``::
 For more information please view ncmpc's manual page.
 
 
-Web Page, Forums and Bug Reports
---------------------------------
+Links
+-----
 
-Home page and download:
-        http://www.musicpd.org/clients/ncmpc/
-
-MPD's home page:
-        http://www.musicpd.org/
-
-Bug tracker:
-        https://github.com/MusicPlayerDaemon/ncmpc/issues
-
-Forum:
-        http://forum.musicpd.org/
+- `Home page and download <http://www.musicpd.org/clients/ncmpc/>`__
+- `git repository <https://github.com/MusicPlayerDaemon/ncmpc/>`__
+- `Bug tracker <https://github.com/MusicPlayerDaemon/ncmpc/issues>`__
+- `Forum <http://forum.musicpd.org/>`__
