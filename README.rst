@@ -35,7 +35,7 @@ MPD's home page:
         http://www.musicpd.org/
 
 Bug tracker:
-        http://bugs.musicpd.org/
+        https://github.com/MusicPlayerDaemon/ncmpc/issues
 
 Forum:
         http://forum.musicpd.org/
