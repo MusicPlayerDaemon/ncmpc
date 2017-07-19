@@ -8,7 +8,22 @@ ncmpc is a curses client for the `Music Player Daemon
 How to compile and install ncmpc
 --------------------------------
 
-See the `INSTALL <INSTALL>`__ file.
+You need:
+
+- a C99 compliant compiler (e.g. gcc)
+- libmpdclient 2.9
+- `GLib 2.30 <https://developer.gnome.org/glib/>`__
+- `ncurses <https://www.gnu.org/software/ncurses/>`__
+- `Meson 0.37 <http://mesonbuild.com/>`__ and `Ninja <https://ninja-build.org/>`__
+
+Run ``meson``:
+
+ meson . output
+
+Compile and install::
+
+ ninja -C output
+ ninja -C output install
 
 
 Usage

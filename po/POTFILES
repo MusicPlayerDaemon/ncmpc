@@ -1,5 +1,3 @@
-# source files
-
 src/colors.c
 src/command.c
 src/conf.c

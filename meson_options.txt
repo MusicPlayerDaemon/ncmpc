@@ -1,0 +1,78 @@
+option('curses', type: 'combo',
+  choices: ['ncursesw', 'ncurses', 'auto'],
+  value: 'auto',
+  description: 'Choose which curses implementation to use')
+
+option('mouse', type: 'combo',
+  choices: ['true', 'false', 'auto'],
+  value: 'auto',
+  description: 'Enable mouse support')
+
+option('colors', type: 'combo',
+  choices: ['ncursesw', 'ncurses', 'auto'],
+  value: 'auto',
+  description: 'Enable color support')
+
+option('multibyte', type: 'boolean',
+  value: 'true',
+  description: 'Enable multibyte character support')
+
+option('locale', type: 'combo',
+  choices: ['true', 'false', 'auto'],
+  description: 'Enable locale support')
+
+option('nls', type: 'combo',
+  choices: ['true', 'false', 'auto'],
+  description: 'Enable NLS support')
+
+option('lirc', type: 'combo',
+  choices: ['true', 'false', 'auto'],
+  description: 'Enable LIRC support')
+
+option('tcp', type: 'boolean',
+  value: true,
+  description: 'Enable TCP support')
+
+option('async_connect', type: 'boolean',
+  value: true,
+  description: 'Enable asynchronous connect')
+
+option('mini', type: 'boolean',
+  value: false,
+  description: 'Build ncmpc-mini, i.e. without all optional features')
+
+option('help_screen', type: 'boolean',
+  value: true,
+  description: 'Enable the help screen')
+
+option('artist_screen', type: 'boolean',
+  value: true,
+  description: 'Enable the artist screen')
+
+option('search_screen', type: 'boolean',
+  value: true,
+  description: 'Enable the search screen')
+
+option('song_screen', type: 'boolean',
+  value: true,
+  description: 'Enable the song viewer screen')
+
+option('key_screen', type: 'boolean',
+  value: true,
+  description: 'Enable the key editor screen')
+
+option('lyrics_screen', type: 'boolean',
+  value: false,
+  description: 'Enable the lyrics screen')
+
+option('outputs_screen', type: 'boolean',
+  value: true,
+  description: 'Enable the outputs screen')
+
+option('chat_screen', type: 'boolean',
+  value: false,
+  description: 'Enable the chat screen')
+
+option('documentation', type: 'boolean',
+  value: false,
+  description: 'Build API documentation')
