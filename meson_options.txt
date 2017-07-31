@@ -14,19 +14,22 @@ option('colors', type: 'combo',
   description: 'Enable color support')
 
 option('multibyte', type: 'boolean',
-  value: 'true',
+  value: true,
   description: 'Enable multibyte character support')
 
 option('locale', type: 'combo',
   choices: ['true', 'false', 'auto'],
+  value: 'auto',
   description: 'Enable locale support')
 
 option('nls', type: 'combo',
   choices: ['true', 'false', 'auto'],
+  value: 'auto',
   description: 'Enable NLS support')
 
 option('lirc', type: 'combo',
   choices: ['true', 'false', 'auto'],
+  value: 'auto',
   description: 'Enable LIRC support')
 
 option('tcp', type: 'boolean',
