@@ -199,16 +199,15 @@ static void add_dir(GCompletion *gcmp, gchar *dir, GList **dir_list,
 	*dir_list = g_list_append(*dir_list, g_strdup(dir));
 }
 
-typedef struct
-{
+struct completion_callback_data {
 	GList **list;
 	GList **dir_list;
 	struct mpdclient *c;
-} completion_callback_data_t;
+};
 
 static void add_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
 {
-	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
+	struct completion_callback_data *tmp = data;
 	GList **dir_list = tmp->dir_list;
 	GList **list = tmp->list;
 	struct mpdclient *c = tmp->c;
@@ -227,7 +226,7 @@ static void add_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
 static void add_post_completion_cb(GCompletion *gcmp, gchar *line,
 				   GList *items, void *data)
 {
-	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
+	struct completion_callback_data *tmp = data;
 	GList **dir_list = tmp->dir_list;
 	GList **list = tmp->list;
 	struct mpdclient *c = tmp->c;
@@ -253,7 +252,7 @@ handle_add_to_playlist(struct mpdclient *c)
 
 	GList *list = NULL;
 	GList *dir_list = NULL;
-	completion_callback_data_t data = {
+	struct completion_callback_data data = {
 		.list = &list,
 		.dir_list = &dir_list,
 		.c = c,
