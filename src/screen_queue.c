@@ -52,13 +52,6 @@
 #define MAX_SONG_LENGTH 512
 
 #ifndef NCMPC_MINI
-typedef struct
-{
-	GList **list;
-	GList **dir_list;
-	struct mpdclient *c;
-} completion_callback_data_t;
-
 static struct hscroll hscroll;
 #endif
 
@@ -205,6 +198,13 @@ static void add_dir(GCompletion *gcmp, gchar *dir, GList **dir_list,
 	g_completion_add_items(gcmp, *list);
 	*dir_list = g_list_append(*dir_list, g_strdup(dir));
 }
+
+typedef struct
+{
+	GList **list;
+	GList **dir_list;
+	struct mpdclient *c;
+} completion_callback_data_t;
 
 static void add_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
 {
