@@ -61,6 +61,11 @@ static int selected_song_id = -1;
 static struct list_window *lw;
 static guint timer_hide_cursor_id;
 
+static struct queue_screen_data {
+	unsigned last_connection_id;
+	char *connection_name;
+} queue_screen;
+
 static void
 screen_queue_paint(void);
 
@@ -367,30 +372,13 @@ static void
 screen_queue_exit(void)
 {
 	list_window_free(lw);
-}
-
-/**
- * Extract the host portion (without the optional password) from the
- * MPD_HOST string.
- */
-static const char *
-host_without_password(const char *host)
-{
-	const char *separator = strchr(host, '@');
-	if (separator != NULL && separator != host && separator[1] != 0)
-		host = separator + 1;
-
-	return host;
+	g_free(queue_screen.connection_name);
 }
 
 static const char *
 screen_queue_title(char *str, size_t size)
 {
-	if (options.host == NULL)
-		return _("Queue");
-
-	g_snprintf(str, size, _("Queue on %s"),
-		   host_without_password(options.host));
+	g_snprintf(str, size, _("Queue on %s"), queue_screen.connection_name);
 	return str;
 }
 
@@ -429,6 +417,12 @@ screen_queue_paint(void)
 static void
 screen_queue_update(struct mpdclient *c)
 {
+	if (c->connection_id != queue_screen.last_connection_id) {
+		queue_screen.last_connection_id = c->connection_id;
+		g_free(queue_screen.connection_name);
+		queue_screen.connection_name = mpdclient_settings_name(c);
+	}
+
 	if (c->events & MPD_IDLE_QUEUE)
 		screen_queue_restore_selection();
 	else
