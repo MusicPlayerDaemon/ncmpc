@@ -378,7 +378,10 @@ screen_queue_exit(void)
 static const char *
 screen_queue_title(char *str, size_t size)
 {
-	g_snprintf(str, size, _("Queue on %s"), queue_screen.connection_name);
+       if (queue_screen.connection_name == NULL)
+	       return _("Queue");
+
+       g_snprintf(str, size, _("Queue on %s"), queue_screen.connection_name);
 	return str;
 }
 
