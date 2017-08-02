@@ -370,13 +370,28 @@ screen_queue_exit(void)
 	list_window_free(lw);
 }
 
+/**
+ * Extract the host portion (without the optional password) from the
+ * MPD_HOST string.
+ */
+static const char *
+host_without_password(const char *host)
+{
+	const char *separator = strchr(host, '@');
+	if (separator != NULL && separator != host && separator[1] != 0)
+		host = separator + 1;
+
+	return host;
+}
+
 static const char *
 screen_queue_title(char *str, size_t size)
 {
 	if (options.host == NULL)
 		return _("Queue");
 
-	g_snprintf(str, size, _("Queue on %s"), options.host);
+	g_snprintf(str, size, _("Queue on %s"),
+		   host_without_password(options.host));
 	return str;
 }
 
