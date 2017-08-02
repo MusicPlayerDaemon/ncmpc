@@ -45,6 +45,16 @@ struct screen_functions {
 	 */
 	bool (*cmd)(struct mpdclient *c, command_t cmd);
 
+#ifdef HAVE_GETMOUSE
+	/**
+	 * Handle a mouse event.
+	 *
+	 * @return true if the event was handled (and should not be
+	 * handled by the ncmpc core)
+	 */
+	bool (*mouse)(struct mpdclient *c, int x, int y, mmask_t bstate);
+#endif
+
 	const char *(*get_title)(char *s, size_t size);
 };
 

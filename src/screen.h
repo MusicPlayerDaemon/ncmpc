@@ -75,6 +75,11 @@ screen_paint(struct mpdclient *c, bool main_dirty);
 void screen_update(struct mpdclient *c);
 void screen_cmd(struct mpdclient *c, command_t cmd);
 
+#ifdef HAVE_GETMOUSE
+bool
+screen_mouse(struct mpdclient *c, int x, int y, mmask_t bstate);
+#endif
+
 void
 screen_switch(const struct screen_functions *sf, struct mpdclient *c);
 void 
@@ -85,8 +90,5 @@ screen_is_visible(const struct screen_functions *sf)
 {
 	return sf == screen.current_page;
 }
-
-int
-screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row);
 
 #endif

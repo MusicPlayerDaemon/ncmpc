@@ -280,6 +280,16 @@ do_input_event(command_t cmd)
 	return true;
 }
 
+#ifdef HAVE_GETMOUSE
+
+void
+do_mouse_event(int x, int y, mmask_t bstate)
+{
+	screen_mouse(mpd, x, y, bstate);
+}
+
+#endif
+
 #ifndef NCMPC_MINI
 /**
  * Check the configured key bindings for errors, and display a status

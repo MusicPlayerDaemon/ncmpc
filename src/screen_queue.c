@@ -443,12 +443,10 @@ screen_queue_update(struct mpdclient *c)
 
 #ifdef HAVE_GETMOUSE
 static bool
-handle_mouse_event(struct mpdclient *c)
+screen_queue_mouse(struct mpdclient *c, gcc_unused int x, int row,
+		   mmask_t bstate)
 {
-	unsigned long bstate;
-	int row;
-	if (screen_get_mouse_event(c, &bstate, &row) ||
-	    list_window_mouse(lw, bstate, row)) {
+	if (list_window_mouse(lw, bstate, row)) {
 		screen_queue_paint();
 		return true;
 	}
@@ -538,11 +536,6 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 		screen_queue_save_selection();
 		screen_queue_paint();
 		return true;
-
-#ifdef HAVE_GETMOUSE
-	case CMD_MOUSE_EVENT:
-		return handle_mouse_event(c);
-#endif
 
 #ifdef ENABLE_SONG_SCREEN
 	case CMD_SCREEN_SONG:
@@ -692,5 +685,8 @@ const struct screen_functions screen_queue = {
 	.paint = screen_queue_paint,
 	.update = screen_queue_update,
 	.cmd = screen_queue_cmd,
+#ifdef HAVE_GETMOUSE
+	.mouse = screen_queue_mouse,
+#endif
 	.get_title = screen_queue_title,
 };

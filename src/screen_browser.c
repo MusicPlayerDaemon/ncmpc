@@ -351,16 +351,15 @@ browser_handle_select_all(struct screen_browser *browser, struct mpdclient *c)
 }
 
 #ifdef HAVE_GETMOUSE
-static int
-browser_handle_mouse_event(struct screen_browser *browser, struct mpdclient *c)
-{
-	int row;
-	unsigned prev_selected = browser->lw->selected;
-	unsigned long bstate;
 
-	if (screen_get_mouse_event(c, &bstate, &row) ||
-	    list_window_mouse(browser->lw, bstate, row))
-		return 1;
+bool
+browser_mouse(struct screen_browser *browser,
+	      struct mpdclient *c, gcc_unused int x, int row, mmask_t bstate)
+{
+	unsigned prev_selected = browser->lw->selected;
+
+	if (list_window_mouse(browser->lw, bstate, row))
+		return true;
 
 	list_window_set_cursor(browser->lw, browser->lw->start + row);
 
@@ -372,8 +371,9 @@ browser_handle_mouse_event(struct screen_browser *browser, struct mpdclient *c)
 			browser_handle_select(browser, c);
 	}
 
-	return 1;
+	return true;
 }
+
 #endif
 
 static void
@@ -407,12 +407,6 @@ browser_cmd(struct screen_browser *browser,
 			    browser_lw_callback, browser->filelist,
 			    screen_browser_paint_callback, browser);
 		return true;
-
-#ifdef HAVE_GETMOUSE
-	case CMD_MOUSE_EVENT:
-		browser_handle_mouse_event(browser, c);
-		return true;
-#endif
 
 #ifdef ENABLE_SONG_SCREEN
 	case CMD_SCREEN_SONG:

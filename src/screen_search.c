@@ -462,6 +462,21 @@ screen_search_cmd(struct mpdclient *c, command_t cmd)
 	return false;
 }
 
+#ifdef HAVE_GETMOUSE
+static bool
+screen_search_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
+{
+	if (browser_mouse(&browser, c, x, y, bstate)) {
+		if (screen_is_visible(&screen_search))
+			screen_search_paint();
+
+		return true;
+	}
+
+	return false;
+}
+#endif
+
 const struct screen_functions screen_search = {
 	.init = screen_search_init,
 	.exit = screen_search_quit,
@@ -470,5 +485,8 @@ const struct screen_functions screen_search = {
 	.paint = screen_search_paint,
 	.update = screen_search_update,
 	.cmd = screen_search_cmd,
+#ifdef HAVE_GETMOUSE
+	.mouse = screen_search_mouse,
+#endif
 	.get_title = screen_search_get_title,
 };

@@ -22,6 +22,10 @@
 
 #include "command.h"
 
+#ifdef HAVE_GETMOUSE
+#include "ncmpc_curses.h"
+#endif
+
 #include <stdbool.h>
 
 void begin_input_event(void);
@@ -32,5 +36,10 @@ void end_input_event(void);
  */
 bool
 do_input_event(command_t cmd);
+
+#ifdef HAVE_GETMOUSE
+void
+do_mouse_event(int x, int y, mmask_t bstate);
+#endif
 
 #endif /* NCMPC_H */

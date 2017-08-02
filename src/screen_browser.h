@@ -62,11 +62,17 @@ screen_browser_paint_directory(WINDOW *w, unsigned width,
 void
 screen_browser_paint(const struct screen_browser *browser);
 
-struct filelist_entry *
-browser_get_selected_entry(const struct screen_browser *browser);
+#ifdef HAVE_GETMOUSE
+bool
+browser_mouse(struct screen_browser *browser,
+	      struct mpdclient *c, int x, int y, mmask_t bstate);
+#endif
 
 bool
 browser_cmd(struct screen_browser *browser,
 	    struct mpdclient *c, command_t cmd);
+
+struct filelist_entry *
+browser_get_selected_entry(const struct screen_browser *browser);
 
 #endif

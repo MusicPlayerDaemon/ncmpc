@@ -38,11 +38,6 @@ gcc_pure
 static command_t
 translate_key(int key)
 {
-#ifdef HAVE_GETMOUSE
-	if (key == KEY_MOUSE)
-		return CMD_MOUSE_EVENT;
-#endif
-
 	return get_key_command(key);
 }
 
@@ -54,6 +49,25 @@ keyboard_event(gcc_unused GIOChannel *source,
 	int key = wgetch(screen.main_window.w);
 	if (ignore_key(key))
 		return true;
+
+#ifdef HAVE_GETMOUSE
+	if (key == KEY_MOUSE) {
+		MEVENT event;
+
+		/* retrieve the mouse event from curses */
+#ifdef PDCURSES
+		nc_getmouse(&event);
+#else
+		getmouse(&event);
+#endif
+
+		begin_input_event();
+		do_mouse_event(event.x, event.y, event.bstate);
+		end_input_event();
+
+		return true;
+	}
+#endif
 
 	command_t cmd = translate_key(key);
 	if (cmd == CMD_NONE)

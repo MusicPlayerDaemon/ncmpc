@@ -206,32 +206,6 @@ screen_update(struct mpdclient *c)
 	screen_paint(c, false);
 }
 
-#ifdef HAVE_GETMOUSE
-int
-screen_get_mouse_event(struct mpdclient *c, unsigned long *bstate, int *row)
-{
-	MEVENT event;
-
-	/* retrieve the mouse event from curses */
-#ifdef PDCURSES
-	nc_getmouse(&event);
-#else
-	getmouse(&event);
-#endif
-	/* calculate the selected row in the list window */
-	*row = event.y - screen.title_bar.window.rows;
-	/* copy button state bits */
-	*bstate = event.bstate;
-	/* if button 2 was pressed switch screen */
-	if (event.bstate & BUTTON2_CLICKED) {
-		screen_cmd(c, CMD_SCREEN_NEXT);
-		return 1;
-	}
-
-	return 0;
-}
-#endif
-
 void
 screen_cmd(struct mpdclient *c, command_t cmd)
 {
@@ -325,3 +299,32 @@ screen_cmd(struct mpdclient *c, command_t cmd)
 		break;
 	}
 }
+
+#ifdef HAVE_GETMOUSE
+
+static bool
+screen_current_page_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
+{
+	if (screen.current_page->mouse == NULL)
+		return false;
+
+	y -= screen.title_bar.window.rows;
+	return screen.current_page->mouse(c, x, y, bstate);
+}
+
+bool
+screen_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
+{
+	if (screen_current_page_mouse(c, x, y, bstate))
+		return true;
+
+	/* if button 2 was pressed switch screen */
+	if (bstate & BUTTON2_CLICKED) {
+		screen_cmd(c, CMD_SCREEN_NEXT);
+		return true;
+	}
+
+	return false;
+}
+
+#endif

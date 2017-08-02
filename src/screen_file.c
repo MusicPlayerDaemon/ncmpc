@@ -380,6 +380,20 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 	return false;
 }
 
+#ifdef HAVE_GETMOUSE
+static bool
+screen_file_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
+{
+	if (browser_mouse(&browser, c, x, y, bstate)) {
+		if (screen_is_visible(&screen_browse))
+			screen_file_paint();
+		return true;
+	}
+
+	return false;
+}
+#endif
+
 const struct screen_functions screen_browse = {
 	.init = screen_file_init,
 	.exit = screen_file_exit,
@@ -388,6 +402,9 @@ const struct screen_functions screen_browse = {
 	.paint = screen_file_paint,
 	.update = screen_file_update,
 	.cmd = screen_file_cmd,
+#ifdef HAVE_GETMOUSE
+	.mouse = screen_file_mouse,
+#endif
 	.get_title = screen_file_get_title,
 };
 

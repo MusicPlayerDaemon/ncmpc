@@ -740,6 +740,21 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 	return false;
 }
 
+#ifdef HAVE_GETMOUSE
+static bool
+screen_artist_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
+{
+	if (browser_mouse(&browser, c, x, y, bstate)) {
+		if (screen_is_visible(&screen_artist))
+			screen_artist_paint();
+
+		return true;
+	}
+
+	return false;
+}
+#endif
+
 const struct screen_functions screen_artist = {
 	.init = screen_artist_init,
 	.exit = screen_artist_quit,
@@ -748,5 +763,8 @@ const struct screen_functions screen_artist = {
 	.paint = screen_artist_paint,
 	.update = screen_artist_update,
 	.cmd = screen_artist_cmd,
+#ifdef HAVE_GETMOUSE
+	.mouse = screen_artist_mouse,
+#endif
 	.get_title = screen_artist_get_title,
 };
