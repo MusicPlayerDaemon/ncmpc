@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=glib&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2017-03-20 21:11+0100\n"
-"PO-Revision-Date: 2011-01-05 21:31+0100\n"
+"PO-Revision-Date: 2017-09-05 20:47+0700\n"
 "Last-Translator: Max Arnold <lwarxx@gmail.com>\n"
 "Language-Team: ru <ru@li.org>\n"
 "Language: \n"
@@ -27,7 +27,7 @@ msgstr "n"
 
 #: src/main.c:154 src/main.c:173
 msgid "unknown"
-msgstr ""
+msgstr "неизвестно"
 
 #: src/main.c:193
 #, c-format
@@ -35,7 +35,7 @@ msgid "Connecting to %s...  [Press %s to abort]"
 msgstr "Подключение к %s...  [Нажмите %s для отмены]"
 
 #: src/main.c:214
-#, fuzzy, c-format
+#, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "Ошибка: MPD версии %d.%d.%d устарел (необходим %s)"
 
@@ -46,11 +46,11 @@ msgstr "%s - редактор клавиш"
 
 #: src/player_command.c:174 src/screen_queue.c:739
 msgid "Shuffled queue"
-msgstr ""
+msgstr "Очередь перемешана"
 
 #: src/player_command.c:184
 msgid "Cleared queue"
-msgstr ""
+msgstr "Очередь очищена"
 
 #: src/screen.c:158
 msgid "Repeat mode is on"
@@ -163,9 +163,9 @@ msgid "Loading playlist %s..."
 msgstr "Загружается плейлист %s..."
 
 #: src/screen_browser.c:168 src/screen_browser.c:261 src/screen_browser.c:286
-#, fuzzy, c-format
+#, c-format
 msgid "Adding '%s' to queue"
-msgstr "В плейлист добавляется '%s'"
+msgstr "В очередь добавляется '%s'"
 
 #: src/screen_client.c:41
 msgid "Database update running..."
@@ -186,18 +186,20 @@ msgid ""
 "connected to MPD %u.%u.%u (you need at least \n"
 "version 0.17.0 to use the chat feature)"
 msgstr ""
+"подключено к MPD %u.%u.%u (для использования чата \n"
+"необходима как минимум версия 0.17.0)"
 
 #: src/screen_chat.c:177
 msgid "Your message"
-msgstr ""
+msgstr "Ваше сообщение"
 
 #: src/screen_chat.c:186
 msgid "Message could not be sent"
-msgstr ""
+msgstr "Сообщение не может быть отправлено"
 
 #: src/screen_chat.c:199 src/title_bar.c:91
 msgid "Chat"
-msgstr ""
+msgstr "Чат"
 
 #: src/screen_find.c:29
 msgid "Find"
@@ -219,9 +221,9 @@ msgstr "Не удалось найти '%s'"
 #. NOTE: if one day a translator decides to use a multi-byte character
 #. for one of the yes/no keys, we'll have to parse it properly
 #: src/screen_utils.c:80
-#, fuzzy, c-format
+#, c-format
 msgid "%s [%s/%s] "
-msgstr "Заменить %s [%s/%s] ? "
+msgstr "%s [%s/%s] "
 
 #: src/screen_utils.c:121
 msgid "Password"
@@ -230,12 +232,12 @@ msgstr "Пароль"
 #. query the user for a filename
 #: src/screen_queue.c:249
 msgid "Save queue as"
-msgstr ""
+msgstr "Сохранить очередь как"
 
 #: src/screen_queue.c:282
-#, fuzzy, c-format
+#, c-format
 msgid "Replace %s?"
-msgstr "Заменить %s [%s/%s] ? "
+msgstr "Заменить %s?"
 
 #. translators: a dialog was aborted by the user
 #: src/screen_queue.c:289 src/screen_file.c:220 src/screen_keydef.c:271
@@ -256,12 +258,12 @@ msgstr "Добавить"
 
 #: src/screen_queue.c:497 src/title_bar.c:76
 msgid "Queue"
-msgstr ""
+msgstr "Очередь"
 
 #: src/screen_queue.c:499
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "Очередь на %s"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
@@ -271,9 +273,9 @@ msgid "Deleting this item is not possible"
 msgstr "Удаление этого элемента невозможно"
 
 #: src/screen_file.c:213
-#, fuzzy, c-format
+#, c-format
 msgid "Delete playlist %s?"
-msgstr "Удалить плейлист"
+msgstr "Удалить плейлист %s?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
@@ -426,7 +428,7 @@ msgstr "Нажмите новую клавишу для %s: "
 
 #: src/screen_keydef.c:276
 msgid "Ctrl-Space can't be used"
-msgstr ""
+msgstr "Ctrl+Space не может использоваться"
 
 #: src/screen_keydef.c:282
 #, c-format
@@ -472,9 +474,8 @@ msgid "Global"
 msgstr "Глобальные"
 
 #: src/screen_help.c:119 src/command.c:105
-#, fuzzy
 msgid "Queue screen"
-msgstr "Экран клавиатурных комбинаций"
+msgstr "Экран очереди"
 
 #: src/screen_help.c:121
 msgid "Play"
@@ -501,9 +502,8 @@ msgid "Enter directory/Select and play song"
 msgstr "Перейти в директорию/Выбрать и проиграть композицию"
 
 #: src/screen_help.c:138 src/screen_help.c:153
-#, fuzzy
 msgid "Append song to queue"
-msgstr "Добавить композицию в плейлист"
+msgstr "Добавить композицию в очередь"
 
 #: src/screen_help.c:140
 msgid "Delete playlist"
@@ -540,9 +540,8 @@ msgid "Download lyrics for currently playing song"
 msgstr "Загрузить текст проигрываемой композиции"
 
 #: src/screen_help.c:168
-#, fuzzy
 msgid "Add or edit lyrics"
-msgstr "Сохранённый текст отсутствует"
+msgstr "Добавить или редактировать текст"
 
 #: src/screen_help.c:169
 msgid "Save lyrics"
@@ -561,13 +560,12 @@ msgid "Enable/disable output"
 msgstr "Вкл/выкл аудиовыход"
 
 #: src/screen_help.c:182 src/command.c:248
-#, fuzzy
 msgid "Chat screen"
-msgstr "Следующий экран"
+msgstr "Экран чата"
 
 #: src/screen_help.c:184
 msgid "Write a message"
-msgstr ""
+msgstr "Напишите сообщение"
 
 #: src/screen_help.c:189
 msgid "Keydef screen"
@@ -582,7 +580,6 @@ msgid "Remove selected keydef"
 msgstr "Удалить выбранную комбинацию"
 
 #: src/screen_help.c:193
-#, fuzzy
 msgid "Add a keydef"
 msgstr "Добавить новую клавишу"
 
@@ -606,7 +603,7 @@ msgstr "Текст отсутствует"
 #: src/screen_lyrics.c:226
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
-msgstr ""
+msgstr "Таймаут получения текста после %d секунд"
 
 #: src/screen_lyrics.c:327 src/screen_lyrics.c:336 src/screen_lyrics.c:346
 #: src/title_bar.c:85
@@ -621,25 +618,25 @@ msgstr "загружается..."
 
 #: src/screen_lyrics.c:361
 msgid "Editor not configured"
-msgstr ""
+msgstr "Редактор не выбран"
 
 #: src/screen_lyrics.c:367
 msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr ""
+msgstr "Вы действительно хотите запустить редактор для правки этого текста?"
 
 #: src/screen_lyrics.c:385 src/screen_lyrics.c:409
 msgid "Can't start editor"
-msgstr ""
+msgstr "Не удалось запустить редактор"
 
 #: src/screen_lyrics.c:411
 #, c-format
 msgid "Editor exited unexpectedly (%d)"
-msgstr ""
+msgstr "Редактор неожиданно завершил работу (%d)"
 
 #: src/screen_lyrics.c:414
 #, c-format
 msgid "Editor exited unexpectedly (signal %d)"
-msgstr ""
+msgstr "Редактор неожиданно завершил работу (по сигналу %d)"
 
 #. lyrics for the song were saved on hard disk
 #: src/screen_lyrics.c:436
@@ -674,7 +671,7 @@ msgstr "Длительность"
 
 #: src/screen_song.c:50
 msgid "Position"
-msgstr ""
+msgstr "Позиция"
 
 #: src/screen_song.c:51
 msgid "Composer"
@@ -714,7 +711,7 @@ msgstr "Битрейт"
 
 #: src/screen_song.c:60
 msgid "Format"
-msgstr ""
+msgstr "Формат"
 
 #: src/screen_song.c:76
 msgid "Number of artists"
@@ -897,26 +894,24 @@ msgid "Decrease volume"
 msgstr "Уменьшить громкость"
 
 #: src/command.c:132
-#, fuzzy
 msgid "Select/deselect song in queue"
-msgstr "Добавить/убрать композицию из плейлиста"
+msgstr "Выбрать или отменить выбор композиции в очереди"
 
 #: src/command.c:134
 msgid "Select all listed items"
 msgstr "Добавить все композиции в плейлист"
 
 #: src/command.c:136
-#, fuzzy
 msgid "Delete song from queue"
-msgstr "Удалить композицию из плейлиста"
+msgstr "Удалить композицию из очереди"
 
 #: src/command.c:138
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Перемешать очередь"
 
 #: src/command.c:140
 msgid "Clear queue"
-msgstr ""
+msgstr "Очистить очередь"
 
 #: src/command.c:142
 msgid "Toggle repeat mode"
@@ -944,12 +939,11 @@ msgstr "Обновить музыкальную базу"
 
 #: src/command.c:154
 msgid "Save queue"
-msgstr ""
+msgstr "Сохранить очередь"
 
 #: src/command.c:156
-#, fuzzy
 msgid "Add url/file to queue"
-msgstr "Добавить url/файл в плейлист"
+msgstr "Добавить url/файл в очередь"
 
 #: src/command.c:159
 msgid "Go to root directory"
@@ -1046,7 +1040,7 @@ msgstr "Обновить текст"
 
 #: src/command.c:238
 msgid "Edit the current item"
-msgstr ""
+msgstr "Редактировать текущий элемент"
 
 #: src/command.c:290
 msgid "Undefined"
@@ -1137,14 +1131,12 @@ msgid "Key %s assigned to %s and %s"
 msgstr "Клавиша %s назначена для %s и %s"
 
 #: src/colors.c:156
-#, fuzzy
 msgid "Unknown color"
-msgstr "Неизвестная команда"
+msgstr "Неизвестный цвет"
 
 #: src/colors.c:196
-#, fuzzy
 msgid "Unknown color field"
-msgstr "Внимание: неизвестное цветовое поле - %s\n"
+msgstr "Неизвестное цветовое поле"
 
 #: src/colors.c:230
 msgid "Terminal lacks support for changing colors"
