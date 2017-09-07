@@ -142,6 +142,8 @@ else
 endif
 conf.set('ENABLE_LIRC', enable_lirc)
 
+conf.set('ENABLE_COLORS', curses_color)
+
 common_cflags = [
 ]
 
