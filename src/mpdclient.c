@@ -355,12 +355,32 @@ static void
 mpdclient_aconnect_start(struct mpdclient *c,
 			 const struct mpd_settings *settings);
 
+static const struct mpd_settings *
+mpdclient_get_settings(const struct mpdclient *c)
+{
+#ifndef WIN32
+	if (c->connecting2)
+		return c->settings2;
+#endif
+
+	return c->settings;
+}
+
 static void
 mpdclient_connect_success(struct mpd_connection *connection, void *ctx)
 {
 	struct mpdclient *c = ctx;
 	assert(c->async_connect != NULL);
 	c->async_connect = NULL;
+
+	const char *password =
+		mpd_settings_get_password(mpdclient_get_settings(c));
+	if (password != NULL && !mpd_run_password(connection, password)) {
+		mpdclient_error_callback(mpd_connection_get_error_message(connection));
+		mpd_connection_free(connection);
+		mpdclient_failed_callback();
+		return;
+	}
 
 	mpdclient_connected(c, connection);
 }

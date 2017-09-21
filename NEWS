@@ -2,6 +2,7 @@ ncmpc 0.28 - not yet released
 * fix crash on lyrics screen
 * fix memory leak
 * hide the MPD password from the queue screen title
+* implement password for asynchronous connect
 * build with Meson instead of autotools
 
 ncmpc 0.27 - (2017-03-25)
