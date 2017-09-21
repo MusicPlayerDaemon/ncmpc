@@ -145,6 +145,8 @@ conf.set('ENABLE_LIRC', enable_lirc)
 conf.set('ENABLE_COLORS', curses_color)
 
 common_cflags = [
+  # for getaddrinfo() and sigaction() with glibc
+  '-D_GNU_SOURCE',
 ]
 
 test_cflags = [
