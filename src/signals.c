@@ -23,7 +23,6 @@
 
 #include <glib-unix.h>
 
-#include <stdbool.h>
 #include <signal.h>
 
 static int sigwinch_pipes[2];
@@ -34,7 +33,7 @@ handle_quit_signal(gpointer data)
 	GMainLoop *main_loop = data;
 
 	g_main_loop_quit(main_loop);
-	return false;
+	return FALSE;
 }
 
 static gboolean
