@@ -24,6 +24,7 @@
 #include <glib-unix.h>
 
 #include <stdbool.h>
+#include <signal.h>
 
 static int sigwinch_pipes[2];
 
