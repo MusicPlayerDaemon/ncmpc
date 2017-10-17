@@ -1,5 +1,5 @@
 project('ncmpc', 'c',
-  version: '0.28',
+  version: '0.29',
   default_options: [
     'c_std=c99',
   ],
