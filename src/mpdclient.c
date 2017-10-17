@@ -490,7 +490,8 @@ mpdclient_get_connection(struct mpdclient *c)
 		c->idle = false;
 		mpd_glib_leave(c->source);
 
-		mpdclient_schedule_enter_idle(c);
+		if (c->source != NULL)
+			mpdclient_schedule_enter_idle(c);
 	}
 
 	return c->connection;

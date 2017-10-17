@@ -1,4 +1,5 @@
 ncmpc 0.29 - not yet released
+* fix crash after losing MPD connection
 
 ncmpc 0.28 - (2017-09-21)
 * fix crash on lyrics screen
