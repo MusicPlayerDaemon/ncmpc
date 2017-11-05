@@ -107,7 +107,6 @@ static void
 aconnect_rconnect_success(int fd, void *ctx)
 {
 	struct aconnect *ac = ctx;
-	assert(ac->rconnect != NULL);
 	ac->rconnect = NULL;
 
 	ac->fd = fd;
@@ -122,7 +121,6 @@ static void
 aconnect_rconnect_error(const char *message, void *ctx)
 {
 	struct aconnect *ac = ctx;
-	assert(ac->rconnect != NULL);
 	ac->rconnect = NULL;
 
 	ac->handler->error(message, ac->handler_ctx);
