@@ -2,6 +2,7 @@ ncmpc 0.29 - not yet released
 * fix crash after losing MPD connection
 * fix crash after DNS lookup error
 * add Meson option "lyrics_plugin_dir"
+* fallback libncurses detection without pkg-config
 
 ncmpc 0.28 - (2017-09-21)
 * fix crash on lyrics screen

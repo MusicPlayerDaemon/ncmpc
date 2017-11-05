@@ -70,6 +70,11 @@ else
     if curses_dep.found()
       curses = 'ncurses'
     else
+      curses_dep = cc.find_library('ncursesw', required: false)
+      if not curses_dep.found()
+        curses_dep = cc.find_library('ncurses')
+      endif
+
       # TODO: find other curses implementation (pdcurses?)
     endif
   endif
