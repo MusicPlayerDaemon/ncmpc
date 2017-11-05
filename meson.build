@@ -271,7 +271,11 @@ conf.set('ENABLE_LYRICS_SCREEN', enable_lyrics_screen)
 if enable_lyrics_screen
   sources += ['src/screen_lyrics.c', 'src/lyrics.c']
 
-  lyrics_plugin_dir = join_paths(get_option('prefix'), get_option('libdir'), meson.project_name(), 'lyrics')
+  lyrics_plugin_dir = get_option('lyrics_plugin_dir')
+  if lyrics_plugin_dir == ''
+    lyrics_plugin_dir = join_paths(get_option('prefix'), get_option('libdir'), meson.project_name(), 'lyrics')
+  endif
+
   conf.set_quoted('LYRICS_PLUGIN_DIR', lyrics_plugin_dir)
   install_data(
     'lyrics/10-hd.sh',

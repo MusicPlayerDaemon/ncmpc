@@ -68,6 +68,10 @@ option('lyrics_screen', type: 'boolean',
   value: false,
   description: 'Enable the lyrics screen')
 
+option('lyrics_plugin_dir', type: 'string',
+  value: '',
+  description: 'Directory where lyrics plugins are stored')
+
 option('outputs_screen', type: 'boolean',
   value: true,
   description: 'Enable the outputs screen')
