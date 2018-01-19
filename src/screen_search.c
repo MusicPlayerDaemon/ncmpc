@@ -196,43 +196,70 @@ search_advanced_query(struct mpd_connection *connection, char *query)
 	if (strchr(query, ':') == NULL)
 		return NULL;
 
-	char **strv = g_strsplit_set(query, ": ", 0);
+	int i, j;
+	char *str = g_strdup(query);
 
+	char *tabv[10];
+	char *matchv[10];
 	int table[10];
-	memset(table, 0, 10*sizeof(int));
-
 	char *arg[10];
-	memset(arg, 0, 10*sizeof(char *));
 
-	int i = 0, j = 0;
-	while (strv[i] && strlen(strv[i]) > 0 && i < 9) {
-		int id = search_get_tag_id(strv[i]);
-		if (id == -1) {
-			if (table[j]) {
-				char *tmp = arg[j];
-				arg[j] = g_strdup_printf("%s %s", arg[j], strv[i]);
-				g_free(tmp);
-			} else {
-				screen_status_printf(_("Bad search tag %s"), strv[i]);
-			}
-			i++;
-		} else if (strv[i+1] == NULL || strlen(strv[i+1]) == 0) {
-			screen_status_printf(_("No argument for search tag %s"), strv[i]);
-			i++;
-			//	  j--;
-			//table[j] = -1;
-		} else {
-			table[j] = id;
-			arg[j] = locale_to_utf8(strv[i+1]); // FREE ME
+	memset(tabv, 0, 10 * sizeof(char *));
+	memset(matchv, 0, 10 * sizeof(char *));
+	memset(arg, 0, 10 * sizeof(char *));
+
+	for (i = 0; i < 10; i++)
+		table[i] = -1;
+
+	/*
+	 * Replace every : with a '\0' and every space character
+	 * before it unless spi = -1, link the resulting strings
+	 * to their proper vector.
+	 */
+	int spi = -1;
+	j = 0;
+	for (i = 0; str[i] != '\0' && j < 10; i++) {
+		switch(str[i]) {
+		case ' ':
+			spi = i;
+			continue;
+		case ':':
+			str[i] = '\0';
+			if (spi != -1)
+				str[spi] = '\0';
+
+			matchv[j] = str + i + 1;
+			tabv[j] = str + spi + 1;
 			j++;
-			table[j] = -1;
-			arg[j] = NULL;
-			i = i + 2;
-			advanced_search_mode = TRUE;
+			/* FALLTHROUGH */
+		default:
+			continue;
 		}
 	}
 
-	g_strfreev(strv);
+	/* Get rid of obvious failure case */
+	if (matchv[j - 1][0] == '\0') {
+		screen_status_printf(_("No argument for search tag %s"), tabv[j - 1]);
+		g_free(str);
+		return NULL;
+	}
+
+	int id = j = i = 0;
+	while (matchv[i] && matchv[i][0] != '\0' && i < 10) {
+		id = search_get_tag_id(tabv[i]);
+		if (id == -1) {
+			screen_status_printf(_("Bad search tag %s"), tabv[i]);
+		} else {
+			table[j] = id;
+			arg[j] = locale_to_utf8(matchv[i]);
+			j++;
+			advanced_search_mode = TRUE;
+		}
+
+		i++;
+	}
+
+	g_free(str);
 
 	if (!advanced_search_mode || j == 0) {
 		for (i = 0; arg[i] != NULL; ++i)
