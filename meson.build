@@ -1,12 +1,12 @@
-project('ncmpc', 'c',
+project('ncmpc', 'cpp',
   version: '0.30',
   default_options: [
-    'c_std=c99',
+    'cpp_std=c++14'
   ],
   license: 'GPLv2+',
 )
 
-cc = meson.get_compiler('c')
+cc = meson.get_compiler('cpp')
 
 conf = configuration_data()
 conf.set_quoted('PACKAGE', meson.project_name())
@@ -158,13 +158,16 @@ test_cflags = [
   '-Wall',
   '-Wextra',
   '-Wno-deprecated-declarations',
-  '-Wmissing-prototypes',
   '-Wshadow',
   '-Wpointer-arith',
-  '-Wstrict-prototypes',
   '-Wcast-qual',
+  '-Wcast-align',
   '-Wwrite-strings',
+  '-Wmissing-declarations', '-Wmissing-noreturn', '-Wmissing-format-attribute',
+  '-Wredundant-decls', '-Wundef',
   '-fvisibility=hidden',
+  '-fno-exceptions',
+  '-fno-rtti',
 ]
 
 test_ldflags = [
@@ -186,11 +189,11 @@ foreach f: test_cflags
   endif
 endforeach
 
-add_global_arguments(common_cflags, language: 'c')
+add_global_arguments(common_cflags, language: 'cpp')
 
 foreach f: test_ldflags
   if cc.has_argument(f)
-    add_global_link_arguments(f, language: 'c')
+    add_global_link_arguments(f, language: 'cpp')
   endif
 endforeach
 
@@ -211,70 +214,70 @@ need_plugin_library = false
 
 if host_machine.system() != 'windows'
   sources += [
-    'src/signals.c',
+    'src/signals.cxx',
   ]
 endif
 
 if not mini
   sources += [
-    'src/db_completion.c',
-    'src/xterm_title.c',
-    'src/hscroll.c',
-    'src/match.c',
-    'src/conf.c',
+    'src/db_completion.cxx',
+    'src/xterm_title.cxx',
+    'src/hscroll.cxx',
+    'src/match.cxx',
+    'src/conf.cxx',
   ]
 endif
 
 if async_connect
   sources += [
-    'src/net/socket.c',
-    'src/net/resolver.c',
-    'src/net/async_connect.c',
-    'src/net/async_rconnect.c',
-    'src/aconnect.c',
+    'src/net/socket.cxx',
+    'src/net/resolver.cxx',
+    'src/net/async_connect.cxx',
+    'src/net/async_rconnect.cxx',
+    'src/aconnect.cxx',
   ]
 endif
 
 if enable_lirc
   sources += [
-    'src/lirc.c',
+    'src/lirc.cxx',
   ]
 endif
 
 enable_help_screen = get_option('help_screen') and not mini
 conf.set('ENABLE_HELP_SCREEN', enable_help_screen)
 if enable_help_screen
-  sources += ['src/screen_help.c']
+  sources += ['src/screen_help.cxx']
 endif
 
 enable_artist_screen = get_option('artist_screen') and not mini
 conf.set('ENABLE_ARTIST_SCREEN', enable_artist_screen)
 if enable_artist_screen
-  sources += ['src/screen_artist.c']
+  sources += ['src/screen_artist.cxx']
 endif
 
 enable_search_screen = get_option('search_screen') and not mini
 conf.set('ENABLE_SEARCH_SCREEN', enable_search_screen)
 if enable_search_screen
-  sources += ['src/screen_search.c']
+  sources += ['src/screen_search.cxx']
 endif
 
 enable_song_screen = get_option('song_screen') and not mini
 conf.set('ENABLE_SONG_SCREEN', enable_song_screen)
 if enable_song_screen
-  sources += ['src/screen_song.c']
+  sources += ['src/screen_song.cxx']
 endif
 
 enable_keydef_screen = get_option('key_screen') and not mini
 conf.set('ENABLE_KEYDEF_SCREEN', enable_keydef_screen)
 if enable_keydef_screen
-  sources += ['src/screen_keydef.c']
+  sources += ['src/screen_keydef.cxx']
 endif
 
 enable_lyrics_screen = get_option('lyrics_screen') and not mini
 conf.set('ENABLE_LYRICS_SCREEN', enable_lyrics_screen)
 if enable_lyrics_screen
-  sources += ['src/screen_lyrics.c', 'src/lyrics.c']
+  sources += ['src/screen_lyrics.cxx', 'src/lyrics.cxx']
 
   lyrics_plugin_dir = get_option('lyrics_plugin_dir')
   if lyrics_plugin_dir == ''
@@ -294,18 +297,18 @@ endif
 enable_outputs_screen = get_option('outputs_screen') and not mini
 conf.set('ENABLE_OUTPUTS_SCREEN', enable_outputs_screen)
 if enable_outputs_screen
-  sources += ['src/screen_outputs.c']
+  sources += ['src/screen_outputs.cxx']
 endif
 
 enable_chat_screen = get_option('chat_screen') and not mini
 conf.set('ENABLE_CHAT_SCREEN', enable_chat_screen)
 if enable_chat_screen
-  sources += ['src/screen_chat.c']
+  sources += ['src/screen_chat.cxx']
   need_screen_text = true
 endif
 
 if need_screen_text
-  sources += ['src/screen_text.c']
+  sources += ['src/screen_text.cxx']
 endif
 
 if need_plugin_library
@@ -313,7 +316,7 @@ if need_plugin_library
     error('Plugins not yet compatible with Windows')
   endif
 
-  sources += ['src/plugin.c']
+  sources += ['src/plugin.cxx']
 endif
 
 if host_machine.system() == 'windows'
@@ -321,40 +324,40 @@ if host_machine.system() == 'windows'
 endif
 
 ncmpc = executable('ncmpc',
-  'src/main.c',
-  'src/gidle.c',
-  'src/mpdclient.c',
-  'src/callbacks.c',
-  'src/playlist.c',
-  'src/filelist.c',
-  'src/options.c',
-  'src/command.c',
-  'src/keyboard.c',
-  'src/ncu.c',
-  'src/player_command.c',
-  'src/title_bar.c',
-  'src/progress_bar.c',
-  'src/status_bar.c',
-  'src/screen.c',
-  'src/screen_init.c',
-  'src/screen_paint.c',
-  'src/screen_utils.c',
-  'src/screen_status.c',
-  'src/screen_list.c',
-  'src/screen_find.c',
-  'src/screen_client.c',
-  'src/screen_queue.c',
-  'src/screen_browser.c',
-  'src/screen_file.c',
-  'src/list_window.c',
-  'src/save_playlist.c',
-  'src/song_paint.c',
-  'src/colors.c',
-  'src/charset.c',
-  'src/wreadln.c',
-  'src/strfsong.c',
-  'src/time_format.c',
-  'src/utils.c',
+  'src/Main.cxx',
+  'src/gidle.cxx',
+  'src/mpdclient.cxx',
+  'src/callbacks.cxx',
+  'src/playlist.cxx',
+  'src/filelist.cxx',
+  'src/options.cxx',
+  'src/command.cxx',
+  'src/keyboard.cxx',
+  'src/ncu.cxx',
+  'src/player_command.cxx',
+  'src/title_bar.cxx',
+  'src/progress_bar.cxx',
+  'src/status_bar.cxx',
+  'src/screen.cxx',
+  'src/screen_init.cxx',
+  'src/screen_paint.cxx',
+  'src/screen_utils.cxx',
+  'src/screen_status.cxx',
+  'src/screen_list.cxx',
+  'src/screen_find.cxx',
+  'src/screen_client.cxx',
+  'src/screen_queue.cxx',
+  'src/screen_browser.cxx',
+  'src/screen_file.cxx',
+  'src/list_window.cxx',
+  'src/save_playlist.cxx',
+  'src/song_paint.cxx',
+  'src/colors.cxx',
+  'src/charset.cxx',
+  'src/wreadln.cxx',
+  'src/strfsong.cxx',
+  'src/time_format.cxx',
+  'src/utils.cxx',
   sources,
   include_directories: inc,
   dependencies: [

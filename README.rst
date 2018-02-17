@@ -10,7 +10,7 @@ How to compile and install ncmpc
 
 You need:
 
-- a C99 compliant compiler (e.g. gcc)
+- a C++14 compliant compiler (e.g. gcc or clang)
 - libmpdclient 2.9
 - `GLib 2.30 <https://developer.gnome.org/glib/>`__
 - `ncurses <https://www.gnu.org/software/ncurses/>`__

@@ -1,9 +1,9 @@
 executable(
   'run_hscroll',
-  'run_hscroll.c',
+  'run_hscroll.cxx',
   objects: ncmpc.extract_objects(
-    'src/hscroll.c',
-    'src/charset.c',
+    'src/hscroll.cxx',
+    'src/charset.cxx',
   ),
   include_directories: inc,
   dependencies: [
