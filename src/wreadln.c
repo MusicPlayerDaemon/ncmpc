@@ -509,13 +509,13 @@ _wreadln(WINDOW *w,
 			break;
 		case KEY_CTRL_W:
 			/* Firstly remove trailing spaces. */
-			for (i = wr.cursor; i > 0 && wr.line[i-1] == ' '; i--)
+			for (; wr.cursor > 0 && wr.line[wr.cursor - 1] == ' ';)
 			{
 				cursor_move_left(&wr);
 				wreadln_delete_char(&wr, wr.cursor);
 			}
 			/* Then remove word until next space. */
-			for (; i > 0 && wr.line[i-1] != ' '; i--)
+			for (; wr.cursor > 0 && wr.line[wr.cursor - 1] != ' ';)
 			{
 				cursor_move_left(&wr);
 				wreadln_delete_char(&wr, wr.cursor);
