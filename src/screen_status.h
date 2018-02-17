@@ -20,12 +20,15 @@
 #ifndef NCMPC_SCREEN_STATUS_H
 #define NCMPC_SCREEN_STATUS_H
 
+#include "Compiler.h"
+
 void
 screen_status_clear_message(void);
 
 void
 screen_status_message(const char *msg);
 
+gcc_printf(1, 2)
 void
 screen_status_printf(const char *format, ...);
 
