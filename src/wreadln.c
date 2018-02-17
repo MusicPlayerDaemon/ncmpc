@@ -290,14 +290,12 @@ static inline void drawline(const struct wreadln *wr)
 static bool
 multibyte_is_complete(const char *p, size_t length)
 {
-	GError *error = NULL;
 	gchar *q = g_locale_to_utf8(p, length,
-				    NULL, NULL, &error);
+				    NULL, NULL, NULL);
 	if (q != NULL) {
 		g_free(q);
 		return true;
 	} else {
-		g_error_free(error);
 		return false;
 	}
 }
