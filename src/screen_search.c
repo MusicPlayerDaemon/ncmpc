@@ -40,19 +40,21 @@ enum {
 };
 
 static const struct {
+	enum mpd_tag_type tag_type;
 	const char *name;
 	const char *localname;
 } search_tag[MPD_TAG_COUNT] = {
-	[MPD_TAG_ARTIST] = { "artist", N_("artist") },
-	[MPD_TAG_ALBUM] = { "album", N_("album") },
-	[MPD_TAG_TITLE] = { "title", N_("title") },
-	[MPD_TAG_TRACK] = { "track", N_("track") },
-	[MPD_TAG_NAME] = { "name", N_("name") },
-	[MPD_TAG_GENRE] = { "genre", N_("genre") },
-	[MPD_TAG_DATE] = { "date", N_("date") },
-	[MPD_TAG_COMPOSER] = { "composer", N_("composer") },
-	[MPD_TAG_PERFORMER] = { "performer", N_("performer") },
-	[MPD_TAG_COMMENT] = { "comment", N_("comment") },
+	{ MPD_TAG_ARTIST, "artist", N_("artist") },
+	{ MPD_TAG_ALBUM, "album", N_("album") },
+	{ MPD_TAG_TITLE, "title", N_("title") },
+	{ MPD_TAG_TRACK, "track", N_("track") },
+	{ MPD_TAG_NAME, "name", N_("name") },
+	{ MPD_TAG_GENRE, "genre", N_("genre") },
+	{ MPD_TAG_DATE, "date", N_("date") },
+	{ MPD_TAG_COMPOSER, "composer", N_("composer") },
+	{ MPD_TAG_PERFORMER, "performer", N_("performer") },
+	{ MPD_TAG_COMMENT, "comment", N_("comment") },
+	{ MPD_TAG_COUNT, NULL, NULL }
 };
 
 static int
@@ -62,11 +64,10 @@ search_get_tag_id(const char *name)
 	    strcasecmp(name, _("file")) == 0)
 		return SEARCH_URI;
 
-	for (unsigned i = 0; i < MPD_TAG_COUNT; ++i)
-		if (search_tag[i].name != NULL &&
-		    (strcasecmp(search_tag[i].name, name) == 0 ||
-		     strcasecmp(search_tag[i].localname, name) == 0))
-			return i;
+	for (unsigned i = 0; search_tag[i].name != NULL; ++i)
+		if (strcasecmp(search_tag[i].name, name) == 0 ||
+		    strcasecmp(search_tag[i].localname, name) == 0)
+			return search_tag[i].tag_type;
 
 	return -1;
 }
