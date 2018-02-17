@@ -890,7 +890,7 @@ mpdclient_recv_message(struct mpdclient *c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == NULL)
-		return false;
+		return NULL;
 
 	struct mpd_message *message = mpd_recv_message(connection);
 	if (message == NULL &&
