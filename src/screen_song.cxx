@@ -240,7 +240,7 @@ get_tag_label(unsigned tag)
 {
 	for (unsigned i = 0; tag_labels[i].label != nullptr; ++i)
 		if (tag_labels[i].tag_type == tag)
-			return gettext(tag_labels[i].label);
+			return _(tag_labels[i].label);
 
 	assert(tag < MPD_TAG_COUNT);
 	return mpd_tag_name((enum mpd_tag_type)tag);
