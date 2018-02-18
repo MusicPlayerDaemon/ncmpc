@@ -42,22 +42,28 @@ enum {
 	LABEL_POSITION,
 };
 
-static const char *const tag_labels[] = {
-	[MPD_TAG_ARTIST] = N_("Artist"),
-	[MPD_TAG_TITLE] = N_("Title"),
-	[MPD_TAG_ALBUM] = N_("Album"),
-	[LABEL_LENGTH] = N_("Length"),
-	[LABEL_POSITION] = N_("Position"),
-	[MPD_TAG_COMPOSER] = N_("Composer"),
-	[MPD_TAG_NAME] = N_("Name"),
-	[MPD_TAG_DISC] = N_("Disc"),
-	[MPD_TAG_TRACK] = N_("Track"),
-	[MPD_TAG_DATE] = N_("Date"),
-	[MPD_TAG_GENRE] = N_("Genre"),
-	[MPD_TAG_COMMENT] = N_("Comment"),
-	[LABEL_PATH] = N_("Path"),
-	[LABEL_BITRATE] = N_("Bitrate"),
-	[LABEL_FORMAT] = N_("Format"),
+struct tag_label {
+	unsigned tag_type;
+	const char *label;
+};
+
+static const struct tag_label tag_labels[] = {
+	{ MPD_TAG_ARTIST, N_("Artist") },
+	{ MPD_TAG_TITLE, N_("Title") },
+	{ MPD_TAG_ALBUM, N_("Album") },
+	{ LABEL_LENGTH, N_("Length") },
+	{ LABEL_POSITION, N_("Position") },
+	{ MPD_TAG_COMPOSER, N_("Composer") },
+	{ MPD_TAG_NAME, N_("Name") },
+	{ MPD_TAG_DISC, N_("Disc") },
+	{ MPD_TAG_TRACK, N_("Track") },
+	{ MPD_TAG_DATE, N_("Date") },
+	{ MPD_TAG_GENRE, N_("Genre") },
+	{ MPD_TAG_COMMENT, N_("Comment") },
+	{ LABEL_PATH, N_("Path") },
+	{ LABEL_BITRATE, N_("Bitrate") },
+	{ LABEL_FORMAT, N_("Format") },
+	{ 0, NULL }
 };
 
 static unsigned max_tag_label_width;
@@ -124,13 +130,10 @@ screen_song_list_callback(unsigned idx, gcc_unused void *data)
 static void
 screen_song_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	for (unsigned i = 0; i < G_N_ELEMENTS(tag_labels); ++i) {
-		if (tag_labels[i] != NULL) {
-			unsigned width = utf8_width(_(tag_labels[i]));
-
-			if (width > max_tag_label_width)
-				max_tag_label_width = width;
-		}
+	for (unsigned i = 0; tag_labels[i].label != NULL; ++i) {
+		unsigned width = utf8_width(_(tag_labels[i].label));
+		if (width > max_tag_label_width)
+			max_tag_label_width = width;
 	}
 
 	for (unsigned i = 0; i < G_N_ELEMENTS(stats_labels); ++i) {
@@ -232,10 +235,22 @@ screen_song_append(const char *label, const char *value, unsigned label_col)
 	}
 }
 
+gcc_pure
+static const char *
+get_tag_label(unsigned tag)
+{
+	for (unsigned i = 0; tag_labels[i].label != NULL; ++i)
+		if (tag_labels[i].tag_type == tag)
+			return gettext(tag_labels[i].label);
+
+	assert(tag < MPD_TAG_COUNT);
+	return mpd_tag_name((enum mpd_tag_type)tag);
+}
+
 static void
 screen_song_append_tag(const struct mpd_song *song, enum mpd_tag_type tag)
 {
-	const char *label = _(tag_labels[tag]);
+	const char *label = get_tag_label(tag);
 	unsigned i = 0;
 	const char *value;
 
@@ -253,7 +268,7 @@ screen_song_add_song(const struct mpd_song *song)
 
 	char songpos[16];
 	g_snprintf(songpos, sizeof(songpos), "%d", mpd_song_get_pos(song) + 1);
-	screen_song_append(_(tag_labels[LABEL_POSITION]), songpos,
+	screen_song_append(get_tag_label(LABEL_POSITION), songpos,
 			   max_tag_label_width);
 
 	screen_song_append_tag(song, MPD_TAG_ARTIST);
@@ -290,7 +305,7 @@ screen_song_add_song(const struct mpd_song *song)
 			value = buffer;
 		}
 
-		screen_song_append(_(tag_labels[LABEL_LENGTH]), value,
+		screen_song_append(get_tag_label(LABEL_LENGTH), value,
 				   max_tag_label_width);
 	}
 
@@ -302,7 +317,7 @@ screen_song_add_song(const struct mpd_song *song)
 	screen_song_append_tag(song, MPD_TAG_GENRE);
 	screen_song_append_tag(song, MPD_TAG_COMMENT);
 
-	screen_song_append(_(tag_labels[LABEL_PATH]), mpd_song_get_uri(song),
+	screen_song_append(get_tag_label(LABEL_PATH), mpd_song_get_uri(song),
 			   max_tag_label_width);
 }
 
@@ -427,7 +442,7 @@ screen_song_update(struct mpdclient *c)
 			char buf[16];
 			g_snprintf(buf, sizeof(buf), _("%d kbps"),
 				   mpd_status_get_kbit_rate(c->status));
-			screen_song_append(_(tag_labels[LABEL_BITRATE]), buf,
+			screen_song_append(get_tag_label(LABEL_BITRATE), buf,
 					   max_tag_label_width);
 		}
 
@@ -436,7 +451,7 @@ screen_song_update(struct mpdclient *c)
 		if (format) {
 			char buf[32];
 			audio_format_to_string(buf, sizeof(buf), format);
-			screen_song_append(_(tag_labels[LABEL_FORMAT]), buf,
+			screen_song_append(get_tag_label(LABEL_FORMAT), buf,
 					   max_tag_label_width);
 		}
 
