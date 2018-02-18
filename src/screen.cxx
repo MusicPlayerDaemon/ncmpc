@@ -47,7 +47,7 @@
 
 /* screens */
 
-struct screen screen;
+ScreenManager screen;
 
 static const struct screen_functions *mode_fn_prev = &screen_queue;
 

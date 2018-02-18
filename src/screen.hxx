@@ -35,7 +35,8 @@
 struct mpdclient;
 struct screen_functions;
 
-struct screen {
+class ScreenManager {
+public:
 	struct title_bar title_bar;
 	struct window main_window;
 	struct progress_bar progress_bar;
@@ -58,7 +59,7 @@ struct screen {
 #endif
 };
 
-extern struct screen screen;
+extern ScreenManager screen;
 
 void screen_init(struct mpdclient *c);
 void screen_exit();
