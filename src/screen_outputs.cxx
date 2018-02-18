@@ -30,7 +30,7 @@
 #include <glib.h>
 #include <assert.h>
 
-static struct list_window *lw;
+static ListWindow *lw;
 
 static GPtrArray *mpd_outputs = nullptr;
 

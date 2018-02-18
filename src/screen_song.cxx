@@ -90,7 +90,7 @@ static const char *const stats_labels[] = {
 
 static unsigned max_stats_label_width;
 
-static struct list_window *lw;
+static ListWindow *lw;
 
 static struct mpd_song *next_song;
 

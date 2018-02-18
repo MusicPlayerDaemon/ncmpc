@@ -29,7 +29,7 @@ struct mpdclient;
 struct screen_text {
 	GPtrArray *lines;
 
-	struct list_window *lw;
+	ListWindow *lw;
 };
 
 static inline void

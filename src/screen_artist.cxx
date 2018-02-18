@@ -501,7 +501,7 @@ static bool
 screen_artist_cmd(struct mpdclient *c, command_t cmd)
 {
 	switch(cmd) {
-		struct list_window_range range;
+		ListWindowRange range;
 		const char *selected;
 		char *old;
 		char *old_ptr;

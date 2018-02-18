@@ -150,7 +150,7 @@ screen_file_handle_enter(struct mpdclient *c)
 static void
 handle_save(struct mpdclient *c)
 {
-	struct list_window_range range;
+	ListWindowRange range;
 	const char *defaultname = nullptr;
 
 	list_window_get_range(browser.lw, &range);
@@ -184,7 +184,7 @@ handle_delete(struct mpdclient *c)
 	if (connection == nullptr)
 		return;
 
-	struct list_window_range range;
+	ListWindowRange range;
 	list_window_get_range(browser.lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {
 		auto &entry = (*browser.filelist)[i];

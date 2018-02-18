@@ -32,7 +32,7 @@
 
 /* query user for a string and find it in a list window */
 bool
-screen_find(struct list_window *lw, command_t findcmd,
+screen_find(ListWindow *lw, command_t findcmd,
 	    list_window_callback_fn_t callback_fn,
 	    void *callback_data)
 {
@@ -93,7 +93,7 @@ screen_find(struct list_window *lw, command_t findcmd,
 /* query user for a string and jump to the entry
  * which begins with this string while the users types */
 void
-screen_jump(struct list_window *lw,
+screen_jump(ListWindow *lw,
 	    list_window_callback_fn_t callback_fn, void *callback_data,
 	    list_window_paint_callback_t paint_callback, void *paint_data)
 {

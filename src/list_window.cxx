@@ -35,10 +35,10 @@
 
 extern void screen_bell();
 
-struct list_window *
+ListWindow *
 list_window_init(WINDOW *w, unsigned width, unsigned height)
 {
-	auto *lw = g_new(struct list_window, 1);
+	auto *lw = g_new(ListWindow, 1);
 	lw->w = w;
 	lw->cols = width;
 	lw->rows = height;
@@ -47,7 +47,7 @@ list_window_init(WINDOW *w, unsigned width, unsigned height)
 }
 
 void
-list_window_free(struct list_window *lw)
+list_window_free(ListWindow *lw)
 {
 	assert(lw != nullptr);
 
@@ -55,7 +55,7 @@ list_window_free(struct list_window *lw)
 }
 
 void
-list_window_reset(struct list_window *lw)
+list_window_reset(ListWindow *lw)
 {
 	lw->selected = 0;
 	lw->range_selection = false;
@@ -64,7 +64,7 @@ list_window_reset(struct list_window *lw)
 }
 
 static unsigned
-list_window_validate_index(const struct list_window *lw, unsigned i)
+list_window_validate_index(const ListWindow *lw, unsigned i)
 {
 	if (lw->length == 0)
 		return 0;
@@ -75,7 +75,7 @@ list_window_validate_index(const struct list_window *lw, unsigned i)
 }
 
 static void
-list_window_check_selected(struct list_window *lw)
+list_window_check_selected(ListWindow *lw)
 {
 	lw->selected = list_window_validate_index(lw, lw->selected);
 
@@ -89,13 +89,13 @@ list_window_check_selected(struct list_window *lw)
  * window was resized.
  */
 static void
-list_window_check_origin(struct list_window *lw)
+list_window_check_origin(ListWindow *lw)
 {
 	list_window_scroll_to(lw, lw->selected);
 }
 
 void
-list_window_resize(struct list_window *lw, unsigned width, unsigned height)
+list_window_resize(ListWindow *lw, unsigned width, unsigned height)
 {
 	lw->cols = width;
 	lw->rows = height;
@@ -104,7 +104,7 @@ list_window_resize(struct list_window *lw, unsigned width, unsigned height)
 }
 
 void
-list_window_set_length(struct list_window *lw, unsigned length)
+list_window_set_length(ListWindow *lw, unsigned length)
 {
 	if (length == lw->length)
 		return;
@@ -116,7 +116,7 @@ list_window_set_length(struct list_window *lw, unsigned length)
 }
 
 void
-list_window_center(struct list_window *lw, unsigned n)
+list_window_center(ListWindow *lw, unsigned n)
 {
 	if (n > lw->rows / 2)
 		lw->start = n - lw->rows / 2;
@@ -132,7 +132,7 @@ list_window_center(struct list_window *lw, unsigned n)
 }
 
 void
-list_window_scroll_to(struct list_window *lw, unsigned n)
+list_window_scroll_to(ListWindow *lw, unsigned n)
 {
 	int start = lw->start;
 
@@ -157,7 +157,7 @@ list_window_scroll_to(struct list_window *lw, unsigned n)
 }
 
 void
-list_window_set_cursor(struct list_window *lw, unsigned i)
+list_window_set_cursor(ListWindow *lw, unsigned i)
 {
 	lw->range_selection = false;
 	lw->selected = i;
@@ -167,7 +167,7 @@ list_window_set_cursor(struct list_window *lw, unsigned i)
 }
 
 void
-list_window_move_cursor(struct list_window *lw, unsigned n)
+list_window_move_cursor(ListWindow *lw, unsigned n)
 {
 	lw->selected = n;
 
@@ -176,7 +176,7 @@ list_window_move_cursor(struct list_window *lw, unsigned n)
 }
 
 void
-list_window_fetch_cursor(struct list_window *lw)
+list_window_fetch_cursor(ListWindow *lw)
 {
 	if (lw->start > 0 &&
 	    lw->selected < lw->start + options.scroll_offset)
@@ -187,8 +187,8 @@ list_window_fetch_cursor(struct list_window *lw)
 }
 
 void
-list_window_get_range(const struct list_window *lw,
-		      struct list_window_range *range)
+list_window_get_range(const ListWindow *lw,
+		      ListWindowRange *range)
 {
 	if (lw->length == 0) {
 		/* empty list - no selection */
@@ -211,7 +211,7 @@ list_window_get_range(const struct list_window *lw,
 }
 
 static void
-list_window_next(struct list_window *lw)
+list_window_next(ListWindow *lw)
 {
 	if (lw->selected + 1 < lw->length)
 		list_window_move_cursor(lw, lw->selected + 1);
@@ -220,7 +220,7 @@ list_window_next(struct list_window *lw)
 }
 
 static void
-list_window_previous(struct list_window *lw)
+list_window_previous(ListWindow *lw)
 {
 	if (lw->selected > 0)
 		list_window_move_cursor(lw, lw->selected - 1);
@@ -229,7 +229,7 @@ list_window_previous(struct list_window *lw)
 }
 
 static void
-list_window_top(struct list_window *lw)
+list_window_top(ListWindow *lw)
 {
 	if (lw->start == 0)
 		list_window_move_cursor(lw, lw->start);
@@ -241,7 +241,7 @@ list_window_top(struct list_window *lw)
 }
 
 static void
-list_window_middle(struct list_window *lw)
+list_window_middle(ListWindow *lw)
 {
 	if (lw->length >= lw->rows)
 		list_window_move_cursor(lw, lw->start + lw->rows / 2);
@@ -250,7 +250,7 @@ list_window_middle(struct list_window *lw)
 }
 
 static void
-list_window_bottom(struct list_window *lw)
+list_window_bottom(ListWindow *lw)
 {
 	if (lw->length >= lw->rows)
 		if ((unsigned) options.scroll_offset * 2 >= lw->rows)
@@ -265,13 +265,13 @@ list_window_bottom(struct list_window *lw)
 }
 
 static void
-list_window_first(struct list_window *lw)
+list_window_first(ListWindow *lw)
 {
 	list_window_move_cursor(lw, 0);
 }
 
 static void
-list_window_last(struct list_window *lw)
+list_window_last(ListWindow *lw)
 {
 	if (lw->length > 0)
 		list_window_move_cursor(lw, lw->length - 1);
@@ -280,7 +280,7 @@ list_window_last(struct list_window *lw)
 }
 
 static void
-list_window_next_page(struct list_window *lw)
+list_window_next_page(ListWindow *lw)
 {
 	if (lw->rows < 2)
 		return;
@@ -291,7 +291,7 @@ list_window_next_page(struct list_window *lw)
 }
 
 static void
-list_window_previous_page(struct list_window *lw)
+list_window_previous_page(ListWindow *lw)
 {
 	if (lw->rows < 2)
 		return;
@@ -302,7 +302,7 @@ list_window_previous_page(struct list_window *lw)
 }
 
 static void
-list_window_scroll_up(struct list_window *lw, unsigned n)
+list_window_scroll_up(ListWindow *lw, unsigned n)
 {
 	if (lw->start > 0) {
 		if (n > lw->start)
@@ -315,7 +315,7 @@ list_window_scroll_up(struct list_window *lw, unsigned n)
 }
 
 static void
-list_window_scroll_down(struct list_window *lw, unsigned n)
+list_window_scroll_down(ListWindow *lw, unsigned n)
 {
 	if (lw->start + lw->rows < lw->length)
 	{
@@ -337,13 +337,13 @@ list_window_paint_row(WINDOW *w, unsigned width, bool selected,
 }
 
 void
-list_window_paint(const struct list_window *lw,
+list_window_paint(const ListWindow *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data)
 {
 	bool show_cursor = !lw->hide_cursor &&
 		(!options.hardware_cursor || lw->range_selection);
-	struct list_window_range range;
+	ListWindowRange range;
 
 	if (show_cursor)
 		list_window_get_range(lw, &range);
@@ -376,13 +376,13 @@ list_window_paint(const struct list_window *lw,
 }
 
 void
-list_window_paint2(const struct list_window *lw,
+list_window_paint2(const ListWindow *lw,
 		   list_window_paint_callback_t paint_callback,
 		   const void *callback_data)
 {
 	bool show_cursor = !lw->hide_cursor &&
 		(!options.hardware_cursor || lw->range_selection);
-	struct list_window_range range;
+	ListWindowRange range;
 
 	if (show_cursor)
 		list_window_get_range(lw, &range);
@@ -411,7 +411,7 @@ list_window_paint2(const struct list_window *lw,
 }
 
 bool
-list_window_find(struct list_window *lw,
+list_window_find(ListWindow *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str,
@@ -449,7 +449,7 @@ list_window_find(struct list_window *lw,
 }
 
 bool
-list_window_rfind(struct list_window *lw,
+list_window_rfind(ListWindow *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data,
 		  const char *str,
@@ -489,7 +489,7 @@ list_window_rfind(struct list_window *lw,
 
 #ifdef NCMPC_MINI
 bool
-list_window_jump(struct list_window *lw,
+list_window_jump(ListWindow *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str)
@@ -509,7 +509,7 @@ list_window_jump(struct list_window *lw,
 }
 #else
 bool
-list_window_jump(struct list_window *lw,
+list_window_jump(ListWindow *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str)
@@ -537,7 +537,7 @@ list_window_jump(struct list_window *lw,
 
 /* perform basic list window commands (movement) */
 bool
-list_window_cmd(struct list_window *lw, command_t cmd)
+list_window_cmd(ListWindow *lw, command_t cmd)
 {
 	switch (cmd) {
 	case CMD_LIST_PREVIOUS:
@@ -600,7 +600,7 @@ list_window_cmd(struct list_window *lw, command_t cmd)
 }
 
 bool
-list_window_scroll_cmd(struct list_window *lw, command_t cmd)
+list_window_scroll_cmd(ListWindow *lw, command_t cmd)
 {
 	switch (cmd) {
 	case CMD_LIST_SCROLL_UP_LINE:
@@ -669,7 +669,7 @@ list_window_scroll_cmd(struct list_window *lw, command_t cmd)
 
 #ifdef HAVE_GETMOUSE
 bool
-list_window_mouse(struct list_window *lw, unsigned long bstate, int y)
+list_window_mouse(ListWindow *lw, unsigned long bstate, int y)
 {
 	assert(lw != nullptr);
 

@@ -36,7 +36,7 @@ typedef void
 				bool selected,
 				const void *data);
 
-struct list_window {
+struct ListWindow {
 	WINDOW *w;
 	unsigned rows, cols;
 
@@ -64,7 +64,7 @@ struct list_window {
 /**
  * The bounds of a range selection, see list_window_get_range().
  */
-struct list_window_range {
+struct ListWindowRange {
 	/**
 	 * The index of the first selected item.
 	 */
@@ -78,41 +78,41 @@ struct list_window_range {
 };
 
 /* create a new list window */
-struct list_window *list_window_init(WINDOW *w,
-				     unsigned width, unsigned height);
+ListWindow *
+list_window_init(WINDOW *w, unsigned width, unsigned height);
 
 /* destroy a list window */
-void list_window_free(struct list_window *lw);
+void list_window_free(ListWindow *lw);
 
 /* reset a list window (selected=0, start=0) */
-void list_window_reset(struct list_window *lw);
+void list_window_reset(ListWindow *lw);
 
 void
-list_window_resize(struct list_window *lw, unsigned width, unsigned height);
+list_window_resize(ListWindow *lw, unsigned width, unsigned height);
 
 void
-list_window_set_length(struct list_window *lw, unsigned length);
+list_window_set_length(ListWindow *lw, unsigned length);
 
 /* paint a list window */
-void list_window_paint(const struct list_window *lw,
+void list_window_paint(const ListWindow *lw,
 		       list_window_callback_fn_t callback,
 		       void *callback_data);
 
 void
-list_window_paint2(const struct list_window *lw,
+list_window_paint2(const ListWindow *lw,
 		   list_window_paint_callback_t paint_callback,
 		   const void *callback_data);
 
 /* perform basic list window commands (movement) */
 bool
-list_window_cmd(struct list_window *lw, command_t cmd);
+list_window_cmd(ListWindow *lw, command_t cmd);
 
 /**
  * Scroll the window.  Returns true if the command has been
  * consumed.
  */
 bool
-list_window_scroll_cmd(struct list_window *lw, command_t cmd);
+list_window_scroll_cmd(ListWindow *lw, command_t cmd);
 
 #ifdef HAVE_GETMOUSE
 /**
@@ -120,41 +120,41 @@ list_window_scroll_cmd(struct list_window *lw, command_t cmd);
  * Returns non-zero if the mouse event has been handled.
  */
 bool
-list_window_mouse(struct list_window *lw, unsigned long bstate, int y);
+list_window_mouse(ListWindow *lw, unsigned long bstate, int y);
 #endif
 
 /**
  * Centers the visible range around item n on the list.
  */
 void
-list_window_center(struct list_window *lw, unsigned n);
+list_window_center(ListWindow *lw, unsigned n);
 
 /**
  * Scrolls the view to item n, as if the cursor would have been moved
  * to the position.
  */
 void
-list_window_scroll_to(struct list_window *lw, unsigned n);
+list_window_scroll_to(ListWindow *lw, unsigned n);
 
 /**
  * Sets the position of the cursor.  Disables range selection.
  */
 void
-list_window_set_cursor(struct list_window *lw, unsigned i);
+list_window_set_cursor(ListWindow *lw, unsigned i);
 
 /**
  * Moves the cursor.  Modifies the range if range selection is
  * enabled.
  */
 void
-list_window_move_cursor(struct list_window *lw, unsigned n);
+list_window_move_cursor(ListWindow *lw, unsigned n);
 
 /**
  * Ensures that the cursor is visible on the screen, i.e. it is not
  * outside the current scrolling range.
  */
 void
-list_window_fetch_cursor(struct list_window *lw);
+list_window_fetch_cursor(ListWindow *lw);
 
 /**
  * Determines the lower and upper bound of the range selection.  If
@@ -162,12 +162,12 @@ list_window_fetch_cursor(struct list_window *lw);
  * length is 1).
  */
 void
-list_window_get_range(const struct list_window *lw,
-		      struct list_window_range *range);
+list_window_get_range(const ListWindow *lw,
+		      ListWindowRange *range);
 
 /* find a string in a list window */
 bool
-list_window_find(struct list_window *lw,
+list_window_find(ListWindow *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str,
@@ -176,7 +176,7 @@ list_window_find(struct list_window *lw,
 
 /* find a string in a list window (reversed) */
 bool
-list_window_rfind(struct list_window *lw,
+list_window_rfind(ListWindow *lw,
 		  list_window_callback_fn_t callback,
 		  void *callback_data,
 		  const char *str,
@@ -185,7 +185,7 @@ list_window_rfind(struct list_window *lw,
 
 /* find a string in a list window which begins with the given characters in *str */
 bool
-list_window_jump(struct list_window *lw,
+list_window_jump(ListWindow *lw,
 		 list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str);

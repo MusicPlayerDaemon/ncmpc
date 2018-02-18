@@ -174,7 +174,7 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 FileListEntry *
 browser_get_selected_entry(const struct screen_browser *browser)
 {
-	struct list_window_range range;
+	ListWindowRange range;
 
 	list_window_get_range(browser->lw, &range);
 
@@ -298,7 +298,7 @@ browser_select_entry(struct mpdclient *c, FileListEntry *entry,
 static bool
 browser_handle_select(struct screen_browser *browser, struct mpdclient *c)
 {
-	struct list_window_range range;
+	ListWindowRange range;
 	bool success = false;
 
 	list_window_get_range(browser->lw, &range);
@@ -314,7 +314,7 @@ browser_handle_select(struct screen_browser *browser, struct mpdclient *c)
 static bool
 browser_handle_add(struct screen_browser *browser, struct mpdclient *c)
 {
-	struct list_window_range range;
+	ListWindowRange range;
 	bool success = false;
 
 	list_window_get_range(browser->lw, &range);

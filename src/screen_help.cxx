@@ -196,7 +196,7 @@ static const struct help_text_row help_text[] = {
 #endif
 };
 
-static struct list_window *lw;
+static ListWindow *lw;
 
 static const char *
 list_callback(unsigned i, gcc_unused void *data)

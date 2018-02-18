@@ -58,7 +58,7 @@ static struct hscroll hscroll;
 static struct mpdclient_playlist *playlist;
 static int current_song_id = -1;
 static int selected_song_id = -1;
-static struct list_window *lw;
+static ListWindow *lw;
 static guint timer_hide_cursor_id;
 
 static struct queue_screen_data {
@@ -580,7 +580,7 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 
 	switch(cmd) {
 		const struct mpd_song *song;
-		struct list_window_range range;
+		ListWindowRange range;
 
 	case CMD_PLAY:
 		song = screen_queue_selected_song();

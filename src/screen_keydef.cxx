@@ -33,7 +33,7 @@
 #include <string.h>
 #include <glib.h>
 
-static struct list_window *lw;
+static ListWindow *lw;
 
 static command_definition_t *cmds = nullptr;
 

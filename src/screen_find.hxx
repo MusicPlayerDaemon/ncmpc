@@ -33,7 +33,7 @@
  * @return true if the command has been handled, false if not
  */
 bool
-screen_find(struct list_window *lw,
+screen_find(ListWindow *lw,
 	    command_t findcmd,
 	    list_window_callback_fn_t callback_fn,
 	    void *callback_data);
@@ -41,7 +41,7 @@ screen_find(struct list_window *lw,
 /* query user for a string and jump to the entry
  * which begins with this string while the users types */
 void
-screen_jump(struct list_window *lw,
+screen_jump(ListWindow *lw,
 	    list_window_callback_fn_t callback_fn, void *callback_data,
 	    list_window_paint_callback_t paint_callback, void *paint_data);
 

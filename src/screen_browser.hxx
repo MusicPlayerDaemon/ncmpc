@@ -28,11 +28,10 @@ struct mpdclient;
 struct mpdclient_playlist;
 class FileList;
 struct FileListEntry;
-struct list_window;
-struct list_window_state;
+struct ListWindow;
 
 struct screen_browser {
-	struct list_window *lw;
+	ListWindow *lw;
 
 	FileList *filelist;
 	const char *song_format;
