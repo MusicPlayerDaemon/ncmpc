@@ -217,7 +217,7 @@ list_callback(unsigned i, gcc_unused void *data)
 static void
 help_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	lw = list_window_init(w, cols, rows);
+	lw = new ListWindow(w, cols, rows);
 	lw->hide_cursor = true;
 	list_window_set_length(lw, G_N_ELEMENTS(help_text));
 }
@@ -231,7 +231,7 @@ help_resize(unsigned cols, unsigned rows)
 static void
 help_exit()
 {
-	list_window_free(lw);
+	delete lw;
 }
 
 

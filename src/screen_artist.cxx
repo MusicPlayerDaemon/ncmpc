@@ -289,7 +289,7 @@ reload_lists(struct mpdclient *c)
 static void
 screen_artist_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	browser.lw = list_window_init(w, cols, rows);
+	browser.lw = new ListWindow(w, cols, rows);
 	browser.song_format = options.list_format;
 	artist = nullptr;
 	album = nullptr;
@@ -299,7 +299,7 @@ static void
 screen_artist_quit()
 {
 	free_state();
-	list_window_free(browser.lw);
+	delete browser.lw;
 }
 
 static void

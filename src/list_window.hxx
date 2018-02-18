@@ -43,22 +43,25 @@ struct ListWindow {
 	/**
 	 * Number of items in this list.
 	 */
-	unsigned length;
+	unsigned length = 0;
 
-	unsigned start;
-	unsigned selected;
+	unsigned start = 0;
+	unsigned selected = 0;
 
 	/**
 	 * Represents the base item.
 	 */
-	unsigned range_base;
+	unsigned range_base = 0;
 
 	/**
 	 * Range selection activated?
 	 */
-	bool range_selection;
+	bool range_selection = false;
 
-	bool hide_cursor;
+	bool hide_cursor = false;
+
+	ListWindow(WINDOW *_w, unsigned _cols, unsigned _rows)
+		:w(_w), rows(_rows), cols(_cols) {}
 };
 
 /**
@@ -76,13 +79,6 @@ struct ListWindowRange {
 	 */
 	unsigned end;
 };
-
-/* create a new list window */
-ListWindow *
-list_window_init(WINDOW *w, unsigned width, unsigned height);
-
-/* destroy a list window */
-void list_window_free(ListWindow *lw);
 
 /* reset a list window (selected=0, start=0) */
 void list_window_reset(ListWindow *lw);

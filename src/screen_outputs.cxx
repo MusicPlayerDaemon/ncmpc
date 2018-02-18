@@ -125,7 +125,7 @@ fill_outputs_list(struct mpdclient *c)
 static void
 outputs_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	lw = list_window_init(w, cols, rows);
+	lw = new ListWindow(w, cols, rows);
 
 	mpd_outputs = g_ptr_array_new();
 }
@@ -139,7 +139,7 @@ outputs_resize(unsigned cols, unsigned rows)
 static void
 outputs_exit()
 {
-	list_window_free(lw);
+	delete lw;
 
 	g_ptr_array_free(mpd_outputs, true);
 }

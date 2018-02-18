@@ -37,7 +37,7 @@ screen_text_init(struct screen_text *text, WINDOW *w, unsigned cols, unsigned ro
 {
 	text->lines = g_ptr_array_new();
 
-	text->lw = list_window_init(w, cols, rows);
+	text->lw = new ListWindow(w, cols, rows);
 	text->lw->hide_cursor = true;
 }
 
@@ -50,7 +50,7 @@ screen_text_deinit(struct screen_text *text)
 	screen_text_clear(text);
 	g_ptr_array_free(text->lines, true);
 
-	list_window_free(text->lw);
+	delete text->lw;
 }
 
 static inline void

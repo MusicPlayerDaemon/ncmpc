@@ -35,25 +35,6 @@
 
 extern void screen_bell();
 
-ListWindow *
-list_window_init(WINDOW *w, unsigned width, unsigned height)
-{
-	auto *lw = g_new(ListWindow, 1);
-	lw->w = w;
-	lw->cols = width;
-	lw->rows = height;
-	lw->range_selection = false;
-	return lw;
-}
-
-void
-list_window_free(ListWindow *lw)
-{
-	assert(lw != nullptr);
-
-	g_free(lw);
-}
-
 void
 list_window_reset(ListWindow *lw)
 {

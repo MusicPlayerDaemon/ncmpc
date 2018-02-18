@@ -146,14 +146,14 @@ screen_song_init(WINDOW *w, unsigned cols, unsigned rows)
 
 	/* We will need at least 10 lines, so this saves 10 reallocations :) */
 	current.lines = g_ptr_array_sized_new(10);
-	lw = list_window_init(w, cols, rows);
+	lw = new ListWindow(w, cols, rows);
 	lw->hide_cursor = true;
 }
 
 static void
 screen_song_exit()
 {
-	list_window_free(lw);
+	delete lw;
 
 	screen_song_clear();
 

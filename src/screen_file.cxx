@@ -233,7 +233,7 @@ screen_file_init(WINDOW *w, unsigned cols, unsigned rows)
 {
 	current_path = g_strdup("");
 
-	browser.lw = list_window_init(w, cols, rows);
+	browser.lw = new ListWindow(w, cols, rows);
 	browser.song_format = options.list_format;
 }
 
@@ -247,7 +247,7 @@ static void
 screen_file_exit()
 {
 	delete browser.filelist;
-	list_window_free(browser.lw);
+	delete browser.lw;
 
 	g_free(current_path);
 }

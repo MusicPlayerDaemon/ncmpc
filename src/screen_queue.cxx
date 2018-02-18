@@ -300,7 +300,7 @@ handle_add_to_playlist(struct mpdclient *c)
 static void
 screen_queue_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	lw = list_window_init(w, cols, rows);
+	lw = new ListWindow(w, cols, rows);
 
 #ifndef NCMPC_MINI
 	if (options.scroll)
@@ -371,7 +371,7 @@ screen_queue_resize(unsigned cols, unsigned rows)
 static void
 screen_queue_exit()
 {
-	list_window_free(lw);
+	delete lw;
 	g_free(queue_screen.connection_name);
 }
 

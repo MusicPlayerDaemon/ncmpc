@@ -361,7 +361,7 @@ list_callback(unsigned idx, gcc_unused void *data)
 static void
 keydef_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	lw = list_window_init(w, cols, rows);
+	lw = new ListWindow(w, cols, rows);
 }
 
 static void
@@ -373,7 +373,7 @@ keydef_resize(unsigned cols, unsigned rows)
 static void
 keydef_exit()
 {
-	list_window_free(lw);
+	delete lw;
 	if (cmds)
 		g_free(cmds);
 	cmds = nullptr;

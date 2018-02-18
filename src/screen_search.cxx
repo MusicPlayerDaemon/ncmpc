@@ -368,7 +368,7 @@ search_new(struct mpdclient *c)
 static void
 screen_search_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	browser.lw = list_window_init(w, cols, rows);
+	browser.lw = new ListWindow(w, cols, rows);
 	if (options.search_format != nullptr) {
 		browser.song_format = options.search_format;
 	} else {
@@ -383,7 +383,7 @@ screen_search_quit()
 	if (search_history)
 		string_list_free(search_history);
 	delete browser.filelist;
-	list_window_free(browser.lw);
+	delete browser.lw;
 
 	if (pattern) {
 		g_free(pattern);
