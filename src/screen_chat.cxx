@@ -18,7 +18,6 @@
  */
 
 #include "screen_chat.hxx"
-
 #include "screen_interface.hxx"
 #include "screen_utils.hxx"
 #include "screen_status.hxx"
@@ -31,109 +30,111 @@
 #include <glib.h>
 #include <mpd/idle.h>
 
-static struct screen_text text; /* rename? */
 static const char chat_channel[] = "chat";
 
-static bool
-check_chat_support(struct mpdclient *c)
-{
-	static unsigned last_connection_id = 0;
-	static bool was_supported = false;
+class ChatPage final : public TextPage {
+	unsigned last_connection_id = 0;
+	bool was_supported = false;
 
+public:
+	ChatPage(WINDOW *w, unsigned cols, unsigned rows)
+		:TextPage(w, cols, rows) {}
+
+private:
+	bool CheckChatSupport(struct mpdclient &c);
+
+	void ProcessMessage(const struct mpd_message &message);
+
+public:
+	/* virtual methods from class Page */
+	void OnOpen(struct mpdclient &c) override;
+
+	void Update(struct mpdclient &c) override;
+	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+
+	const char *GetTitle(char *, size_t) const override {
+		return _("Chat");
+	}
+};
+
+bool
+ChatPage::CheckChatSupport(struct mpdclient &c)
+{
 	/* if we're using the same connection as the last time
 	   check_chat_support was called, we can use the cached information
 	   about whether chat is supported */
-	if (c->connection_id == last_connection_id)
+	if (c.connection_id == last_connection_id)
 		return was_supported;
 
-	last_connection_id = c->connection_id;
+	last_connection_id = c.connection_id;
 
-	if (c->connection == nullptr)
+	if (c.connection == nullptr)
 		return (was_supported = false);
 
-	if (mpd_connection_cmp_server_version(c->connection, 0, 17, 0) == -1) {
-		const unsigned *version = mpd_connection_get_server_version(c->connection);
+	if (mpd_connection_cmp_server_version(c.connection, 0, 17, 0) == -1) {
+		const unsigned *version = mpd_connection_get_server_version(c.connection);
 		char *str;
 
 		str = g_strdup_printf(
 			_("connected to MPD %u.%u.%u (you need at least \n"
 			  "version 0.17.0 to use the chat feature)"),
 			version[0], version[1], version[2]);
-		screen_text_append(&text, str);
+		Append(str);
 		g_free(str);
 
 		return (was_supported = false);
 	}
 
 	/* mpdclient_get_connection? */
-	if (!mpdclient_cmd_subscribe(c, chat_channel))
+	if (!mpdclient_cmd_subscribe(&c, chat_channel))
 		return (was_supported = false);
 	/* mpdclient_put_connection? */
 
 	return (was_supported = true);
 }
 
-static void
+static Page *
 screen_chat_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	screen_text_init(&text, w, cols, rows);
+	return new ChatPage(w, cols, rows);
 }
 
-static void
-screen_chat_exit()
+void
+ChatPage::OnOpen(struct mpdclient &c)
 {
-	screen_text_deinit(&text);
+	CheckChatSupport(c);
 }
 
-static void
-screen_chat_open(struct mpdclient *c)
+void
+ChatPage::ProcessMessage(const struct mpd_message &message)
 {
-	(void) check_chat_support(c);
-}
-
-static void
-screen_chat_resize(unsigned cols, unsigned rows)
-{
-	screen_text_resize(&text, cols, rows);
-}
-
-static void
-screen_chat_paint()
-{
-	screen_text_paint(&text);
-}
-
-static void
-process_message(struct mpd_message *message)
-{
-	assert(message != nullptr);
 	/* You'll have to move this out of screen_chat, if you want to use
 	   client-to-client messages anywhere else */
-	assert(g_strcmp0(mpd_message_get_channel(message), chat_channel) == 0);
+	assert(g_strcmp0(mpd_message_get_channel(&message), chat_channel) == 0);
 
-	char *message_text = utf8_to_locale(mpd_message_get_text(message));
-	screen_text_append(&text, message_text);
+	char *message_text = utf8_to_locale(mpd_message_get_text(&message));
+	Append(message_text);
 	g_free(message_text);
 
-	screen_chat_paint();
+	Paint();
 }
 
-static void
-screen_chat_update(struct mpdclient *c)
+void
+ChatPage::Update(struct mpdclient &c)
 {
-	if (check_chat_support(c) && (c->events & MPD_IDLE_MESSAGE)) {
-		if (!mpdclient_send_read_messages(c))
+	if (CheckChatSupport(c) && (c.events & MPD_IDLE_MESSAGE)) {
+		if (!mpdclient_send_read_messages(&c))
 			return;
 
 		struct mpd_message *message;
-		while ((message = mpdclient_recv_message(c)) != nullptr) {
-			process_message(message);
+		while ((message = mpdclient_recv_message(&c)) != nullptr) {
+			ProcessMessage(*message);
 			mpd_message_free(message);
 		}
 
-		mpdclient_finish_command(c);
+		mpdclient_finish_command(&c);
 
-		c->events &= ~MPD_IDLE_MESSAGE;
+		c.events &= ~MPD_IDLE_MESSAGE;
 	}
 }
 
@@ -167,10 +168,10 @@ screen_chat_send_message(struct mpdclient *c, char *msg)
 	g_free(full_msg);
 }
 
-static bool
-screen_chat_cmd(struct mpdclient *c, command_t cmd)
+bool
+ChatPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
-	if (screen_text_cmd(&text, c, cmd))
+	if (TextPage::OnCommand(c, cmd))
 		return true;
 
 	if (cmd == CMD_PLAY) {
@@ -180,8 +181,8 @@ screen_chat_cmd(struct mpdclient *c, command_t cmd)
 		if (message == nullptr)
 			return true;
 
-		if (check_chat_support(c))
-			screen_chat_send_message(c, message);
+		if (CheckChatSupport(c))
+			screen_chat_send_message(&c, message);
 		else
 			screen_status_message(_("Message could not be sent"));
 
@@ -193,23 +194,6 @@ screen_chat_cmd(struct mpdclient *c, command_t cmd)
 	return false;
 }
 
-static const char *
-screen_chat_title(gcc_unused char *s, gcc_unused size_t size)
-{
-	return _("Chat");
-}
-
 const struct screen_functions screen_chat = {
 	.init = screen_chat_init,
-	.exit = screen_chat_exit,
-	.open = screen_chat_open,
-	.close = nullptr,
-	.resize = screen_chat_resize,
-	.paint = screen_chat_paint,
-	.update = screen_chat_update,
-	.cmd = screen_chat_cmd,
-#ifdef HAVE_GETMOUSE
-	.mouse = nullptr,
-#endif
-	.get_title = screen_chat_title,
 };

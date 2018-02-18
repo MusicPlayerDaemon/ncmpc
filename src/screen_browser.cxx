@@ -45,6 +45,11 @@
 #define HIGHLIGHT  (0x01)
 #endif
 
+FileListPage::~FileListPage()
+{
+	delete filelist;
+}
+
 #ifndef NCMPC_MINI
 
 /* sync highlight flags with playlist */
@@ -172,35 +177,35 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 }
 
 FileListEntry *
-browser_get_selected_entry(const struct screen_browser *browser)
+FileListPage::GetSelectedEntry() const
 {
 	ListWindowRange range;
 
-	list_window_get_range(browser->lw, &range);
+	list_window_get_range(&lw, &range);
 
-	if (browser->filelist == nullptr ||
+	if (filelist == nullptr ||
 	    range.end <= range.start ||
 	    range.end > range.start + 1 ||
-	    range.start >= browser->filelist->size())
+	    range.start >= filelist->size())
 		return nullptr;
 
-	return &(*browser->filelist)[range.start];
+	return &(*filelist)[range.start];
 }
 
-static const struct mpd_entity *
-browser_get_selected_entity(const struct screen_browser *browser)
+const struct mpd_entity *
+FileListPage::GetSelectedEntity() const
 {
-	const auto *entry = browser_get_selected_entry(browser);
+	const auto *entry = GetSelectedEntry();
 
 	return entry != nullptr
 		? entry->entity
 		: nullptr;
 }
 
-static const struct mpd_song *
-browser_get_selected_song(const struct screen_browser *browser)
+const struct mpd_song *
+FileListPage::GetSelectedSong() const
 {
-	const auto *entity = browser_get_selected_entity(browser);
+	const auto *entity = GetSelectedEntity();
 
 	return entity != nullptr &&
 		mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG
@@ -208,20 +213,19 @@ browser_get_selected_song(const struct screen_browser *browser)
 		: nullptr;
 }
 
-static FileListEntry *
-browser_get_index(const struct screen_browser *browser, unsigned i)
+FileListEntry *
+FileListPage::GetIndex(unsigned i) const
 {
-	if (browser->filelist == nullptr ||
-	    i >= browser->filelist->size())
+	if (filelist == nullptr || i >= filelist->size())
 		return nullptr;
 
-	return &(*browser->filelist)[i];
+	return &(*filelist)[i];
 }
 
-static bool
-browser_handle_enter(struct screen_browser *browser, struct mpdclient *c)
+bool
+FileListPage::HandleEnter(struct mpdclient &c)
 {
-	auto *entry = browser_get_selected_entry(browser);
+	auto *entry = GetSelectedEntry();
 	if (entry == nullptr)
 		return false;
 
@@ -230,9 +234,9 @@ browser_handle_enter(struct screen_browser *browser, struct mpdclient *c)
 		return false;
 
 	if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST)
-		return load_playlist(c, mpd_entity_get_playlist(entity));
+		return load_playlist(&c, mpd_entity_get_playlist(entity));
 	else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG)
-		return enqueue_and_play(c, entry);
+		return enqueue_and_play(&c, entry);
 	return false;
 }
 
@@ -295,72 +299,72 @@ browser_select_entry(struct mpdclient *c, FileListEntry *entry,
 	return true;
 }
 
-static bool
-browser_handle_select(struct screen_browser *browser, struct mpdclient *c)
+bool
+FileListPage::HandleSelect(struct mpdclient &c)
 {
 	ListWindowRange range;
 	bool success = false;
 
-	list_window_get_range(browser->lw, &range);
+	list_window_get_range(&lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {
-		auto *entry = browser_get_index(browser, i);
+		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
-			success = browser_select_entry(c, entry, true);
+			success = browser_select_entry(&c, entry, true);
 	}
 
 	return range.end == range.start + 1 && success;
 }
 
-static bool
-browser_handle_add(struct screen_browser *browser, struct mpdclient *c)
+bool
+FileListPage::HandleAdd(struct mpdclient &c)
 {
 	ListWindowRange range;
 	bool success = false;
 
-	list_window_get_range(browser->lw, &range);
+	list_window_get_range(&lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {
-		auto *entry = browser_get_index(browser, i);
+		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
-			success = browser_select_entry(c, entry, false) ||
+			success = browser_select_entry(&c, entry, false) ||
 				success;
 	}
 
 	return range.end == range.start + 1 && success;
 }
 
-static void
-browser_handle_select_all(struct screen_browser *browser, struct mpdclient *c)
+void
+FileListPage::HandleSelectAll(struct mpdclient &c)
 {
-	if (browser->filelist == nullptr)
+	if (filelist == nullptr)
 		return;
 
-	for (unsigned i = 0; i < browser->filelist->size(); ++i) {
-		auto &entry = (*browser->filelist)[i];
+	for (unsigned i = 0; i < filelist->size(); ++i) {
+		auto &entry = (*filelist)[i];
 
 		if (entry.entity != nullptr)
-			browser_select_entry(c, &entry, false);
+			browser_select_entry(&c, &entry, false);
 	}
 }
 
 #ifdef HAVE_GETMOUSE
 
 bool
-browser_mouse(struct screen_browser *browser,
-	      struct mpdclient *c, gcc_unused int x, int row, mmask_t bstate)
+FileListPage::OnMouse(struct mpdclient &c, gcc_unused int x, int row,
+		      mmask_t bstate)
 {
-	unsigned prev_selected = browser->lw->selected;
+	unsigned prev_selected = lw.selected;
 
-	if (list_window_mouse(browser->lw, bstate, row))
+	if (list_window_mouse(&lw, bstate, row))
 		return true;
 
-	list_window_set_cursor(browser->lw, browser->lw->start + row);
+	list_window_set_cursor(&lw, lw.start + row);
 
 	if( bstate & BUTTON1_CLICKED ) {
-		if (prev_selected == browser->lw->selected)
-			browser_handle_enter(browser, c);
+		if (prev_selected == lw.selected)
+			HandleEnter(c);
 	} else if (bstate & BUTTON3_CLICKED) {
-		if (prev_selected == browser->lw->selected)
-			browser_handle_select(browser, c);
+		if (prev_selected == lw.selected)
+			HandleSelect(c);
 	}
 
 	return true;
@@ -368,18 +372,13 @@ browser_mouse(struct screen_browser *browser,
 
 #endif
 
-static void
-screen_browser_paint_callback(WINDOW *w, unsigned i, unsigned y,
-			      unsigned width, bool selected, const void *data);
-
 bool
-browser_cmd(struct screen_browser *browser,
-	    struct mpdclient *c, command_t cmd)
+FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
-	if (browser->filelist == nullptr)
+	if (filelist == nullptr)
 		return false;
 
-	if (list_window_cmd(browser->lw, cmd))
+	if (list_window_cmd(&lw, cmd))
 		return true;
 
 	switch (cmd) {
@@ -391,72 +390,71 @@ browser_cmd(struct screen_browser *browser,
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(browser->lw, cmd, browser_lw_callback,
-			    browser->filelist);
+		screen_find(&lw, cmd, browser_lw_callback, filelist);
 		return true;
 	case CMD_LIST_JUMP:
-		screen_jump(browser->lw,
-			    browser_lw_callback, browser->filelist,
-			    screen_browser_paint_callback, browser);
+		screen_jump(&lw,
+			    browser_lw_callback, filelist,
+			    PaintRow, this);
 		return true;
 
 #ifdef ENABLE_SONG_SCREEN
 	case CMD_SCREEN_SONG:
-		song = browser_get_selected_song(browser);
+		song = GetSelectedSong();
 		if (song == nullptr)
 			return false;
 
-		screen_song_switch(c, song);
+		screen_song_switch(&c, song);
 		return true;
 #endif
 
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
-		song = browser_get_selected_song(browser);
+		song = GetSelectedSong();
 		if (song == nullptr)
 			return false;
 
-		screen_lyrics_switch(c, song, false);
+		screen_lyrics_switch(&c, song, false);
 		return true;
 #endif
 	case CMD_SCREEN_SWAP:
-		screen.Swap(c, browser_get_selected_song(browser));
+		screen.Swap(&c, GetSelectedSong());
 		return true;
 
 	default:
 		break;
 	}
 
-	if (!mpdclient_is_connected(c))
+	if (!mpdclient_is_connected(&c))
 		return false;
 
 	switch (cmd) {
 		const struct mpd_song *song;
 
 	case CMD_PLAY:
-		browser_handle_enter(browser, c);
+		HandleEnter(c);
 		return true;
 
 	case CMD_SELECT:
-		if (browser_handle_select(browser, c))
-			list_window_cmd(browser->lw, CMD_LIST_NEXT);
+		if (HandleSelect(c))
+			list_window_cmd(&lw, CMD_LIST_NEXT);
 		return true;
 
 	case CMD_ADD:
-		if (browser_handle_add(browser, c))
-			list_window_cmd(browser->lw, CMD_LIST_NEXT);
+		if (HandleAdd(c))
+			list_window_cmd(&lw, CMD_LIST_NEXT);
 		return true;
 
 	case CMD_SELECT_ALL:
-		browser_handle_select_all(browser, c);
+		HandleSelectAll(c);
 		return true;
 
 	case CMD_LOCATE:
-		song = browser_get_selected_song(browser);
+		song = GetSelectedSong();
 		if (song == nullptr)
 			return false;
 
-		screen_file_goto_song(c, song);
+		screen_file_goto_song(&c, song);
 		return true;
 
 	default:
@@ -487,18 +485,17 @@ screen_browser_paint_playlist(WINDOW *w, unsigned width,
 	row_paint_text(w, width, COLOR_PLAYLIST, selected, name);
 }
 
-static void
-screen_browser_paint_callback(WINDOW *w, unsigned i,
-			      unsigned y, unsigned width,
-			      bool selected, const void *data)
+void
+FileListPage::PaintRow(WINDOW *w, unsigned i,
+		       unsigned y, unsigned width,
+		       bool selected, const void *data)
 {
-	const auto *browser = (const struct screen_browser *) data;
+	const auto &page = *(const FileListPage *) data;
 
-	assert(browser != nullptr);
-	assert(browser->filelist != nullptr);
-	assert(i < browser->filelist->size());
+	assert(page.filelist != nullptr);
+	assert(i < page.filelist->size());
 
-	const auto &entry = (*browser->filelist)[i];
+	const auto &entry = (*page.filelist)[i];
 	const struct mpd_entity *entity = entry.entity;
 	if (entity == nullptr) {
 		screen_browser_paint_directory(w, width, selected, "..");
@@ -525,7 +522,8 @@ screen_browser_paint_callback(WINDOW *w, unsigned i,
 
 	case MPD_ENTITY_TYPE_SONG:
 		paint_song_row(w, y, width, selected, highlight,
-			       mpd_entity_get_song(entity), nullptr, browser->song_format);
+			       mpd_entity_get_song(entity), nullptr,
+			       page.song_format);
 		break;
 
 	case MPD_ENTITY_TYPE_PLAYLIST:
@@ -542,8 +540,7 @@ screen_browser_paint_callback(WINDOW *w, unsigned i,
 }
 
 void
-screen_browser_paint(const struct screen_browser *browser)
+FileListPage::Paint() const
 {
-	list_window_paint2(browser->lw, screen_browser_paint_callback,
-			   browser);
+	list_window_paint2(&lw, PaintRow, this);
 }

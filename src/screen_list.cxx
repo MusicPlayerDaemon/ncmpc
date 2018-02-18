@@ -66,39 +66,6 @@ static const struct
 #endif
 };
 
-void
-screen_list_init(WINDOW *w, unsigned cols, unsigned rows)
-{
-	for (unsigned i = 0; i < G_N_ELEMENTS(screens); ++i) {
-		const struct screen_functions *sf = screens[i].functions;
-
-		if (sf->init)
-			sf->init(w, cols, rows);
-	}
-}
-
-void
-screen_list_exit()
-{
-	for (unsigned i = 0; i < G_N_ELEMENTS(screens); ++i) {
-		const struct screen_functions *sf = screens[i].functions;
-
-		if (sf->exit)
-			sf->exit();
-	}
-}
-
-void
-screen_list_resize(unsigned cols, unsigned rows)
-{
-	for (unsigned i = 0; i < G_N_ELEMENTS(screens); ++i) {
-		const struct screen_functions *sf = screens[i].functions;
-
-		if (sf->resize)
-			sf->resize(cols, rows);
-	}
-}
-
 const char *
 screen_get_name(const struct screen_functions *sf)
 {

@@ -19,7 +19,6 @@
 
 #include "screen_file.hxx"
 #include "screen_browser.hxx"
-#include "screen_interface.hxx"
 #include "screen_status.hxx"
 #include "save_playlist.hxx"
 #include "screen.hxx"
@@ -39,11 +38,60 @@
 #include <string.h>
 #include <glib.h>
 
-static struct screen_browser browser;
-static char *current_path;
+class FileBrowserPage final : public FileListPage {
+	char *current_path = g_strdup("");
+
+public:
+	FileBrowserPage(WINDOW *_w, unsigned _cols, unsigned _rows)
+		:FileListPage(_w, _cols, _rows,
+			      options.list_format) {}
+
+	~FileBrowserPage() override {
+		g_free(current_path);
+	}
+
+	bool GotoSong(struct mpdclient &c, const struct mpd_song &song);
+
+private:
+	void Reload(struct mpdclient &c);
+
+	/**
+	 * Change to the specified absolute directory.
+	 */
+	bool ChangeDirectory(struct mpdclient &c, const char *new_path);
+
+	/**
+	 * Change to the parent directory of the current directory.
+	 */
+	bool ChangeToParent(struct mpdclient &c);
+
+	/**
+	 * Change to the directory referred by the specified
+	 * #FileListEntry object.
+	 */
+	bool ChangeToEntry(struct mpdclient &c, const FileListEntry &entry);
+
+	bool HandleEnter(struct mpdclient &c);
+	void HandleSave(struct mpdclient &c);
+	void HandleDelete(struct mpdclient &c);
+
+public:
+	/* virtual methods from class Page */
+	void OnOpen(struct mpdclient &c) override;
+	void Update(struct mpdclient &c) override;
+	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+
+#ifdef HAVE_GETMOUSE
+	bool OnMouse(struct mpdclient &c, int x, int y,
+		     mmask_t bstate) override;
+#endif
+
+	const char *GetTitle(char *s, size_t size) const override;
+};
 
 static void
-screen_file_load_list(struct mpdclient *c, FileList *filelist)
+screen_file_load_list(struct mpdclient *c, const char *current_path,
+		      FileList *filelist)
 {
 	auto *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
@@ -56,44 +104,38 @@ screen_file_load_list(struct mpdclient *c, FileList *filelist)
 		filelist->Sort();
 }
 
-static void
-screen_file_reload(struct mpdclient *c)
+void
+FileBrowserPage::Reload(struct mpdclient &c)
 {
-	delete browser.filelist;
+	delete filelist;
 
-	browser.filelist = new FileList();
+	filelist = new FileList();
 	if (*current_path != 0)
 		/* add a dummy entry for ./.. */
-		browser.filelist->emplace_back(nullptr);
+		filelist->emplace_back(nullptr);
 
-	screen_file_load_list(c, browser.filelist);
+	screen_file_load_list(&c, current_path, filelist);
 
-	list_window_set_length(browser.lw, browser.filelist->size());
+	list_window_set_length(&lw, filelist->size());
 }
 
-/**
- * Change to the specified absolute directory.
- */
-static bool
-change_directory(struct mpdclient *c, const char *new_path)
+bool
+FileBrowserPage::ChangeDirectory(struct mpdclient &c, const char *new_path)
 {
 	g_free(current_path);
 	current_path = g_strdup(new_path);
 
-	screen_file_reload(c);
+	Reload(c);
 
-	screen_browser_sync_highlights(browser.filelist, &c->playlist);
+	screen_browser_sync_highlights(filelist, &c.playlist);
 
-	list_window_reset(browser.lw);
+	list_window_reset(&lw);
 
-	return browser.filelist != nullptr;
+	return filelist != nullptr;
 }
 
-/**
- * Change to the parent directory of the current directory.
- */
-static bool
-change_to_parent(struct mpdclient *c)
+bool
+FileBrowserPage::ChangeToParent(struct mpdclient &c)
 {
 	char *parent = g_path_get_dirname(current_path);
 	if (strcmp(parent, ".") == 0)
@@ -102,18 +144,18 @@ change_to_parent(struct mpdclient *c)
 	char *old_path = current_path;
 	current_path = nullptr;
 
-	bool success = change_directory(c, parent);
+	bool success = ChangeDirectory(c, parent);
 	g_free(parent);
 
 	int idx = success
-		? browser.filelist->FindDirectory(old_path)
+		? filelist->FindDirectory(old_path)
 		: -1;
 	g_free(old_path);
 
 	if (success && idx >= 0) {
 		/* set the cursor on the previous working directory */
-		list_window_set_cursor(browser.lw, idx);
-		list_window_center(browser.lw, idx);
+		list_window_set_cursor(&lw, idx);
+		list_window_center(&lw, idx);
 	}
 
 	return success;
@@ -123,42 +165,70 @@ change_to_parent(struct mpdclient *c)
  * Change to the directory referred by the specified #FileListEntry
  * object.
  */
-static bool
-change_to_entry(struct mpdclient *c, const FileListEntry *entry)
+bool
+FileBrowserPage::ChangeToEntry(struct mpdclient &c, const FileListEntry &entry)
 {
-	assert(entry != nullptr);
-
-	if (entry->entity == nullptr)
-		return change_to_parent(c);
-	else if (mpd_entity_get_type(entry->entity) == MPD_ENTITY_TYPE_DIRECTORY)
-		return change_directory(c, mpd_directory_get_path(mpd_entity_get_directory(entry->entity)));
+	if (entry.entity == nullptr)
+		return ChangeToParent(c);
+	else if (mpd_entity_get_type(entry.entity) == MPD_ENTITY_TYPE_DIRECTORY)
+		return ChangeDirectory(c, mpd_directory_get_path(mpd_entity_get_directory(entry.entity)));
 	else
 		return false;
 }
 
-static bool
-screen_file_handle_enter(struct mpdclient *c)
+bool
+FileBrowserPage::GotoSong(struct mpdclient &c, const struct mpd_song &song)
 {
-	const auto *entry = browser_get_selected_entry(&browser);
+	const char *uri = mpd_song_get_uri(&song);
+	if (strstr(uri, "//") != nullptr)
+		/* an URL? */
+		return false;
 
+	/* determine the song's parent directory and go there */
+
+	const char *slash = strrchr(uri, '/');
+	char *allocated = nullptr;
+	const char *parent = slash != nullptr
+		? (allocated = g_strndup(uri, slash - uri))
+		: "";
+
+	bool ret = ChangeDirectory(c, parent);
+	g_free(allocated);
+	if (!ret)
+		return false;
+
+	/* select the specified song */
+
+	int i = filelist->FindSong(song);
+	if (i < 0)
+		i = 0;
+
+	list_window_set_cursor(&lw, i);
+	return true;
+}
+
+bool
+FileBrowserPage::HandleEnter(struct mpdclient &c)
+{
+	const auto *entry = GetSelectedEntry();
 	if (entry == nullptr)
 		return false;
 
-	return change_to_entry(c, entry);
+	return ChangeToEntry(c, *entry);
 }
 
-static void
-handle_save(struct mpdclient *c)
+void
+FileBrowserPage::HandleSave(struct mpdclient &c)
 {
 	ListWindowRange range;
 	const char *defaultname = nullptr;
 
-	list_window_get_range(browser.lw, &range);
+	list_window_get_range(&lw, &range);
 	if (range.start == range.end)
 		return;
 
 	for (unsigned i = range.start; i < range.end; ++i) {
-		auto &entry = (*browser.filelist)[i];
+		auto &entry = (*filelist)[i];
 		if (entry.entity) {
 			struct mpd_entity *entity = entry.entity;
 			if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
@@ -172,22 +242,22 @@ handle_save(struct mpdclient *c)
 	char *defaultname_utf8 = nullptr;
 	if(defaultname)
 		defaultname_utf8 = utf8_to_locale(defaultname);
-	playlist_save(c, nullptr, defaultname_utf8);
+	playlist_save(&c, nullptr, defaultname_utf8);
 	g_free(defaultname_utf8);
 }
 
-static void
-handle_delete(struct mpdclient *c)
+void
+FileBrowserPage::HandleDelete(struct mpdclient &c)
 {
-	auto *connection = mpdclient_get_connection(c);
+	auto *connection = mpdclient_get_connection(&c);
 
 	if (connection == nullptr)
 		return;
 
 	ListWindowRange range;
-	list_window_get_range(browser.lw, &range);
+	list_window_get_range(&lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {
-		auto &entry = (*browser.filelist)[i];
+		auto &entry = (*filelist)[i];
 		if (entry.entity == nullptr)
 			continue;
 
@@ -216,11 +286,11 @@ handle_delete(struct mpdclient *c)
 		}
 
 		if (!mpd_run_rm(connection, mpd_playlist_get_path(playlist))) {
-			mpdclient_handle_error(c);
+			mpdclient_handle_error(&c);
 			break;
 		}
 
-		c->events |= MPD_IDLE_STORED_PLAYLIST;
+		c.events |= MPD_IDLE_STORED_PLAYLIST;
 
 		/* translators: MPD deleted the playlist, as requested by the
 		   user */
@@ -228,39 +298,21 @@ handle_delete(struct mpdclient *c)
 	}
 }
 
-static void
+static Page *
 screen_file_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	current_path = g_strdup("");
-
-	browser.lw = new ListWindow(w, cols, rows);
-	browser.song_format = options.list_format;
+	return new FileBrowserPage(w, cols, rows);
 }
 
-static void
-screen_file_resize(unsigned cols, unsigned rows)
+void
+FileBrowserPage::OnOpen(struct mpdclient &c)
 {
-	list_window_resize(browser.lw, cols, rows);
+	Reload(c);
+	screen_browser_sync_highlights(filelist, &c.playlist);
 }
 
-static void
-screen_file_exit()
-{
-	delete browser.filelist;
-	delete browser.lw;
-
-	g_free(current_path);
-}
-
-static void
-screen_file_open(struct mpdclient *c)
-{
-	screen_file_reload(c);
-	screen_browser_sync_highlights(browser.filelist, &c->playlist);
-}
-
-static const char *
-screen_file_get_title(char *str, size_t size)
+const char *
+FileBrowserPage::GetTitle(char *str, size_t size) const
 {
 	const char *path = nullptr, *prev = nullptr, *slash = current_path;
 
@@ -282,49 +334,43 @@ screen_file_get_title(char *str, size_t size)
 	return str;
 }
 
-static void
-screen_file_paint()
+void
+FileBrowserPage::Update(struct mpdclient &c)
 {
-	screen_browser_paint(&browser);
-}
-
-static void
-screen_file_update(struct mpdclient *c)
-{
-	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST)) {
+	if (c.events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST)) {
 		/* the db has changed -> update the filelist */
-		screen_file_reload(c);
+		Reload(c);
 	}
 
-	if (c->events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST
+	if (c.events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST
 #ifndef NCMPC_MINI
-			 | MPD_IDLE_QUEUE
+			| MPD_IDLE_QUEUE
 #endif
-			 )) {
-		screen_browser_sync_highlights(browser.filelist, &c->playlist);
-		screen_file_paint();
+			)) {
+		screen_browser_sync_highlights(filelist, &c.playlist);
+		Paint();
 	}
 }
 
-static bool
-screen_file_cmd(struct mpdclient *c, command_t cmd)
+bool
+FileBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
 	switch(cmd) {
 	case CMD_PLAY:
-		if (screen_file_handle_enter(c)) {
-			screen_file_paint();
+		if (HandleEnter(c)) {
+			Paint();
 			return true;
 		}
 
 		break;
 
 	case CMD_GO_ROOT_DIRECTORY:
-		change_directory(c, "");
-		screen_file_paint();
+		ChangeDirectory(c, "");
+		Paint();
 		return true;
 	case CMD_GO_PARENT_DIRECTORY:
-		change_to_parent(c);
-		screen_file_paint();
+		ChangeToParent(c);
+		Paint();
 		return true;
 
 	case CMD_LOCATE:
@@ -334,36 +380,37 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 		return false;
 
 	case CMD_SCREEN_UPDATE:
-		screen_file_reload(c);
-		screen_browser_sync_highlights(browser.filelist, &c->playlist);
-		screen_file_paint();
+		Reload(c);
+		screen_browser_sync_highlights(filelist, &c.playlist);
+		Paint();
 		return false;
 
 	default:
 		break;
 	}
 
-	if (browser_cmd(&browser, c, cmd)) {
+	if (FileListPage::OnCommand(c, cmd)) {
+		// TODO: move to FileListPage::OnCommand()
 		if (screen.IsVisible(screen_browse))
-			screen_file_paint();
+			Paint();
 		return true;
 	}
 
-	if (!mpdclient_is_connected(c))
+	if (!mpdclient_is_connected(&c))
 		return false;
 
 	switch(cmd) {
 	case CMD_DELETE:
-		handle_delete(c);
-		screen_file_paint();
+		HandleDelete(c);
+		Paint();
 		break;
 
 	case CMD_SAVE_PLAYLIST:
-		handle_save(c);
+		HandleSave(c);
 		break;
 
 	case CMD_DB_UPDATE:
-		screen_database_update(c, current_path);
+		screen_database_update(&c, current_path);
 		return true;
 
 	default:
@@ -374,12 +421,13 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 }
 
 #ifdef HAVE_GETMOUSE
-static bool
-screen_file_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
+bool
+FileBrowserPage::OnMouse(struct mpdclient &c, int x, int y, mmask_t bstate)
 {
-	if (browser_mouse(&browser, c, x, y, bstate)) {
+	if (FileListPage::OnMouse(c, x, y, bstate)) {
+		// TODO: move to FileListPage::OnMouse()
 		if (screen.IsVisible(screen_browse))
-			screen_file_paint();
+			Paint();
 		return true;
 	}
 
@@ -389,53 +437,17 @@ screen_file_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
 
 const struct screen_functions screen_browse = {
 	.init = screen_file_init,
-	.exit = screen_file_exit,
-	.open = screen_file_open,
-	.close = nullptr,
-	.resize = screen_file_resize,
-	.paint = screen_file_paint,
-	.update = screen_file_update,
-	.cmd = screen_file_cmd,
-#ifdef HAVE_GETMOUSE
-	.mouse = screen_file_mouse,
-#endif
-	.get_title = screen_file_get_title,
 };
 
 bool
 screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song)
 {
-	const char *uri, *slash, *parent;
-	char *allocated = nullptr;
-
 	assert(song != nullptr);
 
-	uri = mpd_song_get_uri(song);
-
-	if (strstr(uri, "//") != nullptr)
-		/* an URL? */
+	auto pi = screen.MakePage(screen_browse);
+	auto &page = (FileBrowserPage &)*pi->second;
+	if (!page.GotoSong(*c, *song))
 		return false;
-
-	/* determine the song's parent directory and go there */
-
-	slash = strrchr(uri, '/');
-	if (slash != nullptr)
-		parent = allocated = g_strndup(uri, slash - uri);
-	else
-		parent = "";
-
-	bool ret = change_directory(c, parent);
-	g_free(allocated);
-	if (!ret)
-		return false;
-
-	/* select the specified song */
-
-	int i = browser.filelist->FindSong(*song);
-	if (i < 0)
-		i = 0;
-
-	list_window_set_cursor(browser.lw, i);
 
 	/* finally, switch to the file screen */
 	screen.Switch(screen_browse, c);

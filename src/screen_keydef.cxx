@@ -33,107 +33,145 @@
 #include <string.h>
 #include <glib.h>
 
-static ListWindow *lw;
+class KeyDefPage final : public Page {
+	ListWindow lw;
 
-static command_definition_t *cmds = nullptr;
+	command_definition_t *cmds = nullptr;
 
-/** the number of commands */
-static unsigned command_n_commands = 0;
+	/** the number of commands */
+	unsigned command_n_commands = 0;
 
-/**
- * the position of the "apply" item. It's the same as command_n_commands,
- * because array subscripts start at 0, while numbers of items start at 1.
- */
-gcc_pure
-static inline unsigned
-command_item_apply()
-{
-	return command_n_commands;
-}
+	/** lw.start the last time switch_to_subcmd_mode() was called */
+	unsigned saved_start = 0;
 
-/** the position of the "apply and save" item */
-gcc_pure
-static inline unsigned
-command_item_save()
-{
-	return command_item_apply() + 1;
-}
+	/**
+	 * The command being edited, represented by a array subscript
+	 * to @cmds, or -1, if no command is being edited
+	 */
+	int subcmd = -1;
 
-/** the number of items in the "command" view */
-gcc_pure
-static inline unsigned
-command_length()
-{
-	return command_item_save() + 1;
-}
+	/** The number of keys assigned to the current command */
+	unsigned subcmd_n_keys = 0;
 
+public:
+	KeyDefPage(WINDOW *w, unsigned cols, unsigned rows)
+		:lw(w, cols, rows) {}
 
-/**
- * The command being edited, represented by a array subscript to @cmds, or -1,
- * if no command is being edited
- */
-static int subcmd = -1;
+	~KeyDefPage() override {
+		g_free(cmds);
+	}
 
-/** The number of keys assigned to the current command */
-static unsigned subcmd_n_keys = 0;
+private:
+	/**
+	 * the position of the "apply" item. It's the same as command_n_commands,
+	 * because array subscripts start at 0, while numbers of items start at 1.
+	 */
+	gcc_pure
+	unsigned command_item_apply() const {
+		return command_n_commands;
+	}
 
-/** The position of the up ("[..]") item */
-gcc_const
-static inline unsigned
-subcmd_item_up()
-{
-	return 0;
-}
+	/** the position of the "apply and save" item */
+	gcc_pure
+	unsigned command_item_save() const {
+		return command_item_apply() + 1;
+	}
 
-/** The position of the "add a key" item */
-gcc_pure
-static inline unsigned
-subcmd_item_add()
-{
-	return subcmd_n_keys + 1;
-}
+	/** the number of items in the "command" view */
+	gcc_pure
+	unsigned command_length() const {
+		return command_item_save() + 1;
+	}
 
-/** The number of items in the list_window, if there's a command being edited */
-gcc_pure
-static inline unsigned
-subcmd_length()
-{
-	return subcmd_item_add() + 1;
-}
+	/** The position of the up ("[..]") item */
+	static constexpr unsigned subcmd_item_up() {
+		return 0;
+	}
 
-/** Check whether a given item is a key */
-gcc_pure
-static inline bool
-subcmd_item_is_key(unsigned i)
-{
-	return (i > subcmd_item_up() && i < subcmd_item_add());
-}
+	/** The position of the "add a key" item */
+	gcc_pure
+	unsigned subcmd_item_add() const {
+		return subcmd_n_keys + 1;
+	}
 
-/**
- * Convert an item id (as in lw->selected) into a "key id", which is an array
- * subscript to cmds[subcmd].keys.
- */
-gcc_const
-static inline unsigned
-subcmd_item_to_key_id(unsigned i)
-{
-	return i - 1;
-}
+	/** The number of items in the list_window, if there's a command being edited */
+	gcc_pure
+	unsigned subcmd_length() const {
+		return subcmd_item_add() + 1;
+	}
 
+	/** Check whether a given item is a key */
+	gcc_pure
+	bool subcmd_item_is_key(unsigned i) const {
+		return (i > subcmd_item_up() && i < subcmd_item_add());
+	}
 
-static int
-keybindings_changed()
+	/**
+	 * Convert an item id (as in lw.selected) into a "key id", which is an array
+	 * subscript to cmds[subcmd].keys.
+	 */
+	static constexpr unsigned subcmd_item_to_key_id(unsigned i) {
+		return i - 1;
+	}
+
+	/* TODO: rename to check_n_keys / subcmd_count_keys? */
+	void check_subcmd_length();
+
+	void SwitchToSubCommandMode(int cmd);
+	void SwitchToCommandMode();
+
+	/**
+	 * Delete a key from a given command's definition.
+	 *
+	 * @param cmd_index the command
+	 * @param key_index the key (see below)
+	 */
+	void DeleteKey(int cmd_index, int key_index);
+
+	/**
+	 * Assigns a new key to a key slot.
+	 */
+	void OverwriteKey(int cmd_index, int key_index);
+
+	/**
+	 * Assign a new key to a new slot.
+	 */
+	void AddKey(int cmd_index);
+
+	bool IsModified() const;
+	void Apply();
+	void Save();
+
+	const char *ListCallback(unsigned idx) const;
+
+	static const char *ListCallback(unsigned idx, void *data) {
+		const auto &p = *(const KeyDefPage *)data;
+		return p.ListCallback(idx);
+	}
+
+public:
+	/* virtual methods from class Page */
+	void OnOpen(struct mpdclient &c) override;
+	void OnClose() override;
+	void OnResize(unsigned cols, unsigned rows) override;
+	void Paint() const override;
+	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	const char *GetTitle(char *s, size_t size) const override;
+};
+
+bool
+KeyDefPage::IsModified() const
 {
 	command_definition_t *orginal_cmds = get_command_definitions();
 	size_t size = command_n_commands * sizeof(command_definition_t);
 
-	return memcmp(orginal_cmds, cmds, size);
+	return memcmp(orginal_cmds, cmds, size) != 0;
 }
 
-static void
-apply_keys()
+void
+KeyDefPage::Apply()
 {
-	if (keybindings_changed()) {
+	if (IsModified()) {
 		command_definition_t *orginal_cmds = get_command_definitions();
 		size_t size = command_n_commands * sizeof(command_definition_t);
 
@@ -143,8 +181,8 @@ apply_keys()
 		screen_status_printf(_("Keybindings unchanged."));
 }
 
-static int
-save_keys()
+void
+KeyDefPage::Save()
 {
 	char *allocated = nullptr;
 	const char *filename = options.key_file;
@@ -153,7 +191,7 @@ save_keys()
 			screen_status_printf(_("Error: Unable to create directory ~/.ncmpc - %s"),
 					     strerror(errno));
 			screen_bell();
-			return -1;
+			return;
 		}
 
 		filename = allocated = build_user_key_binding_filename();
@@ -164,7 +202,7 @@ save_keys()
 		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
 		screen_bell();
 		g_free(allocated);
-		return -1;
+		return;
 	}
 
 	if (write_key_bindings(f, KEYDEF_WRITE_HEADER))
@@ -173,12 +211,12 @@ save_keys()
 		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
 
 	g_free(allocated);
-	return fclose(f);
+	fclose(f);
 }
 
 /* TODO: rename to check_n_keys / subcmd_count_keys? */
-static void
-check_subcmd_length()
+void
+KeyDefPage::check_subcmd_length()
 {
 	unsigned i;
 
@@ -189,50 +227,39 @@ check_subcmd_length()
 			break;
 	subcmd_n_keys = i;
 
-	list_window_set_length(lw, subcmd_length());
+	list_window_set_length(&lw, subcmd_length());
 }
 
-static void
-keydef_paint();
-
-/** lw->start the last time switch_to_subcmd_mode() was called */
-static unsigned saved_start = 0;
-
-static void
-switch_to_subcmd_mode(int cmd)
+void
+KeyDefPage::SwitchToSubCommandMode(int cmd)
 {
 	assert(subcmd == -1);
 
-	saved_start = lw->start;
+	saved_start = lw.start;
 
 	subcmd = cmd;
-	list_window_reset(lw);
+	list_window_reset(&lw);
 	check_subcmd_length();
 
-	keydef_paint();
+	Paint();
 }
 
-static void
-switch_to_command_mode()
+void
+KeyDefPage::SwitchToCommandMode()
 {
 	assert(subcmd != -1);
 
-	list_window_set_length(lw, command_length());
-	list_window_set_cursor(lw, subcmd);
+	list_window_set_length(&lw, command_length());
+	list_window_set_cursor(&lw, subcmd);
 	subcmd = -1;
 
-	lw->start = saved_start;
+	lw.start = saved_start;
 
-	keydef_paint();
+	Paint();
 }
 
-/**
- * Delete a key from a given command's definition
- * @param cmd_index the command
- * @param key_index the key (see below)
- */
-static void
-delete_key(int cmd_index, int key_index)
+void
+KeyDefPage::DeleteKey(int cmd_index, int key_index)
 {
 	/* shift the keys to close the gap that appeared */
 	int i = key_index+1;
@@ -250,15 +277,14 @@ delete_key(int cmd_index, int key_index)
 	screen_status_printf(_("Deleted"));
 
 	/* repaint */
-	keydef_paint();
+	Paint();
 
 	/* update key conflict flags */
 	check_key_bindings(cmds, nullptr, 0);
 }
 
-/* assigns a new key to a key slot */
-static void
-overwrite_key(int cmd_index, int key_index)
+void
+KeyDefPage::OverwriteKey(int cmd_index, int key_index)
 {
 	assert(key_index < MAX_COMMAND_KEYS);
 
@@ -293,22 +319,21 @@ overwrite_key(int cmd_index, int key_index)
 	check_subcmd_length();
 
 	/* repaint */
-	keydef_paint();
+	Paint();
 
 	/* update key conflict flags */
 	check_key_bindings(cmds, nullptr, 0);
 }
 
-/* assign a new key to a new slot */
-static void
-add_key(int cmd_index)
+void
+KeyDefPage::AddKey(int cmd_index)
 {
 	if (subcmd_n_keys < MAX_COMMAND_KEYS)
-		overwrite_key(cmd_index, subcmd_n_keys);
+		OverwriteKey(cmd_index, subcmd_n_keys);
 }
 
-static const char *
-list_callback(unsigned idx, gcc_unused void *data)
+const char *
+KeyDefPage::ListCallback(unsigned idx) const
 {
 	static char buf[256];
 
@@ -358,30 +383,20 @@ list_callback(unsigned idx, gcc_unused void *data)
 	}
 }
 
-static void
+static Page *
 keydef_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	lw = new ListWindow(w, cols, rows);
+	return new KeyDefPage(w, cols, rows);
 }
 
-static void
-keydef_resize(unsigned cols, unsigned rows)
+void
+KeyDefPage::OnResize(unsigned cols, unsigned rows)
 {
-	list_window_resize(lw, cols, rows);
+	list_window_resize(&lw, cols, rows);
 }
 
-static void
-keydef_exit()
-{
-	delete lw;
-	if (cmds)
-		g_free(cmds);
-	cmds = nullptr;
-	lw = nullptr;
-}
-
-static void
-keydef_open(gcc_unused struct mpdclient *c)
+void
+KeyDefPage::OnOpen(gcc_unused struct mpdclient &c)
 {
 	if (cmds == nullptr) {
 		command_definition_t *current_cmds = get_command_definitions();
@@ -397,21 +412,21 @@ keydef_open(gcc_unused struct mpdclient *c)
 	}
 
 	subcmd = -1;
-	list_window_set_length(lw, command_length());
+	list_window_set_length(&lw, command_length());
 }
 
-static void
-keydef_close()
+void
+KeyDefPage::OnClose()
 {
-	if (cmds && !keybindings_changed()) {
+	if (cmds && !IsModified()) {
 		g_free(cmds);
 		cmds = nullptr;
 	} else
 		screen_status_printf(_("Note: Did you forget to \'Apply\' your changes?"));
 }
 
-static const char *
-keydef_title(char *str, size_t size)
+const char *
+KeyDefPage::GetTitle(char *str, size_t size) const
 {
 	if (subcmd == -1)
 		return _("Edit key bindings");
@@ -420,70 +435,70 @@ keydef_title(char *str, size_t size)
 	return str;
 }
 
-static void
-keydef_paint()
+void
+KeyDefPage::Paint() const
 {
-	list_window_paint(lw, list_callback, nullptr);
+	list_window_paint(&lw, ListCallback, const_cast<KeyDefPage *>(this));
 }
 
-static bool
-keydef_cmd(gcc_unused struct mpdclient *c, command_t cmd)
+bool
+KeyDefPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
 {
 	if (cmd == CMD_LIST_RANGE_SELECT)
 		return false;
 
-	if (list_window_cmd(lw, cmd)) {
-		keydef_paint();
+	if (list_window_cmd(&lw, cmd)) {
+		Paint();
 		return true;
 	}
 
 	switch(cmd) {
 	case CMD_PLAY:
 		if (subcmd == -1) {
-			if (lw->selected == command_item_apply()) {
-				apply_keys();
-			} else if (lw->selected == command_item_save()) {
-				apply_keys();
-				save_keys();
+			if (lw.selected == command_item_apply()) {
+				Apply();
+			} else if (lw.selected == command_item_save()) {
+				Apply();
+				Save();
 			} else {
-				switch_to_subcmd_mode(lw->selected);
+				SwitchToSubCommandMode(lw.selected);
 			}
 		} else {
-			if (lw->selected == subcmd_item_up()) {
-				switch_to_command_mode();
-			} else if (lw->selected == subcmd_item_add()) {
-				add_key(subcmd);
+			if (lw.selected == subcmd_item_up()) {
+				SwitchToCommandMode();
+			} else if (lw.selected == subcmd_item_add()) {
+				AddKey(subcmd);
 			} else {
 				/* just to be sure ;-) */
-				assert(subcmd_item_is_key(lw->selected));
-				overwrite_key(subcmd, subcmd_item_to_key_id(lw->selected));
+				assert(subcmd_item_is_key(lw.selected));
+				OverwriteKey(subcmd, subcmd_item_to_key_id(lw.selected));
 			}
 		}
 		return true;
 	case CMD_GO_PARENT_DIRECTORY:
 	case CMD_GO_ROOT_DIRECTORY:
 		if (subcmd != -1)
-			switch_to_command_mode();
+			SwitchToCommandMode();
 		return true;
 	case CMD_DELETE:
-		if (subcmd != -1 && subcmd_item_is_key(lw->selected))
-			delete_key(subcmd, subcmd_item_to_key_id(lw->selected));
+		if (subcmd != -1 && subcmd_item_is_key(lw.selected))
+			DeleteKey(subcmd, subcmd_item_to_key_id(lw.selected));
 
 		return true;
 	case CMD_ADD:
 		if (subcmd != -1)
-			add_key(subcmd);
+			AddKey(subcmd);
 		return true;
 	case CMD_SAVE_PLAYLIST:
-		apply_keys();
-		save_keys();
+		Apply();
+		Save();
 		return true;
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(lw, cmd, list_callback, nullptr);
-		keydef_paint();
+		screen_find(&lw, cmd, ListCallback, this);
+		Paint();
 		return true;
 
 	default:
@@ -497,15 +512,4 @@ keydef_cmd(gcc_unused struct mpdclient *c, command_t cmd)
 
 const struct screen_functions screen_keydef = {
 	.init = keydef_init,
-	.exit = keydef_exit,
-	.open = keydef_open,
-	.close = keydef_close,
-	.resize = keydef_resize,
-	.paint = keydef_paint,
-	.update = nullptr,
-	.cmd = keydef_cmd,
-#ifdef HAVE_GETMOUSE
-	.mouse = nullptr,
-#endif
-	.get_title = keydef_title,
 };

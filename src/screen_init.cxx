@@ -41,10 +41,9 @@ static const unsigned SCREEN_MIN_ROWS = 5;
 void
 ScreenManager::Exit()
 {
-	if (current_page->close != nullptr)
-		current_page->close();
-
-	screen_list_exit();
+	current_page->second->OnClose();
+	current_page = pages.end();
+	pages.clear();
 
 	string_list_free(find_history);
 	g_free(buf);
@@ -95,7 +94,8 @@ ScreenManager::OnResize(struct mpdclient *c)
 	buf = (char *)g_malloc(cols);
 
 	/* resize all screens */
-	screen_list_resize(main_window.cols, main_window.rows);
+	for (auto &page : pages)
+		page.second->OnResize(main_window.cols, main_window.rows);
 
 	/* ? - without this the cursor becomes visible with aterm & Eterm */
 	curs_set(1);
@@ -128,7 +128,6 @@ ScreenManager::Init(struct mpdclient *c)
 		exit(EXIT_FAILURE);
 	}
 
-	current_page = &screen_queue;
 	buf = (char *)g_malloc(cols);
 	buf_size = cols;
 	findbuf = nullptr;
@@ -170,9 +169,6 @@ ScreenManager::Init(struct mpdclient *c)
 	}
 #endif
 
-	/* initialize screens */
-	screen_list_init(main_window.w, main_window.cols, main_window.rows);
-
-	if (current_page->open != nullptr)
-		current_page->open(c);
+	current_page = MakePage(screen_queue);
+	current_page->second->OnOpen(*c);
 }

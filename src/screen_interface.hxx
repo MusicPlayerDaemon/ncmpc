@@ -28,21 +28,22 @@
 
 struct mpdclient;
 
-struct screen_functions {
-	void (*init)(WINDOW *w, unsigned cols, unsigned rows);
-	void (*exit)();
-	void (*open)(struct mpdclient *c);
-	void (*close)();
-	void (*resize)(unsigned cols, unsigned rows);
-	void (*paint)();
-	void (*update)(struct mpdclient *c);
+class Page {
+public:
+	virtual ~Page() = default;
+	virtual void OnOpen(struct mpdclient &) {}
+	virtual void OnClose() {}
+	virtual void OnResize(unsigned cols, unsigned rows) = 0;
+	virtual void Paint() const = 0;
+	virtual void Update(struct mpdclient &) {}
 
 	/**
 	 * Handle a command.
 	 *
-	 * @returns true if the command should not be handled by the ncmpc core.
+	 * @returns true if the command should not be handled by the
+	 * ncmpc core
 	 */
-	bool (*cmd)(struct mpdclient *c, command_t cmd);
+	virtual bool OnCommand(struct mpdclient &c, command_t cmd) = 0;
 
 #ifdef HAVE_GETMOUSE
 	/**
@@ -51,10 +52,18 @@ struct screen_functions {
 	 * @return true if the event was handled (and should not be
 	 * handled by the ncmpc core)
 	 */
-	bool (*mouse)(struct mpdclient *c, int x, int y, mmask_t bstate);
+	virtual bool OnMouse(gcc_unused struct mpdclient &c,
+			     gcc_unused int x, gcc_unused int y,
+			     gcc_unused mmask_t bstate) {
+		return false;
+	}
 #endif
 
-	const char *(*get_title)(char *s, size_t size);
+	virtual const char *GetTitle(char *s, size_t size) const = 0;
+};
+
+struct screen_functions {
+	Page *(*init)(WINDOW *w, unsigned cols, unsigned rows);
 };
 
 #endif

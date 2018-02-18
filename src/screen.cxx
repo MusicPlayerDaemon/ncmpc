@@ -51,24 +51,38 @@ ScreenManager screen;
 
 static const struct screen_functions *mode_fn_prev = &screen_queue;
 
+ScreenManager::PageMap::iterator
+ScreenManager::MakePage(const struct screen_functions &sf)
+{
+	auto i = pages.find(&sf);
+	if (i != pages.end())
+		return i;
+
+	auto j = pages.emplace(&sf,
+			       sf.init(main_window.w,
+				       main_window.cols, main_window.rows));
+	assert(j.second);
+	return j.first;
+}
+
 void
 ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient *c)
 {
-	if (&sf == current_page)
+	if (&sf == current_page->first)
 		return;
 
-	mode_fn_prev = current_page;
+	auto page = MakePage(sf);
+
+	mode_fn_prev = &*screen.current_page->first;
 
 	/* close the old mode */
-	if (current_page->close != nullptr)
-		current_page->close();
+	screen.current_page->second->OnClose();
 
 	/* get functions for the new mode */
-	current_page = &sf;
+	screen.current_page = page;
 
 	/* open the new mode */
-	if (sf.open != nullptr)
-		sf.open(c);
+	page->second->OnOpen(*c);
 
 	Paint(c, true);
 }
@@ -113,7 +127,7 @@ screen_next_mode(struct mpdclient *c, int offset)
 	int max = g_strv_length(options.screen_list);
 
 	/* find current screen */
-	int current = find_configured_screen(screen_get_name(screen.current_page));
+	int current = find_configured_screen(screen_get_name(screen.current_page->first));
 	int next = current + offset;
 	if (next<0)
 		next = max-1;
@@ -196,8 +210,7 @@ ScreenManager::Update(struct mpdclient *c)
 #endif
 
 	/* update the main window */
-	if (current_page->update != nullptr)
-		current_page->update(c);
+	screen.current_page->second->Update(*c);
 
 	Paint(c, false);
 }
@@ -212,8 +225,7 @@ ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
 	}
 #endif
 
-	if (current_page->cmd != nullptr &&
-	    current_page->cmd(c, cmd))
+	if (screen.current_page->second->OnCommand(*c, cmd))
 		return;
 
 	if (handle_player_command(c, cmd))
@@ -298,20 +310,12 @@ ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
 
 #ifdef HAVE_GETMOUSE
 
-static bool
-screen_current_page_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
-{
-	if (screen.current_page->mouse == nullptr)
-		return false;
-
-	y -= screen.title_bar.window.rows;
-	return screen.current_page->mouse(c, x, y, bstate);
-}
-
 bool
 ScreenManager::OnMouse(struct mpdclient *c, int x, int y, mmask_t bstate)
 {
-	if (screen_current_page_mouse(c, x, y, bstate))
+	if (current_page->second->OnMouse(*c, x,
+					  y - screen.title_bar.window.rows,
+					  bstate))
 		return true;
 
 	/* if button 2 was pressed switch screen */

@@ -25,15 +25,6 @@
 
 struct screen_functions;
 
-void
-screen_list_init(WINDOW *w, unsigned cols, unsigned rows);
-
-void
-screen_list_exit();
-
-void
-screen_list_resize(unsigned cols, unsigned rows);
-
 const char *
 screen_get_name(const struct screen_functions *sf);
 

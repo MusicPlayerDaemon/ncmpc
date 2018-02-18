@@ -41,67 +41,105 @@
 #include <unistd.h>
 #include <stdio.h>
 
-static struct screen_text text;
-
 static struct mpd_song *next_song;
 static bool follow = false;
-/** Set if the cursor position shall be kept during the next lyrics update. */
-static bool reloading = false;
 
-static struct {
-	struct mpd_song *song;
+class LyricsPage final : public TextPage {
+	/** Set if the cursor position shall be kept during the next lyrics update. */
+	bool reloading = false;
 
-	char *artist, *title, *plugin_name;
+	struct mpd_song *song = nullptr;
 
-	struct plugin_cycle *loader;
+	char *artist = nullptr, *title = nullptr, *plugin_name = nullptr;
 
-	guint loader_timeout;
-} current;
+	struct plugin_cycle *loader = nullptr;
 
-static void
-screen_lyrics_abort()
-{
-	if (current.loader != nullptr) {
-		plugin_stop(current.loader);
-		current.loader = nullptr;
+	guint loader_timeout = 0;
+
+public:
+	LyricsPage(WINDOW *w, unsigned cols, unsigned rows)
+		:TextPage(w, cols, rows) {}
+
+	~LyricsPage() override {
+		Cancel();
 	}
 
-	if (current.loader_timeout != 0) {
-		g_source_remove(current.loader_timeout);
-		current.loader_timeout = 0;
-	}
+private:
+	void Cancel();
 
-	if (current.plugin_name != nullptr) {
-		g_free(current.plugin_name);
-		current.plugin_name = nullptr;
-	}
-
-	if (current.artist != nullptr) {
-		g_free(current.artist);
-		current.artist = nullptr;
-	}
-
-	if (current.title != nullptr) {
-		g_free(current.title);
-		current.title = nullptr;
-	}
-
-	if (current.song != nullptr) {
-		mpd_song_free(current.song);
-		current.song = nullptr;
-	}
-}
-
-/**
- * Repaint and update the screen, if it is currently active.
- */
-static void
-lyrics_repaint_if_active()
-{
-	if (screen.IsVisible(screen_lyrics)) {
-		screen_text_repaint(&text);
+	/**
+	 * Repaint and update the screen, if it is currently active.
+	 */
+	void RepaintIfActive() {
+		if (screen.IsVisible(screen_lyrics))
+			Repaint();
 
 		/* XXX repaint the screen title */
+	}
+
+	void Set(const GString *str);
+
+	void Load(const struct mpd_song *song);
+	void Reload();
+
+	bool Save();
+	bool Delete();
+
+	/** save current lyrics to a file and run editor on it */
+	void Edit();
+
+	static void PluginCallback(const GString *result, bool success,
+				   const char *plugin_name, void *data) {
+		auto &p = *(LyricsPage *)data;
+		p.PluginCallback(result, success, plugin_name);
+	}
+
+	void PluginCallback(const GString *result, bool success,
+			    const char *plugin_name);
+
+	static gboolean TimeoutCallback(gpointer data) {
+		auto &p = *(LyricsPage *)data;
+		p.TimeoutCallback();
+		return false;
+	}
+
+	void TimeoutCallback();
+
+public:
+	/* virtual methods from class Page */
+	void OnOpen(struct mpdclient &c) override;
+
+	void Update(struct mpdclient &c) override;
+	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+
+	const char *GetTitle(char *, size_t) const override;
+};
+
+void
+LyricsPage::Cancel()
+{
+	if (loader != nullptr) {
+		plugin_stop(loader);
+		loader = nullptr;
+	}
+
+	if (loader_timeout != 0) {
+		g_source_remove(loader_timeout);
+		loader_timeout = 0;
+	}
+
+	g_free(plugin_name);
+	plugin_name = nullptr;
+
+	g_free(artist);
+	artist = nullptr;
+
+	g_free(title);
+	title = nullptr;
+
+	if (song != nullptr) {
+		mpd_song_free(song);
+		song = nullptr;
 	}
 }
 
@@ -136,169 +174,147 @@ create_lyr_file(const char *artist, const char *title)
 	return fopen(path, "w");
 }
 
-static int
-store_lyr_hd()
+bool
+LyricsPage::Save()
 {
-	FILE *lyr_file = create_lyr_file(current.artist, current.title);
+	FILE *lyr_file = create_lyr_file(artist, title);
 	if (lyr_file == nullptr)
-		return -1;
+		return false;
 
-	for (unsigned i = 0; i < text.lines->len; ++i)
+	for (unsigned i = 0; i < lines->len; ++i)
 		fprintf(lyr_file, "%s\n",
-			(const char*)g_ptr_array_index(text.lines, i));
+			(const char *)g_ptr_array_index(lines, i));
 
 	fclose(lyr_file);
-	return 0;
+	return true;
 }
 
-static int
-delete_lyr_hd()
+bool
+LyricsPage::Delete()
 {
-	if (!exists_lyr_file(current.artist, current.title))
-		return -1;
+	if (!exists_lyr_file(artist, title))
+		return false;
 
 	char path[1024];
-	path_lyr_file(path, 1024, current.artist, current.title);
-	if (unlink(path) != 0)
-		return -2;
-
-	return 0;
+	path_lyr_file(path, 1024, artist, title);
+	return unlink(path) == 0;
 }
 
-static void
-screen_lyrics_set(const GString *str)
+void
+LyricsPage::Set(const GString *str)
 {
 	if (reloading) {
-		unsigned saved_start = text.lw->start;
+		unsigned saved_start = lw.start;
 
-		screen_text_set(&text, str->str);
+		TextPage::Set(str->str);
 
 		/* restore the cursor and ensure that it's still valid */
-		text.lw->start = saved_start;
-		list_window_fetch_cursor(text.lw);
+		lw.start = saved_start;
+		list_window_fetch_cursor(&lw);
 	} else {
-		screen_text_set(&text, str->str);
+		TextPage::Set(str->str);
 	}
 
 	reloading = false;
 
 	/* paint new data */
 
-	lyrics_repaint_if_active();
+	RepaintIfActive();
 }
 
-static void
-screen_lyrics_callback(const GString *result, const bool success,
-		       const char *plugin_name, gcc_unused void *data)
+inline void
+LyricsPage::PluginCallback(const GString *result, const bool success,
+			   const char *_plugin_name)
 {
-	assert(current.loader != nullptr);
+	assert(loader != nullptr);
 
-	current.plugin_name = g_strdup(plugin_name);
+	plugin_name = g_strdup(_plugin_name);
 
 	/* Display result, which may be lyrics or error messages */
 	if (result != nullptr)
-		screen_lyrics_set(result);
+		Set(result);
 
 	if (success == true) {
 		if (options.lyrics_autosave &&
-		    !exists_lyr_file(current.artist, current.title))
-			store_lyr_hd();
+		    !exists_lyr_file(artist, title))
+			Save();
 	} else {
 		/* translators: no lyrics were found for the song */
 		screen_status_message (_("No lyrics"));
 	}
 
-	if (current.loader_timeout != 0) {
-		g_source_remove(current.loader_timeout);
-		current.loader_timeout = 0;
+	if (loader_timeout != 0) {
+		g_source_remove(loader_timeout);
+		loader_timeout = 0;
 	}
 
-	plugin_stop(current.loader);
-	current.loader = nullptr;
+	plugin_stop(loader);
+	loader = nullptr;
 }
 
-static gboolean
-screen_lyrics_timeout_callback(gpointer gcc_unused data)
+inline void
+LyricsPage::TimeoutCallback()
 {
-	plugin_stop(current.loader);
-	current.loader = nullptr;
+	plugin_stop(loader);
+	loader = nullptr;
 
 	screen_status_printf(_("Lyrics timeout occurred after %d seconds"),
 			     options.lyrics_timeout);
 
-	current.loader_timeout = 0;
-	return false;
+	loader_timeout = 0;
 }
 
-static void
-screen_lyrics_load(const struct mpd_song *song)
+void
+LyricsPage::Load(const struct mpd_song *_song)
 {
-	assert(song != nullptr);
+	assert(_song != nullptr);
 
-	screen_lyrics_abort();
-	screen_text_clear(&text);
+	Cancel();
+	Clear();
 
-	const char *artist = mpd_song_get_tag(song, MPD_TAG_ARTIST, 0);
-	const char *title = mpd_song_get_tag(song, MPD_TAG_TITLE, 0);
+	const char *_artist = mpd_song_get_tag(_song, MPD_TAG_ARTIST, 0);
+	const char *_title = mpd_song_get_tag(_song, MPD_TAG_TITLE, 0);
 
-	current.song = mpd_song_dup(song);
-	current.artist = g_strdup(artist);
-	current.title = g_strdup(title);
+	song = mpd_song_dup(_song);
+	artist = g_strdup(_artist);
+	title = g_strdup(_title);
 
-	current.loader = lyrics_load(current.artist, current.title,
-				     screen_lyrics_callback, nullptr);
+	loader = lyrics_load(artist, title, PluginCallback, this);
 
 	if (options.lyrics_timeout != 0) {
-		current.loader_timeout =
-			g_timeout_add_seconds(options.lyrics_timeout,
-					      screen_lyrics_timeout_callback,
-					      nullptr);
+		loader_timeout = g_timeout_add_seconds(options.lyrics_timeout,
+						       TimeoutCallback,
+						       this);
 	}
 }
 
-static void
-screen_lyrics_reload()
+void
+LyricsPage::Reload()
 {
-	if (current.loader == nullptr && current.artist != nullptr &&
-	    current.title != nullptr) {
+	if (loader == nullptr && artist != nullptr && title != nullptr) {
 		reloading = true;
-		current.loader = lyrics_load(current.artist, current.title,
-					     screen_lyrics_callback, nullptr);
-		screen_text_repaint(&text);
+		loader = lyrics_load(artist, title, PluginCallback, nullptr);
+		Repaint();
 	}
 }
 
-static void
+static Page *
 lyrics_screen_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	screen_text_init(&text, w, cols, rows);
+	return new LyricsPage(w, cols, rows);
 }
 
-static void
-lyrics_resize(unsigned cols, unsigned rows)
-{
-	screen_text_resize(&text, cols, rows);
-}
-
-static void
-lyrics_exit()
-{
-	screen_lyrics_abort();
-
-	screen_text_deinit(&text);
-}
-
-static void
-lyrics_open(struct mpdclient *c)
+void
+LyricsPage::OnOpen(struct mpdclient &c)
 {
 	const struct mpd_song *next_song_c =
-		next_song != nullptr ? next_song : c->song;
+		next_song != nullptr ? next_song : c.song;
 
 	if (next_song_c != nullptr &&
-	    (current.song == nullptr ||
+	    (song == nullptr ||
 	     strcmp(mpd_song_get_uri(next_song_c),
-		    mpd_song_get_uri(current.song)) != 0))
-		screen_lyrics_load(next_song_c);
+		    mpd_song_get_uri(song)) != 0))
+		Load(next_song_c);
 
 	if (next_song != nullptr) {
 		mpd_song_free(next_song);
@@ -306,55 +322,46 @@ lyrics_open(struct mpdclient *c)
 	}
 }
 
-static void
-lyrics_update(struct mpdclient *c)
+void
+LyricsPage::Update(struct mpdclient &c)
 {
 	if (!follow)
 		return;
 
-	if (c->song != nullptr &&
-	    (current.song == nullptr ||
-	     strcmp(mpd_song_get_uri(c->song),
-		    mpd_song_get_uri(current.song)) != 0))
-		screen_lyrics_load(c->song);
+	if (c.song != nullptr &&
+	    (song == nullptr ||
+	     strcmp(mpd_song_get_uri(c.song),
+		    mpd_song_get_uri(song)) != 0))
+		Load(c.song);
 }
 
-static const char *
-lyrics_title(char *str, size_t size)
+const char *
+LyricsPage::GetTitle(char *str, size_t size) const
 {
-	if (current.loader != nullptr) {
+	if (loader != nullptr) {
 		snprintf(str, size, "%s (%s)",
 			 _("Lyrics"),
 			 /* translators: this message is displayed
 			    while data is retrieved */
 			 _("loading..."));
 		return str;
-	} else if (current.artist != nullptr && current.title != nullptr &&
-		   !screen_text_is_empty(&text)) {
+	} else if (artist != nullptr && title != nullptr && !IsEmpty()) {
 		int n;
 		n = snprintf(str, size, "%s: %s - %s",
 			     _("Lyrics"),
-			     current.artist, current.title);
+			     artist, title);
 
-		if (options.lyrics_show_plugin && current.plugin_name != nullptr &&
+		if (options.lyrics_show_plugin && plugin_name != nullptr &&
 		    (unsigned int) n < size - 1)
-			snprintf(str + n, size - n, " (%s)",
-				 current.plugin_name);
+			snprintf(str + n, size - n, " (%s)", plugin_name);
 
 		return str;
 	} else
 		return _("Lyrics");
 }
 
-static void
-lyrics_paint()
-{
-	screen_text_paint(&text);
-}
-
-/* save current lyrics to a file and run editor on it */
-static void
-lyrics_edit()
+void
+LyricsPage::Edit()
 {
 	char *editor = options.text_editor;
 	if (editor == nullptr) {
@@ -372,7 +379,7 @@ lyrics_edit()
 		}
 	}
 
-	if (store_lyr_hd() < 0)
+	if (!Save())
 		return;
 
 	ncu_deinit();
@@ -387,7 +394,7 @@ lyrics_edit()
 		return;
 	} else if (pid == 0) {
 		char path[1024];
-		path_lyr_file(path, sizeof(path), current.artist, current.title);
+		path_lyr_file(path, sizeof(path), artist, title);
 		execlp(editor, editor, path, nullptr);
 		/* exec failed, do what system does */
 		_exit(127);
@@ -404,7 +411,7 @@ lyrics_edit()
 	if (WIFEXITED(status)) {
 		if (WEXITSTATUS(status) == 0)
 			/* update to get the changes */
-			screen_lyrics_reload();
+			Reload();
 		else if (WEXITSTATUS(status) == 127)
 			screen_status_message(_("Can't start editor"));
 		else
@@ -416,67 +423,67 @@ lyrics_edit()
 	}
 }
 
-static bool
-lyrics_cmd(struct mpdclient *c, command_t cmd)
+bool
+LyricsPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
-	if (screen_text_cmd(&text, c, cmd))
+	if (TextPage::OnCommand(c, cmd))
 		return true;
 
 	switch(cmd) {
 	case CMD_INTERRUPT:
-		if (current.loader != nullptr) {
-			screen_lyrics_abort();
-			screen_text_clear(&text);
+		if (loader != nullptr) {
+			Cancel();
+			Clear();
 		}
 		return true;
 	case CMD_SAVE_PLAYLIST:
-		if (current.loader == nullptr && current.artist != nullptr &&
-		    current.title != nullptr && store_lyr_hd() == 0)
+		if (loader == nullptr && artist != nullptr &&
+		    title != nullptr && Save())
 			/* lyrics for the song were saved on hard disk */
 			screen_status_message (_("Lyrics saved"));
 		return true;
 	case CMD_DELETE:
-		if (current.loader == nullptr && current.artist != nullptr &&
-		    current.title != nullptr) {
-			switch (delete_lyr_hd()) {
-			case 0:
+		if (loader == nullptr && artist != nullptr &&
+		    title != nullptr) {
+			switch (Delete()) {
+			case true:
 				screen_status_message (_("Lyrics deleted"));
 				break;
-			case -1:
+			case false:
 				screen_status_message (_("No saved lyrics"));
 				break;
 			}
 		}
 		return true;
 	case CMD_LYRICS_UPDATE:
-		if (c->song != nullptr) {
-			screen_lyrics_load(c->song);
-			screen_text_paint(&text);
+		if (c.song != nullptr) {
+			Load(c.song);
+			Paint();
 		}
 		return true;
 	case CMD_EDIT:
-		lyrics_edit();
+		Edit();
 		return true;
 	case CMD_SELECT:
-		screen_lyrics_reload();
+		Reload();
 		return true;
 
 #ifdef ENABLE_SONG_SCREEN
 	case CMD_SCREEN_SONG:
-		if (current.song != nullptr) {
-			screen_song_switch(c, current.song);
+		if (song != nullptr) {
+			screen_song_switch(&c, song);
 			return true;
 		}
 
 		break;
 #endif
 	case CMD_SCREEN_SWAP:
-		screen.Swap(c, current.song);
+		screen.Swap(&c, song);
 		return true;
 
 	case CMD_LOCATE:
-		if (current.song != nullptr) {
-			screen_file_goto_song(c, current.song);
+		if (song != nullptr) {
+			screen_file_goto_song(&c, song);
 			return true;
 		}
 
@@ -491,17 +498,6 @@ lyrics_cmd(struct mpdclient *c, command_t cmd)
 
 const struct screen_functions screen_lyrics = {
 	.init = lyrics_screen_init,
-	.exit = lyrics_exit,
-	.open = lyrics_open,
-	.close = nullptr,
-	.resize = lyrics_resize,
-	.paint = lyrics_paint,
-	.update = lyrics_update,
-	.cmd = lyrics_cmd,
-#ifdef HAVE_GETMOUSE
-	.mouse = nullptr,
-#endif
-	.get_title = lyrics_title,
 };
 
 void

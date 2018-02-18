@@ -196,7 +196,29 @@ static const struct help_text_row help_text[] = {
 #endif
 };
 
-static ListWindow *lw;
+class HelpPage final : public Page {
+	ListWindow lw;
+
+public:
+	HelpPage(WINDOW *w, unsigned cols, unsigned rows)
+		:lw(w, cols, rows) {
+		lw.hide_cursor = true;
+		list_window_set_length(&lw, G_N_ELEMENTS(help_text));
+	}
+
+public:
+	/* virtual methods from class Page */
+	void OnResize(unsigned cols, unsigned rows) override {
+		list_window_resize(&lw, cols, rows);
+	}
+
+	void Paint() const override;
+	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+
+	const char *GetTitle(char *, size_t) const override {
+		return _("Help");
+	}
+};
 
 static const char *
 list_callback(unsigned i, gcc_unused void *data)
@@ -214,31 +236,10 @@ list_callback(unsigned i, gcc_unused void *data)
 	return "";
 }
 
-static void
+static Page *
 help_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	lw = new ListWindow(w, cols, rows);
-	lw->hide_cursor = true;
-	list_window_set_length(lw, G_N_ELEMENTS(help_text));
-}
-
-static void
-help_resize(unsigned cols, unsigned rows)
-{
-	list_window_resize(lw, cols, rows);
-}
-
-static void
-help_exit()
-{
-	delete lw;
-}
-
-
-static const char *
-help_title(gcc_unused char *str, gcc_unused size_t size)
-{
-	return _("Help");
+	return new HelpPage(w, cols, rows);
 }
 
 static void
@@ -274,25 +275,25 @@ screen_help_paint_callback(WINDOW *w, unsigned i,
 	}
 }
 
-static void
-help_paint()
+void
+HelpPage::Paint() const
 {
-	list_window_paint2(lw, screen_help_paint_callback, nullptr);
+	list_window_paint2(&lw, screen_help_paint_callback, nullptr);
 }
 
-static bool
-help_cmd(gcc_unused struct mpdclient *c, command_t cmd)
+bool
+HelpPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
 {
-	if (list_window_scroll_cmd(lw, cmd)) {
-		help_paint();
+	if (list_window_scroll_cmd(&lw, cmd)) {
+		Paint();
 		return true;
 	}
 
-	list_window_set_cursor(lw, lw->start);
-	if (screen_find(lw,  cmd, list_callback, nullptr)) {
+	list_window_set_cursor(&lw, lw.start);
+	if (screen_find(&lw, cmd, list_callback, nullptr)) {
 		/* center the row */
-		list_window_center(lw, lw->selected);
-		help_paint();
+		list_window_center(&lw, lw.selected);
+		Paint();
 		return true;
 	}
 
@@ -301,15 +302,4 @@ help_cmd(gcc_unused struct mpdclient *c, command_t cmd)
 
 const struct screen_functions screen_help = {
 	.init = help_init,
-	.exit = help_exit,
-	.open = nullptr,
-	.close = nullptr,
-	.resize = help_resize,
-	.paint = help_paint,
-	.update = nullptr,
-	.cmd = help_cmd,
-#ifdef HAVE_GETMOUSE
-	.mouse = nullptr,
-#endif
-	.get_title = help_title,
 };

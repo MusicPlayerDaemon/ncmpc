@@ -87,12 +87,6 @@ static search_type_t mode[] = {
 	{ MPD_TAG_COUNT, nullptr }
 };
 
-static GList *search_history = nullptr;
-static gchar *pattern = nullptr;
-static bool advanced_search_mode = false;
-
-static struct screen_browser browser;
-
 static const char *const help_text[] = {
 	"Quick     -  Enter a string and ncmpc will search according",
 	"             to the current search mode (displayed above).",
@@ -103,6 +97,44 @@ static const char *const help_text[] = {
 	"		Available tags: artist, album, title, track,",
 	"		name, genre, date composer, performer, comment, file",
 	"",
+};
+
+static bool advanced_search_mode = false;
+
+class SearchPage final : public FileListPage {
+	GList *search_history = nullptr;
+	gchar *pattern = nullptr;
+
+public:
+	SearchPage(WINDOW *_w, unsigned _cols, unsigned _rows)
+		:FileListPage(_w, _cols, _rows,
+			      options.search_format != nullptr
+			      ? options.search_format
+			      : options.list_format) {
+		list_window_set_length(&lw, G_N_ELEMENTS(help_text));
+		lw.hide_cursor = true;
+	}
+
+	~SearchPage() override;
+
+private:
+	void Clear(bool clear_pattern);
+	void Reload(struct mpdclient &c);
+	void Start(struct mpdclient &c);
+
+public:
+	/* virtual methods from class Page */
+	void OnOpen(struct mpdclient &c) override;
+	void Paint() const override;
+	void Update(struct mpdclient &c) override;
+	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+
+#ifdef HAVE_GETMOUSE
+	bool OnMouse(struct mpdclient &c, int x, int y,
+		     mmask_t bstate) override;
+#endif
+
+	const char *GetTitle(char *s, size_t size) const override;
 };
 
 /* search info */
@@ -128,15 +160,15 @@ search_check_mode()
 		options.search_mode = max-1;
 }
 
-static void
-search_clear(bool clear_pattern)
+void
+SearchPage::Clear(bool clear_pattern)
 {
-	if (browser.filelist) {
-		delete browser.filelist;
-		browser.filelist = new FileList();
-		list_window_set_length(browser.lw, 0);
+	if (filelist) {
+		delete filelist;
+		filelist = new FileList();
+		list_window_set_length(&lw, 0);
 	}
-	if (clear_pattern && pattern) {
+	if (clear_pattern) {
 		g_free(pattern);
 		pattern = nullptr;
 	}
@@ -326,30 +358,29 @@ do_search(struct mpdclient *c, char *query)
 	return fl;
 }
 
-static void
-screen_search_reload(struct mpdclient *c)
+void
+SearchPage::Reload(struct mpdclient &c)
 {
 	if (pattern == nullptr)
 		return;
 
-	delete browser.filelist;
-	browser.filelist = nullptr;
+	lw.hide_cursor = false;
+	delete filelist;
+	filelist = do_search(&c, pattern);
+	if (filelist == nullptr)
+		filelist = new FileList();
+	list_window_set_length(&lw, filelist->size());
 
-	browser.filelist = do_search(c, pattern);
-	if (browser.filelist == nullptr)
-		browser.filelist = new FileList();
-	list_window_set_length(browser.lw, browser.filelist->size());
-
-	screen_browser_sync_highlights(browser.filelist, &c->playlist);
+	screen_browser_sync_highlights(filelist, &c.playlist);
 }
 
-static void
-search_new(struct mpdclient *c)
+void
+SearchPage::Start(struct mpdclient &c)
 {
-	if (!mpdclient_is_connected(c))
+	if (!mpdclient_is_connected(&c))
 		return;
 
-	search_clear(true);
+	Clear(true);
 
 	g_free(pattern);
 	pattern = screen_readln(_("Search"),
@@ -358,41 +389,29 @@ search_new(struct mpdclient *c)
 				nullptr);
 
 	if (pattern == nullptr) {
-		list_window_reset(browser.lw);
+		list_window_reset(&lw);
 		return;
 	}
 
-	screen_search_reload(c);
+	Reload(c);
 }
 
-static void
+static Page *
 screen_search_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	browser.lw = new ListWindow(w, cols, rows);
-	if (options.search_format != nullptr) {
-		browser.song_format = options.search_format;
-	} else {
-		browser.song_format = options.list_format;
-	}
-	list_window_set_length(browser.lw, G_N_ELEMENTS(help_text));
+	return new SearchPage(w, cols, rows);
 }
 
-static void
-screen_search_quit()
+SearchPage::~SearchPage()
 {
 	if (search_history)
 		string_list_free(search_history);
-	delete browser.filelist;
-	delete browser.lw;
 
-	if (pattern) {
-		g_free(pattern);
-		pattern = nullptr;
-	}
+	g_free(pattern);
 }
 
-static void
-screen_search_open(gcc_unused struct mpdclient *c)
+void
+SearchPage::OnOpen(gcc_unused struct mpdclient &c)
 {
 	//  if( pattern==nullptr )
 	//    search_new(screen, c);
@@ -402,26 +421,18 @@ screen_search_open(gcc_unused struct mpdclient *c)
 	search_check_mode();
 }
 
-static void
-screen_search_resize(unsigned cols, unsigned rows)
+void
+SearchPage::Paint() const
 {
-	list_window_resize(browser.lw, cols, rows);
-}
-
-static void
-screen_search_paint()
-{
-	if (browser.filelist) {
-		browser.lw->hide_cursor = false;
-		screen_browser_paint(&browser);
+	if (filelist) {
+		FileListPage::Paint();
 	} else {
-		browser.lw->hide_cursor = true;
-		list_window_paint(browser.lw, lw_search_help_callback, nullptr);
+		list_window_paint(&lw, lw_search_help_callback, nullptr);
 	}
 }
 
-static const char *
-screen_search_get_title(char *str, size_t size)
+const char *
+SearchPage::GetTitle(char *str, size_t size) const
 {
 	if (advanced_search_mode && pattern)
 		g_snprintf(str, size, _("Search: %s"), pattern);
@@ -438,17 +449,17 @@ screen_search_get_title(char *str, size_t size)
 	return str;
 }
 
-static void
-screen_search_update(struct mpdclient *c)
+void
+SearchPage::Update(struct mpdclient &c)
 {
-	if (browser.filelist != nullptr && c->events & MPD_IDLE_QUEUE) {
-		screen_browser_sync_highlights(browser.filelist, &c->playlist);
-		screen_search_paint();
+	if (filelist != nullptr && c.events & MPD_IDLE_QUEUE) {
+		screen_browser_sync_highlights(filelist, &c.playlist);
+		Paint();
 	}
 }
 
-static bool
-screen_search_cmd(struct mpdclient *c, command_t cmd)
+bool
+SearchPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
 	switch (cmd) {
 	case CMD_SEARCH_MODE:
@@ -459,29 +470,29 @@ screen_search_cmd(struct mpdclient *c, command_t cmd)
 				     _(mode[options.search_mode].label));
 		/* fall through */
 	case CMD_SCREEN_UPDATE:
-		screen_search_reload(c);
-		screen_search_paint();
+		Reload(c);
+		Paint();
 		return true;
 
 	case CMD_SCREEN_SEARCH:
-		search_new(c);
-		screen_search_paint();
+		Start(c);
+		Paint();
 		return true;
 
 	case CMD_CLEAR:
-		search_clear(true);
-		list_window_reset(browser.lw);
-		screen_search_paint();
+		Clear(true);
+		list_window_reset(&lw);
+		Paint();
 		return true;
 
 	default:
 		break;
 	}
 
-	if (browser.filelist != nullptr &&
-	    browser_cmd(&browser, c, cmd)) {
+	if (FileListPage::OnCommand(c, cmd)) {
+		// TODO: move to FileListPage::OnCommand()
 		if (screen.IsVisible(screen_search))
-			screen_search_paint();
+			Paint();
 		return true;
 	}
 
@@ -489,13 +500,13 @@ screen_search_cmd(struct mpdclient *c, command_t cmd)
 }
 
 #ifdef HAVE_GETMOUSE
-static bool
-screen_search_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
+bool
+SearchPage::OnMouse(struct mpdclient &c, int x, int y, mmask_t bstate)
 {
-	if (browser_mouse(&browser, c, x, y, bstate)) {
+	if (FileListPage::OnMouse(c, x, y, bstate)) {
+		// TODO: move to FileListPage::OnMouse()
 		if (screen.IsVisible(screen_search))
-			screen_search_paint();
-
+			Paint();
 		return true;
 	}
 
@@ -505,15 +516,4 @@ screen_search_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
 
 const struct screen_functions screen_search = {
 	.init = screen_search_init,
-	.exit = screen_search_quit,
-	.open = screen_search_open,
-	.close = nullptr,
-	.resize = screen_search_resize,
-	.paint = screen_search_paint,
-	.update = screen_search_update,
-	.cmd = screen_search_cmd,
-#ifdef HAVE_GETMOUSE
-	.mouse = screen_search_mouse,
-#endif
-	.get_title = screen_search_get_title,
 };

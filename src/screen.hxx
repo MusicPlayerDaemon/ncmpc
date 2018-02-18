@@ -32,8 +32,12 @@
 
 #include <glib.h>
 
+#include <memory>
+#include <map>
+
 struct mpdclient;
 struct screen_functions;
+class Page;
 
 class ScreenManager {
 public:
@@ -42,7 +46,12 @@ public:
 	struct progress_bar progress_bar;
 	struct status_bar status_bar;
 
-	const struct screen_functions *current_page;
+	using PageMap = std::map<const struct screen_functions *,
+				 std::unique_ptr<Page>>;
+	PageMap pages;
+
+	//const struct screen_functions *current_screen_functions;
+	PageMap::iterator current_page = pages.begin();
 
 	char *buf;
 	size_t buf_size;
@@ -60,10 +69,13 @@ public:
 
 	void Init(struct mpdclient *c);
 	void Exit();
+
+	PageMap::iterator MakePage(const struct screen_functions &sf);
+
 	void OnResize(struct mpdclient *c);
 
 	bool IsVisible(const struct screen_functions &sf) {
-		return &sf == current_page;
+		return &sf == current_page->first;
 	}
 
 	void Switch(const struct screen_functions &sf, struct mpdclient *c);

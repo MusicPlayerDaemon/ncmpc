@@ -25,19 +25,19 @@
 #include <string.h>
 
 void
-screen_text_clear(struct screen_text *text)
+TextPage::Clear()
 {
-	list_window_reset(text->lw);
+	list_window_reset(&lw);
 
-	for (guint i = 0; i < text->lines->len; ++i)
-		g_free(g_ptr_array_index(text->lines, i));
+	for (guint i = 0; i < lines->len; ++i)
+		g_free(g_ptr_array_index(lines, i));
 
-	g_ptr_array_set_size(text->lines, 0);
-	list_window_set_length(text->lw, 0);
+	g_ptr_array_set_size(lines, 0);
+	list_window_set_length(&lw, 0);
 }
 
 void
-screen_text_append(struct screen_text *text, const char *str)
+TextPage::Append(const char *str)
 {
 	assert(str != nullptr);
 
@@ -50,13 +50,13 @@ screen_text_append(struct screen_text *text, const char *str)
 		while (eol > str && (unsigned char)eol[-1] <= 0x20)
 			--eol;
 
-		/* create copy and append it to text->lines */
+		/* create copy and append it to lines */
 
 		char *line = (char *)g_malloc(eol - str + 1);
 		memcpy(line, str, eol - str);
 		line[eol - str] = 0;
 
-		g_ptr_array_add(text->lines, line);
+		g_ptr_array_add(lines, line);
 
 		/* reset control characters */
 
@@ -68,19 +68,17 @@ screen_text_append(struct screen_text *text, const char *str)
 	}
 
 	if (*str != 0)
-		g_ptr_array_add(text->lines, g_strdup(str));
+		g_ptr_array_add(lines, g_strdup(str));
 
-	list_window_set_length(text->lw, text->lines->len);
+	list_window_set_length(&lw, lines->len);
 }
 
 const char *
-screen_text_list_callback(unsigned idx, void *data)
+TextPage::ListCallback(unsigned idx) const
 {
-	const auto *text = (const struct screen_text *)data;
+	assert(idx < lines->len);
 
-	assert(idx < text->lines->len);
-
-	char *value = utf8_to_locale((const char *)g_ptr_array_index(text->lines, idx));
+	char *value = utf8_to_locale((const char *)g_ptr_array_index(lines, idx));
 
 	static char buffer[256];
 	g_strlcpy(buffer, value, sizeof(buffer));
@@ -90,19 +88,18 @@ screen_text_list_callback(unsigned idx, void *data)
 }
 
 bool
-screen_text_cmd(struct screen_text *text,
-		gcc_unused struct mpdclient *c, command_t cmd)
+TextPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
 {
-	if (list_window_scroll_cmd(text->lw, cmd)) {
-		screen_text_repaint(text);
+	if (list_window_scroll_cmd(&lw, cmd)) {
+		Repaint();
 		return true;
 	}
 
-	list_window_set_cursor(text->lw, text->lw->start);
-	if (screen_find(text->lw, cmd, screen_text_list_callback, text)) {
+	list_window_set_cursor(&lw, lw.start);
+	if (screen_find(&lw, cmd, ListCallback, this)) {
 		/* center the row */
-		list_window_center(text->lw, text->lw->selected);
-		screen_text_repaint(text);
+		list_window_center(&lw, lw.selected);
+		Repaint();
 		return true;
 	}
 

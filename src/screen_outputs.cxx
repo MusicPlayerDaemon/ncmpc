@@ -28,21 +28,47 @@
 #include <mpd/client.h>
 
 #include <glib.h>
+
 #include <assert.h>
 
-static ListWindow *lw;
+class OutputsPage final : public Page {
+	ListWindow lw;
 
-static GPtrArray *mpd_outputs = nullptr;
+	GPtrArray *mpd_outputs = g_ptr_array_new();
 
-static bool
-toggle_output(struct mpdclient *c, unsigned int output_index)
+public:
+	OutputsPage(WINDOW *w, unsigned cols, unsigned rows)
+		:lw(w, cols, rows) {}
+
+	~OutputsPage() override {
+		g_ptr_array_free(mpd_outputs, true);
+	}
+
+private:
+	void Clear();
+
+	bool Toggle(struct mpdclient &c, unsigned output_index);
+
+public:
+	/* virtual methods from class Page */
+	void OnOpen(struct mpdclient &c) override;
+	void OnClose() override;
+	void OnResize(unsigned cols, unsigned rows) override;
+	void Paint() const override;
+	void Update(struct mpdclient &c) override;
+	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	const char *GetTitle(char *s, size_t size) const override;
+};
+
+bool
+OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 {
 	assert(mpd_outputs != nullptr);
 
 	if (output_index >= mpd_outputs->len)
 		return false;
 
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = mpdclient_get_connection(&c);
 	if (connection == nullptr)
 		return false;
 
@@ -51,22 +77,22 @@ toggle_output(struct mpdclient *c, unsigned int output_index)
 	if (!mpd_output_get_enabled(output)) {
 		if (!mpd_run_enable_output(connection,
 					   mpd_output_get_id(output))) {
-			mpdclient_handle_error(c);
+			mpdclient_handle_error(&c);
 			return false;
 		}
 
-		c->events |= MPD_IDLE_OUTPUT;
+		c.events |= MPD_IDLE_OUTPUT;
 
 		screen_status_printf(_("Output '%s' enabled"),
 				     mpd_output_get_name(output));
 	} else {
 		if (!mpd_run_disable_output(connection,
 					    mpd_output_get_id(output))) {
-			mpdclient_handle_error(c);
+			mpdclient_handle_error(&c);
 			return false;
 		}
 
-		c->events |= MPD_IDLE_OUTPUT;
+		c.events |= MPD_IDLE_OUTPUT;
 
 		screen_status_printf(_("Output '%s' disabled"),
 				     mpd_output_get_name(output));
@@ -82,8 +108,8 @@ clear_output_element(gpointer data, gcc_unused gpointer user_data)
 	mpd_output_free(output);
 }
 
-static void
-clear_outputs_list()
+void
+OutputsPage::Clear()
 {
 	assert(mpd_outputs != nullptr);
 
@@ -100,15 +126,13 @@ clear_outputs_list()
 }
 
 static void
-fill_outputs_list(struct mpdclient *c)
+fill_outputs_list(struct mpdclient *c, GPtrArray *mpd_outputs)
 {
 	assert(mpd_outputs != nullptr);
 
 	struct mpd_connection *connection = mpdclient_get_connection(c);
-	if (connection == nullptr) {
-		list_window_set_length(lw, 0);
+	if (connection == nullptr)
 		return;
-	}
 
 	mpd_send_outputs(connection);
 
@@ -118,46 +142,35 @@ fill_outputs_list(struct mpdclient *c)
 	}
 
 	mpdclient_finish_command(c);
-
-	list_window_set_length(lw, mpd_outputs->len);
 }
 
-static void
+static Page *
 outputs_init(WINDOW *w, unsigned cols, unsigned rows)
 {
-	lw = new ListWindow(w, cols, rows);
-
-	mpd_outputs = g_ptr_array_new();
+	return new OutputsPage(w, cols, rows);
 }
 
-static void
-outputs_resize(unsigned cols, unsigned rows)
+void
+OutputsPage::OnResize(unsigned cols, unsigned rows)
 {
-	list_window_resize(lw, cols, rows);
+	list_window_resize(&lw, cols, rows);
 }
 
-static void
-outputs_exit()
+void
+OutputsPage::OnOpen(struct mpdclient &c)
 {
-	delete lw;
-
-	g_ptr_array_free(mpd_outputs, true);
+	fill_outputs_list(&c, mpd_outputs);
+	list_window_set_length(&lw, mpd_outputs->len);
 }
 
-static void
-outputs_open(struct mpdclient *c)
+void
+OutputsPage::OnClose()
 {
-	fill_outputs_list(c);
+	Clear();
 }
 
-static void
-outputs_close()
-{
-	clear_outputs_list();
-}
-
-static const char *
-outputs_title(gcc_unused char *str, gcc_unused size_t size)
+const char *
+OutputsPage::GetTitle(gcc_unused char *str, gcc_unused size_t size) const
 {
 	return _("Outputs");
 }
@@ -165,11 +178,10 @@ outputs_title(gcc_unused char *str, gcc_unused size_t size)
 static void
 screen_outputs_paint_callback(WINDOW *w, unsigned i,
 			      gcc_unused unsigned y, unsigned width,
-			      bool selected, gcc_unused const void *data)
+			      bool selected, const void *data)
 {
-	assert(mpd_outputs != nullptr);
+	const auto *mpd_outputs = (const GPtrArray *)data;
 	assert(i < mpd_outputs->len);
-
 	const auto *output = (const struct mpd_output *)
 		g_ptr_array_index(mpd_outputs, i);
 
@@ -179,41 +191,43 @@ screen_outputs_paint_callback(WINDOW *w, unsigned i,
 	row_clear_to_eol(w, width, selected);
 }
 
-static void
-outputs_paint()
+void
+OutputsPage::Paint() const
 {
-	list_window_paint2(lw, screen_outputs_paint_callback, nullptr);
+	list_window_paint2(&lw, screen_outputs_paint_callback, mpd_outputs);
 }
 
-static void
-screen_outputs_update(struct mpdclient *c)
+void
+OutputsPage::Update(struct mpdclient &c)
 {
-	if (c->events & MPD_IDLE_OUTPUT) {
-		clear_outputs_list();
-		fill_outputs_list(c);
-		outputs_paint();
+	if (c.events & MPD_IDLE_OUTPUT) {
+		Clear();
+		fill_outputs_list(&c, mpd_outputs);
+		list_window_set_length(&lw, mpd_outputs->len);
+		Paint();
 	}
 }
 
-static bool
-outputs_cmd(struct mpdclient *c, command_t cmd)
+bool
+OutputsPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
 	assert(mpd_outputs != nullptr);
 
-	if (list_window_cmd(lw, cmd)) {
-		outputs_paint();
+	if (list_window_cmd(&lw, cmd)) {
+		Paint();
 		return true;
 	}
 
 	switch (cmd) {
 	case CMD_PLAY:
-		toggle_output(c, lw->selected);
+		Toggle(c, lw.selected);
 		return true;
 
 	case CMD_SCREEN_UPDATE:
-		clear_outputs_list();
-		fill_outputs_list(c);
-		outputs_paint();
+		Clear();
+		fill_outputs_list(&c, mpd_outputs);
+		list_window_set_length(&lw, mpd_outputs->len);
+		Paint();
 		return true;
 
 	default:
@@ -225,15 +239,4 @@ outputs_cmd(struct mpdclient *c, command_t cmd)
 
 const struct screen_functions screen_outputs = {
 	.init      = outputs_init,
-	.exit      = outputs_exit,
-	.open      = outputs_open,
-	.close     = outputs_close,
-	.resize    = outputs_resize,
-	.paint     = outputs_paint,
-	.update    = screen_outputs_update,
-	.cmd       = outputs_cmd,
-#ifdef HAVE_GETMOUSE
-	.mouse = nullptr,
-#endif
-	.get_title = outputs_title,
 };

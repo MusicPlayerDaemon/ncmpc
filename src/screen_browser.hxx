@@ -23,18 +23,65 @@
 #include "command.hxx"
 #include "config.h"
 #include "ncmpc_curses.h"
+#include "screen_interface.hxx"
+#include "list_window.hxx"
 
 struct mpdclient;
 struct mpdclient_playlist;
 class FileList;
 struct FileListEntry;
-struct ListWindow;
 
-struct screen_browser {
-	ListWindow *lw;
+class FileListPage : public Page {
+protected:
+	ListWindow lw;
 
-	FileList *filelist;
-	const char *song_format;
+	FileList *filelist = nullptr;
+	const char *const song_format;
+
+public:
+	FileListPage(WINDOW *_w, unsigned _cols, unsigned _rows,
+		     const char *_song_format)
+		:lw(_w, _cols, _rows),
+		 song_format(_song_format) {}
+
+	~FileListPage() override;
+
+protected:
+	gcc_pure
+	FileListEntry *GetSelectedEntry() const;
+
+	gcc_pure
+	const struct mpd_entity *GetSelectedEntity() const;
+
+	gcc_pure
+	const struct mpd_song *GetSelectedSong() const;
+
+	FileListEntry *GetIndex(unsigned i) const;
+
+private:
+	bool HandleEnter(struct mpdclient &c);
+	bool HandleSelect(struct mpdclient &c);
+	bool HandleAdd(struct mpdclient &c);
+
+	void HandleSelectAll(struct mpdclient &c);
+
+	static void PaintRow(WINDOW *w, unsigned i,
+			     unsigned y, unsigned width,
+			     bool selected, const void *data);
+
+public:
+	/* virtual methods from class Page */
+	void OnResize(unsigned cols, unsigned rows) override {
+		list_window_resize(&lw, cols, rows);
+	}
+
+	void Paint() const override;
+	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+
+#ifdef HAVE_GETMOUSE
+	bool OnMouse(struct mpdclient &c, int x, int y,
+		     mmask_t bstate) override;
+#endif
 };
 
 #ifndef NCMPC_MINI
@@ -56,21 +103,5 @@ screen_browser_sync_highlights(gcc_unused FileList *fl,
 void
 screen_browser_paint_directory(WINDOW *w, unsigned width,
 			       bool selected, const char *name);
-
-void
-screen_browser_paint(const struct screen_browser *browser);
-
-#ifdef HAVE_GETMOUSE
-bool
-browser_mouse(struct screen_browser *browser,
-	      struct mpdclient *c, int x, int y, mmask_t bstate);
-#endif
-
-bool
-browser_cmd(struct screen_browser *browser,
-	    struct mpdclient *c, command_t cmd);
-
-FileListEntry *
-browser_get_selected_entry(const struct screen_browser *browser);
 
 #endif

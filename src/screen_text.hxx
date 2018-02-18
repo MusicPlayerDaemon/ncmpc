@@ -20,81 +20,72 @@
 #ifndef SCREEN_TEXT_H
 #define SCREEN_TEXT_H
 
+#include "screen_interface.hxx"
 #include "list_window.hxx"
 
 #include <glib.h>
 
 struct mpdclient;
 
-struct screen_text {
-	GPtrArray *lines;
+class TextPage : public Page {
+protected:
+	ListWindow lw;
 
-	ListWindow *lw;
+	GPtrArray *lines = g_ptr_array_new();
+
+public:
+	TextPage(WINDOW *w, unsigned cols, unsigned rows)
+		:lw(w, cols, rows) {
+		lw.hide_cursor = true;
+	}
+
+	~TextPage() override {
+		Clear();
+		g_ptr_array_free(lines, true);
+	}
+
+protected:
+	bool IsEmpty() const {
+		return lines->len == 0;
+	}
+
+	void Clear();
+
+	void Append(const char *str);
+
+	void Set(const char *str) {
+		Clear();
+		Append(str);
+	}
+
+	/**
+	 * Repaint and update the screen.
+	 */
+	void Repaint() {
+		Paint();
+		wrefresh(lw.w);
+	}
+
+private:
+	const char *ListCallback(unsigned idx) const;
+
+	static const char *ListCallback(unsigned idx, void *data) {
+		const auto &p = *(const TextPage *)data;
+		return p.ListCallback(idx);
+	}
+
+public:
+	/* virtual methods from class Page */
+	void OnResize(unsigned cols, unsigned rows) override {
+		list_window_resize(&lw, cols, rows);
+	}
+
+	void Paint() const override {
+		list_window_paint(&lw, ListCallback,
+				  const_cast<TextPage *>(this));
+	}
+
+	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 };
-
-static inline void
-screen_text_init(struct screen_text *text, WINDOW *w, unsigned cols, unsigned rows)
-{
-	text->lines = g_ptr_array_new();
-
-	text->lw = new ListWindow(w, cols, rows);
-	text->lw->hide_cursor = true;
-}
-
-void
-screen_text_clear(struct screen_text *text);
-
-static inline void
-screen_text_deinit(struct screen_text *text)
-{
-	screen_text_clear(text);
-	g_ptr_array_free(text->lines, true);
-
-	delete text->lw;
-}
-
-static inline void
-screen_text_resize(struct screen_text *text, unsigned cols, unsigned rows)
-{
-	list_window_resize(text->lw, cols, rows);
-}
-
-static inline bool
-screen_text_is_empty(const struct screen_text *text)
-{
-	return text->lines->len == 0;
-}
-
-void
-screen_text_append(struct screen_text *text, const char *str);
-
-static inline void
-screen_text_set(struct screen_text *text, const char *str)
-{
-	screen_text_clear(text);
-	screen_text_append(text, str);
-}
-
-const char *
-screen_text_list_callback(unsigned idx, void *data);
-
-static inline void
-screen_text_paint(struct screen_text *text)
-{
-	list_window_paint(text->lw, screen_text_list_callback, text);
-}
-
-/**
- * Repaint and update the screen.
- */
-static inline void
-screen_text_repaint(struct screen_text *text)
-{
-	screen_text_paint(text);
-	wrefresh(text->lw->w);
-}
-
-bool
-screen_text_cmd(struct screen_text *text, struct mpdclient *c, command_t cmd);
 
 #endif

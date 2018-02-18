@@ -31,13 +31,11 @@
 void
 ScreenManager::PaintTopWindow(const struct mpdclient *c)
 {
-	const char *title =
+	const char *title = "";
 #ifndef NCMPC_MINI
-		welcome_source_id == 0 &&
+	if (welcome_source_id == 0)
 #endif
-		current_page->get_title != nullptr
-		? current_page->get_title(buf, buf_size)
-		: "";
+		title = current_page->second->GetTitle(buf, buf_size);
 	assert(title != nullptr);
 
 	title_bar_paint(&title_bar, title, c->status);
@@ -78,8 +76,7 @@ ScreenManager::Paint(struct mpdclient *c, bool main_dirty)
 
 	if (main_dirty) {
 		wclear(main_window.w);
-		if (current_page->paint != nullptr)
-			current_page->paint();
+		current_page->second->Paint();
 	}
 
 	/* move the cursor to the origin */
