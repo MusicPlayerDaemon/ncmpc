@@ -978,7 +978,7 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 /****************************************************************************/
 
 bool
-mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl)
+mpdclient_filelist_add_all(struct mpdclient *c, FileList *fl)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)

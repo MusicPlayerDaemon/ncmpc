@@ -196,7 +196,7 @@ load_song_list(struct mpdclient *c)
 	assert(album != nullptr);
 	assert(browser.filelist == nullptr);
 
-	browser.filelist = new filelist();
+	browser.filelist = new FileList();
 	/* add a dummy entry for ".." */
 	browser.filelist->emplace_back(nullptr);
 
@@ -460,7 +460,7 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
 					      MPD_TAG_ARTIST, _artist);
 	mpd_search_commit(connection);
 
-	struct filelist *addlist = filelist_new_recv(connection);
+	auto *addlist = filelist_new_recv(connection);
 
 	if (mpdclient_finish_command(c))
 		mpdclient_filelist_add_all(c, addlist);

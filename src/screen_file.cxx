@@ -43,7 +43,7 @@ static struct screen_browser browser;
 static char *current_path;
 
 static void
-screen_file_load_list(struct mpdclient *c, struct filelist *filelist)
+screen_file_load_list(struct mpdclient *c, FileList *filelist)
 {
 	auto *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
@@ -61,7 +61,7 @@ screen_file_reload(struct mpdclient *c)
 {
 	delete browser.filelist;
 
-	browser.filelist = new filelist();
+	browser.filelist = new FileList();
 	if (*current_path != 0)
 		/* add a dummy entry for ./.. */
 		browser.filelist->emplace_back(nullptr);
@@ -120,11 +120,11 @@ change_to_parent(struct mpdclient *c)
 }
 
 /**
- * Change to the directory referred by the specified #filelist_entry
+ * Change to the directory referred by the specified #FileListEntry
  * object.
  */
 static bool
-change_to_entry(struct mpdclient *c, const struct filelist_entry *entry)
+change_to_entry(struct mpdclient *c, const FileListEntry *entry)
 {
 	assert(entry != nullptr);
 

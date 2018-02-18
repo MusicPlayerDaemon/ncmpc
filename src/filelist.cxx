@@ -24,7 +24,7 @@
 #include <string.h>
 #include <assert.h>
 
-filelist::~filelist()
+FileList::~FileList()
 {
 	for (unsigned i = 0; i < size(); ++i) {
 		auto *entry = (*this)[i];
@@ -32,16 +32,16 @@ filelist::~filelist()
 		if (entry->entity)
 			mpd_entity_free(entry->entity);
 
-		g_slice_free(struct filelist_entry, entry);
+		g_slice_free(FileListEntry, entry);
 	}
 
 	g_ptr_array_free(entries, true);
 }
 
-struct filelist_entry *
-filelist::emplace_back(struct mpd_entity *entity)
+FileListEntry *
+FileList::emplace_back(struct mpd_entity *entity)
 {
-	auto *entry = g_slice_new(struct filelist_entry);
+	auto *entry = g_slice_new(FileListEntry);
 
 	entry->flags = 0;
 	entry->entity = entity;
@@ -52,7 +52,7 @@ filelist::emplace_back(struct mpd_entity *entity)
 }
 
 void
-filelist::MoveFrom(struct filelist &&src)
+FileList::MoveFrom(FileList &&src)
 {
 	for (unsigned i = 0; i < src.size(); ++i)
 		g_ptr_array_add(entries, g_ptr_array_index(src.entries, i));
@@ -76,8 +76,8 @@ compare_filelist_entry_path(gconstpointer filelist_entry1,
 {
 	const struct mpd_entity *e1, *e2;
 
-	e1 = ((const struct filelist_entry *)filelist_entry1)->entity;
-	e2 = ((const struct filelist_entry *)filelist_entry2)->entity;
+	e1 = ((const FileListEntry *)filelist_entry1)->entity;
+	e2 = ((const FileListEntry *)filelist_entry2)->entity;
 
 	int n = 0;
 	if (e1 != nullptr && e2 != nullptr &&
@@ -101,7 +101,7 @@ compare_filelist_entry_path(gconstpointer filelist_entry1,
 
 /* Sorts the whole filelist, at the moment used by filelist_search */
 void
-filelist::SortAll(GCompareFunc compare_func)
+FileList::SortAll(GCompareFunc compare_func)
 {
 	g_ptr_array_sort_with_data(entries,
 				   filelist_compare_indirect,
@@ -112,20 +112,18 @@ filelist::SortAll(GCompareFunc compare_func)
 /* Only sorts the directories and playlist files.
  * The songs stay in the order it came from mpd. */
 void
-filelist::SortDirectoriesPlaylists(GCompareFunc compare_func)
+FileList::SortDirectoriesPlaylists(GCompareFunc compare_func)
 {
-	const struct mpd_entity *iter;
-
 	if (entries->len < 2)
 		return;
 
 	/* If the first entry is nullptr, skip it, because nullptr stands for "[..]" */
-	iter = ((struct filelist_entry*) g_ptr_array_index(entries, 0))->entity;
+	auto *iter = ((FileListEntry *)g_ptr_array_index(entries, 0))->entity;
 	unsigned first = iter == nullptr ? 1 : 0, last;
 
 	/* find the last directory entry */
 	for (last = first+1; last < entries->len; last++) {
-		iter = ((struct filelist_entry*) g_ptr_array_index(entries, last))->entity;
+		iter = ((FileListEntry *)g_ptr_array_index(entries, last))->entity;
 		if (mpd_entity_get_type(iter) != MPD_ENTITY_TYPE_DIRECTORY)
 			break;
 	}
@@ -138,7 +136,7 @@ filelist::SortDirectoriesPlaylists(GCompareFunc compare_func)
 				  filelist_compare_indirect, (gpointer)compare_func);
 	/* find the first playlist entry */
 	for (first = last; first < entries->len; first++) {
-		iter = ((struct filelist_entry*) g_ptr_array_index(entries, first))->entity;
+		iter = ((FileListEntry *)g_ptr_array_index(entries, first))->entity;
 		if (mpd_entity_get_type(iter) == MPD_ENTITY_TYPE_PLAYLIST)
 			break;
 	}
@@ -151,7 +149,7 @@ filelist::SortDirectoriesPlaylists(GCompareFunc compare_func)
 }
 
 void
-filelist::RemoveDuplicateSongs()
+FileList::RemoveDuplicateSongs()
 {
 	for (int i = size() - 1; i >= 0; --i) {
 		auto *entry = (*this)[i];
@@ -164,7 +162,7 @@ filelist::RemoveDuplicateSongs()
 		if (FindSong(*song) < i) {
 			g_ptr_array_remove_index(entries, i);
 			mpd_entity_free(entry->entity);
-			g_slice_free(struct filelist_entry, entry);
+			g_slice_free(FileListEntry, entry);
 		}
 	}
 }
@@ -176,7 +174,7 @@ same_song(const struct mpd_song *a, const struct mpd_song *b)
 }
 
 int
-filelist::FindSong(const struct mpd_song &song) const
+FileList::FindSong(const struct mpd_song &song) const
 {
 	for (unsigned i = 0; i < size(); ++i) {
 		auto *entry = (*this)[i];
@@ -194,7 +192,7 @@ filelist::FindSong(const struct mpd_song &song) const
 }
 
 int
-filelist::FindDirectory(const char *name) const
+FileList::FindDirectory(const char *name) const
 {
 	assert(name != nullptr);
 
@@ -213,7 +211,7 @@ filelist::FindDirectory(const char *name) const
 }
 
 void
-filelist::Receive(struct mpd_connection &connection)
+FileList::Receive(struct mpd_connection &connection)
 {
 	struct mpd_entity *entity;
 
@@ -221,10 +219,10 @@ filelist::Receive(struct mpd_connection &connection)
 		emplace_back(entity);
 }
 
-struct filelist *
+FileList *
 filelist_new_recv(struct mpd_connection *connection)
 {
-	auto *filelist = new struct filelist();
+	auto *filelist = new FileList();
 	filelist->Receive(*connection);
 	return filelist;
 }

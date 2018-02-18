@@ -26,27 +26,28 @@
 
 struct mpdclient;
 struct mpdclient_playlist;
-struct filelist;
+struct FileList;
+struct FileListEntry;
 struct list_window;
 struct list_window_state;
 
 struct screen_browser {
 	struct list_window *lw;
 
-	struct filelist *filelist;
+	FileList *filelist;
 	const char *song_format;
 };
 
 #ifndef NCMPC_MINI
 
 void
-screen_browser_sync_highlights(struct filelist *fl,
+screen_browser_sync_highlights(FileList *fl,
 			       const struct mpdclient_playlist *playlist);
 
 #else
 
 static inline void
-screen_browser_sync_highlights(gcc_unused struct filelist *fl,
+screen_browser_sync_highlights(gcc_unused FileList *fl,
 			       gcc_unused const struct mpdclient_playlist *playlist)
 {
 }
@@ -70,7 +71,7 @@ bool
 browser_cmd(struct screen_browser *browser,
 	    struct mpdclient *c, command_t cmd);
 
-struct filelist_entry *
+FileListEntry *
 browser_get_selected_entry(const struct screen_browser *browser);
 
 #endif

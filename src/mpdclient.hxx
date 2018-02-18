@@ -7,7 +7,7 @@
 
 #include <mpd/client.h>
 
-struct filelist;
+struct FileList;
 
 struct mpdclient {
 #ifdef ENABLE_ASYNC_CONNECT
@@ -246,6 +246,6 @@ mpdclient_playlist_update_changes(struct mpdclient *c);
 
 /* add all songs in filelist to the playlist */
 bool
-mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl);
+mpdclient_filelist_add_all(struct mpdclient *c, FileList *fl);
 
 #endif

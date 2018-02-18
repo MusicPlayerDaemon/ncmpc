@@ -133,7 +133,7 @@ search_clear(bool clear_pattern)
 {
 	if (browser.filelist) {
 		delete browser.filelist;
-		browser.filelist = new filelist();
+		browser.filelist = new FileList();
 		list_window_set_length(browser.lw, 0);
 	}
 	if (clear_pattern && pattern) {
@@ -142,11 +142,11 @@ search_clear(bool clear_pattern)
 	}
 }
 
-static struct filelist *
+static FileList *
 search_simple_query(struct mpd_connection *connection, bool exact_match,
 		    int table, gchar *local_pattern)
 {
-	struct filelist *list;
+	FileList *list;
 	gchar *filter_utf8 = locale_to_utf8(local_pattern);
 
 	if (table == SEARCH_ARTIST_TITLE) {
@@ -191,7 +191,7 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
  *       Its ugly and MUST be redesigned before the next release!
  *-----------------------------------------------------------------------
  */
-static struct filelist *
+static FileList *
 search_advanced_query(struct mpd_connection *connection, char *query)
 {
 	advanced_search_mode = false;
@@ -290,7 +290,7 @@ search_advanced_query(struct mpd_connection *connection, char *query)
 	}
 
 	mpd_search_commit(connection);
-	struct filelist *fl = filelist_new_recv(connection);
+	auto *fl = filelist_new_recv(connection);
 	if (!mpd_response_finish(connection)) {
 		delete fl;
 		fl = nullptr;
@@ -302,14 +302,14 @@ search_advanced_query(struct mpd_connection *connection, char *query)
 	return fl;
 }
 
-static struct filelist *
+static FileList *
 do_search(struct mpdclient *c, char *query)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
 		return nullptr;
 
-	struct filelist *fl = search_advanced_query(connection, query);
+	auto *fl = search_advanced_query(connection, query);
 	if (fl != nullptr)
 		return fl;
 
@@ -337,7 +337,7 @@ screen_search_reload(struct mpdclient *c)
 
 	browser.filelist = do_search(c, pattern);
 	if (browser.filelist == nullptr)
-		browser.filelist = new filelist();
+		browser.filelist = new FileList();
 	list_window_set_length(browser.lw, browser.filelist->size());
 
 	screen_browser_sync_highlights(browser.filelist, &c->playlist);

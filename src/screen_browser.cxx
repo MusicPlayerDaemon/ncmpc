@@ -49,7 +49,7 @@
 
 /* sync highlight flags with playlist */
 void
-screen_browser_sync_highlights(struct filelist *fl,
+screen_browser_sync_highlights(FileList *fl,
 			       const struct mpdclient_playlist *playlist)
 {
 	for (unsigned i = 0; i < fl->size(); ++i) {
@@ -74,7 +74,7 @@ screen_browser_sync_highlights(struct filelist *fl,
 static const char *
 browser_lw_callback(unsigned idx, void *data)
 {
-	const auto *fl = (const struct filelist *) data;
+	const auto *fl = (const FileList *) data;
 	static char buf[BUFSIZE];
 
 	assert(fl != nullptr);
@@ -133,7 +133,7 @@ load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 }
 
 static bool
-enqueue_and_play(struct mpdclient *c, struct filelist_entry *entry)
+enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 {
 	auto *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
@@ -173,7 +173,7 @@ enqueue_and_play(struct mpdclient *c, struct filelist_entry *entry)
 	return true;
 }
 
-struct filelist_entry *
+FileListEntry *
 browser_get_selected_entry(const struct screen_browser *browser)
 {
 	struct list_window_range range;
@@ -210,7 +210,7 @@ browser_get_selected_song(const struct screen_browser *browser)
 		: nullptr;
 }
 
-static struct filelist_entry *
+static FileListEntry *
 browser_get_index(const struct screen_browser *browser, unsigned i)
 {
 	if (browser->filelist == nullptr ||
@@ -239,7 +239,7 @@ browser_handle_enter(struct screen_browser *browser, struct mpdclient *c)
 }
 
 static bool
-browser_select_entry(struct mpdclient *c, struct filelist_entry *entry,
+browser_select_entry(struct mpdclient *c, FileListEntry *entry,
 		     gcc_unused bool toggle)
 {
 	assert(entry != nullptr);

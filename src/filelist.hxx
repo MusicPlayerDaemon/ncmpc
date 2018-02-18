@@ -27,22 +27,22 @@
 struct mpd_connection;
 struct mpd_song;
 
-struct filelist_entry {
+struct FileListEntry {
 	guint flags;
 	struct mpd_entity *entity;
 };
 
-struct filelist {
+struct FileList {
 	/* the list */
 	GPtrArray *entries;
 
-	filelist()
+	FileList()
 		:entries(g_ptr_array_new()) {}
 
-	~filelist();
+	~FileList();
 
-	filelist(const filelist &) = delete;
-	filelist &operator=(const filelist &) = delete;
+	FileList(const FileList &) = delete;
+	FileList &operator=(const FileList &) = delete;
 
 	guint size() const {
 		return entries->len;
@@ -52,13 +52,13 @@ struct filelist {
 		return size() == 0;
 	}
 
-	struct filelist_entry *operator[](guint i) const {
-		return (struct filelist_entry *)g_ptr_array_index(entries, i);
+	FileListEntry *operator[](guint i) const {
+		return (FileListEntry *)g_ptr_array_index(entries, i);
 	}
 
-	struct filelist_entry *emplace_back(struct mpd_entity *entity);
+	FileListEntry *emplace_back(struct mpd_entity *entity);
 
-	void MoveFrom(struct filelist &&src);
+	void MoveFrom(FileList &&src);
 
 	/**
 	 * Sort the whole list.
@@ -72,7 +72,7 @@ struct filelist {
 	void SortDirectoriesPlaylists(GCompareFunc compare_func);
 
 	/**
-	 * Eliminates duplicate songs from the filelist.
+	 * Eliminates duplicate songs from the FileList.
 	 */
 	void RemoveDuplicateSongs();
 
@@ -84,7 +84,7 @@ struct filelist {
 
 	/**
 	 * Receives entities from the connection, and appends them to the
-	 * specified filelist.  This does not finish the response, and does
+	 * specified FileList.  This does not finish the response, and does
 	 * not check for errors.
 	 */
 	void Receive(struct mpd_connection &connection);
@@ -96,10 +96,10 @@ compare_filelist_entry_path(gconstpointer filelist_entry1,
 			    gconstpointer filelist_entry2);
 
 /**
- * Creates a new filelist and receives entities from the connection.
+ * Creates a new FileList and receives entities from the connection.
  * This does not finish the response, and does not check for errors.
  */
-struct filelist *
+FileList *
 filelist_new_recv(struct mpd_connection *connection);
 
 #endif
