@@ -24,21 +24,10 @@
 #include <string.h>
 #include <assert.h>
 
-struct filelist *
-filelist_new()
+filelist::~filelist()
 {
-	struct filelist *filelist = g_new(struct filelist, 1);
-
-	filelist->entries = g_ptr_array_new();
-
-	return filelist;
-}
-
-void
-filelist_free(struct filelist *filelist)
-{
-	for (unsigned i = 0; i < filelist_length(filelist); ++i) {
-		struct filelist_entry *entry = filelist_get(filelist, i);
+	for (unsigned i = 0; i < filelist_length(this); ++i) {
+		struct filelist_entry *entry = filelist_get(this, i);
 
 		if (entry->entity)
 			mpd_entity_free(entry->entity);
@@ -46,8 +35,7 @@ filelist_free(struct filelist *filelist)
 		g_slice_free(struct filelist_entry, entry);
 	}
 
-	g_ptr_array_free(filelist->entries, true);
-	g_free(filelist);
+	g_ptr_array_free(entries, true);
 }
 
 struct filelist_entry *
@@ -244,7 +232,7 @@ filelist_recv(struct filelist *filelist, struct mpd_connection *connection)
 struct filelist *
 filelist_new_recv(struct mpd_connection *connection)
 {
-	struct filelist *filelist = filelist_new();
+	auto *filelist = new struct filelist();
 	filelist_recv(filelist, connection);
 	return filelist;
 }

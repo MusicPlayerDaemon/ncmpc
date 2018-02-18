@@ -61,10 +61,9 @@ screen_file_load_list(struct mpdclient *c, struct filelist *filelist)
 static void
 screen_file_reload(struct mpdclient *c)
 {
-	if (browser.filelist != nullptr)
-		filelist_free(browser.filelist);
+	delete browser.filelist;
 
-	browser.filelist = filelist_new();
+	browser.filelist = new filelist();
 	if (*current_path != 0)
 		/* add a dummy entry for ./.. */
 		filelist_append(browser.filelist, nullptr);
@@ -252,8 +251,7 @@ screen_file_resize(unsigned cols, unsigned rows)
 static void
 screen_file_exit()
 {
-	if (browser.filelist)
-		filelist_free(browser.filelist);
+	delete browser.filelist;
 	list_window_free(browser.lw);
 
 	g_free(current_path);

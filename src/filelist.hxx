@@ -35,13 +35,15 @@ struct filelist_entry {
 struct filelist {
 	/* the list */
 	GPtrArray *entries;
+
+	filelist()
+		:entries(g_ptr_array_new()) {}
+
+	~filelist();
+
+	filelist(const filelist &) = delete;
+	filelist &operator=(const filelist &) = delete;
 };
-
-struct filelist *
-filelist_new();
-
-void
-filelist_free(struct filelist *filelist);
 
 static inline guint
 filelist_length(const struct filelist *filelist)

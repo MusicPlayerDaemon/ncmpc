@@ -132,8 +132,8 @@ static void
 search_clear(bool clear_pattern)
 {
 	if (browser.filelist) {
-		filelist_free(browser.filelist);
-		browser.filelist = filelist_new();
+		delete browser.filelist;
+		browser.filelist = new filelist();
 		list_window_set_length(browser.lw, 0);
 	}
 	if (clear_pattern && pattern) {
@@ -292,7 +292,7 @@ search_advanced_query(struct mpd_connection *connection, char *query)
 	mpd_search_commit(connection);
 	struct filelist *fl = filelist_new_recv(connection);
 	if (!mpd_response_finish(connection)) {
-		filelist_free(fl);
+		delete fl;
 		fl = nullptr;
 	}
 
@@ -332,14 +332,12 @@ screen_search_reload(struct mpdclient *c)
 	if (pattern == nullptr)
 		return;
 
-	if (browser.filelist != nullptr) {
-		filelist_free(browser.filelist);
-		browser.filelist = nullptr;
-	}
+	delete browser.filelist;
+	browser.filelist = nullptr;
 
 	browser.filelist = do_search(c, pattern);
 	if (browser.filelist == nullptr)
-		browser.filelist = filelist_new();
+		browser.filelist = new filelist();
 	list_window_set_length(browser.lw, filelist_length(browser.filelist));
 
 	screen_browser_sync_highlights(browser.filelist, &c->playlist);
@@ -384,8 +382,7 @@ screen_search_quit()
 {
 	if (search_history)
 		string_list_free(search_history);
-	if (browser.filelist)
-		filelist_free(browser.filelist);
+	delete browser.filelist;
 	list_window_free(browser.lw);
 
 	if (pattern) {

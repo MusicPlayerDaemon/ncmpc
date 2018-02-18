@@ -112,10 +112,8 @@ free_lists()
 		album_list = nullptr;
 	}
 
-	if (browser.filelist) {
-		filelist_free(browser.filelist);
-		browser.filelist = nullptr;
-	}
+	delete browser.filelist;
+	browser.filelist = nullptr;
 }
 
 static void
@@ -198,7 +196,7 @@ load_song_list(struct mpdclient *c)
 	assert(album != nullptr);
 	assert(browser.filelist == nullptr);
 
-	browser.filelist = filelist_new();
+	browser.filelist = new filelist();
 	/* add a dummy entry for ".." */
 	filelist_append(browser.filelist, nullptr);
 
@@ -467,7 +465,7 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
 	if (mpdclient_finish_command(c))
 		mpdclient_filelist_add_all(c, addlist);
 
-	filelist_free(addlist);
+	delete addlist;
 }
 
 static int
