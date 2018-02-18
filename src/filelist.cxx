@@ -24,15 +24,17 @@
 #include <string.h>
 #include <assert.h>
 
+FileListEntry::~FileListEntry()
+{
+	if (entity)
+		mpd_entity_free(entity);
+}
+
 FileList::~FileList()
 {
 	for (unsigned i = 0; i < size(); ++i) {
 		auto *entry = (*this)[i];
-
-		if (entry->entity)
-			mpd_entity_free(entry->entity);
-
-		g_slice_free(FileListEntry, entry);
+		delete entry;
 	}
 
 	g_ptr_array_free(entries, true);
@@ -41,10 +43,7 @@ FileList::~FileList()
 FileListEntry *
 FileList::emplace_back(struct mpd_entity *entity)
 {
-	auto *entry = g_slice_new(FileListEntry);
-
-	entry->flags = 0;
-	entry->entity = entity;
+	auto *entry = new FileListEntry(entity);
 
 	g_ptr_array_add(entries, entry);
 
@@ -162,8 +161,7 @@ FileList::RemoveDuplicateSongs()
 		const auto *song = mpd_entity_get_song(entry->entity);
 		if (FindSong(*song) < i) {
 			g_ptr_array_remove_index(entries, i);
-			mpd_entity_free(entry->entity);
-			g_slice_free(FileListEntry, entry);
+			delete entry;
 		}
 	}
 }

@@ -28,8 +28,15 @@ struct mpd_connection;
 struct mpd_song;
 
 struct FileListEntry {
-	guint flags;
+	unsigned flags = 0;
 	struct mpd_entity *entity;
+
+	explicit FileListEntry(struct mpd_entity *_entity)
+		:entity(_entity) {}
+	~FileListEntry();
+
+	FileListEntry(const FileListEntry &) = delete;
+	FileListEntry &operator=(const FileListEntry &) = delete;
 };
 
 class FileList {
