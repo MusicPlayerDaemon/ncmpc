@@ -45,9 +45,7 @@ static char *current_path;
 static void
 screen_file_load_list(struct mpdclient *c, struct filelist *filelist)
 {
-	struct mpd_connection *connection;
-
-	connection = mpdclient_get_connection(c);
+	auto *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
 		return;
 
@@ -141,7 +139,7 @@ change_to_entry(struct mpdclient *c, const struct filelist_entry *entry)
 static bool
 screen_file_handle_enter(struct mpdclient *c)
 {
-	const struct filelist_entry *entry = browser_get_selected_entry(&browser);
+	const auto *entry = browser_get_selected_entry(&browser);
 
 	if (entry == nullptr)
 		return false;
@@ -181,7 +179,7 @@ handle_save(struct mpdclient *c)
 static void
 handle_delete(struct mpdclient *c)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	auto *connection = mpdclient_get_connection(c);
 
 	if (connection == nullptr)
 		return;
@@ -193,7 +191,7 @@ handle_delete(struct mpdclient *c)
 		if (entry == nullptr || entry->entity == nullptr)
 			continue;
 
-		struct mpd_entity *entity = entry->entity;
+		const auto *entity = entry->entity;
 
 		if (mpd_entity_get_type(entity) != MPD_ENTITY_TYPE_PLAYLIST) {
 			/* translators: the "delete" command is only possible
@@ -204,7 +202,7 @@ handle_delete(struct mpdclient *c)
 			continue;
 		}
 
-		const struct mpd_playlist *playlist = mpd_entity_get_playlist(entity);
+		const auto *playlist = mpd_entity_get_playlist(entity);
 		char *str = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
 		char *buf = g_strdup_printf(_("Delete playlist %s?"), str);
 		g_free(str);
