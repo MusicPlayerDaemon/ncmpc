@@ -64,13 +64,13 @@ public:
 	/**
 	 * Sort the whole list.
 	 */
-	void SortAll(GCompareFunc compare_func);
+	void SortAll();
 
 	/**
 	 * Only sort the directories and playlist files.
 	 * The songs stay in the order it came from MPD.
 	 */
-	void SortDirectoriesPlaylists(GCompareFunc compare_func);
+	void SortDirectoriesPlaylists();
 
 	/**
 	 * Eliminates duplicate songs from the FileList.
@@ -90,11 +90,6 @@ public:
 	 */
 	void Receive(struct mpd_connection &connection);
 };
-
-gcc_pure
-gint
-compare_filelist_entry_path(gconstpointer filelist_entry1,
-			    gconstpointer filelist_entry2);
 
 /**
  * Creates a new FileList and receives entities from the connection.

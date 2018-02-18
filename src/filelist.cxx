@@ -70,7 +70,7 @@ filelist_compare_indirect(gconstpointer ap, gconstpointer bp, gpointer data)
 	return compare_func(a, b);
 }
 
-gint
+static gint
 compare_filelist_entry_path(gconstpointer filelist_entry1,
 			    gconstpointer filelist_entry2)
 {
@@ -101,18 +101,18 @@ compare_filelist_entry_path(gconstpointer filelist_entry1,
 
 /* Sorts the whole filelist, at the moment used by filelist_search */
 void
-FileList::SortAll(GCompareFunc compare_func)
+FileList::SortAll()
 {
 	g_ptr_array_sort_with_data(entries,
 				   filelist_compare_indirect,
-				   (gpointer)compare_func);
+				   (gpointer)compare_filelist_entry_path);
 }
 
 
 /* Only sorts the directories and playlist files.
  * The songs stay in the order it came from mpd. */
 void
-FileList::SortDirectoriesPlaylists(GCompareFunc compare_func)
+FileList::SortDirectoriesPlaylists()
 {
 	if (entries->len < 2)
 		return;
@@ -133,7 +133,8 @@ FileList::SortDirectoriesPlaylists(GCompareFunc compare_func)
 	if (last - first > 1)
 		g_qsort_with_data(entries->pdata + first,
 				  last - first, sizeof(gpointer),
-				  filelist_compare_indirect, (gpointer)compare_func);
+				  filelist_compare_indirect,
+				  (gpointer)compare_filelist_entry_path);
 	/* find the first playlist entry */
 	for (first = last; first < entries->len; first++) {
 		iter = ((FileListEntry *)g_ptr_array_index(entries, first))->entity;
@@ -145,7 +146,7 @@ FileList::SortDirectoriesPlaylists(GCompareFunc compare_func)
 		g_qsort_with_data(entries->pdata + first,
 				  entries->len - first, sizeof(gpointer),
 				  filelist_compare_indirect,
-				  (gpointer)compare_func);
+				  (gpointer)compare_filelist_entry_path);
 }
 
 void

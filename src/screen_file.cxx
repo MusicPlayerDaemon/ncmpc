@@ -53,7 +53,7 @@ screen_file_load_list(struct mpdclient *c, FileList *filelist)
 	filelist->Receive(*connection);
 
 	if (mpdclient_finish_command(c))
-		filelist->SortDirectoriesPlaylists(compare_filelist_entry_path);
+		filelist->SortDirectoriesPlaylists();
 }
 
 static void
