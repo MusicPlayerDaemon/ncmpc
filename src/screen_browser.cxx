@@ -52,8 +52,8 @@ void
 screen_browser_sync_highlights(struct filelist *fl,
 			       const struct mpdclient_playlist *playlist)
 {
-	for (unsigned i = 0; i < filelist_length(fl); ++i) {
-		struct filelist_entry *entry = filelist_get(fl, i);
+	for (unsigned i = 0; i < fl->size(); ++i) {
+		struct filelist_entry *entry = (*fl)[i];
 		const struct mpd_entity *entity = entry->entity;
 
 		if (entity != nullptr && mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
@@ -79,9 +79,9 @@ browser_lw_callback(unsigned idx, void *data)
 	static char buf[BUFSIZE];
 
 	assert(fl != nullptr);
-	assert(idx < filelist_length(fl));
+	assert(idx < fl->size());
 
-	const struct filelist_entry *entry = filelist_get(fl, idx);
+	const struct filelist_entry *entry = (*fl)[idx];
 	assert(entry != nullptr);
 
 	const struct mpd_entity *entity = entry->entity;
@@ -186,10 +186,10 @@ browser_get_selected_entry(const struct screen_browser *browser)
 	if (browser->filelist == nullptr ||
 	    range.end <= range.start ||
 	    range.end > range.start + 1 ||
-	    range.start >= filelist_length(browser->filelist))
+	    range.start >= browser->filelist->size())
 		return nullptr;
 
-	return filelist_get(browser->filelist, range.start);
+	return (*browser->filelist)[range.start];
 }
 
 static const struct mpd_entity *
@@ -217,10 +217,10 @@ static struct filelist_entry *
 browser_get_index(const struct screen_browser *browser, unsigned i)
 {
 	if (browser->filelist == nullptr ||
-	    i >= filelist_length(browser->filelist))
+	    i >= browser->filelist->size())
 		return nullptr;
 
-	return filelist_get(browser->filelist, i);
+	return (*browser->filelist)[i];
 }
 
 static bool
@@ -342,8 +342,8 @@ browser_handle_select_all(struct screen_browser *browser, struct mpdclient *c)
 	if (browser->filelist == nullptr)
 		return;
 
-	for (unsigned i = 0; i < filelist_length(browser->filelist); ++i) {
-		struct filelist_entry *entry = filelist_get(browser->filelist, i);
+	for (unsigned i = 0; i < browser->filelist->size(); ++i) {
+		struct filelist_entry *entry = (*browser->filelist)[i];
 
 		if (entry != nullptr && entry->entity != nullptr)
 			browser_select_entry(c, entry, false);
@@ -504,9 +504,9 @@ screen_browser_paint_callback(WINDOW *w, unsigned i,
 
 	assert(browser != nullptr);
 	assert(browser->filelist != nullptr);
-	assert(i < filelist_length(browser->filelist));
+	assert(i < browser->filelist->size());
 
-	const struct filelist_entry *entry = filelist_get(browser->filelist, i);
+	const struct filelist_entry *entry = (*browser->filelist)[i];
 	assert(entry != nullptr);
 
 	const struct mpd_entity *entity = entry->entity;

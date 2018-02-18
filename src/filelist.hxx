@@ -43,68 +43,57 @@ struct filelist {
 
 	filelist(const filelist &) = delete;
 	filelist &operator=(const filelist &) = delete;
+
+	guint size() const {
+		return entries->len;
+	}
+
+	bool empty() const {
+		return size() == 0;
+	}
+
+	struct filelist_entry *operator[](guint i) const {
+		return (struct filelist_entry *)g_ptr_array_index(entries, i);
+	}
+
+	struct filelist_entry *emplace_back(struct mpd_entity *entity);
+
+	void MoveFrom(struct filelist &&src);
+
+	/**
+	 * Sort the whole list.
+	 */
+	void SortAll(GCompareFunc compare_func);
+
+	/**
+	 * Only sort the directories and playlist files.
+	 * The songs stay in the order it came from MPD.
+	 */
+	void SortDirectoriesPlaylists(GCompareFunc compare_func);
+
+	/**
+	 * Eliminates duplicate songs from the filelist.
+	 */
+	void RemoveDuplicateSongs();
+
+	gcc_pure
+	int FindSong(const struct mpd_song &song) const;
+
+	gcc_pure
+	int FindDirectory(const char *name) const;
+
+	/**
+	 * Receives entities from the connection, and appends them to the
+	 * specified filelist.  This does not finish the response, and does
+	 * not check for errors.
+	 */
+	void Receive(struct mpd_connection &connection);
 };
-
-static inline guint
-filelist_length(const struct filelist *filelist)
-{
-	return filelist->entries->len;
-}
-
-static inline gboolean
-filelist_is_empty(const struct filelist *filelist)
-{
-	return filelist_length(filelist) == 0;
-}
-
-gcc_pure
-static inline struct filelist_entry *
-filelist_get(const struct filelist *filelist, guint i)
-{
-	return (struct filelist_entry *)g_ptr_array_index(filelist->entries, i);
-}
-
-struct filelist_entry *
-filelist_append(struct filelist *filelist, struct mpd_entity *entity);
-
-void
-filelist_move(struct filelist *filelist, struct filelist *from);
 
 gcc_pure
 gint
 compare_filelist_entry_path(gconstpointer filelist_entry1,
 			    gconstpointer filelist_entry2);
-
-/* Sorts the whole filelist, at the moment used by filelist_search */
-void
-filelist_sort_all(struct filelist *filelist, GCompareFunc compare_func);
-
-/* Only sorts the directories and playlist files.
- * The songs stay in the order it came from mpd. */
-void
-filelist_sort_dir_play(struct filelist *filelist, GCompareFunc compare_func);
-
-/**
- * Eliminates duplicate songs from the filelist.
- */
-void
-filelist_no_duplicates(struct filelist *filelist);
-
-gcc_pure
-int
-filelist_find_song(const struct filelist *flist, const struct mpd_song *song);
-
-gcc_pure
-int
-filelist_find_directory(const struct filelist *filelist, const char *name);
-
-/**
- * Receives entities from the connection, and appends them to the
- * specified filelist.  This does not finish the response, and does
- * not check for errors.
- */
-void
-filelist_recv(struct filelist *filelist, struct mpd_connection *connection);
 
 /**
  * Creates a new filelist and receives entities from the connection.

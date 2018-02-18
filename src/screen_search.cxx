@@ -165,7 +165,7 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 		mpd_command_list_end(connection);
 
 		list = filelist_new_recv(connection);
-		filelist_no_duplicates(list);
+		list->RemoveDuplicateSongs();
 	} else if (table == SEARCH_URI) {
 		mpd_search_db_songs(connection, exact_match);
 		mpd_search_add_uri_constraint(connection, MPD_OPERATOR_DEFAULT,
@@ -338,7 +338,7 @@ screen_search_reload(struct mpdclient *c)
 	browser.filelist = do_search(c, pattern);
 	if (browser.filelist == nullptr)
 		browser.filelist = new filelist();
-	list_window_set_length(browser.lw, filelist_length(browser.filelist));
+	list_window_set_length(browser.lw, browser.filelist->size());
 
 	screen_browser_sync_highlights(browser.filelist, &c->playlist);
 }

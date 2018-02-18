@@ -984,14 +984,14 @@ mpdclient_filelist_add_all(struct mpdclient *c, struct filelist *fl)
 	if (connection == nullptr)
 		return false;
 
-	if (filelist_is_empty(fl))
+	if (fl->empty())
 		return true;
 
 	mpd_command_list_begin(connection, false);
 
-	for (unsigned i = 0; i < filelist_length(fl); ++i) {
-		struct filelist_entry *entry = filelist_get(fl, i);
-		struct mpd_entity *entity  = entry->entity;
+	for (unsigned i = 0; i < fl->size(); ++i) {
+		auto *entry = (*fl)[i];
+		auto *entity = entry->entity;
 
 		if (entity != nullptr &&
 		    mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {

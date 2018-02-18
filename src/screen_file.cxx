@@ -52,10 +52,10 @@ screen_file_load_list(struct mpdclient *c, struct filelist *filelist)
 		return;
 
 	mpd_send_list_meta(connection, current_path);
-	filelist_recv(filelist, connection);
+	filelist->Receive(*connection);
 
 	if (mpdclient_finish_command(c))
-		filelist_sort_dir_play(filelist, compare_filelist_entry_path);
+		filelist->SortDirectoriesPlaylists(compare_filelist_entry_path);
 }
 
 static void
@@ -66,12 +66,11 @@ screen_file_reload(struct mpdclient *c)
 	browser.filelist = new filelist();
 	if (*current_path != 0)
 		/* add a dummy entry for ./.. */
-		filelist_append(browser.filelist, nullptr);
+		browser.filelist->emplace_back(nullptr);
 
 	screen_file_load_list(c, browser.filelist);
 
-	list_window_set_length(browser.lw,
-			       filelist_length(browser.filelist));
+	list_window_set_length(browser.lw, browser.filelist->size());
 }
 
 /**
@@ -109,7 +108,7 @@ change_to_parent(struct mpdclient *c)
 	g_free(parent);
 
 	int idx = success
-		? filelist_find_directory(browser.filelist, old_path)
+		? browser.filelist->FindDirectory(old_path)
 		: -1;
 	g_free(old_path);
 
@@ -161,8 +160,7 @@ handle_save(struct mpdclient *c)
 		return;
 
 	for (unsigned i = range.start; i < range.end; ++i) {
-		struct filelist_entry *entry =
-			filelist_get(browser.filelist, i);
+		auto *entry = (*browser.filelist)[i];
 		if( entry && entry->entity ) {
 			struct mpd_entity *entity = entry->entity;
 			if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
@@ -191,8 +189,7 @@ handle_delete(struct mpdclient *c)
 	struct list_window_range range;
 	list_window_get_range(browser.lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {
-		struct filelist_entry *entry =
-			filelist_get(browser.filelist, i);
+		auto *entry = (*browser.filelist)[i];
 		if (entry == nullptr || entry->entity == nullptr)
 			continue;
 
@@ -436,7 +433,7 @@ screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song)
 
 	/* select the specified song */
 
-	int i = filelist_find_song(browser.filelist, song);
+	int i = browser.filelist->FindSong(*song);
 	if (i < 0)
 		i = 0;
 

@@ -198,7 +198,7 @@ load_song_list(struct mpdclient *c)
 
 	browser.filelist = new filelist();
 	/* add a dummy entry for ".." */
-	filelist_append(browser.filelist, nullptr);
+	browser.filelist->emplace_back(nullptr);
 
 	if (connection != nullptr) {
 		mpd_search_db_songs(connection, true);
@@ -209,14 +209,14 @@ load_song_list(struct mpdclient *c)
 						      MPD_TAG_ALBUM, album);
 		mpd_search_commit(connection);
 
-		filelist_recv(browser.filelist, connection);
+		browser.filelist->Receive(*connection);
 
 		mpdclient_finish_command(c);
 	}
 
 	/* fix highlights */
 	screen_browser_sync_highlights(browser.filelist, &c->playlist);
-	list_window_set_length(browser.lw, filelist_length(browser.filelist));
+	list_window_set_length(browser.lw, browser.filelist->size());
 }
 
 static void
