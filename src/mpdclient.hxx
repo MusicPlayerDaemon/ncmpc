@@ -7,7 +7,7 @@
 
 #include <mpd/client.h>
 
-struct FileList;
+class FileList;
 
 struct mpdclient {
 #ifdef ENABLE_ASYNC_CONNECT

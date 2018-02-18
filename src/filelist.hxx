@@ -32,10 +32,11 @@ struct FileListEntry {
 	struct mpd_entity *entity;
 };
 
-struct FileList {
+class FileList {
 	/* the list */
 	GPtrArray *entries;
 
+public:
 	FileList()
 		:entries(g_ptr_array_new()) {}
 

@@ -26,7 +26,7 @@
 
 struct mpdclient;
 struct mpdclient_playlist;
-struct FileList;
+class FileList;
 struct FileListEntry;
 struct list_window;
 struct list_window_state;
