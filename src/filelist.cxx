@@ -21,6 +21,10 @@
 
 #include <mpd/client.h>
 
+#include <glib.h>
+
+#include <algorithm>
+
 #include <string.h>
 #include <assert.h>
 
@@ -30,122 +34,81 @@ FileListEntry::~FileListEntry()
 		mpd_entity_free(entity);
 }
 
-FileList::~FileList()
+gcc_pure
+static bool
+Less(const struct mpd_entity &a, struct mpd_entity &b)
 {
-	for (unsigned i = 0; i < size(); ++i) {
-		auto *entry = (*this)[i];
-		delete entry;
+	const auto a_type = mpd_entity_get_type(&a);
+	const auto b_type = mpd_entity_get_type(&b);
+	if (a_type != b_type)
+		return a_type < b_type;
+
+	switch (a_type) {
+	case MPD_ENTITY_TYPE_UNKNOWN:
+		break;
+
+	case MPD_ENTITY_TYPE_DIRECTORY:
+		return g_utf8_collate(mpd_directory_get_path(mpd_entity_get_directory(&a)),
+				      mpd_directory_get_path(mpd_entity_get_directory(&b))) < 0;
+
+	case MPD_ENTITY_TYPE_SONG:
+		return false;
+
+	case MPD_ENTITY_TYPE_PLAYLIST:
+		return g_utf8_collate(mpd_playlist_get_path(mpd_entity_get_playlist(&a)),
+				      mpd_playlist_get_path(mpd_entity_get_playlist(&b))) < 0;
 	}
 
-	g_ptr_array_free(entries, true);
+	return false;
+}
+
+gcc_pure
+static bool
+Less(const struct mpd_entity *a, struct mpd_entity *b)
+{
+	if (a == nullptr)
+		return b != nullptr;
+	else if (b == nullptr)
+		return false;
+	else
+		return Less(*a, *b);
+}
+
+bool
+FileListEntry::operator<(const FileListEntry &other) const
+{
+	return Less(entity, other.entity);
+}
+
+FileList::~FileList()
+{
+	for (auto *entry : entries)
+		delete entry;
 }
 
 FileListEntry *
 FileList::emplace_back(struct mpd_entity *entity)
 {
 	auto *entry = new FileListEntry(entity);
-
-	g_ptr_array_add(entries, entry);
-
+	entries.push_back(entry);
 	return entry;
 }
 
 void
 FileList::MoveFrom(FileList &&src)
 {
-	for (unsigned i = 0; i < src.size(); ++i)
-		g_ptr_array_add(entries, g_ptr_array_index(src.entries, i));
-
-	g_ptr_array_set_size(src.entries, 0);
+	entries.reserve(size() + src.size());
+	entries.insert(entries.end(), src.entries.begin(), src.entries.end());
+	src.entries.clear();
 }
 
-static gint
-filelist_compare_indirect(gconstpointer ap, gconstpointer bp, gpointer data)
-{
-	GCompareFunc compare_func = (GCompareFunc)data;
-	gconstpointer a = *(const gconstpointer*)ap;
-	gconstpointer b = *(const gconstpointer*)bp;
-
-	return compare_func(a, b);
-}
-
-static gint
-compare_filelist_entry_path(gconstpointer filelist_entry1,
-			    gconstpointer filelist_entry2)
-{
-	const struct mpd_entity *e1, *e2;
-
-	e1 = ((const FileListEntry *)filelist_entry1)->entity;
-	e2 = ((const FileListEntry *)filelist_entry2)->entity;
-
-	int n = 0;
-	if (e1 != nullptr && e2 != nullptr &&
-	    mpd_entity_get_type(e1) == mpd_entity_get_type(e2)) {
-		switch (mpd_entity_get_type(e1)) {
-		case MPD_ENTITY_TYPE_UNKNOWN:
-			break;
-		case MPD_ENTITY_TYPE_DIRECTORY:
-			n = g_utf8_collate(mpd_directory_get_path(mpd_entity_get_directory(e1)),
-					   mpd_directory_get_path(mpd_entity_get_directory(e2)));
-			break;
-		case MPD_ENTITY_TYPE_SONG:
-			break;
-		case MPD_ENTITY_TYPE_PLAYLIST:
-			n = g_utf8_collate(mpd_playlist_get_path(mpd_entity_get_playlist(e1)),
-					   mpd_playlist_get_path(mpd_entity_get_playlist(e2)));
-		}
-	}
-	return n;
-}
-
-/* Sorts the whole filelist, at the moment used by filelist_search */
 void
-FileList::SortAll()
+FileList::Sort()
 {
-	g_ptr_array_sort_with_data(entries,
-				   filelist_compare_indirect,
-				   (gpointer)compare_filelist_entry_path);
-}
-
-
-/* Only sorts the directories and playlist files.
- * The songs stay in the order it came from mpd. */
-void
-FileList::SortDirectoriesPlaylists()
-{
-	if (entries->len < 2)
-		return;
-
-	/* If the first entry is nullptr, skip it, because nullptr stands for "[..]" */
-	auto *iter = ((FileListEntry *)g_ptr_array_index(entries, 0))->entity;
-	unsigned first = iter == nullptr ? 1 : 0, last;
-
-	/* find the last directory entry */
-	for (last = first+1; last < entries->len; last++) {
-		iter = ((FileListEntry *)g_ptr_array_index(entries, last))->entity;
-		if (mpd_entity_get_type(iter) != MPD_ENTITY_TYPE_DIRECTORY)
-			break;
-	}
-	if (last == entries->len - 1)
-		last++;
-	/* sort the directories */
-	if (last - first > 1)
-		g_qsort_with_data(entries->pdata + first,
-				  last - first, sizeof(gpointer),
-				  filelist_compare_indirect,
-				  (gpointer)compare_filelist_entry_path);
-	/* find the first playlist entry */
-	for (first = last; first < entries->len; first++) {
-		iter = ((FileListEntry *)g_ptr_array_index(entries, first))->entity;
-		if (mpd_entity_get_type(iter) == MPD_ENTITY_TYPE_PLAYLIST)
-			break;
-	}
-	/* sort the playlist entries */
-	if (entries->len - first > 1)
-		g_qsort_with_data(entries->pdata + first,
-				  entries->len - first, sizeof(gpointer),
-				  filelist_compare_indirect,
-				  (gpointer)compare_filelist_entry_path);
+	std::stable_sort(entries.begin(), entries.end(),
+			 [](const FileListEntry *a, const FileListEntry *b){
+				 return *a < *b;
+			 });
 }
 
 void
@@ -160,7 +123,7 @@ FileList::RemoveDuplicateSongs()
 
 		const auto *song = mpd_entity_get_song(entry->entity);
 		if (FindSong(*song) < i) {
-			g_ptr_array_remove_index(entries, i);
+			entries.erase(std::next(entries.begin(), i));
 			delete entry;
 		}
 	}

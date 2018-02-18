@@ -22,7 +22,7 @@
 
 #include "Compiler.h"
 
-#include <glib.h>
+#include <vector>
 
 struct mpd_connection;
 struct mpd_song;
@@ -37,31 +37,36 @@ struct FileListEntry {
 
 	FileListEntry(const FileListEntry &) = delete;
 	FileListEntry &operator=(const FileListEntry &) = delete;
+
+	gcc_pure
+	bool operator<(const FileListEntry &other) const;
 };
 
 class FileList {
+	using Vector = std::vector<FileListEntry *>;
+
 	/* the list */
-	GPtrArray *entries;
+	Vector entries;
 
 public:
-	FileList()
-		:entries(g_ptr_array_new()) {}
+	using size_type = Vector::size_type;
 
+	FileList() = default;
 	~FileList();
 
 	FileList(const FileList &) = delete;
 	FileList &operator=(const FileList &) = delete;
 
-	guint size() const {
-		return entries->len;
+	size_type size() const {
+		return entries.size();
 	}
 
 	bool empty() const {
-		return size() == 0;
+		return entries.empty();
 	}
 
-	FileListEntry *operator[](guint i) const {
-		return (FileListEntry *)g_ptr_array_index(entries, i);
+	FileListEntry *operator[](size_type i) const {
+		return entries[i];
 	}
 
 	FileListEntry *emplace_back(struct mpd_entity *entity);
@@ -71,13 +76,7 @@ public:
 	/**
 	 * Sort the whole list.
 	 */
-	void SortAll();
-
-	/**
-	 * Only sort the directories and playlist files.
-	 * The songs stay in the order it came from MPD.
-	 */
-	void SortDirectoriesPlaylists();
+	void Sort();
 
 	/**
 	 * Eliminates duplicate songs from the FileList.
