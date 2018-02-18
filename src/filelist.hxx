@@ -23,6 +23,7 @@
 #include "Compiler.h"
 
 #include <vector>
+#include <utility>
 
 struct mpd_connection;
 struct mpd_song;
@@ -35,15 +36,23 @@ struct FileListEntry {
 		:entity(_entity) {}
 	~FileListEntry();
 
-	FileListEntry(const FileListEntry &) = delete;
-	FileListEntry &operator=(const FileListEntry &) = delete;
+	FileListEntry(FileListEntry &&src)
+		:flags(src.flags),
+		 entity(std::exchange(src.entity, nullptr)) {}
+
+	FileListEntry &operator=(FileListEntry &&src) {
+		using std::swap;
+		flags = src.flags;
+		swap(entity, src.entity);
+		return *this;
+	}
 
 	gcc_pure
 	bool operator<(const FileListEntry &other) const;
 };
 
 class FileList {
-	using Vector = std::vector<FileListEntry *>;
+	using Vector = std::vector<FileListEntry>;
 
 	/* the list */
 	Vector entries;
@@ -52,7 +61,6 @@ public:
 	using size_type = Vector::size_type;
 
 	FileList() = default;
-	~FileList();
 
 	FileList(const FileList &) = delete;
 	FileList &operator=(const FileList &) = delete;
@@ -66,11 +74,11 @@ public:
 	}
 
 	FileListEntry &operator[](size_type i) {
-		return *entries[i];
+		return entries[i];
 	}
 
 	const FileListEntry &operator[](size_type i) const {
-		return *entries[i];
+		return entries[i];
 	}
 
 	FileListEntry &emplace_back(struct mpd_entity *entity);

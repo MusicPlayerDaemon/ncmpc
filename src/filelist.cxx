@@ -80,35 +80,26 @@ FileListEntry::operator<(const FileListEntry &other) const
 	return Less(entity, other.entity);
 }
 
-FileList::~FileList()
-{
-	for (auto *entry : entries)
-		delete entry;
-}
-
 FileListEntry &
 FileList::emplace_back(struct mpd_entity *entity)
 {
-	auto *entry = new FileListEntry(entity);
-	entries.push_back(entry);
-	return *entry;
+	entries.emplace_back(entity);
+	return entries.back();
 }
 
 void
 FileList::MoveFrom(FileList &&src)
 {
 	entries.reserve(size() + src.size());
-	entries.insert(entries.end(), src.entries.begin(), src.entries.end());
+	for (auto &i : src.entries)
+		entries.emplace_back(std::move(i));
 	src.entries.clear();
 }
 
 void
 FileList::Sort()
 {
-	std::stable_sort(entries.begin(), entries.end(),
-			 [](const FileListEntry *a, const FileListEntry *b){
-				 return *a < *b;
-			 });
+	std::stable_sort(entries.begin(), entries.end());
 }
 
 void
@@ -122,10 +113,8 @@ FileList::RemoveDuplicateSongs()
 			continue;
 
 		const auto *song = mpd_entity_get_song(entry.entity);
-		if (FindSong(*song) < i) {
+		if (FindSong(*song) < i)
 			entries.erase(std::next(entries.begin(), i));
-			delete &entry;
-		}
 	}
 }
 
