@@ -53,17 +53,17 @@ screen_browser_sync_highlights(FileList *fl,
 			       const struct mpdclient_playlist *playlist)
 {
 	for (unsigned i = 0; i < fl->size(); ++i) {
-		auto *entry = (*fl)[i];
-		const auto *entity = entry->entity;
+		auto &entry = (*fl)[i];
+		const auto *entity = entry.entity;
 
 		if (entity != nullptr && mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 			const auto *song = mpd_entity_get_song(entity);
 
 			if (playlist_get_index_from_same_song(playlist,
 							      song) >= 0)
-				entry->flags |= HIGHLIGHT;
+				entry.flags |= HIGHLIGHT;
 			else
-				entry->flags &= ~HIGHLIGHT;
+				entry.flags &= ~HIGHLIGHT;
 		}
 	}
 }
@@ -80,10 +80,8 @@ browser_lw_callback(unsigned idx, void *data)
 	assert(fl != nullptr);
 	assert(idx < fl->size());
 
-	const auto *entry = (*fl)[idx];
-	assert(entry != nullptr);
-
-	const auto *entity = entry->entity;
+	const auto &entry = (*fl)[idx];
+	const auto *entity = entry.entity;
 
 	if( entity == nullptr )
 		return "..";
@@ -186,7 +184,7 @@ browser_get_selected_entry(const struct screen_browser *browser)
 	    range.start >= browser->filelist->size())
 		return nullptr;
 
-	return (*browser->filelist)[range.start];
+	return &(*browser->filelist)[range.start];
 }
 
 static const struct mpd_entity *
@@ -217,7 +215,7 @@ browser_get_index(const struct screen_browser *browser, unsigned i)
 	    i >= browser->filelist->size())
 		return nullptr;
 
-	return (*browser->filelist)[i];
+	return &(*browser->filelist)[i];
 }
 
 static bool
@@ -337,10 +335,10 @@ browser_handle_select_all(struct screen_browser *browser, struct mpdclient *c)
 		return;
 
 	for (unsigned i = 0; i < browser->filelist->size(); ++i) {
-		auto *entry = (*browser->filelist)[i];
+		auto &entry = (*browser->filelist)[i];
 
-		if (entry != nullptr && entry->entity != nullptr)
-			browser_select_entry(c, entry, false);
+		if (entry.entity != nullptr)
+			browser_select_entry(c, &entry, false);
 	}
 }
 
@@ -500,17 +498,15 @@ screen_browser_paint_callback(WINDOW *w, unsigned i,
 	assert(browser->filelist != nullptr);
 	assert(i < browser->filelist->size());
 
-	const auto *entry = (*browser->filelist)[i];
-	assert(entry != nullptr);
-
-	const struct mpd_entity *entity = entry->entity;
+	const auto &entry = (*browser->filelist)[i];
+	const struct mpd_entity *entity = entry.entity;
 	if (entity == nullptr) {
 		screen_browser_paint_directory(w, width, selected, "..");
 		return;
 	}
 
 #ifndef NCMPC_MINI
-	const bool highlight = (entry->flags & HIGHLIGHT) != 0;
+	const bool highlight = (entry.flags & HIGHLIGHT) != 0;
 #else
 	const bool highlight = false;
 #endif

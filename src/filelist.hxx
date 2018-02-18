@@ -65,11 +65,15 @@ public:
 		return entries.empty();
 	}
 
-	FileListEntry *operator[](size_type i) const {
-		return entries[i];
+	FileListEntry &operator[](size_type i) {
+		return *entries[i];
 	}
 
-	FileListEntry *emplace_back(struct mpd_entity *entity);
+	const FileListEntry &operator[](size_type i) const {
+		return *entries[i];
+	}
+
+	FileListEntry &emplace_back(struct mpd_entity *entity);
 
 	void MoveFrom(FileList &&src);
 

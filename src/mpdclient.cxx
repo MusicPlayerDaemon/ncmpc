@@ -990,8 +990,8 @@ mpdclient_filelist_add_all(struct mpdclient *c, FileList *fl)
 	mpd_command_list_begin(connection, false);
 
 	for (unsigned i = 0; i < fl->size(); ++i) {
-		auto *entry = (*fl)[i];
-		auto *entity = entry->entity;
+		auto &entry = (*fl)[i];
+		auto *entity = entry.entity;
 
 		if (entity != nullptr &&
 		    mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {

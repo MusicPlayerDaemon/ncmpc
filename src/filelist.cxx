@@ -86,12 +86,12 @@ FileList::~FileList()
 		delete entry;
 }
 
-FileListEntry *
+FileListEntry &
 FileList::emplace_back(struct mpd_entity *entity)
 {
 	auto *entry = new FileListEntry(entity);
 	entries.push_back(entry);
-	return entry;
+	return *entry;
 }
 
 void
@@ -115,16 +115,16 @@ void
 FileList::RemoveDuplicateSongs()
 {
 	for (int i = size() - 1; i >= 0; --i) {
-		auto *entry = (*this)[i];
+		auto &entry = (*this)[i];
 
-		if (entry->entity == nullptr ||
-		    mpd_entity_get_type(entry->entity) != MPD_ENTITY_TYPE_SONG)
+		if (entry.entity == nullptr ||
+		    mpd_entity_get_type(entry.entity) != MPD_ENTITY_TYPE_SONG)
 			continue;
 
-		const auto *song = mpd_entity_get_song(entry->entity);
+		const auto *song = mpd_entity_get_song(entry.entity);
 		if (FindSong(*song) < i) {
 			entries.erase(std::next(entries.begin(), i));
-			delete entry;
+			delete &entry;
 		}
 	}
 }
@@ -139,8 +139,8 @@ int
 FileList::FindSong(const struct mpd_song &song) const
 {
 	for (unsigned i = 0; i < size(); ++i) {
-		auto *entry = (*this)[i];
-		const auto *entity  = entry->entity;
+		auto &entry = (*this)[i];
+		const auto *entity  = entry.entity;
 
 		if (entity != nullptr &&
 		    mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
@@ -159,8 +159,8 @@ FileList::FindDirectory(const char *name) const
 	assert(name != nullptr);
 
 	for (unsigned i = 0; i < size(); ++i) {
-		auto *entry = (*this)[i];
-		const auto *entity  = entry->entity;
+		auto &entry = (*this)[i];
+		const auto *entity = entry.entity;
 
 		if (entity != nullptr &&
 		    mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY &&

@@ -158,9 +158,9 @@ handle_save(struct mpdclient *c)
 		return;
 
 	for (unsigned i = range.start; i < range.end; ++i) {
-		auto *entry = (*browser.filelist)[i];
-		if( entry && entry->entity ) {
-			struct mpd_entity *entity = entry->entity;
+		auto &entry = (*browser.filelist)[i];
+		if (entry.entity) {
+			struct mpd_entity *entity = entry.entity;
 			if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
 				const struct mpd_playlist *playlist =
 					mpd_entity_get_playlist(entity);
@@ -187,11 +187,11 @@ handle_delete(struct mpdclient *c)
 	struct list_window_range range;
 	list_window_get_range(browser.lw, &range);
 	for (unsigned i = range.start; i < range.end; ++i) {
-		auto *entry = (*browser.filelist)[i];
-		if (entry == nullptr || entry->entity == nullptr)
+		auto &entry = (*browser.filelist)[i];
+		if (entry.entity == nullptr)
 			continue;
 
-		const auto *entity = entry->entity;
+		const auto *entity = entry.entity;
 
 		if (mpd_entity_get_type(entity) != MPD_ENTITY_TYPE_PLAYLIST) {
 			/* translators: the "delete" command is only possible
