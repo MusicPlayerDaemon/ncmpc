@@ -48,7 +48,7 @@ sigwinch_event(gcc_unused GIOChannel *source,
 
 	endwin();
 	refresh();
-	screen_resize(c);
+	screen.OnResize(c);
 
 	return true;
 }

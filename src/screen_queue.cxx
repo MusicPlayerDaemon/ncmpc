@@ -453,7 +453,7 @@ screen_queue_mouse(struct mpdclient *c, gcc_unused int x, int row,
 
 	if (bstate & BUTTON1_DOUBLE_CLICKED) {
 		/* stop */
-		screen_cmd(c, CMD_STOP);
+		screen.OnCommand(c, CMD_STOP);
 		return true;
 	}
 
@@ -566,9 +566,9 @@ screen_queue_cmd(struct mpdclient *c, command_t cmd)
 #endif
 	case CMD_SCREEN_SWAP:
 		if (playlist_length(&c->playlist) > 0)
-			screen_swap(c, playlist_get(&c->playlist, lw->selected));
+			screen.Swap(c, playlist_get(&c->playlist, lw->selected));
 		else
-			screen_swap(c, nullptr);
+			screen.Swap(c, nullptr);
 		return true;
 
 	default:

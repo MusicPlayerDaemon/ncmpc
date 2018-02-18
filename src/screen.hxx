@@ -57,37 +57,30 @@ public:
 	 */
 	guint welcome_source_id;
 #endif
+
+	void Init(struct mpdclient *c);
+	void Exit();
+	void OnResize(struct mpdclient *c);
+
+	bool IsVisible(const struct screen_functions &sf) {
+		return &sf == current_page;
+	}
+
+	void Switch(const struct screen_functions &sf, struct mpdclient *c);
+	void Swap(struct mpdclient *c, const struct mpd_song *song);
+
+
+	void PaintTopWindow(const struct mpdclient *c);
+	void Paint(struct mpdclient *c, bool main_dirty);
+
+	void Update(struct mpdclient *c);
+	void OnCommand(struct mpdclient *c, command_t cmd);
+
+#ifdef HAVE_GETMOUSE
+	bool OnMouse(struct mpdclient *c, int x, int y, mmask_t bstate);
+#endif
 };
 
 extern ScreenManager screen;
-
-void screen_init(struct mpdclient *c);
-void screen_exit();
-void screen_resize(struct mpdclient *c);
-
-void
-paint_top_window(const struct mpdclient *c);
-
-void
-screen_paint(struct mpdclient *c, bool main_dirty);
-
-void screen_update(struct mpdclient *c);
-void screen_cmd(struct mpdclient *c, command_t cmd);
-
-#ifdef HAVE_GETMOUSE
-bool
-screen_mouse(struct mpdclient *c, int x, int y, mmask_t bstate);
-#endif
-
-void
-screen_switch(const struct screen_functions *sf, struct mpdclient *c);
-void 
-screen_swap(struct mpdclient *c, const struct mpd_song *song);
-
-static inline bool
-screen_is_visible(const struct screen_functions *sf)
-{
-	return sf == screen.current_page;
-}
 
 #endif

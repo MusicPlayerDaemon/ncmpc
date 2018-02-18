@@ -503,10 +503,10 @@ screen_song_cmd(struct mpdclient *c, command_t cmd)
 
 	case CMD_SCREEN_SWAP:
 		if (current.selected_song != nullptr)
-			screen_swap(c, current.selected_song);
+			screen.Swap(c, current.selected_song);
 		else
 		// No need to check if this is null - we'd pass null anyway
-			screen_swap(c, current.played_song);
+			screen.Swap(c, current.played_song);
 		return true;
 
 	default:
@@ -546,5 +546,5 @@ screen_song_switch(struct mpdclient *c, const struct mpd_song *song)
 	assert(current.played_song == nullptr);
 
 	next_song = mpd_song_dup(song);
-	screen_switch(&screen_song, c);
+	screen.Switch(screen_song, c);
 }

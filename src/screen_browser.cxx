@@ -420,7 +420,7 @@ browser_cmd(struct screen_browser *browser,
 		return true;
 #endif
 	case CMD_SCREEN_SWAP:
-		screen_swap(c, browser_get_selected_song(browser));
+		screen.Swap(c, browser_get_selected_song(browser));
 		return true;
 
 	default:

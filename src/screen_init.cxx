@@ -39,34 +39,34 @@ static const unsigned SCREEN_MIN_COLS = 14;
 static const unsigned SCREEN_MIN_ROWS = 5;
 
 void
-screen_exit()
+ScreenManager::Exit()
 {
-	if (screen.current_page->close != nullptr)
-		screen.current_page->close();
+	if (current_page->close != nullptr)
+		current_page->close();
 
 	screen_list_exit();
 
-	string_list_free(screen.find_history);
-	g_free(screen.buf);
-	g_free(screen.findbuf);
+	string_list_free(find_history);
+	g_free(buf);
+	g_free(findbuf);
 
-	title_bar_deinit(&screen.title_bar);
-	delwin(screen.main_window.w);
-	progress_bar_deinit(&screen.progress_bar);
-	status_bar_deinit(&screen.status_bar);
+	title_bar_deinit(&title_bar);
+	delwin(main_window.w);
+	progress_bar_deinit(&progress_bar);
+	status_bar_deinit(&status_bar);
 
 #ifndef NCMPC_MINI
-	if (screen.welcome_source_id != 0)
-		g_source_remove(screen.welcome_source_id);
+	if (welcome_source_id != 0)
+		g_source_remove(welcome_source_id);
 #endif
 }
 
 void
-screen_resize(struct mpdclient *c)
+ScreenManager::OnResize(struct mpdclient *c)
 {
 	const unsigned cols = COLS, rows = LINES;
 	if (cols < SCREEN_MIN_COLS || rows < SCREEN_MIN_ROWS) {
-		screen_exit();
+		Exit();
 		fprintf(stderr, "%s\n", _("Error: Screen too small"));
 		exit(EXIT_FAILURE);
 	}
@@ -77,31 +77,31 @@ screen_resize(struct mpdclient *c)
 	resizeterm(rows, cols);
 #endif
 
-	title_bar_resize(&screen.title_bar, cols);
+	title_bar_resize(&title_bar, cols);
 
 	/* main window */
-	screen.main_window.cols = cols;
-	screen.main_window.rows = rows - 4;
-	wresize(screen.main_window.w, screen.main_window.rows, cols);
+	main_window.cols = cols;
+	main_window.rows = rows - 4;
+	wresize(main_window.w, main_window.rows, cols);
 
 	/* progress window */
-	progress_bar_resize(&screen.progress_bar, cols, rows - 2, 0);
+	progress_bar_resize(&progress_bar, cols, rows - 2, 0);
 
 	/* status window */
-	status_bar_resize(&screen.status_bar, cols, rows - 1, 0);
+	status_bar_resize(&status_bar, cols, rows - 1, 0);
 
-	screen.buf_size = cols;
-	g_free(screen.buf);
-	screen.buf = (char *)g_malloc(cols);
+	buf_size = cols;
+	g_free(buf);
+	buf = (char *)g_malloc(cols);
 
 	/* resize all screens */
-	screen_list_resize(screen.main_window.cols, screen.main_window.rows);
+	screen_list_resize(main_window.cols, main_window.rows);
 
 	/* ? - without this the cursor becomes visible with aterm & Eterm */
 	curs_set(1);
 	curs_set(0);
 
-	screen_paint(c, true);
+	Paint(c, true);
 }
 
 #ifndef NCMPC_MINI
@@ -112,7 +112,7 @@ welcome_timer_callback(gpointer data)
 
 	screen.welcome_source_id = 0;
 
-	paint_top_window(c);
+	screen.PaintTopWindow(c);
 	doupdate();
 
 	return false;
@@ -120,7 +120,7 @@ welcome_timer_callback(gpointer data)
 #endif
 
 void
-screen_init(struct mpdclient *c)
+ScreenManager::Init(struct mpdclient *c)
 {
 	const unsigned cols = COLS, rows = LINES;
 	if (cols < SCREEN_MIN_COLS || rows < SCREEN_MIN_ROWS) {
@@ -128,52 +128,51 @@ screen_init(struct mpdclient *c)
 		exit(EXIT_FAILURE);
 	}
 
-	screen.current_page = &screen_queue;
-	screen.buf = (char *)g_malloc(cols);
-	screen.buf_size = cols;
-	screen.findbuf = nullptr;
+	current_page = &screen_queue;
+	buf = (char *)g_malloc(cols);
+	buf_size = cols;
+	findbuf = nullptr;
 
 #ifndef NCMPC_MINI
 	if (options.welcome_screen_list)
-		screen.welcome_source_id =
+		welcome_source_id =
 			g_timeout_add_seconds(SCREEN_WELCOME_TIME,
 					      welcome_timer_callback, c);
 #endif
 
 	/* create top window */
-	title_bar_init(&screen.title_bar, cols, 0, 0);
+	title_bar_init(&title_bar, cols, 0, 0);
 
 	/* create main window */
-	window_init(&screen.main_window, rows - 4, cols, 2, 0);
+	window_init(&main_window, rows - 4, cols, 2, 0);
 
 	if (!options.hardware_cursor)
-		leaveok(screen.main_window.w, true);
+		leaveok(main_window.w, true);
 
-	keypad(screen.main_window.w, true);
+	keypad(main_window.w, true);
 
 	/* create progress window */
-	progress_bar_init(&screen.progress_bar, cols, rows - 2, 0);
+	progress_bar_init(&progress_bar, cols, rows - 2, 0);
 
 	/* create status window */
-	status_bar_init(&screen.status_bar, cols, rows - 1, 0);
+	status_bar_init(&status_bar, cols, rows - 1, 0);
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* set background attributes */
 		wbkgd(stdscr, COLOR_PAIR(COLOR_LIST));
-		wbkgd(screen.main_window.w,     COLOR_PAIR(COLOR_LIST));
-		wbkgd(screen.title_bar.window.w, COLOR_PAIR(COLOR_TITLE));
-		wbkgd(screen.progress_bar.window.w,
+		wbkgd(main_window.w,     COLOR_PAIR(COLOR_LIST));
+		wbkgd(title_bar.window.w, COLOR_PAIR(COLOR_TITLE));
+		wbkgd(progress_bar.window.w,
 		      COLOR_PAIR(COLOR_PROGRESSBAR));
-		wbkgd(screen.status_bar.window.w, COLOR_PAIR(COLOR_STATUS));
-		colors_use(screen.progress_bar.window.w, COLOR_PROGRESSBAR);
+		wbkgd(status_bar.window.w, COLOR_PAIR(COLOR_STATUS));
+		colors_use(progress_bar.window.w, COLOR_PROGRESSBAR);
 	}
 #endif
 
 	/* initialize screens */
-	screen_list_init(screen.main_window.w,
-			 screen.main_window.cols, screen.main_window.rows);
+	screen_list_init(main_window.w, main_window.cols, main_window.rows);
 
-	if (screen.current_page->open != nullptr)
-		screen.current_page->open(c);
+	if (current_page->open != nullptr)
+		current_page->open(c);
 }

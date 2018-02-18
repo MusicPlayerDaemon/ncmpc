@@ -730,7 +730,7 @@ screen_artist_cmd(struct mpdclient *c, command_t cmd)
 	}
 
 	if (screen_artist_lw_cmd(c, cmd)) {
-		if (screen_is_visible(&screen_artist))
+		if (screen.IsVisible(screen_artist))
 			screen_artist_paint();
 		return true;
 	}
@@ -743,7 +743,7 @@ static bool
 screen_artist_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
 {
 	if (browser_mouse(&browser, c, x, y, bstate)) {
-		if (screen_is_visible(&screen_artist))
+		if (screen.IsVisible(screen_artist))
 			screen_artist_paint();
 
 		return true;

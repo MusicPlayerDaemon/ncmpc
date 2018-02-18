@@ -52,31 +52,29 @@ ScreenManager screen;
 static const struct screen_functions *mode_fn_prev = &screen_queue;
 
 void
-screen_switch(const struct screen_functions *sf, struct mpdclient *c)
+ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient *c)
 {
-	assert(sf != nullptr);
-
-	if (sf == screen.current_page)
+	if (&sf == current_page)
 		return;
 
-	mode_fn_prev = screen.current_page;
+	mode_fn_prev = current_page;
 
 	/* close the old mode */
-	if (screen.current_page->close != nullptr)
-		screen.current_page->close();
+	if (current_page->close != nullptr)
+		current_page->close();
 
 	/* get functions for the new mode */
-	screen.current_page = sf;
+	current_page = &sf;
 
 	/* open the new mode */
-	if (sf->open != nullptr)
-		sf->open(c);
+	if (sf.open != nullptr)
+		sf.open(c);
 
-	screen_paint(c, true);
+	Paint(c, true);
 }
 
 void
-screen_swap(struct mpdclient *c, const struct mpd_song *song)
+ScreenManager::Swap(struct mpdclient *c, const struct mpd_song *song)
 {
 	if (song != nullptr)
 	{
@@ -91,10 +89,10 @@ screen_swap(struct mpdclient *c, const struct mpd_song *song)
 			screen_lyrics_switch(c, song, true);
 #endif
 		else
-			screen_switch(mode_fn_prev, c);
+			Switch(*mode_fn_prev, c);
 	}
 	else
-		screen_switch(mode_fn_prev, c);
+		Switch(*mode_fn_prev, c);
 }
 
 static int
@@ -125,11 +123,11 @@ screen_next_mode(struct mpdclient *c, int offset)
 	const struct screen_functions *sf =
 		screen_lookup_name(options.screen_list[next]);
 	if (sf != nullptr)
-		screen_switch(sf, c);
+		screen.Switch(*sf, c);
 }
 
 void
-screen_update(struct mpdclient *c)
+ScreenManager::Update(struct mpdclient *c)
 {
 #ifndef NCMPC_MINI
 	static bool was_connected;
@@ -198,24 +196,24 @@ screen_update(struct mpdclient *c)
 #endif
 
 	/* update the main window */
-	if (screen.current_page->update != nullptr)
-		screen.current_page->update(c);
+	if (current_page->update != nullptr)
+		current_page->update(c);
 
-	screen_paint(c, false);
+	Paint(c, false);
 }
 
 void
-screen_cmd(struct mpdclient *c, command_t cmd)
+ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
 {
 #ifndef NCMPC_MINI
-	if (screen.welcome_source_id != 0) {
-		g_source_remove(screen.welcome_source_id);
-		screen.welcome_source_id = 0;
+	if (welcome_source_id != 0) {
+		g_source_remove(welcome_source_id);
+		welcome_source_id = 0;
 	}
 #endif
 
-	if (screen.current_page->cmd != nullptr &&
-	    screen.current_page->cmd(c, cmd))
+	if (current_page->cmd != nullptr &&
+	    current_page->cmd(c, cmd))
 		return;
 
 	if (handle_player_command(c, cmd))
@@ -235,7 +233,7 @@ screen_cmd(struct mpdclient *c, command_t cmd)
 				     _("Auto center mode: Off"));
 		break;
 	case CMD_SCREEN_UPDATE:
-		screen_paint(c, true);
+		Paint(c, true);
 		break;
 	case CMD_SCREEN_PREVIOUS:
 		screen_next_mode(c, -1);
@@ -244,53 +242,53 @@ screen_cmd(struct mpdclient *c, command_t cmd)
 		screen_next_mode(c, 1);
 		break;
 	case CMD_SCREEN_PLAY:
-		screen_switch(&screen_queue, c);
+		Switch(screen_queue, c);
 		break;
 	case CMD_SCREEN_FILE:
-		screen_switch(&screen_browse, c);
+		Switch(screen_browse, c);
 		break;
 #ifdef ENABLE_HELP_SCREEN
 	case CMD_SCREEN_HELP:
-		screen_switch(&screen_help, c);
+		Switch(screen_help, c);
 		break;
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
 	case CMD_SCREEN_SEARCH:
-		screen_switch(&screen_search, c);
+		Switch(screen_search, c);
 		break;
 #endif
 #ifdef ENABLE_ARTIST_SCREEN
 	case CMD_SCREEN_ARTIST:
-		screen_switch(&screen_artist, c);
+		Switch(screen_artist, c);
 		break;
 #endif
 #ifdef ENABLE_SONG_SCREEN
 	case CMD_SCREEN_SONG:
-		screen_switch(&screen_song, c);
+		Switch(screen_song, c);
 		break;
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
 	case CMD_SCREEN_KEYDEF:
-		screen_switch(&screen_keydef, c);
+		Switch(screen_keydef, c);
 		break;
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
-		screen_switch(&screen_lyrics, c);
+		Switch(screen_lyrics, c);
 		break;
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
 	case CMD_SCREEN_OUTPUTS:
-		screen_switch(&screen_outputs, c);
+		Switch(screen_outputs, c);
 		break;
 #endif
 #ifdef ENABLE_CHAT_SCREEN
 	case CMD_SCREEN_CHAT:
-		screen_switch(&screen_chat, c);
+		Switch(screen_chat, c);
 		break;
 #endif
 	case CMD_SCREEN_SWAP:
-		screen_swap(c, nullptr);
+		Swap(c, nullptr);
 		break;
 
 	default:
@@ -311,14 +309,14 @@ screen_current_page_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
 }
 
 bool
-screen_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
+ScreenManager::OnMouse(struct mpdclient *c, int x, int y, mmask_t bstate)
 {
 	if (screen_current_page_mouse(c, x, y, bstate))
 		return true;
 
 	/* if button 2 was pressed switch screen */
 	if (bstate & BUTTON2_CLICKED) {
-		screen_cmd(c, CMD_SCREEN_NEXT);
+		OnCommand(c, CMD_SCREEN_NEXT);
 		return true;
 	}
 

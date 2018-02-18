@@ -344,7 +344,7 @@ screen_file_cmd(struct mpdclient *c, command_t cmd)
 	}
 
 	if (browser_cmd(&browser, c, cmd)) {
-		if (screen_is_visible(&screen_browse))
+		if (screen.IsVisible(screen_browse))
 			screen_file_paint();
 		return true;
 	}
@@ -378,7 +378,7 @@ static bool
 screen_file_mouse(struct mpdclient *c, int x, int y, mmask_t bstate)
 {
 	if (browser_mouse(&browser, c, x, y, bstate)) {
-		if (screen_is_visible(&screen_browse))
+		if (screen.IsVisible(screen_browse))
 			screen_file_paint();
 		return true;
 	}
@@ -438,6 +438,6 @@ screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song)
 	list_window_set_cursor(browser.lw, i);
 
 	/* finally, switch to the file screen */
-	screen_switch(&screen_browse, c);
+	screen.Switch(screen_browse, c);
 	return true;
 }

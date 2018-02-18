@@ -98,7 +98,7 @@ screen_lyrics_abort()
 static void
 lyrics_repaint_if_active()
 {
-	if (screen_is_visible(&screen_lyrics)) {
+	if (screen.IsVisible(screen_lyrics)) {
 		screen_text_repaint(&text);
 
 		/* XXX repaint the screen title */
@@ -471,7 +471,7 @@ lyrics_cmd(struct mpdclient *c, command_t cmd)
 		break;
 #endif
 	case CMD_SCREEN_SWAP:
-		screen_swap(c, current.song);
+		screen.Swap(c, current.song);
 		return true;
 
 	case CMD_LOCATE:
@@ -511,5 +511,5 @@ screen_lyrics_switch(struct mpdclient *c, const struct mpd_song *song, bool f)
 
 	follow = f;
 	next_song = mpd_song_dup(song);
-	screen_switch(&screen_lyrics, c);
+	screen.Switch(screen_lyrics, c);
 }

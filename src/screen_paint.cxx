@@ -29,18 +29,18 @@
 #include <assert.h>
 
 void
-paint_top_window(const struct mpdclient *c)
+ScreenManager::PaintTopWindow(const struct mpdclient *c)
 {
 	const char *title =
 #ifndef NCMPC_MINI
-		screen.welcome_source_id == 0 &&
+		welcome_source_id == 0 &&
 #endif
-		screen.current_page->get_title != nullptr
-		? screen.current_page->get_title(screen.buf, screen.buf_size)
+		current_page->get_title != nullptr
+		? current_page->get_title(buf, buf_size)
 		: "";
 	assert(title != nullptr);
 
-	title_bar_paint(&screen.title_bar, title, c->status);
+	title_bar_paint(&title_bar, title, c->status);
 }
 
 static void
@@ -64,30 +64,30 @@ update_progress_window(struct mpdclient *c, bool repaint)
 }
 
 void
-screen_paint(struct mpdclient *c, bool main_dirty)
+ScreenManager::Paint(struct mpdclient *c, bool main_dirty)
 {
 	/* update title/header window */
-	paint_top_window(c);
+	PaintTopWindow(c);
 
 	/* paint the bottom window */
 
 	update_progress_window(c, true);
-	status_bar_paint(&screen.status_bar, c->status, c->song);
+	status_bar_paint(&status_bar, c->status, c->song);
 
 	/* paint the main window */
 
 	if (main_dirty) {
-		wclear(screen.main_window.w);
-		if (screen.current_page->paint != nullptr)
-			screen.current_page->paint();
+		wclear(main_window.w);
+		if (current_page->paint != nullptr)
+			current_page->paint();
 	}
 
 	/* move the cursor to the origin */
 
 	if (!options.hardware_cursor)
-		wmove(screen.main_window.w, 0, 0);
+		wmove(main_window.w, 0, 0);
 
-	wnoutrefresh(screen.main_window.w);
+	wnoutrefresh(main_window.w);
 
 	/* tell curses to update */
 	doupdate();
