@@ -3,6 +3,7 @@ language: cpp
 matrix:
   include:
     - os: osx
+      osx_image: xcode9.3beta
 
 before_install:
   - test "$TRAVIS_OS_NAME" != "osx" || brew update
