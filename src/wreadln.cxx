@@ -68,7 +68,7 @@ struct wreadln {
 	size_t start = 0;
 
 	/** the current value */
-	gchar line[1024];
+	gchar line[1024] = "";
 
 	wreadln(WINDOW *_w, bool _masked)
 		:w(_w), masked(_masked) {}
