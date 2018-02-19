@@ -27,20 +27,23 @@
 
 #include <mpd/client.h>
 
-#include <glib.h>
+#include <vector>
+#include <memory>
 
 #include <assert.h>
 
+struct OutputDeleter {
+	void operator()(struct mpd_output *o) const {
+		mpd_output_free(o);
+	}
+};
+
 class OutputsPage final : public ListPage {
-	GPtrArray *mpd_outputs = g_ptr_array_new();
+	std::vector<std::unique_ptr<struct mpd_output, OutputDeleter>> items;
 
 public:
 	OutputsPage(WINDOW *w, unsigned cols, unsigned rows)
 		:ListPage(w, cols, rows) {}
-
-	~OutputsPage() override {
-		g_ptr_array_free(mpd_outputs, true);
-	}
 
 private:
 	void Clear();
@@ -60,20 +63,17 @@ public:
 bool
 OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 {
-	assert(mpd_outputs != nullptr);
-
-	if (output_index >= mpd_outputs->len)
+	if (output_index >= items.size())
 		return false;
 
 	struct mpd_connection *connection = mpdclient_get_connection(&c);
 	if (connection == nullptr)
 		return false;
 
-	auto *output = (struct mpd_output *)g_ptr_array_index(mpd_outputs,
-							      output_index);
-	if (!mpd_output_get_enabled(output)) {
+	const auto &output = *items[output_index];
+	if (!mpd_output_get_enabled(&output)) {
 		if (!mpd_run_enable_output(connection,
-					   mpd_output_get_id(output))) {
+					   mpd_output_get_id(&output))) {
 			mpdclient_handle_error(&c);
 			return false;
 		}
@@ -81,10 +81,10 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 		c.events |= MPD_IDLE_OUTPUT;
 
 		screen_status_printf(_("Output '%s' enabled"),
-				     mpd_output_get_name(output));
+				     mpd_output_get_name(&output));
 	} else {
 		if (!mpd_run_disable_output(connection,
-					    mpd_output_get_id(output))) {
+					    mpd_output_get_id(&output))) {
 			mpdclient_handle_error(&c);
 			return false;
 		}
@@ -92,29 +92,19 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 		c.events |= MPD_IDLE_OUTPUT;
 
 		screen_status_printf(_("Output '%s' disabled"),
-				     mpd_output_get_name(output));
+				     mpd_output_get_name(&output));
 	}
 
 	return true;
 }
 
-static void
-clear_output_element(gpointer data, gcc_unused gpointer user_data)
-{
-	auto *output = (struct mpd_output *)data;
-	mpd_output_free(output);
-}
-
 void
 OutputsPage::Clear()
 {
-	assert(mpd_outputs != nullptr);
-
-	if (mpd_outputs->len <= 0)
+	if (items.empty())
 		return;
 
-	g_ptr_array_foreach(mpd_outputs, clear_output_element, nullptr);
-	g_ptr_array_remove_range(mpd_outputs, 0, mpd_outputs->len);
+	items.clear();
 
 	/* not updating the list_window length here, because that
 	   would clear the cursor position, and fill_outputs_list()
@@ -122,11 +112,10 @@ OutputsPage::Clear()
 	/* list_window_set_length(lw, 0); */
 }
 
+template<typename O>
 static void
-fill_outputs_list(struct mpdclient *c, GPtrArray *mpd_outputs)
+fill_outputs_list(struct mpdclient *c, O &items)
 {
-	assert(mpd_outputs != nullptr);
-
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
 		return;
@@ -134,9 +123,8 @@ fill_outputs_list(struct mpdclient *c, GPtrArray *mpd_outputs)
 	mpd_send_outputs(connection);
 
 	struct mpd_output *output;
-	while ((output = mpd_recv_output(connection)) != nullptr) {
-		g_ptr_array_add(mpd_outputs, output);
-	}
+	while ((output = mpd_recv_output(connection)) != nullptr)
+		items.emplace_back(output);
 
 	mpdclient_finish_command(c);
 }
@@ -150,8 +138,8 @@ outputs_init(WINDOW *w, unsigned cols, unsigned rows)
 void
 OutputsPage::OnOpen(struct mpdclient &c)
 {
-	fill_outputs_list(&c, mpd_outputs);
-	list_window_set_length(&lw, mpd_outputs->len);
+	fill_outputs_list(&c, items);
+	list_window_set_length(&lw, items.size());
 }
 
 void
@@ -171,10 +159,9 @@ screen_outputs_paint_callback(WINDOW *w, unsigned i,
 			      gcc_unused unsigned y, unsigned width,
 			      bool selected, const void *data)
 {
-	const auto *mpd_outputs = (const GPtrArray *)data;
-	assert(i < mpd_outputs->len);
-	const auto *output = (const struct mpd_output *)
-		g_ptr_array_index(mpd_outputs, i);
+	const auto &items = *(const std::vector<std::unique_ptr<struct mpd_output, OutputDeleter>> *)data;
+	assert(i < items.size());
+	const auto *output = items[i].get();
 
 	row_color(w, COLOR_LIST, selected);
 	waddstr(w, mpd_output_get_enabled(output) ? "[X] " : "[ ] ");
@@ -185,7 +172,7 @@ screen_outputs_paint_callback(WINDOW *w, unsigned i,
 void
 OutputsPage::Paint() const
 {
-	list_window_paint2(&lw, screen_outputs_paint_callback, mpd_outputs);
+	list_window_paint2(&lw, screen_outputs_paint_callback, &items);
 }
 
 void
@@ -193,8 +180,8 @@ OutputsPage::Update(struct mpdclient &c)
 {
 	if (c.events & MPD_IDLE_OUTPUT) {
 		Clear();
-		fill_outputs_list(&c, mpd_outputs);
-		list_window_set_length(&lw, mpd_outputs->len);
+		fill_outputs_list(&c, items);
+		list_window_set_length(&lw, items.size());
 		SetDirty();
 	}
 }
@@ -202,8 +189,6 @@ OutputsPage::Update(struct mpdclient &c)
 bool
 OutputsPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
-	assert(mpd_outputs != nullptr);
-
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
@@ -214,8 +199,8 @@ OutputsPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_SCREEN_UPDATE:
 		Clear();
-		fill_outputs_list(&c, mpd_outputs);
-		list_window_set_length(&lw, mpd_outputs->len);
+		fill_outputs_list(&c, items);
+		list_window_set_length(&lw, items.size());
 		SetDirty();
 		return true;
 
