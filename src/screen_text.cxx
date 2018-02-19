@@ -21,6 +21,10 @@
 #include "screen_find.hxx"
 #include "charset.hxx"
 
+#include <glib.h>
+
+#include <algorithm>
+
 #include <assert.h>
 #include <string.h>
 
@@ -28,11 +32,7 @@ void
 TextPage::Clear()
 {
 	list_window_reset(&lw);
-
-	for (guint i = 0; i < lines->len; ++i)
-		g_free(g_ptr_array_index(lines, i));
-
-	g_ptr_array_set_size(lines, 0);
+	lines.clear();
 	list_window_set_length(&lw, 0);
 }
 
@@ -52,33 +52,30 @@ TextPage::Append(const char *str)
 
 		/* create copy and append it to lines */
 
-		char *line = (char *)g_malloc(eol - str + 1);
-		memcpy(line, str, eol - str);
-		line[eol - str] = 0;
-
-		g_ptr_array_add(lines, line);
+		lines.emplace_back(str, eol);
 
 		/* reset control characters */
 
-		for (eol = line + (eol - str); line < eol; ++line)
-			if ((unsigned char)*line < 0x20)
-				*line = ' ';
+		std::replace_if(lines.back().begin(), lines.back().end(),
+				[](unsigned char ch){
+					return ch < 0x20;
+				}, ' ');
 
 		str = next;
 	}
 
 	if (*str != 0)
-		g_ptr_array_add(lines, g_strdup(str));
+		lines.emplace_back(str);
 
-	list_window_set_length(&lw, lines->len);
+	list_window_set_length(&lw, lines.size());
 }
 
 const char *
 TextPage::ListCallback(unsigned idx) const
 {
-	assert(idx < lines->len);
+	assert(idx < lines.size());
 
-	char *value = utf8_to_locale((const char *)g_ptr_array_index(lines, idx));
+	char *value = utf8_to_locale(lines[idx].c_str());
 
 	static char buffer[256];
 	g_strlcpy(buffer, value, sizeof(buffer));

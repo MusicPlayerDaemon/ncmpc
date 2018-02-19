@@ -181,9 +181,8 @@ LyricsPage::Save()
 	if (lyr_file == nullptr)
 		return false;
 
-	for (unsigned i = 0; i < lines->len; ++i)
-		fprintf(lyr_file, "%s\n",
-			(const char *)g_ptr_array_index(lines, i));
+	for (const auto &i : lines)
+		fprintf(lyr_file, "%s\n", i.c_str());
 
 	fclose(lyr_file);
 	return true;

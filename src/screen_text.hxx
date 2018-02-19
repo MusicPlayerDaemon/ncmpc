@@ -22,13 +22,14 @@
 
 #include "ListPage.hxx"
 
-#include <glib.h>
+#include <vector>
+#include <string>
 
 struct mpdclient;
 
 class TextPage : public ListPage {
 protected:
-	GPtrArray *lines = g_ptr_array_new();
+	std::vector<std::string> lines;
 
 public:
 	TextPage(WINDOW *w, unsigned cols, unsigned rows)
@@ -36,14 +37,9 @@ public:
 		lw.hide_cursor = true;
 	}
 
-	~TextPage() override {
-		Clear();
-		g_ptr_array_free(lines, true);
-	}
-
 protected:
 	bool IsEmpty() const {
-		return lines->len == 0;
+		return lines.empty();
 	}
 
 	void Clear();
