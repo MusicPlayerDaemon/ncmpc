@@ -21,6 +21,7 @@
 #include "screen_interface.hxx"
 #include "screen_list.hxx"
 #include "screen_status.hxx"
+#include "Page.hxx"
 #include "config.h"
 #include "i18n.h"
 #include "charset.hxx"

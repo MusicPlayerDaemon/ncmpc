@@ -23,7 +23,7 @@
 #include "command.hxx"
 #include "config.h"
 #include "ncmpc_curses.h"
-#include "screen_interface.hxx"
+#include "Page.hxx"
 #include "list_window.hxx"
 
 struct mpdclient;

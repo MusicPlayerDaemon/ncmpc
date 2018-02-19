@@ -18,7 +18,7 @@
  */
 
 #include "screen.hxx"
-#include "screen_interface.hxx"
+#include "Page.hxx"
 #include "screen_list.hxx"
 #include "screen_queue.hxx"
 #include "config.h"

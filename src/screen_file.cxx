@@ -18,6 +18,7 @@
  */
 
 #include "screen_file.hxx"
+#include "screen_interface.hxx"
 #include "screen_browser.hxx"
 #include "screen_status.hxx"
 #include "save_playlist.hxx"

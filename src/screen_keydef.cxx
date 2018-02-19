@@ -19,6 +19,7 @@
 
 #include "screen_keydef.hxx"
 #include "screen_interface.hxx"
+#include "Page.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "i18n.h"

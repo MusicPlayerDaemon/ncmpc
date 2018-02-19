@@ -19,6 +19,7 @@
 
 #include "screen_song.hxx"
 #include "screen_interface.hxx"
+#include "Page.hxx"
 #include "screen_file.hxx"
 #include "screen_lyrics.hxx"
 #include "screen_find.hxx"

@@ -20,7 +20,7 @@
 #ifndef SCREEN_TEXT_H
 #define SCREEN_TEXT_H
 
-#include "screen_interface.hxx"
+#include "Page.hxx"
 #include "list_window.hxx"
 
 #include <glib.h>

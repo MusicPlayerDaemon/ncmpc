@@ -21,46 +21,9 @@
 #define NCMPC_SCREEN_INTERFACE_H
 
 #include "config.h"
-#include "command.hxx"
 #include "ncmpc_curses.h"
 
-#include <stddef.h>
-
-struct mpdclient;
-
-class Page {
-public:
-	virtual ~Page() = default;
-	virtual void OnOpen(struct mpdclient &) {}
-	virtual void OnClose() {}
-	virtual void OnResize(unsigned cols, unsigned rows) = 0;
-	virtual void Paint() const = 0;
-	virtual void Update(struct mpdclient &) {}
-
-	/**
-	 * Handle a command.
-	 *
-	 * @returns true if the command should not be handled by the
-	 * ncmpc core
-	 */
-	virtual bool OnCommand(struct mpdclient &c, command_t cmd) = 0;
-
-#ifdef HAVE_GETMOUSE
-	/**
-	 * Handle a mouse event.
-	 *
-	 * @return true if the event was handled (and should not be
-	 * handled by the ncmpc core)
-	 */
-	virtual bool OnMouse(gcc_unused struct mpdclient &c,
-			     gcc_unused int x, gcc_unused int y,
-			     gcc_unused mmask_t bstate) {
-		return false;
-	}
-#endif
-
-	virtual const char *GetTitle(char *s, size_t size) const = 0;
-};
+class Page;
 
 struct screen_functions {
 	Page *(*init)(WINDOW *w, unsigned cols, unsigned rows);

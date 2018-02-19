@@ -19,6 +19,7 @@
 
 #include "screen_help.hxx"
 #include "screen_interface.hxx"
+#include "Page.hxx"
 #include "screen_find.hxx"
 #include "paint.hxx"
 #include "charset.hxx"

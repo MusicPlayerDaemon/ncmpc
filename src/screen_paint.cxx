@@ -18,7 +18,7 @@
  */
 
 #include "screen.hxx"
-#include "screen_interface.hxx"
+#include "Page.hxx"
 #include "config.h"
 #include "mpdclient.hxx"
 #include "options.hxx"

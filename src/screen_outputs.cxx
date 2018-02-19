@@ -19,6 +19,7 @@
 
 #include "screen_outputs.hxx"
 #include "screen_interface.hxx"
+#include "Page.hxx"
 #include "screen_status.hxx"
 #include "paint.hxx"
 #include "i18n.h"
