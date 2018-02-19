@@ -31,46 +31,46 @@ struct mpdclient {
 	unsigned port;
 #endif
 
-	unsigned timeout_ms;
+	const unsigned timeout_ms;
 
-	const char *password;
+	const char *const password;
 
 	/* playlist */
 	struct mpdclient_playlist playlist;
 
 #ifdef ENABLE_ASYNC_CONNECT
-	struct aconnect *async_connect;
+	struct aconnect *async_connect = nullptr;
 #endif
 
-	struct mpd_connection *connection;
+	struct mpd_connection *connection = nullptr;
 
 	/**
 	 * Tracks idle events.  It is automatically called by
 	 * mpdclient_get_connection().
 	 */
-	struct mpd_glib_source *source;
+	struct mpd_glib_source *source = nullptr;
 
-	struct mpd_status *status;
-	const struct mpd_song *song;
+	struct mpd_status *status = nullptr;
+	const struct mpd_song *song = nullptr;
 
 	/**
 	 * The GLib source id which re-enters MPD idle mode before the
 	 * next main loop interation.
 	 */
-	unsigned enter_idle_source_id;
+	unsigned enter_idle_source_id = 0;
 
 	/**
 	 * This attribute is incremented whenever the connection changes
 	 * (i.e. on disconnection and (re-)connection).
 	 */
-	unsigned connection_id;
+	unsigned connection_id = 0;
 
-	int volume;
+	int volume = -1;
 
 	/**
 	 * A bit mask of idle events occurred since the last update.
 	 */
-	unsigned events;
+	unsigned events = 0;
 
 #if defined(ENABLE_ASYNC_CONNECT) && !defined(WIN32)
 	bool connecting2;
@@ -80,12 +80,32 @@ struct mpdclient {
 	 * This attribute is true when the connection is currently in
 	 * "idle" mode, and the #mpd_glib_source waits for an event.
 	 */
-	bool idle;
+	bool idle = false;
 
 	/**
 	 * Is MPD currently playing?
 	 */
-	bool playing;
+	bool playing = false;
+
+	mpdclient(unsigned _timeout_ms, const char *_password)
+		:timeout_ms(_timeout_ms), password(_password) {
+		playlist_init(&playlist);
+	}
+
+	~mpdclient() {
+		Disconnect();
+
+		mpdclient_playlist_free(&playlist);
+
+#ifdef ENABLE_ASYNC_CONNECT
+		mpd_settings_free(settings);
+
+#ifndef WIN32
+		if (settings2 != nullptr)
+			mpd_settings_free(settings2);
+#endif
+#endif
+	}
 
 	bool IsConnected() const {
 		return connection != nullptr;

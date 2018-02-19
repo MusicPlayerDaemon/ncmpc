@@ -176,7 +176,7 @@ struct mpdclient *
 mpdclient_new(const gchar *host, unsigned port,
 	      unsigned timeout_ms, const gchar *password)
 {
-	auto *c = new mpdclient;
+	auto *c = new mpdclient(timeout_ms, password);
 
 #ifdef ENABLE_ASYNC_CONNECT
 	c->settings = mpd_settings_new(host, port, timeout_ms,
@@ -196,33 +196,12 @@ mpdclient_new(const gchar *host, unsigned port,
 	c->port = port;
 #endif
 
-	c->timeout_ms = timeout_ms;
-	c->password = password;
-
-	playlist_init(&c->playlist);
-	c->volume = -1;
-	c->events = 0;
-	c->playing = false;
-
 	return c;
 }
 
 void
 mpdclient_free(struct mpdclient *c)
 {
-	c->Disconnect();
-
-	mpdclient_playlist_free(&c->playlist);
-
-#ifdef ENABLE_ASYNC_CONNECT
-	mpd_settings_free(c->settings);
-
-#ifndef WIN32
-	if (c->settings2 != nullptr)
-		mpd_settings_free(c->settings2);
-#endif
-#endif
-
 	delete c;
 }
 
