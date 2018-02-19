@@ -21,6 +21,7 @@
 #include "screen_utils.hxx"
 #include "screen_status.hxx"
 #include "mpdclient.hxx"
+#include "ncmpc_curses.h"
 
 static bool
 _mpdclient_auth_callback(struct mpdclient *c, gint recursion)

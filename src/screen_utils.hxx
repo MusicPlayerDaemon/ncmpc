@@ -21,8 +21,9 @@
 #define SCREEN_UTILS_H
 
 #include "config.h"
-#include "list_window.hxx"
 #include "command.hxx"
+
+#include <glib.h>
 
 struct mpdclient;
 
