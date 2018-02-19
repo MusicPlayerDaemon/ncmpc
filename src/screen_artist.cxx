@@ -774,7 +774,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	if (OnListCommand(c, cmd)) {
 		// TODO: move to FileListPage::OnCommand()
-		if (screen.IsVisible(screen_artist))
+		if (screen.IsVisible(*this))
 			Paint();
 		return true;
 	}
@@ -788,7 +788,7 @@ ArtistBrowserPage::OnMouse(struct mpdclient &c, int x, int y, mmask_t bstate)
 {
 	if (FileListPage::OnMouse(c, x, y, bstate)) {
 		// TODO: move to FileListPage::OnMouse()
-		if (screen.IsVisible(screen_artist))
+		if (screen.IsVisible(*this))
 			Paint();
 		return true;
 	}

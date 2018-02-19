@@ -392,7 +392,7 @@ FileBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	if (FileListPage::OnCommand(c, cmd)) {
 		// TODO: move to FileListPage::OnCommand()
-		if (screen.IsVisible(screen_browse))
+		if (screen.IsVisible(*this))
 			Paint();
 		return true;
 	}
@@ -427,7 +427,7 @@ FileBrowserPage::OnMouse(struct mpdclient &c, int x, int y, mmask_t bstate)
 {
 	if (FileListPage::OnMouse(c, x, y, bstate)) {
 		// TODO: move to FileListPage::OnMouse()
-		if (screen.IsVisible(screen_browse))
+		if (screen.IsVisible(*this))
 			Paint();
 		return true;
 	}

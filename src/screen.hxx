@@ -74,8 +74,9 @@ public:
 
 	void OnResize(struct mpdclient *c);
 
-	bool IsVisible(const struct screen_functions &sf) {
-		return &sf == current_page->first;
+	gcc_pure
+	bool IsVisible(const Page &page) const {
+		return &page == current_page->second.get();
 	}
 
 	void Switch(const struct screen_functions &sf, struct mpdclient *c);

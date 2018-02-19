@@ -71,7 +71,7 @@ private:
 	 * Repaint and update the screen, if it is currently active.
 	 */
 	void RepaintIfActive() {
-		if (screen.IsVisible(screen_lyrics))
+		if (screen.IsVisible(*this))
 			Repaint();
 
 		/* XXX repaint the screen title */
