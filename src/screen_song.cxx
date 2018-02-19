@@ -96,8 +96,8 @@ static struct mpd_song *next_song;
 class SongPage final : public Page {
 	ListWindow lw;
 
-	mpd_song *selected_song;
-	mpd_song *played_song;
+	mpd_song *selected_song = nullptr;
+	mpd_song *played_song = nullptr;
 	GPtrArray *lines;
 
 public:
@@ -131,6 +131,10 @@ private:
 
 public:
 	/* virtual methods from class Page */
+	void OnClose() override {
+		Clear();
+	}
+
 	void OnResize(unsigned cols, unsigned rows) override;
 	void Paint() const override;
 	void Update(struct mpdclient &c) override;
