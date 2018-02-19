@@ -53,7 +53,7 @@ struct hscroll {
 	/**
 	 * The scrolled text, in the current locale.
 	 */
-	char *text;
+	char *text = nullptr;
 
 	/**
 	 * The current scrolling offset.  This is a character
