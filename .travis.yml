@@ -1,8 +1,8 @@
-dist: trusty
 language: cpp
 
-os:
-  - osx
+matrix:
+  include:
+    - os: osx
 
 before_install:
   - test "$TRAVIS_OS_NAME" != "osx" || brew update
