@@ -25,8 +25,6 @@
 #include "colors.hxx"
 #include "ncmpc_curses.h"
 
-#include <glib.h>
-
 typedef const char *
 (*list_window_callback_fn_t)(unsigned i, void *data);
 
