@@ -19,11 +19,10 @@
 
 #include "screen_outputs.hxx"
 #include "screen_interface.hxx"
-#include "Page.hxx"
+#include "ListPage.hxx"
 #include "screen_status.hxx"
 #include "paint.hxx"
 #include "i18n.h"
-#include "list_window.hxx"
 #include "mpdclient.hxx"
 
 #include <mpd/client.h>
@@ -32,14 +31,12 @@
 
 #include <assert.h>
 
-class OutputsPage final : public Page {
-	ListWindow lw;
-
+class OutputsPage final : public ListPage {
 	GPtrArray *mpd_outputs = g_ptr_array_new();
 
 public:
 	OutputsPage(WINDOW *w, unsigned cols, unsigned rows)
-		:lw(w, cols, rows) {}
+		:ListPage(w, cols, rows) {}
 
 	~OutputsPage() override {
 		g_ptr_array_free(mpd_outputs, true);
@@ -54,7 +51,6 @@ public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 	void OnClose() override;
-	void OnResize(unsigned cols, unsigned rows) override;
 	void Paint() const override;
 	void Update(struct mpdclient &c) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
@@ -152,12 +148,6 @@ outputs_init(WINDOW *w, unsigned cols, unsigned rows)
 }
 
 void
-OutputsPage::OnResize(unsigned cols, unsigned rows)
-{
-	list_window_resize(&lw, cols, rows);
-}
-
-void
 OutputsPage::OnOpen(struct mpdclient &c)
 {
 	fill_outputs_list(&c, mpd_outputs);
@@ -214,10 +204,8 @@ OutputsPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
 	assert(mpd_outputs != nullptr);
 
-	if (list_window_cmd(&lw, cmd)) {
-		SetDirty();
+	if (ListPage::OnCommand(c, cmd))
 		return true;
-	}
 
 	switch (cmd) {
 	case CMD_PLAY:

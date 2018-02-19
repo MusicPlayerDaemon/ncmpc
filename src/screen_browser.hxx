@@ -23,25 +23,22 @@
 #include "command.hxx"
 #include "config.h"
 #include "ncmpc_curses.h"
-#include "Page.hxx"
-#include "list_window.hxx"
+#include "ListPage.hxx"
 
 struct mpdclient;
 struct mpdclient_playlist;
 class FileList;
 struct FileListEntry;
 
-class FileListPage : public Page {
+class FileListPage : public ListPage {
 protected:
-	ListWindow lw;
-
 	FileList *filelist = nullptr;
 	const char *const song_format;
 
 public:
 	FileListPage(WINDOW *_w, unsigned _cols, unsigned _rows,
 		     const char *_song_format)
-		:lw(_w, _cols, _rows),
+		:ListPage(_w, _cols, _rows),
 		 song_format(_song_format) {}
 
 	~FileListPage() override;
@@ -71,10 +68,6 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void OnResize(unsigned cols, unsigned rows) override {
-		list_window_resize(&lw, cols, rows);
-	}
-
 	void Paint() const override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 

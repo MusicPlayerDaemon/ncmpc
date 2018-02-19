@@ -353,12 +353,12 @@ FileListPage::HandleSelectAll(struct mpdclient &c)
 #ifdef HAVE_GETMOUSE
 
 bool
-FileListPage::OnMouse(struct mpdclient &c, gcc_unused int x, int row,
+FileListPage::OnMouse(struct mpdclient &c, int x, int row,
 		      mmask_t bstate)
 {
 	unsigned prev_selected = lw.selected;
 
-	if (list_window_mouse(&lw, bstate, row))
+	if (ListPage::OnMouse(c, x, row, bstate))
 		return true;
 
 	list_window_set_cursor(&lw, lw.start + row);
@@ -382,10 +382,8 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	if (filelist == nullptr)
 		return false;
 
-	if (list_window_cmd(&lw, cmd)) {
-		SetDirty();
+	if (ListPage::OnCommand(c, cmd))
 		return true;
-	}
 
 	switch (cmd) {
 #if defined(ENABLE_SONG_SCREEN) || defined(ENABLE_LYRICS_SCREEN)

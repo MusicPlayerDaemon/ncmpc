@@ -19,7 +19,7 @@
 
 #include "screen_queue.hxx"
 #include "screen_interface.hxx"
-#include "Page.hxx"
+#include "ListPage.hxx"
 #include "screen_file.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
@@ -52,9 +52,7 @@
 
 #define MAX_SONG_LENGTH 512
 
-class QueuePage final : public Page {
-	ListWindow lw;
-
+class QueuePage final : public ListPage {
 #ifndef NCMPC_MINI
 	mutable struct hscroll hscroll;
 #endif
@@ -71,7 +69,7 @@ class QueuePage final : public Page {
 
 public:
 	QueuePage(WINDOW *w, unsigned cols, unsigned rows)
-		:lw(w, cols, rows) {
+		:ListPage(w, cols, rows) {
 #ifndef NCMPC_MINI
 		if (options.scroll)
 			hscroll_init(&hscroll, w, options.scroll_sep);
@@ -106,7 +104,6 @@ public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 	void OnClose() override;
-	void OnResize(unsigned cols, unsigned rows) override;
 	void Paint() const override;
 	void Update(struct mpdclient &c) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
@@ -398,12 +395,6 @@ QueuePage::OnClose()
 #endif
 }
 
-void
-QueuePage::OnResize(unsigned cols, unsigned rows)
-{
-	list_window_resize(&lw, cols, rows);
-}
-
 const char *
 QueuePage::GetTitle(char *str, size_t size) const
 {
@@ -473,13 +464,10 @@ QueuePage::Update(struct mpdclient &c)
 
 #ifdef HAVE_GETMOUSE
 bool
-QueuePage::OnMouse(struct mpdclient &c, gcc_unused int x, int row,
-		   mmask_t bstate)
+QueuePage::OnMouse(struct mpdclient &c, int x, int row, mmask_t bstate)
 {
-	if (list_window_mouse(&lw, bstate, row)) {
-		SetDirty();
+	if (ListPage::OnMouse(c, x, row, bstate))
 		return true;
-	}
 
 	if (bstate & BUTTON1_DOUBLE_CLICKED) {
 		/* stop */
@@ -535,9 +523,8 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 							     OnHideCursorTimer, this);
 	}
 
-	if (list_window_cmd(&lw, cmd)) {
+	if (ListPage::OnCommand(c, cmd)) {
 		SaveSelection();
-		SetDirty();
 		return true;
 	}
 

@@ -19,7 +19,7 @@
 
 #include "screen_keydef.hxx"
 #include "screen_interface.hxx"
-#include "Page.hxx"
+#include "ListPage.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "i18n.h"
@@ -34,9 +34,7 @@
 #include <string.h>
 #include <glib.h>
 
-class KeyDefPage final : public Page {
-	ListWindow lw;
-
+class KeyDefPage final : public ListPage {
 	command_definition_t *cmds = nullptr;
 
 	/** the number of commands */
@@ -56,7 +54,7 @@ class KeyDefPage final : public Page {
 
 public:
 	KeyDefPage(WINDOW *w, unsigned cols, unsigned rows)
-		:lw(w, cols, rows) {}
+		:ListPage(w, cols, rows) {}
 
 	~KeyDefPage() override {
 		g_free(cmds);
@@ -154,7 +152,6 @@ public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 	void OnClose() override;
-	void OnResize(unsigned cols, unsigned rows) override;
 	void Paint() const override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
@@ -391,12 +388,6 @@ keydef_init(WINDOW *w, unsigned cols, unsigned rows)
 }
 
 void
-KeyDefPage::OnResize(unsigned cols, unsigned rows)
-{
-	list_window_resize(&lw, cols, rows);
-}
-
-void
 KeyDefPage::OnOpen(gcc_unused struct mpdclient &c)
 {
 	if (cmds == nullptr) {
@@ -443,15 +434,13 @@ KeyDefPage::Paint() const
 }
 
 bool
-KeyDefPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
+KeyDefPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
 	if (cmd == CMD_LIST_RANGE_SELECT)
 		return false;
 
-	if (list_window_cmd(&lw, cmd)) {
-		SetDirty();
+	if (ListPage::OnCommand(c, cmd))
 		return true;
-	}
 
 	switch(cmd) {
 	case CMD_PLAY:

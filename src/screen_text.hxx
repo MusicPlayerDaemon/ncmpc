@@ -20,22 +20,19 @@
 #ifndef SCREEN_TEXT_H
 #define SCREEN_TEXT_H
 
-#include "Page.hxx"
-#include "list_window.hxx"
+#include "ListPage.hxx"
 
 #include <glib.h>
 
 struct mpdclient;
 
-class TextPage : public Page {
+class TextPage : public ListPage {
 protected:
-	ListWindow lw;
-
 	GPtrArray *lines = g_ptr_array_new();
 
 public:
 	TextPage(WINDOW *w, unsigned cols, unsigned rows)
-		:lw(w, cols, rows) {
+		:ListPage(w, cols, rows) {
 		lw.hide_cursor = true;
 	}
 
@@ -76,10 +73,6 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void OnResize(unsigned cols, unsigned rows) override {
-		list_window_resize(&lw, cols, rows);
-	}
-
 	void Paint() const override {
 		list_window_paint(&lw, ListCallback,
 				  const_cast<TextPage *>(this));

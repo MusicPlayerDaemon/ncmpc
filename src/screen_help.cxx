@@ -19,7 +19,7 @@
 
 #include "screen_help.hxx"
 #include "screen_interface.hxx"
-#include "Page.hxx"
+#include "ListPage.hxx"
 #include "screen_find.hxx"
 #include "paint.hxx"
 #include "charset.hxx"
@@ -197,22 +197,16 @@ static const struct help_text_row help_text[] = {
 #endif
 };
 
-class HelpPage final : public Page {
-	ListWindow lw;
-
+class HelpPage final : public ListPage {
 public:
 	HelpPage(WINDOW *w, unsigned cols, unsigned rows)
-		:lw(w, cols, rows) {
+		:ListPage(w, cols, rows) {
 		lw.hide_cursor = true;
 		list_window_set_length(&lw, G_N_ELEMENTS(help_text));
 	}
 
 public:
 	/* virtual methods from class Page */
-	void OnResize(unsigned cols, unsigned rows) override {
-		list_window_resize(&lw, cols, rows);
-	}
-
 	void Paint() const override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 
@@ -283,12 +277,10 @@ HelpPage::Paint() const
 }
 
 bool
-HelpPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
+HelpPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
-	if (list_window_scroll_cmd(&lw, cmd)) {
-		SetDirty();
+	if (ListPage::OnCommand(c, cmd))
 		return true;
-	}
 
 	list_window_set_cursor(&lw, lw.start);
 	if (screen_find(&lw, cmd, list_callback, nullptr)) {

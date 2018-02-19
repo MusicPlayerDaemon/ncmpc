@@ -19,7 +19,7 @@
 
 #include "screen_song.hxx"
 #include "screen_interface.hxx"
-#include "Page.hxx"
+#include "ListPage.hxx"
 #include "screen_file.hxx"
 #include "screen_lyrics.hxx"
 #include "screen_find.hxx"
@@ -93,16 +93,14 @@ static unsigned max_stats_label_width;
 
 static struct mpd_song *next_song;
 
-class SongPage final : public Page {
-	ListWindow lw;
-
+class SongPage final : public ListPage {
 	mpd_song *selected_song = nullptr;
 	mpd_song *played_song = nullptr;
 	GPtrArray *lines;
 
 public:
 	SongPage(WINDOW *w, unsigned cols, unsigned rows)
-		:lw(w, cols, rows),
+		:ListPage(w, cols, rows),
 		 /* We will need at least 10 lines, so this saves 10 reallocations :) */
 		 lines(g_ptr_array_sized_new(10)) {
 		lw.hide_cursor = true;
@@ -135,7 +133,6 @@ public:
 		Clear();
 	}
 
-	void OnResize(unsigned cols, unsigned rows) override;
 	void Paint() const override;
 	void Update(struct mpdclient &c) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
@@ -187,12 +184,6 @@ screen_song_init(WINDOW *w, unsigned cols, unsigned rows)
 	}
 
 	return new SongPage(w, cols, rows);
-}
-
-void
-SongPage::OnResize(unsigned cols, unsigned rows)
-{
-	list_window_resize(&lw, cols, rows);
 }
 
 const char *
@@ -495,10 +486,8 @@ SongPage::Update(struct mpdclient &c)
 bool
 SongPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
-	if (list_window_scroll_cmd(&lw, cmd)) {
-		SetDirty();
+	if (ListPage::OnCommand(c, cmd))
 		return true;
-	}
 
 	switch(cmd) {
 	case CMD_LOCATE:

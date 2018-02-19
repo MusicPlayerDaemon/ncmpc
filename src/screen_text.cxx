@@ -88,12 +88,10 @@ TextPage::ListCallback(unsigned idx) const
 }
 
 bool
-TextPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
+TextPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
-	if (list_window_scroll_cmd(&lw, cmd)) {
-		SetDirty();
+	if (ListPage::OnCommand(c, cmd))
 		return true;
-	}
 
 	list_window_set_cursor(&lw, lw.start);
 	if (screen_find(&lw, cmd, ListCallback, this)) {
