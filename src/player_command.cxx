@@ -98,7 +98,7 @@ setup_seek(struct mpdclient *c)
 bool
 handle_player_command(struct mpdclient *c, command_t cmd)
 {
-	if (!mpdclient_is_connected(c) || c->status == nullptr)
+	if (!c->IsConnected() || c->status == nullptr)
 		return false;
 
 	cancel_seek_timer();

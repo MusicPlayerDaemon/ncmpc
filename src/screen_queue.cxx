@@ -593,7 +593,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		break;
 	}
 
-	if (!mpdclient_is_connected(&c))
+	if (!c.IsConnected())
 		return false;
 
 	switch(cmd) {

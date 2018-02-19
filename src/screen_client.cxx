@@ -27,7 +27,7 @@ void
 screen_database_update(struct mpdclient *c, const char *path)
 {
 	assert(c != nullptr);
-	assert(mpdclient_is_connected(c));
+	assert(c->IsConnected());
 
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)

@@ -106,11 +106,11 @@ mpdclient_gidle_callback(enum mpd_error error,
 
 	c->idle = false;
 
-	assert(mpdclient_is_connected(c));
+	assert(c->IsConnected());
 
 	if (error != MPD_ERROR_SUCCESS) {
 		mpdclient_invoke_error_callback(error, message);
-		mpdclient_disconnect(c);
+		c->Disconnect();
 		mpdclient_lost_callback();
 		return;
 	}
@@ -146,7 +146,7 @@ mpdclient_handle_error(struct mpdclient *c)
 					mpd_connection_get_error_message(c->connection));
 
 	if (!mpd_connection_clear_error(c->connection)) {
-		mpdclient_disconnect(c);
+		c->Disconnect();
 		mpdclient_lost_callback();
 	}
 
@@ -210,7 +210,7 @@ mpdclient_new(const gchar *host, unsigned port,
 void
 mpdclient_free(struct mpdclient *c)
 {
-	mpdclient_disconnect(c);
+	c->Disconnect();
 
 	mpdclient_playlist_free(&c->playlist);
 
@@ -278,38 +278,38 @@ mpdclient_status_free(struct mpdclient *c)
 }
 
 void
-mpdclient_disconnect(struct mpdclient *c)
+mpdclient::Disconnect()
 {
 #ifdef ENABLE_ASYNC_CONNECT
-	if (c->async_connect != nullptr) {
-		aconnect_cancel(c->async_connect);
-		c->async_connect = nullptr;
+	if (async_connect != nullptr) {
+		aconnect_cancel(async_connect);
+		async_connect = nullptr;
 	}
 #endif
 
-	mpdclient_cancel_enter_idle(c);
+	mpdclient_cancel_enter_idle(this);
 
-	if (c->source != nullptr) {
-		mpd_glib_free(c->source);
-		c->source = nullptr;
-		c->idle = false;
+	if (source != nullptr) {
+		mpd_glib_free(source);
+		source = nullptr;
+		idle = false;
 	}
 
-	if (c->connection) {
-		mpd_connection_free(c->connection);
-		++c->connection_id;
+	if (connection) {
+		mpd_connection_free(connection);
+		++connection_id;
 	}
-	c->connection = nullptr;
+	connection = nullptr;
 
-	mpdclient_status_free(c);
+	mpdclient_status_free(this);
 
-	playlist_clear(&c->playlist);
+	playlist_clear(&playlist);
 
-	if (c->song)
-		c->song = nullptr;
+	if (song)
+		song = nullptr;
 
 	/* everything has changed after a disconnect */
-	c->events |= MPD_IDLE_ALL;
+	events |= MPD_IDLE_ALL;
 }
 
 static bool
@@ -320,7 +320,7 @@ mpdclient_connected(struct mpdclient *c,
 
 	if (mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS) {
 		mpdclient_invoke_error_callback1(c);
-		mpdclient_disconnect(c);
+		c->Disconnect();
 		mpdclient_failed_callback();
 		return false;
 	}
@@ -334,7 +334,7 @@ mpdclient_connected(struct mpdclient *c,
 	if (c->password != nullptr &&
 	    !mpd_run_password(connection, c->password)) {
 		mpdclient_invoke_error_callback1(c);
-		mpdclient_disconnect(c);
+		c->Disconnect();
 		mpdclient_failed_callback();
 		return false;
 	}
@@ -422,24 +422,24 @@ mpdclient_aconnect_start(struct mpdclient *c,
 #endif
 
 void
-mpdclient_connect(struct mpdclient *c)
+mpdclient::Connect()
 {
 	/* close any open connection */
-	mpdclient_disconnect(c);
+	Disconnect();
 
 #ifdef ENABLE_ASYNC_CONNECT
 #ifndef WIN32
-	c->connecting2 = false;
+	connecting2 = false;
 #endif
-	mpdclient_aconnect_start(c, c->settings);
+	mpdclient_aconnect_start(this, settings);
 #else
 	/* connect to MPD */
-	struct mpd_connection *connection =
-		mpd_connection_new(c->host, c->port, c->timeout_ms);
-	if (connection == nullptr)
+	struct mpd_connection *new_connection =
+		mpd_connection_new(host, port, timeout_ms);
+	if (new_connection == nullptr)
 		g_error("Out of memory");
 
-	mpdclient_connected(c, connection);
+	mpdclient_connected(this, new_connection);
 #endif
 }
 

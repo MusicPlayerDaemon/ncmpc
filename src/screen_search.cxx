@@ -375,7 +375,7 @@ SearchPage::Reload(struct mpdclient &c)
 void
 SearchPage::Start(struct mpdclient &c)
 {
-	if (!mpdclient_is_connected(&c))
+	if (!c.IsConnected())
 		return;
 
 	Clear(true);

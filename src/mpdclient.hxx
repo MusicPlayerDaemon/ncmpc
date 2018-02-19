@@ -86,6 +86,14 @@ struct mpdclient {
 	 * Is MPD currently playing?
 	 */
 	bool playing;
+
+	bool IsConnected() const {
+		return connection != nullptr;
+	}
+
+	void Connect();
+
+	void Disconnect();
 };
 
 enum {
@@ -134,13 +142,6 @@ void mpdclient_free(struct mpdclient *c);
 char *
 mpdclient_settings_name(const struct mpdclient *c);
 
-gcc_pure
-static inline bool
-mpdclient_is_connected(const struct mpdclient *c)
-{
-	return c->connection != nullptr;
-}
-
 /**
  * Is this object "dead"?  i.e. not connected and not currently doing
  * anything to connect.
@@ -173,12 +174,6 @@ mpdclient_get_current_song(const struct mpdclient *c)
 		? c->song
 		: nullptr;
 }
-
-void
-mpdclient_connect(struct mpdclient *c);
-
-void
-mpdclient_disconnect(struct mpdclient *c);
 
 bool
 mpdclient_update(struct mpdclient *c);

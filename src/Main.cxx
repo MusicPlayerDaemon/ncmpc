@@ -133,7 +133,7 @@ auto_update_timer()
 static void
 do_mpd_update()
 {
-	if (mpdclient_is_connected(mpd) &&
+	if (mpd->IsConnected() &&
 	    (mpd->events != 0 || mpd->playing))
 		mpdclient_update(mpd);
 
@@ -163,7 +163,7 @@ timer_reconnect(gcc_unused gpointer data)
 	g_free(name);
 	doupdate();
 
-	mpdclient_connect(mpd);
+	mpd->Connect();
 
 	return false;
 }
@@ -182,7 +182,7 @@ mpdclient_connected_callback()
 		screen_status_printf(_("Error: MPD version %d.%d.%d is too old (%s needed)"),
 				     version[0], version[1], version[2],
 				     "0.16.0");
-		mpdclient_disconnect(mpd);
+		mpd->Disconnect();
 		doupdate();
 
 		/* try again after 30 seconds */

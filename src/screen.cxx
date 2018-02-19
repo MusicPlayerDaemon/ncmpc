@@ -205,9 +205,9 @@ ScreenManager::Update(struct mpdclient *c)
 	}
 
 	if ((c->events & MPD_IDLE_DATABASE) != 0 && was_connected &&
-	    mpdclient_is_connected(c))
+	    c->IsConnected())
 		screen_status_printf(_("Database updated"));
-	was_connected = mpdclient_is_connected(c);
+	was_connected = c->IsConnected();
 #endif
 
 	/* update the main window */
