@@ -32,6 +32,10 @@
 #include <mpd/client.h>
 
 #include <glib/gprintf.h>
+
+#include <vector>
+#include <string>
+
 #include <assert.h>
 #include <string.h>
 
@@ -96,20 +100,17 @@ static struct mpd_song *next_song;
 class SongPage final : public ListPage {
 	mpd_song *selected_song = nullptr;
 	mpd_song *played_song = nullptr;
-	GPtrArray *lines;
+
+	std::vector<std::string> lines;
 
 public:
 	SongPage(WINDOW *w, unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows),
-		 /* We will need at least 10 lines, so this saves 10 reallocations :) */
-		 lines(g_ptr_array_sized_new(10)) {
+		:ListPage(w, cols, rows) {
 		lw.hide_cursor = true;
 	}
 
 	~SongPage() override {
 		Clear();
-
-		g_ptr_array_free(lines, true);
 	}
 
 private:
@@ -142,10 +143,7 @@ public:
 void
 SongPage::Clear()
 {
-	for (guint i = 0; i < lines->len; ++i)
-		g_free(g_ptr_array_index(lines, i));
-
-	g_ptr_array_set_size(lines, 0);
+	lines.clear();
 
 	if (selected_song != nullptr) {
 		mpd_song_free(selected_song);
@@ -160,9 +158,9 @@ SongPage::Clear()
 static const char *
 screen_song_list_callback(unsigned idx, void *data)
 {
-	GPtrArray *lines = (GPtrArray *)data;
+	const auto &lines = *(const std::vector<std::string> *)data;
 
-	return (const char *)g_ptr_array_index(lines, idx);
+	return lines[idx].c_str();
 }
 
 static Page *
@@ -195,7 +193,8 @@ SongPage::GetTitle(gcc_unused char *str, gcc_unused size_t size) const
 void
 SongPage::Paint() const
 {
-	list_window_paint(&lw, screen_song_list_callback, lines);
+	list_window_paint(&lw, screen_song_list_callback,
+			  const_cast<void *>((const void *)&lines));
 }
 
 void
@@ -247,7 +246,8 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 		g_free(entry);
 		g_free(p);
 
-		g_ptr_array_add(lines, q);
+		lines.emplace_back(q);
+		g_free(q);
 	}
 }
 
@@ -351,7 +351,7 @@ SongPage::AddStats(struct mpd_connection *connection)
 	if (mpd_stats == nullptr)
 		return false;
 
-	g_ptr_array_add(lines, g_strdup(_("MPD statistics")) );
+	lines.emplace_back(_("MPD statistics"));
 
 	char buf[64];
 	g_snprintf(buf, sizeof(buf), "%d",
@@ -424,10 +424,7 @@ audio_format_to_string(char *buffer, size_t size,
 void
 SongPage::Update(struct mpdclient &c)
 {
-	/* Clear all lines */
-	for (guint i = 0; i < lines->len; ++i)
-		g_free(g_ptr_array_index(lines, i));
-	g_ptr_array_set_size(lines, 0);
+	lines.clear();
 
 	/* If a song was selected before the song screen was opened */
 	if (next_song != nullptr) {
@@ -441,9 +438,9 @@ SongPage::Update(struct mpdclient &c)
 	     strcmp(mpd_song_get_uri(selected_song),
 		    mpd_song_get_uri(c.song)) != 0 ||
 	     !mpdclient_is_playing(&c))) {
-		g_ptr_array_add(lines, g_strdup(_("Selected song")) );
+		lines.emplace_back(_("Selected song"));
 		AddSong(selected_song);
-		g_ptr_array_add(lines, g_strdup("\0"));
+		lines.emplace_back(std::string());
 	}
 
 	if (c.song != nullptr && mpdclient_is_playing(&c)) {
@@ -451,7 +448,7 @@ SongPage::Update(struct mpdclient &c)
 			mpd_song_free(played_song);
 
 		played_song = mpd_song_dup(c.song);
-		g_ptr_array_add(lines, g_strdup(_("Currently playing song")));
+		lines.emplace_back(_("Currently playing song"));
 		AddSong(played_song);
 
 		if (mpd_status_get_kbit_rate(c.status) > 0) {
@@ -471,7 +468,7 @@ SongPage::Update(struct mpdclient &c)
 				   max_tag_label_width);
 		}
 
-		g_ptr_array_add(lines, g_strdup("\0"));
+		lines.emplace_back(std::string());
 	}
 
 	/* Add some statistics about mpd */
@@ -479,7 +476,7 @@ SongPage::Update(struct mpdclient &c)
 	if (connection != nullptr && !AddStats(connection))
 		mpdclient_handle_error(&c);
 
-	list_window_set_length(&lw, lines->len);
+	list_window_set_length(&lw, lines.size());
 	SetDirty();
 }
 
@@ -528,7 +525,7 @@ SongPage::OnCommand(struct mpdclient &c, command_t cmd)
 		break;
 	}
 
-	if (screen_find(&lw, cmd, screen_song_list_callback, lines)) {
+	if (screen_find(&lw, cmd, screen_song_list_callback, &lines)) {
 		/* center the row */
 		list_window_center(&lw, lw.selected);
 		SetDirty();
