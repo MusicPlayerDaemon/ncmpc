@@ -75,7 +75,6 @@ ScreenManager::Paint(struct mpdclient *c, bool main_dirty)
 	/* paint the main window */
 
 	if (main_dirty) {
-		wclear(main_window.w);
 		current_page->second->Paint();
 	}
 
