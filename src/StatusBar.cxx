@@ -33,15 +33,13 @@
 
 StatusBar::StatusBar(unsigned width, int y, int x)
 	:window(1, width, y, x)
+#ifndef NCMPC_MINI
+	, hscroll(window.w, options.scroll_sep)
+#endif
 {
 
 	leaveok(window.w, false);
 	keypad(window.w, true);
-
-#ifndef NCMPC_MINI
-	if (options.scroll)
-		hscroll.Init(window.w, options.scroll_sep);
-#endif
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors)

@@ -73,11 +73,11 @@ public:
 	QueuePage(ScreenManager &_screen, WINDOW *w,
 		  unsigned cols, unsigned rows)
 		:ListPage(w, cols, rows),
-		 screen(_screen) {
+		 screen(_screen)
 #ifndef NCMPC_MINI
-		if (options.scroll)
-			hscroll.Init(w, options.scroll_sep);
+		, hscroll(w, options.scroll_sep)
 #endif
+	{
 	}
 
 	~QueuePage() override {

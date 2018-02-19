@@ -33,7 +33,7 @@
  * scrolling.
  */
 class hscroll {
-	WINDOW *w;
+	WINDOW *const w;
 
 	BasicMarquee basic;
 
@@ -59,8 +59,8 @@ class hscroll {
 	guint source_id = 0;
 
 public:
-	void Init(WINDOW *_w, const char *_separator) {
-		w = _w;
+	hscroll(WINDOW *_w, const char *_separator)
+		:w(_w) {
 		basic.Init(_separator);
 	}
 
