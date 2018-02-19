@@ -6,9 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=glib&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-20 21:11+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-19 11:10+0100\n"
 "PO-Revision-Date: 2009-09-24 21:45+0000\n"
 "Last-Translator: Kiszel Kristóf <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -19,6 +18,474 @@ msgstr ""
 "X-Launchpad-Export-Date: 2010-09-07 18:28+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
+#: src/colors.cxx:156
+#, fuzzy
+msgid "Unknown color"
+msgstr "Ismeretlen parancs"
+
+#: src/colors.cxx:195
+#, fuzzy
+msgid "Unknown color field"
+msgstr "Figyelem: ismeretlen szín mező - %s\n"
+
+#: src/colors.cxx:228
+msgid "Terminal lacks support for changing colors"
+msgstr "A terminál nem támogatja a színek változtatását"
+
+#: src/colors.cxx:237
+msgid "Terminal lacks color capabilities"
+msgstr "A terminál nem támogatja a színeket"
+
+#: src/command.cxx:63
+msgid "Key configuration screen"
+msgstr "Billentyű beállító képernyő"
+
+#: src/command.cxx:66
+msgid "Quit"
+msgstr "Kilép"
+
+#: src/command.cxx:70
+msgid "Move cursor up"
+msgstr "Kurzormozgatás felfelé"
+
+#: src/command.cxx:72
+msgid "Move cursor down"
+msgstr "Kurzormozgatás lefelé"
+
+#: src/command.cxx:74
+msgid "Move cursor to the top of screen"
+msgstr "Kurzor mozgatása a képernyő tetejére"
+
+#: src/command.cxx:76
+msgid "Move cursor to the middle of screen"
+msgstr "Kurzor mozgatása a képernyő közepére"
+
+#: src/command.cxx:78
+msgid "Move cursor to the bottom of screen"
+msgstr "Kurzor mozgatása a képernyő aljára"
+
+#: src/command.cxx:80
+msgid "Move cursor to the top of the list"
+msgstr "Kurzor mozgatása a lista tetejére"
+
+#: src/command.cxx:82
+msgid "Move cursor to the bottom of the list"
+msgstr "Kurzor mozgatása a lista aljára"
+
+#: src/command.cxx:84
+msgid "Page up"
+msgstr "Egy oldalt fel"
+
+#: src/command.cxx:86
+msgid "Page down"
+msgstr "Egy oldalt le"
+
+#: src/command.cxx:88
+msgid "Range selection"
+msgstr "Tartomány kiválasztása"
+
+#: src/command.cxx:90
+msgid "Scroll down one line"
+msgstr "Görgetés egy sorral le"
+
+#: src/command.cxx:92
+msgid "Scroll up one line"
+msgstr "Görgetés egy sorral fel"
+
+#: src/command.cxx:94
+msgid "Scroll up half a screen"
+msgstr "Görgetés fél képernyőnyivel fel"
+
+#: src/command.cxx:96
+msgid "Scroll down half a screen"
+msgstr "Görgetés fél képernyőnyivel le"
+
+#: src/command.cxx:98
+msgid "Select currently playing song"
+msgstr "Most lejátszott szám kiválasztása"
+
+#: src/command.cxx:103
+msgid "Help screen"
+msgstr "Segítség"
+
+#: src/command.cxx:105 src/screen_help.cxx:119
+#, fuzzy
+msgid "Queue screen"
+msgstr "Billentyű beállító képernyő"
+
+#: src/command.cxx:107 src/screen_help.cxx:134
+msgid "Browse screen"
+msgstr "Tallózás"
+
+#: src/command.cxx:112
+msgid "Play/Enter directory"
+msgstr "Lejátszás/Belépés könyvtárba"
+
+#: src/command.cxx:114
+msgid "Pause"
+msgstr "Szüneteltetés"
+
+#: src/command.cxx:116
+msgid "Stop"
+msgstr "Leállítás"
+
+#: src/command.cxx:118
+msgid "Crop"
+msgstr "Vágás"
+
+#: src/command.cxx:120
+msgid "Next track"
+msgstr "Következő szám"
+
+#: src/command.cxx:122
+msgid "Previous track"
+msgstr "Előző szám"
+
+#: src/command.cxx:124
+msgid "Seek forward"
+msgstr "Tekerés előre"
+
+#: src/command.cxx:126
+msgid "Seek backward"
+msgstr "Tekerés hátra"
+
+#: src/command.cxx:128
+msgid "Increase volume"
+msgstr "Hangerő növelése"
+
+#: src/command.cxx:130
+msgid "Decrease volume"
+msgstr "Hangerő csökkentése"
+
+#: src/command.cxx:132
+#, fuzzy
+msgid "Select/deselect song in queue"
+msgstr "Szám kiválasztása a lejátszólistában"
+
+#: src/command.cxx:134
+msgid "Select all listed items"
+msgstr "Minden listázott elem kiválasztása"
+
+#: src/command.cxx:136
+#, fuzzy
+msgid "Delete song from queue"
+msgstr "Szám törlése a lejátszólistából"
+
+#: src/command.cxx:138
+msgid "Shuffle queue"
+msgstr ""
+
+#: src/command.cxx:140
+msgid "Clear queue"
+msgstr ""
+
+#: src/command.cxx:142
+msgid "Toggle repeat mode"
+msgstr "Ismétlő mód ki- és bekapcsolása"
+
+#: src/command.cxx:144
+msgid "Toggle random mode"
+msgstr "Véletlenszerű lejátszás ki- és bekapcsolása"
+
+#: src/command.cxx:146
+msgid "Toggle single mode"
+msgstr "Egyszeri mód átkapcsolása"
+
+#: src/command.cxx:148
+msgid "Toggle consume mode"
+msgstr "Fogyasztó mód átkapcsolása"
+
+#: src/command.cxx:150
+msgid "Toggle crossfade mode"
+msgstr "Egymásba mosás ki- és bekapcsolása"
+
+#: src/command.cxx:152
+msgid "Start a music database update"
+msgstr "A zenei adatbázis frissítésének indítása"
+
+#: src/command.cxx:154
+msgid "Save queue"
+msgstr ""
+
+#: src/command.cxx:156
+#, fuzzy
+msgid "Add url/file to queue"
+msgstr "URL vagy fájl hozzáadása a lejátszólistához"
+
+#: src/command.cxx:159
+msgid "Go to root directory"
+msgstr "Mozgás a gyökér könyvtárba"
+
+#: src/command.cxx:161
+msgid "Go to parent directory"
+msgstr "Mozgás a szülő könyvtárba"
+
+#: src/command.cxx:164
+msgid "Locate song in browser"
+msgstr "Szám megtekintése a tallozóban"
+
+#: src/command.cxx:168
+msgid "Move item up"
+msgstr "Elem mozgatása fel"
+
+#: src/command.cxx:170
+msgid "Move item down"
+msgstr "Elem mozgatása le"
+
+#: src/command.cxx:172
+msgid "Refresh screen"
+msgstr "Képernyő frissítése"
+
+#. translators: toggle between wrapping and non-wrapping
+#. search
+#: src/command.cxx:179
+msgid "Toggle find mode"
+msgstr "Kereső mód ki- és bekapcsolása"
+
+#. translators: the auto center mode always centers the song
+#. currently being played
+#: src/command.cxx:183
+msgid "Toggle auto center mode"
+msgstr "Középre igazítás ki- és bekapcsolása"
+
+#: src/command.cxx:188
+msgid "Next screen"
+msgstr "Kövezkező képernyő"
+
+#: src/command.cxx:190
+msgid "Previous screen"
+msgstr "Előző képernyő"
+
+#: src/command.cxx:192
+msgid "Swap to most recent screen"
+msgstr "Váltás a legutóbbi képernyőre"
+
+#: src/command.cxx:197
+msgid "Forward find"
+msgstr "Keresés előre"
+
+#: src/command.cxx:199
+msgid "Forward find next"
+msgstr "Következő keresése előre"
+
+#: src/command.cxx:201
+msgid "Backward find"
+msgstr "Keresés hátra"
+
+#: src/command.cxx:203
+msgid "Backward find previous"
+msgstr "Előző keresése hátra"
+
+#. translators: this queries the user for a string
+#. * and jumps directly (while the user is typing)
+#. * to the entry which begins with this string
+#: src/command.cxx:208
+msgid "Jump to"
+msgstr "Ugrás oda"
+
+#: src/command.cxx:214
+msgid "Artist screen"
+msgstr "Előadó képernyő"
+
+#: src/command.cxx:218 src/screen_help.cxx:148
+msgid "Search screen"
+msgstr "Kereső képernyő"
+
+#: src/command.cxx:220
+msgid "Change search mode"
+msgstr "Kereső mód váltása"
+
+#: src/command.cxx:224
+msgid "View the selected and the currently playing song"
+msgstr "A kiválasztott és épp lejátszott szám megtekintése"
+
+#: src/command.cxx:228 src/screen_help.cxx:160
+msgid "Lyrics screen"
+msgstr "Dalszöveg képernyő"
+
+#. translators: interrupt the current background action,
+#. e.g. stop loading lyrics from the internet
+#: src/command.cxx:232
+msgid "Interrupt action"
+msgstr "parancs megszakítása"
+
+#: src/command.cxx:234
+msgid "Update Lyrics"
+msgstr "Dalszövegek frissítése"
+
+#: src/command.cxx:238
+msgid "Edit the current item"
+msgstr ""
+
+#: src/command.cxx:243 src/screen_help.cxx:175
+msgid "Outputs screen"
+msgstr "Kimenetek"
+
+#: src/command.cxx:248 src/screen_help.cxx:182
+#, fuzzy
+msgid "Chat screen"
+msgstr "Kövezkező képernyő"
+
+#: src/command.cxx:290
+msgid "Undefined"
+msgstr "Meghatározatlan"
+
+#: src/command.cxx:292
+msgid "Space"
+msgstr "Szóköz"
+
+#: src/command.cxx:294
+msgid "Enter"
+msgstr "Enter"
+
+#: src/command.cxx:296
+msgid "Backspace"
+msgstr "Backspace"
+
+#: src/command.cxx:298
+msgid "Delete"
+msgstr "Delete"
+
+#: src/command.cxx:300
+msgid "Up"
+msgstr "Up"
+
+#: src/command.cxx:302
+msgid "Down"
+msgstr "Down"
+
+#: src/command.cxx:304
+msgid "Left"
+msgstr "Left"
+
+#: src/command.cxx:306
+msgid "Right"
+msgstr "Right"
+
+#: src/command.cxx:308
+msgid "Home"
+msgstr "Home"
+
+#: src/command.cxx:310
+msgid "End"
+msgstr "End"
+
+#: src/command.cxx:312
+msgid "PageDown"
+msgstr "PageDown"
+
+#: src/command.cxx:314
+msgid "PageUp"
+msgstr "PageUp"
+
+#: src/command.cxx:316
+msgid "Tab"
+msgstr "Tab"
+
+#: src/command.cxx:318
+msgid "Shift+Tab"
+msgstr "Shift+Tab"
+
+#: src/command.cxx:320
+msgid "Esc"
+msgstr "Esc"
+
+#: src/command.cxx:322
+msgid "Insert"
+msgstr "Insert"
+
+#: src/command.cxx:326
+#, c-format
+msgid "F%d"
+msgstr ""
+
+#: src/command.cxx:330
+#, c-format
+msgid "Ctrl-%c"
+msgstr ""
+
+#: src/command.cxx:332
+#, c-format
+msgid "Alt-%c"
+msgstr ""
+
+#: src/command.cxx:477 src/command.cxx:483
+#, c-format
+msgid "Key %s assigned to %s and %s"
+msgstr "A(z) %s gomb a követlezőkhoz van rendelve: %s és %s"
+
+#. To translators: prefix for error messages
+#: src/conf.cxx:121
+msgid "Error"
+msgstr "Hiba"
+
+#: src/conf.cxx:135
+msgid "Word expected"
+msgstr ""
+
+#: src/conf.cxx:152 src/conf.cxx:161
+msgid "Malformed hotkey definition"
+msgstr "Hibás gyorsbillentyű definíció"
+
+#. the hotkey configuration contains an unknown
+#. command
+#: src/conf.cxx:185
+msgid "Unknown command"
+msgstr "Ismeretlen parancs"
+
+#. the hotkey configuration line is incomplete
+#: src/conf.cxx:198
+msgid "Incomplete hotkey configuration"
+msgstr "Hiányos gyorsbillentyű definíció"
+
+#. translators: ncmpc supports displaying the
+#. "elapsed" or "remaining" time of a song being
+#. played; in this case, the configuration file
+#. contained an invalid setting
+#: src/conf.cxx:234
+msgid "Bad time display type"
+msgstr "Hibás időkijelzési típus"
+
+#. an equals sign '=' was expected while parsing a
+#. configuration file line
+#: src/conf.cxx:247 src/conf.cxx:427
+msgid "Missing '='"
+msgstr "Hiányzó egyenlőség jel"
+
+#: src/conf.cxx:298
+msgid "Bad color name"
+msgstr "Hibás szín megnevezés"
+
+#: src/conf.cxx:308
+msgid "Incomplete color definition"
+msgstr "Hiányos szín megadás"
+
+#: src/conf.cxx:314
+msgid "Invalid number"
+msgstr "Érvénytelen szám"
+
+#: src/conf.cxx:322
+msgid "Malformed color definition"
+msgstr "Hibás szín megadás"
+
+#. an unknown screen name was specified in the
+#. configuration file
+#: src/conf.cxx:356
+msgid "Unknown screen name"
+msgstr "Ismeretlen képernyő név"
+
+#: src/conf.cxx:384
+msgid "Invalid search mode"
+msgstr "Érvénytelen keresési mód"
+
+#: src/conf.cxx:407
+msgid "Unknown search mode"
+msgstr "Ismeretlen keresési mód"
+
+#: src/conf.cxx:597
+msgid "Unknown configuration parameter"
+msgstr "Ismeretlen konfigurációs paraméter"
+
 #: src/i18n.h:42
 msgid "y"
 msgstr "i"
@@ -27,46 +494,81 @@ msgstr "i"
 msgid "n"
 msgstr "n"
 
-#: src/main.c:154 src/main.c:173
-msgid "unknown"
-msgstr ""
+#: src/list_window.cxx:554
+msgid "Range selection disabled"
+msgstr "Tartomány kiválasztás letiltva"
 
-#: src/main.c:193
+#: src/list_window.cxx:559
+msgid "Range selection enabled"
+msgstr "Tartomány kiválasztás engedélyezve"
+
+#: src/Main.cxx:161
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
 msgstr "Kapcsolódás a következőhöz: %s... [Nyomj %s gombot a megszakításhoz]"
 
-#: src/main.c:214
+#: src/Main.cxx:182
 #, fuzzy, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "Hiba: a(z) %d.%d.%d MPD verzió túl régi (%s kell)"
 
-#: src/main.c:339
+#: src/Main.cxx:317
 #, c-format
 msgid "press %s for the key editor"
 msgstr "nyomj %s-t a szerkesztéshez"
 
-#: src/player_command.c:174 src/screen_queue.c:739
+#. To translators: these credits are shown
+#. when ncmpc is started with "--version"
+#: src/options.cxx:209 src/options.cxx:212
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Kiszel Kristóf https://launchpad.net/~ulysses\n"
+"  Laszlo Ashin https://launchpad.net/~kodest"
+
+#: src/player_command.cxx:174 src/screen_queue.cxx:623
 msgid "Shuffled queue"
 msgstr ""
 
-#: src/player_command.c:184
+#: src/player_command.cxx:184
 msgid "Cleared queue"
 msgstr ""
 
-#: src/screen.c:158
+#. query the user for a filename
+#: src/save_playlist.cxx:109
+msgid "Save queue as"
+msgstr ""
+
+#: src/save_playlist.cxx:140
+#, fuzzy, c-format
+msgid "Replace %s?"
+msgstr "Cserélni a következőt: %s [%s/%s]? "
+
+#. translators: a dialog was aborted by the user
+#: src/save_playlist.cxx:147 src/screen_file.cxx:214 src/screen_keydef.cxx:271
+#: src/screen_lyrics.cxx:370
+msgid "Aborted"
+msgstr "Megszakítva"
+
+#. success
+#: src/save_playlist.cxx:171
+#, c-format
+msgid "Saved %s"
+msgstr "%s elmentve"
+
+#: src/screen.cxx:154
 msgid "Repeat mode is on"
 msgstr "Ismétlő mód be"
 
-#: src/screen.c:159
+#: src/screen.cxx:155
 msgid "Repeat mode is off"
 msgstr "Ismétlő mód ki"
 
-#: src/screen.c:163
+#: src/screen.cxx:159
 msgid "Random mode is on"
 msgstr "Véletlen mód be"
 
-#: src/screen.c:164
+#: src/screen.cxx:160
 msgid "Random mode is off"
 msgstr "Véletlen mód ki"
 
@@ -75,11 +577,11 @@ msgstr "Véletlen mód ki"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.c:173
+#: src/screen.cxx:169
 msgid "Single mode is on"
 msgstr "Egyszeri lejátszás mód be"
 
-#: src/screen.c:174
+#: src/screen.cxx:170
 msgid "Single mode is off"
 msgstr "Egyszeri lejátszás mód ki"
 
@@ -87,1163 +589,660 @@ msgstr "Egyszeri lejátszás mód ki"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.c:182
+#: src/screen.cxx:178
 msgid "Consume mode is on"
 msgstr "Fogyasztó mód be"
 
-#: src/screen.c:183
+#: src/screen.cxx:179
 msgid "Consume mode is off"
 msgstr "Fogyasztó mód ki"
 
-#: src/screen.c:186
+#: src/screen.cxx:182
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Egymásba mosás %d másodperc"
 
-#: src/screen.c:198
+#: src/screen.cxx:194
 msgid "Database updated"
 msgstr "Adatbázis frissítve"
 
-#: src/screen.c:256
+#: src/screen.cxx:226
 msgid "Find mode: Wrapped"
 msgstr "Keresési mód: újrakezdő"
 
-#: src/screen.c:257
+#: src/screen.cxx:227
 msgid "Find mode: Normal"
 msgstr "Keresési mód: normál"
 
-#: src/screen.c:262
+#: src/screen.cxx:232
 msgid "Auto center mode: On"
 msgstr "Középre igazítás bekapcsolva"
 
-#: src/screen.c:263
+#: src/screen.cxx:233
 msgid "Auto center mode: Off"
 msgstr "Középre igazítás kikapcsolva"
 
-#: src/screen_artist.c:72 src/screen_artist.c:354
+#: src/screen_artist.cxx:72 src/screen_artist.cxx:352
 msgid "All tracks"
 msgstr "Minden szám"
 
-#: src/screen_artist.c:386
-#, c-format
+#: src/screen_artist.cxx:384
 msgid "All artists"
 msgstr "Minden előadó"
 
-#: src/screen_artist.c:391
+#: src/screen_artist.cxx:389
 #, c-format
 msgid "Albums of artist: %s"
 msgstr "%s előadó albumai"
 
-#: src/screen_artist.c:400
+#: src/screen_artist.cxx:398
 #, c-format
 msgid "All tracks of artist: %s"
 msgstr "%s előadó minden száma"
 
-#: src/screen_artist.c:403
+#: src/screen_artist.cxx:401
 #, c-format
 msgid "Album: %s - %s"
 msgstr "Album: %s - %s"
 
-#: src/screen_artist.c:407
+#: src/screen_artist.cxx:405
 #, fuzzy, c-format
 msgid "Tracks of no album of artist: %s"
 msgstr "%s előadó albumai"
 
-#: src/screen_artist.c:452
+#: src/screen_artist.cxx:450
 #, fuzzy, c-format
 msgid "Adding album %s..."
 msgstr "%s lejátszólista betöltése..."
 
-#: src/screen_artist.c:454
+#: src/screen_artist.cxx:452
 #, fuzzy, c-format
 msgid "Adding %s..."
 msgstr "%s könyvtár hozzáadása...\n"
 
-#: src/screen_browser.c:127
+#: src/screen_browser.cxx:122
 #, c-format
 msgid "Loading playlist %s..."
 msgstr "%s lejátszólista betöltése..."
 
-#: src/screen_browser.c:168 src/screen_browser.c:261 src/screen_browser.c:286
+#: src/screen_browser.cxx:163 src/screen_browser.cxx:255
+#: src/screen_browser.cxx:279
 #, fuzzy, c-format
 msgid "Adding '%s' to queue"
 msgstr "'%s' hozzáadása a lejátszólistához"
 
-#: src/screen_client.c:41
-msgid "Database update running..."
-msgstr "Adatbázis frissítés folyamatban..."
-
-#: src/screen_client.c:49
-#, c-format
-msgid "Database update of %s started"
-msgstr "%s adatbázis frissítése elkezdődött"
-
-#: src/screen_client.c:52
-msgid "Database update started"
-msgstr "Adatbázis frissítés elindult"
-
-#: src/screen_chat.c:59
+#: src/screen_chat.cxx:59
 #, c-format
 msgid ""
 "connected to MPD %u.%u.%u (you need at least \n"
 "version 0.17.0 to use the chat feature)"
 msgstr ""
 
-#: src/screen_chat.c:177
+#: src/screen_chat.cxx:177
 msgid "Your message"
 msgstr ""
 
-#: src/screen_chat.c:186
+#: src/screen_chat.cxx:186
 msgid "Message could not be sent"
 msgstr ""
 
-#: src/screen_chat.c:199 src/title_bar.c:91
+#: src/screen_chat.cxx:199 src/title_bar.cxx:91
 msgid "Chat"
 msgstr ""
 
-#: src/screen_find.c:29
-msgid "Find"
-msgstr "Keresés"
+#: src/screen_client.cxx:41
+msgid "Database update running..."
+msgstr "Adatbázis frissítés folyamatban..."
 
-#: src/screen_find.c:30
-msgid "Find backward"
-msgstr "Keresés visszafelé"
-
-#: src/screen_find.c:31
-msgid "Jump"
-msgstr "Ugrás"
-
-#: src/screen_find.c:82
+#: src/screen_client.cxx:49
 #, c-format
-msgid "Unable to find '%s'"
-msgstr "'%s' nem található"
+msgid "Database update of %s started"
+msgstr "%s adatbázis frissítése elkezdődött"
 
-#. NOTE: if one day a translator decides to use a multi-byte character
-#. for one of the yes/no keys, we'll have to parse it properly
-#: src/screen_utils.c:80
-#, fuzzy, c-format
-msgid "%s [%s/%s] "
-msgstr "Cserélni a következőt: %s [%s/%s]? "
-
-#: src/screen_utils.c:121
-msgid "Password"
-msgstr "Jelszó"
-
-#. query the user for a filename
-#: src/screen_queue.c:249
-msgid "Save queue as"
-msgstr ""
-
-#: src/screen_queue.c:282
-#, fuzzy, c-format
-msgid "Replace %s?"
-msgstr "Cserélni a következőt: %s [%s/%s]? "
-
-#. translators: a dialog was aborted by the user
-#: src/screen_queue.c:289 src/screen_file.c:220 src/screen_keydef.c:271
-#: src/screen_lyrics.c:370
-msgid "Aborted"
-msgstr "Megszakítva"
-
-#. success
-#: src/screen_queue.c:313
-#, c-format
-msgid "Saved %s"
-msgstr "%s elmentve"
-
-#. get path
-#: src/screen_queue.c:390
-msgid "Add"
-msgstr "Hozzáadás"
-
-#: src/screen_queue.c:497 src/title_bar.c:76
-msgid "Queue"
-msgstr ""
-
-#: src/screen_queue.c:499
-#, c-format
-msgid "Queue on %s"
-msgstr ""
+#: src/screen_client.cxx:52
+msgid "Database update started"
+msgstr "Adatbázis frissítés elindult"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/screen_file.c:206
+#: src/screen_file.cxx:200
 msgid "Deleting this item is not possible"
 msgstr "Ez az elem nem törölhető"
 
-#: src/screen_file.c:213
+#: src/screen_file.cxx:207
 #, fuzzy, c-format
 msgid "Delete playlist %s?"
 msgstr "Lejátszólista törlése"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/screen_file.c:233
+#: src/screen_file.cxx:227
 msgid "Playlist deleted"
 msgstr "Lejátszólista törölve"
 
 #. translators: caption of the browser screen
-#: src/screen_file.c:287 src/title_bar.c:77
+#: src/screen_file.cxx:280 src/title_bar.cxx:77
 msgid "Browse"
 msgstr "Tallózás"
 
-#: src/screen_search.c:46
-msgid "artist"
-msgstr "előadó"
-
-#: src/screen_search.c:47
-msgid "album"
-msgstr "album"
-
-#: src/screen_search.c:48
-msgid "title"
-msgstr "cím"
-
-#: src/screen_search.c:49
-msgid "track"
-msgstr "szám"
-
-#: src/screen_search.c:50
-msgid "name"
-msgstr "név"
-
-#: src/screen_search.c:51
-msgid "genre"
-msgstr "műfaj"
-
-#: src/screen_search.c:52
-msgid "date"
-msgstr "dátum"
-
-#: src/screen_search.c:53
-msgid "composer"
-msgstr "zeneszerző"
-
-#: src/screen_search.c:54
-msgid "performer"
-msgstr "előadó"
-
-#: src/screen_search.c:55
-msgid "comment"
-msgstr "megjegyzés"
-
-#: src/screen_search.c:62
-msgid "file"
-msgstr "fájl"
-
-#: src/screen_search.c:80 src/screen_song.c:47
-msgid "Title"
-msgstr "Cím"
-
-#: src/screen_search.c:81 src/screen_song.c:46 src/title_bar.c:79
-msgid "Artist"
-msgstr "Előadó"
-
-#: src/screen_search.c:82 src/screen_song.c:48
-msgid "Album"
-msgstr "Album"
-
-#: src/screen_search.c:83
-msgid "Filename"
-msgstr "Fájlnév"
-
-#: src/screen_search.c:84
-msgid "Artist + Title"
-msgstr "Előadó és Cím"
-
-#: src/screen_search.c:216
-#, c-format
-msgid "Bad search tag %s"
-msgstr "Hibás keresési elem %s"
-
-#: src/screen_search.c:220
-#, c-format
-msgid "No argument for search tag %s"
-msgstr "Nincs argumentuma a(z) %s keresési elemnek"
-
-#: src/screen_search.c:328 src/screen_help.c:150 src/title_bar.c:82
-msgid "Search"
+#: src/screen_find.cxx:29
+msgid "Find"
 msgstr "Keresés"
 
-#. if( pattern==NULL )
-#. search_new(screen, c);
-#. else
-#: src/screen_search.c:374
+#: src/screen_find.cxx:30
+msgid "Find backward"
+msgstr "Keresés visszafelé"
+
+#: src/screen_find.cxx:31
+msgid "Jump"
+msgstr "Ugrás"
+
+#: src/screen_find.cxx:82
 #, c-format
-msgid "Press %s for a new search"
-msgstr "Új kereséshez nyomj %s gombot"
+msgid "Unable to find '%s'"
+msgstr "'%s' nem található"
 
-#: src/screen_search.c:401
-#, c-format
-msgid "Search: %s"
-msgstr "Keresés: %s"
-
-#: src/screen_search.c:404
-#, c-format
-msgid "Search: Results for %s [%s]"
-msgstr "Keresés: találatok a következőhöz %s [%s]"
-
-#: src/screen_search.c:408
-#, c-format
-msgid "Search: Press %s for a new search [%s]"
-msgstr "Keresés: új kereséshez nyomj %s gombot [%s]"
-
-#: src/screen_search.c:432
-#, c-format
-msgid "Search mode: %s"
-msgstr "Keresési mód: %s"
-
-#: src/screen_keydef.c:141
-msgid "You have new key bindings"
-msgstr "Új billentyű beállításaid vannak"
-
-#: src/screen_keydef.c:143
-msgid "Keybindings unchanged."
-msgstr "A billentyű beállítások változatlanok."
-
-#: src/screen_keydef.c:153
-#, c-format
-msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "Hiba: nem sikerül létrehozni a ~/.ncmpc katalógust - %s"
-
-#: src/screen_keydef.c:164 src/screen_keydef.c:173
-#, c-format
-msgid "Error: %s - %s"
-msgstr "Hiba: %s - %s"
-
-#: src/screen_keydef.c:171
-#, c-format
-msgid "Wrote %s"
-msgstr "%s elmentve"
-
-#: src/screen_keydef.c:250
-msgid "Deleted"
-msgstr "Törölve"
-
-#: src/screen_keydef.c:265
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "Nyomd meg az új gombot a következőhöz: %s: "
-
-#: src/screen_keydef.c:276
-msgid "Ctrl-Space can't be used"
-msgstr ""
-
-#: src/screen_keydef.c:282
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Hiba: %s gombot már a következő funkció használja: %s"
-
-#: src/screen_keydef.c:291
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "%s hozzárendelve a következőhöz: %s"
-
-#: src/screen_keydef.c:317
-msgid "===> Apply key bindings "
-msgstr "===> Billentyű beállítások használata "
-
-#: src/screen_keydef.c:319
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Alkalmaz és Menti a billentyű beállításokat  "
-
-#: src/screen_keydef.c:347
-msgid "Add new key"
-msgstr "Új gomb hozzáadása"
-
-#: src/screen_keydef.c:410
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Észrevétel: nem felejtetted el érvényesíteni a változtatásaidat?"
-
-#: src/screen_keydef.c:417
-msgid "Edit key bindings"
-msgstr "Billentyűk változtatása"
-
-#: src/screen_keydef.c:419
-#, c-format
-msgid "Edit keys for %s"
-msgstr "Gombok módosítása a következőhöz: %s"
-
-#: src/screen_help.c:39
+#: src/screen_help.cxx:39
 msgid "Movement"
 msgstr "Mozgás"
 
-#: src/screen_help.c:84
+#: src/screen_help.cxx:84
 msgid "Global"
 msgstr "Általános"
 
-#: src/screen_help.c:119 src/command.c:105
-#, fuzzy
-msgid "Queue screen"
-msgstr "Billentyű beállító képernyő"
-
-#: src/screen_help.c:121
+#: src/screen_help.cxx:121
 msgid "Play"
 msgstr "Lejátszás"
 
-#: src/screen_help.c:124
+#: src/screen_help.cxx:124
 msgid "Move song up"
 msgstr "Szám mozgatása felfelé"
 
-#: src/screen_help.c:125
+#: src/screen_help.cxx:125
 msgid "Move song down"
 msgstr "Szám mozgatása lefelé"
 
-#: src/screen_help.c:128
+#: src/screen_help.cxx:128
 msgid "Center"
 msgstr "Közép"
 
-#: src/screen_help.c:134 src/command.c:107
-msgid "Browse screen"
-msgstr "Tallózás"
-
-#: src/screen_help.c:136
+#: src/screen_help.cxx:136
 msgid "Enter directory/Select and play song"
 msgstr "Könyvtár megadása/szám kiválasztása és lejátszása"
 
-#: src/screen_help.c:138 src/screen_help.c:153
+#: src/screen_help.cxx:138 src/screen_help.cxx:153
 #, fuzzy
 msgid "Append song to queue"
 msgstr "Szám hozzáadása a lejátszólistához"
 
-#: src/screen_help.c:140
+#: src/screen_help.cxx:140
 msgid "Delete playlist"
 msgstr "Lejátszólista törlése"
 
-#: src/screen_help.c:148 src/command.c:218
-msgid "Search screen"
-msgstr "Kereső képernyő"
+#: src/screen_help.cxx:150 src/screen_search.cxx:355 src/title_bar.cxx:82
+msgid "Search"
+msgstr "Keresés"
 
-#: src/screen_help.c:151
+#: src/screen_help.cxx:151
 msgid "Select and play"
 msgstr "Kiválasztás és lejátszás"
 
-#: src/screen_help.c:160 src/command.c:228
-msgid "Lyrics screen"
-msgstr "Dalszöveg képernyő"
-
-#: src/screen_help.c:162
+#: src/screen_help.cxx:162
 msgid "View Lyrics"
 msgstr "Dalszövegek megtekintése"
 
-#: src/screen_help.c:163
+#: src/screen_help.cxx:163
 msgid "(Re)load lyrics"
 msgstr "Dalszövegek (újra)töltése"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
-#: src/screen_help.c:166
+#: src/screen_help.cxx:166
 msgid "Interrupt retrieval"
 msgstr "Újrapróbálkozás megszakítása"
 
-#: src/screen_help.c:167
+#: src/screen_help.cxx:167
 msgid "Download lyrics for currently playing song"
 msgstr "Dalszöveg letöltése a jelenlegi zenéhez"
 
-#: src/screen_help.c:168
+#: src/screen_help.cxx:168
 msgid "Add or edit lyrics"
 msgstr ""
 
-#: src/screen_help.c:169
+#: src/screen_help.cxx:169
 msgid "Save lyrics"
 msgstr "Dalszövegek mentése"
 
-#: src/screen_help.c:170
+#: src/screen_help.cxx:170
 msgid "Delete saved lyrics"
 msgstr ""
 
-#: src/screen_help.c:175 src/command.c:243
-msgid "Outputs screen"
-msgstr "Kimenetek"
-
-#: src/screen_help.c:177
+#: src/screen_help.cxx:177
 msgid "Enable/disable output"
 msgstr "Kimenet engedélyezése/tiltása"
 
-#: src/screen_help.c:182 src/command.c:248
-#, fuzzy
-msgid "Chat screen"
-msgstr "Kövezkező képernyő"
-
-#: src/screen_help.c:184
+#: src/screen_help.cxx:184
 msgid "Write a message"
 msgstr ""
 
-#: src/screen_help.c:189
+#: src/screen_help.cxx:189
 msgid "Keydef screen"
 msgstr "Billentyű beállító képernyő"
 
-#: src/screen_help.c:191
+#: src/screen_help.cxx:191
 msgid "Edit keydefs for selected command"
 msgstr "Billentyű szerkesztése a kiválasztott parancshoz"
 
-#: src/screen_help.c:192
+#: src/screen_help.cxx:192
 msgid "Remove selected keydef"
 msgstr "Billentyű hozzárendelés megszűntetése"
 
-#: src/screen_help.c:193
+#: src/screen_help.cxx:193
 #, fuzzy
 msgid "Add a keydef"
 msgstr "Új gomb hozzáadása"
 
-#: src/screen_help.c:194
+#: src/screen_help.cxx:194
 msgid "Go up a level"
 msgstr "Egy szinttel feljebb"
 
-#: src/screen_help.c:195
+#: src/screen_help.cxx:195
 msgid "Apply and save changes"
 msgstr "Alkalmaz és menti a változásokat"
 
-#: src/screen_help.c:241 src/title_bar.c:74
+#: src/screen_help.cxx:241 src/title_bar.cxx:74
 msgid "Help"
 msgstr "Súgó"
 
+#: src/screen_init.cxx:70 src/screen_init.cxx:127
+msgid "Error: Screen too small"
+msgstr "Hiba: a képernyő túl kicsi"
+
+#: src/screen_keydef.cxx:141
+msgid "You have new key bindings"
+msgstr "Új billentyű beállításaid vannak"
+
+#: src/screen_keydef.cxx:143
+msgid "Keybindings unchanged."
+msgstr "A billentyű beállítások változatlanok."
+
+#: src/screen_keydef.cxx:153
+#, c-format
+msgid "Error: Unable to create directory ~/.ncmpc - %s"
+msgstr "Hiba: nem sikerül létrehozni a ~/.ncmpc katalógust - %s"
+
+#: src/screen_keydef.cxx:164 src/screen_keydef.cxx:173
+#, c-format
+msgid "Error: %s - %s"
+msgstr "Hiba: %s - %s"
+
+#: src/screen_keydef.cxx:171
+#, c-format
+msgid "Wrote %s"
+msgstr "%s elmentve"
+
+#: src/screen_keydef.cxx:250
+msgid "Deleted"
+msgstr "Törölve"
+
+#: src/screen_keydef.cxx:265
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "Nyomd meg az új gombot a következőhöz: %s: "
+
+#: src/screen_keydef.cxx:276
+msgid "Ctrl-Space can't be used"
+msgstr ""
+
+#: src/screen_keydef.cxx:282
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "Hiba: %s gombot már a következő funkció használja: %s"
+
+#: src/screen_keydef.cxx:291
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "%s hozzárendelve a következőhöz: %s"
+
+#: src/screen_keydef.cxx:317
+msgid "===> Apply key bindings "
+msgstr "===> Billentyű beállítások használata "
+
+#: src/screen_keydef.cxx:319
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Alkalmaz és Menti a billentyű beállításokat  "
+
+#: src/screen_keydef.cxx:347
+msgid "Add new key"
+msgstr "Új gomb hozzáadása"
+
+#: src/screen_keydef.cxx:410
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "Észrevétel: nem felejtetted el érvényesíteni a változtatásaidat?"
+
+#: src/screen_keydef.cxx:417
+msgid "Edit key bindings"
+msgstr "Billentyűk változtatása"
+
+#: src/screen_keydef.cxx:419
+#, c-format
+msgid "Edit keys for %s"
+msgstr "Gombok módosítása a következőhöz: %s"
+
 #. translators: no lyrics were found for the song
-#: src/screen_lyrics.c:208
+#: src/screen_lyrics.cxx:208
 msgid "No lyrics"
 msgstr "Nincs dalszöveg"
 
-#: src/screen_lyrics.c:226
+#: src/screen_lyrics.cxx:226
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr ""
 
-#: src/screen_lyrics.c:327 src/screen_lyrics.c:336 src/screen_lyrics.c:346
-#: src/title_bar.c:85
+#: src/screen_lyrics.cxx:327 src/screen_lyrics.cxx:336
+#: src/screen_lyrics.cxx:346 src/title_bar.cxx:85
 msgid "Lyrics"
 msgstr "Dalszövegek"
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/screen_lyrics.c:330
+#: src/screen_lyrics.cxx:330
 msgid "loading..."
 msgstr "betöltés..."
 
-#: src/screen_lyrics.c:361
+#: src/screen_lyrics.cxx:361
 msgid "Editor not configured"
 msgstr ""
 
-#: src/screen_lyrics.c:367
+#: src/screen_lyrics.cxx:367
 msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr ""
 
-#: src/screen_lyrics.c:385 src/screen_lyrics.c:409
+#: src/screen_lyrics.cxx:385 src/screen_lyrics.cxx:409
 msgid "Can't start editor"
 msgstr ""
 
-#: src/screen_lyrics.c:411
+#: src/screen_lyrics.cxx:411
 #, c-format
 msgid "Editor exited unexpectedly (%d)"
 msgstr ""
 
-#: src/screen_lyrics.c:414
+#: src/screen_lyrics.cxx:414
 #, c-format
 msgid "Editor exited unexpectedly (signal %d)"
 msgstr ""
 
 #. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.c:436
+#: src/screen_lyrics.cxx:436
 msgid "Lyrics saved"
 msgstr "Dalszövegek elmentve"
 
-#: src/screen_lyrics.c:443
+#: src/screen_lyrics.cxx:443
 msgid "Lyrics deleted"
 msgstr ""
 
-#: src/screen_lyrics.c:446
+#: src/screen_lyrics.cxx:446
 msgid "No saved lyrics"
 msgstr ""
 
-#: src/screen_outputs.c:60
+#: src/screen_outputs.cxx:60
 #, c-format
 msgid "Output '%s' enabled"
 msgstr "Kimenet engedélyezve: %s"
 
-#: src/screen_outputs.c:71
+#: src/screen_outputs.cxx:71
 #, c-format
 msgid "Output '%s' disabled"
 msgstr "Kimenet tiltva: %s"
 
-#: src/screen_outputs.c:161 src/title_bar.c:88
+#: src/screen_outputs.cxx:162 src/title_bar.cxx:88
 msgid "Outputs"
 msgstr "Kimenetek"
 
-#: src/screen_song.c:49
+#. get path
+#: src/screen_queue.cxx:274
+msgid "Add"
+msgstr "Hozzáadás"
+
+#: src/screen_queue.cxx:382 src/title_bar.cxx:76
+msgid "Queue"
+msgstr ""
+
+#: src/screen_queue.cxx:384
+#, c-format
+msgid "Queue on %s"
+msgstr ""
+
+#: src/screen_search.cxx:48
+msgid "artist"
+msgstr "előadó"
+
+#: src/screen_search.cxx:49
+msgid "album"
+msgstr "album"
+
+#: src/screen_search.cxx:50
+msgid "title"
+msgstr "cím"
+
+#: src/screen_search.cxx:51
+msgid "track"
+msgstr "szám"
+
+#: src/screen_search.cxx:52
+msgid "name"
+msgstr "név"
+
+#: src/screen_search.cxx:53
+msgid "genre"
+msgstr "műfaj"
+
+#: src/screen_search.cxx:54
+msgid "date"
+msgstr "dátum"
+
+#: src/screen_search.cxx:55
+msgid "composer"
+msgstr "zeneszerző"
+
+#: src/screen_search.cxx:56
+msgid "performer"
+msgstr "előadó"
+
+#: src/screen_search.cxx:57
+msgid "comment"
+msgstr "megjegyzés"
+
+#: src/screen_search.cxx:65
+msgid "file"
+msgstr "fájl"
+
+#: src/screen_search.cxx:82 src/screen_song.cxx:52
+msgid "Title"
+msgstr "Cím"
+
+#: src/screen_search.cxx:83 src/screen_song.cxx:51 src/title_bar.cxx:79
+msgid "Artist"
+msgstr "Előadó"
+
+#: src/screen_search.cxx:84 src/screen_song.cxx:53
+msgid "Album"
+msgstr "Album"
+
+#: src/screen_search.cxx:85
+msgid "Filename"
+msgstr "Fájlnév"
+
+#: src/screen_search.cxx:86
+msgid "Artist + Title"
+msgstr "Előadó és Cím"
+
+#: src/screen_search.cxx:244
+#, c-format
+msgid "No argument for search tag %s"
+msgstr "Nincs argumentuma a(z) %s keresési elemnek"
+
+#: src/screen_search.cxx:253
+#, c-format
+msgid "Bad search tag %s"
+msgstr "Hibás keresési elem %s"
+
+#. if( pattern==nullptr )
+#. search_new(screen, c);
+#. else
+#: src/screen_search.cxx:400
+#, c-format
+msgid "Press %s for a new search"
+msgstr "Új kereséshez nyomj %s gombot"
+
+#: src/screen_search.cxx:427
+#, c-format
+msgid "Search: %s"
+msgstr "Keresés: %s"
+
+#: src/screen_search.cxx:430
+#, c-format
+msgid "Search: Results for %s [%s]"
+msgstr "Keresés: találatok a következőhöz %s [%s]"
+
+#: src/screen_search.cxx:434
+#, c-format
+msgid "Search: Press %s for a new search [%s]"
+msgstr "Keresés: új kereséshez nyomj %s gombot [%s]"
+
+#: src/screen_search.cxx:458
+#, c-format
+msgid "Search mode: %s"
+msgstr "Keresési mód: %s"
+
+#: src/screen_song.cxx:54
 msgid "Length"
 msgstr "Hossz"
 
-#: src/screen_song.c:50
+#: src/screen_song.cxx:55
 msgid "Position"
 msgstr ""
 
-#: src/screen_song.c:51
+#: src/screen_song.cxx:56
 msgid "Composer"
 msgstr "Zeneszerző"
 
-#: src/screen_song.c:52
+#: src/screen_song.cxx:57
 msgid "Name"
 msgstr "Név"
 
-#: src/screen_song.c:53
+#: src/screen_song.cxx:58
 msgid "Disc"
 msgstr "Lemez"
 
-#: src/screen_song.c:54
+#: src/screen_song.cxx:59
 msgid "Track"
 msgstr "Szám"
 
-#: src/screen_song.c:55
+#: src/screen_song.cxx:60
 msgid "Date"
 msgstr "Dátum"
 
-#: src/screen_song.c:56
+#: src/screen_song.cxx:61
 msgid "Genre"
 msgstr "Műfaj"
 
-#: src/screen_song.c:57
+#: src/screen_song.cxx:62
 msgid "Comment"
 msgstr "Megjegyzés"
 
-#: src/screen_song.c:58
+#: src/screen_song.cxx:63
 msgid "Path"
 msgstr "Elérési út"
 
-#: src/screen_song.c:59
+#: src/screen_song.cxx:64
 msgid "Bitrate"
 msgstr "Bitráta"
 
-#: src/screen_song.c:60
+#: src/screen_song.cxx:65
 msgid "Format"
 msgstr ""
 
-#: src/screen_song.c:76
+#: src/screen_song.cxx:82
 msgid "Number of artists"
 msgstr "Előadók száma"
 
-#: src/screen_song.c:77
+#: src/screen_song.cxx:83
 msgid "Number of albums"
 msgstr "Albumok száma"
 
-#: src/screen_song.c:78
+#: src/screen_song.cxx:84
 msgid "Number of songs"
 msgstr "Zenék száma"
 
-#: src/screen_song.c:79
+#: src/screen_song.cxx:85
 msgid "Uptime"
 msgstr "Üzemidő"
 
-#: src/screen_song.c:80
+#: src/screen_song.cxx:86
 msgid "Most recent db update"
 msgstr "Legutóbbi adatbázis frissítés"
 
-#: src/screen_song.c:81
+#: src/screen_song.cxx:87
 msgid "Playtime"
 msgstr "Lejátszási idő"
 
-#: src/screen_song.c:82
+#: src/screen_song.cxx:88
 msgid "DB playtime"
 msgstr "Teljes adatbázis lejátszási ideje"
 
-#: src/screen_song.c:171
+#: src/screen_song.cxx:173
 msgid "Song viewer"
 msgstr "Szám néző"
 
-#: src/screen_song.c:320
+#: src/screen_song.cxx:337
 msgid "MPD statistics"
 msgstr "MPD statisztika"
 
-#: src/screen_song.c:410
+#: src/screen_song.cxx:427
 msgid "Selected song"
 msgstr "Kiválasztott zene"
 
-#: src/screen_song.c:420
+#: src/screen_song.cxx:437
 msgid "Currently playing song"
 msgstr "Jelenlegi zene"
 
-#: src/screen_song.c:425
+#: src/screen_song.cxx:442
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/status_bar.c:121
+#. NOTE: if one day a translator decides to use a multi-byte character
+#. for one of the yes/no keys, we'll have to parse it properly
+#: src/screen_utils.cxx:80
+#, fuzzy, c-format
+msgid "%s [%s/%s] "
+msgstr "Cserélni a következőt: %s [%s/%s]? "
+
+#: src/screen_utils.cxx:121
+msgid "Password"
+msgstr "Jelszó"
+
+#: src/status_bar.cxx:121
 msgid "Playing:"
 msgstr "Ami szól:"
 
-#: src/status_bar.c:124
+#: src/status_bar.cxx:124
 msgid "[Paused]"
 msgstr "[Szüneteltetve]"
 
-#: src/title_bar.c:99
-#, c-format
+#: src/title_bar.cxx:99
 msgid "Volume n/a"
 msgstr "Hangerő ismeretlen"
 
-#: src/title_bar.c:101
+#: src/title_bar.cxx:101
 #, c-format
 msgid "Volume %d%%"
 msgstr "Hangerő %d%%"
 
-#: src/command.c:63
-msgid "Key configuration screen"
-msgstr "Billentyű beállító képernyő"
-
-#: src/command.c:66
-msgid "Quit"
-msgstr "Kilép"
-
-#: src/command.c:70
-msgid "Move cursor up"
-msgstr "Kurzormozgatás felfelé"
-
-#: src/command.c:72
-msgid "Move cursor down"
-msgstr "Kurzormozgatás lefelé"
-
-#: src/command.c:74
-msgid "Move cursor to the top of screen"
-msgstr "Kurzor mozgatása a képernyő tetejére"
-
-#: src/command.c:76
-msgid "Move cursor to the middle of screen"
-msgstr "Kurzor mozgatása a képernyő közepére"
-
-#: src/command.c:78
-msgid "Move cursor to the bottom of screen"
-msgstr "Kurzor mozgatása a képernyő aljára"
-
-#: src/command.c:80
-msgid "Move cursor to the top of the list"
-msgstr "Kurzor mozgatása a lista tetejére"
-
-#: src/command.c:82
-msgid "Move cursor to the bottom of the list"
-msgstr "Kurzor mozgatása a lista aljára"
-
-#: src/command.c:84
-msgid "Page up"
-msgstr "Egy oldalt fel"
-
-#: src/command.c:86
-msgid "Page down"
-msgstr "Egy oldalt le"
-
-#: src/command.c:88
-msgid "Range selection"
-msgstr "Tartomány kiválasztása"
-
-#: src/command.c:90
-msgid "Scroll down one line"
-msgstr "Görgetés egy sorral le"
-
-#: src/command.c:92
-msgid "Scroll up one line"
-msgstr "Görgetés egy sorral fel"
-
-#: src/command.c:94
-msgid "Scroll up half a screen"
-msgstr "Görgetés fél képernyőnyivel fel"
-
-#: src/command.c:96
-msgid "Scroll down half a screen"
-msgstr "Görgetés fél képernyőnyivel le"
-
-#: src/command.c:98
-msgid "Select currently playing song"
-msgstr "Most lejátszott szám kiválasztása"
-
-#: src/command.c:103
-msgid "Help screen"
-msgstr "Segítség"
-
-#: src/command.c:112
-msgid "Play/Enter directory"
-msgstr "Lejátszás/Belépés könyvtárba"
-
-#: src/command.c:114
-msgid "Pause"
-msgstr "Szüneteltetés"
-
-#: src/command.c:116
-msgid "Stop"
-msgstr "Leállítás"
-
-#: src/command.c:118
-msgid "Crop"
-msgstr "Vágás"
-
-#: src/command.c:120
-msgid "Next track"
-msgstr "Következő szám"
-
-#: src/command.c:122
-msgid "Previous track"
-msgstr "Előző szám"
-
-#: src/command.c:124
-msgid "Seek forward"
-msgstr "Tekerés előre"
-
-#: src/command.c:126
-msgid "Seek backward"
-msgstr "Tekerés hátra"
-
-#: src/command.c:128
-msgid "Increase volume"
-msgstr "Hangerő növelése"
-
-#: src/command.c:130
-msgid "Decrease volume"
-msgstr "Hangerő csökkentése"
-
-#: src/command.c:132
-#, fuzzy
-msgid "Select/deselect song in queue"
-msgstr "Szám kiválasztása a lejátszólistában"
-
-#: src/command.c:134
-msgid "Select all listed items"
-msgstr "Minden listázott elem kiválasztása"
-
-#: src/command.c:136
-#, fuzzy
-msgid "Delete song from queue"
-msgstr "Szám törlése a lejátszólistából"
-
-#: src/command.c:138
-msgid "Shuffle queue"
-msgstr ""
-
-#: src/command.c:140
-msgid "Clear queue"
-msgstr ""
-
-#: src/command.c:142
-msgid "Toggle repeat mode"
-msgstr "Ismétlő mód ki- és bekapcsolása"
-
-#: src/command.c:144
-msgid "Toggle random mode"
-msgstr "Véletlenszerű lejátszás ki- és bekapcsolása"
-
-#: src/command.c:146
-msgid "Toggle single mode"
-msgstr "Egyszeri mód átkapcsolása"
-
-#: src/command.c:148
-msgid "Toggle consume mode"
-msgstr "Fogyasztó mód átkapcsolása"
-
-#: src/command.c:150
-msgid "Toggle crossfade mode"
-msgstr "Egymásba mosás ki- és bekapcsolása"
-
-#: src/command.c:152
-msgid "Start a music database update"
-msgstr "A zenei adatbázis frissítésének indítása"
-
-#: src/command.c:154
-msgid "Save queue"
-msgstr ""
-
-#: src/command.c:156
-#, fuzzy
-msgid "Add url/file to queue"
-msgstr "URL vagy fájl hozzáadása a lejátszólistához"
-
-#: src/command.c:159
-msgid "Go to root directory"
-msgstr "Mozgás a gyökér könyvtárba"
-
-#: src/command.c:161
-msgid "Go to parent directory"
-msgstr "Mozgás a szülő könyvtárba"
-
-#: src/command.c:164
-msgid "Locate song in browser"
-msgstr "Szám megtekintése a tallozóban"
-
-#: src/command.c:168
-msgid "Move item up"
-msgstr "Elem mozgatása fel"
-
-#: src/command.c:170
-msgid "Move item down"
-msgstr "Elem mozgatása le"
-
-#: src/command.c:172
-msgid "Refresh screen"
-msgstr "Képernyő frissítése"
-
-#. translators: toggle between wrapping and non-wrapping
-#. search
-#: src/command.c:179
-msgid "Toggle find mode"
-msgstr "Kereső mód ki- és bekapcsolása"
-
-#. translators: the auto center mode always centers the song
-#. currently being played
-#: src/command.c:183
-msgid "Toggle auto center mode"
-msgstr "Középre igazítás ki- és bekapcsolása"
-
-#: src/command.c:188
-msgid "Next screen"
-msgstr "Kövezkező képernyő"
-
-#: src/command.c:190
-msgid "Previous screen"
-msgstr "Előző képernyő"
-
-#: src/command.c:192
-msgid "Swap to most recent screen"
-msgstr "Váltás a legutóbbi képernyőre"
-
-#: src/command.c:197
-msgid "Forward find"
-msgstr "Keresés előre"
-
-#: src/command.c:199
-msgid "Forward find next"
-msgstr "Következő keresése előre"
-
-#: src/command.c:201
-msgid "Backward find"
-msgstr "Keresés hátra"
-
-#: src/command.c:203
-msgid "Backward find previous"
-msgstr "Előző keresése hátra"
-
-#. translators: this queries the user for a string
-#. * and jumps directly (while the user is typing)
-#. * to the entry which begins with this string
-#: src/command.c:208
-msgid "Jump to"
-msgstr "Ugrás oda"
-
-#: src/command.c:214
-msgid "Artist screen"
-msgstr "Előadó képernyő"
-
-#: src/command.c:220
-msgid "Change search mode"
-msgstr "Kereső mód váltása"
-
-#: src/command.c:224
-msgid "View the selected and the currently playing song"
-msgstr "A kiválasztott és épp lejátszott szám megtekintése"
-
-#. translators: interrupt the current background action,
-#. e.g. stop loading lyrics from the internet
-#: src/command.c:232
-msgid "Interrupt action"
-msgstr "parancs megszakítása"
-
-#: src/command.c:234
-msgid "Update Lyrics"
-msgstr "Dalszövegek frissítése"
-
-#: src/command.c:238
-msgid "Edit the current item"
-msgstr ""
-
-#: src/command.c:290
-msgid "Undefined"
-msgstr "Meghatározatlan"
-
-#: src/command.c:292
-msgid "Space"
-msgstr "Szóköz"
-
-#: src/command.c:294
-msgid "Enter"
-msgstr "Enter"
-
-#: src/command.c:296
-msgid "Backspace"
-msgstr "Backspace"
-
-#: src/command.c:298
-msgid "Delete"
-msgstr "Delete"
-
-#: src/command.c:300
-msgid "Up"
-msgstr "Up"
-
-#: src/command.c:302
-msgid "Down"
-msgstr "Down"
-
-#: src/command.c:304
-msgid "Left"
-msgstr "Left"
-
-#: src/command.c:306
-msgid "Right"
-msgstr "Right"
-
-#: src/command.c:308
-msgid "Home"
-msgstr "Home"
-
-#: src/command.c:310
-msgid "End"
-msgstr "End"
-
-#: src/command.c:312
-msgid "PageDown"
-msgstr "PageDown"
-
-#: src/command.c:314
-msgid "PageUp"
-msgstr "PageUp"
-
-#: src/command.c:316
-msgid "Tab"
-msgstr "Tab"
-
-#: src/command.c:318
-msgid "Shift+Tab"
-msgstr "Shift+Tab"
-
-#: src/command.c:320
-msgid "Esc"
-msgstr "Esc"
-
-#: src/command.c:322
-msgid "Insert"
-msgstr "Insert"
-
-#: src/command.c:326
-#, c-format
-msgid "F%d"
-msgstr ""
-
-#: src/command.c:330
-#, c-format
-msgid "Ctrl-%c"
-msgstr ""
-
-#: src/command.c:332
-#, c-format
-msgid "Alt-%c"
-msgstr ""
-
-#: src/command.c:477 src/command.c:483
-#, c-format
-msgid "Key %s assigned to %s and %s"
-msgstr "A(z) %s gomb a követlezőkhoz van rendelve: %s és %s"
-
-#: src/colors.c:156
-#, fuzzy
-msgid "Unknown color"
-msgstr "Ismeretlen parancs"
-
-#: src/colors.c:196
-#, fuzzy
-msgid "Unknown color field"
-msgstr "Figyelem: ismeretlen szín mező - %s\n"
-
-#: src/colors.c:230
-msgid "Terminal lacks support for changing colors"
-msgstr "A terminál nem támogatja a színek változtatását"
-
-#: src/colors.c:239
-msgid "Terminal lacks color capabilities"
-msgstr "A terminál nem támogatja a színeket"
-
-#. To translators: prefix for error messages
-#: src/conf.c:99
-msgid "Error"
-msgstr "Hiba"
-
-#: src/conf.c:107 src/conf.c:116
-msgid "Malformed hotkey definition"
-msgstr "Hibás gyorsbillentyű definíció"
-
-#. the hotkey configuration contains an unknown
-#. command
-#: src/conf.c:140
-msgid "Unknown command"
-msgstr "Ismeretlen parancs"
-
-#. the hotkey configuration line is incomplete
-#: src/conf.c:153
-msgid "Incomplete hotkey configuration"
-msgstr "Hiányos gyorsbillentyű definíció"
-
-#. translators: ncmpc supports displaying the
-#. "elapsed" or "remaining" time of a song being
-#. played; in this case, the configuration file
-#. contained an invalid setting
-#: src/conf.c:189
-msgid "Bad time display type"
-msgstr "Hibás időkijelzési típus"
-
-#. an equals sign '=' was expected while parsing a
-#. configuration file line
-#: src/conf.c:202
-msgid "Missing '='"
-msgstr "Hiányzó egyenlőség jel"
-
-#: src/conf.c:253
-msgid "Bad color name"
-msgstr "Hibás szín megnevezés"
-
-#: src/conf.c:263
-msgid "Incomplete color definition"
-msgstr "Hiányos szín megadás"
-
-#: src/conf.c:269
-msgid "Invalid number"
-msgstr "Érvénytelen szám"
-
-#: src/conf.c:277
-msgid "Malformed color definition"
-msgstr "Hibás szín megadás"
-
-#. an unknown screen name was specified in the
-#. configuration file
-#: src/conf.c:311
-msgid "Unknown screen name"
-msgstr "Ismeretlen képernyő név"
-
-#: src/conf.c:339
-msgid "Invalid search mode"
-msgstr "Érvénytelen keresési mód"
-
-#: src/conf.c:362
-msgid "Unknown search mode"
-msgstr "Ismeretlen keresési mód"
-
-#: src/conf.c:552
-msgid "Unknown configuration parameter"
-msgstr "Ismeretlen konfigurációs paraméter"
-
-#. To translators: these credits are shown
-#. when ncmpc is started with "--version"
-#: src/options.c:232 src/options.c:235
-msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Kiszel Kristóf https://launchpad.net/~ulysses\n"
-"  Laszlo Ashin https://launchpad.net/~kodest"
-
-#: src/list_window.c:575
-msgid "Range selection disabled"
-msgstr "Tartomány kiválasztás letiltva"
-
-#: src/list_window.c:580
-msgid "Range selection enabled"
-msgstr "Tartomány kiválasztás engedélyezve"
-
 #~ msgid "Delete playlist %s [%s/%s] ? "
 #~ msgstr "Törlöd a %s lejátszólistát [%s/%s]? "
-
-#~ msgid "Error: Screen too small"
-#~ msgstr "Hiba: a képernyő túl kicsi"
 
 #~ msgid "Warning: Unknown color - %s\n"
 #~ msgstr "Figyelem: ismeretlen szín - %s\n"
