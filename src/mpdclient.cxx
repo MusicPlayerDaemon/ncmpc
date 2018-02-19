@@ -176,7 +176,7 @@ struct mpdclient *
 mpdclient_new(const gchar *host, unsigned port,
 	      unsigned timeout_ms, const gchar *password)
 {
-	struct mpdclient *c = g_new0(struct mpdclient, 1);
+	auto *c = new mpdclient;
 
 #ifdef ENABLE_ASYNC_CONNECT
 	c->settings = mpd_settings_new(host, port, timeout_ms,
@@ -223,7 +223,7 @@ mpdclient_free(struct mpdclient *c)
 #endif
 #endif
 
-	g_free(c);
+	delete c;
 }
 
 static char *
