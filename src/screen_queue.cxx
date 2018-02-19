@@ -468,7 +468,7 @@ QueuePage::Update(struct mpdclient &c)
 	    c.events & MPD_IDLE_QUEUE)
 		/* the queue or the current song has changed, we must
 		   paint the new version */
-		Paint();
+		SetDirty();
 }
 
 #ifdef HAVE_GETMOUSE
@@ -477,7 +477,7 @@ QueuePage::OnMouse(struct mpdclient &c, gcc_unused int x, int row,
 		   mmask_t bstate)
 {
 	if (list_window_mouse(&lw, bstate, row)) {
-		Paint();
+		SetDirty();
 		return true;
 	}
 
@@ -511,7 +511,7 @@ QueuePage::OnMouse(struct mpdclient &c, gcc_unused int x, int row,
 	}
 
 	SaveSelection();
-	Paint();
+	SetDirty();
 
 	return true;
 }
@@ -537,20 +537,20 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	if (list_window_cmd(&lw, cmd)) {
 		SaveSelection();
-		Paint();
+		SetDirty();
 		return true;
 	}
 
 	switch(cmd) {
 	case CMD_SCREEN_UPDATE:
 		CenterPlayingItem(c.status, prev_cmd == CMD_SCREEN_UPDATE);
-		Paint();
+		SetDirty();
 		return false;
 	case CMD_SELECT_PLAYING:
 		list_window_set_cursor(&lw, playlist_get_index(&c.playlist,
 							      c.song));
 		SaveSelection();
-		Paint();
+		SetDirty();
 		return true;
 
 	case CMD_LIST_FIND:
@@ -559,13 +559,13 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_RFIND_NEXT:
 		screen_find(&lw, cmd, screen_queue_lw_callback, &c.playlist);
 		SaveSelection();
-		Paint();
+		SetDirty();
 		return true;
 	case CMD_LIST_JUMP:
 		screen_jump(&lw, screen_queue_lw_callback, &c.playlist,
 			    nullptr, nullptr);
 		SaveSelection();
-		Paint();
+		SetDirty();
 		return true;
 
 #ifdef ENABLE_SONG_SCREEN

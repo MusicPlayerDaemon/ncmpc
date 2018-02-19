@@ -128,12 +128,6 @@ public:
 	void Paint() const override;
 	void Update(struct mpdclient &c) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
-
-#ifdef HAVE_GETMOUSE
-	bool OnMouse(struct mpdclient &c, int x, int y,
-		     mmask_t bstate) override;
-#endif
-
 	const char *GetTitle(char *s, size_t size) const override;
 };
 
@@ -172,6 +166,8 @@ SearchPage::Clear(bool clear_pattern)
 		g_free(pattern);
 		pattern = nullptr;
 	}
+
+	SetDirty();
 }
 
 static FileList *
@@ -372,6 +368,8 @@ SearchPage::Reload(struct mpdclient &c)
 	list_window_set_length(&lw, filelist->size());
 
 	screen_browser_sync_highlights(filelist, &c.playlist);
+
+	SetDirty();
 }
 
 void
@@ -454,7 +452,7 @@ SearchPage::Update(struct mpdclient &c)
 {
 	if (filelist != nullptr && c.events & MPD_IDLE_QUEUE) {
 		screen_browser_sync_highlights(filelist, &c.playlist);
-		Paint();
+		SetDirty();
 	}
 }
 
@@ -471,48 +469,26 @@ SearchPage::OnCommand(struct mpdclient &c, command_t cmd)
 		/* fall through */
 	case CMD_SCREEN_UPDATE:
 		Reload(c);
-		Paint();
 		return true;
 
 	case CMD_SCREEN_SEARCH:
 		Start(c);
-		Paint();
 		return true;
 
 	case CMD_CLEAR:
 		Clear(true);
 		list_window_reset(&lw);
-		Paint();
 		return true;
 
 	default:
 		break;
 	}
 
-	if (FileListPage::OnCommand(c, cmd)) {
-		// TODO: move to FileListPage::OnCommand()
-		if (screen.IsVisible(*this))
-			Paint();
+	if (FileListPage::OnCommand(c, cmd))
 		return true;
-	}
 
 	return false;
 }
-
-#ifdef HAVE_GETMOUSE
-bool
-SearchPage::OnMouse(struct mpdclient &c, int x, int y, mmask_t bstate)
-{
-	if (FileListPage::OnMouse(c, x, y, bstate)) {
-		// TODO: move to FileListPage::OnMouse()
-		if (screen.IsVisible(*this))
-			Paint();
-		return true;
-	}
-
-	return false;
-}
-#endif
 
 const struct screen_functions screen_search = {
 	.init = screen_search_init,

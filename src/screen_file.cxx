@@ -81,12 +81,6 @@ public:
 	void OnOpen(struct mpdclient &c) override;
 	void Update(struct mpdclient &c) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
-
-#ifdef HAVE_GETMOUSE
-	bool OnMouse(struct mpdclient &c, int x, int y,
-		     mmask_t bstate) override;
-#endif
-
 	const char *GetTitle(char *s, size_t size) const override;
 };
 
@@ -118,6 +112,8 @@ FileBrowserPage::Reload(struct mpdclient &c)
 	screen_file_load_list(&c, current_path, filelist);
 
 	list_window_set_length(&lw, filelist->size());
+
+	SetDirty();
 }
 
 bool
@@ -205,6 +201,7 @@ FileBrowserPage::GotoSong(struct mpdclient &c, const struct mpd_song &song)
 		i = 0;
 
 	list_window_set_cursor(&lw, i);
+	SetDirty();
 	return true;
 }
 
@@ -349,7 +346,7 @@ FileBrowserPage::Update(struct mpdclient &c)
 #endif
 			)) {
 		screen_browser_sync_highlights(filelist, &c.playlist);
-		Paint();
+		SetDirty();
 	}
 }
 
@@ -358,20 +355,16 @@ FileBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
 	switch(cmd) {
 	case CMD_PLAY:
-		if (HandleEnter(c)) {
-			Paint();
+		if (HandleEnter(c))
 			return true;
-		}
 
 		break;
 
 	case CMD_GO_ROOT_DIRECTORY:
 		ChangeDirectory(c, "");
-		Paint();
 		return true;
 	case CMD_GO_PARENT_DIRECTORY:
 		ChangeToParent(c);
-		Paint();
 		return true;
 
 	case CMD_LOCATE:
@@ -383,19 +376,14 @@ FileBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_SCREEN_UPDATE:
 		Reload(c);
 		screen_browser_sync_highlights(filelist, &c.playlist);
-		Paint();
 		return false;
 
 	default:
 		break;
 	}
 
-	if (FileListPage::OnCommand(c, cmd)) {
-		// TODO: move to FileListPage::OnCommand()
-		if (screen.IsVisible(*this))
-			Paint();
+	if (FileListPage::OnCommand(c, cmd))
 		return true;
-	}
 
 	if (!mpdclient_is_connected(&c))
 		return false;
@@ -403,7 +391,6 @@ FileBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 	switch(cmd) {
 	case CMD_DELETE:
 		HandleDelete(c);
-		Paint();
 		break;
 
 	case CMD_SAVE_PLAYLIST:
@@ -420,21 +407,6 @@ FileBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	return false;
 }
-
-#ifdef HAVE_GETMOUSE
-bool
-FileBrowserPage::OnMouse(struct mpdclient &c, int x, int y, mmask_t bstate)
-{
-	if (FileListPage::OnMouse(c, x, y, bstate)) {
-		// TODO: move to FileListPage::OnMouse()
-		if (screen.IsVisible(*this))
-			Paint();
-		return true;
-	}
-
-	return false;
-}
-#endif
 
 const struct screen_functions screen_browse = {
 	.init = screen_file_init,

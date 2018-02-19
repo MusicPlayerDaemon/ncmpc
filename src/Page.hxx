@@ -29,8 +29,22 @@
 struct mpdclient;
 
 class Page {
+	/**
+	 * Does this page need to be repainted?
+	 */
+	bool dirty = true;
+
 public:
 	virtual ~Page() = default;
+
+	bool IsDirty() const {
+		return dirty;
+	}
+
+	void SetDirty(bool _dirty=true) {
+		dirty = _dirty;
+	}
+
 	virtual void OnOpen(struct mpdclient &) {}
 	virtual void OnClose() {}
 	virtual void OnResize(unsigned cols, unsigned rows) = 0;

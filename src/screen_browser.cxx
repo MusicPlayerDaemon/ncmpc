@@ -312,6 +312,8 @@ FileListPage::HandleSelect(struct mpdclient &c)
 			success = browser_select_entry(&c, entry, true);
 	}
 
+	SetDirty();
+
 	return range.end == range.start + 1 && success;
 }
 
@@ -344,6 +346,8 @@ FileListPage::HandleSelectAll(struct mpdclient &c)
 		if (entry.entity != nullptr)
 			browser_select_entry(&c, &entry, false);
 	}
+
+	SetDirty();
 }
 
 #ifdef HAVE_GETMOUSE
@@ -378,8 +382,10 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	if (filelist == nullptr)
 		return false;
 
-	if (list_window_cmd(&lw, cmd))
+	if (list_window_cmd(&lw, cmd)) {
+		SetDirty();
 		return true;
+	}
 
 	switch (cmd) {
 #if defined(ENABLE_SONG_SCREEN) || defined(ENABLE_LYRICS_SCREEN)
@@ -391,11 +397,13 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
 		screen_find(&lw, cmd, browser_lw_callback, filelist);
+		SetDirty();
 		return true;
 	case CMD_LIST_JUMP:
 		screen_jump(&lw,
 			    browser_lw_callback, filelist,
 			    PaintRow, this);
+		SetDirty();
 		return true;
 
 #ifdef ENABLE_SONG_SCREEN
@@ -438,11 +446,13 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_SELECT:
 		if (HandleSelect(c))
 			list_window_cmd(&lw, CMD_LIST_NEXT);
+		SetDirty();
 		return true;
 
 	case CMD_ADD:
 		if (HandleAdd(c))
 			list_window_cmd(&lw, CMD_LIST_NEXT);
+		SetDirty();
 		return true;
 
 	case CMD_SELECT_ALL:

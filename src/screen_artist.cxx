@@ -74,12 +74,6 @@ public:
 	void Paint() const override;
 	void Update(struct mpdclient &c) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
-
-#ifdef HAVE_GETMOUSE
-	bool OnMouse(struct mpdclient &c, int x, int y,
-		     mmask_t bstate) override;
-#endif
-
 	const char *GetTitle(char *s, size_t size) const override;
 };
 
@@ -468,7 +462,7 @@ ArtistBrowserPage::Update(struct mpdclient &c)
 			| MPD_IDLE_QUEUE
 #endif
 			))
-		Paint();
+		SetDirty();
 }
 
 /* add_query - Add all songs satisfying specified criteria.
@@ -514,7 +508,12 @@ ArtistBrowserPage::OnListCommand(struct mpdclient &c, command_t cmd)
 	switch (mode) {
 	case LIST_ARTISTS:
 	case LIST_ALBUMS:
-		return list_window_cmd(&lw, cmd);
+		if (list_window_cmd(&lw, cmd)) {
+			SetDirty();
+			return true;
+		}
+
+		return false;
 
 	case LIST_SONGS:
 		return FileListPage::OnCommand(c, cmd);
@@ -558,7 +557,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			OpenAlbumList(c, g_strdup(selected));
 			list_window_reset(&lw);
 
-			Paint();
+			SetDirty();
 			return true;
 
 		case LIST_ALBUMS:
@@ -588,7 +587,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 				list_window_reset(&lw);
 			}
 
-			Paint();
+			SetDirty();
 			return true;
 
 		case LIST_SONGS:
@@ -611,7 +610,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 					list_window_center(&lw, idx);
 				}
 
-				Paint();
+				SetDirty();
 				return true;
 			}
 			break;
@@ -660,7 +659,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			break;
 		}
 
-		Paint();
+		SetDirty();
 		break;
 
 	case CMD_GO_ROOT_DIRECTORY:
@@ -677,7 +676,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			break;
 		}
 
-		Paint();
+		SetDirty();
 		break;
 
 	case CMD_SELECT:
@@ -729,13 +728,13 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		case LIST_ARTISTS:
 			screen_find(&lw, cmd,
 				    screen_artist_lw_callback, artist_list);
-			Paint();
+			SetDirty();
 			return true;
 
 		case LIST_ALBUMS:
 			screen_find(&lw, cmd,
 				    AlbumListCallback, album_list);
-			Paint();
+			SetDirty();
 			return true;
 
 		case LIST_SONGS:
@@ -751,14 +750,14 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			screen_jump(&lw,
 				    screen_artist_lw_callback, artist_list,
 				    paint_artist_callback, artist_list);
-			Paint();
+			SetDirty();
 			return true;
 
 		case LIST_ALBUMS:
 			screen_jump(&lw,
 				    AlbumListCallback, album_list,
 				    paint_album_callback, album_list);
-			Paint();
+			SetDirty();
 			return true;
 
 		case LIST_SONGS:
@@ -772,30 +771,11 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		break;
 	}
 
-	if (OnListCommand(c, cmd)) {
-		// TODO: move to FileListPage::OnCommand()
-		if (screen.IsVisible(*this))
-			Paint();
+	if (OnListCommand(c, cmd))
 		return true;
-	}
 
 	return false;
 }
-
-#ifdef HAVE_GETMOUSE
-bool
-ArtistBrowserPage::OnMouse(struct mpdclient &c, int x, int y, mmask_t bstate)
-{
-	if (FileListPage::OnMouse(c, x, y, bstate)) {
-		// TODO: move to FileListPage::OnMouse()
-		if (screen.IsVisible(*this))
-			Paint();
-		return true;
-	}
-
-	return false;
-}
-#endif
 
 const struct screen_functions screen_artist = {
 	.init = screen_artist_init,

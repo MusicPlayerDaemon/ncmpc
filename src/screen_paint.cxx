@@ -76,6 +76,7 @@ ScreenManager::Paint(struct mpdclient *c, bool main_dirty)
 
 	if (main_dirty) {
 		current_page->second->Paint();
+		current_page->second->SetDirty(false);
 	}
 
 	/* move the cursor to the origin */

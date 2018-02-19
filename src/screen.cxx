@@ -213,7 +213,7 @@ ScreenManager::Update(struct mpdclient *c)
 	/* update the main window */
 	screen.current_page->second->Update(*c);
 
-	Paint(c, false);
+	Paint(c, screen.current_page->second->IsDirty());
 }
 
 void

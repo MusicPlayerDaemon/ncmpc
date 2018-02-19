@@ -205,7 +205,7 @@ OutputsPage::Update(struct mpdclient &c)
 		Clear();
 		fill_outputs_list(&c, mpd_outputs);
 		list_window_set_length(&lw, mpd_outputs->len);
-		Paint();
+		SetDirty();
 	}
 }
 
@@ -215,7 +215,7 @@ OutputsPage::OnCommand(struct mpdclient &c, command_t cmd)
 	assert(mpd_outputs != nullptr);
 
 	if (list_window_cmd(&lw, cmd)) {
-		Paint();
+		SetDirty();
 		return true;
 	}
 
@@ -228,7 +228,7 @@ OutputsPage::OnCommand(struct mpdclient &c, command_t cmd)
 		Clear();
 		fill_outputs_list(&c, mpd_outputs);
 		list_window_set_length(&lw, mpd_outputs->len);
-		Paint();
+		SetDirty();
 		return true;
 
 	default:

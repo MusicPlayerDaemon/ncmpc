@@ -286,7 +286,7 @@ bool
 HelpPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
 {
 	if (list_window_scroll_cmd(&lw, cmd)) {
-		Paint();
+		SetDirty();
 		return true;
 	}
 
@@ -294,7 +294,7 @@ HelpPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
 	if (screen_find(&lw, cmd, list_callback, nullptr)) {
 		/* center the row */
 		list_window_center(&lw, lw.selected);
-		Paint();
+		SetDirty();
 		return true;
 	}
 

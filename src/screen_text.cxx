@@ -91,7 +91,7 @@ bool
 TextPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
 {
 	if (list_window_scroll_cmd(&lw, cmd)) {
-		Repaint();
+		SetDirty();
 		return true;
 	}
 
@@ -99,7 +99,7 @@ TextPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
 	if (screen_find(&lw, cmd, ListCallback, this)) {
 		/* center the row */
 		list_window_center(&lw, lw.selected);
-		Repaint();
+		SetDirty();
 		return true;
 	}
 

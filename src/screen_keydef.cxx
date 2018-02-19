@@ -242,7 +242,7 @@ KeyDefPage::SwitchToSubCommandMode(int cmd)
 	list_window_reset(&lw);
 	check_subcmd_length();
 
-	Paint();
+	SetDirty();
 }
 
 void
@@ -256,7 +256,7 @@ KeyDefPage::SwitchToCommandMode()
 
 	lw.start = saved_start;
 
-	Paint();
+	SetDirty();
 }
 
 void
@@ -278,7 +278,7 @@ KeyDefPage::DeleteKey(int cmd_index, int key_index)
 	screen_status_printf(_("Deleted"));
 
 	/* repaint */
-	Paint();
+	SetDirty();
 
 	/* update key conflict flags */
 	check_key_bindings(cmds, nullptr, 0);
@@ -320,7 +320,7 @@ KeyDefPage::OverwriteKey(int cmd_index, int key_index)
 	check_subcmd_length();
 
 	/* repaint */
-	Paint();
+	SetDirty();
 
 	/* update key conflict flags */
 	check_key_bindings(cmds, nullptr, 0);
@@ -449,7 +449,7 @@ KeyDefPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
 		return false;
 
 	if (list_window_cmd(&lw, cmd)) {
-		Paint();
+		SetDirty();
 		return true;
 	}
 
@@ -499,7 +499,7 @@ KeyDefPage::OnCommand(gcc_unused struct mpdclient &c, command_t cmd)
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
 		screen_find(&lw, cmd, ListCallback, this);
-		Paint();
+		SetDirty();
 		return true;
 
 	default:

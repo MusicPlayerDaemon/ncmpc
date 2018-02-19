@@ -116,7 +116,7 @@ ChatPage::ProcessMessage(const struct mpd_message &message)
 	Append(message_text);
 	g_free(message_text);
 
-	Paint();
+	SetDirty();
 }
 
 void

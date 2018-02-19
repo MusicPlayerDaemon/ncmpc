@@ -489,14 +489,14 @@ SongPage::Update(struct mpdclient &c)
 		mpdclient_handle_error(&c);
 
 	list_window_set_length(&lw, lines->len);
-	Paint();
+	SetDirty();
 }
 
 bool
 SongPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
 	if (list_window_scroll_cmd(&lw, cmd)) {
-		Paint();
+		SetDirty();
 		return true;
 	}
 
@@ -542,7 +542,7 @@ SongPage::OnCommand(struct mpdclient &c, command_t cmd)
 	if (screen_find(&lw, cmd, screen_song_list_callback, lines)) {
 		/* center the row */
 		list_window_center(&lw, lw.selected);
-		Paint();
+		SetDirty();
 		return true;
 	}
 

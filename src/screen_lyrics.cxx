@@ -456,10 +456,8 @@ LyricsPage::OnCommand(struct mpdclient &c, command_t cmd)
 		}
 		return true;
 	case CMD_LYRICS_UPDATE:
-		if (c.song != nullptr) {
+		if (c.song != nullptr)
 			Load(c.song);
-			Paint();
-		}
 		return true;
 	case CMD_EDIT:
 		Edit();
