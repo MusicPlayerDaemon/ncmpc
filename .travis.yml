@@ -1,5 +1,5 @@
 dist: trusty
-language: c
+language: cpp
 
 os:
   - osx
