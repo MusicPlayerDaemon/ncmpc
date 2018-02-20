@@ -38,9 +38,12 @@
 static char ALL_TRACKS[] = "";
 
 class ArtistBrowserPage final : public FileListPage {
-	typedef enum { LIST_ARTISTS, LIST_ALBUMS, LIST_SONGS } artist_mode_t;
+	enum class Mode {
+		ARTISTS,
+		ALBUMS,
+		SONGS,
+	} mode = Mode::ARTISTS;
 
-	artist_mode_t mode = LIST_ARTISTS;
 	GPtrArray *artist_list = nullptr, *album_list = nullptr;
 	char *artist = nullptr;
 	char *album  = nullptr;
@@ -97,7 +100,7 @@ screen_artist_lw_callback(unsigned idx, void *data)
 	GPtrArray *list = (GPtrArray *)data;
 
 	/*
-	if (mode == LIST_ALBUMS) {
+	if (mode == Mode::ALBUMS) {
 		if (idx == 0)
 			return "..";
 		else if (idx == list->len + 1)
@@ -182,7 +185,7 @@ ArtistBrowserPage::LoadArtistList(struct mpdclient &c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(&c);
 
-	assert(mode == LIST_ARTISTS);
+	assert(mode == Mode::ARTISTS);
 	assert(artist == nullptr);
 	assert(album == nullptr);
 	assert(artist_list == nullptr);
@@ -209,7 +212,7 @@ ArtistBrowserPage::LoadAlbumList(struct mpdclient &c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(&c);
 
-	assert(mode == LIST_ALBUMS);
+	assert(mode == Mode::ALBUMS);
 	assert(artist != nullptr);
 	assert(album == nullptr);
 	assert(album_list == nullptr);
@@ -240,7 +243,7 @@ ArtistBrowserPage::LoadSongList(struct mpdclient &c)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(&c);
 
-	assert(mode == LIST_SONGS);
+	assert(mode == Mode::SONGS);
 	assert(artist != nullptr);
 	assert(album != nullptr);
 	assert(filelist == nullptr);
@@ -285,7 +288,7 @@ ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
 {
 	FreeState();
 
-	mode = LIST_ARTISTS;
+	mode = Mode::ARTISTS;
 	LoadArtistList(c);
 }
 
@@ -296,7 +299,7 @@ ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, char *_artist)
 
 	FreeState();
 
-	mode = LIST_ALBUMS;
+	mode = Mode::ALBUMS;
 	artist = _artist;
 	LoadAlbumList(c);
 }
@@ -310,7 +313,7 @@ ArtistBrowserPage::OpenSongList(struct mpdclient &c,
 
 	FreeState();
 
-	mode = LIST_SONGS;
+	mode = Mode::SONGS;
 	artist = _artist;
 	album = _album;
 	LoadSongList(c);
@@ -322,15 +325,15 @@ ArtistBrowserPage::Reload(struct mpdclient &c)
 	FreeLists();
 
 	switch (mode) {
-	case LIST_ARTISTS:
+	case Mode::ARTISTS:
 		LoadArtistList(c);
 		break;
 
-	case LIST_ALBUMS:
+	case Mode::ALBUMS:
 		LoadAlbumList(c);
 		break;
 
-	case LIST_SONGS:
+	case Mode::SONGS:
 		LoadSongList(c);
 		break;
 	}
@@ -414,17 +417,17 @@ ArtistBrowserPage::GetTitle(char *str, size_t size) const
 	switch(mode) {
 		char *s1, *s2;
 
-	case LIST_ARTISTS:
+	case Mode::ARTISTS:
 		g_snprintf(str, size, _("All artists"));
 		break;
 
-	case LIST_ALBUMS:
+	case Mode::ALBUMS:
 		s1 = utf8_to_locale(artist);
 		g_snprintf(str, size, _("Albums of artist: %s"), s1);
 		g_free(s1);
 		break;
 
-	case LIST_SONGS:
+	case Mode::SONGS:
 		s1 = utf8_to_locale(artist);
 
 		if (album == ALL_TRACKS)
@@ -506,8 +509,8 @@ inline bool
 ArtistBrowserPage::OnListCommand(struct mpdclient &c, command_t cmd)
 {
 	switch (mode) {
-	case LIST_ARTISTS:
-	case LIST_ALBUMS:
+	case Mode::ARTISTS:
+	case Mode::ALBUMS:
 		if (list_window_cmd(&lw, cmd)) {
 			SetDirty();
 			return true;
@@ -515,7 +518,7 @@ ArtistBrowserPage::OnListCommand(struct mpdclient &c, command_t cmd)
 
 		return false;
 
-	case LIST_SONGS:
+	case Mode::SONGS:
 		return FileListPage::OnCommand(c, cmd);
 	}
 
@@ -548,7 +551,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_PLAY:
 		switch (mode) {
-		case LIST_ARTISTS:
+		case Mode::ARTISTS:
 			if (lw.selected >= artist_list->len)
 				return true;
 
@@ -560,7 +563,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			SetDirty();
 			return true;
 
-		case LIST_ALBUMS:
+		case Mode::ALBUMS:
 			if (lw.selected == 0) {
 				/* handle ".." */
 				old = g_strdup(artist);
@@ -590,7 +593,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			SetDirty();
 			return true;
 
-		case LIST_SONGS:
+		case Mode::SONGS:
 			if (lw.selected == 0) {
 				/* handle ".." */
 				old = g_strdup(album);
@@ -621,10 +624,10 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_GO_PARENT_DIRECTORY:
 		switch (mode) {
-		case LIST_ARTISTS:
+		case Mode::ARTISTS:
 			break;
 
-		case LIST_ALBUMS:
+		case Mode::ALBUMS:
 			old = g_strdup(artist);
 
 			OpenArtistList(c);
@@ -639,7 +642,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			}
 			break;
 
-		case LIST_SONGS:
+		case Mode::SONGS:
 			old = g_strdup(album);
 			old_ptr = album;
 
@@ -664,11 +667,11 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_GO_ROOT_DIRECTORY:
 		switch (mode) {
-		case LIST_ARTISTS:
+		case Mode::ARTISTS:
 			break;
 
-		case LIST_ALBUMS:
-		case LIST_SONGS:
+		case Mode::ALBUMS:
+		case Mode::SONGS:
 			OpenArtistList(c);
 			list_window_reset(&lw);
 			/* restore first list window state (pop while returning true) */
@@ -682,7 +685,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_SELECT:
 	case CMD_ADD:
 		switch(mode) {
-		case LIST_ARTISTS:
+		case Mode::ARTISTS:
 			if (lw.selected >= artist_list->len)
 				return true;
 
@@ -694,7 +697,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			}
 			break;
 
-		case LIST_ALBUMS:
+		case Mode::ALBUMS:
 			list_window_get_range(&lw, &range);
 			for (unsigned i = range.start; i < range.end; ++i) {
 				if(i == album_list->len + 1)
@@ -709,7 +712,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			}
 			break;
 
-		case LIST_SONGS:
+		case Mode::SONGS:
 			/* handled by browser_cmd() */
 			break;
 		}
@@ -725,19 +728,19 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
 		switch (mode) {
-		case LIST_ARTISTS:
+		case Mode::ARTISTS:
 			screen_find(&lw, cmd,
 				    screen_artist_lw_callback, artist_list);
 			SetDirty();
 			return true;
 
-		case LIST_ALBUMS:
+		case Mode::ALBUMS:
 			screen_find(&lw, cmd,
 				    AlbumListCallback, album_list);
 			SetDirty();
 			return true;
 
-		case LIST_SONGS:
+		case Mode::SONGS:
 			/* handled by browser_cmd() */
 			break;
 		}
@@ -746,21 +749,21 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_LIST_JUMP:
 		switch (mode) {
-		case LIST_ARTISTS:
+		case Mode::ARTISTS:
 			screen_jump(&lw,
 				    screen_artist_lw_callback, artist_list,
 				    paint_artist_callback, artist_list);
 			SetDirty();
 			return true;
 
-		case LIST_ALBUMS:
+		case Mode::ALBUMS:
 			screen_jump(&lw,
 				    AlbumListCallback, album_list,
 				    paint_album_callback, album_list);
 			SetDirty();
 			return true;
 
-		case LIST_SONGS:
+		case Mode::SONGS:
 			/* handled by browser_cmd() */
 			break;
 		}
