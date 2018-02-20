@@ -925,7 +925,7 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 	while ((song = mpd_recv_song(connection)) != nullptr) {
 		int pos = mpd_song_get_pos(song);
 
-		if (pos >= 0 && (guint)pos < c->playlist.list->len) {
+		if (pos >= 0 && (guint)pos < c->playlist.size()) {
 			/* update song */
 			c->playlist.Replace(pos, *song);
 		} else {
@@ -939,11 +939,9 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 	/* remove trailing songs */
 
 	unsigned length = mpd_status_get_queue_length(c->status);
-	while (length < c->playlist.list->len) {
-		guint pos = c->playlist.list->len - 1;
-
+	while (length < c->playlist.size()) {
 		/* Remove the last playlist entry */
-		c->playlist.RemoveIndex(pos);
+		c->playlist.RemoveIndex(c->playlist.size() - 1);
 	}
 
 	c->song = nullptr;
