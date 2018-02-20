@@ -66,7 +66,7 @@ struct MpdIdleSource {
 	/**
 	 * This flag is true when mpd_glib_free() has been called
 	 * during a callback invoked from mpd_glib_leave().
-	 * mpd_glib_leave() will do the real g_free() call then.
+	 * mpd_glib_leave() will do the real "delete" then.
 	 */
 	bool destroyed;
 };
@@ -75,7 +75,7 @@ MpdIdleSource *
 mpd_glib_new(struct mpd_connection *connection,
 	     mpd_glib_callback_t callback, void *callback_ctx)
 {
-	auto *source = g_new(MpdIdleSource, 1);
+	auto *source = new MpdIdleSource();
 
 	source->connection = connection;
 	source->async = mpd_connection_get_async(connection);
@@ -109,7 +109,7 @@ mpd_glib_free(MpdIdleSource *source)
 	if (source->leaving)
 		source->destroyed = true;
 	else
-		g_free(source);
+		delete source;
 }
 
 static void
@@ -385,7 +385,7 @@ mpd_glib_leave(MpdIdleSource *source)
 				      mpd_connection_get_error_message(source->connection));
 
 		if (source->destroyed) {
-			g_free(source);
+			delete source;
 			return false;
 		}
 
@@ -397,7 +397,7 @@ mpd_glib_leave(MpdIdleSource *source)
 	mpd_glib_invoke(source);
 
 	if (source->destroyed) {
-		g_free(source);
+		delete source;
 		return false;
 	}
 
