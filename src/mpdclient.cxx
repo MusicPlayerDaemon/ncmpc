@@ -173,8 +173,8 @@ settings_is_local_socket(const struct mpd_settings *settings)
 #endif
 
 struct mpdclient *
-mpdclient_new(const gchar *host, unsigned port,
-	      unsigned timeout_ms, const gchar *password)
+mpdclient_new(const char *host, unsigned port,
+	      unsigned timeout_ms, const char *password)
 {
 	auto *c = new mpdclient(timeout_ms, password);
 
@@ -561,7 +561,7 @@ mpdclient_cmd_clear(struct mpdclient *c)
 }
 
 bool
-mpdclient_cmd_volume(struct mpdclient *c, gint value)
+mpdclient_cmd_volume(struct mpdclient *c, int value)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
@@ -598,7 +598,7 @@ mpdclient_cmd_volume_down(struct mpdclient *c)
 }
 
 bool
-mpdclient_cmd_add_path(struct mpdclient *c, const gchar *path_utf8)
+mpdclient_cmd_add_path(struct mpdclient *c, const char *path_utf8)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
@@ -667,7 +667,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 }
 
 bool
-mpdclient_cmd_delete(struct mpdclient *c, gint idx)
+mpdclient_cmd_delete(struct mpdclient *c, int idx)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 

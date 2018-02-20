@@ -146,8 +146,8 @@ mpdclient_finish_command(struct mpdclient *c)
 }
 
 struct mpdclient *
-mpdclient_new(const gchar *host, unsigned port,
-	      unsigned timeout_ms, const gchar *password);
+mpdclient_new(const char *host, unsigned port,
+	      unsigned timeout_ms, const char *password);
 
 void mpdclient_free(struct mpdclient *c);
 
@@ -209,7 +209,7 @@ bool
 mpdclient_cmd_clear(struct mpdclient *c);
 
 bool
-mpdclient_cmd_volume(struct mpdclient *c, gint value);
+mpdclient_cmd_volume(struct mpdclient *c, int value);
 
 bool
 mpdclient_cmd_volume_up(struct mpdclient *c);
@@ -218,13 +218,13 @@ bool
 mpdclient_cmd_volume_down(struct mpdclient *c);
 
 bool
-mpdclient_cmd_add_path(struct mpdclient *c, const gchar *path);
+mpdclient_cmd_add_path(struct mpdclient *c, const char *path);
 
 bool
 mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song);
 
 bool
-mpdclient_cmd_delete(struct mpdclient *c, gint index);
+mpdclient_cmd_delete(struct mpdclient *c, int index);
 
 bool
 mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end);
