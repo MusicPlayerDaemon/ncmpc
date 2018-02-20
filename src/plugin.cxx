@@ -37,11 +37,27 @@ struct PluginPipe {
 
 	/** the pipe to the plugin process, or -1 if none is currently
 	    open */
-	int fd;
+	int fd = -1;
 	/** the GLib IO watch of #fd */
 	guint event_id;
 	/** the output of the current plugin */
-	GString *data;
+	GString *data = nullptr;
+
+	~PluginPipe() {
+		Close();
+
+		if (data != nullptr)
+			g_string_free(data, true);
+	}
+
+	void Close() {
+		if (fd < 0)
+			return;
+
+		g_source_remove(event_id);
+		close(fd);
+		fd = -1;
+	}
 };
 
 struct PluginCycle {
@@ -58,11 +74,11 @@ struct PluginCycle {
 
 	/** the index of the next plugin which is going to be
 	    invoked */
-	guint next_plugin;
+	guint next_plugin = 0;
 
 	/** the pid of the plugin process, or -1 if none is currently
 	    running */
-	pid_t pid;
+	pid_t pid = -1;
 
 	/** the stdout pipe */
 	PluginPipe pipe_stdout;
@@ -70,7 +86,23 @@ struct PluginCycle {
 	PluginPipe pipe_stderr;
 
 	/** list of all error messages from failed plugins */
-	GString *all_errors;
+	GString *all_errors = g_string_new(nullptr);
+
+	PluginCycle(PluginList &_list, char **_argv,
+		    plugin_callback_t _callback, void *_callback_data)
+		:list(&_list), argv(_argv),
+		 callback(_callback), callback_data(_callback_data),
+		 next_plugin(0) {}
+
+	~PluginCycle() {
+		if (all_errors != nullptr)
+			g_string_free(all_errors, true);
+
+		/* free argument list */
+		for (unsigned i = 0; i == 0 || argv[i] != nullptr; ++i)
+			g_free(argv[i]);
+		g_free(argv);
+	}
 };
 
 static bool
@@ -317,62 +349,29 @@ PluginCycle *
 plugin_run(PluginList *list, const char *const*args,
 	   plugin_callback_t callback, void *callback_data)
 {
-	PluginCycle *cycle = new PluginCycle();
-
 	assert(args != nullptr);
 
-	cycle->list = list;
-	cycle->argv = make_argv(args);
-	cycle->callback = callback;
-	cycle->callback_data = callback_data;
-	cycle->next_plugin = 0;
-	cycle->pid = -1;
-	cycle->pipe_stdout.fd = -1;
-	cycle->pipe_stderr.fd = -1;
-	cycle->pipe_stdout.data = nullptr;
-	cycle->pipe_stderr.data = nullptr;
-
-	cycle->all_errors = g_string_new(nullptr);
+	auto *cycle = new PluginCycle(*list, make_argv(args),
+				      callback, callback_data);
 	next_plugin(cycle);
 
 	return cycle;
 }
 
-static void
-plugin_fd_remove(PluginPipe *p)
-{
-	if (p->fd >= 0) {
-		g_source_remove(p->event_id);
-		close(p->fd);
-	}
-}
-
 void
 plugin_stop(PluginCycle *cycle)
 {
-	plugin_fd_remove(&cycle->pipe_stdout);
-	plugin_fd_remove(&cycle->pipe_stderr);
-
 	if (cycle->pid > 0) {
 		/* kill the plugin process */
+
+		cycle->pipe_stdout.Close();
+		cycle->pipe_stderr.Close();
+
 		int status;
 
 		kill(cycle->pid, SIGTERM);
 		waitpid(cycle->pid, &status, 0);
 	}
-
-	/* free data that has been received */
-	if (cycle->pipe_stdout.data != nullptr)
-		g_string_free(cycle->pipe_stdout.data, true);
-	if (cycle->pipe_stderr.data != nullptr)
-		g_string_free(cycle->pipe_stderr.data, true);
-	if (cycle->all_errors != nullptr)
-		g_string_free(cycle->all_errors, true);
-
-	/* free argument list */
-	for (guint i = 0; i == 0 || cycle->argv[i] != nullptr; ++i)
-		g_free(cycle->argv[i]);
-	g_free(cycle->argv);
 
 	delete cycle;
 }
