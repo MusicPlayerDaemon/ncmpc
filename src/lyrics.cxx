@@ -22,7 +22,7 @@
 
 #include <assert.h>
 
-static struct plugin_list empty, plugins;
+static PluginList empty, plugins;
 
 void lyrics_init()
 {

@@ -42,7 +42,7 @@ struct plugin_pipe {
 
 struct plugin_cycle {
 	/** the plugin list; used for traversing to the next plugin */
-	struct plugin_list *list;
+	PluginList *list;
 
 	/** arguments passed to execv() */
 	char **argv;
@@ -70,7 +70,7 @@ struct plugin_cycle {
 };
 
 static bool
-register_plugin(struct plugin_list *list, char *path)
+register_plugin(PluginList *list, char *path)
 {
 	struct stat st;
 	if (stat(path, &st) < 0)
@@ -87,14 +87,14 @@ plugin_compare_func_alpha(gconstpointer plugin1, gconstpointer plugin2)
 }
 
 static void
-plugin_list_sort(struct plugin_list *list, GCompareFunc compare_func)
+plugin_list_sort(PluginList *list, GCompareFunc compare_func)
 {
 	g_ptr_array_sort(list->plugins,
 			compare_func);
 }
 
 bool
-plugin_list_load_directory(struct plugin_list *list, const char *path)
+plugin_list_load_directory(PluginList *list, const char *path)
 {
 	GDir *dir = g_dir_open(path, 0, nullptr);
 	if (dir == nullptr)
@@ -114,7 +114,7 @@ plugin_list_load_directory(struct plugin_list *list, const char *path)
 	return true;
 }
 
-void plugin_list_deinit(struct plugin_list *list)
+void plugin_list_deinit(PluginList *list)
 {
 	for (guint i = 0; i < list->plugins->len; ++i)
 		free(g_ptr_array_index(list->plugins, i));
@@ -330,7 +330,7 @@ make_argv(const char*const* args)
 }
 
 struct plugin_cycle *
-plugin_run(struct plugin_list *list, const char *const*args,
+plugin_run(PluginList *list, const char *const*args,
 	   plugin_callback_t callback, void *callback_data)
 {
 	struct plugin_cycle *cycle = g_new(struct plugin_cycle, 1);

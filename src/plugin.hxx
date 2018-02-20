@@ -25,7 +25,7 @@
 /**
  * A list of registered plugins.
  */
-struct plugin_list {
+struct PluginList {
 	GPtrArray *plugins;
 };
 
@@ -54,7 +54,7 @@ struct plugin_cycle;
  * Initialize an empty plugin_list structure.
  */
 static inline void
-plugin_list_init(struct plugin_list *list)
+plugin_list_init(PluginList *list)
 {
 	list->plugins = g_ptr_array_new();
 }
@@ -63,13 +63,13 @@ plugin_list_init(struct plugin_list *list)
  * Load all plugins (executables) in a directory.
  */
 bool
-plugin_list_load_directory(struct plugin_list *list, const char *path);
+plugin_list_load_directory(PluginList *list, const char *path);
 
 /**
  * Frees all memory held by the plugin_list object (but not the
  * pointer itself).
  */
-void plugin_list_deinit(struct plugin_list *list);
+void plugin_list_deinit(PluginList *list);
 
 /**
  * Run plugins in this list, until one returns success (or until the
@@ -84,7 +84,7 @@ void plugin_list_deinit(struct plugin_list *list);
  * callback function
  */
 struct plugin_cycle *
-plugin_run(struct plugin_list *list, const char *const*args,
+plugin_run(PluginList *list, const char *const*args,
 	   plugin_callback_t callback, void *callback_data);
 
 /**
