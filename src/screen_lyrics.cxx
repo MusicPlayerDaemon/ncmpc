@@ -77,7 +77,7 @@ private:
 		/* XXX repaint the screen title */
 	}
 
-	void Set(const GString *str);
+	void Set(const char *s);
 
 	void Load(const struct mpd_song *song);
 	void Reload();
@@ -88,13 +88,13 @@ private:
 	/** save current lyrics to a file and run editor on it */
 	void Edit();
 
-	static void PluginCallback(const GString *result, bool success,
+	static void PluginCallback(std::string &&result, bool success,
 				   const char *plugin_name, void *data) {
 		auto &p = *(LyricsPage *)data;
-		p.PluginCallback(result, success, plugin_name);
+		p.PluginCallback(std::move(result), success, plugin_name);
 	}
 
-	void PluginCallback(const GString *result, bool success,
+	void PluginCallback(std::string &&result, bool success,
 			    const char *plugin_name);
 
 	static gboolean TimeoutCallback(gpointer data) {
@@ -200,18 +200,18 @@ LyricsPage::Delete()
 }
 
 void
-LyricsPage::Set(const GString *str)
+LyricsPage::Set(const char *s)
 {
 	if (reloading) {
 		unsigned saved_start = lw.start;
 
-		TextPage::Set(str->str);
+		TextPage::Set(s);
 
 		/* restore the cursor and ensure that it's still valid */
 		lw.start = saved_start;
 		list_window_fetch_cursor(&lw);
 	} else {
-		TextPage::Set(str->str);
+		TextPage::Set(s);
 	}
 
 	reloading = false;
@@ -222,7 +222,7 @@ LyricsPage::Set(const GString *str)
 }
 
 inline void
-LyricsPage::PluginCallback(const GString *result, const bool success,
+LyricsPage::PluginCallback(std::string &&result, const bool success,
 			   const char *_plugin_name)
 {
 	assert(loader != nullptr);
@@ -230,8 +230,7 @@ LyricsPage::PluginCallback(const GString *result, const bool success,
 	plugin_name = g_strdup(_plugin_name);
 
 	/* Display result, which may be lyrics or error messages */
-	if (result != nullptr)
-		Set(result);
+	Set(result.c_str());
 
 	if (success == true) {
 		if (options.lyrics_autosave &&

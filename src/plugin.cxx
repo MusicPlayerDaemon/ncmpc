@@ -20,6 +20,8 @@
 #include "plugin.hxx"
 #include "Compiler.h"
 
+#include <glib.h>
+
 #include <algorithm>
 
 #include <assert.h>
@@ -41,13 +43,10 @@ struct PluginPipe {
 	/** the GLib IO watch of #fd */
 	guint event_id;
 	/** the output of the current plugin */
-	GString *data = nullptr;
+	std::string data;
 
 	~PluginPipe() {
 		Close();
-
-		if (data != nullptr)
-			g_string_free(data, true);
 	}
 
 	void Close() {
@@ -86,7 +85,7 @@ struct PluginCycle {
 	PluginPipe pipe_stderr;
 
 	/** list of all error messages from failed plugins */
-	GString *all_errors = g_string_new(nullptr);
+	std::string all_errors;
 
 	PluginCycle(PluginList &_list, char **_argv,
 		    plugin_callback_t _callback, void *_callback_data)
@@ -95,9 +94,6 @@ struct PluginCycle {
 		 next_plugin(0) {}
 
 	~PluginCycle() {
-		if (all_errors != nullptr)
-			g_string_free(all_errors, true);
-
 		/* free argument list */
 		for (unsigned i = 0; i == 0 || argv[i] != nullptr; ++i)
 			g_free(argv[i]);
@@ -157,23 +153,23 @@ plugin_eof(PluginCycle *cycle, PluginPipe *p)
 		/* If we encountered an error other than service unavailable
 		 * (69), log it for later. If all plugins fail, we may get
 		 * some hints for debugging.*/
-		if (cycle->pipe_stderr.data->len > 0 &&
-		    WEXITSTATUS(status) != 69)
-			g_string_append_printf(cycle->all_errors,
-					       "*** %s ***\n\n%s\n",
-					       cycle->argv[0],
-					       cycle->pipe_stderr.data->str);
+		if (!cycle->pipe_stderr.data.empty() &&
+		    WEXITSTATUS(status) != 69) {
+			cycle->all_errors += "*** ";
+			cycle->all_errors += cycle->argv[0];
+			cycle->all_errors += " ***\n\n";
+			cycle->all_errors += cycle->pipe_stderr.data;
+			cycle->all_errors += "\n";
+		}
 
 		/* the plugin has failed */
-		g_string_free(cycle->pipe_stdout.data, true);
-		cycle->pipe_stdout.data = nullptr;
-		g_string_free(cycle->pipe_stderr.data, true);
-		cycle->pipe_stderr.data = nullptr;
+		cycle->pipe_stdout.data.clear();
+		cycle->pipe_stderr.data.clear();
 
 		next_plugin(cycle);
 	} else {
 		/* success: invoke the callback */
-		cycle->callback(cycle->pipe_stdout.data, true,
+		cycle->callback(std::move(cycle->pipe_stdout.data), true,
 				cycle->argv[0], cycle->callback_data);
 	}
 }
@@ -198,7 +194,7 @@ plugin_data(gcc_unused GIOChannel *source,
 		return false;
 	}
 
-	g_string_append_len(p->data, buffer, nbytes);
+	p->data.append(buffer, nbytes);
 	return true;
 }
 
@@ -219,7 +215,8 @@ plugin_delayed_fail(gpointer data)
 	assert(cycle->pipe_stderr.fd < 0);
 	assert(cycle->pid < 0);
 
-	cycle->callback(cycle->all_errors, false, nullptr, cycle->callback_data);
+	cycle->callback(std::move(cycle->all_errors), false, nullptr,
+			cycle->callback_data);
 
 	return false;
 }
@@ -229,7 +226,6 @@ plugin_fd_add(PluginCycle *cycle, PluginPipe *p, int fd)
 {
 	p->cycle = cycle;
 	p->fd = fd;
-	p->data = g_string_new(nullptr);
 	GIOChannel *channel = g_io_channel_unix_new(fd);
 	p->event_id = g_io_add_watch(channel, GIOCondition(G_IO_IN|G_IO_HUP),
 				     plugin_data, p);
@@ -243,8 +239,8 @@ start_plugin(PluginCycle *cycle, const char *plugin_path)
 	assert(cycle->pid < 0);
 	assert(cycle->pipe_stdout.fd < 0);
 	assert(cycle->pipe_stderr.fd < 0);
-	assert(cycle->pipe_stdout.data == nullptr);
-	assert(cycle->pipe_stderr.data == nullptr);
+	assert(cycle->pipe_stdout.data.empty());
+	assert(cycle->pipe_stderr.data.empty());
 
 	/* set new program name, but free the one from the previous
 	   plugin */
@@ -305,8 +301,8 @@ next_plugin(PluginCycle *cycle)
 	assert(cycle->pid < 0);
 	assert(cycle->pipe_stdout.fd < 0);
 	assert(cycle->pipe_stderr.fd < 0);
-	assert(cycle->pipe_stdout.data == nullptr);
-	assert(cycle->pipe_stderr.data == nullptr);
+	assert(cycle->pipe_stdout.data.empty());
+	assert(cycle->pipe_stderr.data.empty());
 
 	if (cycle->next_plugin >= cycle->list->plugins.size()) {
 		/* no plugins left */

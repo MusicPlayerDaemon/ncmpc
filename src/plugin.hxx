@@ -20,8 +20,6 @@
 #ifndef PLUGIN_H
 #define PLUGIN_H
 
-#include <glib.h>
-
 #include <vector>
 #include <string>
 
@@ -44,7 +42,7 @@ struct PluginList {
  * when plugin_stop is called (i.e. strdup it if you need it afterwards).
  * @param data the caller defined pointer passed to plugin_run()
  */
-typedef void (*plugin_callback_t)(const GString *result, const bool success,
+typedef void (*plugin_callback_t)(std::string &&result, const bool success,
 				  const char *plugin_name, void *data);
 
 /**
