@@ -22,9 +22,11 @@
 
 #include "plugin.hxx"
 
+struct PluginCycle;
+
 void lyrics_init();
 
-struct plugin_cycle *
+PluginCycle *
 lyrics_load(const char *artist, const char *title,
 	    plugin_callback_t callback, void *callback_data);
 

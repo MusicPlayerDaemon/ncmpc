@@ -29,7 +29,7 @@ void lyrics_init()
 	plugin_list_load_directory(&plugins, LYRICS_PLUGIN_DIR);
 }
 
-struct plugin_cycle *
+PluginCycle *
 lyrics_load(const char *artist, const char *title,
 	    plugin_callback_t callback, void *data)
 {

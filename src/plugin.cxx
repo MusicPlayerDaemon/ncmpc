@@ -30,8 +30,10 @@
 #include <sys/signal.h>
 #include <sys/wait.h>
 
-struct plugin_pipe {
-	struct plugin_cycle *cycle;
+struct PluginCycle;
+
+struct PluginPipe {
+	PluginCycle *cycle;
 
 	/** the pipe to the plugin process, or -1 if none is currently
 	    open */
@@ -42,7 +44,7 @@ struct plugin_pipe {
 	GString *data;
 };
 
-struct plugin_cycle {
+struct PluginCycle {
 	/** the plugin list; used for traversing to the next plugin */
 	PluginList *list;
 
@@ -63,9 +65,9 @@ struct plugin_cycle {
 	pid_t pid;
 
 	/** the stdout pipe */
-	struct plugin_pipe pipe_stdout;
+	PluginPipe pipe_stdout;
 	/** the stderr pipe */
-	struct plugin_pipe pipe_stderr;
+	PluginPipe pipe_stderr;
 
 	/** list of all error messages from failed plugins */
 	GString *all_errors;
@@ -104,10 +106,10 @@ plugin_list_load_directory(PluginList *list, const char *path)
 }
 
 static void
-next_plugin(struct plugin_cycle *cycle);
+next_plugin(PluginCycle *cycle);
 
 static void
-plugin_eof(struct plugin_cycle *cycle, struct plugin_pipe *p)
+plugin_eof(PluginCycle *cycle, PluginPipe *p)
 {
 	close(p->fd);
 	p->fd = -1;
@@ -148,10 +150,10 @@ static gboolean
 plugin_data(gcc_unused GIOChannel *source,
 	    gcc_unused GIOCondition condition, gpointer data)
 {
-	auto *p = (struct plugin_pipe *)data;
+	auto *p = (PluginPipe *)data;
 	assert(p->fd >= 0);
 
-	struct plugin_cycle *cycle = p->cycle;
+	PluginCycle *cycle = p->cycle;
 	assert(cycle != nullptr);
 	assert(cycle->pid > 0);
 
@@ -178,7 +180,7 @@ plugin_data(gcc_unused GIOChannel *source,
 static gboolean
 plugin_delayed_fail(gpointer data)
 {
-	auto *cycle = (struct plugin_cycle *)data;
+	auto *cycle = (PluginCycle *)data;
 
 	assert(cycle != nullptr);
 	assert(cycle->pipe_stdout.fd < 0);
@@ -191,7 +193,7 @@ plugin_delayed_fail(gpointer data)
 }
 
 static void
-plugin_fd_add(struct plugin_cycle *cycle, struct plugin_pipe *p, int fd)
+plugin_fd_add(PluginCycle *cycle, PluginPipe *p, int fd)
 {
 	p->cycle = cycle;
 	p->fd = fd;
@@ -203,7 +205,7 @@ plugin_fd_add(struct plugin_cycle *cycle, struct plugin_pipe *p, int fd)
 }
 
 static int
-start_plugin(struct plugin_cycle *cycle, const char *plugin_path)
+start_plugin(PluginCycle *cycle, const char *plugin_path)
 {
 	assert(cycle != nullptr);
 	assert(cycle->pid < 0);
@@ -266,7 +268,7 @@ start_plugin(struct plugin_cycle *cycle, const char *plugin_path)
 }
 
 static void
-next_plugin(struct plugin_cycle *cycle)
+next_plugin(PluginCycle *cycle)
 {
 	assert(cycle->pid < 0);
 	assert(cycle->pipe_stdout.fd < 0);
@@ -311,11 +313,11 @@ make_argv(const char*const* args)
 	return ret - num;
 }
 
-struct plugin_cycle *
+PluginCycle *
 plugin_run(PluginList *list, const char *const*args,
 	   plugin_callback_t callback, void *callback_data)
 {
-	struct plugin_cycle *cycle = g_new(struct plugin_cycle, 1);
+	PluginCycle *cycle = g_new(PluginCycle, 1);
 
 	assert(args != nullptr);
 
@@ -337,7 +339,7 @@ plugin_run(PluginList *list, const char *const*args,
 }
 
 static void
-plugin_fd_remove(struct plugin_pipe *p)
+plugin_fd_remove(PluginPipe *p)
 {
 	if (p->fd >= 0) {
 		g_source_remove(p->event_id);
@@ -346,7 +348,7 @@ plugin_fd_remove(struct plugin_pipe *p)
 }
 
 void
-plugin_stop(struct plugin_cycle *cycle)
+plugin_stop(PluginCycle *cycle)
 {
 	plugin_fd_remove(&cycle->pipe_stdout);
 	plugin_fd_remove(&cycle->pipe_stderr);

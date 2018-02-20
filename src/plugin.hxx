@@ -51,7 +51,7 @@ typedef void (*plugin_callback_t)(const GString *result, const bool success,
  * This object represents a cycle through all available plugins, until
  * a plugin returns a positive result.
  */
-struct plugin_cycle;
+struct PluginCycle;
 
 /**
  * Load all plugins (executables) in a directory.
@@ -71,7 +71,7 @@ plugin_list_load_directory(PluginList *list, const char *path);
  * @param callback_data caller defined pointer which is passed to the
  * callback function
  */
-struct plugin_cycle *
+PluginCycle *
 plugin_run(PluginList *list, const char *const*args,
 	   plugin_callback_t callback, void *callback_data);
 
@@ -81,6 +81,6 @@ plugin_run(PluginList *list, const char *const*args,
  * invoked.
  */
 void
-plugin_stop(struct plugin_cycle *invocation);
+plugin_stop(PluginCycle *invocation);
 
 #endif

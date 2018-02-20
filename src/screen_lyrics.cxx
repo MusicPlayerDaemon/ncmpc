@@ -52,7 +52,7 @@ class LyricsPage final : public TextPage {
 
 	char *artist = nullptr, *title = nullptr, *plugin_name = nullptr;
 
-	struct plugin_cycle *loader = nullptr;
+	PluginCycle *loader = nullptr;
 
 	guint loader_timeout = 0;
 
