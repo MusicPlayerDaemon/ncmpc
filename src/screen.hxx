@@ -102,6 +102,4 @@ private:
 	void UpdateProgressWindow(struct mpdclient &c);
 };
 
-extern ScreenManager screen;
-
 #endif

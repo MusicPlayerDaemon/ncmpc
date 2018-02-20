@@ -25,6 +25,7 @@
 #include "options.hxx"
 #include "colors.hxx"
 #include "wreadln.hxx"
+#include "ncmpc.hxx"
 
 #include <mpd/client.h>
 #include <ctype.h>

@@ -19,6 +19,7 @@
 
 #include "signals.hxx"
 #include "screen.hxx"
+#include "ncmpc.hxx"
 #include "Compiler.h"
 
 #include <glib-unix.h>

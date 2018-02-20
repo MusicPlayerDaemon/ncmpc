@@ -19,6 +19,7 @@
 
 #include "screen_status.hxx"
 #include "screen.hxx"
+#include "ncmpc.hxx"
 
 #include <stdarg.h>
 

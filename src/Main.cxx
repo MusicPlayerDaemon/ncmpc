@@ -68,6 +68,8 @@ static guint reconnect_source_id, update_source_id;
 static guint check_key_bindings_source_id;
 #endif
 
+ScreenManager screen;
+
 #ifndef NCMPC_MINI
 static void
 update_xterm_title()

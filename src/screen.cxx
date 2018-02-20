@@ -48,8 +48,6 @@
 
 /* screens */
 
-ScreenManager screen;
-
 static const struct screen_functions *mode_fn_prev = &screen_queue;
 
 ScreenManager::ScreenManager() = default;

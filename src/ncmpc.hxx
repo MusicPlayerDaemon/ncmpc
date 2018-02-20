@@ -26,6 +26,8 @@
 #include "ncmpc_curses.h"
 #endif
 
+class ScreenManager;
+extern ScreenManager screen;
 
 void begin_input_event();
 void end_input_event();
