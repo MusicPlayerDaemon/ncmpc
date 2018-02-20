@@ -30,6 +30,8 @@
 
 #include <mpd/client.h>
 
+#include <glib.h>
+
 #include <assert.h>
 
 static gboolean
