@@ -48,9 +48,9 @@ struct MpdIdleSource {
 
 	GIOChannel *channel;
 
-	unsigned io_events;
+	unsigned io_events = 0;
 
-	guint id;
+	guint id = 0;
 
 	unsigned idle_events;
 
@@ -61,37 +61,31 @@ struct MpdIdleSource {
 	 * leaving mpd_glib_leave() in idle mode.  As long as this
 	 * flag is set, mpd_glib_enter() is a no-op to prevent this.
 	 */
-	bool leaving;
+	bool leaving = false;
 
 	/**
 	 * This flag is true when mpd_glib_free() has been called
 	 * during a callback invoked from mpd_glib_leave().
 	 * mpd_glib_leave() will do the real "delete" then.
 	 */
-	bool destroyed;
+	bool destroyed = false;
+
+	MpdIdleSource(struct mpd_connection &_connection,
+		      mpd_glib_callback_t _callback, void *_callback_ctx)
+		:connection(&_connection),
+		 async(mpd_connection_get_async(connection)),
+		 parser(mpd_parser_new()),
+		 callback(_callback), callback_ctx(_callback_ctx),
+		 channel(g_io_channel_unix_new(mpd_async_get_fd(async))) {
+		/* TODO check parser!=nullptr */
+	}
 };
 
 MpdIdleSource *
 mpd_glib_new(struct mpd_connection *connection,
 	     mpd_glib_callback_t callback, void *callback_ctx)
 {
-	auto *source = new MpdIdleSource();
-
-	source->connection = connection;
-	source->async = mpd_connection_get_async(connection);
-	source->parser = mpd_parser_new();
-	/* XXX check source->parser!=nullptr */
-
-	source->callback = callback;
-	source->callback_ctx = callback_ctx;
-
-	source->channel = g_io_channel_unix_new(mpd_async_get_fd(source->async));
-	source->io_events = 0;
-	source->id = 0;
-	source->leaving = false;
-	source->destroyed = false;
-
-	return source;
+	return new MpdIdleSource(*connection, callback, callback_ctx);
 }
 
 void
