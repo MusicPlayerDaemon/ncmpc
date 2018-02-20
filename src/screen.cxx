@@ -122,13 +122,13 @@ find_configured_screen(const char *name)
 	return -1;
 }
 
-static void
-screen_next_mode(struct mpdclient *c, int offset)
+void
+ScreenManager::NextMode(struct mpdclient &c, int offset)
 {
 	int max = g_strv_length(options.screen_list);
 
 	/* find current screen */
-	int current = find_configured_screen(screen.current_page->first->name);
+	int current = find_configured_screen(current_page->first->name);
 	int next = current + offset;
 	if (next<0)
 		next = max-1;
@@ -138,7 +138,7 @@ screen_next_mode(struct mpdclient *c, int offset)
 	const struct screen_functions *sf =
 		screen_lookup_name(options.screen_list[next]);
 	if (sf != nullptr)
-		screen.Switch(*sf, c);
+		Switch(*sf, &c);
 }
 
 void
@@ -249,10 +249,10 @@ ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
 		Paint(c, true);
 		break;
 	case CMD_SCREEN_PREVIOUS:
-		screen_next_mode(c, -1);
+		NextMode(*c, -1);
 		break;
 	case CMD_SCREEN_NEXT:
-		screen_next_mode(c, 1);
+		NextMode(*c, 1);
 		break;
 	case CMD_SCREEN_PLAY:
 		Switch(screen_queue, c);

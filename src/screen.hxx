@@ -92,6 +92,9 @@ public:
 #ifdef HAVE_GETMOUSE
 	bool OnMouse(struct mpdclient *c, int x, int y, mmask_t bstate);
 #endif
+
+private:
+	void NextMode(struct mpdclient &c, int offset);
 };
 
 extern ScreenManager screen;
