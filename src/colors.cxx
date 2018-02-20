@@ -35,19 +35,19 @@
 #define COLOR_ERROR -2
 
 #ifdef ENABLE_COLORS
-typedef struct {
+struct CustomColor {
 	short color;
 	short r,g,b;
-} color_definition_entry_t;
+};
 #endif
 
-typedef struct {
+struct NamedColor {
 	const char *name;
 	int color;
 	int mono;
-} color_entry_t;
+};
 
-static color_entry_t colors[COLOR_END] = {
+static NamedColor colors[COLOR_END] = {
 	/* color pair = field name, color, mono */
 	{nullptr, 0, 0},
 	{"title",             COLOR_YELLOW,          A_NORMAL},
@@ -71,7 +71,7 @@ static color_entry_t colors[COLOR_END] = {
 
 static GList *color_definition_list = nullptr;
 
-static color_entry_t *
+static NamedColor *
 colors_lookup_by_name(const char *name)
 {
 	for (unsigned i = 1; i < COLOR_END; ++i)
@@ -174,7 +174,7 @@ colors_define(const char *name, short r, short g, short b)
 	if (color < 0)
 		return false;
 
-	auto *entry = g_new(color_definition_entry_t, 1);
+	auto *entry = g_new(CustomColor, 1);
 	entry->color = color;
 	entry->r = r;
 	entry->g = g;
@@ -188,7 +188,7 @@ colors_define(const char *name, short r, short g, short b)
 bool
 colors_assign(const char *name, const char *value)
 {
-	color_entry_t *entry = colors_lookup_by_name(name);
+	auto *entry = colors_lookup_by_name(name);
 
 	if (!entry) {
 		fprintf(stderr, "%s: %s",
@@ -216,7 +216,7 @@ colors_start()
 			GList *list = color_definition_list;
 
 			while (list) {
-				auto *entry = (color_definition_entry_t *)list->data;
+				auto *entry = (CustomColor *)list->data;
 
 				if (entry->color <= COLORS)
 					init_color(entry->color, entry->r,
@@ -249,7 +249,7 @@ colors_start()
 void
 colors_use(WINDOW *w, enum color id)
 {
-	color_entry_t *entry = &colors[id];
+	auto *entry = &colors[id];
 
 	assert(id > 0 && id < COLOR_END);
 
