@@ -383,7 +383,7 @@ mpdclient_connect_error(const char *message, void *ctx)
 	mpdclient_failed_callback();
 }
 
-static const struct aconnect_handler mpdclient_connect_handler = {
+static constexpr AsyncMpdConnectHandler mpdclient_connect_handler = {
 	.success = mpdclient_connect_success,
 	.error = mpdclient_connect_error,
 };
@@ -395,7 +395,7 @@ mpdclient_aconnect_start(struct mpdclient *c,
 	aconnect_start(&c->async_connect,
 		       mpd_settings_get_host(settings),
 		       mpd_settings_get_port(settings),
-		       &mpdclient_connect_handler, c);
+		       mpdclient_connect_handler, c);
 }
 
 #endif

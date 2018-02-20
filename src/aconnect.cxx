@@ -41,8 +41,8 @@
 #include <stdio.h>
 #include <errno.h>
 
-struct aconnect {
-	const struct aconnect_handler *handler;
+struct AsyncMpdConnect {
+	const AsyncMpdConnectHandler *handler;
 	void *handler_ctx;
 
 	struct async_rconnect *rconnect;
@@ -56,7 +56,7 @@ aconnect_source_callback(gcc_unused GIOChannel *source,
 			 gcc_unused GIOCondition condition,
 			 gpointer data)
 {
-	auto *ac = (struct aconnect *)data;
+	auto *ac = (AsyncMpdConnect *)data;
 	assert(ac->source_id != 0);
 	ac->source_id = 0;
 
@@ -106,7 +106,7 @@ aconnect_source_callback(gcc_unused GIOChannel *source,
 static void
 aconnect_rconnect_success(int fd, void *ctx)
 {
-	auto *ac = (struct aconnect *)ctx;
+	auto *ac = (AsyncMpdConnect *)ctx;
 	ac->rconnect = nullptr;
 
 	ac->fd = fd;
@@ -120,7 +120,7 @@ aconnect_rconnect_success(int fd, void *ctx)
 static void
 aconnect_rconnect_error(const char *message, void *ctx)
 {
-	auto *ac = (struct aconnect *)ctx;
+	auto *ac = (AsyncMpdConnect *)ctx;
 	ac->rconnect = nullptr;
 
 	ac->handler->error(message, ac->handler_ctx);
@@ -133,12 +133,12 @@ static const struct async_rconnect_handler aconnect_rconnect_handler = {
 };
 
 void
-aconnect_start(struct aconnect **acp,
+aconnect_start(AsyncMpdConnect **acp,
 	       const char *host, unsigned port,
-	       const struct aconnect_handler *handler, void *ctx)
+	       const AsyncMpdConnectHandler &handler, void *ctx)
 {
-	struct aconnect *ac = g_new(struct aconnect, 1);
-	ac->handler = handler;
+	auto *ac = g_new(AsyncMpdConnect, 1);
+	ac->handler = &handler;
 	ac->handler_ctx = ctx;
 
 	*acp = ac;
@@ -148,7 +148,7 @@ aconnect_start(struct aconnect **acp,
 }
 
 void
-aconnect_cancel(struct aconnect *ac)
+aconnect_cancel(AsyncMpdConnect *ac)
 {
 	if (ac->rconnect != nullptr)
 		async_rconnect_cancel(ac->rconnect);

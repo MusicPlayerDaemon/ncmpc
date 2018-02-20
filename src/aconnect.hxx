@@ -32,19 +32,19 @@
 #include <mpd/client.h>
 
 struct mpd_connection;
-struct aconnect;
+struct AsyncMpdConnect;
 
-struct aconnect_handler {
+struct AsyncMpdConnectHandler {
 	void (*success)(struct mpd_connection *c, void *ctx);
 	void (*error)(const char *message, void *ctx);
 };
 
 void
-aconnect_start(struct aconnect **acp,
+aconnect_start(AsyncMpdConnect **acp,
 	       const char *host, unsigned port,
-	       const struct aconnect_handler *handler, void *ctx);
+	       const AsyncMpdConnectHandler &handler, void *ctx);
 
 void
-aconnect_cancel(struct aconnect *ac);
+aconnect_cancel(AsyncMpdConnect *ac);
 
 #endif
