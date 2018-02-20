@@ -22,120 +22,87 @@
 #include <string.h>
 
 void
-playlist_clear(MpdQueue *playlist)
+MpdQueue::clear()
 {
-	playlist->version = 0;
+	version = 0;
 
-	for (unsigned i = 0; i < playlist->list->len; ++i) {
-		struct mpd_song *song = playlist_get(playlist, i);
-
+	for (unsigned i = 0; i < list->len; ++i) {
+		auto *song = &(*this)[i];
 		mpd_song_free(song);
 	}
 
-	g_ptr_array_set_size(playlist->list, 0);
+	g_ptr_array_set_size(list, 0);
 }
 
 MpdQueue::~MpdQueue()
 {
 	if (list != nullptr) {
-		playlist_clear(this);
+		clear();
 		g_ptr_array_free(list, true);
 	}
 }
 
 const struct mpd_song *
-playlist_get_song(const MpdQueue *playlist, gint idx)
+MpdQueue::GetChecked(int idx) const
 {
-	if (idx < 0 || (guint)idx >= playlist_length(playlist))
+	if (idx < 0 || (guint)idx >= size())
 		return nullptr;
 
-	return playlist_get(playlist, idx);
+	return &(*this)[idx];
 }
 
 void
-playlist_move(MpdQueue *playlist,
-	      unsigned dest, unsigned src)
+MpdQueue::Move(unsigned dest, unsigned src)
 {
-	assert(playlist != nullptr);
-	assert(src < playlist_length(playlist));
-	assert(dest < playlist_length(playlist));
+	assert(src < size());
+	assert(dest < size());
 	assert(src != dest);
 
-	struct mpd_song *song = playlist_get(playlist, src);
+	auto &song = (*this)[src];
 
 	if (src < dest) {
-		memmove(&playlist->list->pdata[src],
-			&playlist->list->pdata[src + 1],
-			sizeof(playlist->list->pdata[0]) * (dest - src));
-		playlist->list->pdata[dest] = song;
+		memmove(&list->pdata[src],
+			&list->pdata[src + 1],
+			sizeof(list->pdata[0]) * (dest - src));
+		list->pdata[dest] = &song;
 	} else {
-		memmove(&playlist->list->pdata[dest + 1],
-			&playlist->list->pdata[dest],
-			sizeof(playlist->list->pdata[0]) * (src - dest));
-		playlist->list->pdata[dest] = song;
+		memmove(&list->pdata[dest + 1],
+			&list->pdata[dest],
+			sizeof(list->pdata[0]) * (src - dest));
+		list->pdata[dest] = &song;
 	}
 }
 
-const struct mpd_song *
-playlist_lookup_song(const MpdQueue *playlist, unsigned id)
+int
+MpdQueue::Find(const struct mpd_song &song) const
 {
-	for (guint i = 0; i < playlist_length(playlist); ++i) {
-		struct mpd_song *song = playlist_get(playlist, i);
-		if (mpd_song_get_id(song) == id)
-			return song;
-	}
-
-	return nullptr;
-}
-
-gint
-playlist_get_index(const MpdQueue *playlist,
-		   const struct mpd_song *song)
-{
-	for (guint i = 0; i < playlist_length(playlist); ++i) {
-		if (playlist_get(playlist, i) == song)
+	for (guint i = 0; i < size(); ++i) {
+		if (&(*this)[i] == &song)
 			return (gint)i;
 	}
 
 	return -1;
 }
 
-gint
-playlist_get_index_from_id(const MpdQueue *playlist,
-			   unsigned id)
+int
+MpdQueue::FindId(unsigned id) const
 {
-	for (guint i = 0; i < playlist_length(playlist); ++i) {
-		const struct mpd_song *song = playlist_get(playlist, i);
-		if (mpd_song_get_id(song) == id)
+	for (guint i = 0; i < size(); ++i) {
+		const auto &song = (*this)[i];
+		if (mpd_song_get_id(&song) == id)
 			return (gint)i;
 	}
 
 	return -1;
 }
 
-gint
-playlist_get_index_from_file(const MpdQueue *playlist,
-			     const gchar *filename)
+int
+MpdQueue::FindUri(const char *filename) const
 {
-	for (guint i = 0; i < playlist_length(playlist); ++i) {
-		const struct mpd_song *song = playlist_get(playlist, i);
-
-		if (strcmp(mpd_song_get_uri(song), filename) == 0)
+	for (guint i = 0; i < size(); ++i) {
+		const auto &song = (*this)[i];
+		if (strcmp(mpd_song_get_uri(&song), filename) == 0)
 			return (gint)i;
-	}
-
-	return -1;
-}
-
-gint
-playlist_get_id_from_uri(const MpdQueue *playlist,
-			 const gchar *uri)
-{
-	for (guint i = 0; i < playlist_length(playlist); ++i) {
-		const struct mpd_song *song = playlist_get(playlist, i);
-
-		if (strcmp(mpd_song_get_uri(song), uri) == 0)
-			return mpd_song_get_id(song);
 	}
 
 	return -1;

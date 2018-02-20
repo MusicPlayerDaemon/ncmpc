@@ -120,8 +120,8 @@ const struct mpd_song *
 QueuePage::GetSelectedSong() const
 {
 	return !lw.range_selection &&
-		lw.selected < playlist_length(playlist)
-		? playlist_get(playlist, lw.selected)
+		lw.selected < playlist->size()
+		? &(*playlist)[lw.selected]
 		: nullptr;
 }
 
@@ -136,7 +136,7 @@ QueuePage::SaveSelection()
 void
 QueuePage::RestoreSelection()
 {
-	list_window_set_length(&lw, playlist_length(playlist));
+	list_window_set_length(&lw, playlist->size());
 
 	if (selected_song_id < 0)
 		/* there was no selection */
@@ -148,7 +148,7 @@ QueuePage::RestoreSelection()
 		/* selection is still valid */
 		return;
 
-	int pos = playlist_get_index_from_id(playlist, selected_song_id);
+	int pos = playlist->FindId(selected_song_id);
 	if (pos >= 0)
 		list_window_set_cursor(&lw, pos);
 
@@ -161,9 +161,9 @@ screen_queue_lw_callback(unsigned idx, void *data)
 	auto &playlist = *(MpdQueue *)data;
 	static char songname[MAX_SONG_LENGTH];
 
-	assert(idx < playlist_length(&playlist));
+	assert(idx < playlist.size());
 
-	const auto &song = *playlist_get(&playlist, idx);
+	const auto &song = playlist[idx];
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, &song);
 
 	return songname;
@@ -411,8 +411,8 @@ QueuePage::PaintRow(WINDOW *w, unsigned i, unsigned y, unsigned width,
 {
 	const auto &q = *(const QueuePage *)data;
 	assert(q.playlist != nullptr);
-	assert(i < playlist_length(q.playlist));
-	const auto &song = *playlist_get(q.playlist, i);
+	assert(i < q.playlist->size());
+	const auto &song = (*q.playlist)[i];
 
 	struct hscroll *row_hscroll = nullptr;
 #ifndef NCMPC_MINI
@@ -453,7 +453,7 @@ QueuePage::Update(struct mpdclient &c)
 	else
 		/* the queue size may have changed, even if we havn't
 		   received the QUEUE idle event yet */
-		list_window_set_length(&lw, playlist_length(playlist));
+		list_window_set_length(&lw, playlist->size());
 
 	if (((c.events & MPD_IDLE_PLAYER) != 0 && OnSongChange(c.status)) ||
 	    c.events & MPD_IDLE_QUEUE)
@@ -495,7 +495,7 @@ QueuePage::OnMouse(struct mpdclient &c, int x, int row, mmask_t bstate)
 		if (lw.selected == old_selected)
 			mpdclient_cmd_delete(&c, lw.selected);
 
-		list_window_set_length(&lw, playlist_length(playlist));
+		list_window_set_length(&lw, playlist->size());
 	}
 
 	SaveSelection();
@@ -534,8 +534,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		SetDirty();
 		return false;
 	case CMD_SELECT_PLAYING:
-		list_window_set_cursor(&lw, playlist_get_index(&c.playlist,
-							      c.song));
+		list_window_set_cursor(&lw, c.playlist.Find(*c.song));
 		SaveSelection();
 		SetDirty();
 		return true;
@@ -567,24 +566,24 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 
 #ifdef ENABLE_LYRICS_SCREEN
 	case CMD_SCREEN_LYRICS:
-		if (lw.selected < playlist_length(&c.playlist)) {
-			struct mpd_song *selected = playlist_get(&c.playlist, lw.selected);
+		if (lw.selected < c.playlist.size()) {
+			struct mpd_song &selected = c.playlist[lw.selected];
 			bool follow = false;
 
-			if (c.song && selected &&
-			    !strcmp(mpd_song_get_uri(selected),
+			if (c.song &&
+			    !strcmp(mpd_song_get_uri(&selected),
 				    mpd_song_get_uri(c.song)))
 				follow = true;
 
-			screen_lyrics_switch(&c, selected, follow);
+			screen_lyrics_switch(&c, &selected, follow);
 			return true;
 		}
 
 		break;
 #endif
 	case CMD_SCREEN_SWAP:
-		if (playlist_length(&c.playlist) > 0)
-			screen.Swap(&c, playlist_get(&c.playlist, lw.selected));
+		if (!c.playlist.empty())
+			screen.Swap(&c, &c.playlist[lw.selected]);
 		else
 			screen.Swap(&c, nullptr);
 		return true;
@@ -663,7 +662,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_LIST_MOVE_DOWN:
 		list_window_get_range(&lw, &range);
-		if (range.end >= playlist_length(&c.playlist))
+		if (range.end >= c.playlist.size())
 			return false;
 
 		if (!mpdclient_cmd_move(&c, range.start, range.end))

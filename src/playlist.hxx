@@ -35,114 +35,67 @@ struct MpdQueue {
 	GPtrArray *list = g_ptr_array_sized_new(1024);;
 
 	~MpdQueue();
+
+	guint size() const {
+		return list->len;
+	}
+
+	bool empty() const {
+		return size() == 0;
+	}
+
+	/** remove and free all songs in the playlist */
+	void clear();
+
+	const struct mpd_song &operator[](guint i) const {
+		assert(i < size());
+
+		return *(const struct mpd_song *)g_ptr_array_index(list, i);
+	}
+
+	struct mpd_song &operator[](guint i) {
+		assert(i < size());
+
+		return *(struct mpd_song *)g_ptr_array_index(list, i);
+	}
+
+	gcc_pure
+	const struct mpd_song *GetChecked(int i) const;
+
+	void push_back(const struct mpd_song &song) {
+		g_ptr_array_add(list, mpd_song_dup(&song));
+	}
+
+	void Set(guint i, const struct mpd_song &song) {
+		assert(i < size());
+
+		g_ptr_array_index(list, i) = mpd_song_dup(&song);
+	}
+
+	void Replace(guint i, const struct mpd_song &song) {
+		mpd_song_free(&(*this)[i]);
+		Set(i, song);
+	}
+
+	void RemoveIndex(guint i) {
+		mpd_song_free((struct mpd_song *)g_ptr_array_remove_index(list, i));
+	}
+
+	void Move(unsigned dest, unsigned src);
+
+	gcc_pure
+	int Find(const struct mpd_song &song) const;
+
+	gcc_pure
+	int FindId(unsigned id) const;
+
+	gcc_pure
+	int FindUri(const char *uri) const;
+
+	gcc_pure
+	int FindUri(const struct mpd_song &song) const {
+		return FindUri(mpd_song_get_uri(&song));
+	}
 };
-
-/** remove and free all songs in the playlist */
-void
-playlist_clear(MpdQueue *playlist);
-
-/* free a playlist */
-gint
-mpdclient_playlist_free(MpdQueue *playlist);
-
-static inline guint
-playlist_length(const MpdQueue *playlist)
-{
-	assert(playlist != nullptr);
-	assert(playlist->list != nullptr);
-
-	return playlist->list->len;
-}
-
-static inline bool
-playlist_is_empty(const MpdQueue *playlist)
-{
-	return playlist_length(playlist) == 0;
-}
-
-static inline struct mpd_song *
-playlist_get(const MpdQueue *playlist, guint idx)
-{
-	assert(idx < playlist_length(playlist));
-
-	return (struct mpd_song *)g_ptr_array_index(playlist->list, idx);
-}
-
-static inline void
-playlist_append(MpdQueue *playlist, const struct mpd_song *song)
-{
-	g_ptr_array_add(playlist->list, mpd_song_dup(song));
-}
-
-static inline void
-playlist_set(const MpdQueue *playlist, guint idx,
-	     const struct mpd_song *song)
-{
-	assert(idx < playlist_length(playlist));
-
-	g_ptr_array_index(playlist->list, idx) = mpd_song_dup(song);
-}
-
-static inline void
-playlist_replace(MpdQueue *playlist, guint idx,
-		 const struct mpd_song *song)
-{
-	mpd_song_free(playlist_get(playlist, idx));
-	playlist_set(playlist, idx, song);
-}
-
-static inline struct mpd_song *
-playlist_remove_reuse(MpdQueue *playlist, guint idx)
-{
-	return (struct mpd_song *)g_ptr_array_remove_index(playlist->list, idx);
-}
-
-static inline void
-playlist_remove(MpdQueue *playlist, guint idx)
-{
-	mpd_song_free(playlist_remove_reuse(playlist, idx));
-}
-
-void
-playlist_move(MpdQueue *playlist,
-	      unsigned dest, unsigned src);
-
-const struct mpd_song *
-playlist_lookup_song(const MpdQueue *playlist, unsigned id);
-
-const struct mpd_song *
-playlist_get_song(const MpdQueue *playlist, gint index);
-
-gint
-playlist_get_index(const MpdQueue *playlist,
-		   const struct mpd_song *song);
-
-gint
-playlist_get_index_from_id(const MpdQueue *playlist,
-			   unsigned id);
-
-gint
-playlist_get_index_from_file(const MpdQueue *playlist,
-			     const gchar *filename);
-
-static inline gint
-playlist_get_index_from_same_song(const MpdQueue *playlist,
-				  const struct mpd_song *song)
-{
-	return playlist_get_index_from_file(playlist, mpd_song_get_uri(song));
-}
-
-gcc_pure
-gint
-playlist_get_id_from_uri(const MpdQueue *playlist,
-			 const gchar *uri);
-
-gcc_pure
-static inline gint
-playlist_get_id_from_same_song(const MpdQueue *playlist,
-			       const struct mpd_song *song)
-{
-	return playlist_get_id_from_uri(playlist, mpd_song_get_uri(song));
-}
 
 #endif

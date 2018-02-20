@@ -282,7 +282,7 @@ mpdclient::Disconnect()
 
 	mpdclient_status_free(this);
 
-	playlist_clear(&playlist);
+	playlist.clear();
 
 	if (song)
 		song = nullptr;
@@ -445,7 +445,7 @@ mpdclient_update(struct mpdclient *c)
 	if (c->playlist.version != mpd_status_get_queue_version(c->status)) {
 		bool retval;
 
-		if (!playlist_is_empty(&c->playlist))
+		if (!c->playlist.empty())
 			retval = mpdclient_playlist_update_changes(c);
 		else
 			retval = mpdclient_playlist_update(c);
@@ -455,8 +455,7 @@ mpdclient_update(struct mpdclient *c)
 
 	/* update the current song */
 	if (!c->song || mpd_status_get_song_id(c->status) >= 0) {
-		c->song = playlist_get_song(&c->playlist,
-					    mpd_status_get_song_pos(c->status));
+		c->song = c->playlist.GetChecked(mpd_status_get_song_pos(c->status));
 	}
 
 	return true;
@@ -552,7 +551,7 @@ mpdclient_cmd_clear(struct mpdclient *c)
 		/* after the "clear" command, the queue is really
 		   empty - this means we can clear it locally,
 		   reducing the UI latency */
-		playlist_clear(&c->playlist);
+		c->playlist.clear();
 		c->playlist.version = mpd_status_get_queue_version(status);
 		c->song = nullptr;
 	}
@@ -627,7 +626,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 	    !mpd_send_add(connection, mpd_song_get_uri(song)) ||
 	    !mpd_send_status(connection) ||
 	    !mpd_send_get_queue_song_pos(connection,
-					 playlist_length(&c->playlist)) ||
+					 c->playlist.size()) ||
 	    !mpd_command_list_end(connection) ||
 	    !mpd_response_next(connection))
 		return mpdclient_handle_error(c);
@@ -650,7 +649,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 			mpdclient_handle_error(c);
 	}
 
-	if (mpd_status_get_queue_length(status) == playlist_length(&c->playlist) + 1 &&
+	if (mpd_status_get_queue_length(status) == c->playlist.size() + 1 &&
 	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
 		/* the cheap route: match on the new playlist length
 		   and its version, we can keep our local playlist
@@ -659,7 +658,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 
 		/* the song we just received has the correct id;
 		   append it to the local playlist */
-		playlist_append(&c->playlist, new_song);
+		c->playlist.push_back(*new_song);
 	}
 
 	mpd_song_free(new_song);
@@ -675,16 +674,16 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 	if (connection == nullptr || c->status == nullptr)
 		return false;
 
-	if (idx < 0 || (guint)idx >= playlist_length(&c->playlist))
+	if (idx < 0 || (guint)idx >= c->playlist.size())
 		return false;
 
-	const struct mpd_song *song = playlist_get(&c->playlist, idx);
+	const auto &song = c->playlist[idx];
 
 	/* send the delete command to mpd; at the same time, get the
 	   new status (to verify the playlist id) */
 
 	if (!mpd_command_list_begin(connection, false) ||
-	    !mpd_send_delete_id(connection, mpd_song_get_id(song)) ||
+	    !mpd_send_delete_id(connection, mpd_song_get_id(&song)) ||
 	    !mpd_send_status(connection) ||
 	    !mpd_command_list_end(connection))
 		return mpdclient_handle_error(c);
@@ -698,7 +697,7 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 	if (!mpd_response_finish(connection))
 		return mpdclient_handle_error(c);
 
-	if (mpd_status_get_queue_length(status) == playlist_length(&c->playlist) - 1 &&
+	if (mpd_status_get_queue_length(status) == c->playlist.size() - 1 &&
 	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
 		/* the cheap route: match on the new playlist length
 		   and its version, we can keep our local playlist
@@ -706,10 +705,10 @@ mpdclient_cmd_delete(struct mpdclient *c, gint idx)
 		c->playlist.version = mpd_status_get_queue_version(status);
 
 		/* remove the song from the local playlist */
-		playlist_remove(&c->playlist, idx);
+		c->playlist.RemoveIndex(idx);
 
 		/* remove references to the song */
-		if (c->song == song)
+		if (c->song == &song)
 			c->song = nullptr;
 	}
 
@@ -746,7 +745,7 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 	if (!mpd_response_finish(connection))
 		return mpdclient_handle_error(c);
 
-	if (mpd_status_get_queue_length(status) == playlist_length(&c->playlist) - (end - start) &&
+	if (mpd_status_get_queue_length(status) == c->playlist.size() - (end - start) &&
 	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
 		/* the cheap route: match on the new playlist length
 		   and its version, we can keep our local playlist
@@ -758,10 +757,10 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 			--end;
 
 			/* remove references to the song */
-			if (c->song == playlist_get(&c->playlist, end))
+			if (c->song == &c->playlist[end])
 				c->song = nullptr;
 
-			playlist_remove(&c->playlist, end);
+			c->playlist.RemoveIndex(end);
 		}
 	}
 
@@ -796,7 +795,7 @@ mpdclient_cmd_move(struct mpdclient *c, unsigned dest_pos, unsigned src_pos)
 	if (!mpd_response_finish(connection))
 		return mpdclient_handle_error(c);
 
-	if (mpd_status_get_queue_length(status) == playlist_length(&c->playlist) &&
+	if (mpd_status_get_queue_length(status) == c->playlist.size() &&
 	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
 		/* the cheap route: match on the new playlist length
 		   and its version, we can keep our local playlist
@@ -804,7 +803,7 @@ mpdclient_cmd_move(struct mpdclient *c, unsigned dest_pos, unsigned src_pos)
 		c->playlist.version = mpd_status_get_queue_version(status);
 
 		/* swap songs in the local playlist */
-		playlist_move(&c->playlist, dest_pos, src_pos);
+		c->playlist.Move(dest_pos, src_pos);
 	}
 
 	return true;
@@ -891,14 +890,14 @@ mpdclient_playlist_update(struct mpdclient *c)
 	if (connection == nullptr)
 		return false;
 
-	playlist_clear(&c->playlist);
+	c->playlist.clear();
 
 	mpd_send_list_queue_meta(connection);
 
 	struct mpd_entity *entity;
 	while ((entity = mpd_recv_entity(connection))) {
 		if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG)
-			playlist_append(&c->playlist, mpd_entity_get_song(entity));
+			c->playlist.push_back(*mpd_entity_get_song(entity));
 
 		mpd_entity_free(entity);
 	}
@@ -926,10 +925,10 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 
 		if (pos >= 0 && (guint)pos < c->playlist.list->len) {
 			/* update song */
-			playlist_replace(&c->playlist, pos, song);
+			c->playlist.Replace(pos, *song);
 		} else {
 			/* add a new song */
-			playlist_append(&c->playlist, song);
+			c->playlist.push_back(*song);
 		}
 
 		mpd_song_free(song);
@@ -942,7 +941,7 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 		guint pos = c->playlist.list->len - 1;
 
 		/* Remove the last playlist entry */
-		playlist_remove(&c->playlist, pos);
+		c->playlist.RemoveIndex(pos);
 	}
 
 	c->song = nullptr;
