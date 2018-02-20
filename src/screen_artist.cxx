@@ -397,17 +397,20 @@ paint_album_callback(WINDOW *w, unsigned i,
 void
 ArtistBrowserPage::Paint() const
 {
-	if (filelist) {
-		FileListPage::Paint();
-	} else if (album_list != nullptr)
-		list_window_paint2(&lw,
-				   paint_album_callback, album_list);
-	else if (artist_list != nullptr)
+	switch (mode) {
+	case Mode::ARTISTS:
 		list_window_paint2(&lw,
 				   paint_artist_callback, artist_list);
-	else {
-		wmove(lw.w, 0, 0);
-		wclrtobot(lw.w);
+		break;
+
+	case Mode::ALBUMS:
+		list_window_paint2(&lw,
+				   paint_album_callback, album_list);
+		break;
+
+	case Mode::SONGS:
+		FileListPage::Paint();
+		break;
 	}
 }
 
