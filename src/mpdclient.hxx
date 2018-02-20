@@ -2,7 +2,7 @@
 #define MPDCLIENT_H
 
 #include "config.h"
-#include "playlist.hxx"
+#include "Queue.hxx"
 #include "Compiler.h"
 
 #include <mpd/client.h>

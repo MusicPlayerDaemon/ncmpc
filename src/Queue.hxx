@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef MPDCLIENT_PLAYLIST_H
-#define MPDCLIENT_PLAYLIST_H
+#ifndef QUEUE_HXX
+#define QUEUE_HXX
 
 #include "Compiler.h"
 
