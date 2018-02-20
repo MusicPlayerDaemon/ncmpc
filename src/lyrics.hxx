@@ -24,8 +24,6 @@
 
 void lyrics_init();
 
-void lyrics_deinit();
-
 struct plugin_cycle *
 lyrics_load(const char *artist, const char *title,
 	    plugin_callback_t callback, void *callback_data);

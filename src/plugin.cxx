@@ -114,11 +114,11 @@ plugin_list_load_directory(PluginList *list, const char *path)
 	return true;
 }
 
-void plugin_list_deinit(PluginList *list)
+PluginList::~PluginList()
 {
-	for (guint i = 0; i < list->plugins->len; ++i)
-		free(g_ptr_array_index(list->plugins, i));
-	g_ptr_array_free(list->plugins, true);
+	for (guint i = 0; i < plugins->len; ++i)
+		free(g_ptr_array_index(plugins, i));
+	g_ptr_array_free(plugins, true);
 }
 
 static void

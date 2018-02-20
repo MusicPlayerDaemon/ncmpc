@@ -27,6 +27,11 @@
  */
 struct PluginList {
 	GPtrArray *plugins;
+
+	PluginList()
+		:plugins(g_ptr_array_new()) {}
+
+	~PluginList();
 };
 
 /**
@@ -51,25 +56,10 @@ typedef void (*plugin_callback_t)(const GString *result, const bool success,
 struct plugin_cycle;
 
 /**
- * Initialize an empty plugin_list structure.
- */
-static inline void
-plugin_list_init(PluginList *list)
-{
-	list->plugins = g_ptr_array_new();
-}
-
-/**
  * Load all plugins (executables) in a directory.
  */
 bool
 plugin_list_load_directory(PluginList *list, const char *path);
-
-/**
- * Frees all memory held by the plugin_list object (but not the
- * pointer itself).
- */
-void plugin_list_deinit(PluginList *list);
 
 /**
  * Run plugins in this list, until one returns success (or until the

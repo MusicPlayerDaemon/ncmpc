@@ -438,10 +438,6 @@ main(int argc, const char *argv[])
 
 	mpdclient_free(mpd);
 
-#ifdef ENABLE_LYRICS_SCREEN
-	lyrics_deinit();
-#endif
-
 	ncu_deinit();
 	options_deinit();
 

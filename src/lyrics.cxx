@@ -26,15 +26,7 @@ static PluginList empty, plugins;
 
 void lyrics_init()
 {
-	plugin_list_init(&empty);
-	plugin_list_init(&plugins);
 	plugin_list_load_directory(&plugins, LYRICS_PLUGIN_DIR);
-}
-
-void lyrics_deinit()
-{
-	plugin_list_deinit(&empty);
-	plugin_list_deinit(&plugins);
 }
 
 struct plugin_cycle *
