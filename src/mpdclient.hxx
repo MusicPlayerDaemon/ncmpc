@@ -91,13 +91,10 @@ struct mpdclient {
 
 	mpdclient(unsigned _timeout_ms, const char *_password)
 		:timeout_ms(_timeout_ms), password(_password) {
-		playlist_init(&playlist);
 	}
 
 	~mpdclient() {
 		Disconnect();
-
-		mpdclient_playlist_free(&playlist);
 
 #ifdef ENABLE_ASYNC_CONNECT
 		mpd_settings_free(settings);

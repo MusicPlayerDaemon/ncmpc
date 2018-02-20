@@ -29,14 +29,13 @@
 
 struct MpdQueue {
 	/* queue version number (obtained from mpd_status) */
-	unsigned version;
+	unsigned version = 0;
 
 	/* the list */
-	GPtrArray *list;
-};
+	GPtrArray *list = g_ptr_array_sized_new(1024);;
 
-void
-playlist_init(MpdQueue *playlist);
+	~MpdQueue();
+};
 
 /** remove and free all songs in the playlist */
 void

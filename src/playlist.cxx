@@ -22,13 +22,6 @@
 #include <string.h>
 
 void
-playlist_init(MpdQueue *playlist)
-{
-	playlist->version = 0;
-	playlist->list = g_ptr_array_sized_new(1024);
-}
-
-void
 playlist_clear(MpdQueue *playlist)
 {
 	playlist->version = 0;
@@ -42,16 +35,12 @@ playlist_clear(MpdQueue *playlist)
 	g_ptr_array_set_size(playlist->list, 0);
 }
 
-gint
-mpdclient_playlist_free(MpdQueue *playlist)
+MpdQueue::~MpdQueue()
 {
-	if (playlist->list != nullptr) {
-		playlist_clear(playlist);
-		g_ptr_array_free(playlist->list, true);
+	if (list != nullptr) {
+		playlist_clear(this);
+		g_ptr_array_free(list, true);
 	}
-
-	memset(playlist, 0, sizeof(*playlist));
-	return 0;
 }
 
 const struct mpd_song *
