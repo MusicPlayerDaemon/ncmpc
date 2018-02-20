@@ -19,33 +19,20 @@
 
 #include "Queue.hxx"
 
+#include <algorithm>
+
 #include <string.h>
 
 void
 MpdQueue::clear()
 {
 	version = 0;
-
-	for (unsigned i = 0; i < list->len; ++i) {
-		auto *song = &(*this)[i];
-		mpd_song_free(song);
-	}
-
-	g_ptr_array_set_size(list, 0);
-}
-
-MpdQueue::~MpdQueue()
-{
-	if (list != nullptr) {
-		clear();
-		g_ptr_array_free(list, true);
-	}
 }
 
 const struct mpd_song *
 MpdQueue::GetChecked(int idx) const
 {
-	if (idx < 0 || (guint)idx >= size())
+	if (idx < 0 || (size_type)idx >= size())
 		return nullptr;
 
 	return &(*this)[idx];
@@ -58,28 +45,28 @@ MpdQueue::Move(unsigned dest, unsigned src)
 	assert(dest < size());
 	assert(src != dest);
 
-	auto &song = (*this)[src];
+	auto song = std::move(items[src]);
 
 	if (src < dest) {
-		memmove(&list->pdata[src],
-			&list->pdata[src + 1],
-			sizeof(list->pdata[0]) * (dest - src));
-		list->pdata[dest] = &song;
+		std::move(std::next(items.begin(), src + 1),
+			  std::next(items.begin(), dest + 1),
+			  std::next(items.begin(), src));
 	} else {
-		memmove(&list->pdata[dest + 1],
-			&list->pdata[dest],
-			sizeof(list->pdata[0]) * (src - dest));
-		list->pdata[dest] = &song;
+		std::move(std::next(items.begin(), dest),
+				   std::next(items.begin(), src),
+				   std::next(items.begin(), dest + 1));
 	}
+
+	assert(!items[dest]);
+	items[dest] = std::move(song);
 }
 
 int
 MpdQueue::Find(const struct mpd_song &song) const
 {
-	for (guint i = 0; i < size(); ++i) {
+	for (size_type i = 0; i < size(); ++i)
 		if (&(*this)[i] == &song)
-			return (gint)i;
-	}
+			return i;
 
 	return -1;
 }
@@ -87,10 +74,10 @@ MpdQueue::Find(const struct mpd_song &song) const
 int
 MpdQueue::FindId(unsigned id) const
 {
-	for (guint i = 0; i < size(); ++i) {
+	for (size_type i = 0; i < size(); ++i) {
 		const auto &song = (*this)[i];
 		if (mpd_song_get_id(&song) == id)
-			return (gint)i;
+			return i;
 	}
 
 	return -1;
@@ -99,10 +86,10 @@ MpdQueue::FindId(unsigned id) const
 int
 MpdQueue::FindUri(const char *filename) const
 {
-	for (guint i = 0; i < size(); ++i) {
+	for (size_type i = 0; i < size(); ++i) {
 		const auto &song = (*this)[i];
 		if (strcmp(mpd_song_get_uri(&song), filename) == 0)
-			return (gint)i;
+			return i;
 	}
 
 	return -1;

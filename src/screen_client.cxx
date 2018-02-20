@@ -23,6 +23,8 @@
 #include "i18n.h"
 #include "charset.hxx"
 
+#include <glib.h>
+
 void
 screen_database_update(struct mpdclient *c, const char *path)
 {

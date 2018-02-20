@@ -24,61 +24,64 @@
 
 #include <mpd/client.h>
 
+#include <vector>
+#include <memory>
+
 #include <assert.h>
-#include <glib.h>
+
+struct SongDeleter {
+	void operator()(struct mpd_song *song) const {
+		mpd_song_free(song);
+	}
+};
 
 struct MpdQueue {
 	/* queue version number (obtained from mpd_status) */
 	unsigned version = 0;
 
+	using Vector = std::vector<std::unique_ptr<struct mpd_song, SongDeleter>>;
+
 	/* the list */
-	GPtrArray *list = g_ptr_array_sized_new(1024);;
+	Vector items;
 
-	~MpdQueue();
+	using size_type = Vector::size_type;
 
-	guint size() const {
-		return list->len;
+	size_type size() const {
+		return items.size();
 	}
 
 	bool empty() const {
-		return size() == 0;
+		return items.empty();
 	}
 
 	/** remove and free all songs in the playlist */
 	void clear();
 
-	const struct mpd_song &operator[](guint i) const {
+	const struct mpd_song &operator[](size_type i) const {
 		assert(i < size());
 
-		return *(const struct mpd_song *)g_ptr_array_index(list, i);
+		return *items[i];
 	}
 
-	struct mpd_song &operator[](guint i) {
+	struct mpd_song &operator[](size_type i) {
 		assert(i < size());
 
-		return *(struct mpd_song *)g_ptr_array_index(list, i);
+		return *items[i];
 	}
 
 	gcc_pure
 	const struct mpd_song *GetChecked(int i) const;
 
 	void push_back(const struct mpd_song &song) {
-		g_ptr_array_add(list, mpd_song_dup(&song));
+		items.emplace_back(mpd_song_dup(&song));
 	}
 
-	void Set(guint i, const struct mpd_song &song) {
-		assert(i < size());
-
-		g_ptr_array_index(list, i) = mpd_song_dup(&song);
+	void Replace(size_type i, const struct mpd_song &song) {
+		items[i].reset(mpd_song_dup(&song));
 	}
 
-	void Replace(guint i, const struct mpd_song &song) {
-		mpd_song_free(&(*this)[i]);
-		Set(i, song);
-	}
-
-	void RemoveIndex(guint i) {
-		mpd_song_free((struct mpd_song *)g_ptr_array_remove_index(list, i));
+	void RemoveIndex(size_type i) {
+		items.erase(std::next(items.begin(), i));
 	}
 
 	void Move(unsigned dest, unsigned src);
