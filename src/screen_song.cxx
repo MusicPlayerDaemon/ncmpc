@@ -536,7 +536,8 @@ SongPage::OnCommand(struct mpdclient &c, command_t cmd)
 }
 
 const struct screen_functions screen_song = {
-	.init = screen_song_init,
+	"song",
+	screen_song_init,
 };
 
 void

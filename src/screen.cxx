@@ -128,7 +128,7 @@ screen_next_mode(struct mpdclient *c, int offset)
 	int max = g_strv_length(options.screen_list);
 
 	/* find current screen */
-	int current = find_configured_screen(screen_get_name(screen.current_page->first));
+	int current = find_configured_screen(screen.current_page->first->name);
 	int next = current + offset;
 	if (next<0)
 		next = max-1;

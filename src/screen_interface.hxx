@@ -26,6 +26,7 @@
 class Page;
 
 struct screen_functions {
+	const char *name;
 	Page *(*init)(WINDOW *w, unsigned cols, unsigned rows);
 };
 

@@ -294,5 +294,6 @@ HelpPage::OnCommand(struct mpdclient &c, command_t cmd)
 }
 
 const struct screen_functions screen_help = {
-	.init = help_init,
+	"help",
+	help_init,
 };

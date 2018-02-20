@@ -25,9 +25,6 @@
 
 struct screen_functions;
 
-const char *
-screen_get_name(const struct screen_functions *sf);
-
 const struct screen_functions *
 screen_lookup_name(const char *name);
 

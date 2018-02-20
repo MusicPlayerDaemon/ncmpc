@@ -501,5 +501,6 @@ KeyDefPage::OnCommand(struct mpdclient &c, command_t cmd)
 }
 
 const struct screen_functions screen_keydef = {
-	.init = keydef_init,
+	"keydef",
+	keydef_init,
 };

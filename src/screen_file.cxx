@@ -409,7 +409,8 @@ FileBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 }
 
 const struct screen_functions screen_browse = {
-	.init = screen_file_init,
+	"browse",
+	screen_file_init,
 };
 
 bool

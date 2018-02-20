@@ -212,5 +212,6 @@ OutputsPage::OnCommand(struct mpdclient &c, command_t cmd)
 }
 
 const struct screen_functions screen_outputs = {
-	.init      = outputs_init,
+	"outputs",
+	outputs_init,
 };

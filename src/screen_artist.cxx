@@ -756,5 +756,6 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 }
 
 const struct screen_functions screen_artist = {
-	.init = screen_artist_init,
+	"artist",
+	screen_artist_init,
 };

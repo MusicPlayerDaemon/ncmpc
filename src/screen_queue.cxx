@@ -694,5 +694,6 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 }
 
 const struct screen_functions screen_queue = {
-	.init = screen_queue_init,
+	"playlist",
+	screen_queue_init,
 };

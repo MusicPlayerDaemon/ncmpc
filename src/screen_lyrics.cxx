@@ -493,7 +493,8 @@ LyricsPage::OnCommand(struct mpdclient &c, command_t cmd)
 }
 
 const struct screen_functions screen_lyrics = {
-	.init = lyrics_screen_init,
+	"lyrics",
+	lyrics_screen_init,
 };
 
 void

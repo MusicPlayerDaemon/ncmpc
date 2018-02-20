@@ -491,5 +491,6 @@ SearchPage::OnCommand(struct mpdclient &c, command_t cmd)
 }
 
 const struct screen_functions screen_search = {
-	.init = screen_search_init,
+	"search",
+	screen_search_init,
 };

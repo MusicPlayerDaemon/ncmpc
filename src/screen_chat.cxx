@@ -195,5 +195,6 @@ ChatPage::OnCommand(struct mpdclient &c, command_t cmd)
 }
 
 const struct screen_functions screen_chat = {
-	.init = screen_chat_init,
+	"chat",
+	screen_chat_init,
 };
