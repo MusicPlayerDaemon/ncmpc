@@ -68,7 +68,7 @@ aconnect_source_callback(gcc_unused GIOChannel *source,
 			 strerror(errno));
 		close_socket(ac->fd);
 		ac->handler->error(buffer, ac->handler_ctx);
-		g_free(ac);
+		delete ac;
 		return false;
 	}
 
@@ -76,7 +76,7 @@ aconnect_source_callback(gcc_unused GIOChannel *source,
 		close_socket(ac->fd);
 		ac->handler->error("MPD closed the connection",
 				   ac->handler_ctx);
-		g_free(ac);
+		delete ac;
 		return false;
 	}
 
@@ -86,7 +86,7 @@ aconnect_source_callback(gcc_unused GIOChannel *source,
 	if (async == nullptr) {
 		close_socket(ac->fd);
 		ac->handler->error("Out of memory", ac->handler_ctx);
-		g_free(ac);
+		delete ac;
 		return false;
 	}
 
@@ -94,12 +94,12 @@ aconnect_source_callback(gcc_unused GIOChannel *source,
 	if (c == nullptr) {
 		mpd_async_free(async);
 		ac->handler->error("Out of memory", ac->handler_ctx);
-		g_free(ac);
+		delete ac;
 		return false;
 	}
 
 	ac->handler->success(c, ac->handler_ctx);
-	g_free(ac);
+	delete ac;
 	return false;
 }
 
@@ -137,7 +137,7 @@ aconnect_start(AsyncMpdConnect **acp,
 	       const char *host, unsigned port,
 	       const AsyncMpdConnectHandler &handler, void *ctx)
 {
-	auto *ac = g_new(AsyncMpdConnect, 1);
+	auto *ac = new AsyncMpdConnect();
 	ac->handler = &handler;
 	ac->handler_ctx = ctx;
 
@@ -157,5 +157,5 @@ aconnect_cancel(AsyncMpdConnect *ac)
 		close_socket(ac->fd);
 	}
 
-	g_free(ac);
+	delete ac;
 }
