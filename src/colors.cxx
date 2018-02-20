@@ -25,6 +25,8 @@
 #include "options.hxx"
 #endif
 
+#include <list>
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,6 +40,9 @@
 struct CustomColor {
 	short color;
 	short r,g,b;
+
+	constexpr CustomColor(short _color, short _r, short _g, short _b)
+		:color(_color), r(_r), g(_g), b(_b) {}
 };
 #endif
 
@@ -69,7 +74,7 @@ static NamedColor colors[COLOR_END] = {
 
 #ifdef ENABLE_COLORS
 
-static GList *color_definition_list = nullptr;
+static std::list<CustomColor> custom_colors;
 
 static NamedColor *
 colors_lookup_by_name(const char *name)
@@ -174,14 +179,7 @@ colors_define(const char *name, short r, short g, short b)
 	if (color < 0)
 		return false;
 
-	auto *entry = g_new(CustomColor, 1);
-	entry->color = color;
-	entry->r = r;
-	entry->g = g;
-	entry->b = b;
-
-	color_definition_list = g_list_append(color_definition_list, entry);
-
+	custom_colors.emplace_back(color, r, g, b);
 	return true;
 }
 
@@ -212,18 +210,11 @@ colors_start()
 		start_color();
 		use_default_colors();
 		/* define any custom colors defined in the configuration file */
-		if (color_definition_list && can_change_color()) {
-			GList *list = color_definition_list;
-
-			while (list) {
-				auto *entry = (CustomColor *)list->data;
-
-				if (entry->color <= COLORS)
-					init_color(entry->color, entry->r,
-						   entry->g, entry->b);
-				list = list->next;
-			}
-		} else if (color_definition_list && !can_change_color())
+		if (!custom_colors.empty() && can_change_color()) {
+			for (const auto &i : custom_colors)
+				if (i.color <= COLORS)
+					init_color(i.color, i.r, i.g, i.b);
+		} else if (!custom_colors.empty() && !can_change_color())
 			fprintf(stderr, "%s\n",
 				_("Terminal lacks support for changing colors"));
 
@@ -239,10 +230,7 @@ colors_start()
 	}
 
 	/* free the color_definition_list */
-	if (color_definition_list) {
-		g_list_free_full(color_definition_list, g_free);
-		color_definition_list = nullptr;
-	}
+	custom_colors.clear();
 }
 #endif
 
