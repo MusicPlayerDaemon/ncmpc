@@ -26,7 +26,7 @@
 #include "ListPage.hxx"
 
 struct mpdclient;
-struct mpdclient_playlist;
+struct MpdQueue;
 class FileList;
 struct FileListEntry;
 
@@ -81,13 +81,13 @@ public:
 
 void
 screen_browser_sync_highlights(FileList *fl,
-			       const struct mpdclient_playlist *playlist);
+			       const MpdQueue *playlist);
 
 #else
 
 static inline void
 screen_browser_sync_highlights(gcc_unused FileList *fl,
-			       gcc_unused const struct mpdclient_playlist *playlist)
+			       gcc_unused const MpdQueue *playlist)
 {
 }
 

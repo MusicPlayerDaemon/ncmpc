@@ -8,6 +8,7 @@
 #include <mpd/client.h>
 
 struct AsyncMpdConnect;
+struct MpdQueue;
 class FileList;
 
 struct mpdclient {
@@ -37,7 +38,7 @@ struct mpdclient {
 	const char *const password;
 
 	/* playlist */
-	struct mpdclient_playlist playlist;
+	MpdQueue playlist;
 
 #ifdef ENABLE_ASYNC_CONNECT
 	AsyncMpdConnect *async_connect = nullptr;

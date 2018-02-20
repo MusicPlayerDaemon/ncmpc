@@ -22,14 +22,14 @@
 #include <string.h>
 
 void
-playlist_init(struct mpdclient_playlist *playlist)
+playlist_init(MpdQueue *playlist)
 {
 	playlist->version = 0;
 	playlist->list = g_ptr_array_sized_new(1024);
 }
 
 void
-playlist_clear(struct mpdclient_playlist *playlist)
+playlist_clear(MpdQueue *playlist)
 {
 	playlist->version = 0;
 
@@ -43,7 +43,7 @@ playlist_clear(struct mpdclient_playlist *playlist)
 }
 
 gint
-mpdclient_playlist_free(struct mpdclient_playlist *playlist)
+mpdclient_playlist_free(MpdQueue *playlist)
 {
 	if (playlist->list != nullptr) {
 		playlist_clear(playlist);
@@ -55,7 +55,7 @@ mpdclient_playlist_free(struct mpdclient_playlist *playlist)
 }
 
 const struct mpd_song *
-playlist_get_song(const struct mpdclient_playlist *playlist, gint idx)
+playlist_get_song(const MpdQueue *playlist, gint idx)
 {
 	if (idx < 0 || (guint)idx >= playlist_length(playlist))
 		return nullptr;
@@ -64,7 +64,7 @@ playlist_get_song(const struct mpdclient_playlist *playlist, gint idx)
 }
 
 void
-playlist_move(struct mpdclient_playlist *playlist,
+playlist_move(MpdQueue *playlist,
 	      unsigned dest, unsigned src)
 {
 	assert(playlist != nullptr);
@@ -88,7 +88,7 @@ playlist_move(struct mpdclient_playlist *playlist,
 }
 
 const struct mpd_song *
-playlist_lookup_song(const struct mpdclient_playlist *playlist, unsigned id)
+playlist_lookup_song(const MpdQueue *playlist, unsigned id)
 {
 	for (guint i = 0; i < playlist_length(playlist); ++i) {
 		struct mpd_song *song = playlist_get(playlist, i);
@@ -100,7 +100,7 @@ playlist_lookup_song(const struct mpdclient_playlist *playlist, unsigned id)
 }
 
 gint
-playlist_get_index(const struct mpdclient_playlist *playlist,
+playlist_get_index(const MpdQueue *playlist,
 		   const struct mpd_song *song)
 {
 	for (guint i = 0; i < playlist_length(playlist); ++i) {
@@ -112,7 +112,7 @@ playlist_get_index(const struct mpdclient_playlist *playlist,
 }
 
 gint
-playlist_get_index_from_id(const struct mpdclient_playlist *playlist,
+playlist_get_index_from_id(const MpdQueue *playlist,
 			   unsigned id)
 {
 	for (guint i = 0; i < playlist_length(playlist); ++i) {
@@ -125,7 +125,7 @@ playlist_get_index_from_id(const struct mpdclient_playlist *playlist,
 }
 
 gint
-playlist_get_index_from_file(const struct mpdclient_playlist *playlist,
+playlist_get_index_from_file(const MpdQueue *playlist,
 			     const gchar *filename)
 {
 	for (guint i = 0; i < playlist_length(playlist); ++i) {
@@ -139,7 +139,7 @@ playlist_get_index_from_file(const struct mpdclient_playlist *playlist,
 }
 
 gint
-playlist_get_id_from_uri(const struct mpdclient_playlist *playlist,
+playlist_get_id_from_uri(const MpdQueue *playlist,
 			 const gchar *uri)
 {
 	for (guint i = 0; i < playlist_length(playlist); ++i) {

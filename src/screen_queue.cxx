@@ -57,7 +57,7 @@ class QueuePage final : public ListPage {
 	mutable struct hscroll hscroll;
 #endif
 
-	struct mpdclient_playlist *playlist = nullptr;
+	MpdQueue *playlist = nullptr;
 	int current_song_id = -1;
 	int selected_song_id = -1;
 	guint timer_hide_cursor_id = 0;
@@ -158,7 +158,7 @@ QueuePage::RestoreSelection()
 static const char *
 screen_queue_lw_callback(unsigned idx, void *data)
 {
-	auto &playlist = *(struct mpdclient_playlist *)data;
+	auto &playlist = *(MpdQueue *)data;
 	static char songname[MAX_SONG_LENGTH];
 
 	assert(idx < playlist_length(&playlist));

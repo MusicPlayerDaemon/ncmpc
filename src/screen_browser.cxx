@@ -54,8 +54,7 @@ FileListPage::~FileListPage()
 
 /* sync highlight flags with playlist */
 void
-screen_browser_sync_highlights(FileList *fl,
-			       const struct mpdclient_playlist *playlist)
+screen_browser_sync_highlights(FileList *fl, const MpdQueue *playlist)
 {
 	for (unsigned i = 0; i < fl->size(); ++i) {
 		auto &entry = (*fl)[i];
