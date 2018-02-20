@@ -29,6 +29,10 @@
 #include "filelist.hxx"
 #include "options.hxx"
 
+#include <vector>
+#include <string>
+#include <algorithm>
+
 #include <assert.h>
 #include <string.h>
 #include <glib.h>
@@ -44,7 +48,7 @@ class ArtistBrowserPage final : public FileListPage {
 		SONGS,
 	} mode = Mode::ARTISTS;
 
-	GPtrArray *artist_list = nullptr, *album_list = nullptr;
+	std::vector<std::string> artist_list, album_list;
 	char *artist = nullptr;
 	char *album  = nullptr;
 
@@ -80,41 +84,38 @@ public:
 	const char *GetTitle(char *s, size_t size) const override;
 };
 
-static gint
-compare_utf8(gconstpointer s1, gconstpointer s2)
+gcc_pure
+static bool
+CompareUTF8(const std::string &a, const std::string &b)
 {
-	const char *const*t1 = (const char *const*)s1, *const*t2 = (const char *const*)s2;
-
-	char *key1 = g_utf8_collate_key(*t1,-1);
-	char *key2 = g_utf8_collate_key(*t2,-1);
+	char *key1 = g_utf8_collate_key(a.c_str(), -1);
+	char *key2 = g_utf8_collate_key(b.c_str(), -1);
 	int n = strcmp(key1,key2);
 	g_free(key1);
 	g_free(key2);
-	return n;
+	return n < 0;
 }
 
 /* list_window callback */
 static const char *
 screen_artist_lw_callback(unsigned idx, void *data)
 {
-	GPtrArray *list = (GPtrArray *)data;
+	const auto &list = *(const std::vector<std::string> *)data;
 
 	/*
 	if (mode == Mode::ALBUMS) {
 		if (idx == 0)
 			return "..";
-		else if (idx == list->len + 1)
+		else if (idx == list.size() + 1)
 			return _("All tracks");
 
 		--idx;
 	}
 	*/
 
-	assert(idx < list->len);
+	assert(idx < list.size());
 
-	const char *str_utf8 = (char *)g_ptr_array_index(list, idx);
-	assert(str_utf8 != nullptr);
-
+	const char *str_utf8 = list[idx].c_str();
 	char *str = utf8_to_locale(str_utf8);
 
 	static char buf[BUFSIZE];
@@ -128,11 +129,11 @@ screen_artist_lw_callback(unsigned idx, void *data)
 static const char *
 AlbumListCallback(unsigned idx, void *data)
 {
-	GPtrArray *list = (GPtrArray *)data;
+	const auto &list = *(const std::vector<std::string> *)data;
 
 	if (idx == 0)
 		return "..";
-	else if (idx == list->len + 1)
+	else if (idx == list.size() + 1)
 		return _("All tracks");
 
 	--idx;
@@ -140,29 +141,11 @@ AlbumListCallback(unsigned idx, void *data)
 	return screen_artist_lw_callback(idx, data);
 }
 
-static void
-string_array_free(GPtrArray *array)
-{
-	for (unsigned i = 0; i < array->len; ++i) {
-		char *value = (char *)g_ptr_array_index(array, i);
-		g_free(value);
-	}
-
-	g_ptr_array_free(array, true);
-}
-
 void
 ArtistBrowserPage::FreeLists()
 {
-	if (artist_list != nullptr) {
-		string_array_free(artist_list);
-		artist_list = nullptr;
-	}
-
-	if (album_list != nullptr) {
-		string_array_free(album_list);
-		album_list = nullptr;
-	}
+	artist_list.clear();
+	album_list.clear();
 
 	delete filelist;
 	filelist = nullptr;
@@ -170,12 +153,12 @@ ArtistBrowserPage::FreeLists()
 
 static void
 recv_tag_values(struct mpd_connection *connection, enum mpd_tag_type tag,
-		GPtrArray *list)
+		std::vector<std::string> &list)
 {
 	struct mpd_pair *pair;
 
 	while ((pair = mpd_recv_pair_tag(connection, tag)) != nullptr) {
-		g_ptr_array_add(list, g_strdup(pair->value));
+		list.emplace_back(pair->value);
 		mpd_return_pair(connection, pair);
 	}
 }
@@ -188,11 +171,11 @@ ArtistBrowserPage::LoadArtistList(struct mpdclient &c)
 	assert(mode == Mode::ARTISTS);
 	assert(artist == nullptr);
 	assert(album == nullptr);
-	assert(artist_list == nullptr);
-	assert(album_list == nullptr);
+	assert(artist_list.empty());
+	assert(album_list.empty());
 	assert(filelist == nullptr);
 
-	artist_list = g_ptr_array_new();
+	artist_list.clear();
 
 	if (connection != nullptr) {
 		mpd_search_db_tags(connection, MPD_TAG_ARTIST);
@@ -203,8 +186,8 @@ ArtistBrowserPage::LoadArtistList(struct mpdclient &c)
 	}
 
 	/* sort list */
-	g_ptr_array_sort(artist_list, compare_utf8);
-	list_window_set_length(&lw, artist_list->len);
+	std::sort(artist_list.begin(), artist_list.end(), CompareUTF8);
+	list_window_set_length(&lw, artist_list.size());
 }
 
 void
@@ -215,10 +198,8 @@ ArtistBrowserPage::LoadAlbumList(struct mpdclient &c)
 	assert(mode == Mode::ALBUMS);
 	assert(artist != nullptr);
 	assert(album == nullptr);
-	assert(album_list == nullptr);
+	assert(album_list.empty());
 	assert(filelist == nullptr);
-
-	album_list = g_ptr_array_new();
 
 	if (connection != nullptr) {
 		mpd_search_db_tags(connection, MPD_TAG_ALBUM);
@@ -233,9 +214,8 @@ ArtistBrowserPage::LoadAlbumList(struct mpdclient &c)
 	}
 
 	/* sort list */
-	g_ptr_array_sort(album_list, compare_utf8);
-
-	list_window_set_length(&lw, album_list->len + 2);
+	std::sort(album_list.begin(), album_list.end(), CompareUTF8);
+	list_window_set_length(&lw, album_list.size() + 2);
 }
 
 void
@@ -348,8 +328,7 @@ screen_artist_init(WINDOW *w, unsigned cols, unsigned rows)
 void
 ArtistBrowserPage::OnOpen(struct mpdclient &c)
 {
-	if (artist_list == nullptr && album_list == nullptr &&
-	    filelist == nullptr)
+	if (artist_list.empty())
 		Reload(c);
 }
 
@@ -361,8 +340,8 @@ paint_artist_callback(WINDOW *w, unsigned i,
 		      gcc_unused unsigned y, unsigned width,
 		      bool selected, const void *data)
 {
-	const GPtrArray *list = (const GPtrArray *)data;
-	char *p = utf8_to_locale((const char *)g_ptr_array_index(list, i));
+	const auto &list = *(const std::vector<std::string> *)data;
+	char *p = utf8_to_locale(list[i].c_str());
 
 	screen_browser_paint_directory(w, width, selected, p);
 	g_free(p);
@@ -379,16 +358,16 @@ paint_album_callback(WINDOW *w, unsigned i,
 		     gcc_unused unsigned y, unsigned width,
 		     bool selected, const void *data)
 {
-	const GPtrArray *list = (const GPtrArray *)data;
+	const auto &list = *(const std::vector<std::string> *)data;
 	const char *p;
 	char *q = nullptr;
 
 	if (i == 0)
 		p = "..";
-	else if (i == list->len + 1)
+	else if (i == list.size() + 1)
 		p = _("All tracks");
 	else
-		p = q = utf8_to_locale((const char *)g_ptr_array_index(list, i - 1));
+		p = q = utf8_to_locale(list[i - 1].c_str());
 
 	screen_browser_paint_directory(w, width, selected, p);
 	g_free(q);
@@ -399,13 +378,11 @@ ArtistBrowserPage::Paint() const
 {
 	switch (mode) {
 	case Mode::ARTISTS:
-		list_window_paint2(&lw,
-				   paint_artist_callback, artist_list);
+		list_window_paint2(&lw, paint_artist_callback, &artist_list);
 		break;
 
 	case Mode::ALBUMS:
-		list_window_paint2(&lw,
-				   paint_album_callback, album_list);
+		list_window_paint2(&lw, paint_album_callback, &album_list);
 		break;
 
 	case Mode::SONGS:
@@ -529,14 +506,12 @@ ArtistBrowserPage::OnListCommand(struct mpdclient &c, command_t cmd)
 	return 0;
 }
 
+gcc_pure
 static int
-string_array_find(GPtrArray *array, const char *value)
+string_array_find(const std::vector<std::string> &array, const char *value)
 {
-	guint i;
-
-	for (i = 0; i < array->len; ++i)
-		if (strcmp((const char*)g_ptr_array_index(array, i),
-			   value) == 0)
+	for (size_t i = 0; i < array.size(); ++i)
+		if (array[i] == value)
 			return i;
 
 	return -1;
@@ -555,11 +530,10 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_PLAY:
 		switch (mode) {
 		case Mode::ARTISTS:
-			if (lw.selected >= artist_list->len)
+			if (lw.selected >= artist_list.size())
 				return true;
 
-			selected = (const char *)g_ptr_array_index(artist_list,
-								   lw.selected);
+			selected = artist_list[lw.selected].c_str();
 			OpenAlbumList(c, g_strdup(selected));
 			list_window_reset(&lw);
 
@@ -581,14 +555,13 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 					list_window_set_cursor(&lw, idx);
 					list_window_center(&lw, idx);
 				}
-			} else if (lw.selected == album_list->len + 1) {
+			} else if (lw.selected == album_list.size() + 1) {
 				/* handle "show all" */
 				OpenSongList(c, g_strdup(artist), ALL_TRACKS);
 				list_window_reset(&lw);
 			} else {
 				/* select album */
-				selected = (const char *)g_ptr_array_index(album_list,
-									   lw.selected - 1);
+				selected = album_list[lw.selected - 1].c_str();
 				OpenSongList(c, g_strdup(artist), g_strdup(selected));
 				list_window_reset(&lw);
 			}
@@ -606,7 +579,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 				list_window_reset(&lw);
 				/* restore previous list window state */
 				idx = old_ptr == ALL_TRACKS
-					? (int)album_list->len
+					? (int)album_list.size()
 					: string_array_find(album_list, old);
 				g_free(old);
 
@@ -653,7 +626,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			list_window_reset(&lw);
 			/* restore previous list window state */
 			idx = old_ptr == ALL_TRACKS
-				? (int)album_list->len
+				? (int)album_list.size()
 				: string_array_find(album_list, old);
 			g_free(old);
 
@@ -689,12 +662,12 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_ADD:
 		switch(mode) {
 		case Mode::ARTISTS:
-			if (lw.selected >= artist_list->len)
+			if (lw.selected >= artist_list.size())
 				return true;
 
 			list_window_get_range(&lw, &range);
 			for (unsigned i = range.start; i < range.end; ++i) {
-				selected = (const char *)g_ptr_array_index(artist_list, i);
+				selected = artist_list[i].c_str();
 				add_query(&c, MPD_TAG_ARTIST, selected, nullptr);
 				cmd = CMD_LIST_NEXT; /* continue and select next item... */
 			}
@@ -703,12 +676,11 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		case Mode::ALBUMS:
 			list_window_get_range(&lw, &range);
 			for (unsigned i = range.start; i < range.end; ++i) {
-				if(i == album_list->len + 1)
+				if(i == album_list.size() + 1)
 					add_query(&c, MPD_TAG_ARTIST, artist, nullptr);
 				else if (i > 0)
 				{
-					selected = (const char *)g_ptr_array_index(album_list,
-										   lw.selected - 1);
+					selected = album_list[lw.selected - 1].c_str();
 					add_query(&c, MPD_TAG_ALBUM, selected, artist);
 					cmd = CMD_LIST_NEXT; /* continue and select next item... */
 				}
@@ -733,13 +705,13 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		switch (mode) {
 		case Mode::ARTISTS:
 			screen_find(&lw, cmd,
-				    screen_artist_lw_callback, artist_list);
+				    screen_artist_lw_callback, &artist_list);
 			SetDirty();
 			return true;
 
 		case Mode::ALBUMS:
 			screen_find(&lw, cmd,
-				    AlbumListCallback, album_list);
+				    AlbumListCallback, &album_list);
 			SetDirty();
 			return true;
 
@@ -754,15 +726,15 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		switch (mode) {
 		case Mode::ARTISTS:
 			screen_jump(&lw,
-				    screen_artist_lw_callback, artist_list,
-				    paint_artist_callback, artist_list);
+				    screen_artist_lw_callback, &artist_list,
+				    paint_artist_callback, &artist_list);
 			SetDirty();
 			return true;
 
 		case Mode::ALBUMS:
 			screen_jump(&lw,
-				    AlbumListCallback, album_list,
-				    paint_album_callback, album_list);
+				    AlbumListCallback, &album_list,
+				    paint_album_callback, &album_list);
 			SetDirty();
 			return true;
 
