@@ -9,6 +9,7 @@
 
 struct AsyncMpdConnect;
 struct MpdQueue;
+struct MpdIdleSource;
 class FileList;
 
 struct mpdclient {
@@ -50,7 +51,7 @@ struct mpdclient {
 	 * Tracks idle events.  It is automatically called by
 	 * mpdclient_get_connection().
 	 */
-	struct mpd_glib_source *source = nullptr;
+	MpdIdleSource *source = nullptr;
 
 	struct mpd_status *status = nullptr;
 	const struct mpd_song *song = nullptr;

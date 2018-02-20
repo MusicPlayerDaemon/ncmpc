@@ -36,14 +36,14 @@ typedef void (*mpd_glib_callback_t)(enum mpd_error error,
 				    const char *message,
 				    unsigned events, void *ctx);
 
-struct mpd_glib_source;
+struct MpdIdleSource;
 
-struct mpd_glib_source *
+MpdIdleSource *
 mpd_glib_new(struct mpd_connection *connection,
 	     mpd_glib_callback_t callback, void *callback_ctx);
 
 void
-mpd_glib_free(struct mpd_glib_source *source);
+mpd_glib_free(MpdIdleSource *source);
 
 /**
  * Enters idle mode.
@@ -52,7 +52,7 @@ mpd_glib_free(struct mpd_glib_source *source);
  * (e.g. blocked during the callback, or I/O error)
  */
 bool
-mpd_glib_enter(struct mpd_glib_source *source);
+mpd_glib_enter(MpdIdleSource *source);
 
 /**
  * Leaves idle mode and invokes the callback if there were events.
@@ -61,6 +61,6 @@ mpd_glib_enter(struct mpd_glib_source *source);
  * callback
  */
 bool
-mpd_glib_leave(struct mpd_glib_source *source);
+mpd_glib_leave(MpdIdleSource *source);
 
 #endif

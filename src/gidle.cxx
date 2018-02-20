@@ -38,7 +38,7 @@
 #include <string.h>
 #include <errno.h>
 
-struct mpd_glib_source {
+struct MpdIdleSource {
 	struct mpd_connection *connection;
 	struct mpd_async *async;
 	struct mpd_parser *parser;
@@ -71,11 +71,11 @@ struct mpd_glib_source {
 	bool destroyed;
 };
 
-struct mpd_glib_source *
+MpdIdleSource *
 mpd_glib_new(struct mpd_connection *connection,
 	     mpd_glib_callback_t callback, void *callback_ctx)
 {
-	struct mpd_glib_source *source = g_new(struct mpd_glib_source, 1);
+	auto *source = g_new(MpdIdleSource, 1);
 
 	source->connection = connection;
 	source->async = mpd_connection_get_async(connection);
@@ -95,7 +95,7 @@ mpd_glib_new(struct mpd_connection *connection,
 }
 
 void
-mpd_glib_free(struct mpd_glib_source *source)
+mpd_glib_free(MpdIdleSource *source)
 {
 	assert(!source->destroyed);
 
@@ -113,7 +113,7 @@ mpd_glib_free(struct mpd_glib_source *source)
 }
 
 static void
-mpd_glib_invoke(const struct mpd_glib_source *source)
+mpd_glib_invoke(const MpdIdleSource *source)
 {
 	assert(source->id == 0);
 	assert(!source->destroyed);
@@ -125,7 +125,7 @@ mpd_glib_invoke(const struct mpd_glib_source *source)
 }
 
 static void
-mpd_glib_invoke_error(const struct mpd_glib_source *source,
+mpd_glib_invoke_error(const MpdIdleSource *source,
 		      enum mpd_error error, enum mpd_server_error server_error,
 		      const char *message)
 {
@@ -137,7 +137,7 @@ mpd_glib_invoke_error(const struct mpd_glib_source *source,
 }
 
 static void
-mpd_glib_invoke_async_error(const struct mpd_glib_source *source)
+mpd_glib_invoke_async_error(const MpdIdleSource *source)
 {
 	assert(source->id == 0);
 
@@ -198,7 +198,7 @@ mpd_async_events_to_g_io_condition(enum mpd_async_event events)
  * @return true on success, false on error
  */
 static bool
-mpd_glib_feed(struct mpd_glib_source *source, char *line)
+mpd_glib_feed(MpdIdleSource *source, char *line)
 {
 	enum mpd_parser_result result;
 
@@ -247,7 +247,7 @@ mpd_glib_feed(struct mpd_glib_source *source, char *line)
  * @return true on success, false on error
  */
 static bool
-mpd_glib_recv(struct mpd_glib_source *source)
+mpd_glib_recv(MpdIdleSource *source)
 {
 	char *line;
 	while ((line = mpd_async_recv_line(source->async)) != nullptr) {
@@ -270,7 +270,7 @@ static gboolean
 mpd_glib_source_callback(gcc_unused GIOChannel *_source,
 			 GIOCondition condition, gpointer data)
 {
-	auto *source = (struct mpd_glib_source *)data;
+	auto *source = (MpdIdleSource *)data;
 
 	assert(source->id != 0);
 	assert(source->io_events != 0);
@@ -319,7 +319,7 @@ mpd_glib_source_callback(gcc_unused GIOChannel *_source,
 }
 
 static void
-mpd_glib_add_watch(struct mpd_glib_source *source)
+mpd_glib_add_watch(MpdIdleSource *source)
 {
 	enum mpd_async_event events = mpd_async_events(source->async);
 
@@ -333,7 +333,7 @@ mpd_glib_add_watch(struct mpd_glib_source *source)
 }
 
 bool
-mpd_glib_enter(struct mpd_glib_source *source)
+mpd_glib_enter(MpdIdleSource *source)
 {
 	assert(source->io_events == 0);
 	assert(source->id == 0);
@@ -354,7 +354,7 @@ mpd_glib_enter(struct mpd_glib_source *source)
 }
 
 bool
-mpd_glib_leave(struct mpd_glib_source *source)
+mpd_glib_leave(MpdIdleSource *source)
 {
 	assert(!source->destroyed);
 
