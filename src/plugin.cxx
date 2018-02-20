@@ -317,7 +317,7 @@ PluginCycle *
 plugin_run(PluginList *list, const char *const*args,
 	   plugin_callback_t callback, void *callback_data)
 {
-	PluginCycle *cycle = g_new(PluginCycle, 1);
+	PluginCycle *cycle = new PluginCycle();
 
 	assert(args != nullptr);
 
@@ -374,5 +374,5 @@ plugin_stop(PluginCycle *cycle)
 		g_free(cycle->argv[i]);
 	g_free(cycle->argv);
 
-	g_free(cycle);
+	delete cycle;
 }
