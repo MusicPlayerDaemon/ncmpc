@@ -74,13 +74,13 @@ ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient *c)
 
 	auto page = MakePage(sf);
 
-	mode_fn_prev = &*screen.current_page->first;
+	mode_fn_prev = &*current_page->first;
 
 	/* close the old mode */
-	screen.current_page->second->OnClose();
+	current_page->second->OnClose();
 
 	/* get functions for the new mode */
-	screen.current_page = page;
+	current_page = page;
 
 	/* open the new mode */
 	page->second->OnOpen(*c);
@@ -211,9 +211,9 @@ ScreenManager::Update(struct mpdclient *c)
 #endif
 
 	/* update the main window */
-	screen.current_page->second->Update(*c);
+	current_page->second->Update(*c);
 
-	Paint(c, screen.current_page->second->IsDirty());
+	Paint(c, current_page->second->IsDirty());
 }
 
 void
@@ -226,7 +226,7 @@ ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
 	}
 #endif
 
-	if (screen.current_page->second->OnCommand(*c, cmd))
+	if (current_page->second->OnCommand(*c, cmd))
 		return;
 
 	if (handle_player_command(c, cmd))
@@ -315,7 +315,7 @@ bool
 ScreenManager::OnMouse(struct mpdclient *c, int x, int y, mmask_t bstate)
 {
 	if (current_page->second->OnMouse(*c, x,
-					  y - screen.title_bar.window.rows,
+					  y - title_bar.window.rows,
 					  bstate))
 		return true;
 
