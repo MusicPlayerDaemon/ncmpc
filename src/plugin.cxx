@@ -20,6 +20,8 @@
 #include "plugin.hxx"
 #include "Compiler.h"
 
+#include <algorithm>
+
 #include <assert.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -76,21 +78,8 @@ register_plugin(PluginList *list, char *path)
 	if (stat(path, &st) < 0)
 		return false;
 
-	g_ptr_array_add(list->plugins, path);
+	list->plugins.emplace_back(path);
 	return true;
-}
-
-static gint
-plugin_compare_func_alpha(gconstpointer plugin1, gconstpointer plugin2)
-{
-	return strcmp(* (char * const *) plugin1, * (char * const *) plugin2);
-}
-
-static void
-plugin_list_sort(PluginList *list, GCompareFunc compare_func)
-{
-	g_ptr_array_sort(list->plugins,
-			compare_func);
 }
 
 bool
@@ -103,22 +92,15 @@ plugin_list_load_directory(PluginList *list, const char *path)
 	const char *name;
 	while ((name = g_dir_read_name(dir)) != nullptr) {
 		char *plugin = g_build_filename(path, name, nullptr);
-		if (!register_plugin(list, plugin))
-			g_free(plugin);
+		register_plugin(list, plugin);
+		g_free(plugin);
 	}
 
 	g_dir_close(dir);
 
-	plugin_list_sort(list, plugin_compare_func_alpha);
+	std::sort(list->plugins.begin(), list->plugins.end());
 
 	return true;
-}
-
-PluginList::~PluginList()
-{
-	for (guint i = 0; i < plugins->len; ++i)
-		free(g_ptr_array_index(plugins, i));
-	g_ptr_array_free(plugins, true);
 }
 
 static void
@@ -292,14 +274,14 @@ next_plugin(struct plugin_cycle *cycle)
 	assert(cycle->pipe_stdout.data == nullptr);
 	assert(cycle->pipe_stderr.data == nullptr);
 
-	if (cycle->next_plugin >= cycle->list->plugins->len) {
+	if (cycle->next_plugin >= cycle->list->plugins.size()) {
 		/* no plugins left */
 		g_idle_add(plugin_delayed_fail, cycle);
 		return;
 	}
 
 	const char *plugin_path = (const char *)
-		g_ptr_array_index(cycle->list->plugins, cycle->next_plugin++);
+		cycle->list->plugins[cycle->next_plugin++].c_str();
 	if (start_plugin(cycle, plugin_path) < 0) {
 		/* system error */
 		g_idle_add(plugin_delayed_fail, cycle);

@@ -22,16 +22,14 @@
 
 #include <glib.h>
 
+#include <vector>
+#include <string>
+
 /**
  * A list of registered plugins.
  */
 struct PluginList {
-	GPtrArray *plugins;
-
-	PluginList()
-		:plugins(g_ptr_array_new()) {}
-
-	~PluginList();
+	std::vector<std::string> plugins;
 };
 
 /**
