@@ -26,11 +26,13 @@
 
 struct mpdclient;
 struct mpd_song;
+class ScreenManager;
 
 extern const struct screen_functions screen_song;
 
 void
-screen_song_switch(struct mpdclient *c, const struct mpd_song *song);
+screen_song_switch(ScreenManager &_screen, struct mpdclient &c,
+		   const struct mpd_song &song);
 
 #endif /* ENABLE_SONG_SCREEN */
 

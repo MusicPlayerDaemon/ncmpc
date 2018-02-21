@@ -471,7 +471,7 @@ LyricsPage::OnCommand(struct mpdclient &c, command_t cmd)
 #ifdef ENABLE_SONG_SCREEN
 	case CMD_SCREEN_SONG:
 		if (song != nullptr) {
-			screen_song_switch(&c, song);
+			screen_song_switch(screen, c, *song);
 			return true;
 		}
 
@@ -483,7 +483,7 @@ LyricsPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_LOCATE:
 		if (song != nullptr) {
-			screen_file_goto_song(&c, song);
+			screen_file_goto_song(screen, c, *song);
 			return true;
 		}
 
@@ -502,11 +502,10 @@ const struct screen_functions screen_lyrics = {
 };
 
 void
-screen_lyrics_switch(struct mpdclient *c, const struct mpd_song *song, bool f)
+screen_lyrics_switch(ScreenManager &_screen, struct mpdclient &c,
+		     const struct mpd_song &song, bool f)
 {
-	assert(song != nullptr);
-
 	follow = f;
-	next_song = mpd_song_dup(song);
-	screen.Switch(screen_lyrics, c);
+	next_song = mpd_song_dup(&song);
+	_screen.Switch(screen_lyrics, &c);
 }

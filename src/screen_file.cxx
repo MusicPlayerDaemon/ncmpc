@@ -416,16 +416,15 @@ const struct screen_functions screen_browse = {
 };
 
 bool
-screen_file_goto_song(struct mpdclient *c, const struct mpd_song *song)
+screen_file_goto_song(ScreenManager &_screen, struct mpdclient &c,
+		      const struct mpd_song &song)
 {
-	assert(song != nullptr);
-
-	auto pi = screen.MakePage(screen_browse);
+	auto pi = _screen.MakePage(screen_browse);
 	auto &page = (FileBrowserPage &)*pi->second;
-	if (!page.GotoSong(*c, *song))
+	if (!page.GotoSong(c, song))
 		return false;
 
 	/* finally, switch to the file screen */
-	screen.Switch(screen_browse, c);
+	_screen.Switch(screen_browse, &c);
 	return true;
 }

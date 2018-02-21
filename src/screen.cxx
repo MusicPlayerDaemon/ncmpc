@@ -100,11 +100,11 @@ ScreenManager::Swap(struct mpdclient *c, const struct mpd_song *song)
 			{ /* just a hack to make the ifdefs less ugly */ }
 #ifdef ENABLE_SONG_SCREEN
 		if (mode_fn_prev == &screen_song)
-			screen_song_switch(c, song);
+			screen_song_switch(*this, *c, *song);
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
 		else if (mode_fn_prev == &screen_lyrics)
-			screen_lyrics_switch(c, song, true);
+			screen_lyrics_switch(*this, *c, *song, true);
 #endif
 		else
 			Switch(*mode_fn_prev, c);

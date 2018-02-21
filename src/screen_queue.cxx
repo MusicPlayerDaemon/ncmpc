@@ -562,7 +562,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 #ifdef ENABLE_SONG_SCREEN
 	case CMD_SCREEN_SONG:
 		if (GetSelectedSong() != nullptr) {
-			screen_song_switch(&c, GetSelectedSong());
+			screen_song_switch(screen, c, *GetSelectedSong());
 			return true;
 		}
 
@@ -580,7 +580,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 				    mpd_song_get_uri(c.song)))
 				follow = true;
 
-			screen_lyrics_switch(&c, &selected, follow);
+			screen_lyrics_switch(screen, c, selected, follow);
 			return true;
 		}
 
@@ -685,7 +685,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_LOCATE:
 		if (GetSelectedSong() != nullptr) {
-			screen_file_goto_song(&c, GetSelectedSong());
+			screen_file_goto_song(screen, c, *GetSelectedSong());
 			return true;
 		}
 

@@ -407,7 +407,7 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 		if (song == nullptr)
 			return false;
 
-		screen_song_switch(&c, song);
+		screen_song_switch(screen, c, *song);
 		return true;
 #endif
 
@@ -417,7 +417,7 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 		if (song == nullptr)
 			return false;
 
-		screen_lyrics_switch(&c, song, false);
+		screen_lyrics_switch(screen, c, *song, false);
 		return true;
 #endif
 	case CMD_SCREEN_SWAP:
@@ -459,7 +459,7 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 		if (song == nullptr)
 			return false;
 
-		screen_file_goto_song(&c, song);
+		screen_file_goto_song(screen, c, *song);
 		return true;
 
 	default:
