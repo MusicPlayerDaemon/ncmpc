@@ -54,8 +54,8 @@ paint_song_row(WINDOW *w, gcc_unused unsigned y, unsigned width,
 	}
 
 	if (hscroll != nullptr && utf8_width(buffer) >= width) {
-		hscroll_set(hscroll, 0, y, width, buffer);
-		hscroll_draw(hscroll);
+		hscroll->Set(0, y, width, buffer);
+		hscroll->Paint();
 	}
 #endif
 }

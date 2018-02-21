@@ -43,7 +43,7 @@ StatusBar::Init(unsigned width, int y, int x)
 
 #ifndef NCMPC_MINI
 	if (options.scroll)
-		hscroll_init(&hscroll, window.w, options.scroll_sep);
+		hscroll.Init(window.w, options.scroll_sep);
 #endif
 
 #ifdef ENABLE_COLORS
@@ -59,7 +59,7 @@ StatusBar::Deinit()
 
 #ifndef NCMPC_MINI
 	if (options.scroll)
-		hscroll_clear(&hscroll);
+		hscroll.Clear();
 #endif
 }
 
@@ -193,11 +193,11 @@ StatusBar::Paint(const struct mpd_status *status,
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
 		if (options.scroll && utf8_width(songname) > (unsigned)width) {
-			hscroll_set(&hscroll, x, 0, width, songname);
-			hscroll_draw(&hscroll);
+			hscroll.Set(x, 0, width, songname);
+			hscroll.Paint();
 		} else {
 			if (options.scroll)
-				hscroll_clear(&hscroll);
+				hscroll.Clear();
 			mvwaddstr(w, 0, x, songname);
 		}
 #else
@@ -205,7 +205,7 @@ StatusBar::Paint(const struct mpd_status *status,
 #endif
 #ifndef NCMPC_MINI
 	} else if (options.scroll) {
-		hscroll_clear(&hscroll);
+		hscroll.Clear();
 #endif
 	}
 
@@ -250,7 +250,7 @@ StatusBar::SetMessage(const char *msg)
 
 #ifndef NCMPC_MINI
 	if (options.scroll)
-		hscroll_clear(&hscroll);
+		hscroll.Clear();
 #endif
 
 	wmove(w, 0, 0);

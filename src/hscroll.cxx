@@ -25,22 +25,21 @@
 #include <string.h>
 
 char *
-strscroll(struct hscroll *hscroll, const char *str, const char *separator,
-	  unsigned width)
+hscroll::ScrollString(const char *str, const char *_separator,
+		      unsigned _width)
 {
-	assert(hscroll != nullptr);
 	assert(str != nullptr);
-	assert(separator != nullptr);
+	assert(_separator != nullptr);
 
 	/* create a buffer containing the string and the separator */
-	char *tmp = replace_locale_to_utf8(g_strconcat(str, separator,
-						       str, separator, nullptr));
-	if (hscroll->offset >= (unsigned)g_utf8_strlen(tmp, -1) / 2)
-		hscroll->offset = 0;
+	char *tmp = replace_locale_to_utf8(g_strconcat(str, _separator,
+						       str, _separator, nullptr));
+	if (offset >= (unsigned)g_utf8_strlen(tmp, -1) / 2)
+		offset = 0;
 
 	/* create the new scrolled string */
-	char *buf = g_utf8_offset_to_pointer(tmp, hscroll->offset);
-	utf8_cut_width(buf, width);
+	char *buf = g_utf8_offset_to_pointer(tmp, offset);
+	utf8_cut_width(buf, _width);
 
 	/* convert back to locale */
 	buf = utf8_to_locale(buf);
@@ -48,83 +47,78 @@ strscroll(struct hscroll *hscroll, const char *str, const char *separator,
 	return buf;
 }
 
-/**
- * This timer scrolls the area by one and redraws.
- */
-static gboolean
-hscroll_timer_callback(gpointer data)
+gboolean
+hscroll::TimerCallback(gpointer data)
 {
-	auto *hscroll = (struct hscroll *)data;
-
-	hscroll_step(hscroll);
-	hscroll_draw(hscroll);
-	wrefresh(hscroll->w);
+	auto &hscroll = *(struct hscroll *)data;
+	hscroll.TimerCallback();
 	return true;
 }
 
-void
-hscroll_set(struct hscroll *hscroll, unsigned x, unsigned y, unsigned width,
-	    const char *text)
+inline void
+hscroll::TimerCallback()
 {
-	assert(hscroll != nullptr);
-	assert(hscroll->w != nullptr);
-	assert(text != nullptr);
+	Step();
+	Paint();
+	wrefresh(w);
+}
 
-	if (hscroll->text != nullptr && hscroll->x == x && hscroll->y == y &&
-	    hscroll->width == width && strcmp(hscroll->text, text) == 0)
+void
+hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text)
+{
+	assert(w != nullptr);
+	assert(_text != nullptr);
+
+	if (text != nullptr && _x == x && _y == y &&
+	    _width == width && strcmp(_text, text) == 0)
 		/* no change, do nothing (and, most importantly, do
 		   not reset the current offset!) */
 		return;
 
-	hscroll_clear(hscroll);
+	Clear();
 
-	hscroll->x = x;
-	hscroll->y = y;
-	hscroll->width = width;
+	x = _x;
+	y = _y;
+	width = _width;
 
 	/* obtain the ncurses attributes and the current color, store
 	   them */
-	fix_wattr_get(hscroll->w, &hscroll->attrs, &hscroll->pair, nullptr);
+	fix_wattr_get(w, &attrs, &pair, nullptr);
 
-	hscroll->text = g_strdup(text);
-	hscroll->offset = 0;
-	hscroll->source_id = g_timeout_add_seconds(1, hscroll_timer_callback,
-						   hscroll);
+	text = g_strdup(_text);
+	offset = 0;
+	source_id = g_timeout_add_seconds(1, TimerCallback, this);
 }
 
 void
-hscroll_clear(struct hscroll *hscroll)
+hscroll::Clear()
 {
-	assert(hscroll != nullptr);
-
-	if (hscroll->text == nullptr)
+	if (text == nullptr)
 		return;
 
-	g_source_remove(hscroll->source_id);
+	g_source_remove(source_id);
 
-	g_free(hscroll->text);
-	hscroll->text = nullptr;
+	g_free(text);
+	text = nullptr;
 }
 
 void
-hscroll_draw(struct hscroll *hscroll)
+hscroll::Paint()
 {
-	assert(hscroll != nullptr);
-	assert(hscroll->w != nullptr);
-	assert(hscroll->text != nullptr);
+	assert(w != nullptr);
+	assert(text != nullptr);
 
 	/* set stored attributes and color */
 	attr_t old_attrs;
 	short old_pair;
-	fix_wattr_get(hscroll->w, &old_attrs, &old_pair, nullptr);
-	wattr_set(hscroll->w, hscroll->attrs, hscroll->pair, nullptr);
+	fix_wattr_get(w, &old_attrs, &old_pair, nullptr);
+	wattr_set(w, attrs, pair, nullptr);
 
 	/* scroll the string, and draw it */
-	char *p = strscroll(hscroll, hscroll->text, hscroll->separator,
-			    hscroll->width);
-	mvwaddstr(hscroll->w, hscroll->y, hscroll->x, p);
+	char *p = ScrollString(text, separator, width);
+	mvwaddstr(w, y, x, p);
 	g_free(p);
 
 	/* restore previous attributes and color */
-	wattr_set(hscroll->w, old_attrs, old_pair, nullptr);
+	wattr_set(w, old_attrs, old_pair, nullptr);
 }

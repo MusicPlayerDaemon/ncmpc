@@ -76,7 +76,7 @@ public:
 		 screen(_screen) {
 #ifndef NCMPC_MINI
 		if (options.scroll)
-			hscroll_init(&hscroll, w, options.scroll_sep);
+			hscroll.Init(w, options.scroll_sep);
 #endif
 	}
 
@@ -396,7 +396,7 @@ QueuePage::OnClose()
 
 #ifndef NCMPC_MINI
 	if (options.scroll)
-		hscroll_clear(&hscroll);
+		hscroll.Clear();
 #endif
 }
 
@@ -435,7 +435,7 @@ QueuePage::Paint() const
 {
 #ifndef NCMPC_MINI
 	if (options.scroll)
-		hscroll_clear(&hscroll);
+		hscroll.Clear();
 #endif
 
 	list_window_paint2(&lw, PaintRow, this);

@@ -66,55 +66,45 @@ struct hscroll {
 	 * second.
 	 */
 	guint source_id;
+
+	void Init(WINDOW *_w, const char *_separator) {
+		w = _w;
+		separator = _separator;
+	}
+
+	/**
+	 * Sets a text to scroll.  This installs a timer which redraws
+	 * every second with the current window attributes.  Call
+	 * hscroll_clear() to disable it.
+	 */
+	void Set(unsigned x, unsigned y, unsigned width, const char *text);
+
+	/**
+	 * Removes the text and the timer.  It may be reused with
+	 * Set().
+	 */
+	void Clear();
+
+	void Rewind() {
+		offset = 0;
+	}
+
+	void Step() {
+		++offset;
+	}
+
+	char *ScrollString(const char *str, const char *separator,
+			   unsigned width);
+
+	/**
+	 * Explicitly draws the scrolled text.  Calling this function
+	 * is only allowed if there is a text currently.
+	 */
+	void Paint();
+
+private:
+	static gboolean TimerCallback(gpointer data);
+	void TimerCallback();
 };
-
-static inline void
-hscroll_reset(struct hscroll *hscroll)
-{
-	hscroll->offset = 0;
-}
-
-static inline void
-hscroll_step(struct hscroll *hscroll)
-{
-	++hscroll->offset;
-}
-
-char *
-strscroll(struct hscroll *hscroll, const char *str, const char *separator,
-	  unsigned width);
-
-/**
- * Initializes a #hscroll object allocated by the caller.
- */
-static inline void
-hscroll_init(struct hscroll *hscroll, WINDOW *w, const char *separator)
-{
-	hscroll->w = w;
-	hscroll->separator = separator;
-}
-
-/**
- * Sets a text to scroll.  This installs a timer which redraws every
- * second with the current window attributes.  Call hscroll_clear() to
- * disable it.  This function automatically removes the old text.
- */
-void
-hscroll_set(struct hscroll *hscroll, unsigned x, unsigned y, unsigned width,
-	    const char *text);
-
-/**
- * Removes the text and the timer.  It may be reused with
- * hscroll_set().
- */
-void
-hscroll_clear(struct hscroll *hscroll);
-
-/**
- * Explicitly draws the scrolled text.  Calling this function is only
- * allowed if there is a text currently.
- */
-void
-hscroll_draw(struct hscroll *hscroll);
 
 #endif

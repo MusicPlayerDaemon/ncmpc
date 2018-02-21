@@ -23,20 +23,20 @@ int main(int argc, char **argv)
 	setlocale(LC_CTYPE,"");
 #endif
 
-	hscroll_reset(&hscroll);
+	hscroll.Rewind();
 
 	width = atoi(argv[3]);
 	count = atoi(argv[4]);
 
 	for (unsigned i = 0; i < count; ++i) {
-		p = strscroll(&hscroll, argv[1], argv[2], width);
+		p = hscroll.ScrollString(argv[1], argv[2], width);
 		g_print("%s\n", p);
 		g_free(p);
 
-		hscroll_step(&hscroll);
+		hscroll.Step();
 	}
 
-	hscroll_reset(&hscroll);
+	hscroll.Rewind();
 
 	return 0;
 }
