@@ -318,7 +318,7 @@ bool
 ScreenManager::OnMouse(struct mpdclient *c, int x, int y, mmask_t bstate)
 {
 	if (current_page->second->OnMouse(*c, x,
-					  y - title_bar.window.rows,
+					  y - title_bar.GetHeight(),
 					  bstate))
 		return true;
 

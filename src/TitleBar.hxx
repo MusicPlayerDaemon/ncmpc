@@ -24,13 +24,18 @@
 
 struct mpd_status;
 
-struct TitleBar {
+class TitleBar {
 	struct window window;
 
+public:
 	void Init(unsigned width, int y, int x);
 
 	void Deinit() {
 		delwin(window.w);
+	}
+
+	unsigned GetHeight() const {
+		return window.rows;
 	}
 
 	void OnResize(unsigned width);
