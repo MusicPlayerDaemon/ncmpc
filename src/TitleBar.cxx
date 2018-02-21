@@ -70,7 +70,29 @@ get_volume(const struct mpd_status *status)
 }
 
 void
-TitleBar::Paint(const char *title, const struct mpd_status *status) const
+TitleBar::Update(const struct mpd_status *status)
+{
+	volume = get_volume(status);
+
+	flags[0] = 0;
+	if (status != nullptr) {
+		if (mpd_status_get_repeat(status))
+			g_strlcat(flags, "r", sizeof(flags));
+		if (mpd_status_get_random(status))
+			g_strlcat(flags, "z", sizeof(flags));
+		if (mpd_status_get_single(status))
+			g_strlcat(flags, "s", sizeof(flags));
+		if (mpd_status_get_consume(status))
+			g_strlcat(flags, "c", sizeof(flags));
+		if (mpd_status_get_crossfade(status))
+			g_strlcat(flags, "x", sizeof(flags));
+		if (mpd_status_get_update_id(status) != 0)
+			g_strlcat(flags, "U", sizeof(flags));
+	}
+}
+
+void
+TitleBar::Paint(const char *title) const
 {
 	WINDOW *w = window.w;
 
@@ -105,7 +127,6 @@ TitleBar::Paint(const char *title, const struct mpd_status *status) const
 #endif
 	}
 
-	int volume = get_volume(status);
 	char buf[32];
 	if (volume < 0)
 		g_snprintf(buf, 32, _("Volume n/a"));
@@ -114,23 +135,6 @@ TitleBar::Paint(const char *title, const struct mpd_status *status) const
 
 	colors_use(w, COLOR_TITLE);
 	mvwaddstr(w, 0, window.cols - utf8_width(buf), buf);
-
-	char flags[8];
-	flags[0] = 0;
-	if (status != nullptr) {
-		if (mpd_status_get_repeat(status))
-			g_strlcat(flags, "r", sizeof(flags));
-		if (mpd_status_get_random(status))
-			g_strlcat(flags, "z", sizeof(flags));
-		if (mpd_status_get_single(status))
-			g_strlcat(flags, "s", sizeof(flags));
-		if (mpd_status_get_consume(status))
-			g_strlcat(flags, "c", sizeof(flags));
-		if (mpd_status_get_crossfade(status))
-			g_strlcat(flags, "x", sizeof(flags));
-		if (mpd_status_get_update_id(status) != 0)
-			g_strlcat(flags, "U", sizeof(flags));
-	}
 
 	colors_use(w, COLOR_LINE);
 	mvwhline(w, 1, 0, ACS_HLINE, window.cols);

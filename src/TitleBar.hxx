@@ -27,6 +27,9 @@ struct mpd_status;
 class TitleBar {
 	struct window window;
 
+	int volume = -1;
+	char flags[8] = "";
+
 public:
 	void Init(unsigned width, int y, int x);
 
@@ -39,8 +42,8 @@ public:
 	}
 
 	void OnResize(unsigned width);
-
-	void Paint(const char *title, const struct mpd_status *status) const;
+	void Update(const struct mpd_status *status);
+	void Paint(const char *title) const;
 };
 
 #endif

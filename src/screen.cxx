@@ -213,6 +213,8 @@ ScreenManager::Update(struct mpdclient *c)
 	was_connected = c->IsConnected();
 #endif
 
+	title_bar.Update(c->status);
+
 	/* update the main window */
 	current_page->second->Update(*c);
 

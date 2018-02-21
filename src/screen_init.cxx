@@ -108,11 +108,11 @@ ScreenManager::OnResize(struct mpdclient *c)
 static gboolean
 welcome_timer_callback(gpointer data)
 {
-	auto *c = (struct mpdclient *)data;
+	(void)data;
 
 	screen.welcome_source_id = 0;
 
-	screen.PaintTopWindow(c);
+	screen.PaintTopWindow();
 	doupdate();
 
 	return false;
@@ -136,7 +136,7 @@ ScreenManager::Init(struct mpdclient *c)
 	if (options.welcome_screen_list)
 		welcome_source_id =
 			g_timeout_add_seconds(SCREEN_WELCOME_TIME,
-					      welcome_timer_callback, c);
+					      welcome_timer_callback, nullptr);
 #endif
 
 	/* create top window */

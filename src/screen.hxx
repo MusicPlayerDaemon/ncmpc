@@ -86,7 +86,7 @@ public:
 	void Swap(struct mpdclient *c, const struct mpd_song *song);
 
 
-	void PaintTopWindow(const struct mpdclient *c);
+	void PaintTopWindow();
 	void Paint(struct mpdclient *c, bool main_dirty);
 
 	void Update(struct mpdclient *c);

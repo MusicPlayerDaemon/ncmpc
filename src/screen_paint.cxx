@@ -29,7 +29,7 @@
 #include <assert.h>
 
 void
-ScreenManager::PaintTopWindow(const struct mpdclient *c)
+ScreenManager::PaintTopWindow()
 {
 	const char *title = "";
 #ifndef NCMPC_MINI
@@ -38,7 +38,7 @@ ScreenManager::PaintTopWindow(const struct mpdclient *c)
 		title = current_page->second->GetTitle(buf, buf_size);
 	assert(title != nullptr);
 
-	title_bar.Paint(title, c->status);
+	title_bar.Paint(title);
 }
 
 static void
@@ -65,7 +65,7 @@ void
 ScreenManager::Paint(struct mpdclient *c, bool main_dirty)
 {
 	/* update title/header window */
-	PaintTopWindow(c);
+	PaintTopWindow();
 
 	/* paint the bottom window */
 
