@@ -31,7 +31,7 @@
  * hscroll_clear() to free resources, and hscroll_set() to begin
  * scrolling.
  */
-struct hscroll {
+class hscroll {
 	WINDOW *w;
 	const char *separator;
 
@@ -67,6 +67,7 @@ struct hscroll {
 	 */
 	guint source_id;
 
+public:
 	void Init(WINDOW *_w, const char *_separator) {
 		w = _w;
 		separator = _separator;
