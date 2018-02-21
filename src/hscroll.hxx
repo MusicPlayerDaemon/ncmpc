@@ -64,6 +64,10 @@ public:
 		basic.Init(_separator);
 	}
 
+	bool IsDefined() const {
+		return basic.IsDefined();
+	}
+
 	/**
 	 * Sets a text to scroll.  This installs a timer which redraws
 	 * every second with the current window attributes.  Call
