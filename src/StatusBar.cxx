@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "status_bar.hxx"
+#include "StatusBar.hxx"
 #include "options.hxx"
 #include "colors.hxx"
 #include "i18n.h"
@@ -32,7 +32,7 @@
 #include <string.h>
 
 void
-status_bar_init(struct status_bar *p, unsigned width, int y, int x)
+status_bar_init(StatusBar *p, unsigned width, int y, int x)
 {
 	window_init(&p->window, 1, width, y, x);
 
@@ -51,7 +51,7 @@ status_bar_init(struct status_bar *p, unsigned width, int y, int x)
 }
 
 void
-status_bar_deinit(struct status_bar *p)
+status_bar_deinit(StatusBar *p)
 {
 	delwin(p->window.w);
 
@@ -62,7 +62,7 @@ status_bar_deinit(struct status_bar *p)
 }
 
 void
-status_bar_clear_message(struct status_bar *p)
+status_bar_clear_message(StatusBar *p)
 {
 	assert(p != nullptr);
 
@@ -94,7 +94,7 @@ format_bitrate(char *p, size_t max_length, const struct mpd_status *status)
 #endif /* !NCMPC_MINI */
 
 void
-status_bar_paint(struct status_bar *p, const struct mpd_status *status,
+status_bar_paint(StatusBar *p, const struct mpd_status *status,
 		 const struct mpd_song *song)
 {
 	WINDOW *w = p->window.w;
@@ -225,7 +225,7 @@ status_bar_paint(struct status_bar *p, const struct mpd_status *status,
 }
 
 void
-status_bar_resize(struct status_bar *p, unsigned width, int y, int x)
+status_bar_resize(StatusBar *p, unsigned width, int y, int x)
 {
 	p->window.cols = width;
 	wresize(p->window.w, 1, width);
@@ -235,7 +235,7 @@ status_bar_resize(struct status_bar *p, unsigned width, int y, int x)
 static gboolean
 status_bar_clear_message_cb(gpointer data)
 {
-	auto *p = (struct status_bar *)data;
+	auto *p = (StatusBar *)data;
 	assert(p->message_source_id != 0);
 	p->message_source_id = 0;
 
@@ -244,7 +244,7 @@ status_bar_clear_message_cb(gpointer data)
 }
 
 void
-status_bar_message(struct status_bar *p, const char *msg)
+status_bar_message(StatusBar *p, const char *msg)
 {
 	WINDOW *w = p->window.w;
 

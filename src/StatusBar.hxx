@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_STATUS_BAR_H
-#define NCMPC_STATUS_BAR_H
+#ifndef NCMPC_STATUS_BAR_HXX
+#define NCMPC_STATUS_BAR_HXX
 
 #include "window.hxx"
 
@@ -31,7 +31,7 @@
 struct mpd_status;
 struct mpd_song;
 
-struct status_bar {
+struct StatusBar {
 	struct window window;
 
 	guint message_source_id;
@@ -45,22 +45,22 @@ struct status_bar {
 };
 
 void
-status_bar_init(struct status_bar *p, unsigned width, int y, int x);
+status_bar_init(StatusBar *p, unsigned width, int y, int x);
 
 void
-status_bar_deinit(struct status_bar *p);
+status_bar_deinit(StatusBar *p);
 
 void
-status_bar_paint(struct status_bar *p, const struct mpd_status *status,
+status_bar_paint(StatusBar *p, const struct mpd_status *status,
 		 const struct mpd_song *song);
 
 void
-status_bar_resize(struct status_bar *p, unsigned width, int y, int x);
+status_bar_resize(StatusBar *p, unsigned width, int y, int x);
 
 void
-status_bar_message(struct status_bar *p, const char *msg);
+status_bar_message(StatusBar *p, const char *msg);
 
 void
-status_bar_clear_message(struct status_bar *p);
+status_bar_clear_message(StatusBar *p);
 
 #endif

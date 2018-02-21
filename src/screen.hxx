@@ -25,7 +25,7 @@
 #include "window.hxx"
 #include "TitleBar.hxx"
 #include "progress_bar.hxx"
-#include "status_bar.hxx"
+#include "StatusBar.hxx"
 #include "ncmpc_curses.h"
 
 #include <mpd/client.h>
@@ -44,7 +44,7 @@ public:
 	TitleBar title_bar;
 	struct window main_window;
 	struct progress_bar progress_bar;
-	struct status_bar status_bar;
+	StatusBar status_bar;
 
 	using PageMap = std::map<const struct screen_functions *,
 				 std::unique_ptr<Page>>;
