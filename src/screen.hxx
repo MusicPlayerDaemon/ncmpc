@@ -23,7 +23,7 @@
 #include "config.h"
 #include "command.hxx"
 #include "window.hxx"
-#include "title_bar.hxx"
+#include "TitleBar.hxx"
 #include "progress_bar.hxx"
 #include "status_bar.hxx"
 #include "ncmpc_curses.h"
@@ -41,7 +41,7 @@ class Page;
 
 class ScreenManager {
 public:
-	struct title_bar title_bar;
+	TitleBar title_bar;
 	struct window main_window;
 	struct progress_bar progress_bar;
 	struct status_bar status_bar;

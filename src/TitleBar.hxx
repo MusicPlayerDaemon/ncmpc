@@ -24,12 +24,12 @@
 
 struct mpd_status;
 
-struct title_bar {
+struct TitleBar {
 	struct window window;
 };
 
 static inline void
-title_bar_init(struct title_bar *p, unsigned width, int y, int x)
+title_bar_init(TitleBar *p, unsigned width, int y, int x)
 {
 	window_init(&p->window, 2, width, y, x);
 
@@ -38,16 +38,16 @@ title_bar_init(struct title_bar *p, unsigned width, int y, int x)
 }
 
 static inline void
-title_bar_deinit(struct title_bar *p)
+title_bar_deinit(TitleBar *p)
 {
 	delwin(p->window.w);
 }
 
 void
-title_bar_paint(const struct title_bar *p, const char *title,
+title_bar_paint(const TitleBar *p, const char *title,
 		const struct mpd_status *status);
 
 void
-title_bar_resize(struct title_bar *p, unsigned width);
+title_bar_resize(TitleBar *p, unsigned width);
 
 #endif

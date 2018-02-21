@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "title_bar.hxx"
+#include "TitleBar.hxx"
 #include "colors.hxx"
 #include "command.hxx"
 #include "i18n.h"
@@ -55,7 +55,7 @@ get_volume(const struct mpd_status *status)
 }
 
 void
-title_bar_paint(const struct title_bar *p, const char *title,
+title_bar_paint(const TitleBar *p, const char *title,
 		const struct mpd_status *status)
 {
 	WINDOW *w = p->window.w;
@@ -135,7 +135,7 @@ title_bar_paint(const struct title_bar *p, const char *title,
 }
 
 void
-title_bar_resize(struct title_bar *p, unsigned width)
+title_bar_resize(TitleBar *p, unsigned width)
 {
 	assert(p != nullptr);
 
