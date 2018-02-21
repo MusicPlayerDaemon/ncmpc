@@ -26,6 +26,10 @@
 #include "hscroll.hxx"
 #endif
 
+#include <mpd/status.h>
+
+#include <string>
+
 #include <glib.h>
 
 struct mpd_status;
@@ -40,6 +44,16 @@ class StatusBar {
 	struct hscroll hscroll;
 #endif
 
+	const char *left_text;
+	char right_text[64];
+
+	std::string center_text;
+
+	unsigned left_width = 0, right_width = 0;
+#ifndef NCMPC_MINI
+	unsigned center_width = 0;
+#endif
+
 public:
 	void Init(unsigned width, int y, int x);
 	void Deinit();
@@ -52,8 +66,9 @@ public:
 	void ClearMessage();
 
 	void OnResize(unsigned width, int y, int x);
-	void Paint(const struct mpd_status *status,
-		   const struct mpd_song *song);
+	void Update(const struct mpd_status *status,
+		    const struct mpd_song *song);
+	void Paint() const;
 
 private:
 	static gboolean OnClearMessageTimer(gpointer data);

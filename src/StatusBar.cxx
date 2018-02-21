@@ -94,49 +94,40 @@ format_bitrate(char *p, size_t max_length, const struct mpd_status *status)
 #endif /* !NCMPC_MINI */
 
 void
-StatusBar::Paint(const struct mpd_status *status,
-		 const struct mpd_song *song)
+StatusBar::Update(const struct mpd_status *status,
+		  const struct mpd_song *song)
 {
-	WINDOW *w = window.w;
-	char buffer[window.cols * 4 + 1];
-
-	if (message_source_id != 0)
-		return;
-
-	wmove(w, 0, 0);
-	wclrtoeol(w);
-	colors_use(w, COLOR_STATUS_BOLD);
-
-	enum mpd_state state = status == nullptr ? MPD_STATE_UNKNOWN
+	const auto state = status == nullptr
+		? MPD_STATE_UNKNOWN
 		: mpd_status_get_state(status);
 
-	const char *str = nullptr;
+	left_text = nullptr;
 	switch (state) {
-	case MPD_STATE_PLAY:
-		str = _("Playing:");
-		break;
-	case MPD_STATE_PAUSE:
-		str = _("[Paused]");
-		break;
+	case MPD_STATE_UNKNOWN:
 	case MPD_STATE_STOP:
-	default:
+		break;
+
+	case MPD_STATE_PLAY:
+		left_text = _("Playing:");
+		break;
+
+	case MPD_STATE_PAUSE:
+		left_text = _("[Paused]");
 		break;
 	}
 
-	int x = 0;
-	if (str) {
-		waddstr(w, str);
-		x += utf8_width(str) + 1;
-	}
+	left_width = left_text != nullptr
+		? utf8_width(left_text) + 1
+		: 0;
 
-	/* create time string */
 	if (state == MPD_STATE_PLAY || state == MPD_STATE_PAUSE) {
-		int elapsedTime = seek_id >= 0 &&
+		unsigned elapsed_time = seek_id >= 0 &&
 			seek_id == mpd_status_get_song_id(status)
 			? (unsigned)seek_target_time
 			: mpd_status_get_elapsed_time(status);
-		int total_time = mpd_status_get_total_time(status);
-		if (elapsedTime > 0 || total_time > 0) {
+		const unsigned total_time = mpd_status_get_total_time(status);
+
+		if (elapsed_time > 0 || total_time > 0) {
 #ifdef NCMPC_MINI
 			static char bitrate[1];
 #else
@@ -146,8 +137,8 @@ StatusBar::Paint(const struct mpd_status *status,
 
 			/*checks the conf to see whether to display elapsed or remaining time */
 			if (options.display_remaining_time)
-				elapsedTime = elapsedTime < total_time
-					? total_time - elapsedTime
+				elapsed_time = elapsed_time < total_time
+					? total_time - elapsed_time
 					: 0;
 
 			/* display bitrate if visible-bitrate is true */
@@ -158,63 +149,100 @@ StatusBar::Paint(const struct mpd_status *status,
 			/* write out the time */
 			format_duration_short(elapsed_string,
 					      sizeof(elapsed_string),
-					      elapsedTime);
+					      elapsed_time);
 			format_duration_short(duration_string,
 					      sizeof(duration_string),
 					      total_time);
 
-			g_snprintf(buffer, sizeof(buffer), "%s [%s/%s]",
+			g_snprintf(right_text, sizeof(right_text),
+				   "%s [%s/%s]",
 				   bitrate, elapsed_string, duration_string);
-#ifndef NCMPC_MINI
 		} else {
-			format_bitrate(buffer, sizeof(buffer), status);
+#ifndef NCMPC_MINI
+			format_bitrate(right_text, sizeof(right_text), status);
 #else
-			buffer[0] = 0;
+			right_text[0] = 0;
 #endif
 		}
-	} else {
-		buffer[0] = 0;
-	}
 
-	/* display song */
-	if (state == MPD_STATE_PLAY || state == MPD_STATE_PAUSE) {
-		char songname[window.cols * 4 + 1];
+		right_width = utf8_width(right_text);
+
 #ifndef NCMPC_MINI
-		int width = COLS - x - utf8_width(buffer);
+		int width = COLS - left_width - right_width;
 #endif
 
-		if (song)
-			strfsong(songname, sizeof(songname),
+		if (song) {
+			char buffer[1024];
+			strfsong(buffer, sizeof(buffer),
 				 options.status_format, song);
-		else
-			songname[0] = '\0';
+			center_text = buffer;
+		} else
+			center_text.clear();
 
-		colors_use(w, COLOR_STATUS);
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
-		if (options.scroll && utf8_width(songname) > (unsigned)width) {
-			hscroll.Set(x, 0, width, songname);
-			hscroll.Paint();
+		center_width = utf8_width(center_text.c_str());
+		if (options.scroll &&
+		    utf8_width(center_text.c_str()) > (unsigned)width) {
+			hscroll.Set(left_width, 0, width, center_text.c_str());
 		} else {
 			if (options.scroll)
 				hscroll.Clear();
-			mvwaddstr(w, 0, x, songname);
 		}
-#else
-		mvwaddstr(w, 0, x, songname);
 #endif
+	} else {
+		right_width = 0;
+		center_text.clear();
+
 #ifndef NCMPC_MINI
-	} else if (options.scroll) {
-		hscroll.Clear();
+		if (options.scroll)
+			hscroll.Clear();
 #endif
 	}
 
-	/* display time string */
-	if (buffer[0] != 0) {
-		x = window.cols - strlen(buffer);
+}
+
+void
+StatusBar::Paint() const
+{
+	WINDOW *w = window.w;
+
+	if (message_source_id != 0)
+		return;
+
+	wmove(w, 0, 0);
+	wclrtoeol(w);
+	colors_use(w, COLOR_STATUS_BOLD);
+
+	if (left_text != nullptr)
+		/* display state */
+		waddstr(w, left_text);
+
+	if (right_text[0] != 0) {
+		/* display time string */
+		int x = window.cols - right_width;
 		colors_use(w, COLOR_STATUS_TIME);
-		mvwaddstr(w, 0, x, buffer);
+		mvwaddstr(w, 0, x, right_text);
 	}
+
+	if (!center_text.empty()) {
+		/* display song name */
+
+		colors_use(w, COLOR_STATUS);
+
+		/* scroll if the song name is to long */
+#ifndef NCMPC_MINI
+		if (hscroll.IsDefined())
+			hscroll.Paint();
+		else
+#endif
+			mvwaddstr(w, 0, left_width, center_text.c_str());
+	}
+
+	/* display time string */
+	int x = window.cols - right_width;
+	colors_use(w, COLOR_STATUS_TIME);
+	mvwaddstr(w, 0, x, right_text);
 
 	wnoutrefresh(w);
 }

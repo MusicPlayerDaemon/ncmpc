@@ -212,6 +212,7 @@ ScreenManager::Update(struct mpdclient *c)
 #endif
 
 	title_bar.Update(c->status);
+	status_bar.Update(c->status, c->song);
 
 	/* update the main window */
 	current_page->second->Update(*c);
