@@ -27,18 +27,23 @@
 
 struct mpdclient;
 struct MpdQueue;
+class ScreenManager;
 class FileList;
 struct FileListEntry;
 
 class FileListPage : public ListPage {
 protected:
+	ScreenManager &screen;
+
 	FileList *filelist = nullptr;
 	const char *const song_format;
 
 public:
-	FileListPage(WINDOW *_w, unsigned _cols, unsigned _rows,
+	FileListPage(ScreenManager &_screen, WINDOW *_w,
+		     unsigned _cols, unsigned _rows,
 		     const char *_song_format)
 		:ListPage(_w, _cols, _rows),
+		 screen(_screen),
 		 song_format(_song_format) {}
 
 	~FileListPage() override;

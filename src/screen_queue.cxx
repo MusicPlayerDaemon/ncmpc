@@ -53,6 +53,8 @@
 #define MAX_SONG_LENGTH 512
 
 class QueuePage final : public ListPage {
+	ScreenManager &screen;
+
 #ifndef NCMPC_MINI
 	mutable struct hscroll hscroll;
 #endif
@@ -68,8 +70,10 @@ class QueuePage final : public ListPage {
 	bool playing = false;
 
 public:
-	QueuePage(WINDOW *w, unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows) {
+	QueuePage(ScreenManager &_screen, WINDOW *w,
+		  unsigned cols, unsigned rows)
+		:ListPage(w, cols, rows),
+		 screen(_screen) {
 #ifndef NCMPC_MINI
 		if (options.scroll)
 			hscroll_init(&hscroll, w, options.scroll_sep);
@@ -338,9 +342,10 @@ handle_add_to_playlist(struct mpdclient *c)
 }
 
 static Page *
-screen_queue_init(WINDOW *w, unsigned cols, unsigned rows)
+screen_queue_init(ScreenManager &_screen, WINDOW *w,
+		  unsigned cols, unsigned rows)
 {
-	return new QueuePage(w, cols, rows);
+	return new QueuePage(_screen, w, cols, rows);
 }
 
 gboolean

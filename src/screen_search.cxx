@@ -20,7 +20,6 @@
 #include "screen_search.hxx"
 #include "screen_interface.hxx"
 #include "screen_status.hxx"
-#include "screen.hxx"
 #include "i18n.h"
 #include "options.hxx"
 #include "charset.hxx"
@@ -106,8 +105,9 @@ class SearchPage final : public FileListPage {
 	gchar *pattern = nullptr;
 
 public:
-	SearchPage(WINDOW *_w, unsigned _cols, unsigned _rows)
-		:FileListPage(_w, _cols, _rows,
+	SearchPage(ScreenManager &_screen, WINDOW *_w,
+		   unsigned _cols, unsigned _rows)
+		:FileListPage(_screen, _w, _cols, _rows,
 			      options.search_format != nullptr
 			      ? options.search_format
 			      : options.list_format) {
@@ -395,9 +395,10 @@ SearchPage::Start(struct mpdclient &c)
 }
 
 static Page *
-screen_search_init(WINDOW *w, unsigned cols, unsigned rows)
+screen_search_init(ScreenManager &_screen, WINDOW *w,
+		   unsigned cols, unsigned rows)
 {
-	return new SearchPage(w, cols, rows);
+	return new SearchPage(_screen, w, cols, rows);
 }
 
 SearchPage::~SearchPage()

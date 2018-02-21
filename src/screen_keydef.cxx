@@ -24,7 +24,6 @@
 #include "screen_find.hxx"
 #include "i18n.h"
 #include "conf.hxx"
-#include "screen.hxx"
 #include "screen_utils.hxx"
 #include "options.hxx"
 #include "Compiler.h"
@@ -382,7 +381,7 @@ KeyDefPage::ListCallback(unsigned idx) const
 }
 
 static Page *
-keydef_init(WINDOW *w, unsigned cols, unsigned rows)
+keydef_init(ScreenManager &, WINDOW *w, unsigned cols, unsigned rows)
 {
 	return new KeyDefPage(w, cols, rows);
 }

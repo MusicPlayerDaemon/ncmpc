@@ -94,7 +94,7 @@ ChatPage::CheckChatSupport(struct mpdclient &c)
 }
 
 static Page *
-screen_chat_init(WINDOW *w, unsigned cols, unsigned rows)
+screen_chat_init(ScreenManager &, WINDOW *w, unsigned cols, unsigned rows)
 {
 	return new ChatPage(w, cols, rows);
 }

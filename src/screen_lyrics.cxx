@@ -45,6 +45,8 @@ static struct mpd_song *next_song;
 static bool follow = false;
 
 class LyricsPage final : public TextPage {
+	ScreenManager &screen;
+
 	/** Set if the cursor position shall be kept during the next lyrics update. */
 	bool reloading = false;
 
@@ -57,8 +59,10 @@ class LyricsPage final : public TextPage {
 	guint loader_timeout = 0;
 
 public:
-	LyricsPage(WINDOW *w, unsigned cols, unsigned rows)
-		:TextPage(w, cols, rows) {}
+	LyricsPage(ScreenManager &_screen, WINDOW *w,
+		   unsigned cols, unsigned rows)
+		:TextPage(w, cols, rows),
+		 screen(_screen) {}
 
 	~LyricsPage() override {
 		Cancel();
@@ -297,9 +301,9 @@ LyricsPage::Reload()
 }
 
 static Page *
-lyrics_screen_init(WINDOW *w, unsigned cols, unsigned rows)
+lyrics_screen_init(ScreenManager &_screen, WINDOW *w, unsigned cols, unsigned rows)
 {
-	return new LyricsPage(w, cols, rows);
+	return new LyricsPage(_screen, w, cols, rows);
 }
 
 void

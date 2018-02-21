@@ -98,14 +98,18 @@ static unsigned max_stats_label_width;
 static struct mpd_song *next_song;
 
 class SongPage final : public ListPage {
+	ScreenManager &screen;
+
 	mpd_song *selected_song = nullptr;
 	mpd_song *played_song = nullptr;
 
 	std::vector<std::string> lines;
 
 public:
-	SongPage(WINDOW *w, unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows) {
+	SongPage(ScreenManager &_screen, WINDOW *w,
+		 unsigned cols, unsigned rows)
+		:ListPage(w, cols, rows),
+		 screen(_screen) {
 		lw.hide_cursor = true;
 	}
 
@@ -164,7 +168,8 @@ screen_song_list_callback(unsigned idx, void *data)
 }
 
 static Page *
-screen_song_init(WINDOW *w, unsigned cols, unsigned rows)
+screen_song_init(ScreenManager &_screen, WINDOW *w,
+		 unsigned cols, unsigned rows)
 {
 	for (unsigned i = 0; tag_labels[i].label != nullptr; ++i) {
 		unsigned width = utf8_width(_(tag_labels[i].label));
@@ -181,7 +186,7 @@ screen_song_init(WINDOW *w, unsigned cols, unsigned rows)
 		}
 	}
 
-	return new SongPage(w, cols, rows);
+	return new SongPage(_screen, w, cols, rows);
 }
 
 const char *

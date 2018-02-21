@@ -232,7 +232,7 @@ list_callback(unsigned i, gcc_unused void *data)
 }
 
 static Page *
-help_init(WINDOW *w, unsigned cols, unsigned rows)
+help_init(ScreenManager &, WINDOW *w, unsigned cols, unsigned rows)
 {
 	return new HelpPage(w, cols, rows);
 }

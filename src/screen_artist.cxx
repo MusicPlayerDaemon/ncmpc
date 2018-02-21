@@ -22,7 +22,6 @@
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "screen_browser.hxx"
-#include "screen.hxx"
 #include "i18n.h"
 #include "charset.hxx"
 #include "mpdclient.hxx"
@@ -53,8 +52,9 @@ class ArtistBrowserPage final : public FileListPage {
 	char *album  = nullptr;
 
 public:
-	ArtistBrowserPage(WINDOW *_w, unsigned _cols, unsigned _rows)
-		:FileListPage(_w, _cols, _rows,
+	ArtistBrowserPage(ScreenManager &_screen, WINDOW *_w,
+			  unsigned _cols, unsigned _rows)
+		:FileListPage(_screen, _w, _cols, _rows,
 			      options.list_format) {}
 
 	~ArtistBrowserPage() override {
@@ -320,9 +320,10 @@ ArtistBrowserPage::Reload(struct mpdclient &c)
 }
 
 static Page *
-screen_artist_init(WINDOW *w, unsigned cols, unsigned rows)
+screen_artist_init(ScreenManager &_screen, WINDOW *w,
+		   unsigned cols, unsigned rows)
 {
-	return new ArtistBrowserPage(w, cols, rows);
+	return new ArtistBrowserPage(_screen, w, cols, rows);
 }
 
 void

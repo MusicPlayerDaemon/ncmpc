@@ -43,8 +43,9 @@ class FileBrowserPage final : public FileListPage {
 	char *current_path = g_strdup("");
 
 public:
-	FileBrowserPage(WINDOW *_w, unsigned _cols, unsigned _rows)
-		:FileListPage(_w, _cols, _rows,
+	FileBrowserPage(ScreenManager &_screen, WINDOW *_w,
+			unsigned _cols, unsigned _rows)
+		:FileListPage(_screen, _w, _cols, _rows,
 			      options.list_format) {}
 
 	~FileBrowserPage() override {
@@ -297,9 +298,10 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 }
 
 static Page *
-screen_file_init(WINDOW *w, unsigned cols, unsigned rows)
+screen_file_init(ScreenManager &_screen, WINDOW *w,
+		 unsigned cols, unsigned rows)
 {
-	return new FileBrowserPage(w, cols, rows);
+	return new FileBrowserPage(_screen, w, cols, rows);
 }
 
 void

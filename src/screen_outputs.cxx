@@ -130,7 +130,7 @@ fill_outputs_list(struct mpdclient *c, O &items)
 }
 
 static Page *
-outputs_init(WINDOW *w, unsigned cols, unsigned rows)
+outputs_init(ScreenManager &, WINDOW *w, unsigned cols, unsigned rows)
 {
 	return new OutputsPage(w, cols, rows);
 }
