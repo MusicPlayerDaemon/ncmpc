@@ -45,6 +45,11 @@ StatusBar::Init(unsigned width, int y, int x)
 	if (options.scroll)
 		hscroll_init(&hscroll, window.w, options.scroll_sep);
 #endif
+
+#ifdef ENABLE_COLORS
+	if (options.enable_colors)
+		wbkgd(window.w, COLOR_PAIR(COLOR_STATUS));
+#endif
 }
 
 void

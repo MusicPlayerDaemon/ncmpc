@@ -163,7 +163,6 @@ ScreenManager::Init(struct mpdclient *c)
 		wbkgd(main_window.w,     COLOR_PAIR(COLOR_LIST));
 		wbkgd(progress_bar.window.w,
 		      COLOR_PAIR(COLOR_PROGRESSBAR));
-		wbkgd(status_bar.window.w, COLOR_PAIR(COLOR_STATUS));
 		colors_use(progress_bar.window.w, COLOR_PROGRESSBAR);
 	}
 #endif
