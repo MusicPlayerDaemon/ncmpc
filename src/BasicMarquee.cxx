@@ -28,13 +28,10 @@
 #include <string.h>
 
 char *
-BasicMarquee::ScrollString()
+BasicMarquee::ScrollString() const
 {
 	assert(text != nullptr);
 	assert(separator != nullptr);
-
-	if (offset >= text_utf8_length / 2)
-		offset = 0;
 
 	/* create the new scrolled string */
 	char *tmp = g_strdup(g_utf8_offset_to_pointer(text_utf8, offset));

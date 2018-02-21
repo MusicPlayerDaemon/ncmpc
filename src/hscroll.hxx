@@ -93,7 +93,7 @@ public:
 	 * Explicitly draws the scrolled text.  Calling this function
 	 * is only allowed if there is a text currently.
 	 */
-	void Paint();
+	void Paint() const;
 
 private:
 	static gboolean TimerCallback(gpointer data);

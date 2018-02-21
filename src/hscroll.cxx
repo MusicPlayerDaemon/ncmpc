@@ -71,7 +71,7 @@ hscroll::Clear()
 }
 
 void
-hscroll::Paint()
+hscroll::Paint() const
 {
 	assert(w != nullptr);
 	assert(basic.IsDefined());

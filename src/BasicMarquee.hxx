@@ -82,9 +82,12 @@ public:
 
 	void Step() {
 		++offset;
+
+		if (offset >= text_utf8_length / 2)
+			offset = 0;
 	}
 
-	char *ScrollString();
+	char *ScrollString() const;
 };
 
 #endif
