@@ -1,4 +1,4 @@
-#include "hscroll.hxx"
+#include "BasicMarquee.hxx"
 #include "config.h"
 
 #include <glib.h>
@@ -10,7 +10,6 @@
 
 int main(int argc, char **argv)
 {
-	struct hscroll hscroll;
 	char *p;
 	unsigned width, count;
 
@@ -26,8 +25,9 @@ int main(int argc, char **argv)
 	width = atoi(argv[3]);
 	count = atoi(argv[4]);
 
-	hscroll.Init(nullptr, argv[2]);
-	hscroll.Set(0, 0, width, argv[1]);
+	BasicMarquee hscroll;
+	hscroll.Init(argv[2]);
+	hscroll.Set(width, argv[1]);
 
 	for (unsigned i = 0; i < count; ++i) {
 		p = hscroll.ScrollString();

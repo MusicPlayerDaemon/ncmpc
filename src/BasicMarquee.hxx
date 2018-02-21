@@ -17,14 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef HSCROLL_H
-#define HSCROLL_H
-
-#include "config.h"
-#include "ncmpc_curses.h"
-#include "BasicMarquee.hxx"
-
-#include <glib.h>
+#ifndef BASIC_MARQUEE_HXX
+#define BASIC_MARQUEE_HXX
 
 /**
  * This class is used to auto-scroll text which does not fit on the
@@ -32,68 +26,55 @@
  * hscroll_clear() to free resources, and hscroll_set() to begin
  * scrolling.
  */
-class hscroll {
-	WINDOW *w;
-
-	BasicMarquee basic;
+class BasicMarquee {
+	const char *separator;
 
 	/**
-	 * The postion on the screen.
+	 * The available screen width (in cells).
 	 */
-	unsigned x, y;
+	unsigned width;
 
 	/**
-	 * ncurses attributes for drawing the text.
+	 * The scrolled text, in the current locale.
 	 */
-	attr_t attrs;
+	char *text = nullptr;
 
 	/**
-	 * ncurses colors for drawing the text.
+	 * The current scrolling offset.  This is a character
+	 * position, not a screen column.
 	 */
-	short pair;
-
-	/**
-	 * The id of the timer which updates the scrolled area every
-	 * second.
-	 */
-	guint source_id = 0;
+	unsigned offset;
 
 public:
-	void Init(WINDOW *_w, const char *_separator) {
-		w = _w;
-		basic.Init(_separator);
+	void Init(const char *_separator) {
+		separator = _separator;
+	}
+
+	bool IsDefined() const {
+		return text != nullptr;
 	}
 
 	/**
-	 * Sets a text to scroll.  This installs a timer which redraws
-	 * every second with the current window attributes.  Call
-	 * hscroll_clear() to disable it.
+	 * Sets a text to scroll.  Call Clear() to disable it.
+	 *
+	 * @return false if nothing was changed
 	 */
-	void Set(unsigned x, unsigned y, unsigned width, const char *text);
+	bool Set(unsigned width, const char *text);
 
 	/**
-	 * Removes the text and the timer.  It may be reused with
-	 * Set().
+	 * Removes the text.  It may be reused with Set().
 	 */
 	void Clear();
 
 	void Rewind() {
-		basic.Rewind();
+		offset = 0;
 	}
 
 	void Step() {
-		basic.Step();
+		++offset;
 	}
 
-	/**
-	 * Explicitly draws the scrolled text.  Calling this function
-	 * is only allowed if there is a text currently.
-	 */
-	void Paint();
-
-private:
-	static gboolean TimerCallback(gpointer data);
-	void TimerCallback();
+	char *ScrollString();
 };
 
 #endif

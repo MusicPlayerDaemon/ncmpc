@@ -21,30 +21,9 @@
 #include "charset.hxx"
 #include "ncfix.h"
 
+#include <algorithm>
+
 #include <assert.h>
-#include <string.h>
-
-char *
-hscroll::ScrollString()
-{
-	assert(text != nullptr);
-	assert(separator != nullptr);
-
-	/* create a buffer containing the string and the separator */
-	char *tmp = replace_locale_to_utf8(g_strconcat(text, separator,
-						       text, separator, nullptr));
-	if (offset >= (unsigned)g_utf8_strlen(tmp, -1) / 2)
-		offset = 0;
-
-	/* create the new scrolled string */
-	char *buf = g_utf8_offset_to_pointer(tmp, offset);
-	utf8_cut_width(buf, width);
-
-	/* convert back to locale */
-	buf = utf8_to_locale(buf);
-	g_free(tmp);
-	return buf;
-}
 
 gboolean
 hscroll::TimerCallback(gpointer data)
@@ -68,44 +47,34 @@ hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text)
 	assert(w != nullptr);
 	assert(_text != nullptr);
 
-	if (text != nullptr && _x == x && _y == y &&
-	    _width == width && strcmp(_text, text) == 0)
-		/* no change, do nothing (and, most importantly, do
-		   not reset the current offset!) */
-		return;
-
-	Clear();
-
 	x = _x;
 	y = _y;
-	width = _width;
+
+	if (!basic.Set(_width, _text))
+		return;
 
 	/* obtain the ncurses attributes and the current color, store
 	   them */
 	fix_wattr_get(w, &attrs, &pair, nullptr);
 
-	text = g_strdup(_text);
-	offset = 0;
-	source_id = g_timeout_add_seconds(1, TimerCallback, this);
+	if (source_id == 0)
+		source_id = g_timeout_add_seconds(1, TimerCallback, this);
 }
 
 void
 hscroll::Clear()
 {
-	if (text == nullptr)
-		return;
+	basic.Clear();
 
-	g_source_remove(source_id);
-
-	g_free(text);
-	text = nullptr;
+	if (source_id != 0)
+		g_source_remove(std::exchange(source_id, 0));
 }
 
 void
 hscroll::Paint()
 {
 	assert(w != nullptr);
-	assert(text != nullptr);
+	assert(basic.IsDefined());
 
 	/* set stored attributes and color */
 	attr_t old_attrs;
@@ -114,7 +83,7 @@ hscroll::Paint()
 	wattr_set(w, attrs, pair, nullptr);
 
 	/* scroll the string, and draw it */
-	char *p = ScrollString();
+	char *p = basic.ScrollString();
 	mvwaddstr(w, y, x, p);
 	g_free(p);
 
