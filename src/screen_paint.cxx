@@ -41,24 +41,23 @@ ScreenManager::PaintTopWindow()
 	title_bar.Paint(title);
 }
 
-static void
-update_progress_window(struct mpdclient *c, bool repaint)
+inline void
+ScreenManager::UpdateProgressWindow(struct mpdclient &c)
 {
 	unsigned elapsed;
-	if (c->status == nullptr)
+	if (c.status == nullptr)
 		elapsed = 0;
-	else if (seek_id >= 0 && seek_id == mpd_status_get_song_id(c->status))
+	else if (seek_id >= 0 && seek_id == mpd_status_get_song_id(c.status))
 		elapsed = seek_target_time;
 	else
-		elapsed = mpd_status_get_elapsed_time(c->status);
+		elapsed = mpd_status_get_elapsed_time(c.status);
 
-	unsigned duration = mpdclient_is_playing(c)
-		? mpd_status_get_total_time(c->status)
+	unsigned duration = mpdclient_is_playing(&c)
+		? mpd_status_get_total_time(c.status)
 		: 0;
 
-	if (progress_bar_set(&screen.progress_bar, elapsed, duration) ||
-	    repaint)
-		progress_bar_paint(&screen.progress_bar);
+	progress_bar_set(&progress_bar, elapsed, duration);
+	progress_bar_paint(&progress_bar);
 }
 
 void
@@ -69,7 +68,7 @@ ScreenManager::Paint(struct mpdclient *c, bool main_dirty)
 
 	/* paint the bottom window */
 
-	update_progress_window(c, true);
+	UpdateProgressWindow(*c);
 	status_bar_paint(&status_bar, c->status, c->song);
 
 	/* paint the main window */

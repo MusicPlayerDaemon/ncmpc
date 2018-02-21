@@ -98,6 +98,8 @@ public:
 
 private:
 	void NextMode(struct mpdclient &c, int offset);
+
+	void UpdateProgressWindow(struct mpdclient &c);
 };
 
 extern ScreenManager screen;
