@@ -19,6 +19,7 @@
 
 #include "TitleBar.hxx"
 #include "colors.hxx"
+#include "options.hxx"
 #include "command.hxx"
 #include "i18n.h"
 #include "charset.hxx"
@@ -39,6 +40,11 @@ TitleBar::Init(unsigned width, int y, int x)
 
 	leaveok(window.w, true);
 	keypad(window.w, true);
+
+#ifdef ENABLE_COLORS
+	if (options.enable_colors)
+		wbkgd(window.w, COLOR_PAIR(COLOR_TITLE));
+#endif
 }
 
 #ifndef NCMPC_MINI
