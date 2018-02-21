@@ -39,25 +39,21 @@ struct StatusBar {
 #ifndef NCMPC_MINI
 	struct hscroll hscroll;
 #endif
+
+	void Init(unsigned width, int y, int x);
+	void Deinit();
+
+	void SetMessage(const char *msg);
+	void ClearMessage();
+
+	void OnResize(unsigned width, int y, int x);
+
+	void Paint(const struct mpd_status *status,
+		   const struct mpd_song *song);
+
+private:
+	static gboolean OnClearMessageTimer(gpointer data);
+	void OnClearMessageTimer();
 };
-
-void
-status_bar_init(StatusBar *p, unsigned width, int y, int x);
-
-void
-status_bar_deinit(StatusBar *p);
-
-void
-status_bar_paint(StatusBar *p, const struct mpd_status *status,
-		 const struct mpd_song *song);
-
-void
-status_bar_resize(StatusBar *p, unsigned width, int y, int x);
-
-void
-status_bar_message(StatusBar *p, const char *msg);
-
-void
-status_bar_clear_message(StatusBar *p);
 
 #endif

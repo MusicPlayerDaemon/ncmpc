@@ -32,43 +32,41 @@
 #include <string.h>
 
 void
-status_bar_init(StatusBar *p, unsigned width, int y, int x)
+StatusBar::Init(unsigned width, int y, int x)
 {
-	window_init(&p->window, 1, width, y, x);
+	window_init(&window, 1, width, y, x);
 
-	leaveok(p->window.w, false);
-	keypad(p->window.w, true);
+	leaveok(window.w, false);
+	keypad(window.w, true);
 
-	p->message_source_id = 0;
+	message_source_id = 0;
 
 #ifndef NCMPC_MINI
 	if (options.scroll)
-		hscroll_init(&p->hscroll, p->window.w, options.scroll_sep);
+		hscroll_init(&hscroll, window.w, options.scroll_sep);
 #endif
 }
 
 void
-status_bar_deinit(StatusBar *p)
+StatusBar::Deinit()
 {
-	delwin(p->window.w);
+	delwin(window.w);
 
 #ifndef NCMPC_MINI
 	if (options.scroll)
-		hscroll_clear(&p->hscroll);
+		hscroll_clear(&hscroll);
 #endif
 }
 
 void
-status_bar_clear_message(StatusBar *p)
+StatusBar::ClearMessage()
 {
-	assert(p != nullptr);
-
-	if (p->message_source_id != 0) {
-		g_source_remove(p->message_source_id);
-		p->message_source_id = 0;
+	if (message_source_id != 0) {
+		g_source_remove(message_source_id);
+		message_source_id = 0;
 	}
 
-	WINDOW *w = p->window.w;
+	WINDOW *w = window.w;
 
 	wmove(w, 0, 0);
 	wclrtoeol(w);
@@ -91,13 +89,13 @@ format_bitrate(char *p, size_t max_length, const struct mpd_status *status)
 #endif /* !NCMPC_MINI */
 
 void
-status_bar_paint(StatusBar *p, const struct mpd_status *status,
+StatusBar::Paint(const struct mpd_status *status,
 		 const struct mpd_song *song)
 {
-	WINDOW *w = p->window.w;
-	char buffer[p->window.cols * 4 + 1];
+	WINDOW *w = window.w;
+	char buffer[window.cols * 4 + 1];
 
-	if (p->message_source_id != 0)
+	if (message_source_id != 0)
 		return;
 
 	wmove(w, 0, 0);
@@ -175,7 +173,7 @@ status_bar_paint(StatusBar *p, const struct mpd_status *status,
 
 	/* display song */
 	if (state == MPD_STATE_PLAY || state == MPD_STATE_PAUSE) {
-		char songname[p->window.cols * 4 + 1];
+		char songname[window.cols * 4 + 1];
 #ifndef NCMPC_MINI
 		int width = COLS - x - utf8_width(buffer);
 #endif
@@ -190,11 +188,11 @@ status_bar_paint(StatusBar *p, const struct mpd_status *status,
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
 		if (options.scroll && utf8_width(songname) > (unsigned)width) {
-			hscroll_set(&p->hscroll, x, 0, width, songname);
-			hscroll_draw(&p->hscroll);
+			hscroll_set(&hscroll, x, 0, width, songname);
+			hscroll_draw(&hscroll);
 		} else {
 			if (options.scroll)
-				hscroll_clear(&p->hscroll);
+				hscroll_clear(&hscroll);
 			mvwaddstr(w, 0, x, songname);
 		}
 #else
@@ -202,13 +200,13 @@ status_bar_paint(StatusBar *p, const struct mpd_status *status,
 #endif
 #ifndef NCMPC_MINI
 	} else if (options.scroll) {
-		hscroll_clear(&p->hscroll);
+		hscroll_clear(&hscroll);
 #endif
 	}
 
 	/* display time string */
 	if (buffer[0] != 0) {
-		x = p->window.cols - strlen(buffer);
+		x = window.cols - strlen(buffer);
 		colors_use(w, COLOR_STATUS_TIME);
 		mvwaddstr(w, 0, x, buffer);
 	}
@@ -217,32 +215,37 @@ status_bar_paint(StatusBar *p, const struct mpd_status *status,
 }
 
 void
-status_bar_resize(StatusBar *p, unsigned width, int y, int x)
+StatusBar::OnResize(unsigned width, int y, int x)
 {
-	p->window.cols = width;
-	wresize(p->window.w, 1, width);
-	mvwin(p->window.w, y, x);
+	window.cols = width;
+	wresize(window.w, 1, width);
+	mvwin(window.w, y, x);
 }
 
-static gboolean
-status_bar_clear_message_cb(gpointer data)
+inline void
+StatusBar::OnClearMessageTimer()
 {
-	auto *p = (StatusBar *)data;
-	assert(p->message_source_id != 0);
-	p->message_source_id = 0;
+	assert(message_source_id != 0);
+	message_source_id = 0;
+	ClearMessage();
+}
 
-	status_bar_clear_message(p);
+gboolean
+StatusBar::OnClearMessageTimer(gpointer data)
+{
+	auto &sb = *(StatusBar *)data;
+	sb.OnClearMessageTimer();
 	return false;
 }
 
 void
-status_bar_message(StatusBar *p, const char *msg)
+StatusBar::SetMessage(const char *msg)
 {
-	WINDOW *w = p->window.w;
+	WINDOW *w = window.w;
 
 #ifndef NCMPC_MINI
 	if (options.scroll)
-		hscroll_clear(&p->hscroll);
+		hscroll_clear(&hscroll);
 #endif
 
 	wmove(w, 0, 0);
@@ -251,8 +254,8 @@ status_bar_message(StatusBar *p, const char *msg)
 	waddstr(w, msg);
 	wnoutrefresh(w);
 
-	if (p->message_source_id != 0)
-		g_source_remove(p->message_source_id);
-	p->message_source_id = g_timeout_add_seconds(options.status_message_time,
-						     status_bar_clear_message_cb, p);
+	if (message_source_id != 0)
+		g_source_remove(message_source_id);
+	message_source_id = g_timeout_add_seconds(options.status_message_time,
+						  OnClearMessageTimer, this);
 }

@@ -26,13 +26,13 @@
 void
 screen_status_clear_message()
 {
-	status_bar_clear_message(&screen.status_bar);
+	screen.status_bar.ClearMessage();
 }
 
 void
 screen_status_message(const char *msg)
 {
-	status_bar_message(&screen.status_bar, msg);
+	screen.status_bar.SetMessage(msg);
 }
 
 void

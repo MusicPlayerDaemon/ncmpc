@@ -52,7 +52,7 @@ ScreenManager::Exit()
 	title_bar.Deinit();
 	delwin(main_window.w);
 	progress_bar_deinit(&progress_bar);
-	status_bar_deinit(&status_bar);
+	status_bar.Deinit();
 
 #ifndef NCMPC_MINI
 	if (welcome_source_id != 0)
@@ -87,7 +87,7 @@ ScreenManager::OnResize(struct mpdclient *c)
 	progress_bar_resize(&progress_bar, cols, rows - 2, 0);
 
 	/* status window */
-	status_bar_resize(&status_bar, cols, rows - 1, 0);
+	status_bar.OnResize(cols, rows - 1, 0);
 
 	buf_size = cols;
 	g_free(buf);
@@ -154,7 +154,7 @@ ScreenManager::Init(struct mpdclient *c)
 	progress_bar_init(&progress_bar, cols, rows - 2, 0);
 
 	/* create status window */
-	status_bar_init(&status_bar, cols, rows - 1, 0);
+	status_bar.Init(cols, rows - 1, 0);
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {

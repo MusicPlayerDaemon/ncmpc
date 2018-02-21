@@ -69,7 +69,7 @@ ScreenManager::Paint(struct mpdclient *c, bool main_dirty)
 	/* paint the bottom window */
 
 	UpdateProgressWindow(*c);
-	status_bar_paint(&status_bar, c->status, c->song);
+	status_bar.Paint(c->status, c->song);
 
 	/* paint the main window */
 
