@@ -22,6 +22,8 @@
 
 #include <glib.h>
 
+#include <algorithm>
+
 #include <assert.h>
 #include <string.h>
 
@@ -31,20 +33,17 @@ BasicMarquee::ScrollString()
 	assert(text != nullptr);
 	assert(separator != nullptr);
 
-	/* create a buffer containing the string and the separator */
-	char *tmp = replace_locale_to_utf8(g_strconcat(text, separator,
-						       text, separator, nullptr));
-	if (offset >= (unsigned)g_utf8_strlen(tmp, -1) / 2)
+	if (offset >= text_utf8_length / 2)
 		offset = 0;
 
 	/* create the new scrolled string */
-	char *buf = g_utf8_offset_to_pointer(tmp, offset);
-	utf8_cut_width(buf, width);
+	char *tmp = g_strdup(g_utf8_offset_to_pointer(text_utf8, offset));
+	utf8_cut_width(tmp, width);
 
 	/* convert back to locale */
-	buf = utf8_to_locale(buf);
+	char *result = utf8_to_locale(tmp);
 	g_free(tmp);
-	return buf;
+	return result;
 }
 
 bool
@@ -61,9 +60,15 @@ BasicMarquee::Set(unsigned _width, const char *_text)
 	Clear();
 
 	width = _width;
+	offset = 0;
 
 	text = g_strdup(_text);
-	offset = 0;
+
+	/* create a buffer containing the string and the separator */
+	text_utf8 = replace_locale_to_utf8(g_strconcat(text, separator,
+						       text, separator,
+						       nullptr));
+	text_utf8_length = g_utf8_strlen(text_utf8, -1);
 
 	return true;
 }
@@ -73,4 +78,6 @@ BasicMarquee::Clear()
 {
 	g_free(text);
 	text = nullptr;
+
+	g_free(std::exchange(text_utf8, nullptr));
 }

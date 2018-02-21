@@ -35,9 +35,19 @@ class BasicMarquee {
 	unsigned width;
 
 	/**
+	 * The text length in Unicode characters.
+	 */
+	unsigned text_utf8_length;
+
+	/**
 	 * The scrolled text, in the current locale.
 	 */
 	char *text = nullptr;
+
+	/**
+	 * Thee scrolled text, in UTF-8, including separators.
+	 */
+	char *text_utf8 = nullptr;
 
 	/**
 	 * The current scrolling offset.  This is a character
