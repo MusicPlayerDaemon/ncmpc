@@ -32,6 +32,15 @@
 #include <assert.h>
 #include <string.h>
 
+void
+TitleBar::Init(unsigned width, int y, int x)
+{
+	window_init(&window, 2, width, y, x);
+
+	leaveok(window.w, true);
+	keypad(window.w, true);
+}
+
 #ifndef NCMPC_MINI
 static void
 print_hotkey(WINDOW *w, command_t cmd, const char *label)
@@ -55,12 +64,9 @@ get_volume(const struct mpd_status *status)
 }
 
 void
-title_bar_paint(const TitleBar *p, const char *title,
-		const struct mpd_status *status)
+TitleBar::Paint(const char *title, const struct mpd_status *status) const
 {
-	WINDOW *w = p->window.w;
-
-	assert(p != nullptr);
+	WINDOW *w = window.w;
 
 	wmove(w, 0, 0);
 	wclrtoeol(w);
@@ -101,7 +107,7 @@ title_bar_paint(const TitleBar *p, const char *title,
 		g_snprintf(buf, 32, _("Volume %d%%"), volume);
 
 	colors_use(w, COLOR_TITLE);
-	mvwaddstr(w, 0, p->window.cols - utf8_width(buf), buf);
+	mvwaddstr(w, 0, window.cols - utf8_width(buf), buf);
 
 	char flags[8];
 	flags[0] = 0;
@@ -121,9 +127,9 @@ title_bar_paint(const TitleBar *p, const char *title,
 	}
 
 	colors_use(w, COLOR_LINE);
-	mvwhline(w, 1, 0, ACS_HLINE, p->window.cols);
+	mvwhline(w, 1, 0, ACS_HLINE, window.cols);
 	if (flags[0]) {
-		wmove(w, 1, p->window.cols - strlen(flags) - 3);
+		wmove(w, 1, window.cols - strlen(flags) - 3);
 		waddch(w, '[');
 		colors_use(w, COLOR_LINE_FLAGS);
 		waddstr(w, flags);
@@ -135,10 +141,8 @@ title_bar_paint(const TitleBar *p, const char *title,
 }
 
 void
-title_bar_resize(TitleBar *p, unsigned width)
+TitleBar::OnResize(unsigned width)
 {
-	assert(p != nullptr);
-
-	p->window.cols = width;
-	wresize(p->window.w, 2, width);
+	window.cols = width;
+	wresize(window.w, 2, width);
 }

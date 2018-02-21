@@ -49,7 +49,7 @@ ScreenManager::Exit()
 	g_free(buf);
 	g_free(findbuf);
 
-	title_bar_deinit(&title_bar);
+	title_bar.Deinit();
 	delwin(main_window.w);
 	progress_bar_deinit(&progress_bar);
 	status_bar_deinit(&status_bar);
@@ -76,7 +76,7 @@ ScreenManager::OnResize(struct mpdclient *c)
 	resizeterm(rows, cols);
 #endif
 
-	title_bar_resize(&title_bar, cols);
+	title_bar.OnResize(cols);
 
 	/* main window */
 	main_window.cols = cols;
@@ -140,7 +140,7 @@ ScreenManager::Init(struct mpdclient *c)
 #endif
 
 	/* create top window */
-	title_bar_init(&title_bar, cols, 0, 0);
+	title_bar.Init(cols, 0, 0);
 
 	/* create main window */
 	window_init(&main_window, rows - 4, cols, 2, 0);

@@ -26,28 +26,16 @@ struct mpd_status;
 
 struct TitleBar {
 	struct window window;
+
+	void Init(unsigned width, int y, int x);
+
+	void Deinit() {
+		delwin(window.w);
+	}
+
+	void OnResize(unsigned width);
+
+	void Paint(const char *title, const struct mpd_status *status) const;
 };
-
-static inline void
-title_bar_init(TitleBar *p, unsigned width, int y, int x)
-{
-	window_init(&p->window, 2, width, y, x);
-
-	leaveok(p->window.w, true);
-	keypad(p->window.w, true);
-}
-
-static inline void
-title_bar_deinit(TitleBar *p)
-{
-	delwin(p->window.w);
-}
-
-void
-title_bar_paint(const TitleBar *p, const char *title,
-		const struct mpd_status *status);
-
-void
-title_bar_resize(TitleBar *p, unsigned width);
 
 #endif

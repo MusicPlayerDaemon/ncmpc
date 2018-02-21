@@ -38,7 +38,7 @@ ScreenManager::PaintTopWindow(const struct mpdclient *c)
 		title = current_page->second->GetTitle(buf, buf_size);
 	assert(title != nullptr);
 
-	title_bar_paint(&title_bar, title, c->status);
+	title_bar.Paint(title, c->status);
 }
 
 static void
