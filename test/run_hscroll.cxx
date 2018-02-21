@@ -23,10 +23,11 @@ int main(int argc, char **argv)
 	setlocale(LC_CTYPE,"");
 #endif
 
-	hscroll.Rewind();
-
 	width = atoi(argv[3]);
 	count = atoi(argv[4]);
+
+	hscroll.Init(nullptr, argv[2]);
+	hscroll.Set(0, 0, width, argv[1]);
 
 	for (unsigned i = 0; i < count; ++i) {
 		p = hscroll.ScrollString(argv[1], argv[2], width);
@@ -36,7 +37,6 @@ int main(int argc, char **argv)
 		hscroll.Step();
 	}
 
-	hscroll.Rewind();
-
+	hscroll.Clear();
 	return 0;
 }
