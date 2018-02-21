@@ -25,21 +25,20 @@
 #include <string.h>
 
 char *
-hscroll::ScrollString(const char *str, const char *_separator,
-		      unsigned _width)
+hscroll::ScrollString()
 {
-	assert(str != nullptr);
-	assert(_separator != nullptr);
+	assert(text != nullptr);
+	assert(separator != nullptr);
 
 	/* create a buffer containing the string and the separator */
-	char *tmp = replace_locale_to_utf8(g_strconcat(str, _separator,
-						       str, _separator, nullptr));
+	char *tmp = replace_locale_to_utf8(g_strconcat(text, separator,
+						       text, separator, nullptr));
 	if (offset >= (unsigned)g_utf8_strlen(tmp, -1) / 2)
 		offset = 0;
 
 	/* create the new scrolled string */
 	char *buf = g_utf8_offset_to_pointer(tmp, offset);
-	utf8_cut_width(buf, _width);
+	utf8_cut_width(buf, width);
 
 	/* convert back to locale */
 	buf = utf8_to_locale(buf);
@@ -115,7 +114,7 @@ hscroll::Paint()
 	wattr_set(w, attrs, pair, nullptr);
 
 	/* scroll the string, and draw it */
-	char *p = ScrollString(text, separator, width);
+	char *p = ScrollString();
 	mvwaddstr(w, y, x, p);
 	g_free(p);
 

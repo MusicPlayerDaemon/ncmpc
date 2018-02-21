@@ -94,8 +94,7 @@ public:
 		++offset;
 	}
 
-	char *ScrollString(const char *str, const char *separator,
-			   unsigned width);
+	char *ScrollString();
 
 	/**
 	 * Explicitly draws the scrolled text.  Calling this function

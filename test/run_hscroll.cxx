@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 	hscroll.Set(0, 0, width, argv[1]);
 
 	for (unsigned i = 0; i < count; ++i) {
-		p = hscroll.ScrollString(argv[1], argv[2], width);
+		p = hscroll.ScrollString();
 		g_print("%s\n", p);
 		g_free(p);
 
