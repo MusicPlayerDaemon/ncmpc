@@ -67,6 +67,9 @@ public:
 	guint welcome_source_id;
 #endif
 
+	ScreenManager();
+	~ScreenManager();
+
 	void Init(struct mpdclient *c);
 	void Exit();
 
