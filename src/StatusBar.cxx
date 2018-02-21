@@ -44,9 +44,6 @@ status_bar_init(StatusBar *p, unsigned width, int y, int x)
 #ifndef NCMPC_MINI
 	if (options.scroll)
 		hscroll_init(&p->hscroll, p->window.w, options.scroll_sep);
-
-	p->prev_status = nullptr;
-	p->prev_song = nullptr;
 #endif
 }
 
@@ -99,11 +96,6 @@ status_bar_paint(StatusBar *p, const struct mpd_status *status,
 {
 	WINDOW *w = p->window.w;
 	char buffer[p->window.cols * 4 + 1];
-
-#ifndef NCMPC_MINI
-	p->prev_status = status;
-	p->prev_song = song;
-#endif
 
 	if (p->message_source_id != 0)
 		return;

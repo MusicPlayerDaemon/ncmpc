@@ -38,9 +38,6 @@ struct StatusBar {
 
 #ifndef NCMPC_MINI
 	struct hscroll hscroll;
-
-	const struct mpd_status *prev_status;
-	const struct mpd_song *prev_song;
 #endif
 };
 
