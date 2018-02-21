@@ -53,7 +53,7 @@ ignore_key(int key)
 int
 screen_getch(const char *prompt)
 {
-	WINDOW *w = screen.status_bar.window.w;
+	WINDOW *w = screen.status_bar.GetWindow().w;
 
 	colors_use(w, COLOR_STATUS_ALERT);
 	werase(w);
@@ -96,7 +96,7 @@ screen_readln(const char *prompt,
 	      GList **history,
 	      GCompletion *gcmp)
 {
-	struct window *window = &screen.status_bar.window;
+	struct window *window = &screen.status_bar.GetWindow();
 	WINDOW *w = window->w;
 	char *line = nullptr;
 
@@ -111,7 +111,7 @@ screen_readln(const char *prompt,
 char *
 screen_read_password(const char *prompt)
 {
-	struct window *window = &screen.status_bar.window;
+	struct window *window = &screen.status_bar.GetWindow();
 	WINDOW *w = window->w;
 
 	wmove(w, 0,0);

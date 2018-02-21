@@ -31,7 +31,7 @@
 struct mpd_status;
 struct mpd_song;
 
-struct StatusBar {
+class StatusBar {
 	struct window window;
 
 	guint message_source_id;
@@ -40,14 +40,18 @@ struct StatusBar {
 	struct hscroll hscroll;
 #endif
 
+public:
 	void Init(unsigned width, int y, int x);
 	void Deinit();
+
+	struct window &GetWindow() {
+		return window;
+	}
 
 	void SetMessage(const char *msg);
 	void ClearMessage();
 
 	void OnResize(unsigned width, int y, int x);
-
 	void Paint(const struct mpd_status *status,
 		   const struct mpd_song *song);
 
