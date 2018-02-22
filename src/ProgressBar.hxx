@@ -17,12 +17,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_PROGRESS_BAR_H
-#define NCMPC_PROGRESS_BAR_H
+#ifndef NCMPC_PROGRESS_BAR_HXX
+#define NCMPC_PROGRESS_BAR_HXX
 
 #include "window.hxx"
 
-struct progress_bar {
+struct ProgressBar {
 	struct window window;
 
 	unsigned current, max;
@@ -31,7 +31,7 @@ struct progress_bar {
 };
 
 static inline void
-progress_bar_init(struct progress_bar *p, unsigned width, int y, int x)
+progress_bar_init(ProgressBar *p, unsigned width, int y, int x)
 {
 	window_init(&p->window, 1, width, y, x);
 	leaveok(p->window.w, true);
@@ -42,18 +42,18 @@ progress_bar_init(struct progress_bar *p, unsigned width, int y, int x)
 }
 
 static inline void
-progress_bar_deinit(struct progress_bar *p)
+progress_bar_deinit(ProgressBar *p)
 {
 	delwin(p->window.w);
 }
 
 void
-progress_bar_paint(const struct progress_bar *p);
+progress_bar_paint(const ProgressBar *p);
 
 void
-progress_bar_resize(struct progress_bar *p, unsigned width, int y, int x);
+progress_bar_resize(ProgressBar *p, unsigned width, int y, int x);
 
 bool
-progress_bar_set(struct progress_bar *p, unsigned current, unsigned max);
+progress_bar_set(ProgressBar *p, unsigned current, unsigned max);
 
 #endif

@@ -17,12 +17,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "progress_bar.hxx"
+#include "ProgressBar.hxx"
 
 #include <assert.h>
 
 void
-progress_bar_paint(const struct progress_bar *p)
+progress_bar_paint(const ProgressBar *p)
 {
 	assert(p != nullptr);
 
@@ -41,7 +41,7 @@ progress_bar_paint(const struct progress_bar *p)
 }
 
 static bool
-progress_bar_calc(struct progress_bar *p)
+progress_bar_calc(ProgressBar *p)
 {
 	if (p->max == 0)
 		return false;
@@ -54,7 +54,7 @@ progress_bar_calc(struct progress_bar *p)
 }
 
 void
-progress_bar_resize(struct progress_bar *p, unsigned width, int y, int x)
+progress_bar_resize(ProgressBar *p, unsigned width, int y, int x)
 {
 	assert(p != nullptr);
 
@@ -66,7 +66,7 @@ progress_bar_resize(struct progress_bar *p, unsigned width, int y, int x)
 }
 
 bool
-progress_bar_set(struct progress_bar *p, unsigned current, unsigned max)
+progress_bar_set(ProgressBar *p, unsigned current, unsigned max)
 {
 	assert(p != nullptr);
 
