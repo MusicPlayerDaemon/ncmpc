@@ -43,7 +43,8 @@ ScreenManager::ScreenManager()
 		std::max<unsigned>(COLS, SCREEN_MIN_COLS)),
 	 title_bar(layout.cols, layout.title_y, layout.title_x),
 	 progress_bar(layout.cols,
-		      layout.GetProgressY(), layout.progress_x)
+		      layout.GetProgressY(), layout.progress_x),
+	status_bar(layout.cols, layout.GetStatusY(), layout.status_x)
 {
 	buf_size = layout.cols;
 	buf = (char *)g_malloc(buf_size);
@@ -57,10 +58,6 @@ ScreenManager::ScreenManager()
 		leaveok(main_window.w, true);
 
 	keypad(main_window.w, true);
-
-	/* create status window */
-	status_bar.Init(layout.cols,
-			layout.GetStatusY(), layout.status_x);
 }
 
 ScreenManager::~ScreenManager()
@@ -70,7 +67,6 @@ ScreenManager::~ScreenManager()
 	g_free(findbuf);
 
 	delwin(main_window.w);
-	status_bar.Deinit();
 
 #ifndef NCMPC_MINI
 	if (welcome_source_id != 0)

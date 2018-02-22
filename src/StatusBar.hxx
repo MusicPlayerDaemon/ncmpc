@@ -38,7 +38,7 @@ struct mpd_song;
 class StatusBar {
 	struct window window;
 
-	guint message_source_id;
+	guint message_source_id = 0;
 
 #ifndef NCMPC_MINI
 	struct hscroll hscroll;
@@ -55,8 +55,8 @@ class StatusBar {
 #endif
 
 public:
-	void Init(unsigned width, int y, int x);
-	void Deinit();
+	StatusBar(unsigned width, int y, int x);
+	~StatusBar();
 
 	struct window &GetWindow() {
 		return window;

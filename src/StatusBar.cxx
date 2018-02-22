@@ -31,15 +31,12 @@
 #include <assert.h>
 #include <string.h>
 
-void
-StatusBar::Init(unsigned width, int y, int x)
+StatusBar::StatusBar(unsigned width, int y, int x)
 {
 	window_init(&window, 1, width, y, x);
 
 	leaveok(window.w, false);
 	keypad(window.w, true);
-
-	message_source_id = 0;
 
 #ifndef NCMPC_MINI
 	if (options.scroll)
@@ -52,8 +49,7 @@ StatusBar::Init(unsigned width, int y, int x)
 #endif
 }
 
-void
-StatusBar::Deinit()
+StatusBar::~StatusBar()
 {
 	delwin(window.w);
 
