@@ -19,7 +19,6 @@
 
 #include "signals.hxx"
 #include "screen.hxx"
-#include "ncmpc.hxx"
 #include "Compiler.h"
 
 #include <glib-unix.h>
@@ -39,8 +38,10 @@ handle_quit_signal(gpointer data)
 
 static gboolean
 sigwinch_event(gcc_unused GIOChannel *source,
-               gcc_unused GIOCondition condition, gcc_unused gpointer data)
+	       gcc_unused GIOCondition condition, gpointer data)
 {
+	auto &screen = *(ScreenManager *)data;
+
 	char ignoreme[64];
 	if (1 > read(sigwinch_pipes[0], ignoreme, 64))
 		exit(EXIT_FAILURE);
@@ -60,7 +61,7 @@ catch_sigwinch(gcc_unused int sig)
 }
 
 void
-signals_init(GMainLoop *main_loop)
+signals_init(GMainLoop *main_loop, ScreenManager &screen)
 {
 	/* setup quit signals */
 	g_unix_signal_add(SIGTERM, handle_quit_signal, main_loop);
@@ -93,7 +94,7 @@ signals_init(GMainLoop *main_loop)
 		!fcntl(sigwinch_pipes[1], F_SETFL, O_NONBLOCK)) {
 		GIOChannel *sigwinch_channel = g_io_channel_unix_new(sigwinch_pipes[0]);
 		g_io_add_watch(sigwinch_channel, G_IO_IN,
-			       sigwinch_event, nullptr);
+			       sigwinch_event, &screen);
 		g_io_channel_unref(sigwinch_channel);
 	}
 	else {

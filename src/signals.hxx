@@ -22,23 +22,24 @@
 
 #include <glib.h>
 
-struct mpdclient;
+class ScreenManager;
 
 #ifdef WIN32
 
 static inline void
-signals_init(GMainLoop *main_loop)
+signals_init(GMainLoop *, ScreenManager &)
 {
-	(void)main_loop;
 }
 
 static inline void
-signals_deinit(void) {}
+signals_deinit()
+{
+}
 
 #else
 
 void
-signals_init(GMainLoop *main_loop);
+signals_init(GMainLoop *main_loop, ScreenManager &screen);
 
 void
 signals_deinit();

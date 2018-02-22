@@ -398,7 +398,7 @@ main(int argc, const char *argv[])
 	/* watch out for lirc input */
 	ncmpc_lirc_init();
 
-	signals_init(main_loop);
+	signals_init(main_loop, screen);
 
 	/* attempt to connect */
 	reconnect_source_id = g_idle_add(timer_reconnect, nullptr);
