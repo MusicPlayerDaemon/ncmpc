@@ -20,8 +20,10 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
+#include "ncmpc_curses.h"
+
 void
-keyboard_init();
+keyboard_init(WINDOW *w);
 
 void
 keyboard_unread(int key);

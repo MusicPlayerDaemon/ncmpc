@@ -393,7 +393,7 @@ main(int argc, const char *argv[])
 	main_loop = g_main_loop_new(nullptr, false);
 
 	/* watch out for keyboard input */
-	keyboard_init();
+	keyboard_init(screen.main_window.w);
 
 	/* watch out for lirc input */
 	ncmpc_lirc_init();

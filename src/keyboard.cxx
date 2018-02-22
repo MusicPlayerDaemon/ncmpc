@@ -17,6 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include "config.h"
 #include "keyboard.hxx"
 #include "command.hxx"
 #include "ncmpc.hxx"
@@ -44,9 +45,11 @@ translate_key(int key)
 static gboolean
 keyboard_event(gcc_unused GIOChannel *source,
 	       gcc_unused GIOCondition condition,
-	       gcc_unused gpointer data)
+	       gpointer data)
 {
-	int key = wgetch(screen.main_window.w);
+	auto *w = (WINDOW *)data;
+
+	int key = wgetch(w);
 	if (ignore_key(key))
 		return true;
 
@@ -83,10 +86,10 @@ keyboard_event(gcc_unused GIOChannel *source,
 }
 
 void
-keyboard_init()
+keyboard_init(WINDOW *w)
 {
 	GIOChannel *channel = g_io_channel_unix_new(STDIN_FILENO);
-	g_io_add_watch(channel, G_IO_IN, keyboard_event, nullptr);
+	g_io_add_watch(channel, G_IO_IN, keyboard_event, w);
 	g_io_channel_unref(channel);
 }
 
