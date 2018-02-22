@@ -40,6 +40,32 @@ struct screen_functions;
 class Page;
 
 class ScreenManager {
+	struct Layout {
+		unsigned rows, cols;
+
+		static constexpr int title_y = 0, title_x = 0;
+		static constexpr int main_y = 2, main_x = 0;
+		static constexpr int progress_x = 0;
+		static constexpr int status_x = 0;
+
+		constexpr Layout(unsigned _rows, unsigned _cols)
+			:rows(_rows), cols(_cols) {}
+
+		constexpr int GetMainRows() const {
+			return rows - 4;
+		}
+
+		constexpr int GetProgressY() const {
+			return rows - 2;
+		}
+
+		constexpr int GetStatusY() const {
+			return rows - 1;
+		}
+	};
+
+	Layout layout;
+
 public:
 	TitleBar title_bar;
 	struct window main_window;

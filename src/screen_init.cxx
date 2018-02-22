@@ -39,22 +39,19 @@ static const unsigned SCREEN_MIN_COLS = 14;
 static const unsigned SCREEN_MIN_ROWS = 5;
 
 ScreenManager::ScreenManager()
+	:layout(std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
+		std::max<unsigned>(COLS, SCREEN_MIN_COLS))
 {
-	const unsigned cols = COLS, rows = LINES;
-	if (cols < SCREEN_MIN_COLS || rows < SCREEN_MIN_ROWS) {
-		fprintf(stderr, "%s\n", _("Error: Screen too small"));
-		exit(EXIT_FAILURE);
-	}
-
-	buf = (char *)g_malloc(cols);
-	buf_size = cols;
+	buf_size = layout.cols;
+	buf = (char *)g_malloc(buf_size);
 	findbuf = nullptr;
 
 	/* create top window */
-	title_bar.Init(cols, 0, 0);
+	title_bar.Init(layout.cols, layout.title_y, layout.title_x);
 
 	/* create main window */
-	window_init(&main_window, rows - 4, cols, 2, 0);
+	window_init(&main_window, layout.GetMainRows(), layout.cols,
+		    layout.main_y, layout.main_x);
 
 	if (!options.hardware_cursor)
 		leaveok(main_window.w, true);
@@ -62,10 +59,12 @@ ScreenManager::ScreenManager()
 	keypad(main_window.w, true);
 
 	/* create progress window */
-	progress_bar.Init(cols, rows - 2, 0);
+	progress_bar.Init(layout.cols,
+			  layout.GetProgressY(), layout.progress_x);
 
 	/* create status window */
-	status_bar.Init(cols, rows - 1, 0);
+	status_bar.Init(layout.cols,
+			layout.GetStatusY(), layout.status_x);
 }
 
 ScreenManager::~ScreenManager()
@@ -96,35 +95,33 @@ ScreenManager::Exit()
 void
 ScreenManager::OnResize()
 {
-	const unsigned cols = COLS, rows = LINES;
-	if (cols < SCREEN_MIN_COLS || rows < SCREEN_MIN_ROWS) {
-		Exit();
-		fprintf(stderr, "%s\n", _("Error: Screen too small"));
-		exit(EXIT_FAILURE);
-	}
+	layout = Layout(std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
+			std::max<unsigned>(COLS, SCREEN_MIN_COLS));
 
 #ifdef PDCURSES
-	resize_term(rows, cols);
-#else 
-	resizeterm(rows, cols);
+	resize_term(layout.rows, layout.cols);
+#else
+	resizeterm(layout.rows, layout.cols);
 #endif
 
-	title_bar.OnResize(cols);
+	title_bar.OnResize(layout.cols);
 
 	/* main window */
-	main_window.cols = cols;
-	main_window.rows = rows - 4;
-	wresize(main_window.w, main_window.rows, cols);
+	main_window.cols = layout.cols;
+	main_window.rows = layout.GetMainRows();
+	wresize(main_window.w, main_window.rows, layout.cols);
 
 	/* progress window */
-	progress_bar.OnResize(cols, rows - 2, 0);
+	progress_bar.OnResize(layout.cols,
+			      layout.GetProgressY(), layout.progress_x);
 
 	/* status window */
-	status_bar.OnResize(cols, rows - 1, 0);
+	status_bar.OnResize(layout.cols,
+			    layout.GetStatusY(), layout.status_x);
 
-	buf_size = cols;
+	buf_size = layout.cols;
 	g_free(buf);
-	buf = (char *)g_malloc(cols);
+	buf = (char *)g_malloc(buf_size);
 
 	/* resize all screens */
 	for (auto &page : pages)
