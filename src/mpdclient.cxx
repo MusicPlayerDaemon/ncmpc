@@ -174,31 +174,27 @@ settings_is_local_socket(const struct mpd_settings *settings)
 #endif
 #endif
 
-struct mpdclient *
-mpdclient_new(const char *host, unsigned port,
-	      unsigned timeout_ms, const char *password)
+mpdclient::mpdclient(const char *_host, unsigned _port,
+		     unsigned _timeout_ms, const char *_password)
+	:timeout_ms(_timeout_ms), password(_password)
 {
-	auto *c = new mpdclient(timeout_ms, password);
-
 #ifdef ENABLE_ASYNC_CONNECT
-	c->settings = mpd_settings_new(host, port, timeout_ms,
-				       nullptr, nullptr);
-	if (c->settings == nullptr)
+	settings = mpd_settings_new(_host, _port, _timeout_ms,
+				    nullptr, nullptr);
+	if (settings == nullptr)
 		g_error("Out of memory");
 
 #ifndef WIN32
-	c->settings2 = host == nullptr && port == 0 &&
-		settings_is_local_socket(c->settings)
-		? mpd_settings_new(host, 6600, timeout_ms, nullptr, nullptr)
+	settings2 = _host == nullptr && _port == 0 &&
+		settings_is_local_socket(settings)
+		? mpd_settings_new(_host, 6600, _timeout_ms, nullptr, nullptr)
 		: nullptr;
 #endif
 
 #else
-	c->host = host;
-	c->port = port;
+	host = _host;
+	port = _port;
 #endif
-
-	return c;
 }
 
 static char *

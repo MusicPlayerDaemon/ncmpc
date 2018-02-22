@@ -382,7 +382,7 @@ main(int argc, const char *argv[])
 #endif
 
 	/* create mpdclient instance */
-	mpd = mpdclient_new(options.host, options.port,
+	mpd = new mpdclient(options.host, options.port,
 			    options.timeout_ms,
 			    options.password);
 

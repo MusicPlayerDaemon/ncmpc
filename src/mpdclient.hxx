@@ -90,9 +90,8 @@ struct mpdclient {
 	 */
 	bool playing = false;
 
-	mpdclient(unsigned _timeout_ms, const char *_password)
-		:timeout_ms(_timeout_ms), password(_password) {
-	}
+	mpdclient(const char *host, unsigned port,
+		  unsigned _timeout_ms, const char *_password);
 
 	~mpdclient() {
 		Disconnect();
@@ -145,10 +144,6 @@ mpdclient_finish_command(struct mpdclient *c)
 	return mpd_response_finish(c->connection)
 		? true : mpdclient_handle_error(c);
 }
-
-struct mpdclient *
-mpdclient_new(const char *host, unsigned port,
-	      unsigned timeout_ms, const char *password);
 
 /**
  * Determine a human-readable "name" of the settings currently used to
