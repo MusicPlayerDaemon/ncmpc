@@ -218,7 +218,7 @@ StatusBar::Paint() const
 		/* display state */
 		waddstr(w, left_text);
 
-	if (right_text[0] != 0) {
+	if (right_width > 0) {
 		/* display time string */
 		int x = window.cols - right_width;
 		colors_use(w, COLOR_STATUS_TIME);
