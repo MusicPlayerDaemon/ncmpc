@@ -33,8 +33,7 @@
 #include <assert.h>
 #include <string.h>
 
-void
-TitleBar::Init(unsigned width, int y, int x)
+TitleBar::TitleBar(unsigned width, int y, int x)
 {
 	window_init(&window, 2, width, y, x);
 

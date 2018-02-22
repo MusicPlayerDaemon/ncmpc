@@ -40,14 +40,12 @@ static const unsigned SCREEN_MIN_ROWS = 5;
 
 ScreenManager::ScreenManager()
 	:layout(std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
-		std::max<unsigned>(COLS, SCREEN_MIN_COLS))
+		std::max<unsigned>(COLS, SCREEN_MIN_COLS)),
+	 title_bar(layout.cols, layout.title_y, layout.title_x)
 {
 	buf_size = layout.cols;
 	buf = (char *)g_malloc(buf_size);
 	findbuf = nullptr;
-
-	/* create top window */
-	title_bar.Init(layout.cols, layout.title_y, layout.title_x);
 
 	/* create main window */
 	window_init(&main_window, layout.GetMainRows(), layout.cols,
@@ -73,7 +71,6 @@ ScreenManager::~ScreenManager()
 	g_free(buf);
 	g_free(findbuf);
 
-	title_bar.Deinit();
 	delwin(main_window.w);
 	progress_bar.Deinit();
 	status_bar.Deinit();

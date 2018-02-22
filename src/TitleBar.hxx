@@ -31,9 +31,9 @@ class TitleBar {
 	char flags[8];
 
 public:
-	void Init(unsigned width, int y, int x);
+	TitleBar(unsigned width, int y, int x);
 
-	void Deinit() {
+	~TitleBar() {
 		delwin(window.w);
 	}
 
