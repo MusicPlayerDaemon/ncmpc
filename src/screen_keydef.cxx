@@ -34,6 +34,8 @@
 #include <glib.h>
 
 class KeyDefPage final : public ListPage {
+	ScreenManager &screen;
+
 	command_definition_t *cmds = nullptr;
 
 	/** the number of commands */
@@ -52,8 +54,8 @@ class KeyDefPage final : public ListPage {
 	unsigned subcmd_n_keys = 0;
 
 public:
-	KeyDefPage(WINDOW *w, unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows) {}
+	KeyDefPage(ScreenManager &_screen, WINDOW *w, unsigned cols, unsigned rows)
+		:ListPage(w, cols, rows), screen(_screen) {}
 
 	~KeyDefPage() override {
 		g_free(cmds);
@@ -381,9 +383,9 @@ KeyDefPage::ListCallback(unsigned idx) const
 }
 
 static Page *
-keydef_init(ScreenManager &, WINDOW *w, unsigned cols, unsigned rows)
+keydef_init(ScreenManager &screen, WINDOW *w, unsigned cols, unsigned rows)
 {
-	return new KeyDefPage(w, cols, rows);
+	return new KeyDefPage(screen, w, cols, rows);
 }
 
 void
@@ -486,7 +488,7 @@ KeyDefPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(&lw, cmd, ListCallback, this);
+		screen_find(screen, &lw, cmd, ListCallback, this);
 		SetDirty();
 		return true;
 

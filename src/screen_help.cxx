@@ -198,9 +198,11 @@ static const struct help_text_row help_text[] = {
 };
 
 class HelpPage final : public ListPage {
+	ScreenManager &screen;
+
 public:
-	HelpPage(WINDOW *w, unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows) {
+	HelpPage(ScreenManager &_screen, WINDOW *w, unsigned cols, unsigned rows)
+		:ListPage(w, cols, rows), screen(_screen) {
 		lw.hide_cursor = true;
 		list_window_set_length(&lw, G_N_ELEMENTS(help_text));
 	}
@@ -232,9 +234,9 @@ list_callback(unsigned i, gcc_unused void *data)
 }
 
 static Page *
-help_init(ScreenManager &, WINDOW *w, unsigned cols, unsigned rows)
+help_init(ScreenManager &screen, WINDOW *w, unsigned cols, unsigned rows)
 {
-	return new HelpPage(w, cols, rows);
+	return new HelpPage(screen, w, cols, rows);
 }
 
 static void
@@ -283,7 +285,7 @@ HelpPage::OnCommand(struct mpdclient &c, command_t cmd)
 		return true;
 
 	list_window_set_cursor(&lw, lw.start);
-	if (screen_find(&lw, cmd, list_callback, nullptr)) {
+	if (screen_find(screen, &lw, cmd, list_callback, nullptr)) {
 		/* center the row */
 		list_window_center(&lw, lw.selected);
 		SetDirty();

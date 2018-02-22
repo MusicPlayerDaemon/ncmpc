@@ -530,7 +530,7 @@ SongPage::OnCommand(struct mpdclient &c, command_t cmd)
 		break;
 	}
 
-	if (screen_find(&lw, cmd, screen_song_list_callback, &lines)) {
+	if (screen_find(screen, &lw, cmd, screen_song_list_callback, &lines)) {
 		/* center the row */
 		list_window_center(&lw, lw.selected);
 		SetDirty();

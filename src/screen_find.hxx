@@ -23,6 +23,8 @@
 #include "command.hxx"
 #include "list_window.hxx"
 
+class ScreenManager;
+
 /**
  * query user for a string and find it in a list window
  *
@@ -33,7 +35,7 @@
  * @return true if the command has been handled, false if not
  */
 bool
-screen_find(ListWindow *lw,
+screen_find(ScreenManager &screen, ListWindow *lw,
 	    command_t findcmd,
 	    list_window_callback_fn_t callback_fn,
 	    void *callback_data);
@@ -41,7 +43,7 @@ screen_find(ListWindow *lw,
 /* query user for a string and jump to the entry
  * which begins with this string while the users types */
 void
-screen_jump(ListWindow *lw,
+screen_jump(ScreenManager &screen, ListWindow *lw,
 	    list_window_callback_fn_t callback_fn, void *callback_data,
 	    list_window_paint_callback_t paint_callback, void *paint_data);
 

@@ -548,12 +548,13 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(&lw, cmd, screen_queue_lw_callback, &c.playlist);
+		screen_find(screen, &lw, cmd,
+			    screen_queue_lw_callback, &c.playlist);
 		SaveSelection();
 		SetDirty();
 		return true;
 	case CMD_LIST_JUMP:
-		screen_jump(&lw, screen_queue_lw_callback, &c.playlist,
+		screen_jump(screen, &lw, screen_queue_lw_callback, &c.playlist,
 			    nullptr, nullptr);
 		SaveSelection();
 		SetDirty();

@@ -705,13 +705,13 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_RFIND_NEXT:
 		switch (mode) {
 		case Mode::ARTISTS:
-			screen_find(&lw, cmd,
+			screen_find(screen, &lw, cmd,
 				    screen_artist_lw_callback, &artist_list);
 			SetDirty();
 			return true;
 
 		case Mode::ALBUMS:
-			screen_find(&lw, cmd,
+			screen_find(screen, &lw, cmd,
 				    AlbumListCallback, &album_list);
 			SetDirty();
 			return true;
@@ -726,14 +726,14 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_JUMP:
 		switch (mode) {
 		case Mode::ARTISTS:
-			screen_jump(&lw,
+			screen_jump(screen, &lw,
 				    screen_artist_lw_callback, &artist_list,
 				    paint_artist_callback, &artist_list);
 			SetDirty();
 			return true;
 
 		case Mode::ALBUMS:
-			screen_jump(&lw,
+			screen_jump(screen, &lw,
 				    AlbumListCallback, &album_list,
 				    paint_album_callback, &album_list);
 			SetDirty();

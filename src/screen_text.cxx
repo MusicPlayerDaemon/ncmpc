@@ -91,7 +91,7 @@ TextPage::OnCommand(struct mpdclient &c, command_t cmd)
 		return true;
 
 	list_window_set_cursor(&lw, lw.start);
-	if (screen_find(&lw, cmd, ListCallback, this)) {
+	if (screen_find(screen, &lw, cmd, ListCallback, this)) {
 		/* center the row */
 		list_window_center(&lw, lw.selected);
 		SetDirty();

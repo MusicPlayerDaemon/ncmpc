@@ -391,11 +391,11 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(&lw, cmd, browser_lw_callback, filelist);
+		screen_find(screen, &lw, cmd, browser_lw_callback, filelist);
 		SetDirty();
 		return true;
 	case CMD_LIST_JUMP:
-		screen_jump(&lw,
+		screen_jump(screen, &lw,
 			    browser_lw_callback, filelist,
 			    PaintRow, this);
 		SetDirty();

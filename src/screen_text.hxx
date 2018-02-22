@@ -26,14 +26,18 @@
 #include <string>
 
 struct mpdclient;
+class ScreenManager;
 
 class TextPage : public ListPage {
 protected:
+	ScreenManager &screen;
+
 	std::vector<std::string> lines;
 
 public:
-	TextPage(WINDOW *w, unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows) {
+	TextPage(ScreenManager &_screen,
+		 WINDOW *w, unsigned cols, unsigned rows)
+		:ListPage(w, cols, rows), screen(_screen) {
 		lw.hide_cursor = true;
 	}
 
