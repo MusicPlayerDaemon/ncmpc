@@ -38,6 +38,36 @@ static const GTime SCREEN_WELCOME_TIME = 10;
 static const unsigned SCREEN_MIN_COLS = 14;
 static const unsigned SCREEN_MIN_ROWS = 5;
 
+ScreenManager::ScreenManager()
+{
+	const unsigned cols = COLS, rows = LINES;
+	if (cols < SCREEN_MIN_COLS || rows < SCREEN_MIN_ROWS) {
+		fprintf(stderr, "%s\n", _("Error: Screen too small"));
+		exit(EXIT_FAILURE);
+	}
+
+	buf = (char *)g_malloc(cols);
+	buf_size = cols;
+	findbuf = nullptr;
+
+	/* create top window */
+	title_bar.Init(cols, 0, 0);
+
+	/* create main window */
+	window_init(&main_window, rows - 4, cols, 2, 0);
+
+	if (!options.hardware_cursor)
+		leaveok(main_window.w, true);
+
+	keypad(main_window.w, true);
+
+	/* create progress window */
+	progress_bar.Init(cols, rows - 2, 0);
+
+	/* create status window */
+	status_bar.Init(cols, rows - 1, 0);
+}
+
 ScreenManager::~ScreenManager()
 {
 	string_list_free(find_history);
@@ -125,39 +155,12 @@ welcome_timer_callback(gpointer data)
 void
 ScreenManager::Init(struct mpdclient *c)
 {
-	const unsigned cols = COLS, rows = LINES;
-	if (cols < SCREEN_MIN_COLS || rows < SCREEN_MIN_ROWS) {
-		fprintf(stderr, "%s\n", _("Error: Screen too small"));
-		exit(EXIT_FAILURE);
-	}
-
-	buf = (char *)g_malloc(cols);
-	buf_size = cols;
-	findbuf = nullptr;
-
 #ifndef NCMPC_MINI
 	if (options.welcome_screen_list)
 		welcome_source_id =
 			g_timeout_add_seconds(SCREEN_WELCOME_TIME,
 					      welcome_timer_callback, this);
 #endif
-
-	/* create top window */
-	title_bar.Init(cols, 0, 0);
-
-	/* create main window */
-	window_init(&main_window, rows - 4, cols, 2, 0);
-
-	if (!options.hardware_cursor)
-		leaveok(main_window.w, true);
-
-	keypad(main_window.w, true);
-
-	/* create progress window */
-	progress_bar.Init(cols, rows - 2, 0);
-
-	/* create status window */
-	status_bar.Init(cols, rows - 1, 0);
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
