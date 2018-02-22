@@ -51,7 +51,6 @@
 static const struct screen_functions *mode_fn_prev = &screen_queue;
 
 ScreenManager::ScreenManager() = default;
-ScreenManager::~ScreenManager() = default;
 
 ScreenManager::PageMap::iterator
 ScreenManager::MakePage(const struct screen_functions &sf)

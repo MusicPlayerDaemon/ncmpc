@@ -38,13 +38,8 @@ static const GTime SCREEN_WELCOME_TIME = 10;
 static const unsigned SCREEN_MIN_COLS = 14;
 static const unsigned SCREEN_MIN_ROWS = 5;
 
-void
-ScreenManager::Exit()
+ScreenManager::~ScreenManager()
 {
-	current_page->second->OnClose();
-	current_page = pages.end();
-	pages.clear();
-
 	string_list_free(find_history);
 	g_free(buf);
 	g_free(findbuf);
@@ -58,6 +53,14 @@ ScreenManager::Exit()
 	if (welcome_source_id != 0)
 		g_source_remove(welcome_source_id);
 #endif
+}
+
+void
+ScreenManager::Exit()
+{
+	current_page->second->OnClose();
+	current_page = pages.end();
+	pages.clear();
 }
 
 void
