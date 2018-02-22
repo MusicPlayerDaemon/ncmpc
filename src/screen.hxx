@@ -75,8 +75,6 @@ public:
 	using PageMap = std::map<const struct screen_functions *,
 				 std::unique_ptr<Page>>;
 	PageMap pages;
-
-	//const struct screen_functions *current_screen_functions;
 	PageMap::iterator current_page = pages.begin();
 
 	char *buf;
