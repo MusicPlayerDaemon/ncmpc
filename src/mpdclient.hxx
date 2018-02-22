@@ -150,8 +150,6 @@ struct mpdclient *
 mpdclient_new(const char *host, unsigned port,
 	      unsigned timeout_ms, const char *password);
 
-void mpdclient_free(struct mpdclient *c);
-
 /**
  * Determine a human-readable "name" of the settings currently used to
  * connect to MPD.

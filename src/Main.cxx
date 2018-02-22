@@ -440,7 +440,7 @@ main(int argc, const char *argv[])
 #endif
 	printf("\n");
 
-	mpdclient_free(mpd);
+	delete mpd;
 
 	options_deinit();
 

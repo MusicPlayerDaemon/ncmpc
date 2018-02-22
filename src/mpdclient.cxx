@@ -201,12 +201,6 @@ mpdclient_new(const char *host, unsigned port,
 	return c;
 }
 
-void
-mpdclient_free(struct mpdclient *c)
-{
-	delete c;
-}
-
 static char *
 settings_name(const struct mpd_settings *settings)
 {
