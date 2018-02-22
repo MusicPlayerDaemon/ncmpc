@@ -25,14 +25,14 @@
 class ProgressBar {
 	struct window window;
 
-	unsigned current, max;
+	unsigned current = 0, max = 0;
 
-	unsigned width;
+	unsigned width = 0;
 
 public:
-	void Init(unsigned _width, int y, int x);
+	ProgressBar(unsigned _width, int y, int x);
 
-	void Deinit() {
+	~ProgressBar() {
 		delwin(window.w);
 	}
 

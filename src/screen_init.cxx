@@ -41,7 +41,9 @@ static const unsigned SCREEN_MIN_ROWS = 5;
 ScreenManager::ScreenManager()
 	:layout(std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
 		std::max<unsigned>(COLS, SCREEN_MIN_COLS)),
-	 title_bar(layout.cols, layout.title_y, layout.title_x)
+	 title_bar(layout.cols, layout.title_y, layout.title_x),
+	 progress_bar(layout.cols,
+		      layout.GetProgressY(), layout.progress_x)
 {
 	buf_size = layout.cols;
 	buf = (char *)g_malloc(buf_size);
@@ -56,10 +58,6 @@ ScreenManager::ScreenManager()
 
 	keypad(main_window.w, true);
 
-	/* create progress window */
-	progress_bar.Init(layout.cols,
-			  layout.GetProgressY(), layout.progress_x);
-
 	/* create status window */
 	status_bar.Init(layout.cols,
 			layout.GetStatusY(), layout.status_x);
@@ -72,7 +70,6 @@ ScreenManager::~ScreenManager()
 	g_free(findbuf);
 
 	delwin(main_window.w);
-	progress_bar.Deinit();
 	status_bar.Deinit();
 
 #ifndef NCMPC_MINI
