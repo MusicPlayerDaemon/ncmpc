@@ -22,13 +22,14 @@
 
 #include "window.hxx"
 
-struct ProgressBar {
+class ProgressBar {
 	struct window window;
 
 	unsigned current, max;
 
 	unsigned width;
 
+public:
 	void Init(unsigned _width, int y, int x);
 
 	void Deinit() {
