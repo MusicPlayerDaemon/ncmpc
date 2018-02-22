@@ -49,9 +49,9 @@ class StatusBar {
 
 	std::string center_text;
 
-	unsigned left_width = 0, right_width = 0;
+	unsigned left_width, right_width;
 #ifndef NCMPC_MINI
-	unsigned center_width = 0;
+	unsigned center_width;
 #endif
 
 public:

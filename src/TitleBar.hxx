@@ -27,8 +27,8 @@ struct mpd_status;
 class TitleBar {
 	struct window window;
 
-	int volume = -1;
-	char flags[8] = "";
+	int volume;
+	char flags[8];
 
 public:
 	void Init(unsigned width, int y, int x);

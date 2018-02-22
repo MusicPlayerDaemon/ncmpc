@@ -410,7 +410,7 @@ main(int argc, const char *argv[])
 		g_timeout_add_seconds(10, timer_check_key_bindings, nullptr);
 #endif
 
-	screen.Paint(true);
+	screen.Update(*mpd);
 
 	g_main_loop_run(main_loop);
 	g_main_loop_unref(main_loop);
