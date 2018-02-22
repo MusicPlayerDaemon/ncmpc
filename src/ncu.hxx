@@ -30,4 +30,15 @@ ncu_init();
 void
 ncu_deinit();
 
+class ScopeCursesInit {
+public:
+	ScopeCursesInit() {
+		ncu_init();
+	}
+
+	~ScopeCursesInit() {
+		ncu_deinit();
+	}
+};
+
 #endif

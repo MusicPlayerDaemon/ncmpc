@@ -375,7 +375,7 @@ main(int argc, const char *argv[])
 	/* parse command line options - 2 pass */
 	options_parse(argc, argv);
 
-	ncu_init();
+	const ScopeCursesInit curses_init;
 
 #ifdef ENABLE_LYRICS_SCREEN
 	lyrics_init();
@@ -440,7 +440,6 @@ main(int argc, const char *argv[])
 
 	mpdclient_free(mpd);
 
-	ncu_deinit();
 	options_deinit();
 
 	return 0;
