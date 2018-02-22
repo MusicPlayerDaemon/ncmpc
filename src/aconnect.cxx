@@ -124,7 +124,7 @@ aconnect_rconnect_error(const char *message, void *ctx)
 	ac->rconnect = nullptr;
 
 	ac->handler->error(message, ac->handler_ctx);
-	g_free(ac);
+	delete ac;
 }
 
 static const struct async_rconnect_handler aconnect_rconnect_handler = {
