@@ -161,9 +161,6 @@ ScreenManager::Init(struct mpdclient *c)
 		/* set background attributes */
 		wbkgd(stdscr, COLOR_PAIR(COLOR_LIST));
 		wbkgd(main_window.w,     COLOR_PAIR(COLOR_LIST));
-		wbkgd(progress_bar.window.w,
-		      COLOR_PAIR(COLOR_PROGRESSBAR));
-		colors_use(progress_bar.window.w, COLOR_PROGRESSBAR);
 	}
 #endif
 

@@ -18,6 +18,7 @@
  */
 
 #include "ProgressBar.hxx"
+#include "colors.hxx"
 
 #include <assert.h>
 
@@ -26,6 +27,8 @@ ProgressBar::Init(unsigned _width, int y, int x)
 {
 	window_init(&window, 1, _width, y, x);
 	leaveok(window.w, true);
+	wbkgd(window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
+	colors_use(window.w, COLOR_PROGRESSBAR);
 
 	current = 0;
 	max = 0;
