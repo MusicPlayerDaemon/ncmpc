@@ -28,32 +28,21 @@ struct ProgressBar {
 	unsigned current, max;
 
 	unsigned width;
+
+	void Init(unsigned _width, int y, int x);
+
+	void Deinit() {
+		delwin(window.w);
+	}
+
+	void OnResize(unsigned width, int y, int x);
+
+	bool Set(unsigned current, unsigned max);
+
+	void Paint() const;
+
+private:
+	bool Calculate();
 };
-
-static inline void
-progress_bar_init(ProgressBar *p, unsigned width, int y, int x)
-{
-	window_init(&p->window, 1, width, y, x);
-	leaveok(p->window.w, true);
-
-	p->current = 0;
-	p->max = 0;
-	p->width = 0;
-}
-
-static inline void
-progress_bar_deinit(ProgressBar *p)
-{
-	delwin(p->window.w);
-}
-
-void
-progress_bar_paint(const ProgressBar *p);
-
-void
-progress_bar_resize(ProgressBar *p, unsigned width, int y, int x);
-
-bool
-progress_bar_set(ProgressBar *p, unsigned current, unsigned max);
 
 #endif

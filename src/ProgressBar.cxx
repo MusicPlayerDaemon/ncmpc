@@ -22,61 +22,66 @@
 #include <assert.h>
 
 void
-progress_bar_paint(const ProgressBar *p)
+ProgressBar::Init(unsigned _width, int y, int x)
 {
-	assert(p != nullptr);
+	window_init(&window, 1, _width, y, x);
+	leaveok(window.w, true);
 
-	mvwhline(p->window.w, 0, 0, ACS_HLINE, p->window.cols);
-
-	if (p->max > 0) {
-		assert(p->width < p->window.cols);
-
-		if (p->width > 0)
-			whline(p->window.w, '=', p->width);
-
-		mvwaddch(p->window.w, 0, p->width, 'O');
-	}
-
-	wnoutrefresh(p->window.w);
-}
-
-static bool
-progress_bar_calc(ProgressBar *p)
-{
-	if (p->max == 0)
-		return false;
-
-	unsigned old_width = p->width;
-	p->width = (p->window.cols * p->current) / (p->max + 1);
-	assert(p->width < p->window.cols);
-
-	return p->width != old_width;
+	current = 0;
+	max = 0;
+	width = 0;
 }
 
 void
-progress_bar_resize(ProgressBar *p, unsigned width, int y, int x)
+ProgressBar::Paint() const
 {
-	assert(p != nullptr);
+	mvwhline(window.w, 0, 0, ACS_HLINE, window.cols);
 
-	p->window.cols = width;
-	wresize(p->window.w, 1, width);
-	mvwin(p->window.w, y, x);
+	if (max > 0) {
+		assert(width < window.cols);
 
-	progress_bar_calc(p);
+		if (width > 0)
+			whline(window.w, '=', width);
+
+		mvwaddch(window.w, 0, width, 'O');
+	}
+
+	wnoutrefresh(window.w);
 }
 
 bool
-progress_bar_set(ProgressBar *p, unsigned current, unsigned max)
+ProgressBar::Calculate()
 {
-	assert(p != nullptr);
+	if (max == 0)
+		return false;
 
-	if (current > max)
-		current = max;
+	unsigned old_width = width;
+	width = (window.cols * current) / (max + 1);
+	assert(width < window.cols);
 
-	bool modified = (max == 0) != (p->max == 0);
+	return width != old_width;
+}
 
-	p->max = max;
-	p->current = current;
+void
+ProgressBar::OnResize(unsigned _width, int y, int x)
+{
+	window.cols = _width;
+	wresize(window.w, 1, _width);
+	mvwin(window.w, y, x);
 
-	return progress_bar_calc(p) || modified;
+	Calculate();
+}
+
+bool
+ProgressBar::Set(unsigned _current, unsigned _max)
+{
+	if (_current > _max)
+		_current = _max;
+
+	bool modified = (_max == 0) != (max == 0);
+
+	max = _max;
+	current = _current;
+
+	return Calculate() || modified;
 }

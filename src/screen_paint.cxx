@@ -56,8 +56,8 @@ ScreenManager::UpdateProgressWindow(struct mpdclient &c)
 		? mpd_status_get_total_time(c.status)
 		: 0;
 
-	progress_bar_set(&progress_bar, elapsed, duration);
-	progress_bar_paint(&progress_bar);
+	progress_bar.Set(elapsed, duration);
+	progress_bar.Paint();
 }
 
 void

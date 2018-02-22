@@ -51,7 +51,7 @@ ScreenManager::Exit()
 
 	title_bar.Deinit();
 	delwin(main_window.w);
-	progress_bar_deinit(&progress_bar);
+	progress_bar.Deinit();
 	status_bar.Deinit();
 
 #ifndef NCMPC_MINI
@@ -84,7 +84,7 @@ ScreenManager::OnResize(struct mpdclient *c)
 	wresize(main_window.w, main_window.rows, cols);
 
 	/* progress window */
-	progress_bar_resize(&progress_bar, cols, rows - 2, 0);
+	progress_bar.OnResize(cols, rows - 2, 0);
 
 	/* status window */
 	status_bar.OnResize(cols, rows - 1, 0);
@@ -151,7 +151,7 @@ ScreenManager::Init(struct mpdclient *c)
 	keypad(main_window.w, true);
 
 	/* create progress window */
-	progress_bar_init(&progress_bar, cols, rows - 2, 0);
+	progress_bar.Init(cols, rows - 2, 0);
 
 	/* create status window */
 	status_bar.Init(cols, rows - 1, 0);
