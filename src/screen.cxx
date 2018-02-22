@@ -143,7 +143,7 @@ ScreenManager::NextMode(struct mpdclient &c, int offset)
 }
 
 void
-ScreenManager::Update(struct mpdclient *c)
+ScreenManager::Update(struct mpdclient &c)
 {
 #ifndef NCMPC_MINI
 	static bool was_connected;
@@ -155,28 +155,28 @@ ScreenManager::Update(struct mpdclient *c)
 	static unsigned crossfade;
 
 	/* print a message if mpd status has changed */
-	if ((c->events & MPD_IDLE_OPTIONS) && c->status != nullptr) {
+	if ((c.events & MPD_IDLE_OPTIONS) && c.status != nullptr) {
 		if (!initialized) {
-			repeat = mpd_status_get_repeat(c->status);
-			random_enabled = mpd_status_get_random(c->status);
-			single = mpd_status_get_single(c->status);
-			consume = mpd_status_get_consume(c->status);
-			crossfade = mpd_status_get_crossfade(c->status);
+			repeat = mpd_status_get_repeat(c.status);
+			random_enabled = mpd_status_get_random(c.status);
+			single = mpd_status_get_single(c.status);
+			consume = mpd_status_get_consume(c.status);
+			crossfade = mpd_status_get_crossfade(c.status);
 			initialized = true;
 		}
 
-		if (repeat != mpd_status_get_repeat(c->status))
-			screen_status_printf(mpd_status_get_repeat(c->status) ?
+		if (repeat != mpd_status_get_repeat(c.status))
+			screen_status_printf(mpd_status_get_repeat(c.status) ?
 					     _("Repeat mode is on") :
 					     _("Repeat mode is off"));
 
-		if (random_enabled != mpd_status_get_random(c->status))
-			screen_status_printf(mpd_status_get_random(c->status) ?
+		if (random_enabled != mpd_status_get_random(c.status))
+			screen_status_printf(mpd_status_get_random(c.status) ?
 					     _("Random mode is on") :
 					     _("Random mode is off"));
 
-		if (single != mpd_status_get_single(c->status))
-			screen_status_printf(mpd_status_get_single(c->status) ?
+		if (single != mpd_status_get_single(c.status))
+			screen_status_printf(mpd_status_get_single(c.status) ?
 					     /* "single" mode means
 						that MPD will
 						automatically stop
@@ -185,8 +185,8 @@ ScreenManager::Update(struct mpdclient *c)
 					     _("Single mode is on") :
 					     _("Single mode is off"));
 
-		if (consume != mpd_status_get_consume(c->status))
-			screen_status_printf(mpd_status_get_consume(c->status) ?
+		if (consume != mpd_status_get_consume(c.status))
+			screen_status_printf(mpd_status_get_consume(c.status) ?
 					     /* "consume" mode means
 						that MPD removes each
 						song which has
@@ -194,30 +194,30 @@ ScreenManager::Update(struct mpdclient *c)
 					     _("Consume mode is on") :
 					     _("Consume mode is off"));
 
-		if (crossfade != mpd_status_get_crossfade(c->status))
+		if (crossfade != mpd_status_get_crossfade(c.status))
 			screen_status_printf(_("Crossfade %d seconds"),
-					     mpd_status_get_crossfade(c->status));
+					     mpd_status_get_crossfade(c.status));
 
-		repeat = mpd_status_get_repeat(c->status);
-		random_enabled = mpd_status_get_random(c->status);
-		single = mpd_status_get_single(c->status);
-		consume = mpd_status_get_consume(c->status);
-		crossfade = mpd_status_get_crossfade(c->status);
+		repeat = mpd_status_get_repeat(c.status);
+		random_enabled = mpd_status_get_random(c.status);
+		single = mpd_status_get_single(c.status);
+		consume = mpd_status_get_consume(c.status);
+		crossfade = mpd_status_get_crossfade(c.status);
 	}
 
-	if ((c->events & MPD_IDLE_DATABASE) != 0 && was_connected &&
-	    c->IsConnected())
+	if ((c.events & MPD_IDLE_DATABASE) != 0 && was_connected &&
+	    c.IsConnected())
 		screen_status_printf(_("Database updated"));
-	was_connected = c->IsConnected();
+	was_connected = c.IsConnected();
 #endif
 
-	title_bar.Update(c->status);
-	status_bar.Update(c->status, c->song);
+	title_bar.Update(c.status);
+	status_bar.Update(c.status, c.song);
 
 	/* update the main window */
-	current_page->second->Update(*c);
+	current_page->second->Update(c);
 
-	Paint(c, current_page->second->IsDirty());
+	Paint(&c, current_page->second->IsDirty());
 }
 
 void

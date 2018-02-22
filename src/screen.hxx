@@ -89,7 +89,7 @@ public:
 	void PaintTopWindow();
 	void Paint(struct mpdclient *c, bool main_dirty);
 
-	void Update(struct mpdclient *c);
+	void Update(struct mpdclient &c);
 	void OnCommand(struct mpdclient *c, command_t cmd);
 
 #ifdef HAVE_GETMOUSE

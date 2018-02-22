@@ -144,7 +144,7 @@ do_mpd_update()
 		update_xterm_title();
 #endif
 
-	screen.Update(mpd);
+	screen.Update(*mpd);
 	mpd->events = (enum mpd_idle)0;
 }
 
@@ -219,7 +219,7 @@ mpdclient_lost_callback()
 {
 	assert(reconnect_source_id == 0);
 
-	screen.Update(mpd);
+	screen.Update(*mpd);
 
 	reconnect_source_id = g_timeout_add_seconds(1, timer_reconnect, nullptr);
 }
@@ -236,7 +236,7 @@ mpdclient_idle_callback(gcc_unused unsigned events)
 		update_xterm_title();
 #endif
 
-	screen.Update(mpd);
+	screen.Update(*mpd);
 	auto_update_timer();
 }
 
@@ -259,7 +259,7 @@ void begin_input_event()
 
 void end_input_event()
 {
-	screen.Update(mpd);
+	screen.Update(*mpd);
 	mpd->events = (enum mpd_idle)0;
 
 	auto_update_timer();
