@@ -382,13 +382,14 @@ main(int argc, const char *argv[])
 #endif
 
 	/* create mpdclient instance */
-	mpd = new mpdclient(options.host, options.port,
-			    options.timeout_ms,
-			    options.password);
+	struct mpdclient client(options.host, options.port,
+				options.timeout_ms,
+				options.password);
+	mpd = &client;
 
 	/* initialize curses */
 	ScreenManager screen_manager;
-	screen_manager.Init(mpd);
+	screen_manager.Init(&client);
 	screen = &screen_manager;
 
 	/* the main loop */
@@ -412,7 +413,7 @@ main(int argc, const char *argv[])
 		g_timeout_add_seconds(10, timer_check_key_bindings, nullptr);
 #endif
 
-	screen_manager.Update(*mpd);
+	screen_manager.Update(client);
 
 	g_main_loop_run(main_loop);
 	g_main_loop_unref(main_loop);
@@ -439,8 +440,6 @@ main(int argc, const char *argv[])
 	set_xterm_title("");
 #endif
 	printf("\n");
-
-	delete mpd;
 
 	options_deinit();
 
