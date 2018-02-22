@@ -398,7 +398,7 @@ main(int argc, const char *argv[])
 	/* watch out for lirc input */
 	ncmpc_lirc_init();
 
-	signals_init(main_loop, mpd);
+	signals_init(main_loop);
 
 	/* attempt to connect */
 	reconnect_source_id = g_idle_add(timer_reconnect, nullptr);
@@ -410,7 +410,7 @@ main(int argc, const char *argv[])
 		g_timeout_add_seconds(10, timer_check_key_bindings, nullptr);
 #endif
 
-	screen.Paint(mpd, true);
+	screen.Paint(true);
 
 	g_main_loop_run(main_loop);
 	g_main_loop_unref(main_loop);

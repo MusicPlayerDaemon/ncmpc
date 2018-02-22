@@ -41,34 +41,15 @@ ScreenManager::PaintTopWindow()
 	title_bar.Paint(title);
 }
 
-inline void
-ScreenManager::UpdateProgressWindow(struct mpdclient &c)
-{
-	unsigned elapsed;
-	if (c.status == nullptr)
-		elapsed = 0;
-	else if (seek_id >= 0 && seek_id == mpd_status_get_song_id(c.status))
-		elapsed = seek_target_time;
-	else
-		elapsed = mpd_status_get_elapsed_time(c.status);
-
-	unsigned duration = mpdclient_is_playing(&c)
-		? mpd_status_get_total_time(c.status)
-		: 0;
-
-	progress_bar.Set(elapsed, duration);
-	progress_bar.Paint();
-}
-
 void
-ScreenManager::Paint(struct mpdclient *c, bool main_dirty)
+ScreenManager::Paint(bool main_dirty)
 {
 	/* update title/header window */
 	PaintTopWindow();
 
 	/* paint the bottom window */
 
-	UpdateProgressWindow(*c);
+	progress_bar.Paint();
 	status_bar.Paint();
 
 	/* paint the main window */

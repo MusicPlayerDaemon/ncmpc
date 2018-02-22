@@ -61,7 +61,7 @@ ScreenManager::Exit()
 }
 
 void
-ScreenManager::OnResize(struct mpdclient *c)
+ScreenManager::OnResize()
 {
 	const unsigned cols = COLS, rows = LINES;
 	if (cols < SCREEN_MIN_COLS || rows < SCREEN_MIN_ROWS) {
@@ -101,7 +101,7 @@ ScreenManager::OnResize(struct mpdclient *c)
 	curs_set(1);
 	curs_set(0);
 
-	Paint(c, true);
+	Paint(true);
 }
 
 #ifndef NCMPC_MINI

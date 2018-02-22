@@ -86,7 +86,7 @@ ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient *c)
 	/* open the new mode */
 	page->second->OnOpen(*c);
 
-	Paint(c, true);
+	Paint(true);
 }
 
 void
@@ -212,12 +212,27 @@ ScreenManager::Update(struct mpdclient &c)
 #endif
 
 	title_bar.Update(c.status);
+
+	unsigned elapsed;
+	if (c.status == nullptr)
+		elapsed = 0;
+	else if (seek_id >= 0 && seek_id == mpd_status_get_song_id(c.status))
+		elapsed = seek_target_time;
+	else
+		elapsed = mpd_status_get_elapsed_time(c.status);
+
+	unsigned duration = mpdclient_is_playing(&c)
+		? mpd_status_get_total_time(c.status)
+		: 0;
+
+	progress_bar.Set(elapsed, duration);
+
 	status_bar.Update(c.status, c.song);
 
 	/* update the main window */
 	current_page->second->Update(c);
 
-	Paint(&c, current_page->second->IsDirty());
+	Paint(current_page->second->IsDirty());
 }
 
 void
@@ -250,7 +265,7 @@ ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
 				     _("Auto center mode: Off"));
 		break;
 	case CMD_SCREEN_UPDATE:
-		Paint(c, true);
+		Paint(true);
 		break;
 	case CMD_SCREEN_PREVIOUS:
 		NextMode(*c, -1);

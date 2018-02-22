@@ -27,10 +27,9 @@ struct mpdclient;
 #ifdef WIN32
 
 static inline void
-signals_init(GMainLoop *main_loop, struct mpdclient *c)
+signals_init(GMainLoop *main_loop)
 {
 	(void)main_loop;
-	(void)c;
 }
 
 static inline void
@@ -39,7 +38,7 @@ signals_deinit(void) {}
 #else
 
 void
-signals_init(GMainLoop *main_loop, struct mpdclient *c);
+signals_init(GMainLoop *main_loop);
 
 void
 signals_deinit();

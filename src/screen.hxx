@@ -75,7 +75,7 @@ public:
 
 	PageMap::iterator MakePage(const struct screen_functions &sf);
 
-	void OnResize(struct mpdclient *c);
+	void OnResize();
 
 	gcc_pure
 	bool IsVisible(const Page &page) const {
@@ -87,7 +87,7 @@ public:
 
 
 	void PaintTopWindow();
-	void Paint(struct mpdclient *c, bool main_dirty);
+	void Paint(bool main_dirty);
 
 	void Update(struct mpdclient &c);
 	void OnCommand(struct mpdclient *c, command_t cmd);
@@ -98,8 +98,6 @@ public:
 
 private:
 	void NextMode(struct mpdclient &c, int offset);
-
-	void UpdateProgressWindow(struct mpdclient &c);
 };
 
 #endif
