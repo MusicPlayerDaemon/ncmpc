@@ -20,10 +20,10 @@
 #ifndef NCMPC_PROGRESS_BAR_HXX
 #define NCMPC_PROGRESS_BAR_HXX
 
-#include "window.hxx"
+#include "Window.hxx"
 
 class ProgressBar {
-	struct window window;
+	Window window;
 
 	unsigned current = 0, max = 0;
 
@@ -31,10 +31,6 @@ class ProgressBar {
 
 public:
 	ProgressBar(unsigned _width, int y, int x);
-
-	~ProgressBar() {
-		delwin(window.w);
-	}
 
 	void OnResize(unsigned width, int y, int x);
 

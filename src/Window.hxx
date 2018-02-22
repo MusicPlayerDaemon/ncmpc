@@ -17,24 +17,26 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_WINDOW_H
-#define NCMPC_WINDOW_H
+#ifndef NCMPC_WINDOW_HXX
+#define NCMPC_WINDOW_HXX
 
 #include "config.h"
 #include "ncmpc_curses.h"
 
-struct window {
-	WINDOW *w;
+struct Window {
+	WINDOW *const w;
 	unsigned rows, cols;
-};
 
-static inline void
-window_init(struct window *window, unsigned height, unsigned width,
-	    int y, int x)
-{
-	window->w = newwin(height, width, y, x);
-	window->cols = width;
-	window->rows = height;
-}
+	Window(unsigned height, unsigned width, int y, int x)
+		:w(newwin(height, width, y, x)),
+		 rows(height), cols(width) {}
+
+	~Window() {
+		delwin(w);
+	}
+
+	Window(const Window &) = delete;
+	Window &operator=(const Window &) = delete;
+};
 
 #endif

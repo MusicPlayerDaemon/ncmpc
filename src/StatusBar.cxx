@@ -32,8 +32,8 @@
 #include <string.h>
 
 StatusBar::StatusBar(unsigned width, int y, int x)
+	:window(1, width, y, x)
 {
-	window_init(&window, 1, width, y, x);
 
 	leaveok(window.w, false);
 	keypad(window.w, true);
@@ -51,8 +51,6 @@ StatusBar::StatusBar(unsigned width, int y, int x)
 
 StatusBar::~StatusBar()
 {
-	delwin(window.w);
-
 #ifndef NCMPC_MINI
 	if (options.scroll)
 		hscroll.Clear();

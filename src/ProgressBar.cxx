@@ -23,8 +23,8 @@
 #include <assert.h>
 
 ProgressBar::ProgressBar(unsigned _width, int y, int x)
+	:window(1, _width, y, x)
 {
-	window_init(&window, 1, _width, y, x);
 	leaveok(window.w, true);
 	wbkgd(window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
 	colors_use(window.w, COLOR_PROGRESSBAR);

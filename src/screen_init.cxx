@@ -42,6 +42,8 @@ ScreenManager::ScreenManager()
 	:layout(std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
 		std::max<unsigned>(COLS, SCREEN_MIN_COLS)),
 	 title_bar(layout.cols, layout.title_y, layout.title_x),
+	 main_window(layout.GetMainRows(), layout.cols,
+		     layout.main_y, layout.main_x),
 	 progress_bar(layout.cols,
 		      layout.GetProgressY(), layout.progress_x),
 	status_bar(layout.cols, layout.GetStatusY(), layout.status_x)
@@ -49,10 +51,6 @@ ScreenManager::ScreenManager()
 	buf_size = layout.cols;
 	buf = (char *)g_malloc(buf_size);
 	findbuf = nullptr;
-
-	/* create main window */
-	window_init(&main_window, layout.GetMainRows(), layout.cols,
-		    layout.main_y, layout.main_x);
 
 	if (!options.hardware_cursor)
 		leaveok(main_window.w, true);
@@ -65,8 +63,6 @@ ScreenManager::~ScreenManager()
 	string_list_free(find_history);
 	g_free(buf);
 	g_free(findbuf);
-
-	delwin(main_window.w);
 
 #ifndef NCMPC_MINI
 	if (welcome_source_id != 0)

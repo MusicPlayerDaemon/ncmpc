@@ -22,7 +22,7 @@
 
 #include "config.h"
 #include "command.hxx"
-#include "window.hxx"
+#include "Window.hxx"
 #include "TitleBar.hxx"
 #include "ProgressBar.hxx"
 #include "StatusBar.hxx"
@@ -68,7 +68,7 @@ class ScreenManager {
 
 public:
 	TitleBar title_bar;
-	struct window main_window;
+	Window main_window;
 	ProgressBar progress_bar;
 	StatusBar status_bar;
 

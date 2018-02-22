@@ -20,22 +20,18 @@
 #ifndef NCMPC_TITLE_BAR_H
 #define NCMPC_TITLE_BAR_H
 
-#include "window.hxx"
+#include "Window.hxx"
 
 struct mpd_status;
 
 class TitleBar {
-	struct window window;
+	Window window;
 
 	int volume;
 	char flags[8];
 
 public:
 	TitleBar(unsigned width, int y, int x);
-
-	~TitleBar() {
-		delwin(window.w);
-	}
 
 	unsigned GetHeight() const {
 		return window.rows;

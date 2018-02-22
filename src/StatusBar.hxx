@@ -20,7 +20,7 @@
 #ifndef NCMPC_STATUS_BAR_HXX
 #define NCMPC_STATUS_BAR_HXX
 
-#include "window.hxx"
+#include "Window.hxx"
 
 #ifndef NCMPC_MINI
 #include "hscroll.hxx"
@@ -36,7 +36,7 @@ struct mpd_status;
 struct mpd_song;
 
 class StatusBar {
-	struct window window;
+	Window window;
 
 	guint message_source_id = 0;
 
@@ -58,7 +58,7 @@ public:
 	StatusBar(unsigned width, int y, int x);
 	~StatusBar();
 
-	struct window &GetWindow() {
+	Window &GetWindow() {
 		return window;
 	}
 

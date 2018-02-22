@@ -34,9 +34,8 @@
 #include <string.h>
 
 TitleBar::TitleBar(unsigned width, int y, int x)
+	:window(2, width, y, x)
 {
-	window_init(&window, 2, width, y, x);
-
 	leaveok(window.w, true);
 	keypad(window.w, true);
 
