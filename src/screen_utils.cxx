@@ -53,7 +53,7 @@ ignore_key(int key)
 int
 screen_getch(const char *prompt)
 {
-	WINDOW *w = screen.status_bar.GetWindow().w;
+	WINDOW *w = screen->status_bar.GetWindow().w;
 
 	colors_use(w, COLOR_STATUS_ALERT);
 	werase(w);
@@ -96,7 +96,7 @@ screen_readln(const char *prompt,
 	      GList **history,
 	      GCompletion *gcmp)
 {
-	struct window *window = &screen.status_bar.GetWindow();
+	struct window *window = &screen->status_bar.GetWindow();
 	WINDOW *w = window->w;
 	char *line = nullptr;
 
@@ -111,7 +111,7 @@ screen_readln(const char *prompt,
 char *
 screen_read_password(const char *prompt)
 {
-	struct window *window = &screen.status_bar.GetWindow();
+	struct window *window = &screen->status_bar.GetWindow();
 	WINDOW *w = window->w;
 
 	wmove(w, 0,0);
@@ -132,11 +132,11 @@ screen_display_completion_list(GList *list)
 	static GList *prev_list = nullptr;
 	static guint prev_length = 0;
 	static guint offset = 0;
-	WINDOW *w = screen.main_window.w;
+	WINDOW *w = screen->main_window.w;
 
 	unsigned length = g_list_length(list);
 	if (list == prev_list && length == prev_length) {
-		offset += screen.main_window.rows;
+		offset += screen->main_window.rows;
 		if (offset >= length)
 			offset = 0;
 	} else {
@@ -148,7 +148,7 @@ screen_display_completion_list(GList *list)
 	colors_use(w, COLOR_STATUS_ALERT);
 
 	unsigned y = 0;
-	while (y < screen.main_window.rows) {
+	while (y < screen->main_window.rows) {
 		GList *item = g_list_nth(list, y+offset);
 
 		wmove(w, y++, 0);

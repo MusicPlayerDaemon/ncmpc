@@ -68,7 +68,7 @@ static guint reconnect_source_id, update_source_id;
 static guint check_key_bindings_source_id;
 #endif
 
-ScreenManager screen;
+ScreenManager *screen;
 
 #ifndef NCMPC_MINI
 static void
@@ -144,7 +144,7 @@ do_mpd_update()
 		update_xterm_title();
 #endif
 
-	screen.Update(*mpd);
+	screen->Update(*mpd);
 	mpd->events = (enum mpd_idle)0;
 }
 
@@ -219,7 +219,7 @@ mpdclient_lost_callback()
 {
 	assert(reconnect_source_id == 0);
 
-	screen.Update(*mpd);
+	screen->Update(*mpd);
 
 	reconnect_source_id = g_timeout_add_seconds(1, timer_reconnect, nullptr);
 }
@@ -236,7 +236,7 @@ mpdclient_idle_callback(gcc_unused unsigned events)
 		update_xterm_title();
 #endif
 
-	screen.Update(*mpd);
+	screen->Update(*mpd);
 	auto_update_timer();
 }
 
@@ -259,7 +259,7 @@ void begin_input_event()
 
 void end_input_event()
 {
-	screen.Update(*mpd);
+	screen->Update(*mpd);
 	mpd->events = (enum mpd_idle)0;
 
 	auto_update_timer();
@@ -273,7 +273,7 @@ do_input_event(command_t cmd)
 		return false;
 	}
 
-	screen.OnCommand(mpd, cmd);
+	screen->OnCommand(mpd, cmd);
 
 	if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN)
 		/* make sure we don't update the volume yet */
@@ -287,7 +287,7 @@ do_input_event(command_t cmd)
 void
 do_mouse_event(int x, int y, mmask_t bstate)
 {
-	screen.OnMouse(mpd, x, y, bstate);
+	screen->OnMouse(mpd, x, y, bstate);
 }
 
 #endif
@@ -387,18 +387,20 @@ main(int argc, const char *argv[])
 			    options.password);
 
 	/* initialize curses */
-	screen.Init(mpd);
+	ScreenManager screen_manager;
+	screen_manager.Init(mpd);
+	screen = &screen_manager;
 
 	/* the main loop */
 	main_loop = g_main_loop_new(nullptr, false);
 
 	/* watch out for keyboard input */
-	keyboard_init(screen.main_window.w);
+	keyboard_init(screen_manager.main_window.w);
 
 	/* watch out for lirc input */
 	ncmpc_lirc_init();
 
-	signals_init(main_loop, screen);
+	signals_init(main_loop, screen_manager);
 
 	/* attempt to connect */
 	reconnect_source_id = g_idle_add(timer_reconnect, nullptr);
@@ -410,7 +412,7 @@ main(int argc, const char *argv[])
 		g_timeout_add_seconds(10, timer_check_key_bindings, nullptr);
 #endif
 
-	screen.Update(*mpd);
+	screen_manager.Update(*mpd);
 
 	g_main_loop_run(main_loop);
 	g_main_loop_unref(main_loop);
@@ -432,7 +434,7 @@ main(int argc, const char *argv[])
 	signals_deinit();
 	ncmpc_lirc_deinit();
 
-	screen.Exit();
+	screen_manager.Exit();
 #ifndef NCMPC_MINI
 	set_xterm_title("");
 #endif
