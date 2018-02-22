@@ -57,7 +57,7 @@ public:
 	size_t buf_size;
 
 	char *findbuf;
-	GList *find_history;
+	GList *find_history = nullptr;
 
 #ifndef NCMPC_MINI
 	/**
