@@ -180,7 +180,7 @@ FileListPage::GetSelectedEntry() const
 	const auto range = lw.GetRange();
 
 	if (filelist == nullptr ||
-	    range.end_index <= range.start_index ||
+	    range.empty() ||
 	    range.end_index > range.start_index + 1 ||
 	    range.start_index >= filelist->size())
 		return nullptr;

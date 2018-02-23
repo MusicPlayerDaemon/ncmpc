@@ -652,8 +652,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_LIST_MOVE_UP:
 		range = lw.GetRange();
-		if (range.start_index == 0 ||
-		    range.end_index <= range.start_index)
+		if (range.start_index == 0 || range.empty())
 			return false;
 
 		if (!mpdclient_cmd_move(&c, range.end_index - 1,

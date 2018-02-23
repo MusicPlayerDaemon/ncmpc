@@ -49,6 +49,10 @@ struct ListWindowRange {
 	 */
 	unsigned end_index;
 
+	constexpr bool empty() const {
+		return start_index >= end_index;
+	}
+
 	constexpr bool Contains(unsigned i) const {
 		return i >= start_index && i < end_index;
 	}
