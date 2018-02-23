@@ -28,7 +28,7 @@
 gboolean
 hscroll::TimerCallback(gpointer data)
 {
-	auto &hscroll = *(struct hscroll *)data;
+	auto &hscroll = *(class hscroll *)data;
 	hscroll.TimerCallback();
 	return true;
 }

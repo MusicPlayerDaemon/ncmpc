@@ -24,7 +24,7 @@
 #include "ncmpc_curses.h"
 
 struct mpd_song;
-struct hscroll;
+class hscroll;
 
 /**
  * Paints a song into a list window row.  The cursor must be set to
@@ -42,6 +42,6 @@ struct hscroll;
 void
 paint_song_row(WINDOW *w, unsigned y, unsigned width,
 	       bool selected, bool highlight, const struct mpd_song *song,
-	       struct hscroll *hscroll, const char *format);
+	       class hscroll *hscroll, const char *format);
 
 #endif

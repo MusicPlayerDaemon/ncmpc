@@ -56,7 +56,7 @@ class QueuePage final : public ListPage {
 	ScreenManager &screen;
 
 #ifndef NCMPC_MINI
-	mutable struct hscroll hscroll;
+	mutable class hscroll hscroll;
 #endif
 
 	MpdQueue *playlist = nullptr;
@@ -419,7 +419,7 @@ QueuePage::PaintRow(WINDOW *w, unsigned i, unsigned y, unsigned width,
 	assert(i < q.playlist->size());
 	const auto &song = (*q.playlist)[i];
 
-	struct hscroll *row_hscroll = nullptr;
+	class hscroll *row_hscroll = nullptr;
 #ifndef NCMPC_MINI
 	row_hscroll = selected && options.scroll && q.lw.selected == i
 		? &q.hscroll : nullptr;

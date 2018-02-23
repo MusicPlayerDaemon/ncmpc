@@ -34,7 +34,7 @@
 void
 paint_song_row(WINDOW *w, gcc_unused unsigned y, unsigned width,
 	       bool selected, bool highlight, const struct mpd_song *song,
-	       gcc_unused struct hscroll *hscroll, const char *format)
+	       gcc_unused class hscroll *hscroll, const char *format)
 {
 	char buffer[width * 4];
 

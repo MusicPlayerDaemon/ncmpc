@@ -41,7 +41,7 @@ class StatusBar {
 	guint message_source_id = 0;
 
 #ifndef NCMPC_MINI
-	struct hscroll hscroll;
+	class hscroll hscroll;
 #endif
 
 	const char *left_text;
