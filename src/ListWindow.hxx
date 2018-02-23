@@ -52,6 +52,35 @@ struct ListWindowRange {
 	constexpr bool Contains(unsigned i) const {
 		return i >= start_index && i < end_index;
 	}
+
+	struct const_iterator {
+		unsigned value;
+
+		const_iterator &operator++() {
+			++value;
+			return *this;
+		}
+
+		constexpr bool operator==(const const_iterator &other) const {
+			return value == other.value;
+		}
+
+		constexpr bool operator!=(const const_iterator &other) const {
+			return !(*this == other);
+		}
+
+		const unsigned &operator *() const {
+			return value;
+		}
+	};
+
+	constexpr const_iterator begin() const {
+		return {start_index};
+	}
+
+	constexpr const_iterator end() const {
+		return {end_index};
+	}
 };
 
 struct ListWindow {

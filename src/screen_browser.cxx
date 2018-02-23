@@ -300,7 +300,7 @@ FileListPage::HandleSelect(struct mpdclient &c)
 	bool success = false;
 
 	const auto range = lw.GetRange();
-	for (unsigned i = range.start_index; i < range.end_index; ++i) {
+	for (const unsigned i : range) {
 		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
 			success = browser_select_entry(&c, entry, true);
@@ -317,7 +317,7 @@ FileListPage::HandleAdd(struct mpdclient &c)
 	bool success = false;
 
 	const auto range = lw.GetRange();
-	for (unsigned i = range.start_index; i < range.end_index; ++i) {
+	for (const unsigned i : range) {
 		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
 			success = browser_select_entry(&c, entry, false) ||

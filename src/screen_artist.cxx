@@ -522,7 +522,6 @@ bool
 ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
 	switch(cmd) {
-		ListWindowRange range;
 		const char *selected;
 		char *old;
 		char *old_ptr;
@@ -666,8 +665,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			if (lw.selected >= artist_list.size())
 				return true;
 
-			range = lw.GetRange();
-			for (unsigned i = range.start_index; i < range.end_index; ++i) {
+			for (const unsigned i : lw.GetRange()) {
 				selected = artist_list[i].c_str();
 				add_query(&c, MPD_TAG_ARTIST, selected, nullptr);
 				cmd = CMD_LIST_NEXT; /* continue and select next item... */
@@ -675,8 +673,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			break;
 
 		case Mode::ALBUMS:
-			range = lw.GetRange();
-			for (unsigned i = range.start_index; i < range.end_index; ++i) {
+			for (const unsigned i : lw.GetRange()) {
 				if(i == album_list.size() + 1)
 					add_query(&c, MPD_TAG_ARTIST, artist, nullptr);
 				else if (i > 0)
