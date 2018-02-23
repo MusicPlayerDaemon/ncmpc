@@ -626,7 +626,7 @@ ListWindow::HandleScrollCommand(command_t cmd)
 
 #ifdef HAVE_GETMOUSE
 bool
-ListWindow::HandleMouse(unsigned long bstate, int y)
+ListWindow::HandleMouse(mmask_t bstate, int y)
 {
 	/* if the even occurred above the list window move up */
 	if (y < 0) {
