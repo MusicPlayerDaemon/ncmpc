@@ -25,8 +25,7 @@ int main(int argc, char **argv)
 	width = atoi(argv[3]);
 	count = atoi(argv[4]);
 
-	BasicMarquee hscroll;
-	hscroll.Init(argv[2]);
+	BasicMarquee hscroll(argv[2]);
 	hscroll.Set(width, argv[1]);
 
 	for (unsigned i = 0; i < count; ++i) {

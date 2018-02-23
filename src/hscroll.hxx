@@ -60,8 +60,7 @@ class hscroll {
 
 public:
 	hscroll(WINDOW *_w, const char *_separator)
-		:w(_w) {
-		basic.Init(_separator);
+		:w(_w), basic(_separator) {
 	}
 
 	bool IsDefined() const {

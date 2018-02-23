@@ -27,7 +27,7 @@
  * scrolling.
  */
 class BasicMarquee {
-	const char *separator;
+	const char *const separator;
 
 	/**
 	 * The available screen width (in cells).
@@ -56,9 +56,8 @@ class BasicMarquee {
 	unsigned offset;
 
 public:
-	void Init(const char *_separator) {
-		separator = _separator;
-	}
+	BasicMarquee(const char *_separator)
+		:separator(_separator) {}
 
 	bool IsDefined() const {
 		return text != nullptr;
