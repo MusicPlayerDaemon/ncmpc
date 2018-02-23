@@ -41,16 +41,16 @@ struct ListWindowRange {
 	/**
 	 * The index of the first selected item.
 	 */
-	unsigned start;
+	unsigned start_index;
 
 	/**
 	 * The index after the last selected item.  The selection is
 	 * empty when this is the same as "start".
 	 */
-	unsigned end;
+	unsigned end_index;
 
 	constexpr bool Contains(unsigned i) const {
-		return i >= start && i < end;
+		return i >= start_index && i < end_index;
 	}
 };
 

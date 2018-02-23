@@ -222,10 +222,10 @@ FileBrowserPage::HandleSave(struct mpdclient &c)
 	const char *defaultname = nullptr;
 
 	const auto range = lw.GetRange();
-	if (range.start == range.end)
+	if (range.start_index == range.end_index)
 		return;
 
-	for (unsigned i = range.start; i < range.end; ++i) {
+	for (unsigned i = range.start_index; i < range.end_index; ++i) {
 		auto &entry = (*filelist)[i];
 		if (entry.entity) {
 			struct mpd_entity *entity = entry.entity;
@@ -253,7 +253,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 		return;
 
 	const auto range = lw.GetRange();
-	for (unsigned i = range.start; i < range.end; ++i) {
+	for (unsigned i = range.start_index; i < range.end_index; ++i) {
 		auto &entry = (*filelist)[i];
 		if (entry.entity == nullptr)
 			continue;

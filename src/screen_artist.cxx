@@ -667,7 +667,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 				return true;
 
 			range = lw.GetRange();
-			for (unsigned i = range.start; i < range.end; ++i) {
+			for (unsigned i = range.start_index; i < range.end_index; ++i) {
 				selected = artist_list[i].c_str();
 				add_query(&c, MPD_TAG_ARTIST, selected, nullptr);
 				cmd = CMD_LIST_NEXT; /* continue and select next item... */
@@ -676,7 +676,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 		case Mode::ALBUMS:
 			range = lw.GetRange();
-			for (unsigned i = range.start; i < range.end; ++i) {
+			for (unsigned i = range.start_index; i < range.end_index; ++i) {
 				if(i == album_list.size() + 1)
 					add_query(&c, MPD_TAG_ARTIST, artist, nullptr);
 				else if (i > 0)

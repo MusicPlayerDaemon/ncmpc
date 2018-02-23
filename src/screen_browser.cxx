@@ -180,12 +180,12 @@ FileListPage::GetSelectedEntry() const
 	const auto range = lw.GetRange();
 
 	if (filelist == nullptr ||
-	    range.end <= range.start ||
-	    range.end > range.start + 1 ||
-	    range.start >= filelist->size())
+	    range.end_index <= range.start_index ||
+	    range.end_index > range.start_index + 1 ||
+	    range.start_index >= filelist->size())
 		return nullptr;
 
-	return &(*filelist)[range.start];
+	return &(*filelist)[range.start_index];
 }
 
 const struct mpd_entity *
@@ -300,7 +300,7 @@ FileListPage::HandleSelect(struct mpdclient &c)
 	bool success = false;
 
 	const auto range = lw.GetRange();
-	for (unsigned i = range.start; i < range.end; ++i) {
+	for (unsigned i = range.start_index; i < range.end_index; ++i) {
 		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
 			success = browser_select_entry(&c, entry, true);
@@ -308,7 +308,7 @@ FileListPage::HandleSelect(struct mpdclient &c)
 
 	SetDirty();
 
-	return range.end == range.start + 1 && success;
+	return range.end_index == range.start_index + 1 && success;
 }
 
 bool
@@ -317,14 +317,14 @@ FileListPage::HandleAdd(struct mpdclient &c)
 	bool success = false;
 
 	const auto range = lw.GetRange();
-	for (unsigned i = range.start; i < range.end; ++i) {
+	for (unsigned i = range.start_index; i < range.end_index; ++i) {
 		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
 			success = browser_select_entry(&c, entry, false) ||
 				success;
 	}
 
-	return range.end == range.start + 1 && success;
+	return range.end_index == range.start_index + 1 && success;
 }
 
 void

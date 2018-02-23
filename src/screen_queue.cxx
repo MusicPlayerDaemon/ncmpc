@@ -619,9 +619,10 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_DELETE:
 		range = lw.GetRange();
-		mpdclient_cmd_delete_range(&c, range.start, range.end);
+		mpdclient_cmd_delete_range(&c, range.start_index,
+					   range.end_index);
 
-		lw.SetCursor(range.start);
+		lw.SetCursor(range.start_index);
 		return true;
 
 	case CMD_SAVE_PLAYLIST:
@@ -634,7 +635,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_SHUFFLE:
 		range = lw.GetRange();
-		if (range.end <= range.start + 1)
+		if (range.end_index <= range.start_index + 1)
 			/* No range selection, shuffle all list. */
 			break;
 
@@ -642,7 +643,8 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		if (connection == nullptr)
 			return true;
 
-		if (mpd_run_shuffle_range(connection, range.start, range.end))
+		if (mpd_run_shuffle_range(connection, range.start_index,
+					  range.end_index))
 			screen_status_message(_("Shuffled queue"));
 		else
 			mpdclient_handle_error(&c);
@@ -650,10 +652,12 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_LIST_MOVE_UP:
 		range = lw.GetRange();
-		if (range.start == 0 || range.end <= range.start)
+		if (range.start_index == 0 ||
+		    range.end_index <= range.start_index)
 			return false;
 
-		if (!mpdclient_cmd_move(&c, range.end - 1, range.start - 1))
+		if (!mpdclient_cmd_move(&c, range.end_index - 1,
+					range.start_index - 1))
 			return true;
 
 		lw.selected--;
@@ -668,10 +672,11 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_LIST_MOVE_DOWN:
 		range = lw.GetRange();
-		if (range.end >= c.playlist.size())
+		if (range.end_index >= c.playlist.size())
 			return false;
 
-		if (!mpdclient_cmd_move(&c, range.start, range.end))
+		if (!mpdclient_cmd_move(&c, range.start_index,
+					range.end_index))
 			return true;
 
 		lw.selected++;
