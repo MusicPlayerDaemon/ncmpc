@@ -21,7 +21,7 @@
 #define NCMPC_LIST_PAGE_HXX
 
 #include "Page.hxx"
-#include "list_window.hxx"
+#include "ListWindow.hxx"
 
 /**
  * An abstract #Page implementation which shows a #ListWindow.

@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef LIST_WINDOW_H
-#define LIST_WINDOW_H
+#ifndef LIST_WINDOW_HXX
+#define LIST_WINDOW_HXX
 
 #include "config.h"
 #include "command.hxx"
