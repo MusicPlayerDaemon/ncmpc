@@ -210,7 +210,7 @@ LyricsPage::Set(const char *s)
 
 		/* restore the cursor and ensure that it's still valid */
 		lw.start = saved_start;
-		list_window_fetch_cursor(&lw);
+		lw.FetchCursor();
 	} else {
 		TextPage::Set(s);
 	}

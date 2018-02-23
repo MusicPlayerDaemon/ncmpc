@@ -226,7 +226,7 @@ KeyDefPage::check_subcmd_length()
 			break;
 	subcmd_n_keys = i;
 
-	list_window_set_length(&lw, subcmd_length());
+	lw.SetLength(subcmd_length());
 }
 
 void
@@ -237,7 +237,7 @@ KeyDefPage::SwitchToSubCommandMode(int cmd)
 	saved_start = lw.start;
 
 	subcmd = cmd;
-	list_window_reset(&lw);
+	lw.Reset();
 	check_subcmd_length();
 
 	SetDirty();
@@ -248,8 +248,8 @@ KeyDefPage::SwitchToCommandMode()
 {
 	assert(subcmd != -1);
 
-	list_window_set_length(&lw, command_length());
-	list_window_set_cursor(&lw, subcmd);
+	lw.SetLength(command_length());
+	lw.SetCursor(subcmd);
 	subcmd = -1;
 
 	lw.start = saved_start;
@@ -405,7 +405,7 @@ KeyDefPage::OnOpen(gcc_unused struct mpdclient &c)
 	}
 
 	subcmd = -1;
-	list_window_set_length(&lw, command_length());
+	lw.SetLength(command_length());
 }
 
 void
@@ -431,7 +431,7 @@ KeyDefPage::GetTitle(char *str, size_t size) const
 void
 KeyDefPage::Paint() const
 {
-	list_window_paint(&lw, ListCallback, const_cast<KeyDefPage *>(this));
+	lw.Paint(ListCallback, const_cast<KeyDefPage *>(this));
 }
 
 bool

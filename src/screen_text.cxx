@@ -31,9 +31,9 @@
 void
 TextPage::Clear()
 {
-	list_window_reset(&lw);
+	lw.Reset();
 	lines.clear();
-	list_window_set_length(&lw, 0);
+	lw.SetLength(0);
 }
 
 void
@@ -67,7 +67,7 @@ TextPage::Append(const char *str)
 	if (*str != 0)
 		lines.emplace_back(str);
 
-	list_window_set_length(&lw, lines.size());
+	lw.SetLength(lines.size());
 }
 
 const char *
@@ -90,10 +90,10 @@ TextPage::OnCommand(struct mpdclient &c, command_t cmd)
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
-	list_window_set_cursor(&lw, lw.start);
+	lw.SetCursor(lw.start);
 	if (screen_find(screen, &lw, cmd, ListCallback, this)) {
 		/* center the row */
-		list_window_center(&lw, lw.selected);
+		lw.Center(lw.selected);
 		SetDirty();
 		return true;
 	}

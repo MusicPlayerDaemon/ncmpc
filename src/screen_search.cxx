@@ -111,7 +111,7 @@ public:
 			      options.search_format != nullptr
 			      ? options.search_format
 			      : options.list_format) {
-		list_window_set_length(&lw, G_N_ELEMENTS(help_text));
+		lw.SetLength(G_N_ELEMENTS(help_text));
 		lw.hide_cursor = true;
 	}
 
@@ -160,7 +160,7 @@ SearchPage::Clear(bool clear_pattern)
 	if (filelist) {
 		delete filelist;
 		filelist = new FileList();
-		list_window_set_length(&lw, 0);
+		lw.SetLength(0);
 	}
 	if (clear_pattern) {
 		g_free(pattern);
@@ -365,7 +365,7 @@ SearchPage::Reload(struct mpdclient &c)
 	filelist = do_search(&c, pattern);
 	if (filelist == nullptr)
 		filelist = new FileList();
-	list_window_set_length(&lw, filelist->size());
+	lw.SetLength(filelist->size());
 
 	screen_browser_sync_highlights(filelist, &c.playlist);
 
@@ -387,7 +387,7 @@ SearchPage::Start(struct mpdclient &c)
 				nullptr);
 
 	if (pattern == nullptr) {
-		list_window_reset(&lw);
+		lw.Reset();
 		return;
 	}
 
@@ -426,7 +426,7 @@ SearchPage::Paint() const
 	if (filelist) {
 		FileListPage::Paint();
 	} else {
-		list_window_paint(&lw, lw_search_help_callback, nullptr);
+		lw.Paint(lw_search_help_callback, nullptr);
 	}
 }
 
@@ -478,7 +478,7 @@ SearchPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_CLEAR:
 		Clear(true);
-		list_window_reset(&lw);
+		lw.Reset();
 		return true;
 
 	default:

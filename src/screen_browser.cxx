@@ -177,9 +177,7 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 FileListEntry *
 FileListPage::GetSelectedEntry() const
 {
-	ListWindowRange range;
-
-	list_window_get_range(&lw, &range);
+	const auto range = lw.GetRange();
 
 	if (filelist == nullptr ||
 	    range.end <= range.start ||
@@ -299,10 +297,9 @@ browser_select_entry(struct mpdclient *c, FileListEntry *entry,
 bool
 FileListPage::HandleSelect(struct mpdclient &c)
 {
-	ListWindowRange range;
 	bool success = false;
 
-	list_window_get_range(&lw, &range);
+	const auto range = lw.GetRange();
 	for (unsigned i = range.start; i < range.end; ++i) {
 		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
@@ -317,10 +314,9 @@ FileListPage::HandleSelect(struct mpdclient &c)
 bool
 FileListPage::HandleAdd(struct mpdclient &c)
 {
-	ListWindowRange range;
 	bool success = false;
 
-	list_window_get_range(&lw, &range);
+	const auto range = lw.GetRange();
 	for (unsigned i = range.start; i < range.end; ++i) {
 		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
@@ -358,7 +354,7 @@ FileListPage::OnMouse(struct mpdclient &c, int x, int row,
 	if (ListPage::OnMouse(c, x, row, bstate))
 		return true;
 
-	list_window_set_cursor(&lw, lw.start + row);
+	lw.SetCursor(lw.start + row);
 
 	if( bstate & BUTTON1_CLICKED ) {
 		if (prev_selected == lw.selected)
@@ -440,13 +436,13 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_SELECT:
 		if (HandleSelect(c))
-			list_window_cmd(&lw, CMD_LIST_NEXT);
+			lw.HandleCommand(CMD_LIST_NEXT);
 		SetDirty();
 		return true;
 
 	case CMD_ADD:
 		if (HandleAdd(c))
-			list_window_cmd(&lw, CMD_LIST_NEXT);
+			lw.HandleCommand(CMD_LIST_NEXT);
 		SetDirty();
 		return true;
 
@@ -547,5 +543,5 @@ FileListPage::PaintRow(WINDOW *w, unsigned i,
 void
 FileListPage::Paint() const
 {
-	list_window_paint2(&lw, PaintRow, this);
+	lw.Paint(PaintRow, this);
 }

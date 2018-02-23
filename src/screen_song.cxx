@@ -198,8 +198,8 @@ SongPage::GetTitle(gcc_unused char *str, gcc_unused size_t size) const
 void
 SongPage::Paint() const
 {
-	list_window_paint(&lw, screen_song_list_callback,
-			  const_cast<void *>((const void *)&lines));
+	lw.Paint(screen_song_list_callback,
+		 const_cast<void *>((const void *)&lines));
 }
 
 void
@@ -481,7 +481,7 @@ SongPage::Update(struct mpdclient &c)
 	if (connection != nullptr && !AddStats(connection))
 		mpdclient_handle_error(&c);
 
-	list_window_set_length(&lw, lines.size());
+	lw.SetLength(lines.size());
 	SetDirty();
 }
 
@@ -532,7 +532,7 @@ SongPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	if (screen_find(screen, &lw, cmd, screen_song_list_callback, &lines)) {
 		/* center the row */
-		list_window_center(&lw, lw.selected);
+		lw.Center(lw.selected);
 		SetDirty();
 		return true;
 	}

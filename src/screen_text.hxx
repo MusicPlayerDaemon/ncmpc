@@ -74,8 +74,7 @@ private:
 public:
 	/* virtual methods from class Page */
 	void Paint() const override {
-		list_window_paint(&lw, ListCallback,
-				  const_cast<TextPage *>(this));
+		lw.Paint(ListCallback, const_cast<TextPage *>(this));
 	}
 
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;

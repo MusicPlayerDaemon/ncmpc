@@ -204,7 +204,7 @@ public:
 	HelpPage(ScreenManager &_screen, WINDOW *w, unsigned cols, unsigned rows)
 		:ListPage(w, cols, rows), screen(_screen) {
 		lw.hide_cursor = true;
-		list_window_set_length(&lw, G_N_ELEMENTS(help_text));
+		lw.SetLength(G_N_ELEMENTS(help_text));
 	}
 
 public:
@@ -275,7 +275,7 @@ screen_help_paint_callback(WINDOW *w, unsigned i,
 void
 HelpPage::Paint() const
 {
-	list_window_paint2(&lw, screen_help_paint_callback, nullptr);
+	lw.Paint(screen_help_paint_callback, nullptr);
 }
 
 bool
@@ -284,10 +284,10 @@ HelpPage::OnCommand(struct mpdclient &c, command_t cmd)
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
-	list_window_set_cursor(&lw, lw.start);
+	lw.SetCursor(lw.start);
 	if (screen_find(screen, &lw, cmd, list_callback, nullptr)) {
 		/* center the row */
-		list_window_center(&lw, lw.selected);
+		lw.Center(lw.selected);
 		SetDirty();
 		return true;
 	}

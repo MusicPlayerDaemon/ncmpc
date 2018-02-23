@@ -35,276 +35,259 @@
 #include <string.h>
 
 void
-list_window_reset(ListWindow *lw)
+ListWindow::Reset()
 {
-	lw->selected = 0;
-	lw->range_selection = false;
-	lw->range_base = 0;
-	lw->start = 0;
+	selected = 0;
+	range_selection = false;
+	range_base = 0;
+	start = 0;
 }
 
-static unsigned
-list_window_validate_index(const ListWindow *lw, unsigned i)
+unsigned
+ListWindow::ValidateIndex(unsigned i) const
 {
-	if (lw->length == 0)
+	if (length == 0)
 		return 0;
-	else if (i >= lw->length)
-		return lw->length - 1;
+	else if (i >= length)
+		return length - 1;
 	else
 		return i;
 }
 
-static void
-list_window_check_selected(ListWindow *lw)
+void
+ListWindow::CheckSelected()
 {
-	lw->selected = list_window_validate_index(lw, lw->selected);
+	selected = ValidateIndex(selected);
 
-	if(lw->range_selection)
-		lw->range_base =
-			list_window_validate_index(lw, lw->range_base);
-}
-
-/**
- * Scroll after the cursor was moved, the list was changed or the
- * window was resized.
- */
-static void
-list_window_check_origin(ListWindow *lw)
-{
-	list_window_scroll_to(lw, lw->selected);
+	if (range_selection)
+		range_base = ValidateIndex(range_base);
 }
 
 void
-list_window_resize(ListWindow *lw, unsigned width, unsigned height)
+ListWindow::Resize(unsigned width, unsigned height)
 {
-	lw->cols = width;
-	lw->rows = height;
+	cols = width;
+	rows = height;
 
-	list_window_check_origin(lw);
+	CheckOrigin();
 }
 
 void
-list_window_set_length(ListWindow *lw, unsigned length)
+ListWindow::SetLength(unsigned _length)
 {
-	if (length == lw->length)
+	if (_length == length)
 		return;
 
-	lw->length = length;
+	length = _length;
 
-	list_window_check_selected(lw);
-	list_window_check_origin(lw);
+	CheckSelected();
+	CheckOrigin();
 }
 
 void
-list_window_center(ListWindow *lw, unsigned n)
+ListWindow::Center(unsigned n)
 {
-	if (n > lw->rows / 2)
-		lw->start = n - lw->rows / 2;
+	if (n > rows / 2)
+		start = n - rows / 2;
 	else
-		lw->start = 0;
-
-	if (lw->start + lw->rows > lw->length) {
-		if (lw->rows < lw->length)
-			lw->start = lw->length - lw->rows;
-		else
-			lw->start = 0;
-	}
-}
-
-void
-list_window_scroll_to(ListWindow *lw, unsigned n)
-{
-	int start = lw->start;
-
-	if ((unsigned) options.scroll_offset * 2 >= lw->rows)
-		// Center if the offset is more than half the screen
-		start = n - lw->rows / 2;
-	else {
-		if (n < lw->start + options.scroll_offset)
-			start = n - options.scroll_offset;
-
-		if (n >= lw->start + lw->rows - options.scroll_offset)
-			start = n - lw->rows + 1 + options.scroll_offset;
-	}
-
-	if (start + lw->rows > lw->length)
-		start = lw->length - lw->rows;
-
-	if (start < 0 || lw->length == 0)
 		start = 0;
 
-	lw->start = start;
+	if (start + rows > length) {
+		if (rows < length)
+			start = length - rows;
+		else
+			start = 0;
+	}
 }
 
 void
-list_window_set_cursor(ListWindow *lw, unsigned i)
+ListWindow::ScrollTo(unsigned n)
 {
-	lw->range_selection = false;
-	lw->selected = i;
+	int new_start = start;
 
-	list_window_check_selected(lw);
-	list_window_check_origin(lw);
+	if ((unsigned) options.scroll_offset * 2 >= rows)
+		// Center if the offset is more than half the screen
+		new_start = n - rows / 2;
+	else {
+		if (n < start + options.scroll_offset)
+			new_start = n - options.scroll_offset;
+
+		if (n >= start + rows - options.scroll_offset)
+			new_start = n - rows + 1 + options.scroll_offset;
+	}
+
+	if (new_start + rows > length)
+		new_start = length - rows;
+
+	if (new_start < 0 || length == 0)
+		new_start = 0;
+
+	start = new_start;
 }
 
 void
-list_window_move_cursor(ListWindow *lw, unsigned n)
+ListWindow::SetCursor(unsigned i)
 {
-	lw->selected = n;
+	range_selection = false;
+	selected = i;
 
-	list_window_check_selected(lw);
-	list_window_check_origin(lw);
+	CheckSelected();
+	CheckOrigin();
 }
 
 void
-list_window_fetch_cursor(ListWindow *lw)
+ListWindow::MoveCursor(unsigned n)
 {
-	if (lw->start > 0 &&
-	    lw->selected < lw->start + options.scroll_offset)
-		list_window_move_cursor(lw, lw->start + options.scroll_offset);
-	else if (lw->start + lw->rows < lw->length &&
-		 lw->selected > lw->start + lw->rows - 1 - options.scroll_offset)
-		list_window_move_cursor(lw, lw->start + lw->rows - 1 - options.scroll_offset);
+	selected = n;
+
+	CheckSelected();
+	CheckOrigin();
 }
 
 void
-list_window_get_range(const ListWindow *lw,
-		      ListWindowRange *range)
+ListWindow::FetchCursor()
 {
-	if (lw->length == 0) {
+	if (start > 0 &&
+	    selected < start + options.scroll_offset)
+		MoveCursor(start + options.scroll_offset);
+	else if (start + rows < length &&
+		 selected > start + rows - 1 - options.scroll_offset)
+		MoveCursor(start + rows - 1 - options.scroll_offset);
+}
+
+ListWindowRange
+ListWindow::GetRange() const
+{
+	if (length == 0) {
 		/* empty list - no selection */
-		range->start = 0;
-		range->end = 0;
-	} else if (lw->range_selection) {
+		return {0, 0};
+	} else if (range_selection) {
 		/* a range selection */
-		if (lw->range_base < lw->selected) {
-			range->start = lw->range_base;
-			range->end = lw->selected + 1;
+		if (range_base < selected) {
+			return {range_base, selected + 1};
 		} else {
-			range->start = lw->selected;
-			range->end = lw->range_base + 1;
+			return {selected, range_base + 1};
 		}
 	} else {
 		/* no range, just the cursor */
-		range->start = lw->selected;
-		range->end = lw->selected + 1;
+		return {selected, selected + 1};
 	}
 }
 
-static void
-list_window_next(ListWindow *lw)
+void
+ListWindow::MoveCursorNext()
 {
-	if (lw->selected + 1 < lw->length)
-		list_window_move_cursor(lw, lw->selected + 1);
+	if (selected + 1 < length)
+		MoveCursor(selected + 1);
 	else if (options.list_wrap)
-		list_window_move_cursor(lw, 0);
+		MoveCursor(0);
 }
 
-static void
-list_window_previous(ListWindow *lw)
+void
+ListWindow::MoveCursorPrevious()
 {
-	if (lw->selected > 0)
-		list_window_move_cursor(lw, lw->selected - 1);
+	if (selected > 0)
+		MoveCursor(selected - 1);
 	else if (options.list_wrap)
-		list_window_move_cursor(lw, lw->length - 1);
+		MoveCursor(length - 1);
 }
 
-static void
-list_window_top(ListWindow *lw)
+void
+ListWindow::MoveCursorTop()
 {
-	if (lw->start == 0)
-		list_window_move_cursor(lw, lw->start);
+	if (start == 0)
+		MoveCursor(start);
 	else
-		if ((unsigned) options.scroll_offset * 2 >= lw->rows)
-			list_window_move_cursor(lw, lw->start + lw->rows / 2);
+		if ((unsigned) options.scroll_offset * 2 >= rows)
+			MoveCursor(start + rows / 2);
 		else
-			list_window_move_cursor(lw, lw->start + options.scroll_offset);
+			MoveCursor(start + options.scroll_offset);
 }
 
-static void
-list_window_middle(ListWindow *lw)
+void
+ListWindow::MoveCursorMiddle()
 {
-	if (lw->length >= lw->rows)
-		list_window_move_cursor(lw, lw->start + lw->rows / 2);
+	if (length >= rows)
+		MoveCursor(start + rows / 2);
 	else
-		list_window_move_cursor(lw, lw->length / 2);
+		MoveCursor(length / 2);
 }
 
-static void
-list_window_bottom(ListWindow *lw)
+void
+ListWindow::MoveCursorBottom()
 {
-	if (lw->length >= lw->rows)
-		if ((unsigned) options.scroll_offset * 2 >= lw->rows)
-			list_window_move_cursor(lw, lw->start + lw->rows / 2);
+	if (length >= rows)
+		if ((unsigned) options.scroll_offset * 2 >= rows)
+			MoveCursor(start + rows / 2);
 		else
-			if (lw->start + lw->rows == lw->length)
-				list_window_move_cursor(lw, lw->length - 1);
+			if (start + rows == length)
+				MoveCursor(length - 1);
 			else
-				list_window_move_cursor(lw, lw->start + lw->rows - 1 - options.scroll_offset);
+				MoveCursor(start + rows - 1 - options.scroll_offset);
 	else
-		list_window_move_cursor(lw, lw->length - 1);
+		MoveCursor(length - 1);
 }
 
-static void
-list_window_first(ListWindow *lw)
+void
+ListWindow::MoveCursorFirst()
 {
-	list_window_move_cursor(lw, 0);
+	MoveCursor(0);
 }
 
-static void
-list_window_last(ListWindow *lw)
+void
+ListWindow::MoveCursorLast()
 {
-	if (lw->length > 0)
-		list_window_move_cursor(lw, lw->length - 1);
+	if (length > 0)
+		MoveCursor(length - 1);
 	else
-		list_window_move_cursor(lw, 0);
+		MoveCursor(0);
 }
 
-static void
-list_window_next_page(ListWindow *lw)
+void
+ListWindow::MoveCursorNextPage()
 {
-	if (lw->rows < 2)
+	if (rows < 2)
 		return;
-	if (lw->selected + lw->rows < lw->length)
-		list_window_move_cursor(lw, lw->selected + lw->rows - 1);
+	if (selected + rows < length)
+		MoveCursor(selected + rows - 1);
 	else
-		list_window_last(lw);
+		MoveCursorLast();
 }
 
-static void
-list_window_previous_page(ListWindow *lw)
+void
+ListWindow::MoveCursorPreviousPage()
 {
-	if (lw->rows < 2)
+	if (rows < 2)
 		return;
-	if (lw->selected > lw->rows - 1)
-		list_window_move_cursor(lw, lw->selected - lw->rows + 1);
+	if (selected > rows - 1)
+		MoveCursor(selected - rows + 1);
 	else
-		list_window_first(lw);
+		MoveCursorFirst();
 }
 
-static void
-list_window_scroll_up(ListWindow *lw, unsigned n)
+void
+ListWindow::ScrollUp(unsigned n)
 {
-	if (lw->start > 0) {
-		if (n > lw->start)
-			lw->start = 0;
+	if (start > 0) {
+		if (n > start)
+			start = 0;
 		else
-			lw->start -= n;
+			start -= n;
 
-		list_window_fetch_cursor(lw);
+		FetchCursor();
 	}
 }
 
-static void
-list_window_scroll_down(ListWindow *lw, unsigned n)
+void
+ListWindow::ScrollDown(unsigned n)
 {
-	if (lw->start + lw->rows < lw->length)
-	{
-		if (lw->start + lw->rows + n > lw->length - 1)
-			lw->start = lw->length - lw->rows;
+	if (start + rows < length) {
+		if (start + rows + n > length - 1)
+			start = length - rows;
 		else
-			lw->start += n;
+			start += n;
 
-		list_window_fetch_cursor(lw);
+		FetchCursor();
 	}
 }
 
@@ -317,101 +300,98 @@ list_window_paint_row(WINDOW *w, unsigned width, bool selected,
 }
 
 void
-list_window_paint(const ListWindow *lw,
-		  list_window_callback_fn_t callback,
-		  void *callback_data)
+ListWindow::Paint(list_window_callback_fn_t callback,
+		  void *callback_data) const
 {
-	bool show_cursor = !lw->hide_cursor &&
-		(!options.hardware_cursor || lw->range_selection);
+	bool show_cursor = !hide_cursor &&
+		(!options.hardware_cursor || range_selection);
 	ListWindowRange range;
 
 	if (show_cursor)
-		list_window_get_range(lw, &range);
+		range = GetRange();
 
-	for (unsigned i = 0; i < lw->rows; i++) {
-		wmove(lw->w, i, 0);
+	for (unsigned i = 0; i < rows; i++) {
+		wmove(w, i, 0);
 
-		if (lw->start + i >= lw->length) {
-			wclrtobot(lw->w);
+		if (start + i >= length) {
+			wclrtobot(w);
 			break;
 		}
 
-		const char *label = callback(lw->start + i, callback_data);
+		const char *label = callback(start + i, callback_data);
 		assert(label != nullptr);
 
-		list_window_paint_row(lw->w, lw->cols,
+		list_window_paint_row(w, cols,
 				      show_cursor &&
-				      lw->start + i >= range.start &&
-				      lw->start + i < range.end,
+				      start + i >= range.start &&
+				      start + i < range.end,
 				      label);
 	}
 
-	row_color_end(lw->w);
+	row_color_end(w);
 
-	if (options.hardware_cursor && lw->selected >= lw->start &&
-	    lw->selected < lw->start + lw->rows) {
+	if (options.hardware_cursor && selected >= start &&
+	    selected < start + rows) {
 		curs_set(1);
-		wmove(lw->w, lw->selected - lw->start, 0);
+		wmove(w, selected - start, 0);
 	}
 }
 
 void
-list_window_paint2(const ListWindow *lw,
-		   list_window_paint_callback_t paint_callback,
-		   const void *callback_data)
+ListWindow::Paint(list_window_paint_callback_t paint_callback,
+		  const void *callback_data) const
 {
-	bool show_cursor = !lw->hide_cursor &&
-		(!options.hardware_cursor || lw->range_selection);
+	bool show_cursor = !hide_cursor &&
+		(!options.hardware_cursor || range_selection);
 	ListWindowRange range;
 
 	if (show_cursor)
-		list_window_get_range(lw, &range);
+		range = GetRange();
 
-	for (unsigned i = 0; i < lw->rows; i++) {
-		wmove(lw->w, i, 0);
+	for (unsigned i = 0; i < rows; i++) {
+		wmove(w, i, 0);
 
-		if (lw->start + i >= lw->length) {
-			wclrtobot(lw->w);
+		if (start + i >= length) {
+			wclrtobot(w);
 			break;
 		}
 
-		bool selected = show_cursor &&
-			lw->start + i >= range.start &&
-			lw->start + i < range.end;
+		bool is_selected = show_cursor &&
+			start + i >= range.start &&
+			start + i < range.end;
 
-		paint_callback(lw->w, lw->start + i, i, lw->cols,
-			       selected, callback_data);
+		paint_callback(w, start + i, i, cols,
+			       is_selected, callback_data);
 	}
 
-	if (options.hardware_cursor && lw->selected >= lw->start &&
-	    lw->selected < lw->start + lw->rows) {
+	if (options.hardware_cursor && selected >= start &&
+	    selected < start + rows) {
 		curs_set(1);
-		wmove(lw->w, lw->selected - lw->start, 0);
+		wmove(w, selected - start, 0);
 	}
 }
 
 bool
-list_window_find(ListWindow *lw,
-		 list_window_callback_fn_t callback,
+ListWindow::Find(list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str,
 		 bool wrap,
 		 bool bell_on_wrap)
 {
-	unsigned i = lw->selected + 1;
+	unsigned i = selected + 1;
 
 	assert(str != nullptr);
 
 	do {
-		while (i < lw->length) {
+		while (i < length) {
 			const char *label = callback(i, callback_data);
 			assert(label != nullptr);
 
 			if (match_line(label, str)) {
-				list_window_move_cursor(lw, i);
+				MoveCursor(i);
 				return true;
 			}
-			if (wrap && i == lw->selected)
+			if (wrap && i == selected)
 				return false;
 			i++;
 		}
@@ -429,18 +409,17 @@ list_window_find(ListWindow *lw,
 }
 
 bool
-list_window_rfind(ListWindow *lw,
-		  list_window_callback_fn_t callback,
-		  void *callback_data,
-		  const char *str,
-		  bool wrap,
-		  bool bell_on_wrap)
+ListWindow::ReverseFind(list_window_callback_fn_t callback,
+			void *callback_data,
+			const char *str,
+			bool wrap,
+			bool bell_on_wrap)
 {
-	int i = lw->selected - 1;
+	int i = selected - 1;
 
 	assert(str != nullptr);
 
-	if (lw->length == 0)
+	if (length == 0)
 		return false;
 
 	do {
@@ -449,15 +428,15 @@ list_window_rfind(ListWindow *lw,
 			assert(label != nullptr);
 
 			if (match_line(label, str)) {
-				list_window_move_cursor(lw, i);
+				MoveCursor(i);
 				return true;
 			}
-			if (wrap && i == (int)lw->selected)
+			if (wrap && i == (int)selected)
 				return false;
 			i--;
 		}
 		if (wrap) {
-			i = lw->length - 1; /* last item */
+			i = length - 1; /* last item */
 			if (bell_on_wrap) {
 				screen_bell();
 			}
@@ -469,19 +448,18 @@ list_window_rfind(ListWindow *lw,
 
 #ifdef NCMPC_MINI
 bool
-list_window_jump(ListWindow *lw,
-		 list_window_callback_fn_t callback,
+ListWindow::Jump(list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str)
 {
 	assert(str != nullptr);
 
-	for (unsigned i = 0; i < lw->length; i++) {
+	for (unsigned i = 0; i < length; i++) {
 		const char *label = callback(i, callback_data);
 		assert(label != nullptr);
 
 		if (g_ascii_strncasecmp(label, str, strlen(str)) == 0) {
-			list_window_move_cursor(lw, i);
+			MoveCursor(i);
 			return true;
 		}
 	}
@@ -489,8 +467,7 @@ list_window_jump(ListWindow *lw,
 }
 #else
 bool
-list_window_jump(ListWindow *lw,
-		 list_window_callback_fn_t callback,
+ListWindow::Jump(list_window_callback_fn_t callback,
 		 void *callback_data,
 		 const char *str)
 {
@@ -500,13 +477,13 @@ list_window_jump(ListWindow *lw,
 	if (regex == nullptr)
 		return false;
 
-	for (unsigned i = 0; i < lw->length; i++) {
+	for (unsigned i = 0; i < length; i++) {
 		const char *label = callback(i, callback_data);
 		assert(label != nullptr);
 
 		if (match_regex(regex, label)) {
 			g_regex_unref(regex);
-			list_window_move_cursor(lw, i);
+			MoveCursor(i);
 			return true;
 		}
 	}
@@ -517,60 +494,60 @@ list_window_jump(ListWindow *lw,
 
 /* perform basic list window commands (movement) */
 bool
-list_window_cmd(ListWindow *lw, command_t cmd)
+ListWindow::HandleCommand(command_t cmd)
 {
 	switch (cmd) {
 	case CMD_LIST_PREVIOUS:
-		list_window_previous(lw);
+		MoveCursorPrevious();
 		break;
 	case CMD_LIST_NEXT:
-		list_window_next(lw);
+		MoveCursorNext();
 		break;
 	case CMD_LIST_TOP:
-		list_window_top(lw);
+		MoveCursorTop();
 		break;
 	case CMD_LIST_MIDDLE:
-		list_window_middle(lw);
+		MoveCursorMiddle();
 		break;
 	case CMD_LIST_BOTTOM:
-		list_window_bottom(lw);
+		MoveCursorBottom();
 		break;
 	case CMD_LIST_FIRST:
-		list_window_first(lw);
+		MoveCursorFirst();
 		break;
 	case CMD_LIST_LAST:
-		list_window_last(lw);
+		MoveCursorLast();
 		break;
 	case CMD_LIST_NEXT_PAGE:
-		list_window_next_page(lw);
+		MoveCursorNextPage();
 		break;
 	case CMD_LIST_PREVIOUS_PAGE:
-		list_window_previous_page(lw);
+		MoveCursorPreviousPage();
 		break;
 	case CMD_LIST_RANGE_SELECT:
-		if(lw->range_selection)
+		if(range_selection)
 		{
 			screen_status_printf(_("Range selection disabled"));
-			list_window_set_cursor(lw, lw->selected);
+			SetCursor(selected);
 		}
 		else
 		{
 			screen_status_printf(_("Range selection enabled"));
-			lw->range_base = lw->selected;
-			lw->range_selection = true;
+			range_base = selected;
+			range_selection = true;
 		}
 		break;
 	case CMD_LIST_SCROLL_UP_LINE:
-		list_window_scroll_up(lw, 1);
+		ScrollUp(1);
 		break;
 	case CMD_LIST_SCROLL_DOWN_LINE:
-		list_window_scroll_down(lw, 1);
+		ScrollDown(1);
 		break;
 	case CMD_LIST_SCROLL_UP_HALF:
-		list_window_scroll_up(lw, (lw->rows - 1) / 2);
+		ScrollUp((rows - 1) / 2);
 		break;
 	case CMD_LIST_SCROLL_DOWN_HALF:
-		list_window_scroll_down(lw, (lw->rows - 1) / 2);
+		ScrollDown((rows - 1) / 2);
 		break;
 	default:
 		return false;
@@ -580,63 +557,63 @@ list_window_cmd(ListWindow *lw, command_t cmd)
 }
 
 bool
-list_window_scroll_cmd(ListWindow *lw, command_t cmd)
+ListWindow::HandleScrollCommand(command_t cmd)
 {
 	switch (cmd) {
 	case CMD_LIST_SCROLL_UP_LINE:
 	case CMD_LIST_PREVIOUS:
-		if (lw->start > 0)
-			lw->start--;
+		if (start > 0)
+			start--;
 		break;
 
 	case CMD_LIST_SCROLL_DOWN_LINE:
 	case CMD_LIST_NEXT:
-		if (lw->start + lw->rows < lw->length)
-			lw->start++;
+		if (start + rows < length)
+			start++;
 		break;
 
 	case CMD_LIST_FIRST:
-		lw->start = 0;
+		start = 0;
 		break;
 
 	case CMD_LIST_LAST:
-		if (lw->length > lw->rows)
-			lw->start = lw->length - lw->rows;
+		if (length > rows)
+			start = length - rows;
 		else
-			lw->start = 0;
+			start = 0;
 		break;
 
 	case CMD_LIST_NEXT_PAGE:
-		lw->start += lw->rows;
-		if (lw->start + lw->rows > lw->length) {
-			if (lw->length > lw->rows)
-				lw->start = lw->length - lw->rows;
+		start += rows;
+		if (start + rows > length) {
+			if (length > rows)
+				start = length - rows;
 			else
-				lw->start = 0;
+				start = 0;
 		}
 		break;
 
 	case CMD_LIST_PREVIOUS_PAGE:
-		if (lw->start > lw->rows)
-			lw->start -= lw->rows;
+		if (start > rows)
+			start -= rows;
 		else
-			lw->start = 0;
+			start = 0;
 		break;
 
 	case CMD_LIST_SCROLL_UP_HALF:
-		if (lw->start > (lw->rows - 1) / 2)
-			lw->start -= (lw->rows - 1) / 2;
+		if (start > (rows - 1) / 2)
+			start -= (rows - 1) / 2;
 		else
-			lw->start = 0;
+			start = 0;
 		break;
 
 	case CMD_LIST_SCROLL_DOWN_HALF:
-		lw->start += (lw->rows - 1) / 2;
-		if (lw->start + lw->rows > lw->length) {
-			if (lw->length > lw->rows)
-				lw->start = lw->length - lw->rows;
+		start += (rows - 1) / 2;
+		if (start + rows > length) {
+			if (length > rows)
+				start = length - rows;
 			else
-				lw->start = 0;
+				start = 0;
 		}
 		break;
 
@@ -649,25 +626,23 @@ list_window_scroll_cmd(ListWindow *lw, command_t cmd)
 
 #ifdef HAVE_GETMOUSE
 bool
-list_window_mouse(ListWindow *lw, unsigned long bstate, int y)
+ListWindow::HandleMouse(unsigned long bstate, int y)
 {
-	assert(lw != nullptr);
-
 	/* if the even occurred above the list window move up */
 	if (y < 0) {
 		if (bstate & BUTTON3_CLICKED)
-			list_window_first(lw);
+			MoveCursorFirst();
 		else
-			list_window_previous_page(lw);
+			MoveCursorPreviousPage();
 		return true;
 	}
 
 	/* if the even occurred below the list window move down */
-	if ((unsigned)y >= lw->length) {
+	if ((unsigned)y >= length) {
 		if (bstate & BUTTON3_CLICKED)
-			list_window_last(lw);
+			MoveCursorLast();
 		else
-			list_window_next_page(lw);
+			MoveCursorNextPage();
 		return true;
 	}
 

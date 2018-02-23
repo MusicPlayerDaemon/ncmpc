@@ -109,7 +109,7 @@ OutputsPage::Clear()
 	/* not updating the list_window length here, because that
 	   would clear the cursor position, and fill_outputs_list()
 	   will be called after this function anyway */
-	/* list_window_set_length(lw, 0); */
+	/* lw.SetLength(0); */
 }
 
 template<typename O>
@@ -139,7 +139,7 @@ void
 OutputsPage::OnOpen(struct mpdclient &c)
 {
 	fill_outputs_list(&c, items);
-	list_window_set_length(&lw, items.size());
+	lw.SetLength(items.size());
 }
 
 void
@@ -172,7 +172,7 @@ screen_outputs_paint_callback(WINDOW *w, unsigned i,
 void
 OutputsPage::Paint() const
 {
-	list_window_paint2(&lw, screen_outputs_paint_callback, &items);
+	lw.Paint(screen_outputs_paint_callback, &items);
 }
 
 void
@@ -181,7 +181,7 @@ OutputsPage::Update(struct mpdclient &c)
 	if (c.events & MPD_IDLE_OUTPUT) {
 		Clear();
 		fill_outputs_list(&c, items);
-		list_window_set_length(&lw, items.size());
+		lw.SetLength(items.size());
 		SetDirty();
 	}
 }
@@ -200,7 +200,7 @@ OutputsPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_SCREEN_UPDATE:
 		Clear();
 		fill_outputs_list(&c, items);
-		list_window_set_length(&lw, items.size());
+		lw.SetLength(items.size());
 		SetDirty();
 		return true;
 

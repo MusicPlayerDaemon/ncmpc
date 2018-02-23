@@ -112,7 +112,7 @@ FileBrowserPage::Reload(struct mpdclient &c)
 
 	screen_file_load_list(&c, current_path, filelist);
 
-	list_window_set_length(&lw, filelist->size());
+	lw.SetLength(filelist->size());
 
 	SetDirty();
 }
@@ -127,7 +127,7 @@ FileBrowserPage::ChangeDirectory(struct mpdclient &c, const char *new_path)
 
 	screen_browser_sync_highlights(filelist, &c.playlist);
 
-	list_window_reset(&lw);
+	lw.Reset();
 
 	return filelist != nullptr;
 }
@@ -152,8 +152,8 @@ FileBrowserPage::ChangeToParent(struct mpdclient &c)
 
 	if (success && idx >= 0) {
 		/* set the cursor on the previous working directory */
-		list_window_set_cursor(&lw, idx);
-		list_window_center(&lw, idx);
+		lw.SetCursor(idx);
+		lw.Center(idx);
 	}
 
 	return success;
@@ -201,7 +201,7 @@ FileBrowserPage::GotoSong(struct mpdclient &c, const struct mpd_song &song)
 	if (i < 0)
 		i = 0;
 
-	list_window_set_cursor(&lw, i);
+	lw.SetCursor(i);
 	SetDirty();
 	return true;
 }
@@ -219,10 +219,9 @@ FileBrowserPage::HandleEnter(struct mpdclient &c)
 void
 FileBrowserPage::HandleSave(struct mpdclient &c)
 {
-	ListWindowRange range;
 	const char *defaultname = nullptr;
 
-	list_window_get_range(&lw, &range);
+	const auto range = lw.GetRange();
 	if (range.start == range.end)
 		return;
 
@@ -253,8 +252,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 	if (connection == nullptr)
 		return;
 
-	ListWindowRange range;
-	list_window_get_range(&lw, &range);
+	const auto range = lw.GetRange();
 	for (unsigned i = range.start; i < range.end; ++i) {
 		auto &entry = (*filelist)[i];
 		if (entry.entity == nullptr)

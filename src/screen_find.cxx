@@ -67,16 +67,14 @@ screen_find(ScreenManager &screen, ListWindow *lw, command_t findcmd,
 			return 1;
 
 		found = reversed
-			? list_window_rfind(lw,
-					    callback_fn, callback_data,
-					    screen.findbuf,
-					    options.find_wrap,
-					    options.bell_on_wrap)
-			: list_window_find(lw,
-					   callback_fn, callback_data,
-					   screen.findbuf,
-					   options.find_wrap,
-					   options.bell_on_wrap);
+			? lw->ReverseFind(callback_fn, callback_data,
+					  screen.findbuf,
+					  options.find_wrap,
+					  options.bell_on_wrap)
+			: lw->Find(callback_fn, callback_data,
+				   screen.findbuf,
+				   options.find_wrap,
+				   options.bell_on_wrap);
 		if (!found) {
 			screen_status_printf(_("Unable to find \'%s\'"),
 					     screen.findbuf);
@@ -129,13 +127,13 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 			if (iter < screen.findbuf + WRLN_MAX_LINE_SIZE - 3)
 				++iter;
 		}
-		list_window_jump(lw, callback_fn, callback_data, search_str);
+		lw->Jump(callback_fn, callback_data, search_str);
 
 		/* repaint the list_window */
 		if (paint_callback != nullptr)
-			list_window_paint2(lw, paint_callback, paint_data);
+			lw->Paint(paint_callback, paint_data);
 		else
-			list_window_paint(lw, callback_fn, callback_data);
+			lw->Paint(callback_fn, callback_data);
 		wrefresh(lw->w);
 	}
 

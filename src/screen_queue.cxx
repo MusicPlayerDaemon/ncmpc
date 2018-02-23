@@ -140,7 +140,7 @@ QueuePage::SaveSelection()
 void
 QueuePage::RestoreSelection()
 {
-	list_window_set_length(&lw, playlist->size());
+	lw.SetLength(playlist->size());
 
 	if (selected_song_id < 0)
 		/* there was no selection */
@@ -154,7 +154,7 @@ QueuePage::RestoreSelection()
 
 	int pos = playlist->FindId(selected_song_id);
 	if (pos >= 0)
-		list_window_set_cursor(&lw, pos);
+		lw.SetCursor(pos);
 
 	SaveSelection();
 }
@@ -187,15 +187,15 @@ QueuePage::CenterPlayingItem(const struct mpd_status *status,
 	if (idx < 0)
 		return;
 
-	list_window_center(&lw, idx);
+	lw.Center(idx);
 
 	if (center_cursor) {
-		list_window_set_cursor(&lw, idx);
+		lw.SetCursor(idx);
 		return;
 	}
 
 	/* make sure the cursor is in the window */
-	list_window_fetch_cursor(&lw);
+	lw.FetchCursor();
 }
 
 gcc_pure
@@ -438,7 +438,7 @@ QueuePage::Paint() const
 		hscroll.Clear();
 #endif
 
-	list_window_paint2(&lw, PaintRow, this);
+	lw.Paint(PaintRow, this);
 }
 
 void
@@ -458,7 +458,7 @@ QueuePage::Update(struct mpdclient &c)
 	else
 		/* the queue size may have changed, even if we havn't
 		   received the QUEUE idle event yet */
-		list_window_set_length(&lw, playlist->size());
+		lw.SetLength(playlist->size());
 
 	if (((c.events & MPD_IDLE_PLAYER) != 0 && OnSongChange(c.status)) ||
 	    c.events & MPD_IDLE_QUEUE)
@@ -481,7 +481,7 @@ QueuePage::OnMouse(struct mpdclient &c, int x, int row, mmask_t bstate)
 	}
 
 	const unsigned old_selected = lw.selected;
-	list_window_set_cursor(&lw, lw.start + row);
+	lw.SetCursor(lw.start + row);
 
 	if (bstate & BUTTON1_CLICKED) {
 		/* play */
@@ -500,7 +500,7 @@ QueuePage::OnMouse(struct mpdclient &c, int x, int row, mmask_t bstate)
 		if (lw.selected == old_selected)
 			mpdclient_cmd_delete(&c, lw.selected);
 
-		list_window_set_length(&lw, playlist->size());
+		lw.SetLength(playlist->size());
 	}
 
 	SaveSelection();
@@ -539,7 +539,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		SetDirty();
 		return false;
 	case CMD_SELECT_PLAYING:
-		list_window_set_cursor(&lw, c.playlist.Find(*c.song));
+		lw.SetCursor(c.playlist.Find(*c.song));
 		SaveSelection();
 		SetDirty();
 		return true;
@@ -618,10 +618,10 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		return true;
 
 	case CMD_DELETE:
-		list_window_get_range(&lw, &range);
+		range = lw.GetRange();
 		mpdclient_cmd_delete_range(&c, range.start, range.end);
 
-		list_window_set_cursor(&lw, range.start);
+		lw.SetCursor(range.start);
 		return true;
 
 	case CMD_SAVE_PLAYLIST:
@@ -633,7 +633,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		return true;
 
 	case CMD_SHUFFLE:
-		list_window_get_range(&lw, &range);
+		range = lw.GetRange();
 		if (range.end <= range.start + 1)
 			/* No range selection, shuffle all list. */
 			break;
@@ -649,7 +649,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		return true;
 
 	case CMD_LIST_MOVE_UP:
-		list_window_get_range(&lw, &range);
+		range = lw.GetRange();
 		if (range.start == 0 || range.end <= range.start)
 			return false;
 
@@ -660,14 +660,14 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		lw.range_base--;
 
 		if (lw.range_selection)
-			list_window_scroll_to(&lw, lw.range_base);
-		list_window_scroll_to(&lw, lw.selected);
+			lw.ScrollTo(lw.range_base);
+		lw.ScrollTo(lw.selected);
 
 		SaveSelection();
 		return true;
 
 	case CMD_LIST_MOVE_DOWN:
-		list_window_get_range(&lw, &range);
+		range = lw.GetRange();
 		if (range.end >= c.playlist.size())
 			return false;
 
@@ -678,8 +678,8 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		lw.range_base++;
 
 		if (lw.range_selection)
-			list_window_scroll_to(&lw, lw.range_base);
-		list_window_scroll_to(&lw, lw.selected);
+			lw.ScrollTo(lw.range_base);
+		lw.ScrollTo(lw.selected);
 
 		SaveSelection();
 		return true;

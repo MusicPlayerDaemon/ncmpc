@@ -187,7 +187,7 @@ ArtistBrowserPage::LoadArtistList(struct mpdclient &c)
 
 	/* sort list */
 	std::sort(artist_list.begin(), artist_list.end(), CompareUTF8);
-	list_window_set_length(&lw, artist_list.size());
+	lw.SetLength(artist_list.size());
 }
 
 void
@@ -215,7 +215,7 @@ ArtistBrowserPage::LoadAlbumList(struct mpdclient &c)
 
 	/* sort list */
 	std::sort(album_list.begin(), album_list.end(), CompareUTF8);
-	list_window_set_length(&lw, album_list.size() + 2);
+	lw.SetLength(album_list.size() + 2);
 }
 
 void
@@ -248,7 +248,7 @@ ArtistBrowserPage::LoadSongList(struct mpdclient &c)
 
 	/* fix highlights */
 	screen_browser_sync_highlights(filelist, &c.playlist);
-	list_window_set_length(&lw, filelist->size());
+	lw.SetLength(filelist->size());
 }
 
 void
@@ -379,11 +379,11 @@ ArtistBrowserPage::Paint() const
 {
 	switch (mode) {
 	case Mode::ARTISTS:
-		list_window_paint2(&lw, paint_artist_callback, &artist_list);
+		lw.Paint(paint_artist_callback, &artist_list);
 		break;
 
 	case Mode::ALBUMS:
-		list_window_paint2(&lw, paint_album_callback, &album_list);
+		lw.Paint(paint_album_callback, &album_list);
 		break;
 
 	case Mode::SONGS:
@@ -492,7 +492,7 @@ ArtistBrowserPage::OnListCommand(struct mpdclient &c, command_t cmd)
 	switch (mode) {
 	case Mode::ARTISTS:
 	case Mode::ALBUMS:
-		if (list_window_cmd(&lw, cmd)) {
+		if (lw.HandleCommand(cmd)) {
 			SetDirty();
 			return true;
 		}
@@ -536,7 +536,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 			selected = artist_list[lw.selected].c_str();
 			OpenAlbumList(c, g_strdup(selected));
-			list_window_reset(&lw);
+			lw.Reset();
 
 			SetDirty();
 			return true;
@@ -547,24 +547,24 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 				old = g_strdup(artist);
 
 				OpenArtistList(c);
-				list_window_reset(&lw);
+				lw.Reset();
 				/* restore previous list window state */
 				idx = string_array_find(artist_list, old);
 				g_free(old);
 
 				if (idx >= 0) {
-					list_window_set_cursor(&lw, idx);
-					list_window_center(&lw, idx);
+					lw.SetCursor(idx);
+					lw.Center(idx);
 				}
 			} else if (lw.selected == album_list.size() + 1) {
 				/* handle "show all" */
 				OpenSongList(c, g_strdup(artist), ALL_TRACKS);
-				list_window_reset(&lw);
+				lw.Reset();
 			} else {
 				/* select album */
 				selected = album_list[lw.selected - 1].c_str();
 				OpenSongList(c, g_strdup(artist), g_strdup(selected));
-				list_window_reset(&lw);
+				lw.Reset();
 			}
 
 			SetDirty();
@@ -577,7 +577,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 				old_ptr = album;
 
 				OpenAlbumList(c, g_strdup(artist));
-				list_window_reset(&lw);
+				lw.Reset();
 				/* restore previous list window state */
 				idx = old_ptr == ALL_TRACKS
 					? (int)album_list.size()
@@ -586,8 +586,8 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 				if (idx >= 0) {
 					++idx;
-					list_window_set_cursor(&lw, idx);
-					list_window_center(&lw, idx);
+					lw.SetCursor(idx);
+					lw.Center(idx);
 				}
 
 				SetDirty();
@@ -608,14 +608,14 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			old = g_strdup(artist);
 
 			OpenArtistList(c);
-			list_window_reset(&lw);
+			lw.Reset();
 			/* restore previous list window state */
 			idx = string_array_find(artist_list, old);
 			g_free(old);
 
 			if (idx >= 0) {
-				list_window_set_cursor(&lw, idx);
-				list_window_center(&lw, idx);
+				lw.SetCursor(idx);
+				lw.Center(idx);
 			}
 			break;
 
@@ -624,7 +624,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			old_ptr = album;
 
 			OpenAlbumList(c, g_strdup(artist));
-			list_window_reset(&lw);
+			lw.Reset();
 			/* restore previous list window state */
 			idx = old_ptr == ALL_TRACKS
 				? (int)album_list.size()
@@ -633,8 +633,8 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 			if (idx >= 0) {
 				++idx;
-				list_window_set_cursor(&lw, idx);
-				list_window_center(&lw, idx);
+				lw.SetCursor(idx);
+				lw.Center(idx);
 			}
 			break;
 		}
@@ -650,7 +650,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		case Mode::ALBUMS:
 		case Mode::SONGS:
 			OpenArtistList(c);
-			list_window_reset(&lw);
+			lw.Reset();
 			/* restore first list window state (pop while returning true) */
 			/* XXX */
 			break;
@@ -666,7 +666,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			if (lw.selected >= artist_list.size())
 				return true;
 
-			list_window_get_range(&lw, &range);
+			range = lw.GetRange();
 			for (unsigned i = range.start; i < range.end; ++i) {
 				selected = artist_list[i].c_str();
 				add_query(&c, MPD_TAG_ARTIST, selected, nullptr);
@@ -675,7 +675,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			break;
 
 		case Mode::ALBUMS:
-			list_window_get_range(&lw, &range);
+			range = lw.GetRange();
 			for (unsigned i = range.start; i < range.end; ++i) {
 				if(i == album_list.size() + 1)
 					add_query(&c, MPD_TAG_ARTIST, artist, nullptr);

@@ -37,13 +37,13 @@ public:
 public:
 	/* virtual methods from class Page */
 	void OnResize(unsigned cols, unsigned rows) override {
-		list_window_resize(&lw, cols, rows);
+		lw.Resize(cols, rows);
 	}
 
 	bool OnCommand(struct mpdclient &, command_t cmd) override {
 		if (lw.hide_cursor
-		    ? list_window_scroll_cmd(&lw, cmd)
-		    : list_window_cmd(&lw, cmd)) {
+		    ? lw.HandleScrollCommand(cmd)
+		    : lw.HandleCommand(cmd)) {
 			SetDirty();
 			return true;
 		}
@@ -54,7 +54,7 @@ public:
 #ifdef HAVE_GETMOUSE
 	bool OnMouse(struct mpdclient &, int, int y,
 		     mmask_t bstate) override {
-		if (list_window_mouse(&lw, bstate, y)) {
+		if (lw.HandleMouse(bstate, y)) {
 			SetDirty();
 			return true;
 		}
