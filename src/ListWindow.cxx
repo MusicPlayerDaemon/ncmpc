@@ -26,14 +26,13 @@
 #include "colors.hxx"
 #include "paint.hxx"
 #include "screen_status.hxx"
+#include "screen_utils.hxx"
 #include "i18n.h"
 
 #include <assert.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-
-extern void screen_bell();
 
 void
 list_window_reset(ListWindow *lw)
