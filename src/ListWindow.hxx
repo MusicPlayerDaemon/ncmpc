@@ -48,6 +48,10 @@ struct ListWindowRange {
 	 * empty when this is the same as "start".
 	 */
 	unsigned end;
+
+	constexpr bool Contains(unsigned i) const {
+		return i >= start && i < end;
+	}
 };
 
 struct ListWindow {

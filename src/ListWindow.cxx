@@ -323,8 +323,7 @@ ListWindow::Paint(list_window_callback_fn_t callback,
 
 		list_window_paint_row(w, cols,
 				      show_cursor &&
-				      start + i >= range.start &&
-				      start + i < range.end,
+				      range.Contains(start + i),
 				      label);
 	}
 
@@ -357,8 +356,7 @@ ListWindow::Paint(list_window_paint_callback_t paint_callback,
 		}
 
 		bool is_selected = show_cursor &&
-			start + i >= range.start &&
-			start + i < range.end;
+			range.Contains(start + i);
 
 		paint_callback(w, start + i, i, cols,
 			       is_selected, callback_data);
