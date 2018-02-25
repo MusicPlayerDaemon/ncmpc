@@ -14,7 +14,7 @@ if get_option('documentation')
 
     html_target = custom_target('apidocs',
                                 input: doxyfile,
-                                output: 'html',
+                                output: 'api',
                                 command: [doxygen, doxyfile],
                                 install: true,
                                 install_dir: docdir)
