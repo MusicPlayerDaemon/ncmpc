@@ -73,6 +73,12 @@ public:
 		Update(c, std::exchange(pending_events, 0));
 	}
 
+protected:
+	const Size &GetLastSize() const {
+		return last_size;
+	}
+
+public:
 	virtual void OnOpen(struct mpdclient &) {}
 	virtual void OnClose() {}
 	virtual void OnResize(Size size) = 0;
