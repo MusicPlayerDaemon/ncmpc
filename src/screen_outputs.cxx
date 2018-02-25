@@ -42,8 +42,8 @@ class OutputsPage final : public ListPage {
 	std::vector<std::unique_ptr<struct mpd_output, OutputDeleter>> items;
 
 public:
-	OutputsPage(WINDOW *w, unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows) {}
+	OutputsPage(WINDOW *w, Size size)
+		:ListPage(w, size) {}
 
 private:
 	void Clear();
@@ -130,9 +130,9 @@ fill_outputs_list(struct mpdclient *c, O &items)
 }
 
 static Page *
-outputs_init(ScreenManager &, WINDOW *w, unsigned cols, unsigned rows)
+outputs_init(ScreenManager &, WINDOW *w, Size size)
 {
-	return new OutputsPage(w, cols, rows);
+	return new OutputsPage(w, size);
 }
 
 void

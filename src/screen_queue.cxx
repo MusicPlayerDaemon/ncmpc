@@ -71,8 +71,8 @@ class QueuePage final : public ListPage {
 
 public:
 	QueuePage(ScreenManager &_screen, WINDOW *w,
-		  unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows),
+		  Size size)
+		:ListPage(w, size),
 		 screen(_screen)
 #ifndef NCMPC_MINI
 		, hscroll(w, options.scroll_sep)
@@ -341,10 +341,9 @@ handle_add_to_playlist(struct mpdclient *c)
 }
 
 static Page *
-screen_queue_init(ScreenManager &_screen, WINDOW *w,
-		  unsigned cols, unsigned rows)
+screen_queue_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
-	return new QueuePage(_screen, w, cols, rows);
+	return new QueuePage(_screen, w, size);
 }
 
 gboolean

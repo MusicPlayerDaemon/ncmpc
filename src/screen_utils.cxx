@@ -103,7 +103,7 @@ screen_readln(const char *prompt,
 	wmove(w, 0,0);
 	curs_set(1);
 	colors_use(w, COLOR_STATUS_ALERT);
-	line = wreadln(w, prompt, value, window->cols, history, gcmp);
+	line = wreadln(w, prompt, value, window->size.width, history, gcmp);
 	curs_set(0);
 	return line;
 }
@@ -120,7 +120,8 @@ screen_read_password(const char *prompt)
 
 	if (prompt == nullptr)
 		prompt = _("Password");
-	char *ret = wreadln_masked(w, prompt, nullptr, window->cols, nullptr, nullptr);
+	char *ret = wreadln_masked(w, prompt, nullptr, window->size.width,
+				   nullptr, nullptr);
 
 	curs_set(0);
 	return ret;
@@ -136,7 +137,7 @@ screen_display_completion_list(GList *list)
 
 	unsigned length = g_list_length(list);
 	if (list == prev_list && length == prev_length) {
-		offset += screen->main_window.rows;
+		offset += screen->main_window.size.height;
 		if (offset >= length)
 			offset = 0;
 	} else {
@@ -148,7 +149,7 @@ screen_display_completion_list(GList *list)
 	colors_use(w, COLOR_STATUS_ALERT);
 
 	unsigned y = 0;
-	while (y < screen->main_window.rows) {
+	while (y < screen->main_window.size.height) {
 		GList *item = g_list_nth(list, y+offset);
 
 		wmove(w, y++, 0);

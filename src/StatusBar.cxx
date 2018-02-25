@@ -32,7 +32,7 @@
 #include <string.h>
 
 StatusBar::StatusBar(Point p, unsigned width)
-	:window(p, 1, width)
+	:window(p, {width, 1u})
 #ifndef NCMPC_MINI
 	, hscroll(window.w, options.scroll_sep)
 #endif
@@ -212,7 +212,7 @@ StatusBar::Paint() const
 
 	if (right_width > 0) {
 		/* display time string */
-		int x = window.cols - right_width;
+		int x = window.size.width - right_width;
 		colors_use(w, COLOR_STATUS_TIME);
 		mvwaddstr(w, 0, x, right_text);
 	}
@@ -232,7 +232,7 @@ StatusBar::Paint() const
 	}
 
 	/* display time string */
-	int x = window.cols - right_width;
+	int x = window.size.width - right_width;
 	colors_use(w, COLOR_STATUS_TIME);
 	mvwaddstr(w, 0, x, right_text);
 
@@ -242,7 +242,7 @@ StatusBar::Paint() const
 void
 StatusBar::OnResize(Point p, unsigned width)
 {
-	window.cols = width;
+	window.size.width = width;
 	wresize(window.w, 1, width);
 	window.Move(p);
 }

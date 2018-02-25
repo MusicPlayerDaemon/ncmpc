@@ -40,9 +40,9 @@ protected:
 
 public:
 	FileListPage(ScreenManager &_screen, WINDOW *_w,
-		     unsigned _cols, unsigned _rows,
+		     Size size,
 		     const char *_song_format)
-		:ListPage(_w, _cols, _rows),
+		:ListPage(_w, size),
 		 screen(_screen),
 		 song_format(_song_format) {}
 

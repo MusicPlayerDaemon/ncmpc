@@ -106,9 +106,8 @@ class SongPage final : public ListPage {
 	std::vector<std::string> lines;
 
 public:
-	SongPage(ScreenManager &_screen, WINDOW *w,
-		 unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows),
+	SongPage(ScreenManager &_screen, WINDOW *w, Size size)
+		:ListPage(w, size),
 		 screen(_screen) {
 		lw.hide_cursor = true;
 	}
@@ -168,8 +167,7 @@ screen_song_list_callback(unsigned idx, void *data)
 }
 
 static Page *
-screen_song_init(ScreenManager &_screen, WINDOW *w,
-		 unsigned cols, unsigned rows)
+screen_song_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
 	for (unsigned i = 0; tag_labels[i].label != nullptr; ++i) {
 		unsigned width = utf8_width(_(tag_labels[i].label));
@@ -186,7 +184,7 @@ screen_song_init(ScreenManager &_screen, WINDOW *w,
 		}
 	}
 
-	return new SongPage(_screen, w, cols, rows);
+	return new SongPage(_screen, w, size);
 }
 
 const char *
@@ -213,7 +211,7 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 
 	/* +2 for ': ' */
 	label_col += 2;
-	const int value_col = lw.cols - label_col;
+	const int value_col = lw.size.height - label_col;
 	/* calculate the number of required linebreaks */
 	const gchar *value_iter = value;
 	const int label_size = strlen(label) + label_col;

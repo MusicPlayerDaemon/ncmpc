@@ -57,9 +57,8 @@ class LyricsPage final : public TextPage {
 	guint loader_timeout = 0;
 
 public:
-	LyricsPage(ScreenManager &_screen, WINDOW *w,
-		   unsigned cols, unsigned rows)
-		:TextPage(_screen, w, cols, rows) {}
+	LyricsPage(ScreenManager &_screen, WINDOW *w, Size size)
+		:TextPage(_screen, w, size) {}
 
 	~LyricsPage() override {
 		Cancel();
@@ -298,9 +297,9 @@ LyricsPage::Reload()
 }
 
 static Page *
-lyrics_screen_init(ScreenManager &_screen, WINDOW *w, unsigned cols, unsigned rows)
+lyrics_screen_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
-	return new LyricsPage(_screen, w, cols, rows);
+	return new LyricsPage(_screen, w, size);
 }
 
 void

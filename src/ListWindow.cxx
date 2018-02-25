@@ -64,11 +64,9 @@ ListWindow::CheckSelected()
 }
 
 void
-ListWindow::Resize(unsigned width, unsigned height)
+ListWindow::Resize(Size _size)
 {
-	cols = width;
-	rows = height;
-
+	size = _size;
 	CheckOrigin();
 }
 
@@ -87,14 +85,14 @@ ListWindow::SetLength(unsigned _length)
 void
 ListWindow::Center(unsigned n)
 {
-	if (n > rows / 2)
-		start = n - rows / 2;
+	if (n > size.height / 2)
+		start = n - size.height / 2;
 	else
 		start = 0;
 
-	if (start + rows > length) {
-		if (rows < length)
-			start = length - rows;
+	if (start + size.height > length) {
+		if (size.height < length)
+			start = length - size.height;
 		else
 			start = 0;
 	}
@@ -105,19 +103,19 @@ ListWindow::ScrollTo(unsigned n)
 {
 	int new_start = start;
 
-	if ((unsigned) options.scroll_offset * 2 >= rows)
+	if ((unsigned) options.scroll_offset * 2 >= size.height)
 		// Center if the offset is more than half the screen
-		new_start = n - rows / 2;
+		new_start = n - size.height / 2;
 	else {
 		if (n < start + options.scroll_offset)
 			new_start = n - options.scroll_offset;
 
-		if (n >= start + rows - options.scroll_offset)
-			new_start = n - rows + 1 + options.scroll_offset;
+		if (n >= start + size.height - options.scroll_offset)
+			new_start = n - size.height + 1 + options.scroll_offset;
 	}
 
-	if (new_start + rows > length)
-		new_start = length - rows;
+	if (new_start + size.height > length)
+		new_start = length - size.height;
 
 	if (new_start < 0 || length == 0)
 		new_start = 0;
@@ -150,9 +148,9 @@ ListWindow::FetchCursor()
 	if (start > 0 &&
 	    selected < start + options.scroll_offset)
 		MoveCursor(start + options.scroll_offset);
-	else if (start + rows < length &&
-		 selected > start + rows - 1 - options.scroll_offset)
-		MoveCursor(start + rows - 1 - options.scroll_offset);
+	else if (start + size.height < length &&
+		 selected > start + size.height - 1 - options.scroll_offset)
+		MoveCursor(start + size.height - 1 - options.scroll_offset);
 }
 
 ListWindowRange
@@ -198,8 +196,8 @@ ListWindow::MoveCursorTop()
 	if (start == 0)
 		MoveCursor(start);
 	else
-		if ((unsigned) options.scroll_offset * 2 >= rows)
-			MoveCursor(start + rows / 2);
+		if ((unsigned) options.scroll_offset * 2 >= size.height)
+			MoveCursor(start + size.height / 2);
 		else
 			MoveCursor(start + options.scroll_offset);
 }
@@ -207,8 +205,8 @@ ListWindow::MoveCursorTop()
 void
 ListWindow::MoveCursorMiddle()
 {
-	if (length >= rows)
-		MoveCursor(start + rows / 2);
+	if (length >= size.height)
+		MoveCursor(start + size.height / 2);
 	else
 		MoveCursor(length / 2);
 }
@@ -216,14 +214,14 @@ ListWindow::MoveCursorMiddle()
 void
 ListWindow::MoveCursorBottom()
 {
-	if (length >= rows)
-		if ((unsigned) options.scroll_offset * 2 >= rows)
-			MoveCursor(start + rows / 2);
+	if (length >= size.height)
+		if ((unsigned) options.scroll_offset * 2 >= size.height)
+			MoveCursor(start + size.height / 2);
 		else
-			if (start + rows == length)
+			if (start + size.height == length)
 				MoveCursor(length - 1);
 			else
-				MoveCursor(start + rows - 1 - options.scroll_offset);
+				MoveCursor(start + size.height - 1 - options.scroll_offset);
 	else
 		MoveCursor(length - 1);
 }
@@ -246,10 +244,10 @@ ListWindow::MoveCursorLast()
 void
 ListWindow::MoveCursorNextPage()
 {
-	if (rows < 2)
+	if (size.height < 2)
 		return;
-	if (selected + rows < length)
-		MoveCursor(selected + rows - 1);
+	if (selected + size.height < length)
+		MoveCursor(selected + size.height - 1);
 	else
 		MoveCursorLast();
 }
@@ -257,10 +255,10 @@ ListWindow::MoveCursorNextPage()
 void
 ListWindow::MoveCursorPreviousPage()
 {
-	if (rows < 2)
+	if (size.height < 2)
 		return;
-	if (selected > rows - 1)
-		MoveCursor(selected - rows + 1);
+	if (selected > size.height - 1)
+		MoveCursor(selected - size.height + 1);
 	else
 		MoveCursorFirst();
 }
@@ -281,9 +279,9 @@ ListWindow::ScrollUp(unsigned n)
 void
 ListWindow::ScrollDown(unsigned n)
 {
-	if (start + rows < length) {
-		if (start + rows + n > length - 1)
-			start = length - rows;
+	if (start + size.height < length) {
+		if (start + size.height + n > length - 1)
+			start = length - size.height;
 		else
 			start += n;
 
@@ -310,7 +308,7 @@ ListWindow::Paint(list_window_callback_fn_t callback,
 	if (show_cursor)
 		range = GetRange();
 
-	for (unsigned i = 0; i < rows; i++) {
+	for (unsigned i = 0; i < size.height; i++) {
 		wmove(w, i, 0);
 
 		if (start + i >= length) {
@@ -321,7 +319,7 @@ ListWindow::Paint(list_window_callback_fn_t callback,
 		const char *label = callback(start + i, callback_data);
 		assert(label != nullptr);
 
-		list_window_paint_row(w, cols,
+		list_window_paint_row(w, size.width,
 				      show_cursor &&
 				      range.Contains(start + i),
 				      label);
@@ -330,7 +328,7 @@ ListWindow::Paint(list_window_callback_fn_t callback,
 	row_color_end(w);
 
 	if (options.hardware_cursor && selected >= start &&
-	    selected < start + rows) {
+	    selected < start + size.height) {
 		curs_set(1);
 		wmove(w, selected - start, 0);
 	}
@@ -347,7 +345,7 @@ ListWindow::Paint(list_window_paint_callback_t paint_callback,
 	if (show_cursor)
 		range = GetRange();
 
-	for (unsigned i = 0; i < rows; i++) {
+	for (unsigned i = 0; i < size.height; i++) {
 		wmove(w, i, 0);
 
 		if (start + i >= length) {
@@ -358,12 +356,12 @@ ListWindow::Paint(list_window_paint_callback_t paint_callback,
 		bool is_selected = show_cursor &&
 			range.Contains(start + i);
 
-		paint_callback(w, start + i, i, cols,
+		paint_callback(w, start + i, i, size.width,
 			       is_selected, callback_data);
 	}
 
 	if (options.hardware_cursor && selected >= start &&
-	    selected < start + rows) {
+	    selected < start + size.height) {
 		curs_set(1);
 		wmove(w, selected - start, 0);
 	}
@@ -542,10 +540,10 @@ ListWindow::HandleCommand(command_t cmd)
 		ScrollDown(1);
 		break;
 	case CMD_LIST_SCROLL_UP_HALF:
-		ScrollUp((rows - 1) / 2);
+		ScrollUp((size.height - 1) / 2);
 		break;
 	case CMD_LIST_SCROLL_DOWN_HALF:
-		ScrollDown((rows - 1) / 2);
+		ScrollDown((size.height - 1) / 2);
 		break;
 	default:
 		return false;
@@ -566,7 +564,7 @@ ListWindow::HandleScrollCommand(command_t cmd)
 
 	case CMD_LIST_SCROLL_DOWN_LINE:
 	case CMD_LIST_NEXT:
-		if (start + rows < length)
+		if (start + size.height < length)
 			start++;
 		break;
 
@@ -575,41 +573,41 @@ ListWindow::HandleScrollCommand(command_t cmd)
 		break;
 
 	case CMD_LIST_LAST:
-		if (length > rows)
-			start = length - rows;
+		if (length > size.height)
+			start = length - size.height;
 		else
 			start = 0;
 		break;
 
 	case CMD_LIST_NEXT_PAGE:
-		start += rows;
-		if (start + rows > length) {
-			if (length > rows)
-				start = length - rows;
+		start += size.height;
+		if (start + size.height > length) {
+			if (length > size.height)
+				start = length - size.height;
 			else
 				start = 0;
 		}
 		break;
 
 	case CMD_LIST_PREVIOUS_PAGE:
-		if (start > rows)
-			start -= rows;
+		if (start > size.height)
+			start -= size.height;
 		else
 			start = 0;
 		break;
 
 	case CMD_LIST_SCROLL_UP_HALF:
-		if (start > (rows - 1) / 2)
-			start -= (rows - 1) / 2;
+		if (start > (size.height - 1) / 2)
+			start -= (size.height - 1) / 2;
 		else
 			start = 0;
 		break;
 
 	case CMD_LIST_SCROLL_DOWN_HALF:
-		start += (rows - 1) / 2;
-		if (start + rows > length) {
-			if (length > rows)
-				start = length - rows;
+		start += (size.height - 1) / 2;
+		if (start + size.height > length) {
+			if (length > size.height)
+				start = length - size.height;
 			else
 				start = 0;
 		}

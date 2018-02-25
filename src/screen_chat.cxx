@@ -37,9 +37,8 @@ class ChatPage final : public TextPage {
 	bool was_supported = false;
 
 public:
-	ChatPage(ScreenManager &_screen,
-		 WINDOW *w, unsigned cols, unsigned rows)
-		:TextPage(_screen, w, cols, rows) {}
+	ChatPage(ScreenManager &_screen, WINDOW *w, Size size)
+		:TextPage(_screen, w, size) {}
 
 private:
 	bool CheckChatSupport(struct mpdclient &c);
@@ -95,9 +94,9 @@ ChatPage::CheckChatSupport(struct mpdclient &c)
 }
 
 static Page *
-screen_chat_init(ScreenManager &screen, WINDOW *w, unsigned cols, unsigned rows)
+screen_chat_init(ScreenManager &screen, WINDOW *w, Size size)
 {
-	return new ChatPage(screen, w, cols, rows);
+	return new ChatPage(screen, w, size);
 }
 
 void

@@ -23,7 +23,7 @@
 #include <assert.h>
 
 ProgressBar::ProgressBar(Point p, unsigned _width)
-	:window(p, 1, _width)
+	:window(p, {_width, 1u})
 {
 	leaveok(window.w, true);
 	wbkgd(window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
@@ -33,10 +33,10 @@ ProgressBar::ProgressBar(Point p, unsigned _width)
 void
 ProgressBar::Paint() const
 {
-	mvwhline(window.w, 0, 0, ACS_HLINE, window.cols);
+	mvwhline(window.w, 0, 0, ACS_HLINE, window.size.width);
 
 	if (max > 0) {
-		assert(width < window.cols);
+		assert(width < window.size.width);
 
 		if (width > 0)
 			whline(window.w, '=', width);
@@ -54,8 +54,8 @@ ProgressBar::Calculate()
 		return false;
 
 	unsigned old_width = width;
-	width = (window.cols * current) / (max + 1);
-	assert(width < window.cols);
+	width = (window.size.width * current) / (max + 1);
+	assert(width < window.size.width);
 
 	return width != old_width;
 }
@@ -63,8 +63,7 @@ ProgressBar::Calculate()
 void
 ProgressBar::OnResize(Point p, unsigned _width)
 {
-	window.cols = _width;
-	wresize(window.w, 1, _width);
+	window.Resize({_width, 1u});
 	window.Move(p);
 
 	Calculate();

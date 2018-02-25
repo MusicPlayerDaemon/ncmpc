@@ -24,6 +24,7 @@
 #include "command.hxx"
 #include "colors.hxx"
 #include "ncmpc_curses.h"
+#include "Size.hxx"
 
 typedef const char *
 (*list_window_callback_fn_t)(unsigned i, void *data);
@@ -89,7 +90,7 @@ struct ListWindowRange {
 
 struct ListWindow {
 	WINDOW *w;
-	unsigned rows, cols;
+	Size size;
 
 	/**
 	 * Number of items in this list.
@@ -111,13 +112,13 @@ struct ListWindow {
 
 	bool hide_cursor = false;
 
-	ListWindow(WINDOW *_w, unsigned _cols, unsigned _rows)
-		:w(_w), rows(_rows), cols(_cols) {}
+	ListWindow(WINDOW *_w, Size _size)
+		:w(_w), size(_size) {}
 
 	/** reset a list window (selected=0, start=0) */
 	void Reset();
 
-	void Resize(unsigned width, unsigned height);
+	void Resize(Size _size);
 
 	void SetLength(unsigned length);
 

@@ -59,7 +59,7 @@ ScreenManager::MakePage(const struct screen_functions &sf)
 
 	auto j = pages.emplace(&sf,
 			       sf.init(*this, main_window.w,
-				       main_window.cols, main_window.rows));
+				       main_window.size));
 	assert(j.second);
 	return j.first;
 }

@@ -44,8 +44,8 @@ class FileBrowserPage final : public FileListPage {
 
 public:
 	FileBrowserPage(ScreenManager &_screen, WINDOW *_w,
-			unsigned _cols, unsigned _rows)
-		:FileListPage(_screen, _w, _cols, _rows,
+			Size size)
+		:FileListPage(_screen, _w, size,
 			      options.list_format) {}
 
 	~FileBrowserPage() override {
@@ -296,10 +296,9 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 }
 
 static Page *
-screen_file_init(ScreenManager &_screen, WINDOW *w,
-		 unsigned cols, unsigned rows)
+screen_file_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
-	return new FileBrowserPage(_screen, w, cols, rows);
+	return new FileBrowserPage(_screen, w, size);
 }
 
 void

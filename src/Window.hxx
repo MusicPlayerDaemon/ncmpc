@@ -22,15 +22,16 @@
 
 #include "config.h"
 #include "Point.hxx"
+#include "Size.hxx"
 #include "ncmpc_curses.h"
 
 struct Window {
 	WINDOW *const w;
-	unsigned rows, cols;
+	Size size;
 
-	Window(Point p, unsigned height, unsigned width)
-		:w(newwin(height, width, p.y, p.x)),
-		 rows(height), cols(width) {}
+	Window(Point p, Size _size)
+		:w(newwin(_size.height, _size.width, p.y, p.x)),
+		 size(_size) {}
 
 	~Window() {
 		delwin(w);
@@ -41,6 +42,11 @@ struct Window {
 
 	void Move(Point p) {
 		mvwin(w, p.y, p.x);
+	}
+
+	void Resize(Size new_size) {
+		size = new_size;
+		wresize(w, size.height, size.width);
 	}
 };
 

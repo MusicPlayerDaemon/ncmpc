@@ -53,8 +53,8 @@ class ArtistBrowserPage final : public FileListPage {
 
 public:
 	ArtistBrowserPage(ScreenManager &_screen, WINDOW *_w,
-			  unsigned _cols, unsigned _rows)
-		:FileListPage(_screen, _w, _cols, _rows,
+			  Size size)
+		:FileListPage(_screen, _w, size,
 			      options.list_format) {}
 
 	~ArtistBrowserPage() override {
@@ -320,10 +320,9 @@ ArtistBrowserPage::Reload(struct mpdclient &c)
 }
 
 static Page *
-screen_artist_init(ScreenManager &_screen, WINDOW *w,
-		   unsigned cols, unsigned rows)
+screen_artist_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
-	return new ArtistBrowserPage(_screen, w, cols, rows);
+	return new ArtistBrowserPage(_screen, w, size);
 }
 
 void

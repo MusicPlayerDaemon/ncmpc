@@ -48,7 +48,7 @@ public:
 
 	virtual void OnOpen(struct mpdclient &) {}
 	virtual void OnClose() {}
-	virtual void OnResize(unsigned cols, unsigned rows) = 0;
+	virtual void OnResize(Size size) = 0;
 	virtual void Paint() const = 0;
 	virtual void Update(struct mpdclient &) {}
 

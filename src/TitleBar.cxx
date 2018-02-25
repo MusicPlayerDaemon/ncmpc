@@ -34,7 +34,7 @@
 #include <string.h>
 
 TitleBar::TitleBar(Point p, unsigned width)
-	:window(p, GetHeight(), width)
+	:window(p, {width, GetHeight()})
 {
 	leaveok(window.w, true);
 	keypad(window.w, true);
@@ -132,12 +132,12 @@ TitleBar::Paint(const char *title) const
 		g_snprintf(buf, 32, _("Volume %d%%"), volume);
 
 	colors_use(w, COLOR_TITLE);
-	mvwaddstr(w, 0, window.cols - utf8_width(buf), buf);
+	mvwaddstr(w, 0, window.size.width - utf8_width(buf), buf);
 
 	colors_use(w, COLOR_LINE);
-	mvwhline(w, 1, 0, ACS_HLINE, window.cols);
+	mvwhline(w, 1, 0, ACS_HLINE, window.size.width);
 	if (flags[0]) {
-		wmove(w, 1, window.cols - strlen(flags) - 3);
+		wmove(w, 1, window.size.width - strlen(flags) - 3);
 		waddch(w, '[');
 		colors_use(w, COLOR_LINE_FLAGS);
 		waddstr(w, flags);
@@ -151,6 +151,5 @@ TitleBar::Paint(const char *title) const
 void
 TitleBar::OnResize(unsigned width)
 {
-	window.cols = width;
-	wresize(window.w, GetHeight(), width);
+	window.Resize({width, GetHeight()});
 }

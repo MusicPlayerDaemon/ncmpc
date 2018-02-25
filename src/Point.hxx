@@ -20,6 +20,8 @@
 #ifndef NCMPC_POINT_HXX
 #define NCMPC_POINT_HXX
 
+#include "Size.hxx"
+
 /**
  * Coordinates of a cell on a curses screen/window.
  */
@@ -32,6 +34,10 @@ struct Point {
 
 	constexpr Point operator-(Point other) const {
 		return {x - other.x, y - other.y};
+	}
+
+	constexpr Point operator+(Size size) const {
+		return {x + int(size.width), y + int(size.height)};
 	}
 };
 

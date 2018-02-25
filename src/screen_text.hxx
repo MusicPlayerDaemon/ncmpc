@@ -36,8 +36,8 @@ protected:
 
 public:
 	TextPage(ScreenManager &_screen,
-		 WINDOW *w, unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows), screen(_screen) {
+		 WINDOW *w, Size size)
+		:ListPage(w, size), screen(_screen) {
 		lw.hide_cursor = true;
 	}
 

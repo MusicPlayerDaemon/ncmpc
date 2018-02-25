@@ -201,8 +201,8 @@ class HelpPage final : public ListPage {
 	ScreenManager &screen;
 
 public:
-	HelpPage(ScreenManager &_screen, WINDOW *w, unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows), screen(_screen) {
+	HelpPage(ScreenManager &_screen, WINDOW *w, Size size)
+		:ListPage(w, size), screen(_screen) {
 		lw.hide_cursor = true;
 		lw.SetLength(G_N_ELEMENTS(help_text));
 	}
@@ -234,9 +234,9 @@ list_callback(unsigned i, gcc_unused void *data)
 }
 
 static Page *
-help_init(ScreenManager &screen, WINDOW *w, unsigned cols, unsigned rows)
+help_init(ScreenManager &screen, WINDOW *w, Size size)
 {
-	return new HelpPage(screen, w, cols, rows);
+	return new HelpPage(screen, w, size);
 }
 
 static void

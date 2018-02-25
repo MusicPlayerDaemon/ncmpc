@@ -22,14 +22,14 @@
 
 #include "config.h"
 #include "ncmpc_curses.h"
+#include "Size.hxx"
 
 class Page;
 class ScreenManager;
 
 struct screen_functions {
 	const char *name;
-	Page *(*init)(ScreenManager &screen, WINDOW *w,
-		      unsigned cols, unsigned rows);
+	Page *(*init)(ScreenManager &screen, WINDOW *w, Size size);
 };
 
 #endif

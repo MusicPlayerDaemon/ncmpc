@@ -54,8 +54,8 @@ class KeyDefPage final : public ListPage {
 	unsigned subcmd_n_keys = 0;
 
 public:
-	KeyDefPage(ScreenManager &_screen, WINDOW *w, unsigned cols, unsigned rows)
-		:ListPage(w, cols, rows), screen(_screen) {}
+	KeyDefPage(ScreenManager &_screen, WINDOW *w, Size size)
+		:ListPage(w, size), screen(_screen) {}
 
 	~KeyDefPage() override {
 		g_free(cmds);
@@ -383,9 +383,9 @@ KeyDefPage::ListCallback(unsigned idx) const
 }
 
 static Page *
-keydef_init(ScreenManager &screen, WINDOW *w, unsigned cols, unsigned rows)
+keydef_init(ScreenManager &screen, WINDOW *w, Size size)
 {
-	return new KeyDefPage(screen, w, cols, rows);
+	return new KeyDefPage(screen, w, size);
 }
 
 void

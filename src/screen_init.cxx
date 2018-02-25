@@ -39,15 +39,14 @@ static const unsigned SCREEN_MIN_COLS = 14;
 static const unsigned SCREEN_MIN_ROWS = 5;
 
 ScreenManager::ScreenManager()
-	:layout(std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
-		std::max<unsigned>(COLS, SCREEN_MIN_COLS)),
-	 title_bar({layout.title_x, layout.title_y}, layout.cols),
-	 main_window({layout.main_x, layout.main_y},
-		     layout.GetMainRows(), layout.cols),
-	 progress_bar({layout.progress_x, layout.GetProgressY()}, layout.cols),
-	 status_bar({layout.status_x, layout.GetStatusY()}, layout.cols)
+	:layout({std::max<unsigned>(COLS, SCREEN_MIN_COLS),
+		 std::max<unsigned>(LINES, SCREEN_MIN_ROWS)}),
+	 title_bar({layout.title_x, layout.title_y}, layout.size.width),
+	 main_window({layout.main_x, layout.main_y}, layout.GetMainSize()),
+	 progress_bar({layout.progress_x, layout.GetProgressY()}, layout.size.width),
+	 status_bar({layout.status_x, layout.GetStatusY()}, layout.size.width)
 {
-	buf_size = layout.cols;
+	buf_size = layout.size.width;
 	buf = (char *)g_malloc(buf_size);
 	findbuf = nullptr;
 
@@ -80,37 +79,35 @@ ScreenManager::Exit()
 void
 ScreenManager::OnResize()
 {
-	layout = Layout(std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
-			std::max<unsigned>(COLS, SCREEN_MIN_COLS));
+	layout = Layout({std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
+				std::max<unsigned>(COLS, SCREEN_MIN_COLS)});
 
 #ifdef PDCURSES
-	resize_term(layout.rows, layout.cols);
+	resize_term(layout.size.height, layout.size.width);
 #else
-	resizeterm(layout.rows, layout.cols);
+	resizeterm(layout.size.height, layout.size.width);
 #endif
 
-	title_bar.OnResize(layout.cols);
+	title_bar.OnResize(layout.size.width);
 
 	/* main window */
-	main_window.cols = layout.cols;
-	main_window.rows = layout.GetMainRows();
-	wresize(main_window.w, main_window.rows, layout.cols);
+	main_window.Resize(layout.GetMainSize());
 
 	/* progress window */
 	progress_bar.OnResize({layout.progress_x, layout.GetProgressY()},
-			      layout.cols);
+			      layout.size.width);
 
 	/* status window */
 	status_bar.OnResize({layout.status_x, layout.GetStatusY()},
-			    layout.cols);
+			    layout.size.width);
 
-	buf_size = layout.cols;
+	buf_size = layout.size.width;
 	g_free(buf);
 	buf = (char *)g_malloc(buf_size);
 
 	/* resize all screens */
 	for (auto &page : pages)
-		page.second->OnResize(main_window.cols, main_window.rows);
+		page.second->OnResize(main_window.size);
 
 	/* ? - without this the cursor becomes visible with aterm & Eterm */
 	curs_set(1);

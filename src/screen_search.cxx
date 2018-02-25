@@ -105,9 +105,8 @@ class SearchPage final : public FileListPage {
 	gchar *pattern = nullptr;
 
 public:
-	SearchPage(ScreenManager &_screen, WINDOW *_w,
-		   unsigned _cols, unsigned _rows)
-		:FileListPage(_screen, _w, _cols, _rows,
+	SearchPage(ScreenManager &_screen, WINDOW *_w, Size size)
+		:FileListPage(_screen, _w, size,
 			      options.search_format != nullptr
 			      ? options.search_format
 			      : options.list_format) {
@@ -395,10 +394,9 @@ SearchPage::Start(struct mpdclient &c)
 }
 
 static Page *
-screen_search_init(ScreenManager &_screen, WINDOW *w,
-		   unsigned cols, unsigned rows)
+screen_search_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
-	return new SearchPage(_screen, w, cols, rows);
+	return new SearchPage(_screen, w, size);
 }
 
 SearchPage::~SearchPage()

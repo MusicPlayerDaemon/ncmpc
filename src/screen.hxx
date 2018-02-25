@@ -42,26 +42,30 @@ class Page;
 
 class ScreenManager {
 	struct Layout {
-		unsigned rows, cols;
+		Size size;
 
 		static constexpr int title_y = 0, title_x = 0;
 		static constexpr int main_y = TitleBar::GetHeight(), main_x = 0;
 		static constexpr int progress_x = 0;
 		static constexpr int status_x = 0;
 
-		constexpr Layout(unsigned _rows, unsigned _cols)
-			:rows(_rows), cols(_cols) {}
+		constexpr explicit Layout(Size _size)
+			:size(_size) {}
 
-		constexpr int GetMainRows() const {
-			return rows - 4;
+		constexpr unsigned GetMainRows() const {
+			return GetProgressY() - main_y;
+		}
+
+		constexpr Size GetMainSize() const {
+			return {size.width, GetMainRows()};
 		}
 
 		constexpr int GetProgressY() const {
-			return rows - 2;
+			return GetStatusY() - 1;
 		}
 
 		constexpr int GetStatusY() const {
-			return rows - 1;
+			return size.height - 1;
 		}
 	};
 
