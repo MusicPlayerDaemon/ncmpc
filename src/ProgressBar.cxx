@@ -44,6 +44,7 @@ ProgressBar::Paint() const
 		unsigned x = width + 1;
 
 		if (x < window.size.width) {
+			colors_use(window.w, COLOR_PROGRESSBAR_BACKGROUND);
 			mvwhline(window.w, 0, x, ACS_HLINE, window.size.width - x);
 		}
 	} else {

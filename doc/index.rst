@@ -258,6 +258,9 @@ text color used to display playlists in the browser window.
 :command:`color progressbar = COLOR[,ATTRIBUTE]...` - Set the color of
 the progress indicator.
 
+:command:`color progressbar = COLOR[,ATTRIBUTE]...` - Set the color of
+the progress indicator background.
+
 :command:`color status-state = COLOR[,ATTRIBUTE]...` - Set the text
 color used to display mpd status in the status window.
 

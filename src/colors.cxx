@@ -70,6 +70,7 @@ static NamedColor colors[COLOR_END] = {
 	{"list",              COLOR_GREEN,           A_NORMAL},
 	{"list-bold",         COLOR_GREEN  | A_BOLD, A_BOLD  },
 	{"progressbar",       COLOR_WHITE,           A_NORMAL},
+	{"progressbar-background", COLOR_BLACK | A_BOLD, A_NORMAL},
 	{"status-song",       COLOR_YELLOW,          A_NORMAL},
 	{"status-state",      COLOR_YELLOW | A_BOLD, A_BOLD  },
 	{"status-time",       COLOR_RED,             A_NORMAL},
