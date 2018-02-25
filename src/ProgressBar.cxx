@@ -40,7 +40,7 @@ ProgressBar::Paint() const
 		if (width > 0)
 			mvwhline(window.w, 0, 0, '=', width);
 
-		mvwaddch(window.w, 0, width, 'O');
+		mvwaddch(window.w, 0, width, '>');
 		unsigned x = width + 1;
 
 		if (x < window.size.width) {
