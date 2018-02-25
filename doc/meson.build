@@ -1,16 +1,22 @@
-dconf = configuration_data()
-dconf.set('VERSION', meson.project_version())
-dconf.set('abs_top_srcdir', meson.source_root())
+if get_option('documentation')
+  doxygen = find_program('doxygen', required: false)
 
-doxyfile = configure_file(input: 'doxygen.conf.in',
-                          output: 'doxygen.conf',
-                          configuration: dconf)
+  if doxygen.found()
+    dconf = configuration_data()
+    dconf.set('VERSION', meson.project_version())
+    dconf.set('abs_top_srcdir', meson.source_root())
 
-datadir = join_paths(get_option('datadir'), 'doc', 'spede')
+    doxyfile = configure_file(input: 'doxygen.conf.in',
+                              output: 'doxygen.conf',
+                              configuration: dconf)
 
-html_target = custom_target('apidocs',
-                            input: doxyfile,
-                            output: 'html',
-                            command: [doxygen, doxyfile],
-                            install: true,
-                            install_dir: docdir)
+    datadir = join_paths(get_option('datadir'), 'doc', 'spede')
+
+    html_target = custom_target('apidocs',
+                                input: doxyfile,
+                                output: 'html',
+                                command: [doxygen, doxyfile],
+                                install: true,
+                                install_dir: docdir)
+  endif
+endif

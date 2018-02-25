@@ -385,9 +385,4 @@ if not mini
   subdir('test')
 endif
 
-if get_option('documentation')
-  doxygen = find_program('doxygen', required: false)
-  if doxygen.found()
-    subdir('doc')
-  endif
-endif
+subdir('doc')
