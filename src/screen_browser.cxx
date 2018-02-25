@@ -346,15 +346,15 @@ FileListPage::HandleSelectAll(struct mpdclient &c)
 #ifdef HAVE_GETMOUSE
 
 bool
-FileListPage::OnMouse(struct mpdclient &c, int x, int row,
+FileListPage::OnMouse(struct mpdclient &c, Point p,
 		      mmask_t bstate)
 {
 	unsigned prev_selected = lw.selected;
 
-	if (ListPage::OnMouse(c, x, row, bstate))
+	if (ListPage::OnMouse(c, p, bstate))
 		return true;
 
-	lw.SetCursor(lw.start + row);
+	lw.SetCursor(lw.start + p.y);
 
 	if( bstate & BUTTON1_CLICKED ) {
 		if (prev_selected == lw.selected)

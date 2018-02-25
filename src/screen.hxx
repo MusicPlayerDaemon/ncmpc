@@ -26,6 +26,7 @@
 #include "TitleBar.hxx"
 #include "ProgressBar.hxx"
 #include "StatusBar.hxx"
+#include "Point.hxx"
 #include "ncmpc_curses.h"
 
 #include <mpd/client.h>
@@ -97,6 +98,10 @@ public:
 	void Init(struct mpdclient *c);
 	void Exit();
 
+	Point GetMainPosition() const {
+		return {0, (int)title_bar.GetHeight()};
+	}
+
 	PageMap::iterator MakePage(const struct screen_functions &sf);
 
 	void OnResize();
@@ -117,7 +122,7 @@ public:
 	void OnCommand(struct mpdclient *c, command_t cmd);
 
 #ifdef HAVE_GETMOUSE
-	bool OnMouse(struct mpdclient *c, int x, int y, mmask_t bstate);
+	bool OnMouse(struct mpdclient *c, Point p, mmask_t bstate);
 #endif
 
 private:

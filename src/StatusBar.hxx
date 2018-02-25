@@ -55,7 +55,7 @@ class StatusBar {
 #endif
 
 public:
-	StatusBar(unsigned width, int y, int x);
+	StatusBar(Point p, unsigned width);
 	~StatusBar();
 
 	Window &GetWindow() {
@@ -65,7 +65,7 @@ public:
 	void SetMessage(const char *msg);
 	void ClearMessage();
 
-	void OnResize(unsigned width, int y, int x);
+	void OnResize(Point p, unsigned width);
 	void Update(const struct mpd_status *status,
 		    const struct mpd_song *song);
 	void Paint() const;

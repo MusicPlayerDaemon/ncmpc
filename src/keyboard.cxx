@@ -65,7 +65,7 @@ keyboard_event(gcc_unused GIOChannel *source,
 #endif
 
 		begin_input_event();
-		do_mouse_event(event.x, event.y, event.bstate);
+		do_mouse_event({event.x, event.y}, event.bstate);
 		end_input_event();
 
 		return true;

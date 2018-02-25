@@ -23,6 +23,7 @@
 #include "config.h"
 #include "command.hxx"
 #include "ncmpc_curses.h"
+#include "Point.hxx"
 
 #include <stddef.h>
 
@@ -67,7 +68,7 @@ public:
 	 * handled by the ncmpc core)
 	 */
 	virtual bool OnMouse(gcc_unused struct mpdclient &c,
-			     gcc_unused int x, gcc_unused int y,
+			     gcc_unused Point position,
 			     gcc_unused mmask_t bstate) {
 		return false;
 	}

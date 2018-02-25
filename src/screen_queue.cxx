@@ -113,8 +113,7 @@ public:
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 
 #ifdef HAVE_GETMOUSE
-	bool OnMouse(struct mpdclient &c, int x, int y,
-		     mmask_t bstate) override;
+	bool OnMouse(struct mpdclient &c, Point p, mmask_t bstate) override;
 #endif
 
 	const char *GetTitle(char *s, size_t size) const override;
@@ -469,9 +468,9 @@ QueuePage::Update(struct mpdclient &c)
 
 #ifdef HAVE_GETMOUSE
 bool
-QueuePage::OnMouse(struct mpdclient &c, int x, int row, mmask_t bstate)
+QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 {
-	if (ListPage::OnMouse(c, x, row, bstate))
+	if (ListPage::OnMouse(c, p, bstate))
 		return true;
 
 	if (bstate & BUTTON1_DOUBLE_CLICKED) {
@@ -481,7 +480,7 @@ QueuePage::OnMouse(struct mpdclient &c, int x, int row, mmask_t bstate)
 	}
 
 	const unsigned old_selected = lw.selected;
-	lw.SetCursor(lw.start + row);
+	lw.SetCursor(lw.start + p.y);
 
 	if (bstate & BUTTON1_CLICKED) {
 		/* play */

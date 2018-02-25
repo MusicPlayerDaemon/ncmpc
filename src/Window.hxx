@@ -21,14 +21,15 @@
 #define NCMPC_WINDOW_HXX
 
 #include "config.h"
+#include "Point.hxx"
 #include "ncmpc_curses.h"
 
 struct Window {
 	WINDOW *const w;
 	unsigned rows, cols;
 
-	Window(unsigned height, unsigned width, int y, int x)
-		:w(newwin(height, width, y, x)),
+	Window(Point p, unsigned height, unsigned width)
+		:w(newwin(height, width, p.y, p.x)),
 		 rows(height), cols(width) {}
 
 	~Window() {
@@ -37,6 +38,10 @@ struct Window {
 
 	Window(const Window &) = delete;
 	Window &operator=(const Window &) = delete;
+
+	void Move(Point p) {
+		mvwin(w, p.y, p.x);
+	}
 };
 
 #endif

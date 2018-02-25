@@ -22,8 +22,8 @@
 
 #include <assert.h>
 
-ProgressBar::ProgressBar(unsigned _width, int y, int x)
-	:window(1, _width, y, x)
+ProgressBar::ProgressBar(Point p, unsigned _width)
+	:window(p, 1, _width)
 {
 	leaveok(window.w, true);
 	wbkgd(window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
@@ -61,11 +61,11 @@ ProgressBar::Calculate()
 }
 
 void
-ProgressBar::OnResize(unsigned _width, int y, int x)
+ProgressBar::OnResize(Point p, unsigned _width)
 {
 	window.cols = _width;
 	wresize(window.w, 1, _width);
-	mvwin(window.w, y, x);
+	window.Move(p);
 
 	Calculate();
 }

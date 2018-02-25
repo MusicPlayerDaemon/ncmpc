@@ -17,52 +17,22 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_LIST_PAGE_HXX
-#define NCMPC_LIST_PAGE_HXX
-
-#include "Page.hxx"
-#include "ListWindow.hxx"
+#ifndef NCMPC_POINT_HXX
+#define NCMPC_POINT_HXX
 
 /**
- * An abstract #Page implementation which shows a #ListWindow.
+ * Coordinates of a cell on a curses screen/window.
  */
-class ListPage : public Page {
-protected:
-	ListWindow lw;
+struct Point {
+	int x, y;
 
-public:
-	ListPage(WINDOW *w, unsigned cols, unsigned rows)
-		:lw(w, cols, rows) {}
-
-public:
-	/* virtual methods from class Page */
-	void OnResize(unsigned cols, unsigned rows) override {
-		lw.Resize(cols, rows);
+	constexpr Point operator+(Point other) const {
+		return {x + other.x, y + other.y};
 	}
 
-	bool OnCommand(struct mpdclient &, command_t cmd) override {
-		if (lw.hide_cursor
-		    ? lw.HandleScrollCommand(cmd)
-		    : lw.HandleCommand(cmd)) {
-			SetDirty();
-			return true;
-		}
-
-		return false;
+	constexpr Point operator-(Point other) const {
+		return {x - other.x, y - other.y};
 	}
-
-#ifdef HAVE_GETMOUSE
-	bool OnMouse(struct mpdclient &, Point p,
-		     mmask_t bstate) override {
-		if (lw.HandleMouse(bstate, p.y)) {
-			SetDirty();
-			return true;
-		}
-
-		return false;
-	}
-
-#endif
 };
 
 #endif

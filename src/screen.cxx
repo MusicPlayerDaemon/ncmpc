@@ -328,10 +328,9 @@ ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
 #ifdef HAVE_GETMOUSE
 
 bool
-ScreenManager::OnMouse(struct mpdclient *c, int x, int y, mmask_t bstate)
+ScreenManager::OnMouse(struct mpdclient *c, Point p, mmask_t bstate)
 {
-	if (current_page->second->OnMouse(*c, x,
-					  y - title_bar.GetHeight(),
+	if (current_page->second->OnMouse(*c, p - GetMainPosition(),
 					  bstate))
 		return true;
 

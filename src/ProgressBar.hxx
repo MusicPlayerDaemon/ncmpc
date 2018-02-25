@@ -30,9 +30,9 @@ class ProgressBar {
 	unsigned width = 0;
 
 public:
-	ProgressBar(unsigned _width, int y, int x);
+	ProgressBar(Point p, unsigned _width);
 
-	void OnResize(unsigned width, int y, int x);
+	void OnResize(Point p, unsigned _width);
 
 	bool Set(unsigned current, unsigned max);
 

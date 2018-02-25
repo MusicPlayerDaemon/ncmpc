@@ -31,8 +31,8 @@
 #include <assert.h>
 #include <string.h>
 
-StatusBar::StatusBar(unsigned width, int y, int x)
-	:window(1, width, y, x)
+StatusBar::StatusBar(Point p, unsigned width)
+	:window(p, 1, width)
 #ifndef NCMPC_MINI
 	, hscroll(window.w, options.scroll_sep)
 #endif
@@ -240,11 +240,11 @@ StatusBar::Paint() const
 }
 
 void
-StatusBar::OnResize(unsigned width, int y, int x)
+StatusBar::OnResize(Point p, unsigned width)
 {
 	window.cols = width;
 	wresize(window.w, 1, width);
-	mvwin(window.w, y, x);
+	window.Move(p);
 }
 
 inline void

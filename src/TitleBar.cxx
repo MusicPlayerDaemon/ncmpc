@@ -33,8 +33,8 @@
 #include <assert.h>
 #include <string.h>
 
-TitleBar::TitleBar(unsigned width, int y, int x)
-	:window(2, width, y, x)
+TitleBar::TitleBar(Point p, unsigned width)
+	:window(p, 2, width)
 {
 	leaveok(window.w, true);
 	keypad(window.w, true);

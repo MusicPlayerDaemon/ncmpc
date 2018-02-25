@@ -26,6 +26,7 @@
 #include "ncmpc_curses.h"
 #endif
 
+struct Point;
 class ScreenManager;
 extern ScreenManager *screen;
 
@@ -40,7 +41,7 @@ do_input_event(command_t cmd);
 
 #ifdef HAVE_GETMOUSE
 void
-do_mouse_event(int x, int y, mmask_t bstate);
+do_mouse_event(Point p, mmask_t bstate);
 #endif
 
 #endif /* NCMPC_H */

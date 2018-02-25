@@ -41,12 +41,11 @@ static const unsigned SCREEN_MIN_ROWS = 5;
 ScreenManager::ScreenManager()
 	:layout(std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
 		std::max<unsigned>(COLS, SCREEN_MIN_COLS)),
-	 title_bar(layout.cols, layout.title_y, layout.title_x),
-	 main_window(layout.GetMainRows(), layout.cols,
-		     layout.main_y, layout.main_x),
-	 progress_bar(layout.cols,
-		      layout.GetProgressY(), layout.progress_x),
-	status_bar(layout.cols, layout.GetStatusY(), layout.status_x)
+	 title_bar({layout.title_x, layout.title_y}, layout.cols),
+	 main_window({layout.main_x, layout.main_y},
+		     layout.GetMainRows(), layout.cols),
+	 progress_bar({layout.progress_x, layout.GetProgressY()}, layout.cols),
+	 status_bar({layout.status_x, layout.GetStatusY()}, layout.cols)
 {
 	buf_size = layout.cols;
 	buf = (char *)g_malloc(buf_size);
@@ -98,12 +97,12 @@ ScreenManager::OnResize()
 	wresize(main_window.w, main_window.rows, layout.cols);
 
 	/* progress window */
-	progress_bar.OnResize(layout.cols,
-			      layout.GetProgressY(), layout.progress_x);
+	progress_bar.OnResize({layout.progress_x, layout.GetProgressY()},
+			      layout.cols);
 
 	/* status window */
-	status_bar.OnResize(layout.cols,
-			    layout.GetStatusY(), layout.status_x);
+	status_bar.OnResize({layout.status_x, layout.GetStatusY()},
+			    layout.cols);
 
 	buf_size = layout.cols;
 	g_free(buf);

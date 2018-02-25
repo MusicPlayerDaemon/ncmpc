@@ -31,7 +31,7 @@ class TitleBar {
 	char flags[8];
 
 public:
-	TitleBar(unsigned width, int y, int x);
+	TitleBar(Point p, unsigned width);
 
 	unsigned GetHeight() const {
 		return window.rows;

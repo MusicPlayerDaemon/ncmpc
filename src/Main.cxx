@@ -285,9 +285,9 @@ do_input_event(command_t cmd)
 #ifdef HAVE_GETMOUSE
 
 void
-do_mouse_event(int x, int y, mmask_t bstate)
+do_mouse_event(Point p, mmask_t bstate)
 {
-	screen->OnMouse(mpd, x, y, bstate);
+	screen->OnMouse(mpd, p, bstate);
 }
 
 #endif

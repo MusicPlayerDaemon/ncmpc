@@ -77,7 +77,7 @@ public:
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 
 #ifdef HAVE_GETMOUSE
-	bool OnMouse(struct mpdclient &c, int x, int y,
+	bool OnMouse(struct mpdclient &c, Point p,
 		     mmask_t bstate) override;
 #endif
 };
