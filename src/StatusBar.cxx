@@ -242,8 +242,7 @@ StatusBar::Paint() const
 void
 StatusBar::OnResize(Point p, unsigned width)
 {
-	window.size.width = width;
-	wresize(window.w, 1, width);
+	window.Resize({width, 1u});
 	window.Move(p);
 }
 
