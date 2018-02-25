@@ -45,7 +45,7 @@ class ScreenManager {
 		unsigned rows, cols;
 
 		static constexpr int title_y = 0, title_x = 0;
-		static constexpr int main_y = 2, main_x = 0;
+		static constexpr int main_y = TitleBar::GetHeight(), main_x = 0;
 		static constexpr int progress_x = 0;
 		static constexpr int status_x = 0;
 

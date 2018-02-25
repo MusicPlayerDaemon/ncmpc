@@ -33,8 +33,8 @@ class TitleBar {
 public:
 	TitleBar(Point p, unsigned width);
 
-	unsigned GetHeight() const {
-		return window.rows;
+	static constexpr unsigned GetHeight() {
+		return 2;
 	}
 
 	void OnResize(unsigned width);

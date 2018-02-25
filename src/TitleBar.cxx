@@ -34,7 +34,7 @@
 #include <string.h>
 
 TitleBar::TitleBar(Point p, unsigned width)
-	:window(p, 2, width)
+	:window(p, GetHeight(), width)
 {
 	leaveok(window.w, true);
 	keypad(window.w, true);
@@ -152,5 +152,5 @@ void
 TitleBar::OnResize(unsigned width)
 {
 	window.cols = width;
-	wresize(window.w, 2, width);
+	wresize(window.w, GetHeight(), width);
 }
