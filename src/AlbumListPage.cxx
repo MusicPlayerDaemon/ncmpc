@@ -128,21 +128,20 @@ AlbumListPage::Reload(struct mpdclient &c)
  * the parent directory, and at the end, there's the item "All tracks"
  * to view the tracks of all albums.
  */
-static void
-paint_album_callback(WINDOW *w, unsigned i,
-		     gcc_unused unsigned y, unsigned width,
-		     bool selected, const void *data)
+void
+AlbumListPage::PaintListItem(WINDOW *w, unsigned i,
+			     gcc_unused unsigned y, unsigned width,
+			     bool selected) const
 {
-	const auto &list = *(const std::vector<std::string> *)data;
 	const char *p;
 	char *q = nullptr;
 
 	if (i == 0)
 		p = "..";
-	else if (i == list.size() + 1)
+	else if (i == album_list.size() + 1)
 		p = _("All tracks");
 	else
-		p = q = utf8_to_locale(list[i - 1].c_str());
+		p = q = utf8_to_locale(album_list[i - 1].c_str());
 
 	screen_browser_paint_directory(w, width, selected, p);
 	g_free(q);
@@ -151,7 +150,7 @@ paint_album_callback(WINDOW *w, unsigned i,
 void
 AlbumListPage::Paint() const
 {
-	lw.Paint(paint_album_callback, &album_list);
+	lw.Paint(*this);
 }
 
 const char *
@@ -249,7 +248,7 @@ AlbumListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_JUMP:
 		screen_jump(screen, &lw,
 			    AlbumListCallback, &album_list,
-			    paint_album_callback, &album_list);
+			    this);
 		SetDirty();
 		return true;
 

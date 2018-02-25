@@ -20,6 +20,7 @@
 #include "screen_help.hxx"
 #include "screen_interface.hxx"
 #include "ListPage.hxx"
+#include "ListRenderer.hxx"
 #include "screen_find.hxx"
 #include "paint.hxx"
 #include "charset.hxx"
@@ -197,7 +198,7 @@ static const struct help_text_row help_text[] = {
 #endif
 };
 
-class HelpPage final : public ListPage {
+class HelpPage final : public ListPage, ListRenderer {
 	ScreenManager &screen;
 
 public:
@@ -208,6 +209,11 @@ public:
 	}
 
 public:
+	/* virtual methods from class ListRenderer */
+	void PaintListItem(WINDOW *w, unsigned i,
+			   unsigned y, unsigned width,
+			   bool selected) const override;
+
 	/* virtual methods from class Page */
 	void Paint() const override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
@@ -239,11 +245,10 @@ help_init(ScreenManager &screen, WINDOW *w, Size size)
 	return new HelpPage(screen, w, size);
 }
 
-static void
-screen_help_paint_callback(WINDOW *w, unsigned i,
-			   unsigned y, unsigned width,
-			   gcc_unused bool selected,
-			   gcc_unused const void *data)
+void
+HelpPage::PaintListItem(WINDOW *w, unsigned i,
+			unsigned y, unsigned width,
+			gcc_unused bool selected) const
 {
 	const struct help_text_row *row = &help_text[i];
 
@@ -275,7 +280,7 @@ screen_help_paint_callback(WINDOW *w, unsigned i,
 void
 HelpPage::Paint() const
 {
-	lw.Paint(screen_help_paint_callback, nullptr);
+	lw.Paint(*this);
 }
 
 bool

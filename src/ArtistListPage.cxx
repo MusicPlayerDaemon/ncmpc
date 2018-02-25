@@ -100,23 +100,19 @@ ArtistListPage::Reload(struct mpdclient &c)
 	LoadArtistList(c);
 }
 
-/**
- * Paint one item in the artist list.
- */
-static void
-paint_artist_callback(WINDOW *w, unsigned i,
-		      gcc_unused unsigned y, unsigned width,
-		      bool selected, const void *data)
+void
+ArtistListPage::PaintListItem(WINDOW *w, unsigned i,
+			      gcc_unused unsigned y, unsigned width,
+			      bool selected) const
 {
-	const auto &list = *(const std::vector<std::string> *)data;
 	screen_browser_paint_directory(w, width, selected,
-				       Utf8ToLocale(list[i].c_str()).c_str());
+				       Utf8ToLocale(artist_list[i].c_str()).c_str());
 }
 
 void
 ArtistListPage::Paint() const
 {
-	lw.Paint(paint_artist_callback, &artist_list);
+	lw.Paint(*this);
 }
 
 const char *
@@ -203,7 +199,7 @@ ArtistListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_JUMP:
 		screen_jump(screen, &lw,
 			    screen_artist_lw_callback, &artist_list,
-			    paint_artist_callback, &artist_list);
+			    this);
 		SetDirty();
 		return true;
 

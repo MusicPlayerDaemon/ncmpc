@@ -89,7 +89,7 @@ screen_find(ScreenManager &screen, ListWindow *lw, command_t findcmd,
 void
 screen_jump(ScreenManager &screen, ListWindow *lw,
 	    list_window_callback_fn_t callback_fn, void *callback_data,
-	    list_window_paint_callback_t paint_callback, void *paint_data)
+	    const ListRenderer *renderer)
 {
 	constexpr size_t WRLN_MAX_LINE_SIZE = 1024;
 	int key = 65;
@@ -125,8 +125,8 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 		lw->Jump(callback_fn, callback_data, search_str);
 
 		/* repaint the list_window */
-		if (paint_callback != nullptr)
-			lw->Paint(paint_callback, paint_data);
+		if (renderer != nullptr)
+			lw->Paint(*renderer);
 		else
 			lw->Paint(callback_fn, callback_data);
 		wrefresh(lw->w);

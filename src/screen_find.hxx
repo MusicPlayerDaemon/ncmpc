@@ -24,6 +24,7 @@
 #include "ListWindow.hxx"
 
 class ScreenManager;
+class ListRenderer;
 
 /**
  * query user for a string and find it in a list window
@@ -45,6 +46,6 @@ screen_find(ScreenManager &screen, ListWindow *lw,
 void
 screen_jump(ScreenManager &screen, ListWindow *lw,
 	    list_window_callback_fn_t callback_fn, void *callback_data,
-	    list_window_paint_callback_t paint_callback, void *paint_data);
+	    const ListRenderer *renderer);
 
 #endif

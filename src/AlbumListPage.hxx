@@ -21,13 +21,14 @@
 #define NCMPC_ALBUM_LIST_PAGE_HXX
 
 #include "ListPage.hxx"
+#include "ListRenderer.hxx"
 
 #include <vector>
 #include <string>
 
 class ScreenManager;
 
-class AlbumListPage final : public ListPage {
+class AlbumListPage final : public ListPage, ListRenderer {
 	ScreenManager &screen;
 	std::vector<std::string> album_list;
 	std::string artist;
@@ -66,6 +67,10 @@ public:
 	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
+
+	/* virtual methods from class ListRenderer */
+	void PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
+			   bool selected) const override;
 };
 
 #endif

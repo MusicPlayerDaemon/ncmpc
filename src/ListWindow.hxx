@@ -26,14 +26,10 @@
 #include "ncmpc_curses.h"
 #include "Size.hxx"
 
+class ListRenderer;
+
 typedef const char *
 (*list_window_callback_fn_t)(unsigned i, void *data);
-
-typedef void
-(*list_window_paint_callback_t)(WINDOW *w, unsigned i,
-				unsigned y, unsigned width,
-				bool selected,
-				const void *data);
 
 /**
  * The bounds of a range selection, see list_window_get_range().
@@ -125,8 +121,7 @@ struct ListWindow {
 	void Paint(list_window_callback_fn_t callback,
 		   void *callback_data) const;
 
-	void Paint(list_window_paint_callback_t paint_callback,
-		   const void *callback_data) const;
+	void Paint(const ListRenderer &renderer) const;
 
 	/** perform basic list window commands (movement) */
 	bool HandleCommand(command_t cmd);

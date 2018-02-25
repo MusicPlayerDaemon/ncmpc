@@ -387,7 +387,7 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_JUMP:
 		screen_jump(screen, &lw,
 			    browser_lw_callback, filelist,
-			    PaintRow, this);
+			    this);
 		SetDirty();
 		return true;
 
@@ -481,16 +481,14 @@ screen_browser_paint_playlist(WINDOW *w, unsigned width,
 }
 
 void
-FileListPage::PaintRow(WINDOW *w, unsigned i,
-		       unsigned y, unsigned width,
-		       bool selected, const void *data)
+FileListPage::PaintListItem(WINDOW *w, unsigned i,
+			    unsigned y, unsigned width,
+			    bool selected) const
 {
-	const auto &page = *(const FileListPage *) data;
+	assert(filelist != nullptr);
+	assert(i < filelist->size());
 
-	assert(page.filelist != nullptr);
-	assert(i < page.filelist->size());
-
-	const auto &entry = (*page.filelist)[i];
+	const auto &entry = (*filelist)[i];
 	const struct mpd_entity *entity = entry.entity;
 	if (entity == nullptr) {
 		screen_browser_paint_directory(w, width, selected, "..");
@@ -518,7 +516,7 @@ FileListPage::PaintRow(WINDOW *w, unsigned i,
 	case MPD_ENTITY_TYPE_SONG:
 		paint_song_row(w, y, width, selected, highlight,
 			       mpd_entity_get_song(entity), nullptr,
-			       page.song_format);
+			       song_format);
 		break;
 
 	case MPD_ENTITY_TYPE_PLAYLIST:
@@ -537,5 +535,5 @@ FileListPage::PaintRow(WINDOW *w, unsigned i,
 void
 FileListPage::Paint() const
 {
-	lw.Paint(PaintRow, this);
+	lw.Paint(*this);
 }

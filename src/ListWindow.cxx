@@ -18,6 +18,7 @@
  */
 
 #include "ListWindow.hxx"
+#include "ListRenderer.hxx"
 #include "config.h"
 #include "options.hxx"
 #include "charset.hxx"
@@ -335,8 +336,7 @@ ListWindow::Paint(list_window_callback_fn_t callback,
 }
 
 void
-ListWindow::Paint(list_window_paint_callback_t paint_callback,
-		  const void *callback_data) const
+ListWindow::Paint(const ListRenderer &renderer) const
 {
 	bool show_cursor = !hide_cursor &&
 		(!options.hardware_cursor || range_selection);
@@ -356,8 +356,8 @@ ListWindow::Paint(list_window_paint_callback_t paint_callback,
 		bool is_selected = show_cursor &&
 			range.Contains(start + i);
 
-		paint_callback(w, start + i, i, size.width,
-			       is_selected, callback_data);
+		renderer.PaintListItem(w, start + i, i, size.width,
+				       is_selected);
 	}
 
 	if (options.hardware_cursor && selected >= start &&

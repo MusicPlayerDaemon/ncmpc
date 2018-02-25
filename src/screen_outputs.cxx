@@ -20,6 +20,7 @@
 #include "screen_outputs.hxx"
 #include "screen_interface.hxx"
 #include "ListPage.hxx"
+#include "ListRenderer.hxx"
 #include "screen_status.hxx"
 #include "paint.hxx"
 #include "i18n.h"
@@ -38,7 +39,7 @@ struct OutputDeleter {
 	}
 };
 
-class OutputsPage final : public ListPage {
+class OutputsPage final : public ListPage, ListRenderer {
 	std::vector<std::unique_ptr<struct mpd_output, OutputDeleter>> items;
 
 public:
@@ -56,6 +57,10 @@ public:
 	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
+
+	/* virtual methods from class ListRenderer */
+	void PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
+			   bool selected) const override;
 };
 
 bool
@@ -139,12 +144,11 @@ OutputsPage::GetTitle(gcc_unused char *str, gcc_unused size_t size) const
 	return _("Outputs");
 }
 
-static void
-screen_outputs_paint_callback(WINDOW *w, unsigned i,
-			      gcc_unused unsigned y, unsigned width,
-			      bool selected, const void *data)
+void
+OutputsPage::PaintListItem(WINDOW *w, unsigned i,
+			   gcc_unused unsigned y, unsigned width,
+			   bool selected) const
 {
-	const auto &items = *(const std::vector<std::unique_ptr<struct mpd_output, OutputDeleter>> *)data;
 	assert(i < items.size());
 	const auto *output = items[i].get();
 
@@ -157,7 +161,7 @@ screen_outputs_paint_callback(WINDOW *w, unsigned i,
 void
 OutputsPage::Paint() const
 {
-	lw.Paint(screen_outputs_paint_callback, &items);
+	lw.Paint(*this);
 }
 
 void

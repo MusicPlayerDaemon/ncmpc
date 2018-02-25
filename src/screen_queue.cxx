@@ -20,6 +20,7 @@
 #include "screen_queue.hxx"
 #include "screen_interface.hxx"
 #include "ListPage.hxx"
+#include "ListRenderer.hxx"
 #include "screen_file.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
@@ -55,7 +56,7 @@
 
 #define MAX_SONG_LENGTH 512
 
-class QueuePage final : public ListPage {
+class QueuePage final : public ListPage, ListRenderer {
 	ScreenManager &screen;
 
 #ifndef NCMPC_MINI
@@ -103,9 +104,11 @@ private:
 	bool OnSongChange(const struct mpd_status *status);
 
 	static gboolean OnHideCursorTimer(gpointer data);
-	static void PaintRow(WINDOW *w, unsigned i,
-			     unsigned y, unsigned width,
-			     bool selected, const void *data);
+
+	/* virtual methods from class ListRenderer */
+	void PaintListItem(WINDOW *w, unsigned i,
+			   unsigned y, unsigned width,
+			   bool selected) const override;
 
 public:
 	/* virtual methods from class Page */
@@ -374,22 +377,21 @@ QueuePage::GetTitle(char *str, size_t size) const
 }
 
 void
-QueuePage::PaintRow(WINDOW *w, unsigned i, unsigned y, unsigned width,
-		    bool selected, const void *data)
+QueuePage::PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
+			 bool selected) const
 {
-	const auto &q = *(const QueuePage *)data;
-	assert(q.playlist != nullptr);
-	assert(i < q.playlist->size());
-	const auto &song = (*q.playlist)[i];
+	assert(playlist != nullptr);
+	assert(i < playlist->size());
+	const auto &song = (*playlist)[i];
 
 	class hscroll *row_hscroll = nullptr;
 #ifndef NCMPC_MINI
-	row_hscroll = selected && options.scroll && q.lw.selected == i
-		? &q.hscroll : nullptr;
+	row_hscroll = selected && options.scroll && lw.selected == i
+		? &hscroll : nullptr;
 #endif
 
 	paint_song_row(w, y, width, selected,
-		       (int)mpd_song_get_id(&song) == q.current_song_id,
+		       (int)mpd_song_get_id(&song) == current_song_id,
 		       &song, row_hscroll, options.list_format);
 }
 
@@ -401,7 +403,7 @@ QueuePage::Paint() const
 		hscroll.Clear();
 #endif
 
-	lw.Paint(PaintRow, this);
+	lw.Paint(*this);
 }
 
 void
@@ -517,7 +519,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		return true;
 	case CMD_LIST_JUMP:
 		screen_jump(screen, &lw, screen_queue_lw_callback, &c.playlist,
-			    nullptr, nullptr);
+			    this);
 		SaveSelection();
 		SetDirty();
 		return true;
