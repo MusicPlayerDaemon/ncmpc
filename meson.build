@@ -372,8 +372,6 @@ ncmpc = executable('ncmpc',
 
 configure_file(output: 'config.h', configuration: conf)
 
-install_man('doc/ncmpc.1')
-
 docdir = join_paths(get_option('datadir'), 'doc', meson.project_name())
 install_data('AUTHORS', 'COPYING', 'NEWS', 'README.rst',
   'doc/config.sample',
