@@ -27,21 +27,29 @@ ProgressBar::ProgressBar(Point p, unsigned _width)
 {
 	leaveok(window.w, true);
 	wbkgd(window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
-	colors_use(window.w, COLOR_PROGRESSBAR);
 }
 
 void
 ProgressBar::Paint() const
 {
-	mvwhline(window.w, 0, 0, ACS_HLINE, window.size.width);
-
 	if (max > 0) {
 		assert(width < window.size.width);
 
+		colors_use(window.w, COLOR_PROGRESSBAR);
+
 		if (width > 0)
-			whline(window.w, '=', width);
+			mvwhline(window.w, 0, 0, '=', width);
 
 		mvwaddch(window.w, 0, width, 'O');
+		unsigned x = width + 1;
+
+		if (x < window.size.width) {
+			mvwhline(window.w, 0, x, ACS_HLINE, window.size.width - x);
+		}
+	} else {
+		/* no progress bar, just a simple horizontal line */
+		colors_use(window.w, COLOR_LINE);
+		mvwhline(window.w, 0, 0, ACS_HLINE, window.size.width);
 	}
 
 	wnoutrefresh(window.w);
