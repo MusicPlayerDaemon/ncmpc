@@ -46,10 +46,6 @@
 #include <string.h>
 #include <time.h>
 
-/* screens */
-
-static const struct screen_functions *mode_fn_prev = &screen_queue;
-
 ScreenManager::PageMap::iterator
 ScreenManager::MakePage(const struct screen_functions &sf)
 {

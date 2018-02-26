@@ -44,7 +44,8 @@ ScreenManager::ScreenManager()
 	 title_bar({layout.title_x, layout.title_y}, layout.size.width),
 	 main_window({layout.main_x, layout.main_y}, layout.GetMainSize()),
 	 progress_bar({layout.progress_x, layout.GetProgressY()}, layout.size.width),
-	 status_bar({layout.status_x, layout.GetStatusY()}, layout.size.width)
+	 status_bar({layout.status_x, layout.GetStatusY()}, layout.size.width),
+	 mode_fn_prev(&screen_queue)
 {
 	buf_size = layout.size.width;
 	buf = (char *)g_malloc(buf_size);

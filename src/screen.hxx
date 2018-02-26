@@ -82,6 +82,8 @@ public:
 	PageMap pages;
 	PageMap::iterator current_page = pages.begin();
 
+	const struct screen_functions *mode_fn_prev;
+
 	char *buf;
 	size_t buf_size;
 
