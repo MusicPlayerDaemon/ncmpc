@@ -254,7 +254,11 @@ endif
 enable_artist_screen = get_option('artist_screen') and not mini
 conf.set('ENABLE_ARTIST_SCREEN', enable_artist_screen)
 if enable_artist_screen
-  sources += ['src/screen_artist.cxx']
+  sources += [
+    'src/screen_artist.cxx',
+    'src/ArtistListPage.cxx',
+    'src/AlbumListPage.cxx',
+  ]
 endif
 
 enable_search_screen = get_option('search_screen') and not mini
