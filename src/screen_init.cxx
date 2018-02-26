@@ -79,8 +79,8 @@ ScreenManager::Exit()
 void
 ScreenManager::OnResize()
 {
-	layout = Layout({std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
-				std::max<unsigned>(COLS, SCREEN_MIN_COLS)});
+	layout = Layout({std::max<unsigned>(COLS, SCREEN_MIN_COLS),
+			 std::max<unsigned>(LINES, SCREEN_MIN_ROWS)});
 
 #ifdef PDCURSES
 	resize_term(layout.size.height, layout.size.width);
