@@ -82,8 +82,7 @@ ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient *c)
 
 	/* open the new mode */
 	page->second->OnOpen(*c);
-
-	Paint(true);
+	page->second->SetDirty();
 }
 
 void
@@ -262,7 +261,7 @@ ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
 				     _("Auto center mode: Off"));
 		break;
 	case CMD_SCREEN_UPDATE:
-		Paint(true);
+		current_page->second->SetDirty();
 		break;
 	case CMD_SCREEN_PREVIOUS:
 		NextMode(*c, -1);
