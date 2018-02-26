@@ -21,7 +21,7 @@
 #include "screen_interface.hxx"
 #include "screen_utils.hxx"
 #include "screen_status.hxx"
-#include "screen_text.hxx"
+#include "TextPage.hxx"
 #include "mpdclient.hxx"
 #include "i18n.h"
 #include "charset.hxx"

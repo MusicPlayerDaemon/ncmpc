@@ -309,7 +309,7 @@ if enable_chat_screen
 endif
 
 if need_screen_text
-  sources += ['src/screen_text.cxx']
+  sources += ['src/TextPage.cxx']
 endif
 
 if need_plugin_library

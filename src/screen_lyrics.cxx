@@ -27,7 +27,7 @@
 #include "mpdclient.hxx"
 #include "screen.hxx"
 #include "lyrics.hxx"
-#include "screen_text.hxx"
+#include "TextPage.hxx"
 #include "screen_utils.hxx"
 #include "ncu.hxx"
 
