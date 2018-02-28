@@ -71,12 +71,17 @@ class ScreenManager {
 
 	Layout layout;
 
-public:
 	TitleBar title_bar;
+public:
 	Window main_window;
+
+private:
 	ProgressBar progress_bar;
+
+public:
 	StatusBar status_bar;
 
+private:
 	using PageMap = std::map<const struct screen_functions *,
 				 std::unique_ptr<Page>>;
 	PageMap pages;
@@ -87,6 +92,7 @@ public:
 	char *buf;
 	size_t buf_size;
 
+public:
 	char *findbuf;
 	GList *find_history = nullptr;
 
