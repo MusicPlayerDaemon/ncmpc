@@ -39,7 +39,7 @@
 #define N_(x) x
 #endif
 
-#define YES _("y")
-#define NO _("n")
+#define YES_TRANSLATION _("y")
+#define NO_TRANSLATION _("n")
 
 #endif
