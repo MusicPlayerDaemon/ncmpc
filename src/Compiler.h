@@ -75,6 +75,7 @@
 
 #define gcc_nonnull(...) __attribute__((nonnull(__VA_ARGS__)))
 #define gcc_nonnull_all __attribute__((nonnull))
+#define gcc_returns_nonnull __attribute__((returns_nonnull))
 
 #define gcc_likely(x) __builtin_expect (!!(x), 1)
 #define gcc_unlikely(x) __builtin_expect (!!(x), 0)
@@ -104,6 +105,7 @@
 
 #define gcc_nonnull(...)
 #define gcc_nonnull_all
+#define gcc_returns_nonnull
 
 #define gcc_likely(x) (x)
 #define gcc_unlikely(x) (x)
