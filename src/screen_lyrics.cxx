@@ -474,7 +474,7 @@ LyricsPage::OnCommand(struct mpdclient &c, command_t cmd)
 		break;
 #endif
 	case CMD_SCREEN_SWAP:
-		screen.Swap(&c, song);
+		screen.Swap(c, song);
 		return true;
 
 	case CMD_LOCATE:
@@ -503,5 +503,5 @@ screen_lyrics_switch(ScreenManager &_screen, struct mpdclient &c,
 {
 	follow = f;
 	next_song = mpd_song_dup(&song);
-	_screen.Switch(screen_lyrics, &c);
+	_screen.Switch(screen_lyrics, c);
 }

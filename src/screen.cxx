@@ -61,7 +61,7 @@ ScreenManager::MakePage(const struct screen_functions &sf)
 }
 
 void
-ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient *c)
+ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient &c)
 {
 	if (&sf == current_page->first)
 		return;
@@ -77,12 +77,12 @@ ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient *c)
 	current_page = page;
 
 	/* open the new mode */
-	page->second->OnOpen(*c);
+	page->second->OnOpen(c);
 	page->second->SetDirty();
 }
 
 void
-ScreenManager::Swap(struct mpdclient *c, const struct mpd_song *song)
+ScreenManager::Swap(struct mpdclient &c, const struct mpd_song *song)
 {
 	if (song != nullptr)
 	{
@@ -90,11 +90,11 @@ ScreenManager::Swap(struct mpdclient *c, const struct mpd_song *song)
 			{ /* just a hack to make the ifdefs less ugly */ }
 #ifdef ENABLE_SONG_SCREEN
 		if (mode_fn_prev == &screen_song)
-			screen_song_switch(*this, *c, *song);
+			screen_song_switch(*this, c, *song);
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
 		else if (mode_fn_prev == &screen_lyrics)
-			screen_lyrics_switch(*this, *c, *song, true);
+			screen_lyrics_switch(*this, c, *song, true);
 #endif
 		else
 			Switch(*mode_fn_prev, c);
@@ -131,7 +131,7 @@ ScreenManager::NextMode(struct mpdclient &c, int offset)
 	const struct screen_functions *sf =
 		screen_lookup_name(options.screen_list[next]);
 	if (sf != nullptr)
-		Switch(*sf, &c);
+		Switch(*sf, c);
 }
 
 void
@@ -228,7 +228,7 @@ ScreenManager::Update(struct mpdclient &c)
 }
 
 void
-ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
+ScreenManager::OnCommand(struct mpdclient &c, command_t cmd)
 {
 #ifndef NCMPC_MINI
 	if (welcome_source_id != 0) {
@@ -237,7 +237,7 @@ ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
 	}
 #endif
 
-	if (current_page->second->OnCommand(*c, cmd))
+	if (current_page->second->OnCommand(c, cmd))
 		return;
 
 	if (handle_player_command(c, cmd))
@@ -260,10 +260,10 @@ ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
 		current_page->second->SetDirty();
 		break;
 	case CMD_SCREEN_PREVIOUS:
-		NextMode(*c, -1);
+		NextMode(c, -1);
 		break;
 	case CMD_SCREEN_NEXT:
-		NextMode(*c, 1);
+		NextMode(c, 1);
 		break;
 	case CMD_SCREEN_PLAY:
 		Switch(screen_queue, c);
@@ -323,9 +323,9 @@ ScreenManager::OnCommand(struct mpdclient *c, command_t cmd)
 #ifdef HAVE_GETMOUSE
 
 bool
-ScreenManager::OnMouse(struct mpdclient *c, Point p, mmask_t bstate)
+ScreenManager::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 {
-	if (current_page->second->OnMouse(*c, p - GetMainPosition(),
+	if (current_page->second->OnMouse(c, p - GetMainPosition(),
 					  bstate))
 		return true;
 

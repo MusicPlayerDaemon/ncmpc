@@ -123,18 +123,18 @@ public:
 		return &page == current_page->second.get();
 	}
 
-	void Switch(const struct screen_functions &sf, struct mpdclient *c);
-	void Swap(struct mpdclient *c, const struct mpd_song *song);
+	void Switch(const struct screen_functions &sf, struct mpdclient &c);
+	void Swap(struct mpdclient &c, const struct mpd_song *song);
 
 
 	void PaintTopWindow();
 	void Paint(bool main_dirty);
 
 	void Update(struct mpdclient &c);
-	void OnCommand(struct mpdclient *c, command_t cmd);
+	void OnCommand(struct mpdclient &c, command_t cmd);
 
 #ifdef HAVE_GETMOUSE
-	bool OnMouse(struct mpdclient *c, Point p, mmask_t bstate);
+	bool OnMouse(struct mpdclient &c, Point p, mmask_t bstate);
 #endif
 
 private:

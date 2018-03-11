@@ -474,7 +474,7 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 
 	if (bstate & BUTTON1_DOUBLE_CLICKED) {
 		/* stop */
-		screen.OnCommand(&c, CMD_STOP);
+		screen.OnCommand(c, CMD_STOP);
 		return true;
 	}
 
@@ -587,9 +587,9 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 #endif
 	case CMD_SCREEN_SWAP:
 		if (!c.playlist.empty())
-			screen.Swap(&c, &c.playlist[lw.selected]);
+			screen.Swap(c, &c.playlist[lw.selected]);
 		else
-			screen.Swap(&c, nullptr);
+			screen.Swap(c, nullptr);
 		return true;
 
 	default:

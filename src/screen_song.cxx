@@ -518,10 +518,10 @@ SongPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_SCREEN_SWAP:
 		if (selected_song != nullptr)
-			screen.Swap(&c, selected_song);
+			screen.Swap(c, selected_song);
 		else
 		// No need to check if this is null - we'd pass null anyway
-			screen.Swap(&c, played_song);
+			screen.Swap(c, played_song);
 		return true;
 
 	default:
@@ -548,5 +548,5 @@ screen_song_switch(ScreenManager &_screen, struct mpdclient &c,
 		   const struct mpd_song &song)
 {
 	next_song = mpd_song_dup(&song);
-	_screen.Switch(screen_song, &c);
+	_screen.Switch(screen_song, c);
 }

@@ -273,7 +273,7 @@ do_input_event(command_t cmd)
 		return false;
 	}
 
-	screen->OnCommand(mpd, cmd);
+	screen->OnCommand(*mpd, cmd);
 
 	if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN)
 		/* make sure we don't update the volume yet */
@@ -287,7 +287,7 @@ do_input_event(command_t cmd)
 void
 do_mouse_event(Point p, mmask_t bstate)
 {
-	screen->OnMouse(mpd, p, bstate);
+	screen->OnMouse(*mpd, p, bstate);
 }
 
 #endif

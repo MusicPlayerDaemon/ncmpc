@@ -422,6 +422,6 @@ screen_file_goto_song(ScreenManager &_screen, struct mpdclient &c,
 		return false;
 
 	/* finally, switch to the file screen */
-	_screen.Switch(screen_browse, &c);
+	_screen.Switch(screen_browse, c);
 	return true;
 }

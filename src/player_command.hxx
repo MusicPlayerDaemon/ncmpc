@@ -35,6 +35,6 @@ void
 cancel_seek_timer();
 
 bool
-handle_player_command(struct mpdclient *c, command_t cmd);
+handle_player_command(struct mpdclient &c, command_t cmd);
 
 #endif

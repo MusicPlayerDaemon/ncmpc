@@ -417,7 +417,7 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 		return true;
 #endif
 	case CMD_SCREEN_SWAP:
-		screen.Swap(&c, GetSelectedSong());
+		screen.Swap(c, GetSelectedSong());
 		return true;
 
 	default:
