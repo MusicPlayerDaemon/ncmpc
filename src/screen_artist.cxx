@@ -46,7 +46,7 @@ class ArtistBrowserPage final : public FileListPage {
 	} mode = Mode::ARTISTS;
 
 	std::vector<std::string> artist_list, album_list;
-	char *artist = nullptr;
+	std::string artist;
 	char *album  = nullptr;
 
 public:
@@ -69,10 +69,11 @@ private:
 
 	void OpenArtistList(struct mpdclient &c);
 	void OpenArtistList(struct mpdclient &c, const char *selected_value);
-	void OpenAlbumList(struct mpdclient &c, char *_artist);
-	void OpenAlbumList(struct mpdclient &c, char *_artist,
+	void OpenAlbumList(struct mpdclient &c, std::string _artist);
+	void OpenAlbumList(struct mpdclient &c, std::string _artist,
 			   const char *selected_value);
-	void OpenSongList(struct mpdclient &c, char *_artist, char *_album);
+	void OpenSongList(struct mpdclient &c, std::string _artist,
+			  char *_album);
 
 	bool OnListCommand(struct mpdclient &c, command_t cmd);
 
@@ -181,7 +182,6 @@ ArtistBrowserPage::LoadArtistList(struct mpdclient &c)
 	struct mpd_connection *connection = mpdclient_get_connection(&c);
 
 	assert(mode == Mode::ARTISTS);
-	assert(artist == nullptr);
 	assert(album == nullptr);
 	assert(artist_list.empty());
 	assert(album_list.empty());
@@ -208,7 +208,6 @@ ArtistBrowserPage::LoadAlbumList(struct mpdclient &c)
 	struct mpd_connection *connection = mpdclient_get_connection(&c);
 
 	assert(mode == Mode::ALBUMS);
-	assert(artist != nullptr);
 	assert(album == nullptr);
 	assert(album_list.empty());
 	assert(filelist == nullptr);
@@ -217,7 +216,7 @@ ArtistBrowserPage::LoadAlbumList(struct mpdclient &c)
 		mpd_search_db_tags(connection, MPD_TAG_ALBUM);
 		mpd_search_add_tag_constraint(connection,
 					      MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_ARTIST, artist);
+					      MPD_TAG_ARTIST, artist.c_str());
 		mpd_search_commit(connection);
 
 		recv_tag_values(connection, MPD_TAG_ALBUM, album_list);
@@ -236,7 +235,6 @@ ArtistBrowserPage::LoadSongList(struct mpdclient &c)
 	struct mpd_connection *connection = mpdclient_get_connection(&c);
 
 	assert(mode == Mode::SONGS);
-	assert(artist != nullptr);
 	assert(filelist == nullptr);
 
 	filelist = new FileList();
@@ -246,7 +244,7 @@ ArtistBrowserPage::LoadSongList(struct mpdclient &c)
 	if (connection != nullptr) {
 		mpd_search_db_songs(connection, true);
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_ARTIST, artist);
+					      MPD_TAG_ARTIST, artist.c_str());
 		if (album != nullptr)
 			mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
 						      MPD_TAG_ALBUM, album);
@@ -265,9 +263,7 @@ ArtistBrowserPage::LoadSongList(struct mpdclient &c)
 void
 ArtistBrowserPage::FreeState()
 {
-	g_free(artist);
 	g_free(album);
-	artist = nullptr;
 	album = nullptr;
 
 	FreeLists();
@@ -298,22 +294,20 @@ ArtistBrowserPage::OpenArtistList(struct mpdclient &c,
 }
 
 void
-ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, char *_artist)
+ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist)
 {
-	assert(_artist != nullptr);
-
 	FreeState();
 
 	mode = Mode::ALBUMS;
-	artist = _artist;
+	artist = std::move(_artist);
 	LoadAlbumList(c);
 }
 
 void
-ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, char *_artist,
+ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist,
 				 const char *selected_value)
 {
-	OpenAlbumList(c, _artist);
+	OpenAlbumList(c, std::move(_artist));
 
 	lw.Reset();
 
@@ -329,14 +323,12 @@ ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, char *_artist,
 
 void
 ArtistBrowserPage::OpenSongList(struct mpdclient &c,
-				char *_artist, char *_album)
+				std::string _artist, char *_album)
 {
-	assert(_artist != nullptr);
-
 	FreeState();
 
 	mode = Mode::SONGS;
-	artist = _artist;
+	artist = std::move(_artist);
 	album = _album;
 	LoadSongList(c);
 }
@@ -444,13 +436,13 @@ ArtistBrowserPage::GetTitle(char *str, size_t size) const
 		break;
 
 	case Mode::ALBUMS:
-		s1 = utf8_to_locale(artist);
+		s1 = utf8_to_locale(artist.c_str());
 		g_snprintf(str, size, _("Albums of artist: %s"), s1);
 		g_free(s1);
 		break;
 
 	case Mode::SONGS:
-		s1 = utf8_to_locale(artist);
+		s1 = utf8_to_locale(artist.c_str());
 
 		if (album == nullptr)
 			g_snprintf(str, size,
@@ -571,18 +563,16 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		case Mode::ALBUMS:
 			if (lw.selected == 0) {
 				/* handle ".." */
-				old = g_strdup(artist);
-
-				OpenArtistList(c, old);
-				g_free(old);
+				OpenArtistList(c, artist.c_str());
 			} else if (lw.selected == album_list.size() + 1) {
 				/* handle "show all" */
-				OpenSongList(c, g_strdup(artist), nullptr);
+				OpenSongList(c, std::move(artist), nullptr);
 				lw.Reset();
 			} else {
 				/* select album */
 				selected = album_list[lw.selected - 1].c_str();
-				OpenSongList(c, g_strdup(artist), g_strdup(selected));
+				OpenSongList(c, std::move(artist),
+					     g_strdup(selected));
 				lw.Reset();
 			}
 
@@ -594,7 +584,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 				/* handle ".." */
 				old = g_strdup(album);
 
-				OpenAlbumList(c, g_strdup(artist), old);
+				OpenAlbumList(c, std::move(artist), old);
 				g_free(old);
 				SetDirty();
 				return true;
@@ -611,16 +601,13 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			break;
 
 		case Mode::ALBUMS:
-			old = g_strdup(artist);
-
-			OpenArtistList(c, old);
-			g_free(old);
+			OpenArtistList(c, artist.c_str());
 			break;
 
 		case Mode::SONGS:
 			old = g_strdup(album);
 
-			OpenAlbumList(c, g_strdup(artist), old);
+			OpenAlbumList(c, std::move(artist), old);
 			g_free(old);
 			break;
 		}
@@ -662,11 +649,13 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		case Mode::ALBUMS:
 			for (const unsigned i : lw.GetRange()) {
 				if(i == album_list.size() + 1)
-					add_query(&c, MPD_TAG_ARTIST, artist, nullptr);
+					add_query(&c, MPD_TAG_ARTIST,
+						  artist.c_str(), nullptr);
 				else if (i > 0)
 				{
 					selected = album_list[lw.selected - 1].c_str();
-					add_query(&c, MPD_TAG_ALBUM, selected, artist);
+					add_query(&c, MPD_TAG_ALBUM, selected,
+						  artist.c_str());
 					cmd = CMD_LIST_NEXT; /* continue and select next item... */
 				}
 			}
