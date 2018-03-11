@@ -55,4 +55,11 @@ IsNulled(const std::string &s) noexcept
 	return !s.empty() && s.front() == '\0';
 }
 
+gcc_pure
+inline const char *
+NullableToC(const std::string &s) noexcept
+{
+	return IsNulled(s) ? nullptr : s.c_str();
+}
+
 #endif
