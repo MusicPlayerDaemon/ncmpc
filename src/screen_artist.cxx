@@ -62,13 +62,8 @@ public:
 		:FileListPage(_screen, _w, size,
 			      options.list_format) {}
 
-	~ArtistBrowserPage() override {
-		FreeState();
-	}
-
 private:
 	void FreeLists();
-	void FreeState();
 	void LoadArtistList(struct mpdclient &c);
 	void LoadAlbumList(struct mpdclient &c);
 	void LoadSongList(struct mpdclient &c);
@@ -266,15 +261,9 @@ ArtistBrowserPage::LoadSongList(struct mpdclient &c)
 }
 
 void
-ArtistBrowserPage::FreeState()
-{
-	FreeLists();
-}
-
-void
 ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
 {
-	FreeState();
+	FreeLists();
 
 	mode = Mode::ARTISTS;
 	LoadArtistList(c);
@@ -298,7 +287,7 @@ ArtistBrowserPage::OpenArtistList(struct mpdclient &c,
 void
 ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist)
 {
-	FreeState();
+	FreeLists();
 
 	mode = Mode::ALBUMS;
 	artist = std::move(_artist);
@@ -327,7 +316,7 @@ void
 ArtistBrowserPage::OpenSongList(struct mpdclient &c,
 				std::string _artist, std::string _album)
 {
-	FreeState();
+	FreeLists();
 
 	mode = Mode::SONGS;
 	artist = std::move(_artist);
