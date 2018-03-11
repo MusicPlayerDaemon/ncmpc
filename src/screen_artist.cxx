@@ -68,6 +68,7 @@ private:
 	void Reload(struct mpdclient &c);
 
 	void OpenArtistList(struct mpdclient &c);
+	void OpenArtistList(struct mpdclient &c, const char *selected_value);
 	void OpenAlbumList(struct mpdclient &c, char *_artist);
 	void OpenAlbumList(struct mpdclient &c, char *_artist,
 			   const char *selected_value);
@@ -279,6 +280,21 @@ ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
 
 	mode = Mode::ARTISTS;
 	LoadArtistList(c);
+}
+
+void
+ArtistBrowserPage::OpenArtistList(struct mpdclient &c,
+				  const char *selected_value)
+{
+	OpenArtistList(c);
+
+	lw.Reset();
+
+	int idx = string_array_find(artist_list, selected_value);
+	if (idx >= 0) {
+		lw.SetCursor(idx);
+		lw.Center(idx);
+	}
 }
 
 void
@@ -538,7 +554,6 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 	switch(cmd) {
 		const char *selected;
 		char *old;
-		int idx;
 
 	case CMD_PLAY:
 		switch (mode) {
@@ -558,16 +573,8 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 				/* handle ".." */
 				old = g_strdup(artist);
 
-				OpenArtistList(c);
-				lw.Reset();
-				/* restore previous list window state */
-				idx = string_array_find(artist_list, old);
+				OpenArtistList(c, old);
 				g_free(old);
-
-				if (idx >= 0) {
-					lw.SetCursor(idx);
-					lw.Center(idx);
-				}
 			} else if (lw.selected == album_list.size() + 1) {
 				/* handle "show all" */
 				OpenSongList(c, g_strdup(artist), nullptr);
@@ -606,16 +613,8 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		case Mode::ALBUMS:
 			old = g_strdup(artist);
 
-			OpenArtistList(c);
-			lw.Reset();
-			/* restore previous list window state */
-			idx = string_array_find(artist_list, old);
+			OpenArtistList(c, old);
 			g_free(old);
-
-			if (idx >= 0) {
-				lw.SetCursor(idx);
-				lw.Center(idx);
-			}
 			break;
 
 		case Mode::SONGS:
