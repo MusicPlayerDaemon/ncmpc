@@ -38,8 +38,6 @@
 
 #define BUFSIZE 1024
 
-static char ALL_TRACKS[] = "";
-
 class ArtistBrowserPage final : public FileListPage {
 	enum class Mode {
 		ARTISTS,
@@ -225,7 +223,6 @@ ArtistBrowserPage::LoadSongList(struct mpdclient &c)
 
 	assert(mode == Mode::SONGS);
 	assert(artist != nullptr);
-	assert(album != nullptr);
 	assert(filelist == nullptr);
 
 	filelist = new FileList();
@@ -236,7 +233,7 @@ ArtistBrowserPage::LoadSongList(struct mpdclient &c)
 		mpd_search_db_songs(connection, true);
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
 					      MPD_TAG_ARTIST, artist);
-		if (album != ALL_TRACKS)
+		if (album != nullptr)
 			mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
 						      MPD_TAG_ALBUM, album);
 		mpd_search_commit(connection);
@@ -255,8 +252,7 @@ void
 ArtistBrowserPage::FreeState()
 {
 	g_free(artist);
-	if (album != ALL_TRACKS)
-		g_free(album);
+	g_free(album);
 	artist = nullptr;
 	album = nullptr;
 
@@ -289,7 +285,6 @@ ArtistBrowserPage::OpenSongList(struct mpdclient &c,
 				char *_artist, char *_album)
 {
 	assert(_artist != nullptr);
-	assert(_album != nullptr);
 
 	FreeState();
 
@@ -410,7 +405,7 @@ ArtistBrowserPage::GetTitle(char *str, size_t size) const
 	case Mode::SONGS:
 		s1 = utf8_to_locale(artist);
 
-		if (album == ALL_TRACKS)
+		if (album == nullptr)
 			g_snprintf(str, size,
 				   _("All tracks of artist: %s"), s1);
 		else if (*album != 0) {
@@ -523,7 +518,6 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 	switch(cmd) {
 		const char *selected;
 		char *old;
-		char *old_ptr;
 		int idx;
 
 	case CMD_PLAY:
@@ -556,7 +550,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 				}
 			} else if (lw.selected == album_list.size() + 1) {
 				/* handle "show all" */
-				OpenSongList(c, g_strdup(artist), ALL_TRACKS);
+				OpenSongList(c, g_strdup(artist), nullptr);
 				lw.Reset();
 			} else {
 				/* select album */
@@ -572,12 +566,11 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			if (lw.selected == 0) {
 				/* handle ".." */
 				old = g_strdup(album);
-				old_ptr = album;
 
 				OpenAlbumList(c, g_strdup(artist));
 				lw.Reset();
 				/* restore previous list window state */
-				idx = old_ptr == ALL_TRACKS
+				idx = old == nullptr
 					? (int)album_list.size()
 					: string_array_find(album_list, old);
 				g_free(old);
@@ -619,12 +612,11 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 		case Mode::SONGS:
 			old = g_strdup(album);
-			old_ptr = album;
 
 			OpenAlbumList(c, g_strdup(artist));
 			lw.Reset();
 			/* restore previous list window state */
-			idx = old_ptr == ALL_TRACKS
+			idx = old == nullptr
 				? (int)album_list.size()
 				: string_array_find(album_list, old);
 			g_free(old);
