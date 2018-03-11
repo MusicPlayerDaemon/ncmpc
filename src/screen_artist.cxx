@@ -69,6 +69,8 @@ private:
 
 	void OpenArtistList(struct mpdclient &c);
 	void OpenAlbumList(struct mpdclient &c, char *_artist);
+	void OpenAlbumList(struct mpdclient &c, char *_artist,
+			   const char *selected_value);
 	void OpenSongList(struct mpdclient &c, char *_artist, char *_album);
 
 	bool OnListCommand(struct mpdclient &c, command_t cmd);
@@ -81,6 +83,17 @@ public:
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 };
+
+gcc_pure
+static int
+string_array_find(const std::vector<std::string> &array, const char *value)
+{
+	for (size_t i = 0; i < array.size(); ++i)
+		if (array[i] == value)
+			return i;
+
+	return -1;
+}
 
 gcc_pure
 static bool
@@ -278,6 +291,24 @@ ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, char *_artist)
 	mode = Mode::ALBUMS;
 	artist = _artist;
 	LoadAlbumList(c);
+}
+
+void
+ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, char *_artist,
+				 const char *selected_value)
+{
+	OpenAlbumList(c, _artist);
+
+	lw.Reset();
+
+	int idx = selected_value == nullptr
+		? (int)album_list.size()
+		: string_array_find(album_list, selected_value);
+	if (idx >= 0) {
+		++idx;
+		lw.SetCursor(idx);
+		lw.Center(idx);
+	}
 }
 
 void
@@ -501,17 +532,6 @@ ArtistBrowserPage::OnListCommand(struct mpdclient &c, command_t cmd)
 	return 0;
 }
 
-gcc_pure
-static int
-string_array_find(const std::vector<std::string> &array, const char *value)
-{
-	for (size_t i = 0; i < array.size(); ++i)
-		if (array[i] == value)
-			return i;
-
-	return -1;
-}
-
 bool
 ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
@@ -567,20 +587,8 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 				/* handle ".." */
 				old = g_strdup(album);
 
-				OpenAlbumList(c, g_strdup(artist));
-				lw.Reset();
-				/* restore previous list window state */
-				idx = old == nullptr
-					? (int)album_list.size()
-					: string_array_find(album_list, old);
+				OpenAlbumList(c, g_strdup(artist), old);
 				g_free(old);
-
-				if (idx >= 0) {
-					++idx;
-					lw.SetCursor(idx);
-					lw.Center(idx);
-				}
-
 				SetDirty();
 				return true;
 			}
@@ -613,19 +621,8 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		case Mode::SONGS:
 			old = g_strdup(album);
 
-			OpenAlbumList(c, g_strdup(artist));
-			lw.Reset();
-			/* restore previous list window state */
-			idx = old == nullptr
-				? (int)album_list.size()
-				: string_array_find(album_list, old);
+			OpenAlbumList(c, g_strdup(artist), old);
 			g_free(old);
-
-			if (idx >= 0) {
-				++idx;
-				lw.SetCursor(idx);
-				lw.Center(idx);
-			}
 			break;
 		}
 
