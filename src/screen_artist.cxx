@@ -38,6 +38,27 @@
 
 #define BUFSIZE 1024
 
+/**
+ * Make a special "nulled" std::string instance.  It contains a
+ * special/magic value (i.e. a single null byte) which allows us to
+ * differentiate it from an empty string.
+ */
+static std::string
+MakeNulledString()
+{
+	return { "", 1u };
+}
+
+/**
+ * Check whether this string was made with MakeNulled().
+ */
+gcc_pure
+static bool
+IsNulled(const std::string &s)
+{
+	return !s.empty() && s.front() == '\0';
+}
+
 class ArtistBrowserPage final : public FileListPage {
 	enum class Mode {
 		ARTISTS,
@@ -47,7 +68,13 @@ class ArtistBrowserPage final : public FileListPage {
 
 	std::vector<std::string> artist_list, album_list;
 	std::string artist;
-	char *album  = nullptr;
+
+	/**
+	 * The current album filter.  If IsNulled() is true, then the
+	 * album filter is not used (i.e. all songs from all albums
+	 * are displayed).
+	 */
+	std::string album;
 
 public:
 	ArtistBrowserPage(ScreenManager &_screen, WINDOW *_w,
@@ -73,7 +100,7 @@ private:
 	void OpenAlbumList(struct mpdclient &c, std::string _artist,
 			   const char *selected_value);
 	void OpenSongList(struct mpdclient &c, std::string _artist,
-			  char *_album);
+			  std::string _album);
 
 	bool OnListCommand(struct mpdclient &c, command_t cmd);
 
@@ -182,7 +209,6 @@ ArtistBrowserPage::LoadArtistList(struct mpdclient &c)
 	struct mpd_connection *connection = mpdclient_get_connection(&c);
 
 	assert(mode == Mode::ARTISTS);
-	assert(album == nullptr);
 	assert(artist_list.empty());
 	assert(album_list.empty());
 	assert(filelist == nullptr);
@@ -208,7 +234,6 @@ ArtistBrowserPage::LoadAlbumList(struct mpdclient &c)
 	struct mpd_connection *connection = mpdclient_get_connection(&c);
 
 	assert(mode == Mode::ALBUMS);
-	assert(album == nullptr);
 	assert(album_list.empty());
 	assert(filelist == nullptr);
 
@@ -245,9 +270,9 @@ ArtistBrowserPage::LoadSongList(struct mpdclient &c)
 		mpd_search_db_songs(connection, true);
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
 					      MPD_TAG_ARTIST, artist.c_str());
-		if (album != nullptr)
+		if (!IsNulled(album))
 			mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-						      MPD_TAG_ALBUM, album);
+						      MPD_TAG_ALBUM, album.c_str());
 		mpd_search_commit(connection);
 
 		filelist->Receive(*connection);
@@ -263,9 +288,6 @@ ArtistBrowserPage::LoadSongList(struct mpdclient &c)
 void
 ArtistBrowserPage::FreeState()
 {
-	g_free(album);
-	album = nullptr;
-
 	FreeLists();
 }
 
@@ -323,13 +345,13 @@ ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist,
 
 void
 ArtistBrowserPage::OpenSongList(struct mpdclient &c,
-				std::string _artist, char *_album)
+				std::string _artist, std::string _album)
 {
 	FreeState();
 
 	mode = Mode::SONGS;
 	artist = std::move(_artist);
-	album = _album;
+	album = std::move(_album);
 	LoadSongList(c);
 }
 
@@ -444,11 +466,11 @@ ArtistBrowserPage::GetTitle(char *str, size_t size) const
 	case Mode::SONGS:
 		s1 = utf8_to_locale(artist.c_str());
 
-		if (album == nullptr)
+		if (IsNulled(album))
 			g_snprintf(str, size,
 				   _("All tracks of artist: %s"), s1);
-		else if (*album != 0) {
-			s2 = utf8_to_locale(album);
+		else if (!album.empty()) {
+			s2 = utf8_to_locale(album.c_str());
 			g_snprintf(str, size, _("Album: %s - %s"), s1, s2);
 			g_free(s2);
 		} else
@@ -545,7 +567,6 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
 	switch(cmd) {
 		const char *selected;
-		char *old;
 
 	case CMD_PLAY:
 		switch (mode) {
@@ -554,7 +575,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 				return true;
 
 			selected = artist_list[lw.selected].c_str();
-			OpenAlbumList(c, g_strdup(selected));
+			OpenAlbumList(c, selected);
 			lw.Reset();
 
 			SetDirty();
@@ -566,13 +587,13 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 				OpenArtistList(c, artist.c_str());
 			} else if (lw.selected == album_list.size() + 1) {
 				/* handle "show all" */
-				OpenSongList(c, std::move(artist), nullptr);
+				OpenSongList(c, std::move(artist),
+					     MakeNulledString());
 				lw.Reset();
 			} else {
 				/* select album */
 				selected = album_list[lw.selected - 1].c_str();
-				OpenSongList(c, std::move(artist),
-					     g_strdup(selected));
+				OpenSongList(c, std::move(artist), selected);
 				lw.Reset();
 			}
 
@@ -582,10 +603,8 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		case Mode::SONGS:
 			if (lw.selected == 0) {
 				/* handle ".." */
-				old = g_strdup(album);
-
-				OpenAlbumList(c, std::move(artist), old);
-				g_free(old);
+				OpenAlbumList(c, std::move(artist),
+					      IsNulled(album) ? nullptr : album.c_str());
 				SetDirty();
 				return true;
 			}
@@ -605,10 +624,8 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 			break;
 
 		case Mode::SONGS:
-			old = g_strdup(album);
-
-			OpenAlbumList(c, std::move(artist), old);
-			g_free(old);
+			OpenAlbumList(c, std::move(artist),
+				      IsNulled(album) ? nullptr : album.c_str());
 			break;
 		}
 
