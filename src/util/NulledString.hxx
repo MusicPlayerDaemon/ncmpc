@@ -39,7 +39,7 @@
  * special/magic value (i.e. a single null byte) which allows us to
  * differentiate it from an empty string.
  */
-static std::string
+inline std::string
 MakeNulledString() noexcept
 {
 	return { "", 1u };
@@ -49,7 +49,7 @@ MakeNulledString() noexcept
  * Check whether this string was made with MakeNulled().
  */
 gcc_pure
-static bool
+inline bool
 IsNulled(const std::string &s) noexcept
 {
 	return !s.empty() && s.front() == '\0';
