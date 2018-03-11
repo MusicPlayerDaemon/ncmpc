@@ -27,6 +27,7 @@
 #include "mpdclient.hxx"
 #include "filelist.hxx"
 #include "options.hxx"
+#include "util/NulledString.hxx"
 
 #include <vector>
 #include <string>
@@ -37,27 +38,6 @@
 #include <glib.h>
 
 #define BUFSIZE 1024
-
-/**
- * Make a special "nulled" std::string instance.  It contains a
- * special/magic value (i.e. a single null byte) which allows us to
- * differentiate it from an empty string.
- */
-static std::string
-MakeNulledString()
-{
-	return { "", 1u };
-}
-
-/**
- * Check whether this string was made with MakeNulled().
- */
-gcc_pure
-static bool
-IsNulled(const std::string &s)
-{
-	return !s.empty() && s.front() == '\0';
-}
 
 class ArtistBrowserPage final : public FileListPage {
 	enum class Mode {
