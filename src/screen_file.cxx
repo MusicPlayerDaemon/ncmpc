@@ -79,7 +79,6 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void OnOpen(struct mpdclient &c) override;
 	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
@@ -299,13 +298,6 @@ static Page *
 screen_file_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
 	return new FileBrowserPage(_screen, w, size);
-}
-
-void
-FileBrowserPage::OnOpen(struct mpdclient &c)
-{
-	Reload(c);
-	screen_browser_sync_highlights(filelist, &c.playlist);
 }
 
 const char *
