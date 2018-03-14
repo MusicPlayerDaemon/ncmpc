@@ -80,6 +80,7 @@ ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient &c)
 	auto &p = *page->second;
 	p.OnOpen(c);
 	p.Resize(main_window.size);
+	p.Update(c);
 	p.SetDirty();
 }
 
@@ -225,8 +226,11 @@ ScreenManager::Update(struct mpdclient &c)
 
 	status_bar.Update(c.status, c.song);
 
+	for (auto &i : pages)
+		i.second->AddPendingEvents(events);
+
 	/* update the main window */
-	current_page->second->Update(c, c.events);
+	current_page->second->Update(c);
 
 	Paint(current_page->second->IsDirty());
 }

@@ -26,12 +26,20 @@
 #include "Point.hxx"
 #include "Size.hxx"
 
+#include <utility>
+
 #include <stddef.h>
 
 struct mpdclient;
 
 class Page {
 	Size last_size{0, 0};
+
+	/**
+	 * The MPD idle event mask pending to be submitted to
+	 * Update().
+	 */
+	unsigned pending_events = ~0u;
 
 	/**
 	 * Does this page need to be repainted?
@@ -55,6 +63,14 @@ public:
 
 		last_size = new_size;
 		OnResize(new_size);
+	}
+
+	void AddPendingEvents(unsigned events) {
+		pending_events |= events;
+	}
+
+	void Update(struct mpdclient &c) {
+		Update(c, std::exchange(pending_events, 0));
 	}
 
 	virtual void OnOpen(struct mpdclient &) {}
