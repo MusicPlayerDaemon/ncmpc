@@ -138,7 +138,7 @@ public:
 	}
 
 	void Paint() const override;
-	void Update(struct mpdclient &c) override;
+	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 };
@@ -425,7 +425,7 @@ audio_format_to_string(char *buffer, size_t size,
 }
 
 void
-SongPage::Update(struct mpdclient &c)
+SongPage::Update(struct mpdclient &c, unsigned)
 {
 	lines.clear();
 

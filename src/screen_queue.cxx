@@ -109,7 +109,7 @@ public:
 	void OnOpen(struct mpdclient &c) override;
 	void OnClose() override;
 	void Paint() const override;
-	void Update(struct mpdclient &c) override;
+	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 
 #ifdef HAVE_GETMOUSE
@@ -440,7 +440,7 @@ QueuePage::Paint() const
 }
 
 void
-QueuePage::Update(struct mpdclient &c)
+QueuePage::Update(struct mpdclient &c, unsigned events)
 {
 	playing = c.status != nullptr &&
 		mpd_status_get_state(c.status) == MPD_STATE_PLAY;
@@ -451,15 +451,15 @@ QueuePage::Update(struct mpdclient &c)
 		connection_name = mpdclient_settings_name(&c);
 	}
 
-	if (c.events & MPD_IDLE_QUEUE)
+	if (events & MPD_IDLE_QUEUE)
 		RestoreSelection();
 	else
 		/* the queue size may have changed, even if we havn't
 		   received the QUEUE idle event yet */
 		lw.SetLength(playlist->size());
 
-	if (((c.events & MPD_IDLE_PLAYER) != 0 && OnSongChange(c.status)) ||
-	    c.events & MPD_IDLE_QUEUE)
+	if (((events & MPD_IDLE_PLAYER) != 0 && OnSongChange(c.status)) ||
+	    events & MPD_IDLE_QUEUE)
 		/* the queue or the current song has changed, we must
 		   paint the new version */
 		SetDirty();

@@ -125,7 +125,7 @@ public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 	void Paint() const override;
-	void Update(struct mpdclient &c) override;
+	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 };
@@ -447,9 +447,9 @@ SearchPage::GetTitle(char *str, size_t size) const
 }
 
 void
-SearchPage::Update(struct mpdclient &c)
+SearchPage::Update(struct mpdclient &c, unsigned events)
 {
-	if (filelist != nullptr && c.events & MPD_IDLE_QUEUE) {
+	if (filelist != nullptr && events & MPD_IDLE_QUEUE) {
 		screen_browser_sync_highlights(filelist, &c.playlist);
 		SetDirty();
 	}

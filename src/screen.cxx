@@ -224,7 +224,7 @@ ScreenManager::Update(struct mpdclient &c)
 	status_bar.Update(c.status, c.song);
 
 	/* update the main window */
-	current_page->second->Update(c);
+	current_page->second->Update(c, c.events);
 
 	Paint(current_page->second->IsDirty());
 }

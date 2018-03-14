@@ -49,7 +49,7 @@ public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 
-	void Update(struct mpdclient &c) override;
+	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 
 	const char *GetTitle(char *, size_t) const override {
@@ -120,9 +120,9 @@ ChatPage::ProcessMessage(const struct mpd_message &message)
 }
 
 void
-ChatPage::Update(struct mpdclient &c)
+ChatPage::Update(struct mpdclient &c, unsigned events)
 {
-	if (CheckChatSupport(c) && (c.events & MPD_IDLE_MESSAGE)) {
+	if (CheckChatSupport(c) && (events & MPD_IDLE_MESSAGE)) {
 		if (!mpdclient_send_read_messages(&c))
 			return;
 
@@ -133,8 +133,6 @@ ChatPage::Update(struct mpdclient &c)
 		}
 
 		mpdclient_finish_command(&c);
-
-		c.events &= ~MPD_IDLE_MESSAGE;
 	}
 }
 

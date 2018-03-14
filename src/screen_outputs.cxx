@@ -55,7 +55,7 @@ public:
 	void OnOpen(struct mpdclient &c) override;
 	void OnClose() override;
 	void Paint() const override;
-	void Update(struct mpdclient &c) override;
+	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 };
@@ -176,9 +176,9 @@ OutputsPage::Paint() const
 }
 
 void
-OutputsPage::Update(struct mpdclient &c)
+OutputsPage::Update(struct mpdclient &c, unsigned events)
 {
-	if (c.events & MPD_IDLE_OUTPUT) {
+	if (events & MPD_IDLE_OUTPUT) {
 		Clear();
 		fill_outputs_list(&c, items);
 		lw.SetLength(items.size());

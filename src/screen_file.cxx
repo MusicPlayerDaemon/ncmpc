@@ -80,7 +80,7 @@ private:
 public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
-	void Update(struct mpdclient &c) override;
+	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 };
@@ -332,18 +332,18 @@ FileBrowserPage::GetTitle(char *str, size_t size) const
 }
 
 void
-FileBrowserPage::Update(struct mpdclient &c)
+FileBrowserPage::Update(struct mpdclient &c, unsigned events)
 {
-	if (c.events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST)) {
+	if (events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST)) {
 		/* the db has changed -> update the filelist */
 		Reload(c);
 	}
 
-	if (c.events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST
+	if (events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST
 #ifndef NCMPC_MINI
-			| MPD_IDLE_QUEUE
+		      | MPD_IDLE_QUEUE
 #endif
-			)) {
+		      )) {
 		screen_browser_sync_highlights(filelist, &c.playlist);
 		SetDirty();
 	}

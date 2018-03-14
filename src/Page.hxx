@@ -61,7 +61,7 @@ public:
 	virtual void OnClose() {}
 	virtual void OnResize(Size size) = 0;
 	virtual void Paint() const = 0;
-	virtual void Update(struct mpdclient &) {}
+	virtual void Update(struct mpdclient &, unsigned) {}
 
 	/**
 	 * Handle a command.

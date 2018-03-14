@@ -109,7 +109,7 @@ public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 
-	void Update(struct mpdclient &c) override;
+	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 
 	const char *GetTitle(char *, size_t) const override;
@@ -321,7 +321,7 @@ LyricsPage::OnOpen(struct mpdclient &c)
 }
 
 void
-LyricsPage::Update(struct mpdclient &c)
+LyricsPage::Update(struct mpdclient &c, unsigned)
 {
 	if (!follow)
 		return;
