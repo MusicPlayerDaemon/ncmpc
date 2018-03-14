@@ -114,10 +114,7 @@ public:
 
 private:
 	void OpenArtistList(struct mpdclient &c);
-	void OpenArtistList(struct mpdclient &c, const char *selected_value);
 	void OpenAlbumList(struct mpdclient &c, std::string _artist);
-	void OpenAlbumList(struct mpdclient &c, std::string _artist,
-			   const char *selected_value);
 	void OpenSongList(struct mpdclient &c, std::string _artist,
 			  std::string _album);
 
@@ -166,31 +163,11 @@ ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
 }
 
 void
-ArtistBrowserPage::OpenArtistList(struct mpdclient &c,
-				  const char *selected_value)
-{
-	OpenArtistList(c);
-
-	// TODO: move cursor to selected_value
-	(void)selected_value;
-}
-
-void
 ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist)
 {
 	mode = Mode::ALBUMS;
 	album_list_page.SetArtist(std::move(_artist));
 	SetCurrentPage(c, &album_list_page);
-}
-
-void
-ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist,
-				 const char *selected_value)
-{
-	OpenAlbumList(c, std::move(_artist));
-
-	// TODO: move cursor to selected_value
-	(void)selected_value;
 }
 
 void
@@ -301,7 +278,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_GO_ROOT_DIRECTORY:
 		if (GetCurrentPage() != &artist_list_page) {
-			OpenArtistList(c, album_list_page.GetArtist().c_str());
+			OpenArtistList(c);
 			return true;
 		}
 
@@ -309,12 +286,10 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	case CMD_GO_PARENT_DIRECTORY:
 		if (GetCurrentPage() == &album_list_page) {
-			OpenArtistList(c, album_list_page.GetArtist().c_str());
+			OpenArtistList(c);
 			return true;
 		} else if (GetCurrentPage() == &song_list_page) {
-			const auto &album = song_list_page.GetAlbum();
-			OpenAlbumList(c, song_list_page.GetArtist(),
-				      IsNulled(album) ? nullptr : album.c_str());
+			OpenAlbumList(c, song_list_page.GetArtist());
 			return true;
 		}
 
