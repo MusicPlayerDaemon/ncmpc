@@ -197,9 +197,6 @@ mpdclient_connected_callback()
 	screen_status_clear_message();
 	doupdate();
 
-	/* update immediately */
-	mpd->events = (enum mpd_idle)MPD_IDLE_ALL;
-
 	do_mpd_update();
 
 	auto_update_timer();

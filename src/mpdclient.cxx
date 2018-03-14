@@ -316,6 +316,10 @@ mpdclient_connected(struct mpdclient *c,
 
 	++c->connection_id;
 
+	/* everything has changed after a connection has been
+	   established */
+	c->events = (enum mpd_idle)MPD_IDLE_ALL;
+
 	mpdclient_connected_callback();
 	return true;
 }
