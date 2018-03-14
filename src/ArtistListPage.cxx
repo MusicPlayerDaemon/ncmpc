@@ -141,12 +141,9 @@ ArtistListPage::Update(struct mpdclient &c, unsigned events)
 	}
 }
 
-/* add_query - Add all songs satisfying specified criteria.
-   _artist is actually only used in the ALBUM case to distinguish albums with
-   the same name from different artists. */
+/* add_query - Add all songs satisfying specified criteria */
 static void
-add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
-	  const char *_artist)
+add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 
@@ -162,9 +159,6 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
 	mpd_search_db_songs(connection, true);
 	mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
 				      table, _filter);
-	if (table == MPD_TAG_ALBUM)
-		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_ARTIST, _artist);
 	mpd_search_commit(connection);
 
 	auto *addlist = filelist_new_recv(connection);
@@ -199,7 +193,7 @@ ArtistListPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 		for (const unsigned i : lw.GetRange()) {
 			selected = artist_list[i].c_str();
-			add_query(&c, MPD_TAG_ARTIST, selected, nullptr);
+			add_query(&c, MPD_TAG_ARTIST, selected);
 			cmd = CMD_LIST_NEXT; /* continue and select next item... */
 		}
 
