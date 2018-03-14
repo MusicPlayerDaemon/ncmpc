@@ -41,8 +41,6 @@
 #include <string.h>
 #include <glib.h>
 
-#define BUFSIZE 1024
-
 class SongListPage final : public FileListPage {
 	std::string artist;
 
