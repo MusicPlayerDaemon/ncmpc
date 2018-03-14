@@ -79,6 +79,7 @@ ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient &c)
 	/* open the new mode */
 	auto &p = *page->second;
 	p.OnOpen(c);
+	p.Resize(main_window.size);
 	p.SetDirty();
 }
 

@@ -107,8 +107,7 @@ ScreenManager::OnResize()
 	buf = (char *)g_malloc(buf_size);
 
 	/* resize all screens */
-	for (auto &page : pages)
-		page.second->Resize(main_window.size);
+	current_page->second->Resize(main_window.size);
 
 	/* ? - without this the cursor becomes visible with aterm & Eterm */
 	curs_set(1);
