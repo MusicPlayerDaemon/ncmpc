@@ -47,8 +47,6 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void OnOpen(struct mpdclient &c) override;
-
 	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 
@@ -97,12 +95,6 @@ static Page *
 screen_chat_init(ScreenManager &screen, WINDOW *w, Size size)
 {
 	return new ChatPage(screen, w, size);
-}
-
-void
-ChatPage::OnOpen(struct mpdclient &c)
-{
-	CheckChatSupport(c);
 }
 
 void
