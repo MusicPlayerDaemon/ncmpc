@@ -108,7 +108,7 @@ ScreenManager::OnResize()
 
 	/* resize all screens */
 	for (auto &page : pages)
-		page.second->OnResize(main_window.size);
+		page.second->Resize(main_window.size);
 
 	/* ? - without this the cursor becomes visible with aterm & Eterm */
 	curs_set(1);

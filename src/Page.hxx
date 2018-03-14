@@ -24,12 +24,15 @@
 #include "command.hxx"
 #include "ncmpc_curses.h"
 #include "Point.hxx"
+#include "Size.hxx"
 
 #include <stddef.h>
 
 struct mpdclient;
 
 class Page {
+	Size last_size{0, 0};
+
 	/**
 	 * Does this page need to be repainted?
 	 */
@@ -44,6 +47,14 @@ public:
 
 	void SetDirty(bool _dirty=true) {
 		dirty = _dirty;
+	}
+
+	void Resize(Size new_size) {
+		if (new_size == last_size)
+			return;
+
+		last_size = new_size;
+		OnResize(new_size);
 	}
 
 	virtual void OnOpen(struct mpdclient &) {}
