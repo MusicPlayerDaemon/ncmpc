@@ -52,8 +52,6 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void OnOpen(struct mpdclient &c) override;
-	void OnClose() override;
 	void Paint() const override;
 	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
@@ -133,19 +131,6 @@ static Page *
 outputs_init(ScreenManager &, WINDOW *w, Size size)
 {
 	return new OutputsPage(w, size);
-}
-
-void
-OutputsPage::OnOpen(struct mpdclient &c)
-{
-	fill_outputs_list(&c, items);
-	lw.SetLength(items.size());
-}
-
-void
-OutputsPage::OnClose()
-{
-	Clear();
 }
 
 const char *
