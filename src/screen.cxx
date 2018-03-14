@@ -139,6 +139,8 @@ ScreenManager::NextMode(struct mpdclient &c, int offset)
 void
 ScreenManager::Update(struct mpdclient &c)
 {
+	const unsigned events = c.events;
+
 #ifndef NCMPC_MINI
 	static bool was_connected;
 	static bool initialized = false;
@@ -149,7 +151,7 @@ ScreenManager::Update(struct mpdclient &c)
 	static unsigned crossfade;
 
 	/* print a message if mpd status has changed */
-	if ((c.events & MPD_IDLE_OPTIONS) && c.status != nullptr) {
+	if ((events & MPD_IDLE_OPTIONS) && c.status != nullptr) {
 		if (!initialized) {
 			repeat = mpd_status_get_repeat(c.status);
 			random_enabled = mpd_status_get_random(c.status);
@@ -199,7 +201,7 @@ ScreenManager::Update(struct mpdclient &c)
 		crossfade = mpd_status_get_crossfade(c.status);
 	}
 
-	if ((c.events & MPD_IDLE_DATABASE) != 0 && was_connected &&
+	if ((events & MPD_IDLE_DATABASE) != 0 && was_connected &&
 	    c.IsConnected())
 		screen_status_printf(_("Database updated"));
 	was_connected = c.IsConnected();
