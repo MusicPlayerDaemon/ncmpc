@@ -387,20 +387,17 @@ get_search_mode(char *value)
 	}
 	else
 	{
-		for (int i = 0; value[i] != '\0'; i++)
-			value[i] = tolower(value[i]);
-
 		// TODO: modify screen_search so that its own list of modes can be used
 		// for comparison instead of specifying them here
-		if (strcmp(value, "title") == 0)
+		if (strcasecmp(value, "title") == 0)
 			return 0;
-		else if (strcmp(value, "artist") == 0)
+		else if (strcasecmp(value, "artist") == 0)
 			return 1;
-		else if (strcmp(value, "album") == 0)
+		else if (strcasecmp(value, "album") == 0)
 			return 2;
-		else if (strcmp(value, "filename") == 0)
+		else if (strcasecmp(value, "filename") == 0)
 			return 3;
-		else if (strcmp(value, "artist+album") == 0)
+		else if (strcasecmp(value, "artist+album") == 0)
 			return 4;
 		else
 		{
