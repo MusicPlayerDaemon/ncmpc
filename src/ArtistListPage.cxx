@@ -25,7 +25,6 @@
 #include "i18n.h"
 #include "charset.hxx"
 #include "mpdclient.hxx"
-#include "filelist.hxx"
 
 #include <algorithm>
 
@@ -156,17 +155,11 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter)
 	screen_status_printf(_("Adding \'%s\' to queue"), str);
 	g_free(str);
 
-	mpd_search_db_songs(connection, true);
+	mpd_search_add_db_songs(connection, true);
 	mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
 				      table, _filter);
 	mpd_search_commit(connection);
-
-	auto *addlist = filelist_new_recv(connection);
-
-	if (mpdclient_finish_command(c))
-		mpdclient_filelist_add_all(c, addlist);
-
-	delete addlist;
+	mpdclient_finish_command(c);
 }
 
 inline bool
