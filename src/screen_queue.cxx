@@ -442,8 +442,7 @@ QueuePage::Paint() const
 void
 QueuePage::Update(struct mpdclient &c, unsigned events)
 {
-	playing = c.status != nullptr &&
-		mpd_status_get_state(c.status) == MPD_STATE_PLAY;
+	playing = c.playing;
 
 	if (c.connection_id != last_connection_id) {
 		last_connection_id = c.connection_id;
