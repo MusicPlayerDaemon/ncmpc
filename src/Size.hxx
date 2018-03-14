@@ -26,6 +26,14 @@
 struct Size {
 	unsigned width, height;
 
+	constexpr bool operator==(Size other) const {
+		return width == other.width && height == other.height;
+	}
+
+	constexpr bool operator!=(Size other) const {
+		return !(*this == other);
+	}
+
 	constexpr Size operator+(Size other) const {
 		return {width + other.width, height + other.height};
 	}

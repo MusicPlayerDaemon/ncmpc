@@ -77,8 +77,9 @@ ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient &c)
 	current_page = page;
 
 	/* open the new mode */
-	page->second->OnOpen(c);
-	page->second->SetDirty();
+	auto &p = *page->second;
+	p.OnOpen(c);
+	p.SetDirty();
 }
 
 void
