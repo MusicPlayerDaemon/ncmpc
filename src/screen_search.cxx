@@ -139,20 +139,6 @@ lw_search_help_callback(unsigned idx, gcc_unused void *data)
 	return help_text[idx];
 }
 
-/* sanity check search mode value */
-static void
-search_check_mode()
-{
-	int max = 0;
-
-	while (mode[max].label != nullptr)
-		max++;
-	if (options.search_mode < 0)
-		options.search_mode = 0;
-	else if (options.search_mode >= max)
-		options.search_mode = max-1;
-}
-
 void
 SearchPage::Clear(bool clear_pattern)
 {
@@ -415,7 +401,6 @@ SearchPage::OnOpen(gcc_unused struct mpdclient &c)
 	// else
 	screen_status_printf(_("Press %s for a new search"),
 			     get_key_names(CMD_SCREEN_SEARCH, false));
-	search_check_mode();
 }
 
 void
