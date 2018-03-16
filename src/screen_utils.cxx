@@ -156,9 +156,8 @@ screen_display_completion_list(GList *list)
 		wmove(w, y++, 0);
 		wclrtoeol(w);
 		if (item) {
-			gchar *tmp = g_strdup((const char *)item->data);
-			waddstr(w, g_basename(tmp));
-			g_free(tmp);
+			const char *value = (const char *)item->data;
+			waddstr(w, g_basename(value));
 		}
 	}
 
