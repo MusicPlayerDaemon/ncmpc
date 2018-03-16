@@ -20,6 +20,7 @@
 #include "wreadln.hxx"
 #include "charset.hxx"
 #include "screen_utils.hxx"
+#include "Point.hxx"
 #include "config.h"
 
 #include <assert.h>
@@ -52,7 +53,7 @@ struct wreadln {
 	WINDOW *const w;
 
 	/** the origin coordinates in the window */
-	unsigned x, y;
+	Point point;
 
 	/** the screen width of the input field */
 	unsigned width;
@@ -274,7 +275,7 @@ static inline void cursor_move_to_eol(struct wreadln *wr)
 /* draw line buffer and update cursor position */
 static inline void drawline(const struct wreadln *wr)
 {
-	wmove(wr->w, wr->y, wr->x);
+	wmove(wr->w, wr->point.y, wr->point.x);
 	/* clear input area */
 	whline(wr->w, ' ', wr->width);
 	/* print visible part of the line buffer */
@@ -284,7 +285,7 @@ static inline void drawline(const struct wreadln *wr)
 		waddnstr(wr->w, wr->line + wr->start,
 			 screen_to_bytes(wr->line, wr->width));
 	/* move the cursor to the correct position */
-	wmove(wr->w, wr->y, wr->x + cursor_column(wr));
+	wmove(wr->w, wr->point.y, wr->point.x + cursor_column(wr));
 	/* tell ncurses to redraw the screen */
 	doupdate();
 }
@@ -389,13 +390,13 @@ _wreadln(WINDOW *w,
 		waddstr(w, ": ");
 	}
 	/* retrieve y and x0 position */
-	getyx(w, wr.y, wr.x);
+	getyx(w, wr.point.y, wr.point.x);
 	/* check the x1 value */
-	if (x1 <= wr.x || x1 > (unsigned)COLS)
+	if (x1 <= (unsigned)wr.point.x || x1 > (unsigned)COLS)
 		x1 = COLS;
-	wr.width = x1 - wr.x;
+	wr.width = x1 - wr.point.x;
 	/* clear input area */
-	mvwhline(w, wr.y, wr.x, ' ', wr.width);
+	mvwhline(w, wr.point.y, wr.point.x, ' ', wr.width);
 
 	if (history) {
 		/* append the a new line to our history list */
