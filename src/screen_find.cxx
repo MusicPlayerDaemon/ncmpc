@@ -64,7 +64,7 @@ screen_find(ScreenManager &screen, ListWindow *lw, command_t findcmd,
 		}
 
 		if (screen.findbuf == nullptr)
-			return 1;
+			return true;
 
 		found = reversed
 			? lw->ReverseFind(callback_fn, callback_data,
@@ -80,11 +80,11 @@ screen_find(ScreenManager &screen, ListWindow *lw, command_t findcmd,
 					     screen.findbuf);
 			screen_bell();
 		}
-		return 1;
+		return true;
 	default:
 		break;
 	}
-	return 0;
+	return false;
 }
 
 /* query user for a string and jump to the entry
