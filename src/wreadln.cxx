@@ -69,7 +69,7 @@ struct wreadln {
 	size_t start = 0;
 
 	/** the current value */
-	gchar line[1024] = "";
+	std::string value;
 
 	wreadln(WINDOW *_w, bool _masked)
 		:w(_w), masked(_masked) {}
@@ -137,7 +137,7 @@ screen_to_bytes(const gchar *data, unsigned width)
 static unsigned
 cursor_column(const struct wreadln *wr)
 {
-	return byte_to_screen(wr->line + wr->start,
+	return byte_to_screen(wr->value.data() + wr->start,
 			      wr->cursor - wr->start);
 }
 
@@ -235,13 +235,14 @@ prev_char_size(const gchar *data, size_t x)
 /* move the cursor one step to the right */
 static inline void cursor_move_right(struct wreadln *wr)
 {
-	if (wr->line[wr->cursor] == 0)
+	if (wr->cursor == wr->value.length())
 		return;
 
-	size_t size = next_char_size(wr->line + wr->cursor);
+	size_t size = next_char_size(wr->value.data() + wr->cursor);
 	wr->cursor += size;
 	if (cursor_column(wr) >= wr->width)
-		wr->start = right_align_bytes(wr->line, wr->cursor, wr->width);
+		wr->start = right_align_bytes(wr->value.c_str(),
+					      wr->cursor, wr->width);
 }
 
 /* move the cursor one step to the left */
@@ -250,7 +251,7 @@ static inline void cursor_move_left(struct wreadln *wr)
 	if (wr->cursor == 0)
 		return;
 
-	size_t size = prev_char_size(wr->line, wr->cursor);
+	size_t size = prev_char_size(wr->value.c_str(), wr->cursor);
 	assert(wr->cursor >= size);
 	wr->cursor -= size;
 	if (wr->cursor < wr->start)
@@ -260,9 +261,10 @@ static inline void cursor_move_left(struct wreadln *wr)
 /* move the cursor to the end of the line */
 static inline void cursor_move_to_eol(struct wreadln *wr)
 {
-	wr->cursor = strlen(wr->line);
+	wr->cursor = wr->value.length();
 	if (cursor_column(wr) >= wr->width)
-		wr->start = right_align_bytes(wr->line, wr->cursor, wr->width);
+		wr->start = right_align_bytes(wr->value.c_str(),
+					      wr->cursor, wr->width);
 }
 
 /* draw line buffer and update cursor position */
@@ -273,10 +275,10 @@ static inline void drawline(const struct wreadln *wr)
 	whline(wr->w, ' ', wr->width);
 	/* print visible part of the line buffer */
 	if (wr->masked)
-		whline(wr->w, '*', utf8_width(wr->line + wr->start));
+		whline(wr->w, '*', utf8_width(wr->value.c_str() + wr->start));
 	else
-		waddnstr(wr->w, wr->line + wr->start,
-			 screen_to_bytes(wr->line, wr->width));
+		waddnstr(wr->w, wr->value.c_str() + wr->start,
+			 screen_to_bytes(wr->value.c_str(), wr->width));
 	/* move the cursor to the correct position */
 	wmove(wr->w, wr->point.y, wr->point.x + cursor_column(wr));
 	/* tell ncurses to redraw the screen */
@@ -301,10 +303,9 @@ multibyte_is_complete(const char *p, size_t length)
 static void
 wreadln_insert_byte(struct wreadln *wr, gint key)
 {
-	size_t rest = strlen(wr->line + wr->cursor) + 1;
+	size_t length = 1;
 #if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined (WIN32)
 	char buffer[32] = { (char)key };
-	size_t length = 1;
 	struct pollfd pfd = {
 		.fd = 0,
 		.events = POLLIN,
@@ -327,32 +328,25 @@ wreadln_insert_byte(struct wreadln *wr, gint key)
 		buffer[length++] = wgetch(wr->w);
 	}
 
-	memmove(wr->line + wr->cursor + length,
-		wr->line + wr->cursor, rest);
-	memcpy(wr->line + wr->cursor, buffer, length);
+	wr->value.insert(wr->cursor, buffer, length);
 
 #else
-	const size_t length = 1;
-
-	memmove(wr->line + wr->cursor + length,
-		wr->line + wr->cursor, rest);
-	wr->line[wr->cursor] = key;
-
+	wr->value.insert(wr->cursor, key);
 #endif
 
 	wr->cursor += length;
 	if (cursor_column(wr) >= wr->width)
-		wr->start = right_align_bytes(wr->line, wr->cursor, wr->width);
+		wr->start = right_align_bytes(wr->value.c_str(),
+					      wr->cursor, wr->width);
 }
 
 static void
 wreadln_delete_char(struct wreadln *wr, size_t x)
 {
-	assert(x < strlen(wr->line));
+	assert(x < wr->value.length());
 
-	size_t length = next_char_size(&wr->line[x]);
-	size_t rest = strlen(&wr->line[x + length]) + 1;
-	memmove(&wr->line[x], &wr->line[x + length], rest);
+	size_t length = next_char_size(&wr->value[x]);
+	wr->value.erase(x, length);
 }
 
 /* libcurses version */
@@ -403,13 +397,13 @@ _wreadln(WINDOW *w,
 		if (history && hlist != history->begin()) {
 			/* get previous line */
 			--hlist;
-			g_strlcpy(wr.line, hlist->c_str(), sizeof(wr.line));
+			wr.value = *hlist;
 		}
 		cursor_move_to_eol(&wr);
 		drawline(&wr);
 	} else if (initial_value) {
 		/* copy the initial value to the line buffer */
-		g_strlcpy(wr.line, initial_value, sizeof(wr.line));
+		wr.value = initial_value;
 		cursor_move_to_eol(&wr);
 		drawline(&wr);
 	}
@@ -426,8 +420,6 @@ _wreadln(WINDOW *w,
 			}
 
 		switch (key) {
-			size_t i;
-
 #ifdef HAVE_GETMOUSE
 		case KEY_MOUSE: /* ignore mouse events */
 #endif
@@ -441,18 +433,19 @@ _wreadln(WINDOW *w,
 				GList *list;
 
 				if (wrln_pre_completion_callback)
-					wrln_pre_completion_callback(gcmp, wr.line,
+					wrln_pre_completion_callback(gcmp, wr.value.c_str(),
 								     wrln_completion_callback_data);
-				list = g_completion_complete(gcmp, wr.line, &prefix);
+				list = g_completion_complete(gcmp, wr.value.c_str(), &prefix);
 				if (prefix) {
-					g_strlcpy(wr.line, prefix, sizeof(wr.line));
+					wr.value = prefix;
 					cursor_move_to_eol(&wr);
 					g_free(prefix);
 				} else
 					screen_bell();
 
 				if (wrln_post_completion_callback)
-					wrln_post_completion_callback(gcmp, wr.line, list,
+					wrln_post_completion_callback(gcmp, wr.value.c_str(),
+								      list,
 								      wrln_completion_callback_data);
 			}
 #endif
@@ -483,23 +476,21 @@ _wreadln(WINDOW *w,
 			cursor_move_to_eol(&wr);
 			break;
 		case KEY_CTRL_K:
-			wr.line[wr.cursor] = 0;
+			wr.value.erase(wr.cursor);
 			break;
 		case KEY_CTRL_U:
-			wr.cursor = utf8_width(wr.line);
-			for (i = 0; i < wr.cursor; i++)
-				wr.line[i] = '\0';
+			wr.value.erase(0, wr.cursor);
 			wr.cursor = 0;
 			break;
 		case KEY_CTRL_W:
 			/* Firstly remove trailing spaces. */
-			for (; wr.cursor > 0 && wr.line[wr.cursor - 1] == ' ';)
+			for (; wr.cursor > 0 && wr.value[wr.cursor - 1] == ' ';)
 			{
 				cursor_move_left(&wr);
 				wreadln_delete_char(&wr, wr.cursor);
 			}
 			/* Then remove word until next space. */
-			for (; wr.cursor > 0 && wr.line[wr.cursor - 1] != ' ';)
+			for (; wr.cursor > 0 && wr.value[wr.cursor - 1] != ' ';)
 			{
 				cursor_move_left(&wr);
 				wreadln_delete_char(&wr, wr.cursor);
@@ -515,7 +506,7 @@ _wreadln(WINDOW *w,
 			break;
 		case KEY_DC:		/* handle delete key. As above */
 		case KEY_CTRL_D:
-			if (wr.line[wr.cursor] != 0)
+			if (wr.cursor < wr.value.length())
 				wreadln_delete_char(&wr, wr.cursor);
 			break;
 		case KEY_UP:
@@ -524,12 +515,11 @@ _wreadln(WINDOW *w,
 			if (history && hlist != history->begin()) {
 				if (hlist == hcurrent)
 					/* save the current line */
-					*hlist = wr.line;
+					*hlist = wr.value;
 
 				/* get previous line */
 				--hlist;
-				g_strlcpy(wr.line, hlist->c_str(),
-					  sizeof(wr.line));
+				wr.value = *hlist;
 			}
 			cursor_move_to_eol(&wr);
 			break;
@@ -539,8 +529,7 @@ _wreadln(WINDOW *w,
 			if (history && std::next(hlist) != history->end()) {
 				/* get next line */
 				++hlist;
-				g_strlcpy(wr.line, hlist->c_str(),
-					  sizeof(wr.line));
+				wr.value = *hlist;
 			}
 			cursor_move_to_eol(&wr);
 			break;
@@ -563,9 +552,9 @@ _wreadln(WINDOW *w,
 
 	/* update history */
 	if (history) {
-		if (strlen(wr.line)) {
+		if (!wr.value.empty()) {
 			/* update the current history entry */
-			*hcurrent = wr.line;
+			*hcurrent = wr.value;
 		} else {
 			/* the line was empty - remove the current history entry */
 			history->erase(hcurrent);
@@ -578,10 +567,10 @@ _wreadln(WINDOW *w,
 		}
 	}
 
-	if (wr.line[0] == 0)
+	if (wr.value.empty())
 		return nullptr;
 
-	return g_strdup(wr.line);
+	return g_strdup(wr.value.c_str());
 }
 
 gchar *
