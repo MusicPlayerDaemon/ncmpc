@@ -24,9 +24,6 @@
 #include "History.hxx"
 #include "ncmpc_curses.h"
 
-#include <list>
-#include <string>
-
 class Completion;
 
 /* Note, wreadln calls curs_set() and noecho(), to enable cursor and
