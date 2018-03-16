@@ -128,6 +128,12 @@ screen_read_password(const char *prompt)
 	return ret;
 }
 
+static const char *
+CompletionDisplayString(const char *value)
+{
+	return g_basename(value);
+}
+
 void
 screen_display_completion_list(GList *list)
 {
@@ -157,7 +163,7 @@ screen_display_completion_list(GList *list)
 		wclrtoeol(w);
 		if (item) {
 			const char *value = (const char *)item->data;
-			waddstr(w, g_basename(value));
+			waddstr(w, CompletionDisplayString(value));
 		}
 	}
 
