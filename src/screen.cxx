@@ -218,7 +218,7 @@ ScreenManager::Update(struct mpdclient &c)
 	else
 		elapsed = mpd_status_get_elapsed_time(c.status);
 
-	unsigned duration = mpdclient_is_playing(&c)
+	unsigned duration = c.playing_or_paused
 		? mpd_status_get_total_time(c.status)
 		: 0;
 

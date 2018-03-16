@@ -82,7 +82,7 @@ cancel_seek_timer()
 static bool
 setup_seek(struct mpdclient &c)
 {
-	if (!mpdclient_is_playing(&c))
+	if (!c.playing_or_paused)
 		return false;
 
 	if (seek_id != (int)mpd_status_get_song_id(c.status)) {

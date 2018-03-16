@@ -440,13 +440,13 @@ SongPage::Update(struct mpdclient &c, unsigned)
 	    (c.song == nullptr ||
 	     strcmp(mpd_song_get_uri(selected_song),
 		    mpd_song_get_uri(c.song)) != 0 ||
-	     !mpdclient_is_playing(&c))) {
+	     !c.playing_or_paused)) {
 		lines.emplace_back(_("Selected song"));
 		AddSong(selected_song);
 		lines.emplace_back(std::string());
 	}
 
-	if (c.song != nullptr && mpdclient_is_playing(&c)) {
+	if (c.song != nullptr && c.playing_or_paused) {
 		if (played_song != nullptr)
 			mpd_song_free(played_song);
 

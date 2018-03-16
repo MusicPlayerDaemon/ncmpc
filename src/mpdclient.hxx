@@ -92,6 +92,11 @@ struct mpdclient {
 	 */
 	bool playing = false;
 
+	/**
+	 * Is MPD currently playing or paused?
+	 */
+	bool playing_or_paused = false;
+
 	mpdclient(const char *host, unsigned port,
 		  unsigned _timeout_ms, const char *_password);
 
@@ -173,17 +178,10 @@ mpdclient_is_dead(const struct mpdclient *c)
 }
 
 gcc_pure
-static inline bool
-mpdclient_is_playing(const struct mpdclient *c)
-{
-	return c->state == MPD_STATE_PLAY || c->state == MPD_STATE_PAUSE;
-}
-
-gcc_pure
 static inline const struct mpd_song *
 mpdclient_get_current_song(const struct mpdclient *c)
 {
-	return c->song != nullptr && mpdclient_is_playing(c)
+	return c->song != nullptr && c->playing_or_paused
 		? c->song
 		: nullptr;
 }
