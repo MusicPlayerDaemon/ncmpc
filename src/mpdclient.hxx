@@ -75,6 +75,8 @@ struct mpdclient {
 	 */
 	unsigned events = 0;
 
+	enum mpd_state state = MPD_STATE_UNKNOWN;
+
 #if defined(ENABLE_ASYNC_CONNECT) && !defined(WIN32)
 	bool connecting2;
 #endif
@@ -174,9 +176,7 @@ gcc_pure
 static inline bool
 mpdclient_is_playing(const struct mpdclient *c)
 {
-	return c->status != nullptr &&
-		(mpd_status_get_state(c->status) == MPD_STATE_PLAY ||
-		 mpd_status_get_state(c->status) == MPD_STATE_PAUSE);
+	return c->state == MPD_STATE_PLAY || c->state == MPD_STATE_PAUSE;
 }
 
 gcc_pure

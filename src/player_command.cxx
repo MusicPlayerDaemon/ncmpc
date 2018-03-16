@@ -116,8 +116,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 		if (connection == nullptr)
 			break;
 
-		if (!mpd_run_pause(connection,
-				   mpd_status_get_state(c.status) != MPD_STATE_PAUSE))
+		if (!mpd_run_pause(connection, c.state != MPD_STATE_PAUSE))
 			mpdclient_handle_error(&c);
 		break;
 	case CMD_STOP:
