@@ -24,7 +24,7 @@
 #include "ncmpc_curses.h"
 
 static bool
-_mpdclient_auth_callback(struct mpdclient *c, gint recursion)
+_mpdclient_auth_callback(struct mpdclient *c, unsigned recursion)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
