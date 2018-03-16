@@ -97,7 +97,7 @@ char *
 screen_readln(const char *prompt,
 	      const char *value,
 	      History *history,
-	      GCompletion *gcmp)
+	      Completion *completion)
 {
 	auto *window = &screen->status_bar.GetWindow();
 	WINDOW *w = window->w;
@@ -106,7 +106,8 @@ screen_readln(const char *prompt,
 	wmove(w, 0,0);
 	curs_set(1);
 	colors_use(w, COLOR_STATUS_ALERT);
-	line = wreadln(w, prompt, value, window->size.width, history, gcmp);
+	line = wreadln(w, prompt, value, window->size.width,
+		       history, completion);
 	curs_set(0);
 	return line;
 }

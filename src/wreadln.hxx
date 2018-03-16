@@ -29,22 +29,7 @@
 
 #include <glib.h>
 
-#ifndef NCMPC_MINI
-
-/* completion callback data */
-extern void *wrln_completion_callback_data;
-
-/* called after TAB is pressed but before g_completion_complete */
-typedef void (*wrln_gcmp_pre_cb_t) (GCompletion *gcmp, const char *value,
-				    void *data);
-extern wrln_gcmp_pre_cb_t wrln_pre_completion_callback;
-
-/* post completion callback */
-typedef void (*wrln_gcmp_post_cb_t) (GCompletion *gcmp, const char *value,
-				     GList *l, void *data);
-extern wrln_gcmp_post_cb_t wrln_post_completion_callback;
-
-#endif
+class Completion;
 
 /* Note, wreadln calls curs_set() and noecho(), to enable cursor and
  * disable echo. wreadln will not restore these settings when exiting! */
@@ -54,7 +39,7 @@ gchar *wreadln(WINDOW *w,            /* the curses window to use */
 					    * (char *) -1 = get value from history */
 	       unsigned x1,              /* the maximum x position or 0 */
 	       History *history, /* a pointer to a history list or nullptr */
-	       GCompletion *gcmp    /* a GCompletion structure or nullptr */
+	       Completion *completion    /* a GCompletion structure or nullptr */
 	       );
 
 gchar *

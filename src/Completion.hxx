@@ -17,40 +17,28 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef SCREEN_UTILS_H
-#define SCREEN_UTILS_H
-
-#include "config.h"
-#include "command.hxx"
-#include "History.hxx"
+#ifndef COMPLETION_HXX
+#define COMPLETION_HXX
 
 #include <glib.h>
 
-struct mpdclient;
-class Completion;
+class Completion {
+protected:
+	GCompletion *const gcmp;
 
-/* sound an audible and/or visible bell */
-void screen_bell();
+public:
+	Completion();
+	~Completion();
 
-/* read a character from the status window */
-int screen_getch(const char *prompt);
+	Completion(const Completion &) = delete;
+	Completion &operator=(const Completion &) = delete;
 
-/**
- * display a prompt, wait for the user to press a key, and compare it with
- * the default keys for "yes" and "no" (and their upper-case pendants).
- *
- * @returns true, if the user pressed the key for "yes"; false, if the user
- *	    pressed the key for "no"; def otherwise
- */
-bool screen_get_yesno(const char *prompt, bool def);
+	GList *Complete(const gchar *prefix, gchar **new_prefix) {
+		return g_completion_complete(gcmp, prefix, new_prefix);
+	}
 
-char *
-screen_read_password(const char *prompt);
-
-char *
-screen_readln(const char *prompt, const char *value,
-	      History *history, Completion *completion);
-
-void screen_display_completion_list(GList *list);
+	virtual void Pre(const char *value) = 0;
+	virtual void Post(const char *value, GList *list) = 0;
+};
 
 #endif

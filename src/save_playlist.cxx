@@ -26,6 +26,7 @@
 #include "mpdclient.hxx"
 #include "utils.hxx"
 #include "wreadln.hxx"
+#include "Completion.hxx"
 #include "screen_utils.hxx"
 #include "Compiler.h"
 
@@ -37,42 +38,36 @@
 
 #ifndef NCMPC_MINI
 
-typedef struct
-{
-	GList **list;
-	struct mpdclient *c;
-} completion_callback_data_t;
+class PlaylistNameCompletion final : public Completion {
+	struct mpdclient &c;
+	GList *list = nullptr;
 
-/**
- * Wrapper for strncmp().  We are not allowed to pass &strncmp to
- * g_completion_set_compare(), because strncmp() takes size_t where
- * g_completion_set_compare passes a gsize value.
- */
-static gint
-completion_strncmp(const gchar *s1, const gchar *s2, gsize n)
-{
-	return strncmp(s1, s2, n);
-}
+public:
+	explicit PlaylistNameCompletion(struct mpdclient &_c)
+		:c(_c) {}
 
-static void
-save_pre_completion_cb(GCompletion *gcmp, gcc_unused const char *line,
-		       void *data)
-{
-	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
-	GList **list = tmp->list;
-	struct mpdclient *c = tmp->c;
+	~PlaylistNameCompletion() {
+		string_list_free(list);
+	}
 
-	if( *list == nullptr ) {
+protected:
+	/* virtual methods from class Completion */
+	void Pre(const char *value) override;
+	void Post(const char *value, GList *items) override;
+};
+
+void
+PlaylistNameCompletion::Pre(gcc_unused const char *value)
+{
+	if (list == nullptr) {
 		/* create completion list */
-		*list = gcmp_list_from_path(c, "", nullptr, GCMP_TYPE_PLAYLIST);
-		g_completion_add_items(gcmp, *list);
+		list = gcmp_list_from_path(&c, "", nullptr, GCMP_TYPE_PLAYLIST);
+		g_completion_add_items(gcmp, list);
 	}
 }
 
-static void
-save_post_completion_cb(gcc_unused GCompletion *gcmp,
-			gcc_unused const char *line, GList *items,
-			gcc_unused void *data)
+void
+PlaylistNameCompletion::Post(gcc_unused const char *value, GList *items)
 {
 	if (g_list_length(items) >= 1)
 		screen_display_completion_list(items);
@@ -93,32 +88,16 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 #ifndef NCMPC_MINI
 	if (name == nullptr) {
 		/* initialize completion support */
-		GCompletion *gcmp = g_completion_new(nullptr);
-		g_completion_set_compare(gcmp, completion_strncmp);
-		GList *list = nullptr;
-		completion_callback_data_t data = {
-			.list = &list,
-			.c = c,
-		};
-		wrln_completion_callback_data = &data;
-		wrln_pre_completion_callback = save_pre_completion_cb;
-		wrln_post_completion_callback = save_post_completion_cb;
-
+		PlaylistNameCompletion completion(*c);
 
 		/* query the user for a filename */
 		filename = screen_readln(_("Save queue as"),
 					 defaultname,
 					 nullptr,
-					 gcmp);
+					 &completion);
 		if (filename == nullptr)
 			return -1;
 
-		/* destroy completion support */
-		wrln_completion_callback_data = nullptr;
-		wrln_pre_completion_callback = nullptr;
-		wrln_post_completion_callback = nullptr;
-		g_completion_free(gcmp);
-		list = string_list_free(list);
 		filename = g_strstrip(filename);
 	} else
 #endif

@@ -32,6 +32,7 @@
 #include "utils.hxx"
 #include "strfsong.hxx"
 #include "wreadln.hxx"
+#include "Completion.hxx"
 #include "song_paint.hxx"
 #include "screen.hxx"
 #include "screen_utils.hxx"
@@ -227,19 +228,6 @@ QueuePage::OnSongChange(const struct mpd_status *status)
 }
 
 #ifndef NCMPC_MINI
-/**
- * Wrapper for strncmp().  We are not allowed to pass &strncmp to
- * g_completion_set_compare(), because strncmp() takes size_t where
- * g_completion_set_compare passes a gsize value.
- */
-static gint
-completion_strncmp(const gchar *s1, const gchar *s2, gsize n)
-{
-	return strncmp(s1, s2, n);
-}
-#endif
-
-#ifndef NCMPC_MINI
 static void
 add_dir(GCompletion *gcmp, const char *dir,
 	GList **list, struct mpdclient *c)
@@ -250,49 +238,54 @@ add_dir(GCompletion *gcmp, const char *dir,
 	g_completion_add_items(gcmp, *list);
 }
 
-struct completion_callback_data {
-	GList **list;
+class DatabaseCompletion final : public Completion {
+	struct mpdclient &c;
+	GList *list = nullptr;
 	std::set<std::string> dir_list;
-	struct mpdclient *c;
+
+public:
+	explicit DatabaseCompletion(struct mpdclient &_c)
+		:c(_c) {}
+
+	~DatabaseCompletion() {
+		string_list_free(list);
+	}
+
+protected:
+	/* virtual methods from class Completion */
+	void Pre(const char *value) override;
+	void Post(const char *value, GList *items) override;
 };
 
-static void
-add_pre_completion_cb(GCompletion *gcmp, const char *line, void *data)
+void
+DatabaseCompletion::Pre(const char *line)
 {
-	auto *tmp = (struct completion_callback_data *)data;
-	GList **list = tmp->list;
-	struct mpdclient *c = tmp->c;
-
-	if (*list == nullptr) {
+	if (list == nullptr) {
 		/* create initial list */
-		*list = gcmp_list_from_path(c, "", nullptr, GCMP_TYPE_RFILE);
-		g_completion_add_items(gcmp, *list);
+		list = gcmp_list_from_path(&c, "", nullptr, GCMP_TYPE_RFILE);
+		g_completion_add_items(gcmp, list);
 	} else if (line && line[0] && line[strlen(line) - 1] == '/') {
-		auto i = tmp->dir_list.emplace(line);
+		auto i = dir_list.emplace(line);
 		if (i.second)
 			/* add directory content to list */
-			add_dir(gcmp, line, list, c);
+			add_dir(gcmp, line, &list, &c);
 	}
 }
 
-static void
-add_post_completion_cb(GCompletion *gcmp, const char *line,
-		       GList *items, void *data)
+void
+DatabaseCompletion::Post(const char *line, GList *items)
 {
-	auto *tmp = (struct completion_callback_data *)data;
-	GList **list = tmp->list;
-	struct mpdclient *c = tmp->c;
-
 	if (g_list_length(items) >= 1)
 		screen_display_completion_list(items);
 
 	if (line && line[0] && line[strlen(line) - 1] == '/') {
 		/* add directory content to list */
-		auto i = tmp->dir_list.emplace(line);
+		auto i = dir_list.emplace(line);
 		if (i.second)
-			add_dir(gcmp, line, list, c);
+			add_dir(gcmp, line, &list, &c);
 	}
 }
+
 #endif
 
 static int
@@ -300,35 +293,17 @@ handle_add_to_playlist(struct mpdclient *c)
 {
 #ifndef NCMPC_MINI
 	/* initialize completion support */
-	GCompletion *gcmp = g_completion_new(nullptr);
-	g_completion_set_compare(gcmp, completion_strncmp);
-
-	GList *list = nullptr;
-	struct completion_callback_data data;
-	data.list = &list;
-	data.c = c;
-
-	wrln_completion_callback_data = &data;
-	wrln_pre_completion_callback = add_pre_completion_cb;
-	wrln_post_completion_callback = add_post_completion_cb;
+	DatabaseCompletion _completion(*c);
+	Completion *completion = &_completion;
 #else
-	GCompletion *gcmp = nullptr;
+	Completion *completion = nullptr;
 #endif
 
 	/* get path */
 	char *path = screen_readln(_("Add"),
 				   nullptr,
 				   nullptr,
-				   gcmp);
-
-	/* destroy completion data */
-#ifndef NCMPC_MINI
-	wrln_completion_callback_data = nullptr;
-	wrln_pre_completion_callback = nullptr;
-	wrln_post_completion_callback = nullptr;
-	g_completion_free(gcmp);
-	string_list_free(list);
-#endif
+				   completion);
 
 	/* add the path to the playlist */
 	if (path != nullptr) {

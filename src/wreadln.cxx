@@ -18,6 +18,7 @@
  */
 
 #include "wreadln.hxx"
+#include "Completion.hxx"
 #include "charset.hxx"
 #include "screen_utils.hxx"
 #include "Point.hxx"
@@ -77,12 +78,6 @@ struct wreadln {
 
 /** max items stored in the history list */
 static const guint wrln_max_history_length = 32;
-
-#ifndef NCMPC_MINI
-void *wrln_completion_callback_data = nullptr;
-wrln_gcmp_pre_cb_t wrln_pre_completion_callback = nullptr;
-wrln_gcmp_post_cb_t wrln_post_completion_callback = nullptr;
-#endif
 
 /** converts a byte position to a screen column */
 static unsigned
@@ -357,14 +352,14 @@ _wreadln(WINDOW *w,
 	 const gchar *initial_value,
 	 unsigned x1,
 	 History *history,
-	 GCompletion *gcmp,
+	 Completion *completion,
 	 bool masked)
 {
 	struct wreadln wr(w, masked);
 	History::iterator hlist, hcurrent;
 
 #ifdef NCMPC_MINI
-	(void)gcmp;
+	(void)completion;
 #endif
 
 	/* turn off echo */
@@ -428,14 +423,12 @@ _wreadln(WINDOW *w,
 
 		case TAB:
 #ifndef NCMPC_MINI
-			if (gcmp) {
+			if (completion != nullptr) {
 				char *prefix = nullptr;
 				GList *list;
 
-				if (wrln_pre_completion_callback)
-					wrln_pre_completion_callback(gcmp, wr.value.c_str(),
-								     wrln_completion_callback_data);
-				list = g_completion_complete(gcmp, wr.value.c_str(), &prefix);
+				completion->Pre(wr.value.c_str());
+				list = completion->Complete(wr.value.c_str(), &prefix);
 				if (prefix) {
 					wr.value = prefix;
 					cursor_move_to_eol(&wr);
@@ -443,10 +436,7 @@ _wreadln(WINDOW *w,
 				} else
 					screen_bell();
 
-				if (wrln_post_completion_callback)
-					wrln_post_completion_callback(gcmp, wr.value.c_str(),
-								      list,
-								      wrln_completion_callback_data);
+				completion->Post(wr.value.c_str(), list);
 			}
 #endif
 			break;
@@ -579,9 +569,10 @@ wreadln(WINDOW *w,
 	const gchar *initial_value,
 	unsigned x1,
 	History *history,
-	GCompletion *gcmp)
+	Completion *completion)
 {
-	return  _wreadln(w, prompt, initial_value, x1, history, gcmp, false);
+	return  _wreadln(w, prompt, initial_value, x1,
+			 history, completion, false);
 }
 
 gchar *
