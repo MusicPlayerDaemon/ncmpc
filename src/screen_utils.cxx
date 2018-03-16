@@ -173,10 +173,10 @@ screen_display_completion_list(GList *list)
 
 	colors_use(w, COLOR_STATUS_ALERT);
 
-	unsigned y = 0;
-	while (y < screen->main_window.size.height) {
-		GList *item = g_list_nth(list, y+offset);
-		wmove(w, y++, 0);
+	GList *item = g_list_nth(list, offset);
+	for (unsigned y = 0; y < screen->main_window.size.height;
+	     ++y, item = item->next) {
+		wmove(w, y, 0);
 		if (item == nullptr)
 			break;
 
