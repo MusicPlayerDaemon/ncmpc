@@ -237,7 +237,7 @@ completion_strncmp(const gchar *s1, const gchar *s2, gsize n)
 #endif
 
 #ifndef NCMPC_MINI
-static void add_dir(GCompletion *gcmp, gchar *dir, GList **dir_list,
+static void add_dir(GCompletion *gcmp, const char *dir, GList **dir_list,
 		    GList **list, struct mpdclient *c)
 {
 	g_completion_remove_items(gcmp, *list);
@@ -253,7 +253,8 @@ struct completion_callback_data {
 	struct mpdclient *c;
 };
 
-static void add_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
+static void
+add_pre_completion_cb(GCompletion *gcmp, const char *line, void *data)
 {
 	auto *tmp = (struct completion_callback_data *)data;
 	GList **dir_list = tmp->dir_list;
@@ -271,8 +272,9 @@ static void add_pre_completion_cb(GCompletion *gcmp, gchar *line, void *data)
 	}
 }
 
-static void add_post_completion_cb(GCompletion *gcmp, gchar *line,
-				   GList *items, void *data)
+static void
+add_post_completion_cb(GCompletion *gcmp, const char *line,
+		       GList *items, void *data)
 {
 	auto *tmp = (struct completion_callback_data *)data;
 	GList **dir_list = tmp->dir_list;

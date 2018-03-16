@@ -55,7 +55,7 @@ completion_strncmp(const gchar *s1, const gchar *s2, gsize n)
 }
 
 static void
-save_pre_completion_cb(GCompletion *gcmp, gcc_unused gchar *line,
+save_pre_completion_cb(GCompletion *gcmp, gcc_unused const char *line,
 		       void *data)
 {
 	completion_callback_data_t *tmp = (completion_callback_data_t *)data;
@@ -71,7 +71,7 @@ save_pre_completion_cb(GCompletion *gcmp, gcc_unused gchar *line,
 
 static void
 save_post_completion_cb(gcc_unused GCompletion *gcmp,
-			gcc_unused gchar *line, GList *items,
+			gcc_unused const char *line, GList *items,
 			gcc_unused void *data)
 {
 	if (g_list_length(items) >= 1)

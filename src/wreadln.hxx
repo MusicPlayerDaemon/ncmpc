@@ -35,12 +35,13 @@
 extern void *wrln_completion_callback_data;
 
 /* called after TAB is pressed but before g_completion_complete */
-typedef void (*wrln_gcmp_pre_cb_t) (GCompletion *gcmp, gchar *buf, void *data);
+typedef void (*wrln_gcmp_pre_cb_t) (GCompletion *gcmp, const char *value,
+				    void *data);
 extern wrln_gcmp_pre_cb_t wrln_pre_completion_callback;
 
 /* post completion callback */
-typedef void (*wrln_gcmp_post_cb_t) (GCompletion *gcmp, gchar *s, GList *l,
-				     void *data);
+typedef void (*wrln_gcmp_post_cb_t) (GCompletion *gcmp, const char *value,
+				     GList *l, void *data);
 extern wrln_gcmp_post_cb_t wrln_post_completion_callback;
 
 #endif
