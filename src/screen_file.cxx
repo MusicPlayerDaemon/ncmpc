@@ -34,23 +34,21 @@
 
 #include <mpd/client.h>
 
+#include <string>
+
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
 
 class FileBrowserPage final : public FileListPage {
-	char *current_path = g_strdup("");
+	std::string current_path;
 
 public:
 	FileBrowserPage(ScreenManager &_screen, WINDOW *_w,
 			Size size)
 		:FileListPage(_screen, _w, size,
 			      options.list_format) {}
-
-	~FileBrowserPage() override {
-		g_free(current_path);
-	}
 
 	bool GotoSong(struct mpdclient &c, const struct mpd_song &song);
 
@@ -105,11 +103,11 @@ FileBrowserPage::Reload(struct mpdclient &c)
 	delete filelist;
 
 	filelist = new FileList();
-	if (*current_path != 0)
+	if (!current_path.empty())
 		/* add a dummy entry for ./.. */
 		filelist->emplace_back(nullptr);
 
-	screen_file_load_list(&c, current_path, filelist);
+	screen_file_load_list(&c, current_path.c_str(), filelist);
 
 	lw.SetLength(filelist->size());
 
@@ -119,8 +117,7 @@ FileBrowserPage::Reload(struct mpdclient &c)
 bool
 FileBrowserPage::ChangeDirectory(struct mpdclient &c, const char *new_path)
 {
-	g_free(current_path);
-	current_path = g_strdup(new_path);
+	current_path = new_path;
 
 	Reload(c);
 
@@ -134,20 +131,18 @@ FileBrowserPage::ChangeDirectory(struct mpdclient &c, const char *new_path)
 bool
 FileBrowserPage::ChangeToParent(struct mpdclient &c)
 {
-	char *parent = g_path_get_dirname(current_path);
+	char *parent = g_path_get_dirname(current_path.c_str());
 	if (strcmp(parent, ".") == 0)
 		parent[0] = '\0';
 
-	char *old_path = current_path;
-	current_path = nullptr;
+	auto old_path = std::move(current_path);
 
 	bool success = ChangeDirectory(c, parent);
 	g_free(parent);
 
 	int idx = success
-		? filelist->FindDirectory(old_path)
+		? filelist->FindDirectory(old_path.c_str())
 		: -1;
-	g_free(old_path);
 
 	if (success && idx >= 0) {
 		/* set the cursor on the previous working directory */
@@ -302,7 +297,7 @@ screen_file_init(ScreenManager &_screen, WINDOW *w, Size size)
 const char *
 FileBrowserPage::GetTitle(char *str, size_t size) const
 {
-	const char *path = nullptr, *prev = nullptr, *slash = current_path;
+	const char *path = nullptr, *prev = nullptr, *slash = current_path.c_str();
 
 	/* determine the last 2 parts of the path */
 	while ((slash = strchr(slash, '/')) != nullptr) {
@@ -312,7 +307,7 @@ FileBrowserPage::GetTitle(char *str, size_t size) const
 
 	if (path == nullptr)
 		/* fall back to full path */
-		path = current_path;
+		path = current_path.c_str();
 
 	g_snprintf(str, size, "%s: %s",
 		   /* translators: caption of the browser screen */
@@ -386,7 +381,7 @@ FileBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		break;
 
 	case CMD_DB_UPDATE:
-		screen_database_update(&c, current_path);
+		screen_database_update(&c, current_path.c_str());
 		return true;
 
 	default:
