@@ -30,6 +30,8 @@
 #include "options.hxx"
 #include "Compiler.h"
 
+#include <algorithm>
+
 #include <assert.h>
 #include <errno.h>
 #include <string.h>
@@ -395,9 +397,8 @@ CommandListPage::Apply()
 {
 	if (IsModified()) {
 		command_definition_t *orginal_cmds = get_command_definitions();
-		size_t size = command_n_commands * sizeof(command_definition_t);
 
-		memcpy(orginal_cmds, cmds, size);
+		std::copy_n(cmds, command_n_commands, orginal_cmds);
 		screen_status_printf(_("You have new key bindings"));
 	} else
 		screen_status_printf(_("Keybindings unchanged."));
@@ -478,10 +479,8 @@ CommandListPage::OnOpen(gcc_unused struct mpdclient &c)
 			command_n_commands++;
 
 		/* +1 for the terminator element */
-		size_t cmds_size = (command_n_commands + 1)
-			* sizeof(command_definition_t);
 		cmds = new command_definition_t[command_n_commands + 1];
-		memcpy(cmds, current_cmds, cmds_size);
+		std::copy_n(current_cmds, command_n_commands + 1, cmds);
 	}
 
 	lw.SetLength(command_length());
