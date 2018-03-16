@@ -319,7 +319,7 @@ public:
 		:ListPage(w, size), screen(_screen) {}
 
 	~CommandListPage() override {
-		g_free(cmds);
+		delete[] cmds;
 	}
 
 	command_definition_t *GetCommands() {
@@ -480,7 +480,7 @@ CommandListPage::OnOpen(gcc_unused struct mpdclient &c)
 		/* +1 for the terminator element */
 		size_t cmds_size = (command_n_commands + 1)
 			* sizeof(command_definition_t);
-		cmds = (command_definition_t *)g_malloc0(cmds_size);
+		cmds = new command_definition_t[command_n_commands + 1];
 		memcpy(cmds, current_cmds, cmds_size);
 	}
 
