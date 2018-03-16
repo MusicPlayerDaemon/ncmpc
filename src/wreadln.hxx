@@ -27,25 +27,24 @@
 #include <list>
 #include <string>
 
-#include <glib.h>
-
 class Completion;
 
 /* Note, wreadln calls curs_set() and noecho(), to enable cursor and
  * disable echo. wreadln will not restore these settings when exiting! */
-gchar *wreadln(WINDOW *w,            /* the curses window to use */
-	       const gchar *prompt, /* the prompt string or nullptr */
-	       const gchar *initial_value, /* initial value or nullptr for a empty line
-					    * (char *) -1 = get value from history */
-	       unsigned x1,              /* the maximum x position or 0 */
-	       History *history, /* a pointer to a history list or nullptr */
-	       Completion *completion    /* a GCompletion structure or nullptr */
-	       );
+char *
+wreadln(WINDOW *w,            /* the curses window to use */
+	const char *prompt, /* the prompt string or nullptr */
+	const char *initial_value, /* initial value or nullptr for a empty line
+				    * (char *) -1 = get value from history */
+	unsigned x1,              /* the maximum x position or 0 */
+	History *history, /* a pointer to a history list or nullptr */
+	Completion *completion    /* a GCompletion structure or nullptr */
+	);
 
-gchar *
+char *
 wreadln_masked(WINDOW *w,
-	       const gchar *prompt,
-	       const gchar *initial_value,
+	       const char *prompt,
+	       const char *initial_value,
 	       unsigned x1);
 
 #endif

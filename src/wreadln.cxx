@@ -81,7 +81,7 @@ static const guint wrln_max_history_length = 32;
 
 /** converts a byte position to a screen column */
 static unsigned
-byte_to_screen(const gchar *data, size_t x)
+byte_to_screen(const char *data, size_t x)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	assert(x <= strlen(data));
@@ -103,11 +103,11 @@ byte_to_screen(const gchar *data, size_t x)
 
 /** finds the first character which doesn't fit on the screen */
 static size_t
-screen_to_bytes(const gchar *data, unsigned width)
+screen_to_bytes(const char *data, unsigned width)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	size_t length = strlen(data);
-	gchar *dup = g_strdup(data);
+	char *dup = g_strdup(data);
 
 	while (true) {
 		dup[length] = 0;
@@ -139,10 +139,10 @@ cursor_column(const struct wreadln *wr)
 /** returns the offset in the string to align it at the right border
     of the screen */
 static inline size_t
-right_align_bytes(const gchar *data, size_t right, unsigned width)
+right_align_bytes(const char *data, size_t right, unsigned width)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
-	gchar *dup;
+	char *dup;
 	size_t start = 0;
 
 	assert(right <= strlen(data));
@@ -178,7 +178,7 @@ right_align_bytes(const gchar *data, size_t right, unsigned width)
 
 /** returns the size (in bytes) of the next character */
 static inline size_t
-next_char_size(const gchar *data)
+next_char_size(const char *data)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	char *p = locale_to_utf8(data);
@@ -198,7 +198,7 @@ next_char_size(const gchar *data)
 
 /** returns the size (in bytes) of the previous character */
 static inline size_t
-prev_char_size(const gchar *data, size_t x)
+prev_char_size(const char *data, size_t x)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	assert(x > 0);
@@ -284,8 +284,8 @@ static inline void drawline(const struct wreadln *wr)
 static bool
 multibyte_is_complete(const char *p, size_t length)
 {
-	gchar *q = g_locale_to_utf8(p, length,
-				    nullptr, nullptr, nullptr);
+	char *q = g_locale_to_utf8(p, length,
+				   nullptr, nullptr, nullptr);
 	if (q != nullptr) {
 		g_free(q);
 		return true;
@@ -346,10 +346,10 @@ wreadln_delete_char(struct wreadln *wr, size_t x)
 
 /* libcurses version */
 
-static gchar *
+static char *
 _wreadln(WINDOW *w,
-	 const gchar *prompt,
-	 const gchar *initial_value,
+	 const char *prompt,
+	 const char *initial_value,
 	 unsigned x1,
 	 History *history,
 	 Completion *completion,
@@ -563,10 +563,10 @@ _wreadln(WINDOW *w,
 	return g_strdup(wr.value.c_str());
 }
 
-gchar *
+char *
 wreadln(WINDOW *w,
-	const gchar *prompt,
-	const gchar *initial_value,
+	const char *prompt,
+	const char *initial_value,
 	unsigned x1,
 	History *history,
 	Completion *completion)
@@ -575,10 +575,10 @@ wreadln(WINDOW *w,
 			 history, completion, false);
 }
 
-gchar *
+char *
 wreadln_masked(WINDOW *w,
-	       const gchar *prompt,
-	       const gchar *initial_value,
+	       const char *prompt,
+	       const char *initial_value,
 	       unsigned x1)
 {
 	return  _wreadln(w, prompt, initial_value, x1, nullptr, nullptr, true);
