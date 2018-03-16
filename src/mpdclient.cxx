@@ -945,37 +945,3 @@ mpdclient_playlist_update_changes(struct mpdclient *c)
 
 	return mpdclient_finish_command(c);
 }
-
-
-/****************************************************************************/
-/*** Filelist functions *****************************************************/
-/****************************************************************************/
-
-bool
-mpdclient_filelist_add_all(struct mpdclient *c, FileList *fl)
-{
-	struct mpd_connection *connection = mpdclient_get_connection(c);
-	if (connection == nullptr)
-		return false;
-
-	if (fl->empty())
-		return true;
-
-	mpd_command_list_begin(connection, false);
-
-	for (unsigned i = 0; i < fl->size(); ++i) {
-		auto &entry = (*fl)[i];
-		auto *entity = entry.entity;
-
-		if (entity != nullptr &&
-		    mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
-			const struct mpd_song *song =
-				mpd_entity_get_song(entity);
-
-			mpd_send_add(connection, mpd_song_get_uri(song));
-		}
-	}
-
-	mpd_command_list_end(connection);
-	return mpdclient_finish_command(c);
-}

@@ -252,8 +252,4 @@ mpdclient_playlist_update(struct mpdclient *c);
 bool
 mpdclient_playlist_update_changes(struct mpdclient *c);
 
-/* add all songs in filelist to the playlist */
-bool
-mpdclient_filelist_add_all(struct mpdclient *c, FileList *fl);
-
 #endif
