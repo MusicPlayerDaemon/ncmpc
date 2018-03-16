@@ -94,7 +94,7 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 	    list_window_callback_fn_t callback_fn, void *callback_data,
 	    list_window_paint_callback_t paint_callback, void *paint_data)
 {
-	const int WRLN_MAX_LINE_SIZE = 1024;
+	constexpr size_t WRLN_MAX_LINE_SIZE = 1024;
 	int key = 65;
 
 	if (screen.findbuf) {
