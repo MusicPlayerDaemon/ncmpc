@@ -20,8 +20,10 @@
 #include "screen_keydef.hxx"
 #include "screen_interface.hxx"
 #include "ListPage.hxx"
+#include "ProxyPage.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
+#include "screen.hxx"
 #include "i18n.h"
 #include "conf.hxx"
 #include "screen_utils.hxx"
@@ -33,16 +35,10 @@
 #include <string.h>
 #include <glib.h>
 
-class KeyDefPage final : public ListPage {
+class CommandKeysPage final : public ListPage {
 	ScreenManager &screen;
 
-	command_definition_t *cmds = nullptr;
-
-	/** the number of commands */
-	unsigned command_n_commands = 0;
-
-	/** lw.start the last time switch_to_subcmd_mode() was called */
-	unsigned saved_start = 0;
+	command_definition_t *cmds;
 
 	/**
 	 * The command being edited, represented by a array subscript
@@ -54,35 +50,17 @@ class KeyDefPage final : public ListPage {
 	unsigned subcmd_n_keys = 0;
 
 public:
-	KeyDefPage(ScreenManager &_screen, WINDOW *w, Size size)
+	CommandKeysPage(ScreenManager &_screen, WINDOW *w, Size size)
 		:ListPage(w, size), screen(_screen) {}
 
-	~KeyDefPage() override {
-		g_free(cmds);
+	void SetCommand(command_definition_t *_cmds, unsigned _cmd) {
+		cmds = _cmds;
+		subcmd = _cmd;
+		lw.Reset();
+		check_subcmd_length();
 	}
 
 private:
-	/**
-	 * the position of the "apply" item. It's the same as command_n_commands,
-	 * because array subscripts start at 0, while numbers of items start at 1.
-	 */
-	gcc_pure
-	unsigned command_item_apply() const {
-		return command_n_commands;
-	}
-
-	/** the position of the "apply and save" item */
-	gcc_pure
-	unsigned command_item_save() const {
-		return command_item_apply() + 1;
-	}
-
-	/** the number of items in the "command" view */
-	gcc_pure
-	unsigned command_length() const {
-		return command_item_save() + 1;
-	}
-
 	/** The position of the up ("[..]") item */
 	static constexpr unsigned subcmd_item_up() {
 		return 0;
@@ -117,9 +95,6 @@ private:
 	/* TODO: rename to check_n_keys / subcmd_count_keys? */
 	void check_subcmd_length();
 
-	void SwitchToSubCommandMode(int cmd);
-	void SwitchToCommandMode();
-
 	/**
 	 * Delete a key from a given command's definition.
 	 *
@@ -138,84 +113,24 @@ private:
 	 */
 	void AddKey(int cmd_index);
 
-	bool IsModified() const;
-	void Apply();
-	void Save();
-
 	const char *ListCallback(unsigned idx) const;
 
 	static const char *ListCallback(unsigned idx, void *data) {
-		const auto &p = *(const KeyDefPage *)data;
+		const auto &p = *(const CommandKeysPage *)data;
 		return p.ListCallback(idx);
 	}
 
 public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
-	void OnClose() override;
 	void Paint() const override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 };
 
-bool
-KeyDefPage::IsModified() const
-{
-	command_definition_t *orginal_cmds = get_command_definitions();
-	size_t size = command_n_commands * sizeof(command_definition_t);
-
-	return memcmp(orginal_cmds, cmds, size) != 0;
-}
-
-void
-KeyDefPage::Apply()
-{
-	if (IsModified()) {
-		command_definition_t *orginal_cmds = get_command_definitions();
-		size_t size = command_n_commands * sizeof(command_definition_t);
-
-		memcpy(orginal_cmds, cmds, size);
-		screen_status_printf(_("You have new key bindings"));
-	} else
-		screen_status_printf(_("Keybindings unchanged."));
-}
-
-void
-KeyDefPage::Save()
-{
-	char *allocated = nullptr;
-	const char *filename = options.key_file;
-	if (filename == nullptr) {
-		if (!check_user_conf_dir()) {
-			screen_status_printf(_("Error: Unable to create directory ~/.ncmpc - %s"),
-					     strerror(errno));
-			screen_bell();
-			return;
-		}
-
-		filename = allocated = build_user_key_binding_filename();
-	}
-
-	FILE *f = fopen(filename, "w");
-	if (f == nullptr) {
-		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
-		screen_bell();
-		g_free(allocated);
-		return;
-	}
-
-	if (write_key_bindings(f, KEYDEF_WRITE_HEADER))
-		screen_status_printf(_("Wrote %s"), filename);
-	else
-		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
-
-	g_free(allocated);
-	fclose(f);
-}
-
 /* TODO: rename to check_n_keys / subcmd_count_keys? */
 void
-KeyDefPage::check_subcmd_length()
+CommandKeysPage::check_subcmd_length()
 {
 	unsigned i;
 
@@ -230,35 +145,7 @@ KeyDefPage::check_subcmd_length()
 }
 
 void
-KeyDefPage::SwitchToSubCommandMode(int cmd)
-{
-	assert(subcmd == -1);
-
-	saved_start = lw.start;
-
-	subcmd = cmd;
-	lw.Reset();
-	check_subcmd_length();
-
-	SetDirty();
-}
-
-void
-KeyDefPage::SwitchToCommandMode()
-{
-	assert(subcmd != -1);
-
-	lw.SetLength(command_length());
-	lw.SetCursor(subcmd);
-	subcmd = -1;
-
-	lw.start = saved_start;
-
-	SetDirty();
-}
-
-void
-KeyDefPage::DeleteKey(int cmd_index, int key_index)
+CommandKeysPage::DeleteKey(int cmd_index, int key_index)
 {
 	/* shift the keys to close the gap that appeared */
 	int i = key_index+1;
@@ -283,7 +170,7 @@ KeyDefPage::DeleteKey(int cmd_index, int key_index)
 }
 
 void
-KeyDefPage::OverwriteKey(int cmd_index, int key_index)
+CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
 {
 	assert(key_index < MAX_COMMAND_KEYS);
 
@@ -325,71 +212,264 @@ KeyDefPage::OverwriteKey(int cmd_index, int key_index)
 }
 
 void
-KeyDefPage::AddKey(int cmd_index)
+CommandKeysPage::AddKey(int cmd_index)
 {
 	if (subcmd_n_keys < MAX_COMMAND_KEYS)
 		OverwriteKey(cmd_index, subcmd_n_keys);
 }
 
 const char *
-KeyDefPage::ListCallback(unsigned idx) const
+CommandKeysPage::ListCallback(unsigned idx) const
 {
 	static char buf[256];
 
-	if (subcmd == -1) {
-		if (idx == command_item_apply())
-			return _("===> Apply key bindings ");
-		if (idx == command_item_save())
-			return _("===> Apply & Save key bindings  ");
+	if (idx == subcmd_item_up())
+		return "[..]";
 
-		assert(idx < (unsigned) command_n_commands);
-
-		/*
-		 * Format the lines in two aligned columnes for the key name and
-		 * the description, like this:
-		 *
-		 *	this-command - do this
-		 *	that-one     - do that
-		 */
-		size_t len = strlen(cmds[idx].name);
-		strncpy(buf, cmds[idx].name, sizeof(buf));
-
-		if (len < get_cmds_max_name_width(cmds))
-			memset(buf + len, ' ', get_cmds_max_name_width(cmds) - len);
-
-		g_snprintf(buf + get_cmds_max_name_width(cmds),
-			   sizeof(buf) - get_cmds_max_name_width(cmds),
-			   " - %s", _(cmds[idx].description));
-
-		return buf;
-	} else {
-		if (idx == subcmd_item_up())
-			return "[..]";
-
-		if (idx == subcmd_item_add()) {
-			g_snprintf(buf, sizeof(buf), "%d. %s",
-				   idx, _("Add new key"));
-			return buf;
-		}
-
-		assert(subcmd_item_is_key(idx));
-
-		g_snprintf(buf, sizeof(buf),
-			   "%d. %-20s   (%d) ", idx,
-			   key2str(cmds[subcmd].keys[subcmd_item_to_key_id(idx)]),
-			   cmds[subcmd].keys[subcmd_item_to_key_id(idx)]);
+	if (idx == subcmd_item_add()) {
+		g_snprintf(buf, sizeof(buf), "%d. %s",
+			   idx, _("Add new key"));
 		return buf;
 	}
-}
 
-static Page *
-keydef_init(ScreenManager &screen, WINDOW *w, Size size)
-{
-	return new KeyDefPage(screen, w, size);
+	assert(subcmd_item_is_key(idx));
+
+	g_snprintf(buf, sizeof(buf),
+		   "%d. %-20s   (%d) ", idx,
+		   key2str(cmds[subcmd].keys[subcmd_item_to_key_id(idx)]),
+		   cmds[subcmd].keys[subcmd_item_to_key_id(idx)]);
+	return buf;
 }
 
 void
-KeyDefPage::OnOpen(gcc_unused struct mpdclient &c)
+CommandKeysPage::OnOpen(gcc_unused struct mpdclient &c)
+{
+	// TODO
+}
+
+const char *
+CommandKeysPage::GetTitle(char *str, size_t size) const
+{
+	g_snprintf(str, size, _("Edit keys for %s"), cmds[subcmd].name);
+	return str;
+}
+
+void
+CommandKeysPage::Paint() const
+{
+	lw.Paint(ListCallback, const_cast<CommandKeysPage *>(this));
+}
+
+bool
+CommandKeysPage::OnCommand(struct mpdclient &c, command_t cmd)
+{
+	if (cmd == CMD_LIST_RANGE_SELECT)
+		return false;
+
+	if (ListPage::OnCommand(c, cmd))
+		return true;
+
+	switch(cmd) {
+	case CMD_PLAY:
+		if (lw.selected == subcmd_item_up()) {
+			screen.OnCommand(c, CMD_GO_PARENT_DIRECTORY);
+		} else if (lw.selected == subcmd_item_add()) {
+			AddKey(subcmd);
+		} else {
+			/* just to be sure ;-) */
+			assert(subcmd_item_is_key(lw.selected));
+			OverwriteKey(subcmd, subcmd_item_to_key_id(lw.selected));
+		}
+		return true;
+	case CMD_DELETE:
+		if (subcmd_item_is_key(lw.selected))
+			DeleteKey(subcmd, subcmd_item_to_key_id(lw.selected));
+
+		return true;
+	case CMD_ADD:
+		AddKey(subcmd);
+		return true;
+	case CMD_LIST_FIND:
+	case CMD_LIST_RFIND:
+	case CMD_LIST_FIND_NEXT:
+	case CMD_LIST_RFIND_NEXT:
+		screen_find(screen, &lw, cmd, ListCallback, this);
+		SetDirty();
+		return true;
+
+	default:
+		return false;
+	}
+
+	/* unreachable */
+	assert(0);
+	return false;
+}
+
+class CommandListPage final : public ListPage {
+	ScreenManager &screen;
+
+	command_definition_t *cmds = nullptr;
+
+	/** the number of commands */
+	unsigned command_n_commands = 0;
+
+public:
+	CommandListPage(ScreenManager &_screen, WINDOW *w, Size size)
+		:ListPage(w, size), screen(_screen) {}
+
+	~CommandListPage() override {
+		g_free(cmds);
+	}
+
+	command_definition_t *GetCommands() {
+		return cmds;
+	}
+
+	int GetSelectedCommand() const {
+		return lw.selected < command_n_commands
+			? (int)lw.selected
+			: -1;
+	}
+
+private:
+	/**
+	 * the position of the "apply" item. It's the same as command_n_commands,
+	 * because array subscripts start at 0, while numbers of items start at 1.
+	 */
+	gcc_pure
+	unsigned command_item_apply() const {
+		return command_n_commands;
+	}
+
+	/** the position of the "apply and save" item */
+	gcc_pure
+	unsigned command_item_save() const {
+		return command_item_apply() + 1;
+	}
+
+	/** the number of items in the "command" view */
+	gcc_pure
+	unsigned command_length() const {
+		return command_item_save() + 1;
+	}
+
+	/** The position of the up ("[..]") item */
+	static constexpr unsigned subcmd_item_up() {
+		return 0;
+	}
+
+public:
+	bool IsModified() const;
+
+	void Apply();
+	void Save();
+
+private:
+	const char *ListCallback(unsigned idx) const;
+
+	static const char *ListCallback(unsigned idx, void *data) {
+		const auto &p = *(const CommandListPage *)data;
+		return p.ListCallback(idx);
+	}
+
+public:
+	/* virtual methods from class Page */
+	void OnOpen(struct mpdclient &c) override;
+	void Paint() const override;
+	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	const char *GetTitle(char *s, size_t size) const override;
+};
+
+bool
+CommandListPage::IsModified() const
+{
+	command_definition_t *orginal_cmds = get_command_definitions();
+	size_t size = command_n_commands * sizeof(command_definition_t);
+
+	return memcmp(orginal_cmds, cmds, size) != 0;
+}
+
+void
+CommandListPage::Apply()
+{
+	if (IsModified()) {
+		command_definition_t *orginal_cmds = get_command_definitions();
+		size_t size = command_n_commands * sizeof(command_definition_t);
+
+		memcpy(orginal_cmds, cmds, size);
+		screen_status_printf(_("You have new key bindings"));
+	} else
+		screen_status_printf(_("Keybindings unchanged."));
+}
+
+void
+CommandListPage::Save()
+{
+	char *allocated = nullptr;
+	const char *filename = options.key_file;
+	if (filename == nullptr) {
+		if (!check_user_conf_dir()) {
+			screen_status_printf(_("Error: Unable to create directory ~/.ncmpc - %s"),
+					     strerror(errno));
+			screen_bell();
+			return;
+		}
+
+		filename = allocated = build_user_key_binding_filename();
+	}
+
+	FILE *f = fopen(filename, "w");
+	if (f == nullptr) {
+		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
+		screen_bell();
+		g_free(allocated);
+		return;
+	}
+
+	if (write_key_bindings(f, KEYDEF_WRITE_HEADER))
+		screen_status_printf(_("Wrote %s"), filename);
+	else
+		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
+
+	g_free(allocated);
+	fclose(f);
+}
+
+const char *
+CommandListPage::ListCallback(unsigned idx) const
+{
+	static char buf[256];
+
+	if (idx == command_item_apply())
+		return _("===> Apply key bindings ");
+	if (idx == command_item_save())
+		return _("===> Apply & Save key bindings  ");
+
+	assert(idx < (unsigned) command_n_commands);
+
+	/*
+	 * Format the lines in two aligned columnes for the key name and
+	 * the description, like this:
+	 *
+	 *	this-command - do this
+	 *	that-one     - do that
+	 */
+	size_t len = strlen(cmds[idx].name);
+	strncpy(buf, cmds[idx].name, sizeof(buf));
+
+	if (len < get_cmds_max_name_width(cmds))
+		memset(buf + len, ' ', get_cmds_max_name_width(cmds) - len);
+
+	g_snprintf(buf + get_cmds_max_name_width(cmds),
+		   sizeof(buf) - get_cmds_max_name_width(cmds),
+		   " - %s", _(cmds[idx].description));
+
+	return buf;
+}
+
+void
+CommandListPage::OnOpen(gcc_unused struct mpdclient &c)
 {
 	if (cmds == nullptr) {
 		command_definition_t *current_cmds = get_command_definitions();
@@ -404,38 +484,23 @@ KeyDefPage::OnOpen(gcc_unused struct mpdclient &c)
 		memcpy(cmds, current_cmds, cmds_size);
 	}
 
-	subcmd = -1;
 	lw.SetLength(command_length());
 }
 
-void
-KeyDefPage::OnClose()
-{
-	if (cmds && !IsModified()) {
-		g_free(cmds);
-		cmds = nullptr;
-	} else
-		screen_status_printf(_("Note: Did you forget to \'Apply\' your changes?"));
-}
-
 const char *
-KeyDefPage::GetTitle(char *str, size_t size) const
+CommandListPage::GetTitle(char *, size_t) const
 {
-	if (subcmd == -1)
-		return _("Edit key bindings");
-
-	g_snprintf(str, size, _("Edit keys for %s"), cmds[subcmd].name);
-	return str;
+	return _("Edit key bindings");
 }
 
 void
-KeyDefPage::Paint() const
+CommandListPage::Paint() const
 {
-	lw.Paint(ListCallback, const_cast<KeyDefPage *>(this));
+	lw.Paint(ListCallback, const_cast<CommandListPage *>(this));
 }
 
 bool
-KeyDefPage::OnCommand(struct mpdclient &c, command_t cmd)
+CommandListPage::OnCommand(struct mpdclient &c, command_t cmd)
 {
 	if (cmd == CMD_LIST_RANGE_SELECT)
 		return false;
@@ -445,51 +510,107 @@ KeyDefPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 	switch(cmd) {
 	case CMD_PLAY:
-		if (subcmd == -1) {
-			if (lw.selected == command_item_apply()) {
-				Apply();
-			} else if (lw.selected == command_item_save()) {
-				Apply();
-				Save();
-			} else {
-				SwitchToSubCommandMode(lw.selected);
-			}
-		} else {
-			if (lw.selected == subcmd_item_up()) {
-				SwitchToCommandMode();
-			} else if (lw.selected == subcmd_item_add()) {
-				AddKey(subcmd);
-			} else {
-				/* just to be sure ;-) */
-				assert(subcmd_item_is_key(lw.selected));
-				OverwriteKey(subcmd, subcmd_item_to_key_id(lw.selected));
-			}
+		if (lw.selected == command_item_apply()) {
+			Apply();
+			return true;
+		} else if (lw.selected == command_item_save()) {
+			Apply();
+			Save();
+			return true;
 		}
-		return true;
-	case CMD_GO_PARENT_DIRECTORY:
-	case CMD_GO_ROOT_DIRECTORY:
-		if (subcmd != -1)
-			SwitchToCommandMode();
-		return true;
-	case CMD_DELETE:
-		if (subcmd != -1 && subcmd_item_is_key(lw.selected))
-			DeleteKey(subcmd, subcmd_item_to_key_id(lw.selected));
 
-		return true;
-	case CMD_ADD:
-		if (subcmd != -1)
-			AddKey(subcmd);
-		return true;
-	case CMD_SAVE_PLAYLIST:
-		Apply();
-		Save();
-		return true;
+		break;
+
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
 		screen_find(screen, &lw, cmd, ListCallback, this);
 		SetDirty();
+		return true;
+
+	default:
+		break;
+	}
+
+	return false;
+}
+
+class KeyDefPage final : public ProxyPage {
+	ScreenManager &screen;
+
+	CommandListPage command_list_page;
+	CommandKeysPage command_keys_page;
+
+public:
+	KeyDefPage(ScreenManager &_screen, WINDOW *_w, Size size)
+		:ProxyPage(_w), screen(_screen),
+		 command_list_page(_screen, _w, size),
+		 command_keys_page(_screen, _w, size) {}
+
+public:
+	/* virtual methods from class Page */
+	void OnOpen(struct mpdclient &c) override;
+	void OnClose() override;
+	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+};
+
+static Page *
+keydef_init(ScreenManager &screen, WINDOW *w, Size size)
+{
+	return new KeyDefPage(screen, w, size);
+}
+
+void
+KeyDefPage::OnOpen(struct mpdclient &c)
+{
+	ProxyPage::OnOpen(c);
+
+	if (GetCurrentPage() == nullptr)
+		SetCurrentPage(c, &command_list_page);
+}
+
+void
+KeyDefPage::OnClose()
+{
+	if (command_list_page.IsModified())
+		screen_status_printf(_("Note: Did you forget to \'Apply\' your changes?"));
+
+	ProxyPage::OnClose();
+}
+
+bool
+KeyDefPage::OnCommand(struct mpdclient &c, command_t cmd)
+{
+	if (ProxyPage::OnCommand(c, cmd))
+		return true;
+
+	switch(cmd) {
+	case CMD_PLAY:
+		if (GetCurrentPage() == &command_list_page) {
+			int s = command_list_page.GetSelectedCommand();
+			if (s >= 0) {
+				command_keys_page.SetCommand(command_list_page.GetCommands(),
+							     s);
+				SetCurrentPage(c, &command_keys_page);
+				return true;
+			}
+		}
+
+		break;
+
+	case CMD_GO_PARENT_DIRECTORY:
+	case CMD_GO_ROOT_DIRECTORY:
+		if (GetCurrentPage() != &command_list_page) {
+			SetCurrentPage(c, &command_list_page);
+			return true;
+		}
+
+		break;
+
+	case CMD_SAVE_PLAYLIST:
+		command_list_page.Apply();
+		command_list_page.Save();
 		return true;
 
 	default:
