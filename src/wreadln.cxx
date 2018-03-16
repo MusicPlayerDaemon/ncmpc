@@ -402,11 +402,6 @@ _wreadln(WINDOW *w,
 	if (initial_value == (char *)-1) {
 		/* get previous history entry */
 		if (history && hlist->prev) {
-			if (hlist == hcurrent)
-				/* save the current line */
-				g_strlcpy((char *)hlist->data, wr.line,
-					  sizeof(wr.line));
-
 			/* get previous line */
 			hlist = hlist->prev;
 			g_strlcpy(wr.line, (char *)hlist->data,
