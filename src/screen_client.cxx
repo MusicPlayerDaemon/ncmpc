@@ -47,9 +47,8 @@ screen_database_update(struct mpdclient *c, const char *path)
 	}
 
 	if (path != nullptr && *path != 0) {
-		char *path_locale = utf8_to_locale(path);
-		screen_status_printf(_("Database update of %s started"), path);
-		g_free(path_locale);
+		screen_status_printf(_("Database update of %s started"),
+				     Utf8ToLocale(path).c_str());
 	} else
 		screen_status_message(_("Database update started"));
 }

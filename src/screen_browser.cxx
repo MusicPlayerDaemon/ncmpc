@@ -91,9 +91,8 @@ browser_lw_callback(unsigned idx, void *data)
 
 	if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY) {
 		const auto *dir = mpd_entity_get_directory(entity);
-		char *directory = utf8_to_locale(g_basename(mpd_directory_get_path(dir)));
-		g_strlcpy(buf, directory, sizeof(buf));
-		g_free(directory);
+		const char *name = g_basename(mpd_directory_get_path(dir));
+		g_strlcpy(buf, Utf8ToLocale(name).c_str(), sizeof(buf));
 		return buf;
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 		const auto *song = mpd_entity_get_song(entity);
@@ -102,10 +101,8 @@ browser_lw_callback(unsigned idx, void *data)
 		return buf;
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
 		const auto *playlist = mpd_entity_get_playlist(entity);
-		char *filename = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
-
-		g_strlcpy(buf, filename, sizeof(buf));
-		g_free(filename);
+		const char *name = g_basename(mpd_playlist_get_path(playlist));
+		g_strlcpy(buf, Utf8ToLocale(name).c_str(), sizeof(buf));
 		return buf;
 	}
 
@@ -121,10 +118,9 @@ load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 		return false;
 
 	if (mpd_run_load(connection, mpd_playlist_get_path(playlist))) {
-		char *filename = utf8_to_locale(mpd_playlist_get_path(playlist));
+		const char *name = g_basename(mpd_playlist_get_path(playlist));
 		screen_status_printf(_("Loading playlist %s..."),
-				     g_basename(filename));
-		g_free(filename);
+				     Utf8ToLocale(name).c_str());
 
 		c->events |= MPD_IDLE_QUEUE;
 	} else
@@ -250,10 +246,8 @@ browser_select_entry(struct mpdclient *c, FileListEntry *entry,
 		const auto *dir = mpd_entity_get_directory(entry->entity);
 
 		if (mpdclient_cmd_add_path(c, mpd_directory_get_path(dir))) {
-			char *tmp = utf8_to_locale(mpd_directory_get_path(dir));
-
-			screen_status_printf(_("Adding \'%s\' to queue"), tmp);
-			g_free(tmp);
+			screen_status_printf(_("Adding \'%s\' to queue"),
+					     Utf8ToLocale(mpd_directory_get_path(dir)).c_str());
 		}
 
 		return true;
@@ -512,13 +506,13 @@ FileListPage::PaintRow(WINDOW *w, unsigned i,
 	switch (mpd_entity_get_type(entity)) {
 		const struct mpd_directory *directory;
 		const struct mpd_playlist *playlist;
-		char *p;
+		const char *name;
 
 	case MPD_ENTITY_TYPE_DIRECTORY:
 		directory = mpd_entity_get_directory(entity);
-		p = utf8_to_locale(g_basename(mpd_directory_get_path(directory)));
-		screen_browser_paint_directory(w, width, selected, p);
-		g_free(p);
+		name = g_basename(mpd_directory_get_path(directory));
+		screen_browser_paint_directory(w, width, selected,
+					       Utf8ToLocale(name).c_str());
 		break;
 
 	case MPD_ENTITY_TYPE_SONG:
@@ -529,9 +523,9 @@ FileListPage::PaintRow(WINDOW *w, unsigned i,
 
 	case MPD_ENTITY_TYPE_PLAYLIST:
 		playlist = mpd_entity_get_playlist(entity);
-		p = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
-		screen_browser_paint_playlist(w, width, selected, p);
-		g_free(p);
+		name = g_basename(mpd_playlist_get_path(playlist));
+		screen_browser_paint_playlist(w, width, selected,
+					      Utf8ToLocale(name).c_str());
 		break;
 
 	default:

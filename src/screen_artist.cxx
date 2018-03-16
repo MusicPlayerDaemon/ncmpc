@@ -178,19 +178,20 @@ screen_artist_init(ScreenManager &_screen, WINDOW *w, Size size)
 const char *
 SongListPage::GetTitle(char *str, size_t size) const
 {
-	char *s1 = utf8_to_locale(artist.c_str());
+	const Utf8ToLocale artist_locale(artist.c_str());
 
 	if (IsNulled(album))
 		g_snprintf(str, size,
-			   _("All tracks of artist: %s"), s1);
+			   _("All tracks of artist: %s"),
+			   artist_locale.c_str());
 	else if (!album.empty()) {
-		char *s2 = utf8_to_locale(album.c_str());
-		g_snprintf(str, size, _("Album: %s - %s"), s1, s2);
-		g_free(s2);
+		const Utf8ToLocale album_locale(album.c_str());
+		g_snprintf(str, size, _("Album: %s - %s"),
+			   artist_locale.c_str(), album_locale.c_str());
 	} else
 		g_snprintf(str, size,
-			   _("Tracks of no album of artist: %s"), s1);
-	g_free(s1);
+			   _("Tracks of no album of artist: %s"),
+			   artist_locale.c_str());
 
 	return str;
 }

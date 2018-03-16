@@ -75,12 +75,9 @@ TextPage::ListCallback(unsigned idx) const
 {
 	assert(idx < lines.size());
 
-	char *value = utf8_to_locale(lines[idx].c_str());
-
 	static char buffer[256];
-	g_strlcpy(buffer, value, sizeof(buffer));
-	g_free(value);
-
+	g_strlcpy(buffer, Utf8ToLocale(lines[idx].c_str()).c_str(),
+		  sizeof(buffer));
 	return buffer;
 }
 

@@ -69,4 +69,35 @@ replace_utf8_to_locale(char *src);
 char *
 replace_locale_to_utf8(char *src);
 
+/**
+ * Convert an UTF-8 string to the locale charset.  The source string
+ * must remain valid while this object is used.  If no conversion is
+ * necessary, then this class is a no-op.
+ */
+class Utf8ToLocale {
+#ifdef ENABLE_LOCALE
+	char *const value;
+#else
+	const char *const value;
+#endif
+
+public:
+#ifdef ENABLE_LOCALE
+	explicit Utf8ToLocale(const char *src)
+		:value(utf8_to_locale(src)) {}
+
+	~Utf8ToLocale();
+
+	Utf8ToLocale(const Utf8ToLocale &) = delete;
+	Utf8ToLocale &operator=(const Utf8ToLocale &) = delete;
+#else
+	explicit Utf8ToLocale(const char *src)
+		:value(src) {}
+#endif
+
+	const char *c_str() const {
+		return value;
+	}
+};
+
 #endif

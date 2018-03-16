@@ -57,12 +57,9 @@ album_lw_callback(unsigned idx, void *data)
 	assert(idx < list.size());
 
 	const char *str_utf8 = list[idx].c_str();
-	char *str = utf8_to_locale(str_utf8);
 
 	static char buf[BUFSIZE];
-	g_strlcpy(buf, str, sizeof(buf));
-	g_free(str);
-
+	g_strlcpy(buf, Utf8ToLocale(str_utf8).c_str(), sizeof(buf));
 	return buf;
 }
 
@@ -163,9 +160,8 @@ AlbumListPage::GetTitle(char *str, size_t size) const
 	if (artist.empty())
 		return _("Albums");
 
-	char *s1 = utf8_to_locale(artist.c_str());
-	g_snprintf(str, size, _("Albums of artist: %s"), s1);
-	g_free(s1);
+	g_snprintf(str, size, _("Albums of artist: %s"),
+		   Utf8ToLocale(artist.c_str()).c_str());
 	return str;
 }
 
@@ -193,9 +189,8 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
 	if (connection == nullptr)
 		return;
 
-	char *str = utf8_to_locale(_filter);
-	screen_status_printf(_("Adding \'%s\' to queue"), str);
-	g_free(str);
+	screen_status_printf(_("Adding \'%s\' to queue"),
+			     Utf8ToLocale(_filter).c_str());
 
 	mpd_search_add_db_songs(connection, true);
 	mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,

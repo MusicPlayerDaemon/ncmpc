@@ -104,9 +104,7 @@ ChatPage::ProcessMessage(const struct mpd_message &message)
 	   client-to-client messages anywhere else */
 	assert(g_strcmp0(mpd_message_get_channel(&message), chat_channel) == 0);
 
-	char *message_text = utf8_to_locale(mpd_message_get_text(&message));
-	Append(message_text);
-	g_free(message_text);
+	Append(Utf8ToLocale(mpd_message_get_text(&message)).c_str());
 
 	SetDirty();
 }

@@ -56,12 +56,9 @@ screen_artist_lw_callback(unsigned idx, void *data)
 	assert(idx < list.size());
 
 	const char *str_utf8 = list[idx].c_str();
-	char *str = utf8_to_locale(str_utf8);
 
 	static char buf[BUFSIZE];
-	g_strlcpy(buf, str, sizeof(buf));
-	g_free(str);
-
+	g_strlcpy(buf, Utf8ToLocale(str_utf8).c_str(), sizeof(buf));
 	return buf;
 }
 
@@ -112,10 +109,8 @@ paint_artist_callback(WINDOW *w, unsigned i,
 		      bool selected, const void *data)
 {
 	const auto &list = *(const std::vector<std::string> *)data;
-	char *p = utf8_to_locale(list[i].c_str());
-
-	screen_browser_paint_directory(w, width, selected, p);
-	g_free(p);
+	screen_browser_paint_directory(w, width, selected,
+				       Utf8ToLocale(list[i].c_str()).c_str());
 }
 
 void
@@ -151,9 +146,8 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter)
 	if (connection == nullptr)
 		return;
 
-	char *str = utf8_to_locale(_filter);
-	screen_status_printf(_("Adding \'%s\' to queue"), str);
-	g_free(str);
+	screen_status_printf(_("Adding \'%s\' to queue"),
+			     Utf8ToLocale(_filter).c_str());
 
 	mpd_search_add_db_songs(connection, true);
 	mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,

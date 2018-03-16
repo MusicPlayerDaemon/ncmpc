@@ -232,3 +232,12 @@ replace_locale_to_utf8(char *src)
 	return src;
 #endif
 }
+
+#ifdef ENABLE_LOCALE
+
+Utf8ToLocale::~Utf8ToLocale()
+{
+	g_free(value);
+}
+
+#endif

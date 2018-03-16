@@ -158,7 +158,7 @@ right_align_bytes(const gchar *data, size_t right, unsigned width)
 	dup[right] = 0;
 
 	while (dup[start] != 0) {
-		char *p = locale_to_utf8(dup + start), *q;
+		char *p = locale_to_utf8(dup + start);
 		unsigned p_width = utf8_width(p);
 
 		if (p_width < width) {
@@ -168,11 +168,9 @@ right_align_bytes(const gchar *data, size_t right, unsigned width)
 
 		gunichar c = g_utf8_get_char(p);
 		p[g_unichar_to_utf8(c, nullptr)] = 0;
-		q = utf8_to_locale(p);
-		g_free(p);
 
-		start += strlen(q);
-		g_free(q);
+		start += strlen(Utf8ToLocale(p).c_str());
+		g_free(p);
 	}
 
 	g_free(dup);
@@ -190,15 +188,12 @@ static inline size_t
 next_char_size(const gchar *data)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
-	char *p = locale_to_utf8(data), *q;
+	char *p = locale_to_utf8(data);
 
 	gunichar c = g_utf8_get_char(p);
 	p[g_unichar_to_utf8(c, nullptr)] = 0;
-	q = utf8_to_locale(p);
+	size_t size = strlen(Utf8ToLocale(p).c_str());
 	g_free(p);
-
-	size_t size = strlen(q);
-	g_free(q);
 
 	return size;
 #else

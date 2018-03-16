@@ -39,9 +39,8 @@ gcmp_list_from_path(struct mpdclient *c, const gchar *path,
 		    types & GCMP_TYPE_DIR) {
 			const struct mpd_directory *dir =
 				mpd_entity_get_directory(entity);
-			gchar *tmp = utf8_to_locale(mpd_directory_get_path(dir));
-			name = g_strconcat(tmp, "/", nullptr);
-			g_free(tmp);
+			name = g_strconcat(Utf8ToLocale(mpd_directory_get_path(dir)).c_str(),
+					   "/", nullptr);
 		} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG &&
 			   types & GCMP_TYPE_FILE) {
 			const struct mpd_song *song =

@@ -269,9 +269,8 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 		}
 
 		const auto *playlist = mpd_entity_get_playlist(entity);
-		char *str = utf8_to_locale(g_basename(mpd_playlist_get_path(playlist)));
-		char *buf = g_strdup_printf(_("Delete playlist %s?"), str);
-		g_free(str);
+		char *buf = g_strdup_printf(_("Delete playlist %s?"),
+					    Utf8ToLocale(g_basename(mpd_playlist_get_path(playlist))).c_str());
 		bool confirmed = screen_get_yesno(buf, false);
 		g_free(buf);
 
@@ -315,11 +314,9 @@ FileBrowserPage::GetTitle(char *str, size_t size) const
 		/* fall back to full path */
 		path = current_path;
 
-	char *path_locale = utf8_to_locale(path);
 	g_snprintf(str, size, "%s: %s",
 		   /* translators: caption of the browser screen */
-		   _("Browse"), path_locale);
-	g_free(path_locale);
+		   _("Browse"), Utf8ToLocale(path).c_str());
 	return str;
 }
 
