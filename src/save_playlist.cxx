@@ -132,8 +132,8 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 		return -1;
 	}
 
-	char *filename_utf8 = locale_to_utf8(filename);
-	if (!mpd_run_save(connection, filename_utf8)) {
+	const LocaleToUtf8 filename_utf8(filename);
+	if (!mpd_run_save(connection, filename_utf8.c_str())) {
 		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_EXIST &&
 		    mpd_connection_clear_error(connection)) {
@@ -142,30 +142,25 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 			g_free(buf);
 
 			if (!replace) {
-				g_free(filename_utf8);
 				g_free(filename);
 				screen_status_printf(_("Aborted"));
 				return -1;
 			}
 
-			if (!mpd_run_rm(connection, filename_utf8) ||
-			    !mpd_run_save(connection, filename_utf8)) {
+			if (!mpd_run_rm(connection, filename_utf8.c_str()) ||
+			    !mpd_run_save(connection, filename_utf8.c_str())) {
 				mpdclient_handle_error(c);
-				g_free(filename_utf8);
 				g_free(filename);
 				return -1;
 			}
 		} else {
 			mpdclient_handle_error(c);
-			g_free(filename_utf8);
 			g_free(filename);
 			return -1;
 		}
 	}
 
 	c->events |= MPD_IDLE_STORED_PLAYLIST;
-
-	g_free(filename_utf8);
 
 	/* success */
 	screen_status_printf(_("Saved %s"), filename);

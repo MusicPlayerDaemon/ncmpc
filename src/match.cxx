@@ -27,11 +27,7 @@
 static char *
 locale_casefold(const char *src)
 {
-	char *utf8 = locale_to_utf8(src);
-	char *folded = g_utf8_casefold(utf8, -1);
-
-	g_free(utf8);
-	return folded;
+	return g_utf8_casefold(LocaleToUtf8(src).c_str(), -1);
 }
 
 GRegex *

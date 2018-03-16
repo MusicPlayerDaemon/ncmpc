@@ -160,19 +160,21 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 		    int table, gchar *local_pattern)
 {
 	FileList *list;
-	gchar *filter_utf8 = locale_to_utf8(local_pattern);
+	const LocaleToUtf8 filter_utf8(local_pattern);
 
 	if (table == SEARCH_ARTIST_TITLE) {
 		mpd_command_list_begin(connection, false);
 
 		mpd_search_db_songs(connection, exact_match);
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_ARTIST, filter_utf8);
+					      MPD_TAG_ARTIST,
+					      filter_utf8.c_str());
 		mpd_search_commit(connection);
 
 		mpd_search_db_songs(connection, exact_match);
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_TITLE, filter_utf8);
+					      MPD_TAG_TITLE,
+					      filter_utf8.c_str());
 		mpd_search_commit(connection);
 
 		mpd_command_list_end(connection);
@@ -182,20 +184,20 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 	} else if (table == SEARCH_URI) {
 		mpd_search_db_songs(connection, exact_match);
 		mpd_search_add_uri_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      filter_utf8);
+					      filter_utf8.c_str());
 		mpd_search_commit(connection);
 
 		list = filelist_new_recv(connection);
 	} else {
 		mpd_search_db_songs(connection, exact_match);
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      (enum mpd_tag_type)table, filter_utf8);
+					      (enum mpd_tag_type)table,
+					      filter_utf8.c_str());
 		mpd_search_commit(connection);
 
 		list = filelist_new_recv(connection);
 	}
 
-	g_free(filter_utf8);
 	return list;
 }
 

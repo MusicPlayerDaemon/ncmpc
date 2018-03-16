@@ -331,9 +331,7 @@ handle_add_to_playlist(struct mpdclient *c)
 
 	/* add the path to the playlist */
 	if (path != nullptr) {
-		char *path_utf8 = locale_to_utf8(path);
-		mpdclient_cmd_add_path(c, path_utf8);
-		g_free(path_utf8);
+		mpdclient_cmd_add_path(c, LocaleToUtf8(path).c_str());
 	}
 
 	g_free(path);

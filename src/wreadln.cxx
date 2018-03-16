@@ -116,9 +116,7 @@ screen_to_bytes(const gchar *data, unsigned width)
 
 	while (true) {
 		dup[length] = 0;
-		char *p = locale_to_utf8(dup);
-		unsigned p_width = utf8_width(p);
-		g_free(p);
+		unsigned p_width = utf8_width(LocaleToUtf8(dup).c_str());
 		if (p_width <= width)
 			break;
 

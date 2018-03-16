@@ -240,4 +240,9 @@ Utf8ToLocale::~Utf8ToLocale()
 	g_free(value);
 }
 
+LocaleToUtf8::~LocaleToUtf8()
+{
+	g_free(value);
+}
+
 #endif

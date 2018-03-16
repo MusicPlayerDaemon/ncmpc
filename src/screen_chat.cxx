@@ -147,10 +147,9 @@ screen_chat_get_prefix()
 static void
 screen_chat_send_message(struct mpdclient *c, char *msg)
 {
-	char *utf8 = locale_to_utf8(msg);
 	char *prefix = screen_chat_get_prefix();
-	char *full_msg = g_strconcat(prefix, utf8, nullptr);
-	g_free(utf8);
+	char *full_msg = g_strconcat(prefix, LocaleToUtf8(msg).c_str(),
+				     nullptr);
 
 	(void) mpdclient_cmd_send_message(c, chat_channel, full_msg);
 	g_free(full_msg);
