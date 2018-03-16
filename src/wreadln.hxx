@@ -61,8 +61,6 @@ gchar *
 wreadln_masked(WINDOW *w,
 	       const gchar *prompt,
 	       const gchar *initial_value,
-	       unsigned x1,
-	       History *history,
-	       GCompletion *gcmp);
+	       unsigned x1);
 
 #endif

@@ -123,8 +123,7 @@ screen_read_password(const char *prompt)
 
 	if (prompt == nullptr)
 		prompt = _("Password");
-	char *ret = wreadln_masked(w, prompt, nullptr, window->size.width,
-				   nullptr, nullptr);
+	char *ret = wreadln_masked(w, prompt, nullptr, window->size.width);
 
 	curs_set(0);
 	return ret;
