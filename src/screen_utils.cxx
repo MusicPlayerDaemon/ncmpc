@@ -28,6 +28,8 @@
 #include "ncmpc.hxx"
 
 #include <mpd/client.h>
+
+#include <string.h>
 #include <ctype.h>
 
 void
@@ -131,7 +133,23 @@ screen_read_password(const char *prompt)
 static const char *
 CompletionDisplayString(const char *value)
 {
-	return g_basename(value);
+	const char *slash = strrchr(value, '/');
+	if (slash == nullptr)
+		return value;
+
+	if (slash[1] == 0) {
+		/* if the string ends with a slash (directory URIs
+		   usually do), backtrack to the preceding slash (if
+		   any) */
+		while (slash > value) {
+			--slash;
+
+			if (*slash == '/')
+				return slash + 1;
+		}
+	}
+
+	return slash;
 }
 
 void

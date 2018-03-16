@@ -1,5 +1,6 @@
 ncmpc 0.30 - not yet released
 * fix crash after pressing ^W in search screen
+* fix completion list
 * new color "progressbar-background"
 * build manual with Sphinx
 
