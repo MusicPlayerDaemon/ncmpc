@@ -46,6 +46,9 @@
 
 #include <mpd/client.h>
 
+#include <set>
+#include <string>
+
 #include <ctype.h>
 #include <string.h>
 #include <glib.h>
@@ -237,19 +240,19 @@ completion_strncmp(const gchar *s1, const gchar *s2, gsize n)
 #endif
 
 #ifndef NCMPC_MINI
-static void add_dir(GCompletion *gcmp, const char *dir, GList **dir_list,
-		    GList **list, struct mpdclient *c)
+static void
+add_dir(GCompletion *gcmp, const char *dir,
+	GList **list, struct mpdclient *c)
 {
 	g_completion_remove_items(gcmp, *list);
 	*list = string_list_remove(*list, dir);
 	*list = gcmp_list_from_path(c, dir, *list, GCMP_TYPE_RFILE);
 	g_completion_add_items(gcmp, *list);
-	*dir_list = g_list_append(*dir_list, g_strdup(dir));
 }
 
 struct completion_callback_data {
 	GList **list;
-	GList **dir_list;
+	std::set<std::string> dir_list;
 	struct mpdclient *c;
 };
 
@@ -257,7 +260,6 @@ static void
 add_pre_completion_cb(GCompletion *gcmp, const char *line, void *data)
 {
 	auto *tmp = (struct completion_callback_data *)data;
-	GList **dir_list = tmp->dir_list;
 	GList **list = tmp->list;
 	struct mpdclient *c = tmp->c;
 
@@ -265,10 +267,11 @@ add_pre_completion_cb(GCompletion *gcmp, const char *line, void *data)
 		/* create initial list */
 		*list = gcmp_list_from_path(c, "", nullptr, GCMP_TYPE_RFILE);
 		g_completion_add_items(gcmp, *list);
-	} else if (line && line[0] && line[strlen(line)-1]=='/' &&
-		   string_list_find(*dir_list, line) == nullptr) {
-		/* add directory content to list */
-		add_dir(gcmp, line, dir_list, list, c);
+	} else if (line && line[0] && line[strlen(line) - 1] == '/') {
+		auto i = tmp->dir_list.emplace(line);
+		if (i.second)
+			/* add directory content to list */
+			add_dir(gcmp, line, list, c);
 	}
 }
 
@@ -277,17 +280,17 @@ add_post_completion_cb(GCompletion *gcmp, const char *line,
 		       GList *items, void *data)
 {
 	auto *tmp = (struct completion_callback_data *)data;
-	GList **dir_list = tmp->dir_list;
 	GList **list = tmp->list;
 	struct mpdclient *c = tmp->c;
 
 	if (g_list_length(items) >= 1)
 		screen_display_completion_list(items);
 
-	if (line && line[0] && line[strlen(line) - 1] == '/' &&
-	    string_list_find(*dir_list, line) == nullptr) {
+	if (line && line[0] && line[strlen(line) - 1] == '/') {
 		/* add directory content to list */
-		add_dir(gcmp, line, dir_list, list, c);
+		auto i = tmp->dir_list.emplace(line);
+		if (i.second)
+			add_dir(gcmp, line, list, c);
 	}
 }
 #endif
@@ -301,12 +304,9 @@ handle_add_to_playlist(struct mpdclient *c)
 	g_completion_set_compare(gcmp, completion_strncmp);
 
 	GList *list = nullptr;
-	GList *dir_list = nullptr;
-	struct completion_callback_data data = {
-		.list = &list,
-		.dir_list = &dir_list,
-		.c = c,
-	};
+	struct completion_callback_data data;
+	data.list = &list;
+	data.c = c;
 
 	wrln_completion_callback_data = &data;
 	wrln_pre_completion_callback = add_pre_completion_cb;
@@ -328,7 +328,6 @@ handle_add_to_playlist(struct mpdclient *c)
 	wrln_post_completion_callback = nullptr;
 	g_completion_free(gcmp);
 	string_list_free(list);
-	string_list_free(dir_list);
 #endif
 
 	/* add the path to the playlist */
