@@ -97,23 +97,21 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 	constexpr size_t WRLN_MAX_LINE_SIZE = 1024;
 	int key = 65;
 
-	if (screen.findbuf) {
-		g_free(screen.findbuf);
-		screen.findbuf = nullptr;
-	}
-	screen.findbuf = (char *)g_malloc0(WRLN_MAX_LINE_SIZE);
+	char buffer[WRLN_MAX_LINE_SIZE];
+	std::fill_n(buffer, WRLN_MAX_LINE_SIZE, 0);
+
 	/* In screen.findbuf is the whole string which is displayed in the status_window
 	 * and search_str is the string the user entered (without the prompt) */
-	char *search_str = screen.findbuf + g_snprintf(screen.findbuf, WRLN_MAX_LINE_SIZE, "%s: ", JUMP_PROMPT);
+	char *search_str = buffer + g_snprintf(buffer, WRLN_MAX_LINE_SIZE, "%s: ", JUMP_PROMPT);
 	char *iter = search_str;
 
 	while(1) {
-		key = screen_getch(screen.findbuf);
+		key = screen_getch(buffer);
 		/* if backspace or delete was pressed, process instead of ending loop */
 		if (key == KEY_BACKSPACE || key == KEY_DC) {
 			int i;
-			if (search_str <= g_utf8_find_prev_char(screen.findbuf, iter))
-				iter = g_utf8_find_prev_char(screen.findbuf, iter);
+			if (search_str <= g_utf8_find_prev_char(buffer, iter))
+				iter = g_utf8_find_prev_char(buffer, iter);
 			for (i = 0; *(iter + i) != '\0'; i++)
 				*(iter + i) = '\0';
 			continue;
@@ -124,7 +122,7 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 		}
 		else {
 			*iter = key;
-			if (iter < screen.findbuf + WRLN_MAX_LINE_SIZE - 3)
+			if (iter < buffer + WRLN_MAX_LINE_SIZE - 3)
 				++iter;
 		}
 		lw->Jump(callback_fn, callback_data, search_str);
@@ -137,9 +135,8 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 		wrefresh(lw->w);
 	}
 
-	char *temp = g_strdup(search_str);
 	g_free(screen.findbuf);
-	screen.findbuf = temp;
+	screen.findbuf = g_strdup(search_str);
 
 	/* ncmpc should get the command */
 	keyboard_unread(key);
