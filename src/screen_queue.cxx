@@ -229,13 +229,11 @@ QueuePage::OnSongChange(const struct mpd_status *status)
 
 #ifndef NCMPC_MINI
 static void
-add_dir(GCompletion *gcmp, const char *dir,
-	GList **list, struct mpdclient *c)
+add_dir(Completion &completion, const char *dir,
+	struct mpdclient *c)
 {
-	g_completion_remove_items(gcmp, *list);
-	*list = string_list_remove(*list, dir);
-	*list = gcmp_list_from_path(c, dir, *list, GCMP_TYPE_RFILE);
-	g_completion_add_items(gcmp, *list);
+	completion.clear();
+	gcmp_list_from_path(c, dir, completion, GCMP_TYPE_RFILE);
 }
 
 class DatabaseCompletion final : public Completion {
@@ -254,7 +252,7 @@ public:
 protected:
 	/* virtual methods from class Completion */
 	void Pre(const char *value) override;
-	void Post(const char *value, GList *items) override;
+	void Post(const char *value, Range range) override;
 };
 
 void
@@ -262,27 +260,27 @@ DatabaseCompletion::Pre(const char *line)
 {
 	if (list == nullptr) {
 		/* create initial list */
-		list = gcmp_list_from_path(&c, "", nullptr, GCMP_TYPE_RFILE);
-		g_completion_add_items(gcmp, list);
+		gcmp_list_from_path(&c, "", *this, GCMP_TYPE_RFILE);
 	} else if (line && line[0] && line[strlen(line) - 1] == '/') {
 		auto i = dir_list.emplace(line);
 		if (i.second)
 			/* add directory content to list */
-			add_dir(gcmp, line, &list, &c);
+			add_dir(*this, line, &c);
 	}
 }
 
 void
-DatabaseCompletion::Post(const char *line, GList *items)
+DatabaseCompletion::Post(const char *line, Range range)
 {
-	if (g_list_length(items) >= 1)
-		screen_display_completion_list(items);
+	if (range.begin() != range.end() &&
+	    std::next(range.begin()) != range.end())
+		screen_display_completion_list(range);
 
 	if (line && line[0] && line[strlen(line) - 1] == '/') {
 		/* add directory content to list */
 		auto i = dir_list.emplace(line);
 		if (i.second)
-			add_dir(gcmp, line, &list, &c);
+			add_dir(*this, line, &c);
 	}
 }
 

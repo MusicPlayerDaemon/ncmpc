@@ -18,18 +18,20 @@
  */
 
 #include "db_completion.hxx"
+#include "Completion.hxx"
 #include "charset.hxx"
 #include "mpdclient.hxx"
 
 #include <glib.h>
 
-GList *
+void
 gcmp_list_from_path(struct mpdclient *c, const char *path,
-		    GList *list, int types)
+		    Completion &completion,
+		    int types)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
-		return list;
+		return;
 
 	mpd_send_list_meta(connection, path);
 
@@ -58,9 +60,7 @@ gcmp_list_from_path(struct mpdclient *c, const char *path,
 			continue;
 		}
 
-		list = g_list_append(list, name);
+		completion.emplace(name);
 		mpd_entity_free(entity);
 	}
-
-	return list;
 }

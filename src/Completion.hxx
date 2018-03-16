@@ -20,25 +20,71 @@
 #ifndef COMPLETION_HXX
 #define COMPLETION_HXX
 
-#include <glib.h>
+#include <set>
+#include <string>
 
 class Completion {
 protected:
-	GCompletion *const gcmp;
+	using List = std::set<std::string>;
+	List list;
 
 public:
-	Completion();
-	~Completion();
+	Completion() = default;
 
 	Completion(const Completion &) = delete;
 	Completion &operator=(const Completion &) = delete;
 
-	GList *Complete(const gchar *prefix, gchar **new_prefix) {
-		return g_completion_complete(gcmp, prefix, new_prefix);
+	bool empty() const {
+		return list.empty();
 	}
 
+	void clear() {
+		list.clear();
+	}
+
+	template<typename T>
+	void emplace(T &&value) {
+		list.emplace(std::forward<T>(value));
+	}
+
+	template<typename T>
+	void remove(T &&value) {
+		auto i = list.find(std::forward<T>(value));
+		if (i != list.end())
+			list.erase(i);
+	}
+
+	struct Range {
+		using const_iterator = List::const_iterator;
+		const_iterator _begin, _end;
+
+		bool operator==(const Range other) const {
+			return _begin == other._begin && _end == other._end;
+		}
+
+		bool operator!=(const Range other) const {
+			return !(*this == other);
+		}
+
+		const_iterator begin() const {
+			return _begin;
+		}
+
+		const_iterator end() const {
+			return _end;
+		}
+	};
+
+	struct Result {
+		std::string new_prefix;
+
+		Range range;
+	};
+
+	Result Complete(const std::string &prefix) const;
+
 	virtual void Pre(const char *value) = 0;
-	virtual void Post(const char *value, GList *list) = 0;
+	virtual void Post(const char *value, Range range) = 0;
 };
 
 #endif

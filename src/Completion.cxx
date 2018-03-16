@@ -19,26 +19,30 @@
 
 #include "Completion.hxx"
 
-#include <string.h>
+#include <assert.h>
 
-/**
- * Wrapper for strncmp().  We are not allowed to pass &strncmp to
- * g_completion_set_compare(), because strncmp() takes size_t where
- * g_completion_set_compare passes a gsize value.
- */
-static gint
-completion_strncmp(const gchar *s1, const gchar *s2, gsize n)
+static bool
+StartsWith(const std::string &haystack, const std::string &needle)
 {
-	return strncmp(s1, s2, n);
+	return haystack.length() >= needle.length() &&
+		std::equal(needle.begin(), needle.end(), haystack.begin());
 }
 
-Completion::Completion()
-	:gcmp(g_completion_new(nullptr))
+Completion::Result
+Completion::Complete(const std::string &prefix) const
 {
-	g_completion_set_compare(gcmp, completion_strncmp);
-}
+	auto lower = list.lower_bound(prefix);
+	if (lower == list.end() || !StartsWith(*lower, prefix))
+		return {std::string(), {lower, lower}};
 
-Completion::~Completion()
-{
-	g_completion_free(gcmp);
+	auto upper = list.upper_bound(prefix);
+	while (upper != list.end() && StartsWith(*upper, prefix))
+		++upper;
+
+	assert(upper != lower);
+
+	auto m = std::mismatch(lower->begin(), lower->end(),
+			       std::prev(upper)->begin()).first;
+
+	return {{lower->begin(), m}, {lower, upper}};
 }

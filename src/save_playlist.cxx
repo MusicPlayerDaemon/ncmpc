@@ -40,37 +40,32 @@
 
 class PlaylistNameCompletion final : public Completion {
 	struct mpdclient &c;
-	GList *list = nullptr;
 
 public:
 	explicit PlaylistNameCompletion(struct mpdclient &_c)
 		:c(_c) {}
 
-	~PlaylistNameCompletion() {
-		string_list_free(list);
-	}
-
 protected:
 	/* virtual methods from class Completion */
 	void Pre(const char *value) override;
-	void Post(const char *value, GList *items) override;
+	void Post(const char *value, Range range) override;
 };
 
 void
 PlaylistNameCompletion::Pre(gcc_unused const char *value)
 {
-	if (list == nullptr) {
+	if (empty()) {
 		/* create completion list */
-		list = gcmp_list_from_path(&c, "", nullptr, GCMP_TYPE_PLAYLIST);
-		g_completion_add_items(gcmp, list);
+		gcmp_list_from_path(&c, "", *this, GCMP_TYPE_PLAYLIST);
 	}
 }
 
 void
-PlaylistNameCompletion::Post(gcc_unused const char *value, GList *items)
+PlaylistNameCompletion::Post(gcc_unused const char *value, Range range)
 {
-	if (g_list_length(items) >= 1)
-		screen_display_completion_list(items);
+	if (range.begin() != range.end() &&
+	    std::next(range.begin()) != range.end())
+		screen_display_completion_list(range);
 }
 
 #endif

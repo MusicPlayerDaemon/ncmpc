@@ -424,19 +424,15 @@ _wreadln(WINDOW *w,
 		case TAB:
 #ifndef NCMPC_MINI
 			if (completion != nullptr) {
-				char *prefix = nullptr;
-				GList *list;
-
 				completion->Pre(wr.value.c_str());
-				list = completion->Complete(wr.value.c_str(), &prefix);
-				if (prefix) {
-					wr.value = prefix;
+				auto r = completion->Complete(wr.value.c_str());
+				if (!r.new_prefix.empty()) {
+					wr.value = std::move(r.new_prefix);
 					cursor_move_to_eol(&wr);
-					g_free(prefix);
 				} else
 					screen_bell();
 
-				completion->Post(wr.value.c_str(), list);
+				completion->Post(wr.value.c_str(), r.range);
 			}
 #endif
 			break;

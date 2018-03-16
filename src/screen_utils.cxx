@@ -152,34 +152,33 @@ CompletionDisplayString(const char *value)
 }
 
 void
-screen_display_completion_list(GList *list)
+screen_display_completion_list(Completion::Range range)
 {
-	static GList *prev_list = nullptr;
+	static Completion::Range prev_range;
 	static guint prev_length = 0;
 	static guint offset = 0;
 	WINDOW *w = screen->main_window.w;
 
-	unsigned length = g_list_length(list);
-	if (list == prev_list && length == prev_length) {
+	unsigned length = std::distance(range.begin(), range.end());
+	if (range == prev_range && length == prev_length) {
 		offset += screen->main_window.size.height;
 		if (offset >= length)
 			offset = 0;
 	} else {
-		prev_list = list;
+		prev_range = range;
 		prev_length = length;
 		offset = 0;
 	}
 
 	colors_use(w, COLOR_STATUS_ALERT);
 
-	GList *item = g_list_nth(list, offset);
-	for (unsigned y = 0; y < screen->main_window.size.height;
-	     ++y, item = item->next) {
+	auto i = std::next(range.begin(), offset);
+	for (unsigned y = 0; y < screen->main_window.size.height; ++y, ++i) {
 		wmove(w, y, 0);
-		if (item == nullptr)
+		if (i == range.end())
 			break;
 
-		const char *value = (const char *)item->data;
+		const char *value = i->c_str();
 		waddstr(w, CompletionDisplayString(value));
 		wclrtoeol(w);
 	}

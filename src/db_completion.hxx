@@ -20,8 +20,8 @@
 #ifndef DB_COMPLETION_H
 #define DB_COMPLETION_H
 
-typedef struct _GList GList;
 struct mpdclient;
+class Completion;
 
 #define GCMP_TYPE_DIR       (0x01 << 0)
 #define GCMP_TYPE_FILE      (0x01 << 1)
@@ -30,10 +30,11 @@ struct mpdclient;
 #define GCMP_TYPE_RPLAYLIST (GCMP_TYPE_DIR | GCMP_TYPE_PLAYLIST)
 
 /**
- * Create a list suitable for GCompletion from path.
+ * Create a list suitable for #Completion from path.
  */
-GList *
+void
 gcmp_list_from_path(struct mpdclient *c, const char *path,
-		    GList *list, int types);
+		    Completion &completion,
+		    int types);
 
 #endif

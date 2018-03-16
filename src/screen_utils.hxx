@@ -23,8 +23,7 @@
 #include "config.h"
 #include "command.hxx"
 #include "History.hxx"
-
-#include <glib.h>
+#include "Completion.hxx"
 
 struct mpdclient;
 class Completion;
@@ -51,6 +50,7 @@ std::string
 screen_readln(const char *prompt, const char *value,
 	      History *history, Completion *completion);
 
-void screen_display_completion_list(GList *list);
+void
+screen_display_completion_list(Completion::Range range);
 
 #endif
