@@ -176,14 +176,16 @@ screen_display_completion_list(GList *list)
 	unsigned y = 0;
 	while (y < screen->main_window.size.height) {
 		GList *item = g_list_nth(list, y+offset);
-
 		wmove(w, y++, 0);
-		if (item) {
-			const char *value = (const char *)item->data;
-			waddstr(w, CompletionDisplayString(value));
-		}
+		if (item == nullptr)
+			break;
+
+		const char *value = (const char *)item->data;
+		waddstr(w, CompletionDisplayString(value));
 		wclrtoeol(w);
 	}
+
+	wclrtobot(w);
 
 	wrefresh(w);
 	colors_use(w, COLOR_LIST);
