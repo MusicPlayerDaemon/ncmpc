@@ -178,11 +178,11 @@ screen_display_completion_list(GList *list)
 		GList *item = g_list_nth(list, y+offset);
 
 		wmove(w, y++, 0);
-		wclrtoeol(w);
 		if (item) {
 			const char *value = (const char *)item->data;
 			waddstr(w, CompletionDisplayString(value));
 		}
+		wclrtoeol(w);
 	}
 
 	wrefresh(w);
