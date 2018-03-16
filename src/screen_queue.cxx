@@ -300,17 +300,16 @@ handle_add_to_playlist(struct mpdclient *c)
 #endif
 
 	/* get path */
-	char *path = screen_readln(_("Add"),
-				   nullptr,
-				   nullptr,
-				   completion);
+	auto path = screen_readln(_("Add"),
+				  nullptr,
+				  nullptr,
+				  completion);
 
 	/* add the path to the playlist */
-	if (path != nullptr) {
-		mpdclient_cmd_add_path(c, LocaleToUtf8(path).c_str());
+	if (!path.empty()) {
+		mpdclient_cmd_add_path(c, LocaleToUtf8(path.c_str()).c_str());
 	}
 
-	g_free(path);
 	return 0;
 }
 

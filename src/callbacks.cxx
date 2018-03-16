@@ -34,12 +34,11 @@ _mpdclient_auth_callback(struct mpdclient *c, unsigned recursion)
 	if (recursion > 2)
 		return false;
 
-	char *password = screen_read_password(nullptr);
-	if (password == nullptr)
+	const auto password = screen_read_password(nullptr);
+	if (password.empty())
 		return false;
 
-	mpd_send_password(connection, password);
-	g_free(password);
+	mpd_send_password(connection, password.c_str());
 
 	mpd_response_finish(connection);
 	mpdclient_update(c);

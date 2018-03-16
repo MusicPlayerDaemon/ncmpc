@@ -44,10 +44,10 @@ int screen_getch(const char *prompt);
  */
 bool screen_get_yesno(const char *prompt, bool def);
 
-char *
+std::string
 screen_read_password(const char *prompt);
 
-char *
+std::string
 screen_readln(const char *prompt, const char *value,
 	      History *history, Completion *completion);
 

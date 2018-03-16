@@ -93,7 +93,7 @@ screen_get_yesno(const char *_prompt, bool def)
 		return def;
 }
 
-char *
+std::string
 screen_readln(const char *prompt,
 	      const char *value,
 	      History *history,
@@ -101,18 +101,17 @@ screen_readln(const char *prompt,
 {
 	auto *window = &screen->status_bar.GetWindow();
 	WINDOW *w = window->w;
-	char *line = nullptr;
 
 	wmove(w, 0,0);
 	curs_set(1);
 	colors_use(w, COLOR_STATUS_ALERT);
-	line = wreadln(w, prompt, value, window->size.width,
-		       history, completion);
+	auto result = wreadln(w, prompt, value, window->size.width,
+			      history, completion);
 	curs_set(0);
-	return line;
+	return std::move(result);
 }
 
-char *
+std::string
 screen_read_password(const char *prompt)
 {
 	auto *window = &screen->status_bar.GetWindow();
@@ -124,10 +123,10 @@ screen_read_password(const char *prompt)
 
 	if (prompt == nullptr)
 		prompt = _("Password");
-	char *ret = wreadln_masked(w, prompt, nullptr, window->size.width);
 
+	auto result = wreadln_masked(w, prompt, nullptr, window->size.width);
 	curs_set(0);
-	return ret;
+	return std::move(result);
 }
 
 static const char *

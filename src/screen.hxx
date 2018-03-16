@@ -35,6 +35,7 @@
 #include <glib.h>
 
 #include <memory>
+#include <string>
 #include <map>
 
 struct mpdclient;
@@ -94,7 +95,7 @@ private:
 	size_t buf_size;
 
 public:
-	char *findbuf;
+	std::string findbuf;
 	History find_history;
 
 #ifndef NCMPC_MINI

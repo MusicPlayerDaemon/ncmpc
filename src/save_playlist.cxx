@@ -91,13 +91,14 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 		PlaylistNameCompletion completion(*c);
 
 		/* query the user for a filename */
-		filename = screen_readln(_("Save queue as"),
-					 defaultname,
-					 nullptr,
-					 &completion);
-		if (filename == nullptr)
+		auto result = screen_readln(_("Save queue as"),
+					    defaultname,
+					    nullptr,
+					    &completion);
+		if (result.empty())
 			return -1;
 
+		filename = g_strdup(result.c_str());
 		filename = g_strstrip(filename);
 	} else
 #endif

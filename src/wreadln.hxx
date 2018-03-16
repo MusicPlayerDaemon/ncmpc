@@ -24,11 +24,13 @@
 #include "History.hxx"
 #include "ncmpc_curses.h"
 
+#include <string>
+
 class Completion;
 
 /* Note, wreadln calls curs_set() and noecho(), to enable cursor and
  * disable echo. wreadln will not restore these settings when exiting! */
-char *
+std::string
 wreadln(WINDOW *w,            /* the curses window to use */
 	const char *prompt, /* the prompt string or nullptr */
 	const char *initial_value, /* initial value or nullptr for a empty line
@@ -38,7 +40,7 @@ wreadln(WINDOW *w,            /* the curses window to use */
 	Completion *completion    /* a GCompletion structure or nullptr */
 	);
 
-char *
+std::string
 wreadln_masked(WINDOW *w,
 	       const char *prompt,
 	       const char *initial_value,

@@ -49,7 +49,6 @@ ScreenManager::ScreenManager()
 {
 	buf_size = layout.size.width;
 	buf = (char *)g_malloc(buf_size);
-	findbuf = nullptr;
 
 	if (!options.hardware_cursor)
 		leaveok(main_window.w, true);
@@ -60,7 +59,6 @@ ScreenManager::ScreenManager()
 ScreenManager::~ScreenManager()
 {
 	g_free(buf);
-	g_free(findbuf);
 
 #ifndef NCMPC_MINI
 	if (welcome_source_id != 0)

@@ -46,15 +46,12 @@ screen_find(ScreenManager &screen, ListWindow *lw, command_t findcmd,
 	switch (findcmd) {
 	case CMD_LIST_FIND:
 	case CMD_LIST_RFIND:
-		if (screen.findbuf) {
-			g_free(screen.findbuf);
-			screen.findbuf=nullptr;
-	}
+		screen.findbuf.clear();
 		/* fall through */
 
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		if (!screen.findbuf) {
+		if (screen.findbuf.empty()) {
 			char *value = options.find_show_last_pattern
 				? (char *) -1 : nullptr;
 			screen.findbuf=screen_readln(prompt,
@@ -63,21 +60,21 @@ screen_find(ScreenManager &screen, ListWindow *lw, command_t findcmd,
 						     nullptr);
 		}
 
-		if (screen.findbuf == nullptr)
+		if (screen.findbuf.empty())
 			return true;
 
 		found = reversed
 			? lw->ReverseFind(callback_fn, callback_data,
-					  screen.findbuf,
+					  screen.findbuf.c_str(),
 					  options.find_wrap,
 					  options.bell_on_wrap)
 			: lw->Find(callback_fn, callback_data,
-				   screen.findbuf,
+				   screen.findbuf.c_str(),
 				   options.find_wrap,
 				   options.bell_on_wrap);
 		if (!found) {
 			screen_status_printf(_("Unable to find \'%s\'"),
-					     screen.findbuf);
+					     screen.findbuf.c_str());
 			screen_bell();
 		}
 		return true;
@@ -135,8 +132,7 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 		wrefresh(lw->w);
 	}
 
-	g_free(screen.findbuf);
-	screen.findbuf = g_strdup(search_str);
+	screen.findbuf = search_str;
 
 	/* ncmpc should get the command */
 	keyboard_unread(key);

@@ -145,7 +145,7 @@ screen_chat_get_prefix()
 }
 
 static void
-screen_chat_send_message(struct mpdclient *c, char *msg)
+screen_chat_send_message(struct mpdclient *c, const char *msg)
 {
 	char *prefix = screen_chat_get_prefix();
 	char *full_msg = g_strconcat(prefix, LocaleToUtf8(msg).c_str(),
@@ -162,18 +162,16 @@ ChatPage::OnCommand(struct mpdclient &c, command_t cmd)
 		return true;
 
 	if (cmd == CMD_PLAY) {
-		char *message = screen_readln(_("Your message"), nullptr, nullptr, nullptr);
+		auto message = screen_readln(_("Your message"), nullptr, nullptr, nullptr);
 
 		/* the user entered an empty line */
-		if (message == nullptr)
+		if (message.empty())
 			return true;
 
 		if (CheckChatSupport(c))
-			screen_chat_send_message(&c, message);
+			screen_chat_send_message(&c, message.c_str());
 		else
 			screen_status_message(_("Message could not be sent"));
-
-		g_free(message);
 
 		return true;
 	}

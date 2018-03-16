@@ -102,7 +102,7 @@ static bool advanced_search_mode = false;
 
 class SearchPage final : public FileListPage {
 	History search_history;
-	gchar *pattern = nullptr;
+	std::string pattern;
 
 public:
 	SearchPage(ScreenManager &_screen, WINDOW *_w, Size size)
@@ -113,8 +113,6 @@ public:
 		lw.SetLength(G_N_ELEMENTS(help_text));
 		lw.hide_cursor = true;
 	}
-
-	~SearchPage() override;
 
 private:
 	void Clear(bool clear_pattern);
@@ -147,17 +145,15 @@ SearchPage::Clear(bool clear_pattern)
 		filelist = new FileList();
 		lw.SetLength(0);
 	}
-	if (clear_pattern) {
-		g_free(pattern);
-		pattern = nullptr;
-	}
+	if (clear_pattern)
+		pattern.clear();
 
 	SetDirty();
 }
 
 static FileList *
 search_simple_query(struct mpd_connection *connection, bool exact_match,
-		    int table, gchar *local_pattern)
+		    int table, const char *local_pattern)
 {
 	FileList *list;
 	const LocaleToUtf8 filter_utf8(local_pattern);
@@ -207,7 +203,7 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
  *-----------------------------------------------------------------------
  */
 static FileList *
-search_advanced_query(struct mpd_connection *connection, char *query)
+search_advanced_query(struct mpd_connection *connection, const char *query)
 {
 	advanced_search_mode = false;
 	if (strchr(query, ':') == nullptr)
@@ -318,7 +314,7 @@ search_advanced_query(struct mpd_connection *connection, char *query)
 }
 
 static FileList *
-do_search(struct mpdclient *c, char *query)
+do_search(struct mpdclient *c, const char *query)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
@@ -344,12 +340,12 @@ do_search(struct mpdclient *c, char *query)
 void
 SearchPage::Reload(struct mpdclient &c)
 {
-	if (pattern == nullptr)
+	if (pattern.empty())
 		return;
 
 	lw.hide_cursor = false;
 	delete filelist;
-	filelist = do_search(&c, pattern);
+	filelist = do_search(&c, pattern.c_str());
 	if (filelist == nullptr)
 		filelist = new FileList();
 	lw.SetLength(filelist->size());
@@ -367,13 +363,12 @@ SearchPage::Start(struct mpdclient &c)
 
 	Clear(true);
 
-	g_free(pattern);
 	pattern = screen_readln(_("Search"),
 				nullptr,
 				&search_history,
 				nullptr);
 
-	if (pattern == nullptr) {
+	if (pattern.empty()) {
 		lw.Reset();
 		return;
 	}
@@ -385,11 +380,6 @@ static Page *
 screen_search_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
 	return new SearchPage(_screen, w, size);
-}
-
-SearchPage::~SearchPage()
-{
-	g_free(pattern);
 }
 
 void
@@ -415,12 +405,12 @@ SearchPage::Paint() const
 const char *
 SearchPage::GetTitle(char *str, size_t size) const
 {
-	if (advanced_search_mode && pattern)
-		g_snprintf(str, size, _("Search: %s"), pattern);
-	else if (pattern)
+	if (advanced_search_mode && !pattern.empty())
+		g_snprintf(str, size, _("Search: %s"), pattern.c_str());
+	else if (!pattern.empty())
 		g_snprintf(str, size,
 			   _("Search: Results for %s [%s]"),
-			   pattern,
+			   pattern.c_str(),
 			   _(mode[options.search_mode].label));
 	else
 		g_snprintf(str, size, _("Search: Press %s for a new search [%s]"),

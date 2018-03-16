@@ -346,7 +346,7 @@ wreadln_delete_char(struct wreadln *wr, size_t x)
 
 /* libcurses version */
 
-static char *
+static std::string
 _wreadln(WINDOW *w,
 	 const char *prompt,
 	 const char *initial_value,
@@ -446,7 +446,7 @@ _wreadln(WINDOW *w,
 			if (history) {
 				history->pop_back();
 			}
-			return nullptr;
+			return {};
 
 		case KEY_LEFT:
 		case KEY_CTRL_B:
@@ -563,7 +563,7 @@ _wreadln(WINDOW *w,
 	return g_strdup(wr.value.c_str());
 }
 
-char *
+std::string
 wreadln(WINDOW *w,
 	const char *prompt,
 	const char *initial_value,
@@ -575,7 +575,7 @@ wreadln(WINDOW *w,
 			 history, completion, false);
 }
 
-char *
+std::string
 wreadln_masked(WINDOW *w,
 	       const char *prompt,
 	       const char *initial_value,
