@@ -92,12 +92,6 @@ SongListPage::Update(struct mpdclient &c, unsigned events)
 }
 
 class ArtistBrowserPage final : public ProxyPage {
-	enum class Mode {
-		ARTISTS,
-		ALBUMS,
-		SONGS,
-	} mode = Mode::ARTISTS;
-
 	ArtistListPage artist_list_page;
 	AlbumListPage album_list_page;
 	SongListPage song_list_page;
@@ -156,14 +150,12 @@ SongListPage::LoadSongList(struct mpdclient &c)
 void
 ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
 {
-	mode = Mode::ARTISTS;
 	SetCurrentPage(c, &artist_list_page);
 }
 
 void
 ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist)
 {
-	mode = Mode::ALBUMS;
 	album_list_page.SetArtist(std::move(_artist));
 	SetCurrentPage(c, &album_list_page);
 }
@@ -172,7 +164,6 @@ void
 ArtistBrowserPage::OpenSongList(struct mpdclient &c, std::string _artist,
 				std::string _album)
 {
-	mode = Mode::SONGS;
 	song_list_page.SetArtist(std::move(_artist));
 	song_list_page.SetAlbum(std::move(_album));
 	SetCurrentPage(c, &song_list_page);
