@@ -21,7 +21,11 @@
 #define WREADLN_H
 
 #include "config.h"
+#include "History.hxx"
 #include "ncmpc_curses.h"
+
+#include <list>
+#include <string>
 
 #include <glib.h>
 
@@ -48,7 +52,7 @@ gchar *wreadln(WINDOW *w,            /* the curses window to use */
 	       const gchar *initial_value, /* initial value or nullptr for a empty line
 					    * (char *) -1 = get value from history */
 	       unsigned x1,              /* the maximum x position or 0 */
-	       GList **history,     /* a pointer to a history list or nullptr */
+	       History *history, /* a pointer to a history list or nullptr */
 	       GCompletion *gcmp    /* a GCompletion structure or nullptr */
 	       );
 
@@ -57,7 +61,7 @@ wreadln_masked(WINDOW *w,
 	       const gchar *prompt,
 	       const gchar *initial_value,
 	       unsigned x1,
-	       GList **history,
+	       History *history,
 	       GCompletion *gcmp);
 
 #endif

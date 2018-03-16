@@ -362,12 +362,12 @@ _wreadln(WINDOW *w,
 	 const gchar *prompt,
 	 const gchar *initial_value,
 	 unsigned x1,
-	 GList **history,
+	 History *history,
 	 GCompletion *gcmp,
 	 bool masked)
 {
 	struct wreadln wr(w, masked);
-	GList *hlist = nullptr, *hcurrent = nullptr;
+	History::iterator hlist, hcurrent;
 
 #ifdef NCMPC_MINI
 	(void)gcmp;
@@ -393,19 +393,17 @@ _wreadln(WINDOW *w,
 
 	if (history) {
 		/* append the a new line to our history list */
-		*history = g_list_append(*history, g_malloc0(sizeof(wr.line)));
+		history->emplace_back();
 		/* hlist points to the current item in the history list */
-		hlist = g_list_last(*history);
-		hcurrent = hlist;
+		hcurrent = hlist = std::prev(history->end());
 	}
 
 	if (initial_value == (char *)-1) {
 		/* get previous history entry */
-		if (history && hlist->prev) {
+		if (history && hlist != history->begin()) {
 			/* get previous line */
-			hlist = hlist->prev;
-			g_strlcpy(wr.line, (char *)hlist->data,
-				  sizeof(wr.line));
+			--hlist;
+			g_strlcpy(wr.line, hlist->c_str(), sizeof(wr.line));
 		}
 		cursor_move_to_eol(&wr);
 		drawline(&wr);
@@ -463,9 +461,7 @@ _wreadln(WINDOW *w,
 		case KEY_CTRL_G:
 			screen_bell();
 			if (history) {
-				g_free(hcurrent->data);
-				hcurrent->data = nullptr;
-				*history = g_list_delete_link(*history, hcurrent);
+				history->pop_back();
 			}
 			return nullptr;
 
@@ -525,15 +521,14 @@ _wreadln(WINDOW *w,
 		case KEY_UP:
 		case KEY_CTRL_P:
 			/* get previous history entry */
-			if (history && hlist->prev) {
+			if (history && hlist != history->begin()) {
 				if (hlist == hcurrent)
 					/* save the current line */
-					g_strlcpy((char *)hlist->data, wr.line,
-						  sizeof(wr.line));
+					*hlist = wr.line;
 
 				/* get previous line */
-				hlist = hlist->prev;
-				g_strlcpy(wr.line, (char *)hlist->data,
+				--hlist;
+				g_strlcpy(wr.line, hlist->c_str(),
 					  sizeof(wr.line));
 			}
 			cursor_move_to_eol(&wr);
@@ -541,10 +536,10 @@ _wreadln(WINDOW *w,
 		case KEY_DOWN:
 		case KEY_CTRL_N:
 			/* get next history entry */
-			if (history && hlist->next) {
+			if (history && std::next(hlist) != history->end()) {
 				/* get next line */
-				hlist = hlist->next;
-				g_strlcpy(wr.line, (char *)hlist->data,
+				++hlist;
+				g_strlcpy(wr.line, hlist->c_str(),
 					  sizeof(wr.line));
 			}
 			cursor_move_to_eol(&wr);
@@ -570,24 +565,15 @@ _wreadln(WINDOW *w,
 	if (history) {
 		if (strlen(wr.line)) {
 			/* update the current history entry */
-			size_t size = strlen(wr.line) + 1;
-			hcurrent->data = g_realloc(hcurrent->data, size);
-			g_strlcpy((char *)hcurrent->data, wr.line, size);
+			*hcurrent = wr.line;
 		} else {
 			/* the line was empty - remove the current history entry */
-			g_free(hcurrent->data);
-			hcurrent->data = nullptr;
-			*history = g_list_delete_link(*history, hcurrent);
+			history->erase(hcurrent);
 		}
 
-		unsigned history_length = g_list_length(*history);
+		auto history_length = history->size();
 		while (history_length > wrln_max_history_length) {
-			GList *first = g_list_first(*history);
-
-			/* remove the oldest history entry  */
-			g_free(first->data);
-			first->data = nullptr;
-			*history = g_list_delete_link(*history, first);
+			history->pop_front();
 			--history_length;
 		}
 	}
@@ -603,7 +589,7 @@ wreadln(WINDOW *w,
 	const gchar *prompt,
 	const gchar *initial_value,
 	unsigned x1,
-	GList **history,
+	History *history,
 	GCompletion *gcmp)
 {
 	return  _wreadln(w, prompt, initial_value, x1, history, gcmp, false);
@@ -614,7 +600,7 @@ wreadln_masked(WINDOW *w,
 	       const gchar *prompt,
 	       const gchar *initial_value,
 	       unsigned x1,
-	       GList **history,
+	       History *history,
 	       GCompletion *gcmp)
 {
 	return  _wreadln(w, prompt, initial_value, x1, history, gcmp, true);

@@ -17,39 +17,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef SCREEN_UTILS_H
-#define SCREEN_UTILS_H
+#ifndef HISTORY_HXX
+#define HISTORY_HXX
 
-#include "config.h"
-#include "command.hxx"
-#include "History.hxx"
+#include <list>
+#include <string>
 
-#include <glib.h>
-
-struct mpdclient;
-
-/* sound an audible and/or visible bell */
-void screen_bell();
-
-/* read a character from the status window */
-int screen_getch(const char *prompt);
-
-/**
- * display a prompt, wait for the user to press a key, and compare it with
- * the default keys for "yes" and "no" (and their upper-case pendants).
- *
- * @returns true, if the user pressed the key for "yes"; false, if the user
- *	    pressed the key for "no"; def otherwise
- */
-bool screen_get_yesno(const char *prompt, bool def);
-
-char *
-screen_read_password(const char *prompt);
-
-char *
-screen_readln(const char *prompt, const char *value,
-	      History *history, GCompletion *gcmp);
-
-void screen_display_completion_list(GList *list);
+using History = std::list<std::string>;
 
 #endif

@@ -26,6 +26,7 @@
 #include "TitleBar.hxx"
 #include "ProgressBar.hxx"
 #include "StatusBar.hxx"
+#include "History.hxx"
 #include "Point.hxx"
 #include "ncmpc_curses.h"
 
@@ -94,7 +95,7 @@ private:
 
 public:
 	char *findbuf;
-	GList *find_history = nullptr;
+	History find_history;
 
 #ifndef NCMPC_MINI
 	/**

@@ -101,7 +101,7 @@ static const char *const help_text[] = {
 static bool advanced_search_mode = false;
 
 class SearchPage final : public FileListPage {
-	GList *search_history = nullptr;
+	History search_history;
 	gchar *pattern = nullptr;
 
 public:
@@ -389,9 +389,6 @@ screen_search_init(ScreenManager &_screen, WINDOW *w, Size size)
 
 SearchPage::~SearchPage()
 {
-	if (search_history)
-		string_list_free(search_history);
-
 	g_free(pattern);
 }
 

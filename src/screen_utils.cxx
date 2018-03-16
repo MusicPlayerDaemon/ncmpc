@@ -94,7 +94,7 @@ screen_get_yesno(const char *_prompt, bool def)
 char *
 screen_readln(const char *prompt,
 	      const char *value,
-	      GList **history,
+	      History *history,
 	      GCompletion *gcmp)
 {
 	auto *window = &screen->status_bar.GetWindow();

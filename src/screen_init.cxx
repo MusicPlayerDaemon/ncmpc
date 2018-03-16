@@ -59,7 +59,6 @@ ScreenManager::ScreenManager()
 
 ScreenManager::~ScreenManager()
 {
-	string_list_free(find_history);
 	g_free(buf);
 	g_free(findbuf);
 
