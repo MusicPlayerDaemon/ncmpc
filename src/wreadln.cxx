@@ -86,8 +86,7 @@ byte_to_screen(const char *data, size_t x)
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	assert(x <= strlen(data));
 
-	char *dup = g_strdup(data);
-	dup[x] = 0;
+	char *dup = g_strndup(data, x);
 	char *p = replace_locale_to_utf8(dup);
 
 	unsigned width = utf8_width(p);
@@ -142,13 +141,11 @@ static inline size_t
 right_align_bytes(const char *data, size_t right, unsigned width)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
-	char *dup;
 	size_t start = 0;
 
 	assert(right <= strlen(data));
 
-	dup = g_strdup(data);
-	dup[right] = 0;
+	char *dup = g_strndup(data, right);
 
 	while (dup[start] != 0) {
 		char *p = locale_to_utf8(dup + start);
