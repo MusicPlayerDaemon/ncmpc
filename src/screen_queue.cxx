@@ -238,16 +238,11 @@ add_dir(Completion &completion, const char *dir,
 
 class DatabaseCompletion final : public Completion {
 	struct mpdclient &c;
-	GList *list = nullptr;
 	std::set<std::string> dir_list;
 
 public:
 	explicit DatabaseCompletion(struct mpdclient &_c)
 		:c(_c) {}
-
-	~DatabaseCompletion() {
-		string_list_free(list);
-	}
 
 protected:
 	/* virtual methods from class Completion */
@@ -258,7 +253,7 @@ protected:
 void
 DatabaseCompletion::Pre(const char *line)
 {
-	if (list == nullptr) {
+	if (empty()) {
 		/* create initial list */
 		gcmp_list_from_path(&c, "", *this, GCMP_TYPE_RFILE);
 	} else if (line && line[0] && line[strlen(line) - 1] == '/') {
