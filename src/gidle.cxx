@@ -47,6 +47,17 @@ MpdIdleSource::MpdIdleSource(struct mpd_connection &_connection,
 	/* TODO check parser!=nullptr */
 }
 
+MpdIdleSource::~MpdIdleSource()
+{
+	if (id != 0)
+		g_source_remove(id);
+
+	g_io_channel_unref(channel);
+
+	mpd_parser_free(parser);
+
+}
+
 MpdIdleSource *
 mpd_glib_new(struct mpd_connection *connection,
 	     mpd_glib_callback_t callback, void *callback_ctx)
@@ -57,13 +68,6 @@ mpd_glib_new(struct mpd_connection *connection,
 void
 mpd_glib_free(MpdIdleSource *source)
 {
-	if (source->id != 0)
-		g_source_remove(source->id);
-
-	g_io_channel_unref(source->channel);
-
-	mpd_parser_free(source->parser);
-
 	delete source;
 }
 

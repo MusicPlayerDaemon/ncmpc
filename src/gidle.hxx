@@ -56,6 +56,7 @@ struct MpdIdleSource {
 
 	MpdIdleSource(struct mpd_connection &_connection,
 		      mpd_glib_callback_t _callback, void *_callback_ctx);
+	~MpdIdleSource();
 };
 
 MpdIdleSource *
