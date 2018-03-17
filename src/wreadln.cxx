@@ -553,10 +553,7 @@ _wreadln(WINDOW *w,
 		}
 	}
 
-	if (wr.value.empty())
-		return nullptr;
-
-	return g_strdup(wr.value.c_str());
+	return std::move(wr.value);
 }
 
 std::string
