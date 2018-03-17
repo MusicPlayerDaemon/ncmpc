@@ -26,10 +26,8 @@
 #include "ncmpc_curses.h"
 #include "Size.hxx"
 
+class ListText;
 class ListRenderer;
-
-typedef const char *
-(*list_window_callback_fn_t)(unsigned i, void *data);
 
 /**
  * The bounds of a range selection, see list_window_get_range().
@@ -189,7 +187,7 @@ struct ListWindow {
 	/**
 	 * Find a string in a list window.
 	 */
-	bool Find(list_window_callback_fn_t callback, void *callback_data,
+	bool Find(const ListText &text,
 		  const char *str,
 		  bool wrap,
 		  bool bell_on_wrap);
@@ -197,8 +195,7 @@ struct ListWindow {
 	/**
 	 * Find a string in a list window (reversed).
 	 */
-	bool ReverseFind(list_window_callback_fn_t callback,
-			 void *callback_data,
+	bool ReverseFind(const ListText &text,
 			 const char *str,
 			 bool wrap,
 			 bool bell_on_wrap);
@@ -207,8 +204,7 @@ struct ListWindow {
 	 * Find a string in a list window which begins with the given
 	 * characters in *str.
 	 */
-	bool Jump(list_window_callback_fn_t callback, void *callback_data,
-		  const char *str);
+	bool Jump(const ListText &text, const char *str);
 
 private:
 	gcc_pure

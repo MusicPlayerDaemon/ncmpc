@@ -47,15 +47,12 @@ CompareUTF8(const std::string &a, const std::string &b)
 	return n < 0;
 }
 
-/* list_window callback */
-static const char *
-screen_artist_lw_callback(unsigned idx, void *data)
+const char *
+ArtistListPage::GetListItemText(unsigned idx) const
 {
-	const auto &list = *(const std::vector<std::string> *)data;
+	assert(idx < artist_list.size());
 
-	assert(idx < list.size());
-
-	const char *str_utf8 = list[idx].c_str();
+	const char *str_utf8 = artist_list[idx].c_str();
 
 	static char buf[BUFSIZE];
 	g_strlcpy(buf, Utf8ToLocale(str_utf8).c_str(), sizeof(buf));
@@ -191,15 +188,12 @@ ArtistListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(screen, &lw, cmd,
-			    screen_artist_lw_callback, &artist_list);
+		screen_find(screen, &lw, cmd, *this);
 		SetDirty();
 		return true;
 
 	case CMD_LIST_JUMP:
-		screen_jump(screen, &lw,
-			    screen_artist_lw_callback, &artist_list,
-			    *this);
+		screen_jump(screen, &lw, *this, *this);
 		SetDirty();
 		return true;
 

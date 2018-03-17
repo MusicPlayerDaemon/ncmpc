@@ -21,6 +21,7 @@
 #define TEXT_PAGE_HXX
 
 #include "ListPage.hxx"
+#include "ListText.hxx"
 
 #include <vector>
 #include <string>
@@ -28,7 +29,7 @@
 struct mpdclient;
 class ScreenManager;
 
-class TextPage : public ListPage {
+class TextPage : public ListPage, ListText {
 protected:
 	ScreenManager &screen;
 
@@ -63,18 +64,14 @@ protected:
 		wrefresh(lw.w);
 	}
 
-private:
-	const char *ListCallback(unsigned idx) const;
-
-	static const char *ListCallback(unsigned idx, void *data) {
-		const auto &p = *(const TextPage *)data;
-		return p.ListCallback(idx);
-	}
-
 public:
 	/* virtual methods from class Page */
 	void Paint() const override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+
+private:
+	/* virtual methods from class ListText */
+	const char *GetListItemText(unsigned i) const override;
 };
 
 #endif

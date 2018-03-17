@@ -20,6 +20,7 @@
 #include "screen_keydef.hxx"
 #include "screen_interface.hxx"
 #include "ListPage.hxx"
+#include "ListText.hxx"
 #include "TextListRenderer.hxx"
 #include "ProxyPage.hxx"
 #include "screen_status.hxx"
@@ -38,7 +39,7 @@
 #include <string.h>
 #include <glib.h>
 
-class CommandKeysPage final : public ListPage {
+class CommandKeysPage final : public ListPage, ListText {
 	ScreenManager &screen;
 
 	command_definition_t *cmds;
@@ -116,19 +117,16 @@ private:
 	 */
 	void AddKey(int cmd_index);
 
-	const char *ListCallback(unsigned idx) const;
-
-	static const char *ListCallback(unsigned idx, void *data) {
-		const auto &p = *(const CommandKeysPage *)data;
-		return p.ListCallback(idx);
-	}
-
 public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 	void Paint() const override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
+
+private:
+	/* virtual methods from class ListText */
+	const char *GetListItemText(unsigned i) const override;
 };
 
 /* TODO: rename to check_n_keys / subcmd_count_keys? */
@@ -222,7 +220,7 @@ CommandKeysPage::AddKey(int cmd_index)
 }
 
 const char *
-CommandKeysPage::ListCallback(unsigned idx) const
+CommandKeysPage::GetListItemText(unsigned idx) const
 {
 	static char buf[256];
 
@@ -260,8 +258,7 @@ CommandKeysPage::GetTitle(char *str, size_t size) const
 void
 CommandKeysPage::Paint() const
 {
-	lw.Paint(TextListRenderer(ListCallback,
-				  const_cast<CommandKeysPage *>(this)));
+	lw.Paint(TextListRenderer(*this));
 }
 
 bool
@@ -297,7 +294,7 @@ CommandKeysPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(screen, &lw, cmd, ListCallback, this);
+		screen_find(screen, &lw, cmd, *this);
 		SetDirty();
 		return true;
 
@@ -310,7 +307,7 @@ CommandKeysPage::OnCommand(struct mpdclient &c, command_t cmd)
 	return false;
 }
 
-class CommandListPage final : public ListPage {
+class CommandListPage final : public ListPage, ListText {
 	ScreenManager &screen;
 
 	command_definition_t *cmds = nullptr;
@@ -369,20 +366,16 @@ public:
 	void Apply();
 	void Save();
 
-private:
-	const char *ListCallback(unsigned idx) const;
-
-	static const char *ListCallback(unsigned idx, void *data) {
-		const auto &p = *(const CommandListPage *)data;
-		return p.ListCallback(idx);
-	}
-
 public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 	void Paint() const override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
+
+private:
+	/* virtual methods from class ListText */
+	const char *GetListItemText(unsigned i) const override;
 };
 
 bool
@@ -440,7 +433,7 @@ CommandListPage::Save()
 }
 
 const char *
-CommandListPage::ListCallback(unsigned idx) const
+CommandListPage::GetListItemText(unsigned idx) const
 {
 	static char buf[256];
 
@@ -497,8 +490,7 @@ CommandListPage::GetTitle(char *, size_t) const
 void
 CommandListPage::Paint() const
 {
-	lw.Paint(TextListRenderer(ListCallback,
-				  const_cast<CommandListPage *>(this)));
+	lw.Paint(TextListRenderer(*this));
 }
 
 bool
@@ -527,7 +519,7 @@ CommandListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(screen, &lw, cmd, ListCallback, this);
+		screen_find(screen, &lw, cmd, *this);
 		SetDirty();
 		return true;
 

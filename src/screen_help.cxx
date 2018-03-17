@@ -21,6 +21,7 @@
 #include "screen_interface.hxx"
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
+#include "ListText.hxx"
 #include "screen_find.hxx"
 #include "paint.hxx"
 #include "charset.hxx"
@@ -198,7 +199,7 @@ static const struct help_text_row help_text[] = {
 #endif
 };
 
-class HelpPage final : public ListPage, ListRenderer {
+class HelpPage final : public ListPage, ListRenderer, ListText {
 	ScreenManager &screen;
 
 public:
@@ -214,6 +215,9 @@ public:
 			   unsigned y, unsigned width,
 			   bool selected) const override;
 
+	/* virtual methods from class ListText */
+	const char *GetListItemText(unsigned i) const override;
+
 	/* virtual methods from class Page */
 	void Paint() const override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
@@ -223,8 +227,8 @@ public:
 	}
 };
 
-static const char *
-list_callback(unsigned i, gcc_unused void *data)
+const char *
+HelpPage::GetListItemText(unsigned i) const
 {
 	const struct help_text_row *row = &help_text[i];
 
@@ -290,7 +294,7 @@ HelpPage::OnCommand(struct mpdclient &c, command_t cmd)
 		return true;
 
 	lw.SetCursor(lw.start);
-	if (screen_find(screen, &lw, cmd, list_callback, nullptr)) {
+	if (screen_find(screen, &lw, cmd, *this)) {
 		/* center the row */
 		lw.Center(lw.selected);
 		SetDirty();

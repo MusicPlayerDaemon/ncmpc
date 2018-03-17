@@ -19,6 +19,7 @@
 
 #include "ListWindow.hxx"
 #include "ListRenderer.hxx"
+#include "ListText.hxx"
 #include "config.h"
 #include "options.hxx"
 #include "charset.hxx"
@@ -325,8 +326,7 @@ ListWindow::Paint(const ListRenderer &renderer) const
 }
 
 bool
-ListWindow::Find(list_window_callback_fn_t callback,
-		 void *callback_data,
+ListWindow::Find(const ListText &text,
 		 const char *str,
 		 bool wrap,
 		 bool bell_on_wrap)
@@ -337,7 +337,7 @@ ListWindow::Find(list_window_callback_fn_t callback,
 
 	do {
 		while (i < length) {
-			const char *label = callback(i, callback_data);
+			const char *label = text.GetListItemText(i);
 			assert(label != nullptr);
 
 			if (match_line(label, str)) {
@@ -362,8 +362,7 @@ ListWindow::Find(list_window_callback_fn_t callback,
 }
 
 bool
-ListWindow::ReverseFind(list_window_callback_fn_t callback,
-			void *callback_data,
+ListWindow::ReverseFind(const ListText &text,
 			const char *str,
 			bool wrap,
 			bool bell_on_wrap)
@@ -377,7 +376,7 @@ ListWindow::ReverseFind(list_window_callback_fn_t callback,
 
 	do {
 		while (i >= 0) {
-			const char *label = callback(i, callback_data);
+			const char *label = text.GetListItemText(i);
 			assert(label != nullptr);
 
 			if (match_line(label, str)) {
@@ -401,14 +400,12 @@ ListWindow::ReverseFind(list_window_callback_fn_t callback,
 
 #ifdef NCMPC_MINI
 bool
-ListWindow::Jump(list_window_callback_fn_t callback,
-		 void *callback_data,
-		 const char *str)
+ListWindow::Jump(const ListText &text, const char *str)
 {
 	assert(str != nullptr);
 
 	for (unsigned i = 0; i < length; i++) {
-		const char *label = callback(i, callback_data);
+		const char *label = text.GetListItemText(i);
 		assert(label != nullptr);
 
 		if (g_ascii_strncasecmp(label, str, strlen(str)) == 0) {
@@ -420,9 +417,7 @@ ListWindow::Jump(list_window_callback_fn_t callback,
 }
 #else
 bool
-ListWindow::Jump(list_window_callback_fn_t callback,
-		 void *callback_data,
-		 const char *str)
+ListWindow::Jump(const ListText &text, const char *str)
 {
 	assert(str != nullptr);
 
@@ -431,7 +426,7 @@ ListWindow::Jump(list_window_callback_fn_t callback,
 		return false;
 
 	for (unsigned i = 0; i < length; i++) {
-		const char *label = callback(i, callback_data);
+		const char *label = text.GetListItemText(i);
 		assert(label != nullptr);
 
 		if (match_regex(regex, label)) {

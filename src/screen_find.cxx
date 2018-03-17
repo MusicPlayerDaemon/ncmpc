@@ -21,6 +21,7 @@
 #include "screen_utils.hxx"
 #include "screen_status.hxx"
 #include "screen.hxx"
+#include "ListWindow.hxx"
 #include "keyboard.hxx"
 #include "i18n.h"
 #include "options.hxx"
@@ -32,8 +33,7 @@
 /* query user for a string and find it in a list window */
 bool
 screen_find(ScreenManager &screen, ListWindow *lw, command_t findcmd,
-	    list_window_callback_fn_t callback_fn,
-	    void *callback_data)
+	    const ListText &text)
 {
 	bool found;
 	const char *prompt = FIND_PROMPT;
@@ -64,11 +64,11 @@ screen_find(ScreenManager &screen, ListWindow *lw, command_t findcmd,
 			return true;
 
 		found = reversed
-			? lw->ReverseFind(callback_fn, callback_data,
+			? lw->ReverseFind(text,
 					  screen.findbuf.c_str(),
 					  options.find_wrap,
 					  options.bell_on_wrap)
-			: lw->Find(callback_fn, callback_data,
+			: lw->Find(text,
 				   screen.findbuf.c_str(),
 				   options.find_wrap,
 				   options.bell_on_wrap);
@@ -88,7 +88,7 @@ screen_find(ScreenManager &screen, ListWindow *lw, command_t findcmd,
  * which begins with this string while the users types */
 void
 screen_jump(ScreenManager &screen, ListWindow *lw,
-	    list_window_callback_fn_t callback_fn, void *callback_data,
+	    const ListText &text,
 	    const ListRenderer &renderer)
 {
 	constexpr size_t WRLN_MAX_LINE_SIZE = 1024;
@@ -122,7 +122,7 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 			if (iter < buffer + WRLN_MAX_LINE_SIZE - 3)
 				++iter;
 		}
-		lw->Jump(callback_fn, callback_data, search_str);
+		lw->Jump(text, search_str);
 
 		/* repaint the list_window */
 		lw->Paint(renderer);

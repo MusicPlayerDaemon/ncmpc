@@ -72,7 +72,7 @@ TextPage::Append(const char *str)
 }
 
 const char *
-TextPage::ListCallback(unsigned idx) const
+TextPage::GetListItemText(unsigned idx) const
 {
 	assert(idx < lines.size());
 
@@ -85,7 +85,7 @@ TextPage::ListCallback(unsigned idx) const
 void
 TextPage::Paint() const
 {
-	lw.Paint(TextListRenderer(ListCallback, const_cast<TextPage *>(this)));
+	lw.Paint(TextListRenderer(*this));
 }
 
 bool
@@ -95,7 +95,7 @@ TextPage::OnCommand(struct mpdclient &c, command_t cmd)
 		return true;
 
 	lw.SetCursor(lw.start);
-	if (screen_find(screen, &lw, cmd, ListCallback, this)) {
+	if (screen_find(screen, &lw, cmd, *this)) {
 		/* center the row */
 		lw.Center(lw.selected);
 		SetDirty();

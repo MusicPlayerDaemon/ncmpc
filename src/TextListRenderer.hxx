@@ -20,19 +20,17 @@
 #ifndef NCMPC_TEXT_LIST_RENDERER_HXX
 #define NCMPC_TEXT_LIST_RENDERER_HXX
 
-#include "ListWindow.hxx"
 #include "ListRenderer.hxx"
 
 class ScreenManager;
+class ListText;
 
 class TextListRenderer final : public ListRenderer {
-	list_window_callback_fn_t callback;
-	void *callback_data;
+	const ListText &text;
 
 public:
-	TextListRenderer(list_window_callback_fn_t _callback,
-			 void *_callback_data)
-		:callback(_callback), callback_data(_callback_data) {}
+	explicit TextListRenderer(const ListText &_text)
+		:text(_text) {}
 
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,

@@ -17,27 +17,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "config.h"
-#include "TextListRenderer.hxx"
-#include "ListText.hxx"
-#include "paint.hxx"
+#ifndef LIST_TEXT_HXX
+#define LIST_TEXT_HXX
 
-#include <assert.h>
+class ListText {
+public:
+	virtual const char *GetListItemText(unsigned i) const = 0;
+};
 
-static void
-list_window_paint_row(WINDOW *w, unsigned width, bool selected,
-		      const char *text)
-{
-	row_paint_text(w, width, COLOR_LIST,
-		       selected, text);
-}
-
-void
-TextListRenderer::PaintListItem(WINDOW *w, unsigned i, unsigned,
-				unsigned width, bool selected) const
-{
-	const char *label = text.GetListItemText(i);
-	assert(label != nullptr);
-
-	list_window_paint_row(w, width, selected, label);
-}
+#endif

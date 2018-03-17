@@ -73,17 +73,15 @@ screen_browser_sync_highlights(FileList *fl, const MpdQueue *playlist)
 
 #endif
 
-/* list_window callback */
-static const char *
-browser_lw_callback(unsigned idx, void *data)
+const char *
+FileListPage::GetListItemText(unsigned idx) const
 {
-	const auto *fl = (const FileList *) data;
 	static char buf[BUFSIZE];
 
-	assert(fl != nullptr);
-	assert(idx < fl->size());
+	assert(filelist != nullptr);
+	assert(idx < filelist->size());
 
-	const auto &entry = (*fl)[idx];
+	const auto &entry = (*filelist)[idx];
 	const auto *entity = entry.entity;
 
 	if( entity == nullptr )
@@ -381,13 +379,11 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(screen, &lw, cmd, browser_lw_callback, filelist);
+		screen_find(screen, &lw, cmd, *this);
 		SetDirty();
 		return true;
 	case CMD_LIST_JUMP:
-		screen_jump(screen, &lw,
-			    browser_lw_callback, filelist,
-			    *this);
+		screen_jump(screen, &lw, *this, *this);
 		SetDirty();
 		return true;
 

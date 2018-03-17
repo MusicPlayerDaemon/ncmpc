@@ -129,13 +129,15 @@ public:
 };
 
 /* search info */
-static const char *
-lw_search_help_callback(unsigned idx, gcc_unused void *data)
-{
-	assert(idx < G_N_ELEMENTS(help_text));
+class SearchHelpText final : public ListText {
+public:
+	/* virtual methods from class ListText */
+	const char *GetListItemText(unsigned idx) const override {
+		assert(idx < G_N_ELEMENTS(help_text));
 
-	return help_text[idx];
-}
+		return help_text[idx];
+	}
+};
 
 void
 SearchPage::Clear(bool clear_pattern)
@@ -398,7 +400,7 @@ SearchPage::Paint() const
 	if (filelist) {
 		FileListPage::Paint();
 	} else {
-		lw.Paint(TextListRenderer(lw_search_help_callback, nullptr));
+		lw.Paint(TextListRenderer(SearchHelpText()));
 	}
 }
 

@@ -21,10 +21,11 @@
 #define NCMPC_SCREEN_FIND_H
 
 #include "command.hxx"
-#include "ListWindow.hxx"
 
 class ScreenManager;
+class ListWindow;
 class ListRenderer;
+class ListText;
 
 /**
  * query user for a string and find it in a list window
@@ -38,14 +39,12 @@ class ListRenderer;
 bool
 screen_find(ScreenManager &screen, ListWindow *lw,
 	    command_t findcmd,
-	    list_window_callback_fn_t callback_fn,
-	    void *callback_data);
+	    const ListText &text);
 
 /* query user for a string and jump to the entry
  * which begins with this string while the users types */
 void
 screen_jump(ScreenManager &screen, ListWindow *lw,
-	    list_window_callback_fn_t callback_fn, void *callback_data,
-	    const ListRenderer &renderer);
+	    const ListText &text, const ListRenderer &renderer);
 
 #endif

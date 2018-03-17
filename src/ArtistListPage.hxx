@@ -22,13 +22,14 @@
 
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
+#include "ListText.hxx"
 
 #include <vector>
 #include <string>
 
 class ScreenManager;
 
-class ArtistListPage final : public ListPage, ListRenderer {
+class ArtistListPage final : public ListPage, ListRenderer, ListText {
 	ScreenManager &screen;
 	std::vector<std::string> artist_list;
 
@@ -58,6 +59,9 @@ public:
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
 			   bool selected) const override;
+
+	/* virtual methods from class ListText */
+	const char *GetListItemText(unsigned i) const override;
 };
 
 #endif

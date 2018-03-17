@@ -20,6 +20,7 @@
 #include "screen_song.hxx"
 #include "screen_interface.hxx"
 #include "ListPage.hxx"
+#include "ListText.hxx"
 #include "TextListRenderer.hxx"
 #include "screen_file.hxx"
 #include "screen_lyrics.hxx"
@@ -98,7 +99,7 @@ static unsigned max_stats_label_width;
 
 static struct mpd_song *next_song;
 
-class SongPage final : public ListPage {
+class SongPage final : public ListPage, ListText {
 	ScreenManager &screen;
 
 	mpd_song *selected_song = nullptr;
@@ -142,6 +143,10 @@ public:
 	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, command_t cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
+
+private:
+	/* virtual methods from class ListText */
+	const char *GetListItemText(unsigned i) const override;
 };
 
 void
@@ -159,11 +164,9 @@ SongPage::Clear()
 	}
 }
 
-static const char *
-screen_song_list_callback(unsigned idx, void *data)
+const char *
+SongPage::GetListItemText(unsigned idx) const
 {
-	const auto &lines = *(const std::vector<std::string> *)data;
-
 	return lines[idx].c_str();
 }
 
@@ -197,8 +200,7 @@ SongPage::GetTitle(gcc_unused char *str, gcc_unused size_t size) const
 void
 SongPage::Paint() const
 {
-	lw.Paint(TextListRenderer(screen_song_list_callback,
-				  const_cast<void *>((const void *)&lines)));
+	lw.Paint(TextListRenderer(*this));
 }
 
 void
@@ -529,7 +531,7 @@ SongPage::OnCommand(struct mpdclient &c, command_t cmd)
 		break;
 	}
 
-	if (screen_find(screen, &lw, cmd, screen_song_list_callback, &lines)) {
+	if (screen_find(screen, &lw, cmd, *this)) {
 		/* center the row */
 		lw.Center(lw.selected);
 		SetDirty();

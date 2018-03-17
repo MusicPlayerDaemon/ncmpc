@@ -21,6 +21,7 @@
 #include "screen_interface.hxx"
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
+#include "ListText.hxx"
 #include "screen_file.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
@@ -56,7 +57,7 @@
 
 #define MAX_SONG_LENGTH 512
 
-class QueuePage final : public ListPage, ListRenderer {
+class QueuePage final : public ListPage, ListRenderer, ListText {
 	ScreenManager &screen;
 
 #ifndef NCMPC_MINI
@@ -109,6 +110,9 @@ private:
 	void PaintListItem(WINDOW *w, unsigned i,
 			   unsigned y, unsigned width,
 			   bool selected) const override;
+
+	/* virtual methods from class ListText */
+	const char *GetListItemText(unsigned i) const override;
 
 public:
 	/* virtual methods from class Page */
@@ -164,15 +168,14 @@ QueuePage::RestoreSelection()
 	SaveSelection();
 }
 
-static const char *
-screen_queue_lw_callback(unsigned idx, void *data)
+const char *
+QueuePage::GetListItemText(unsigned idx) const
 {
-	auto &playlist = *(MpdQueue *)data;
 	static char songname[MAX_SONG_LENGTH];
 
-	assert(idx < playlist.size());
+	assert(idx < playlist->size());
 
-	const auto &song = playlist[idx];
+	const auto &song = (*playlist)[idx];
 	strfsong(songname, MAX_SONG_LENGTH, options.list_format, &song);
 
 	return songname;
@@ -512,14 +515,12 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(screen, &lw, cmd,
-			    screen_queue_lw_callback, &c.playlist);
+		screen_find(screen, &lw, cmd, *this);
 		SaveSelection();
 		SetDirty();
 		return true;
 	case CMD_LIST_JUMP:
-		screen_jump(screen, &lw, screen_queue_lw_callback, &c.playlist,
-			    *this);
+		screen_jump(screen, &lw, *this, *this);
 		SaveSelection();
 		SetDirty();
 		return true;

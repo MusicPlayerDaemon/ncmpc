@@ -48,35 +48,23 @@ CompareUTF8(const std::string &a, const std::string &b)
 	return n < 0;
 }
 
-/* list_window callback */
-static const char *
-album_lw_callback(unsigned idx, void *data)
+const char *
+AlbumListPage::GetListItemText(unsigned idx) const
 {
-	const auto &list = *(const std::vector<std::string> *)data;
-
-	assert(idx < list.size());
-
-	const char *str_utf8 = list[idx].c_str();
-
-	static char buf[BUFSIZE];
-	g_strlcpy(buf, Utf8ToLocale(str_utf8).c_str(), sizeof(buf));
-	return buf;
-}
-
-/* list_window callback */
-static const char *
-AlbumListCallback(unsigned idx, void *data)
-{
-	const auto &list = *(const std::vector<std::string> *)data;
-
 	if (idx == 0)
 		return "..";
-	else if (idx == list.size() + 1)
+	else if (idx == album_list.size() + 1)
 		return _("All tracks");
 
 	--idx;
 
-	return album_lw_callback(idx, data);
+	assert(idx < album_list.size());
+
+	const char *str_utf8 = album_list[idx].c_str();
+
+	static char buf[BUFSIZE];
+	g_strlcpy(buf, Utf8ToLocale(str_utf8).c_str(), sizeof(buf));
+	return buf;
 }
 
 static void
@@ -240,15 +228,12 @@ AlbumListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_RFIND:
 	case CMD_LIST_FIND_NEXT:
 	case CMD_LIST_RFIND_NEXT:
-		screen_find(screen, &lw, cmd,
-			    AlbumListCallback, &album_list);
+		screen_find(screen, &lw, cmd, *this);
 		SetDirty();
 		return true;
 
 	case CMD_LIST_JUMP:
-		screen_jump(screen, &lw,
-			    AlbumListCallback, &album_list,
-			    *this);
+		screen_jump(screen, &lw, *this, *this);
 		SetDirty();
 		return true;
 

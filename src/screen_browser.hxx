@@ -25,6 +25,7 @@
 #include "ncmpc_curses.h"
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
+#include "ListText.hxx"
 
 struct mpdclient;
 struct MpdQueue;
@@ -32,7 +33,7 @@ class ScreenManager;
 class FileList;
 struct FileListEntry;
 
-class FileListPage : public ListPage, ListRenderer {
+class FileListPage : public ListPage, ListRenderer, ListText {
 protected:
 	ScreenManager &screen;
 
@@ -76,6 +77,9 @@ private:
 	void PaintListItem(WINDOW *w, unsigned i,
 			   unsigned y, unsigned width,
 			   bool selected) const final;
+
+	/* virtual methods from class ListText */
+	const char *GetListItemText(unsigned i) const override;
 
 public:
 	/* virtual methods from class Page */
