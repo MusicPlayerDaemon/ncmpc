@@ -199,7 +199,7 @@ ArtistListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_JUMP:
 		screen_jump(screen, &lw,
 			    screen_artist_lw_callback, &artist_list,
-			    this);
+			    *this);
 		SetDirty();
 		return true;
 

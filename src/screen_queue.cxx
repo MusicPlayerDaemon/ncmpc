@@ -519,7 +519,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		return true;
 	case CMD_LIST_JUMP:
 		screen_jump(screen, &lw, screen_queue_lw_callback, &c.playlist,
-			    this);
+			    *this);
 		SaveSelection();
 		SetDirty();
 		return true;

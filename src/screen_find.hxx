@@ -46,6 +46,6 @@ screen_find(ScreenManager &screen, ListWindow *lw,
 void
 screen_jump(ScreenManager &screen, ListWindow *lw,
 	    list_window_callback_fn_t callback_fn, void *callback_data,
-	    const ListRenderer *renderer);
+	    const ListRenderer &renderer);
 
 #endif

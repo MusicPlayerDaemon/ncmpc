@@ -387,7 +387,7 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_JUMP:
 		screen_jump(screen, &lw,
 			    browser_lw_callback, filelist,
-			    this);
+			    *this);
 		SetDirty();
 		return true;
 

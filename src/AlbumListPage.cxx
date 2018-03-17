@@ -248,7 +248,7 @@ AlbumListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_LIST_JUMP:
 		screen_jump(screen, &lw,
 			    AlbumListCallback, &album_list,
-			    this);
+			    *this);
 		SetDirty();
 		return true;
 
