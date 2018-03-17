@@ -29,7 +29,6 @@
 #include "charset.hxx"
 #include "options.hxx"
 #include "mpdclient.hxx"
-#include "utils.hxx"
 #include "strfsong.hxx"
 #include "wreadln.hxx"
 #include "Completion.hxx"

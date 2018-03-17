@@ -24,7 +24,6 @@
 #include "i18n.h"
 #include "charset.hxx"
 #include "mpdclient.hxx"
-#include "utils.hxx"
 #include "wreadln.hxx"
 #include "Completion.hxx"
 #include "screen_utils.hxx"

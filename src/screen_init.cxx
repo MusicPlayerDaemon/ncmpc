@@ -23,7 +23,6 @@
 #include "screen_queue.hxx"
 #include "config.h"
 #include "i18n.h"
-#include "utils.hxx"
 #include "options.hxx"
 #include "colors.hxx"
 

@@ -25,7 +25,6 @@
 #include "charset.hxx"
 #include "mpdclient.hxx"
 #include "strfsong.hxx"
-#include "utils.hxx"
 #include "screen_utils.hxx"
 #include "screen_browser.hxx"
 #include "filelist.hxx"

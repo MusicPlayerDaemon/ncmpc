@@ -365,7 +365,6 @@ ncmpc = executable('ncmpc',
   'src/Completion.cxx',
   'src/strfsong.cxx',
   'src/time_format.cxx',
-  'src/utils.cxx',
   sources,
   include_directories: inc,
   dependencies: [
