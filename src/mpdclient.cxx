@@ -262,11 +262,9 @@ mpdclient::Disconnect()
 
 	mpdclient_cancel_enter_idle(this);
 
-	if (source != nullptr) {
-		mpd_glib_free(source);
-		source = nullptr;
-		idle = false;
-	}
+	delete source;
+	source = nullptr;
+	idle = false;
 
 	if (connection) {
 		mpd_connection_free(connection);
@@ -312,8 +310,8 @@ mpdclient_connected(struct mpdclient *c,
 		return false;
 	}
 
-	c->source = mpd_glib_new(connection,
-				 mpdclient_gidle_callback, c);
+	c->source = new MpdIdleSource(*connection,
+				      mpdclient_gidle_callback, c);
 	mpdclient_schedule_enter_idle(c);
 
 	++c->connection_id;

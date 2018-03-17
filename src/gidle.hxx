@@ -59,13 +59,6 @@ struct MpdIdleSource {
 	~MpdIdleSource();
 };
 
-MpdIdleSource *
-mpd_glib_new(struct mpd_connection *connection,
-	     mpd_glib_callback_t callback, void *callback_ctx);
-
-void
-mpd_glib_free(MpdIdleSource *source);
-
 /**
  * Enters idle mode.
  *
