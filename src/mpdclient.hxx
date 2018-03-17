@@ -7,6 +7,8 @@
 
 #include <mpd/client.h>
 
+#include <string>
+
 struct AsyncMpdConnect;
 struct MpdQueue;
 struct MpdIdleSource;
