@@ -20,6 +20,7 @@
 #include "screen_song.hxx"
 #include "screen_interface.hxx"
 #include "ListPage.hxx"
+#include "TextListRenderer.hxx"
 #include "screen_file.hxx"
 #include "screen_lyrics.hxx"
 #include "screen_find.hxx"
@@ -196,8 +197,8 @@ SongPage::GetTitle(gcc_unused char *str, gcc_unused size_t size) const
 void
 SongPage::Paint() const
 {
-	lw.Paint(screen_song_list_callback,
-		 const_cast<void *>((const void *)&lines));
+	lw.Paint(TextListRenderer(screen_song_list_callback,
+				  const_cast<void *>((const void *)&lines)));
 }
 
 void

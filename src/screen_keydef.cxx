@@ -20,6 +20,7 @@
 #include "screen_keydef.hxx"
 #include "screen_interface.hxx"
 #include "ListPage.hxx"
+#include "TextListRenderer.hxx"
 #include "ProxyPage.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
@@ -259,7 +260,8 @@ CommandKeysPage::GetTitle(char *str, size_t size) const
 void
 CommandKeysPage::Paint() const
 {
-	lw.Paint(ListCallback, const_cast<CommandKeysPage *>(this));
+	lw.Paint(TextListRenderer(ListCallback,
+				  const_cast<CommandKeysPage *>(this)));
 }
 
 bool
@@ -495,7 +497,8 @@ CommandListPage::GetTitle(char *, size_t) const
 void
 CommandListPage::Paint() const
 {
-	lw.Paint(ListCallback, const_cast<CommandListPage *>(this));
+	lw.Paint(TextListRenderer(ListCallback,
+				  const_cast<CommandListPage *>(this)));
 }
 
 bool

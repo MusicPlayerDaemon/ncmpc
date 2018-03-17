@@ -118,9 +118,6 @@ struct ListWindow {
 
 	void SetLength(unsigned length);
 
-	void Paint(list_window_callback_fn_t callback,
-		   void *callback_data) const;
-
 	void Paint(const ListRenderer &renderer) const;
 
 	/** perform basic list window commands (movement) */

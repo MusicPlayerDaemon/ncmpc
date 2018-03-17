@@ -20,6 +20,7 @@
 #include "screen_search.hxx"
 #include "screen_interface.hxx"
 #include "screen_status.hxx"
+#include "TextListRenderer.hxx"
 #include "i18n.h"
 #include "options.hxx"
 #include "charset.hxx"
@@ -397,7 +398,7 @@ SearchPage::Paint() const
 	if (filelist) {
 		FileListPage::Paint();
 	} else {
-		lw.Paint(lw_search_help_callback, nullptr);
+		lw.Paint(TextListRenderer(lw_search_help_callback, nullptr));
 	}
 }
 

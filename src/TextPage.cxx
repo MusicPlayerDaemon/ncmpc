@@ -18,6 +18,7 @@
  */
 
 #include "TextPage.hxx"
+#include "TextListRenderer.hxx"
 #include "screen_find.hxx"
 #include "charset.hxx"
 
@@ -79,6 +80,12 @@ TextPage::ListCallback(unsigned idx) const
 	g_strlcpy(buffer, Utf8ToLocale(lines[idx].c_str()).c_str(),
 		  sizeof(buffer));
 	return buffer;
+}
+
+void
+TextPage::Paint() const
+{
+	lw.Paint(TextListRenderer(ListCallback, const_cast<TextPage *>(this)));
 }
 
 bool

@@ -290,51 +290,6 @@ ListWindow::ScrollDown(unsigned n)
 	}
 }
 
-static void
-list_window_paint_row(WINDOW *w, unsigned width, bool selected,
-		      const char *text)
-{
-	row_paint_text(w, width, COLOR_LIST,
-		       selected, text);
-}
-
-void
-ListWindow::Paint(list_window_callback_fn_t callback,
-		  void *callback_data) const
-{
-	bool show_cursor = !hide_cursor &&
-		(!options.hardware_cursor || range_selection);
-	ListWindowRange range;
-
-	if (show_cursor)
-		range = GetRange();
-
-	for (unsigned i = 0; i < size.height; i++) {
-		wmove(w, i, 0);
-
-		if (start + i >= length) {
-			wclrtobot(w);
-			break;
-		}
-
-		const char *label = callback(start + i, callback_data);
-		assert(label != nullptr);
-
-		list_window_paint_row(w, size.width,
-				      show_cursor &&
-				      range.Contains(start + i),
-				      label);
-	}
-
-	row_color_end(w);
-
-	if (options.hardware_cursor && selected >= start &&
-	    selected < start + size.height) {
-		curs_set(1);
-		wmove(w, selected - start, 0);
-	}
-}
-
 void
 ListWindow::Paint(const ListRenderer &renderer) const
 {
