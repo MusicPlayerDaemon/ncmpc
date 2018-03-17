@@ -20,11 +20,12 @@
 #ifndef STRFSONG_H
 #define STRFSONG_H
 
-#include <glib.h>
+#include <stddef.h>
 
 struct mpd_song;
 
-gsize strfsong(gchar *s, gsize max, const gchar *format,
-	       const struct mpd_song *song);
+size_t
+strfsong(char *s, size_t max, const char *format,
+	 const struct mpd_song *song);
 
 #endif

@@ -23,10 +23,12 @@
 
 #include <mpd/client.h>
 
+#include <glib.h>
+
 #include <string.h>
 
-static const gchar *
-skip(const gchar * p)
+static const char *
+skip(const char * p)
 {
 	gint stack = 0;
 
@@ -100,12 +102,12 @@ song_tag_locale(const struct mpd_song *song, enum mpd_tag_type tag)
 	return result;
 }
 
-static gsize
-_strfsong(gchar *s,
-	  gsize max,
-	  const gchar *format,
+static size_t
+_strfsong(char *s,
+	  size_t max,
+	  const char *format,
 	  const struct mpd_song *song,
-	  const gchar **last)
+	  const char **last)
 {
 	bool found = false;
 	/* "missed" helps handling the case of mere literal text like
@@ -220,7 +222,7 @@ _strfsong(gchar *s,
 		else if (strncmp("%shortalbum%", p, n) == 0) {
 			temp = song_tag_locale(song, MPD_TAG_ALBUM);
 			if (temp) {
-				gchar *temp2 = g_strndup(temp, 25);
+				char *temp2 = g_strndup(temp, 25);
 				if (strlen(temp) > 25) {
 					temp2[24] = '.';
 					temp2[23] = '.';
@@ -258,18 +260,18 @@ _strfsong(gchar *s,
 		}
 
 		if( temp == nullptr) {
-			gsize templen=n;
+			size_t templen=n;
 			/* just pass-through any unknown specifiers (including esc) */
 			if( length+templen > max )
 				templen = max-length;
-			gchar *ident = g_strndup(p, templen);
+			char *ident = g_strndup(p, templen);
 			g_strlcat(s, ident, max);
 			length+=templen;
 			g_free(ident);
 
 			missed = true;
 		} else {
-			gsize templen = strlen(temp);
+			size_t templen = strlen(temp);
 
 			found = true;
 			if( length+templen > max )
@@ -288,8 +290,8 @@ _strfsong(gchar *s,
 	return length;
 }
 
-gsize
-strfsong(gchar *s, gsize max, const gchar *format,
+size_t
+strfsong(char *s, size_t max, const char *format,
 	 const struct mpd_song *song)
 {
 	return _strfsong(s, max, format, song, nullptr);
