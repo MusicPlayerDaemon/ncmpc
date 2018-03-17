@@ -360,6 +360,8 @@ ListWindow::Paint(const ListRenderer &renderer) const
 				       is_selected);
 	}
 
+	row_color_end(w);
+
 	if (options.hardware_cursor && selected >= start &&
 	    selected < start + size.height) {
 		curs_set(1);
