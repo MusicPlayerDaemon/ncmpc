@@ -851,32 +851,6 @@ mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
 	return c->FinishCommand();
 }
 
-bool
-mpdclient_send_read_messages(struct mpdclient *c)
-{
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr)
-		return false;
-
-	return mpd_send_read_messages(connection)?
-		true : c->HandleError();
-}
-
-struct mpd_message *
-mpdclient_recv_message(struct mpdclient *c)
-{
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr)
-		return nullptr;
-
-	struct mpd_message *message = mpd_recv_message(connection);
-	if (message == nullptr &&
-	    mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS)
-		c->HandleError();
-
-	return message;
-}
-
 /****************************************************************************/
 /*** Playlist management functions ******************************************/
 /****************************************************************************/

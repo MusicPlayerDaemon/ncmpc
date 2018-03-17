@@ -113,11 +113,17 @@ void
 ChatPage::Update(struct mpdclient &c, unsigned events)
 {
 	if (CheckChatSupport(c) && (events & MPD_IDLE_MESSAGE)) {
-		if (!mpdclient_send_read_messages(&c))
+		auto *connection = c.GetConnection();
+		if (connection == nullptr)
 			return;
 
+		if (!mpd_send_read_messages(connection)) {
+			c.HandleError();
+			return;
+		}
+
 		struct mpd_message *message;
-		while ((message = mpdclient_recv_message(&c)) != nullptr) {
+		while ((message = mpd_recv_message(connection)) != nullptr) {
 			ProcessMessage(*message);
 			mpd_message_free(message);
 		}

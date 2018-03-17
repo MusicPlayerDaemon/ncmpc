@@ -225,10 +225,4 @@ bool
 mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
 			   const char *text);
 
-bool
-mpdclient_send_read_messages(struct mpdclient *c);
-
-struct mpd_message *
-mpdclient_recv_message(struct mpdclient *c);
-
 #endif
