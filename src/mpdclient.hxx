@@ -120,7 +120,7 @@ struct mpdclient {
 	 * @return an allocated string that needs to be freed (with g_free())
 	 * by the caller
 	 */
-	char *GetSettingsName() const;
+	std::string GetSettingsName() const;
 
 	bool IsConnected() const {
 		return connection != nullptr;

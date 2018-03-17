@@ -159,10 +159,9 @@ timer_reconnect(gcc_unused gpointer data)
 
 	reconnect_source_id = 0;
 
-	char *name = mpd->GetSettingsName();
 	screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
-			     name, get_key_names(CMD_QUIT, false));
-	g_free(name);
+			     mpd->GetSettingsName().c_str(),
+			     get_key_names(CMD_QUIT, false));
 	doupdate();
 
 	mpd->Connect();

@@ -197,7 +197,7 @@ mpdclient::mpdclient(const char *_host, unsigned _port,
 #endif
 }
 
-static char *
+static std::string
 settings_name(const struct mpd_settings *settings)
 {
 	assert(settings != nullptr);
@@ -207,16 +207,18 @@ settings_name(const struct mpd_settings *settings)
 		host = "unknown";
 
 	if (host[0] == '/')
-		return g_strdup(host);
+		return host;
 
 	unsigned port = mpd_settings_get_port(settings);
 	if (port == 0 || port == 6600)
-		return g_strdup(host);
+		return host;
 
-	return g_strdup_printf("%s:%u", host, port);
+	char buffer[256];
+	snprintf(buffer, sizeof(buffer), "%s:%u", host, port);
+	return buffer;
 }
 
-char *
+std::string
 mpdclient::GetSettingsName() const
 {
 #ifdef ENABLE_ASYNC_CONNECT
@@ -227,9 +229,9 @@ mpdclient::GetSettingsName() const
 	if (settings == nullptr)
 		return g_strdup("unknown");
 
-	char *name = settings_name(settings);
+	auto name = settings_name(settings);
 	mpd_settings_free(settings);
-	return name;
+	return std::move(name);
 #endif
 }
 

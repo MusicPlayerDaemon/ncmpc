@@ -70,7 +70,7 @@ class QueuePage final : public ListPage, ListRenderer, ListText {
 	guint timer_hide_cursor_id = 0;
 
 	unsigned last_connection_id = 0;
-	char *connection_name = nullptr;
+	std::string connection_name;
 
 	bool playing = false;
 
@@ -83,10 +83,6 @@ public:
 		, hscroll(w, options.scroll_sep)
 #endif
 	{
-	}
-
-	~QueuePage() override {
-		g_free(connection_name);
 	}
 
 private:
@@ -372,11 +368,11 @@ QueuePage::OnClose()
 const char *
 QueuePage::GetTitle(char *str, size_t size) const
 {
-       if (connection_name == nullptr)
-	       return _("Queue");
+	if (connection_name.empty())
+		return _("Queue");
 
-       g_snprintf(str, size, _("Queue on %s"), connection_name);
-       return str;
+	g_snprintf(str, size, _("Queue on %s"), connection_name.c_str());
+	return str;
 }
 
 void
@@ -416,7 +412,6 @@ QueuePage::Update(struct mpdclient &c, unsigned events)
 
 	if (c.connection_id != last_connection_id) {
 		last_connection_id = c.connection_id;
-		g_free(connection_name);
 		connection_name = c.GetSettingsName();
 	}
 
