@@ -227,7 +227,7 @@ mpdclient::GetSettingsName() const
 	struct mpd_settings *settings =
 		mpd_settings_new(host, port, 0, nullptr, nullptr);
 	if (settings == nullptr)
-		return g_strdup("unknown");
+		return "unknown";
 
 	auto name = settings_name(settings);
 	mpd_settings_free(settings);
