@@ -31,12 +31,32 @@
 
 #include <mpd/client.h>
 
+#include <glib.h>
+
 typedef void (*mpd_glib_callback_t)(enum mpd_error error,
 				    enum mpd_server_error server_error,
 				    const char *message,
 				    unsigned events, void *ctx);
 
-struct MpdIdleSource;
+struct MpdIdleSource {
+	struct mpd_connection *connection;
+	struct mpd_async *async;
+	struct mpd_parser *parser;
+
+	mpd_glib_callback_t callback;
+	void *callback_ctx;
+
+	GIOChannel *channel;
+
+	unsigned io_events = 0;
+
+	guint id = 0;
+
+	unsigned idle_events;
+
+	MpdIdleSource(struct mpd_connection &_connection,
+		      mpd_glib_callback_t _callback, void *_callback_ctx);
+};
 
 MpdIdleSource *
 mpd_glib_new(struct mpd_connection *connection,

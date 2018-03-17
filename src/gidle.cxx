@@ -32,38 +32,20 @@
 #include <mpd/async.h>
 #include <mpd/parser.h>
 
-#include <glib.h>
-
 #include <assert.h>
 #include <string.h>
 #include <errno.h>
 
-struct MpdIdleSource {
-	struct mpd_connection *connection;
-	struct mpd_async *async;
-	struct mpd_parser *parser;
-
-	mpd_glib_callback_t callback;
-	void *callback_ctx;
-
-	GIOChannel *channel;
-
-	unsigned io_events = 0;
-
-	guint id = 0;
-
-	unsigned idle_events;
-
-	MpdIdleSource(struct mpd_connection &_connection,
-		      mpd_glib_callback_t _callback, void *_callback_ctx)
-		:connection(&_connection),
-		 async(mpd_connection_get_async(connection)),
-		 parser(mpd_parser_new()),
-		 callback(_callback), callback_ctx(_callback_ctx),
-		 channel(g_io_channel_unix_new(mpd_async_get_fd(async))) {
-		/* TODO check parser!=nullptr */
-	}
-};
+MpdIdleSource::MpdIdleSource(struct mpd_connection &_connection,
+			     mpd_glib_callback_t _callback, void *_callback_ctx)
+	:connection(&_connection),
+	 async(mpd_connection_get_async(connection)),
+	 parser(mpd_parser_new()),
+	 callback(_callback), callback_ctx(_callback_ctx),
+	 channel(g_io_channel_unix_new(mpd_async_get_fd(async)))
+{
+	/* TODO check parser!=nullptr */
+}
 
 MpdIdleSource *
 mpd_glib_new(struct mpd_connection *connection,
