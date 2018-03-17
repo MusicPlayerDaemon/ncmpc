@@ -72,13 +72,11 @@ TextPage::Append(const char *str)
 }
 
 const char *
-TextPage::GetListItemText(unsigned idx) const
+TextPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
 {
 	assert(idx < lines.size());
 
-	static char buffer[256];
-	g_strlcpy(buffer, Utf8ToLocale(lines[idx].c_str()).c_str(),
-		  sizeof(buffer));
+	g_strlcpy(buffer, Utf8ToLocale(lines[idx].c_str()).c_str(), size);
 	return buffer;
 }
 

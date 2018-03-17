@@ -20,9 +20,12 @@
 #ifndef LIST_TEXT_HXX
 #define LIST_TEXT_HXX
 
+#include <stddef.h>
+
 class ListText {
 public:
-	virtual const char *GetListItemText(unsigned i) const = 0;
+	virtual const char *GetListItemText(char *buffer, size_t size,
+					    unsigned i) const = 0;
 };
 
 #endif

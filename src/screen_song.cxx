@@ -146,7 +146,8 @@ public:
 
 private:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(unsigned i) const override;
+	const char *GetListItemText(char *buffer, size_t size,
+				    unsigned i) const override;
 };
 
 void
@@ -165,7 +166,7 @@ SongPage::Clear()
 }
 
 const char *
-SongPage::GetListItemText(unsigned idx) const
+SongPage::GetListItemText(char *, size_t, unsigned idx) const
 {
 	return lines[idx].c_str();
 }

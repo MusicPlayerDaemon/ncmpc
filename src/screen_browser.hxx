@@ -79,7 +79,8 @@ private:
 			   bool selected) const final;
 
 	/* virtual methods from class ListText */
-	const char *GetListItemText(unsigned i) const override;
+	const char *GetListItemText(char *buffer, size_t size,
+				    unsigned i) const override;
 
 public:
 	/* virtual methods from class Page */

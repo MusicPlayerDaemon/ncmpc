@@ -337,7 +337,10 @@ ListWindow::Find(const ListText &text,
 
 	do {
 		while (i < length) {
-			const char *label = text.GetListItemText(i);
+			char buffer[1024];
+			const char *label =
+				text.GetListItemText(buffer, sizeof(buffer),
+						     i);
 			assert(label != nullptr);
 
 			if (match_line(label, str)) {
@@ -376,7 +379,10 @@ ListWindow::ReverseFind(const ListText &text,
 
 	do {
 		while (i >= 0) {
-			const char *label = text.GetListItemText(i);
+			char buffer[1024];
+			const char *label =
+				text.GetListItemText(buffer, sizeof(buffer),
+						     i);
 			assert(label != nullptr);
 
 			if (match_line(label, str)) {
@@ -405,7 +411,10 @@ ListWindow::Jump(const ListText &text, const char *str)
 	assert(str != nullptr);
 
 	for (unsigned i = 0; i < length; i++) {
-		const char *label = text.GetListItemText(i);
+		char buffer[1024];
+		const char *label =
+			text.GetListItemText(buffer, sizeof(buffer),
+					     i);
 		assert(label != nullptr);
 
 		if (g_ascii_strncasecmp(label, str, strlen(str)) == 0) {
@@ -426,7 +435,10 @@ ListWindow::Jump(const ListText &text, const char *str)
 		return false;
 
 	for (unsigned i = 0; i < length; i++) {
-		const char *label = text.GetListItemText(i);
+		char buffer[1024];
+		const char *label =
+			text.GetListItemText(buffer, sizeof(buffer),
+					     i);
 		assert(label != nullptr);
 
 		if (match_regex(regex, label)) {

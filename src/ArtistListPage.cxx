@@ -48,15 +48,15 @@ CompareUTF8(const std::string &a, const std::string &b)
 }
 
 const char *
-ArtistListPage::GetListItemText(unsigned idx) const
+ArtistListPage::GetListItemText(char *buffer, size_t size,
+				unsigned idx) const
 {
 	assert(idx < artist_list.size());
 
 	const char *str_utf8 = artist_list[idx].c_str();
 
-	static char buf[BUFSIZE];
-	g_strlcpy(buf, Utf8ToLocale(str_utf8).c_str(), sizeof(buf));
-	return buf;
+	g_strlcpy(buffer, Utf8ToLocale(str_utf8).c_str(), size);
+	return buffer;
 }
 
 static void

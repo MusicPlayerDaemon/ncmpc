@@ -216,7 +216,8 @@ public:
 			   bool selected) const override;
 
 	/* virtual methods from class ListText */
-	const char *GetListItemText(unsigned i) const override;
+	const char *GetListItemText(char *buffer, size_t size,
+				    unsigned i) const override;
 
 	/* virtual methods from class Page */
 	void Paint() const override;
@@ -228,7 +229,7 @@ public:
 };
 
 const char *
-HelpPage::GetListItemText(unsigned i) const
+HelpPage::GetListItemText(char *, size_t, unsigned i) const
 {
 	const struct help_text_row *row = &help_text[i];
 

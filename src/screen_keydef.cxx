@@ -126,7 +126,8 @@ public:
 
 private:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(unsigned i) const override;
+	const char *GetListItemText(char *buffer, size_t size,
+				    unsigned i) const override;
 };
 
 /* TODO: rename to check_n_keys / subcmd_count_keys? */
@@ -220,26 +221,25 @@ CommandKeysPage::AddKey(int cmd_index)
 }
 
 const char *
-CommandKeysPage::GetListItemText(unsigned idx) const
+CommandKeysPage::GetListItemText(char *buffer, size_t size,
+				 unsigned idx) const
 {
-	static char buf[256];
-
 	if (idx == subcmd_item_up())
 		return "[..]";
 
 	if (idx == subcmd_item_add()) {
-		g_snprintf(buf, sizeof(buf), "%d. %s",
+		g_snprintf(buffer, size, "%d. %s",
 			   idx, _("Add new key"));
-		return buf;
+		return buffer;
 	}
 
 	assert(subcmd_item_is_key(idx));
 
-	g_snprintf(buf, sizeof(buf),
+	g_snprintf(buffer, size,
 		   "%d. %-20s   (%d) ", idx,
 		   key2str(cmds[subcmd].keys[subcmd_item_to_key_id(idx)]),
 		   cmds[subcmd].keys[subcmd_item_to_key_id(idx)]);
-	return buf;
+	return buffer;
 }
 
 void
@@ -375,7 +375,8 @@ public:
 
 private:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(unsigned i) const override;
+	const char *GetListItemText(char *buffer, size_t size,
+				    unsigned i) const override;
 };
 
 bool
@@ -433,10 +434,8 @@ CommandListPage::Save()
 }
 
 const char *
-CommandListPage::GetListItemText(unsigned idx) const
+CommandListPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
 {
-	static char buf[256];
-
 	if (idx == command_item_apply())
 		return _("===> Apply key bindings ");
 	if (idx == command_item_save())
@@ -452,16 +451,16 @@ CommandListPage::GetListItemText(unsigned idx) const
 	 *	that-one     - do that
 	 */
 	size_t len = strlen(cmds[idx].name);
-	strncpy(buf, cmds[idx].name, sizeof(buf));
+	strncpy(buffer, cmds[idx].name, size);
 
 	if (len < get_cmds_max_name_width(cmds))
-		memset(buf + len, ' ', get_cmds_max_name_width(cmds) - len);
+		memset(buffer + len, ' ', get_cmds_max_name_width(cmds) - len);
 
-	g_snprintf(buf + get_cmds_max_name_width(cmds),
-		   sizeof(buf) - get_cmds_max_name_width(cmds),
+	g_snprintf(buffer + get_cmds_max_name_width(cmds),
+		   size - get_cmds_max_name_width(cmds),
 		   " - %s", _(cmds[idx].description));
 
-	return buf;
+	return buffer;
 }
 
 void

@@ -36,7 +36,8 @@ void
 TextListRenderer::PaintListItem(WINDOW *w, unsigned i, unsigned,
 				unsigned width, bool selected) const
 {
-	const char *label = text.GetListItemText(i);
+	char buffer[1024];
+	const char *label = text.GetListItemText(buffer, sizeof(buffer), i);
 	assert(label != nullptr);
 
 	list_window_paint_row(w, width, selected, label);

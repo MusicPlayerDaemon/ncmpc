@@ -74,10 +74,9 @@ screen_browser_sync_highlights(FileList *fl, const MpdQueue *playlist)
 #endif
 
 const char *
-FileListPage::GetListItemText(unsigned idx) const
+FileListPage::GetListItemText(char *buffer, size_t size,
+			      unsigned idx) const
 {
-	static char buf[BUFSIZE];
-
 	assert(filelist != nullptr);
 	assert(idx < filelist->size());
 
@@ -90,18 +89,18 @@ FileListPage::GetListItemText(unsigned idx) const
 	if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY) {
 		const auto *dir = mpd_entity_get_directory(entity);
 		const char *name = g_basename(mpd_directory_get_path(dir));
-		g_strlcpy(buf, Utf8ToLocale(name).c_str(), sizeof(buf));
-		return buf;
+		g_strlcpy(buffer, Utf8ToLocale(name).c_str(), size);
+		return buffer;
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 		const auto *song = mpd_entity_get_song(entity);
 
-		strfsong(buf, BUFSIZE, options.list_format, song);
-		return buf;
+		strfsong(buffer, size, options.list_format, song);
+		return buffer;
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
 		const auto *playlist = mpd_entity_get_playlist(entity);
 		const char *name = g_basename(mpd_playlist_get_path(playlist));
-		g_strlcpy(buf, Utf8ToLocale(name).c_str(), sizeof(buf));
-		return buf;
+		g_strlcpy(buffer, Utf8ToLocale(name).c_str(), size);
+		return buffer;
 	}
 
 	return "Error: Unknown entry!";

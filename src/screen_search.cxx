@@ -132,7 +132,7 @@ public:
 class SearchHelpText final : public ListText {
 public:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(unsigned idx) const override {
+	const char *GetListItemText(char *, size_t, unsigned idx) const override {
 		assert(idx < G_N_ELEMENTS(help_text));
 
 		return help_text[idx];

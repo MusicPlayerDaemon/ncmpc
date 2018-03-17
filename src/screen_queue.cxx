@@ -112,7 +112,8 @@ private:
 			   bool selected) const override;
 
 	/* virtual methods from class ListText */
-	const char *GetListItemText(unsigned i) const override;
+	const char *GetListItemText(char *buffer, size_t size,
+				    unsigned i) const override;
 
 public:
 	/* virtual methods from class Page */
@@ -169,16 +170,15 @@ QueuePage::RestoreSelection()
 }
 
 const char *
-QueuePage::GetListItemText(unsigned idx) const
+QueuePage::GetListItemText(char *buffer, size_t size,
+			   unsigned idx) const
 {
-	static char songname[MAX_SONG_LENGTH];
-
 	assert(idx < playlist->size());
 
 	const auto &song = (*playlist)[idx];
-	strfsong(songname, MAX_SONG_LENGTH, options.list_format, &song);
+	strfsong(buffer, size, options.list_format, &song);
 
-	return songname;
+	return buffer;
 }
 
 void

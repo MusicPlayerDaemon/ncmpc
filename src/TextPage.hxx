@@ -71,7 +71,8 @@ public:
 
 private:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(unsigned i) const override;
+	const char *GetListItemText(char *buffer, size_t size,
+				    unsigned i) const override;
 };
 
 #endif
