@@ -20,8 +20,7 @@
 #ifndef DB_COMPLETION_H
 #define DB_COMPLETION_H
 
-#include <glib.h>
-
+typedef struct _GList GList;
 struct mpdclient;
 
 #define GCMP_TYPE_DIR       (0x01 << 0)
@@ -34,7 +33,7 @@ struct mpdclient;
  * Create a list suitable for GCompletion from path.
  */
 GList *
-gcmp_list_from_path(struct mpdclient *c, const gchar *path,
-		    GList *list, gint types);
+gcmp_list_from_path(struct mpdclient *c, const char *path,
+		    GList *list, int types);
 
 #endif

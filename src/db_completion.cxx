@@ -21,9 +21,11 @@
 #include "charset.hxx"
 #include "mpdclient.hxx"
 
+#include <glib.h>
+
 GList *
-gcmp_list_from_path(struct mpdclient *c, const gchar *path,
-		    GList *list, gint types)
+gcmp_list_from_path(struct mpdclient *c, const char *path,
+		    GList *list, int types)
 {
 	struct mpd_connection *connection = mpdclient_get_connection(c);
 	if (connection == nullptr)
