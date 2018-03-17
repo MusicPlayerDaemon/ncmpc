@@ -21,7 +21,7 @@
 #include "screen_interface.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
-#include "screen_browser.hxx"
+#include "FileListPage.hxx"
 #include "i18n.h"
 #include "charset.hxx"
 #include "mpdclient.hxx"

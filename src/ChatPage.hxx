@@ -17,24 +17,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_SCREEN_LYRICS_H
-#define NCMPC_SCREEN_LYRICS_H
+#ifndef NCMPC_CHAT_PAGE_HXX
+#define NCMPC_CHAT_PAGE_HXX
 
 #include "config.h"
 
-#ifdef ENABLE_LYRICS_SCREEN
+#ifdef ENABLE_CHAT_SCREEN
 
-struct mpdclient;
-struct mpd_song;
-class ScreenManager;
+struct screen_functions;
+extern const struct screen_functions screen_chat;
 
-extern const struct screen_functions screen_lyrics;
-
-void
-screen_lyrics_switch(ScreenManager &_screen, struct mpdclient &c,
-		     const struct mpd_song &song,
-		     bool follow);
-
-#endif /* ENABLE_LYRICS_SCREEN */
+#endif
 
 #endif

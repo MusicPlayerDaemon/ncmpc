@@ -249,7 +249,7 @@ endif
 enable_help_screen = get_option('help_screen') and not mini
 conf.set('ENABLE_HELP_SCREEN', enable_help_screen)
 if enable_help_screen
-  sources += ['src/screen_help.cxx']
+  sources += ['src/HelpPage.cxx']
 endif
 
 enable_artist_screen = get_option('artist_screen') and not mini
@@ -265,13 +265,13 @@ endif
 enable_search_screen = get_option('search_screen') and not mini
 conf.set('ENABLE_SEARCH_SCREEN', enable_search_screen)
 if enable_search_screen
-  sources += ['src/screen_search.cxx']
+  sources += ['src/SearchPage.cxx']
 endif
 
 enable_song_screen = get_option('song_screen') and not mini
 conf.set('ENABLE_SONG_SCREEN', enable_song_screen)
 if enable_song_screen
-  sources += ['src/screen_song.cxx']
+  sources += ['src/SongPage.cxx']
 endif
 
 enable_keydef_screen = get_option('key_screen') and not mini
@@ -283,7 +283,7 @@ endif
 enable_lyrics_screen = get_option('lyrics_screen') and not mini
 conf.set('ENABLE_LYRICS_SCREEN', enable_lyrics_screen)
 if enable_lyrics_screen
-  sources += ['src/screen_lyrics.cxx', 'src/lyrics.cxx']
+  sources += ['src/LyricsPage.cxx', 'src/lyrics.cxx']
 
   lyrics_plugin_dir = get_option('lyrics_plugin_dir')
   if lyrics_plugin_dir == ''
@@ -303,13 +303,13 @@ endif
 enable_outputs_screen = get_option('outputs_screen') and not mini
 conf.set('ENABLE_OUTPUTS_SCREEN', enable_outputs_screen)
 if enable_outputs_screen
-  sources += ['src/screen_outputs.cxx']
+  sources += ['src/OutputsPage.cxx']
 endif
 
 enable_chat_screen = get_option('chat_screen') and not mini
 conf.set('ENABLE_CHAT_SCREEN', enable_chat_screen)
 if enable_chat_screen
-  sources += ['src/screen_chat.cxx']
+  sources += ['src/ChatPage.cxx']
   need_screen_text = true
 endif
 
@@ -352,9 +352,9 @@ ncmpc = executable('ncmpc',
   'src/screen_list.cxx',
   'src/screen_find.cxx',
   'src/screen_client.cxx',
-  'src/screen_queue.cxx',
-  'src/screen_browser.cxx',
-  'src/screen_file.cxx',
+  'src/QueuePage.cxx',
+  'src/FileListPage.cxx',
+  'src/FileBrowserPage.cxx',
   'src/ProxyPage.cxx',
   'src/ListWindow.cxx',
   'src/TextListRenderer.cxx',

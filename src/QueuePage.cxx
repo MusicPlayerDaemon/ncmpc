@@ -17,12 +17,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "screen_queue.hxx"
+#include "QueuePage.hxx"
 #include "screen_interface.hxx"
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
 #include "ListText.hxx"
-#include "screen_file.hxx"
+#include "FileBrowserPage.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "save_playlist.hxx"
@@ -37,8 +37,8 @@
 #include "song_paint.hxx"
 #include "screen.hxx"
 #include "screen_utils.hxx"
-#include "screen_song.hxx"
-#include "screen_lyrics.hxx"
+#include "SongPage.hxx"
+#include "LyricsPage.hxx"
 #include "db_completion.hxx"
 #include "Compiler.h"
 

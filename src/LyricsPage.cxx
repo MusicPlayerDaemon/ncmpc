@@ -17,11 +17,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "screen_lyrics.hxx"
+#include "LyricsPage.hxx"
 #include "screen_interface.hxx"
 #include "screen_status.hxx"
-#include "screen_file.hxx"
-#include "screen_song.hxx"
+#include "FileBrowserPage.hxx"
+#include "SongPage.hxx"
 #include "i18n.h"
 #include "options.hxx"
 #include "mpdclient.hxx"

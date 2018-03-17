@@ -18,10 +18,10 @@
  */
 
 #include "config.h"
-#include "screen_browser.hxx"
-#include "screen_file.hxx"
-#include "screen_song.hxx"
-#include "screen_lyrics.hxx"
+#include "FileListPage.hxx"
+#include "FileBrowserPage.hxx"
+#include "SongPage.hxx"
+#include "LyricsPage.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "screen.hxx"

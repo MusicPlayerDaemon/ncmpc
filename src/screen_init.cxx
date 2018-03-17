@@ -20,7 +20,7 @@
 #include "screen.hxx"
 #include "Page.hxx"
 #include "screen_list.hxx"
-#include "screen_queue.hxx"
+#include "QueuePage.hxx"
 #include "config.h"
 #include "i18n.h"
 #include "options.hxx"

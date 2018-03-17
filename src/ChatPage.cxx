@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "screen_chat.hxx"
+#include "ChatPage.hxx"
 #include "screen_interface.hxx"
 #include "screen_utils.hxx"
 #include "screen_status.hxx"
