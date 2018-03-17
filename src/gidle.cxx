@@ -54,22 +54,6 @@ struct MpdIdleSource {
 
 	unsigned idle_events;
 
-	/**
-	 * This flag is a hack: it is set while mpd_glib_leave() is
-	 * executed.  mpd_glib_leave() might invoke the callback, and
-	 * the callback might invoke mpd_glib_enter(), awkwardly
-	 * leaving mpd_glib_leave() in idle mode.  As long as this
-	 * flag is set, mpd_glib_enter() is a no-op to prevent this.
-	 */
-	bool leaving = false;
-
-	/**
-	 * This flag is true when mpd_glib_free() has been called
-	 * during a callback invoked from mpd_glib_leave().
-	 * mpd_glib_leave() will do the real "delete" then.
-	 */
-	bool destroyed = false;
-
 	MpdIdleSource(struct mpd_connection &_connection,
 		      mpd_glib_callback_t _callback, void *_callback_ctx)
 		:connection(&_connection),
@@ -91,8 +75,6 @@ mpd_glib_new(struct mpd_connection *connection,
 void
 mpd_glib_free(MpdIdleSource *source)
 {
-	assert(!source->destroyed);
-
 	if (source->id != 0)
 		g_source_remove(source->id);
 
@@ -100,17 +82,13 @@ mpd_glib_free(MpdIdleSource *source)
 
 	mpd_parser_free(source->parser);
 
-	if (source->leaving)
-		source->destroyed = true;
-	else
-		delete source;
+	delete source;
 }
 
 static void
 mpd_glib_invoke(const MpdIdleSource *source)
 {
 	assert(source->id == 0);
-	assert(!source->destroyed);
 
 	if (source->idle_events != 0)
 		source->callback(MPD_ERROR_SUCCESS, (enum mpd_server_error)0,
@@ -124,7 +102,6 @@ mpd_glib_invoke_error(const MpdIdleSource *source,
 		      const char *message)
 {
 	assert(source->id == 0);
-	assert(!source->destroyed);
 
 	source->callback(error, server_error, message,
 			 0, source->callback_ctx);
@@ -331,10 +308,6 @@ mpd_glib_enter(MpdIdleSource *source)
 {
 	assert(source->io_events == 0);
 	assert(source->id == 0);
-	assert(!source->destroyed);
-
-	if (source->leaving)
-		return false;
 
 	source->idle_events = 0;
 
@@ -347,14 +320,12 @@ mpd_glib_enter(MpdIdleSource *source)
 	return true;
 }
 
-bool
+void
 mpd_glib_leave(MpdIdleSource *source)
 {
-	assert(!source->destroyed);
-
 	if (source->id == 0)
 		/* already left, callback was invoked */
-		return true;
+		return;
 
 	g_source_remove(source->id);
 	source->id = 0;
@@ -363,8 +334,6 @@ mpd_glib_leave(MpdIdleSource *source)
 	enum mpd_idle events = source->idle_events == 0
 		? mpd_run_noidle(source->connection)
 		: mpd_recv_idle(source->connection, false);
-
-	source->leaving = true;
 
 	if (events == 0 &&
 	    mpd_connection_get_error(source->connection) != MPD_ERROR_SUCCESS) {
@@ -377,24 +346,9 @@ mpd_glib_leave(MpdIdleSource *source)
 
 		mpd_glib_invoke_error(source, error, server_error,
 				      mpd_connection_get_error_message(source->connection));
-
-		if (source->destroyed) {
-			delete source;
-			return false;
-		}
-
-		source->leaving = false;
-		return true;
+		return;
 	}
 
 	source->idle_events |= events;
 	mpd_glib_invoke(source);
-
-	if (source->destroyed) {
-		delete source;
-		return false;
-	}
-
-	source->leaving = false;
-	return true;
 }

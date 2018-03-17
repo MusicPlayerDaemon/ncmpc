@@ -56,11 +56,8 @@ mpd_glib_enter(MpdIdleSource *source);
 
 /**
  * Leaves idle mode and invokes the callback if there were events.
- *
- * @return true on success, false if this object was deleted by the
- * callback
  */
-bool
+void
 mpd_glib_leave(MpdIdleSource *source);
 
 #endif
