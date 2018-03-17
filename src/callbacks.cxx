@@ -26,7 +26,7 @@
 static bool
 _mpdclient_auth_callback(struct mpdclient *c, unsigned recursion)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
@@ -41,7 +41,7 @@ _mpdclient_auth_callback(struct mpdclient *c, unsigned recursion)
 	mpd_send_password(connection, password.c_str());
 
 	mpd_response_finish(connection);
-	mpdclient_update(c);
+	c->Update();
 
 	if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 	    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_PASSWORD)

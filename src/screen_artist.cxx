@@ -120,7 +120,7 @@ public:
 void
 SongListPage::LoadSongList(struct mpdclient &c)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(&c);
+	auto *connection = c.GetConnection();
 
 	delete filelist;
 
@@ -139,7 +139,7 @@ SongListPage::LoadSongList(struct mpdclient &c)
 
 		filelist->Receive(*connection);
 
-		mpdclient_finish_command(&c);
+		c.FinishCommand();
 	}
 
 	/* fix highlights */

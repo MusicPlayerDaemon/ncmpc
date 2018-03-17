@@ -109,8 +109,7 @@ FileListPage::GetListItemText(char *buffer, size_t size,
 static bool
 load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 {
-	auto *connection = mpdclient_get_connection(c);
-
+	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
@@ -121,7 +120,7 @@ load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 
 		c->events |= MPD_IDLE_QUEUE;
 	} else
-		mpdclient_handle_error(c);
+		c->HandleError();
 
 	return true;
 }
@@ -129,7 +128,7 @@ load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 static bool
 enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 {
-	auto *connection = mpdclient_get_connection(c);
+	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
@@ -148,7 +147,7 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 
 		id = mpd_run_add_id(connection, mpd_song_get_uri(song));
 		if (id < 0) {
-			mpdclient_handle_error(c);
+			c->HandleError();
 			return false;
 		}
 
@@ -160,7 +159,7 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 	}
 
 	if (!mpd_run_play_id(connection, id)) {
-		mpdclient_handle_error(c);
+		c->HandleError();
 		return false;
 	}
 

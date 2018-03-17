@@ -86,14 +86,14 @@ static void
 screen_file_load_list(struct mpdclient *c, const char *current_path,
 		      FileList *filelist)
 {
-	auto *connection = mpdclient_get_connection(c);
+	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return;
 
 	mpd_send_list_meta(connection, current_path);
 	filelist->Receive(*connection);
 
-	if (mpdclient_finish_command(c))
+	if (c->FinishCommand())
 		filelist->Sort();
 }
 
@@ -241,7 +241,7 @@ FileBrowserPage::HandleSave(struct mpdclient &c)
 void
 FileBrowserPage::HandleDelete(struct mpdclient &c)
 {
-	auto *connection = mpdclient_get_connection(&c);
+	auto *connection = c.GetConnection();
 
 	if (connection == nullptr)
 		return;
@@ -276,7 +276,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 		}
 
 		if (!mpd_run_rm(connection, mpd_playlist_get_path(playlist))) {
-			mpdclient_handle_error(&c);
+			c.HandleError();
 			break;
 		}
 

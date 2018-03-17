@@ -113,13 +113,56 @@ struct mpdclient {
 #endif
 	}
 
+	/**
+	 * Determine a human-readable "name" of the settings currently used to
+	 * connect to MPD.
+	 *
+	 * @return an allocated string that needs to be freed (with g_free())
+	 * by the caller
+	 */
+	char *GetSettingsName() const;
+
 	bool IsConnected() const {
 		return connection != nullptr;
+	}
+
+	/**
+	 * Is this object "dead"?  i.e. not connected and not
+	 * currently doing anything to connect.
+	 */
+	gcc_pure
+	bool IsDead() const {
+		return connection == nullptr
+#ifdef ENABLE_ASYNC_CONNECT
+			&& async_connect == nullptr
+#endif
+			;
+	}
+
+	gcc_pure
+	const struct mpd_song *GetCurrentSong() const {
+		return song != nullptr && playing_or_paused
+			? song
+			: nullptr;
 	}
 
 	void Connect();
 
 	void Disconnect();
+
+	bool HandleError();
+
+	struct mpd_connection *GetConnection();
+
+	bool FinishCommand() {
+		return mpd_response_finish(connection) || HandleError();
+	}
+
+	bool Update();
+
+private:
+	bool UpdateQueue();
+	bool UpdateQueueChanges();
 };
 
 enum {
@@ -139,58 +182,6 @@ enum {
 		| MPD_IDLE_SUBSCRIPTION
 		| MPD_IDLE_MESSAGE
 };
-
-/** functions ***************************************************************/
-
-bool
-mpdclient_handle_error(struct mpdclient *c);
-
-static inline bool
-mpdclient_finish_command(struct mpdclient *c)
-{
-	return mpd_response_finish(c->connection)
-		? true : mpdclient_handle_error(c);
-}
-
-/**
- * Determine a human-readable "name" of the settings currently used to
- * connect to MPD.
- *
- * @return an allocated string that needs to be freed (with g_free())
- * by the caller
- */
-char *
-mpdclient_settings_name(const struct mpdclient *c);
-
-/**
- * Is this object "dead"?  i.e. not connected and not currently doing
- * anything to connect.
- */
-gcc_pure
-static inline bool
-mpdclient_is_dead(const struct mpdclient *c)
-{
-	return c->connection == nullptr
-#ifdef ENABLE_ASYNC_CONNECT
-		&& c->async_connect == nullptr
-#endif
-		;
-}
-
-gcc_pure
-static inline const struct mpd_song *
-mpdclient_get_current_song(const struct mpdclient *c)
-{
-	return c->song != nullptr && c->playing_or_paused
-		? c->song
-		: nullptr;
-}
-
-bool
-mpdclient_update(struct mpdclient *c);
-
-struct mpd_connection *
-mpdclient_get_connection(struct mpdclient *c);
 
 /*** MPD Commands  **********************************************************/
 
@@ -239,15 +230,5 @@ mpdclient_send_read_messages(struct mpdclient *c);
 
 struct mpd_message *
 mpdclient_recv_message(struct mpdclient *c);
-
-/*** playlist functions  **************************************************/
-
-/* update the complete playlist */
-bool
-mpdclient_playlist_update(struct mpdclient *c);
-
-/* get playlist changes */
-bool
-mpdclient_playlist_update_changes(struct mpdclient *c);
 
 #endif

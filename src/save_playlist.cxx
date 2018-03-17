@@ -72,7 +72,6 @@ PlaylistNameCompletion::Post(gcc_unused const char *value, Range range)
 int
 playlist_save(struct mpdclient *c, char *name, char *defaultname)
 {
-	struct mpd_connection *connection;
 	gchar *filename;
 
 #ifdef NCMPC_MINI
@@ -100,7 +99,7 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 
 	/* send save command to mpd */
 
-	connection = mpdclient_get_connection(c);
+	auto *connection = c->GetConnection();
 	if (connection == nullptr) {
 		g_free(filename);
 		return -1;
@@ -123,12 +122,12 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 
 			if (!mpd_run_rm(connection, filename_utf8.c_str()) ||
 			    !mpd_run_save(connection, filename_utf8.c_str())) {
-				mpdclient_handle_error(c);
+				c->HandleError();
 				g_free(filename);
 				return -1;
 			}
 		} else {
-			mpdclient_handle_error(c);
+			c->HandleError();
 			g_free(filename);
 			return -1;
 		}

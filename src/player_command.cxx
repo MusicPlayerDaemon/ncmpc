@@ -35,7 +35,7 @@ commit_seek(struct mpdclient &c)
 	if (seek_id < 0)
 		return;
 
-	struct mpd_connection *connection = mpdclient_get_connection(&c);
+	struct mpd_connection *connection = c.GetConnection();
 	if (connection == nullptr) {
 		seek_id = -1;
 		return;
@@ -43,7 +43,7 @@ commit_seek(struct mpdclient &c)
 
 	if (c.song != nullptr && (unsigned)seek_id == mpd_song_get_id(c.song))
 		if (!mpd_run_seek_id(connection, seek_id, seek_target_time))
-			mpdclient_handle_error(&c);
+			c.HandleError();
 
 	seek_id = -1;
 }
@@ -112,20 +112,20 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 		break;
 		*/
 	case CMD_PAUSE:
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
 
 		if (!mpd_run_pause(connection, c.state != MPD_STATE_PAUSE))
-			mpdclient_handle_error(&c);
+			c.HandleError();
 		break;
 	case CMD_STOP:
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
 
 		if (!mpd_run_stop(connection))
-			mpdclient_handle_error(&c);
+			c.HandleError();
 		break;
 	case CMD_CROP:
 		mpdclient_cmd_crop(&c);
@@ -140,12 +140,12 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 		break;
 
 	case CMD_TRACK_NEXT:
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
 
 		if (!mpd_run_next(connection))
-			mpdclient_handle_error(&c);
+			c.HandleError();
 		break;
 	case CMD_SEEK_BACKWARD:
 		if (!setup_seek(c))
@@ -157,25 +157,25 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 		break;
 
 	case CMD_TRACK_PREVIOUS:
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
 
 		if (!mpd_run_previous(connection))
-			mpdclient_handle_error(&c);
+			c.HandleError();
 		break;
 	case CMD_SHUFFLE:
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
 
 		if (mpd_run_shuffle(connection))
 			screen_status_message(_("Shuffled queue"));
 		else
-			mpdclient_handle_error(&c);
+			c.HandleError();
 		break;
 	case CMD_CLEAR:
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
 
@@ -183,50 +183,50 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 			screen_status_message(_("Cleared queue"));
 		break;
 	case CMD_REPEAT:
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
 
 		if (!mpd_run_repeat(connection,
 				    !mpd_status_get_repeat(c.status)))
-			mpdclient_handle_error(&c);
+			c.HandleError();
 		break;
 	case CMD_RANDOM:
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
 
 		if (!mpd_run_random(connection,
 				    !mpd_status_get_random(c.status)))
-			mpdclient_handle_error(&c);
+			c.HandleError();
 		break;
 	case CMD_SINGLE:
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
 
 		if (!mpd_run_single(connection,
 				    !mpd_status_get_single(c.status)))
-			mpdclient_handle_error(&c);
+			c.HandleError();
 		break;
 	case CMD_CONSUME:
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
 
 		if (!mpd_run_consume(connection,
 				     !mpd_status_get_consume(c.status)))
-			mpdclient_handle_error(&c);
+			c.HandleError();
 		break;
 	case CMD_CROSSFADE:
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
 
 		if (!mpd_run_crossfade(connection,
 				       mpd_status_get_crossfade(c.status) > 0
 				       ? 0 : options.crossfade_time))
-			mpdclient_handle_error(&c);
+			c.HandleError();
 		break;
 	case CMD_DB_UPDATE:
 		screen_database_update(&c, nullptr);

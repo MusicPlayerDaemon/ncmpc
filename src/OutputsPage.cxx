@@ -69,7 +69,7 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 	if (output_index >= items.size())
 		return false;
 
-	struct mpd_connection *connection = mpdclient_get_connection(&c);
+	auto *connection = c.GetConnection();
 	if (connection == nullptr)
 		return false;
 
@@ -77,7 +77,7 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 	if (!mpd_output_get_enabled(&output)) {
 		if (!mpd_run_enable_output(connection,
 					   mpd_output_get_id(&output))) {
-			mpdclient_handle_error(&c);
+			c.HandleError();
 			return false;
 		}
 
@@ -88,7 +88,7 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 	} else {
 		if (!mpd_run_disable_output(connection,
 					    mpd_output_get_id(&output))) {
-			mpdclient_handle_error(&c);
+			c.HandleError();
 			return false;
 		}
 
@@ -119,7 +119,7 @@ template<typename O>
 static void
 fill_outputs_list(struct mpdclient *c, O &items)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return;
 
@@ -129,7 +129,7 @@ fill_outputs_list(struct mpdclient *c, O &items)
 	while ((output = mpd_recv_output(connection)) != nullptr)
 		items.emplace_back(output);
 
-	mpdclient_finish_command(c);
+	c->FinishCommand();
 }
 
 static Page *

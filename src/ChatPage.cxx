@@ -122,7 +122,7 @@ ChatPage::Update(struct mpdclient &c, unsigned events)
 			mpd_message_free(message);
 		}
 
-		mpdclient_finish_command(&c);
+		c.FinishCommand();
 	}
 }
 

@@ -118,7 +118,7 @@ mpdclient_gidle_callback(enum mpd_error error,
 	}
 
 	c->events |= events;
-	mpdclient_update(c);
+	c->Update();
 
 	mpdclient_idle_callback(c->events);
 
@@ -133,22 +133,22 @@ mpdclient_gidle_callback(enum mpd_error error,
 /****************************************************************************/
 
 bool
-mpdclient_handle_error(struct mpdclient *c)
+mpdclient::HandleError()
 {
-	enum mpd_error error = mpd_connection_get_error(c->connection);
+	enum mpd_error error = mpd_connection_get_error(connection);
 
 	assert(error != MPD_ERROR_SUCCESS);
 
 	if (error == MPD_ERROR_SERVER &&
-	    mpd_connection_get_server_error(c->connection) == MPD_SERVER_ERROR_PERMISSION &&
-	    mpdclient_auth_callback(c))
+	    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_PERMISSION &&
+	    mpdclient_auth_callback(this))
 		return true;
 
 	mpdclient_invoke_error_callback(error,
-					mpd_connection_get_error_message(c->connection));
+					mpd_connection_get_error_message(connection));
 
-	if (!mpd_connection_clear_error(c->connection)) {
-		c->Disconnect();
+	if (!mpd_connection_clear_error(connection)) {
+		Disconnect();
 		mpdclient_lost_callback();
 	}
 
@@ -217,15 +217,13 @@ settings_name(const struct mpd_settings *settings)
 }
 
 char *
-mpdclient_settings_name(const struct mpdclient *c)
+mpdclient::GetSettingsName() const
 {
-	assert(c != nullptr);
-
 #ifdef ENABLE_ASYNC_CONNECT
-	return settings_name(c->settings);
+	return settings_name(settings);
 #else
 	struct mpd_settings *settings =
-		mpd_settings_new(c->host, c->port, 0, nullptr, nullptr);
+		mpd_settings_new(host, port, 0, nullptr, nullptr);
 	if (settings == nullptr)
 		return g_strdup("unknown");
 
@@ -421,59 +419,59 @@ mpdclient::Connect()
 }
 
 bool
-mpdclient_update(struct mpdclient *c)
+mpdclient::Update()
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	auto *c = GetConnection();
 
-	if (connection == nullptr)
+	if (c == nullptr)
 		return false;
 
 	/* free the old status */
-	mpdclient_status_free(c);
+	mpdclient_status_free(this);
 
 	/* retrieve new status */
-	c->status = mpd_run_status(connection);
-	if (c->status == nullptr)
-		return mpdclient_handle_error(c);
+	status = mpd_run_status(c);
+	if (status == nullptr)
+		return HandleError();
 
-	c->volume = mpd_status_get_volume(c->status);
-	c->state = mpd_status_get_state(c->status);
-	c->playing = c->state == MPD_STATE_PLAY;
-	c->playing_or_paused = c->state == MPD_STATE_PLAY
-		|| c->state == MPD_STATE_PAUSE;
+	volume = mpd_status_get_volume(status);
+	state = mpd_status_get_state(status);
+	playing = state == MPD_STATE_PLAY;
+	playing_or_paused = state == MPD_STATE_PLAY
+		|| state == MPD_STATE_PAUSE;
 
 	/* check if the playlist needs an update */
-	if (c->playlist.version != mpd_status_get_queue_version(c->status)) {
+	if (playlist.version != mpd_status_get_queue_version(status)) {
 		bool retval;
 
-		if (!c->playlist.empty())
-			retval = mpdclient_playlist_update_changes(c);
+		if (!playlist.empty())
+			retval = UpdateQueueChanges();
 		else
-			retval = mpdclient_playlist_update(c);
+			retval = UpdateQueue();
 		if (!retval)
 			return false;
 	}
 
 	/* update the current song */
-	if (!c->song || mpd_status_get_song_id(c->status) >= 0) {
-		c->song = c->playlist.GetChecked(mpd_status_get_song_pos(c->status));
+	if (song == nullptr || mpd_status_get_song_id(status) >= 0) {
+		song = playlist.GetChecked(mpd_status_get_song_pos(status));
 	}
 
 	return true;
 }
 
 struct mpd_connection *
-mpdclient_get_connection(struct mpdclient *c)
+mpdclient::GetConnection()
 {
-	if (c->source != nullptr && c->idle) {
-		c->idle = false;
-		mpd_glib_leave(c->source);
+	if (source != nullptr && idle) {
+		idle = false;
+		mpd_glib_leave(source);
 
-		if (c->source != nullptr)
-			mpdclient_schedule_enter_idle(c);
+		if (source != nullptr)
+			mpdclient_schedule_enter_idle(this);
 	}
 
-	return c->connection;
+	return connection;
 }
 
 static struct mpd_status *
@@ -483,7 +481,7 @@ mpdclient_recv_status(struct mpdclient *c)
 
 	struct mpd_status *status = mpd_recv_status(c->connection);
 	if (status == nullptr) {
-		mpdclient_handle_error(c);
+		c->HandleError();
 		return nullptr;
 	}
 
@@ -507,7 +505,7 @@ mpdclient_cmd_crop(struct mpdclient *c)
 	if (current < 0 || mpd_status_get_queue_length(c->status) < 2)
 		return true;
 
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
@@ -520,13 +518,13 @@ mpdclient_cmd_crop(struct mpdclient *c)
 
 	mpd_command_list_end(connection);
 
-	return mpdclient_finish_command(c);
+	return c->FinishCommand();
 }
 
 bool
 mpdclient_cmd_clear(struct mpdclient *c)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
@@ -535,7 +533,7 @@ mpdclient_cmd_clear(struct mpdclient *c)
 	    !mpd_send_clear(connection) ||
 	    !mpd_send_status(connection) ||
 	    !mpd_command_list_end(connection))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
 	/* receive the new status, store it in the mpdclient struct */
 
@@ -544,7 +542,7 @@ mpdclient_cmd_clear(struct mpdclient *c)
 		return false;
 
 	if (!mpd_response_finish(connection))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
 	/* update mpdclient.playlist */
 
@@ -564,12 +562,12 @@ mpdclient_cmd_clear(struct mpdclient *c)
 bool
 mpdclient_cmd_volume(struct mpdclient *c, int value)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
 	mpd_send_set_volume(connection, value);
-	return mpdclient_finish_command(c);
+	return c->FinishCommand();
 }
 
 bool
@@ -578,7 +576,7 @@ mpdclient_cmd_volume_up(struct mpdclient *c)
 	if (c->volume < 0 || c->volume >= 100)
 		return true;
 
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
@@ -591,7 +589,7 @@ mpdclient_cmd_volume_down(struct mpdclient *c)
 	if (c->volume <= 0)
 		return true;
 
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
@@ -601,12 +599,12 @@ mpdclient_cmd_volume_down(struct mpdclient *c)
 bool
 mpdclient_cmd_add_path(struct mpdclient *c, const char *path_utf8)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
 	return mpd_send_add(connection, path_utf8)?
-		mpdclient_finish_command(c) : false;
+		c->FinishCommand() : false;
 }
 
 bool
@@ -615,7 +613,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 	assert(c != nullptr);
 	assert(song != nullptr);
 
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr || c->status == nullptr)
 		return false;
 
@@ -630,7 +628,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 					 c->playlist.size()) ||
 	    !mpd_command_list_end(connection) ||
 	    !mpd_response_next(connection))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
 	c->events |= MPD_IDLE_QUEUE;
 
@@ -639,7 +637,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 		return false;
 
 	if (!mpd_response_next(connection))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
 	struct mpd_song *new_song = mpd_recv_song(connection);
 	if (!mpd_response_finish(connection) || new_song == nullptr) {
@@ -647,7 +645,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 			mpd_song_free(new_song);
 
 		return mpd_connection_clear_error(connection) ||
-			mpdclient_handle_error(c);
+			c->HandleError();
 	}
 
 	if (mpd_status_get_queue_length(status) == c->playlist.size() + 1 &&
@@ -670,7 +668,7 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 bool
 mpdclient_cmd_delete(struct mpdclient *c, int idx)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 
 	if (connection == nullptr || c->status == nullptr)
 		return false;
@@ -687,7 +685,7 @@ mpdclient_cmd_delete(struct mpdclient *c, int idx)
 	    !mpd_send_delete_id(connection, mpd_song_get_id(&song)) ||
 	    !mpd_send_status(connection) ||
 	    !mpd_command_list_end(connection))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
 	c->events |= MPD_IDLE_QUEUE;
 
@@ -696,7 +694,7 @@ mpdclient_cmd_delete(struct mpdclient *c, int idx)
 		return false;
 
 	if (!mpd_response_finish(connection))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
 	if (mpd_status_get_queue_length(status) == c->playlist.size() - 1 &&
 	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
@@ -724,7 +722,7 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 		   safer "deleteid" version */
 		return mpdclient_cmd_delete(c, start);
 
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
@@ -735,7 +733,7 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 	    !mpd_send_delete_range(connection, start, end) ||
 	    !mpd_send_status(connection) ||
 	    !mpd_command_list_end(connection))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
 	c->events |= MPD_IDLE_QUEUE;
 
@@ -744,7 +742,7 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 		return false;
 
 	if (!mpd_response_finish(connection))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
 	if (mpd_status_get_queue_length(status) == c->playlist.size() - (end - start) &&
 	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
@@ -774,7 +772,7 @@ mpdclient_cmd_move(struct mpdclient *c, unsigned dest_pos, unsigned src_pos)
 	if (dest_pos == src_pos)
 		return true;
 
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
@@ -785,7 +783,7 @@ mpdclient_cmd_move(struct mpdclient *c, unsigned dest_pos, unsigned src_pos)
 	    !mpd_send_move(connection, src_pos, dest_pos) ||
 	    !mpd_send_status(connection) ||
 	    !mpd_command_list_end(connection))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
 	c->events |= MPD_IDLE_QUEUE;
 
@@ -794,7 +792,7 @@ mpdclient_cmd_move(struct mpdclient *c, unsigned dest_pos, unsigned src_pos)
 		return false;
 
 	if (!mpd_response_finish(connection))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
 	if (mpd_status_get_queue_length(status) == c->playlist.size() &&
 	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
@@ -815,66 +813,66 @@ mpdclient_cmd_move(struct mpdclient *c, unsigned dest_pos, unsigned src_pos)
 bool
 mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 
 	if (connection == nullptr)
 		return false;
 
 	if (!mpd_send_subscribe(connection, channel))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
-	return mpdclient_finish_command(c);
+	return c->FinishCommand();
 }
 
 bool
 mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
 	if (!mpd_send_unsubscribe(connection, channel))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
-	return mpdclient_finish_command(c);
+	return c->FinishCommand();
 }
 
 bool
 mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
 			   const char *text)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
 	if (!mpd_send_send_message(connection, channel, text))
-		return mpdclient_handle_error(c);
+		return c->HandleError();
 
-	return mpdclient_finish_command(c);
+	return c->FinishCommand();
 }
 
 bool
 mpdclient_send_read_messages(struct mpdclient *c)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
 	return mpd_send_read_messages(connection)?
-		true : mpdclient_handle_error(c);
+		true : c->HandleError();
 }
 
 struct mpd_message *
 mpdclient_recv_message(struct mpdclient *c)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	struct mpd_connection *connection = c->GetConnection();
 	if (connection == nullptr)
 		return nullptr;
 
 	struct mpd_message *message = mpd_recv_message(connection);
 	if (message == nullptr &&
 	    mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS)
-		mpdclient_handle_error(c);
+		c->HandleError();
 
 	return message;
 }
@@ -885,66 +883,65 @@ mpdclient_recv_message(struct mpdclient *c)
 
 /* update playlist */
 bool
-mpdclient_playlist_update(struct mpdclient *c)
+mpdclient::UpdateQueue()
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
-	if (connection == nullptr)
+	auto *c = GetConnection();
+	if (c == nullptr)
 		return false;
 
-	c->playlist.clear();
+	playlist.clear();
 
-	mpd_send_list_queue_meta(connection);
+	mpd_send_list_queue_meta(c);
 
 	struct mpd_entity *entity;
-	while ((entity = mpd_recv_entity(connection))) {
+	while ((entity = mpd_recv_entity(c))) {
 		if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG)
-			c->playlist.push_back(*mpd_entity_get_song(entity));
+			playlist.push_back(*mpd_entity_get_song(entity));
 
 		mpd_entity_free(entity);
 	}
 
-	c->playlist.version = mpd_status_get_queue_version(c->status);
-	c->song = nullptr;
+	playlist.version = mpd_status_get_queue_version(status);
+	song = nullptr;
 
-	return mpdclient_finish_command(c);
+	return FinishCommand();
 }
 
 /* update playlist (plchanges) */
 bool
-mpdclient_playlist_update_changes(struct mpdclient *c)
+mpdclient::UpdateQueueChanges()
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
-
-	if (connection == nullptr)
+	auto *c = GetConnection();
+	if (c == nullptr)
 		return false;
 
-	mpd_send_queue_changes_meta(connection, c->playlist.version);
+	mpd_send_queue_changes_meta(c, playlist.version);
 
-	struct mpd_song *song;
-	while ((song = mpd_recv_song(connection)) != nullptr) {
-		int pos = mpd_song_get_pos(song);
+	struct mpd_song *s;
+	while ((s = mpd_recv_song(c)) != nullptr) {
+		int pos = mpd_song_get_pos(s);
 
-		if (pos >= 0 && (guint)pos < c->playlist.size()) {
+		if (pos >= 0 && (guint)pos < playlist.size()) {
 			/* update song */
-			c->playlist.Replace(pos, *song);
+			playlist.Replace(pos, *s);
 		} else {
 			/* add a new song */
-			c->playlist.push_back(*song);
+			playlist.push_back(*s);
 		}
 
-		mpd_song_free(song);
+		mpd_song_free(s);
 	}
 
 	/* remove trailing songs */
 
-	unsigned length = mpd_status_get_queue_length(c->status);
-	while (length < c->playlist.size()) {
+	unsigned length = mpd_status_get_queue_length(status);
+	while (length < playlist.size()) {
 		/* Remove the last playlist entry */
-		c->playlist.RemoveIndex(c->playlist.size() - 1);
+		playlist.RemoveIndex(playlist.size() - 1);
 	}
 
-	c->song = nullptr;
-	c->playlist.version = mpd_status_get_queue_version(c->status);
+	song = nullptr;
+	playlist.version = mpd_status_get_queue_version(status);
 
-	return mpdclient_finish_command(c);
+	return FinishCommand();
 }

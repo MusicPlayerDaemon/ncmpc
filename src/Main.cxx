@@ -137,7 +137,7 @@ do_mpd_update()
 {
 	if (mpd->IsConnected() &&
 	    (mpd->events != 0 || mpd->playing))
-		mpdclient_update(mpd);
+		mpd->Update();
 
 #ifndef NCMPC_MINI
 	if (options.enable_xterm_title)
@@ -155,11 +155,11 @@ do_mpd_update()
 static gboolean
 timer_reconnect(gcc_unused gpointer data)
 {
-	assert(mpdclient_is_dead(mpd));
+	assert(mpd->IsDead());
 
 	reconnect_source_id = 0;
 
-	char *name = mpdclient_settings_name(mpd);
+	char *name = mpd->GetSettingsName();
 	screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
 			     name, get_key_names(CMD_QUIT, false));
 	g_free(name);
@@ -177,7 +177,7 @@ mpdclient_connected_callback()
 
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.14 - song id not supported by mpd */
-	struct mpd_connection *connection = mpdclient_get_connection(mpd);
+	auto *connection = mpd->GetConnection();
 	if (mpd_connection_cmp_server_version(connection, 0, 16, 0) < 0) {
 		const unsigned *version =
 			mpd_connection_get_server_version(connection);

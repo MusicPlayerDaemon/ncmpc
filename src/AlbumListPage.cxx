@@ -82,7 +82,7 @@ recv_tag_values(struct mpd_connection *connection, enum mpd_tag_type tag,
 void
 AlbumListPage::LoadAlbumList(struct mpdclient &c)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(&c);
+	auto *connection = c.GetConnection();
 
 	album_list.clear();
 
@@ -96,7 +96,7 @@ AlbumListPage::LoadAlbumList(struct mpdclient &c)
 
 		recv_tag_values(connection, MPD_TAG_ALBUM, album_list);
 
-		mpdclient_finish_command(&c);
+		c.FinishCommand();
 	}
 
 	/* sort list */
@@ -169,10 +169,9 @@ static void
 add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
 	  const char *_artist)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
-
 	assert(_filter != nullptr);
 
+	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return;
 
@@ -186,7 +185,7 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
 					      MPD_TAG_ARTIST, _artist);
 	mpd_search_commit(connection);
-	mpdclient_finish_command(c);
+	c->FinishCommand();
 }
 
 bool

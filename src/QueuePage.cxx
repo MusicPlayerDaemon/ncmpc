@@ -417,7 +417,7 @@ QueuePage::Update(struct mpdclient &c, unsigned events)
 	if (c.connection_id != last_connection_id) {
 		last_connection_id = c.connection_id;
 		g_free(connection_name);
-		connection_name = mpdclient_settings_name(&c);
+		connection_name = c.GetSettingsName();
 	}
 
 	if (events & MPD_IDLE_QUEUE)
@@ -454,13 +454,11 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 		/* play */
 		const struct mpd_song *song = GetSelectedSong();
 		if (song != nullptr) {
-			struct mpd_connection *connection =
-				mpdclient_get_connection(&c);
-
+			auto *connection = c.GetConnection();
 			if (connection != nullptr &&
 			    !mpd_run_play_id(connection,
 					     mpd_song_get_id(song)))
-				mpdclient_handle_error(&c);
+				c.HandleError();
 		}
 	} else if (bstate & BUTTON3_CLICKED) {
 		/* delete */
@@ -575,10 +573,10 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		if (song == nullptr)
 			return false;
 
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection != nullptr &&
 		    !mpd_run_play_id(connection, mpd_song_get_id(song)))
-			mpdclient_handle_error(&c);
+			c.HandleError();
 
 		return true;
 
@@ -604,7 +602,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 			/* No range selection, shuffle all list. */
 			break;
 
-		connection = mpdclient_get_connection(&c);
+		connection = c.GetConnection();
 		if (connection == nullptr)
 			return true;
 
@@ -612,7 +610,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 					  range.end_index))
 			screen_status_message(_("Shuffled queue"));
 		else
-			mpdclient_handle_error(&c);
+			c.HandleError();
 		return true;
 
 	case CMD_LIST_MOVE_UP:

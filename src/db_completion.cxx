@@ -29,7 +29,7 @@ gcmp_list_from_path(struct mpdclient *c, const char *path,
 		    Completion &completion,
 		    int types)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return;
 

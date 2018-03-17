@@ -318,7 +318,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 static FileList *
 do_search(struct mpdclient *c, const char *query)
 {
-	struct mpd_connection *connection = mpdclient_get_connection(c);
+	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return nullptr;
 
@@ -327,7 +327,7 @@ do_search(struct mpdclient *c, const char *query)
 		return fl;
 
 	if (mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS) {
-		mpdclient_handle_error(c);
+		c->HandleError();
 		return nullptr;
 	}
 
@@ -335,7 +335,7 @@ do_search(struct mpdclient *c, const char *query)
 				 mode[options.search_mode].table,
 				 query);
 	if (fl == nullptr)
-		mpdclient_handle_error(c);
+		c->HandleError();
 	return fl;
 }
 

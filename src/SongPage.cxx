@@ -479,9 +479,9 @@ SongPage::Update(struct mpdclient &c, unsigned)
 	}
 
 	/* Add some statistics about mpd */
-	struct mpd_connection *connection = mpdclient_get_connection(&c);
+	auto *connection = c.GetConnection();
 	if (connection != nullptr && !AddStats(connection))
-		mpdclient_handle_error(&c);
+		c.HandleError();
 
 	lw.SetLength(lines.size());
 	SetDirty();
