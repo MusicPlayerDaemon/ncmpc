@@ -277,51 +277,51 @@ mpd_glib_add_watch(MpdIdleSource *source)
 }
 
 bool
-mpd_glib_enter(MpdIdleSource *source)
+MpdIdleSource::Enter()
 {
-	assert(source->io_events == 0);
-	assert(source->id == 0);
+	assert(io_events == 0);
+	assert(id == 0);
 
-	source->idle_events = 0;
+	idle_events = 0;
 
-	if (!mpd_async_send_command(source->async, "idle", nullptr)) {
-		mpd_glib_invoke_async_error(source);
+	if (!mpd_async_send_command(async, "idle", nullptr)) {
+		mpd_glib_invoke_async_error(this);
 		return false;
 	}
 
-	mpd_glib_add_watch(source);
+	mpd_glib_add_watch(this);
 	return true;
 }
 
 void
-mpd_glib_leave(MpdIdleSource *source)
+MpdIdleSource::Leave()
 {
-	if (source->id == 0)
+	if (id == 0)
 		/* already left, callback was invoked */
 		return;
 
-	g_source_remove(source->id);
-	source->id = 0;
-	source->io_events = 0;
+	g_source_remove(id);
+	id = 0;
+	io_events = 0;
 
-	enum mpd_idle events = source->idle_events == 0
-		? mpd_run_noidle(source->connection)
-		: mpd_recv_idle(source->connection, false);
+	enum mpd_idle events = idle_events == 0
+		? mpd_run_noidle(connection)
+		: mpd_recv_idle(connection, false);
 
 	if (events == 0 &&
-	    mpd_connection_get_error(source->connection) != MPD_ERROR_SUCCESS) {
+	    mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS) {
 		enum mpd_error error =
-			mpd_connection_get_error(source->connection);
+			mpd_connection_get_error(connection);
 		enum mpd_server_error server_error =
 			error == MPD_ERROR_SERVER
-			? mpd_connection_get_server_error(source->connection)
+			? mpd_connection_get_server_error(connection)
 			: (enum mpd_server_error)0;
 
-		mpd_glib_invoke_error(source, error, server_error,
-				      mpd_connection_get_error_message(source->connection));
+		mpd_glib_invoke_error(this, error, server_error,
+				      mpd_connection_get_error_message(connection));
 		return;
 	}
 
-	source->idle_events |= events;
-	mpd_glib_invoke(source);
+	idle_events |= events;
+	mpd_glib_invoke(this);
 }

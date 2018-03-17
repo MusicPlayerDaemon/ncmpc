@@ -57,21 +57,19 @@ struct MpdIdleSource {
 	MpdIdleSource(struct mpd_connection &_connection,
 		      mpd_glib_callback_t _callback, void *_callback_ctx);
 	~MpdIdleSource();
+
+	/**
+	 * Enters idle mode.
+	 *
+	 * @return true if idle mode has been entered, false if not
+	 * (e.g. blocked during the callback, or I/O error)
+	 */
+	bool Enter();
+
+	/**
+	 * Leaves idle mode and invokes the callback if there were events.
+	 */
+	void Leave();
 };
-
-/**
- * Enters idle mode.
- *
- * @return true if idle mode has been entered, false if not
- * (e.g. blocked during the callback, or I/O error)
- */
-bool
-mpd_glib_enter(MpdIdleSource *source);
-
-/**
- * Leaves idle mode and invokes the callback if there were events.
- */
-void
-mpd_glib_leave(MpdIdleSource *source);
 
 #endif

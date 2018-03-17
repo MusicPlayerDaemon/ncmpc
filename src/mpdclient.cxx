@@ -43,7 +43,7 @@ mpdclient_enter_idle_callback(gpointer user_data)
 	assert(!c->idle);
 
 	c->enter_idle_source_id = 0;
-	c->idle = mpd_glib_enter(c->source);
+	c->idle = c->source->Enter();
 	return false;
 }
 
@@ -465,7 +465,7 @@ mpdclient::GetConnection()
 {
 	if (source != nullptr && idle) {
 		idle = false;
-		mpd_glib_leave(source);
+		source->Leave();
 
 		if (source != nullptr)
 			mpdclient_schedule_enter_idle(this);
