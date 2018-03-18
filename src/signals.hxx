@@ -20,8 +20,7 @@
 #ifndef SIGNALS_H
 #define SIGNALS_H
 
-#include <glib.h>
-
+typedef struct _GMainLoop GMainLoop;
 class ScreenManager;
 
 #ifdef WIN32
