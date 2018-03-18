@@ -529,7 +529,7 @@ parse_line(char *line)
 				     * 1000 /* seconds -> milliseconds */;
 	else if (!strcasecmp(CONF_LYRICS_TIMEOUT, name))
 #ifdef ENABLE_LYRICS_SCREEN
-		options.lyrics_timeout = atoi(get_format(value));
+		options.lyrics_timeout = atoi(GetStringValue(value).c_str());
 #else
 	{}
 #endif
