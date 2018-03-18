@@ -23,9 +23,6 @@
 #include "Compiler.h"
 
 void
-screen_status_clear_message();
-
-void
 screen_status_message(const char *msg);
 
 gcc_printf(1, 2)

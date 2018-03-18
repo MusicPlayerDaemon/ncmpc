@@ -24,12 +24,6 @@
 #include <stdarg.h>
 
 void
-screen_status_clear_message()
-{
-	screen->status_bar.ClearMessage();
-}
-
-void
 screen_status_message(const char *msg)
 {
 	screen->status_bar.SetMessage(msg);

@@ -193,7 +193,7 @@ mpdclient_connected_callback()
 	}
 #endif
 
-	screen_status_clear_message();
+	screen->status_bar.ClearMessage();
 	doupdate();
 
 	do_mpd_update();
