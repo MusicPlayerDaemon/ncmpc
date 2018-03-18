@@ -29,6 +29,8 @@
 
 #include <mpd/client.h>
 
+#include <glib.h>
+
 #include <string.h>
 #include <ctype.h>
 

@@ -26,6 +26,8 @@
 #include "i18n.h"
 #include "options.hxx"
 
+#include <glib.h>
+
 #define FIND_PROMPT  _("Find")
 #define RFIND_PROMPT _("Find backward")
 #define JUMP_PROMPT _("Jump")

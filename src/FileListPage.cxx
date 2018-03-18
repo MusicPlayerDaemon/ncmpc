@@ -37,6 +37,8 @@
 
 #include <mpd/client.h>
 
+#include <glib.h>
+
 #include <string.h>
 
 #define BUFSIZE 1024

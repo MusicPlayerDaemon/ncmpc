@@ -32,8 +32,6 @@
 
 #include <mpd/client.h>
 
-#include <glib.h>
-
 #include <memory>
 #include <string>
 #include <map>
@@ -103,7 +101,7 @@ public:
 	 * Non-zero when the welcome message is currently being
 	 * displayed.  The associated timer will disable it.
 	 */
-	guint welcome_source_id;
+	unsigned welcome_source_id;
 #endif
 
 	ScreenManager();
