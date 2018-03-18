@@ -34,8 +34,8 @@ screen_status_printf(const char *format, ...)
 {
 	va_list ap;
 	va_start(ap,format);
-	char *msg = g_strdup_vprintf(format,ap);
+	char msg[256];
+	vsnprintf(msg, sizeof(msg), format, ap);
 	va_end(ap);
 	screen_status_message(msg);
-	g_free(msg);
 }
