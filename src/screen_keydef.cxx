@@ -162,7 +162,7 @@ CommandKeysPage::DeleteKey(int cmd_index, int key_index)
 	cmds[cmd_index].flags |= COMMAND_KEY_MODIFIED;
 	check_subcmd_length();
 
-	screen_status_printf(_("Deleted"));
+	screen_status_message(_("Deleted"));
 
 	/* repaint */
 	SetDirty();
@@ -182,12 +182,12 @@ CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
 	g_free(buf);
 
 	if (key == ERR) {
-		screen_status_printf(_("Aborted"));
+		screen_status_message(_("Aborted"));
 		return;
 	}
 
 	if (key == '\0') {
-		screen_status_printf(_("Ctrl-Space can't be used"));
+		screen_status_message(_("Ctrl-Space can't be used"));
 		return;
 	}
 
@@ -395,9 +395,9 @@ CommandListPage::Apply()
 		command_definition_t *orginal_cmds = get_command_definitions();
 
 		std::copy_n(cmds, command_n_commands, orginal_cmds);
-		screen_status_printf(_("You have new key bindings"));
+		screen_status_message(_("You have new key bindings"));
 	} else
-		screen_status_printf(_("Keybindings unchanged."));
+		screen_status_message(_("Keybindings unchanged."));
 }
 
 void
@@ -567,7 +567,7 @@ void
 KeyDefPage::OnClose()
 {
 	if (command_list_page.IsModified())
-		screen_status_printf(_("Note: Did you forget to \'Apply\' your changes?"));
+		screen_status_message(_("Note: Did you forget to \'Apply\' your changes?"));
 
 	ProxyPage::OnClose();
 }

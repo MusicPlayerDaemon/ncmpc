@@ -116,7 +116,7 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 
 			if (!replace) {
 				g_free(filename);
-				screen_status_printf(_("Aborted"));
+				screen_status_message(_("Aborted"));
 				return -1;
 			}
 

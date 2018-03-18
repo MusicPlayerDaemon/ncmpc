@@ -487,12 +487,12 @@ ListWindow::HandleCommand(command_t cmd)
 	case CMD_LIST_RANGE_SELECT:
 		if(range_selection)
 		{
-			screen_status_printf(_("Range selection disabled"));
+			screen_status_message(_("Range selection disabled"));
 			SetCursor(selected);
 		}
 		else
 		{
-			screen_status_printf(_("Range selection enabled"));
+			screen_status_message(_("Range selection enabled"));
 			range_base = selected;
 			range_selection = true;
 		}

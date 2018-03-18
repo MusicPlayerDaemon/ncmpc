@@ -40,7 +40,7 @@ screen_database_update(struct mpdclient *c, const char *path)
 		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_UPDATE_ALREADY &&
 		    mpd_connection_clear_error(connection))
-			screen_status_printf(_("Database update running..."));
+			screen_status_message(_("Database update running..."));
 		else
 			c->HandleError();
 		return;

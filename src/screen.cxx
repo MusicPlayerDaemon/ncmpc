@@ -163,33 +163,33 @@ ScreenManager::Update(struct mpdclient &c)
 		}
 
 		if (repeat != mpd_status_get_repeat(c.status))
-			screen_status_printf(mpd_status_get_repeat(c.status) ?
-					     _("Repeat mode is on") :
-					     _("Repeat mode is off"));
+			screen_status_message(mpd_status_get_repeat(c.status) ?
+					      _("Repeat mode is on") :
+					      _("Repeat mode is off"));
 
 		if (random_enabled != mpd_status_get_random(c.status))
-			screen_status_printf(mpd_status_get_random(c.status) ?
-					     _("Random mode is on") :
-					     _("Random mode is off"));
+			screen_status_message(mpd_status_get_random(c.status) ?
+					      _("Random mode is on") :
+					      _("Random mode is off"));
 
 		if (single != mpd_status_get_single(c.status))
-			screen_status_printf(mpd_status_get_single(c.status) ?
-					     /* "single" mode means
-						that MPD will
-						automatically stop
-						after playing one
-						single song */
-					     _("Single mode is on") :
-					     _("Single mode is off"));
+			screen_status_message(mpd_status_get_single(c.status) ?
+					      /* "single" mode means
+						 that MPD will
+						 automatically stop
+						 after playing one
+						 single song */
+					      _("Single mode is on") :
+					      _("Single mode is off"));
 
 		if (consume != mpd_status_get_consume(c.status))
-			screen_status_printf(mpd_status_get_consume(c.status) ?
-					     /* "consume" mode means
-						that MPD removes each
-						song which has
-						finished playing */
-					     _("Consume mode is on") :
-					     _("Consume mode is off"));
+			screen_status_message(mpd_status_get_consume(c.status) ?
+					      /* "consume" mode means
+						 that MPD removes each
+						 song which has
+						 finished playing */
+					      _("Consume mode is on") :
+					      _("Consume mode is off"));
 
 		if (crossfade != mpd_status_get_crossfade(c.status))
 			screen_status_printf(_("Crossfade %d seconds"),
@@ -204,7 +204,7 @@ ScreenManager::Update(struct mpdclient &c)
 
 	if ((events & MPD_IDLE_DATABASE) != 0 && was_connected &&
 	    c.IsConnected())
-		screen_status_printf(_("Database updated"));
+		screen_status_message(_("Database updated"));
 	was_connected = c.IsConnected();
 #endif
 
@@ -254,15 +254,15 @@ ScreenManager::OnCommand(struct mpdclient &c, command_t cmd)
 	switch(cmd) {
 	case CMD_TOGGLE_FIND_WRAP:
 		options.find_wrap = !options.find_wrap;
-		screen_status_printf(options.find_wrap ?
-				     _("Find mode: Wrapped") :
-				     _("Find mode: Normal"));
+		screen_status_message(options.find_wrap ?
+				      _("Find mode: Wrapped") :
+				      _("Find mode: Normal"));
 		break;
 	case CMD_TOGGLE_AUTOCENTER:
 		options.auto_center = !options.auto_center;
-		screen_status_printf(options.auto_center ?
-				     _("Auto center mode: On") :
-				     _("Auto center mode: Off"));
+		screen_status_message(options.auto_center ?
+				      _("Auto center mode: On") :
+				      _("Auto center mode: Off"));
 		break;
 	case CMD_SCREEN_UPDATE:
 		current_page->second->SetDirty();

@@ -258,7 +258,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 			/* translators: the "delete" command is only possible
 			   for playlists; the user attempted to delete a song
 			   or a directory or something else */
-			screen_status_printf(_("Deleting this item is not possible"));
+			screen_status_message(_("Deleting this item is not possible"));
 			screen_bell();
 			continue;
 		}
@@ -271,7 +271,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 
 		if (!confirmed) {
 			/* translators: a dialog was aborted by the user */
-			screen_status_printf(_("Aborted"));
+			screen_status_message(_("Aborted"));
 			return;
 		}
 
@@ -284,7 +284,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 
 		/* translators: MPD deleted the playlist, as requested by the
 		   user */
-		screen_status_printf(_("Playlist deleted"));
+		screen_status_message(_("Playlist deleted"));
 	}
 }
 
