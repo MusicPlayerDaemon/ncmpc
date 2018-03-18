@@ -27,7 +27,6 @@
 
 typedef struct {
 	char *host;
-	char *username;
 	char *password;
 	char *config_file;
 	char *key_file;

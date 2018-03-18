@@ -367,7 +367,6 @@ void
 options_deinit()
 {
 	g_free(options.host);
-	g_free(options.username);
 	g_free(options.password);
 	g_free(options.config_file);
 	g_free(options.key_file);
