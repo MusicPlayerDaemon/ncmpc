@@ -34,7 +34,7 @@ match_line(const char *line, const char *needle)
 }
 #else
 
-#include <glib.h>
+typedef struct _GRegex GRegex;
 
 GRegex *
 compile_regex(const char *src, bool anchor);
