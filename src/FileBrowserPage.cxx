@@ -309,9 +309,9 @@ FileBrowserPage::GetTitle(char *str, size_t size) const
 		/* fall back to full path */
 		path = current_path.c_str();
 
-	g_snprintf(str, size, "%s: %s",
-		   /* translators: caption of the browser screen */
-		   _("Browse"), Utf8ToLocale(path).c_str());
+	snprintf(str, size, "%s: %s",
+		 /* translators: caption of the browser screen */
+		 _("Browse"), Utf8ToLocale(path).c_str());
 	return str;
 }
 

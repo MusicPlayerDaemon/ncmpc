@@ -314,8 +314,8 @@ timer_check_key_bindings(gcc_unused gpointer data)
 	   and this is a hint for the user what to press to correct
 	   that */
 	char comment[64];
-	g_snprintf(comment, sizeof(comment), _("press %s for the key editor"),
-		   get_key_names(CMD_SCREEN_KEYDEF, false));
+	snprintf(comment, sizeof(comment), _("press %s for the key editor"),
+		 get_key_names(CMD_SCREEN_KEYDEF, false));
 	g_strlcat(buf, comment, sizeof(buf));
 	g_strlcat(buf, ")", sizeof(buf));
 #endif

@@ -117,9 +117,9 @@ display_help()
 		char tmp[32];
 
 		if (option_table[i].argument)
-			g_snprintf(tmp, sizeof(tmp), "%s=%s",
-				   option_table[i].longopt,
-				   option_table[i].argument);
+			snprintf(tmp, sizeof(tmp), "%s=%s",
+				 option_table[i].longopt,
+				 option_table[i].argument);
 		else
 			g_strlcpy(tmp, option_table[i].longopt, 64);
 

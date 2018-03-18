@@ -323,17 +323,17 @@ key2str(int key)
 	default:
 		for (int i = 0; i <= 63; i++)
 			if (key == KEY_F(i)) {
-				g_snprintf(buf, 32, _("F%d"), i );
+				snprintf(buf, 32, _("F%d"), i );
 				return buf;
 			}
 		if (!(key & ~037))
-			g_snprintf(buf, 32, _("Ctrl-%c"), 'A'+(key & 037)-1 );
+			snprintf(buf, 32, _("Ctrl-%c"), 'A'+(key & 037)-1 );
 		else if ((key & ~037) == 224)
-			g_snprintf(buf, 32, _("Alt-%c"), 'A'+(key & 037)-1 );
+			snprintf(buf, 32, _("Alt-%c"), 'A'+(key & 037)-1 );
 		else if (key > 32 && key < 256)
-			g_snprintf(buf, 32, "%c", key);
+			snprintf(buf, 32, "%c", key);
 		else
-			g_snprintf(buf, 32, "0x%03X", key);
+			snprintf(buf, 32, "0x%03X", key);
 		return buf;
 	}
 }
@@ -473,11 +473,11 @@ check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 			if (cp[i].keys[j] &&
 			    (cmd = find_key_command(cp[i].keys[j],cp)) != cp[i].command) {
 				if (buf) {
-					g_snprintf(buf, bufsize,
-						   _("Key %s assigned to %s and %s"),
-						   key2str(cp[i].keys[j]),
-						   get_key_command_name(cp[i].command),
-						   get_key_command_name(cmd));
+					snprintf(buf, bufsize,
+						 _("Key %s assigned to %s and %s"),
+						 key2str(cp[i].keys[j]),
+						 get_key_command_name(cp[i].command),
+						 get_key_command_name(cmd));
 				} else {
 					fprintf(stderr,
 						_("Key %s assigned to %s and %s"),

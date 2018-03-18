@@ -147,8 +147,8 @@ AlbumListPage::GetTitle(char *str, size_t size) const
 	if (artist.empty())
 		return _("Albums");
 
-	g_snprintf(str, size, _("Albums of artist: %s"),
-		   Utf8ToLocale(artist.c_str()).c_str());
+	snprintf(str, size, _("Albums of artist: %s"),
+		 Utf8ToLocale(artist.c_str()).c_str());
 	return str;
 }
 

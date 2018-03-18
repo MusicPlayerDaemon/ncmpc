@@ -377,7 +377,7 @@ QueuePage::GetTitle(char *str, size_t size) const
 	if (connection_name.empty())
 		return _("Queue");
 
-	g_snprintf(str, size, _("Queue on %s"), connection_name.c_str());
+	snprintf(str, size, _("Queue on %s"), connection_name.c_str());
 	return str;
 }
 

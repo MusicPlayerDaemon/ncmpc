@@ -101,7 +101,7 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 
 	/* In screen.findbuf is the whole string which is displayed in the status_window
 	 * and search_str is the string the user entered (without the prompt) */
-	char *search_str = buffer + g_snprintf(buffer, WRLN_MAX_LINE_SIZE, "%s: ", JUMP_PROMPT);
+	char *search_str = buffer + snprintf(buffer, WRLN_MAX_LINE_SIZE, "%s: ", JUMP_PROMPT);
 	char *iter = search_str;
 
 	while(1) {

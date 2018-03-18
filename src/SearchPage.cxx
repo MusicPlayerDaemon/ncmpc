@@ -408,16 +408,16 @@ const char *
 SearchPage::GetTitle(char *str, size_t size) const
 {
 	if (advanced_search_mode && !pattern.empty())
-		g_snprintf(str, size, _("Search: %s"), pattern.c_str());
+		snprintf(str, size, _("Search: %s"), pattern.c_str());
 	else if (!pattern.empty())
-		g_snprintf(str, size,
-			   _("Search: Results for %s [%s]"),
-			   pattern.c_str(),
-			   _(mode[options.search_mode].label));
+		snprintf(str, size,
+			 _("Search: Results for %s [%s]"),
+			 pattern.c_str(),
+			 _(mode[options.search_mode].label));
 	else
-		g_snprintf(str, size, _("Search: Press %s for a new search [%s]"),
-			   get_key_names(CMD_SCREEN_SEARCH, false),
-			   _(mode[options.search_mode].label));
+		snprintf(str, size, _("Search: Press %s for a new search [%s]"),
+			 get_key_names(CMD_SCREEN_SEARCH, false),
+			 _(mode[options.search_mode].label));
 
 	return str;
 }

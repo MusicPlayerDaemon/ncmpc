@@ -290,7 +290,7 @@ SongPage::AddSong(const struct mpd_song *song)
 	assert(song != nullptr);
 
 	char songpos[16];
-	g_snprintf(songpos, sizeof(songpos), "%d", mpd_song_get_pos(song) + 1);
+	snprintf(songpos, sizeof(songpos), "%d", mpd_song_get_pos(song) + 1);
 	AppendLine(get_tag_label(LABEL_POSITION), songpos,
 		   max_tag_label_width);
 
@@ -361,14 +361,14 @@ SongPage::AddStats(struct mpd_connection *connection)
 	lines.emplace_back(_("MPD statistics"));
 
 	char buf[64];
-	g_snprintf(buf, sizeof(buf), "%d",
-		   mpd_stats_get_number_of_artists(mpd_stats));
+	snprintf(buf, sizeof(buf), "%d",
+		 mpd_stats_get_number_of_artists(mpd_stats));
 	AppendStatsLine(STATS_ARTISTS, buf);
-	g_snprintf(buf, sizeof(buf), "%d",
-		   mpd_stats_get_number_of_albums(mpd_stats));
+	snprintf(buf, sizeof(buf), "%d",
+		 mpd_stats_get_number_of_albums(mpd_stats));
 	AppendStatsLine(STATS_ALBUMS, buf);
-	g_snprintf(buf, sizeof(buf), "%d",
-		   mpd_stats_get_number_of_songs(mpd_stats));
+	snprintf(buf, sizeof(buf), "%d",
+		 mpd_stats_get_number_of_songs(mpd_stats));
 	AppendStatsLine(STATS_SONGS, buf);
 
 	format_duration_long(buf, sizeof(buf),
@@ -399,9 +399,9 @@ audio_format_to_string(char *buffer, size_t size,
 {
 #if LIBMPDCLIENT_CHECK_VERSION(2,10,0)
 	if (format->bits == MPD_SAMPLE_FORMAT_FLOAT) {
-		g_snprintf(buffer, size, "%u:f:%u",
-			   format->sample_rate,
-			   format->channels);
+		snprintf(buffer, size, "%u:f:%u",
+			 format->sample_rate,
+			 format->channels);
 		return;
 	}
 
@@ -410,22 +410,22 @@ audio_format_to_string(char *buffer, size_t size,
 		    format->sample_rate % 44100 == 0) {
 			/* use shortcuts such as "dsd64" which implies the
 			   sample rate */
-			g_snprintf(buffer, size, "dsd%u:%u",
-				   format->sample_rate * 8 / 44100,
-				   format->channels);
+			snprintf(buffer, size, "dsd%u:%u",
+				 format->sample_rate * 8 / 44100,
+				 format->channels);
 			return;
 		}
 
-		g_snprintf(buffer, size, "%u:dsd:%u",
-			   format->sample_rate,
-			   format->channels);
+		snprintf(buffer, size, "%u:dsd:%u",
+			 format->sample_rate,
+			 format->channels);
 		return;
 	}
 #endif
 
-	g_snprintf(buffer, size, "%u:%u:%u",
-		   format->sample_rate, format->bits,
-		   format->channels);
+	snprintf(buffer, size, "%u:%u:%u",
+		 format->sample_rate, format->bits,
+		 format->channels);
 }
 
 void
@@ -460,8 +460,8 @@ SongPage::Update(struct mpdclient &c, unsigned)
 
 		if (mpd_status_get_kbit_rate(c.status) > 0) {
 			char buf[16];
-			g_snprintf(buf, sizeof(buf), _("%d kbps"),
-				   mpd_status_get_kbit_rate(c.status));
+			snprintf(buf, sizeof(buf), _("%d kbps"),
+				 mpd_status_get_kbit_rate(c.status));
 			AppendLine(get_tag_label(LABEL_BITRATE), buf,
 				   max_tag_label_width);
 		}

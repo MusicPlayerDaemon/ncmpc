@@ -131,7 +131,7 @@ TitleBar::Paint(const char *title) const
 	if (volume < 0)
 		volume_string = _("Volume n/a");
 	else {
-		g_snprintf(buf, 32, _("Volume %d%%"), volume);
+		snprintf(buf, sizeof(buf), _("Volume %d%%"), volume);
 		volume_string = buf;
 	}
 

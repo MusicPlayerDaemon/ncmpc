@@ -39,7 +39,6 @@
 
 #include <assert.h>
 #include <string.h>
-#include <glib.h>
 
 class SongListPage final : public FileListPage {
 	std::string artist;
@@ -181,17 +180,17 @@ SongListPage::GetTitle(char *str, size_t size) const
 	const Utf8ToLocale artist_locale(artist.c_str());
 
 	if (IsNulled(album))
-		g_snprintf(str, size,
-			   _("All tracks of artist: %s"),
-			   artist_locale.c_str());
+		snprintf(str, size,
+			 _("All tracks of artist: %s"),
+			 artist_locale.c_str());
 	else if (!album.empty()) {
 		const Utf8ToLocale album_locale(album.c_str());
-		g_snprintf(str, size, _("Album: %s - %s"),
-			   artist_locale.c_str(), album_locale.c_str());
+		snprintf(str, size, _("Album: %s - %s"),
+			 artist_locale.c_str(), album_locale.c_str());
 	} else
-		g_snprintf(str, size,
-			   _("Tracks of no album of artist: %s"),
-			   artist_locale.c_str());
+		snprintf(str, size,
+			 _("Tracks of no album of artist: %s"),
+			 artist_locale.c_str());
 
 	return str;
 }

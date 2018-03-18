@@ -228,17 +228,16 @@ CommandKeysPage::GetListItemText(char *buffer, size_t size,
 		return "[..]";
 
 	if (idx == subcmd_item_add()) {
-		g_snprintf(buffer, size, "%d. %s",
-			   idx, _("Add new key"));
+		snprintf(buffer, size, "%d. %s", idx, _("Add new key"));
 		return buffer;
 	}
 
 	assert(subcmd_item_is_key(idx));
 
-	g_snprintf(buffer, size,
-		   "%d. %-20s   (%d) ", idx,
-		   key2str(cmds[subcmd].keys[subcmd_item_to_key_id(idx)]),
-		   cmds[subcmd].keys[subcmd_item_to_key_id(idx)]);
+	snprintf(buffer, size,
+		 "%d. %-20s   (%d) ", idx,
+		 key2str(cmds[subcmd].keys[subcmd_item_to_key_id(idx)]),
+		 cmds[subcmd].keys[subcmd_item_to_key_id(idx)]);
 	return buffer;
 }
 
@@ -251,7 +250,7 @@ CommandKeysPage::OnOpen(gcc_unused struct mpdclient &c)
 const char *
 CommandKeysPage::GetTitle(char *str, size_t size) const
 {
-	g_snprintf(str, size, _("Edit keys for %s"), cmds[subcmd].name);
+	snprintf(str, size, _("Edit keys for %s"), cmds[subcmd].name);
 	return str;
 }
 
@@ -456,9 +455,9 @@ CommandListPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
 	if (len < get_cmds_max_name_width(cmds))
 		memset(buffer + len, ' ', get_cmds_max_name_width(cmds) - len);
 
-	g_snprintf(buffer + get_cmds_max_name_width(cmds),
-		   size - get_cmds_max_name_width(cmds),
-		   " - %s", _(cmds[idx].description));
+	snprintf(buffer + get_cmds_max_name_width(cmds),
+		 size - get_cmds_max_name_width(cmds),
+		 " - %s", _(cmds[idx].description));
 
 	return buffer;
 }

@@ -77,9 +77,9 @@ static void
 format_bitrate(char *p, size_t max_length, const struct mpd_status *status)
 {
 	if (options.visible_bitrate && mpd_status_get_kbit_rate(status) > 0)
-		g_snprintf(p, max_length,
-			   " [%d kbps]",
-			   mpd_status_get_kbit_rate(status));
+		snprintf(p, max_length,
+			 " [%d kbps]",
+			 mpd_status_get_kbit_rate(status));
 	else
 		p[0] = '\0';
 }
@@ -147,9 +147,9 @@ StatusBar::Update(const struct mpd_status *status,
 					      sizeof(duration_string),
 					      total_time);
 
-			g_snprintf(right_text, sizeof(right_text),
-				   "%s [%s/%s]",
-				   bitrate, elapsed_string, duration_string);
+			snprintf(right_text, sizeof(right_text),
+				 "%s [%s/%s]",
+				 bitrate, elapsed_string, duration_string);
 		} else {
 #ifndef NCMPC_MINI
 			format_bitrate(right_text, sizeof(right_text), status);
