@@ -24,8 +24,6 @@
 #include "ncmpc_curses.h"
 #include "BasicMarquee.hxx"
 
-#include <glib.h>
-
 /**
  * This class is used to auto-scroll text which does not fit on the
  * screen.  Call hscroll_init() to initialize the object,
@@ -56,7 +54,7 @@ class hscroll {
 	 * The id of the timer which updates the scrolled area every
 	 * second.
 	 */
-	guint source_id = 0;
+	unsigned source_id = 0;
 
 public:
 	hscroll(WINDOW *_w, const char *_separator)
