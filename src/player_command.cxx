@@ -24,6 +24,8 @@
 #include "screen_client.hxx"
 #include "screen_status.hxx"
 
+#include <glib.h>
+
 int seek_id = -1;
 int seek_target_time;
 

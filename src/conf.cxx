@@ -502,7 +502,7 @@ parse_line(char *line)
 	else if (!strcasecmp(CONF_BELL_ON_WRAP, name))
 		options.bell_on_wrap = str2bool(value);
 	else if (!strcasecmp(CONF_STATUS_MESSAGE_TIME, name))
-		options.status_message_time = atoi(value);
+		options.status_message_time = std::chrono::seconds(atoi(value));
 	else if (!strcasecmp(CONF_XTERM_TITLE, name))
 		options.enable_xterm_title = str2bool(value);
 	else if (!strcasecmp(CONF_ENABLE_MOUSE, name))

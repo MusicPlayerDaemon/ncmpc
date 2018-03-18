@@ -275,6 +275,6 @@ StatusBar::SetMessage(const char *msg)
 	if (message_source_id != 0)
 		g_source_remove(message_source_id);
 	message_source_id = ScheduleTimeout<StatusBar,
-					    &StatusBar::OnClearMessageTimer>(std::chrono::seconds(options.status_message_time),
+					    &StatusBar::OnClearMessageTimer>(options.status_message_time,
 									     *this);
 }

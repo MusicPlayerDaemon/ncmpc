@@ -23,7 +23,7 @@
 #include "config.h"
 #include "defaults.hxx"
 
-#include <glib.h>
+#include <chrono>
 
 typedef struct {
 	char *host;
@@ -70,7 +70,7 @@ typedef struct {
 	bool audible_bell = true;
 	bool visible_bell;
 	bool bell_on_wrap = true;
-	GTime status_message_time = 3;
+	std::chrono::seconds status_message_time = std::chrono::seconds(3);
 #ifndef NCMPC_MINI
 	bool enable_xterm_title;
 #endif

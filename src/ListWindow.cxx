@@ -31,6 +31,8 @@
 #include "screen_utils.hxx"
 #include "i18n.h"
 
+#include <glib.h>
+
 #include <assert.h>
 #include <stdlib.h>
 #include <unistd.h>
