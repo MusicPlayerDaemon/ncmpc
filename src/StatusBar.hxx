@@ -30,15 +30,13 @@
 
 #include <string>
 
-#include <glib.h>
-
 struct mpd_status;
 struct mpd_song;
 
 class StatusBar {
 	Window window;
 
-	guint message_source_id = 0;
+	unsigned message_source_id = 0;
 
 #ifndef NCMPC_MINI
 	class hscroll hscroll;
