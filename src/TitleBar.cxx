@@ -126,13 +126,17 @@ TitleBar::Paint(const char *title) const
 	}
 
 	char buf[32];
+	const char *volume_string;
 	if (volume < 0)
-		g_snprintf(buf, 32, _("Volume n/a"));
-	else
+		volume_string = _("Volume n/a");
+	else {
 		g_snprintf(buf, 32, _("Volume %d%%"), volume);
+		volume_string = buf;
+	}
 
 	colors_use(w, COLOR_TITLE);
-	mvwaddstr(w, 0, window.size.width - utf8_width(buf), buf);
+	mvwaddstr(w, 0, window.size.width - utf8_width(volume_string),
+		  volume_string);
 
 	colors_use(w, COLOR_LINE);
 	mvwhline(w, 1, 0, ACS_HLINE, window.size.width);
