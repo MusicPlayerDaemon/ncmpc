@@ -17,61 +17,28 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_STATUS_BAR_HXX
-#define NCMPC_STATUS_BAR_HXX
-
-#include "Window.hxx"
-
-#ifndef NCMPC_MINI
-#include "hscroll.hxx"
-#endif
-
-#include <mpd/status.h>
-
-#include <string>
+#ifndef EVENT_HXX
+#define EVENT_HXX
 
 #include <glib.h>
 
-struct mpd_status;
-struct mpd_song;
+#include <chrono>
 
-class StatusBar {
-	Window window;
-
-	guint message_source_id = 0;
-
-#ifndef NCMPC_MINI
-	class hscroll hscroll;
-#endif
-
-	const char *left_text;
-	char right_text[64];
-
-	std::string center_text;
-
-	unsigned left_width, right_width;
-#ifndef NCMPC_MINI
-	unsigned center_width;
-#endif
-
-public:
-	StatusBar(Point p, unsigned width);
-	~StatusBar();
-
-	Window &GetWindow() {
-		return window;
+template<typename T, bool (T::*method)()>
+struct BindTimeoutCallback {
+	static gboolean Callback(gpointer data) {
+		auto &t = *static_cast<T *>(data);
+		return (t.*method)();
 	}
-
-	void SetMessage(const char *msg);
-	void ClearMessage();
-
-	void OnResize(Point p, unsigned width);
-	void Update(const struct mpd_status *status,
-		    const struct mpd_song *song);
-	void Paint() const;
-
-private:
-	bool OnClearMessageTimer();
 };
+
+template<typename T, bool (T::*method)()>
+inline unsigned
+ScheduleTimeout(std::chrono::seconds s, T &t)
+{
+	return g_timeout_add_seconds(s.count(),
+				     BindTimeoutCallback<T, method>::Callback,
+				     &t);
+}
 
 #endif

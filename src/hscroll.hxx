@@ -95,8 +95,7 @@ public:
 	void Paint() const;
 
 private:
-	static gboolean TimerCallback(gpointer data);
-	void TimerCallback();
+	bool TimerCallback();
 };
 
 #endif

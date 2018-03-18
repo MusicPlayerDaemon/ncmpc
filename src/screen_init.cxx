@@ -25,12 +25,13 @@
 #include "i18n.h"
 #include "options.hxx"
 #include "colors.hxx"
+#include "Event.hxx"
 
 #include <stdlib.h>
 
 #ifndef NCMPC_MINI
 /** welcome message time [s] */
-static const GTime SCREEN_WELCOME_TIME = 10;
+static constexpr std::chrono::seconds SCREEN_WELCOME_TIME(10);
 #endif
 
 /* minimum window size */
@@ -113,14 +114,12 @@ ScreenManager::OnResize()
 }
 
 #ifndef NCMPC_MINI
-static gboolean
-welcome_timer_callback(gpointer data)
+inline bool
+ScreenManager::OnWelcomeTimer()
 {
-	auto &s = *(ScreenManager *)data;
+	welcome_source_id = 0;
 
-	s.welcome_source_id = 0;
-
-	s.PaintTopWindow();
+	PaintTopWindow();
 	doupdate();
 
 	return false;
@@ -132,9 +131,9 @@ ScreenManager::Init(struct mpdclient *c)
 {
 #ifndef NCMPC_MINI
 	if (options.welcome_screen_list)
-		welcome_source_id =
-			g_timeout_add_seconds(SCREEN_WELCOME_TIME,
-					      welcome_timer_callback, this);
+		welcome_source_id = ScheduleTimeout<ScreenManager,
+						    &ScreenManager::OnWelcomeTimer>(SCREEN_WELCOME_TIME,
+										    *this);
 #endif
 
 #ifdef ENABLE_COLORS

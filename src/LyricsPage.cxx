@@ -22,6 +22,7 @@
 #include "screen_status.hxx"
 #include "FileBrowserPage.hxx"
 #include "SongPage.hxx"
+#include "Event.hxx"
 #include "i18n.h"
 #include "options.hxx"
 #include "mpdclient.hxx"
@@ -97,13 +98,7 @@ private:
 	void PluginCallback(std::string &&result, bool success,
 			    const char *plugin_name);
 
-	static gboolean TimeoutCallback(gpointer data) {
-		auto &p = *(LyricsPage *)data;
-		p.TimeoutCallback();
-		return false;
-	}
-
-	void TimeoutCallback();
+	bool TimeoutCallback();
 
 public:
 	/* virtual methods from class Page */
@@ -250,7 +245,7 @@ LyricsPage::PluginCallback(std::string &&result, const bool success,
 	loader = nullptr;
 }
 
-inline void
+inline bool
 LyricsPage::TimeoutCallback()
 {
 	plugin_stop(loader);
@@ -260,6 +255,7 @@ LyricsPage::TimeoutCallback()
 			     options.lyrics_timeout);
 
 	loader_timeout = 0;
+	return false;
 }
 
 void
@@ -280,9 +276,9 @@ LyricsPage::Load(const struct mpd_song *_song)
 	loader = lyrics_load(artist, title, PluginCallback, this);
 
 	if (options.lyrics_timeout != 0) {
-		loader_timeout = g_timeout_add_seconds(options.lyrics_timeout,
-						       TimeoutCallback,
-						       this);
+		loader_timeout = ScheduleTimeout<LyricsPage,
+						 &LyricsPage::TimeoutCallback>(std::chrono::seconds(options.lyrics_timeout),
+									       *this);
 	}
 }
 

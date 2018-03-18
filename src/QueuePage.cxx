@@ -27,6 +27,7 @@
 #include "screen_find.hxx"
 #include "save_playlist.hxx"
 #include "config.h"
+#include "Event.hxx"
 #include "i18n.h"
 #include "charset.hxx"
 #include "options.hxx"
@@ -100,7 +101,16 @@ private:
 
 	bool OnSongChange(const struct mpd_status *status);
 
-	static gboolean OnHideCursorTimer(gpointer data);
+	bool OnHideCursorTimer();
+
+	void ScheduleHideCursor() {
+		assert(options.hide_cursor > 0);
+		assert(timer_hide_cursor_id == 0);
+
+		timer_hide_cursor_id = ScheduleTimeout<QueuePage,
+						       &QueuePage::OnHideCursorTimer>(std::chrono::seconds(options.hide_cursor),
+										      *this);
+	}
 
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(WINDOW *w, unsigned i,
@@ -313,24 +323,21 @@ screen_queue_init(ScreenManager &_screen, WINDOW *w, Size size)
 	return new QueuePage(_screen, w, size);
 }
 
-gboolean
-QueuePage::OnHideCursorTimer(gpointer data)
+bool
+QueuePage::OnHideCursorTimer()
 {
-	auto &q = *(QueuePage *)data;
-
 	assert(options.hide_cursor > 0);
-	assert(q.timer_hide_cursor_id != 0);
+	assert(timer_hide_cursor_id != 0);
 
-	q.timer_hide_cursor_id = 0;
+	timer_hide_cursor_id = 0;
 
 	/* hide the cursor when mpd is playing and the user is inactive */
 
-	if (q.playing) {
-		q.lw.hide_cursor = true;
-		q.Repaint();
+	if (playing) {
+		lw.hide_cursor = true;
+		Repaint();
 	} else
-		q.timer_hide_cursor_id = g_timeout_add_seconds(options.hide_cursor,
-							       OnHideCursorTimer, &q);
+		ScheduleHideCursor();
 
 	return false;
 }
@@ -343,8 +350,7 @@ QueuePage::OnOpen(struct mpdclient &c)
 	assert(timer_hide_cursor_id == 0);
 	if (options.hide_cursor > 0) {
 		lw.hide_cursor = false;
-		timer_hide_cursor_id = g_timeout_add_seconds(options.hide_cursor,
-							     OnHideCursorTimer, this);
+		ScheduleHideCursor();
 	}
 
 	RestoreSelection();
@@ -482,10 +488,12 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 	lw.hide_cursor = false;
 
 	if (options.hide_cursor > 0) {
-		if (timer_hide_cursor_id != 0)
+		if (timer_hide_cursor_id != 0) {
 			g_source_remove(timer_hide_cursor_id);
-		timer_hide_cursor_id = g_timeout_add_seconds(options.hide_cursor,
-							     OnHideCursorTimer, this);
+			timer_hide_cursor_id = 0;
+		}
+
+		ScheduleHideCursor();
 	}
 
 	if (ListPage::OnCommand(c, cmd)) {

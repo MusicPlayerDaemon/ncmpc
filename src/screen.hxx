@@ -141,6 +141,10 @@ public:
 
 private:
 	void NextMode(struct mpdclient &c, int offset);
+
+#ifndef NCMPC_MINI
+	bool OnWelcomeTimer();
+#endif
 };
 
 #endif

@@ -18,6 +18,7 @@
  */
 
 #include "StatusBar.hxx"
+#include "Event.hxx"
 #include "options.hxx"
 #include "colors.hxx"
 #include "i18n.h"
@@ -246,19 +247,12 @@ StatusBar::OnResize(Point p, unsigned width)
 	window.Move(p);
 }
 
-inline void
+inline bool
 StatusBar::OnClearMessageTimer()
 {
 	assert(message_source_id != 0);
 	message_source_id = 0;
 	ClearMessage();
-}
-
-gboolean
-StatusBar::OnClearMessageTimer(gpointer data)
-{
-	auto &sb = *(StatusBar *)data;
-	sb.OnClearMessageTimer();
 	return false;
 }
 
@@ -280,6 +274,7 @@ StatusBar::SetMessage(const char *msg)
 
 	if (message_source_id != 0)
 		g_source_remove(message_source_id);
-	message_source_id = g_timeout_add_seconds(options.status_message_time,
-						  OnClearMessageTimer, this);
+	message_source_id = ScheduleTimeout<StatusBar,
+					    &StatusBar::OnClearMessageTimer>(std::chrono::seconds(options.status_message_time),
+									     *this);
 }

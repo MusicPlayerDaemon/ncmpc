@@ -20,25 +20,19 @@
 #include "hscroll.hxx"
 #include "charset.hxx"
 #include "ncfix.h"
+#include "Event.hxx"
 
 #include <algorithm>
 
 #include <assert.h>
 
-gboolean
-hscroll::TimerCallback(gpointer data)
-{
-	auto &hscroll = *(class hscroll *)data;
-	hscroll.TimerCallback();
-	return true;
-}
-
-inline void
+inline bool
 hscroll::TimerCallback()
 {
 	Step();
 	Paint();
 	wrefresh(w);
+	return true;
 }
 
 void
@@ -58,7 +52,7 @@ hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text)
 	fix_wattr_get(w, &attrs, &pair, nullptr);
 
 	if (source_id == 0)
-		source_id = g_timeout_add_seconds(1, TimerCallback, this);
+		source_id = ScheduleTimeout<hscroll, &hscroll::TimerCallback>(std::chrono::seconds(1), *this);
 }
 
 void
