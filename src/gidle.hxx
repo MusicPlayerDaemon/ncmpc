@@ -62,7 +62,7 @@ struct MpdIdleSource {
 	 * Enters idle mode.
 	 *
 	 * @return true if idle mode has been entered, false if not
-	 * (e.g. blocked during the callback, or I/O error)
+	 * (e.g. I/O error)
 	 */
 	bool Enter();
 
