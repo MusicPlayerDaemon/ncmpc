@@ -31,7 +31,7 @@
 
 #include <mpd/client.h>
 
-#include <glib.h>
+typedef struct _GIOChannel GIOChannel;
 
 typedef void (*mpd_glib_callback_t)(enum mpd_error error,
 				    enum mpd_server_error server_error,
@@ -50,7 +50,7 @@ struct MpdIdleSource {
 
 	unsigned io_events = 0;
 
-	guint id = 0;
+	unsigned id = 0;
 
 	unsigned idle_events;
 

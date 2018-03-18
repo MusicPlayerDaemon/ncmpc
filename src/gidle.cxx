@@ -32,6 +32,8 @@
 #include <mpd/async.h>
 #include <mpd/parser.h>
 
+#include <glib.h>
+
 #include <assert.h>
 #include <string.h>
 #include <errno.h>
