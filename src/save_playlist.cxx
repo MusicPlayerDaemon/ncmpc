@@ -74,24 +74,23 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 {
 	std::string filename;
 
-#ifdef NCMPC_MINI
-	(void)defaultname;
-#endif
-
-#ifndef NCMPC_MINI
 	if (name == nullptr) {
+#ifdef NCMPC_MINI
+		Completion *completion = nullptr;
+#else
 		/* initialize completion support */
-		PlaylistNameCompletion completion(*c);
+		PlaylistNameCompletion _completion(*c);
+		auto *completion = &_completion;
+#endif
 
 		/* query the user for a filename */
 		filename = screen_readln(_("Save queue as"),
 					 defaultname,
 					 nullptr,
-					 &completion);
+					 completion);
 		if (filename.empty())
 			return -1;
 	} else
-#endif
 		filename = name;
 
 	/* send save command to mpd */
