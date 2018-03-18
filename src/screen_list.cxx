@@ -65,9 +65,9 @@ static const struct screen_functions *const screens[] = {
 const struct screen_functions *
 screen_lookup_name(const char *name)
 {
-	for (unsigned i = 0; i < G_N_ELEMENTS(screens); ++i)
-		if (strcmp(name, screens[i]->name) == 0)
-			return screens[i];
+	for (const auto *i : screens)
+		if (strcmp(name, i->name) == 0)
+			return i;
 
 	return nullptr;
 }
