@@ -72,21 +72,22 @@ TitleBar::Update(const struct mpd_status *status)
 {
 	volume = get_volume(status);
 
-	flags[0] = 0;
+	char *p = flags;
 	if (status != nullptr) {
 		if (mpd_status_get_repeat(status))
-			g_strlcat(flags, "r", sizeof(flags));
+			*p++ = 'r';
 		if (mpd_status_get_random(status))
-			g_strlcat(flags, "z", sizeof(flags));
+			*p++ = 'z';
 		if (mpd_status_get_single(status))
-			g_strlcat(flags, "s", sizeof(flags));
+			*p++ = 's';
 		if (mpd_status_get_consume(status))
-			g_strlcat(flags, "c", sizeof(flags));
+			*p++ = 'c';
 		if (mpd_status_get_crossfade(status))
-			g_strlcat(flags, "x", sizeof(flags));
+			*p++ = 'x';
 		if (mpd_status_get_update_id(status) != 0)
-			g_strlcat(flags, "U", sizeof(flags));
+			*p++ = 'U';
 	}
+	*p = 0;
 }
 
 void
