@@ -60,7 +60,7 @@ async_rconnect_success(socket_t fd, void *ctx)
 	rc->handler->success(fd, rc->handler_ctx);
 	g_free(rc->last_error);
 	resolver_free(rc->resolver);
-	g_free(rc);
+	delete rc;
 }
 
 static void
@@ -99,7 +99,7 @@ async_rconnect_next(struct async_rconnect *rc)
 
 		rc->handler->error(msg, rc->handler_ctx);
 		resolver_free(rc->resolver);
-		g_free(rc);
+		delete rc;
 		return;
 	}
 
@@ -124,7 +124,7 @@ async_rconnect_start(struct async_rconnect **rcp,
 		return;
 	}
 
-	struct async_rconnect *rc = g_new(struct async_rconnect, 1);
+	auto *rc = new async_rconnect;
 	rc->handler = handler;
 	rc->handler_ctx = ctx;
 	rc->host = host;
@@ -141,5 +141,5 @@ async_rconnect_cancel(struct async_rconnect *rc)
 	g_free(rc->last_error);
 	async_connect_cancel(rc->connect);
 	resolver_free(rc->resolver);
-	g_free(rc);
+	delete rc;
 }
