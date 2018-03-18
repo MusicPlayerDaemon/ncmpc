@@ -340,12 +340,12 @@ GetStringValue(const char *s)
 	return {s, length};
 }
 
-static char **
+static std::vector<std::string>
 check_screen_list(char *value)
 {
 	char **tmp = g_strsplit_set(value, " \t,", 100);
-	char **screen = nullptr;
-	int i = 0, j = 0;
+	std::vector<std::string> screen;
+	int i = 0;
 
 	while( tmp && tmp[i] ) {
 		char *name = g_ascii_strdown(tmp[i], -1);
@@ -354,18 +354,16 @@ check_screen_list(char *value)
 				/* an unknown screen name was specified in the
 				   configuration file */
 				print_error(_("Unknown screen name"), name);
-				free(name);
 			} else {
-				screen = (char **)g_realloc(screen, (j+2)*sizeof(char *));
-				screen[j++] = name;
-				screen[j] = nullptr;
+				screen.emplace_back(name);
 			}
 		}
+		g_free(name);
 		i++;
 	}
 	g_strfreev(tmp);
-	if( screen == nullptr )
-		return g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
+	if (screen.empty())
+		return DEFAULT_SCREEN_LIST;
 
 	return screen;
 }
@@ -516,7 +514,6 @@ parse_line(char *line)
 	else if (!strcasecmp(CONF_SEEK_TIME, name))
 		options.seek_time = atoi(value);
 	else if (!strcasecmp(CONF_SCREEN_LIST, name)) {
-		g_strfreev(options.screen_list);
 		options.screen_list = check_screen_list(value);
 	} else if (!strcasecmp(CONF_HOST, name))
 		options.host = GetStringValue(value);

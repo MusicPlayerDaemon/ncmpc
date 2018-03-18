@@ -24,7 +24,7 @@
 #define DEFAULT_CROSSFADE_TIME 10
 
 /* screen list */
-#define DEFAULT_SCREEN_LIST "playlist browse"
+#define DEFAULT_SCREEN_LIST {"playlist", "browse"}
 
 /* song format - list window */
 #define DEFAULT_LIST_FORMAT "%name%|[%artist% - ][%title%|%shortfile%]"

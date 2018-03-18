@@ -113,8 +113,8 @@ find_configured_screen(const char *name)
 {
 	unsigned i;
 
-	for (i = 0; options.screen_list[i] != nullptr; ++i)
-		if (strcmp(options.screen_list[i], name) == 0)
+	for (i = 0; i < options.screen_list.size(); ++i)
+		if (strcmp(options.screen_list[i].c_str(), name) == 0)
 			return i;
 
 	return -1;
@@ -123,7 +123,7 @@ find_configured_screen(const char *name)
 void
 ScreenManager::NextMode(struct mpdclient &c, int offset)
 {
-	int max = g_strv_length(options.screen_list);
+	int max = options.screen_list.size();
 
 	/* find current screen */
 	int current = find_configured_screen(current_page->first->name);
@@ -134,7 +134,7 @@ ScreenManager::NextMode(struct mpdclient &c, int offset)
 		next = 0;
 
 	const struct screen_functions *sf =
-		screen_lookup_name(options.screen_list[next]);
+		screen_lookup_name(options.screen_list[next].c_str());
 	if (sf != nullptr)
 		Switch(*sf, c);
 }

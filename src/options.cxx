@@ -347,12 +347,9 @@ options_parse(int argc, const char *argv[])
 void
 options_init()
 {
-	/* default option values */
-	options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
 }
 
 void
 options_deinit()
 {
-	g_strfreev(options.screen_list);
 }

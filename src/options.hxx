@@ -23,6 +23,7 @@
 #include "config.h"
 #include "defaults.hxx"
 
+#include <vector>
 #include <string>
 #include <chrono>
 
@@ -38,7 +39,7 @@ typedef struct {
 	std::string xterm_title_format;
 	std::string scroll_sep = DEFAULT_SCROLL_SEP;
 #endif
-	char **screen_list;
+	std::vector<std::string> screen_list = DEFAULT_SCREEN_LIST;
 	bool display_remaining_time;
 	int port;
 	int timeout_ms = 0;
