@@ -72,7 +72,7 @@ PlaylistNameCompletion::Post(gcc_unused const char *value, Range range)
 int
 playlist_save(struct mpdclient *c, char *name, char *defaultname)
 {
-	gchar *filename;
+	std::string filename;
 
 #ifdef NCMPC_MINI
 	(void)defaultname;
@@ -84,38 +84,33 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 		PlaylistNameCompletion completion(*c);
 
 		/* query the user for a filename */
-		auto result = screen_readln(_("Save queue as"),
-					    defaultname,
-					    nullptr,
-					    &completion);
-		if (result.empty())
+		filename = screen_readln(_("Save queue as"),
+					 defaultname,
+					 nullptr,
+					 &completion);
+		if (filename.empty())
 			return -1;
-
-		filename = g_strdup(result.c_str());
-		filename = g_strstrip(filename);
 	} else
 #endif
-		filename=g_strdup(name);
+		filename = name;
 
 	/* send save command to mpd */
 
 	auto *connection = c->GetConnection();
-	if (connection == nullptr) {
-		g_free(filename);
+	if (connection == nullptr)
 		return -1;
-	}
 
-	const LocaleToUtf8 filename_utf8(filename);
+	const LocaleToUtf8 filename_utf8(filename.c_str());
 	if (!mpd_run_save(connection, filename_utf8.c_str())) {
 		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_EXIST &&
 		    mpd_connection_clear_error(connection)) {
-			char *buf = g_strdup_printf(_("Replace %s?"), filename);
+			char *buf = g_strdup_printf(_("Replace %s?"),
+						    filename.c_str());
 			bool replace = screen_get_yesno(buf, false);
 			g_free(buf);
 
 			if (!replace) {
-				g_free(filename);
 				screen_status_message(_("Aborted"));
 				return -1;
 			}
@@ -123,12 +118,10 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 			if (!mpd_run_rm(connection, filename_utf8.c_str()) ||
 			    !mpd_run_save(connection, filename_utf8.c_str())) {
 				c->HandleError();
-				g_free(filename);
 				return -1;
 			}
 		} else {
 			c->HandleError();
-			g_free(filename);
 			return -1;
 		}
 	}
@@ -136,7 +129,6 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 	c->events |= MPD_IDLE_STORED_PLAYLIST;
 
 	/* success */
-	screen_status_printf(_("Saved %s"), filename);
-	g_free(filename);
+	screen_status_printf(_("Saved %s"), filename.c_str());
 	return 0;
 }
