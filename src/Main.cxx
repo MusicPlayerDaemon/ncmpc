@@ -357,9 +357,6 @@ main(int argc, const char *argv[])
 	textdomain(GETTEXT_PACKAGE);
 #endif
 
-	/* initialize options */
-	options_init();
-
 	/* parse command line options - 1 pass get configuration files */
 	options_parse(argc, argv);
 
@@ -440,8 +437,6 @@ main(int argc, const char *argv[])
 	set_xterm_title("");
 #endif
 	printf("\n");
-
-	options_deinit();
 
 	return 0;
 }

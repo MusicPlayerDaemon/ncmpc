@@ -343,13 +343,3 @@ options_parse(int argc, const char *argv[])
 	if (options.host.empty() && getenv("MPD_HOST"))
 		options.host = getenv("MPD_HOST");
 }
-
-void
-options_init()
-{
-}
-
-void
-options_deinit()
-{
-}

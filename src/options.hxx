@@ -89,9 +89,6 @@ typedef struct {
 
 extern options_t options;
 
-void options_init();
-void options_deinit();
-
 void options_parse(int argc, const char **argv);
 
 #endif
