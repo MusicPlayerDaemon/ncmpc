@@ -44,9 +44,22 @@ struct async_rconnect {
 	const char *host;
 	struct resolver *resolver;
 
-	struct async_connect *connect;
+	struct async_connect *connect = nullptr;
 
-	char *last_error;
+	char *last_error = nullptr;
+
+	async_rconnect(const char *_host, struct resolver *_resolver,
+		       const struct async_rconnect_handler &_handler,
+		       void *_ctx)
+		:handler(&_handler), handler_ctx(_ctx),
+		 host(_host), resolver(_resolver) {}
+
+	~async_rconnect() {
+		g_free(last_error);
+		if (connect != nullptr)
+			async_connect_cancel(connect);
+		resolver_free(resolver);
+	}
 };
 
 static void
@@ -56,10 +69,10 @@ static void
 async_rconnect_success(socket_t fd, void *ctx)
 {
 	auto *rc = (struct async_rconnect *)ctx;
+	rc->connect = nullptr;
 
 	rc->handler->success(fd, rc->handler_ctx);
-	g_free(rc->last_error);
-	resolver_free(rc->resolver);
+
 	delete rc;
 }
 
@@ -67,6 +80,7 @@ static void
 async_rconnect_error(const char *message, void *ctx)
 {
 	auto *rc = (struct async_rconnect *)ctx;
+	rc->connect = nullptr;
 
 	g_free(rc->last_error);
 	rc->last_error = g_strdup(message);
@@ -82,6 +96,8 @@ static const struct async_connect_handler async_rconnect_connect_handler = {
 static void
 async_rconnect_next(struct async_rconnect *rc)
 {
+	assert(rc->connect == nullptr);
+
 	const struct resolver_address *a = resolver_next(rc->resolver);
 	if (a == nullptr) {
 		char msg[256];
@@ -94,11 +110,9 @@ async_rconnect_next(struct async_rconnect *rc)
 			snprintf(msg, sizeof(msg),
 				 "Failed to connect to host '%s': %s",
 				 rc->host, rc->last_error);
-			g_free(rc->last_error);
 		}
 
 		rc->handler->error(msg, rc->handler_ctx);
-		resolver_free(rc->resolver);
 		delete rc;
 		return;
 	}
@@ -124,12 +138,7 @@ async_rconnect_start(struct async_rconnect **rcp,
 		return;
 	}
 
-	auto *rc = new async_rconnect;
-	rc->handler = handler;
-	rc->handler_ctx = ctx;
-	rc->host = host;
-	rc->resolver = r;
-	rc->last_error = nullptr;
+	auto *rc = new async_rconnect(host, r, *handler, ctx);
 	*rcp = rc;
 
 	async_rconnect_next(rc);
@@ -138,8 +147,5 @@ async_rconnect_start(struct async_rconnect **rcp,
 void
 async_rconnect_cancel(struct async_rconnect *rc)
 {
-	g_free(rc->last_error);
-	async_connect_cancel(rc->connect);
-	resolver_free(rc->resolver);
 	delete rc;
 }
