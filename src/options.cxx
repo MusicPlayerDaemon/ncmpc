@@ -239,20 +239,16 @@ handle_option(int c, const char *arg)
 		options.port = atoi(arg);
 		break;
 	case 'h': /* --host */
-		g_free(options.host);
-		options.host = g_strdup(arg);
+		options.host = arg;
 		break;
 	case 'P': /* --password */
-		g_free(options.password);
-		options.password = locale_to_utf8(arg);
+		options.password = LocaleToUtf8(arg).c_str();
 		break;
 	case 'f': /* --config */
-		g_free(options.config_file);
-		options.config_file = g_strdup(arg);
+		options.config_file = arg;
 		break;
 	case 'k': /* --key-file */
-		g_free(options.key_file);
-		options.key_file = g_strdup(arg);
+		options.key_file = arg;
 		break;
 #if !defined(NDEBUG) && !defined(NCMPC_MINI)
 	case 'K': /* --dump-keys */
@@ -344,44 +340,19 @@ options_parse(int argc, const char *argv[])
 	else if (opt && opt->argument)
 		option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
 
-	if (!options.host && getenv("MPD_HOST")) {
-		g_free(options.host);
-		options.host = g_strdup(getenv("MPD_HOST"));
-	}
+	if (options.host.empty() && getenv("MPD_HOST"))
+		options.host = getenv("MPD_HOST");
 }
 
 void
 options_init()
 {
 	/* default option values */
-	options.list_format = g_strdup(DEFAULT_LIST_FORMAT);
-	options.search_format = nullptr;
-	options.status_format = g_strdup(DEFAULT_STATUS_FORMAT);
 	options.screen_list = g_strsplit_set(DEFAULT_SCREEN_LIST, " ", 0);
-#ifndef NCMPC_MINI
-	options.scroll_sep = g_strdup(DEFAULT_SCROLL_SEP);
-#endif
 }
 
 void
 options_deinit()
 {
-	g_free(options.host);
-	g_free(options.password);
-	g_free(options.config_file);
-	g_free(options.key_file);
-	g_free(options.list_format);
-	g_free(options.search_format);
-	g_free(options.status_format);
 	g_strfreev(options.screen_list);
-#ifndef NCMPC_MINI
-	g_free(options.xterm_title_format);
-	g_free(options.scroll_sep);
-#endif
-#ifdef ENABLE_LYRICS_SCREEN
-	g_free(options.text_editor);
-#endif
-#ifdef ENABLE_CHAT_SCREEN
-	g_free(options.chat_prefix);
-#endif
 }

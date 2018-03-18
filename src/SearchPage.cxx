@@ -107,9 +107,9 @@ class SearchPage final : public FileListPage {
 public:
 	SearchPage(ScreenManager &_screen, WINDOW *_w, Size size)
 		:FileListPage(_screen, _w, size,
-			      options.search_format != nullptr
-			      ? options.search_format
-			      : options.list_format) {
+			      !options.search_format.empty()
+			      ? options.search_format.c_str()
+			      : options.list_format.c_str()) {
 		lw.SetLength(G_N_ELEMENTS(help_text));
 		lw.hide_cursor = true;
 	}

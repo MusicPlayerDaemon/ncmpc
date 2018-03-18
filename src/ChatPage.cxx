@@ -140,9 +140,9 @@ screen_chat_get_prefix()
 	if (prefix)
 		return prefix;
 
-	if (options.chat_prefix) {
+	if (!options.chat_prefix.empty()) {
 		/* Options are encoded in the "locale" charset */
-		prefix = locale_to_utf8(options.chat_prefix);
+		prefix = locale_to_utf8(options.chat_prefix.c_str());
 		return prefix;
 	}
 

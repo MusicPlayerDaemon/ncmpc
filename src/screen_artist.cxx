@@ -52,7 +52,8 @@ class SongListPage final : public FileListPage {
 
 public:
 	SongListPage(ScreenManager &_screen, WINDOW *_w, Size size)
-		:FileListPage(_screen, _w, size, options.list_format) {}
+		:FileListPage(_screen, _w, size,
+			      options.list_format.c_str()) {}
 
 	template<typename A>
 	void SetArtist(A &&_artist) {

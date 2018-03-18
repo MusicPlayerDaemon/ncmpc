@@ -81,7 +81,7 @@ public:
 		:ListPage(w, size),
 		 screen(_screen)
 #ifndef NCMPC_MINI
-		, hscroll(w, options.scroll_sep)
+		, hscroll(w, options.scroll_sep.c_str())
 #endif
 	{
 	}
@@ -182,7 +182,7 @@ QueuePage::GetListItemText(char *buffer, size_t size,
 	assert(idx < playlist->size());
 
 	const auto &song = (*playlist)[idx];
-	strfsong(buffer, size, options.list_format, &song);
+	strfsong(buffer, size, options.list_format.c_str(), &song);
 
 	return buffer;
 }
@@ -397,7 +397,7 @@ QueuePage::PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
 
 	paint_song_row(w, y, width, selected,
 		       (int)mpd_song_get_id(&song) == current_song_id,
-		       &song, row_hscroll, options.list_format);
+		       &song, row_hscroll, options.list_format.c_str());
 }
 
 void

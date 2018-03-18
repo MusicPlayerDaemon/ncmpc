@@ -403,8 +403,8 @@ void
 CommandListPage::Save()
 {
 	char *allocated = nullptr;
-	const char *filename = options.key_file;
-	if (filename == nullptr) {
+	const char *filename;
+	if (options.key_file.empty()) {
 		if (!check_user_conf_dir()) {
 			screen_status_printf(_("Error: Unable to create directory ~/.ncmpc - %s"),
 					     strerror(errno));
@@ -413,7 +413,8 @@ CommandListPage::Save()
 		}
 
 		filename = allocated = build_user_key_binding_filename();
-	}
+	} else
+		filename = options.key_file.c_str();
 
 	FILE *f = fopen(filename, "w");
 	if (f == nullptr) {

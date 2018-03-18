@@ -357,12 +357,12 @@ LyricsPage::GetTitle(char *str, size_t size) const
 void
 LyricsPage::Edit()
 {
-	char *editor = options.text_editor;
-	if (editor == nullptr) {
+	if (options.text_editor.empty()) {
 		screen_status_message(_("Editor not configured"));
 		return;
 	}
 
+	const char *editor = options.text_editor.c_str();
 	if (options.text_editor_ask) {
 		const char *prompt =
 			_("Do you really want to start an editor and edit these lyrics?");

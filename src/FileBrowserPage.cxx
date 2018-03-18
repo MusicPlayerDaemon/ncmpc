@@ -48,7 +48,7 @@ public:
 	FileBrowserPage(ScreenManager &_screen, WINDOW *_w,
 			Size size)
 		:FileListPage(_screen, _w, size,
-			      options.list_format) {}
+			      options.list_format.c_str()) {}
 
 	bool GotoSong(struct mpdclient &c, const struct mpd_song &song);
 

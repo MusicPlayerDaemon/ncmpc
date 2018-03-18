@@ -327,17 +327,17 @@ parse_color_definition(char *str)
 }
 #endif
 
-static char *
-get_format(char *str)
+static std::string
+GetStringValue(const char *s)
 {
-	gsize len = strlen(str);
+	size_t length = strlen(s);
 
-	if (str && str[0]=='\"' && str[len-1] == '\"') {
-		str[len - 1] = '\0';
-		str++;
+	if (s[0] == '\"' && s[length - 1] == '\"') {
+		length -= 2;
+		++s;
 	}
 
-	return g_strdup(str);
+	return {s, length};
 }
 
 static char **
@@ -475,20 +475,16 @@ parse_line(char *line)
 #endif
 	/* list format string */
 	else if (!strcasecmp(CONF_LIST_FORMAT, name)) {
-		g_free(options.list_format);
-		options.list_format = get_format(value);
+		options.list_format = GetStringValue(value);
 		/* search format string */
 	} else if (!strcasecmp(CONF_SEARCH_FORMAT, name)) {
-		g_free(options.search_format);
-		options.search_format = get_format(value);
+		options.search_format = GetStringValue(value);
 		/* status format string */
 	} else if (!strcasecmp(CONF_STATUS_FORMAT, name)) {
-		g_free(options.status_format);
-		options.status_format = get_format(value);
+		options.status_format = GetStringValue(value);
 		/* xterm title format string */
 	} else if (!strcasecmp(CONF_XTERM_TITLE_FORMAT, name)) {
-		g_free(options.xterm_title_format);
-		options.xterm_title_format = get_format(value);
+		options.xterm_title_format = GetStringValue(value);
 	} else if (!strcasecmp(CONF_LIST_WRAP, name))
 		options.list_wrap = str2bool(value);
 	else if (!strcasecmp(CONF_FIND_WRAP, name))
@@ -523,13 +519,13 @@ parse_line(char *line)
 		g_strfreev(options.screen_list);
 		options.screen_list = check_screen_list(value);
 	} else if (!strcasecmp(CONF_HOST, name))
-		options.host = get_format(value);
+		options.host = GetStringValue(value);
 	else if (!strcasecmp(CONF_PORT, name))
-		options.port = atoi(get_format(value));
+		options.port = atoi(GetStringValue(value).c_str());
 	else if (!strcasecmp(CONF_PASSWORD, name))
-		options.password = get_format(value);
+		options.password = GetStringValue(value);
 	else if (!strcasecmp(CONF_TIMEOUT, name))
-		options.timeout_ms = atoi(get_format(value))
+		options.timeout_ms = atoi(GetStringValue(value).c_str())
 				     * 1000 /* seconds -> milliseconds */;
 	else if (!strcasecmp(CONF_LYRICS_TIMEOUT, name))
 #ifdef ENABLE_LYRICS_SCREEN
@@ -540,8 +536,7 @@ parse_line(char *line)
 	else if (!strcasecmp(CONF_SCROLL, name))
 		options.scroll = str2bool(value);
 	else if (!strcasecmp(CONF_SCROLL_SEP, name)) {
-		g_free(options.scroll_sep);
-		options.scroll_sep = get_format(value);
+		options.scroll_sep = GetStringValue(value);
 	} else if (!strcasecmp(CONF_DISPLAY_TIME, name))
 		/* obsolete, ignore */
 		{}
@@ -566,8 +561,7 @@ parse_line(char *line)
 	else if (!strcasecmp(name, CONF_TEXT_EDITOR))
 #ifdef ENABLE_LYRICS_SCREEN
 		{
-			g_free(options.text_editor);
-			options.text_editor = get_format(value);
+			options.text_editor = GetStringValue(value);
 		}
 #else
 		{}
@@ -580,7 +574,7 @@ parse_line(char *line)
 #endif
 	else if (!strcasecmp(name, CONF_CHAT_PREFIX))
 #ifdef ENABLE_CHAT_SCREEN
-		options.chat_prefix = get_format(value);
+		options.chat_prefix = GetStringValue(value);
 #else
 		{}
 #endif
@@ -712,8 +706,8 @@ static char *
 find_config_file()
 {
 	/* check for command line configuration file */
-	if (options.config_file != nullptr)
-		return g_strdup(options.config_file);
+	if (!options.config_file.empty())
+		return g_strdup(options.config_file.c_str());
 
 	/* check for user configuration ~/.ncmpc/config */
 	char *filename = build_user_conf_filename();
@@ -735,8 +729,8 @@ static char *
 find_keys_file()
 {
 	/* check for command line key binding file */
-	if (options.key_file != nullptr)
-		return g_strdup(options.key_file);
+	if (!options.key_file.empty())
+		return g_strdup(options.key_file.c_str());
 
 	/* check for  user key bindings ~/.ncmpc/keys */
 	char *filename = build_user_key_binding_filename();

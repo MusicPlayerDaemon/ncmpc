@@ -23,19 +23,20 @@
 #include "config.h"
 #include "defaults.hxx"
 
+#include <string>
 #include <chrono>
 
 typedef struct {
-	char *host;
-	char *password;
-	char *config_file;
-	char *key_file;
-	char *list_format;
-	char *search_format;
-	char *status_format;
+	std::string host;
+	std::string password;
+	std::string config_file;
+	std::string key_file;
+	std::string list_format = DEFAULT_LIST_FORMAT;
+	std::string search_format;
+	std::string status_format = DEFAULT_STATUS_FORMAT;
 #ifndef NCMPC_MINI
-	char *xterm_title_format;
-	char *scroll_sep;
+	std::string xterm_title_format;
+	std::string scroll_sep = DEFAULT_SCROLL_SEP;
 #endif
 	char **screen_list;
 	bool display_remaining_time;
@@ -49,11 +50,11 @@ typedef struct {
 	int lyrics_timeout = DEFAULT_LYRICS_TIMEOUT;
 	bool lyrics_autosave = false;
 	bool lyrics_show_plugin = false;
-	char *text_editor;
+	std::string text_editor;
 	bool text_editor_ask = false;
 #endif
 #ifdef ENABLE_CHAT_SCREEN
-	char *chat_prefix;
+	std::string chat_prefix;
 #endif
 	bool find_wrap = true;
 	bool find_show_last_pattern;

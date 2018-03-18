@@ -80,8 +80,9 @@ update_xterm_title()
 
 	char tmp[BUFSIZE];
 	const char *new_title = nullptr;
-	if (options.xterm_title_format && mpd->playing && song)
-		new_title = strfsong(tmp, BUFSIZE, options.xterm_title_format, song) > 0
+	if (!options.xterm_title_format.empty() && mpd->playing && song)
+		new_title = strfsong(tmp, BUFSIZE,
+				     options.xterm_title_format.c_str(), song) > 0
 			? tmp
 			: nullptr;
 
@@ -380,9 +381,10 @@ main(int argc, const char *argv[])
 #endif
 
 	/* create mpdclient instance */
-	struct mpdclient client(options.host, options.port,
+	struct mpdclient client(options.host.empty() ? nullptr : options.host.c_str(),
+				options.port,
 				options.timeout_ms,
-				options.password);
+				options.password.empty() ? nullptr : options.password.c_str());
 	mpd = &client;
 
 	/* initialize curses */

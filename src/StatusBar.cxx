@@ -35,7 +35,7 @@
 StatusBar::StatusBar(Point p, unsigned width)
 	:window(p, {width, 1u})
 #ifndef NCMPC_MINI
-	, hscroll(window.w, options.scroll_sep)
+	, hscroll(window.w, options.scroll_sep.c_str())
 #endif
 {
 
@@ -167,7 +167,7 @@ StatusBar::Update(const struct mpd_status *status,
 		if (song) {
 			char buffer[1024];
 			strfsong(buffer, sizeof(buffer),
-				 options.status_format, song);
+				 options.status_format.c_str(), song);
 			center_text = buffer;
 		} else
 			center_text.clear();
