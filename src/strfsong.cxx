@@ -244,10 +244,9 @@ _strfsong(char *s,
 			temp = song_tag_locale(song, MPD_TAG_GENRE);
 		else if (strncmp("%shortfile%", p, n) == 0) {
 			const char *uri = mpd_song_get_uri(song);
-			if (strstr(uri, "://") != nullptr)
-				temp = utf8_to_locale(uri);
-			else
-				temp = utf8_to_locale(g_basename(uri));
+			if (strstr(uri, "://") == nullptr)
+				uri = g_basename(uri);
+			temp = utf8_to_locale(uri);
 		} else if (strncmp("%time%", p, n) == 0) {
 			unsigned duration = mpd_song_get_duration(song);
 
