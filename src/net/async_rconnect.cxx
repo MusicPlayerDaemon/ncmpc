@@ -31,7 +31,7 @@
 #include "resolver.hxx"
 #include "../Compiler.h"
 
-#include <glib.h>
+#include <string>
 
 #include <assert.h>
 #include <stdio.h>
@@ -46,7 +46,7 @@ struct async_rconnect {
 
 	struct async_connect *connect = nullptr;
 
-	char *last_error = nullptr;
+	std::string last_error;
 
 	async_rconnect(const char *_host, struct resolver *_resolver,
 		       const struct async_rconnect_handler &_handler,
@@ -55,7 +55,6 @@ struct async_rconnect {
 		 host(_host), resolver(_resolver) {}
 
 	~async_rconnect() {
-		g_free(last_error);
 		if (connect != nullptr)
 			async_connect_cancel(connect);
 		resolver_free(resolver);
@@ -82,8 +81,7 @@ async_rconnect_error(const char *message, void *ctx)
 	auto *rc = (struct async_rconnect *)ctx;
 	rc->connect = nullptr;
 
-	g_free(rc->last_error);
-	rc->last_error = g_strdup(message);
+	rc->last_error = message;
 
 	async_rconnect_next(rc);
 }
@@ -102,14 +100,14 @@ async_rconnect_next(struct async_rconnect *rc)
 	if (a == nullptr) {
 		char msg[256];
 
-		if (rc->last_error == 0) {
+		if (rc->last_error.empty()) {
 			snprintf(msg, sizeof(msg),
 				 "Host '%s' has no address",
 				 rc->host);
 		} else {
 			snprintf(msg, sizeof(msg),
 				 "Failed to connect to host '%s': %s",
-				 rc->host, rc->last_error);
+				 rc->host, rc->last_error.c_str());
 		}
 
 		rc->handler->error(msg, rc->handler_ctx);
