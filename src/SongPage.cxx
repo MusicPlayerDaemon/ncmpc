@@ -218,15 +218,19 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 	const int value_col = lw.size.height - label_col;
 	/* calculate the number of required linebreaks */
 	const gchar *value_iter = value;
-	const int label_size = strlen(label) + label_col;
+	const size_t label_length = strlen(label);
+	const size_t label_size = label_length + label_col;
 
 	while (*value_iter != 0) {
 		char *entry = (char *)g_malloc(label_size), *entry_iter;
 		if (value_iter == value) {
-			entry_iter = entry + g_sprintf(entry, "%s: ", label);
+			memcpy(entry, label, label_length);
+			entry_iter = entry + label_length;
+			*entry_iter++ = ':';
 			/* fill the label column with whitespaces */
-			memset(entry_iter, ' ', label_col - label_width);
-			entry_iter += label_col - label_width;
+			size_t n_space = label_col - label_width + 1;
+			memset(entry_iter, ' ', n_space);
+			entry_iter += n_space;
 		}
 		else {
 			/* fill the label column with whitespaces */
