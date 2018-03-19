@@ -27,6 +27,7 @@ void
 MpdQueue::clear()
 {
 	version = 0;
+	items.clear();
 }
 
 const struct mpd_song *
