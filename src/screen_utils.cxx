@@ -82,11 +82,11 @@ screen_get_yesno(const char *_prompt, bool def)
 	/* NOTE: if one day a translator decides to use a multi-byte character
 	   for one of the yes/no keys, we'll have to parse it properly */
 
-	char *prompt = g_strdup_printf(_("%s [%s/%s] "), _prompt,
-				       YES_TRANSLATION, NO_TRANSLATION);
+	char prompt[256];
+	snprintf(prompt, sizeof(prompt),
+		 _("%s [%s/%s] "), _prompt,
+		 YES_TRANSLATION, NO_TRANSLATION);
 	int key = tolower(screen_getch(prompt));
-	g_free(prompt);
-
 	if (key == YES_TRANSLATION[0])
 		return true;
 	else if (key == NO_TRANSLATION[0])

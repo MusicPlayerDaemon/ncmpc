@@ -74,14 +74,13 @@ ChatPage::CheckChatSupport(struct mpdclient &c)
 
 	if (mpd_connection_cmp_server_version(c.connection, 0, 17, 0) == -1) {
 		const unsigned *version = mpd_connection_get_server_version(c.connection);
-		char *str;
 
-		str = g_strdup_printf(
-			_("connected to MPD %u.%u.%u (you need at least \n"
-			  "version 0.17.0 to use the chat feature)"),
-			version[0], version[1], version[2]);
-		Append(str);
-		g_free(str);
+		char message[256];
+		snprintf(message, sizeof(message),
+			 _("connected to MPD %u.%u.%u (you need at least \n"
+			   "version 0.17.0 to use the chat feature)"),
+			 version[0], version[1], version[2]);
+		Append(message);
 
 		return (was_supported = false);
 	}

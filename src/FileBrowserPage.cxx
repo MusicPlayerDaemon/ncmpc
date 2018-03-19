@@ -264,11 +264,11 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 		}
 
 		const auto *playlist = mpd_entity_get_playlist(entity);
-		char *buf = g_strdup_printf(_("Delete playlist %s?"),
-					    Utf8ToLocale(g_basename(mpd_playlist_get_path(playlist))).c_str());
-		bool confirmed = screen_get_yesno(buf, false);
-		g_free(buf);
-
+		char prompt[256];
+		snprintf(prompt, sizeof(prompt),
+			 _("Delete playlist %s?"),
+			 Utf8ToLocale(g_basename(mpd_playlist_get_path(playlist))).c_str());
+		bool confirmed = screen_get_yesno(prompt, false);
 		if (!confirmed) {
 			/* translators: a dialog was aborted by the user */
 			screen_status_message(_("Aborted"));

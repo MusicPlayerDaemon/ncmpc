@@ -176,10 +176,10 @@ CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
 {
 	assert(key_index < MAX_COMMAND_KEYS);
 
-	char *buf = g_strdup_printf(_("Enter new key for %s: "),
-				    cmds[cmd_index].name);
-	const int key = screen_getch(buf);
-	g_free(buf);
+	char prompt[256];
+	snprintf(prompt, sizeof(prompt),
+		 _("Enter new key for %s: "), cmds[cmd_index].name);
+	const int key = screen_getch(prompt);
 
 	if (key == ERR) {
 		screen_status_message(_("Aborted"));

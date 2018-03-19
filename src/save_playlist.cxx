@@ -31,8 +31,6 @@
 
 #include <mpd/client.h>
 
-#include <glib.h>
-
 #include <string.h>
 
 #ifndef NCMPC_MINI
@@ -104,11 +102,10 @@ playlist_save(struct mpdclient *c, char *name, char *defaultname)
 		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_EXIST &&
 		    mpd_connection_clear_error(connection)) {
-			char *buf = g_strdup_printf(_("Replace %s?"),
-						    filename.c_str());
-			bool replace = screen_get_yesno(buf, false);
-			g_free(buf);
-
+			char prompt[256];
+			snprintf(prompt, sizeof(prompt),
+				 _("Replace %s?"), filename.c_str());
+			bool replace = screen_get_yesno(prompt, false);
 			if (!replace) {
 				screen_status_message(_("Aborted"));
 				return -1;
