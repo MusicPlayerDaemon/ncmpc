@@ -25,6 +25,8 @@
 #include "colors.hxx"
 #include "screen_list.hxx"
 #include "options.hxx"
+#include "util/CharUtil.hxx"
+#include "util/StringStrip.hxx"
 
 #include <assert.h>
 #include <ctype.h>
@@ -84,28 +86,6 @@
 #define CONF_CHAT_PREFIX "chat-prefix"
 #define CONF_SECOND_COLUMN "second-column"
 
-gcc_const
-static bool
-is_space_not_null(char ch)
-{
-	unsigned char uch = (unsigned char)ch;
-	return uch <= 0x20 && uch > 0;
-}
-
-/**
- * Returns the first non-space character (or a pointer to the null
- * terminator).  Similar to g_strchug(), but just moves the pointer
- * forward without modifying the string contents.
- */
-gcc_pure
-static char *
-skip_spaces(char *p)
-{
-	while (is_space_not_null(*p))
-		++p;
-	return p;
-}
-
 static bool
 str2bool(char *str)
 {
@@ -125,7 +105,7 @@ gcc_const
 static bool
 is_word_char(char ch)
 {
-	return g_ascii_isalnum(ch) || ch == '-' || ch == '_';
+	return IsAlphaNumericASCII(ch) || ch == '-' || ch == '_';
 }
 
 static char *
@@ -175,7 +155,7 @@ parse_key_definition(char *str)
 	int j = 0;
 	char buf[MAX_LINE_LENGTH];
 	memset(buf, 0, MAX_LINE_LENGTH);
-	while (i < len && str[i] != '=' && !g_ascii_isspace(str[i]))
+	while (i < len && str[i] != '=' && !IsWhitespaceFast(str[i]))
 		buf[j++] = str[i++];
 
 	command_t cmd = get_key_command_from_name(buf);
@@ -187,7 +167,7 @@ parse_key_definition(char *str)
 	}
 
 	/* skip whitespace */
-	while (i < len && (str[i] == '=' || g_ascii_isspace(str[i])))
+	while (i < len && (str[i] == '=' || IsWhitespaceFast(str[i])))
 		i++;
 
 	/* get the value part */
@@ -251,7 +231,7 @@ separate_value(char *p)
 	*value++ = 0;
 
 	g_strchomp(p);
-	return skip_spaces(value);
+	return StripLeft(value);
 }
 
 static bool
@@ -276,7 +256,7 @@ after_comma(char *p)
 
 	if (comma != nullptr) {
 		*comma++ = 0;
-		comma = skip_spaces(comma);
+		comma = StripLeft(comma);
 	} else
 		comma = p + strlen(p);
 
@@ -414,10 +394,10 @@ parse_line(char *line)
 	if (name_end == nullptr)
 		return false;
 
-	line = skip_spaces(name_end);
+	line = StripLeft(name_end);
 	if (*line == '=') {
 		++line;
-		line = skip_spaces(line);
+		line = StripLeft(line);
 	} else if (line == name_end) {
 		print_error(_("Missing '='"), name_end);
 		return false;
@@ -602,7 +582,7 @@ read_rc_file(char *filename)
 
 	char line[MAX_LINE_LENGTH];
 	while (fgets(line, sizeof(line), file) != nullptr) {
-		char *p = skip_spaces(line);
+		char *p = StripLeft(line);
 
 		if (*p != 0 && *p != COMMENT_TOKEN)
 			parse_line(g_strchomp(p));

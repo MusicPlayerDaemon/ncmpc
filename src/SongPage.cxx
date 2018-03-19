@@ -31,6 +31,7 @@
 #include "time_format.hxx"
 #include "mpdclient.hxx"
 #include "util/Macros.hxx"
+#include "util/StringStrip.hxx"
 
 #include <mpd/client.h>
 
@@ -240,7 +241,7 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 			entry_iter = entry + label_col;
 		}
 		/* skip whitespaces */
-		while (g_ascii_isspace(*value_iter)) ++value_iter;
+		value_iter = StripLeft(value_iter);
 
 		char *p = g_strdup(value_iter);
 		unsigned width = utf8_cut_width(p, value_col);
