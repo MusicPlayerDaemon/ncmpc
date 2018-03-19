@@ -27,8 +27,7 @@
 #include "charset.hxx"
 #include "config.h"
 #include "i18n.h"
-
-#include <glib.h>
+#include "util/Macros.hxx"
 
 #include <assert.h>
 
@@ -206,7 +205,7 @@ public:
 	HelpPage(ScreenManager &_screen, WINDOW *w, Size size)
 		:ListPage(w, size), screen(_screen) {
 		lw.hide_cursor = true;
-		lw.SetLength(G_N_ELEMENTS(help_text));
+		lw.SetLength(ARRAY_SIZE(help_text));
 	}
 
 public:
@@ -233,7 +232,7 @@ HelpPage::GetListItemText(char *, size_t, unsigned i) const
 {
 	const struct help_text_row *row = &help_text[i];
 
-	assert(i < G_N_ELEMENTS(help_text));
+	assert(i < ARRAY_SIZE(help_text));
 
 	if (row->text != nullptr)
 		return _(row->text);
@@ -257,7 +256,7 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 {
 	const struct help_text_row *row = &help_text[i];
 
-	assert(i < G_N_ELEMENTS(help_text));
+	assert(i < ARRAY_SIZE(help_text));
 
 	row_color(w, row->highlight ? COLOR_LIST_BOLD : COLOR_LIST, false);
 

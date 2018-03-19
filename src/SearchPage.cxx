@@ -29,6 +29,7 @@
 #include "screen_utils.hxx"
 #include "FileListPage.hxx"
 #include "filelist.hxx"
+#include "util/Macros.hxx"
 
 #include <glib.h>
 
@@ -110,7 +111,7 @@ public:
 			      !options.search_format.empty()
 			      ? options.search_format.c_str()
 			      : options.list_format.c_str()) {
-		lw.SetLength(G_N_ELEMENTS(help_text));
+		lw.SetLength(ARRAY_SIZE(help_text));
 		lw.hide_cursor = true;
 	}
 
@@ -133,7 +134,7 @@ class SearchHelpText final : public ListText {
 public:
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *, size_t, unsigned idx) const override {
-		assert(idx < G_N_ELEMENTS(help_text));
+		assert(idx < ARRAY_SIZE(help_text));
 
 		return help_text[idx];
 	}

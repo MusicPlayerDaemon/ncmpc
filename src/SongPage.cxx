@@ -30,6 +30,7 @@
 #include "charset.hxx"
 #include "time_format.hxx"
 #include "mpdclient.hxx"
+#include "util/Macros.hxx"
 
 #include <mpd/client.h>
 
@@ -180,7 +181,7 @@ screen_song_init(ScreenManager &_screen, WINDOW *w, Size size)
 			max_tag_label_width = width;
 	}
 
-	for (unsigned i = 0; i < G_N_ELEMENTS(stats_labels); ++i) {
+	for (unsigned i = 0; i < ARRAY_SIZE(stats_labels); ++i) {
 		if (stats_labels[i] != nullptr) {
 			unsigned width = utf8_width(_(stats_labels[i]));
 
@@ -281,7 +282,7 @@ SongPage::AppendTag(const struct mpd_song *song, enum mpd_tag_type tag)
 	unsigned i = 0;
 	const char *value;
 
-	assert((unsigned)tag < G_N_ELEMENTS(tag_labels));
+	assert((unsigned)tag < ARRAY_SIZE(tag_labels));
 	assert(label != nullptr);
 
 	while ((value = mpd_song_get_tag(song, tag, i++)) != nullptr)
