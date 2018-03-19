@@ -27,8 +27,11 @@
 #include "charset.hxx"
 #include "options.hxx"
 
-#include <glib.h>
 #include <mpd/idle.h>
+
+#include <glib.h>
+
+#include <string.h>
 
 static constexpr char chat_channel[] = "chat";
 
@@ -102,7 +105,7 @@ ChatPage::ProcessMessage(const struct mpd_message &message)
 {
 	/* You'll have to move this out of screen_chat, if you want to use
 	   client-to-client messages anywhere else */
-	assert(g_strcmp0(mpd_message_get_channel(&message), chat_channel) == 0);
+	assert(strcmp(mpd_message_get_channel(&message), chat_channel) == 0);
 
 	Append(Utf8ToLocale(mpd_message_get_text(&message)).c_str());
 
