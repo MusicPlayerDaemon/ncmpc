@@ -41,6 +41,7 @@
 
 #include <assert.h>
 #include <string.h>
+#include <time.h>
 
 enum {
 	LABEL_LENGTH = MPD_TAG_COUNT,
@@ -388,11 +389,9 @@ SongPage::AddStats(struct mpd_connection *connection)
 			     mpd_stats_get_uptime(mpd_stats));
 	AppendStatsLine(STATS_UPTIME, buf);
 
-	GDate *date = g_date_new();
-	g_date_set_time_t(date, mpd_stats_get_db_update_time(mpd_stats));
-	g_date_strftime(buf, sizeof(buf), "%x", date);
+	const time_t t = mpd_stats_get_db_update_time(mpd_stats);
+	strftime(buf, sizeof(buf), "%x", localtime(&t));
 	AppendStatsLine(STATS_DBUPTIME, buf);
-	g_date_free(date);
 
 	mpd_stats_free(mpd_stats);
 	return true;
