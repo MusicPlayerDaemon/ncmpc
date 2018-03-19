@@ -29,8 +29,6 @@
 
 #include <mpd/client.h>
 
-#include <glib.h>
-
 #include <string.h>
 #include <ctype.h>
 
@@ -157,11 +155,11 @@ void
 screen_display_completion_list(Completion::Range range)
 {
 	static Completion::Range prev_range;
-	static guint prev_length = 0;
-	static guint offset = 0;
+	static size_t prev_length = 0;
+	static unsigned offset = 0;
 	WINDOW *w = screen->main_window.w;
 
-	unsigned length = std::distance(range.begin(), range.end());
+	size_t length = std::distance(range.begin(), range.end());
 	if (range == prev_range && length == prev_length) {
 		offset += screen->main_window.size.height;
 		if (offset >= length)
