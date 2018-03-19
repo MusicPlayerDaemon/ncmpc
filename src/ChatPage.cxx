@@ -30,7 +30,7 @@
 #include <glib.h>
 #include <mpd/idle.h>
 
-static const char chat_channel[] = "chat";
+static constexpr char chat_channel[] = "chat";
 
 class ChatPage final : public TextPage {
 	unsigned last_connection_id = 0;
