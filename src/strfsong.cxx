@@ -27,6 +27,8 @@
 
 #include <string.h>
 
+#define MAX_ADDITIONAL_TAGS 8
+
 static const char *
 skip(const char * p)
 {
@@ -63,15 +65,31 @@ static char *
 song_more_tag_values(const struct mpd_song *song, enum mpd_tag_type tag,
 		     const char *first)
 {
-	const char *p = mpd_song_get_tag(song, tag, 1);
-	if (p == nullptr)
-		return nullptr;
+	const char *tags[MAX_ADDITIONAL_TAGS];
+	unsigned tag_count = 1;
+	const char *p;
 
-	char *buffer = concat_tag_values(first, p);
-	for (unsigned i = 2; (p = mpd_song_get_tag(song, tag, i)) != nullptr;
-	     ++i) {
+	tags[0] = first;
+	for (tag_count = 1; tag_count < MAX_ADDITIONAL_TAGS && (p =
+	     mpd_song_get_tag(song, tag, tag_count)) != nullptr; ++tag_count) {
+		tags[tag_count] = p;
+	}
+
+	for (int i = (signed)tag_count - 1; i >= 0; i--) {
+		for (int j = i - 1; j >= 0; j--) {
+			if (strcmp(tags[i], tags[j]) == 0) {
+				tags[i] = tags[tag_count - 1];
+				tag_count--;
+			}
+		}
+	}
+
+	if (tag_count == 1)
+		return nullptr;
+	char *buffer = concat_tag_values(tags[0], tags[1]);
+	for (unsigned i = 1; i + 1 < tag_count; i++) {
 		char *prev = buffer;
-		buffer = concat_tag_values(buffer, p);
+		buffer = concat_tag_values(buffer, tags[i]);
 		g_free(prev);
 	}
 
