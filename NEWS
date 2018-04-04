@@ -3,6 +3,7 @@ ncmpc 0.30 - not yet released
 * fix crash bug in chat screen
 * fix completion list
 * new color "progressbar-background"
+* switch the code base to C++14
 * build manual with Sphinx
 
 ncmpc 0.29 - (2017-11-05)
