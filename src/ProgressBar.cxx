@@ -19,6 +19,7 @@
 
 #include "ProgressBar.hxx"
 #include "colors.hxx"
+#include "options.hxx"
 
 #include <assert.h>
 
@@ -26,7 +27,10 @@ ProgressBar::ProgressBar(Point p, unsigned _width)
 	:window(p, {_width, 1u})
 {
 	leaveok(window.w, true);
-	wbkgd(window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
+#ifdef ENABLE_COLORS
+	if (options.enable_colors)
+		wbkgd(window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
+#endif
 }
 
 void
