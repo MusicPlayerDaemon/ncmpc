@@ -72,7 +72,7 @@ hscroll::Paint() const
 
 	/* set stored attributes and color */
 	attr_t old_attrs;
-	short old_pair;
+	short old_pair = 0;
 	fix_wattr_get(w, &old_attrs, &old_pair, nullptr);
 	wattr_set(w, attrs, pair, nullptr);
 
