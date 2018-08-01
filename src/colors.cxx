@@ -249,8 +249,8 @@ colors_use(WINDOW *w, enum color id)
 
 	assert(id > 0 && id < COLOR_END);
 
-	attr_t attrs;
-	short pair;
+	attr_t attrs = 0;
+	short pair = 0;
 	fix_wattr_get(w, &attrs, &pair, nullptr);
 
 #ifdef ENABLE_COLORS
