@@ -56,8 +56,9 @@ ScreenManager::MakePage(const struct screen_functions &sf)
 		return i;
 
 	auto j = pages.emplace(&sf,
-			       sf.init(*this, main_window.w,
-				       main_window.size));
+			       std::unique_ptr<Page>(sf.init(*this,
+							     main_window.w,
+							     main_window.size)));
 	assert(j.second);
 	return j.first;
 }
