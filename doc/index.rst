@@ -209,7 +209,7 @@ display remaining or elapsed time in the status window.  Default is
 elapsed.
 
 :command:`visible-bitrate = yes|no` - Show the bitrate in the status
-bar when playing a stream.  :command:`
+bar when playing a stream.
 
 :command:`set-xterm-title = yes|no` - Change the XTerm title (ncmpc
 will not restore the title).
