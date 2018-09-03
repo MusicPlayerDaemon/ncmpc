@@ -18,6 +18,7 @@
  */
 
 #include "charset.hxx"
+#include "util/ScopeExit.hxx"
 
 #include <assert.h>
 #include <string.h>
@@ -81,16 +82,14 @@ locale_width(const char *p)
 {
 #if defined(ENABLE_LOCALE) && defined(ENABLE_MULTIBYTE)
 	char *utf8;
-	unsigned width;
 
 	if (noconvert)
 		return utf8_width(p);
 
 	utf8 = locale_to_utf8(p);
-	width = utf8_width(utf8);
-	g_free(utf8);
+	AtScopeExit(utf8) { g_free(utf8); };
 
-	return width;
+	return utf8_width(utf8);
 #else
 	return strlen(p);
 #endif

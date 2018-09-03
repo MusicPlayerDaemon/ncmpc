@@ -19,6 +19,7 @@
 
 #include "BasicMarquee.hxx"
 #include "charset.hxx"
+#include "util/ScopeExit.hxx"
 
 #include <glib.h>
 
@@ -35,12 +36,12 @@ BasicMarquee::ScrollString() const
 
 	/* create the new scrolled string */
 	char *tmp = g_strdup(g_utf8_offset_to_pointer(text_utf8, offset));
+	AtScopeExit(tmp) { g_free(tmp); };
+
 	utf8_cut_width(tmp, width);
 
 	/* convert back to locale */
-	char *result = utf8_to_locale(tmp);
-	g_free(tmp);
-	return result;
+	return utf8_to_locale(tmp);
 }
 
 bool

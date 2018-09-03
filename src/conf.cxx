@@ -26,6 +26,7 @@
 #include "screen_list.hxx"
 #include "options.hxx"
 #include "util/CharUtil.hxx"
+#include "util/ScopeExit.hxx"
 #include "util/StringStrip.hxx"
 
 #include <assert.h>
@@ -324,11 +325,14 @@ static std::vector<std::string>
 check_screen_list(char *value)
 {
 	char **tmp = g_strsplit_set(value, " \t,", 100);
+	AtScopeExit(tmp) { g_strfreev(tmp); };
+
 	std::vector<std::string> screen;
 	int i = 0;
 
 	while( tmp && tmp[i] ) {
 		char *name = g_ascii_strdown(tmp[i], -1);
+		AtScopeExit(name) { g_free(name); };
 		if (*name != '\0') {
 			if (screen_lookup_name(name) == nullptr) {
 				/* an unknown screen name was specified in the
@@ -338,10 +342,9 @@ check_screen_list(char *value)
 				screen.emplace_back(name);
 			}
 		}
-		g_free(name);
 		i++;
 	}
-	g_strfreev(tmp);
+
 	if (screen.empty())
 		return DEFAULT_SCREEN_LIST;
 
@@ -596,15 +599,10 @@ bool
 check_user_conf_dir()
 {
 	char *directory = g_build_filename(g_get_home_dir(), "." PACKAGE, nullptr);
+	AtScopeExit(directory) { g_free(directory); };
 
-	if (g_file_test(directory, G_FILE_TEST_IS_DIR)) {
-		g_free(directory);
-		return true;
-	}
-
-	bool success = g_mkdir(directory, 0755) == 0;
-	g_free(directory);
-	return success;
+	return g_file_test(directory, G_FILE_TEST_IS_DIR) ||
+		g_mkdir(directory, 0755) == 0;
 }
 
 char *

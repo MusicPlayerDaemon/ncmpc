@@ -19,6 +19,7 @@
 
 #include "match.hxx"
 #include "charset.hxx"
+#include "util/ScopeExit.hxx"
 
 #include <glib.h>
 
@@ -40,26 +41,24 @@ compile_regex(const char *src, bool anchor)
 		compile_flags |= G_REGEX_ANCHORED;
 
 	char *src_folded = locale_casefold(src);
-	GRegex *regex = g_regex_new ((const gchar*)src_folded,
-				     GRegexCompileFlags(compile_flags),
-				     GRegexMatchFlags(0), nullptr);
+	AtScopeExit(src_folded) { g_free(src_folded); };
 
-	g_free(src_folded);
-
-	return regex;
+	return g_regex_new((const gchar*)src_folded,
+			   GRegexCompileFlags(compile_flags),
+			   GRegexMatchFlags(0), nullptr);
 }
 
 bool
 match_regex(GRegex *regex, const char *line)
 {
 	char *line_folded = locale_casefold(line);
+	AtScopeExit(line_folded) { g_free(line_folded); };
+
 	GMatchInfo *match_info;
 	g_regex_match(regex, line_folded, GRegexMatchFlags(0), &match_info);
 	bool match = (bool)g_match_info_matches(match_info);
 
 	g_match_info_free(match_info);
-	g_free(line_folded);
-
 	return match;
 }
 
