@@ -80,24 +80,28 @@ Append(std::string &dest, const char *value, size_t length) noexcept
 	return dest.append(value, length);
 }
 
+template<typename... Args>
+inline std::string &
+AppendWithSeparators(std::string &dest, const size_t *lengths,
+		     Args&&... args) noexcept;
+
 template<typename First, typename... Args>
 inline std::string &
 AppendWithSeparators(std::string &dest, const size_t *lengths,
 		     First &&first, Args&&... args) noexcept
 {
-	return AppendWithSeparators(AppendWithSeparators(dest, lengths,
-							 std::forward<First>(first)),
+	dest.push_back(SEPARATOR);
+	return AppendWithSeparators(Append(dest, std::forward<First>(first),
+					   *lengths),
 				    lengths + 1,
 				    std::forward<Args>(args)...);
 }
 
-template<typename First>
+template<>
 inline std::string &
-AppendWithSeparators(std::string &dest, const size_t *lengths,
-		     First &&first) noexcept
+AppendWithSeparators(std::string &dest, const size_t *) noexcept
 {
-	dest.push_back(SEPARATOR);
-	return Append(dest, std::forward<First>(first), *lengths);
+	return dest;
 }
 
 } // namespace PathDetail
