@@ -169,6 +169,10 @@ test_cflags = [
   '-fvisibility=hidden',
   '-fno-exceptions',
   '-fno-rtti',
+
+  # the only warnings we got from this are from formatted error
+  # messages, and their truncation is harmless
+  '-Wno-format-truncation',
 ]
 
 if get_option('buildtype') != 'debug'
