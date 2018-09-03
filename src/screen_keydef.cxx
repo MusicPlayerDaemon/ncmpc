@@ -402,36 +402,31 @@ CommandListPage::Apply()
 void
 CommandListPage::Save()
 {
-	char *allocated = nullptr;
-	const char *filename;
+	std::string filename;
 	if (options.key_file.empty()) {
-		if (!check_user_conf_dir()) {
-			screen_status_printf(_("Error: Unable to create directory ~/.ncmpc - %s"),
-					     strerror(errno));
+		filename = MakeKeysPath();
+		if (filename.empty()) {
+			screen_status_message(_("Unable to write configuration"));
 			screen_bell();
 			return;
 		}
-
-		filename = allocated = build_user_key_binding_filename();
 	} else
-		filename = options.key_file.c_str();
+		filename = options.key_file;
 
-	FILE *f = fopen(filename, "w");
+	FILE *f = fopen(filename.c_str(), "w");
 	if (f == nullptr) {
 		screen_status_printf("%s: %s - %s", _("Error"),
-				     filename, strerror(errno));
+				     filename.c_str(), strerror(errno));
 		screen_bell();
-		g_free(allocated);
 		return;
 	}
 
 	if (write_key_bindings(f, KEYDEF_WRITE_HEADER))
-		screen_status_printf(_("Wrote %s"), filename);
+		screen_status_printf(_("Wrote %s"), filename.c_str());
 	else
 		screen_status_printf("%s: %s - %s", _("Error"),
-				     filename, strerror(errno));
+				     filename.c_str(), strerror(errno));
 
-	g_free(allocated);
 	fclose(f);
 }
 

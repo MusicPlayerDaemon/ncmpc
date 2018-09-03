@@ -604,12 +604,27 @@ read_rc_file(char *filename)
 	return 0;
 }
 
-bool
-check_user_conf_dir()
+/**
+ * Find or create the directory for writing configuration files.
+ *
+ * @return the absolute path; an empty string indicates that no
+ * directory could be created
+ */
+static std::string
+MakeUserConfigPath(const char *filename)
 {
 	const auto directory = BuildPath(g_get_home_dir(), "." PACKAGE);
+
 	return g_file_test(directory.c_str(), G_FILE_TEST_IS_DIR) ||
-		g_mkdir(directory.c_str(), 0755) == 0;
+		g_mkdir(directory.c_str(), 0755) == 0
+		? BuildPath(directory, filename)
+		: std::string();
+}
+
+std::string
+MakeKeysPath()
+{
+	return MakeUserConfigPath(KEYS_FILENAME);
 }
 
 char *

@@ -17,8 +17,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-bool
-check_user_conf_dir();
+#include <string>
+
+std::string
+MakeKeysPath();
 
 char *build_user_conf_filename();
 char *build_system_conf_filename();
