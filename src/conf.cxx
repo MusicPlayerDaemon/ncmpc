@@ -87,6 +87,14 @@
 #define CONF_CHAT_PREFIX "chat-prefix"
 #define CONF_SECOND_COLUMN "second-column"
 
+#ifdef _WIN32
+#define CONFIG_FILENAME "ncmpc.conf"
+#define KEYS_FILENAME "keys.conf"
+#else
+#define CONFIG_FILENAME "config"
+#define KEYS_FILENAME "keys"
+#endif
+
 static bool
 str2bool(char *str)
 {
@@ -609,9 +617,9 @@ char *
 build_user_conf_filename()
 {
 #ifdef _WIN32
-	return g_build_filename(g_get_user_config_dir(), PACKAGE, "ncmpc.conf", nullptr);
+	return g_build_filename(g_get_user_config_dir(), PACKAGE, CONFIG_FILENAME, nullptr);
 #else
-	return g_build_filename(g_get_home_dir(), "." PACKAGE, "config", nullptr);
+	return g_build_filename(g_get_home_dir(), "." PACKAGE, CONFIG_FILENAME, nullptr);
 #endif
 }
 
@@ -624,7 +632,7 @@ build_system_conf_filename()
 
 	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != nullptr; system_data_dirs++)
 	{
-		pathname = g_build_filename(*system_data_dirs, PACKAGE, "ncmpc.conf", nullptr);
+		pathname = g_build_filename(*system_data_dirs, PACKAGE, CONFIG_FILENAME, nullptr);
 		if (g_file_test(pathname, G_FILE_TEST_EXISTS))
 		{
 			break;
@@ -637,7 +645,7 @@ build_system_conf_filename()
 	}
 	return pathname;
 #else
-	return g_build_filename(SYSCONFDIR, PACKAGE, "config", nullptr);
+	return g_build_filename(SYSCONFDIR, PACKAGE, CONFIG_FILENAME, nullptr);
 #endif
 }
 
@@ -645,9 +653,9 @@ char *
 build_user_key_binding_filename()
 {
 #ifdef _WIN32
-	return g_build_filename(g_get_user_config_dir(), PACKAGE, "keys.conf", nullptr);
+	return g_build_filename(g_get_user_config_dir(), PACKAGE, KEYS_FILENAME, nullptr);
 #else
-	return g_build_filename(g_get_home_dir(), "." PACKAGE, "keys", nullptr);
+	return g_build_filename(g_get_home_dir(), "." PACKAGE, KEYS_FILENAME, nullptr);
 #endif
 }
 
@@ -660,7 +668,7 @@ g_build_system_key_binding_filename()
 
 	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != nullptr; system_data_dirs++)
 	{
-		pathname = g_build_filename(*system_data_dirs, PACKAGE, "keys.conf", nullptr);
+		pathname = g_build_filename(*system_data_dirs, PACKAGE, KEYS_FILENAME, nullptr);
 		if (g_file_test(pathname, G_FILE_TEST_EXISTS))
 		{
 			break;
@@ -673,7 +681,7 @@ g_build_system_key_binding_filename()
 	}
 	return pathname;
 #else
-	return g_build_filename(SYSCONFDIR, PACKAGE, "keys", nullptr);
+	return g_build_filename(SYSCONFDIR, PACKAGE, KEYS_FILENAME, nullptr);
 #endif
 }
 
