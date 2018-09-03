@@ -22,8 +22,11 @@
 std::string
 MakeKeysPath();
 
-char *build_user_conf_filename();
-char *build_system_conf_filename();
+std::string
+GetUserConfigPath();
+
+std::string
+GetSystemConfigPath();
 
 void read_configuration();
 

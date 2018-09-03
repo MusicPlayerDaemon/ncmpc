@@ -197,16 +197,10 @@ handle_option(int c, const char *arg)
 
 		     "\n");
 #ifndef NCMPC_MINI
-		{
-			char *user_conf = build_user_conf_filename();
-			char *system_conf = build_system_conf_filename();
+		printf("configuration files:\n %s\n %s\n\n",
+		       GetUserConfigPath().c_str(),
+		       GetSystemConfigPath().c_str());
 
-			printf("configuration files:\n %s\n %s\n\n",
-			       user_conf, system_conf);
-
-			g_free(user_conf);
-			g_free(system_conf);
-		}
 		if (strcmp("translator-credits", _("translator-credits")) != 0)
 			/* To translators: these credits are shown
 			   when ncmpc is started with "--version" */

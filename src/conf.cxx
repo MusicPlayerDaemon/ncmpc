@@ -627,138 +627,114 @@ MakeKeysPath()
 	return MakeUserConfigPath(KEYS_FILENAME);
 }
 
-char *
-build_user_conf_filename()
+std::string
+GetUserConfigPath()
 {
 #ifdef _WIN32
-	return g_build_filename(g_get_user_config_dir(), PACKAGE, CONFIG_FILENAME, nullptr);
+	return BuildPath(g_get_user_config_dir(), PACKAGE, CONFIG_FILENAME);
 #else
-	return g_build_filename(g_get_home_dir(), "." PACKAGE, CONFIG_FILENAME, nullptr);
+	return BuildPath(g_get_home_dir(), "." PACKAGE, CONFIG_FILENAME);
 #endif
 }
 
-char *
-build_system_conf_filename()
-{
-#ifdef _WIN32
-	const gchar* const *system_data_dirs;
-	gchar *pathname = nullptr;
-
-	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != nullptr; system_data_dirs++)
-	{
-		pathname = g_build_filename(*system_data_dirs, PACKAGE, CONFIG_FILENAME, nullptr);
-		if (g_file_test(pathname, G_FILE_TEST_EXISTS))
-		{
-			break;
-		}
-		else
-		{
-			g_free (pathname);
-			pathname = nullptr;
-		}
-	}
-	return pathname;
-#else
-	return g_build_filename(SYSCONFDIR, PACKAGE, CONFIG_FILENAME, nullptr);
-#endif
-}
-
-static char *
-build_user_key_binding_filename()
-{
-#ifdef _WIN32
-	return g_build_filename(g_get_user_config_dir(), PACKAGE, KEYS_FILENAME, nullptr);
-#else
-	return g_build_filename(g_get_home_dir(), "." PACKAGE, KEYS_FILENAME, nullptr);
-#endif
-}
-
-static char *
-g_build_system_key_binding_filename()
+std::string
+GetSystemConfigPath()
 {
 #ifdef _WIN32
 	const gchar* const *system_data_dirs;
-	gchar *pathname = nullptr;
 
 	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != nullptr; system_data_dirs++)
 	{
-		pathname = g_build_filename(*system_data_dirs, PACKAGE, KEYS_FILENAME, nullptr);
-		if (g_file_test(pathname, G_FILE_TEST_EXISTS))
-		{
-			break;
-		}
-		else
-		{
-			g_free (pathname);
-			pathname = nullptr;
-		}
+		auto path = BuildPath(*system_data_dirs, PACKAGE, CONFIG_FILENAME);
+		if (g_file_test(path.c_str(), G_FILE_TEST_EXISTS))
+			return path;
 	}
-	return pathname;
+	return {};
 #else
-	return g_build_filename(SYSCONFDIR, PACKAGE, KEYS_FILENAME, nullptr);
+	return BuildPath(SYSCONFDIR, PACKAGE, CONFIG_FILENAME);
 #endif
 }
 
-static char *
+gcc_pure
+static std::string
+GetUserKeysPath()
+{
+#ifdef _WIN32
+	return BuildPath(g_get_user_config_dir(), PACKAGE, KEYS_FILENAME);
+#else
+	return BuildPath(g_get_home_dir(), "." PACKAGE, KEYS_FILENAME);
+#endif
+}
+
+gcc_pure
+static std::string
+GetSystemKeysPath()
+{
+#ifdef _WIN32
+	const gchar* const *system_data_dirs;
+
+	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != nullptr; system_data_dirs++)
+	{
+		auto path = BuildPath(*system_data_dirs, PACKAGE, KEYS_FILENAME);
+		if (g_file_test(pathname.c_str(), G_FILE_TEST_EXISTS))
+			return path;
+	}
+	return {}
+#else
+	return BuildPath(SYSCONFDIR, PACKAGE, KEYS_FILENAME);
+#endif
+}
+
+static std::string
 find_config_file()
 {
 	/* check for command line configuration file */
 	if (!options.config_file.empty())
-		return g_strdup(options.config_file.c_str());
+		return options.config_file;
 
 	/* check for user configuration ~/.ncmpc/config */
-	char *filename = build_user_conf_filename();
-	if (g_file_test(filename, G_FILE_TEST_IS_REGULAR))
+	auto filename = GetUserConfigPath();
+	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
 		return filename;
-
-	g_free(filename);
 
 	/* check for  global configuration SYSCONFDIR/ncmpc/config */
-	filename = build_system_conf_filename();
-	if (g_file_test(filename, G_FILE_TEST_IS_REGULAR))
+	filename = GetSystemConfigPath();
+	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
 		return filename;
 
-	g_free(filename);
-	return nullptr;
+	return {};
 }
 
-static char *
+static std::string
 find_keys_file()
 {
 	/* check for command line key binding file */
 	if (!options.key_file.empty())
-		return g_strdup(options.key_file.c_str());
+		return options.key_file;
 
 	/* check for  user key bindings ~/.ncmpc/keys */
-	char *filename = build_user_key_binding_filename();
-	if (g_file_test(filename, G_FILE_TEST_IS_REGULAR))
+	auto filename = GetUserKeysPath();
+	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
 		return filename;
-
-	g_free(filename);
 
 	/* check for  global key bindings SYSCONFDIR/ncmpc/keys */
-	filename = g_build_system_key_binding_filename();
-	if (g_file_test(filename, G_FILE_TEST_IS_REGULAR))
+	filename = GetSystemKeysPath();
+	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
 		return filename;
 
-	g_free(filename);
-	return nullptr;
+	return {};
 }
 
 void
 read_configuration()
 {
 	/* load configuration */
-	char *filename = find_config_file();
-	if (filename != nullptr) {
-		read_rc_file(filename);
-		g_free(filename);
-	}
+	auto filename = find_config_file();
+	if (!filename.empty())
+		read_rc_file(filename.c_str());
 
 	/* load key bindings */
 	filename = find_keys_file();
-	if (filename != nullptr) {
-		read_rc_file(filename);
-		g_free(filename);
-	}
+	if (!filename.empty())
+		read_rc_file(filename.c_str());
 }
