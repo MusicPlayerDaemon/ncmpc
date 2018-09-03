@@ -84,6 +84,7 @@ lookup_option(int s, char *l)
 	return nullptr;
 }
 
+[[noreturn]]
 static void
 option_error(int error, const char *option, const char *arg)
 {
