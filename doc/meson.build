@@ -1,4 +1,4 @@
-sphinx = find_program('sphinx-build', required:false)
+sphinx = find_program('sphinx-build', required: enable_documentation == 'true')
 if sphinx.found()
   custom_target(
     'HTML documentation',
@@ -21,7 +21,7 @@ if sphinx.found()
   )
 endif
 
-doxygen = find_program('doxygen', required: false)
+doxygen = find_program('doxygen', required: enable_documentation == 'true')
 if doxygen.found()
   dconf = configuration_data()
   dconf.set('VERSION', meson.project_version())

@@ -23,6 +23,7 @@ flavors = {
             '-Dlirc=true',
             '-Dlyrics_screen=true',
             '-Dchat_screen=true',
+            '-Ddocumentation=false',
         ],
         'env': {
             'CC': 'clang',
@@ -37,6 +38,7 @@ flavors = {
             '-Db_lto=true',
             '-Dcurses=ncursesw',
             '-Dmouse=true',
+            '-Ddocumentation=false',
         ],
         'env': {
             'LDFLAGS': '-fuse-ld=gold -Wl,--gc-sections,--icf=all',
@@ -50,6 +52,7 @@ flavors = {
             '-Db_lto=true',
             '-Dcurses=ncursesw',
             '-Dmouse=true',
+            '-Ddocumentation=false',
         ],
         'env': {
             'CC': 'clang',
@@ -72,6 +75,7 @@ flavors = {
             '-Dtcp=false',
             '-Dasync_connect=false',
             '-Dmini=true',
+            '-Ddocumentation=false',
         ],
         'env': {
             'LDFLAGS': '-fuse-ld=gold -Wl,--gc-sections,--icf=all',

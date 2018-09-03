@@ -384,6 +384,6 @@ if not mini
 endif
 
 enable_documentation = get_option('documentation')
-if enable_documentation
+if enable_documentation != 'no'
   subdir('doc')
 endif

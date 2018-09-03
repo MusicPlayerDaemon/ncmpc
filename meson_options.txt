@@ -80,6 +80,6 @@ option('chat_screen', type: 'boolean',
   value: false,
   description: 'Enable the chat screen')
 
-option('documentation', type: 'boolean',
-  value: false,
+option('documentation', type: 'combo',
+  choices: ['true', 'false', 'auto'], value: 'auto',
   description: 'Build documentation')
