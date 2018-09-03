@@ -171,16 +171,10 @@ test_cflags = [
   '-fno-rtti',
 ]
 
-test_ldflags = [
-]
-
 if get_option('buildtype') != 'debug'
   test_cflags += [
     '-ffunction-sections',
     '-fdata-sections',
-  ]
-  test_ldflags += [
-    '-Wl,--gc-sections',
   ]
 endif
 
@@ -191,12 +185,6 @@ foreach f: test_cflags
 endforeach
 
 add_global_arguments(common_cflags, language: 'cpp')
-
-foreach f: test_ldflags
-  if cc.has_argument(f)
-    add_global_link_arguments(f, language: 'cpp')
-  endif
-endforeach
 
 glib_dep = dependency('glib-2.0', version: '>= 2.30')
 libmpdclient_dep = dependency('libmpdclient', version: '>= 2.9')

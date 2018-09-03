@@ -24,6 +24,9 @@ flavors = {
             '-Dcurses=ncursesw',
             '-Dmouse=true',
         ],
+        'env': {
+            'LDFLAGS': '-fuse-ld=gold -Wl,--gc-sections,--icf=all',
+        },
     },
 
     'mini': {
@@ -42,6 +45,9 @@ flavors = {
             '-Dasync_connect=false',
             '-Dmini=true',
         ],
+        'env': {
+            'LDFLAGS': '-fuse-ld=gold -Wl,--gc-sections,--icf=all',
+        },
     },
 }
 
