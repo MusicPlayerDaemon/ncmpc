@@ -82,7 +82,8 @@ struct ListWindowRange {
 	}
 };
 
-struct ListWindow {
+class ListWindow {
+public:
 	WINDOW *w;
 	Size size;
 
