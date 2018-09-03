@@ -16,6 +16,20 @@ flavors = {
         ],
     },
 
+    'clang': {
+        'options': [
+            '-Dcurses=ncursesw',
+            '-Dmouse=true',
+            '-Dlirc=true',
+            '-Dlyrics_screen=true',
+            '-Dchat_screen=true',
+        ],
+        'env': {
+            'CC': 'clang',
+            'CXX': 'clang++',
+        },
+    },
+
     'release': {
         'options': [
             '--buildtype', 'release',
@@ -26,6 +40,20 @@ flavors = {
         ],
         'env': {
             'LDFLAGS': '-fuse-ld=gold -Wl,--gc-sections,--icf=all',
+        },
+    },
+
+    'llvm': {
+        'options': [
+            '--buildtype', 'release',
+            '-Db_ndebug=true',
+            '-Db_lto=true',
+            '-Dcurses=ncursesw',
+            '-Dmouse=true',
+        ],
+        'env': {
+            'CC': 'clang',
+            'CXX': 'clang++',
         },
     },
 
