@@ -613,7 +613,7 @@ read_rc_file(const char *filename)
 static std::string
 MakeUserConfigPath(const char *filename)
 {
-	const auto directory = BuildPath(g_get_home_dir(), "." PACKAGE);
+	const auto directory = BuildPath(g_get_user_config_dir(), PACKAGE);
 
 	return g_file_test(directory.c_str(), G_FILE_TEST_IS_DIR) ||
 		g_mkdir(directory.c_str(), 0755) == 0
@@ -627,14 +627,20 @@ MakeKeysPath()
 	return MakeUserConfigPath(KEYS_FILENAME);
 }
 
+#ifndef _WIN32
+
+std::string
+GetHomeConfigPath()
+{
+	return BuildPath(g_get_home_dir(), "." PACKAGE, CONFIG_FILENAME);
+}
+
+#endif
+
 std::string
 GetUserConfigPath()
 {
-#ifdef _WIN32
 	return BuildPath(g_get_user_config_dir(), PACKAGE, CONFIG_FILENAME);
-#else
-	return BuildPath(g_get_home_dir(), "." PACKAGE, CONFIG_FILENAME);
-#endif
 }
 
 std::string
@@ -655,15 +661,22 @@ GetSystemConfigPath()
 #endif
 }
 
+#ifndef _WIN32
+
+gcc_pure
+static std::string
+GetHomeKeysPath()
+{
+	return BuildPath(g_get_home_dir(), "." PACKAGE, KEYS_FILENAME);
+}
+
+#endif
+
 gcc_pure
 static std::string
 GetUserKeysPath()
 {
-#ifdef _WIN32
 	return BuildPath(g_get_user_config_dir(), PACKAGE, KEYS_FILENAME);
-#else
-	return BuildPath(g_get_home_dir(), "." PACKAGE, KEYS_FILENAME);
-#endif
 }
 
 gcc_pure
@@ -692,10 +705,17 @@ find_config_file()
 	if (!options.config_file.empty())
 		return options.config_file;
 
-	/* check for user configuration ~/.ncmpc/config */
+	/* check for user configuration ~/.config/ncmpc/config */
 	auto filename = GetUserConfigPath();
 	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
 		return filename;
+
+#ifndef _WIN32
+	/* check for user configuration ~/.ncmpc/config */
+	filename = GetHomeConfigPath();
+	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
+		return filename;
+#endif
 
 	/* check for  global configuration SYSCONFDIR/ncmpc/config */
 	filename = GetSystemConfigPath();
@@ -712,10 +732,17 @@ find_keys_file()
 	if (!options.key_file.empty())
 		return options.key_file;
 
-	/* check for  user key bindings ~/.ncmpc/keys */
+	/* check for user key bindings ~/.config/ncmpc/keys */
 	auto filename = GetUserKeysPath();
 	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
 		return filename;
+
+#ifndef _WIN32
+	/* check for  user key bindings ~/.ncmpc/keys */
+	filename = GetHomeKeysPath();
+	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
+		return filename;
+#endif
 
 	/* check for  global key bindings SYSCONFDIR/ncmpc/keys */
 	filename = GetSystemKeysPath();

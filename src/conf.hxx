@@ -22,6 +22,11 @@
 std::string
 MakeKeysPath();
 
+#ifndef _WIN32
+std::string
+GetHomeConfigPath();
+#endif
+
 std::string
 GetUserConfigPath();
 

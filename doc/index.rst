@@ -79,8 +79,9 @@ Configuration
 -------------
 
 When ncmpc starts it tries to read the user's configuration file,
-:file:`~/.ncmpc/config`.  If no user configuration file is found then
-ncmpc tries to load the global settings from
+:file:`$XDG_CONFIG_HOME/ncmpc/config` (usually
+:file:`~/.config/ncmpc/config`).  If no user configuration file is
+found then ncmpc tries to load the global settings from
 :file:`$SYSCONFDIR/ncmpc/config` (the actual path is displayed in the
 output of the :option:`--version` option).  An example configuration
 file (:file:`config.sample`) is shipped with ncmpc.
@@ -283,8 +284,9 @@ Keys
 ----
 
 When ncmpc starts it tries to read user-defined key bindings from the
-:file:`~/.ncmpc/keys` file.  If no user-defined key bindings are found
-then ncmpc tries to load the global key bindings from
+:file:`$XDG_CONFIG_HOME/ncmpc/keys` (usuallu
+:file:`~/.config/ncmpc/keys`) file.  If no user-defined key bindings
+are found then ncmpc tries to load the global key bindings from
 :file:`$SYSCONFDIR/ncmpc/keys` (the actual path is displayed on the
 help screen).
 

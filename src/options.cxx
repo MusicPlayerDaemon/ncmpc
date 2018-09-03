@@ -197,8 +197,16 @@ handle_option(int c, const char *arg)
 
 		     "\n");
 #ifndef NCMPC_MINI
-		printf("configuration files:\n %s\n %s\n\n",
+		printf("configuration files:\n"
+		       " %s\n"
+#ifndef _WIN32
+		       " %s\n"
+#endif
+		       " %s\n\n",
 		       GetUserConfigPath().c_str(),
+#ifndef _WIN32
+		       GetHomeConfigPath().c_str(),
+#endif
 		       GetSystemConfigPath().c_str());
 
 		if (strcmp("translator-credits", _("translator-credits")) != 0)
