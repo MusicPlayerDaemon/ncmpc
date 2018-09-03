@@ -530,16 +530,14 @@ CommandListPage::OnCommand(struct mpdclient &c, command_t cmd)
 }
 
 class KeyDefPage final : public ProxyPage {
-	ScreenManager &screen;
-
 	CommandListPage command_list_page;
 	CommandKeysPage command_keys_page;
 
 public:
-	KeyDefPage(ScreenManager &_screen, WINDOW *_w, Size size)
-		:ProxyPage(_w), screen(_screen),
-		 command_list_page(_screen, _w, size),
-		 command_keys_page(_screen, _w, size) {}
+	KeyDefPage(ScreenManager &screen, WINDOW *_w, Size size)
+		:ProxyPage(_w),
+		 command_list_page(screen, _w, size),
+		 command_keys_page(screen, _w, size) {}
 
 public:
 	/* virtual methods from class Page */
