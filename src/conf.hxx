@@ -25,7 +25,5 @@ MakeKeysPath();
 char *build_user_conf_filename();
 char *build_system_conf_filename();
 
-char *build_user_key_binding_filename();
-
 void read_configuration();
 

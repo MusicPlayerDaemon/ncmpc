@@ -663,7 +663,7 @@ build_system_conf_filename()
 #endif
 }
 
-char *
+static char *
 build_user_key_binding_filename()
 {
 #ifdef _WIN32
