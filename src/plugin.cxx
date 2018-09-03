@@ -18,6 +18,7 @@
  */
 
 #include "plugin.hxx"
+#include "io/Path.hxx"
 #include "Compiler.h"
 
 #include <glib.h>
@@ -102,13 +103,13 @@ struct PluginCycle {
 };
 
 static bool
-register_plugin(PluginList *list, char *path)
+register_plugin(PluginList *list, std::string &&path)
 {
 	struct stat st;
-	if (stat(path, &st) < 0)
+	if (stat(path.c_str(), &st) < 0)
 		return false;
 
-	list->plugins.emplace_back(path);
+	list->plugins.emplace_back(std::move(path));
 	return true;
 }
 
@@ -121,9 +122,7 @@ plugin_list_load_directory(PluginList *list, const char *path)
 
 	const char *name;
 	while ((name = g_dir_read_name(dir)) != nullptr) {
-		char *plugin = g_build_filename(path, name, nullptr);
-		register_plugin(list, plugin);
-		g_free(plugin);
+		register_plugin(list, BuildPath(path, name));
 	}
 
 	g_dir_close(dir);

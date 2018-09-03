@@ -25,6 +25,7 @@
 #include "colors.hxx"
 #include "screen_list.hxx"
 #include "options.hxx"
+#include "io/Path.hxx"
 #include "util/CharUtil.hxx"
 #include "util/ScopeExit.hxx"
 #include "util/StringStrip.hxx"
@@ -606,11 +607,9 @@ read_rc_file(char *filename)
 bool
 check_user_conf_dir()
 {
-	char *directory = g_build_filename(g_get_home_dir(), "." PACKAGE, nullptr);
-	AtScopeExit(directory) { g_free(directory); };
-
-	return g_file_test(directory, G_FILE_TEST_IS_DIR) ||
-		g_mkdir(directory, 0755) == 0;
+	const auto directory = BuildPath(g_get_home_dir(), "." PACKAGE);
+	return g_file_test(directory.c_str(), G_FILE_TEST_IS_DIR) ||
+		g_mkdir(directory.c_str(), 0755) == 0;
 }
 
 char *
