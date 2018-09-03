@@ -89,7 +89,7 @@ signals_init(GMainLoop *main_loop, ScreenManager &screen)
 		exit(EXIT_FAILURE);
 	}
 
-#ifndef WIN32
+#ifndef _WIN32
 	if (!pipe(sigwinch_pipes) &&
 		!fcntl(sigwinch_pipes[1], F_SETFL, O_NONBLOCK)) {
 		GIOChannel *sigwinch_channel = g_io_channel_unix_new(sigwinch_pipes[0]);

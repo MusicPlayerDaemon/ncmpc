@@ -29,7 +29,7 @@
 #ifndef NET_TYPES_H
 #define NET_TYPES_H
 
-#ifdef WIN32
+#ifdef _WIN32
 
 #include <winsock2.h>
 typedef SOCKET socket_t;

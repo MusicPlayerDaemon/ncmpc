@@ -23,7 +23,7 @@
 typedef struct _GMainLoop GMainLoop;
 class ScreenManager;
 
-#ifdef WIN32
+#ifdef _WIN32
 
 static inline void
 signals_init(GMainLoop *, ScreenManager &)

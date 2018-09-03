@@ -33,7 +33,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef WIN32
+#ifdef _WIN32
 #  include <winsock2.h>
 #  include <ws2tcpip.h>
 #else
@@ -62,7 +62,7 @@ struct resolver {
 
 	struct resolver_address current;
 
-#ifndef WIN32
+#ifndef _WIN32
 	struct sockaddr_un saun;
 #endif
 };
@@ -75,7 +75,7 @@ resolver_new(const char *host, unsigned port)
 		return nullptr;
 
 	if (host[0] == '/' || host[0] == '@') {
-#ifndef WIN32
+#ifndef _WIN32
 		const bool is_abstract = *host == '@';
 		/* sun_path must be null-terminated unless it's an abstract
 		   socket */
@@ -98,11 +98,11 @@ resolver_new(const char *host, unsigned port)
 			- sizeof(resolver->saun.sun_path) + path_length;
 		resolver->current.addr = (const struct sockaddr *)&resolver->saun;
 		resolver->type = resolver::TYPE_ONE;
-#else /* WIN32 */
+#else /* _WIN32 */
 		/* there are no UNIX domain sockets on Windows */
 		free(resolver);
 		return nullptr;
-#endif /* WIN32 */
+#endif /* _WIN32 */
 	} else {
 #ifdef ENABLE_TCP
 #ifdef HAVE_GETADDRINFO

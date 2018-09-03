@@ -31,7 +31,7 @@
 
 #include "types.hxx"
 
-#ifndef WIN32
+#ifndef _WIN32
 #include <errno.h>
 #include <unistd.h>
 #include <sys/socket.h>
@@ -43,7 +43,7 @@ create_socket(int domain, int type, int protocol);
 static inline void
 close_socket(socket_t s)
 {
-#ifdef WIN32
+#ifdef _WIN32
 	closesocket(s);
 #else
 	close(s);
@@ -53,7 +53,7 @@ close_socket(socket_t s)
 static inline int
 last_socket_error()
 {
-#ifdef WIN32
+#ifdef _WIN32
 	return WSAGetLastError();
 #else
 	return errno;
@@ -63,7 +63,7 @@ last_socket_error()
 static inline bool
 would_block(int e)
 {
-#ifdef WIN32
+#ifdef _WIN32
 	return e == WSAEINPROGRESS || e == WSAEWOULDBLOCK;
 #else
 	return e == EINPROGRESS || e == EAGAIN;

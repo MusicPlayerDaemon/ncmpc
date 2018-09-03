@@ -21,7 +21,7 @@ struct mpdclient {
 	 */
 	struct mpd_settings *settings;
 
-#ifndef WIN32
+#ifndef _WIN32
 	/**
 	 * A second set of settings, just in case #settings did not
 	 * work.  This is only used if #settings refers to a local
@@ -79,7 +79,7 @@ struct mpdclient {
 
 	enum mpd_state state = MPD_STATE_UNKNOWN;
 
-#if defined(ENABLE_ASYNC_CONNECT) && !defined(WIN32)
+#if defined(ENABLE_ASYNC_CONNECT) && !defined(_WIN32)
 	bool connecting2;
 #endif
 
@@ -108,7 +108,7 @@ struct mpdclient {
 #ifdef ENABLE_ASYNC_CONNECT
 		mpd_settings_free(settings);
 
-#ifndef WIN32
+#ifndef _WIN32
 		if (settings2 != nullptr)
 			mpd_settings_free(settings2);
 #endif

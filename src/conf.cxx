@@ -608,7 +608,7 @@ check_user_conf_dir()
 char *
 build_user_conf_filename()
 {
-#ifdef WIN32
+#ifdef _WIN32
 	return g_build_filename(g_get_user_config_dir(), PACKAGE, "ncmpc.conf", nullptr);
 #else
 	return g_build_filename(g_get_home_dir(), "." PACKAGE, "config", nullptr);
@@ -618,7 +618,7 @@ build_user_conf_filename()
 char *
 build_system_conf_filename()
 {
-#ifdef WIN32
+#ifdef _WIN32
 	const gchar* const *system_data_dirs;
 	gchar *pathname = nullptr;
 
@@ -644,7 +644,7 @@ build_system_conf_filename()
 char *
 build_user_key_binding_filename()
 {
-#ifdef WIN32
+#ifdef _WIN32
 	return g_build_filename(g_get_user_config_dir(), PACKAGE, "keys.conf", nullptr);
 #else
 	return g_build_filename(g_get_home_dir(), "." PACKAGE, "keys", nullptr);
@@ -654,7 +654,7 @@ build_user_key_binding_filename()
 static char *
 g_build_system_key_binding_filename()
 {
-#ifdef WIN32
+#ifdef _WIN32
 	const gchar* const *system_data_dirs;
 	gchar *pathname = nullptr;
 

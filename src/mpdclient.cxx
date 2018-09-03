@@ -156,7 +156,7 @@ mpdclient::HandleError()
 }
 
 #ifdef ENABLE_ASYNC_CONNECT
-#ifndef WIN32
+#ifndef _WIN32
 
 static bool
 is_local_socket(const char *host)
@@ -184,7 +184,7 @@ mpdclient::mpdclient(const char *_host, unsigned _port,
 	if (settings == nullptr)
 		g_error("Out of memory");
 
-#ifndef WIN32
+#ifndef _WIN32
 	settings2 = _host == nullptr && _port == 0 &&
 		settings_is_local_socket(settings)
 		? mpd_settings_new(_host, 6600, _timeout_ms, nullptr, nullptr)
@@ -333,7 +333,7 @@ mpdclient_aconnect_start(struct mpdclient *c,
 static const struct mpd_settings *
 mpdclient_get_settings(const struct mpdclient *c)
 {
-#ifndef WIN32
+#ifndef _WIN32
 	if (c->connecting2)
 		return c->settings2;
 #endif
@@ -367,7 +367,7 @@ mpdclient_connect_error(const char *message, void *ctx)
 	assert(c->async_connect != nullptr);
 	c->async_connect = nullptr;
 
-#ifndef WIN32
+#ifndef _WIN32
 	if (!c->connecting2 && c->settings2 != nullptr) {
 		c->connecting2 = true;
 		mpdclient_aconnect_start(c, c->settings2);
@@ -403,7 +403,7 @@ mpdclient::Connect()
 	Disconnect();
 
 #ifdef ENABLE_ASYNC_CONNECT
-#ifndef WIN32
+#ifndef _WIN32
 	connecting2 = false;
 #endif
 	mpdclient_aconnect_start(this, settings);

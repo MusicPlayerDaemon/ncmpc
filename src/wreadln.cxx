@@ -29,7 +29,7 @@
 #include <string.h>
 #include <glib.h>
 
-#if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(WIN32)
+#if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(_WIN32)
 #include <sys/poll.h>
 #endif
 
@@ -277,7 +277,7 @@ static inline void drawline(const struct wreadln *wr)
 	doupdate();
 }
 
-#if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(WIN32)
+#if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(_WIN32)
 static bool
 multibyte_is_complete(const char *p, size_t length)
 {
@@ -296,7 +296,7 @@ static void
 wreadln_insert_byte(struct wreadln *wr, gint key)
 {
 	size_t length = 1;
-#if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined (WIN32)
+#if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(_WIN32)
 	char buffer[32] = { (char)key };
 	struct pollfd pfd = {
 		.fd = 0,

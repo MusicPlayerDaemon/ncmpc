@@ -28,14 +28,14 @@
 
 #include "socket.hxx"
 
-#ifndef WIN32
+#ifndef _WIN32
 #include <fcntl.h>
 #endif
 
 static void
 socket_set_cloexec(socket_t fd)
 {
-#ifndef WIN32
+#ifndef _WIN32
 	fcntl(fd, F_SETFD, FD_CLOEXEC);
 #else
 	(void)fd;
@@ -45,7 +45,7 @@ socket_set_cloexec(socket_t fd)
 static void
 socket_set_nonblock(socket_t fd)
 {
-#ifdef WIN32
+#ifdef _WIN32
 	u_long val = 1;
 	ioctlsocket(fd, FIONBIO, &val);
 #else
