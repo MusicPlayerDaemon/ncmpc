@@ -80,7 +80,7 @@ update_xterm_title()
 
 	char tmp[BUFSIZE];
 	const char *new_title = nullptr;
-	if (!options.xterm_title_format.empty() && mpd->playing && song)
+	if (!options.xterm_title_format.empty() && mpd->playing_or_paused && song)
 		new_title = strfsong(tmp, BUFSIZE,
 				     options.xterm_title_format.c_str(), song) > 0
 			? tmp
