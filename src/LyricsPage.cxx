@@ -439,14 +439,9 @@ LyricsPage::OnCommand(struct mpdclient &c, command_t cmd)
 	case CMD_DELETE:
 		if (loader == nullptr && artist != nullptr &&
 		    title != nullptr) {
-			switch (Delete()) {
-			case true:
-				screen_status_message (_("Lyrics deleted"));
-				break;
-			case false:
-				screen_status_message (_("No saved lyrics"));
-				break;
-			}
+			screen_status_message(Delete()
+					      ? _("Lyrics deleted")
+					      : _("No saved lyrics"));
 		}
 		return true;
 	case CMD_LYRICS_UPDATE:
