@@ -108,7 +108,7 @@ screen_readln(const char *prompt,
 	auto result = wreadln(w, prompt, value, window->size.width,
 			      history, completion);
 	curs_set(0);
-	return std::move(result);
+	return result;
 }
 
 std::string
@@ -126,7 +126,7 @@ screen_read_password(const char *prompt)
 
 	auto result = wreadln_masked(w, prompt, nullptr, window->size.width);
 	curs_set(0);
-	return std::move(result);
+	return result;
 }
 
 static const char *
