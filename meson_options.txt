@@ -82,4 +82,4 @@ option('chat_screen', type: 'boolean',
 
 option('documentation', type: 'boolean',
   value: false,
-  description: 'Build API documentation')
+  description: 'Build documentation')

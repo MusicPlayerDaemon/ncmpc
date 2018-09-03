@@ -21,25 +21,24 @@ if sphinx.found()
   )
 endif
 
-if get_option('documentation')
-  doxygen = find_program('doxygen', required: false)
+doxygen = find_program('doxygen', required: false)
+if doxygen.found()
+  dconf = configuration_data()
+  dconf.set('VERSION', meson.project_version())
+  dconf.set('abs_top_srcdir', meson.source_root())
 
-  if doxygen.found()
-    dconf = configuration_data()
-    dconf.set('VERSION', meson.project_version())
-    dconf.set('abs_top_srcdir', meson.source_root())
+  doxyfile = configure_file(input: 'doxygen.conf.in',
+                            output: 'doxygen.conf',
+                            configuration: dconf)
 
-    doxyfile = configure_file(input: 'doxygen.conf.in',
-                              output: 'doxygen.conf',
-                              configuration: dconf)
+  datadir = join_paths(get_option('datadir'), 'doc', 'spede')
 
-    datadir = join_paths(get_option('datadir'), 'doc', 'spede')
-
-    html_target = custom_target('apidocs',
-                                input: doxyfile,
-                                output: 'api',
-                                command: [doxygen, doxyfile],
-                                install: true,
-                                install_dir: docdir)
-  endif
+  html_target = custom_target(
+    'apidocs',
+    input: doxyfile,
+    output: 'api',
+    command: [doxygen, doxyfile],
+    install: true,
+    install_dir: docdir,
+  )
 endif

@@ -383,4 +383,7 @@ if not mini
   subdir('test')
 endif
 
-subdir('doc')
+enable_documentation = get_option('documentation')
+if enable_documentation
+  subdir('doc')
+endif
