@@ -418,7 +418,8 @@ CommandListPage::Save()
 
 	FILE *f = fopen(filename, "w");
 	if (f == nullptr) {
-		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
+		screen_status_printf("%s: %s - %s", _("Error"),
+				     filename, strerror(errno));
 		screen_bell();
 		g_free(allocated);
 		return;
@@ -427,7 +428,8 @@ CommandListPage::Save()
 	if (write_key_bindings(f, KEYDEF_WRITE_HEADER))
 		screen_status_printf(_("Wrote %s"), filename);
 	else
-		screen_status_printf(_("Error: %s - %s"), filename, strerror(errno));
+		screen_status_printf("%s: %s - %s", _("Error"),
+				     filename, strerror(errno));
 
 	g_free(allocated);
 	fclose(f);
