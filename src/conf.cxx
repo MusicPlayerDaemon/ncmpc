@@ -582,7 +582,7 @@ parse_line(char *line)
 }
 
 static int
-read_rc_file(char *filename)
+read_rc_file(const char *filename)
 {
 	assert(filename != nullptr);
 
