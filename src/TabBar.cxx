@@ -23,7 +23,7 @@
 #include "i18n.h"
 
 static void
-print_hotkey(WINDOW *w, command_t cmd, const char *label)
+PaintPageTab(WINDOW *w, command_t cmd, const char *label)
 {
 	colors_use(w, COLOR_TITLE_BOLD);
 	waddstr(w, get_key_names(cmd, false));
@@ -38,23 +38,23 @@ void
 PaintTabBar(WINDOW *w)
 {
 #ifdef ENABLE_HELP_SCREEN
-	print_hotkey(w, CMD_SCREEN_HELP, _("Help"));
+	PaintPageTab(w, CMD_SCREEN_HELP, _("Help"));
 #endif
-	print_hotkey(w, CMD_SCREEN_PLAY, _("Queue"));
-	print_hotkey(w, CMD_SCREEN_FILE, _("Browse"));
+	PaintPageTab(w, CMD_SCREEN_PLAY, _("Queue"));
+	PaintPageTab(w, CMD_SCREEN_FILE, _("Browse"));
 #ifdef ENABLE_ARTIST_SCREEN
-	print_hotkey(w, CMD_SCREEN_ARTIST, _("Artist"));
+	PaintPageTab(w, CMD_SCREEN_ARTIST, _("Artist"));
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
-	print_hotkey(w, CMD_SCREEN_SEARCH, _("Search"));
+	PaintPageTab(w, CMD_SCREEN_SEARCH, _("Search"));
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
-	print_hotkey(w, CMD_SCREEN_LYRICS, _("Lyrics"));
+	PaintPageTab(w, CMD_SCREEN_LYRICS, _("Lyrics"));
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
-	print_hotkey(w, CMD_SCREEN_OUTPUTS, _("Outputs"));
+	PaintPageTab(w, CMD_SCREEN_OUTPUTS, _("Outputs"));
 #endif
 #ifdef ENABLE_CHAT_SCREEN
-	print_hotkey(w, CMD_SCREEN_CHAT, _("Chat"));
+	PaintPageTab(w, CMD_SCREEN_CHAT, _("Chat"));
 #endif
 }
