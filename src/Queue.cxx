@@ -62,14 +62,15 @@ MpdQueue::Move(unsigned dest, unsigned src)
 	items[dest] = std::move(song);
 }
 
-int
+MpdQueue::size_type
 MpdQueue::FindByReference(const struct mpd_song &song) const
 {
-	for (size_type i = 0; i < size(); ++i)
+	for (size_type i = 0;; ++i) {
+		assert(i < size());
+
 		if (&(*this)[i] == &song)
 			return i;
-
-	return -1;
+	}
 }
 
 int

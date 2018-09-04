@@ -94,7 +94,7 @@ struct MpdQueue {
 	 * @return the song position
 	 */
 	gcc_pure
-	int FindByReference(const struct mpd_song &song) const;
+	size_type FindByReference(const struct mpd_song &song) const;
 
 	/**
 	 * Find a song by its id.
