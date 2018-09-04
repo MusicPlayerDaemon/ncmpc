@@ -123,6 +123,20 @@ struct MpdQueue {
 	int FindByUri(const struct mpd_song &song) const {
 		return FindByUri(mpd_song_get_uri(&song));
 	}
+
+	/**
+	 * Like FindByUri(), but return the song id, not the song position
+	 *
+	 * @return the song id
+	 */
+	template<typename U>
+	gcc_pure
+	int FindIdByUri(U &&uri) const {
+		int i = FindByUri(std::forward<U>(uri));
+		if (i >= 0)
+			i = mpd_song_get_id(items[i].get());
+		return i;
+	}
 };
 
 #endif
