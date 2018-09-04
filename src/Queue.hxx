@@ -124,6 +124,11 @@ struct MpdQueue {
 			i = mpd_song_get_id(items[i].get());
 		return i;
 	}
+
+	gcc_pure
+	bool ContainsUri(const char *uri) const {
+		return FindByUri(uri) >= 0;
+	}
 };
 
 #endif

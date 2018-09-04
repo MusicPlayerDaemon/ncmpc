@@ -65,7 +65,7 @@ screen_browser_sync_highlights(FileList *fl, const MpdQueue *playlist)
 		if (entity != nullptr && mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 			const auto *song = mpd_entity_get_song(entity);
 
-			if (playlist->FindByUri(mpd_song_get_uri(song)) >= 0)
+			if (playlist->ContainsUri(mpd_song_get_uri(song)))
 				entry.flags |= HIGHLIGHT;
 			else
 				entry.flags &= ~HIGHLIGHT;
