@@ -65,7 +65,7 @@ screen_browser_sync_highlights(FileList *fl, const MpdQueue *playlist)
 		if (entity != nullptr && mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 			const auto *song = mpd_entity_get_song(entity);
 
-			if (playlist->FindByUri(*song) >= 0)
+			if (playlist->FindByUri(mpd_song_get_uri(song)) >= 0)
 				entry.flags |= HIGHLIGHT;
 			else
 				entry.flags &= ~HIGHLIGHT;
@@ -142,7 +142,7 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 		id = -1;
 	else
 #endif
-		id = c->playlist.FindIdByUri(*song);
+		id = c->playlist.FindIdByUri(mpd_song_get_uri(song));
 
 	if (id < 0) {
 		char buf[BUFSIZE];
@@ -279,7 +279,7 @@ browser_select_entry(struct mpdclient *c, FileListEntry *entry,
 
 		entry->flags &= ~HIGHLIGHT;
 
-		while ((idx = c->playlist.FindByUri(*song)) >= 0)
+		while ((idx = c->playlist.FindByUri(mpd_song_get_uri(song))) >= 0)
 			mpdclient_cmd_delete(c, idx);
 #endif
 	}

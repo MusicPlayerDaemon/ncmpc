@@ -113,26 +113,13 @@ struct MpdQueue {
 	int FindByUri(const char *uri) const;
 
 	/**
-	 * Find a song by its URI (obtained from another #mpd_song
-	 * instance).  Unlike FindByReference(), the given #mpd_song
-	 * does not need to be obtained from this container.
-	 *
-	 * @return the song position
-	 */
-	gcc_pure
-	int FindByUri(const struct mpd_song &song) const {
-		return FindByUri(mpd_song_get_uri(&song));
-	}
-
-	/**
 	 * Like FindByUri(), but return the song id, not the song position
 	 *
 	 * @return the song id
 	 */
-	template<typename U>
 	gcc_pure
-	int FindIdByUri(U &&uri) const {
-		int i = FindByUri(std::forward<U>(uri));
+	int FindIdByUri(const char *uri) const {
+		int i = FindByUri(uri);
 		if (i >= 0)
 			i = mpd_song_get_id(items[i].get());
 		return i;
