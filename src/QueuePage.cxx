@@ -168,7 +168,7 @@ QueuePage::RestoreSelection()
 		/* selection is still valid */
 		return;
 
-	int pos = playlist->FindId(selected_song_id);
+	int pos = playlist->FindById(selected_song_id);
 	if (pos >= 0)
 		lw.SetCursor(pos);
 
@@ -507,7 +507,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		SetDirty();
 		return false;
 	case CMD_SELECT_PLAYING:
-		lw.SetCursor(c.playlist.Find(*c.song));
+		lw.SetCursor(c.playlist.FindByReference(*c.song));
 		SaveSelection();
 		SetDirty();
 		return true;

@@ -86,18 +86,42 @@ struct MpdQueue {
 
 	void Move(unsigned dest, unsigned src);
 
+	/**
+	 * Find a song by its reference.  This method compares
+	 * #mpd_song references, so this method makes only sense for
+	 * songs references which were obtained from this container.
+	 *
+	 * @return the song position
+	 */
 	gcc_pure
-	int Find(const struct mpd_song &song) const;
+	int FindByReference(const struct mpd_song &song) const;
 
+	/**
+	 * Find a song by its id.
+	 *
+	 * @return the song position
+	 */
 	gcc_pure
-	int FindId(unsigned id) const;
+	int FindById(unsigned id) const;
 
+	/**
+	 * Find a song by its URI.
+	 *
+	 * @return the song position
+	 */
 	gcc_pure
-	int FindUri(const char *uri) const;
+	int FindByUri(const char *uri) const;
 
+	/**
+	 * Find a song by its URI (obtained from another #mpd_song
+	 * instance).  Unlike FindByReference(), the given #mpd_song
+	 * does not need to be obtained from this container.
+	 *
+	 * @return the song position
+	 */
 	gcc_pure
-	int FindUri(const struct mpd_song &song) const {
-		return FindUri(mpd_song_get_uri(&song));
+	int FindByUri(const struct mpd_song &song) const {
+		return FindByUri(mpd_song_get_uri(&song));
 	}
 };
 

@@ -63,7 +63,7 @@ MpdQueue::Move(unsigned dest, unsigned src)
 }
 
 int
-MpdQueue::Find(const struct mpd_song &song) const
+MpdQueue::FindByReference(const struct mpd_song &song) const
 {
 	for (size_type i = 0; i < size(); ++i)
 		if (&(*this)[i] == &song)
@@ -73,7 +73,7 @@ MpdQueue::Find(const struct mpd_song &song) const
 }
 
 int
-MpdQueue::FindId(unsigned id) const
+MpdQueue::FindById(unsigned id) const
 {
 	for (size_type i = 0; i < size(); ++i) {
 		const auto &song = (*this)[i];
@@ -85,7 +85,7 @@ MpdQueue::FindId(unsigned id) const
 }
 
 int
-MpdQueue::FindUri(const char *filename) const
+MpdQueue::FindByUri(const char *filename) const
 {
 	for (size_type i = 0; i < size(); ++i) {
 		const auto &song = (*this)[i];
