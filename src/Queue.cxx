@@ -90,7 +90,7 @@ MpdQueue::FindUri(const char *filename) const
 	for (size_type i = 0; i < size(); ++i) {
 		const auto &song = (*this)[i];
 		if (strcmp(mpd_song_get_uri(&song), filename) == 0)
-			return mpd_song_get_id(&song);
+			return i;
 	}
 
 	return -1;
