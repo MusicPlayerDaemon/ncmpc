@@ -142,7 +142,7 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 		id = -1;
 	else
 #endif
-		id = c->playlist.FindByUri(*song);
+		id = c->playlist.FindIdByUri(*song);
 
 	if (id < 0) {
 		char buf[BUFSIZE];
