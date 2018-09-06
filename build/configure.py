@@ -28,6 +28,7 @@ flavors = {
         'env': {
             'CC': 'clang',
             'CXX': 'clang++',
+            'LDFLAGS': '-fuse-ld=lld',
         },
     },
 
@@ -57,6 +58,7 @@ flavors = {
         'env': {
             'CC': 'clang',
             'CXX': 'clang++',
+            'LDFLAGS': '-fuse-ld=lld',
         },
     },
 
