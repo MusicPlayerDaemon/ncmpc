@@ -22,13 +22,11 @@
 #include "KeyName.hxx"
 #include "i18n.h"
 #include "ncmpc_curses.h"
-#include "util/Macros.hxx"
+#include "util/CharUtil.hxx"
 
 #include <assert.h>
-#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include <glib.h>
 #include <signal.h>
 #include <unistd.h>
@@ -127,7 +125,7 @@ KeyBinding::WriteToFile(FILE *f, const command_definition_t &cmd,
 		else
 			fprintf(f, ",  ");
 
-		if (key < 256 && (isalpha(key) || isdigit(key)))
+		if (key < 256 && IsAlphaNumericASCII(key))
 			fprintf(f, "\'%c\'", key);
 		else
 			fprintf(f, "%d", key);
