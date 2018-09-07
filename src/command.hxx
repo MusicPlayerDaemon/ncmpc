@@ -25,10 +25,6 @@
 
 #include <stddef.h>
 
-#ifndef NCMPC_MINI
-#include <stdio.h>
-#endif
-
 /* commands */
 typedef enum {
 #ifdef ENABLE_KEYDEF_SCREEN
