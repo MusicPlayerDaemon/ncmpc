@@ -39,7 +39,6 @@ struct KeyBinding {
 
 #ifndef NCMPC_MINI
 	bool modified = false;
-	bool conflict = false;
 #endif
 };
 

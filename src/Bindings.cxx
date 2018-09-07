@@ -85,9 +85,6 @@ check_key_bindings(KeyBinding *bindings, char *buf, size_t bufsize)
 {
 	bool success = true;
 
-	for (size_t i = 0; i < size_t(CMD_NONE); ++i)
-		bindings[i].conflict = false;
-
 	for (size_t i = 0; i < size_t(CMD_NONE); ++i) {
 		int j;
 		command_t cmd;
@@ -109,8 +106,6 @@ check_key_bindings(KeyBinding *bindings, char *buf, size_t bufsize)
 						get_key_command_name(cmd));
 					fputc('\n', stderr);
 				}
-				bindings[i].conflict = true;
-				bindings[size_t(cmd)].conflict = true;
 				success = false;
 			}
 		}
