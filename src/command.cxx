@@ -285,15 +285,6 @@ get_cmds_max_name_width(command_definition_t *c)
 }
 #endif
 
-void
-command_dump_keys()
-{
-	for (size_t i = 0; i < size_t(CMD_NONE); ++i)
-		printf(" %20s : %s\n",
-		       get_key_names(command_t(i), true),
-		       cmds[i].name);
-}
-
 #ifndef NCMPC_MINI
 
 static void

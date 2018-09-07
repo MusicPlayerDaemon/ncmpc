@@ -164,8 +164,6 @@ gcc_pure
 command_t
 find_key_command(int key, const command_definition_t *cmds);
 
-void command_dump_keys();
-
 #ifndef NCMPC_MINI
 
 /**
