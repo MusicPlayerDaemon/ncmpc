@@ -39,6 +39,9 @@ struct KeyBinding {
 
 #ifndef NCMPC_MINI
 	bool modified = false;
+
+	void WriteToFile(FILE *f, const command_definition_t &cmd,
+			 bool comment) const;
 #endif
 };
 

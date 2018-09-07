@@ -104,6 +104,38 @@ KeyBindings::Check(char *buf, size_t bufsize) const
 	return success;
 }
 
+void
+KeyBinding::WriteToFile(FILE *f, const command_definition_t &cmd,
+			bool comment) const
+{
+	fprintf(f, "## %s\n", cmd.description);
+	if (comment)
+		fprintf(f, "#");
+	fprintf(f, "key %s = ", cmd.name);
+
+	if (keys.front() == 0) {
+		fputs("0\n\n", f);
+		return;
+	}
+
+	bool first = true;
+	for (const auto key : keys) {
+		if (key == 0)
+			break;
+
+		if (first)
+			first = false;
+		else
+			fprintf(f, ",  ");
+
+		if (key < 256 && (isalpha(key) || isdigit(key)))
+			fprintf(f, "\'%c\'", key);
+		else
+			fprintf(f, "%d", key);
+	}
+	fprintf(f,"\n\n");
+}
+
 bool
 KeyBindings::WriteToFile(FILE *f, int flags) const
 {
@@ -114,32 +146,8 @@ KeyBindings::WriteToFile(FILE *f, int flags) const
 
 	for (size_t i = 0; i < size_t(CMD_NONE) && !ferror(f); ++i) {
 		if (key_bindings[i].modified || flags & KEYDEF_WRITE_ALL) {
-			fprintf(f, "## %s\n", cmds[i].description);
-			if (flags & KEYDEF_COMMENT_ALL)
-				fprintf(f, "#");
-			fprintf(f, "key %s = ", cmds[i].name);
-
-			if (key_bindings[i].keys.front() == 0) {
-				fputs("0\n\n", f);
-				continue;
-			}
-
-			bool first = true;
-			for (const auto key : key_bindings[i].keys) {
-				if (key == 0)
-					break;
-
-				if (first)
-					first = false;
-				else
-					fprintf(f, ",  ");
-
-				if (key < 256 && (isalpha(key) || isdigit(key)))
-					fprintf(f, "\'%c\'", key);
-				else
-					fprintf(f, "%d", key);
-			}
-			fprintf(f,"\n\n");
+			key_bindings[i].WriteToFile(f, cmds[i],
+						    flags & KEYDEF_COMMENT_ALL);
 		}
 	}
 
