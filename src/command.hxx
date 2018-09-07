@@ -136,14 +136,12 @@ typedef struct  {
 	const char *description;
 } command_definition_t;
 
-#ifdef ENABLE_KEYDEF_SCREEN
 const command_definition_t *
 get_command_definitions();
 
 gcc_const
 size_t
 get_cmds_max_name_width();
-#endif
 
 gcc_pure
 const char *get_key_description(command_t command);

@@ -222,7 +222,6 @@ static constexpr command_definition_t cmds[] = {
 static_assert(ARRAY_SIZE(cmds) == size_t(CMD_NONE),
 	      "Wrong command table size");
 
-#ifdef ENABLE_KEYDEF_SCREEN
 const command_definition_t *
 get_command_definitions()
 {
@@ -249,7 +248,6 @@ get_cmds_max_name_width()
 
 	return max;
 }
-#endif
 
 const char *
 get_key_description(command_t command)
