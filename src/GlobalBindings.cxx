@@ -164,11 +164,9 @@ static KeyBinding global_key_bindings[] = {
 #ifdef ENABLE_CHAT_SCREEN
 	{ {'9', F9, 0} },
 #endif
-
-	{ { -1, -1, -1 } }
 };
 
-static_assert(ARRAY_SIZE(global_key_bindings) == size_t(CMD_NONE) + 1,
+static_assert(ARRAY_SIZE(global_key_bindings) == size_t(CMD_NONE),
 	      "Wrong key binding table size");
 
 KeyBinding *
