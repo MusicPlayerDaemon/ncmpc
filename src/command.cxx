@@ -223,11 +223,9 @@ static constexpr command_definition_t cmds[] = {
 	{ "screen-chat",
 	  N_("Chat screen") },
 #endif
-
-	{ nullptr, nullptr }
 };
 
-static_assert(ARRAY_SIZE(cmds) == size_t(CMD_NONE) + 1,
+static_assert(ARRAY_SIZE(cmds) == size_t(CMD_NONE),
 	      "Wrong command table size");
 
 #ifdef ENABLE_KEYDEF_SCREEN
