@@ -64,7 +64,7 @@ key2str(int key)
 	default:
 		for (int i = 0; i <= 63; i++)
 			if (key == KEY_F(i)) {
-				snprintf(buf, 32, _("F%d"), i );
+				snprintf(buf, 32, "F%d", i );
 				return buf;
 			}
 		if (!(key & ~037))
