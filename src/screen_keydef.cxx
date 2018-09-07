@@ -312,7 +312,7 @@ class CommandListPage final : public ListPage, ListText {
 	command_definition_t *cmds = nullptr;
 
 	/** the number of commands */
-	unsigned command_n_commands = 0;
+	static constexpr size_t command_n_commands = size_t(CMD_NONE);
 
 public:
 	CommandListPage(ScreenManager &_screen, WINDOW *w, Size size)
@@ -337,14 +337,12 @@ private:
 	 * the position of the "apply" item. It's the same as command_n_commands,
 	 * because array subscripts start at 0, while numbers of items start at 1.
 	 */
-	gcc_pure
-	unsigned command_item_apply() const {
+	static constexpr unsigned command_item_apply() {
 		return command_n_commands;
 	}
 
 	/** the position of the "apply and save" item */
-	gcc_pure
-	unsigned command_item_save() const {
+	static constexpr unsigned command_item_save() {
 		return command_item_apply() + 1;
 	}
 
@@ -382,7 +380,7 @@ bool
 CommandListPage::IsModified() const
 {
 	command_definition_t *orginal_cmds = get_command_definitions();
-	size_t size = command_n_commands * sizeof(command_definition_t);
+	constexpr size_t size = command_n_commands * sizeof(command_definition_t);
 
 	return memcmp(orginal_cmds, cmds, size) != 0;
 }
@@ -438,7 +436,7 @@ CommandListPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
 	if (idx == command_item_save())
 		return _("===> Apply & Save key bindings  ");
 
-	assert(idx < (unsigned) command_n_commands);
+	assert(idx < command_n_commands);
 
 	/*
 	 * Format the lines in two aligned columnes for the key name and
@@ -465,9 +463,6 @@ CommandListPage::OnOpen(gcc_unused struct mpdclient &c)
 {
 	if (cmds == nullptr) {
 		command_definition_t *current_cmds = get_command_definitions();
-		command_n_commands = 0;
-		while (current_cmds[command_n_commands].name)
-			command_n_commands++;
 
 		/* +1 for the terminator element */
 		cmds = new command_definition_t[command_n_commands + 1];
