@@ -70,10 +70,7 @@ gcc_pure
 const char *
 get_key_names(const KeyBinding *bindings, command_t command, bool all);
 
-/**
- * @return true on success, false on error
- */
-bool
+void
 assign_keys(KeyBinding *bindings, command_t command,
 	    int keys[MAX_COMMAND_KEYS]);
 

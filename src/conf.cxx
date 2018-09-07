@@ -208,7 +208,8 @@ parse_key_definition(char *str)
 	if (key < 0)
 		return false;
 
-	return assign_keys(GetGlobalKeyBindings(), cmd, keys);
+	assign_keys(GetGlobalKeyBindings(), cmd, keys);
+	return true;
 }
 
 static bool
