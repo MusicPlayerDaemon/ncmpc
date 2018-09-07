@@ -19,10 +19,8 @@
 
 #include "Command.hxx"
 #include "i18n.h"
-#include "ncmpc_curses.h"
 #include "util/Macros.hxx"
 
-#include <assert.h>
 #include <string.h>
 
 static constexpr command_definition_t cmds[] = {
