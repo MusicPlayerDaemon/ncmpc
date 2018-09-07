@@ -44,10 +44,12 @@ get_key_names(const KeyBinding *bindings, command_t command, bool all)
 	if (!all)
 		return keystr;
 
-	for (unsigned j = 1; j < MAX_COMMAND_KEYS &&
-		     b.keys[j] > 0; j++) {
+	for (const auto key : b.keys) {
+		if (key == 0)
+			break;
+
 		g_strlcat(keystr, " ", sizeof(keystr));
-		g_strlcat(keystr, key2str(b.keys[j]), sizeof(keystr));
+		g_strlcat(keystr, key2str(key), sizeof(keystr));
 	}
 	return keystr;
 }
@@ -59,8 +61,8 @@ find_key_command(const KeyBinding *bindings, int key)
 	assert(key != 0);
 
 	for (size_t i = 0; i < size_t(CMD_NONE); ++i) {
-		for (int j = 0; j < MAX_COMMAND_KEYS; j++)
-			if (bindings[i].keys[j] == key)
+		for (const auto key2 : bindings[i].keys)
+			if (key2 == key)
 				return command_t(i);
 	}
 
@@ -86,22 +88,22 @@ check_key_bindings(KeyBinding *bindings, char *buf, size_t bufsize)
 	bool success = true;
 
 	for (size_t i = 0; i < size_t(CMD_NONE); ++i) {
-		int j;
-		command_t cmd;
+		for (const auto key : bindings[i].keys) {
+			if (key == 0)
+				break;
 
-		for(j=0; j<MAX_COMMAND_KEYS; j++) {
-			if (bindings[i].keys[j] &&
-			    (cmd = find_key_command(bindings, bindings[i].keys[j])) != command_t(i)) {
+			command_t cmd;
+			if ((cmd = find_key_command(bindings, key)) != command_t(i)) {
 				if (buf) {
 					snprintf(buf, bufsize,
 						 _("Key %s assigned to %s and %s"),
-						 key2str(bindings[i].keys[j]),
+						 key2str(key),
 						 get_key_command_name(command_t(i)),
 						 get_key_command_name(cmd));
 				} else {
 					fprintf(stderr,
 						_("Key %s assigned to %s and %s"),
-						key2str(bindings[i].keys[j]),
+						key2str(key),
 						get_key_command_name(command_t(i)),
 						get_key_command_name(cmd));
 					fputc('\n', stderr);
@@ -128,16 +130,26 @@ write_key_bindings(FILE *f, const KeyBinding *bindings, int flags)
 			if (flags & KEYDEF_COMMENT_ALL)
 				fprintf(f, "#");
 			fprintf(f, "key %s = ", cmds[i].name);
-			for (int j = 0; j < MAX_COMMAND_KEYS; j++) {
-				if (j && bindings[i].keys[j])
+
+			if (bindings[i].keys.front() == 0) {
+				fputs("0\n\n", f);
+				continue;
+			}
+
+			bool first = true;
+			for (const auto key : bindings[i].keys) {
+				if (key == 0)
+					break;
+
+				if (first)
+					first = false;
+				else
 					fprintf(f, ",  ");
-				if (!j || bindings[i].keys[j]) {
-					if (bindings[i].keys[j] < 256 &&
-					    (isalpha(bindings[i].keys[j]) || isdigit(bindings[i].keys[j])))
-						fprintf(f, "\'%c\'", bindings[i].keys[j]);
-					else
-						fprintf(f, "%d", bindings[i].keys[j]);
-				}
+
+				if (key < 256 && (isalpha(key) || isdigit(key)))
+					fprintf(f, "\'%c\'", key);
+				else
+					fprintf(f, "%d", key);
 			}
 			fprintf(f,"\n\n");
 		}
