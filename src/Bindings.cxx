@@ -69,10 +69,10 @@ find_key_command(const KeyBinding *bindings, int key)
 
 void
 assign_keys(KeyBinding *bindings, command_t command,
-	    int keys[MAX_COMMAND_KEYS])
+	    const std::array<int, MAX_COMMAND_KEYS> &keys)
 {
 	auto &b = bindings[size_t(command)];
-	memcpy(b.keys, keys, sizeof(int)*MAX_COMMAND_KEYS);
+	b.keys = keys;
 #ifndef NCMPC_MINI
 	b.modified = true;
 #endif

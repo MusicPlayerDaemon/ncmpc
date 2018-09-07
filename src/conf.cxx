@@ -196,8 +196,7 @@ parse_key_definition(char *str)
 	int key = 0;
 	char *p = buf;
 
-	int keys[MAX_COMMAND_KEYS];
-	memset(keys, 0, sizeof(int)*MAX_COMMAND_KEYS);
+	std::array<int, MAX_COMMAND_KEYS> keys{0};
 	while (i < MAX_COMMAND_KEYS && *p != 0 &&
 	       (key = parse_key_value(p, &p)) >= 0) {
 		keys[i++] = key;

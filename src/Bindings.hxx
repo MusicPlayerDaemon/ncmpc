@@ -24,6 +24,8 @@
 #include "command.hxx"
 #include "Compiler.h"
 
+#include <array>
+
 #include <stddef.h>
 
 #ifndef NCMPC_MINI
@@ -33,7 +35,7 @@
 #define MAX_COMMAND_KEYS 3
 
 struct KeyBinding {
-	int keys[MAX_COMMAND_KEYS];
+	std::array<int, MAX_COMMAND_KEYS> keys;
 
 #ifndef NCMPC_MINI
 	bool modified = false;
@@ -72,6 +74,6 @@ get_key_names(const KeyBinding *bindings, command_t command, bool all);
 
 void
 assign_keys(KeyBinding *bindings, command_t command,
-	    int keys[MAX_COMMAND_KEYS]);
+	    const std::array<int, MAX_COMMAND_KEYS> &keys);
 
 #endif
