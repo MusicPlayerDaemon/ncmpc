@@ -25,8 +25,6 @@
 #include <assert.h>
 #include <string.h>
 
-#define KEY_CTL(x) ((x) & 0x1f) /* KEY_CTL(A) == ^A == \1 */
-
 static constexpr command_definition_t cmds[] = {
 #ifdef ENABLE_KEYDEF_SCREEN
 	{ "screen-keyedit",
