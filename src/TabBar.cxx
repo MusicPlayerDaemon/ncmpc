@@ -20,13 +20,15 @@
 #include "TabBar.hxx"
 #include "colors.hxx"
 #include "command.hxx"
+#include "Bindings.hxx"
+#include "GlobalBindings.hxx"
 #include "i18n.h"
 
 static void
 PaintPageTab(WINDOW *w, command_t cmd, const char *label)
 {
 	colors_use(w, COLOR_TITLE_BOLD);
-	waddstr(w, get_key_names(cmd, false));
+	waddstr(w, get_key_names(GetGlobalKeyBindings(), cmd, false));
 	colors_use(w, COLOR_TITLE);
 	waddch(w, ':');
 	waddstr(w, label);

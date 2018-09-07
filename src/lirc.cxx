@@ -19,6 +19,7 @@
 
 #include "lirc.hxx"
 #include "ncmpc.hxx"
+#include "Bindings.hxx"
 #include "Compiler.h"
 
 #include <lirc/lirc_client.h>

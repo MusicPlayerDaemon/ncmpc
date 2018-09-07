@@ -18,9 +18,10 @@
  */
 
 #include "options.hxx"
+#include "Bindings.hxx"
+#include "GlobalBindings.hxx"
 #include "config.h"
 #include "charset.hxx"
-#include "command.hxx"
 #include "conf.hxx"
 #include "i18n.h"
 
@@ -256,7 +257,8 @@ handle_option(int c, const char *arg)
 #if !defined(NDEBUG) && !defined(NCMPC_MINI)
 	case 'K': /* --dump-keys */
 		read_configuration();
-		write_key_bindings(stdout, KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
+		write_key_bindings(stdout, GetGlobalKeyBindings(),
+				   KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
 		exit(EXIT_SUCCESS);
 		break;
 #endif

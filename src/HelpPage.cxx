@@ -24,6 +24,8 @@
 #include "ListText.hxx"
 #include "screen_find.hxx"
 #include "paint.hxx"
+#include "Bindings.hxx"
+#include "GlobalBindings.hxx"
 #include "charset.hxx"
 #include "config.h"
 #include "i18n.h"
@@ -268,7 +270,8 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 		else if (row->highlight == 2)
 			mvwhline(w, y, 3, '-', width - 6);
 	} else {
-		const char *key = get_key_names(row->command, true);
+		const char *key = get_key_names(GetGlobalKeyBindings(),
+						row->command, true);
 
 		if (utf8_width(key) < 20)
 			wmove(w, y, 20 - utf8_width(key));

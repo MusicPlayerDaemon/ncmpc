@@ -20,6 +20,8 @@
 #include "config.h"
 #include "keyboard.hxx"
 #include "command.hxx"
+#include "Bindings.hxx"
+#include "GlobalBindings.hxx"
 #include "ncmpc.hxx"
 #include "ncmpc_curses.h"
 #include "screen.hxx"
@@ -39,7 +41,7 @@ gcc_pure
 static command_t
 translate_key(int key)
 {
-	return get_key_command(key);
+	return find_key_command(GetGlobalKeyBindings(), key);
 }
 
 static gboolean

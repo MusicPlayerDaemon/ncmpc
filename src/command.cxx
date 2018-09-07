@@ -18,7 +18,6 @@
  */
 
 #include "command.hxx"
-#include "KeyName.hxx"
 #include "i18n.h"
 #include "ncmpc_curses.h"
 #include "util/Macros.hxx"
@@ -34,176 +33,151 @@
 
 #define KEY_CTL(x) ((x) & 0x1f) /* KEY_CTL(A) == ^A == \1 */
 
-#define BS   KEY_BACKSPACE
-#define DEL  KEY_DC
-#define UP   KEY_UP
-#define DWN  KEY_DOWN
-#define LEFT KEY_LEFT
-#define RGHT KEY_RIGHT
-#define HOME KEY_HOME
-#define END  KEY_END
-#define PGDN KEY_NPAGE
-#define PGUP KEY_PPAGE
-#define TAB  0x09
-#define STAB 0x161
-#define ESC  0x1B
-#define RET  '\r'
-#define F1   KEY_F(1)
-#define F2   KEY_F(2)
-#define F3   KEY_F(3)
-#define F4   KEY_F(4)
-#define F5   KEY_F(5)
-#define F6   KEY_F(6)
-#define F7   KEY_F(7)
-#define F8   KEY_F(8)
-#define F9   KEY_F(9)
-#define C(x) KEY_CTL(x)
-
-static command_definition_t cmds[] = {
+static constexpr command_definition_t cmds[] = {
 #ifdef ENABLE_KEYDEF_SCREEN
-	{ {'K', 0, 0 }, 0, "screen-keyedit",
+	{ "screen-keyedit",
 	  N_("Key configuration screen") },
 #endif
-	{ { 'q', 'Q', C('C') }, 0, "quit",
+	{ "quit",
 	  N_("Quit") },
 
 	/* movement */
-	{ { UP, 'k', 0 }, 0, "up",
+	{ "up",
 	  N_("Move cursor up") },
-	{ { DWN, 'j', 0 }, 0, "down",
+	{ "down",
 	  N_("Move cursor down") },
-	{ { 'H', 0, 0 }, 0, "top",
+	{ "top",
 	  N_("Move cursor to the top of screen") },
-	{ { 'M', 0, 0 }, 0, "middle",
+	{ "middle",
 	  N_("Move cursor to the middle of screen") },
-	{ { 'L', 0, 0 }, 0, "bottom",
+	{ "bottom",
 	  N_("Move cursor to the bottom of screen") },
-	{ { HOME, C('A'), 0 }, 0, "home",
+	{ "home",
 	  N_("Move cursor to the top of the list") },
-	{ { END, C('E'), 0 }, 0, "end",
+	{ "end",
 	  N_("Move cursor to the bottom of the list") },
-	{ { PGUP, 0, 0 }, 0, "pgup",
+	{ "pgup",
 	  N_("Page up") },
-	{ { PGDN, 0, 0 }, 0, "pgdn",
+	{ "pgdn",
 	  N_("Page down") },
-	{ { 'v',  0, 0 }, 0, "range-select",
+	{ "range-select",
 	  N_("Range selection") },
-	{ { C('N'),  0, 0 }, 0, "scroll-down-line",
+	{ "scroll-down-line",
 	  N_("Scroll down one line") },
-	{ { C('B'),  0, 0 }, 0, "scroll-up-line",
+	{ "scroll-up-line",
 	  N_("Scroll up one line") },
-	{ { 'N',  0, 0 }, 0, "scroll-down-half",
+	{ "scroll-down-half",
 	  N_("Scroll up half a screen") },
-	{ { 'B',  0, 0 }, 0, "scroll-up-half",
+	{ "scroll-up-half",
 	  N_("Scroll down half a screen") },
-	{ { 'l', 0, 0 }, 0, "select-playing",
+	{ "select-playing",
 	  N_("Select currently playing song") },
 
 
 	/* basic screens */
-	{ { '1', F1, 'h' }, 0, "screen-help",
+	{ "screen-help",
 	  N_("Help screen") },
-	{ { '2', F2, 0 }, 0, "screen-playlist",
+	{ "screen-playlist",
 	  N_("Queue screen") },
-	{ { '3', F3, 0 }, 0, "screen-browse",
+	{ "screen-browse",
 	  N_("Browse screen") },
 
 
 	/* player commands */
-	{ { RET, 0, 0 }, 0, "play",
+	{ "play",
 	  N_("Play/Enter directory") },
-	{ { 'P', 0, 0 }, 0, "pause",
+	{ "pause",
 	  N_("Pause") },
-	{ { 's', BS, 0 }, 0, "stop",
+	{ "stop",
 	  N_("Stop") },
-	{ { 'o', 0, 0 }, 0, "crop",
+	{ "crop",
 	  N_("Crop") },
-	{ { '>', 0, 0 }, 0, "next",
+	{ "next",
 	  N_("Next track") },
-	{ { '<', 0, 0 }, 0, "prev",
+	{ "prev",
 	  N_("Previous track") },
-	{ { 'f', 0, 0 }, 0, "seek-forward",
+	{ "seek-forward",
 	  N_("Seek forward") },
-	{ { 'b', 0, 0 }, 0, "seek-backward",
+	{ "seek-backward",
 	  N_("Seek backward") },
-	{ { '+', RGHT, 0 }, 0, "volume-up",
+	{ "volume-up",
 	  N_("Increase volume") },
-	{ { '-', LEFT, 0 }, 0, "volume-down",
+	{ "volume-down",
 	  N_("Decrease volume") },
-	{ { ' ', 0, 0 }, 0, "select",
+	{ "select",
 	  N_("Select/deselect song in queue") },
-	{ { 't', 0, 0 }, 0, "select_all",
+	{ "select_all",
 	  N_("Select all listed items") },
-	{ { DEL, 'd', 0 }, 0, "delete",
+	{ "delete",
 	  N_("Delete song from queue") },
-	{ { 'Z', 0, 0 }, 0, "shuffle",
+	{ "shuffle",
 	  N_("Shuffle queue") },
-	{ { 'c', 0, 0 }, 0, "clear",
+	{ "clear",
 	  N_("Clear queue") },
-	{ { 'r', 0, 0 }, 0, "repeat",
+	{ "repeat",
 	  N_("Toggle repeat mode") },
-	{ { 'z', 0, 0 }, 0, "random",
+	{ "random",
 	  N_("Toggle random mode") },
-	{ { 'y', 0, 0 }, 0, "single",
+	{ "single",
 	  N_("Toggle single mode") },
-	{ { 'C', 0, 0 }, 0, "consume",
+	{ "consume",
 	  N_("Toggle consume mode") },
-	{ { 'x', 0, 0 }, 0, "crossfade",
+	{ "crossfade",
 	  N_("Toggle crossfade mode") },
-	{ { C('U'), 0, 0 }, 0, "db-update",
+	{ "db-update",
 	  N_("Start a music database update") },
-	{ { 'S', 0, 0 }, 0, "save",
+	{ "save",
 	  N_("Save queue") },
-	{ { 'a', 0, 0 }, 0, "add",
+	{ "add",
 	  N_("Add url/file to queue") },
 
-	{ { '!', 0, 0 }, 0, "go-root-directory",
+	{ "go-root-directory",
 	  N_("Go to root directory") },
-	{ { '"', 0, 0 }, 0, "go-parent-directory",
+	{ "go-parent-directory",
 	  N_("Go to parent directory") },
 
-	{ { 'G', 0, 0 }, 0, "locate",
+	{ "locate",
 	  N_("Locate song in browser") },
 
 	/* lists */
-	{ { C('K'), 0, 0 }, 0, "move-up",
+	{ "move-up",
 	  N_("Move item up") },
-	{ { C('J'), 0, 0 }, 0, "move-down",
+	{ "move-down",
 	  N_("Move item down") },
-	{ { C('L'), 0, 0 }, 0, "update",
+	{ "update",
 	  N_("Refresh screen") },
 
 
 	/* ncmpc options */
-	{ { 'w', 0, 0 }, 0, "wrap-mode",
+	{ "wrap-mode",
 	  /* translators: toggle between wrapping and non-wrapping
 	     search */
 	  N_("Toggle find mode") },
-	{ { 'U', 0, 0 }, 0, "autocenter-mode",
+	{ "autocenter-mode",
 	  /* translators: the auto center mode always centers the song
 	     currently being played */
 	  N_("Toggle auto center mode") },
 
 
 	/* change screen */
-	{ { TAB, 0, 0 }, 0, "screen-next",
+	{ "screen-next",
 	  N_("Next screen") },
-	{ { STAB, 0, 0 }, 0, "screen-prev",
+	{ "screen-prev",
 	  N_("Previous screen") },
-	{ { '`', 0, 0 }, 0, "screen-swap",
+	{ "screen-swap",
 	  N_("Swap to most recent screen") },
 
 
 	/* find */
-	{ { '/', 0, 0 }, 0, "find",
+	{ "find",
 	  N_("Forward find") },
-	{ { 'n', 0, 0 }, 0, "find-next",
+	{ "find-next",
 	  N_("Forward find next") },
-	{ { '?', 0, 0 }, 0, "rfind",
+	{ "rfind",
 	  N_("Backward find") },
-	{ { 'p', 0, 0 }, 0, "rfind-next",
+	{ "rfind-next",
 	  N_("Backward find previous") },
-	{ { '.', 0, 0 }, 0, "jump",
+	{ "jump",
 		/* translators: this queries the user for a string
 		 * and jumps directly (while the user is typing)
 		 * to the entry which begins with this string */
@@ -212,52 +186,52 @@ static command_definition_t cmds[] = {
 
 	/* extra screens */
 #ifdef ENABLE_ARTIST_SCREEN
-	{ {'4', F4, 0 }, 0, "screen-artist",
+	{ "screen-artist",
 	  N_("Artist screen") },
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
-	{ {'5', F5, 0 }, 0, "screen-search",
+	{ "screen-search",
 	  N_("Search screen") },
-	{ {'m', 0, 0 }, 0, "search-mode",
+	{ "search-mode",
 	  N_("Change search mode") },
 #endif
 #ifdef ENABLE_SONG_SCREEN
-	{ { 'i', 0, 0 }, 0, "view",
+	{ "view",
 	  N_("View the selected and the currently playing song") },
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
-	{ {'7', F7, 0 }, 0, "screen-lyrics",
+	{ "screen-lyrics",
 	  N_("Lyrics screen") },
-	{ {ESC, 0, 0 }, 0, "lyrics-interrupt",
+	{ "lyrics-interrupt",
 	  /* translators: interrupt the current background action,
 	     e.g. stop loading lyrics from the internet */
 	  N_("Interrupt action") },
-	{ {'u', 0, 0 }, 0, "lyrics-update",
+	{ "lyrics-update",
 	  N_("Update Lyrics") },
 	/* this command may move out of #ifdef ENABLE_LYRICS_SCREEN
 	   at some point */
-	{ {'e', 0, 0 }, 0, "edit",
+	{ "edit",
 	  N_("Edit the current item") },
 #endif
 
 #ifdef ENABLE_OUTPUTS_SCREEN
-	{ {'8', F8, 0 }, 0, "screen-outputs",
+	{ "screen-outputs",
 	  N_("Outputs screen") },
 #endif
 
 #ifdef ENABLE_CHAT_SCREEN
-	{ {'9', F9, 0}, 0, "screen-chat",
+	{ "screen-chat",
 	  N_("Chat screen") },
 #endif
 
-	{ { -1, -1, -1 }, 0, nullptr, nullptr }
+	{ nullptr, nullptr }
 };
 
 static_assert(ARRAY_SIZE(cmds) == size_t(CMD_NONE) + 1,
 	      "Wrong command table size");
 
 #ifdef ENABLE_KEYDEF_SCREEN
-command_definition_t *
+const command_definition_t *
 get_command_definitions()
 {
 	return cmds;
@@ -271,7 +245,7 @@ get_cmds_max_name_width()
 	if (max != 0)
 		return max;
 
-	for (command_definition_t *p = cmds; p->name != nullptr; p++) {
+	for (const command_definition_t *p = cmds; p->name != nullptr; p++) {
 		/*
 		 * width and length are considered the same here, as command
 		 * names are not translated.
@@ -284,35 +258,6 @@ get_cmds_max_name_width()
 	return max;
 }
 #endif
-
-#ifndef NCMPC_MINI
-
-static void
-set_key_flags(command_definition_t *cp, command_t command, int flags)
-{
-	cp[size_t(command)].flags |= flags;
-}
-
-#endif
-
-const char *
-get_key_names(command_t command, bool all)
-{
-	const auto &c = cmds[size_t(command)];
-
-	static char keystr[80];
-
-	g_strlcpy(keystr, key2str(c.keys[0]), sizeof(keystr));
-	if (!all)
-		return keystr;
-
-	for (unsigned j = 1; j < MAX_COMMAND_KEYS &&
-		     c.keys[j] > 0; j++) {
-		g_strlcat(keystr, " ", sizeof(keystr));
-		g_strlcat(keystr, key2str(c.keys[j]), sizeof(keystr));
-	}
-	return keystr;
-}
 
 const char *
 get_key_description(command_t command)
@@ -335,112 +280,3 @@ get_key_command_from_name(const char *name)
 
 	return CMD_NONE;
 }
-
-command_t
-find_key_command(int key, const command_definition_t *c)
-{
-	assert(key != 0);
-	assert(c != nullptr);
-
-	for (size_t i = 0; c[i].name; i++) {
-		for (int j = 0; j < MAX_COMMAND_KEYS; j++)
-			if (c[i].keys[j] == key)
-				return command_t(i);
-	}
-
-	return CMD_NONE;
-}
-
-command_t
-get_key_command(int key)
-{
-	return find_key_command(key, cmds);
-}
-
-bool
-assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
-{
-	auto &c = cmds[size_t(command)];
-	memcpy(c.keys, keys, sizeof(int)*MAX_COMMAND_KEYS);
-#ifndef NCMPC_MINI
-	c.flags |= COMMAND_KEY_MODIFIED;
-#endif
-	return true;
-}
-
-#ifndef NCMPC_MINI
-
-bool
-check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
-{
-	bool success = true;
-
-	if (cp == nullptr)
-		cp = cmds;
-
-	for (size_t i = 0; cp[i].name; i++)
-		cp[i].flags &= ~COMMAND_KEY_CONFLICT;
-
-	for (size_t i = 0; cp[i].name; i++) {
-		int j;
-		command_t cmd;
-
-		for(j=0; j<MAX_COMMAND_KEYS; j++) {
-			if (cp[i].keys[j] &&
-			    (cmd = find_key_command(cp[i].keys[j],cp)) != command_t(i)) {
-				if (buf) {
-					snprintf(buf, bufsize,
-						 _("Key %s assigned to %s and %s"),
-						 key2str(cp[i].keys[j]),
-						 get_key_command_name(command_t(i)),
-						 get_key_command_name(cmd));
-				} else {
-					fprintf(stderr,
-						_("Key %s assigned to %s and %s"),
-						key2str(cp[i].keys[j]),
-						get_key_command_name(command_t(i)),
-						get_key_command_name(cmd));
-					fputc('\n', stderr);
-				}
-				cp[i].flags |= COMMAND_KEY_CONFLICT;
-				set_key_flags(cp, cmd, COMMAND_KEY_CONFLICT);
-				success = false;
-			}
-		}
-	}
-
-	return success;
-}
-
-bool
-write_key_bindings(FILE *f, int flags)
-{
-	if (flags & KEYDEF_WRITE_HEADER)
-		fprintf(f, "## Key bindings for ncmpc (generated by ncmpc)\n\n");
-
-	for (size_t i = 0; cmds[i].name && !ferror(f); i++) {
-		if (cmds[i].flags & COMMAND_KEY_MODIFIED ||
-		    flags & KEYDEF_WRITE_ALL) {
-			fprintf(f, "## %s\n", cmds[i].description);
-			if (flags & KEYDEF_COMMENT_ALL)
-				fprintf(f, "#");
-			fprintf(f, "key %s = ", cmds[i].name);
-			for (int j = 0; j < MAX_COMMAND_KEYS; j++) {
-				if (j && cmds[i].keys[j])
-					fprintf(f, ",  ");
-				if (!j || cmds[i].keys[j]) {
-					if (cmds[i].keys[j]<256 && (isalpha(cmds[i].keys[j]) ||
-								    isdigit(cmds[i].keys[j])))
-						fprintf(f, "\'%c\'", cmds[i].keys[j]);
-					else
-						fprintf(f, "%d", cmds[i].keys[j]);
-				}
-			}
-			fprintf(f,"\n\n");
-		}
-	}
-
-	return ferror(f) == 0;
-}
-
-#endif /* NCMPC_MINI */

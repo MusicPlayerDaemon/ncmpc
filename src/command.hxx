@@ -29,8 +29,6 @@
 #include <stdio.h>
 #endif
 
-#define MAX_COMMAND_KEYS 3
-
 /* commands */
 typedef enum {
 #ifdef ENABLE_KEYDEF_SCREEN
@@ -137,50 +135,18 @@ typedef enum {
 } command_t;
 
 
-#ifndef NCMPC_MINI
-/* command definition flags */
-#define COMMAND_KEY_MODIFIED  0x01
-#define COMMAND_KEY_CONFLICT  0x02
-#endif
-
-/* write key bindings flags */
-#define KEYDEF_WRITE_HEADER  0x01
-#define KEYDEF_WRITE_ALL     0x02
-#define KEYDEF_COMMENT_ALL   0x04
-
 typedef struct  {
-	int keys[MAX_COMMAND_KEYS];
-	char flags;
 	const char *name;
 	const char *description;
 } command_definition_t;
 
 #ifdef ENABLE_KEYDEF_SCREEN
-command_definition_t *get_command_definitions();
+const command_definition_t *
+get_command_definitions();
 
 gcc_const
 size_t
 get_cmds_max_name_width();
-#endif
-
-gcc_pure
-command_t
-find_key_command(int key, const command_definition_t *cmds);
-
-#ifndef NCMPC_MINI
-
-/**
- * @return true on success, false on error
- */
-bool
-check_key_bindings(command_definition_t *cmds, char *buf, size_t size);
-
-/**
- * @return true on success, false on error
- */
-bool
-write_key_bindings(FILE *f, int all);
-
 #endif
 
 gcc_pure
@@ -190,19 +156,7 @@ gcc_pure
 const char *get_key_command_name(command_t command);
 
 gcc_pure
-const char *get_key_names(command_t command, bool all);
-
-gcc_pure
-command_t get_key_command(int key);
-
-gcc_pure
 command_t
 get_key_command_from_name(const char *name);
-
-/**
- * @return true on success, false on error
- */
-bool
-assign_keys(command_t command, int keys[MAX_COMMAND_KEYS]);
 
 #endif

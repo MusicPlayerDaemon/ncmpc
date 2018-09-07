@@ -19,6 +19,8 @@
 
 #include "conf.hxx"
 #include "config.h"
+#include "Bindings.hxx"
+#include "GlobalBindings.hxx"
 #include "defaults.hxx"
 #include "i18n.h"
 #include "command.hxx"
@@ -206,7 +208,7 @@ parse_key_definition(char *str)
 	if (key < 0)
 		return false;
 
-	return assign_keys(cmd, keys);
+	return assign_keys(GetGlobalKeyBindings(), cmd, keys);
 }
 
 static bool

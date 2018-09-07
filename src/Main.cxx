@@ -24,6 +24,8 @@
 #include "charset.hxx"
 #include "options.hxx"
 #include "command.hxx"
+#include "Bindings.hxx"
+#include "GlobalBindings.hxx"
 #include "ncu.hxx"
 #include "screen.hxx"
 #include "screen_status.hxx"
@@ -164,7 +166,8 @@ timer_reconnect(gcc_unused gpointer data)
 
 	screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
 			     mpd->GetSettingsName().c_str(),
-			     get_key_names(CMD_QUIT, false));
+			     get_key_names(GetGlobalKeyBindings(),
+					   CMD_QUIT, false));
 	doupdate();
 
 	mpd->Connect();
@@ -301,7 +304,7 @@ timer_check_key_bindings(gcc_unused gpointer data)
 {
 	char buf[256];
 
-	if (check_key_bindings(nullptr, buf, sizeof(buf))) {
+	if (check_key_bindings(GetGlobalKeyBindings(), buf, sizeof(buf))) {
 		/* no error: disable this timer for the rest of this
 		   process */
 		check_key_bindings_source_id = 0;
@@ -316,7 +319,8 @@ timer_check_key_bindings(gcc_unused gpointer data)
 	   that */
 	char comment[64];
 	snprintf(comment, sizeof(comment), _("press %s for the key editor"),
-		 get_key_names(CMD_SCREEN_KEYDEF, false));
+		 get_key_names(GetGlobalKeyBindings(),
+			       CMD_SCREEN_KEYDEF, false));
 	g_strlcat(buf, comment, sizeof(buf));
 	g_strlcat(buf, ")", sizeof(buf));
 #endif
@@ -365,7 +369,7 @@ main(int argc, const char *argv[])
 	read_configuration();
 
 	/* check key bindings */
-	check_key_bindings(nullptr, nullptr, 0);
+	check_key_bindings(GetGlobalKeyBindings(), nullptr, 0);
 #endif
 
 	/* parse command line options - 2 pass */
