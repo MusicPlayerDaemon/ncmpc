@@ -24,11 +24,9 @@
 #include "ncmpc_curses.h"
 #include "util/CharUtil.hxx"
 
-#include <assert.h>
-#include <stdlib.h>
-#include <string.h>
 #include <glib.h>
-#include <signal.h>
+
+#include <assert.h>
 #include <unistd.h>
 
 const char *
