@@ -183,9 +183,6 @@ write_key_bindings(FILE *f, int all);
 #endif
 
 gcc_pure
-const char *key2str(int key);
-
-gcc_pure
 const char *get_key_description(command_t command);
 
 gcc_pure

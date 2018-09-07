@@ -18,6 +18,7 @@
  */
 
 #include "command.hxx"
+#include "KeyName.hxx"
 #include "i18n.h"
 #include "ncmpc_curses.h"
 #include "util/Macros.hxx"
@@ -283,64 +284,6 @@ get_cmds_max_name_width(command_definition_t *c)
 	return max;
 }
 #endif
-
-const char *
-key2str(int key)
-{
-	switch(key) {
-		static char buf[32];
-
-	case 0:
-		return _("Undefined");
-	case ' ':
-		return _("Space");
-	case RET:
-		return _("Enter");
-	case BS:
-		return _("Backspace");
-	case DEL:
-		return _("Delete");
-	case UP:
-		return _("Up");
-	case DWN:
-		return _("Down");
-	case LEFT:
-		return _("Left");
-	case RGHT:
-		return _("Right");
-	case HOME:
-		return _("Home");
-	case END:
-		return _("End");
-	case PGDN:
-		return _("PageDown");
-	case PGUP:
-		return _("PageUp");
-	case TAB:
-		return _("Tab");
-	case STAB:
-		return _("Shift+Tab");
-	case ESC:
-		return _("Esc");
-	case KEY_IC:
-		return _("Insert");
-	default:
-		for (int i = 0; i <= 63; i++)
-			if (key == KEY_F(i)) {
-				snprintf(buf, 32, _("F%d"), i );
-				return buf;
-			}
-		if (!(key & ~037))
-			snprintf(buf, 32, _("Ctrl-%c"), 'A'+(key & 037)-1 );
-		else if ((key & ~037) == 224)
-			snprintf(buf, 32, _("Alt-%c"), 'A'+(key & 037)-1 );
-		else if (key > 32 && key < 256)
-			snprintf(buf, 32, "%c", key);
-		else
-			snprintf(buf, 32, "0x%03X", key);
-		return buf;
-	}
-}
 
 void
 command_dump_keys()

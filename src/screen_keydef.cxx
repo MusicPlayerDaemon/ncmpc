@@ -26,6 +26,7 @@
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "screen.hxx"
+#include "KeyName.hxx"
 #include "i18n.h"
 #include "conf.hxx"
 #include "screen_utils.hxx"
