@@ -20,15 +20,6 @@
 #include "GlobalBindings.hxx"
 #include "Bindings.hxx"
 #include "ncmpc_curses.h"
-#include "util/Macros.hxx"
-
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <glib.h>
-#include <signal.h>
-#include <unistd.h>
 
 #define KEY_CTL(x) ((x) & 0x1f) /* KEY_CTL(A) == ^A == \1 */
 
