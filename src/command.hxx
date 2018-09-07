@@ -151,7 +151,6 @@ typedef enum {
 typedef struct  {
 	int keys[MAX_COMMAND_KEYS];
 	char flags;
-	command_t command;
 	const char *name;
 	const char *description;
 } command_definition_t;

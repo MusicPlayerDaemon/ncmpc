@@ -60,149 +60,149 @@
 
 static command_definition_t cmds[] = {
 #ifdef ENABLE_KEYDEF_SCREEN
-	{ {'K', 0, 0 }, 0, CMD_SCREEN_KEYDEF, "screen-keyedit",
+	{ {'K', 0, 0 }, 0, "screen-keyedit",
 	  N_("Key configuration screen") },
 #endif
-	{ { 'q', 'Q', C('C') }, 0, CMD_QUIT, "quit",
+	{ { 'q', 'Q', C('C') }, 0, "quit",
 	  N_("Quit") },
 
 	/* movement */
-	{ { UP, 'k', 0 }, 0, CMD_LIST_PREVIOUS, "up",
+	{ { UP, 'k', 0 }, 0, "up",
 	  N_("Move cursor up") },
-	{ { DWN, 'j', 0 }, 0, CMD_LIST_NEXT, "down",
+	{ { DWN, 'j', 0 }, 0, "down",
 	  N_("Move cursor down") },
-	{ { 'H', 0, 0 }, 0, CMD_LIST_TOP, "top",
+	{ { 'H', 0, 0 }, 0, "top",
 	  N_("Move cursor to the top of screen") },
-	{ { 'M', 0, 0 }, 0, CMD_LIST_MIDDLE, "middle",
+	{ { 'M', 0, 0 }, 0, "middle",
 	  N_("Move cursor to the middle of screen") },
-	{ { 'L', 0, 0 }, 0, CMD_LIST_BOTTOM, "bottom",
+	{ { 'L', 0, 0 }, 0, "bottom",
 	  N_("Move cursor to the bottom of screen") },
-	{ { HOME, C('A'), 0 }, 0, CMD_LIST_FIRST, "home",
+	{ { HOME, C('A'), 0 }, 0, "home",
 	  N_("Move cursor to the top of the list") },
-	{ { END, C('E'), 0 }, 0, CMD_LIST_LAST, "end",
+	{ { END, C('E'), 0 }, 0, "end",
 	  N_("Move cursor to the bottom of the list") },
-	{ { PGUP, 0, 0 }, 0, CMD_LIST_PREVIOUS_PAGE, "pgup",
+	{ { PGUP, 0, 0 }, 0, "pgup",
 	  N_("Page up") },
-	{ { PGDN, 0, 0 }, 0, CMD_LIST_NEXT_PAGE, "pgdn",
+	{ { PGDN, 0, 0 }, 0, "pgdn",
 	  N_("Page down") },
-	{ { 'v',  0, 0 }, 0, CMD_LIST_RANGE_SELECT, "range-select",
+	{ { 'v',  0, 0 }, 0, "range-select",
 	  N_("Range selection") },
-	{ { C('N'),  0, 0 }, 0, CMD_LIST_SCROLL_DOWN_LINE, "scroll-down-line",
+	{ { C('N'),  0, 0 }, 0, "scroll-down-line",
 	  N_("Scroll down one line") },
-	{ { C('B'),  0, 0 }, 0, CMD_LIST_SCROLL_UP_LINE, "scroll-up-line",
+	{ { C('B'),  0, 0 }, 0, "scroll-up-line",
 	  N_("Scroll up one line") },
-	{ { 'N',  0, 0 }, 0, CMD_LIST_SCROLL_DOWN_HALF, "scroll-down-half",
+	{ { 'N',  0, 0 }, 0, "scroll-down-half",
 	  N_("Scroll up half a screen") },
-	{ { 'B',  0, 0 }, 0, CMD_LIST_SCROLL_UP_HALF, "scroll-up-half",
+	{ { 'B',  0, 0 }, 0, "scroll-up-half",
 	  N_("Scroll down half a screen") },
-	{ { 'l', 0, 0 }, 0, CMD_SELECT_PLAYING, "select-playing",
+	{ { 'l', 0, 0 }, 0, "select-playing",
 	  N_("Select currently playing song") },
 
 
 	/* basic screens */
-	{ { '1', F1, 'h' }, 0, CMD_SCREEN_HELP, "screen-help",
+	{ { '1', F1, 'h' }, 0, "screen-help",
 	  N_("Help screen") },
-	{ { '2', F2, 0 }, 0, CMD_SCREEN_PLAY, "screen-playlist",
+	{ { '2', F2, 0 }, 0, "screen-playlist",
 	  N_("Queue screen") },
-	{ { '3', F3, 0 }, 0, CMD_SCREEN_FILE, "screen-browse",
+	{ { '3', F3, 0 }, 0, "screen-browse",
 	  N_("Browse screen") },
 
 
 	/* player commands */
-	{ { RET, 0, 0 }, 0, CMD_PLAY, "play",
+	{ { RET, 0, 0 }, 0, "play",
 	  N_("Play/Enter directory") },
-	{ { 'P', 0, 0 }, 0, CMD_PAUSE,"pause",
+	{ { 'P', 0, 0 }, 0, "pause",
 	  N_("Pause") },
-	{ { 's', BS, 0 }, 0, CMD_STOP, "stop",
+	{ { 's', BS, 0 }, 0, "stop",
 	  N_("Stop") },
-	{ { 'o', 0, 0 }, 0, CMD_CROP, "crop",
+	{ { 'o', 0, 0 }, 0, "crop",
 	  N_("Crop") },
-	{ { '>', 0, 0 }, 0, CMD_TRACK_NEXT, "next",
+	{ { '>', 0, 0 }, 0, "next",
 	  N_("Next track") },
-	{ { '<', 0, 0 }, 0, CMD_TRACK_PREVIOUS, "prev",
+	{ { '<', 0, 0 }, 0, "prev",
 	  N_("Previous track") },
-	{ { 'f', 0, 0 }, 0, CMD_SEEK_FORWARD, "seek-forward",
+	{ { 'f', 0, 0 }, 0, "seek-forward",
 	  N_("Seek forward") },
-	{ { 'b', 0, 0 }, 0, CMD_SEEK_BACKWARD, "seek-backward",
+	{ { 'b', 0, 0 }, 0, "seek-backward",
 	  N_("Seek backward") },
-	{ { '+', RGHT, 0 }, 0, CMD_VOLUME_UP, "volume-up",
+	{ { '+', RGHT, 0 }, 0, "volume-up",
 	  N_("Increase volume") },
-	{ { '-', LEFT, 0 }, 0, CMD_VOLUME_DOWN, "volume-down",
+	{ { '-', LEFT, 0 }, 0, "volume-down",
 	  N_("Decrease volume") },
-	{ { ' ', 0, 0 }, 0, CMD_SELECT, "select",
+	{ { ' ', 0, 0 }, 0, "select",
 	  N_("Select/deselect song in queue") },
-	{ { 't', 0, 0 }, 0, CMD_SELECT_ALL, "select_all",
+	{ { 't', 0, 0 }, 0, "select_all",
 	  N_("Select all listed items") },
-	{ { DEL, 'd', 0 }, 0, CMD_DELETE, "delete",
+	{ { DEL, 'd', 0 }, 0, "delete",
 	  N_("Delete song from queue") },
-	{ { 'Z', 0, 0 }, 0, CMD_SHUFFLE, "shuffle",
+	{ { 'Z', 0, 0 }, 0, "shuffle",
 	  N_("Shuffle queue") },
-	{ { 'c', 0, 0 }, 0, CMD_CLEAR, "clear",
+	{ { 'c', 0, 0 }, 0, "clear",
 	  N_("Clear queue") },
-	{ { 'r', 0, 0 }, 0, CMD_REPEAT, "repeat",
+	{ { 'r', 0, 0 }, 0, "repeat",
 	  N_("Toggle repeat mode") },
-	{ { 'z', 0, 0 }, 0, CMD_RANDOM, "random",
+	{ { 'z', 0, 0 }, 0, "random",
 	  N_("Toggle random mode") },
-	{ { 'y', 0, 0 }, 0, CMD_SINGLE, "single",
+	{ { 'y', 0, 0 }, 0, "single",
 	  N_("Toggle single mode") },
-	{ { 'C', 0, 0 }, 0, CMD_CONSUME, "consume",
+	{ { 'C', 0, 0 }, 0, "consume",
 	  N_("Toggle consume mode") },
-	{ { 'x', 0, 0 }, 0, CMD_CROSSFADE, "crossfade",
+	{ { 'x', 0, 0 }, 0, "crossfade",
 	  N_("Toggle crossfade mode") },
-	{ { C('U'), 0, 0 }, 0, CMD_DB_UPDATE, "db-update",
+	{ { C('U'), 0, 0 }, 0, "db-update",
 	  N_("Start a music database update") },
-	{ { 'S', 0, 0 }, 0, CMD_SAVE_PLAYLIST, "save",
+	{ { 'S', 0, 0 }, 0, "save",
 	  N_("Save queue") },
-	{ { 'a', 0, 0 }, 0, CMD_ADD, "add",
+	{ { 'a', 0, 0 }, 0, "add",
 	  N_("Add url/file to queue") },
 
-	{ { '!', 0, 0 }, 0, CMD_GO_ROOT_DIRECTORY, "go-root-directory",
+	{ { '!', 0, 0 }, 0, "go-root-directory",
 	  N_("Go to root directory") },
-	{ { '"', 0, 0 }, 0, CMD_GO_PARENT_DIRECTORY, "go-parent-directory",
+	{ { '"', 0, 0 }, 0, "go-parent-directory",
 	  N_("Go to parent directory") },
 
-	{ { 'G', 0, 0 }, 0, CMD_LOCATE, "locate",
+	{ { 'G', 0, 0 }, 0, "locate",
 	  N_("Locate song in browser") },
 
 	/* lists */
-	{ { C('K'), 0, 0 }, 0, CMD_LIST_MOVE_UP, "move-up",
+	{ { C('K'), 0, 0 }, 0, "move-up",
 	  N_("Move item up") },
-	{ { C('J'), 0, 0 }, 0, CMD_LIST_MOVE_DOWN, "move-down",
+	{ { C('J'), 0, 0 }, 0, "move-down",
 	  N_("Move item down") },
-	{ { C('L'), 0, 0 }, 0, CMD_SCREEN_UPDATE, "update",
+	{ { C('L'), 0, 0 }, 0, "update",
 	  N_("Refresh screen") },
 
 
 	/* ncmpc options */
-	{ { 'w', 0, 0 }, 0, CMD_TOGGLE_FIND_WRAP, "wrap-mode",
+	{ { 'w', 0, 0 }, 0, "wrap-mode",
 	  /* translators: toggle between wrapping and non-wrapping
 	     search */
 	  N_("Toggle find mode") },
-	{ { 'U', 0, 0 }, 0, CMD_TOGGLE_AUTOCENTER, "autocenter-mode",
+	{ { 'U', 0, 0 }, 0, "autocenter-mode",
 	  /* translators: the auto center mode always centers the song
 	     currently being played */
 	  N_("Toggle auto center mode") },
 
 
 	/* change screen */
-	{ { TAB, 0, 0 }, 0, CMD_SCREEN_NEXT, "screen-next",
+	{ { TAB, 0, 0 }, 0, "screen-next",
 	  N_("Next screen") },
-	{ { STAB, 0, 0 }, 0, CMD_SCREEN_PREVIOUS, "screen-prev",
+	{ { STAB, 0, 0 }, 0, "screen-prev",
 	  N_("Previous screen") },
-	{ { '`', 0, 0 }, 0, CMD_SCREEN_SWAP, "screen-swap",
+	{ { '`', 0, 0 }, 0, "screen-swap",
 	  N_("Swap to most recent screen") },
 
 
 	/* find */
-	{ { '/', 0, 0 }, 0, CMD_LIST_FIND, "find",
+	{ { '/', 0, 0 }, 0, "find",
 	  N_("Forward find") },
-	{ { 'n', 0, 0 }, 0, CMD_LIST_FIND_NEXT, "find-next",
+	{ { 'n', 0, 0 }, 0, "find-next",
 	  N_("Forward find next") },
-	{ { '?', 0, 0 }, 0, CMD_LIST_RFIND, "rfind",
+	{ { '?', 0, 0 }, 0, "rfind",
 	  N_("Backward find") },
-	{ { 'p', 0, 0 }, 0, CMD_LIST_RFIND_NEXT, "rfind-next",
+	{ { 'p', 0, 0 }, 0, "rfind-next",
 	  N_("Backward find previous") },
-	{ { '.', 0, 0 }, 0, CMD_LIST_JUMP, "jump",
+	{ { '.', 0, 0 }, 0, "jump",
 		/* translators: this queries the user for a string
 		 * and jumps directly (while the user is typing)
 		 * to the entry which begins with this string */
@@ -211,45 +211,45 @@ static command_definition_t cmds[] = {
 
 	/* extra screens */
 #ifdef ENABLE_ARTIST_SCREEN
-	{ {'4', F4, 0 }, 0, CMD_SCREEN_ARTIST, "screen-artist",
+	{ {'4', F4, 0 }, 0, "screen-artist",
 	  N_("Artist screen") },
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
-	{ {'5', F5, 0 }, 0, CMD_SCREEN_SEARCH, "screen-search",
+	{ {'5', F5, 0 }, 0, "screen-search",
 	  N_("Search screen") },
-	{ {'m', 0, 0 }, 0, CMD_SEARCH_MODE, "search-mode",
+	{ {'m', 0, 0 }, 0, "search-mode",
 	  N_("Change search mode") },
 #endif
 #ifdef ENABLE_SONG_SCREEN
-	{ { 'i', 0, 0 }, 0, CMD_SCREEN_SONG, "view",
+	{ { 'i', 0, 0 }, 0, "view",
 	  N_("View the selected and the currently playing song") },
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
-	{ {'7', F7, 0 }, 0, CMD_SCREEN_LYRICS, "screen-lyrics",
+	{ {'7', F7, 0 }, 0, "screen-lyrics",
 	  N_("Lyrics screen") },
-	{ {ESC, 0, 0 }, 0, CMD_INTERRUPT, "lyrics-interrupt",
+	{ {ESC, 0, 0 }, 0, "lyrics-interrupt",
 	  /* translators: interrupt the current background action,
 	     e.g. stop loading lyrics from the internet */
 	  N_("Interrupt action") },
-	{ {'u', 0, 0 }, 0, CMD_LYRICS_UPDATE, "lyrics-update",
+	{ {'u', 0, 0 }, 0, "lyrics-update",
 	  N_("Update Lyrics") },
 	/* this command may move out of #ifdef ENABLE_LYRICS_SCREEN
 	   at some point */
-	{ {'e', 0, 0 }, 0, CMD_EDIT, "edit",
+	{ {'e', 0, 0 }, 0, "edit",
 	  N_("Edit the current item") },
 #endif
 
 #ifdef ENABLE_OUTPUTS_SCREEN
-	{ {'8', F8, 0 }, 0, CMD_SCREEN_OUTPUTS, "screen-outputs",
+	{ {'8', F8, 0 }, 0, "screen-outputs",
 	  N_("Outputs screen") },
 #endif
 
 #ifdef ENABLE_CHAT_SCREEN
-	{ {'9', F9, 0}, 0, CMD_SCREEN_CHAT, "screen-chat",
+	{ {'9', F9, 0}, 0, "screen-chat",
 	  N_("Chat screen") },
 #endif
 
-	{ { -1, -1, -1 }, 0, CMD_NONE, nullptr, nullptr }
+	{ { -1, -1, -1 }, 0, nullptr, nullptr }
 };
 
 static_assert(ARRAY_SIZE(cmds) == size_t(CMD_NONE) + 1,
@@ -345,11 +345,10 @@ key2str(int key)
 void
 command_dump_keys()
 {
-	for (size_t i = 0; cmds[i].description; i++)
-		if (cmds[i].command != CMD_NONE)
-			printf(" %20s : %s\n",
-			       get_key_names(cmds[i].command, true),
-			       cmds[i].name);
+	for (size_t i = 0; i < size_t(CMD_NONE); ++i)
+		printf(" %20s : %s\n",
+		       get_key_names(command_t(i), true),
+		       cmds[i].name);
 }
 
 #ifndef NCMPC_MINI
@@ -357,12 +356,7 @@ command_dump_keys()
 static void
 set_key_flags(command_definition_t *cp, command_t command, int flags)
 {
-	for (size_t i = 0; cp[i].name; i++) {
-		if (cp[i].command == command) {
-			cp[i].flags |= flags;
-			break;
-		}
-	}
+	cp[size_t(command)].flags |= flags;
 }
 
 #endif
@@ -370,51 +364,40 @@ set_key_flags(command_definition_t *cp, command_t command, int flags)
 const char *
 get_key_names(command_t command, bool all)
 {
-	for (int i = 0; cmds[i].description; i++) {
-		if (cmds[i].command == command) {
-			static char keystr[80];
+	const auto &c = cmds[size_t(command)];
 
-			g_strlcpy(keystr, key2str(cmds[i].keys[0]), sizeof(keystr));
-			if (!all)
-				return keystr;
+	static char keystr[80];
 
-			for (unsigned j = 1; j < MAX_COMMAND_KEYS &&
-					cmds[i].keys[j] > 0; j++) {
-				g_strlcat(keystr, " ", sizeof(keystr));
-				g_strlcat(keystr, key2str(cmds[i].keys[j]), sizeof(keystr));
-			}
-			return keystr;
-		}
+	g_strlcpy(keystr, key2str(c.keys[0]), sizeof(keystr));
+	if (!all)
+		return keystr;
+
+	for (unsigned j = 1; j < MAX_COMMAND_KEYS &&
+		     c.keys[j] > 0; j++) {
+		g_strlcat(keystr, " ", sizeof(keystr));
+		g_strlcat(keystr, key2str(c.keys[j]), sizeof(keystr));
 	}
-	return nullptr;
+	return keystr;
 }
 
 const char *
 get_key_description(command_t command)
 {
-	for (size_t i = 0; cmds[i].description; i++)
-		if (cmds[i].command == command)
-			return _(cmds[i].description);
-
-	return nullptr;
+	return _(cmds[size_t(command)].description);
 }
 
 const char *
 get_key_command_name(command_t command)
 {
-	for (size_t i = 0; cmds[i].name; i++)
-		if (cmds[i].command == command)
-			return cmds[i].name;
-
-	return nullptr;
+	return cmds[size_t(command)].name;
 }
 
 command_t
 get_key_command_from_name(const char *name)
 {
-	for (size_t i = 0; cmds[i].name; i++)
+	for (size_t i = 0; i < size_t(CMD_NONE); ++i)
 		if (strcmp(name, cmds[i].name) == 0)
-			return cmds[i].command;
+			return command_t(i);
 
 	return CMD_NONE;
 }
@@ -428,7 +411,7 @@ find_key_command(int key, const command_definition_t *c)
 	for (size_t i = 0; c[i].name; i++) {
 		for (int j = 0; j < MAX_COMMAND_KEYS; j++)
 			if (c[i].keys[j] == key)
-				return c[i].command;
+				return command_t(i);
 	}
 
 	return CMD_NONE;
@@ -443,17 +426,12 @@ get_key_command(int key)
 bool
 assign_keys(command_t command, int keys[MAX_COMMAND_KEYS])
 {
-	for (size_t i = 0; cmds[i].name; i++) {
-		if (cmds[i].command == command) {
-			memcpy(cmds[i].keys, keys, sizeof(int)*MAX_COMMAND_KEYS);
+	auto &c = cmds[size_t(command)];
+	memcpy(c.keys, keys, sizeof(int)*MAX_COMMAND_KEYS);
 #ifndef NCMPC_MINI
-			cmds[i].flags |= COMMAND_KEY_MODIFIED;
+	c.flags |= COMMAND_KEY_MODIFIED;
 #endif
-			return true;
-		}
-	}
-
-	return false;
+	return true;
 }
 
 #ifndef NCMPC_MINI
@@ -475,18 +453,18 @@ check_key_bindings(command_definition_t *cp, char *buf, size_t bufsize)
 
 		for(j=0; j<MAX_COMMAND_KEYS; j++) {
 			if (cp[i].keys[j] &&
-			    (cmd = find_key_command(cp[i].keys[j],cp)) != cp[i].command) {
+			    (cmd = find_key_command(cp[i].keys[j],cp)) != command_t(i)) {
 				if (buf) {
 					snprintf(buf, bufsize,
 						 _("Key %s assigned to %s and %s"),
 						 key2str(cp[i].keys[j]),
-						 get_key_command_name(cp[i].command),
+						 get_key_command_name(command_t(i)),
 						 get_key_command_name(cmd));
 				} else {
 					fprintf(stderr,
 						_("Key %s assigned to %s and %s"),
 						key2str(cp[i].keys[j]),
-						get_key_command_name(cp[i].command),
+						get_key_command_name(command_t(i)),
 						get_key_command_name(cmd));
 					fputc('\n', stderr);
 				}
