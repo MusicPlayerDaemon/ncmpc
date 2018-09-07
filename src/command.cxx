@@ -264,14 +264,14 @@ get_command_definitions()
 }
 
 size_t
-get_cmds_max_name_width(command_definition_t *c)
+get_cmds_max_name_width()
 {
 	static size_t max = 0;
 
 	if (max != 0)
 		return max;
 
-	for (command_definition_t *p = c; p->name != nullptr; p++) {
+	for (command_definition_t *p = cmds; p->name != nullptr; p++) {
 		/*
 		 * width and length are considered the same here, as command
 		 * names are not translated.

@@ -157,7 +157,10 @@ typedef struct  {
 
 #ifdef ENABLE_KEYDEF_SCREEN
 command_definition_t *get_command_definitions();
-size_t get_cmds_max_name_width(command_definition_t *cmds);
+
+gcc_const
+size_t
+get_cmds_max_name_width();
 #endif
 
 gcc_pure

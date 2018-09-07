@@ -449,11 +449,11 @@ CommandListPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
 	size_t len = strlen(cmds[idx].name);
 	strncpy(buffer, cmds[idx].name, size);
 
-	if (len < get_cmds_max_name_width(cmds))
-		memset(buffer + len, ' ', get_cmds_max_name_width(cmds) - len);
+	if (len < get_cmds_max_name_width())
+		memset(buffer + len, ' ', get_cmds_max_name_width() - len);
 
-	snprintf(buffer + get_cmds_max_name_width(cmds),
-		 size - get_cmds_max_name_width(cmds),
+	snprintf(buffer + get_cmds_max_name_width(),
+		 size - get_cmds_max_name_width(),
 		 " - %s", _(cmds[idx].description));
 
 	return buffer;
