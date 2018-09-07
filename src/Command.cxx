@@ -219,7 +219,7 @@ static constexpr command_definition_t cmds[] = {
 #endif
 };
 
-static_assert(ARRAY_SIZE(cmds) == size_t(CMD_NONE),
+static_assert(ARRAY_SIZE(cmds) == size_t(Command::NONE),
 	      "Wrong command table size");
 
 const command_definition_t *
@@ -250,23 +250,23 @@ get_cmds_max_name_width()
 }
 
 const char *
-get_key_description(command_t command)
+get_key_description(Command command)
 {
 	return _(cmds[size_t(command)].description);
 }
 
 const char *
-get_key_command_name(command_t command)
+get_key_command_name(Command command)
 {
 	return cmds[size_t(command)].name;
 }
 
-command_t
+Command
 get_key_command_from_name(const char *name)
 {
-	for (size_t i = 0; i < size_t(CMD_NONE); ++i)
+	for (size_t i = 0; i < size_t(Command::NONE); ++i)
 		if (strcmp(name, cmds[i].name) == 0)
-			return command_t(i);
+			return Command(i);
 
-	return CMD_NONE;
+	return Command::NONE;
 }

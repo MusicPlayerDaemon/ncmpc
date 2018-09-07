@@ -34,25 +34,26 @@
 
 /* query user for a string and find it in a list window */
 bool
-screen_find(ScreenManager &screen, ListWindow *lw, command_t findcmd,
+screen_find(ScreenManager &screen, ListWindow *lw, Command findcmd,
 	    const ListText &text)
 {
 	bool found;
 	const char *prompt = FIND_PROMPT;
 
 	const bool reversed =
-		findcmd == CMD_LIST_RFIND || findcmd == CMD_LIST_RFIND_NEXT;
+		findcmd == Command::LIST_RFIND ||
+		findcmd == Command::LIST_RFIND_NEXT;
 	if (reversed)
 		prompt = RFIND_PROMPT;
 
 	switch (findcmd) {
-	case CMD_LIST_FIND:
-	case CMD_LIST_RFIND:
+	case Command::LIST_FIND:
+	case Command::LIST_RFIND:
 		screen.findbuf.clear();
 		/* fall through */
 
-	case CMD_LIST_FIND_NEXT:
-	case CMD_LIST_RFIND_NEXT:
+	case Command::LIST_FIND_NEXT:
+	case Command::LIST_RFIND_NEXT:
 		if (screen.findbuf.empty()) {
 			char *value = options.find_show_last_pattern
 				? (char *) -1 : nullptr;

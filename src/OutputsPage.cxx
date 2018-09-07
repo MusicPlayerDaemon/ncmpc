@@ -23,6 +23,7 @@
 #include "ListRenderer.hxx"
 #include "screen_status.hxx"
 #include "paint.hxx"
+#include "Command.hxx"
 #include "i18n.h"
 #include "mpdclient.hxx"
 
@@ -55,7 +56,7 @@ public:
 	/* virtual methods from class Page */
 	void Paint() const override;
 	void Update(struct mpdclient &c, unsigned events) override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 
 	/* virtual methods from class ListRenderer */
@@ -176,17 +177,17 @@ OutputsPage::Update(struct mpdclient &c, unsigned events)
 }
 
 bool
-OutputsPage::OnCommand(struct mpdclient &c, command_t cmd)
+OutputsPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
 	switch (cmd) {
-	case CMD_PLAY:
+	case Command::PLAY:
 		Toggle(c, lw.selected);
 		return true;
 
-	case CMD_SCREEN_UPDATE:
+	case Command::SCREEN_UPDATE:
 		Clear();
 		fill_outputs_list(&c, items);
 		lw.SetLength(items.size());

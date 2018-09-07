@@ -24,6 +24,7 @@
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "FileListPage.hxx"
+#include "Command.hxx"
 #include "screen.hxx"
 #include "ProxyPage.hxx"
 #include "i18n.h"
@@ -79,7 +80,7 @@ public:
 
 	/* virtual methods from class Page */
 	void Update(struct mpdclient &c, unsigned events) override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 };
 
@@ -114,7 +115,7 @@ public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 	void Update(struct mpdclient &c, unsigned events) override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 };
 
 void
@@ -197,20 +198,20 @@ SongListPage::GetTitle(char *str, size_t size) const
 }
 
 bool
-SongListPage::OnCommand(struct mpdclient &c, command_t cmd)
+SongListPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch(cmd) {
-	case CMD_PLAY:
+	case Command::PLAY:
 		if (lw.selected == 0) {
 			/* handle ".." */
-			screen.OnCommand(c, CMD_GO_PARENT_DIRECTORY);
+			screen.OnCommand(c, Command::GO_PARENT_DIRECTORY);
 			return true;
 		}
 
 		break;
 
 		/* continue and update... */
-	case CMD_SCREEN_UPDATE:
+	case Command::SCREEN_UPDATE:
 		LoadSongList(c);
 		return false;
 
@@ -241,13 +242,13 @@ ArtistBrowserPage::Update(struct mpdclient &c, unsigned events)
 }
 
 bool
-ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
+ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	if (ProxyPage::OnCommand(c, cmd))
 		return true;
 
 	switch (cmd) {
-	case CMD_PLAY:
+	case Command::PLAY:
 		if (GetCurrentPage() == &artist_list_page) {
 			const char *artist = artist_list_page.GetSelectedValue();
 			if (artist != nullptr) {
@@ -266,7 +267,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 		break;
 
-	case CMD_GO_ROOT_DIRECTORY:
+	case Command::GO_ROOT_DIRECTORY:
 		if (GetCurrentPage() != &artist_list_page) {
 			OpenArtistList(c);
 			return true;
@@ -274,7 +275,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 		break;
 
-	case CMD_GO_PARENT_DIRECTORY:
+	case Command::GO_PARENT_DIRECTORY:
 		if (GetCurrentPage() == &album_list_page) {
 			OpenArtistList(c);
 			return true;

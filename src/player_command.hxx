@@ -20,8 +20,7 @@
 #ifndef NCMPC_PLAYER_COMMAND_H
 #define NCMPC_PLAYER_COMMAND_H
 
-#include "Command.hxx"
-
+enum class Command : unsigned;
 struct mpdclient;
 
 extern int seek_id;
@@ -35,6 +34,6 @@ void
 cancel_seek_timer();
 
 bool
-handle_player_command(struct mpdclient &c, command_t cmd);
+handle_player_command(struct mpdclient &c, Command cmd);
 
 #endif

@@ -21,11 +21,11 @@
 #define LIST_WINDOW_HXX
 
 #include "config.h"
-#include "Command.hxx"
 #include "colors.hxx"
 #include "ncmpc_curses.h"
 #include "Size.hxx"
 
+enum class Command : unsigned;
 class ListText;
 class ListRenderer;
 
@@ -120,13 +120,13 @@ public:
 	void Paint(const ListRenderer &renderer) const;
 
 	/** perform basic list window commands (movement) */
-	bool HandleCommand(command_t cmd);
+	bool HandleCommand(Command cmd);
 
 	/**
 	 * Scroll the window.  Returns true if the command has been
 	 * consumed.
 	 */
-	bool HandleScrollCommand(command_t cmd);
+	bool HandleScrollCommand(Command cmd);
 
 #ifdef HAVE_GETMOUSE
 	/**

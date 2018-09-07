@@ -20,12 +20,11 @@
 #ifndef NCMPC_H
 #define NCMPC_H
 
-#include "Command.hxx"
-
 #ifdef HAVE_GETMOUSE
 #include "ncmpc_curses.h"
 #endif
 
+enum class Command : unsigned;
 struct Point;
 class ScreenManager;
 extern ScreenManager *screen;
@@ -37,7 +36,7 @@ void end_input_event();
  * @return false if the application shall quit
  */
 bool
-do_input_event(command_t cmd);
+do_input_event(Command cmd);
 
 #ifdef HAVE_GETMOUSE
 void

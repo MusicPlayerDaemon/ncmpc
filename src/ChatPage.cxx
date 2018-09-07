@@ -51,7 +51,7 @@ private:
 public:
 	/* virtual methods from class Page */
 	void Update(struct mpdclient &c, unsigned events) override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
 	const char *GetTitle(char *, size_t) const override {
 		return _("Chat");
@@ -164,12 +164,12 @@ screen_chat_send_message(struct mpdclient *c, const char *msg)
 }
 
 bool
-ChatPage::OnCommand(struct mpdclient &c, command_t cmd)
+ChatPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	if (TextPage::OnCommand(c, cmd))
 		return true;
 
-	if (cmd == CMD_PLAY) {
+	if (cmd == Command::PLAY) {
 		auto message = screen_readln(_("Your message"), nullptr, nullptr, nullptr);
 
 		/* the user entered an empty line */

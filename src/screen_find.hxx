@@ -20,8 +20,7 @@
 #ifndef NCMPC_SCREEN_FIND_H
 #define NCMPC_SCREEN_FIND_H
 
-#include "Command.hxx"
-
+enum class Command : unsigned;
 class ScreenManager;
 class ListWindow;
 class ListRenderer;
@@ -38,7 +37,7 @@ class ListText;
  */
 bool
 screen_find(ScreenManager &screen, ListWindow *lw,
-	    command_t findcmd,
+	    Command findcmd,
 	    const ListText &text);
 
 /* query user for a string and jump to the entry

@@ -105,7 +105,7 @@ public:
 	void OnOpen(struct mpdclient &c) override;
 
 	void Update(struct mpdclient &c, unsigned events) override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
 	const char *GetTitle(char *, size_t) const override;
 };
@@ -418,25 +418,25 @@ LyricsPage::Edit()
 }
 
 bool
-LyricsPage::OnCommand(struct mpdclient &c, command_t cmd)
+LyricsPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	if (TextPage::OnCommand(c, cmd))
 		return true;
 
 	switch(cmd) {
-	case CMD_INTERRUPT:
+	case Command::INTERRUPT:
 		if (loader != nullptr) {
 			Cancel();
 			Clear();
 		}
 		return true;
-	case CMD_SAVE_PLAYLIST:
+	case Command::SAVE_PLAYLIST:
 		if (loader == nullptr && artist != nullptr &&
 		    title != nullptr && Save())
 			/* lyrics for the song were saved on hard disk */
 			screen_status_message (_("Lyrics saved"));
 		return true;
-	case CMD_DELETE:
+	case Command::DELETE:
 		if (loader == nullptr && artist != nullptr &&
 		    title != nullptr) {
 			screen_status_message(Delete()
@@ -444,19 +444,19 @@ LyricsPage::OnCommand(struct mpdclient &c, command_t cmd)
 					      : _("No saved lyrics"));
 		}
 		return true;
-	case CMD_LYRICS_UPDATE:
+	case Command::LYRICS_UPDATE:
 		if (c.song != nullptr)
 			Load(c.song);
 		return true;
-	case CMD_EDIT:
+	case Command::EDIT:
 		Edit();
 		return true;
-	case CMD_SELECT:
+	case Command::SELECT:
 		Reload();
 		return true;
 
 #ifdef ENABLE_SONG_SCREEN
-	case CMD_SCREEN_SONG:
+	case Command::SCREEN_SONG:
 		if (song != nullptr) {
 			screen_song_switch(screen, c, *song);
 			return true;
@@ -464,11 +464,11 @@ LyricsPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 		break;
 #endif
-	case CMD_SCREEN_SWAP:
+	case Command::SCREEN_SWAP:
 		screen.Swap(c, song);
 		return true;
 
-	case CMD_LOCATE:
+	case Command::LOCATE:
 		if (song != nullptr) {
 			screen_file_goto_song(screen, c, *song);
 			return true;

@@ -40,7 +40,7 @@ public:
 		lw.Resize(size);
 	}
 
-	bool OnCommand(struct mpdclient &, command_t cmd) override {
+	bool OnCommand(struct mpdclient &, Command cmd) override {
 		if (lw.hide_cursor
 		    ? lw.HandleScrollCommand(cmd)
 		    : lw.HandleCommand(cmd)) {

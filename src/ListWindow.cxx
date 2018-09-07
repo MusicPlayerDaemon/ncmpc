@@ -456,37 +456,37 @@ ListWindow::Jump(const ListText &text, const char *str)
 
 /* perform basic list window commands (movement) */
 bool
-ListWindow::HandleCommand(command_t cmd)
+ListWindow::HandleCommand(Command cmd)
 {
 	switch (cmd) {
-	case CMD_LIST_PREVIOUS:
+	case Command::LIST_PREVIOUS:
 		MoveCursorPrevious();
 		break;
-	case CMD_LIST_NEXT:
+	case Command::LIST_NEXT:
 		MoveCursorNext();
 		break;
-	case CMD_LIST_TOP:
+	case Command::LIST_TOP:
 		MoveCursorTop();
 		break;
-	case CMD_LIST_MIDDLE:
+	case Command::LIST_MIDDLE:
 		MoveCursorMiddle();
 		break;
-	case CMD_LIST_BOTTOM:
+	case Command::LIST_BOTTOM:
 		MoveCursorBottom();
 		break;
-	case CMD_LIST_FIRST:
+	case Command::LIST_FIRST:
 		MoveCursorFirst();
 		break;
-	case CMD_LIST_LAST:
+	case Command::LIST_LAST:
 		MoveCursorLast();
 		break;
-	case CMD_LIST_NEXT_PAGE:
+	case Command::LIST_NEXT_PAGE:
 		MoveCursorNextPage();
 		break;
-	case CMD_LIST_PREVIOUS_PAGE:
+	case Command::LIST_PREVIOUS_PAGE:
 		MoveCursorPreviousPage();
 		break;
-	case CMD_LIST_RANGE_SELECT:
+	case Command::LIST_RANGE_SELECT:
 		if(range_selection)
 		{
 			screen_status_message(_("Range selection disabled"));
@@ -499,16 +499,16 @@ ListWindow::HandleCommand(command_t cmd)
 			range_selection = true;
 		}
 		break;
-	case CMD_LIST_SCROLL_UP_LINE:
+	case Command::LIST_SCROLL_UP_LINE:
 		ScrollUp(1);
 		break;
-	case CMD_LIST_SCROLL_DOWN_LINE:
+	case Command::LIST_SCROLL_DOWN_LINE:
 		ScrollDown(1);
 		break;
-	case CMD_LIST_SCROLL_UP_HALF:
+	case Command::LIST_SCROLL_UP_HALF:
 		ScrollUp((size.height - 1) / 2);
 		break;
-	case CMD_LIST_SCROLL_DOWN_HALF:
+	case Command::LIST_SCROLL_DOWN_HALF:
 		ScrollDown((size.height - 1) / 2);
 		break;
 	default:
@@ -519,33 +519,33 @@ ListWindow::HandleCommand(command_t cmd)
 }
 
 bool
-ListWindow::HandleScrollCommand(command_t cmd)
+ListWindow::HandleScrollCommand(Command cmd)
 {
 	switch (cmd) {
-	case CMD_LIST_SCROLL_UP_LINE:
-	case CMD_LIST_PREVIOUS:
+	case Command::LIST_SCROLL_UP_LINE:
+	case Command::LIST_PREVIOUS:
 		if (start > 0)
 			start--;
 		break;
 
-	case CMD_LIST_SCROLL_DOWN_LINE:
-	case CMD_LIST_NEXT:
+	case Command::LIST_SCROLL_DOWN_LINE:
+	case Command::LIST_NEXT:
 		if (start + size.height < length)
 			start++;
 		break;
 
-	case CMD_LIST_FIRST:
+	case Command::LIST_FIRST:
 		start = 0;
 		break;
 
-	case CMD_LIST_LAST:
+	case Command::LIST_LAST:
 		if (length > size.height)
 			start = length - size.height;
 		else
 			start = 0;
 		break;
 
-	case CMD_LIST_NEXT_PAGE:
+	case Command::LIST_NEXT_PAGE:
 		start += size.height;
 		if (start + size.height > length) {
 			if (length > size.height)
@@ -555,21 +555,21 @@ ListWindow::HandleScrollCommand(command_t cmd)
 		}
 		break;
 
-	case CMD_LIST_PREVIOUS_PAGE:
+	case Command::LIST_PREVIOUS_PAGE:
 		if (start > size.height)
 			start -= size.height;
 		else
 			start = 0;
 		break;
 
-	case CMD_LIST_SCROLL_UP_HALF:
+	case Command::LIST_SCROLL_UP_HALF:
 		if (start > (size.height - 1) / 2)
 			start -= (size.height - 1) / 2;
 		else
 			start = 0;
 		break;
 
-	case CMD_LIST_SCROLL_DOWN_HALF:
+	case Command::LIST_SCROLL_DOWN_HALF:
 		start += (size.height - 1) / 2;
 		if (start + size.height > length) {
 			if (length > size.height)

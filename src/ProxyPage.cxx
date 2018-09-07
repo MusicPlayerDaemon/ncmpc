@@ -90,7 +90,7 @@ ProxyPage::Update(struct mpdclient &c, unsigned events)
 }
 
 bool
-ProxyPage::OnCommand(struct mpdclient &c, command_t cmd)
+ProxyPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	if (current_page != nullptr) {
 		bool result = current_page->OnCommand(c, cmd);

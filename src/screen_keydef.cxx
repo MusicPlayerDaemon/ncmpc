@@ -124,7 +124,7 @@ public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 	void Paint() const override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 
 private:
@@ -182,7 +182,7 @@ CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
 	char prompt[256];
 	snprintf(prompt, sizeof(prompt),
 		 _("Enter new key for %s: "),
-		 get_key_command_name(command_t(cmd_index)));
+		 get_key_command_name(Command(cmd_index)));
 	const int key = screen_getch(prompt);
 
 	if (key == ERR) {
@@ -195,8 +195,8 @@ CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
 		return;
 	}
 
-	const command_t cmd = bindings->FindKey(key);
-	if (cmd != CMD_NONE) {
+	const Command cmd = bindings->FindKey(key);
+	if (cmd != Command::NONE) {
 		screen_status_printf(_("Error: key %s is already used for %s"),
 				     key2str(key), get_key_command_name(cmd));
 		screen_bell();
@@ -208,7 +208,7 @@ CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
 
 	screen_status_printf(_("Assigned %s to %s"),
 			     key2str(key),
-			     get_key_command_name(command_t(cmd_index)));
+			     get_key_command_name(Command(cmd_index)));
 	check_subcmd_length();
 
 	/* repaint */
@@ -256,7 +256,7 @@ const char *
 CommandKeysPage::GetTitle(char *str, size_t size) const
 {
 	snprintf(str, size, _("Edit keys for %s"),
-		 get_key_command_name(command_t(subcmd)));
+		 get_key_command_name(Command(subcmd)));
 	return str;
 }
 
@@ -267,18 +267,18 @@ CommandKeysPage::Paint() const
 }
 
 bool
-CommandKeysPage::OnCommand(struct mpdclient &c, command_t cmd)
+CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 {
-	if (cmd == CMD_LIST_RANGE_SELECT)
+	if (cmd == Command::LIST_RANGE_SELECT)
 		return false;
 
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
 	switch(cmd) {
-	case CMD_PLAY:
+	case Command::PLAY:
 		if (lw.selected == subcmd_item_up()) {
-			screen.OnCommand(c, CMD_GO_PARENT_DIRECTORY);
+			screen.OnCommand(c, Command::GO_PARENT_DIRECTORY);
 		} else if (lw.selected == subcmd_item_add()) {
 			AddKey(subcmd);
 		} else {
@@ -287,18 +287,18 @@ CommandKeysPage::OnCommand(struct mpdclient &c, command_t cmd)
 			OverwriteKey(subcmd, subcmd_item_to_key_id(lw.selected));
 		}
 		return true;
-	case CMD_DELETE:
+	case Command::DELETE:
 		if (subcmd_item_is_key(lw.selected))
 			DeleteKey(subcmd, subcmd_item_to_key_id(lw.selected));
 
 		return true;
-	case CMD_ADD:
+	case Command::ADD:
 		AddKey(subcmd);
 		return true;
-	case CMD_LIST_FIND:
-	case CMD_LIST_RFIND:
-	case CMD_LIST_FIND_NEXT:
-	case CMD_LIST_RFIND_NEXT:
+	case Command::LIST_FIND:
+	case Command::LIST_RFIND:
+	case Command::LIST_FIND_NEXT:
+	case Command::LIST_RFIND_NEXT:
 		screen_find(screen, &lw, cmd, *this);
 		SetDirty();
 		return true;
@@ -318,7 +318,7 @@ class CommandListPage final : public ListPage, ListText {
 	KeyBindings *bindings;
 
 	/** the number of commands */
-	static constexpr size_t command_n_commands = size_t(CMD_NONE);
+	static constexpr size_t command_n_commands = size_t(Command::NONE);
 
 public:
 	CommandListPage(ScreenManager &_screen, WINDOW *w, Size size)
@@ -373,7 +373,7 @@ public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 	void Paint() const override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 
 private:
@@ -450,7 +450,7 @@ CommandListPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
 	 *	this-command - do this
 	 *	that-one     - do that
 	 */
-	const char *name = get_key_command_name(command_t(idx));
+	const char *name = get_key_command_name(Command(idx));
 	size_t len = strlen(name);
 	strncpy(buffer, name, size);
 
@@ -486,16 +486,16 @@ CommandListPage::Paint() const
 }
 
 bool
-CommandListPage::OnCommand(struct mpdclient &c, command_t cmd)
+CommandListPage::OnCommand(struct mpdclient &c, Command cmd)
 {
-	if (cmd == CMD_LIST_RANGE_SELECT)
+	if (cmd == Command::LIST_RANGE_SELECT)
 		return false;
 
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
 	switch(cmd) {
-	case CMD_PLAY:
+	case Command::PLAY:
 		if (lw.selected == command_item_apply()) {
 			Apply();
 			return true;
@@ -507,10 +507,10 @@ CommandListPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 		break;
 
-	case CMD_LIST_FIND:
-	case CMD_LIST_RFIND:
-	case CMD_LIST_FIND_NEXT:
-	case CMD_LIST_RFIND_NEXT:
+	case Command::LIST_FIND:
+	case Command::LIST_RFIND:
+	case Command::LIST_FIND_NEXT:
+	case Command::LIST_RFIND_NEXT:
 		screen_find(screen, &lw, cmd, *this);
 		SetDirty();
 		return true;
@@ -536,7 +536,7 @@ public:
 	/* virtual methods from class Page */
 	void OnOpen(struct mpdclient &c) override;
 	void OnClose() override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 };
 
 static Page *
@@ -564,13 +564,13 @@ KeyDefPage::OnClose()
 }
 
 bool
-KeyDefPage::OnCommand(struct mpdclient &c, command_t cmd)
+KeyDefPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	if (ProxyPage::OnCommand(c, cmd))
 		return true;
 
 	switch(cmd) {
-	case CMD_PLAY:
+	case Command::PLAY:
 		if (GetCurrentPage() == &command_list_page) {
 			int s = command_list_page.GetSelectedCommand();
 			if (s >= 0) {
@@ -583,8 +583,8 @@ KeyDefPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 		break;
 
-	case CMD_GO_PARENT_DIRECTORY:
-	case CMD_GO_ROOT_DIRECTORY:
+	case Command::GO_PARENT_DIRECTORY:
+	case Command::GO_ROOT_DIRECTORY:
 		if (GetCurrentPage() != &command_list_page) {
 			SetCurrentPage(c, &command_list_page);
 			return true;
@@ -592,7 +592,7 @@ KeyDefPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 		break;
 
-	case CMD_SAVE_PLAYLIST:
+	case Command::SAVE_PLAYLIST:
 		command_list_page.Apply();
 		command_list_page.Save();
 		return true;

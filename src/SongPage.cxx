@@ -25,6 +25,7 @@
 #include "FileBrowserPage.hxx"
 #include "LyricsPage.hxx"
 #include "screen_find.hxx"
+#include "Command.hxx"
 #include "i18n.h"
 #include "screen.hxx"
 #include "charset.hxx"
@@ -144,7 +145,7 @@ public:
 
 	void Paint() const override;
 	void Update(struct mpdclient &c, unsigned events) override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 
 private:
@@ -493,13 +494,13 @@ SongPage::Update(struct mpdclient &c, unsigned)
 }
 
 bool
-SongPage::OnCommand(struct mpdclient &c, command_t cmd)
+SongPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
 	switch(cmd) {
-	case CMD_LOCATE:
+	case Command::LOCATE:
 		if (selected_song != nullptr) {
 			screen_file_goto_song(screen, c, *selected_song);
 			return true;
@@ -512,7 +513,7 @@ SongPage::OnCommand(struct mpdclient &c, command_t cmd)
 		return false;
 
 #ifdef ENABLE_LYRICS_SCREEN
-	case CMD_SCREEN_LYRICS:
+	case Command::SCREEN_LYRICS:
 		if (selected_song != nullptr) {
 			screen_lyrics_switch(screen, c, *selected_song, false);
 			return true;
@@ -525,7 +526,7 @@ SongPage::OnCommand(struct mpdclient &c, command_t cmd)
 
 #endif
 
-	case CMD_SCREEN_SWAP:
+	case Command::SCREEN_SWAP:
 		if (selected_song != nullptr)
 			screen.Swap(c, selected_song);
 		else

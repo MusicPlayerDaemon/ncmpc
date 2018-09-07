@@ -78,7 +78,7 @@ private:
 public:
 	/* virtual methods from class Page */
 	void Update(struct mpdclient &c, unsigned events) override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 };
 
@@ -334,29 +334,29 @@ FileBrowserPage::Update(struct mpdclient &c, unsigned events)
 }
 
 bool
-FileBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
+FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch(cmd) {
-	case CMD_PLAY:
+	case Command::PLAY:
 		if (HandleEnter(c))
 			return true;
 
 		break;
 
-	case CMD_GO_ROOT_DIRECTORY:
+	case Command::GO_ROOT_DIRECTORY:
 		ChangeDirectory(c, "");
 		return true;
-	case CMD_GO_PARENT_DIRECTORY:
+	case Command::GO_PARENT_DIRECTORY:
 		ChangeToParent(c);
 		return true;
 
-	case CMD_LOCATE:
+	case Command::LOCATE:
 		/* don't let browser_cmd() evaluate the locate command
 		   - it's a no-op, and by the way, leads to a
 		   segmentation fault in the current implementation */
 		return false;
 
-	case CMD_SCREEN_UPDATE:
+	case Command::SCREEN_UPDATE:
 		Reload(c);
 		screen_browser_sync_highlights(filelist, &c.playlist);
 		return false;
@@ -372,15 +372,15 @@ FileBrowserPage::OnCommand(struct mpdclient &c, command_t cmd)
 		return false;
 
 	switch(cmd) {
-	case CMD_DELETE:
+	case Command::DELETE:
 		HandleDelete(c);
 		break;
 
-	case CMD_SAVE_PLAYLIST:
+	case Command::SAVE_PLAYLIST:
 		HandleSave(c);
 		break;
 
-	case CMD_DB_UPDATE:
+	case Command::DB_UPDATE:
 		screen_database_update(&c, current_path.c_str());
 		return true;
 

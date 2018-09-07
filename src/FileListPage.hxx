@@ -20,7 +20,6 @@
 #ifndef FILE_LIST_PAGE_HXX
 #define FILE_LIST_PAGE_HXX
 
-#include "Command.hxx"
 #include "config.h"
 #include "ncmpc_curses.h"
 #include "ListPage.hxx"
@@ -85,7 +84,7 @@ private:
 public:
 	/* virtual methods from class Page */
 	void Paint() const override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
 #ifdef HAVE_GETMOUSE
 	bool OnMouse(struct mpdclient &c, Point p,

@@ -22,6 +22,7 @@
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "FileListPage.hxx"
+#include "Command.hxx"
 #include "screen.hxx"
 #include "i18n.h"
 #include "charset.hxx"
@@ -189,22 +190,22 @@ add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
 }
 
 bool
-AlbumListPage::OnCommand(struct mpdclient &c, command_t cmd)
+AlbumListPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch(cmd) {
 		const char *selected;
 
-	case CMD_PLAY:
+	case Command::PLAY:
 		if (lw.selected == 0) {
 			/* handle ".." */
-			screen.OnCommand(c, CMD_GO_PARENT_DIRECTORY);
+			screen.OnCommand(c, Command::GO_PARENT_DIRECTORY);
 			return true;
 		}
 
 		break;
 
-	case CMD_SELECT:
-	case CMD_ADD:
+	case Command::SELECT:
+	case Command::ADD:
 		for (const unsigned i : lw.GetRange()) {
 			if(i == album_list.size() + 1)
 				add_query(&c, MPD_TAG_ARTIST, artist.c_str(),
@@ -213,25 +214,25 @@ AlbumListPage::OnCommand(struct mpdclient &c, command_t cmd)
 				selected = album_list[lw.selected - 1].c_str();
 				add_query(&c, MPD_TAG_ALBUM, selected,
 					  artist.c_str());
-				cmd = CMD_LIST_NEXT; /* continue and select next item... */
+				cmd = Command::LIST_NEXT; /* continue and select next item... */
 			}
 		}
 		break;
 
 		/* continue and update... */
-	case CMD_SCREEN_UPDATE:
+	case Command::SCREEN_UPDATE:
 		Reload(c);
 		return false;
 
-	case CMD_LIST_FIND:
-	case CMD_LIST_RFIND:
-	case CMD_LIST_FIND_NEXT:
-	case CMD_LIST_RFIND_NEXT:
+	case Command::LIST_FIND:
+	case Command::LIST_RFIND:
+	case Command::LIST_FIND_NEXT:
+	case Command::LIST_RFIND_NEXT:
 		screen_find(screen, &lw, cmd, *this);
 		SetDirty();
 		return true;
 
-	case CMD_LIST_JUMP:
+	case Command::LIST_JUMP:
 		screen_jump(screen, &lw, *this, *this);
 		SetDirty();
 		return true;

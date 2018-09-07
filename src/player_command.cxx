@@ -18,6 +18,7 @@
  */
 
 #include "player_command.hxx"
+#include "Command.hxx"
 #include "mpdclient.hxx"
 #include "options.hxx"
 #include "i18n.h"
@@ -98,7 +99,7 @@ setup_seek(struct mpdclient &c)
 }
 
 bool
-handle_player_command(struct mpdclient &c, command_t cmd)
+handle_player_command(struct mpdclient &c, Command cmd)
 {
 	if (!c.IsConnected() || c.status == nullptr)
 		return false;
@@ -109,11 +110,11 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 		struct mpd_connection *connection;
 
 		/*
-	case CMD_PLAY:
+	case Command::PLAY:
 		mpdclient_cmd_play(c, MPD_PLAY_AT_BEGINNING);
 		break;
 		*/
-	case CMD_PAUSE:
+	case Command::PAUSE:
 		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
@@ -121,7 +122,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 		if (!mpd_run_pause(connection, c.state != MPD_STATE_PAUSE))
 			c.HandleError();
 		break;
-	case CMD_STOP:
+	case Command::STOP:
 		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
@@ -129,10 +130,10 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 		if (!mpd_run_stop(connection))
 			c.HandleError();
 		break;
-	case CMD_CROP:
+	case Command::CROP:
 		mpdclient_cmd_crop(&c);
 		break;
-	case CMD_SEEK_FORWARD:
+	case Command::SEEK_FORWARD:
 		if (!setup_seek(c))
 			break;
 
@@ -141,7 +142,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 			seek_target_time = mpd_status_get_total_time(c.status);
 		break;
 
-	case CMD_TRACK_NEXT:
+	case Command::TRACK_NEXT:
 		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
@@ -149,7 +150,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 		if (!mpd_run_next(connection))
 			c.HandleError();
 		break;
-	case CMD_SEEK_BACKWARD:
+	case Command::SEEK_BACKWARD:
 		if (!setup_seek(c))
 			break;
 
@@ -158,7 +159,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 			seek_target_time = 0;
 		break;
 
-	case CMD_TRACK_PREVIOUS:
+	case Command::TRACK_PREVIOUS:
 		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
@@ -166,7 +167,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 		if (!mpd_run_previous(connection))
 			c.HandleError();
 		break;
-	case CMD_SHUFFLE:
+	case Command::SHUFFLE:
 		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
@@ -176,7 +177,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 		else
 			c.HandleError();
 		break;
-	case CMD_CLEAR:
+	case Command::CLEAR:
 		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
@@ -184,7 +185,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 		if (mpdclient_cmd_clear(&c))
 			screen_status_message(_("Cleared queue"));
 		break;
-	case CMD_REPEAT:
+	case Command::REPEAT:
 		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
@@ -193,7 +194,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 				    !mpd_status_get_repeat(c.status)))
 			c.HandleError();
 		break;
-	case CMD_RANDOM:
+	case Command::RANDOM:
 		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
@@ -202,7 +203,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 				    !mpd_status_get_random(c.status)))
 			c.HandleError();
 		break;
-	case CMD_SINGLE:
+	case Command::SINGLE:
 		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
@@ -211,7 +212,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 				    !mpd_status_get_single(c.status)))
 			c.HandleError();
 		break;
-	case CMD_CONSUME:
+	case Command::CONSUME:
 		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
@@ -220,7 +221,7 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 				     !mpd_status_get_consume(c.status)))
 			c.HandleError();
 		break;
-	case CMD_CROSSFADE:
+	case Command::CROSSFADE:
 		connection = c.GetConnection();
 		if (connection == nullptr)
 			break;
@@ -230,13 +231,13 @@ handle_player_command(struct mpdclient &c, command_t cmd)
 				       ? 0 : options.crossfade_time))
 			c.HandleError();
 		break;
-	case CMD_DB_UPDATE:
+	case Command::DB_UPDATE:
 		screen_database_update(&c, nullptr);
 		break;
-	case CMD_VOLUME_UP:
+	case Command::VOLUME_UP:
 		mpdclient_cmd_volume_up(&c);
 		break;
-	case CMD_VOLUME_DOWN:
+	case Command::VOLUME_DOWN:
 		mpdclient_cmd_volume_down(&c);
 		break;
 

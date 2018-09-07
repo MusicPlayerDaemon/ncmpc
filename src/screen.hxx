@@ -21,7 +21,6 @@
 #define SCREEN_H
 
 #include "config.h"
-#include "Command.hxx"
 #include "Window.hxx"
 #include "TitleBar.hxx"
 #include "ProgressBar.hxx"
@@ -29,6 +28,7 @@
 #include "History.hxx"
 #include "Point.hxx"
 #include "ncmpc_curses.h"
+#include "Compiler.h"
 
 #include <mpd/client.h>
 
@@ -36,6 +36,7 @@
 #include <string>
 #include <map>
 
+enum class Command : unsigned;
 struct mpdclient;
 struct screen_functions;
 class Page;
@@ -131,7 +132,7 @@ public:
 	void Paint(bool main_dirty);
 
 	void Update(struct mpdclient &c);
-	void OnCommand(struct mpdclient &c, command_t cmd);
+	void OnCommand(struct mpdclient &c, Command cmd);
 
 #ifdef HAVE_GETMOUSE
 	bool OnMouse(struct mpdclient &c, Point p, mmask_t bstate);

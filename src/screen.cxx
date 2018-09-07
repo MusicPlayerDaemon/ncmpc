@@ -22,6 +22,7 @@
 #include "screen_list.hxx"
 #include "screen_status.hxx"
 #include "Page.hxx"
+#include "Command.hxx"
 #include "config.h"
 #include "i18n.h"
 #include "charset.hxx"
@@ -238,7 +239,7 @@ ScreenManager::Update(struct mpdclient &c)
 }
 
 void
-ScreenManager::OnCommand(struct mpdclient &c, command_t cmd)
+ScreenManager::OnCommand(struct mpdclient &c, Command cmd)
 {
 #ifndef NCMPC_MINI
 	if (welcome_source_id != 0) {
@@ -254,74 +255,74 @@ ScreenManager::OnCommand(struct mpdclient &c, command_t cmd)
 		return;
 
 	switch(cmd) {
-	case CMD_TOGGLE_FIND_WRAP:
+	case Command::TOGGLE_FIND_WRAP:
 		options.find_wrap = !options.find_wrap;
 		screen_status_message(options.find_wrap ?
 				      _("Find mode: Wrapped") :
 				      _("Find mode: Normal"));
 		break;
-	case CMD_TOGGLE_AUTOCENTER:
+	case Command::TOGGLE_AUTOCENTER:
 		options.auto_center = !options.auto_center;
 		screen_status_message(options.auto_center ?
 				      _("Auto center mode: On") :
 				      _("Auto center mode: Off"));
 		break;
-	case CMD_SCREEN_UPDATE:
+	case Command::SCREEN_UPDATE:
 		current_page->second->SetDirty();
 		break;
-	case CMD_SCREEN_PREVIOUS:
+	case Command::SCREEN_PREVIOUS:
 		NextMode(c, -1);
 		break;
-	case CMD_SCREEN_NEXT:
+	case Command::SCREEN_NEXT:
 		NextMode(c, 1);
 		break;
-	case CMD_SCREEN_PLAY:
+	case Command::SCREEN_PLAY:
 		Switch(screen_queue, c);
 		break;
-	case CMD_SCREEN_FILE:
+	case Command::SCREEN_FILE:
 		Switch(screen_browse, c);
 		break;
 #ifdef ENABLE_HELP_SCREEN
-	case CMD_SCREEN_HELP:
+	case Command::SCREEN_HELP:
 		Switch(screen_help, c);
 		break;
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
-	case CMD_SCREEN_SEARCH:
+	case Command::SCREEN_SEARCH:
 		Switch(screen_search, c);
 		break;
 #endif
 #ifdef ENABLE_ARTIST_SCREEN
-	case CMD_SCREEN_ARTIST:
+	case Command::SCREEN_ARTIST:
 		Switch(screen_artist, c);
 		break;
 #endif
 #ifdef ENABLE_SONG_SCREEN
-	case CMD_SCREEN_SONG:
+	case Command::SCREEN_SONG:
 		Switch(screen_song, c);
 		break;
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
-	case CMD_SCREEN_KEYDEF:
+	case Command::SCREEN_KEYDEF:
 		Switch(screen_keydef, c);
 		break;
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
-	case CMD_SCREEN_LYRICS:
+	case Command::SCREEN_LYRICS:
 		Switch(screen_lyrics, c);
 		break;
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
-	case CMD_SCREEN_OUTPUTS:
+	case Command::SCREEN_OUTPUTS:
 		Switch(screen_outputs, c);
 		break;
 #endif
 #ifdef ENABLE_CHAT_SCREEN
-	case CMD_SCREEN_CHAT:
+	case Command::SCREEN_CHAT:
 		Switch(screen_chat, c);
 		break;
 #endif
-	case CMD_SCREEN_SWAP:
+	case Command::SCREEN_SWAP:
 		Swap(c, nullptr);
 		break;
 
@@ -341,7 +342,7 @@ ScreenManager::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 
 	/* if button 2 was pressed switch screen */
 	if (bstate & BUTTON2_CLICKED) {
-		OnCommand(c, CMD_SCREEN_NEXT);
+		OnCommand(c, Command::SCREEN_NEXT);
 		return true;
 	}
 

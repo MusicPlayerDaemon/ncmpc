@@ -127,7 +127,7 @@ public:
 	void OnOpen(struct mpdclient &c) override;
 	void Paint() const override;
 	void Update(struct mpdclient &c, unsigned events) override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 	const char *GetTitle(char *s, size_t size) const override;
 };
 
@@ -394,7 +394,8 @@ SearchPage::OnOpen(gcc_unused struct mpdclient &c)
 	//    search_new(screen, c);
 	// else
 	screen_status_printf(_("Press %s for a new search"),
-			     GetGlobalKeyBindings().GetKeyNames(CMD_SCREEN_SEARCH, false));
+			     GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH,
+								false));
 }
 
 void
@@ -419,7 +420,7 @@ SearchPage::GetTitle(char *str, size_t size) const
 			 _(mode[options.search_mode].label));
 	else
 		snprintf(str, size, _("Search: Press %s for a new search [%s]"),
-			 GetGlobalKeyBindings().GetKeyNames(CMD_SCREEN_SEARCH,
+			 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH,
 							    false),
 			 _(mode[options.search_mode].label));
 
@@ -436,25 +437,25 @@ SearchPage::Update(struct mpdclient &c, unsigned events)
 }
 
 bool
-SearchPage::OnCommand(struct mpdclient &c, command_t cmd)
+SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch (cmd) {
-	case CMD_SEARCH_MODE:
+	case Command::SEARCH_MODE:
 		options.search_mode++;
 		if (mode[options.search_mode].label == nullptr)
 			options.search_mode = 0;
 		screen_status_printf(_("Search mode: %s"),
 				     _(mode[options.search_mode].label));
 		/* fall through */
-	case CMD_SCREEN_UPDATE:
+	case Command::SCREEN_UPDATE:
 		Reload(c);
 		return true;
 
-	case CMD_SCREEN_SEARCH:
+	case Command::SCREEN_SEARCH:
 		Start(c);
 		return true;
 
-	case CMD_CLEAR:
+	case Command::CLEAR:
 		Clear(true);
 		lw.Reset();
 		return true;

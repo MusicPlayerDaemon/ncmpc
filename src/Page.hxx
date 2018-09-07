@@ -21,15 +21,16 @@
 #define NCMPC_PAGE_HXX
 
 #include "config.h"
-#include "Command.hxx"
 #include "ncmpc_curses.h"
 #include "Point.hxx"
 #include "Size.hxx"
+#include "Compiler.h"
 
 #include <utility>
 
 #include <stddef.h>
 
+enum class Command : unsigned;
 struct mpdclient;
 
 class Page {
@@ -91,7 +92,7 @@ public:
 	 * @returns true if the command should not be handled by the
 	 * ncmpc core
 	 */
-	virtual bool OnCommand(struct mpdclient &c, command_t cmd) = 0;
+	virtual bool OnCommand(struct mpdclient &c, Command cmd) = 0;
 
 #ifdef HAVE_GETMOUSE
 	/**

@@ -170,8 +170,8 @@ parse_key_definition(char *str)
 	while (i < len && str[i] != '=' && !IsWhitespaceFast(str[i]))
 		buf[j++] = str[i++];
 
-	command_t cmd = get_key_command_from_name(buf);
-	if(cmd == CMD_NONE) {
+	const auto cmd = get_key_command_from_name(buf);
+	if(cmd == Command::NONE) {
 		/* the hotkey configuration contains an unknown
 		   command */
 		print_error(_("Unknown command"), buf);

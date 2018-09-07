@@ -166,7 +166,7 @@ timer_reconnect(gcc_unused gpointer data)
 
 	screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
 			     mpd->GetSettingsName().c_str(),
-			     GetGlobalKeyBindings().GetKeyNames(CMD_QUIT, false));
+			     GetGlobalKeyBindings().GetKeyNames(Command::QUIT, false));
 	doupdate();
 
 	mpd->Connect();
@@ -267,16 +267,16 @@ void end_input_event()
 }
 
 bool
-do_input_event(command_t cmd)
+do_input_event(Command cmd)
 {
-	if (cmd == CMD_QUIT) {
+	if (cmd == Command::QUIT) {
 		g_main_loop_quit(main_loop);
 		return false;
 	}
 
 	screen->OnCommand(*mpd, cmd);
 
-	if (cmd == CMD_VOLUME_UP || cmd == CMD_VOLUME_DOWN)
+	if (cmd == Command::VOLUME_UP || cmd == Command::VOLUME_DOWN)
 		/* make sure we don't update the volume yet */
 		disable_update_timer();
 
@@ -318,7 +318,7 @@ timer_check_key_bindings(gcc_unused gpointer data)
 	   that */
 	char comment[64];
 	snprintf(comment, sizeof(comment), _("press %s for the key editor"),
-		 GetGlobalKeyBindings().GetKeyNames(CMD_SCREEN_KEYDEF, false));
+		 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_KEYDEF, false));
 	g_strlcat(buf, comment, sizeof(buf));
 	g_strlcat(buf, ")", sizeof(buf));
 #endif

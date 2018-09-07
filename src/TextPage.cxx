@@ -87,7 +87,7 @@ TextPage::Paint() const
 }
 
 bool
-TextPage::OnCommand(struct mpdclient &c, command_t cmd)
+TextPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	if (ListPage::OnCommand(c, cmd))
 		return true;

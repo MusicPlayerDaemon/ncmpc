@@ -127,7 +127,7 @@ public:
 	void OnClose() override;
 	void Paint() const override;
 	void Update(struct mpdclient &c, unsigned events) override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
 #ifdef HAVE_GETMOUSE
 	bool OnMouse(struct mpdclient &c, Point p, mmask_t bstate) override;
@@ -444,7 +444,7 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 
 	if (bstate & BUTTON1_DOUBLE_CLICKED) {
 		/* stop */
-		screen.OnCommand(c, CMD_STOP);
+		screen.OnCommand(c, Command::STOP);
 		return true;
 	}
 
@@ -477,12 +477,12 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 #endif
 
 bool
-QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
+QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	struct mpd_connection *connection;
-	static command_t cached_cmd = CMD_NONE;
+	static Command cached_cmd = Command::NONE;
 
-	const command_t prev_cmd = cached_cmd;
+	const Command prev_cmd = cached_cmd;
 	cached_cmd = cmd;
 
 	lw.hide_cursor = false;
@@ -502,32 +502,32 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 	}
 
 	switch(cmd) {
-	case CMD_SCREEN_UPDATE:
-		CenterPlayingItem(c.status, prev_cmd == CMD_SCREEN_UPDATE);
+	case Command::SCREEN_UPDATE:
+		CenterPlayingItem(c.status, prev_cmd == Command::SCREEN_UPDATE);
 		SetDirty();
 		return false;
-	case CMD_SELECT_PLAYING:
+	case Command::SELECT_PLAYING:
 		lw.SetCursor(c.playlist.FindByReference(*c.song));
 		SaveSelection();
 		SetDirty();
 		return true;
 
-	case CMD_LIST_FIND:
-	case CMD_LIST_RFIND:
-	case CMD_LIST_FIND_NEXT:
-	case CMD_LIST_RFIND_NEXT:
+	case Command::LIST_FIND:
+	case Command::LIST_RFIND:
+	case Command::LIST_FIND_NEXT:
+	case Command::LIST_RFIND_NEXT:
 		screen_find(screen, &lw, cmd, *this);
 		SaveSelection();
 		SetDirty();
 		return true;
-	case CMD_LIST_JUMP:
+	case Command::LIST_JUMP:
 		screen_jump(screen, &lw, *this, *this);
 		SaveSelection();
 		SetDirty();
 		return true;
 
 #ifdef ENABLE_SONG_SCREEN
-	case CMD_SCREEN_SONG:
+	case Command::SCREEN_SONG:
 		if (GetSelectedSong() != nullptr) {
 			screen_song_switch(screen, c, *GetSelectedSong());
 			return true;
@@ -537,7 +537,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 #endif
 
 #ifdef ENABLE_LYRICS_SCREEN
-	case CMD_SCREEN_LYRICS:
+	case Command::SCREEN_LYRICS:
 		if (lw.selected < c.playlist.size()) {
 			struct mpd_song &selected = c.playlist[lw.selected];
 			bool follow = false;
@@ -553,7 +553,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 
 		break;
 #endif
-	case CMD_SCREEN_SWAP:
+	case Command::SCREEN_SWAP:
 		if (!c.playlist.empty())
 			screen.Swap(c, &c.playlist[lw.selected]);
 		else
@@ -571,7 +571,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		const struct mpd_song *song;
 		ListWindowRange range;
 
-	case CMD_PLAY:
+	case Command::PLAY:
 		song = GetSelectedSong();
 		if (song == nullptr)
 			return false;
@@ -583,7 +583,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 
 		return true;
 
-	case CMD_DELETE:
+	case Command::DELETE:
 		range = lw.GetRange();
 		mpdclient_cmd_delete_range(&c, range.start_index,
 					   range.end_index);
@@ -591,15 +591,15 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		lw.SetCursor(range.start_index);
 		return true;
 
-	case CMD_SAVE_PLAYLIST:
+	case Command::SAVE_PLAYLIST:
 		playlist_save(&c, nullptr, nullptr);
 		return true;
 
-	case CMD_ADD:
+	case Command::ADD:
 		handle_add_to_playlist(&c);
 		return true;
 
-	case CMD_SHUFFLE:
+	case Command::SHUFFLE:
 		range = lw.GetRange();
 		if (range.end_index <= range.start_index + 1)
 			/* No range selection, shuffle all list. */
@@ -616,7 +616,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 			c.HandleError();
 		return true;
 
-	case CMD_LIST_MOVE_UP:
+	case Command::LIST_MOVE_UP:
 		range = lw.GetRange();
 		if (range.start_index == 0 || range.empty())
 			return false;
@@ -635,7 +635,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		SaveSelection();
 		return true;
 
-	case CMD_LIST_MOVE_DOWN:
+	case Command::LIST_MOVE_DOWN:
 		range = lw.GetRange();
 		if (range.end_index >= c.playlist.size())
 			return false;
@@ -654,7 +654,7 @@ QueuePage::OnCommand(struct mpdclient &c, command_t cmd)
 		SaveSelection();
 		return true;
 
-	case CMD_LOCATE:
+	case Command::LOCATE:
 		if (GetSelectedSong() != nullptr) {
 			screen_file_goto_song(screen, c, *GetSelectedSong());
 			return true;

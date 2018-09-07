@@ -22,6 +22,7 @@
 #include "FileBrowserPage.hxx"
 #include "SongPage.hxx"
 #include "LyricsPage.hxx"
+#include "Command.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "screen.hxx"
@@ -363,7 +364,7 @@ FileListPage::OnMouse(struct mpdclient &c, Point p,
 #endif
 
 bool
-FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
+FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	if (filelist == nullptr)
 		return false;
@@ -376,20 +377,20 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 		const struct mpd_song *song;
 #endif
 
-	case CMD_LIST_FIND:
-	case CMD_LIST_RFIND:
-	case CMD_LIST_FIND_NEXT:
-	case CMD_LIST_RFIND_NEXT:
+	case Command::LIST_FIND:
+	case Command::LIST_RFIND:
+	case Command::LIST_FIND_NEXT:
+	case Command::LIST_RFIND_NEXT:
 		screen_find(screen, &lw, cmd, *this);
 		SetDirty();
 		return true;
-	case CMD_LIST_JUMP:
+	case Command::LIST_JUMP:
 		screen_jump(screen, &lw, *this, *this);
 		SetDirty();
 		return true;
 
 #ifdef ENABLE_SONG_SCREEN
-	case CMD_SCREEN_SONG:
+	case Command::SCREEN_SONG:
 		song = GetSelectedSong();
 		if (song == nullptr)
 			return false;
@@ -399,7 +400,7 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 #endif
 
 #ifdef ENABLE_LYRICS_SCREEN
-	case CMD_SCREEN_LYRICS:
+	case Command::SCREEN_LYRICS:
 		song = GetSelectedSong();
 		if (song == nullptr)
 			return false;
@@ -407,7 +408,7 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 		screen_lyrics_switch(screen, c, *song, false);
 		return true;
 #endif
-	case CMD_SCREEN_SWAP:
+	case Command::SCREEN_SWAP:
 		screen.Swap(c, GetSelectedSong());
 		return true;
 
@@ -421,27 +422,27 @@ FileListPage::OnCommand(struct mpdclient &c, command_t cmd)
 	switch (cmd) {
 		const struct mpd_song *song;
 
-	case CMD_PLAY:
+	case Command::PLAY:
 		HandleEnter(c);
 		return true;
 
-	case CMD_SELECT:
+	case Command::SELECT:
 		if (HandleSelect(c))
-			lw.HandleCommand(CMD_LIST_NEXT);
+			lw.HandleCommand(Command::LIST_NEXT);
 		SetDirty();
 		return true;
 
-	case CMD_ADD:
+	case Command::ADD:
 		if (HandleAdd(c))
-			lw.HandleCommand(CMD_LIST_NEXT);
+			lw.HandleCommand(Command::LIST_NEXT);
 		SetDirty();
 		return true;
 
-	case CMD_SELECT_ALL:
+	case Command::SELECT_ALL:
 		HandleSelectAll(c);
 		return true;
 
-	case CMD_LOCATE:
+	case Command::LOCATE:
 		song = GetSelectedSong();
 		if (song == nullptr)
 			return false;

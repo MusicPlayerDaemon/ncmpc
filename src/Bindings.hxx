@@ -61,15 +61,15 @@ struct KeyBinding {
 };
 
 struct KeyBindings {
-	std::array<KeyBinding, size_t(CMD_NONE)> key_bindings;
+	std::array<KeyBinding, size_t(Command::NONE)> key_bindings;
 
 	gcc_pure
-	command_t FindKey(int key) const;
+	Command FindKey(int key) const;
 
 	gcc_pure
-	const char *GetKeyNames(command_t command, bool all) const;
+	const char *GetKeyNames(Command command, bool all) const;
 
-	void SetKey(command_t command,
+	void SetKey(Command command,
 		    const std::array<int, MAX_COMMAND_KEYS> &keys) {
 		auto &b = key_bindings[size_t(command)];
 		b.SetKey(keys);

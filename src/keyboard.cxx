@@ -38,7 +38,7 @@ ignore_key(int key)
 }
 
 gcc_pure
-static command_t
+static Command
 translate_key(int key)
 {
 	return GetGlobalKeyBindings().FindKey(key);
@@ -74,8 +74,8 @@ keyboard_event(gcc_unused GIOChannel *source,
 	}
 #endif
 
-	command_t cmd = translate_key(key);
-	if (cmd == CMD_NONE)
+	Command cmd = translate_key(key);
+	if (cmd == Command::NONE)
 		return true;
 
 	begin_input_event();
@@ -101,7 +101,7 @@ keyboard_unread(int key)
 	if (ignore_key(key))
 		return;
 
-	command_t cmd = translate_key(key);
-	if (cmd != CMD_NONE)
+	Command cmd = translate_key(key);
+	if (cmd != Command::NONE)
 		do_input_event(cmd);
 }

@@ -35,168 +35,168 @@
 
 struct help_text_row {
 	signed char highlight;
-	command_t command;
+	Command command;
 	const char *text;
 };
 
 static const struct help_text_row help_text[] = {
-	{ 1, CMD_NONE, N_("Movement") },
-	{ 2, CMD_NONE, nullptr },
-	{ 0, CMD_LIST_PREVIOUS, nullptr },
-	{ 0, CMD_LIST_NEXT, nullptr },
-	{ 0, CMD_LIST_TOP, nullptr },
-	{ 0, CMD_LIST_MIDDLE, nullptr },
-	{ 0, CMD_LIST_BOTTOM, nullptr },
-	{ 0, CMD_LIST_PREVIOUS_PAGE, nullptr },
-	{ 0, CMD_LIST_NEXT_PAGE, nullptr },
-	{ 0, CMD_LIST_FIRST, nullptr },
-	{ 0, CMD_LIST_LAST, nullptr },
-	{ 0, CMD_LIST_RANGE_SELECT, nullptr },
-	{ 0, CMD_LIST_SCROLL_UP_LINE, nullptr},
-	{ 0, CMD_LIST_SCROLL_DOWN_LINE, nullptr},
-	{ 0, CMD_LIST_SCROLL_UP_HALF, nullptr},
-	{ 0, CMD_LIST_SCROLL_DOWN_HALF, nullptr},
-	{ 0, CMD_NONE, nullptr },
+	{ 1, Command::NONE, N_("Movement") },
+	{ 2, Command::NONE, nullptr },
+	{ 0, Command::LIST_PREVIOUS, nullptr },
+	{ 0, Command::LIST_NEXT, nullptr },
+	{ 0, Command::LIST_TOP, nullptr },
+	{ 0, Command::LIST_MIDDLE, nullptr },
+	{ 0, Command::LIST_BOTTOM, nullptr },
+	{ 0, Command::LIST_PREVIOUS_PAGE, nullptr },
+	{ 0, Command::LIST_NEXT_PAGE, nullptr },
+	{ 0, Command::LIST_FIRST, nullptr },
+	{ 0, Command::LIST_LAST, nullptr },
+	{ 0, Command::LIST_RANGE_SELECT, nullptr },
+	{ 0, Command::LIST_SCROLL_UP_LINE, nullptr},
+	{ 0, Command::LIST_SCROLL_DOWN_LINE, nullptr},
+	{ 0, Command::LIST_SCROLL_UP_HALF, nullptr},
+	{ 0, Command::LIST_SCROLL_DOWN_HALF, nullptr},
+	{ 0, Command::NONE, nullptr },
 
-	{ 0, CMD_SCREEN_PREVIOUS,nullptr },
-	{ 0, CMD_SCREEN_NEXT, nullptr },
-	{ 0, CMD_SCREEN_SWAP, nullptr },
-	{ 0, CMD_SCREEN_HELP, nullptr },
-	{ 0, CMD_SCREEN_PLAY, nullptr },
-	{ 0, CMD_SCREEN_FILE, nullptr },
+	{ 0, Command::SCREEN_PREVIOUS,nullptr },
+	{ 0, Command::SCREEN_NEXT, nullptr },
+	{ 0, Command::SCREEN_SWAP, nullptr },
+	{ 0, Command::SCREEN_HELP, nullptr },
+	{ 0, Command::SCREEN_PLAY, nullptr },
+	{ 0, Command::SCREEN_FILE, nullptr },
 #ifdef ENABLE_ARTIST_SCREEN
-	{ 0, CMD_SCREEN_ARTIST, nullptr },
+	{ 0, Command::SCREEN_ARTIST, nullptr },
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
-	{ 0, CMD_SCREEN_SEARCH, nullptr },
+	{ 0, Command::SCREEN_SEARCH, nullptr },
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
-	{ 0, CMD_SCREEN_LYRICS, nullptr },
+	{ 0, Command::SCREEN_LYRICS, nullptr },
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
-	{ 0, CMD_SCREEN_OUTPUTS, nullptr },
+	{ 0, Command::SCREEN_OUTPUTS, nullptr },
 #endif
 #ifdef ENABLE_CHAT_SCREEN
-	{ 0, CMD_SCREEN_CHAT, nullptr },
+	{ 0, Command::SCREEN_CHAT, nullptr },
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
-	{ 0, CMD_SCREEN_KEYDEF, nullptr },
+	{ 0, Command::SCREEN_KEYDEF, nullptr },
 #endif
 
-	{ 0, CMD_NONE, nullptr },
-	{ 0, CMD_NONE, nullptr },
-	{ 1, CMD_NONE, N_("Global") },
-	{ 2, CMD_NONE, nullptr },
-	{ 0, CMD_STOP, nullptr },
-	{ 0, CMD_PAUSE, nullptr },
-	{ 0, CMD_CROP, nullptr },
-	{ 0, CMD_TRACK_NEXT, nullptr },
-	{ 0, CMD_TRACK_PREVIOUS, nullptr },
-	{ 0, CMD_SEEK_FORWARD, nullptr },
-	{ 0, CMD_SEEK_BACKWARD, nullptr },
-	{ 0, CMD_VOLUME_DOWN, nullptr },
-	{ 0, CMD_VOLUME_UP, nullptr },
-	{ 0, CMD_NONE, nullptr },
-	{ 0, CMD_REPEAT, nullptr },
-	{ 0, CMD_RANDOM, nullptr },
-	{ 0, CMD_SINGLE, nullptr },
-	{ 0, CMD_CONSUME, nullptr },
-	{ 0, CMD_CROSSFADE, nullptr },
-	{ 0, CMD_SHUFFLE, nullptr },
-	{ 0, CMD_DB_UPDATE, nullptr },
-	{ 0, CMD_NONE, nullptr },
-	{ 0, CMD_LIST_FIND, nullptr },
-	{ 0, CMD_LIST_RFIND, nullptr },
-	{ 0, CMD_LIST_FIND_NEXT, nullptr },
-	{ 0, CMD_LIST_RFIND_NEXT, nullptr },
-	{ 0, CMD_LIST_JUMP, nullptr },
-	{ 0, CMD_TOGGLE_FIND_WRAP, nullptr },
-	{ 0, CMD_LOCATE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 1, Command::NONE, N_("Global") },
+	{ 2, Command::NONE, nullptr },
+	{ 0, Command::STOP, nullptr },
+	{ 0, Command::PAUSE, nullptr },
+	{ 0, Command::CROP, nullptr },
+	{ 0, Command::TRACK_NEXT, nullptr },
+	{ 0, Command::TRACK_PREVIOUS, nullptr },
+	{ 0, Command::SEEK_FORWARD, nullptr },
+	{ 0, Command::SEEK_BACKWARD, nullptr },
+	{ 0, Command::VOLUME_DOWN, nullptr },
+	{ 0, Command::VOLUME_UP, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 0, Command::REPEAT, nullptr },
+	{ 0, Command::RANDOM, nullptr },
+	{ 0, Command::SINGLE, nullptr },
+	{ 0, Command::CONSUME, nullptr },
+	{ 0, Command::CROSSFADE, nullptr },
+	{ 0, Command::SHUFFLE, nullptr },
+	{ 0, Command::DB_UPDATE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 0, Command::LIST_FIND, nullptr },
+	{ 0, Command::LIST_RFIND, nullptr },
+	{ 0, Command::LIST_FIND_NEXT, nullptr },
+	{ 0, Command::LIST_RFIND_NEXT, nullptr },
+	{ 0, Command::LIST_JUMP, nullptr },
+	{ 0, Command::TOGGLE_FIND_WRAP, nullptr },
+	{ 0, Command::LOCATE, nullptr },
 #ifdef ENABLE_SONG_SCREEN
-	{ 0, CMD_SCREEN_SONG, nullptr },
+	{ 0, Command::SCREEN_SONG, nullptr },
 #endif
-	{ 0, CMD_NONE, nullptr },
-	{ 0, CMD_QUIT, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 0, Command::QUIT, nullptr },
 
-	{ 0, CMD_NONE, nullptr },
-	{ 0, CMD_NONE, nullptr },
-	{ 1, CMD_NONE, N_("Queue screen") },
-	{ 2, CMD_NONE, nullptr },
-	{ 0, CMD_PLAY, N_("Play") },
-	{ 0, CMD_DELETE, nullptr },
-	{ 0, CMD_CLEAR, nullptr },
-	{ 0, CMD_LIST_MOVE_UP, N_("Move song up") },
-	{ 0, CMD_LIST_MOVE_DOWN, N_("Move song down") },
-	{ 0, CMD_ADD, nullptr },
-	{ 0, CMD_SAVE_PLAYLIST, nullptr },
-	{ 0, CMD_SCREEN_UPDATE, N_("Center") },
-	{ 0, CMD_SELECT_PLAYING, nullptr },
-	{ 0, CMD_TOGGLE_AUTOCENTER, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 1, Command::NONE, N_("Queue screen") },
+	{ 2, Command::NONE, nullptr },
+	{ 0, Command::PLAY, N_("Play") },
+	{ 0, Command::DELETE, nullptr },
+	{ 0, Command::CLEAR, nullptr },
+	{ 0, Command::LIST_MOVE_UP, N_("Move song up") },
+	{ 0, Command::LIST_MOVE_DOWN, N_("Move song down") },
+	{ 0, Command::ADD, nullptr },
+	{ 0, Command::SAVE_PLAYLIST, nullptr },
+	{ 0, Command::SCREEN_UPDATE, N_("Center") },
+	{ 0, Command::SELECT_PLAYING, nullptr },
+	{ 0, Command::TOGGLE_AUTOCENTER, nullptr },
 
-	{ 0, CMD_NONE, nullptr },
-	{ 0, CMD_NONE, nullptr },
-	{ 1, CMD_NONE, N_("Browse screen") },
-	{ 2, CMD_NONE, nullptr },
-	{ 0, CMD_PLAY, N_("Enter directory/Select and play song") },
-	{ 0, CMD_SELECT, nullptr },
-	{ 0, CMD_ADD, N_("Append song to queue") },
-	{ 0, CMD_SAVE_PLAYLIST, nullptr },
-	{ 0, CMD_DELETE, N_("Delete playlist") },
-	{ 0, CMD_GO_PARENT_DIRECTORY, nullptr },
-	{ 0, CMD_GO_ROOT_DIRECTORY, nullptr },
-	{ 0, CMD_SCREEN_UPDATE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 1, Command::NONE, N_("Browse screen") },
+	{ 2, Command::NONE, nullptr },
+	{ 0, Command::PLAY, N_("Enter directory/Select and play song") },
+	{ 0, Command::SELECT, nullptr },
+	{ 0, Command::ADD, N_("Append song to queue") },
+	{ 0, Command::SAVE_PLAYLIST, nullptr },
+	{ 0, Command::DELETE, N_("Delete playlist") },
+	{ 0, Command::GO_PARENT_DIRECTORY, nullptr },
+	{ 0, Command::GO_ROOT_DIRECTORY, nullptr },
+	{ 0, Command::SCREEN_UPDATE, nullptr },
 
 #ifdef ENABLE_SEARCH_SCREEN
-	{ 0, CMD_NONE, nullptr },
-	{ 0, CMD_NONE, nullptr },
-	{ 1, CMD_NONE, N_("Search screen") },
-	{ 2, CMD_NONE, nullptr },
-	{ 0, CMD_SCREEN_SEARCH, N_("Search") },
-	{ 0, CMD_PLAY, N_("Select and play") },
-	{ 0, CMD_SELECT, nullptr },
-	{ 0, CMD_ADD, N_("Append song to queue") },
-	{ 0, CMD_SELECT_ALL,	 nullptr },
-	{ 0, CMD_SEARCH_MODE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 1, Command::NONE, N_("Search screen") },
+	{ 2, Command::NONE, nullptr },
+	{ 0, Command::SCREEN_SEARCH, N_("Search") },
+	{ 0, Command::PLAY, N_("Select and play") },
+	{ 0, Command::SELECT, nullptr },
+	{ 0, Command::ADD, N_("Append song to queue") },
+	{ 0, Command::SELECT_ALL,	 nullptr },
+	{ 0, Command::SEARCH_MODE, nullptr },
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
-	{ 0, CMD_NONE, nullptr },
-	{ 0, CMD_NONE, nullptr },
-	{ 1, CMD_NONE, N_("Lyrics screen") },
-	{ 2, CMD_NONE, nullptr },
-	{ 0, CMD_SCREEN_LYRICS, N_("View Lyrics") },
-	{ 0, CMD_SELECT, N_("(Re)load lyrics") },
+	{ 0, Command::NONE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 1, Command::NONE, N_("Lyrics screen") },
+	{ 2, Command::NONE, nullptr },
+	{ 0, Command::SCREEN_LYRICS, N_("View Lyrics") },
+	{ 0, Command::SELECT, N_("(Re)load lyrics") },
 	/* to translators: this hotkey aborts the retrieval of lyrics
 	   from the server */
-	{ 0, CMD_INTERRUPT, N_("Interrupt retrieval") },
-	{ 0, CMD_LYRICS_UPDATE, N_("Download lyrics for currently playing song") },
-	{ 0, CMD_EDIT, N_("Add or edit lyrics") },
-	{ 0, CMD_SAVE_PLAYLIST, N_("Save lyrics") },
-	{ 0, CMD_DELETE, N_("Delete saved lyrics") },
+	{ 0, Command::INTERRUPT, N_("Interrupt retrieval") },
+	{ 0, Command::LYRICS_UPDATE, N_("Download lyrics for currently playing song") },
+	{ 0, Command::EDIT, N_("Add or edit lyrics") },
+	{ 0, Command::SAVE_PLAYLIST, N_("Save lyrics") },
+	{ 0, Command::DELETE, N_("Delete saved lyrics") },
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
-	{ 0, CMD_NONE, nullptr },
-	{ 0, CMD_NONE, nullptr },
-	{ 1, CMD_NONE, N_("Outputs screen") },
-	{ 2, CMD_NONE, nullptr },
-	{ 0, CMD_PLAY, N_("Enable/disable output") },
+	{ 0, Command::NONE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 1, Command::NONE, N_("Outputs screen") },
+	{ 2, Command::NONE, nullptr },
+	{ 0, Command::PLAY, N_("Enable/disable output") },
 #endif
 #ifdef ENABLE_CHAT_SCREEN
-	{ 0, CMD_NONE, nullptr },
-	{ 0, CMD_NONE, nullptr },
-	{ 1, CMD_NONE, N_("Chat screen") },
-	{ 2, CMD_NONE, nullptr },
-	{ 0, CMD_PLAY, N_("Write a message") },
+	{ 0, Command::NONE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 1, Command::NONE, N_("Chat screen") },
+	{ 2, Command::NONE, nullptr },
+	{ 0, Command::PLAY, N_("Write a message") },
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
-	{ 0, CMD_NONE, nullptr },
-	{ 0, CMD_NONE, nullptr },
-	{ 1, CMD_NONE, N_("Keydef screen") },
-	{ 2, CMD_NONE, nullptr },
-	{ 0, CMD_PLAY, N_("Edit keydefs for selected command") },
-	{ 0, CMD_DELETE, N_("Remove selected keydef") },
-	{ 0, CMD_ADD, N_("Add a keydef") },
-	{ 0, CMD_GO_PARENT_DIRECTORY, N_("Go up a level") },
-	{ 0, CMD_SAVE_PLAYLIST, N_("Apply and save changes") },
+	{ 0, Command::NONE, nullptr },
+	{ 0, Command::NONE, nullptr },
+	{ 1, Command::NONE, N_("Keydef screen") },
+	{ 2, Command::NONE, nullptr },
+	{ 0, Command::PLAY, N_("Edit keydefs for selected command") },
+	{ 0, Command::DELETE, N_("Remove selected keydef") },
+	{ 0, Command::ADD, N_("Add a keydef") },
+	{ 0, Command::GO_PARENT_DIRECTORY, N_("Go up a level") },
+	{ 0, Command::SAVE_PLAYLIST, N_("Apply and save changes") },
 #endif
 };
 
@@ -222,7 +222,7 @@ public:
 
 	/* virtual methods from class Page */
 	void Paint() const override;
-	bool OnCommand(struct mpdclient &c, command_t cmd) override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
 	const char *GetTitle(char *, size_t) const override {
 		return _("Help");
@@ -239,7 +239,7 @@ HelpPage::GetListItemText(char *, size_t, unsigned i) const
 	if (row->text != nullptr)
 		return _(row->text);
 
-	if (row->command != CMD_NONE)
+	if (row->command != Command::NONE)
 		return get_key_description(row->command);
 
 	return "";
@@ -264,7 +264,7 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 
 	wclrtoeol(w);
 
-	if (row->command == CMD_NONE) {
+	if (row->command == Command::NONE) {
 		if (row->text != nullptr)
 			mvwaddstr(w, y, 6, _(row->text));
 		else if (row->highlight == 2)
@@ -291,7 +291,7 @@ HelpPage::Paint() const
 }
 
 bool
-HelpPage::OnCommand(struct mpdclient &c, command_t cmd)
+HelpPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	if (ListPage::OnCommand(c, cmd))
 		return true;

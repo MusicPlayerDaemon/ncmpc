@@ -33,13 +33,12 @@ lirc_event(gcc_unused GIOChannel *source,
 	   gcc_unused GIOCondition condition, gcc_unused gpointer data)
 {
 	char *code, *txt;
-	command_t cmd;
 
 	begin_input_event();
 
 	if (lirc_nextcode(&code) == 0) {
 		while (lirc_code2char(lc, code, &txt) == 0 && txt != nullptr) {
-			cmd = get_key_command_from_name(txt);
+			const auto cmd = get_key_command_from_name(txt);
 			if (!do_input_event(cmd))
 				return false;
 		}
