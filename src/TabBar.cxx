@@ -28,7 +28,7 @@ static void
 PaintPageTab(WINDOW *w, command_t cmd, const char *label)
 {
 	colors_use(w, COLOR_TITLE_BOLD);
-	waddstr(w, get_key_names(GetGlobalKeyBindings(), cmd, false));
+	waddstr(w, GetGlobalKeyBindings().GetKeyNames(cmd, false));
 	colors_use(w, COLOR_TITLE);
 	waddch(w, ':');
 	waddstr(w, label);

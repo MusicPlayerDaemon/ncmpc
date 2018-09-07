@@ -22,10 +22,10 @@
 
 #include "Compiler.h"
 
-struct KeyBinding;
+struct KeyBindings;
 
 gcc_const
-KeyBinding *
+KeyBindings &
 GetGlobalKeyBindings();
 
 #endif

@@ -42,37 +42,40 @@ struct KeyBinding {
 #endif
 };
 
+struct KeyBindings {
+	std::array<KeyBinding, size_t(CMD_NONE)> key_bindings;
+
+	gcc_pure
+	command_t FindKey(int key) const;
+
+	gcc_pure
+	const char *GetKeyNames(command_t command, bool all) const;
+
+	void SetKey(command_t command,
+		    const std::array<int, MAX_COMMAND_KEYS> &keys) {
+		auto &b = key_bindings[size_t(command)];
+		b.keys = keys;
+#ifndef NCMPC_MINI
+		b.modified = true;
+#endif
+	}
+
+#ifndef NCMPC_MINI
+	/**
+	 * @return true on success, false on error
+	 */
+	bool Check(char *buf, size_t size) const;
+
+	/**
+	 * @return true on success, false on error
+	 */
+	bool WriteToFile(FILE *f, int all) const;
+#endif
+};
+
 /* write key bindings flags */
 #define KEYDEF_WRITE_HEADER  0x01
 #define KEYDEF_WRITE_ALL     0x02
 #define KEYDEF_COMMENT_ALL   0x04
-
-gcc_pure
-command_t
-find_key_command(const KeyBinding *bindings, int key);
-
-#ifndef NCMPC_MINI
-
-/**
- * @return true on success, false on error
- */
-bool
-check_key_bindings(KeyBinding *bindings, char *buf, size_t size);
-
-/**
- * @return true on success, false on error
- */
-bool
-write_key_bindings(FILE *f, const KeyBinding *bindings, int all);
-
-#endif
-
-gcc_pure
-const char *
-get_key_names(const KeyBinding *bindings, command_t command, bool all);
-
-void
-assign_keys(KeyBinding *bindings, command_t command,
-	    const std::array<int, MAX_COMMAND_KEYS> &keys);
 
 #endif

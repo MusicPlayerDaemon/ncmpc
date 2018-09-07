@@ -394,8 +394,7 @@ SearchPage::OnOpen(gcc_unused struct mpdclient &c)
 	//    search_new(screen, c);
 	// else
 	screen_status_printf(_("Press %s for a new search"),
-			     get_key_names(GetGlobalKeyBindings(),
-					   CMD_SCREEN_SEARCH, false));
+			     GetGlobalKeyBindings().GetKeyNames(CMD_SCREEN_SEARCH, false));
 }
 
 void
@@ -420,8 +419,8 @@ SearchPage::GetTitle(char *str, size_t size) const
 			 _(mode[options.search_mode].label));
 	else
 		snprintf(str, size, _("Search: Press %s for a new search [%s]"),
-			 get_key_names(GetGlobalKeyBindings(),
-				       CMD_SCREEN_SEARCH, false),
+			 GetGlobalKeyBindings().GetKeyNames(CMD_SCREEN_SEARCH,
+							    false),
 			 _(mode[options.search_mode].label));
 
 	return str;

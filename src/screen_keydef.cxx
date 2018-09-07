@@ -45,7 +45,7 @@
 class CommandKeysPage final : public ListPage, ListText {
 	ScreenManager &screen;
 
-	KeyBinding *bindings;
+	KeyBindings *bindings;
 
 	/**
 	 * The command being edited, represented by a array subscript
@@ -60,7 +60,7 @@ public:
 	CommandKeysPage(ScreenManager &_screen, WINDOW *w, Size size)
 		:ListPage(w, size), screen(_screen) {}
 
-	void SetCommand(KeyBinding *_bindings, unsigned _cmd) {
+	void SetCommand(KeyBindings *_bindings, unsigned _cmd) {
 		bindings = _bindings;
 		subcmd = _cmd;
 		lw.Reset();
@@ -142,7 +142,7 @@ CommandKeysPage::check_subcmd_length()
 	/* this loops counts the continous valid keys at the start of the the keys
 	   array, so make sure you don't have gaps */
 	for (i = 0; i < MAX_COMMAND_KEYS; i++)
-		if (bindings[subcmd].keys[i] == 0)
+		if (bindings->key_bindings[subcmd].keys[i] == 0)
 			break;
 	subcmd_n_keys = i;
 
@@ -154,15 +154,15 @@ CommandKeysPage::DeleteKey(int cmd_index, int key_index)
 {
 	/* shift the keys to close the gap that appeared */
 	int i = key_index+1;
-	while (i < MAX_COMMAND_KEYS && bindings[cmd_index].keys[i])
-		bindings[cmd_index].keys[key_index++] = bindings[cmd_index].keys[i++];
+	while (i < MAX_COMMAND_KEYS && bindings->key_bindings[cmd_index].keys[i])
+		bindings->key_bindings[cmd_index].keys[key_index++] = bindings->key_bindings[cmd_index].keys[i++];
 
 	/* As key_index now holds the index of the last key slot that contained
 	   a key, we use it to empty this slot, because this key has been copied
 	   to the previous slot in the loop above */
-	bindings[cmd_index].keys[key_index] = 0;
+	bindings->key_bindings[cmd_index].keys[key_index] = 0;
 
-	bindings[cmd_index].modified = true;
+	bindings->key_bindings[cmd_index].modified = true;
 	check_subcmd_length();
 
 	screen_status_message(_("Deleted"));
@@ -171,7 +171,7 @@ CommandKeysPage::DeleteKey(int cmd_index, int key_index)
 	SetDirty();
 
 	/* update key conflict flags */
-	check_key_bindings(bindings, nullptr, 0);
+	bindings->Check(nullptr, 0);
 }
 
 void
@@ -195,7 +195,7 @@ CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
 		return;
 	}
 
-	const command_t cmd = find_key_command(bindings, key);
+	const command_t cmd = bindings->FindKey(key);
 	if (cmd != CMD_NONE) {
 		screen_status_printf(_("Error: key %s is already used for %s"),
 				     key2str(key), get_key_command_name(cmd));
@@ -203,8 +203,8 @@ CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
 		return;
 	}
 
-	bindings[cmd_index].keys[key_index] = key;
-	bindings[cmd_index].modified = true;
+	bindings->key_bindings[cmd_index].keys[key_index] = key;
+	bindings->key_bindings[cmd_index].modified = true;
 
 	screen_status_printf(_("Assigned %s to %s"),
 			     key2str(key),
@@ -215,7 +215,7 @@ CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
 	SetDirty();
 
 	/* update key conflict flags */
-	check_key_bindings(bindings, nullptr, 0);
+	bindings->Check(nullptr, 0);
 }
 
 void
@@ -241,8 +241,8 @@ CommandKeysPage::GetListItemText(char *buffer, size_t size,
 
 	snprintf(buffer, size,
 		 "%d. %-20s   (%d) ", idx,
-		 key2str(bindings[subcmd].keys[subcmd_item_to_key_id(idx)]),
-		 bindings[subcmd].keys[subcmd_item_to_key_id(idx)]);
+		 key2str(bindings->key_bindings[subcmd].keys[subcmd_item_to_key_id(idx)]),
+		 bindings->key_bindings[subcmd].keys[subcmd_item_to_key_id(idx)]);
 	return buffer;
 }
 
@@ -315,7 +315,7 @@ CommandKeysPage::OnCommand(struct mpdclient &c, command_t cmd)
 class CommandListPage final : public ListPage, ListText {
 	ScreenManager &screen;
 
-	KeyBinding *bindings = nullptr;
+	KeyBindings *bindings;
 
 	/** the number of commands */
 	static constexpr size_t command_n_commands = size_t(CMD_NONE);
@@ -325,10 +325,10 @@ public:
 		:ListPage(w, size), screen(_screen) {}
 
 	~CommandListPage() override {
-		delete[] bindings;
+		delete bindings;
 	}
 
-	KeyBinding *GetBindings() {
+	KeyBindings *GetBindings() {
 		return bindings;
 	}
 
@@ -385,18 +385,18 @@ private:
 bool
 CommandListPage::IsModified() const
 {
-	const auto *orginal_bindings = GetGlobalKeyBindings();
-	constexpr size_t size = command_n_commands * sizeof(command_definition_t);
+	const auto &orginal_bindings = GetGlobalKeyBindings();
+	constexpr size_t size = sizeof(orginal_bindings);
 
-	return memcmp(orginal_bindings, bindings, size) != 0;
+	return memcmp(&orginal_bindings, &bindings, size) != 0;
 }
 
 void
 CommandListPage::Apply()
 {
 	if (IsModified()) {
-		auto *orginal_bindings = GetGlobalKeyBindings();
-		std::copy_n(bindings, command_n_commands, orginal_bindings);
+		auto &orginal_bindings = GetGlobalKeyBindings();
+		orginal_bindings = *bindings;
 		screen_status_message(_("You have new key bindings"));
 	} else
 		screen_status_message(_("Keybindings unchanged."));
@@ -424,7 +424,7 @@ CommandListPage::Save()
 		return;
 	}
 
-	if (write_key_bindings(f, GetGlobalKeyBindings(), KEYDEF_WRITE_HEADER))
+	if (GetGlobalKeyBindings().WriteToFile(f, KEYDEF_WRITE_HEADER))
 		screen_status_printf(_("Wrote %s"), filename.c_str());
 	else
 		screen_status_printf("%s: %s - %s", _("Error"),
@@ -467,13 +467,8 @@ CommandListPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
 void
 CommandListPage::OnOpen(gcc_unused struct mpdclient &c)
 {
-	if (bindings == nullptr) {
-		const auto *global = GetGlobalKeyBindings();
-
-		/* +1 for the terminator element */
-		bindings = new KeyBinding[command_n_commands + 1];
-		std::copy_n(global, command_n_commands + 1, bindings);
-	}
+	if (bindings == nullptr)
+		bindings = new KeyBindings(GetGlobalKeyBindings());
 
 	lw.SetLength(command_length());
 }

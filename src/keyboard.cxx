@@ -41,7 +41,7 @@ gcc_pure
 static command_t
 translate_key(int key)
 {
-	return find_key_command(GetGlobalKeyBindings(), key);
+	return GetGlobalKeyBindings().FindKey(key);
 }
 
 static gboolean

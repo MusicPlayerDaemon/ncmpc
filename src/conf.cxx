@@ -207,7 +207,7 @@ parse_key_definition(char *str)
 	if (key < 0)
 		return false;
 
-	assign_keys(GetGlobalKeyBindings(), cmd, keys);
+	GetGlobalKeyBindings().SetKey(cmd, keys);
 	return true;
 }
 

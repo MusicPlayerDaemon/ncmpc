@@ -270,8 +270,8 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 		else if (row->highlight == 2)
 			mvwhline(w, y, 3, '-', width - 6);
 	} else {
-		const char *key = get_key_names(GetGlobalKeyBindings(),
-						row->command, true);
+		const char *key =
+			GetGlobalKeyBindings().GetKeyNames(row->command, true);
 
 		if (utf8_width(key) < 20)
 			wmove(w, y, 20 - utf8_width(key));

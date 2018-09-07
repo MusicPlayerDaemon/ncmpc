@@ -257,8 +257,8 @@ handle_option(int c, const char *arg)
 #if !defined(NDEBUG) && !defined(NCMPC_MINI)
 	case 'K': /* --dump-keys */
 		read_configuration();
-		write_key_bindings(stdout, GetGlobalKeyBindings(),
-				   KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
+		GetGlobalKeyBindings().WriteToFile(stdout,
+						   KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
 		exit(EXIT_SUCCESS);
 		break;
 #endif

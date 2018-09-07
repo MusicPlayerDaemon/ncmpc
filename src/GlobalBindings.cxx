@@ -57,7 +57,7 @@
 #define F9   KEY_F(9)
 #define C(x) KEY_CTL(x)
 
-static KeyBinding global_key_bindings[] = {
+static KeyBindings global_key_bindings{{{
 #ifdef ENABLE_KEYDEF_SCREEN
 	{ {'K', 0, 0 } },
 #endif
@@ -164,12 +164,9 @@ static KeyBinding global_key_bindings[] = {
 #ifdef ENABLE_CHAT_SCREEN
 	{ {'9', F9, 0} },
 #endif
-};
+}}};
 
-static_assert(ARRAY_SIZE(global_key_bindings) == size_t(CMD_NONE),
-	      "Wrong key binding table size");
-
-KeyBinding *
+KeyBindings &
 GetGlobalKeyBindings()
 {
 	return global_key_bindings;
