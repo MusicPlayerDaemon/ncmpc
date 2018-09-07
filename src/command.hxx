@@ -33,7 +33,9 @@
 
 /* commands */
 typedef enum {
+#ifdef ENABLE_KEYDEF_SCREEN
 	CMD_SCREEN_KEYDEF,
+#endif
 	CMD_QUIT,
 
 	/* movement */

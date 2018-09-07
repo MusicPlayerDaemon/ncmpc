@@ -20,6 +20,7 @@
 #include "command.hxx"
 #include "i18n.h"
 #include "ncmpc_curses.h"
+#include "util/Macros.hxx"
 
 #include <assert.h>
 #include <ctype.h>
@@ -250,6 +251,9 @@ static command_definition_t cmds[] = {
 
 	{ { -1, -1, -1 }, 0, CMD_NONE, nullptr, nullptr }
 };
+
+static_assert(ARRAY_SIZE(cmds) == size_t(CMD_NONE) + 1,
+	      "Wrong command table size");
 
 #ifdef ENABLE_KEYDEF_SCREEN
 command_definition_t *
