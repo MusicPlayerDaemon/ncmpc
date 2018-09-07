@@ -25,6 +25,7 @@
 #include "Compiler.h"
 
 #include <array>
+#include <algorithm>
 
 #include <stddef.h>
 
@@ -40,6 +41,11 @@ struct KeyBinding {
 #ifndef NCMPC_MINI
 	bool modified = false;
 #endif
+
+	gcc_pure
+	bool HasKey(int key) const {
+		return std::find(keys.begin(), keys.end(), key) != keys.end();
+	}
 
 	void SetKey(const std::array<int, MAX_COMMAND_KEYS> &_keys) {
 		keys = _keys;

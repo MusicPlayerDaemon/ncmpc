@@ -60,9 +60,8 @@ KeyBindings::FindKey(int key) const
 	assert(key != 0);
 
 	for (size_t i = 0; i < size_t(CMD_NONE); ++i) {
-		for (const auto key2 : key_bindings[i].keys)
-			if (key2 == key)
-				return command_t(i);
+		if (key_bindings[i].HasKey(key))
+			return command_t(i);
 	}
 
 	return CMD_NONE;
