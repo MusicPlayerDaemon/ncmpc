@@ -245,12 +245,12 @@ get_cmds_max_name_width()
 	if (max != 0)
 		return max;
 
-	for (const command_definition_t *p = cmds; p->name != nullptr; p++) {
+	for (const auto &i : cmds) {
 		/*
 		 * width and length are considered the same here, as command
 		 * names are not translated.
 		 */
-		size_t len = strlen(p->name);
+		size_t len = strlen(i.name);
 		if (len > max)
 			max = len;
 	}
