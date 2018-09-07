@@ -20,7 +20,7 @@
 #ifndef NCMPC_H
 #define NCMPC_H
 
-#include "command.hxx"
+#include "Command.hxx"
 
 #ifdef HAVE_GETMOUSE
 #include "ncmpc_curses.h"

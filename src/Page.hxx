@@ -21,7 +21,7 @@
 #define NCMPC_PAGE_HXX
 
 #include "config.h"
-#include "command.hxx"
+#include "Command.hxx"
 #include "ncmpc_curses.h"
 #include "Point.hxx"
 #include "Size.hxx"

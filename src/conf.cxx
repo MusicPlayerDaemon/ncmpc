@@ -23,7 +23,7 @@
 #include "GlobalBindings.hxx"
 #include "defaults.hxx"
 #include "i18n.h"
-#include "command.hxx"
+#include "Command.hxx"
 #include "colors.hxx"
 #include "screen_list.hxx"
 #include "options.hxx"

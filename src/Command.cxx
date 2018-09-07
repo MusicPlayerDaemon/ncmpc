@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "command.hxx"
+#include "Command.hxx"
 #include "i18n.h"
 #include "ncmpc_curses.h"
 #include "util/Macros.hxx"

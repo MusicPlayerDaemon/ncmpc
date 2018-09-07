@@ -20,7 +20,7 @@
 #ifndef NCMPC_PLAYER_COMMAND_H
 #define NCMPC_PLAYER_COMMAND_H
 
-#include "command.hxx"
+#include "Command.hxx"
 
 struct mpdclient;
 

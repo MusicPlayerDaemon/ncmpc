@@ -20,7 +20,7 @@
 #ifndef FILE_LIST_PAGE_HXX
 #define FILE_LIST_PAGE_HXX
 
-#include "command.hxx"
+#include "Command.hxx"
 #include "config.h"
 #include "ncmpc_curses.h"
 #include "ListPage.hxx"

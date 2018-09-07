@@ -19,7 +19,7 @@
 
 #include "config.h"
 #include "keyboard.hxx"
-#include "command.hxx"
+#include "Command.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "ncmpc.hxx"

@@ -18,7 +18,7 @@
  */
 
 #include "Bindings.hxx"
-#include "command.hxx"
+#include "Command.hxx"
 #include "KeyName.hxx"
 #include "i18n.h"
 #include "ncmpc_curses.h"

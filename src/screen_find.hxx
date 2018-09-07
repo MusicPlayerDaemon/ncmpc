@@ -20,7 +20,7 @@
 #ifndef NCMPC_SCREEN_FIND_H
 #define NCMPC_SCREEN_FIND_H
 
-#include "command.hxx"
+#include "Command.hxx"
 
 class ScreenManager;
 class ListWindow;

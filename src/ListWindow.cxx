@@ -24,7 +24,7 @@
 #include "options.hxx"
 #include "charset.hxx"
 #include "match.hxx"
-#include "command.hxx"
+#include "Command.hxx"
 #include "colors.hxx"
 #include "paint.hxx"
 #include "screen_status.hxx"

@@ -23,7 +23,7 @@
 #include "callbacks.hxx"
 #include "charset.hxx"
 #include "options.hxx"
-#include "command.hxx"
+#include "Command.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "ncu.hxx"

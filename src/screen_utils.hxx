@@ -21,7 +21,7 @@
 #define SCREEN_UTILS_H
 
 #include "config.h"
-#include "command.hxx"
+#include "Command.hxx"
 #include "History.hxx"
 #include "Completion.hxx"
 

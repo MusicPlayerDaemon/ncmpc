@@ -21,7 +21,7 @@
 #define LIST_WINDOW_HXX
 
 #include "config.h"
-#include "command.hxx"
+#include "Command.hxx"
 #include "colors.hxx"
 #include "ncmpc_curses.h"
 #include "Size.hxx"

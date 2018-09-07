@@ -21,7 +21,7 @@
 #define BINDINGS_HXX
 
 #include "config.h"
-#include "command.hxx"
+#include "Command.hxx"
 #include "Compiler.h"
 
 #include <array>

@@ -21,7 +21,7 @@
 #define SCREEN_H
 
 #include "config.h"
-#include "command.hxx"
+#include "Command.hxx"
 #include "Window.hxx"
 #include "TitleBar.hxx"
 #include "ProgressBar.hxx"

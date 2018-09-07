@@ -19,7 +19,7 @@
 
 #include "TabBar.hxx"
 #include "colors.hxx"
-#include "command.hxx"
+#include "Command.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "i18n.h"
