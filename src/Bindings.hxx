@@ -39,7 +39,16 @@ struct KeyBinding {
 
 #ifndef NCMPC_MINI
 	bool modified = false;
+#endif
 
+	void SetKey(const std::array<int, MAX_COMMAND_KEYS> &_keys) {
+		keys = _keys;
+#ifndef NCMPC_MINI
+		modified = true;
+#endif
+	}
+
+#ifndef NCMPC_MINI
 	void WriteToFile(FILE *f, const command_definition_t &cmd,
 			 bool comment) const;
 #endif
@@ -57,10 +66,7 @@ struct KeyBindings {
 	void SetKey(command_t command,
 		    const std::array<int, MAX_COMMAND_KEYS> &keys) {
 		auto &b = key_bindings[size_t(command)];
-		b.keys = keys;
-#ifndef NCMPC_MINI
-		b.modified = true;
-#endif
+		b.SetKey(keys);
 	}
 
 #ifndef NCMPC_MINI
