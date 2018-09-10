@@ -180,14 +180,14 @@ static Page *
 screen_song_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
 	for (unsigned i = 0; tag_labels[i].label != nullptr; ++i) {
-		unsigned width = utf8_width(_(tag_labels[i].label));
+		unsigned width = locale_width(_(tag_labels[i].label));
 		if (width > max_tag_label_width)
 			max_tag_label_width = width;
 	}
 
 	for (unsigned i = 0; i < ARRAY_SIZE(stats_labels); ++i) {
 		if (stats_labels[i] != nullptr) {
-			unsigned width = utf8_width(_(stats_labels[i]));
+			unsigned width = locale_width(_(stats_labels[i]));
 
 			if (width > max_stats_label_width)
 				max_stats_label_width = width;
