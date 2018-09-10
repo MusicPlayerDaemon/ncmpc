@@ -18,7 +18,6 @@
  */
 
 #include "AlbumListPage.hxx"
-#include "screen_interface.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "FileListPage.hxx"
