@@ -322,7 +322,7 @@ timer_check_key_bindings(gcc_unused gpointer data)
 	g_strlcat(buf, ")", sizeof(buf));
 #endif
 
-	screen_status_printf("%s", buf);
+	screen_status_message(buf);
 
 	doupdate();
 	return true;
