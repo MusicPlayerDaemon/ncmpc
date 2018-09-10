@@ -32,6 +32,7 @@ PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected)
 	if (selected)
 		wattron(w, A_REVERSE);
 
+	waddch(w, ' ');
 	waddstr(w, GetGlobalKeyBindings().GetKeyNames(cmd, false));
 	colors_use(w, COLOR_TITLE);
 	if (selected)
@@ -39,7 +40,6 @@ PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected)
 
 	waddch(w, ':');
 	waddstr(w, label);
-	waddch(w, ' ');
 	waddch(w, ' ');
 
 	if (selected)
