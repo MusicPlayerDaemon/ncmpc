@@ -187,7 +187,8 @@ SongListPage::GetTitle(char *str, size_t size) const
 			 artist_locale.c_str());
 	else if (!album.empty()) {
 		const Utf8ToLocale album_locale(album.c_str());
-		snprintf(str, size, _("Album: %s - %s"),
+		snprintf(str, size, "%s: %s - %s",
+			 _("Album"),
 			 artist_locale.c_str(), album_locale.c_str());
 	} else
 		snprintf(str, size,
