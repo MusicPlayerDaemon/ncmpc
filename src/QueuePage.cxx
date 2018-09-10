@@ -87,7 +87,9 @@ public:
 	}
 
 private:
+	gcc_pure
 	const struct mpd_song *GetSelectedSong() const;
+
 	void SaveSelection();
 	void RestoreSelection();
 
