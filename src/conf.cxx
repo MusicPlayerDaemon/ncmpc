@@ -451,7 +451,7 @@ parse_line(char *line)
 		options.hardware_cursor = str2bool(value);
 	/* welcome screen list */
 	else if (!strcasecmp(CONF_WELCOME_SCREEN_LIST, name))
-		{}
+		options.welcome_screen_list = str2bool(value);
 	/* visible bitrate */
 	else if (!strcasecmp(CONF_VISIBLE_BITRATE, name))
 		options.visible_bitrate = str2bool(value);

@@ -81,6 +81,7 @@ typedef struct {
 #ifndef NCMPC_MINI
 	bool scroll = DEFAULT_SCROLL;
 	bool visible_bitrate;
+	bool welcome_screen_list = true;
 	bool jump_prefix_only = true;
 	bool second_column = true;
 #endif
