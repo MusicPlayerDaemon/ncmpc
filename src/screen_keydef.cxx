@@ -105,20 +105,19 @@ private:
 	/**
 	 * Delete a key from a given command's definition.
 	 *
-	 * @param cmd_index the command
 	 * @param key_index the key (see below)
 	 */
-	void DeleteKey(int cmd_index, int key_index);
+	void DeleteKey(int key_index);
 
 	/**
 	 * Assigns a new key to a key slot.
 	 */
-	void OverwriteKey(int cmd_index, int key_index);
+	void OverwriteKey(int key_index);
 
 	/**
 	 * Assign a new key to a new slot.
 	 */
-	void AddKey(int cmd_index);
+	void AddKey();
 
 public:
 	/* virtual methods from class Page */
@@ -143,19 +142,19 @@ CommandKeysPage::check_subcmd_length()
 }
 
 void
-CommandKeysPage::DeleteKey(int cmd_index, int key_index)
+CommandKeysPage::DeleteKey(int key_index)
 {
 	/* shift the keys to close the gap that appeared */
 	int i = key_index+1;
-	while (i < MAX_COMMAND_KEYS && bindings->key_bindings[cmd_index].keys[i])
-		bindings->key_bindings[cmd_index].keys[key_index++] = bindings->key_bindings[cmd_index].keys[i++];
+	while (i < MAX_COMMAND_KEYS && bindings->key_bindings[subcmd].keys[i])
+		bindings->key_bindings[subcmd].keys[key_index++] = bindings->key_bindings[subcmd].keys[i++];
 
 	/* As key_index now holds the index of the last key slot that contained
 	   a key, we use it to empty this slot, because this key has been copied
 	   to the previous slot in the loop above */
-	bindings->key_bindings[cmd_index].keys[key_index] = 0;
+	bindings->key_bindings[subcmd].keys[key_index] = 0;
 
-	bindings->key_bindings[cmd_index].modified = true;
+	bindings->key_bindings[subcmd].modified = true;
 	check_subcmd_length();
 
 	screen_status_message(_("Deleted"));
@@ -168,14 +167,14 @@ CommandKeysPage::DeleteKey(int cmd_index, int key_index)
 }
 
 void
-CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
+CommandKeysPage::OverwriteKey(int key_index)
 {
 	assert(key_index < MAX_COMMAND_KEYS);
 
 	char prompt[256];
 	snprintf(prompt, sizeof(prompt),
 		 _("Enter new key for %s: "),
-		 get_key_command_name(Command(cmd_index)));
+		 get_key_command_name(Command(subcmd)));
 	const int key = screen_getch(prompt);
 
 	if (key == ERR) {
@@ -196,12 +195,12 @@ CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
 		return;
 	}
 
-	bindings->key_bindings[cmd_index].keys[key_index] = key;
-	bindings->key_bindings[cmd_index].modified = true;
+	bindings->key_bindings[subcmd].keys[key_index] = key;
+	bindings->key_bindings[subcmd].modified = true;
 
 	screen_status_printf(_("Assigned %s to %s"),
 			     key2str(key),
-			     get_key_command_name(Command(cmd_index)));
+			     get_key_command_name(Command(subcmd)));
 	check_subcmd_length();
 
 	/* repaint */
@@ -212,10 +211,10 @@ CommandKeysPage::OverwriteKey(int cmd_index, int key_index)
 }
 
 void
-CommandKeysPage::AddKey(int cmd_index)
+CommandKeysPage::AddKey()
 {
 	if (subcmd_n_keys < MAX_COMMAND_KEYS)
-		OverwriteKey(cmd_index, subcmd_n_keys);
+		OverwriteKey(subcmd_n_keys);
 }
 
 const char *
@@ -273,20 +272,20 @@ CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 		if (lw.selected == subcmd_item_up()) {
 			screen.OnCommand(c, Command::GO_PARENT_DIRECTORY);
 		} else if (lw.selected == subcmd_item_add()) {
-			AddKey(subcmd);
+			AddKey();
 		} else {
 			/* just to be sure ;-) */
 			assert(subcmd_item_is_key(lw.selected));
-			OverwriteKey(subcmd, subcmd_item_to_key_id(lw.selected));
+			OverwriteKey(subcmd_item_to_key_id(lw.selected));
 		}
 		return true;
 	case Command::DELETE:
 		if (subcmd_item_is_key(lw.selected))
-			DeleteKey(subcmd, subcmd_item_to_key_id(lw.selected));
+			DeleteKey(subcmd_item_to_key_id(lw.selected));
 
 		return true;
 	case Command::ADD:
-		AddKey(subcmd);
+		AddKey();
 		return true;
 	case Command::LIST_FIND:
 	case Command::LIST_RFIND:
