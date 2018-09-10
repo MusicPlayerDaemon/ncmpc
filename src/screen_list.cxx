@@ -71,3 +71,13 @@ screen_lookup_name(const char *name)
 
 	return nullptr;
 }
+
+const PageMeta *
+PageByCommand(Command cmd)
+{
+	for (const auto *i : screens)
+		if (i->command == cmd)
+			return i;
+
+	return nullptr;
+}

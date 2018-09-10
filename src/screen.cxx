@@ -29,16 +29,8 @@
 #include "mpdclient.hxx"
 #include "options.hxx"
 #include "player_command.hxx"
-#include "HelpPage.hxx"
-#include "QueuePage.hxx"
-#include "FileBrowserPage.hxx"
-#include "screen_artist.hxx"
-#include "SearchPage.hxx"
 #include "SongPage.hxx"
-#include "screen_keydef.hxx"
 #include "LyricsPage.hxx"
-#include "OutputsPage.hxx"
-#include "ChatPage.hxx"
 
 #include <mpd/client.h>
 
@@ -254,6 +246,12 @@ ScreenManager::OnCommand(struct mpdclient &c, Command cmd)
 	if (handle_player_command(c, cmd))
 		return;
 
+	const auto *new_page = PageByCommand(cmd);
+	if (new_page != nullptr) {
+		Switch(*new_page, c);
+		return;
+	}
+
 	switch(cmd) {
 	case Command::TOGGLE_FIND_WRAP:
 		options.find_wrap = !options.find_wrap;
@@ -276,52 +274,6 @@ ScreenManager::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::SCREEN_NEXT:
 		NextMode(c, 1);
 		break;
-	case Command::SCREEN_PLAY:
-		Switch(screen_queue, c);
-		break;
-	case Command::SCREEN_FILE:
-		Switch(screen_browse, c);
-		break;
-#ifdef ENABLE_HELP_SCREEN
-	case Command::SCREEN_HELP:
-		Switch(screen_help, c);
-		break;
-#endif
-#ifdef ENABLE_SEARCH_SCREEN
-	case Command::SCREEN_SEARCH:
-		Switch(screen_search, c);
-		break;
-#endif
-#ifdef ENABLE_ARTIST_SCREEN
-	case Command::SCREEN_ARTIST:
-		Switch(screen_artist, c);
-		break;
-#endif
-#ifdef ENABLE_SONG_SCREEN
-	case Command::SCREEN_SONG:
-		Switch(screen_song, c);
-		break;
-#endif
-#ifdef ENABLE_KEYDEF_SCREEN
-	case Command::SCREEN_KEYDEF:
-		Switch(screen_keydef, c);
-		break;
-#endif
-#ifdef ENABLE_LYRICS_SCREEN
-	case Command::SCREEN_LYRICS:
-		Switch(screen_lyrics, c);
-		break;
-#endif
-#ifdef ENABLE_OUTPUTS_SCREEN
-	case Command::SCREEN_OUTPUTS:
-		Switch(screen_outputs, c);
-		break;
-#endif
-#ifdef ENABLE_CHAT_SCREEN
-	case Command::SCREEN_CHAT:
-		Switch(screen_chat, c);
-		break;
-#endif
 	case Command::SCREEN_SWAP:
 		Swap(c, nullptr);
 		break;

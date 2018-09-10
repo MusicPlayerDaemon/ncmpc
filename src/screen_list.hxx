@@ -22,10 +22,15 @@
 
 #include "Compiler.h"
 
+enum class Command : unsigned;
 struct PageMeta;
 
 gcc_pure
 const PageMeta *
 screen_lookup_name(const char *name);
+
+gcc_const
+const PageMeta *
+PageByCommand(Command cmd);
 
 #endif

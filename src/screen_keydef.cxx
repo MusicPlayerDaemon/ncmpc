@@ -602,5 +602,6 @@ KeyDefPage::OnCommand(struct mpdclient &c, Command cmd)
 
 const PageMeta screen_keydef = {
 	"keydef",
+	Command::SCREEN_KEYDEF,
 	keydef_init,
 };

@@ -309,5 +309,6 @@ HelpPage::OnCommand(struct mpdclient &c, Command cmd)
 
 const PageMeta screen_help = {
 	"help",
+	Command::SCREEN_HELP,
 	help_init,
 };

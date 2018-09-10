@@ -671,5 +671,6 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 
 const PageMeta screen_queue = {
 	"playlist",
+	Command::SCREEN_PLAY,
 	screen_queue_init,
 };

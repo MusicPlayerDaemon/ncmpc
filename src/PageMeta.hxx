@@ -24,11 +24,18 @@
 #include "ncmpc_curses.h"
 #include "Size.hxx"
 
+enum class Command : unsigned;
 class Page;
 class ScreenManager;
 
 struct PageMeta {
 	const char *name;
+
+	/**
+	 * The command which switches to this page.
+	 */
+	Command command;
+
 	Page *(*init)(ScreenManager &screen, WINDOW *w, Size size);
 };
 
