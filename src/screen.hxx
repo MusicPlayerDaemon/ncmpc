@@ -115,6 +115,10 @@ public:
 		return {0, (int)title_bar.GetHeight()};
 	}
 
+	const PageMeta &GetCurrentPageMeta() const {
+		return *current_page->first;
+	}
+
 	PageMap::iterator MakePage(const PageMeta &sf);
 
 	void OnResize();
