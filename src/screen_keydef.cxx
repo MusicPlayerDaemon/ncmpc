@@ -45,7 +45,8 @@
 class CommandKeysPage final : public ListPage, ListText {
 	ScreenManager &screen;
 
-	KeyBindings *bindings;
+	const KeyBindings *bindings;
+	KeyBinding *binding;
 
 	/**
 	 * The command being edited, represented by a array subscript
@@ -62,6 +63,7 @@ public:
 
 	void SetCommand(KeyBindings *_bindings, unsigned _cmd) {
 		bindings = _bindings;
+		binding = &_bindings->key_bindings[_cmd];
 		subcmd = _cmd;
 		lw.Reset();
 		check_subcmd_length();
@@ -136,7 +138,7 @@ private:
 void
 CommandKeysPage::check_subcmd_length()
 {
-	subcmd_n_keys = bindings->key_bindings[subcmd].GetKeyCount();
+	subcmd_n_keys = binding->GetKeyCount();
 
 	lw.SetLength(subcmd_length());
 }
@@ -146,15 +148,15 @@ CommandKeysPage::DeleteKey(int key_index)
 {
 	/* shift the keys to close the gap that appeared */
 	int i = key_index+1;
-	while (i < MAX_COMMAND_KEYS && bindings->key_bindings[subcmd].keys[i])
-		bindings->key_bindings[subcmd].keys[key_index++] = bindings->key_bindings[subcmd].keys[i++];
+	while (i < MAX_COMMAND_KEYS && binding->keys[i])
+		binding->keys[key_index++] = binding->keys[i++];
 
 	/* As key_index now holds the index of the last key slot that contained
 	   a key, we use it to empty this slot, because this key has been copied
 	   to the previous slot in the loop above */
-	bindings->key_bindings[subcmd].keys[key_index] = 0;
+	binding->keys[key_index] = 0;
 
-	bindings->key_bindings[subcmd].modified = true;
+	binding->modified = true;
 	check_subcmd_length();
 
 	screen_status_message(_("Deleted"));
@@ -195,8 +197,8 @@ CommandKeysPage::OverwriteKey(int key_index)
 		return;
 	}
 
-	bindings->key_bindings[subcmd].keys[key_index] = key;
-	bindings->key_bindings[subcmd].modified = true;
+	binding->keys[key_index] = key;
+	binding->modified = true;
 
 	screen_status_printf(_("Assigned %s to %s"),
 			     key2str(key),
@@ -233,8 +235,8 @@ CommandKeysPage::GetListItemText(char *buffer, size_t size,
 
 	snprintf(buffer, size,
 		 "%d. %-20s   (%d) ", idx,
-		 key2str(bindings->key_bindings[subcmd].keys[subcmd_item_to_key_id(idx)]),
-		 bindings->key_bindings[subcmd].keys[subcmd_item_to_key_id(idx)]);
+		 key2str(binding->keys[subcmd_item_to_key_id(idx)]),
+		 binding->keys[subcmd_item_to_key_id(idx)]);
 	return buffer;
 }
 
