@@ -453,7 +453,7 @@ CommandListPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
 
 	snprintf(buffer + get_cmds_max_name_width(),
 		 size - get_cmds_max_name_width(),
-		 " - %s", _(get_command_definitions()[idx].description));
+		 " - %s", gettext(get_command_definitions()[idx].description));
 
 	return buffer;
 }

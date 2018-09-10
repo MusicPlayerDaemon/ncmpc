@@ -35,6 +35,7 @@
 #endif
 
 #else
+#define gettext(x) (x)
 #define  _(x) x
 #define N_(x) x
 #endif

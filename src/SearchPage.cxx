@@ -417,12 +417,12 @@ SearchPage::GetTitle(char *str, size_t size) const
 		snprintf(str, size,
 			 _("Search: Results for %s [%s]"),
 			 pattern.c_str(),
-			 _(mode[options.search_mode].label));
+			 gettext(mode[options.search_mode].label));
 	else
 		snprintf(str, size, _("Search: Press %s for a new search [%s]"),
 			 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH,
 							    false),
-			 _(mode[options.search_mode].label));
+			 gettext(mode[options.search_mode].label));
 
 	return str;
 }
@@ -445,7 +445,7 @@ SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 		if (mode[options.search_mode].label == nullptr)
 			options.search_mode = 0;
 		screen_status_printf(_("Search mode: %s"),
-				     _(mode[options.search_mode].label));
+				     gettext(mode[options.search_mode].label));
 		/* fall through */
 	case Command::SCREEN_UPDATE:
 		Reload(c);
