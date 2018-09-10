@@ -31,11 +31,7 @@
 void
 ScreenManager::PaintTopWindow()
 {
-	const char *title = "";
-#ifndef NCMPC_MINI
-	if (welcome_source_id == 0)
-#endif
-		title = current_page->second->GetTitle(buf, buf_size);
+	const char *title = current_page->second->GetTitle(buf, buf_size);
 	assert(title != nullptr);
 
 	title_bar.Paint(GetCurrentPageMeta(), title);

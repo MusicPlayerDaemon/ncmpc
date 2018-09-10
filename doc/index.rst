@@ -172,9 +172,6 @@ column.
 Display
 ^^^^^^^
 
-:command:`welcome-screen-list = yes|no` - Show a list of the screens
-in the top line on startup.
-
 :command:`wide-cursor = yes|no` - Make the cursor as wide as the
 screen.
 

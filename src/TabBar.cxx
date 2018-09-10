@@ -47,14 +47,22 @@ PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected)
 }
 
 void
-PaintTabBar(WINDOW *w, const PageMeta &current_page_meta)
+PaintTabBar(WINDOW *w, const PageMeta &current_page_meta,
+	    const char *current_page_title)
 {
 	for (unsigned i = 0;; ++i) {
 		const auto *page = GetPageMeta(i);
 		if (page == nullptr)
 			break;
 
-		PaintPageTab(w, page->command, gettext(page->title),
+		const char *title = nullptr;
+		if (page == &current_page_meta)
+			title = current_page_title;
+
+		if (title == nullptr)
+			title = gettext(page->title);
+
+		PaintPageTab(w, page->command, title,
 			     page == &current_page_meta);
 	}
 }

@@ -233,13 +233,6 @@ ScreenManager::Update(struct mpdclient &c)
 void
 ScreenManager::OnCommand(struct mpdclient &c, Command cmd)
 {
-#ifndef NCMPC_MINI
-	if (welcome_source_id != 0) {
-		g_source_remove(welcome_source_id);
-		welcome_source_id = 0;
-	}
-#endif
-
 	if (current_page->second->OnCommand(c, cmd))
 		return;
 

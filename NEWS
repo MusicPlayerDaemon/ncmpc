@@ -3,6 +3,7 @@ ncmpc 0.31 - not yet released
 * fix progressbar when colors are disabled
 * keep current song in xterm title when MPD is paused
 * load configuration from $XDG_CONFIG_HOME/ncmpc/config
+* always show the screen list at the top
 
 ncmpc 0.30 - (2018-04-04)
 * fix crash after pressing ^W in search screen

@@ -29,11 +29,6 @@
 
 #include <stdlib.h>
 
-#ifndef NCMPC_MINI
-/** welcome message time [s] */
-static constexpr std::chrono::seconds SCREEN_WELCOME_TIME(10);
-#endif
-
 /* minimum window size */
 static const unsigned SCREEN_MIN_COLS = 14;
 static const unsigned SCREEN_MIN_ROWS = 5;
@@ -59,11 +54,6 @@ ScreenManager::ScreenManager()
 ScreenManager::~ScreenManager()
 {
 	g_free(buf);
-
-#ifndef NCMPC_MINI
-	if (welcome_source_id != 0)
-		g_source_remove(welcome_source_id);
-#endif
 }
 
 void
@@ -113,29 +103,9 @@ ScreenManager::OnResize()
 	Paint(true);
 }
 
-#ifndef NCMPC_MINI
-inline bool
-ScreenManager::OnWelcomeTimer()
-{
-	welcome_source_id = 0;
-
-	PaintTopWindow();
-	doupdate();
-
-	return false;
-}
-#endif
-
 void
 ScreenManager::Init(struct mpdclient *c)
 {
-#ifndef NCMPC_MINI
-	if (options.welcome_screen_list)
-		welcome_source_id = ScheduleTimeout<ScreenManager,
-						    &ScreenManager::OnWelcomeTimer>(SCREEN_WELCOME_TIME,
-										    *this);
-#endif
-
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* set background attributes */

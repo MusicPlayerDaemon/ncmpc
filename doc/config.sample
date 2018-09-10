@@ -57,8 +57,6 @@
 #seek-time = 1
 
 ############## Display ######################
-## Show a list of the screens in the top line on startup.
-#welcome-screen-list = yes
 
 ## Make the cursor as wide as the screen.
 #wide-cursor = yes

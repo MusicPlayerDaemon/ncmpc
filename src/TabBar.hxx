@@ -26,6 +26,7 @@
 struct PageMeta;
 
 void
-PaintTabBar(WINDOW *w, const PageMeta &current_page_meta);
+PaintTabBar(WINDOW *w, const PageMeta &current_page_meta,
+	    const char *current_page_title);
 
 #endif

@@ -97,14 +97,6 @@ public:
 	std::string findbuf;
 	History find_history;
 
-#ifndef NCMPC_MINI
-	/**
-	 * Non-zero when the welcome message is currently being
-	 * displayed.  The associated timer will disable it.
-	 */
-	unsigned welcome_source_id;
-#endif
-
 	ScreenManager();
 	~ScreenManager();
 
@@ -144,10 +136,6 @@ public:
 
 private:
 	void NextMode(struct mpdclient &c, int offset);
-
-#ifndef NCMPC_MINI
-	bool OnWelcomeTimer();
-#endif
 };
 
 #endif

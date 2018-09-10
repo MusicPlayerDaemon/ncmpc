@@ -81,16 +81,13 @@ TitleBar::Paint(const PageMeta &current_page_meta, const char *title) const
 	wmove(w, 0, 0);
 	wclrtoeol(w);
 
-	if (title[0]) {
-		colors_use(w, COLOR_TITLE_BOLD);
-		mvwaddstr(w, 0, 0, title);
-#ifndef NCMPC_MINI
-	} else {
-		PaintTabBar(w, current_page_meta);
+#ifdef NCMPC_MINI
+	colors_use(w, COLOR_TITLE_BOLD);
+	mvwaddstr(w, 0, 0, title);
+	(void)current_page_meta;
 #else
-		(void)current_page_meta;
+	PaintTabBar(w, current_page_meta, title);
 #endif
-	}
 
 	char buf[32];
 	const char *volume_string;
