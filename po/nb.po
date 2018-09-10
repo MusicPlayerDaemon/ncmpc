@@ -8,33 +8,33 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-19 11:10+0100\n"
-"PO-Revision-Date: 2010-07-03 16:34+0000\n"
-"Last-Translator: Mathias Bøhn Grytemark <Unknown>\n"
-"Language-Team: no <no@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2018-09-10 15:02+0000\n"
+"Last-Translator: Allan NordhÃ¸y <epost@anotheragency.no>\n"
+"Language-Team: Norwegian BokmÃ¥l <https://hosted.weblate.org/projects/ncmpc/"
+"translations/nb/>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.2-dev\n"
 "X-Launchpad-Export-Date: 2010-07-21 05:36+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
 
 #: src/colors.cxx:156
-#, fuzzy
 msgid "Unknown color"
-msgstr "Ukjent kommando"
+msgstr "Ukjent farge"
 
 #: src/colors.cxx:195
-#, fuzzy
 msgid "Unknown color field"
-msgstr "Advarsel: %s er ikke definert.\n"
+msgstr "Ukjent fargefelt"
 
 #: src/colors.cxx:228
 msgid "Terminal lacks support for changing colors"
-msgstr "Terminalen mangler støtte for omdefinering av farger"
+msgstr "Terminalen mangler stÃ¸tte for omdefinering av farger"
 
 #: src/colors.cxx:237
 msgid "Terminal lacks color capabilities"
-msgstr "Terminalen mangler støtte for farger"
+msgstr "Terminalen mangler stÃ¸tte for farger"
 
 #: src/command.cxx:63
 msgid "Key configuration screen"
@@ -46,11 +46,11 @@ msgstr "Avslutt"
 
 #: src/command.cxx:70
 msgid "Move cursor up"
-msgstr "Flytt markør opp"
+msgstr "Flytt markÃ¸r opp"
 
 #: src/command.cxx:72
 msgid "Move cursor down"
-msgstr "Flytt markør ned"
+msgstr "Flytt markÃ¸r ned"
 
 #: src/command.cxx:74
 msgid "Move cursor to the top of screen"
@@ -58,60 +58,60 @@ msgstr "Flytt peker til toppen av skjermen"
 
 #: src/command.cxx:76
 msgid "Move cursor to the middle of screen"
-msgstr ""
+msgstr "Flytt pekeren til midten av skjermen"
 
 #: src/command.cxx:78
 msgid "Move cursor to the bottom of screen"
-msgstr ""
+msgstr "Flytt pekeren til bunnen av skjermen"
 
 #: src/command.cxx:80
 msgid "Move cursor to the top of the list"
-msgstr ""
+msgstr "Flytt pekeren til toppen av listen"
 
 #: src/command.cxx:82
 msgid "Move cursor to the bottom of the list"
-msgstr ""
+msgstr "Flytt pekeren til bunnen av listen"
 
 #: src/command.cxx:84
 msgid "Page up"
-msgstr "Markøren en side opp"
+msgstr "MarkÃ¸ren en side opp"
 
 #: src/command.cxx:86
 msgid "Page down"
-msgstr "Markøren en side ned"
+msgstr "MarkÃ¸ren en side ned"
 
 #: src/command.cxx:88
+#, fuzzy
 msgid "Range selection"
-msgstr ""
+msgstr "OmrÃ¥devalg"
 
 #: src/command.cxx:90
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Rull nedover Ã©n linje"
 
 #: src/command.cxx:92
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Rull oppover Ã©n linje"
 
 #: src/command.cxx:94
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Rull oppover en halv skjerm"
 
 #: src/command.cxx:96
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Rull nedover en halv skjerm"
 
 #: src/command.cxx:98
 msgid "Select currently playing song"
-msgstr ""
+msgstr "Velg sangen som spilles"
 
 #: src/command.cxx:103
 msgid "Help screen"
 msgstr "Hjelp"
 
 #: src/command.cxx:105 src/screen_help.cxx:119
-#, fuzzy
 msgid "Queue screen"
-msgstr "Hjelp"
+msgstr "KÃ¸skjerm"
 
 #: src/command.cxx:107 src/screen_help.cxx:134
 msgid "Browse screen"
@@ -131,7 +131,7 @@ msgstr "Stopp"
 
 #: src/command.cxx:118
 msgid "Crop"
-msgstr ""
+msgstr "BeskjÃ¦r"
 
 #: src/command.cxx:120
 msgid "Next track"
@@ -143,15 +143,15 @@ msgstr "Forrige"
 
 #: src/command.cxx:124
 msgid "Seek forward"
-msgstr "Spol/Søk framover"
+msgstr "Spol/SÃ¸k framover"
 
 #: src/command.cxx:126
 msgid "Seek backward"
-msgstr "Spol/Søk tilbake"
+msgstr "Spol/SÃ¸k tilbake"
 
 #: src/command.cxx:128
 msgid "Increase volume"
-msgstr "Øk volumet"
+msgstr "Ã˜k volumet"
 
 #: src/command.cxx:130
 msgid "Decrease volume"
@@ -167,37 +167,36 @@ msgid "Select all listed items"
 msgstr "Velg alle i listen"
 
 #: src/command.cxx:136
-#, fuzzy
 msgid "Delete song from queue"
-msgstr "Ta bort/slett"
+msgstr "Fjern sang fra kÃ¸"
 
 #: src/command.cxx:138
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Stokk om kÃ¸"
 
 #: src/command.cxx:140
 msgid "Clear queue"
-msgstr ""
+msgstr "TÃ¸m kÃ¸"
 
 #: src/command.cxx:142
 msgid "Toggle repeat mode"
-msgstr "Repeat På/Av"
+msgstr "Repeat PÃ¥/Av"
 
 #: src/command.cxx:144
 msgid "Toggle random mode"
-msgstr "Random På/Av"
+msgstr "Random PÃ¥/Av"
 
 #: src/command.cxx:146
 msgid "Toggle single mode"
-msgstr ""
+msgstr "Veksle enkelt modus"
 
 #: src/command.cxx:148
 msgid "Toggle consume mode"
-msgstr ""
+msgstr "Veksle konsumentmodus"
 
 #: src/command.cxx:150
 msgid "Toggle crossfade mode"
-msgstr "Crossfade På/Av"
+msgstr "Crossfade PÃ¥/Av"
 
 #: src/command.cxx:152
 msgid "Start a music database update"
@@ -205,7 +204,7 @@ msgstr "Oppdater databasen"
 
 #: src/command.cxx:154
 msgid "Save queue"
-msgstr ""
+msgstr "Lagre kÃ¸"
 
 #: src/command.cxx:156
 #, fuzzy
@@ -214,15 +213,15 @@ msgstr "Legg til URL eller fil til spillelisten"
 
 #: src/command.cxx:159
 msgid "Go to root directory"
-msgstr "Gå til rotmappe"
+msgstr "GÃ¥ til rotmappe"
 
 #: src/command.cxx:161
 msgid "Go to parent directory"
-msgstr "Gå ett nivå opp"
+msgstr "GÃ¥ ett nivÃ¥ opp"
 
 #: src/command.cxx:164
 msgid "Locate song in browser"
-msgstr ""
+msgstr "Finn sang i filutforsker"
 
 #: src/command.cxx:168
 msgid "Move item up"
@@ -240,13 +239,13 @@ msgstr "Oppdater skjermbilde"
 #. search
 #: src/command.cxx:179
 msgid "Toggle find mode"
-msgstr "Endre søkeinnstillinger"
+msgstr "Endre sÃ¸keinnstillinger"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
 #: src/command.cxx:183
 msgid "Toggle auto center mode"
-msgstr "Automatisk sentrering på/av"
+msgstr "Automatisk sentrering pÃ¥/av"
 
 #: src/command.cxx:188
 msgid "Next screen"
@@ -258,30 +257,30 @@ msgstr "Forrige skjerm"
 
 #: src/command.cxx:192
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Bytt til nyligste skjerm"
 
 #: src/command.cxx:197
 msgid "Forward find"
-msgstr "Søk fremover"
+msgstr "SÃ¸k fremover"
 
 #: src/command.cxx:199
 msgid "Forward find next"
-msgstr "Søk neste (fremover)"
+msgstr "SÃ¸k neste (fremover)"
 
 #: src/command.cxx:201
 msgid "Backward find"
-msgstr "Søk bakover"
+msgstr "SÃ¸k bakover"
 
 #: src/command.cxx:203
 msgid "Backward find previous"
-msgstr "Søk neste (bakover)"
+msgstr "SÃ¸k neste (bakover)"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
 #: src/command.cxx:208
 msgid "Jump to"
-msgstr "Gå til"
+msgstr "GÃ¥ til"
 
 #: src/command.cxx:214
 msgid "Artist screen"
@@ -289,19 +288,19 @@ msgstr "Artistskjerm"
 
 #: src/command.cxx:218 src/screen_help.cxx:148
 msgid "Search screen"
-msgstr "Database søk"
+msgstr "Database sÃ¸k"
 
 #: src/command.cxx:220
 msgid "Change search mode"
-msgstr "Endre søkemodus"
+msgstr "Endre sÃ¸kemodus"
 
 #: src/command.cxx:224
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "Vis valgt og sang som spilles nÃ¥"
 
 #: src/command.cxx:228 src/screen_help.cxx:160
 msgid "Lyrics screen"
-msgstr ""
+msgstr "Tekstskjerm"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
@@ -315,16 +314,16 @@ msgstr "Oppdater sangtekster"
 
 #: src/command.cxx:238
 msgid "Edit the current item"
-msgstr ""
+msgstr "Rediger gjeldende element"
 
 #: src/command.cxx:243 src/screen_help.cxx:175
+#, fuzzy
 msgid "Outputs screen"
-msgstr ""
+msgstr "Utganger"
 
 #: src/command.cxx:248 src/screen_help.cxx:182
-#, fuzzy
 msgid "Chat screen"
-msgstr "Neste skjerm"
+msgstr "Sludreskjerm"
 
 #: src/command.cxx:290
 msgid "Undefined"
@@ -360,15 +359,15 @@ msgstr "Venstrepil"
 
 #: src/command.cxx:306
 msgid "Right"
-msgstr "Høyrepil"
+msgstr "HÃ¸yrepil"
 
 #: src/command.cxx:308
 msgid "Home"
-msgstr ""
+msgstr "Hjem"
 
 #: src/command.cxx:310
 msgid "End"
-msgstr ""
+msgstr "Slutt"
 
 #: src/command.cxx:312
 msgid "PageDown"
@@ -397,17 +396,17 @@ msgstr "Ins"
 #: src/command.cxx:326
 #, c-format
 msgid "F%d"
-msgstr ""
+msgstr "F%d"
 
 #: src/command.cxx:330
 #, c-format
 msgid "Ctrl-%c"
-msgstr ""
+msgstr "Ctrl-%c"
 
 #: src/command.cxx:332
 #, c-format
 msgid "Alt-%c"
-msgstr ""
+msgstr "Alt-%c"
 
 #: src/command.cxx:477 src/command.cxx:483
 #, c-format
@@ -421,7 +420,7 @@ msgstr "Feil"
 
 #: src/conf.cxx:135
 msgid "Word expected"
-msgstr ""
+msgstr "Ord forventet"
 
 #: src/conf.cxx:152 src/conf.cxx:161
 msgid "Malformed hotkey definition"
@@ -476,11 +475,11 @@ msgstr "Ukjent skjermnavn"
 
 #: src/conf.cxx:384
 msgid "Invalid search mode"
-msgstr ""
+msgstr "Ugyldig sÃ¸kemodus"
 
 #: src/conf.cxx:407
 msgid "Unknown search mode"
-msgstr ""
+msgstr "Ukjent sÃ¸kemodus"
 
 #: src/conf.cxx:597
 msgid "Unknown configuration parameter"
@@ -496,16 +495,16 @@ msgstr "n"
 
 #: src/list_window.cxx:554
 msgid "Range selection disabled"
-msgstr ""
+msgstr "OmrÃ¥devalg avskrudd"
 
 #: src/list_window.cxx:559
 msgid "Range selection enabled"
-msgstr ""
+msgstr "OmrÃ¥devalg pÃ¥skrudd"
 
 #: src/Main.cxx:161
 #, c-format
 msgid "Connecting to %s...  [Press %s to abort]"
-msgstr "Kobler til %s... [Trykk %s for å avslutte]"
+msgstr "Kobler til %s... [Trykk %s for Ã¥ avslutte]"
 
 #: src/Main.cxx:182
 #, fuzzy, c-format
@@ -515,7 +514,7 @@ msgstr "MPD versjon %d.%d.%d er for gammel - oppgrader til versjon %s"
 #: src/Main.cxx:317
 #, c-format
 msgid "press %s for the key editor"
-msgstr "trykk %s for å rette"
+msgstr "trykk %s for Ã¥ rette"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -525,27 +524,27 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Espen Jones https://launchpad.net/~epqr\n"
 "  Jon Bergli Heier https://launchpad.net/~snakebite-jvnv\n"
-"  Mathias Bøhn Grytemark https://launchpad.net/~mboehn\n"
+"  Mathias BÃ¸hn Grytemark https://launchpad.net/~mboehn\n"
 "  Ole R. Thorsen https://launchpad.net/~ole-rth\n"
 "  Niels Anker https://launchpad.net/~nanker"
 
 #: src/player_command.cxx:174 src/screen_queue.cxx:623
 msgid "Shuffled queue"
-msgstr ""
+msgstr "Stokket om kÃ¸"
 
 #: src/player_command.cxx:184
 msgid "Cleared queue"
-msgstr ""
+msgstr "KÃ¸ tÃ¸mt"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:109
 msgid "Save queue as"
-msgstr ""
+msgstr "Lagre kÃ¸ som"
 
 #: src/save_playlist.cxx:140
-#, fuzzy, c-format
+#, c-format
 msgid "Replace %s?"
-msgstr "Erstatt '%s' [%s/%s] ? "
+msgstr "Erstatt %s?"
 
 #. translators: a dialog was aborted by the user
 #: src/save_playlist.cxx:147 src/screen_file.cxx:214 src/screen_keydef.cxx:271
@@ -561,7 +560,7 @@ msgstr "Lagret %s"
 
 #: src/screen.cxx:154
 msgid "Repeat mode is on"
-msgstr "Repeter er på"
+msgstr "Repeter er pÃ¥"
 
 #: src/screen.cxx:155
 msgid "Repeat mode is off"
@@ -569,11 +568,11 @@ msgstr "Repeter er av"
 
 #: src/screen.cxx:159
 msgid "Random mode is on"
-msgstr ""
+msgstr "Tilfeldig modus er pÃ¥"
 
 #: src/screen.cxx:160
 msgid "Random mode is off"
-msgstr ""
+msgstr "Tilfeldig modus er av"
 
 #. "single" mode means
 #. that MPD will
@@ -581,12 +580,13 @@ msgstr ""
 #. after playing one
 #. single song
 #: src/screen.cxx:169
+#, fuzzy
 msgid "Single mode is on"
-msgstr ""
+msgstr "Enkelt modus er pÃ¥slÃ¥tt"
 
 #: src/screen.cxx:170
 msgid "Single mode is off"
-msgstr ""
+msgstr "Enkelt modus er avslÃ¥tt"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -594,11 +594,11 @@ msgstr ""
 #. finished playing
 #: src/screen.cxx:178
 msgid "Consume mode is on"
-msgstr ""
+msgstr "Konsumentmodus er pÃ¥"
 
 #: src/screen.cxx:179
 msgid "Consume mode is off"
-msgstr ""
+msgstr "Konsumentmodus er av"
 
 #: src/screen.cxx:182
 #, c-format
@@ -611,15 +611,15 @@ msgstr "Databasen er oppdatert"
 
 #: src/screen.cxx:226
 msgid "Find mode: Wrapped"
-msgstr "Søkt rundt (starter på ny)"
+msgstr "SÃ¸kt rundt (starter pÃ¥ ny)"
 
 #: src/screen.cxx:227
 msgid "Find mode: Normal"
-msgstr "Søk normalt (til slutt/begynnelse)"
+msgstr "SÃ¸k normalt (til slutt/begynnelse)"
 
 #: src/screen.cxx:232
 msgid "Auto center mode: On"
-msgstr "Automatisk sentrering er på"
+msgstr "Automatisk sentrering er pÃ¥"
 
 #: src/screen.cxx:233
 msgid "Auto center mode: Off"
@@ -651,17 +651,17 @@ msgstr "Album: %s - %s"
 #: src/screen_artist.cxx:405
 #, fuzzy, c-format
 msgid "Tracks of no album of artist: %s"
-msgstr "Albumer fra artist: %s"
+msgstr "AlbumlÃ¸se sanger fra artist: %s"
 
 #: src/screen_artist.cxx:450
-#, fuzzy, c-format
+#, c-format
 msgid "Adding album %s..."
-msgstr "Henter spilleliste %s..."
+msgstr "Legger til album %sâ€¦"
 
 #: src/screen_artist.cxx:452
-#, fuzzy, c-format
+#, c-format
 msgid "Adding %s..."
-msgstr "laster..."
+msgstr "Legger til %sâ€¦"
 
 #: src/screen_browser.cxx:122
 #, c-format
@@ -670,28 +670,30 @@ msgstr "Henter spilleliste %s..."
 
 #: src/screen_browser.cxx:163 src/screen_browser.cxx:255
 #: src/screen_browser.cxx:279
-#, fuzzy, c-format
+#, c-format
 msgid "Adding '%s' to queue"
-msgstr "Legger '%s' til spillelisten"
+msgstr "Legger til \"%s\" i spillelisten"
 
 #: src/screen_chat.cxx:59
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "connected to MPD %u.%u.%u (you need at least \n"
 "version 0.17.0 to use the chat feature)"
 msgstr ""
+"tilkoblet til MPD %u.%u.%u (du trenger minst \n"
+"versjon 0.17.0 for Ã¥ bruke sludrefunksjonen)"
 
 #: src/screen_chat.cxx:177
 msgid "Your message"
-msgstr ""
+msgstr "Din melding"
 
 #: src/screen_chat.cxx:186
 msgid "Message could not be sent"
-msgstr ""
+msgstr "Meldingen kunne ikke sendes"
 
 #: src/screen_chat.cxx:199 src/title_bar.cxx:91
 msgid "Chat"
-msgstr ""
+msgstr "Sludre"
 
 #: src/screen_client.cxx:41
 msgid "Database update running..."
@@ -714,9 +716,9 @@ msgid "Deleting this item is not possible"
 msgstr "Kan ikke slette dette elementet"
 
 #: src/screen_file.cxx:207
-#, fuzzy, c-format
+#, c-format
 msgid "Delete playlist %s?"
-msgstr "Slett spilleliste"
+msgstr "Slett spillelisten %s?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
@@ -731,11 +733,11 @@ msgstr "Filer"
 
 #: src/screen_find.cxx:29
 msgid "Find"
-msgstr "Søk"
+msgstr "SÃ¸k"
 
 #: src/screen_find.cxx:30
 msgid "Find backward"
-msgstr "Søk (bakover)"
+msgstr "SÃ¸k (bakover)"
 
 #: src/screen_find.cxx:31
 msgid "Jump"
@@ -785,7 +787,7 @@ msgstr "Slett spilleliste"
 
 #: src/screen_help.cxx:150 src/screen_search.cxx:355 src/title_bar.cxx:82
 msgid "Search"
-msgstr "Søk"
+msgstr "SÃ¸k"
 
 #: src/screen_help.cxx:151
 msgid "Select and play"
@@ -793,53 +795,53 @@ msgstr "Legg til spillelisten og spill"
 
 #: src/screen_help.cxx:162
 msgid "View Lyrics"
-msgstr ""
+msgstr "Vis tekster"
 
 #: src/screen_help.cxx:163
 msgid "(Re)load lyrics"
-msgstr ""
+msgstr "(Gjen)innlast tekster"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
 #: src/screen_help.cxx:166
 msgid "Interrupt retrieval"
-msgstr ""
+msgstr "Avbryt henting"
 
 #: src/screen_help.cxx:167
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "Last ned tekster for sangens som spilles nÃ¥"
 
 #: src/screen_help.cxx:168
 msgid "Add or edit lyrics"
-msgstr ""
+msgstr "Legg til eller rediger tekster"
 
 #: src/screen_help.cxx:169
 msgid "Save lyrics"
-msgstr ""
+msgstr "Lagre tekster"
 
 #: src/screen_help.cxx:170
 msgid "Delete saved lyrics"
-msgstr ""
+msgstr "Slett lagrede tekster"
 
 #: src/screen_help.cxx:177
 msgid "Enable/disable output"
-msgstr ""
+msgstr "Skru pÃ¥/av utgang"
 
 #: src/screen_help.cxx:184
 msgid "Write a message"
-msgstr ""
+msgstr "Skriv en melding"
 
 #: src/screen_help.cxx:189
 msgid "Keydef screen"
-msgstr ""
+msgstr "Tastedefinisjonsskjerm"
 
 #: src/screen_help.cxx:191
 msgid "Edit keydefs for selected command"
-msgstr ""
+msgstr "Rediger tastedefinisjoner for valgt kommando"
 
 #: src/screen_help.cxx:192
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "Fjern valgt tastedefinisjon"
 
 #: src/screen_help.cxx:193
 #, fuzzy
@@ -848,11 +850,11 @@ msgstr "Legg til ny tast"
 
 #: src/screen_help.cxx:194
 msgid "Go up a level"
-msgstr ""
+msgstr "GÃ¥ opp et nivÃ¥"
 
 #: src/screen_help.cxx:195
 msgid "Apply and save changes"
-msgstr ""
+msgstr "Legg til og lagre endringer"
 
 #: src/screen_help.cxx:241 src/title_bar.cxx:74
 msgid "Help"
@@ -873,7 +875,7 @@ msgstr "Tastatursnarveier uforandret!"
 #: src/screen_keydef.cxx:153
 #, c-format
 msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr ""
+msgstr "Feil: Kunne ikke opprette mappen ~/.ncmpc - %s"
 
 #: src/screen_keydef.cxx:164 src/screen_keydef.cxx:173
 #, c-format
@@ -895,8 +897,9 @@ msgid "Enter new key for %s: "
 msgstr "Ny tast for %s: "
 
 #: src/screen_keydef.cxx:276
+#, fuzzy
 msgid "Ctrl-Space can't be used"
-msgstr ""
+msgstr "Ctrl+mellomrom kan ikke brukes"
 
 #: src/screen_keydef.cxx:282
 #, c-format
@@ -922,7 +925,7 @@ msgstr "Legg til ny tast"
 
 #: src/screen_keydef.cxx:410
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "OBS! Du glemte vel ikke å legge til de nye endringene?"
+msgstr "OBS! Du glemte vel ikke Ã¥ legge til de nye endringene?"
 
 #: src/screen_keydef.cxx:417
 msgid "Edit key bindings"
@@ -941,7 +944,7 @@ msgstr "Ingen sangtekst"
 #: src/screen_lyrics.cxx:226
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
-msgstr ""
+msgstr "Sangtekst-tidsavbrudd inntraff etter %d sekunder"
 
 #: src/screen_lyrics.cxx:327 src/screen_lyrics.cxx:336
 #: src/screen_lyrics.cxx:346 src/title_bar.cxx:85
@@ -956,25 +959,26 @@ msgstr "laster..."
 
 #: src/screen_lyrics.cxx:361
 msgid "Editor not configured"
-msgstr ""
+msgstr "Tekstbehandler ikke satt opp"
 
 #: src/screen_lyrics.cxx:367
 msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr ""
+"Ã˜nsker du virkelig Ã¥ starte en tekstbehandler og redigere disse tekstene?"
 
 #: src/screen_lyrics.cxx:385 src/screen_lyrics.cxx:409
 msgid "Can't start editor"
-msgstr ""
+msgstr "Kan ikke starte tekstbehandler"
 
 #: src/screen_lyrics.cxx:411
 #, c-format
 msgid "Editor exited unexpectedly (%d)"
-msgstr ""
+msgstr "Tekstbehandleren takket for seg uventet (%d)"
 
 #: src/screen_lyrics.cxx:414
 #, c-format
 msgid "Editor exited unexpectedly (signal %d)"
-msgstr ""
+msgstr "Tekstbehandler takket for seg uventet (signal %d)"
 
 #. lyrics for the song were saved on hard disk
 #: src/screen_lyrics.cxx:436
@@ -983,25 +987,25 @@ msgstr "Sangteksten er lagret"
 
 #: src/screen_lyrics.cxx:443
 msgid "Lyrics deleted"
-msgstr ""
+msgstr "Tekster slettet"
 
 #: src/screen_lyrics.cxx:446
 msgid "No saved lyrics"
-msgstr ""
+msgstr "Ingen lagrede tekster"
 
 #: src/screen_outputs.cxx:60
 #, c-format
 msgid "Output '%s' enabled"
-msgstr ""
+msgstr "Utgang \"%s\" pÃ¥slÃ¥tt"
 
 #: src/screen_outputs.cxx:71
 #, c-format
 msgid "Output '%s' disabled"
-msgstr ""
+msgstr "Utgang \"%s\" avslÃ¥tt"
 
 #: src/screen_outputs.cxx:162 src/title_bar.cxx:88
 msgid "Outputs"
-msgstr ""
+msgstr "Utganger"
 
 #. get path
 #: src/screen_queue.cxx:274
@@ -1010,12 +1014,12 @@ msgstr "Legg til"
 
 #: src/screen_queue.cxx:382 src/title_bar.cxx:76
 msgid "Queue"
-msgstr ""
+msgstr "KÃ¸"
 
 #: src/screen_queue.cxx:384
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "KÃ¸ pÃ¥ %s"
 
 #: src/screen_search.cxx:48
 msgid "artist"
@@ -1051,7 +1055,7 @@ msgstr "komponist"
 
 #: src/screen_search.cxx:56
 msgid "performer"
-msgstr "utøver"
+msgstr "utÃ¸ver"
 
 #: src/screen_search.cxx:57
 msgid "comment"
@@ -1084,12 +1088,12 @@ msgstr "Artist + tittel"
 #: src/screen_search.cxx:244
 #, c-format
 msgid "No argument for search tag %s"
-msgstr ""
+msgstr "Inget argument for sÃ¸keetikett %s"
 
 #: src/screen_search.cxx:253
 #, c-format
 msgid "Bad search tag %s"
-msgstr ""
+msgstr "Feilaktig sÃ¸keetikett %s"
 
 #. if( pattern==nullptr )
 #. search_new(screen, c);
@@ -1097,27 +1101,27 @@ msgstr ""
 #: src/screen_search.cxx:400
 #, c-format
 msgid "Press %s for a new search"
-msgstr "Trykk på %s for ett nytt søk"
+msgstr "Trykk pÃ¥ %s for ett nytt sÃ¸k"
 
 #: src/screen_search.cxx:427
 #, c-format
 msgid "Search: %s"
-msgstr "Søk: %s"
+msgstr "SÃ¸k: %s"
 
 #: src/screen_search.cxx:430
 #, c-format
 msgid "Search: Results for %s [%s]"
-msgstr "Søk: Resultater %s [%s]"
+msgstr "SÃ¸k: Resultater %s [%s]"
 
 #: src/screen_search.cxx:434
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
-msgstr "Trykk på %s for ett nytt søk [%s]"
+msgstr "Trykk pÃ¥ %s for ett nytt sÃ¸k [%s]"
 
 #: src/screen_search.cxx:458
 #, c-format
 msgid "Search mode: %s"
-msgstr "Søk etter: %s"
+msgstr "SÃ¸k etter: %s"
 
 #: src/screen_song.cxx:54
 msgid "Length"
@@ -1125,7 +1129,7 @@ msgstr "Lengde"
 
 #: src/screen_song.cxx:55
 msgid "Position"
-msgstr ""
+msgstr "Posisjon"
 
 #: src/screen_song.cxx:56
 msgid "Composer"
@@ -1157,7 +1161,7 @@ msgstr "Kommentar"
 
 #: src/screen_song.cxx:63
 msgid "Path"
-msgstr ""
+msgstr "Sti"
 
 #: src/screen_song.cxx:64
 msgid "Bitrate"
@@ -1165,7 +1169,7 @@ msgstr "Bitrate"
 
 #: src/screen_song.cxx:65
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: src/screen_song.cxx:82
 msgid "Number of artists"
@@ -1197,7 +1201,7 @@ msgstr "DB spilletid"
 
 #: src/screen_song.cxx:173
 msgid "Song viewer"
-msgstr ""
+msgstr "Sangframviser"
 
 #: src/screen_song.cxx:337
 msgid "MPD statistics"
@@ -1205,11 +1209,11 @@ msgstr "MPD statestikk"
 
 #: src/screen_song.cxx:427
 msgid "Selected song"
-msgstr ""
+msgstr "Valg sang"
 
 #: src/screen_song.cxx:437
 msgid "Currently playing song"
-msgstr ""
+msgstr "Sang som spilles nÃ¥"
 
 #: src/screen_song.cxx:442
 #, c-format
@@ -1266,16 +1270,16 @@ msgstr "Volum: %d%%"
 #~ msgstr "Spilleliste"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Spilleliste på %s"
+#~ msgstr "Spilleliste pÃ¥ %s"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Spilleliste"
 
 #~ msgid "Shuffle playlist"
-#~ msgstr "Tilfeldiggjør spilleliste"
+#~ msgstr "TilfeldiggjÃ¸r spilleliste"
 
 #~ msgid "Clear playlist"
-#~ msgstr "Tøm spillelisten"
+#~ msgstr "TÃ¸m spillelisten"
 
 #~ msgid "Save playlist"
 #~ msgstr "Lagre spillelisten"
