@@ -22,8 +22,8 @@
 #include "strfsong.hxx"
 #include "time_format.hxx"
 #include "hscroll.hxx"
-#include "charset.hxx"
 #include "config.h"
+#include "util/StringUTF8.hxx"
 
 #include <mpd/client.h>
 

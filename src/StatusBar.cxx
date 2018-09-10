@@ -22,10 +22,10 @@
 #include "options.hxx"
 #include "colors.hxx"
 #include "i18n.h"
-#include "charset.hxx"
 #include "strfsong.hxx"
 #include "player_command.hxx"
 #include "time_format.hxx"
+#include "util/StringUTF8.hxx"
 
 #include <mpd/client.h>
 

@@ -33,6 +33,7 @@
 #include "mpdclient.hxx"
 #include "util/Macros.hxx"
 #include "util/StringStrip.hxx"
+#include "util/StringUTF8.hxx"
 
 #include <mpd/client.h>
 

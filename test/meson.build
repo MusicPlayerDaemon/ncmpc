@@ -4,6 +4,7 @@ executable(
   objects: ncmpc.extract_objects(
     'src/BasicMarquee.cxx',
     'src/charset.cxx',
+    'src/util/StringUTF8.cxx',
   ),
   include_directories: inc,
   dependencies: [

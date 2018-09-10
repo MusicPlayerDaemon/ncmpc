@@ -33,23 +33,7 @@ charset_init();
  */
 gcc_pure
 unsigned
-utf8_width(const char *str);
-
-/**
- * Returns the number of terminal cells occupied by this string.
- */
-gcc_pure
-unsigned
 locale_width(const char *p);
-
-/**
- * Limits the width of the specified string.  Cuts it off before the
- * specified width is exceeded.
- *
- * @return the resulting width of the string
- */
-unsigned
-utf8_cut_width(char *p, unsigned max_width);
 
 char *utf8_to_locale(const char *str);
 char *locale_to_utf8(const char *str);

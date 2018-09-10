@@ -363,6 +363,7 @@ ncmpc = executable('ncmpc',
   'src/strfsong.cxx',
   'src/time_format.cxx',
   'src/util/StringStrip.cxx',
+  'src/util/StringUTF8.cxx',
   sources,
   include_directories: inc,
   dependencies: [

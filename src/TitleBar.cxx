@@ -22,7 +22,7 @@
 #include "colors.hxx"
 #include "options.hxx"
 #include "i18n.h"
-#include "charset.hxx"
+#include "util/StringUTF8.hxx"
 
 #include "config.h"
 

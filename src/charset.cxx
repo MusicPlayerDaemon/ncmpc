@@ -19,6 +19,7 @@
 
 #include "charset.hxx"
 #include "util/ScopeExit.hxx"
+#include "util/StringUTF8.hxx"
 
 #include <assert.h>
 #include <string.h>
@@ -36,47 +37,6 @@ charset_init()
 }
 #endif
 
-#ifdef HAVE_CURSES_ENHANCED
-static inline unsigned
-unicode_char_width(gunichar ch)
-{
-	if (g_unichar_iszerowidth(ch))
-		return 0;
-
-	if (g_unichar_iswide(ch))
-		return 2;
-
-	return 1;
-}
-#endif /* HAVE_CURSES_ENHANCED */
-
-unsigned
-utf8_width(const char *str)
-{
-	assert(str != nullptr);
-
-#if defined(ENABLE_MULTIBYTE) && !defined(HAVE_CURSES_ENHANCED)
-	return g_utf8_strlen(str, -1);
-#else
-#ifdef HAVE_CURSES_ENHANCED
-	if (g_utf8_validate(str, -1, nullptr)) {
-		size_t len = g_utf8_strlen(str, -1);
-		unsigned width = 0;
-		gunichar c;
-
-		while (len--) {
-			c = g_utf8_get_char(str);
-			width += unicode_char_width(c);
-			str += g_unichar_to_utf8(c, nullptr);
-		}
-
-		return width;
-	} else
-#endif
-		return strlen(str);
-#endif
-}
-
 unsigned
 locale_width(const char *p)
 {
@@ -92,70 +52,6 @@ locale_width(const char *p)
 	return utf8_width(utf8);
 #else
 	return strlen(p);
-#endif
-}
-
-gcc_unused
-static unsigned
-ascii_cut_width(char *p, unsigned max_width)
-{
-	size_t length = strlen(p);
-	if (length <= (size_t)max_width)
-		return (unsigned)length;
-
-	p[max_width] = 0;
-	return max_width;
-}
-
-gcc_unused
-static unsigned
-narrow_cut_width(char *p, unsigned max_width)
-{
-	size_t length = g_utf8_strlen(p, -1);
-	if (length <= (size_t)max_width)
-		return (unsigned)length;
-
-	*g_utf8_offset_to_pointer(p, max_width) = 0;
-	return max_width;
-}
-
-gcc_unused
-static unsigned
-wide_cut_width(char *p, unsigned max_width)
-{
-	size_t length = g_utf8_strlen(p, -1);
-	unsigned width = 0, prev_width;
-
-	while (length-- > 0) {
-		gunichar c = g_utf8_get_char(p);
-		prev_width = width;
-		width += g_unichar_iswide(c) ? 2 : 1;
-		if (width > max_width) {
-			/* too wide - cut the rest off */
-			*p = 0;
-			return prev_width;
-		}
-
-		p += g_unichar_to_utf8(c, nullptr);
-	}
-
-	return width;
-}
-
-unsigned
-utf8_cut_width(char *p, unsigned max_width)
-{
-	assert(p != nullptr);
-
-#ifdef HAVE_CURSES_ENHANCED
-	if (!g_utf8_validate(p, -1, nullptr))
-		return ascii_cut_width(p, max_width);
-
-	return wide_cut_width(p, max_width);
-#elif defined(ENABLE_MULTIBYTE) && !defined(HAVE_CURSES_ENHANCED)
-	return narrow_cut_width(p, max_width);
-#else
-	return ascii_cut_width(p, max_width);
 #endif
 }
 

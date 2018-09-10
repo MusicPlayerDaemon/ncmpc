@@ -23,6 +23,7 @@
 #include "screen_utils.hxx"
 #include "Point.hxx"
 #include "config.h"
+#include "util/StringUTF8.hxx"
 
 #include <assert.h>
 #include <stdlib.h>

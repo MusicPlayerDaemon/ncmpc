@@ -20,6 +20,7 @@
 #include "BasicMarquee.hxx"
 #include "charset.hxx"
 #include "util/ScopeExit.hxx"
+#include "util/StringUTF8.hxx"
 
 #include <glib.h>
 

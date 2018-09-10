@@ -26,10 +26,10 @@
 #include "paint.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
-#include "charset.hxx"
 #include "config.h"
 #include "i18n.h"
 #include "util/Macros.hxx"
+#include "util/StringUTF8.hxx"
 
 #include <assert.h>
 
