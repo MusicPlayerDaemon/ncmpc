@@ -309,19 +309,6 @@ timer_check_key_bindings(gcc_unused gpointer data)
 		return false;
 	}
 
-#ifdef ENABLE_KEYDEF_SCREEN
-	g_strchomp(buf);
-	g_strlcat(buf, " (", sizeof(buf));
-	/* to translators: a key was bound twice in the key editor,
-	   and this is a hint for the user what to press to correct
-	   that */
-	char comment[64];
-	snprintf(comment, sizeof(comment), _("press %s for the key editor"),
-		 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_KEYDEF, false));
-	g_strlcat(buf, comment, sizeof(buf));
-	g_strlcat(buf, ")", sizeof(buf));
-#endif
-
 	screen_status_message(buf);
 
 	doupdate();
