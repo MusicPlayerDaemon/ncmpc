@@ -82,7 +82,7 @@ screen_get_yesno(const char *_prompt, bool def)
 
 	char prompt[256];
 	snprintf(prompt, sizeof(prompt),
-		 _("%s [%s/%s] "), _prompt,
+		 "%s [%s/%s] ", _prompt,
 		 YES_TRANSLATION, NO_TRANSLATION);
 	int key = tolower(screen_getch(prompt));
 	if (key == YES_TRANSLATION[0])
