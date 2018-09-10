@@ -164,9 +164,8 @@ timer_reconnect(gcc_unused gpointer data)
 
 	reconnect_source_id = 0;
 
-	screen_status_printf(_("Connecting to %s...  [Press %s to abort]"),
-			     mpd->GetSettingsName().c_str(),
-			     GetGlobalKeyBindings().GetKeyNames(Command::QUIT, false));
+	screen_status_printf(_("Connecting to %s"),
+			     mpd->GetSettingsName().c_str());
 	doupdate();
 
 	mpd->Connect();
