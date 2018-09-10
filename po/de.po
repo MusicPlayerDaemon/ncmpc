@@ -9,24 +9,25 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-10 16:59+0200\n"
-"PO-Revision-Date: 2011-06-21 08:19+0000\n"
-"Last-Translator: Christoph Mende <angelos@gentoo.org>\n"
-"Language-Team: de <de@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2018-09-10 18:18+0000\n"
+"Last-Translator: Max Kellermann <max.kellermann@gmail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/ncmpc/"
+"translations/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.2-dev\n"
 "X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
-"X-Generator: Launchpad (build 13265)\n"
 
 #: src/AlbumListPage.cxx:54 src/AlbumListPage.cxx:126
 msgid "All tracks"
 msgstr "Alle Stücke"
 
 #: src/AlbumListPage.cxx:144
-#, fuzzy
 msgid "Albums"
-msgstr "Album"
+msgstr "Alben"
 
 #: src/AlbumListPage.cxx:146
 #, c-format
@@ -54,21 +55,19 @@ msgstr ""
 
 #: src/ChatPage.cxx:160
 msgid "Your message"
-msgstr ""
+msgstr "Deine Nachricht"
 
 #: src/ChatPage.cxx:169
 msgid "Message could not be sent"
-msgstr ""
+msgstr "Nachricht konnte nicht gesendet werden"
 
 #: src/colors.cxx:169
-#, fuzzy
 msgid "Unknown color"
-msgstr "Unbekannter Befehl"
+msgstr "Unbekannte Farbe"
 
 #: src/colors.cxx:201
-#, fuzzy
 msgid "Unknown color field"
-msgstr "Warnung: Unbekanntes Farbfeld - %s\n"
+msgstr "Unbekanntes Farbfeld"
 
 #: src/colors.cxx:227
 msgid "Terminal lacks support for changing colors"
@@ -375,7 +374,7 @@ msgstr "Fehler"
 
 #: src/conf.cxx:127
 msgid "Word expected"
-msgstr ""
+msgstr "Wort erwartet"
 
 #: src/conf.cxx:144 src/conf.cxx:153
 msgid "Malformed hotkey definition"
@@ -556,7 +555,7 @@ msgstr "Ausgabegerät aktivieren/deaktivieren"
 
 #: src/HelpPage.cxx:188
 msgid "Write a message"
-msgstr ""
+msgstr "Nachricht schreiben"
 
 #: src/HelpPage.cxx:193
 msgid "Keydef screen"
@@ -666,12 +665,12 @@ msgstr "Einfg"
 #: src/KeyName.cxx:71
 #, c-format
 msgid "Ctrl-%c"
-msgstr ""
+msgstr "Strg-%c"
 
 #: src/KeyName.cxx:73
 #, c-format
 msgid "Alt-%c"
-msgstr ""
+msgstr "Alt-%c"
 
 #: src/ListWindow.cxx:492
 msgid "Range selection disabled"
@@ -689,7 +688,7 @@ msgstr "Kein Liedtext verfügbar"
 #: src/LyricsPage.cxx:254
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
-msgstr ""
+msgstr "Liedtext-Timeout trat nach %d Sekunden auf"
 
 #: src/LyricsPage.cxx:337 src/LyricsPage.cxx:345 src/LyricsPage.cxx:354
 #: src/LyricsPage.cxx:490
@@ -704,7 +703,7 @@ msgstr "lade..."
 
 #: src/LyricsPage.cxx:361
 msgid "Editor not configured"
-msgstr ""
+msgstr "Editor nicht konfiguriert"
 
 #: src/LyricsPage.cxx:368
 msgid "Do you really want to start an editor and edit these lyrics?"
@@ -712,11 +711,11 @@ msgstr ""
 
 #: src/LyricsPage.cxx:386 src/LyricsPage.cxx:410
 msgid "Can't start editor"
-msgstr ""
+msgstr "Editor kann nicht gestartet werden"
 
 #: src/LyricsPage.cxx:413 src/LyricsPage.cxx:417
 msgid "Editor exited unexpectedly"
-msgstr ""
+msgstr "Editor unerwartet beendet"
 
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:439
@@ -991,7 +990,7 @@ msgstr "Tipp: Hast du vergessen, deine Änderungen 'Anzuwenden'?"
 
 #: src/screen_keydef.cxx:605
 msgid "Keys"
-msgstr ""
+msgstr "Tasten"
 
 #: src/screen_utils.cxx:125
 msgid "Password"
@@ -1137,7 +1136,7 @@ msgstr "Bitrate"
 
 #: src/SongPage.cxx:77
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: src/SongPage.cxx:94
 msgid "Number of artists"
@@ -1190,7 +1189,7 @@ msgstr "%d kbps"
 
 #: src/SongPage.cxx:553
 msgid "Song"
-msgstr ""
+msgstr "Lied"
 
 #: src/StatusBar.cxx:104
 msgid "Playing:"
@@ -1202,7 +1201,7 @@ msgstr "[Pause]"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr ""
+msgstr "Jahr"
 
 #: src/time_format.cxx:46
 msgid "years"
