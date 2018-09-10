@@ -25,6 +25,10 @@
 enum class Command : unsigned;
 struct PageMeta;
 
+gcc_const
+const PageMeta *
+GetPageMeta(unsigned i);
+
 gcc_pure
 const PageMeta *
 screen_lookup_name(const char *name);

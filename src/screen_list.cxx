@@ -30,6 +30,7 @@
 #include "LyricsPage.hxx"
 #include "OutputsPage.hxx"
 #include "ChatPage.hxx"
+#include "util/Macros.hxx"
 
 #include <string.h>
 
@@ -61,6 +62,14 @@ static const PageMeta *const screens[] = {
 	&screen_keydef,
 #endif
 };
+
+const PageMeta *
+GetPageMeta(unsigned i)
+{
+	return i < ARRAY_SIZE(screens)
+		   ? screens[i]
+		   : nullptr;
+}
 
 const PageMeta *
 screen_lookup_name(const char *name)

@@ -18,8 +18,9 @@
  */
 
 #include "TabBar.hxx"
+#include "PageMeta.hxx"
+#include "screen_list.hxx"
 #include "colors.hxx"
-#include "Command.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "i18n.h"
@@ -39,24 +40,11 @@ PaintPageTab(WINDOW *w, Command cmd, const char *label)
 void
 PaintTabBar(WINDOW *w)
 {
-#ifdef ENABLE_HELP_SCREEN
-	PaintPageTab(w, Command::SCREEN_HELP, _("Help"));
-#endif
-	PaintPageTab(w, Command::SCREEN_PLAY, _("Queue"));
-	PaintPageTab(w, Command::SCREEN_FILE, _("Browse"));
-#ifdef ENABLE_ARTIST_SCREEN
-	PaintPageTab(w, Command::SCREEN_ARTIST, _("Artist"));
-#endif
-#ifdef ENABLE_SEARCH_SCREEN
-	PaintPageTab(w, Command::SCREEN_SEARCH, _("Search"));
-#endif
-#ifdef ENABLE_LYRICS_SCREEN
-	PaintPageTab(w, Command::SCREEN_LYRICS, _("Lyrics"));
-#endif
-#ifdef ENABLE_OUTPUTS_SCREEN
-	PaintPageTab(w, Command::SCREEN_OUTPUTS, _("Outputs"));
-#endif
-#ifdef ENABLE_CHAT_SCREEN
-	PaintPageTab(w, Command::SCREEN_CHAT, _("Chat"));
-#endif
+	for (unsigned i = 0;; ++i) {
+		const auto *page = GetPageMeta(i);
+		if (page == nullptr)
+			break;
+
+		PaintPageTab(w, page->command, gettext(page->title));
+	}
 }
