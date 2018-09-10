@@ -22,6 +22,10 @@
 
 #include "Compiler.h"
 
+gcc_pure
+int
+CollateUTF8(const char *a, const char *b);
+
 /**
  * Returns the number of terminal cells occupied by this string.
  */

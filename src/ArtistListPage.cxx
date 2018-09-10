@@ -25,6 +25,7 @@
 #include "i18n.h"
 #include "charset.hxx"
 #include "mpdclient.hxx"
+#include "util/StringUTF8.hxx"
 
 #include <algorithm>
 
@@ -39,12 +40,7 @@ gcc_pure
 static bool
 CompareUTF8(const std::string &a, const std::string &b)
 {
-	char *key1 = g_utf8_collate_key(a.c_str(), -1);
-	char *key2 = g_utf8_collate_key(b.c_str(), -1);
-	int n = strcmp(key1,key2);
-	g_free(key1);
-	g_free(key2);
-	return n < 0;
+	return CollateUTF8(a.c_str(), b.c_str()) < 0;
 }
 
 const char *
