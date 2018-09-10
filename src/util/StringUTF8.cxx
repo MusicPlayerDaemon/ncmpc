@@ -26,6 +26,7 @@
 #include <string.h>
 
 #ifdef HAVE_CURSES_ENHANCED
+gcc_const
 static inline unsigned
 unicode_char_width(gunichar ch)
 {
