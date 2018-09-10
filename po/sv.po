@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-19 11:10+0100\n"
+"POT-Creation-Date: 2018-09-10 16:59+0200\n"
 "PO-Revision-Date: 2010-04-14 05:21+0000\n"
 "Last-Translator: Rickard Närström <rickard.narstrom@gmail.com>\n"
 "Language-Team: sv <sv@li.org>\n"
@@ -18,423 +18,376 @@ msgstr ""
 "X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: src/colors.cxx:156
+#: src/AlbumListPage.cxx:54 src/AlbumListPage.cxx:126
+msgid "All tracks"
+msgstr "Alla spår"
+
+#: src/AlbumListPage.cxx:144
+#, fuzzy
+msgid "Albums"
+msgstr "Album"
+
+#: src/AlbumListPage.cxx:146
+#, c-format
+msgid "Albums of artist: %s"
+msgstr "Album av artist: %s"
+
+#: src/AlbumListPage.cxx:174 src/ArtistListPage.cxx:137
+#: src/FileListPage.cxx:161 src/FileListPage.cxx:248 src/FileListPage.cxx:273
+#, fuzzy, c-format
+msgid "Adding '%s' to queue"
+msgstr "Lägger till '%s' till spellista"
+
+#: src/ArtistListPage.cxx:114
+msgid "All artists"
+msgstr "Alla artister"
+
+#: src/Bindings.cxx:82 src/Bindings.cxx:88
+#, c-format
+msgid "Key %s assigned to %s and %s"
+msgstr "Tangent %s tilldelad %s och %s"
+
+#: src/ChatPage.cxx:57 src/ChatPage.cxx:179
+msgid "Chat"
+msgstr ""
+
+#: src/ChatPage.cxx:160
+msgid "Your message"
+msgstr ""
+
+#: src/ChatPage.cxx:169
+msgid "Message could not be sent"
+msgstr ""
+
+#: src/colors.cxx:169
 #, fuzzy
 msgid "Unknown color"
 msgstr "Okänt kommando"
 
-#: src/colors.cxx:195
+#: src/colors.cxx:201
 #, fuzzy
 msgid "Unknown color field"
 msgstr "Varning: %s ej definierad.\n"
 
-#: src/colors.cxx:228
+#: src/colors.cxx:227
 msgid "Terminal lacks support for changing colors"
 msgstr "Terminalen saknar stöd för växling av färger"
 
-#: src/colors.cxx:237
+#: src/colors.cxx:236
 msgid "Terminal lacks color capabilities"
 msgstr "Terminalen saknar stöd för färger"
 
-#: src/command.cxx:63
+#: src/Command.cxx:29
 msgid "Key configuration screen"
 msgstr "Tangentdefinitioner"
 
-#: src/command.cxx:66
+#: src/Command.cxx:32
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/command.cxx:70
+#: src/Command.cxx:36
 msgid "Move cursor up"
 msgstr "Markör uppåt"
 
-#: src/command.cxx:72
+#: src/Command.cxx:38
 msgid "Move cursor down"
 msgstr "Markör nedåt"
 
-#: src/command.cxx:74
+#: src/Command.cxx:40
 msgid "Move cursor to the top of screen"
 msgstr "Flytta markören längst upp"
 
-#: src/command.cxx:76
+#: src/Command.cxx:42
 msgid "Move cursor to the middle of screen"
 msgstr "Flytta markören till mitten"
 
-#: src/command.cxx:78
+#: src/Command.cxx:44
 msgid "Move cursor to the bottom of screen"
 msgstr "Flytta markören längst ner"
 
-#: src/command.cxx:80
+#: src/Command.cxx:46
 msgid "Move cursor to the top of the list"
 msgstr "Flytta markören längst upp i listan"
 
-#: src/command.cxx:82
+#: src/Command.cxx:48
 msgid "Move cursor to the bottom of the list"
 msgstr "Flytta markören längst ner i listan"
 
-#: src/command.cxx:84
+#: src/Command.cxx:50
 msgid "Page up"
 msgstr "Markören en skärm uppåt"
 
-#: src/command.cxx:86
+#: src/Command.cxx:52
 msgid "Page down"
 msgstr "Markören en skärm nedåt"
 
-#: src/command.cxx:88
+#: src/Command.cxx:54
 msgid "Range selection"
 msgstr ""
 
-#: src/command.cxx:90
+#: src/Command.cxx:56
 msgid "Scroll down one line"
 msgstr "Gå ner en rad"
 
-#: src/command.cxx:92
+#: src/Command.cxx:58
 msgid "Scroll up one line"
 msgstr "Gå upp en rad"
 
-#: src/command.cxx:94
+#: src/Command.cxx:60
 msgid "Scroll up half a screen"
 msgstr "Gå upp en halv skärm"
 
-#: src/command.cxx:96
+#: src/Command.cxx:62
 msgid "Scroll down half a screen"
 msgstr "Gå ner en halv skärm"
 
-#: src/command.cxx:98
+#: src/Command.cxx:64
 msgid "Select currently playing song"
 msgstr ""
 
-#: src/command.cxx:103
+#: src/Command.cxx:69
 msgid "Help screen"
 msgstr "Hjälp"
 
-#: src/command.cxx:105 src/screen_help.cxx:119
+#: src/Command.cxx:71 src/HelpPage.cxx:123
 #, fuzzy
 msgid "Queue screen"
 msgstr "Hjälp"
 
-#: src/command.cxx:107 src/screen_help.cxx:134
+#: src/Command.cxx:73 src/HelpPage.cxx:138
 msgid "Browse screen"
 msgstr "Filer"
 
-#: src/command.cxx:112
+#: src/Command.cxx:78
 msgid "Play/Enter directory"
 msgstr "Spela upp/Välj"
 
-#: src/command.cxx:114
+#: src/Command.cxx:80
 msgid "Pause"
 msgstr "Pausa"
 
-#: src/command.cxx:116
+#: src/Command.cxx:82
 msgid "Stop"
 msgstr "Stoppa"
 
-#: src/command.cxx:118
+#: src/Command.cxx:84
 msgid "Crop"
 msgstr "Beskär"
 
-#: src/command.cxx:120
+#: src/Command.cxx:86
 msgid "Next track"
 msgstr "Nästa spår"
 
-#: src/command.cxx:122
+#: src/Command.cxx:88
 msgid "Previous track"
 msgstr "Föregående spår"
 
-#: src/command.cxx:124
+#: src/Command.cxx:90
 msgid "Seek forward"
 msgstr "Sök framåt"
 
-#: src/command.cxx:126
+#: src/Command.cxx:92
 msgid "Seek backward"
 msgstr "Sök bakåt"
 
-#: src/command.cxx:128
+#: src/Command.cxx:94
 msgid "Increase volume"
 msgstr "Höj volymen"
 
-#: src/command.cxx:130
+#: src/Command.cxx:96
 msgid "Decrease volume"
 msgstr "Sänk volymen"
 
-#: src/command.cxx:132
+#: src/Command.cxx:98
 #, fuzzy
 msgid "Select/deselect song in queue"
 msgstr "Markera/avmarkera spår till spellistan"
 
-#: src/command.cxx:134
+#: src/Command.cxx:100
 msgid "Select all listed items"
 msgstr "Markera alla listade föremål"
 
-#: src/command.cxx:136
+#: src/Command.cxx:102
 #, fuzzy
 msgid "Delete song from queue"
 msgstr "Ta bort låt från spellista"
 
-#: src/command.cxx:138
+#: src/Command.cxx:104
 msgid "Shuffle queue"
 msgstr ""
 
-#: src/command.cxx:140
+#: src/Command.cxx:106
 msgid "Clear queue"
 msgstr ""
 
-#: src/command.cxx:142
+#: src/Command.cxx:108
 msgid "Toggle repeat mode"
 msgstr "Repeat på/av"
 
-#: src/command.cxx:144
+#: src/Command.cxx:110
 msgid "Toggle random mode"
 msgstr "Slumpning på/av"
 
-#: src/command.cxx:146
+#: src/Command.cxx:112
 msgid "Toggle single mode"
 msgstr ""
 
-#: src/command.cxx:148
+#: src/Command.cxx:114
 msgid "Toggle consume mode"
 msgstr ""
 
-#: src/command.cxx:150
+#: src/Command.cxx:116
 msgid "Toggle crossfade mode"
 msgstr "Mjuk övergång på/av"
 
-#: src/command.cxx:152
+#: src/Command.cxx:118
 msgid "Start a music database update"
 msgstr "Updatera musikdatabasen"
 
-#: src/command.cxx:154
+#: src/Command.cxx:120
 msgid "Save queue"
 msgstr ""
 
-#: src/command.cxx:156
+#: src/Command.cxx:122
 #, fuzzy
 msgid "Add url/file to queue"
 msgstr "Lägg till url eller fil till spellistan"
 
-#: src/command.cxx:159
+#: src/Command.cxx:125
 msgid "Go to root directory"
 msgstr "Gå till rotkatalogen"
 
-#: src/command.cxx:161
+#: src/Command.cxx:127
 msgid "Go to parent directory"
 msgstr "Gå upp en nivå"
 
-#: src/command.cxx:164
+#: src/Command.cxx:130
 msgid "Locate song in browser"
 msgstr "Hitta spår i Filer"
 
-#: src/command.cxx:168
+#: src/Command.cxx:134
 msgid "Move item up"
 msgstr "Flytta upp"
 
-#: src/command.cxx:170
+#: src/Command.cxx:136
 msgid "Move item down"
 msgstr "Flytta ner"
 
-#: src/command.cxx:172
+#: src/Command.cxx:138
 msgid "Refresh screen"
 msgstr "Uppdatera fönster"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/command.cxx:179
+#: src/Command.cxx:145
 msgid "Toggle find mode"
 msgstr "Ändra sökinställningar"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/command.cxx:183
+#: src/Command.cxx:149
 msgid "Toggle auto center mode"
 msgstr "Automatisk centrering på/av"
 
-#: src/command.cxx:188
+#: src/Command.cxx:154
 msgid "Next screen"
 msgstr "Nästa skärm"
 
-#: src/command.cxx:190
+#: src/Command.cxx:156
 msgid "Previous screen"
 msgstr "Tidigare skärm"
 
-#: src/command.cxx:192
+#: src/Command.cxx:158
 msgid "Swap to most recent screen"
 msgstr ""
 
-#: src/command.cxx:197
+#: src/Command.cxx:163
 msgid "Forward find"
 msgstr "Sök"
 
-#: src/command.cxx:199
+#: src/Command.cxx:165
 msgid "Forward find next"
 msgstr "Nästa träff"
 
-#: src/command.cxx:201
+#: src/Command.cxx:167
 msgid "Backward find"
 msgstr "Föregående träff"
 
-#: src/command.cxx:203
+#: src/Command.cxx:169
 msgid "Backward find previous"
 msgstr "Upprepa sökning bakåt"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/command.cxx:208
+#: src/Command.cxx:174
 msgid "Jump to"
 msgstr "Hoppa till"
 
-#: src/command.cxx:214
+#: src/Command.cxx:180
 msgid "Artist screen"
 msgstr "Artister"
 
-#: src/command.cxx:218 src/screen_help.cxx:148
+#: src/Command.cxx:184 src/HelpPage.cxx:152
 msgid "Search screen"
 msgstr "Databassökning"
 
-#: src/command.cxx:220
+#: src/Command.cxx:186
 msgid "Change search mode"
 msgstr "Ändra måltyp för databassökning"
 
-#: src/command.cxx:224
+#: src/Command.cxx:190
 msgid "View the selected and the currently playing song"
 msgstr ""
 
-#: src/command.cxx:228 src/screen_help.cxx:160
+#: src/Command.cxx:194 src/HelpPage.cxx:164
 msgid "Lyrics screen"
 msgstr "Texter"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/command.cxx:232
+#: src/Command.cxx:198
 msgid "Interrupt action"
 msgstr "Avbryt handling"
 
-#: src/command.cxx:234
+#: src/Command.cxx:200
 msgid "Update Lyrics"
 msgstr "Uppdatera texter"
 
-#: src/command.cxx:238
+#: src/Command.cxx:204
 msgid "Edit the current item"
 msgstr ""
 
-#: src/command.cxx:243 src/screen_help.cxx:175
+#: src/Command.cxx:209 src/HelpPage.cxx:179
 msgid "Outputs screen"
 msgstr "Utgångar"
 
-#: src/command.cxx:248 src/screen_help.cxx:182
+#: src/Command.cxx:214 src/HelpPage.cxx:186
 #, fuzzy
 msgid "Chat screen"
 msgstr "Nästa skärm"
 
-#: src/command.cxx:290
-msgid "Undefined"
-msgstr "Ej definierad"
-
-#: src/command.cxx:292
-msgid "Space"
-msgstr "Mellanslag"
-
-#: src/command.cxx:294
-msgid "Enter"
-msgstr "Enter"
-
-#: src/command.cxx:296
-msgid "Backspace"
-msgstr "Bakstegstangent"
-
-#: src/command.cxx:298
-msgid "Delete"
-msgstr "Ta bort"
-
-#: src/command.cxx:300
-msgid "Up"
-msgstr "Uppåtpil"
-
-#: src/command.cxx:302
-msgid "Down"
-msgstr "Nedåtpil"
-
-#: src/command.cxx:304
-msgid "Left"
-msgstr "Vänsterpil"
-
-#: src/command.cxx:306
-msgid "Right"
-msgstr "Högerpil"
-
-#: src/command.cxx:308
-msgid "Home"
-msgstr "Home"
-
-#: src/command.cxx:310
-msgid "End"
-msgstr "End"
-
-#: src/command.cxx:312
-msgid "PageDown"
-msgstr "PageDown"
-
-#: src/command.cxx:314
-msgid "PageUp"
-msgstr "PageUp"
-
-#: src/command.cxx:316
-msgid "Tab"
-msgstr "Tab"
-
-#: src/command.cxx:318
-msgid "Shift+Tab"
-msgstr "Shift+tabb"
-
-#: src/command.cxx:320
-msgid "Esc"
-msgstr "Esc"
-
-#: src/command.cxx:322
-msgid "Insert"
-msgstr "Insert"
-
-#: src/command.cxx:326
-#, c-format
-msgid "F%d"
-msgstr ""
-
-#: src/command.cxx:330
-#, c-format
-msgid "Ctrl-%c"
-msgstr ""
-
-#: src/command.cxx:332
-#, c-format
-msgid "Alt-%c"
-msgstr ""
-
-#: src/command.cxx:477 src/command.cxx:483
-#, c-format
-msgid "Key %s assigned to %s and %s"
-msgstr "Tangent %s tilldelad %s och %s"
-
 #. To translators: prefix for error messages
-#: src/conf.cxx:121
+#: src/conf.cxx:113 src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
 msgid "Error"
 msgstr "Fel"
 
-#: src/conf.cxx:135
+#: src/conf.cxx:127
 msgid "Word expected"
 msgstr ""
 
-#: src/conf.cxx:152 src/conf.cxx:161
+#: src/conf.cxx:144 src/conf.cxx:153
 msgid "Malformed hotkey definition"
 msgstr "Dålig tangentdefinition"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.cxx:185
+#: src/conf.cxx:177
 msgid "Unknown command"
 msgstr "Okänt kommando"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.cxx:198
+#: src/conf.cxx:190
 msgid "Incomplete hotkey configuration"
 msgstr "Inkomplett tangentdefinition"
 
@@ -442,84 +395,357 @@ msgstr "Inkomplett tangentdefinition"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.cxx:234
+#: src/conf.cxx:226
 msgid "Bad time display type"
 msgstr "Felaktigt tidsformat"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.cxx:247 src/conf.cxx:427
+#: src/conf.cxx:239 src/conf.cxx:416
 msgid "Missing '='"
 msgstr "Saknar '='"
 
-#: src/conf.cxx:298
+#: src/conf.cxx:290
 msgid "Bad color name"
 msgstr "Felaktigt färgnamn"
 
-#: src/conf.cxx:308
+#: src/conf.cxx:300
 msgid "Incomplete color definition"
 msgstr "Inkomplett färgdefinition"
 
-#: src/conf.cxx:314
+#: src/conf.cxx:306
 msgid "Invalid number"
 msgstr "Ogiltigt nummer"
 
-#: src/conf.cxx:322
+#: src/conf.cxx:314
 msgid "Malformed color definition"
 msgstr "Felaktig färgdefinition"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.cxx:356
+#: src/conf.cxx:351
 msgid "Unknown screen name"
 msgstr "Skärmnamn okänt"
 
-#: src/conf.cxx:384
+#: src/conf.cxx:376
 msgid "Invalid search mode"
 msgstr ""
 
-#: src/conf.cxx:407
+#: src/conf.cxx:396
 msgid "Unknown search mode"
 msgstr ""
 
-#: src/conf.cxx:597
+#: src/conf.cxx:579
 msgid "Unknown configuration parameter"
 msgstr "Okänd konfigurationsinställning"
 
-#: src/i18n.h:42
+#. translators: the "delete" command is only possible
+#. for playlists; the user attempted to delete a song
+#. or a directory or something else
+#: src/FileBrowserPage.cxx:261
+msgid "Deleting this item is not possible"
+msgstr "Du kan inte ta bort det här föremålet"
+
+#: src/FileBrowserPage.cxx:269
+#, fuzzy, c-format
+msgid "Delete playlist %s?"
+msgstr "Ta bort spellista"
+
+#. translators: a dialog was aborted by the user
+#: src/FileBrowserPage.cxx:274 src/LyricsPage.cxx:371 src/save_playlist.cxx:110
+#: src/screen_keydef.cxx:183
+msgid "Aborted"
+msgstr "Avbrutet"
+
+#. translators: MPD deleted the playlist, as requested by the
+#. user
+#: src/FileBrowserPage.cxx:287
+msgid "Playlist deleted"
+msgstr "Spellista borttagen"
+
+#. translators: caption of the browser screen
+#: src/FileBrowserPage.cxx:314 src/FileBrowserPage.cxx:396
+msgid "Browse"
+msgstr "Filer"
+
+#: src/FileListPage.cxx:121
+#, fuzzy, c-format
+msgid "Loading playlist '%s'"
+msgstr "Laddar spellista %s..."
+
+#: src/HelpPage.cxx:43
+msgid "Movement"
+msgstr "Navigation"
+
+#: src/HelpPage.cxx:88
+msgid "Global"
+msgstr "Globala"
+
+#: src/HelpPage.cxx:125
+msgid "Play"
+msgstr "Starta/Spela markerad"
+
+#: src/HelpPage.cxx:128
+msgid "Move song up"
+msgstr "Flytta spår uppåt"
+
+#: src/HelpPage.cxx:129
+msgid "Move song down"
+msgstr "Flytta spår nedåt"
+
+#: src/HelpPage.cxx:132
+msgid "Center"
+msgstr "Centrera"
+
+#: src/HelpPage.cxx:140
+msgid "Enter directory/Select and play song"
+msgstr "Välj katalog/Markera och spela upp"
+
+#: src/HelpPage.cxx:142 src/HelpPage.cxx:157
+#, fuzzy
+msgid "Append song to queue"
+msgstr "Lägg till i spellista"
+
+#: src/HelpPage.cxx:144
+msgid "Delete playlist"
+msgstr "Ta bort spellista"
+
+#: src/HelpPage.cxx:154 src/SearchPage.cxx:371 src/SearchPage.cxx:475
+msgid "Search"
+msgstr "Sök"
+
+#: src/HelpPage.cxx:155
+msgid "Select and play"
+msgstr "Lägg till spellistan och spela"
+
+#: src/HelpPage.cxx:166
+msgid "View Lyrics"
+msgstr "Visa texter"
+
+#: src/HelpPage.cxx:167
+msgid "(Re)load lyrics"
+msgstr "Ladda (om) texter"
+
+#. to translators: this hotkey aborts the retrieval of lyrics
+#. from the server
+#: src/HelpPage.cxx:170
+msgid "Interrupt retrieval"
+msgstr "Avbryt hämtning"
+
+#: src/HelpPage.cxx:171
+msgid "Download lyrics for currently playing song"
+msgstr "Ladda ner texter till låten som spelas just nu"
+
+#: src/HelpPage.cxx:172
+#, fuzzy
+msgid "Add or edit lyrics"
+msgstr "Spara texter"
+
+#: src/HelpPage.cxx:173
+msgid "Save lyrics"
+msgstr "Spara texter"
+
+#: src/HelpPage.cxx:174
+#, fuzzy
+msgid "Delete saved lyrics"
+msgstr "Spara texter"
+
+#: src/HelpPage.cxx:181
+msgid "Enable/disable output"
+msgstr "Slå på/av utgång"
+
+#: src/HelpPage.cxx:188
+msgid "Write a message"
+msgstr ""
+
+#: src/HelpPage.cxx:193
+msgid "Keydef screen"
+msgstr ""
+
+#: src/HelpPage.cxx:195
+msgid "Edit keydefs for selected command"
+msgstr ""
+
+#: src/HelpPage.cxx:196
+msgid "Remove selected keydef"
+msgstr ""
+
+#: src/HelpPage.cxx:197
+#, fuzzy
+msgid "Add a keydef"
+msgstr "Lägg till ny tangent"
+
+#: src/HelpPage.cxx:198
+msgid "Go up a level"
+msgstr "Gå upp en nivå"
+
+#: src/HelpPage.cxx:199
+msgid "Apply and save changes"
+msgstr "Verkställ och spara förändringar"
+
+#: src/HelpPage.cxx:228 src/HelpPage.cxx:312
+msgid "Help"
+msgstr "Hjälp"
+
+#: src/i18n.h:43
 msgid "y"
 msgstr "j"
 
-#: src/i18n.h:43
+#: src/i18n.h:44
 msgid "n"
 msgstr "n"
 
-#: src/list_window.cxx:554
+#: src/KeyName.cxx:31
+msgid "Undefined"
+msgstr "Ej definierad"
+
+#: src/KeyName.cxx:33
+msgid "Space"
+msgstr "Mellanslag"
+
+#: src/KeyName.cxx:35
+msgid "Enter"
+msgstr "Enter"
+
+#: src/KeyName.cxx:37
+msgid "Backspace"
+msgstr "Bakstegstangent"
+
+#: src/KeyName.cxx:39
+msgid "Delete"
+msgstr "Ta bort"
+
+#: src/KeyName.cxx:41
+msgid "Up"
+msgstr "Uppåtpil"
+
+#: src/KeyName.cxx:43
+msgid "Down"
+msgstr "Nedåtpil"
+
+#: src/KeyName.cxx:45
+msgid "Left"
+msgstr "Vänsterpil"
+
+#: src/KeyName.cxx:47
+msgid "Right"
+msgstr "Högerpil"
+
+#: src/KeyName.cxx:49
+msgid "Home"
+msgstr "Home"
+
+#: src/KeyName.cxx:51
+msgid "End"
+msgstr "End"
+
+#: src/KeyName.cxx:53
+msgid "PageDown"
+msgstr "PageDown"
+
+#: src/KeyName.cxx:55
+msgid "PageUp"
+msgstr "PageUp"
+
+#: src/KeyName.cxx:57
+msgid "Tab"
+msgstr "Tab"
+
+#: src/KeyName.cxx:59
+msgid "Shift+Tab"
+msgstr "Shift+tabb"
+
+#: src/KeyName.cxx:61
+msgid "Esc"
+msgstr "Esc"
+
+#: src/KeyName.cxx:63
+msgid "Insert"
+msgstr "Insert"
+
+#: src/KeyName.cxx:71
+#, c-format
+msgid "Ctrl-%c"
+msgstr ""
+
+#: src/KeyName.cxx:73
+#, c-format
+msgid "Alt-%c"
+msgstr ""
+
+#: src/ListWindow.cxx:492
 msgid "Range selection disabled"
 msgstr ""
 
-#: src/list_window.cxx:559
+#: src/ListWindow.cxx:497
 msgid "Range selection enabled"
 msgstr ""
 
-#: src/Main.cxx:161
-#, c-format
-msgid "Connecting to %s...  [Press %s to abort]"
-msgstr "Ansluter till %s... [Tryck %s för att avbryta]"
+#. translators: no lyrics were found for the song
+#: src/LyricsPage.cxx:236
+msgid "No lyrics"
+msgstr "Ingen text"
 
-#: src/Main.cxx:182
+#: src/LyricsPage.cxx:254
+#, c-format
+msgid "Lyrics timeout occurred after %d seconds"
+msgstr ""
+
+#: src/LyricsPage.cxx:337 src/LyricsPage.cxx:345 src/LyricsPage.cxx:354
+#: src/LyricsPage.cxx:490
+msgid "Lyrics"
+msgstr "Texter"
+
+#. translators: this message is displayed
+#. while data is retrieved
+#: src/LyricsPage.cxx:340
+msgid "loading..."
+msgstr "laddar..."
+
+#: src/LyricsPage.cxx:361
+msgid "Editor not configured"
+msgstr ""
+
+#: src/LyricsPage.cxx:368
+msgid "Do you really want to start an editor and edit these lyrics?"
+msgstr ""
+
+#: src/LyricsPage.cxx:386 src/LyricsPage.cxx:410
+msgid "Can't start editor"
+msgstr ""
+
+#: src/LyricsPage.cxx:413 src/LyricsPage.cxx:417
+msgid "Editor exited unexpectedly"
+msgstr ""
+
+#. lyrics for the song were saved on hard disk
+#: src/LyricsPage.cxx:439
+msgid "Lyrics saved"
+msgstr "Text sparad"
+
+#: src/LyricsPage.cxx:445
+#, fuzzy
+msgid "Lyrics deleted"
+msgstr "Spellista borttagen"
+
+#: src/LyricsPage.cxx:446
+#, fuzzy
+msgid "No saved lyrics"
+msgstr "Spara texter"
+
+#: src/Main.cxx:167
+#, fuzzy, c-format
+msgid "Connecting to %s"
+msgstr "Ansluten till %s"
+
+#: src/Main.cxx:187
 #, fuzzy, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "Fel: MPD version %d.%d.%d är för gammal (%s krävs)"
 
-#: src/Main.cxx:317
-#, c-format
-msgid "press %s for the key editor"
-msgstr "tryck på %s för att korrigera"
-
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.cxx:209 src/options.cxx:212
+#: src/options.cxx:213 src/options.cxx:216
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -528,49 +754,103 @@ msgstr ""
 "  Rickard Närström https://launchpad.net/~riccetn\n"
 "  nanker https://launchpad.net/~nanker"
 
-#: src/player_command.cxx:174 src/screen_queue.cxx:623
+#: src/OutputsPage.cxx:87
+#, c-format
+msgid "Output '%s' enabled"
+msgstr "Utgång '%s' påslagen"
+
+#: src/OutputsPage.cxx:98
+#, c-format
+msgid "Output '%s' disabled"
+msgstr "Utgång '%s' avslagen"
+
+#: src/OutputsPage.cxx:145 src/OutputsPage.cxx:206
+msgid "Outputs"
+msgstr "Utgångar"
+
+#: src/player_command.cxx:176 src/QueuePage.cxx:614
 msgid "Shuffled queue"
 msgstr ""
 
-#: src/player_command.cxx:184
+#: src/player_command.cxx:186
 msgid "Cleared queue"
 msgstr ""
 
+#. get path
+#: src/QueuePage.cxx:307
+msgid "Add"
+msgstr "Lägg till"
+
+#: src/QueuePage.cxx:378 src/QueuePage.cxx:674
+msgid "Queue"
+msgstr ""
+
+#: src/QueuePage.cxx:380
+#, c-format
+msgid "Queue on %s"
+msgstr ""
+
 #. query the user for a filename
-#: src/save_playlist.cxx:109
+#: src/save_playlist.cxx:85
 msgid "Save queue as"
 msgstr ""
 
-#: src/save_playlist.cxx:140
+#: src/save_playlist.cxx:107
 #, fuzzy, c-format
 msgid "Replace %s?"
 msgstr "Ersätt %s [%s/%s] ? "
 
-#. translators: a dialog was aborted by the user
-#: src/save_playlist.cxx:147 src/screen_file.cxx:214 src/screen_keydef.cxx:271
-#: src/screen_lyrics.cxx:370
-msgid "Aborted"
-msgstr "Avbrutet"
-
 #. success
-#: src/save_playlist.cxx:171
+#: src/save_playlist.cxx:128
 #, c-format
 msgid "Saved %s"
 msgstr "%s sparad"
 
-#: src/screen.cxx:154
+#: src/screen_artist.cxx:186
+#, c-format
+msgid "All tracks of artist: %s"
+msgstr "Alla spår av artist: %s"
+
+#: src/screen_artist.cxx:191 src/SearchPage.cxx:86 src/SongPage.cxx:65
+msgid "Album"
+msgstr "Album"
+
+#: src/screen_artist.cxx:195
+#, fuzzy, c-format
+msgid "Tracks of no album of artist: %s"
+msgstr "Album av artist: %s"
+
+#: src/screen_artist.cxx:299 src/SearchPage.cxx:85 src/SongPage.cxx:63
+msgid "Artist"
+msgstr "Artist"
+
+#: src/screen_client.cxx:43
+#, fuzzy
+msgid "Database update running"
+msgstr "Databasen uppdateras..."
+
+#: src/screen_client.cxx:50
+#, c-format
+msgid "Database update of %s started"
+msgstr "Uppdaterar databasen ifrån %s"
+
+#: src/screen_client.cxx:53
+msgid "Database update started"
+msgstr "Databasuppdatering påbörjad"
+
+#: src/screen.cxx:162
 msgid "Repeat mode is on"
 msgstr "Upprepningsläge på"
 
-#: src/screen.cxx:155
+#: src/screen.cxx:163
 msgid "Repeat mode is off"
 msgstr "Upprepningsläge av"
 
-#: src/screen.cxx:159
+#: src/screen.cxx:167
 msgid "Random mode is on"
 msgstr "Slumpningsläge på"
 
-#: src/screen.cxx:160
+#: src/screen.cxx:168
 msgid "Random mode is off"
 msgstr "Slumpningsläge av"
 
@@ -579,11 +859,11 @@ msgstr "Slumpningsläge av"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.cxx:169
+#: src/screen.cxx:177
 msgid "Single mode is on"
 msgstr ""
 
-#: src/screen.cxx:170
+#: src/screen.cxx:178
 msgid "Single mode is off"
 msgstr ""
 
@@ -591,505 +871,192 @@ msgstr ""
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.cxx:178
+#: src/screen.cxx:186
 msgid "Consume mode is on"
 msgstr "Förtäringsläge på"
 
-#: src/screen.cxx:179
+#: src/screen.cxx:187
 msgid "Consume mode is off"
 msgstr "Förtäringsläge av"
 
-#: src/screen.cxx:182
+#: src/screen.cxx:190
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Mjuk övergång %d sekunder"
 
-#: src/screen.cxx:194
+#: src/screen.cxx:202
 msgid "Database updated"
 msgstr "Databas uppdaterad"
 
-#: src/screen.cxx:226
+#: src/screen.cxx:252
 msgid "Find mode: Wrapped"
 msgstr "Sökläge: Börja om"
 
-#: src/screen.cxx:227
+#: src/screen.cxx:253
 msgid "Find mode: Normal"
 msgstr "Sökläge: Till början/slut"
 
-#: src/screen.cxx:232
+#: src/screen.cxx:258
 msgid "Auto center mode: On"
 msgstr "Automatisk centrering påslaget"
 
-#: src/screen.cxx:233
+#: src/screen.cxx:259
 msgid "Auto center mode: Off"
 msgstr "Automatisk centrering avslaget"
 
-#: src/screen_artist.cxx:72 src/screen_artist.cxx:352
-msgid "All tracks"
-msgstr "Alla spår"
-
-#: src/screen_artist.cxx:384
-msgid "All artists"
-msgstr "Alla artister"
-
-#: src/screen_artist.cxx:389
-#, c-format
-msgid "Albums of artist: %s"
-msgstr "Album av artist: %s"
-
-#: src/screen_artist.cxx:398
-#, c-format
-msgid "All tracks of artist: %s"
-msgstr "Alla spår av artist: %s"
-
-#: src/screen_artist.cxx:401
-#, c-format
-msgid "Album: %s - %s"
-msgstr "Album: %s - %s"
-
-#: src/screen_artist.cxx:405
-#, fuzzy, c-format
-msgid "Tracks of no album of artist: %s"
-msgstr "Album av artist: %s"
-
-#: src/screen_artist.cxx:450
-#, fuzzy, c-format
-msgid "Adding album %s..."
-msgstr "Laddar spellista %s..."
-
-#: src/screen_artist.cxx:452
-#, fuzzy, c-format
-msgid "Adding %s..."
-msgstr "laddar..."
-
-#: src/screen_browser.cxx:122
-#, c-format
-msgid "Loading playlist %s..."
-msgstr "Laddar spellista %s..."
-
-#: src/screen_browser.cxx:163 src/screen_browser.cxx:255
-#: src/screen_browser.cxx:279
-#, fuzzy, c-format
-msgid "Adding '%s' to queue"
-msgstr "Lägger till '%s' till spellista"
-
-#: src/screen_chat.cxx:59
-#, c-format
-msgid ""
-"connected to MPD %u.%u.%u (you need at least \n"
-"version 0.17.0 to use the chat feature)"
-msgstr ""
-
-#: src/screen_chat.cxx:177
-msgid "Your message"
-msgstr ""
-
-#: src/screen_chat.cxx:186
-msgid "Message could not be sent"
-msgstr ""
-
-#: src/screen_chat.cxx:199 src/title_bar.cxx:91
-msgid "Chat"
-msgstr ""
-
-#: src/screen_client.cxx:41
-msgid "Database update running..."
-msgstr "Databasen uppdateras..."
-
-#: src/screen_client.cxx:49
-#, c-format
-msgid "Database update of %s started"
-msgstr "Uppdaterar databasen ifrån %s"
-
-#: src/screen_client.cxx:52
-msgid "Database update started"
-msgstr "Databasuppdatering påbörjad"
-
-#. translators: the "delete" command is only possible
-#. for playlists; the user attempted to delete a song
-#. or a directory or something else
-#: src/screen_file.cxx:200
-msgid "Deleting this item is not possible"
-msgstr "Du kan inte ta bort det här föremålet"
-
-#: src/screen_file.cxx:207
-#, fuzzy, c-format
-msgid "Delete playlist %s?"
-msgstr "Ta bort spellista"
-
-#. translators: MPD deleted the playlist, as requested by the
-#. user
-#: src/screen_file.cxx:227
-msgid "Playlist deleted"
-msgstr "Spellista borttagen"
-
-#. translators: caption of the browser screen
-#: src/screen_file.cxx:280 src/title_bar.cxx:77
-msgid "Browse"
-msgstr "Filer"
-
-#: src/screen_find.cxx:29
+#: src/screen_find.cxx:31
 msgid "Find"
 msgstr "Sök"
 
-#: src/screen_find.cxx:30
+#: src/screen_find.cxx:32
 msgid "Find backward"
 msgstr "Sök bakåt"
 
-#: src/screen_find.cxx:31
+#: src/screen_find.cxx:33
 msgid "Jump"
 msgstr "Hopp"
 
-#: src/screen_find.cxx:82
+#: src/screen_find.cxx:79
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Kan inte hitta '%s'"
 
-#: src/screen_help.cxx:39
-msgid "Movement"
-msgstr "Navigation"
-
-#: src/screen_help.cxx:84
-msgid "Global"
-msgstr "Globala"
-
-#: src/screen_help.cxx:121
-msgid "Play"
-msgstr "Starta/Spela markerad"
-
-#: src/screen_help.cxx:124
-msgid "Move song up"
-msgstr "Flytta spår uppåt"
-
-#: src/screen_help.cxx:125
-msgid "Move song down"
-msgstr "Flytta spår nedåt"
-
-#: src/screen_help.cxx:128
-msgid "Center"
-msgstr "Centrera"
-
-#: src/screen_help.cxx:136
-msgid "Enter directory/Select and play song"
-msgstr "Välj katalog/Markera och spela upp"
-
-#: src/screen_help.cxx:138 src/screen_help.cxx:153
-#, fuzzy
-msgid "Append song to queue"
-msgstr "Lägg till i spellista"
-
-#: src/screen_help.cxx:140
-msgid "Delete playlist"
-msgstr "Ta bort spellista"
-
-#: src/screen_help.cxx:150 src/screen_search.cxx:355 src/title_bar.cxx:82
-msgid "Search"
-msgstr "Sök"
-
-#: src/screen_help.cxx:151
-msgid "Select and play"
-msgstr "Lägg till spellistan och spela"
-
-#: src/screen_help.cxx:162
-msgid "View Lyrics"
-msgstr "Visa texter"
-
-#: src/screen_help.cxx:163
-msgid "(Re)load lyrics"
-msgstr "Ladda (om) texter"
-
-#. to translators: this hotkey aborts the retrieval of lyrics
-#. from the server
-#: src/screen_help.cxx:166
-msgid "Interrupt retrieval"
-msgstr "Avbryt hämtning"
-
-#: src/screen_help.cxx:167
-msgid "Download lyrics for currently playing song"
-msgstr "Ladda ner texter till låten som spelas just nu"
-
-#: src/screen_help.cxx:168
-#, fuzzy
-msgid "Add or edit lyrics"
-msgstr "Spara texter"
-
-#: src/screen_help.cxx:169
-msgid "Save lyrics"
-msgstr "Spara texter"
-
-#: src/screen_help.cxx:170
-#, fuzzy
-msgid "Delete saved lyrics"
-msgstr "Spara texter"
-
-#: src/screen_help.cxx:177
-msgid "Enable/disable output"
-msgstr "Slå på/av utgång"
-
-#: src/screen_help.cxx:184
-msgid "Write a message"
-msgstr ""
-
-#: src/screen_help.cxx:189
-msgid "Keydef screen"
-msgstr ""
-
-#: src/screen_help.cxx:191
-msgid "Edit keydefs for selected command"
-msgstr ""
-
-#: src/screen_help.cxx:192
-msgid "Remove selected keydef"
-msgstr ""
-
-#: src/screen_help.cxx:193
-#, fuzzy
-msgid "Add a keydef"
-msgstr "Lägg till ny tangent"
-
-#: src/screen_help.cxx:194
-msgid "Go up a level"
-msgstr "Gå upp en nivå"
-
-#: src/screen_help.cxx:195
-msgid "Apply and save changes"
-msgstr "Verkställ och spara förändringar"
-
-#: src/screen_help.cxx:241 src/title_bar.cxx:74
-msgid "Help"
-msgstr "Hjälp"
-
-#: src/screen_init.cxx:70 src/screen_init.cxx:127
-msgid "Error: Screen too small"
-msgstr "Fel: Terminalen är för liten"
-
-#: src/screen_keydef.cxx:141
-msgid "You have new key bindings"
-msgstr "Tangentdefinitioner uppdaterade"
-
-#: src/screen_keydef.cxx:143
-msgid "Keybindings unchanged."
-msgstr "Tangentdefinitioner oförändrade."
-
-#: src/screen_keydef.cxx:153
-#, c-format
-msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "Fel: Kunde inte skapa mappen ~/.ncmpc - %s"
-
-#: src/screen_keydef.cxx:164 src/screen_keydef.cxx:173
-#, c-format
-msgid "Error: %s - %s"
-msgstr "Fel: %s - %s"
-
-#: src/screen_keydef.cxx:171
-#, c-format
-msgid "Wrote %s"
-msgstr "Sparade %s"
-
-#: src/screen_keydef.cxx:250
+#: src/screen_keydef.cxx:162
 msgid "Deleted"
 msgstr "Borttagen"
 
-#: src/screen_keydef.cxx:265
+#: src/screen_keydef.cxx:178
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Ny tangent för %s: "
 
-#: src/screen_keydef.cxx:276
+#: src/screen_keydef.cxx:188
 msgid "Ctrl-Space can't be used"
 msgstr ""
 
-#: src/screen_keydef.cxx:282
+#: src/screen_keydef.cxx:194
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "Fel: Tangenten %s används redan för %s"
 
-#: src/screen_keydef.cxx:291
+#: src/screen_keydef.cxx:203
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "%s tilldelad %s"
 
-#: src/screen_keydef.cxx:317
-msgid "===> Apply key bindings "
-msgstr "===> Verkställ "
-
-#: src/screen_keydef.cxx:319
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Verkställ och spara  "
-
-#: src/screen_keydef.cxx:347
+#: src/screen_keydef.cxx:230
 msgid "Add new key"
 msgstr "Lägg till ny tangent"
 
-#: src/screen_keydef.cxx:410
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "OBS! Glömde du att 'Verkställa' dina ändringar?"
-
-#: src/screen_keydef.cxx:417
-msgid "Edit key bindings"
-msgstr "Ändra tangentdefinitioner"
-
-#: src/screen_keydef.cxx:419
+#: src/screen_keydef.cxx:252
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Ändra tangenter för kommandot %s"
 
-#. translators: no lyrics were found for the song
-#: src/screen_lyrics.cxx:208
-msgid "No lyrics"
-msgstr "Ingen text"
+#: src/screen_keydef.cxx:394
+msgid "You have new key bindings"
+msgstr "Tangentdefinitioner uppdaterade"
 
-#: src/screen_lyrics.cxx:226
-#, c-format
-msgid "Lyrics timeout occurred after %d seconds"
-msgstr ""
+#: src/screen_keydef.cxx:396
+msgid "Keybindings unchanged."
+msgstr "Tangentdefinitioner oförändrade."
 
-#: src/screen_lyrics.cxx:327 src/screen_lyrics.cxx:336
-#: src/screen_lyrics.cxx:346 src/title_bar.cxx:85
-msgid "Lyrics"
-msgstr "Texter"
-
-#. translators: this message is displayed
-#. while data is retrieved
-#: src/screen_lyrics.cxx:330
-msgid "loading..."
-msgstr "laddar..."
-
-#: src/screen_lyrics.cxx:361
-msgid "Editor not configured"
-msgstr ""
-
-#: src/screen_lyrics.cxx:367
-msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr ""
-
-#: src/screen_lyrics.cxx:385 src/screen_lyrics.cxx:409
-msgid "Can't start editor"
-msgstr ""
-
-#: src/screen_lyrics.cxx:411
-#, c-format
-msgid "Editor exited unexpectedly (%d)"
-msgstr ""
-
-#: src/screen_lyrics.cxx:414
-#, c-format
-msgid "Editor exited unexpectedly (signal %d)"
-msgstr ""
-
-#. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.cxx:436
-msgid "Lyrics saved"
-msgstr "Text sparad"
-
-#: src/screen_lyrics.cxx:443
+#: src/screen_keydef.cxx:406
 #, fuzzy
-msgid "Lyrics deleted"
-msgstr "Spellista borttagen"
+msgid "Unable to write configuration"
+msgstr "Inkomplett tangentdefinition"
 
-#: src/screen_lyrics.cxx:446
-#, fuzzy
-msgid "No saved lyrics"
-msgstr "Spara texter"
-
-#: src/screen_outputs.cxx:60
+#: src/screen_keydef.cxx:422
 #, c-format
-msgid "Output '%s' enabled"
-msgstr "Utgång '%s' påslagen"
+msgid "Wrote %s"
+msgstr "Sparade %s"
 
-#: src/screen_outputs.cxx:71
-#, c-format
-msgid "Output '%s' disabled"
-msgstr "Utgång '%s' avslagen"
+#: src/screen_keydef.cxx:434
+msgid "===> Apply key bindings "
+msgstr "===> Verkställ "
 
-#: src/screen_outputs.cxx:162 src/title_bar.cxx:88
-msgid "Outputs"
-msgstr "Utgångar"
+#: src/screen_keydef.cxx:436
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Verkställ och spara  "
 
-#. get path
-#: src/screen_queue.cxx:274
-msgid "Add"
-msgstr "Lägg till"
+#: src/screen_keydef.cxx:473
+msgid "Edit key bindings"
+msgstr "Ändra tangentdefinitioner"
 
-#: src/screen_queue.cxx:382 src/title_bar.cxx:76
-msgid "Queue"
+#: src/screen_keydef.cxx:555
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "OBS! Glömde du att 'Verkställa' dina ändringar?"
+
+#: src/screen_keydef.cxx:605
+msgid "Keys"
 msgstr ""
 
-#: src/screen_queue.cxx:384
-#, c-format
-msgid "Queue on %s"
-msgstr ""
+#: src/screen_utils.cxx:125
+msgid "Password"
+msgstr "Lösenord"
 
-#: src/screen_search.cxx:48
+#: src/SearchPage.cxx:50
 msgid "artist"
 msgstr "artist"
 
-#: src/screen_search.cxx:49
+#: src/SearchPage.cxx:51
 msgid "album"
 msgstr "album"
 
-#: src/screen_search.cxx:50
+#: src/SearchPage.cxx:52
 msgid "title"
 msgstr "titel"
 
-#: src/screen_search.cxx:51
+#: src/SearchPage.cxx:53
 msgid "track"
 msgstr "spår"
 
-#: src/screen_search.cxx:52
+#: src/SearchPage.cxx:54
 msgid "name"
 msgstr "namn"
 
-#: src/screen_search.cxx:53
+#: src/SearchPage.cxx:55
 msgid "genre"
 msgstr "genre"
 
-#: src/screen_search.cxx:54
+#: src/SearchPage.cxx:56
 msgid "date"
 msgstr "datum"
 
-#: src/screen_search.cxx:55
+#: src/SearchPage.cxx:57
 msgid "composer"
 msgstr "kompositör"
 
-#: src/screen_search.cxx:56
+#: src/SearchPage.cxx:58
 msgid "performer"
 msgstr "uppträdare"
 
-#: src/screen_search.cxx:57
+#: src/SearchPage.cxx:59
 msgid "comment"
 msgstr "kommentar"
 
-#: src/screen_search.cxx:65
+#: src/SearchPage.cxx:67
 msgid "file"
 msgstr "fil"
 
-#: src/screen_search.cxx:82 src/screen_song.cxx:52
+#: src/SearchPage.cxx:84 src/SongPage.cxx:64
 msgid "Title"
 msgstr "Titel"
 
-#: src/screen_search.cxx:83 src/screen_song.cxx:51 src/title_bar.cxx:79
-msgid "Artist"
-msgstr "Artist"
-
-#: src/screen_search.cxx:84 src/screen_song.cxx:53
-msgid "Album"
-msgstr "Album"
-
-#: src/screen_search.cxx:85
+#: src/SearchPage.cxx:87
 msgid "Filename"
 msgstr "Filnamn"
 
-#: src/screen_search.cxx:86
+#: src/SearchPage.cxx:88
 msgid "Artist + Title"
 msgstr "Artist + titel"
 
-#: src/screen_search.cxx:244
+#: src/SearchPage.cxx:260
 #, c-format
 msgid "No argument for search tag %s"
 msgstr "Argumentet för söktyp %s saknas"
 
-#: src/screen_search.cxx:253
+#: src/SearchPage.cxx:269
 #, c-format
 msgid "Bad search tag %s"
 msgstr "Felaktig söktyp %s"
@@ -1097,164 +1064,208 @@ msgstr "Felaktig söktyp %s"
 #. if( pattern==nullptr )
 #. search_new(screen, c);
 #. else
-#: src/screen_search.cxx:400
+#: src/SearchPage.cxx:396
 #, c-format
 msgid "Press %s for a new search"
 msgstr "Tryck %s för ny sökning"
 
-#: src/screen_search.cxx:427
+#: src/SearchPage.cxx:415
 #, c-format
 msgid "Search: %s"
 msgstr "Sök: %s"
 
-#: src/screen_search.cxx:430
+#: src/SearchPage.cxx:418
 #, c-format
 msgid "Search: Results for %s [%s]"
 msgstr "Sökresultat för %s [%s]"
 
-#: src/screen_search.cxx:434
+#: src/SearchPage.cxx:422
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
 msgstr "Tryck %s för ny sökning [%s]"
 
-#: src/screen_search.cxx:458
+#: src/SearchPage.cxx:447
 #, c-format
 msgid "Search mode: %s"
 msgstr "Sök efter: %s"
 
-#: src/screen_song.cxx:54
+#: src/SongPage.cxx:66
 msgid "Length"
 msgstr "Längd"
 
-#: src/screen_song.cxx:55
+#: src/SongPage.cxx:67
 msgid "Position"
 msgstr ""
 
-#: src/screen_song.cxx:56
+#: src/SongPage.cxx:68
 msgid "Composer"
 msgstr "Kompositör"
 
-#: src/screen_song.cxx:57
+#: src/SongPage.cxx:69
 msgid "Name"
 msgstr "Namn"
 
-#: src/screen_song.cxx:58
+#: src/SongPage.cxx:70
 msgid "Disc"
 msgstr "Skiva"
 
-#: src/screen_song.cxx:59
+#: src/SongPage.cxx:71
 msgid "Track"
 msgstr "Spår"
 
-#: src/screen_song.cxx:60
+#: src/SongPage.cxx:72
 msgid "Date"
 msgstr "Datum"
 
-#: src/screen_song.cxx:61
+#: src/SongPage.cxx:73
 msgid "Genre"
 msgstr "Genre"
 
-#: src/screen_song.cxx:62
+#: src/SongPage.cxx:74
 msgid "Comment"
 msgstr "Kommentar"
 
-#: src/screen_song.cxx:63
+#: src/SongPage.cxx:75
 msgid "Path"
 msgstr "Sökväg"
 
-#: src/screen_song.cxx:64
+#: src/SongPage.cxx:76
 msgid "Bitrate"
 msgstr "Bithastighet"
 
-#: src/screen_song.cxx:65
+#: src/SongPage.cxx:77
 msgid "Format"
 msgstr ""
 
-#: src/screen_song.cxx:82
+#: src/SongPage.cxx:94
 msgid "Number of artists"
 msgstr "Antal artister"
 
-#: src/screen_song.cxx:83
+#: src/SongPage.cxx:95
 msgid "Number of albums"
 msgstr "Antal album"
 
-#: src/screen_song.cxx:84
+#: src/SongPage.cxx:96
 msgid "Number of songs"
 msgstr "Antal låtar"
 
-#: src/screen_song.cxx:85
+#: src/SongPage.cxx:97
 msgid "Uptime"
 msgstr "Upptid"
 
-#: src/screen_song.cxx:86
+#: src/SongPage.cxx:98
 msgid "Most recent db update"
 msgstr "Senaste databasuppdateringen"
 
-#: src/screen_song.cxx:87
+#: src/SongPage.cxx:99
 msgid "Playtime"
 msgstr "Speltid"
 
-#: src/screen_song.cxx:88
+#: src/SongPage.cxx:100
 msgid "DB playtime"
 msgstr ""
 
-#: src/screen_song.cxx:173
+#: src/SongPage.cxx:203
 msgid "Song viewer"
 msgstr "Spår"
 
-#: src/screen_song.cxx:337
+#: src/SongPage.cxx:369
 msgid "MPD statistics"
 msgstr "MPD-statistik"
 
-#: src/screen_song.cxx:427
+#: src/SongPage.cxx:454
 msgid "Selected song"
 msgstr "Markerad låt"
 
-#: src/screen_song.cxx:437
+#: src/SongPage.cxx:464
 msgid "Currently playing song"
 msgstr ""
 
-#: src/screen_song.cxx:442
+#: src/SongPage.cxx:469
 #, c-format
 msgid "%d kbps"
 msgstr "%d kb/s"
 
-#. NOTE: if one day a translator decides to use a multi-byte character
-#. for one of the yes/no keys, we'll have to parse it properly
-#: src/screen_utils.cxx:80
-#, fuzzy, c-format
-msgid "%s [%s/%s] "
-msgstr "Ersätt %s [%s/%s] ? "
+#: src/SongPage.cxx:553
+msgid "Song"
+msgstr ""
 
-#: src/screen_utils.cxx:121
-msgid "Password"
-msgstr "Lösenord"
-
-#: src/status_bar.cxx:121
+#: src/StatusBar.cxx:104
 msgid "Playing:"
 msgstr "Spelar:"
 
-#: src/status_bar.cxx:124
+#: src/StatusBar.cxx:108
 msgid "[Paused]"
 msgstr "[Pausad]"
 
-#: src/title_bar.cxx:99
+#: src/time_format.cxx:44
+msgid "year"
+msgstr ""
+
+#: src/time_format.cxx:46
+msgid "years"
+msgstr ""
+
+#: src/time_format.cxx:54
+msgid "week"
+msgstr ""
+
+#: src/time_format.cxx:57
+msgid "weeks"
+msgstr ""
+
+#: src/time_format.cxx:65
+msgid "day"
+msgstr ""
+
+#: src/time_format.cxx:68
+msgid "days"
+msgstr ""
+
+#: src/TitleBar.cxx:100
 msgid "Volume n/a"
 msgstr "Volym: n/a"
 
-#: src/title_bar.cxx:101
+#: src/TitleBar.cxx:102
 #, c-format
 msgid "Volume %d%%"
 msgstr "Volym: %d%%"
+
+#~ msgid "Connecting to %s...  [Press %s to abort]"
+#~ msgstr "Ansluter till %s... [Tryck %s för att avbryta]"
+
+#~ msgid "press %s for the key editor"
+#~ msgstr "tryck på %s för att korrigera"
+
+#~ msgid "Album: %s - %s"
+#~ msgstr "Album: %s - %s"
+
+#, fuzzy
+#~ msgid "Adding album %s..."
+#~ msgstr "Laddar spellista %s..."
+
+#, fuzzy
+#~ msgid "Adding %s..."
+#~ msgstr "laddar..."
+
+#~ msgid "Error: Screen too small"
+#~ msgstr "Fel: Terminalen är för liten"
+
+#~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
+#~ msgstr "Fel: Kunde inte skapa mappen ~/.ncmpc - %s"
+
+#~ msgid "Error: %s - %s"
+#~ msgstr "Fel: %s - %s"
+
+#, fuzzy
+#~ msgid "%s [%s/%s] "
+#~ msgstr "Ersätt %s [%s/%s] ? "
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
 #~ msgstr "Ta bort spellista %s [%s/%s] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
 #~ msgstr "Varning: Okänd färg - %s\n"
-
-#~ msgid "Connected to %s"
-#~ msgstr "Ansluten till %s"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Spellistan slumpsorterades"

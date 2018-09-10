@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-19 11:10+0100\n"
+"POT-Creation-Date: 2018-09-10 16:59+0200\n"
 "PO-Revision-Date: 2017-09-05 20:47+0700\n"
 "Last-Translator: Max Arnold <lwarxx@gmail.com>\n"
 "Language-Team: ru <ru@li.org>\n"
@@ -16,416 +16,369 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/colors.cxx:156
+#: src/AlbumListPage.cxx:54 src/AlbumListPage.cxx:126
+msgid "All tracks"
+msgstr "Все композиции"
+
+#: src/AlbumListPage.cxx:144
+#, fuzzy
+msgid "Albums"
+msgstr "Альбом"
+
+#: src/AlbumListPage.cxx:146
+#, c-format
+msgid "Albums of artist: %s"
+msgstr "Альбомы исполнителя: %s"
+
+#: src/AlbumListPage.cxx:174 src/ArtistListPage.cxx:137
+#: src/FileListPage.cxx:161 src/FileListPage.cxx:248 src/FileListPage.cxx:273
+#, c-format
+msgid "Adding '%s' to queue"
+msgstr "В очередь добавляется '%s'"
+
+#: src/ArtistListPage.cxx:114
+msgid "All artists"
+msgstr "Все исполнители"
+
+#: src/Bindings.cxx:82 src/Bindings.cxx:88
+#, c-format
+msgid "Key %s assigned to %s and %s"
+msgstr "Клавиша %s назначена для %s и %s"
+
+#: src/ChatPage.cxx:57 src/ChatPage.cxx:179
+msgid "Chat"
+msgstr "Чат"
+
+#: src/ChatPage.cxx:160
+msgid "Your message"
+msgstr "Ваше сообщение"
+
+#: src/ChatPage.cxx:169
+msgid "Message could not be sent"
+msgstr "Сообщение не может быть отправлено"
+
+#: src/colors.cxx:169
 msgid "Unknown color"
 msgstr "Неизвестный цвет"
 
-#: src/colors.cxx:195
+#: src/colors.cxx:201
 msgid "Unknown color field"
 msgstr "Неизвестное цветовое поле"
 
-#: src/colors.cxx:228
+#: src/colors.cxx:227
 msgid "Terminal lacks support for changing colors"
 msgstr "Терминал не поддерживает смену цветов"
 
-#: src/colors.cxx:237
+#: src/colors.cxx:236
 msgid "Terminal lacks color capabilities"
 msgstr "Терминал не поддерживает цвета"
 
-#: src/command.cxx:63
+#: src/Command.cxx:29
 msgid "Key configuration screen"
 msgstr "Экран клавиатурных комбинаций"
 
-#: src/command.cxx:66
+#: src/Command.cxx:32
 msgid "Quit"
 msgstr "Выход"
 
-#: src/command.cxx:70
+#: src/Command.cxx:36
 msgid "Move cursor up"
 msgstr "Курсор вверх"
 
-#: src/command.cxx:72
+#: src/Command.cxx:38
 msgid "Move cursor down"
 msgstr "Курсор вниз"
 
-#: src/command.cxx:74
+#: src/Command.cxx:40
 msgid "Move cursor to the top of screen"
 msgstr "Переместить курсор в верх экрана"
 
-#: src/command.cxx:76
+#: src/Command.cxx:42
 msgid "Move cursor to the middle of screen"
 msgstr "Переместить курсор в середину экрана"
 
-#: src/command.cxx:78
+#: src/Command.cxx:44
 msgid "Move cursor to the bottom of screen"
 msgstr "Переместить курсор в низ экрана"
 
-#: src/command.cxx:80
+#: src/Command.cxx:46
 msgid "Move cursor to the top of the list"
 msgstr "Переместить курсор в начало списка"
 
-#: src/command.cxx:82
+#: src/Command.cxx:48
 msgid "Move cursor to the bottom of the list"
 msgstr "Переместить курсор в конец списка"
 
-#: src/command.cxx:84
+#: src/Command.cxx:50
 msgid "Page up"
 msgstr "На страницу вверх"
 
-#: src/command.cxx:86
+#: src/Command.cxx:52
 msgid "Page down"
 msgstr "На страницу вниз"
 
-#: src/command.cxx:88
+#: src/Command.cxx:54
 msgid "Range selection"
 msgstr "Выбор диапазона"
 
-#: src/command.cxx:90
+#: src/Command.cxx:56
 msgid "Scroll down one line"
 msgstr "Прокрутка на одну строку вниз"
 
-#: src/command.cxx:92
+#: src/Command.cxx:58
 msgid "Scroll up one line"
 msgstr "Прокрутка на одну строку вверх"
 
-#: src/command.cxx:94
+#: src/Command.cxx:60
 msgid "Scroll up half a screen"
 msgstr "Прокрутка на половину экрана вверх"
 
-#: src/command.cxx:96
+#: src/Command.cxx:62
 msgid "Scroll down half a screen"
 msgstr "Прокрутка на половину экрана вниз"
 
-#: src/command.cxx:98
+#: src/Command.cxx:64
 msgid "Select currently playing song"
 msgstr "Выбрать текущую композицию"
 
-#: src/command.cxx:103
+#: src/Command.cxx:69
 msgid "Help screen"
 msgstr "Экран помощи"
 
-#: src/command.cxx:105 src/screen_help.cxx:119
+#: src/Command.cxx:71 src/HelpPage.cxx:123
 msgid "Queue screen"
 msgstr "Экран очереди"
 
-#: src/command.cxx:107 src/screen_help.cxx:134
+#: src/Command.cxx:73 src/HelpPage.cxx:138
 msgid "Browse screen"
 msgstr "Экран навигации"
 
-#: src/command.cxx:112
+#: src/Command.cxx:78
 msgid "Play/Enter directory"
 msgstr "Воспроизвести/Перейти в директорию"
 
-#: src/command.cxx:114
+#: src/Command.cxx:80
 msgid "Pause"
 msgstr "Пауза"
 
-#: src/command.cxx:116
+#: src/Command.cxx:82
 msgid "Stop"
 msgstr "Останов"
 
-#: src/command.cxx:118
+#: src/Command.cxx:84
 msgid "Crop"
 msgstr "Удалить из плейлиста все композиции кроме текущей"
 
-#: src/command.cxx:120
+#: src/Command.cxx:86
 msgid "Next track"
 msgstr "Следующая композиция"
 
-#: src/command.cxx:122
+#: src/Command.cxx:88
 msgid "Previous track"
 msgstr "Предыдущая композиция"
 
-#: src/command.cxx:124
+#: src/Command.cxx:90
 msgid "Seek forward"
 msgstr "Перемотка вперёд"
 
-#: src/command.cxx:126
+#: src/Command.cxx:92
 msgid "Seek backward"
 msgstr "Перемотка назад"
 
-#: src/command.cxx:128
+#: src/Command.cxx:94
 msgid "Increase volume"
 msgstr "Увеличить громкость"
 
-#: src/command.cxx:130
+#: src/Command.cxx:96
 msgid "Decrease volume"
 msgstr "Уменьшить громкость"
 
-#: src/command.cxx:132
+#: src/Command.cxx:98
 msgid "Select/deselect song in queue"
 msgstr "Выбрать или отменить выбор композиции в очереди"
 
-#: src/command.cxx:134
+#: src/Command.cxx:100
 msgid "Select all listed items"
 msgstr "Добавить все композиции в плейлист"
 
-#: src/command.cxx:136
+#: src/Command.cxx:102
 msgid "Delete song from queue"
 msgstr "Удалить композицию из очереди"
 
-#: src/command.cxx:138
+#: src/Command.cxx:104
 msgid "Shuffle queue"
 msgstr "Перемешать очередь"
 
-#: src/command.cxx:140
+#: src/Command.cxx:106
 msgid "Clear queue"
 msgstr "Очистить очередь"
 
-#: src/command.cxx:142
+#: src/Command.cxx:108
 msgid "Toggle repeat mode"
 msgstr "Вкл/выкл режим повтора"
 
-#: src/command.cxx:144
+#: src/Command.cxx:110
 msgid "Toggle random mode"
 msgstr "Вкл/выкл случайный режим"
 
-#: src/command.cxx:146
+#: src/Command.cxx:112
 msgid "Toggle single mode"
 msgstr "Вкл/выкл одиночный режим"
 
-#: src/command.cxx:148
+#: src/Command.cxx:114
 msgid "Toggle consume mode"
 msgstr "Вкл/выкл режим удаления после проигрывания"
 
-#: src/command.cxx:150
+#: src/Command.cxx:116
 msgid "Toggle crossfade mode"
 msgstr "Вкл/выкл режим плавного перехода"
 
-#: src/command.cxx:152
+#: src/Command.cxx:118
 msgid "Start a music database update"
 msgstr "Обновить музыкальную базу"
 
-#: src/command.cxx:154
+#: src/Command.cxx:120
 msgid "Save queue"
 msgstr "Сохранить очередь"
 
-#: src/command.cxx:156
+#: src/Command.cxx:122
 msgid "Add url/file to queue"
 msgstr "Добавить url/файл в очередь"
 
-#: src/command.cxx:159
+#: src/Command.cxx:125
 msgid "Go to root directory"
 msgstr "Перейти к корневой директории"
 
-#: src/command.cxx:161
+#: src/Command.cxx:127
 msgid "Go to parent directory"
 msgstr "Перейти к родительской директории"
 
-#: src/command.cxx:164
+#: src/Command.cxx:130
 msgid "Locate song in browser"
 msgstr "Перейти к файлу композиции"
 
-#: src/command.cxx:168
+#: src/Command.cxx:134
 msgid "Move item up"
 msgstr "Переместить вверх"
 
-#: src/command.cxx:170
+#: src/Command.cxx:136
 msgid "Move item down"
 msgstr "Переместить вниз"
 
-#: src/command.cxx:172
+#: src/Command.cxx:138
 msgid "Refresh screen"
 msgstr "Обновить экран"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/command.cxx:179
+#: src/Command.cxx:145
 msgid "Toggle find mode"
 msgstr "Переключить режим поиска"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/command.cxx:183
+#: src/Command.cxx:149
 msgid "Toggle auto center mode"
 msgstr "Вкл/выкл режим автоцентрирования"
 
-#: src/command.cxx:188
+#: src/Command.cxx:154
 msgid "Next screen"
 msgstr "Следующий экран"
 
-#: src/command.cxx:190
+#: src/Command.cxx:156
 msgid "Previous screen"
 msgstr "Предыдущий экран"
 
-#: src/command.cxx:192
+#: src/Command.cxx:158
 msgid "Swap to most recent screen"
 msgstr "Последний посещённый экран"
 
-#: src/command.cxx:197
+#: src/Command.cxx:163
 msgid "Forward find"
 msgstr "Поиск вперёд"
 
-#: src/command.cxx:199
+#: src/Command.cxx:165
 msgid "Forward find next"
 msgstr "Продолжить поиск вперёд"
 
-#: src/command.cxx:201
+#: src/Command.cxx:167
 msgid "Backward find"
 msgstr "Поиск назад"
 
-#: src/command.cxx:203
+#: src/Command.cxx:169
 msgid "Backward find previous"
 msgstr "Продолжить поиск назад"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/command.cxx:208
+#: src/Command.cxx:174
 msgid "Jump to"
 msgstr "Перейти к"
 
-#: src/command.cxx:214
+#: src/Command.cxx:180
 msgid "Artist screen"
 msgstr "Экран исполнителей"
 
-#: src/command.cxx:218 src/screen_help.cxx:148
+#: src/Command.cxx:184 src/HelpPage.cxx:152
 msgid "Search screen"
 msgstr "Экран поиска"
 
-#: src/command.cxx:220
+#: src/Command.cxx:186
 msgid "Change search mode"
 msgstr "Изменить поле для поиска"
 
-#: src/command.cxx:224
+#: src/Command.cxx:190
 msgid "View the selected and the currently playing song"
 msgstr "Просмотр выбранной и проигрываемой композиций"
 
-#: src/command.cxx:228 src/screen_help.cxx:160
+#: src/Command.cxx:194 src/HelpPage.cxx:164
 msgid "Lyrics screen"
 msgstr "Экран текста песни"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/command.cxx:232
+#: src/Command.cxx:198
 msgid "Interrupt action"
 msgstr "Прервать операцию"
 
-#: src/command.cxx:234
+#: src/Command.cxx:200
 msgid "Update Lyrics"
 msgstr "Обновить текст"
 
-#: src/command.cxx:238
+#: src/Command.cxx:204
 msgid "Edit the current item"
 msgstr "Редактировать текущий элемент"
 
-#: src/command.cxx:243 src/screen_help.cxx:175
+#: src/Command.cxx:209 src/HelpPage.cxx:179
 msgid "Outputs screen"
 msgstr "Экран аудиовыходов"
 
-#: src/command.cxx:248 src/screen_help.cxx:182
+#: src/Command.cxx:214 src/HelpPage.cxx:186
 msgid "Chat screen"
 msgstr "Экран чата"
 
-#: src/command.cxx:290
-msgid "Undefined"
-msgstr "Не задано"
-
-#: src/command.cxx:292
-msgid "Space"
-msgstr "Пробел"
-
-#: src/command.cxx:294
-msgid "Enter"
-msgstr "Ввод"
-
-#: src/command.cxx:296
-msgid "Backspace"
-msgstr "Backspace"
-
-#: src/command.cxx:298
-msgid "Delete"
-msgstr "Delete"
-
-#: src/command.cxx:300
-msgid "Up"
-msgstr "Вверх"
-
-#: src/command.cxx:302
-msgid "Down"
-msgstr "Вниз"
-
-#: src/command.cxx:304
-msgid "Left"
-msgstr "Влево"
-
-#: src/command.cxx:306
-msgid "Right"
-msgstr "Вправо"
-
-#: src/command.cxx:308
-msgid "Home"
-msgstr "В начало"
-
-#: src/command.cxx:310
-msgid "End"
-msgstr "В конец"
-
-#: src/command.cxx:312
-msgid "PageDown"
-msgstr "PageDown"
-
-#: src/command.cxx:314
-msgid "PageUp"
-msgstr "PageUp"
-
-#: src/command.cxx:316
-msgid "Tab"
-msgstr "Tab"
-
-#: src/command.cxx:318
-msgid "Shift+Tab"
-msgstr "Shift+Tab"
-
-#: src/command.cxx:320
-msgid "Esc"
-msgstr "Esc"
-
-#: src/command.cxx:322
-msgid "Insert"
-msgstr "Insert"
-
-#: src/command.cxx:326
-#, c-format
-msgid "F%d"
-msgstr ""
-
-#: src/command.cxx:330
-#, c-format
-msgid "Ctrl-%c"
-msgstr ""
-
-#: src/command.cxx:332
-#, c-format
-msgid "Alt-%c"
-msgstr ""
-
-#: src/command.cxx:477 src/command.cxx:483
-#, c-format
-msgid "Key %s assigned to %s and %s"
-msgstr "Клавиша %s назначена для %s и %s"
-
 #. To translators: prefix for error messages
-#: src/conf.cxx:121
+#: src/conf.cxx:113 src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
 msgid "Error"
 msgstr "Ошибка"
 
-#: src/conf.cxx:135
+#: src/conf.cxx:127
 msgid "Word expected"
 msgstr ""
 
-#: src/conf.cxx:152 src/conf.cxx:161
+#: src/conf.cxx:144 src/conf.cxx:153
 msgid "Malformed hotkey definition"
 msgstr "Неправильное значение клавиатурной комбинации"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.cxx:185
+#: src/conf.cxx:177
 msgid "Unknown command"
 msgstr "Неизвестная команда"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.cxx:198
+#: src/conf.cxx:190
 msgid "Incomplete hotkey configuration"
 msgstr "Неопределённое значение клавиатурной комбинации"
 
@@ -433,130 +386,452 @@ msgstr "Неопределённое значение клавиатурной �
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.cxx:234
+#: src/conf.cxx:226
 msgid "Bad time display type"
 msgstr "Неверный тип отображения времени"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.cxx:247 src/conf.cxx:427
+#: src/conf.cxx:239 src/conf.cxx:416
 msgid "Missing '='"
 msgstr "Пропущен символ '='"
 
-#: src/conf.cxx:298
+#: src/conf.cxx:290
 msgid "Bad color name"
 msgstr "Неверное название цвета"
 
-#: src/conf.cxx:308
+#: src/conf.cxx:300
 msgid "Incomplete color definition"
 msgstr "Неопределённое значение цвета"
 
-#: src/conf.cxx:314
+#: src/conf.cxx:306
 msgid "Invalid number"
 msgstr "Неверное число"
 
-#: src/conf.cxx:322
+#: src/conf.cxx:314
 msgid "Malformed color definition"
 msgstr "Неправильное значение цвета"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.cxx:356
+#: src/conf.cxx:351
 msgid "Unknown screen name"
 msgstr "Неизвестное название экрана"
 
-#: src/conf.cxx:384
+#: src/conf.cxx:376
 msgid "Invalid search mode"
 msgstr "Неверный режим поиска"
 
-#: src/conf.cxx:407
+#: src/conf.cxx:396
 msgid "Unknown search mode"
 msgstr "Неизвестный режим поиска"
 
-#: src/conf.cxx:597
+#: src/conf.cxx:579
 msgid "Unknown configuration parameter"
 msgstr "Неизвестный параметр конфигурации"
 
-#: src/i18n.h:42
+#. translators: the "delete" command is only possible
+#. for playlists; the user attempted to delete a song
+#. or a directory or something else
+#: src/FileBrowserPage.cxx:261
+msgid "Deleting this item is not possible"
+msgstr "Удаление этого элемента невозможно"
+
+#: src/FileBrowserPage.cxx:269
+#, c-format
+msgid "Delete playlist %s?"
+msgstr "Удалить плейлист %s?"
+
+#. translators: a dialog was aborted by the user
+#: src/FileBrowserPage.cxx:274 src/LyricsPage.cxx:371 src/save_playlist.cxx:110
+#: src/screen_keydef.cxx:183
+msgid "Aborted"
+msgstr "Прервано"
+
+#. translators: MPD deleted the playlist, as requested by the
+#. user
+#: src/FileBrowserPage.cxx:287
+msgid "Playlist deleted"
+msgstr "Плейлист удалён"
+
+#. translators: caption of the browser screen
+#: src/FileBrowserPage.cxx:314 src/FileBrowserPage.cxx:396
+msgid "Browse"
+msgstr "Навигация"
+
+#: src/FileListPage.cxx:121
+#, fuzzy, c-format
+msgid "Loading playlist '%s'"
+msgstr "Загружается плейлист %s..."
+
+#: src/HelpPage.cxx:43
+msgid "Movement"
+msgstr "Перемещение"
+
+#: src/HelpPage.cxx:88
+msgid "Global"
+msgstr "Глобальные"
+
+#: src/HelpPage.cxx:125
+msgid "Play"
+msgstr "Воспроизведение"
+
+#: src/HelpPage.cxx:128
+msgid "Move song up"
+msgstr "Переместить композицию вверх"
+
+#: src/HelpPage.cxx:129
+msgid "Move song down"
+msgstr "Переместить композицию вниз"
+
+#: src/HelpPage.cxx:132
+msgid "Center"
+msgstr "Центрировать"
+
+#: src/HelpPage.cxx:140
+msgid "Enter directory/Select and play song"
+msgstr "Перейти в директорию/Выбрать и проиграть композицию"
+
+#: src/HelpPage.cxx:142 src/HelpPage.cxx:157
+msgid "Append song to queue"
+msgstr "Добавить композицию в очередь"
+
+#: src/HelpPage.cxx:144
+msgid "Delete playlist"
+msgstr "Удалить плейлист"
+
+#: src/HelpPage.cxx:154 src/SearchPage.cxx:371 src/SearchPage.cxx:475
+msgid "Search"
+msgstr "Поиск"
+
+#: src/HelpPage.cxx:155
+msgid "Select and play"
+msgstr "Выбрать и проиграть"
+
+#: src/HelpPage.cxx:166
+msgid "View Lyrics"
+msgstr "Показать текст"
+
+#: src/HelpPage.cxx:167
+msgid "(Re)load lyrics"
+msgstr "(Пере)загрузить текст"
+
+#. to translators: this hotkey aborts the retrieval of lyrics
+#. from the server
+#: src/HelpPage.cxx:170
+msgid "Interrupt retrieval"
+msgstr "Прервать загрузку"
+
+#: src/HelpPage.cxx:171
+msgid "Download lyrics for currently playing song"
+msgstr "Загрузить текст проигрываемой композиции"
+
+#: src/HelpPage.cxx:172
+msgid "Add or edit lyrics"
+msgstr "Добавить или редактировать текст"
+
+#: src/HelpPage.cxx:173
+msgid "Save lyrics"
+msgstr "Сохранить текст"
+
+#: src/HelpPage.cxx:174
+msgid "Delete saved lyrics"
+msgstr "Удалить сохранённый текст"
+
+#: src/HelpPage.cxx:181
+msgid "Enable/disable output"
+msgstr "Вкл/выкл аудиовыход"
+
+#: src/HelpPage.cxx:188
+msgid "Write a message"
+msgstr "Напишите сообщение"
+
+#: src/HelpPage.cxx:193
+msgid "Keydef screen"
+msgstr "Экран клавиатурных комбинаций"
+
+#: src/HelpPage.cxx:195
+msgid "Edit keydefs for selected command"
+msgstr "Изменить комбинации для выбранной команды"
+
+#: src/HelpPage.cxx:196
+msgid "Remove selected keydef"
+msgstr "Удалить выбранную комбинацию"
+
+#: src/HelpPage.cxx:197
+msgid "Add a keydef"
+msgstr "Добавить новую клавишу"
+
+#: src/HelpPage.cxx:198
+msgid "Go up a level"
+msgstr "Перейти на уровень выше"
+
+#: src/HelpPage.cxx:199
+msgid "Apply and save changes"
+msgstr "Применить и сохранить изменения"
+
+#: src/HelpPage.cxx:228 src/HelpPage.cxx:312
+msgid "Help"
+msgstr "Помощь"
+
+#: src/i18n.h:43
 msgid "y"
 msgstr "y"
 
-#: src/i18n.h:43
+#: src/i18n.h:44
 msgid "n"
 msgstr "n"
 
-#: src/list_window.cxx:554
+#: src/KeyName.cxx:31
+msgid "Undefined"
+msgstr "Не задано"
+
+#: src/KeyName.cxx:33
+msgid "Space"
+msgstr "Пробел"
+
+#: src/KeyName.cxx:35
+msgid "Enter"
+msgstr "Ввод"
+
+#: src/KeyName.cxx:37
+msgid "Backspace"
+msgstr "Backspace"
+
+#: src/KeyName.cxx:39
+msgid "Delete"
+msgstr "Delete"
+
+#: src/KeyName.cxx:41
+msgid "Up"
+msgstr "Вверх"
+
+#: src/KeyName.cxx:43
+msgid "Down"
+msgstr "Вниз"
+
+#: src/KeyName.cxx:45
+msgid "Left"
+msgstr "Влево"
+
+#: src/KeyName.cxx:47
+msgid "Right"
+msgstr "Вправо"
+
+#: src/KeyName.cxx:49
+msgid "Home"
+msgstr "В начало"
+
+#: src/KeyName.cxx:51
+msgid "End"
+msgstr "В конец"
+
+#: src/KeyName.cxx:53
+msgid "PageDown"
+msgstr "PageDown"
+
+#: src/KeyName.cxx:55
+msgid "PageUp"
+msgstr "PageUp"
+
+#: src/KeyName.cxx:57
+msgid "Tab"
+msgstr "Tab"
+
+#: src/KeyName.cxx:59
+msgid "Shift+Tab"
+msgstr "Shift+Tab"
+
+#: src/KeyName.cxx:61
+msgid "Esc"
+msgstr "Esc"
+
+#: src/KeyName.cxx:63
+msgid "Insert"
+msgstr "Insert"
+
+#: src/KeyName.cxx:71
+#, c-format
+msgid "Ctrl-%c"
+msgstr ""
+
+#: src/KeyName.cxx:73
+#, c-format
+msgid "Alt-%c"
+msgstr ""
+
+#: src/ListWindow.cxx:492
 msgid "Range selection disabled"
 msgstr "Выбор диапазона выключен"
 
-#: src/list_window.cxx:559
+#: src/ListWindow.cxx:497
 msgid "Range selection enabled"
 msgstr "Выбор диапазона включен"
 
-#: src/Main.cxx:161
-#, c-format
-msgid "Connecting to %s...  [Press %s to abort]"
-msgstr "Подключение к %s...  [Нажмите %s для отмены]"
+#. translators: no lyrics were found for the song
+#: src/LyricsPage.cxx:236
+msgid "No lyrics"
+msgstr "Текст отсутствует"
 
-#: src/Main.cxx:182
+#: src/LyricsPage.cxx:254
+#, c-format
+msgid "Lyrics timeout occurred after %d seconds"
+msgstr "Таймаут получения текста после %d секунд"
+
+#: src/LyricsPage.cxx:337 src/LyricsPage.cxx:345 src/LyricsPage.cxx:354
+#: src/LyricsPage.cxx:490
+msgid "Lyrics"
+msgstr "Текст"
+
+#. translators: this message is displayed
+#. while data is retrieved
+#: src/LyricsPage.cxx:340
+msgid "loading..."
+msgstr "загружается..."
+
+#: src/LyricsPage.cxx:361
+msgid "Editor not configured"
+msgstr "Редактор не выбран"
+
+#: src/LyricsPage.cxx:368
+msgid "Do you really want to start an editor and edit these lyrics?"
+msgstr "Вы действительно хотите запустить редактор для правки этого текста?"
+
+#: src/LyricsPage.cxx:386 src/LyricsPage.cxx:410
+msgid "Can't start editor"
+msgstr "Не удалось запустить редактор"
+
+#: src/LyricsPage.cxx:413 src/LyricsPage.cxx:417
+#, fuzzy
+msgid "Editor exited unexpectedly"
+msgstr "Редактор неожиданно завершил работу (%d)"
+
+#. lyrics for the song were saved on hard disk
+#: src/LyricsPage.cxx:439
+msgid "Lyrics saved"
+msgstr "Текст сохранён"
+
+#: src/LyricsPage.cxx:445
+msgid "Lyrics deleted"
+msgstr "Текст удалён"
+
+#: src/LyricsPage.cxx:446
+msgid "No saved lyrics"
+msgstr "Сохранённый текст отсутствует"
+
+#: src/Main.cxx:167
+#, fuzzy, c-format
+msgid "Connecting to %s"
+msgstr "Подключено к %s"
+
+#: src/Main.cxx:187
 #, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "Ошибка: MPD версии %d.%d.%d устарел (необходим %s)"
 
-#: src/Main.cxx:317
-#, c-format
-msgid "press %s for the key editor"
-msgstr "%s - редактор клавиш"
-
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.cxx:209 src/options.cxx:212
+#: src/options.cxx:213 src/options.cxx:216
 msgid "translator-credits"
 msgstr "Перевод: Max Arnold <lwarxx@gmail.com>"
 
-#: src/player_command.cxx:174 src/screen_queue.cxx:623
+#: src/OutputsPage.cxx:87
+#, c-format
+msgid "Output '%s' enabled"
+msgstr "Аудиовыход '%s' включен"
+
+#: src/OutputsPage.cxx:98
+#, c-format
+msgid "Output '%s' disabled"
+msgstr "Аудиовыход '%s' выключен"
+
+#: src/OutputsPage.cxx:145 src/OutputsPage.cxx:206
+msgid "Outputs"
+msgstr "Аудиовыходы"
+
+#: src/player_command.cxx:176 src/QueuePage.cxx:614
 msgid "Shuffled queue"
 msgstr "Очередь перемешана"
 
-#: src/player_command.cxx:184
+#: src/player_command.cxx:186
 msgid "Cleared queue"
 msgstr "Очередь очищена"
 
+#. get path
+#: src/QueuePage.cxx:307
+msgid "Add"
+msgstr "Добавить"
+
+#: src/QueuePage.cxx:378 src/QueuePage.cxx:674
+msgid "Queue"
+msgstr "Очередь"
+
+#: src/QueuePage.cxx:380
+#, c-format
+msgid "Queue on %s"
+msgstr "Очередь на %s"
+
 #. query the user for a filename
-#: src/save_playlist.cxx:109
+#: src/save_playlist.cxx:85
 msgid "Save queue as"
 msgstr "Сохранить очередь как"
 
-#: src/save_playlist.cxx:140
+#: src/save_playlist.cxx:107
 #, c-format
 msgid "Replace %s?"
 msgstr "Заменить %s?"
 
-#. translators: a dialog was aborted by the user
-#: src/save_playlist.cxx:147 src/screen_file.cxx:214 src/screen_keydef.cxx:271
-#: src/screen_lyrics.cxx:370
-msgid "Aborted"
-msgstr "Прервано"
-
 #. success
-#: src/save_playlist.cxx:171
+#: src/save_playlist.cxx:128
 #, c-format
 msgid "Saved %s"
 msgstr "Сохранено в %s"
 
-#: src/screen.cxx:154
+#: src/screen_artist.cxx:186
+#, c-format
+msgid "All tracks of artist: %s"
+msgstr "Все композиции исполнителя: %s"
+
+#: src/screen_artist.cxx:191 src/SearchPage.cxx:86 src/SongPage.cxx:65
+msgid "Album"
+msgstr "Альбом"
+
+#: src/screen_artist.cxx:195
+#, c-format
+msgid "Tracks of no album of artist: %s"
+msgstr "Композиции исполнителя: %s"
+
+#: src/screen_artist.cxx:299 src/SearchPage.cxx:85 src/SongPage.cxx:63
+msgid "Artist"
+msgstr "Исполнитель"
+
+#: src/screen_client.cxx:43
+#, fuzzy
+msgid "Database update running"
+msgstr "Идёт обновление базы..."
+
+#: src/screen_client.cxx:50
+#, c-format
+msgid "Database update of %s started"
+msgstr "Обновление базы %s запущено"
+
+#: src/screen_client.cxx:53
+msgid "Database update started"
+msgstr "Начато обновление базы"
+
+#: src/screen.cxx:162
 msgid "Repeat mode is on"
 msgstr "Повтор включен"
 
-#: src/screen.cxx:155
+#: src/screen.cxx:163
 msgid "Repeat mode is off"
 msgstr "Повтор выключен"
 
-#: src/screen.cxx:159
+#: src/screen.cxx:167
 msgid "Random mode is on"
 msgstr "Случайный режим включен"
 
-#: src/screen.cxx:160
+#: src/screen.cxx:168
 msgid "Random mode is off"
 msgstr "Случайный режим выключен"
 
@@ -565,11 +840,11 @@ msgstr "Случайный режим выключен"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.cxx:169
+#: src/screen.cxx:177
 msgid "Single mode is on"
 msgstr "Одиночный режим включен"
 
-#: src/screen.cxx:170
+#: src/screen.cxx:178
 msgid "Single mode is off"
 msgstr "Одиночный режим выключен"
 
@@ -577,501 +852,192 @@ msgstr "Одиночный режим выключен"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.cxx:178
+#: src/screen.cxx:186
 msgid "Consume mode is on"
 msgstr "Режим удаления после проигрывания включен"
 
-#: src/screen.cxx:179
+#: src/screen.cxx:187
 msgid "Consume mode is off"
 msgstr "Режим удаления после проигрывания выключен"
 
-#: src/screen.cxx:182
+#: src/screen.cxx:190
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Плавный переход %d секунд"
 
-#: src/screen.cxx:194
+#: src/screen.cxx:202
 msgid "Database updated"
 msgstr "База обновлена"
 
-#: src/screen.cxx:226
+#: src/screen.cxx:252
 msgid "Find mode: Wrapped"
 msgstr "Режим поиска: циклический"
 
-#: src/screen.cxx:227
+#: src/screen.cxx:253
 msgid "Find mode: Normal"
 msgstr "Режим поиска: нормальный"
 
-#: src/screen.cxx:232
+#: src/screen.cxx:258
 msgid "Auto center mode: On"
 msgstr "Режим автоцентрирования: вкл."
 
-#: src/screen.cxx:233
+#: src/screen.cxx:259
 msgid "Auto center mode: Off"
 msgstr "Режим автоцентрирования: выкл."
 
-#: src/screen_artist.cxx:72 src/screen_artist.cxx:352
-msgid "All tracks"
-msgstr "Все композиции"
-
-#: src/screen_artist.cxx:384
-msgid "All artists"
-msgstr "Все исполнители"
-
-#: src/screen_artist.cxx:389
-#, c-format
-msgid "Albums of artist: %s"
-msgstr "Альбомы исполнителя: %s"
-
-#: src/screen_artist.cxx:398
-#, c-format
-msgid "All tracks of artist: %s"
-msgstr "Все композиции исполнителя: %s"
-
-#: src/screen_artist.cxx:401
-#, c-format
-msgid "Album: %s - %s"
-msgstr "Альбом: %s - %s"
-
-#: src/screen_artist.cxx:405
-#, c-format
-msgid "Tracks of no album of artist: %s"
-msgstr "Композиции исполнителя: %s"
-
-#: src/screen_artist.cxx:450
-#, c-format
-msgid "Adding album %s..."
-msgstr "Добавляется альбом %s..."
-
-#: src/screen_artist.cxx:452
-#, c-format
-msgid "Adding %s..."
-msgstr "Добавляется %s..."
-
-#: src/screen_browser.cxx:122
-#, c-format
-msgid "Loading playlist %s..."
-msgstr "Загружается плейлист %s..."
-
-#: src/screen_browser.cxx:163 src/screen_browser.cxx:255
-#: src/screen_browser.cxx:279
-#, c-format
-msgid "Adding '%s' to queue"
-msgstr "В очередь добавляется '%s'"
-
-#: src/screen_chat.cxx:59
-#, c-format
-msgid ""
-"connected to MPD %u.%u.%u (you need at least \n"
-"version 0.17.0 to use the chat feature)"
-msgstr ""
-"подключено к MPD %u.%u.%u (для использования чата \n"
-"необходима как минимум версия 0.17.0)"
-
-#: src/screen_chat.cxx:177
-msgid "Your message"
-msgstr "Ваше сообщение"
-
-#: src/screen_chat.cxx:186
-msgid "Message could not be sent"
-msgstr "Сообщение не может быть отправлено"
-
-#: src/screen_chat.cxx:199 src/title_bar.cxx:91
-msgid "Chat"
-msgstr "Чат"
-
-#: src/screen_client.cxx:41
-msgid "Database update running..."
-msgstr "Идёт обновление базы..."
-
-#: src/screen_client.cxx:49
-#, c-format
-msgid "Database update of %s started"
-msgstr "Обновление базы %s запущено"
-
-#: src/screen_client.cxx:52
-msgid "Database update started"
-msgstr "Начато обновление базы"
-
-#. translators: the "delete" command is only possible
-#. for playlists; the user attempted to delete a song
-#. or a directory or something else
-#: src/screen_file.cxx:200
-msgid "Deleting this item is not possible"
-msgstr "Удаление этого элемента невозможно"
-
-#: src/screen_file.cxx:207
-#, c-format
-msgid "Delete playlist %s?"
-msgstr "Удалить плейлист %s?"
-
-#. translators: MPD deleted the playlist, as requested by the
-#. user
-#: src/screen_file.cxx:227
-msgid "Playlist deleted"
-msgstr "Плейлист удалён"
-
-#. translators: caption of the browser screen
-#: src/screen_file.cxx:280 src/title_bar.cxx:77
-msgid "Browse"
-msgstr "Навигация"
-
-#: src/screen_find.cxx:29
+#: src/screen_find.cxx:31
 msgid "Find"
 msgstr "Поиск"
 
-#: src/screen_find.cxx:30
+#: src/screen_find.cxx:32
 msgid "Find backward"
 msgstr "Поиск назад"
 
-#: src/screen_find.cxx:31
+#: src/screen_find.cxx:33
 msgid "Jump"
 msgstr "Перейти"
 
-#: src/screen_find.cxx:82
+#: src/screen_find.cxx:79
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Не удалось найти '%s'"
 
-#: src/screen_help.cxx:39
-msgid "Movement"
-msgstr "Перемещение"
-
-#: src/screen_help.cxx:84
-msgid "Global"
-msgstr "Глобальные"
-
-#: src/screen_help.cxx:121
-msgid "Play"
-msgstr "Воспроизведение"
-
-#: src/screen_help.cxx:124
-msgid "Move song up"
-msgstr "Переместить композицию вверх"
-
-#: src/screen_help.cxx:125
-msgid "Move song down"
-msgstr "Переместить композицию вниз"
-
-#: src/screen_help.cxx:128
-msgid "Center"
-msgstr "Центрировать"
-
-#: src/screen_help.cxx:136
-msgid "Enter directory/Select and play song"
-msgstr "Перейти в директорию/Выбрать и проиграть композицию"
-
-#: src/screen_help.cxx:138 src/screen_help.cxx:153
-msgid "Append song to queue"
-msgstr "Добавить композицию в очередь"
-
-#: src/screen_help.cxx:140
-msgid "Delete playlist"
-msgstr "Удалить плейлист"
-
-#: src/screen_help.cxx:150 src/screen_search.cxx:355 src/title_bar.cxx:82
-msgid "Search"
-msgstr "Поиск"
-
-#: src/screen_help.cxx:151
-msgid "Select and play"
-msgstr "Выбрать и проиграть"
-
-#: src/screen_help.cxx:162
-msgid "View Lyrics"
-msgstr "Показать текст"
-
-#: src/screen_help.cxx:163
-msgid "(Re)load lyrics"
-msgstr "(Пере)загрузить текст"
-
-#. to translators: this hotkey aborts the retrieval of lyrics
-#. from the server
-#: src/screen_help.cxx:166
-msgid "Interrupt retrieval"
-msgstr "Прервать загрузку"
-
-#: src/screen_help.cxx:167
-msgid "Download lyrics for currently playing song"
-msgstr "Загрузить текст проигрываемой композиции"
-
-#: src/screen_help.cxx:168
-msgid "Add or edit lyrics"
-msgstr "Добавить или редактировать текст"
-
-#: src/screen_help.cxx:169
-msgid "Save lyrics"
-msgstr "Сохранить текст"
-
-#: src/screen_help.cxx:170
-msgid "Delete saved lyrics"
-msgstr "Удалить сохранённый текст"
-
-#: src/screen_help.cxx:177
-msgid "Enable/disable output"
-msgstr "Вкл/выкл аудиовыход"
-
-#: src/screen_help.cxx:184
-msgid "Write a message"
-msgstr "Напишите сообщение"
-
-#: src/screen_help.cxx:189
-msgid "Keydef screen"
-msgstr "Экран клавиатурных комбинаций"
-
-#: src/screen_help.cxx:191
-msgid "Edit keydefs for selected command"
-msgstr "Изменить комбинации для выбранной команды"
-
-#: src/screen_help.cxx:192
-msgid "Remove selected keydef"
-msgstr "Удалить выбранную комбинацию"
-
-#: src/screen_help.cxx:193
-msgid "Add a keydef"
-msgstr "Добавить новую клавишу"
-
-#: src/screen_help.cxx:194
-msgid "Go up a level"
-msgstr "Перейти на уровень выше"
-
-#: src/screen_help.cxx:195
-msgid "Apply and save changes"
-msgstr "Применить и сохранить изменения"
-
-#: src/screen_help.cxx:241 src/title_bar.cxx:74
-msgid "Help"
-msgstr "Помощь"
-
-#: src/screen_init.cxx:70 src/screen_init.cxx:127
-msgid "Error: Screen too small"
-msgstr "Ошибка: экран слишком мал"
-
-#: src/screen_keydef.cxx:141
-msgid "You have new key bindings"
-msgstr "Новые клавиатурные комбинации задействованы"
-
-#: src/screen_keydef.cxx:143
-msgid "Keybindings unchanged."
-msgstr "Клавиатурные комбинации не изменились."
-
-#: src/screen_keydef.cxx:153
-#, c-format
-msgid "Error: Unable to create directory ~/.ncmpc - %s"
-msgstr "Ошибка: не удалось создать директорию ~/.ncmpc - %s"
-
-#: src/screen_keydef.cxx:164 src/screen_keydef.cxx:173
-#, c-format
-msgid "Error: %s - %s"
-msgstr "Ошибка: %s - %s"
-
-#: src/screen_keydef.cxx:171
-#, c-format
-msgid "Wrote %s"
-msgstr "Записано %s"
-
-#: src/screen_keydef.cxx:250
+#: src/screen_keydef.cxx:162
 msgid "Deleted"
 msgstr "Удалено"
 
-#: src/screen_keydef.cxx:265
+#: src/screen_keydef.cxx:178
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Нажмите новую клавишу для %s: "
 
-#: src/screen_keydef.cxx:276
+#: src/screen_keydef.cxx:188
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl+Space не может использоваться"
 
-#: src/screen_keydef.cxx:282
+#: src/screen_keydef.cxx:194
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "Ошибка: клавиша %s уже используется для %s"
 
-#: src/screen_keydef.cxx:291
+#: src/screen_keydef.cxx:203
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "Назначено %s для %s"
 
-#: src/screen_keydef.cxx:317
-msgid "===> Apply key bindings "
-msgstr "===> Применить клавиатурные комбинации "
-
-#: src/screen_keydef.cxx:319
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Применить и сохранить клавиатурные комбинации  "
-
-#: src/screen_keydef.cxx:347
+#: src/screen_keydef.cxx:230
 msgid "Add new key"
 msgstr "Добавить новую клавишу"
 
-#: src/screen_keydef.cxx:410
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Внимание: вы не забыли применить сделанные изменения?"
-
-#: src/screen_keydef.cxx:417
-msgid "Edit key bindings"
-msgstr "Изменение клавиатурных комбинаций"
-
-#: src/screen_keydef.cxx:419
+#: src/screen_keydef.cxx:252
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Изменение клавиатурных комбинаций для %s"
 
-#. translators: no lyrics were found for the song
-#: src/screen_lyrics.cxx:208
-msgid "No lyrics"
-msgstr "Текст отсутствует"
+#: src/screen_keydef.cxx:394
+msgid "You have new key bindings"
+msgstr "Новые клавиатурные комбинации задействованы"
 
-#: src/screen_lyrics.cxx:226
+#: src/screen_keydef.cxx:396
+msgid "Keybindings unchanged."
+msgstr "Клавиатурные комбинации не изменились."
+
+#: src/screen_keydef.cxx:406
+#, fuzzy
+msgid "Unable to write configuration"
+msgstr "Неопределённое значение клавиатурной комбинации"
+
+#: src/screen_keydef.cxx:422
 #, c-format
-msgid "Lyrics timeout occurred after %d seconds"
-msgstr "Таймаут получения текста после %d секунд"
+msgid "Wrote %s"
+msgstr "Записано %s"
 
-#: src/screen_lyrics.cxx:327 src/screen_lyrics.cxx:336
-#: src/screen_lyrics.cxx:346 src/title_bar.cxx:85
-msgid "Lyrics"
-msgstr "Текст"
+#: src/screen_keydef.cxx:434
+msgid "===> Apply key bindings "
+msgstr "===> Применить клавиатурные комбинации "
 
-#. translators: this message is displayed
-#. while data is retrieved
-#: src/screen_lyrics.cxx:330
-msgid "loading..."
-msgstr "загружается..."
+#: src/screen_keydef.cxx:436
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Применить и сохранить клавиатурные комбинации  "
 
-#: src/screen_lyrics.cxx:361
-msgid "Editor not configured"
-msgstr "Редактор не выбран"
+#: src/screen_keydef.cxx:473
+msgid "Edit key bindings"
+msgstr "Изменение клавиатурных комбинаций"
 
-#: src/screen_lyrics.cxx:367
-msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr "Вы действительно хотите запустить редактор для правки этого текста?"
+#: src/screen_keydef.cxx:555
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "Внимание: вы не забыли применить сделанные изменения?"
 
-#: src/screen_lyrics.cxx:385 src/screen_lyrics.cxx:409
-msgid "Can't start editor"
-msgstr "Не удалось запустить редактор"
+#: src/screen_keydef.cxx:605
+msgid "Keys"
+msgstr ""
 
-#: src/screen_lyrics.cxx:411
-#, c-format
-msgid "Editor exited unexpectedly (%d)"
-msgstr "Редактор неожиданно завершил работу (%d)"
+#: src/screen_utils.cxx:125
+msgid "Password"
+msgstr "Пароль"
 
-#: src/screen_lyrics.cxx:414
-#, c-format
-msgid "Editor exited unexpectedly (signal %d)"
-msgstr "Редактор неожиданно завершил работу (по сигналу %d)"
-
-#. lyrics for the song were saved on hard disk
-#: src/screen_lyrics.cxx:436
-msgid "Lyrics saved"
-msgstr "Текст сохранён"
-
-#: src/screen_lyrics.cxx:443
-msgid "Lyrics deleted"
-msgstr "Текст удалён"
-
-#: src/screen_lyrics.cxx:446
-msgid "No saved lyrics"
-msgstr "Сохранённый текст отсутствует"
-
-#: src/screen_outputs.cxx:60
-#, c-format
-msgid "Output '%s' enabled"
-msgstr "Аудиовыход '%s' включен"
-
-#: src/screen_outputs.cxx:71
-#, c-format
-msgid "Output '%s' disabled"
-msgstr "Аудиовыход '%s' выключен"
-
-#: src/screen_outputs.cxx:162 src/title_bar.cxx:88
-msgid "Outputs"
-msgstr "Аудиовыходы"
-
-#. get path
-#: src/screen_queue.cxx:274
-msgid "Add"
-msgstr "Добавить"
-
-#: src/screen_queue.cxx:382 src/title_bar.cxx:76
-msgid "Queue"
-msgstr "Очередь"
-
-#: src/screen_queue.cxx:384
-#, c-format
-msgid "Queue on %s"
-msgstr "Очередь на %s"
-
-#: src/screen_search.cxx:48
+#: src/SearchPage.cxx:50
 msgid "artist"
 msgstr "artist"
 
-#: src/screen_search.cxx:49
+#: src/SearchPage.cxx:51
 msgid "album"
 msgstr "album"
 
-#: src/screen_search.cxx:50
+#: src/SearchPage.cxx:52
 msgid "title"
 msgstr "title"
 
-#: src/screen_search.cxx:51
+#: src/SearchPage.cxx:53
 msgid "track"
 msgstr "track"
 
-#: src/screen_search.cxx:52
+#: src/SearchPage.cxx:54
 msgid "name"
 msgstr "name"
 
-#: src/screen_search.cxx:53
+#: src/SearchPage.cxx:55
 msgid "genre"
 msgstr "genre"
 
-#: src/screen_search.cxx:54
+#: src/SearchPage.cxx:56
 msgid "date"
 msgstr "date"
 
-#: src/screen_search.cxx:55
+#: src/SearchPage.cxx:57
 msgid "composer"
 msgstr "composer"
 
-#: src/screen_search.cxx:56
+#: src/SearchPage.cxx:58
 msgid "performer"
 msgstr "performer"
 
-#: src/screen_search.cxx:57
+#: src/SearchPage.cxx:59
 msgid "comment"
 msgstr "comment"
 
-#: src/screen_search.cxx:65
+#: src/SearchPage.cxx:67
 msgid "file"
 msgstr "file"
 
-#: src/screen_search.cxx:82 src/screen_song.cxx:52
+#: src/SearchPage.cxx:84 src/SongPage.cxx:64
 msgid "Title"
 msgstr "Композиция"
 
-#: src/screen_search.cxx:83 src/screen_song.cxx:51 src/title_bar.cxx:79
-msgid "Artist"
-msgstr "Исполнитель"
-
-#: src/screen_search.cxx:84 src/screen_song.cxx:53
-msgid "Album"
-msgstr "Альбом"
-
-#: src/screen_search.cxx:85
+#: src/SearchPage.cxx:87
 msgid "Filename"
 msgstr "Имя файла"
 
-#: src/screen_search.cxx:86
+#: src/SearchPage.cxx:88
 msgid "Artist + Title"
 msgstr "Исполнитель + Композиция"
 
-#: src/screen_search.cxx:244
+#: src/SearchPage.cxx:260
 #, c-format
 msgid "No argument for search tag %s"
 msgstr "Не задан критерий поиска по тегу %s"
 
-#: src/screen_search.cxx:253
+#: src/SearchPage.cxx:269
 #, c-format
 msgid "Bad search tag %s"
 msgstr "Неверный тег поиска %s"
@@ -1079,156 +1045,210 @@ msgstr "Неверный тег поиска %s"
 #. if( pattern==nullptr )
 #. search_new(screen, c);
 #. else
-#: src/screen_search.cxx:400
+#: src/SearchPage.cxx:396
 #, c-format
 msgid "Press %s for a new search"
 msgstr "Нажмите %s для нового поиска"
 
-#: src/screen_search.cxx:427
+#: src/SearchPage.cxx:415
 #, c-format
 msgid "Search: %s"
 msgstr "Поиск: %s"
 
-#: src/screen_search.cxx:430
+#: src/SearchPage.cxx:418
 #, c-format
 msgid "Search: Results for %s [%s]"
 msgstr "Поиск: результаты поиска '%s' в поле [%s]"
 
-#: src/screen_search.cxx:434
+#: src/SearchPage.cxx:422
 #, c-format
 msgid "Search: Press %s for a new search [%s]"
 msgstr "Поиск: нажмите %s для поиска по полю [%s]"
 
-#: src/screen_search.cxx:458
+#: src/SearchPage.cxx:447
 #, c-format
 msgid "Search mode: %s"
 msgstr "Поле для поиска: %s"
 
-#: src/screen_song.cxx:54
+#: src/SongPage.cxx:66
 msgid "Length"
 msgstr "Длительность"
 
-#: src/screen_song.cxx:55
+#: src/SongPage.cxx:67
 msgid "Position"
 msgstr "Позиция"
 
-#: src/screen_song.cxx:56
+#: src/SongPage.cxx:68
 msgid "Composer"
 msgstr "Композитор"
 
-#: src/screen_song.cxx:57
+#: src/SongPage.cxx:69
 msgid "Name"
 msgstr "Название"
 
-#: src/screen_song.cxx:58
+#: src/SongPage.cxx:70
 msgid "Disc"
 msgstr "Диск"
 
-#: src/screen_song.cxx:59
+#: src/SongPage.cxx:71
 msgid "Track"
 msgstr "Дорожка"
 
-#: src/screen_song.cxx:60
+#: src/SongPage.cxx:72
 msgid "Date"
 msgstr "Дата"
 
-#: src/screen_song.cxx:61
+#: src/SongPage.cxx:73
 msgid "Genre"
 msgstr "Жанр"
 
-#: src/screen_song.cxx:62
+#: src/SongPage.cxx:74
 msgid "Comment"
 msgstr "Комментарий"
 
-#: src/screen_song.cxx:63
+#: src/SongPage.cxx:75
 msgid "Path"
 msgstr "Путь"
 
-#: src/screen_song.cxx:64
+#: src/SongPage.cxx:76
 msgid "Bitrate"
 msgstr "Битрейт"
 
-#: src/screen_song.cxx:65
+#: src/SongPage.cxx:77
 msgid "Format"
 msgstr "Формат"
 
-#: src/screen_song.cxx:82
+#: src/SongPage.cxx:94
 msgid "Number of artists"
 msgstr "Количество исполнителей"
 
-#: src/screen_song.cxx:83
+#: src/SongPage.cxx:95
 msgid "Number of albums"
 msgstr "Количество альбомов"
 
-#: src/screen_song.cxx:84
+#: src/SongPage.cxx:96
 msgid "Number of songs"
 msgstr "Количество композиций"
 
-#: src/screen_song.cxx:85
+#: src/SongPage.cxx:97
 msgid "Uptime"
 msgstr "Время работы"
 
-#: src/screen_song.cxx:86
+#: src/SongPage.cxx:98
 msgid "Most recent db update"
 msgstr "Последнее обновление базы"
 
-#: src/screen_song.cxx:87
+#: src/SongPage.cxx:99
 msgid "Playtime"
 msgstr "Время воспроизведения"
 
-#: src/screen_song.cxx:88
+#: src/SongPage.cxx:100
 msgid "DB playtime"
 msgstr "Время воспроизведения базы"
 
 # Several translations for Song Viewer:
-#: src/screen_song.cxx:173
+#: src/SongPage.cxx:203
 msgid "Song viewer"
 msgstr "Информация о композиции"
 
-#: src/screen_song.cxx:337
+#: src/SongPage.cxx:369
 msgid "MPD statistics"
 msgstr "Статистика MPD"
 
-#: src/screen_song.cxx:427
+#: src/SongPage.cxx:454
 msgid "Selected song"
 msgstr "Выбранная композиция"
 
-#: src/screen_song.cxx:437
+#: src/SongPage.cxx:464
 msgid "Currently playing song"
 msgstr "Проигрываемая композиция"
 
-#: src/screen_song.cxx:442
+#: src/SongPage.cxx:469
 #, c-format
 msgid "%d kbps"
 msgstr "%d кбит/с"
 
-#. NOTE: if one day a translator decides to use a multi-byte character
-#. for one of the yes/no keys, we'll have to parse it properly
-#: src/screen_utils.cxx:80
-#, c-format
-msgid "%s [%s/%s] "
-msgstr "%s [%s/%s] "
+#: src/SongPage.cxx:553
+msgid "Song"
+msgstr ""
 
-#: src/screen_utils.cxx:121
-msgid "Password"
-msgstr "Пароль"
-
-#: src/status_bar.cxx:121
+#: src/StatusBar.cxx:104
 msgid "Playing:"
 msgstr "Проигрывается:"
 
-#: src/status_bar.cxx:124
+#: src/StatusBar.cxx:108
 msgid "[Paused]"
 msgstr "[Пауза]"
 
-#: src/title_bar.cxx:99
+#: src/time_format.cxx:44
+msgid "year"
+msgstr ""
+
+#: src/time_format.cxx:46
+msgid "years"
+msgstr ""
+
+#: src/time_format.cxx:54
+msgid "week"
+msgstr ""
+
+#: src/time_format.cxx:57
+msgid "weeks"
+msgstr ""
+
+#: src/time_format.cxx:65
+msgid "day"
+msgstr ""
+
+#: src/time_format.cxx:68
+msgid "days"
+msgstr ""
+
+#: src/TitleBar.cxx:100
 msgid "Volume n/a"
 msgstr "Громкость н/д"
 
-#: src/title_bar.cxx:101
+#: src/TitleBar.cxx:102
 #, c-format
 msgid "Volume %d%%"
 msgstr "Громкость %d%%"
+
+#~ msgid "Connecting to %s...  [Press %s to abort]"
+#~ msgstr "Подключение к %s...  [Нажмите %s для отмены]"
+
+#~ msgid "press %s for the key editor"
+#~ msgstr "%s - редактор клавиш"
+
+#~ msgid "Album: %s - %s"
+#~ msgstr "Альбом: %s - %s"
+
+#~ msgid "Adding album %s..."
+#~ msgstr "Добавляется альбом %s..."
+
+#~ msgid "Adding %s..."
+#~ msgstr "Добавляется %s..."
+
+#~ msgid ""
+#~ "connected to MPD %u.%u.%u (you need at least \n"
+#~ "version 0.17.0 to use the chat feature)"
+#~ msgstr ""
+#~ "подключено к MPD %u.%u.%u (для использования чата \n"
+#~ "необходима как минимум версия 0.17.0)"
+
+#~ msgid "Error: Screen too small"
+#~ msgstr "Ошибка: экран слишком мал"
+
+#~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
+#~ msgstr "Ошибка: не удалось создать директорию ~/.ncmpc - %s"
+
+#~ msgid "Error: %s - %s"
+#~ msgstr "Ошибка: %s - %s"
+
+#~ msgid "Editor exited unexpectedly (signal %d)"
+#~ msgstr "Редактор неожиданно завершил работу (по сигналу %d)"
+
+#~ msgid "%s [%s/%s] "
+#~ msgstr "%s [%s/%s] "
 
 #~ msgid "unknown"
 #~ msgstr "неизвестно"
@@ -1238,9 +1258,6 @@ msgstr "Громкость %d%%"
 
 #~ msgid "Warning: Unknown color - %s\n"
 #~ msgstr "Внимание: неизвестный цвет - %s\n"
-
-#~ msgid "Connected to %s"
-#~ msgstr "Подключено к %s"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Плейлист перемешан"
