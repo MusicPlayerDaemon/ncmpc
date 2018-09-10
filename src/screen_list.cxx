@@ -34,22 +34,16 @@
 #include <string.h>
 
 static const PageMeta *const screens[] = {
+#ifdef ENABLE_HELP_SCREEN
+	&screen_help,
+#endif
 	&screen_queue,
 	&screen_browse,
 #ifdef ENABLE_ARTIST_SCREEN
 	&screen_artist,
 #endif
-#ifdef ENABLE_HELP_SCREEN
-	&screen_help,
-#endif
 #ifdef ENABLE_SEARCH_SCREEN
 	&screen_search,
-#endif
-#ifdef ENABLE_SONG_SCREEN
-	&screen_song,
-#endif
-#ifdef ENABLE_KEYDEF_SCREEN
-	&screen_keydef,
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
 	&screen_lyrics,
@@ -59,6 +53,12 @@ static const PageMeta *const screens[] = {
 #endif
 #ifdef ENABLE_CHAT_SCREEN
 	&screen_chat,
+#endif
+#ifdef ENABLE_SONG_SCREEN
+	&screen_song,
+#endif
+#ifdef ENABLE_KEYDEF_SCREEN
+	&screen_keydef,
 #endif
 };
 
