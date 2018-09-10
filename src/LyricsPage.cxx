@@ -409,10 +409,12 @@ LyricsPage::Edit()
 		else if (WEXITSTATUS(status) == 127)
 			screen_status_message(_("Can't start editor"));
 		else
-			screen_status_printf(_("Editor exited unexpectedly (%d)"),
+			screen_status_printf("%s (%d)",
+					     _("Editor exited unexpectedly"),
 					     WEXITSTATUS(status));
 	} else if (WIFSIGNALED(status)) {
-		screen_status_printf(_("Editor exited unexpectedly (signal %d)"),
+		screen_status_printf("%s (signal %d)",
+				     _("Editor exited unexpectedly"),
 				     WTERMSIG(status));
 	}
 }
