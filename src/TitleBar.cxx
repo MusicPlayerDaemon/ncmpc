@@ -74,7 +74,7 @@ TitleBar::Update(const struct mpd_status *status)
 }
 
 void
-TitleBar::Paint(const char *title) const
+TitleBar::Paint(const PageMeta &current_page_meta, const char *title) const
 {
 	WINDOW *w = window.w;
 
@@ -86,7 +86,9 @@ TitleBar::Paint(const char *title) const
 		mvwaddstr(w, 0, 0, title);
 #ifndef NCMPC_MINI
 	} else {
-		PaintTabBar(w);
+		PaintTabBar(w, current_page_meta);
+#else
+		(void)current_page_meta;
 #endif
 	}
 

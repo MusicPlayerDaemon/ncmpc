@@ -38,7 +38,7 @@ ScreenManager::PaintTopWindow()
 		title = current_page->second->GetTitle(buf, buf_size);
 	assert(title != nullptr);
 
-	title_bar.Paint(title);
+	title_bar.Paint(GetCurrentPageMeta(), title);
 }
 
 void

@@ -23,7 +23,9 @@
 #include "config.h"
 #include "ncmpc_curses.h"
 
+struct PageMeta;
+
 void
-PaintTabBar(WINDOW *w);
+PaintTabBar(WINDOW *w, const PageMeta &current_page_meta);
 
 #endif

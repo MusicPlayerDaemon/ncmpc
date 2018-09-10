@@ -23,6 +23,7 @@
 #include "Window.hxx"
 
 struct mpd_status;
+struct PageMeta;
 
 class TitleBar {
 	Window window;
@@ -39,7 +40,7 @@ public:
 
 	void OnResize(unsigned width);
 	void Update(const struct mpd_status *status);
-	void Paint(const char *title) const;
+	void Paint(const PageMeta &current_page_meta, const char *title) const;
 };
 
 #endif

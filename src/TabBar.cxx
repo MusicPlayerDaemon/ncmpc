@@ -26,25 +26,35 @@
 #include "i18n.h"
 
 static void
-PaintPageTab(WINDOW *w, Command cmd, const char *label)
+PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected)
 {
 	colors_use(w, COLOR_TITLE_BOLD);
+	if (selected)
+		wattron(w, A_REVERSE);
+
 	waddstr(w, GetGlobalKeyBindings().GetKeyNames(cmd, false));
 	colors_use(w, COLOR_TITLE);
+	if (selected)
+		wattron(w, A_REVERSE);
+
 	waddch(w, ':');
 	waddstr(w, label);
 	waddch(w, ' ');
 	waddch(w, ' ');
+
+	if (selected)
+		wattroff(w, A_REVERSE);
 }
 
 void
-PaintTabBar(WINDOW *w)
+PaintTabBar(WINDOW *w, const PageMeta &current_page_meta)
 {
 	for (unsigned i = 0;; ++i) {
 		const auto *page = GetPageMeta(i);
 		if (page == nullptr)
 			break;
 
-		PaintPageTab(w, page->command, gettext(page->title));
+		PaintPageTab(w, page->command, gettext(page->title),
+			     page == &current_page_meta);
 	}
 }
