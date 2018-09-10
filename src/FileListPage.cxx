@@ -118,7 +118,7 @@ load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 
 	if (mpd_run_load(connection, mpd_playlist_get_path(playlist))) {
 		const char *name = g_basename(mpd_playlist_get_path(playlist));
-		screen_status_printf(_("Loading playlist %s..."),
+		screen_status_printf(_("Loading playlist '%s'"),
 				     Utf8ToLocale(name).c_str());
 
 		c->events |= MPD_IDLE_QUEUE;
