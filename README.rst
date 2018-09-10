@@ -46,4 +46,5 @@ Links
 - `Home page and download <http://www.musicpd.org/clients/ncmpc/>`__
 - `git repository <https://github.com/MusicPlayerDaemon/ncmpc/>`__
 - `Bug tracker <https://github.com/MusicPlayerDaemon/ncmpc/issues>`__
+- `Help translate ncmpc to your native language <https://hosted.weblate.org/projects/ncmpc/>`__
 - `Forum <http://forum.musicpd.org/>`__
