@@ -20,8 +20,6 @@
 #ifndef SCREEN_LIST_H
 #define SCREEN_LIST_H
 
-#include "config.h"
-#include "ncmpc_curses.h"
 #include "Compiler.h"
 
 struct screen_functions;
