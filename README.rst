@@ -14,7 +14,7 @@ You need:
 - libmpdclient 2.9
 - `GLib 2.30 <https://developer.gnome.org/glib/>`__
 - `ncurses <https://www.gnu.org/software/ncurses/>`__
-- `Meson 0.37 <http://mesonbuild.com/>`__ and `Ninja <https://ninja-build.org/>`__
+- `Meson 0.47 <http://mesonbuild.com/>`__ and `Ninja <https://ninja-build.org/>`__
 
 Run ``meson``:
 
