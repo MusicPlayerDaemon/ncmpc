@@ -137,14 +137,7 @@ private:
 void
 CommandKeysPage::check_subcmd_length()
 {
-	unsigned i;
-
-	/* this loops counts the continous valid keys at the start of the the keys
-	   array, so make sure you don't have gaps */
-	for (i = 0; i < MAX_COMMAND_KEYS; i++)
-		if (bindings->key_bindings[subcmd].keys[i] == 0)
-			break;
-	subcmd_n_keys = i;
+	subcmd_n_keys = bindings->key_bindings[subcmd].GetKeyCount();
 
 	lw.SetLength(subcmd_length());
 }

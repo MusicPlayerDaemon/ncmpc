@@ -47,6 +47,12 @@ struct KeyBinding {
 		return std::find(keys.begin(), keys.end(), key) != keys.end();
 	}
 
+	gcc_pure
+	size_t GetKeyCount() const {
+		return std::distance(keys.begin(),
+				     std::find(keys.begin(), keys.end(), 0));
+	}
+
 	void SetKey(const std::array<int, MAX_COMMAND_KEYS> &_keys) {
 		keys = _keys;
 #ifndef NCMPC_MINI
