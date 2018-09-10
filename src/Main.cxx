@@ -182,12 +182,12 @@ mpdclient_connected_callback()
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.14 - song id not supported by mpd */
 	auto *connection = mpd->GetConnection();
-	if (mpd_connection_cmp_server_version(connection, 0, 16, 0) < 0) {
+	if (mpd_connection_cmp_server_version(connection, 0, 19, 0) < 0) {
 		const unsigned *version =
 			mpd_connection_get_server_version(connection);
 		screen_status_printf(_("Error: MPD version %d.%d.%d is too old (%s needed)"),
 				     version[0], version[1], version[2],
-				     "0.16.0");
+				     "0.19.0");
 		mpd->Disconnect();
 		doupdate();
 

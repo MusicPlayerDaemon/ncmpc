@@ -72,19 +72,6 @@ ChatPage::CheckChatSupport(struct mpdclient &c)
 	if (c.connection == nullptr)
 		return (was_supported = false);
 
-	if (mpd_connection_cmp_server_version(c.connection, 0, 17, 0) == -1) {
-		const unsigned *version = mpd_connection_get_server_version(c.connection);
-
-		char message[256];
-		snprintf(message, sizeof(message),
-			 _("connected to MPD %u.%u.%u (you need at least \n"
-			   "version 0.17.0 to use the chat feature)"),
-			 version[0], version[1], version[2]);
-		Append(message);
-
-		return (was_supported = false);
-	}
-
 	/* mpdclient_get_connection? */
 	if (!mpdclient_cmd_subscribe(&c, chat_channel))
 		return (was_supported = false);
