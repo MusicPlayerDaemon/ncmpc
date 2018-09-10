@@ -20,6 +20,8 @@
 #ifndef NCMPC_QUEUE_PAGE_HXX
 #define NCMPC_QUEUE_PAGE_HXX
 
-extern const struct screen_functions screen_queue;
+struct PageMeta;
+
+extern const PageMeta screen_queue;
 
 #endif

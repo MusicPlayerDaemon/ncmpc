@@ -18,7 +18,7 @@
  */
 
 #include "FileBrowserPage.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "FileListPage.hxx"
 #include "screen_status.hxx"
 #include "save_playlist.hxx"
@@ -391,7 +391,7 @@ FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 	return false;
 }
 
-const struct screen_functions screen_browse = {
+const PageMeta screen_browse = {
 	"browse",
 	screen_file_init,
 };

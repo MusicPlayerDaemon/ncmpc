@@ -18,7 +18,7 @@
  */
 
 #include "SearchPage.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "screen_status.hxx"
 #include "TextListRenderer.hxx"
 #include "i18n.h"
@@ -470,7 +470,7 @@ SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 	return false;
 }
 
-const struct screen_functions screen_search = {
+const PageMeta screen_search = {
 	"search",
 	screen_search_init,
 };

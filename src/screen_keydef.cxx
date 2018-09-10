@@ -18,7 +18,7 @@
  */
 
 #include "screen_keydef.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "ListPage.hxx"
 #include "ListText.hxx"
 #include "TextListRenderer.hxx"
@@ -600,7 +600,7 @@ KeyDefPage::OnCommand(struct mpdclient &c, Command cmd)
 	return false;
 }
 
-const struct screen_functions screen_keydef = {
+const PageMeta screen_keydef = {
 	"keydef",
 	keydef_init,
 };

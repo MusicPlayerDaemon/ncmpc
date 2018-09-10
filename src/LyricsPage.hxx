@@ -26,9 +26,10 @@
 
 struct mpdclient;
 struct mpd_song;
+struct PageMeta;
 class ScreenManager;
 
-extern const struct screen_functions screen_lyrics;
+extern const PageMeta screen_lyrics;
 
 void
 screen_lyrics_switch(ScreenManager &_screen, struct mpdclient &c,

@@ -38,7 +38,7 @@
 
 enum class Command : unsigned;
 struct mpdclient;
-struct screen_functions;
+struct PageMeta;
 class Page;
 
 class ScreenManager {
@@ -83,12 +83,12 @@ public:
 	StatusBar status_bar;
 
 private:
-	using PageMap = std::map<const struct screen_functions *,
+	using PageMap = std::map<const PageMeta *,
 				 std::unique_ptr<Page>>;
 	PageMap pages;
 	PageMap::iterator current_page = pages.begin();
 
-	const struct screen_functions *mode_fn_prev;
+	const PageMeta *mode_fn_prev;
 
 	char *buf;
 	size_t buf_size;
@@ -115,7 +115,7 @@ public:
 		return {0, (int)title_bar.GetHeight()};
 	}
 
-	PageMap::iterator MakePage(const struct screen_functions &sf);
+	PageMap::iterator MakePage(const PageMeta &sf);
 
 	void OnResize();
 
@@ -124,7 +124,7 @@ public:
 		return &page == current_page->second.get();
 	}
 
-	void Switch(const struct screen_functions &sf, struct mpdclient &c);
+	void Switch(const PageMeta &sf, struct mpdclient &c);
 	void Swap(struct mpdclient &c, const struct mpd_song *song);
 
 

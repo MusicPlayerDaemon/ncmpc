@@ -18,7 +18,7 @@
  */
 
 #include "HelpPage.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
 #include "ListText.hxx"
@@ -307,7 +307,7 @@ HelpPage::OnCommand(struct mpdclient &c, Command cmd)
 	return false;
 }
 
-const struct screen_functions screen_help = {
+const PageMeta screen_help = {
 	"help",
 	help_init,
 };

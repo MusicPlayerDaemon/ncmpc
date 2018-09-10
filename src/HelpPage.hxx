@@ -23,7 +23,8 @@
 #include "config.h"
 
 #ifdef ENABLE_HELP_SCREEN
-extern const struct screen_functions screen_help;
+struct PageMeta;
+extern const PageMeta screen_help;
 #endif
 
 #endif

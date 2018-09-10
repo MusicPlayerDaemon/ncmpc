@@ -23,7 +23,8 @@
 #include "config.h"
 
 #ifdef ENABLE_SEARCH_SCREEN
-extern const struct screen_functions screen_search;
+struct PageMeta;
+extern const PageMeta screen_search;
 #endif
 
 #endif

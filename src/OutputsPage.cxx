@@ -18,7 +18,7 @@
  */
 
 #include "OutputsPage.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
 #include "screen_status.hxx"
@@ -201,7 +201,7 @@ OutputsPage::OnCommand(struct mpdclient &c, Command cmd)
 	return false;
 }
 
-const struct screen_functions screen_outputs = {
+const PageMeta screen_outputs = {
 	"outputs",
 	outputs_init,
 };

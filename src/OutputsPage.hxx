@@ -23,7 +23,8 @@
 #include "config.h"
 
 #ifdef ENABLE_OUTPUTS_SCREEN
-extern const struct screen_functions screen_outputs;
+struct PageMeta;
+extern const PageMeta screen_outputs;
 #endif /* ENABLE_OUTPUTS_SCREEN */
 
 #endif

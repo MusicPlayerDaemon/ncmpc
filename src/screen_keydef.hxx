@@ -23,7 +23,8 @@
 #include "config.h"
 
 #ifdef ENABLE_KEYDEF_SCREEN
-extern const struct screen_functions screen_keydef;
+struct PageMeta;
+extern const PageMeta screen_keydef;
 #endif /* ENABLE_KEYDEF_SCREEN */
 
 #endif

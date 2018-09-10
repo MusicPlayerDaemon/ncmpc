@@ -18,7 +18,7 @@
  */
 
 #include "ChatPage.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "screen_utils.hxx"
 #include "screen_status.hxx"
 #include "TextPage.hxx"
@@ -187,7 +187,7 @@ ChatPage::OnCommand(struct mpdclient &c, Command cmd)
 	return false;
 }
 
-const struct screen_functions screen_chat = {
+const PageMeta screen_chat = {
 	"chat",
 	screen_chat_init,
 };

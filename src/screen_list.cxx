@@ -18,7 +18,7 @@
  */
 
 #include "screen_list.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "screen.hxx"
 #include "HelpPage.hxx"
 #include "QueuePage.hxx"
@@ -33,7 +33,7 @@
 
 #include <string.h>
 
-static const struct screen_functions *const screens[] = {
+static const PageMeta *const screens[] = {
 	&screen_queue,
 	&screen_browse,
 #ifdef ENABLE_ARTIST_SCREEN
@@ -62,7 +62,7 @@ static const struct screen_functions *const screens[] = {
 #endif
 };
 
-const struct screen_functions *
+const PageMeta *
 screen_lookup_name(const char *name)
 {
 	for (const auto *i : screens)

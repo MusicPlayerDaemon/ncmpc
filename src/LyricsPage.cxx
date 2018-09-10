@@ -18,7 +18,7 @@
  */
 
 #include "LyricsPage.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "screen_status.hxx"
 #include "FileBrowserPage.hxx"
 #include "SongPage.hxx"
@@ -483,7 +483,7 @@ LyricsPage::OnCommand(struct mpdclient &c, Command cmd)
 	return false;
 }
 
-const struct screen_functions screen_lyrics = {
+const PageMeta screen_lyrics = {
 	"lyrics",
 	lyrics_screen_init,
 };

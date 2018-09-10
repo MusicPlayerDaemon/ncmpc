@@ -18,7 +18,7 @@
  */
 
 #include "SongPage.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "ListPage.hxx"
 #include "ListText.hxx"
 #include "TextListRenderer.hxx"
@@ -549,7 +549,7 @@ SongPage::OnCommand(struct mpdclient &c, Command cmd)
 	return false;
 }
 
-const struct screen_functions screen_song = {
+const PageMeta screen_song = {
 	"song",
 	screen_song_init,
 };

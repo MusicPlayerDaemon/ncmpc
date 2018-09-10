@@ -18,7 +18,7 @@
  */
 
 #include "screen.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "screen_list.hxx"
 #include "screen_status.hxx"
 #include "Page.hxx"
@@ -50,7 +50,7 @@
 #include <time.h>
 
 ScreenManager::PageMap::iterator
-ScreenManager::MakePage(const struct screen_functions &sf)
+ScreenManager::MakePage(const PageMeta &sf)
 {
 	auto i = pages.find(&sf);
 	if (i != pages.end())
@@ -64,7 +64,7 @@ ScreenManager::MakePage(const struct screen_functions &sf)
 }
 
 void
-ScreenManager::Switch(const struct screen_functions &sf, struct mpdclient &c)
+ScreenManager::Switch(const PageMeta &sf, struct mpdclient &c)
 {
 	if (&sf == current_page->first)
 		return;
@@ -134,7 +134,7 @@ ScreenManager::NextMode(struct mpdclient &c, int offset)
 	else if (next>=max)
 		next = 0;
 
-	const struct screen_functions *sf =
+	const PageMeta *sf =
 		screen_lookup_name(options.screen_list[next].c_str());
 	if (sf != nullptr)
 		Switch(*sf, c);

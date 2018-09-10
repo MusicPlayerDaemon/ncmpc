@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_SCREEN_INTERFACE_H
-#define NCMPC_SCREEN_INTERFACE_H
+#ifndef NCMPC_PAGE_META_HXX
+#define NCMPC_PAGE_META_HXX
 
 #include "config.h"
 #include "ncmpc_curses.h"
@@ -27,7 +27,7 @@
 class Page;
 class ScreenManager;
 
-struct screen_functions {
+struct PageMeta {
 	const char *name;
 	Page *(*init)(ScreenManager &screen, WINDOW *w, Size size);
 };

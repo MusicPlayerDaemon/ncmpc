@@ -22,9 +22,10 @@
 
 struct mpdclient;
 struct mpd_song;
+struct PageMeta;
 class ScreenManager;
 
-extern const struct screen_functions screen_browse;
+extern const PageMeta screen_browse;
 
 bool
 screen_file_goto_song(ScreenManager &_screen, struct mpdclient &c,

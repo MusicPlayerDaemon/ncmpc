@@ -20,7 +20,7 @@
 #include "screen_artist.hxx"
 #include "ArtistListPage.hxx"
 #include "AlbumListPage.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "FileListPage.hxx"
@@ -293,7 +293,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 	return false;
 }
 
-const struct screen_functions screen_artist = {
+const PageMeta screen_artist = {
 	"artist",
 	screen_artist_init,
 };

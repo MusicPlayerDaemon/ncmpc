@@ -22,10 +22,10 @@
 
 #include "Compiler.h"
 
-struct screen_functions;
+struct PageMeta;
 
 gcc_pure
-const struct screen_functions *
+const PageMeta *
 screen_lookup_name(const char *name);
 
 #endif

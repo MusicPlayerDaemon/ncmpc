@@ -24,8 +24,8 @@
 
 #ifdef ENABLE_CHAT_SCREEN
 
-struct screen_functions;
-extern const struct screen_functions screen_chat;
+struct PageMeta;
+extern const PageMeta screen_chat;
 
 #endif
 

@@ -18,7 +18,7 @@
  */
 
 #include "QueuePage.hxx"
-#include "screen_interface.hxx"
+#include "PageMeta.hxx"
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
 #include "ListText.hxx"
@@ -669,7 +669,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	return false;
 }
 
-const struct screen_functions screen_queue = {
+const PageMeta screen_queue = {
 	"playlist",
 	screen_queue_init,
 };

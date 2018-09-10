@@ -23,7 +23,8 @@
 #include "config.h"
 
 #ifdef ENABLE_ARTIST_SCREEN
-extern const struct screen_functions screen_artist;
+struct PageMeta;
+extern const PageMeta screen_artist;
 #endif
 
 #endif
