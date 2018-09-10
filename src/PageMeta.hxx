@@ -32,6 +32,12 @@ struct PageMeta {
 	const char *name;
 
 	/**
+	 * A title/caption for this page, to be translated using
+	 * gettext().
+	 */
+	const char *title;
+
+	/**
 	 * The command which switches to this page.
 	 */
 	Command command;

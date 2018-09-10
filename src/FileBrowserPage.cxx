@@ -393,6 +393,7 @@ FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 
 const PageMeta screen_browse = {
 	"browse",
+	N_("Browse"),
 	Command::SCREEN_FILE,
 	screen_file_init,
 };

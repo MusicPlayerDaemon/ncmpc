@@ -295,6 +295,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 
 const PageMeta screen_artist = {
 	"artist",
+	N_("Artist"),
 	Command::SCREEN_ARTIST,
 	screen_artist_init,
 };

@@ -485,6 +485,7 @@ LyricsPage::OnCommand(struct mpdclient &c, Command cmd)
 
 const PageMeta screen_lyrics = {
 	"lyrics",
+	N_("Lyrics"),
 	Command::SCREEN_LYRICS,
 	lyrics_screen_init,
 };

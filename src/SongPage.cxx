@@ -550,6 +550,7 @@ SongPage::OnCommand(struct mpdclient &c, Command cmd)
 
 const PageMeta screen_song = {
 	"song",
+	N_("Song"),
 	Command::SCREEN_SONG,
 	screen_song_init,
 };

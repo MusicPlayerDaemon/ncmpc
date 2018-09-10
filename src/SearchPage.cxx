@@ -472,6 +472,7 @@ SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 
 const PageMeta screen_search = {
 	"search",
+	N_("Search"),
 	Command::SCREEN_SEARCH,
 	screen_search_init,
 };

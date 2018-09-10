@@ -203,6 +203,7 @@ OutputsPage::OnCommand(struct mpdclient &c, Command cmd)
 
 const PageMeta screen_outputs = {
 	"outputs",
+	N_("Outputs"),
 	Command::SCREEN_OUTPUTS,
 	outputs_init,
 };

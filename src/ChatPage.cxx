@@ -189,6 +189,7 @@ ChatPage::OnCommand(struct mpdclient &c, Command cmd)
 
 const PageMeta screen_chat = {
 	"chat",
+	N_("Chat"),
 	Command::SCREEN_CHAT,
 	screen_chat_init,
 };
