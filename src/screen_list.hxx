@@ -22,9 +22,11 @@
 
 #include "config.h"
 #include "ncmpc_curses.h"
+#include "Compiler.h"
 
 struct screen_functions;
 
+gcc_pure
 const struct screen_functions *
 screen_lookup_name(const char *name);
 
