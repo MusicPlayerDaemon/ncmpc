@@ -233,7 +233,7 @@ colors_start()
 	} else if (options.enable_colors) {
 		fprintf(stderr, "%s\n",
 			_("Terminal lacks color capabilities"));
-		options.enable_colors = 0;
+		options.enable_colors = false;
 	}
 
 	/* free the color_definition_list */
