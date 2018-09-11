@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-10 17:06+0200\n"
-"PO-Revision-Date: 2018-09-10 15:02+0000\n"
+"PO-Revision-Date: 2018-09-11 10:53+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/ncmpc/"
 "translations/nb/>\n"
@@ -25,7 +25,6 @@ msgid "All tracks"
 msgstr "Alle spor"
 
 #: src/AlbumListPage.cxx:144
-#, fuzzy
 msgid "Albums"
 msgstr "Album"
 
@@ -201,7 +200,7 @@ msgstr "Demp volumet"
 #: src/Command.cxx:98
 #, fuzzy
 msgid "Select/deselect song in queue"
-msgstr "Legg til/Fjern fra spillelisten"
+msgstr "Velg/fravelg i spillelisten"
 
 #: src/Command.cxx:100
 msgid "Select all listed items"
@@ -470,7 +469,7 @@ msgstr "Filer"
 #: src/FileListPage.cxx:121
 #, fuzzy, c-format
 msgid "Loading playlist '%s'"
-msgstr "Henter spilleliste %s..."
+msgstr "Henter spilleliste \"%s...\""
 
 #: src/HelpPage.cxx:43
 msgid "Movement"
@@ -637,12 +636,14 @@ msgid "End"
 msgstr "Slutt"
 
 #: src/KeyName.cxx:53
+#, fuzzy
 msgid "PageDown"
-msgstr "PageDown"
+msgstr "Page Down"
 
 #: src/KeyName.cxx:55
+#, fuzzy
 msgid "PageUp"
-msgstr "PageUp"
+msgstr "Page Up"
 
 #: src/KeyName.cxx:57
 msgid "Tab"
@@ -653,8 +654,9 @@ msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
 #: src/KeyName.cxx:61
+#, fuzzy
 msgid "Esc"
-msgstr "Esc"
+msgstr "Escape"
 
 #: src/KeyName.cxx:63
 msgid "Insert"
@@ -713,9 +715,8 @@ msgid "Can't start editor"
 msgstr "Kan ikke starte tekstbehandler"
 
 #: src/LyricsPage.cxx:413 src/LyricsPage.cxx:417
-#, fuzzy
 msgid "Editor exited unexpectedly"
-msgstr "Tekstbehandleren takket for seg uventet (%d)"
+msgstr "Tekstbehandleren takket for seg uventet"
 
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:439
@@ -731,14 +732,14 @@ msgid "No saved lyrics"
 msgstr "Ingen lagrede tekster"
 
 #: src/Main.cxx:167
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to %s"
-msgstr "Koblet til %s"
+msgstr "Kobler til %s"
 
 #: src/Main.cxx:187
 #, fuzzy, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "MPD versjon %d.%d.%d er for gammel - oppgrader til versjon %s"
+msgstr "Feil: MPD-versjon %d.%d.%d er for gammel - oppgrader til versjon %s"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -825,7 +826,7 @@ msgstr "Artist"
 #: src/screen_client.cxx:43
 #, fuzzy
 msgid "Database update running"
-msgstr "Databasen oppdateres..."
+msgstr "Databasen oppdateres…"
 
 #: src/screen_client.cxx:50
 #, c-format
@@ -959,12 +960,12 @@ msgstr "Du har nye tastatursnarveier"
 
 #: src/screen_keydef.cxx:396
 msgid "Keybindings unchanged."
-msgstr "Tastatursnarveier uforandret!"
+msgstr "Tastatursnarveier uforandret."
 
 #: src/screen_keydef.cxx:406
 #, fuzzy
 msgid "Unable to write configuration"
-msgstr "Uferdig hurtigtastkonfigurasjon"
+msgstr "Kunne ikke lagre oppsett"
 
 #: src/screen_keydef.cxx:422
 #, c-format
@@ -989,7 +990,7 @@ msgstr "OBS! Du glemte vel ikke å legge til de nye endringene?"
 
 #: src/screen_keydef.cxx:605
 msgid "Keys"
-msgstr ""
+msgstr "Taster"
 
 #: src/screen_utils.cxx:125
 msgid "Password"
@@ -1188,7 +1189,7 @@ msgstr "%d kbps"
 
 #: src/SongPage.cxx:553
 msgid "Song"
-msgstr ""
+msgstr "Sang"
 
 #: src/StatusBar.cxx:104
 msgid "Playing:"
@@ -1200,27 +1201,27 @@ msgstr "[Pause]"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr ""
+msgstr "År"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr ""
+msgstr "år"
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr ""
+msgstr "uke"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr ""
+msgstr "uker"
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr ""
+msgstr "dag"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr ""
+msgstr "dager"
 
 #: src/TitleBar.cxx:100
 msgid "Volume n/a"
