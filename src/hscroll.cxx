@@ -71,16 +71,10 @@ hscroll::Paint() const
 	assert(basic.IsDefined());
 
 	/* set stored attributes and color */
-	attr_t old_attrs;
-	short old_pair = 0;
-	fix_wattr_get(w, &old_attrs, &old_pair, nullptr);
 	wattr_set(w, attrs, pair, nullptr);
 
 	/* scroll the string, and draw it */
 	char *p = basic.ScrollString();
 	mvwaddstr(w, y, x, p);
 	g_free(p);
-
-	/* restore previous attributes and color */
-	wattr_set(w, old_attrs, old_pair, nullptr);
 }
