@@ -19,7 +19,6 @@
 
 #include "colors.hxx"
 #include "i18n.h"
-#include "ncfix.h"
 
 #ifdef ENABLE_COLORS
 #include "options.hxx"
@@ -249,20 +248,14 @@ colors_use(WINDOW *w, enum color id)
 
 	assert(id > 0 && id < COLOR_END);
 
-	attr_t attrs = 0;
-	short pair = 0;
-	fix_wattr_get(w, &attrs, &pair, nullptr);
-
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* color mode */
-		if ((int)attrs != entry->color || (short)id != pair)
-			wattr_set(w, entry->color, id, nullptr);
+		wattr_set(w, entry->color, id, nullptr);
 	} else {
 #endif
 		/* mono mode */
-		if ((int)attrs != entry->mono)
-			(void)wattrset(w, entry->mono);
+		(void)wattrset(w, entry->mono);
 #ifdef ENABLE_COLORS
 	}
 #endif
