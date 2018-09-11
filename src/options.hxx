@@ -66,7 +66,7 @@ typedef struct {
 	bool hardware_cursor;
 
 #ifdef ENABLE_COLORS
-	bool enable_colors;
+	bool enable_colors = true;
 #endif
 	bool audible_bell = true;
 	bool visible_bell;
