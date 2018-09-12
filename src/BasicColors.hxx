@@ -31,4 +31,13 @@ gcc_pure
 short
 ParseBasicColorName(const char *name);
 
+/**
+ * Like ParseBasicColorName(), but also allow numeric colors.
+ *
+ * @return the color integer value or -1 on error
+ */
+gcc_pure
+short
+ParseColorNameOrNumber(const char *s);
+
 #endif

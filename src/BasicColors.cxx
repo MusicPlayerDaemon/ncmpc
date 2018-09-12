@@ -22,6 +22,7 @@
 #include "ncmpc_curses.h"
 
 #include <string.h>
+#include <stdlib.h>
 
 static constexpr const char *basic_color_names[] = {
 	"black",
@@ -50,6 +51,21 @@ ParseBasicColorName(const char *name)
 	for (size_t i = 0; basic_color_names[i] != nullptr; ++i)
 		if (strcasecmp(basic_color_names[i], name) == 0)
 			return i;
+
+	return -1;
+}
+
+short
+ParseColorNameOrNumber(const char *s)
+{
+	short basic = ParseBasicColorName(s);
+	if (basic >= 0)
+		return basic;
+
+	char *endptr;
+	long numeric = strtol(s, &endptr, 10);
+	if (endptr > s && *endptr == 0 && numeric >= 0 && numeric <= 0xff)
+		return numeric;
 
 	return -1;
 }
