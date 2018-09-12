@@ -37,7 +37,7 @@ paint_song_row(WINDOW *w, gcc_unused unsigned y, unsigned width,
 	char buffer[width * 4];
 
 	strfsong(buffer, sizeof(buffer), format, song);
-	row_paint_text(w, width, highlight ? COLOR_LIST_BOLD : COLOR_LIST,
+	row_paint_text(w, width, highlight ? Style::LIST_BOLD : Style::LIST,
 		       selected, buffer);
 
 #ifndef NCMPC_MINI

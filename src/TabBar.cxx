@@ -28,13 +28,13 @@
 static void
 PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected)
 {
-	SelectStyle(w, COLOR_TITLE_BOLD);
+	SelectStyle(w, Style::TITLE_BOLD);
 	if (selected)
 		wattron(w, A_REVERSE);
 
 	waddch(w, ' ');
 	waddstr(w, GetGlobalKeyBindings().GetKeyNames(cmd, false));
-	SelectStyle(w, COLOR_TITLE);
+	SelectStyle(w, Style::TITLE);
 	if (selected)
 		wattron(w, A_REVERSE);
 

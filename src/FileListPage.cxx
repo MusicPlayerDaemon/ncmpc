@@ -461,7 +461,7 @@ void
 screen_browser_paint_directory(WINDOW *w, unsigned width,
 			       bool selected, const char *name)
 {
-	row_color(w, COLOR_DIRECTORY, selected);
+	row_color(w, Style::DIRECTORY, selected);
 
 	waddch(w, '[');
 	waddstr(w, name);
@@ -475,7 +475,7 @@ static void
 screen_browser_paint_playlist(WINDOW *w, unsigned width,
 			      bool selected, const char *name)
 {
-	row_paint_text(w, width, COLOR_PLAYLIST, selected, name);
+	row_paint_text(w, width, Style::PLAYLIST, selected, name);
 }
 
 void
@@ -525,7 +525,8 @@ FileListPage::PaintListItem(WINDOW *w, unsigned i,
 		break;
 
 	default:
-		row_paint_text(w, width, highlight ? COLOR_LIST_BOLD : COLOR_LIST,
+		row_paint_text(w, width,
+			       highlight ? Style::LIST_BOLD : Style::LIST,
 			       selected, "<unknown>");
 	}
 }

@@ -57,7 +57,7 @@ screen_getch(const char *prompt)
 {
 	WINDOW *w = screen->status_bar.GetWindow().w;
 
-	SelectStyle(w, COLOR_STATUS_ALERT);
+	SelectStyle(w, Style::STATUS_ALERT);
 	werase(w);
 	wmove(w, 0, 0);
 	waddstr(w, prompt);
@@ -104,7 +104,7 @@ screen_readln(const char *prompt,
 
 	wmove(w, 0,0);
 	curs_set(1);
-	SelectStyle(w, COLOR_STATUS_ALERT);
+	SelectStyle(w, Style::STATUS_ALERT);
 	auto result = wreadln(w, prompt, value, window->size.width,
 			      history, completion);
 	curs_set(0);
@@ -119,7 +119,7 @@ screen_read_password(const char *prompt)
 
 	wmove(w, 0,0);
 	curs_set(1);
-	SelectStyle(w, COLOR_STATUS_ALERT);
+	SelectStyle(w, Style::STATUS_ALERT);
 
 	if (prompt == nullptr)
 		prompt = _("Password");
@@ -170,7 +170,7 @@ screen_display_completion_list(Completion::Range range)
 		offset = 0;
 	}
 
-	SelectStyle(w, COLOR_STATUS_ALERT);
+	SelectStyle(w, Style::STATUS_ALERT);
 
 	auto i = std::next(range.begin(), offset);
 	for (unsigned y = 0; y < screen->main_window.size.height; ++y, ++i) {
@@ -186,5 +186,5 @@ screen_display_completion_list(Completion::Range range)
 	wclrtobot(w);
 
 	wrefresh(w);
-	SelectStyle(w, COLOR_LIST);
+	SelectStyle(w, Style::LIST);
 }

@@ -109,8 +109,8 @@ ScreenManager::Init(struct mpdclient *c)
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* set background attributes */
-		wbkgd(stdscr, COLOR_PAIR(COLOR_LIST));
-		wbkgd(main_window.w,     COLOR_PAIR(COLOR_LIST));
+		wbkgd(stdscr, COLOR_PAIR(Style::LIST));
+		wbkgd(main_window.w, COLOR_PAIR(Style::LIST));
 	}
 #endif
 

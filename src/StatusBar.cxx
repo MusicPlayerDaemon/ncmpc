@@ -44,7 +44,7 @@ StatusBar::StatusBar(Point p, unsigned width)
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors)
-		wbkgd(window.w, COLOR_PAIR(COLOR_STATUS));
+		wbkgd(window.w, COLOR_PAIR(Style::STATUS));
 #endif
 }
 
@@ -205,7 +205,7 @@ StatusBar::Paint() const
 
 	wmove(w, 0, 0);
 	wclrtoeol(w);
-	SelectStyle(w, COLOR_STATUS_BOLD);
+	SelectStyle(w, Style::STATUS_BOLD);
 
 	if (left_text != nullptr)
 		/* display state */
@@ -214,14 +214,14 @@ StatusBar::Paint() const
 	if (right_width > 0) {
 		/* display time string */
 		int x = window.size.width - right_width;
-		SelectStyle(w, COLOR_STATUS_TIME);
+		SelectStyle(w, Style::STATUS_TIME);
 		mvwaddstr(w, 0, x, right_text);
 	}
 
 	if (!center_text.empty()) {
 		/* display song name */
 
-		SelectStyle(w, COLOR_STATUS);
+		SelectStyle(w, Style::STATUS);
 
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
@@ -234,7 +234,7 @@ StatusBar::Paint() const
 
 	/* display time string */
 	int x = window.size.width - right_width;
-	SelectStyle(w, COLOR_STATUS_TIME);
+	SelectStyle(w, Style::STATUS_TIME);
 	mvwaddstr(w, 0, x, right_text);
 
 	wnoutrefresh(w);
@@ -268,7 +268,7 @@ StatusBar::SetMessage(const char *msg)
 
 	wmove(w, 0, 0);
 	wclrtoeol(w);
-	SelectStyle(w, COLOR_STATUS_ALERT);
+	SelectStyle(w, Style::STATUS_ALERT);
 	waddstr(w, msg);
 	wnoutrefresh(w);
 

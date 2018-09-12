@@ -260,7 +260,7 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 
 	assert(i < ARRAY_SIZE(help_text));
 
-	row_color(w, row->highlight ? COLOR_LIST_BOLD : COLOR_LIST, false);
+	row_color(w, row->highlight ? Style::LIST_BOLD : Style::LIST, false);
 
 	wclrtoeol(w);
 

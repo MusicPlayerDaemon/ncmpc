@@ -28,7 +28,7 @@ static void
 list_window_paint_row(WINDOW *w, unsigned width, bool selected,
 		      const char *text)
 {
-	row_paint_text(w, width, COLOR_LIST,
+	row_paint_text(w, width, Style::LIST,
 		       selected, text);
 }
 

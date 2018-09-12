@@ -29,7 +29,7 @@ ProgressBar::ProgressBar(Point p, unsigned _width)
 	leaveok(window.w, true);
 #ifdef ENABLE_COLORS
 	if (options.enable_colors)
-		wbkgd(window.w, COLOR_PAIR(COLOR_PROGRESSBAR));
+		wbkgd(window.w, COLOR_PAIR(Style::PROGRESSBAR));
 #endif
 }
 
@@ -39,7 +39,7 @@ ProgressBar::Paint() const
 	if (max > 0) {
 		assert(width < window.size.width);
 
-		SelectStyle(window.w, COLOR_PROGRESSBAR);
+		SelectStyle(window.w, Style::PROGRESSBAR);
 
 		if (width > 0)
 			mvwhline(window.w, 0, 0, '=', width);
@@ -48,12 +48,12 @@ ProgressBar::Paint() const
 		unsigned x = width + 1;
 
 		if (x < window.size.width) {
-			SelectStyle(window.w, COLOR_PROGRESSBAR_BACKGROUND);
+			SelectStyle(window.w, Style::PROGRESSBAR_BACKGROUND);
 			mvwhline(window.w, 0, x, ACS_HLINE, window.size.width - x);
 		}
 	} else {
 		/* no progress bar, just a simple horizontal line */
-		SelectStyle(window.w, COLOR_LINE);
+		SelectStyle(window.w, Style::LINE);
 		mvwhline(window.w, 0, 0, ACS_HLINE, window.size.width);
 	}
 

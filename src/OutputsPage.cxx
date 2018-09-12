@@ -153,7 +153,7 @@ OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 	assert(i < items.size());
 	const auto *output = items[i].get();
 
-	row_color(w, COLOR_LIST, selected);
+	row_color(w, Style::LIST, selected);
 	waddstr(w, mpd_output_get_enabled(output) ? "[X] " : "[ ] ");
 	waddstr(w, mpd_output_get_name(output));
 	row_clear_to_eol(w, width, selected);

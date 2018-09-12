@@ -48,7 +48,7 @@ struct StyleData {
 #endif
 };
 
-static StyleData colors[COLOR_END] = {
+static StyleData colors[size_t(Style::END)] = {
 	/* color pair = field name, color, mono */
 	{nullptr, 0, 0, 0},
 	{"title",             COLOR_YELLOW, A_NORMAL, A_NORMAL},
@@ -74,7 +74,7 @@ static StyleData colors[COLOR_END] = {
 static StyleData *
 StyleByName(const char *name)
 {
-	for (unsigned i = 1; i < COLOR_END; ++i)
+	for (size_t i = 1; i < size_t(Style::END); ++i)
 		if (!strcasecmp(colors[i].name, name))
 			return &colors[i];
 
@@ -84,11 +84,11 @@ StyleByName(const char *name)
 static void
 colors_update_pair(Style style)
 {
-	const size_t id(style);
-	assert(id > 0 && id < COLOR_END);
+	const size_t id = size_t(style);
+	assert(id > 0 && id < size_t(Style::END));
 
 	int fg = colors[id].fg_color;
-	int bg = colors[COLOR_BACKGROUND].fg_color;
+	int bg = colors[size_t(Style::BACKGROUND)].fg_color;
 
 	init_pair(id, fg, bg);
 }
@@ -177,7 +177,7 @@ ApplyStyles()
 		ApplyCustomColors();
 
 		if (options.enable_colors) {
-			for (unsigned i = 1; i < COLOR_END; ++i)
+			for (size_t i = 1; i < size_t(Style::END); ++i)
 				/* update the color pairs */
 				colors_update_pair(Style(i));
 		}
@@ -192,8 +192,8 @@ ApplyStyles()
 void
 SelectStyle(WINDOW *w, Style style)
 {
-	const size_t id(style);
-	assert(id > 0 && id < COLOR_END);
+	const size_t id = size_t(style);
+	assert(id > 0 && id < size_t(Style::END));
 
 	auto *entry = &colors[id];
 

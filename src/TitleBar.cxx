@@ -38,7 +38,7 @@ TitleBar::TitleBar(Point p, unsigned width)
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors)
-		wbkgd(window.w, COLOR_PAIR(COLOR_TITLE));
+		wbkgd(window.w, COLOR_PAIR(Style::TITLE));
 #endif
 }
 
@@ -88,7 +88,7 @@ TitleBar::Paint(const PageMeta &current_page_meta, const char *title) const
 #else
 		(void)current_page_meta;
 #endif
-		SelectStyle(w, COLOR_TITLE_BOLD);
+		SelectStyle(w, Style::TITLE_BOLD);
 		mvwaddstr(w, 0, 0, title);
 #ifndef NCMPC_MINI
 	}
@@ -103,18 +103,18 @@ TitleBar::Paint(const PageMeta &current_page_meta, const char *title) const
 		volume_string = buf;
 	}
 
-	SelectStyle(w, COLOR_TITLE);
+	SelectStyle(w, Style::TITLE);
 	mvwaddstr(w, 0, window.size.width - utf8_width(volume_string),
 		  volume_string);
 
-	SelectStyle(w, COLOR_LINE);
+	SelectStyle(w, Style::LINE);
 	mvwhline(w, 1, 0, ACS_HLINE, window.size.width);
 	if (flags[0]) {
 		wmove(w, 1, window.size.width - strlen(flags) - 3);
 		waddch(w, '[');
-		SelectStyle(w, COLOR_LINE_FLAGS);
+		SelectStyle(w, Style::LINE_FLAGS);
 		waddstr(w, flags);
-		SelectStyle(w, COLOR_LINE);
+		SelectStyle(w, Style::LINE);
 		waddch(w, ']');
 	}
 
