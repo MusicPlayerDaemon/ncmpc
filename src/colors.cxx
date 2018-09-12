@@ -40,10 +40,10 @@ struct NamedColor {
 #ifdef ENABLE_COLORS
 	int color;
 #endif
-	int mono;
+	attr_t mono;
 
 #ifndef ENABLE_COLORS
-	constexpr NamedColor(const char *_name, int, int _mono)
+	constexpr NamedColor(const char *_name, int, attr_t _mono)
 		:name(_name), mono(_mono) {}
 #endif
 };
