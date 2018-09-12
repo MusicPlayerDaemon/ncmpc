@@ -37,24 +37,6 @@ charset_init()
 }
 #endif
 
-unsigned
-locale_width(const char *p)
-{
-#if defined(ENABLE_LOCALE) && defined(ENABLE_MULTIBYTE)
-	char *utf8;
-
-	if (noconvert)
-		return utf8_width(p);
-
-	utf8 = locale_to_utf8(p);
-	AtScopeExit(utf8) { g_free(utf8); };
-
-	return utf8_width(utf8);
-#else
-	return strlen(p);
-#endif
-}
-
 char *
 utf8_to_locale(const char *utf8str)
 {

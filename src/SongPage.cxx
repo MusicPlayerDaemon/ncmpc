@@ -31,6 +31,7 @@
 #include "charset.hxx"
 #include "time_format.hxx"
 #include "mpdclient.hxx"
+#include "util/LocaleString.hxx"
 #include "util/Macros.hxx"
 #include "util/StringStrip.hxx"
 #include "util/StringUTF8.hxx"
@@ -180,14 +181,14 @@ static Page *
 screen_song_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
 	for (unsigned i = 0; tag_labels[i].label != nullptr; ++i) {
-		unsigned width = locale_width(gettext(tag_labels[i].label));
+		unsigned width = StringWidthMB(gettext(tag_labels[i].label));
 		if (width > max_tag_label_width)
 			max_tag_label_width = width;
 	}
 
 	for (unsigned i = 0; i < ARRAY_SIZE(stats_labels); ++i) {
 		if (stats_labels[i] != nullptr) {
-			unsigned width = locale_width(gettext(stats_labels[i]));
+			unsigned width = StringWidthMB(gettext(stats_labels[i]));
 
 			if (width > max_stats_label_width)
 				max_stats_label_width = width;
@@ -212,7 +213,7 @@ SongPage::Paint() const
 void
 SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 {
-	const unsigned label_width = locale_width(label) + 2;
+	const unsigned label_width = StringWidthMB(label) + 2;
 
 	assert(label != nullptr);
 	assert(value != nullptr);

@@ -91,8 +91,7 @@ byte_to_screen(const char *data, size_t x)
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	assert(x <= strlen(data));
 
-	const std::string partial(data, x);
-	return locale_width(partial.c_str());
+	return StringWidthMB(data, x);
 #else
 	(void)data;
 
@@ -106,14 +105,14 @@ static size_t
 screen_to_bytes(const char *data, unsigned width)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
-	std::string dup(data);
+	size_t length = strlen(data);
 
 	while (true) {
-		unsigned p_width = locale_width(dup.c_str());
+		unsigned p_width = StringWidthMB(data, length);
 		if (p_width <= width)
-			return dup.length();
+			return length;
 
-		dup.pop_back();
+		--length;
 	}
 #else
 	(void)data;
@@ -142,10 +141,8 @@ right_align_bytes(const char *data, size_t right, unsigned width)
 
 	assert(right <= strlen(data));
 
-	const std::string dup(data, right);
-
 	while (start < right) {
-		if (locale_width(dup.c_str() + start) < width)
+		if (StringWidthMB(data + start, right - start) < width)
 			break;
 
 		start += CharSizeMB(data + start, right - start);

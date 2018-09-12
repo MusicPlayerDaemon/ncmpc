@@ -28,13 +28,6 @@ const char *
 charset_init();
 #endif
 
-/**
- * Returns the number of terminal cells occupied by this string.
- */
-gcc_pure
-unsigned
-locale_width(const char *p);
-
 char *utf8_to_locale(const char *str);
 char *locale_to_utf8(const char *str);
 

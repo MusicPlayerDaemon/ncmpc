@@ -51,4 +51,15 @@ gcc_pure
 const char *
 PrevCharMB(const char *start, const char *reference);
 
+/**
+ * Returns the number of terminal cells occupied by this multi-byte
+ * string.
+ */
+gcc_pure
+size_t
+StringWidthMB(const char *s, size_t length);
+
+size_t
+StringWidthMB(const char *s);
+
 #endif

@@ -63,3 +63,35 @@ PrevCharMB(const char *start, const char *reference)
 
 	return p;
 }
+
+size_t
+StringWidthMB(const char *s, size_t length)
+{
+	const char *const end = s + length;
+	auto state = std::mbstate_t();
+
+	size_t width = 0;
+	while (s < end) {
+		wchar_t w;
+		std::size_t n = std::mbrtowc(&w, s, end - s, &state);
+		if (n == std::size_t(-2))
+			break;
+
+		if (n == std::size_t(-1) || n == 0) {
+			++s;
+		} else {
+			s += n;
+			int cw = wcwidth(w);
+			if (cw > 0)
+				width += cw;
+		}
+	}
+
+	return width;
+}
+
+size_t
+StringWidthMB(const char *s)
+{
+	return StringWidthMB(s, strlen(s));
+}
