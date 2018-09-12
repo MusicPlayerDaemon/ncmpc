@@ -24,6 +24,8 @@
 #include "ncmpc_curses.h"
 #include "BasicMarquee.hxx"
 
+enum class Style : unsigned;
+
 /**
  * This class is used to auto-scroll text which does not fit on the
  * screen.  Call hscroll_init() to initialize the object,
@@ -41,14 +43,9 @@ class hscroll {
 	unsigned x, y;
 
 	/**
-	 * ncurses attributes for drawing the text.
+	 * Style for drawing the text.
 	 */
-	attr_t attrs;
-
-	/**
-	 * ncurses colors for drawing the text.
-	 */
-	short pair;
+	const Style style;
 
 	/**
 	 * The id of the timer which updates the scrolled area every
@@ -57,8 +54,8 @@ class hscroll {
 	unsigned source_id = 0;
 
 public:
-	hscroll(WINDOW *_w, const char *_separator)
-		:w(_w), basic(_separator) {
+	hscroll(WINDOW *_w, const char *_separator, Style _style)
+		:w(_w), basic(_separator), style(_style) {
 	}
 
 	bool IsDefined() const {

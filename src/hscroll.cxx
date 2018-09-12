@@ -18,8 +18,8 @@
  */
 
 #include "hscroll.hxx"
+#include "Styles.hxx"
 #include "charset.hxx"
-#include "ncfix.h"
 #include "Event.hxx"
 
 #include <algorithm>
@@ -47,10 +47,6 @@ hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text)
 	if (!basic.Set(_width, _text))
 		return;
 
-	/* obtain the ncurses attributes and the current color, store
-	   them */
-	fix_wattr_get(w, &attrs, &pair, nullptr);
-
 	if (source_id == 0)
 		source_id = ScheduleTimeout<hscroll, &hscroll::TimerCallback>(std::chrono::seconds(1), *this);
 }
@@ -70,8 +66,7 @@ hscroll::Paint() const
 	assert(w != nullptr);
 	assert(basic.IsDefined());
 
-	/* set stored attributes and color */
-	wattr_set(w, attrs, pair, nullptr);
+	SelectStyle(w, style);
 
 	/* scroll the string, and draw it */
 	char *p = basic.ScrollString();

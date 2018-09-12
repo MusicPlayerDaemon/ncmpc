@@ -35,6 +35,7 @@
 #include "strfsong.hxx"
 #include "wreadln.hxx"
 #include "Completion.hxx"
+#include "Styles.hxx"
 #include "song_paint.hxx"
 #include "screen.hxx"
 #include "screen_utils.hxx"
@@ -81,7 +82,7 @@ public:
 		:ListPage(w, size),
 		 screen(_screen)
 #ifndef NCMPC_MINI
-		, hscroll(w, options.scroll_sep.c_str())
+		, hscroll(w, options.scroll_sep.c_str(), Style::LIST_BOLD)
 #endif
 	{
 	}

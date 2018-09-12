@@ -35,7 +35,7 @@
 StatusBar::StatusBar(Point p, unsigned width)
 	:window(p, {width, 1u})
 #ifndef NCMPC_MINI
-	, hscroll(window.w, options.scroll_sep.c_str())
+	, hscroll(window.w, options.scroll_sep.c_str(), Style::STATUS)
 #endif
 {
 
