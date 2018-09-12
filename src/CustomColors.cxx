@@ -58,6 +58,6 @@ ApplyCustomColors()
 	}
 
 	for (const auto &i : custom_colors)
-		if (i.color <= COLORS)
+		if (i.color < COLORS)
 			init_color(i.color, i.r, i.g, i.b);
 }
