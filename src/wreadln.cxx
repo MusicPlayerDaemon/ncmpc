@@ -77,6 +77,28 @@ struct wreadln {
 
 	wreadln(WINDOW *_w, bool _masked)
 		:w(_w), masked(_masked) {}
+
+	/** draw line buffer and update cursor position */
+	void Paint() const;
+
+	/** returns the screen column where the cursor is located */
+	gcc_pure
+	unsigned GetCursorColumn() const;
+
+	/** move the cursor one step to the right */
+	void MoveCursorRight();
+
+	/** move the cursor one step to the left */
+	void MoveCursorLeft();
+
+	/** move the cursor to the end of the line */
+	void MoveCursorToEnd();
+
+	void InsertByte(int key);
+	void DeleteChar(size_t x);
+	void DeleteChar() {
+		DeleteChar(cursor);
+	}
 };
 
 /** max items stored in the history list */
@@ -120,13 +142,10 @@ screen_to_bytes(const char *data, unsigned width)
 #endif
 }
 
-/** returns the screen column where the cursor is located */
-gcc_pure
-static unsigned
-cursor_column(const struct wreadln *wr)
+unsigned
+wreadln::GetCursorColumn() const
 {
-	return byte_to_screen(wr->value.data() + wr->start,
-			      wr->cursor - wr->start);
+	return byte_to_screen(value.data() + start, cursor - start);
 }
 
 /** returns the offset in the string to align it at the right border
@@ -155,59 +174,58 @@ right_align_bytes(const char *data, size_t right, unsigned width)
 #endif
 }
 
-/* move the cursor one step to the right */
-static inline void cursor_move_right(struct wreadln *wr)
+void
+wreadln::MoveCursorRight()
 {
-	if (wr->cursor == wr->value.length())
+	if (cursor == value.length())
 		return;
 
-	size_t size = CharSizeMB(wr->value.data() + wr->cursor,
-				 wr->value.length() - wr->cursor);
-	wr->cursor += size;
-	if (cursor_column(wr) >= wr->width)
-		wr->start = right_align_bytes(wr->value.c_str(),
-					      wr->cursor, wr->width);
+	size_t size = CharSizeMB(value.data() + cursor,
+				 value.length() - cursor);
+	cursor += size;
+	if (GetCursorColumn() >= width)
+		start = right_align_bytes(value.c_str(), cursor, width);
 }
 
-/* move the cursor one step to the left */
-static inline void cursor_move_left(struct wreadln *wr)
+void
+wreadln::MoveCursorLeft()
 {
-	const char *v = wr->value.c_str();
-	const char *new_cursor = PrevCharMB(v, v + wr->cursor);
-	wr->cursor = new_cursor - v;
-	if (wr->cursor < wr->start)
-		wr->start = wr->cursor;
+	const char *v = value.c_str();
+	const char *new_cursor = PrevCharMB(v, v + cursor);
+	cursor = new_cursor - v;
+	if (cursor < start)
+		start = cursor;
 }
 
-/* move the cursor to the end of the line */
-static inline void cursor_move_to_eol(struct wreadln *wr)
+void
+wreadln::MoveCursorToEnd()
 {
-	wr->cursor = wr->value.length();
-	if (cursor_column(wr) >= wr->width)
-		wr->start = right_align_bytes(wr->value.c_str(),
-					      wr->cursor, wr->width);
+	cursor = value.length();
+	if (GetCursorColumn() >= width)
+		start = right_align_bytes(value.c_str(),
+					      cursor, width);
 }
 
-/* draw line buffer and update cursor position */
-static inline void drawline(const struct wreadln *wr)
+void
+wreadln::Paint() const
 {
-	wmove(wr->w, wr->point.y, wr->point.x);
+	wmove(w, point.y, point.x);
 	/* clear input area */
-	whline(wr->w, ' ', wr->width);
+	whline(w, ' ', width);
 	/* print visible part of the line buffer */
-	if (wr->masked)
-		whline(wr->w, '*', utf8_width(wr->value.c_str() + wr->start));
+	if (masked)
+		whline(w, '*', utf8_width(value.c_str() + start));
 	else
-		waddnstr(wr->w, wr->value.c_str() + wr->start,
-			 screen_to_bytes(wr->value.c_str(), wr->width));
+		waddnstr(w, value.c_str() + start,
+			 screen_to_bytes(value.c_str(), width));
 	/* move the cursor to the correct position */
-	wmove(wr->w, wr->point.y, wr->point.x + cursor_column(wr));
+	wmove(w, point.y, point.x + GetCursorColumn());
 	/* tell ncurses to redraw the screen */
 	doupdate();
 }
 
-static void
-wreadln_insert_byte(struct wreadln *wr, int key)
+void
+wreadln::InsertByte(int key)
 {
 	size_t length = 1;
 #if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(_WIN32)
@@ -231,29 +249,27 @@ wreadln_insert_byte(struct wreadln *wr, int key)
 			/* no more input from keyboard */
 			break;
 
-		buffer[length++] = wgetch(wr->w);
+		buffer[length++] = wgetch(w);
 	}
 
-	wr->value.insert(wr->cursor, buffer, length);
+	value.insert(cursor, buffer, length);
 
 #else
-	wr->value.insert(wr->cursor, key);
+	value.insert(cursor, key);
 #endif
 
-	wr->cursor += length;
-	if (cursor_column(wr) >= wr->width)
-		wr->start = right_align_bytes(wr->value.c_str(),
-					      wr->cursor, wr->width);
+	cursor += length;
+	if (GetCursorColumn() >= width)
+		start = right_align_bytes(value.c_str(), cursor, width);
 }
 
-static void
-wreadln_delete_char(struct wreadln *wr, size_t x)
+void
+wreadln::DeleteChar(size_t x)
 {
-	assert(x < wr->value.length());
+	assert(x < value.length());
 
-	size_t length = CharSizeMB(wr->value.data() + x,
-				   wr->value.length() - x);
-	wr->value.erase(x, length);
+	size_t length = CharSizeMB(value.data() + x, value.length() - x);
+	value.erase(x, length);
 }
 
 /* libcurses version */
@@ -306,13 +322,13 @@ _wreadln(WINDOW *w,
 			--hlist;
 			wr.value = *hlist;
 		}
-		cursor_move_to_eol(&wr);
-		drawline(&wr);
+		wr.MoveCursorToEnd();
+		wr.Paint();
 	} else if (initial_value) {
 		/* copy the initial value to the line buffer */
 		wr.value = initial_value;
-		cursor_move_to_eol(&wr);
-		drawline(&wr);
+		wr.MoveCursorToEnd();
+		wr.Paint();
 	}
 
 	int key = 0;
@@ -340,7 +356,7 @@ _wreadln(WINDOW *w,
 				auto r = completion->Complete(wr.value.c_str());
 				if (!r.new_prefix.empty()) {
 					wr.value = std::move(r.new_prefix);
-					cursor_move_to_eol(&wr);
+					wr.MoveCursorToEnd();
 				} else
 					screen_bell();
 
@@ -358,11 +374,11 @@ _wreadln(WINDOW *w,
 
 		case KEY_LEFT:
 		case KEY_CTRL_B:
-			cursor_move_left(&wr);
+			wr.MoveCursorLeft();
 			break;
 		case KEY_RIGHT:
 		case KEY_CTRL_F:
-			cursor_move_right(&wr);
+			wr.MoveCursorRight();
 			break;
 		case KEY_HOME:
 		case KEY_CTRL_A:
@@ -371,7 +387,7 @@ _wreadln(WINDOW *w,
 			break;
 		case KEY_END:
 		case KEY_CTRL_E:
-			cursor_move_to_eol(&wr);
+			wr.MoveCursorToEnd();
 			break;
 		case KEY_CTRL_K:
 			wr.value.erase(wr.cursor);
@@ -384,28 +400,28 @@ _wreadln(WINDOW *w,
 			/* Firstly remove trailing spaces. */
 			for (; wr.cursor > 0 && wr.value[wr.cursor - 1] == ' ';)
 			{
-				cursor_move_left(&wr);
-				wreadln_delete_char(&wr, wr.cursor);
+				wr.MoveCursorLeft();
+				wr.DeleteChar();
 			}
 			/* Then remove word until next space. */
 			for (; wr.cursor > 0 && wr.value[wr.cursor - 1] != ' ';)
 			{
-				cursor_move_left(&wr);
-				wreadln_delete_char(&wr, wr.cursor);
+				wr.MoveCursorLeft();
+				wr.DeleteChar();
 			}
 			break;
 		case 127:
 		case KEY_BCKSPC:	/* handle backspace: copy all */
 		case KEY_BACKSPACE:	/* chars starting from curpos */
 			if (wr.cursor > 0) { /* - 1 from buf[n+1] to buf   */
-				cursor_move_left(&wr);
-				wreadln_delete_char(&wr, wr.cursor);
+				wr.MoveCursorLeft();
+				wr.DeleteChar();
 			}
 			break;
 		case KEY_DC:		/* handle delete key. As above */
 		case KEY_CTRL_D:
 			if (wr.cursor < wr.value.length())
-				wreadln_delete_char(&wr, wr.cursor);
+				wr.DeleteChar();
 			break;
 		case KEY_UP:
 		case KEY_CTRL_P:
@@ -419,7 +435,7 @@ _wreadln(WINDOW *w,
 				--hlist;
 				wr.value = *hlist;
 			}
-			cursor_move_to_eol(&wr);
+			wr.MoveCursorToEnd();
 			break;
 		case KEY_DOWN:
 		case KEY_CTRL_N:
@@ -429,7 +445,7 @@ _wreadln(WINDOW *w,
 				++hlist;
 				wr.value = *hlist;
 			}
-			cursor_move_to_eol(&wr);
+			wr.MoveCursorToEnd();
 			break;
 
 		case '\n':
@@ -442,10 +458,10 @@ _wreadln(WINDOW *w,
 			break;
 		default:
 			if (key >= 32)
-				wreadln_insert_byte(&wr, key);
+				wr.InsertByte(key);
 		}
 
-		drawline(&wr);
+		wr.Paint();
 	}
 
 	/* update history */
