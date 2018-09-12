@@ -23,6 +23,7 @@
 #include "screen_utils.hxx"
 #include "Point.hxx"
 #include "config.h"
+#include "util/LocaleString.hxx"
 #include "util/StringUTF8.hxx"
 
 #include <string>
@@ -152,10 +153,7 @@ right_align_bytes(const char *data, size_t right, unsigned width)
 			break;
 		}
 
-		gunichar c = g_utf8_get_char(p);
-		p[g_unichar_to_utf8(c, nullptr)] = 0;
-
-		start += strlen(Utf8ToLocale(p).c_str());
+		start += CharSizeMB(data + start, right - start);
 		g_free(p);
 	}
 
