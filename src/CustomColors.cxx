@@ -17,46 +17,47 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef COLORS_H
-#define COLORS_H
-
+#include "CustomColors.hxx"
 #include "config.h"
 #include "ncmpc_curses.h"
-#include "Compiler.h"
+#include "i18n.h"
 
+#include <list>
 
-enum color {
-	COLOR_TITLE = 1,
-	COLOR_TITLE_BOLD,
-	COLOR_LINE,
-	COLOR_LINE_BOLD,
-	COLOR_LINE_FLAGS,
-	COLOR_LIST,
-	COLOR_LIST_BOLD,
-	COLOR_PROGRESSBAR,
-	COLOR_PROGRESSBAR_BACKGROUND,
-	COLOR_STATUS,
-	COLOR_STATUS_BOLD,
-	COLOR_STATUS_TIME,
-	COLOR_STATUS_ALERT,
-	COLOR_DIRECTORY,
-	COLOR_PLAYLIST,
-	COLOR_BACKGROUND,
-	COLOR_END
+#include <stdio.h>
+
+struct CustomColor {
+	short color;
+	short r,g,b;
+
+	constexpr CustomColor(short _color, short _r, short _g, short _b)
+		:color(_color), r(_r), g(_g), b(_b) {}
 };
 
-gcc_pure
-int colors_str2color(const char *str);
+static std::list<CustomColor> custom_colors;
 
-#ifdef ENABLE_COLORS
-bool
-colors_assign(const char *name, const char *value);
+/* This function is called from conf.c before curses have been started,
+ * it adds the definition to the color_definition_list and init_color() is
+ * done in colors_start() */
+void
+colors_define(short color, short r, short g, short b)
+{
+	custom_colors.emplace_back(color, r, g, b);
+}
 
 void
-colors_start();
-#endif
+ApplyCustomColors()
+{
+	if (custom_colors.empty())
+		return;
 
-void
-colors_use(WINDOW *w, enum color id);
+	if (!can_change_color()) {
+		fprintf(stderr, "%s\n",
+			_("Terminal lacks support for changing colors"));
+		return;
+	}
 
-#endif /* COLORS_H */
+	for (const auto &i : custom_colors)
+		if (i.color <= COLORS)
+			init_color(i.color, i.r, i.g, i.b);
+}

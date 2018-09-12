@@ -26,6 +26,7 @@
 #include "Command.hxx"
 #include "colors.hxx"
 #include "BasicColors.hxx"
+#include "CustomColors.hxx"
 #include "screen_list.hxx"
 #include "options.hxx"
 #include "io/Path.hxx"

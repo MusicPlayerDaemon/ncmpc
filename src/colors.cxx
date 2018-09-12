@@ -19,13 +19,12 @@
 
 #include "colors.hxx"
 #include "BasicColors.hxx"
+#include "CustomColors.hxx"
 #include "i18n.h"
 
 #ifdef ENABLE_COLORS
 #include "options.hxx"
 #endif
-
-#include <list>
 
 #include <assert.h>
 #include <stdio.h>
@@ -35,16 +34,6 @@
 
 #define COLOR_NONE  G_MININT /* left most bit only */
 #define COLOR_ERROR -2
-
-#ifdef ENABLE_COLORS
-struct CustomColor {
-	short color;
-	short r,g,b;
-
-	constexpr CustomColor(short _color, short _r, short _g, short _b)
-		:color(_color), r(_r), g(_g), b(_b) {}
-};
-#endif
 
 struct NamedColor {
 	const char *name;
@@ -81,8 +70,6 @@ static NamedColor colors[COLOR_END] = {
 };
 
 #ifdef ENABLE_COLORS
-
-static std::list<CustomColor> custom_colors;
 
 static NamedColor *
 colors_lookup_by_name(const char *name)
@@ -166,15 +153,6 @@ colors_str2color(const char *str)
 	return color;
 }
 
-/* This function is called from conf.c before curses have been started,
- * it adds the definition to the color_definition_list and init_color() is
- * done in colors_start() */
-void
-colors_define(short color, short r, short g, short b)
-{
-	custom_colors.emplace_back(color, r, g, b);
-}
-
 bool
 colors_assign(const char *name, const char *value)
 {
@@ -202,13 +180,7 @@ colors_start()
 		start_color();
 		use_default_colors();
 		/* define any custom colors defined in the configuration file */
-		if (!custom_colors.empty() && can_change_color()) {
-			for (const auto &i : custom_colors)
-				if (i.color <= COLORS)
-					init_color(i.color, i.r, i.g, i.b);
-		} else if (!custom_colors.empty() && !can_change_color())
-			fprintf(stderr, "%s\n",
-				_("Terminal lacks support for changing colors"));
+		ApplyCustomColors();
 
 		if (options.enable_colors) {
 			for (unsigned i = 1; i < COLOR_END; ++i)
@@ -220,9 +192,6 @@ colors_start()
 			_("Terminal lacks color capabilities"));
 		options.enable_colors = false;
 	}
-
-	/* free the color_definition_list */
-	custom_colors.clear();
 }
 #endif
 

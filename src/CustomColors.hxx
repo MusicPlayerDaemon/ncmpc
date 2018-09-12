@@ -17,46 +17,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef COLORS_H
-#define COLORS_H
-
-#include "config.h"
-#include "ncmpc_curses.h"
-#include "Compiler.h"
-
-
-enum color {
-	COLOR_TITLE = 1,
-	COLOR_TITLE_BOLD,
-	COLOR_LINE,
-	COLOR_LINE_BOLD,
-	COLOR_LINE_FLAGS,
-	COLOR_LIST,
-	COLOR_LIST_BOLD,
-	COLOR_PROGRESSBAR,
-	COLOR_PROGRESSBAR_BACKGROUND,
-	COLOR_STATUS,
-	COLOR_STATUS_BOLD,
-	COLOR_STATUS_TIME,
-	COLOR_STATUS_ALERT,
-	COLOR_DIRECTORY,
-	COLOR_PLAYLIST,
-	COLOR_BACKGROUND,
-	COLOR_END
-};
-
-gcc_pure
-int colors_str2color(const char *str);
-
-#ifdef ENABLE_COLORS
-bool
-colors_assign(const char *name, const char *value);
+#ifndef CUSTOM_COLORS_HXX
+#define CUSTOM_COLORS_HXX
 
 void
-colors_start();
+colors_define(short color, short r, short g, short b);
+
+void
+ApplyCustomColors();
+
 #endif
-
-void
-colors_use(WINDOW *w, enum color id);
-
-#endif /* COLORS_H */
