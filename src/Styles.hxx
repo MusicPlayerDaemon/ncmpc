@@ -17,14 +17,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef COLORS_H
-#define COLORS_H
+#ifndef STYLES_HXX
+#define STYLES_HXX
 
 #include "config.h"
 #include "ncmpc_curses.h"
 
-
-enum color {
+enum Style {
 	COLOR_TITLE = 1,
 	COLOR_TITLE_BOLD,
 	COLOR_LINE,
@@ -46,13 +45,13 @@ enum color {
 
 #ifdef ENABLE_COLORS
 bool
-colors_assign(const char *name, const char *value);
+ModifyStyle(const char *name, const char *value);
 
 void
-colors_start();
+ApplyStyles();
 #endif
 
 void
-colors_use(WINDOW *w, enum color id);
+SelectStyle(WINDOW *w, Style style);
 
-#endif /* COLORS_H */
+#endif

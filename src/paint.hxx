@@ -20,7 +20,7 @@
 #ifndef NCMPC_PAINT_H
 #define NCMPC_PAINT_H
 
-#include "colors.hxx"
+#include "Styles.hxx"
 #include "options.hxx"
 
 /**
@@ -28,9 +28,9 @@
  * true.
  */
 static inline void
-row_color(WINDOW *w, enum color color, bool selected)
+row_color(WINDOW *w, Style style, bool selected)
 {
-	colors_use(w, color);
+	SelectStyle(w, style);
 
 	if (selected)
 		wattron(w, A_REVERSE);
@@ -67,10 +67,10 @@ row_clear_to_eol(WINDOW *w, unsigned width, bool selected)
  */
 static inline void
 row_paint_text(WINDOW *w, unsigned width,
-	       enum color color, bool selected,
+	       Style style, bool selected,
 	       const char *text)
 {
-	row_color(w, color, selected);
+	row_color(w, style, selected);
 
 	waddstr(w, text);
 

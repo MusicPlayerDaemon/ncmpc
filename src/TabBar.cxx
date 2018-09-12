@@ -20,7 +20,7 @@
 #include "TabBar.hxx"
 #include "PageMeta.hxx"
 #include "screen_list.hxx"
-#include "colors.hxx"
+#include "Styles.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "i18n.h"
@@ -28,13 +28,13 @@
 static void
 PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected)
 {
-	colors_use(w, COLOR_TITLE_BOLD);
+	SelectStyle(w, COLOR_TITLE_BOLD);
 	if (selected)
 		wattron(w, A_REVERSE);
 
 	waddch(w, ' ');
 	waddstr(w, GetGlobalKeyBindings().GetKeyNames(cmd, false));
-	colors_use(w, COLOR_TITLE);
+	SelectStyle(w, COLOR_TITLE);
 	if (selected)
 		wattron(w, A_REVERSE);
 

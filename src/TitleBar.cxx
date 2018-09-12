@@ -19,7 +19,7 @@
 
 #include "TitleBar.hxx"
 #include "TabBar.hxx"
-#include "colors.hxx"
+#include "Styles.hxx"
 #include "options.hxx"
 #include "i18n.h"
 #include "util/StringUTF8.hxx"
@@ -88,7 +88,7 @@ TitleBar::Paint(const PageMeta &current_page_meta, const char *title) const
 #else
 		(void)current_page_meta;
 #endif
-		colors_use(w, COLOR_TITLE_BOLD);
+		SelectStyle(w, COLOR_TITLE_BOLD);
 		mvwaddstr(w, 0, 0, title);
 #ifndef NCMPC_MINI
 	}
@@ -103,18 +103,18 @@ TitleBar::Paint(const PageMeta &current_page_meta, const char *title) const
 		volume_string = buf;
 	}
 
-	colors_use(w, COLOR_TITLE);
+	SelectStyle(w, COLOR_TITLE);
 	mvwaddstr(w, 0, window.size.width - utf8_width(volume_string),
 		  volume_string);
 
-	colors_use(w, COLOR_LINE);
+	SelectStyle(w, COLOR_LINE);
 	mvwhline(w, 1, 0, ACS_HLINE, window.size.width);
 	if (flags[0]) {
 		wmove(w, 1, window.size.width - strlen(flags) - 3);
 		waddch(w, '[');
-		colors_use(w, COLOR_LINE_FLAGS);
+		SelectStyle(w, COLOR_LINE_FLAGS);
 		waddstr(w, flags);
-		colors_use(w, COLOR_LINE);
+		SelectStyle(w, COLOR_LINE);
 		waddch(w, ']');
 	}
 

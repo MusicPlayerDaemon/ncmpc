@@ -20,7 +20,7 @@
 #include "StatusBar.hxx"
 #include "Event.hxx"
 #include "options.hxx"
-#include "colors.hxx"
+#include "Styles.hxx"
 #include "i18n.h"
 #include "strfsong.hxx"
 #include "player_command.hxx"
@@ -205,7 +205,7 @@ StatusBar::Paint() const
 
 	wmove(w, 0, 0);
 	wclrtoeol(w);
-	colors_use(w, COLOR_STATUS_BOLD);
+	SelectStyle(w, COLOR_STATUS_BOLD);
 
 	if (left_text != nullptr)
 		/* display state */
@@ -214,14 +214,14 @@ StatusBar::Paint() const
 	if (right_width > 0) {
 		/* display time string */
 		int x = window.size.width - right_width;
-		colors_use(w, COLOR_STATUS_TIME);
+		SelectStyle(w, COLOR_STATUS_TIME);
 		mvwaddstr(w, 0, x, right_text);
 	}
 
 	if (!center_text.empty()) {
 		/* display song name */
 
-		colors_use(w, COLOR_STATUS);
+		SelectStyle(w, COLOR_STATUS);
 
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
@@ -234,7 +234,7 @@ StatusBar::Paint() const
 
 	/* display time string */
 	int x = window.size.width - right_width;
-	colors_use(w, COLOR_STATUS_TIME);
+	SelectStyle(w, COLOR_STATUS_TIME);
 	mvwaddstr(w, 0, x, right_text);
 
 	wnoutrefresh(w);
@@ -268,7 +268,7 @@ StatusBar::SetMessage(const char *msg)
 
 	wmove(w, 0, 0);
 	wclrtoeol(w);
-	colors_use(w, COLOR_STATUS_ALERT);
+	SelectStyle(w, COLOR_STATUS_ALERT);
 	waddstr(w, msg);
 	wnoutrefresh(w);
 

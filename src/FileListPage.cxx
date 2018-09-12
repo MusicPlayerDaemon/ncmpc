@@ -32,7 +32,7 @@
 #include "strfsong.hxx"
 #include "mpdclient.hxx"
 #include "filelist.hxx"
-#include "colors.hxx"
+#include "Styles.hxx"
 #include "paint.hxx"
 #include "song_paint.hxx"
 

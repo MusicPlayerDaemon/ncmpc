@@ -24,7 +24,7 @@
 #include "defaults.hxx"
 #include "i18n.h"
 #include "Command.hxx"
-#include "colors.hxx"
+#include "Styles.hxx"
 #include "BasicColors.hxx"
 #include "CustomColors.hxx"
 #include "screen_list.hxx"
@@ -255,7 +255,7 @@ parse_color(char *str)
 	if (value == nullptr)
 		return false;
 
-	return colors_assign(str, value);
+	return ModifyStyle(str, value);
 }
 
 /**

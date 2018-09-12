@@ -18,7 +18,7 @@
  */
 
 #include "ProgressBar.hxx"
-#include "colors.hxx"
+#include "Styles.hxx"
 #include "options.hxx"
 
 #include <assert.h>
@@ -39,7 +39,7 @@ ProgressBar::Paint() const
 	if (max > 0) {
 		assert(width < window.size.width);
 
-		colors_use(window.w, COLOR_PROGRESSBAR);
+		SelectStyle(window.w, COLOR_PROGRESSBAR);
 
 		if (width > 0)
 			mvwhline(window.w, 0, 0, '=', width);
@@ -48,12 +48,12 @@ ProgressBar::Paint() const
 		unsigned x = width + 1;
 
 		if (x < window.size.width) {
-			colors_use(window.w, COLOR_PROGRESSBAR_BACKGROUND);
+			SelectStyle(window.w, COLOR_PROGRESSBAR_BACKGROUND);
 			mvwhline(window.w, 0, x, ACS_HLINE, window.size.width - x);
 		}
 	} else {
 		/* no progress bar, just a simple horizontal line */
-		colors_use(window.w, COLOR_LINE);
+		SelectStyle(window.w, COLOR_LINE);
 		mvwhline(window.w, 0, 0, ACS_HLINE, window.size.width);
 	}
 

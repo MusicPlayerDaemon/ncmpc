@@ -24,7 +24,7 @@
 #include "config.h"
 #include "i18n.h"
 #include "options.hxx"
-#include "colors.hxx"
+#include "Styles.hxx"
 #include "Event.hxx"
 
 #include <stdlib.h>

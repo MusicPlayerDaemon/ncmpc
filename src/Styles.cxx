@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "colors.hxx"
+#include "Styles.hxx"
 #include "BasicColors.hxx"
 #include "CustomColors.hxx"
 #include "i18n.h"
@@ -34,7 +34,7 @@
 
 #define COLOR_NONE -1
 
-struct NamedColor {
+struct StyleData {
 	const char *name;
 #ifdef ENABLE_COLORS
 	short fg_color;
@@ -43,12 +43,12 @@ struct NamedColor {
 	attr_t mono;
 
 #ifndef ENABLE_COLORS
-	constexpr NamedColor(const char *_name, int, attr_t _mono)
+	constexpr StyleData(const char *_name, int, attr_t _mono)
 		:name(_name), mono(_mono) {}
 #endif
 };
 
-static NamedColor colors[COLOR_END] = {
+static StyleData colors[COLOR_END] = {
 	/* color pair = field name, color, mono */
 	{nullptr, 0, 0, 0},
 	{"title",             COLOR_YELLOW, A_NORMAL, A_NORMAL},
@@ -71,8 +71,8 @@ static NamedColor colors[COLOR_END] = {
 
 #ifdef ENABLE_COLORS
 
-static NamedColor *
-colors_lookup_by_name(const char *name)
+static StyleData *
+StyleByName(const char *name)
 {
 	for (unsigned i = 1; i < COLOR_END; ++i)
 		if (!strcasecmp(colors[i].name, name))
@@ -82,8 +82,9 @@ colors_lookup_by_name(const char *name)
 }
 
 static void
-colors_update_pair(enum color id)
+colors_update_pair(Style style)
 {
+	const size_t id(style);
 	assert(id > 0 && id < COLOR_END);
 
 	int fg = colors[id].fg_color;
@@ -152,9 +153,9 @@ colors_str2color(const char *str, short &fg_color, attr_t &attr)
 }
 
 bool
-colors_assign(const char *name, const char *value)
+ModifyStyle(const char *name, const char *value)
 {
-	auto *entry = colors_lookup_by_name(name);
+	auto *entry = StyleByName(name);
 
 	if (!entry) {
 		fprintf(stderr, "%s: %s",
@@ -166,7 +167,7 @@ colors_assign(const char *name, const char *value)
 }
 
 void
-colors_start()
+ApplyStyles()
 {
 	if (has_colors()) {
 		/* initialize color support */
@@ -178,7 +179,7 @@ colors_start()
 		if (options.enable_colors) {
 			for (unsigned i = 1; i < COLOR_END; ++i)
 				/* update the color pairs */
-				colors_update_pair((enum color)i);
+				colors_update_pair(Style(i));
 		}
 	} else if (options.enable_colors) {
 		fprintf(stderr, "%s\n",
@@ -189,11 +190,12 @@ colors_start()
 #endif
 
 void
-colors_use(WINDOW *w, enum color id)
+SelectStyle(WINDOW *w, Style style)
 {
-	auto *entry = &colors[id];
-
+	const size_t id(style);
 	assert(id > 0 && id < COLOR_END);
+
+	auto *entry = &colors[size_t(style)];
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {

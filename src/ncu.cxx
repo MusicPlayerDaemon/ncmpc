@@ -22,7 +22,7 @@
 #include "ncmpc_curses.h"
 
 #ifdef ENABLE_COLORS
-#include "colors.hxx"
+#include "Styles.hxx"
 #endif
 
 #ifdef HAVE_GETMOUSE
@@ -39,7 +39,7 @@ ncu_init()
 
 	/* initialize color support */
 #ifdef ENABLE_COLORS
-	colors_start();
+	ApplyStyles();
 #endif
 
 	/* tell curses not to do NL->CR/NL on output */
