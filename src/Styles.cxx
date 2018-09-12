@@ -43,7 +43,7 @@ struct StyleData {
 	attr_t mono;
 
 #ifndef ENABLE_COLORS
-	constexpr StyleData(const char *_name, int, attr_t _mono)
+	constexpr StyleData(const char *_name, short, attr_t, attr_t _mono)
 		:name(_name), mono(_mono) {}
 #endif
 };
