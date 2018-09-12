@@ -32,7 +32,7 @@
 #include <string.h>
 #include <glib.h>
 
-#define COLOR_NONE  G_MININT /* left most bit only */
+#define COLOR_NONE -1
 #define COLOR_ERROR -2
 
 struct NamedColor {
@@ -89,11 +89,7 @@ colors_update_pair(enum color id)
 	int fg = colors[id].color;
 	int bg = colors[COLOR_BACKGROUND].color;
 
-	/* If color == COLOR_NONE (negative),
-	 * pass -1 to avoid cast errors */
-	init_pair(id,
-		(fg < 0 ? -1 : fg),
-		(bg < 0 ? -1 : bg));
+	init_pair(id, fg, bg);
 }
 
 gcc_pure
