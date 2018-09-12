@@ -18,6 +18,7 @@
  */
 
 #include "colors.hxx"
+#include "BasicColors.hxx"
 #include "i18n.h"
 
 #ifdef ENABLE_COLORS
@@ -123,24 +124,14 @@ colors_str2color(const char *str)
 		}
 
 		/* Colors */
+		short b = ParseBasicColorName(cur);
+		if (b >= 0) {
+			color |= b;
+			continue;
+		}
+
 		if (!strcasecmp(cur, "none"))
 			color |= COLOR_NONE;
-		else if (!strcasecmp(cur, "black"))
-			color |= COLOR_BLACK;
-		else if (!strcasecmp(cur, "red"))
-			color |= COLOR_RED;
-		else if (!strcasecmp(cur, "green"))
-			color |= COLOR_GREEN;
-		else if (!strcasecmp(cur, "yellow"))
-			color |= COLOR_YELLOW;
-		else if (!strcasecmp(cur, "blue"))
-			color |= COLOR_BLUE;
-		else if (!strcasecmp(cur, "magenta"))
-			color |= COLOR_MAGENTA;
-		else if (!strcasecmp(cur, "cyan"))
-			color |= COLOR_CYAN;
-		else if (!strcasecmp(cur, "white"))
-			color |= COLOR_WHITE;
 		else if (!strcasecmp(cur, "grey") || !strcasecmp(cur, "gray"))
 			color |= COLOR_BLACK | A_BOLD;
 
