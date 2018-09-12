@@ -152,7 +152,7 @@ right_align_bytes(const char *data, size_t right, unsigned width)
 
 	char *dup = g_strndup(data, right);
 
-	while (dup[start] != 0) {
+	while (start < right) {
 		char *p = locale_to_utf8(dup + start);
 		unsigned p_width = utf8_width(p);
 
