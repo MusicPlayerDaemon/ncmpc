@@ -23,7 +23,7 @@
 #include "config.h"
 #include "ncmpc_curses.h"
 
-enum class Style {
+enum class Style : unsigned {
 	TITLE = 1,
 	TITLE_BOLD,
 	LINE,
