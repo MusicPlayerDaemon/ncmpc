@@ -25,6 +25,7 @@
 #include "i18n.h"
 #include "Command.hxx"
 #include "colors.hxx"
+#include "BasicColors.hxx"
 #include "screen_list.hxx"
 #include "options.hxx"
 #include "io/Path.hxx"
@@ -284,7 +285,7 @@ parse_color_definition(char *str)
 		return false;
 
 	/* get the command name */
-	short color = colors_str2color(str);
+	short color = ParseColorNameOrNumber(str);
 	if (color < 0) {
 		char buf[MAX_LINE_LENGTH];
 		print_error(_("Bad color name"), buf);
