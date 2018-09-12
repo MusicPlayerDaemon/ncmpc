@@ -46,3 +46,20 @@ CharSizeMB(const char *s, size_t n)
 
 	return length;
 }
+
+const char *
+PrevCharMB(const char *start, const char *reference)
+{
+	const char *p = reference;
+
+	while (p > start) {
+		--p;
+
+		auto mb = std::mbstate_t();
+		const std::size_t length = std::mbrlen(p, reference - p, &mb);
+		if (length != std::size_t(-1))
+			break;
+	}
+
+	return p;
+}

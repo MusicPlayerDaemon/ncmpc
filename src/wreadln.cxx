@@ -173,38 +173,6 @@ next_char_size(const char *data)
 #endif
 }
 
-/** returns the size (in bytes) of the previous character */
-gcc_pure
-static inline size_t
-prev_char_size(const char *data, size_t x)
-{
-#if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
-	assert(x > 0);
-
-	char *p = locale_to_utf8(data);
-
-	char *q = p;
-	while (true) {
-		gunichar c = g_utf8_get_char(q);
-		size_t size = g_unichar_to_utf8(c, nullptr);
-		if (size > x)
-			size = x;
-		x -= size;
-		if (x == 0) {
-			g_free(p);
-			return size;
-		}
-
-		q += size;
-	}
-#else
-	(void)data;
-	(void)x;
-
-	return 1;
-#endif
-}
-
 /* move the cursor one step to the right */
 static inline void cursor_move_right(struct wreadln *wr)
 {
@@ -221,12 +189,9 @@ static inline void cursor_move_right(struct wreadln *wr)
 /* move the cursor one step to the left */
 static inline void cursor_move_left(struct wreadln *wr)
 {
-	if (wr->cursor == 0)
-		return;
-
-	size_t size = prev_char_size(wr->value.c_str(), wr->cursor);
-	assert(wr->cursor >= size);
-	wr->cursor -= size;
+	const char *v = wr->value.c_str();
+	const char *new_cursor = PrevCharMB(v, v + wr->cursor);
+	wr->cursor = new_cursor - v;
 	if (wr->cursor < wr->start)
 		wr->start = wr->cursor;
 }

@@ -42,4 +42,13 @@ gcc_pure
 std::size_t
 CharSizeMB(const char *s, size_t n);
 
+/**
+ * Determine the start of the character preceding the given reference.
+ *
+ * @param s the start of the string
+ */
+gcc_pure
+const char *
+PrevCharMB(const char *start, const char *reference);
+
 #endif
