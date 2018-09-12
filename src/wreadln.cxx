@@ -81,6 +81,7 @@ struct wreadln {
 static const guint wrln_max_history_length = 32;
 
 /** converts a byte position to a screen column */
+gcc_pure
 static unsigned
 byte_to_screen(const char *data, size_t x)
 {
@@ -102,6 +103,7 @@ byte_to_screen(const char *data, size_t x)
 }
 
 /** finds the first character which doesn't fit on the screen */
+gcc_pure
 static size_t
 screen_to_bytes(const char *data, unsigned width)
 {
@@ -129,6 +131,7 @@ screen_to_bytes(const char *data, unsigned width)
 }
 
 /** returns the screen column where the cursor is located */
+gcc_pure
 static unsigned
 cursor_column(const struct wreadln *wr)
 {
@@ -138,6 +141,7 @@ cursor_column(const struct wreadln *wr)
 
 /** returns the offset in the string to align it at the right border
     of the screen */
+gcc_pure
 static inline size_t
 right_align_bytes(const char *data, size_t right, unsigned width)
 {
@@ -175,6 +179,7 @@ right_align_bytes(const char *data, size_t right, unsigned width)
 }
 
 /** returns the size (in bytes) of the next character */
+gcc_pure
 static inline size_t
 next_char_size(const char *data)
 {
@@ -195,6 +200,7 @@ next_char_size(const char *data)
 }
 
 /** returns the size (in bytes) of the previous character */
+gcc_pure
 static inline size_t
 prev_char_size(const char *data, size_t x)
 {
