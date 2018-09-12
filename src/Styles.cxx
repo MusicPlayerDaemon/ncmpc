@@ -195,7 +195,7 @@ SelectStyle(WINDOW *w, Style style)
 	const size_t id(style);
 	assert(id > 0 && id < COLOR_END);
 
-	auto *entry = &colors[size_t(style)];
+	auto *entry = &colors[id];
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
