@@ -18,10 +18,9 @@
  */
 
 #include "filelist.hxx"
+#include "util/StringUTF8.hxx"
 
 #include <mpd/client.h>
-
-#include <glib.h>
 
 #include <algorithm>
 
@@ -48,15 +47,15 @@ Less(const struct mpd_entity &a, struct mpd_entity &b)
 		break;
 
 	case MPD_ENTITY_TYPE_DIRECTORY:
-		return g_utf8_collate(mpd_directory_get_path(mpd_entity_get_directory(&a)),
-				      mpd_directory_get_path(mpd_entity_get_directory(&b))) < 0;
+		return CollateUTF8(mpd_directory_get_path(mpd_entity_get_directory(&a)),
+				   mpd_directory_get_path(mpd_entity_get_directory(&b))) < 0;
 
 	case MPD_ENTITY_TYPE_SONG:
 		return false;
 
 	case MPD_ENTITY_TYPE_PLAYLIST:
-		return g_utf8_collate(mpd_playlist_get_path(mpd_entity_get_playlist(&a)),
-				      mpd_playlist_get_path(mpd_entity_get_playlist(&b))) < 0;
+		return CollateUTF8(mpd_playlist_get_path(mpd_entity_get_playlist(&a)),
+				   mpd_playlist_get_path(mpd_entity_get_playlist(&b))) < 0;
 	}
 
 	return false;
