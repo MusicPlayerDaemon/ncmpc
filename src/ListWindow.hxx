@@ -24,6 +24,7 @@
 #include "colors.hxx"
 #include "ncmpc_curses.h"
 #include "Size.hxx"
+#include "Compiler.h"
 
 enum class Command : unsigned;
 class ListText;
