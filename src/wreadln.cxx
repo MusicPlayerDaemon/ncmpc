@@ -145,16 +145,10 @@ right_align_bytes(const char *data, size_t right, unsigned width)
 	const std::string dup(data, right);
 
 	while (start < right) {
-		char *p = locale_to_utf8(dup.c_str() + start);
-		unsigned p_width = utf8_width(p);
-
-		if (p_width < width) {
-			g_free(p);
+		if (locale_width(dup.c_str() + start) < width)
 			break;
-		}
 
 		start += CharSizeMB(data + start, right - start);
-		g_free(p);
 	}
 
 	return start;
