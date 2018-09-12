@@ -92,7 +92,7 @@ byte_to_screen(const char *data, size_t x)
 	assert(x <= strlen(data));
 
 	const std::string partial(data, x);
-	return utf8_width(LocaleToUtf8(partial.c_str()).c_str());
+	return locale_width(partial.c_str());
 #else
 	(void)data;
 
