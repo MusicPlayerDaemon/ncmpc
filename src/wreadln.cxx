@@ -31,7 +31,6 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
-#include <glib.h>
 
 #if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(_WIN32)
 #include <sys/poll.h>
@@ -207,21 +206,6 @@ static inline void drawline(const struct wreadln *wr)
 	doupdate();
 }
 
-#if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(_WIN32)
-static bool
-multibyte_is_complete(const char *p, size_t length)
-{
-	char *q = g_locale_to_utf8(p, length,
-				   nullptr, nullptr, nullptr);
-	if (q != nullptr) {
-		g_free(q);
-		return true;
-	} else {
-		return false;
-	}
-}
-#endif
-
 static void
 wreadln_insert_byte(struct wreadln *wr, int key)
 {
@@ -237,7 +221,7 @@ wreadln_insert_byte(struct wreadln *wr, int key)
 	/* wide version: try to complete the multibyte sequence */
 
 	while (length < sizeof(buffer)) {
-		if (multibyte_is_complete(buffer, length))
+		if (!IsIncompleteCharMB(buffer, length))
 			/* sequence is complete */
 			break;
 

@@ -33,6 +33,14 @@
 
 #include <string.h>
 
+bool
+IsIncompleteCharMB(const char *s, size_t n)
+{
+	auto mb = std::mbstate_t();
+	const std::size_t length = std::mbrlen(s, n, &mb);
+	return length == std::size_t(-2);
+}
+
 std::size_t
 CharSizeMB(const char *s, size_t n)
 {

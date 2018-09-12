@@ -35,6 +35,13 @@
 #include <cstddef>
 
 /**
+ * Is the given character incomplete?
+ */
+gcc_pure
+bool
+IsIncompleteCharMB(const char *s, size_t n);
+
+/**
  * Wrapper for std::mbrlen() which attempts to recover with a best
  * effort from invalid or incomplete sequences.
  */
