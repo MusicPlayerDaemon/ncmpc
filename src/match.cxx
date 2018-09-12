@@ -23,9 +23,6 @@
 
 #include <glib.h>
 
-#include <string.h>
-#include <ctype.h>
-
 static char *
 locale_casefold(const char *src)
 {

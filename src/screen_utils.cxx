@@ -30,7 +30,6 @@
 #include <mpd/client.h>
 
 #include <string.h>
-#include <ctype.h>
 
 void
 screen_bell()

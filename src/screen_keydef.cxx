@@ -40,7 +40,6 @@
 #include <assert.h>
 #include <errno.h>
 #include <string.h>
-#include <glib.h>
 
 class CommandKeysPage final : public ListPage, ListText {
 	ScreenManager &screen;

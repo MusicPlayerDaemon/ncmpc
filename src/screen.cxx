@@ -34,8 +34,6 @@
 
 #include <mpd/client.h>
 
-#include <glib.h>
-
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>

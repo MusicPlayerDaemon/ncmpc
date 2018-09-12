@@ -53,9 +53,7 @@
 #include <set>
 #include <string>
 
-#include <ctype.h>
 #include <string.h>
-#include <glib.h>
 
 #define MAX_SONG_LENGTH 512
 

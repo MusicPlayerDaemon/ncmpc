@@ -35,7 +35,6 @@
 #include "util/StringStrip.hxx"
 
 #include <assert.h>
-#include <ctype.h>
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
