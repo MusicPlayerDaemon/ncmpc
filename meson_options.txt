@@ -8,9 +8,8 @@ option('mouse', type: 'combo',
   value: 'auto',
   description: 'Enable mouse support')
 
-option('colors', type: 'combo',
-  choices: ['ncursesw', 'ncurses', 'auto'],
-  value: 'auto',
+option('colors', type: 'boolean',
+  value: true,
   description: 'Enable color support')
 
 option('multibyte', type: 'boolean',

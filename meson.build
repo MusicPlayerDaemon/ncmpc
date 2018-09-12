@@ -147,7 +147,7 @@ else
 endif
 conf.set('ENABLE_LIRC', enable_lirc)
 
-conf.set('ENABLE_COLORS', curses_color)
+conf.set('ENABLE_COLORS', curses_color and get_option('colors'))
 
 common_cflags = [
   # for getaddrinfo() and sigaction() with glibc
