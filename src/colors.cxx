@@ -33,12 +33,12 @@
 #include <glib.h>
 
 #define COLOR_NONE -1
-#define COLOR_ERROR -2
 
 struct NamedColor {
 	const char *name;
 #ifdef ENABLE_COLORS
-	int color;
+	short fg_color;
+	attr_t attr;
 #endif
 	attr_t mono;
 
@@ -50,23 +50,23 @@ struct NamedColor {
 
 static NamedColor colors[COLOR_END] = {
 	/* color pair = field name, color, mono */
-	{nullptr, 0, 0},
-	{"title",             COLOR_YELLOW,          A_NORMAL},
-	{"title-bold",        COLOR_YELLOW | A_BOLD, A_BOLD  },
-	{"line",              COLOR_WHITE,           A_NORMAL},
-	{"line-bold",         COLOR_WHITE  | A_BOLD, A_BOLD  },
-	{"line-flags",        COLOR_YELLOW,          A_NORMAL},
-	{"list",              COLOR_GREEN,           A_NORMAL},
-	{"list-bold",         COLOR_GREEN  | A_BOLD, A_BOLD  },
-	{"progressbar",       COLOR_WHITE,           A_NORMAL},
-	{"progressbar-background", COLOR_BLACK | A_BOLD, A_NORMAL},
-	{"status-song",       COLOR_YELLOW,          A_NORMAL},
-	{"status-state",      COLOR_YELLOW | A_BOLD, A_BOLD  },
-	{"status-time",       COLOR_RED,             A_NORMAL},
-	{"alert",             COLOR_RED    | A_BOLD, A_BOLD  },
-	{"browser-directory", COLOR_YELLOW,          A_NORMAL},
-	{"browser-playlist",  COLOR_RED,             A_NORMAL},
-	{"background",        COLOR_BLACK,           A_NORMAL},
+	{nullptr, 0, 0, 0},
+	{"title",             COLOR_YELLOW, A_NORMAL, A_NORMAL},
+	{"title-bold",        COLOR_YELLOW, A_BOLD,   A_BOLD  },
+	{"line",              COLOR_WHITE,  A_NORMAL, A_NORMAL},
+	{"line-bold",         COLOR_WHITE,  A_BOLD,   A_BOLD  },
+	{"line-flags",        COLOR_YELLOW, A_NORMAL, A_NORMAL},
+	{"list",              COLOR_GREEN,  A_NORMAL, A_NORMAL},
+	{"list-bold",         COLOR_GREEN,  A_BOLD,   A_BOLD  },
+	{"progressbar",       COLOR_WHITE,  A_NORMAL, A_NORMAL},
+	{"progressbar-background", COLOR_BLACK, A_BOLD, A_NORMAL},
+	{"status-song",       COLOR_YELLOW, A_NORMAL, A_NORMAL},
+	{"status-state",      COLOR_YELLOW, A_BOLD,   A_BOLD  },
+	{"status-time",       COLOR_RED,    A_NORMAL, A_NORMAL},
+	{"alert",             COLOR_RED,    A_BOLD,   A_BOLD  },
+	{"browser-directory", COLOR_YELLOW, A_NORMAL, A_NORMAL},
+	{"browser-playlist",  COLOR_RED,    A_NORMAL, A_NORMAL},
+	{"background",        COLOR_BLACK,  A_NORMAL, A_NORMAL},
 };
 
 #ifdef ENABLE_COLORS
@@ -86,68 +86,69 @@ colors_update_pair(enum color id)
 {
 	assert(id > 0 && id < COLOR_END);
 
-	int fg = colors[id].color;
-	int bg = colors[COLOR_BACKGROUND].color;
+	int fg = colors[id].fg_color;
+	int bg = colors[COLOR_BACKGROUND].fg_color;
 
 	init_pair(id, fg, bg);
 }
 
-gcc_pure
-static int
-colors_str2color(const char *str)
+static bool
+colors_str2color(const char *str, short &fg_color, attr_t &attr)
 {
-	int color = 0;
 	char **parts = g_strsplit(str, ",", 0);
 	for (int i = 0; parts[i]; i++) {
 		char *cur = parts[i];
 
 		/* Legacy colors (brightblue,etc) */
 		if (!strncasecmp(cur, "bright", 6)) {
-			color |= A_BOLD;
+			attr |= A_BOLD;
 			cur += 6;
 		}
 
 		/* Colors */
 		short b = ParseBasicColorName(cur);
 		if (b >= 0) {
-			color |= b;
+			fg_color = b;
 			continue;
 		}
 
 		if (!strcasecmp(cur, "none"))
-			color |= COLOR_NONE;
-		else if (!strcasecmp(cur, "grey") || !strcasecmp(cur, "gray"))
-			color |= COLOR_BLACK | A_BOLD;
+			fg_color = COLOR_NONE;
+		else if (!strcasecmp(cur, "grey") ||
+			 !strcasecmp(cur, "gray")) {
+			fg_color = COLOR_BLACK;
+			attr |= A_BOLD;
+		}
 
 		/* Attributes */
 		else if (!strcasecmp(cur, "standout"))
-			color |= A_STANDOUT;
+			attr |= A_STANDOUT;
 		else if (!strcasecmp(cur, "underline"))
-			color |= A_UNDERLINE;
+			attr |= A_UNDERLINE;
 		else if (!strcasecmp(cur, "reverse"))
-			color |= A_REVERSE;
+			attr |= A_REVERSE;
 		else if (!strcasecmp(cur, "blink"))
-			color |= A_BLINK;
+			attr |= A_BLINK;
 		else if (!strcasecmp(cur, "dim"))
-			color |= A_DIM;
+			attr |= A_DIM;
 		else if (!strcasecmp(cur, "bold"))
-			color |= A_BOLD;
+			attr |= A_BOLD;
 		else {
 			/* Numerical colors */
 			char *endptr;
 			int tmp = strtol(cur, &endptr, 10);
 			if (cur != endptr && endptr[0] == '\0') {
-				color |= tmp;
+				fg_color = tmp;
 			} else {
 				fprintf(stderr, "%s: %s\n",
 					_("Unknown color"), str);
-				return COLOR_ERROR;
+				return false;
 			}
 		}
 
 	}
 	g_strfreev(parts);
-	return color;
+	return true;
 }
 
 bool
@@ -161,12 +162,7 @@ colors_assign(const char *name, const char *value)
 		return false;
 	}
 
-	const int color = colors_str2color(value);
-	if (color == COLOR_ERROR)
-		return false;
-
-	entry->color = color;
-	return true;
+	return colors_str2color(value, entry->fg_color, entry->attr);
 }
 
 void
@@ -202,7 +198,7 @@ colors_use(WINDOW *w, enum color id)
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* color mode */
-		wattr_set(w, entry->color, id, nullptr);
+		wattr_set(w, entry->attr, id, nullptr);
 	} else {
 #endif
 		/* mono mode */
