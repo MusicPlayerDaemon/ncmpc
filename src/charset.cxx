@@ -106,6 +106,7 @@ replace_utf8_to_locale(char *src)
 	if (noconvert)
 		return src;
 
+	AtScopeExit(src) { g_free(src); };
 	return utf8_to_locale(src);
 #else
 	return src;
@@ -122,6 +123,7 @@ replace_locale_to_utf8(char *src)
 	if (noconvert)
 		return src;
 
+	AtScopeExit(src) { g_free(src); };
 	return locale_to_utf8(src);
 #else
 	return src;
