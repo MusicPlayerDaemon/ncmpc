@@ -18,7 +18,8 @@
  */
 
 #include "StringUTF8.hxx"
-#include "util/ScopeExit.hxx"
+#include "ScopeExit.hxx"
+#include "config.h"
 
 #include <glib.h>
 
