@@ -52,8 +52,8 @@ int colors_str2color(const char *str);
 bool
 colors_assign(const char *name, const char *value);
 
-bool
-colors_define(const char *name, short r, short g, short b);
+void
+colors_define(short color, short r, short g, short b);
 
 void
 colors_start();

@@ -169,16 +169,10 @@ colors_str2color(const char *str)
 /* This function is called from conf.c before curses have been started,
  * it adds the definition to the color_definition_list and init_color() is
  * done in colors_start() */
-bool
-colors_define(const char *name, short r, short g, short b)
+void
+colors_define(short color, short r, short g, short b)
 {
-	int color = colors_str2color(name);
-
-	if (color < 0)
-		return false;
-
 	custom_colors.emplace_back(color, r, g, b);
-	return true;
 }
 
 bool

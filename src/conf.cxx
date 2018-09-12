@@ -316,7 +316,8 @@ parse_color_definition(char *str)
 		return false;
 	}
 
-	return colors_define(str, rgb[0], rgb[1], rgb[2]);
+	colors_define(color, rgb[0], rgb[1], rgb[2]);
+	return true;
 }
 #endif
 
