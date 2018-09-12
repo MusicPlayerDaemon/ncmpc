@@ -25,6 +25,8 @@
 #include "config.h"
 #include "util/StringUTF8.hxx"
 
+#include <string>
+
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
@@ -88,13 +90,8 @@ byte_to_screen(const char *data, size_t x)
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	assert(x <= strlen(data));
 
-	char *dup = g_strndup(data, x);
-	char *p = replace_locale_to_utf8(dup);
-
-	unsigned width = utf8_width(p);
-	g_free(p);
-
-	return width;
+	const std::string partial(data, x);
+	return utf8_width(LocaleToUtf8(partial.c_str()).c_str());
 #else
 	(void)data;
 
@@ -108,21 +105,15 @@ static size_t
 screen_to_bytes(const char *data, unsigned width)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
-	size_t length = strlen(data);
-	char *dup = g_strdup(data);
+	std::string dup(data);
 
 	while (true) {
-		dup[length] = 0;
-		unsigned p_width = locale_width(dup);
+		unsigned p_width = locale_width(dup.c_str());
 		if (p_width <= width)
-			break;
+			return dup.length();
 
-		--length;
+		dup.pop_back();
 	}
-
-	g_free(dup);
-
-	return length;
 #else
 	(void)data;
 
@@ -150,10 +141,10 @@ right_align_bytes(const char *data, size_t right, unsigned width)
 
 	assert(right <= strlen(data));
 
-	char *dup = g_strndup(data, right);
+	const std::string dup(data, right);
 
 	while (start < right) {
-		char *p = locale_to_utf8(dup + start);
+		char *p = locale_to_utf8(dup.c_str() + start);
 		unsigned p_width = utf8_width(p);
 
 		if (p_width < width) {
@@ -167,8 +158,6 @@ right_align_bytes(const char *data, size_t right, unsigned width)
 		start += strlen(Utf8ToLocale(p).c_str());
 		g_free(p);
 	}
-
-	g_free(dup);
 
 	return start;
 #else
