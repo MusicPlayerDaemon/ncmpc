@@ -33,7 +33,6 @@
 #include "options.hxx"
 #include "mpdclient.hxx"
 #include "strfsong.hxx"
-#include "wreadln.hxx"
 #include "Completion.hxx"
 #include "Styles.hxx"
 #include "song_paint.hxx"
