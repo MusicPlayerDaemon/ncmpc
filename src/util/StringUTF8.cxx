@@ -29,12 +29,7 @@ gcc_pure
 int
 CollateUTF8(const char *a, const char *b)
 {
-	char *key1 = g_utf8_collate_key(a, -1);
-	char *key2 = g_utf8_collate_key(b, -1);
-	int n = strcmp(key1,key2);
-	g_free(key1);
-	g_free(key2);
-	return n;
+	return g_utf8_collate(a, b);
 }
 
 #ifdef HAVE_CURSES_ENHANCED
