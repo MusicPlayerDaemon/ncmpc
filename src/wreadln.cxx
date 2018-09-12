@@ -165,14 +165,7 @@ static inline size_t
 next_char_size(const char *data)
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
-	char *p = locale_to_utf8(data);
-
-	gunichar c = g_utf8_get_char(p);
-	p[g_unichar_to_utf8(c, nullptr)] = 0;
-	size_t size = strlen(Utf8ToLocale(p).c_str());
-	g_free(p);
-
-	return size;
+	return CharSizeMB(data, strlen(data));
 #else
 	(void)data;
 
