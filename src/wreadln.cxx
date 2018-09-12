@@ -159,27 +159,14 @@ right_align_bytes(const char *data, size_t right, unsigned width)
 #endif
 }
 
-/** returns the size (in bytes) of the next character */
-gcc_pure
-static inline size_t
-next_char_size(const char *data)
-{
-#if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
-	return CharSizeMB(data, strlen(data));
-#else
-	(void)data;
-
-	return 1;
-#endif
-}
-
 /* move the cursor one step to the right */
 static inline void cursor_move_right(struct wreadln *wr)
 {
 	if (wr->cursor == wr->value.length())
 		return;
 
-	size_t size = next_char_size(wr->value.data() + wr->cursor);
+	size_t size = CharSizeMB(wr->value.data() + wr->cursor,
+				 wr->value.length() - wr->cursor);
 	wr->cursor += size;
 	if (cursor_column(wr) >= wr->width)
 		wr->start = right_align_bytes(wr->value.c_str(),
@@ -283,7 +270,8 @@ wreadln_delete_char(struct wreadln *wr, size_t x)
 {
 	assert(x < wr->value.length());
 
-	size_t length = next_char_size(&wr->value[x]);
+	size_t length = CharSizeMB(wr->value.data() + x,
+				   wr->value.length() - x);
 	wr->value.erase(x, length);
 }
 
