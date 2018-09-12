@@ -81,7 +81,7 @@ struct wreadln {
 };
 
 /** max items stored in the history list */
-static const guint wrln_max_history_length = 32;
+static constexpr std::size_t wrln_max_history_length = 32;
 
 /** converts a byte position to a screen column */
 gcc_pure
@@ -223,7 +223,7 @@ multibyte_is_complete(const char *p, size_t length)
 #endif
 
 static void
-wreadln_insert_byte(struct wreadln *wr, gint key)
+wreadln_insert_byte(struct wreadln *wr, int key)
 {
 	size_t length = 1;
 #if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(_WIN32)
@@ -331,7 +331,7 @@ _wreadln(WINDOW *w,
 		drawline(&wr);
 	}
 
-	gint key = 0;
+	int key = 0;
 	while (key != 13 && key != '\n') {
 		key = wgetch(w);
 
