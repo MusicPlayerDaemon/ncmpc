@@ -25,7 +25,6 @@
 #include "charset.hxx"
 #include "match.hxx"
 #include "Command.hxx"
-#include "Styles.hxx"
 #include "paint.hxx"
 #include "screen_status.hxx"
 #include "screen_utils.hxx"
