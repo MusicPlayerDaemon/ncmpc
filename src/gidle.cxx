@@ -27,7 +27,7 @@
 */
 
 #include "gidle.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <mpd/async.h>
 #include <mpd/parser.h>

@@ -28,7 +28,7 @@
 #include "History.hxx"
 #include "Point.hxx"
 #include "ncmpc_curses.h"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <mpd/client.h>
 

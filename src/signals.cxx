@@ -19,7 +19,7 @@
 
 #include "signals.hxx"
 #include "screen.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <glib-unix.h>
 

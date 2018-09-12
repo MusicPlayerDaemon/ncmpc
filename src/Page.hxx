@@ -24,7 +24,7 @@
 #include "ncmpc_curses.h"
 #include "Point.hxx"
 #include "Size.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <utility>
 

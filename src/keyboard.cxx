@@ -25,7 +25,7 @@
 #include "ncmpc.hxx"
 #include "ncmpc_curses.h"
 #include "screen.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <glib.h>
 

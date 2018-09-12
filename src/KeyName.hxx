@@ -20,7 +20,7 @@
 #ifndef KEY_NAME_HXX
 #define KEY_NAME_HXX
 
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 gcc_pure
 const char *

@@ -20,7 +20,7 @@
 #ifndef NCMPC_SCREEN_STATUS_H
 #define NCMPC_SCREEN_STATUS_H
 
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 void
 screen_status_message(const char *msg);

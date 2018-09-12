@@ -23,7 +23,7 @@
 #include "config.h"
 #include "ncmpc_curses.h"
 #include "Size.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 enum class Command : unsigned;
 class ListText;

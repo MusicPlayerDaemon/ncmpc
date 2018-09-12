@@ -21,7 +21,7 @@
 #define CHARSET_H
 
 #include "config.h"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #ifdef ENABLE_LOCALE
 const char *

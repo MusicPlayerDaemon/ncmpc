@@ -27,7 +27,7 @@
 */
 
 #include "async_connect.hxx"
-#include "../Compiler.h"
+#include "util/Compiler.h"
 
 #include <glib.h>
 

@@ -20,7 +20,7 @@
 #ifndef SCREEN_LIST_H
 #define SCREEN_LIST_H
 
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 enum class Command : unsigned;
 struct PageMeta;

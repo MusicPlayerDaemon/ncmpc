@@ -20,7 +20,7 @@
 #ifndef GLOBAL_BINDINGS_HXX
 #define GLOBAL_BINDINGS_HXX
 
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 struct KeyBindings;
 

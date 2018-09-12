@@ -27,7 +27,7 @@
 #include "wreadln.hxx"
 #include "Completion.hxx"
 #include "screen_utils.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <mpd/client.h>
 

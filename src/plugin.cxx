@@ -19,7 +19,7 @@
 
 #include "plugin.hxx"
 #include "io/Path.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <glib.h>
 

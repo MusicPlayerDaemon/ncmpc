@@ -3,7 +3,7 @@
 
 #include "config.h"
 #include "Queue.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <mpd/client.h>
 

@@ -33,7 +33,7 @@
 #include "GlobalBindings.hxx"
 #include "screen_utils.hxx"
 #include "options.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <algorithm>
 

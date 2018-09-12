@@ -20,7 +20,7 @@
 #ifndef QUEUE_HXX
 #define QUEUE_HXX
 
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <mpd/client.h>
 

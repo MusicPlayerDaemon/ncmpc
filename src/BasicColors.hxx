@@ -20,7 +20,7 @@
 #ifndef BASIC_COLORS_HXX
 #define BASIC_COLORS_HXX
 
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 /**
  * Parse an ncurses color name.

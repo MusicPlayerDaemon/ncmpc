@@ -29,7 +29,7 @@
 #include "aconnect.hxx"
 #include "net/async_rconnect.hxx"
 #include "net/socket.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <mpd/client.h>
 #include <mpd/async.h>

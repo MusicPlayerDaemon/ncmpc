@@ -21,7 +21,7 @@
 #define MATCH_H
 
 #include "config.h"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #ifdef NCMPC_MINI
 

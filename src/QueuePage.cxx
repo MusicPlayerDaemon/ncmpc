@@ -42,7 +42,7 @@
 #include "SongPage.hxx"
 #include "LyricsPage.hxx"
 #include "db_completion.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #ifndef NCMPC_MINI
 #include "hscroll.hxx"

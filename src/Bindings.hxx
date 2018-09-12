@@ -22,7 +22,7 @@
 
 #include "config.h"
 #include "Command.hxx"
-#include "Compiler.h"
+#include "util/Compiler.h"
 
 #include <array>
 #include <algorithm>
