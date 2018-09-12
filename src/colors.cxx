@@ -96,7 +96,8 @@ colors_update_pair(enum color id)
 		(bg < 0 ? -1 : bg));
 }
 
-int
+gcc_pure
+static int
 colors_str2color(const char *str)
 {
 	int color = 0;
