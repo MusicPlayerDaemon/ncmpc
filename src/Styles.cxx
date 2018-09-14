@@ -319,7 +319,7 @@ ModifyStyle(const char *name, const char *value)
 			return true;
 		} else {
 			fprintf(stderr, "%s: %s\n",
-				_("Unknown color"), name);
+				_("Unknown color"), value);
 			return false;
 		}
 	}
