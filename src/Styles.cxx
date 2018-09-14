@@ -193,14 +193,15 @@ GetStyle(Style style)
 
 #ifdef ENABLE_COLORS
 
-static StyleData *
+gcc_pure
+static Style
 StyleByName(const char *name)
 {
 	for (size_t i = 1; i < size_t(Style::END); ++i)
 		if (!strcasecmp(styles[i].name, name))
-			return &styles[i];
+			return Style(i);
 
-	return nullptr;
+	return Style::END;
 }
 
 static void
@@ -303,15 +304,15 @@ colors_str2color(const char *str, short &fg_color, attr_t &attr)
 bool
 ModifyStyle(const char *name, const char *value)
 {
-	auto *entry = StyleByName(name);
-
-	if (!entry) {
+	const auto style = StyleByName(name);
+	if (style == Style::END) {
 		fprintf(stderr, "%s: %s",
 			_("Unknown color field"), name);
 		return false;
 	}
 
-	return colors_str2color(value, entry->fg_color, entry->attr);
+	auto &data = GetStyle(style);
+	return colors_str2color(value, data.fg_color, data.attr);
 }
 
 void
