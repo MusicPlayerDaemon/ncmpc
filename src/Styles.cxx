@@ -180,7 +180,7 @@ static StyleData styles[size_t(Style::END)] = {
 	},
 	{
 		"background", Style::DEFAULT,
-		COLOR_BLACK, COLOR_NONE, A_NORMAL,
+		COLOR_NONE, COLOR_BLACK, A_NORMAL,
 		A_NORMAL,
 	},
 };
@@ -219,14 +219,6 @@ colors_update_pair(Style style)
 	int bg = data.bg_color;
 	for (Style i = style; bg == COLOR_INHERIT;) {
 		i = GetStyle(i).inherit;
-		if (i == Style::BACKGROUND) {
-			/* kludge for compatibility with ncmpc 0.30
-			   and older, when there was no separate
-			   background color setting */
-			bg = GetStyle(i).fg_color;
-			break;
-		}
-
 		assert(i != Style::DEFAULT);
 		bg = GetStyle(i).bg_color;
 	}
@@ -312,6 +304,26 @@ ModifyStyle(const char *name, const char *value)
 	}
 
 	auto &data = GetStyle(style);
+
+	if (style == Style::BACKGROUND) {
+		/* "background" is a special style which all other
+		   styles inherit their background color from; if the
+		   user configures a color, it will be the background
+		   color, but no attributes */
+		short color = ParseColorNameOrNumber(value);
+		if (color >= 0) {
+			data.bg_color = color;
+			return true;
+		} else if (!strcasecmp(value, "none")) {
+			data.bg_color = COLOR_NONE;
+			return true;
+		} else {
+			fprintf(stderr, "%s: %s\n",
+				_("Unknown color"), name);
+			return false;
+		}
+	}
+
 	return colors_str2color(value, data.fg_color, data.attr);
 }
 
