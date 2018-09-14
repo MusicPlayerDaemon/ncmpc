@@ -248,7 +248,7 @@ ParseStyle(StyleData &d, const char *str)
 		}
 
 		/* Colors */
-		short b = ParseBasicColorName(cur);
+		short b = ParseColorNameOrNumber(cur);
 		if (b >= 0) {
 			d.fg_color = b;
 			continue;
@@ -276,16 +276,9 @@ ParseStyle(StyleData &d, const char *str)
 		else if (!strcasecmp(cur, "bold"))
 			d.attr |= A_BOLD;
 		else {
-			/* Numerical colors */
-			char *endptr;
-			int tmp = strtol(cur, &endptr, 10);
-			if (cur != endptr && endptr[0] == '\0') {
-				d.fg_color = tmp;
-			} else {
-				fprintf(stderr, "%s: %s\n",
-					_("Unknown color"), str);
-				return false;
-			}
+			fprintf(stderr, "%s: %s\n",
+				_("Unknown color"), str);
+			return false;
 		}
 
 	}
