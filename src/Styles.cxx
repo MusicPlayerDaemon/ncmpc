@@ -44,12 +44,27 @@ static short COLOR_NONE = -1;
 #endif
 
 struct StyleData {
+	/**
+	 * A name which can be used to address this style from the
+	 * configuration file.
+	 */
 	const char *const name;
+
 #ifdef ENABLE_COLORS
+	/**
+	 * The foreground (text) color in "color" mode.
+	 */
 	short fg_color;
+
+	/**
+	 * The attributes in "color" mode.
+	 */
 	attr_t attr;
 #endif
 
+	/**
+	 * The attributes in "mono" mode.
+	 */
 	const attr_t mono;
 
 #ifndef ENABLE_COLORS
