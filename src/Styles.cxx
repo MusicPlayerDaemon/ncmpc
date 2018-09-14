@@ -39,7 +39,7 @@
  *
  * @see init_pair(3ncurses)
  */
-static short COLOR_NONE = -1;
+static constexpr short COLOR_NONE = -1;
 
 #endif
 
