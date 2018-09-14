@@ -93,6 +93,12 @@ static StyleData styles[size_t(Style::END)] = {
 	{"background",        COLOR_BLACK,  A_NORMAL, A_NORMAL},
 };
 
+static constexpr auto &
+GetStyle(Style style)
+{
+	return styles[size_t(style)];
+}
+
 #ifdef ENABLE_COLORS
 
 static StyleData *
@@ -108,13 +114,12 @@ StyleByName(const char *name)
 static void
 colors_update_pair(Style style)
 {
-	const size_t id = size_t(style);
-	assert(id > 0 && id < size_t(Style::END));
+	const auto &data = GetStyle(style);
 
-	int fg = styles[id].fg_color;
-	int bg = styles[size_t(Style::BACKGROUND)].fg_color;
+	int fg = data.fg_color;
+	int bg = GetStyle(Style::BACKGROUND).fg_color;
 
-	init_pair(id, fg, bg);
+	init_pair(short(style), fg, bg);
 }
 
 static bool
@@ -216,19 +221,16 @@ ApplyStyles()
 void
 SelectStyle(WINDOW *w, Style style)
 {
-	const size_t id = size_t(style);
-	assert(id > 0 && id < size_t(Style::END));
-
-	auto *entry = &styles[id];
+	const auto &data = GetStyle(style);
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* color mode */
-		wattr_set(w, entry->attr, id, nullptr);
+		wattr_set(w, data.attr, short(style), nullptr);
 	} else {
 #endif
 		/* mono mode */
-		(void)wattrset(w, entry->mono);
+		(void)wattrset(w, data.mono);
 #ifdef ENABLE_COLORS
 	}
 #endif
