@@ -44,12 +44,13 @@ static short COLOR_NONE = -1;
 #endif
 
 struct StyleData {
-	const char *name;
+	const char *const name;
 #ifdef ENABLE_COLORS
 	short fg_color;
 	attr_t attr;
 #endif
-	attr_t mono;
+
+	const attr_t mono;
 
 #ifndef ENABLE_COLORS
 	constexpr StyleData(const char *_name, short, attr_t, attr_t _mono)
@@ -57,6 +58,9 @@ struct StyleData {
 #endif
 };
 
+#ifndef ENABLE_COLORS
+constexpr
+#endif
 static StyleData styles[size_t(Style::END)] = {
 	/* color pair = field name, color, mono */
 	{nullptr, 0, 0, 0},
