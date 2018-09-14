@@ -24,7 +24,14 @@
 #include "ncmpc_curses.h"
 
 enum class Style : unsigned {
-	TITLE = 1,
+	/**
+	 * The ncurses default style.
+	 *
+	 * @see assume_default_colors(3ncurses)
+	 */
+	DEFAULT,
+
+	TITLE,
 	TITLE_BOLD,
 	LINE,
 	LINE_BOLD,

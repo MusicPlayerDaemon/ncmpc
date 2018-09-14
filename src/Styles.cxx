@@ -32,16 +32,12 @@
 #include <string.h>
 #include <glib.h>
 
-#ifdef ENABLE_COLORS
-
 /**
  * Use the terminal's default color.
  *
  * @see init_pair(3ncurses)
  */
 static constexpr short COLOR_NONE = -1;
-
-#endif
 
 struct StyleData {
 	/**
@@ -78,7 +74,7 @@ constexpr
 #endif
 static StyleData styles[size_t(Style::END)] = {
 	/* color pair = field name, color, mono */
-	{nullptr, 0, 0, 0},
+	{nullptr, COLOR_NONE, A_NORMAL, A_NORMAL},
 	{"title",             COLOR_YELLOW, A_NORMAL, A_NORMAL},
 	{"title-bold",        COLOR_YELLOW, A_BOLD,   A_BOLD  },
 	{"line",              COLOR_WHITE,  A_NORMAL, A_NORMAL},
