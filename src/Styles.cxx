@@ -39,6 +39,18 @@
  */
 static constexpr short COLOR_NONE = -1;
 
+/**
+ * A non-standad magic value which means "inherit this color from the
+ * parent style".
+ */
+static constexpr short COLOR_INHERIT = -2;
+
+/**
+ * A non-standad magic value which means "inherit attributes from the
+ * parent style".
+ */
+static constexpr attr_t A_INHERIT = ~attr_t(0);
+
 struct StyleData {
 	/**
 	 * A name which can be used to address this style from the
@@ -47,6 +59,12 @@ struct StyleData {
 	const char *const name;
 
 #ifdef ENABLE_COLORS
+	/**
+	 * Inherit unspecified values from this style.  The special
+	 * value #Style::DEFAULT means "don't inherit".
+	 */
+	const Style inherit;
+
 	/**
 	 * The foreground (text) color in "color" mode.
 	 */
@@ -64,7 +82,8 @@ struct StyleData {
 	const attr_t mono;
 
 #ifndef ENABLE_COLORS
-	constexpr StyleData(const char *_name, short, attr_t, attr_t _mono)
+	constexpr StyleData(const char *_name, Style,
+			    short, attr_t, attr_t _mono)
 		:name(_name), mono(_mono) {}
 #endif
 };
@@ -74,23 +93,91 @@ constexpr
 #endif
 static StyleData styles[size_t(Style::END)] = {
 	/* color pair = field name, color, mono */
-	{nullptr, COLOR_NONE, A_NORMAL, A_NORMAL},
-	{"title",             COLOR_YELLOW, A_NORMAL, A_NORMAL},
-	{"title-bold",        COLOR_YELLOW, A_BOLD,   A_BOLD  },
-	{"line",              COLOR_WHITE,  A_NORMAL, A_NORMAL},
-	{"line-bold",         COLOR_WHITE,  A_BOLD,   A_BOLD  },
-	{"line-flags",        COLOR_YELLOW, A_NORMAL, A_NORMAL},
-	{"list",              COLOR_GREEN,  A_NORMAL, A_NORMAL},
-	{"list-bold",         COLOR_GREEN,  A_BOLD,   A_BOLD  },
-	{"progressbar",       COLOR_WHITE,  A_NORMAL, A_NORMAL},
-	{"progressbar-background", COLOR_BLACK, A_BOLD, A_NORMAL},
-	{"status-song",       COLOR_YELLOW, A_NORMAL, A_NORMAL},
-	{"status-state",      COLOR_YELLOW, A_BOLD,   A_BOLD  },
-	{"status-time",       COLOR_RED,    A_NORMAL, A_NORMAL},
-	{"alert",             COLOR_RED,    A_BOLD,   A_BOLD  },
-	{"browser-directory", COLOR_YELLOW, A_NORMAL, A_NORMAL},
-	{"browser-playlist",  COLOR_RED,    A_NORMAL, A_NORMAL},
-	{"background",        COLOR_BLACK,  A_NORMAL, A_NORMAL},
+	{
+		nullptr, Style::DEFAULT,
+		COLOR_NONE, A_NORMAL,
+		A_NORMAL,
+	},
+	{
+		"title", Style::DEFAULT,
+		COLOR_YELLOW, A_NORMAL,
+		A_NORMAL,
+	},
+	{
+		"title-bold", Style::TITLE,
+		COLOR_INHERIT, A_BOLD,
+		A_BOLD,
+	},
+	{
+		"line", Style::DEFAULT,
+		COLOR_WHITE, A_NORMAL,
+		A_NORMAL,
+	},
+	{
+		"line-bold", Style::LINE,
+		COLOR_INHERIT, A_BOLD,
+		A_BOLD,
+	},
+	{
+		"line-flags", Style::LINE,
+		COLOR_YELLOW, A_NORMAL,
+		A_NORMAL,
+	},
+	{
+		"list", Style::DEFAULT,
+		COLOR_GREEN, A_NORMAL,
+		A_NORMAL,
+	},
+	{
+		"list-bold", Style::LIST,
+		COLOR_INHERIT, A_BOLD,
+		A_BOLD,
+	},
+	{
+		"progressbar", Style::DEFAULT,
+		COLOR_WHITE, A_NORMAL,
+		A_NORMAL,
+	},
+	{
+		"progressbar-background", Style::PROGRESSBAR,
+		COLOR_BLACK, A_BOLD,
+		A_NORMAL,
+	},
+	{
+		"status-song", Style::DEFAULT,
+		COLOR_YELLOW, A_NORMAL,
+		A_NORMAL,
+	},
+	{
+		"status-state", Style::STATUS,
+		COLOR_INHERIT, A_BOLD,
+		A_BOLD,
+	},
+	{
+		"status-time", Style::STATUS,
+		COLOR_RED, A_INHERIT,
+		A_NORMAL,
+	},
+	{
+		"alert", Style::STATUS,
+		COLOR_RED, A_BOLD,
+		A_BOLD,
+	},
+	{
+		"browser-directory", Style::LIST,
+		COLOR_YELLOW, A_INHERIT,
+		A_NORMAL,
+	},
+	{
+		"browser-playlist", Style::LIST,
+		COLOR_RED, A_INHERIT,
+		A_NORMAL,
+	},
+	{
+		"background", Style::DEFAULT,
+		COLOR_BLACK, A_NORMAL,
+		A_NORMAL,
+	},
 };
 
 static constexpr auto &
@@ -114,10 +201,24 @@ StyleByName(const char *name)
 static void
 colors_update_pair(Style style)
 {
-	const auto &data = GetStyle(style);
+	auto &data = GetStyle(style);
 
 	int fg = data.fg_color;
+	for (Style i = style; fg == COLOR_INHERIT;) {
+		i = GetStyle(i).inherit;
+		assert(i != Style::DEFAULT);
+		fg = GetStyle(i).fg_color;
+	}
+
 	int bg = GetStyle(Style::BACKGROUND).fg_color;
+
+	/* apply A_INHERIT (modifies the "attr" value, which is
+	   irreversible) */
+	for (Style i = style; data.attr == A_INHERIT;) {
+		i = GetStyle(i).inherit;
+		assert(i != Style::DEFAULT);
+		data.attr = GetStyle(i).attr;
+	}
 
 	init_pair(short(style), fg, bg);
 }
