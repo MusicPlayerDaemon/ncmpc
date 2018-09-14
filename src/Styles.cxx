@@ -111,16 +111,16 @@ static StyleData styles[size_t(Style::END)] = {
 	},
 	{
 		"title", Style::BACKGROUND,
-		COLOR_YELLOW, COLOR_INHERIT, A_NORMAL,
+		COLOR_WHITE, COLOR_BLUE, A_NORMAL,
 		A_NORMAL,
 	},
 	{
 		"title-bold", Style::TITLE,
-		COLOR_INHERIT, COLOR_INHERIT, A_BOLD,
+		COLOR_YELLOW, COLOR_INHERIT, A_BOLD,
 		A_BOLD,
 	},
 	{
-		"line", Style::BACKGROUND,
+		"line", Style::TITLE,
 		COLOR_WHITE, COLOR_INHERIT, A_NORMAL,
 		A_NORMAL,
 	},
@@ -131,12 +131,12 @@ static StyleData styles[size_t(Style::END)] = {
 	},
 	{
 		"line-flags", Style::LINE,
-		COLOR_YELLOW, COLOR_INHERIT, A_NORMAL,
+		COLOR_GREEN, COLOR_INHERIT, A_BOLD,
 		A_NORMAL,
 	},
 	{
 		"list", Style::BACKGROUND,
-		COLOR_GREEN, COLOR_INHERIT, A_NORMAL,
+		COLOR_WHITE, COLOR_INHERIT, A_NORMAL,
 		A_NORMAL,
 	},
 	{
@@ -145,8 +145,8 @@ static StyleData styles[size_t(Style::END)] = {
 		A_BOLD,
 	},
 	{
-		"progressbar", Style::BACKGROUND,
-		COLOR_WHITE, COLOR_INHERIT, A_NORMAL,
+		"progressbar", Style::STATUS,
+		COLOR_WHITE, COLOR_INHERIT, A_BOLD,
 		A_NORMAL,
 	},
 	{
@@ -156,17 +156,17 @@ static StyleData styles[size_t(Style::END)] = {
 	},
 	{
 		"status-song", Style::BACKGROUND,
-		COLOR_YELLOW, COLOR_INHERIT, A_NORMAL,
+		COLOR_WHITE, COLOR_BLUE, A_NORMAL,
 		A_NORMAL,
 	},
 	{
 		"status-state", Style::STATUS,
-		COLOR_INHERIT, COLOR_INHERIT, A_BOLD,
+		COLOR_GREEN, COLOR_INHERIT, A_BOLD,
 		A_BOLD,
 	},
 	{
-		"status-time", Style::STATUS,
-		COLOR_RED, COLOR_INHERIT, A_INHERIT,
+		"status-time", Style::STATUS_BOLD,
+		COLOR_INHERIT, COLOR_INHERIT, A_NORMAL,
 		A_NORMAL,
 	},
 	{
