@@ -33,7 +33,14 @@
 #include <glib.h>
 
 #ifdef ENABLE_COLORS
+
+/**
+ * Use the terminal's default color.
+ *
+ * @see init_pair(3ncurses)
+ */
 static short COLOR_NONE = -1;
+
 #endif
 
 struct StyleData {
