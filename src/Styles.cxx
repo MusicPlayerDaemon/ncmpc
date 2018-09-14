@@ -46,6 +46,12 @@ static constexpr short COLOR_NONE = -1;
 static constexpr short COLOR_INHERIT = -2;
 
 /**
+ * A magic value for certain parser functions to indicate that the
+ * parser has failed to recognize the string.
+ */
+static constexpr short COLOR_ERROR = -3;
+
+/**
  * A non-standad magic value which means "inherit attributes from the
  * parent style".
  */
@@ -234,6 +240,20 @@ colors_update_pair(Style style)
 	init_pair(short(style), fg, bg);
 }
 
+gcc_pure
+static short
+ParseBackgroundColor(const char *s)
+{
+	short color = ParseColorNameOrNumber(s);
+	if (color >= 0)
+		return color;
+
+	if (!strcasecmp(s, "none"))
+		return COLOR_NONE;
+
+	return COLOR_ERROR;
+}
+
 static bool
 ParseStyle(StyleData &d, const char *str)
 {
@@ -303,12 +323,9 @@ ModifyStyle(const char *name, const char *value)
 		   styles inherit their background color from; if the
 		   user configures a color, it will be the background
 		   color, but no attributes */
-		short color = ParseColorNameOrNumber(value);
-		if (color >= 0) {
+		short color = ParseBackgroundColor(value);
+		if (color != COLOR_ERROR) {
 			data.bg_color = color;
-			return true;
-		} else if (!strcasecmp(value, "none")) {
-			data.bg_color = COLOR_NONE;
 			return true;
 		} else {
 			fprintf(stderr, "%s: %s\n",
