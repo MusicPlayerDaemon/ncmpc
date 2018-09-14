@@ -235,7 +235,7 @@ colors_update_pair(Style style)
 }
 
 static bool
-colors_str2color(const char *str, short &fg_color, attr_t &attr)
+ParseStyle(StyleData &d, const char *str)
 {
 	char **parts = g_strsplit(str, ",", 0);
 	for (int i = 0; parts[i]; i++) {
@@ -243,44 +243,44 @@ colors_str2color(const char *str, short &fg_color, attr_t &attr)
 
 		/* Legacy colors (brightblue,etc) */
 		if (!strncasecmp(cur, "bright", 6)) {
-			attr |= A_BOLD;
+			d.attr |= A_BOLD;
 			cur += 6;
 		}
 
 		/* Colors */
 		short b = ParseBasicColorName(cur);
 		if (b >= 0) {
-			fg_color = b;
+			d.fg_color = b;
 			continue;
 		}
 
 		if (!strcasecmp(cur, "none"))
-			fg_color = COLOR_NONE;
+			d.fg_color = COLOR_NONE;
 		else if (!strcasecmp(cur, "grey") ||
 			 !strcasecmp(cur, "gray")) {
-			fg_color = COLOR_BLACK;
-			attr |= A_BOLD;
+			d.fg_color = COLOR_BLACK;
+			d.attr |= A_BOLD;
 		}
 
 		/* Attributes */
 		else if (!strcasecmp(cur, "standout"))
-			attr |= A_STANDOUT;
+			d.attr |= A_STANDOUT;
 		else if (!strcasecmp(cur, "underline"))
-			attr |= A_UNDERLINE;
+			d.attr |= A_UNDERLINE;
 		else if (!strcasecmp(cur, "reverse"))
-			attr |= A_REVERSE;
+			d.attr |= A_REVERSE;
 		else if (!strcasecmp(cur, "blink"))
-			attr |= A_BLINK;
+			d.attr |= A_BLINK;
 		else if (!strcasecmp(cur, "dim"))
-			attr |= A_DIM;
+			d.attr |= A_DIM;
 		else if (!strcasecmp(cur, "bold"))
-			attr |= A_BOLD;
+			d.attr |= A_BOLD;
 		else {
 			/* Numerical colors */
 			char *endptr;
 			int tmp = strtol(cur, &endptr, 10);
 			if (cur != endptr && endptr[0] == '\0') {
-				fg_color = tmp;
+				d.fg_color = tmp;
 			} else {
 				fprintf(stderr, "%s: %s\n",
 					_("Unknown color"), str);
@@ -324,7 +324,7 @@ ModifyStyle(const char *name, const char *value)
 		}
 	}
 
-	return colors_str2color(value, data.fg_color, data.attr);
+	return ParseStyle(data, value);
 }
 
 void
