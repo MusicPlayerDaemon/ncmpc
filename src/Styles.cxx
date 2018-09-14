@@ -32,7 +32,9 @@
 #include <string.h>
 #include <glib.h>
 
-#define COLOR_NONE -1
+#ifdef ENABLE_COLORS
+static short COLOR_NONE = -1;
+#endif
 
 struct StyleData {
 	const char *name;
