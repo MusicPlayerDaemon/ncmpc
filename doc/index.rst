@@ -222,18 +222,46 @@ the xterm title when ncmpc is playing.
 Colors
 ^^^^^^
 
-:command:`enable-colors = yes|no` - Enable/disable colors.
+:command:`enable-colors = yes|no` - Enable/disable colors.  Defaults
+to ``yes``.
 
-:command:`color background = COLOR` - Set the background color. If the
-background color is assigned to the keyword ":samp:`none`", ncmpc will
-not change the background color.  Standard colors are: black, red,
-green, yellow, blue, magenta, cyan and white.  Terminal specific
-colors can also be given as integers.
+The colors used by `ncmpc` can be customized.  The ``color`` directive
+can be used to change how a certain style looks.  It can contain a
+text color and attributes.  The following standard colors can be
+specified by name (`official reference
+<https://invisible-island.net/ncurses/man/curs_color.3x.html>`__):
+
+ ``black``, ``red``, ``green``, ``yellow``, ``blue``, ``magenta``,
+ ``cyan``, ``white``
+
+Example::
+
+  color list = cyan
+
+Modern terminals support up to 256 colors, but they are not
+standardized.  You can select them by specifying the number.
+Example::
+
+  color title = 42
+
+The color ``none`` uses the terminal's default color.
+
+Attributes can be used to modify the font appearance.  The following
+attributes can be specified (`official reference
+<https://invisible-island.net/ncurses/man/curs_attr.3x.html>`__),
+though many of them are not supported by prevalent terminals:
+
+ ``standout``, ``underline``, ``reverse``, ``blink``, ``dim``,
+ ``bold``
+
+Example::
+
+  color alert = red blink
+
+:command:`color background = COLOR` - Set the background color.
 
 :command:`color title = COLOR[,ATTRIBUTE]...` - Set the text color and
-attributes for the title row.  Text colors are the same as for the
-background. Valid attributes are: standout, underline, reverse, blink,
-dim, and bold.
+attributes for the title row.
 
 :command:`color title-bold = COLOR[,ATTRIBUTE]...` - Set the text
 color for the title row (the bold part).
