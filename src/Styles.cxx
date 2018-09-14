@@ -261,6 +261,24 @@ ParseStyle(StyleData &d, const char *str)
 	for (int i = 0; parts[i]; i++) {
 		char *cur = parts[i];
 
+		char *slash = strchr(cur, '/');
+		if (slash != nullptr) {
+			const char *name = slash + 1;
+			short color = ParseBackgroundColor(name);
+			if (color < 0) {
+				fprintf(stderr, "%s: %s\n",
+					_("Unknown color"), name);
+				return false;
+			}
+
+			d.bg_color = color;
+
+			*slash = 0;
+
+			if (*cur == 0)
+				continue;
+		}
+
 		/* Legacy colors (brightblue,etc) */
 		if (!strncasecmp(cur, "bright", 6)) {
 			d.attr |= A_BOLD;

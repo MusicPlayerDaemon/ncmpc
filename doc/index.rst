@@ -244,6 +244,13 @@ Example::
 
   color title = 42
 
+The background color can be specified after the text color separated
+by a slash.  You can omit the text color if you want to change only
+the background color::
+
+  color title = white/blue
+  color title = /blue
+
 The color ``none`` uses the terminal's default color.
 
 Attributes can be used to modify the font appearance.  The following
@@ -258,7 +265,8 @@ Example::
 
   color alert = red blink
 
-:command:`color background = COLOR` - Set the background color.
+:command:`color background = COLOR` - Set the default background
+color.
 
 :command:`color title = COLOR[,ATTRIBUTE]...` - Set the text color and
 attributes for the title row.

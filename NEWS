@@ -2,6 +2,7 @@ ncmpc 0.31 - not yet released
 * fix "No such song" in search screen
 * fix progressbar when colors are disabled
 * enable colors by default
+* allow configuring per-style background colors
 * keep current song in xterm title when MPD is paused
 * load configuration from $XDG_CONFIG_HOME/ncmpc/config
 * always show the screen list at the top
