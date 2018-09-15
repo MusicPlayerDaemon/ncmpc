@@ -35,8 +35,6 @@
 
 #include <glib.h>
 
-#include <algorithm>
-
 #include <string.h>
 
 enum {
@@ -225,19 +223,14 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	int table[N];
 	char *arg[N];
 
-	std::fill_n(tabv, N, nullptr);
-	std::fill_n(matchv, N, nullptr);
-	std::fill_n(table, N, -1);
-	std::fill_n(arg, N, nullptr);
-
 	/*
 	 * Replace every : with a '\0' and every space character
 	 * before it unless spi = -1, link the resulting strings
 	 * to their proper vector.
 	 */
 	int spi = -1;
-	size_t j = 0;
-	for (size_t i = 0; str[i] != '\0' && j < N; i++) {
+	size_t n = 0;
+	for (size_t i = 0; str[i] != '\0' && n < N; i++) {
 		switch(str[i]) {
 		case ' ':
 			spi = i;
@@ -247,9 +240,9 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 			if (spi != -1)
 				str[spi] = '\0';
 
-			matchv[j] = str + i + 1;
-			tabv[j] = str + spi + 1;
-			j++;
+			matchv[n] = str + i + 1;
+			tabv[n] = str + spi + 1;
+			++n;
 			/* FALLTHROUGH */
 		default:
 			continue;
@@ -257,14 +250,14 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	}
 
 	/* Get rid of obvious failure case */
-	if (matchv[j - 1][0] == '\0') {
-		screen_status_printf(_("No argument for search tag %s"), tabv[j - 1]);
+	if (matchv[n - 1][0] == '\0') {
+		screen_status_printf(_("No argument for search tag %s"), tabv[n - 1]);
 		g_free(str);
 		return nullptr;
 	}
 
-	j = 0;
-	for (size_t i = 0; i < N && matchv[i] && matchv[i][0] != '\0'; ++i) {
+	size_t j = 0;
+	for (size_t i = 0; i < n; ++i) {
 		const auto id = search_get_tag_id(tabv[i]);
 		if (id == -1) {
 			screen_status_printf(_("Bad search tag %s"), tabv[i]);
@@ -279,7 +272,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	g_free(str);
 
 	if (!advanced_search_mode || j == 0) {
-		for (size_t i = 0; arg[i] != nullptr; ++i)
+		for (size_t i = 0; i < j; ++i)
 			g_free(arg[i]);
 		return nullptr;
 	}
@@ -293,7 +286,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	/** stupid - but this is just a test...... (fulhack)  */
 	mpd_search_db_songs(connection, false);
 
-	for (size_t i = 0; i < N && arg[i] != nullptr; i++) {
+	for (size_t i = 0; i < j; i++) {
 		if (table[i] == SEARCH_URI)
 			mpd_search_add_uri_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,
@@ -311,7 +304,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 		fl = nullptr;
 	}
 
-	for (size_t i = 0; arg[i] != nullptr; ++i)
+	for (size_t i = 0; i < j; ++i)
 		g_free(arg[i]);
 
 	return fl;
