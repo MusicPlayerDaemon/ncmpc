@@ -40,12 +40,9 @@ KeyBindings::GetKeyNames(Command command, bool all) const
 	if (!all)
 		return keystr;
 
-	for (const auto key : b.keys) {
-		if (key == 0)
-			break;
-
+	for (size_t i = 1; i < b.keys.size() && b.keys[i] != 0; ++i) {
 		g_strlcat(keystr, " ", sizeof(keystr));
-		g_strlcat(keystr, key2str(key), sizeof(keystr));
+		g_strlcat(keystr, key2str(b.keys[i]), sizeof(keystr));
 	}
 	return keystr;
 }
