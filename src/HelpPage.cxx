@@ -39,7 +39,7 @@ struct help_text_row {
 	const char *text;
 };
 
-static const struct help_text_row help_text[] = {
+static constexpr struct help_text_row help_text[] = {
 	{ 1, Command::NONE, N_("Movement") },
 	{ 2, Command::NONE, nullptr },
 	{ 0, Command::LIST_PREVIOUS, nullptr },
