@@ -242,6 +242,14 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 
 			matchv[n] = str + i + 1;
 			tabv[n] = str + spi + 1;
+			table[n] = search_get_tag_id(tabv[n]);
+			if (table[n] < 0) {
+				screen_status_printf(_("Bad search tag %s"),
+						     tabv[n]);
+				g_free(str);
+				return nullptr;
+			}
+
 			++n;
 			/* FALLTHROUGH */
 		default:
@@ -256,26 +264,13 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 		return nullptr;
 	}
 
-	size_t j = 0;
+	advanced_search_mode = true;
+
 	for (size_t i = 0; i < n; ++i) {
-		const auto id = search_get_tag_id(tabv[i]);
-		if (id == -1) {
-			screen_status_printf(_("Bad search tag %s"), tabv[i]);
-		} else {
-			table[j] = id;
-			arg[j] = locale_to_utf8(matchv[i]);
-			j++;
-			advanced_search_mode = true;
-		}
+		arg[i] = locale_to_utf8(matchv[i]);
 	}
 
 	g_free(str);
-
-	if (!advanced_search_mode || j == 0) {
-		for (size_t i = 0; i < j; ++i)
-			g_free(arg[i]);
-		return nullptr;
-	}
 
 	/*-----------------------------------------------------------------------
 	 * NOTE (again): This code exists to test a new search ui,
@@ -286,7 +281,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	/** stupid - but this is just a test...... (fulhack)  */
 	mpd_search_db_songs(connection, false);
 
-	for (size_t i = 0; i < j; i++) {
+	for (size_t i = 0; i < n; i++) {
 		if (table[i] == SEARCH_URI)
 			mpd_search_add_uri_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,
@@ -304,7 +299,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 		fl = nullptr;
 	}
 
-	for (size_t i = 0; i < j; ++i)
+	for (size_t i = 0; i < n; ++i)
 		g_free(arg[i]);
 
 	return fl;
