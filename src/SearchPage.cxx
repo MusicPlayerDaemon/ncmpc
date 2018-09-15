@@ -263,10 +263,9 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 		return nullptr;
 	}
 
-	int id = 0;
 	j = 0;
 	for (size_t i = 0; matchv[i] && matchv[i][0] != '\0' && i < N; ++i) {
-		id = search_get_tag_id(tabv[i]);
+		const auto id = search_get_tag_id(tabv[i]);
 		if (id == -1) {
 			screen_status_printf(_("Bad search tag %s"), tabv[i]);
 		} else {
