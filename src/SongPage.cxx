@@ -177,7 +177,7 @@ SongPage::GetListItemText(char *, size_t, unsigned idx) const
 	return lines[idx].c_str();
 }
 
-static Page *
+static std::unique_ptr<Page>
 screen_song_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
 	for (unsigned i = 0; tag_labels[i].label != nullptr; ++i) {
@@ -195,7 +195,7 @@ screen_song_init(ScreenManager &_screen, WINDOW *w, Size size)
 		}
 	}
 
-	return new SongPage(_screen, w, size);
+	return std::make_unique<SongPage>(_screen, w, size);
 }
 
 const char *

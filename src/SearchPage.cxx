@@ -380,10 +380,10 @@ SearchPage::Start(struct mpdclient &c)
 	Reload(c);
 }
 
-static Page *
+static std::unique_ptr<Page>
 screen_search_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
-	return new SearchPage(_screen, w, size);
+	return std::make_unique<SearchPage>(_screen, w, size);
 }
 
 void

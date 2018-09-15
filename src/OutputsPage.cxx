@@ -133,10 +133,10 @@ fill_outputs_list(struct mpdclient *c, O &items)
 	c->FinishCommand();
 }
 
-static Page *
+static std::unique_ptr<Page>
 outputs_init(ScreenManager &, WINDOW *w, Size size)
 {
-	return new OutputsPage(w, size);
+	return std::make_unique<OutputsPage>(w, size);
 }
 
 const char *

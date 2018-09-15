@@ -170,10 +170,10 @@ ArtistBrowserPage::OpenSongList(struct mpdclient &c, std::string _artist,
 	SetCurrentPage(c, &song_list_page);
 }
 
-static Page *
+static std::unique_ptr<Page>
 screen_artist_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
-	return new ArtistBrowserPage(_screen, w, size);
+	return std::make_unique<ArtistBrowserPage>(_screen, w, size);
 }
 
 const char *

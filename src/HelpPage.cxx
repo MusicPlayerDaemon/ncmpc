@@ -262,10 +262,10 @@ HelpPage::GetListItemText(char *, size_t, unsigned i) const
 	return "";
 }
 
-static Page *
+static std::unique_ptr<Page>
 help_init(ScreenManager &screen, WINDOW *w, Size size)
 {
-	return new HelpPage(screen, w, size);
+	return std::make_unique<HelpPage>(screen, w, size);
 }
 
 void

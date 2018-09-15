@@ -20,6 +20,7 @@
 #ifndef NCMPC_PAGE_META_HXX
 #define NCMPC_PAGE_META_HXX
 
+#include <memory>
 #include "config.h"
 #include "ncmpc_curses.h"
 #include "Size.hxx"
@@ -42,7 +43,7 @@ struct PageMeta {
 	 */
 	Command command;
 
-	Page *(*init)(ScreenManager &screen, WINDOW *w, Size size);
+	std::unique_ptr<Page> (*init)(ScreenManager &screen, WINDOW *w, Size size);
 };
 
 #endif

@@ -317,10 +317,10 @@ handle_add_to_playlist(struct mpdclient *c)
 	return 0;
 }
 
-static Page *
+static std::unique_ptr<Page>
 screen_queue_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
-	return new QueuePage(_screen, w, size);
+	return std::make_unique<QueuePage>(_screen, w, size);
 }
 
 bool
