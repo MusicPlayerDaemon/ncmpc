@@ -32,6 +32,7 @@
 #include "FileListPage.hxx"
 #include "filelist.hxx"
 #include "util/Macros.hxx"
+#include "util/ScopeExit.hxx"
 
 #include <glib.h>
 
@@ -215,6 +216,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 		return nullptr;
 
 	char *str = g_strdup(query);
+	AtScopeExit(str) { g_free(str); };
 
 	static constexpr size_t N = 10;
 
@@ -245,7 +247,6 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 			if (table[n] < 0) {
 				screen_status_printf(_("Bad search tag %s"),
 						     tabv[n]);
-				g_free(str);
 				return nullptr;
 			}
 
@@ -259,7 +260,6 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	/* Get rid of obvious failure case */
 	if (matchv[n - 1][0] == '\0') {
 		screen_status_printf(_("No argument for search tag %s"), tabv[n - 1]);
-		g_free(str);
 		return nullptr;
 	}
 
@@ -287,8 +287,6 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 						      (enum mpd_tag_type)table[i],
 						      value.c_str());
 	}
-
-	g_free(str);
 
 	mpd_search_commit(connection);
 	auto *fl = filelist_new_recv(connection);
