@@ -218,15 +218,17 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 
 	char *str = g_strdup(query);
 
-	char *tabv[10];
-	char *matchv[10];
-	int table[10];
-	char *arg[10];
+	static constexpr size_t N = 10;
 
-	std::fill_n(tabv, 10, nullptr);
-	std::fill_n(matchv, 10, nullptr);
-	std::fill_n(table, 10, -1);
-	std::fill_n(arg, 10, nullptr);
+	char *tabv[N];
+	char *matchv[N];
+	int table[N];
+	char *arg[N];
+
+	std::fill_n(tabv, N, nullptr);
+	std::fill_n(matchv, N, nullptr);
+	std::fill_n(table, N, -1);
+	std::fill_n(arg, N, nullptr);
 
 	/*
 	 * Replace every : with a '\0' and every space character
@@ -235,7 +237,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	 */
 	int spi = -1;
 	size_t j = 0;
-	for (size_t i = 0; str[i] != '\0' && j < 10; i++) {
+	for (size_t i = 0; str[i] != '\0' && j < N; i++) {
 		switch(str[i]) {
 		case ' ':
 			spi = i;
@@ -263,7 +265,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 
 	int id = 0;
 	j = 0;
-	for (size_t i = 0; matchv[i] && matchv[i][0] != '\0' && i < 10; ++i) {
+	for (size_t i = 0; matchv[i] && matchv[i][0] != '\0' && i < N; ++i) {
 		id = search_get_tag_id(tabv[i]);
 		if (id == -1) {
 			screen_status_printf(_("Bad search tag %s"), tabv[i]);
@@ -292,7 +294,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	/** stupid - but this is just a test...... (fulhack)  */
 	mpd_search_db_songs(connection, false);
 
-	for (size_t i = 0; i < 10 && arg[i] != nullptr; i++) {
+	for (size_t i = 0; i < N && arg[i] != nullptr; i++) {
 		if (table[i] == SEARCH_URI)
 			mpd_search_add_uri_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,
