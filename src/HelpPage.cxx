@@ -33,13 +33,13 @@
 
 #include <assert.h>
 
-struct help_text_row {
+struct HelpRow {
 	signed char highlight;
 	Command command;
 	const char *text;
 };
 
-static constexpr struct help_text_row help_text[] = {
+static constexpr HelpRow help_text[] = {
 	{ 1, Command::NONE, N_("Movement") },
 	{ 2, Command::NONE, nullptr },
 	{ 0, Command::LIST_PREVIOUS, nullptr },
@@ -232,7 +232,7 @@ public:
 const char *
 HelpPage::GetListItemText(char *, size_t, unsigned i) const
 {
-	const struct help_text_row *row = &help_text[i];
+	const auto *row = &help_text[i];
 
 	assert(i < ARRAY_SIZE(help_text));
 
@@ -256,7 +256,7 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 			unsigned y, unsigned width,
 			gcc_unused bool selected) const
 {
-	const struct help_text_row *row = &help_text[i];
+	const auto *row = &help_text[i];
 
 	assert(i < ARRAY_SIZE(help_text));
 
