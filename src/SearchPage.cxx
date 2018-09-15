@@ -42,7 +42,7 @@ enum {
 	SEARCH_ARTIST_TITLE
 };
 
-static const struct {
+static constexpr struct {
 	enum mpd_tag_type tag_type;
 	const char *name;
 	const char *localname;
@@ -80,7 +80,7 @@ typedef struct {
 	const char *label;
 } search_type_t;
 
-static search_type_t mode[] = {
+static constexpr search_type_t mode[] = {
 	{ MPD_TAG_TITLE, N_("Title") },
 	{ MPD_TAG_ARTIST, N_("Artist") },
 	{ MPD_TAG_ALBUM, N_("Album") },
