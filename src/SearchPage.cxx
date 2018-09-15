@@ -221,7 +221,6 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	char *tabv[N];
 	char *matchv[N];
 	int table[N];
-	char *arg[N];
 
 	/*
 	 * Replace every : with a '\0' and every space character
@@ -266,12 +265,6 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 
 	advanced_search_mode = true;
 
-	for (size_t i = 0; i < n; ++i) {
-		arg[i] = locale_to_utf8(matchv[i]);
-	}
-
-	g_free(str);
-
 	/*-----------------------------------------------------------------------
 	 * NOTE (again): This code exists to test a new search ui,
 	 *               Its ugly and MUST be redesigned before the next release!
@@ -282,15 +275,20 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	mpd_search_db_songs(connection, false);
 
 	for (size_t i = 0; i < n; i++) {
+		const LocaleToUtf8 value(matchv[i]);
+
 		if (table[i] == SEARCH_URI)
 			mpd_search_add_uri_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,
-						      arg[i]);
+						      value.c_str());
 		else
 			mpd_search_add_tag_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,
-						      (enum mpd_tag_type)table[i], arg[i]);
+						      (enum mpd_tag_type)table[i],
+						      value.c_str());
 	}
+
+	g_free(str);
 
 	mpd_search_commit(connection);
 	auto *fl = filelist_new_recv(connection);
@@ -298,9 +296,6 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 		delete fl;
 		fl = nullptr;
 	}
-
-	for (size_t i = 0; i < n; ++i)
-		g_free(arg[i]);
 
 	return fl;
 }
