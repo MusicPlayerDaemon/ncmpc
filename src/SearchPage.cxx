@@ -63,7 +63,7 @@ static constexpr struct {
 static int
 search_get_tag_id(const char *name)
 {
-	if (g_ascii_strcasecmp(name, "file") == 0 ||
+	if (strcasecmp(name, "file") == 0 ||
 	    strcasecmp(name, _("file")) == 0)
 		return SEARCH_URI;
 
