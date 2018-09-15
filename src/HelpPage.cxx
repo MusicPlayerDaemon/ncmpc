@@ -285,7 +285,7 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 		if (row->text != nullptr)
 			mvwaddstr(w, y, 6, gettext(row->text));
 		else if (row->highlight == 2)
-			mvwhline(w, y, 3, '-', width - 6);
+			mvwhline(w, y, 3, ACS_HLINE, width - 6);
 	} else {
 		const char *key =
 			GetGlobalKeyBindings().GetKeyNames(row->command, true);
