@@ -216,7 +216,6 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	if (strchr(query, ':') == nullptr)
 		return nullptr;
 
-	int i, j;
 	char *str = g_strdup(query);
 
 	char *tabv[10];
@@ -235,8 +234,8 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	 * to their proper vector.
 	 */
 	int spi = -1;
-	j = 0;
-	for (i = 0; str[i] != '\0' && j < 10; i++) {
+	size_t j = 0;
+	for (size_t i = 0; str[i] != '\0' && j < 10; i++) {
 		switch(str[i]) {
 		case ' ':
 			spi = i;
@@ -262,8 +261,9 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 		return nullptr;
 	}
 
-	int id = j = i = 0;
-	while (matchv[i] && matchv[i][0] != '\0' && i < 10) {
+	int id = 0;
+	j = 0;
+	for (size_t i = 0; matchv[i] && matchv[i][0] != '\0' && i < 10; ++i) {
 		id = search_get_tag_id(tabv[i]);
 		if (id == -1) {
 			screen_status_printf(_("Bad search tag %s"), tabv[i]);
@@ -273,14 +273,12 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 			j++;
 			advanced_search_mode = true;
 		}
-
-		i++;
 	}
 
 	g_free(str);
 
 	if (!advanced_search_mode || j == 0) {
-		for (i = 0; arg[i] != nullptr; ++i)
+		for (size_t i = 0; arg[i] != nullptr; ++i)
 			g_free(arg[i]);
 		return nullptr;
 	}
@@ -294,7 +292,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	/** stupid - but this is just a test...... (fulhack)  */
 	mpd_search_db_songs(connection, false);
 
-	for (i = 0; i < 10 && arg[i] != nullptr; i++) {
+	for (size_t i = 0; i < 10 && arg[i] != nullptr; i++) {
 		if (table[i] == SEARCH_URI)
 			mpd_search_add_uri_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,
@@ -312,7 +310,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 		fl = nullptr;
 	}
 
-	for (i = 0; arg[i] != nullptr; ++i)
+	for (size_t i = 0; arg[i] != nullptr; ++i)
 		g_free(arg[i]);
 
 	return fl;
