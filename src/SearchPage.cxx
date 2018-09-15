@@ -35,6 +35,8 @@
 
 #include <glib.h>
 
+#include <algorithm>
+
 #include <string.h>
 
 enum {
@@ -222,12 +224,10 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	int table[10];
 	char *arg[10];
 
-	memset(tabv, 0, 10 * sizeof(char *));
-	memset(matchv, 0, 10 * sizeof(char *));
-	memset(arg, 0, 10 * sizeof(char *));
-
-	for (i = 0; i < 10; i++)
-		table[i] = -1;
+	std::fill_n(tabv, 10, nullptr);
+	std::fill_n(matchv, 10, nullptr);
+	std::fill_n(table, 10, -1);
+	std::fill_n(arg, 10, nullptr);
 
 	/*
 	 * Replace every : with a '\0' and every space character
