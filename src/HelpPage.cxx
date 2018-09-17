@@ -168,7 +168,7 @@ static constexpr HelpRow help_text[] = {
 	Command::NONE,
 	Heading(N_("Search screen")),
 	HLINE,
-	{ Command::SCREEN_SEARCH, N_("Search") },
+	{ Command::SCREEN_SEARCH, N_("New search") },
 	{ Command::PLAY, N_("Select and play") },
 	Command::SELECT,
 	{ Command::ADD, N_("Append song to queue") },

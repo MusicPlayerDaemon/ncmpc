@@ -143,9 +143,10 @@ public:
 
 		if (idx == 0) {
 			snprintf(buffer, size,
-				 _("Press %s for a new search [%s]"),
+				 " %s : %s [%s]",
 				 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH,
-								    false),
+								    true),
+				 "New search",
 				 gettext(mode[options.search_mode].label));
 			return buffer;
 		}
@@ -392,10 +393,11 @@ const char *
 SearchPage::GetTitle(char *str, size_t size) const
 {
 	if (advanced_search_mode && !pattern.empty())
-		snprintf(str, size, _("Search: %s"), pattern.c_str());
+		snprintf(str, size, "%s '%s'", _("Search"), pattern.c_str());
 	else if (!pattern.empty())
 		snprintf(str, size,
-			 _("Search: Results for %s [%s]"),
+			 "%s '%s' [%s]",
+			 _("Search"),
 			 pattern.c_str(),
 			 gettext(mode[options.search_mode].label));
 	else
