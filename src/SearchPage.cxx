@@ -91,6 +91,8 @@ static constexpr search_type_t mode[] = {
 };
 
 static const char *const help_text[] = {
+	"",
+	"",
 	"Quick     -  Enter a string and ncmpc will search according",
 	"             to the current search mode (displayed above).",
 	"",
@@ -125,7 +127,6 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void OnOpen(struct mpdclient &c) override;
 	void Paint() const override;
 	void Update(struct mpdclient &c, unsigned events) override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
@@ -136,8 +137,18 @@ public:
 class SearchHelpText final : public ListText {
 public:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(char *, size_t, unsigned idx) const override {
+	const char *GetListItemText(char *buffer, size_t size,
+				    unsigned idx) const override {
 		assert(idx < ARRAY_SIZE(help_text));
+
+		if (idx == 0) {
+			snprintf(buffer, size,
+				 _("Press %s for a new search [%s]"),
+				 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH,
+								    false),
+				 gettext(mode[options.search_mode].label));
+			return buffer;
+		}
 
 		return help_text[idx];
 	}
@@ -368,17 +379,6 @@ screen_search_init(ScreenManager &_screen, WINDOW *w, Size size)
 }
 
 void
-SearchPage::OnOpen(gcc_unused struct mpdclient &c)
-{
-	//  if( pattern==nullptr )
-	//    search_new(screen, c);
-	// else
-	screen_status_printf(_("Press %s for a new search"),
-			     GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH,
-								false));
-}
-
-void
 SearchPage::Paint() const
 {
 	if (filelist) {
@@ -399,10 +399,7 @@ SearchPage::GetTitle(char *str, size_t size) const
 			 pattern.c_str(),
 			 gettext(mode[options.search_mode].label));
 	else
-		snprintf(str, size, _("Search: Press %s for a new search [%s]"),
-			 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH,
-							    false),
-			 gettext(mode[options.search_mode].label));
+		return _("Search");
 
 	return str;
 }
@@ -427,7 +424,10 @@ SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 		screen_status_printf(_("Search mode: %s"),
 				     gettext(mode[options.search_mode].label));
 
-		if (!pattern.empty() && !advanced_search_mode)
+		if (pattern.empty())
+			/* show the new mode in the help text */
+			SetDirty();
+		else if (!advanced_search_mode)
 			/* reload only if the new search mode is going
 			   to be considered */
 			Reload(c);
