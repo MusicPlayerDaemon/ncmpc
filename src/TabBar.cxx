@@ -28,7 +28,7 @@
 static void
 PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected)
 {
-	SelectStyle(w, Style::TITLE_BOLD);
+	SelectStyle(w, selected ? Style::TITLE : Style::TITLE_BOLD);
 	if (selected)
 		wattron(w, A_REVERSE);
 
