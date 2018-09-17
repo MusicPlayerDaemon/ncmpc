@@ -119,7 +119,7 @@ static constexpr command_definition_t cmds[] = {
 	{ "save",
 	  N_("Save queue") },
 	{ "add",
-	  N_("Add url/file to queue") },
+	  N_("Append song to queue") },
 
 	{ "go-root-directory",
 	  N_("Go to root directory") },

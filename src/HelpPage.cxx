@@ -156,7 +156,7 @@ static constexpr HelpRow help_text[] = {
 	HLINE,
 	{ Command::PLAY, N_("Enter directory/Select and play song") },
 	Command::SELECT,
-	{ Command::ADD, N_("Append song to queue") },
+	Command::ADD,
 	Command::SAVE_PLAYLIST,
 	{ Command::DELETE, N_("Delete playlist") },
 	Command::GO_PARENT_DIRECTORY,
