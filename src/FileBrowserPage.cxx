@@ -287,10 +287,10 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 	}
 }
 
-static Page *
+static std::unique_ptr<Page>
 screen_file_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
-	return new FileBrowserPage(_screen, w, size);
+	return std::make_unique<FileBrowserPage>(_screen, w, size);
 }
 
 const char *

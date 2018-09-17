@@ -292,10 +292,10 @@ LyricsPage::Reload()
 	}
 }
 
-static Page *
+static std::unique_ptr<Page>
 lyrics_screen_init(ScreenManager &_screen, WINDOW *w, Size size)
 {
-	return new LyricsPage(_screen, w, size);
+	return std::make_unique<LyricsPage>(_screen, w, size);
 }
 
 void

@@ -80,10 +80,10 @@ ChatPage::CheckChatSupport(struct mpdclient &c)
 	return (was_supported = true);
 }
 
-static Page *
+static std::unique_ptr<Page>
 screen_chat_init(ScreenManager &screen, WINDOW *w, Size size)
 {
-	return new ChatPage(screen, w, size);
+	return std::make_unique<ChatPage>(screen, w, size);
 }
 
 void

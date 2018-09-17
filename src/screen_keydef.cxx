@@ -532,10 +532,10 @@ public:
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 };
 
-static Page *
+static std::unique_ptr<Page>
 keydef_init(ScreenManager &screen, WINDOW *w, Size size)
 {
-	return new KeyDefPage(screen, w, size);
+	return std::make_unique<KeyDefPage>(screen, w, size);
 }
 
 void
