@@ -24,7 +24,6 @@
 #include "Point.hxx"
 #include "config.h"
 #include "util/LocaleString.hxx"
-#include "util/StringUTF8.hxx"
 
 #include <string>
 
@@ -214,7 +213,7 @@ wreadln::Paint() const
 	whline(w, ' ', width);
 	/* print visible part of the line buffer */
 	if (masked)
-		whline(w, '*', utf8_width(value.c_str() + start));
+		whline(w, '*', StringWidthMB(value.c_str() + start));
 	else
 		waddnstr(w, value.c_str() + start,
 			 screen_to_bytes(value.c_str(), width));
