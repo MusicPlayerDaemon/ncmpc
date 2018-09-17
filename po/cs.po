@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:59+0200\n"
+"POT-Creation-Date: 2018-09-17 22:53+0200\n"
 "PO-Revision-Date: 2011-03-02 13:59+0000\n"
 "Last-Translator: Zbyněk Schwarz <Unknown>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -42,7 +42,7 @@ msgstr "Přidávám '%s' do seznamu skladeb"
 msgid "All artists"
 msgstr "Všichni interpreti"
 
-#: src/Bindings.cxx:82 src/Bindings.cxx:88
+#: src/Bindings.cxx:79 src/Bindings.cxx:85
 #, c-format
 msgid "Key %s assigned to %s and %s"
 msgstr "Klávesa %s je přiřazena k %s a %s"
@@ -58,24 +58,6 @@ msgstr ""
 #: src/ChatPage.cxx:169
 msgid "Message could not be sent"
 msgstr ""
-
-#: src/colors.cxx:169
-#, fuzzy
-msgid "Unknown color"
-msgstr "Neznámý příkaz"
-
-#: src/colors.cxx:201
-#, fuzzy
-msgid "Unknown color field"
-msgstr "Varování: Neznámé barevné pole - %s\n"
-
-#: src/colors.cxx:227
-msgid "Terminal lacks support for changing colors"
-msgstr "Terminál postrádá podporu změny barev"
-
-#: src/colors.cxx:236
-msgid "Terminal lacks color capabilities"
-msgstr "Terminál postrádá podporu barev"
 
 #: src/Command.cxx:29
 msgid "Key configuration screen"
@@ -149,12 +131,12 @@ msgstr "Zvolit právě hrající skladbu"
 msgid "Help screen"
 msgstr "Obrazovka nápovědy"
 
-#: src/Command.cxx:71 src/HelpPage.cxx:123
+#: src/Command.cxx:71 src/HelpPage.cxx:140
 #, fuzzy
 msgid "Queue screen"
 msgstr "Obrazovka keydef"
 
-#: src/Command.cxx:73 src/HelpPage.cxx:138
+#: src/Command.cxx:73 src/HelpPage.cxx:155
 msgid "Browse screen"
 msgstr "Obrazovka prohlížení"
 
@@ -248,10 +230,10 @@ msgstr "Spustit aktualizaci databáze skladeb"
 msgid "Save queue"
 msgstr ""
 
-#: src/Command.cxx:122
+#: src/Command.cxx:122 src/HelpPage.cxx:174
 #, fuzzy
-msgid "Add url/file to queue"
-msgstr "Přidat url/soubor do seznamu skladeb"
+msgid "Append song to queue"
+msgstr "Přidat skladbu do seznamu skladeb"
 
 #: src/Command.cxx:125
 msgid "Go to root directory"
@@ -328,7 +310,7 @@ msgstr "Skočit na"
 msgid "Artist screen"
 msgstr "Obrazovka interpretů"
 
-#: src/Command.cxx:184 src/HelpPage.cxx:152
+#: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
 msgstr "Obrazovka vyhledávání"
 
@@ -340,7 +322,7 @@ msgstr "Změnit režim hledání"
 msgid "View the selected and the currently playing song"
 msgstr "Zobrazit vybranou a v současnosti přehrávanou píseň"
 
-#: src/Command.cxx:194 src/HelpPage.cxx:164
+#: src/Command.cxx:194 src/HelpPage.cxx:181
 msgid "Lyrics screen"
 msgstr "Obrazovka textu písně"
 
@@ -358,36 +340,36 @@ msgstr "Aktualizovat text písně"
 msgid "Edit the current item"
 msgstr ""
 
-#: src/Command.cxx:209 src/HelpPage.cxx:179
+#: src/Command.cxx:209 src/HelpPage.cxx:196
 msgid "Outputs screen"
 msgstr "Obrazovka výstupů"
 
-#: src/Command.cxx:214 src/HelpPage.cxx:186
+#: src/Command.cxx:214 src/HelpPage.cxx:203
 #, fuzzy
 msgid "Chat screen"
 msgstr "Další obrazovka"
 
 #. To translators: prefix for error messages
-#: src/conf.cxx:113 src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
+#: src/conf.cxx:114 src/screen_keydef.cxx:414 src/screen_keydef.cxx:423
 msgid "Error"
 msgstr "Chyba"
 
-#: src/conf.cxx:127
+#: src/conf.cxx:128
 msgid "Word expected"
 msgstr ""
 
-#: src/conf.cxx:144 src/conf.cxx:153
+#: src/conf.cxx:145 src/conf.cxx:154
 msgid "Malformed hotkey definition"
 msgstr "Neplatná definice klávesové zkratky"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.cxx:177
+#: src/conf.cxx:178
 msgid "Unknown command"
 msgstr "Neznámý příkaz"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.cxx:190
+#: src/conf.cxx:191
 msgid "Incomplete hotkey configuration"
 msgstr "Neúplné nastavení klávesových zkratek"
 
@@ -395,76 +377,80 @@ msgstr "Neúplné nastavení klávesových zkratek"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.cxx:226
+#: src/conf.cxx:227
 msgid "Bad time display type"
 msgstr "Chybný typ zobrazení času"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.cxx:239 src/conf.cxx:416
+#: src/conf.cxx:240 src/conf.cxx:418
 msgid "Missing '='"
 msgstr "Chybí '='"
 
-#: src/conf.cxx:290
+#: src/conf.cxx:291
 msgid "Bad color name"
 msgstr "Chybné jméno barvy"
 
-#: src/conf.cxx:300
+#: src/conf.cxx:301
 msgid "Incomplete color definition"
 msgstr "Neúplná definice barvy"
 
-#: src/conf.cxx:306
+#: src/conf.cxx:307
 msgid "Invalid number"
 msgstr "Neplatné číslo"
 
-#: src/conf.cxx:314
+#: src/conf.cxx:315
 msgid "Malformed color definition"
 msgstr "Neplatná definice barvy"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.cxx:351
+#: src/conf.cxx:353
 msgid "Unknown screen name"
 msgstr "Neznámé jméno obrazovky"
 
-#: src/conf.cxx:376
+#: src/conf.cxx:378
 msgid "Invalid search mode"
 msgstr "Chybný vyhledávací mód"
 
-#: src/conf.cxx:396
+#: src/conf.cxx:398
 msgid "Unknown search mode"
 msgstr "Neznámý vyhledávací mód"
 
-#: src/conf.cxx:579
+#: src/conf.cxx:581
 msgid "Unknown configuration parameter"
 msgstr "Neznámý parametr nastavení"
+
+#: src/CustomColors.cxx:56
+msgid "Terminal lacks support for changing colors"
+msgstr "Terminál postrádá podporu změny barev"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:261
+#: src/FileBrowserPage.cxx:260
 msgid "Deleting this item is not possible"
 msgstr "Smazání této položky není možné"
 
-#: src/FileBrowserPage.cxx:269
+#: src/FileBrowserPage.cxx:268
 #, fuzzy, c-format
 msgid "Delete playlist %s?"
 msgstr "Smazat seznam skladeb"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:274 src/LyricsPage.cxx:371 src/save_playlist.cxx:110
-#: src/screen_keydef.cxx:183
+#: src/FileBrowserPage.cxx:273 src/LyricsPage.cxx:371 src/save_playlist.cxx:110
+#: src/screen_keydef.cxx:182
 msgid "Aborted"
 msgstr "Přerušeno"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:287
+#: src/FileBrowserPage.cxx:286
 msgid "Playlist deleted"
 msgstr "Seznam skladeb smazán"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:314 src/FileBrowserPage.cxx:396
+#: src/FileBrowserPage.cxx:313 src/FileBrowserPage.cxx:395
 msgid "Browse"
 msgstr "Procházet"
 
@@ -473,116 +459,104 @@ msgstr "Procházet"
 msgid "Loading playlist '%s'"
 msgstr "Načítám seznam skladeb: %s..."
 
-#: src/HelpPage.cxx:43
+#: src/HelpPage.cxx:60
 msgid "Movement"
 msgstr "Pohyb"
 
-#: src/HelpPage.cxx:88
+#: src/HelpPage.cxx:105
 msgid "Global"
 msgstr "Globální"
 
-#: src/HelpPage.cxx:125
+#: src/HelpPage.cxx:142
 msgid "Play"
 msgstr "Přehrát"
 
-#: src/HelpPage.cxx:128
-msgid "Move song up"
-msgstr "Posunout skladbu nahoru"
-
-#: src/HelpPage.cxx:129
-msgid "Move song down"
-msgstr "Posunout skladbu dolů"
-
-#: src/HelpPage.cxx:132
+#: src/HelpPage.cxx:149
 msgid "Center"
 msgstr "Střed"
 
-#: src/HelpPage.cxx:140
+#: src/HelpPage.cxx:157
 msgid "Enter directory/Select and play song"
 msgstr "Vytoupit do adresáře/Vybrat a přehrát skladbu"
 
-#: src/HelpPage.cxx:142 src/HelpPage.cxx:157
-#, fuzzy
-msgid "Append song to queue"
-msgstr "Přidat skladbu do seznamu skladeb"
-
-#: src/HelpPage.cxx:144
+#: src/HelpPage.cxx:161
 msgid "Delete playlist"
 msgstr "Smazat seznam skladeb"
 
-#: src/HelpPage.cxx:154 src/SearchPage.cxx:371 src/SearchPage.cxx:475
-msgid "Search"
+#: src/HelpPage.cxx:171
+#, fuzzy
+msgid "New search"
 msgstr "Vyhledávání"
 
-#: src/HelpPage.cxx:155
+#: src/HelpPage.cxx:172
 msgid "Select and play"
 msgstr "Vybrat a přehrát"
 
-#: src/HelpPage.cxx:166
+#: src/HelpPage.cxx:183
 msgid "View Lyrics"
 msgstr "Zobrazit text písně"
 
-#: src/HelpPage.cxx:167
+#: src/HelpPage.cxx:184
 msgid "(Re)load lyrics"
 msgstr "Znovu načíst text písně"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
-#: src/HelpPage.cxx:170
+#: src/HelpPage.cxx:187
 msgid "Interrupt retrieval"
 msgstr "Přerušit načítání"
 
-#: src/HelpPage.cxx:171
+#: src/HelpPage.cxx:188
 msgid "Download lyrics for currently playing song"
 msgstr "Stáhnout text pro aktuálně přehrávanou skladbu"
 
-#: src/HelpPage.cxx:172
+#: src/HelpPage.cxx:189
 #, fuzzy
 msgid "Add or edit lyrics"
 msgstr "Žádný uložený text písně"
 
-#: src/HelpPage.cxx:173
+#: src/HelpPage.cxx:190
 msgid "Save lyrics"
 msgstr "Uložit text písně"
 
-#: src/HelpPage.cxx:174
+#: src/HelpPage.cxx:191
 msgid "Delete saved lyrics"
 msgstr "Smazat uložený text písně"
 
-#: src/HelpPage.cxx:181
+#: src/HelpPage.cxx:198
 msgid "Enable/disable output"
 msgstr "Povolit/zakázat výstup"
 
-#: src/HelpPage.cxx:188
+#: src/HelpPage.cxx:205
 msgid "Write a message"
 msgstr ""
 
-#: src/HelpPage.cxx:193
+#: src/HelpPage.cxx:210
 msgid "Keydef screen"
 msgstr "Obrazovka keydef"
 
-#: src/HelpPage.cxx:195
+#: src/HelpPage.cxx:212
 msgid "Edit keydefs for selected command"
 msgstr "Upravit keydefs pro vybraný příkaz"
 
-#: src/HelpPage.cxx:196
+#: src/HelpPage.cxx:213
 msgid "Remove selected keydef"
 msgstr "Odstranit vybraný keydef"
 
-#: src/HelpPage.cxx:197
+#: src/HelpPage.cxx:214
 #, fuzzy
 msgid "Add a keydef"
 msgstr "Přidat novou klávesovou zkratku"
 
-#: src/HelpPage.cxx:198
+#: src/HelpPage.cxx:215
 msgid "Go up a level"
 msgstr "Jít o úroveň výš"
 
-#: src/HelpPage.cxx:199
+#: src/HelpPage.cxx:216
 msgid "Apply and save changes"
 msgstr "Aplikovat a uložit změny"
 
-#: src/HelpPage.cxx:228 src/HelpPage.cxx:312
+#: src/HelpPage.cxx:245 src/HelpPage.cxx:329
 msgid "Help"
 msgstr "Nápověda"
 
@@ -672,11 +646,11 @@ msgstr ""
 msgid "Alt-%c"
 msgstr ""
 
-#: src/ListWindow.cxx:492
+#: src/ListWindow.cxx:491
 msgid "Range selection disabled"
 msgstr "Výběr rozsahu vypnut"
 
-#: src/ListWindow.cxx:497
+#: src/ListWindow.cxx:496
 msgid "Range selection enabled"
 msgstr "Výběr rozsahu zapnut"
 
@@ -807,7 +781,7 @@ msgstr "Uloženo %s"
 msgid "All tracks of artist: %s"
 msgstr "Všechny skladby interpreta: %s"
 
-#: src/screen_artist.cxx:191 src/SearchPage.cxx:86 src/SongPage.cxx:65
+#: src/screen_artist.cxx:191 src/SearchPage.cxx:87 src/SongPage.cxx:66
 msgid "Album"
 msgstr "Album"
 
@@ -816,37 +790,37 @@ msgstr "Album"
 msgid "Tracks of no album of artist: %s"
 msgstr "Písničky bez alba zpěváka: %s"
 
-#: src/screen_artist.cxx:299 src/SearchPage.cxx:85 src/SongPage.cxx:63
+#: src/screen_artist.cxx:299 src/SearchPage.cxx:86 src/SongPage.cxx:64
 msgid "Artist"
 msgstr "Interpret"
 
-#: src/screen_client.cxx:43
+#: src/screen_client.cxx:41
 #, fuzzy
 msgid "Database update running"
 msgstr "Probíhá aktualizace databáze"
 
-#: src/screen_client.cxx:50
+#: src/screen_client.cxx:48
 #, c-format
 msgid "Database update of %s started"
 msgstr "Aktualizace databáze %s zahájena"
 
-#: src/screen_client.cxx:53
+#: src/screen_client.cxx:51
 msgid "Database update started"
 msgstr "Aktualizace databáze zahájena"
 
-#: src/screen.cxx:162
+#: src/screen.cxx:160
 msgid "Repeat mode is on"
 msgstr "Opakování je zapnuto"
 
-#: src/screen.cxx:163
+#: src/screen.cxx:161
 msgid "Repeat mode is off"
 msgstr "Opakování je vypnuto"
 
-#: src/screen.cxx:167
+#: src/screen.cxx:165
 msgid "Random mode is on"
 msgstr "Náhodné přehrávání je zapnuto"
 
-#: src/screen.cxx:168
+#: src/screen.cxx:166
 msgid "Random mode is off"
 msgstr "Náhodné přehrávání je vypnuto"
 
@@ -855,11 +829,11 @@ msgstr "Náhodné přehrávání je vypnuto"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.cxx:177
+#: src/screen.cxx:175
 msgid "Single mode is on"
 msgstr "Jednoduchý mód je zapnutý"
 
-#: src/screen.cxx:178
+#: src/screen.cxx:176
 msgid "Single mode is off"
 msgstr "Jednoduchý mód je vypnutý"
 
@@ -867,36 +841,36 @@ msgstr "Jednoduchý mód je vypnutý"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.cxx:186
+#: src/screen.cxx:184
 msgid "Consume mode is on"
 msgstr "Režim konzumace zapnut"
 
-#: src/screen.cxx:187
+#: src/screen.cxx:185
 msgid "Consume mode is off"
 msgstr "Režim konzumace vypnut"
 
-#: src/screen.cxx:190
+#: src/screen.cxx:188
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Přerušení %d sekund"
 
-#: src/screen.cxx:202
+#: src/screen.cxx:200
 msgid "Database updated"
 msgstr "Databáze aktualizována"
 
-#: src/screen.cxx:252
+#: src/screen.cxx:250
 msgid "Find mode: Wrapped"
 msgstr "Režim vyhledávání: Zabalený"
 
-#: src/screen.cxx:253
+#: src/screen.cxx:251
 msgid "Find mode: Normal"
 msgstr "Režim vyhledávání: Normální"
 
-#: src/screen.cxx:258
+#: src/screen.cxx:256
 msgid "Auto center mode: On"
 msgstr "Automatické centrování zapnuto"
 
-#: src/screen.cxx:259
+#: src/screen.cxx:257
 msgid "Auto center mode: Off"
 msgstr "Automatické centrování vypnuto"
 
@@ -917,272 +891,254 @@ msgstr "Přeskočit"
 msgid "Unable to find '%s'"
 msgstr "Nemohu najít '%s'"
 
-#: src/screen_keydef.cxx:162
+#: src/screen_keydef.cxx:161
 msgid "Deleted"
 msgstr "Odstraněno"
 
-#: src/screen_keydef.cxx:178
+#: src/screen_keydef.cxx:177
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Vložte novou klávesu pro %s: "
 
-#: src/screen_keydef.cxx:188
+#: src/screen_keydef.cxx:187
 msgid "Ctrl-Space can't be used"
 msgstr ""
 
-#: src/screen_keydef.cxx:194
+#: src/screen_keydef.cxx:193
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "Chyba: klávesa %s je již použita pro %s"
 
-#: src/screen_keydef.cxx:203
+#: src/screen_keydef.cxx:202
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "%s přiřazeno k %s"
 
-#: src/screen_keydef.cxx:230
+#: src/screen_keydef.cxx:229
 msgid "Add new key"
 msgstr "Přidat novou klávesovou zkratku"
 
-#: src/screen_keydef.cxx:252
+#: src/screen_keydef.cxx:251
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Upravit klávesové zkratky pro %s"
 
-#: src/screen_keydef.cxx:394
+#: src/screen_keydef.cxx:393
 msgid "You have new key bindings"
 msgstr "Nové klávesové zkratky"
 
-#: src/screen_keydef.cxx:396
+#: src/screen_keydef.cxx:395
 msgid "Keybindings unchanged."
 msgstr "Klávesové zkratky nezměněny"
 
-#: src/screen_keydef.cxx:406
+#: src/screen_keydef.cxx:405
 #, fuzzy
 msgid "Unable to write configuration"
 msgstr "Neúplné nastavení klávesových zkratek"
 
-#: src/screen_keydef.cxx:422
+#: src/screen_keydef.cxx:421
 #, c-format
 msgid "Wrote %s"
 msgstr "Zapsat %s"
 
-#: src/screen_keydef.cxx:434
+#: src/screen_keydef.cxx:433
 msgid "===> Apply key bindings "
 msgstr "===> Použít klávesové zkratky "
 
-#: src/screen_keydef.cxx:436
+#: src/screen_keydef.cxx:435
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Použít & Uložit klávesové zkratky  "
 
-#: src/screen_keydef.cxx:473
+#: src/screen_keydef.cxx:472
 msgid "Edit key bindings"
 msgstr "Upravit klávesové zkratky"
 
-#: src/screen_keydef.cxx:555
+#: src/screen_keydef.cxx:554
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Poznámka: Zapomněl jste 'Uplatnit' změny?"
 
-#: src/screen_keydef.cxx:605
+#: src/screen_keydef.cxx:604
 msgid "Keys"
 msgstr ""
 
-#: src/screen_utils.cxx:125
+#: src/screen_utils.cxx:124
 msgid "Password"
 msgstr "Heslo"
 
-#: src/SearchPage.cxx:50
+#: src/SearchPage.cxx:51
 msgid "artist"
 msgstr "interpret"
 
-#: src/SearchPage.cxx:51
+#: src/SearchPage.cxx:52
 msgid "album"
 msgstr "album"
 
-#: src/SearchPage.cxx:52
+#: src/SearchPage.cxx:53
 msgid "title"
 msgstr "titulek"
 
-#: src/SearchPage.cxx:53
+#: src/SearchPage.cxx:54
 msgid "track"
 msgstr "stopa"
 
-#: src/SearchPage.cxx:54
+#: src/SearchPage.cxx:55
 msgid "name"
 msgstr "název"
 
-#: src/SearchPage.cxx:55
+#: src/SearchPage.cxx:56
 msgid "genre"
 msgstr "žánr"
 
-#: src/SearchPage.cxx:56
+#: src/SearchPage.cxx:57
 msgid "date"
 msgstr "datum"
 
-#: src/SearchPage.cxx:57
+#: src/SearchPage.cxx:58
 msgid "composer"
 msgstr "skladatel"
 
-#: src/SearchPage.cxx:58
+#: src/SearchPage.cxx:59
 msgid "performer"
 msgstr "umělec"
 
-#: src/SearchPage.cxx:59
+#: src/SearchPage.cxx:60
 msgid "comment"
 msgstr "poznámka"
 
-#: src/SearchPage.cxx:67
+#: src/SearchPage.cxx:68
 msgid "file"
 msgstr "soubor"
 
-#: src/SearchPage.cxx:84 src/SongPage.cxx:64
+#: src/SearchPage.cxx:85 src/SongPage.cxx:65
 msgid "Title"
 msgstr "Název"
 
-#: src/SearchPage.cxx:87
+#: src/SearchPage.cxx:88
 msgid "Filename"
 msgstr "Název souboru"
 
-#: src/SearchPage.cxx:88
+#: src/SearchPage.cxx:89
 msgid "Artist + Title"
 msgstr "Interpret + Název"
 
-#: src/SearchPage.cxx:260
-#, c-format
-msgid "No argument for search tag %s"
-msgstr "Žádný argument vyhledávání %s"
-
-#: src/SearchPage.cxx:269
+#: src/SearchPage.cxx:270
 #, c-format
 msgid "Bad search tag %s"
 msgstr "Chybný tag vyhledávání %s"
 
-#. if( pattern==nullptr )
-#. search_new(screen, c);
-#. else
-#: src/SearchPage.cxx:396
+#: src/SearchPage.cxx:284
 #, c-format
-msgid "Press %s for a new search"
-msgstr "Pro nové hledání stiskněte %s"
+msgid "No argument for search tag %s"
+msgstr "Žádný argument vyhledávání %s"
 
-#: src/SearchPage.cxx:415
-#, c-format
-msgid "Search: %s"
-msgstr "Hledání: %s"
+#: src/SearchPage.cxx:373 src/SearchPage.cxx:406 src/SearchPage.cxx:410
+#: src/SearchPage.cxx:414 src/SearchPage.cxx:473
+msgid "Search"
+msgstr "Vyhledávání"
 
-#: src/SearchPage.cxx:418
-#, c-format
-msgid "Search: Results for %s [%s]"
-msgstr "Hledání: Výsledky pro %s [%s]"
-
-#: src/SearchPage.cxx:422
-#, c-format
-msgid "Search: Press %s for a new search [%s]"
-msgstr "Hledání: Stiskněte %s pro nové hledání [%s]"
-
-#: src/SearchPage.cxx:447
+#: src/SearchPage.cxx:436
 #, c-format
 msgid "Search mode: %s"
 msgstr "Režim vyhledávání: %s"
 
-#: src/SongPage.cxx:66
+#: src/SongPage.cxx:67
 msgid "Length"
 msgstr "Délka"
 
-#: src/SongPage.cxx:67
+#: src/SongPage.cxx:68
 msgid "Position"
 msgstr ""
 
-#: src/SongPage.cxx:68
+#: src/SongPage.cxx:69
 msgid "Composer"
 msgstr "Skladatel"
 
-#: src/SongPage.cxx:69
+#: src/SongPage.cxx:70
 msgid "Name"
 msgstr "Název"
 
-#: src/SongPage.cxx:70
+#: src/SongPage.cxx:71
 msgid "Disc"
 msgstr "Disk"
 
-#: src/SongPage.cxx:71
+#: src/SongPage.cxx:72
 msgid "Track"
 msgstr "Skladba"
 
-#: src/SongPage.cxx:72
+#: src/SongPage.cxx:73
 msgid "Date"
 msgstr "Datum"
 
-#: src/SongPage.cxx:73
+#: src/SongPage.cxx:74
 msgid "Genre"
 msgstr "Žánr"
 
-#: src/SongPage.cxx:74
+#: src/SongPage.cxx:75
 msgid "Comment"
 msgstr "Poznámka"
 
-#: src/SongPage.cxx:75
+#: src/SongPage.cxx:76
 msgid "Path"
 msgstr "Cesta"
 
-#: src/SongPage.cxx:76
+#: src/SongPage.cxx:77
 msgid "Bitrate"
 msgstr "Bitrate"
 
-#: src/SongPage.cxx:77
+#: src/SongPage.cxx:78
 msgid "Format"
 msgstr ""
 
-#: src/SongPage.cxx:94
+#: src/SongPage.cxx:95
 msgid "Number of artists"
 msgstr "Počet interpretů"
 
-#: src/SongPage.cxx:95
+#: src/SongPage.cxx:96
 msgid "Number of albums"
 msgstr "Počet alb"
 
-#: src/SongPage.cxx:96
+#: src/SongPage.cxx:97
 msgid "Number of songs"
 msgstr "Počet skladeb"
 
-#: src/SongPage.cxx:97
+#: src/SongPage.cxx:98
 msgid "Uptime"
 msgstr "Doba běhu"
 
-#: src/SongPage.cxx:98
+#: src/SongPage.cxx:99
 msgid "Most recent db update"
 msgstr "Poslední aktualizace db"
 
-#: src/SongPage.cxx:99
+#: src/SongPage.cxx:100
 msgid "Playtime"
 msgstr "Čas přehrávání"
 
-#: src/SongPage.cxx:100
+#: src/SongPage.cxx:101
 msgid "DB playtime"
 msgstr "Čas hraní DB"
 
-#: src/SongPage.cxx:203
+#: src/SongPage.cxx:204
 msgid "Song viewer"
 msgstr "Prohlížeč skladeb"
 
-#: src/SongPage.cxx:369
+#: src/SongPage.cxx:370
 msgid "MPD statistics"
 msgstr "MPD statistiky"
 
-#: src/SongPage.cxx:454
+#: src/SongPage.cxx:455
 msgid "Selected song"
 msgstr "Vybraná skladba"
 
-#: src/SongPage.cxx:464
+#: src/SongPage.cxx:465
 msgid "Currently playing song"
 msgstr "Právě přehrávaná skladba"
 
-#: src/SongPage.cxx:469
+#: src/SongPage.cxx:470
 #, c-format
 msgid "%d kbps"
 msgstr "%d kbps"
 
-#: src/SongPage.cxx:553
+#: src/SongPage.cxx:554
 msgid "Song"
 msgstr ""
 
@@ -1193,6 +1149,20 @@ msgstr "Přehrávání:"
 #: src/StatusBar.cxx:108
 msgid "[Paused]"
 msgstr "[Pozastaveno]"
+
+#: src/Styles.cxx:270 src/Styles.cxx:318 src/Styles.cxx:350
+#, fuzzy
+msgid "Unknown color"
+msgstr "Neznámý příkaz"
+
+#: src/Styles.cxx:333
+#, fuzzy
+msgid "Unknown color field"
+msgstr "Varování: Neznámé barevné pole - %s\n"
+
+#: src/Styles.cxx:375
+msgid "Terminal lacks color capabilities"
+msgstr "Terminál postrádá podporu barev"
 
 #: src/time_format.cxx:44
 msgid "year"
@@ -1226,6 +1196,28 @@ msgstr "Hlasitost n/a"
 #, c-format
 msgid "Volume %d%%"
 msgstr "Hlasitost %d%%"
+
+#, fuzzy
+#~ msgid "Add url/file to queue"
+#~ msgstr "Přidat url/soubor do seznamu skladeb"
+
+#~ msgid "Move song up"
+#~ msgstr "Posunout skladbu nahoru"
+
+#~ msgid "Move song down"
+#~ msgstr "Posunout skladbu dolů"
+
+#~ msgid "Press %s for a new search"
+#~ msgstr "Pro nové hledání stiskněte %s"
+
+#~ msgid "Search: %s"
+#~ msgstr "Hledání: %s"
+
+#~ msgid "Search: Results for %s [%s]"
+#~ msgstr "Hledání: Výsledky pro %s [%s]"
+
+#~ msgid "Search: Press %s for a new search [%s]"
+#~ msgstr "Hledání: Stiskněte %s pro nové hledání [%s]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
 #~ msgstr "Připojuji se k %s... [Pro přerušení stiskněte %s]"
