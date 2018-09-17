@@ -93,6 +93,7 @@ static constexpr search_type_t mode[] = {
 static const char *const help_text[] = {
 	"",
 	"",
+	"",
 	"Quick     -  Enter a string and ncmpc will search according",
 	"             to the current search mode (displayed above).",
 	"",
@@ -143,10 +144,19 @@ public:
 
 		if (idx == 0) {
 			snprintf(buffer, size,
-				 " %s : %s [%s]",
+				 " %s : %s",
 				 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH,
 								    true),
-				 "New search",
+				 "New search");
+			return buffer;
+		}
+
+		if (idx == 1) {
+			snprintf(buffer, size,
+				 " %s : %s [%s]",
+				 GetGlobalKeyBindings().GetKeyNames(Command::SEARCH_MODE,
+								    true),
+				 get_key_description(Command::SEARCH_MODE),
 				 gettext(mode[options.search_mode].label));
 			return buffer;
 		}
