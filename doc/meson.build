@@ -17,7 +17,7 @@ if sphinx.found()
     command: [sphinx, '-q', '-b', 'man', '-d', '@OUTDIR@/doctrees', meson.current_source_dir(), '@OUTPUT@/man1'],
     build_by_default: true,
     install: true,
-    install_dir: get_option('datadir'),
+    install_dir: get_option('mandir'),
   )
 endif
 
