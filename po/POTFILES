@@ -2,9 +2,9 @@ src/AlbumListPage.cxx
 src/ArtistListPage.cxx
 src/Bindings.cxx
 src/ChatPage.cxx
-src/colors.cxx
 src/Command.cxx
 src/conf.cxx
+src/CustomColors.cxx
 src/FileBrowserPage.cxx
 src/FileListPage.cxx
 src/HelpPage.cxx
@@ -27,5 +27,6 @@ src/screen_utils.cxx
 src/SearchPage.cxx
 src/SongPage.cxx
 src/StatusBar.cxx
+src/Styles.cxx
 src/time_format.cxx
 src/TitleBar.cxx
