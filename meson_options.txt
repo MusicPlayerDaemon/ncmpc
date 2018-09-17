@@ -82,3 +82,11 @@ option('chat_screen', type: 'boolean',
 option('documentation', type: 'combo',
   choices: ['true', 'false', 'auto'], value: 'auto',
   description: 'Build documentation')
+
+option('manual', type: 'boolean',
+	value: true,
+	description: 'Build the manual')
+
+option('html_manual', type: 'boolean',
+	value: true,
+	description: 'Build the HTML manual')
