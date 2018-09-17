@@ -426,7 +426,13 @@ SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 			options.search_mode = 0;
 		screen_status_printf(_("Search mode: %s"),
 				     gettext(mode[options.search_mode].label));
-		/* fall through */
+
+		if (!pattern.empty() && !advanced_search_mode)
+			/* reload only if the new search mode is going
+			   to be considered */
+			Reload(c);
+		return true;
+
 	case Command::SCREEN_UPDATE:
 		Reload(c);
 		return true;
