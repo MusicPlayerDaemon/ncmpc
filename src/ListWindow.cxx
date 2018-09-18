@@ -406,37 +406,18 @@ ListWindow::ReverseFind(const ListText &text,
 	return false;
 }
 
-#ifdef NCMPC_MINI
 bool
 ListWindow::Jump(const ListText &text, const char *str)
 {
 	assert(str != nullptr);
 
-	for (unsigned i = 0; i < length; i++) {
-		char buffer[1024];
-		const char *label =
-			text.GetListItemText(buffer, sizeof(buffer),
-					     i);
-		assert(label != nullptr);
-
-		if (g_ascii_strncasecmp(label, str, strlen(str)) == 0) {
-			MoveCursor(i);
-			return true;
-		}
-	}
-	return false;
-}
-#else
-bool
-ListWindow::Jump(const ListText &text, const char *str)
-{
-	assert(str != nullptr);
-
+#ifndef NCMPC_MINI
 	GRegex *regex = compile_regex(str, options.jump_prefix_only);
 	if (regex == nullptr)
 		return false;
 
 	AtScopeExit(regex) { g_regex_unref(regex); };
+#endif
 
 	for (unsigned i = 0; i < length; i++) {
 		char buffer[1024];
@@ -445,7 +426,13 @@ ListWindow::Jump(const ListText &text, const char *str)
 					     i);
 		assert(label != nullptr);
 
-		if (match_regex(regex, label)) {
+#ifdef NCMPC_MINI
+		const bool matches = g_ascii_strncasecmp(label, str, strlen(str)) == 0;
+#else
+		const bool matches = match_regex(regex, label);
+#endif
+
+		if (matches) {
 			MoveCursor(i);
 			return true;
 		}
@@ -453,7 +440,6 @@ ListWindow::Jump(const ListText &text, const char *str)
 
 	return false;
 }
-#endif
 
 /* perform basic list window commands (movement) */
 bool
