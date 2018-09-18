@@ -96,9 +96,6 @@ struct PluginCycle {
 		 next_plugin(0) {}
 
 	~PluginCycle() {
-		/* free argument list */
-		for (unsigned i = 1; i == 0 || argv[i] != nullptr; ++i)
-			g_free(argv[i]);
 		g_free(argv);
 	}
 };
@@ -332,7 +329,7 @@ make_argv(const char*const* args)
 	*ret++ = nullptr;
 
 	while (*args != nullptr)
-		*ret++ = g_strdup(*args++);
+		*ret++ = const_cast<char *>(*args++);
 
 	/* end of argument vector */
 	*ret++ = nullptr;

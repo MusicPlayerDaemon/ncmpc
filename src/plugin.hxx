@@ -63,7 +63,7 @@ plugin_list_load_directory(PluginList *list, const char *path);
  *
  * @param list the plugin list
  * @param args nullptr terminated command line arguments passed to the
- * plugin programs
+ * plugin programs; they must remain valid while the plugin runs
  * @param callback the callback function which will be called when a
  * result is available
  * @param callback_data caller defined pointer which is passed to the
