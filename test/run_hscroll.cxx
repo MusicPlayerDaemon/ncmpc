@@ -8,13 +8,15 @@
 #include <locale.h>
 #endif
 
+#include <stdio.h>
+
 int main(int argc, char **argv)
 {
 	char *p;
 	unsigned width, count;
 
 	if (argc != 5) {
-		g_printerr("Usage: %s TEXT SEPARATOR WIDTH COUNT\n", argv[0]);
+		fprintf(stderr, "Usage: %s TEXT SEPARATOR WIDTH COUNT\n", argv[0]);
 		return 1;
 	}
 
@@ -30,7 +32,7 @@ int main(int argc, char **argv)
 
 	for (unsigned i = 0; i < count; ++i) {
 		p = hscroll.ScrollString();
-		g_print("%s\n", p);
+		fprintf(stderr, "%s\n", p);
 		g_free(p);
 
 		hscroll.Step();
