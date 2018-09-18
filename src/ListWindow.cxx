@@ -29,6 +29,7 @@
 #include "screen_status.hxx"
 #include "screen_utils.hxx"
 #include "i18n.h"
+#include "util/ScopeExit.hxx"
 
 #include <glib.h>
 
@@ -435,6 +436,8 @@ ListWindow::Jump(const ListText &text, const char *str)
 	if (regex == nullptr)
 		return false;
 
+	AtScopeExit(regex) { g_regex_unref(regex); };
+
 	for (unsigned i = 0; i < length; i++) {
 		char buffer[1024];
 		const char *label =
@@ -443,12 +446,11 @@ ListWindow::Jump(const ListText &text, const char *str)
 		assert(label != nullptr);
 
 		if (match_regex(regex, label)) {
-			g_regex_unref(regex);
 			MoveCursor(i);
 			return true;
 		}
 	}
-	g_regex_unref(regex);
+
 	return false;
 }
 #endif
