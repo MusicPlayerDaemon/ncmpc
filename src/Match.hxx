@@ -23,10 +23,17 @@
 #include "config.h"
 #include "util/Compiler.h"
 
+#include <stddef.h>
+
 typedef struct _GRegex GRegex;
 
 class MatchExpression {
+#ifdef NCMPC_MINI
+	const char *expression;
+	size_t length;
+#else
 	GRegex *regex = nullptr;
+#endif
 
 public:
 	MatchExpression() = default;

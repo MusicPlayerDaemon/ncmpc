@@ -25,21 +25,37 @@
 
 #include <assert.h>
 
+#ifndef NCMPC_MINI
+
 static char *
 locale_casefold(const char *src)
 {
 	return g_utf8_casefold(LocaleToUtf8(src).c_str(), -1);
 }
 
+#endif
+
 MatchExpression::~MatchExpression()
 {
+#ifndef NCMPC_MINI
 	if (regex != nullptr)
 		g_regex_unref(regex);
+#endif
 }
 
 bool
 MatchExpression::Compile(const char *src, bool anchor)
 {
+#ifdef NCMPC_MINI
+	assert(expression == nullptr);
+
+	expression = src;
+	length = strlen(expression);
+
+	(void)anchor;
+
+	return true;
+#else
 	assert(regex == nullptr);
 
 	unsigned compile_flags =
@@ -54,11 +70,17 @@ MatchExpression::Compile(const char *src, bool anchor)
 			    GRegexCompileFlags(compile_flags),
 			    GRegexMatchFlags(0), nullptr);
 	return regex != nullptr;
+#endif
 }
 
 bool
 MatchExpression::operator()(const char *line) const
 {
+#ifdef NCMPC_MINI
+	assert(expression != nullptr);
+
+	return g_ascii_strncasecmp(line, expression, length) == 0;
+#else
 	assert(regex != nullptr);
 
 	char *line_folded = locale_casefold(line);
@@ -70,6 +92,7 @@ MatchExpression::operator()(const char *line) const
 
 	g_match_info_free(match_info);
 	return match;
+#endif
 }
 
 #ifndef NCMPC_MINI

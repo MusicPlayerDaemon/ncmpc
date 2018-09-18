@@ -411,11 +411,9 @@ ListWindow::Jump(const ListText &text, const char *str)
 {
 	assert(str != nullptr);
 
-#ifndef NCMPC_MINI
 	MatchExpression m;
 	if (!m.Compile(str, options.jump_prefix_only))
 		return false;
-#endif
 
 	for (unsigned i = 0; i < length; i++) {
 		char buffer[1024];
@@ -424,13 +422,7 @@ ListWindow::Jump(const ListText &text, const char *str)
 					     i);
 		assert(label != nullptr);
 
-#ifdef NCMPC_MINI
-		const bool matches = g_ascii_strncasecmp(label, str, strlen(str)) == 0;
-#else
-		const bool matches = m(label);
-#endif
-
-		if (matches) {
+		if (m(label)) {
 			MoveCursor(i);
 			return true;
 		}
