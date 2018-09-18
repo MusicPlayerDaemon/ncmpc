@@ -34,7 +34,6 @@ class Completion;
  * restore this settings when exiting.
  *
  * @param the curses window to use
- * @param prompt prompt string or nullptr
  * @param initial_value initial value or nullptr for a empty line;
  * (char *) -1 = get value from history
  * @param x1 the maximum x position or 0
@@ -43,7 +42,6 @@ class Completion;
  */
 std::string
 wreadln(WINDOW *w,
-	const char *prompt,
 	const char *initial_value,
 	unsigned x1,
 	History *history,
@@ -51,7 +49,6 @@ wreadln(WINDOW *w,
 
 std::string
 wreadln_masked(WINDOW *w,
-	       const char *prompt,
 	       const char *initial_value,
 	       unsigned x1);
 

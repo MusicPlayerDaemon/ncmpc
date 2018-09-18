@@ -104,7 +104,13 @@ screen_readln(const char *prompt,
 	wmove(w, 0,0);
 	curs_set(1);
 	SelectStyle(w, Style::STATUS_ALERT);
-	auto result = wreadln(w, prompt, value, window->size.width,
+
+	if (prompt != nullptr) {
+		waddstr(w, prompt);
+		waddstr(w, ": ");
+	}
+
+	auto result = wreadln(w, value, window->size.width,
 			      history, completion);
 	curs_set(0);
 	return result;
@@ -123,7 +129,10 @@ screen_read_password(const char *prompt)
 	if (prompt == nullptr)
 		prompt = _("Password");
 
-	auto result = wreadln_masked(w, prompt, nullptr, window->size.width);
+	waddstr(w, prompt);
+	waddstr(w, ": ");
+
+	auto result = wreadln_masked(w, nullptr, window->size.width);
 	curs_set(0);
 	return result;
 }

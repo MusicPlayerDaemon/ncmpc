@@ -275,7 +275,6 @@ wreadln::DeleteChar(size_t x)
 
 static std::string
 _wreadln(WINDOW *w,
-	 const char *prompt,
 	 const char *initial_value,
 	 unsigned x1,
 	 History *history,
@@ -291,11 +290,6 @@ _wreadln(WINDOW *w,
 
 	/* make sure the cursor is visible */
 	curs_set(1);
-	/* print prompt string */
-	if (prompt) {
-		waddstr(w, prompt);
-		waddstr(w, ": ");
-	}
 	/* retrieve y and x0 position */
 	getyx(w, wr.point.y, wr.point.x);
 	/* check the x1 value */
@@ -483,21 +477,19 @@ _wreadln(WINDOW *w,
 
 std::string
 wreadln(WINDOW *w,
-	const char *prompt,
 	const char *initial_value,
 	unsigned x1,
 	History *history,
 	Completion *completion)
 {
-	return  _wreadln(w, prompt, initial_value, x1,
+	return  _wreadln(w, initial_value, x1,
 			 history, completion, false);
 }
 
 std::string
 wreadln_masked(WINDOW *w,
-	       const char *prompt,
 	       const char *initial_value,
 	       unsigned x1)
 {
-	return  _wreadln(w, prompt, initial_value, x1, nullptr, nullptr, true);
+	return  _wreadln(w, initial_value, x1, nullptr, nullptr, true);
 }
