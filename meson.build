@@ -367,6 +367,7 @@ ncmpc = executable('ncmpc',
   'src/util/LocaleString.cxx',
   'src/util/StringStrip.cxx',
   'src/util/StringUTF8.cxx',
+  'src/util/UriUtil.cxx',
   sources,
   include_directories: inc,
   dependencies: [

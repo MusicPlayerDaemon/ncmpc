@@ -31,6 +31,7 @@
 #include "screen_utils.hxx"
 #include "screen_client.hxx"
 #include "Options.hxx"
+#include "util/UriUtil.hxx"
 
 #include <mpd/client.h>
 
@@ -130,14 +131,10 @@ FileBrowserPage::ChangeDirectory(struct mpdclient &c, std::string &&new_path)
 bool
 FileBrowserPage::ChangeToParent(struct mpdclient &c)
 {
-	char *parent = g_path_get_dirname(current_path.c_str());
-	if (strcmp(parent, ".") == 0)
-		parent[0] = '\0';
+	auto parent = GetParentUri(current_path.c_str());
+	const auto old_path = std::move(current_path);
 
-	auto old_path = std::move(current_path);
-
-	bool success = ChangeDirectory(c, parent);
-	g_free(parent);
+	bool success = ChangeDirectory(c, std::move(parent));
 
 	int idx = success
 		? filelist->FindDirectory(old_path.c_str())
@@ -177,15 +174,7 @@ FileBrowserPage::GotoSong(struct mpdclient &c, const struct mpd_song &song)
 
 	/* determine the song's parent directory and go there */
 
-	const char *slash = strrchr(uri, '/');
-	char *allocated = nullptr;
-	const char *parent = slash != nullptr
-		? (allocated = g_strndup(uri, slash - uri))
-		: "";
-
-	bool ret = ChangeDirectory(c, parent);
-	g_free(allocated);
-	if (!ret)
+	if (!ChangeDirectory(c, GetParentUri(uri)))
 		return false;
 
 	/* select the specified song */
