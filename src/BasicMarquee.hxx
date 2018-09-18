@@ -20,6 +20,8 @@
 #ifndef BASIC_MARQUEE_HXX
 #define BASIC_MARQUEE_HXX
 
+#include "util/Compiler.h"
+
 #include <string>
 
 /**
@@ -37,19 +39,19 @@ class BasicMarquee {
 	unsigned width = 0;
 
 	/**
-	 * The text length in Unicode characters.
-	 */
-	unsigned text_utf8_length;
-
-	/**
 	 * The scrolled text, in the current locale.
 	 */
 	std::string text;
 
 	/**
-	 * Thee scrolled text, in UTF-8, including separators.
+	 * A buffer containing the text plus the separator twice.
 	 */
-	char *text_utf8 = nullptr;
+	std::string buffer;
+
+	/**
+	 * The text plus separator length in characters.
+	 */
+	size_t max_offset;
 
 	/**
 	 * The current scrolling offset.  This is a character
@@ -85,11 +87,12 @@ public:
 	void Step() {
 		++offset;
 
-		if (offset >= text_utf8_length / 2)
+		if (offset >= max_offset)
 			offset = 0;
 	}
 
-	char *ScrollString() const;
+	gcc_pure
+	std::pair<const char *, size_t> ScrollString() const;
 };
 
 #endif

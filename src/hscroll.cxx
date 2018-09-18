@@ -69,7 +69,6 @@ hscroll::Paint() const
 	SelectStyle(w, style);
 
 	/* scroll the string, and draw it */
-	char *p = basic.ScrollString();
-	mvwaddstr(w, y, x, p);
-	g_free(p);
+	const auto s = basic.ScrollString();
+	mvwaddnstr(w, y, x, s.first, s.second);
 }
