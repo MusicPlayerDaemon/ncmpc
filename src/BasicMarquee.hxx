@@ -34,11 +34,6 @@ class BasicMarquee {
 	const char *const separator;
 
 	/**
-	 * The available screen width (in cells).
-	 */
-	unsigned width = 0;
-
-	/**
 	 * The scrolled text, in the current locale.
 	 */
 	std::string text;
@@ -52,6 +47,11 @@ class BasicMarquee {
 	 * The text plus separator length in characters.
 	 */
 	size_t max_offset;
+
+	/**
+	 * The available screen width (in cells).
+	 */
+	unsigned width = 0;
 
 	/**
 	 * The current scrolling offset.  This is a character
