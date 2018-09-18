@@ -41,12 +41,17 @@
 #include <errno.h>
 
 struct AsyncConnect {
-	const AsyncConnectHandler *handler;
-	void *handler_ctx;
+	const AsyncConnectHandler &handler;
+	void *const handler_ctx;
 
-	socket_t fd;
+	const socket_t fd;
 
 	guint source_id;
+
+	AsyncConnect(socket_t _fd,
+		     const AsyncConnectHandler &_handler, void *_ctx)
+		:handler(_handler), handler_ctx(_ctx),
+		 fd(_fd) {}
 };
 
 static gboolean
@@ -57,7 +62,7 @@ async_connect_source_callback(gcc_unused GIOChannel *source,
 	auto *ac = (AsyncConnect *)data;
 
 	const int fd = ac->fd;
-	const AsyncConnectHandler *const handler = ac->handler;
+	auto &handler = ac->handler;
 	void *const ctx = ac->handler_ctx;
 	delete ac;
 
@@ -69,13 +74,13 @@ async_connect_source_callback(gcc_unused GIOChannel *source,
 		s_err = -last_socket_error();
 
 	if (s_err == 0) {
-		handler->success(fd, ctx);
+		handler.success(fd, ctx);
 	} else {
 		close_socket(fd);
 		char msg[256];
 		snprintf(msg, sizeof(msg), "Failed to connect socket: %s",
 			 strerror(-s_err));
-		handler->error(msg, ctx);
+		handler.error(msg, ctx);
 	}
 
 	return false;
@@ -110,10 +115,7 @@ async_connect_start(AsyncConnect **acp,
 		return;
 	}
 
-	AsyncConnect *ac = new AsyncConnect();
-	ac->handler = handler;
-	ac->handler_ctx = ctx;
-	ac->fd = fd;
+	AsyncConnect *ac = new AsyncConnect(fd, *handler, ctx);
 
 	GIOChannel *channel = g_io_channel_unix_new(fd);
 	ac->source_id = g_io_add_watch(channel, G_IO_OUT,
