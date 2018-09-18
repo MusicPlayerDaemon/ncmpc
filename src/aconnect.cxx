@@ -28,6 +28,7 @@
 
 #include "aconnect.hxx"
 #include "net/AsyncResolveConnect.hxx"
+#include "net/AsyncHandler.hxx"
 #include "net/socket.hxx"
 #include "util/Compiler.h"
 
@@ -41,7 +42,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-struct AsyncMpdConnect {
+struct AsyncMpdConnect final : AsyncConnectHandler {
 	const AsyncMpdConnectHandler *handler;
 	void *handler_ctx;
 
@@ -49,6 +50,10 @@ struct AsyncMpdConnect {
 
 	int fd;
 	guint source_id;
+
+	/* virtual methods from AsyncConnectHandler */
+	void OnConnect(socket_t fd) override;
+	void OnConnectError(const char *message) override;
 };
 
 static gboolean
@@ -103,34 +108,27 @@ aconnect_source_callback(gcc_unused GIOChannel *source,
 	return false;
 }
 
-static void
-aconnect_rconnect_success(int fd, void *ctx)
+void
+AsyncMpdConnect::OnConnect(socket_t _fd)
 {
-	auto *ac = (AsyncMpdConnect *)ctx;
-	ac->rconnect = nullptr;
+	rconnect = nullptr;
 
-	ac->fd = fd;
+	fd = _fd;
 
 	GIOChannel *channel = g_io_channel_unix_new(fd);
-	ac->source_id = g_io_add_watch(channel, G_IO_IN,
-				       aconnect_source_callback, ac);
+	source_id = g_io_add_watch(channel, G_IO_IN,
+				   aconnect_source_callback, this);
 	g_io_channel_unref(channel);
 }
 
-static void
-aconnect_rconnect_error(const char *message, void *ctx)
+void
+AsyncMpdConnect::OnConnectError(const char *message)
 {
-	auto *ac = (AsyncMpdConnect *)ctx;
-	ac->rconnect = nullptr;
+	rconnect = nullptr;
 
-	ac->handler->error(message, ac->handler_ctx);
-	delete ac;
+	handler->error(message, handler_ctx);
+	delete this;
 }
-
-static const AsyncResolveConnectHandler aconnect_rconnect_handler = {
-	.success = aconnect_rconnect_success,
-	.error = aconnect_rconnect_error,
-};
 
 void
 aconnect_start(AsyncMpdConnect **acp,
@@ -143,8 +141,7 @@ aconnect_start(AsyncMpdConnect **acp,
 
 	*acp = ac;
 
-	async_rconnect_start(&ac->rconnect, host, port,
-			     &aconnect_rconnect_handler, ac);
+	async_rconnect_start(&ac->rconnect, host, port, *ac);
 }
 
 void

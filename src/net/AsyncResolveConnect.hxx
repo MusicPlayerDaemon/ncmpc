@@ -29,14 +29,8 @@
 #ifndef NET_ASYNC_RESOLVE_CONNECT_HXX
 #define NET_ASYNC_RESOLVE_CONNECT_HXX
 
-#include <mpd/client.h>
-
 struct AsyncResolveConnect;
-
-struct AsyncResolveConnectHandler {
-	void (*success)(int fd, void *ctx);
-	void (*error)(const char *message, void *ctx);
-};
+class AsyncConnectHandler;
 
 /**
  * Resolve a host name and connect to it asynchronously.
@@ -44,7 +38,7 @@ struct AsyncResolveConnectHandler {
 void
 async_rconnect_start(AsyncResolveConnect **rcp,
 		     const char *host, unsigned port,
-		     const AsyncResolveConnectHandler *handler, void *ctx);
+		     AsyncConnectHandler &handler);
 
 void
 async_rconnect_cancel(AsyncResolveConnect *rc);

@@ -39,8 +39,7 @@
 #include <string.h>
 
 struct AsyncResolveConnect final : AsyncConnectHandler {
-	const AsyncResolveConnectHandler *handler;
-	void *handler_ctx;
+	AsyncConnectHandler &handler;
 
 	const char *host;
 	struct resolver *resolver;
@@ -50,9 +49,8 @@ struct AsyncResolveConnect final : AsyncConnectHandler {
 	std::string last_error;
 
 	AsyncResolveConnect(const char *_host, struct resolver *_resolver,
-			    const AsyncResolveConnectHandler &_handler,
-			    void *_ctx)
-		:handler(&_handler), handler_ctx(_ctx),
+			    AsyncConnectHandler &_handler)
+		:handler(_handler),
 		 host(_host), resolver(_resolver) {}
 
 	~AsyncResolveConnect() {
@@ -74,7 +72,7 @@ AsyncResolveConnect::OnConnect(socket_t fd)
 {
 	connect = nullptr;
 
-	handler->success(fd, handler_ctx);
+	handler.OnConnect(fd);
 
 	delete this;
 }
@@ -108,7 +106,7 @@ async_rconnect_next(AsyncResolveConnect *rc)
 				 rc->host, rc->last_error.c_str());
 		}
 
-		rc->handler->error(msg, rc->handler_ctx);
+		rc->handler.OnConnectError(msg);
 		delete rc;
 		return;
 	}
@@ -120,7 +118,7 @@ async_rconnect_next(AsyncResolveConnect *rc)
 void
 async_rconnect_start(AsyncResolveConnect **rcp,
 		     const char *host, unsigned port,
-		     const AsyncResolveConnectHandler *handler, void *ctx)
+		     AsyncConnectHandler &handler)
 {
 	struct resolver *r = resolver_new(host, port);
 	if (host == nullptr)
@@ -130,11 +128,11 @@ async_rconnect_start(AsyncResolveConnect **rcp,
 		char msg[256];
 		snprintf(msg, sizeof(msg), "Failed to resolve host '%s'",
 			 host);
-		handler->error(msg, ctx);
+		handler.OnConnectError(msg);
 		return;
 	}
 
-	auto *rc = new AsyncResolveConnect(host, r, *handler, ctx);
+	auto *rc = new AsyncResolveConnect(host, r, handler);
 	*rcp = rc;
 
 	async_rconnect_next(rc);
