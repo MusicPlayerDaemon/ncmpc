@@ -42,6 +42,31 @@ IsIncompleteCharMB(const char *s, size_t n)
 }
 
 std::size_t
+StringLengthMB(const char *s, size_t byte_length)
+{
+	const char *const end = s + byte_length;
+	auto state = std::mbstate_t();
+
+	size_t length = 0;
+	while (s < end) {
+		wchar_t w;
+		std::size_t n = std::mbrtowc(&w, s, end - s, &state);
+		if (n == std::size_t(-2))
+			break;
+
+		if (n == std::size_t(-1) || n == 0) {
+			++s;
+		} else {
+			s += n;
+			++length;
+		}
+	}
+
+	return length;
+
+}
+
+std::size_t
 CharSizeMB(const char *s, size_t n)
 {
 	auto mb = std::mbstate_t();

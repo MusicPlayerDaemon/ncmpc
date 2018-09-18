@@ -42,6 +42,14 @@ bool
 IsIncompleteCharMB(const char *s, size_t n);
 
 /**
+ * Returns the length of the given locale (multi-byte) string in
+ * characters.
+ */
+gcc_pure
+std::size_t
+StringLengthMB(const char *s, size_t n);
+
+/**
  * Wrapper for std::mbrlen() which attempts to recover with a best
  * effort from invalid or incomplete sequences.
  */
