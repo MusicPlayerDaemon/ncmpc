@@ -25,12 +25,21 @@
 
 typedef struct _GRegex GRegex;
 
-GRegex *
-compile_regex(const char *src, bool anchor);
+class MatchExpression {
+	GRegex *regex = nullptr;
 
-gcc_pure
-bool
-match_regex(GRegex *regex, const char *line);
+public:
+	MatchExpression() = default;
+	~MatchExpression();
+
+	MatchExpression(const MatchExpression &) = delete;
+	MatchExpression &operator=(const MatchExpression &) = delete;
+
+	bool Compile(const char *src, bool anchor);
+
+	gcc_pure
+	bool operator()(const char *line) const;
+};
 
 #ifdef NCMPC_MINI
 

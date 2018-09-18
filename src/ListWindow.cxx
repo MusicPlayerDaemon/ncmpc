@@ -412,11 +412,9 @@ ListWindow::Jump(const ListText &text, const char *str)
 	assert(str != nullptr);
 
 #ifndef NCMPC_MINI
-	GRegex *regex = compile_regex(str, options.jump_prefix_only);
-	if (regex == nullptr)
+	MatchExpression m;
+	if (!m.Compile(str, options.jump_prefix_only))
 		return false;
-
-	AtScopeExit(regex) { g_regex_unref(regex); };
 #endif
 
 	for (unsigned i = 0; i < length; i++) {
@@ -429,7 +427,7 @@ ListWindow::Jump(const ListText &text, const char *str)
 #ifdef NCMPC_MINI
 		const bool matches = g_ascii_strncasecmp(label, str, strlen(str)) == 0;
 #else
-		const bool matches = match_regex(regex, label);
+		const bool matches = m(label);
 #endif
 
 		if (matches) {

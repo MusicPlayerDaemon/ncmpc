@@ -23,15 +23,25 @@
 
 #include <glib.h>
 
+#include <assert.h>
+
 static char *
 locale_casefold(const char *src)
 {
 	return g_utf8_casefold(LocaleToUtf8(src).c_str(), -1);
 }
 
-GRegex *
-compile_regex(const char *src, bool anchor)
+MatchExpression::~MatchExpression()
 {
+	if (regex != nullptr)
+		g_regex_unref(regex);
+}
+
+bool
+MatchExpression::Compile(const char *src, bool anchor)
+{
+	assert(regex == nullptr);
+
 	unsigned compile_flags =
 		G_REGEX_CASELESS | G_REGEX_DOTALL | G_REGEX_OPTIMIZE;
 	if (anchor)
@@ -40,14 +50,17 @@ compile_regex(const char *src, bool anchor)
 	char *src_folded = locale_casefold(src);
 	AtScopeExit(src_folded) { g_free(src_folded); };
 
-	return g_regex_new((const gchar*)src_folded,
-			   GRegexCompileFlags(compile_flags),
-			   GRegexMatchFlags(0), nullptr);
+	regex = g_regex_new((const gchar*)src_folded,
+			    GRegexCompileFlags(compile_flags),
+			    GRegexMatchFlags(0), nullptr);
+	return regex != nullptr;
 }
 
 bool
-match_regex(GRegex *regex, const char *line)
+MatchExpression::operator()(const char *line) const
 {
+	assert(regex != nullptr);
+
 	char *line_folded = locale_casefold(line);
 	AtScopeExit(line_folded) { g_free(line_folded); };
 
