@@ -27,7 +27,7 @@
 */
 
 #include "async_rconnect.hxx"
-#include "async_connect.hxx"
+#include "AsyncConnect.hxx"
 #include "resolver.hxx"
 #include "util/Compiler.h"
 
@@ -44,7 +44,7 @@ struct async_rconnect {
 	const char *host;
 	struct resolver *resolver;
 
-	struct async_connect *connect = nullptr;
+	AsyncConnect *connect = nullptr;
 
 	std::string last_error;
 
@@ -86,7 +86,7 @@ async_rconnect_error(const char *message, void *ctx)
 	async_rconnect_next(rc);
 }
 
-static const struct async_connect_handler async_rconnect_connect_handler = {
+static constexpr AsyncConnectHandler async_rconnect_connect_handler = {
 	.success = async_rconnect_success,
 	.error = async_rconnect_error,
 };

@@ -225,7 +225,7 @@ if async_connect
   sources += [
     'src/net/socket.cxx',
     'src/net/resolver.cxx',
-    'src/net/async_connect.cxx',
+    'src/net/AsyncConnect.cxx',
     'src/net/async_rconnect.cxx',
     'src/aconnect.cxx',
   ]

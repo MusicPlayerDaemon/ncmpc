@@ -26,7 +26,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "async_connect.hxx"
+#include "AsyncConnect.hxx"
 #include "util/Compiler.h"
 
 #include <glib.h>
@@ -40,8 +40,8 @@
 #include <string.h>
 #include <errno.h>
 
-struct async_connect {
-	const struct async_connect_handler *handler;
+struct AsyncConnect {
+	const AsyncConnectHandler *handler;
 	void *handler_ctx;
 
 	socket_t fd;
@@ -54,10 +54,10 @@ async_connect_source_callback(gcc_unused GIOChannel *source,
 			      gcc_unused GIOCondition condition,
 			      gpointer data)
 {
-	auto *ac = (struct async_connect *)data;
+	auto *ac = (AsyncConnect *)data;
 
 	const int fd = ac->fd;
-	const struct async_connect_handler *const handler = ac->handler;
+	const AsyncConnectHandler *const handler = ac->handler;
 	void *const ctx = ac->handler_ctx;
 	g_free(ac);
 
@@ -82,9 +82,9 @@ async_connect_source_callback(gcc_unused GIOChannel *source,
 }
 
 void
-async_connect_start(struct async_connect **acp,
+async_connect_start(AsyncConnect **acp,
 		    const struct sockaddr *address, size_t address_size,
-		    const struct async_connect_handler *handler, void *ctx)
+		    const AsyncConnectHandler *handler, void *ctx)
 {
 	socket_t fd = create_socket(address->sa_family, SOCK_STREAM, 0);
 	if (fd == INVALID_SOCKET) {
@@ -110,7 +110,7 @@ async_connect_start(struct async_connect **acp,
 		return;
 	}
 
-	struct async_connect *ac = g_new(struct async_connect, 1);
+	AsyncConnect *ac = g_new(AsyncConnect, 1);
 	ac->handler = handler;
 	ac->handler_ctx = ctx;
 	ac->fd = fd;
@@ -124,7 +124,7 @@ async_connect_start(struct async_connect **acp,
 }
 
 void
-async_connect_cancel(struct async_connect *ac)
+async_connect_cancel(AsyncConnect *ac)
 {
 	g_source_remove(ac->source_id);
 	close_socket(ac->fd);
