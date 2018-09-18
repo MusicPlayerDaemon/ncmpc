@@ -28,6 +28,7 @@
 
 #include "AsyncResolveConnect.hxx"
 #include "AsyncConnect.hxx"
+#include "AsyncHandler.hxx"
 #include "resolver.hxx"
 #include "util/Compiler.h"
 

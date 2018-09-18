@@ -26,25 +26,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef NET_ASYNC_CONNECT_HXX
-#define NET_ASYNC_CONNECT_HXX
+#ifndef NET_ASYNC_HANDLER_HXX
+#define NET_ASYNC_HANDLER_HXX
 
-#include <stddef.h>
+#include "socket.hxx"
 
-struct sockaddr;
-struct AsyncConnect;
-class AsyncConnectHandler;
-
-/**
- * Create a socket and connect it to the given address.
- */
-void
-async_connect_start(AsyncConnect **acp,
-		    const struct sockaddr *address,
-		    size_t address_size,
-		    AsyncConnectHandler &handler);
-
-void
-async_connect_cancel(AsyncConnect *ac);
+class AsyncConnectHandler {
+public:
+	virtual void OnConnect(socket_t fd) = 0;
+	virtual void OnConnectError(const char *message) = 0;
+};
 
 #endif
