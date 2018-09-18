@@ -59,6 +59,16 @@ const char *
 PrevCharMB(const char *start, const char *reference);
 
 /**
+ * Find the `i`th character of the given string.  Returns the end of
+ * the string if the string is shorter than `i` characters.
+ *
+ * @param s the start of the string
+ */
+gcc_pure
+const char *
+AtCharMB(const char *s, size_t length, size_t i);
+
+/**
  * Returns the number of terminal cells occupied by this multi-byte
  * string.
  */

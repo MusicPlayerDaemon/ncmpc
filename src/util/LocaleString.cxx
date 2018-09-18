@@ -72,6 +72,32 @@ PrevCharMB(const char *start, const char *reference)
 	return p;
 }
 
+const char *
+AtCharMB(const char *s, size_t length, size_t i)
+{
+	const char *const end = s + length;
+	auto state = std::mbstate_t();
+
+	while (i > 0) {
+		wchar_t w;
+		std::size_t n = std::mbrtowc(&w, s, end - s, &state);
+
+		if (n == std::size_t(-2)) {
+			s += strlen(s);
+			break;
+		}
+
+		--i;
+
+		if (n == std::size_t(-1) || n == 0)
+			++s;
+		else
+			s += n;
+	}
+
+	return s;
+}
+
 size_t
 StringWidthMB(const char *s, size_t length)
 {
