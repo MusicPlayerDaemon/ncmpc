@@ -255,7 +255,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 		char prompt[256];
 		snprintf(prompt, sizeof(prompt),
 			 _("Delete playlist %s?"),
-			 Utf8ToLocale(g_basename(mpd_playlist_get_path(playlist))).c_str());
+			 Utf8ToLocale(GetUriFilename(mpd_playlist_get_path(playlist))).c_str());
 		bool confirmed = screen_get_yesno(prompt, false);
 		if (!confirmed) {
 			/* translators: a dialog was aborted by the user */

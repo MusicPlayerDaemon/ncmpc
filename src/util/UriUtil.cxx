@@ -21,6 +21,13 @@
 
 #include <string.h>
 
+const char *
+GetUriFilename(const char *uri)
+{
+	const char *slash = strrchr(uri, '/');
+	return slash != nullptr ? slash + 1 : uri;
+}
+
 std::string
 GetParentUri(const char *uri)
 {

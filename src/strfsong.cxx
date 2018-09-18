@@ -20,6 +20,7 @@
 #include "strfsong.hxx"
 #include "charset.hxx"
 #include "time_format.hxx"
+#include "util/UriUtil.hxx"
 
 #include <mpd/client.h>
 
@@ -245,7 +246,7 @@ _strfsong(char *s,
 		else if (strncmp("%shortfile%", p, n) == 0) {
 			const char *uri = mpd_song_get_uri(song);
 			if (strstr(uri, "://") == nullptr)
-				uri = g_basename(uri);
+				uri = GetUriFilename(uri);
 			temp = utf8_to_locale(uri);
 		} else if (strncmp("%time%", p, n) == 0) {
 			unsigned duration = mpd_song_get_duration(song);

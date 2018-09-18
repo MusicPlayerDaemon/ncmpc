@@ -25,6 +25,15 @@
 #include <string>
 
 /**
+ * Determins the last segment of the given URI path, i.e. the portion
+ * after the last slash.  May return an empty string if the URI ends
+ * with a slash.
+ */
+gcc_pure
+const char *
+GetUriFilename(const char *uri);
+
+/**
  * Return the "parent directory" of the given URI path, i.e. the
  * portion up to the last (forward) slash.  Returns an empty string if
  * there is no parent.

@@ -35,6 +35,7 @@
 #include "Styles.hxx"
 #include "paint.hxx"
 #include "song_paint.hxx"
+#include "util/UriUtil.hxx"
 
 #include <mpd/client.h>
 
@@ -91,7 +92,7 @@ FileListPage::GetListItemText(char *buffer, size_t size,
 
 	if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY) {
 		const auto *dir = mpd_entity_get_directory(entity);
-		const char *name = g_basename(mpd_directory_get_path(dir));
+		const char *name = GetUriFilename(mpd_directory_get_path(dir));
 		g_strlcpy(buffer, Utf8ToLocale(name).c_str(), size);
 		return buffer;
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
@@ -101,7 +102,7 @@ FileListPage::GetListItemText(char *buffer, size_t size,
 		return buffer;
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
 		const auto *playlist = mpd_entity_get_playlist(entity);
-		const char *name = g_basename(mpd_playlist_get_path(playlist));
+		const char *name = GetUriFilename(mpd_playlist_get_path(playlist));
 		g_strlcpy(buffer, Utf8ToLocale(name).c_str(), size);
 		return buffer;
 	}
@@ -117,7 +118,7 @@ load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 		return false;
 
 	if (mpd_run_load(connection, mpd_playlist_get_path(playlist))) {
-		const char *name = g_basename(mpd_playlist_get_path(playlist));
+		const char *name = GetUriFilename(mpd_playlist_get_path(playlist));
 		screen_status_printf(_("Loading playlist '%s'"),
 				     Utf8ToLocale(name).c_str());
 
@@ -506,7 +507,7 @@ FileListPage::PaintListItem(WINDOW *w, unsigned i,
 
 	case MPD_ENTITY_TYPE_DIRECTORY:
 		directory = mpd_entity_get_directory(entity);
-		name = g_basename(mpd_directory_get_path(directory));
+		name = GetUriFilename(mpd_directory_get_path(directory));
 		screen_browser_paint_directory(w, width, selected,
 					       Utf8ToLocale(name).c_str());
 		break;
@@ -519,7 +520,7 @@ FileListPage::PaintListItem(WINDOW *w, unsigned i,
 
 	case MPD_ENTITY_TYPE_PLAYLIST:
 		playlist = mpd_entity_get_playlist(entity);
-		name = g_basename(mpd_playlist_get_path(playlist));
+		name = GetUriFilename(mpd_playlist_get_path(playlist));
 		screen_browser_paint_playlist(w, width, selected,
 					      Utf8ToLocale(name).c_str());
 		break;
