@@ -31,6 +31,7 @@ class MatchExpression {
 #ifdef NCMPC_MINI
 	const char *expression;
 	size_t length;
+	bool anchored;
 #else
 	GRegex *regex = nullptr;
 #endif
@@ -47,26 +48,5 @@ public:
 	gcc_pure
 	bool operator()(const char *line) const;
 };
-
-#ifdef NCMPC_MINI
-
-#include <string.h>
-
-static inline bool
-match_line(const char *line, const char *needle)
-{
-	return strstr(line, needle) != nullptr;
-}
-#else
-
-/**
- * Checks whether the specified line matches the search string.  Case
- * is ignored.
- */
-gcc_pure
-bool
-match_line(const char *line, const char *needle);
-
-#endif
 
 #endif

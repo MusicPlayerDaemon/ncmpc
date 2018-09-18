@@ -337,6 +337,10 @@ ListWindow::Find(const ListText &text,
 
 	assert(str != nullptr);
 
+	MatchExpression m;
+	if (!m.Compile(str, false))
+		return false;
+
 	do {
 		while (i < length) {
 			char buffer[1024];
@@ -345,7 +349,7 @@ ListWindow::Find(const ListText &text,
 						     i);
 			assert(label != nullptr);
 
-			if (match_line(label, str)) {
+			if (m(label)) {
 				MoveCursor(i);
 				return true;
 			}
@@ -379,6 +383,10 @@ ListWindow::ReverseFind(const ListText &text,
 	if (length == 0)
 		return false;
 
+	MatchExpression m;
+	if (!m.Compile(str, false))
+		return false;
+
 	do {
 		while (i >= 0) {
 			char buffer[1024];
@@ -387,7 +395,7 @@ ListWindow::ReverseFind(const ListText &text,
 						     i);
 			assert(label != nullptr);
 
-			if (match_line(label, str)) {
+			if (m(label)) {
 				MoveCursor(i);
 				return true;
 			}

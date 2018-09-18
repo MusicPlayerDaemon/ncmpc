@@ -51,8 +51,7 @@ MatchExpression::Compile(const char *src, bool anchor)
 
 	expression = src;
 	length = strlen(expression);
-
-	(void)anchor;
+	anchored = anchor;
 
 	return true;
 #else
@@ -79,7 +78,9 @@ MatchExpression::operator()(const char *line) const
 #ifdef NCMPC_MINI
 	assert(expression != nullptr);
 
-	return g_ascii_strncasecmp(line, expression, length) == 0;
+	return anchored
+		? g_ascii_strncasecmp(line, expression, length) == 0
+		: strstr(line, expression) != nullptr;
 #else
 	assert(regex != nullptr);
 
@@ -94,24 +95,3 @@ MatchExpression::operator()(const char *line) const
 	return match;
 #endif
 }
-
-#ifndef NCMPC_MINI
-
-bool
-match_line(const char *line, const char *needle)
-{
-	char *line_folded = locale_casefold(line);
-	char *needle_folded = locale_casefold(needle);
-
-	bool ret = (bool)g_regex_match_simple((const gchar*)needle_folded,
-					      (const gchar*)line_folded,
-					      GRegexCompileFlags(G_REGEX_CASELESS | G_REGEX_DOTALL | G_REGEX_OPTIMIZE),
-					      GRegexMatchFlags(0));
-
-	g_free(line_folded);
-	g_free(needle_folded);
-
-	return ret;
-}
-
-#endif
