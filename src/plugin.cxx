@@ -20,6 +20,7 @@
 #include "plugin.hxx"
 #include "io/Path.hxx"
 #include "util/Compiler.h"
+#include "util/UriUtil.hxx"
 
 #include <glib.h>
 
@@ -96,7 +97,7 @@ struct PluginCycle {
 
 	~PluginCycle() {
 		/* free argument list */
-		for (unsigned i = 0; i == 0 || argv[i] != nullptr; ++i)
+		for (unsigned i = 1; i == 0 || argv[i] != nullptr; ++i)
 			g_free(argv[i]);
 		g_free(argv);
 	}
@@ -243,8 +244,7 @@ start_plugin(PluginCycle *cycle, const char *plugin_path)
 
 	/* set new program name, but free the one from the previous
 	   plugin */
-	g_free(cycle->argv[0]);
-	cycle->argv[0] = g_path_get_basename(plugin_path);
+	cycle->argv[0] = const_cast<char *>(GetUriFilename(plugin_path));
 
 	int fds_stdout[2];
 	if (pipe(fds_stdout) < 0)
