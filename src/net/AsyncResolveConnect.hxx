@@ -26,14 +26,14 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef NET_ASYNC_RCONNECT_H
-#define NET_ASYNC_RCONNECT_H
+#ifndef NET_ASYNC_RESOLVE_CONNECT_HXX
+#define NET_ASYNC_RESOLVE_CONNECT_HXX
 
 #include <mpd/client.h>
 
-struct async_rconnect;
+struct AsyncResolveConnect;
 
-struct async_rconnect_handler {
+struct AsyncResolveConnectHandler {
 	void (*success)(int fd, void *ctx);
 	void (*error)(const char *message, void *ctx);
 };
@@ -42,11 +42,11 @@ struct async_rconnect_handler {
  * Resolve a host name and connect to it asynchronously.
  */
 void
-async_rconnect_start(struct async_rconnect **rcp,
+async_rconnect_start(AsyncResolveConnect **rcp,
 		     const char *host, unsigned port,
-		     const struct async_rconnect_handler *handler, void *ctx);
+		     const AsyncResolveConnectHandler *handler, void *ctx);
 
 void
-async_rconnect_cancel(struct async_rconnect *rc);
+async_rconnect_cancel(AsyncResolveConnect *rc);
 
 #endif

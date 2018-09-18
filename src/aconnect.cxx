@@ -27,7 +27,7 @@
 */
 
 #include "aconnect.hxx"
-#include "net/async_rconnect.hxx"
+#include "net/AsyncResolveConnect.hxx"
 #include "net/socket.hxx"
 #include "util/Compiler.h"
 
@@ -45,7 +45,7 @@ struct AsyncMpdConnect {
 	const AsyncMpdConnectHandler *handler;
 	void *handler_ctx;
 
-	struct async_rconnect *rconnect;
+	AsyncResolveConnect *rconnect;
 
 	int fd;
 	guint source_id;
@@ -127,7 +127,7 @@ aconnect_rconnect_error(const char *message, void *ctx)
 	delete ac;
 }
 
-static const struct async_rconnect_handler aconnect_rconnect_handler = {
+static const AsyncResolveConnectHandler aconnect_rconnect_handler = {
 	.success = aconnect_rconnect_success,
 	.error = aconnect_rconnect_error,
 };

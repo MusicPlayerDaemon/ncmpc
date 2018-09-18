@@ -26,7 +26,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "async_rconnect.hxx"
+#include "AsyncResolveConnect.hxx"
 #include "AsyncConnect.hxx"
 #include "resolver.hxx"
 #include "util/Compiler.h"
@@ -37,8 +37,8 @@
 #include <stdio.h>
 #include <string.h>
 
-struct async_rconnect {
-	const struct async_rconnect_handler *handler;
+struct AsyncResolveConnect {
+	const AsyncResolveConnectHandler *handler;
 	void *handler_ctx;
 
 	const char *host;
@@ -48,13 +48,13 @@ struct async_rconnect {
 
 	std::string last_error;
 
-	async_rconnect(const char *_host, struct resolver *_resolver,
-		       const struct async_rconnect_handler &_handler,
-		       void *_ctx)
+	AsyncResolveConnect(const char *_host, struct resolver *_resolver,
+			    const AsyncResolveConnectHandler &_handler,
+			    void *_ctx)
 		:handler(&_handler), handler_ctx(_ctx),
 		 host(_host), resolver(_resolver) {}
 
-	~async_rconnect() {
+	~AsyncResolveConnect() {
 		if (connect != nullptr)
 			async_connect_cancel(connect);
 		resolver_free(resolver);
@@ -62,12 +62,12 @@ struct async_rconnect {
 };
 
 static void
-async_rconnect_next(struct async_rconnect *rc);
+async_rconnect_next(AsyncResolveConnect *rc);
 
 static void
 async_rconnect_success(socket_t fd, void *ctx)
 {
-	auto *rc = (struct async_rconnect *)ctx;
+	auto *rc = (AsyncResolveConnect *)ctx;
 	rc->connect = nullptr;
 
 	rc->handler->success(fd, rc->handler_ctx);
@@ -78,7 +78,7 @@ async_rconnect_success(socket_t fd, void *ctx)
 static void
 async_rconnect_error(const char *message, void *ctx)
 {
-	auto *rc = (struct async_rconnect *)ctx;
+	auto *rc = (AsyncResolveConnect *)ctx;
 	rc->connect = nullptr;
 
 	rc->last_error = message;
@@ -92,7 +92,7 @@ static constexpr AsyncConnectHandler async_rconnect_connect_handler = {
 };
 
 static void
-async_rconnect_next(struct async_rconnect *rc)
+async_rconnect_next(AsyncResolveConnect *rc)
 {
 	assert(rc->connect == nullptr);
 
@@ -120,9 +120,9 @@ async_rconnect_next(struct async_rconnect *rc)
 }
 
 void
-async_rconnect_start(struct async_rconnect **rcp,
+async_rconnect_start(AsyncResolveConnect **rcp,
 		     const char *host, unsigned port,
-		     const struct async_rconnect_handler *handler, void *ctx)
+		     const AsyncResolveConnectHandler *handler, void *ctx)
 {
 	struct resolver *r = resolver_new(host, port);
 	if (host == nullptr)
@@ -136,14 +136,14 @@ async_rconnect_start(struct async_rconnect **rcp,
 		return;
 	}
 
-	auto *rc = new async_rconnect(host, r, *handler, ctx);
+	auto *rc = new AsyncResolveConnect(host, r, *handler, ctx);
 	*rcp = rc;
 
 	async_rconnect_next(rc);
 }
 
 void
-async_rconnect_cancel(struct async_rconnect *rc)
+async_rconnect_cancel(AsyncResolveConnect *rc)
 {
 	delete rc;
 }

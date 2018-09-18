@@ -226,7 +226,7 @@ if async_connect
     'src/net/socket.cxx',
     'src/net/resolver.cxx',
     'src/net/AsyncConnect.cxx',
-    'src/net/async_rconnect.cxx',
+    'src/net/AsyncResolveConnect.cxx',
     'src/aconnect.cxx',
   ]
 endif
