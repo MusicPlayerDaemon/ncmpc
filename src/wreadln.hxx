@@ -28,16 +28,26 @@
 
 class Completion;
 
-/* Note, wreadln calls curs_set(), to enable cursor. wreadln will not restore these settings when exiting! */
+/**
+ *
+ * This function calls curs_set(1), to enable cursor.  It will not
+ * restore this settings when exiting.
+ *
+ * @param the curses window to use
+ * @param prompt prompt string or nullptr
+ * @param initial_value initial value or nullptr for a empty line;
+ * (char *) -1 = get value from history
+ * @param x1 the maximum x position or 0
+ * @param history a pointer to a history list or nullptr
+ * @param a #Completion instance or nullptr
+ */
 std::string
-wreadln(WINDOW *w,            /* the curses window to use */
-	const char *prompt, /* the prompt string or nullptr */
-	const char *initial_value, /* initial value or nullptr for a empty line
-				    * (char *) -1 = get value from history */
-	unsigned x1,              /* the maximum x position or 0 */
-	History *history, /* a pointer to a history list or nullptr */
-	Completion *completion    /* a GCompletion structure or nullptr */
-	);
+wreadln(WINDOW *w,
+	const char *prompt,
+	const char *initial_value,
+	unsigned x1,
+	History *history,
+	Completion *completion);
 
 std::string
 wreadln_masked(WINDOW *w,
