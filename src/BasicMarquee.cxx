@@ -46,8 +46,6 @@ BasicMarquee::Set(unsigned _width, const char *_text)
 		   not reset the current offset!) */
 		return false;
 
-	Clear();
-
 	width = _width;
 	offset = 0;
 
