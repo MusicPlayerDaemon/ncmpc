@@ -37,7 +37,7 @@
 #include <stdio.h>
 #include <string.h>
 
-struct AsyncResolveConnect {
+struct AsyncResolveConnect final : AsyncConnectHandler {
 	const AsyncResolveConnectHandler *handler;
 	void *handler_ctx;
 
@@ -59,37 +59,34 @@ struct AsyncResolveConnect {
 			async_connect_cancel(connect);
 		resolver_free(resolver);
 	}
+
+	/* virtual methods from AsyncConnectHandler */
+	void OnConnect(socket_t fd) override;
+	void OnConnectError(const char *message) override;
 };
 
 static void
 async_rconnect_next(AsyncResolveConnect *rc);
 
-static void
-async_rconnect_success(socket_t fd, void *ctx)
+void
+AsyncResolveConnect::OnConnect(socket_t fd)
 {
-	auto *rc = (AsyncResolveConnect *)ctx;
-	rc->connect = nullptr;
+	connect = nullptr;
 
-	rc->handler->success(fd, rc->handler_ctx);
+	handler->success(fd, handler_ctx);
 
-	delete rc;
+	delete this;
 }
 
-static void
-async_rconnect_error(const char *message, void *ctx)
+void
+AsyncResolveConnect::OnConnectError(const char *message)
 {
-	auto *rc = (AsyncResolveConnect *)ctx;
-	rc->connect = nullptr;
+	connect = nullptr;
 
-	rc->last_error = message;
+	last_error = message;
 
-	async_rconnect_next(rc);
+	async_rconnect_next(this);
 }
-
-static constexpr AsyncConnectHandler async_rconnect_connect_handler = {
-	.success = async_rconnect_success,
-	.error = async_rconnect_error,
-};
 
 static void
 async_rconnect_next(AsyncResolveConnect *rc)
@@ -116,7 +113,7 @@ async_rconnect_next(AsyncResolveConnect *rc)
 	}
 
 	async_connect_start(&rc->connect, a->addr, a->addrlen,
-			    &async_rconnect_connect_handler, rc);
+			    *rc);
 }
 
 void

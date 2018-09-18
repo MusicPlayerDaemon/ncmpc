@@ -36,9 +36,10 @@
 struct sockaddr;
 struct AsyncConnect;
 
-struct AsyncConnectHandler {
-	void (*success)(socket_t fd, void *ctx);
-	void (*error)(const char *message, void *ctx);
+class AsyncConnectHandler {
+public:
+	virtual void OnConnect(socket_t fd) = 0;
+	virtual void OnConnectError(const char *message) = 0;
 };
 
 /**
@@ -48,7 +49,7 @@ void
 async_connect_start(AsyncConnect **acp,
 		    const struct sockaddr *address,
 		    size_t address_size,
-		    const AsyncConnectHandler *handler, void *ctx);
+		    AsyncConnectHandler &handler);
 
 void
 async_connect_cancel(AsyncConnect *ac);

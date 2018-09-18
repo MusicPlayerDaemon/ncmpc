@@ -41,16 +41,15 @@
 #include <errno.h>
 
 struct AsyncConnect {
-	const AsyncConnectHandler &handler;
-	void *const handler_ctx;
+	AsyncConnectHandler &handler;
 
 	const socket_t fd;
 
 	guint source_id;
 
 	AsyncConnect(socket_t _fd,
-		     const AsyncConnectHandler &_handler, void *_ctx)
-		:handler(_handler), handler_ctx(_ctx),
+		     AsyncConnectHandler &_handler)
+		:handler(_handler),
 		 fd(_fd) {}
 };
 
@@ -63,7 +62,6 @@ async_connect_source_callback(gcc_unused GIOChannel *source,
 
 	const int fd = ac->fd;
 	auto &handler = ac->handler;
-	void *const ctx = ac->handler_ctx;
 	delete ac;
 
 	int s_err = 0;
@@ -74,13 +72,13 @@ async_connect_source_callback(gcc_unused GIOChannel *source,
 		s_err = -last_socket_error();
 
 	if (s_err == 0) {
-		handler.success(fd, ctx);
+		handler.OnConnect(fd);
 	} else {
 		close_socket(fd);
 		char msg[256];
 		snprintf(msg, sizeof(msg), "Failed to connect socket: %s",
 			 strerror(-s_err));
-		handler.error(msg, ctx);
+		handler.OnConnectError(msg);
 	}
 
 	return false;
@@ -89,19 +87,19 @@ async_connect_source_callback(gcc_unused GIOChannel *source,
 void
 async_connect_start(AsyncConnect **acp,
 		    const struct sockaddr *address, size_t address_size,
-		    const AsyncConnectHandler *handler, void *ctx)
+		    AsyncConnectHandler &handler)
 {
 	socket_t fd = create_socket(address->sa_family, SOCK_STREAM, 0);
 	if (fd == INVALID_SOCKET) {
 		char msg[256];
 		snprintf(msg, sizeof(msg), "Failed to create socket: %s",
 			 strerror(errno));
-		handler->error(msg, ctx);
+		handler.OnConnectError(msg);
 		return;
 	}
 
 	if (connect(fd, address, address_size) == 0) {
-		handler->success(fd, ctx);
+		handler.OnConnect(fd);
 		return;
 	}
 
@@ -111,11 +109,11 @@ async_connect_start(AsyncConnect **acp,
 		char msg[256];
 		snprintf(msg, sizeof(msg), "Failed to connect socket: %s",
 			 strerror(e));
-		handler->error(msg, ctx);
+		handler.OnConnectError(msg);
 		return;
 	}
 
-	AsyncConnect *ac = new AsyncConnect(fd, *handler, ctx);
+	AsyncConnect *ac = new AsyncConnect(fd, handler);
 
 	GIOChannel *channel = g_io_channel_unix_new(fd);
 	ac->source_id = g_io_add_watch(channel, G_IO_OUT,
