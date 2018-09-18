@@ -24,7 +24,7 @@
 #include "SongPage.hxx"
 #include "Event.hxx"
 #include "i18n.h"
-#include "options.hxx"
+#include "Options.hxx"
 #include "mpdclient.hxx"
 #include "screen.hxx"
 #include "lyrics.hxx"

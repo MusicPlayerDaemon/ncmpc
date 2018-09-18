@@ -28,7 +28,7 @@
 #include "BasicColors.hxx"
 #include "CustomColors.hxx"
 #include "screen_list.hxx"
-#include "options.hxx"
+#include "Options.hxx"
 #include "io/Path.hxx"
 #include "util/CharUtil.hxx"
 #include "util/ScopeExit.hxx"

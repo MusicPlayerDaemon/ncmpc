@@ -26,7 +26,7 @@
 #endif
 
 #ifdef HAVE_GETMOUSE
-#include "options.hxx"
+#include "Options.hxx"
 #endif
 
 static SCREEN *ncu_screen;

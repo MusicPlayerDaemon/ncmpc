@@ -23,7 +23,7 @@
 #include "QueuePage.hxx"
 #include "config.h"
 #include "i18n.h"
-#include "options.hxx"
+#include "Options.hxx"
 #include "Styles.hxx"
 #include "Event.hxx"
 

@@ -22,7 +22,7 @@
 #include "mpdclient.hxx"
 #include "callbacks.hxx"
 #include "charset.hxx"
-#include "options.hxx"
+#include "Options.hxx"
 #include "Command.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"

@@ -20,7 +20,7 @@
 #include "TitleBar.hxx"
 #include "TabBar.hxx"
 #include "Styles.hxx"
-#include "options.hxx"
+#include "Options.hxx"
 #include "i18n.h"
 #include "util/StringUTF8.hxx"
 

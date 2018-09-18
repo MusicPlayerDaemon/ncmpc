@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "options.hxx"
+#include "Options.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "config.h"
@@ -45,8 +45,7 @@ typedef struct {
 
 typedef void (*option_callback_fn_t)(int c, const char *arg);
 
-
-options_t options;
+Options options;
 
 static const arg_opt_t option_table[] = {
 	{ '?', "help", nullptr, "Show this help message" },

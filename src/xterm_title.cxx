@@ -18,7 +18,7 @@
  */
 
 #include "xterm_title.hxx"
-#include "options.hxx"
+#include "Options.hxx"
 
 #include <stdio.h>
 #include <stdlib.h>

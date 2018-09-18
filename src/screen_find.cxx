@@ -24,7 +24,7 @@
 #include "ListWindow.hxx"
 #include "keyboard.hxx"
 #include "i18n.h"
-#include "options.hxx"
+#include "Options.hxx"
 
 #include <glib.h>
 

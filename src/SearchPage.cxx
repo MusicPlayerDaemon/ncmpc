@@ -22,7 +22,7 @@
 #include "screen_status.hxx"
 #include "TextListRenderer.hxx"
 #include "i18n.h"
-#include "options.hxx"
+#include "Options.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "charset.hxx"

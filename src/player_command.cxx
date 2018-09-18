@@ -20,7 +20,7 @@
 #include "player_command.hxx"
 #include "Command.hxx"
 #include "mpdclient.hxx"
-#include "options.hxx"
+#include "Options.hxx"
 #include "i18n.h"
 #include "screen_client.hxx"
 #include "screen_status.hxx"

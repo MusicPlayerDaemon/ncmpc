@@ -30,7 +30,7 @@
 #include "Event.hxx"
 #include "i18n.h"
 #include "charset.hxx"
-#include "options.hxx"
+#include "Options.hxx"
 #include "mpdclient.hxx"
 #include "strfsong.hxx"
 #include "Completion.hxx"

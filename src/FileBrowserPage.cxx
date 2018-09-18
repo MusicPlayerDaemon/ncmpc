@@ -30,7 +30,7 @@
 #include "filelist.hxx"
 #include "screen_utils.hxx"
 #include "screen_client.hxx"
-#include "options.hxx"
+#include "Options.hxx"
 
 #include <mpd/client.h>
 

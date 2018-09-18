@@ -23,7 +23,7 @@
 #include "i18n.h"
 
 #ifdef ENABLE_COLORS
-#include "options.hxx"
+#include "Options.hxx"
 #endif
 
 #include <assert.h>

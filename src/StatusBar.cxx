@@ -19,7 +19,7 @@
 
 #include "StatusBar.hxx"
 #include "Event.hxx"
-#include "options.hxx"
+#include "Options.hxx"
 #include "Styles.hxx"
 #include "i18n.h"
 #include "strfsong.hxx"

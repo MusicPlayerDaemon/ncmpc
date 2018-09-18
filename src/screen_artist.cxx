@@ -31,7 +31,7 @@
 #include "charset.hxx"
 #include "mpdclient.hxx"
 #include "filelist.hxx"
-#include "options.hxx"
+#include "Options.hxx"
 #include "util/NulledString.hxx"
 
 #include <vector>

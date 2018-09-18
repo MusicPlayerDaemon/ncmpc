@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef OPTIONS_H
-#define OPTIONS_H
+#ifndef OPTIONS_HXX
+#define OPTIONS_HXX
 
 #include "config.h"
 #include "defaults.hxx"
@@ -27,7 +27,7 @@
 #include <string>
 #include <chrono>
 
-typedef struct {
+struct Options {
 	std::string host;
 	std::string password;
 	std::string config_file;
@@ -78,16 +78,18 @@ typedef struct {
 #ifdef HAVE_GETMOUSE
 	bool enable_mouse;
 #endif
-#ifndef NCMPC_MINI
+#ifdef NCMPC_MINI
+	static constexpr bool jump_prefix_only = true;
+#else
 	bool scroll = DEFAULT_SCROLL;
 	bool visible_bitrate;
 	bool welcome_screen_list = true;
 	bool jump_prefix_only = true;
 	bool second_column = true;
 #endif
-} options_t;
+};
 
-extern options_t options;
+extern Options options;
 
 void options_parse(int argc, const char **argv);
 

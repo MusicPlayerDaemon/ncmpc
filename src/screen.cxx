@@ -27,7 +27,7 @@
 #include "i18n.h"
 #include "charset.hxx"
 #include "mpdclient.hxx"
-#include "options.hxx"
+#include "Options.hxx"
 #include "player_command.hxx"
 #include "SongPage.hxx"
 #include "LyricsPage.hxx"

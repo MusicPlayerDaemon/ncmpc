@@ -27,7 +27,7 @@
 #include "screen_find.hxx"
 #include "screen.hxx"
 #include "i18n.h"
-#include "options.hxx"
+#include "Options.hxx"
 #include "charset.hxx"
 #include "strfsong.hxx"
 #include "mpdclient.hxx"

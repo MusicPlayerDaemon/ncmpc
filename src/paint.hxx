@@ -21,7 +21,7 @@
 #define NCMPC_PAINT_H
 
 #include "Styles.hxx"
-#include "options.hxx"
+#include "Options.hxx"
 
 /**
  * Sets the specified color, and enables "reverse" mode if selected is
