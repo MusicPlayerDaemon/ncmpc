@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-17 22:53+0200\n"
-"PO-Revision-Date: 2018-09-11 10:53+0000\n"
+"PO-Revision-Date: 2018-09-18 11:08+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/ncmpc/"
 "translations/nb/>\n"
@@ -167,11 +167,11 @@ msgstr "Forrige"
 
 #: src/Command.cxx:90
 msgid "Seek forward"
-msgstr "Spol/Søk framover"
+msgstr "Blafre forover"
 
 #: src/Command.cxx:92
 msgid "Seek backward"
-msgstr "Spol/Søk tilbake"
+msgstr "Blafre bakover"
 
 #: src/Command.cxx:94
 msgid "Increase volume"
