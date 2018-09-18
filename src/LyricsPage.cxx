@@ -53,7 +53,11 @@ class LyricsPage final : public TextPage {
 
 	struct mpd_song *song = nullptr;
 
-	char *artist = nullptr, *title = nullptr;
+	/**
+	 * These are pointers into the #mpd_song above, and will
+	 * become invalid as soon as the mpd_song_free() is called.
+	 */
+	const char *artist = nullptr, *title = nullptr;
 
 	std::string plugin_name;
 
@@ -129,15 +133,11 @@ LyricsPage::Cancel()
 
 	plugin_name.clear();
 
-	g_free(artist);
-	artist = nullptr;
-
-	g_free(title);
-	title = nullptr;
-
 	if (song != nullptr) {
 		mpd_song_free(song);
 		song = nullptr;
+		artist = nullptr;
+		title = nullptr;
 	}
 }
 
@@ -269,12 +269,9 @@ LyricsPage::Load(const struct mpd_song *_song)
 	Cancel();
 	Clear();
 
-	const char *_artist = mpd_song_get_tag(_song, MPD_TAG_ARTIST, 0);
-	const char *_title = mpd_song_get_tag(_song, MPD_TAG_TITLE, 0);
-
 	song = mpd_song_dup(_song);
-	artist = g_strdup(_artist);
-	title = g_strdup(_title);
+	artist = mpd_song_get_tag(song, MPD_TAG_ARTIST, 0);
+	title = mpd_song_get_tag(song, MPD_TAG_TITLE, 0);
 
 	loader = lyrics_load(artist, title, PluginCallback, this);
 
