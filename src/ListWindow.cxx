@@ -23,7 +23,7 @@
 #include "config.h"
 #include "Options.hxx"
 #include "charset.hxx"
-#include "match.hxx"
+#include "Match.hxx"
 #include "Command.hxx"
 #include "paint.hxx"
 #include "screen_status.hxx"

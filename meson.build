@@ -217,7 +217,7 @@ if not mini
     'src/xterm_title.cxx',
     'src/BasicMarquee.cxx',
     'src/hscroll.cxx',
-    'src/match.cxx',
+    'src/Match.cxx',
     'src/conf.cxx',
   ]
 endif
