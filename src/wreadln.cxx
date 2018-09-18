@@ -289,8 +289,6 @@ _wreadln(WINDOW *w,
 	(void)completion;
 #endif
 
-	/* turn off echo */
-	noecho();
 	/* make sure the cursor is visible */
 	curs_set(1);
 	/* print prompt string */

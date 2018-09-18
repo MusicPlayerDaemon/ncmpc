@@ -28,8 +28,7 @@
 
 class Completion;
 
-/* Note, wreadln calls curs_set() and noecho(), to enable cursor and
- * disable echo. wreadln will not restore these settings when exiting! */
+/* Note, wreadln calls curs_set(), to enable cursor. wreadln will not restore these settings when exiting! */
 std::string
 wreadln(WINDOW *w,            /* the curses window to use */
 	const char *prompt, /* the prompt string or nullptr */
