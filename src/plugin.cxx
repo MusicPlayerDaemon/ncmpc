@@ -25,6 +25,7 @@
 #include <glib.h>
 
 #include <algorithm>
+#include <memory>
 
 #include <assert.h>
 #include <stdlib.h>
@@ -66,7 +67,7 @@ struct PluginCycle {
 	PluginList *list;
 
 	/** arguments passed to execv() */
-	char **argv;
+	std::unique_ptr<char *[]> argv;
 
 	/** caller defined callback function */
 	plugin_callback_t callback;
@@ -89,15 +90,11 @@ struct PluginCycle {
 	/** list of all error messages from failed plugins */
 	std::string all_errors;
 
-	PluginCycle(PluginList &_list, char **_argv,
+	PluginCycle(PluginList &_list, std::unique_ptr<char *[]> &&_argv,
 		    plugin_callback_t _callback, void *_callback_data)
-		:list(&_list), argv(_argv),
+		:list(&_list), argv(std::move(_argv)),
 		 callback(_callback), callback_data(_callback_data),
 		 next_plugin(0) {}
-
-	~PluginCycle() {
-		g_free(argv);
-	}
 };
 
 static bool
@@ -274,7 +271,7 @@ start_plugin(PluginCycle *cycle, const char *plugin_path)
 		close(0);
 		/* XXX close other fds? */
 
-		execv(plugin_path, cycle->argv);
+		execv(plugin_path, cycle->argv.get());
 		_exit(1);
 	}
 
@@ -315,7 +312,7 @@ next_plugin(PluginCycle *cycle)
 	}
 }
 
-static char **
+static auto
 make_argv(const char*const* args)
 {
 	unsigned num = 0;
@@ -323,7 +320,9 @@ make_argv(const char*const* args)
 		++num;
 	num += 2;
 
-	char **ret = g_new(char *, num);
+	std::unique_ptr<char *[]> result(new char *[num]);
+
+	char **ret = result.get();
 
 	/* reserve space for the program name */
 	*ret++ = nullptr;
@@ -334,7 +333,7 @@ make_argv(const char*const* args)
 	/* end of argument vector */
 	*ret++ = nullptr;
 
-	return ret - num;
+	return result;
 }
 
 PluginCycle *
