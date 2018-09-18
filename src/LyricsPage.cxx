@@ -32,6 +32,8 @@
 #include "screen_utils.hxx"
 #include "ncu.hxx"
 
+#include <string>
+
 #include <assert.h>
 #include <errno.h>
 #include <sys/stat.h>
@@ -51,7 +53,9 @@ class LyricsPage final : public TextPage {
 
 	struct mpd_song *song = nullptr;
 
-	char *artist = nullptr, *title = nullptr, *plugin_name = nullptr;
+	char *artist = nullptr, *title = nullptr;
+
+	std::string plugin_name;
 
 	PluginCycle *loader = nullptr;
 
@@ -123,8 +127,7 @@ LyricsPage::Cancel()
 		loader_timeout = 0;
 	}
 
-	g_free(plugin_name);
-	plugin_name = nullptr;
+	plugin_name.clear();
 
 	g_free(artist);
 	artist = nullptr;
@@ -222,7 +225,7 @@ LyricsPage::PluginCallback(std::string &&result, const bool success,
 {
 	assert(loader != nullptr);
 
-	plugin_name = g_strdup(_plugin_name);
+	plugin_name = _plugin_name;
 
 	/* Display result, which may be lyrics or error messages */
 	Set(result.c_str());
@@ -345,9 +348,10 @@ LyricsPage::GetTitle(char *str, size_t size) const
 			     _("Lyrics"),
 			     artist, title);
 
-		if (options.lyrics_show_plugin && plugin_name != nullptr &&
+		if (options.lyrics_show_plugin && !plugin_name.empty() &&
 		    (unsigned int) n < size - 1)
-			snprintf(str + n, size - n, " (%s)", plugin_name);
+			snprintf(str + n, size - n, " (%s)",
+				 plugin_name.c_str());
 
 		return str;
 	} else
