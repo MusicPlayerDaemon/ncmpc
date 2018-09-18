@@ -66,6 +66,7 @@ public:
 	/**
 	 * Sets a text to scroll.  Call Clear() to disable it.
 	 *
+	 * @param text the text in the locale charset
 	 * @return false if nothing was changed
 	 */
 	bool Set(unsigned width, const char *text);
