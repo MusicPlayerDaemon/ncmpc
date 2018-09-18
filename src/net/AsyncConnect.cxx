@@ -59,7 +59,7 @@ async_connect_source_callback(gcc_unused GIOChannel *source,
 	const int fd = ac->fd;
 	const AsyncConnectHandler *const handler = ac->handler;
 	void *const ctx = ac->handler_ctx;
-	g_free(ac);
+	delete ac;
 
 	int s_err = 0;
 	socklen_t s_err_size = sizeof(s_err);
@@ -110,7 +110,7 @@ async_connect_start(AsyncConnect **acp,
 		return;
 	}
 
-	AsyncConnect *ac = g_new(AsyncConnect, 1);
+	AsyncConnect *ac = new AsyncConnect();
 	ac->handler = handler;
 	ac->handler_ctx = ctx;
 	ac->fd = fd;
@@ -128,5 +128,5 @@ async_connect_cancel(AsyncConnect *ac)
 {
 	g_source_remove(ac->source_id);
 	close_socket(ac->fd);
-	g_free(ac);
+	delete ac;
 }
