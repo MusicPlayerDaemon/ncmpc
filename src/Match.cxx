@@ -19,21 +19,10 @@
 
 #include "Match.hxx"
 #include "charset.hxx"
-#include "util/ScopeExit.hxx"
 
 #include <glib.h>
 
 #include <assert.h>
-
-#ifndef NCMPC_MINI
-
-static char *
-locale_casefold(const char *src)
-{
-	return g_utf8_casefold(LocaleToUtf8(src).c_str(), -1);
-}
-
-#endif
 
 MatchExpression::~MatchExpression()
 {
@@ -62,10 +51,7 @@ MatchExpression::Compile(const char *src, bool anchor)
 	if (anchor)
 		compile_flags |= G_REGEX_ANCHORED;
 
-	char *src_folded = locale_casefold(src);
-	AtScopeExit(src_folded) { g_free(src_folded); };
-
-	regex = g_regex_new((const gchar*)src_folded,
+	regex = g_regex_new(LocaleToUtf8(src).c_str(),
 			    GRegexCompileFlags(compile_flags),
 			    GRegexMatchFlags(0), nullptr);
 	return regex != nullptr;
@@ -84,11 +70,9 @@ MatchExpression::operator()(const char *line) const
 #else
 	assert(regex != nullptr);
 
-	char *line_folded = locale_casefold(line);
-	AtScopeExit(line_folded) { g_free(line_folded); };
-
 	GMatchInfo *match_info;
-	g_regex_match(regex, line_folded, GRegexMatchFlags(0), &match_info);
+	g_regex_match(regex, LocaleToUtf8(line).c_str(),
+		      GRegexMatchFlags(0), &match_info);
 	bool match = (bool)g_match_info_matches(match_info);
 
 	g_match_info_free(match_info);

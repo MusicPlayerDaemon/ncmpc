@@ -29,7 +29,6 @@
 #include "screen_status.hxx"
 #include "screen_utils.hxx"
 #include "i18n.h"
-#include "util/ScopeExit.hxx"
 
 #include <glib.h>
 
