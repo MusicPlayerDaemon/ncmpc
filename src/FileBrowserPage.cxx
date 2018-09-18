@@ -57,7 +57,7 @@ private:
 	/**
 	 * Change to the specified absolute directory.
 	 */
-	bool ChangeDirectory(struct mpdclient &c, const char *new_path);
+	bool ChangeDirectory(struct mpdclient &c, std::string &&new_path);
 
 	/**
 	 * Change to the parent directory of the current directory.
@@ -114,9 +114,9 @@ FileBrowserPage::Reload(struct mpdclient &c)
 }
 
 bool
-FileBrowserPage::ChangeDirectory(struct mpdclient &c, const char *new_path)
+FileBrowserPage::ChangeDirectory(struct mpdclient &c, std::string &&new_path)
 {
-	current_path = new_path;
+	current_path = std::move(new_path);
 
 	Reload(c);
 
@@ -343,7 +343,7 @@ FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 		break;
 
 	case Command::GO_ROOT_DIRECTORY:
-		ChangeDirectory(c, "");
+		ChangeDirectory(c, {});
 		return true;
 	case Command::GO_PARENT_DIRECTORY:
 		ChangeToParent(c);
