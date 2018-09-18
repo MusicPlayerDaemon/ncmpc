@@ -87,4 +87,13 @@ StringWidthMB(const char *s, size_t length);
 size_t
 StringWidthMB(const char *s);
 
+/**
+ * Find the first character which doesn't fully fit into the given width.
+ *
+ * @param s the start of the string
+ */
+gcc_pure
+const char *
+AtWidthMB(const char *s, size_t length, size_t width);
+
 #endif

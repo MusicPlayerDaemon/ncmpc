@@ -154,3 +154,33 @@ StringWidthMB(const char *s)
 {
 	return StringWidthMB(s, strlen(s));
 }
+
+const char *
+AtWidthMB(const char *s, size_t length, size_t width)
+{
+	const char *const end = s + length;
+	auto state = std::mbstate_t();
+
+	while (width > 0 && s < end) {
+		wchar_t w;
+		std::size_t n = std::mbrtowc(&w, s, end - s, &state);
+		if (n == std::size_t(-2))
+			break;
+
+		if (n == std::size_t(-1) || n == 0) {
+			--width;
+			++s;
+		} else {
+			int cw = wcwidth(w);
+			if (cw > 0) {
+				if (size_t(cw) > width)
+					break;
+				width -= cw;
+			}
+
+			s += n;
+		}
+	}
+
+	return s;
+}
