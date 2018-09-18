@@ -20,6 +20,8 @@
 #ifndef BASIC_MARQUEE_HXX
 #define BASIC_MARQUEE_HXX
 
+#include <string>
+
 /**
  * This class is used to auto-scroll text which does not fit on the
  * screen.  Call hscroll_init() to initialize the object,
@@ -32,7 +34,7 @@ class BasicMarquee {
 	/**
 	 * The available screen width (in cells).
 	 */
-	unsigned width;
+	unsigned width = 0;
 
 	/**
 	 * The text length in Unicode characters.
@@ -42,7 +44,7 @@ class BasicMarquee {
 	/**
 	 * The scrolled text, in the current locale.
 	 */
-	char *text = nullptr;
+	std::string text;
 
 	/**
 	 * Thee scrolled text, in UTF-8, including separators.
@@ -60,7 +62,7 @@ public:
 		:separator(_separator) {}
 
 	bool IsDefined() const {
-		return text != nullptr;
+		return width > 0;
 	}
 
 	/**

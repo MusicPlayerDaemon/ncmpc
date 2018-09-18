@@ -31,7 +31,6 @@
 char *
 BasicMarquee::ScrollString() const
 {
-	assert(text != nullptr);
 	assert(separator != nullptr);
 
 	/* create the new scrolled string */
@@ -49,7 +48,7 @@ BasicMarquee::Set(unsigned _width, const char *_text)
 	assert(separator != nullptr);
 	assert(_text != nullptr);
 
-	if (text != nullptr && _width == width && strcmp(_text, text) == 0)
+	if (_width == width && text == _text)
 		/* no change, do nothing (and, most importantly, do
 		   not reset the current offset!) */
 		return false;
@@ -62,8 +61,8 @@ BasicMarquee::Set(unsigned _width, const char *_text)
 	text = g_strdup(_text);
 
 	/* create a buffer containing the string and the separator */
-	text_utf8 = replace_locale_to_utf8(g_strconcat(text, separator,
-						       text, separator,
+	text_utf8 = replace_locale_to_utf8(g_strconcat(text.c_str(), separator,
+						       text.c_str(), separator,
 						       nullptr));
 	text_utf8_length = g_utf8_strlen(text_utf8, -1);
 
@@ -73,8 +72,8 @@ BasicMarquee::Set(unsigned _width, const char *_text)
 void
 BasicMarquee::Clear()
 {
-	g_free(text);
-	text = nullptr;
+	width = 0;
+	text.clear();
 
 	g_free(std::exchange(text_utf8, nullptr));
 }
