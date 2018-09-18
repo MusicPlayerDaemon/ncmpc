@@ -23,6 +23,15 @@
 #include "config.h"
 #include "util/Compiler.h"
 
+typedef struct _GRegex GRegex;
+
+GRegex *
+compile_regex(const char *src, bool anchor);
+
+gcc_pure
+bool
+match_regex(GRegex *regex, const char *line);
+
 #ifdef NCMPC_MINI
 
 #include <string.h>
@@ -33,15 +42,6 @@ match_line(const char *line, const char *needle)
 	return strstr(line, needle) != nullptr;
 }
 #else
-
-typedef struct _GRegex GRegex;
-
-GRegex *
-compile_regex(const char *src, bool anchor);
-
-gcc_pure
-bool
-match_regex(GRegex *regex, const char *line);
 
 /**
  * Checks whether the specified line matches the search string.  Case

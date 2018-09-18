@@ -59,6 +59,8 @@ match_regex(GRegex *regex, const char *line)
 	return match;
 }
 
+#ifndef NCMPC_MINI
+
 bool
 match_line(const char *line, const char *needle)
 {
@@ -75,3 +77,5 @@ match_line(const char *line, const char *needle)
 
 	return ret;
 }
+
+#endif

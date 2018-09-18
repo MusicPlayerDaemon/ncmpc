@@ -217,7 +217,6 @@ if not mini
     'src/xterm_title.cxx',
     'src/BasicMarquee.cxx',
     'src/hscroll.cxx',
-    'src/Match.cxx',
     'src/conf.cxx',
   ]
 endif
@@ -334,6 +333,7 @@ ncmpc = executable('ncmpc',
   'src/GlobalBindings.cxx',
   'src/keyboard.cxx',
   'src/KeyName.cxx',
+  'src/Match.cxx',
   'src/ncu.cxx',
   'src/player_command.cxx',
   'src/TabBar.cxx',
