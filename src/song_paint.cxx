@@ -53,6 +53,7 @@ paint_song_row(WINDOW *w, gcc_unused unsigned y, unsigned width,
 
 	if (hscroll != nullptr && utf8_width(buffer) >= width) {
 		hscroll->Set(0, y, width, buffer,
+			     highlight ? Style::LIST_BOLD : Style::LIST,
 			     selected ? A_REVERSE : 0);
 		hscroll->Paint();
 	}

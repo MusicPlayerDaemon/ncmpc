@@ -45,7 +45,7 @@ class hscroll {
 	/**
 	 * Style for drawing the text.
 	 */
-	const Style style;
+	Style style;
 
 	attr_t attr;
 
@@ -56,8 +56,8 @@ class hscroll {
 	unsigned source_id = 0;
 
 public:
-	hscroll(WINDOW *_w, const char *_separator, Style _style)
-		:w(_w), basic(_separator), style(_style) {
+	hscroll(WINDOW *_w, const char *_separator)
+		:w(_w), basic(_separator) {
 	}
 
 	bool IsDefined() const {
@@ -70,7 +70,7 @@ public:
 	 * hscroll_clear() to disable it.
 	 */
 	void Set(unsigned x, unsigned y, unsigned width, const char *text,
-		 attr_t attr=0);
+		 Style style, attr_t attr=0);
 
 	/**
 	 * Removes the text and the timer.  It may be reused with

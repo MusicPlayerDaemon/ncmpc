@@ -35,7 +35,7 @@
 StatusBar::StatusBar(Point p, unsigned width)
 	:window(p, {width, 1u})
 #ifndef NCMPC_MINI
-	, hscroll(window.w, options.scroll_sep.c_str(), Style::STATUS)
+	, hscroll(window.w, options.scroll_sep.c_str())
 #endif
 {
 
@@ -177,7 +177,8 @@ StatusBar::Update(const struct mpd_status *status,
 		center_width = utf8_width(center_text.c_str());
 		if (options.scroll &&
 		    utf8_width(center_text.c_str()) > (unsigned)width) {
-			hscroll.Set(left_width, 0, width, center_text.c_str());
+			hscroll.Set(left_width, 0, width, center_text.c_str(),
+				    Style::STATUS);
 		} else {
 			if (options.scroll)
 				hscroll.Clear();

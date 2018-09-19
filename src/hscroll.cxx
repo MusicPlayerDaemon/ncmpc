@@ -37,13 +37,14 @@ hscroll::TimerCallback()
 
 void
 hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text,
-	     attr_t _attr)
+	     Style _style, attr_t _attr)
 {
 	assert(w != nullptr);
 	assert(_text != nullptr);
 
 	x = _x;
 	y = _y;
+	style = _style;
 	attr = _attr;
 
 	if (!basic.Set(_width, _text))
