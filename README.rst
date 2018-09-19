@@ -4,6 +4,9 @@ ncmpc
 ncmpc is a curses client for the `Music Player Daemon
 <http://www.musicpd.org/>`__.
 
+.. image:: https://www.musicpd.org/clients/ncmpc/screenshot.png
+  :alt: Screenshot of ncmpc
+
 
 How to compile and install ncmpc
 --------------------------------
