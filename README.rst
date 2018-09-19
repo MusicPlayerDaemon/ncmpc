@@ -11,7 +11,7 @@ How to compile and install ncmpc
 You need:
 
 - a C++14 compliant compiler (e.g. gcc or clang)
-- libmpdclient 2.9
+- `libmpdclient <https://www.musicpd.org/libs/libmpdclient/>`__ 2.9
 - `GLib 2.30 <https://developer.gnome.org/glib/>`__
 - `ncurses <https://www.gnu.org/software/ncurses/>`__
 - `Meson 0.47 <http://mesonbuild.com/>`__ and `Ninja <https://ninja-build.org/>`__
