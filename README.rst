@@ -16,6 +16,13 @@ You need:
 - `ncurses <https://www.gnu.org/software/ncurses/>`__
 - `Meson 0.47 <http://mesonbuild.com/>`__ and `Ninja <https://ninja-build.org/>`__
 
+Optional:
+
+- `liblirc <https://sourceforge.net/projects/lirc/>`__ (for infrared
+  remote support)
+- `Sphinx <http://www.sphinx-doc.org/en/master/>`__ (for building
+  documentation)
+
 Run ``meson``::
 
  meson . output
