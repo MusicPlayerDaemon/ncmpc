@@ -16,7 +16,7 @@ You need:
 - `ncurses <https://www.gnu.org/software/ncurses/>`__
 - `Meson 0.47 <http://mesonbuild.com/>`__ and `Ninja <https://ninja-build.org/>`__
 
-Run ``meson``:
+Run ``meson``::
 
  meson . output
 
