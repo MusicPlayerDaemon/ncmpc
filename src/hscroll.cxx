@@ -36,13 +36,15 @@ hscroll::TimerCallback()
 }
 
 void
-hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text)
+hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text,
+	     attr_t _attr)
 {
 	assert(w != nullptr);
 	assert(_text != nullptr);
 
 	x = _x;
 	y = _y;
+	attr = _attr;
 
 	if (!basic.Set(_width, _text))
 		return;
@@ -68,7 +70,13 @@ hscroll::Paint() const
 
 	SelectStyle(w, style);
 
+	if (attr != 0)
+		wattron(w, attr);
+
 	/* scroll the string, and draw it */
 	const auto s = basic.ScrollString();
 	mvwaddnstr(w, y, x, s.first, s.second);
+
+	if (attr != 0)
+		wattroff(w, attr);
 }

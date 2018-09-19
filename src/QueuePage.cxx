@@ -79,7 +79,7 @@ public:
 		:ListPage(w, size),
 		 screen(_screen)
 #ifndef NCMPC_MINI
-		, hscroll(w, options.scroll_sep.c_str(), Style::LIST_BOLD)
+		, hscroll(w, options.scroll_sep.c_str(), Style::LIST)
 #endif
 	{
 	}

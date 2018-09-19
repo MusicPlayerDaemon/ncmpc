@@ -47,6 +47,8 @@ class hscroll {
 	 */
 	const Style style;
 
+	attr_t attr;
+
 	/**
 	 * The id of the timer which updates the scrolled area every
 	 * second.
@@ -67,7 +69,8 @@ public:
 	 * every second with the current window attributes.  Call
 	 * hscroll_clear() to disable it.
 	 */
-	void Set(unsigned x, unsigned y, unsigned width, const char *text);
+	void Set(unsigned x, unsigned y, unsigned width, const char *text,
+		 attr_t attr=0);
 
 	/**
 	 * Removes the text and the timer.  It may be reused with
