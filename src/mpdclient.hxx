@@ -60,7 +60,7 @@ struct mpdclient {
 
 	/**
 	 * The GLib source id which re-enters MPD idle mode before the
-	 * next main loop interation.
+	 * next main loop iteration.
 	 */
 	unsigned enter_idle_source_id = 0;
 
