@@ -51,10 +51,9 @@ lirc_event(gcc_unused GIOChannel *source,
 void
 ncmpc_lirc_init()
 {
-	char prog[] = "ncmpc";
 	int lirc_socket = 0;
 
-	if ((lirc_socket = lirc_init(prog, 0)) == -1)
+	if ((lirc_socket = lirc_init(PACKAGE, 0)) == -1)
 		return;
 
 	if (lirc_readconfig(nullptr, &lc, nullptr)) {
