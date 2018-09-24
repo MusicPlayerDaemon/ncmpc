@@ -86,8 +86,8 @@ if curses == 'ncursesw'
   curses_color = true
   if cc.has_header('ncursesw/curses.h', dependencies: curses_dep)
     conf.set('HAVE_NCURSESW_CURSES_H', true)
-  elif cc.has_header('ncurses.h', dependencies: curses_dep)
-    conf.set('HAVE_NCURSES_H', true)
+  elif cc.has_header('curses.h', dependencies: curses_dep)
+    conf.set('HAVE_CURSES_H', true)
   else
     error('No ncursesw header found')
   endif
@@ -97,8 +97,8 @@ elif curses == 'ncurses'
   curses_color = true
   if cc.has_header('ncurses/curses.h', dependencies: curses_dep)
     conf.set('HAVE_NCURSES_CURSES_H', true)
-  elif cc.has_header('ncurses.h', dependencies: curses_dep)
-    conf.set('HAVE_NCURSES_H', true)
+  elif cc.has_header('curses.h', dependencies: curses_dep)
+    conf.set('HAVE_CURSES_H', true)
   else
     error('No ncurses header found')
   endif
