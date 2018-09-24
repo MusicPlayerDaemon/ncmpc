@@ -19,8 +19,6 @@
 
 #if defined(HAVE_NCURSESW_CURSES_H)
 #  include <ncursesw/curses.h>
-#elif defined(HAVE_NCURSESW_H)
-#  include <ncursesw.h>
 #elif defined(HAVE_NCURSES_CURSES_H)
 #  include <ncurses/curses.h>
 #elif defined(HAVE_NCURSES_H)
