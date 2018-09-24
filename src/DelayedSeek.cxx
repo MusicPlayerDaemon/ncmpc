@@ -20,8 +20,6 @@
 #include "DelayedSeek.hxx"
 #include "mpdclient.hxx"
 
-#include <glib.h>
-
 void
 DelayedSeek::Commit() noexcept
 {
@@ -44,37 +42,24 @@ DelayedSeek::Commit() noexcept
 void
 DelayedSeek::Cancel() noexcept
 {
-	if (source_id != 0) {
-		g_source_remove(source_id);
-		source_id = 0;
-	}
+	commit_timer.cancel();
 }
 
 void
-DelayedSeek::OnTimer() noexcept
+DelayedSeek::OnTimer(const boost::system::error_code &error) noexcept
 {
-	source_id = 0;
-	Commit();
-}
+	if (error)
+		return;
 
-/**
- * This timer is invoked after seeking when the user hasn't typed a
- * key for 500ms.  It is used to do the real seeking.
- */
-static gboolean
-seek_timer(gpointer data)
-{
-	auto &ds = *(DelayedSeek *)data;
-	ds.OnTimer();
-	return false;
+	Commit();
 }
 
 void
 DelayedSeek::ScheduleTimer() noexcept
 {
-	assert(source_id == 0);
-
-	source_id = g_timeout_add(500, seek_timer, this);
+	commit_timer.expires_from_now(std::chrono::milliseconds(500));
+	commit_timer.async_wait(std::bind(&DelayedSeek::OnTimer,
+					  this, std::placeholders::_1));
 }
 
 bool

@@ -29,7 +29,7 @@
 #ifndef NET_ASYNC_CONNECT_HXX
 #define NET_ASYNC_CONNECT_HXX
 
-#include <stddef.h>
+#include <boost/asio/ip/tcp.hpp>
 
 struct sockaddr;
 struct AsyncConnect;
@@ -39,9 +39,8 @@ class AsyncConnectHandler;
  * Create a socket and connect it to the given address.
  */
 void
-async_connect_start(AsyncConnect **acp,
-		    const struct sockaddr *address,
-		    size_t address_size,
+async_connect_start(boost::asio::io_service &io_service, AsyncConnect **acp,
+		    const boost::asio::ip::tcp::endpoint &endpoint,
 		    AsyncConnectHandler &handler);
 
 void

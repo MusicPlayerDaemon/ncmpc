@@ -23,6 +23,8 @@
 #include <vector>
 #include <string>
 
+namespace boost { namespace asio { class io_service; }}
+
 /**
  * A list of registered plugins.
  */
@@ -70,7 +72,8 @@ plugin_list_load_directory(PluginList *list, const char *path);
  * callback function
  */
 PluginCycle *
-plugin_run(PluginList *list, const char *const*args,
+plugin_run(boost::asio::io_service &io_service,
+	   PluginList *list, const char *const*args,
 	   plugin_callback_t callback, void *callback_data);
 
 /**

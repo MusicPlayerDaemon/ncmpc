@@ -37,6 +37,7 @@
 #include <string>
 #include <map>
 
+namespace boost { namespace asio { class io_service; }}
 enum class Command : unsigned;
 struct mpdclient;
 struct PageMeta;
@@ -44,6 +45,8 @@ class Page;
 class DelayedSeek;
 
 class ScreenManager {
+	boost::asio::io_service &io_service;
+
 	struct Layout {
 		Size size;
 
@@ -99,8 +102,12 @@ public:
 	std::string findbuf;
 	History find_history;
 
-	ScreenManager();
+	explicit ScreenManager(boost::asio::io_service &io_service);
 	~ScreenManager();
+
+	auto &get_io_service() const {
+		return io_service;
+	}
 
 	void Init(struct mpdclient *c);
 	void Exit();

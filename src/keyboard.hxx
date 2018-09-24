@@ -20,12 +20,30 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
+#include <boost/asio/posix/stream_descriptor.hpp>
+
 #include <curses.h>
 
-void
-keyboard_init(WINDOW *w);
+namespace boost { namespace asio { class io_service; }}
+
+class UserInput {
+	boost::asio::posix::stream_descriptor d;
+	WINDOW &w;
+
+public:
+	UserInput(boost::asio::io_service &io_service, WINDOW &_w);
+
+private:
+	void AsyncWait() {
+		d.async_read_some(boost::asio::null_buffers(),
+				  std::bind(&UserInput::OnReadable, this,
+					    std::placeholders::_1));
+	}
+
+	void OnReadable(const boost::system::error_code &error);
+};
 
 void
-keyboard_unread(int key);
+keyboard_unread(boost::asio::io_service &io_service, int key);
 
 #endif

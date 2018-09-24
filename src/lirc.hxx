@@ -20,24 +20,26 @@
 #ifndef LIRC_H
 #define LIRC_H
 
-#include "config.h"
+#include <boost/asio/posix/stream_descriptor.hpp>
 
-#ifdef ENABLE_LIRC
+namespace boost { namespace asio { class io_service; }}
 
-void
-ncmpc_lirc_init();
+class LircInput {
+	boost::asio::posix::stream_descriptor d;
+	struct lirc_config *lc = nullptr;
 
-void
-ncmpc_lirc_deinit();
+public:
+	explicit LircInput(boost::asio::io_service &io_service);
+	~LircInput();
 
-#else
+private:
+	void AsyncWait() {
+		d.async_read_some(boost::asio::null_buffers(),
+				  std::bind(&LircInput::OnReadable, this,
+					    std::placeholders::_1));
+	}
 
-static inline void
-ncmpc_lirc_init(void) {}
-
-static inline void
-ncmpc_lirc_deinit(void) {}
-
-#endif
+	void OnReadable(const boost::system::error_code &error);
+};
 
 #endif

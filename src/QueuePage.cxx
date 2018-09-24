@@ -27,7 +27,6 @@
 #include "screen_find.hxx"
 #include "save_playlist.hxx"
 #include "config.h"
-#include "Event.hxx"
 #include "i18n.h"
 #include "charset.hxx"
 #include "Options.hxx"
@@ -49,6 +48,8 @@
 
 #include <mpd/client.h>
 
+#include <boost/asio/steady_timer.hpp>
+
 #include <set>
 #include <string>
 
@@ -63,10 +64,11 @@ class QueuePage final : public ListPage, ListRenderer, ListText {
 	mutable class hscroll hscroll;
 #endif
 
+	boost::asio::steady_timer hide_cursor_timer;
+
 	MpdQueue *playlist = nullptr;
 	int current_song_id = -1;
 	int selected_song_id = -1;
-	guint timer_hide_cursor_id = 0;
 
 	unsigned last_connection_id = 0;
 	std::string connection_name;
@@ -77,10 +79,12 @@ public:
 	QueuePage(ScreenManager &_screen, WINDOW *w,
 		  Size size)
 		:ListPage(w, size),
-		 screen(_screen)
+		 screen(_screen),
 #ifndef NCMPC_MINI
-		, hscroll(w, options.scroll_sep.c_str())
+		 hscroll(screen.get_io_service(),
+			 w, options.scroll_sep.c_str()),
 #endif
+		 hide_cursor_timer(screen.get_io_service())
 	{
 	}
 
@@ -101,15 +105,14 @@ private:
 
 	bool OnSongChange(const struct mpd_status *status);
 
-	bool OnHideCursorTimer();
+	void OnHideCursorTimer(const boost::system::error_code &error) noexcept;
 
 	void ScheduleHideCursor() {
 		assert(options.hide_cursor > 0);
-		assert(timer_hide_cursor_id == 0);
 
-		timer_hide_cursor_id = ScheduleTimeout<QueuePage,
-						       &QueuePage::OnHideCursorTimer>(std::chrono::seconds(options.hide_cursor),
-										      *this);
+		hide_cursor_timer.expires_from_now(std::chrono::seconds(options.hide_cursor));
+		hide_cursor_timer.async_wait(std::bind(&QueuePage::OnHideCursorTimer, this,
+						       std::placeholders::_1));
 	}
 
 	/* virtual methods from class ListRenderer */
@@ -323,13 +326,13 @@ screen_queue_init(ScreenManager &_screen, WINDOW *w, Size size)
 	return std::make_unique<QueuePage>(_screen, w, size);
 }
 
-bool
-QueuePage::OnHideCursorTimer()
+void
+QueuePage::OnHideCursorTimer(const boost::system::error_code &error) noexcept
 {
-	assert(options.hide_cursor > 0);
-	assert(timer_hide_cursor_id != 0);
+	if (error)
+		return;
 
-	timer_hide_cursor_id = 0;
+	assert(options.hide_cursor > 0);
 
 	/* hide the cursor when mpd is playing and the user is inactive */
 
@@ -338,8 +341,6 @@ QueuePage::OnHideCursorTimer()
 		Repaint();
 	} else
 		ScheduleHideCursor();
-
-	return false;
 }
 
 void
@@ -347,7 +348,6 @@ QueuePage::OnOpen(struct mpdclient &c)
 {
 	playlist = &c.playlist;
 
-	assert(timer_hide_cursor_id == 0);
 	if (options.hide_cursor > 0) {
 		lw.hide_cursor = false;
 		ScheduleHideCursor();
@@ -360,10 +360,7 @@ QueuePage::OnOpen(struct mpdclient &c)
 void
 QueuePage::OnClose()
 {
-	if (timer_hide_cursor_id != 0) {
-		g_source_remove(timer_hide_cursor_id);
-		timer_hide_cursor_id = 0;
-	}
+	hide_cursor_timer.cancel();
 
 #ifndef NCMPC_MINI
 	if (options.scroll)
@@ -492,11 +489,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	lw.hide_cursor = false;
 
 	if (options.hide_cursor > 0) {
-		if (timer_hide_cursor_id != 0) {
-			g_source_remove(timer_hide_cursor_id);
-			timer_hide_cursor_id = 0;
-		}
-
+		hide_cursor_timer.cancel();
 		ScheduleHideCursor();
 	}
 

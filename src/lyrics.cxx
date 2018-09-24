@@ -30,13 +30,14 @@ void lyrics_init()
 }
 
 PluginCycle *
-lyrics_load(const char *artist, const char *title,
+lyrics_load(boost::asio::io_service &io_service,
+	    const char *artist, const char *title,
 	    plugin_callback_t callback, void *data)
 {
 	const char *args[3] = { artist, title, nullptr };
 
 	if (artist == nullptr || title == nullptr)
-		return plugin_run(&empty, args, callback, data);
+		return plugin_run(io_service, &empty, args, callback, data);
 
-	return plugin_run(&plugins, args, callback, data);
+	return plugin_run(io_service, &plugins, args, callback, data);
 }

@@ -25,7 +25,6 @@
 #include "i18n.h"
 #include "Options.hxx"
 #include "Styles.hxx"
-#include "Event.hxx"
 
 #include <stdlib.h>
 
@@ -33,13 +32,15 @@
 static const unsigned SCREEN_MIN_COLS = 14;
 static const unsigned SCREEN_MIN_ROWS = 5;
 
-ScreenManager::ScreenManager()
-	:layout({std::max<unsigned>(COLS, SCREEN_MIN_COLS),
+ScreenManager::ScreenManager(boost::asio::io_service &_io_service)
+	:io_service(_io_service),
+	 layout({std::max<unsigned>(COLS, SCREEN_MIN_COLS),
 		 std::max<unsigned>(LINES, SCREEN_MIN_ROWS)}),
 	 title_bar({layout.title_x, layout.title_y}, layout.size.width),
 	 main_window({layout.main_x, layout.main_y}, layout.GetMainSize()),
 	 progress_bar({layout.progress_x, layout.GetProgressY()}, layout.size.width),
-	 status_bar({layout.status_x, layout.GetStatusY()}, layout.size.width),
+	 status_bar(io_service,
+		    {layout.status_x, layout.GetStatusY()}, layout.size.width),
 	 mode_fn_prev(&screen_queue)
 {
 	buf_size = layout.size.width;

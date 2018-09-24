@@ -20,38 +20,44 @@
 #include "Instance.hxx"
 #include "Options.hxx"
 #include "keyboard.hxx"
-#include "lirc.hxx"
-#include "signals.hxx"
 #include "xterm_title.hxx"
 
-#include <glib.h>
-
 Instance::Instance()
-	:main_loop(g_main_loop_new(nullptr, false)),
-	 client(options.host.empty() ? nullptr : options.host.c_str(),
+	:io_service(),
+#ifndef _WIN32
+	 sigterm(io_service, SIGTERM, SIGINT, SIGHUP),
+	 sigwinch(io_service, SIGWINCH, SIGCONT),
+#endif
+	 client(io_service,
+		options.host.empty() ? nullptr : options.host.c_str(),
 		options.port,
 		options.timeout_ms,
 		options.password.empty() ? nullptr : options.password.c_str()),
-	 seek(client)
+	 seek(io_service, client),
+	 reconnect_timer(io_service),
+	 update_timer(io_service),
+#ifndef NCMPC_MINI
+	 check_key_bindings_timer(io_service),
+#endif
+	 screen_manager(io_service),
+#ifdef ENABLE_LIRC
+	 lirc_input(io_service),
+#endif
+	 user_input(io_service, *screen_manager.main_window.w)
 {
 	screen_manager.Init(&client);
 
-	/* watch out for keyboard input */
-	keyboard_init(screen_manager.main_window.w);
+	sigterm.async_wait([this](const auto &, int){
+			this->io_service.stop();
+		});
 
-	/* watch out for lirc input */
-	ncmpc_lirc_init();
-
-	signals_init(main_loop, screen_manager);
+#ifndef _WIN32
+	AsyncWaitSigwinch();
+#endif
 }
 
 Instance::~Instance()
 {
-	g_main_loop_unref(main_loop);
-
-	signals_deinit();
-	ncmpc_lirc_deinit();
-
 	screen_manager.Exit();
 }
 
@@ -60,6 +66,5 @@ Instance::Run()
 {
 	screen_manager.Update(client, seek);
 
-	g_main_loop_run(main_loop);
+	io_service.run();
 }
-

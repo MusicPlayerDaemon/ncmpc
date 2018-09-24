@@ -18,7 +18,6 @@
  */
 
 #include "StatusBar.hxx"
-#include "Event.hxx"
 #include "Options.hxx"
 #include "Styles.hxx"
 #include "i18n.h"
@@ -32,13 +31,14 @@
 #include <assert.h>
 #include <string.h>
 
-StatusBar::StatusBar(Point p, unsigned width)
-	:window(p, {width, 1u})
+StatusBar::StatusBar(boost::asio::io_service &io_service,
+		     Point p, unsigned width)
+	:window(p, {width, 1u}),
+	 message_timer(io_service)
 #ifndef NCMPC_MINI
-	, hscroll(window.w, options.scroll_sep.c_str())
+	, hscroll(io_service, window.w, options.scroll_sep.c_str())
 #endif
 {
-
 	leaveok(window.w, false);
 	keypad(window.w, true);
 
@@ -59,11 +59,7 @@ StatusBar::~StatusBar()
 void
 StatusBar::ClearMessage()
 {
-	if (message_source_id != 0) {
-		g_source_remove(message_source_id);
-		message_source_id = 0;
-	}
-
+	message_timer.cancel();
 	message.clear();
 
 	Paint();
@@ -252,15 +248,6 @@ StatusBar::OnResize(Point p, unsigned width)
 	window.Move(p);
 }
 
-inline bool
-StatusBar::OnClearMessageTimer()
-{
-	assert(message_source_id != 0);
-	message_source_id = 0;
-	ClearMessage();
-	return false;
-}
-
 void
 StatusBar::SetMessage(const char *msg)
 {
@@ -273,9 +260,7 @@ StatusBar::SetMessage(const char *msg)
 	Paint();
 	doupdate();
 
-	if (message_source_id != 0)
-		g_source_remove(message_source_id);
-	message_source_id = ScheduleTimeout<StatusBar,
-					    &StatusBar::OnClearMessageTimer>(options.status_message_time,
-									     *this);
+	message_timer.expires_from_now(std::chrono::seconds(options.status_message_time));
+	message_timer.async_wait(std::bind(&StatusBar::OnMessageTimer, this,
+					   std::placeholders::_1));
 }

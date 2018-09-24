@@ -24,6 +24,8 @@
 
 #include <curses.h>
 
+#include <boost/asio/steady_timer.hpp>
+
 enum class Style : unsigned;
 
 /**
@@ -50,14 +52,15 @@ class hscroll {
 	attr_t attr;
 
 	/**
-	 * The id of the timer which updates the scrolled area every
-	 * second.
+	 * A timer which updates the scrolled area every second.
 	 */
-	unsigned source_id = 0;
+	boost::asio::steady_timer timer;
 
 public:
-	hscroll(WINDOW *_w, const char *_separator)
-		:w(_w), basic(_separator) {
+	hscroll(boost::asio::io_service &io_service,
+		WINDOW *_w, const char *_separator) noexcept
+		:w(_w), basic(_separator), timer(io_service)
+	{
 	}
 
 	bool IsDefined() const {
@@ -93,7 +96,13 @@ public:
 	void Paint() const;
 
 private:
-	bool TimerCallback();
+	void TimerCallback(const boost::system::error_code &error) noexcept;
+
+	void ScheduleTimer() noexcept {
+		timer.expires_from_now(std::chrono::seconds(1));
+		timer.async_wait(std::bind(&hscroll::TimerCallback, this,
+					   std::placeholders::_1));
+	}
 };
 
 #endif

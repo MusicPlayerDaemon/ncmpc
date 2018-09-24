@@ -58,19 +58,10 @@
 #include <locale.h>
 #endif
 
-/* time between mpd updates [ms] */
-static const guint update_interval = 500;
-
 #define BUFSIZE 1024
 
 static Instance *global_instance;
 static struct mpdclient *mpd = nullptr;
-static GMainLoop *main_loop;
-static guint reconnect_source_id, update_source_id;
-
-#ifndef NCMPC_MINI
-static guint check_key_bindings_source_id;
-#endif
 
 ScreenManager *screen;
 
@@ -99,29 +90,6 @@ update_xterm_title()
 }
 #endif
 
-static gboolean
-timer_mpd_update(gpointer data);
-
-static void
-enable_update_timer()
-{
-	if (update_source_id != 0)
-		return;
-
-	update_source_id = g_timeout_add(update_interval,
-					 timer_mpd_update, nullptr);
-}
-
-static void
-disable_update_timer()
-{
-	if (update_source_id == 0)
-		return;
-
-	g_source_remove(update_source_id);
-	update_source_id = 0;
-}
-
 static bool
 should_enable_update_timer()
 {
@@ -132,9 +100,9 @@ static void
 auto_update_timer()
 {
 	if (should_enable_update_timer())
-		enable_update_timer();
+		global_instance->EnableUpdateTimer();
 	else
-		disable_update_timer();
+		global_instance->DisableUpdateTimer();
 }
 
 void
@@ -153,31 +121,24 @@ Instance::UpdateClient() noexcept
 	client.events = (enum mpd_idle)0;
 }
 
-/**
- * This timer is installed when the connection to the MPD server is
- * broken.  It tries to recover by reconnecting periodically.
- */
-static gboolean
-timer_reconnect(gcc_unused gpointer data)
+void
+Instance::OnReconnectTimer(const boost::system::error_code &error) noexcept
 {
-	assert(mpd->IsDead());
+	if (error)
+		return;
 
-	reconnect_source_id = 0;
+	assert(client.IsDead());
 
 	screen_status_printf(_("Connecting to %s"),
-			     mpd->GetSettingsName().c_str());
+			     client.GetSettingsName().c_str());
 	doupdate();
 
-	mpd->Connect();
-
-	return false;
+	client.Connect();
 }
 
 void
 mpdclient_connected_callback()
 {
-	assert(reconnect_source_id == 0);
-
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.14 - song id not supported by mpd */
 	auto *connection = mpd->GetConnection();
@@ -191,8 +152,7 @@ mpdclient_connected_callback()
 		doupdate();
 
 		/* try again after 30 seconds */
-		reconnect_source_id =
-			g_timeout_add_seconds(30, timer_reconnect, nullptr);
+		global_instance->ScheduleReconnect(std::chrono::seconds(30));
 		return;
 	}
 #endif
@@ -208,20 +168,16 @@ mpdclient_connected_callback()
 void
 mpdclient_failed_callback()
 {
-	assert(reconnect_source_id == 0);
-
 	/* try again in 5 seconds */
-	reconnect_source_id = g_timeout_add_seconds(5, timer_reconnect, nullptr);
+	global_instance->ScheduleReconnect(std::chrono::seconds(5));
 }
 
 void
 mpdclient_lost_callback()
 {
-	assert(reconnect_source_id == 0);
-
 	screen->Update(*mpd, global_instance->GetSeek());
 
-	reconnect_source_id = g_timeout_add_seconds(1, timer_reconnect, nullptr);
+	global_instance->ScheduleReconnect(std::chrono::seconds(1));
 }
 
 /**
@@ -240,17 +196,19 @@ mpdclient_idle_callback(gcc_unused unsigned events)
 	auto_update_timer();
 }
 
-static gboolean
-timer_mpd_update(gcc_unused gpointer data)
+void
+Instance::OnUpdateTimer(const boost::system::error_code &error) noexcept
 {
-	global_instance->UpdateClient();
+	if (error)
+		return;
+
+	assert(pending_update_timer);
+	pending_update_timer = false;
+
+	UpdateClient();
 
 	if (should_enable_update_timer())
-		return true;
-	else {
-		update_source_id = 0;
-		return false;
-	}
+		ScheduleUpdateTimer();
 }
 
 void begin_input_event()
@@ -266,10 +224,10 @@ void end_input_event()
 }
 
 bool
-do_input_event(Command cmd)
+do_input_event(boost::asio::io_service &io_service, Command cmd)
 {
 	if (cmd == Command::QUIT) {
-		g_main_loop_quit(main_loop);
+		io_service.stop();
 		return false;
 	}
 
@@ -277,7 +235,7 @@ do_input_event(Command cmd)
 
 	if (cmd == Command::VOLUME_UP || cmd == Command::VOLUME_DOWN)
 		/* make sure we don't update the volume yet */
-		disable_update_timer();
+		global_instance->DisableUpdateTimer();
 
 	return true;
 }
@@ -297,22 +255,24 @@ do_mouse_event(Point p, mmask_t bstate)
  * Check the configured key bindings for errors, and display a status
  * message every 10 seconds.
  */
-static gboolean
-timer_check_key_bindings(gcc_unused gpointer data)
+void
+Instance::OnCheckKeyBindings(const boost::system::error_code &error) noexcept
 {
+	if (error)
+		return;
+
 	char buf[256];
 
-	if (GetGlobalKeyBindings().Check(buf, sizeof(buf))) {
+	if (GetGlobalKeyBindings().Check(buf, sizeof(buf)))
 		/* no error: disable this timer for the rest of this
 		   process */
-		check_key_bindings_source_id = 0;
-		return false;
-	}
+		return;
 
 	screen_status_message(buf);
 
 	doupdate();
-	return true;
+
+	ScheduleCheckKeyBindings();
 }
 #endif
 
@@ -368,7 +328,6 @@ main(int argc, const char *argv[])
 	/* create the global Instance */
 	Instance instance;
 	global_instance = &instance;
-	main_loop = instance.GetMainLoop();
 	mpd = &instance.GetClient();
 	screen = &instance.GetScreenManager();
 
@@ -382,28 +341,14 @@ main(int argc, const char *argv[])
 	};
 
 	/* attempt to connect */
-	reconnect_source_id = g_idle_add(timer_reconnect, nullptr);
+	instance.ScheduleReconnect(std::chrono::seconds(0));
 
 	auto_update_timer();
 
 #ifndef NCMPC_MINI
-	check_key_bindings_source_id =
-		g_timeout_add_seconds(10, timer_check_key_bindings, nullptr);
+	instance.ScheduleCheckKeyBindings();
 #endif
 
 	instance.Run();
-
-	/* cleanup */
-
-	disable_update_timer();
-
-	if (reconnect_source_id != 0)
-		g_source_remove(reconnect_source_id);
-
-#ifndef NCMPC_MINI
-	if (check_key_bindings_source_id != 0)
-		g_source_remove(check_key_bindings_source_id);
-#endif
-
 	return 0;
 }

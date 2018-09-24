@@ -17,104 +17,41 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "signals.hxx"
-#include "screen.hxx"
-#include "util/Compiler.h"
+#include "Instance.hxx"
 
-#include <glib-unix.h>
-
-#include <signal.h>
-
-static int sigwinch_pipes[2];
-
-static gboolean
-handle_quit_signal(gpointer data)
+void
+Instance::OnSigwinch()
 {
-	auto *main_loop = (GMainLoop *)data;
-
-	g_main_loop_quit(main_loop);
-	return false;
-}
-
-static gboolean
-sigwinch_event(gcc_unused GIOChannel *source,
-	       gcc_unused GIOCondition condition, gpointer data)
-{
-	auto &screen = *(ScreenManager *)data;
-
-	char ignoreme[64];
-	if (1 > read(sigwinch_pipes[0], ignoreme, 64))
-		exit(EXIT_FAILURE);
-
 	endwin();
 	refresh();
-	screen.OnResize();
-
-	return true;
-}
-
-static void
-catch_sigwinch(gcc_unused int sig)
-{
-	if (1 != write(sigwinch_pipes[1], "", 1))
-		exit(EXIT_FAILURE);
+	screen_manager.OnResize();
 }
 
 void
-signals_init(GMainLoop *main_loop, ScreenManager &screen)
+Instance::AsyncWaitSigwinch()
 {
-	/* setup quit signals */
-	g_unix_signal_add(SIGTERM, handle_quit_signal, main_loop);
-	g_unix_signal_add(SIGINT, handle_quit_signal, main_loop);
-	g_unix_signal_add(SIGHUP, handle_quit_signal, main_loop);
+	sigwinch.async_wait([this](const auto &error, int){
+			if (error)
+				return;
 
-	/* setup signal behavior - SIGCONT */
+			this->OnSigwinch();
+			this->AsyncWaitSigwinch();
+		});
+}
 
-	struct sigaction act;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = 0;
-
-	act.sa_handler = catch_sigwinch;
-	if (sigaction(SIGCONT, &act, nullptr) < 0) {
-		perror("sigaction(SIGCONT)");
-		exit(EXIT_FAILURE);
-	}
-
-	/* setup SIGWINCH */
-
-	act.sa_flags = SA_RESTART;
-	act.sa_handler = catch_sigwinch;
-	if (sigaction(SIGWINCH, &act, nullptr) < 0) {
-		perror("sigaction(SIGWINCH)");
-		exit(EXIT_FAILURE);
-	}
-
-#ifndef _WIN32
-	if (!pipe(sigwinch_pipes) &&
-		!fcntl(sigwinch_pipes[1], F_SETFL, O_NONBLOCK)) {
-		GIOChannel *sigwinch_channel = g_io_channel_unix_new(sigwinch_pipes[0]);
-		g_io_add_watch(sigwinch_channel, G_IO_IN,
-			       sigwinch_event, &screen);
-		g_io_channel_unref(sigwinch_channel);
-	}
-	else {
-		perror("sigwinch pipe creation failed");
-		exit(EXIT_FAILURE);
-	}
-#endif
+void
+Instance::InitSignals()
+{
+	AsyncWaitSigwinch();
 
 	/* ignore SIGPIPE */
 
+	struct sigaction act;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_RESTART;
 	act.sa_handler = SIG_IGN;
 	if (sigaction(SIGPIPE, &act, nullptr) < 0) {
 		perror("sigaction(SIGPIPE)");
 		exit(EXIT_FAILURE);
 	}
-}
-
-void
-signals_deinit()
-{
-	close(sigwinch_pipes[0]);
-	close(sigwinch_pipes[1]);
 }

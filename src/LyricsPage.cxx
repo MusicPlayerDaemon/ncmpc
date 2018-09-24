@@ -22,7 +22,6 @@
 #include "screen_status.hxx"
 #include "FileBrowserPage.hxx"
 #include "SongPage.hxx"
-#include "Event.hxx"
 #include "i18n.h"
 #include "Options.hxx"
 #include "mpdclient.hxx"
@@ -31,6 +30,8 @@
 #include "TextPage.hxx"
 #include "screen_utils.hxx"
 #include "ncu.hxx"
+
+#include <boost/asio/steady_timer.hpp>
 
 #include <string>
 
@@ -62,14 +63,19 @@ class LyricsPage final : public TextPage {
 
 	PluginCycle *loader = nullptr;
 
-	guint loader_timeout = 0;
+	boost::asio::steady_timer loader_timeout;
 
 public:
 	LyricsPage(ScreenManager &_screen, WINDOW *w, Size size)
-		:TextPage(_screen, w, size) {}
+		:TextPage(_screen, w, size),
+		 loader_timeout(_screen.get_io_service()) {}
 
 	~LyricsPage() override {
 		Cancel();
+	}
+
+	auto &get_io_service() noexcept {
+		return loader_timeout.get_io_service();
 	}
 
 private:
@@ -105,7 +111,7 @@ private:
 	void PluginCallback(std::string &&result, bool success,
 			    const char *plugin_name);
 
-	bool TimeoutCallback();
+	void OnTimeout(const boost::system::error_code &error) noexcept;
 
 public:
 	/* virtual methods from class Page */
@@ -125,10 +131,7 @@ LyricsPage::Cancel()
 		loader = nullptr;
 	}
 
-	if (loader_timeout != 0) {
-		g_source_remove(loader_timeout);
-		loader_timeout = 0;
-	}
+	loader_timeout.cancel();
 
 	plugin_name.clear();
 
@@ -241,26 +244,23 @@ LyricsPage::PluginCallback(std::string &&result, const bool success,
 		screen_status_message (_("No lyrics"));
 	}
 
-	if (loader_timeout != 0) {
-		g_source_remove(loader_timeout);
-		loader_timeout = 0;
-	}
+	loader_timeout.cancel();
 
 	plugin_stop(loader);
 	loader = nullptr;
 }
 
-inline bool
-LyricsPage::TimeoutCallback()
+void
+LyricsPage::OnTimeout(const boost::system::error_code &error) noexcept
 {
+	if (error)
+		return;
+
 	plugin_stop(loader);
 	loader = nullptr;
 
 	screen_status_printf(_("Lyrics timeout occurred after %d seconds"),
 			     options.lyrics_timeout);
-
-	loader_timeout = 0;
-	return false;
 }
 
 void
@@ -275,12 +275,13 @@ LyricsPage::Load(const struct mpd_song *_song)
 	artist = mpd_song_get_tag(song, MPD_TAG_ARTIST, 0);
 	title = mpd_song_get_tag(song, MPD_TAG_TITLE, 0);
 
-	loader = lyrics_load(artist, title, PluginCallback, this);
+	loader = lyrics_load(get_io_service(),
+			     artist, title, PluginCallback, this);
 
 	if (options.lyrics_timeout != 0) {
-		loader_timeout = ScheduleTimeout<LyricsPage,
-						 &LyricsPage::TimeoutCallback>(std::chrono::seconds(options.lyrics_timeout),
-									       *this);
+		loader_timeout.expires_from_now(std::chrono::seconds(options.lyrics_timeout));
+		loader_timeout.async_wait(std::bind(&LyricsPage::OnTimeout, this,
+						     std::placeholders::_1));
 	}
 }
 
@@ -289,7 +290,8 @@ LyricsPage::Reload()
 {
 	if (loader == nullptr && artist != nullptr && title != nullptr) {
 		reloading = true;
-		loader = lyrics_load(artist, title, PluginCallback, nullptr);
+		loader = lyrics_load(get_io_service(),
+				     artist, title, PluginCallback, nullptr);
 		Repaint();
 	}
 }

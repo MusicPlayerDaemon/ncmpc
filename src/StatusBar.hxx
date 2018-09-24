@@ -29,6 +29,8 @@
 
 #include <mpd/status.h>
 
+#include <boost/asio/steady_timer.hpp>
+
 #include <string>
 
 struct mpd_status;
@@ -39,7 +41,7 @@ class StatusBar {
 	Window window;
 
 	std::string message;
-	unsigned message_source_id = 0;
+	boost::asio::steady_timer message_timer;
 
 #ifndef NCMPC_MINI
 	class hscroll hscroll;
@@ -56,7 +58,8 @@ class StatusBar {
 #endif
 
 public:
-	StatusBar(Point p, unsigned width);
+	StatusBar(boost::asio::io_service &io_service,
+		  Point p, unsigned width);
 	~StatusBar();
 
 	Window &GetWindow() {
@@ -73,7 +76,10 @@ public:
 	void Paint() const;
 
 private:
-	bool OnClearMessageTimer();
+	void OnMessageTimer(const boost::system::error_code &error) noexcept {
+		if (!error)
+			ClearMessage();
+	}
 };
 
 #endif

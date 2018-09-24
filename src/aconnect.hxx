@@ -31,6 +31,7 @@
 
 #include <mpd/client.h>
 
+namespace boost { namespace asio { class io_service; }}
 struct mpd_connection;
 struct AsyncMpdConnect;
 
@@ -40,7 +41,8 @@ struct AsyncMpdConnectHandler {
 };
 
 void
-aconnect_start(AsyncMpdConnect **acp,
+aconnect_start(boost::asio::io_service &io_service,
+	       AsyncMpdConnect **acp,
 	       const char *host, unsigned port,
 	       const AsyncMpdConnectHandler &handler, void *ctx);
 

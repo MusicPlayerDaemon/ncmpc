@@ -31,7 +31,7 @@
 
 #include <mpd/client.h>
 
-typedef struct _GIOChannel GIOChannel;
+#include <boost/asio/posix/stream_descriptor.hpp>
 
 typedef void (*mpd_glib_callback_t)(enum mpd_error error,
 				    enum mpd_server_error server_error,
@@ -46,15 +46,14 @@ struct MpdIdleSource {
 	mpd_glib_callback_t callback;
 	void *callback_ctx;
 
-	GIOChannel *channel;
+	boost::asio::posix::stream_descriptor socket;
 
 	unsigned io_events = 0;
 
-	unsigned id = 0;
-
 	unsigned idle_events;
 
-	MpdIdleSource(struct mpd_connection &_connection,
+	MpdIdleSource(boost::asio::io_service &io_service,
+		      struct mpd_connection &_connection,
 		      mpd_glib_callback_t _callback, void *_callback_ctx);
 	~MpdIdleSource();
 
@@ -70,6 +69,13 @@ struct MpdIdleSource {
 	 * Leaves idle mode and invokes the callback if there were events.
 	 */
 	void Leave();
+
+	void OnReadable(const boost::system::error_code &error) noexcept;
+	void OnWritable(const boost::system::error_code &error) noexcept;
+
+	void AsyncRead() noexcept;
+	void AsyncWrite() noexcept;
+	void UpdateSocket() noexcept;
 };
 
 #endif

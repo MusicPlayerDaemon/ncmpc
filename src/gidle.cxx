@@ -32,29 +32,25 @@
 #include <mpd/async.h>
 #include <mpd/parser.h>
 
-#include <glib.h>
-
 #include <assert.h>
 #include <string.h>
 #include <errno.h>
 
-MpdIdleSource::MpdIdleSource(struct mpd_connection &_connection,
+MpdIdleSource::MpdIdleSource(boost::asio::io_service &io_service,
+			     struct mpd_connection &_connection,
 			     mpd_glib_callback_t _callback, void *_callback_ctx)
 	:connection(&_connection),
 	 async(mpd_connection_get_async(connection)),
 	 parser(mpd_parser_new()),
 	 callback(_callback), callback_ctx(_callback_ctx),
-	 channel(g_io_channel_unix_new(mpd_async_get_fd(async)))
+	 socket(io_service, mpd_async_get_fd(async))
 {
 	/* TODO check parser!=nullptr */
 }
 
 MpdIdleSource::~MpdIdleSource()
 {
-	if (id != 0)
-		g_source_remove(id);
-
-	g_io_channel_unref(channel);
+	socket.release();
 
 	mpd_parser_free(parser);
 
@@ -63,8 +59,6 @@ MpdIdleSource::~MpdIdleSource()
 static void
 mpd_glib_invoke(const MpdIdleSource *source)
 {
-	assert(source->id == 0);
-
 	if (source->idle_events != 0)
 		source->callback(MPD_ERROR_SUCCESS, (enum mpd_server_error)0,
 				 nullptr,
@@ -76,8 +70,6 @@ mpd_glib_invoke_error(const MpdIdleSource *source,
 		      enum mpd_error error, enum mpd_server_error server_error,
 		      const char *message)
 {
-	assert(source->id == 0);
-
 	source->callback(error, server_error, message,
 			 0, source->callback_ctx);
 }
@@ -85,57 +77,9 @@ mpd_glib_invoke_error(const MpdIdleSource *source,
 static void
 mpd_glib_invoke_async_error(const MpdIdleSource *source)
 {
-	assert(source->id == 0);
-
 	mpd_glib_invoke_error(source, mpd_async_get_error(source->async),
 			      (enum mpd_server_error)0,
 			      mpd_async_get_error_message(source->async));
-}
-
-/**
- * Converts a GIOCondition bit mask to #mpd_async_event.
- */
-static enum mpd_async_event
-g_io_condition_to_mpd_async_event(GIOCondition condition)
-{
-	unsigned events = 0;
-
-	if (condition & G_IO_IN)
-		events |= MPD_ASYNC_EVENT_READ;
-
-	if (condition & G_IO_OUT)
-		events |= MPD_ASYNC_EVENT_WRITE;
-
-	if (condition & G_IO_HUP)
-		events |= MPD_ASYNC_EVENT_HUP;
-
-	if (condition & G_IO_ERR)
-		events |= MPD_ASYNC_EVENT_ERROR;
-
-	return (enum mpd_async_event)events;
-}
-
-/**
- * Converts a #mpd_async_event bit mask to GIOCondition.
- */
-static GIOCondition
-mpd_async_events_to_g_io_condition(enum mpd_async_event events)
-{
-	unsigned condition = 0;
-
-	if (events & MPD_ASYNC_EVENT_READ)
-		condition |= G_IO_IN;
-
-	if (events & MPD_ASYNC_EVENT_WRITE)
-		condition |= G_IO_OUT;
-
-	if (events & MPD_ASYNC_EVENT_HUP)
-		condition |= G_IO_HUP;
-
-	if (events & MPD_ASYNC_EVENT_ERROR)
-		condition |= G_IO_ERR;
-
-	return GIOCondition(condition);
 }
 
 /**
@@ -151,7 +95,6 @@ mpd_glib_feed(MpdIdleSource *source, char *line)
 	result = mpd_parser_feed(source->parser, line);
 	switch (result) {
 	case MPD_PARSER_MALFORMED:
-		source->id = 0;
 		source->io_events = 0;
 
 		mpd_glib_invoke_error(source, MPD_ERROR_MALFORMED,
@@ -160,14 +103,12 @@ mpd_glib_feed(MpdIdleSource *source, char *line)
 		return false;
 
 	case MPD_PARSER_SUCCESS:
-		source->id = 0;
 		source->io_events = 0;
 
 		mpd_glib_invoke(source);
 		return false;
 
 	case MPD_PARSER_ERROR:
-		source->id = 0;
 		source->io_events = 0;
 
 		mpd_glib_invoke_error(source, MPD_ERROR_SERVER,
@@ -202,7 +143,6 @@ mpd_glib_recv(MpdIdleSource *source)
 	}
 
 	if (mpd_async_get_error(source->async) != MPD_ERROR_SUCCESS) {
-		source->id = 0;
 		source->io_events = 0;
 
 		mpd_glib_invoke_async_error(source);
@@ -212,77 +152,97 @@ mpd_glib_recv(MpdIdleSource *source)
 	return true;
 }
 
-static gboolean
-mpd_glib_source_callback(gcc_unused GIOChannel *_source,
-			 GIOCondition condition, gpointer data)
+void
+MpdIdleSource::OnReadable(const boost::system::error_code &error) noexcept
 {
-	auto *source = (MpdIdleSource *)data;
+	io_events &= ~MPD_ASYNC_EVENT_READ;
 
-	assert(source->id != 0);
-	assert(source->io_events != 0);
+	if (error) {
+		if (error == boost::asio::error::operation_aborted)
+			return;
 
-	/* let libmpdclient do some I/O */
-
-	if (!mpd_async_io(source->async,
-			  g_io_condition_to_mpd_async_event(condition))) {
-		source->id = 0;
-		source->io_events = 0;
-
-		mpd_glib_invoke_async_error(source);
-		return false;
+		// TODO
+		return;
 	}
 
-	/* receive the response */
+	if (!mpd_async_io(async, MPD_ASYNC_EVENT_READ)) {
+		socket.cancel();
+		io_events = 0;
 
-	if ((condition & G_IO_IN) != 0) {
-		if (!mpd_glib_recv(source))
-			return false;
+		mpd_glib_invoke_async_error(this);
+		return;
 	}
 
-	/* continue polling? */
+	if (!mpd_glib_recv(this))
+		return;
 
-	enum mpd_async_event events = mpd_async_events(source->async);
-	if (events == 0) {
-		/* no events - disable watch */
-		source->id = 0;
-		source->io_events = 0;
-
-		return false;
-	} else if (events != source->io_events) {
-		/* different event mask: make new watch */
-
-		g_source_remove(source->id);
-
-		condition = mpd_async_events_to_g_io_condition(events);
-		source->id = g_io_add_watch(source->channel, condition,
-					    mpd_glib_source_callback, source);
-		source->io_events = events;
-
-		return false;
-	} else
-		/* same event mask as before, enable the old watch */
-		return true;
+	UpdateSocket();
 }
 
-static void
-mpd_glib_add_watch(MpdIdleSource *source)
+void
+MpdIdleSource::OnWritable(const boost::system::error_code &error) noexcept
 {
-	enum mpd_async_event events = mpd_async_events(source->async);
+	io_events &= ~MPD_ASYNC_EVENT_WRITE;
 
-	assert(source->io_events == 0);
-	assert(source->id == 0);
+	if (error) {
+		if (error == boost::asio::error::operation_aborted)
+			return;
 
-	GIOCondition condition = mpd_async_events_to_g_io_condition(events);
-	source->id = g_io_add_watch(source->channel, condition,
-				    mpd_glib_source_callback, source);
-	source->io_events = events;
+		// TODO
+		return;
+	}
+
+	if (!mpd_async_io(async, MPD_ASYNC_EVENT_WRITE)) {
+		socket.cancel();
+		io_events = 0;
+
+		mpd_glib_invoke_async_error(this);
+		return;
+	}
+
+	UpdateSocket();
+}
+
+void
+MpdIdleSource::AsyncRead() noexcept
+{
+	io_events |= MPD_ASYNC_EVENT_READ;
+	socket.async_read_some(boost::asio::null_buffers(),
+			       std::bind(&MpdIdleSource::OnReadable, this,
+					 std::placeholders::_1));
+}
+
+void
+MpdIdleSource::AsyncWrite() noexcept
+{
+	io_events |= MPD_ASYNC_EVENT_WRITE;
+	socket.async_write_some(boost::asio::null_buffers(),
+				std::bind(&MpdIdleSource::OnWritable, this,
+					  std::placeholders::_1));
+}
+
+void
+MpdIdleSource::UpdateSocket() noexcept
+{
+	enum mpd_async_event events = mpd_async_events(async);
+	if (events == io_events)
+		return;
+
+	socket.cancel();
+
+	if (events & MPD_ASYNC_EVENT_READ)
+		AsyncRead();
+
+	if (events & MPD_ASYNC_EVENT_WRITE)
+		AsyncWrite();
+
+	io_events = events;
 }
 
 bool
 MpdIdleSource::Enter()
 {
 	assert(io_events == 0);
-	assert(id == 0);
 
 	idle_events = 0;
 
@@ -291,19 +251,18 @@ MpdIdleSource::Enter()
 		return false;
 	}
 
-	mpd_glib_add_watch(this);
+	UpdateSocket();
 	return true;
 }
 
 void
 MpdIdleSource::Leave()
 {
-	if (id == 0)
+	if (io_events == 0)
 		/* already left, callback was invoked */
 		return;
 
-	g_source_remove(id);
-	id = 0;
+	socket.cancel();
 	io_events = 0;
 
 	enum mpd_idle events = idle_events == 0

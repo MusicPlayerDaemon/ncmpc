@@ -29,11 +29,11 @@
 #ifndef NET_ASYNC_HANDLER_HXX
 #define NET_ASYNC_HANDLER_HXX
 
-#include "socket.hxx"
+#include <boost/asio/generic/stream_protocol.hpp>
 
 class AsyncConnectHandler {
 public:
-	virtual void OnConnect(socket_t fd) = 0;
+	virtual void OnConnect(boost::asio::generic::stream_protocol::socket socket) = 0;
 	virtual void OnConnectError(const char *message) = 0;
 };
 

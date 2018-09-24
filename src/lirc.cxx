@@ -24,14 +24,12 @@
 
 #include <lirc/lirc_client.h>
 
-#include <glib.h>
-
-static struct lirc_config *lc = nullptr;
-
-static gboolean
-lirc_event(gcc_unused GIOChannel *source,
-	   gcc_unused GIOCondition condition, gcc_unused gpointer data)
+void
+LircInput::OnReadable(const boost::system::error_code &error)
 {
+	if (error)
+		return;
+
 	char *code, *txt;
 
 	begin_input_event();
@@ -39,17 +37,17 @@ lirc_event(gcc_unused GIOChannel *source,
 	if (lirc_nextcode(&code) == 0) {
 		while (lirc_code2char(lc, code, &txt) == 0 && txt != nullptr) {
 			const auto cmd = get_key_command_from_name(txt);
-			if (!do_input_event(cmd))
-				return false;
+			if (!do_input_event(d.get_io_service(), cmd))
+				return;
 		}
 	}
 
 	end_input_event();
-	return true;
+	AsyncWait();
 }
 
-void
-ncmpc_lirc_init()
+LircInput::LircInput(boost::asio::io_service &io_service)
+	:d(io_service)
 {
 	int lirc_socket = 0;
 
@@ -61,13 +59,11 @@ ncmpc_lirc_init()
 		return;
 	}
 
-	GIOChannel *channel = g_io_channel_unix_new(lirc_socket);
-	g_io_add_watch(channel, G_IO_IN, lirc_event, nullptr);
-	g_io_channel_unref(channel);
+	d.assign(lirc_socket);
+	AsyncWait();
 }
 
-void
-ncmpc_lirc_deinit()
+LircInput::~LircInput()
 {
 	if (lc)
 		lirc_freeconfig(lc);

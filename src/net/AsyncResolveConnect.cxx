@@ -29,8 +29,11 @@
 #include "AsyncResolveConnect.hxx"
 #include "AsyncConnect.hxx"
 #include "AsyncHandler.hxx"
-#include "resolver.hxx"
 #include "util/Compiler.h"
+
+#ifndef _WIN32
+#include <boost/asio/local/stream_protocol.hpp>
+#endif
 
 #include <string>
 
@@ -41,38 +44,33 @@
 struct AsyncResolveConnect final : AsyncConnectHandler {
 	AsyncConnectHandler &handler;
 
-	const char *host;
-	struct resolver *resolver;
+	boost::asio::ip::tcp::resolver resolver;
 
 	AsyncConnect *connect = nullptr;
 
-	std::string last_error;
-
-	AsyncResolveConnect(const char *_host, struct resolver *_resolver,
+	AsyncResolveConnect(boost::asio::io_service &io_service,
 			    AsyncConnectHandler &_handler)
-		:handler(_handler),
-		 host(_host), resolver(_resolver) {}
+		:handler(_handler), resolver(io_service) {}
 
 	~AsyncResolveConnect() {
 		if (connect != nullptr)
 			async_connect_cancel(connect);
-		resolver_free(resolver);
 	}
 
+	void OnResolved(const boost::system::error_code &error,
+			boost::asio::ip::tcp::resolver::iterator i);
+
 	/* virtual methods from AsyncConnectHandler */
-	void OnConnect(socket_t fd) override;
+	void OnConnect(boost::asio::generic::stream_protocol::socket socket) override;
 	void OnConnectError(const char *message) override;
 };
 
-static void
-async_rconnect_next(AsyncResolveConnect *rc);
-
 void
-AsyncResolveConnect::OnConnect(socket_t fd)
+AsyncResolveConnect::OnConnect(boost::asio::generic::stream_protocol::socket socket)
 {
 	connect = nullptr;
 
-	handler.OnConnect(fd);
+	handler.OnConnect(std::move(socket));
 
 	delete this;
 }
@@ -82,60 +80,62 @@ AsyncResolveConnect::OnConnectError(const char *message)
 {
 	connect = nullptr;
 
-	last_error = message;
-
-	async_rconnect_next(this);
-}
-
-static void
-async_rconnect_next(AsyncResolveConnect *rc)
-{
-	assert(rc->connect == nullptr);
-
-	const struct resolver_address *a = resolver_next(rc->resolver);
-	if (a == nullptr) {
-		char msg[256];
-
-		if (rc->last_error.empty()) {
-			snprintf(msg, sizeof(msg),
-				 "Host '%s' has no address",
-				 rc->host);
-		} else {
-			snprintf(msg, sizeof(msg),
-				 "Failed to connect to host '%s': %s",
-				 rc->host, rc->last_error.c_str());
-		}
-
-		rc->handler.OnConnectError(msg);
-		delete rc;
-		return;
-	}
-
-	async_connect_start(&rc->connect, a->addr, a->addrlen,
-			    *rc);
+	handler.OnConnectError(message);
 }
 
 void
-async_rconnect_start(AsyncResolveConnect **rcp,
-		     const char *host, unsigned port,
-		     AsyncConnectHandler &handler)
+AsyncResolveConnect::OnResolved(const boost::system::error_code &error,
+				boost::asio::ip::tcp::resolver::iterator i)
 {
-	struct resolver *r = resolver_new(host, port);
-	if (host == nullptr)
-		host = "[default]";
+	if (error) {
+		if (error == boost::asio::error::operation_aborted)
+			/* this object has already been deleted; bail
+			   out quickly without touching anything */
+			return;
 
-	if (r == nullptr) {
-		char msg[256];
-		snprintf(msg, sizeof(msg), "Failed to resolve host '%s'",
-			 host);
-		handler.OnConnectError(msg);
+		handler.OnConnectError(error.message().c_str());
 		return;
 	}
 
-	auto *rc = new AsyncResolveConnect(host, r, handler);
+	async_connect_start(resolver.get_io_service(), &connect,
+			    *i, *this);
+}
+
+void
+async_rconnect_start(boost::asio::io_service &io_service,
+		     AsyncResolveConnect **rcp,
+		     const char *host, unsigned port,
+		     AsyncConnectHandler &handler)
+{
+#ifndef _WIN32
+	if (host[0] == '/' || host[0] == '@') {
+		*rcp = nullptr;
+
+		std::string s(host);
+		if (host[0] == '@')
+			/* abstract socket */
+			s.front() = 0;
+
+		boost::asio::local::stream_protocol::endpoint ep(std::move(s));
+		boost::asio::local::stream_protocol::socket socket(io_service);
+		socket.connect(ep);
+
+		handler.OnConnect(std::move(socket));
+		return;
+	}
+#endif /* _WIN32 */
+
+	char service[20];
+	snprintf(service, sizeof(service), "%u", port);
+
+	auto *rc = new AsyncResolveConnect(io_service, handler);
 	*rcp = rc;
 
-	async_rconnect_next(rc);
+	rc->resolver.async_resolve({host, service},
+				   std::bind(&AsyncResolveConnect::OnResolved,
+					     rc,
+					     std::placeholders::_1,
+					     std::placeholders::_2));
 }
 
 void

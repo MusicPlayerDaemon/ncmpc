@@ -35,7 +35,7 @@
 #include <mpd/client.h>
 #include <mpd/async.h>
 
-#include <glib.h>
+#include <boost/asio/ip/tcp.hpp>
 
 #include <assert.h>
 #include <string.h>
@@ -48,77 +48,72 @@ struct AsyncMpdConnect final : AsyncConnectHandler {
 
 	AsyncResolveConnect *rconnect;
 
-	int fd;
-	guint source_id;
+	boost::asio::generic::stream_protocol::socket socket;
+
+	char buffer[256];
+
+	explicit AsyncMpdConnect(boost::asio::io_service &io_service) noexcept
+		:socket(io_service) {}
+
+	void OnReceive(const boost::system::error_code &error,
+		       std::size_t bytes_transferred) noexcept;
 
 	/* virtual methods from AsyncConnectHandler */
-	void OnConnect(socket_t fd) override;
+	void OnConnect(boost::asio::generic::stream_protocol::socket socket) override;
 	void OnConnectError(const char *message) override;
 };
 
-static gboolean
-aconnect_source_callback(gcc_unused GIOChannel *source,
-			 gcc_unused GIOCondition condition,
-			 gpointer data)
+void
+AsyncMpdConnect::OnReceive(const boost::system::error_code &error,
+			   std::size_t bytes_transferred) noexcept
 {
-	auto *ac = (AsyncMpdConnect *)data;
-	assert(ac->source_id != 0);
-	ac->source_id = 0;
+	if (error) {
+		if (error == boost::asio::error::operation_aborted)
+			/* this object has already been deleted; bail out
+			   quickly without touching anything */
+			return;
 
-	char buffer[256];
-	ssize_t nbytes = recv(ac->fd, buffer, sizeof(buffer) - 1, 0);
-	if (nbytes < 0) {
 		snprintf(buffer, sizeof(buffer),
 			 "Failed to receive from MPD: %s",
-			 strerror(errno));
-		close_socket(ac->fd);
-		ac->handler->error(buffer, ac->handler_ctx);
-		delete ac;
-		return false;
+			 error.message().c_str());
+		handler->error(buffer, handler_ctx);
+		delete this;
+		return;
 	}
 
-	if (nbytes == 0) {
-		close_socket(ac->fd);
-		ac->handler->error("MPD closed the connection",
-				   ac->handler_ctx);
-		delete ac;
-		return false;
-	}
+	buffer[bytes_transferred] = 0;
 
-	buffer[nbytes] = 0;
-
-	struct mpd_async *async = mpd_async_new(ac->fd);
+	/* the dup() is necessary because Boost 1.62 doesn't have the
+	   release() method yet */
+	struct mpd_async *async = mpd_async_new(dup(socket.native_handle()));
 	if (async == nullptr) {
-		close_socket(ac->fd);
-		ac->handler->error("Out of memory", ac->handler_ctx);
-		delete ac;
-		return false;
+		handler->error("Out of memory", handler_ctx);
+		delete this;
+		return;
 	}
 
 	struct mpd_connection *c = mpd_connection_new_async(async, buffer);
 	if (c == nullptr) {
 		mpd_async_free(async);
-		ac->handler->error("Out of memory", ac->handler_ctx);
-		delete ac;
-		return false;
+		handler->error("Out of memory", handler_ctx);
+		delete this;
+		return;
 	}
 
-	ac->handler->success(c, ac->handler_ctx);
-	delete ac;
-	return false;
+	handler->success(c, handler_ctx);
+	delete this;
 }
 
 void
-AsyncMpdConnect::OnConnect(socket_t _fd)
+AsyncMpdConnect::OnConnect(boost::asio::generic::stream_protocol::socket _socket)
 {
 	rconnect = nullptr;
 
-	fd = _fd;
-
-	GIOChannel *channel = g_io_channel_unix_new(fd);
-	source_id = g_io_add_watch(channel, G_IO_IN,
-				   aconnect_source_callback, this);
-	g_io_channel_unref(channel);
+	socket = std::move(_socket);
+	socket.async_receive(boost::asio::buffer(buffer, sizeof(buffer) - 1),
+			     std::bind(&AsyncMpdConnect::OnReceive, this,
+				       std::placeholders::_1,
+				       std::placeholders::_2));
 }
 
 void
@@ -131,17 +126,18 @@ AsyncMpdConnect::OnConnectError(const char *message)
 }
 
 void
-aconnect_start(AsyncMpdConnect **acp,
+aconnect_start(boost::asio::io_service &io_service,
+	       AsyncMpdConnect **acp,
 	       const char *host, unsigned port,
 	       const AsyncMpdConnectHandler &handler, void *ctx)
 {
-	auto *ac = new AsyncMpdConnect();
+	auto *ac = new AsyncMpdConnect(io_service);
 	ac->handler = &handler;
 	ac->handler_ctx = ctx;
 
 	*acp = ac;
 
-	async_rconnect_start(&ac->rconnect, host, port, *ac);
+	async_rconnect_start(io_service, &ac->rconnect, host, port, *ac);
 }
 
 void
@@ -149,10 +145,8 @@ aconnect_cancel(AsyncMpdConnect *ac)
 {
 	if (ac->rconnect != nullptr)
 		async_rconnect_cancel(ac->rconnect);
-	else {
-		g_source_remove(ac->source_id);
-		close_socket(ac->fd);
-	}
+	else
+		ac->socket.cancel();
 
 	delete ac;
 }

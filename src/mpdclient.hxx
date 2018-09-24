@@ -7,6 +7,8 @@
 
 #include <mpd/client.h>
 
+#include <boost/asio/steady_timer.hpp>
+
 #include <string>
 
 struct AsyncMpdConnect;
@@ -59,10 +61,10 @@ struct mpdclient {
 	const struct mpd_song *song = nullptr;
 
 	/**
-	 * The GLib source id which re-enters MPD idle mode before the
-	 * next main loop iteration.
+	 * A timer which re-enters MPD idle mode before the next main
+	 * loop iteration.
 	 */
-	unsigned enter_idle_source_id = 0;
+	boost::asio::steady_timer enter_idle_timer;
 
 	/**
 	 * This attribute is incremented whenever the connection changes
@@ -99,7 +101,8 @@ struct mpdclient {
 	 */
 	bool playing_or_paused = false;
 
-	mpdclient(const char *host, unsigned port,
+	mpdclient(boost::asio::io_service &io_service,
+		  const char *host, unsigned port,
 		  unsigned _timeout_ms, const char *_password);
 
 	~mpdclient() {
@@ -113,6 +116,10 @@ struct mpdclient {
 			mpd_settings_free(settings2);
 #endif
 #endif
+	}
+
+	auto &get_io_service() noexcept {
+		return enter_idle_timer.get_io_service();
 	}
 
 	/**

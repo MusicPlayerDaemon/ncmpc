@@ -30,7 +30,7 @@
 #include "AsyncHandler.hxx"
 #include "util/Compiler.h"
 
-#include <glib.h>
+#include <boost/asio/ip/tcp.hpp>
 
 #ifdef _WIN32
 #include <ws2tcpip.h>
@@ -44,90 +44,48 @@
 struct AsyncConnect {
 	AsyncConnectHandler &handler;
 
-	const socket_t fd;
+	boost::asio::ip::tcp::socket socket;
 
-	guint source_id;
-
-	AsyncConnect(socket_t _fd,
+	AsyncConnect(boost::asio::io_service &io_service,
 		     AsyncConnectHandler &_handler)
 		:handler(_handler),
-		 fd(_fd) {}
+		 socket(io_service) {}
+
+	void OnConnected(const boost::system::error_code &error);
 };
 
-static gboolean
-async_connect_source_callback(gcc_unused GIOChannel *source,
-			      gcc_unused GIOCondition condition,
-			      gpointer data)
+void
+AsyncConnect::OnConnected(const boost::system::error_code &error)
 {
-	auto *ac = (AsyncConnect *)data;
+	if (error) {
+		if (error == boost::asio::error::operation_aborted)
+			/* this object has already been deleted; bail out
+			   quickly without touching anything */
+			return;
 
-	const int fd = ac->fd;
-	auto &handler = ac->handler;
-	delete ac;
-
-	int s_err = 0;
-	socklen_t s_err_size = sizeof(s_err);
-
-	if (getsockopt(fd, SOL_SOCKET, SO_ERROR,
-		       (char*)&s_err, &s_err_size) < 0)
-		s_err = -last_socket_error();
-
-	if (s_err == 0) {
-		handler.OnConnect(fd);
-	} else {
-		close_socket(fd);
-		char msg[256];
-		snprintf(msg, sizeof(msg), "Failed to connect socket: %s",
-			 strerror(-s_err));
-		handler.OnConnectError(msg);
+		socket.close();
+		handler.OnConnectError(error.message().c_str());
+		return;
 	}
 
-	return false;
+	handler.OnConnect(std::move(socket));
 }
 
 void
-async_connect_start(AsyncConnect **acp,
-		    const struct sockaddr *address, size_t address_size,
+async_connect_start(boost::asio::io_service &io_service, AsyncConnect **acp,
+		    const boost::asio::ip::tcp::endpoint &endpoint,
 		    AsyncConnectHandler &handler)
 {
-	socket_t fd = create_socket(address->sa_family, SOCK_STREAM, 0);
-	if (fd == INVALID_SOCKET) {
-		char msg[256];
-		snprintf(msg, sizeof(msg), "Failed to create socket: %s",
-			 strerror(errno));
-		handler.OnConnectError(msg);
-		return;
-	}
-
-	if (connect(fd, address, address_size) == 0) {
-		handler.OnConnect(fd);
-		return;
-	}
-
-	const int e = last_socket_error();
-	if (!would_block(e)) {
-		close_socket(fd);
-		char msg[256];
-		snprintf(msg, sizeof(msg), "Failed to connect socket: %s",
-			 strerror(e));
-		handler.OnConnectError(msg);
-		return;
-	}
-
-	AsyncConnect *ac = new AsyncConnect(fd, handler);
-
-	GIOChannel *channel = g_io_channel_unix_new(fd);
-	ac->source_id = g_io_add_watch(channel, G_IO_OUT,
-				       async_connect_source_callback, ac);
-	g_io_channel_unref(channel);
-
+	AsyncConnect *ac = new AsyncConnect(io_service, handler);
 	*acp = ac;
+
+	ac->socket.async_connect(endpoint,
+				 std::bind(&AsyncConnect::OnConnected, ac,
+					   std::placeholders::_1));
 }
 
 void
 async_connect_cancel(AsyncConnect *ac)
 {
-	g_source_remove(ac->source_id);
-	close_socket(ac->fd);
 	delete ac;
 }

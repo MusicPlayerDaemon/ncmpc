@@ -30,21 +30,19 @@
 
 #include <mpd/client.h>
 
-#include <glib.h>
-
 #include <assert.h>
 
-static gboolean
-mpdclient_enter_idle_callback(gpointer user_data)
+static void
+mpdclient_enter_idle_callback(struct mpdclient *c,
+			      const boost::system::error_code &error) noexcept
 {
-	auto *c = (struct mpdclient *)user_data;
-	assert(c->enter_idle_source_id != 0);
+	if (error)
+		return;
+
 	assert(c->source != nullptr);
 	assert(!c->idle);
 
-	c->enter_idle_source_id = 0;
 	c->idle = c->source->Enter();
-	return false;
 }
 
 static void
@@ -53,19 +51,17 @@ mpdclient_schedule_enter_idle(struct mpdclient *c)
 	assert(c != nullptr);
 	assert(c->source != nullptr);
 
-	if (c->enter_idle_source_id == 0)
-		/* automatically re-enter MPD "idle" mode */
-		c->enter_idle_source_id =
-			g_idle_add(mpdclient_enter_idle_callback, c);
+	/* automatically re-enter MPD "idle" mode */
+	c->enter_idle_timer.cancel();
+	c->enter_idle_timer.expires_from_now(std::chrono::seconds(0));
+	c->enter_idle_timer.async_wait(std::bind(mpdclient_enter_idle_callback,
+						 c, std::placeholders::_1));
 }
 
 static void
 mpdclient_cancel_enter_idle(struct mpdclient *c)
 {
-	if (c->enter_idle_source_id != 0) {
-		g_source_remove(c->enter_idle_source_id);
-		c->enter_idle_source_id = 0;
-	}
+	c->enter_idle_timer.cancel();
 }
 
 static void
@@ -170,15 +166,17 @@ settings_is_local_socket(const struct mpd_settings *settings)
 #endif
 #endif
 
-mpdclient::mpdclient(const char *_host, unsigned _port,
+mpdclient::mpdclient(boost::asio::io_service &io_service,
+		     const char *_host, unsigned _port,
 		     unsigned _timeout_ms, const char *_password)
-	:timeout_ms(_timeout_ms), password(_password)
+	:timeout_ms(_timeout_ms), password(_password),
+	 enter_idle_timer(io_service)
 {
 #ifdef ENABLE_ASYNC_CONNECT
 	settings = mpd_settings_new(_host, _port, _timeout_ms,
 				    nullptr, nullptr);
 	if (settings == nullptr)
-		g_error("Out of memory");
+		fprintf(stderr, "Out of memory\n");
 
 #ifndef _WIN32
 	settings2 = _host == nullptr && _port == 0 &&
@@ -306,7 +304,7 @@ mpdclient_connected(struct mpdclient *c,
 		return false;
 	}
 
-	c->source = new MpdIdleSource(*connection,
+	c->source = new MpdIdleSource(c->get_io_service(), *connection,
 				      mpdclient_gidle_callback, c);
 	mpdclient_schedule_enter_idle(c);
 
@@ -384,7 +382,7 @@ static void
 mpdclient_aconnect_start(struct mpdclient *c,
 			 const struct mpd_settings *settings)
 {
-	aconnect_start(&c->async_connect,
+	aconnect_start(c->get_io_service(), &c->async_connect,
 		       mpd_settings_get_host(settings),
 		       mpd_settings_get_port(settings),
 		       mpdclient_connect_handler, c);
@@ -408,7 +406,7 @@ mpdclient::Connect()
 	struct mpd_connection *new_connection =
 		mpd_connection_new(host, port, timeout_ms);
 	if (new_connection == nullptr)
-		g_error("Out of memory");
+		fprintf(stderr, "Out of memory\n");
 
 	mpdclient_connected(this, new_connection);
 #endif
@@ -669,7 +667,7 @@ mpdclient_cmd_delete(struct mpdclient *c, int idx)
 	if (connection == nullptr || c->status == nullptr)
 		return false;
 
-	if (idx < 0 || (guint)idx >= c->playlist.size())
+	if (idx < 0 || (unsigned)idx >= c->playlist.size())
 		return false;
 
 	const auto &song = c->playlist[idx];
@@ -891,7 +889,7 @@ mpdclient::UpdateQueueChanges()
 	while ((s = mpd_recv_song(c)) != nullptr) {
 		int pos = mpd_song_get_pos(s);
 
-		if (pos >= 0 && (guint)pos < playlist.size()) {
+		if (pos >= 0 && (unsigned)pos < playlist.size()) {
 			/* update song */
 			playlist.Replace(pos, *s);
 		} else {

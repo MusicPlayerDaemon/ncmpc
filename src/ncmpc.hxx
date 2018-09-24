@@ -24,6 +24,7 @@
 #include <curses.h>
 #endif
 
+namespace boost { namespace asio { class io_service; }}
 enum class Command : unsigned;
 struct Point;
 class ScreenManager;
@@ -36,7 +37,7 @@ void end_input_event();
  * @return false if the application shall quit
  */
 bool
-do_input_event(Command cmd);
+do_input_event(boost::asio::io_service &io_service, Command cmd);
 
 #ifdef HAVE_GETMOUSE
 void

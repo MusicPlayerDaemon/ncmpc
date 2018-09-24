@@ -22,12 +22,14 @@
 
 #include "plugin.hxx"
 
+namespace boost { namespace asio { class io_service; }}
 struct PluginCycle;
 
 void lyrics_init();
 
 PluginCycle *
-lyrics_load(const char *artist, const char *title,
+lyrics_load(boost::asio::io_service &io_service,
+	    const char *artist, const char *title,
 	    plugin_callback_t callback, void *callback_data);
 
 #endif

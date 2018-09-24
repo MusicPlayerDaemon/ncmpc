@@ -43,16 +43,19 @@ translate_key(int key)
 	return GetGlobalKeyBindings().FindKey(key);
 }
 
-static gboolean
-keyboard_event(gcc_unused GIOChannel *source,
-	       gcc_unused GIOCondition condition,
-	       gpointer data)
+void
+UserInput::OnReadable(const boost::system::error_code &error)
 {
-	auto *w = (WINDOW *)data;
+	if (error) {
+		d.get_io_service().stop();
+		return;
+	}
 
-	int key = wgetch(w);
-	if (ignore_key(key))
-		return true;
+	int key = wgetch(&w);
+	if (ignore_key(key)) {
+		AsyncWait();
+		return;
+	}
 
 #ifdef HAVE_GETMOUSE
 	if (key == KEY_MOUSE) {
@@ -69,38 +72,40 @@ keyboard_event(gcc_unused GIOChannel *source,
 		do_mouse_event({event.x, event.y}, event.bstate);
 		end_input_event();
 
-		return true;
+		AsyncWait();
+		return;
 	}
 #endif
 
 	Command cmd = translate_key(key);
-	if (cmd == Command::NONE)
-		return true;
+	if (cmd == Command::NONE) {
+		AsyncWait();
+		return;
+	}
 
 	begin_input_event();
 
-	if (!do_input_event(cmd))
-		return false;
+	if (!do_input_event(d.get_io_service(), cmd))
+		return;
 
 	end_input_event();
-	return true;
+	AsyncWait();
 }
 
-void
-keyboard_init(WINDOW *w)
+UserInput::UserInput(boost::asio::io_service &io_service, WINDOW &_w)
+	:d(io_service), w(_w)
 {
-	GIOChannel *channel = g_io_channel_unix_new(STDIN_FILENO);
-	g_io_add_watch(channel, G_IO_IN, keyboard_event, w);
-	g_io_channel_unref(channel);
+	d.assign(STDIN_FILENO);
+	AsyncWait();
 }
 
 void
-keyboard_unread(int key)
+keyboard_unread(boost::asio::io_service &io_service, int key)
 {
 	if (ignore_key(key))
 		return;
 
 	Command cmd = translate_key(key);
 	if (cmd != Command::NONE)
-		do_input_event(cmd);
+		do_input_event(io_service, cmd);
 }

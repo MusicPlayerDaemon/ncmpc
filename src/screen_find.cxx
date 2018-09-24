@@ -135,5 +135,5 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 	screen.findbuf = search_str;
 
 	/* ncmpc should get the command */
-	keyboard_unread(key);
+	keyboard_unread(screen.get_io_service(), key);
 }

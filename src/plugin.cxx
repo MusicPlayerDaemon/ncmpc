@@ -24,6 +24,9 @@
 
 #include <glib.h>
 
+#include <boost/asio/steady_timer.hpp>
+#include <boost/asio/posix/stream_descriptor.hpp>
+
 #include <algorithm>
 #include <memory>
 
@@ -40,25 +43,37 @@ struct PluginCycle;
 struct PluginPipe {
 	PluginCycle *cycle;
 
-	/** the pipe to the plugin process, or -1 if none is currently
-	    open */
-	int fd = -1;
-	/** the GLib IO watch of #fd */
-	guint event_id;
+	/** the pipe to the plugin process */
+	boost::asio::posix::stream_descriptor fd;
+
 	/** the output of the current plugin */
 	std::string data;
+
+	std::array<char, 256> buffer;
+
+	PluginPipe(boost::asio::io_service &io_service)
+		:fd(io_service) {}
 
 	~PluginPipe() {
 		Close();
 	}
 
+	void AsyncRead() noexcept {
+		fd.async_read_some(boost::asio::buffer(buffer),
+				   std::bind(&PluginPipe::OnRead, this,
+					     std::placeholders::_1,
+					     std::placeholders::_2));
+	}
+
+	void OnRead(const boost::system::error_code &error,
+		    std::size_t bytes_transferred) noexcept;
+
 	void Close() {
-		if (fd < 0)
+		if (!fd.is_open())
 			return;
 
-		g_source_remove(event_id);
-		close(fd);
-		fd = -1;
+		fd.cancel();
+		fd.close();
 	}
 };
 
@@ -90,11 +105,25 @@ struct PluginCycle {
 	/** list of all error messages from failed plugins */
 	std::string all_errors;
 
-	PluginCycle(PluginList &_list, std::unique_ptr<char *[]> &&_argv,
+	boost::asio::steady_timer delayed_fail_timer;
+
+	PluginCycle(boost::asio::io_service &io_service,
+		    PluginList &_list, std::unique_ptr<char *[]> &&_argv,
 		    plugin_callback_t _callback, void *_callback_data)
 		:list(&_list), argv(std::move(_argv)),
 		 callback(_callback), callback_data(_callback_data),
-		 next_plugin(0) {}
+		 pipe_stdout(io_service), pipe_stderr(io_service),
+		 delayed_fail_timer(io_service) {}
+
+	void ScheduleDelayedFail() noexcept {
+		delayed_fail_timer.expires_from_now(std::chrono::seconds(0));
+		delayed_fail_timer.async_wait(std::bind(&PluginCycle::OnDelayedFail,
+							this,
+							std::placeholders::_1));
+	}
+
+private:
+	void OnDelayedFail(const boost::system::error_code &error) noexcept;
 };
 
 static bool
@@ -133,11 +162,10 @@ next_plugin(PluginCycle *cycle);
 static void
 plugin_eof(PluginCycle *cycle, PluginPipe *p)
 {
-	close(p->fd);
-	p->fd = -1;
+	p->fd.close();
 
 	/* Only if both pipes are have EOF status we are done */
-	if (cycle->pipe_stdout.fd != -1 || cycle->pipe_stderr.fd != -1)
+	if (cycle->pipe_stdout.fd.is_open() || cycle->pipe_stderr.fd.is_open())
 		return;
 
 	int status, ret = waitpid(cycle->pid, &status, 0);
@@ -168,28 +196,22 @@ plugin_eof(PluginCycle *cycle, PluginPipe *p)
 	}
 }
 
-static gboolean
-plugin_data(gcc_unused GIOChannel *source,
-	    gcc_unused GIOCondition condition, gpointer data)
+void
+PluginPipe::OnRead(const boost::system::error_code &error,
+		   std::size_t bytes_transferred) noexcept
 {
-	auto *p = (PluginPipe *)data;
-	assert(p->fd >= 0);
+	if (error) {
+		if (error == boost::asio::error::operation_aborted)
+			/* this object has already been deleted; bail out
+			   quickly without touching anything */
+			return;
 
-	PluginCycle *cycle = p->cycle;
-	assert(cycle != nullptr);
-	assert(cycle->pid > 0);
-
-	char buffer[256];
-	ssize_t nbytes = condition & G_IO_IN
-		? read(p->fd, buffer, sizeof(buffer))
-		: 0;
-	if (nbytes <= 0) {
-		plugin_eof(cycle, p);
-		return false;
+		plugin_eof(cycle, this);
+		return;
 	}
 
-	p->data.append(buffer, nbytes);
-	return true;
+	data.append(&buffer.front(), bytes_transferred);
+	AsyncRead();
 }
 
 /**
@@ -199,31 +221,26 @@ plugin_data(gcc_unused GIOChannel *source,
  * Instead, install a timer which calls the plugin callback in the
  * moment after.
  */
-static gboolean
-plugin_delayed_fail(gpointer data)
+void
+PluginCycle::OnDelayedFail(const boost::system::error_code &error) noexcept
 {
-	auto *cycle = (PluginCycle *)data;
+	if (error)
+		return;
 
-	assert(cycle != nullptr);
-	assert(cycle->pipe_stdout.fd < 0);
-	assert(cycle->pipe_stderr.fd < 0);
-	assert(cycle->pid < 0);
+	assert(!pipe_stdout.fd.is_open());
+	assert(!pipe_stderr.fd.is_open());
+	assert(pid < 0);
 
-	cycle->callback(std::move(cycle->all_errors), false, nullptr,
-			cycle->callback_data);
-
-	return false;
+	callback(std::move(all_errors), false, nullptr,
+		 callback_data);
 }
 
 static void
 plugin_fd_add(PluginCycle *cycle, PluginPipe *p, int fd)
 {
 	p->cycle = cycle;
-	p->fd = fd;
-	GIOChannel *channel = g_io_channel_unix_new(fd);
-	p->event_id = g_io_add_watch(channel, GIOCondition(G_IO_IN|G_IO_HUP),
-				     plugin_data, p);
-	g_io_channel_unref(channel);
+	p->fd.assign(fd);
+	p->AsyncRead();
 }
 
 static int
@@ -231,8 +248,8 @@ start_plugin(PluginCycle *cycle, const char *plugin_path)
 {
 	assert(cycle != nullptr);
 	assert(cycle->pid < 0);
-	assert(cycle->pipe_stdout.fd < 0);
-	assert(cycle->pipe_stderr.fd < 0);
+	assert(!cycle->pipe_stdout.fd.is_open());
+	assert(!cycle->pipe_stderr.fd.is_open());
 	assert(cycle->pipe_stdout.data.empty());
 	assert(cycle->pipe_stderr.data.empty());
 
@@ -292,14 +309,14 @@ static void
 next_plugin(PluginCycle *cycle)
 {
 	assert(cycle->pid < 0);
-	assert(cycle->pipe_stdout.fd < 0);
-	assert(cycle->pipe_stderr.fd < 0);
+	assert(!cycle->pipe_stdout.fd.is_open());
+	assert(!cycle->pipe_stderr.fd.is_open());
 	assert(cycle->pipe_stdout.data.empty());
 	assert(cycle->pipe_stderr.data.empty());
 
 	if (cycle->next_plugin >= cycle->list->plugins.size()) {
 		/* no plugins left */
-		g_idle_add(plugin_delayed_fail, cycle);
+		cycle->ScheduleDelayedFail();
 		return;
 	}
 
@@ -307,7 +324,7 @@ next_plugin(PluginCycle *cycle)
 		cycle->list->plugins[cycle->next_plugin++].c_str();
 	if (start_plugin(cycle, plugin_path) < 0) {
 		/* system error */
-		g_idle_add(plugin_delayed_fail, cycle);
+		cycle->ScheduleDelayedFail();
 		return;
 	}
 }
@@ -337,12 +354,13 @@ make_argv(const char*const* args)
 }
 
 PluginCycle *
-plugin_run(PluginList *list, const char *const*args,
+plugin_run(boost::asio::io_service &io_service,
+	   PluginList *list, const char *const*args,
 	   plugin_callback_t callback, void *callback_data)
 {
 	assert(args != nullptr);
 
-	auto *cycle = new PluginCycle(*list, make_argv(args),
+	auto *cycle = new PluginCycle(io_service, *list, make_argv(args),
 				      callback, callback_data);
 	next_plugin(cycle);
 

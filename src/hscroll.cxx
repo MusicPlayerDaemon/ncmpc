@@ -20,19 +20,21 @@
 #include "hscroll.hxx"
 #include "Styles.hxx"
 #include "charset.hxx"
-#include "Event.hxx"
 
 #include <algorithm>
 
 #include <assert.h>
 
-inline bool
-hscroll::TimerCallback()
+inline void
+hscroll::TimerCallback(const boost::system::error_code &error) noexcept
 {
+	if (error)
+		return;
+
 	Step();
 	Paint();
 	wrefresh(w);
-	return true;
+	ScheduleTimer();
 }
 
 void
@@ -50,17 +52,15 @@ hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text,
 	if (!basic.Set(_width, _text))
 		return;
 
-	if (source_id == 0)
-		source_id = ScheduleTimeout<hscroll, &hscroll::TimerCallback>(std::chrono::seconds(1), *this);
+	timer.cancel();
+	ScheduleTimer();
 }
 
 void
 hscroll::Clear()
 {
 	basic.Clear();
-
-	if (source_id != 0)
-		g_source_remove(std::exchange(source_id, 0));
+	timer.cancel();
 }
 
 void

@@ -29,6 +29,7 @@
 #ifndef NET_ASYNC_RESOLVE_CONNECT_HXX
 #define NET_ASYNC_RESOLVE_CONNECT_HXX
 
+namespace boost { namespace asio { class io_service; }}
 struct AsyncResolveConnect;
 class AsyncConnectHandler;
 
@@ -36,7 +37,8 @@ class AsyncConnectHandler;
  * Resolve a host name and connect to it asynchronously.
  */
 void
-async_rconnect_start(AsyncResolveConnect **rcp,
+async_rconnect_start(boost::asio::io_service &io_service,
+		     AsyncResolveConnect **rcp,
 		     const char *host, unsigned port,
 		     AsyncConnectHandler &handler);
 
