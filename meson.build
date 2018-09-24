@@ -306,6 +306,7 @@ endif
 
 ncmpc = executable('ncmpc',
   'src/Main.cxx',
+  'src/Instance.cxx',
   'src/gidle.cxx',
   'src/mpdclient.cxx',
   'src/callbacks.cxx',

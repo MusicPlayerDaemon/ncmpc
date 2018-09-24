@@ -18,6 +18,7 @@
  */
 
 #include "config.h"
+#include "Instance.hxx"
 #include "ncmpc.hxx"
 #include "mpdclient.hxx"
 #include "callbacks.hxx"
@@ -33,9 +34,6 @@
 #include "strfsong.hxx"
 #include "i18n.h"
 #include "player_command.hxx"
-#include "keyboard.hxx"
-#include "lirc.hxx"
-#include "signals.hxx"
 
 #ifndef NCMPC_MINI
 #include "conf.hxx"
@@ -365,28 +363,11 @@ main(int argc, const char *argv[])
 	lyrics_init();
 #endif
 
-	/* create mpdclient instance */
-	struct mpdclient client(options.host.empty() ? nullptr : options.host.c_str(),
-				options.port,
-				options.timeout_ms,
-				options.password.empty() ? nullptr : options.password.c_str());
-	mpd = &client;
-
-	/* initialize curses */
-	ScreenManager screen_manager;
-	screen_manager.Init(&client);
-	screen = &screen_manager;
-
-	/* the main loop */
-	main_loop = g_main_loop_new(nullptr, false);
-
-	/* watch out for keyboard input */
-	keyboard_init(screen_manager.main_window.w);
-
-	/* watch out for lirc input */
-	ncmpc_lirc_init();
-
-	signals_init(main_loop, screen_manager);
+	/* create the global Instance */
+	Instance instance;
+	main_loop = instance.GetMainLoop();
+	mpd = &instance.GetClient();
+	screen = &instance.GetScreenManager();
 
 	/* attempt to connect */
 	reconnect_source_id = g_idle_add(timer_reconnect, nullptr);
@@ -398,10 +379,7 @@ main(int argc, const char *argv[])
 		g_timeout_add_seconds(10, timer_check_key_bindings, nullptr);
 #endif
 
-	screen_manager.Update(client);
-
-	g_main_loop_run(main_loop);
-	g_main_loop_unref(main_loop);
+	instance.Run();
 
 	/* cleanup */
 
@@ -416,15 +394,6 @@ main(int argc, const char *argv[])
 	if (check_key_bindings_source_id != 0)
 		g_source_remove(check_key_bindings_source_id);
 #endif
-
-	signals_deinit();
-	ncmpc_lirc_deinit();
-
-	screen_manager.Exit();
-#ifndef NCMPC_MINI
-	set_xterm_title("");
-#endif
-	printf("\n");
 
 	return 0;
 }
