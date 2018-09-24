@@ -20,8 +20,7 @@
 #ifndef NCMPC_TAB_BAR_HXX
 #define NCMPC_TAB_BAR_HXX
 
-#include "config.h"
-#include "ncmpc_curses.h"
+#include <curses.h>
 
 struct PageMeta;
 

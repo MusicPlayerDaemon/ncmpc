@@ -19,7 +19,6 @@
 
 #include "ncu.hxx"
 #include "config.h"
-#include "ncmpc_curses.h"
 
 #ifdef ENABLE_COLORS
 #include "Styles.hxx"
@@ -28,6 +27,8 @@
 #ifdef HAVE_GETMOUSE
 #include "Options.hxx"
 #endif
+
+#include <curses.h>
 
 static SCREEN *ncu_screen;
 

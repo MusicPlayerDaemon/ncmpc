@@ -20,7 +20,7 @@
 #ifndef LIST_RENDERER_HXX
 #define LIST_RENDERER_HXX
 
-#include "ncmpc_curses.h"
+#include <curses.h>
 
 class ListRenderer {
 public:

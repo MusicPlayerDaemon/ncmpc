@@ -18,9 +18,9 @@
  */
 
 #include "CustomColors.hxx"
-#include "config.h"
-#include "ncmpc_curses.h"
 #include "i18n.h"
+
+#include <curses.h>
 
 #include <list>
 

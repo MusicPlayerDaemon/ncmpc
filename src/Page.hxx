@@ -21,10 +21,11 @@
 #define NCMPC_PAGE_HXX
 
 #include "config.h"
-#include "ncmpc_curses.h"
 #include "Point.hxx"
 #include "Size.hxx"
 #include "util/Compiler.h"
+
+#include <curses.h>
 
 #include <utility>
 

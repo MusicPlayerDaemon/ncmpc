@@ -80,38 +80,22 @@ else
   endif
 endif
 
+if not cc.has_header('curses.h', dependencies: curses_dep)
+  error('No curses header found')
+endif
+
 if curses == 'ncursesw'
   conf.set('HAVE_NCURSESW', true)
   curses_enhanced = true
   curses_color = true
-  if cc.has_header('ncursesw/curses.h', dependencies: curses_dep)
-    conf.set('HAVE_NCURSESW_CURSES_H', true)
-  elif cc.has_header('curses.h', dependencies: curses_dep)
-    conf.set('HAVE_CURSES_H', true)
-  else
-    error('No ncursesw header found')
-  endif
 elif curses == 'ncurses'
   conf.set('HAVE_NCURSES', true)
   curses_enhanced = true
   curses_color = true
-  if cc.has_header('ncurses/curses.h', dependencies: curses_dep)
-    conf.set('HAVE_NCURSES_CURSES_H', true)
-  elif cc.has_header('curses.h', dependencies: curses_dep)
-    conf.set('HAVE_CURSES_H', true)
-  else
-    error('No ncurses header found')
-  endif
 else
-  if cc.has_header('curses.h', dependencies: curses_dep)
-    conf.set('HAVE_CURSES_H', true)
-
-    # TODO: test this with pdcurses
-    curses_enhanced = cc.has_header_symbol('curses.h', '_XOPEN_CURSES', dependencies: curses_dep)
-    curses_color = curses_enhanced or cc.has_header_symbol('curses.h', 'COLOR_PAIR', dependencies: curses_dep)
-  else
-    error('No curses header found')
-  endif
+  # TODO: test this with pdcurses
+  curses_enhanced = cc.has_header_symbol('curses.h', '_XOPEN_CURSES', dependencies: curses_dep)
+  curses_color = curses_enhanced or cc.has_header_symbol('curses.h', 'COLOR_PAIR', dependencies: curses_dep)
 endif
 conf.set('HAVE_CURSES_ENHANCED', curses_enhanced)
 

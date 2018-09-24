@@ -21,9 +21,10 @@
 #define LIST_WINDOW_HXX
 
 #include "config.h"
-#include "ncmpc_curses.h"
 #include "Size.hxx"
 #include "util/Compiler.h"
+
+#include <curses.h>
 
 enum class Command : unsigned;
 class ListText;

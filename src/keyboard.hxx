@@ -20,7 +20,7 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#include "ncmpc_curses.h"
+#include <curses.h>
 
 void
 keyboard_init(WINDOW *w);

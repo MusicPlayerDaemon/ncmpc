@@ -20,8 +20,7 @@
 #ifndef NCMPC_SONG_PAINT_H
 #define NCMPC_SONG_PAINT_H
 
-#include "config.h"
-#include "ncmpc_curses.h"
+#include <curses.h>
 
 struct mpd_song;
 class hscroll;

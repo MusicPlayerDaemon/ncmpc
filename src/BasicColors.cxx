@@ -18,8 +18,8 @@
  */
 
 #include "BasicColors.hxx"
-#include "config.h"
-#include "ncmpc_curses.h"
+
+#include <curses.h>
 
 #include <string.h>
 #include <stdlib.h>

@@ -20,10 +20,11 @@
 #ifndef NCMPC_PAGE_META_HXX
 #define NCMPC_PAGE_META_HXX
 
-#include <memory>
-#include "config.h"
-#include "ncmpc_curses.h"
 #include "Size.hxx"
+
+#include <memory>
+
+#include <curses.h>
 
 enum class Command : unsigned;
 class Page;

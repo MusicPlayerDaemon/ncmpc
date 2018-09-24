@@ -20,10 +20,10 @@
 #ifndef NCMPC_WINDOW_HXX
 #define NCMPC_WINDOW_HXX
 
-#include "config.h"
 #include "Point.hxx"
 #include "Size.hxx"
-#include "ncmpc_curses.h"
+
+#include <curses.h>
 
 struct Window {
 	WINDOW *const w;

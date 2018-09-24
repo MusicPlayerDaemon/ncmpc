@@ -20,9 +20,9 @@
 #ifndef HSCROLL_H
 #define HSCROLL_H
 
-#include "config.h"
-#include "ncmpc_curses.h"
 #include "BasicMarquee.hxx"
+
+#include <curses.h>
 
 enum class Style : unsigned;
 

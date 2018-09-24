@@ -27,8 +27,9 @@
 #include "StatusBar.hxx"
 #include "History.hxx"
 #include "Point.hxx"
-#include "ncmpc_curses.h"
 #include "util/Compiler.h"
+
+#include <curses.h>
 
 #include <mpd/client.h>
 

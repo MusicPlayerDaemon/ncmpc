@@ -20,9 +20,9 @@
 #ifndef WREADLN_H
 #define WREADLN_H
 
-#include "config.h"
 #include "History.hxx"
-#include "ncmpc_curses.h"
+
+#include <curses.h>
 
 #include <string>
 

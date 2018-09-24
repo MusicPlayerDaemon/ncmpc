@@ -19,7 +19,8 @@
 
 #include "KeyName.hxx"
 #include "i18n.h"
-#include "ncmpc_curses.h"
+
+#include <curses.h>
 
 const char *
 key2str(int key)

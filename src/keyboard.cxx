@@ -23,7 +23,6 @@
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "ncmpc.hxx"
-#include "ncmpc_curses.h"
 #include "screen.hxx"
 #include "util/Compiler.h"
 

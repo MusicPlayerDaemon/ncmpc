@@ -19,7 +19,8 @@
 
 #include "GlobalBindings.hxx"
 #include "Bindings.hxx"
-#include "ncmpc_curses.h"
+
+#include <curses.h>
 
 #define KEY_CTL(x) ((x) & 0x1f) /* KEY_CTL(A) == ^A == \1 */
 

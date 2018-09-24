@@ -21,10 +21,11 @@
 #define FILE_LIST_PAGE_HXX
 
 #include "config.h"
-#include "ncmpc_curses.h"
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
 #include "ListText.hxx"
+
+#include <curses.h>
 
 struct mpdclient;
 struct MpdQueue;

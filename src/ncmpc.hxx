@@ -21,7 +21,7 @@
 #define NCMPC_H
 
 #ifdef HAVE_GETMOUSE
-#include "ncmpc_curses.h"
+#include <curses.h>
 #endif
 
 enum class Command : unsigned;

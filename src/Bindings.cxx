@@ -21,8 +21,9 @@
 #include "Command.hxx"
 #include "KeyName.hxx"
 #include "i18n.h"
-#include "ncmpc_curses.h"
 #include "util/CharUtil.hxx"
+
+#include <curses.h>
 
 #include <glib.h>
 
