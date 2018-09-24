@@ -49,6 +49,14 @@ ScreenManager::ScreenManager()
 		leaveok(main_window.w, true);
 
 	keypad(main_window.w, true);
+
+#ifdef ENABLE_COLORS
+	if (options.enable_colors) {
+		/* set background attributes */
+		wbkgd(stdscr, COLOR_PAIR(Style::LIST));
+		wbkgd(main_window.w, COLOR_PAIR(Style::LIST));
+	}
+#endif
 }
 
 ScreenManager::~ScreenManager()
@@ -106,14 +114,6 @@ ScreenManager::OnResize()
 void
 ScreenManager::Init(struct mpdclient *c)
 {
-#ifdef ENABLE_COLORS
-	if (options.enable_colors) {
-		/* set background attributes */
-		wbkgd(stdscr, COLOR_PAIR(Style::LIST));
-		wbkgd(main_window.w, COLOR_PAIR(Style::LIST));
-	}
-#endif
-
 	current_page = MakePage(screen_queue);
 	current_page->second->OnOpen(*c);
 }
