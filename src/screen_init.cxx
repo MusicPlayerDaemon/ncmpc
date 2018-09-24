@@ -43,7 +43,7 @@ ScreenManager::ScreenManager()
 	 mode_fn_prev(&screen_queue)
 {
 	buf_size = layout.size.width;
-	buf = (char *)g_malloc(buf_size);
+	buf = new char[buf_size];
 
 	if (!options.hardware_cursor)
 		leaveok(main_window.w, true);
@@ -53,7 +53,7 @@ ScreenManager::ScreenManager()
 
 ScreenManager::~ScreenManager()
 {
-	g_free(buf);
+	delete[] buf;
 }
 
 void
@@ -90,8 +90,8 @@ ScreenManager::OnResize()
 			    layout.size.width);
 
 	buf_size = layout.size.width;
-	g_free(buf);
-	buf = (char *)g_malloc(buf_size);
+	delete[] buf;
+	buf = new char[buf_size];
 
 	/* resize all screens */
 	current_page->second->Resize(main_window.size);
