@@ -34,6 +34,7 @@
 #include "strfsong.hxx"
 #include "i18n.h"
 #include "player_command.hxx"
+#include "util/ScopeExit.hxx"
 
 #ifndef NCMPC_MINI
 #include "conf.hxx"
@@ -368,6 +369,15 @@ main(int argc, const char *argv[])
 	main_loop = instance.GetMainLoop();
 	mpd = &instance.GetClient();
 	screen = &instance.GetScreenManager();
+
+	AtScopeExit() {
+		/* this must be executed after ~Instance(), so we're
+		   using AtScopeExit() to do the trick */
+#ifndef NCMPC_MINI
+		set_xterm_title("");
+#endif
+		printf("\n");
+	};
 
 	/* attempt to connect */
 	reconnect_source_id = g_idle_add(timer_reconnect, nullptr);

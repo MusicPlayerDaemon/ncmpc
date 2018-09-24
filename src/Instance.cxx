@@ -53,10 +53,6 @@ Instance::~Instance()
 	ncmpc_lirc_deinit();
 
 	screen_manager.Exit();
-#ifndef NCMPC_MINI
-	set_xterm_title("");
-#endif
-	printf("\n");
 }
 
 void
