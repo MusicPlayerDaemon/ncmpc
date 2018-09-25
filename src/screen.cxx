@@ -28,6 +28,7 @@
 #include "charset.hxx"
 #include "mpdclient.hxx"
 #include "Options.hxx"
+#include "DelayedSeek.hxx"
 #include "player_command.hxx"
 #include "SongPage.hxx"
 #include "LyricsPage.hxx"
@@ -131,7 +132,7 @@ ScreenManager::NextMode(struct mpdclient &c, int offset)
 }
 
 void
-ScreenManager::Update(struct mpdclient &c)
+ScreenManager::Update(struct mpdclient &c, const DelayedSeek &seek) noexcept
 {
 	const unsigned events = c.events;
 
@@ -206,8 +207,8 @@ ScreenManager::Update(struct mpdclient &c)
 	unsigned elapsed;
 	if (c.status == nullptr)
 		elapsed = 0;
-	else if (seek_id >= 0 && seek_id == mpd_status_get_song_id(c.status))
-		elapsed = seek_target_time;
+	else if (seek.IsSeeking(mpd_status_get_song_id(c.status)))
+		elapsed = seek.GetTime();
 	else
 		elapsed = mpd_status_get_elapsed_time(c.status);
 
@@ -217,7 +218,7 @@ ScreenManager::Update(struct mpdclient &c)
 
 	progress_bar.Set(elapsed, duration);
 
-	status_bar.Update(c.status, c.song);
+	status_bar.Update(c.status, c.song, seek);
 
 	for (auto &i : pages)
 		i.second->AddPendingEvents(events);
@@ -229,12 +230,12 @@ ScreenManager::Update(struct mpdclient &c)
 }
 
 void
-ScreenManager::OnCommand(struct mpdclient &c, Command cmd)
+ScreenManager::OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 {
 	if (current_page->second->OnCommand(c, cmd))
 		return;
 
-	if (handle_player_command(c, cmd))
+	if (handle_player_command(c, seek, cmd))
 		return;
 
 	const auto *new_page = PageByCommand(cmd);
@@ -277,7 +278,8 @@ ScreenManager::OnCommand(struct mpdclient &c, Command cmd)
 #ifdef HAVE_GETMOUSE
 
 bool
-ScreenManager::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
+ScreenManager::OnMouse(struct mpdclient &c, DelayedSeek &seek,
+		       Point p, mmask_t bstate)
 {
 	if (current_page->second->OnMouse(c, p - GetMainPosition(),
 					  bstate))
@@ -285,7 +287,7 @@ ScreenManager::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 
 	/* if button 2 was pressed switch screen */
 	if (bstate & BUTTON2_CLICKED) {
-		OnCommand(c, Command::SCREEN_NEXT);
+		OnCommand(c, seek, Command::SCREEN_NEXT);
 		return true;
 	}
 

@@ -21,6 +21,7 @@
 #define NCMPC_INSTANCE_HXX
 
 #include "mpdclient.hxx"
+#include "DelayedSeek.hxx"
 #include "screen.hxx"
 
 typedef struct _GMainLoop GMainLoop;
@@ -32,6 +33,8 @@ class Instance {
 	GMainLoop *main_loop;
 
 	struct mpdclient client;
+
+	DelayedSeek seek;
 
 	ScreenManager screen_manager;
 
@@ -48,6 +51,10 @@ public:
 
 	auto &GetClient() {
 		return client;
+	}
+
+	auto &GetSeek() noexcept {
+		return seek;
 	}
 
 	auto &GetScreenManager() {

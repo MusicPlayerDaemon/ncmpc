@@ -33,6 +33,7 @@
 
 struct mpd_status;
 struct mpd_song;
+class DelayedSeek;
 
 class StatusBar {
 	Window window;
@@ -67,7 +68,8 @@ public:
 
 	void OnResize(Point p, unsigned width);
 	void Update(const struct mpd_status *status,
-		    const struct mpd_song *song);
+		    const struct mpd_song *song,
+		    const DelayedSeek &seek) noexcept;
 	void Paint() const;
 
 private:

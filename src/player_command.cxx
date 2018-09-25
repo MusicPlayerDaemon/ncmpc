@@ -18,6 +18,7 @@
  */
 
 #include "player_command.hxx"
+#include "DelayedSeek.hxx"
 #include "Command.hxx"
 #include "mpdclient.hxx"
 #include "Options.hxx"
@@ -27,84 +28,13 @@
 
 #include <glib.h>
 
-int seek_id = -1;
-int seek_target_time;
-
-static guint seek_source_id;
-
-static void
-commit_seek(struct mpdclient &c)
-{
-	if (seek_id < 0)
-		return;
-
-	struct mpd_connection *connection = c.GetConnection();
-	if (connection == nullptr) {
-		seek_id = -1;
-		return;
-	}
-
-	if (c.song != nullptr && (unsigned)seek_id == mpd_song_get_id(c.song))
-		if (!mpd_run_seek_id(connection, seek_id, seek_target_time))
-			c.HandleError();
-
-	seek_id = -1;
-}
-
-/**
- * This timer is invoked after seeking when the user hasn't typed a
- * key for 500ms.  It is used to do the real seeking.
- */
-static gboolean
-seek_timer(gpointer data)
-{
-	auto &c = *(struct mpdclient *)data;
-
-	seek_source_id = 0;
-	commit_seek(c);
-	return false;
-}
-
-static void
-schedule_seek_timer(struct mpdclient &c)
-{
-	assert(seek_source_id == 0);
-
-	seek_source_id = g_timeout_add(500, seek_timer, &c);
-}
-
-void
-cancel_seek_timer()
-{
-	if (seek_source_id != 0) {
-		g_source_remove(seek_source_id);
-		seek_source_id = 0;
-	}
-}
-
-static bool
-setup_seek(struct mpdclient &c)
-{
-	if (!c.playing_or_paused)
-		return false;
-
-	if (seek_id != (int)mpd_status_get_song_id(c.status)) {
-		seek_id = mpd_status_get_song_id(c.status);
-		seek_target_time = mpd_status_get_elapsed_time(c.status);
-	}
-
-	schedule_seek_timer(c);
-
-	return true;
-}
-
 bool
-handle_player_command(struct mpdclient &c, Command cmd)
+handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 {
 	if (!c.IsConnected() || c.status == nullptr)
 		return false;
 
-	cancel_seek_timer();
+	seek.Cancel();
 
 	switch(cmd) {
 		struct mpd_connection *connection;
@@ -134,12 +64,7 @@ handle_player_command(struct mpdclient &c, Command cmd)
 		mpdclient_cmd_crop(&c);
 		break;
 	case Command::SEEK_FORWARD:
-		if (!setup_seek(c))
-			break;
-
-		seek_target_time += options.seek_time;
-		if (seek_target_time > (int)mpd_status_get_total_time(c.status))
-			seek_target_time = mpd_status_get_total_time(c.status);
+		seek.Seek(options.seek_time);
 		break;
 
 	case Command::TRACK_NEXT:
@@ -151,12 +76,7 @@ handle_player_command(struct mpdclient &c, Command cmd)
 			c.HandleError();
 		break;
 	case Command::SEEK_BACKWARD:
-		if (!setup_seek(c))
-			break;
-
-		seek_target_time -= options.seek_time;
-		if (seek_target_time < 0)
-			seek_target_time = 0;
+		seek.Seek(-int(options.seek_time));
 		break;
 
 	case Command::TRACK_PREVIOUS:

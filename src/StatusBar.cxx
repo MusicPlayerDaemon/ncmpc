@@ -23,7 +23,7 @@
 #include "Styles.hxx"
 #include "i18n.h"
 #include "strfsong.hxx"
-#include "player_command.hxx"
+#include "DelayedSeek.hxx"
 #include "time_format.hxx"
 #include "util/StringUTF8.hxx"
 
@@ -87,7 +87,8 @@ format_bitrate(char *p, size_t max_length, const struct mpd_status *status)
 
 void
 StatusBar::Update(const struct mpd_status *status,
-		  const struct mpd_song *song)
+		  const struct mpd_song *song,
+		  const DelayedSeek &seek) noexcept
 {
 	const auto state = status == nullptr
 		? MPD_STATE_UNKNOWN
@@ -113,9 +114,8 @@ StatusBar::Update(const struct mpd_status *status,
 		: 0;
 
 	if (state == MPD_STATE_PLAY || state == MPD_STATE_PAUSE) {
-		unsigned elapsed_time = seek_id >= 0 &&
-			seek_id == mpd_status_get_song_id(status)
-			? (unsigned)seek_target_time
+		unsigned elapsed_time = seek.IsSeeking(mpd_status_get_song_id(status))
+			? seek.GetTime()
 			: mpd_status_get_elapsed_time(status);
 		const unsigned total_time = mpd_status_get_total_time(status);
 

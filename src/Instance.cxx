@@ -31,8 +31,8 @@ Instance::Instance()
 	 client(options.host.empty() ? nullptr : options.host.c_str(),
 		options.port,
 		options.timeout_ms,
-		options.password.empty() ? nullptr : options.password.c_str())
-
+		options.password.empty() ? nullptr : options.password.c_str()),
+	 seek(client)
 {
 	screen_manager.Init(&client);
 
@@ -58,7 +58,7 @@ Instance::~Instance()
 void
 Instance::Run()
 {
-	screen_manager.Update(client);
+	screen_manager.Update(client, seek);
 
 	g_main_loop_run(main_loop);
 }

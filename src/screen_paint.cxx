@@ -22,7 +22,6 @@
 #include "config.h"
 #include "mpdclient.hxx"
 #include "Options.hxx"
-#include "player_command.hxx"
 
 #include <mpd/client.h>
 

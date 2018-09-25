@@ -41,6 +41,7 @@ enum class Command : unsigned;
 struct mpdclient;
 struct PageMeta;
 class Page;
+class DelayedSeek;
 
 class ScreenManager {
 	struct Layout {
@@ -128,11 +129,12 @@ public:
 	void PaintTopWindow();
 	void Paint(bool main_dirty);
 
-	void Update(struct mpdclient &c);
-	void OnCommand(struct mpdclient &c, Command cmd);
+	void Update(struct mpdclient &c, const DelayedSeek &seek) noexcept;
+	void OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd);
 
 #ifdef HAVE_GETMOUSE
-	bool OnMouse(struct mpdclient &c, Point p, mmask_t bstate);
+	bool OnMouse(struct mpdclient &c, DelayedSeek &seek,
+		     Point p, mmask_t bstate);
 #endif
 
 private:

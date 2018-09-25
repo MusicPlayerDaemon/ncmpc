@@ -17,14 +17,48 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_PLAYER_COMMAND_H
-#define NCMPC_PLAYER_COMMAND_H
+#ifndef NCMPC_DELAYED_SEEK_HXX
+#define NCMPC_DELAYED_SEEK_HXX
 
-enum class Command : unsigned;
 struct mpdclient;
-class DelayedSeek;
 
-bool
-handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd);
+/**
+ * Helper class which handles user seek commands; it will delay
+ * actually sending the seek command to MPD.
+ */
+class DelayedSeek {
+	struct mpdclient &c;
+
+	int id = -1;
+	unsigned time;
+
+	unsigned source_id = 0;
+
+public:
+	DelayedSeek(struct mpdclient &_c) noexcept
+		:c(_c) {}
+
+	~DelayedSeek() noexcept {
+		Cancel();
+	}
+
+	bool IsSeeking(int _id) const noexcept {
+		return id >= 0 && _id == id;
+	}
+
+	unsigned GetTime() const noexcept {
+		return time;
+	}
+
+	bool Seek(int offset) noexcept;
+
+	void Commit() noexcept;
+	void Cancel() noexcept;
+
+	void OnTimer() noexcept;
+
+private:
+	void ScheduleTimer() noexcept;
+};
 
 #endif

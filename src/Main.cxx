@@ -63,6 +63,7 @@ static const guint update_interval = 500;
 
 #define BUFSIZE 1024
 
+static Instance *global_instance;
 static struct mpdclient *mpd = nullptr;
 static GMainLoop *main_loop;
 static guint reconnect_source_id, update_source_id;
@@ -148,7 +149,7 @@ do_mpd_update()
 		update_xterm_title();
 #endif
 
-	screen->Update(*mpd);
+	screen->Update(*mpd, global_instance->GetSeek());
 	mpd->events = (enum mpd_idle)0;
 }
 
@@ -218,7 +219,7 @@ mpdclient_lost_callback()
 {
 	assert(reconnect_source_id == 0);
 
-	screen->Update(*mpd);
+	screen->Update(*mpd, global_instance->GetSeek());
 
 	reconnect_source_id = g_timeout_add_seconds(1, timer_reconnect, nullptr);
 }
@@ -235,7 +236,7 @@ mpdclient_idle_callback(gcc_unused unsigned events)
 		update_xterm_title();
 #endif
 
-	screen->Update(*mpd);
+	screen->Update(*mpd, global_instance->GetSeek());
 	auto_update_timer();
 }
 
@@ -258,7 +259,7 @@ void begin_input_event()
 
 void end_input_event()
 {
-	screen->Update(*mpd);
+	screen->Update(*mpd, global_instance->GetSeek());
 	mpd->events = (enum mpd_idle)0;
 
 	auto_update_timer();
@@ -272,7 +273,7 @@ do_input_event(Command cmd)
 		return false;
 	}
 
-	screen->OnCommand(*mpd, cmd);
+	screen->OnCommand(*mpd, global_instance->GetSeek(), cmd);
 
 	if (cmd == Command::VOLUME_UP || cmd == Command::VOLUME_DOWN)
 		/* make sure we don't update the volume yet */
@@ -286,7 +287,7 @@ do_input_event(Command cmd)
 void
 do_mouse_event(Point p, mmask_t bstate)
 {
-	screen->OnMouse(*mpd, p, bstate);
+	screen->OnMouse(*mpd, global_instance->GetSeek(), p, bstate);
 }
 
 #endif
@@ -366,6 +367,7 @@ main(int argc, const char *argv[])
 
 	/* create the global Instance */
 	Instance instance;
+	global_instance = &instance;
 	main_loop = instance.GetMainLoop();
 	mpd = &instance.GetClient();
 	screen = &instance.GetScreenManager();
@@ -392,8 +394,6 @@ main(int argc, const char *argv[])
 	instance.Run();
 
 	/* cleanup */
-
-	cancel_seek_timer();
 
 	disable_update_timer();
 
