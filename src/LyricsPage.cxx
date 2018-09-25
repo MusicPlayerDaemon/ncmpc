@@ -225,7 +225,10 @@ LyricsPage::PluginCallback(std::string &&result, const bool success,
 {
 	assert(loader != nullptr);
 
-	plugin_name = _plugin_name;
+	if (_plugin_name != nullptr)
+		plugin_name = _plugin_name;
+	else
+		plugin_name.clear();
 
 	/* Display result, which may be lyrics or error messages */
 	Set(result.c_str());
