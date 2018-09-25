@@ -40,7 +40,6 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <string.h>
-#include <glib.h>
 #include <unistd.h>
 #include <stdio.h>
 
@@ -387,7 +386,7 @@ LyricsPage::Edit()
 	int status;
 	pid_t pid = fork();
 	if (pid == -1) {
-		screen_status_printf(("%s (%s)"), _("Can't start editor"), g_strerror(errno));
+		screen_status_printf(("%s (%s)"), _("Can't start editor"), strerror(errno));
 		ncu_init();
 		return;
 	} else if (pid == 0) {
