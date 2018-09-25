@@ -64,15 +64,23 @@ static constexpr OptionDefinition option_table[] = {
 #endif
 };
 
+gcc_pure
 static const OptionDefinition *
-lookup_option(int s, char *l)
+FindOption(int s) noexcept
 {
-	for (const auto &i : option_table) {
-		if (l && strcmp(l, i.longopt) == 0)
+	for (const auto &i : option_table)
+		if (s == i.shortopt)
 			return &i;
-		if (s && s == i.shortopt)
+
+	return nullptr;
+}
+
+static const OptionDefinition *
+FindOption(const char *l) noexcept
+{
+	for (const auto &i : option_table)
+		if (strcmp(l, i.longopt) == 0)
 			return &i;
-	}
 
 	return nullptr;
 }
@@ -287,7 +295,7 @@ options_parse(int argc, const char *argv[])
 				name = g_strdup(arg);
 
 			/* check if the option exists */
-			if( (opt=lookup_option(0, name+2)) == nullptr )
+			if ((opt = FindOption(name + 2)) == nullptr)
 				option_error(ERROR_UNKNOWN_OPTION, name, nullptr);
 			g_free(name);
 
@@ -312,7 +320,7 @@ options_parse(int argc, const char *argv[])
 						     opt->longopt, opt->argument);
 
 				/* check if the option exists */
-				if ((opt=lookup_option(arg[j], nullptr)) == nullptr)
+				if ((opt = FindOption(arg[j])) == nullptr)
 					option_error(ERROR_UNKNOWN_OPTION, arg, nullptr);
 
 				/* if no option argument is needed execute callback */
