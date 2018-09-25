@@ -21,6 +21,7 @@
 #include "Completion.hxx"
 #include "charset.hxx"
 #include "mpdclient.hxx"
+#include "util/ScopeExit.hxx"
 
 #include <glib.h>
 
@@ -37,6 +38,8 @@ gcmp_list_from_path(struct mpdclient *c, const char *path,
 
 	struct mpd_entity *entity;
 	while ((entity = mpd_recv_entity(connection)) != nullptr) {
+		AtScopeExit(entity) { mpd_entity_free(entity); };
+
 		char *name;
 
 		if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY &&
@@ -56,11 +59,9 @@ gcmp_list_from_path(struct mpdclient *c, const char *path,
 				mpd_entity_get_playlist(entity);
 			name = utf8_to_locale(mpd_playlist_get_path(playlist));
 		} else {
-			mpd_entity_free(entity);
 			continue;
 		}
 
 		completion.emplace(name);
-		mpd_entity_free(entity);
 	}
 }
