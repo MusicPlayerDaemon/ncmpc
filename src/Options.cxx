@@ -46,7 +46,7 @@ typedef void (*option_callback_fn_t)(int c, const char *arg);
 
 Options options;
 
-static const OptionDefinition option_table[] = {
+static constexpr OptionDefinition option_table[] = {
 	{ '?', "help", nullptr, "Show this help message" },
 	{ 'V', "version", nullptr, "Display version information" },
 	{ 'c', "colors", nullptr, "Enable colors" },
