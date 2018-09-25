@@ -23,7 +23,7 @@
 #include "mpdclient.hxx"
 #include "util/ScopeExit.hxx"
 
-#include <glib.h>
+#include <string>
 
 void
 gcmp_list_from_path(struct mpdclient *c, const char *path,
@@ -40,28 +40,27 @@ gcmp_list_from_path(struct mpdclient *c, const char *path,
 	while ((entity = mpd_recv_entity(connection)) != nullptr) {
 		AtScopeExit(entity) { mpd_entity_free(entity); };
 
-		char *name;
-
+		std::string name;
 		if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY &&
 		    types & GCMP_TYPE_DIR) {
 			const struct mpd_directory *dir =
 				mpd_entity_get_directory(entity);
-			name = g_strconcat(Utf8ToLocale(mpd_directory_get_path(dir)).c_str(),
-					   "/", nullptr);
+			name = Utf8ToLocale(mpd_directory_get_path(dir)).c_str();
+			name.push_back('/');
 		} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG &&
 			   types & GCMP_TYPE_FILE) {
 			const struct mpd_song *song =
 				mpd_entity_get_song(entity);
-			name = utf8_to_locale(mpd_song_get_uri(song));
+			name = Utf8ToLocale(mpd_song_get_uri(song)).c_str();
 		} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST &&
 			   types & GCMP_TYPE_PLAYLIST) {
 			const struct mpd_playlist *playlist =
 				mpd_entity_get_playlist(entity);
-			name = utf8_to_locale(mpd_playlist_get_path(playlist));
+			name = Utf8ToLocale(mpd_playlist_get_path(playlist)).c_str();
 		} else {
 			continue;
 		}
 
-		completion.emplace(name);
+		completion.emplace(std::move(name));
 	}
 }
