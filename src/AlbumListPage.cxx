@@ -117,18 +117,14 @@ AlbumListPage::PaintListItem(WINDOW *w, unsigned i,
 			     gcc_unused unsigned y, unsigned width,
 			     bool selected) const
 {
-	const char *p;
-	char *q = nullptr;
-
 	if (i == 0)
-		p = "..";
+		screen_browser_paint_directory(w, width, selected, "..");
 	else if (i == album_list.size() + 1)
-		p = _("All tracks");
+		screen_browser_paint_directory(w, width, selected,
+					       _("All tracks"));
 	else
-		p = q = utf8_to_locale(album_list[i - 1].c_str());
-
-	screen_browser_paint_directory(w, width, selected, p);
-	g_free(q);
+		screen_browser_paint_directory(w, width, selected,
+					       Utf8ToLocale(album_list[i - 1].c_str()).c_str());
 }
 
 void
