@@ -28,7 +28,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <glib.h>
 
 #define ERROR_UNKNOWN_OPTION    0x01
 #define ERROR_BAD_ARGUMENT      0x02
@@ -123,7 +122,8 @@ display_help()
 				 i.longopt,
 				 i.argument);
 		else
-			g_strlcpy(tmp, i.longopt, 64);
+			snprintf(tmp, sizeof(tmp), "%s",
+				 i.longopt);
 
 		printf("  -%c, --%-20s %s\n",
 		       i.shortopt,
@@ -278,26 +278,23 @@ options_parse(int argc, const char *argv[])
 		size_t len = strlen(arg);
 
 		/* check for a long option */
-		if (g_str_has_prefix(arg, "--")) {
-			char *name, *value;
-
+		if (strncmp(arg, "--", 2) == 0) {
 			/* make sure we got an argument for the previous option */
 			if( opt && opt->argument )
 				option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
 
 			/* retrieve a option argument */
-			if ((value=g_strrstr(arg+2, "="))) {
-				*value = '\0';
-				name = g_strdup(arg);
-				*value = '=';
+			std::string name;
+			const char *value = strrchr(arg + 2, '=');
+			if (value != nullptr) {
+				name.assign(arg, value);
 				value++;
 			} else
-				name = g_strdup(arg);
+				name = arg;
 
 			/* check if the option exists */
-			if ((opt = FindOption(name + 2)) == nullptr)
-				option_error(ERROR_UNKNOWN_OPTION, name, nullptr);
-			g_free(name);
+			if ((opt = FindOption(name.c_str() + 2)) == nullptr)
+				option_error(ERROR_UNKNOWN_OPTION, name.c_str(), nullptr);
 
 			/* abort if we got an argument to the option and don't want one */
 			if( value && opt->argument==nullptr )
@@ -310,7 +307,7 @@ options_parse(int argc, const char *argv[])
 			}
 		}
 		/* check for short options */
-		else if (len>=2 && g_str_has_prefix(arg, "-")) {
+		else if (len >= 2 && *arg == '-') {
 			size_t j;
 
 			for(j=1; j<len; j++) {
