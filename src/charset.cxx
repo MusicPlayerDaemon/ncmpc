@@ -58,6 +58,21 @@ utf8_to_locale(const char *utf8str)
 #endif
 }
 
+const char *
+utf8_to_locale(const char *src, char *buffer, size_t size) noexcept
+{
+#ifdef ENABLE_LOCALE
+	char *p = utf8_to_locale(src);
+	g_strlcpy(buffer, p, size);
+	g_free(p);
+	return buffer;
+#else
+	(void)buffer;
+	(void)size;
+	return src;
+#endif
+}
+
 char *
 locale_to_utf8(const char *localestr)
 {

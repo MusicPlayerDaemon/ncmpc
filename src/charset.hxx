@@ -23,12 +23,19 @@
 #include "config.h"
 #include "util/Compiler.h"
 
+#include <stddef.h>
+
 #ifdef ENABLE_LOCALE
 const char *
 charset_init();
 #endif
 
 char *utf8_to_locale(const char *str);
+
+gcc_pure
+const char *
+utf8_to_locale(const char *src, char *buffer, size_t size) noexcept;
+
 char *locale_to_utf8(const char *str);
 
 /**

@@ -28,8 +28,6 @@
 #include "mpdclient.hxx"
 #include "util/StringUTF8.hxx"
 
-#include <glib.h>
-
 #include <algorithm>
 
 #include <assert.h>
@@ -57,10 +55,7 @@ AlbumListPage::GetListItemText(char *buffer, size_t size,
 
 	assert(idx < album_list.size());
 
-	const char *str_utf8 = album_list[idx].c_str();
-
-	g_strlcpy(buffer, Utf8ToLocale(str_utf8).c_str(), size);
-	return buffer;
+	return utf8_to_locale(album_list[idx].c_str(), buffer, size);
 }
 
 static void
