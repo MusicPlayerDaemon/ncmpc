@@ -444,7 +444,11 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 
 	if (bstate & BUTTON1_DOUBLE_CLICKED) {
 		/* stop */
-		screen.OnCommand(c, Command::STOP);
+
+		auto *connection = c.GetConnection();
+		if (connection != nullptr &&
+		    !mpd_run_stop(connection))
+			c.HandleError();
 		return true;
 	}
 
