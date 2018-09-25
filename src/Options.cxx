@@ -64,18 +64,14 @@ static constexpr OptionDefinition option_table[] = {
 #endif
 };
 
-static const unsigned option_table_size = sizeof(option_table) / sizeof(option_table[0]);
-
 static const OptionDefinition *
 lookup_option(int s, char *l)
 {
-	unsigned i;
-
-	for (i = 0; i < option_table_size; ++i) {
-		if (l && strcmp(l, option_table[i].longopt) == 0)
-			return &option_table[i];
-		if (s && s == option_table[i].shortopt)
-			return &option_table[i];
+	for (const auto &i : option_table) {
+		if (l && strcmp(l, i.longopt) == 0)
+			return &i;
+		if (s && s == i.shortopt)
+			return &i;
 	}
 
 	return nullptr;
@@ -111,20 +107,20 @@ display_help()
 {
 	printf("Usage: %s [OPTION]...\n", PACKAGE);
 
-	for (unsigned i = 0; i < option_table_size; ++i) {
+	for (const auto &i : option_table) {
 		char tmp[32];
 
-		if (option_table[i].argument)
+		if (i.argument)
 			snprintf(tmp, sizeof(tmp), "%s=%s",
-				 option_table[i].longopt,
-				 option_table[i].argument);
+				 i.longopt,
+				 i.argument);
 		else
-			g_strlcpy(tmp, option_table[i].longopt, 64);
+			g_strlcpy(tmp, i.longopt, 64);
 
 		printf("  -%c, --%-20s %s\n",
-		       option_table[i].shortopt,
+		       i.shortopt,
 		       tmp,
-		       option_table[i].descrition);
+		       i.descrition);
 	}
 }
 
