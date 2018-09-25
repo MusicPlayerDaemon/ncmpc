@@ -126,17 +126,17 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void OnOpen(struct mpdclient &c) override;
-	void OnClose() override;
-	void Paint() const override;
-	void Update(struct mpdclient &c, unsigned events) override;
+	void OnOpen(struct mpdclient &c) noexcept override;
+	void OnClose() noexcept override;
+	void Paint() const noexcept override;
+	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
 #ifdef HAVE_GETMOUSE
 	bool OnMouse(struct mpdclient &c, Point p, mmask_t bstate) override;
 #endif
 
-	const char *GetTitle(char *s, size_t size) const override;
+	const char *GetTitle(char *s, size_t size) const noexcept override;
 };
 
 const struct mpd_song *
@@ -344,7 +344,7 @@ QueuePage::OnHideCursorTimer(const boost::system::error_code &error) noexcept
 }
 
 void
-QueuePage::OnOpen(struct mpdclient &c)
+QueuePage::OnOpen(struct mpdclient &c) noexcept
 {
 	playlist = &c.playlist;
 
@@ -358,7 +358,7 @@ QueuePage::OnOpen(struct mpdclient &c)
 }
 
 void
-QueuePage::OnClose()
+QueuePage::OnClose() noexcept
 {
 	hide_cursor_timer.cancel();
 
@@ -369,7 +369,7 @@ QueuePage::OnClose()
 }
 
 const char *
-QueuePage::GetTitle(char *str, size_t size) const
+QueuePage::GetTitle(char *str, size_t size) const noexcept
 {
 	if (connection_name.empty())
 		return _("Queue");
@@ -398,7 +398,7 @@ QueuePage::PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
 }
 
 void
-QueuePage::Paint() const
+QueuePage::Paint() const noexcept
 {
 #ifndef NCMPC_MINI
 	if (options.scroll)
@@ -409,7 +409,7 @@ QueuePage::Paint() const
 }
 
 void
-QueuePage::Update(struct mpdclient &c, unsigned events)
+QueuePage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	playing = c.playing;
 

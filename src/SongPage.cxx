@@ -141,14 +141,14 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void OnClose() override {
+	void OnClose() noexcept override {
 		Clear();
 	}
 
-	void Paint() const override;
-	void Update(struct mpdclient &c, unsigned events) override;
+	void Paint() const noexcept override;
+	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const override;
+	const char *GetTitle(char *s, size_t size) const noexcept override;
 
 private:
 	/* virtual methods from class ListText */
@@ -199,13 +199,13 @@ screen_song_init(ScreenManager &_screen, WINDOW *w, Size size)
 }
 
 const char *
-SongPage::GetTitle(gcc_unused char *str, gcc_unused size_t size) const
+SongPage::GetTitle(gcc_unused char *str, gcc_unused size_t size) const noexcept
 {
 	return _("Song viewer");
 }
 
 void
-SongPage::Paint() const
+SongPage::Paint() const noexcept
 {
 	lw.Paint(TextListRenderer(*this));
 }
@@ -436,7 +436,7 @@ audio_format_to_string(char *buffer, size_t size,
 }
 
 void
-SongPage::Update(struct mpdclient &c, unsigned)
+SongPage::Update(struct mpdclient &c, unsigned) noexcept
 {
 	lines.clear();
 

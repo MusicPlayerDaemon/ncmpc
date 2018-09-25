@@ -49,17 +49,17 @@ class Page {
 	bool dirty = true;
 
 public:
-	virtual ~Page() = default;
+	virtual ~Page() noexcept = default;
 
-	bool IsDirty() const {
+	bool IsDirty() const noexcept {
 		return dirty;
 	}
 
-	void SetDirty(bool _dirty=true) {
+	void SetDirty(bool _dirty=true) noexcept {
 		dirty = _dirty;
 	}
 
-	void Resize(Size new_size) {
+	void Resize(Size new_size) noexcept {
 		if (new_size == last_size)
 			return;
 
@@ -67,25 +67,25 @@ public:
 		OnResize(new_size);
 	}
 
-	void AddPendingEvents(unsigned events) {
+	void AddPendingEvents(unsigned events) noexcept {
 		pending_events |= events;
 	}
 
-	void Update(struct mpdclient &c) {
+	void Update(struct mpdclient &c) noexcept {
 		Update(c, std::exchange(pending_events, 0));
 	}
 
 protected:
-	const Size &GetLastSize() const {
+	const Size &GetLastSize() const noexcept {
 		return last_size;
 	}
 
 public:
-	virtual void OnOpen(struct mpdclient &) {}
-	virtual void OnClose() {}
-	virtual void OnResize(Size size) = 0;
-	virtual void Paint() const = 0;
-	virtual void Update(struct mpdclient &, unsigned) {}
+	virtual void OnOpen(struct mpdclient &) noexcept {}
+	virtual void OnClose() noexcept {}
+	virtual void OnResize(Size size) noexcept = 0;
+	virtual void Paint() const noexcept = 0;
+	virtual void Update(struct mpdclient &, unsigned) noexcept {}
 
 	/**
 	 * Handle a command.
@@ -109,7 +109,8 @@ public:
 	}
 #endif
 
-	virtual const char *GetTitle(char *s, size_t size) const = 0;
+	gcc_pure
+	virtual const char *GetTitle(char *s, size_t size) const noexcept = 0;
 };
 
 #endif

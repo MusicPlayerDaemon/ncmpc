@@ -66,7 +66,7 @@ protected:
 
 public:
 	/* virtual methods from class Page */
-	void Paint() const override;
+	void Paint() const noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
 private:

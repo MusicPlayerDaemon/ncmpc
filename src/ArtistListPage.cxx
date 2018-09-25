@@ -103,19 +103,19 @@ ArtistListPage::PaintListItem(WINDOW *w, unsigned i,
 }
 
 void
-ArtistListPage::Paint() const
+ArtistListPage::Paint() const noexcept
 {
 	lw.Paint(*this);
 }
 
 const char *
-ArtistListPage::GetTitle(char *, size_t) const
+ArtistListPage::GetTitle(char *, size_t) const noexcept
 {
 	return _("All artists");
 }
 
 void
-ArtistListPage::Update(struct mpdclient &c, unsigned events)
+ArtistListPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	if (events & MPD_IDLE_DATABASE) {
 		/* the db has changed -> update the list */

@@ -51,10 +51,10 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void Paint() const override;
-	void Update(struct mpdclient &c, unsigned events) override;
+	void Paint() const noexcept override;
+	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const override;
+	const char *GetTitle(char *s, size_t size) const noexcept override;
 
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,

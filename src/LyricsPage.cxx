@@ -115,12 +115,10 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void OnOpen(struct mpdclient &c) override;
-
-	void Update(struct mpdclient &c, unsigned events) override;
+	void OnOpen(struct mpdclient &c) noexcept override;
+	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-
-	const char *GetTitle(char *, size_t) const override;
+	const char *GetTitle(char *, size_t) const noexcept override;
 };
 
 void
@@ -303,7 +301,7 @@ lyrics_screen_init(ScreenManager &_screen, WINDOW *w, Size size)
 }
 
 void
-LyricsPage::OnOpen(struct mpdclient &c)
+LyricsPage::OnOpen(struct mpdclient &c) noexcept
 {
 	const struct mpd_song *next_song_c =
 		next_song != nullptr ? next_song : c.song;
@@ -321,7 +319,7 @@ LyricsPage::OnOpen(struct mpdclient &c)
 }
 
 void
-LyricsPage::Update(struct mpdclient &c, unsigned)
+LyricsPage::Update(struct mpdclient &c, unsigned) noexcept
 {
 	if (!follow)
 		return;
@@ -334,7 +332,7 @@ LyricsPage::Update(struct mpdclient &c, unsigned)
 }
 
 const char *
-LyricsPage::GetTitle(char *str, size_t size) const
+LyricsPage::GetTitle(char *str, size_t size) const noexcept
 {
 	if (loader != nullptr) {
 		snprintf(str, size, "%s (%s)",

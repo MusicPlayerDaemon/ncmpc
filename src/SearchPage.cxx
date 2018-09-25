@@ -128,10 +128,10 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void Paint() const override;
-	void Update(struct mpdclient &c, unsigned events) override;
+	void Paint() const noexcept override;
+	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const override;
+	const char *GetTitle(char *s, size_t size) const noexcept override;
 };
 
 /* search info */
@@ -390,7 +390,7 @@ screen_search_init(ScreenManager &_screen, WINDOW *w, Size size)
 }
 
 void
-SearchPage::Paint() const
+SearchPage::Paint() const noexcept
 {
 	if (filelist) {
 		FileListPage::Paint();
@@ -400,7 +400,7 @@ SearchPage::Paint() const
 }
 
 const char *
-SearchPage::GetTitle(char *str, size_t size) const
+SearchPage::GetTitle(char *str, size_t size) const noexcept
 {
 	if (advanced_search_mode && !pattern.empty())
 		snprintf(str, size, "%s '%s'", _("Search"), pattern.c_str());
@@ -417,7 +417,7 @@ SearchPage::GetTitle(char *str, size_t size) const
 }
 
 void
-SearchPage::Update(struct mpdclient &c, unsigned events)
+SearchPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	if (filelist != nullptr && events & MPD_IDLE_QUEUE) {
 		screen_browser_sync_highlights(filelist, &c.playlist);

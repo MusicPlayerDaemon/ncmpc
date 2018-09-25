@@ -49,7 +49,7 @@
 #define HIGHLIGHT  (0x01)
 #endif
 
-FileListPage::~FileListPage()
+FileListPage::~FileListPage() noexcept
 {
 	delete filelist;
 }
@@ -533,7 +533,7 @@ FileListPage::PaintListItem(WINDOW *w, unsigned i,
 }
 
 void
-FileListPage::Paint() const
+FileListPage::Paint() const noexcept
 {
 	lw.Paint(*this);
 }

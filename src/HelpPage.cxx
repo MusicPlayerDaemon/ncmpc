@@ -238,10 +238,10 @@ public:
 				    unsigned i) const override;
 
 	/* virtual methods from class Page */
-	void Paint() const override;
+	void Paint() const noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
-	const char *GetTitle(char *, size_t) const override {
+	const char *GetTitle(char *, size_t) const noexcept override {
 		return _("Help");
 	}
 };
@@ -302,7 +302,7 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 }
 
 void
-HelpPage::Paint() const
+HelpPage::Paint() const noexcept
 {
 	lw.Paint(*this);
 }

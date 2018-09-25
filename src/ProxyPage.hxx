@@ -30,7 +30,7 @@ class ProxyPage : public Page {
 	bool is_open = false;
 
 public:
-	explicit ProxyPage(WINDOW *_w):w(_w) {}
+	explicit ProxyPage(WINDOW *_w) noexcept:w(_w) {}
 
 	const Page *GetCurrentPage() const {
 		return current_page;
@@ -52,18 +52,18 @@ private:
 
 public:
 	/* virtual methods from Page */
-	void OnOpen(struct mpdclient &c) override;
-	void OnClose() override;
-	void OnResize(Size size) override;
-	void Paint() const override;
-	void Update(struct mpdclient &c, unsigned events) override;
+	void OnOpen(struct mpdclient &c) noexcept override;
+	void OnClose() noexcept override;
+	void OnResize(Size size) noexcept override;
+	void Paint() const noexcept override;
+	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
 #ifdef HAVE_GETMOUSE
 	bool OnMouse(struct mpdclient &c, Point p, mmask_t bstate) override;
 #endif
 
-	const char *GetTitle(char *s, size_t size) const override;
+	const char *GetTitle(char *s, size_t size) const noexcept override;
 };
 
 #endif

@@ -40,7 +40,7 @@ ProxyPage::SetCurrentPage(struct mpdclient &c, Page *new_page)
 }
 
 void
-ProxyPage::OnOpen(struct mpdclient &c)
+ProxyPage::OnOpen(struct mpdclient &c) noexcept
 {
 	assert(!is_open);
 	is_open = true;
@@ -52,7 +52,7 @@ ProxyPage::OnOpen(struct mpdclient &c)
 }
 
 void
-ProxyPage::OnClose()
+ProxyPage::OnClose() noexcept
 {
 	assert(is_open);
 	is_open = false;
@@ -62,7 +62,7 @@ ProxyPage::OnClose()
 }
 
 void
-ProxyPage::OnResize(Size size)
+ProxyPage::OnResize(Size size) noexcept
 {
 	if (current_page != nullptr)
 		current_page->Resize(size);
@@ -71,7 +71,7 @@ ProxyPage::OnResize(Size size)
 }
 
 void
-ProxyPage::Paint() const
+ProxyPage::Paint() const noexcept
 {
 	if (current_page != nullptr)
 		current_page->Paint();
@@ -80,7 +80,7 @@ ProxyPage::Paint() const
 }
 
 void
-ProxyPage::Update(struct mpdclient &c, unsigned events)
+ProxyPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	if (current_page != nullptr) {
 		current_page->AddPendingEvents(events);
@@ -114,7 +114,7 @@ ProxyPage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 #endif
 
 const char *
-ProxyPage::GetTitle(char *s, size_t size) const
+ProxyPage::GetTitle(char *s, size_t size) const noexcept
 {
 	return current_page != nullptr
 		? current_page->GetTitle(s, size)

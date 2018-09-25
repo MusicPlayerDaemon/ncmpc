@@ -77,9 +77,9 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void Update(struct mpdclient &c, unsigned events) override;
+	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const override;
+	const char *GetTitle(char *s, size_t size) const noexcept override;
 };
 
 static void
@@ -283,7 +283,7 @@ screen_file_init(ScreenManager &_screen, WINDOW *w, Size size)
 }
 
 const char *
-FileBrowserPage::GetTitle(char *str, size_t size) const
+FileBrowserPage::GetTitle(char *str, size_t size) const noexcept
 {
 	const char *path = nullptr, *prev = nullptr, *slash = current_path.c_str();
 
@@ -304,7 +304,7 @@ FileBrowserPage::GetTitle(char *str, size_t size) const
 }
 
 void
-FileBrowserPage::Update(struct mpdclient &c, unsigned events)
+FileBrowserPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	if (events & (MPD_IDLE_DATABASE | MPD_IDLE_STORED_PLAYLIST)) {
 		/* the db has changed -> update the filelist */

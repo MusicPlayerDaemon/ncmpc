@@ -36,7 +36,7 @@ public:
 
 public:
 	/* virtual methods from class Page */
-	void OnResize(Size size) override {
+	void OnResize(Size size) noexcept override {
 		lw.Resize(size);
 	}
 

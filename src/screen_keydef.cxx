@@ -124,10 +124,10 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void OnOpen(struct mpdclient &c) override;
-	void Paint() const override;
+	void OnOpen(struct mpdclient &c) noexcept override;
+	void Paint() const noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const override;
+	const char *GetTitle(char *s, size_t size) const noexcept override;
 
 private:
 	/* virtual methods from class ListText */
@@ -242,13 +242,13 @@ CommandKeysPage::GetListItemText(char *buffer, size_t size,
 }
 
 void
-CommandKeysPage::OnOpen(gcc_unused struct mpdclient &c)
+CommandKeysPage::OnOpen(gcc_unused struct mpdclient &c) noexcept
 {
 	// TODO
 }
 
 const char *
-CommandKeysPage::GetTitle(char *str, size_t size) const
+CommandKeysPage::GetTitle(char *str, size_t size) const noexcept
 {
 	snprintf(str, size, _("Edit keys for %s"),
 		 get_key_command_name(Command(subcmd)));
@@ -256,7 +256,7 @@ CommandKeysPage::GetTitle(char *str, size_t size) const
 }
 
 void
-CommandKeysPage::Paint() const
+CommandKeysPage::Paint() const noexcept
 {
 	lw.Paint(TextListRenderer(*this));
 }
@@ -367,10 +367,10 @@ public:
 
 public:
 	/* virtual methods from class Page */
-	void OnOpen(struct mpdclient &c) override;
-	void Paint() const override;
+	void OnOpen(struct mpdclient &c) noexcept override;
+	void Paint() const noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const override;
+	const char *GetTitle(char *s, size_t size) const noexcept override;
 
 private:
 	/* virtual methods from class ListText */
@@ -461,7 +461,7 @@ CommandListPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
 }
 
 void
-CommandListPage::OnOpen(gcc_unused struct mpdclient &c)
+CommandListPage::OnOpen(gcc_unused struct mpdclient &c) noexcept
 {
 	if (bindings == nullptr)
 		bindings = new KeyBindings(GetGlobalKeyBindings());
@@ -470,13 +470,13 @@ CommandListPage::OnOpen(gcc_unused struct mpdclient &c)
 }
 
 const char *
-CommandListPage::GetTitle(char *, size_t) const
+CommandListPage::GetTitle(char *, size_t) const noexcept
 {
 	return _("Edit key bindings");
 }
 
 void
-CommandListPage::Paint() const
+CommandListPage::Paint() const noexcept
 {
 	lw.Paint(TextListRenderer(*this));
 }
@@ -530,8 +530,8 @@ public:
 
 public:
 	/* virtual methods from class Page */
-	void OnOpen(struct mpdclient &c) override;
-	void OnClose() override;
+	void OnOpen(struct mpdclient &c) noexcept override;
+	void OnClose() noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 };
 
@@ -542,7 +542,7 @@ keydef_init(ScreenManager &screen, WINDOW *w, Size size)
 }
 
 void
-KeyDefPage::OnOpen(struct mpdclient &c)
+KeyDefPage::OnOpen(struct mpdclient &c) noexcept
 {
 	ProxyPage::OnOpen(c);
 
@@ -551,7 +551,7 @@ KeyDefPage::OnOpen(struct mpdclient &c)
 }
 
 void
-KeyDefPage::OnClose()
+KeyDefPage::OnClose() noexcept
 {
 	if (command_list_page.IsModified())
 		screen_status_message(_("Note: Did you forget to \'Apply\' your changes?"));

@@ -48,7 +48,7 @@ public:
 		 screen(_screen),
 		 song_format(_song_format) {}
 
-	~FileListPage() override;
+	~FileListPage() noexcept override;
 
 protected:
 	gcc_pure
@@ -84,7 +84,7 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void Paint() const override;
+	void Paint() const noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
 #ifdef HAVE_GETMOUSE

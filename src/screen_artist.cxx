@@ -83,13 +83,13 @@ public:
 	void LoadSongList(struct mpdclient &c);
 
 	/* virtual methods from class Page */
-	void Update(struct mpdclient &c, unsigned events) override;
+	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const override;
+	const char *GetTitle(char *s, size_t size) const noexcept override;
 };
 
 void
-SongListPage::Update(struct mpdclient &c, unsigned events)
+SongListPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	if (events & MPD_IDLE_DATABASE) {
 		LoadSongList(c);
@@ -117,8 +117,8 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void OnOpen(struct mpdclient &c) override;
-	void Update(struct mpdclient &c, unsigned events) override;
+	void OnOpen(struct mpdclient &c) noexcept override;
+	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 };
 
@@ -181,7 +181,7 @@ screen_artist_init(ScreenManager &_screen, WINDOW *w, Size size)
 }
 
 const char *
-SongListPage::GetTitle(char *str, size_t size) const
+SongListPage::GetTitle(char *str, size_t size) const noexcept
 {
 	const Utf8ToLocale artist_locale(artist.c_str());
 
@@ -226,7 +226,7 @@ SongListPage::OnCommand(struct mpdclient &c, Command cmd)
 }
 
 void
-ArtistBrowserPage::OnOpen(struct mpdclient &c)
+ArtistBrowserPage::OnOpen(struct mpdclient &c) noexcept
 {
 	ProxyPage::OnOpen(c);
 
@@ -235,7 +235,7 @@ ArtistBrowserPage::OnOpen(struct mpdclient &c)
 }
 
 void
-ArtistBrowserPage::Update(struct mpdclient &c, unsigned events)
+ArtistBrowserPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	artist_list_page.AddPendingEvents(events);
 	album_list_page.AddPendingEvents(events);

@@ -50,10 +50,10 @@ private:
 
 public:
 	/* virtual methods from class Page */
-	void Update(struct mpdclient &c, unsigned events) override;
+	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
-	const char *GetTitle(char *, size_t) const override {
+	const char *GetTitle(char *, size_t) const noexcept override {
 		return _("Chat");
 	}
 };
@@ -99,7 +99,7 @@ ChatPage::ProcessMessage(const struct mpd_message &message)
 }
 
 void
-ChatPage::Update(struct mpdclient &c, unsigned events)
+ChatPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	if (CheckChatSupport(c) && (events & MPD_IDLE_MESSAGE)) {
 		auto *connection = c.GetConnection();

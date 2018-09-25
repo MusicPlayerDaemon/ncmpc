@@ -81,7 +81,7 @@ TextPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
 }
 
 void
-TextPage::Paint() const
+TextPage::Paint() const noexcept
 {
 	lw.Paint(TextListRenderer(*this));
 }
