@@ -64,11 +64,10 @@ StatusBar::ClearMessage()
 		message_source_id = 0;
 	}
 
-	WINDOW *w = window.w;
+	message.clear();
 
-	wmove(w, 0, 0);
-	wclrtoeol(w);
-	wrefresh(w);
+	Paint();
+	doupdate();
 }
 
 #ifndef NCMPC_MINI
@@ -201,11 +200,16 @@ StatusBar::Paint() const
 {
 	WINDOW *w = window.w;
 
-	if (message_source_id != 0)
-		return;
-
 	wmove(w, 0, 0);
 	wclrtoeol(w);
+
+	if (!message.empty()) {
+		SelectStyle(w, Style::STATUS_ALERT);
+		waddstr(w, message.c_str());
+		wnoutrefresh(w);
+		return;
+	}
+
 	SelectStyle(w, Style::STATUS_BOLD);
 
 	if (left_text != nullptr)
@@ -260,18 +264,14 @@ StatusBar::OnClearMessageTimer()
 void
 StatusBar::SetMessage(const char *msg)
 {
-	WINDOW *w = window.w;
-
 #ifndef NCMPC_MINI
 	if (options.scroll)
 		hscroll.Clear();
 #endif
 
-	wmove(w, 0, 0);
-	wclrtoeol(w);
-	SelectStyle(w, Style::STATUS_ALERT);
-	waddstr(w, msg);
-	wnoutrefresh(w);
+	message = msg;
+	Paint();
+	doupdate();
 
 	if (message_source_id != 0)
 		g_source_remove(message_source_id);

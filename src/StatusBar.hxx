@@ -37,6 +37,7 @@ struct mpd_song;
 class StatusBar {
 	Window window;
 
+	std::string message;
 	unsigned message_source_id = 0;
 
 #ifndef NCMPC_MINI
