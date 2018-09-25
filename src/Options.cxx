@@ -35,19 +35,18 @@
 #define ERROR_GOT_ARGUMENT      0x03
 #define ERROR_MISSING_ARGUMENT  0x04
 
-typedef struct {
+struct OptionDefinition {
 	int shortopt;
 	const char *longopt;
 	const char *argument;
 	const char *descrition;
-} arg_opt_t;
-
+};
 
 typedef void (*option_callback_fn_t)(int c, const char *arg);
 
 Options options;
 
-static const arg_opt_t option_table[] = {
+static const OptionDefinition option_table[] = {
 	{ '?', "help", nullptr, "Show this help message" },
 	{ 'V', "version", nullptr, "Display version information" },
 	{ 'c', "colors", nullptr, "Enable colors" },
@@ -69,7 +68,7 @@ static const arg_opt_t option_table[] = {
 
 static const unsigned option_table_size = sizeof(option_table) / sizeof(option_table[0]);
 
-static const arg_opt_t *
+static const OptionDefinition *
 lookup_option(int s, char *l)
 {
 	unsigned i;
@@ -270,7 +269,7 @@ handle_option(int c, const char *arg)
 void
 options_parse(int argc, const char *argv[])
 {
-	const arg_opt_t *opt = nullptr;
+	const OptionDefinition *opt = nullptr;
 	option_callback_fn_t option_cb = handle_option;
 
 	for (int i = 1; i < argc; i++) {
