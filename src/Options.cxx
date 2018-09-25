@@ -42,8 +42,6 @@ struct OptionDefinition {
 	const char *descrition;
 };
 
-typedef void (*option_callback_fn_t)(int c, const char *arg);
-
 Options options;
 
 static constexpr OptionDefinition option_table[] = {
@@ -270,7 +268,6 @@ void
 options_parse(int argc, const char *argv[])
 {
 	const OptionDefinition *opt = nullptr;
-	option_callback_fn_t option_cb = handle_option;
 
 	for (int i = 1; i < argc; i++) {
 		const char *arg = argv[i];
@@ -304,7 +301,7 @@ options_parse(int argc, const char *argv[])
 
 			/* execute option callback */
 			if (value || opt->argument==nullptr) {
-				option_cb (opt->shortopt, value);
+				handle_option(opt->shortopt, value);
 				opt = nullptr;
 			}
 		}
@@ -324,14 +321,14 @@ options_parse(int argc, const char *argv[])
 
 				/* if no option argument is needed execute callback */
 				if (opt->argument == nullptr) {
-					option_cb (opt->shortopt, nullptr);
+					handle_option(opt->shortopt, nullptr);
 					opt = nullptr;
 				}
 			}
 		} else {
 			/* is this a option argument? */
 			if (opt && opt->argument) {
-				option_cb (opt->shortopt, arg);
+				handle_option (opt->shortopt, arg);
 				opt = nullptr;
 			} else
 				option_error(ERROR_BAD_ARGUMENT, arg, nullptr);
@@ -339,7 +336,7 @@ options_parse(int argc, const char *argv[])
 	}
 
 	if (opt && opt->argument == nullptr)
-		option_cb (opt->shortopt, nullptr);
+		handle_option(opt->shortopt, nullptr);
 	else if (opt && opt->argument)
 		option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
 
