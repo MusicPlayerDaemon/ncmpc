@@ -45,40 +45,40 @@ struct ListWindowRange {
 	 */
 	unsigned end_index;
 
-	constexpr bool empty() const {
+	constexpr bool empty() const noexcept {
 		return start_index >= end_index;
 	}
 
-	constexpr bool Contains(unsigned i) const {
+	constexpr bool Contains(unsigned i) const noexcept {
 		return i >= start_index && i < end_index;
 	}
 
 	struct const_iterator {
 		unsigned value;
 
-		const_iterator &operator++() {
+		const_iterator &operator++() noexcept {
 			++value;
 			return *this;
 		}
 
-		constexpr bool operator==(const const_iterator &other) const {
+		constexpr bool operator==(const const_iterator &other) const noexcept {
 			return value == other.value;
 		}
 
-		constexpr bool operator!=(const const_iterator &other) const {
+		constexpr bool operator!=(const const_iterator &other) const noexcept {
 			return !(*this == other);
 		}
 
-		const unsigned &operator *() const {
+		const unsigned &operator *() const noexcept {
 			return value;
 		}
 	};
 
-	constexpr const_iterator begin() const {
+	constexpr const_iterator begin() const noexcept {
 		return {start_index};
 	}
 
-	constexpr const_iterator end() const {
+	constexpr const_iterator end() const noexcept {
 		return {end_index};
 	}
 };
@@ -108,75 +108,75 @@ public:
 
 	bool hide_cursor = false;
 
-	ListWindow(WINDOW *_w, Size _size)
+	ListWindow(WINDOW *_w, Size _size) noexcept
 		:w(_w), size(_size) {}
 
 	/** reset a list window (selected=0, start=0) */
-	void Reset();
+	void Reset() noexcept;
 
-	void Resize(Size _size);
+	void Resize(Size _size) noexcept;
 
-	void SetLength(unsigned length);
+	void SetLength(unsigned length) noexcept;
 
-	void Paint(const ListRenderer &renderer) const;
+	void Paint(const ListRenderer &renderer) const noexcept;
 
 	/** perform basic list window commands (movement) */
-	bool HandleCommand(Command cmd);
+	bool HandleCommand(Command cmd) noexcept;
 
 	/**
 	 * Scroll the window.  Returns true if the command has been
 	 * consumed.
 	 */
-	bool HandleScrollCommand(Command cmd);
+	bool HandleScrollCommand(Command cmd) noexcept;
 
 #ifdef HAVE_GETMOUSE
 	/**
 	 * The mouse was clicked.  Check if the list should be scrolled
 	 * Returns non-zero if the mouse event has been handled.
 	 */
-	bool HandleMouse(mmask_t bstate, int y);
+	bool HandleMouse(mmask_t bstate, int y) noexcept;
 #endif
 
 	/**
 	 * Centers the visible range around item n on the list.
 	 */
-	void Center(unsigned n);
+	void Center(unsigned n) noexcept;
 
 	/**
 	 * Scrolls the view to item n, as if the cursor would have been moved
 	 * to the position.
 	 */
-	void ScrollTo(unsigned n);
+	void ScrollTo(unsigned n) noexcept;
 
 	/**
 	 * Sets the position of the cursor.  Disables range selection.
 	 */
-	void SetCursor(unsigned i);
+	void SetCursor(unsigned i) noexcept;
 
 	/**
 	 * Moves the cursor.  Modifies the range if range selection is
 	 * enabled.
 	 */
-	void MoveCursor(unsigned n);
+	void MoveCursor(unsigned n) noexcept;
 
-	void MoveCursorNext();
-	void MoveCursorPrevious();
-	void MoveCursorTop();
-	void MoveCursorMiddle();
-	void MoveCursorBottom();
-	void MoveCursorFirst();
-	void MoveCursorLast();
-	void MoveCursorNextPage();
-	void MoveCursorPreviousPage();
+	void MoveCursorNext() noexcept;
+	void MoveCursorPrevious() noexcept;
+	void MoveCursorTop() noexcept;
+	void MoveCursorMiddle() noexcept;
+	void MoveCursorBottom() noexcept;
+	void MoveCursorFirst() noexcept;
+	void MoveCursorLast() noexcept;
+	void MoveCursorNextPage() noexcept;
+	void MoveCursorPreviousPage() noexcept;
 
-	void ScrollUp(unsigned n);
-	void ScrollDown(unsigned n);
+	void ScrollUp(unsigned n) noexcept;
+	void ScrollDown(unsigned n) noexcept;
 
 	/**
 	 * Ensures that the cursor is visible on the screen, i.e. it is not
 	 * outside the current scrolling range.
 	 */
-	void FetchCursor();
+	void FetchCursor() noexcept;
 
 	/**
 	 * Determines the lower and upper bound of the range selection.  If
@@ -184,7 +184,7 @@ public:
 	 * length is 1).
 	 */
 	gcc_pure
-	ListWindowRange GetRange() const;
+	ListWindowRange GetRange() const noexcept;
 
 	/**
 	 * Find a string in a list window.
@@ -192,7 +192,7 @@ public:
 	bool Find(const ListText &text,
 		  const char *str,
 		  bool wrap,
-		  bool bell_on_wrap);
+		  bool bell_on_wrap) noexcept;
 
 	/**
 	 * Find a string in a list window (reversed).
@@ -200,25 +200,25 @@ public:
 	bool ReverseFind(const ListText &text,
 			 const char *str,
 			 bool wrap,
-			 bool bell_on_wrap);
+			 bool bell_on_wrap) noexcept;
 
 	/**
 	 * Find a string in a list window which begins with the given
 	 * characters in *str.
 	 */
-	bool Jump(const ListText &text, const char *str);
+	bool Jump(const ListText &text, const char *str) noexcept;
 
 private:
 	gcc_pure
-	unsigned ValidateIndex(unsigned i) const;
+	unsigned ValidateIndex(unsigned i) const noexcept;
 
-	void CheckSelected();
+	void CheckSelected() noexcept;
 
 	/**
 	 * Scroll after the cursor was moved, the list was changed or
 	 * the window was resized.
 	 */
-	void CheckOrigin() {
+	void CheckOrigin() noexcept {
 		ScrollTo(selected);
 	}
 };

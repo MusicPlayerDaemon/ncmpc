@@ -36,7 +36,7 @@
 #include <string.h>
 
 void
-ListWindow::Reset()
+ListWindow::Reset() noexcept
 {
 	selected = 0;
 	range_selection = false;
@@ -45,7 +45,7 @@ ListWindow::Reset()
 }
 
 unsigned
-ListWindow::ValidateIndex(unsigned i) const
+ListWindow::ValidateIndex(unsigned i) const noexcept
 {
 	if (length == 0)
 		return 0;
@@ -56,7 +56,7 @@ ListWindow::ValidateIndex(unsigned i) const
 }
 
 void
-ListWindow::CheckSelected()
+ListWindow::CheckSelected() noexcept
 {
 	selected = ValidateIndex(selected);
 
@@ -65,14 +65,14 @@ ListWindow::CheckSelected()
 }
 
 void
-ListWindow::Resize(Size _size)
+ListWindow::Resize(Size _size) noexcept
 {
 	size = _size;
 	CheckOrigin();
 }
 
 void
-ListWindow::SetLength(unsigned _length)
+ListWindow::SetLength(unsigned _length) noexcept
 {
 	if (_length == length)
 		return;
@@ -84,7 +84,7 @@ ListWindow::SetLength(unsigned _length)
 }
 
 void
-ListWindow::Center(unsigned n)
+ListWindow::Center(unsigned n) noexcept
 {
 	if (n > size.height / 2)
 		start = n - size.height / 2;
@@ -100,7 +100,7 @@ ListWindow::Center(unsigned n)
 }
 
 void
-ListWindow::ScrollTo(unsigned n)
+ListWindow::ScrollTo(unsigned n) noexcept
 {
 	int new_start = start;
 
@@ -125,7 +125,7 @@ ListWindow::ScrollTo(unsigned n)
 }
 
 void
-ListWindow::SetCursor(unsigned i)
+ListWindow::SetCursor(unsigned i) noexcept
 {
 	range_selection = false;
 	selected = i;
@@ -135,7 +135,7 @@ ListWindow::SetCursor(unsigned i)
 }
 
 void
-ListWindow::MoveCursor(unsigned n)
+ListWindow::MoveCursor(unsigned n) noexcept
 {
 	selected = n;
 
@@ -144,7 +144,7 @@ ListWindow::MoveCursor(unsigned n)
 }
 
 void
-ListWindow::FetchCursor()
+ListWindow::FetchCursor() noexcept
 {
 	if (start > 0 &&
 	    selected < start + options.scroll_offset)
@@ -155,7 +155,7 @@ ListWindow::FetchCursor()
 }
 
 ListWindowRange
-ListWindow::GetRange() const
+ListWindow::GetRange() const noexcept
 {
 	if (length == 0) {
 		/* empty list - no selection */
@@ -174,7 +174,7 @@ ListWindow::GetRange() const
 }
 
 void
-ListWindow::MoveCursorNext()
+ListWindow::MoveCursorNext() noexcept
 {
 	if (selected + 1 < length)
 		MoveCursor(selected + 1);
@@ -183,7 +183,7 @@ ListWindow::MoveCursorNext()
 }
 
 void
-ListWindow::MoveCursorPrevious()
+ListWindow::MoveCursorPrevious() noexcept
 {
 	if (selected > 0)
 		MoveCursor(selected - 1);
@@ -192,7 +192,7 @@ ListWindow::MoveCursorPrevious()
 }
 
 void
-ListWindow::MoveCursorTop()
+ListWindow::MoveCursorTop() noexcept
 {
 	if (start == 0)
 		MoveCursor(start);
@@ -204,7 +204,7 @@ ListWindow::MoveCursorTop()
 }
 
 void
-ListWindow::MoveCursorMiddle()
+ListWindow::MoveCursorMiddle() noexcept
 {
 	if (length >= size.height)
 		MoveCursor(start + size.height / 2);
@@ -213,7 +213,7 @@ ListWindow::MoveCursorMiddle()
 }
 
 void
-ListWindow::MoveCursorBottom()
+ListWindow::MoveCursorBottom() noexcept
 {
 	if (length >= size.height)
 		if ((unsigned) options.scroll_offset * 2 >= size.height)
@@ -228,13 +228,13 @@ ListWindow::MoveCursorBottom()
 }
 
 void
-ListWindow::MoveCursorFirst()
+ListWindow::MoveCursorFirst() noexcept
 {
 	MoveCursor(0);
 }
 
 void
-ListWindow::MoveCursorLast()
+ListWindow::MoveCursorLast() noexcept
 {
 	if (length > 0)
 		MoveCursor(length - 1);
@@ -243,7 +243,7 @@ ListWindow::MoveCursorLast()
 }
 
 void
-ListWindow::MoveCursorNextPage()
+ListWindow::MoveCursorNextPage() noexcept
 {
 	if (size.height < 2)
 		return;
@@ -254,7 +254,7 @@ ListWindow::MoveCursorNextPage()
 }
 
 void
-ListWindow::MoveCursorPreviousPage()
+ListWindow::MoveCursorPreviousPage() noexcept
 {
 	if (size.height < 2)
 		return;
@@ -265,7 +265,7 @@ ListWindow::MoveCursorPreviousPage()
 }
 
 void
-ListWindow::ScrollUp(unsigned n)
+ListWindow::ScrollUp(unsigned n) noexcept
 {
 	if (start > 0) {
 		if (n > start)
@@ -278,7 +278,7 @@ ListWindow::ScrollUp(unsigned n)
 }
 
 void
-ListWindow::ScrollDown(unsigned n)
+ListWindow::ScrollDown(unsigned n) noexcept
 {
 	if (start + size.height < length) {
 		if (start + size.height + n > length - 1)
@@ -291,7 +291,7 @@ ListWindow::ScrollDown(unsigned n)
 }
 
 void
-ListWindow::Paint(const ListRenderer &renderer) const
+ListWindow::Paint(const ListRenderer &renderer) const noexcept
 {
 	bool show_cursor = !hide_cursor &&
 		(!options.hardware_cursor || range_selection);
@@ -328,7 +328,7 @@ bool
 ListWindow::Find(const ListText &text,
 		 const char *str,
 		 bool wrap,
-		 bool bell_on_wrap)
+		 bool bell_on_wrap) noexcept
 {
 	unsigned i = selected + 1;
 
@@ -371,7 +371,7 @@ bool
 ListWindow::ReverseFind(const ListText &text,
 			const char *str,
 			bool wrap,
-			bool bell_on_wrap)
+			bool bell_on_wrap) noexcept
 {
 	int i = selected - 1;
 
@@ -412,7 +412,7 @@ ListWindow::ReverseFind(const ListText &text,
 }
 
 bool
-ListWindow::Jump(const ListText &text, const char *str)
+ListWindow::Jump(const ListText &text, const char *str) noexcept
 {
 	assert(str != nullptr);
 
@@ -438,7 +438,7 @@ ListWindow::Jump(const ListText &text, const char *str)
 
 /* perform basic list window commands (movement) */
 bool
-ListWindow::HandleCommand(Command cmd)
+ListWindow::HandleCommand(Command cmd) noexcept
 {
 	switch (cmd) {
 	case Command::LIST_PREVIOUS:
@@ -501,7 +501,7 @@ ListWindow::HandleCommand(Command cmd)
 }
 
 bool
-ListWindow::HandleScrollCommand(Command cmd)
+ListWindow::HandleScrollCommand(Command cmd) noexcept
 {
 	switch (cmd) {
 	case Command::LIST_SCROLL_UP_LINE:
@@ -570,7 +570,7 @@ ListWindow::HandleScrollCommand(Command cmd)
 
 #ifdef HAVE_GETMOUSE
 bool
-ListWindow::HandleMouse(mmask_t bstate, int y)
+ListWindow::HandleMouse(mmask_t bstate, int y) noexcept
 {
 	/* if the even occurred above the list window move up */
 	if (y < 0) {
