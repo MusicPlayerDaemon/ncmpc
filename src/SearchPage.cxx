@@ -32,9 +32,6 @@
 #include "FileListPage.hxx"
 #include "filelist.hxx"
 #include "util/Macros.hxx"
-#include "util/ScopeExit.hxx"
-
-#include <glib.h>
 
 #include <string.h>
 
@@ -237,8 +234,7 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	if (strchr(query, ':') == nullptr)
 		return nullptr;
 
-	char *str = g_strdup(query);
-	AtScopeExit(str) { g_free(str); };
+	std::string str(query);
 
 	static constexpr size_t N = 10;
 
@@ -263,8 +259,8 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 			if (spi != -1)
 				str[spi] = '\0';
 
-			matchv[n] = str + i + 1;
-			tabv[n] = str + spi + 1;
+			matchv[n] = &str[i + 1];
+			tabv[n] = &str[spi + 1];
 			table[n] = search_get_tag_id(tabv[n]);
 			if (table[n] < 0) {
 				screen_status_printf(_("Bad search tag %s"),
