@@ -137,20 +137,20 @@ auto_update_timer()
 		disable_update_timer();
 }
 
-static void
-do_mpd_update()
+void
+Instance::UpdateClient() noexcept
 {
-	if (mpd->IsConnected() &&
-	    (mpd->events != 0 || mpd->playing))
-		mpd->Update();
+	if (client.IsConnected() &&
+	    (client.events != 0 || client.playing))
+		client.Update();
 
 #ifndef NCMPC_MINI
 	if (options.enable_xterm_title)
 		update_xterm_title();
 #endif
 
-	screen->Update(*mpd, global_instance->GetSeek());
-	mpd->events = (enum mpd_idle)0;
+	screen_manager.Update(client, seek);
+	client.events = (enum mpd_idle)0;
 }
 
 /**
@@ -200,7 +200,7 @@ mpdclient_connected_callback()
 	screen->status_bar.ClearMessage();
 	doupdate();
 
-	do_mpd_update();
+	global_instance->UpdateClient();
 
 	auto_update_timer();
 }
@@ -243,7 +243,7 @@ mpdclient_idle_callback(gcc_unused unsigned events)
 static gboolean
 timer_mpd_update(gcc_unused gpointer data)
 {
-	do_mpd_update();
+	global_instance->UpdateClient();
 
 	if (should_enable_update_timer())
 		return true;

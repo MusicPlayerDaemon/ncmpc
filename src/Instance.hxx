@@ -61,6 +61,8 @@ public:
 		return screen_manager;
 	}
 
+	void UpdateClient() noexcept;
+
 	void Run();
 };
 
