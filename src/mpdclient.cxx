@@ -72,15 +72,11 @@ static void
 mpdclient_invoke_error_callback(enum mpd_error error,
 				const char *message)
 {
-	char *allocated;
 	if (error == MPD_ERROR_SERVER)
 		/* server errors are UTF-8, the others are locale */
-		message = allocated = utf8_to_locale(message);
+		mpdclient_error_callback(Utf8ToLocale(message).c_str());
 	else
-		allocated = nullptr;
-
-	mpdclient_error_callback(message);
-	g_free(allocated);
+		mpdclient_error_callback(message);
 }
 
 static void
