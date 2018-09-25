@@ -1,6 +1,7 @@
 ncmpc 0.32 - not yet released
 * fix manpage installation directory
 * fix build breakages with some ncurses builds
+* remove doxygen support
 
 ncmpc 0.31 - (2018-09-19)
 * fix "No such song" in search screen
