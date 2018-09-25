@@ -31,12 +31,14 @@ class ScreenManager;
 
 class AlbumListPage final : public ListPage, ListRenderer, ListText {
 	ScreenManager &screen;
+	Page *const parent;
 	std::vector<std::string> album_list;
 	std::string artist;
 
 public:
-	AlbumListPage(ScreenManager &_screen, WINDOW *_w, Size size)
-		:ListPage(_w, size), screen(_screen) {}
+	AlbumListPage(ScreenManager &_screen, Page *_parent,
+		      WINDOW *_w, Size size) noexcept
+		:ListPage(_w, size), screen(_screen), parent(_parent) {}
 
 	template<typename A>
 	void SetArtist(A &&_artist) {

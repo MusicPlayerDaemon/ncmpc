@@ -43,6 +43,7 @@
 
 class CommandKeysPage final : public ListPage, ListText {
 	ScreenManager &screen;
+	Page *const parent;
 
 	const KeyBindings *bindings;
 	KeyBinding *binding;
@@ -57,8 +58,9 @@ class CommandKeysPage final : public ListPage, ListText {
 	unsigned subcmd_n_keys = 0;
 
 public:
-	CommandKeysPage(ScreenManager &_screen, WINDOW *w, Size size)
-		:ListPage(w, size), screen(_screen) {}
+	CommandKeysPage(ScreenManager &_screen, Page *_parent,
+			WINDOW *w, Size size) noexcept
+		:ListPage(w, size), screen(_screen), parent(_parent) {}
 
 	void SetCommand(KeyBindings *_bindings, unsigned _cmd) {
 		bindings = _bindings;
@@ -271,7 +273,8 @@ CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 	switch(cmd) {
 	case Command::PLAY:
 		if (lw.selected == subcmd_item_up()) {
-			screen.OnCommand(c, Command::GO_PARENT_DIRECTORY);
+			if (parent != nullptr)
+				return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
 		} else if (lw.selected == subcmd_item_add()) {
 			AddKey();
 		} else {
@@ -523,7 +526,7 @@ public:
 	KeyDefPage(ScreenManager &screen, WINDOW *_w, Size size)
 		:ProxyPage(_w),
 		 command_list_page(screen, _w, size),
-		 command_keys_page(screen, _w, size) {}
+		 command_keys_page(screen, this, _w, size) {}
 
 public:
 	/* virtual methods from class Page */

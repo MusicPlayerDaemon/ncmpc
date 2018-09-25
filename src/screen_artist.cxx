@@ -42,6 +42,8 @@
 #include <string.h>
 
 class SongListPage final : public FileListPage {
+	Page *const parent;
+
 	std::string artist;
 
 	/**
@@ -52,9 +54,11 @@ class SongListPage final : public FileListPage {
 	std::string album;
 
 public:
-	SongListPage(ScreenManager &_screen, WINDOW *_w, Size size)
+	SongListPage(ScreenManager &_screen, Page *_parent,
+		     WINDOW *_w, Size size) noexcept
 		:FileListPage(_screen, _w, size,
-			      options.list_format.c_str()) {}
+			      options.list_format.c_str()),
+		 parent(_parent) {}
 
 	template<typename A>
 	void SetArtist(A &&_artist) {
@@ -102,8 +106,8 @@ public:
 			  Size size)
 		:ProxyPage(_w),
 		 artist_list_page(_screen, _w, size),
-		 album_list_page(_screen, _w, size),
-		 song_list_page(_screen, _w, size) {}
+		 album_list_page(_screen, this, _w, size),
+		 song_list_page(_screen, this, _w, size) {}
 
 private:
 	void OpenArtistList(struct mpdclient &c);
@@ -203,11 +207,9 @@ SongListPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch(cmd) {
 	case Command::PLAY:
-		if (lw.selected == 0) {
+		if (lw.selected == 0 && parent != nullptr)
 			/* handle ".." */
-			screen.OnCommand(c, Command::GO_PARENT_DIRECTORY);
-			return true;
-		}
+			return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
 
 		break;
 

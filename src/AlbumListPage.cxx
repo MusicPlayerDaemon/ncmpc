@@ -22,7 +22,6 @@
 #include "screen_find.hxx"
 #include "FileListPage.hxx"
 #include "Command.hxx"
-#include "screen.hxx"
 #include "i18n.h"
 #include "charset.hxx"
 #include "mpdclient.hxx"
@@ -182,11 +181,9 @@ AlbumListPage::OnCommand(struct mpdclient &c, Command cmd)
 		const char *selected;
 
 	case Command::PLAY:
-		if (lw.selected == 0) {
+		if (lw.selected == 0 && parent != nullptr)
 			/* handle ".." */
-			screen.OnCommand(c, Command::GO_PARENT_DIRECTORY);
-			return true;
-		}
+			return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
 
 		break;
 
