@@ -243,6 +243,8 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 			/* fill the label column with whitespaces */
 			entry_iter = std::fill_n(entry, label_col, ' ');
 		}
+		*entry_iter = 0;
+
 		/* skip whitespaces */
 		value_iter = StripLeft(value_iter);
 
@@ -254,8 +256,6 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 			g_free(p);
 			break;
 		}
-
-		*entry_iter = 0;
 
 		value_iter += strlen(p);
 		p = replace_utf8_to_locale(p);
