@@ -234,6 +234,7 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 		const char *const buffer_end = buffer + BUFFER_SIZE;
 
 		char *p = buffer;
+		size_t n_space = label_col;
 		if (value_iter == value) {
 			const size_t label_length = std::min(strlen(label),
 							     BUFFER_SIZE - 16);
@@ -241,13 +242,10 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 			*p++ = ':';
 			/* fill the label column with whitespaces */
 			const unsigned label_width = StringWidthMB(label);
-			size_t n_space = label_col - label_width - 1;
-			p = std::fill_n(p, n_space, ' ');
+			n_space -= label_width + 1;
 		}
-		else {
-			/* fill the label column with whitespaces */
-			p = std::fill_n(p, label_col, ' ');
-		}
+
+		p = std::fill_n(p, n_space, ' ');
 
 		/* skip whitespaces */
 		value_iter = StripLeft(value_iter);
