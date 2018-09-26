@@ -40,6 +40,7 @@
 
 #include <glib/gprintf.h>
 
+#include <algorithm>
 #include <vector>
 #include <string>
 
@@ -232,18 +233,15 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 	while (*value_iter != 0) {
 		char *entry_iter;
 		if (value_iter == value) {
-			memcpy(entry, label, label_length);
-			entry_iter = entry + label_length;
+			entry_iter = std::copy_n(label, label_length, entry);
 			*entry_iter++ = ':';
 			/* fill the label column with whitespaces */
 			size_t n_space = label_col - label_width + 1;
-			memset(entry_iter, ' ', n_space);
-			entry_iter += n_space;
+			entry_iter = std::fill_n(entry_iter, n_space, ' ');
 		}
 		else {
 			/* fill the label column with whitespaces */
-			memset(entry, ' ', label_col);
-			entry_iter = entry + label_col;
+			entry_iter = std::fill_n(entry, label_col, ' ');
 		}
 		/* skip whitespaces */
 		value_iter = StripLeft(value_iter);
