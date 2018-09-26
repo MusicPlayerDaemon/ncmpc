@@ -256,26 +256,26 @@ _strfsong(char *s,
 		if (value == nullptr)
 			value = temp;
 
+		size_t value_length;
+
 		if (value == nullptr) {
-			size_t templen=n;
 			/* just pass-through any unknown specifiers (including esc) */
-			if (length + templen >= max)
-				templen = max - length - 1;
-			std::copy_n(p, templen, s + length);
-			length+=templen;
+			value = p;
+			value_length = n;
 
 			missed = true;
 		} else {
-			size_t value_length = strlen(value);
-			if (length + value_length >= max)
-				value_length = max - length - 1;
-
-			std::copy_n(value, value_length, s + length);
-			length += value_length;
-			g_free(temp);
+			value_length = strlen(value);
 
 			found = true;
 		}
+
+		if (length + value_length >= max)
+			value_length = max - length - 1;
+
+		std::copy_n(value, value_length, s + length);
+		g_free(temp);
+		length += value_length;
 
 		/* advance past the specifier */
 		p += n;
