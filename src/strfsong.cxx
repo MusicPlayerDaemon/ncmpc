@@ -65,55 +65,42 @@ CopyString(char *dest, char *const dest_end,
 	return std::copy_n(src, length, dest);
 }
 
-#ifndef NCMPC_MINI
-
 static char *
-concat_tag_values(const char *a, const char *b)
+CopyString(char *dest, char *const dest_end,
+	   const char *src) noexcept
 {
-	return g_strconcat(a, ", ", b, nullptr);
+	return CopyString(dest, dest_end, src, strlen(src));
 }
 
 static char *
-song_more_tag_values(const struct mpd_song *song, enum mpd_tag_type tag,
-		     const char *first)
+CopyStringFromUTF8(char *dest, char *const dest_end,
+		   const char *src_utf8) noexcept
 {
-	const char *p = mpd_song_get_tag(song, tag, 1);
-	if (p == nullptr)
-		return nullptr;
-
-	char *buffer = concat_tag_values(first, p);
-	for (unsigned i = 2; (p = mpd_song_get_tag(song, tag, i)) != nullptr;
-	     ++i) {
-		char *prev = buffer;
-		buffer = concat_tag_values(buffer, p);
-		g_free(prev);
-	}
-
-	return buffer;
+	char *src_locale = utf8_to_locale(src_utf8);
+	dest = CopyString(dest, dest_end, src_locale);
+	g_free(src_locale);
+	return dest;
 }
 
-#endif /* !NCMPC_MINI */
-
 static char *
-song_tag_locale(const struct mpd_song *song, enum mpd_tag_type tag)
+CopyTag(char *dest, char *const end,
+	const struct mpd_song *song, enum mpd_tag_type tag)
 {
 	const char *value = mpd_song_get_tag(song, tag, 0);
 	if (value == nullptr)
-		return nullptr;
+		return dest;
 
-#ifndef NCMPC_MINI
-	char *all = song_more_tag_values(song, tag, value);
-	if (all != nullptr)
-		value = all;
-#endif /* !NCMPC_MINI */
+	dest = CopyStringFromUTF8(dest, end, value);
 
-	char *result = utf8_to_locale(value);
+	for (unsigned i = 1; dest + 5 < end &&
+		     (value = mpd_song_get_tag(song, tag, i)) != nullptr;
+	     ++i) {
+		*dest++ = ',';
+		*dest++ = ' ';
+		dest = CopyStringFromUTF8(dest, end, value);
+	}
 
-#ifndef NCMPC_MINI
-	g_free(all);
-#endif /* !NCMPC_MINI */
-
-	return result;
+	return dest;
 }
 
 static size_t
@@ -205,6 +192,7 @@ _strfsong(char *const s0, char *const end,
 
 		const char *value = nullptr;
 		enum mpd_tag_type tag = MPD_TAG_UNKNOWN;
+		bool short_tag = false;
 		char buffer[32];
 
 		if (*name_end != '%')
@@ -224,17 +212,8 @@ _strfsong(char *const s0, char *const end,
 		else if (strncmp("%album%", p, n) == 0)
 			tag = MPD_TAG_ALBUM;
 		else if (strncmp("%shortalbum%", p, n) == 0) {
-			temp = song_tag_locale(song, MPD_TAG_ALBUM);
-			if (temp) {
-				size_t temp_length = strlen(temp);
-				if (temp_length > 25) {
-					char *q = std::copy_n(temp, 22, buffer);
-					std::copy_n("...", 4, q);
-				} else {
-					std::copy_n(temp, temp_length + 1, buffer);
-				}
-				value = buffer;
-			}
+			tag = MPD_TAG_ALBUM;
+			short_tag = true;
 		}
 		else if (strncmp("%track%", p, n) == 0)
 			tag = MPD_TAG_TRACK;
@@ -261,10 +240,23 @@ _strfsong(char *const s0, char *const end,
 			}
 		}
 
+		/* advance past the specifier */
+		p += n;
+
 		if (tag != MPD_TAG_UNKNOWN) {
 			assert(temp == nullptr);
 
-			temp = song_tag_locale(song, tag);
+			char *const old = s;
+			s = CopyTag(s, end, song, tag);
+			if (s != old) {
+				found = true;
+
+				if (short_tag && s > old + 25)
+					s = std::copy_n("...", 3, old + 22);
+			} else
+				missed = true;
+
+			continue;
 		}
 
 		if (value == nullptr)
@@ -286,9 +278,6 @@ _strfsong(char *const s0, char *const end,
 
 		s = CopyString(s, end, value, value_length);
 		g_free(temp);
-
-		/* advance past the specifier */
-		p += n;
 	}
 
 	if(last) *last = p;
