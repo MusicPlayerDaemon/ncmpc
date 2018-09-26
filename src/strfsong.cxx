@@ -164,12 +164,11 @@ _strfsong(char *s,
 
 		/* EXPRESSION END */
 		if (p[0] == ']') {
-			if(last) *last = p+1;
 			if(missed && !found && length) {
 				s[0] = '\0';
 				length = 0;
 			}
-			return length;
+			break;
 		}
 
 		/* pass-through non-escaped portions of the format string */
