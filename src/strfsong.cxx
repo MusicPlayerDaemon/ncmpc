@@ -195,6 +195,10 @@ _strfsong(char *s,
 			end++;
 		}
 		size_t n = end - p + 1;
+
+		const char *value = nullptr;
+		char buffer[32];
+
 		if(*end != '%')
 			n--;
 		else if (strncmp("%file%", p, n) == 0)
@@ -214,14 +218,14 @@ _strfsong(char *s,
 		else if (strncmp("%shortalbum%", p, n) == 0) {
 			temp = song_tag_locale(song, MPD_TAG_ALBUM);
 			if (temp) {
-				char *temp2 = g_strndup(temp, 25);
-				if (strlen(temp) > 25) {
-					temp2[24] = '.';
-					temp2[23] = '.';
-					temp2[22] = '.';
+				size_t temp_length = strlen(temp);
+				if (temp_length > 25) {
+					char *q = std::copy_n(temp, 22, buffer);
+					std::copy_n("...", 4, q);
+				} else {
+					std::copy_n(temp, temp_length + 1, buffer);
 				}
-				g_free(temp);
-				temp = temp2;
+				value = buffer;
 			}
 		}
 		else if (strncmp("%track%", p, n) == 0)
@@ -243,14 +247,16 @@ _strfsong(char *s,
 			unsigned duration = mpd_song_get_duration(song);
 
 			if (duration > 0)  {
-				char buffer[32];
 				format_duration_short(buffer, sizeof(buffer),
 						      duration);
-				temp = g_strdup(buffer);
+				value = buffer;
 			}
 		}
 
-		if( temp == nullptr) {
+		if (value == nullptr)
+			value = temp;
+
+		if (value == nullptr) {
 			size_t templen=n;
 			/* just pass-through any unknown specifiers (including esc) */
 			if (length + templen >= max)
@@ -260,14 +266,15 @@ _strfsong(char *s,
 
 			missed = true;
 		} else {
-			size_t templen = strlen(temp);
+			size_t value_length = strlen(value);
+			if (length + value_length >= max)
+				value_length = max - length - 1;
+
+			std::copy_n(value, value_length, s + length);
+			length += value_length;
+			g_free(temp);
 
 			found = true;
-			if (length + templen >= max)
-				templen = max - length - 1;
-			std::copy_n(temp, templen, s + length);
-			length+=templen;
-			g_free(temp);
 		}
 
 		/* advance past the specifier */
