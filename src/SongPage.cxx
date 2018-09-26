@@ -224,7 +224,7 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 	label_col += 2;
 	const int value_col = lw.size.width - label_col;
 	/* calculate the number of required linebreaks */
-	const gchar *value_iter = value;
+	const char *value_iter = value;
 	const size_t label_length = strlen(label);
 	const size_t label_size = label_length + label_col;
 
