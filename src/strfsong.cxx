@@ -24,8 +24,6 @@
 
 #include <mpd/client.h>
 
-#include <glib.h>
-
 #include <algorithm>
 
 #include <assert.h>
