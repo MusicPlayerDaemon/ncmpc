@@ -506,7 +506,7 @@ parse_line(char *line)
 	else if (!strcasecmp(CONF_SEARCH_MODE, name))
 		options.search_mode = get_search_mode(value);
 	else if (!strcasecmp(CONF_HIDE_CURSOR, name))
-		options.hide_cursor = atoi(value);
+		options.hide_cursor = std::chrono::seconds(atoi(value));
 	else if (!strcasecmp(CONF_SEEK_TIME, name))
 		options.seek_time = atoi(value);
 	else if (!strcasecmp(CONF_SCREEN_LIST, name)) {

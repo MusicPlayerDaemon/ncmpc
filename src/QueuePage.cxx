@@ -108,10 +108,10 @@ private:
 	void OnHideCursorTimer(const boost::system::error_code &error) noexcept;
 
 	void ScheduleHideCursor() {
-		assert(options.hide_cursor > 0);
+		assert(options.hide_cursor > std::chrono::steady_clock::duration::zero());
 
 		boost::system::error_code error;
-		hide_cursor_timer.expires_from_now(std::chrono::seconds(options.hide_cursor),
+		hide_cursor_timer.expires_from_now(options.hide_cursor,
 						   error);
 		hide_cursor_timer.async_wait(std::bind(&QueuePage::OnHideCursorTimer, this,
 						       std::placeholders::_1));
@@ -334,7 +334,7 @@ QueuePage::OnHideCursorTimer(const boost::system::error_code &error) noexcept
 	if (error)
 		return;
 
-	assert(options.hide_cursor > 0);
+	assert(options.hide_cursor > std::chrono::steady_clock::duration::zero());
 
 	/* hide the cursor when mpd is playing and the user is inactive */
 
@@ -350,7 +350,7 @@ QueuePage::OnOpen(struct mpdclient &c) noexcept
 {
 	playlist = &c.playlist;
 
-	if (options.hide_cursor > 0) {
+	if (options.hide_cursor > std::chrono::steady_clock::duration::zero()) {
 		lw.hide_cursor = false;
 		ScheduleHideCursor();
 	}
@@ -490,7 +490,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 
 	lw.hide_cursor = false;
 
-	if (options.hide_cursor > 0) {
+	if (options.hide_cursor > std::chrono::steady_clock::duration::zero()) {
 		hide_cursor_timer.cancel();
 		ScheduleHideCursor();
 	}

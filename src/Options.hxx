@@ -45,7 +45,7 @@ struct Options {
 	int timeout_ms = 0;
 	int crossfade_time = DEFAULT_CROSSFADE_TIME;
 	int search_mode;
-	int hide_cursor;
+	std::chrono::steady_clock::duration hide_cursor;
 	int seek_time = 1;
 #ifdef ENABLE_LYRICS_SCREEN
 	std::chrono::steady_clock::duration lyrics_timeout = std::chrono::minutes(1);
