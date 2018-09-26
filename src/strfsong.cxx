@@ -150,15 +150,12 @@ _strfsong(char *s,
 
 		/* EXPRESSION START */
 		if (p[0] == '[') {
-			char *temp = (char *)g_malloc0(max);
-			if( _strfsong(temp, max, p+1, song, &p) >0 ) {
-				g_strlcat(s, temp, max);
+			if (_strfsong(s + length, max - length, p + 1, song, &p) > 0) {
 				length = strlen(s);
 				found = true;
 			} else {
 				missed = true;
 			}
-			g_free(temp);
 			continue;
 		}
 
