@@ -59,7 +59,7 @@ struct tag_label {
 	const char *label;
 };
 
-static const struct tag_label tag_labels[] = {
+static constexpr struct tag_label tag_labels[] = {
 	{ MPD_TAG_ARTIST, N_("Artist") },
 	{ MPD_TAG_TITLE, N_("Title") },
 	{ MPD_TAG_ALBUM, N_("Album") },
@@ -90,7 +90,7 @@ enum stats_label {
 	STATS_DBPLAYTIME,
 };
 
-static const char *const stats_labels[] = {
+static constexpr const char *stats_labels[] = {
 	N_("Number of artists"),
 	N_("Number of albums"),
 	N_("Number of songs"),
