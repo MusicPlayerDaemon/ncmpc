@@ -35,6 +35,10 @@ char *utf8_to_locale(const char *str);
 char *
 CopyUtf8ToLocale(char *dest, size_t dest_size, const char *src) noexcept;
 
+char *
+CopyUtf8ToLocale(char *dest, size_t dest_size,
+		 const char *src, size_t src_length) noexcept;
+
 gcc_pure
 const char *
 utf8_to_locale(const char *src, char *buffer, size_t size) noexcept;
