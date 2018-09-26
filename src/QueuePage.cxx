@@ -491,7 +491,6 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	lw.hide_cursor = false;
 
 	if (options.hide_cursor > std::chrono::steady_clock::duration::zero()) {
-		hide_cursor_timer.cancel();
 		ScheduleHideCursor();
 	}
 
