@@ -26,7 +26,7 @@
 #include <string.h>
 
 std::pair<const char *, size_t>
-BasicMarquee::ScrollString() const
+BasicMarquee::ScrollString() const noexcept
 {
 	assert(separator != nullptr);
 
@@ -36,7 +36,7 @@ BasicMarquee::ScrollString() const
 }
 
 bool
-BasicMarquee::Set(unsigned _width, const char *_text)
+BasicMarquee::Set(unsigned _width, const char *_text) noexcept
 {
 	assert(separator != nullptr);
 	assert(_text != nullptr);
@@ -59,7 +59,7 @@ BasicMarquee::Set(unsigned _width, const char *_text)
 }
 
 void
-BasicMarquee::Clear()
+BasicMarquee::Clear() noexcept
 {
 	width = 0;
 	text.clear();

@@ -39,7 +39,7 @@ hscroll::TimerCallback(const boost::system::error_code &error) noexcept
 
 void
 hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text,
-	     Style _style, attr_t _attr)
+	     Style _style, attr_t _attr) noexcept
 {
 	assert(w != nullptr);
 	assert(_text != nullptr);
@@ -56,14 +56,14 @@ hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text,
 }
 
 void
-hscroll::Clear()
+hscroll::Clear() noexcept
 {
 	basic.Clear();
 	timer.cancel();
 }
 
 void
-hscroll::Paint() const
+hscroll::Paint() const noexcept
 {
 	assert(w != nullptr);
 	assert(basic.IsDefined());

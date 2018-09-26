@@ -64,7 +64,7 @@ public:
 	{
 	}
 
-	bool IsDefined() const {
+	bool IsDefined() const noexcept {
 		return basic.IsDefined();
 	}
 
@@ -74,19 +74,19 @@ public:
 	 * hscroll_clear() to disable it.
 	 */
 	void Set(unsigned x, unsigned y, unsigned width, const char *text,
-		 Style style, attr_t attr=0);
+		 Style style, attr_t attr=0) noexcept;
 
 	/**
 	 * Removes the text and the timer.  It may be reused with
 	 * Set().
 	 */
-	void Clear();
+	void Clear() noexcept;
 
-	void Rewind() {
+	void Rewind() noexcept {
 		basic.Rewind();
 	}
 
-	void Step() {
+	void Step() noexcept {
 		basic.Step();
 	}
 
@@ -94,7 +94,7 @@ public:
 	 * Explicitly draws the scrolled text.  Calling this function
 	 * is only allowed if there is a text currently.
 	 */
-	void Paint() const;
+	void Paint() const noexcept;
 
 private:
 	void TimerCallback(const boost::system::error_code &error) noexcept;

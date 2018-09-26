@@ -60,10 +60,10 @@ class BasicMarquee {
 	unsigned offset;
 
 public:
-	BasicMarquee(const char *_separator)
+	BasicMarquee(const char *_separator) noexcept
 		:separator(_separator) {}
 
-	bool IsDefined() const {
+	bool IsDefined() const noexcept {
 		return width > 0;
 	}
 
@@ -73,18 +73,18 @@ public:
 	 * @param text the text in the locale charset
 	 * @return false if nothing was changed
 	 */
-	bool Set(unsigned width, const char *text);
+	bool Set(unsigned width, const char *text) noexcept;
 
 	/**
 	 * Removes the text.  It may be reused with Set().
 	 */
-	void Clear();
+	void Clear() noexcept;
 
-	void Rewind() {
+	void Rewind() noexcept {
 		offset = 0;
 	}
 
-	void Step() {
+	void Step() noexcept {
 		++offset;
 
 		if (offset >= max_offset)
@@ -92,7 +92,7 @@ public:
 	}
 
 	gcc_pure
-	std::pair<const char *, size_t> ScrollString() const;
+	std::pair<const char *, size_t> ScrollString() const noexcept;
 };
 
 #endif
