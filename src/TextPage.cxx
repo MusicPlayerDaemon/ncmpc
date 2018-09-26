@@ -30,7 +30,7 @@
 #include <string.h>
 
 void
-TextPage::Clear()
+TextPage::Clear() noexcept
 {
 	lw.Reset();
 	lines.clear();
@@ -38,7 +38,7 @@ TextPage::Clear()
 }
 
 void
-TextPage::Append(const char *str)
+TextPage::Append(const char *str) noexcept
 {
 	assert(str != nullptr);
 
@@ -72,7 +72,7 @@ TextPage::Append(const char *str)
 }
 
 const char *
-TextPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
+TextPage::GetListItemText(char *buffer, size_t size, unsigned idx) const noexcept
 {
 	assert(idx < lines.size());
 

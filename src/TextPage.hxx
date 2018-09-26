@@ -37,21 +37,21 @@ protected:
 
 public:
 	TextPage(ScreenManager &_screen,
-		 WINDOW *w, Size size)
+		 WINDOW *w, Size size) noexcept
 		:ListPage(w, size), screen(_screen) {
 		lw.hide_cursor = true;
 	}
 
 protected:
-	bool IsEmpty() const {
+	bool IsEmpty() const noexcept {
 		return lines.empty();
 	}
 
-	void Clear();
+	void Clear() noexcept;
 
-	void Append(const char *str);
+	void Append(const char *str) noexcept;
 
-	void Set(const char *str) {
+	void Set(const char *str) noexcept {
 		Clear();
 		Append(str);
 	}
@@ -59,7 +59,7 @@ protected:
 	/**
 	 * Repaint and update the screen.
 	 */
-	void Repaint() {
+	void Repaint() noexcept {
 		Paint();
 		wrefresh(lw.w);
 	}
@@ -72,7 +72,7 @@ public:
 private:
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *buffer, size_t size,
-				    unsigned i) const override;
+				    unsigned i) const noexcept override;
 };
 
 #endif
