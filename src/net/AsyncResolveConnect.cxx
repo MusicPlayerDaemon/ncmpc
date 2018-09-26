@@ -46,16 +46,12 @@ struct AsyncResolveConnect final : AsyncConnectHandler {
 
 	boost::asio::ip::tcp::resolver resolver;
 
-	AsyncConnect *connect = nullptr;
+	AsyncConnect connect;
 
 	AsyncResolveConnect(boost::asio::io_service &io_service,
 			    AsyncConnectHandler &_handler)
-		:handler(_handler), resolver(io_service) {}
-
-	~AsyncResolveConnect() {
-		if (connect != nullptr)
-			async_connect_cancel(connect);
-	}
+		:handler(_handler), resolver(io_service),
+		 connect(io_service, *this) {}
 
 	void OnResolved(const boost::system::error_code &error,
 			boost::asio::ip::tcp::resolver::iterator i);
@@ -68,8 +64,6 @@ struct AsyncResolveConnect final : AsyncConnectHandler {
 void
 AsyncResolveConnect::OnConnect(boost::asio::generic::stream_protocol::socket socket)
 {
-	connect = nullptr;
-
 	handler.OnConnect(std::move(socket));
 
 	delete this;
@@ -78,8 +72,6 @@ AsyncResolveConnect::OnConnect(boost::asio::generic::stream_protocol::socket soc
 void
 AsyncResolveConnect::OnConnectError(const char *message)
 {
-	connect = nullptr;
-
 	handler.OnConnectError(message);
 }
 
@@ -97,8 +89,7 @@ AsyncResolveConnect::OnResolved(const boost::system::error_code &error,
 		return;
 	}
 
-	async_connect_start(resolver.get_io_service(), &connect,
-			    *i, *this);
+	connect.Start(*i);
 }
 
 void

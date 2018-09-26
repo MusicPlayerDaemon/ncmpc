@@ -33,19 +33,26 @@
 
 #include <boost/asio/ip/tcp.hpp>
 
-struct sockaddr;
-struct AsyncConnect;
 class AsyncConnectHandler;
 
-/**
- * Create a socket and connect it to the given address.
- */
-void
-async_connect_start(boost::asio::io_service &io_service, AsyncConnect **acp,
-		    const boost::asio::ip::tcp::endpoint &endpoint,
-		    AsyncConnectHandler &handler);
+class AsyncConnect {
+	AsyncConnectHandler &handler;
 
-void
-async_connect_cancel(AsyncConnect *ac);
+	boost::asio::ip::tcp::socket socket;
+
+public:
+	AsyncConnect(boost::asio::io_service &io_service,
+		     AsyncConnectHandler &_handler) noexcept
+		:handler(_handler),
+		 socket(io_service) {}
+
+	/**
+	 * Create a socket and connect it to the given address.
+	 */
+	void Start(const boost::asio::ip::tcp::endpoint &endpoint) noexcept;
+
+private:
+	void OnConnected(const boost::system::error_code &error) noexcept;
+};
 
 #endif

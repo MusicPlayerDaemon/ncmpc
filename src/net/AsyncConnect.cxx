@@ -28,34 +28,9 @@
 
 #include "AsyncConnect.hxx"
 #include "AsyncHandler.hxx"
-#include "util/Compiler.h"
-
-#include <boost/asio/ip/tcp.hpp>
-
-#ifdef _WIN32
-#include <ws2tcpip.h>
-#endif
-
-#include <assert.h>
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-
-struct AsyncConnect {
-	AsyncConnectHandler &handler;
-
-	boost::asio::ip::tcp::socket socket;
-
-	AsyncConnect(boost::asio::io_service &io_service,
-		     AsyncConnectHandler &_handler)
-		:handler(_handler),
-		 socket(io_service) {}
-
-	void OnConnected(const boost::system::error_code &error);
-};
 
 void
-AsyncConnect::OnConnected(const boost::system::error_code &error)
+AsyncConnect::OnConnected(const boost::system::error_code &error) noexcept
 {
 	if (error) {
 		if (error == boost::asio::error::operation_aborted)
@@ -72,20 +47,9 @@ AsyncConnect::OnConnected(const boost::system::error_code &error)
 }
 
 void
-async_connect_start(boost::asio::io_service &io_service, AsyncConnect **acp,
-		    const boost::asio::ip::tcp::endpoint &endpoint,
-		    AsyncConnectHandler &handler)
+AsyncConnect::Start(const boost::asio::ip::tcp::endpoint &endpoint) noexcept
 {
-	AsyncConnect *ac = new AsyncConnect(io_service, handler);
-	*acp = ac;
-
-	ac->socket.async_connect(endpoint,
-				 std::bind(&AsyncConnect::OnConnected, ac,
-					   std::placeholders::_1));
-}
-
-void
-async_connect_cancel(AsyncConnect *ac)
-{
-	delete ac;
+	socket.async_connect(endpoint,
+			     std::bind(&AsyncConnect::OnConnected, this,
+				       std::placeholders::_1));
 }
