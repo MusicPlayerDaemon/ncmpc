@@ -48,7 +48,7 @@ struct Options {
 	int hide_cursor;
 	int seek_time = 1;
 #ifdef ENABLE_LYRICS_SCREEN
-	int lyrics_timeout = DEFAULT_LYRICS_TIMEOUT;
+	std::chrono::steady_clock::duration lyrics_timeout = std::chrono::minutes(1);
 	bool lyrics_autosave = false;
 	bool lyrics_show_plugin = false;
 	std::string text_editor;

@@ -258,7 +258,7 @@ LyricsPage::OnTimeout(const boost::system::error_code &error) noexcept
 	loader = nullptr;
 
 	screen_status_printf(_("Lyrics timeout occurred after %d seconds"),
-			     options.lyrics_timeout);
+			     (int)std::chrono::duration_cast<std::chrono::seconds>(options.lyrics_timeout).count());
 }
 
 void
@@ -276,9 +276,9 @@ LyricsPage::Load(const struct mpd_song *_song)
 	loader = lyrics_load(get_io_service(),
 			     artist, title, PluginCallback, this);
 
-	if (options.lyrics_timeout != 0) {
+	if (options.lyrics_timeout > std::chrono::steady_clock::duration::zero()) {
 		boost::system::error_code error;
-		loader_timeout.expires_from_now(std::chrono::seconds(options.lyrics_timeout),
+		loader_timeout.expires_from_now(options.lyrics_timeout,
 						error);
 		loader_timeout.async_wait(std::bind(&LyricsPage::OnTimeout, this,
 						     std::placeholders::_1));

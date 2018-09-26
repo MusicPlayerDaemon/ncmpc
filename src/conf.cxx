@@ -522,7 +522,7 @@ parse_line(char *line)
 				     * 1000 /* seconds -> milliseconds */;
 	else if (!strcasecmp(CONF_LYRICS_TIMEOUT, name))
 #ifdef ENABLE_LYRICS_SCREEN
-		options.lyrics_timeout = atoi(GetStringValue(value).c_str());
+		options.lyrics_timeout = std::chrono::seconds(atoi(GetStringValue(value).c_str()));
 #else
 	{}
 #endif
