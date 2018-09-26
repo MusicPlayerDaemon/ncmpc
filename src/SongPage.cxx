@@ -224,6 +224,7 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 	label_col += 2;
 	const int value_col = lw.size.width - label_col;
 	/* calculate the number of required linebreaks */
+	const char *const value_end = value + strlen(value);
 	const char *value_iter = value;
 	const size_t label_length = strlen(label);
 	const size_t label_size = label_length + label_col;
@@ -248,16 +249,20 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 		/* skip whitespaces */
 		value_iter = StripLeft(value_iter);
 
-		char *p = g_strdup(value_iter);
-		unsigned width = utf8_cut_width(p, value_col);
-		if (width == 0) {
+		const char *value_iter_end = AtWidthUTF8(value_iter,
+							 value_end - value_iter,
+							 value_col);
+		if (value_iter_end == value_iter) {
 			/* not enough room for anything - bail out */
 			g_free(entry);
-			g_free(p);
 			break;
 		}
 
-		value_iter += strlen(p);
+		char *p = g_strndup(value_iter, value_iter_end - value_iter);
+		value_iter = value_iter_end;
+
+		*entry_iter = 0;
+
 		p = replace_utf8_to_locale(p);
 		char *q = g_strconcat(entry, p, nullptr);
 		g_free(p);

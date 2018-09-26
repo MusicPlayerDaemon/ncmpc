@@ -22,6 +22,8 @@
 
 #include "Compiler.h"
 
+#include <stddef.h>
+
 gcc_pure
 int
 CollateUTF8(const char *a, const char *b);
@@ -34,12 +36,12 @@ unsigned
 utf8_width(const char *str);
 
 /**
- * Limits the width of the specified string.  Cuts it off before the
- * specified width is exceeded.
+ * Find the first character which doesn't fully fit into the given width.
  *
- * @return the resulting width of the string
+ * @param s the start of the string
  */
-unsigned
-utf8_cut_width(char *p, unsigned max_width);
+gcc_pure
+const char *
+AtWidthUTF8(const char *p, size_t length, size_t width) noexcept;
 
 #endif
