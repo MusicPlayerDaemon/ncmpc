@@ -227,9 +227,8 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 	const char *const value_end = value + strlen(value);
 	const char *value_iter = value;
 	const size_t label_length = strlen(label);
-	const size_t label_size = label_length + label_col;
 
-	char *entry = new char[label_size];
+	char *entry = new char[label_col * 4 + 1];
 
 	while (*value_iter != 0) {
 		char *entry_iter;
