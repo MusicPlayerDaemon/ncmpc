@@ -26,6 +26,8 @@
 
 #include <glib.h>
 
+#include <algorithm>
+
 #include <string.h>
 
 static const char *
@@ -263,10 +265,8 @@ _strfsong(char *s,
 			/* just pass-through any unknown specifiers (including esc) */
 			if (length + templen >= max)
 				templen = max - length - 1;
-			char *ident = g_strndup(p, templen);
-			g_strlcat(s, ident, max);
+			*std::copy_n(p, templen, s + length) = 0;
 			length+=templen;
-			g_free(ident);
 
 			missed = true;
 		} else {
