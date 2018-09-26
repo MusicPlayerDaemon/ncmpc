@@ -40,7 +40,7 @@ typedef void (*mpd_glib_callback_t)(enum mpd_error error,
 				    const char *message,
 				    unsigned events, void *ctx);
 
-struct MpdIdleSource {
+class MpdIdleSource {
 	struct mpd_connection *connection;
 	struct mpd_async *async;
 	struct mpd_parser *parser;
@@ -54,6 +54,7 @@ struct MpdIdleSource {
 
 	unsigned idle_events;
 
+public:
 	MpdIdleSource(boost::asio::io_service &io_service,
 		      struct mpd_connection &_connection,
 		      mpd_glib_callback_t _callback, void *_callback_ctx);
@@ -72,6 +73,7 @@ struct MpdIdleSource {
 	 */
 	void Leave();
 
+private:
 	void InvokeCallback() noexcept {
 		if (idle_events != 0)
 			callback(MPD_ERROR_SUCCESS, (enum mpd_server_error)0,

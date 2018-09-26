@@ -14,7 +14,7 @@
 
 struct AsyncMpdConnect;
 struct MpdQueue;
-struct MpdIdleSource;
+class MpdIdleSource;
 class FileList;
 
 struct mpdclient {
