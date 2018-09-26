@@ -29,7 +29,6 @@
 #include "aconnect.hxx"
 #include "net/AsyncResolveConnect.hxx"
 #include "net/AsyncHandler.hxx"
-#include "net/socket.hxx"
 #include "util/Compiler.h"
 
 #include <mpd/client.h>
