@@ -34,7 +34,7 @@ paint_song_row(WINDOW *w, gcc_unused unsigned y, unsigned width,
 	       bool selected, bool highlight, const struct mpd_song *song,
 	       gcc_unused class hscroll *hscroll, const char *format)
 {
-	char buffer[width * 4];
+	char buffer[1024];
 
 	strfsong(buffer, sizeof(buffer), format, song);
 	row_paint_text(w, width, highlight ? Style::LIST_BOLD : Style::LIST,
