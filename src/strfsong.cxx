@@ -54,6 +54,16 @@ skip(const char * p)
 	return p;
 }
 
+static char *
+CopyString(char *dest, char *const dest_end,
+	   const char *src, size_t length) noexcept
+{
+	if (length >= size_t(dest_end - dest))
+		length = dest_end - dest - 1;
+
+	return std::copy_n(src, length, dest);
+}
+
 #ifndef NCMPC_MINI
 
 static char *
@@ -266,10 +276,7 @@ _strfsong(char *const s0, char *const end,
 			found = true;
 		}
 
-		if (s + value_length >= end)
-			value_length = end - s - 1;
-
-		s = std::copy_n(value, value_length, s);
+		s = CopyString(s, end, value, value_length);
 		g_free(temp);
 
 		/* advance past the specifier */
