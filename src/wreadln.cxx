@@ -74,28 +74,28 @@ struct wreadln {
 	/** the current value */
 	std::string value;
 
-	wreadln(WINDOW *_w, bool _masked)
+	wreadln(WINDOW *_w, bool _masked) noexcept
 		:w(_w), masked(_masked) {}
 
 	/** draw line buffer and update cursor position */
-	void Paint() const;
+	void Paint() const noexcept;
 
 	/** returns the screen column where the cursor is located */
 	gcc_pure
-	unsigned GetCursorColumn() const;
+	unsigned GetCursorColumn() const noexcept;
 
 	/** move the cursor one step to the right */
-	void MoveCursorRight();
+	void MoveCursorRight() noexcept;
 
 	/** move the cursor one step to the left */
-	void MoveCursorLeft();
+	void MoveCursorLeft() noexcept;
 
 	/** move the cursor to the end of the line */
-	void MoveCursorToEnd();
+	void MoveCursorToEnd() noexcept;
 
-	void InsertByte(int key);
-	void DeleteChar(size_t x);
-	void DeleteChar() {
+	void InsertByte(int key) noexcept;
+	void DeleteChar(size_t x) noexcept;
+	void DeleteChar() noexcept {
 		DeleteChar(cursor);
 	}
 };
@@ -106,7 +106,7 @@ static constexpr std::size_t wrln_max_history_length = 32;
 /** converts a byte position to a screen column */
 gcc_pure
 static unsigned
-byte_to_screen(const char *data, size_t x)
+byte_to_screen(const char *data, size_t x) noexcept
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	assert(x <= strlen(data));
@@ -122,7 +122,7 @@ byte_to_screen(const char *data, size_t x)
 /** finds the first character which doesn't fit on the screen */
 gcc_pure
 static size_t
-screen_to_bytes(const char *data, unsigned width)
+screen_to_bytes(const char *data, unsigned width) noexcept
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	size_t length = strlen(data);
@@ -142,7 +142,7 @@ screen_to_bytes(const char *data, unsigned width)
 }
 
 unsigned
-wreadln::GetCursorColumn() const
+wreadln::GetCursorColumn() const noexcept
 {
 	return byte_to_screen(value.data() + start, cursor - start);
 }
@@ -151,7 +151,7 @@ wreadln::GetCursorColumn() const
     of the screen */
 gcc_pure
 static inline size_t
-right_align_bytes(const char *data, size_t right, unsigned width)
+right_align_bytes(const char *data, size_t right, unsigned width) noexcept
 {
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	size_t start = 0;
@@ -174,7 +174,7 @@ right_align_bytes(const char *data, size_t right, unsigned width)
 }
 
 void
-wreadln::MoveCursorRight()
+wreadln::MoveCursorRight() noexcept
 {
 	if (cursor == value.length())
 		return;
@@ -187,7 +187,7 @@ wreadln::MoveCursorRight()
 }
 
 void
-wreadln::MoveCursorLeft()
+wreadln::MoveCursorLeft() noexcept
 {
 	const char *v = value.c_str();
 	const char *new_cursor = PrevCharMB(v, v + cursor);
@@ -197,7 +197,7 @@ wreadln::MoveCursorLeft()
 }
 
 void
-wreadln::MoveCursorToEnd()
+wreadln::MoveCursorToEnd() noexcept
 {
 	cursor = value.length();
 	if (GetCursorColumn() >= width)
@@ -206,7 +206,7 @@ wreadln::MoveCursorToEnd()
 }
 
 void
-wreadln::Paint() const
+wreadln::Paint() const noexcept
 {
 	wmove(w, point.y, point.x);
 	/* clear input area */
@@ -224,7 +224,7 @@ wreadln::Paint() const
 }
 
 void
-wreadln::InsertByte(int key)
+wreadln::InsertByte(int key) noexcept
 {
 	size_t length = 1;
 #if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(_WIN32)
@@ -263,7 +263,7 @@ wreadln::InsertByte(int key)
 }
 
 void
-wreadln::DeleteChar(size_t x)
+wreadln::DeleteChar(size_t x) noexcept
 {
 	assert(x < value.length());
 
@@ -279,7 +279,7 @@ _wreadln(WINDOW *w,
 	 unsigned x1,
 	 History *history,
 	 Completion *completion,
-	 bool masked)
+	 bool masked) noexcept
 {
 	struct wreadln wr(w, masked);
 	History::iterator hlist, hcurrent;
@@ -480,7 +480,7 @@ wreadln(WINDOW *w,
 	const char *initial_value,
 	unsigned x1,
 	History *history,
-	Completion *completion)
+	Completion *completion) noexcept
 {
 	return  _wreadln(w, initial_value, x1,
 			 history, completion, false);
@@ -489,7 +489,7 @@ wreadln(WINDOW *w,
 std::string
 wreadln_masked(WINDOW *w,
 	       const char *initial_value,
-	       unsigned x1)
+	       unsigned x1) noexcept
 {
 	return  _wreadln(w, initial_value, x1, nullptr, nullptr, true);
 }

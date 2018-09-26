@@ -45,11 +45,11 @@ wreadln(WINDOW *w,
 	const char *initial_value,
 	unsigned x1,
 	History *history,
-	Completion *completion);
+	Completion *completion) noexcept;
 
 std::string
 wreadln_masked(WINDOW *w,
 	       const char *initial_value,
-	       unsigned x1);
+	       unsigned x1) noexcept;
 
 #endif
