@@ -29,7 +29,8 @@
 #ifndef NET_ASYNC_RESOLVE_CONNECT_HXX
 #define NET_ASYNC_RESOLVE_CONNECT_HXX
 
-namespace boost { namespace asio { class io_service; }}
+#include "AsioServiceFwd.hxx"
+
 struct AsyncResolveConnect;
 class AsyncConnectHandler;
 

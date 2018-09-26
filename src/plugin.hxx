@@ -20,10 +20,10 @@
 #ifndef PLUGIN_H
 #define PLUGIN_H
 
+#include "AsioServiceFwd.hxx"
+
 #include <vector>
 #include <string>
-
-namespace boost { namespace asio { class io_service; }}
 
 /**
  * A list of registered plugins.

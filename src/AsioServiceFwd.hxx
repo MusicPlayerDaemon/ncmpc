@@ -17,29 +17,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef LIRC_H
-#define LIRC_H
+#ifndef NCMPC_ASIO_SERVICE_FWD_HXX
+#define NCMPC_ASIO_SERVICE_FWD_HXX
 
-#include "AsioServiceFwd.hxx"
+/* This header provides a forward declaration for
+   boost::asio::io_service */
 
-#include <boost/asio/posix/stream_descriptor.hpp>
-
-class LircInput {
-	boost::asio::posix::stream_descriptor d;
-	struct lirc_config *lc = nullptr;
-
-public:
-	explicit LircInput(boost::asio::io_service &io_service);
-	~LircInput();
-
-private:
-	void AsyncWait() {
-		d.async_read_some(boost::asio::null_buffers(),
-				  std::bind(&LircInput::OnReadable, this,
-					    std::placeholders::_1));
-	}
-
-	void OnReadable(const boost::system::error_code &error);
-};
+namespace boost { namespace asio { class io_service; }}
 
 #endif

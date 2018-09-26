@@ -21,8 +21,8 @@
 #define LYRICS_H
 
 #include "plugin.hxx"
+#include "AsioServiceFwd.hxx"
 
-namespace boost { namespace asio { class io_service; }}
 struct PluginCycle;
 
 void lyrics_init();

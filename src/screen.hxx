@@ -28,6 +28,7 @@
 #include "History.hxx"
 #include "Point.hxx"
 #include "util/Compiler.h"
+#include "AsioServiceFwd.hxx"
 
 #include <curses.h>
 
@@ -37,7 +38,6 @@
 #include <string>
 #include <map>
 
-namespace boost { namespace asio { class io_service; }}
 enum class Command : unsigned;
 struct mpdclient;
 struct PageMeta;

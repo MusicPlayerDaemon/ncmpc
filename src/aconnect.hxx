@@ -29,9 +29,10 @@
 #ifndef ACONNECT_H
 #define ACONNECT_H
 
+#include "AsioServiceFwd.hxx"
+
 #include <mpd/client.h>
 
-namespace boost { namespace asio { class io_service; }}
 struct mpd_connection;
 struct AsyncMpdConnect;
 

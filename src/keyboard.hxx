@@ -20,11 +20,11 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
+#include "AsioServiceFwd.hxx"
+
 #include <boost/asio/posix/stream_descriptor.hpp>
 
 #include <curses.h>
-
-namespace boost { namespace asio { class io_service; }}
 
 class UserInput {
 	boost::asio::posix::stream_descriptor d;

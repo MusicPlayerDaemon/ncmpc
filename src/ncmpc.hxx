@@ -20,11 +20,12 @@
 #ifndef NCMPC_H
 #define NCMPC_H
 
+#include "AsioServiceFwd.hxx"
+
 #ifdef HAVE_GETMOUSE
 #include <curses.h>
 #endif
 
-namespace boost { namespace asio { class io_service; }}
 enum class Command : unsigned;
 struct Point;
 class ScreenManager;
