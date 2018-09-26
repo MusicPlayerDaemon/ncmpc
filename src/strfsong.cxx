@@ -28,6 +28,7 @@
 
 #include <algorithm>
 
+#include <assert.h>
 #include <string.h>
 
 static const char *
@@ -203,24 +204,25 @@ _strfsong(char *const s0, char *const end,
 		size_t n = name_end - p + 1;
 
 		const char *value = nullptr;
+		enum mpd_tag_type tag = MPD_TAG_UNKNOWN;
 		char buffer[32];
 
 		if (*name_end != '%')
 			n--;
 		else if (strncmp("%file%", p, n) == 0)
 			temp = utf8_to_locale(mpd_song_get_uri(song));
-		else if (strncmp("%artist%", p, n) == 0) {
-			temp = song_tag_locale(song, MPD_TAG_ARTIST);
-		} else if (strncmp("%albumartist%", p, n) == 0)
-			temp = song_tag_locale(song, MPD_TAG_ALBUM_ARTIST);
+		else if (strncmp("%artist%", p, n) == 0)
+			tag = MPD_TAG_ARTIST;
+		else if (strncmp("%albumartist%", p, n) == 0)
+			tag = MPD_TAG_ALBUM_ARTIST;
 		else if (strncmp("%composer%", p, n) == 0)
-			temp = song_tag_locale(song, MPD_TAG_COMPOSER);
+			tag = MPD_TAG_COMPOSER;
 		else if (strncmp("%performer%", p, n) == 0)
-			temp = song_tag_locale(song, MPD_TAG_PERFORMER);
-		else if (strncmp("%title%", p, n) == 0) {
-			temp = song_tag_locale(song, MPD_TAG_TITLE);
-		} else if (strncmp("%album%", p, n) == 0)
-			temp = song_tag_locale(song, MPD_TAG_ALBUM);
+			tag = MPD_TAG_PERFORMER;
+		else if (strncmp("%title%", p, n) == 0)
+			tag = MPD_TAG_TITLE;
+		else if (strncmp("%album%", p, n) == 0)
+			tag = MPD_TAG_ALBUM;
 		else if (strncmp("%shortalbum%", p, n) == 0) {
 			temp = song_tag_locale(song, MPD_TAG_ALBUM);
 			if (temp) {
@@ -235,15 +237,15 @@ _strfsong(char *const s0, char *const end,
 			}
 		}
 		else if (strncmp("%track%", p, n) == 0)
-			temp = song_tag_locale(song, MPD_TAG_TRACK);
+			tag = MPD_TAG_TRACK;
 		else if (strncmp("%disc%", p, n) == 0)
-			temp = song_tag_locale(song, MPD_TAG_DISC);
+			tag = MPD_TAG_DISC;
 		else if (strncmp("%name%", p, n) == 0)
-			temp = song_tag_locale(song, MPD_TAG_NAME);
+			tag = MPD_TAG_NAME;
 		else if (strncmp("%date%", p, n) == 0)
-			temp = song_tag_locale(song, MPD_TAG_DATE);
+			tag = MPD_TAG_DATE;
 		else if (strncmp("%genre%", p, n) == 0)
-			temp = song_tag_locale(song, MPD_TAG_GENRE);
+			tag = MPD_TAG_GENRE;
 		else if (strncmp("%shortfile%", p, n) == 0) {
 			const char *uri = mpd_song_get_uri(song);
 			if (strstr(uri, "://") == nullptr)
@@ -257,6 +259,12 @@ _strfsong(char *const s0, char *const end,
 						      duration);
 				value = buffer;
 			}
+		}
+
+		if (tag != MPD_TAG_UNKNOWN) {
+			assert(temp == nullptr);
+
+			temp = song_tag_locale(song, tag);
 		}
 
 		if (value == nullptr)
