@@ -35,7 +35,7 @@
 /* query user for a string and find it in a list window */
 bool
 screen_find(ScreenManager &screen, ListWindow *lw, Command findcmd,
-	    const ListText &text)
+	    const ListText &text) noexcept
 {
 	bool found;
 	const char *prompt = FIND_PROMPT;
@@ -92,7 +92,7 @@ screen_find(ScreenManager &screen, ListWindow *lw, Command findcmd,
 void
 screen_jump(ScreenManager &screen, ListWindow *lw,
 	    const ListText &text,
-	    const ListRenderer &renderer)
+	    const ListRenderer &renderer) noexcept
 {
 	constexpr size_t WRLN_MAX_LINE_SIZE = 1024;
 	int key = 65;

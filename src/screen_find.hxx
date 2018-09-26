@@ -38,12 +38,12 @@ class ListText;
 bool
 screen_find(ScreenManager &screen, ListWindow *lw,
 	    Command findcmd,
-	    const ListText &text);
+	    const ListText &text) noexcept;
 
 /* query user for a string and jump to the entry
  * which begins with this string while the users types */
 void
 screen_jump(ScreenManager &screen, ListWindow *lw,
-	    const ListText &text, const ListRenderer &renderer);
+	    const ListText &text, const ListRenderer &renderer) noexcept;
 
 #endif
