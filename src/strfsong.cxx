@@ -164,6 +164,7 @@ _strfsong(char *s,
 
 		/* EXPRESSION END */
 		if (p[0] == ']') {
+			++p;
 			if(missed && !found && length) {
 				s[0] = '\0';
 				length = 0;
