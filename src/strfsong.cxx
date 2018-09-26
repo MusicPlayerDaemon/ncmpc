@@ -184,13 +184,12 @@ _strfsong(char *const s0, char *const end,
 		/* advance past the esc character */
 
 		/* find the extent of this format specifier (stop at \0, ' ', or esc) */
-		char *temp = nullptr;
 		const char *name_end = p + 1;
 		while (*name_end >= 'a' && *name_end <= 'z')
 			++name_end;
 		size_t n = name_end - p + 1;
 
-		const char *value = nullptr;
+		const char *value = nullptr, *value_utf8 = nullptr;
 		enum mpd_tag_type tag = MPD_TAG_UNKNOWN;
 		bool short_tag = false;
 		char buffer[32];
@@ -198,7 +197,7 @@ _strfsong(char *const s0, char *const end,
 		if (*name_end != '%')
 			n--;
 		else if (strncmp("%file%", p, n) == 0)
-			temp = utf8_to_locale(mpd_song_get_uri(song));
+			value_utf8 = mpd_song_get_uri(song);
 		else if (strncmp("%artist%", p, n) == 0)
 			tag = MPD_TAG_ARTIST;
 		else if (strncmp("%albumartist%", p, n) == 0)
@@ -229,7 +228,7 @@ _strfsong(char *const s0, char *const end,
 			const char *uri = mpd_song_get_uri(song);
 			if (strstr(uri, "://") == nullptr)
 				uri = GetUriFilename(uri);
-			temp = utf8_to_locale(uri);
+			value_utf8 = uri;
 		} else if (strncmp("%time%", p, n) == 0) {
 			unsigned duration = mpd_song_get_duration(song);
 
@@ -244,8 +243,6 @@ _strfsong(char *const s0, char *const end,
 		p += n;
 
 		if (tag != MPD_TAG_UNKNOWN) {
-			assert(temp == nullptr);
-
 			char *const old = s;
 			s = CopyTag(s, end, song, tag);
 			if (s != old) {
@@ -259,8 +256,11 @@ _strfsong(char *const s0, char *const end,
 			continue;
 		}
 
-		if (value == nullptr)
-			value = temp;
+		if (value_utf8 != nullptr) {
+			found = true;
+			s = CopyStringFromUTF8(s, end, value_utf8);
+			continue;
+		}
 
 		size_t value_length;
 
@@ -277,7 +277,6 @@ _strfsong(char *const s0, char *const end,
 		}
 
 		s = CopyString(s, end, value, value_length);
-		g_free(temp);
 	}
 
 	if(last) *last = p;
