@@ -46,14 +46,14 @@ struct AsyncMpdConnect final : AsyncConnectHandler {
 	const AsyncMpdConnectHandler *handler;
 	void *handler_ctx;
 
-	AsyncResolveConnect *rconnect;
+	AsyncResolveConnect rconnect;
 
 	boost::asio::generic::stream_protocol::socket socket;
 
 	char buffer[256];
 
 	explicit AsyncMpdConnect(boost::asio::io_service &io_service) noexcept
-		:socket(io_service) {}
+		:rconnect(io_service, *this), socket(io_service) {}
 
 	void OnReceive(const boost::system::error_code &error,
 		       std::size_t bytes_transferred) noexcept;
@@ -107,8 +107,6 @@ AsyncMpdConnect::OnReceive(const boost::system::error_code &error,
 void
 AsyncMpdConnect::OnConnect(boost::asio::generic::stream_protocol::socket _socket)
 {
-	rconnect = nullptr;
-
 	socket = std::move(_socket);
 	socket.async_receive(boost::asio::buffer(buffer, sizeof(buffer) - 1),
 			     std::bind(&AsyncMpdConnect::OnReceive, this,
@@ -119,8 +117,6 @@ AsyncMpdConnect::OnConnect(boost::asio::generic::stream_protocol::socket _socket
 void
 AsyncMpdConnect::OnConnectError(const char *message)
 {
-	rconnect = nullptr;
-
 	handler->error(message, handler_ctx);
 	delete this;
 }
@@ -137,16 +133,11 @@ aconnect_start(boost::asio::io_service &io_service,
 
 	*acp = ac;
 
-	async_rconnect_start(io_service, &ac->rconnect, host, port, *ac);
+	ac->rconnect.Start(host, port);
 }
 
 void
 aconnect_cancel(AsyncMpdConnect *ac)
 {
-	if (ac->rconnect != nullptr)
-		async_rconnect_cancel(ac->rconnect);
-	else
-		ac->socket.cancel();
-
 	delete ac;
 }

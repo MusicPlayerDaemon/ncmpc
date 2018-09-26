@@ -29,7 +29,6 @@
 #include "AsyncResolveConnect.hxx"
 #include "AsyncConnect.hxx"
 #include "AsyncHandler.hxx"
-#include "util/Compiler.h"
 
 #ifndef _WIN32
 #include <boost/asio/local/stream_protocol.hpp>
@@ -37,47 +36,9 @@
 
 #include <string>
 
-#include <assert.h>
-#include <stdio.h>
-#include <string.h>
-
-struct AsyncResolveConnect final : AsyncConnectHandler {
-	AsyncConnectHandler &handler;
-
-	boost::asio::ip::tcp::resolver resolver;
-
-	AsyncConnect connect;
-
-	AsyncResolveConnect(boost::asio::io_service &io_service,
-			    AsyncConnectHandler &_handler)
-		:handler(_handler), resolver(io_service),
-		 connect(io_service, *this) {}
-
-	void OnResolved(const boost::system::error_code &error,
-			boost::asio::ip::tcp::resolver::iterator i);
-
-	/* virtual methods from AsyncConnectHandler */
-	void OnConnect(boost::asio::generic::stream_protocol::socket socket) override;
-	void OnConnectError(const char *message) override;
-};
-
-void
-AsyncResolveConnect::OnConnect(boost::asio::generic::stream_protocol::socket socket)
-{
-	handler.OnConnect(std::move(socket));
-
-	delete this;
-}
-
-void
-AsyncResolveConnect::OnConnectError(const char *message)
-{
-	handler.OnConnectError(message);
-}
-
 void
 AsyncResolveConnect::OnResolved(const boost::system::error_code &error,
-				boost::asio::ip::tcp::resolver::iterator i)
+				boost::asio::ip::tcp::resolver::iterator i) noexcept
 {
 	if (error) {
 		if (error == boost::asio::error::operation_aborted)
@@ -93,22 +54,17 @@ AsyncResolveConnect::OnResolved(const boost::system::error_code &error,
 }
 
 void
-async_rconnect_start(boost::asio::io_service &io_service,
-		     AsyncResolveConnect **rcp,
-		     const char *host, unsigned port,
-		     AsyncConnectHandler &handler)
+AsyncResolveConnect::Start(const char *host, unsigned port) noexcept
 {
 #ifndef _WIN32
 	if (host[0] == '/' || host[0] == '@') {
-		*rcp = nullptr;
-
 		std::string s(host);
 		if (host[0] == '@')
 			/* abstract socket */
 			s.front() = 0;
 
 		boost::asio::local::stream_protocol::endpoint ep(std::move(s));
-		boost::asio::local::stream_protocol::socket socket(io_service);
+		boost::asio::local::stream_protocol::socket socket(resolver.get_io_service());
 		socket.connect(ep);
 
 		handler.OnConnect(std::move(socket));
@@ -119,18 +75,9 @@ async_rconnect_start(boost::asio::io_service &io_service,
 	char service[20];
 	snprintf(service, sizeof(service), "%u", port);
 
-	auto *rc = new AsyncResolveConnect(io_service, handler);
-	*rcp = rc;
-
-	rc->resolver.async_resolve({host, service},
-				   std::bind(&AsyncResolveConnect::OnResolved,
-					     rc,
-					     std::placeholders::_1,
-					     std::placeholders::_2));
-}
-
-void
-async_rconnect_cancel(AsyncResolveConnect *rc)
-{
-	delete rc;
+	resolver.async_resolve({host, service},
+			       std::bind(&AsyncResolveConnect::OnResolved,
+					 this,
+					 std::placeholders::_1,
+					 std::placeholders::_2));
 }

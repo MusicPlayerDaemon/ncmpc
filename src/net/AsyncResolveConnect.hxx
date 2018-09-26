@@ -29,21 +29,29 @@
 #ifndef NET_ASYNC_RESOLVE_CONNECT_HXX
 #define NET_ASYNC_RESOLVE_CONNECT_HXX
 
-#include "AsioServiceFwd.hxx"
+#include "AsyncConnect.hxx"
 
-struct AsyncResolveConnect;
-class AsyncConnectHandler;
+class AsyncResolveConnect {
+	AsyncConnectHandler &handler;
 
-/**
- * Resolve a host name and connect to it asynchronously.
- */
-void
-async_rconnect_start(boost::asio::io_service &io_service,
-		     AsyncResolveConnect **rcp,
-		     const char *host, unsigned port,
-		     AsyncConnectHandler &handler);
+	boost::asio::ip::tcp::resolver resolver;
 
-void
-async_rconnect_cancel(AsyncResolveConnect *rc);
+	AsyncConnect connect;
+
+public:
+	AsyncResolveConnect(boost::asio::io_service &io_service,
+			    AsyncConnectHandler &_handler) noexcept
+		:handler(_handler), resolver(io_service),
+		 connect(io_service, _handler) {}
+
+	/**
+	 * Resolve a host name and connect to it asynchronously.
+	 */
+	void Start(const char *host, unsigned port) noexcept;
+
+private:
+	void OnResolved(const boost::system::error_code &error,
+			boost::asio::ip::tcp::resolver::iterator i) noexcept;
+};
 
 #endif
