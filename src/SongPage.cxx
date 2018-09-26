@@ -38,8 +38,6 @@
 
 #include <mpd/client.h>
 
-#include <glib/gprintf.h>
-
 #include <algorithm>
 #include <vector>
 #include <string>
@@ -216,7 +214,6 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 {
 	assert(label != nullptr);
 	assert(value != nullptr);
-	assert(g_utf8_validate(value, -1, nullptr));
 
 	static constexpr size_t BUFFER_SIZE = 1024;
 	if (label_col >= BUFFER_SIZE - 16)
