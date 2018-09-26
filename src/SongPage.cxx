@@ -154,7 +154,7 @@ public:
 private:
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *buffer, size_t size,
-				    unsigned i) const override;
+				    unsigned i) const noexcept override;
 };
 
 void
@@ -173,7 +173,7 @@ SongPage::Clear() noexcept
 }
 
 const char *
-SongPage::GetListItemText(char *, size_t, unsigned idx) const
+SongPage::GetListItemText(char *, size_t, unsigned idx) const noexcept
 {
 	return lines[idx].c_str();
 }

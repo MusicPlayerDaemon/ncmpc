@@ -136,7 +136,7 @@ class SearchHelpText final : public ListText {
 public:
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *buffer, size_t size,
-				    unsigned idx) const override {
+				    unsigned idx) const noexcept override {
 		assert(idx < ARRAY_SIZE(help_text));
 
 		if (idx == 0) {

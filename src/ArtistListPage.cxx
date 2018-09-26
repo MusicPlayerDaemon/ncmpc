@@ -45,7 +45,7 @@ CompareUTF8(const std::string &a, const std::string &b)
 
 const char *
 ArtistListPage::GetListItemText(char *buffer, size_t size,
-				unsigned idx) const
+				unsigned idx) const noexcept
 {
 	assert(idx < artist_list.size());
 

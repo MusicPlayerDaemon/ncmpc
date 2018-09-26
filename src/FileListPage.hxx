@@ -80,7 +80,7 @@ private:
 
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *buffer, size_t size,
-				    unsigned i) const override;
+				    unsigned i) const noexcept override;
 
 public:
 	/* virtual methods from class Page */

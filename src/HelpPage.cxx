@@ -235,7 +235,7 @@ public:
 
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *buffer, size_t size,
-				    unsigned i) const override;
+				    unsigned i) const noexcept override;
 
 	/* virtual methods from class Page */
 	void Paint() const noexcept override;
@@ -247,7 +247,7 @@ public:
 };
 
 const char *
-HelpPage::GetListItemText(char *, size_t, unsigned i) const
+HelpPage::GetListItemText(char *, size_t, unsigned i) const noexcept
 {
 	const auto *row = &help_text[i];
 

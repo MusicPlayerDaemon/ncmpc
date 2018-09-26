@@ -79,7 +79,7 @@ screen_browser_sync_highlights(FileList *fl, const MpdQueue *playlist)
 
 const char *
 FileListPage::GetListItemText(char *buffer, size_t size,
-			      unsigned idx) const
+			      unsigned idx) const noexcept
 {
 	assert(filelist != nullptr);
 	assert(idx < filelist->size());

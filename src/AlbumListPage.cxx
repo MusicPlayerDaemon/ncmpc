@@ -43,7 +43,7 @@ CompareUTF8(const std::string &a, const std::string &b)
 
 const char *
 AlbumListPage::GetListItemText(char *buffer, size_t size,
-			       unsigned idx) const
+			       unsigned idx) const noexcept
 {
 	if (idx == 0)
 		return "..";

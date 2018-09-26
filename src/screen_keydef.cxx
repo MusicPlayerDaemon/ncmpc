@@ -132,7 +132,7 @@ public:
 private:
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *buffer, size_t size,
-				    unsigned i) const override;
+				    unsigned i) const noexcept override;
 };
 
 /* TODO: rename to check_n_keys / subcmd_count_keys? */
@@ -222,7 +222,7 @@ CommandKeysPage::AddKey()
 
 const char *
 CommandKeysPage::GetListItemText(char *buffer, size_t size,
-				 unsigned idx) const
+				 unsigned idx) const noexcept
 {
 	if (idx == subcmd_item_up())
 		return "[..]";
@@ -375,7 +375,7 @@ public:
 private:
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *buffer, size_t size,
-				    unsigned i) const override;
+				    unsigned i) const noexcept override;
 };
 
 bool
@@ -430,7 +430,8 @@ CommandListPage::Save()
 }
 
 const char *
-CommandListPage::GetListItemText(char *buffer, size_t size, unsigned idx) const
+CommandListPage::GetListItemText(char *buffer, size_t size,
+				 unsigned idx) const noexcept
 {
 	if (idx == command_item_apply())
 		return _("===> Apply key bindings ");
