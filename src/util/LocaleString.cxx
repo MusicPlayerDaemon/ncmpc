@@ -34,7 +34,7 @@
 #include <string.h>
 
 bool
-IsIncompleteCharMB(const char *s, size_t n)
+IsIncompleteCharMB(const char *s, size_t n) noexcept
 {
 	auto mb = std::mbstate_t();
 	const std::size_t length = std::mbrlen(s, n, &mb);
@@ -42,7 +42,7 @@ IsIncompleteCharMB(const char *s, size_t n)
 }
 
 std::size_t
-StringLengthMB(const char *s, size_t byte_length)
+StringLengthMB(const char *s, size_t byte_length) noexcept
 {
 	const char *const end = s + byte_length;
 	auto state = std::mbstate_t();
@@ -67,7 +67,7 @@ StringLengthMB(const char *s, size_t byte_length)
 }
 
 std::size_t
-CharSizeMB(const char *s, size_t n)
+CharSizeMB(const char *s, size_t n) noexcept
 {
 	auto mb = std::mbstate_t();
 	const std::size_t length = std::mbrlen(s, n, &mb);
@@ -81,7 +81,7 @@ CharSizeMB(const char *s, size_t n)
 }
 
 const char *
-PrevCharMB(const char *start, const char *reference)
+PrevCharMB(const char *start, const char *reference) noexcept
 {
 	const char *p = reference;
 
@@ -98,7 +98,7 @@ PrevCharMB(const char *start, const char *reference)
 }
 
 const char *
-AtCharMB(const char *s, size_t length, size_t i)
+AtCharMB(const char *s, size_t length, size_t i) noexcept
 {
 	const char *const end = s + length;
 	auto state = std::mbstate_t();
@@ -124,7 +124,7 @@ AtCharMB(const char *s, size_t length, size_t i)
 }
 
 size_t
-StringWidthMB(const char *s, size_t length)
+StringWidthMB(const char *s, size_t length) noexcept
 {
 	const char *const end = s + length;
 	auto state = std::mbstate_t();
@@ -150,13 +150,13 @@ StringWidthMB(const char *s, size_t length)
 }
 
 size_t
-StringWidthMB(const char *s)
+StringWidthMB(const char *s) noexcept
 {
 	return StringWidthMB(s, strlen(s));
 }
 
 const char *
-AtWidthMB(const char *s, size_t length, size_t width)
+AtWidthMB(const char *s, size_t length, size_t width) noexcept
 {
 	const char *const end = s + length;
 	auto state = std::mbstate_t();

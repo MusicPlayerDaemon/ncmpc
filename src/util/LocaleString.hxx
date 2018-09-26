@@ -39,7 +39,7 @@
  */
 gcc_pure
 bool
-IsIncompleteCharMB(const char *s, size_t n);
+IsIncompleteCharMB(const char *s, size_t n) noexcept;
 
 /**
  * Returns the length of the given locale (multi-byte) string in
@@ -47,7 +47,7 @@ IsIncompleteCharMB(const char *s, size_t n);
  */
 gcc_pure
 std::size_t
-StringLengthMB(const char *s, size_t n);
+StringLengthMB(const char *s, size_t n) noexcept;
 
 /**
  * Wrapper for std::mbrlen() which attempts to recover with a best
@@ -55,7 +55,7 @@ StringLengthMB(const char *s, size_t n);
  */
 gcc_pure
 std::size_t
-CharSizeMB(const char *s, size_t n);
+CharSizeMB(const char *s, size_t n) noexcept;
 
 /**
  * Determine the start of the character preceding the given reference.
@@ -64,7 +64,7 @@ CharSizeMB(const char *s, size_t n);
  */
 gcc_pure
 const char *
-PrevCharMB(const char *start, const char *reference);
+PrevCharMB(const char *start, const char *reference) noexcept;
 
 /**
  * Find the `i`th character of the given string.  Returns the end of
@@ -74,7 +74,7 @@ PrevCharMB(const char *start, const char *reference);
  */
 gcc_pure
 const char *
-AtCharMB(const char *s, size_t length, size_t i);
+AtCharMB(const char *s, size_t length, size_t i) noexcept;
 
 /**
  * Returns the number of terminal cells occupied by this multi-byte
@@ -82,10 +82,11 @@ AtCharMB(const char *s, size_t length, size_t i);
  */
 gcc_pure
 size_t
-StringWidthMB(const char *s, size_t length);
+StringWidthMB(const char *s, size_t length) noexcept;
 
+gcc_pure
 size_t
-StringWidthMB(const char *s);
+StringWidthMB(const char *s) noexcept;
 
 /**
  * Find the first character which doesn't fully fit into the given width.
@@ -94,6 +95,6 @@ StringWidthMB(const char *s);
  */
 gcc_pure
 const char *
-AtWidthMB(const char *s, size_t length, size_t width);
+AtWidthMB(const char *s, size_t length, size_t width) noexcept;
 
 #endif
