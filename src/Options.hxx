@@ -71,7 +71,7 @@ struct Options {
 	bool audible_bell = true;
 	bool visible_bell;
 	bool bell_on_wrap = true;
-	std::chrono::seconds status_message_time = std::chrono::seconds(3);
+	std::chrono::steady_clock::duration status_message_time = std::chrono::seconds(3);
 #ifndef NCMPC_MINI
 	bool enable_xterm_title;
 #endif

@@ -262,7 +262,7 @@ StatusBar::SetMessage(const char *msg) noexcept
 	doupdate();
 
 	boost::system::error_code error;
-	message_timer.expires_from_now(std::chrono::seconds(options.status_message_time),
+	message_timer.expires_from_now(options.status_message_time,
 				       error);
 	message_timer.async_wait(std::bind(&StatusBar::OnMessageTimer, this,
 					   std::placeholders::_1));
