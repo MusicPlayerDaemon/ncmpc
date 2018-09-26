@@ -204,11 +204,6 @@ _strfsong(char *s,
 			temp = utf8_to_locale(mpd_song_get_uri(song));
 		else if (strncmp("%artist%", p, n) == 0) {
 			temp = song_tag_locale(song, MPD_TAG_ARTIST);
-			if (temp == nullptr) {
-				temp = song_tag_locale(song, MPD_TAG_PERFORMER);
-				if (temp == nullptr)
-					temp = song_tag_locale(song, MPD_TAG_COMPOSER);
-			}
 		} else if (strncmp("%albumartist%", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_ALBUM_ARTIST);
 		else if (strncmp("%composer%", p, n) == 0)
@@ -217,8 +212,6 @@ _strfsong(char *s,
 			temp = song_tag_locale(song, MPD_TAG_PERFORMER);
 		else if (strncmp("%title%", p, n) == 0) {
 			temp = song_tag_locale(song, MPD_TAG_TITLE);
-			if (temp == nullptr)
-				temp = song_tag_locale(song, MPD_TAG_NAME);
 		} else if (strncmp("%album%", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_ALBUM);
 		else if (strncmp("%shortalbum%", p, n) == 0) {

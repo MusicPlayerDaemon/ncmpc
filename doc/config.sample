@@ -77,13 +77,13 @@
 
 ## list-format
 ## The format used to display songs in the main window.
-#list-format = "%name%|[%artist% - ]%title%|%file%"
+#list-format = "%name%|[[%artist%|%performer%|%composer%] - ][%title%|%shortfile%]"
 
 ## The format used to display songs in the search window.
-#search-format = "%name%|[%artist% - ]%title%|%file%"
+#search-format = "%name%|[[%artist%|%performer%|%composer%] - ][%title%|%shortfile%]"
 
 ## The format used to display songs on the status line.
-#status-format = "[%artist% - ]%title%|%shortfile%"
+#status-format = "[[%artist%|%performer%|%composer%] - ][%title%|%shortfile%]"
 
 ## The time, in seconds, for which status messages will be displayed.
 #status-message-time = 3
@@ -99,7 +99,7 @@
 #set-xterm-title = no
 
 ## The format used to for the xterm title when ncmpc is playing.
-#xterm-title-format = "ncmpc: [ %name%|[%artist% - ]%title%|%file%]"
+#xterm-title-format = "ncmpc: [%name%|[[%artist%|%performer%|%composer%] - ][%title%|%shortfile%]]"
 
 ## Automatically save the lyrics after receiving them.
 #lyrics-autosave = no
