@@ -207,7 +207,7 @@ _strfsong(char *s,
 				if (temp == nullptr)
 					temp = song_tag_locale(song, MPD_TAG_COMPOSER);
 			}
-		} else if (strncmp("%albumartist", p, n) == 0)
+		} else if (strncmp("%albumartist%", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_ALBUM_ARTIST);
 		else if (strncmp("%composer%", p, n) == 0)
 			temp = song_tag_locale(song, MPD_TAG_COMPOSER);
