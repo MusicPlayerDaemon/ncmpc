@@ -227,8 +227,10 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 	const size_t label_length = strlen(label);
 	const size_t label_size = label_length + label_col;
 
+	char *entry = new char[label_size];
+
 	while (*value_iter != 0) {
-		char *entry = (char *)g_malloc(label_size), *entry_iter;
+		char *entry_iter;
 		if (value_iter == value) {
 			memcpy(entry, label, label_length);
 			entry_iter = entry + label_length;
@@ -260,12 +262,13 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 		value_iter += strlen(p);
 		p = replace_utf8_to_locale(p);
 		char *q = g_strconcat(entry, p, nullptr);
-		g_free(entry);
 		g_free(p);
 
 		lines.emplace_back(q);
 		g_free(q);
 	}
+
+	delete[] entry;
 }
 
 gcc_pure
