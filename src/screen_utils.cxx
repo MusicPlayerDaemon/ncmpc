@@ -32,7 +32,7 @@
 #include <string.h>
 
 void
-screen_bell()
+screen_bell() noexcept
 {
 	if (options.audible_bell)
 		beep();
@@ -40,8 +40,8 @@ screen_bell()
 		flash();
 }
 
-static bool
-ignore_key(int key)
+static constexpr bool
+ignore_key(int key) noexcept
 {
 	return
 #ifdef HAVE_GETMOUSE
@@ -52,7 +52,7 @@ ignore_key(int key)
 }
 
 int
-screen_getch(const char *prompt)
+screen_getch(const char *prompt) noexcept
 {
 	WINDOW *w = screen->status_bar.GetWindow().w;
 
@@ -74,7 +74,7 @@ screen_getch(const char *prompt)
 }
 
 bool
-screen_get_yesno(const char *_prompt, bool def)
+screen_get_yesno(const char *_prompt, bool def) noexcept
 {
 	/* NOTE: if one day a translator decides to use a multi-byte character
 	   for one of the yes/no keys, we'll have to parse it properly */
@@ -96,7 +96,7 @@ std::string
 screen_readln(const char *prompt,
 	      const char *value,
 	      History *history,
-	      Completion *completion)
+	      Completion *completion) noexcept
 {
 	auto *window = &screen->status_bar.GetWindow();
 	WINDOW *w = window->w;
@@ -120,7 +120,7 @@ screen_readln(const char *prompt,
 }
 
 std::string
-screen_read_password(const char *prompt)
+screen_read_password(const char *prompt) noexcept
 {
 	auto *window = &screen->status_bar.GetWindow();
 	WINDOW *w = window->w;
@@ -144,7 +144,7 @@ screen_read_password(const char *prompt)
 }
 
 static const char *
-CompletionDisplayString(const char *value)
+CompletionDisplayString(const char *value) noexcept
 {
 	const char *slash = strrchr(value, '/');
 	if (slash == nullptr)
@@ -166,7 +166,7 @@ CompletionDisplayString(const char *value)
 }
 
 void
-screen_display_completion_list(Completion::Range range)
+screen_display_completion_list(Completion::Range range) noexcept
 {
 	static Completion::Range prev_range;
 	static size_t prev_length = 0;
