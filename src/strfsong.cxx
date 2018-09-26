@@ -66,20 +66,10 @@ CopyString(char *dest, char *const dest_end,
 }
 
 static char *
-CopyString(char *dest, char *const dest_end,
-	   const char *src) noexcept
-{
-	return CopyString(dest, dest_end, src, strlen(src));
-}
-
-static char *
 CopyStringFromUTF8(char *dest, char *const dest_end,
 		   const char *src_utf8) noexcept
 {
-	char *src_locale = utf8_to_locale(src_utf8);
-	dest = CopyString(dest, dest_end, src_locale);
-	g_free(src_locale);
-	return dest;
+	return CopyUtf8ToLocale(dest, dest_end - dest, src_utf8);
 }
 
 static char *

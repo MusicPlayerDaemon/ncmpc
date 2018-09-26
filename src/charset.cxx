@@ -21,6 +21,8 @@
 #include "util/ScopeExit.hxx"
 #include "util/StringUTF8.hxx"
 
+#include <algorithm>
+
 #include <assert.h>
 #include <string.h>
 #include <glib.h>
@@ -36,6 +38,14 @@ charset_init()
 	return charset;
 }
 #endif
+
+static char *
+CopyTruncateString(char *dest, size_t dest_size, const char *src) noexcept
+{
+	dest = std::copy_n(src, std::min(dest_size - 1, strlen(src)), dest);
+	*dest = 0;
+	return dest;
+}
 
 char *
 utf8_to_locale(const char *utf8str)
@@ -58,13 +68,17 @@ utf8_to_locale(const char *utf8str)
 #endif
 }
 
+char *
+CopyUtf8ToLocale(char *dest, size_t dest_size, const char *src) noexcept
+{
+	return CopyTruncateString(dest, dest_size, Utf8ToLocale(src).c_str());
+}
+
 const char *
 utf8_to_locale(const char *src, char *buffer, size_t size) noexcept
 {
 #ifdef ENABLE_LOCALE
-	char *p = utf8_to_locale(src);
-	g_strlcpy(buffer, p, size);
-	g_free(p);
+	CopyUtf8ToLocale(buffer, size, src);
 	return buffer;
 #else
 	(void)buffer;
