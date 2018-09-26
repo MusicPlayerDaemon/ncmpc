@@ -268,7 +268,7 @@ _strfsong(char *s,
 			found = true;
 			if (length + templen >= max)
 				templen = max - length - 1;
-			g_strlcat(s, temp, max);
+			*std::copy_n(temp, templen, s + length) = 0;
 			length+=templen;
 			g_free(temp);
 		}
