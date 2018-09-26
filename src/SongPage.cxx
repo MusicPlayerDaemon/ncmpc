@@ -214,8 +214,6 @@ SongPage::Paint() const noexcept
 void
 SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 {
-	const unsigned label_width = StringWidthMB(label) + 2;
-
 	assert(label != nullptr);
 	assert(value != nullptr);
 	assert(g_utf8_validate(value, -1, nullptr));
@@ -226,17 +224,18 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 	/* calculate the number of required linebreaks */
 	const char *const value_end = value + strlen(value);
 	const char *value_iter = value;
-	const size_t label_length = strlen(label);
 
 	char *entry = new char[label_col * 4 + 1];
 
 	while (*value_iter != 0) {
 		char *entry_iter;
 		if (value_iter == value) {
+			const size_t label_length = strlen(label);
 			entry_iter = std::copy_n(label, label_length, entry);
 			*entry_iter++ = ':';
 			/* fill the label column with whitespaces */
-			size_t n_space = label_col - label_width + 1;
+			const unsigned label_width = StringWidthMB(label);
+			size_t n_space = label_col - label_width - 1;
 			entry_iter = std::fill_n(entry_iter, n_space, ' ');
 		}
 		else {
