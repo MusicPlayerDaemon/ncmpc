@@ -26,7 +26,7 @@
 
 static void
 list_window_paint_row(WINDOW *w, unsigned width, bool selected,
-		      const char *text)
+		      const char *text) noexcept
 {
 	row_paint_text(w, width, Style::LIST,
 		       selected, text);
@@ -34,7 +34,7 @@ list_window_paint_row(WINDOW *w, unsigned width, bool selected,
 
 void
 TextListRenderer::PaintListItem(WINDOW *w, unsigned i, unsigned,
-				unsigned width, bool selected) const
+				unsigned width, bool selected) const noexcept
 {
 	char buffer[1024];
 	const char *label = text.GetListItemText(buffer, sizeof(buffer), i);

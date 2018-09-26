@@ -96,7 +96,7 @@ ArtistListPage::Reload(struct mpdclient &c)
 void
 ArtistListPage::PaintListItem(WINDOW *w, unsigned i,
 			      gcc_unused unsigned y, unsigned width,
-			      bool selected) const
+			      bool selected) const noexcept
 {
 	screen_browser_paint_directory(w, width, selected,
 				       Utf8ToLocale(artist_list[i].c_str()).c_str());

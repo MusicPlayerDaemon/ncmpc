@@ -482,7 +482,7 @@ screen_browser_paint_playlist(WINDOW *w, unsigned width,
 void
 FileListPage::PaintListItem(WINDOW *w, unsigned i,
 			    unsigned y, unsigned width,
-			    bool selected) const
+			    bool selected) const noexcept
 {
 	assert(filelist != nullptr);
 	assert(i < filelist->size());

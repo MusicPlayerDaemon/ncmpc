@@ -61,7 +61,7 @@ public:
 
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
-			   bool selected) const override;
+			   bool selected) const noexcept override;
 };
 
 bool
@@ -148,7 +148,7 @@ OutputsPage::GetTitle(char *, size_t) const noexcept
 void
 OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 			   gcc_unused unsigned y, unsigned width,
-			   bool selected) const
+			   bool selected) const noexcept
 {
 	assert(i < items.size());
 	const auto *output = items[i].get();

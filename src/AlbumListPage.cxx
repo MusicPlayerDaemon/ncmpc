@@ -109,7 +109,7 @@ AlbumListPage::Reload(struct mpdclient &c)
 void
 AlbumListPage::PaintListItem(WINDOW *w, unsigned i,
 			     gcc_unused unsigned y, unsigned width,
-			     bool selected) const
+			     bool selected) const noexcept
 {
 	if (i == 0)
 		screen_browser_paint_directory(w, width, selected, "..");

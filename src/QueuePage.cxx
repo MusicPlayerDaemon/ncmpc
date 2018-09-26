@@ -120,7 +120,7 @@ private:
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(WINDOW *w, unsigned i,
 			   unsigned y, unsigned width,
-			   bool selected) const override;
+			   bool selected) const noexcept override;
 
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *buffer, size_t size,
@@ -382,7 +382,7 @@ QueuePage::GetTitle(char *str, size_t size) const noexcept
 
 void
 QueuePage::PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
-			 bool selected) const
+			 bool selected) const noexcept
 {
 	assert(playlist != nullptr);
 	assert(i < playlist->size());

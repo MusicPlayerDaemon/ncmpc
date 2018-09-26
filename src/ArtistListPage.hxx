@@ -58,7 +58,7 @@ public:
 
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
-			   bool selected) const override;
+			   bool selected) const noexcept override;
 
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *buffer, size_t size,

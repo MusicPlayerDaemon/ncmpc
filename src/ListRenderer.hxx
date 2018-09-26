@@ -26,7 +26,7 @@ class ListRenderer {
 public:
 	virtual void PaintListItem(WINDOW *w, unsigned i,
 				   unsigned y, unsigned width,
-				   bool selected) const = 0;
+				   bool selected) const noexcept = 0;
 };
 
 #endif

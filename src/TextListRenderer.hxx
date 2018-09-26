@@ -29,12 +29,12 @@ class TextListRenderer final : public ListRenderer {
 	const ListText &text;
 
 public:
-	explicit TextListRenderer(const ListText &_text)
+	explicit TextListRenderer(const ListText &_text) noexcept
 		:text(_text) {}
 
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
-			   bool selected) const override;
+			   bool selected) const noexcept override;
 };
 
 #endif
