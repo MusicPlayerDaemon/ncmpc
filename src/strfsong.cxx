@@ -172,17 +172,17 @@ _strfsong(char *s,
 			break;
 		}
 
-		/* pass-through non-escaped portions of the format string */
-		if (p[0] != '#' && p[0] != '%') {
-			s[length++] = *p;
-			p++;
-			continue;
-		}
-
 		/* let the escape character escape itself */
 		if (p[0] == '#' && p[1] != '\0') {
 			s[length++] = *(p+1);
 			p+=2;
+			continue;
+		}
+
+		/* pass-through non-escaped portions of the format string */
+		if (p[0] != '%') {
+			s[length++] = *p;
+			p++;
 			continue;
 		}
 
