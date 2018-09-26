@@ -33,7 +33,7 @@
 static const char *
 skip(const char * p)
 {
-	gint stack = 0;
+	unsigned stack = 0;
 
 	while (*p != '\0') {
 		if (*p == '[')
@@ -286,4 +286,3 @@ strfsong(char *s, size_t max, const char *format,
 {
 	return _strfsong(s, max, format, song, nullptr);
 }
-
