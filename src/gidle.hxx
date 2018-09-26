@@ -57,8 +57,9 @@ class MpdIdleSource {
 public:
 	MpdIdleSource(boost::asio::io_service &io_service,
 		      struct mpd_connection &_connection,
-		      mpd_glib_callback_t _callback, void *_callback_ctx);
-	~MpdIdleSource();
+		      mpd_glib_callback_t _callback,
+		      void *_callback_ctx) noexcept;
+	~MpdIdleSource() noexcept;
 
 	/**
 	 * Enters idle mode.
@@ -66,12 +67,12 @@ public:
 	 * @return true if idle mode has been entered, false if not
 	 * (e.g. I/O error)
 	 */
-	bool Enter();
+	bool Enter() noexcept;
 
 	/**
 	 * Leaves idle mode and invokes the callback if there were events.
 	 */
-	void Leave();
+	void Leave() noexcept;
 
 private:
 	void InvokeCallback() noexcept {

@@ -38,7 +38,7 @@
 
 MpdIdleSource::MpdIdleSource(boost::asio::io_service &io_service,
 			     struct mpd_connection &_connection,
-			     mpd_glib_callback_t _callback, void *_callback_ctx)
+			     mpd_glib_callback_t _callback, void *_callback_ctx) noexcept
 	:connection(&_connection),
 	 async(mpd_connection_get_async(connection)),
 	 parser(mpd_parser_new()),
@@ -48,7 +48,7 @@ MpdIdleSource::MpdIdleSource(boost::asio::io_service &io_service,
 	/* TODO check parser!=nullptr */
 }
 
-MpdIdleSource::~MpdIdleSource()
+MpdIdleSource::~MpdIdleSource() noexcept
 {
 	socket.release();
 
@@ -212,7 +212,7 @@ MpdIdleSource::UpdateSocket() noexcept
 }
 
 bool
-MpdIdleSource::Enter()
+MpdIdleSource::Enter() noexcept
 {
 	assert(io_events == 0);
 
@@ -228,7 +228,7 @@ MpdIdleSource::Enter()
 }
 
 void
-MpdIdleSource::Leave()
+MpdIdleSource::Leave() noexcept
 {
 	if (io_events == 0)
 		/* already left, callback was invoked */
