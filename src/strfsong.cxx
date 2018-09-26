@@ -150,8 +150,10 @@ _strfsong(char *s,
 
 		/* EXPRESSION START */
 		if (p[0] == '[') {
-			if (_strfsong(s + length, max - length, p + 1, song, &p) > 0) {
-				length = strlen(s);
+			size_t n = _strfsong(s + length, max - length, p + 1,
+					     song, &p);
+			if (n > 0) {
+				length += n;
 				found = true;
 			} else {
 				missed = true;
