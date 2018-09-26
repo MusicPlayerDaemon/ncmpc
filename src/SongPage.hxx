@@ -33,7 +33,7 @@ extern const PageMeta screen_song;
 
 void
 screen_song_switch(ScreenManager &_screen, struct mpdclient &c,
-		   const struct mpd_song &song);
+		   const struct mpd_song &song) noexcept;
 
 #endif /* ENABLE_SONG_SCREEN */
 

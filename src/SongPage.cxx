@@ -113,30 +113,32 @@ class SongPage final : public ListPage, ListText {
 	std::vector<std::string> lines;
 
 public:
-	SongPage(ScreenManager &_screen, WINDOW *w, Size size)
+	SongPage(ScreenManager &_screen, WINDOW *w, Size size) noexcept
 		:ListPage(w, size),
 		 screen(_screen) {
 		lw.hide_cursor = true;
 	}
 
-	~SongPage() override {
+	~SongPage() noexcept override {
 		Clear();
 	}
 
 private:
-	void Clear();
+	void Clear() noexcept;
 
 	/**
 	 * Appends a line with a fixed width for the label column.
 	 * Handles nullptr strings gracefully.
 	 */
 	void AppendLine(const char *label, const char *value,
-			unsigned label_col);
+			unsigned label_col) noexcept;
 
-	void AppendTag(const struct mpd_song *song, enum mpd_tag_type tag);
-	void AddSong(const struct mpd_song *song);
-	void AppendStatsLine(enum stats_label label, const char *value);
-	bool AddStats(struct mpd_connection *connection);
+	void AppendTag(const struct mpd_song *song,
+		       enum mpd_tag_type tag) noexcept;
+	void AddSong(const struct mpd_song *song) noexcept;
+	void AppendStatsLine(enum stats_label label,
+			     const char *value) noexcept;
+	bool AddStats(struct mpd_connection *connection) noexcept;
 
 public:
 	/* virtual methods from class Page */
@@ -156,7 +158,7 @@ private:
 };
 
 void
-SongPage::Clear()
+SongPage::Clear() noexcept
 {
 	lines.clear();
 
@@ -177,7 +179,7 @@ SongPage::GetListItemText(char *, size_t, unsigned idx) const
 }
 
 static std::unique_ptr<Page>
-screen_song_init(ScreenManager &_screen, WINDOW *w, Size size)
+screen_song_init(ScreenManager &_screen, WINDOW *w, Size size) noexcept
 {
 	for (unsigned i = 0; tag_labels[i].label != nullptr; ++i) {
 		unsigned width = StringWidthMB(gettext(tag_labels[i].label));
@@ -210,7 +212,8 @@ SongPage::Paint() const noexcept
 }
 
 void
-SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
+SongPage::AppendLine(const char *label, const char *value,
+		     unsigned label_col) noexcept
 {
 	assert(label != nullptr);
 	assert(value != nullptr);
@@ -264,7 +267,7 @@ SongPage::AppendLine(const char *label, const char *value, unsigned label_col)
 
 gcc_pure
 static const char *
-get_tag_label(unsigned tag)
+get_tag_label(unsigned tag) noexcept
 {
 	for (unsigned i = 0; tag_labels[i].label != nullptr; ++i)
 		if (tag_labels[i].tag_type == tag)
@@ -275,7 +278,8 @@ get_tag_label(unsigned tag)
 }
 
 void
-SongPage::AppendTag(const struct mpd_song *song, enum mpd_tag_type tag)
+SongPage::AppendTag(const struct mpd_song *song,
+		    enum mpd_tag_type tag) noexcept
 {
 	const char *label = get_tag_label(tag);
 	unsigned i = 0;
@@ -289,7 +293,7 @@ SongPage::AppendTag(const struct mpd_song *song, enum mpd_tag_type tag)
 }
 
 void
-SongPage::AddSong(const struct mpd_song *song)
+SongPage::AddSong(const struct mpd_song *song) noexcept
 {
 	assert(song != nullptr);
 
@@ -349,13 +353,13 @@ SongPage::AddSong(const struct mpd_song *song)
 }
 
 void
-SongPage::AppendStatsLine(enum stats_label label, const char *value)
+SongPage::AppendStatsLine(enum stats_label label, const char *value) noexcept
 {
 	AppendLine(gettext(stats_labels[label]), value, max_stats_label_width);
 }
 
 bool
-SongPage::AddStats(struct mpd_connection *connection)
+SongPage::AddStats(struct mpd_connection *connection) noexcept
 {
 	struct mpd_stats *mpd_stats = mpd_run_stats(connection);
 	if (mpd_stats == nullptr)
@@ -396,7 +400,7 @@ SongPage::AddStats(struct mpd_connection *connection)
 
 static void
 audio_format_to_string(char *buffer, size_t size,
-		       const struct mpd_audio_format *format)
+		       const struct mpd_audio_format *format) noexcept
 {
 #if LIBMPDCLIENT_CHECK_VERSION(2,10,0)
 	if (format->bits == MPD_SAMPLE_FORMAT_FLOAT) {
@@ -552,7 +556,7 @@ const PageMeta screen_song = {
 
 void
 screen_song_switch(ScreenManager &_screen, struct mpdclient &c,
-		   const struct mpd_song &song)
+		   const struct mpd_song &song) noexcept
 {
 	next_song = mpd_song_dup(&song);
 	_screen.Switch(screen_song, c);
