@@ -59,21 +59,21 @@ class StatusBar {
 
 public:
 	StatusBar(boost::asio::io_service &io_service,
-		  Point p, unsigned width);
-	~StatusBar();
+		  Point p, unsigned width) noexcept;
+	~StatusBar() noexcept;
 
-	Window &GetWindow() {
+	Window &GetWindow() noexcept {
 		return window;
 	}
 
-	void SetMessage(const char *msg);
-	void ClearMessage();
+	void SetMessage(const char *msg) noexcept;
+	void ClearMessage() noexcept;
 
-	void OnResize(Point p, unsigned width);
+	void OnResize(Point p, unsigned width) noexcept;
 	void Update(const struct mpd_status *status,
 		    const struct mpd_song *song,
 		    const DelayedSeek &seek) noexcept;
-	void Paint() const;
+	void Paint() const noexcept;
 
 private:
 	void OnMessageTimer(const boost::system::error_code &error) noexcept {

@@ -32,7 +32,7 @@
 #include <string.h>
 
 StatusBar::StatusBar(boost::asio::io_service &io_service,
-		     Point p, unsigned width)
+		     Point p, unsigned width) noexcept
 	:window(p, {width, 1u}),
 	 message_timer(io_service)
 #ifndef NCMPC_MINI
@@ -48,7 +48,7 @@ StatusBar::StatusBar(boost::asio::io_service &io_service,
 #endif
 }
 
-StatusBar::~StatusBar()
+StatusBar::~StatusBar() noexcept
 {
 #ifndef NCMPC_MINI
 	if (options.scroll)
@@ -57,7 +57,7 @@ StatusBar::~StatusBar()
 }
 
 void
-StatusBar::ClearMessage()
+StatusBar::ClearMessage() noexcept
 {
 	message_timer.cancel();
 	message.clear();
@@ -69,7 +69,8 @@ StatusBar::ClearMessage()
 #ifndef NCMPC_MINI
 
 static void
-format_bitrate(char *p, size_t max_length, const struct mpd_status *status)
+format_bitrate(char *p, size_t max_length,
+	       const struct mpd_status *status) noexcept
 {
 	if (options.visible_bitrate && mpd_status_get_kbit_rate(status) > 0)
 		snprintf(p, max_length,
@@ -192,7 +193,7 @@ StatusBar::Update(const struct mpd_status *status,
 }
 
 void
-StatusBar::Paint() const
+StatusBar::Paint() const noexcept
 {
 	WINDOW *w = window.w;
 
@@ -242,14 +243,14 @@ StatusBar::Paint() const
 }
 
 void
-StatusBar::OnResize(Point p, unsigned width)
+StatusBar::OnResize(Point p, unsigned width) noexcept
 {
 	window.Resize({width, 1u});
 	window.Move(p);
 }
 
 void
-StatusBar::SetMessage(const char *msg)
+StatusBar::SetMessage(const char *msg) noexcept
 {
 #ifndef NCMPC_MINI
 	if (options.scroll)
