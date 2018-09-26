@@ -72,6 +72,36 @@ struct MpdIdleSource {
 	 */
 	void Leave();
 
+	void InvokeCallback() noexcept {
+		if (idle_events != 0)
+			callback(MPD_ERROR_SUCCESS, (enum mpd_server_error)0,
+				 nullptr,
+				 idle_events, callback_ctx);
+	}
+
+	void InvokeError(enum mpd_error error,
+			 enum mpd_server_error server_error,
+			 const char *message) noexcept {
+		callback(error, server_error, message,
+			 0, callback_ctx);
+	}
+
+	void InvokeAsyncError() noexcept;
+
+	/**
+	 * Parses a response line from MPD.
+	 *
+	 * @return true on success, false on error
+	 */
+	bool Feed(char *line) noexcept;
+
+	/**
+	 * Receives and evaluates a portion of the MPD response.
+	 *
+	 * @return true on success, false on error
+	 */
+	bool Receive() noexcept;
+
 	void OnReadable(const boost::system::error_code &error) noexcept;
 	void OnWritable(const boost::system::error_code &error) noexcept;
 

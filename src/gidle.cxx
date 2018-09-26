@@ -56,71 +56,48 @@ MpdIdleSource::~MpdIdleSource()
 
 }
 
-static void
-mpd_glib_invoke(const MpdIdleSource *source)
+void
+MpdIdleSource::InvokeAsyncError() noexcept
 {
-	if (source->idle_events != 0)
-		source->callback(MPD_ERROR_SUCCESS, (enum mpd_server_error)0,
-				 nullptr,
-				 source->idle_events, source->callback_ctx);
+	InvokeError(mpd_async_get_error(async),
+		    (enum mpd_server_error)0,
+		    mpd_async_get_error_message(async));
 }
 
-static void
-mpd_glib_invoke_error(const MpdIdleSource *source,
-		      enum mpd_error error, enum mpd_server_error server_error,
-		      const char *message)
-{
-	source->callback(error, server_error, message,
-			 0, source->callback_ctx);
-}
-
-static void
-mpd_glib_invoke_async_error(const MpdIdleSource *source)
-{
-	mpd_glib_invoke_error(source, mpd_async_get_error(source->async),
-			      (enum mpd_server_error)0,
-			      mpd_async_get_error_message(source->async));
-}
-
-/**
- * Parses a response line from MPD.
- *
- * @return true on success, false on error
- */
-static bool
-mpd_glib_feed(MpdIdleSource *source, char *line)
+bool
+MpdIdleSource::Feed(char *line) noexcept
 {
 	enum mpd_parser_result result;
 
-	result = mpd_parser_feed(source->parser, line);
+	result = mpd_parser_feed(parser, line);
 	switch (result) {
 	case MPD_PARSER_MALFORMED:
-		source->io_events = 0;
+		io_events = 0;
 
-		mpd_glib_invoke_error(source, MPD_ERROR_MALFORMED,
-				      (enum mpd_server_error)0,
-				      "Malformed MPD response");
+		InvokeError(MPD_ERROR_MALFORMED,
+			    (enum mpd_server_error)0,
+			    "Malformed MPD response");
 		return false;
 
 	case MPD_PARSER_SUCCESS:
-		source->io_events = 0;
+		io_events = 0;
 
-		mpd_glib_invoke(source);
+		InvokeCallback();
 		return false;
 
 	case MPD_PARSER_ERROR:
-		source->io_events = 0;
+		io_events = 0;
 
-		mpd_glib_invoke_error(source, MPD_ERROR_SERVER,
-				      mpd_parser_get_server_error(source->parser),
-				      mpd_parser_get_message(source->parser));
+		InvokeError(MPD_ERROR_SERVER,
+			    mpd_parser_get_server_error(parser),
+			    mpd_parser_get_message(parser));
 		return false;
 
 	case MPD_PARSER_PAIR:
-		if (strcmp(mpd_parser_get_name(source->parser),
+		if (strcmp(mpd_parser_get_name(parser),
 			   "changed") == 0)
-			source->idle_events |=
-				mpd_idle_name_parse(mpd_parser_get_value(source->parser));
+			idle_events |=
+				mpd_idle_name_parse(mpd_parser_get_value(parser));
 
 		break;
 	}
@@ -128,24 +105,19 @@ mpd_glib_feed(MpdIdleSource *source, char *line)
 	return true;
 }
 
-/**
- * Receives and evaluates a portion of the MPD response.
- *
- * @return true on success, false on error
- */
-static bool
-mpd_glib_recv(MpdIdleSource *source)
+bool
+MpdIdleSource::Receive() noexcept
 {
 	char *line;
-	while ((line = mpd_async_recv_line(source->async)) != nullptr) {
-		if (!mpd_glib_feed(source, line))
+	while ((line = mpd_async_recv_line(async)) != nullptr) {
+		if (!Feed(line))
 			return false;
 	}
 
-	if (mpd_async_get_error(source->async) != MPD_ERROR_SUCCESS) {
-		source->io_events = 0;
+	if (mpd_async_get_error(async) != MPD_ERROR_SUCCESS) {
+		io_events = 0;
 
-		mpd_glib_invoke_async_error(source);
+		InvokeAsyncError();
 		return false;
 	}
 
@@ -169,11 +141,11 @@ MpdIdleSource::OnReadable(const boost::system::error_code &error) noexcept
 		socket.cancel();
 		io_events = 0;
 
-		mpd_glib_invoke_async_error(this);
+		InvokeAsyncError();
 		return;
 	}
 
-	if (!mpd_glib_recv(this))
+	if (!Receive())
 		return;
 
 	UpdateSocket();
@@ -196,7 +168,7 @@ MpdIdleSource::OnWritable(const boost::system::error_code &error) noexcept
 		socket.cancel();
 		io_events = 0;
 
-		mpd_glib_invoke_async_error(this);
+		InvokeAsyncError();
 		return;
 	}
 
@@ -247,7 +219,7 @@ MpdIdleSource::Enter()
 	idle_events = 0;
 
 	if (!mpd_async_send_command(async, "idle", nullptr)) {
-		mpd_glib_invoke_async_error(this);
+		InvokeAsyncError();
 		return false;
 	}
 
@@ -278,11 +250,11 @@ MpdIdleSource::Leave()
 			? mpd_connection_get_server_error(connection)
 			: (enum mpd_server_error)0;
 
-		mpd_glib_invoke_error(this, error, server_error,
-				      mpd_connection_get_error_message(connection));
+		InvokeError(error, server_error,
+			    mpd_connection_get_error_message(connection));
 		return;
 	}
 
 	idle_events |= events;
-	mpd_glib_invoke(this);
+	InvokeCallback();
 }
