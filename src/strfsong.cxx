@@ -117,10 +117,11 @@ _strfsong(char *s,
 	   found==true instead of found==false. */
 	bool missed = false;
 
-	s[0] = '\0';
 
-	if (song == nullptr)
+	if (song == nullptr) {
+		s[0] = '\0';
 		return 0;
+	}
 
 	const char *p;
 	size_t length = 0;
@@ -129,7 +130,6 @@ _strfsong(char *s,
 		if (p[0] == '|') {
 			++p;
 			if(missed && !found) {
-				s[0] = '\0';
 				length = 0;
 				missed = false;
 			} else {
@@ -167,7 +167,6 @@ _strfsong(char *s,
 		if (p[0] == ']') {
 			++p;
 			if(missed && !found && length) {
-				s[0] = '\0';
 				length = 0;
 			}
 			break;
@@ -176,7 +175,6 @@ _strfsong(char *s,
 		/* pass-through non-escaped portions of the format string */
 		if (p[0] != '#' && p[0] != '%' && length < max - 1) {
 			s[length++] = *p;
-			s[length] = '\0';
 			p++;
 			continue;
 		}
@@ -184,7 +182,6 @@ _strfsong(char *s,
 		/* let the escape character escape itself */
 		if (p[0] == '#' && p[1] != '\0' && length < max - 1) {
 			s[length++] = *(p+1);
-			s[length] = '\0';
 			p+=2;
 			continue;
 		}
@@ -258,7 +255,7 @@ _strfsong(char *s,
 			/* just pass-through any unknown specifiers (including esc) */
 			if (length + templen >= max)
 				templen = max - length - 1;
-			*std::copy_n(p, templen, s + length) = 0;
+			std::copy_n(p, templen, s + length);
 			length+=templen;
 
 			missed = true;
@@ -268,7 +265,7 @@ _strfsong(char *s,
 			found = true;
 			if (length + templen >= max)
 				templen = max - length - 1;
-			*std::copy_n(temp, templen, s + length) = 0;
+			std::copy_n(temp, templen, s + length);
 			length+=templen;
 			g_free(temp);
 		}
@@ -279,6 +276,7 @@ _strfsong(char *s,
 
 	if(last) *last = p;
 
+	s[length] = '\0';
 	return length;
 }
 
