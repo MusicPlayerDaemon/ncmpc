@@ -106,8 +106,7 @@ song_tag_locale(const struct mpd_song *song, enum mpd_tag_type tag)
 }
 
 static size_t
-_strfsong(char *s,
-	  size_t max,
+_strfsong(char *const s0, char *const end,
 	  const char *format,
 	  const struct mpd_song *song,
 	  const char **last)
@@ -119,18 +118,18 @@ _strfsong(char *s,
 
 
 	if (song == nullptr) {
-		s[0] = '\0';
+		s0[0] = '\0';
 		return 0;
 	}
 
+	char *s = s0;
 	const char *p;
-	size_t length = 0;
-	for (p = format; *p != '\0' && length < max - 1;) {
+	for (p = format; *p != '\0' && s < end - 1;) {
 		/* OR */
 		if (p[0] == '|') {
 			++p;
 			if(missed && !found) {
-				length = 0;
+				s = s0;
 				missed = false;
 			} else {
 				p = skip(p);
@@ -152,10 +151,10 @@ _strfsong(char *s,
 
 		/* EXPRESSION START */
 		if (p[0] == '[') {
-			size_t n = _strfsong(s + length, max - length, p + 1,
+			size_t n = _strfsong(s, end, p + 1,
 					     song, &p);
 			if (n > 0) {
-				length += n;
+				s += n;
 				found = true;
 			} else {
 				missed = true;
@@ -166,23 +165,21 @@ _strfsong(char *s,
 		/* EXPRESSION END */
 		if (p[0] == ']') {
 			++p;
-			if(missed && !found && length) {
-				length = 0;
-			}
+			if (missed && !found)
+				s = s0;
 			break;
 		}
 
 		/* let the escape character escape itself */
 		if (p[0] == '#' && p[1] != '\0') {
-			s[length++] = *(p+1);
+			*s++ = p[1];
 			p+=2;
 			continue;
 		}
 
 		/* pass-through non-escaped portions of the format string */
 		if (p[0] != '%') {
-			s[length++] = *p;
-			p++;
+			*s++ = *p++;
 			continue;
 		}
 
@@ -269,12 +266,11 @@ _strfsong(char *s,
 			found = true;
 		}
 
-		if (length + value_length >= max)
-			value_length = max - length - 1;
+		if (s + value_length >= end)
+			value_length = end - s - 1;
 
-		std::copy_n(value, value_length, s + length);
+		s = std::copy_n(value, value_length, s);
 		g_free(temp);
-		length += value_length;
 
 		/* advance past the specifier */
 		p += n;
@@ -282,13 +278,13 @@ _strfsong(char *s,
 
 	if(last) *last = p;
 
-	s[length] = '\0';
-	return length;
+	*s = '\0';
+	return s - s0;
 }
 
 size_t
 strfsong(char *s, size_t max, const char *format,
 	 const struct mpd_song *song)
 {
-	return _strfsong(s, max, format, song, nullptr);
+	return _strfsong(s, s + max, format, song, nullptr);
 }
