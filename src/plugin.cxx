@@ -116,7 +116,9 @@ struct PluginCycle {
 		 delayed_fail_timer(io_service) {}
 
 	void ScheduleDelayedFail() noexcept {
-		delayed_fail_timer.expires_from_now(std::chrono::seconds(0));
+		boost::system::error_code error;
+		delayed_fail_timer.expires_from_now(std::chrono::seconds(0),
+						    error);
 		delayed_fail_timer.async_wait(std::bind(&PluginCycle::OnDelayedFail,
 							this,
 							std::placeholders::_1));

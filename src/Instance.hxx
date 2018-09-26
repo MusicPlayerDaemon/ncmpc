@@ -101,7 +101,8 @@ public:
 
 	template<typename D>
 	void ScheduleReconnect(const D &expiry_time) {
-		reconnect_timer.expires_from_now(expiry_time);
+		boost::system::error_code error;
+		reconnect_timer.expires_from_now(expiry_time, error);
 		reconnect_timer.async_wait(std::bind(&Instance::OnReconnectTimer,
 						     this,
 						     std::placeholders::_1));
@@ -121,7 +122,9 @@ public:
 
 #ifndef NCMPC_MINI
 	void ScheduleCheckKeyBindings() noexcept {
-		check_key_bindings_timer.expires_from_now(std::chrono::seconds(10));
+		boost::system::error_code error;
+		check_key_bindings_timer.expires_from_now(std::chrono::seconds(10),
+							  error);
 		reconnect_timer.async_wait(std::bind(&Instance::OnCheckKeyBindings,
 						     this,
 						     std::placeholders::_1));
@@ -141,7 +144,9 @@ private:
 
 	void ScheduleUpdateTimer() noexcept {
 		pending_update_timer = true;
-		update_timer.expires_from_now(std::chrono::milliseconds(500));
+		boost::system::error_code error;
+		update_timer.expires_from_now(std::chrono::milliseconds(500),
+					      error);
 		update_timer.async_wait(std::bind(&Instance::OnUpdateTimer,
 						  this,
 						  std::placeholders::_1));

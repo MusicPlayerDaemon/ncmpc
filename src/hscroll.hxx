@@ -100,7 +100,8 @@ private:
 	void TimerCallback(const boost::system::error_code &error) noexcept;
 
 	void ScheduleTimer() noexcept {
-		timer.expires_from_now(std::chrono::seconds(1));
+		boost::system::error_code error;
+		timer.expires_from_now(std::chrono::seconds(1), error);
 		timer.async_wait(std::bind(&hscroll::TimerCallback, this,
 					   std::placeholders::_1));
 	}

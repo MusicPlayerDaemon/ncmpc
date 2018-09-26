@@ -277,7 +277,9 @@ LyricsPage::Load(const struct mpd_song *_song)
 			     artist, title, PluginCallback, this);
 
 	if (options.lyrics_timeout != 0) {
-		loader_timeout.expires_from_now(std::chrono::seconds(options.lyrics_timeout));
+		boost::system::error_code error;
+		loader_timeout.expires_from_now(std::chrono::seconds(options.lyrics_timeout),
+						error);
 		loader_timeout.async_wait(std::bind(&LyricsPage::OnTimeout, this,
 						     std::placeholders::_1));
 	}

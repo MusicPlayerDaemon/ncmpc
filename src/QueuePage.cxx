@@ -110,7 +110,9 @@ private:
 	void ScheduleHideCursor() {
 		assert(options.hide_cursor > 0);
 
-		hide_cursor_timer.expires_from_now(std::chrono::seconds(options.hide_cursor));
+		boost::system::error_code error;
+		hide_cursor_timer.expires_from_now(std::chrono::seconds(options.hide_cursor),
+						   error);
 		hide_cursor_timer.async_wait(std::bind(&QueuePage::OnHideCursorTimer, this,
 						       std::placeholders::_1));
 	}

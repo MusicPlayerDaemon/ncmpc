@@ -57,7 +57,8 @@ DelayedSeek::OnTimer(const boost::system::error_code &error) noexcept
 void
 DelayedSeek::ScheduleTimer() noexcept
 {
-	commit_timer.expires_from_now(std::chrono::milliseconds(500));
+	boost::system::error_code error;
+	commit_timer.expires_from_now(std::chrono::milliseconds(500), error);
 	commit_timer.async_wait(std::bind(&DelayedSeek::OnTimer,
 					  this, std::placeholders::_1));
 }
