@@ -26,6 +26,6 @@ struct mpd_song;
 
 size_t
 strfsong(char *s, size_t max, const char *format,
-	 const struct mpd_song *song);
+	 const struct mpd_song *song) noexcept;
 
 #endif

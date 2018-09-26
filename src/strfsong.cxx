@@ -26,11 +26,11 @@
 
 #include <algorithm>
 
-#include <assert.h>
 #include <string.h>
 
+gcc_pure
 static const char *
-skip(const char * p)
+skip(const char *p) noexcept
 {
 	unsigned stack = 0;
 
@@ -72,7 +72,7 @@ CopyStringFromUTF8(char *dest, char *const dest_end,
 
 static char *
 CopyTag(char *dest, char *const end,
-	const struct mpd_song *song, enum mpd_tag_type tag)
+	const struct mpd_song *song, enum mpd_tag_type tag) noexcept
 {
 	const char *value = mpd_song_get_tag(song, tag, 0);
 	if (value == nullptr)
@@ -95,7 +95,7 @@ static size_t
 _strfsong(char *const s0, char *const end,
 	  const char *format,
 	  const struct mpd_song *song,
-	  const char **last)
+	  const char **last) noexcept
 {
 	bool found = false;
 	/* "missed" helps handling the case of mere literal text like
@@ -275,7 +275,7 @@ _strfsong(char *const s0, char *const end,
 
 size_t
 strfsong(char *s, size_t max, const char *format,
-	 const struct mpd_song *song)
+	 const struct mpd_song *song) noexcept
 {
 	return _strfsong(s, s + max, format, song, nullptr);
 }
