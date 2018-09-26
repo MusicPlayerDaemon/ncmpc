@@ -29,6 +29,8 @@
 #ifndef NET_ASYNC_CONNECT_HXX
 #define NET_ASYNC_CONNECT_HXX
 
+#include "AsioServiceFwd.hxx"
+
 #include <boost/asio/ip/tcp.hpp>
 
 struct sockaddr;

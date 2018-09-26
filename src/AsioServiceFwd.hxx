@@ -23,6 +23,20 @@
 /* This header provides a forward declaration for
    boost::asio::io_service */
 
+#include <boost/version.hpp>
+
+#if BOOST_VERSION >= 106600
+
+/* in Boost 1.66, the API has changed for "Networking TS
+   compatibility"; the forward declaration above doesn't work because
+   boost::asio::io_service is a deprecated typedef to
+   boost::asio::io_context; eventually, we'll switch to the new API,
+   but this would require dropping support for older Boost versions */
+
+#include <boost/asio/io_service.hpp>
+
+#else
 namespace boost { namespace asio { class io_service; }}
+#endif
 
 #endif

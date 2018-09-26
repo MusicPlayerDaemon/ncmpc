@@ -29,6 +29,8 @@
 #ifndef MPD_GLIB_SOURCE_H
 #define MPD_GLIB_SOURCE_H
 
+#include "AsioServiceFwd.hxx"
+
 #include <mpd/client.h>
 
 #include <boost/asio/posix/stream_descriptor.hpp>

@@ -21,6 +21,7 @@
 #define HSCROLL_H
 
 #include "BasicMarquee.hxx"
+#include "AsioServiceFwd.hxx"
 
 #include <curses.h>
 

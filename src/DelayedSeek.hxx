@@ -20,6 +20,8 @@
 #ifndef NCMPC_DELAYED_SEEK_HXX
 #define NCMPC_DELAYED_SEEK_HXX
 
+#include "AsioServiceFwd.hxx"
+
 #include <boost/asio/steady_timer.hpp>
 
 struct mpdclient;
