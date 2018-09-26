@@ -52,7 +52,6 @@ hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text,
 	if (!basic.Set(_width, _text))
 		return;
 
-	timer.cancel();
 	ScheduleTimer();
 }
 

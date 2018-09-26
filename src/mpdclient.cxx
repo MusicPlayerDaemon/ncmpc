@@ -52,7 +52,6 @@ mpdclient_schedule_enter_idle(struct mpdclient *c)
 	assert(c->source != nullptr);
 
 	/* automatically re-enter MPD "idle" mode */
-	c->enter_idle_timer.cancel();
 	boost::system::error_code error;
 	c->enter_idle_timer.expires_from_now(std::chrono::seconds(0), error);
 	c->enter_idle_timer.async_wait(std::bind(mpdclient_enter_idle_callback,
