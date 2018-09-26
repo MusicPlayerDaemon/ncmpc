@@ -190,16 +190,15 @@ _strfsong(char *s,
 
 		/* find the extent of this format specifier (stop at \0, ' ', or esc) */
 		char *temp = nullptr;
-		const char *end = p + 1;
-		while(*end >= 'a' && *end <= 'z') {
-			end++;
-		}
-		size_t n = end - p + 1;
+		const char *name_end = p + 1;
+		while (*name_end >= 'a' && *name_end <= 'z')
+			++name_end;
+		size_t n = name_end - p + 1;
 
 		const char *value = nullptr;
 		char buffer[32];
 
-		if(*end != '%')
+		if (*name_end != '%')
 			n--;
 		else if (strncmp("%file%", p, n) == 0)
 			temp = utf8_to_locale(mpd_song_get_uri(song));
