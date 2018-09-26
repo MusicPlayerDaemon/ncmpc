@@ -122,7 +122,7 @@ _strfsong(char *s,
 
 	const char *p;
 	size_t length = 0;
-	for (p = format; *p != '\0' && length<max;) {
+	for (p = format; *p != '\0' && length < max - 1;) {
 		/* OR */
 		if (p[0] == '|') {
 			++p;
@@ -173,7 +173,7 @@ _strfsong(char *s,
 		}
 
 		/* pass-through non-escaped portions of the format string */
-		if (p[0] != '#' && p[0] != '%' && length<max) {
+		if (p[0] != '#' && p[0] != '%' && length < max - 1) {
 			s[length++] = *p;
 			s[length] = '\0';
 			p++;
@@ -181,7 +181,7 @@ _strfsong(char *s,
 		}
 
 		/* let the escape character escape itself */
-		if (p[0] == '#' && p[1] != '\0' && length<max) {
+		if (p[0] == '#' && p[1] != '\0' && length < max - 1) {
 			s[length++] = *(p+1);
 			s[length] = '\0';
 			p+=2;
@@ -262,8 +262,8 @@ _strfsong(char *s,
 		if( temp == nullptr) {
 			size_t templen=n;
 			/* just pass-through any unknown specifiers (including esc) */
-			if( length+templen > max )
-				templen = max-length;
+			if (length + templen >= max)
+				templen = max - length - 1;
 			char *ident = g_strndup(p, templen);
 			g_strlcat(s, ident, max);
 			length+=templen;
@@ -274,8 +274,8 @@ _strfsong(char *s,
 			size_t templen = strlen(temp);
 
 			found = true;
-			if( length+templen > max )
-				templen = max-length;
+			if (length + templen >= max)
+				templen = max - length - 1;
 			g_strlcat(s, temp, max);
 			length+=templen;
 			g_free(temp);
