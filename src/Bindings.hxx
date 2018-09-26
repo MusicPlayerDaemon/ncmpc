@@ -42,6 +42,9 @@ struct KeyBinding {
 	bool modified = false;
 #endif
 
+	constexpr KeyBinding(int a, int b=0, int c=0) noexcept
+		:keys{{a, b, c}} {}
+
 	gcc_pure
 	bool HasKey(int key) const {
 		return std::find(keys.begin(), keys.end(), key) != keys.end();

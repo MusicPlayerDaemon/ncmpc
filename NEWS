@@ -2,6 +2,7 @@ ncmpc 0.32 - not yet released
 * fix crash bug on lyrics page
 * fix manpage installation directory
 * fix build breakages with some ncurses builds
+* work around GCC 4.9 build failure
 * remove doxygen support
 * new dependency: Boost
 
