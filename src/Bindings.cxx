@@ -39,20 +39,18 @@ KeyBindings::GetFirstKeyName(Command command) const noexcept
 		: nullptr;
 }
 
-const char *
+std::string
 KeyBindings::GetKeyNames(Command command) const noexcept
 {
 	const auto &b = key_bindings[size_t(command)];
 
-	static char keystr[80];
-
-	g_strlcpy(keystr, key2str(b.keys[0]), sizeof(keystr));
+	std::string s = key2str(b.keys[0]);
 
 	for (size_t i = 1; i < b.keys.size() && b.keys[i] != 0; ++i) {
-		g_strlcat(keystr, " ", sizeof(keystr));
-		g_strlcat(keystr, key2str(b.keys[i]), sizeof(keystr));
+		s.push_back(' ');
+		s.append(key2str(b.keys[i]));
 	}
-	return keystr;
+	return s;
 }
 
 Command

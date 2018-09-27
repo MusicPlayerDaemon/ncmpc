@@ -26,6 +26,7 @@
 
 #include <array>
 #include <algorithm>
+#include <string>
 
 #include <stddef.h>
 
@@ -83,7 +84,7 @@ struct KeyBindings {
 	const char *GetFirstKeyName(Command command) const noexcept;
 
 	gcc_pure
-	const char *GetKeyNames(Command command) const noexcept;
+	std::string GetKeyNames(Command command) const noexcept;
 
 	void SetKey(Command command,
 		    const std::array<int, MAX_COMMAND_KEYS> &keys) {

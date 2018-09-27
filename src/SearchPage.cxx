@@ -142,7 +142,7 @@ public:
 		if (idx == 0) {
 			snprintf(buffer, size,
 				 " %s : %s",
-				 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH),
+				 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH).c_str(),
 				 "New search");
 			return buffer;
 		}
@@ -150,7 +150,7 @@ public:
 		if (idx == 1) {
 			snprintf(buffer, size,
 				 " %s : %s [%s]",
-				 GetGlobalKeyBindings().GetKeyNames(Command::SEARCH_MODE),
+				 GetGlobalKeyBindings().GetKeyNames(Command::SEARCH_MODE).c_str(),
 				 get_key_description(Command::SEARCH_MODE),
 				 gettext(mode[options.search_mode].label));
 			return buffer;

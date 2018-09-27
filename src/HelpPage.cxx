@@ -287,12 +287,12 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 		else if (row->highlight == 2)
 			mvwhline(w, y, 3, ACS_HLINE, width - 6);
 	} else {
-		const char *key =
+		const auto key =
 			GetGlobalKeyBindings().GetKeyNames(row->command);
 
-		if (utf8_width(key) < 20)
-			wmove(w, y, 20 - utf8_width(key));
-		waddstr(w, key);
+		if (utf8_width(key.c_str()) < 20)
+			wmove(w, y, 20 - utf8_width(key.c_str()));
+		waddstr(w, key.c_str());
 		mvwaddch(w, y, 21, ':');
 		mvwaddstr(w, y, 23,
 			  row->text != nullptr
