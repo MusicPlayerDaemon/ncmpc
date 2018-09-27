@@ -98,7 +98,6 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 	int key = 65;
 
 	char buffer[WRLN_MAX_LINE_SIZE];
-	std::fill_n(buffer, WRLN_MAX_LINE_SIZE, 0);
 
 	/* In screen.findbuf is the whole string which is displayed in the status_window
 	 * and search_str is the string the user entered (without the prompt) */
@@ -109,11 +108,9 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 		key = screen_getch(buffer);
 		/* if backspace or delete was pressed, process instead of ending loop */
 		if (key == KEY_BACKSPACE || key == KEY_DC) {
-			int i;
 			if (search_str <= g_utf8_find_prev_char(buffer, iter))
 				iter = g_utf8_find_prev_char(buffer, iter);
-			for (i = 0; *(iter + i) != '\0'; i++)
-				*(iter + i) = '\0';
+			*iter = '\0';
 			continue;
 		}
 		/* if a control key was pressed, end loop */
@@ -121,8 +118,8 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 			break;
 		}
 		else if (iter < buffer + WRLN_MAX_LINE_SIZE - 3) {
-			*iter = key;
-			++iter;
+			*iter++ = key;
+			*iter = '\0';
 		}
 		lw->Jump(text, search_str);
 
