@@ -32,36 +32,28 @@
 
 #include <assert.h>
 
-static void
-mpdclient_enter_idle_callback(struct mpdclient *c,
-			      const boost::system::error_code &error) noexcept
+void
+mpdclient::OnEnterIdleTimer(const boost::system::error_code &error) noexcept
 {
 	if (error)
 		return;
 
-	assert(c->source != nullptr);
-	assert(!c->idle);
+	assert(source != nullptr);
+	assert(!idle);
 
-	c->idle = c->source->Enter();
+	idle = source->Enter();
 }
 
-static void
-mpdclient_schedule_enter_idle(struct mpdclient *c)
+void
+mpdclient::ScheduleEnterIdle() noexcept
 {
-	assert(c != nullptr);
-	assert(c->source != nullptr);
+	assert(source != nullptr);
 
 	/* automatically re-enter MPD "idle" mode */
 	boost::system::error_code error;
-	c->enter_idle_timer.expires_from_now(std::chrono::seconds(0), error);
-	c->enter_idle_timer.async_wait(std::bind(mpdclient_enter_idle_callback,
-						 c, std::placeholders::_1));
-}
-
-static void
-mpdclient_cancel_enter_idle(struct mpdclient *c)
-{
-	c->enter_idle_timer.cancel();
+	enter_idle_timer.expires_from_now(std::chrono::seconds(0), error);
+	enter_idle_timer.async_wait(std::bind(&mpdclient::OnEnterIdleTimer,
+					      this, std::placeholders::_1));
 }
 
 static void
@@ -104,7 +96,7 @@ mpdclient::OnIdle(unsigned _events) noexcept
 	events = 0;
 
 	if (source != nullptr)
-		mpdclient_schedule_enter_idle(this);
+		ScheduleEnterIdle();
 }
 
 void
@@ -230,19 +222,19 @@ mpdclient::GetSettingsName() const
 #endif
 }
 
-static void
-mpdclient_status_free(struct mpdclient *c)
+void
+mpdclient::ClearStatus() noexcept
 {
-	if (c->status == nullptr)
+	if (status == nullptr)
 		return;
 
-	mpd_status_free(c->status);
-	c->status = nullptr;
+	mpd_status_free(status);
+	status = nullptr;
 
-	c->volume = -1;
-	c->playing = false;
-	c->playing_or_paused = false;
-	c->state = MPD_STATE_UNKNOWN;
+	volume = -1;
+	playing = false;
+	playing_or_paused = false;
+	state = MPD_STATE_UNKNOWN;
 }
 
 void
@@ -255,7 +247,7 @@ mpdclient::Disconnect()
 	}
 #endif
 
-	mpdclient_cancel_enter_idle(this);
+	CancelEnterIdle();
 
 	delete source;
 	source = nullptr;
@@ -267,7 +259,7 @@ mpdclient::Disconnect()
 	}
 	connection = nullptr;
 
-	mpdclient_status_free(this);
+	ClearStatus();
 
 	playlist.clear();
 
@@ -278,42 +270,40 @@ mpdclient::Disconnect()
 	events |= MPD_IDLE_ALL;
 }
 
-static bool
-mpdclient_connected(struct mpdclient *c,
-		    struct mpd_connection *connection)
+bool
+mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 {
-	c->connection = connection;
+	connection = _connection;
 
 	if (mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS) {
-		mpdclient_invoke_error_callback1(c);
-		c->Disconnect();
+		mpdclient_invoke_error_callback1(this);
+		Disconnect();
 		mpdclient_failed_callback();
 		return false;
 	}
 
 #ifdef ENABLE_ASYNC_CONNECT
-	if (c->timeout_ms > 0)
-		mpd_connection_set_timeout(connection, c->timeout_ms);
+	if (timeout_ms > 0)
+		mpd_connection_set_timeout(connection, timeout_ms);
 #endif
 
 	/* send password */
-	if (c->password != nullptr &&
-	    !mpd_run_password(connection, c->password)) {
-		mpdclient_invoke_error_callback1(c);
-		c->Disconnect();
+	if (password != nullptr &&
+	    !mpd_run_password(connection, password)) {
+		mpdclient_invoke_error_callback1(this);
+		Disconnect();
 		mpdclient_failed_callback();
 		return false;
 	}
 
-	c->source = new MpdIdleSource(c->get_io_service(), *connection,
-				      *c);
-	mpdclient_schedule_enter_idle(c);
+	source = new MpdIdleSource(get_io_service(), *connection, *this);
+	ScheduleEnterIdle();
 
-	++c->connection_id;
+	++connection_id;
 
 	/* everything has changed after a connection has been
 	   established */
-	c->events = (enum mpd_idle)MPD_IDLE_ALL;
+	events = (enum mpd_idle)MPD_IDLE_ALL;
 
 	mpdclient_connected_callback();
 	return true;
@@ -352,7 +342,7 @@ mpdclient_connect_success(struct mpd_connection *connection, void *ctx)
 		return;
 	}
 
-	mpdclient_connected(c, connection);
+	c->OnConnected(connection);
 }
 
 static void
@@ -409,7 +399,7 @@ mpdclient::Connect()
 	if (new_connection == nullptr)
 		fprintf(stderr, "Out of memory\n");
 
-	mpdclient_connected(this, new_connection);
+	OnConnected(new_connection);
 #endif
 }
 
@@ -422,7 +412,7 @@ mpdclient::Update()
 		return false;
 
 	/* free the old status */
-	mpdclient_status_free(this);
+	ClearStatus();
 
 	/* retrieve new status */
 	status = mpd_run_status(c);
@@ -463,7 +453,7 @@ mpdclient::GetConnection()
 		source->Leave();
 
 		if (source != nullptr)
-			mpdclient_schedule_enter_idle(this);
+			ScheduleEnterIdle();
 	}
 
 	return connection;

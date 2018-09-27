@@ -171,9 +171,19 @@ struct mpdclient final : MpdIdleHandler {
 
 	bool Update();
 
+	bool OnConnected(struct mpd_connection *_connection) noexcept;
+
 private:
 	bool UpdateQueue();
 	bool UpdateQueueChanges();
+
+	void ClearStatus() noexcept;
+
+	void ScheduleEnterIdle() noexcept;
+	void CancelEnterIdle() noexcept {
+		enter_idle_timer.cancel();
+	}
+	void OnEnterIdleTimer(const boost::system::error_code &error) noexcept;
 
 	/* virtual methods from MpdIdleHandler */
 	void OnIdle(unsigned events) noexcept override;
