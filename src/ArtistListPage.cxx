@@ -29,8 +29,6 @@
 
 #include <algorithm>
 
-#include <glib.h>
-
 #include <assert.h>
 #include <string.h>
 
@@ -49,10 +47,7 @@ ArtistListPage::GetListItemText(char *buffer, size_t size,
 {
 	assert(idx < artist_list.size());
 
-	const char *str_utf8 = artist_list[idx].c_str();
-
-	g_strlcpy(buffer, Utf8ToLocale(str_utf8).c_str(), size);
-	return buffer;
+	return utf8_to_locale(artist_list[idx].c_str(), buffer, size);
 }
 
 static void
