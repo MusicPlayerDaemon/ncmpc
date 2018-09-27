@@ -33,7 +33,11 @@ PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected)
 		wattron(w, A_REVERSE);
 
 	waddch(w, ' ');
-	waddstr(w, GetGlobalKeyBindings().GetKeyNames(cmd, false));
+
+	const char *key = GetGlobalKeyBindings().GetFirstKeyName(cmd);
+	if (key != nullptr)
+		waddstr(w, key);
+
 	SelectStyle(w, Style::TITLE);
 	if (selected)
 		wattron(w, A_REVERSE);

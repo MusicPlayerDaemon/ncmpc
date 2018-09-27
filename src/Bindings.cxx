@@ -31,6 +31,15 @@
 #include <unistd.h>
 
 const char *
+KeyBindings::GetFirstKeyName(Command command) const noexcept
+{
+	const auto &b = key_bindings[size_t(command)];
+	return b.keys.front() != 0
+		? key2str(b.keys[0])
+		: nullptr;
+}
+
+const char *
 KeyBindings::GetKeyNames(Command command, bool all) const
 {
 	const auto &b = key_bindings[size_t(command)];

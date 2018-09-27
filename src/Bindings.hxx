@@ -75,6 +75,13 @@ struct KeyBindings {
 	gcc_pure
 	Command FindKey(int key) const;
 
+	/**
+	 * Returns the name of the first key bound to the given
+	 * command, or nullptr if there is no key binding.
+	 */
+	gcc_pure
+	const char *GetFirstKeyName(Command command) const noexcept;
+
 	gcc_pure
 	const char *GetKeyNames(Command command, bool all) const;
 
