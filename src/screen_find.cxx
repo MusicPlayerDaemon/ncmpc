@@ -28,6 +28,8 @@
 
 #include <glib.h>
 
+#include <ctype.h>
+
 #define FIND_PROMPT  _("Find")
 #define RFIND_PROMPT _("Find backward")
 #define JUMP_PROMPT _("Jump")
@@ -114,7 +116,7 @@ screen_jump(ScreenManager &screen, ListWindow &lw,
 			continue;
 		}
 		/* if a control key was pressed, end loop */
-		else if (g_ascii_iscntrl(key) || key == KEY_NPAGE || key == KEY_PPAGE) {
+		else if (iscntrl(key) || key == KEY_NPAGE || key == KEY_PPAGE) {
 			break;
 		}
 		else if (iter < buffer + WRLN_MAX_LINE_SIZE - 3) {
