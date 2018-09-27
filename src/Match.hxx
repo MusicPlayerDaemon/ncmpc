@@ -23,17 +23,19 @@
 #include "config.h"
 #include "util/Compiler.h"
 
+#ifdef HAVE_PCRE
+#include <pcre.h>
+#endif
+
 #include <stddef.h>
 
-typedef struct _GRegex GRegex;
-
 class MatchExpression {
-#ifdef NCMPC_MINI
+#ifndef HAVE_PCRE
 	const char *expression;
 	size_t length;
 	bool anchored;
 #else
-	GRegex *regex = nullptr;
+	pcre *re = nullptr;
 #endif
 
 public:

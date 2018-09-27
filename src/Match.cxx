@@ -20,23 +20,20 @@
 #include "Match.hxx"
 #include "charset.hxx"
 
-#include <glib.h>
-
 #include <assert.h>
 #include <string.h>
 
 MatchExpression::~MatchExpression() noexcept
 {
-#ifndef NCMPC_MINI
-	if (regex != nullptr)
-		g_regex_unref(regex);
+#ifdef HAVE_PCRE
+	pcre_free(re);
 #endif
 }
 
 bool
 MatchExpression::Compile(const char *src, bool anchor) noexcept
 {
-#ifdef NCMPC_MINI
+#ifndef HAVE_PCRE
 	assert(expression == nullptr);
 
 	expression = src;
@@ -45,17 +42,16 @@ MatchExpression::Compile(const char *src, bool anchor) noexcept
 
 	return true;
 #else
-	assert(regex == nullptr);
+	assert(re == nullptr);
 
-	unsigned compile_flags =
-		G_REGEX_CASELESS | G_REGEX_DOTALL | G_REGEX_OPTIMIZE;
+	int options = PCRE_CASELESS|PCRE_DOTALL|PCRE_NO_AUTO_CAPTURE;
 	if (anchor)
-		compile_flags |= G_REGEX_ANCHORED;
+		options |= PCRE_ANCHORED;
 
-	regex = g_regex_new(LocaleToUtf8(src).c_str(),
-			    GRegexCompileFlags(compile_flags),
-			    GRegexMatchFlags(0), nullptr);
-	return regex != nullptr;
+	const char *error_string;
+	int error_offset;
+	re = pcre_compile(src, options, &error_string, &error_offset, nullptr);
+	return re != nullptr;
 #endif
 }
 
@@ -69,14 +65,9 @@ MatchExpression::operator()(const char *line) const noexcept
 		? strncasecmp(line, expression, length) == 0
 		: strstr(line, expression) != nullptr;
 #else
-	assert(regex != nullptr);
+	assert(re != nullptr);
 
-	GMatchInfo *match_info;
-	g_regex_match(regex, LocaleToUtf8(line).c_str(),
-		      GRegexMatchFlags(0), &match_info);
-	bool match = (bool)g_match_info_matches(match_info);
-
-	g_match_info_free(match_info);
-	return match;
+	return pcre_exec(re, nullptr, line, strlen(line),
+			 0, 0, nullptr, 0) >= 0;
 #endif
 }

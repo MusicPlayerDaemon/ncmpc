@@ -176,6 +176,13 @@ boost_dep = dependency('boost', modules: ['system'], version: '>= 1.62')
 glib_dep = dependency('glib-2.0', version: '>= 2.30')
 libmpdclient_dep = dependency('libmpdclient', version: '>= 2.9')
 
+if not mini
+  pcre_dep = dependency('libpcre', required: false)
+  conf.set('HAVE_PCRE', pcre_dep.found())
+else
+  pcre_dep = declare_dependency()
+endif
+
 inc = include_directories(
   'src',
 
@@ -357,6 +364,7 @@ ncmpc = executable('ncmpc',
     thread_dep,
     boost_dep,
     glib_dep,
+    pcre_dep,
     curses_dep,
     lirc_dep,
     libmpdclient_dep,

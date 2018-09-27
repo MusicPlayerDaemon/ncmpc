@@ -22,6 +22,8 @@ You need:
 
 Optional:
 
+- `PCRE <https://www.pcre.org/>`__ (for regular expression support in
+  the "find" command)
 - `liblirc <https://sourceforge.net/projects/lirc/>`__ (for infrared
   remote support)
 - `Sphinx <http://www.sphinx-doc.org/en/master/>`__ (for building
