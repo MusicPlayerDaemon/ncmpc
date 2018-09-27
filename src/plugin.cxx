@@ -51,10 +51,10 @@ struct PluginPipe {
 
 	std::array<char, 256> buffer;
 
-	PluginPipe(boost::asio::io_service &io_service)
+	PluginPipe(boost::asio::io_service &io_service) noexcept
 		:fd(io_service) {}
 
-	~PluginPipe() {
+	~PluginPipe() noexcept {
 		Close();
 	}
 
@@ -68,7 +68,7 @@ struct PluginPipe {
 	void OnRead(const boost::system::error_code &error,
 		    std::size_t bytes_transferred) noexcept;
 
-	void Close() {
+	void Close() noexcept {
 		if (!fd.is_open())
 			return;
 
@@ -109,7 +109,7 @@ struct PluginCycle {
 
 	PluginCycle(boost::asio::io_service &io_service,
 		    PluginList &_list, std::unique_ptr<char *[]> &&_argv,
-		    plugin_callback_t _callback, void *_callback_data)
+		    plugin_callback_t _callback, void *_callback_data) noexcept
 		:list(&_list), argv(std::move(_argv)),
 		 callback(_callback), callback_data(_callback_data),
 		 pipe_stdout(io_service), pipe_stderr(io_service),
@@ -129,7 +129,7 @@ private:
 };
 
 static bool
-register_plugin(PluginList *list, std::string &&path)
+register_plugin(PluginList *list, std::string &&path) noexcept
 {
 	struct stat st;
 	if (stat(path.c_str(), &st) < 0)
@@ -140,7 +140,7 @@ register_plugin(PluginList *list, std::string &&path)
 }
 
 bool
-plugin_list_load_directory(PluginList *list, const char *path)
+plugin_list_load_directory(PluginList *list, const char *path) noexcept
 {
 	GDir *dir = g_dir_open(path, 0, nullptr);
 	if (dir == nullptr)
@@ -159,10 +159,10 @@ plugin_list_load_directory(PluginList *list, const char *path)
 }
 
 static void
-next_plugin(PluginCycle *cycle);
+next_plugin(PluginCycle *cycle) noexcept;
 
 static void
-plugin_eof(PluginCycle *cycle, PluginPipe *p)
+plugin_eof(PluginCycle *cycle, PluginPipe *p) noexcept
 {
 	p->fd.close();
 
@@ -238,7 +238,7 @@ PluginCycle::OnDelayedFail(const boost::system::error_code &error) noexcept
 }
 
 static void
-plugin_fd_add(PluginCycle *cycle, PluginPipe *p, int fd)
+plugin_fd_add(PluginCycle *cycle, PluginPipe *p, int fd) noexcept
 {
 	p->cycle = cycle;
 	p->fd.assign(fd);
@@ -246,7 +246,7 @@ plugin_fd_add(PluginCycle *cycle, PluginPipe *p, int fd)
 }
 
 static int
-start_plugin(PluginCycle *cycle, const char *plugin_path)
+start_plugin(PluginCycle *cycle, const char *plugin_path) noexcept
 {
 	assert(cycle != nullptr);
 	assert(cycle->pid < 0);
@@ -308,7 +308,7 @@ start_plugin(PluginCycle *cycle, const char *plugin_path)
 }
 
 static void
-next_plugin(PluginCycle *cycle)
+next_plugin(PluginCycle *cycle) noexcept
 {
 	assert(cycle->pid < 0);
 	assert(!cycle->pipe_stdout.fd.is_open());
@@ -332,7 +332,7 @@ next_plugin(PluginCycle *cycle)
 }
 
 static auto
-make_argv(const char*const* args)
+make_argv(const char*const* args) noexcept
 {
 	unsigned num = 0;
 	while (args[num] != nullptr)
@@ -358,7 +358,7 @@ make_argv(const char*const* args)
 PluginCycle *
 plugin_run(boost::asio::io_service &io_service,
 	   PluginList *list, const char *const*args,
-	   plugin_callback_t callback, void *callback_data)
+	   plugin_callback_t callback, void *callback_data) noexcept
 {
 	assert(args != nullptr);
 
@@ -370,7 +370,7 @@ plugin_run(boost::asio::io_service &io_service,
 }
 
 void
-plugin_stop(PluginCycle *cycle)
+plugin_stop(PluginCycle *cycle) noexcept
 {
 	if (cycle->pid > 0) {
 		/* kill the plugin process */

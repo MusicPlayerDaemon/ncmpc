@@ -57,7 +57,7 @@ struct PluginCycle;
  * Load all plugins (executables) in a directory.
  */
 bool
-plugin_list_load_directory(PluginList *list, const char *path);
+plugin_list_load_directory(PluginList *list, const char *path) noexcept;
 
 /**
  * Run plugins in this list, until one returns success (or until the
@@ -74,7 +74,7 @@ plugin_list_load_directory(PluginList *list, const char *path);
 PluginCycle *
 plugin_run(boost::asio::io_service &io_service,
 	   PluginList *list, const char *const*args,
-	   plugin_callback_t callback, void *callback_data);
+	   plugin_callback_t callback, void *callback_data) noexcept;
 
 /**
  * Stops the plugin cycle and frees resources.  This can be called to
@@ -82,6 +82,6 @@ plugin_run(boost::asio::io_service &io_service,
  * invoked.
  */
 void
-plugin_stop(PluginCycle *invocation);
+plugin_stop(PluginCycle *invocation) noexcept;
 
 #endif
