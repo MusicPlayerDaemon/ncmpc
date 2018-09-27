@@ -23,6 +23,7 @@
 #include <glib.h>
 
 #include <assert.h>
+#include <string.h>
 
 MatchExpression::~MatchExpression() noexcept
 {
@@ -65,7 +66,7 @@ MatchExpression::operator()(const char *line) const noexcept
 	assert(expression != nullptr);
 
 	return anchored
-		? g_ascii_strncasecmp(line, expression, length) == 0
+		? strncasecmp(line, expression, length) == 0
 		: strstr(line, expression) != nullptr;
 #else
 	assert(regex != nullptr);
