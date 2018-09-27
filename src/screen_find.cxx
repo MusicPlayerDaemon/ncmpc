@@ -25,8 +25,7 @@
 #include "keyboard.hxx"
 #include "i18n.h"
 #include "Options.hxx"
-
-#include <glib.h>
+#include "util/LocaleString.hxx"
 
 #include <ctype.h>
 
@@ -110,8 +109,9 @@ screen_jump(ScreenManager &screen, ListWindow &lw,
 		key = screen_getch(buffer);
 		/* if backspace or delete was pressed, process instead of ending loop */
 		if (key == KEY_BACKSPACE || key == KEY_DC) {
-			if (search_str <= g_utf8_find_prev_char(buffer, iter))
-				iter = g_utf8_find_prev_char(buffer, iter);
+			const char *prev = PrevCharMB(buffer, iter);
+			if (search_str <= prev)
+				iter = const_cast<char *>(prev);
 			*iter = '\0';
 			continue;
 		}
