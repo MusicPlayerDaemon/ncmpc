@@ -36,14 +36,14 @@ class ListText;
  * @return true if the command has been handled, false if not
  */
 bool
-screen_find(ScreenManager &screen, ListWindow *lw,
+screen_find(ScreenManager &screen, ListWindow &lw,
 	    Command findcmd,
 	    const ListText &text) noexcept;
 
 /* query user for a string and jump to the entry
  * which begins with this string while the users types */
 void
-screen_jump(ScreenManager &screen, ListWindow *lw,
+screen_jump(ScreenManager &screen, ListWindow &lw,
 	    const ListText &text, const ListRenderer &renderer) noexcept;
 
 #endif

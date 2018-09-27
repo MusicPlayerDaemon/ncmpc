@@ -314,7 +314,7 @@ HelpPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	lw.SetCursor(lw.start);
-	if (screen_find(screen, &lw, cmd, *this)) {
+	if (screen_find(screen, lw, cmd, *this)) {
 		/* center the row */
 		lw.Center(lw.selected);
 		SetDirty();

@@ -382,11 +382,11 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_RFIND:
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
-		screen_find(screen, &lw, cmd, *this);
+		screen_find(screen, lw, cmd, *this);
 		SetDirty();
 		return true;
 	case Command::LIST_JUMP:
-		screen_jump(screen, &lw, *this, *this);
+		screen_jump(screen, lw, *this, *this);
 		SetDirty();
 		return true;
 

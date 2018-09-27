@@ -34,7 +34,7 @@
 
 /* query user for a string and find it in a list window */
 bool
-screen_find(ScreenManager &screen, ListWindow *lw, Command findcmd,
+screen_find(ScreenManager &screen, ListWindow &lw, Command findcmd,
 	    const ListText &text) noexcept
 {
 	bool found;
@@ -67,14 +67,14 @@ screen_find(ScreenManager &screen, ListWindow *lw, Command findcmd,
 			return true;
 
 		found = reversed
-			? lw->ReverseFind(text,
-					  screen.findbuf.c_str(),
-					  options.find_wrap,
-					  options.bell_on_wrap)
-			: lw->Find(text,
-				   screen.findbuf.c_str(),
-				   options.find_wrap,
-				   options.bell_on_wrap);
+			? lw.ReverseFind(text,
+					 screen.findbuf.c_str(),
+					 options.find_wrap,
+					 options.bell_on_wrap)
+			: lw.Find(text,
+				  screen.findbuf.c_str(),
+				  options.find_wrap,
+				  options.bell_on_wrap);
 		if (!found) {
 			screen_status_printf(_("Unable to find \'%s\'"),
 					     screen.findbuf.c_str());
@@ -90,7 +90,7 @@ screen_find(ScreenManager &screen, ListWindow *lw, Command findcmd,
 /* query user for a string and jump to the entry
  * which begins with this string while the users types */
 void
-screen_jump(ScreenManager &screen, ListWindow *lw,
+screen_jump(ScreenManager &screen, ListWindow &lw,
 	    const ListText &text,
 	    const ListRenderer &renderer) noexcept
 {
@@ -121,11 +121,11 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 			*iter++ = key;
 			*iter = '\0';
 		}
-		lw->Jump(text, search_str);
+		lw.Jump(text, search_str);
 
 		/* repaint the list_window */
-		lw->Paint(renderer);
-		wrefresh(lw->w);
+		lw.Paint(renderer);
+		wrefresh(lw.w);
 	}
 
 	screen.findbuf = search_str;
