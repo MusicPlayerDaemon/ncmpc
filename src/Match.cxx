@@ -24,7 +24,7 @@
 
 #include <assert.h>
 
-MatchExpression::~MatchExpression()
+MatchExpression::~MatchExpression() noexcept
 {
 #ifndef NCMPC_MINI
 	if (regex != nullptr)
@@ -33,7 +33,7 @@ MatchExpression::~MatchExpression()
 }
 
 bool
-MatchExpression::Compile(const char *src, bool anchor)
+MatchExpression::Compile(const char *src, bool anchor) noexcept
 {
 #ifdef NCMPC_MINI
 	assert(expression == nullptr);
@@ -59,7 +59,7 @@ MatchExpression::Compile(const char *src, bool anchor)
 }
 
 bool
-MatchExpression::operator()(const char *line) const
+MatchExpression::operator()(const char *line) const noexcept
 {
 #ifdef NCMPC_MINI
 	assert(expression != nullptr);

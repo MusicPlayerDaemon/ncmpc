@@ -38,15 +38,15 @@ class MatchExpression {
 
 public:
 	MatchExpression() = default;
-	~MatchExpression();
+	~MatchExpression() noexcept;
 
 	MatchExpression(const MatchExpression &) = delete;
 	MatchExpression &operator=(const MatchExpression &) = delete;
 
-	bool Compile(const char *src, bool anchor);
+	bool Compile(const char *src, bool anchor) noexcept;
 
 	gcc_pure
-	bool operator()(const char *line) const;
+	bool operator()(const char *line) const noexcept;
 };
 
 #endif
