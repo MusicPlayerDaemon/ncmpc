@@ -22,8 +22,6 @@
 #include "screen_find.hxx"
 #include "charset.hxx"
 
-#include <glib.h>
-
 #include <algorithm>
 
 #include <assert.h>
@@ -76,8 +74,7 @@ TextPage::GetListItemText(char *buffer, size_t size, unsigned idx) const noexcep
 {
 	assert(idx < lines.size());
 
-	g_strlcpy(buffer, Utf8ToLocale(lines[idx].c_str()).c_str(), size);
-	return buffer;
+	return utf8_to_locale(lines[idx].c_str(), buffer, size);
 }
 
 void
