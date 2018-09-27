@@ -83,7 +83,7 @@ struct KeyBindings {
 	const char *GetFirstKeyName(Command command) const noexcept;
 
 	gcc_pure
-	const char *GetKeyNames(Command command, bool all) const;
+	const char *GetKeyNames(Command command) const noexcept;
 
 	void SetKey(Command command,
 		    const std::array<int, MAX_COMMAND_KEYS> &keys) {

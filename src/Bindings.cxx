@@ -40,15 +40,13 @@ KeyBindings::GetFirstKeyName(Command command) const noexcept
 }
 
 const char *
-KeyBindings::GetKeyNames(Command command, bool all) const
+KeyBindings::GetKeyNames(Command command) const noexcept
 {
 	const auto &b = key_bindings[size_t(command)];
 
 	static char keystr[80];
 
 	g_strlcpy(keystr, key2str(b.keys[0]), sizeof(keystr));
-	if (!all)
-		return keystr;
 
 	for (size_t i = 1; i < b.keys.size() && b.keys[i] != 0; ++i) {
 		g_strlcat(keystr, " ", sizeof(keystr));

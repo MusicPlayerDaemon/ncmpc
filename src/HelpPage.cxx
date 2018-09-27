@@ -288,7 +288,7 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 			mvwhline(w, y, 3, ACS_HLINE, width - 6);
 	} else {
 		const char *key =
-			GetGlobalKeyBindings().GetKeyNames(row->command, true);
+			GetGlobalKeyBindings().GetKeyNames(row->command);
 
 		if (utf8_width(key) < 20)
 			wmove(w, y, 20 - utf8_width(key));
