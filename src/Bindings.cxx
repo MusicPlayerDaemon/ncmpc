@@ -23,12 +23,8 @@
 #include "i18n.h"
 #include "util/CharUtil.hxx"
 
-#include <curses.h>
-
-#include <glib.h>
-
 #include <assert.h>
-#include <unistd.h>
+#include <stdio.h>
 
 const char *
 KeyBindings::GetFirstKeyName(Command command) const noexcept
