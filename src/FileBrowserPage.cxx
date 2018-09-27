@@ -39,7 +39,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <glib.h>
 
 class FileBrowserPage final : public FileListPage {
 	std::string current_path;
@@ -219,11 +218,10 @@ FileBrowserPage::HandleSave(struct mpdclient &c)
 		}
 	}
 
-	char *defaultname_utf8 = nullptr;
 	if(defaultname)
-		defaultname_utf8 = utf8_to_locale(defaultname);
-	playlist_save(&c, nullptr, defaultname_utf8);
-	g_free(defaultname_utf8);
+		playlist_save(&c, nullptr, Utf8ToLocale(defaultname).c_str());
+	else
+		playlist_save(&c, nullptr, nullptr);
 }
 
 void
