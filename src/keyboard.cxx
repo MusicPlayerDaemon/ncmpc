@@ -23,12 +23,8 @@
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "ncmpc.hxx"
-#include "screen.hxx"
+#include "Point.hxx"
 #include "util/Compiler.h"
-
-#include <glib.h>
-
-#include <unistd.h>
 
 static bool
 ignore_key(int key)
