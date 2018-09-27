@@ -90,34 +90,35 @@ mpdclient_invoke_error_callback1(struct mpdclient *c)
 					mpd_connection_get_error_message(connection));
 }
 
-static void
-mpdclient_gidle_callback(enum mpd_error error,
-			 gcc_unused enum mpd_server_error server_error,
-			 const char *message, unsigned events,
-			 void *ctx)
+void
+mpdclient::OnIdle(unsigned _events) noexcept
 {
-	auto *c = (struct mpdclient *)ctx;
+	assert(IsConnected());
 
-	c->idle = false;
+	idle = false;
 
-	assert(c->IsConnected());
+	events |= _events;
+	Update();
 
-	if (error != MPD_ERROR_SUCCESS) {
-		mpdclient_invoke_error_callback(error, message);
-		c->Disconnect();
-		mpdclient_lost_callback();
-		return;
-	}
+	mpdclient_idle_callback(events);
+	events = 0;
 
-	c->events |= events;
-	c->Update();
+	if (source != nullptr)
+		mpdclient_schedule_enter_idle(this);
+}
 
-	mpdclient_idle_callback(c->events);
+void
+mpdclient::OnIdleError(enum mpd_error error,
+		       gcc_unused enum mpd_server_error server_error,
+		       const char *message) noexcept
+{
+	assert(IsConnected());
 
-	c->events = 0;
+	idle = false;
 
-	if (c->source != nullptr)
-		mpdclient_schedule_enter_idle(c);
+	mpdclient_invoke_error_callback(error, message);
+	Disconnect();
+	mpdclient_lost_callback();
 }
 
 /****************************************************************************/
@@ -305,7 +306,7 @@ mpdclient_connected(struct mpdclient *c,
 	}
 
 	c->source = new MpdIdleSource(c->get_io_service(), *connection,
-				      mpdclient_gidle_callback, c);
+				      *c);
 	mpdclient_schedule_enter_idle(c);
 
 	++c->connection_id;

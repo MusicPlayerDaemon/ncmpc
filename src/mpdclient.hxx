@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include "Queue.hxx"
+#include "gidle.hxx"
 #include "util/Compiler.h"
 #include "AsioServiceFwd.hxx"
 
@@ -17,7 +18,7 @@ struct MpdQueue;
 class MpdIdleSource;
 class FileList;
 
-struct mpdclient {
+struct mpdclient final : MpdIdleHandler {
 #ifdef ENABLE_ASYNC_CONNECT
 	/**
 	 * These settings are used to connect to MPD asynchronously.
@@ -173,6 +174,12 @@ struct mpdclient {
 private:
 	bool UpdateQueue();
 	bool UpdateQueueChanges();
+
+	/* virtual methods from MpdIdleHandler */
+	void OnIdle(unsigned events) noexcept override;
+	void OnIdleError(enum mpd_error error,
+			 enum mpd_server_error server_error,
+			 const char *message) noexcept override;
 };
 
 enum {

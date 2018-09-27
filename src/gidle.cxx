@@ -38,11 +38,11 @@
 
 MpdIdleSource::MpdIdleSource(boost::asio::io_service &io_service,
 			     struct mpd_connection &_connection,
-			     mpd_glib_callback_t _callback, void *_callback_ctx) noexcept
+			     MpdIdleHandler &_handler) noexcept
 	:connection(&_connection),
 	 async(mpd_connection_get_async(connection)),
 	 parser(mpd_parser_new()),
-	 callback(_callback), callback_ctx(_callback_ctx),
+	 handler(_handler),
 	 socket(io_service, mpd_async_get_fd(async))
 {
 	/* TODO check parser!=nullptr */

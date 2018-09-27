@@ -35,18 +35,20 @@
 
 #include <boost/asio/posix/stream_descriptor.hpp>
 
-typedef void (*mpd_glib_callback_t)(enum mpd_error error,
-				    enum mpd_server_error server_error,
-				    const char *message,
-				    unsigned events, void *ctx);
+class MpdIdleHandler {
+public:
+	virtual void OnIdle(unsigned events) noexcept = 0;
+	virtual void OnIdleError(enum mpd_error error,
+				 enum mpd_server_error server_error,
+				 const char *message) noexcept = 0;
+};
 
 class MpdIdleSource {
 	struct mpd_connection *connection;
 	struct mpd_async *async;
 	struct mpd_parser *parser;
 
-	mpd_glib_callback_t callback;
-	void *callback_ctx;
+	MpdIdleHandler &handler;
 
 	boost::asio::posix::stream_descriptor socket;
 
@@ -57,8 +59,7 @@ class MpdIdleSource {
 public:
 	MpdIdleSource(boost::asio::io_service &io_service,
 		      struct mpd_connection &_connection,
-		      mpd_glib_callback_t _callback,
-		      void *_callback_ctx) noexcept;
+		      MpdIdleHandler &_handler) noexcept;
 	~MpdIdleSource() noexcept;
 
 	/**
@@ -77,16 +78,13 @@ public:
 private:
 	void InvokeCallback() noexcept {
 		if (idle_events != 0)
-			callback(MPD_ERROR_SUCCESS, (enum mpd_server_error)0,
-				 nullptr,
-				 idle_events, callback_ctx);
+			handler.OnIdle(idle_events);
 	}
 
 	void InvokeError(enum mpd_error error,
 			 enum mpd_server_error server_error,
 			 const char *message) noexcept {
-		callback(error, server_error, message,
-			 0, callback_ctx);
+		handler.OnIdleError(error, server_error, message);
 	}
 
 	void InvokeAsyncError() noexcept;
