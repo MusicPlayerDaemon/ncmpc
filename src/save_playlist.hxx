@@ -23,6 +23,7 @@
 struct mpdclient;
 
 int
-playlist_save(struct mpdclient *c, char *name, char *defaultname);
+playlist_save(struct mpdclient *c, const char *name,
+	      const char *defaultname) noexcept;
 
 #endif
