@@ -26,8 +26,6 @@
 #include "screen_client.hxx"
 #include "screen_status.hxx"
 
-#include <glib.h>
-
 bool
 handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 {
