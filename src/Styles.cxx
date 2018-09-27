@@ -21,6 +21,7 @@
 #include "BasicColors.hxx"
 #include "CustomColors.hxx"
 #include "i18n.h"
+#include "util/StringStrip.hxx"
 
 #ifdef ENABLE_COLORS
 #include "Options.hxx"
@@ -30,7 +31,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <glib.h>
 
 /**
  * Use the terminal's default color.
@@ -257,10 +257,11 @@ ParseBackgroundColor(const char *s)
 static bool
 ParseStyle(StyleData &d, const char *str)
 {
-	char **parts = g_strsplit(str, ",", 0);
-	for (int i = 0; parts[i]; i++) {
-		char *cur = parts[i];
+	std::string copy(str);
 
+	for (char *cur = strtok(&copy.front(), ","); cur != nullptr;
+	     cur = strtok(nullptr, ",")) {
+		cur = Strip(cur);
 		char *slash = strchr(cur, '/');
 		if (slash != nullptr) {
 			const char *name = slash + 1;
@@ -320,7 +321,7 @@ ParseStyle(StyleData &d, const char *str)
 		}
 
 	}
-	g_strfreev(parts);
+
 	return true;
 }
 
