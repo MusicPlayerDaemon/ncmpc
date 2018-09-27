@@ -46,8 +46,6 @@
 
 #include <mpd/client.h>
 
-#include <glib.h>
-
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -84,7 +82,7 @@ update_xterm_title()
 
 	static char title[BUFSIZE];
 	if (strncmp(title, new_title, BUFSIZE)) {
-		g_strlcpy(title, new_title, BUFSIZE);
+		strcpy(title, new_title);
 		set_xterm_title(title);
 	}
 }
