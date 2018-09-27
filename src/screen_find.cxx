@@ -120,10 +120,9 @@ screen_jump(ScreenManager &screen, ListWindow *lw,
 		else if (g_ascii_iscntrl(key) || key == KEY_NPAGE || key == KEY_PPAGE) {
 			break;
 		}
-		else {
+		else if (iter < buffer + WRLN_MAX_LINE_SIZE - 3) {
 			*iter = key;
-			if (iter < buffer + WRLN_MAX_LINE_SIZE - 3)
-				++iter;
+			++iter;
 		}
 		lw->Jump(text, search_str);
 
