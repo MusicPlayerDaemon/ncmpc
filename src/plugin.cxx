@@ -115,6 +115,8 @@ struct PluginCycle {
 		 pipe_stdout(io_service), pipe_stderr(io_service),
 		 delayed_fail_timer(io_service) {}
 
+	void TryNextPlugin() noexcept;
+
 	void ScheduleDelayedFail() noexcept {
 		boost::system::error_code error;
 		delayed_fail_timer.expires_from_now(std::chrono::seconds(0),
@@ -124,7 +126,11 @@ struct PluginCycle {
 							std::placeholders::_1));
 	}
 
+	void OnEof() noexcept;
+
 private:
+	int LaunchPlugin(const char *plugin_path) noexcept;
+
 	void OnDelayedFail(const boost::system::error_code &error) noexcept;
 };
 
@@ -158,43 +164,38 @@ plugin_list_load_directory(PluginList *list, const char *path) noexcept
 	return true;
 }
 
-static void
-next_plugin(PluginCycle *cycle) noexcept;
-
-static void
-plugin_eof(PluginCycle *cycle, PluginPipe *p) noexcept
+void
+PluginCycle::OnEof() noexcept
 {
-	p->fd.close();
-
 	/* Only if both pipes are have EOF status we are done */
-	if (cycle->pipe_stdout.fd.is_open() || cycle->pipe_stderr.fd.is_open())
+	if (pipe_stdout.fd.is_open() || pipe_stderr.fd.is_open())
 		return;
 
-	int status, ret = waitpid(cycle->pid, &status, 0);
-	cycle->pid = -1;
+	int status, ret = waitpid(pid, &status, 0);
+	pid = -1;
 
 	if (ret < 0 || !WIFEXITED(status) || WEXITSTATUS(status) != 0) {
 		/* If we encountered an error other than service unavailable
 		 * (69), log it for later. If all plugins fail, we may get
 		 * some hints for debugging.*/
-		if (!cycle->pipe_stderr.data.empty() &&
+		if (!pipe_stderr.data.empty() &&
 		    WEXITSTATUS(status) != 69) {
-			cycle->all_errors += "*** ";
-			cycle->all_errors += cycle->argv[0];
-			cycle->all_errors += " ***\n\n";
-			cycle->all_errors += cycle->pipe_stderr.data;
-			cycle->all_errors += "\n";
+			all_errors += "*** ";
+			all_errors += argv[0];
+			all_errors += " ***\n\n";
+			all_errors += pipe_stderr.data;
+			all_errors += "\n";
 		}
 
 		/* the plugin has failed */
-		cycle->pipe_stdout.data.clear();
-		cycle->pipe_stderr.data.clear();
+		pipe_stdout.data.clear();
+		pipe_stderr.data.clear();
 
-		next_plugin(cycle);
+		TryNextPlugin();
 	} else {
 		/* success: invoke the callback */
-		cycle->callback(std::move(cycle->pipe_stdout.data), true,
-				cycle->argv[0], cycle->callback_data);
+		callback(std::move(pipe_stdout.data), true,
+			 argv[0], callback_data);
 	}
 }
 
@@ -208,7 +209,8 @@ PluginPipe::OnRead(const boost::system::error_code &error,
 			   quickly without touching anything */
 			return;
 
-		plugin_eof(cycle, this);
+		fd.close();
+		cycle->OnEof();
 		return;
 	}
 
@@ -245,19 +247,18 @@ plugin_fd_add(PluginCycle *cycle, PluginPipe *p, int fd) noexcept
 	p->AsyncRead();
 }
 
-static int
-start_plugin(PluginCycle *cycle, const char *plugin_path) noexcept
+int
+PluginCycle::LaunchPlugin(const char *plugin_path) noexcept
 {
-	assert(cycle != nullptr);
-	assert(cycle->pid < 0);
-	assert(!cycle->pipe_stdout.fd.is_open());
-	assert(!cycle->pipe_stderr.fd.is_open());
-	assert(cycle->pipe_stdout.data.empty());
-	assert(cycle->pipe_stderr.data.empty());
+	assert(pid < 0);
+	assert(!pipe_stdout.fd.is_open());
+	assert(!pipe_stderr.fd.is_open());
+	assert(pipe_stdout.data.empty());
+	assert(pipe_stderr.data.empty());
 
 	/* set new program name, but free the one from the previous
 	   plugin */
-	cycle->argv[0] = const_cast<char *>(GetUriFilename(plugin_path));
+	argv[0] = const_cast<char *>(GetUriFilename(plugin_path));
 
 	int fds_stdout[2];
 	if (pipe(fds_stdout) < 0)
@@ -270,7 +271,7 @@ start_plugin(PluginCycle *cycle, const char *plugin_path) noexcept
 		return -1;
 	}
 
-	pid_t pid = fork();
+	pid = fork();
 
 	if (pid < 0) {
 		close(fds_stdout[0]);
@@ -290,43 +291,41 @@ start_plugin(PluginCycle *cycle, const char *plugin_path) noexcept
 		close(0);
 		/* XXX close other fds? */
 
-		execv(plugin_path, cycle->argv.get());
+		execv(plugin_path, argv.get());
 		_exit(1);
 	}
 
 	close(fds_stdout[1]);
 	close(fds_stderr[1]);
 
-	cycle->pid = pid;
-
 	/* XXX CLOEXEC? */
 
-	plugin_fd_add(cycle, &cycle->pipe_stdout, fds_stdout[0]);
-	plugin_fd_add(cycle, &cycle->pipe_stderr, fds_stderr[0]);
+	plugin_fd_add(this, &pipe_stdout, fds_stdout[0]);
+	plugin_fd_add(this, &pipe_stderr, fds_stderr[0]);
 
 	return 0;
 }
 
-static void
-next_plugin(PluginCycle *cycle) noexcept
+void
+PluginCycle::TryNextPlugin() noexcept
 {
-	assert(cycle->pid < 0);
-	assert(!cycle->pipe_stdout.fd.is_open());
-	assert(!cycle->pipe_stderr.fd.is_open());
-	assert(cycle->pipe_stdout.data.empty());
-	assert(cycle->pipe_stderr.data.empty());
+	assert(pid < 0);
+	assert(!pipe_stdout.fd.is_open());
+	assert(!pipe_stderr.fd.is_open());
+	assert(pipe_stdout.data.empty());
+	assert(pipe_stderr.data.empty());
 
-	if (cycle->next_plugin >= cycle->list->plugins.size()) {
+	if (next_plugin >= list->plugins.size()) {
 		/* no plugins left */
-		cycle->ScheduleDelayedFail();
+		ScheduleDelayedFail();
 		return;
 	}
 
 	const char *plugin_path = (const char *)
-		cycle->list->plugins[cycle->next_plugin++].c_str();
-	if (start_plugin(cycle, plugin_path) < 0) {
+		list->plugins[next_plugin++].c_str();
+	if (LaunchPlugin(plugin_path) < 0) {
 		/* system error */
-		cycle->ScheduleDelayedFail();
+		ScheduleDelayedFail();
 		return;
 	}
 }
@@ -364,7 +363,7 @@ plugin_run(boost::asio::io_service &io_service,
 
 	auto *cycle = new PluginCycle(io_service, *list, make_argv(args),
 				      callback, callback_data);
-	next_plugin(cycle);
+	cycle->TryNextPlugin();
 
 	return cycle;
 }
