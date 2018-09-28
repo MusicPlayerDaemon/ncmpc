@@ -320,7 +320,7 @@ Keys
 ----
 
 When ncmpc starts it tries to read user-defined key bindings from the
-:file:`$XDG_CONFIG_HOME/ncmpc/keys` (usuallu
+:file:`$XDG_CONFIG_HOME/ncmpc/keys` (usually
 :file:`~/.config/ncmpc/keys`) file.  If no user-defined key bindings
 are found then ncmpc tries to load the global key bindings from
 :file:`$SYSCONFDIR/ncmpc/keys` (the actual path is displayed on the
