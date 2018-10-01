@@ -29,9 +29,8 @@
 
 #include <mpd/idle.h>
 
-#include <glib.h>
-
 #include <string.h>
+#include <stdlib.h>
 
 static constexpr char chat_channel[] = "chat";
 
@@ -39,15 +38,11 @@ class ChatPage final : public TextPage {
 	unsigned last_connection_id = 0;
 	bool was_supported = false;
 
-	char *prefix = nullptr;
+	std::string prefix;
 
 public:
 	ChatPage(ScreenManager &_screen, WINDOW *w, Size size)
 		:TextPage(_screen, w, size) {}
-
-	~ChatPage() noexcept {
-		g_free(prefix);
-	}
 
 private:
 	bool CheckChatSupport(struct mpdclient &c);
@@ -55,7 +50,7 @@ private:
 	void ProcessMessage(const struct mpd_message &message);
 
 	gcc_pure
-	const char *GetPrefix() noexcept;
+	const std::string &GetPrefix() noexcept;
 
 	void SendMessage(struct mpdclient &c, const char *msg) noexcept;
 
@@ -132,30 +127,32 @@ ChatPage::Update(struct mpdclient &c, unsigned events) noexcept
 	}
 }
 
-const char *
+const std::string &
 ChatPage::GetPrefix() noexcept
 {
-	if (prefix)
+	if (!prefix.empty())
 		return prefix;
 
 	if (!options.chat_prefix.empty()) {
 		/* Options are encoded in the "locale" charset */
-		prefix = locale_to_utf8(options.chat_prefix.c_str());
+		prefix = LocaleToUtf8(options.chat_prefix.c_str()).c_str();
 		return prefix;
 	}
 
-	prefix = g_strconcat("<", g_get_user_name(), "> ", nullptr);
+	const char *user = getenv("USER");
+	if (user == nullptr)
+		user = "nobody";
+
+	prefix = std::string("<") + user + "> ";
 	return prefix;
 }
 
 void
 ChatPage::SendMessage(struct mpdclient &c, const char *msg) noexcept
 {
-	char *full_msg = g_strconcat(GetPrefix(), LocaleToUtf8(msg).c_str(),
-				     nullptr);
+	const std::string full_msg = GetPrefix() + LocaleToUtf8(msg).c_str();
 
-	(void) mpdclient_cmd_send_message(&c, chat_channel, full_msg);
-	g_free(full_msg);
+	(void) mpdclient_cmd_send_message(&c, chat_channel, full_msg.c_str());
 }
 
 bool
