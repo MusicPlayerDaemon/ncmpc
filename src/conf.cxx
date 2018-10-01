@@ -349,7 +349,7 @@ check_screen_list(char *value)
 	}
 
 	if (screen.empty())
-		return DEFAULT_SCREEN_LIST;
+		screen = DEFAULT_SCREEN_LIST;
 
 	return screen;
 }
