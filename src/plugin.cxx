@@ -91,7 +91,7 @@ struct PluginCycle {
 
 	/** the index of the next plugin which is going to be
 	    invoked */
-	guint next_plugin = 0;
+	unsigned next_plugin = 0;
 
 	/** the pid of the plugin process, or -1 if none is currently
 	    running */
