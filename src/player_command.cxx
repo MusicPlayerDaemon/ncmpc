@@ -96,10 +96,6 @@ handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 			c.HandleError();
 		break;
 	case Command::CLEAR:
-		connection = c.GetConnection();
-		if (connection == nullptr)
-			break;
-
 		if (mpdclient_cmd_clear(&c))
 			screen_status_message(_("Cleared queue"));
 		break;
