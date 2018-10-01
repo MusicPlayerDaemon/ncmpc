@@ -542,8 +542,8 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 
 #ifdef ENABLE_LYRICS_SCREEN
 	case Command::SCREEN_LYRICS:
-		if (lw.selected < c.playlist.size()) {
-			struct mpd_song &selected = c.playlist[lw.selected];
+		if (lw.selected < playlist->size()) {
+			struct mpd_song &selected = (*playlist)[lw.selected];
 			bool follow = false;
 
 			if (&selected == c.GetPlayingSong())
@@ -556,8 +556,8 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		break;
 #endif
 	case Command::SCREEN_SWAP:
-		if (!c.playlist.empty())
-			screen.Swap(c, &c.playlist[lw.selected]);
+		if (!playlist->empty())
+			screen.Swap(c, &(*playlist)[lw.selected]);
 		else
 			screen.Swap(c, nullptr);
 		return true;
@@ -637,7 +637,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 
 	case Command::LIST_MOVE_DOWN:
 		range = lw.GetRange();
-		if (range.end_index >= c.playlist.size())
+		if (range.end_index >= playlist->size())
 			return false;
 
 		if (!c.RunMove(range.start_index, range.end_index))
