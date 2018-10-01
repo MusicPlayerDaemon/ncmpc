@@ -445,21 +445,22 @@ SongPage::Update(struct mpdclient &c, unsigned) noexcept
 		next_song = nullptr;
 	}
 
+	const auto *const playing_song = c.GetPlayingSong();
+
 	if (selected_song != nullptr &&
-	    (c.song == nullptr ||
+	    (playing_song == nullptr ||
 	     strcmp(mpd_song_get_uri(selected_song),
-		    mpd_song_get_uri(c.song)) != 0 ||
-	     !c.playing_or_paused)) {
+		    mpd_song_get_uri(playing_song)) != 0)) {
 		lines.emplace_back(_("Selected song"));
 		AddSong(selected_song);
 		lines.emplace_back(std::string());
 	}
 
-	if (c.song != nullptr && c.playing_or_paused) {
+	if (playing_song) {
 		if (played_song != nullptr)
 			mpd_song_free(played_song);
 
-		played_song = mpd_song_dup(c.song);
+		played_song = mpd_song_dup(playing_song);
 		lines.emplace_back(_("Currently playing song"));
 		AddSong(played_song);
 
