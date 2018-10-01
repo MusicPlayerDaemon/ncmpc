@@ -243,8 +243,7 @@ separate_value(char *p)
 
 	*value++ = 0;
 
-	g_strchomp(p);
-	return StripLeft(value);
+	return Strip(value);
 }
 
 static bool
@@ -273,7 +272,7 @@ after_comma(char *p)
 	} else
 		comma = p + strlen(p);
 
-	g_strchomp(p);
+	StripRight(p);
 	return comma;
 }
 
@@ -600,8 +599,10 @@ read_rc_file(const char *filename)
 	while (fgets(line, sizeof(line), file) != nullptr) {
 		char *p = StripLeft(line);
 
-		if (*p != 0 && *p != COMMENT_TOKEN)
-			parse_line(g_strchomp(p));
+		if (*p != 0 && *p != COMMENT_TOKEN) {
+			StripRight(p);
+			parse_line(p);
+		}
 	}
 
 	fclose(file);
