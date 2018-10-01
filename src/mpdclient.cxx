@@ -259,8 +259,7 @@ mpdclient::Disconnect()
 
 	playlist.clear();
 
-	if (song)
-		song = nullptr;
+	song = nullptr;
 
 	/* everything has changed after a disconnect */
 	events |= MPD_IDLE_ALL;
