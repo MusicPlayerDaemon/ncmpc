@@ -467,7 +467,7 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 	} else if (bstate & BUTTON3_CLICKED) {
 		/* delete */
 		if (lw.selected == old_selected)
-			mpdclient_cmd_delete(&c, lw.selected);
+			c.RunDelete(lw.selected);
 
 		lw.SetLength(playlist->size());
 	}
@@ -587,8 +587,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 
 	case Command::DELETE:
 		range = lw.GetRange();
-		mpdclient_cmd_delete_range(&c, range.start_index,
-					   range.end_index);
+		c.RunDeleteRange(range.start_index, range.end_index);
 
 		lw.SetCursor(range.start_index);
 		return true;
@@ -623,8 +622,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		if (range.start_index == 0 || range.empty())
 			return false;
 
-		if (!mpdclient_cmd_move(&c, range.end_index - 1,
-					range.start_index - 1))
+		if (!c.RunMove(range.end_index - 1, range.start_index - 1))
 			return true;
 
 		lw.selected--;
@@ -642,8 +640,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		if (range.end_index >= c.playlist.size())
 			return false;
 
-		if (!mpdclient_cmd_move(&c, range.start_index,
-					range.end_index))
+		if (!c.RunMove(range.start_index, range.end_index))
 			return true;
 
 		lw.selected++;

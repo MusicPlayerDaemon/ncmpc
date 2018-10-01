@@ -262,7 +262,7 @@ browser_select_entry(struct mpdclient *c, FileListEntry *entry,
 		entry->flags |= HIGHLIGHT;
 #endif
 
-		if (mpdclient_cmd_add(c, song)) {
+		if (c->RunAdd(*song)) {
 			char buf[BUFSIZE];
 
 			strfsong(buf, BUFSIZE,
@@ -278,7 +278,7 @@ browser_select_entry(struct mpdclient *c, FileListEntry *entry,
 		entry->flags &= ~HIGHLIGHT;
 
 		while ((idx = c->playlist.FindByUri(mpd_song_get_uri(song))) >= 0)
-			mpdclient_cmd_delete(c, idx);
+			c->RunDelete(idx);
 #endif
 	}
 

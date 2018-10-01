@@ -63,13 +63,10 @@ mpdclient_invoke_error_callback(enum mpd_error error,
 		mpdclient_error_callback(message);
 }
 
-static void
-mpdclient_invoke_error_callback1(struct mpdclient *c)
+void
+mpdclient::InvokeErrorCallback() noexcept
 {
-	assert(c != nullptr);
-	assert(c->connection != nullptr);
-
-	struct mpd_connection *connection = c->connection;
+	assert(connection != nullptr);
 
 	enum mpd_error error = mpd_connection_get_error(connection);
 	assert(error != MPD_ERROR_SUCCESS);
@@ -271,7 +268,7 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 	connection = _connection;
 
 	if (mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS) {
-		mpdclient_invoke_error_callback1(this);
+		InvokeErrorCallback();
 		Disconnect();
 		mpdclient_failed_callback();
 		return false;
@@ -285,7 +282,7 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 	/* send password */
 	if (password != nullptr &&
 	    !mpd_run_password(connection, password)) {
-		mpdclient_invoke_error_callback1(this);
+		InvokeErrorCallback();
 		Disconnect();
 		mpdclient_failed_callback();
 		return false;
@@ -306,21 +303,6 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 
 #ifdef ENABLE_ASYNC_CONNECT
 
-static void
-mpdclient_aconnect_start(struct mpdclient *c,
-			 const struct mpd_settings *settings);
-
-static const struct mpd_settings *
-mpdclient_get_settings(const struct mpdclient *c)
-{
-#ifndef _WIN32
-	if (c->connecting2)
-		return c->settings2;
-#endif
-
-	return c->settings;
-}
-
 void
 mpdclient::OnAsyncMpdConnect(struct mpd_connection *_connection) noexcept
 {
@@ -328,7 +310,7 @@ mpdclient::OnAsyncMpdConnect(struct mpd_connection *_connection) noexcept
 	async_connect = nullptr;
 
 	const char *password2 =
-		mpd_settings_get_password(mpdclient_get_settings(this));
+		mpd_settings_get_password(&GetSettings());
 	if (password2 != nullptr && !mpd_run_password(_connection, password2)) {
 		mpdclient_error_callback(mpd_connection_get_error_message(_connection));
 		mpd_connection_free(_connection);
@@ -348,7 +330,7 @@ mpdclient::OnAsyncMpdConnectError(const char *message) noexcept
 #ifndef _WIN32
 	if (!connecting2 && settings2 != nullptr) {
 		connecting2 = true;
-		mpdclient_aconnect_start(this, settings2);
+		StartConnect(*settings2);
 		return;
 	}
 #endif
@@ -357,14 +339,13 @@ mpdclient::OnAsyncMpdConnectError(const char *message) noexcept
 	mpdclient_failed_callback();
 }
 
-static void
-mpdclient_aconnect_start(struct mpdclient *c,
-			 const struct mpd_settings *settings)
+void
+mpdclient::StartConnect(const struct mpd_settings &s) noexcept
 {
-	aconnect_start(c->get_io_service(), &c->async_connect,
-		       mpd_settings_get_host(settings),
-		       mpd_settings_get_port(settings),
-		       *c);
+	aconnect_start(get_io_service(), &async_connect,
+		       mpd_settings_get_host(&s),
+		       mpd_settings_get_port(&s),
+		       *this);
 }
 
 #endif
@@ -379,7 +360,7 @@ mpdclient::Connect()
 #ifndef _WIN32
 	connecting2 = false;
 #endif
-	mpdclient_aconnect_start(this, settings);
+	StartConnect(*settings);
 #else
 	/* connect to MPD */
 	struct mpd_connection *new_connection =
@@ -446,20 +427,20 @@ mpdclient::GetConnection()
 	return connection;
 }
 
-static struct mpd_status *
-mpdclient_recv_status(struct mpdclient *c)
+const struct mpd_status *
+mpdclient::ReceiveStatus() noexcept
 {
-	assert(c->connection != nullptr);
+	assert(connection != nullptr);
 
-	struct mpd_status *status = mpd_recv_status(c->connection);
-	if (status == nullptr) {
-		c->HandleError();
+	struct mpd_status *new_status = mpd_recv_status(connection);
+	if (new_status == nullptr) {
+		HandleError();
 		return nullptr;
 	}
 
-	if (c->status != nullptr)
-		mpd_status_free(c->status);
-	return c->status = status;
+	if (status != nullptr)
+		mpd_status_free(status);
+	return status = new_status;
 }
 
 /****************************************************************************/
@@ -494,40 +475,40 @@ mpdclient_cmd_crop(struct mpdclient *c)
 }
 
 bool
-mpdclient_cmd_clear(struct mpdclient *c)
+mpdclient::RunClearQueue() noexcept
 {
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr)
+	auto *c = GetConnection();
+	if (c == nullptr)
 		return false;
 
 	/* send "clear" and "status" */
-	if (!mpd_command_list_begin(connection, false) ||
-	    !mpd_send_clear(connection) ||
-	    !mpd_send_status(connection) ||
-	    !mpd_command_list_end(connection))
-		return c->HandleError();
+	if (!mpd_command_list_begin(c, false) ||
+	    !mpd_send_clear(c) ||
+	    !mpd_send_status(c) ||
+	    !mpd_command_list_end(c))
+		return HandleError();
 
 	/* receive the new status, store it in the mpdclient struct */
 
-	struct mpd_status *status = mpdclient_recv_status(c);
-	if (status == nullptr)
+	const struct mpd_status *new_status = ReceiveStatus();
+	if (new_status == nullptr)
 		return false;
 
-	if (!mpd_response_finish(connection))
-		return c->HandleError();
+	if (!mpd_response_finish(c))
+		return HandleError();
 
 	/* update mpdclient.playlist */
 
-	if (mpd_status_get_queue_length(status) == 0) {
+	if (mpd_status_get_queue_length(new_status) == 0) {
 		/* after the "clear" command, the queue is really
 		   empty - this means we can clear it locally,
 		   reducing the UI latency */
-		c->playlist.clear();
-		c->playlist.version = mpd_status_get_queue_version(status);
-		c->current_song = nullptr;
+		playlist.clear();
+		playlist.version = mpd_status_get_queue_version(new_status);
+		current_song = nullptr;
 	}
 
-	c->events |= MPD_IDLE_QUEUE;
+	events |= MPD_IDLE_QUEUE;
 	return true;
 }
 
@@ -580,56 +561,52 @@ mpdclient_cmd_add_path(struct mpdclient *c, const char *path_utf8)
 }
 
 bool
-mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
+mpdclient::RunAdd(const struct mpd_song &song) noexcept
 {
-	assert(c != nullptr);
-	assert(song != nullptr);
-
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr || c->status == nullptr)
+	auto *c = GetConnection();
+	if (c == nullptr || status == nullptr)
 		return false;
 
 	/* send the add command to mpd; at the same time, get the new
 	   status (to verify the new playlist id) and the last song
 	   (we hope that's the song we just added) */
 
-	if (!mpd_command_list_begin(connection, true) ||
-	    !mpd_send_add(connection, mpd_song_get_uri(song)) ||
-	    !mpd_send_status(connection) ||
-	    !mpd_send_get_queue_song_pos(connection,
-					 c->playlist.size()) ||
-	    !mpd_command_list_end(connection) ||
-	    !mpd_response_next(connection))
-		return c->HandleError();
+	if (!mpd_command_list_begin(c, true) ||
+	    !mpd_send_add(c, mpd_song_get_uri(&song)) ||
+	    !mpd_send_status(c) ||
+	    !mpd_send_get_queue_song_pos(c, playlist.size()) ||
+	    !mpd_command_list_end(c) ||
+	    !mpd_response_next(c))
+		return HandleError();
 
-	c->events |= MPD_IDLE_QUEUE;
+	events |= MPD_IDLE_QUEUE;
 
-	struct mpd_status *status = mpdclient_recv_status(c);
-	if (status == nullptr)
+	const struct mpd_status *new_status = ReceiveStatus();
+	if (new_status == nullptr)
 		return false;
 
-	if (!mpd_response_next(connection))
-		return c->HandleError();
+	if (!mpd_response_next(c))
+		return HandleError();
 
-	struct mpd_song *new_song = mpd_recv_song(connection);
-	if (!mpd_response_finish(connection) || new_song == nullptr) {
+	struct mpd_song *new_song = mpd_recv_song(c);
+	if (!mpd_response_finish(c) || new_song == nullptr) {
 		if (new_song != nullptr)
 			mpd_song_free(new_song);
 
-		return mpd_connection_clear_error(connection) ||
-			c->HandleError();
+		return mpd_connection_clear_error(c) ||
+			HandleError();
 	}
 
-	if (mpd_status_get_queue_length(status) == c->playlist.size() + 1 &&
-	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
+	if (mpd_status_get_queue_length(new_status) == playlist.size() + 1 &&
+	    mpd_status_get_queue_version(new_status) == playlist.version + 1) {
 		/* the cheap route: match on the new playlist length
 		   and its version, we can keep our local playlist
 		   copy in sync */
-		c->playlist.version = mpd_status_get_queue_version(status);
+		playlist.version = mpd_status_get_queue_version(new_status);
 
 		/* the song we just received has the correct id;
 		   append it to the local playlist */
-		c->playlist.push_back(*new_song);
+		playlist.push_back(*new_song);
 	}
 
 	mpd_song_free(new_song);
@@ -638,100 +615,99 @@ mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song)
 }
 
 bool
-mpdclient_cmd_delete(struct mpdclient *c, int idx)
+mpdclient::RunDelete(unsigned pos) noexcept
 {
-	struct mpd_connection *connection = c->GetConnection();
-
-	if (connection == nullptr || c->status == nullptr)
+	auto *c = GetConnection();
+	if (c == nullptr || status == nullptr)
 		return false;
 
-	if (idx < 0 || (unsigned)idx >= c->playlist.size())
+	if (pos >= playlist.size())
 		return false;
 
-	const auto &song = c->playlist[idx];
+	const auto &song = playlist[pos];
 
 	/* send the delete command to mpd; at the same time, get the
 	   new status (to verify the playlist id) */
 
-	if (!mpd_command_list_begin(connection, false) ||
-	    !mpd_send_delete_id(connection, mpd_song_get_id(&song)) ||
-	    !mpd_send_status(connection) ||
-	    !mpd_command_list_end(connection))
-		return c->HandleError();
+	if (!mpd_command_list_begin(c, false) ||
+	    !mpd_send_delete_id(c, mpd_song_get_id(&song)) ||
+	    !mpd_send_status(c) ||
+	    !mpd_command_list_end(c))
+		return HandleError();
 
-	c->events |= MPD_IDLE_QUEUE;
+	events |= MPD_IDLE_QUEUE;
 
-	struct mpd_status *status = mpdclient_recv_status(c);
-	if (status == nullptr)
+	const struct mpd_status *new_status = ReceiveStatus();
+	if (new_status == nullptr)
 		return false;
 
-	if (!mpd_response_finish(connection))
-		return c->HandleError();
+	if (!mpd_response_finish(c))
+		return HandleError();
 
-	if (mpd_status_get_queue_length(status) == c->playlist.size() - 1 &&
-	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
+	if (mpd_status_get_queue_length(new_status) == playlist.size() - 1 &&
+	    mpd_status_get_queue_version(new_status) == playlist.version + 1) {
 		/* the cheap route: match on the new playlist length
 		   and its version, we can keep our local playlist
 		   copy in sync */
-		c->playlist.version = mpd_status_get_queue_version(status);
+		playlist.version = mpd_status_get_queue_version(new_status);
 
 		/* remove the song from the local playlist */
-		c->playlist.RemoveIndex(idx);
+		playlist.RemoveIndex(pos);
 
 		/* remove references to the song */
-		if (c->current_song == &song)
-			c->current_song = nullptr;
+		if (current_song == &song)
+			current_song = nullptr;
 	}
 
 	return true;
 }
 
 bool
-mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
+mpdclient::RunDeleteRange(unsigned start, unsigned end) noexcept
 {
 	if (end == start + 1)
 		/* if that's not really a range, we choose to use the
 		   safer "deleteid" version */
-		return mpdclient_cmd_delete(c, start);
+		return RunDelete(start);
 
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr)
+	auto *c = GetConnection();
+	if (c == nullptr)
 		return false;
 
 	/* send the delete command to mpd; at the same time, get the
 	   new status (to verify the playlist id) */
 
-	if (!mpd_command_list_begin(connection, false) ||
-	    !mpd_send_delete_range(connection, start, end) ||
-	    !mpd_send_status(connection) ||
-	    !mpd_command_list_end(connection))
-		return c->HandleError();
+	if (!mpd_command_list_begin(c, false) ||
+	    !mpd_send_delete_range(c, start, end) ||
+	    !mpd_send_status(c) ||
+	    !mpd_command_list_end(c))
+		return HandleError();
 
-	c->events |= MPD_IDLE_QUEUE;
+	events |= MPD_IDLE_QUEUE;
 
-	struct mpd_status *status = mpdclient_recv_status(c);
-	if (status == nullptr)
+	const struct mpd_status *new_status = ReceiveStatus();
+	if (new_status == nullptr)
 		return false;
 
-	if (!mpd_response_finish(connection))
-		return c->HandleError();
+	if (!mpd_response_finish(c))
+		return HandleError();
 
-	if (mpd_status_get_queue_length(status) == c->playlist.size() - (end - start) &&
-	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
+	if (mpd_status_get_queue_length(new_status) == playlist.size() - (end - start) &&
+	    mpd_status_get_queue_version(new_status) == playlist.version + 1) {
 		/* the cheap route: match on the new playlist length
 		   and its version, we can keep our local playlist
 		   copy in sync */
-		c->playlist.version = mpd_status_get_queue_version(status);
+		playlist.version = mpd_status_get_queue_version(new_status);
 
 		/* remove the song from the local playlist */
 		while (end > start) {
 			--end;
 
 			/* remove references to the song */
-			if (c->current_song == &c->playlist[end])
-				c->current_song = nullptr;
+			if (current_song == &playlist[end])
+				current_song = nullptr;
 
-			c->playlist.RemoveIndex(end);
+			playlist.RemoveIndex(end);
 		}
 	}
 
@@ -739,42 +715,42 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 }
 
 bool
-mpdclient_cmd_move(struct mpdclient *c, unsigned dest_pos, unsigned src_pos)
+mpdclient::RunMove(unsigned dest_pos, unsigned src_pos) noexcept
 {
 	if (dest_pos == src_pos)
 		return true;
 
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr)
+	auto *c = GetConnection();
+	if (c == nullptr)
 		return false;
 
 	/* send the "move" command to MPD; at the same time, get the
 	   new status (to verify the playlist id) */
 
-	if (!mpd_command_list_begin(connection, false) ||
-	    !mpd_send_move(connection, src_pos, dest_pos) ||
-	    !mpd_send_status(connection) ||
-	    !mpd_command_list_end(connection))
-		return c->HandleError();
+	if (!mpd_command_list_begin(c, false) ||
+	    !mpd_send_move(c, src_pos, dest_pos) ||
+	    !mpd_send_status(c) ||
+	    !mpd_command_list_end(c))
+		return HandleError();
 
-	c->events |= MPD_IDLE_QUEUE;
+	events |= MPD_IDLE_QUEUE;
 
-	struct mpd_status *status = mpdclient_recv_status(c);
+	const struct mpd_status *new_status = ReceiveStatus();
 	if (status == nullptr)
 		return false;
 
-	if (!mpd_response_finish(connection))
-		return c->HandleError();
+	if (!mpd_response_finish(c))
+		return HandleError();
 
-	if (mpd_status_get_queue_length(status) == c->playlist.size() &&
-	    mpd_status_get_queue_version(status) == c->playlist.version + 1) {
+	if (mpd_status_get_queue_length(new_status) == playlist.size() &&
+	    mpd_status_get_queue_version(new_status) == playlist.version + 1) {
 		/* the cheap route: match on the new playlist length
 		   and its version, we can keep our local playlist
 		   copy in sync */
-		c->playlist.version = mpd_status_get_queue_version(status);
+		playlist.version = mpd_status_get_queue_version(new_status);
 
 		/* swap songs in the local playlist */
-		c->playlist.Move(dest_pos, src_pos);
+		playlist.Move(dest_pos, src_pos);
 	}
 
 	return true;

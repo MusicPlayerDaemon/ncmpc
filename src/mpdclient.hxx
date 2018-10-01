@@ -133,6 +133,19 @@ struct mpdclient final
 		return enter_idle_timer.get_io_service();
 	}
 
+#ifdef ENABLE_ASYNC_CONNECT
+
+	const struct mpd_settings &GetSettings() const noexcept {
+#ifndef _WIN32
+		if (connecting2)
+			return *settings2;
+#endif
+
+		return *settings;
+	}
+
+#endif
+
 	/**
 	 * Determine a human-readable "name" of the settings currently used to
 	 * connect to MPD.
@@ -216,7 +229,21 @@ struct mpdclient final
 
 	bool OnConnected(struct mpd_connection *_connection) noexcept;
 
+	const struct mpd_status *ReceiveStatus() noexcept;
+
+	bool RunClearQueue() noexcept;
+	bool RunAdd(const struct mpd_song &song) noexcept;
+	bool RunDelete(unsigned pos) noexcept;
+	bool RunDeleteRange(unsigned start, unsigned end) noexcept;
+	bool RunMove(unsigned dest, unsigned src) noexcept;
+
 private:
+#ifdef ENABLE_ASYNC_CONNECT
+	void StartConnect(const struct mpd_settings &s) noexcept;
+#endif
+
+	void InvokeErrorCallback() noexcept;
+
 	bool UpdateQueue();
 	bool UpdateQueueChanges();
 
@@ -278,18 +305,6 @@ mpdclient_cmd_volume_down(struct mpdclient *c);
 
 bool
 mpdclient_cmd_add_path(struct mpdclient *c, const char *path);
-
-bool
-mpdclient_cmd_add(struct mpdclient *c, const struct mpd_song *song);
-
-bool
-mpdclient_cmd_delete(struct mpdclient *c, int index);
-
-bool
-mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end);
-
-bool
-mpdclient_cmd_move(struct mpdclient *c, unsigned dest, unsigned src);
 
 bool
 mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel);
