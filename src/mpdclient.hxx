@@ -175,6 +175,13 @@ struct mpdclient final
 		return song;
 	}
 
+	gcc_pure
+	int GetPlayingSongId() const noexcept {
+		return playing_or_paused
+			? GetCurrentSongId()
+			: -1;
+	}
+
 	/**
 	 * Returns the song that is currently being played (or
 	 * paused).
