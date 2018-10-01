@@ -39,14 +39,25 @@ class ChatPage final : public TextPage {
 	unsigned last_connection_id = 0;
 	bool was_supported = false;
 
+	char *prefix = nullptr;
+
 public:
 	ChatPage(ScreenManager &_screen, WINDOW *w, Size size)
 		:TextPage(_screen, w, size) {}
+
+	~ChatPage() noexcept {
+		g_free(prefix);
+	}
 
 private:
 	bool CheckChatSupport(struct mpdclient &c);
 
 	void ProcessMessage(const struct mpd_message &message);
+
+	gcc_pure
+	const char *GetPrefix() noexcept;
+
+	void SendMessage(struct mpdclient &c, const char *msg) noexcept;
 
 public:
 	/* virtual methods from class Page */
@@ -121,11 +132,9 @@ ChatPage::Update(struct mpdclient &c, unsigned events) noexcept
 	}
 }
 
-static char *
-screen_chat_get_prefix()
+const char *
+ChatPage::GetPrefix() noexcept
 {
-	static char *prefix = nullptr;
-
 	if (prefix)
 		return prefix;
 
@@ -139,14 +148,13 @@ screen_chat_get_prefix()
 	return prefix;
 }
 
-static void
-screen_chat_send_message(struct mpdclient *c, const char *msg)
+void
+ChatPage::SendMessage(struct mpdclient &c, const char *msg) noexcept
 {
-	char *prefix = screen_chat_get_prefix();
-	char *full_msg = g_strconcat(prefix, LocaleToUtf8(msg).c_str(),
+	char *full_msg = g_strconcat(GetPrefix(), LocaleToUtf8(msg).c_str(),
 				     nullptr);
 
-	(void) mpdclient_cmd_send_message(c, chat_channel, full_msg);
+	(void) mpdclient_cmd_send_message(&c, chat_channel, full_msg);
 	g_free(full_msg);
 }
 
@@ -164,7 +172,7 @@ ChatPage::OnCommand(struct mpdclient &c, Command cmd)
 			return true;
 
 		if (CheckChatSupport(c))
-			screen_chat_send_message(&c, message.c_str());
+			SendMessage(c, message.c_str());
 		else
 			screen_status_message(_("Message could not be sent"));
 
