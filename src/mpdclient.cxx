@@ -259,7 +259,7 @@ mpdclient::Disconnect()
 
 	playlist.clear();
 
-	song = nullptr;
+	current_song = nullptr;
 
 	/* everything has changed after a disconnect */
 	events |= MPD_IDLE_ALL;
@@ -426,9 +426,8 @@ mpdclient::Update()
 	}
 
 	/* update the current song */
-	if (song == nullptr || mpd_status_get_song_id(status) >= 0) {
-		song = playlist.GetChecked(mpd_status_get_song_pos(status));
-	}
+	if (current_song == nullptr || mpd_status_get_song_id(status) >= 0)
+		current_song = playlist.GetChecked(mpd_status_get_song_pos(status));
 
 	return true;
 }
@@ -525,7 +524,7 @@ mpdclient_cmd_clear(struct mpdclient *c)
 		   reducing the UI latency */
 		c->playlist.clear();
 		c->playlist.version = mpd_status_get_queue_version(status);
-		c->song = nullptr;
+		c->current_song = nullptr;
 	}
 
 	c->events |= MPD_IDLE_QUEUE;
@@ -680,8 +679,8 @@ mpdclient_cmd_delete(struct mpdclient *c, int idx)
 		c->playlist.RemoveIndex(idx);
 
 		/* remove references to the song */
-		if (c->song == &song)
-			c->song = nullptr;
+		if (c->current_song == &song)
+			c->current_song = nullptr;
 	}
 
 	return true;
@@ -729,8 +728,8 @@ mpdclient_cmd_delete_range(struct mpdclient *c, unsigned start, unsigned end)
 			--end;
 
 			/* remove references to the song */
-			if (c->song == &c->playlist[end])
-				c->song = nullptr;
+			if (c->current_song == &c->playlist[end])
+				c->current_song = nullptr;
 
 			c->playlist.RemoveIndex(end);
 		}
@@ -849,7 +848,7 @@ mpdclient::UpdateQueue()
 	}
 
 	playlist.version = mpd_status_get_queue_version(status);
-	song = nullptr;
+	current_song = nullptr;
 
 	return FinishCommand();
 }
@@ -887,7 +886,7 @@ mpdclient::UpdateQueueChanges()
 		playlist.RemoveIndex(playlist.size() - 1);
 	}
 
-	song = nullptr;
+	current_song = nullptr;
 	playlist.version = mpd_status_get_queue_version(status);
 
 	return FinishCommand();

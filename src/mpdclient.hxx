@@ -69,7 +69,7 @@ struct mpdclient final
 	MpdIdleSource *source = nullptr;
 
 	struct mpd_status *status = nullptr;
-	const struct mpd_song *song = nullptr;
+	const struct mpd_song *current_song = nullptr;
 
 	/**
 	 * A timer which re-enters MPD idle mode before the next main
@@ -179,7 +179,7 @@ struct mpdclient final
 	 */
 	gcc_pure
 	const struct mpd_song *GetCurrentSong() const {
-		return song;
+		return current_song;
 	}
 
 	gcc_pure
