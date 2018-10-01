@@ -543,9 +543,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 			struct mpd_song &selected = c.playlist[lw.selected];
 			bool follow = false;
 
-			if (c.song &&
-			    !strcmp(mpd_song_get_uri(&selected),
-				    mpd_song_get_uri(c.song)))
+			if (&selected == c.GetPlayingSong())
 				follow = true;
 
 			screen_lyrics_switch(screen, c, selected, follow);
