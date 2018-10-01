@@ -65,7 +65,13 @@ AsyncResolveConnect::Start(const char *host, unsigned port) noexcept
 
 		boost::asio::local::stream_protocol::endpoint ep(std::move(s));
 		boost::asio::local::stream_protocol::socket socket(resolver.get_io_service());
-		socket.connect(ep);
+
+		boost::system::error_code error;
+		socket.connect(ep, error);
+		if (error) {
+			handler.OnConnectError(error.message().c_str());
+			return;
+		}
 
 		handler.OnConnect(std::move(socket));
 		return;
