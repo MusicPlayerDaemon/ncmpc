@@ -20,9 +20,8 @@
 #include "plugin.hxx"
 #include "io/Path.hxx"
 #include "util/Compiler.h"
+#include "util/ScopeExit.hxx"
 #include "util/UriUtil.hxx"
-
-#include <glib.h>
 
 #include <boost/asio/steady_timer.hpp>
 #include <boost/asio/posix/stream_descriptor.hpp>
@@ -33,6 +32,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <dirent.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/signal.h>
@@ -145,19 +145,26 @@ register_plugin(PluginList *list, std::string &&path) noexcept
 	return true;
 }
 
+static constexpr bool
+ShallSkipDirectoryEntry(const char *name) noexcept
+{
+	return name[0] == '.' && (name[1] == 0 || (name[1] == '.' && name[2] == 0));
+}
+
 bool
 plugin_list_load_directory(PluginList *list, const char *path) noexcept
 {
-	GDir *dir = g_dir_open(path, 0, nullptr);
+	DIR *dir = opendir(path);
 	if (dir == nullptr)
 		return false;
 
-	const char *name;
-	while ((name = g_dir_read_name(dir)) != nullptr) {
-		register_plugin(list, BuildPath(path, name));
-	}
+	AtScopeExit(dir) { closedir(dir); };
 
-	g_dir_close(dir);
+	while (const auto *e = readdir(dir)) {
+		const char *name = e->d_name;
+		if (!ShallSkipDirectoryEntry(name))
+			register_plugin(list, BuildPath(path, name));
+	}
 
 	std::sort(list->plugins.begin(), list->plugins.end());
 
