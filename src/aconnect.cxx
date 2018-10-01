@@ -29,17 +29,11 @@
 #include "aconnect.hxx"
 #include "net/AsyncResolveConnect.hxx"
 #include "net/AsyncHandler.hxx"
-#include "util/Compiler.h"
 
 #include <mpd/client.h>
 #include <mpd/async.h>
 
-#include <boost/asio/ip/tcp.hpp>
-
-#include <assert.h>
-#include <string.h>
-#include <stdio.h>
-#include <errno.h>
+#include <boost/asio/generic/stream_protocol.hpp>
 
 struct AsyncMpdConnect final : AsyncConnectHandler {
 	const AsyncMpdConnectHandler *handler;
