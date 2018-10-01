@@ -166,10 +166,23 @@ struct mpdclient final
 			: -1;
 	}
 
+	/**
+	 * Returns the song that is "current".  This can be valid even
+	 * if MPD is not playing.
+	 */
 	gcc_pure
 	const struct mpd_song *GetCurrentSong() const {
+		return song;
+	}
+
+	/**
+	 * Returns the song that is currently being played (or
+	 * paused).
+	 */
+	gcc_pure
+	const struct mpd_song *GetPlayingSong() const {
 		return playing_or_paused
-			? song
+			? GetCurrentSong()
 			: nullptr;
 	}
 

@@ -67,7 +67,7 @@ ScreenManager *screen;
 static void
 update_xterm_title()
 {
-	const struct mpd_song *song = mpd->GetCurrentSong();
+	const struct mpd_song *song = mpd->GetPlayingSong();
 
 	char tmp[BUFSIZE];
 	const char *new_title = nullptr;
