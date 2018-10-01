@@ -161,7 +161,7 @@ struct mpdclient final
 
 	gcc_pure
 	const struct mpd_song *GetCurrentSong() const {
-		return song != nullptr && playing_or_paused
+		return playing_or_paused
 			? song
 			: nullptr;
 	}
