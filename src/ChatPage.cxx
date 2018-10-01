@@ -75,9 +75,6 @@ ChatPage::CheckChatSupport(struct mpdclient &c)
 
 	last_connection_id = c.connection_id;
 
-	if (c.connection == nullptr)
-		return (was_supported = false);
-
 	/* mpdclient_get_connection? */
 	if (!mpdclient_cmd_subscribe(&c, chat_channel))
 		return (was_supported = false);
