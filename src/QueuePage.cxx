@@ -500,15 +500,18 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	}
 
 	switch(cmd) {
+		int pos;
+
 	case Command::SCREEN_UPDATE:
 		CenterPlayingItem(c.status, prev_cmd == Command::SCREEN_UPDATE);
 		SetDirty();
 		return false;
 	case Command::SELECT_PLAYING:
-		if (c.song == nullptr)
+		pos = c.GetCurrentSongPos();
+		if (pos < 0)
 			return false;
 
-		lw.SetCursor(c.playlist.FindByReference(*c.song));
+		lw.SetCursor(pos);
 		SaveSelection();
 		SetDirty();
 		return true;
