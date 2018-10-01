@@ -160,6 +160,13 @@ struct mpdclient final
 	}
 
 	gcc_pure
+	int GetCurrentSongId() const noexcept {
+		return status != nullptr
+			? mpd_status_get_song_id(status)
+			: -1;
+	}
+
+	gcc_pure
 	const struct mpd_song *GetCurrentSong() const {
 		return playing_or_paused
 			? song

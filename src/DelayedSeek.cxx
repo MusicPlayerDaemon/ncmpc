@@ -32,7 +32,7 @@ DelayedSeek::Commit() noexcept
 		return;
 	}
 
-	if (c.song != nullptr && (unsigned)id == mpd_song_get_id(c.song))
+	if (id == c.GetCurrentSongId())
 		if (!mpd_run_seek_id(connection, id, time))
 			c.HandleError();
 
