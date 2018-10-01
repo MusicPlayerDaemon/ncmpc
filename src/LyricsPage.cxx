@@ -93,7 +93,7 @@ private:
 
 	void Set(const char *s);
 
-	void Load(const struct mpd_song *song);
+	void Load(const struct mpd_song &song) noexcept;
 	void Reload();
 
 	bool Save();
@@ -262,14 +262,12 @@ LyricsPage::OnTimeout(const boost::system::error_code &error) noexcept
 }
 
 void
-LyricsPage::Load(const struct mpd_song *_song)
+LyricsPage::Load(const struct mpd_song &_song) noexcept
 {
-	assert(_song != nullptr);
-
 	Cancel();
 	Clear();
 
-	song = mpd_song_dup(_song);
+	song = mpd_song_dup(&_song);
 	artist = mpd_song_get_tag(song, MPD_TAG_ARTIST, 0);
 	title = mpd_song_get_tag(song, MPD_TAG_TITLE, 0);
 
@@ -312,7 +310,7 @@ LyricsPage::OnOpen(struct mpdclient &c) noexcept
 	    (song == nullptr ||
 	     strcmp(mpd_song_get_uri(next_song_c),
 		    mpd_song_get_uri(song)) != 0))
-		Load(next_song_c);
+		Load(*next_song_c);
 
 	if (next_song != nullptr) {
 		mpd_song_free(next_song);
@@ -330,7 +328,7 @@ LyricsPage::Update(struct mpdclient &c, unsigned) noexcept
 	    (song == nullptr ||
 	     strcmp(mpd_song_get_uri(c.song),
 		    mpd_song_get_uri(song)) != 0))
-		Load(c.song);
+		Load(*c.song);
 }
 
 const char *
@@ -453,7 +451,7 @@ LyricsPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 	case Command::LYRICS_UPDATE:
 		if (c.song != nullptr)
-			Load(c.song);
+			Load(*c.song);
 		return true;
 	case Command::EDIT:
 		Edit();
