@@ -505,6 +505,9 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		SetDirty();
 		return false;
 	case Command::SELECT_PLAYING:
+		if (c.song == nullptr)
+			return false;
+
 		lw.SetCursor(c.playlist.FindByReference(*c.song));
 		SaveSelection();
 		SetDirty();

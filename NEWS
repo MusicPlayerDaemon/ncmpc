@@ -1,4 +1,5 @@
 ncmpc 0.32 - not yet released
+* fix crash bug on queue page
 * fix crash bug on lyrics page
 * fix off-by-one buffer overflow bug
 * fix manpage installation directory
