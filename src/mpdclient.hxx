@@ -7,6 +7,10 @@
 #include "util/Compiler.h"
 #include "AsioServiceFwd.hxx"
 
+#ifdef ENABLE_ASYNC_CONNECT
+#include "aconnect.hxx"
+#endif
+
 #include <mpd/client.h>
 
 #include <boost/asio/steady_timer.hpp>
@@ -18,7 +22,12 @@ struct MpdQueue;
 class MpdIdleSource;
 class FileList;
 
-struct mpdclient final : MpdIdleHandler {
+struct mpdclient final
+	: MpdIdleHandler
+#ifdef ENABLE_ASYNC_CONNECT
+	, AsyncMpdConnectHandler
+#endif
+{
 #ifdef ENABLE_ASYNC_CONNECT
 	/**
 	 * These settings are used to connect to MPD asynchronously.
@@ -184,6 +193,12 @@ private:
 		enter_idle_timer.cancel();
 	}
 	void OnEnterIdleTimer(const boost::system::error_code &error) noexcept;
+
+#ifdef ENABLE_ASYNC_CONNECT
+	/* virtual methods from AsyncMpdConnectHandler */
+	void OnAsyncMpdConnect(struct mpd_connection *c) noexcept override;
+	void OnAsyncMpdConnectError(const char *message) noexcept override;
+#endif
 
 	/* virtual methods from MpdIdleHandler */
 	void OnIdle(unsigned events) noexcept override;

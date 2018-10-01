@@ -36,8 +36,7 @@
 #include <boost/asio/generic/stream_protocol.hpp>
 
 struct AsyncMpdConnect final : AsyncConnectHandler {
-	const AsyncMpdConnectHandler *handler;
-	void *handler_ctx;
+	AsyncMpdConnectHandler &handler;
 
 	AsyncResolveConnect rconnect;
 
@@ -45,8 +44,10 @@ struct AsyncMpdConnect final : AsyncConnectHandler {
 
 	char buffer[256];
 
-	explicit AsyncMpdConnect(boost::asio::io_service &io_service) noexcept
-		:rconnect(io_service, *this), socket(io_service) {}
+	explicit AsyncMpdConnect(boost::asio::io_service &io_service,
+				 AsyncMpdConnectHandler &_handler) noexcept
+		:handler(_handler),
+		 rconnect(io_service, *this), socket(io_service) {}
 
 	void OnReceive(const boost::system::error_code &error,
 		       std::size_t bytes_transferred) noexcept;
@@ -69,7 +70,7 @@ AsyncMpdConnect::OnReceive(const boost::system::error_code &error,
 		snprintf(buffer, sizeof(buffer),
 			 "Failed to receive from MPD: %s",
 			 error.message().c_str());
-		handler->error(buffer, handler_ctx);
+		handler.OnAsyncMpdConnectError(buffer);
 		delete this;
 		return;
 	}
@@ -80,7 +81,7 @@ AsyncMpdConnect::OnReceive(const boost::system::error_code &error,
 	   release() method yet */
 	struct mpd_async *async = mpd_async_new(dup(socket.native_handle()));
 	if (async == nullptr) {
-		handler->error("Out of memory", handler_ctx);
+		handler.OnAsyncMpdConnectError("Out of memory");
 		delete this;
 		return;
 	}
@@ -88,12 +89,12 @@ AsyncMpdConnect::OnReceive(const boost::system::error_code &error,
 	struct mpd_connection *c = mpd_connection_new_async(async, buffer);
 	if (c == nullptr) {
 		mpd_async_free(async);
-		handler->error("Out of memory", handler_ctx);
+		handler.OnAsyncMpdConnectError("Out of memory");
 		delete this;
 		return;
 	}
 
-	handler->success(c, handler_ctx);
+	handler.OnAsyncMpdConnect(c);
 	delete this;
 }
 
@@ -110,7 +111,7 @@ AsyncMpdConnect::OnConnect(boost::asio::generic::stream_protocol::socket _socket
 void
 AsyncMpdConnect::OnConnectError(const char *message)
 {
-	handler->error(message, handler_ctx);
+	handler.OnMpdConnectError(message);
 	delete this;
 }
 
@@ -118,11 +119,9 @@ void
 aconnect_start(boost::asio::io_service &io_service,
 	       AsyncMpdConnect **acp,
 	       const char *host, unsigned port,
-	       const AsyncMpdConnectHandler &handler, void *ctx)
+	       AsyncMpdConnectHandler &handler)
 {
-	auto *ac = new AsyncMpdConnect(io_service);
-	ac->handler = &handler;
-	ac->handler_ctx = ctx;
+	auto *ac = new AsyncMpdConnect(io_service, handler);
 
 	*acp = ac;
 

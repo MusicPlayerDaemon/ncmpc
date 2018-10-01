@@ -24,10 +24,6 @@
 #include "gidle.hxx"
 #include "charset.hxx"
 
-#ifdef ENABLE_ASYNC_CONNECT
-#include "aconnect.hxx"
-#endif
-
 #include <mpd/client.h>
 
 #include <assert.h>
@@ -326,36 +322,34 @@ mpdclient_get_settings(const struct mpdclient *c)
 	return c->settings;
 }
 
-static void
-mpdclient_connect_success(struct mpd_connection *connection, void *ctx)
+void
+mpdclient::OnMpdConnect(struct mpd_connection *_connection) noexcept
 {
-	auto *c = (struct mpdclient *)ctx;
-	assert(c->async_connect != nullptr);
-	c->async_connect = nullptr;
+	assert(async_connect != nullptr);
+	async_connect = nullptr;
 
-	const char *password =
-		mpd_settings_get_password(mpdclient_get_settings(c));
-	if (password != nullptr && !mpd_run_password(connection, password)) {
-		mpdclient_error_callback(mpd_connection_get_error_message(connection));
-		mpd_connection_free(connection);
+	const char *password2 =
+		mpd_settings_get_password(mpdclient_get_settings(this));
+	if (password2 != nullptr && !mpd_run_password(_connection, password2)) {
+		mpdclient_error_callback(mpd_connection_get_error_message(_connection));
+		mpd_connection_free(_connection);
 		mpdclient_failed_callback();
 		return;
 	}
 
-	c->OnConnected(connection);
+	OnConnected(_connection);
 }
 
-static void
-mpdclient_connect_error(const char *message, void *ctx)
+void
+mpdclient::OnMpdConnectError(const char *message) noexcept
 {
-	auto *c = (struct mpdclient *)ctx;
-	assert(c->async_connect != nullptr);
-	c->async_connect = nullptr;
+	assert(async_connect != nullptr);
+	async_connect = nullptr;
 
 #ifndef _WIN32
-	if (!c->connecting2 && c->settings2 != nullptr) {
-		c->connecting2 = true;
-		mpdclient_aconnect_start(c, c->settings2);
+	if (!connecting2 && settings2 != nullptr) {
+		connecting2 = true;
+		mpdclient_aconnect_start(this, settings2);
 		return;
 	}
 #endif
@@ -364,11 +358,6 @@ mpdclient_connect_error(const char *message, void *ctx)
 	mpdclient_failed_callback();
 }
 
-static constexpr AsyncMpdConnectHandler mpdclient_connect_handler = {
-	.success = mpdclient_connect_success,
-	.error = mpdclient_connect_error,
-};
-
 static void
 mpdclient_aconnect_start(struct mpdclient *c,
 			 const struct mpd_settings *settings)
@@ -376,7 +365,7 @@ mpdclient_aconnect_start(struct mpdclient *c,
 	aconnect_start(c->get_io_service(), &c->async_connect,
 		       mpd_settings_get_host(settings),
 		       mpd_settings_get_port(settings),
-		       mpdclient_connect_handler, c);
+		       *c);
 }
 
 #endif

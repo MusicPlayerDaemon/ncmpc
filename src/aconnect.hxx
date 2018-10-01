@@ -36,16 +36,17 @@
 struct mpd_connection;
 struct AsyncMpdConnect;
 
-struct AsyncMpdConnectHandler {
-	void (*success)(struct mpd_connection *c, void *ctx);
-	void (*error)(const char *message, void *ctx);
+class AsyncMpdConnectHandler {
+public:
+	virtual void OnAsyncMpdConnect(struct mpd_connection *c) noexcept = 0;
+	virtual void OnAsyncMpdConnectError(const char *message) noexcept = 0;
 };
 
 void
 aconnect_start(boost::asio::io_service &io_service,
 	       AsyncMpdConnect **acp,
 	       const char *host, unsigned port,
-	       const AsyncMpdConnectHandler &handler, void *ctx);
+	       AsyncMpdConnectHandler &handler);
 
 void
 aconnect_cancel(AsyncMpdConnect *ac);
