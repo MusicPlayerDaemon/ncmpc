@@ -320,7 +320,7 @@ void
 LyricsPage::OnOpen(struct mpdclient &c) noexcept
 {
 	const struct mpd_song *next_song_c =
-		next_song != nullptr ? next_song : c.song;
+		next_song != nullptr ? next_song : c.GetPlayingSong();
 
 	MaybeLoad(next_song_c);
 
@@ -334,7 +334,7 @@ void
 LyricsPage::Update(struct mpdclient &c, unsigned) noexcept
 {
 	if (follow)
-		MaybeLoad(c.song);
+		MaybeLoad(c.GetPlayingSong());
 }
 
 const char *
@@ -456,8 +456,8 @@ LyricsPage::OnCommand(struct mpdclient &c, Command cmd)
 		}
 		return true;
 	case Command::LYRICS_UPDATE:
-		if (c.song != nullptr)
-			Load(*c.song);
+		if (c.GetPlayingSong() != nullptr)
+			Load(*c.GetPlayingSong());
 		return true;
 	case Command::EDIT:
 		Edit();
