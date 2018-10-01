@@ -218,7 +218,7 @@ ScreenManager::Update(struct mpdclient &c, const DelayedSeek &seek) noexcept
 
 	progress_bar.Set(elapsed, duration);
 
-	status_bar.Update(c.status, c.song, seek);
+	status_bar.Update(c.status, c.GetCurrentSong(), seek);
 
 	for (auto &i : pages)
 		i.second->AddPendingEvents(events);
