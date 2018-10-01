@@ -231,6 +231,10 @@ struct mpdclient final
 
 	const struct mpd_status *ReceiveStatus() noexcept;
 
+	bool RunVolume(unsigned new_volume) noexcept;
+	bool RunVolumeUp() noexcept;
+	bool RunVolumeDown() noexcept;
+
 	bool RunClearQueue() noexcept;
 	bool RunAdd(const struct mpd_song &song) noexcept;
 	bool RunDelete(unsigned pos) noexcept;
@@ -293,15 +297,6 @@ mpdclient_cmd_crop(struct mpdclient *c);
 
 bool
 mpdclient_cmd_clear(struct mpdclient *c);
-
-bool
-mpdclient_cmd_volume(struct mpdclient *c, int value);
-
-bool
-mpdclient_cmd_volume_up(struct mpdclient *c);
-
-bool
-mpdclient_cmd_volume_down(struct mpdclient *c);
 
 bool
 mpdclient_cmd_add_path(struct mpdclient *c, const char *path);

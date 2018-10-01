@@ -513,40 +513,32 @@ mpdclient::RunClearQueue() noexcept
 }
 
 bool
-mpdclient_cmd_volume(struct mpdclient *c, int value)
+mpdclient::RunVolume(unsigned value) noexcept
 {
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr)
+	struct mpd_connection *c = GetConnection();
+	if (c == nullptr)
 		return false;
 
-	mpd_send_set_volume(connection, value);
-	return c->FinishCommand();
+	mpd_send_set_volume(c, value);
+	return FinishCommand();
 }
 
 bool
-mpdclient_cmd_volume_up(struct mpdclient *c)
+mpdclient::RunVolumeUp() noexcept
 {
-	if (c->volume < 0 || c->volume >= 100)
+	if (volume < 0 || volume >= 100)
 		return true;
 
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr)
-		return false;
-
-	return mpdclient_cmd_volume(c, ++c->volume);
+	return RunVolume(++volume);
 }
 
 bool
-mpdclient_cmd_volume_down(struct mpdclient *c)
+mpdclient::RunVolumeDown() noexcept
 {
-	if (c->volume <= 0)
+	if (volume <= 0)
 		return true;
 
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr)
-		return false;
-
-	return mpdclient_cmd_volume(c, --c->volume);
+	return RunVolume(--volume);
 }
 
 bool

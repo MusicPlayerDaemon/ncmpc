@@ -149,10 +149,10 @@ handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 		screen_database_update(&c, nullptr);
 		break;
 	case Command::VOLUME_UP:
-		mpdclient_cmd_volume_up(&c);
+		c.RunVolumeUp();
 		break;
 	case Command::VOLUME_DOWN:
-		mpdclient_cmd_volume_down(&c);
+		c.RunVolumeDown();
 		break;
 
 	default:
