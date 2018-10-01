@@ -94,6 +94,13 @@ private:
 	void Set(const char *s);
 
 	void Load(const struct mpd_song &song) noexcept;
+	void MaybeLoad(const struct mpd_song &new_song) noexcept;
+
+	void MaybeLoad(const struct mpd_song *new_song) noexcept {
+		if (new_song != nullptr)
+			MaybeLoad(*new_song);
+	}
+
 	void Reload();
 
 	bool Save();
@@ -284,6 +291,15 @@ LyricsPage::Load(const struct mpd_song &_song) noexcept
 }
 
 void
+LyricsPage::MaybeLoad(const struct mpd_song &new_song) noexcept
+{
+	if (song == nullptr ||
+	    strcmp(mpd_song_get_uri(&new_song),
+		   mpd_song_get_uri(song)) != 0)
+		Load(new_song);
+}
+
+void
 LyricsPage::Reload()
 {
 	if (loader == nullptr && artist != nullptr && title != nullptr) {
@@ -306,11 +322,7 @@ LyricsPage::OnOpen(struct mpdclient &c) noexcept
 	const struct mpd_song *next_song_c =
 		next_song != nullptr ? next_song : c.song;
 
-	if (next_song_c != nullptr &&
-	    (song == nullptr ||
-	     strcmp(mpd_song_get_uri(next_song_c),
-		    mpd_song_get_uri(song)) != 0))
-		Load(*next_song_c);
+	MaybeLoad(next_song_c);
 
 	if (next_song != nullptr) {
 		mpd_song_free(next_song);
@@ -321,14 +333,8 @@ LyricsPage::OnOpen(struct mpdclient &c) noexcept
 void
 LyricsPage::Update(struct mpdclient &c, unsigned) noexcept
 {
-	if (!follow)
-		return;
-
-	if (c.song != nullptr &&
-	    (song == nullptr ||
-	     strcmp(mpd_song_get_uri(c.song),
-		    mpd_song_get_uri(song)) != 0))
-		Load(*c.song);
+	if (follow)
+		MaybeLoad(c.song);
 }
 
 const char *
