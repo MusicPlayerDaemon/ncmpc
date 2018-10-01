@@ -323,7 +323,7 @@ mpdclient_get_settings(const struct mpdclient *c)
 }
 
 void
-mpdclient::OnMpdConnect(struct mpd_connection *_connection) noexcept
+mpdclient::OnAsyncMpdConnect(struct mpd_connection *_connection) noexcept
 {
 	assert(async_connect != nullptr);
 	async_connect = nullptr;
@@ -341,7 +341,7 @@ mpdclient::OnMpdConnect(struct mpd_connection *_connection) noexcept
 }
 
 void
-mpdclient::OnMpdConnectError(const char *message) noexcept
+mpdclient::OnAsyncMpdConnectError(const char *message) noexcept
 {
 	assert(async_connect != nullptr);
 	async_connect = nullptr;

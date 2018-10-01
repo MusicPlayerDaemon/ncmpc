@@ -111,7 +111,7 @@ AsyncMpdConnect::OnConnect(boost::asio::generic::stream_protocol::socket _socket
 void
 AsyncMpdConnect::OnConnectError(const char *message)
 {
-	handler.OnMpdConnectError(message);
+	handler.OnAsyncMpdConnectError(message);
 	delete this;
 }
 
