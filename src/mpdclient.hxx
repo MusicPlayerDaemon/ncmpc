@@ -166,6 +166,13 @@ struct mpdclient final
 			: -1;
 	}
 
+	gcc_pure
+	int GetCurrentSongPos() const noexcept {
+		return status != nullptr
+			? mpd_status_get_song_pos(status)
+			: -1;
+	}
+
 	/**
 	 * Returns the song that is "current".  This can be valid even
 	 * if MPD is not playing.
