@@ -163,39 +163,30 @@ static bool
 parse_key_definition(char *str)
 {
 	/* get the command name */
-	const size_t len = strlen(str);
-	size_t i = 0;
-	int j = 0;
-	char buf[MAX_LINE_LENGTH];
-	memset(buf, 0, MAX_LINE_LENGTH);
-	while (i < len && str[i] != '=' && !IsWhitespaceFast(str[i]))
-		buf[j++] = str[i++];
-
-	const auto cmd = get_key_command_from_name(buf);
-	if(cmd == Command::NONE) {
-		/* the hotkey configuration contains an unknown
-		   command */
-		print_error(_("Unknown command"), buf);
-		return false;
-	}
-
-	/* skip whitespace */
-	while (i < len && (str[i] == '=' || IsWhitespaceFast(str[i])))
-		i++;
-
-	/* get the value part */
-	memset(buf, 0, MAX_LINE_LENGTH);
-	g_strlcpy(buf, str+i, MAX_LINE_LENGTH);
-	if (*buf == 0) {
+	char *eq = strchr(str, '=');
+	if (eq == nullptr) {
 		/* the hotkey configuration line is incomplete */
 		print_error(_("Incomplete hotkey configuration"), str);
 		return false;
 	}
 
+	char *command_name = str;
+	str = StripLeft(eq + 1);
+
+	*eq = '\0';
+	StripRight(command_name);
+	const auto cmd = get_key_command_from_name(command_name);
+	if(cmd == Command::NONE) {
+		/* the hotkey configuration contains an unknown
+		   command */
+		print_error(_("Unknown command"), command_name);
+		return false;
+	}
+
 	/* parse key values */
-	i = 0;
+	size_t i = 0;
 	int key = 0;
-	char *p = buf;
+	char *p = str;
 
 	std::array<int, MAX_COMMAND_KEYS> keys{0};
 	while (i < MAX_COMMAND_KEYS && *p != 0 &&
