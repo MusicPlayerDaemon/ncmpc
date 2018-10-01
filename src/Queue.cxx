@@ -53,9 +53,9 @@ MpdQueue::Move(unsigned dest, unsigned src)
 			  std::next(items.begin(), dest + 1),
 			  std::next(items.begin(), src));
 	} else {
-		std::move(std::next(items.begin(), dest),
+		std::move_backward(std::next(items.begin(), dest),
 				   std::next(items.begin(), src),
-				   std::next(items.begin(), dest + 1));
+				   std::next(items.begin(), src + 1));
 	}
 
 	assert(!items[dest]);
