@@ -34,8 +34,8 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <string.h>
+#include <signal.h>
 #include <sys/stat.h>
-#include <sys/signal.h>
 #include <sys/wait.h>
 
 struct PluginCycle;
