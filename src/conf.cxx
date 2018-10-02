@@ -41,7 +41,10 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef _WIN32
 #include <glib.h>
+#endif
 
 #define MAX_LINE_LENGTH 1024
 #define COMMENT_TOKEN '#'
@@ -636,6 +639,43 @@ IsDirectory(const char *path) noexcept
 	return stat(path, &st) == 0 && S_ISDIR(st.st_mode);
 }
 
+#ifndef _WIN32
+
+gcc_const
+static const char *
+GetHomeDirectory() noexcept
+{
+	return getenv("HOME");
+}
+
+gcc_const
+static std::string
+GetHomeConfigDirectory() noexcept
+{
+	const char *config_home = getenv("XDG_CONFIG_HOME");
+	if (config_home != nullptr && *config_home != 0)
+		return config_home;
+
+	const char *home = GetHomeDirectory();
+	if (home != nullptr)
+		return BuildPath(home, ".config");
+
+	return {};
+}
+
+gcc_pure
+static std::string
+GetHomeConfigDirectory(const char *package) noexcept
+{
+	const auto dir = GetHomeConfigDirectory();
+	if (dir.empty())
+		return {};
+
+	return BuildPath(dir, package);
+}
+
+#endif
+
 /**
  * Find or create the directory for writing configuration files.
  *
@@ -645,7 +685,9 @@ IsDirectory(const char *path) noexcept
 static std::string
 MakeUserConfigPath(const char *filename)
 {
-	const auto directory = BuildPath(g_get_user_config_dir(), PACKAGE);
+	const auto directory = GetHomeConfigDirectory(PACKAGE);
+	if (directory.empty())
+		return {};
 
 	return IsDirectory(directory.c_str()) ||
 		mkdir(directory.c_str(), 0755) == 0
@@ -664,7 +706,11 @@ MakeKeysPath()
 std::string
 GetHomeConfigPath()
 {
-	return BuildPath(g_get_home_dir(), "." PACKAGE, CONFIG_FILENAME);
+	const char *home = GetHomeDirectory();
+	if (home == nullptr)
+		return {};
+
+	return BuildPath(home, "." PACKAGE, CONFIG_FILENAME);
 }
 
 #endif
@@ -672,7 +718,11 @@ GetHomeConfigPath()
 std::string
 GetUserConfigPath()
 {
-	return BuildPath(g_get_user_config_dir(), PACKAGE, CONFIG_FILENAME);
+	const auto dir = GetHomeConfigDirectory();
+	if (dir.empty())
+		return {};
+
+	return BuildPath(dir, PACKAGE, CONFIG_FILENAME);
 }
 
 std::string
@@ -699,7 +749,11 @@ gcc_pure
 static std::string
 GetHomeKeysPath()
 {
-	return BuildPath(g_get_home_dir(), "." PACKAGE, KEYS_FILENAME);
+	const char *home = GetHomeDirectory();
+	if (home == nullptr)
+		return {};
+
+	return BuildPath(home, "." PACKAGE, KEYS_FILENAME);
 }
 
 #endif
@@ -708,7 +762,11 @@ gcc_pure
 static std::string
 GetUserKeysPath()
 {
-	return BuildPath(g_get_user_config_dir(), PACKAGE, KEYS_FILENAME);
+	const auto dir = GetHomeConfigDirectory();
+	if (dir.empty())
+		return {};
+
+	return BuildPath(dir, PACKAGE, KEYS_FILENAME);
 }
 
 gcc_pure
@@ -739,13 +797,13 @@ find_config_file()
 
 	/* check for user configuration ~/.config/ncmpc/config */
 	auto filename = GetUserConfigPath();
-	if (IsFile(filename.c_str()))
+	if (!filename.empty() && IsFile(filename.c_str()))
 		return filename;
 
 #ifndef _WIN32
 	/* check for user configuration ~/.ncmpc/config */
 	filename = GetHomeConfigPath();
-	if (IsFile(filename.c_str()))
+	if (!filename.empty() && IsFile(filename.c_str()))
 		return filename;
 #endif
 
@@ -766,13 +824,13 @@ find_keys_file()
 
 	/* check for user key bindings ~/.config/ncmpc/keys */
 	auto filename = GetUserKeysPath();
-	if (IsFile(filename.c_str()))
+	if (!filename.empty() && IsFile(filename.c_str()))
 		return filename;
 
 #ifndef _WIN32
 	/* check for  user key bindings ~/.ncmpc/keys */
 	filename = GetHomeKeysPath();
-	if (IsFile(filename.c_str()))
+	if (!filename.empty() && IsFile(filename.c_str()))
 		return filename;
 #endif
 
