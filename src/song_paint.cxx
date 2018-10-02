@@ -23,7 +23,7 @@
 #include "time_format.hxx"
 #include "hscroll.hxx"
 #include "config.h"
-#include "util/StringUTF8.hxx"
+#include "util/LocaleString.hxx"
 
 #include <mpd/client.h>
 
@@ -51,7 +51,7 @@ paint_song_row(WINDOW *w, gcc_unused unsigned y, unsigned width,
 		waddstr(w, duration);
 	}
 
-	if (hscroll != nullptr && utf8_width(buffer) >= width) {
+	if (hscroll != nullptr && StringWidthMB(buffer) >= width) {
 		hscroll->Set(0, y, width, buffer,
 			     highlight ? Style::LIST_BOLD : Style::LIST,
 			     selected ? A_REVERSE : 0);

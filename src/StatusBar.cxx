@@ -24,7 +24,7 @@
 #include "strfsong.hxx"
 #include "DelayedSeek.hxx"
 #include "time_format.hxx"
-#include "util/StringUTF8.hxx"
+#include "util/LocaleString.hxx"
 
 #include <mpd/client.h>
 
@@ -107,7 +107,7 @@ StatusBar::Update(const struct mpd_status *status,
 	}
 
 	left_width = left_text != nullptr
-		? utf8_width(left_text) + 1
+		? StringWidthMB(left_text) + 1
 		: 0;
 
 	if (state == MPD_STATE_PLAY || state == MPD_STATE_PAUSE) {
@@ -154,7 +154,7 @@ StatusBar::Update(const struct mpd_status *status,
 #endif
 		}
 
-		right_width = utf8_width(right_text);
+		right_width = StringWidthMB(right_text);
 
 #ifndef NCMPC_MINI
 		int width = COLS - left_width - right_width;
@@ -170,9 +170,8 @@ StatusBar::Update(const struct mpd_status *status,
 
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
-		center_width = utf8_width(center_text.c_str());
-		if (options.scroll &&
-		    utf8_width(center_text.c_str()) > (unsigned)width) {
+		center_width = StringWidthMB(center_text.c_str());
+		if (options.scroll && center_width > (unsigned)width) {
 			hscroll.Set(left_width, 0, width, center_text.c_str(),
 				    Style::STATUS);
 		} else {

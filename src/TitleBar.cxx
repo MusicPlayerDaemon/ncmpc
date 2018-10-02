@@ -22,7 +22,7 @@
 #include "Styles.hxx"
 #include "Options.hxx"
 #include "i18n.h"
-#include "util/StringUTF8.hxx"
+#include "util/LocaleString.hxx"
 
 #include "config.h"
 
@@ -104,7 +104,7 @@ TitleBar::Paint(const PageMeta &current_page_meta, const char *title) const
 	}
 
 	SelectStyle(w, Style::TITLE);
-	mvwaddstr(w, 0, window.size.width - utf8_width(volume_string),
+	mvwaddstr(w, 0, window.size.width - StringWidthMB(volume_string),
 		  volume_string);
 
 	SelectStyle(w, Style::LINE);

@@ -29,7 +29,7 @@
 #include "config.h"
 #include "i18n.h"
 #include "util/Macros.hxx"
-#include "util/StringUTF8.hxx"
+#include "util/LocaleString.hxx"
 
 #include <assert.h>
 
@@ -290,8 +290,8 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 		const auto key =
 			GetGlobalKeyBindings().GetKeyNames(row->command);
 
-		if (utf8_width(key.c_str()) < 20)
-			wmove(w, y, 20 - utf8_width(key.c_str()));
+		if (StringWidthMB(key.c_str()) < 20)
+			wmove(w, y, 20 - StringWidthMB(key.c_str()));
 		waddstr(w, key.c_str());
 		mvwaddch(w, y, 21, ':');
 		mvwaddstr(w, y, 23,
