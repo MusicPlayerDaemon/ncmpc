@@ -35,13 +35,4 @@ gcc_pure
 unsigned
 utf8_width(const char *str);
 
-/**
- * Find the first character which doesn't fully fit into the given width.
- *
- * @param s the start of the string
- */
-gcc_pure
-const char *
-AtWidthUTF8(const char *p, size_t length, size_t width) noexcept;
-
 #endif

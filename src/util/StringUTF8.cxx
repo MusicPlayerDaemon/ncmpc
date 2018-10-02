@@ -74,24 +74,3 @@ utf8_width(const char *str)
 		return strlen(str);
 #endif
 }
-
-const char *
-AtWidthUTF8(const char *p, size_t length, size_t width) noexcept
-{
-	assert(p != nullptr);
-
-	const char *const end = p + length;
-
-	while (p < end) {
-		gunichar c = g_utf8_get_char(p);
-		size_t char_width = g_unichar_iswide(c) ? 2 : 1;
-		if (char_width > width)
-			/* too wide - stop here */
-			break;
-
-		width -= char_width;
-		p += g_unichar_to_utf8(c, nullptr);
-	}
-
-	return p;
-}
