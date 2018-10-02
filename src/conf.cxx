@@ -35,13 +35,13 @@
 #include "util/StringStrip.hxx"
 
 #include <assert.h>
+#include <sys/stat.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
-#include <glib/gstdio.h>
 
 #define MAX_LINE_LENGTH 1024
 #define COMMENT_TOKEN '#'
@@ -632,7 +632,7 @@ MakeUserConfigPath(const char *filename)
 	const auto directory = BuildPath(g_get_user_config_dir(), PACKAGE);
 
 	return g_file_test(directory.c_str(), G_FILE_TEST_IS_DIR) ||
-		g_mkdir(directory.c_str(), 0755) == 0
+		mkdir(directory.c_str(), 0755) == 0
 		? BuildPath(directory, filename)
 		: std::string();
 }
