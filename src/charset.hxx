@@ -46,21 +46,6 @@ utf8_to_locale(const char *src, char *buffer, size_t size) noexcept;
 char *locale_to_utf8(const char *str);
 
 /**
- * Converts the UTF-8 string to the locale, and frees the source
- * pointer.  Returns the source pointer as-is if no conversion is
- * required.
- */
-char *
-replace_utf8_to_locale(char *src);
-
-/**
- * Converts the locale string to UTF-8, and frees the source pointer.
- * Returns the source pointer as-is if no conversion is required.
- */
-char *
-replace_locale_to_utf8(char *src);
-
-/**
  * Convert an UTF-8 string to the locale charset.  The source string
  * must remain valid while this object is used.  If no conversion is
  * necessary, then this class is a no-op.

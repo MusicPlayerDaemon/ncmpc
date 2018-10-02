@@ -118,39 +118,6 @@ locale_to_utf8(const char *localestr)
 #endif
 }
 
-char *
-replace_utf8_to_locale(char *src)
-{
-#ifdef ENABLE_LOCALE
-	assert(src != nullptr);
-
-	if (noconvert)
-		return src;
-
-	AtScopeExit(src) { g_free(src); };
-	return utf8_to_locale(src);
-#else
-	return src;
-#endif
-}
-
-
-char *
-replace_locale_to_utf8(char *src)
-{
-#ifdef ENABLE_LOCALE
-	assert(src != nullptr);
-
-	if (noconvert)
-		return src;
-
-	AtScopeExit(src) { g_free(src); };
-	return locale_to_utf8(src);
-#else
-	return src;
-#endif
-}
-
 #ifdef ENABLE_LOCALE
 
 Utf8ToLocale::~Utf8ToLocale()
