@@ -35,6 +35,7 @@
 #include "util/StringStrip.hxx"
 
 #include <assert.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
@@ -324,28 +325,47 @@ GetStringValue(const char *s)
 	return {s, length};
 }
 
+static constexpr bool
+IsListSeparator(char ch) noexcept
+{
+	return IsWhitespaceFast(ch) || ch == ',';
+}
+
+static char *
+NextItem(char *&src) noexcept
+{
+	while (*src && IsListSeparator(*src))
+		++src;
+
+	if (!*src)
+		return nullptr;
+
+	char *value = src;
+
+	while (!IsListSeparator(*src))
+		++src;
+
+	if (*src)
+		*src++ = 0;
+
+	return value;
+}
+
 static std::vector<std::string>
 check_screen_list(char *value)
 {
-	char **tmp = g_strsplit_set(value, " \t,", 100);
-	AtScopeExit(tmp) { g_strfreev(tmp); };
-
 	std::vector<std::string> screen;
-	int i = 0;
 
-	while( tmp && tmp[i] ) {
-		char *name = g_ascii_strdown(tmp[i], -1);
-		AtScopeExit(name) { g_free(name); };
-		if (*name != '\0') {
-			if (screen_lookup_name(name) == nullptr) {
-				/* an unknown screen name was specified in the
-				   configuration file */
-				print_error(_("Unknown screen name"), name);
-			} else {
-				screen.emplace_back(name);
-			}
+	while (char *name = NextItem(value)) {
+		std::transform(name, name + strlen(name), name, tolower);
+
+		if (screen_lookup_name(name) == nullptr) {
+			/* an unknown screen name was specified in the
+			   configuration file */
+			print_error(_("Unknown screen name"), name);
+		} else {
+			screen.emplace_back(name);
 		}
-		i++;
 	}
 
 	if (screen.empty())
