@@ -620,6 +620,22 @@ read_rc_file(const char *filename)
 	return true;
 }
 
+gcc_pure
+static bool
+IsFile(const char *path) noexcept
+{
+	struct stat st;
+	return stat(path, &st) == 0 && S_ISREG(st.st_mode);
+}
+
+gcc_pure
+static bool
+IsDirectory(const char *path) noexcept
+{
+	struct stat st;
+	return stat(path, &st) == 0 && S_ISDIR(st.st_mode);
+}
+
 /**
  * Find or create the directory for writing configuration files.
  *
@@ -631,7 +647,7 @@ MakeUserConfigPath(const char *filename)
 {
 	const auto directory = BuildPath(g_get_user_config_dir(), PACKAGE);
 
-	return g_file_test(directory.c_str(), G_FILE_TEST_IS_DIR) ||
+	return IsDirectory(directory.c_str()) ||
 		mkdir(directory.c_str(), 0755) == 0
 		? BuildPath(directory, filename)
 		: std::string();
@@ -668,7 +684,7 @@ GetSystemConfigPath()
 	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != nullptr; system_data_dirs++)
 	{
 		auto path = BuildPath(*system_data_dirs, PACKAGE, CONFIG_FILENAME);
-		if (g_file_test(path.c_str(), G_FILE_TEST_EXISTS))
+		if (IsFile(path.c_str()))
 			return path;
 	}
 	return {};
@@ -705,7 +721,7 @@ GetSystemKeysPath()
 	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != nullptr; system_data_dirs++)
 	{
 		auto path = BuildPath(*system_data_dirs, PACKAGE, KEYS_FILENAME);
-		if (g_file_test(pathname.c_str(), G_FILE_TEST_EXISTS))
+		if (IsFile(pathname.c_str()))
 			return path;
 	}
 	return {}
@@ -723,19 +739,19 @@ find_config_file()
 
 	/* check for user configuration ~/.config/ncmpc/config */
 	auto filename = GetUserConfigPath();
-	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
+	if (IsFile(filename.c_str()))
 		return filename;
 
 #ifndef _WIN32
 	/* check for user configuration ~/.ncmpc/config */
 	filename = GetHomeConfigPath();
-	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
+	if (IsFile(filename.c_str()))
 		return filename;
 #endif
 
 	/* check for  global configuration SYSCONFDIR/ncmpc/config */
 	filename = GetSystemConfigPath();
-	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
+	if (IsFile(filename.c_str()))
 		return filename;
 
 	return {};
@@ -750,19 +766,19 @@ find_keys_file()
 
 	/* check for user key bindings ~/.config/ncmpc/keys */
 	auto filename = GetUserKeysPath();
-	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
+	if (IsFile(filename.c_str()))
 		return filename;
 
 #ifndef _WIN32
 	/* check for  user key bindings ~/.ncmpc/keys */
 	filename = GetHomeKeysPath();
-	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
+	if (IsFile(filename.c_str()))
 		return filename;
 #endif
 
 	/* check for  global key bindings SYSCONFDIR/ncmpc/keys */
 	filename = GetSystemKeysPath();
-	if (g_file_test(filename.c_str(), G_FILE_TEST_IS_REGULAR))
+	if (IsFile(filename.c_str()))
 		return filename;
 
 	return {};
