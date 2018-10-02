@@ -22,17 +22,8 @@
 
 #include "Compiler.h"
 
-#include <stddef.h>
-
 gcc_pure
 int
 CollateUTF8(const char *a, const char *b);
-
-/**
- * Returns the number of terminal cells occupied by this string.
- */
-gcc_pure
-unsigned
-utf8_width(const char *str);
 
 #endif

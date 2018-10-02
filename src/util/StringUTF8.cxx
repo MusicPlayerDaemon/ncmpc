@@ -18,59 +18,12 @@
  */
 
 #include "StringUTF8.hxx"
-#include "ScopeExit.hxx"
-#include "config.h"
 
 #include <glib.h>
-
-#include <assert.h>
-#include <string.h>
 
 gcc_pure
 int
 CollateUTF8(const char *a, const char *b)
 {
 	return g_utf8_collate(a, b);
-}
-
-#ifdef HAVE_CURSES_ENHANCED
-gcc_const
-static inline unsigned
-unicode_char_width(gunichar ch)
-{
-	if (g_unichar_iszerowidth(ch))
-		return 0;
-
-	if (g_unichar_iswide(ch))
-		return 2;
-
-	return 1;
-}
-#endif /* HAVE_CURSES_ENHANCED */
-
-unsigned
-utf8_width(const char *str)
-{
-	assert(str != nullptr);
-
-#if defined(ENABLE_MULTIBYTE) && !defined(HAVE_CURSES_ENHANCED)
-	return g_utf8_strlen(str, -1);
-#else
-#ifdef HAVE_CURSES_ENHANCED
-	if (g_utf8_validate(str, -1, nullptr)) {
-		size_t len = g_utf8_strlen(str, -1);
-		unsigned width = 0;
-		gunichar c;
-
-		while (len--) {
-			c = g_utf8_get_char(str);
-			width += unicode_char_width(c);
-			str += g_unichar_to_utf8(c, nullptr);
-		}
-
-		return width;
-	} else
-#endif
-		return strlen(str);
-#endif
 }
