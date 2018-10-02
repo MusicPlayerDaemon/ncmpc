@@ -34,7 +34,6 @@
 #include "util/LocaleString.hxx"
 #include "util/Macros.hxx"
 #include "util/StringStrip.hxx"
-#include "util/StringUTF8.hxx"
 
 #include <mpd/client.h>
 
@@ -212,11 +211,11 @@ SongPage::Paint() const noexcept
 }
 
 void
-SongPage::AppendLine(const char *label, const char *value,
+SongPage::AppendLine(const char *label, const char *value_utf8,
 		     unsigned label_col) noexcept
 {
 	assert(label != nullptr);
-	assert(value != nullptr);
+	assert(value_utf8 != nullptr);
 
 	static constexpr size_t BUFFER_SIZE = 1024;
 	if (label_col >= BUFFER_SIZE - 16)
@@ -226,6 +225,9 @@ SongPage::AppendLine(const char *label, const char *value,
 	label_col += 2;
 	const int value_col = lw.size.width - label_col;
 	/* calculate the number of required linebreaks */
+	const Utf8ToLocale value_locale(value_utf8);
+	const char *value = value_locale.c_str();
+
 	const char *const value_end = value + strlen(value);
 	const char *value_iter = value;
 
@@ -250,15 +252,15 @@ SongPage::AppendLine(const char *label, const char *value,
 		/* skip whitespaces */
 		value_iter = StripLeft(value_iter);
 
-		const char *value_iter_end = AtWidthUTF8(value_iter,
-							 value_end - value_iter,
-							 value_col);
+		const char *value_iter_end = AtWidthMB(value_iter,
+						       value_end - value_iter,
+						       value_col);
 		if (value_iter_end == value_iter)
 			/* not enough room for anything - bail out */
 			break;
 
-		p = CopyUtf8ToLocale(p, buffer_end - p,
-				     value_iter, value_iter_end - value_iter);
+		p += snprintf(p, buffer_end - p, "%.*s",
+			      int(value_iter_end - value_iter), value_iter);
 		value_iter = value_iter_end;
 
 		lines.emplace_back(buffer, p);
