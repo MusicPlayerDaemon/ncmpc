@@ -595,7 +595,7 @@ parse_line(char *line)
 	return true;
 }
 
-static int
+static bool
 read_rc_file(const char *filename)
 {
 	assert(filename != nullptr);
@@ -603,7 +603,7 @@ read_rc_file(const char *filename)
 	FILE *file = fopen(filename, "r");
 	if (file == nullptr) {
 		perror(filename);
-		return -1;
+		return false;
 	}
 
 	char line[MAX_LINE_LENGTH];
@@ -617,7 +617,7 @@ read_rc_file(const char *filename)
 	}
 
 	fclose(file);
-	return 0;
+	return true;
 }
 
 /**
