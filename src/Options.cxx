@@ -157,6 +157,9 @@ handle_option(int c, const char *arg)
 #ifdef ENABLE_LOCALE
 		     " locale"
 #endif
+#ifdef HAVE_ICONV
+		     " iconv"
+#endif
 #ifdef ENABLE_NLS
 		     " nls"
 #endif

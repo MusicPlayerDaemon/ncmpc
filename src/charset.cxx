@@ -27,7 +27,12 @@
 #include <string.h>
 #include <glib.h>
 
-#ifdef ENABLE_LOCALE
+#ifdef HAVE_ICONV
+#include <iconv.h>
+#include <errno.h>
+#endif
+
+#ifdef HAVE_ICONV
 static bool noconvert = true;
 static const char *charset;
 
@@ -47,33 +52,140 @@ CopyTruncateString(char *dest, size_t dest_size,
 	return dest;
 }
 
+#ifdef HAVE_ICONV
+
 static char *
-CopyTruncateString(char *dest, size_t dest_size, const char *src) noexcept
+Iconv(iconv_t i,
+      char *dest, size_t dest_size,
+      const char *src, size_t src_length) noexcept
 {
-	return CopyTruncateString(dest, dest_size, src, strlen(src));
+	static constexpr char FALLBACK = '?';
+
+	--dest_size; /* reserve once byte for the null terminator */
+
+	while (src_length > 0) {
+		size_t err = iconv(i,
+				   const_cast<char **>(&src), &src_length,
+				   &dest, &dest_size);
+		if (err == (size_t)-1) {
+			switch (errno) {
+			case EILSEQ:
+				/* invalid sequence: use fallback
+				   character instead */
+				++src;
+				--src_length;
+				*dest++ = FALLBACK;
+				break;
+
+			case EINVAL:
+				/* incomplete sequence: add fallback
+				   character and stop */
+				*dest++ = FALLBACK;
+				*dest = '\0';
+				return dest;
+
+			case E2BIG:
+				/* output buffer is full: stop here */
+				*dest = '\0';
+				return dest;
+
+			default:
+				/* unknown error: stop here */
+				*dest = '\0';
+				return dest;
+			}
+		}
+	}
+
+	*dest = '\0';
+	return dest;
 }
 
-#ifdef ENABLE_LOCALE
-
 static char *
-utf8_to_locale(const char *utf8str, gssize length=-1)
+Iconv(const char *tocode, const char *fromcode,
+      char *dest, size_t dest_size,
+      const char *src, size_t src_length) noexcept
 {
-	assert(utf8str != nullptr);
+	const auto i = iconv_open(tocode, fromcode);
+	if (i == (iconv_t)-1) {
+		CopyTruncateString(dest, dest_size, src, src_length);
+		return dest;
+	}
+
+	AtScopeExit(i) { iconv_close(i); };
+
+	return Iconv(i, dest, dest_size, src, src_length);
+}
+
+static std::string
+Iconv(iconv_t i,
+      const char *src, size_t src_length) noexcept
+{
+	static constexpr char FALLBACK = '?';
+
+	std::string dest;
+
+	while (src_length > 0) {
+		char buffer[1024], *outbuf = buffer;
+		size_t outbytesleft = sizeof(buffer);
+
+		size_t err = iconv(i,
+				   const_cast<char **>(&src), &src_length,
+				   &outbuf, &outbytesleft);
+		dest.append(buffer, outbuf);
+		if (err == (size_t)-1) {
+			switch (errno) {
+			case EILSEQ:
+				/* invalid sequence: use fallback
+				   character instead */
+				++src;
+				--src_length;
+				dest.push_back(FALLBACK);
+				break;
+
+			case EINVAL:
+				/* incomplete sequence: add fallback
+				   character and stop */
+				dest.push_back(FALLBACK);
+				return dest;
+
+			case E2BIG:
+				/* output buffer is full: flush it */
+				break;
+
+			default:
+				/* unknown error: stop here */
+				return dest;
+			}
+		}
+	}
+
+	return dest;
+}
+
+static std::string
+Iconv(const char *tocode, const char *fromcode,
+      const char *src, size_t src_length) noexcept
+{
+	const auto i = iconv_open(tocode, fromcode);
+	if (i == (iconv_t)-1)
+		return {src, src_length};
+
+	AtScopeExit(i) { iconv_close(i); };
+
+	return Iconv(i, src, src_length);
+}
+
+static std::string
+utf8_to_locale(const char *src, size_t length)
+{
+	assert(src != nullptr);
 
 	if (noconvert)
-		return length >= 0
-			? g_strndup(utf8str, length)
-			: g_strdup(utf8str);
+		return {src, length};
 
-	gchar *str = g_convert_with_fallback(utf8str, length,
-					     charset, "utf-8",
-					     nullptr, nullptr, nullptr, nullptr);
-	if (str == nullptr)
-		return length >= 0
-			? g_strndup(utf8str, length)
-			: g_strdup(utf8str);
-
-	return str;
+	return Iconv(charset, "utf-8",
+		     src, length);
 }
 
 #endif
@@ -81,25 +193,29 @@ utf8_to_locale(const char *utf8str, gssize length=-1)
 char *
 CopyUtf8ToLocale(char *dest, size_t dest_size, const char *src) noexcept
 {
-	return CopyTruncateString(dest, dest_size, Utf8ToLocale(src).c_str());
+	return CopyUtf8ToLocale(dest, dest_size, src, strlen(src));
 }
 
 char *
 CopyUtf8ToLocale(char *dest, size_t dest_size,
 		 const char *src, size_t src_length) noexcept
 {
-#ifdef ENABLE_LOCALE
-	return CopyTruncateString(dest, dest_size,
-				  Utf8ToLocale(src, src_length).c_str());
-#else
-	return CopyTruncateString(dest, dest_size, src, src_length);
+#ifdef HAVE_ICONV
+	if (noconvert) {
+#endif
+		return CopyTruncateString(dest, dest_size, src, src_length);
+#ifdef HAVE_ICONV
+	} else {
+		return Iconv(charset, "utf-8", dest, dest_size,
+			     src, src_length);
+	}
 #endif
 }
 
 const char *
 utf8_to_locale(const char *src, char *buffer, size_t size) noexcept
 {
-#ifdef ENABLE_LOCALE
+#ifdef HAVE_ICONV
 	CopyUtf8ToLocale(buffer, size, src);
 	return buffer;
 #else
@@ -109,42 +225,27 @@ utf8_to_locale(const char *src, char *buffer, size_t size) noexcept
 #endif
 }
 
-#ifdef ENABLE_LOCALE
+#ifdef HAVE_ICONV
 
-static char *
-locale_to_utf8(const char *localestr)
+static std::string
+locale_to_utf8(const char *src)
 {
-	assert(localestr != nullptr);
+	assert(src != nullptr);
 
 	if (noconvert)
-		return g_strdup(localestr);
+		return src;
 
-	gchar *str = g_convert_with_fallback(localestr, -1,
-					     "utf-8", charset,
-					     nullptr, nullptr, nullptr, nullptr);
-	if (str == nullptr)
-		return g_strdup(localestr);
-
-	return str;
+	return Iconv("utf-8", charset,
+		     src, strlen(src));
 }
 
 Utf8ToLocale::Utf8ToLocale(const char *src) noexcept
-	:value(utf8_to_locale(src)) {}
+	:Utf8ToLocale(src, strlen(src)) {}
 
 Utf8ToLocale::Utf8ToLocale(const char *src, size_t length) noexcept
 	:value(utf8_to_locale(src, length)) {}
 
-Utf8ToLocale::~Utf8ToLocale()
-{
-	g_free(value);
-}
-
 LocaleToUtf8::LocaleToUtf8(const char *src) noexcept
 	:value(locale_to_utf8(src)) {}
-
-LocaleToUtf8::~LocaleToUtf8()
-{
-	g_free(value);
-}
 
 #endif

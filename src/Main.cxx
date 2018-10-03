@@ -287,8 +287,10 @@ main(int argc, const char *argv[])
 	setlocale(LC_COLLATE,"");
 	/* charset */
 	setlocale(LC_CTYPE,"");
+#ifdef HAVE_ICONV
 	/* initialize charset conversions */
 	charset_init();
+#endif
 
 	/* initialize i18n support */
 #endif

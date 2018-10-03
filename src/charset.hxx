@@ -23,9 +23,11 @@
 #include "config.h"
 #include "util/Compiler.h"
 
+#include <string>
+
 #include <stddef.h>
 
-#ifdef ENABLE_LOCALE
+#ifdef HAVE_ICONV
 void
 charset_init();
 #endif
@@ -47,18 +49,16 @@ utf8_to_locale(const char *src, char *buffer, size_t size) noexcept;
  * necessary, then this class is a no-op.
  */
 class Utf8ToLocale {
-#ifdef ENABLE_LOCALE
-	char *const value;
+#ifdef HAVE_ICONV
+	const std::string value;
 #else
 	const char *const value;
 #endif
 
 public:
-#ifdef ENABLE_LOCALE
+#ifdef HAVE_ICONV
 	explicit Utf8ToLocale(const char *src) noexcept;
 	Utf8ToLocale(const char *src, size_t length) noexcept;
-
-	~Utf8ToLocale();
 
 	Utf8ToLocale(const Utf8ToLocale &) = delete;
 	Utf8ToLocale &operator=(const Utf8ToLocale &) = delete;
@@ -68,7 +68,11 @@ public:
 #endif
 
 	const char *c_str() const {
+#ifdef HAVE_ICONV
+		return value.c_str();
+#else
 		return value;
+#endif
 	}
 };
 
@@ -78,17 +82,15 @@ public:
  * necessary, then this class is a no-op.
  */
 class LocaleToUtf8 {
-#ifdef ENABLE_LOCALE
-	char *const value;
+#ifdef HAVE_ICONV
+	const std::string value;
 #else
 	const char *const value;
 #endif
 
 public:
-#ifdef ENABLE_LOCALE
+#ifdef HAVE_ICONV
 	explicit LocaleToUtf8(const char *src) noexcept;
-
-	~LocaleToUtf8();
 
 	LocaleToUtf8(const LocaleToUtf8 &) = delete;
 	LocaleToUtf8 &operator=(const LocaleToUtf8 &) = delete;
@@ -98,7 +100,11 @@ public:
 #endif
 
 	const char *c_str() const {
+#ifdef HAVE_ICONV
+		return value.c_str();
+#else
 		return value;
+#endif
 	}
 };
 
