@@ -1,88 +1,38 @@
 {
    ncurses
    Memcheck:Leak
-   fun:malloc
-   fun:_nc_home_terminfo
-   fun:_nc_next_db
-   fun:_nc_read_entry
-   fun:grab_entry
-   fun:_nc_setupterm
-   fun:newterm
-   fun:ncu_init
-   fun:main
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:_nc_setup_tinfo
 }
 
 {
    ncurses
    Memcheck:Leak
+   match-leak-kinds: reachable
    fun:realloc
-   fun:_nc_doalloc
-   fun:_nc_trace_alloc
-   fun:_nc_trace_buf
-   fun:_nc_visbuf2n
-   fun:recur_tries
-   fun:recur_tries
-   fun:recur_tries
-   fun:recur_tries
-   fun:recur_tries
-   fun:_nc_trace_tries
-   fun:_nc_keypad
-   fun:keypad
-}
-
-{
-   ncurses
-   Memcheck:Leak
-   fun:malloc
-   fun:_nc_trace_alloc
-   fun:_nc_trace_buf
-   fun:_nc_visbuf2n
-   fun:recur_tries
-   fun:recur_tries
-   fun:recur_tries
-   fun:_nc_trace_tries
-   fun:_nc_keypad
-   fun:keypad
-}
-
-{
-   ncurses
-   Memcheck:Leak
-   fun:calloc
-   fun:_nc_init_wacs
-}
-
-{
-   ncurses
-   Memcheck:Leak
-   fun:malloc
-   fun:_nc_set_buffer
-   fun:_nc_setupscreen
-   fun:newterm
-}
-
-{
-   ncurses
-   Memcheck:Leak
-   fun:realloc
-   fun:_nc_doalloc
+   ...
    fun:get_space
-   fun:save_number
-   fun:tparm
+   ...
+   fun:tparam_internal
 }
 
 {
    ncurses
    Memcheck:Leak
+   match-leak-kinds: reachable
    fun:realloc
-   fun:_nc_doalloc
+   ...
    fun:_nc_tparm_analyze
-   fun:tparm
+   fun:tparam_internal
 }
 
 {
    ncurses
    Memcheck:Leak
-   fun:malloc
-   fun:_nc_scroll_optimize
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_nc_build_names
+   fun:_nc_find_type_entry
 }
