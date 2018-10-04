@@ -33,6 +33,9 @@ class TextPage : public ListPage, ListText {
 protected:
 	ScreenManager &screen;
 
+	/**
+	 * Strings are UTF-8.
+	 */
 	std::vector<std::string> lines;
 
 public:
@@ -49,8 +52,14 @@ protected:
 
 	void Clear() noexcept;
 
+	/**
+	 * @param str a UTF-8 string
+	 */
 	void Append(const char *str) noexcept;
 
+	/**
+	 * @param str a UTF-8 string
+	 */
 	void Set(const char *str) noexcept {
 		Clear();
 		Append(str);
