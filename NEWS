@@ -7,6 +7,7 @@ ncmpc 0.32 - not yet released
 * work around GCC 4.9 build failure
 * remove doxygen support
 * new dependency: Boost
+* remove dependency on GLib
 
 ncmpc 0.31 - (2018-09-19)
 * fix "No such song" in search screen

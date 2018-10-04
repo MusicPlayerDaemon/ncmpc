@@ -175,7 +175,6 @@ add_global_arguments(common_cflags, language: 'cpp')
 
 thread_dep = dependency('threads')
 boost_dep = dependency('boost', modules: ['system'], version: '>= 1.62')
-glib_dep = dependency('glib-2.0', version: '>= 2.30')
 libmpdclient_dep = dependency('libmpdclient', version: '>= 2.9')
 
 if not mini
@@ -365,7 +364,6 @@ ncmpc = executable('ncmpc',
   dependencies: [
     thread_dep,
     boost_dep,
-    glib_dep,
     pcre_dep,
     curses_dep,
     lirc_dep,
