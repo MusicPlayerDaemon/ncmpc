@@ -47,10 +47,11 @@ CopyTruncateString(char *dest, size_t dest_size, const char *src) noexcept
 	return dest;
 }
 
-char *
+#ifdef ENABLE_LOCALE
+
+static char *
 utf8_to_locale(const char *utf8str)
 {
-#ifdef ENABLE_LOCALE
 	assert(utf8str != nullptr);
 
 	if (noconvert)
@@ -63,10 +64,9 @@ utf8_to_locale(const char *utf8str)
 		return g_strdup(utf8str);
 
 	return str;
-#else
-	return g_strdup(utf8str);
-#endif
 }
+
+#endif
 
 char *
 CopyUtf8ToLocale(char *dest, size_t dest_size, const char *src) noexcept
@@ -97,10 +97,11 @@ utf8_to_locale(const char *src, char *buffer, size_t size) noexcept
 #endif
 }
 
-char *
+#ifdef ENABLE_LOCALE
+
+static char *
 locale_to_utf8(const char *localestr)
 {
-#ifdef ENABLE_LOCALE
 	assert(localestr != nullptr);
 
 	if (noconvert)
@@ -113,17 +114,18 @@ locale_to_utf8(const char *localestr)
 		return g_strdup(localestr);
 
 	return str;
-#else
-	return g_strdup(localestr);
-#endif
 }
 
-#ifdef ENABLE_LOCALE
+Utf8ToLocale::Utf8ToLocale(const char *src) noexcept
+	:value(utf8_to_locale(src)) {}
 
 Utf8ToLocale::~Utf8ToLocale()
 {
 	g_free(value);
 }
+
+LocaleToUtf8::LocaleToUtf8(const char *src) noexcept
+	:value(locale_to_utf8(src)) {}
 
 LocaleToUtf8::~LocaleToUtf8()
 {

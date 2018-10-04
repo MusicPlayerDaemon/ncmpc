@@ -30,8 +30,6 @@ const char *
 charset_init();
 #endif
 
-char *utf8_to_locale(const char *str);
-
 char *
 CopyUtf8ToLocale(char *dest, size_t dest_size, const char *src) noexcept;
 
@@ -42,8 +40,6 @@ CopyUtf8ToLocale(char *dest, size_t dest_size,
 gcc_pure
 const char *
 utf8_to_locale(const char *src, char *buffer, size_t size) noexcept;
-
-char *locale_to_utf8(const char *str);
 
 /**
  * Convert an UTF-8 string to the locale charset.  The source string
@@ -59,8 +55,7 @@ class Utf8ToLocale {
 
 public:
 #ifdef ENABLE_LOCALE
-	explicit Utf8ToLocale(const char *src)
-		:value(utf8_to_locale(src)) {}
+	explicit Utf8ToLocale(const char *src) noexcept;
 
 	~Utf8ToLocale();
 
@@ -90,8 +85,7 @@ class LocaleToUtf8 {
 
 public:
 #ifdef ENABLE_LOCALE
-	explicit LocaleToUtf8(const char *src)
-		:value(locale_to_utf8(src)) {}
+	explicit LocaleToUtf8(const char *src) noexcept;
 
 	~LocaleToUtf8();
 
