@@ -35,6 +35,7 @@
 #include "i18n.h"
 #include "player_command.hxx"
 #include "util/ScopeExit.hxx"
+#include "util/StringUTF8.hxx"
 
 #ifndef NCMPC_MINI
 #include "conf.hxx"
@@ -288,6 +289,8 @@ main(int argc, const char *argv[])
 	/* initialize charset conversions */
 	charset_init();
 #endif
+
+	const ScopeInitUTF8 init_utf8;
 
 	/* initialize i18n support */
 #endif

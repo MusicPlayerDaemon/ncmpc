@@ -20,7 +20,19 @@
 #ifndef STRING_UTF8_HXX
 #define STRING_UTF8_HXX
 
+#include "config.h"
 #include "Compiler.h"
+
+class ScopeInitUTF8 {
+#ifdef ENABLE_LOCALE
+public:
+	ScopeInitUTF8() noexcept;
+	~ScopeInitUTF8() noexcept;
+
+	ScopeInitUTF8(const ScopeInitUTF8 &) = delete;
+	ScopeInitUTF8 &operator=(const ScopeInitUTF8 &) = delete;
+#endif
+};
 
 gcc_pure
 int
