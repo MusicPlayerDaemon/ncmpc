@@ -67,5 +67,6 @@ LircInput::~LircInput()
 {
 	if (lc)
 		lirc_freeconfig(lc);
-	lirc_deinit();
+	if (d.is_open())
+		lirc_deinit();
 }
