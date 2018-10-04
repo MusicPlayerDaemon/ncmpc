@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-17 22:53+0200\n"
-"PO-Revision-Date: 2018-10-03 16:33+0000\n"
+"PO-Revision-Date: 2018-10-05 17:33+0000\n"
 "Last-Translator: Mirosław Borodeńko <myros@outlook.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/ncmpc/"
 "translations/pl/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.2-dev\n"
+"X-Generator: Weblate 3.2\n"
 
 #: src/AlbumListPage.cxx:54 src/AlbumListPage.cxx:126
 msgid "All tracks"
@@ -199,7 +199,7 @@ msgstr "Przetasuj listę odtwarzania"
 
 #: src/Command.cxx:106
 msgid "Clear queue"
-msgstr "Wyczyść listę odtwarzania"
+msgstr "Wyczyść listę odtwarzania"
 
 #: src/Command.cxx:108
 msgid "Toggle repeat mode"
