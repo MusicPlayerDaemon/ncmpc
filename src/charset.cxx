@@ -50,18 +50,22 @@ CopyTruncateString(char *dest, size_t dest_size, const char *src) noexcept
 #ifdef ENABLE_LOCALE
 
 static char *
-utf8_to_locale(const char *utf8str)
+utf8_to_locale(const char *utf8str, gssize length=-1)
 {
 	assert(utf8str != nullptr);
 
 	if (noconvert)
-		return g_strdup(utf8str);
+		return length >= 0
+			? g_strndup(utf8str, length)
+			: g_strdup(utf8str);
 
-	gchar *str = g_convert_with_fallback(utf8str, -1,
+	gchar *str = g_convert_with_fallback(utf8str, length,
 					     charset, "utf-8",
 					     nullptr, nullptr, nullptr, nullptr);
 	if (str == nullptr)
-		return g_strdup(utf8str);
+		return length >= 0
+			? g_strndup(utf8str, length)
+			: g_strdup(utf8str);
 
 	return str;
 }
