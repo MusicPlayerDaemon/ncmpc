@@ -25,9 +25,9 @@
 
 #include <assert.h>
 #include <string.h>
-#include <glib.h>
 
 #ifdef HAVE_ICONV
+#include <langinfo.h>
 #include <iconv.h>
 #include <errno.h>
 #endif
@@ -39,7 +39,8 @@ static const char *charset;
 void
 charset_init()
 {
-	noconvert = g_get_charset(&charset);
+	charset = nl_langinfo(CODESET);
+	noconvert = charset == nullptr || strcasecmp(charset, "utf-8") == 0;
 }
 #endif
 
