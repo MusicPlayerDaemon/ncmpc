@@ -26,7 +26,7 @@
 #include <stddef.h>
 
 #ifdef ENABLE_LOCALE
-const char *
+void
 charset_init();
 #endif
 

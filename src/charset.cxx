@@ -31,11 +31,10 @@
 static bool noconvert = true;
 static const char *charset;
 
-const char *
+void
 charset_init()
 {
 	noconvert = g_get_charset(&charset);
-	return charset;
 }
 #endif
 
