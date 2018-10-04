@@ -19,7 +19,6 @@
 
 #include "charset.hxx"
 #include "util/ScopeExit.hxx"
-#include "util/StringUTF8.hxx"
 
 #include <algorithm>
 
