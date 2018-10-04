@@ -281,7 +281,6 @@ main(int argc, const char *argv[])
 #ifndef ENABLE_NLS
 	gcc_unused
 #endif
-	const char *charset = nullptr;
 	/* time and date formatting */
 	setlocale(LC_TIME,"");
 	/* care about sorting order etc */
@@ -289,7 +288,7 @@ main(int argc, const char *argv[])
 	/* charset */
 	setlocale(LC_CTYPE,"");
 	/* initialize charset conversions */
-	charset = charset_init();
+	charset_init();
 
 	/* initialize i18n support */
 #endif
@@ -297,9 +296,6 @@ main(int argc, const char *argv[])
 #ifdef ENABLE_NLS
 	setlocale(LC_MESSAGES, "");
 	bindtextdomain(GETTEXT_PACKAGE, LOCALE_DIR);
-#ifdef ENABLE_LOCALE
-	bind_textdomain_codeset(GETTEXT_PACKAGE, charset);
-#endif
 	textdomain(GETTEXT_PACKAGE);
 #endif
 
