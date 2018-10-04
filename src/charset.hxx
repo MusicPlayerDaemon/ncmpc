@@ -29,7 +29,7 @@
 
 #ifdef HAVE_ICONV
 void
-charset_init();
+charset_init() noexcept;
 #endif
 
 char *
@@ -63,11 +63,11 @@ public:
 	Utf8ToLocale(const Utf8ToLocale &) = delete;
 	Utf8ToLocale &operator=(const Utf8ToLocale &) = delete;
 #else
-	explicit Utf8ToLocale(const char *src)
+	explicit Utf8ToLocale(const char *src) noexcept
 		:value(src) {}
 #endif
 
-	const char *c_str() const {
+	const char *c_str() const noexcept {
 #ifdef HAVE_ICONV
 		return value.c_str();
 #else
@@ -95,11 +95,11 @@ public:
 	LocaleToUtf8(const LocaleToUtf8 &) = delete;
 	LocaleToUtf8 &operator=(const LocaleToUtf8 &) = delete;
 #else
-	explicit LocaleToUtf8(const char *src)
+	explicit LocaleToUtf8(const char *src) noexcept
 		:value(src) {}
 #endif
 
-	const char *c_str() const {
+	const char *c_str() const noexcept {
 #ifdef HAVE_ICONV
 		return value.c_str();
 #else

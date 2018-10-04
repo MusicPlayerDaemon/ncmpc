@@ -36,7 +36,7 @@ static bool noconvert = true;
 static const char *charset;
 
 void
-charset_init()
+charset_init() noexcept
 {
 	charset = nl_langinfo(CODESET);
 	noconvert = charset == nullptr || strcasecmp(charset, "utf-8") == 0;
@@ -117,6 +117,7 @@ Iconv(const char *tocode, const char *fromcode,
 	return Iconv(i, dest, dest_size, src, src_length);
 }
 
+gcc_pure
 static std::string
 Iconv(iconv_t i,
       const char *src, size_t src_length) noexcept
@@ -163,6 +164,7 @@ Iconv(iconv_t i,
 	return dest;
 }
 
+gcc_pure
 static std::string
 Iconv(const char *tocode, const char *fromcode,
       const char *src, size_t src_length) noexcept
@@ -176,8 +178,9 @@ Iconv(const char *tocode, const char *fromcode,
 	return Iconv(i, src, src_length);
 }
 
+gcc_pure
 static std::string
-utf8_to_locale(const char *src, size_t length)
+utf8_to_locale(const char *src, size_t length) noexcept
 {
 	assert(src != nullptr);
 
@@ -227,8 +230,9 @@ utf8_to_locale(const char *src, char *buffer, size_t size) noexcept
 
 #ifdef HAVE_ICONV
 
+gcc_pure
 static std::string
-locale_to_utf8(const char *src)
+locale_to_utf8(const char *src) noexcept
 {
 	assert(src != nullptr);
 
