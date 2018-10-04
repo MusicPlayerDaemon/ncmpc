@@ -278,9 +278,6 @@ int
 main(int argc, const char *argv[])
 {
 #ifdef ENABLE_LOCALE
-#ifndef ENABLE_NLS
-	gcc_unused
-#endif
 	/* time and date formatting */
 	setlocale(LC_TIME,"");
 	/* care about sorting order etc */
