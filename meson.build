@@ -45,6 +45,7 @@ if enable_nls
   subdir('po')
 endif
 
+conf.set('HAVE_LOCALE_T', enable_locale and cc.has_header_symbol('locale.h', 'locale_t'))
 conf.set('HAVE_ICONV', enable_locale and cc.has_function('iconv'))
 
 if get_option('tcp')

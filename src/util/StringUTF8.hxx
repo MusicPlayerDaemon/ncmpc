@@ -24,7 +24,7 @@
 #include "Compiler.h"
 
 class ScopeInitUTF8 {
-#ifdef ENABLE_LOCALE
+#ifdef HAVE_LOCALE_T
 public:
 	ScopeInitUTF8() noexcept;
 	~ScopeInitUTF8() noexcept;

@@ -21,7 +21,7 @@
 
 #include <string.h>
 
-#ifdef ENABLE_LOCALE
+#ifdef HAVE_LOCALE_T
 #include <langinfo.h>
 #include <locale.h>
 
@@ -62,7 +62,7 @@ gcc_pure
 int
 CollateUTF8(const char *a, const char *b)
 {
-#ifdef ENABLE_LOCALE
+#ifdef HAVE_LOCALE_T
 	if (utf8_locale != locale_t(0))
 		return strcoll_l(a, b, utf8_locale);
 #endif
