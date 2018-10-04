@@ -40,11 +40,18 @@ charset_init()
 #endif
 
 static char *
-CopyTruncateString(char *dest, size_t dest_size, const char *src) noexcept
+CopyTruncateString(char *dest, size_t dest_size,
+		   const char *src, size_t src_length) noexcept
 {
-	dest = std::copy_n(src, std::min(dest_size - 1, strlen(src)), dest);
+	dest = std::copy_n(src, std::min(dest_size - 1, src_length), dest);
 	*dest = 0;
 	return dest;
+}
+
+static char *
+CopyTruncateString(char *dest, size_t dest_size, const char *src) noexcept
+{
+	return CopyTruncateString(dest, dest_size, src, strlen(src));
 }
 
 #ifdef ENABLE_LOCALE
@@ -82,8 +89,12 @@ char *
 CopyUtf8ToLocale(char *dest, size_t dest_size,
 		 const char *src, size_t src_length) noexcept
 {
+#ifdef ENABLE_LOCALE
 	return CopyTruncateString(dest, dest_size,
 				  Utf8ToLocale(src, src_length).c_str());
+#else
+	return CopyTruncateString(dest, dest_size, src, src_length);
+#endif
 }
 
 const char *
