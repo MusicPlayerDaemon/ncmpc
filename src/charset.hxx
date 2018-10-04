@@ -56,6 +56,7 @@ class Utf8ToLocale {
 public:
 #ifdef ENABLE_LOCALE
 	explicit Utf8ToLocale(const char *src) noexcept;
+	Utf8ToLocale(const char *src, size_t length) noexcept;
 
 	~Utf8ToLocale();
 

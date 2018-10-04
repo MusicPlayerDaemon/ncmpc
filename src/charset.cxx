@@ -82,10 +82,8 @@ char *
 CopyUtf8ToLocale(char *dest, size_t dest_size,
 		 const char *src, size_t src_length) noexcept
 {
-	char *truncated_src = g_strndup(src, src_length);
-	dest = CopyUtf8ToLocale(dest, dest_size, truncated_src);
-	g_free(truncated_src);
-	return dest;
+	return CopyTruncateString(dest, dest_size,
+				  Utf8ToLocale(src, src_length).c_str());
 }
 
 const char *
@@ -122,6 +120,9 @@ locale_to_utf8(const char *localestr)
 
 Utf8ToLocale::Utf8ToLocale(const char *src) noexcept
 	:value(utf8_to_locale(src)) {}
+
+Utf8ToLocale::Utf8ToLocale(const char *src, size_t length) noexcept
+	:value(utf8_to_locale(src, length)) {}
 
 Utf8ToLocale::~Utf8ToLocale()
 {
