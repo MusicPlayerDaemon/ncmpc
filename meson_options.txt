@@ -3,6 +3,9 @@ option('curses', type: 'combo',
   value: 'auto',
   description: 'Choose which curses implementation to use')
 
+option('regex', type: 'feature',
+  description: 'Enable regular expression support (using libpcre)')
+
 option('mouse', type: 'feature',
   description: 'Enable mouse support')
 

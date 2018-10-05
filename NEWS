@@ -3,6 +3,7 @@ ncmpc 0.33 - not yet released
 * build: require Meson 0.47
 * build: use Meson option type `feature`
 * build: remove obsolete option `tcp`
+* build: add option to disable regular expression support
 
 ncmpc 0.32 - (2018-10-05)
 * fix crash bug on queue page

@@ -168,7 +168,7 @@ boost_dep = dependency('boost', version: '>= 1.62')
 libmpdclient_dep = dependency('libmpdclient', version: '>= 2.9')
 
 if not mini
-  pcre_dep = dependency('libpcre', required: false)
+  pcre_dep = dependency('libpcre', required: get_option('regex'))
   conf.set('HAVE_PCRE', pcre_dep.found())
 else
   pcre_dep = declare_dependency()
