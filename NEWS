@@ -1,4 +1,4 @@
-ncmpc 0.32 - not yet released
+ncmpc 0.32 - (2018-10-05)
 * fix crash bug on queue page
 * fix crash bug on lyrics page
 * fix off-by-one buffer overflow bug
