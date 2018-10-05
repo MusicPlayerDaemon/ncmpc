@@ -115,10 +115,6 @@ if enable_lirc == 'false'
   lirc_dep = []
 else
   lirc_dep = dependency('lirc', required: false)
-  if not lirc_dep.found()
-    lirc_dep = dependency('liblircclient0', required: false)
-  endif
-
   if lirc_dep.found()
     enable_lirc = true
   elif enable_lirc == 'auto'
