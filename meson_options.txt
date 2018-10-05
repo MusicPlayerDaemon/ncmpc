@@ -31,10 +31,6 @@ option('lirc', type: 'combo',
   value: 'auto',
   description: 'Enable LIRC support')
 
-option('tcp', type: 'boolean',
-  value: true,
-  description: 'Enable TCP support')
-
 option('async_connect', type: 'boolean',
   value: true,
   description: 'Enable asynchronous connect')
