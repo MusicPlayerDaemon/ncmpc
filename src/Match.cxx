@@ -58,7 +58,7 @@ MatchExpression::Compile(const char *src, bool anchor) noexcept
 bool
 MatchExpression::operator()(const char *line) const noexcept
 {
-#ifdef NCMPC_MINI
+#ifndef HAVE_PCRE
 	assert(expression != nullptr);
 
 	return anchored

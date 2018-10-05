@@ -1,4 +1,5 @@
 ncmpc 0.33 - not yet released
+* fix build failure when libpcre is not found
 * remove support for liblircclient (only liblirc)
 * build: require Meson 0.47
 * build: use Meson option type `feature`
