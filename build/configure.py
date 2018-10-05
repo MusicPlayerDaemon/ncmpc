@@ -7,10 +7,10 @@ global_options = ['--werror']
 flavors = {
     'debug': {
         'options': [
-            '-Ddocumentation=true',
+            '-Ddocumentation=enabled',
             '-Dcurses=ncursesw',
-            '-Dmouse=true',
-            '-Dlirc=true',
+            '-Dmouse=enabled',
+            '-Dlirc=enabled',
             '-Dlyrics_screen=true',
             '-Dchat_screen=true',
         ],
@@ -19,11 +19,11 @@ flavors = {
     'clang': {
         'options': [
             '-Dcurses=ncursesw',
-            '-Dmouse=true',
-            '-Dlirc=true',
+            '-Dmouse=enabled',
+            '-Dlirc=enabled',
             '-Dlyrics_screen=true',
             '-Dchat_screen=true',
-            '-Ddocumentation=false',
+            '-Ddocumentation=disabled',
         ],
         'env': {
             'CC': 'clang',
@@ -38,8 +38,8 @@ flavors = {
             '-Db_ndebug=true',
             '-Db_lto=true',
             '-Dcurses=ncursesw',
-            '-Dmouse=true',
-            '-Ddocumentation=false',
+            '-Dmouse=enabled',
+            '-Ddocumentation=disabled',
         ],
         'env': {
             'LDFLAGS': '-fuse-ld=gold -Wl,--gc-sections,--icf=all',
@@ -52,8 +52,8 @@ flavors = {
             '-Db_ndebug=true',
             '-Db_lto=true',
             '-Dcurses=ncursesw',
-            '-Dmouse=true',
-            '-Ddocumentation=false',
+            '-Dmouse=enabled',
+            '-Ddocumentation=disabled',
         ],
         'env': {
             'CC': 'clang',
@@ -67,17 +67,17 @@ flavors = {
             '--buildtype', 'minsize',
             '-Db_ndebug=true',
             '-Db_lto=true',
-            '-Dlirc=false',
+            '-Dlirc=disabled',
             '-Dcurses=ncurses',
             '-Dcolors=false',
-            '-Dmouse=false',
+            '-Dmouse=disabled',
             '-Dmultibyte=false',
-            '-Dlocale=false',
-            '-Dnls=false',
+            '-Dlocale=disabled',
+            '-Dnls=disabled',
             '-Dtcp=false',
             '-Dasync_connect=false',
             '-Dmini=true',
-            '-Ddocumentation=false',
+            '-Ddocumentation=disabled',
         ],
         'env': {
             'LDFLAGS': '-fuse-ld=gold -Wl,--gc-sections,--icf=all',

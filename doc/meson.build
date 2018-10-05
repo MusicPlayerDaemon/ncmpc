@@ -1,4 +1,4 @@
-sphinx = find_program('sphinx-build', required: enable_documentation == 'true')
+sphinx = find_program('sphinx-build', required: get_option('documentation'))
 if sphinx.found()
   if get_option('html_manual')
     custom_target(

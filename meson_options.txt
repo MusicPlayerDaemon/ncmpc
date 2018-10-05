@@ -3,9 +3,7 @@ option('curses', type: 'combo',
   value: 'auto',
   description: 'Choose which curses implementation to use')
 
-option('mouse', type: 'combo',
-  choices: ['true', 'false', 'auto'],
-  value: 'auto',
+option('mouse', type: 'feature',
   description: 'Enable mouse support')
 
 option('colors', type: 'boolean',
@@ -16,19 +14,13 @@ option('multibyte', type: 'boolean',
   value: true,
   description: 'Enable multibyte character support')
 
-option('locale', type: 'combo',
-  choices: ['true', 'false', 'auto'],
-  value: 'auto',
+option('locale', type: 'feature',
   description: 'Enable locale support')
 
-option('nls', type: 'combo',
-  choices: ['true', 'false', 'auto'],
-  value: 'auto',
+option('nls', type: 'feature',
   description: 'Enable NLS support')
 
-option('lirc', type: 'combo',
-  choices: ['true', 'false', 'auto'],
-  value: 'auto',
+option('lirc', type: 'feature',
   description: 'Enable LIRC support')
 
 option('async_connect', type: 'boolean',
@@ -75,8 +67,7 @@ option('chat_screen', type: 'boolean',
   value: false,
   description: 'Enable the chat screen')
 
-option('documentation', type: 'combo',
-  choices: ['true', 'false', 'auto'], value: 'auto',
+option('documentation', type: 'feature',
   description: 'Build documentation')
 
 option('manual', type: 'boolean',

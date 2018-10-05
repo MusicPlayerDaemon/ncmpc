@@ -1,6 +1,7 @@
 ncmpc 0.33 - not yet released
 * remove support for liblircclient (only liblirc)
 * build: require Meson 0.47
+* build: use Meson option type `feature`
 * build: remove obsolete option `tcp`
 
 ncmpc 0.32 - (2018-10-05)

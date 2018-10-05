@@ -19,11 +19,11 @@ mini = get_option('mini')
 conf.set('NCMPC_MINI', mini)
 
 enable_locale = get_option('locale')
-if enable_locale == 'false' or mini
+if enable_locale.disabled() or mini
   enable_locale = false
 elif cc.has_header('locale.h')
   enable_locale = true
-elif enable_locale == 'auto'
+elif enable_locale.auto()
   enable_locale = false
 else
   error('locale.h not found')
@@ -31,11 +31,11 @@ endif
 conf.set('ENABLE_LOCALE', enable_locale)
 
 enable_nls = get_option('nls')
-if enable_nls == 'false' or mini
+if enable_nls.disabled() or mini
   enable_nls = false
 elif cc.has_header('libintl.h')
   enable_nls = true
-elif enable_nls == 'auto'
+elif enable_nls.auto()
   enable_nls = false
 else
   error('libintl.h not found')
@@ -99,32 +99,19 @@ endif
 conf.set('HAVE_CURSES_ENHANCED', curses_enhanced)
 
 enable_mouse = get_option('mouse')
-if enable_mouse == 'false'
+if enable_mouse.disabled()
   enable_mouse = false
 elif cc.has_function('getmouse', dependencies: curses_dep)
   enable_mouse = true
-elif enable_mouse == 'auto'
+elif enable_mouse.auto()
   enable_mouse = false
 else
   error('getmouse() not available')
 endif
 conf.set('HAVE_GETMOUSE', enable_mouse)
 
-enable_lirc = get_option('lirc')
-if enable_lirc == 'false'
-  enable_lirc = false
-  lirc_dep = []
-else
-  lirc_dep = dependency('lirc', required: false)
-  if lirc_dep.found()
-    enable_lirc = true
-  elif enable_lirc == 'auto'
-    enable_lirc = false
-  else
-    error('liblirc not found')
-  endif
-endif
-conf.set('ENABLE_LIRC', enable_lirc)
+lirc_dep = dependency('lirc', required: get_option('lirc'))
+conf.set('ENABLE_LIRC', lirc_dep.found())
 
 conf.set('ENABLE_COLORS', curses_color and get_option('colors'))
 
@@ -223,7 +210,7 @@ if async_connect
   ]
 endif
 
-if enable_lirc
+if lirc_dep.found()
   sources += [
     'src/lirc.cxx',
   ]
@@ -388,7 +375,4 @@ if not mini
   subdir('test')
 endif
 
-enable_documentation = get_option('documentation')
-if enable_documentation != 'false'
-  subdir('doc')
-endif
+subdir('doc')
