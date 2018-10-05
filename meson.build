@@ -138,6 +138,9 @@ conf.set('ENABLE_COLORS', curses_color and get_option('colors'))
 common_cflags = [
   # for getaddrinfo() and sigaction() with glibc
   '-D_GNU_SOURCE',
+
+  # avoid the runtime dependency on libboost_system
+  '-DBOOST_ERROR_CODE_HEADER_ONLY',
 ]
 
 test_cflags = [
@@ -175,7 +178,7 @@ endforeach
 add_global_arguments(common_cflags, language: 'cpp')
 
 thread_dep = dependency('threads')
-boost_dep = dependency('boost', modules: ['system'], version: '>= 1.62')
+boost_dep = dependency('boost', version: '>= 1.62')
 libmpdclient_dep = dependency('libmpdclient', version: '>= 2.9')
 
 if not mini
