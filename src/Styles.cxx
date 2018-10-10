@@ -330,7 +330,7 @@ ModifyStyle(const char *name, const char *value)
 {
 	const auto style = StyleByName(name);
 	if (style == Style::END) {
-		fprintf(stderr, "%s: %s",
+		fprintf(stderr, "%s: %s\n",
 			_("Unknown color field"), name);
 		return false;
 	}
