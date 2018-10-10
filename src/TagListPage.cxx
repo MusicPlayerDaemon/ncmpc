@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "AlbumListPage.hxx"
+#include "TagListPage.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "FileListPage.hxx"
@@ -32,6 +32,23 @@
 #include <assert.h>
 #include <string.h>
 
+TagFilter
+TagListPage::MakeCursorFilter() const noexcept
+{
+	unsigned i = lw.selected;
+	if (parent != nullptr) {
+		if (i == 0)
+			return {};
+
+		--i;
+	}
+
+	auto new_filter = filter;
+	if (i < values.size())
+		new_filter.emplace_front(tag, values[i]);
+	return new_filter;
+}
+
 gcc_pure
 static bool
 CompareUTF8(const std::string &a, const std::string &b)
@@ -40,19 +57,22 @@ CompareUTF8(const std::string &a, const std::string &b)
 }
 
 const char *
-AlbumListPage::GetListItemText(char *buffer, size_t size,
-			       unsigned idx) const noexcept
+TagListPage::GetListItemText(char *buffer, size_t size,
+			     unsigned idx) const noexcept
 {
-	if (idx == 0)
-		return "..";
-	else if (idx == album_list.size() + 1)
+	if (parent != nullptr) {
+		if (idx == 0)
+			return "..";
+
+		--idx;
+	}
+
+	if (idx == values.size() + 1)
 		return _("All tracks");
 
-	--idx;
+	assert(idx < values.size());
 
-	assert(idx < album_list.size());
-
-	return utf8_to_locale(album_list[idx].c_str(), buffer, size);
+	return utf8_to_locale(values[idx].c_str(), buffer, size);
 }
 
 static void
@@ -68,34 +88,31 @@ recv_tag_values(struct mpd_connection *connection, enum mpd_tag_type tag,
 }
 
 void
-AlbumListPage::LoadAlbumList(struct mpdclient &c)
+TagListPage::LoadValues(struct mpdclient &c) noexcept
 {
 	auto *connection = c.GetConnection();
 
-	album_list.clear();
+	values.clear();
 
 	if (connection != nullptr) {
-		mpd_search_db_tags(connection, MPD_TAG_ALBUM);
-		mpd_search_add_tag_constraint(connection,
-					      MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_ARTIST,
-					      artist.c_str());
+		mpd_search_db_tags(connection, tag);
+		AddConstraints(connection, filter);
 		mpd_search_commit(connection);
 
-		recv_tag_values(connection, MPD_TAG_ALBUM, album_list);
+		recv_tag_values(connection, tag, values);
 
 		c.FinishCommand();
 	}
 
 	/* sort list */
-	std::sort(album_list.begin(), album_list.end(), CompareUTF8);
-	lw.SetLength(album_list.size() + 2);
+	std::sort(values.begin(), values.end(), CompareUTF8);
+	lw.SetLength((parent != nullptr) + values.size() + (all_text != nullptr));
 }
 
 void
-AlbumListPage::Reload(struct mpdclient &c)
+TagListPage::Reload(struct mpdclient &c)
 {
-	LoadAlbumList(c);
+	LoadValues(c);
 }
 
 /**
@@ -105,39 +122,42 @@ AlbumListPage::Reload(struct mpdclient &c)
  * to view the tracks of all albums.
  */
 void
-AlbumListPage::PaintListItem(WINDOW *w, unsigned i,
+TagListPage::PaintListItem(WINDOW *w, unsigned i,
 			     gcc_unused unsigned y, unsigned width,
 			     bool selected) const noexcept
 {
-	if (i == 0)
-		screen_browser_paint_directory(w, width, selected, "..");
-	else if (i == album_list.size() + 1)
+	if (parent != nullptr) {
+		if (i == 0) {
+			screen_browser_paint_directory(w, width, selected,
+						       "..");
+			return;
+		}
+
+		--i;
+	}
+
+	if (i < values.size())
 		screen_browser_paint_directory(w, width, selected,
-					       _("All tracks"));
+					       Utf8ToLocale(values[i].c_str()).c_str());
 	else
 		screen_browser_paint_directory(w, width, selected,
-					       Utf8ToLocale(album_list[i - 1].c_str()).c_str());
+					       all_text);
 }
 
 void
-AlbumListPage::Paint() const noexcept
+TagListPage::Paint() const noexcept
 {
 	lw.Paint(*this);
 }
 
 const char *
-AlbumListPage::GetTitle(char *str, size_t size) const noexcept
+TagListPage::GetTitle(char *, size_t) const noexcept
 {
-	if (artist.empty())
-		return _("Albums");
-
-	snprintf(str, size, _("Albums of artist: %s"),
-		 Utf8ToLocale(artist.c_str()).c_str());
-	return str;
+	return title.c_str();
 }
 
 void
-AlbumListPage::Update(struct mpdclient &c, unsigned events) noexcept
+TagListPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	if (events & MPD_IDLE_DATABASE) {
 		/* the db has changed -> update the list */
@@ -150,34 +170,35 @@ AlbumListPage::Update(struct mpdclient &c, unsigned events) noexcept
    _artist is actually only used in the ALBUM case to distinguish albums with
    the same name from different artists. */
 static void
-add_query(struct mpdclient *c, enum mpd_tag_type table, const char *_filter,
-	  const char *_artist)
+add_query(struct mpdclient *c, const TagFilter &filter,
+	  enum mpd_tag_type tag, const char *value) noexcept
 {
-	assert(_filter != nullptr);
-
 	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return;
 
+	const char *text = value;
+	if (value == nullptr)
+		value = filter.empty() ? "?" : filter.front().second.c_str();
+
 	screen_status_printf(_("Adding \'%s\' to queue"),
-			     Utf8ToLocale(_filter).c_str());
+			     Utf8ToLocale(text).c_str());
 
 	mpd_search_add_db_songs(connection, true);
-	mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-				      table, _filter);
-	if (table == MPD_TAG_ALBUM)
+	AddConstraints(connection, filter);
+
+	if (value != nullptr)
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_ARTIST, _artist);
+					      tag, value);
+
 	mpd_search_commit(connection);
 	c->FinishCommand();
 }
 
 bool
-AlbumListPage::OnCommand(struct mpdclient &c, Command cmd)
+TagListPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch(cmd) {
-		const char *selected;
-
 	case Command::PLAY:
 		if (lw.selected == 0 && parent != nullptr)
 			/* handle ".." */
@@ -187,16 +208,18 @@ AlbumListPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	case Command::SELECT:
 	case Command::ADD:
-		for (const unsigned i : lw.GetRange()) {
-			if(i == album_list.size() + 1)
-				add_query(&c, MPD_TAG_ARTIST, artist.c_str(),
-					  nullptr);
-			else if (i > 0) {
-				selected = album_list[lw.selected - 1].c_str();
-				add_query(&c, MPD_TAG_ALBUM, selected,
-					  artist.c_str());
-				cmd = Command::LIST_NEXT; /* continue and select next item... */
+		for (unsigned i : lw.GetRange()) {
+			if (parent != nullptr) {
+				if (i == 0)
+					continue;
+
+				--i;
 			}
+
+			add_query(&c, filter, tag,
+				  i < values.size()
+				  ? values[i].c_str() : nullptr);
+			cmd = Command::LIST_NEXT; /* continue and select next item... */
 		}
 		break;
 

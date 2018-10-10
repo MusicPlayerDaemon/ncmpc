@@ -18,8 +18,7 @@
  */
 
 #include "screen_artist.hxx"
-#include "ArtistListPage.hxx"
-#include "AlbumListPage.hxx"
+#include "TagListPage.hxx"
 #include "PageMeta.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
@@ -44,14 +43,7 @@
 class SongListPage final : public FileListPage {
 	Page *const parent;
 
-	std::string artist;
-
-	/**
-	 * The current album filter.  If IsNulled() is true, then the
-	 * album filter is not used (i.e. all songs from all albums
-	 * are displayed).
-	 */
-	std::string album;
+	TagFilter filter;
 
 public:
 	SongListPage(ScreenManager &_screen, Page *_parent,
@@ -60,24 +52,14 @@ public:
 			      options.list_format.c_str()),
 		 parent(_parent) {}
 
-	template<typename A>
-	void SetArtist(A &&_artist) {
-		artist = std::forward<A>(_artist);
+	const auto &GetFilter() const noexcept {
+		return filter;
+	}
+
+	template<typename F>
+	void SetFilter(F &&_filter) noexcept {
+		filter = std::forward<F>(_filter);
 		AddPendingEvents(~0u);
-	}
-
-	const std::string &GetArtist() {
-		return artist;
-	}
-
-	template<typename A>
-	void SetAlbum(A &&_album) {
-		album = std::forward<A>(_album);
-		AddPendingEvents(~0u);
-	}
-
-	const std::string &GetAlbum() {
-		return album;
 	}
 
 	void LoadSongList(struct mpdclient &c);
@@ -97,23 +79,28 @@ SongListPage::Update(struct mpdclient &c, unsigned events) noexcept
 }
 
 class ArtistBrowserPage final : public ProxyPage {
-	ArtistListPage artist_list_page;
-	AlbumListPage album_list_page;
+	TagListPage artist_list_page;
+	TagListPage album_list_page;
 	SongListPage song_list_page;
 
 public:
 	ArtistBrowserPage(ScreenManager &_screen, WINDOW *_w,
 			  Size size)
 		:ProxyPage(_w),
-		 artist_list_page(_screen, _w, size),
-		 album_list_page(_screen, this, _w, size),
+		 artist_list_page(_screen, nullptr,
+				  MPD_TAG_ARTIST,
+				  nullptr,
+				  _w, size),
+		 album_list_page(_screen, this,
+				 MPD_TAG_ALBUM,
+				 _("All tracks"),
+				 _w, size),
 		 song_list_page(_screen, this, _w, size) {}
 
 private:
 	void OpenArtistList(struct mpdclient &c);
 	void OpenAlbumList(struct mpdclient &c, std::string _artist);
-	void OpenSongList(struct mpdclient &c, std::string _artist,
-			  std::string _album);
+	void OpenSongList(struct mpdclient &c, TagFilter &&filter);
 
 public:
 	/* virtual methods from class Page */
@@ -135,11 +122,7 @@ SongListPage::LoadSongList(struct mpdclient &c)
 
 	if (connection != nullptr) {
 		mpd_search_db_songs(connection, true);
-		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_ARTIST, artist.c_str());
-		if (!IsNulled(album))
-			mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-						      MPD_TAG_ALBUM, album.c_str());
+		AddConstraints(connection, filter);
 		mpd_search_commit(connection);
 
 		filelist->Receive(*connection);
@@ -155,22 +138,35 @@ SongListPage::LoadSongList(struct mpdclient &c)
 void
 ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
 {
+	artist_list_page.SetFilter(TagFilter{}, _("All artists"));
+
 	SetCurrentPage(c, &artist_list_page);
 }
 
 void
 ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist)
 {
-	album_list_page.SetArtist(std::move(_artist));
+	char buffer[64];
+	const char *title;
+
+	if (_artist.empty()) {
+		title = _("Albums");
+	} else {
+		snprintf(buffer, sizeof(buffer), _("Albums of artist: %s"),
+			 Utf8ToLocale(_artist.c_str()).c_str());
+		title = buffer;
+	}
+
+	album_list_page.SetFilter(TagFilter{{MPD_TAG_ARTIST, std::move(_artist)}},
+				  title);
+
 	SetCurrentPage(c, &album_list_page);
 }
 
 void
-ArtistBrowserPage::OpenSongList(struct mpdclient &c, std::string _artist,
-				std::string _album)
+ArtistBrowserPage::OpenSongList(struct mpdclient &c, TagFilter &&filter)
 {
-	song_list_page.SetArtist(std::move(_artist));
-	song_list_page.SetAlbum(std::move(_album));
+	song_list_page.SetFilter(std::move(filter));
 	SetCurrentPage(c, &song_list_page);
 }
 
@@ -183,21 +179,25 @@ screen_artist_init(ScreenManager &_screen, WINDOW *w, Size size)
 const char *
 SongListPage::GetTitle(char *str, size_t size) const noexcept
 {
-	const Utf8ToLocale artist_locale(artist.c_str());
+	const char *artist = FindTag(filter, MPD_TAG_ARTIST);
+	if (artist == nullptr)
+		artist = "?";
 
-	if (IsNulled(album))
+	const char *const album = FindTag(filter, MPD_TAG_ALBUM);
+
+	if (album == nullptr)
 		snprintf(str, size,
 			 _("All tracks of artist: %s"),
-			 artist_locale.c_str());
-	else if (!album.empty()) {
-		const Utf8ToLocale album_locale(album.c_str());
+			 Utf8ToLocale(artist).c_str());
+	else if (*album != '\0')
 		snprintf(str, size, "%s: %s - %s",
 			 _("Album"),
-			 artist_locale.c_str(), album_locale.c_str());
-	} else
+			 Utf8ToLocale(artist).c_str(),
+			 Utf8ToLocale(album).c_str());
+	else
 		snprintf(str, size,
 			 _("Tracks of no album of artist: %s"),
-			 artist_locale.c_str());
+			 Utf8ToLocale(artist).c_str());
 
 	return str;
 }
@@ -259,13 +259,9 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 				return true;
 			}
 		} else if (GetCurrentPage() == &album_list_page) {
-			const char *album = album_list_page.GetSelectedValue();
-			if (album != nullptr)
-				OpenSongList(c, album_list_page.GetArtist(),
-					     album);
-			else if (album_list_page.IsShowAll())
-				OpenSongList(c, album_list_page.GetArtist(),
-					     MakeNulledString());
+			auto filter = album_list_page.MakeCursorFilter();
+			if (!filter.empty())
+				OpenSongList(c, std::move(filter));
 		}
 
 		break;
@@ -283,7 +279,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 			OpenArtistList(c);
 			return true;
 		} else if (GetCurrentPage() == &song_list_page) {
-			OpenAlbumList(c, song_list_page.GetArtist());
+			OpenAlbumList(c, FindTag(song_list_page.GetFilter(), MPD_TAG_ARTIST));
 			return true;
 		}
 

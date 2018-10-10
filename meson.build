@@ -227,8 +227,8 @@ conf.set('ENABLE_ARTIST_SCREEN', enable_artist_screen)
 if enable_artist_screen
   sources += [
     'src/screen_artist.cxx',
-    'src/ArtistListPage.cxx',
-    'src/AlbumListPage.cxx',
+    'src/TagListPage.cxx',
+    'src/TagFilter.cxx',
   ]
 endif
 

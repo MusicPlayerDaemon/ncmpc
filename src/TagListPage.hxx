@@ -17,9 +17,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_ARTIST_LIST_PAGE_HXX
-#define NCMPC_ARTIST_LIST_PAGE_HXX
+#ifndef NCMPC_TAG_LIST_PAGE_HXX
+#define NCMPC_TAG_LIST_PAGE_HXX
 
+#include "TagFilter.hxx"
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
 #include "ListText.hxx"
@@ -29,25 +30,61 @@
 
 class ScreenManager;
 
-class ArtistListPage final : public ListPage, ListRenderer, ListText {
+class TagListPage final : public ListPage, ListRenderer, ListText {
 	ScreenManager &screen;
-	std::vector<std::string> artist_list;
+	Page *const parent;
+
+	const enum mpd_tag_type tag;
+	const char *const all_text;
+
+	TagFilter filter;
+	std::string title;
+
+	std::vector<std::string> values;
 
 public:
-	ArtistListPage(ScreenManager &_screen, WINDOW *_w, Size _size)
-		:ListPage(_w, _size), screen(_screen) {}
+	TagListPage(ScreenManager &_screen, Page *_parent,
+		    const enum mpd_tag_type _tag,
+		    const char *_all_text,
+		    WINDOW *_w, Size size) noexcept
+		:ListPage(_w, size), screen(_screen), parent(_parent),
+		 tag(_tag), all_text(_all_text) {}
 
+	const auto &GetFilter() const noexcept {
+		return filter;
+	}
+
+	template<typename F, typename T>
+	void SetFilter(F &&_filter, T &&_title) noexcept {
+		filter = std::forward<F>(_filter);
+		title = std::forward<T>(_title);
+		AddPendingEvents(~0u);
+	}
+
+	/**
+	 * Create a filter for the item below the cursor.
+	 */
+	TagFilter MakeCursorFilter() const noexcept;
+
+	gcc_pure
 	const char *GetSelectedValue() const {
-		return lw.selected < artist_list.size()
-			? artist_list[lw.selected].c_str()
+		unsigned i = lw.selected;
+
+		if (parent != nullptr) {
+			if (i == 0)
+				return nullptr;
+
+			--i;
+		}
+
+		return i < values.size()
+			? values[i].c_str()
 			: nullptr;
 	}
 
 private:
-	void LoadArtistList(struct mpdclient &c);
+	void LoadValues(struct mpdclient &c) noexcept;
 	void Reload(struct mpdclient &c);
-
-	bool OnListCommand(Command cmd);
 
 public:
 	/* virtual methods from class Page */
