@@ -32,8 +32,6 @@
 #include <assert.h>
 #include <string.h>
 
-#define BUFSIZE 1024
-
 gcc_pure
 static bool
 CompareUTF8(const std::string &a, const std::string &b)
