@@ -50,6 +50,10 @@ public:
 		:ListPage(_w, size), screen(_screen), parent(_parent),
 		 tag(_tag), all_text(_all_text) {}
 
+	auto GetTag() const noexcept {
+		return tag;
+	}
+
 	const auto &GetFilter() const noexcept {
 		return filter;
 	}

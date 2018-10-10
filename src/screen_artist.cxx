@@ -43,14 +43,19 @@
 class SongListPage final : public FileListPage {
 	Page *const parent;
 
+	const enum mpd_tag_type artist_tag, album_tag;
+
 	TagFilter filter;
 
 public:
 	SongListPage(ScreenManager &_screen, Page *_parent,
+		     enum mpd_tag_type _artist_tag,
+		     enum mpd_tag_type _album_tag,
 		     WINDOW *_w, Size size) noexcept
 		:FileListPage(_screen, _w, size,
 			      options.list_format.c_str()),
-		 parent(_parent) {}
+		 parent(_parent),
+		 artist_tag(_artist_tag), album_tag(_album_tag) {}
 
 	const auto &GetFilter() const noexcept {
 		return filter;
@@ -95,7 +100,10 @@ public:
 				 MPD_TAG_ALBUM,
 				 _("All tracks"),
 				 _w, size),
-		 song_list_page(_screen, this, _w, size) {}
+		 song_list_page(_screen, this,
+				artist_list_page.GetTag(),
+				album_list_page.GetTag(),
+				_w, size) {}
 
 private:
 	void OpenArtistList(struct mpdclient &c);
@@ -157,7 +165,7 @@ ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist)
 		title = buffer;
 	}
 
-	album_list_page.SetFilter(TagFilter{{MPD_TAG_ARTIST, std::move(_artist)}},
+	album_list_page.SetFilter(TagFilter{{artist_list_page.GetTag(), std::move(_artist)}},
 				  title);
 
 	SetCurrentPage(c, &album_list_page);
@@ -179,11 +187,11 @@ screen_artist_init(ScreenManager &_screen, WINDOW *w, Size size)
 const char *
 SongListPage::GetTitle(char *str, size_t size) const noexcept
 {
-	const char *artist = FindTag(filter, MPD_TAG_ARTIST);
+	const char *artist = FindTag(filter, artist_tag);
 	if (artist == nullptr)
 		artist = "?";
 
-	const char *const album = FindTag(filter, MPD_TAG_ALBUM);
+	const char *const album = FindTag(filter, album_tag);
 
 	if (album == nullptr)
 		snprintf(str, size,
@@ -279,7 +287,8 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 			OpenArtistList(c);
 			return true;
 		} else if (GetCurrentPage() == &song_list_page) {
-			OpenAlbumList(c, FindTag(song_list_page.GetFilter(), MPD_TAG_ARTIST));
+			OpenAlbumList(c, FindTag(song_list_page.GetFilter(),
+						 artist_list_page.GetTag()));
 			return true;
 		}
 
