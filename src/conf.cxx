@@ -236,7 +236,7 @@ separate_value(char *p)
 		return nullptr;
 	}
 
-	*value++ = 0;
+	*StripRight(p, value++) = '\0';
 
 	return Strip(value);
 }
