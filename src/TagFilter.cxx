@@ -40,3 +40,17 @@ AddConstraints(struct mpd_connection *connection,
 					      MPD_OPERATOR_DEFAULT,
 					      i.first, i.second.c_str());
 }
+
+std::string
+ToString(const TagFilter &filter) noexcept
+{
+	std::string result;
+
+	for (const auto &i : filter) {
+		if (!result.empty())
+			result.insert(0, " - ");
+		result.insert(0, i.second);
+	}
+
+	return result;
+}

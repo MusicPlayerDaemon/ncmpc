@@ -39,6 +39,18 @@
 #include <assert.h>
 #include <string.h>
 
+static const char *
+MakePageTitle(char *buffer, size_t size, const char *prefix,
+	      const TagFilter &filter)
+{
+	if (filter.empty())
+		return prefix;
+
+	snprintf(buffer, size, "%s: %s", prefix,
+		 Utf8ToLocale(ToString(filter).c_str()).c_str());
+	return buffer;
+}
+
 class SongListPage final : public FileListPage {
 	Page *const parent;
 
@@ -145,7 +157,8 @@ SongListPage::LoadSongList(struct mpdclient &c)
 void
 ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
 {
-	artist_list_page.SetFilter(TagFilter{}, _("Artists"));
+	artist_list_page.SetFilter(TagFilter{});
+	artist_list_page.SetTitle(_("Artists"));
 
 	SetCurrentPage(c, &artist_list_page);
 }
@@ -153,17 +166,12 @@ ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
 void
 ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist)
 {
-	const char *title = _("Albums");
+	album_list_page.SetFilter(TagFilter{{artist_list_page.GetTag(), std::move(_artist)}});
 
 	char buffer[64];
-	if (!_artist.empty()) {
-		snprintf(buffer, sizeof(buffer), "%s: %s", title,
-			 Utf8ToLocale(_artist.c_str()).c_str());
-		title = buffer;
-	}
-
-	album_list_page.SetFilter(TagFilter{{artist_list_page.GetTag(), std::move(_artist)}},
-				  title);
+	album_list_page.SetTitle(MakePageTitle(buffer, sizeof(buffer),
+					       _("Albums"),
+					       album_list_page.GetFilter()));
 
 	SetCurrentPage(c, &album_list_page);
 }
@@ -184,27 +192,7 @@ screen_artist_init(ScreenManager &_screen, WINDOW *w, Size size)
 const char *
 SongListPage::GetTitle(char *str, size_t size) const noexcept
 {
-	const char *artist = FindTag(filter, artist_tag);
-	if (artist == nullptr)
-		artist = "?";
-
-	const char *const album = FindTag(filter, album_tag);
-
-	if (album == nullptr)
-		snprintf(str, size, "%s: %s",
-			 _("Artist"),
-			 Utf8ToLocale(artist).c_str());
-	else if (*album != '\0')
-		snprintf(str, size, "%s: %s - %s",
-			 _("Album"),
-			 Utf8ToLocale(artist).c_str(),
-			 Utf8ToLocale(album).c_str());
-	else
-		snprintf(str, size, "%s: %s",
-			 _("Artist"),
-			 Utf8ToLocale(artist).c_str());
-
-	return str;
+	return MakePageTitle(str, size, _("Songs"), filter);
 }
 
 bool

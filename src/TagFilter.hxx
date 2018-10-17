@@ -39,4 +39,8 @@ void
 AddConstraints(struct mpd_connection *connection,
 	       const TagFilter &filter) noexcept;
 
+gcc_pure
+std::string
+ToString(const TagFilter &filter) noexcept;
+
 #endif

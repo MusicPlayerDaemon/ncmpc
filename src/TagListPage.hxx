@@ -58,11 +58,15 @@ public:
 		return filter;
 	}
 
-	template<typename F, typename T>
-	void SetFilter(F &&_filter, T &&_title) noexcept {
+	template<typename F>
+	void SetFilter(F &&_filter) noexcept {
 		filter = std::forward<F>(_filter);
-		title = std::forward<T>(_title);
 		AddPendingEvents(~0u);
+	}
+
+	template<typename T>
+	void SetTitle(T &&_title) noexcept {
+		title = std::forward<T>(_title);
 	}
 
 	/**
