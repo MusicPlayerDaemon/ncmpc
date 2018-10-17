@@ -39,6 +39,22 @@
 #include <assert.h>
 #include <string.h>
 
+gcc_const
+static const char *
+GetTagPlural(enum mpd_tag_type tag) noexcept
+{
+	switch (tag) {
+	case MPD_TAG_ARTIST:
+		return _("Artists");
+
+	case MPD_TAG_ALBUM:
+		return _("Albums");
+
+	default:
+		return mpd_tag_name(tag);
+	}
+}
+
 static const char *
 MakePageTitle(char *buffer, size_t size, const char *prefix,
 	      const TagFilter &filter)
@@ -90,28 +106,30 @@ SongListPage::Update(struct mpdclient &c, unsigned events) noexcept
 }
 
 class ArtistBrowserPage final : public ProxyPage {
-	TagListPage artist_list_page;
-	TagListPage album_list_page;
+	std::list<TagListPage> tag_list_pages;
+	std::list<TagListPage>::iterator current_tag_list_page;
+
 	SongListPage song_list_page;
 
 public:
 	ArtistBrowserPage(ScreenManager &_screen, WINDOW *_w,
 			  Size size)
 		:ProxyPage(_w),
-		 artist_list_page(_screen, nullptr,
-				  MPD_TAG_ARTIST,
-				  nullptr,
-				  _w, size),
-		 album_list_page(_screen, this,
-				 MPD_TAG_ALBUM,
-				 _("All tracks"),
-				 _w, size),
 		 song_list_page(_screen, this,
-				_w, size) {}
+				_w, size) {
+		tag_list_pages.emplace_back(_screen, nullptr,
+					    MPD_TAG_ARTIST,
+					    nullptr,
+					    _w, size);
+		tag_list_pages.emplace_back(_screen, this,
+					    MPD_TAG_ALBUM,
+					    _("All tracks"),
+					    _w, size);
+	}
 
 private:
-	void OpenArtistList(struct mpdclient &c);
-	void OpenAlbumList(struct mpdclient &c, TagFilter &&filter);
+	void OpenTagPage(struct mpdclient &c,
+			 TagFilter &&filter) noexcept;
 	void OpenSongList(struct mpdclient &c, TagFilter &&filter);
 
 public:
@@ -148,25 +166,19 @@ SongListPage::LoadSongList(struct mpdclient &c)
 }
 
 void
-ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
+ArtistBrowserPage::OpenTagPage(struct mpdclient &c,
+			       TagFilter &&filter) noexcept
 {
-	artist_list_page.SetFilter(TagFilter{});
-	artist_list_page.SetTitle(_("Artists"));
+	auto page = current_tag_list_page;
 
-	SetCurrentPage(c, &artist_list_page);
-}
-
-void
-ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, TagFilter &&filter)
-{
-	album_list_page.SetFilter(std::move(filter));
+	page->SetFilter(std::move(filter));
 
 	char buffer[64];
-	album_list_page.SetTitle(MakePageTitle(buffer, sizeof(buffer),
-					       _("Albums"),
-					       album_list_page.GetFilter()));
+	page->SetTitle(MakePageTitle(buffer, sizeof(buffer),
+				     _("Albums"),
+				     page->GetFilter()));
 
-	SetCurrentPage(c, &album_list_page);
+	SetCurrentPage(c, &*page);
 }
 
 void
@@ -216,15 +228,20 @@ ArtistBrowserPage::OnOpen(struct mpdclient &c) noexcept
 {
 	ProxyPage::OnOpen(c);
 
-	if (GetCurrentPage() == nullptr)
-		OpenArtistList(c);
+	if (GetCurrentPage() == nullptr) {
+		current_tag_list_page = tag_list_pages.begin();
+		assert(current_tag_list_page != tag_list_pages.end());
+
+		current_tag_list_page->SetTitle(GetTagPlural(current_tag_list_page->GetTag()));
+		SetCurrentPage(c, &*current_tag_list_page);
+	}
 }
 
 void
 ArtistBrowserPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
-	artist_list_page.AddPendingEvents(events);
-	album_list_page.AddPendingEvents(events);
+	for (auto &i : tag_list_pages)
+		i.AddPendingEvents(events);
 	song_list_page.AddPendingEvents(events);
 
 	ProxyPage::Update(c, events);
@@ -238,34 +255,35 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	switch (cmd) {
 	case Command::PLAY:
-		if (GetCurrentPage() == &artist_list_page) {
-			auto filter = artist_list_page.MakeCursorFilter();
-			if (!filter.empty()) {
-				OpenAlbumList(c, std::move(filter));
-				return true;
-			}
-		} else if (GetCurrentPage() == &album_list_page) {
-			auto filter = album_list_page.MakeCursorFilter();
-			if (!filter.empty())
+		if (current_tag_list_page != tag_list_pages.end()) {
+			auto filter = current_tag_list_page->MakeCursorFilter();
+			if (filter.empty())
+				break;
+
+			++current_tag_list_page;
+
+			if (current_tag_list_page != tag_list_pages.end())
+				OpenTagPage(c,  std::move(filter));
+			else
 				OpenSongList(c, std::move(filter));
+			return true;
 		}
 
 		break;
 
 	case Command::GO_ROOT_DIRECTORY:
-		if (GetCurrentPage() != &artist_list_page) {
-			SetCurrentPage(c, &artist_list_page);
+		if (GetCurrentPage() != &tag_list_pages.front()) {
+			current_tag_list_page = tag_list_pages.begin();
+			SetCurrentPage(c, &*current_tag_list_page);
 			return true;
 		}
 
 		break;
 
 	case Command::GO_PARENT_DIRECTORY:
-		if (GetCurrentPage() == &album_list_page) {
-			SetCurrentPage(c, &artist_list_page);
-			return true;
-		} else if (GetCurrentPage() == &song_list_page) {
-			SetCurrentPage(c, &album_list_page);
+		if (current_tag_list_page != tag_list_pages.begin()) {
+			--current_tag_list_page;
+			SetCurrentPage(c, &*current_tag_list_page);
 			return true;
 		}
 
