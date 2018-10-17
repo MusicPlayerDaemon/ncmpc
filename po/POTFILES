@@ -8,6 +8,7 @@ src/FileListPage.cxx
 src/HelpPage.cxx
 src/i18n.h
 src/KeyName.cxx
+src/LibraryPage.cxx
 src/ListWindow.cxx
 src/LyricsPage.cxx
 src/Main.cxx
@@ -16,7 +17,6 @@ src/OutputsPage.cxx
 src/player_command.cxx
 src/QueuePage.cxx
 src/save_playlist.cxx
-src/screen_artist.cxx
 src/screen_client.cxx
 src/screen.cxx
 src/screen_find.cxx

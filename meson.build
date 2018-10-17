@@ -222,11 +222,11 @@ if enable_help_screen
   sources += ['src/HelpPage.cxx']
 endif
 
-enable_artist_screen = get_option('artist_screen') and not mini
-conf.set('ENABLE_ARTIST_SCREEN', enable_artist_screen)
-if enable_artist_screen
+enable_library_screen = get_option('library_screen') and not mini
+conf.set('ENABLE_LIBRARY_PAGE', enable_library_screen)
+if enable_library_screen
   sources += [
-    'src/screen_artist.cxx',
+    'src/LibraryPage.cxx',
     'src/TagListPage.cxx',
     'src/TagFilter.cxx',
   ]

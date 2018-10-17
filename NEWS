@@ -1,4 +1,5 @@
 ncmpc 0.33 - not yet released
+* artist page: rename to "library"
 * fix color configuration parser bug
 * fix build failure when libpcre is not found
 * remove support for liblircclient (only liblirc)

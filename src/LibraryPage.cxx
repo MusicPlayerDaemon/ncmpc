@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "screen_artist.hxx"
+#include "LibraryPage.hxx"
 #include "TagListPage.hxx"
 #include "PageMeta.hxx"
 #include "screen_status.hxx"
@@ -189,7 +189,7 @@ ArtistBrowserPage::OpenSongList(struct mpdclient &c, TagFilter &&filter)
 }
 
 static std::unique_ptr<Page>
-screen_artist_init(ScreenManager &_screen, WINDOW *w, Size size)
+InitLibraryPage(ScreenManager &_screen, WINDOW *w, Size size)
 {
 	return std::make_unique<ArtistBrowserPage>(_screen, w, size);
 }
@@ -296,9 +296,9 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 	return false;
 }
 
-const PageMeta screen_artist = {
-	"artist",
-	N_("Artist"),
-	Command::SCREEN_ARTIST,
-	screen_artist_init,
+const PageMeta library_page = {
+	"library",
+	N_("Library"),
+	Command::LIBRARY_PAGE,
+	InitLibraryPage,
 };

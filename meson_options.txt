@@ -38,9 +38,9 @@ option('help_screen', type: 'boolean',
   value: true,
   description: 'Enable the help screen')
 
-option('artist_screen', type: 'boolean',
+option('library_screen', type: 'boolean',
   value: true,
-  description: 'Enable the artist screen')
+  description: 'Enable the library screen')
 
 option('search_screen', type: 'boolean',
   value: true,

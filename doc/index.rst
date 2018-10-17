@@ -111,7 +111,7 @@ Interface
 
 :command:`screen-list = SCREEN1 SCREEN2...` - A list of screens to
 cycle through when using the previous/next screen commands.  Valid
-choices, if enabled at compile time, are playlist, browse, artist,
+choices, if enabled at compile time, are playlist, browse, library,
 help, search, song, keydef, lyrics, outputs, and chat.
 
 :command:`search-mode = MODE` - Default search mode for the search

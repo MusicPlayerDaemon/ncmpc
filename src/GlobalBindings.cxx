@@ -132,7 +132,7 @@ static KeyBindings global_key_bindings{{{
 
 
 	/* extra screens */
-#ifdef ENABLE_ARTIST_SCREEN
+#ifdef ENABLE_LIBRARY_PAGE
 	{'4', F4},
 #endif
 #ifdef ENABLE_SEARCH_SCREEN

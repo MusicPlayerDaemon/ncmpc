@@ -175,9 +175,9 @@ static constexpr command_definition_t cmds[] = {
 
 
 	/* extra screens */
-#ifdef ENABLE_ARTIST_SCREEN
-	{ "screen-artist",
-	  N_("Artist screen") },
+#ifdef ENABLE_LIBRARY_PAGE
+	{ "library-page",
+	  N_("Library page") },
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
 	{ "screen-search",
@@ -263,6 +263,12 @@ get_key_command_from_name(const char *name)
 	for (size_t i = 0; i < size_t(Command::NONE); ++i)
 		if (strcmp(name, cmds[i].name) == 0)
 			return Command(i);
+
+#ifdef ENABLE_LIBRARY_PAGE
+	/* compatibility with 0.32 and older */
+	if (strcmp(name, "screen-artist") == 0)
+		return Command::LIBRARY_PAGE;
+#endif
 
 	return Command::NONE;
 }

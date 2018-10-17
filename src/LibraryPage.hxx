@@ -17,14 +17,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_SCREEN_ARTIST_H
-#define NCMPC_SCREEN_ARTIST_H
+#ifndef NCMPC_LIBRARY_PAGE_HXX
+#define NCMPC_LIBRARY_PAGE_HXX
 
 #include "config.h"
 
-#ifdef ENABLE_ARTIST_SCREEN
+#ifdef ENABLE_LIBRARY_PAGE
 struct PageMeta;
-extern const PageMeta screen_artist;
+extern const PageMeta library_page;
 #endif
 
 #endif

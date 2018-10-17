@@ -174,7 +174,7 @@ handle_option(int c, const char *arg)
 #ifdef HAVE_GETMOUSE
 		     " getmouse"
 #endif
-#ifdef ENABLE_ARTIST_SCREEN
+#ifdef ENABLE_LIBRARY_PAGE
 		     " artist-screen"
 #endif
 #ifdef ENABLE_HELP_SCREEN

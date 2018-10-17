@@ -23,7 +23,7 @@
 #include "HelpPage.hxx"
 #include "QueuePage.hxx"
 #include "FileBrowserPage.hxx"
-#include "screen_artist.hxx"
+#include "LibraryPage.hxx"
 #include "SearchPage.hxx"
 #include "SongPage.hxx"
 #include "screen_keydef.hxx"
@@ -40,8 +40,8 @@ static const PageMeta *const screens[] = {
 #endif
 	&screen_queue,
 	&screen_browse,
-#ifdef ENABLE_ARTIST_SCREEN
-	&screen_artist,
+#ifdef ENABLE_LIBRARY_PAGE
+	&library_page,
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
 	&screen_search,
@@ -77,6 +77,12 @@ screen_lookup_name(const char *name) noexcept
 	for (const auto *i : screens)
 		if (strcmp(name, i->name) == 0)
 			return i;
+
+#ifdef ENABLE_LIBRARY_PAGE
+	/* compatibility with 0.32 and older */
+	if (strcmp(name, "artist") == 0)
+		return &library_page;
+#endif
 
 	return nullptr;
 }

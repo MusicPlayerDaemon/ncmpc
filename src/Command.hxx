@@ -104,8 +104,8 @@ enum class Command : unsigned {
 	LIST_JUMP,
 
 	/* extra screens */
-#ifdef ENABLE_ARTIST_SCREEN
-	SCREEN_ARTIST,
+#ifdef ENABLE_LIBRARY_PAGE
+	LIBRARY_PAGE,
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
 	SCREEN_SEARCH,

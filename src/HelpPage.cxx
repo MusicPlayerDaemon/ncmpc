@@ -81,8 +81,8 @@ static constexpr HelpRow help_text[] = {
 	Command::SCREEN_HELP,
 	Command::SCREEN_PLAY,
 	Command::SCREEN_FILE,
-#ifdef ENABLE_ARTIST_SCREEN
-	Command::SCREEN_ARTIST,
+#ifdef ENABLE_LIBRARY_PAGE
+	Command::LIBRARY_PAGE,
 #endif
 #ifdef ENABLE_SEARCH_SCREEN
 	Command::SCREEN_SEARCH,
