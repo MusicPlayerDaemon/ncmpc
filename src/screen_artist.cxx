@@ -54,19 +54,14 @@ MakePageTitle(char *buffer, size_t size, const char *prefix,
 class SongListPage final : public FileListPage {
 	Page *const parent;
 
-	const enum mpd_tag_type artist_tag, album_tag;
-
 	TagFilter filter;
 
 public:
 	SongListPage(ScreenManager &_screen, Page *_parent,
-		     enum mpd_tag_type _artist_tag,
-		     enum mpd_tag_type _album_tag,
 		     WINDOW *_w, Size size) noexcept
 		:FileListPage(_screen, _w, size,
 			      options.list_format.c_str()),
-		 parent(_parent),
-		 artist_tag(_artist_tag), album_tag(_album_tag) {}
+		 parent(_parent) {}
 
 	const auto &GetFilter() const noexcept {
 		return filter;
@@ -112,8 +107,6 @@ public:
 				 _("All tracks"),
 				 _w, size),
 		 song_list_page(_screen, this,
-				artist_list_page.GetTag(),
-				album_list_page.GetTag(),
 				_w, size) {}
 
 private:
