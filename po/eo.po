@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 22:53+0200\n"
+"POT-Creation-Date: 2018-10-17 11:53+0200\n"
 "PO-Revision-Date: 2011-05-16 15:13+0000\n"
 "Last-Translator: Aleksej <Unknown>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
@@ -18,43 +18,20 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
 "X-Generator: Launchpad (build 13265)\n"
 
-#: src/AlbumListPage.cxx:54 src/AlbumListPage.cxx:126
-msgid "All tracks"
-msgstr ""
-
-#: src/AlbumListPage.cxx:144
-msgid "Albums"
-msgstr ""
-
-#: src/AlbumListPage.cxx:146
-#, c-format
-msgid "Albums of artist: %s"
-msgstr ""
-
-#: src/AlbumListPage.cxx:174 src/ArtistListPage.cxx:137
-#: src/FileListPage.cxx:161 src/FileListPage.cxx:248 src/FileListPage.cxx:273
-#, fuzzy, c-format
-msgid "Adding '%s' to queue"
-msgstr "Aldonas \"%s\" al la ludlisto"
-
-#: src/ArtistListPage.cxx:114
-msgid "All artists"
-msgstr ""
-
-#: src/Bindings.cxx:79 src/Bindings.cxx:85
+#: src/Bindings.cxx:81 src/Bindings.cxx:87
 #, c-format
 msgid "Key %s assigned to %s and %s"
 msgstr ""
 
-#: src/ChatPage.cxx:57 src/ChatPage.cxx:179
+#: src/ChatPage.cxx:63 src/ChatPage.cxx:181
 msgid "Chat"
 msgstr ""
 
-#: src/ChatPage.cxx:160
+#: src/ChatPage.cxx:162
 msgid "Your message"
 msgstr ""
 
-#: src/ChatPage.cxx:169
+#: src/ChatPage.cxx:171
 msgid "Message could not be sent"
 msgstr ""
 
@@ -344,74 +321,74 @@ msgid "Chat screen"
 msgstr ""
 
 #. To translators: prefix for error messages
-#: src/conf.cxx:114 src/screen_keydef.cxx:414 src/screen_keydef.cxx:423
+#: src/conf.cxx:118 src/screen_keydef.cxx:417 src/screen_keydef.cxx:426
 msgid "Error"
 msgstr ""
 
-#: src/conf.cxx:128
+#: src/conf.cxx:132
 msgid "Word expected"
 msgstr ""
 
-#: src/conf.cxx:145 src/conf.cxx:154
+#: src/conf.cxx:149 src/conf.cxx:158
 msgid "Malformed hotkey definition"
+msgstr ""
+
+#. the hotkey configuration line is incomplete
+#: src/conf.cxx:173
+msgid "Incomplete hotkey configuration"
 msgstr ""
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.cxx:178
+#: src/conf.cxx:186
 msgid "Unknown command"
-msgstr ""
-
-#. the hotkey configuration line is incomplete
-#: src/conf.cxx:191
-msgid "Incomplete hotkey configuration"
 msgstr ""
 
 #. translators: ncmpc supports displaying the
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.cxx:227
+#: src/conf.cxx:222
 msgid "Bad time display type"
 msgstr ""
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.cxx:240 src/conf.cxx:418
+#: src/conf.cxx:235 src/conf.cxx:431
 msgid "Missing '='"
 msgstr ""
 
-#: src/conf.cxx:291
+#: src/conf.cxx:285
 msgid "Bad color name"
 msgstr ""
 
-#: src/conf.cxx:301
+#: src/conf.cxx:295
 msgid "Incomplete color definition"
 msgstr ""
 
-#: src/conf.cxx:307
+#: src/conf.cxx:301
 msgid "Invalid number"
 msgstr ""
 
-#: src/conf.cxx:315
+#: src/conf.cxx:309
 msgid "Malformed color definition"
 msgstr ""
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.cxx:353
+#: src/conf.cxx:368
 msgid "Unknown screen name"
 msgstr ""
 
-#: src/conf.cxx:378
+#: src/conf.cxx:391
 msgid "Invalid search mode"
 msgstr ""
 
-#: src/conf.cxx:398
+#: src/conf.cxx:411
 msgid "Unknown search mode"
 msgstr ""
 
-#: src/conf.cxx:581
+#: src/conf.cxx:594
 msgid "Unknown configuration parameter"
 msgstr ""
 
@@ -422,36 +399,42 @@ msgstr ""
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:260
+#: src/FileBrowserPage.cxx:247
 msgid "Deleting this item is not possible"
 msgstr ""
 
-#: src/FileBrowserPage.cxx:268
+#: src/FileBrowserPage.cxx:255
 #, c-format
 msgid "Delete playlist %s?"
 msgstr ""
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:273 src/LyricsPage.cxx:371 src/save_playlist.cxx:110
-#: src/screen_keydef.cxx:182
+#: src/FileBrowserPage.cxx:260 src/LyricsPage.cxx:380 src/save_playlist.cxx:111
+#: src/screen_keydef.cxx:184
 msgid "Aborted"
 msgstr ""
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:286
+#: src/FileBrowserPage.cxx:273
 msgid "Playlist deleted"
 msgstr ""
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:313 src/FileBrowserPage.cxx:395
+#: src/FileBrowserPage.cxx:300 src/FileBrowserPage.cxx:382
 msgid "Browse"
 msgstr ""
 
-#: src/FileListPage.cxx:121
+#: src/FileListPage.cxx:118
 #, c-format
 msgid "Loading playlist '%s'"
 msgstr ""
+
+#: src/FileListPage.cxx:158 src/FileListPage.cxx:245 src/FileListPage.cxx:270
+#: src/TagListPage.cxx:184
+#, fuzzy, c-format
+msgid "Adding '%s' to queue"
+msgstr "Aldonas \"%s\" al la ludlisto"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -559,155 +542,155 @@ msgstr "j"
 msgid "n"
 msgstr "n"
 
-#: src/KeyName.cxx:31
+#: src/KeyName.cxx:32
 msgid "Undefined"
 msgstr ""
 
-#: src/KeyName.cxx:33
+#: src/KeyName.cxx:34
 msgid "Space"
 msgstr ""
 
-#: src/KeyName.cxx:35
+#: src/KeyName.cxx:36
 msgid "Enter"
 msgstr ""
 
-#: src/KeyName.cxx:37
+#: src/KeyName.cxx:38
 msgid "Backspace"
 msgstr ""
 
-#: src/KeyName.cxx:39
+#: src/KeyName.cxx:40
 msgid "Delete"
 msgstr ""
 
-#: src/KeyName.cxx:41
+#: src/KeyName.cxx:42
 msgid "Up"
 msgstr ""
 
-#: src/KeyName.cxx:43
+#: src/KeyName.cxx:44
 msgid "Down"
 msgstr ""
 
-#: src/KeyName.cxx:45
+#: src/KeyName.cxx:46
 msgid "Left"
 msgstr ""
 
-#: src/KeyName.cxx:47
+#: src/KeyName.cxx:48
 msgid "Right"
 msgstr ""
 
-#: src/KeyName.cxx:49
+#: src/KeyName.cxx:50
 msgid "Home"
 msgstr ""
 
-#: src/KeyName.cxx:51
+#: src/KeyName.cxx:52
 msgid "End"
 msgstr ""
 
-#: src/KeyName.cxx:53
+#: src/KeyName.cxx:54
 msgid "PageDown"
 msgstr ""
 
-#: src/KeyName.cxx:55
+#: src/KeyName.cxx:56
 msgid "PageUp"
 msgstr ""
 
-#: src/KeyName.cxx:57
+#: src/KeyName.cxx:58
 msgid "Tab"
 msgstr ""
 
-#: src/KeyName.cxx:59
+#: src/KeyName.cxx:60
 msgid "Shift+Tab"
 msgstr ""
 
-#: src/KeyName.cxx:61
+#: src/KeyName.cxx:62
 msgid "Esc"
 msgstr ""
 
-#: src/KeyName.cxx:63
+#: src/KeyName.cxx:64
 msgid "Insert"
 msgstr ""
 
-#: src/KeyName.cxx:71
+#: src/KeyName.cxx:72
 #, c-format
 msgid "Ctrl-%c"
 msgstr ""
 
-#: src/KeyName.cxx:73
+#: src/KeyName.cxx:74
 #, c-format
 msgid "Alt-%c"
 msgstr ""
 
-#: src/ListWindow.cxx:491
+#: src/ListWindow.cxx:474
 msgid "Range selection disabled"
 msgstr ""
 
-#: src/ListWindow.cxx:496
+#: src/ListWindow.cxx:479
 msgid "Range selection enabled"
 msgstr ""
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:236
+#: src/LyricsPage.cxx:249
 msgid "No lyrics"
 msgstr ""
 
-#: src/LyricsPage.cxx:254
+#: src/LyricsPage.cxx:267
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr ""
 
-#: src/LyricsPage.cxx:337 src/LyricsPage.cxx:345 src/LyricsPage.cxx:354
-#: src/LyricsPage.cxx:490
+#: src/LyricsPage.cxx:345 src/LyricsPage.cxx:353 src/LyricsPage.cxx:363
+#: src/LyricsPage.cxx:499
 msgid "Lyrics"
 msgstr ""
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/LyricsPage.cxx:340
+#: src/LyricsPage.cxx:348
 msgid "loading..."
 msgstr ""
 
-#: src/LyricsPage.cxx:361
+#: src/LyricsPage.cxx:370
 msgid "Editor not configured"
 msgstr ""
 
-#: src/LyricsPage.cxx:368
+#: src/LyricsPage.cxx:377
 msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr ""
 
-#: src/LyricsPage.cxx:386 src/LyricsPage.cxx:410
+#: src/LyricsPage.cxx:395 src/LyricsPage.cxx:419
 msgid "Can't start editor"
 msgstr ""
 
-#: src/LyricsPage.cxx:413 src/LyricsPage.cxx:417
+#: src/LyricsPage.cxx:422 src/LyricsPage.cxx:426
 msgid "Editor exited unexpectedly"
 msgstr ""
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:439
+#: src/LyricsPage.cxx:448
 msgid "Lyrics saved"
 msgstr ""
 
-#: src/LyricsPage.cxx:445
+#: src/LyricsPage.cxx:454
 msgid "Lyrics deleted"
 msgstr ""
 
-#: src/LyricsPage.cxx:446
+#: src/LyricsPage.cxx:455
 msgid "No saved lyrics"
 msgstr ""
 
-#: src/Main.cxx:167
+#: src/Main.cxx:131
 #, fuzzy, c-format
 msgid "Connecting to %s"
 msgstr "Konektite al %s"
 
-#: src/Main.cxx:187
+#: src/Main.cxx:147
 #, fuzzy, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "Problemo: la versio %d.%d.%d de MPD estas tro malnova (necesas %s)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/options.cxx:213 src/options.cxx:216
+#: src/Options.cxx:216 src/Options.cxx:219
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -729,60 +712,63 @@ msgstr ""
 msgid "Outputs"
 msgstr ""
 
-#: src/player_command.cxx:176 src/QueuePage.cxx:614
+#: src/player_command.cxx:94 src/QueuePage.cxx:615
 msgid "Shuffled queue"
 msgstr ""
 
-#: src/player_command.cxx:186
+#: src/player_command.cxx:100
 msgid "Cleared queue"
 msgstr ""
 
 #. get path
-#: src/QueuePage.cxx:307
+#: src/QueuePage.cxx:312
 msgid "Add"
 msgstr "Aldoni"
 
-#: src/QueuePage.cxx:378 src/QueuePage.cxx:674
+#: src/QueuePage.cxx:377 src/QueuePage.cxx:673
 msgid "Queue"
 msgstr ""
 
-#: src/QueuePage.cxx:380
+#: src/QueuePage.cxx:379
 #, c-format
 msgid "Queue on %s"
 msgstr ""
 
 #. query the user for a filename
-#: src/save_playlist.cxx:85
+#: src/save_playlist.cxx:86
 msgid "Save queue as"
 msgstr ""
 
-#: src/save_playlist.cxx:107
+#: src/save_playlist.cxx:108
 #, c-format
 msgid "Replace %s?"
 msgstr ""
 
 #. success
-#: src/save_playlist.cxx:128
+#: src/save_playlist.cxx:129
 #, c-format
 msgid "Saved %s"
 msgstr ""
 
-#: src/screen_artist.cxx:186
-#, c-format
-msgid "All tracks of artist: %s"
+#: src/screen_artist.cxx:100 src/TagListPage.cxx:71
+msgid "All tracks"
 msgstr ""
 
-#: src/screen_artist.cxx:191 src/SearchPage.cxx:87 src/SongPage.cxx:66
-msgid "Album"
+#: src/screen_artist.cxx:148
+msgid "Artists"
 msgstr ""
 
-#: src/screen_artist.cxx:195
-#, c-format
-msgid "Tracks of no album of artist: %s"
+#: src/screen_artist.cxx:156
+msgid "Albums"
 msgstr ""
 
-#: src/screen_artist.cxx:299 src/SearchPage.cxx:86 src/SongPage.cxx:64
+#: src/screen_artist.cxx:195 src/screen_artist.cxx:204
+#: src/screen_artist.cxx:303 src/SearchPage.cxx:83 src/SongPage.cxx:62
 msgid "Artist"
+msgstr ""
+
+#: src/screen_artist.cxx:199 src/SearchPage.cxx:84 src/SongPage.cxx:64
+msgid "Album"
 msgstr ""
 
 #: src/screen_client.cxx:41
@@ -799,19 +785,19 @@ msgstr ""
 msgid "Database update started"
 msgstr ""
 
-#: src/screen.cxx:160
+#: src/screen.cxx:161
 msgid "Repeat mode is on"
 msgstr ""
 
-#: src/screen.cxx:161
+#: src/screen.cxx:162
 msgid "Repeat mode is off"
 msgstr ""
 
-#: src/screen.cxx:165
+#: src/screen.cxx:166
 msgid "Random mode is on"
 msgstr ""
 
-#: src/screen.cxx:166
+#: src/screen.cxx:167
 msgid "Random mode is off"
 msgstr ""
 
@@ -820,11 +806,11 @@ msgstr ""
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.cxx:175
+#: src/screen.cxx:176
 msgid "Single mode is on"
 msgstr ""
 
-#: src/screen.cxx:176
+#: src/screen.cxx:177
 msgid "Single mode is off"
 msgstr ""
 
@@ -832,278 +818,278 @@ msgstr ""
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.cxx:184
+#: src/screen.cxx:185
 msgid "Consume mode is on"
 msgstr ""
 
-#: src/screen.cxx:185
+#: src/screen.cxx:186
 msgid "Consume mode is off"
 msgstr ""
 
-#: src/screen.cxx:188
+#: src/screen.cxx:189
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr ""
 
-#: src/screen.cxx:200
+#: src/screen.cxx:201
 msgid "Database updated"
 msgstr "Ĝisdatigis datumbazon"
 
-#: src/screen.cxx:250
+#: src/screen.cxx:251
 msgid "Find mode: Wrapped"
 msgstr ""
 
-#: src/screen.cxx:251
+#: src/screen.cxx:252
 msgid "Find mode: Normal"
 msgstr ""
 
-#: src/screen.cxx:256
+#: src/screen.cxx:257
 msgid "Auto center mode: On"
 msgstr ""
 
-#: src/screen.cxx:257
+#: src/screen.cxx:258
 msgid "Auto center mode: Off"
 msgstr ""
 
-#: src/screen_find.cxx:31
+#: src/screen_find.cxx:32
 msgid "Find"
 msgstr ""
 
-#: src/screen_find.cxx:32
+#: src/screen_find.cxx:33
 msgid "Find backward"
 msgstr ""
 
-#: src/screen_find.cxx:33
+#: src/screen_find.cxx:34
 msgid "Jump"
 msgstr ""
 
-#: src/screen_find.cxx:79
+#: src/screen_find.cxx:80
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Ne troviĝis \"%s\""
 
-#: src/screen_keydef.cxx:161
+#: src/screen_keydef.cxx:163
 msgid "Deleted"
 msgstr ""
 
-#: src/screen_keydef.cxx:177
+#: src/screen_keydef.cxx:179
 #, c-format
 msgid "Enter new key for %s: "
 msgstr ""
 
-#: src/screen_keydef.cxx:187
+#: src/screen_keydef.cxx:189
 msgid "Ctrl-Space can't be used"
 msgstr ""
 
-#: src/screen_keydef.cxx:193
+#: src/screen_keydef.cxx:195
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr ""
 
-#: src/screen_keydef.cxx:202
+#: src/screen_keydef.cxx:204
 #, c-format
 msgid "Assigned %s to %s"
 msgstr ""
 
-#: src/screen_keydef.cxx:229
+#: src/screen_keydef.cxx:231
 msgid "Add new key"
 msgstr ""
 
-#: src/screen_keydef.cxx:251
+#: src/screen_keydef.cxx:253
 #, c-format
 msgid "Edit keys for %s"
 msgstr ""
 
-#: src/screen_keydef.cxx:393
+#: src/screen_keydef.cxx:396
 msgid "You have new key bindings"
 msgstr ""
 
-#: src/screen_keydef.cxx:395
+#: src/screen_keydef.cxx:398
 msgid "Keybindings unchanged."
 msgstr ""
 
-#: src/screen_keydef.cxx:405
+#: src/screen_keydef.cxx:408
 msgid "Unable to write configuration"
 msgstr ""
 
-#: src/screen_keydef.cxx:421
+#: src/screen_keydef.cxx:424
 #, c-format
 msgid "Wrote %s"
 msgstr ""
 
-#: src/screen_keydef.cxx:433
+#: src/screen_keydef.cxx:437
 msgid "===> Apply key bindings "
 msgstr ""
 
-#: src/screen_keydef.cxx:435
+#: src/screen_keydef.cxx:439
 msgid "===> Apply & Save key bindings  "
 msgstr ""
 
-#: src/screen_keydef.cxx:472
+#: src/screen_keydef.cxx:476
 msgid "Edit key bindings"
 msgstr ""
 
-#: src/screen_keydef.cxx:554
+#: src/screen_keydef.cxx:558
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr ""
 
-#: src/screen_keydef.cxx:604
+#: src/screen_keydef.cxx:608
 msgid "Keys"
 msgstr ""
 
-#: src/screen_utils.cxx:124
+#: src/screen_utils.cxx:133
 msgid "Password"
 msgstr ""
 
-#: src/SearchPage.cxx:51
+#: src/SearchPage.cxx:48
 msgid "artist"
 msgstr ""
 
-#: src/SearchPage.cxx:52
+#: src/SearchPage.cxx:49
 msgid "album"
 msgstr ""
 
-#: src/SearchPage.cxx:53
+#: src/SearchPage.cxx:50
 msgid "title"
 msgstr ""
 
-#: src/SearchPage.cxx:54
+#: src/SearchPage.cxx:51
 msgid "track"
 msgstr ""
 
-#: src/SearchPage.cxx:55
+#: src/SearchPage.cxx:52
 msgid "name"
 msgstr ""
 
-#: src/SearchPage.cxx:56
+#: src/SearchPage.cxx:53
 msgid "genre"
 msgstr ""
 
-#: src/SearchPage.cxx:57
+#: src/SearchPage.cxx:54
 msgid "date"
 msgstr "dato"
 
-#: src/SearchPage.cxx:58
+#: src/SearchPage.cxx:55
 msgid "composer"
 msgstr ""
 
-#: src/SearchPage.cxx:59
+#: src/SearchPage.cxx:56
 msgid "performer"
 msgstr ""
 
-#: src/SearchPage.cxx:60
+#: src/SearchPage.cxx:57
 msgid "comment"
 msgstr ""
 
-#: src/SearchPage.cxx:68
+#: src/SearchPage.cxx:65
 msgid "file"
 msgstr "dosiero"
 
-#: src/SearchPage.cxx:85 src/SongPage.cxx:65
+#: src/SearchPage.cxx:82 src/SongPage.cxx:63
 msgid "Title"
 msgstr "Titolo"
 
-#: src/SearchPage.cxx:88
+#: src/SearchPage.cxx:85
 msgid "Filename"
 msgstr "Dosiernomo"
 
-#: src/SearchPage.cxx:89
+#: src/SearchPage.cxx:86
 msgid "Artist + Title"
 msgstr ""
 
-#: src/SearchPage.cxx:270
+#: src/SearchPage.cxx:264
 #, c-format
 msgid "Bad search tag %s"
 msgstr ""
 
-#: src/SearchPage.cxx:284
+#: src/SearchPage.cxx:278
 #, c-format
 msgid "No argument for search tag %s"
 msgstr ""
 
-#: src/SearchPage.cxx:373 src/SearchPage.cxx:406 src/SearchPage.cxx:410
-#: src/SearchPage.cxx:414 src/SearchPage.cxx:473
+#: src/SearchPage.cxx:367 src/SearchPage.cxx:400 src/SearchPage.cxx:404
+#: src/SearchPage.cxx:408 src/SearchPage.cxx:467
 msgid "Search"
 msgstr ""
 
-#: src/SearchPage.cxx:436
+#: src/SearchPage.cxx:430
 #, c-format
 msgid "Search mode: %s"
 msgstr ""
 
-#: src/SongPage.cxx:67
+#: src/SongPage.cxx:65
 msgid "Length"
 msgstr ""
 
-#: src/SongPage.cxx:68
+#: src/SongPage.cxx:66
 msgid "Position"
 msgstr ""
 
-#: src/SongPage.cxx:69
+#: src/SongPage.cxx:67
 msgid "Composer"
 msgstr ""
 
-#: src/SongPage.cxx:70
+#: src/SongPage.cxx:68
 msgid "Name"
 msgstr ""
 
-#: src/SongPage.cxx:71
+#: src/SongPage.cxx:69
 msgid "Disc"
 msgstr ""
 
-#: src/SongPage.cxx:72
+#: src/SongPage.cxx:70
 msgid "Track"
 msgstr ""
 
-#: src/SongPage.cxx:73
+#: src/SongPage.cxx:71
 msgid "Date"
 msgstr ""
 
-#: src/SongPage.cxx:74
+#: src/SongPage.cxx:72
 msgid "Genre"
 msgstr ""
 
-#: src/SongPage.cxx:75
+#: src/SongPage.cxx:73
 msgid "Comment"
 msgstr ""
 
-#: src/SongPage.cxx:76
+#: src/SongPage.cxx:74
 msgid "Path"
 msgstr ""
 
-#: src/SongPage.cxx:77
+#: src/SongPage.cxx:75
 msgid "Bitrate"
 msgstr ""
 
-#: src/SongPage.cxx:78
+#: src/SongPage.cxx:76
 msgid "Format"
 msgstr ""
 
-#: src/SongPage.cxx:95
+#: src/SongPage.cxx:93
 msgid "Number of artists"
 msgstr ""
 
-#: src/SongPage.cxx:96
+#: src/SongPage.cxx:94
 msgid "Number of albums"
 msgstr ""
 
-#: src/SongPage.cxx:97
+#: src/SongPage.cxx:95
 msgid "Number of songs"
 msgstr ""
 
-#: src/SongPage.cxx:98
+#: src/SongPage.cxx:96
 msgid "Uptime"
 msgstr ""
 
-#: src/SongPage.cxx:99
+#: src/SongPage.cxx:97
 msgid "Most recent db update"
 msgstr ""
 
-#: src/SongPage.cxx:100
+#: src/SongPage.cxx:98
 msgid "Playtime"
 msgstr ""
 
-#: src/SongPage.cxx:101
+#: src/SongPage.cxx:99
 msgid "DB playtime"
 msgstr ""
 
@@ -1115,40 +1101,40 @@ msgstr ""
 msgid "MPD statistics"
 msgstr ""
 
-#: src/SongPage.cxx:455
+#: src/SongPage.cxx:456
 msgid "Selected song"
 msgstr ""
 
-#: src/SongPage.cxx:465
+#: src/SongPage.cxx:466
 msgid "Currently playing song"
 msgstr ""
 
-#: src/SongPage.cxx:470
+#: src/SongPage.cxx:471
 #, c-format
 msgid "%d kbps"
 msgstr ""
 
-#: src/SongPage.cxx:554
+#: src/SongPage.cxx:555
 msgid "Song"
 msgstr ""
 
-#: src/StatusBar.cxx:104
+#: src/StatusBar.cxx:101
 msgid "Playing:"
 msgstr ""
 
-#: src/StatusBar.cxx:108
+#: src/StatusBar.cxx:105
 msgid "[Paused]"
 msgstr ""
 
-#: src/Styles.cxx:270 src/Styles.cxx:318 src/Styles.cxx:350
+#: src/Styles.cxx:271 src/Styles.cxx:319 src/Styles.cxx:351
 msgid "Unknown color"
 msgstr ""
 
-#: src/Styles.cxx:333
+#: src/Styles.cxx:334
 msgid "Unknown color field"
 msgstr ""
 
-#: src/Styles.cxx:375
+#: src/Styles.cxx:376
 msgid "Terminal lacks color capabilities"
 msgstr ""
 
