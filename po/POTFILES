@@ -1,5 +1,3 @@
-src/AlbumListPage.cxx
-src/ArtistListPage.cxx
 src/Bindings.cxx
 src/ChatPage.cxx
 src/Command.cxx
@@ -13,7 +11,7 @@ src/KeyName.cxx
 src/ListWindow.cxx
 src/LyricsPage.cxx
 src/Main.cxx
-src/options.cxx
+src/Options.cxx
 src/OutputsPage.cxx
 src/player_command.cxx
 src/QueuePage.cxx
@@ -28,5 +26,6 @@ src/SearchPage.cxx
 src/SongPage.cxx
 src/StatusBar.cxx
 src/Styles.cxx
+src/TagListPage.cxx
 src/time_format.cxx
 src/TitleBar.cxx
