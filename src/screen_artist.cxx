@@ -273,7 +273,7 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	case Command::GO_ROOT_DIRECTORY:
 		if (GetCurrentPage() != &artist_list_page) {
-			OpenArtistList(c);
+			SetCurrentPage(c, &artist_list_page);
 			return true;
 		}
 
@@ -281,11 +281,10 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	case Command::GO_PARENT_DIRECTORY:
 		if (GetCurrentPage() == &album_list_page) {
-			OpenArtistList(c);
+			SetCurrentPage(c, &artist_list_page);
 			return true;
 		} else if (GetCurrentPage() == &song_list_page) {
-			OpenAlbumList(c, FindTag(song_list_page.GetFilter(),
-						 artist_list_page.GetTag()));
+			SetCurrentPage(c, &album_list_page);
 			return true;
 		}
 
