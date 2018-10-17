@@ -145,7 +145,7 @@ SongListPage::LoadSongList(struct mpdclient &c)
 void
 ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
 {
-	artist_list_page.SetFilter(TagFilter{}, _("All artists"));
+	artist_list_page.SetFilter(TagFilter{}, _("Artists"));
 
 	SetCurrentPage(c, &artist_list_page);
 }
@@ -153,13 +153,11 @@ ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
 void
 ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist)
 {
-	char buffer[64];
-	const char *title;
+	const char *title = _("Albums");
 
-	if (_artist.empty()) {
-		title = _("Albums");
-	} else {
-		snprintf(buffer, sizeof(buffer), _("Albums of artist: %s"),
+	char buffer[64];
+	if (!_artist.empty()) {
+		snprintf(buffer, sizeof(buffer), "%s: %s", title,
 			 Utf8ToLocale(_artist.c_str()).c_str());
 		title = buffer;
 	}
@@ -193,8 +191,8 @@ SongListPage::GetTitle(char *str, size_t size) const noexcept
 	const char *const album = FindTag(filter, album_tag);
 
 	if (album == nullptr)
-		snprintf(str, size,
-			 _("All tracks of artist: %s"),
+		snprintf(str, size, "%s: %s",
+			 _("Artist"),
 			 Utf8ToLocale(artist).c_str());
 	else if (*album != '\0')
 		snprintf(str, size, "%s: %s - %s",
@@ -202,8 +200,8 @@ SongListPage::GetTitle(char *str, size_t size) const noexcept
 			 Utf8ToLocale(artist).c_str(),
 			 Utf8ToLocale(album).c_str());
 	else
-		snprintf(str, size,
-			 _("Tracks of no album of artist: %s"),
+		snprintf(str, size, "%s: %s",
+			 _("Artist"),
 			 Utf8ToLocale(artist).c_str());
 
 	return str;
