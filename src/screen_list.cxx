@@ -64,7 +64,7 @@ static const PageMeta *const screens[] = {
 };
 
 const PageMeta *
-GetPageMeta(unsigned i)
+GetPageMeta(unsigned i) noexcept
 {
 	return i < ARRAY_SIZE(screens)
 		   ? screens[i]
@@ -72,7 +72,7 @@ GetPageMeta(unsigned i)
 }
 
 const PageMeta *
-screen_lookup_name(const char *name)
+screen_lookup_name(const char *name) noexcept
 {
 	for (const auto *i : screens)
 		if (strcmp(name, i->name) == 0)
@@ -82,7 +82,7 @@ screen_lookup_name(const char *name)
 }
 
 const PageMeta *
-PageByCommand(Command cmd)
+PageByCommand(Command cmd) noexcept
 {
 	for (const auto *i : screens)
 		if (i->command == cmd)

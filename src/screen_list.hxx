@@ -27,14 +27,14 @@ struct PageMeta;
 
 gcc_const
 const PageMeta *
-GetPageMeta(unsigned i);
+GetPageMeta(unsigned i) noexcept;
 
 gcc_pure
 const PageMeta *
-screen_lookup_name(const char *name);
+screen_lookup_name(const char *name) noexcept;
 
 gcc_const
 const PageMeta *
-PageByCommand(Command cmd);
+PageByCommand(Command cmd) noexcept;
 
 #endif
