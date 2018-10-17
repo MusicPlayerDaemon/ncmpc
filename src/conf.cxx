@@ -103,15 +103,16 @@
 #define KEYS_FILENAME "keys"
 #endif
 
+gcc_pure
 static bool
-str2bool(char *str)
+str2bool(char *str) noexcept
 {
 	return strcasecmp(str, "yes") == 0 || strcasecmp(str, "true") == 0 ||
 		strcasecmp(str, "on") == 0 || strcasecmp(str, "1") == 0;
 }
 
 static void
-print_error(const char *msg, const char *input)
+print_error(const char *msg, const char *input) noexcept
 {
 	fprintf(stderr, "%s: %s ('%s')\n",
 		/* To translators: prefix for error messages */
@@ -120,7 +121,7 @@ print_error(const char *msg, const char *input)
 
 gcc_const
 static bool
-is_word_char(char ch)
+is_word_char(char ch) noexcept
 {
 	return IsAlphaNumericASCII(ch) || ch == '-' || ch == '_';
 }
@@ -257,7 +258,7 @@ parse_color(char *str)
  * separated values.
  */
 static char *
-after_comma(char *p)
+after_comma(char *p) noexcept
 {
 	char *comma = strchr(p, ',');
 
@@ -316,7 +317,7 @@ parse_color_definition(char *str)
 #endif
 
 static std::string
-GetStringValue(const char *s)
+GetStringValue(const char *s) noexcept
 {
 	size_t length = strlen(s);
 
