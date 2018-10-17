@@ -117,14 +117,16 @@ public:
 		:ProxyPage(_w),
 		 song_list_page(_screen, this,
 				_w, size) {
-		tag_list_pages.emplace_back(_screen, nullptr,
-					    MPD_TAG_ARTIST,
-					    nullptr,
-					    _w, size);
-		tag_list_pages.emplace_back(_screen, this,
-					    MPD_TAG_ALBUM,
-					    _("All tracks"),
-					    _w, size);
+
+		bool first = true;
+		for (const auto &tag : options.library_page_tags) {
+			tag_list_pages.emplace_back(_screen,
+						    first ? nullptr : this,
+						    tag,
+						    first ? nullptr : _("All"),
+						    _w, size);
+			first = false;
+		}
 	}
 
 private:

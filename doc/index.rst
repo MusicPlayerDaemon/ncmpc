@@ -114,6 +114,9 @@ cycle through when using the previous/next screen commands.  Valid
 choices, if enabled at compile time, are playlist, browse, library,
 help, search, song, keydef, lyrics, outputs, and chat.
 
+:command:`library-page-tags = TAG1 TAG2 ...` - A list of tags to group
+the library page.  The default is ``artist album``.
+
 :command:`search-mode = MODE` - Default search mode for the search
 screen. MODE must be one of title, artist, album, filename, and
 artist+title, or an interger index (0 for title, 1 for artist etc.).

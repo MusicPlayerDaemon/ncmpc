@@ -19,6 +19,9 @@
 ## Enable mouse support (if enabled at compile time).
 #enable-mouse = no
 
+# Which tags shall be grouped on the library page?
+#library-page-tags = artist album
+
 ## A list of screens to cycle through when using
 ## the previous/next screen commands (tab and shift+tab).
 ## names: playlist browse help library search song keydef lyrics outputs chat

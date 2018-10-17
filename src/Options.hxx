@@ -23,6 +23,8 @@
 #include "config.h"
 #include "defaults.hxx"
 
+#include <mpd/tag.h>
+
 #include <vector>
 #include <string>
 #include <chrono>
@@ -47,6 +49,11 @@ struct Options {
 	int search_mode;
 	std::chrono::steady_clock::duration hide_cursor;
 	int seek_time = 1;
+
+#ifdef ENABLE_LIBRARY_PAGE
+	std::vector<enum mpd_tag_type> library_page_tags{MPD_TAG_ARTIST, MPD_TAG_ALBUM};
+#endif
+
 #ifdef ENABLE_LYRICS_SCREEN
 	std::chrono::steady_clock::duration lyrics_timeout = std::chrono::minutes(1);
 	bool lyrics_autosave = false;

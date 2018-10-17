@@ -74,6 +74,7 @@
 #define CONF_SEARCH_MODE "search-mode"
 #define CONF_HIDE_CURSOR "hide-cursor"
 #define CONF_SEEK_TIME "seek-time"
+#define CONF_LIBRARY_PAGE_TAGS "library-page-tags"
 #define CONF_SCREEN_LIST "screen-list"
 #define CONF_TIMEDISPLAY_TYPE "timedisplay-type"
 #define CONF_HOST "host"
@@ -378,6 +379,32 @@ check_screen_list(char *value)
 	return screen;
 }
 
+#ifdef ENABLE_LIBRARY_PAGE
+
+static auto
+ParseTagList(char *value)
+{
+	std::vector<enum mpd_tag_type> result;
+
+	while (char *name = NextItem(value)) {
+		auto type = mpd_tag_name_iparse(name);
+		if (type == MPD_TAG_UNKNOWN) {
+			print_error(_("Unknown MPD tag"), name);
+			result.clear();
+			return result;
+		}
+
+		result.emplace_back(type);
+	}
+
+	if (result.empty())
+		fprintf(stderr, "Empty tag list\n");
+
+	return result;
+}
+
+#endif
+
 static int
 get_search_mode(char *value)
 {
@@ -523,7 +550,13 @@ parse_line(char *line)
 		options.hide_cursor = std::chrono::seconds(atoi(value));
 	else if (!strcasecmp(CONF_SEEK_TIME, name))
 		options.seek_time = atoi(value);
-	else if (!strcasecmp(CONF_SCREEN_LIST, name)) {
+	else if (!strcasecmp(CONF_LIBRARY_PAGE_TAGS, name)) {
+#ifdef ENABLE_LIBRARY_PAGE
+		options.library_page_tags = ParseTagList(value);
+		if (options.library_page_tags.empty())
+			return false;
+#endif
+	} else if (!strcasecmp(CONF_SCREEN_LIST, name)) {
 		options.screen_list = check_screen_list(value);
 	} else if (!strcasecmp(CONF_HOST, name))
 		options.host = GetStringValue(value);
