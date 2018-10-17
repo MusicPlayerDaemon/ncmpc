@@ -118,7 +118,7 @@ public:
 
 private:
 	void OpenArtistList(struct mpdclient &c);
-	void OpenAlbumList(struct mpdclient &c, std::string _artist);
+	void OpenAlbumList(struct mpdclient &c, TagFilter &&filter);
 	void OpenSongList(struct mpdclient &c, TagFilter &&filter);
 
 public:
@@ -164,9 +164,9 @@ ArtistBrowserPage::OpenArtistList(struct mpdclient &c)
 }
 
 void
-ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, std::string _artist)
+ArtistBrowserPage::OpenAlbumList(struct mpdclient &c, TagFilter &&filter)
 {
-	album_list_page.SetFilter(TagFilter{{artist_list_page.GetTag(), std::move(_artist)}});
+	album_list_page.SetFilter(std::move(filter));
 
 	char buffer[64];
 	album_list_page.SetTitle(MakePageTitle(buffer, sizeof(buffer),
@@ -246,9 +246,9 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 	switch (cmd) {
 	case Command::PLAY:
 		if (GetCurrentPage() == &artist_list_page) {
-			const char *artist = artist_list_page.GetSelectedValue();
-			if (artist != nullptr) {
-				OpenAlbumList(c, artist);
+			auto filter = artist_list_page.MakeCursorFilter();
+			if (!filter.empty()) {
+				OpenAlbumList(c, std::move(filter));
 				return true;
 			}
 		} else if (GetCurrentPage() == &album_list_page) {
