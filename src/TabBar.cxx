@@ -26,7 +26,7 @@
 #include "i18n.h"
 
 static void
-PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected)
+PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected) noexcept
 {
 	SelectStyle(w, selected ? Style::TITLE : Style::TITLE_BOLD);
 	if (selected)
@@ -52,7 +52,7 @@ PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected)
 
 void
 PaintTabBar(WINDOW *w, const PageMeta &current_page_meta,
-	    const char *current_page_title)
+	    const char *current_page_title) noexcept
 {
 	for (unsigned i = 0;; ++i) {
 		const auto *page = GetPageMeta(i);
