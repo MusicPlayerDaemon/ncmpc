@@ -238,7 +238,7 @@ ArtistBrowserPage::OnOpen(struct mpdclient &c) noexcept
 	ProxyPage::OnOpen(c);
 
 	if (GetCurrentPage() == nullptr)
-		SetCurrentPage(c, &artist_list_page);
+		OpenArtistList(c);
 }
 
 void
