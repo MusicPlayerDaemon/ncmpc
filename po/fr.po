@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-17 11:53+0200\n"
-"PO-Revision-Date: 2018-10-05 13:27+0000\n"
+"PO-Revision-Date: 2018-10-25 18:28+0000\n"
 "Last-Translator: ButterflyOfFire <ButterflyOfFire@protonmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/ncmpc/"
 "translations/fr/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.2-dev\n"
+"X-Generator: Weblate 3.3-dev\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
@@ -173,7 +173,7 @@ msgstr "Supprimer un morceau de la file d'attente"
 
 #: src/Command.cxx:104
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Mélanger la file d'attente"
 
 #: src/Command.cxx:106
 msgid "Clear queue"
@@ -208,9 +208,8 @@ msgid "Save queue"
 msgstr "Enregistrer la file d'attente"
 
 #: src/Command.cxx:122 src/HelpPage.cxx:174
-#, fuzzy
 msgid "Append song to queue"
-msgstr "Ajouter une chanson à la file d'attente"
+msgstr "Ajouter la chanson à la file d'attente"
 
 #: src/Command.cxx:125
 msgid "Go to root directory"
@@ -322,7 +321,6 @@ msgid "Outputs screen"
 msgstr "Ecran des sorties"
 
 #: src/Command.cxx:214 src/HelpPage.cxx:203
-#, fuzzy
 msgid "Chat screen"
 msgstr "Écran de discussion"
 
@@ -467,7 +465,6 @@ msgid "Delete playlist"
 msgstr "Effacer la liste de lecture"
 
 #: src/HelpPage.cxx:171
-#, fuzzy
 msgid "New search"
 msgstr "Nouvelle recherche"
 
@@ -624,7 +621,7 @@ msgid "Ctrl-%c"
 msgstr "Ctrl-%c"
 
 #: src/KeyName.cxx:74
-#, fuzzy, c-format
+#, c-format
 msgid "Alt-%c"
 msgstr "Alt-%c"
 
@@ -727,7 +724,7 @@ msgstr "Sorties"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:615
 msgid "Shuffled queue"
-msgstr ""
+msgstr "File d'attente mélangée"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
@@ -768,9 +765,8 @@ msgid "All tracks"
 msgstr "Toutes les pistes"
 
 #: src/screen_artist.cxx:148
-#, fuzzy
 msgid "Artists"
-msgstr "Artiste"
+msgstr "Artistes"
 
 #: src/screen_artist.cxx:156
 msgid "Albums"
@@ -922,9 +918,8 @@ msgid "Keybindings unchanged."
 msgstr "La correspondance des touches n'a pas été changée."
 
 #: src/screen_keydef.cxx:408
-#, fuzzy
 msgid "Unable to write configuration"
-msgstr "Impossible d'écrire la configuration"
+msgstr "Échec de sauvegarde de la configuration"
 
 #: src/screen_keydef.cxx:424
 #, c-format
@@ -945,7 +940,7 @@ msgstr "Editer les correspondances de touches"
 
 #: src/screen_keydef.cxx:558
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Note: Auriez-vous oublié d''Appliquer' vos changements?"
+msgstr "Note : Auriez-vous oublié d'« Appliquer » vos changements ?"
 
 #: src/screen_keydef.cxx:608
 msgid "Keys"
@@ -1134,14 +1129,13 @@ msgstr "Morceau"
 
 #: src/StatusBar.cxx:101
 msgid "Playing:"
-msgstr "En Lecture:"
+msgstr "En Lecture :"
 
 #: src/StatusBar.cxx:105
 msgid "[Paused]"
 msgstr "[En Pause]"
 
 #: src/Styles.cxx:271 src/Styles.cxx:319 src/Styles.cxx:351
-#, fuzzy
 msgid "Unknown color"
 msgstr "Couleur inconnue"
 
