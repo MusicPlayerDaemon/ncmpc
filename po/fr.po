@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-17 11:53+0200\n"
-"PO-Revision-Date: 2018-10-25 18:28+0000\n"
-"Last-Translator: ButterflyOfFire <ButterflyOfFire@protonmail.com>\n"
+"PO-Revision-Date: 2018-11-03 08:23+0000\n"
+"Last-Translator: Christophe <2cadz@adiczion.net>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/ncmpc/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -523,9 +523,8 @@ msgid "Remove selected keydef"
 msgstr "Supprimer le raccourci sélectionné"
 
 #: src/HelpPage.cxx:214
-#, fuzzy
 msgid "Add a keydef"
-msgstr "Ajouter une nouvelle touche"
+msgstr "Ajouter un nouveau raccourci"
 
 #: src/HelpPage.cxx:215
 msgid "Go up a level"
@@ -639,9 +638,9 @@ msgid "No lyrics"
 msgstr "Pas de paroles"
 
 #: src/LyricsPage.cxx:267
-#, c-format
+#, c-format, fuzzy
 msgid "Lyrics timeout occurred after %d seconds"
-msgstr ""
+msgstr "Expiration du délai après %d secondes pour les Paroles"
 
 #: src/LyricsPage.cxx:345 src/LyricsPage.cxx:353 src/LyricsPage.cxx:363
 #: src/LyricsPage.cxx:499
@@ -742,7 +741,7 @@ msgstr "File d'attente"
 #: src/QueuePage.cxx:379
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "File d'attente en %s"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
