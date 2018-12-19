@@ -119,7 +119,7 @@ the library page.  The default is ``artist album``.
 
 :command:`search-mode = MODE` - Default search mode for the search
 screen. MODE must be one of title, artist, album, filename, and
-artist+title, or an interger index (0 for title, 1 for artist etc.).
+artist+title, or an integer index (0 for title, 1 for artist etc.).
 
 :command:`auto-center = yes|no` - Enable/disable auto center
 mode. When auto center mode is enabled ncmpc centers the current track
