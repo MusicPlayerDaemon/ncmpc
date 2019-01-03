@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-17 11:53+0200\n"
-"PO-Revision-Date: 2019-01-03 08:52+0000\n"
+"PO-Revision-Date: 2019-01-04 17:52+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ko/>\n"
@@ -43,7 +43,7 @@ msgstr "키 설정 화면"
 
 #: src/Command.cxx:32
 msgid "Quit"
-msgstr "끝내기"
+msgstr "나가기"
 
 #: src/Command.cxx:36
 msgid "Move cursor up"
@@ -67,11 +67,11 @@ msgstr "커서를 화면 맨 아래로 옮기기"
 
 #: src/Command.cxx:46
 msgid "Move cursor to the top of the list"
-msgstr "커서를 리스트 맨 위로 옮기기"
+msgstr "커서를 목록 맨 위로 옮기기"
 
 #: src/Command.cxx:48
 msgid "Move cursor to the bottom of the list"
-msgstr "커서를 리스트 맨 아래로 옮기기"
+msgstr "커서를 목록 맨 아래로 옮기기"
 
 #: src/Command.cxx:50
 msgid "Page up"
@@ -103,11 +103,11 @@ msgstr "화면 반 아래로 내리기"
 
 #: src/Command.cxx:64
 msgid "Select currently playing song"
-msgstr "현재 재생중인 곡을 선택"
+msgstr "지금 연주 중인 곡을 선택"
 
 #: src/Command.cxx:69
 msgid "Help screen"
-msgstr "도움말 화면"
+msgstr "도움 화면"
 
 #: src/Command.cxx:71 src/HelpPage.cxx:140
 msgid "Queue screen"
@@ -131,7 +131,7 @@ msgstr "멈춤"
 
 #: src/Command.cxx:84
 msgid "Crop"
-msgstr "연주중인 곡만 선택"
+msgstr "선택"
 
 #: src/Command.cxx:86
 msgid "Next track"
@@ -159,11 +159,11 @@ msgstr "음량 낮추기"
 
 #: src/Command.cxx:98
 msgid "Select/deselect song in queue"
-msgstr "연주순서에서 곡 선택/해제"
+msgstr "연주순서에서 곡 선택함/안 함"
 
 #: src/Command.cxx:100
 msgid "Select all listed items"
-msgstr "나열한 항목 모두 선택하기"
+msgstr "목록의 모든 항목 선택"
 
 #: src/Command.cxx:102
 msgid "Delete song from queue"
@@ -282,7 +282,7 @@ msgstr "바로 이동"
 
 #: src/Command.cxx:180
 msgid "Artist screen"
-msgstr "아티스트 화면"
+msgstr "연주가 화면"
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
@@ -294,7 +294,7 @@ msgstr "찾기 모드 변경"
 
 #: src/Command.cxx:190
 msgid "View the selected and the currently playing song"
-msgstr "선택하고 현재 연주 중인 곡 보기"
+msgstr "선택하고 지금 연주 중인 곡 보기"
 
 #: src/Command.cxx:194 src/HelpPage.cxx:181
 msgid "Lyrics screen"
@@ -338,13 +338,13 @@ msgstr "잘못된 단축키 정의"
 #. the hotkey configuration line is incomplete
 #: src/conf.cxx:173
 msgid "Incomplete hotkey configuration"
-msgstr "단축키 설정이 불완전함"
+msgstr "불완전한 단축키 설정"
 
 #. the hotkey configuration contains an unknown
 #. command
 #: src/conf.cxx:186
 msgid "Unknown command"
-msgstr "알 수 없는 명령"
+msgstr "모르는 명령어"
 
 #. translators: ncmpc supports displaying the
 #. "elapsed" or "remaining" time of a song being
@@ -380,7 +380,7 @@ msgstr "잘못된 색상 지정"
 #. configuration file
 #: src/conf.cxx:368
 msgid "Unknown screen name"
-msgstr "알 수 없는 화면 이름"
+msgstr "모르는 화면 이름"
 
 #: src/conf.cxx:391
 msgid "Invalid search mode"
@@ -388,22 +388,22 @@ msgstr "잘못된 검색 모드"
 
 #: src/conf.cxx:411
 msgid "Unknown search mode"
-msgstr "알 수 없는 검색 모드"
+msgstr "모르는 검색 모드"
 
 #: src/conf.cxx:594
 msgid "Unknown configuration parameter"
-msgstr "알 수 없는 설정 요소"
+msgstr "모르는 설정 요소"
 
 #: src/CustomColors.cxx:56
 msgid "Terminal lacks support for changing colors"
-msgstr "터미널의 색상 변경 지원이 부족함"
+msgstr "터미널의 색상 변경 지원이 부족합니다"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/FileBrowserPage.cxx:247
 msgid "Deleting this item is not possible"
-msgstr "이 항목을 지울 수 없음"
+msgstr "이 항목을 지울 수 없습니다"
 
 #: src/FileBrowserPage.cxx:255
 #, c-format
@@ -436,7 +436,7 @@ msgstr "'%s' 연주목록을 읽는 중"
 #: src/TagListPage.cxx:184
 #, c-format
 msgid "Adding '%s' to queue"
-msgstr "연주순서에 '%s' 추가함"
+msgstr "연주순서에 '%s' 추가"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -456,7 +456,7 @@ msgstr "가운데"
 
 #: src/HelpPage.cxx:157
 msgid "Enter directory/Select and play song"
-msgstr "디렉터리를 입력하거나 곡을 선택하고 연주"
+msgstr "디렉터리를 입력/곡을 선택하고 연주"
 
 #: src/HelpPage.cxx:161
 msgid "Delete playlist"
@@ -502,7 +502,7 @@ msgstr "저장된 가사 지우기"
 
 #: src/HelpPage.cxx:198
 msgid "Enable/disable output"
-msgstr "출력 사용하기/안하기"
+msgstr "출력 사용함/안 함"
 
 #: src/HelpPage.cxx:205
 msgid "Write a message"
@@ -514,11 +514,11 @@ msgstr "키설정 화면"
 
 #: src/HelpPage.cxx:212
 msgid "Edit keydefs for selected command"
-msgstr "선택한 명령을 위한 키설정 편집하기"
+msgstr "선택한 명령을 위한 키설정 편집"
 
 #: src/HelpPage.cxx:213
 msgid "Remove selected keydef"
-msgstr "선택한 키설정 삭제하기"
+msgstr "선택한 키설정 삭제"
 
 #: src/HelpPage.cxx:214
 msgid "Add a keydef"
@@ -530,11 +530,11 @@ msgstr "한 단계 위로 가기"
 
 #: src/HelpPage.cxx:216
 msgid "Apply and save changes"
-msgstr "적용하고 변경사항을 저장하기"
+msgstr "적용하고 변경사항을 저장"
 
 #: src/HelpPage.cxx:245 src/HelpPage.cxx:329
 msgid "Help"
-msgstr "도움말"
+msgstr "도움"
 
 #: src/i18n.h:43
 msgid "y"
@@ -624,7 +624,7 @@ msgstr "Alt-%c"
 
 #: src/ListWindow.cxx:474
 msgid "Range selection disabled"
-msgstr "범위 선택을 사용하지 않음"
+msgstr "범위 선택을 사용 안 함"
 
 #: src/ListWindow.cxx:479
 msgid "Range selection enabled"
@@ -694,7 +694,7 @@ msgstr "오류: 너무 오래된 MPD %d.%d.%d 버전 (%s 필요)"
 #. when ncmpc is started with "--version"
 #: src/Options.cxx:216 src/Options.cxx:219
 msgid "translator-credits"
-msgstr "번역자-공로"
+msgstr "번역자-기여"
 
 #: src/OutputsPage.cxx:87
 #, c-format
@@ -754,20 +754,20 @@ msgstr "모든 곡"
 
 #: src/screen_artist.cxx:148
 msgid "Artists"
-msgstr "아티스트"
+msgstr "연주가"
 
 #: src/screen_artist.cxx:156
 msgid "Albums"
-msgstr "앨범"
+msgstr "음반"
 
 #: src/screen_artist.cxx:195 src/screen_artist.cxx:204
 #: src/screen_artist.cxx:303 src/SearchPage.cxx:83 src/SongPage.cxx:62
 msgid "Artist"
-msgstr "아티스트"
+msgstr "연주가"
 
 #: src/screen_artist.cxx:199 src/SearchPage.cxx:84 src/SongPage.cxx:64
 msgid "Album"
-msgstr "앨범"
+msgstr "음반"
 
 #: src/screen_client.cxx:41
 msgid "Database update running"
@@ -854,7 +854,7 @@ msgstr "찾기"
 
 #: src/screen_find.cxx:33
 msgid "Find backward"
-msgstr "거꾸로 찾기"
+msgstr "뒤로 찾기"
 
 #: src/screen_find.cxx:34
 msgid "Jump"
@@ -886,11 +886,11 @@ msgstr "오류: %s 키는 이미 %s에 사용함"
 #: src/screen_keydef.cxx:204
 #, c-format
 msgid "Assigned %s to %s"
-msgstr "%s는 %s에 지정됨"
+msgstr "%s 키가 %s에 지정됨"
 
 #: src/screen_keydef.cxx:231
 msgid "Add new key"
-msgstr "새로운 키 더하기"
+msgstr "새로운 키 추가"
 
 #: src/screen_keydef.cxx:253
 #, c-format
@@ -899,11 +899,11 @@ msgstr "%s 키 편집"
 
 #: src/screen_keydef.cxx:396
 msgid "You have new key bindings"
-msgstr "새로운 키 조합을 지정함"
+msgstr "새로운 키 조합입니다"
 
 #: src/screen_keydef.cxx:398
 msgid "Keybindings unchanged."
-msgstr "키 조합이 바뀌지 않음."
+msgstr "키 조합이 바뀌지 않았습니다."
 
 #: src/screen_keydef.cxx:408
 msgid "Unable to write configuration"
@@ -916,7 +916,7 @@ msgstr "%s 쓰기"
 
 #: src/screen_keydef.cxx:437
 msgid "===> Apply key bindings "
-msgstr "===> 키 조합 적용 "
+msgstr "===> 키 조합을 적용 "
 
 #: src/screen_keydef.cxx:439
 msgid "===> Apply & Save key bindings  "
@@ -924,7 +924,7 @@ msgstr "===> 키 조합을 적용하고 저장  "
 
 #: src/screen_keydef.cxx:476
 msgid "Edit key bindings"
-msgstr "키 조합 편집하기"
+msgstr "키 조합 편집"
 
 #: src/screen_keydef.cxx:558
 msgid "Note: Did you forget to 'Apply' your changes?"
@@ -940,11 +940,11 @@ msgstr "열쇠글"
 
 #: src/SearchPage.cxx:48
 msgid "artist"
-msgstr "아티스트"
+msgstr "연주가"
 
 #: src/SearchPage.cxx:49
 msgid "album"
-msgstr "앨범"
+msgstr "음반"
 
 #: src/SearchPage.cxx:50
 msgid "title"
@@ -976,7 +976,7 @@ msgstr "연주가"
 
 #: src/SearchPage.cxx:57
 msgid "comment"
-msgstr "주석"
+msgstr "설명"
 
 #: src/SearchPage.cxx:65
 msgid "file"
@@ -992,7 +992,7 @@ msgstr "파일이름"
 
 #: src/SearchPage.cxx:86
 msgid "Artist + Title"
-msgstr "아티스트 + 제목"
+msgstr "연주가 + 제목"
 
 #: src/SearchPage.cxx:264
 #, c-format
@@ -1048,7 +1048,7 @@ msgstr "장르"
 
 #: src/SongPage.cxx:73
 msgid "Comment"
-msgstr "주석"
+msgstr "설명"
 
 #: src/SongPage.cxx:74
 msgid "Path"
@@ -1064,11 +1064,11 @@ msgstr "형식"
 
 #: src/SongPage.cxx:93
 msgid "Number of artists"
-msgstr "아티스트 수"
+msgstr "연주가 수"
 
 #: src/SongPage.cxx:94
 msgid "Number of albums"
-msgstr "앨범 수"
+msgstr "음반 수"
 
 #: src/SongPage.cxx:95
 msgid "Number of songs"
@@ -1104,7 +1104,7 @@ msgstr "선택한 곡"
 
 #: src/SongPage.cxx:466
 msgid "Currently playing song"
-msgstr "현재 연주중인 곡"
+msgstr "지금 연주 중인 곡"
 
 #: src/SongPage.cxx:471
 #, c-format
@@ -1133,7 +1133,7 @@ msgstr "모르는 색상 필드"
 
 #: src/Styles.cxx:376
 msgid "Terminal lacks color capabilities"
-msgstr "터미널의 색상 기능이 부족함"
+msgstr "터미널의 색상 기능이 부족합니다"
 
 #: src/time_format.cxx:44
 msgid "year"
