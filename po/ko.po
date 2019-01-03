@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-17 11:53+0200\n"
-"PO-Revision-Date: 2019-01-03 06:16+0000\n"
+"PO-Revision-Date: 2019-01-03 08:52+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ko/>\n"
@@ -119,7 +119,7 @@ msgstr "음원 화면"
 
 #: src/Command.cxx:78
 msgid "Play/Enter directory"
-msgstr "연주/디렉토리 입력"
+msgstr "연주/디렉터리 입력"
 
 #: src/Command.cxx:80
 msgid "Pause"
@@ -294,7 +294,7 @@ msgstr "찾기 모드 변경"
 
 #: src/Command.cxx:190
 msgid "View the selected and the currently playing song"
-msgstr "선택하고 현재 연주중인 곡을 보기"
+msgstr "선택하고 현재 연주 중인 곡 보기"
 
 #: src/Command.cxx:194 src/HelpPage.cxx:181
 msgid "Lyrics screen"
@@ -436,7 +436,7 @@ msgstr "'%s' 연주목록을 읽는 중"
 #: src/TagListPage.cxx:184
 #, c-format
 msgid "Adding '%s' to queue"
-msgstr "연주목록에 '%s' 추가함"
+msgstr "연주순서에 '%s' 추가함"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -688,7 +688,7 @@ msgstr "%s로 연결 중"
 #: src/Main.cxx:147
 #, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "오류: 너무 오래된 MPD %d%d%d 버전 (%s 필요)"
+msgstr "오류: 너무 오래된 MPD %d.%d.%d 버전 (%s 필요)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -907,12 +907,12 @@ msgstr "키 조합이 바뀌지 않음."
 
 #: src/screen_keydef.cxx:408
 msgid "Unable to write configuration"
-msgstr "설정을 쓸 수 없음"
+msgstr "설정 쓰기가 안 됨"
 
 #: src/screen_keydef.cxx:424
 #, c-format
 msgid "Wrote %s"
-msgstr "%s 씀"
+msgstr "%s 쓰기"
 
 #: src/screen_keydef.cxx:437
 msgid "===> Apply key bindings "
@@ -1080,7 +1080,7 @@ msgstr "가동시간"
 
 #: src/SongPage.cxx:97
 msgid "Most recent db update"
-msgstr "데이터베이스 최신 업데이트"
+msgstr "마지막 데이터베이스 업데이트"
 
 #: src/SongPage.cxx:98
 msgid "Playtime"
@@ -1092,7 +1092,7 @@ msgstr "데이터베이스 연주시간"
 
 #: src/SongPage.cxx:204
 msgid "Song viewer"
-msgstr "노래 보기"
+msgstr "곡 보기"
 
 #: src/SongPage.cxx:370
 msgid "MPD statistics"
@@ -1113,7 +1113,7 @@ msgstr "%d kbps"
 
 #: src/SongPage.cxx:555
 msgid "Song"
-msgstr "노래"
+msgstr "곡"
 
 #: src/StatusBar.cxx:101
 msgid "Playing:"
@@ -1137,7 +1137,7 @@ msgstr "터미널의 색상 기능이 부족함"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr "연도"
+msgstr "년"
 
 #: src/time_format.cxx:46
 msgid "years"
