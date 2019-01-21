@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-17 11:53+0200\n"
-"PO-Revision-Date: 2019-01-04 17:52+0000\n"
+"PO-Revision-Date: 2019-01-22 14:05+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 3.4\n"
 "X-Launchpad-Export-Date: 2009-10-19 13:36+0000\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
@@ -111,7 +111,7 @@ msgstr "도움 화면"
 
 #: src/Command.cxx:71 src/HelpPage.cxx:140
 msgid "Queue screen"
-msgstr "연주순서 화면"
+msgstr "순서 화면"
 
 #: src/Command.cxx:73 src/HelpPage.cxx:155
 msgid "Browse screen"
@@ -159,7 +159,7 @@ msgstr "음량 낮추기"
 
 #: src/Command.cxx:98
 msgid "Select/deselect song in queue"
-msgstr "연주순서에서 곡 선택함/안 함"
+msgstr "순서에서 곡 선택함/안 함"
 
 #: src/Command.cxx:100
 msgid "Select all listed items"
@@ -167,15 +167,15 @@ msgstr "목록의 모든 항목 선택"
 
 #: src/Command.cxx:102
 msgid "Delete song from queue"
-msgstr "연주순서에서 곡 지우기"
+msgstr "순서에서 곡 지우기"
 
 #: src/Command.cxx:104
 msgid "Shuffle queue"
-msgstr "연주순서 뒤섞기"
+msgstr "순서 뒤섞기"
 
 #: src/Command.cxx:106
 msgid "Clear queue"
-msgstr "연주순서 지우기"
+msgstr "순서 지우기"
 
 #: src/Command.cxx:108
 msgid "Toggle repeat mode"
@@ -203,11 +203,11 @@ msgstr "음악 데이터베이스 업데이트 시작"
 
 #: src/Command.cxx:120
 msgid "Save queue"
-msgstr "연주순서 저장"
+msgstr "순서 저장"
 
 #: src/Command.cxx:122 src/HelpPage.cxx:174
 msgid "Append song to queue"
-msgstr "연주순서에 곡 더하기"
+msgstr "순서에 곡 더하기"
 
 #: src/Command.cxx:125
 msgid "Go to root directory"
@@ -436,7 +436,7 @@ msgstr "'%s' 연주목록을 읽는 중"
 #: src/TagListPage.cxx:184
 #, c-format
 msgid "Adding '%s' to queue"
-msgstr "연주순서에 '%s' 추가"
+msgstr "순서에 '%s' 추가"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -712,11 +712,11 @@ msgstr "출력"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:615
 msgid "Shuffled queue"
-msgstr "연주순서 뒤섞음"
+msgstr "순서 뒤섞음"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
-msgstr "연주순서 지움"
+msgstr "순서 지움"
 
 #. get path
 #: src/QueuePage.cxx:312
@@ -725,17 +725,17 @@ msgstr "추가"
 
 #: src/QueuePage.cxx:377 src/QueuePage.cxx:673
 msgid "Queue"
-msgstr "연주순서"
+msgstr "순서"
 
 #: src/QueuePage.cxx:379
 #, c-format
 msgid "Queue on %s"
-msgstr "연주순서 %s"
+msgstr "순서 %s"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
 msgid "Save queue as"
-msgstr "연주순서 저장"
+msgstr "순서 저장"
 
 #: src/save_playlist.cxx:108
 #, c-format
