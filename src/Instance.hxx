@@ -125,9 +125,9 @@ public:
 		boost::system::error_code error;
 		check_key_bindings_timer.expires_from_now(std::chrono::seconds(10),
 							  error);
-		reconnect_timer.async_wait(std::bind(&Instance::OnCheckKeyBindings,
-						     this,
-						     std::placeholders::_1));
+		check_key_bindings_timer.async_wait(std::bind(&Instance::OnCheckKeyBindings,
+							      this,
+							      std::placeholders::_1));
 	}
 #endif
 

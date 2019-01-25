@@ -1,4 +1,5 @@
 ncmpc 0.34 - not yet released
+* fix high CPU usage in key bindings check
 
 ncmpc 0.33 - (2018-10-22)
 * artist page: rename to "library"
