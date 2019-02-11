@@ -174,6 +174,9 @@ else
   pcre_dep = declare_dependency()
 endif
 
+# Needed on sparc 
+atomic_dep = cc.find_library('atomic', required: false)
+
 inc = include_directories(
   'src',
 
@@ -352,6 +355,7 @@ ncmpc = executable('ncmpc',
   sources,
   include_directories: inc,
   dependencies: [
+    atomic_dep,
     thread_dep,
     boost_dep,
     pcre_dep,
