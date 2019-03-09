@@ -38,7 +38,7 @@ TagListPage::MakeCursorFilter() const noexcept
 	unsigned i = lw.selected;
 	if (parent != nullptr) {
 		if (i == 0)
-			return {};
+			return {{}};
 
 		--i;
 	}
