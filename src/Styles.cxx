@@ -266,7 +266,7 @@ ParseStyle(StyleData &d, const char *str)
 		if (slash != nullptr) {
 			const char *name = slash + 1;
 			short color = ParseBackgroundColor(name);
-			if (color < 0) {
+			if (color == COLOR_ERROR) {
 				fprintf(stderr, "%s: %s\n",
 					_("Unknown color"), name);
 				return false;
