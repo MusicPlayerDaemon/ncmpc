@@ -54,7 +54,8 @@ AsyncResolveConnect::OnResolved(const boost::system::error_code &error,
 }
 
 void
-AsyncResolveConnect::Start(const char *host, unsigned port) noexcept
+AsyncResolveConnect::Start(boost::asio::io_service &io_service,
+			   const char *host, unsigned port) noexcept
 {
 #ifndef _WIN32
 	if (host[0] == '/' || host[0] == '@') {
@@ -64,7 +65,7 @@ AsyncResolveConnect::Start(const char *host, unsigned port) noexcept
 			s.front() = 0;
 
 		boost::asio::local::stream_protocol::endpoint ep(std::move(s));
-		boost::asio::local::stream_protocol::socket socket(resolver.get_io_service());
+		boost::asio::local::stream_protocol::socket socket(io_service);
 
 		boost::system::error_code error;
 		socket.connect(ep, error);
@@ -76,6 +77,8 @@ AsyncResolveConnect::Start(const char *host, unsigned port) noexcept
 		handler.OnConnect(std::move(socket));
 		return;
 	}
+#else
+	(void)io_service;
 #endif /* _WIN32 */
 
 	char service[20];

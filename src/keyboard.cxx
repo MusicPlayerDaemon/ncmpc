@@ -43,7 +43,7 @@ void
 UserInput::OnReadable(const boost::system::error_code &error)
 {
 	if (error) {
-		d.get_io_service().stop();
+		get_io_context().stop();
 		return;
 	}
 
@@ -81,7 +81,7 @@ UserInput::OnReadable(const boost::system::error_code &error)
 
 	begin_input_event();
 
-	if (!do_input_event(d.get_io_service(), cmd))
+	if (!do_input_event(get_io_context(), cmd))
 		return;
 
 	end_input_event();
@@ -89,7 +89,11 @@ UserInput::OnReadable(const boost::system::error_code &error)
 }
 
 UserInput::UserInput(boost::asio::io_service &io_service, WINDOW &_w)
-	:d(io_service), w(_w)
+	:d(io_service),
+#if BOOST_VERSION >= 107000
+	 io_context(io_service),
+#endif
+	 w(_w)
 {
 	d.assign(STDIN_FILENO);
 	AsyncWait();

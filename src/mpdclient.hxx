@@ -71,6 +71,10 @@ struct mpdclient final
 	struct mpd_status *status = nullptr;
 	const struct mpd_song *current_song = nullptr;
 
+#if BOOST_VERSION >= 107000
+	boost::asio::io_context &io_context;
+#endif
+
 	/**
 	 * A timer which re-enters MPD idle mode before the next main
 	 * loop iteration.
@@ -130,7 +134,11 @@ struct mpdclient final
 	}
 
 	auto &get_io_service() noexcept {
+#if BOOST_VERSION >= 107000
+		return io_context;
+#else
 		return enter_idle_timer.get_io_service();
+#endif
 	}
 
 #ifdef ENABLE_ASYNC_CONNECT

@@ -125,7 +125,7 @@ aconnect_start(boost::asio::io_service &io_service,
 
 	*acp = ac;
 
-	ac->rconnect.Start(host, port);
+	ac->rconnect.Start(io_service, host, port);
 }
 
 void

@@ -47,7 +47,8 @@ public:
 	/**
 	 * Resolve a host name and connect to it asynchronously.
 	 */
-	void Start(const char *host, unsigned port) noexcept;
+	void Start(boost::asio::io_service &io_service,
+		   const char *host, unsigned port) noexcept;
 
 private:
 	void OnResolved(const boost::system::error_code &error,

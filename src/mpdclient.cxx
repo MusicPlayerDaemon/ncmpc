@@ -156,6 +156,9 @@ mpdclient::mpdclient(boost::asio::io_service &io_service,
 		     const char *_host, unsigned _port,
 		     unsigned _timeout_ms, const char *_password)
 	:timeout_ms(_timeout_ms), password(_password),
+#if BOOST_VERSION >= 107000
+	 io_context(io_service),
+#endif
 	 enter_idle_timer(io_service)
 {
 #ifdef ENABLE_ASYNC_CONNECT

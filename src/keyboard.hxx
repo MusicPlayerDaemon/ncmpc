@@ -28,10 +28,23 @@
 
 class UserInput {
 	boost::asio::posix::stream_descriptor d;
+
+#if BOOST_VERSION >= 107000
+	boost::asio::io_context &io_context;
+#endif
+
 	WINDOW &w;
 
 public:
 	UserInput(boost::asio::io_service &io_service, WINDOW &_w);
+
+	auto &get_io_context() noexcept {
+#if BOOST_VERSION >= 107000
+		return io_context;
+#else
+		return d.get_io_service();
+#endif
+	}
 
 private:
 	void AsyncWait() {

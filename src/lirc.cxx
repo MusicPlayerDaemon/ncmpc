@@ -37,7 +37,7 @@ LircInput::OnReadable(const boost::system::error_code &error)
 	if (lirc_nextcode(&code) == 0) {
 		while (lirc_code2char(lc, code, &txt) == 0 && txt != nullptr) {
 			const auto cmd = get_key_command_from_name(txt);
-			if (!do_input_event(d.get_io_service(), cmd))
+			if (!do_input_event(get_io_context(), cmd))
 				return;
 		}
 	}
@@ -48,6 +48,9 @@ LircInput::OnReadable(const boost::system::error_code &error)
 
 LircInput::LircInput(boost::asio::io_service &io_service)
 	:d(io_service)
+#if BOOST_VERSION >= 107000
+	, io_context(io_service)
+#endif
 {
 	int lirc_socket = 0;
 
