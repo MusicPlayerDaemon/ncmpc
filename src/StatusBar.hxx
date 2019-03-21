@@ -21,6 +21,7 @@
 #define NCMPC_STATUS_BAR_HXX
 
 #include "config.h"
+#include "AsioServiceFwd.hxx"
 #include "Window.hxx"
 
 #ifndef NCMPC_MINI
