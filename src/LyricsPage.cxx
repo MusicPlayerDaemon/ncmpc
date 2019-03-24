@@ -75,7 +75,7 @@ public:
 	}
 
 	auto &get_io_service() noexcept {
-		return loader_timeout.get_io_service();
+		return screen.get_io_service();
 	}
 
 private:
