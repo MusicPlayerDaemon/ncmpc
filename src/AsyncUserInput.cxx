@@ -1,5 +1,5 @@
 /* ncmpc (Ncurses MPD Client)
- * (c) 2004-2018 The Music Player Daemon Project
+ * (c) 2004-2019 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -18,7 +18,7 @@
  */
 
 #include "config.h"
-#include "keyboard.hxx"
+#include "AsyncUserInput.hxx"
 #include "Command.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
@@ -40,7 +40,7 @@ translate_key(int key)
 }
 
 void
-UserInput::OnReadable(const boost::system::error_code &error)
+AsyncUserInput::OnReadable(const boost::system::error_code &error)
 {
 	if (error) {
 		get_io_context().stop();
@@ -88,14 +88,9 @@ UserInput::OnReadable(const boost::system::error_code &error)
 	AsyncWait();
 }
 
-UserInput::UserInput(boost::asio::io_service &io_service, WINDOW &_w)
-	:d(io_service),
-#if BOOST_VERSION >= 107000
-	 io_context(io_service),
-#endif
-	 w(_w)
+AsyncUserInput::AsyncUserInput(boost::asio::io_service &io_service, WINDOW &_w)
+	:UserInput(io_service), w(_w)
 {
-	d.assign(STDIN_FILENO);
 	AsyncWait();
 }
 

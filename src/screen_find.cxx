@@ -22,7 +22,7 @@
 #include "screen_status.hxx"
 #include "screen.hxx"
 #include "ListWindow.hxx"
-#include "keyboard.hxx"
+#include "AsyncUserInput.hxx"
 #include "i18n.h"
 #include "Options.hxx"
 #include "util/LocaleString.hxx"

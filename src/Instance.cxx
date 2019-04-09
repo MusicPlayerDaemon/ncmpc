@@ -19,7 +19,6 @@
 
 #include "Instance.hxx"
 #include "Options.hxx"
-#include "keyboard.hxx"
 #include "xterm_title.hxx"
 
 Instance::Instance()

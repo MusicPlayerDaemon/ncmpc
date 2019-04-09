@@ -1,5 +1,5 @@
 /* ncmpc (Ncurses MPD Client)
- * (c) 2004-2018 The Music Player Daemon Project
+ * (c) 2004-2019 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,46 +17,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef KEYBOARD_H
-#define KEYBOARD_H
+#include "UserInput.hxx"
 
-#include "AsioServiceFwd.hxx"
+#include <unistd.h>
 
-#include <boost/asio/posix/stream_descriptor.hpp>
-
-#include <curses.h>
-
-class UserInput {
-	boost::asio::posix::stream_descriptor d;
-
+UserInput::UserInput(boost::asio::io_service &io_service)
+	:d(io_service)
 #if BOOST_VERSION >= 107000
-	boost::asio::io_context &io_context;
+	, io_context(io_service)
 #endif
-
-	WINDOW &w;
-
-public:
-	UserInput(boost::asio::io_service &io_service, WINDOW &_w);
-
-	auto &get_io_context() noexcept {
-#if BOOST_VERSION >= 107000
-		return io_context;
-#else
-		return d.get_io_service();
-#endif
-	}
-
-private:
-	void AsyncWait() {
-		d.async_read_some(boost::asio::null_buffers(),
-				  std::bind(&UserInput::OnReadable, this,
-					    std::placeholders::_1));
-	}
-
-	void OnReadable(const boost::system::error_code &error);
-};
-
-void
-keyboard_unread(boost::asio::io_service &io_service, int key);
-
-#endif
+{
+	d.assign(STDIN_FILENO);
+}

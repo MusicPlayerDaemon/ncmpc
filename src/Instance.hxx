@@ -21,7 +21,7 @@
 #define NCMPC_INSTANCE_HXX
 
 #include "config.h"
-#include "keyboard.hxx"
+#include "AsyncUserInput.hxx"
 #include "mpdclient.hxx"
 #include "DelayedSeek.hxx"
 #include "screen.hxx"
@@ -70,7 +70,7 @@ class Instance {
 	LircInput lirc_input;
 #endif
 
-	UserInput user_input;
+	AsyncUserInput user_input;
 
 public:
 	Instance();
