@@ -31,7 +31,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(_WIN32)
+#ifndef _WIN32
 #include "WaitUserInput.hxx"
 #endif
 
@@ -318,9 +318,22 @@ _wreadln(WINDOW *w,
 		wr.Paint();
 	}
 
+#ifndef _WIN32
+	WaitUserInput wui;
+#endif
+
 	int key = 0;
 	while (key != 13 && key != '\n') {
 		key = wgetch(w);
+
+#ifndef _WIN32
+		if (key == ERR && errno == EAGAIN) {
+			if (wui.Wait())
+				continue;
+			else
+				break;
+		}
+#endif
 
 		/* check if key is a function key */
 		for (size_t i = 0; i < 63; i++)

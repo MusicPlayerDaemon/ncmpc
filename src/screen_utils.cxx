@@ -27,6 +27,10 @@
 #include "wreadln.hxx"
 #include "ncmpc.hxx"
 
+#ifndef _WIN32
+#include "WaitUserInput.hxx"
+#endif
+
 #include <mpd/client.h>
 
 #include <string.h>
@@ -64,8 +68,23 @@ screen_getch(const char *prompt) noexcept
 	echo();
 	curs_set(1);
 
+#ifndef _WIN32
+	WaitUserInput wui;
+#endif
+
 	int key;
-	while (ignore_key(key = wgetch(w))) {}
+	do {
+		key = wgetch(w);
+
+#ifndef _WIN32
+		if (key == ERR && errno == EAGAIN) {
+			if (wui.Wait())
+				continue;
+			else
+				break;
+		}
+#endif
+	} while (ignore_key(key));
 
 	noecho();
 	curs_set(0);

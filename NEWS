@@ -1,5 +1,6 @@
 ncmpc 0.34 - not yet released
 * fix high CPU usage in key bindings check
+* fix high CPU usage during text input
 * fix background color "none"
 * adapt to Boost 1.70.0 API changes
 

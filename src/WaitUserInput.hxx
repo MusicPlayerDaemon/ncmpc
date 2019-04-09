@@ -36,6 +36,10 @@ public:
 		return Poll(0);
 	}
 
+	bool Wait() noexcept {
+		return Poll(-1);
+	}
+
 private:
 	bool Poll(int timeout) noexcept {
 		return poll(&pfd, 1, timeout) > 0;
