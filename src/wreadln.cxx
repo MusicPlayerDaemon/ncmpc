@@ -1,5 +1,5 @@
 /* ncmpc (Ncurses MPD Client)
- * (c) 2004-2018 The Music Player Daemon Project
+ * (c) 2004-2019 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -32,7 +32,7 @@
 #include <string.h>
 
 #if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(_WIN32)
-#include <sys/poll.h>
+#include "WaitUserInput.hxx"
 #endif
 
 #define KEY_CTRL_A   1
@@ -229,11 +229,7 @@ wreadln::InsertByte(int key) noexcept
 	size_t length = 1;
 #if (defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)) && !defined(_WIN32)
 	char buffer[32] = { (char)key };
-	struct pollfd pfd = {
-		.fd = 0,
-		.events = POLLIN,
-		.revents = 0,
-	};
+	WaitUserInput wui;
 
 	/* wide version: try to complete the multibyte sequence */
 
@@ -244,7 +240,7 @@ wreadln::InsertByte(int key) noexcept
 
 		/* poll for more bytes on stdin, without timeout */
 
-		if (poll(&pfd, 1, 0) <= 0)
+		if (!wui.IsReady())
 			/* no more input from keyboard */
 			break;
 
