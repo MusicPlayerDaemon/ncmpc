@@ -43,7 +43,7 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 	if (show_cursor)
 		range = GetRange();
 
-	for (unsigned i = 0; i < GetSize().height; i++) {
+	for (unsigned i = 0; i < GetHeight(); i++) {
 		wmove(w, i, 0);
 
 		const unsigned j = GetOrigin() + i;
