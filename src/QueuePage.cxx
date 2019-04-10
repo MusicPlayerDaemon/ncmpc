@@ -35,6 +35,7 @@
 #include "Completion.hxx"
 #include "Styles.hxx"
 #include "song_paint.hxx"
+#include "time_format.hxx"
 #include "screen.hxx"
 #include "screen_utils.hxx"
 #include "SongPage.hxx"
@@ -131,6 +132,7 @@ public:
 	void OnOpen(struct mpdclient &c) noexcept override;
 	void OnClose() noexcept override;
 	void Paint() const noexcept override;
+	bool PaintStatusBarOverride(const Window &window) const noexcept override;
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
@@ -407,6 +409,40 @@ QueuePage::Paint() const noexcept
 #endif
 
 	lw.Paint(*this);
+}
+
+bool
+QueuePage::PaintStatusBarOverride(const Window &window) const noexcept
+{
+	if (!lw.HasRangeSelection())
+		return false;
+
+	WINDOW *const w = window.w;
+
+	wmove(w, 0, 0);
+	wclrtoeol(w);
+
+	unsigned duration = 0;
+
+	assert(playlist != nullptr);
+	for (const unsigned i : lw.GetRange()) {
+		assert(i < playlist->size());
+		const auto &song = (*playlist)[i];
+
+		duration += mpd_song_get_duration(&song);
+	}
+
+	char duration_string[32];
+	format_duration_short(duration_string, sizeof(duration_string),
+			      duration);
+	const unsigned duration_width = strlen(duration_string);
+
+	SelectStyle(w, Style::STATUS_TIME);
+	mvwaddstr(w, 0, window.size.width - duration_width, duration_string);
+
+	wnoutrefresh(w);
+
+	return true;
 }
 
 void

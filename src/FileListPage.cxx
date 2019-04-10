@@ -35,6 +35,7 @@
 #include "Styles.hxx"
 #include "paint.hxx"
 #include "song_paint.hxx"
+#include "time_format.hxx"
 #include "util/UriUtil.hxx"
 
 #include <mpd/client.h>
@@ -532,4 +533,39 @@ void
 FileListPage::Paint() const noexcept
 {
 	lw.Paint(*this);
+}
+
+bool
+FileListPage::PaintStatusBarOverride(const Window &window) const noexcept
+{
+	if (!lw.HasRangeSelection())
+		return false;
+
+	WINDOW *const w = window.w;
+
+	wmove(w, 0, 0);
+	wclrtoeol(w);
+
+	unsigned duration = 0;
+
+	assert(filelist != nullptr);
+	for (const unsigned i : lw.GetRange()) {
+		assert(i < filelist->size());
+		const auto &entry = (*filelist)[i];
+
+		if (mpd_entity_get_type(entry.entity) == MPD_ENTITY_TYPE_SONG)
+			duration += mpd_song_get_duration(mpd_entity_get_song(entry.entity));
+	}
+
+	char duration_string[32];
+	format_duration_short(duration_string, sizeof(duration_string),
+			      duration);
+	const unsigned duration_width = strlen(duration_string);
+
+	SelectStyle(w, Style::STATUS_TIME);
+	mvwaddstr(w, 0, window.size.width - duration_width, duration_string);
+
+	wnoutrefresh(w);
+
+	return true;
 }

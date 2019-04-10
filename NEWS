@@ -1,4 +1,5 @@
 ncmpc 0.34 - not yet released
+* show total duration of range selection in status bar
 * fix high CPU usage in key bindings check
 * fix high CPU usage during text input
 * fix background color "none"
