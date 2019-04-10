@@ -33,6 +33,7 @@
 
 #ifndef _WIN32
 #include "WaitUserInput.hxx"
+#include <errno.h>
 #endif
 
 #define KEY_CTRL_A   1
