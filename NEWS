@@ -1,4 +1,4 @@
-ncmpc 0.34 - not yet released
+ncmpc 0.34 - (2019-04-10)
 * show total duration of range selection in status bar
 * fix high CPU usage in key bindings check
 * fix high CPU usage during text input
