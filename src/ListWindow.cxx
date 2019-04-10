@@ -21,8 +21,6 @@
 #include "ListRenderer.hxx"
 #include "ListText.hxx"
 #include "config.h"
-#include "Options.hxx"
-#include "charset.hxx"
 #include "Match.hxx"
 #include "Command.hxx"
 #include "paint.hxx"
