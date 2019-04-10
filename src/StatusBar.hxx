@@ -63,7 +63,7 @@ public:
 		  Point p, unsigned width) noexcept;
 	~StatusBar() noexcept;
 
-	Window &GetWindow() noexcept {
+	const Window &GetWindow() const noexcept {
 		return window;
 	}
 
