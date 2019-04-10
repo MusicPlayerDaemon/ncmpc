@@ -115,7 +115,7 @@ public:
 	SongPage(ScreenManager &_screen, WINDOW *w, Size size) noexcept
 		:ListPage(w, size),
 		 screen(_screen) {
-		lw.hide_cursor = true;
+		lw.DisableCursor();
 	}
 
 	~SongPage() noexcept override {
@@ -223,7 +223,7 @@ SongPage::AppendLine(const char *label, const char *value_utf8,
 
 	/* +2 for ': ' */
 	label_col += 2;
-	const int value_col = lw.size.width - label_col;
+	const int value_col = lw.GetSize().width - label_col;
 	/* calculate the number of required linebreaks */
 	const Utf8ToLocale value_locale(value_utf8);
 	const char *value = value_locale.c_str();
@@ -542,7 +542,7 @@ SongPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	if (screen_find(screen, lw, cmd, *this)) {
 		/* center the row */
-		lw.Center(lw.selected);
+		lw.Center(lw.GetCursorIndex());
 		SetDirty();
 		return true;
 	}

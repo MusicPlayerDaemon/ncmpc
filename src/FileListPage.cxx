@@ -340,18 +340,18 @@ bool
 FileListPage::OnMouse(struct mpdclient &c, Point p,
 		      mmask_t bstate)
 {
-	unsigned prev_selected = lw.selected;
+	unsigned prev_selected = lw.GetCursorIndex();
 
 	if (ListPage::OnMouse(c, p, bstate))
 		return true;
 
-	lw.SetCursor(lw.start + p.y);
+	lw.SetCursorFromOrigin(p.y);
 
 	if( bstate & BUTTON1_CLICKED ) {
-		if (prev_selected == lw.selected)
+		if (prev_selected == lw.GetCursorIndex())
 			HandleEnter(c);
 	} else if (bstate & BUTTON3_CLICKED) {
-		if (prev_selected == lw.selected)
+		if (prev_selected == lw.GetCursorIndex())
 			HandleSelect(c);
 	}
 

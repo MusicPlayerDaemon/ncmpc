@@ -208,12 +208,12 @@ void
 LyricsPage::Set(const char *s)
 {
 	if (reloading) {
-		unsigned saved_start = lw.start;
+		unsigned saved_start = lw.GetOrigin();
 
 		TextPage::Set(s);
 
 		/* restore the cursor and ensure that it's still valid */
-		lw.start = saved_start;
+		lw.SetOrigin(saved_start);
 		lw.FetchCursor();
 	} else {
 		TextPage::Set(s);

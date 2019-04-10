@@ -84,7 +84,6 @@ struct ListWindowRange {
 };
 
 class ListWindow {
-public:
 	WINDOW *w;
 	Size size;
 
@@ -108,8 +107,72 @@ public:
 
 	bool hide_cursor = false;
 
+public:
 	ListWindow(WINDOW *_w, Size _size) noexcept
 		:w(_w), size(_size) {}
+
+	const Size &GetSize() const noexcept {
+		return size;
+	}
+
+	void Refresh() const noexcept {
+		wrefresh(w);
+	}
+
+	unsigned GetOrigin() const noexcept {
+		return start;
+	}
+
+	void SetOrigin(unsigned new_orign) noexcept {
+		start = new_orign;
+	}
+
+	void DisableCursor() {
+		hide_cursor = true;
+	}
+
+	void EnableCursor() {
+		hide_cursor = false;
+	}
+
+	bool HasCursor() const noexcept {
+		return !hide_cursor;
+	}
+
+	bool HasRangeSelection() const noexcept {
+		return range_selection;
+	}
+
+	/**
+	 * Is the cursor currently pointing to a single valid item?
+	 */
+	bool IsSingleCursor() const noexcept {
+		return !HasRangeSelection() && selected < length;
+	}
+
+	unsigned GetCursorIndex() const noexcept {
+		return selected;
+	}
+
+	void SelectionMovedUp() noexcept {
+		selected--;
+		range_base--;
+
+		EnsureSelectionVisible();
+	}
+
+	void SelectionMovedDown() noexcept {
+		selected++;
+		range_base++;
+
+		EnsureSelectionVisible();
+	}
+
+	void EnsureSelectionVisible() noexcept {
+		if (range_selection)
+			ScrollTo(range_base);
+		ScrollTo(selected);
+	}
 
 	/** reset a list window (selected=0, start=0) */
 	void Reset() noexcept;
@@ -152,6 +215,10 @@ public:
 	 * Sets the position of the cursor.  Disables range selection.
 	 */
 	void SetCursor(unsigned i) noexcept;
+
+	void SetCursorFromOrigin(unsigned i) noexcept {
+		SetCursor(GetOrigin() + i);
+	}
 
 	/**
 	 * Moves the cursor.  Modifies the range if range selection is

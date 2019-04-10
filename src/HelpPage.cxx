@@ -223,7 +223,7 @@ class HelpPage final : public ListPage, ListRenderer, ListText {
 public:
 	HelpPage(ScreenManager &_screen, WINDOW *w, Size size)
 		:ListPage(w, size), screen(_screen) {
-		lw.hide_cursor = true;
+		lw.DisableCursor();
 		lw.SetLength(ARRAY_SIZE(help_text));
 	}
 
@@ -313,10 +313,10 @@ HelpPage::OnCommand(struct mpdclient &c, Command cmd)
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
-	lw.SetCursor(lw.start);
+	lw.SetCursorFromOrigin(0);
 	if (screen_find(screen, lw, cmd, *this)) {
 		/* center the row */
-		lw.Center(lw.selected);
+		lw.Center(lw.GetCursorIndex());
 		SetDirty();
 		return true;
 	}

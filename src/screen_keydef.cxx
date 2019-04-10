@@ -95,8 +95,8 @@ private:
 	}
 
 	/**
-	 * Convert an item id (as in lw.selected) into a "key id", which is an array
-	 * subscript to cmds[subcmd].keys.
+	 * Convert an item id (as in lw.GetCursorIndex()) into a "key
+	 * id", which is an array subscript to cmds[subcmd].keys.
 	 */
 	static constexpr unsigned subcmd_item_to_key_id(unsigned i) {
 		return i - 1;
@@ -272,20 +272,20 @@ CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	switch(cmd) {
 	case Command::PLAY:
-		if (lw.selected == subcmd_item_up()) {
+		if (lw.GetCursorIndex() == subcmd_item_up()) {
 			if (parent != nullptr)
 				return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
-		} else if (lw.selected == subcmd_item_add()) {
+		} else if (lw.GetCursorIndex() == subcmd_item_add()) {
 			AddKey();
 		} else {
 			/* just to be sure ;-) */
-			assert(subcmd_item_is_key(lw.selected));
-			OverwriteKey(subcmd_item_to_key_id(lw.selected));
+			assert(subcmd_item_is_key(lw.GetCursorIndex()));
+			OverwriteKey(subcmd_item_to_key_id(lw.GetCursorIndex()));
 		}
 		return true;
 	case Command::DELETE:
-		if (subcmd_item_is_key(lw.selected))
-			DeleteKey(subcmd_item_to_key_id(lw.selected));
+		if (subcmd_item_is_key(lw.GetCursorIndex()))
+			DeleteKey(subcmd_item_to_key_id(lw.GetCursorIndex()));
 
 		return true;
 	case Command::ADD:
@@ -329,8 +329,8 @@ public:
 	}
 
 	int GetSelectedCommand() const {
-		return lw.selected < command_n_commands
-			? (int)lw.selected
+		return lw.GetCursorIndex() < command_n_commands
+			? (int)lw.GetCursorIndex()
 			: -1;
 	}
 
@@ -493,10 +493,10 @@ CommandListPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	switch(cmd) {
 	case Command::PLAY:
-		if (lw.selected == command_item_apply()) {
+		if (lw.GetCursorIndex() == command_item_apply()) {
 			Apply();
 			return true;
-		} else if (lw.selected == command_item_save()) {
+		} else if (lw.GetCursorIndex() == command_item_save()) {
 			Apply();
 			Save();
 			return true;

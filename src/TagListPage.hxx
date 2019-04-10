@@ -76,7 +76,7 @@ public:
 
 	gcc_pure
 	const char *GetSelectedValue() const {
-		unsigned i = lw.selected;
+		unsigned i = lw.GetCursorIndex();
 
 		if (parent != nullptr) {
 			if (i == 0)

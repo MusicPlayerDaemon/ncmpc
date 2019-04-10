@@ -42,7 +42,7 @@ public:
 	TextPage(ScreenManager &_screen,
 		 WINDOW *w, Size size) noexcept
 		:ListPage(w, size), screen(_screen) {
-		lw.hide_cursor = true;
+		lw.DisableCursor();
 	}
 
 protected:
@@ -70,7 +70,7 @@ protected:
 	 */
 	void Repaint() noexcept {
 		Paint();
-		wrefresh(lw.w);
+		lw.Refresh();
 	}
 
 public:

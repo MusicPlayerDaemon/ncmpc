@@ -41,9 +41,9 @@ public:
 	}
 
 	bool OnCommand(struct mpdclient &, Command cmd) override {
-		if (lw.hide_cursor
-		    ? lw.HandleScrollCommand(cmd)
-		    : lw.HandleCommand(cmd)) {
+		if (lw.HasCursor()
+		    ? lw.HandleCommand(cmd)
+		    : lw.HandleScrollCommand(cmd)) {
 			SetDirty();
 			return true;
 		}

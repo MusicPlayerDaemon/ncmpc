@@ -184,7 +184,7 @@ OutputsPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	switch (cmd) {
 	case Command::PLAY:
-		Toggle(c, lw.selected);
+		Toggle(c, lw.GetCursorIndex());
 		return true;
 
 	case Command::SCREEN_UPDATE:

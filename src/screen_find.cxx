@@ -127,7 +127,7 @@ screen_jump(ScreenManager &screen, ListWindow &lw,
 
 		/* repaint the list_window */
 		lw.Paint(renderer);
-		wrefresh(lw.w);
+		lw.Refresh();
 	}
 
 	screen.findbuf = search_str;

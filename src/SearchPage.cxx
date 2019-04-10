@@ -114,8 +114,8 @@ public:
 			      !options.search_format.empty()
 			      ? options.search_format.c_str()
 			      : options.list_format.c_str()) {
+		lw.DisableCursor();
 		lw.SetLength(ARRAY_SIZE(help_text));
-		lw.hide_cursor = true;
 	}
 
 private:
@@ -344,7 +344,7 @@ SearchPage::Reload(struct mpdclient &c)
 	if (pattern.empty())
 		return;
 
-	lw.hide_cursor = false;
+	lw.EnableCursor();
 	delete filelist;
 	filelist = do_search(&c, pattern.c_str());
 	if (filelist == nullptr)

@@ -207,7 +207,7 @@ SongListPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch(cmd) {
 	case Command::PLAY:
-		if (lw.selected == 0 && parent != nullptr)
+		if (lw.GetCursorIndex() == 0 && parent != nullptr)
 			/* handle ".." */
 			return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
 

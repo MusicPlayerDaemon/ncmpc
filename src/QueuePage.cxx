@@ -97,7 +97,7 @@ private:
 
 	void Repaint() const {
 		Paint();
-		wrefresh(lw.w);
+		lw.Refresh();
 	}
 
 	void CenterPlayingItem(const struct mpd_status *status,
@@ -144,9 +144,8 @@ public:
 const struct mpd_song *
 QueuePage::GetSelectedSong() const
 {
-	return !lw.range_selection &&
-		lw.selected < playlist->size()
-		? &(*playlist)[lw.selected]
+	return lw.IsSingleCursor()
+		? &(*playlist)[lw.GetCursorIndex()]
 		: nullptr;
 }
 
@@ -237,7 +236,7 @@ QueuePage::OnSongChange(const struct mpd_status *status)
 	current_song_id = get_current_song_id(status);
 
 	/* center the cursor */
-	if (options.auto_center && !lw.range_selection)
+	if (options.auto_center && !lw.HasRangeSelection())
 		CenterPlayingItem(status, false);
 
 	return true;
@@ -339,7 +338,7 @@ QueuePage::OnHideCursorTimer(const boost::system::error_code &error) noexcept
 	/* hide the cursor when mpd is playing and the user is inactive */
 
 	if (playing) {
-		lw.hide_cursor = true;
+		lw.DisableCursor();
 		Repaint();
 	} else
 		ScheduleHideCursor();
@@ -351,7 +350,7 @@ QueuePage::OnOpen(struct mpdclient &c) noexcept
 	playlist = &c.playlist;
 
 	if (options.hide_cursor > std::chrono::steady_clock::duration::zero()) {
-		lw.hide_cursor = false;
+		lw.EnableCursor();
 		ScheduleHideCursor();
 	}
 
@@ -390,7 +389,7 @@ QueuePage::PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
 
 	class hscroll *row_hscroll = nullptr;
 #ifndef NCMPC_MINI
-	row_hscroll = selected && options.scroll && lw.selected == i
+	row_hscroll = selected && options.scroll && lw.GetCursorIndex() == i
 		? &hscroll : nullptr;
 #endif
 
@@ -451,8 +450,8 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 		return true;
 	}
 
-	const unsigned old_selected = lw.selected;
-	lw.SetCursor(lw.start + p.y);
+	const unsigned old_selected = lw.GetCursorIndex();
+	lw.SetCursorFromOrigin(p.y);
 
 	if (bstate & BUTTON1_CLICKED) {
 		/* play */
@@ -466,8 +465,8 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 		}
 	} else if (bstate & BUTTON3_CLICKED) {
 		/* delete */
-		if (lw.selected == old_selected)
-			c.RunDelete(lw.selected);
+		if (lw.GetCursorIndex() == old_selected)
+			c.RunDelete(lw.GetCursorIndex());
 
 		lw.SetLength(playlist->size());
 	}
@@ -488,7 +487,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	const Command prev_cmd = cached_cmd;
 	cached_cmd = cmd;
 
-	lw.hide_cursor = false;
+	lw.EnableCursor();
 
 	if (options.hide_cursor > std::chrono::steady_clock::duration::zero()) {
 		ScheduleHideCursor();
@@ -542,8 +541,8 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 
 #ifdef ENABLE_LYRICS_SCREEN
 	case Command::SCREEN_LYRICS:
-		if (lw.selected < playlist->size()) {
-			struct mpd_song &selected = (*playlist)[lw.selected];
+		if (lw.GetCursorIndex() < playlist->size()) {
+			struct mpd_song &selected = (*playlist)[lw.GetCursorIndex()];
 			bool follow = false;
 
 			if (&selected == c.GetPlayingSong())
@@ -557,7 +556,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 #endif
 	case Command::SCREEN_SWAP:
 		if (!playlist->empty())
-			screen.Swap(c, &(*playlist)[lw.selected]);
+			screen.Swap(c, &(*playlist)[lw.GetCursorIndex()]);
 		else
 			screen.Swap(c, nullptr);
 		return true;
@@ -625,13 +624,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		if (!c.RunMove(range.end_index - 1, range.start_index - 1))
 			return true;
 
-		lw.selected--;
-		lw.range_base--;
-
-		if (lw.range_selection)
-			lw.ScrollTo(lw.range_base);
-		lw.ScrollTo(lw.selected);
-
+		lw.SelectionMovedUp();
 		SaveSelection();
 		return true;
 
@@ -643,13 +636,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		if (!c.RunMove(range.start_index, range.end_index))
 			return true;
 
-		lw.selected++;
-		lw.range_base++;
-
-		if (lw.range_selection)
-			lw.ScrollTo(lw.range_base);
-		lw.ScrollTo(lw.selected);
-
+		lw.SelectionMovedDown();
 		SaveSelection();
 		return true;
 

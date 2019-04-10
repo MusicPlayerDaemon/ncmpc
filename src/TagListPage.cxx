@@ -35,7 +35,7 @@
 TagFilter
 TagListPage::MakeCursorFilter() const noexcept
 {
-	unsigned i = lw.selected;
+	unsigned i = lw.GetCursorIndex();
 	if (parent != nullptr) {
 		if (i == 0)
 			return {};
@@ -200,7 +200,7 @@ TagListPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch(cmd) {
 	case Command::PLAY:
-		if (lw.selected == 0 && parent != nullptr)
+		if (lw.GetCursorIndex() == 0 && parent != nullptr)
 			/* handle ".." */
 			return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
 

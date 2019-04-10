@@ -89,10 +89,10 @@ TextPage::OnCommand(struct mpdclient &c, Command cmd)
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
-	lw.SetCursor(lw.start);
+	lw.SetCursorFromOrigin(0);
 	if (screen_find(screen, lw, cmd, *this)) {
 		/* center the row */
-		lw.Center(lw.selected);
+		lw.Center(lw.GetCursorIndex());
 		SetDirty();
 		return true;
 	}
