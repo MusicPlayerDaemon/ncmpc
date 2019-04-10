@@ -50,9 +50,9 @@ ListCursor::CheckSelected() noexcept
 }
 
 void
-ListCursor::Resize(Size _size) noexcept
+ListCursor::SetHeight(unsigned _height) noexcept
 {
-	size = _size;
+	height = _height;
 	CheckOrigin();
 }
 

@@ -223,7 +223,7 @@ SongPage::AppendLine(const char *label, const char *value_utf8,
 
 	/* +2 for ': ' */
 	label_col += 2;
-	const int value_col = lw.GetSize().width - label_col;
+	const int value_col = lw.GetWidth() - label_col;
 	/* calculate the number of required linebreaks */
 	const Utf8ToLocale value_locale(value_utf8);
 	const char *value = value_locale.c_str();

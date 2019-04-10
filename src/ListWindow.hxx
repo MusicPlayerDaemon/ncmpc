@@ -21,6 +21,7 @@
 #define LIST_WINDOW_HXX
 
 #include "ListCursor.hxx"
+#include "Size.hxx"
 #include "config.h"
 
 #include <curses.h>
@@ -32,9 +33,20 @@ class ListRenderer;
 class ListWindow : public ListCursor {
 	WINDOW *const w;
 
+	unsigned width;
+
 public:
 	ListWindow(WINDOW *_w, Size _size) noexcept
-		:ListCursor(_size), w(_w) {}
+		:ListCursor(_size.height), w(_w), width(_size.width) {}
+
+	unsigned GetWidth() const noexcept {
+		return width;
+	}
+
+	void Resize(Size _size) noexcept {
+		SetHeight(_size.height);
+		width = _size.width;
+	}
 
 	void Refresh() const noexcept {
 		wrefresh(w);

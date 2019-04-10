@@ -20,7 +20,6 @@
 #ifndef LIST_CURSOR_HXX
 #define LIST_CURSOR_HXX
 
-#include "Size.hxx"
 #include "util/Compiler.h"
 
 /**
@@ -77,7 +76,7 @@ struct ListWindowRange {
 };
 
 class ListCursor {
-	Size size;
+	unsigned height;
 
 	/**
 	 * Number of items in this list.
@@ -100,15 +99,11 @@ class ListCursor {
 	bool hide_cursor = false;
 
 public:
-	explicit constexpr ListCursor(Size _size) noexcept
-		:size(_size) {}
-
-	constexpr const Size &GetSize() const noexcept {
-		return size;
-	}
+	explicit constexpr ListCursor(unsigned _height) noexcept
+		:height(_height) {}
 
 	constexpr unsigned GetHeight() const noexcept {
-		return size.height;
+		return height;
 	}
 
 	constexpr unsigned GetOrigin() const noexcept {
@@ -173,7 +168,7 @@ public:
 	/** reset a list window (selected=0, start=0) */
 	void Reset() noexcept;
 
-	void Resize(Size _size) noexcept;
+	void SetHeight(unsigned _height) noexcept;
 
 	void SetLength(unsigned length) noexcept;
 

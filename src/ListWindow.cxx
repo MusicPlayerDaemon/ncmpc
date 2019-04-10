@@ -55,7 +55,7 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 		bool is_selected = show_cursor &&
 			range.Contains(j);
 
-		renderer.PaintListItem(w, j, i, GetSize().width, is_selected);
+		renderer.PaintListItem(w, j, i, width, is_selected);
 	}
 
 	row_color_end(w);
