@@ -33,6 +33,7 @@
 
 enum class Command : unsigned;
 struct mpdclient;
+struct Window;
 
 class Page {
 	Size last_size{0, 0};
@@ -85,6 +86,18 @@ public:
 	virtual void OnClose() noexcept {}
 	virtual void OnResize(Size size) noexcept = 0;
 	virtual void Paint() const noexcept = 0;
+
+	/**
+	 * Give this object a chance to override painting the status bar.
+	 *
+	 * @return true if the status bar was painted, false if this
+	 * object is not interested in overriding the status bar
+	 * contents
+	 */
+	virtual bool PaintStatusBarOverride(const Window &) const noexcept {
+		return false;
+	}
+
 	virtual void Update(struct mpdclient &, unsigned) noexcept {}
 
 	/**

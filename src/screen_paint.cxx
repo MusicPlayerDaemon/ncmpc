@@ -45,7 +45,9 @@ ScreenManager::Paint(bool main_dirty)
 	/* paint the bottom window */
 
 	progress_bar.Paint();
-	status_bar.Paint();
+
+	if (!current_page->second->PaintStatusBarOverride(status_bar.GetWindow()))
+		status_bar.Paint();
 
 	/* paint the main window */
 
