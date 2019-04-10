@@ -84,7 +84,7 @@ struct ListWindowRange {
 };
 
 class ListWindow {
-	WINDOW *w;
+	WINDOW *const w;
 	Size size;
 
 	/**
