@@ -272,10 +272,11 @@ Example::
 color.
 
 :command:`color title = COLOR[,ATTRIBUTE]...` - Set the text color and
-attributes for the title row.
+attributes for the title row, which displays the page names.
 
-:command:`color title-bold = COLOR[,ATTRIBUTE]...` - Set the text
-color for the title row (the bold part).
+:command:`color title-bold = COLOR[,ATTRIBUTE]...` - Like ``title``,
+but refers to emphasized parts of the title row, i.e. the hot keys for
+switching to a specific page.
 
 :command:`color line = COLOR` - Set the color of the line on the
 second row.
