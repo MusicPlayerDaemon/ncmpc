@@ -1,5 +1,5 @@
 /* ncmpc (Ncurses MPD Client)
- * (c) 2004-2018 The Music Player Daemon Project
+ * (c) 2004-2019 The Music Player Daemon Project
  * Project homepage: http://musicpd.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -36,291 +36,35 @@
 #include <string.h>
 
 void
-ListWindow::Reset() noexcept
-{
-	selected = 0;
-	range_selection = false;
-	range_base = 0;
-	start = 0;
-}
-
-unsigned
-ListWindow::ValidateIndex(unsigned i) const noexcept
-{
-	if (length == 0)
-		return 0;
-	else if (i >= length)
-		return length - 1;
-	else
-		return i;
-}
-
-void
-ListWindow::CheckSelected() noexcept
-{
-	selected = ValidateIndex(selected);
-
-	if (range_selection)
-		range_base = ValidateIndex(range_base);
-}
-
-void
-ListWindow::Resize(Size _size) noexcept
-{
-	size = _size;
-	CheckOrigin();
-}
-
-void
-ListWindow::SetLength(unsigned _length) noexcept
-{
-	if (_length == length)
-		return;
-
-	length = _length;
-
-	CheckSelected();
-	CheckOrigin();
-}
-
-void
-ListWindow::Center(unsigned n) noexcept
-{
-	if (n > size.height / 2)
-		start = n - size.height / 2;
-	else
-		start = 0;
-
-	if (start + size.height > length) {
-		if (size.height < length)
-			start = length - size.height;
-		else
-			start = 0;
-	}
-}
-
-void
-ListWindow::ScrollTo(unsigned n) noexcept
-{
-	int new_start = start;
-
-	if ((unsigned) options.scroll_offset * 2 >= size.height)
-		// Center if the offset is more than half the screen
-		new_start = n - size.height / 2;
-	else {
-		if (n < start + options.scroll_offset)
-			new_start = n - options.scroll_offset;
-
-		if (n >= start + size.height - options.scroll_offset)
-			new_start = n - size.height + 1 + options.scroll_offset;
-	}
-
-	if (new_start + size.height > length)
-		new_start = length - size.height;
-
-	if (new_start < 0 || length == 0)
-		new_start = 0;
-
-	start = new_start;
-}
-
-void
-ListWindow::SetCursor(unsigned i) noexcept
-{
-	range_selection = false;
-	selected = i;
-
-	CheckSelected();
-	CheckOrigin();
-}
-
-void
-ListWindow::MoveCursor(unsigned n) noexcept
-{
-	selected = n;
-
-	CheckSelected();
-	CheckOrigin();
-}
-
-void
-ListWindow::FetchCursor() noexcept
-{
-	if (start > 0 &&
-	    selected < start + options.scroll_offset)
-		MoveCursor(start + options.scroll_offset);
-	else if (start + size.height < length &&
-		 selected > start + size.height - 1 - options.scroll_offset)
-		MoveCursor(start + size.height - 1 - options.scroll_offset);
-}
-
-ListWindowRange
-ListWindow::GetRange() const noexcept
-{
-	if (length == 0) {
-		/* empty list - no selection */
-		return {0, 0};
-	} else if (range_selection) {
-		/* a range selection */
-		if (range_base < selected) {
-			return {range_base, selected + 1};
-		} else {
-			return {selected, range_base + 1};
-		}
-	} else {
-		/* no range, just the cursor */
-		return {selected, selected + 1};
-	}
-}
-
-void
-ListWindow::MoveCursorNext() noexcept
-{
-	if (selected + 1 < length)
-		MoveCursor(selected + 1);
-	else if (options.list_wrap)
-		MoveCursor(0);
-}
-
-void
-ListWindow::MoveCursorPrevious() noexcept
-{
-	if (selected > 0)
-		MoveCursor(selected - 1);
-	else if (options.list_wrap)
-		MoveCursor(length - 1);
-}
-
-void
-ListWindow::MoveCursorTop() noexcept
-{
-	if (start == 0)
-		MoveCursor(start);
-	else
-		if ((unsigned) options.scroll_offset * 2 >= size.height)
-			MoveCursor(start + size.height / 2);
-		else
-			MoveCursor(start + options.scroll_offset);
-}
-
-void
-ListWindow::MoveCursorMiddle() noexcept
-{
-	if (length >= size.height)
-		MoveCursor(start + size.height / 2);
-	else
-		MoveCursor(length / 2);
-}
-
-void
-ListWindow::MoveCursorBottom() noexcept
-{
-	if (length >= size.height)
-		if ((unsigned) options.scroll_offset * 2 >= size.height)
-			MoveCursor(start + size.height / 2);
-		else
-			if (start + size.height == length)
-				MoveCursor(length - 1);
-			else
-				MoveCursor(start + size.height - 1 - options.scroll_offset);
-	else
-		MoveCursor(length - 1);
-}
-
-void
-ListWindow::MoveCursorFirst() noexcept
-{
-	MoveCursor(0);
-}
-
-void
-ListWindow::MoveCursorLast() noexcept
-{
-	if (length > 0)
-		MoveCursor(length - 1);
-	else
-		MoveCursor(0);
-}
-
-void
-ListWindow::MoveCursorNextPage() noexcept
-{
-	if (size.height < 2)
-		return;
-	if (selected + size.height < length)
-		MoveCursor(selected + size.height - 1);
-	else
-		MoveCursorLast();
-}
-
-void
-ListWindow::MoveCursorPreviousPage() noexcept
-{
-	if (size.height < 2)
-		return;
-	if (selected > size.height - 1)
-		MoveCursor(selected - size.height + 1);
-	else
-		MoveCursorFirst();
-}
-
-void
-ListWindow::ScrollUp(unsigned n) noexcept
-{
-	if (start > 0) {
-		if (n > start)
-			start = 0;
-		else
-			start -= n;
-
-		FetchCursor();
-	}
-}
-
-void
-ListWindow::ScrollDown(unsigned n) noexcept
-{
-	if (start + size.height < length) {
-		if (start + size.height + n > length - 1)
-			start = length - size.height;
-		else
-			start += n;
-
-		FetchCursor();
-	}
-}
-
-void
 ListWindow::Paint(const ListRenderer &renderer) const noexcept
 {
-	bool show_cursor = !hide_cursor &&
-		(!options.hardware_cursor || range_selection);
+	bool show_cursor = HasCursor() &&
+		(!options.hardware_cursor || HasRangeSelection());
 	ListWindowRange range;
 
 	if (show_cursor)
 		range = GetRange();
 
-	for (unsigned i = 0; i < size.height; i++) {
+	for (unsigned i = 0; i < GetSize().height; i++) {
 		wmove(w, i, 0);
 
-		if (start + i >= length) {
+		const unsigned j = GetOrigin() + i;
+		if (j >= GetLength()) {
 			wclrtobot(w);
 			break;
 		}
 
 		bool is_selected = show_cursor &&
-			range.Contains(start + i);
+			range.Contains(j);
 
-		renderer.PaintListItem(w, start + i, i, size.width,
-				       is_selected);
+		renderer.PaintListItem(w, j, i, GetSize().width, is_selected);
 	}
 
 	row_color_end(w);
 
-	if (options.hardware_cursor && selected >= start &&
-	    selected < start + size.height) {
+	if (options.hardware_cursor && IsVisible(GetCursorIndex())) {
 		curs_set(1);
-		wmove(w, selected - start, 0);
+		wmove(w, GetCursorIndex() - GetOrigin(), 0);
 	}
 }
 
@@ -330,7 +74,7 @@ ListWindow::Find(const ListText &text,
 		 bool wrap,
 		 bool bell_on_wrap) noexcept
 {
-	unsigned i = selected + 1;
+	unsigned i = GetCursorIndex() + 1;
 
 	assert(str != nullptr);
 
@@ -339,7 +83,7 @@ ListWindow::Find(const ListText &text,
 		return false;
 
 	do {
-		while (i < length) {
+		while (i < GetLength()) {
 			char buffer[1024];
 			const char *label =
 				text.GetListItemText(buffer, sizeof(buffer),
@@ -350,7 +94,7 @@ ListWindow::Find(const ListText &text,
 				MoveCursor(i);
 				return true;
 			}
-			if (wrap && i == selected)
+			if (wrap && i == GetCursorIndex())
 				return false;
 			i++;
 		}
@@ -373,11 +117,11 @@ ListWindow::ReverseFind(const ListText &text,
 			bool wrap,
 			bool bell_on_wrap) noexcept
 {
-	int i = selected - 1;
+	int i = GetCursorIndex() - 1;
 
 	assert(str != nullptr);
 
-	if (length == 0)
+	if (GetLength() == 0)
 		return false;
 
 	MatchExpression m;
@@ -396,12 +140,12 @@ ListWindow::ReverseFind(const ListText &text,
 				MoveCursor(i);
 				return true;
 			}
-			if (wrap && i == (int)selected)
+			if (wrap && i == (int)GetCursorIndex())
 				return false;
 			i--;
 		}
 		if (wrap) {
-			i = length - 1; /* last item */
+			i = GetLength() - 1; /* last item */
 			if (bell_on_wrap) {
 				screen_bell();
 			}
@@ -420,7 +164,7 @@ ListWindow::Jump(const ListText &text, const char *str) noexcept
 	if (!m.Compile(str, options.jump_prefix_only))
 		return false;
 
-	for (unsigned i = 0; i < length; i++) {
+	for (unsigned i = 0; i < GetLength(); i++) {
 		char buffer[1024];
 		const char *label =
 			text.GetListItemText(buffer, sizeof(buffer),
@@ -469,16 +213,12 @@ ListWindow::HandleCommand(Command cmd) noexcept
 		MoveCursorPreviousPage();
 		break;
 	case Command::LIST_RANGE_SELECT:
-		if(range_selection)
-		{
+		if (HasRangeSelection()) {
 			screen_status_message(_("Range selection disabled"));
-			SetCursor(selected);
-		}
-		else
-		{
+			DisableRangeSelection();
+		} else {
 			screen_status_message(_("Range selection enabled"));
-			range_base = selected;
-			range_selection = true;
+			EnableRangeSelection();
 		}
 		break;
 	case Command::LIST_SCROLL_UP_LINE:
@@ -488,10 +228,10 @@ ListWindow::HandleCommand(Command cmd) noexcept
 		ScrollDown(1);
 		break;
 	case Command::LIST_SCROLL_UP_HALF:
-		ScrollUp((size.height - 1) / 2);
+		ScrollUp((GetHeight() - 1) / 2);
 		break;
 	case Command::LIST_SCROLL_DOWN_HALF:
-		ScrollDown((size.height - 1) / 2);
+		ScrollDown((GetHeight() - 1) / 2);
 		break;
 	default:
 		return false;
@@ -506,59 +246,36 @@ ListWindow::HandleScrollCommand(Command cmd) noexcept
 	switch (cmd) {
 	case Command::LIST_SCROLL_UP_LINE:
 	case Command::LIST_PREVIOUS:
-		if (start > 0)
-			start--;
+		ScrollUp(1);
 		break;
 
 	case Command::LIST_SCROLL_DOWN_LINE:
 	case Command::LIST_NEXT:
-		if (start + size.height < length)
-			start++;
+		ScrollDown(1);
 		break;
 
 	case Command::LIST_FIRST:
-		start = 0;
+		SetOrigin(0);
 		break;
 
 	case Command::LIST_LAST:
-		if (length > size.height)
-			start = length - size.height;
-		else
-			start = 0;
+		ScrollToBottom();
 		break;
 
 	case Command::LIST_NEXT_PAGE:
-		start += size.height;
-		if (start + size.height > length) {
-			if (length > size.height)
-				start = length - size.height;
-			else
-				start = 0;
-		}
+		ScrollNextPage();
 		break;
 
 	case Command::LIST_PREVIOUS_PAGE:
-		if (start > size.height)
-			start -= size.height;
-		else
-			start = 0;
+		ScrollPreviousPage();
 		break;
 
 	case Command::LIST_SCROLL_UP_HALF:
-		if (start > (size.height - 1) / 2)
-			start -= (size.height - 1) / 2;
-		else
-			start = 0;
+		ScrollPreviousHalfPage();
 		break;
 
 	case Command::LIST_SCROLL_DOWN_HALF:
-		start += (size.height - 1) / 2;
-		if (start + size.height > length) {
-			if (length > size.height)
-				start = length - size.height;
-			else
-				start = 0;
-		}
+		ScrollNextHalfPage();
 		break;
 
 	default:
@@ -582,7 +299,7 @@ ListWindow::HandleMouse(mmask_t bstate, int y) noexcept
 	}
 
 	/* if the even occurred below the list window move down */
-	if ((unsigned)y >= length) {
+	if ((unsigned)y >= GetLength()) {
 		if (bstate & BUTTON3_CLICKED)
 			MoveCursorLast();
 		else
