@@ -27,10 +27,10 @@
 #define DEFAULT_SCREEN_LIST {"playlist", "browse"}
 
 /* song format - list window */
-#define DEFAULT_LIST_FORMAT "%name%|[[%artist%|%performer%|%composer%] - ][%title%|%shortfile%]"
+#define DEFAULT_LIST_FORMAT "%name%|[[%artist%|%performer%|%composer%|%albumartist%] - ][%title%|%shortfile%]"
 
 /* song format - status window */
-#define DEFAULT_STATUS_FORMAT "[[%artist%|%performer%|%composer%] - ][%title%|%shortfile%]"
+#define DEFAULT_STATUS_FORMAT "[[%artist%|%performer%|%composer%|%albumartist%] - ][%title%|%shortfile%]"
 
 #define DEFAULT_LYRICS_TIMEOUT 100
 
