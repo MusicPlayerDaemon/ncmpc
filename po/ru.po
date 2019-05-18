@@ -8,13 +8,17 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-17 11:53+0200\n"
-"PO-Revision-Date: 2017-09-05 20:47+0700\n"
-"Last-Translator: Max Arnold <lwarxx@gmail.com>\n"
-"Language-Team: ru <ru@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2019-05-19 12:49+0000\n"
+"Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/ncmpc/"
+"translations/ru/>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.7-dev\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
 #, c-format
@@ -325,7 +329,7 @@ msgstr "Ошибка"
 
 #: src/conf.cxx:132
 msgid "Word expected"
-msgstr ""
+msgstr "Ожидалось слово"
 
 #: src/conf.cxx:149 src/conf.cxx:158
 msgid "Malformed hotkey definition"
@@ -424,9 +428,9 @@ msgid "Browse"
 msgstr "Навигация"
 
 #: src/FileListPage.cxx:118
-#, fuzzy, c-format
+#, c-format
 msgid "Loading playlist '%s'"
-msgstr "Загружается плейлист %s..."
+msgstr "Загружается плейлист '%s'"
 
 #: src/FileListPage.cxx:158 src/FileListPage.cxx:245 src/FileListPage.cxx:270
 #: src/TagListPage.cxx:184
@@ -459,9 +463,8 @@ msgid "Delete playlist"
 msgstr "Удалить плейлист"
 
 #: src/HelpPage.cxx:171
-#, fuzzy
 msgid "New search"
-msgstr "Поиск"
+msgstr "Новый поиск"
 
 #: src/HelpPage.cxx:172
 msgid "Select and play"
@@ -587,11 +590,11 @@ msgstr "В конец"
 
 #: src/KeyName.cxx:54
 msgid "PageDown"
-msgstr "PageDown"
+msgstr "Page Down"
 
 #: src/KeyName.cxx:56
 msgid "PageUp"
-msgstr "PageUp"
+msgstr "Page Up"
 
 #: src/KeyName.cxx:58
 msgid "Tab"
@@ -612,12 +615,12 @@ msgstr "Insert"
 #: src/KeyName.cxx:72
 #, c-format
 msgid "Ctrl-%c"
-msgstr ""
+msgstr "Ctrl-%c"
 
 #: src/KeyName.cxx:74
 #, c-format
 msgid "Alt-%c"
-msgstr ""
+msgstr "Alt-%c"
 
 #: src/ListWindow.cxx:474
 msgid "Range selection disabled"
@@ -661,9 +664,8 @@ msgid "Can't start editor"
 msgstr "Не удалось запустить редактор"
 
 #: src/LyricsPage.cxx:422 src/LyricsPage.cxx:426
-#, fuzzy
 msgid "Editor exited unexpectedly"
-msgstr "Редактор неожиданно завершил работу (%d)"
+msgstr "Редактор неожиданно завершил работу"
 
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:448
@@ -679,7 +681,7 @@ msgid "No saved lyrics"
 msgstr "Сохранённый текст отсутствует"
 
 #: src/Main.cxx:131
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to %s"
 msgstr "Подключено к %s"
 
@@ -751,14 +753,12 @@ msgid "All tracks"
 msgstr "Все композиции"
 
 #: src/screen_artist.cxx:148
-#, fuzzy
 msgid "Artists"
-msgstr "Исполнитель"
+msgstr "Исполнители"
 
 #: src/screen_artist.cxx:156
-#, fuzzy
 msgid "Albums"
-msgstr "Альбом"
+msgstr "Альбомы"
 
 #: src/screen_artist.cxx:195 src/screen_artist.cxx:204
 #: src/screen_artist.cxx:303 src/SearchPage.cxx:83 src/SongPage.cxx:62
@@ -770,9 +770,8 @@ msgid "Album"
 msgstr "Альбом"
 
 #: src/screen_client.cxx:41
-#, fuzzy
 msgid "Database update running"
-msgstr "Идёт обновление базы..."
+msgstr "Идёт обновление базы"
 
 #: src/screen_client.cxx:48
 #, c-format
@@ -907,9 +906,8 @@ msgid "Keybindings unchanged."
 msgstr "Клавиатурные комбинации не изменились."
 
 #: src/screen_keydef.cxx:408
-#, fuzzy
 msgid "Unable to write configuration"
-msgstr "Неопределённое значение клавиатурной комбинации"
+msgstr "Не удалось сохранить конфигурацию"
 
 #: src/screen_keydef.cxx:424
 #, c-format
@@ -934,7 +932,7 @@ msgstr "Внимание: вы не забыли применить сделан
 
 #: src/screen_keydef.cxx:608
 msgid "Keys"
-msgstr ""
+msgstr "Клавиши"
 
 #: src/screen_utils.cxx:133
 msgid "Password"
@@ -1116,7 +1114,7 @@ msgstr "%d кбит/с"
 
 #: src/SongPage.cxx:555
 msgid "Song"
-msgstr ""
+msgstr "Композиция"
 
 #: src/StatusBar.cxx:101
 msgid "Playing:"
@@ -1140,27 +1138,27 @@ msgstr "Терминал не поддерживает цвета"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr ""
+msgstr "год"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr ""
+msgstr "г."
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr ""
+msgstr "неделя"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr ""
+msgstr "нед."
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr ""
+msgstr "день"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr ""
+msgstr "дн."
 
 #: src/TitleBar.cxx:100
 msgid "Volume n/a"
