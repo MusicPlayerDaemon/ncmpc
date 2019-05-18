@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-17 11:53+0200\n"
-"PO-Revision-Date: 2018-09-10 18:18+0000\n"
-"Last-Translator: Max Kellermann <max.kellermann@gmail.com>\n"
+"PO-Revision-Date: 2019-05-19 12:49+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/ncmpc/"
 "translations/de/>\n"
 "Language: de\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.2-dev\n"
+"X-Generator: Weblate 3.7-dev\n"
 "X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
@@ -28,7 +28,7 @@ msgstr "Taste %s ist %s und %s zugeordnet"
 
 #: src/ChatPage.cxx:63 src/ChatPage.cxx:181
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #: src/ChatPage.cxx:162
 msgid "Your message"
@@ -111,9 +111,8 @@ msgid "Help screen"
 msgstr "Hilfeanzeige"
 
 #: src/Command.cxx:71 src/HelpPage.cxx:140
-#, fuzzy
 msgid "Queue screen"
-msgstr "Tastenbelegungsanzeige"
+msgstr "Warteschlangenanzeige"
 
 #: src/Command.cxx:73 src/HelpPage.cxx:155
 msgid "Browse screen"
@@ -160,26 +159,24 @@ msgid "Decrease volume"
 msgstr "Lautstärke verringern"
 
 #: src/Command.cxx:98
-#, fuzzy
 msgid "Select/deselect song in queue"
-msgstr "Wähle Stück in der Playlist an/ab"
+msgstr "Stück in der Warteschlange auswählen/abwählen"
 
 #: src/Command.cxx:100
 msgid "Select all listed items"
 msgstr "Alle angezeigten Lieder zur Playlist hinzufügen"
 
 #: src/Command.cxx:102
-#, fuzzy
 msgid "Delete song from queue"
-msgstr "Lösche Song aus der Playlist"
+msgstr "Lösche Song aus der Warteschlange"
 
 #: src/Command.cxx:104
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Warteschlange mischen"
 
 #: src/Command.cxx:106
 msgid "Clear queue"
-msgstr ""
+msgstr "Warteschlange leeren"
 
 #: src/Command.cxx:108
 msgid "Toggle repeat mode"
@@ -207,12 +204,11 @@ msgstr "Starte eine Aktualisierung der Musikdatenbank"
 
 #: src/Command.cxx:120
 msgid "Save queue"
-msgstr ""
+msgstr "Warteschlange speichern"
 
 #: src/Command.cxx:122 src/HelpPage.cxx:174
-#, fuzzy
 msgid "Append song to queue"
-msgstr "Song zur Playlist hinzufügen"
+msgstr "Song zur Warteschlange hinzufügen"
 
 #: src/Command.cxx:125
 msgid "Go to root directory"
@@ -317,16 +313,15 @@ msgstr "Liedtext aktualisieren"
 
 #: src/Command.cxx:204
 msgid "Edit the current item"
-msgstr ""
+msgstr "Aktuelles Element bearbeiten"
 
 #: src/Command.cxx:209 src/HelpPage.cxx:196
 msgid "Outputs screen"
 msgstr "Anzeige der Ausgabegeräte"
 
 #: src/Command.cxx:214 src/HelpPage.cxx:203
-#, fuzzy
 msgid "Chat screen"
-msgstr "Nächste Anzeige"
+msgstr "Chat-Bildschirm"
 
 #. To translators: prefix for error messages
 #: src/conf.cxx:118 src/screen_keydef.cxx:417 src/screen_keydef.cxx:426
@@ -412,9 +407,9 @@ msgid "Deleting this item is not possible"
 msgstr "Dieses Objekt kann nicht gelöscht werden"
 
 #: src/FileBrowserPage.cxx:255
-#, fuzzy, c-format
+#, c-format
 msgid "Delete playlist %s?"
-msgstr "Lösche Playlist"
+msgstr "Wiedergabeliste %s löschen?"
 
 #. translators: a dialog was aborted by the user
 #: src/FileBrowserPage.cxx:260 src/LyricsPage.cxx:380 src/save_playlist.cxx:111
@@ -434,15 +429,15 @@ msgid "Browse"
 msgstr "Stöbern"
 
 #: src/FileListPage.cxx:118
-#, fuzzy, c-format
+#, c-format
 msgid "Loading playlist '%s'"
-msgstr "Lade Playlist %s..."
+msgstr "Lade Wiedergabeliste '%s'"
 
 #: src/FileListPage.cxx:158 src/FileListPage.cxx:245 src/FileListPage.cxx:270
 #: src/TagListPage.cxx:184
-#, fuzzy, c-format
+#, c-format
 msgid "Adding '%s' to queue"
-msgstr "Füge '%s' der Playlist hinzu"
+msgstr "Füge '%s' der Wiedergabeliste hinzu"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -469,9 +464,8 @@ msgid "Delete playlist"
 msgstr "Lösche Playlist"
 
 #: src/HelpPage.cxx:171
-#, fuzzy
 msgid "New search"
-msgstr "Suche"
+msgstr "Neue Suche"
 
 #: src/HelpPage.cxx:172
 msgid "Select and play"
@@ -496,9 +490,8 @@ msgid "Download lyrics for currently playing song"
 msgstr "Liedtexte für aktuell laufendes Stück herunterladen"
 
 #: src/HelpPage.cxx:189
-#, fuzzy
 msgid "Add or edit lyrics"
-msgstr "Keine gespeicherten Texte"
+msgstr "Texte hinzufügen oder bearbeiten"
 
 #: src/HelpPage.cxx:190
 msgid "Save lyrics"
@@ -529,7 +522,6 @@ msgid "Remove selected keydef"
 msgstr "Ausgewählte Tastenbelegung entfernen"
 
 #: src/HelpPage.cxx:214
-#, fuzzy
 msgid "Add a keydef"
 msgstr "Füge neue Taste hinzu"
 
@@ -666,7 +658,7 @@ msgstr "Editor nicht konfiguriert"
 
 #: src/LyricsPage.cxx:377
 msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr ""
+msgstr "Wollen Sie wirklich einen Editor starten und diese Texte bearbeiten?"
 
 #: src/LyricsPage.cxx:395 src/LyricsPage.cxx:419
 msgid "Can't start editor"
@@ -690,12 +682,12 @@ msgid "No saved lyrics"
 msgstr "Keine gespeicherten Texte"
 
 #: src/Main.cxx:131
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to %s"
-msgstr "Verbunden mit %s"
+msgstr "Verbinden mit %s"
 
 #: src/Main.cxx:147
-#, fuzzy, c-format
+#, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "Fehler: MPD-Version %d.%d.%d ist zu alt (%s wird benötigt)"
 
@@ -730,11 +722,11 @@ msgstr "Ausgabegeräte"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:615
 msgid "Shuffled queue"
-msgstr ""
+msgstr "durchmischte Warteschlange"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
-msgstr ""
+msgstr "Geleerte Warteschlange"
 
 #. get path
 #: src/QueuePage.cxx:312
@@ -743,22 +735,22 @@ msgstr "Hinzufügen"
 
 #: src/QueuePage.cxx:377 src/QueuePage.cxx:673
 msgid "Queue"
-msgstr ""
+msgstr "Warteschlange"
 
 #: src/QueuePage.cxx:379
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "Warteschlange auf %s"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
 msgid "Save queue as"
-msgstr ""
+msgstr "Warteschlange speichern unter"
 
 #: src/save_playlist.cxx:108
-#, fuzzy, c-format
+#, c-format
 msgid "Replace %s?"
-msgstr "Ersetze %s [%s/%s] ? "
+msgstr "Ersetze %s?"
 
 #. success
 #: src/save_playlist.cxx:129
@@ -771,7 +763,6 @@ msgid "All tracks"
 msgstr "Alle Stücke"
 
 #: src/screen_artist.cxx:148
-#, fuzzy
 msgid "Artists"
 msgstr "Künstler"
 
@@ -789,9 +780,8 @@ msgid "Album"
 msgstr "Album"
 
 #: src/screen_client.cxx:41
-#, fuzzy
 msgid "Database update running"
-msgstr "Datenbankaktualisierung läuft..."
+msgstr "Datenbankaktualisierung läuft"
 
 #: src/screen_client.cxx:48
 #, c-format
@@ -896,7 +886,7 @@ msgstr "Gib neue Taste für %s ein: "
 
 #: src/screen_keydef.cxx:189
 msgid "Ctrl-Space can't be used"
-msgstr ""
+msgstr "Strg-Leerzeichen kann nicht verwendet werden"
 
 #: src/screen_keydef.cxx:195
 #, c-format
@@ -926,9 +916,8 @@ msgid "Keybindings unchanged."
 msgstr "Tastenbelegung unverändert."
 
 #: src/screen_keydef.cxx:408
-#, fuzzy
 msgid "Unable to write configuration"
-msgstr "Unvollständige Konfiguration für Tastenbelegung"
+msgstr "Konfiguration kann nicht geschrieben werden"
 
 #: src/screen_keydef.cxx:424
 #, c-format
@@ -1041,7 +1030,7 @@ msgstr "Länge"
 
 #: src/SongPage.cxx:66
 msgid "Position"
-msgstr ""
+msgstr "Position"
 
 #: src/SongPage.cxx:67
 msgid "Composer"
@@ -1162,23 +1151,23 @@ msgstr "Jahr"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr ""
+msgstr "Jahre"
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr ""
+msgstr "Woche"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr ""
+msgstr "Wochen"
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr ""
+msgstr "Tag"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr ""
+msgstr "Tage"
 
 #: src/TitleBar.cxx:100
 msgid "Volume n/a"
