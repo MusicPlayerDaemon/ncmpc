@@ -11,6 +11,7 @@ langs = [
   'gl',
   'he',
   'hu',
+  'ie',
   'it',
   'ko',
   'nb',
