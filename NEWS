@@ -1,5 +1,6 @@
 ncmpc 0.35 - not yet released
 * fall back to "AlbumArtist" tag in the default format
+* fix crash with a very narrow terminal window
 
 ncmpc 0.34 - (2019-04-10)
 * show total duration of range selection in status bar

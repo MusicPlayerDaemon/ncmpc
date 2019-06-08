@@ -171,7 +171,8 @@ StatusBar::Update(const struct mpd_status *status,
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
 		center_width = StringWidthMB(center_text.c_str());
-		if (options.scroll && center_width > (unsigned)width) {
+		if (options.scroll && width > 3 &&
+		    center_width > (unsigned)width) {
 			hscroll.Set(left_width, 0, width, center_text.c_str(),
 				    Style::STATUS);
 		} else {
