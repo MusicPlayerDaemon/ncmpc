@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-17 11:53+0200\n"
-"PO-Revision-Date: 2019-08-01 18:12+0000\n"
+"PO-Revision-Date: 2019-08-16 15:24+0000\n"
 "Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "ncmpc/translations/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.8-dev\n"
+"X-Generator: Weblate 3.8\n"
 "X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
@@ -31,7 +31,7 @@ msgstr ""
 
 #: src/ChatPage.cxx:162
 msgid "Your message"
-msgstr ""
+msgstr "你的讯息"
 
 #: src/ChatPage.cxx:171
 msgid "Message could not be sent"
@@ -622,12 +622,12 @@ msgstr "Insert"
 #: src/KeyName.cxx:72
 #, c-format
 msgid "Ctrl-%c"
-msgstr ""
+msgstr "Ctrl-%c"
 
 #: src/KeyName.cxx:74
 #, c-format
 msgid "Alt-%c"
-msgstr ""
+msgstr "Alt-%c"
 
 #: src/ListWindow.cxx:474
 msgid "Range selection disabled"
@@ -750,9 +750,9 @@ msgid "Save queue as"
 msgstr ""
 
 #: src/save_playlist.cxx:108
-#, fuzzy, c-format
+#, c-format
 msgid "Replace %s?"
-msgstr "替换 %s [%s/%s]? "
+msgstr "替换 %s [%s/%s]?"
 
 #. success
 #: src/save_playlist.cxx:129
@@ -1036,7 +1036,7 @@ msgstr "时长"
 
 #: src/SongPage.cxx:66
 msgid "Position"
-msgstr ""
+msgstr "位置"
 
 #: src/SongPage.cxx:67
 msgid "Composer"
@@ -1076,7 +1076,7 @@ msgstr "比特率"
 
 #: src/SongPage.cxx:76
 msgid "Format"
-msgstr ""
+msgstr "格式"
 
 #: src/SongPage.cxx:93
 msgid "Number of artists"
