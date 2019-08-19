@@ -100,8 +100,9 @@ ScreenManager::Swap(struct mpdclient &c, const struct mpd_song *song)
 		Switch(*mode_fn_prev, c);
 }
 
+gcc_pure
 static int
-find_configured_screen(const char *name)
+find_configured_screen(const char *name) noexcept
 {
 	unsigned i;
 
