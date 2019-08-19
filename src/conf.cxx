@@ -28,6 +28,7 @@
 #include "BasicColors.hxx"
 #include "CustomColors.hxx"
 #include "screen_list.hxx"
+#include "PageMeta.hxx"
 #include "Options.hxx"
 #include "io/Path.hxx"
 #include "util/CharUtil.hxx"
@@ -370,12 +371,16 @@ check_screen_list(char *value)
 	while (char *name = NextItem(value)) {
 		std::transform(name, name + strlen(name), name, tolower);
 
-		if (screen_lookup_name(name) == nullptr) {
+		const auto *page_meta = screen_lookup_name(name);
+		if (page_meta == nullptr) {
 			/* an unknown screen name was specified in the
 			   configuration file */
 			print_error(_("Unknown screen name"), name);
 		} else {
-			screen.emplace_back(name);
+			/* use PageMeta::name because
+			   screen_lookup_name() may have translated a
+			   deprecated name */
+			screen.emplace_back(page_meta->name);
 		}
 	}
 
