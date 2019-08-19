@@ -120,8 +120,7 @@ print_error(const char *msg, const char *input) noexcept
 		_("Error"), msg, input);
 }
 
-gcc_const
-static bool
+static constexpr bool
 is_word_char(char ch) noexcept
 {
 	return IsAlphaNumericASCII(ch) || ch == '-' || ch == '_';
