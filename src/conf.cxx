@@ -146,6 +146,13 @@ static int
 parse_key_value(char *str, char **end)
 {
 	if (*str == '\'') {
+		if (str[1] == '\\' && str[2] == '\'' && str[3] == '\'') {
+			/* the single quote can be escaped with a
+			   backslash */
+			*end = str + 4;
+			return str[2];
+		}
+
 		if (str[1] == '\'' || str[2] != '\'') {
 			print_error(_("Malformed hotkey definition"), str);
 			return -1;
