@@ -345,7 +345,7 @@ LyricsPage::GetTitle(char *str, size_t size) const noexcept
 			 _("Lyrics"),
 			 /* translators: this message is displayed
 			    while data is retrieved */
-			 _("loading..."));
+			 _("loading…"));
 		return str;
 	} else if (artist != nullptr && title != nullptr && !IsEmpty()) {
 		int n;
