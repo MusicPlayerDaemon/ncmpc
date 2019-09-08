@@ -24,14 +24,14 @@ MakeKeysPath();
 
 #ifndef _WIN32
 std::string
-GetHomeConfigPath();
+GetHomeConfigPath() noexcept;
 #endif
 
 std::string
-GetUserConfigPath();
+GetUserConfigPath() noexcept;
 
 std::string
-GetSystemConfigPath();
+GetSystemConfigPath() noexcept;
 
 void read_configuration();
 

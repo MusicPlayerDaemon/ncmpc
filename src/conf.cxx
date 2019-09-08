@@ -747,7 +747,7 @@ MakeKeysPath()
 #ifndef _WIN32
 
 std::string
-GetHomeConfigPath()
+GetHomeConfigPath() noexcept
 {
 	const char *home = GetHomeDirectory();
 	if (home == nullptr)
@@ -759,7 +759,7 @@ GetHomeConfigPath()
 #endif
 
 std::string
-GetUserConfigPath()
+GetUserConfigPath() noexcept
 {
 	const auto dir = GetHomeConfigDirectory();
 	if (dir.empty())
@@ -769,7 +769,7 @@ GetUserConfigPath()
 }
 
 std::string
-GetSystemConfigPath()
+GetSystemConfigPath() noexcept
 {
 #ifdef _WIN32
 	const gchar* const *system_data_dirs;
@@ -790,7 +790,7 @@ GetSystemConfigPath()
 
 gcc_pure
 static std::string
-GetHomeKeysPath()
+GetHomeKeysPath() noexcept
 {
 	const char *home = GetHomeDirectory();
 	if (home == nullptr)
@@ -803,7 +803,7 @@ GetHomeKeysPath()
 
 gcc_pure
 static std::string
-GetUserKeysPath()
+GetUserKeysPath() noexcept
 {
 	const auto dir = GetHomeConfigDirectory();
 	if (dir.empty())
@@ -814,7 +814,7 @@ GetUserKeysPath()
 
 gcc_pure
 static std::string
-GetSystemKeysPath()
+GetSystemKeysPath() noexcept
 {
 #ifdef _WIN32
 	const gchar* const *system_data_dirs;
@@ -832,7 +832,7 @@ GetSystemKeysPath()
 }
 
 static std::string
-find_config_file()
+find_config_file() noexcept
 {
 	/* check for command line configuration file */
 	if (!options.config_file.empty())
@@ -859,7 +859,7 @@ find_config_file()
 }
 
 static std::string
-find_keys_file()
+find_keys_file() noexcept
 {
 	/* check for command line key binding file */
 	if (!options.key_file.empty())
