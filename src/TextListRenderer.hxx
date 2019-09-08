@@ -22,7 +22,6 @@
 
 #include "ListRenderer.hxx"
 
-class ScreenManager;
 class ListText;
 
 class TextListRenderer final : public ListRenderer {

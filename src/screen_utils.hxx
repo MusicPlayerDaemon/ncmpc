@@ -20,13 +20,8 @@
 #ifndef SCREEN_UTILS_H
 #define SCREEN_UTILS_H
 
-#include "config.h"
-#include "Command.hxx"
 #include "History.hxx"
 #include "Completion.hxx"
-
-struct mpdclient;
-class Completion;
 
 /* sound an audible and/or visible bell */
 void

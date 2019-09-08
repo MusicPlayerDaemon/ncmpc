@@ -29,6 +29,7 @@
 #include "config.h"
 #include "i18n.h"
 #include "charset.hxx"
+#include "Command.hxx"
 #include "Options.hxx"
 #include "mpdclient.hxx"
 #include "strfsong.hxx"

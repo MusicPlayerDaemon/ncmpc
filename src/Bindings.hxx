@@ -20,7 +20,7 @@
 #ifndef BINDINGS_HXX
 #define BINDINGS_HXX
 
-#include "config.h"
+#include "config.h" // IWYU pragma: keep
 #include "Command.hxx"
 #include "util/Compiler.h"
 

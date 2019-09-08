@@ -20,15 +20,13 @@
 #ifndef NCMPC_STATUS_BAR_HXX
 #define NCMPC_STATUS_BAR_HXX
 
-#include "config.h"
+#include "config.h" // IWYU pragma: keep
 #include "AsioServiceFwd.hxx"
 #include "Window.hxx"
 
 #ifndef NCMPC_MINI
 #include "hscroll.hxx"
 #endif
-
-#include <mpd/status.h>
 
 #include <boost/asio/steady_timer.hpp>
 

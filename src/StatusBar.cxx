@@ -28,7 +28,6 @@
 
 #include <mpd/client.h>
 
-#include <assert.h>
 #include <string.h>
 
 StatusBar::StatusBar(boost::asio::io_service &io_service,

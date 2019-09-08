@@ -33,7 +33,7 @@
    boost::asio::io_context; eventually, we'll switch to the new API,
    but this would require dropping support for older Boost versions */
 
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_service.hpp> // IWYU pragma: export
 
 #else
 namespace boost { namespace asio { class io_service; }}

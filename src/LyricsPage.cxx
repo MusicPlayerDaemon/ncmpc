@@ -23,6 +23,7 @@
 #include "FileBrowserPage.hxx"
 #include "SongPage.hxx"
 #include "i18n.h"
+#include "Command.hxx"
 #include "Options.hxx"
 #include "mpdclient.hxx"
 #include "screen.hxx"

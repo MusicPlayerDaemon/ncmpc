@@ -32,13 +32,13 @@
 
 #include <curses.h>
 
-#include <mpd/client.h>
-
+#include <map>
 #include <memory>
 #include <string>
-#include <map>
+#include <utility>
 
 enum class Command : unsigned;
+struct mpd_song;
 struct mpdclient;
 struct PageMeta;
 class Page;

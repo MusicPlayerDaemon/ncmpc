@@ -22,6 +22,7 @@
 #include "CustomColors.hxx"
 #include "i18n.h"
 #include "util/StringStrip.hxx"
+#include "util/Compiler.h"
 
 #ifdef ENABLE_COLORS
 #include "Options.hxx"
@@ -29,7 +30,7 @@
 
 #include <assert.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <strings.h>
 #include <string.h>
 
 /**

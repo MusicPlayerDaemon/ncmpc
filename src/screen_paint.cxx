@@ -19,11 +19,7 @@
 
 #include "screen.hxx"
 #include "Page.hxx"
-#include "config.h"
-#include "mpdclient.hxx"
 #include "Options.hxx"
-
-#include <mpd/client.h>
 
 #include <assert.h>
 

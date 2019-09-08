@@ -19,19 +19,17 @@
 
 #include "screen_utils.hxx"
 #include "screen.hxx"
-#include "mpdclient.hxx"
 #include "config.h"
 #include "i18n.h"
 #include "Options.hxx"
 #include "Styles.hxx"
 #include "wreadln.hxx"
 #include "ncmpc.hxx"
+#include "config.h"
 
 #ifndef _WIN32
 #include "WaitUserInput.hxx"
 #endif
-
-#include <mpd/client.h>
 
 #include <string.h>
 

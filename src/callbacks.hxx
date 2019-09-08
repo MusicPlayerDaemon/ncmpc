@@ -20,8 +20,6 @@
 #ifndef NCMPC_CALLBACKS_H
 #define NCMPC_CALLBACKS_H
 
-#include <mpd/client.h>
-
 struct mpdclient;
 
 /**

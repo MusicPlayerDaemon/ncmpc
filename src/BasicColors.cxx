@@ -21,7 +21,7 @@
 
 #include <curses.h>
 
-#include <string.h>
+#include <strings.h>
 #include <stdlib.h>
 
 static constexpr const char *basic_color_names[] = {

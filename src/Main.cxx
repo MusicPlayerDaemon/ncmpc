@@ -33,9 +33,9 @@
 #include "xterm_title.hxx"
 #include "strfsong.hxx"
 #include "i18n.h"
-#include "player_command.hxx"
 #include "util/ScopeExit.hxx"
 #include "util/StringUTF8.hxx"
+#include "util/Compiler.h"
 
 #ifndef NCMPC_MINI
 #include "conf.hxx"
@@ -47,10 +47,10 @@
 
 #include <mpd/client.h>
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <signal.h>
+#include <curses.h>
+
+#include <assert.h>
+#include <stdio.h>
 #include <string.h>
 
 #ifdef ENABLE_LOCALE

@@ -19,14 +19,10 @@
 
 #include "screen.hxx"
 #include "Page.hxx"
-#include "screen_list.hxx"
 #include "QueuePage.hxx"
 #include "config.h"
-#include "i18n.h"
 #include "Options.hxx"
 #include "Styles.hxx"
-
-#include <stdlib.h>
 
 /* minimum window size */
 static const unsigned SCREEN_MIN_COLS = 14;

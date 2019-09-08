@@ -25,7 +25,6 @@
 #include "ProxyPage.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
-#include "screen.hxx"
 #include "KeyName.hxx"
 #include "i18n.h"
 #include "conf.hxx"
@@ -34,8 +33,6 @@
 #include "screen_utils.hxx"
 #include "Options.hxx"
 #include "util/Compiler.h"
-
-#include <algorithm>
 
 #include <assert.h>
 #include <errno.h>

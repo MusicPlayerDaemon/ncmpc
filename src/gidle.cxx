@@ -27,14 +27,12 @@
 */
 
 #include "gidle.hxx"
-#include "util/Compiler.h"
 
 #include <mpd/async.h>
 #include <mpd/parser.h>
 
 #include <assert.h>
 #include <string.h>
-#include <errno.h>
 
 MpdIdleSource::MpdIdleSource(boost::asio::io_service &io_service,
 			     struct mpd_connection &_connection,

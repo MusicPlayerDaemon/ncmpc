@@ -19,6 +19,7 @@
 
 #include "GlobalBindings.hxx"
 #include "Bindings.hxx"
+#include "config.h"
 
 #include <curses.h>
 

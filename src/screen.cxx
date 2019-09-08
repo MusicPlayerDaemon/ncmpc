@@ -25,7 +25,6 @@
 #include "Command.hxx"
 #include "config.h"
 #include "i18n.h"
-#include "charset.hxx"
 #include "mpdclient.hxx"
 #include "Options.hxx"
 #include "DelayedSeek.hxx"
@@ -35,10 +34,7 @@
 
 #include <mpd/client.h>
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
-#include <time.h>
 
 ScreenManager::PageMap::iterator
 ScreenManager::MakePage(const PageMeta &sf)

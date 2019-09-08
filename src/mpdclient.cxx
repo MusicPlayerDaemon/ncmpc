@@ -19,7 +19,6 @@
 
 #include "mpdclient.hxx"
 #include "callbacks.hxx"
-#include "filelist.hxx"
 #include "config.h"
 #include "gidle.hxx"
 #include "charset.hxx"

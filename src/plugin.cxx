@@ -19,7 +19,6 @@
 
 #include "plugin.hxx"
 #include "io/Path.hxx"
-#include "util/Compiler.h"
 #include "util/ScopeExit.hxx"
 #include "util/UriUtil.hxx"
 
@@ -33,7 +32,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
-#include <string.h>
 #include <signal.h>
 #include <sys/stat.h>
 #include <sys/wait.h>

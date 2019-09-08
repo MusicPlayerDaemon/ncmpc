@@ -19,7 +19,8 @@
 
 #include "Instance.hxx"
 #include "Options.hxx"
-#include "xterm_title.hxx"
+
+#include <signal.h>
 
 Instance::Instance()
 	:io_service(),

@@ -11,16 +11,13 @@
 #include "aconnect.hxx"
 #endif
 
-#include <mpd/client.h>
+#include <mpd/client.h> // IWYU pragma: export
 
 #include <boost/asio/steady_timer.hpp>
 
 #include <string>
 
 struct AsyncMpdConnect;
-struct MpdQueue;
-class MpdIdleSource;
-class FileList;
 
 struct mpdclient final
 	: MpdIdleHandler

@@ -22,6 +22,8 @@
 
 #include <curses.h>
 
+#include <stdio.h>
+
 const char *
 key2str(int key)
 {

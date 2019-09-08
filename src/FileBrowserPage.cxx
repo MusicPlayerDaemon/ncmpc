@@ -23,13 +23,14 @@
 #include "screen_status.hxx"
 #include "save_playlist.hxx"
 #include "screen.hxx"
-#include "config.h"
+#include "config.h" // IWYU pragma: keep
 #include "i18n.h"
 #include "charset.hxx"
 #include "mpdclient.hxx"
 #include "filelist.hxx"
 #include "screen_utils.hxx"
 #include "screen_client.hxx"
+#include "Command.hxx"
 #include "Options.hxx"
 #include "util/UriUtil.hxx"
 

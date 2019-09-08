@@ -23,6 +23,7 @@
 #include "util/Compiler.h"
 
 #include <string>
+#include <utility>
 
 /**
  * This class is used to auto-scroll text which does not fit on the

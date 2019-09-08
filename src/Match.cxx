@@ -18,7 +18,6 @@
  */
 
 #include "Match.hxx"
-#include "charset.hxx"
 
 #include <assert.h>
 #include <string.h>

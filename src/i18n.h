@@ -24,7 +24,7 @@
 
 #ifdef ENABLE_NLS
 
-#include <libintl.h>
+#include <libintl.h> // IWYU pragma: export
 
 #define _(x) gettext(x)
 

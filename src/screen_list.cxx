@@ -19,7 +19,6 @@
 
 #include "screen_list.hxx"
 #include "PageMeta.hxx"
-#include "screen.hxx"
 #include "HelpPage.hxx"
 #include "QueuePage.hxx"
 #include "FileBrowserPage.hxx"
@@ -31,6 +30,7 @@
 #include "OutputsPage.hxx"
 #include "ChatPage.hxx"
 #include "util/Macros.hxx"
+#include "config.h"
 
 #include <string.h>
 

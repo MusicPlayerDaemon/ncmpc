@@ -21,6 +21,7 @@
 #define NCMPC_PROXY_PAGE_HXX
 
 #include "Page.hxx"
+#include "config.h"
 
 class ProxyPage : public Page {
 	WINDOW *const w;

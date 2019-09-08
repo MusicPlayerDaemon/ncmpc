@@ -22,6 +22,7 @@
 #include "ListText.hxx"
 #include "config.h"
 #include "Match.hxx"
+#include "Options.hxx"
 #include "Command.hxx"
 #include "paint.hxx"
 #include "screen_status.hxx"
@@ -29,9 +30,6 @@
 #include "i18n.h"
 
 #include <assert.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
 
 void
 ListWindow::Paint(const ListRenderer &renderer) const noexcept

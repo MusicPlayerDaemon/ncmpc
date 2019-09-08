@@ -19,8 +19,8 @@
 
 #include "lirc.hxx"
 #include "ncmpc.hxx"
-#include "Bindings.hxx"
-#include "util/Compiler.h"
+#include "Command.hxx"
+#include "config.h"
 
 #include <lirc/lirc_client.h>
 

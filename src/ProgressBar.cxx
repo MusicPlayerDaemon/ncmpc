@@ -20,6 +20,7 @@
 #include "ProgressBar.hxx"
 #include "Styles.hxx"
 #include "Options.hxx"
+#include "config.h"
 
 #include <assert.h>
 

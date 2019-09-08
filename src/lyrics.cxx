@@ -20,8 +20,6 @@
 #include "lyrics.hxx"
 #include "config.h"
 
-#include <assert.h>
-
 static PluginList empty, plugins;
 
 void lyrics_init()

@@ -27,7 +27,6 @@
 #include "GlobalBindings.hxx"
 #include "charset.hxx"
 #include "mpdclient.hxx"
-#include "strfsong.hxx"
 #include "screen_utils.hxx"
 #include "FileListPage.hxx"
 #include "filelist.hxx"

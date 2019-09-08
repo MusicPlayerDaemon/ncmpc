@@ -20,18 +20,17 @@
 #include "save_playlist.hxx"
 #include "db_completion.hxx"
 #include "screen_status.hxx"
-#include "config.h"
+#include "config.h" // IWYU pragma: keep
 #include "i18n.h"
 #include "charset.hxx"
 #include "mpdclient.hxx"
-#include "wreadln.hxx"
 #include "Completion.hxx"
 #include "screen_utils.hxx"
 #include "util/Compiler.h"
 
 #include <mpd/client.h>
 
-#include <string.h>
+#include <stdio.h>
 
 #ifndef NCMPC_MINI
 

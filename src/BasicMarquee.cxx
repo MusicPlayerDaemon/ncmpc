@@ -20,8 +20,6 @@
 #include "BasicMarquee.hxx"
 #include "util/LocaleString.hxx"
 
-#include <algorithm>
-
 #include <assert.h>
 #include <string.h>
 

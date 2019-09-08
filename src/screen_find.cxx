@@ -24,6 +24,7 @@
 #include "ListWindow.hxx"
 #include "AsyncUserInput.hxx"
 #include "i18n.h"
+#include "Command.hxx"
 #include "Options.hxx"
 #include "util/LocaleString.hxx"
 

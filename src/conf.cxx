@@ -32,14 +32,12 @@
 #include "Options.hxx"
 #include "io/Path.hxx"
 #include "util/CharUtil.hxx"
-#include "util/ScopeExit.hxx"
 #include "util/StringStrip.hxx"
 
 #include <assert.h>
 #include <sys/stat.h>
 #include <ctype.h>
 #include <stdio.h>
-#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 

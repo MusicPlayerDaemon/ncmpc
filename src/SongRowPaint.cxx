@@ -22,7 +22,7 @@
 #include "strfsong.hxx"
 #include "time_format.hxx"
 #include "hscroll.hxx"
-#include "config.h"
+#include "config.h" // IWYU pragma: keep
 #include "util/LocaleString.hxx"
 
 #include <mpd/client.h>

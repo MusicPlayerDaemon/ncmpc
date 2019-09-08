@@ -25,6 +25,7 @@
 #include "mpdclient.hxx"
 #include "i18n.h"
 #include "charset.hxx"
+#include "Command.hxx"
 #include "Options.hxx"
 
 #include <mpd/idle.h>

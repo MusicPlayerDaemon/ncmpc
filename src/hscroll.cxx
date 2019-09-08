@@ -19,9 +19,6 @@
 
 #include "hscroll.hxx"
 #include "Styles.hxx"
-#include "charset.hxx"
-
-#include <algorithm>
 
 #include <assert.h>
 

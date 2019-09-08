@@ -19,7 +19,6 @@
 
 #include "wreadln.hxx"
 #include "Completion.hxx"
-#include "charset.hxx"
 #include "screen_utils.hxx"
 #include "Point.hxx"
 #include "config.h"

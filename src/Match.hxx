@@ -25,9 +25,9 @@
 
 #ifdef HAVE_PCRE
 #include <pcre.h>
-#endif
-
+#else
 #include <stddef.h>
+#endif
 
 class MatchExpression {
 #ifndef HAVE_PCRE

@@ -20,11 +20,8 @@
 #include "LibraryPage.hxx"
 #include "TagListPage.hxx"
 #include "PageMeta.hxx"
-#include "screen_status.hxx"
-#include "screen_find.hxx"
 #include "FileListPage.hxx"
 #include "Command.hxx"
-#include "screen.hxx"
 #include "ProxyPage.hxx"
 #include "i18n.h"
 #include "charset.hxx"
@@ -32,9 +29,9 @@
 #include "filelist.hxx"
 #include "Options.hxx"
 
-#include <vector>
+#include <list>
 #include <string>
-#include <algorithm>
+#include <vector>
 
 #include <assert.h>
 #include <string.h>
