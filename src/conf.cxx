@@ -32,6 +32,8 @@
 #include "Options.hxx"
 #include "io/Path.hxx"
 #include "util/CharUtil.hxx"
+#include "util/PrintException.hxx"
+#include "util/RuntimeError.hxx"
 #include "util/StringStrip.hxx"
 
 #include <assert.h>
@@ -111,14 +113,6 @@ str2bool(char *str) noexcept
 		strcasecmp(str, "on") == 0 || strcasecmp(str, "1") == 0;
 }
 
-static void
-print_error(const char *msg, const char *input) noexcept
-{
-	fprintf(stderr, "%s: %s ('%s')\n",
-		/* To translators: prefix for error messages */
-		_("Error"), msg, input);
-}
-
 static constexpr bool
 is_word_char(char ch) noexcept
 {
@@ -128,10 +122,9 @@ is_word_char(char ch) noexcept
 static char *
 after_unquoted_word(char *p)
 {
-	if (!is_word_char(*p)) {
-		print_error(_("Word expected"), p);
-		return nullptr;
-	}
+	if (!is_word_char(*p))
+		throw FormatRuntimeError("%s: %s",
+					 _("Word expected"), p);
 
 	++p;
 
@@ -141,6 +134,9 @@ after_unquoted_word(char *p)
 	return p;
 }
 
+/**
+ * Throws on error.
+ */
 static int
 parse_key_value(char *str, char **end)
 {
@@ -152,34 +148,37 @@ parse_key_value(char *str, char **end)
 			return str[2];
 		}
 
-		if (str[1] == '\'' || str[2] != '\'') {
-			print_error(_("Malformed hotkey definition"), str);
-			return -1;
-		}
+		if (str[1] == '\'' || str[2] != '\'')
+			throw FormatRuntimeError("%s: %s",
+						 _("Malformed hotkey definition"),
+						 str);
 
 		*end = str + 3;
 		return str[1];
 	} else {
 		long value = strtol(str, end, 0);
-		if (*end == str) {
-			print_error(_("Malformed hotkey definition"), str);
-			return -1;
-		}
+		if (*end == str)
+			throw FormatRuntimeError("%s: %s",
+						 _("Malformed hotkey definition"),
+						 str);
 
 		return (int)value;
 	}
 }
 
-static bool
+/**
+ * Throws on error.
+ */
+static void
 parse_key_definition(char *str)
 {
 	/* get the command name */
 	char *eq = strchr(str, '=');
-	if (eq == nullptr) {
+	if (eq == nullptr)
 		/* the hotkey configuration line is incomplete */
-		print_error(_("Incomplete hotkey configuration"), str);
-		return false;
-	}
+		throw FormatRuntimeError("%s: %s",
+					 _("Incomplete hotkey configuration"),
+					 str);
 
 	char *command_name = str;
 	str = StripLeft(eq + 1);
@@ -187,33 +186,29 @@ parse_key_definition(char *str)
 	*eq = '\0';
 	StripRight(command_name);
 	const auto cmd = get_key_command_from_name(command_name);
-	if(cmd == Command::NONE) {
+	if (cmd == Command::NONE)
 		/* the hotkey configuration contains an unknown
 		   command */
-		print_error(_("Unknown command"), command_name);
-		return false;
-	}
+		throw FormatRuntimeError("%s: %s",
+					 _("Unknown command"), command_name);
 
 	/* parse key values */
 	size_t i = 0;
-	int key = 0;
 	char *p = str;
 
 	std::array<int, MAX_COMMAND_KEYS> keys{0};
-	while (i < MAX_COMMAND_KEYS && *p != 0 &&
-	       (key = parse_key_value(p, &p)) >= 0) {
-		keys[i++] = key;
+	while (i < MAX_COMMAND_KEYS && *p != 0) {
+		keys[i++] = parse_key_value(p, &p);
 		while (*p==',' || *p==' ' || *p=='\t')
 			p++;
 	}
 
-	if (key < 0)
-		return false;
-
 	GetGlobalKeyBindings().SetKey(cmd, keys);
-	return true;
 }
 
+/**
+ * Throws on error.
+ */
 static bool
 parse_timedisplay_type(const char *str)
 {
@@ -226,36 +221,38 @@ parse_timedisplay_type(const char *str)
 		   "elapsed" or "remaining" time of a song being
 		   played; in this case, the configuration file
 		   contained an invalid setting */
-		print_error(_("Bad time display type"), str);
+		throw FormatRuntimeError("%s: %s",
+					 _("Bad time display type"), str);
 		return false;
 	}
 }
 
 #ifdef ENABLE_COLORS
+/**
+ * Throws on error.
+ */
 static char *
 separate_value(char *p)
 {
 	char *value = strchr(p, '=');
-	if (value == nullptr) {
+	if (value == nullptr)
 		/* an equals sign '=' was expected while parsing a
 		   configuration file line */
-		fprintf(stderr, "%s\n", _("Missing '='"));
-		return nullptr;
-	}
+		throw std::runtime_error(_("Missing '='"));
 
 	*StripRight(p, value++) = '\0';
 
 	return Strip(value);
 }
 
-static bool
+/**
+ * Throws on error.
+ */
+static void
 parse_color(char *str)
 {
 	char *value = separate_value(str);
-	if (value == nullptr)
-		return false;
-
-	return ModifyStyle(str, value);
+	ModifyStyle(str, value);
 }
 
 /**
@@ -278,47 +275,43 @@ after_comma(char *p) noexcept
 	return comma;
 }
 
-static bool
+/**
+ * Throws on error.
+ */
+static void
 parse_color_definition(char *str)
 {
 	char *value = separate_value(str);
-	if (value == nullptr)
-		return false;
 
 	/* get the command name */
 	short color = ParseColorNameOrNumber(str);
-	if (color < 0) {
-		char buf[MAX_LINE_LENGTH];
-		print_error(_("Bad color name"), buf);
-		return false;
-	}
+	if (color < 0)
+		throw FormatRuntimeError("%s: %s",
+					 _("Bad color name"), str);
 
 	/* parse r,g,b values */
 
 	short rgb[3];
 	for (unsigned i = 0; i < 3; ++i) {
 		char *next = after_comma(value), *endptr;
-		if (*value == 0) {
-			print_error(_("Incomplete color definition"), str);
-			return false;
-		}
+		if (*value == 0)
+			throw FormatRuntimeError("%s: %s",
+						 _("Incomplete color definition"),
+						 str);
 
 		rgb[i] = strtol(value, &endptr, 0);
-		if (endptr == value || *endptr != 0) {
-			print_error(_("Invalid number"), value);
-			return false;
-		}
+		if (endptr == value || *endptr != 0)
+			throw FormatRuntimeError("%s: %s",
+						 _("Invalid number"), value);
 
 		value = next;
 	}
 
-	if (*value != 0) {
-		print_error(_("Malformed color definition"), str);
-		return false;
-	}
+	if (*value != 0)
+		throw FormatRuntimeError("%s: %s",
+					 _("Malformed color definition"), str);
 
 	colors_define(color, rgb[0], rgb[1], rgb[2]);
-	return true;
 }
 #endif
 
@@ -361,6 +354,9 @@ NextItem(char *&src) noexcept
 	return value;
 }
 
+/**
+ * Throws on error.
+ */
 static std::vector<std::string>
 check_screen_list(char *value)
 {
@@ -370,16 +366,17 @@ check_screen_list(char *value)
 		std::transform(name, name + strlen(name), name, tolower);
 
 		const auto *page_meta = screen_lookup_name(name);
-		if (page_meta == nullptr) {
+		if (page_meta == nullptr)
 			/* an unknown screen name was specified in the
 			   configuration file */
-			print_error(_("Unknown screen name"), name);
-		} else {
-			/* use PageMeta::name because
-			   screen_lookup_name() may have translated a
-			   deprecated name */
-			screen.emplace_back(page_meta->name);
-		}
+			throw FormatRuntimeError("%s: %s",
+						 _("Unknown screen name"),
+						 name);
+
+		/* use PageMeta::name because
+		   screen_lookup_name() may have translated a
+		   deprecated name */
+		screen.emplace_back(page_meta->name);
 	}
 
 	if (screen.empty())
@@ -390,6 +387,9 @@ check_screen_list(char *value)
 
 #ifdef ENABLE_LIBRARY_PAGE
 
+/**
+ * Throws on error.
+ */
 static auto
 ParseTagList(char *value)
 {
@@ -397,23 +397,24 @@ ParseTagList(char *value)
 
 	while (char *name = NextItem(value)) {
 		auto type = mpd_tag_name_iparse(name);
-		if (type == MPD_TAG_UNKNOWN) {
-			print_error(_("Unknown MPD tag"), name);
-			result.clear();
-			return result;
-		}
+		if (type == MPD_TAG_UNKNOWN)
+			throw FormatRuntimeError("%s: %s",
+						 _("Unknown MPD tag"), name);
 
 		result.emplace_back(type);
 	}
 
 	if (result.empty())
-		fprintf(stderr, "Empty tag list\n");
+		throw std::runtime_error("Empty tag list");
 
 	return result;
 }
 
 #endif
 
+/**
+ * Throws on error.
+ */
 static int
 get_search_mode(char *value)
 {
@@ -424,10 +425,8 @@ get_search_mode(char *value)
 		if (0 <= mode && mode <= 4)
 			return mode;
 		else
-		{
-			print_error(_("Invalid search mode"),value);
-			return 0;
-		}
+			throw FormatRuntimeError("%s: %s",
+						 _("Invalid search mode"),value);
 	}
 	else
 	{
@@ -444,29 +443,29 @@ get_search_mode(char *value)
 		else if (strcasecmp(value, "artist+album") == 0)
 			return 4;
 		else
-		{
-			print_error(_("Unknown search mode"),value);
-			return 0;
-		}
+			throw FormatRuntimeError("%s: %s",
+						 _("Unknown search mode"),
+						 value);
 	}
 }
 
-static bool
+/**
+ * Throws on error.
+ */
+static void
 parse_line(char *line)
 {
 	/* get the name part */
 	char *const name = line;
 	char *const name_end = after_unquoted_word(line);
-	if (name_end == nullptr)
-		return false;
 
 	line = StripLeft(name_end);
 	if (*line == '=') {
 		++line;
 		line = StripLeft(line);
 	} else if (line == name_end) {
-		print_error(_("Missing '='"), name_end);
-		return false;
+		throw FormatRuntimeError("%s: %s",
+					 _("Missing '='"), name_end);
 	}
 
 	*name_end = 0;
@@ -562,8 +561,6 @@ parse_line(char *line)
 	else if (!strcasecmp(CONF_LIBRARY_PAGE_TAGS, name)) {
 #ifdef ENABLE_LIBRARY_PAGE
 		options.library_page_tags = ParseTagList(value);
-		if (options.library_page_tags.empty())
-			return false;
 #endif
 	} else if (!strcasecmp(CONF_SCREEN_LIST, name)) {
 		options.screen_list = check_screen_list(value);
@@ -633,12 +630,10 @@ parse_line(char *line)
 #else
 		options.second_column = str2bool(value);
 #endif
-	else {
-		print_error(_("Unknown configuration parameter"), name);
-		return false;
-	}
-
-	return true;
+	else
+		throw FormatRuntimeError("%s: %s",
+					 _("Unknown configuration parameter"),
+					 name);
 }
 
 static bool
@@ -658,7 +653,12 @@ read_rc_file(const char *filename)
 
 		if (*p != 0 && *p != COMMENT_TOKEN) {
 			StripRight(p);
-			parse_line(p);
+
+			try {
+				parse_line(p);
+			} catch (...) {
+				PrintException(std::current_exception());
+			}
 		}
 	}
 

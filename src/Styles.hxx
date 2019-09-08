@@ -52,7 +52,11 @@ enum class Style : unsigned {
 };
 
 #ifdef ENABLE_COLORS
-bool
+
+/**
+ * Throws on error.
+ */
+void
 ModifyStyle(const char *name, const char *value);
 
 void

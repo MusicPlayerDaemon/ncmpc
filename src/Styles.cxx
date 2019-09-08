@@ -21,6 +21,7 @@
 #include "BasicColors.hxx"
 #include "CustomColors.hxx"
 #include "i18n.h"
+#include "util/RuntimeError.hxx"
 #include "util/StringStrip.hxx"
 #include "util/Compiler.h"
 
@@ -241,7 +242,9 @@ colors_update_pair(Style style)
 	init_pair(short(style), fg, bg);
 }
 
-gcc_pure
+/**
+ * Throws on error.
+ */
 static short
 ParseBackgroundColor(const char *s)
 {
@@ -252,10 +255,13 @@ ParseBackgroundColor(const char *s)
 	if (!strcasecmp(s, "none"))
 		return COLOR_NONE;
 
-	return COLOR_ERROR;
+	throw FormatRuntimeError("%s: %s", _("Unknown color"), s);
 }
 
-static bool
+/**
+ * Throws on error.
+ */
+static void
 ParseStyle(StyleData &d, const char *str)
 {
 	std::string copy(str);
@@ -266,14 +272,7 @@ ParseStyle(StyleData &d, const char *str)
 		char *slash = strchr(cur, '/');
 		if (slash != nullptr) {
 			const char *name = slash + 1;
-			short color = ParseBackgroundColor(name);
-			if (color == COLOR_ERROR) {
-				fprintf(stderr, "%s: %s\n",
-					_("Unknown color"), name);
-				return false;
-			}
-
-			d.bg_color = color;
+			d.bg_color = ParseBackgroundColor(name);
 
 			*slash = 0;
 
@@ -315,26 +314,19 @@ ParseStyle(StyleData &d, const char *str)
 			d.attr |= A_DIM;
 		else if (!strcasecmp(cur, "bold"))
 			d.attr |= A_BOLD;
-		else {
-			fprintf(stderr, "%s: %s\n",
-				_("Unknown color"), str);
-			return false;
-		}
-
+		else
+			throw FormatRuntimeError("%s: %s",
+						 _("Unknown color"), str);
 	}
-
-	return true;
 }
 
-bool
+void
 ModifyStyle(const char *name, const char *value)
 {
 	const auto style = StyleByName(name);
-	if (style == Style::END) {
-		fprintf(stderr, "%s: %s\n",
-			_("Unknown color field"), name);
-		return false;
-	}
+	if (style == Style::END)
+		throw FormatRuntimeError("%s: %s",
+					 _("Unknown color field"), name);
 
 	auto &data = GetStyle(style);
 
@@ -343,15 +335,8 @@ ModifyStyle(const char *name, const char *value)
 		   styles inherit their background color from; if the
 		   user configures a color, it will be the background
 		   color, but no attributes */
-		short color = ParseBackgroundColor(value);
-		if (color != COLOR_ERROR) {
-			data.bg_color = color;
-			return true;
-		} else {
-			fprintf(stderr, "%s: %s\n",
-				_("Unknown color"), value);
-			return false;
-		}
+		data.bg_color = ParseBackgroundColor(value);
+		return;
 	}
 
 	return ParseStyle(data, value);

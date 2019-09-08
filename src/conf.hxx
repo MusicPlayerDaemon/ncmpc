@@ -33,5 +33,6 @@ GetUserConfigPath() noexcept;
 std::string
 GetSystemConfigPath() noexcept;
 
-void read_configuration();
+void
+read_configuration();
 
