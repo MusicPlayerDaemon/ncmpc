@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-17 11:53+0200\n"
+"POT-Creation-Date: 2019-09-08 13:56+0200\n"
 "PO-Revision-Date: 2010-04-14 05:21+0000\n"
 "Last-Translator: Rickard Närström <rickard.narstrom@gmail.com>\n"
 "Language-Team: sv <sv@li.org>\n"
@@ -283,8 +283,8 @@ msgid "Jump to"
 msgstr "Hoppa till"
 
 #: src/Command.cxx:180
-msgid "Artist screen"
-msgstr "Artister"
+msgid "Library page"
+msgstr ""
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
@@ -326,26 +326,26 @@ msgid "Chat screen"
 msgstr "Nästa skärm"
 
 #. To translators: prefix for error messages
-#: src/conf.cxx:118 src/screen_keydef.cxx:417 src/screen_keydef.cxx:426
+#: src/conf.cxx:121 src/screen_keydef.cxx:417 src/screen_keydef.cxx:426
 msgid "Error"
 msgstr "Fel"
 
-#: src/conf.cxx:132
+#: src/conf.cxx:134
 msgid "Word expected"
 msgstr ""
 
-#: src/conf.cxx:149 src/conf.cxx:158
+#: src/conf.cxx:158 src/conf.cxx:167
 msgid "Malformed hotkey definition"
 msgstr "Dålig tangentdefinition"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.cxx:173
+#: src/conf.cxx:182
 msgid "Incomplete hotkey configuration"
 msgstr "Inkomplett tangentdefinition"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.cxx:186
+#: src/conf.cxx:195
 msgid "Unknown command"
 msgstr "Okänt kommando"
 
@@ -353,47 +353,52 @@ msgstr "Okänt kommando"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.cxx:222
+#: src/conf.cxx:231
 msgid "Bad time display type"
 msgstr "Felaktigt tidsformat"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.cxx:235 src/conf.cxx:431
+#: src/conf.cxx:244 src/conf.cxx:470
 msgid "Missing '='"
 msgstr "Saknar '='"
 
-#: src/conf.cxx:285
+#: src/conf.cxx:294
 msgid "Bad color name"
 msgstr "Felaktigt färgnamn"
 
-#: src/conf.cxx:295
+#: src/conf.cxx:304
 msgid "Incomplete color definition"
 msgstr "Inkomplett färgdefinition"
 
-#: src/conf.cxx:301
+#: src/conf.cxx:310
 msgid "Invalid number"
 msgstr "Ogiltigt nummer"
 
-#: src/conf.cxx:309
+#: src/conf.cxx:318
 msgid "Malformed color definition"
 msgstr "Felaktig färgdefinition"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.cxx:368
+#: src/conf.cxx:378
 msgid "Unknown screen name"
 msgstr "Skärmnamn okänt"
 
-#: src/conf.cxx:391
+#: src/conf.cxx:403
+#, fuzzy
+msgid "Unknown MPD tag"
+msgstr "Okänt kommando"
+
+#: src/conf.cxx:430
 msgid "Invalid search mode"
 msgstr ""
 
-#: src/conf.cxx:411
+#: src/conf.cxx:450
 msgid "Unknown search mode"
 msgstr ""
 
-#: src/conf.cxx:594
+#: src/conf.cxx:639
 msgid "Unknown configuration parameter"
 msgstr "Okänd konfigurationsinställning"
 
@@ -430,12 +435,12 @@ msgstr "Spellista borttagen"
 msgid "Browse"
 msgstr "Filer"
 
-#: src/FileListPage.cxx:118
+#: src/FileListPage.cxx:119
 #, fuzzy, c-format
 msgid "Loading playlist '%s'"
 msgstr "Laddar spellista %s..."
 
-#: src/FileListPage.cxx:158 src/FileListPage.cxx:245 src/FileListPage.cxx:270
+#: src/FileListPage.cxx:159 src/FileListPage.cxx:246 src/FileListPage.cxx:271
 #: src/TagListPage.cxx:184
 #, fuzzy, c-format
 msgid "Adding '%s' to queue"
@@ -629,11 +634,33 @@ msgstr ""
 msgid "Alt-%c"
 msgstr ""
 
-#: src/ListWindow.cxx:474
+#: src/LibraryPage.cxx:48
+#, fuzzy
+msgid "Artists"
+msgstr "Artist"
+
+#: src/LibraryPage.cxx:51 src/LibraryPage.cxx:180
+#, fuzzy
+msgid "Albums"
+msgstr "Album"
+
+#: src/LibraryPage.cxx:126
+msgid "All"
+msgstr ""
+
+#: src/LibraryPage.cxx:202
+msgid "Songs"
+msgstr ""
+
+#: src/LibraryPage.cxx:303
+msgid "Library"
+msgstr ""
+
+#: src/ListWindow.cxx:215
 msgid "Range selection disabled"
 msgstr ""
 
-#: src/ListWindow.cxx:479
+#: src/ListWindow.cxx:218
 msgid "Range selection enabled"
 msgstr ""
 
@@ -724,7 +751,7 @@ msgstr "Utgång '%s' avslagen"
 msgid "Outputs"
 msgstr "Utgångar"
 
-#: src/player_command.cxx:94 src/QueuePage.cxx:615
+#: src/player_command.cxx:94 src/QueuePage.cxx:650
 msgid "Shuffled queue"
 msgstr ""
 
@@ -733,15 +760,15 @@ msgid "Cleared queue"
 msgstr ""
 
 #. get path
-#: src/QueuePage.cxx:312
+#: src/QueuePage.cxx:313
 msgid "Add"
 msgstr "Lägg till"
 
-#: src/QueuePage.cxx:377 src/QueuePage.cxx:673
+#: src/QueuePage.cxx:378 src/QueuePage.cxx:696
 msgid "Queue"
 msgstr ""
 
-#: src/QueuePage.cxx:379
+#: src/QueuePage.cxx:380
 #, c-format
 msgid "Queue on %s"
 msgstr ""
@@ -762,29 +789,6 @@ msgstr "Ersätt %s [%s/%s] ? "
 msgid "Saved %s"
 msgstr "%s sparad"
 
-#: src/screen_artist.cxx:100 src/TagListPage.cxx:71
-msgid "All tracks"
-msgstr "Alla spår"
-
-#: src/screen_artist.cxx:148
-#, fuzzy
-msgid "Artists"
-msgstr "Artist"
-
-#: src/screen_artist.cxx:156
-#, fuzzy
-msgid "Albums"
-msgstr "Album"
-
-#: src/screen_artist.cxx:195 src/screen_artist.cxx:204
-#: src/screen_artist.cxx:303 src/SearchPage.cxx:83 src/SongPage.cxx:62
-msgid "Artist"
-msgstr "Artist"
-
-#: src/screen_artist.cxx:199 src/SearchPage.cxx:84 src/SongPage.cxx:64
-msgid "Album"
-msgstr "Album"
-
 #: src/screen_client.cxx:41
 #, fuzzy
 msgid "Database update running"
@@ -799,19 +803,19 @@ msgstr "Uppdaterar databasen ifrån %s"
 msgid "Database update started"
 msgstr "Databasuppdatering påbörjad"
 
-#: src/screen.cxx:161
+#: src/screen.cxx:162
 msgid "Repeat mode is on"
 msgstr "Upprepningsläge på"
 
-#: src/screen.cxx:162
+#: src/screen.cxx:163
 msgid "Repeat mode is off"
 msgstr "Upprepningsläge av"
 
-#: src/screen.cxx:166
+#: src/screen.cxx:167
 msgid "Random mode is on"
 msgstr "Slumpningsläge på"
 
-#: src/screen.cxx:167
+#: src/screen.cxx:168
 msgid "Random mode is off"
 msgstr "Slumpningsläge av"
 
@@ -820,11 +824,11 @@ msgstr "Slumpningsläge av"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.cxx:176
+#: src/screen.cxx:177
 msgid "Single mode is on"
 msgstr ""
 
-#: src/screen.cxx:177
+#: src/screen.cxx:178
 msgid "Single mode is off"
 msgstr ""
 
@@ -832,36 +836,36 @@ msgstr ""
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.cxx:185
+#: src/screen.cxx:186
 msgid "Consume mode is on"
 msgstr "Förtäringsläge på"
 
-#: src/screen.cxx:186
+#: src/screen.cxx:187
 msgid "Consume mode is off"
 msgstr "Förtäringsläge av"
 
-#: src/screen.cxx:189
+#: src/screen.cxx:190
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Mjuk övergång %d sekunder"
 
-#: src/screen.cxx:201
+#: src/screen.cxx:202
 msgid "Database updated"
 msgstr "Databas uppdaterad"
 
-#: src/screen.cxx:251
+#: src/screen.cxx:252
 msgid "Find mode: Wrapped"
 msgstr "Sökläge: Börja om"
 
-#: src/screen.cxx:252
+#: src/screen.cxx:253
 msgid "Find mode: Normal"
 msgstr "Sökläge: Till början/slut"
 
-#: src/screen.cxx:257
+#: src/screen.cxx:258
 msgid "Auto center mode: On"
 msgstr "Automatisk centrering påslaget"
 
-#: src/screen.cxx:258
+#: src/screen.cxx:259
 msgid "Auto center mode: Off"
 msgstr "Automatisk centrering avslaget"
 
@@ -952,7 +956,7 @@ msgstr "OBS! Glömde du att 'Verkställa' dina ändringar?"
 msgid "Keys"
 msgstr ""
 
-#: src/screen_utils.cxx:133
+#: src/screen_utils.cxx:152
 msgid "Password"
 msgstr "Lösenord"
 
@@ -1003,6 +1007,14 @@ msgstr "fil"
 #: src/SearchPage.cxx:82 src/SongPage.cxx:63
 msgid "Title"
 msgstr "Titel"
+
+#: src/SearchPage.cxx:83 src/SongPage.cxx:62
+msgid "Artist"
+msgstr "Artist"
+
+#: src/SearchPage.cxx:84 src/SongPage.cxx:64
+msgid "Album"
+msgstr "Album"
 
 #: src/SearchPage.cxx:85
 msgid "Filename"
@@ -1155,6 +1167,10 @@ msgstr "Varning: %s ej definierad.\n"
 msgid "Terminal lacks color capabilities"
 msgstr "Terminalen saknar stöd för färger"
 
+#: src/TagListPage.cxx:71
+msgid "All tracks"
+msgstr "Alla spår"
+
 #: src/time_format.cxx:44
 msgid "year"
 msgstr ""
@@ -1187,6 +1203,9 @@ msgstr "Volym: n/a"
 #, c-format
 msgid "Volume %d%%"
 msgstr "Volym: %d%%"
+
+#~ msgid "Artist screen"
+#~ msgstr "Artister"
 
 #~ msgid "Albums of artist: %s"
 #~ msgstr "Album av artist: %s"

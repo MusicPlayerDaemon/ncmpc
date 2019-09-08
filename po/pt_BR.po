@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-17 11:53+0200\n"
+"POT-Creation-Date: 2019-09-08 13:56+0200\n"
 "PO-Revision-Date: 2010-12-19 01:05+0000\n"
 "Last-Translator: Jamerson Albuquerque Tiossi <jamersontiossi@yahoo.com.br>\n"
 "Language-Team: \n"
@@ -281,8 +281,8 @@ msgid "Jump to"
 msgstr "Pular para"
 
 #: src/Command.cxx:180
-msgid "Artist screen"
-msgstr "Tela de artista"
+msgid "Library page"
+msgstr ""
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
@@ -324,26 +324,26 @@ msgid "Chat screen"
 msgstr "Próxima tela"
 
 #. To translators: prefix for error messages
-#: src/conf.cxx:118 src/screen_keydef.cxx:417 src/screen_keydef.cxx:426
+#: src/conf.cxx:121 src/screen_keydef.cxx:417 src/screen_keydef.cxx:426
 msgid "Error"
 msgstr "Erro"
 
-#: src/conf.cxx:132
+#: src/conf.cxx:134
 msgid "Word expected"
 msgstr ""
 
-#: src/conf.cxx:149 src/conf.cxx:158
+#: src/conf.cxx:158 src/conf.cxx:167
 msgid "Malformed hotkey definition"
 msgstr "Definição de tecla de atalho malformada"
 
 #. the hotkey configuration line is incomplete
-#: src/conf.cxx:173
+#: src/conf.cxx:182
 msgid "Incomplete hotkey configuration"
 msgstr "Configuração de teclas de atalho incompleta"
 
 #. the hotkey configuration contains an unknown
 #. command
-#: src/conf.cxx:186
+#: src/conf.cxx:195
 msgid "Unknown command"
 msgstr "Comando desconhecido"
 
@@ -351,47 +351,52 @@ msgstr "Comando desconhecido"
 #. "elapsed" or "remaining" time of a song being
 #. played; in this case, the configuration file
 #. contained an invalid setting
-#: src/conf.cxx:222
+#: src/conf.cxx:231
 msgid "Bad time display type"
 msgstr "Tipo de visualização de tempo ruim"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.cxx:235 src/conf.cxx:431
+#: src/conf.cxx:244 src/conf.cxx:470
 msgid "Missing '='"
 msgstr "Falta '='"
 
-#: src/conf.cxx:285
+#: src/conf.cxx:294
 msgid "Bad color name"
 msgstr "Nome de cor ruim"
 
-#: src/conf.cxx:295
+#: src/conf.cxx:304
 msgid "Incomplete color definition"
 msgstr "Definição de cor incompleta"
 
-#: src/conf.cxx:301
+#: src/conf.cxx:310
 msgid "Invalid number"
 msgstr "Número inválido"
 
-#: src/conf.cxx:309
+#: src/conf.cxx:318
 msgid "Malformed color definition"
 msgstr "Definição de cor malformada"
 
 #. an unknown screen name was specified in the
 #. configuration file
-#: src/conf.cxx:368
+#: src/conf.cxx:378
 msgid "Unknown screen name"
 msgstr "Nome de tela desconhecido"
 
-#: src/conf.cxx:391
+#: src/conf.cxx:403
+#, fuzzy
+msgid "Unknown MPD tag"
+msgstr "Comando desconhecido"
+
+#: src/conf.cxx:430
 msgid "Invalid search mode"
 msgstr "Modo de pesquisa inválido"
 
-#: src/conf.cxx:411
+#: src/conf.cxx:450
 msgid "Unknown search mode"
 msgstr "Modo de pesquisa desconhecido"
 
-#: src/conf.cxx:594
+#: src/conf.cxx:639
 msgid "Unknown configuration parameter"
 msgstr "Parâmetro de configuração desconhecido"
 
@@ -428,12 +433,12 @@ msgstr "Lista de Reprodução deletada"
 msgid "Browse"
 msgstr "Navegar"
 
-#: src/FileListPage.cxx:118
+#: src/FileListPage.cxx:119
 #, fuzzy, c-format
 msgid "Loading playlist '%s'"
 msgstr "Carregando Lista de Reprodução %s..."
 
-#: src/FileListPage.cxx:158 src/FileListPage.cxx:245 src/FileListPage.cxx:270
+#: src/FileListPage.cxx:159 src/FileListPage.cxx:246 src/FileListPage.cxx:271
 #: src/TagListPage.cxx:184
 #, fuzzy, c-format
 msgid "Adding '%s' to queue"
@@ -626,11 +631,33 @@ msgstr ""
 msgid "Alt-%c"
 msgstr ""
 
-#: src/ListWindow.cxx:474
+#: src/LibraryPage.cxx:48
+#, fuzzy
+msgid "Artists"
+msgstr "Artista"
+
+#: src/LibraryPage.cxx:51 src/LibraryPage.cxx:180
+#, fuzzy
+msgid "Albums"
+msgstr "Álbum"
+
+#: src/LibraryPage.cxx:126
+msgid "All"
+msgstr ""
+
+#: src/LibraryPage.cxx:202
+msgid "Songs"
+msgstr ""
+
+#: src/LibraryPage.cxx:303
+msgid "Library"
+msgstr ""
+
+#: src/ListWindow.cxx:215
 msgid "Range selection disabled"
 msgstr "Seleção de intervalo desabilitada"
 
-#: src/ListWindow.cxx:479
+#: src/ListWindow.cxx:218
 msgid "Range selection enabled"
 msgstr "Seleção de intervalo habilitada"
 
@@ -722,7 +749,7 @@ msgstr "Saída '%s' desabilitada"
 msgid "Outputs"
 msgstr "Saídas"
 
-#: src/player_command.cxx:94 src/QueuePage.cxx:615
+#: src/player_command.cxx:94 src/QueuePage.cxx:650
 msgid "Shuffled queue"
 msgstr ""
 
@@ -731,15 +758,15 @@ msgid "Cleared queue"
 msgstr ""
 
 #. get path
-#: src/QueuePage.cxx:312
+#: src/QueuePage.cxx:313
 msgid "Add"
 msgstr "Adicionar"
 
-#: src/QueuePage.cxx:377 src/QueuePage.cxx:673
+#: src/QueuePage.cxx:378 src/QueuePage.cxx:696
 msgid "Queue"
 msgstr ""
 
-#: src/QueuePage.cxx:379
+#: src/QueuePage.cxx:380
 #, c-format
 msgid "Queue on %s"
 msgstr ""
@@ -760,29 +787,6 @@ msgstr "Substituir %s [%s/%s] ? "
 msgid "Saved %s"
 msgstr "%s salvo"
 
-#: src/screen_artist.cxx:100 src/TagListPage.cxx:71
-msgid "All tracks"
-msgstr "Todas as faixas"
-
-#: src/screen_artist.cxx:148
-#, fuzzy
-msgid "Artists"
-msgstr "Artista"
-
-#: src/screen_artist.cxx:156
-#, fuzzy
-msgid "Albums"
-msgstr "Álbum"
-
-#: src/screen_artist.cxx:195 src/screen_artist.cxx:204
-#: src/screen_artist.cxx:303 src/SearchPage.cxx:83 src/SongPage.cxx:62
-msgid "Artist"
-msgstr "Artista"
-
-#: src/screen_artist.cxx:199 src/SearchPage.cxx:84 src/SongPage.cxx:64
-msgid "Album"
-msgstr "Álbum"
-
 #: src/screen_client.cxx:41
 #, fuzzy
 msgid "Database update running"
@@ -797,19 +801,19 @@ msgstr "Atualização do Banco de Dados %s começou"
 msgid "Database update started"
 msgstr "Atualização de Banco de Dados iniciada"
 
-#: src/screen.cxx:161
+#: src/screen.cxx:162
 msgid "Repeat mode is on"
 msgstr "Modo de Repetição está ligado"
 
-#: src/screen.cxx:162
+#: src/screen.cxx:163
 msgid "Repeat mode is off"
 msgstr "Modo de Repetição está desligado"
 
-#: src/screen.cxx:166
+#: src/screen.cxx:167
 msgid "Random mode is on"
 msgstr "Modo Aleatório está ligado"
 
-#: src/screen.cxx:167
+#: src/screen.cxx:168
 msgid "Random mode is off"
 msgstr "Modo Aleatório está desligado"
 
@@ -818,11 +822,11 @@ msgstr "Modo Aleatório está desligado"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.cxx:176
+#: src/screen.cxx:177
 msgid "Single mode is on"
 msgstr "Modo de Faixa Única está ligado"
 
-#: src/screen.cxx:177
+#: src/screen.cxx:178
 msgid "Single mode is off"
 msgstr "Modo de Faixa Única está desligado"
 
@@ -830,36 +834,36 @@ msgstr "Modo de Faixa Única está desligado"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.cxx:185
+#: src/screen.cxx:186
 msgid "Consume mode is on"
 msgstr "Modo de Deleção de Faixa Reproduzida está ligado"
 
-#: src/screen.cxx:186
+#: src/screen.cxx:187
 msgid "Consume mode is off"
 msgstr "Modo de Deleção de Faixa Reproduzida está desligado"
 
-#: src/screen.cxx:189
+#: src/screen.cxx:190
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Inter-mixagem de %d segundos"
 
-#: src/screen.cxx:201
+#: src/screen.cxx:202
 msgid "Database updated"
 msgstr "Banco de Dados atualizado"
 
-#: src/screen.cxx:251
+#: src/screen.cxx:252
 msgid "Find mode: Wrapped"
 msgstr "Modo de Busca: Envolvido"
 
-#: src/screen.cxx:252
+#: src/screen.cxx:253
 msgid "Find mode: Normal"
 msgstr "Modo de Busca: Normal"
 
-#: src/screen.cxx:257
+#: src/screen.cxx:258
 msgid "Auto center mode: On"
 msgstr "Modo de Auto-Centralização: Ligado"
 
-#: src/screen.cxx:258
+#: src/screen.cxx:259
 msgid "Auto center mode: Off"
 msgstr "Modo de Auto-Centralização: Desligado"
 
@@ -950,7 +954,7 @@ msgstr "Nota: Você esqueceu de 'Aplicar' suas mudanças?"
 msgid "Keys"
 msgstr ""
 
-#: src/screen_utils.cxx:133
+#: src/screen_utils.cxx:152
 msgid "Password"
 msgstr "Senha"
 
@@ -1001,6 +1005,14 @@ msgstr "arquivo"
 #: src/SearchPage.cxx:82 src/SongPage.cxx:63
 msgid "Title"
 msgstr "Título"
+
+#: src/SearchPage.cxx:83 src/SongPage.cxx:62
+msgid "Artist"
+msgstr "Artista"
+
+#: src/SearchPage.cxx:84 src/SongPage.cxx:64
+msgid "Album"
+msgstr "Álbum"
 
 #: src/SearchPage.cxx:85
 msgid "Filename"
@@ -1153,6 +1165,10 @@ msgstr "Aviso: Campo de cor desconhecido - %s\n"
 msgid "Terminal lacks color capabilities"
 msgstr "Terminal não tem capacidade para trabalhar com cores"
 
+#: src/TagListPage.cxx:71
+msgid "All tracks"
+msgstr "Todas as faixas"
+
 #: src/time_format.cxx:44
 msgid "year"
 msgstr ""
@@ -1185,6 +1201,9 @@ msgstr "Volume n/a"
 #, c-format
 msgid "Volume %d%%"
 msgstr "Volume %d%%"
+
+#~ msgid "Artist screen"
+#~ msgstr "Tela de artista"
 
 #~ msgid "Albums of artist: %s"
 #~ msgstr "Álbuns do artista: %s"
