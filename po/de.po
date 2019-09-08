@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-08 13:56+0200\n"
-"PO-Revision-Date: 2019-05-19 12:49+0000\n"
+"PO-Revision-Date: 2019-09-08 13:57+0200\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/ncmpc/"
 "translations/de/>\n"
@@ -676,7 +676,7 @@ msgstr "Liedtexte"
 #. while data is retrieved
 #: src/LyricsPage.cxx:348
 msgid "loading..."
-msgstr "lade..."
+msgstr "lade…"
 
 #: src/LyricsPage.cxx:370
 msgid "Editor not configured"

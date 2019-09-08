@@ -670,7 +670,7 @@ msgstr "Lyrics"
 #. while data is retrieved
 #: src/LyricsPage.cxx:348
 msgid "loading..."
-msgstr "loading..."
+msgstr "loading…"
 
 #: src/LyricsPage.cxx:370
 msgid "Editor not configured"
