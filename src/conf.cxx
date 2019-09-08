@@ -647,8 +647,10 @@ read_rc_file(const char *filename)
 		return false;
 	}
 
+	unsigned no = 0;
 	char line[MAX_LINE_LENGTH];
 	while (fgets(line, sizeof(line), file) != nullptr) {
+		++no;
 		char *p = StripLeft(line);
 
 		if (*p != 0 && *p != COMMENT_TOKEN) {
@@ -657,6 +659,9 @@ read_rc_file(const char *filename)
 			try {
 				parse_line(p);
 			} catch (...) {
+				fprintf(stderr,
+					"Failed to parse '%s' line %u: ",
+					filename, no);
 				PrintException(std::current_exception());
 			}
 		}
