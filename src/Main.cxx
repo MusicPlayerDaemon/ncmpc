@@ -33,6 +33,7 @@
 #include "xterm_title.hxx"
 #include "strfsong.hxx"
 #include "i18n.h"
+#include "util/PrintException.hxx"
 #include "util/ScopeExit.hxx"
 #include "util/StringUTF8.hxx"
 #include "util/Compiler.h"
@@ -277,7 +278,7 @@ Instance::OnCheckKeyBindings(const boost::system::error_code &error) noexcept
 
 int
 main(int argc, const char *argv[])
-{
+try {
 #ifdef ENABLE_LOCALE
 	/* time and date formatting */
 	setlocale(LC_TIME,"");
@@ -347,4 +348,7 @@ main(int argc, const char *argv[])
 
 	instance.Run();
 	return EXIT_SUCCESS;
+} catch (...) {
+	PrintException(std::current_exception());
+	return EXIT_FAILURE;
 }
