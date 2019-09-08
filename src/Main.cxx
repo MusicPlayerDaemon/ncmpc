@@ -346,5 +346,5 @@ main(int argc, const char *argv[])
 #endif
 
 	instance.Run();
-	return 0;
+	return EXIT_SUCCESS;
 }
