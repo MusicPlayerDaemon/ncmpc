@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_SONG_PAINT_H
-#define NCMPC_SONG_PAINT_H
+#ifndef NCMPC_SONG_ROW_PAINT_HXX
+#define NCMPC_SONG_ROW_PAINT_HXX
 
 #include <curses.h>
 

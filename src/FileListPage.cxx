@@ -34,7 +34,7 @@
 #include "filelist.hxx"
 #include "Styles.hxx"
 #include "paint.hxx"
-#include "song_paint.hxx"
+#include "SongRowPaint.hxx"
 #include "time_format.hxx"
 #include "util/UriUtil.hxx"
 

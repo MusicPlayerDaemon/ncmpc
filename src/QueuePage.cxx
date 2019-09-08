@@ -34,7 +34,7 @@
 #include "strfsong.hxx"
 #include "Completion.hxx"
 #include "Styles.hxx"
-#include "song_paint.hxx"
+#include "SongRowPaint.hxx"
 #include "time_format.hxx"
 #include "screen.hxx"
 #include "screen_utils.hxx"
