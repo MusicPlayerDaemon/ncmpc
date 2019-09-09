@@ -277,23 +277,21 @@ private:
 			 const char *message) noexcept override;
 };
 
-enum {
-	/**
-	 * all idle events the version of libmpdclient, ncmpc is compiled
-	 * against, supports
-	 */
-	MPD_IDLE_ALL = MPD_IDLE_DATABASE
-		| MPD_IDLE_STORED_PLAYLIST
-		| MPD_IDLE_QUEUE
-		| MPD_IDLE_PLAYER
-		| MPD_IDLE_MIXER
-		| MPD_IDLE_OUTPUT
-		| MPD_IDLE_OPTIONS
-		| MPD_IDLE_UPDATE
-		| MPD_IDLE_STICKER
-		| MPD_IDLE_SUBSCRIPTION
-		| MPD_IDLE_MESSAGE
-};
+/**
+ * All idle events the version of libmpdclient, ncmpc is compiled
+ * against, supports.
+ */
+static constexpr unsigned MPD_IDLE_ALL = MPD_IDLE_DATABASE
+	| MPD_IDLE_STORED_PLAYLIST
+	| MPD_IDLE_QUEUE
+	| MPD_IDLE_PLAYER
+	| MPD_IDLE_MIXER
+	| MPD_IDLE_OUTPUT
+	| MPD_IDLE_OPTIONS
+	| MPD_IDLE_UPDATE
+	| MPD_IDLE_STICKER
+	| MPD_IDLE_SUBSCRIPTION
+	| MPD_IDLE_MESSAGE;
 
 /*** MPD Commands  **********************************************************/
 
