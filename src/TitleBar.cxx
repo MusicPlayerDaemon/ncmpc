@@ -30,7 +30,7 @@
 
 #include <string.h>
 
-TitleBar::TitleBar(Point p, unsigned width)
+TitleBar::TitleBar(Point p, unsigned width) noexcept
 	:window(p, {width, GetHeight()})
 {
 	leaveok(window.w, true);
@@ -43,7 +43,7 @@ TitleBar::TitleBar(Point p, unsigned width)
 }
 
 static inline int
-get_volume(const struct mpd_status *status)
+get_volume(const struct mpd_status *status) noexcept
 {
 	return status != nullptr
 		? mpd_status_get_volume(status)
@@ -51,7 +51,7 @@ get_volume(const struct mpd_status *status)
 }
 
 void
-TitleBar::Update(const struct mpd_status *status)
+TitleBar::Update(const struct mpd_status *status) noexcept
 {
 	volume = get_volume(status);
 
@@ -74,7 +74,8 @@ TitleBar::Update(const struct mpd_status *status)
 }
 
 void
-TitleBar::Paint(const PageMeta &current_page_meta, const char *title) const
+TitleBar::Paint(const PageMeta &current_page_meta,
+		const char *title) const noexcept
 {
 	WINDOW *w = window.w;
 
@@ -122,7 +123,7 @@ TitleBar::Paint(const PageMeta &current_page_meta, const char *title) const
 }
 
 void
-TitleBar::OnResize(unsigned width)
+TitleBar::OnResize(unsigned width) noexcept
 {
 	window.Resize({width, GetHeight()});
 }

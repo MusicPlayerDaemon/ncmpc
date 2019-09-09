@@ -32,15 +32,16 @@ class TitleBar {
 	char flags[8];
 
 public:
-	TitleBar(Point p, unsigned width);
+	TitleBar(Point p, unsigned width) noexcept;
 
-	static constexpr unsigned GetHeight() {
+	static constexpr unsigned GetHeight() noexcept {
 		return 2;
 	}
 
-	void OnResize(unsigned width);
-	void Update(const struct mpd_status *status);
-	void Paint(const PageMeta &current_page_meta, const char *title) const;
+	void OnResize(unsigned width) noexcept;
+	void Update(const struct mpd_status *status) noexcept;
+	void Paint(const PageMeta &current_page_meta,
+		   const char *title) const noexcept;
 };
 
 #endif
