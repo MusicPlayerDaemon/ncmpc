@@ -30,16 +30,16 @@ class ProgressBar {
 	unsigned width = 0;
 
 public:
-	ProgressBar(Point p, unsigned _width);
+	ProgressBar(Point p, unsigned _width) noexcept;
 
-	void OnResize(Point p, unsigned _width);
+	void OnResize(Point p, unsigned _width) noexcept;
 
-	bool Set(unsigned current, unsigned max);
+	bool Set(unsigned current, unsigned max) noexcept;
 
-	void Paint() const;
+	void Paint() const noexcept;
 
 private:
-	bool Calculate();
+	bool Calculate() noexcept;
 };
 
 #endif

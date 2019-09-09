@@ -24,7 +24,7 @@
 
 #include <assert.h>
 
-ProgressBar::ProgressBar(Point p, unsigned _width)
+ProgressBar::ProgressBar(Point p, unsigned _width) noexcept
 	:window(p, {_width, 1u})
 {
 	leaveok(window.w, true);
@@ -35,7 +35,7 @@ ProgressBar::ProgressBar(Point p, unsigned _width)
 }
 
 void
-ProgressBar::Paint() const
+ProgressBar::Paint() const noexcept
 {
 	if (max > 0) {
 		assert(width < window.size.width);
@@ -62,7 +62,7 @@ ProgressBar::Paint() const
 }
 
 bool
-ProgressBar::Calculate()
+ProgressBar::Calculate() noexcept
 {
 	if (max == 0)
 		return false;
@@ -75,7 +75,7 @@ ProgressBar::Calculate()
 }
 
 void
-ProgressBar::OnResize(Point p, unsigned _width)
+ProgressBar::OnResize(Point p, unsigned _width) noexcept
 {
 	window.Resize({_width, 1u});
 	window.Move(p);
@@ -84,7 +84,7 @@ ProgressBar::OnResize(Point p, unsigned _width)
 }
 
 bool
-ProgressBar::Set(unsigned _current, unsigned _max)
+ProgressBar::Set(unsigned _current, unsigned _max) noexcept
 {
 	if (_current > _max)
 		_current = _max;
