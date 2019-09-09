@@ -28,7 +28,7 @@
  * true.
  */
 static inline void
-row_color(WINDOW *w, Style style, bool selected)
+row_color(WINDOW *w, Style style, bool selected) noexcept
 {
 	SelectStyle(w, style);
 
@@ -43,7 +43,7 @@ row_color(WINDOW *w, Style style, bool selected)
  * "reverse" mode.
  */
 static inline void
-row_color_end(WINDOW *w)
+row_color_end(WINDOW *w) noexcept
 {
 	wattroff(w, A_REVERSE);
 }
@@ -54,7 +54,7 @@ row_color_end(WINDOW *w)
  * on the space.
  */
 static inline void
-row_clear_to_eol(WINDOW *w, unsigned width, bool selected)
+row_clear_to_eol(WINDOW *w, unsigned width, bool selected) noexcept
 {
 	if (selected && options.wide_cursor)
 		whline(w, ' ', width);
@@ -68,7 +68,7 @@ row_clear_to_eol(WINDOW *w, unsigned width, bool selected)
 static inline void
 row_paint_text(WINDOW *w, unsigned width,
 	       Style style, bool selected,
-	       const char *text)
+	       const char *text) noexcept
 {
 	row_color(w, style, selected);
 
