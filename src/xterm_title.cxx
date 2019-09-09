@@ -24,7 +24,7 @@
 #include <stdlib.h>
 
 void
-set_xterm_title(const char *title)
+set_xterm_title(const char *title) noexcept
 {
 	/* the current xterm title exists under the WM_NAME property */
 	/* and can be retrieved with xprop -id $WINDOWID */
