@@ -48,12 +48,6 @@ static constexpr short COLOR_NONE = -1;
 static constexpr short COLOR_INHERIT = -2;
 
 /**
- * A magic value for certain parser functions to indicate that the
- * parser has failed to recognize the string.
- */
-static constexpr short COLOR_ERROR = -3;
-
-/**
  * A non-standad magic value which means "inherit attributes from the
  * parent style".
  */
