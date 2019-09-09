@@ -24,7 +24,7 @@
 #include <assert.h>
 
 void
-ScreenManager::PaintTopWindow()
+ScreenManager::PaintTopWindow() noexcept
 {
 	const char *title = current_page->second->GetTitle(buf, buf_size);
 	assert(title != nullptr);
@@ -33,7 +33,7 @@ ScreenManager::PaintTopWindow()
 }
 
 void
-ScreenManager::Paint(bool main_dirty)
+ScreenManager::Paint(bool main_dirty) noexcept
 {
 	/* update title/header window */
 	PaintTopWindow();

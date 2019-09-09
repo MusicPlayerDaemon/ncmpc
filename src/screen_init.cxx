@@ -28,7 +28,7 @@
 static const unsigned SCREEN_MIN_COLS = 14;
 static const unsigned SCREEN_MIN_ROWS = 5;
 
-ScreenManager::ScreenManager(boost::asio::io_service &_io_service)
+ScreenManager::ScreenManager(boost::asio::io_service &_io_service) noexcept
 	:io_service(_io_service),
 	 layout({std::max<unsigned>(COLS, SCREEN_MIN_COLS),
 		 std::max<unsigned>(LINES, SCREEN_MIN_ROWS)}),
@@ -56,13 +56,13 @@ ScreenManager::ScreenManager(boost::asio::io_service &_io_service)
 #endif
 }
 
-ScreenManager::~ScreenManager()
+ScreenManager::~ScreenManager() noexcept
 {
 	delete[] buf;
 }
 
 void
-ScreenManager::Exit()
+ScreenManager::Exit() noexcept
 {
 	current_page->second->OnClose();
 	current_page = pages.end();
@@ -70,7 +70,7 @@ ScreenManager::Exit()
 }
 
 void
-ScreenManager::OnResize()
+ScreenManager::OnResize() noexcept
 {
 	layout = Layout({std::max<unsigned>(COLS, SCREEN_MIN_COLS),
 			 std::max<unsigned>(LINES, SCREEN_MIN_ROWS)});
@@ -109,7 +109,7 @@ ScreenManager::OnResize()
 }
 
 void
-ScreenManager::Init(struct mpdclient *c)
+ScreenManager::Init(struct mpdclient *c) noexcept
 {
 	current_page = MakePage(screen_queue);
 	current_page->second->OnOpen(*c);

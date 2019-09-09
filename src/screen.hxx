@@ -102,39 +102,38 @@ public:
 	std::string findbuf;
 	History find_history;
 
-	explicit ScreenManager(boost::asio::io_service &io_service);
-	~ScreenManager();
+	explicit ScreenManager(boost::asio::io_service &io_service) noexcept;
+	~ScreenManager() noexcept;
 
-	auto &get_io_service() const {
+	auto &get_io_service() const noexcept {
 		return io_service;
 	}
 
-	void Init(struct mpdclient *c);
-	void Exit();
+	void Init(struct mpdclient *c) noexcept;
+	void Exit() noexcept;
 
-	Point GetMainPosition() const {
+	Point GetMainPosition() const noexcept {
 		return {0, (int)title_bar.GetHeight()};
 	}
 
-	const PageMeta &GetCurrentPageMeta() const {
+	const PageMeta &GetCurrentPageMeta() const noexcept {
 		return *current_page->first;
 	}
 
-	PageMap::iterator MakePage(const PageMeta &sf);
+	PageMap::iterator MakePage(const PageMeta &sf) noexcept;
 
-	void OnResize();
+	void OnResize() noexcept;
 
 	gcc_pure
-	bool IsVisible(const Page &page) const {
+	bool IsVisible(const Page &page) const noexcept {
 		return &page == current_page->second.get();
 	}
 
-	void Switch(const PageMeta &sf, struct mpdclient &c);
-	void Swap(struct mpdclient &c, const struct mpd_song *song);
+	void Switch(const PageMeta &sf, struct mpdclient &c) noexcept;
+	void Swap(struct mpdclient &c, const struct mpd_song *song) noexcept;
 
-
-	void PaintTopWindow();
-	void Paint(bool main_dirty);
+	void PaintTopWindow() noexcept;
+	void Paint(bool main_dirty) noexcept;
 
 	void Update(struct mpdclient &c, const DelayedSeek &seek) noexcept;
 	void OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd);
@@ -145,7 +144,7 @@ public:
 #endif
 
 private:
-	void NextMode(struct mpdclient &c, int offset);
+	void NextMode(struct mpdclient &c, int offset) noexcept;
 };
 
 #endif

@@ -37,7 +37,7 @@
 #include <string.h>
 
 ScreenManager::PageMap::iterator
-ScreenManager::MakePage(const PageMeta &sf)
+ScreenManager::MakePage(const PageMeta &sf) noexcept
 {
 	auto i = pages.find(&sf);
 	if (i != pages.end())
@@ -51,7 +51,7 @@ ScreenManager::MakePage(const PageMeta &sf)
 }
 
 void
-ScreenManager::Switch(const PageMeta &sf, struct mpdclient &c)
+ScreenManager::Switch(const PageMeta &sf, struct mpdclient &c) noexcept
 {
 	if (&sf == current_page->first)
 		return;
@@ -75,7 +75,7 @@ ScreenManager::Switch(const PageMeta &sf, struct mpdclient &c)
 }
 
 void
-ScreenManager::Swap(struct mpdclient &c, const struct mpd_song *song)
+ScreenManager::Swap(struct mpdclient &c, const struct mpd_song *song) noexcept
 {
 	if (song != nullptr)
 	{
@@ -110,7 +110,7 @@ find_configured_screen(const char *name) noexcept
 }
 
 void
-ScreenManager::NextMode(struct mpdclient &c, int offset)
+ScreenManager::NextMode(struct mpdclient &c, int offset) noexcept
 {
 	int max = options.screen_list.size();
 
