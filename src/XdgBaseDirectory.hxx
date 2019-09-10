@@ -17,22 +17,32 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#ifndef XDG_BASE_DIRECTORY_HXX
+#define XDG_BASE_DIRECTORY_HXX
+
+#include "util/Compiler.h"
+
 #include <string>
 
-std::string
-MakeKeysPath();
+gcc_const
+const char *
+GetHomeDirectory() noexcept;
 
-#ifndef _WIN32
+gcc_const
 std::string
-GetHomeConfigPath() noexcept;
+GetHomeConfigDirectory() noexcept;
+
+gcc_pure
+std::string
+GetHomeConfigDirectory(const char *package) noexcept;
+
+/**
+ * Find or create the directory for writing configuration files.
+ *
+ * @return the absolute path; an empty string indicates that no
+ * directory could be created
+ */
+std::string
+MakeUserConfigPath(const char *filename) noexcept;
+
 #endif
-
-std::string
-GetUserConfigPath() noexcept;
-
-std::string
-GetSystemConfigPath() noexcept;
-
-void
-read_configuration();
-

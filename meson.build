@@ -198,8 +198,15 @@ if not mini
     'src/xterm_title.cxx',
     'src/BasicMarquee.cxx',
     'src/hscroll.cxx',
-    'src/conf.cxx',
+    'src/ConfigFile.cxx',
+    'src/ConfigParser.cxx',
   ]
+
+  if host_machine.system() != 'windows'
+    sources += [
+      'src/XdgBaseDirectory.cxx',
+    ]
+  endif
 endif
 
 if async_connect

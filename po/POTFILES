@@ -1,7 +1,7 @@
 src/Bindings.cxx
 src/ChatPage.cxx
 src/Command.cxx
-src/conf.cxx
+src/ConfigParser.cxx
 src/CustomColors.cxx
 src/FileBrowserPage.cxx
 src/FileListPage.cxx

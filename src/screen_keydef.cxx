@@ -27,7 +27,7 @@
 #include "screen_find.hxx"
 #include "KeyName.hxx"
 #include "i18n.h"
-#include "conf.hxx"
+#include "ConfigFile.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "screen_utils.hxx"

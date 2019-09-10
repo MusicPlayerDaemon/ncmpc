@@ -39,7 +39,7 @@
 #include "util/Compiler.h"
 
 #ifndef NCMPC_MINI
-#include "conf.hxx"
+#include "ConfigFile.hxx"
 #endif
 
 #ifdef ENABLE_LYRICS_SCREEN

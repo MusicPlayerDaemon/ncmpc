@@ -22,7 +22,7 @@
 #include "GlobalBindings.hxx"
 #include "config.h"
 #include "charset.hxx"
-#include "conf.hxx"
+#include "ConfigFile.hxx"
 #include "i18n.h"
 
 #include <stdlib.h>
