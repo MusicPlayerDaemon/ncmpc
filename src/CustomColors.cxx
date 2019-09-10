@@ -30,7 +30,8 @@ struct CustomColor {
 	short color;
 	short r,g,b;
 
-	constexpr CustomColor(short _color, short _r, short _g, short _b)
+	constexpr CustomColor(short _color,
+			      short _r, short _g, short _b) noexcept
 		:color(_color), r(_r), g(_g), b(_b) {}
 };
 
@@ -40,13 +41,13 @@ static std::list<CustomColor> custom_colors;
  * it adds the definition to the color_definition_list and init_color() is
  * done in colors_start() */
 void
-colors_define(short color, short r, short g, short b)
+colors_define(short color, short r, short g, short b) noexcept
 {
 	custom_colors.emplace_back(color, r, g, b);
 }
 
 void
-ApplyCustomColors()
+ApplyCustomColors() noexcept
 {
 	if (custom_colors.empty())
 		return;

@@ -21,9 +21,9 @@
 #define CUSTOM_COLORS_HXX
 
 void
-colors_define(short color, short r, short g, short b);
+colors_define(short color, short r, short g, short b) noexcept;
 
 void
-ApplyCustomColors();
+ApplyCustomColors() noexcept;
 
 #endif
