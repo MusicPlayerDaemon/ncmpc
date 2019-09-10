@@ -22,7 +22,7 @@
 
 #include <curses.h>
 
-#include <list>
+#include <forward_list>
 
 #include <stdio.h>
 
@@ -35,7 +35,7 @@ struct CustomColor {
 		:color(_color), r(_r), g(_g), b(_b) {}
 };
 
-static std::list<CustomColor> custom_colors;
+static std::forward_list<CustomColor> custom_colors;
 
 /* This function is called from conf.c before curses have been started,
  * it adds the definition to the color_definition_list and init_color() is
@@ -43,7 +43,7 @@ static std::list<CustomColor> custom_colors;
 void
 colors_define(short color, short r, short g, short b) noexcept
 {
-	custom_colors.emplace_back(color, r, g, b);
+	custom_colors.emplace_front(color, r, g, b);
 }
 
 void
