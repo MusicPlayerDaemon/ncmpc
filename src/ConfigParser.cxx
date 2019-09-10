@@ -166,8 +166,9 @@ parse_key_definition(char *str)
 	/* get the command name */
 	char *eq = strchr(str, '=');
 	if (eq == nullptr)
-		/* the hotkey configuration line is incomplete */
 		throw FormatRuntimeError("%s: %s",
+					 /* the hotkey configuration
+					    line is incomplete */
 					 _("Incomplete hotkey configuration"),
 					 str);
 
@@ -178,9 +179,10 @@ parse_key_definition(char *str)
 	StripRight(command_name);
 	const auto cmd = get_key_command_from_name(command_name);
 	if (cmd == Command::NONE)
-		/* the hotkey configuration contains an unknown
-		   command */
 		throw FormatRuntimeError("%s: %s",
+					 /* the hotkey configuration
+					    contains an unknown
+					    command */
 					 _("Unknown command"), command_name);
 
 	/* parse key values */
@@ -208,11 +210,15 @@ parse_timedisplay_type(const char *str)
 	else if (strcmp(str, "remaining") == 0)
 		return true;
 	else {
-		/* translators: ncmpc supports displaying the
-		   "elapsed" or "remaining" time of a song being
-		   played; in this case, the configuration file
-		   contained an invalid setting */
 		throw FormatRuntimeError("%s: %s",
+					 /* translators: ncmpc
+					    supports displaying the
+					    "elapsed" or "remaining"
+					    time of a song being
+					    played; in this case, the
+					    configuration file
+					    contained an invalid
+					    setting */
 					 _("Bad time display type"), str);
 		return false;
 	}
@@ -358,9 +364,12 @@ check_screen_list(char *value)
 
 		const auto *page_meta = screen_lookup_name(name);
 		if (page_meta == nullptr)
-			/* an unknown screen name was specified in the
-			   configuration file */
 			throw FormatRuntimeError("%s: %s",
+						 /* an unknown screen
+						    name was specified
+						    in the
+						    configuration
+						    file */
 						 _("Unknown screen name"),
 						 name);
 
