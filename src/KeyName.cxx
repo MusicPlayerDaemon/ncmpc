@@ -25,7 +25,7 @@
 #include <stdio.h>
 
 const char *
-key2str(int key)
+key2str(int key) noexcept
 {
 	switch(key) {
 		static char buf[32];

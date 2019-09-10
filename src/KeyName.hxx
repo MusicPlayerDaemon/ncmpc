@@ -24,6 +24,6 @@
 
 gcc_pure
 const char *
-key2str(int key);
+key2str(int key) noexcept;
 
 #endif
