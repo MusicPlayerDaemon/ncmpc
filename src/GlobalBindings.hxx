@@ -26,6 +26,6 @@ struct KeyBindings;
 
 gcc_const
 KeyBindings &
-GetGlobalKeyBindings();
+GetGlobalKeyBindings() noexcept;
 
 #endif

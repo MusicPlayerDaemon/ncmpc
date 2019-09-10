@@ -160,7 +160,7 @@ static KeyBindings global_key_bindings{{{
 }}};
 
 KeyBindings &
-GetGlobalKeyBindings()
+GetGlobalKeyBindings() noexcept
 {
 	return global_key_bindings;
 }
