@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-08 13:56+0200\n"
+"POT-Creation-Date: 2019-09-10 21:38+0200\n"
 "PO-Revision-Date: 2019-01-22 14:05+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "%s 키가 %s 및 %s 에 지정됨"
 
-#: src/ChatPage.cxx:63 src/ChatPage.cxx:181
+#: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
 msgstr "채팅"
 
-#: src/ChatPage.cxx:162
+#: src/ChatPage.cxx:163
 msgid "Your message"
 msgstr "나의 메시지"
 
-#: src/ChatPage.cxx:171
+#: src/ChatPage.cxx:172
 msgid "Message could not be sent"
 msgstr "메시지를 보낼 수 없습니다"
 
@@ -322,113 +322,117 @@ msgstr "출력 화면"
 msgid "Chat screen"
 msgstr "채팅 화면"
 
-#. To translators: prefix for error messages
-#: src/conf.cxx:121 src/screen_keydef.cxx:417 src/screen_keydef.cxx:426
-msgid "Error"
-msgstr "오류"
-
-#: src/conf.cxx:134
+#: src/ConfigParser.cxx:118
 msgid "Word expected"
 msgstr "단어 요구됨"
 
-#: src/conf.cxx:158 src/conf.cxx:167
+#: src/ConfigParser.cxx:144 src/ConfigParser.cxx:153
 msgid "Malformed hotkey definition"
 msgstr "잘못된 단축키 정의"
 
-#. the hotkey configuration line is incomplete
-#: src/conf.cxx:182
+#. the hotkey configuration
+#. line is incomplete
+#: src/ConfigParser.cxx:172
 msgid "Incomplete hotkey configuration"
 msgstr "불완전한 단축키 설정"
 
-#. the hotkey configuration contains an unknown
+#. the hotkey configuration
+#. contains an unknown
 #. command
-#: src/conf.cxx:195
+#: src/ConfigParser.cxx:186
 msgid "Unknown command"
 msgstr "모르는 명령어"
 
-#. translators: ncmpc supports displaying the
-#. "elapsed" or "remaining" time of a song being
-#. played; in this case, the configuration file
-#. contained an invalid setting
-#: src/conf.cxx:231
+#. translators: ncmpc
+#. supports displaying the
+#. "elapsed" or "remaining"
+#. time of a song being
+#. played; in this case, the
+#. configuration file
+#. contained an invalid
+#. setting
+#: src/ConfigParser.cxx:222
 msgid "Bad time display type"
 msgstr "잘못된 시간 표시 형식"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/conf.cxx:244 src/conf.cxx:470
+#: src/ConfigParser.cxx:238 src/ConfigParser.cxx:468
 msgid "Missing '='"
 msgstr "'=' 기호가 없음"
 
-#: src/conf.cxx:294
+#: src/ConfigParser.cxx:287
 msgid "Bad color name"
 msgstr "잘못된 색상 이름"
 
-#: src/conf.cxx:304
+#: src/ConfigParser.cxx:296
 msgid "Incomplete color definition"
 msgstr "불완전한 색상 지정"
 
-#: src/conf.cxx:310
+#: src/ConfigParser.cxx:302
 msgid "Invalid number"
 msgstr "잘못된 숫자"
 
-#: src/conf.cxx:318
+#: src/ConfigParser.cxx:309
 msgid "Malformed color definition"
 msgstr "잘못된 색상 지정"
 
-#. an unknown screen name was specified in the
-#. configuration file
-#: src/conf.cxx:378
+#. an unknown screen
+#. name was specified
+#. in the
+#. configuration
+#. file
+#: src/ConfigParser.cxx:373
 msgid "Unknown screen name"
 msgstr "모르는 화면 이름"
 
-#: src/conf.cxx:403
+#: src/ConfigParser.cxx:402
 #, fuzzy
 msgid "Unknown MPD tag"
 msgstr "모르는 명령어"
 
-#: src/conf.cxx:430
+#: src/ConfigParser.cxx:429
 msgid "Invalid search mode"
 msgstr "잘못된 검색 모드"
 
-#: src/conf.cxx:450
+#: src/ConfigParser.cxx:447
 msgid "Unknown search mode"
 msgstr "모르는 검색 모드"
 
-#: src/conf.cxx:639
+#: src/ConfigParser.cxx:635
 msgid "Unknown configuration parameter"
 msgstr "모르는 설정 요소"
 
-#: src/CustomColors.cxx:56
+#: src/CustomColors.cxx:57
 msgid "Terminal lacks support for changing colors"
 msgstr "터미널의 색상 변경 지원이 부족합니다"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:247
+#: src/FileBrowserPage.cxx:248
 msgid "Deleting this item is not possible"
 msgstr "이 항목을 지울 수 없습니다"
 
-#: src/FileBrowserPage.cxx:255
+#: src/FileBrowserPage.cxx:256
 #, c-format
 msgid "Delete playlist %s?"
 msgstr "%s 연주목록을 지울까요?"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:260 src/LyricsPage.cxx:380 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:184
+#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:381 src/save_playlist.cxx:111
+#: src/screen_keydef.cxx:181
 msgid "Aborted"
 msgstr "중단됨"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:273
+#: src/FileBrowserPage.cxx:274
 msgid "Playlist deleted"
 msgstr "연주목록을 지움"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:300 src/FileBrowserPage.cxx:382
+#: src/FileBrowserPage.cxx:301 src/FileBrowserPage.cxx:383
 msgid "Browse"
 msgstr "음원"
 
@@ -549,169 +553,169 @@ msgstr "y"
 msgid "n"
 msgstr "n"
 
-#: src/KeyName.cxx:32
+#: src/KeyName.cxx:34
 msgid "Undefined"
 msgstr "정의되지 않음"
 
-#: src/KeyName.cxx:34
+#: src/KeyName.cxx:36
 msgid "Space"
 msgstr "Space"
 
-#: src/KeyName.cxx:36
+#: src/KeyName.cxx:38
 msgid "Enter"
 msgstr "Enter"
 
-#: src/KeyName.cxx:38
+#: src/KeyName.cxx:40
 msgid "Backspace"
 msgstr "Backspace"
 
-#: src/KeyName.cxx:40
+#: src/KeyName.cxx:42
 msgid "Delete"
 msgstr "Delete"
 
-#: src/KeyName.cxx:42
+#: src/KeyName.cxx:44
 msgid "Up"
 msgstr "Up"
 
-#: src/KeyName.cxx:44
+#: src/KeyName.cxx:46
 msgid "Down"
 msgstr "Down"
 
-#: src/KeyName.cxx:46
+#: src/KeyName.cxx:48
 msgid "Left"
 msgstr "Left"
 
-#: src/KeyName.cxx:48
+#: src/KeyName.cxx:50
 msgid "Right"
 msgstr "Right"
 
-#: src/KeyName.cxx:50
+#: src/KeyName.cxx:52
 msgid "Home"
 msgstr "Home"
 
-#: src/KeyName.cxx:52
+#: src/KeyName.cxx:54
 msgid "End"
 msgstr "End"
 
-#: src/KeyName.cxx:54
+#: src/KeyName.cxx:56
 msgid "PageDown"
 msgstr "PageDown"
 
-#: src/KeyName.cxx:56
+#: src/KeyName.cxx:58
 msgid "PageUp"
 msgstr "PageUp"
 
-#: src/KeyName.cxx:58
+#: src/KeyName.cxx:60
 msgid "Tab"
 msgstr "Tab"
 
-#: src/KeyName.cxx:60
+#: src/KeyName.cxx:62
 msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
-#: src/KeyName.cxx:62
+#: src/KeyName.cxx:64
 msgid "Esc"
 msgstr "Esc"
 
-#: src/KeyName.cxx:64
+#: src/KeyName.cxx:66
 msgid "Insert"
 msgstr "Insert"
 
-#: src/KeyName.cxx:72
+#: src/KeyName.cxx:74
 #, c-format
 msgid "Ctrl-%c"
 msgstr "Ctrl-%c"
 
-#: src/KeyName.cxx:74
+#: src/KeyName.cxx:76
 #, c-format
 msgid "Alt-%c"
 msgstr "Alt-%c"
 
-#: src/LibraryPage.cxx:48
+#: src/LibraryPage.cxx:45
 msgid "Artists"
 msgstr "연주가"
 
-#: src/LibraryPage.cxx:51 src/LibraryPage.cxx:180
+#: src/LibraryPage.cxx:48 src/LibraryPage.cxx:177
 msgid "Albums"
 msgstr "음반"
 
-#: src/LibraryPage.cxx:126
+#: src/LibraryPage.cxx:123
 msgid "All"
 msgstr ""
 
-#: src/LibraryPage.cxx:202
+#: src/LibraryPage.cxx:199
 #, fuzzy
 msgid "Songs"
 msgstr "곡"
 
-#: src/LibraryPage.cxx:303
+#: src/LibraryPage.cxx:300
 msgid "Library"
 msgstr ""
 
-#: src/ListWindow.cxx:215
+#: src/ListWindow.cxx:213
 msgid "Range selection disabled"
 msgstr "범위 선택을 사용 안 함"
 
-#: src/ListWindow.cxx:218
+#: src/ListWindow.cxx:216
 msgid "Range selection enabled"
 msgstr "범위 선택을 사용함"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:249
+#: src/LyricsPage.cxx:250
 msgid "No lyrics"
 msgstr "가사 없음"
 
-#: src/LyricsPage.cxx:267
+#: src/LyricsPage.cxx:268
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr "%d 초 후에 가사 끝남"
 
-#: src/LyricsPage.cxx:345 src/LyricsPage.cxx:353 src/LyricsPage.cxx:363
-#: src/LyricsPage.cxx:499
+#: src/LyricsPage.cxx:346 src/LyricsPage.cxx:354 src/LyricsPage.cxx:364
+#: src/LyricsPage.cxx:500
 msgid "Lyrics"
 msgstr "가사"
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/LyricsPage.cxx:348
+#: src/LyricsPage.cxx:349
 msgid "loading..."
 msgstr "읽는 중..."
 
-#: src/LyricsPage.cxx:370
+#: src/LyricsPage.cxx:371
 msgid "Editor not configured"
 msgstr "편집기 설정 안됨"
 
-#: src/LyricsPage.cxx:377
+#: src/LyricsPage.cxx:378
 msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr "편집기를 시작하고 가사를 수정할까요?"
 
-#: src/LyricsPage.cxx:395 src/LyricsPage.cxx:419
+#: src/LyricsPage.cxx:396 src/LyricsPage.cxx:420
 msgid "Can't start editor"
 msgstr "편집기를 사용할 수 없음"
 
-#: src/LyricsPage.cxx:422 src/LyricsPage.cxx:426
+#: src/LyricsPage.cxx:423 src/LyricsPage.cxx:427
 msgid "Editor exited unexpectedly"
 msgstr "편집기가 갑자기 종료됨"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:448
+#: src/LyricsPage.cxx:449
 msgid "Lyrics saved"
 msgstr "가사 저장"
 
-#: src/LyricsPage.cxx:454
+#: src/LyricsPage.cxx:455
 msgid "Lyrics deleted"
 msgstr "가사 지움"
 
-#: src/LyricsPage.cxx:455
+#: src/LyricsPage.cxx:456
 msgid "No saved lyrics"
 msgstr "저장된 가사가 없음"
 
-#: src/Main.cxx:131
+#: src/Main.cxx:132
 #, c-format
 msgid "Connecting to %s"
 msgstr "%s로 연결 중"
 
-#: src/Main.cxx:147
+#: src/Main.cxx:148
 #, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "오류: 너무 오래된 MPD %d.%d.%d 버전 (%s 필요)"
@@ -736,7 +740,7 @@ msgstr "출력 '%s' 사용 안 함"
 msgid "Outputs"
 msgstr "출력"
 
-#: src/player_command.cxx:94 src/QueuePage.cxx:650
+#: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
 msgstr "순서 뒤섞음"
 
@@ -745,15 +749,15 @@ msgid "Cleared queue"
 msgstr "순서 지움"
 
 #. get path
-#: src/QueuePage.cxx:313
+#: src/QueuePage.cxx:314
 msgid "Add"
 msgstr "추가"
 
-#: src/QueuePage.cxx:378 src/QueuePage.cxx:696
+#: src/QueuePage.cxx:379 src/QueuePage.cxx:697
 msgid "Queue"
 msgstr "순서"
 
-#: src/QueuePage.cxx:380
+#: src/QueuePage.cxx:381
 #, c-format
 msgid "Queue on %s"
 msgstr "순서 %s"
@@ -787,19 +791,19 @@ msgstr "%s 데이터베이스 업데이트 시작"
 msgid "Database update started"
 msgstr "데이터베이스 업데이트 시작"
 
-#: src/screen.cxx:162
+#: src/screen.cxx:158
 msgid "Repeat mode is on"
 msgstr "반복 모드 켜짐"
 
-#: src/screen.cxx:163
+#: src/screen.cxx:159
 msgid "Repeat mode is off"
 msgstr "반복 모드 꺼짐"
 
-#: src/screen.cxx:167
+#: src/screen.cxx:163
 msgid "Random mode is on"
 msgstr "무작위 모드 켜짐"
 
-#: src/screen.cxx:168
+#: src/screen.cxx:164
 msgid "Random mode is off"
 msgstr "무작위 모드 꺼짐"
 
@@ -808,11 +812,11 @@ msgstr "무작위 모드 꺼짐"
 #. automatically stop
 #. after playing one
 #. single song
-#: src/screen.cxx:177
+#: src/screen.cxx:173
 msgid "Single mode is on"
 msgstr "한 곡 모드 켜짐"
 
-#: src/screen.cxx:178
+#: src/screen.cxx:174
 msgid "Single mode is off"
 msgstr "한 곡 모드 꺼짐"
 
@@ -820,209 +824,213 @@ msgstr "한 곡 모드 꺼짐"
 #. that MPD removes each
 #. song which has
 #. finished playing
-#: src/screen.cxx:186
+#: src/screen.cxx:182
 msgid "Consume mode is on"
 msgstr "소비 모드 켜짐"
 
-#: src/screen.cxx:187
+#: src/screen.cxx:183
 msgid "Consume mode is off"
 msgstr "소비 모드 꺼짐"
 
-#: src/screen.cxx:190
+#: src/screen.cxx:186
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "크로스페이드 %d 초"
 
-#: src/screen.cxx:202
+#: src/screen.cxx:198
 msgid "Database updated"
 msgstr "데이터베이스 업데이트 함"
 
-#: src/screen.cxx:252
+#: src/screen.cxx:248
 msgid "Find mode: Wrapped"
 msgstr "찾기 방식: 줄 바꿈"
 
-#: src/screen.cxx:253
+#: src/screen.cxx:249
 msgid "Find mode: Normal"
 msgstr "찾기 방식: 보통"
 
-#: src/screen.cxx:258
+#: src/screen.cxx:254
 msgid "Auto center mode: On"
 msgstr "자동 가운데 방식: 켜짐"
 
-#: src/screen.cxx:259
+#: src/screen.cxx:255
 msgid "Auto center mode: Off"
 msgstr "자동 가운데 방식: 꺼짐"
 
-#: src/screen_find.cxx:32
+#: src/screen_find.cxx:33
 msgid "Find"
 msgstr "찾기"
 
-#: src/screen_find.cxx:33
+#: src/screen_find.cxx:34
 msgid "Find backward"
 msgstr "뒤로 찾기"
 
-#: src/screen_find.cxx:34
+#: src/screen_find.cxx:35
 msgid "Jump"
 msgstr "이동"
 
-#: src/screen_find.cxx:80
+#: src/screen_find.cxx:81
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "'%s' 찾을 수 없음"
 
-#: src/screen_keydef.cxx:163
+#: src/screen_keydef.cxx:160
 msgid "Deleted"
 msgstr "삭제됨"
 
-#: src/screen_keydef.cxx:179
+#: src/screen_keydef.cxx:176
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "%s의 새 키 입력: "
 
-#: src/screen_keydef.cxx:189
+#: src/screen_keydef.cxx:186
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-Space 사용할 수 없음"
 
-#: src/screen_keydef.cxx:195
+#: src/screen_keydef.cxx:192
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "오류: %s 키는 이미 %s에 사용함"
 
-#: src/screen_keydef.cxx:204
+#: src/screen_keydef.cxx:201
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "%s 키가 %s에 지정됨"
 
-#: src/screen_keydef.cxx:231
+#: src/screen_keydef.cxx:228
 msgid "Add new key"
 msgstr "새로운 키 추가"
 
-#: src/screen_keydef.cxx:253
+#: src/screen_keydef.cxx:250
 #, c-format
 msgid "Edit keys for %s"
 msgstr "%s 키 편집"
 
-#: src/screen_keydef.cxx:396
+#: src/screen_keydef.cxx:393
 msgid "You have new key bindings"
 msgstr "새로운 키 조합입니다"
 
-#: src/screen_keydef.cxx:398
+#: src/screen_keydef.cxx:395
 msgid "Keybindings unchanged."
 msgstr "키 조합이 바뀌지 않았습니다."
 
-#: src/screen_keydef.cxx:408
+#: src/screen_keydef.cxx:405
 msgid "Unable to write configuration"
 msgstr "설정 쓰기가 안 됨"
 
-#: src/screen_keydef.cxx:424
+#: src/screen_keydef.cxx:414 src/screen_keydef.cxx:423
+msgid "Error"
+msgstr "오류"
+
+#: src/screen_keydef.cxx:421
 #, c-format
 msgid "Wrote %s"
 msgstr "%s 쓰기"
 
-#: src/screen_keydef.cxx:437
+#: src/screen_keydef.cxx:434
 msgid "===> Apply key bindings "
 msgstr "===> 키 조합을 적용 "
 
-#: src/screen_keydef.cxx:439
+#: src/screen_keydef.cxx:436
 msgid "===> Apply & Save key bindings  "
 msgstr "===> 키 조합을 적용하고 저장  "
 
-#: src/screen_keydef.cxx:476
+#: src/screen_keydef.cxx:473
 msgid "Edit key bindings"
 msgstr "키 조합 편집"
 
-#: src/screen_keydef.cxx:558
+#: src/screen_keydef.cxx:555
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "주의: 변경사항 '적용하기'를 잊었나요?"
 
-#: src/screen_keydef.cxx:608
+#: src/screen_keydef.cxx:605
 msgid "Keys"
 msgstr "키"
 
-#: src/screen_utils.cxx:152
+#: src/screen_utils.cxx:150
 msgid "Password"
 msgstr "열쇠글"
 
-#: src/SearchPage.cxx:48
+#: src/SearchPage.cxx:47
 msgid "artist"
 msgstr "연주가"
 
-#: src/SearchPage.cxx:49
+#: src/SearchPage.cxx:48
 msgid "album"
 msgstr "음반"
 
-#: src/SearchPage.cxx:50
+#: src/SearchPage.cxx:49
 msgid "title"
 msgstr "제목"
 
-#: src/SearchPage.cxx:51
+#: src/SearchPage.cxx:50
 msgid "track"
 msgstr "곡"
 
-#: src/SearchPage.cxx:52
+#: src/SearchPage.cxx:51
 msgid "name"
 msgstr "이름"
 
-#: src/SearchPage.cxx:53
+#: src/SearchPage.cxx:52
 msgid "genre"
 msgstr "장르"
 
-#: src/SearchPage.cxx:54
+#: src/SearchPage.cxx:53
 msgid "date"
 msgstr "날짜"
 
-#: src/SearchPage.cxx:55
+#: src/SearchPage.cxx:54
 msgid "composer"
 msgstr "작곡가"
 
-#: src/SearchPage.cxx:56
+#: src/SearchPage.cxx:55
 msgid "performer"
 msgstr "연주가"
 
-#: src/SearchPage.cxx:57
+#: src/SearchPage.cxx:56
 msgid "comment"
 msgstr "설명"
 
-#: src/SearchPage.cxx:65
+#: src/SearchPage.cxx:64
 msgid "file"
 msgstr "파일"
 
-#: src/SearchPage.cxx:82 src/SongPage.cxx:63
+#: src/SearchPage.cxx:81 src/SongPage.cxx:63
 msgid "Title"
 msgstr "제목"
 
-#: src/SearchPage.cxx:83 src/SongPage.cxx:62
+#: src/SearchPage.cxx:82 src/SongPage.cxx:62
 msgid "Artist"
 msgstr "연주가"
 
-#: src/SearchPage.cxx:84 src/SongPage.cxx:64
+#: src/SearchPage.cxx:83 src/SongPage.cxx:64
 msgid "Album"
 msgstr "음반"
 
-#: src/SearchPage.cxx:85
+#: src/SearchPage.cxx:84
 msgid "Filename"
 msgstr "파일이름"
 
-#: src/SearchPage.cxx:86
+#: src/SearchPage.cxx:85
 msgid "Artist + Title"
 msgstr "연주가 + 제목"
 
-#: src/SearchPage.cxx:264
+#: src/SearchPage.cxx:263
 #, c-format
 msgid "Bad search tag %s"
 msgstr "잘못된 찾기 태그 %s"
 
-#: src/SearchPage.cxx:278
+#: src/SearchPage.cxx:277
 #, c-format
 msgid "No argument for search tag %s"
 msgstr "%s 찾기 태그의 인자가 없음"
 
-#: src/SearchPage.cxx:367 src/SearchPage.cxx:400 src/SearchPage.cxx:404
-#: src/SearchPage.cxx:408 src/SearchPage.cxx:467
+#: src/SearchPage.cxx:366 src/SearchPage.cxx:399 src/SearchPage.cxx:403
+#: src/SearchPage.cxx:407 src/SearchPage.cxx:466
 msgid "Search"
 msgstr "찾기"
 
-#: src/SearchPage.cxx:430
+#: src/SearchPage.cxx:429
 #, c-format
 msgid "Search mode: %s"
 msgstr "찾기 방식: %s"
@@ -1128,23 +1136,23 @@ msgstr "%d kbps"
 msgid "Song"
 msgstr "곡"
 
-#: src/StatusBar.cxx:101
+#: src/StatusBar.cxx:100
 msgid "Playing:"
 msgstr "연주 중:"
 
-#: src/StatusBar.cxx:105
+#: src/StatusBar.cxx:104
 msgid "[Paused]"
 msgstr "[잠깐 멈춤]"
 
-#: src/Styles.cxx:271 src/Styles.cxx:319 src/Styles.cxx:351
+#: src/Styles.cxx:252 src/Styles.cxx:313
 msgid "Unknown color"
 msgstr "모르는 색상"
 
-#: src/Styles.cxx:334
+#: src/Styles.cxx:323
 msgid "Unknown color field"
 msgstr "모르는 색상 필드"
 
-#: src/Styles.cxx:376
+#: src/Styles.cxx:356
 msgid "Terminal lacks color capabilities"
 msgstr "터미널의 색상 기능이 부족합니다"
 
@@ -1176,11 +1184,11 @@ msgstr "일"
 msgid "days"
 msgstr "일"
 
-#: src/TitleBar.cxx:100
+#: src/TitleBar.cxx:101
 msgid "Volume n/a"
 msgstr "음량 없음"
 
-#: src/TitleBar.cxx:102
+#: src/TitleBar.cxx:103
 #, c-format
 msgid "Volume %d%%"
 msgstr "음량 %d%%"
