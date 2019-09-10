@@ -60,10 +60,11 @@ void
 ModifyStyle(const char *name, const char *value);
 
 void
-ApplyStyles();
+ApplyStyles() noexcept;
+
 #endif
 
 void
-SelectStyle(WINDOW *w, Style style);
+SelectStyle(WINDOW *w, Style style) noexcept;
 
 #endif

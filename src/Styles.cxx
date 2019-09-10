@@ -90,7 +90,7 @@ struct StyleData {
 
 #ifndef ENABLE_COLORS
 	constexpr StyleData(const char *_name, Style,
-			    short, short, attr_t, attr_t _mono)
+			    short, short, attr_t, attr_t _mono) noexcept
 		:name(_name), mono(_mono) {}
 #endif
 };
@@ -188,7 +188,7 @@ static StyleData styles[size_t(Style::END)] = {
 };
 
 static constexpr auto &
-GetStyle(Style style)
+GetStyle(Style style) noexcept
 {
 	return styles[size_t(style)];
 }
@@ -197,7 +197,7 @@ GetStyle(Style style)
 
 gcc_pure
 static Style
-StyleByName(const char *name)
+StyleByName(const char *name) noexcept
 {
 	for (size_t i = 1; i < size_t(Style::END); ++i)
 		if (!strcasecmp(styles[i].name, name))
@@ -207,7 +207,7 @@ StyleByName(const char *name)
 }
 
 static void
-colors_update_pair(Style style)
+colors_update_pair(Style style) noexcept
 {
 	auto &data = GetStyle(style);
 
@@ -337,7 +337,7 @@ ModifyStyle(const char *name, const char *value)
 }
 
 void
-ApplyStyles()
+ApplyStyles() noexcept
 {
 	if (has_colors()) {
 		/* initialize color support */
@@ -360,7 +360,7 @@ ApplyStyles()
 #endif
 
 void
-SelectStyle(WINDOW *w, Style style)
+SelectStyle(WINDOW *w, Style style) noexcept
 {
 	const auto &data = GetStyle(style);
 
