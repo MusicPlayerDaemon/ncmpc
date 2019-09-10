@@ -24,13 +24,13 @@
 #include <stdarg.h>
 
 void
-screen_status_message(const char *msg)
+screen_status_message(const char *msg) noexcept
 {
 	screen->status_bar.SetMessage(msg);
 }
 
 void
-screen_status_printf(const char *format, ...)
+screen_status_printf(const char *format, ...) noexcept
 {
 	va_list ap;
 	va_start(ap,format);

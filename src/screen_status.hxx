@@ -23,10 +23,10 @@
 #include "util/Compiler.h"
 
 void
-screen_status_message(const char *msg);
+screen_status_message(const char *msg) noexcept;
 
 gcc_printf(1, 2)
 void
-screen_status_printf(const char *format, ...);
+screen_status_printf(const char *format, ...) noexcept;
 
 #endif
