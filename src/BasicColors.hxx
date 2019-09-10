@@ -29,7 +29,7 @@
  */
 gcc_pure
 short
-ParseBasicColorName(const char *name);
+ParseBasicColorName(const char *name) noexcept;
 
 /**
  * Like ParseBasicColorName(), but also allow numeric colors.
@@ -38,6 +38,6 @@ ParseBasicColorName(const char *name);
  */
 gcc_pure
 short
-ParseColorNameOrNumber(const char *s);
+ParseColorNameOrNumber(const char *s) noexcept;
 
 #endif

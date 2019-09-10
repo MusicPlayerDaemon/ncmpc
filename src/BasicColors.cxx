@@ -46,7 +46,7 @@ static_assert(COLOR_CYAN == 6, "Unexpected color value");
 static_assert(COLOR_WHITE == 7, "Unexpected color value");
 
 short
-ParseBasicColorName(const char *name)
+ParseBasicColorName(const char *name) noexcept
 {
 	for (size_t i = 0; basic_color_names[i] != nullptr; ++i)
 		if (strcasecmp(basic_color_names[i], name) == 0)
@@ -56,7 +56,7 @@ ParseBasicColorName(const char *name)
 }
 
 short
-ParseColorNameOrNumber(const char *s)
+ParseColorNameOrNumber(const char *s) noexcept
 {
 	short basic = ParseBasicColorName(s);
 	if (basic >= 0)
