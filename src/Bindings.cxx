@@ -50,7 +50,7 @@ KeyBindings::GetKeyNames(Command command) const noexcept
 }
 
 Command
-KeyBindings::FindKey(int key) const
+KeyBindings::FindKey(int key) const noexcept
 {
 	assert(key != 0);
 
@@ -65,7 +65,7 @@ KeyBindings::FindKey(int key) const
 #ifndef NCMPC_MINI
 
 bool
-KeyBindings::Check(char *buf, size_t bufsize) const
+KeyBindings::Check(char *buf, size_t bufsize) const noexcept
 {
 	bool success = true;
 
@@ -100,7 +100,7 @@ KeyBindings::Check(char *buf, size_t bufsize) const
 
 void
 KeyBinding::WriteToFile(FILE *f, const command_definition_t &cmd,
-			bool comment) const
+			bool comment) const noexcept
 {
 	fprintf(f, "## %s\n", cmd.description);
 	if (comment)
@@ -131,7 +131,7 @@ KeyBinding::WriteToFile(FILE *f, const command_definition_t &cmd,
 }
 
 bool
-KeyBindings::WriteToFile(FILE *f, int flags) const
+KeyBindings::WriteToFile(FILE *f, int flags) const noexcept
 {
 	const auto *cmds = get_command_definitions();
 

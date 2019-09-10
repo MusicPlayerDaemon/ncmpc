@@ -47,17 +47,17 @@ struct KeyBinding {
 		:keys{{a, b, c}} {}
 
 	gcc_pure
-	bool HasKey(int key) const {
+	bool HasKey(int key) const noexcept {
 		return std::find(keys.begin(), keys.end(), key) != keys.end();
 	}
 
 	gcc_pure
-	size_t GetKeyCount() const {
+	size_t GetKeyCount() const noexcept {
 		return std::distance(keys.begin(),
 				     std::find(keys.begin(), keys.end(), 0));
 	}
 
-	void SetKey(const std::array<int, MAX_COMMAND_KEYS> &_keys) {
+	void SetKey(const std::array<int, MAX_COMMAND_KEYS> &_keys) noexcept {
 		keys = _keys;
 #ifndef NCMPC_MINI
 		modified = true;
@@ -66,7 +66,7 @@ struct KeyBinding {
 
 #ifndef NCMPC_MINI
 	void WriteToFile(FILE *f, const command_definition_t &cmd,
-			 bool comment) const;
+			 bool comment) const noexcept;
 #endif
 };
 
@@ -74,7 +74,7 @@ struct KeyBindings {
 	std::array<KeyBinding, size_t(Command::NONE)> key_bindings;
 
 	gcc_pure
-	Command FindKey(int key) const;
+	Command FindKey(int key) const noexcept;
 
 	/**
 	 * Returns the name of the first key bound to the given
@@ -87,7 +87,7 @@ struct KeyBindings {
 	std::string GetKeyNames(Command command) const noexcept;
 
 	void SetKey(Command command,
-		    const std::array<int, MAX_COMMAND_KEYS> &keys) {
+		    const std::array<int, MAX_COMMAND_KEYS> &keys) noexcept {
 		auto &b = key_bindings[size_t(command)];
 		b.SetKey(keys);
 	}
@@ -96,12 +96,12 @@ struct KeyBindings {
 	/**
 	 * @return true on success, false on error
 	 */
-	bool Check(char *buf, size_t size) const;
+	bool Check(char *buf, size_t size) const noexcept;
 
 	/**
 	 * @return true on success, false on error
 	 */
-	bool WriteToFile(FILE *f, int all) const;
+	bool WriteToFile(FILE *f, int all) const noexcept;
 #endif
 };
 
