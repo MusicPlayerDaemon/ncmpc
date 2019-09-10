@@ -23,7 +23,7 @@
 #include <stdio.h>
 
 void
-format_duration_short(char *buffer, size_t length, unsigned duration)
+format_duration_short(char *buffer, size_t length, unsigned duration) noexcept
 {
 	if (duration < 3600)
 		snprintf(buffer, length,
@@ -35,7 +35,7 @@ format_duration_short(char *buffer, size_t length, unsigned duration)
 }
 
 void
-format_duration_long(char *p, size_t length, unsigned long duration)
+format_duration_long(char *p, size_t length, unsigned long duration) noexcept
 {
 	unsigned bytes_written = 0;
 
