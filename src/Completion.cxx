@@ -22,14 +22,14 @@
 #include <assert.h>
 
 static bool
-StartsWith(const std::string &haystack, const std::string &needle)
+StartsWith(const std::string &haystack, const std::string &needle) noexcept
 {
 	return haystack.length() >= needle.length() &&
 		std::equal(needle.begin(), needle.end(), haystack.begin());
 }
 
 Completion::Result
-Completion::Complete(const std::string &prefix) const
+Completion::Complete(const std::string &prefix) const noexcept
 {
 	auto lower = list.lower_bound(prefix);
 	if (lower == list.end() || !StartsWith(*lower, prefix))

@@ -259,17 +259,17 @@ class DatabaseCompletion final : public Completion {
 	std::set<std::string> dir_list;
 
 public:
-	explicit DatabaseCompletion(struct mpdclient &_c)
+	explicit DatabaseCompletion(struct mpdclient &_c) noexcept
 		:c(_c) {}
 
 protected:
 	/* virtual methods from class Completion */
-	void Pre(const char *value) override;
-	void Post(const char *value, Range range) override;
+	void Pre(const char *value) noexcept override;
+	void Post(const char *value, Range range) noexcept override;
 };
 
 void
-DatabaseCompletion::Pre(const char *line)
+DatabaseCompletion::Pre(const char *line) noexcept
 {
 	if (empty()) {
 		/* create initial list */
@@ -283,7 +283,7 @@ DatabaseCompletion::Pre(const char *line)
 }
 
 void
-DatabaseCompletion::Post(const char *line, Range range)
+DatabaseCompletion::Post(const char *line, Range range) noexcept
 {
 	if (range.begin() != range.end() &&
 	    std::next(range.begin()) != range.end())

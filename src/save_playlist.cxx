@@ -38,17 +38,17 @@ class PlaylistNameCompletion final : public Completion {
 	struct mpdclient &c;
 
 public:
-	explicit PlaylistNameCompletion(struct mpdclient &_c)
+	explicit PlaylistNameCompletion(struct mpdclient &_c) noexcept
 		:c(_c) {}
 
 protected:
 	/* virtual methods from class Completion */
-	void Pre(const char *value) override;
-	void Post(const char *value, Range range) override;
+	void Pre(const char *value) noexcept override;
+	void Post(const char *value, Range range) noexcept override;
 };
 
 void
-PlaylistNameCompletion::Pre(gcc_unused const char *value)
+PlaylistNameCompletion::Pre(gcc_unused const char *value) noexcept
 {
 	if (empty()) {
 		/* create completion list */
@@ -57,7 +57,8 @@ PlaylistNameCompletion::Pre(gcc_unused const char *value)
 }
 
 void
-PlaylistNameCompletion::Post(gcc_unused const char *value, Range range)
+PlaylistNameCompletion::Post(gcc_unused const char *value,
+			     Range range) noexcept
 {
 	if (range.begin() != range.end() &&
 	    std::next(range.begin()) != range.end())
