@@ -34,6 +34,7 @@
 #include "util/Compiler.h"
 #include "util/PrintException.hxx"
 #include "util/RuntimeError.hxx"
+#include "util/ScopeExit.hxx"
 #include "util/StringStrip.hxx"
 
 #include <algorithm>
@@ -647,6 +648,8 @@ ReadConfigFile(const char *filename)
 		return false;
 	}
 
+	AtScopeExit(file) { fclose(file); };
+
 	unsigned no = 0;
 	char line[MAX_LINE_LENGTH];
 	while (fgets(line, sizeof(line), file) != nullptr) {
@@ -667,6 +670,5 @@ ReadConfigFile(const char *filename)
 		}
 	}
 
-	fclose(file);
 	return true;
 }
