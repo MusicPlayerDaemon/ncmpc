@@ -24,7 +24,7 @@ static PluginList empty, plugins;
 
 void lyrics_init()
 {
-	plugin_list_load_directory(&plugins, LYRICS_PLUGIN_DIR);
+	plugins = plugin_list_load_directory(LYRICS_PLUGIN_DIR);
 }
 
 PluginCycle *

@@ -56,8 +56,8 @@ struct PluginCycle;
 /**
  * Load all plugins (executables) in a directory.
  */
-bool
-plugin_list_load_directory(PluginList *list, const char *path) noexcept;
+PluginList
+plugin_list_load_directory(const char *path) noexcept;
 
 /**
  * Run plugins in this list, until one returns success (or until the

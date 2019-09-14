@@ -156,24 +156,26 @@ ShallSkipDirectoryEntry(const char *name) noexcept
 	return name[0] == '.' && (name[1] == 0 || (name[1] == '.' && name[2] == 0));
 }
 
-bool
-plugin_list_load_directory(PluginList *list, const char *path) noexcept
+PluginList
+plugin_list_load_directory(const char *path) noexcept
 {
+	PluginList list;
+
 	DIR *dir = opendir(path);
 	if (dir == nullptr)
-		return false;
+		return list;
 
 	AtScopeExit(dir) { closedir(dir); };
 
 	while (const auto *e = readdir(dir)) {
 		const char *name = e->d_name;
 		if (!ShallSkipDirectoryEntry(name))
-			register_plugin(list, BuildPath(path, name));
+			register_plugin(&list, BuildPath(path, name));
 	}
 
-	std::sort(list->plugins.begin(), list->plugins.end());
+	std::sort(list.plugins.begin(), list.plugins.end());
 
-	return true;
+	return list;
 }
 
 void
