@@ -83,7 +83,7 @@ struct PluginPipe {
 
 struct PluginCycle {
 	/** the plugin list; used for traversing to the next plugin */
-	PluginList *list;
+	const PluginList &list;
 
 	/** arguments passed to execv() */
 	std::unique_ptr<char *[]> argv;
@@ -110,9 +110,9 @@ struct PluginCycle {
 	boost::asio::steady_timer delayed_fail_timer;
 
 	PluginCycle(boost::asio::io_service &io_service,
-		    PluginList &_list, std::unique_ptr<char *[]> &&_argv,
+		    const PluginList &_list, std::unique_ptr<char *[]> &&_argv,
 		    PluginResponseHandler &_handler) noexcept
-		:list(&_list), argv(std::move(_argv)),
+		:list(_list), argv(std::move(_argv)),
 		 handler(_handler),
 		 pipe_stdout(io_service, *this),
 		 pipe_stderr(io_service, *this),
@@ -138,13 +138,13 @@ private:
 };
 
 static bool
-register_plugin(PluginList *list, std::string &&path) noexcept
+register_plugin(PluginList &list, std::string &&path) noexcept
 {
 	struct stat st;
 	if (stat(path.c_str(), &st) < 0)
 		return false;
 
-	list->plugins.emplace_back(std::move(path));
+	list.plugins.emplace_back(std::move(path));
 	return true;
 }
 
@@ -168,7 +168,7 @@ plugin_list_load_directory(const char *path) noexcept
 	while (const auto *e = readdir(dir)) {
 		const char *name = e->d_name;
 		if (!ShallSkipDirectoryEntry(name))
-			register_plugin(&list, BuildPath(path, name));
+			register_plugin(list, BuildPath(path, name));
 	}
 
 	std::sort(list.plugins.begin(), list.plugins.end());
@@ -317,14 +317,14 @@ PluginCycle::TryNextPlugin() noexcept
 	assert(pipe_stdout.data.empty());
 	assert(pipe_stderr.data.empty());
 
-	if (next_plugin >= list->plugins.size()) {
+	if (next_plugin >= list.plugins.size()) {
 		/* no plugins left */
 		ScheduleDelayedFail();
 		return;
 	}
 
 	const char *plugin_path = (const char *)
-		list->plugins[next_plugin++].c_str();
+		list.plugins[next_plugin++].c_str();
 	if (LaunchPlugin(plugin_path) < 0) {
 		/* system error */
 		ScheduleDelayedFail();
