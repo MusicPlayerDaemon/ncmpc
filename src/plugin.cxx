@@ -73,6 +73,12 @@ struct PluginPipe {
 		fd.cancel();
 		fd.close();
 	}
+
+	void Start(PluginCycle &_cycle, int _fd) noexcept {
+		cycle = &_cycle;
+		fd.assign(_fd);
+		AsyncRead();
+	}
 };
 
 struct PluginCycle {
@@ -244,14 +250,6 @@ PluginCycle::OnDelayedFail(const boost::system::error_code &error) noexcept
 		 callback_data);
 }
 
-static void
-plugin_fd_add(PluginCycle *cycle, PluginPipe *p, int fd) noexcept
-{
-	p->cycle = cycle;
-	p->fd.assign(fd);
-	p->AsyncRead();
-}
-
 int
 PluginCycle::LaunchPlugin(const char *plugin_path) noexcept
 {
@@ -305,8 +303,8 @@ PluginCycle::LaunchPlugin(const char *plugin_path) noexcept
 
 	/* XXX CLOEXEC? */
 
-	plugin_fd_add(this, &pipe_stdout, fds_stdout[0]);
-	plugin_fd_add(this, &pipe_stderr, fds_stderr[0]);
+	pipe_stdout.Start(*this, fds_stdout[0]);
+	pipe_stderr.Start(*this, fds_stderr[0]);
 
 	return 0;
 }
