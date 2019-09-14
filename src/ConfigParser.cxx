@@ -652,18 +652,18 @@ ReadConfigFile(const char *filename)
 	while (fgets(line, sizeof(line), file) != nullptr) {
 		++no;
 		char *p = StripLeft(line);
+		if (*p == 0 || *p == COMMENT_TOKEN)
+			continue;
 
-		if (*p != 0 && *p != COMMENT_TOKEN) {
-			StripRight(p);
+		StripRight(p);
 
-			try {
-				parse_line(p);
-			} catch (...) {
-				fprintf(stderr,
-					"Failed to parse '%s' line %u: ",
-					filename, no);
-				PrintException(std::current_exception());
-			}
+		try {
+			parse_line(p);
+		} catch (...) {
+			fprintf(stderr,
+				"Failed to parse '%s' line %u: ",
+				filename, no);
+			PrintException(std::current_exception());
 		}
 	}
 
