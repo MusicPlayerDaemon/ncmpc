@@ -21,7 +21,7 @@
 #include "plugin.hxx"
 #include "config.h"
 
-static PluginList empty, plugins;
+static PluginList plugins;
 
 void lyrics_init()
 {
@@ -33,10 +33,10 @@ lyrics_load(boost::asio::io_service &io_service,
 	    const char *artist, const char *title,
 	    PluginResponseHandler &handler)
 {
-	const char *args[3] = { artist, title, nullptr };
+	assert(artist != nullptr);
+	assert(title != nullptr);
 
-	if (artist == nullptr || title == nullptr)
-		return plugin_run(io_service, &empty, args, handler);
+	const char *args[3] = { artist, title, nullptr };
 
 	return plugin_run(io_service, &plugins, args, handler);
 }

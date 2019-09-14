@@ -281,6 +281,11 @@ LyricsPage::Load(const struct mpd_song &_song) noexcept
 	artist = mpd_song_get_tag(song, MPD_TAG_ARTIST, 0);
 	title = mpd_song_get_tag(song, MPD_TAG_TITLE, 0);
 
+	if (artist == nullptr || title == nullptr) {
+		Cancel();
+		return;
+	}
+
 	loader = lyrics_load(get_io_service(),
 			     artist, title, *this);
 
