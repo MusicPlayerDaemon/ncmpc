@@ -1,4 +1,4 @@
-ncmpc 0.35 - not yet released
+ncmpc 0.35 - (2019-09-14)
 * fall back to "AlbumArtist" tag in the default format
 * fix crash with a very narrow terminal window
 * config: allow escaping single quote with backslash in key bindings
