@@ -1,3 +1,5 @@
+ncmpc 0.36 - not yet released
+
 ncmpc 0.35 - (2019-09-14)
 * fall back to "AlbumArtist" tag in the default format
 * fix crash with a very narrow terminal window
