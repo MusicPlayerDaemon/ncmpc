@@ -26,26 +26,27 @@
 #include <string>
 
 /**
+ * When a plugin cycle is finished, one method of this class is called.  In any
+ * case, plugin_stop() has to be called to free all memory.
+ */
+class PluginResponseHandler {
+public:
+	/**
+	 * @param plugin_name the name of the plugin which succeeded
+	 * @param result the plugin's output (stdout)
+	 */
+	virtual void OnPluginSuccess(const char *plugin_name,
+				     std::string result) noexcept = 0;
+
+	virtual void OnPluginError(std::string error) noexcept = 0;
+};
+
+/**
  * A list of registered plugins.
  */
 struct PluginList {
 	std::vector<std::string> plugins;
 };
-
-/**
- * When a plugin cycle is finished, this function is called.  In any
- * case, plugin_stop() has to be called to free all memory.
- *
- * @param result the plugin's output (stdout) on success; summary of all error
- * messages on failure as determined by success
- * @param success result of the plugin cycle; true if result is meaningful
- * output, false if result contains error messages
- * @param plugin_name the name of the plugin which succeeded; becomes invalid
- * when plugin_stop is called (i.e. strdup it if you need it afterwards).
- * @param data the caller defined pointer passed to plugin_run()
- */
-typedef void (*plugin_callback_t)(std::string &&result, const bool success,
-				  const char *plugin_name, void *data);
 
 /**
  * This object represents a cycle through all available plugins, until
@@ -66,15 +67,13 @@ plugin_list_load_directory(const char *path) noexcept;
  * @param list the plugin list
  * @param args nullptr terminated command line arguments passed to the
  * plugin programs; they must remain valid while the plugin runs
- * @param callback the callback function which will be called when a
- * result is available
- * @param callback_data caller defined pointer which is passed to the
- * callback function
+ * @param handler the handler which will be called when a result is
+ * available
  */
 PluginCycle *
 plugin_run(boost::asio::io_service &io_service,
 	   PluginList *list, const char *const*args,
-	   plugin_callback_t callback, void *callback_data) noexcept;
+	   PluginResponseHandler &handler) noexcept;
 
 /**
  * Stops the plugin cycle and frees resources.  This can be called to

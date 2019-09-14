@@ -88,10 +88,8 @@ struct PluginCycle {
 	/** arguments passed to execv() */
 	std::unique_ptr<char *[]> argv;
 
-	/** caller defined callback function */
-	plugin_callback_t callback;
-	/** caller defined pointer passed to #callback */
-	void *callback_data;
+	/** caller defined handler object */
+	PluginResponseHandler &handler;
 
 	/** the index of the next plugin which is going to be
 	    invoked */
@@ -113,9 +111,9 @@ struct PluginCycle {
 
 	PluginCycle(boost::asio::io_service &io_service,
 		    PluginList &_list, std::unique_ptr<char *[]> &&_argv,
-		    plugin_callback_t _callback, void *_callback_data) noexcept
+		    PluginResponseHandler &_handler) noexcept
 		:list(&_list), argv(std::move(_argv)),
-		 callback(_callback), callback_data(_callback_data),
+		 handler(_handler),
 		 pipe_stdout(io_service, *this),
 		 pipe_stderr(io_service, *this),
 		 delayed_fail_timer(io_service) {}
@@ -208,8 +206,7 @@ PluginCycle::OnEof() noexcept
 		TryNextPlugin();
 	} else {
 		/* success: invoke the callback */
-		callback(std::move(pipe_stdout.data), true,
-			 argv[0], callback_data);
+		handler.OnPluginSuccess(argv[0], std::move(pipe_stdout.data));
 	}
 }
 
@@ -249,8 +246,7 @@ PluginCycle::OnDelayedFail(const boost::system::error_code &error) noexcept
 	assert(!pipe_stderr.fd.is_open());
 	assert(pid < 0);
 
-	callback(std::move(all_errors), false, nullptr,
-		 callback_data);
+	handler.OnPluginError(std::move(all_errors));
 }
 
 int
@@ -363,12 +359,12 @@ make_argv(const char*const* args) noexcept
 PluginCycle *
 plugin_run(boost::asio::io_service &io_service,
 	   PluginList *list, const char *const*args,
-	   plugin_callback_t callback, void *callback_data) noexcept
+	   PluginResponseHandler &handler) noexcept
 {
 	assert(args != nullptr);
 
 	auto *cycle = new PluginCycle(io_service, *list, make_argv(args),
-				      callback, callback_data);
+				      handler);
 	cycle->TryNextPlugin();
 
 	return cycle;

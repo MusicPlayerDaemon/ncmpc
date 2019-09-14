@@ -28,6 +28,7 @@
 #include "mpdclient.hxx"
 #include "screen.hxx"
 #include "lyrics.hxx"
+#include "plugin.hxx"
 #include "TextPage.hxx"
 #include "screen_utils.hxx"
 #include "ncu.hxx"
@@ -48,7 +49,7 @@
 static struct mpd_song *next_song;
 static bool follow = false;
 
-class LyricsPage final : public TextPage {
+class LyricsPage final : public TextPage, PluginResponseHandler {
 	/** Set if the cursor position shall be kept during the next lyrics update. */
 	bool reloading = false;
 
@@ -110,15 +111,6 @@ private:
 	/** save current lyrics to a file and run editor on it */
 	void Edit();
 
-	static void PluginCallback(std::string &&result, bool success,
-				   const char *plugin_name, void *data) {
-		auto &p = *(LyricsPage *)data;
-		p.PluginCallback(std::move(result), success, plugin_name);
-	}
-
-	void PluginCallback(std::string &&result, bool success,
-			    const char *plugin_name);
-
 	void OnTimeout(const boost::system::error_code &error) noexcept;
 
 public:
@@ -127,6 +119,12 @@ public:
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 	const char *GetTitle(char *, size_t) const noexcept override;
+
+private:
+	/* virtual methods from class PluginResponseHandler */
+	void OnPluginSuccess(const char *plugin_name,
+			     std::string result) noexcept override;
+	void OnPluginError(std::string error) noexcept override;
 };
 
 void
@@ -227,28 +225,32 @@ LyricsPage::Set(const char *s)
 	RepaintIfActive();
 }
 
-inline void
-LyricsPage::PluginCallback(std::string &&result, const bool success,
-			   const char *_plugin_name)
+void
+LyricsPage::OnPluginSuccess(const char *_plugin_name,
+			    std::string result) noexcept
 {
-	assert(loader != nullptr);
+	plugin_name = _plugin_name;
 
-	if (_plugin_name != nullptr)
-		plugin_name = _plugin_name;
-	else
-		plugin_name.clear();
-
-	/* Display result, which may be lyrics or error messages */
 	Set(result.c_str());
 
-	if (success == true) {
-		if (options.lyrics_autosave &&
-		    !exists_lyr_file(artist, title))
-			Save();
-	} else {
-		/* translators: no lyrics were found for the song */
-		screen_status_message (_("No lyrics"));
-	}
+	if (options.lyrics_autosave && !exists_lyr_file(artist, title))
+		Save();
+
+	loader_timeout.cancel();
+
+	plugin_stop(loader);
+	loader = nullptr;
+}
+
+void
+LyricsPage::OnPluginError(std::string error) noexcept
+{
+	plugin_name.clear();
+
+	Set(error.c_str());
+
+	/* translators: no lyrics were found for the song */
+	screen_status_message(_("No lyrics"));
 
 	loader_timeout.cancel();
 
@@ -280,7 +282,7 @@ LyricsPage::Load(const struct mpd_song &_song) noexcept
 	title = mpd_song_get_tag(song, MPD_TAG_TITLE, 0);
 
 	loader = lyrics_load(get_io_service(),
-			     artist, title, PluginCallback, this);
+			     artist, title, *this);
 
 	if (options.lyrics_timeout > std::chrono::steady_clock::duration::zero()) {
 		boost::system::error_code error;
@@ -306,7 +308,7 @@ LyricsPage::Reload()
 	if (loader == nullptr && artist != nullptr && title != nullptr) {
 		reloading = true;
 		loader = lyrics_load(get_io_service(),
-				     artist, title, PluginCallback, nullptr);
+				     artist, title, *this);
 		Repaint();
 	}
 }
