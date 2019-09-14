@@ -39,7 +39,7 @@
 struct PluginCycle;
 
 struct PluginPipe {
-	PluginCycle *cycle;
+	PluginCycle &cycle;
 
 	/** the pipe to the plugin process */
 	boost::asio::posix::stream_descriptor fd;
@@ -49,8 +49,9 @@ struct PluginPipe {
 
 	std::array<char, 256> buffer;
 
-	PluginPipe(boost::asio::io_service &io_service) noexcept
-		:fd(io_service) {}
+	PluginPipe(boost::asio::io_service &io_service,
+		   PluginCycle &_cycle) noexcept
+		:cycle(_cycle), fd(io_service) {}
 
 	~PluginPipe() noexcept {
 		Close();
@@ -74,8 +75,7 @@ struct PluginPipe {
 		fd.close();
 	}
 
-	void Start(PluginCycle &_cycle, int _fd) noexcept {
-		cycle = &_cycle;
+	void Start(int _fd) noexcept {
 		fd.assign(_fd);
 		AsyncRead();
 	}
@@ -116,7 +116,8 @@ struct PluginCycle {
 		    plugin_callback_t _callback, void *_callback_data) noexcept
 		:list(&_list), argv(std::move(_argv)),
 		 callback(_callback), callback_data(_callback_data),
-		 pipe_stdout(io_service), pipe_stderr(io_service),
+		 pipe_stdout(io_service, *this),
+		 pipe_stderr(io_service, *this),
 		 delayed_fail_timer(io_service) {}
 
 	void TryNextPlugin() noexcept;
@@ -221,7 +222,7 @@ PluginPipe::OnRead(const boost::system::error_code &error,
 			return;
 
 		fd.close();
-		cycle->OnEof();
+		cycle.OnEof();
 		return;
 	}
 
@@ -303,8 +304,8 @@ PluginCycle::LaunchPlugin(const char *plugin_path) noexcept
 
 	/* XXX CLOEXEC? */
 
-	pipe_stdout.Start(*this, fds_stdout[0]);
-	pipe_stderr.Start(*this, fds_stderr[0]);
+	pipe_stdout.Start(fds_stdout[0]);
+	pipe_stderr.Start(fds_stderr[0]);
 
 	return 0;
 }
