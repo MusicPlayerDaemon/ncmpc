@@ -38,7 +38,7 @@
 
 struct PluginCycle;
 
-struct PluginPipe {
+class PluginPipe {
 	PluginCycle &cycle;
 
 	/** the pipe to the plugin process */
@@ -49,6 +49,7 @@ struct PluginPipe {
 
 	std::array<char, 256> buffer;
 
+public:
 	PluginPipe(boost::asio::io_service &io_service,
 		   PluginCycle &_cycle) noexcept
 		:cycle(_cycle), fd(io_service) {}
@@ -57,15 +58,10 @@ struct PluginPipe {
 		Close();
 	}
 
-	void AsyncRead() noexcept {
-		fd.async_read_some(boost::asio::buffer(buffer),
-				   std::bind(&PluginPipe::OnRead, this,
-					     std::placeholders::_1,
-					     std::placeholders::_2));
+	void Start(int _fd) noexcept {
+		fd.assign(_fd);
+		AsyncRead();
 	}
-
-	void OnRead(const boost::system::error_code &error,
-		    std::size_t bytes_transferred) noexcept;
 
 	void Close() noexcept {
 		if (!fd.is_open())
@@ -75,10 +71,32 @@ struct PluginPipe {
 		fd.close();
 	}
 
-	void Start(int _fd) noexcept {
-		fd.assign(_fd);
-		AsyncRead();
+	bool IsOpen() const noexcept {
+		return fd.is_open();
 	}
+
+	bool IsEmpty() const noexcept {
+		return data.empty();
+	}
+
+	std::string TakeData() noexcept {
+		return std::move(data);
+	}
+
+	void Clear() {
+		data.clear();
+	}
+
+private:
+	void AsyncRead() noexcept {
+		fd.async_read_some(boost::asio::buffer(buffer),
+				   std::bind(&PluginPipe::OnRead, this,
+					     std::placeholders::_1,
+					     std::placeholders::_2));
+	}
+
+	void OnRead(const boost::system::error_code &error,
+		    std::size_t bytes_transferred) noexcept;
 };
 
 struct PluginCycle {
@@ -180,7 +198,7 @@ void
 PluginCycle::OnEof() noexcept
 {
 	/* Only if both pipes are have EOF status we are done */
-	if (pipe_stdout.fd.is_open() || pipe_stderr.fd.is_open())
+	if (pipe_stdout.IsOpen() || pipe_stderr.IsOpen())
 		return;
 
 	int status, ret = waitpid(pid, &status, 0);
@@ -190,23 +208,23 @@ PluginCycle::OnEof() noexcept
 		/* If we encountered an error other than service unavailable
 		 * (69), log it for later. If all plugins fail, we may get
 		 * some hints for debugging.*/
-		if (!pipe_stderr.data.empty() &&
-		    WEXITSTATUS(status) != 69) {
+		const auto data = pipe_stderr.TakeData();
+		if (!data.empty() && WEXITSTATUS(status) != 69) {
 			all_errors += "*** ";
 			all_errors += argv[0];
 			all_errors += " ***\n\n";
-			all_errors += pipe_stderr.data;
+			all_errors += data;
 			all_errors += "\n";
 		}
 
 		/* the plugin has failed */
-		pipe_stdout.data.clear();
-		pipe_stderr.data.clear();
+		pipe_stdout.Clear();
+		pipe_stderr.Clear();
 
 		TryNextPlugin();
 	} else {
 		/* success: invoke the callback */
-		handler.OnPluginSuccess(argv[0], std::move(pipe_stdout.data));
+		handler.OnPluginSuccess(argv[0], pipe_stdout.TakeData());
 	}
 }
 
@@ -242,8 +260,8 @@ PluginCycle::OnDelayedFail(const boost::system::error_code &error) noexcept
 	if (error)
 		return;
 
-	assert(!pipe_stdout.fd.is_open());
-	assert(!pipe_stderr.fd.is_open());
+	assert(!pipe_stdout.IsOpen());
+	assert(!pipe_stderr.IsOpen());
 	assert(pid < 0);
 
 	handler.OnPluginError(std::move(all_errors));
@@ -253,10 +271,10 @@ int
 PluginCycle::LaunchPlugin(const char *plugin_path) noexcept
 {
 	assert(pid < 0);
-	assert(!pipe_stdout.fd.is_open());
-	assert(!pipe_stderr.fd.is_open());
-	assert(pipe_stdout.data.empty());
-	assert(pipe_stderr.data.empty());
+	assert(!pipe_stdout.IsOpen());
+	assert(!pipe_stderr.IsOpen());
+	assert(pipe_stdout.IsEmpty());
+	assert(pipe_stderr.IsEmpty());
 
 	/* set new program name, but free the one from the previous
 	   plugin */
@@ -312,10 +330,10 @@ void
 PluginCycle::TryNextPlugin() noexcept
 {
 	assert(pid < 0);
-	assert(!pipe_stdout.fd.is_open());
-	assert(!pipe_stderr.fd.is_open());
-	assert(pipe_stdout.data.empty());
-	assert(pipe_stderr.data.empty());
+	assert(!pipe_stdout.IsOpen());
+	assert(!pipe_stderr.IsOpen());
+	assert(pipe_stdout.IsEmpty());
+	assert(pipe_stderr.IsEmpty());
 
 	if (next_plugin >= list.plugins.size()) {
 		/* no plugins left */
