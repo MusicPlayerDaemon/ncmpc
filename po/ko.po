@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-10 21:38+0200\n"
-"PO-Revision-Date: 2019-01-22 14:05+0000\n"
+"PO-Revision-Date: 2019-09-16 09:02+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.4\n"
+"X-Generator: Weblate 3.9-dev\n"
 "X-Launchpad-Export-Date: 2009-10-19 13:36+0000\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
@@ -282,7 +282,7 @@ msgstr "바로 이동"
 
 #: src/Command.cxx:180
 msgid "Library page"
-msgstr ""
+msgstr "라이브러리 페이지"
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
@@ -387,9 +387,8 @@ msgid "Unknown screen name"
 msgstr "모르는 화면 이름"
 
 #: src/ConfigParser.cxx:402
-#, fuzzy
 msgid "Unknown MPD tag"
-msgstr "모르는 명령어"
+msgstr "모르는 MPD 태그"
 
 #: src/ConfigParser.cxx:429
 msgid "Invalid search mode"
@@ -641,16 +640,15 @@ msgstr "음반"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "모두"
 
 #: src/LibraryPage.cxx:199
-#, fuzzy
 msgid "Songs"
 msgstr "곡"
 
 #: src/LibraryPage.cxx:300
 msgid "Library"
-msgstr ""
+msgstr "라이브러리"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
