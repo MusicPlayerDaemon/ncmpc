@@ -138,6 +138,8 @@ struct PluginCycle {
 
 	void TryNextPlugin() noexcept;
 
+	void Stop() noexcept;
+
 	void ScheduleDelayedFail() noexcept {
 		boost::system::error_code error;
 		delayed_fail_timer.expires_from_now(std::chrono::seconds(0),
@@ -389,19 +391,25 @@ plugin_run(boost::asio::io_service &io_service,
 }
 
 void
-plugin_stop(PluginCycle *cycle) noexcept
+PluginCycle::Stop() noexcept
 {
-	if (cycle->pid > 0) {
+	if (pid > 0) {
 		/* kill the plugin process */
 
-		cycle->pipe_stdout.Close();
-		cycle->pipe_stderr.Close();
+		pipe_stdout.Close();
+		pipe_stderr.Close();
 
 		int status;
 
-		kill(cycle->pid, SIGTERM);
-		waitpid(cycle->pid, &status, 0);
+		kill(pid, SIGTERM);
+		waitpid(pid, &status, 0);
 	}
 
-	delete cycle;
+	delete this;
+}
+
+void
+plugin_stop(PluginCycle *cycle) noexcept
+{
+	cycle->Stop();
 }
