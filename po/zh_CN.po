@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-10 21:38+0200\n"
-"PO-Revision-Date: 2019-08-23 10:24+0000\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2019-09-16 09:02+0000\n"
+"Last-Translator: 谭志新 <tanzhxin@hotmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "ncmpc/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -27,7 +27,7 @@ msgstr "按键 %s 分配给 %s 和 %s"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
-msgstr ""
+msgstr "对话"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
@@ -35,7 +35,7 @@ msgstr "你的讯息"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr ""
+msgstr "讯息无法送出"
 
 #: src/Command.cxx:29
 msgid "Key configuration screen"
@@ -110,9 +110,8 @@ msgid "Help screen"
 msgstr "帮助页面"
 
 #: src/Command.cxx:71 src/HelpPage.cxx:140
-#, fuzzy
 msgid "Queue screen"
-msgstr "键定义页面"
+msgstr "列表页面"
 
 #: src/Command.cxx:73 src/HelpPage.cxx:155
 msgid "Browse screen"
@@ -159,26 +158,24 @@ msgid "Decrease volume"
 msgstr "降低音量"
 
 #: src/Command.cxx:98
-#, fuzzy
 msgid "Select/deselect song in queue"
-msgstr "添加/删除选中文件到播放列表"
+msgstr "选中/不选当前列表的歌曲"
 
 #: src/Command.cxx:100
 msgid "Select all listed items"
 msgstr "选中所有列出的项"
 
 #: src/Command.cxx:102
-#, fuzzy
 msgid "Delete song from queue"
-msgstr "从播放列表中删除歌曲"
+msgstr "从播放列表中移除歌曲"
 
 #: src/Command.cxx:104
 msgid "Shuffle queue"
-msgstr ""
+msgstr "随机播放列表"
 
 #: src/Command.cxx:106
 msgid "Clear queue"
-msgstr ""
+msgstr "清空播放列表"
 
 #: src/Command.cxx:108
 msgid "Toggle repeat mode"
@@ -206,10 +203,9 @@ msgstr "更新此数据库"
 
 #: src/Command.cxx:120
 msgid "Save queue"
-msgstr ""
+msgstr "保存播放列表"
 
 #: src/Command.cxx:122 src/HelpPage.cxx:174
-#, fuzzy
 msgid "Append song to queue"
 msgstr "添加到播放列表"
 
@@ -286,7 +282,7 @@ msgstr "跳转到"
 
 #: src/Command.cxx:180
 msgid "Library page"
-msgstr ""
+msgstr "曲库页面"
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
@@ -316,7 +312,7 @@ msgstr "更新歌词"
 
 #: src/Command.cxx:204
 msgid "Edit the current item"
-msgstr ""
+msgstr "编辑当前条目"
 
 #: src/Command.cxx:209 src/HelpPage.cxx:196
 msgid "Outputs screen"
@@ -324,11 +320,11 @@ msgstr "输出页面"
 
 #: src/Command.cxx:214 src/HelpPage.cxx:203
 msgid "Chat screen"
-msgstr ""
+msgstr "对话页面"
 
 #: src/ConfigParser.cxx:118
 msgid "Word expected"
-msgstr ""
+msgstr "建议字符"
 
 #: src/ConfigParser.cxx:144 src/ConfigParser.cxx:153
 msgid "Malformed hotkey definition"
@@ -391,9 +387,8 @@ msgid "Unknown screen name"
 msgstr "未知的页面名"
 
 #: src/ConfigParser.cxx:402
-#, fuzzy
 msgid "Unknown MPD tag"
-msgstr "未知命令"
+msgstr "未知mpd标记"
 
 #: src/ConfigParser.cxx:429
 msgid "Invalid search mode"
@@ -419,9 +414,9 @@ msgid "Deleting this item is not possible"
 msgstr "此项目不能被删除"
 
 #: src/FileBrowserPage.cxx:256
-#, fuzzy, c-format
+#, c-format
 msgid "Delete playlist %s?"
-msgstr "删除播放列表"
+msgstr "删除播放列表 %s？"
 
 #. translators: a dialog was aborted by the user
 #: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:381 src/save_playlist.cxx:111
@@ -441,15 +436,15 @@ msgid "Browse"
 msgstr "目录"
 
 #: src/FileListPage.cxx:119
-#, fuzzy, c-format
+#, c-format
 msgid "Loading playlist '%s'"
-msgstr "加载播放列表 %s..."
+msgstr "加载播放列表 %s"
 
 #: src/FileListPage.cxx:159 src/FileListPage.cxx:246 src/FileListPage.cxx:271
 #: src/TagListPage.cxx:184
-#, fuzzy, c-format
+#, c-format
 msgid "Adding '%s' to queue"
-msgstr "添加 '%s' 到播放列表"
+msgstr "添加 %s  到播放列表"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -476,9 +471,8 @@ msgid "Delete playlist"
 msgstr "删除播放列表"
 
 #: src/HelpPage.cxx:171
-#, fuzzy
 msgid "New search"
-msgstr "查找"
+msgstr "新的查找"
 
 #: src/HelpPage.cxx:172
 msgid "Select and play"
@@ -503,9 +497,8 @@ msgid "Download lyrics for currently playing song"
 msgstr "为当前曲目下载歌词"
 
 #: src/HelpPage.cxx:189
-#, fuzzy
 msgid "Add or edit lyrics"
-msgstr "没有歌词"
+msgstr "添加或编辑歌词"
 
 #: src/HelpPage.cxx:190
 msgid "Save lyrics"
@@ -521,7 +514,7 @@ msgstr "启用/禁用音频输出"
 
 #: src/HelpPage.cxx:205
 msgid "Write a message"
-msgstr ""
+msgstr "写讯息"
 
 #: src/HelpPage.cxx:210
 msgid "Keydef screen"
@@ -536,9 +529,8 @@ msgid "Remove selected keydef"
 msgstr "去除选择的快捷键设定"
 
 #: src/HelpPage.cxx:214
-#, fuzzy
 msgid "Add a keydef"
-msgstr "添加新的键"
+msgstr "添加新的快捷键"
 
 #: src/HelpPage.cxx:215
 msgid "Go up a level"
@@ -566,7 +558,7 @@ msgstr "未定义的"
 
 #: src/KeyName.cxx:36
 msgid "Space"
-msgstr "Space"
+msgstr "空格键"
 
 #: src/KeyName.cxx:38
 msgid "Enter"
@@ -590,11 +582,11 @@ msgstr "Down"
 
 #: src/KeyName.cxx:48
 msgid "Left"
-msgstr "Left"
+msgstr "向左"
 
 #: src/KeyName.cxx:50
 msgid "Right"
-msgstr "Right"
+msgstr "向右"
 
 #: src/KeyName.cxx:52
 msgid "Home"
@@ -606,11 +598,11 @@ msgstr "End"
 
 #: src/KeyName.cxx:56
 msgid "PageDown"
-msgstr "PageDown"
+msgstr "向下翻页"
 
 #: src/KeyName.cxx:58
 msgid "PageUp"
-msgstr "PageUp"
+msgstr "向上翻页"
 
 #: src/KeyName.cxx:60
 msgid "Tab"
@@ -622,7 +614,7 @@ msgstr "Shift+Tab"
 
 #: src/KeyName.cxx:64
 msgid "Esc"
-msgstr "Esc"
+msgstr "取消"
 
 #: src/KeyName.cxx:66
 msgid "Insert"
@@ -639,27 +631,24 @@ msgid "Alt-%c"
 msgstr "Alt-%c"
 
 #: src/LibraryPage.cxx:45
-#, fuzzy
 msgid "Artists"
 msgstr "艺术家"
 
 #: src/LibraryPage.cxx:48 src/LibraryPage.cxx:177
-#, fuzzy
 msgid "Albums"
 msgstr "专辑"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "全部"
 
 #: src/LibraryPage.cxx:199
-#, fuzzy
 msgid "Songs"
-msgstr "歌"
+msgstr "歌曲"
 
 #: src/LibraryPage.cxx:300
 msgid "Library"
-msgstr ""
+msgstr "库"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
@@ -677,7 +666,7 @@ msgstr "无歌词"
 #: src/LyricsPage.cxx:268
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
-msgstr ""
+msgstr "%d秒无法获取歌词"
 
 #: src/LyricsPage.cxx:346 src/LyricsPage.cxx:354 src/LyricsPage.cxx:364
 #: src/LyricsPage.cxx:500
@@ -692,19 +681,19 @@ msgstr "正在载入..."
 
 #: src/LyricsPage.cxx:371
 msgid "Editor not configured"
-msgstr ""
+msgstr "没有定义编辑器"
 
 #: src/LyricsPage.cxx:378
 msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr ""
+msgstr "你确认要使用editor来编辑歌词吗？"
 
 #: src/LyricsPage.cxx:396 src/LyricsPage.cxx:420
 msgid "Can't start editor"
-msgstr ""
+msgstr "无法打开编辑器"
 
 #: src/LyricsPage.cxx:423 src/LyricsPage.cxx:427
 msgid "Editor exited unexpectedly"
-msgstr ""
+msgstr "编辑器异常退出"
 
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:449
@@ -720,14 +709,14 @@ msgid "No saved lyrics"
 msgstr "没有歌词"
 
 #: src/Main.cxx:132
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to %s"
-msgstr "连接到 %s"
+msgstr "连接到服务器  %s"
 
 #: src/Main.cxx:148
-#, fuzzy, c-format
+#, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "错误: MPD版本%d.%d.%d过低(需要 %s)"
+msgstr "错误: MPD版本%d.%d.%d过低 (需要 %s)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -756,11 +745,11 @@ msgstr "输出"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
-msgstr ""
+msgstr "随机播放列表"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
-msgstr ""
+msgstr "清空播放列表"
 
 #. get path
 #: src/QueuePage.cxx:314
@@ -769,17 +758,17 @@ msgstr "增加"
 
 #: src/QueuePage.cxx:379 src/QueuePage.cxx:697
 msgid "Queue"
-msgstr ""
+msgstr "播放列表"
 
 #: src/QueuePage.cxx:381
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "播放列表 %s"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
 msgid "Save queue as"
-msgstr ""
+msgstr "播放列表另存为"
 
 #: src/save_playlist.cxx:108
 #, c-format
@@ -793,9 +782,8 @@ msgid "Saved %s"
 msgstr "保存到 %s"
 
 #: src/screen_client.cxx:41
-#, fuzzy
 msgid "Database update running"
-msgstr "正在更新数据库..."
+msgstr "正在更新数据库"
 
 #: src/screen_client.cxx:48
 #, c-format
@@ -900,7 +888,7 @@ msgstr "为 %s 输入新的按键: "
 
 #: src/screen_keydef.cxx:186
 msgid "Ctrl-Space can't be used"
-msgstr ""
+msgstr "ctl-Space键无法使用"
 
 #: src/screen_keydef.cxx:192
 #, c-format
@@ -930,9 +918,8 @@ msgid "Keybindings unchanged."
 msgstr "取消快捷键变更."
 
 #: src/screen_keydef.cxx:405
-#, fuzzy
 msgid "Unable to write configuration"
-msgstr "不完整的快捷键配置"
+msgstr "无法保存配置"
 
 #: src/screen_keydef.cxx:414 src/screen_keydef.cxx:423
 msgid "Error"
@@ -961,7 +948,7 @@ msgstr "提示: 你忘记了保存你的设置?"
 
 #: src/screen_keydef.cxx:605
 msgid "Keys"
-msgstr ""
+msgstr "快捷键"
 
 #: src/screen_utils.cxx:150
 msgid "Password"
@@ -1146,7 +1133,7 @@ msgstr "当前播放曲目"
 #: src/SongPage.cxx:471
 #, c-format
 msgid "%d kbps"
-msgstr "%d kbps"
+msgstr "码率 %d kbps"
 
 #: src/SongPage.cxx:555
 msgid "Song"
@@ -1154,21 +1141,19 @@ msgstr "歌"
 
 #: src/StatusBar.cxx:100
 msgid "Playing:"
-msgstr "播放中"
+msgstr "播放中:"
 
 #: src/StatusBar.cxx:104
 msgid "[Paused]"
 msgstr "暂停"
 
 #: src/Styles.cxx:252 src/Styles.cxx:313
-#, fuzzy
 msgid "Unknown color"
-msgstr "未知命令"
+msgstr "未知颜色"
 
 #: src/Styles.cxx:323
-#, fuzzy
 msgid "Unknown color field"
-msgstr "警告: 未知的颜色块 - %s\n"
+msgstr "未知的颜色块"
 
 #: src/Styles.cxx:356
 msgid "Terminal lacks color capabilities"
@@ -1180,27 +1165,27 @@ msgstr "全部音轨"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr ""
+msgstr "年"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr ""
+msgstr "年"
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr ""
+msgstr "周"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr ""
+msgstr "周"
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr ""
+msgstr "日"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr ""
+msgstr "日"
 
 #: src/TitleBar.cxx:101
 msgid "Volume n/a"
