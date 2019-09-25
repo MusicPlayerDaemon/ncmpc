@@ -34,30 +34,26 @@
 #include "WCharUtil.hxx"
 #endif
 
-constexpr
-static inline bool
-IsASCII(const unsigned char ch)
+constexpr bool
+IsASCII(const unsigned char ch) noexcept
 {
 	return ch < 0x80;
 }
 
-constexpr
-static inline bool
-IsASCII(const char ch)
+constexpr bool
+IsASCII(const char ch) noexcept
 {
 	return IsASCII((unsigned char)ch);
 }
 
-constexpr
-static inline bool
-IsWhitespaceOrNull(const char ch)
+constexpr bool
+IsWhitespaceOrNull(const char ch) noexcept
 {
 	return (unsigned char)ch <= 0x20;
 }
 
-constexpr
-static inline bool
-IsWhitespaceNotNull(const char ch)
+constexpr bool
+IsWhitespaceNotNull(const char ch) noexcept
 {
 	return ch > 0 && ch <= 0x20;
 }
@@ -68,51 +64,44 @@ IsWhitespaceNotNull(const char ch)
  * want the fastest implementation, and you don't care if a null byte
  * matches.
  */
-constexpr
-static inline bool
-IsWhitespaceFast(const char ch)
+constexpr bool
+IsWhitespaceFast(const char ch) noexcept
 {
 	return IsWhitespaceOrNull(ch);
 }
 
-constexpr
-static inline bool
-IsPrintableASCII(char ch)
+constexpr bool
+IsPrintableASCII(char ch) noexcept
 {
 	return (signed char)ch >= 0x20;
 }
 
-constexpr
-static inline bool
-IsDigitASCII(char ch)
+constexpr bool
+IsDigitASCII(char ch) noexcept
 {
 	return ch >= '0' && ch <= '9';
 }
 
-constexpr
-static inline bool
-IsUpperAlphaASCII(char ch)
+constexpr bool
+IsUpperAlphaASCII(char ch) noexcept
 {
 	return ch >= 'A' && ch <= 'Z';
 }
 
-constexpr
-static inline bool
-IsLowerAlphaASCII(char ch)
+constexpr bool
+IsLowerAlphaASCII(char ch) noexcept
 {
 	return ch >= 'a' && ch <= 'z';
 }
 
-constexpr
-static inline bool
-IsAlphaASCII(char ch)
+constexpr bool
+IsAlphaASCII(char ch) noexcept
 {
 	return IsUpperAlphaASCII(ch) || IsLowerAlphaASCII(ch);
 }
 
-constexpr
-static inline bool
-IsAlphaNumericASCII(char ch)
+constexpr bool
+IsAlphaNumericASCII(char ch) noexcept
 {
 	return IsAlphaASCII(ch) || IsDigitASCII(ch);
 }
@@ -121,9 +110,8 @@ IsAlphaNumericASCII(char ch)
  * Convert the specified ASCII character (0x00..0x7f) to upper case.
  * Unlike toupper(), it ignores the system locale.
  */
-constexpr
-static inline char
-ToUpperASCII(char ch)
+constexpr char
+ToUpperASCII(char ch) noexcept
 {
 	return ch >= 'a' && ch <= 'z'
 		? (ch - ('a' - 'A'))
@@ -134,9 +122,8 @@ ToUpperASCII(char ch)
  * Convert the specified ASCII character (0x00..0x7f) to lower case.
  * Unlike tolower(), it ignores the system locale.
  */
-constexpr
-static inline char
-ToLowerASCII(char ch)
+constexpr char
+ToLowerASCII(char ch) noexcept
 {
 	return ch >= 'A' && ch <= 'Z'
 		? (ch + ('a' - 'A'))
