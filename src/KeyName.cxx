@@ -23,6 +23,30 @@
 #include <curses.h>
 
 #include <stdio.h>
+#include <stdlib.h>
+
+std::pair<int, const char *>
+ParseKeyName(const char *s) noexcept
+{
+	if (*s == '\'') {
+		if (s[1] == '\\' && s[2] == '\'' && s[3] == '\'')
+			/* the single quote can be escaped with a
+			   backslash */
+			return std::make_pair(s[2], s + 4);
+
+		if (s[1] == '\'' || s[2] != '\'')
+			return std::make_pair(-1, s);
+
+		return std::make_pair(s[1], s + 3);
+	} else {
+		char *end;
+		const auto value = strtol(s, &end, 0);
+		if (end == s)
+			return std::make_pair(-1, end);
+
+		return std::make_pair(int(value), end);
+	}
+}
 
 const char *
 GetLocalizedKeyName(int key) noexcept

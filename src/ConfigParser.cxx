@@ -20,6 +20,7 @@
 #include "ConfigParser.hxx"
 #include "config.h"
 #include "Bindings.hxx"
+#include "KeyName.hxx"
 #include "GlobalBindings.hxx"
 #include "defaults.hxx"
 #include "i18n.h"
@@ -130,32 +131,16 @@ after_unquoted_word(char *p)
  * Throws on error.
  */
 static int
-parse_key_value(char *str, char **end)
+parse_key_value(const char *str, const char **end)
 {
-	if (*str == '\'') {
-		if (str[1] == '\\' && str[2] == '\'' && str[3] == '\'') {
-			/* the single quote can be escaped with a
-			   backslash */
-			*end = str + 4;
-			return str[2];
-		}
+	auto result = ParseKeyName(str);
+	if (result.first == -1)
+		throw FormatRuntimeError("%s: %s",
+					 _("Malformed hotkey definition"),
+					 result.second);
 
-		if (str[1] == '\'' || str[2] != '\'')
-			throw FormatRuntimeError("%s: %s",
-						 _("Malformed hotkey definition"),
-						 str);
-
-		*end = str + 3;
-		return str[1];
-	} else {
-		long value = strtol(str, end, 0);
-		if (*end == str)
-			throw FormatRuntimeError("%s: %s",
-						 _("Malformed hotkey definition"),
-						 str);
-
-		return (int)value;
-	}
+	*end = result.second;
+	return result.first;
 }
 
 /**
@@ -188,7 +173,7 @@ parse_key_definition(char *str)
 
 	/* parse key values */
 	size_t i = 0;
-	char *p = str;
+	const char *p = str;
 
 	std::array<int, MAX_COMMAND_KEYS> keys{0};
 	while (i < MAX_COMMAND_KEYS && *p != 0) {

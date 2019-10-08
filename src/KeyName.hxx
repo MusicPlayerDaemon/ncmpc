@@ -22,6 +22,18 @@
 
 #include "util/Compiler.h"
 
+#include <utility>
+
+/**
+ * Parse a string (from the configuration file) to a keycode.
+ *
+ * @return the keycode and the first unparsed character; -1 indicates
+ * error
+ */
+gcc_pure
+std::pair<int, const char *>
+ParseKeyName(const char *s) noexcept;
+
 /**
  * Convert a keycode to a human-readable localized string.
  *
