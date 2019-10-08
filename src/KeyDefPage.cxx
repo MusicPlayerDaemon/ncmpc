@@ -82,7 +82,8 @@ private:
 	/** The number of items in the list_window, if there's a command being edited */
 	gcc_pure
 	unsigned CalculateListLength() const noexcept {
-		return GetAddPosition() + 1;
+		/* show "add key" only if there is room for more keys */
+		return GetAddPosition() + (n_keys < MAX_COMMAND_KEYS);
 	}
 
 	/** Check whether a given item is a key */
