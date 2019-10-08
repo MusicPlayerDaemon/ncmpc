@@ -52,7 +52,7 @@ class CommandKeysPage final : public ListPage, ListText {
 	int subcmd = -1;
 
 	/** The number of keys assigned to the current command */
-	unsigned subcmd_n_keys = 0;
+	unsigned n_keys = 0;
 
 public:
 	CommandKeysPage(ScreenManager &_screen, Page *_parent,
@@ -64,43 +64,43 @@ public:
 		binding = &_bindings->key_bindings[_cmd];
 		subcmd = _cmd;
 		lw.Reset();
-		check_subcmd_length();
+		UpdateListLength();
 	}
 
 private:
 	/** The position of the up ("[..]") item */
-	static constexpr unsigned subcmd_item_up() {
+	static constexpr unsigned GetLeavePosition() {
 		return 0;
 	}
 
 	/** The position of the "add a key" item */
 	gcc_pure
-	unsigned subcmd_item_add() const {
-		return subcmd_n_keys + 1;
+	unsigned GetAddPosition() const noexcept {
+		return n_keys + 1;
 	}
 
 	/** The number of items in the list_window, if there's a command being edited */
 	gcc_pure
-	unsigned subcmd_length() const {
-		return subcmd_item_add() + 1;
+	unsigned CalculateListLength() const noexcept {
+		return GetAddPosition() + 1;
 	}
 
 	/** Check whether a given item is a key */
 	gcc_pure
-	bool subcmd_item_is_key(unsigned i) const {
-		return (i > subcmd_item_up() && i < subcmd_item_add());
+	bool IsKeyPosition(unsigned i) const noexcept {
+		return (i > GetLeavePosition() && i < GetAddPosition());
 	}
 
 	/**
 	 * Convert an item id (as in lw.GetCursorIndex()) into a "key
 	 * id", which is an array subscript to cmds[subcmd].keys.
 	 */
-	static constexpr unsigned subcmd_item_to_key_id(unsigned i) {
+	static constexpr unsigned PositionToKeyIndex(unsigned i) {
 		return i - 1;
 	}
 
 	/* TODO: rename to check_n_keys / subcmd_count_keys? */
-	void check_subcmd_length();
+	void UpdateListLength() noexcept;
 
 	/**
 	 * Delete a key from a given command's definition.
@@ -134,11 +134,11 @@ private:
 
 /* TODO: rename to check_n_keys / subcmd_count_keys? */
 void
-CommandKeysPage::check_subcmd_length()
+CommandKeysPage::UpdateListLength() noexcept
 {
-	subcmd_n_keys = binding->GetKeyCount();
+	n_keys = binding->GetKeyCount();
 
-	lw.SetLength(subcmd_length());
+	lw.SetLength(CalculateListLength());
 }
 
 void
@@ -155,7 +155,7 @@ CommandKeysPage::DeleteKey(int key_index)
 	binding->keys[key_index] = 0;
 
 	binding->modified = true;
-	check_subcmd_length();
+	UpdateListLength();
 
 	screen_status_message(_("Deleted"));
 
@@ -202,7 +202,7 @@ CommandKeysPage::OverwriteKey(int key_index)
 	screen_status_printf(_("Assigned %s to %s"),
 			     GetLocalizedKeyName(key),
 			     get_key_command_name(Command(subcmd)));
-	check_subcmd_length();
+	UpdateListLength();
 
 	/* repaint */
 	SetDirty();
@@ -214,28 +214,28 @@ CommandKeysPage::OverwriteKey(int key_index)
 void
 CommandKeysPage::AddKey()
 {
-	if (subcmd_n_keys < MAX_COMMAND_KEYS)
-		OverwriteKey(subcmd_n_keys);
+	if (n_keys < MAX_COMMAND_KEYS)
+		OverwriteKey(n_keys);
 }
 
 const char *
 CommandKeysPage::GetListItemText(char *buffer, size_t size,
 				 unsigned idx) const noexcept
 {
-	if (idx == subcmd_item_up())
+	if (idx == GetLeavePosition())
 		return "[..]";
 
-	if (idx == subcmd_item_add()) {
+	if (idx == GetAddPosition()) {
 		snprintf(buffer, size, "%d. %s", idx, _("Add new key"));
 		return buffer;
 	}
 
-	assert(subcmd_item_is_key(idx));
+	assert(IsKeyPosition(idx));
 
 	snprintf(buffer, size,
 		 "%d. %-20s   (%d) ", idx,
-		 GetLocalizedKeyName(binding->keys[subcmd_item_to_key_id(idx)]),
-		 binding->keys[subcmd_item_to_key_id(idx)]);
+		 GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]),
+		 binding->keys[PositionToKeyIndex(idx)]);
 	return buffer;
 }
 
@@ -270,20 +270,20 @@ CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	switch(cmd) {
 	case Command::PLAY:
-		if (lw.GetCursorIndex() == subcmd_item_up()) {
+		if (lw.GetCursorIndex() == GetLeavePosition()) {
 			if (parent != nullptr)
 				return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
-		} else if (lw.GetCursorIndex() == subcmd_item_add()) {
+		} else if (lw.GetCursorIndex() == GetAddPosition()) {
 			AddKey();
 		} else {
 			/* just to be sure ;-) */
-			assert(subcmd_item_is_key(lw.GetCursorIndex()));
-			OverwriteKey(subcmd_item_to_key_id(lw.GetCursorIndex()));
+			assert(IsKeyPosition(lw.GetCursorIndex()));
+			OverwriteKey(PositionToKeyIndex(lw.GetCursorIndex()));
 		}
 		return true;
 	case Command::DELETE:
-		if (subcmd_item_is_key(lw.GetCursorIndex()))
-			DeleteKey(subcmd_item_to_key_id(lw.GetCursorIndex()));
+		if (IsKeyPosition(lw.GetCursorIndex()))
+			DeleteKey(PositionToKeyIndex(lw.GetCursorIndex()));
 
 		return true;
 	case Command::ADD:
@@ -353,7 +353,7 @@ private:
 	}
 
 	/** The position of the up ("[..]") item */
-	static constexpr unsigned subcmd_item_up() {
+	static constexpr unsigned GetLeavePosition() {
 		return 0;
 	}
 
