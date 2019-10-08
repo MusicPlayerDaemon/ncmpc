@@ -67,17 +67,19 @@ GetLocalizedKeyName(int key) noexcept
 	default:
 		for (int i = 0; i <= 63; i++)
 			if (key == KEY_F(i)) {
-				snprintf(buf, 32, "F%d", i );
+				snprintf(buf, sizeof(buf), "F%d", i );
 				return buf;
 			}
 		if (!(key & ~037))
-			snprintf(buf, 32, _("Ctrl-%c"), 'A'+(key & 037)-1 );
+			snprintf(buf, sizeof(buf),
+				 _("Ctrl-%c"), 'A'+(key & 037)-1 );
 		else if ((key & ~037) == 224)
-			snprintf(buf, 32, _("Alt-%c"), 'A'+(key & 037)-1 );
+			snprintf(buf, sizeof(buf),
+				 _("Alt-%c"), 'A'+(key & 037)-1 );
 		else if (key > 32 && key < 256)
-			snprintf(buf, 32, "%c", key);
+			snprintf(buf, sizeof(buf), "%c", key);
 		else
-			snprintf(buf, 32, "0x%03X", key);
+			snprintf(buf, sizeof(buf), "0x%03X", key);
 		return buf;
 	}
 }
