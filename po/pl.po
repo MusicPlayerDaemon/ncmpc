@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-10 21:38+0200\n"
+"POT-Creation-Date: 2019-10-08 17:59+0200\n"
 "PO-Revision-Date: 2018-10-05 17:33+0000\n"
 "Last-Translator: Mirosław Borodeńko <myros@outlook.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/ncmpc/"
@@ -323,24 +323,24 @@ msgstr "Ekran z wyjściami dźwiękowymi"
 msgid "Chat screen"
 msgstr "Ekran rozmowy"
 
-#: src/ConfigParser.cxx:118
+#: src/ConfigParser.cxx:119
 msgid "Word expected"
 msgstr "Oczekiwane słowo"
 
-#: src/ConfigParser.cxx:144 src/ConfigParser.cxx:153
+#: src/ConfigParser.cxx:145 src/ConfigParser.cxx:154
 msgid "Malformed hotkey definition"
 msgstr "Nieprawidłowa definicja skrótu klawiszowego"
 
 #. the hotkey configuration
 #. line is incomplete
-#: src/ConfigParser.cxx:172
+#: src/ConfigParser.cxx:173
 msgid "Incomplete hotkey configuration"
 msgstr "Niekompletna konfiguracja skrótów klawiszowych"
 
 #. the hotkey configuration
 #. contains an unknown
 #. command
-#: src/ConfigParser.cxx:186
+#: src/ConfigParser.cxx:187
 msgid "Unknown command"
 msgstr "Nieznane polecenie"
 
@@ -352,29 +352,29 @@ msgstr "Nieznane polecenie"
 #. configuration file
 #. contained an invalid
 #. setting
-#: src/ConfigParser.cxx:222
+#: src/ConfigParser.cxx:223
 msgid "Bad time display type"
 msgstr "Nieprawidłowy tryb wyświetlania czasu"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/ConfigParser.cxx:238 src/ConfigParser.cxx:468
+#: src/ConfigParser.cxx:239 src/ConfigParser.cxx:469
 msgid "Missing '='"
 msgstr "Brakujący '='"
 
-#: src/ConfigParser.cxx:287
+#: src/ConfigParser.cxx:288
 msgid "Bad color name"
 msgstr "Zła nazwa koloru"
 
-#: src/ConfigParser.cxx:296
+#: src/ConfigParser.cxx:297
 msgid "Incomplete color definition"
 msgstr "Niekompletna definicja koloru"
 
-#: src/ConfigParser.cxx:302
+#: src/ConfigParser.cxx:303
 msgid "Invalid number"
 msgstr "Nieprawidłowy numer"
 
-#: src/ConfigParser.cxx:309
+#: src/ConfigParser.cxx:310
 msgid "Malformed color definition"
 msgstr "Nieprawidłowa definicja koloru"
 
@@ -383,24 +383,24 @@ msgstr "Nieprawidłowa definicja koloru"
 #. in the
 #. configuration
 #. file
-#: src/ConfigParser.cxx:373
+#: src/ConfigParser.cxx:374
 msgid "Unknown screen name"
 msgstr "Nieznana nazwa ekranu"
 
-#: src/ConfigParser.cxx:402
+#: src/ConfigParser.cxx:403
 #, fuzzy
 msgid "Unknown MPD tag"
 msgstr "Nieznane polecenie"
 
-#: src/ConfigParser.cxx:429
+#: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
 msgstr "Nieprawidłowy tryb wyszukiwania"
 
-#: src/ConfigParser.cxx:447
+#: src/ConfigParser.cxx:448
 msgid "Unknown search mode"
 msgstr "Nieznany tryb wyszukiwania"
 
-#: src/ConfigParser.cxx:635
+#: src/ConfigParser.cxx:636
 msgid "Unknown configuration parameter"
 msgstr "Nieznany parametr konfiguracyjny"
 
@@ -421,7 +421,7 @@ msgid "Delete playlist %s?"
 msgstr "Czy usunąć listę odtwarzania %s?"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:381 src/save_playlist.cxx:111
+#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
 #: src/screen_keydef.cxx:181
 msgid "Aborted"
 msgstr "Anulowano"
@@ -622,12 +622,12 @@ msgstr "Esc"
 msgid "Insert"
 msgstr "Insert"
 
-#: src/KeyName.cxx:74
+#: src/KeyName.cxx:75
 #, c-format
 msgid "Ctrl-%c"
 msgstr "Ctrl-%c"
 
-#: src/KeyName.cxx:76
+#: src/KeyName.cxx:78
 #, c-format
 msgid "Alt-%c"
 msgstr "Alt-%c"
@@ -663,52 +663,52 @@ msgid "Range selection enabled"
 msgstr "Wielozaznaczanie włączone"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:250
+#: src/LyricsPage.cxx:253
 msgid "No lyrics"
 msgstr "Brak tekstu utworu"
 
-#: src/LyricsPage.cxx:268
+#: src/LyricsPage.cxx:270
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr "Przekroczono limit czasu %d sekund na pobranie tekstu utworu"
 
-#: src/LyricsPage.cxx:346 src/LyricsPage.cxx:354 src/LyricsPage.cxx:364
-#: src/LyricsPage.cxx:500
+#: src/LyricsPage.cxx:353 src/LyricsPage.cxx:361 src/LyricsPage.cxx:371
+#: src/LyricsPage.cxx:507
 msgid "Lyrics"
 msgstr "Tekst utworu"
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/LyricsPage.cxx:349
+#: src/LyricsPage.cxx:356
 msgid "loading..."
 msgstr "ładowanie…"
 
-#: src/LyricsPage.cxx:371
+#: src/LyricsPage.cxx:378
 msgid "Editor not configured"
 msgstr "Nie skonfigurowano edytora"
 
-#: src/LyricsPage.cxx:378
+#: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr "Czy naprawdę chcesz uruchomić edytor aby zmodyfikować treść utworów?"
 
-#: src/LyricsPage.cxx:396 src/LyricsPage.cxx:420
+#: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
 msgstr "Nie można uruchomić edytora"
 
-#: src/LyricsPage.cxx:423 src/LyricsPage.cxx:427
+#: src/LyricsPage.cxx:430 src/LyricsPage.cxx:434
 msgid "Editor exited unexpectedly"
 msgstr "Edytor niespodziewanie zakończył działanie"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:449
+#: src/LyricsPage.cxx:456
 msgid "Lyrics saved"
 msgstr "Tekst piosenki zapisany"
 
-#: src/LyricsPage.cxx:455
+#: src/LyricsPage.cxx:462
 msgid "Lyrics deleted"
 msgstr "Teskt piosenki usunięty"
 
-#: src/LyricsPage.cxx:456
+#: src/LyricsPage.cxx:463
 msgid "No saved lyrics"
 msgstr "Brak zapisanego tesktu piosenki"
 
@@ -894,58 +894,58 @@ msgstr "Ctrl-Space nie może być użyte"
 msgid "Error: key %s is already used for %s"
 msgstr "Błąd: klawisz %s już jest używany do %s"
 
-#: src/screen_keydef.cxx:201
+#: src/screen_keydef.cxx:202
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "Przypisano klawisz %s do %s"
 
-#: src/screen_keydef.cxx:228
+#: src/screen_keydef.cxx:229
 msgid "Add new key"
 msgstr "Dodaj nowy klawisz"
 
-#: src/screen_keydef.cxx:250
+#: src/screen_keydef.cxx:251
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Edytuj klawisze dla %s"
 
-#: src/screen_keydef.cxx:393
+#: src/screen_keydef.cxx:394
 msgid "You have new key bindings"
 msgstr "Masz nowe wiązania klawiszy"
 
-#: src/screen_keydef.cxx:395
+#: src/screen_keydef.cxx:396
 msgid "Keybindings unchanged."
 msgstr "Wiązania klawiszy niezmienione."
 
-#: src/screen_keydef.cxx:405
+#: src/screen_keydef.cxx:406
 msgid "Unable to write configuration"
 msgstr "Nie mogę zapisać konfiguracji"
 
-#: src/screen_keydef.cxx:414 src/screen_keydef.cxx:423
+#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
 msgid "Error"
 msgstr "Błąd"
 
-#: src/screen_keydef.cxx:421
+#: src/screen_keydef.cxx:422
 #, c-format
 msgid "Wrote %s"
 msgstr "Zapisano %s"
 
-#: src/screen_keydef.cxx:434
+#: src/screen_keydef.cxx:435
 msgid "===> Apply key bindings "
 msgstr "===> Zastosuj wiązania klawiszy "
 
-#: src/screen_keydef.cxx:436
+#: src/screen_keydef.cxx:437
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Zastosuj i Zapisz wiązania klawiszy  "
 
-#: src/screen_keydef.cxx:473
+#: src/screen_keydef.cxx:474
 msgid "Edit key bindings"
 msgstr "Edytuj wiązania klawiszy"
 
-#: src/screen_keydef.cxx:555
+#: src/screen_keydef.cxx:556
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Informacja: Zapomniałeś 'Zastosować' swoje zmiany?"
 
-#: src/screen_keydef.cxx:605
+#: src/screen_keydef.cxx:606
 msgid "Keys"
 msgstr "Klawisze"
 

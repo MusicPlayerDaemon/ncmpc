@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-10 21:38+0200\n"
+"POT-Creation-Date: 2019-10-08 17:59+0200\n"
 "PO-Revision-Date: 2019-09-09 12:25+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/ncmpc/"
@@ -326,24 +326,24 @@ msgstr "Utganger"
 msgid "Chat screen"
 msgstr "Sludreskjerm"
 
-#: src/ConfigParser.cxx:118
+#: src/ConfigParser.cxx:119
 msgid "Word expected"
 msgstr "Ord forventet"
 
-#: src/ConfigParser.cxx:144 src/ConfigParser.cxx:153
+#: src/ConfigParser.cxx:145 src/ConfigParser.cxx:154
 msgid "Malformed hotkey definition"
 msgstr "Malformert hurtigtastdefinisjon"
 
 #. the hotkey configuration
 #. line is incomplete
-#: src/ConfigParser.cxx:172
+#: src/ConfigParser.cxx:173
 msgid "Incomplete hotkey configuration"
 msgstr "Uferdig hurtigtastkonfigurasjon"
 
 #. the hotkey configuration
 #. contains an unknown
 #. command
-#: src/ConfigParser.cxx:186
+#: src/ConfigParser.cxx:187
 msgid "Unknown command"
 msgstr "Ukjent kommando"
 
@@ -355,29 +355,29 @@ msgstr "Ukjent kommando"
 #. configuration file
 #. contained an invalid
 #. setting
-#: src/ConfigParser.cxx:222
+#: src/ConfigParser.cxx:223
 msgid "Bad time display type"
 msgstr "Ugyldig tidsvisningstype"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/ConfigParser.cxx:238 src/ConfigParser.cxx:468
+#: src/ConfigParser.cxx:239 src/ConfigParser.cxx:469
 msgid "Missing '='"
 msgstr "Mangler '='"
 
-#: src/ConfigParser.cxx:287
+#: src/ConfigParser.cxx:288
 msgid "Bad color name"
 msgstr "Ugyldig fargenavn"
 
-#: src/ConfigParser.cxx:296
+#: src/ConfigParser.cxx:297
 msgid "Incomplete color definition"
 msgstr "Uferdig fargedefinisjon"
 
-#: src/ConfigParser.cxx:302
+#: src/ConfigParser.cxx:303
 msgid "Invalid number"
 msgstr "Ugyldig tall"
 
-#: src/ConfigParser.cxx:309
+#: src/ConfigParser.cxx:310
 msgid "Malformed color definition"
 msgstr "Malformert fargedefinisjon"
 
@@ -386,24 +386,24 @@ msgstr "Malformert fargedefinisjon"
 #. in the
 #. configuration
 #. file
-#: src/ConfigParser.cxx:373
+#: src/ConfigParser.cxx:374
 msgid "Unknown screen name"
 msgstr "Ukjent skjermnavn"
 
-#: src/ConfigParser.cxx:402
+#: src/ConfigParser.cxx:403
 #, fuzzy
 msgid "Unknown MPD tag"
 msgstr "Ukjent kommando"
 
-#: src/ConfigParser.cxx:429
+#: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
 msgstr "Ugyldig søkemodus"
 
-#: src/ConfigParser.cxx:447
+#: src/ConfigParser.cxx:448
 msgid "Unknown search mode"
 msgstr "Ukjent søkemodus"
 
-#: src/ConfigParser.cxx:635
+#: src/ConfigParser.cxx:636
 msgid "Unknown configuration parameter"
 msgstr "Ukjent konfiurasjonsparameter"
 
@@ -424,7 +424,7 @@ msgid "Delete playlist %s?"
 msgstr "Slett spillelisten %s?"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:381 src/save_playlist.cxx:111
+#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
 #: src/screen_keydef.cxx:181
 msgid "Aborted"
 msgstr "Avbrutt"
@@ -630,12 +630,12 @@ msgstr "Escape"
 msgid "Insert"
 msgstr "Ins"
 
-#: src/KeyName.cxx:74
+#: src/KeyName.cxx:75
 #, c-format
 msgid "Ctrl-%c"
 msgstr "Ctrl-%c"
 
-#: src/KeyName.cxx:76
+#: src/KeyName.cxx:78
 #, c-format
 msgid "Alt-%c"
 msgstr "Alt-%c"
@@ -671,53 +671,53 @@ msgid "Range selection enabled"
 msgstr "Områdevalg påskrudd"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:250
+#: src/LyricsPage.cxx:253
 msgid "No lyrics"
 msgstr "Ingen sangtekst"
 
-#: src/LyricsPage.cxx:268
+#: src/LyricsPage.cxx:270
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr "Sangtekst-tidsavbrudd inntraff etter %d sekunder"
 
-#: src/LyricsPage.cxx:346 src/LyricsPage.cxx:354 src/LyricsPage.cxx:364
-#: src/LyricsPage.cxx:500
+#: src/LyricsPage.cxx:353 src/LyricsPage.cxx:361 src/LyricsPage.cxx:371
+#: src/LyricsPage.cxx:507
 msgid "Lyrics"
 msgstr "Sangtekster"
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/LyricsPage.cxx:349
+#: src/LyricsPage.cxx:356
 msgid "loading..."
 msgstr "laster..."
 
-#: src/LyricsPage.cxx:371
+#: src/LyricsPage.cxx:378
 msgid "Editor not configured"
 msgstr "Tekstbehandler ikke satt opp"
 
-#: src/LyricsPage.cxx:378
+#: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr ""
 "Ønsker du virkelig å starte en tekstbehandler og redigere disse tekstene?"
 
-#: src/LyricsPage.cxx:396 src/LyricsPage.cxx:420
+#: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
 msgstr "Kan ikke starte tekstbehandler"
 
-#: src/LyricsPage.cxx:423 src/LyricsPage.cxx:427
+#: src/LyricsPage.cxx:430 src/LyricsPage.cxx:434
 msgid "Editor exited unexpectedly"
 msgstr "Tekstbehandleren takket for seg uventet"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:449
+#: src/LyricsPage.cxx:456
 msgid "Lyrics saved"
 msgstr "Sangteksten er lagret"
 
-#: src/LyricsPage.cxx:455
+#: src/LyricsPage.cxx:462
 msgid "Lyrics deleted"
 msgstr "Tekster slettet"
 
-#: src/LyricsPage.cxx:456
+#: src/LyricsPage.cxx:463
 msgid "No saved lyrics"
 msgstr "Ingen lagrede tekster"
 
@@ -912,59 +912,59 @@ msgstr "Ctrl+mellomrom kan ikke brukes"
 msgid "Error: key %s is already used for %s"
 msgstr "Tasten %s brukes allerede for %s"
 
-#: src/screen_keydef.cxx:201
+#: src/screen_keydef.cxx:202
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "Satte %s = %s"
 
-#: src/screen_keydef.cxx:228
+#: src/screen_keydef.cxx:229
 msgid "Add new key"
 msgstr "Legg til ny tast"
 
-#: src/screen_keydef.cxx:250
+#: src/screen_keydef.cxx:251
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Endre taster for '%s'"
 
-#: src/screen_keydef.cxx:393
+#: src/screen_keydef.cxx:394
 msgid "You have new key bindings"
 msgstr "Du har nye tastatursnarveier"
 
-#: src/screen_keydef.cxx:395
+#: src/screen_keydef.cxx:396
 msgid "Keybindings unchanged."
 msgstr "Tastatursnarveier uforandret."
 
-#: src/screen_keydef.cxx:405
+#: src/screen_keydef.cxx:406
 #, fuzzy
 msgid "Unable to write configuration"
 msgstr "Kunne ikke lagre oppsett"
 
-#: src/screen_keydef.cxx:414 src/screen_keydef.cxx:423
+#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
 msgid "Error"
 msgstr "Feil"
 
-#: src/screen_keydef.cxx:421
+#: src/screen_keydef.cxx:422
 #, c-format
 msgid "Wrote %s"
 msgstr "Skrev %s"
 
-#: src/screen_keydef.cxx:434
+#: src/screen_keydef.cxx:435
 msgid "===> Apply key bindings "
 msgstr "==> Bruk snarveier "
 
-#: src/screen_keydef.cxx:436
+#: src/screen_keydef.cxx:437
 msgid "===> Apply & Save key bindings  "
 msgstr "==> Bruk og Lagre snarveier  "
 
-#: src/screen_keydef.cxx:473
+#: src/screen_keydef.cxx:474
 msgid "Edit key bindings"
 msgstr "Endre tast"
 
-#: src/screen_keydef.cxx:555
+#: src/screen_keydef.cxx:556
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "OBS! Du glemte vel ikke å legge til de nye endringene?"
 
-#: src/screen_keydef.cxx:605
+#: src/screen_keydef.cxx:606
 msgid "Keys"
 msgstr "Taster"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-10 21:38+0200\n"
+"POT-Creation-Date: 2019-10-08 17:59+0200\n"
 "PO-Revision-Date: 2019-09-16 09:02+0000\n"
 "Last-Translator: 谭志新 <tanzhxin@hotmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -322,24 +322,24 @@ msgstr "输出页面"
 msgid "Chat screen"
 msgstr "对话页面"
 
-#: src/ConfigParser.cxx:118
+#: src/ConfigParser.cxx:119
 msgid "Word expected"
 msgstr "建议字符"
 
-#: src/ConfigParser.cxx:144 src/ConfigParser.cxx:153
+#: src/ConfigParser.cxx:145 src/ConfigParser.cxx:154
 msgid "Malformed hotkey definition"
 msgstr "不正确的快捷键定义"
 
 #. the hotkey configuration
 #. line is incomplete
-#: src/ConfigParser.cxx:172
+#: src/ConfigParser.cxx:173
 msgid "Incomplete hotkey configuration"
 msgstr "不完整的快捷键配置"
 
 #. the hotkey configuration
 #. contains an unknown
 #. command
-#: src/ConfigParser.cxx:186
+#: src/ConfigParser.cxx:187
 msgid "Unknown command"
 msgstr "未知命令"
 
@@ -351,29 +351,29 @@ msgstr "未知命令"
 #. configuration file
 #. contained an invalid
 #. setting
-#: src/ConfigParser.cxx:222
+#: src/ConfigParser.cxx:223
 msgid "Bad time display type"
 msgstr "错误的时间显示格式"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/ConfigParser.cxx:238 src/ConfigParser.cxx:468
+#: src/ConfigParser.cxx:239 src/ConfigParser.cxx:469
 msgid "Missing '='"
 msgstr "缺少 '='"
 
-#: src/ConfigParser.cxx:287
+#: src/ConfigParser.cxx:288
 msgid "Bad color name"
 msgstr "错误的颜色名"
 
-#: src/ConfigParser.cxx:296
+#: src/ConfigParser.cxx:297
 msgid "Incomplete color definition"
 msgstr "不完整的颜色定义"
 
-#: src/ConfigParser.cxx:302
+#: src/ConfigParser.cxx:303
 msgid "Invalid number"
 msgstr "无效的数字"
 
-#: src/ConfigParser.cxx:309
+#: src/ConfigParser.cxx:310
 msgid "Malformed color definition"
 msgstr "不正确的颜色定义"
 
@@ -382,23 +382,23 @@ msgstr "不正确的颜色定义"
 #. in the
 #. configuration
 #. file
-#: src/ConfigParser.cxx:373
+#: src/ConfigParser.cxx:374
 msgid "Unknown screen name"
 msgstr "未知的页面名"
 
-#: src/ConfigParser.cxx:402
+#: src/ConfigParser.cxx:403
 msgid "Unknown MPD tag"
 msgstr "未知mpd标记"
 
-#: src/ConfigParser.cxx:429
+#: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
 msgstr "无效的搜索模式"
 
-#: src/ConfigParser.cxx:447
+#: src/ConfigParser.cxx:448
 msgid "Unknown search mode"
 msgstr "未知的搜索模式"
 
-#: src/ConfigParser.cxx:635
+#: src/ConfigParser.cxx:636
 msgid "Unknown configuration parameter"
 msgstr "未知的配置参数"
 
@@ -419,7 +419,7 @@ msgid "Delete playlist %s?"
 msgstr "删除播放列表 %s？"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:381 src/save_playlist.cxx:111
+#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
 #: src/screen_keydef.cxx:181
 msgid "Aborted"
 msgstr "已放弃"
@@ -620,12 +620,12 @@ msgstr "取消"
 msgid "Insert"
 msgstr "Insert"
 
-#: src/KeyName.cxx:74
+#: src/KeyName.cxx:75
 #, c-format
 msgid "Ctrl-%c"
 msgstr "Ctrl-%c"
 
-#: src/KeyName.cxx:76
+#: src/KeyName.cxx:78
 #, c-format
 msgid "Alt-%c"
 msgstr "Alt-%c"
@@ -659,52 +659,52 @@ msgid "Range selection enabled"
 msgstr "开启区段选取"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:250
+#: src/LyricsPage.cxx:253
 msgid "No lyrics"
 msgstr "无歌词"
 
-#: src/LyricsPage.cxx:268
+#: src/LyricsPage.cxx:270
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr "%d秒无法获取歌词"
 
-#: src/LyricsPage.cxx:346 src/LyricsPage.cxx:354 src/LyricsPage.cxx:364
-#: src/LyricsPage.cxx:500
+#: src/LyricsPage.cxx:353 src/LyricsPage.cxx:361 src/LyricsPage.cxx:371
+#: src/LyricsPage.cxx:507
 msgid "Lyrics"
 msgstr "歌词"
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/LyricsPage.cxx:349
+#: src/LyricsPage.cxx:356
 msgid "loading..."
 msgstr "正在载入..."
 
-#: src/LyricsPage.cxx:371
+#: src/LyricsPage.cxx:378
 msgid "Editor not configured"
 msgstr "没有定义编辑器"
 
-#: src/LyricsPage.cxx:378
+#: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr "你确认要使用editor来编辑歌词吗？"
 
-#: src/LyricsPage.cxx:396 src/LyricsPage.cxx:420
+#: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
 msgstr "无法打开编辑器"
 
-#: src/LyricsPage.cxx:423 src/LyricsPage.cxx:427
+#: src/LyricsPage.cxx:430 src/LyricsPage.cxx:434
 msgid "Editor exited unexpectedly"
 msgstr "编辑器异常退出"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:449
+#: src/LyricsPage.cxx:456
 msgid "Lyrics saved"
 msgstr "歌词已保存"
 
-#: src/LyricsPage.cxx:455
+#: src/LyricsPage.cxx:462
 msgid "Lyrics deleted"
 msgstr "歌词已被删除"
 
-#: src/LyricsPage.cxx:456
+#: src/LyricsPage.cxx:463
 msgid "No saved lyrics"
 msgstr "没有歌词"
 
@@ -895,58 +895,58 @@ msgstr "ctl-Space键无法使用"
 msgid "Error: key %s is already used for %s"
 msgstr "键 %s 已经绑定到 %s"
 
-#: src/screen_keydef.cxx:201
+#: src/screen_keydef.cxx:202
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "分配 %s 到 %s"
 
-#: src/screen_keydef.cxx:228
+#: src/screen_keydef.cxx:229
 msgid "Add new key"
 msgstr "添加新的键"
 
-#: src/screen_keydef.cxx:250
+#: src/screen_keydef.cxx:251
 #, c-format
 msgid "Edit keys for %s"
 msgstr "为 %s 编辑快捷键"
 
-#: src/screen_keydef.cxx:393
+#: src/screen_keydef.cxx:394
 msgid "You have new key bindings"
 msgstr "你有新绑定的快捷键"
 
-#: src/screen_keydef.cxx:395
+#: src/screen_keydef.cxx:396
 msgid "Keybindings unchanged."
 msgstr "取消快捷键变更."
 
-#: src/screen_keydef.cxx:405
+#: src/screen_keydef.cxx:406
 msgid "Unable to write configuration"
 msgstr "无法保存配置"
 
-#: src/screen_keydef.cxx:414 src/screen_keydef.cxx:423
+#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
 msgid "Error"
 msgstr "错误"
 
-#: src/screen_keydef.cxx:421
+#: src/screen_keydef.cxx:422
 #, c-format
 msgid "Wrote %s"
 msgstr "写入 %s"
 
-#: src/screen_keydef.cxx:434
+#: src/screen_keydef.cxx:435
 msgid "===> Apply key bindings "
 msgstr "应用快捷键设置 "
 
-#: src/screen_keydef.cxx:436
+#: src/screen_keydef.cxx:437
 msgid "===> Apply & Save key bindings  "
 msgstr "应用 & 保存快捷键设置  "
 
-#: src/screen_keydef.cxx:473
+#: src/screen_keydef.cxx:474
 msgid "Edit key bindings"
 msgstr "编辑快捷键设置"
 
-#: src/screen_keydef.cxx:555
+#: src/screen_keydef.cxx:556
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "提示: 你忘记了保存你的设置?"
 
-#: src/screen_keydef.cxx:605
+#: src/screen_keydef.cxx:606
 msgid "Keys"
 msgstr "快捷键"
 

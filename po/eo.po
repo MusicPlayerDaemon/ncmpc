@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-10 21:38+0200\n"
+"POT-Creation-Date: 2019-10-08 17:59+0200\n"
 "PO-Revision-Date: 2011-05-16 15:13+0000\n"
 "Last-Translator: Aleksej <Unknown>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
@@ -320,24 +320,24 @@ msgstr ""
 msgid "Chat screen"
 msgstr ""
 
-#: src/ConfigParser.cxx:118
+#: src/ConfigParser.cxx:119
 msgid "Word expected"
 msgstr ""
 
-#: src/ConfigParser.cxx:144 src/ConfigParser.cxx:153
+#: src/ConfigParser.cxx:145 src/ConfigParser.cxx:154
 msgid "Malformed hotkey definition"
 msgstr ""
 
 #. the hotkey configuration
 #. line is incomplete
-#: src/ConfigParser.cxx:172
+#: src/ConfigParser.cxx:173
 msgid "Incomplete hotkey configuration"
 msgstr ""
 
 #. the hotkey configuration
 #. contains an unknown
 #. command
-#: src/ConfigParser.cxx:186
+#: src/ConfigParser.cxx:187
 msgid "Unknown command"
 msgstr ""
 
@@ -349,29 +349,29 @@ msgstr ""
 #. configuration file
 #. contained an invalid
 #. setting
-#: src/ConfigParser.cxx:222
+#: src/ConfigParser.cxx:223
 msgid "Bad time display type"
 msgstr ""
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/ConfigParser.cxx:238 src/ConfigParser.cxx:468
+#: src/ConfigParser.cxx:239 src/ConfigParser.cxx:469
 msgid "Missing '='"
 msgstr ""
 
-#: src/ConfigParser.cxx:287
+#: src/ConfigParser.cxx:288
 msgid "Bad color name"
 msgstr ""
 
-#: src/ConfigParser.cxx:296
+#: src/ConfigParser.cxx:297
 msgid "Incomplete color definition"
 msgstr ""
 
-#: src/ConfigParser.cxx:302
+#: src/ConfigParser.cxx:303
 msgid "Invalid number"
 msgstr ""
 
-#: src/ConfigParser.cxx:309
+#: src/ConfigParser.cxx:310
 msgid "Malformed color definition"
 msgstr ""
 
@@ -380,23 +380,23 @@ msgstr ""
 #. in the
 #. configuration
 #. file
-#: src/ConfigParser.cxx:373
+#: src/ConfigParser.cxx:374
 msgid "Unknown screen name"
 msgstr ""
 
-#: src/ConfigParser.cxx:402
+#: src/ConfigParser.cxx:403
 msgid "Unknown MPD tag"
 msgstr ""
 
-#: src/ConfigParser.cxx:429
+#: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
 msgstr ""
 
-#: src/ConfigParser.cxx:447
+#: src/ConfigParser.cxx:448
 msgid "Unknown search mode"
 msgstr ""
 
-#: src/ConfigParser.cxx:635
+#: src/ConfigParser.cxx:636
 msgid "Unknown configuration parameter"
 msgstr ""
 
@@ -417,7 +417,7 @@ msgid "Delete playlist %s?"
 msgstr ""
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:381 src/save_playlist.cxx:111
+#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
 #: src/screen_keydef.cxx:181
 msgid "Aborted"
 msgstr ""
@@ -618,12 +618,12 @@ msgstr ""
 msgid "Insert"
 msgstr ""
 
-#: src/KeyName.cxx:74
+#: src/KeyName.cxx:75
 #, c-format
 msgid "Ctrl-%c"
 msgstr ""
 
-#: src/KeyName.cxx:76
+#: src/KeyName.cxx:78
 #, c-format
 msgid "Alt-%c"
 msgstr ""
@@ -657,52 +657,52 @@ msgid "Range selection enabled"
 msgstr ""
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:250
+#: src/LyricsPage.cxx:253
 msgid "No lyrics"
 msgstr ""
 
-#: src/LyricsPage.cxx:268
+#: src/LyricsPage.cxx:270
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr ""
 
-#: src/LyricsPage.cxx:346 src/LyricsPage.cxx:354 src/LyricsPage.cxx:364
-#: src/LyricsPage.cxx:500
+#: src/LyricsPage.cxx:353 src/LyricsPage.cxx:361 src/LyricsPage.cxx:371
+#: src/LyricsPage.cxx:507
 msgid "Lyrics"
 msgstr ""
 
 #. translators: this message is displayed
 #. while data is retrieved
-#: src/LyricsPage.cxx:349
+#: src/LyricsPage.cxx:356
 msgid "loading..."
 msgstr ""
 
-#: src/LyricsPage.cxx:371
+#: src/LyricsPage.cxx:378
 msgid "Editor not configured"
 msgstr ""
 
-#: src/LyricsPage.cxx:378
+#: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr ""
 
-#: src/LyricsPage.cxx:396 src/LyricsPage.cxx:420
+#: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
 msgstr ""
 
-#: src/LyricsPage.cxx:423 src/LyricsPage.cxx:427
+#: src/LyricsPage.cxx:430 src/LyricsPage.cxx:434
 msgid "Editor exited unexpectedly"
 msgstr ""
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:449
+#: src/LyricsPage.cxx:456
 msgid "Lyrics saved"
 msgstr ""
 
-#: src/LyricsPage.cxx:455
+#: src/LyricsPage.cxx:462
 msgid "Lyrics deleted"
 msgstr ""
 
-#: src/LyricsPage.cxx:456
+#: src/LyricsPage.cxx:463
 msgid "No saved lyrics"
 msgstr ""
 
@@ -893,58 +893,58 @@ msgstr ""
 msgid "Error: key %s is already used for %s"
 msgstr ""
 
-#: src/screen_keydef.cxx:201
+#: src/screen_keydef.cxx:202
 #, c-format
 msgid "Assigned %s to %s"
 msgstr ""
 
-#: src/screen_keydef.cxx:228
+#: src/screen_keydef.cxx:229
 msgid "Add new key"
 msgstr ""
 
-#: src/screen_keydef.cxx:250
+#: src/screen_keydef.cxx:251
 #, c-format
 msgid "Edit keys for %s"
 msgstr ""
 
-#: src/screen_keydef.cxx:393
+#: src/screen_keydef.cxx:394
 msgid "You have new key bindings"
 msgstr ""
 
-#: src/screen_keydef.cxx:395
+#: src/screen_keydef.cxx:396
 msgid "Keybindings unchanged."
 msgstr ""
 
-#: src/screen_keydef.cxx:405
+#: src/screen_keydef.cxx:406
 msgid "Unable to write configuration"
 msgstr ""
 
-#: src/screen_keydef.cxx:414 src/screen_keydef.cxx:423
+#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
 msgid "Error"
 msgstr ""
 
-#: src/screen_keydef.cxx:421
+#: src/screen_keydef.cxx:422
 #, c-format
 msgid "Wrote %s"
 msgstr ""
 
-#: src/screen_keydef.cxx:434
+#: src/screen_keydef.cxx:435
 msgid "===> Apply key bindings "
 msgstr ""
 
-#: src/screen_keydef.cxx:436
+#: src/screen_keydef.cxx:437
 msgid "===> Apply & Save key bindings  "
 msgstr ""
 
-#: src/screen_keydef.cxx:473
+#: src/screen_keydef.cxx:474
 msgid "Edit key bindings"
 msgstr ""
 
-#: src/screen_keydef.cxx:555
+#: src/screen_keydef.cxx:556
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr ""
 
-#: src/screen_keydef.cxx:605
+#: src/screen_keydef.cxx:606
 msgid "Keys"
 msgstr ""
 
