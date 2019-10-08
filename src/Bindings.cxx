@@ -21,7 +21,6 @@
 #include "Command.hxx"
 #include "KeyName.hxx"
 #include "i18n.h"
-#include "util/CharUtil.hxx"
 
 #include <assert.h>
 #include <stdio.h>
@@ -122,10 +121,7 @@ KeyBinding::WriteToFile(FILE *f, const command_definition_t &cmd,
 		else
 			fprintf(f, ",  ");
 
-		if (key < 256 && IsAlphaNumericASCII(key))
-			fprintf(f, "\'%c\'", key);
-		else
-			fprintf(f, "%d", key);
+		fputs(GetKeyName(key), f);
 	}
 	fprintf(f,"\n\n");
 }

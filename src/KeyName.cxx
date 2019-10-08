@@ -19,6 +19,7 @@
 
 #include "KeyName.hxx"
 #include "i18n.h"
+#include "util/CharUtil.hxx"
 
 #include <curses.h>
 
@@ -46,6 +47,19 @@ ParseKeyName(const char *s) noexcept
 
 		return std::make_pair(int(value), end);
 	}
+}
+
+const char *
+GetKeyName(int key) noexcept
+{
+	static char buf[32];
+
+	if (key < 256 && IsAlphaNumericASCII(key))
+		snprintf(buf, sizeof(buf), "\'%c\'", key);
+	else
+		snprintf(buf, sizeof(buf), "%d", key);
+
+	return buf;
 }
 
 const char *

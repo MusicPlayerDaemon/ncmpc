@@ -35,6 +35,16 @@ std::pair<int, const char *>
 ParseKeyName(const char *s) noexcept;
 
 /**
+ * Convert a keycode to a canonical string, to be used in the
+ * configuration file.
+ *
+ * The returned pointer is invalidated by the next call.
+ */
+gcc_pure
+const char *
+GetKeyName(int key) noexcept;
+
+/**
  * Convert a keycode to a human-readable localized string.
  *
  * The returned pointer is invalidated by the next call.
