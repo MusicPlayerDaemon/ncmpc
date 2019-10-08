@@ -419,8 +419,8 @@ msgid "Delete playlist %s?"
 msgstr "%s 연주목록을 지울까요?"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:181
+#: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
+#: src/save_playlist.cxx:111
 msgid "Aborted"
 msgstr "중단됨"
 
@@ -551,6 +551,79 @@ msgstr "y"
 #: src/i18n.h:44
 msgid "n"
 msgstr "n"
+
+#: src/KeyDefPage.cxx:160
+msgid "Deleted"
+msgstr "삭제됨"
+
+#: src/KeyDefPage.cxx:176
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "%s의 새 키 입력: "
+
+#: src/KeyDefPage.cxx:186
+msgid "Ctrl-Space can't be used"
+msgstr "Ctrl-Space 사용할 수 없음"
+
+#: src/KeyDefPage.cxx:192
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "오류: %s 키는 이미 %s에 사용함"
+
+#: src/KeyDefPage.cxx:202
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "%s 키가 %s에 지정됨"
+
+#: src/KeyDefPage.cxx:229
+msgid "Add new key"
+msgstr "새로운 키 추가"
+
+#: src/KeyDefPage.cxx:251
+#, c-format
+msgid "Edit keys for %s"
+msgstr "%s 키 편집"
+
+#: src/KeyDefPage.cxx:394
+msgid "You have new key bindings"
+msgstr "새로운 키 조합입니다"
+
+#: src/KeyDefPage.cxx:396
+msgid "Keybindings unchanged."
+msgstr "키 조합이 바뀌지 않았습니다."
+
+#: src/KeyDefPage.cxx:406
+msgid "Unable to write configuration"
+msgstr "설정 쓰기가 안 됨"
+
+#: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
+msgid "Error"
+msgstr "오류"
+
+#: src/KeyDefPage.cxx:422
+#, c-format
+msgid "Wrote %s"
+msgstr "%s 쓰기"
+
+#: src/KeyDefPage.cxx:435
+msgid "===> Apply key bindings "
+msgstr "===> 키 조합을 적용 "
+
+#: src/KeyDefPage.cxx:437
+msgid "===> Apply & Save key bindings  "
+msgstr "===> 키 조합을 적용하고 저장  "
+
+#: src/KeyDefPage.cxx:474
+msgid "Edit key bindings"
+msgstr "키 조합 편집"
+
+#: src/KeyDefPage.cxx:556
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "주의: 변경사항 '적용하기'를 잊었나요?"
+
+#: src/KeyDefPage.cxx:606
+msgid "Keys"
+msgstr "키"
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -871,79 +944,6 @@ msgstr "이동"
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "'%s' 찾을 수 없음"
-
-#: src/screen_keydef.cxx:160
-msgid "Deleted"
-msgstr "삭제됨"
-
-#: src/screen_keydef.cxx:176
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "%s의 새 키 입력: "
-
-#: src/screen_keydef.cxx:186
-msgid "Ctrl-Space can't be used"
-msgstr "Ctrl-Space 사용할 수 없음"
-
-#: src/screen_keydef.cxx:192
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "오류: %s 키는 이미 %s에 사용함"
-
-#: src/screen_keydef.cxx:202
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "%s 키가 %s에 지정됨"
-
-#: src/screen_keydef.cxx:229
-msgid "Add new key"
-msgstr "새로운 키 추가"
-
-#: src/screen_keydef.cxx:251
-#, c-format
-msgid "Edit keys for %s"
-msgstr "%s 키 편집"
-
-#: src/screen_keydef.cxx:394
-msgid "You have new key bindings"
-msgstr "새로운 키 조합입니다"
-
-#: src/screen_keydef.cxx:396
-msgid "Keybindings unchanged."
-msgstr "키 조합이 바뀌지 않았습니다."
-
-#: src/screen_keydef.cxx:406
-msgid "Unable to write configuration"
-msgstr "설정 쓰기가 안 됨"
-
-#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
-msgid "Error"
-msgstr "오류"
-
-#: src/screen_keydef.cxx:422
-#, c-format
-msgid "Wrote %s"
-msgstr "%s 쓰기"
-
-#: src/screen_keydef.cxx:435
-msgid "===> Apply key bindings "
-msgstr "===> 키 조합을 적용 "
-
-#: src/screen_keydef.cxx:437
-msgid "===> Apply & Save key bindings  "
-msgstr "===> 키 조합을 적용하고 저장  "
-
-#: src/screen_keydef.cxx:474
-msgid "Edit key bindings"
-msgstr "키 조합 편집"
-
-#: src/screen_keydef.cxx:556
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "주의: 변경사항 '적용하기'를 잊었나요?"
-
-#: src/screen_keydef.cxx:606
-msgid "Keys"
-msgstr "키"
 
 #: src/screen_utils.cxx:150
 msgid "Password"

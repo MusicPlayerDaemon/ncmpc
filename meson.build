@@ -254,7 +254,7 @@ endif
 enable_keydef_screen = get_option('key_screen') and not mini
 conf.set('ENABLE_KEYDEF_SCREEN', enable_keydef_screen)
 if enable_keydef_screen
-  sources += ['src/screen_keydef.cxx']
+  sources += ['src/KeyDefPage.cxx']
 endif
 
 enable_lyrics_screen = get_option('lyrics_screen') and not mini

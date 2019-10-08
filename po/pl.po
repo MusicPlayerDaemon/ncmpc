@@ -421,8 +421,8 @@ msgid "Delete playlist %s?"
 msgstr "Czy usunąć listę odtwarzania %s?"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:181
+#: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
+#: src/save_playlist.cxx:111
 msgid "Aborted"
 msgstr "Anulowano"
 
@@ -553,6 +553,79 @@ msgstr "t"
 #: src/i18n.h:44
 msgid "n"
 msgstr "n"
+
+#: src/KeyDefPage.cxx:160
+msgid "Deleted"
+msgstr "Usunięto"
+
+#: src/KeyDefPage.cxx:176
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "Podaj nowy skrót dla %s: "
+
+#: src/KeyDefPage.cxx:186
+msgid "Ctrl-Space can't be used"
+msgstr "Ctrl-Space nie może być użyte"
+
+#: src/KeyDefPage.cxx:192
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "Błąd: klawisz %s już jest używany do %s"
+
+#: src/KeyDefPage.cxx:202
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "Przypisano klawisz %s do %s"
+
+#: src/KeyDefPage.cxx:229
+msgid "Add new key"
+msgstr "Dodaj nowy klawisz"
+
+#: src/KeyDefPage.cxx:251
+#, c-format
+msgid "Edit keys for %s"
+msgstr "Edytuj klawisze dla %s"
+
+#: src/KeyDefPage.cxx:394
+msgid "You have new key bindings"
+msgstr "Masz nowe wiązania klawiszy"
+
+#: src/KeyDefPage.cxx:396
+msgid "Keybindings unchanged."
+msgstr "Wiązania klawiszy niezmienione."
+
+#: src/KeyDefPage.cxx:406
+msgid "Unable to write configuration"
+msgstr "Nie mogę zapisać konfiguracji"
+
+#: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
+msgid "Error"
+msgstr "Błąd"
+
+#: src/KeyDefPage.cxx:422
+#, c-format
+msgid "Wrote %s"
+msgstr "Zapisano %s"
+
+#: src/KeyDefPage.cxx:435
+msgid "===> Apply key bindings "
+msgstr "===> Zastosuj wiązania klawiszy "
+
+#: src/KeyDefPage.cxx:437
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Zastosuj i Zapisz wiązania klawiszy  "
+
+#: src/KeyDefPage.cxx:474
+msgid "Edit key bindings"
+msgstr "Edytuj wiązania klawiszy"
+
+#: src/KeyDefPage.cxx:556
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "Informacja: Zapomniałeś 'Zastosować' swoje zmiany?"
+
+#: src/KeyDefPage.cxx:606
+msgid "Keys"
+msgstr "Klawisze"
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -875,79 +948,6 @@ msgstr "Skocz"
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Nie można znaleźć '%s'"
-
-#: src/screen_keydef.cxx:160
-msgid "Deleted"
-msgstr "Usunięto"
-
-#: src/screen_keydef.cxx:176
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "Podaj nowy skrót dla %s: "
-
-#: src/screen_keydef.cxx:186
-msgid "Ctrl-Space can't be used"
-msgstr "Ctrl-Space nie może być użyte"
-
-#: src/screen_keydef.cxx:192
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Błąd: klawisz %s już jest używany do %s"
-
-#: src/screen_keydef.cxx:202
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "Przypisano klawisz %s do %s"
-
-#: src/screen_keydef.cxx:229
-msgid "Add new key"
-msgstr "Dodaj nowy klawisz"
-
-#: src/screen_keydef.cxx:251
-#, c-format
-msgid "Edit keys for %s"
-msgstr "Edytuj klawisze dla %s"
-
-#: src/screen_keydef.cxx:394
-msgid "You have new key bindings"
-msgstr "Masz nowe wiązania klawiszy"
-
-#: src/screen_keydef.cxx:396
-msgid "Keybindings unchanged."
-msgstr "Wiązania klawiszy niezmienione."
-
-#: src/screen_keydef.cxx:406
-msgid "Unable to write configuration"
-msgstr "Nie mogę zapisać konfiguracji"
-
-#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
-msgid "Error"
-msgstr "Błąd"
-
-#: src/screen_keydef.cxx:422
-#, c-format
-msgid "Wrote %s"
-msgstr "Zapisano %s"
-
-#: src/screen_keydef.cxx:435
-msgid "===> Apply key bindings "
-msgstr "===> Zastosuj wiązania klawiszy "
-
-#: src/screen_keydef.cxx:437
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Zastosuj i Zapisz wiązania klawiszy  "
-
-#: src/screen_keydef.cxx:474
-msgid "Edit key bindings"
-msgstr "Edytuj wiązania klawiszy"
-
-#: src/screen_keydef.cxx:556
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Informacja: Zapomniałeś 'Zastosować' swoje zmiany?"
-
-#: src/screen_keydef.cxx:606
-msgid "Keys"
-msgstr "Klawisze"
 
 #: src/screen_utils.cxx:150
 msgid "Password"

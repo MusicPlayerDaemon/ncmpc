@@ -423,8 +423,8 @@ msgid "Delete playlist %s?"
 msgstr "Borrar a lista de reprodución"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:181
+#: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
+#: src/save_playlist.cxx:111
 msgid "Aborted"
 msgstr "Interrompido"
 
@@ -558,6 +558,80 @@ msgstr "s"
 #: src/i18n.h:44
 msgid "n"
 msgstr "n"
+
+#: src/KeyDefPage.cxx:160
+msgid "Deleted"
+msgstr "Borrada"
+
+#: src/KeyDefPage.cxx:176
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "Introduza un novo atallo para %s: "
+
+#: src/KeyDefPage.cxx:186
+msgid "Ctrl-Space can't be used"
+msgstr ""
+
+#: src/KeyDefPage.cxx:192
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "Erro: a tecla %s xá está sendo utilizada por %s"
+
+#: src/KeyDefPage.cxx:202
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "Asignouse %s a %s"
+
+#: src/KeyDefPage.cxx:229
+msgid "Add new key"
+msgstr "Engadir un novo atallo"
+
+#: src/KeyDefPage.cxx:251
+#, c-format
+msgid "Edit keys for %s"
+msgstr "Editar atallos para %s"
+
+#: src/KeyDefPage.cxx:394
+msgid "You have new key bindings"
+msgstr "Ten novos atallos de teclado"
+
+#: src/KeyDefPage.cxx:396
+msgid "Keybindings unchanged."
+msgstr "Non se cambiaron os atallos de teclado"
+
+#: src/KeyDefPage.cxx:406
+#, fuzzy
+msgid "Unable to write configuration"
+msgstr "Configuraión incompleta da tecla de acceso rápido"
+
+#: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
+msgid "Error"
+msgstr "Erro"
+
+#: src/KeyDefPage.cxx:422
+#, c-format
+msgid "Wrote %s"
+msgstr "Escribiuse %s"
+
+#: src/KeyDefPage.cxx:435
+msgid "===> Apply key bindings "
+msgstr "===> Aplicar os atallos de teclado "
+
+#: src/KeyDefPage.cxx:437
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Aplicar e guardar os atallos de teclado  "
+
+#: src/KeyDefPage.cxx:474
+msgid "Edit key bindings"
+msgstr "Editar os atallos de teclado"
+
+#: src/KeyDefPage.cxx:556
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "Nota: Esquecuse de «Aplicar» os cambios?"
+
+#: src/KeyDefPage.cxx:606
+msgid "Keys"
+msgstr ""
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -887,80 +961,6 @@ msgstr "Ir a"
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Non se puido atopar «%s»"
-
-#: src/screen_keydef.cxx:160
-msgid "Deleted"
-msgstr "Borrada"
-
-#: src/screen_keydef.cxx:176
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "Introduza un novo atallo para %s: "
-
-#: src/screen_keydef.cxx:186
-msgid "Ctrl-Space can't be used"
-msgstr ""
-
-#: src/screen_keydef.cxx:192
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Erro: a tecla %s xá está sendo utilizada por %s"
-
-#: src/screen_keydef.cxx:202
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "Asignouse %s a %s"
-
-#: src/screen_keydef.cxx:229
-msgid "Add new key"
-msgstr "Engadir un novo atallo"
-
-#: src/screen_keydef.cxx:251
-#, c-format
-msgid "Edit keys for %s"
-msgstr "Editar atallos para %s"
-
-#: src/screen_keydef.cxx:394
-msgid "You have new key bindings"
-msgstr "Ten novos atallos de teclado"
-
-#: src/screen_keydef.cxx:396
-msgid "Keybindings unchanged."
-msgstr "Non se cambiaron os atallos de teclado"
-
-#: src/screen_keydef.cxx:406
-#, fuzzy
-msgid "Unable to write configuration"
-msgstr "Configuraión incompleta da tecla de acceso rápido"
-
-#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
-msgid "Error"
-msgstr "Erro"
-
-#: src/screen_keydef.cxx:422
-#, c-format
-msgid "Wrote %s"
-msgstr "Escribiuse %s"
-
-#: src/screen_keydef.cxx:435
-msgid "===> Apply key bindings "
-msgstr "===> Aplicar os atallos de teclado "
-
-#: src/screen_keydef.cxx:437
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Aplicar e guardar os atallos de teclado  "
-
-#: src/screen_keydef.cxx:474
-msgid "Edit key bindings"
-msgstr "Editar os atallos de teclado"
-
-#: src/screen_keydef.cxx:556
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Nota: Esquecuse de «Aplicar» os cambios?"
-
-#: src/screen_keydef.cxx:606
-msgid "Keys"
-msgstr ""
 
 #: src/screen_utils.cxx:150
 msgid "Password"

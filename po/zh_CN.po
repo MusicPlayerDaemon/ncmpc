@@ -419,8 +419,8 @@ msgid "Delete playlist %s?"
 msgstr "删除播放列表 %s？"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:181
+#: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
+#: src/save_playlist.cxx:111
 msgid "Aborted"
 msgstr "已放弃"
 
@@ -551,6 +551,79 @@ msgstr "y"
 #: src/i18n.h:44
 msgid "n"
 msgstr "n"
+
+#: src/KeyDefPage.cxx:160
+msgid "Deleted"
+msgstr "已删除"
+
+#: src/KeyDefPage.cxx:176
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "为 %s 输入新的按键: "
+
+#: src/KeyDefPage.cxx:186
+msgid "Ctrl-Space can't be used"
+msgstr "ctl-Space键无法使用"
+
+#: src/KeyDefPage.cxx:192
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "键 %s 已经绑定到 %s"
+
+#: src/KeyDefPage.cxx:202
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "分配 %s 到 %s"
+
+#: src/KeyDefPage.cxx:229
+msgid "Add new key"
+msgstr "添加新的键"
+
+#: src/KeyDefPage.cxx:251
+#, c-format
+msgid "Edit keys for %s"
+msgstr "为 %s 编辑快捷键"
+
+#: src/KeyDefPage.cxx:394
+msgid "You have new key bindings"
+msgstr "你有新绑定的快捷键"
+
+#: src/KeyDefPage.cxx:396
+msgid "Keybindings unchanged."
+msgstr "取消快捷键变更."
+
+#: src/KeyDefPage.cxx:406
+msgid "Unable to write configuration"
+msgstr "无法保存配置"
+
+#: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
+msgid "Error"
+msgstr "错误"
+
+#: src/KeyDefPage.cxx:422
+#, c-format
+msgid "Wrote %s"
+msgstr "写入 %s"
+
+#: src/KeyDefPage.cxx:435
+msgid "===> Apply key bindings "
+msgstr "应用快捷键设置 "
+
+#: src/KeyDefPage.cxx:437
+msgid "===> Apply & Save key bindings  "
+msgstr "应用 & 保存快捷键设置  "
+
+#: src/KeyDefPage.cxx:474
+msgid "Edit key bindings"
+msgstr "编辑快捷键设置"
+
+#: src/KeyDefPage.cxx:556
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "提示: 你忘记了保存你的设置?"
+
+#: src/KeyDefPage.cxx:606
+msgid "Keys"
+msgstr "快捷键"
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -876,79 +949,6 @@ msgstr "跳转"
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "找不到 '%s'"
-
-#: src/screen_keydef.cxx:160
-msgid "Deleted"
-msgstr "已删除"
-
-#: src/screen_keydef.cxx:176
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "为 %s 输入新的按键: "
-
-#: src/screen_keydef.cxx:186
-msgid "Ctrl-Space can't be used"
-msgstr "ctl-Space键无法使用"
-
-#: src/screen_keydef.cxx:192
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "键 %s 已经绑定到 %s"
-
-#: src/screen_keydef.cxx:202
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "分配 %s 到 %s"
-
-#: src/screen_keydef.cxx:229
-msgid "Add new key"
-msgstr "添加新的键"
-
-#: src/screen_keydef.cxx:251
-#, c-format
-msgid "Edit keys for %s"
-msgstr "为 %s 编辑快捷键"
-
-#: src/screen_keydef.cxx:394
-msgid "You have new key bindings"
-msgstr "你有新绑定的快捷键"
-
-#: src/screen_keydef.cxx:396
-msgid "Keybindings unchanged."
-msgstr "取消快捷键变更."
-
-#: src/screen_keydef.cxx:406
-msgid "Unable to write configuration"
-msgstr "无法保存配置"
-
-#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
-msgid "Error"
-msgstr "错误"
-
-#: src/screen_keydef.cxx:422
-#, c-format
-msgid "Wrote %s"
-msgstr "写入 %s"
-
-#: src/screen_keydef.cxx:435
-msgid "===> Apply key bindings "
-msgstr "应用快捷键设置 "
-
-#: src/screen_keydef.cxx:437
-msgid "===> Apply & Save key bindings  "
-msgstr "应用 & 保存快捷键设置  "
-
-#: src/screen_keydef.cxx:474
-msgid "Edit key bindings"
-msgstr "编辑快捷键设置"
-
-#: src/screen_keydef.cxx:556
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "提示: 你忘记了保存你的设置?"
-
-#: src/screen_keydef.cxx:606
-msgid "Keys"
-msgstr "快捷键"
 
 #: src/screen_utils.cxx:150
 msgid "Password"

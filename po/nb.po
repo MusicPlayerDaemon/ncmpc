@@ -424,8 +424,8 @@ msgid "Delete playlist %s?"
 msgstr "Slett spillelisten %s?"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:181
+#: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
+#: src/save_playlist.cxx:111
 msgid "Aborted"
 msgstr "Avbrutt"
 
@@ -558,6 +558,81 @@ msgstr "j"
 #: src/i18n.h:44
 msgid "n"
 msgstr "n"
+
+#: src/KeyDefPage.cxx:160
+msgid "Deleted"
+msgstr "Slettet"
+
+#: src/KeyDefPage.cxx:176
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "Ny tast for %s: "
+
+#: src/KeyDefPage.cxx:186
+#, fuzzy
+msgid "Ctrl-Space can't be used"
+msgstr "Ctrl+mellomrom kan ikke brukes"
+
+#: src/KeyDefPage.cxx:192
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "Tasten %s brukes allerede for %s"
+
+#: src/KeyDefPage.cxx:202
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "Satte %s = %s"
+
+#: src/KeyDefPage.cxx:229
+msgid "Add new key"
+msgstr "Legg til ny tast"
+
+#: src/KeyDefPage.cxx:251
+#, c-format
+msgid "Edit keys for %s"
+msgstr "Endre taster for '%s'"
+
+#: src/KeyDefPage.cxx:394
+msgid "You have new key bindings"
+msgstr "Du har nye tastatursnarveier"
+
+#: src/KeyDefPage.cxx:396
+msgid "Keybindings unchanged."
+msgstr "Tastatursnarveier uforandret."
+
+#: src/KeyDefPage.cxx:406
+#, fuzzy
+msgid "Unable to write configuration"
+msgstr "Kunne ikke lagre oppsett"
+
+#: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
+msgid "Error"
+msgstr "Feil"
+
+#: src/KeyDefPage.cxx:422
+#, c-format
+msgid "Wrote %s"
+msgstr "Skrev %s"
+
+#: src/KeyDefPage.cxx:435
+msgid "===> Apply key bindings "
+msgstr "==> Bruk snarveier "
+
+#: src/KeyDefPage.cxx:437
+msgid "===> Apply & Save key bindings  "
+msgstr "==> Bruk og Lagre snarveier  "
+
+#: src/KeyDefPage.cxx:474
+msgid "Edit key bindings"
+msgstr "Endre tast"
+
+#: src/KeyDefPage.cxx:556
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "OBS! Du glemte vel ikke å legge til de nye endringene?"
+
+#: src/KeyDefPage.cxx:606
+msgid "Keys"
+msgstr "Taster"
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -892,81 +967,6 @@ msgstr "Hopp"
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Fant ikke '%s'"
-
-#: src/screen_keydef.cxx:160
-msgid "Deleted"
-msgstr "Slettet"
-
-#: src/screen_keydef.cxx:176
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "Ny tast for %s: "
-
-#: src/screen_keydef.cxx:186
-#, fuzzy
-msgid "Ctrl-Space can't be used"
-msgstr "Ctrl+mellomrom kan ikke brukes"
-
-#: src/screen_keydef.cxx:192
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Tasten %s brukes allerede for %s"
-
-#: src/screen_keydef.cxx:202
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "Satte %s = %s"
-
-#: src/screen_keydef.cxx:229
-msgid "Add new key"
-msgstr "Legg til ny tast"
-
-#: src/screen_keydef.cxx:251
-#, c-format
-msgid "Edit keys for %s"
-msgstr "Endre taster for '%s'"
-
-#: src/screen_keydef.cxx:394
-msgid "You have new key bindings"
-msgstr "Du har nye tastatursnarveier"
-
-#: src/screen_keydef.cxx:396
-msgid "Keybindings unchanged."
-msgstr "Tastatursnarveier uforandret."
-
-#: src/screen_keydef.cxx:406
-#, fuzzy
-msgid "Unable to write configuration"
-msgstr "Kunne ikke lagre oppsett"
-
-#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
-msgid "Error"
-msgstr "Feil"
-
-#: src/screen_keydef.cxx:422
-#, c-format
-msgid "Wrote %s"
-msgstr "Skrev %s"
-
-#: src/screen_keydef.cxx:435
-msgid "===> Apply key bindings "
-msgstr "==> Bruk snarveier "
-
-#: src/screen_keydef.cxx:437
-msgid "===> Apply & Save key bindings  "
-msgstr "==> Bruk og Lagre snarveier  "
-
-#: src/screen_keydef.cxx:474
-msgid "Edit key bindings"
-msgstr "Endre tast"
-
-#: src/screen_keydef.cxx:556
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "OBS! Du glemte vel ikke å legge til de nye endringene?"
-
-#: src/screen_keydef.cxx:606
-msgid "Keys"
-msgstr "Taster"
 
 #: src/screen_utils.cxx:150
 msgid "Password"

@@ -7,6 +7,7 @@ src/FileBrowserPage.cxx
 src/FileListPage.cxx
 src/HelpPage.cxx
 src/i18n.h
+src/KeyDefPage.cxx
 src/KeyName.cxx
 src/LibraryPage.cxx
 src/ListWindow.cxx
@@ -20,7 +21,6 @@ src/save_playlist.cxx
 src/screen_client.cxx
 src/screen.cxx
 src/screen_find.cxx
-src/screen_keydef.cxx
 src/screen_utils.cxx
 src/SearchPage.cxx
 src/SongPage.cxx

@@ -422,8 +422,8 @@ msgid "Delete playlist %s?"
 msgstr "Vymazať playlist"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:181
+#: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
+#: src/save_playlist.cxx:111
 msgid "Aborted"
 msgstr "Zrušené"
 
@@ -558,6 +558,80 @@ msgstr "a"
 #: src/i18n.h:44
 msgid "n"
 msgstr "n"
+
+#: src/KeyDefPage.cxx:160
+msgid "Deleted"
+msgstr "Vymazané"
+
+#: src/KeyDefPage.cxx:176
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "Zadajte nový kláves pre %s: "
+
+#: src/KeyDefPage.cxx:186
+msgid "Ctrl-Space can't be used"
+msgstr ""
+
+#: src/KeyDefPage.cxx:192
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "Chyba: kláves %s je už použitý pre %s"
+
+#: src/KeyDefPage.cxx:202
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "%s priradené k %s"
+
+#: src/KeyDefPage.cxx:229
+msgid "Add new key"
+msgstr "Pridať nový kláves"
+
+#: src/KeyDefPage.cxx:251
+#, c-format
+msgid "Edit keys for %s"
+msgstr "Upraviť klávesy pre %s"
+
+#: src/KeyDefPage.cxx:394
+msgid "You have new key bindings"
+msgstr "Nastavili ste nové priradenie klávesov"
+
+#: src/KeyDefPage.cxx:396
+msgid "Keybindings unchanged."
+msgstr "Priradenie klávesov sa nezmenilo."
+
+#: src/KeyDefPage.cxx:406
+#, fuzzy
+msgid "Unable to write configuration"
+msgstr "Neúplná konfigurácie klavesových skratiek"
+
+#: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
+msgid "Error"
+msgstr "Chyba"
+
+#: src/KeyDefPage.cxx:422
+#, c-format
+msgid "Wrote %s"
+msgstr "Zapísané %s"
+
+#: src/KeyDefPage.cxx:435
+msgid "===> Apply key bindings "
+msgstr "===> Použiť nastavenie klávesov "
+
+#: src/KeyDefPage.cxx:437
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Použiť & Uložiť nastavenie klávesov  "
+
+#: src/KeyDefPage.cxx:474
+msgid "Edit key bindings"
+msgstr "Upraviť priradenie klávesov"
+
+#: src/KeyDefPage.cxx:556
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "Poznámka: Zabudli ste 'Použiť' vaše zmeny?"
+
+#: src/KeyDefPage.cxx:606
+msgid "Keys"
+msgstr ""
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -888,80 +962,6 @@ msgstr "Skok"
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Nepodarilo sa nájsť '%s'"
-
-#: src/screen_keydef.cxx:160
-msgid "Deleted"
-msgstr "Vymazané"
-
-#: src/screen_keydef.cxx:176
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "Zadajte nový kláves pre %s: "
-
-#: src/screen_keydef.cxx:186
-msgid "Ctrl-Space can't be used"
-msgstr ""
-
-#: src/screen_keydef.cxx:192
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Chyba: kláves %s je už použitý pre %s"
-
-#: src/screen_keydef.cxx:202
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "%s priradené k %s"
-
-#: src/screen_keydef.cxx:229
-msgid "Add new key"
-msgstr "Pridať nový kláves"
-
-#: src/screen_keydef.cxx:251
-#, c-format
-msgid "Edit keys for %s"
-msgstr "Upraviť klávesy pre %s"
-
-#: src/screen_keydef.cxx:394
-msgid "You have new key bindings"
-msgstr "Nastavili ste nové priradenie klávesov"
-
-#: src/screen_keydef.cxx:396
-msgid "Keybindings unchanged."
-msgstr "Priradenie klávesov sa nezmenilo."
-
-#: src/screen_keydef.cxx:406
-#, fuzzy
-msgid "Unable to write configuration"
-msgstr "Neúplná konfigurácie klavesových skratiek"
-
-#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
-msgid "Error"
-msgstr "Chyba"
-
-#: src/screen_keydef.cxx:422
-#, c-format
-msgid "Wrote %s"
-msgstr "Zapísané %s"
-
-#: src/screen_keydef.cxx:435
-msgid "===> Apply key bindings "
-msgstr "===> Použiť nastavenie klávesov "
-
-#: src/screen_keydef.cxx:437
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Použiť & Uložiť nastavenie klávesov  "
-
-#: src/screen_keydef.cxx:474
-msgid "Edit key bindings"
-msgstr "Upraviť priradenie klávesov"
-
-#: src/screen_keydef.cxx:556
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Poznámka: Zabudli ste 'Použiť' vaše zmeny?"
-
-#: src/screen_keydef.cxx:606
-msgid "Keys"
-msgstr ""
 
 #: src/screen_utils.cxx:150
 msgid "Password"

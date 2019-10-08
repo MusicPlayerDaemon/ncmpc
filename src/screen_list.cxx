@@ -25,7 +25,7 @@
 #include "LibraryPage.hxx"
 #include "SearchPage.hxx"
 #include "SongPage.hxx"
-#include "screen_keydef.hxx"
+#include "KeyDefPage.hxx"
 #include "LyricsPage.hxx"
 #include "OutputsPage.hxx"
 #include "ChatPage.hxx"

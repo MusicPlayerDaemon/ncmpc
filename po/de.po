@@ -421,8 +421,8 @@ msgid "Delete playlist %s?"
 msgstr "Wiedergabeliste %s löschen?"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:181
+#: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
+#: src/save_playlist.cxx:111
 msgid "Aborted"
 msgstr "Abbruch"
 
@@ -553,6 +553,79 @@ msgstr "j"
 #: src/i18n.h:44
 msgid "n"
 msgstr "n"
+
+#: src/KeyDefPage.cxx:160
+msgid "Deleted"
+msgstr "Gelöscht"
+
+#: src/KeyDefPage.cxx:176
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "Gib neue Taste für %s ein: "
+
+#: src/KeyDefPage.cxx:186
+msgid "Ctrl-Space can't be used"
+msgstr "Strg-Leerzeichen kann nicht verwendet werden"
+
+#: src/KeyDefPage.cxx:192
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "Fehler: Taste %s wird bereits benutzt für %s"
+
+#: src/KeyDefPage.cxx:202
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "%s wurde %s zugeordnet"
+
+#: src/KeyDefPage.cxx:229
+msgid "Add new key"
+msgstr "Füge neue Taste hinzu"
+
+#: src/KeyDefPage.cxx:251
+#, c-format
+msgid "Edit keys for %s"
+msgstr "Editiere Tasten für %s"
+
+#: src/KeyDefPage.cxx:394
+msgid "You have new key bindings"
+msgstr "Du hast eine neue Tastenbelegung"
+
+#: src/KeyDefPage.cxx:396
+msgid "Keybindings unchanged."
+msgstr "Tastenbelegung unverändert."
+
+#: src/KeyDefPage.cxx:406
+msgid "Unable to write configuration"
+msgstr "Konfiguration kann nicht geschrieben werden"
+
+#: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
+msgid "Error"
+msgstr "Fehler"
+
+#: src/KeyDefPage.cxx:422
+#, c-format
+msgid "Wrote %s"
+msgstr "%s geschrieben"
+
+#: src/KeyDefPage.cxx:435
+msgid "===> Apply key bindings "
+msgstr "===> Tastenbelegung anwenden "
+
+#: src/KeyDefPage.cxx:437
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Tastenbelegung speichern und anwenden  "
+
+#: src/KeyDefPage.cxx:474
+msgid "Edit key bindings"
+msgstr "Editiere Tastenbelegungen"
+
+#: src/KeyDefPage.cxx:556
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "Tipp: Hast du vergessen, deine Änderungen 'Anzuwenden'?"
+
+#: src/KeyDefPage.cxx:606
+msgid "Keys"
+msgstr "Tasten"
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -883,79 +956,6 @@ msgstr "Springe zu"
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Kann '%s' nicht finden"
-
-#: src/screen_keydef.cxx:160
-msgid "Deleted"
-msgstr "Gelöscht"
-
-#: src/screen_keydef.cxx:176
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "Gib neue Taste für %s ein: "
-
-#: src/screen_keydef.cxx:186
-msgid "Ctrl-Space can't be used"
-msgstr "Strg-Leerzeichen kann nicht verwendet werden"
-
-#: src/screen_keydef.cxx:192
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Fehler: Taste %s wird bereits benutzt für %s"
-
-#: src/screen_keydef.cxx:202
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "%s wurde %s zugeordnet"
-
-#: src/screen_keydef.cxx:229
-msgid "Add new key"
-msgstr "Füge neue Taste hinzu"
-
-#: src/screen_keydef.cxx:251
-#, c-format
-msgid "Edit keys for %s"
-msgstr "Editiere Tasten für %s"
-
-#: src/screen_keydef.cxx:394
-msgid "You have new key bindings"
-msgstr "Du hast eine neue Tastenbelegung"
-
-#: src/screen_keydef.cxx:396
-msgid "Keybindings unchanged."
-msgstr "Tastenbelegung unverändert."
-
-#: src/screen_keydef.cxx:406
-msgid "Unable to write configuration"
-msgstr "Konfiguration kann nicht geschrieben werden"
-
-#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
-msgid "Error"
-msgstr "Fehler"
-
-#: src/screen_keydef.cxx:422
-#, c-format
-msgid "Wrote %s"
-msgstr "%s geschrieben"
-
-#: src/screen_keydef.cxx:435
-msgid "===> Apply key bindings "
-msgstr "===> Tastenbelegung anwenden "
-
-#: src/screen_keydef.cxx:437
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Tastenbelegung speichern und anwenden  "
-
-#: src/screen_keydef.cxx:474
-msgid "Edit key bindings"
-msgstr "Editiere Tastenbelegungen"
-
-#: src/screen_keydef.cxx:556
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Tipp: Hast du vergessen, deine Änderungen 'Anzuwenden'?"
-
-#: src/screen_keydef.cxx:606
-msgid "Keys"
-msgstr "Tasten"
 
 #: src/screen_utils.cxx:150
 msgid "Password"

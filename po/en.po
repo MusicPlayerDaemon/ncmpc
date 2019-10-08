@@ -416,8 +416,8 @@ msgid "Delete playlist %s?"
 msgstr "Delete playlist %s?"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:181
+#: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
+#: src/save_playlist.cxx:111
 msgid "Aborted"
 msgstr "Aborted"
 
@@ -548,6 +548,79 @@ msgstr "y"
 #: src/i18n.h:44
 msgid "n"
 msgstr "n"
+
+#: src/KeyDefPage.cxx:160
+msgid "Deleted"
+msgstr "Deleted"
+
+#: src/KeyDefPage.cxx:176
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "Enter new key for %s: "
+
+#: src/KeyDefPage.cxx:186
+msgid "Ctrl-Space can't be used"
+msgstr "Ctrl-Space can't be used"
+
+#: src/KeyDefPage.cxx:192
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "Error: key %s is already used for %s"
+
+#: src/KeyDefPage.cxx:202
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "Assigned %s to %s"
+
+#: src/KeyDefPage.cxx:229
+msgid "Add new key"
+msgstr "Add new key"
+
+#: src/KeyDefPage.cxx:251
+#, c-format
+msgid "Edit keys for %s"
+msgstr "Edit keys for %s"
+
+#: src/KeyDefPage.cxx:394
+msgid "You have new key bindings"
+msgstr "You have new key bindings"
+
+#: src/KeyDefPage.cxx:396
+msgid "Keybindings unchanged."
+msgstr "Keybindings unchanged."
+
+#: src/KeyDefPage.cxx:406
+msgid "Unable to write configuration"
+msgstr "Unable to write configuration"
+
+#: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
+msgid "Error"
+msgstr "Error"
+
+#: src/KeyDefPage.cxx:422
+#, c-format
+msgid "Wrote %s"
+msgstr "Wrote %s"
+
+#: src/KeyDefPage.cxx:435
+msgid "===> Apply key bindings "
+msgstr "===> Apply key bindings "
+
+#: src/KeyDefPage.cxx:437
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Apply & Save key bindings  "
+
+#: src/KeyDefPage.cxx:474
+msgid "Edit key bindings"
+msgstr "Edit key bindings"
+
+#: src/KeyDefPage.cxx:556
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "Note: Did you forget to 'Apply' your changes?"
+
+#: src/KeyDefPage.cxx:606
+msgid "Keys"
+msgstr "Keys"
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -868,79 +941,6 @@ msgstr "Jump"
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Unable to find '%s'"
-
-#: src/screen_keydef.cxx:160
-msgid "Deleted"
-msgstr "Deleted"
-
-#: src/screen_keydef.cxx:176
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "Enter new key for %s: "
-
-#: src/screen_keydef.cxx:186
-msgid "Ctrl-Space can't be used"
-msgstr "Ctrl-Space can't be used"
-
-#: src/screen_keydef.cxx:192
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Error: key %s is already used for %s"
-
-#: src/screen_keydef.cxx:202
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "Assigned %s to %s"
-
-#: src/screen_keydef.cxx:229
-msgid "Add new key"
-msgstr "Add new key"
-
-#: src/screen_keydef.cxx:251
-#, c-format
-msgid "Edit keys for %s"
-msgstr "Edit keys for %s"
-
-#: src/screen_keydef.cxx:394
-msgid "You have new key bindings"
-msgstr "You have new key bindings"
-
-#: src/screen_keydef.cxx:396
-msgid "Keybindings unchanged."
-msgstr "Keybindings unchanged."
-
-#: src/screen_keydef.cxx:406
-msgid "Unable to write configuration"
-msgstr "Unable to write configuration"
-
-#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
-msgid "Error"
-msgstr "Error"
-
-#: src/screen_keydef.cxx:422
-#, c-format
-msgid "Wrote %s"
-msgstr "Wrote %s"
-
-#: src/screen_keydef.cxx:435
-msgid "===> Apply key bindings "
-msgstr "===> Apply key bindings "
-
-#: src/screen_keydef.cxx:437
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Apply & Save key bindings  "
-
-#: src/screen_keydef.cxx:474
-msgid "Edit key bindings"
-msgstr "Edit key bindings"
-
-#: src/screen_keydef.cxx:556
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Note: Did you forget to 'Apply' your changes?"
-
-#: src/screen_keydef.cxx:606
-msgid "Keys"
-msgstr "Keys"
 
 #: src/screen_utils.cxx:150
 msgid "Password"

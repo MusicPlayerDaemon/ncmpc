@@ -423,8 +423,8 @@ msgid "Delete playlist %s?"
 msgstr "Lejátszólista törlése"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:181
+#: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
+#: src/save_playlist.cxx:111
 msgid "Aborted"
 msgstr "Megszakítva"
 
@@ -557,6 +557,80 @@ msgstr "i"
 #: src/i18n.h:44
 msgid "n"
 msgstr "n"
+
+#: src/KeyDefPage.cxx:160
+msgid "Deleted"
+msgstr "Törölve"
+
+#: src/KeyDefPage.cxx:176
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "Nyomd meg az új gombot a következőhöz: %s: "
+
+#: src/KeyDefPage.cxx:186
+msgid "Ctrl-Space can't be used"
+msgstr ""
+
+#: src/KeyDefPage.cxx:192
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "Hiba: %s gombot már a következő funkció használja: %s"
+
+#: src/KeyDefPage.cxx:202
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "%s hozzárendelve a következőhöz: %s"
+
+#: src/KeyDefPage.cxx:229
+msgid "Add new key"
+msgstr "Új gomb hozzáadása"
+
+#: src/KeyDefPage.cxx:251
+#, c-format
+msgid "Edit keys for %s"
+msgstr "Gombok módosítása a következőhöz: %s"
+
+#: src/KeyDefPage.cxx:394
+msgid "You have new key bindings"
+msgstr "Új billentyű beállításaid vannak"
+
+#: src/KeyDefPage.cxx:396
+msgid "Keybindings unchanged."
+msgstr "A billentyű beállítások változatlanok."
+
+#: src/KeyDefPage.cxx:406
+#, fuzzy
+msgid "Unable to write configuration"
+msgstr "Hiányos gyorsbillentyű definíció"
+
+#: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
+msgid "Error"
+msgstr "Hiba"
+
+#: src/KeyDefPage.cxx:422
+#, c-format
+msgid "Wrote %s"
+msgstr "%s elmentve"
+
+#: src/KeyDefPage.cxx:435
+msgid "===> Apply key bindings "
+msgstr "===> Billentyű beállítások használata "
+
+#: src/KeyDefPage.cxx:437
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Alkalmaz és Menti a billentyű beállításokat  "
+
+#: src/KeyDefPage.cxx:474
+msgid "Edit key bindings"
+msgstr "Billentyűk változtatása"
+
+#: src/KeyDefPage.cxx:556
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "Észrevétel: nem felejtetted el érvényesíteni a változtatásaidat?"
+
+#: src/KeyDefPage.cxx:606
+msgid "Keys"
+msgstr ""
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -883,80 +957,6 @@ msgstr "Ugrás"
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "'%s' nem található"
-
-#: src/screen_keydef.cxx:160
-msgid "Deleted"
-msgstr "Törölve"
-
-#: src/screen_keydef.cxx:176
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "Nyomd meg az új gombot a következőhöz: %s: "
-
-#: src/screen_keydef.cxx:186
-msgid "Ctrl-Space can't be used"
-msgstr ""
-
-#: src/screen_keydef.cxx:192
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Hiba: %s gombot már a következő funkció használja: %s"
-
-#: src/screen_keydef.cxx:202
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "%s hozzárendelve a következőhöz: %s"
-
-#: src/screen_keydef.cxx:229
-msgid "Add new key"
-msgstr "Új gomb hozzáadása"
-
-#: src/screen_keydef.cxx:251
-#, c-format
-msgid "Edit keys for %s"
-msgstr "Gombok módosítása a következőhöz: %s"
-
-#: src/screen_keydef.cxx:394
-msgid "You have new key bindings"
-msgstr "Új billentyű beállításaid vannak"
-
-#: src/screen_keydef.cxx:396
-msgid "Keybindings unchanged."
-msgstr "A billentyű beállítások változatlanok."
-
-#: src/screen_keydef.cxx:406
-#, fuzzy
-msgid "Unable to write configuration"
-msgstr "Hiányos gyorsbillentyű definíció"
-
-#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
-msgid "Error"
-msgstr "Hiba"
-
-#: src/screen_keydef.cxx:422
-#, c-format
-msgid "Wrote %s"
-msgstr "%s elmentve"
-
-#: src/screen_keydef.cxx:435
-msgid "===> Apply key bindings "
-msgstr "===> Billentyű beállítások használata "
-
-#: src/screen_keydef.cxx:437
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Alkalmaz és Menti a billentyű beállításokat  "
-
-#: src/screen_keydef.cxx:474
-msgid "Edit key bindings"
-msgstr "Billentyűk változtatása"
-
-#: src/screen_keydef.cxx:556
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Észrevétel: nem felejtetted el érvényesíteni a változtatásaidat?"
-
-#: src/screen_keydef.cxx:606
-msgid "Keys"
-msgstr ""
 
 #: src/screen_utils.cxx:150
 msgid "Password"

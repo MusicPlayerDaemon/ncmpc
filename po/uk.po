@@ -424,8 +424,8 @@ msgid "Delete playlist %s?"
 msgstr "Видалити перелік програвання"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:181
+#: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
+#: src/save_playlist.cxx:111
 msgid "Aborted"
 msgstr "Перервано"
 
@@ -559,6 +559,80 @@ msgstr "y"
 #: src/i18n.h:44
 msgid "n"
 msgstr "n"
+
+#: src/KeyDefPage.cxx:160
+msgid "Deleted"
+msgstr "Видалена"
+
+#: src/KeyDefPage.cxx:176
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "Введіть нову клавішу для %s: "
+
+#: src/KeyDefPage.cxx:186
+msgid "Ctrl-Space can't be used"
+msgstr ""
+
+#: src/KeyDefPage.cxx:192
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "Помилка: клавіша %s вже використовується для %s"
+
+#: src/KeyDefPage.cxx:202
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "Призначення %s до %s"
+
+#: src/KeyDefPage.cxx:229
+msgid "Add new key"
+msgstr "Додати нову клавішу"
+
+#: src/KeyDefPage.cxx:251
+#, c-format
+msgid "Edit keys for %s"
+msgstr "Редагувати клавішу для %s"
+
+#: src/KeyDefPage.cxx:394
+msgid "You have new key bindings"
+msgstr "Ви маєте нову прив'язку клавіші"
+
+#: src/KeyDefPage.cxx:396
+msgid "Keybindings unchanged."
+msgstr "Прив'язки клавіш не змінені."
+
+#: src/KeyDefPage.cxx:406
+#, fuzzy
+msgid "Unable to write configuration"
+msgstr "Незавершена конфігурація гарячих клавіш"
+
+#: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
+msgid "Error"
+msgstr "Помилка"
+
+#: src/KeyDefPage.cxx:422
+#, c-format
+msgid "Wrote %s"
+msgstr "Записаний %s"
+
+#: src/KeyDefPage.cxx:435
+msgid "===> Apply key bindings "
+msgstr "===> Застосування прив'язки клавіші "
+
+#: src/KeyDefPage.cxx:437
+msgid "===> Apply & Save key bindings  "
+msgstr "===> Застосування та збереження прив'язки клавіші  "
+
+#: src/KeyDefPage.cxx:474
+msgid "Edit key bindings"
+msgstr "Редагувати прив'язки клавіш"
+
+#: src/KeyDefPage.cxx:556
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "Примітка: ви забули \"Застосувати\" зроблені зміни?"
+
+#: src/KeyDefPage.cxx:606
+msgid "Keys"
+msgstr ""
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -882,80 +956,6 @@ msgstr "Перейти"
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Не вдається знайти '%s'"
-
-#: src/screen_keydef.cxx:160
-msgid "Deleted"
-msgstr "Видалена"
-
-#: src/screen_keydef.cxx:176
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "Введіть нову клавішу для %s: "
-
-#: src/screen_keydef.cxx:186
-msgid "Ctrl-Space can't be used"
-msgstr ""
-
-#: src/screen_keydef.cxx:192
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Помилка: клавіша %s вже використовується для %s"
-
-#: src/screen_keydef.cxx:202
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "Призначення %s до %s"
-
-#: src/screen_keydef.cxx:229
-msgid "Add new key"
-msgstr "Додати нову клавішу"
-
-#: src/screen_keydef.cxx:251
-#, c-format
-msgid "Edit keys for %s"
-msgstr "Редагувати клавішу для %s"
-
-#: src/screen_keydef.cxx:394
-msgid "You have new key bindings"
-msgstr "Ви маєте нову прив'язку клавіші"
-
-#: src/screen_keydef.cxx:396
-msgid "Keybindings unchanged."
-msgstr "Прив'язки клавіш не змінені."
-
-#: src/screen_keydef.cxx:406
-#, fuzzy
-msgid "Unable to write configuration"
-msgstr "Незавершена конфігурація гарячих клавіш"
-
-#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
-msgid "Error"
-msgstr "Помилка"
-
-#: src/screen_keydef.cxx:422
-#, c-format
-msgid "Wrote %s"
-msgstr "Записаний %s"
-
-#: src/screen_keydef.cxx:435
-msgid "===> Apply key bindings "
-msgstr "===> Застосування прив'язки клавіші "
-
-#: src/screen_keydef.cxx:437
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Застосування та збереження прив'язки клавіші  "
-
-#: src/screen_keydef.cxx:474
-msgid "Edit key bindings"
-msgstr "Редагувати прив'язки клавіш"
-
-#: src/screen_keydef.cxx:556
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Примітка: ви забули \"Застосувати\" зроблені зміни?"
-
-#: src/screen_keydef.cxx:606
-msgid "Keys"
-msgstr ""
 
 #: src/screen_utils.cxx:150
 msgid "Password"

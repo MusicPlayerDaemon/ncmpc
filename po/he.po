@@ -418,8 +418,8 @@ msgid "Delete playlist %s?"
 msgstr "מחק רשימת שירים"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:261 src/LyricsPage.cxx:388 src/save_playlist.cxx:111
-#: src/screen_keydef.cxx:181
+#: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
+#: src/save_playlist.cxx:111
 msgid "Aborted"
 msgstr "בוטל"
 
@@ -552,6 +552,80 @@ msgstr "כן"
 #: src/i18n.h:44
 msgid "n"
 msgstr "לא"
+
+#: src/KeyDefPage.cxx:160
+msgid "Deleted"
+msgstr "נמחק"
+
+#: src/KeyDefPage.cxx:176
+#, c-format
+msgid "Enter new key for %s: "
+msgstr "הכנס מקש חדש ל %s "
+
+#: src/KeyDefPage.cxx:186
+msgid "Ctrl-Space can't be used"
+msgstr ""
+
+#: src/KeyDefPage.cxx:192
+#, c-format
+msgid "Error: key %s is already used for %s"
+msgstr "שגיאה: המקש %s כבר קיים ל %s"
+
+#: src/KeyDefPage.cxx:202
+#, c-format
+msgid "Assigned %s to %s"
+msgstr "הוקצה  %s ל %s"
+
+#: src/KeyDefPage.cxx:229
+msgid "Add new key"
+msgstr "הוסף מקש חדש"
+
+#: src/KeyDefPage.cxx:251
+#, c-format
+msgid "Edit keys for %s"
+msgstr "ערוך את המקש ל %s"
+
+#: src/KeyDefPage.cxx:394
+msgid "You have new key bindings"
+msgstr "יש תצורת מקשים חדשה"
+
+#: src/KeyDefPage.cxx:396
+msgid "Keybindings unchanged."
+msgstr "תצורת מקשים לא שונתה."
+
+#: src/KeyDefPage.cxx:406
+#, fuzzy
+msgid "Unable to write configuration"
+msgstr "הגדרת המקשים החמים חסרה"
+
+#: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
+msgid "Error"
+msgstr "שגיאה"
+
+#: src/KeyDefPage.cxx:422
+#, c-format
+msgid "Wrote %s"
+msgstr "נכתב %s"
+
+#: src/KeyDefPage.cxx:435
+msgid "===> Apply key bindings "
+msgstr "=====> ישם תצורת מקשים "
+
+#: src/KeyDefPage.cxx:437
+msgid "===> Apply & Save key bindings  "
+msgstr "=====> ישם ושמור תצורת מקשים  "
+
+#: src/KeyDefPage.cxx:474
+msgid "Edit key bindings"
+msgstr "ערוך את תצורת המקשים"
+
+#: src/KeyDefPage.cxx:556
+msgid "Note: Did you forget to 'Apply' your changes?"
+msgstr "הזהרה: האם שכחת 'לישם' את השינוים"
+
+#: src/KeyDefPage.cxx:606
+msgid "Keys"
+msgstr ""
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -877,80 +951,6 @@ msgstr "קפיצה"
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "לא ניתן למצוא את '%s'"
-
-#: src/screen_keydef.cxx:160
-msgid "Deleted"
-msgstr "נמחק"
-
-#: src/screen_keydef.cxx:176
-#, c-format
-msgid "Enter new key for %s: "
-msgstr "הכנס מקש חדש ל %s "
-
-#: src/screen_keydef.cxx:186
-msgid "Ctrl-Space can't be used"
-msgstr ""
-
-#: src/screen_keydef.cxx:192
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "שגיאה: המקש %s כבר קיים ל %s"
-
-#: src/screen_keydef.cxx:202
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "הוקצה  %s ל %s"
-
-#: src/screen_keydef.cxx:229
-msgid "Add new key"
-msgstr "הוסף מקש חדש"
-
-#: src/screen_keydef.cxx:251
-#, c-format
-msgid "Edit keys for %s"
-msgstr "ערוך את המקש ל %s"
-
-#: src/screen_keydef.cxx:394
-msgid "You have new key bindings"
-msgstr "יש תצורת מקשים חדשה"
-
-#: src/screen_keydef.cxx:396
-msgid "Keybindings unchanged."
-msgstr "תצורת מקשים לא שונתה."
-
-#: src/screen_keydef.cxx:406
-#, fuzzy
-msgid "Unable to write configuration"
-msgstr "הגדרת המקשים החמים חסרה"
-
-#: src/screen_keydef.cxx:415 src/screen_keydef.cxx:424
-msgid "Error"
-msgstr "שגיאה"
-
-#: src/screen_keydef.cxx:422
-#, c-format
-msgid "Wrote %s"
-msgstr "נכתב %s"
-
-#: src/screen_keydef.cxx:435
-msgid "===> Apply key bindings "
-msgstr "=====> ישם תצורת מקשים "
-
-#: src/screen_keydef.cxx:437
-msgid "===> Apply & Save key bindings  "
-msgstr "=====> ישם ושמור תצורת מקשים  "
-
-#: src/screen_keydef.cxx:474
-msgid "Edit key bindings"
-msgstr "ערוך את תצורת המקשים"
-
-#: src/screen_keydef.cxx:556
-msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "הזהרה: האם שכחת 'לישם' את השינוים"
-
-#: src/screen_keydef.cxx:606
-msgid "Keys"
-msgstr ""
 
 #: src/screen_utils.cxx:150
 msgid "Password"

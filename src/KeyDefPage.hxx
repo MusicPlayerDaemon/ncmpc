@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef NCMPC_SCREEN_KEYDEF_H
-#define NCMPC_SCREEN_KEYDEF_H
+#ifndef NCMPC_KEY_DEF_PAGE_HXX
+#define NCMPC_KEY_DEF_PAGE_HXX
 
 #include "config.h"
 
