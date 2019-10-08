@@ -52,8 +52,6 @@ const char *
 GetLocalizedKeyName(int key) noexcept
 {
 	switch(key) {
-		static char buf[32];
-
 	case 0:
 		return _("Undefined");
 	case ' ':
@@ -88,22 +86,26 @@ GetLocalizedKeyName(int key) noexcept
 		return _("Esc");
 	case KEY_IC:
 		return _("Insert");
-	default:
-		for (int i = 0; i <= 63; i++)
-			if (key == KEY_F(i)) {
-				snprintf(buf, sizeof(buf), "F%d", i );
-				return buf;
-			}
-		if (IsCtrlKey(key))
-			snprintf(buf, sizeof(buf),
-				 _("Ctrl-%c"), GetCtrlLetter(key));
-		else if (IsAltKey(key))
-			snprintf(buf, sizeof(buf),
-				 _("Alt-%c"), GetAltLetter(key));
-		else if (key > 32 && key < 256)
-			snprintf(buf, sizeof(buf), "%c", key);
-		else
-			snprintf(buf, sizeof(buf), "0x%03X", key);
-		return buf;
 	}
+
+	static char buf[32];
+
+	for (int i = 0; i <= 63; i++) {
+		if (key == KEY_F(i)) {
+			snprintf(buf, sizeof(buf), "F%d", i );
+			return buf;
+		}
+	}
+
+	if (IsCtrlKey(key))
+		snprintf(buf, sizeof(buf),
+			 _("Ctrl-%c"), GetCtrlLetter(key));
+	else if (IsAltKey(key))
+		snprintf(buf, sizeof(buf),
+			 _("Alt-%c"), GetAltLetter(key));
+	else if (key > 32 && key < 256)
+		snprintf(buf, sizeof(buf), "%c", key);
+	else
+		snprintf(buf, sizeof(buf), "0x%03X", key);
+	return buf;
 }
