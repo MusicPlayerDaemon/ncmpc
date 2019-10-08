@@ -31,7 +31,7 @@ KeyBindings::GetFirstKeyName(Command command) const noexcept
 {
 	const auto &b = key_bindings[size_t(command)];
 	return b.keys.front() != 0
-		? key2str(b.keys[0])
+		? GetLocalizedKeyName(b.keys[0])
 		: nullptr;
 }
 
@@ -40,11 +40,11 @@ KeyBindings::GetKeyNames(Command command) const noexcept
 {
 	const auto &b = key_bindings[size_t(command)];
 
-	std::string s = key2str(b.keys[0]);
+	std::string s = GetLocalizedKeyName(b.keys[0]);
 
 	for (size_t i = 1; i < b.keys.size() && b.keys[i] != 0; ++i) {
 		s.push_back(' ');
-		s.append(key2str(b.keys[i]));
+		s.append(GetLocalizedKeyName(b.keys[i]));
 	}
 	return s;
 }
@@ -79,13 +79,13 @@ KeyBindings::Check(char *buf, size_t bufsize) const noexcept
 				if (buf) {
 					snprintf(buf, bufsize,
 						 _("Key %s assigned to %s and %s"),
-						 key2str(key),
+						 GetLocalizedKeyName(key),
 						 get_key_command_name(Command(i)),
 						 get_key_command_name(cmd));
 				} else {
 					fprintf(stderr,
 						_("Key %s assigned to %s and %s"),
-						key2str(key),
+						GetLocalizedKeyName(key),
 						get_key_command_name(Command(i)),
 						get_key_command_name(cmd));
 					fputc('\n', stderr);

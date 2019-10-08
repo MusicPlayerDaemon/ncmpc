@@ -190,7 +190,8 @@ CommandKeysPage::OverwriteKey(int key_index)
 	const Command cmd = bindings->FindKey(key);
 	if (cmd != Command::NONE) {
 		screen_status_printf(_("Error: key %s is already used for %s"),
-				     key2str(key), get_key_command_name(cmd));
+				     GetLocalizedKeyName(key),
+				     get_key_command_name(cmd));
 		screen_bell();
 		return;
 	}
@@ -199,7 +200,7 @@ CommandKeysPage::OverwriteKey(int key_index)
 	binding->modified = true;
 
 	screen_status_printf(_("Assigned %s to %s"),
-			     key2str(key),
+			     GetLocalizedKeyName(key),
 			     get_key_command_name(Command(subcmd)));
 	check_subcmd_length();
 
@@ -233,7 +234,7 @@ CommandKeysPage::GetListItemText(char *buffer, size_t size,
 
 	snprintf(buffer, size,
 		 "%d. %-20s   (%d) ", idx,
-		 key2str(binding->keys[subcmd_item_to_key_id(idx)]),
+		 GetLocalizedKeyName(binding->keys[subcmd_item_to_key_id(idx)]),
 		 binding->keys[subcmd_item_to_key_id(idx)]);
 	return buffer;
 }

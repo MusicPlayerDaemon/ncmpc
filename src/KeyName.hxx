@@ -29,6 +29,6 @@
  */
 gcc_pure
 const char *
-key2str(int key) noexcept;
+GetLocalizedKeyName(int key) noexcept;
 
 #endif
