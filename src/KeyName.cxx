@@ -24,30 +24,6 @@
 
 #include <stdio.h>
 
-static constexpr bool
-IsCtrlKey(unsigned key) noexcept
-{
-	return (key & ~0x1f) == 0;
-}
-
-static constexpr char
-GetCtrlLetter(unsigned key) noexcept
-{
-	return 'A' + key - 1;
-}
-
-static constexpr bool
-IsAltKey(unsigned key) noexcept
-{
-	return (key & ~0x1f) == 0xe0;
-}
-
-static constexpr char
-GetAltLetter(unsigned key) noexcept
-{
-	return 'A' + (key & 0x1f) - 1;
-}
-
 const char *
 GetLocalizedKeyName(int key) noexcept
 {
@@ -97,15 +73,23 @@ GetLocalizedKeyName(int key) noexcept
 		}
 	}
 
-	if (IsCtrlKey(key))
-		snprintf(buf, sizeof(buf),
-			 _("Ctrl-%c"), GetCtrlLetter(key));
-	else if (IsAltKey(key))
-		snprintf(buf, sizeof(buf),
-			 _("Alt-%c"), GetAltLetter(key));
-	else if (key > 32 && key < 256)
-		snprintf(buf, sizeof(buf), "%c", key);
-	else
+	const char *name = keyname(key);
+	if (name == nullptr) {
 		snprintf(buf, sizeof(buf), "0x%03X", key);
-	return buf;
+		return buf;
+	}
+
+	if (name[0] == '^' && name[1] != 0 && name[2] == 0) {
+		/* translate "^X" to "Ctrl-X" */
+		snprintf(buf, sizeof(buf), _("Ctrl-%c"), name[1]);
+		return buf;
+	}
+
+	if (name[0] == 'M' && name[1] == '-' && name[2] != 0 && name[3] == 0) {
+		/* translate "M-X" to "Alt-X" */
+		snprintf(buf, sizeof(buf), _("Alt-%c"), name[2]);
+		return buf;
+	}
+
+	return name;
 }
