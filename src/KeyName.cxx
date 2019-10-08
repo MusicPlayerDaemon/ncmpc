@@ -24,6 +24,30 @@
 
 #include <stdio.h>
 
+static constexpr bool
+IsCtrlKey(unsigned key) noexcept
+{
+	return (key & ~0x1f) == 0;
+}
+
+static constexpr char
+GetCtrlLetter(unsigned key) noexcept
+{
+	return 'A' + key - 1;
+}
+
+static constexpr bool
+IsAltKey(unsigned key) noexcept
+{
+	return (key & ~0x1f) == 0xe0;
+}
+
+static constexpr char
+GetAltLetter(unsigned key) noexcept
+{
+	return 'A' + (key & 0x1f) - 1;
+}
+
 const char *
 GetLocalizedKeyName(int key) noexcept
 {
@@ -70,12 +94,12 @@ GetLocalizedKeyName(int key) noexcept
 				snprintf(buf, sizeof(buf), "F%d", i );
 				return buf;
 			}
-		if (!(key & ~037))
+		if (IsCtrlKey(key))
 			snprintf(buf, sizeof(buf),
-				 _("Ctrl-%c"), 'A'+(key & 037)-1 );
-		else if ((key & ~037) == 224)
+				 _("Ctrl-%c"), GetCtrlLetter(key));
+		else if (IsAltKey(key))
 			snprintf(buf, sizeof(buf),
-				 _("Alt-%c"), 'A'+(key & 037)-1 );
+				 _("Alt-%c"), GetAltLetter(key));
 		else if (key > 32 && key < 256)
 			snprintf(buf, sizeof(buf), "%c", key);
 		else
