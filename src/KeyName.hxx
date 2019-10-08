@@ -22,6 +22,11 @@
 
 #include "util/Compiler.h"
 
+/**
+ * Convert a keycode to a human-readable localized string.
+ *
+ * The returned pointer is invalidated by the next call.
+ */
 gcc_pure
 const char *
 key2str(int key) noexcept;
