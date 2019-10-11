@@ -23,9 +23,6 @@
 
 UserInput::UserInput(boost::asio::io_service &io_service)
 	:d(io_service)
-#if BOOST_VERSION >= 107000
-	, io_context(io_service)
-#endif
 {
 	d.assign(STDIN_FILENO);
 }

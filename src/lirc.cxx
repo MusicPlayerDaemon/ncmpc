@@ -48,9 +48,6 @@ LircInput::OnReadable(const boost::system::error_code &error)
 
 LircInput::LircInput(boost::asio::io_service &io_service)
 	:d(io_service)
-#if BOOST_VERSION >= 107000
-	, io_context(io_service)
-#endif
 {
 	int lirc_socket = 0;
 

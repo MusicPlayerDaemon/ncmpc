@@ -21,15 +21,12 @@
 #define LIRC_H
 
 #include "AsioServiceFwd.hxx"
+#include "AsioGetIoService.hxx"
 
 #include <boost/asio/posix/stream_descriptor.hpp>
 
 class LircInput {
 	boost::asio::posix::stream_descriptor d;
-
-#if BOOST_VERSION >= 107000
-	boost::asio::io_context &io_context;
-#endif
 
 	struct lirc_config *lc = nullptr;
 
@@ -38,11 +35,7 @@ public:
 	~LircInput();
 
 	auto &get_io_context() noexcept {
-#if BOOST_VERSION >= 107000
-		return io_context;
-#else
-		return d.get_io_service();
-#endif
+		return ::get_io_service(d);
 	}
 
 private:
