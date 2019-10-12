@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-10 21:38+0200\n"
-"PO-Revision-Date: 2019-01-22 14:05+0000\n"
+"PO-Revision-Date: 2019-10-13 15:52+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/ncmpc/"
 "translations/fr/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.4\n"
+"X-Generator: Weblate 3.9-dev\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
@@ -284,7 +284,7 @@ msgstr "Aller à"
 
 #: src/Command.cxx:180
 msgid "Library page"
-msgstr ""
+msgstr "Page de la bibliothèque"
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
@@ -389,9 +389,8 @@ msgid "Unknown screen name"
 msgstr "Nom d'écran inconnu"
 
 #: src/ConfigParser.cxx:402
-#, fuzzy
 msgid "Unknown MPD tag"
-msgstr "Commande inconnue"
+msgstr "Étiquette MPD inconnue"
 
 #: src/ConfigParser.cxx:429
 msgid "Invalid search mode"
@@ -643,16 +642,15 @@ msgstr "Albums"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "Tous"
 
 #: src/LibraryPage.cxx:199
-#, fuzzy
 msgid "Songs"
-msgstr "Morceau"
+msgstr "Morceaux"
 
 #: src/LibraryPage.cxx:300
 msgid "Library"
-msgstr ""
+msgstr "Bibliothèque"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
