@@ -21,6 +21,7 @@
 #include "charset.hxx"
 #include "time_format.hxx"
 #include "util/UriUtil.hxx"
+#include "TagMask.hxx"
 
 #include <mpd/client.h>
 
@@ -278,4 +279,29 @@ strfsong(char *s, size_t max, const char *format,
 	 const struct mpd_song *song) noexcept
 {
 	return _strfsong(s, s + max, format, song, nullptr);
+}
+
+TagMask
+SongFormatToTagMask(const char *format) noexcept
+{
+	TagMask mask = TagMask::None();
+
+	/* TODO: this is incomplete and not correct; the missing tags
+	   are already in global_tag_whitelist (see Instance.cxx); but
+	   for now, this implementation may be good enough */
+
+	static constexpr struct {
+		const char *s;
+		enum mpd_tag_type tag;
+	} tag_references[] = {
+		{"%albumartist%", MPD_TAG_ALBUM_ARTIST},
+		{"%composer%", MPD_TAG_COMPOSER},
+		{"%performer%", MPD_TAG_PERFORMER},
+	};
+
+	for (const auto &i : tag_references)
+		if (strstr(format, i.s) != nullptr)
+			mask |= i.tag;
+
+	return mask;
 }

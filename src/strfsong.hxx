@@ -20,12 +20,22 @@
 #ifndef STRFSONG_H
 #define STRFSONG_H
 
+#include "util/Compiler.h"
+
 #include <stddef.h>
 
 struct mpd_song;
+class TagMask;
 
 size_t
 strfsong(char *s, size_t max, const char *format,
 	 const struct mpd_song *song) noexcept;
+
+/**
+ * Check which tags are referenced by the given song format.
+ */
+gcc_pure
+TagMask
+SongFormatToTagMask(const char *format) noexcept;
 
 #endif

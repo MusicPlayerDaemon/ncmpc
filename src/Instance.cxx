@@ -22,6 +22,27 @@
 
 #include <signal.h>
 
+#ifdef HAVE_TAG_WHITELIST
+
+#include "strfsong.hxx"
+#include "TagMask.hxx"
+
+static constexpr TagMask global_tag_whitelist{
+	/* these tags are used by SongPage.cxx */
+	MPD_TAG_ARTIST,
+	MPD_TAG_TITLE,
+	MPD_TAG_ALBUM,
+	MPD_TAG_COMPOSER,
+	MPD_TAG_NAME,
+	MPD_TAG_DISC,
+	MPD_TAG_TRACK,
+	MPD_TAG_DATE,
+	MPD_TAG_GENRE,
+	MPD_TAG_COMMENT,
+};
+
+#endif
+
 Instance::Instance()
 	:io_service(),
 #ifndef _WIN32
@@ -53,6 +74,18 @@ Instance::Instance()
 
 #ifndef _WIN32
 	AsyncWaitSigwinch();
+#endif
+
+#ifdef HAVE_TAG_WHITELIST
+	TagMask tag_mask = global_tag_whitelist;
+	tag_mask |= SongFormatToTagMask(options.list_format.c_str());
+	tag_mask |= SongFormatToTagMask(options.search_format.c_str());
+	tag_mask |= SongFormatToTagMask(options.status_format.c_str());
+#ifndef NCMPC_MINI
+	tag_mask |= SongFormatToTagMask(options.xterm_title_format.c_str());
+#endif
+
+	client.WhitelistTags(tag_mask);
 #endif
 }
 

@@ -32,6 +32,11 @@
 
 #include <mpd/client.h> // IWYU pragma: export
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,12,0)
+#define HAVE_TAG_WHITELIST
+#include "TagMask.hxx"
+#endif
+
 #include <boost/asio/steady_timer.hpp>
 
 #include <string>
@@ -112,6 +117,11 @@ struct mpdclient final
 
 	enum mpd_state state = MPD_STATE_UNKNOWN;
 
+#ifdef HAVE_TAG_WHITELIST
+	bool enable_tag_whitelist = false;
+	TagMask tag_whitelist;
+#endif
+
 #if defined(ENABLE_ASYNC_CONNECT) && !defined(_WIN32)
 	bool connecting2;
 #endif
@@ -178,6 +188,10 @@ struct mpdclient final
 	 * by the caller
 	 */
 	std::string GetSettingsName() const;
+
+#ifdef HAVE_TAG_WHITELIST
+	void WhitelistTags(TagMask mask) noexcept;
+#endif
 
 	bool IsConnected() const {
 		return connection != nullptr;

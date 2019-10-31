@@ -217,6 +217,21 @@ mpdclient::GetSettingsName() const
 #endif
 }
 
+#ifdef HAVE_TAG_WHITELIST
+
+void
+mpdclient::WhitelistTags(TagMask mask) noexcept
+{
+	if (!enable_tag_whitelist) {
+		enable_tag_whitelist = true;
+		tag_whitelist = TagMask::None();
+	}
+
+	tag_whitelist |= mask;
+}
+
+#endif
+
 void
 mpdclient::ClearStatus() noexcept
 {
@@ -264,6 +279,32 @@ mpdclient::Disconnect()
 	events |= MPD_IDLE_ALL;
 }
 
+#ifdef HAVE_TAG_WHITELIST
+
+static bool
+SendTagWhitelist(struct mpd_connection *c, const TagMask whitelist) noexcept
+{
+	if (!mpd_command_list_begin(c, false) ||
+	    !mpd_send_clear_tag_types(c))
+		return false;
+
+	/* convert the "tag_bits" mask to an array of enum
+	   mpd_tag_type for mpd_send_enable_tag_types() */
+
+	enum mpd_tag_type types[64];
+	unsigned n = 0;
+
+	for (unsigned i = 0; i < MPD_TAG_COUNT; ++i)
+		if (whitelist.Test((enum mpd_tag_type)i))
+			types[n++] = (enum mpd_tag_type)i;
+
+	return (n == 0 || mpd_send_enable_tag_types(c, types, n)) &&
+		mpd_command_list_end(c) &&
+		mpd_response_finish(c);
+}
+
+#endif
+
 bool
 mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 {
@@ -289,6 +330,16 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 		mpdclient_failed_callback();
 		return false;
 	}
+
+#ifdef HAVE_TAG_WHITELIST
+	if (enable_tag_whitelist &&
+	    !SendTagWhitelist(connection, tag_whitelist)) {
+		InvokeErrorCallback();
+		Disconnect();
+		mpdclient_failed_callback();
+		return false;
+	}
+#endif
 
 	source = new MpdIdleSource(get_io_service(), *connection, *this);
 	ScheduleEnterIdle();
