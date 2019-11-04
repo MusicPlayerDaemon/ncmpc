@@ -33,8 +33,6 @@ bool
 MatchExpression::Compile(const char *src, bool anchor) noexcept
 {
 #ifndef HAVE_PCRE
-	assert(expression == nullptr);
-
 	expression = src;
 	length = strlen(expression);
 	anchored = anchor;
