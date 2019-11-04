@@ -31,7 +31,7 @@
 
 class MatchExpression {
 #ifndef HAVE_PCRE
-	const char *expression;
+	const char *expression = nullptr;
 	size_t length;
 	bool anchored;
 #else
