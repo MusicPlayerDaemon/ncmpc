@@ -4,12 +4,19 @@ matrix:
   include:
     - os: osx
       osx_image: xcode9.3beta
+      addons:
+        homebrew:
+          packages:
+            - meson
+            - ninja
+            - glib
+            - ncurses
+            - libmpdclient
 
 before_install:
   - test "$TRAVIS_OS_NAME" != "osx" || brew update
 
 install:
-  - test "$TRAVIS_OS_NAME" != "osx" || brew install meson ninja glib ncurses libmpdclient
 
 script:
   - OPTIONS="-Dtest=true -Dlyrics_screen=true -Dchat_screen=true"
