@@ -21,6 +21,8 @@
 #include "plugin.hxx"
 #include "config.h"
 
+#include <assert.h>
+
 static PluginList plugins;
 
 void lyrics_init()
