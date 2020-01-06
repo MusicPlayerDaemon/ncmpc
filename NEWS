@@ -1,4 +1,5 @@
 ncmpc 0.37 - not yet released
+* show performer on song page
 
 ncmpc 0.36 - (2019-11-05)
 * screen_keydef: show "Add new key" only if there is room for more keys

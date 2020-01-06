@@ -65,6 +65,7 @@ static constexpr struct tag_label tag_labels[] = {
 	{ LABEL_LENGTH, N_("Length") },
 	{ LABEL_POSITION, N_("Position") },
 	{ MPD_TAG_COMPOSER, N_("Composer") },
+	{ MPD_TAG_PERFORMER, N_("Performer") },
 	{ MPD_TAG_NAME, N_("Name") },
 	{ MPD_TAG_DISC, N_("Disc") },
 	{ MPD_TAG_TRACK, N_("Track") },
