@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.4\n"
+"X-Generator: Weblate 3.9-dev\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
@@ -284,7 +284,7 @@ msgstr "Aller à"
 
 #: src/Command.cxx:180
 msgid "Library page"
-msgstr ""
+msgstr "Page de la bibliothèque"
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
@@ -388,10 +388,9 @@ msgstr "Définition de couleur malformée"
 msgid "Unknown screen name"
 msgstr "Nom d'écran inconnu"
 
-#: src/ConfigParser.cxx:403
-#, fuzzy
+#: src/ConfigParser.cxx:402
 msgid "Unknown MPD tag"
-msgstr "Commande inconnue"
+msgstr "Étiquette MPD inconnue"
 
 #: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
@@ -716,16 +715,15 @@ msgstr "Albums"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "Tous"
 
 #: src/LibraryPage.cxx:199
-#, fuzzy
 msgid "Songs"
-msgstr "Morceau"
+msgstr "Morceaux"
 
 #: src/LibraryPage.cxx:300
 msgid "Library"
-msgstr ""
+msgstr "Bibliothèque"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
