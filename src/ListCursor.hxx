@@ -250,6 +250,34 @@ public:
 	gcc_pure
 	ListWindowRange GetRange() const noexcept;
 
+	template<typename ItemList>
+	gcc_pure
+	auto GetCursorHash(const ItemList &items) const noexcept -> decltype(items.front().GetHash()) {
+		if (IsSingleCursor())
+			return items[GetCursorIndex()].GetHash();
+		else
+			return {};
+	}
+
+	template<typename ItemList>
+	bool SetCursorHash(const ItemList &items,
+			   decltype(items.front().GetHash()) hash) noexcept {
+		if (hash == decltype(hash){})
+			return false;
+
+		unsigned idx = 0;
+		for (const auto &item : items) {
+			if (item.GetHash() == hash) {
+				SetCursor(idx);
+				return true;
+			}
+
+			++idx;
+		}
+
+		return false;
+	}
+
 private:
 	gcc_pure
 	unsigned ValidateIndex(unsigned i) const noexcept;

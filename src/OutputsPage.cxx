@@ -27,6 +27,7 @@
 #include "Command.hxx"
 #include "i18n.h"
 #include "mpdclient.hxx"
+#include "util/FNVHash.hxx"
 
 #include <mpd/client.h>
 
@@ -41,6 +42,11 @@ class OutputsPage final : public ListPage, ListRenderer {
 
 		explicit Item(struct mpd_output *_output) noexcept
 			:output(_output) {}
+
+		gcc_pure
+		uint64_t GetHash() const noexcept {
+			return FNV1aHash64(mpd_output_get_name(output.get()));
+		}
 	};
 
 	std::vector<Item> items;
@@ -141,12 +147,17 @@ fill_outputs_list(struct mpdclient *c, O &items)
 inline void
 OutputsPage::Reload(struct mpdclient &c) noexcept
 {
+	const auto hash = lw.GetCursorHash(items);
+
 	Clear();
 
 	fill_outputs_list(&c, items);
 
 	lw.SetLength(items.size());
 	SetDirty();
+
+	/* restore the cursor position */
+	lw.SetCursorHash(items, hash);
 }
 
 static std::unique_ptr<Page>
