@@ -51,6 +51,7 @@ public:
 
 private:
 	void Clear();
+	void Reload(struct mpdclient &c) noexcept;
 
 	bool Toggle(struct mpdclient &c, unsigned output_index);
 
@@ -137,6 +138,17 @@ fill_outputs_list(struct mpdclient *c, O &items)
 	c->FinishCommand();
 }
 
+inline void
+OutputsPage::Reload(struct mpdclient &c) noexcept
+{
+	Clear();
+
+	fill_outputs_list(&c, items);
+
+	lw.SetLength(items.size());
+	SetDirty();
+}
+
 static std::unique_ptr<Page>
 outputs_init(ScreenManager &, WINDOW *w, Size size)
 {
@@ -173,12 +185,8 @@ OutputsPage::Paint() const noexcept
 void
 OutputsPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
-	if (events & MPD_IDLE_OUTPUT) {
-		Clear();
-		fill_outputs_list(&c, items);
-		lw.SetLength(items.size());
-		SetDirty();
-	}
+	if (events & MPD_IDLE_OUTPUT)
+		Reload(c);
 }
 
 bool
