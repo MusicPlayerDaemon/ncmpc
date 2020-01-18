@@ -37,14 +37,35 @@
 #include <assert.h>
 
 class OutputsPage final : public ListPage, ListRenderer {
+	static constexpr unsigned RELOAD_IDLE_FLAGS =
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+		MPD_IDLE_PARTITION |
+#endif
+		MPD_IDLE_OUTPUT;
+
 	struct Item {
 		std::unique_ptr<struct mpd_output, LibmpdclientDeleter> output;
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+		std::unique_ptr<struct mpd_partition, LibmpdclientDeleter> partition;
+#endif
 
 		explicit Item(struct mpd_output *_output) noexcept
 			:output(_output) {}
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+		explicit Item(struct mpd_partition *_partition) noexcept
+			:partition(_partition) {}
+#endif
+
 		gcc_pure
 		uint64_t GetHash() const noexcept {
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+			if (partition) {
+				return FNV1aHash64(mpd_partition_get_name(partition.get()))
+					^ 0x1;
+			}
+#endif
+
 			return FNV1aHash64(mpd_output_get_name(output.get()));
 		}
 	};
@@ -80,6 +101,27 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 		return false;
 
 	const auto &item = items[output_index];
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	if (item.partition) {
+		auto *connection = c.GetConnection();
+		if (connection == nullptr)
+			return false;
+
+		const char *partition_name =
+			mpd_partition_get_name(item.partition.get());
+
+		if (!mpd_run_switch_partition(connection, partition_name)) {
+			c.HandleError();
+			return false;
+		}
+
+		screen_status_printf(_("Switched to partition '%s'"),
+				     partition_name);
+		return true;
+	}
+#endif
+
+	assert(item.output);
 
 	auto *connection = c.GetConnection();
 	if (connection == nullptr)
@@ -144,6 +186,29 @@ fill_outputs_list(struct mpdclient *c, O &items)
 	c->FinishCommand();
 }
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+
+template<typename O>
+static void
+FillPartitionList(struct mpdclient &c, O &items)
+{
+	auto *connection = c.GetConnection();
+	if (connection == nullptr)
+		return;
+
+	mpd_send_listpartitions(connection);
+
+	while (auto *pair = mpd_recv_partition_pair(connection)) {
+		auto *partition = mpd_partition_new(pair);
+		mpd_return_pair(connection, pair);
+		items.emplace_back(partition);
+	}
+
+	c.FinishCommand();
+}
+
+#endif
+
 inline void
 OutputsPage::Reload(struct mpdclient &c) noexcept
 {
@@ -152,6 +217,10 @@ OutputsPage::Reload(struct mpdclient &c) noexcept
 	Clear();
 
 	fill_outputs_list(&c, items);
+
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	FillPartitionList(c, items);
+#endif
 
 	lw.SetLength(items.size());
 	SetDirty();
@@ -179,6 +248,23 @@ OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 {
 	assert(i < items.size());
 	const auto &item = items[i];
+
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	if (item.partition) {
+		const auto &partition = *item.partition;
+		const char *name = mpd_partition_get_name(&partition);
+
+		row_color(w, Style::LIST, selected);
+		waddstr(w, _("Partition"));
+		waddstr(w, ": ");
+		waddstr(w, name);
+		row_clear_to_eol(w, width, selected);
+		return;
+	}
+#endif
+
+	assert(item.output);
+
 	const auto *output = item.output.get();
 
 	row_color(w, Style::LIST, selected);
@@ -196,7 +282,7 @@ OutputsPage::Paint() const noexcept
 void
 OutputsPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
-	if (events & MPD_IDLE_OUTPUT)
+	if (events & RELOAD_IDLE_FLAGS)
 		Reload(c);
 }
 

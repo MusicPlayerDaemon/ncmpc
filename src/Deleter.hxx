@@ -30,6 +30,12 @@ struct LibmpdclientDeleter {
 	void operator()(struct mpd_output *o) const noexcept {
 		mpd_output_free(o);
 	}
+
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	void operator()(struct mpd_partition *o) const noexcept {
+		mpd_partition_free(o);
+	}
+#endif
 };
 
 #endif
