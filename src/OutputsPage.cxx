@@ -36,7 +36,14 @@
 #include <assert.h>
 
 class OutputsPage final : public ListPage, ListRenderer {
-	std::vector<std::unique_ptr<struct mpd_output, LibmpdclientDeleter>> items;
+	struct Item {
+		std::unique_ptr<struct mpd_output, LibmpdclientDeleter> output;
+
+		explicit Item(struct mpd_output *_output) noexcept
+			:output(_output) {}
+	};
+
+	std::vector<Item> items;
 
 public:
 	OutputsPage(WINDOW *w, Size size)
@@ -65,11 +72,13 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 	if (output_index >= items.size())
 		return false;
 
+	const auto &item = items[output_index];
+
 	auto *connection = c.GetConnection();
 	if (connection == nullptr)
 		return false;
 
-	const auto &output = *items[output_index];
+	const auto &output = *item.output;
 	if (!mpd_output_get_enabled(&output)) {
 		if (!mpd_run_enable_output(connection,
 					   mpd_output_get_id(&output))) {
@@ -146,7 +155,8 @@ OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 			   bool selected) const noexcept
 {
 	assert(i < items.size());
-	const auto *output = items[i].get();
+	const auto &item = items[i];
+	const auto *output = item.output.get();
 
 	row_color(w, Style::LIST, selected);
 	waddstr(w, mpd_output_get_enabled(output) ? "[X] " : "[ ] ");
