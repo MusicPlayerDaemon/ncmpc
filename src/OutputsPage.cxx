@@ -28,6 +28,7 @@
 #include "i18n.h"
 #include "mpdclient.hxx"
 #include "util/FNVHash.hxx"
+#include "util/StringAPI.hxx"
 
 #include <mpd/client.h>
 
@@ -180,8 +181,20 @@ fill_outputs_list(struct mpdclient *c, O &items)
 	mpd_send_outputs(connection);
 
 	struct mpd_output *output;
-	while ((output = mpd_recv_output(connection)) != nullptr)
+	while ((output = mpd_recv_output(connection)) != nullptr) {
+#if LIBMPDCLIENT_CHECK_VERSION(2,14,0)
+		const char *plugin = mpd_output_get_plugin(output);
+		if (plugin != nullptr && StringIsEqual(plugin, "dummy")) {
+			/* hide "dummy" outputs; they are placeholders
+			   for an output which was moved to a
+			   different partition */
+			mpd_output_free(output);
+			continue;
+		}
+#endif
+
 		items.emplace_back(output);
+	}
 
 	c->FinishCommand();
 }
