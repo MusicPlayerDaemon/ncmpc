@@ -81,6 +81,11 @@ private:
 	void Clear();
 	void Reload(struct mpdclient &c) noexcept;
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	bool ActivatePartition(struct mpdclient &c,
+			       const struct mpd_partition &partition) noexcept;
+#endif
+
 	bool Toggle(struct mpdclient &c, unsigned output_index);
 
 public:
@@ -95,6 +100,30 @@ public:
 			   bool selected) const noexcept override;
 };
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+
+bool
+OutputsPage::ActivatePartition(struct mpdclient &c,
+			       const struct mpd_partition &partition) noexcept
+{
+	auto *connection = c.GetConnection();
+	if (connection == nullptr)
+		return false;
+
+	const char *partition_name = mpd_partition_get_name(&partition);
+
+	if (!mpd_run_switch_partition(connection, partition_name)) {
+		c.HandleError();
+		return false;
+	}
+
+	screen_status_printf(_("Switched to partition '%s'"),
+			     partition_name);
+	return true;
+}
+
+#endif
+
 bool
 OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 {
@@ -103,23 +132,8 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 
 	const auto &item = items[output_index];
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
-	if (item.partition) {
-		auto *connection = c.GetConnection();
-		if (connection == nullptr)
-			return false;
-
-		const char *partition_name =
-			mpd_partition_get_name(item.partition.get());
-
-		if (!mpd_run_switch_partition(connection, partition_name)) {
-			c.HandleError();
-			return false;
-		}
-
-		screen_status_printf(_("Switched to partition '%s'"),
-				     partition_name);
-		return true;
-	}
+	if (item.partition)
+		return ActivatePartition(c, *item.partition);
 #endif
 
 	assert(item.output);
@@ -254,6 +268,23 @@ OutputsPage::GetTitle(char *, size_t) const noexcept
 	return _("Outputs");
 }
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+
+static void
+PaintPartition(WINDOW *w, unsigned width, bool selected,
+	       const struct mpd_partition &partition) noexcept
+{
+	const char *name = mpd_partition_get_name(&partition);
+
+	row_color(w, Style::LIST, selected);
+	waddstr(w, _("Partition"));
+	waddstr(w, ": ");
+	waddstr(w, name);
+	row_clear_to_eol(w, width, selected);
+}
+
+#endif
+
 void
 OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 			   gcc_unused unsigned y, unsigned width,
@@ -264,14 +295,7 @@ OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
 	if (item.partition) {
-		const auto &partition = *item.partition;
-		const char *name = mpd_partition_get_name(&partition);
-
-		row_color(w, Style::LIST, selected);
-		waddstr(w, _("Partition"));
-		waddstr(w, ": ");
-		waddstr(w, name);
-		row_clear_to_eol(w, width, selected);
+		PaintPartition(w, width, selected, *item.partition);
 		return;
 	}
 #endif
