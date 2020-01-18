@@ -21,6 +21,7 @@
 #define QUEUE_HXX
 
 #include "util/Compiler.h"
+#include "Deleter.hxx"
 
 #include <mpd/client.h>
 
@@ -29,17 +30,11 @@
 
 #include <assert.h>
 
-struct SongDeleter {
-	void operator()(struct mpd_song *song) const {
-		mpd_song_free(song);
-	}
-};
-
 struct MpdQueue {
 	/* queue version number (obtained from mpd_status) */
 	unsigned version = 0;
 
-	using Vector = std::vector<std::unique_ptr<struct mpd_song, SongDeleter>>;
+	using Vector = std::vector<std::unique_ptr<struct mpd_song, LibmpdclientDeleter>>;
 
 	/* the list */
 	Vector items;

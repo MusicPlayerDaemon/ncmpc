@@ -18,6 +18,7 @@
  */
 
 #include "OutputsPage.hxx"
+#include "Deleter.hxx"
 #include "PageMeta.hxx"
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
@@ -34,14 +35,8 @@
 
 #include <assert.h>
 
-struct OutputDeleter {
-	void operator()(struct mpd_output *o) const {
-		mpd_output_free(o);
-	}
-};
-
 class OutputsPage final : public ListPage, ListRenderer {
-	std::vector<std::unique_ptr<struct mpd_output, OutputDeleter>> items;
+	std::vector<std::unique_ptr<struct mpd_output, LibmpdclientDeleter>> items;
 
 public:
 	OutputsPage(WINDOW *w, Size size)
