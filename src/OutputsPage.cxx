@@ -37,6 +37,17 @@
 
 #include <assert.h>
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+
+gcc_pure
+static uint64_t
+PartitionNameHash(const char *name) noexcept
+{
+	return FNV1aHash64(name) ^ 0x1;
+}
+
+#endif
+
 class OutputsPage final : public ListPage, ListRenderer {
 	static constexpr unsigned RELOAD_IDLE_FLAGS =
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
@@ -62,8 +73,7 @@ class OutputsPage final : public ListPage, ListRenderer {
 		uint64_t GetHash() const noexcept {
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
 			if (partition) {
-				return FNV1aHash64(mpd_partition_get_name(partition.get()))
-					^ 0x1;
+				return PartitionNameHash(mpd_partition_get_name(partition.get()));
 			}
 #endif
 
