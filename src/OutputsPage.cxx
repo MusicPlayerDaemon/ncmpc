@@ -225,11 +225,16 @@ FillPartitionList(struct mpdclient &c, O &items)
 
 	mpd_send_listpartitions(connection);
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
+	while (auto *partition = mpd_recv_partition(connection))
+		items.emplace_back(partition);
+#else
 	while (auto *pair = mpd_recv_partition_pair(connection)) {
 		auto *partition = mpd_partition_new(pair);
 		mpd_return_pair(connection, pair);
 		items.emplace_back(partition);
 	}
+#endif
 
 	c.FinishCommand();
 }
