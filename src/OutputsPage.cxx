@@ -46,6 +46,20 @@ PartitionNameHash(const char *name) noexcept
 	return FNV1aHash64(name) ^ 0x1;
 }
 
+gcc_pure
+static uint64_t
+GetActivePartitionNameHash(const struct mpd_status *status) noexcept
+{
+	if (status == nullptr)
+		return 0;
+
+	const char *partition = mpd_status_get_partition(status);
+	if (partition == nullptr)
+		return 0;
+
+	return PartitionNameHash(partition);
+}
+
 #endif
 
 class OutputsPage final : public ListPage, ListRenderer {
@@ -82,6 +96,10 @@ class OutputsPage final : public ListPage, ListRenderer {
 	};
 
 	std::vector<Item> items;
+
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	uint64_t active_partition = 0;
+#endif
 
 public:
 	OutputsPage(WINDOW *w, Size size)
@@ -289,12 +307,12 @@ OutputsPage::GetTitle(char *, size_t) const noexcept
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
 
 static void
-PaintPartition(WINDOW *w, unsigned width, bool selected,
+PaintPartition(WINDOW *w, unsigned width, bool selected, bool active,
 	       const struct mpd_partition &partition) noexcept
 {
 	const char *name = mpd_partition_get_name(&partition);
 
-	row_color(w, Style::LIST, selected);
+	row_color(w, active ? Style::LIST_BOLD : Style::LIST, selected);
 	waddstr(w, _("Partition"));
 	waddstr(w, ": ");
 	waddstr(w, name);
@@ -313,7 +331,9 @@ OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
 	if (item.partition) {
-		PaintPartition(w, width, selected, *item.partition);
+		PaintPartition(w, width, selected,
+			       active_partition == item.GetHash(),
+			       *item.partition);
 		return;
 	}
 #endif
@@ -337,6 +357,10 @@ OutputsPage::Paint() const noexcept
 void
 OutputsPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
+	active_partition = GetActivePartitionNameHash(c.status);
+#endif
+
 	if (events & RELOAD_IDLE_FLAGS)
 		Reload(c);
 }
