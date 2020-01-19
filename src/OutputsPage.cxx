@@ -223,6 +223,9 @@ FillPartitionList(struct mpdclient &c, O &items)
 	if (connection == nullptr)
 		return;
 
+	if (mpd_connection_cmp_server_version(connection, 0, 22, 0) < 0)
+		return;
+
 	mpd_send_listpartitions(connection);
 
 #if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
