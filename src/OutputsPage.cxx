@@ -292,6 +292,8 @@ template<typename O>
 static void
 FillPartitionList(struct mpdclient &c, O &items)
 {
+	using Item = typename O::value_type;
+
 	auto *connection = c.GetConnection();
 	if (connection == nullptr)
 		return;
@@ -314,7 +316,7 @@ FillPartitionList(struct mpdclient &c, O &items)
 
 	c.FinishCommand();
 
-	items.emplace_back(OutputsPage::Item::Special::NEW_PARTITION);
+	items.emplace_back(Item::Special::NEW_PARTITION);
 }
 
 #endif
