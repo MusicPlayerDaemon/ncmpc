@@ -25,6 +25,7 @@
 #include "screen_status.hxx"
 #include "paint.hxx"
 #include "Command.hxx"
+#include "screen_utils.hxx"
 #include "i18n.h"
 #include "mpdclient.hxx"
 #include "util/FNVHash.hxx"
@@ -73,6 +74,14 @@ class OutputsPage final : public ListPage, ListRenderer {
 		std::unique_ptr<struct mpd_output, LibmpdclientDeleter> output;
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
 		std::unique_ptr<struct mpd_partition, LibmpdclientDeleter> partition;
+
+		enum class Special {
+			NONE,
+			NEW_PARTITION,
+		} special = Special::NONE;
+
+		explicit Item(Special _special) noexcept
+			:special(_special) {}
 #endif
 
 		explicit Item(struct mpd_output *_output) noexcept
@@ -86,6 +95,14 @@ class OutputsPage final : public ListPage, ListRenderer {
 		gcc_pure
 		uint64_t GetHash() const noexcept {
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+			switch (special) {
+			case Special::NONE:
+				break;
+
+			case Special::NEW_PARTITION:
+				return 0x2;
+			}
+
 			if (partition) {
 				return PartitionNameHash(mpd_partition_get_name(partition.get()));
 			}
@@ -112,6 +129,7 @@ private:
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
 	bool ActivatePartition(struct mpdclient &c,
 			       const struct mpd_partition &partition) noexcept;
+	bool CreateNewPartition(struct mpdclient &c) noexcept;
 #endif
 
 	bool Toggle(struct mpdclient &c, unsigned output_index);
@@ -130,7 +148,7 @@ public:
 
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
 
-bool
+inline bool
 OutputsPage::ActivatePartition(struct mpdclient &c,
 			       const struct mpd_partition &partition) noexcept
 {
@@ -150,6 +168,25 @@ OutputsPage::ActivatePartition(struct mpdclient &c,
 	return true;
 }
 
+inline bool
+OutputsPage::CreateNewPartition(struct mpdclient &c) noexcept
+{
+	auto *connection = c.GetConnection();
+	if (connection == nullptr)
+		return false;
+
+	auto name = screen_readln(_("Name"), nullptr, nullptr, nullptr);
+	if (name.empty())
+		return false;
+
+	if (!mpd_run_newpartition(connection, name.c_str())) {
+		c.HandleError();
+		return false;
+	}
+
+	return true;
+}
+
 #endif
 
 bool
@@ -160,6 +197,14 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 
 	const auto &item = items[output_index];
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	switch (item.special) {
+	case Item::Special::NONE:
+		break;
+
+	case Item::Special::NEW_PARTITION:
+		return CreateNewPartition(c);
+	}
+
 	if (item.partition)
 		return ActivatePartition(c, *item.partition);
 #endif
@@ -268,6 +313,8 @@ FillPartitionList(struct mpdclient &c, O &items)
 #endif
 
 	c.FinishCommand();
+
+	items.emplace_back(OutputsPage::Item::Special::NEW_PARTITION);
 }
 
 #endif
@@ -330,6 +377,19 @@ OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 	const auto &item = items[i];
 
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	switch (item.special) {
+	case Item::Special::NONE:
+		break;
+
+	case Item::Special::NEW_PARTITION:
+		row_color(w, Style::LIST, selected);
+		waddch(w, '[');
+		waddstr(w, _("Create new partition"));
+		waddch(w, ']');
+		row_clear_to_eol(w, width, selected);
+		return;
+	}
+
 	if (item.partition) {
 		PaintPartition(w, width, selected,
 			       active_partition == item.GetHash(),
