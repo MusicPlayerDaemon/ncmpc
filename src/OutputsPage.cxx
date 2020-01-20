@@ -38,7 +38,7 @@
 
 #include <assert.h>
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 
 gcc_pure
 static uint64_t
@@ -46,10 +46,6 @@ PartitionNameHash(const char *name) noexcept
 {
 	return FNV1aHash64(name) ^ 0x1;
 }
-
-#endif
-
-#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 
 gcc_pure
 static uint64_t
@@ -69,14 +65,14 @@ GetActivePartitionNameHash(const struct mpd_status *status) noexcept
 
 class OutputsPage final : public ListPage, ListRenderer {
 	static constexpr unsigned RELOAD_IDLE_FLAGS =
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 		MPD_IDLE_PARTITION |
 #endif
 		MPD_IDLE_OUTPUT;
 
 	struct Item {
 		std::unique_ptr<struct mpd_output, LibmpdclientDeleter> output;
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 		std::unique_ptr<struct mpd_partition, LibmpdclientDeleter> partition;
 
 		enum class Special {
@@ -91,14 +87,14 @@ class OutputsPage final : public ListPage, ListRenderer {
 		explicit Item(struct mpd_output *_output) noexcept
 			:output(_output) {}
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 		explicit Item(struct mpd_partition *_partition) noexcept
 			:partition(_partition) {}
 #endif
 
 		gcc_pure
 		uint64_t GetHash() const noexcept {
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 			switch (special) {
 			case Special::NONE:
 				break;
@@ -130,7 +126,7 @@ private:
 	void Clear();
 	void Reload(struct mpdclient &c) noexcept;
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 	bool ActivatePartition(struct mpdclient &c,
 			       const struct mpd_partition &partition) noexcept;
 	bool CreateNewPartition(struct mpdclient &c) noexcept;
@@ -152,7 +148,7 @@ public:
 			   bool selected) const noexcept override;
 };
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 
 inline bool
 OutputsPage::ActivatePartition(struct mpdclient &c,
@@ -202,7 +198,7 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 		return false;
 
 	const auto &item = items[output_index];
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 	switch (item.special) {
 	case Item::Special::NONE:
 		break;
@@ -316,7 +312,7 @@ fill_outputs_list(struct mpdclient *c, O &items)
 	c->FinishCommand();
 }
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 
 template<typename O>
 static void
@@ -333,16 +329,8 @@ FillPartitionList(struct mpdclient &c, O &items)
 
 	mpd_send_listpartitions(connection);
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 	while (auto *partition = mpd_recv_partition(connection))
 		items.emplace_back(partition);
-#else
-	while (auto *pair = mpd_recv_partition_pair(connection)) {
-		auto *partition = mpd_partition_new(pair);
-		mpd_return_pair(connection, pair);
-		items.emplace_back(partition);
-	}
-#endif
 
 	c.FinishCommand();
 
@@ -360,7 +348,7 @@ OutputsPage::Reload(struct mpdclient &c) noexcept
 
 	fill_outputs_list(&c, items);
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 	FillPartitionList(c, items);
 #endif
 
@@ -383,7 +371,7 @@ OutputsPage::GetTitle(char *, size_t) const noexcept
 	return _("Outputs");
 }
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 
 static void
 PaintPartition(WINDOW *w, unsigned width, bool selected, bool active,
@@ -408,7 +396,7 @@ OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 	assert(i < items.size());
 	const auto &item = items[i];
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 	switch (item.special) {
 	case Item::Special::NONE:
 		break;
@@ -424,11 +412,7 @@ OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 
 	if (item.partition) {
 		PaintPartition(w, width, selected,
-#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 			       active_partition == item.GetHash(),
-#else
-			       false,
-#endif
 			       *item.partition);
 		return;
 	}

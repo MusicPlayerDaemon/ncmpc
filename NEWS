@@ -1,6 +1,6 @@
 ncmpc 0.37 - not yet released
 * show performer on song page
-* show partitions on outputs page (requires libmpdclient 2.17)
+* show partitions on outputs page (requires libmpdclient 2.18)
 
 ncmpc 0.36 - (2019-11-05)
 * screen_keydef: show "Add new key" only if there is room for more keys
