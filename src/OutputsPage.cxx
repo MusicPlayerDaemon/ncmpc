@@ -138,6 +138,8 @@ private:
 
 	bool Toggle(struct mpdclient &c, unsigned output_index);
 
+	bool Delete(struct mpdclient &c, unsigned idx);
+
 public:
 	/* virtual methods from class Page */
 	void Paint() const noexcept override;
@@ -246,6 +248,30 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 
 	return true;
 }
+
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
+
+bool
+OutputsPage::Delete(struct mpdclient &c, unsigned idx)
+{
+	const auto &item = items[idx];
+
+	if (item.partition) {
+		auto *connection = c.GetConnection();
+		if (connection == nullptr)
+			return false;
+
+		const char *name =
+			mpd_partition_get_name(item.partition.get());
+		if (!mpd_run_delete_partition(connection, name))
+			c.HandleError();
+
+		return true;
+	} else
+		return false;
+}
+
+#endif
 
 void
 OutputsPage::Clear()
@@ -452,6 +478,11 @@ OutputsPage::OnCommand(struct mpdclient &c, Command cmd)
 		lw.SetLength(items.size());
 		SetDirty();
 		return true;
+
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
+	case Command::DELETE:
+		return Delete(c, lw.GetCursorIndex());
+#endif
 
 	default:
 		break;
