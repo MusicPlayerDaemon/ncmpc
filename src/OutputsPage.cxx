@@ -47,6 +47,10 @@ PartitionNameHash(const char *name) noexcept
 	return FNV1aHash64(name) ^ 0x1;
 }
 
+#endif
+
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
+
 gcc_pure
 static uint64_t
 GetActivePartitionNameHash(const struct mpd_status *status) noexcept
@@ -114,7 +118,7 @@ class OutputsPage final : public ListPage, ListRenderer {
 
 	std::vector<Item> items;
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 	uint64_t active_partition = 0;
 #endif
 
@@ -394,7 +398,11 @@ OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 
 	if (item.partition) {
 		PaintPartition(w, width, selected,
+#if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 			       active_partition == item.GetHash(),
+#else
+			       false,
+#endif
 			       *item.partition);
 		return;
 	}
