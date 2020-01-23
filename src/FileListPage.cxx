@@ -48,10 +48,16 @@
 #define HIGHLIGHT  (0x01)
 #endif
 
-FileListPage::~FileListPage() noexcept
+FileListPage::FileListPage(ScreenManager &_screen, WINDOW *_w,
+			   Size size,
+			   const char *_song_format) noexcept
+	:ListPage(_w, size),
+	 screen(_screen),
+	 song_format(_song_format)
 {
-	delete filelist;
 }
+
+FileListPage::~FileListPage() noexcept = default;
 
 #ifndef NCMPC_MINI
 

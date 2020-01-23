@@ -100,9 +100,7 @@ screen_file_load_list(struct mpdclient *c, const char *current_path,
 void
 FileBrowserPage::Reload(struct mpdclient &c)
 {
-	delete filelist;
-
-	filelist = new FileList();
+	filelist = std::make_unique<FileList>();
 	if (!current_path.empty())
 		/* add a dummy entry for ./.. */
 		filelist->emplace_back(nullptr);

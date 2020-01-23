@@ -143,9 +143,7 @@ SongListPage::LoadSongList(struct mpdclient &c)
 {
 	auto *connection = c.GetConnection();
 
-	delete filelist;
-
-	filelist = new FileList();
+	filelist = std::make_unique<FileList>();
 	/* add a dummy entry for ".." */
 	filelist->emplace_back(nullptr);
 

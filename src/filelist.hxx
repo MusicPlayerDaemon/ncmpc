@@ -22,6 +22,7 @@
 
 #include "util/Compiler.h"
 
+#include <memory>
 #include <vector>
 #include <utility>
 
@@ -113,7 +114,7 @@ public:
  * Creates a new FileList and receives entities from the connection.
  * This does not finish the response, and does not check for errors.
  */
-FileList *
+std::unique_ptr<FileList>
 filelist_new_recv(struct mpd_connection *connection);
 
 #endif

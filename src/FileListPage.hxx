@@ -27,6 +27,8 @@
 
 #include <curses.h>
 
+#include <memory>
+
 struct mpdclient;
 struct MpdQueue;
 class ScreenManager;
@@ -37,16 +39,13 @@ class FileListPage : public ListPage, ListRenderer, ListText {
 protected:
 	ScreenManager &screen;
 
-	FileList *filelist = nullptr;
+	std::unique_ptr<FileList> filelist;
 	const char *const song_format;
 
 public:
 	FileListPage(ScreenManager &_screen, WINDOW *_w,
 		     Size size,
-		     const char *_song_format)
-		:ListPage(_w, size),
-		 screen(_screen),
-		 song_format(_song_format) {}
+		     const char *_song_format) noexcept;
 
 	~FileListPage() noexcept override;
 

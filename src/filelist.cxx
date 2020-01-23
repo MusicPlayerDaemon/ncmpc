@@ -169,10 +169,10 @@ FileList::Receive(struct mpd_connection &connection)
 		emplace_back(entity);
 }
 
-FileList *
+std::unique_ptr<FileList>
 filelist_new_recv(struct mpd_connection *connection)
 {
-	auto *filelist = new FileList();
+	auto filelist = std::make_unique<FileList>();
 	filelist->Receive(*connection);
 	return filelist;
 }

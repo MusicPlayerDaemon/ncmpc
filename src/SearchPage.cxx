@@ -163,8 +163,7 @@ void
 SearchPage::Clear(bool clear_pattern)
 {
 	if (filelist) {
-		delete filelist;
-		filelist = new FileList();
+		filelist = std::make_unique<FileList>();
 		lw.SetLength(0);
 	}
 	if (clear_pattern)
@@ -173,11 +172,10 @@ SearchPage::Clear(bool clear_pattern)
 	SetDirty();
 }
 
-static FileList *
+static std::unique_ptr<FileList>
 search_simple_query(struct mpd_connection *connection, bool exact_match,
 		    int table, const char *local_pattern)
 {
-	FileList *list;
 	const LocaleToUtf8 filter_utf8(local_pattern);
 
 	if (table == SEARCH_ARTIST_TITLE) {
@@ -197,15 +195,16 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 
 		mpd_command_list_end(connection);
 
-		list = filelist_new_recv(connection);
+		auto list = filelist_new_recv(connection);
 		list->RemoveDuplicateSongs();
+		return list;
 	} else if (table == SEARCH_URI) {
 		mpd_search_db_songs(connection, exact_match);
 		mpd_search_add_uri_constraint(connection, MPD_OPERATOR_DEFAULT,
 					      filter_utf8.c_str());
 		mpd_search_commit(connection);
 
-		list = filelist_new_recv(connection);
+		return filelist_new_recv(connection);
 	} else {
 		mpd_search_db_songs(connection, exact_match);
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
@@ -213,10 +212,8 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 					      filter_utf8.c_str());
 		mpd_search_commit(connection);
 
-		list = filelist_new_recv(connection);
+		return filelist_new_recv(connection);
 	}
-
-	return list;
 }
 
 /*-----------------------------------------------------------------------
@@ -224,7 +221,7 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
  *       Its ugly and MUST be redesigned before the next release!
  *-----------------------------------------------------------------------
  */
-static FileList *
+static std::unique_ptr<FileList>
 search_advanced_query(struct mpd_connection *connection, const char *query)
 {
 	advanced_search_mode = false;
@@ -304,23 +301,21 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 	}
 
 	mpd_search_commit(connection);
-	auto *fl = filelist_new_recv(connection);
-	if (!mpd_response_finish(connection)) {
-		delete fl;
-		fl = nullptr;
-	}
+	auto fl = filelist_new_recv(connection);
+	if (!mpd_response_finish(connection))
+		fl.reset();
 
 	return fl;
 }
 
-static FileList *
+static std::unique_ptr<FileList>
 do_search(struct mpdclient *c, const char *query)
 {
 	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return nullptr;
 
-	auto *fl = search_advanced_query(connection, query);
+	auto fl = search_advanced_query(connection, query);
 	if (fl != nullptr)
 		return fl;
 
@@ -344,10 +339,9 @@ SearchPage::Reload(struct mpdclient &c)
 		return;
 
 	lw.EnableCursor();
-	delete filelist;
 	filelist = do_search(&c, pattern.c_str());
 	if (filelist == nullptr)
-		filelist = new FileList();
+		filelist = std::make_unique<FileList>();
 	lw.SetLength(filelist->size());
 
 	screen_browser_sync_highlights(*filelist, c.playlist);
