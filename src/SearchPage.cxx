@@ -36,7 +36,7 @@
 
 enum {
 	SEARCH_URI = MPD_TAG_COUNT + 100,
-	SEARCH_ARTIST_TITLE
+	SEARCH_ARTIST_TITLE,
 };
 
 static constexpr struct {
