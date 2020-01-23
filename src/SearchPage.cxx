@@ -72,12 +72,12 @@ search_get_tag_id(const char *name)
 	return -1;
 }
 
-typedef struct {
+struct SearchMode {
 	enum mpd_tag_type table;
 	const char *label;
-} search_type_t;
+};
 
-static constexpr search_type_t mode[] = {
+static constexpr SearchMode mode[] = {
 	{ MPD_TAG_TITLE, N_("Title") },
 	{ MPD_TAG_ARTIST, N_("Artist") },
 	{ MPD_TAG_ALBUM, N_("Album") },
