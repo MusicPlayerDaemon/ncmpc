@@ -224,7 +224,7 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
  */
 static std::unique_ptr<FileList>
 search_advanced_query(struct mpd_connection *connection, const char *query)
-{
+try {
 	advanced_search_mode = false;
 	if (strchr(query, ':') == nullptr)
 		return nullptr;
@@ -307,6 +307,9 @@ search_advanced_query(struct mpd_connection *connection, const char *query)
 		fl.reset();
 
 	return fl;
+} catch (...) {
+	mpd_search_cancel(connection);
+	throw;
 }
 
 static std::unique_ptr<FileList>
