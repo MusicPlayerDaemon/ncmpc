@@ -37,6 +37,7 @@
 
 enum {
 	SEARCH_URI = MPD_TAG_COUNT + 100,
+	SEARCH_MODIFIED,
 	SEARCH_ARTIST_TITLE,
 };
 
@@ -64,6 +65,9 @@ search_get_tag_id(const char *name)
 	if (strcasecmp(name, "file") == 0 ||
 	    strcasecmp(name, _("file")) == 0)
 		return SEARCH_URI;
+
+	if (strcasecmp(name, "modified") == 0)
+		return SEARCH_MODIFIED;
 
 	for (unsigned i = 0; search_tag[i].name != nullptr; ++i)
 		if (strcasecmp(search_tag[i].name, name) == 0 ||
@@ -96,6 +100,7 @@ static const char *const help_text[] = {
 	"",
 	"Advanced  -  <tag>:<search term> [<tag>:<search term>...]",
 	"		Example: artist:radiohead album:pablo honey",
+	"		Example: modified:14d (units: s, M, h, d, m, y)",
 	"",
 	"		Available tags: artist, album, title, track,",
 	"		name, genre, date composer, performer, comment, file",
@@ -217,6 +222,65 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 	}
 }
 
+/**
+ * Throws on error.
+ */
+static time_t
+ParseModifiedSince(const char *s)
+{
+	char *endptr;
+	time_t value = strtoul(s, &endptr, 10);
+	if (endptr == s)
+		throw _("Invalid number");
+
+	constexpr time_t MINUTE = 60;
+	constexpr time_t HOUR = 60 * MINUTE;
+	constexpr time_t DAY = 24 * HOUR;
+	constexpr time_t MONTH = 30 * DAY; // TODO: inaccurate
+	constexpr time_t YEAR = 365 * DAY; // TODO: inaccurate
+
+	s = endptr;
+	switch (*s) {
+	case 's':
+		++s;
+		break;
+
+	case 'M':
+		++s;
+		value *= MINUTE;
+		break;
+
+	case 'h':
+		++s;
+		value *= HOUR;
+		break;
+
+	case 'd':
+		++s;
+		value *= DAY;
+		break;
+
+	case 'm':
+		++s;
+		value *= MONTH;
+		break;
+
+	case 'y':
+	case 'Y':
+		++s;
+		value *= YEAR;
+		break;
+
+	default:
+		throw _("Unrecognized suffix");
+	}
+
+	if (*s != '\0')
+		throw _("Unrecognized suffix");
+
+	return time(nullptr) - value;
+}
+
 /*-----------------------------------------------------------------------
  * NOTE: This code exists to test a new search ui,
  *       Its ugly and MUST be redesigned before the next release!
@@ -294,6 +358,10 @@ try {
 			mpd_search_add_uri_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,
 						      value.c_str());
+		else if (table[i] == SEARCH_MODIFIED)
+			mpd_search_add_modified_since_constraint(connection,
+								 MPD_OPERATOR_DEFAULT,
+								 ParseModifiedSince(value.c_str()));
 		else
 			mpd_search_add_tag_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,
