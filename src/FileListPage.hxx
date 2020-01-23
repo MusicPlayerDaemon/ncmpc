@@ -97,14 +97,13 @@ public:
 #ifndef NCMPC_MINI
 
 void
-screen_browser_sync_highlights(FileList *fl,
-			       const MpdQueue *playlist);
+screen_browser_sync_highlights(FileList &fl,
+			       const MpdQueue &playlist) noexcept;
 
 #else
 
 static inline void
-screen_browser_sync_highlights(gcc_unused FileList *fl,
-			       gcc_unused const MpdQueue *playlist)
+screen_browser_sync_highlights(FileList &, const MpdQueue &) noexcept
 {
 }
 

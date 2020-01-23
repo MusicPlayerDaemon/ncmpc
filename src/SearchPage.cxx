@@ -350,7 +350,7 @@ SearchPage::Reload(struct mpdclient &c)
 		filelist = new FileList();
 	lw.SetLength(filelist->size());
 
-	screen_browser_sync_highlights(filelist, &c.playlist);
+	screen_browser_sync_highlights(*filelist, c.playlist);
 
 	SetDirty();
 }
@@ -413,7 +413,7 @@ void
 SearchPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	if (filelist != nullptr && events & MPD_IDLE_QUEUE) {
-		screen_browser_sync_highlights(filelist, &c.playlist);
+		screen_browser_sync_highlights(*filelist, c.playlist);
 		SetDirty();
 	}
 }

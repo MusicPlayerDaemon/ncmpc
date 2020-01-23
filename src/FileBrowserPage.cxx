@@ -84,17 +84,17 @@ public:
 
 static void
 screen_file_load_list(struct mpdclient *c, const char *current_path,
-		      FileList *filelist)
+		      FileList &filelist) noexcept
 {
 	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return;
 
 	mpd_send_list_meta(connection, current_path);
-	filelist->Receive(*connection);
+	filelist.Receive(*connection);
 
 	if (c->FinishCommand())
-		filelist->Sort();
+		filelist.Sort();
 }
 
 void
@@ -107,7 +107,7 @@ FileBrowserPage::Reload(struct mpdclient &c)
 		/* add a dummy entry for ./.. */
 		filelist->emplace_back(nullptr);
 
-	screen_file_load_list(&c, current_path.c_str(), filelist);
+	screen_file_load_list(&c, current_path.c_str(), *filelist);
 
 	lw.SetLength(filelist->size());
 
@@ -121,7 +121,7 @@ FileBrowserPage::ChangeDirectory(struct mpdclient &c, std::string &&new_path)
 
 	Reload(c);
 
-	screen_browser_sync_highlights(filelist, &c.playlist);
+	screen_browser_sync_highlights(*filelist, c.playlist);
 
 	lw.Reset();
 
@@ -315,7 +315,7 @@ FileBrowserPage::Update(struct mpdclient &c, unsigned events) noexcept
 		      | MPD_IDLE_QUEUE
 #endif
 		      )) {
-		screen_browser_sync_highlights(filelist, &c.playlist);
+		screen_browser_sync_highlights(*filelist, c.playlist);
 		SetDirty();
 	}
 }
@@ -345,7 +345,7 @@ FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	case Command::SCREEN_UPDATE:
 		Reload(c);
-		screen_browser_sync_highlights(filelist, &c.playlist);
+		screen_browser_sync_highlights(*filelist, c.playlist);
 		return false;
 
 	default:

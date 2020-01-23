@@ -57,16 +57,16 @@ FileListPage::~FileListPage() noexcept
 
 /* sync highlight flags with playlist */
 void
-screen_browser_sync_highlights(FileList *fl, const MpdQueue *playlist)
+screen_browser_sync_highlights(FileList &fl, const MpdQueue &playlist) noexcept
 {
-	for (unsigned i = 0; i < fl->size(); ++i) {
-		auto &entry = (*fl)[i];
+	for (unsigned i = 0; i < fl.size(); ++i) {
+		auto &entry = fl[i];
 		const auto *entity = entry.entity;
 
 		if (entity != nullptr && mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 			const auto *song = mpd_entity_get_song(entity);
 
-			if (playlist->ContainsUri(mpd_song_get_uri(song)))
+			if (playlist.ContainsUri(mpd_song_get_uri(song)))
 				entry.flags |= HIGHLIGHT;
 			else
 				entry.flags &= ~HIGHLIGHT;

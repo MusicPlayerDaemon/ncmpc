@@ -160,7 +160,7 @@ SongListPage::LoadSongList(struct mpdclient &c)
 	}
 
 	/* fix highlights */
-	screen_browser_sync_highlights(filelist, &c.playlist);
+	screen_browser_sync_highlights(*filelist, c.playlist);
 	lw.SetLength(filelist->size());
 }
 
