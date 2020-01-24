@@ -14,7 +14,6 @@ matrix:
             - python3-urllib3
             - ninja-build
             - libboost-dev
-            - libglib2.0-dev
             - libncursesw5-dev
             - libmpdclient-dev
       before_install:
@@ -31,7 +30,6 @@ matrix:
             - ccache
             - meson
             - ninja
-            - glib
             - ncurses
             - libmpdclient
 
