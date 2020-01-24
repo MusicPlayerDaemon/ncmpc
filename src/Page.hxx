@@ -103,6 +103,9 @@ public:
 	/**
 	 * Handle a command.
 	 *
+	 * Exceptions thrown by this method will be caught and
+	 * displayed on the status line.
+	 *
 	 * @returns true if the command should not be handled by the
 	 * ncmpc core
 	 */
@@ -111,6 +114,9 @@ public:
 #ifdef HAVE_GETMOUSE
 	/**
 	 * Handle a mouse event.
+	 *
+	 * Exceptions thrown by this method will be caught and
+	 * displayed on the status line.
 	 *
 	 * @return true if the event was handled (and should not be
 	 * handled by the ncmpc core)

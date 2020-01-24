@@ -33,6 +33,7 @@
 #include "xterm_title.hxx"
 #include "strfsong.hxx"
 #include "i18n.h"
+#include "util/Exception.hxx"
 #include "util/PrintException.hxx"
 #include "util/ScopeExit.hxx"
 #include "util/StringUTF8.hxx"
@@ -232,7 +233,12 @@ do_input_event(boost::asio::io_service &io_service, Command cmd) noexcept
 		return false;
 	}
 
-	screen->OnCommand(*mpd, global_instance->GetSeek(), cmd);
+	try {
+		screen->OnCommand(*mpd, global_instance->GetSeek(), cmd);
+	} catch (...) {
+		screen_status_message(GetFullMessage(std::current_exception()).c_str());
+		return true;
+	}
 
 	if (cmd == Command::VOLUME_UP || cmd == Command::VOLUME_DOWN)
 		/* make sure we don't update the volume yet */
@@ -246,7 +252,11 @@ do_input_event(boost::asio::io_service &io_service, Command cmd) noexcept
 void
 do_mouse_event(Point p, mmask_t bstate) noexcept
 {
-	screen->OnMouse(*mpd, global_instance->GetSeek(), p, bstate);
+	try {
+		screen->OnMouse(*mpd, global_instance->GetSeek(), p, bstate);
+	} catch (...) {
+		screen_status_message(GetFullMessage(std::current_exception()).c_str());
+	}
 }
 
 #endif
