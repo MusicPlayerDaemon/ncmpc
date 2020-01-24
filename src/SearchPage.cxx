@@ -37,7 +37,9 @@
 
 enum {
 	SEARCH_URI = MPD_TAG_COUNT + 100,
+#if LIBMPDCLIENT_CHECK_VERSION(2,10,0)
 	SEARCH_MODIFIED,
+#endif
 	SEARCH_ARTIST_TITLE,
 };
 
@@ -66,8 +68,10 @@ search_get_tag_id(const char *name)
 	    strcasecmp(name, _("file")) == 0)
 		return SEARCH_URI;
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,10,0)
 	if (strcasecmp(name, "modified") == 0)
 		return SEARCH_MODIFIED;
+#endif
 
 	for (unsigned i = 0; search_tag[i].name != nullptr; ++i)
 		if (strcasecmp(search_tag[i].name, name) == 0 ||
@@ -100,7 +104,11 @@ static const char *const help_text[] = {
 	"",
 	"Advanced  -  <tag>:<search term> [<tag>:<search term>...]",
 	"		Example: artist:radiohead album:pablo honey",
+#if LIBMPDCLIENT_CHECK_VERSION(2,10,0)
 	"		Example: modified:14d (units: s, M, h, d, m, y)",
+#else
+	"		(\"modified:\" requires libmpdclient 2.10)",
+#endif
 	"",
 	"		Available tags: artist, album, title, track,",
 	"		name, genre, date composer, performer, comment, file",
@@ -222,6 +230,8 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 	}
 }
 
+#if LIBMPDCLIENT_CHECK_VERSION(2,10,0)
+
 /**
  * Throws on error.
  */
@@ -280,6 +290,8 @@ ParseModifiedSince(const char *s)
 
 	return time(nullptr) - value;
 }
+
+#endif
 
 /*-----------------------------------------------------------------------
  * NOTE: This code exists to test a new search ui,
@@ -358,10 +370,12 @@ try {
 			mpd_search_add_uri_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,
 						      value.c_str());
+#if LIBMPDCLIENT_CHECK_VERSION(2,10,0)
 		else if (table[i] == SEARCH_MODIFIED)
 			mpd_search_add_modified_since_constraint(connection,
 								 MPD_OPERATOR_DEFAULT,
 								 ParseModifiedSince(value.c_str()));
+#endif
 		else
 			mpd_search_add_tag_constraint(connection,
 						      MPD_OPERATOR_DEFAULT,

@@ -1,7 +1,7 @@
 ncmpc 0.37 - not yet released
 * show performer on song page
 * show partitions on outputs page (requires libmpdclient 2.18)
-* search: add search tag "modified"
+* search: add search tag "modified" (requires libmpdclient 2.10)
 * fix compatibility with MPD versions older than 0.21
 * switch to C++17
 
