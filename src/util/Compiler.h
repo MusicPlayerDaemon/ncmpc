@@ -152,18 +152,6 @@
 
 #if defined(__cplusplus)
 
-/* support for C++11 "override" was added in gcc 4.7 */
-#if GCC_OLDER_THAN(4,7)
-#define override
-#define final
-#endif
-
-#if CLANG_OR_GCC_VERSION(4,8)
-#define gcc_alignas(T, fallback) alignas(T)
-#else
-#define gcc_alignas(T, fallback) gcc_aligned(fallback)
-#endif
-
 #endif
 
 #ifndef __has_feature
