@@ -31,18 +31,21 @@ struct Point;
 class ScreenManager;
 extern ScreenManager *screen;
 
-void begin_input_event();
-void end_input_event();
+void
+begin_input_event() noexcept;
+
+void
+end_input_event() noexcept;
 
 /**
  * @return false if the application shall quit
  */
 bool
-do_input_event(boost::asio::io_service &io_service, Command cmd);
+do_input_event(boost::asio::io_service &io_service, Command cmd) noexcept;
 
 #ifdef HAVE_GETMOUSE
 void
-do_mouse_event(Point p, mmask_t bstate);
+do_mouse_event(Point p, mmask_t bstate) noexcept;
 #endif
 
 #endif /* NCMPC_H */

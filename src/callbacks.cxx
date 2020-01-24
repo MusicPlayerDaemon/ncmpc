@@ -25,7 +25,7 @@
 #include <curses.h>
 
 static bool
-_mpdclient_auth_callback(struct mpdclient *c, unsigned recursion)
+_mpdclient_auth_callback(struct mpdclient *c, unsigned recursion) noexcept
 {
 	auto *connection = c->GetConnection();
 	if (connection == nullptr)
@@ -52,13 +52,13 @@ _mpdclient_auth_callback(struct mpdclient *c, unsigned recursion)
 }
 
 bool
-mpdclient_auth_callback(struct mpdclient *c)
+mpdclient_auth_callback(struct mpdclient *c) noexcept
 {
 	return _mpdclient_auth_callback(c, 0);
 }
 
 void
-mpdclient_error_callback(const char *message)
+mpdclient_error_callback(const char *message) noexcept
 {
 	screen_status_message(message);
 	screen_bell();

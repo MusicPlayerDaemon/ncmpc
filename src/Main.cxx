@@ -67,7 +67,7 @@ ScreenManager *screen;
 
 #ifndef NCMPC_MINI
 static void
-update_xterm_title()
+update_xterm_title() noexcept
 {
 	const struct mpd_song *song = mpd->GetPlayingSong();
 
@@ -91,13 +91,13 @@ update_xterm_title()
 #endif
 
 static bool
-should_enable_update_timer()
+should_enable_update_timer() noexcept
 {
 	return mpd->playing;
 }
 
 static void
-auto_update_timer()
+auto_update_timer() noexcept
 {
 	if (should_enable_update_timer())
 		global_instance->EnableUpdateTimer();
@@ -137,7 +137,7 @@ Instance::OnReconnectTimer(const boost::system::error_code &error) noexcept
 }
 
 void
-mpdclient_connected_callback()
+mpdclient_connected_callback() noexcept
 {
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.14 - song id not supported by mpd */
@@ -166,14 +166,14 @@ mpdclient_connected_callback()
 }
 
 void
-mpdclient_failed_callback()
+mpdclient_failed_callback() noexcept
 {
 	/* try again in 5 seconds */
 	global_instance->ScheduleReconnect(std::chrono::seconds(5));
 }
 
 void
-mpdclient_lost_callback()
+mpdclient_lost_callback() noexcept
 {
 	screen->Update(*mpd, global_instance->GetSeek());
 
@@ -185,7 +185,7 @@ mpdclient_lost_callback()
  * idle event (or when the connection dies).
  */
 void
-mpdclient_idle_callback(gcc_unused unsigned events)
+mpdclient_idle_callback(gcc_unused unsigned events) noexcept
 {
 #ifndef NCMPC_MINI
 	if (options.enable_xterm_title)
@@ -211,11 +211,12 @@ Instance::OnUpdateTimer(const boost::system::error_code &error) noexcept
 		ScheduleUpdateTimer();
 }
 
-void begin_input_event()
+void
+begin_input_event() noexcept
 {
 }
 
-void end_input_event()
+void end_input_event() noexcept
 {
 	screen->Update(*mpd, global_instance->GetSeek());
 	mpd->events = (enum mpd_idle)0;
@@ -224,7 +225,7 @@ void end_input_event()
 }
 
 bool
-do_input_event(boost::asio::io_service &io_service, Command cmd)
+do_input_event(boost::asio::io_service &io_service, Command cmd) noexcept
 {
 	if (cmd == Command::QUIT) {
 		io_service.stop();
@@ -243,7 +244,7 @@ do_input_event(boost::asio::io_service &io_service, Command cmd)
 #ifdef HAVE_GETMOUSE
 
 void
-do_mouse_event(Point p, mmask_t bstate)
+do_mouse_event(Point p, mmask_t bstate) noexcept
 {
 	screen->OnMouse(*mpd, global_instance->GetSeek(), p, bstate);
 }
