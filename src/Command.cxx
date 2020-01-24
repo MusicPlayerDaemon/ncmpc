@@ -19,7 +19,8 @@
 
 #include "Command.hxx"
 #include "i18n.h"
-#include "util/Macros.hxx"
+
+#include <iterator>
 
 #include <string.h>
 
@@ -215,7 +216,7 @@ static constexpr command_definition_t cmds[] = {
 #endif
 };
 
-static_assert(ARRAY_SIZE(cmds) == size_t(Command::NONE),
+static_assert(std::size(cmds) == size_t(Command::NONE),
 	      "Wrong command table size");
 
 const command_definition_t *

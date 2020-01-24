@@ -28,8 +28,9 @@
 #include "GlobalBindings.hxx"
 #include "config.h"
 #include "i18n.h"
-#include "util/Macros.hxx"
 #include "util/LocaleString.hxx"
+
+#include <iterator>
 
 #include <assert.h>
 
@@ -224,7 +225,7 @@ public:
 	HelpPage(ScreenManager &_screen, WINDOW *w, Size size)
 		:ListPage(w, size), screen(_screen) {
 		lw.DisableCursor();
-		lw.SetLength(ARRAY_SIZE(help_text));
+		lw.SetLength(std::size(help_text));
 	}
 
 public:
@@ -251,7 +252,7 @@ HelpPage::GetListItemText(char *, size_t, unsigned i) const noexcept
 {
 	const auto *row = &help_text[i];
 
-	assert(i < ARRAY_SIZE(help_text));
+	assert(i < std::size(help_text));
 
 	if (row->text != nullptr)
 		return gettext(row->text);
@@ -275,7 +276,7 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 {
 	const auto *row = &help_text[i];
 
-	assert(i < ARRAY_SIZE(help_text));
+	assert(i < std::size(help_text));
 
 	row_color(w, row->highlight ? Style::LIST_BOLD : Style::LIST, false);
 

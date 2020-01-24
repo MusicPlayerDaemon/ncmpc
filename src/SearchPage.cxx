@@ -30,7 +30,8 @@
 #include "screen_utils.hxx"
 #include "FileListPage.hxx"
 #include "filelist.hxx"
-#include "util/Macros.hxx"
+
+#include <iterator>
 
 #include <string.h>
 
@@ -114,7 +115,7 @@ public:
 			      ? options.search_format.c_str()
 			      : options.list_format.c_str()) {
 		lw.DisableCursor();
-		lw.SetLength(ARRAY_SIZE(help_text));
+		lw.SetLength(std::size(help_text));
 	}
 
 private:
@@ -136,7 +137,7 @@ public:
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *buffer, size_t size,
 				    unsigned idx) const noexcept override {
-		assert(idx < ARRAY_SIZE(help_text));
+		assert(idx < std::size(help_text));
 
 		if (idx == 0) {
 			snprintf(buffer, size,

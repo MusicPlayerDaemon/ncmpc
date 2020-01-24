@@ -29,8 +29,9 @@
 #include "LyricsPage.hxx"
 #include "OutputsPage.hxx"
 #include "ChatPage.hxx"
-#include "util/Macros.hxx"
 #include "config.h"
+
+#include <iterator>
 
 #include <string.h>
 
@@ -66,7 +67,7 @@ static const PageMeta *const screens[] = {
 const PageMeta *
 GetPageMeta(unsigned i) noexcept
 {
-	return i < ARRAY_SIZE(screens)
+	return i < std::size(screens)
 		   ? screens[i]
 		   : nullptr;
 }

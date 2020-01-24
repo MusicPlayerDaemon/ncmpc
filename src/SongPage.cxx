@@ -32,12 +32,12 @@
 #include "time_format.hxx"
 #include "mpdclient.hxx"
 #include "util/LocaleString.hxx"
-#include "util/Macros.hxx"
 #include "util/StringStrip.hxx"
 
 #include <mpd/client.h>
 
 #include <algorithm>
+#include <iterator>
 #include <vector>
 #include <string>
 
@@ -187,7 +187,7 @@ screen_song_init(ScreenManager &_screen, WINDOW *w, Size size) noexcept
 			max_tag_label_width = width;
 	}
 
-	for (unsigned i = 0; i < ARRAY_SIZE(stats_labels); ++i) {
+	for (unsigned i = 0; i < std::size(stats_labels); ++i) {
 		if (stats_labels[i] != nullptr) {
 			unsigned width = StringWidthMB(gettext(stats_labels[i]));
 
@@ -288,7 +288,7 @@ SongPage::AppendTag(const struct mpd_song *song,
 	unsigned i = 0;
 	const char *value;
 
-	assert((unsigned)tag < ARRAY_SIZE(tag_labels));
+	assert((unsigned)tag < std::size(tag_labels));
 	assert(label != nullptr);
 
 	while ((value = mpd_song_get_tag(song, tag, i++)) != nullptr)
