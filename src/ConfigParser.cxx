@@ -175,7 +175,7 @@ parse_key_definition(char *str)
 	size_t i = 0;
 	const char *p = str;
 
-	std::array<int, MAX_COMMAND_KEYS> keys{0};
+	std::array<int, MAX_COMMAND_KEYS> keys{};
 	while (i < MAX_COMMAND_KEYS && *p != 0) {
 		keys[i++] = parse_key_value(p, &p);
 		while (*p==',' || *p==' ' || *p=='\t')
