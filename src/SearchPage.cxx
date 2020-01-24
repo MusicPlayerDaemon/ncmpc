@@ -109,7 +109,7 @@ class SearchPage final : public FileListPage {
 	std::string pattern;
 
 public:
-	SearchPage(ScreenManager &_screen, WINDOW *_w, Size size)
+	SearchPage(ScreenManager &_screen, WINDOW *_w, Size size) noexcept
 		:FileListPage(_screen, _w, size,
 			      !options.search_format.empty()
 			      ? options.search_format.c_str()
@@ -119,7 +119,7 @@ public:
 	}
 
 private:
-	void Clear(bool clear_pattern);
+	void Clear(bool clear_pattern) noexcept;
 	void Reload(struct mpdclient &c);
 	void Start(struct mpdclient &c);
 
@@ -161,7 +161,7 @@ public:
 };
 
 void
-SearchPage::Clear(bool clear_pattern)
+SearchPage::Clear(bool clear_pattern) noexcept
 {
 	if (filelist) {
 		filelist = std::make_unique<FileList>();
