@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2011-03-02 13:59+0000\n"
-"Last-Translator: Zbyněk Schwarz <Unknown>\n"
-"Language-Team: Czech <cs@li.org>\n"
+"PO-Revision-Date: 2020-02-03 11:50+0000\n"
+"Last-Translator: Miroslav Burdych <mirek.burdych@gmail.com>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/ncmpc/translations/"
+"cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 3.11-dev\n"
 "X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
-"X-Generator: Launchpad (build 13265)\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
 #, c-format
@@ -25,15 +27,15 @@ msgstr "Klávesa %s je přiřazena k %s a %s"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr ""
+msgstr "Vaše zpráva"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr ""
+msgstr "Zprávu nelze odeslat"
 
 #: src/Command.cxx:29
 msgid "Key configuration screen"
@@ -65,19 +67,19 @@ msgstr "Přesunout kurzor na dolní okraj obrazovky"
 
 #: src/Command.cxx:46
 msgid "Move cursor to the top of the list"
-msgstr "Přesunout kurzor na vrchol seznamu"
+msgstr "Přesunout kurzor na začátek seznamu"
 
 #: src/Command.cxx:48
 msgid "Move cursor to the bottom of the list"
-msgstr "Přesunout kurzor na dno seznamu"
+msgstr "Přesunout kurzor na konec seznamu"
 
 #: src/Command.cxx:50
 msgid "Page up"
-msgstr "Page up"
+msgstr "O stánku nahoru"
 
 #: src/Command.cxx:52
 msgid "Page down"
-msgstr "Page down"
+msgstr "O stránku dolů"
 
 #: src/Command.cxx:54
 msgid "Range selection"
@@ -93,11 +95,11 @@ msgstr "Posunout o jeden řádek nahoru"
 
 #: src/Command.cxx:60
 msgid "Scroll up half a screen"
-msgstr "Posunout o půlku obrazovky nahoru"
+msgstr "Posunout o půl obrazovky nahoru"
 
 #: src/Command.cxx:62
 msgid "Scroll down half a screen"
-msgstr "Posunout o půlku obrazovky dolů"
+msgstr "Posunout o půl obrazovky dolů"
 
 #: src/Command.cxx:64
 msgid "Select currently playing song"
@@ -108,9 +110,8 @@ msgid "Help screen"
 msgstr "Obrazovka nápovědy"
 
 #: src/Command.cxx:71 src/HelpPage.cxx:140
-#, fuzzy
 msgid "Queue screen"
-msgstr "Obrazovka keydef"
+msgstr "Obrazovka prohlížení fronty"
 
 #: src/Command.cxx:73 src/HelpPage.cxx:155
 msgid "Browse screen"
@@ -134,7 +135,7 @@ msgstr "Oříznout"
 
 #: src/Command.cxx:86
 msgid "Next track"
-msgstr "Následující stopa"
+msgstr "Další stopa"
 
 #: src/Command.cxx:88
 msgid "Previous track"
@@ -171,12 +172,14 @@ msgid "Delete song from queue"
 msgstr "Smazat skladbu ze seznamu skladeb"
 
 #: src/Command.cxx:104
+#, fuzzy
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Zamíchat frontu"
 
 #: src/Command.cxx:106
+#, fuzzy
 msgid "Clear queue"
-msgstr ""
+msgstr "Vymazat frontu"
 
 #: src/Command.cxx:108
 msgid "Toggle repeat mode"
@@ -191,12 +194,13 @@ msgid "Toggle single mode"
 msgstr "Přepnout jednoduchý mód"
 
 #: src/Command.cxx:114
+#, fuzzy
 msgid "Toggle consume mode"
-msgstr "Přepnout režim konzumace"
+msgstr "Přepnout spotřební režim"
 
 #: src/Command.cxx:116
 msgid "Toggle crossfade mode"
-msgstr "Zapnout režim přerušení"
+msgstr "Zapnout režim prolínání skladeb"
 
 #: src/Command.cxx:118
 msgid "Start a music database update"
