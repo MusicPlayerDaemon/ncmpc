@@ -8,36 +8,38 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2010-10-31 19:53+0000\n"
-"Last-Translator: simone.sandri <Unknown>\n"
-"Language-Team: Italian <it@li.org>\n"
+"PO-Revision-Date: 2020-04-23 13:11+0000\n"
+"Last-Translator: Jeannette L <j.lavoie@net-c.ca>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/ncmpc/"
+"translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0.2-dev\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
-"X-Generator: Launchpad (build 12138)\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr ""
+msgstr "Il tasto %s assegnato a %s e %s"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr ""
+msgstr "Il tuo messaggio"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr ""
+msgstr "Il messaggio non ha potuto essere inviato"
 
 #: src/Command.cxx:29
 msgid "Key configuration screen"
-msgstr ""
+msgstr "Schermata di configurazione dei tasti"
 
 #: src/Command.cxx:32
 msgid "Quit"
@@ -101,16 +103,16 @@ msgstr ""
 
 #: src/Command.cxx:64
 msgid "Select currently playing song"
-msgstr ""
+msgstr "Seleziona il brano attualmente in riproduzione"
 
 #: src/Command.cxx:69
 msgid "Help screen"
-msgstr ""
+msgstr "Schermata di aiuto"
 
 #: src/Command.cxx:71 src/HelpPage.cxx:140
 #, fuzzy
 msgid "Queue screen"
-msgstr "Schermo di tasti di acceso"
+msgstr "Schermata della coda"
 
 #: src/Command.cxx:73 src/HelpPage.cxx:155
 msgid "Browse screen"
@@ -158,7 +160,7 @@ msgstr "Abbassa volume"
 
 #: src/Command.cxx:98
 msgid "Select/deselect song in queue"
-msgstr ""
+msgstr "Seleziona/deseleziona il brano in coda"
 
 #: src/Command.cxx:100
 msgid "Select all listed items"
@@ -166,7 +168,7 @@ msgstr "Seleziona tutti gli oggetti della lista"
 
 #: src/Command.cxx:102
 msgid "Delete song from queue"
-msgstr ""
+msgstr "Cancellare una canzone dalla coda"
 
 #: src/Command.cxx:104
 msgid "Shuffle queue"
@@ -205,9 +207,8 @@ msgid "Save queue"
 msgstr ""
 
 #: src/Command.cxx:122 src/HelpPage.cxx:174
-#, fuzzy
 msgid "Append song to queue"
-msgstr "Aggiungere la canzone alla lista"
+msgstr "Aggiungere la canzone alla coda"
 
 #: src/Command.cxx:125
 msgid "Go to root directory"
@@ -219,7 +220,7 @@ msgstr ""
 
 #: src/Command.cxx:130
 msgid "Locate song in browser"
-msgstr ""
+msgstr "Trova la canzone nel browser"
 
 #: src/Command.cxx:134
 msgid "Move item up"
@@ -251,7 +252,7 @@ msgstr ""
 
 #: src/Command.cxx:156
 msgid "Previous screen"
-msgstr ""
+msgstr "Schermata precedente"
 
 #: src/Command.cxx:158
 msgid "Swap to most recent screen"
@@ -298,7 +299,7 @@ msgstr ""
 
 #: src/Command.cxx:194 src/HelpPage.cxx:181
 msgid "Lyrics screen"
-msgstr "Lettere"
+msgstr "Schermo dei testi"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
@@ -308,11 +309,11 @@ msgstr ""
 
 #: src/Command.cxx:200
 msgid "Update Lyrics"
-msgstr ""
+msgstr "Aggiorna il testo"
 
 #: src/Command.cxx:204
 msgid "Edit the current item"
-msgstr ""
+msgstr "Modifica l'elemento corrente"
 
 #: src/Command.cxx:209 src/HelpPage.cxx:196
 msgid "Outputs screen"
@@ -372,7 +373,7 @@ msgstr ""
 
 #: src/ConfigParser.cxx:303
 msgid "Invalid number"
-msgstr ""
+msgstr "Numero non valido"
 
 #: src/ConfigParser.cxx:310
 msgid "Malformed color definition"
@@ -412,7 +413,7 @@ msgstr ""
 #. or a directory or something else
 #: src/FileBrowserPage.cxx:248
 msgid "Deleting this item is not possible"
-msgstr "Non è possibile rimuovere questo elemento."
+msgstr "Non è possibile rimuovere questo elemento"
 
 #: src/FileBrowserPage.cxx:256
 #, fuzzy, c-format
@@ -429,7 +430,7 @@ msgstr "Annullato"
 #. user
 #: src/FileBrowserPage.cxx:274
 msgid "Playlist deleted"
-msgstr "Playlist rimossa."
+msgstr "Elenco di riproduzione eliminato"
 
 #. translators: caption of the browser screen
 #: src/FileBrowserPage.cxx:301 src/FileBrowserPage.cxx:383
@@ -445,7 +446,7 @@ msgstr "Caricando la lista %s"
 #: src/TagListPage.cxx:184
 #, fuzzy, c-format
 msgid "Adding '%s' to queue"
-msgstr "Aggiungendo '%s' alla lista di canzoni"
+msgstr "Aggiungendo «%s» alla lista di canzoni"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -457,7 +458,7 @@ msgstr "Globale"
 
 #: src/HelpPage.cxx:142
 msgid "Play"
-msgstr "Play"
+msgstr "Riproduci"
 
 #: src/HelpPage.cxx:149
 msgid "Center"
@@ -492,11 +493,11 @@ msgstr "(Ri)caricare le lettere"
 #. from the server
 #: src/HelpPage.cxx:187
 msgid "Interrupt retrieval"
-msgstr "Annullare la scarica."
+msgstr "Annullare la scarica"
 
 #: src/HelpPage.cxx:188
 msgid "Download lyrics for currently playing song"
-msgstr "Ottenere le lettere della canzone riprodotta"
+msgstr "Scarica il testo della canzone riprodotta"
 
 #: src/HelpPage.cxx:189
 #, fuzzy
@@ -517,7 +518,7 @@ msgstr "Attivare/disattivare le uscite"
 
 #: src/HelpPage.cxx:205
 msgid "Write a message"
-msgstr ""
+msgstr "Scrivi un messaggio"
 
 #: src/HelpPage.cxx:210
 msgid "Keydef screen"
@@ -602,7 +603,7 @@ msgstr ""
 
 #: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
 msgid "Error"
-msgstr ""
+msgstr "Errore"
 
 #: src/KeyDefPage.cxx:422
 #, c-format
@@ -627,27 +628,27 @@ msgstr "Nota: Hai dimenticato 'Applicare' i tuoi cambiamenti?"
 
 #: src/KeyDefPage.cxx:606
 msgid "Keys"
-msgstr ""
+msgstr "Tasti"
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
-msgstr ""
+msgstr "Indefinito"
 
 #: src/KeyName.cxx:36
 msgid "Space"
-msgstr ""
+msgstr "Spazio"
 
 #: src/KeyName.cxx:38
 msgid "Enter"
-msgstr ""
+msgstr "Invio"
 
 #: src/KeyName.cxx:40
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 #: src/KeyName.cxx:42
 msgid "Delete"
-msgstr ""
+msgstr "Canc"
 
 #: src/KeyName.cxx:44
 msgid "Up"
@@ -659,83 +660,82 @@ msgstr ""
 
 #: src/KeyName.cxx:48
 msgid "Left"
-msgstr ""
+msgstr "Sinistra"
 
 #: src/KeyName.cxx:50
 msgid "Right"
-msgstr ""
+msgstr "Destra"
 
 #: src/KeyName.cxx:52
 msgid "Home"
-msgstr ""
+msgstr "Inizio"
 
 #: src/KeyName.cxx:54
 msgid "End"
-msgstr ""
+msgstr "Fine"
 
 #: src/KeyName.cxx:56
 msgid "PageDown"
-msgstr ""
+msgstr "Pag↑"
 
 #: src/KeyName.cxx:58
 msgid "PageUp"
-msgstr ""
+msgstr "Pag↓"
 
 #: src/KeyName.cxx:60
 msgid "Tab"
-msgstr ""
+msgstr "Tab"
 
 #: src/KeyName.cxx:62
 msgid "Shift+Tab"
-msgstr ""
+msgstr "Maiusc+Tab"
 
 #: src/KeyName.cxx:64
 msgid "Esc"
-msgstr ""
+msgstr "Esc"
 
 #: src/KeyName.cxx:66
 msgid "Insert"
-msgstr ""
+msgstr "Ins"
 
 #: src/KeyName.cxx:75
 #, c-format
 msgid "Ctrl-%c"
-msgstr ""
+msgstr "Ctrl-%c"
 
 #: src/KeyName.cxx:78
 #, c-format
 msgid "Alt-%c"
-msgstr ""
+msgstr "Alt-%c"
 
 #: src/LibraryPage.cxx:45
-#, fuzzy
 msgid "Artists"
-msgstr "Artista"
+msgstr "Artisti"
 
 #: src/LibraryPage.cxx:48 src/LibraryPage.cxx:177
-#, fuzzy
 msgid "Albums"
 msgstr "Album"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "Tutti"
 
 #: src/LibraryPage.cxx:199
 msgid "Songs"
-msgstr ""
+msgstr "Brani"
 
 #: src/LibraryPage.cxx:300
 msgid "Library"
-msgstr ""
+msgstr "Biblioteca"
 
 #: src/ListWindow.cxx:213
+#, fuzzy
 msgid "Range selection disabled"
-msgstr ""
+msgstr "Selezione gamma disabilitata"
 
 #: src/ListWindow.cxx:216
 msgid "Range selection enabled"
-msgstr ""
+msgstr "Seleziona gamma abilitata"
 
 #. translators: no lyrics were found for the song
 #: src/LyricsPage.cxx:253
@@ -760,7 +760,7 @@ msgstr "caricamento in corso..."
 
 #: src/LyricsPage.cxx:378
 msgid "Editor not configured"
-msgstr ""
+msgstr "Editore non configurato"
 
 #: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
@@ -812,12 +812,12 @@ msgstr ""
 #: src/OutputsPage.cxx:87
 #, c-format
 msgid "Output '%s' enabled"
-msgstr "La uscita '%s' è attivata"
+msgstr "L'uscita «%s» è attivata"
 
 #: src/OutputsPage.cxx:98
 #, c-format
 msgid "Output '%s' disabled"
-msgstr "La uscita '%s' è disattivata"
+msgstr "L'uscita «%s» è disattivata"
 
 #: src/OutputsPage.cxx:145 src/OutputsPage.cxx:206
 msgid "Outputs"
@@ -837,8 +837,9 @@ msgid "Add"
 msgstr "Aggiungi"
 
 #: src/QueuePage.cxx:379 src/QueuePage.cxx:697
+#, fuzzy
 msgid "Queue"
-msgstr ""
+msgstr "Coda"
 
 #: src/QueuePage.cxx:381
 #, c-format
@@ -869,11 +870,11 @@ msgstr "Aggiornamento del database in corso..."
 #: src/screen_client.cxx:48
 #, c-format
 msgid "Database update of %s started"
-msgstr "Iniziato l'aggiornamento del database %s"
+msgstr "Iniziato l'aggiornamento della banca dati %s"
 
 #: src/screen_client.cxx:51
 msgid "Database update started"
-msgstr "Iniziato l'aggiornamento del database."
+msgstr "Iniziato l'aggiornamento della banca dati"
 
 #: src/screen.cxx:158
 msgid "Repeat mode is on"
@@ -923,7 +924,7 @@ msgstr ""
 
 #: src/screen.cxx:198
 msgid "Database updated"
-msgstr "Database aggiornato"
+msgstr "Banca dati aggiornata"
 
 #: src/screen.cxx:248
 msgid "Find mode: Wrapped"
@@ -976,7 +977,7 @@ msgstr "titolo"
 
 #: src/SearchPage.cxx:50
 msgid "track"
-msgstr "track"
+msgstr "traccia"
 
 #: src/SearchPage.cxx:51
 msgid "name"
@@ -1044,7 +1045,7 @@ msgstr "Cerca"
 #: src/SearchPage.cxx:429
 #, c-format
 msgid "Search mode: %s"
-msgstr ""
+msgstr "Modalità di ricerca: %s"
 
 #: src/SongPage.cxx:65
 msgid "Length"
@@ -1052,7 +1053,7 @@ msgstr "Durata"
 
 #: src/SongPage.cxx:66
 msgid "Position"
-msgstr ""
+msgstr "Posizione"
 
 #: src/SongPage.cxx:67
 msgid "Composer"
@@ -1068,7 +1069,7 @@ msgstr "Disco"
 
 #: src/SongPage.cxx:70
 msgid "Track"
-msgstr "Brano"
+msgstr "Traccia"
 
 #: src/SongPage.cxx:71
 msgid "Date"
@@ -1084,7 +1085,7 @@ msgstr "Commento"
 
 #: src/SongPage.cxx:74
 msgid "Path"
-msgstr "Path"
+msgstr "Percorso"
 
 #: src/SongPage.cxx:75
 msgid "Bitrate"
@@ -1092,7 +1093,7 @@ msgstr "Bitrate"
 
 #: src/SongPage.cxx:76
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 #: src/SongPage.cxx:93
 msgid "Number of artists"
@@ -1112,7 +1113,7 @@ msgstr "Tempo in attività"
 
 #: src/SongPage.cxx:97
 msgid "Most recent db update"
-msgstr "Aggiornamento più recente del database"
+msgstr "Aggiornamento più recente della banca dati"
 
 #: src/SongPage.cxx:98
 msgid "Playtime"
@@ -1120,7 +1121,7 @@ msgstr "Tempo di riproduzione"
 
 #: src/SongPage.cxx:99
 msgid "DB playtime"
-msgstr "Durata del database"
+msgstr "Durata della banca dati"
 
 #: src/SongPage.cxx:204
 msgid "Song viewer"
@@ -1141,11 +1142,11 @@ msgstr "Brano riprodotto"
 #: src/SongPage.cxx:471
 #, c-format
 msgid "%d kbps"
-msgstr "%d kbps"
+msgstr "%d kB/s"
 
 #: src/SongPage.cxx:555
 msgid "Song"
-msgstr ""
+msgstr "Brano"
 
 #: src/StatusBar.cxx:100
 msgid "Playing:"
@@ -1157,7 +1158,7 @@ msgstr "[Pausato]"
 
 #: src/Styles.cxx:252 src/Styles.cxx:313
 msgid "Unknown color"
-msgstr ""
+msgstr "Colore sconosciuto"
 
 #: src/Styles.cxx:323
 msgid "Unknown color field"
@@ -1169,35 +1170,35 @@ msgstr ""
 
 #: src/TagListPage.cxx:71
 msgid "All tracks"
-msgstr "Tutte le piste"
+msgstr "Tutte le traccie"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr ""
+msgstr "anno"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr ""
+msgstr "anni"
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr ""
+msgstr "settimana"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr ""
+msgstr "settimane"
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr ""
+msgstr "giorno"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr ""
+msgstr "giorni"
 
 #: src/TitleBar.cxx:101
 msgid "Volume n/a"
-msgstr "Volume n/a"
+msgstr "Volume n/d"
 
 #: src/TitleBar.cxx:103
 #, c-format
