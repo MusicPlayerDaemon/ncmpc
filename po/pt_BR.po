@@ -3,15 +3,17 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2010-12-19 01:05+0000\n"
-"Last-Translator: Jamerson Albuquerque Tiossi <jamersontiossi@yahoo.com.br>\n"
-"Language-Team: \n"
-"Language: \n"
+"PO-Revision-Date: 2020-04-26 03:11+0000\n"
+"Last-Translator: Lucas Araujo <lucassants2808@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"ncmpc/translations/pt_BR/>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.0.2-dev\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
-"X-Generator: Launchpad (build 12138)\n"
 "X-Poedit-Country: BRAZIL\n"
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -23,15 +25,15 @@ msgstr "Tecla %s definida para %s e %s"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
-msgstr ""
+msgstr "Xat"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr ""
+msgstr "Sua mensagem"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr ""
+msgstr "Mensagem não pode ser enviada"
 
 #: src/Command.cxx:29
 msgid "Key configuration screen"
@@ -106,9 +108,8 @@ msgid "Help screen"
 msgstr "Tela de Ajuda"
 
 #: src/Command.cxx:71 src/HelpPage.cxx:140
-#, fuzzy
 msgid "Queue screen"
-msgstr "Tela de definição de teclas"
+msgstr "Tela de fila"
 
 #: src/Command.cxx:73 src/HelpPage.cxx:155
 msgid "Browse screen"
@@ -155,26 +156,24 @@ msgid "Decrease volume"
 msgstr "Abaixar volume"
 
 #: src/Command.cxx:98
-#, fuzzy
 msgid "Select/deselect song in queue"
-msgstr "Selecionar/De-selecionar trilha na Lista de Reprodução"
+msgstr "Selecionar/De-selecionar musica na Lista de Reprodução"
 
 #: src/Command.cxx:100
 msgid "Select all listed items"
 msgstr "Selecionar todos os itens listados"
 
 #: src/Command.cxx:102
-#, fuzzy
 msgid "Delete song from queue"
-msgstr "Deletar faixa da lista de reprodução"
+msgstr "Deletar musica na faixa da lista"
 
 #: src/Command.cxx:104
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Aleatório na fila"
 
 #: src/Command.cxx:106
 msgid "Clear queue"
-msgstr ""
+msgstr "Limpar fila"
 
 #: src/Command.cxx:108
 msgid "Toggle repeat mode"
