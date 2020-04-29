@@ -65,21 +65,25 @@ StatusBar::ClearMessage() noexcept
 	doupdate();
 }
 
-#ifndef NCMPC_MINI
-
-static void
+static size_t
 format_bitrate(char *p, size_t max_length,
 	       const struct mpd_status *status) noexcept
 {
-	if (options.visible_bitrate && mpd_status_get_kbit_rate(status) > 0)
+
+#ifndef NCMPC_MINI
+	if (options.visible_bitrate && mpd_status_get_kbit_rate(status) > 0) {
 		snprintf(p, max_length,
 			 " [%d kbps]",
 			 mpd_status_get_kbit_rate(status));
-	else
+		return strlen(p);
+	} else {
+#endif
 		p[0] = '\0';
+		return 0;
+#ifndef NCMPC_MINI
+	}
+#endif
 }
-
-#endif /* !NCMPC_MINI */
 
 inline size_t
 FormatStatusRightText(char *buffer, size_t size,
@@ -91,12 +95,10 @@ FormatStatusRightText(char *buffer, size_t size,
 		: mpd_status_get_elapsed_time(&status);
 	const unsigned total_time = mpd_status_get_total_time(&status);
 
+	/* display bitrate if visible-bitrate is true */
+	size_t offset = format_bitrate(buffer, size, &status);
+
 	if (elapsed_time > 0 || total_time > 0) {
-#ifdef NCMPC_MINI
-		static char bitrate[1];
-#else
-		char bitrate[16];
-#endif
 		char elapsed_string[32], duration_string[32];
 
 		/*checks the conf to see whether to display elapsed or remaining time */
@@ -104,11 +106,6 @@ FormatStatusRightText(char *buffer, size_t size,
 			elapsed_time = elapsed_time < total_time
 				? total_time - elapsed_time
 				: 0;
-
-		/* display bitrate if visible-bitrate is true */
-#ifndef NCMPC_MINI
-		format_bitrate(bitrate, sizeof(bitrate), &status);
-#endif
 
 		/* write out the time */
 		format_duration_short(elapsed_string,
@@ -118,15 +115,9 @@ FormatStatusRightText(char *buffer, size_t size,
 				      sizeof(duration_string),
 				      total_time);
 
-		snprintf(buffer, size,
-			 "%s [%s/%s]",
-			 bitrate, elapsed_string, duration_string);
-	} else {
-#ifndef NCMPC_MINI
-		format_bitrate(buffer, size, &status);
-#else
-		return 0;
-#endif
+		snprintf(buffer + offset, size - offset,
+			 " [%s/%s]",
+			 elapsed_string, duration_string);
 	}
 
 	return StringWidthMB(buffer);
