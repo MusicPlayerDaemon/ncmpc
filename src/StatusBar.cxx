@@ -77,6 +77,9 @@ format_bitrate(char *p, size_t max_length,
 			 mpd_status_get_kbit_rate(status));
 		return strlen(p);
 	} else {
+#else
+		(void)max_length;
+		(void)status;
 #endif
 		p[0] = '\0';
 		return 0;
