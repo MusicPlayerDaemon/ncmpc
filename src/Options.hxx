@@ -33,6 +33,7 @@
 enum class CurrentTimeDisplay : uint8_t {
 	ELAPSED,
 	REMAINING,
+	NONE,
 };
 
 struct Options {

@@ -195,6 +195,8 @@ ParseCurrentTimeDisplay(const char *str)
 		return CurrentTimeDisplay::ELAPSED;
 	else if (strcmp(str, "remaining") == 0)
 		return CurrentTimeDisplay::REMAINING;
+	else if (strcmp(str, "none") == 0)
+		return CurrentTimeDisplay::NONE;
 	else
 		throw FormatRuntimeError("%s: %s",
 					 /* translators: ncmpc

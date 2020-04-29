@@ -208,9 +208,9 @@ which status messages will be displayed.
 :command:`display-time = yes|no` - Display the time in the status bar
 when idle.
 
-:command:`timedisplay-type = elapsed/remaining` - Sets whether to
+:command:`timedisplay-type = elapsed|remaining|none` - Sets whether to
 display remaining or elapsed time in the status window.  Default is
-elapsed.
+elapsed.  ``none`` doesn't show the time at all.
 
 :command:`visible-bitrate = yes|no` - Show the bitrate in the status
 bar when playing a stream.

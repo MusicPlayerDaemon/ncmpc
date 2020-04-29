@@ -93,6 +93,9 @@ FormatCurrentSongTime(char *buffer, size_t size,
 		      const struct mpd_status &status,
 		      const DelayedSeek &seek) noexcept
 {
+	if (options.current_time_display == CurrentTimeDisplay::NONE)
+		return;
+
 	const unsigned total_time = mpd_status_get_total_time(&status);
 	if (total_time == 0)
 		return;
@@ -108,6 +111,7 @@ FormatCurrentSongTime(char *buffer, size_t size,
 	/* checks the conf to see whether to display elapsed or
 	   remaining time */
 	switch (options.current_time_display) {
+	case CurrentTimeDisplay::NONE:
 	case CurrentTimeDisplay::ELAPSED:
 		break;
 
