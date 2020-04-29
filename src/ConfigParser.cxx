@@ -188,13 +188,13 @@ parse_key_definition(char *str)
 /**
  * Throws on error.
  */
-static bool
-parse_timedisplay_type(const char *str)
+static CurrentTimeDisplay
+ParseCurrentTimeDisplay(const char *str)
 {
 	if (strcmp(str, "elapsed") == 0)
-		return false;
+		return CurrentTimeDisplay::ELAPSED;
 	else if (strcmp(str, "remaining") == 0)
-		return true;
+		return CurrentTimeDisplay::REMAINING;
 	else
 		throw FormatRuntimeError("%s: %s",
 					 /* translators: ncmpc
@@ -492,7 +492,7 @@ parse_line(char *line)
 		options.visible_bitrate = str2bool(value);
 	/* timer display type */
 	else if (!strcasecmp(CONF_TIMEDISPLAY_TYPE, name))
-		options.display_remaining_time = parse_timedisplay_type(value);
+		options.current_time_display = ParseCurrentTimeDisplay(value);
 		/* color definition */
 	else if (!strcasecmp(CONF_COLOR_DEFINITION, name))
 #ifdef ENABLE_COLORS

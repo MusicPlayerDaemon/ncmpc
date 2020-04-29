@@ -107,10 +107,16 @@ FormatCurrentSongTime(char *buffer, size_t size,
 
 	/* checks the conf to see whether to display elapsed or
 	   remaining time */
-	if (options.display_remaining_time)
+	switch (options.current_time_display) {
+	case CurrentTimeDisplay::ELAPSED:
+		break;
+
+	case CurrentTimeDisplay::REMAINING:
 		elapsed_time = elapsed_time < total_time
 			? total_time - elapsed_time
 			: 0;
+		break;
+	}
 
 	/* write out the time */
 	format_duration_short(elapsed_string,

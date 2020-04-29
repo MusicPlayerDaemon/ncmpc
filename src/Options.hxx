@@ -25,9 +25,15 @@
 
 #include <mpd/tag.h>
 
+#include <cstdint>
 #include <vector>
 #include <string>
 #include <chrono>
+
+enum class CurrentTimeDisplay : uint8_t {
+	ELAPSED,
+	REMAINING,
+};
 
 struct Options {
 	std::string host;
@@ -99,7 +105,7 @@ struct Options {
 	bool second_column = true;
 #endif
 
-	bool display_remaining_time;
+	CurrentTimeDisplay current_time_display = CurrentTimeDisplay::ELAPSED;
 };
 
 extern Options options;
