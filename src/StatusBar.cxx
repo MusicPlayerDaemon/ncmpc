@@ -88,40 +88,50 @@ format_bitrate(char *p, size_t max_length,
 #endif
 }
 
+static void
+FormatCurrentSongTime(char *buffer, size_t size,
+		      const struct mpd_status &status,
+		      const DelayedSeek &seek) noexcept
+{
+	const unsigned total_time = mpd_status_get_total_time(&status);
+	if (total_time == 0)
+		return;
+
+	unsigned elapsed_time = seek.IsSeeking(mpd_status_get_song_id(&status))
+		? seek.GetTime()
+		: mpd_status_get_elapsed_time(&status);
+	if (elapsed_time == 0)
+		return;
+
+	char elapsed_string[32], duration_string[32];
+
+	/* checks the conf to see whether to display elapsed or
+	   remaining time */
+	if (options.display_remaining_time)
+		elapsed_time = elapsed_time < total_time
+			? total_time - elapsed_time
+			: 0;
+
+	/* write out the time */
+	format_duration_short(elapsed_string,
+			      sizeof(elapsed_string),
+			      elapsed_time);
+	format_duration_short(duration_string,
+			      sizeof(duration_string),
+			      total_time);
+
+	snprintf(buffer, size, " [%s/%s]", elapsed_string, duration_string);
+}
+
 inline size_t
 FormatStatusRightText(char *buffer, size_t size,
 		      const struct mpd_status &status,
 		      const DelayedSeek &seek) noexcept
 {
-	unsigned elapsed_time = seek.IsSeeking(mpd_status_get_song_id(&status))
-		? seek.GetTime()
-		: mpd_status_get_elapsed_time(&status);
-	const unsigned total_time = mpd_status_get_total_time(&status);
-
 	/* display bitrate if visible-bitrate is true */
 	size_t offset = format_bitrate(buffer, size, &status);
 
-	if (elapsed_time > 0 || total_time > 0) {
-		char elapsed_string[32], duration_string[32];
-
-		/*checks the conf to see whether to display elapsed or remaining time */
-		if (options.display_remaining_time)
-			elapsed_time = elapsed_time < total_time
-				? total_time - elapsed_time
-				: 0;
-
-		/* write out the time */
-		format_duration_short(elapsed_string,
-				      sizeof(elapsed_string),
-				      elapsed_time);
-		format_duration_short(duration_string,
-				      sizeof(duration_string),
-				      total_time);
-
-		snprintf(buffer + offset, size - offset,
-			 " [%s/%s]",
-			 elapsed_string, duration_string);
-	}
+	FormatCurrentSongTime(buffer + offset, size - offset, status, seek);
 
 	return StringWidthMB(buffer);
 }
