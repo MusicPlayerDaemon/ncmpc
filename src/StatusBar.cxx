@@ -81,6 +81,57 @@ format_bitrate(char *p, size_t max_length,
 
 #endif /* !NCMPC_MINI */
 
+inline size_t
+FormatStatusRightText(char *buffer, size_t size,
+		      const struct mpd_status &status,
+		      const DelayedSeek &seek) noexcept
+{
+	unsigned elapsed_time = seek.IsSeeking(mpd_status_get_song_id(&status))
+		? seek.GetTime()
+		: mpd_status_get_elapsed_time(&status);
+	const unsigned total_time = mpd_status_get_total_time(&status);
+
+	if (elapsed_time > 0 || total_time > 0) {
+#ifdef NCMPC_MINI
+		static char bitrate[1];
+#else
+		char bitrate[16];
+#endif
+		char elapsed_string[32], duration_string[32];
+
+		/*checks the conf to see whether to display elapsed or remaining time */
+		if (options.display_remaining_time)
+			elapsed_time = elapsed_time < total_time
+				? total_time - elapsed_time
+				: 0;
+
+		/* display bitrate if visible-bitrate is true */
+#ifndef NCMPC_MINI
+		format_bitrate(bitrate, sizeof(bitrate), &status);
+#endif
+
+		/* write out the time */
+		format_duration_short(elapsed_string,
+				      sizeof(elapsed_string),
+				      elapsed_time);
+		format_duration_short(duration_string,
+				      sizeof(duration_string),
+				      total_time);
+
+		snprintf(buffer, size,
+			 "%s [%s/%s]",
+			 bitrate, elapsed_string, duration_string);
+	} else {
+#ifndef NCMPC_MINI
+		format_bitrate(buffer, size, &status);
+#else
+		return 0;
+#endif
+	}
+
+	return StringWidthMB(buffer);
+}
+
 void
 StatusBar::Update(const struct mpd_status *status,
 		  const struct mpd_song *song,
@@ -110,50 +161,9 @@ StatusBar::Update(const struct mpd_status *status,
 		: 0;
 
 	if (state == MPD_STATE_PLAY || state == MPD_STATE_PAUSE) {
-		unsigned elapsed_time = seek.IsSeeking(mpd_status_get_song_id(status))
-			? seek.GetTime()
-			: mpd_status_get_elapsed_time(status);
-		const unsigned total_time = mpd_status_get_total_time(status);
-
-		if (elapsed_time > 0 || total_time > 0) {
-#ifdef NCMPC_MINI
-			static char bitrate[1];
-#else
-			char bitrate[16];
-#endif
-			char elapsed_string[32], duration_string[32];
-
-			/*checks the conf to see whether to display elapsed or remaining time */
-			if (options.display_remaining_time)
-				elapsed_time = elapsed_time < total_time
-					? total_time - elapsed_time
-					: 0;
-
-			/* display bitrate if visible-bitrate is true */
-#ifndef NCMPC_MINI
-			format_bitrate(bitrate, sizeof(bitrate), status);
-#endif
-
-			/* write out the time */
-			format_duration_short(elapsed_string,
-					      sizeof(elapsed_string),
-					      elapsed_time);
-			format_duration_short(duration_string,
-					      sizeof(duration_string),
-					      total_time);
-
-			snprintf(right_text, sizeof(right_text),
-				 "%s [%s/%s]",
-				 bitrate, elapsed_string, duration_string);
-		} else {
-#ifndef NCMPC_MINI
-			format_bitrate(right_text, sizeof(right_text), status);
-#else
-			right_text[0] = 0;
-#endif
-		}
-
-		right_width = StringWidthMB(right_text);
+		right_width = FormatStatusRightText(right_text,
+						    sizeof(right_text),
+						    *status, seek);
 
 #ifndef NCMPC_MINI
 		int width = COLS - left_width - right_width;
