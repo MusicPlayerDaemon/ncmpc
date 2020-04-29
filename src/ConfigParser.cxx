@@ -195,7 +195,7 @@ parse_timedisplay_type(const char *str)
 		return false;
 	else if (strcmp(str, "remaining") == 0)
 		return true;
-	else {
+	else
 		throw FormatRuntimeError("%s: %s",
 					 /* translators: ncmpc
 					    supports displaying the
@@ -206,8 +206,6 @@ parse_timedisplay_type(const char *str)
 					    contained an invalid
 					    setting */
 					 _("Bad time display type"), str);
-		return false;
-	}
 }
 
 #ifdef ENABLE_COLORS
