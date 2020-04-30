@@ -113,19 +113,14 @@ bool
 mpdclient::HandleError()
 {
 	enum mpd_error error = mpd_connection_get_error(connection);
-
 	assert(error != MPD_ERROR_SUCCESS);
 
-	/* copy the error message for later because
-	   mpdclient_auth_callback() will clear the error condition */
-	const std::string msg(mpd_connection_get_error_message(connection));
-
 	if (error == MPD_ERROR_SERVER &&
-	    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_PERMISSION &&
-	    mpdclient_auth_callback(this))
-		return true;
+	    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_PERMISSION)
+		return mpdclient_auth_callback(this);
 
-	mpdclient_invoke_error_callback(error, msg.c_str());
+	mpdclient_invoke_error_callback(error,
+					mpd_connection_get_error_message(connection));
 
 	if (!mpd_connection_clear_error(connection)) {
 		Disconnect();
@@ -133,6 +128,21 @@ mpdclient::HandleError()
 	}
 
 	return false;
+}
+
+void
+mpdclient::HandleAuthError() noexcept
+{
+	enum mpd_error error = mpd_connection_get_error(connection);
+	assert(error != MPD_ERROR_SUCCESS);
+
+	mpdclient_invoke_error_callback(error,
+					mpd_connection_get_error_message(connection));
+
+	if (!mpd_connection_clear_error(connection)) {
+		Disconnect();
+		mpdclient_lost_callback();
+	}
 }
 
 #ifdef ENABLE_ASYNC_CONNECT

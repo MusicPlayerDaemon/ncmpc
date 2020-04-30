@@ -24,16 +24,14 @@
 
 #include <curses.h>
 
-static bool
-_mpdclient_auth_callback(struct mpdclient *c, unsigned recursion) noexcept
+bool
+mpdclient_auth_callback(struct mpdclient *c) noexcept
 {
 	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return false;
 
 	mpd_connection_clear_error(connection);
-	if (recursion > 2)
-		return false;
 
 	const auto password = screen_read_password(nullptr);
 	if (password.empty())
@@ -42,21 +40,12 @@ _mpdclient_auth_callback(struct mpdclient *c, unsigned recursion) noexcept
 	mpd_send_password(connection, password.c_str());
 
 	if (!mpd_response_finish(connection)) {
-		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
-		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_PASSWORD)
-			return _mpdclient_auth_callback(c, ++recursion);
-
+		c->HandleAuthError();
 		return false;
 	}
 
 	c->Update();
 	return true;
-}
-
-bool
-mpdclient_auth_callback(struct mpdclient *c) noexcept
-{
-	return _mpdclient_auth_callback(c, 0);
 }
 
 void

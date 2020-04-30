@@ -255,7 +255,17 @@ struct mpdclient final
 
 	void Disconnect();
 
+	/**
+	 * @return true if the cause has been fixed (e.g. by sending a
+	 * password) and the caller may retry the operation
+	 */
 	bool HandleError();
+
+	/**
+	 * Like HandleError(), but called from inside the auth
+	 * callback, and avoids recursion into the auth callback.
+	 */
+	void HandleAuthError() noexcept;
 
 	struct mpd_connection *GetConnection();
 
