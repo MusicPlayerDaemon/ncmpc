@@ -125,8 +125,6 @@ MpdIdleSource::Receive() noexcept
 void
 MpdIdleSource::OnReadable(const boost::system::error_code &error) noexcept
 {
-	io_events &= ~MPD_ASYNC_EVENT_READ;
-
 	if (error) {
 		if (error == boost::asio::error::operation_aborted)
 			return;
@@ -134,6 +132,8 @@ MpdIdleSource::OnReadable(const boost::system::error_code &error) noexcept
 		// TODO
 		return;
 	}
+
+	io_events &= ~MPD_ASYNC_EVENT_READ;
 
 	if (!mpd_async_io(async, MPD_ASYNC_EVENT_READ)) {
 		socket.cancel();
@@ -152,8 +152,6 @@ MpdIdleSource::OnReadable(const boost::system::error_code &error) noexcept
 void
 MpdIdleSource::OnWritable(const boost::system::error_code &error) noexcept
 {
-	io_events &= ~MPD_ASYNC_EVENT_WRITE;
-
 	if (error) {
 		if (error == boost::asio::error::operation_aborted)
 			return;
@@ -161,6 +159,8 @@ MpdIdleSource::OnWritable(const boost::system::error_code &error) noexcept
 		// TODO
 		return;
 	}
+
+	io_events &= ~MPD_ASYNC_EVENT_WRITE;
 
 	if (!mpd_async_io(async, MPD_ASYNC_EVENT_WRITE)) {
 		socket.cancel();

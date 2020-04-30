@@ -1,5 +1,6 @@
 ncmpc 0.38 - not yet released
 * add option "timedisplay-type=none" to hide current song time
+* fix use-after-free bug
 * fix crash after entering empty password
 * repeat password query after wrong password was entered
 
