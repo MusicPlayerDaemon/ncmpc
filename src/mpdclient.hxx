@@ -273,6 +273,25 @@ struct mpdclient final
 
 	const struct mpd_status *ReceiveStatus() noexcept;
 
+	template<typename F>
+	bool WithConnection(F &&f) noexcept {
+		while (true) {
+			auto *c = GetConnection();
+			if (c == nullptr)
+				return false;
+
+			if (f(*c))
+				return true;
+
+			enum mpd_error error = mpd_connection_get_error(c);
+			if (error == MPD_ERROR_SUCCESS)
+				return false;
+
+			if (!HandleError())
+				return false;
+		}
+	}
+
 	bool RunVolume(unsigned new_volume) noexcept;
 	bool RunVolumeUp() noexcept;
 	bool RunVolumeDown() noexcept;

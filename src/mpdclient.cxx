@@ -572,12 +572,9 @@ mpdclient::RunClearQueue() noexcept
 bool
 mpdclient::RunVolume(unsigned value) noexcept
 {
-	struct mpd_connection *c = GetConnection();
-	if (c == nullptr)
-		return false;
-
-	mpd_send_set_volume(c, value);
-	return FinishCommand();
+	return WithConnection([value](struct mpd_connection &c){
+		return mpd_run_set_volume(&c, value);
+	});
 }
 
 bool
@@ -601,12 +598,9 @@ mpdclient::RunVolumeDown() noexcept
 bool
 mpdclient_cmd_add_path(struct mpdclient *c, const char *path_utf8)
 {
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr)
-		return false;
-
-	return mpd_send_add(connection, path_utf8)?
-		c->FinishCommand() : false;
+	return c->WithConnection([path_utf8](struct mpd_connection &conn){
+		return mpd_run_add(&conn, path_utf8);
+	});
 }
 
 bool
@@ -810,42 +804,26 @@ mpdclient::RunMove(unsigned dest_pos, unsigned src_pos) noexcept
 bool
 mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel)
 {
-	struct mpd_connection *connection = c->GetConnection();
-
-	if (connection == nullptr)
-		return false;
-
-	if (!mpd_send_subscribe(connection, channel))
-		return c->HandleError();
-
-	return c->FinishCommand();
+	return c->WithConnection([channel](struct mpd_connection &conn){
+		return mpd_run_subscribe(&conn, channel);
+	});
 }
 
 bool
 mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel)
 {
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr)
-		return false;
-
-	if (!mpd_send_unsubscribe(connection, channel))
-		return c->HandleError();
-
-	return c->FinishCommand();
+	return c->WithConnection([channel](struct mpd_connection &conn){
+		return mpd_run_unsubscribe(&conn, channel);
+	});
 }
 
 bool
 mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
 			   const char *text)
 {
-	struct mpd_connection *connection = c->GetConnection();
-	if (connection == nullptr)
-		return false;
-
-	if (!mpd_send_send_message(connection, channel, text))
-		return c->HandleError();
-
-	return c->FinishCommand();
+	return c->WithConnection([channel, text](struct mpd_connection &conn){
+		return mpd_run_send_message(&conn, channel, text);
+	});
 }
 
 /****************************************************************************/
