@@ -1,3 +1,5 @@
+ncmpc 0.39 - not yet released
+
 ncmpc 0.38 - (2020-04-30)
 * add option "timedisplay-type=none" to hide current song time
 * fix use-after-free bug
