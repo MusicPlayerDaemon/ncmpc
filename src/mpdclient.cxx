@@ -116,13 +116,16 @@ mpdclient::HandleError()
 
 	assert(error != MPD_ERROR_SUCCESS);
 
+	/* copy the error message for later because
+	   mpdclient_auth_callback() will clear the error condition */
+	const std::string msg(mpd_connection_get_error_message(connection));
+
 	if (error == MPD_ERROR_SERVER &&
 	    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_PERMISSION &&
 	    mpdclient_auth_callback(this))
 		return true;
 
-	mpdclient_invoke_error_callback(error,
-					mpd_connection_get_error_message(connection));
+	mpdclient_invoke_error_callback(error, msg.c_str());
 
 	if (!mpd_connection_clear_error(connection)) {
 		Disconnect();

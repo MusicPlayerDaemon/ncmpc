@@ -1,5 +1,6 @@
 ncmpc 0.38 - not yet released
 * add option "timedisplay-type=none" to hide current song time
+* fix crash after entering empty password
 
 ncmpc 0.37 - (2020-01-24)
 * show performer on song page
