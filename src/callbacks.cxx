@@ -41,13 +41,15 @@ _mpdclient_auth_callback(struct mpdclient *c, unsigned recursion) noexcept
 
 	mpd_send_password(connection, password.c_str());
 
-	mpd_response_finish(connection);
+	if (!mpd_response_finish(connection)) {
+		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
+		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_PASSWORD)
+			return _mpdclient_auth_callback(c, ++recursion);
+
+		return false;
+	}
+
 	c->Update();
-
-	if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
-	    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_PASSWORD)
-		return _mpdclient_auth_callback(c, ++recursion);
-
 	return true;
 }
 
