@@ -260,7 +260,11 @@ struct mpdclient final
 	struct mpd_connection *GetConnection();
 
 	bool FinishCommand() {
-		return mpd_response_finish(connection) || HandleError();
+		if (mpd_response_finish(connection))
+			return true;
+
+		HandleError();
+		return false;
 	}
 
 	bool Update();
