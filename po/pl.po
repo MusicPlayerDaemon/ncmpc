@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2018-10-05 17:33+0000\n"
+"PO-Revision-Date: 2020-05-05 15:11+0000\n"
 "Last-Translator: Mirosław Borodeńko <myros@outlook.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/ncmpc/"
 "translations/pl/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.2\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
 #, c-format
@@ -283,7 +283,7 @@ msgstr "Skocz do"
 
 #: src/Command.cxx:180
 msgid "Library page"
-msgstr ""
+msgstr "Strona biblioteki"
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
@@ -388,9 +388,8 @@ msgid "Unknown screen name"
 msgstr "Nieznana nazwa ekranu"
 
 #: src/ConfigParser.cxx:403
-#, fuzzy
 msgid "Unknown MPD tag"
-msgstr "Nieznane polecenie"
+msgstr "Nieznany znacznik MPD"
 
 #: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
@@ -496,19 +495,19 @@ msgstr "Przerwij pobieranie"
 
 #: src/HelpPage.cxx:188
 msgid "Download lyrics for currently playing song"
-msgstr "Sćiagnij słowa dla obecnie odtwarzanej piosenki"
+msgstr "Pobierz słowa dla obecnie odtwarzanej piosenki"
 
 #: src/HelpPage.cxx:189
 msgid "Add or edit lyrics"
-msgstr "Dodaj lub edytuj treść utworu"
+msgstr "Dodaj lub zmień treść utworu"
 
 #: src/HelpPage.cxx:190
 msgid "Save lyrics"
-msgstr "Zapisz tekst piosenku"
+msgstr "Zapisz tekst utworu"
 
 #: src/HelpPage.cxx:191
 msgid "Delete saved lyrics"
-msgstr "Usuń zapisany tekst piosenki"
+msgstr "Usuń zapisany tekst utworu"
 
 #: src/HelpPage.cxx:198
 msgid "Enable/disable output"
@@ -621,7 +620,7 @@ msgstr "Edytuj wiązania klawiszy"
 
 #: src/KeyDefPage.cxx:556
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "Informacja: Zapomniałeś 'Zastosować' swoje zmiany?"
+msgstr "Informacja: Zapomniałeś „Zastosować” swoje zmiany?"
 
 #: src/KeyDefPage.cxx:606
 msgid "Keys"
@@ -706,9 +705,8 @@ msgid "Alt-%c"
 msgstr "Alt-%c"
 
 #: src/LibraryPage.cxx:45
-#, fuzzy
 msgid "Artists"
-msgstr "Artysta"
+msgstr "Artyści"
 
 #: src/LibraryPage.cxx:48 src/LibraryPage.cxx:177
 msgid "Albums"
@@ -716,24 +714,23 @@ msgstr "Albumy"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "Wszystko"
 
 #: src/LibraryPage.cxx:199
-#, fuzzy
 msgid "Songs"
-msgstr "Utwór"
+msgstr "Utwory"
 
 #: src/LibraryPage.cxx:300
 msgid "Library"
-msgstr ""
+msgstr "Biblioteka"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
-msgstr "Wielozaznaczanie wyłączone"
+msgstr "Zaznaczanie zakresów wyłączone"
 
 #: src/ListWindow.cxx:216
 msgid "Range selection enabled"
-msgstr "Wielozaznaczanie włączone"
+msgstr "Zaznaczanie zakresów włączone"
 
 #. translators: no lyrics were found for the song
 #: src/LyricsPage.cxx:253
@@ -775,15 +772,15 @@ msgstr "Edytor niespodziewanie zakończył działanie"
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:456
 msgid "Lyrics saved"
-msgstr "Tekst piosenki zapisany"
+msgstr "Tekst utworu zapisany"
 
 #: src/LyricsPage.cxx:462
 msgid "Lyrics deleted"
-msgstr "Teskt piosenki usunięty"
+msgstr "Tekst utworu usunięty"
 
 #: src/LyricsPage.cxx:463
 msgid "No saved lyrics"
-msgstr "Brak zapisanego tesktu piosenki"
+msgstr "Brak zapisanego tekstu utworu"
 
 #: src/Main.cxx:132
 #, c-format
@@ -804,12 +801,12 @@ msgstr ""
 #: src/OutputsPage.cxx:87
 #, c-format
 msgid "Output '%s' enabled"
-msgstr "Wyjście '%s' włączone"
+msgstr "Wyjście „%s” włączone"
 
 #: src/OutputsPage.cxx:98
 #, c-format
 msgid "Output '%s' disabled"
-msgstr "Wyjście '%s' wyłączone"
+msgstr "Wyjście „%s” wyłączone"
 
 #: src/OutputsPage.cxx:145 src/OutputsPage.cxx:206
 msgid "Outputs"
@@ -889,11 +886,11 @@ msgstr "Tryb losowy jest wyłączony"
 #. single song
 #: src/screen.cxx:173
 msgid "Single mode is on"
-msgstr "Tryb pojedynczej piosenki jest włączony"
+msgstr "Tryb pojedynczego utworu jest włączony"
 
 #: src/screen.cxx:174
 msgid "Single mode is off"
-msgstr "Tryb pojedynczej piosenki jest wyłączony"
+msgstr "Tryb pojedynczego utworu jest wyłączony"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -963,11 +960,11 @@ msgstr "album"
 
 #: src/SearchPage.cxx:49
 msgid "title"
-msgstr "tutuł"
+msgstr "tytuł"
 
 #: src/SearchPage.cxx:50
 msgid "track"
-msgstr "ściezka"
+msgstr "ścieżka"
 
 #: src/SearchPage.cxx:51
 msgid "name"
@@ -1099,7 +1096,7 @@ msgstr "Ilość piosenek"
 
 #: src/SongPage.cxx:96
 msgid "Uptime"
-msgstr "Czas uruchomienia"
+msgstr "Czas od uruchomienia"
 
 #: src/SongPage.cxx:97
 msgid "Most recent db update"
@@ -1115,7 +1112,7 @@ msgstr "czas odtwarzania w bazie"
 
 #: src/SongPage.cxx:204
 msgid "Song viewer"
-msgstr "Przeglądarka piosenek"
+msgstr "Przeglądarka utworów"
 
 #: src/SongPage.cxx:370
 msgid "MPD statistics"
@@ -1123,11 +1120,11 @@ msgstr "statystyki MPD"
 
 #: src/SongPage.cxx:456
 msgid "Selected song"
-msgstr "Wybrana piosenka"
+msgstr "Wybrany utwór"
 
 #: src/SongPage.cxx:466
 msgid "Currently playing song"
-msgstr "Obecnie odtwarzana piosenka"
+msgstr "Obecnie odtwarzany utwór"
 
 #: src/SongPage.cxx:471
 #, c-format
@@ -1193,7 +1190,7 @@ msgstr "Głośność: b/d"
 #: src/TitleBar.cxx:103
 #, c-format
 msgid "Volume %d%%"
-msgstr "Głóśność %d%%"
+msgstr "Głośność %d%%"
 
 #~ msgid "Artist screen"
 #~ msgstr "Ekran artysty"
