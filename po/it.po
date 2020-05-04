@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2020-04-23 13:11+0000\n"
-"Last-Translator: Jeannette L <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2020-05-05 15:11+0000\n"
+"Last-Translator: Piero Sangino <simonedotto@protonmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/ncmpc/"
 "translations/it/>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0.2-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
@@ -83,23 +83,23 @@ msgstr "Pagina sotto"
 
 #: src/Command.cxx:54
 msgid "Range selection"
-msgstr ""
+msgstr "Selezione sottoinsieme"
 
 #: src/Command.cxx:56
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Scorri giù di una linea"
 
 #: src/Command.cxx:58
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Scorri su di una linea"
 
 #: src/Command.cxx:60
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Scorri su mezza schermata"
 
 #: src/Command.cxx:62
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Scorri giù mezza schermata"
 
 #: src/Command.cxx:64
 msgid "Select currently playing song"
@@ -110,13 +110,12 @@ msgid "Help screen"
 msgstr "Schermata di aiuto"
 
 #: src/Command.cxx:71 src/HelpPage.cxx:140
-#, fuzzy
 msgid "Queue screen"
 msgstr "Schermata della coda"
 
 #: src/Command.cxx:73 src/HelpPage.cxx:155
 msgid "Browse screen"
-msgstr ""
+msgstr "Navigatore"
 
 #: src/Command.cxx:78
 msgid "Play/Enter directory"
@@ -132,7 +131,7 @@ msgstr "Ferma"
 
 #: src/Command.cxx:84
 msgid "Crop"
-msgstr ""
+msgstr "Ritaglia lista di canzoni"
 
 #: src/Command.cxx:86
 msgid "Next track"
@@ -144,11 +143,11 @@ msgstr "Traccia precedente"
 
 #: src/Command.cxx:90
 msgid "Seek forward"
-msgstr ""
+msgstr "Avanza"
 
 #: src/Command.cxx:92
 msgid "Seek backward"
-msgstr ""
+msgstr "Retrocedi"
 
 #: src/Command.cxx:94
 msgid "Increase volume"
@@ -172,39 +171,39 @@ msgstr "Cancellare una canzone dalla coda"
 
 #: src/Command.cxx:104
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Mescola coda"
 
 #: src/Command.cxx:106
 msgid "Clear queue"
-msgstr ""
+msgstr "Svuota coda"
 
 #: src/Command.cxx:108
 msgid "Toggle repeat mode"
-msgstr ""
+msgstr "Commuta modalità ripetizione"
 
 #: src/Command.cxx:110
 msgid "Toggle random mode"
-msgstr ""
+msgstr "Commuta modalità casuale"
 
 #: src/Command.cxx:112
 msgid "Toggle single mode"
-msgstr ""
+msgstr "Commuta modalità singola"
 
 #: src/Command.cxx:114
 msgid "Toggle consume mode"
-msgstr ""
+msgstr "Commuta modalità consuma"
 
 #: src/Command.cxx:116
 msgid "Toggle crossfade mode"
-msgstr ""
+msgstr "Commuta modalità crossfade"
 
 #: src/Command.cxx:118
 msgid "Start a music database update"
-msgstr ""
+msgstr "Avvia un aggiornamento della base di dati musicale"
 
 #: src/Command.cxx:120
 msgid "Save queue"
-msgstr ""
+msgstr "Salva coda"
 
 #: src/Command.cxx:122 src/HelpPage.cxx:174
 msgid "Append song to queue"
@@ -212,11 +211,11 @@ msgstr "Aggiungere la canzone alla coda"
 
 #: src/Command.cxx:125
 msgid "Go to root directory"
-msgstr ""
+msgstr "Vai alla cartella radice"
 
 #: src/Command.cxx:127
 msgid "Go to parent directory"
-msgstr ""
+msgstr "Vai alla cartella superiore"
 
 #: src/Command.cxx:130
 msgid "Locate song in browser"
@@ -224,31 +223,31 @@ msgstr "Trova la canzone nel browser"
 
 #: src/Command.cxx:134
 msgid "Move item up"
-msgstr ""
+msgstr "Muovi su"
 
 #: src/Command.cxx:136
 msgid "Move item down"
-msgstr ""
+msgstr "Muovi giù"
 
 #: src/Command.cxx:138
 msgid "Refresh screen"
-msgstr ""
+msgstr "Aggiorna schermata"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
 #: src/Command.cxx:145
 msgid "Toggle find mode"
-msgstr ""
+msgstr "Commuta modalità di ricerca"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
 #: src/Command.cxx:149
 msgid "Toggle auto center mode"
-msgstr ""
+msgstr "Commuta la modalità di centramento automatico"
 
 #: src/Command.cxx:154
 msgid "Next screen"
-msgstr ""
+msgstr "Prossima schermata"
 
 #: src/Command.cxx:156
 msgid "Previous screen"
@@ -256,34 +255,34 @@ msgstr "Schermata precedente"
 
 #: src/Command.cxx:158
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Vai alla schermata più recente"
 
 #: src/Command.cxx:163
 msgid "Forward find"
-msgstr ""
+msgstr "Ricerca in avanti"
 
 #: src/Command.cxx:165
 msgid "Forward find next"
-msgstr ""
+msgstr "Cerca seguente"
 
 #: src/Command.cxx:167
 msgid "Backward find"
-msgstr ""
+msgstr "Ricerca all'indietro"
 
 #: src/Command.cxx:169
 msgid "Backward find previous"
-msgstr ""
+msgstr "Cerca precedente"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
 #: src/Command.cxx:174
 msgid "Jump to"
-msgstr ""
+msgstr "Salta a"
 
 #: src/Command.cxx:180
 msgid "Library page"
-msgstr ""
+msgstr "Pagina della libreria"
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
@@ -291,11 +290,11 @@ msgstr "Ricerca"
 
 #: src/Command.cxx:186
 msgid "Change search mode"
-msgstr ""
+msgstr "Cambia modalità di ricerca"
 
 #: src/Command.cxx:190
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "Vedi la canzone selezionata e riprodotta"
 
 #: src/Command.cxx:194 src/HelpPage.cxx:181
 msgid "Lyrics screen"
@@ -305,7 +304,7 @@ msgstr "Schermo dei testi"
 #. e.g. stop loading lyrics from the internet
 #: src/Command.cxx:198
 msgid "Interrupt action"
-msgstr ""
+msgstr "Interrompi azione"
 
 #: src/Command.cxx:200
 msgid "Update Lyrics"
@@ -320,30 +319,29 @@ msgid "Outputs screen"
 msgstr "Schermo di uscite"
 
 #: src/Command.cxx:214 src/HelpPage.cxx:203
-#, fuzzy
 msgid "Chat screen"
-msgstr "Lista di canzoni"
+msgstr "Schermata chat"
 
 #: src/ConfigParser.cxx:119
 msgid "Word expected"
-msgstr ""
+msgstr "Attesa una parola"
 
 #: src/ConfigParser.cxx:145 src/ConfigParser.cxx:154
 msgid "Malformed hotkey definition"
-msgstr ""
+msgstr "Definizione malformata del tasto rapido"
 
 #. the hotkey configuration
 #. line is incomplete
 #: src/ConfigParser.cxx:173
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "Configurazione incompleta del tasto rapido"
 
 #. the hotkey configuration
 #. contains an unknown
 #. command
 #: src/ConfigParser.cxx:187
 msgid "Unknown command"
-msgstr ""
+msgstr "Comando sconosciuto"
 
 #. translators: ncmpc
 #. supports displaying the
@@ -355,21 +353,21 @@ msgstr ""
 #. setting
 #: src/ConfigParser.cxx:223
 msgid "Bad time display type"
-msgstr ""
+msgstr "Configurazione incorretta del tipo di durata mostrata"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/ConfigParser.cxx:239 src/ConfigParser.cxx:469
 msgid "Missing '='"
-msgstr ""
+msgstr "Manca un '='"
 
 #: src/ConfigParser.cxx:288
 msgid "Bad color name"
-msgstr ""
+msgstr "Nome del colore incorretto"
 
 #: src/ConfigParser.cxx:297
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Definizione del colore incompleta"
 
 #: src/ConfigParser.cxx:303
 msgid "Invalid number"
@@ -377,7 +375,7 @@ msgstr "Numero non valido"
 
 #: src/ConfigParser.cxx:310
 msgid "Malformed color definition"
-msgstr ""
+msgstr "Definizione del colore sbagliata"
 
 #. an unknown screen
 #. name was specified
@@ -386,27 +384,27 @@ msgstr ""
 #. file
 #: src/ConfigParser.cxx:374
 msgid "Unknown screen name"
-msgstr ""
+msgstr "Nome della schermata sconosciuto"
 
 #: src/ConfigParser.cxx:403
 msgid "Unknown MPD tag"
-msgstr ""
+msgstr "Etichetta MPD sconosciuta"
 
 #: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
-msgstr ""
+msgstr "Modalità di ricerca invalida"
 
 #: src/ConfigParser.cxx:448
 msgid "Unknown search mode"
-msgstr ""
+msgstr "Modalità di ricerca sconosciuta"
 
 #: src/ConfigParser.cxx:636
 msgid "Unknown configuration parameter"
-msgstr ""
+msgstr "Parametro di configurazione sconosciuto"
 
 #: src/CustomColors.cxx:57
 msgid "Terminal lacks support for changing colors"
-msgstr ""
+msgstr "Il terminale non supporta il cambio dei colori"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
@@ -416,9 +414,9 @@ msgid "Deleting this item is not possible"
 msgstr "Non è possibile rimuovere questo elemento"
 
 #: src/FileBrowserPage.cxx:256
-#, fuzzy, c-format
+#, c-format
 msgid "Delete playlist %s?"
-msgstr "Rimuove la playlist"
+msgstr "Rimuovere lista %s?"
 
 #. translators: a dialog was aborted by the user
 #: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
@@ -438,15 +436,15 @@ msgid "Browse"
 msgstr "Esplora"
 
 #: src/FileListPage.cxx:119
-#, fuzzy, c-format
+#, c-format
 msgid "Loading playlist '%s'"
-msgstr "Caricando la lista %s"
+msgstr "Caricando la lista '%s'"
 
 #: src/FileListPage.cxx:159 src/FileListPage.cxx:246 src/FileListPage.cxx:271
 #: src/TagListPage.cxx:184
-#, fuzzy, c-format
+#, c-format
 msgid "Adding '%s' to queue"
-msgstr "Aggiungendo «%s» alla lista di canzoni"
+msgstr "Aggiungo '%s' alla coda"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -473,9 +471,8 @@ msgid "Delete playlist"
 msgstr "Rimuove la playlist"
 
 #: src/HelpPage.cxx:171
-#, fuzzy
 msgid "New search"
-msgstr "Cerca"
+msgstr "Nuova ricerca"
 
 #: src/HelpPage.cxx:172
 msgid "Select and play"
@@ -500,9 +497,8 @@ msgid "Download lyrics for currently playing song"
 msgstr "Scarica il testo della canzone riprodotta"
 
 #: src/HelpPage.cxx:189
-#, fuzzy
 msgid "Add or edit lyrics"
-msgstr "Non ci sono testi salvati"
+msgstr "Aggiungi o modifica testo della canzone"
 
 #: src/HelpPage.cxx:190
 msgid "Save lyrics"
@@ -533,9 +529,8 @@ msgid "Remove selected keydef"
 msgstr "Rimuovere il tasto di acceso veloce selezionato"
 
 #: src/HelpPage.cxx:214
-#, fuzzy
 msgid "Add a keydef"
-msgstr "Introduce un nuovo tasto"
+msgstr "Aggiungi una nuova definizione di tasti"
 
 #: src/HelpPage.cxx:215
 msgid "Go up a level"
@@ -568,7 +563,7 @@ msgstr "Introduce tasto di acceso veloce per %s: "
 
 #: src/KeyDefPage.cxx:186
 msgid "Ctrl-Space can't be used"
-msgstr ""
+msgstr "Ctrl-Spazio non può essere usato"
 
 #: src/KeyDefPage.cxx:192
 #, c-format
@@ -591,15 +586,15 @@ msgstr "Cambia i tasti per %s"
 
 #: src/KeyDefPage.cxx:394
 msgid "You have new key bindings"
-msgstr ""
+msgstr "Hai definito nuove combinazioni di tasti"
 
 #: src/KeyDefPage.cxx:396
 msgid "Keybindings unchanged."
-msgstr ""
+msgstr "Combinazioni di tasti immutate."
 
 #: src/KeyDefPage.cxx:406
 msgid "Unable to write configuration"
-msgstr ""
+msgstr "Non sono in grado di scrivere la configurazione"
 
 #: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
 msgid "Error"
@@ -612,11 +607,11 @@ msgstr "%s creato"
 
 #: src/KeyDefPage.cxx:435
 msgid "===> Apply key bindings "
-msgstr ""
+msgstr "===> Applica combinazioni di tasti "
 
 #: src/KeyDefPage.cxx:437
 msgid "===> Apply & Save key bindings  "
-msgstr ""
+msgstr "===> Applica e salva combinazioni di tasti  "
 
 #: src/KeyDefPage.cxx:474
 msgid "Edit key bindings"
@@ -652,11 +647,11 @@ msgstr "Canc"
 
 #: src/KeyName.cxx:44
 msgid "Up"
-msgstr ""
+msgstr "Su"
 
 #: src/KeyName.cxx:46
 msgid "Down"
-msgstr ""
+msgstr "Giù"
 
 #: src/KeyName.cxx:48
 msgid "Left"
@@ -729,9 +724,8 @@ msgid "Library"
 msgstr "Biblioteca"
 
 #: src/ListWindow.cxx:213
-#, fuzzy
 msgid "Range selection disabled"
-msgstr "Selezione gamma disabilitata"
+msgstr "Selezione di sottoinsieme disabilitata"
 
 #: src/ListWindow.cxx:216
 msgid "Range selection enabled"
@@ -745,7 +739,7 @@ msgstr "Non ci sono testi disponibili"
 #: src/LyricsPage.cxx:270
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
-msgstr ""
+msgstr "Il timeout del testo si è verificato dopo %d secondi"
 
 #: src/LyricsPage.cxx:353 src/LyricsPage.cxx:361 src/LyricsPage.cxx:371
 #: src/LyricsPage.cxx:507
@@ -764,15 +758,15 @@ msgstr "Editore non configurato"
 
 #: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr ""
+msgstr "Vuoi davvero avviare un editor e modificare questo testo?"
 
 #: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
-msgstr ""
+msgstr "Impossibile avviare l'editor"
 
 #: src/LyricsPage.cxx:430 src/LyricsPage.cxx:434
 msgid "Editor exited unexpectedly"
-msgstr ""
+msgstr "Editor terminato in modo imprevisto"
 
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:456
@@ -788,16 +782,14 @@ msgid "No saved lyrics"
 msgstr "Non ci sono testi salvati"
 
 #: src/Main.cxx:132
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to %s"
-msgstr "Connesso a %s"
+msgstr "Mi sto collegando con %s"
 
 #: src/Main.cxx:148
-#, fuzzy, c-format
+#, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr ""
-"Errore: La versione di MPD %d.%d.%d è troppo vecchia (bisogna avere al meno "
-"la %s)"
+msgstr "Errore: la versione MPD %d.%d.%d è troppo vecchia (%s necessaria)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -825,11 +817,11 @@ msgstr "Uscite"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
-msgstr ""
+msgstr "Coda mescolata"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
-msgstr ""
+msgstr "Coda cancellata"
 
 #. get path
 #: src/QueuePage.cxx:314
@@ -837,24 +829,23 @@ msgid "Add"
 msgstr "Aggiungi"
 
 #: src/QueuePage.cxx:379 src/QueuePage.cxx:697
-#, fuzzy
 msgid "Queue"
 msgstr "Coda"
 
 #: src/QueuePage.cxx:381
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "Coda su %s"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
 msgid "Save queue as"
-msgstr ""
+msgstr "Salva coda come"
 
 #: src/save_playlist.cxx:108
-#, fuzzy, c-format
+#, c-format
 msgid "Replace %s?"
-msgstr "Sostituire %s [%s%s] ? "
+msgstr "Sostituire %s?"
 
 #. success
 #: src/save_playlist.cxx:129
@@ -863,9 +854,8 @@ msgid "Saved %s"
 msgstr "%s salvato"
 
 #: src/screen_client.cxx:41
-#, fuzzy
 msgid "Database update running"
-msgstr "Aggiornamento del database in corso..."
+msgstr "Aggiornamento del database in esecuzione"
 
 #: src/screen_client.cxx:48
 #, c-format
@@ -920,7 +910,7 @@ msgstr "Modo consumazione disattivato"
 #: src/screen.cxx:186
 #, c-format
 msgid "Crossfade %d seconds"
-msgstr ""
+msgstr "Dissolvenza incrociata di %d secondi"
 
 #: src/screen.cxx:198
 msgid "Database updated"
@@ -948,7 +938,7 @@ msgstr "Cerca"
 
 #: src/screen_find.cxx:34
 msgid "Find backward"
-msgstr ""
+msgstr "Trova all'indietro"
 
 #: src/screen_find.cxx:35
 msgid "Jump"
@@ -1162,11 +1152,11 @@ msgstr "Colore sconosciuto"
 
 #: src/Styles.cxx:323
 msgid "Unknown color field"
-msgstr ""
+msgstr "Campo di colore sconosciuto"
 
 #: src/Styles.cxx:356
 msgid "Terminal lacks color capabilities"
-msgstr ""
+msgstr "Terminale manca la funzionalità dei colori differenti"
 
 #: src/TagListPage.cxx:71
 msgid "All tracks"
