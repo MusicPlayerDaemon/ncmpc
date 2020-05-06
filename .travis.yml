@@ -32,6 +32,7 @@ jobs:
             - ninja
             - ncurses
             - libmpdclient
+          update: true
 
 cache:
   apt: true
