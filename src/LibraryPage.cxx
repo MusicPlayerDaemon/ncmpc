@@ -259,9 +259,22 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 
 			++current_tag_list_page;
 
-			if (current_tag_list_page != tag_list_pages.end())
-				OpenTagPage(c,  std::move(filter));
-			else
+			if (current_tag_list_page != tag_list_pages.end()) {
+				while (true) {
+					OpenTagPage(c,  std::move(filter));
+					if (current_tag_list_page->HasMultipleValues())
+						break;
+
+					/* skip tags which have just
+					   one value */
+					filter = current_tag_list_page->GetFilter();
+					++current_tag_list_page;
+					if (current_tag_list_page == tag_list_pages.end()) {
+						OpenSongList(c, std::move(filter));
+						break;
+					}
+				}
+			} else
 				OpenSongList(c, std::move(filter));
 			return true;
 		}
@@ -278,10 +291,13 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 		break;
 
 	case Command::GO_PARENT_DIRECTORY:
-		if (current_tag_list_page != tag_list_pages.begin()) {
+		while (current_tag_list_page != tag_list_pages.begin()) {
 			--current_tag_list_page;
 			SetCurrentPage(c, &*current_tag_list_page);
-			return true;
+			if (current_tag_list_page->HasMultipleValues())
+				return true;
+
+			/* skip tags which have just one value */
 		}
 
 		break;
