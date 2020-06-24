@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2020-06-22 15:41+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2020-06-25 14:41+0000\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/ncmpc/"
 "translations/de/>\n"
 "Language: de\n"
@@ -388,9 +388,8 @@ msgid "Unknown screen name"
 msgstr "Unbekannter Anzeigenname"
 
 #: src/ConfigParser.cxx:403
-#, fuzzy
 msgid "Unknown MPD tag"
-msgstr "Unbekannter Befehl"
+msgstr "Unbekannter MPD Tag"
 
 #: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
