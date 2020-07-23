@@ -226,7 +226,7 @@ mpdclient::GetSettingsName() const
 
 	auto name = settings_name(settings);
 	mpd_settings_free(settings);
-	return std::move(name);
+	return name;
 #endif
 }
 
