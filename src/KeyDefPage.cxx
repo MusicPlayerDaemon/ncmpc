@@ -310,7 +310,7 @@ CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 class CommandListPage final : public ListPage, ListText {
 	ScreenManager &screen;
 
-	KeyBindings *bindings;
+	KeyBindings *bindings = nullptr;
 
 	/** the number of commands */
 	static constexpr size_t command_n_commands = size_t(Command::NONE);
