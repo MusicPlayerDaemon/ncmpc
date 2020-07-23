@@ -383,7 +383,7 @@ CommandListPage::IsModified() const
 	const auto &orginal_bindings = GetGlobalKeyBindings();
 	constexpr size_t size = sizeof(orginal_bindings);
 
-	return memcmp(&orginal_bindings, &bindings, size) != 0;
+	return memcmp(&orginal_bindings, bindings, size) != 0;
 }
 
 void
