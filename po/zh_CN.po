@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2019-09-16 09:02+0000\n"
-"Last-Translator: 谭志新 <tanzhxin@hotmail.com>\n"
+"PO-Revision-Date: 2020-07-24 09:41+0000\n"
+"Last-Translator: Oliver Lew <oliver_lew@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "ncmpc/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
@@ -31,11 +31,11 @@ msgstr "对话"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr "你的讯息"
+msgstr "你的消息"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr "讯息无法送出"
+msgstr "消息无法发出"
 
 #: src/Command.cxx:29
 msgid "Key configuration screen"
@@ -55,15 +55,15 @@ msgstr "向下移动光标"
 
 #: src/Command.cxx:40
 msgid "Move cursor to the top of screen"
-msgstr "光标移到顶部"
+msgstr "光标移到屏幕顶部"
 
 #: src/Command.cxx:42
 msgid "Move cursor to the middle of screen"
-msgstr "光标移到中部"
+msgstr "光标移到屏幕中部"
 
 #: src/Command.cxx:44
 msgid "Move cursor to the bottom of screen"
-msgstr "光标移到底部"
+msgstr "光标移到屏幕底部"
 
 #: src/Command.cxx:46
 msgid "Move cursor to the top of the list"
@@ -83,7 +83,7 @@ msgstr "下一页"
 
 #: src/Command.cxx:54
 msgid "Range selection"
-msgstr "区段选择"
+msgstr "范围选择"
 
 #: src/Command.cxx:56
 msgid "Scroll down one line"
@@ -159,7 +159,7 @@ msgstr "降低音量"
 
 #: src/Command.cxx:98
 msgid "Select/deselect song in queue"
-msgstr "选中/不选当前列表的歌曲"
+msgstr "选择/取消当前列表的歌曲"
 
 #: src/Command.cxx:100
 msgid "Select all listed items"
@@ -294,7 +294,7 @@ msgstr "更改搜索模式"
 
 #: src/Command.cxx:190
 msgid "View the selected and the currently playing song"
-msgstr "参看选择当前播放的曲目"
+msgstr "查看所选和当前播放的歌曲"
 
 #: src/Command.cxx:194 src/HelpPage.cxx:181
 msgid "Lyrics screen"
@@ -353,7 +353,7 @@ msgstr "未知命令"
 #. setting
 #: src/ConfigParser.cxx:223
 msgid "Bad time display type"
-msgstr "错误的时间显示格式"
+msgstr "错误的时间显示类型"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
@@ -388,7 +388,7 @@ msgstr "未知的页面名"
 
 #: src/ConfigParser.cxx:403
 msgid "Unknown MPD tag"
-msgstr "未知mpd标记"
+msgstr "未知的MPD标签"
 
 #: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
@@ -444,7 +444,7 @@ msgstr "加载播放列表 %s"
 #: src/TagListPage.cxx:184
 #, c-format
 msgid "Adding '%s' to queue"
-msgstr "添加 %s  到播放列表"
+msgstr "添加 '%s' 到播放列表"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -514,7 +514,7 @@ msgstr "启用/禁用音频输出"
 
 #: src/HelpPage.cxx:205
 msgid "Write a message"
-msgstr "写讯息"
+msgstr "写消息"
 
 #: src/HelpPage.cxx:210
 msgid "Keydef screen"
@@ -538,7 +538,7 @@ msgstr "上一级"
 
 #: src/HelpPage.cxx:216
 msgid "Apply and save changes"
-msgstr "保存设置"
+msgstr "应用并保存更改"
 
 #: src/HelpPage.cxx:245 src/HelpPage.cxx:329
 msgid "Help"
@@ -563,12 +563,12 @@ msgstr "为 %s 输入新的按键: "
 
 #: src/KeyDefPage.cxx:186
 msgid "Ctrl-Space can't be used"
-msgstr "ctl-Space键无法使用"
+msgstr "Ctrl-空格键无法使用"
 
 #: src/KeyDefPage.cxx:192
 #, c-format
 msgid "Error: key %s is already used for %s"
-msgstr "键 %s 已经绑定到 %s"
+msgstr "错误：%s 键已经绑定到 %s"
 
 #: src/KeyDefPage.cxx:202
 #, c-format
@@ -607,11 +607,11 @@ msgstr "写入 %s"
 
 #: src/KeyDefPage.cxx:435
 msgid "===> Apply key bindings "
-msgstr "应用快捷键设置 "
+msgstr "===> 应用快捷键设置 "
 
 #: src/KeyDefPage.cxx:437
 msgid "===> Apply & Save key bindings  "
-msgstr "应用 & 保存快捷键设置  "
+msgstr "===> 应用并保存快捷键设置  "
 
 #: src/KeyDefPage.cxx:474
 msgid "Edit key bindings"
@@ -631,15 +631,15 @@ msgstr "未定义的"
 
 #: src/KeyName.cxx:36
 msgid "Space"
-msgstr "空格键"
+msgstr "空格"
 
 #: src/KeyName.cxx:38
 msgid "Enter"
-msgstr "Enter"
+msgstr "回车"
 
 #: src/KeyName.cxx:40
 msgid "Backspace"
-msgstr "Backspace"
+msgstr "退格"
 
 #: src/KeyName.cxx:42
 msgid "Delete"
@@ -647,19 +647,19 @@ msgstr "Delete"
 
 #: src/KeyName.cxx:44
 msgid "Up"
-msgstr "Up"
+msgstr "方向键上"
 
 #: src/KeyName.cxx:46
 msgid "Down"
-msgstr "Down"
+msgstr "方向键下"
 
 #: src/KeyName.cxx:48
 msgid "Left"
-msgstr "向左"
+msgstr "方向键左"
 
 #: src/KeyName.cxx:50
 msgid "Right"
-msgstr "向右"
+msgstr "方向键右"
 
 #: src/KeyName.cxx:52
 msgid "Home"
@@ -671,11 +671,11 @@ msgstr "End"
 
 #: src/KeyName.cxx:56
 msgid "PageDown"
-msgstr "向下翻页"
+msgstr "PageDown"
 
 #: src/KeyName.cxx:58
 msgid "PageUp"
-msgstr "向上翻页"
+msgstr "PageUp"
 
 #: src/KeyName.cxx:60
 msgid "Tab"
@@ -687,7 +687,7 @@ msgstr "Shift+Tab"
 
 #: src/KeyName.cxx:64
 msgid "Esc"
-msgstr "取消"
+msgstr "Esc"
 
 #: src/KeyName.cxx:66
 msgid "Insert"
@@ -721,15 +721,15 @@ msgstr "歌曲"
 
 #: src/LibraryPage.cxx:300
 msgid "Library"
-msgstr "库"
+msgstr "曲库"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
-msgstr "禁用区段选取"
+msgstr "范围选择取消"
 
 #: src/ListWindow.cxx:216
 msgid "Range selection enabled"
-msgstr "开启区段选取"
+msgstr "范围选择开启"
 
 #. translators: no lyrics were found for the song
 #: src/LyricsPage.cxx:253
@@ -754,11 +754,11 @@ msgstr "正在载入..."
 
 #: src/LyricsPage.cxx:378
 msgid "Editor not configured"
-msgstr "没有定义编辑器"
+msgstr "未配置编辑器"
 
 #: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr "你确认要使用editor来编辑歌词吗？"
+msgstr "你确认要启动文本编辑器来编辑歌词吗？"
 
 #: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
@@ -784,7 +784,7 @@ msgstr "没有歌词"
 #: src/Main.cxx:132
 #, c-format
 msgid "Connecting to %s"
-msgstr "连接到服务器  %s"
+msgstr "连接到服务器 %s"
 
 #: src/Main.cxx:148
 #, c-format
@@ -1031,7 +1031,7 @@ msgstr "搜索条目 %s 没有参数"
 #: src/SearchPage.cxx:366 src/SearchPage.cxx:399 src/SearchPage.cxx:403
 #: src/SearchPage.cxx:407 src/SearchPage.cxx:466
 msgid "Search"
-msgstr "查找"
+msgstr "搜索"
 
 #: src/SearchPage.cxx:429
 #, c-format
@@ -1104,7 +1104,7 @@ msgstr "启动时间"
 
 #: src/SongPage.cxx:97
 msgid "Most recent db update"
-msgstr "最新DB更新"
+msgstr "最近数据库更新"
 
 #: src/SongPage.cxx:98
 msgid "Playtime"
@@ -1112,7 +1112,7 @@ msgstr "播放时间"
 
 #: src/SongPage.cxx:99
 msgid "DB playtime"
-msgstr "DB 播放时间"
+msgstr "数据库播放时间"
 
 #: src/SongPage.cxx:204
 msgid "Song viewer"
@@ -1120,7 +1120,7 @@ msgstr "歌曲查看器"
 
 #: src/SongPage.cxx:370
 msgid "MPD statistics"
-msgstr "MPD统计"
+msgstr "MPD统计信息"
 
 #: src/SongPage.cxx:456
 msgid "Selected song"
@@ -1137,7 +1137,7 @@ msgstr "码率 %d kbps"
 
 #: src/SongPage.cxx:555
 msgid "Song"
-msgstr "歌"
+msgstr "歌曲"
 
 #: src/StatusBar.cxx:100
 msgid "Playing:"
@@ -1145,7 +1145,7 @@ msgstr "播放中:"
 
 #: src/StatusBar.cxx:104
 msgid "[Paused]"
-msgstr "暂停"
+msgstr "[暂停]"
 
 #: src/Styles.cxx:252 src/Styles.cxx:313
 msgid "Unknown color"
