@@ -1,3 +1,7 @@
+if not get_option('html_manual') and not get_option('manual')
+  subdir_done()
+endif
+
 sphinx = find_program('sphinx-build', required: get_option('documentation'))
 if not sphinx.found()
   subdir_done()
