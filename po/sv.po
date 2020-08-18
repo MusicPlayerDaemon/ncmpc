@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2010-04-14 05:21+0000\n"
-"Last-Translator: Rickard Närström <rickard.narstrom@gmail.com>\n"
-"Language-Team: sv <sv@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-08-19 12:33+0000\n"
+"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/ncmpc/"
+"translations/sv/>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
 #, c-format
@@ -25,15 +27,15 @@ msgstr "Tangent %s tilldelad %s och %s"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
-msgstr ""
+msgstr "Chatt"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr ""
+msgstr "Ditt meddelande"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr ""
+msgstr "Meddelande kunde inte skickas"
 
 #: src/Command.cxx:29
 msgid "Key configuration screen"
@@ -108,9 +110,8 @@ msgid "Help screen"
 msgstr "Hjälp"
 
 #: src/Command.cxx:71 src/HelpPage.cxx:140
-#, fuzzy
 msgid "Queue screen"
-msgstr "Hjälp"
+msgstr "Kö skärm"
 
 #: src/Command.cxx:73 src/HelpPage.cxx:155
 msgid "Browse screen"
@@ -166,9 +167,8 @@ msgid "Select all listed items"
 msgstr "Markera alla listade föremål"
 
 #: src/Command.cxx:102
-#, fuzzy
 msgid "Delete song from queue"
-msgstr "Ta bort låt från spellista"
+msgstr "Ta bort låt från kö"
 
 #: src/Command.cxx:104
 msgid "Shuffle queue"
@@ -204,7 +204,7 @@ msgstr "Updatera musikdatabasen"
 
 #: src/Command.cxx:120
 msgid "Save queue"
-msgstr ""
+msgstr "Spara kö"
 
 #: src/Command.cxx:122 src/HelpPage.cxx:174
 #, fuzzy
@@ -321,9 +321,8 @@ msgid "Outputs screen"
 msgstr "Utgångar"
 
 #: src/Command.cxx:214 src/HelpPage.cxx:203
-#, fuzzy
 msgid "Chat screen"
-msgstr "Nästa skärm"
+msgstr "Chatt skärm"
 
 #: src/ConfigParser.cxx:119
 msgid "Word expected"
@@ -418,9 +417,9 @@ msgid "Deleting this item is not possible"
 msgstr "Du kan inte ta bort det här föremålet"
 
 #: src/FileBrowserPage.cxx:256
-#, fuzzy, c-format
+#, c-format
 msgid "Delete playlist %s?"
-msgstr "Ta bort spellista"
+msgstr "Ta bort spellista %s?"
 
 #. translators: a dialog was aborted by the user
 #: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
@@ -440,15 +439,15 @@ msgid "Browse"
 msgstr "Filer"
 
 #: src/FileListPage.cxx:119
-#, fuzzy, c-format
+#, c-format
 msgid "Loading playlist '%s'"
-msgstr "Laddar spellista %s..."
+msgstr "Laddar spellista '%s'"
 
 #: src/FileListPage.cxx:159 src/FileListPage.cxx:246 src/FileListPage.cxx:271
 #: src/TagListPage.cxx:184
-#, fuzzy, c-format
+#, c-format
 msgid "Adding '%s' to queue"
-msgstr "Lägger till '%s' till spellista"
+msgstr "Lägger till '%s' till kö"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -521,7 +520,7 @@ msgstr "Slå på/av utgång"
 
 #: src/HelpPage.cxx:205
 msgid "Write a message"
-msgstr ""
+msgstr "Skriv ett meddelande"
 
 #: src/HelpPage.cxx:210
 msgid "Keydef screen"
@@ -571,7 +570,7 @@ msgstr "Ny tangent för %s: "
 
 #: src/KeyDefPage.cxx:186
 msgid "Ctrl-Space can't be used"
-msgstr ""
+msgstr "Ctrl-Space kan inte användas"
 
 #: src/KeyDefPage.cxx:192
 #, c-format
@@ -601,9 +600,8 @@ msgid "Keybindings unchanged."
 msgstr "Tangentdefinitioner oförändrade."
 
 #: src/KeyDefPage.cxx:406
-#, fuzzy
 msgid "Unable to write configuration"
-msgstr "Inkomplett tangentdefinition"
+msgstr "Kunde inte skriva konfiguration"
 
 #: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
 msgid "Error"
@@ -632,7 +630,7 @@ msgstr "OBS! Glömde du att 'Verkställa' dina ändringar?"
 
 #: src/KeyDefPage.cxx:606
 msgid "Keys"
-msgstr ""
+msgstr "Tangenter"
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -705,12 +703,12 @@ msgstr "Insert"
 #: src/KeyName.cxx:75
 #, c-format
 msgid "Ctrl-%c"
-msgstr ""
+msgstr "Ctrl-%c"
 
 #: src/KeyName.cxx:78
 #, c-format
 msgid "Alt-%c"
-msgstr ""
+msgstr "Alt-%c"
 
 #: src/LibraryPage.cxx:45
 #, fuzzy
@@ -724,15 +722,15 @@ msgstr "Album"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "Alla"
 
 #: src/LibraryPage.cxx:199
 msgid "Songs"
-msgstr ""
+msgstr "Låtar"
 
 #: src/LibraryPage.cxx:300
 msgid "Library"
-msgstr ""
+msgstr "Bibliotek"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
@@ -795,12 +793,12 @@ msgid "No saved lyrics"
 msgstr "Spara texter"
 
 #: src/Main.cxx:132
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to %s"
-msgstr "Ansluten till %s"
+msgstr "Ansluter till %s"
 
 #: src/Main.cxx:148
-#, fuzzy, c-format
+#, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "Fel: MPD version %d.%d.%d är för gammal (%s krävs)"
 
@@ -844,22 +842,22 @@ msgstr "Lägg till"
 
 #: src/QueuePage.cxx:379 src/QueuePage.cxx:697
 msgid "Queue"
-msgstr ""
+msgstr "Kö"
 
 #: src/QueuePage.cxx:381
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "Kö på %s"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
 msgid "Save queue as"
-msgstr ""
+msgstr "Spara kö som"
 
 #: src/save_playlist.cxx:108
-#, fuzzy, c-format
+#, c-format
 msgid "Replace %s?"
-msgstr "Ersätt %s [%s/%s] ? "
+msgstr "Ersätt %s?"
 
 #. success
 #: src/save_playlist.cxx:129
@@ -1151,7 +1149,7 @@ msgstr "%d kb/s"
 
 #: src/SongPage.cxx:555
 msgid "Song"
-msgstr ""
+msgstr "Låt"
 
 #: src/StatusBar.cxx:100
 msgid "Playing:"
@@ -1181,7 +1179,7 @@ msgstr "Alla spår"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr ""
+msgstr "år"
 
 #: src/time_format.cxx:46
 msgid "years"
@@ -1189,19 +1187,19 @@ msgstr ""
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr ""
+msgstr "vecka"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr ""
+msgstr "veckor"
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr ""
+msgstr "dag"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr ""
+msgstr "dagar"
 
 #: src/TitleBar.cxx:101
 msgid "Volume n/a"
