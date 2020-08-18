@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2020-04-26 03:11+0000\n"
-"Last-Translator: Lucas Araujo <lucassants2808@gmail.com>\n"
+"PO-Revision-Date: 2020-08-19 12:33+0000\n"
+"Last-Translator: Eduardo Addad de Oliveira <duduaddad@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "ncmpc/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0.2-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
 "X-Poedit-Country: BRAZIL\n"
 "X-Poedit-Language: Portuguese\n"
@@ -201,12 +201,11 @@ msgstr "Iniciar a atualização do banco de dados de faixas"
 
 #: src/Command.cxx:120
 msgid "Save queue"
-msgstr ""
+msgstr "Salvar fila"
 
 #: src/Command.cxx:122 src/HelpPage.cxx:174
-#, fuzzy
 msgid "Append song to queue"
-msgstr "Adicionar trilha à Lista de Reprodução"
+msgstr "Adicionar trilha à lista de reprodução"
 
 #: src/Command.cxx:125
 msgid "Go to root directory"
@@ -281,7 +280,7 @@ msgstr "Pular para"
 
 #: src/Command.cxx:180
 msgid "Library page"
-msgstr ""
+msgstr "Página da biblioteca"
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
@@ -311,20 +310,19 @@ msgstr "Atualizar letra de música"
 
 #: src/Command.cxx:204
 msgid "Edit the current item"
-msgstr ""
+msgstr "Editar o item atual"
 
 #: src/Command.cxx:209 src/HelpPage.cxx:196
 msgid "Outputs screen"
 msgstr "Tela de Saídas"
 
 #: src/Command.cxx:214 src/HelpPage.cxx:203
-#, fuzzy
 msgid "Chat screen"
-msgstr "Próxima tela"
+msgstr "Tela de bate-papo"
 
 #: src/ConfigParser.cxx:119
 msgid "Word expected"
-msgstr ""
+msgstr "Palavra esperada"
 
 #: src/ConfigParser.cxx:145 src/ConfigParser.cxx:154
 msgid "Malformed hotkey definition"
@@ -387,9 +385,8 @@ msgid "Unknown screen name"
 msgstr "Nome de tela desconhecido"
 
 #: src/ConfigParser.cxx:403
-#, fuzzy
 msgid "Unknown MPD tag"
-msgstr "Comando desconhecido"
+msgstr "Etiqueta MPD desconhecida"
 
 #: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
@@ -415,9 +412,9 @@ msgid "Deleting this item is not possible"
 msgstr "Deletar este item não é possível"
 
 #: src/FileBrowserPage.cxx:256
-#, fuzzy, c-format
+#, c-format
 msgid "Delete playlist %s?"
-msgstr "Deletar Lista de Reprodução"
+msgstr "Deletar lista de reprodução %s?"
 
 #. translators: a dialog was aborted by the user
 #: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
@@ -437,15 +434,15 @@ msgid "Browse"
 msgstr "Navegar"
 
 #: src/FileListPage.cxx:119
-#, fuzzy, c-format
+#, c-format
 msgid "Loading playlist '%s'"
-msgstr "Carregando Lista de Reprodução %s..."
+msgstr "Carregando lista de reprodução '%s'"
 
 #: src/FileListPage.cxx:159 src/FileListPage.cxx:246 src/FileListPage.cxx:271
 #: src/TagListPage.cxx:184
-#, fuzzy, c-format
+#, c-format
 msgid "Adding '%s' to queue"
-msgstr "Adicionando '%s' á Lista de Reprodução"
+msgstr "Adicionando '%s' para a fila"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -472,9 +469,8 @@ msgid "Delete playlist"
 msgstr "Deletar Lista de Reprodução"
 
 #: src/HelpPage.cxx:171
-#, fuzzy
 msgid "New search"
-msgstr "Pesquisa"
+msgstr "Nova pesquisa"
 
 #: src/HelpPage.cxx:172
 msgid "Select and play"
@@ -499,9 +495,8 @@ msgid "Download lyrics for currently playing song"
 msgstr "Baixar letra de música da faixa em reprodução"
 
 #: src/HelpPage.cxx:189
-#, fuzzy
 msgid "Add or edit lyrics"
-msgstr "Sem letras salvas"
+msgstr "Adicionar ou editar letras"
 
 #: src/HelpPage.cxx:190
 msgid "Save lyrics"
@@ -517,7 +512,7 @@ msgstr "Habilitar/desabilitar saída"
 
 #: src/HelpPage.cxx:205
 msgid "Write a message"
-msgstr ""
+msgstr "Escrever uma mensagem"
 
 #: src/HelpPage.cxx:210
 msgid "Keydef screen"
@@ -567,7 +562,7 @@ msgstr "Entre nova tecla para %s: "
 
 #: src/KeyDefPage.cxx:186
 msgid "Ctrl-Space can't be used"
-msgstr ""
+msgstr "Ctrl-Espaço não pode ser usado"
 
 #: src/KeyDefPage.cxx:192
 #, c-format
@@ -597,9 +592,8 @@ msgid "Keybindings unchanged."
 msgstr "Teclas de atalho inalteradas."
 
 #: src/KeyDefPage.cxx:406
-#, fuzzy
 msgid "Unable to write configuration"
-msgstr "Configuração de teclas de atalho incompleta"
+msgstr "Incapaz de escrever a configuração"
 
 #: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
 msgid "Error"
@@ -628,7 +622,7 @@ msgstr "Nota: Você esqueceu de 'Aplicar' suas mudanças?"
 
 #: src/KeyDefPage.cxx:606
 msgid "Keys"
-msgstr ""
+msgstr "Chaves"
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -701,34 +695,32 @@ msgstr "Insert"
 #: src/KeyName.cxx:75
 #, c-format
 msgid "Ctrl-%c"
-msgstr ""
+msgstr "Ctrl-%c"
 
 #: src/KeyName.cxx:78
 #, c-format
 msgid "Alt-%c"
-msgstr ""
+msgstr "Alt-%c"
 
 #: src/LibraryPage.cxx:45
-#, fuzzy
 msgid "Artists"
-msgstr "Artista"
+msgstr "Artistas"
 
 #: src/LibraryPage.cxx:48 src/LibraryPage.cxx:177
-#, fuzzy
 msgid "Albums"
-msgstr "Álbum"
+msgstr "Álbuns"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: src/LibraryPage.cxx:199
 msgid "Songs"
-msgstr ""
+msgstr "Canções"
 
 #: src/LibraryPage.cxx:300
 msgid "Library"
-msgstr ""
+msgstr "Biblioteca"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
