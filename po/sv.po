@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2020-08-19 12:33+0000\n"
+"PO-Revision-Date: 2020-08-21 10:36+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/ncmpc/"
 "translations/sv/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.2.1-dev\n"
 "X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
@@ -103,7 +103,7 @@ msgstr "Gå ner en halv skärm"
 
 #: src/Command.cxx:64
 msgid "Select currently playing song"
-msgstr ""
+msgstr "Välj låten som spelas"
 
 #: src/Command.cxx:69
 msgid "Help screen"
@@ -158,9 +158,8 @@ msgid "Decrease volume"
 msgstr "Sänk volymen"
 
 #: src/Command.cxx:98
-#, fuzzy
 msgid "Select/deselect song in queue"
-msgstr "Markera/avmarkera spår till spellistan"
+msgstr "Markera/avmarkera spår i kön"
 
 #: src/Command.cxx:100
 msgid "Select all listed items"
@@ -172,11 +171,11 @@ msgstr "Ta bort låt från kö"
 
 #: src/Command.cxx:104
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Blanda kö"
 
 #: src/Command.cxx:106
 msgid "Clear queue"
-msgstr ""
+msgstr "Töm kön"
 
 #: src/Command.cxx:108
 msgid "Toggle repeat mode"
@@ -207,9 +206,8 @@ msgid "Save queue"
 msgstr "Spara kö"
 
 #: src/Command.cxx:122 src/HelpPage.cxx:174
-#, fuzzy
 msgid "Append song to queue"
-msgstr "Lägg till i spellista"
+msgstr "Lägg till låt till kö"
 
 #: src/Command.cxx:125
 msgid "Go to root directory"
@@ -257,7 +255,7 @@ msgstr "Tidigare skärm"
 
 #: src/Command.cxx:158
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Byt till förra skärmen"
 
 #: src/Command.cxx:163
 msgid "Forward find"
@@ -395,11 +393,11 @@ msgstr "Okänt kommando"
 
 #: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
-msgstr ""
+msgstr "Ogiltigt sökläge"
 
 #: src/ConfigParser.cxx:448
 msgid "Unknown search mode"
-msgstr ""
+msgstr "Okänt sökläge"
 
 #: src/ConfigParser.cxx:636
 msgid "Unknown configuration parameter"
@@ -407,7 +405,7 @@ msgstr "Okänd konfigurationsinställning"
 
 #: src/CustomColors.cxx:57
 msgid "Terminal lacks support for changing colors"
-msgstr "Terminalen saknar stöd för växling av färger"
+msgstr "Terminalen saknar stöd för att ändra färger"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
@@ -763,7 +761,7 @@ msgstr "laddar..."
 
 #: src/LyricsPage.cxx:378
 msgid "Editor not configured"
-msgstr ""
+msgstr "Redigeraren inte konfiguerad"
 
 #: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
@@ -771,7 +769,7 @@ msgstr ""
 
 #: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
-msgstr ""
+msgstr "Kan inte starta redigeraren"
 
 #: src/LyricsPage.cxx:430 src/LyricsPage.cxx:434
 msgid "Editor exited unexpectedly"
@@ -829,11 +827,11 @@ msgstr "Utgångar"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
-msgstr ""
+msgstr "Blandad kö"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
-msgstr ""
+msgstr "Kön tömd"
 
 #. get path
 #: src/QueuePage.cxx:314
@@ -1056,7 +1054,7 @@ msgstr "Längd"
 
 #: src/SongPage.cxx:66
 msgid "Position"
-msgstr ""
+msgstr "Position"
 
 #: src/SongPage.cxx:67
 msgid "Composer"
@@ -1096,7 +1094,7 @@ msgstr "Bithastighet"
 
 #: src/SongPage.cxx:76
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: src/SongPage.cxx:93
 msgid "Number of artists"
@@ -1160,14 +1158,12 @@ msgid "[Paused]"
 msgstr "[Pausad]"
 
 #: src/Styles.cxx:252 src/Styles.cxx:313
-#, fuzzy
 msgid "Unknown color"
-msgstr "Okänt kommando"
+msgstr "Okänd färg"
 
 #: src/Styles.cxx:323
-#, fuzzy
 msgid "Unknown color field"
-msgstr "Varning: %s ej definierad.\n"
+msgstr "Okänt färg fält"
 
 #: src/Styles.cxx:356
 msgid "Terminal lacks color capabilities"
@@ -1183,7 +1179,7 @@ msgstr "år"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr ""
+msgstr "år"
 
 #: src/time_format.cxx:54
 msgid "week"
