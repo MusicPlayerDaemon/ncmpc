@@ -63,7 +63,7 @@ struct Options {
 	int search_mode;
 	int seek_time = 1;
 
-	int scroll_offset = 0;
+	unsigned scroll_offset = 0;
 
 #ifdef ENABLE_CHAT_SCREEN
 	std::string chat_prefix;

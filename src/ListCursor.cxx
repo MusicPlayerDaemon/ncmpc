@@ -89,7 +89,7 @@ ListCursor::ScrollTo(unsigned n) noexcept
 {
 	int new_start = start;
 
-	if ((unsigned) options.scroll_offset * 2 >= GetHeight())
+	if (options.scroll_offset * 2 >= GetHeight())
 		// Center if the offset is more than half the screen
 		new_start = n - GetHeight() / 2;
 	else {
@@ -182,7 +182,7 @@ ListCursor::MoveCursorTop() noexcept
 	if (start == 0)
 		MoveCursor(start);
 	else
-		if ((unsigned) options.scroll_offset * 2 >= GetHeight())
+		if (options.scroll_offset * 2 >= GetHeight())
 			MoveCursor(start + GetHeight() / 2);
 		else
 			MoveCursor(start + options.scroll_offset);
@@ -201,7 +201,7 @@ void
 ListCursor::MoveCursorBottom() noexcept
 {
 	if (length >= GetHeight())
-		if ((unsigned) options.scroll_offset * 2 >= GetHeight())
+		if (options.scroll_offset * 2 >= GetHeight())
 			MoveCursor(start + GetHeight() / 2);
 		else
 			if (start + GetHeight() == length)
