@@ -1,5 +1,6 @@
 ncmpc 0.39 - not yet released
 * library page: skip tags when there is only one value
+* fix jumping cursor with large scroll-offset values
 * key bindigs page: fix crash bug
 * key bindigs page: eliminate bogus message "Did you forget to Apply your changes?"
 

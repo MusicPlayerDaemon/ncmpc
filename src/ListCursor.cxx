@@ -131,8 +131,11 @@ ListCursor::MoveCursor(unsigned n) noexcept
 void
 ListCursor::FetchCursor() noexcept
 {
-	if (start > 0 &&
-	    selected < start + options.scroll_offset)
+	if (options.scroll_offset * 2 >= GetHeight())
+		// Center if the offset is more than half the screen
+		MoveCursor(start + GetHeight() / 2);
+	else if (start > 0 &&
+		 selected < start + options.scroll_offset)
 		MoveCursor(start + options.scroll_offset);
 	else if (start + GetHeight() < length &&
 		 selected > start + GetHeight() - 1 - options.scroll_offset)
