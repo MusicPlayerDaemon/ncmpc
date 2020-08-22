@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2020-08-19 12:33+0000\n"
-"Last-Translator: Eduardo Addad de Oliveira <duduaddad@gmail.com>\n"
+"PO-Revision-Date: 2020-08-23 01:43+0000\n"
+"Last-Translator: Matheus do Nascimento <leistermat@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "ncmpc/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.2.1-dev\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
 "X-Poedit-Country: BRAZIL\n"
 "X-Poedit-Language: Portuguese\n"
@@ -500,7 +500,7 @@ msgstr "Adicionar ou editar letras"
 
 #: src/HelpPage.cxx:190
 msgid "Save lyrics"
-msgstr "Salvar letra de música."
+msgstr "Salvar letra"
 
 #: src/HelpPage.cxx:191
 msgid "Delete saved lyrics"
@@ -738,7 +738,7 @@ msgstr "Sem letra de música"
 #: src/LyricsPage.cxx:270
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
-msgstr ""
+msgstr "Timeout das letras aconteceu após %d segundos"
 
 #: src/LyricsPage.cxx:353 src/LyricsPage.cxx:361 src/LyricsPage.cxx:371
 #: src/LyricsPage.cxx:507
@@ -753,19 +753,19 @@ msgstr "carregando..."
 
 #: src/LyricsPage.cxx:378
 msgid "Editor not configured"
-msgstr ""
+msgstr "Editor não configurado"
 
 #: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr ""
+msgstr "Quer realmente abrir o editor e editar essa letra?"
 
 #: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
-msgstr ""
+msgstr "Não foi possível abrir o editor"
 
 #: src/LyricsPage.cxx:430 src/LyricsPage.cxx:434
 msgid "Editor exited unexpectedly"
-msgstr ""
+msgstr "Editor foi fechado inesperadamente"
 
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:456
@@ -820,11 +820,11 @@ msgstr "Saídas"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
-msgstr ""
+msgstr "Fila embaralhada"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
-msgstr ""
+msgstr "Fila limpa"
 
 #. get path
 #: src/QueuePage.cxx:314
@@ -833,22 +833,22 @@ msgstr "Adicionar"
 
 #: src/QueuePage.cxx:379 src/QueuePage.cxx:697
 msgid "Queue"
-msgstr ""
+msgstr "Fila"
 
 #: src/QueuePage.cxx:381
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "Fila em %s"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
 msgid "Save queue as"
-msgstr ""
+msgstr "Salvar fila como"
 
 #: src/save_playlist.cxx:108
-#, fuzzy, c-format
+#, c-format
 msgid "Replace %s?"
-msgstr "Substituir %s [%s/%s] ? "
+msgstr "Substituir %s?"
 
 #. success
 #: src/save_playlist.cxx:129
@@ -857,9 +857,8 @@ msgid "Saved %s"
 msgstr "%s salvo"
 
 #: src/screen_client.cxx:41
-#, fuzzy
 msgid "Database update running"
-msgstr "Atualização de Banco de Dados em progresso..."
+msgstr "Atualização de Banco de Dados em progresso"
 
 #: src/screen_client.cxx:48
 #, c-format
@@ -1047,7 +1046,7 @@ msgstr "Duração"
 
 #: src/SongPage.cxx:66
 msgid "Position"
-msgstr ""
+msgstr "Posição"
 
 #: src/SongPage.cxx:67
 msgid "Composer"
@@ -1087,7 +1086,7 @@ msgstr "Taxa de Amostragem"
 
 #: src/SongPage.cxx:76
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 #: src/SongPage.cxx:93
 msgid "Number of artists"
@@ -1140,7 +1139,7 @@ msgstr "%d kbps"
 
 #: src/SongPage.cxx:555
 msgid "Song"
-msgstr ""
+msgstr "Música"
 
 #: src/StatusBar.cxx:100
 msgid "Playing:"
@@ -1151,14 +1150,12 @@ msgid "[Paused]"
 msgstr "[Pausado]"
 
 #: src/Styles.cxx:252 src/Styles.cxx:313
-#, fuzzy
 msgid "Unknown color"
-msgstr "Comando desconhecido"
+msgstr "Cor desconhecida"
 
 #: src/Styles.cxx:323
-#, fuzzy
 msgid "Unknown color field"
-msgstr "Aviso: Campo de cor desconhecido - %s\n"
+msgstr "Campo de cor desconhecido"
 
 #: src/Styles.cxx:356
 msgid "Terminal lacks color capabilities"
@@ -1170,27 +1167,27 @@ msgstr "Todas as faixas"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr ""
+msgstr "ano"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr ""
+msgstr "anos"
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr ""
+msgstr "semana"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr ""
+msgstr "semanas"
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr ""
+msgstr "dia"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr ""
+msgstr "dias"
 
 #: src/TitleBar.cxx:101
 msgid "Volume n/a"
