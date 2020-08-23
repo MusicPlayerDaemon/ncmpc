@@ -13,15 +13,17 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2012-01-30 07:08+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
-"Language-Team: es\n"
-"Language: \n"
+"PO-Revision-Date: 2020-08-24 13:21+0000\n"
+"Last-Translator: Scoopity Whoop <Scoo0p@yandex.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/ncmpc/"
+"translations/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.2.1-dev\n"
 "X-Launchpad-Export-Date: 2013-04-11 07:56+0000\n"
-"X-Generator: Launchpad (build 16550)\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
 #, c-format
@@ -30,15 +32,15 @@ msgstr "Tecla %s asignada a %s y %s"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr ""
+msgstr "Su mensaje"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr ""
+msgstr "El mensaje no pudo ser enviado"
 
 #: src/Command.cxx:29
 msgid "Key configuration screen"
@@ -113,9 +115,8 @@ msgid "Help screen"
 msgstr "Ayuda"
 
 #: src/Command.cxx:71 src/HelpPage.cxx:140
-#, fuzzy
 msgid "Queue screen"
-msgstr "Pantalla de teclas de acceso"
+msgstr "Pantalla de espera"
 
 #: src/Command.cxx:73 src/HelpPage.cxx:155
 msgid "Browse screen"
@@ -162,7 +163,6 @@ msgid "Decrease volume"
 msgstr "Bajar el volumen"
 
 #: src/Command.cxx:98
-#, fuzzy
 msgid "Select/deselect song in queue"
 msgstr "Seleccionar/Deseleccionar la canción en la lista"
 
@@ -171,17 +171,16 @@ msgid "Select all listed items"
 msgstr "Seleccionar todos"
 
 #: src/Command.cxx:102
-#, fuzzy
 msgid "Delete song from queue"
 msgstr "Borrar la canción de la lista"
 
 #: src/Command.cxx:104
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Aleatorizar la lista"
 
 #: src/Command.cxx:106
 msgid "Clear queue"
-msgstr ""
+msgstr "Vaciar la lista"
 
 #: src/Command.cxx:108
 msgid "Toggle repeat mode"
@@ -209,12 +208,11 @@ msgstr "Iniciar la actualización de la BD musical"
 
 #: src/Command.cxx:120
 msgid "Save queue"
-msgstr ""
+msgstr "Guardar lista"
 
 #: src/Command.cxx:122 src/HelpPage.cxx:174
-#, fuzzy
 msgid "Append song to queue"
-msgstr "Añadir la canción de la lista"
+msgstr "Añadir la canción a la lista"
 
 #: src/Command.cxx:125
 msgid "Go to root directory"
@@ -289,7 +287,7 @@ msgstr "Saltar a"
 
 #: src/Command.cxx:180
 msgid "Library page"
-msgstr ""
+msgstr "Página de la librería"
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Search screen"
@@ -319,20 +317,19 @@ msgstr "Actualizar las letras"
 
 #: src/Command.cxx:204
 msgid "Edit the current item"
-msgstr ""
+msgstr "Editar el elemento actual"
 
 #: src/Command.cxx:209 src/HelpPage.cxx:196
 msgid "Outputs screen"
 msgstr "Pantalla de salidas"
 
 #: src/Command.cxx:214 src/HelpPage.cxx:203
-#, fuzzy
 msgid "Chat screen"
-msgstr "Pantalla siguiente"
+msgstr "Pantalla del chat"
 
 #: src/ConfigParser.cxx:119
 msgid "Word expected"
-msgstr ""
+msgstr "Se esperaba una palabra"
 
 #: src/ConfigParser.cxx:145 src/ConfigParser.cxx:154
 msgid "Malformed hotkey definition"
@@ -395,9 +392,8 @@ msgid "Unknown screen name"
 msgstr "Nombre de pantalla desconocido"
 
 #: src/ConfigParser.cxx:403
-#, fuzzy
 msgid "Unknown MPD tag"
-msgstr "Comando desconocido"
+msgstr "Etiqueta MPD desconocida"
 
 #: src/ConfigParser.cxx:430
 msgid "Invalid search mode"
@@ -423,9 +419,9 @@ msgid "Deleting this item is not possible"
 msgstr "No se puede borrar el elemento"
 
 #: src/FileBrowserPage.cxx:256
-#, fuzzy, c-format
+#, c-format
 msgid "Delete playlist %s?"
-msgstr "Borrar la lista de canciones"
+msgstr "Eliminar la playlist %s?"
 
 #. translators: a dialog was aborted by the user
 #: src/FileBrowserPage.cxx:261 src/KeyDefPage.cxx:181 src/LyricsPage.cxx:388
@@ -445,15 +441,15 @@ msgid "Browse"
 msgstr "Navegar"
 
 #: src/FileListPage.cxx:119
-#, fuzzy, c-format
+#, c-format
 msgid "Loading playlist '%s'"
-msgstr "Cargando la lista %s..."
+msgstr "Cargando playlist \"%s\""
 
 #: src/FileListPage.cxx:159 src/FileListPage.cxx:246 src/FileListPage.cxx:271
 #: src/TagListPage.cxx:184
-#, fuzzy, c-format
+#, c-format
 msgid "Adding '%s' to queue"
-msgstr "Añadiendo '%s' a la lista de canciones"
+msgstr "Añadiendo \"%s\" a la lista"
 
 #: src/HelpPage.cxx:60
 msgid "Movement"
@@ -480,9 +476,8 @@ msgid "Delete playlist"
 msgstr "Borrar la lista de canciones"
 
 #: src/HelpPage.cxx:171
-#, fuzzy
 msgid "New search"
-msgstr "Búsqueda"
+msgstr "Nueva búsqueda"
 
 #: src/HelpPage.cxx:172
 msgid "Select and play"
@@ -507,9 +502,8 @@ msgid "Download lyrics for currently playing song"
 msgstr "Obtener las letras de la canción reproducida"
 
 #: src/HelpPage.cxx:189
-#, fuzzy
 msgid "Add or edit lyrics"
-msgstr "No hay letras guardadas"
+msgstr "Añadir o editar la letra de la canción"
 
 #: src/HelpPage.cxx:190
 msgid "Save lyrics"
@@ -525,7 +519,7 @@ msgstr "Activar/desactivar la salida"
 
 #: src/HelpPage.cxx:205
 msgid "Write a message"
-msgstr ""
+msgstr "Escribir un mensaje"
 
 #: src/HelpPage.cxx:210
 msgid "Keydef screen"
@@ -540,9 +534,8 @@ msgid "Remove selected keydef"
 msgstr "ELiminar la tecla de acceso rápido seleccionada"
 
 #: src/HelpPage.cxx:214
-#, fuzzy
 msgid "Add a keydef"
-msgstr "Introduce una nueva tecla"
+msgstr "Añadir un nuevo atajo"
 
 #: src/HelpPage.cxx:215
 msgid "Go up a level"
@@ -575,7 +568,7 @@ msgstr "Introduce tecla de acceso rápido para %s: "
 
 #: src/KeyDefPage.cxx:186
 msgid "Ctrl-Space can't be used"
-msgstr ""
+msgstr "Ctrl-Space no se puede utilizar"
 
 #: src/KeyDefPage.cxx:192
 #, c-format
@@ -605,9 +598,8 @@ msgid "Keybindings unchanged."
 msgstr "Las teclas de acceso rápido no han sido modificadas."
 
 #: src/KeyDefPage.cxx:406
-#, fuzzy
 msgid "Unable to write configuration"
-msgstr "Configuración incompleta de la tecla de acceso"
+msgstr "No se puede escribir la configuración"
 
 #: src/KeyDefPage.cxx:415 src/KeyDefPage.cxx:424
 msgid "Error"
@@ -636,7 +628,7 @@ msgstr "Nota: Has olvidado 'Aplicar' tus cambios?"
 
 #: src/KeyDefPage.cxx:606
 msgid "Keys"
-msgstr ""
+msgstr "Teclas"
 
 #: src/KeyName.cxx:34
 msgid "Undefined"
@@ -709,34 +701,32 @@ msgstr "Insertar"
 #: src/KeyName.cxx:75
 #, c-format
 msgid "Ctrl-%c"
-msgstr ""
+msgstr "Ctrl-%c"
 
 #: src/KeyName.cxx:78
 #, c-format
 msgid "Alt-%c"
-msgstr ""
+msgstr "Alt-%c"
 
 #: src/LibraryPage.cxx:45
-#, fuzzy
 msgid "Artists"
-msgstr "Artista"
+msgstr "Artistas"
 
 #: src/LibraryPage.cxx:48 src/LibraryPage.cxx:177
-#, fuzzy
 msgid "Albums"
-msgstr "Álbum"
+msgstr "Álbums"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "Todo"
 
 #: src/LibraryPage.cxx:199
 msgid "Songs"
-msgstr ""
+msgstr "Canciones"
 
 #: src/LibraryPage.cxx:300
 msgid "Library"
-msgstr ""
+msgstr "Librería"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
@@ -754,7 +744,7 @@ msgstr "No hay letras disponibles"
 #: src/LyricsPage.cxx:270
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
-msgstr ""
+msgstr "El tiempo de espera de la letra ocurrió después de %d segundos"
 
 #: src/LyricsPage.cxx:353 src/LyricsPage.cxx:361 src/LyricsPage.cxx:371
 #: src/LyricsPage.cxx:507
@@ -769,19 +759,19 @@ msgstr "cargando…"
 
 #: src/LyricsPage.cxx:378
 msgid "Editor not configured"
-msgstr ""
+msgstr "El editor no está configurado"
 
 #: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr ""
+msgstr "Estás seguro de que quieres empezar un editor y editar estas letras?"
 
 #: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
-msgstr ""
+msgstr "No se puede iniciar el editor"
 
 #: src/LyricsPage.cxx:430 src/LyricsPage.cxx:434
 msgid "Editor exited unexpectedly"
-msgstr ""
+msgstr "El editor salió inesperadamente"
 
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:456
@@ -797,16 +787,16 @@ msgid "No saved lyrics"
 msgstr "No hay letras guardadas"
 
 #: src/Main.cxx:132
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to %s"
-msgstr "Conectado a %s"
+msgstr "Conectando a %s"
 
 #: src/Main.cxx:148
-#, fuzzy, c-format
+#, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr ""
-"Error: La versión %d.%d.%d del MPD es demasiado antigua (se necesita al "
-"menos la %s)"
+"Error: La versión %d.%d.%d del MPD es demasiado vieja (se necesita al menos "
+"%s)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -839,11 +829,11 @@ msgstr "Salidas"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
-msgstr ""
+msgstr "Lista aleatoria"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
-msgstr ""
+msgstr "Lista vaciada"
 
 #. get path
 #: src/QueuePage.cxx:314
@@ -852,22 +842,22 @@ msgstr "Añadir"
 
 #: src/QueuePage.cxx:379 src/QueuePage.cxx:697
 msgid "Queue"
-msgstr ""
+msgstr "Lista"
 
 #: src/QueuePage.cxx:381
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "Lista en %s"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
 msgid "Save queue as"
-msgstr ""
+msgstr "Guardar lista como"
 
 #: src/save_playlist.cxx:108
-#, fuzzy, c-format
+#, c-format
 msgid "Replace %s?"
-msgstr "Sustituir %s [%s%s] ? "
+msgstr "Reemplazar %s?"
 
 #. success
 #: src/save_playlist.cxx:129
@@ -876,9 +866,8 @@ msgid "Saved %s"
 msgstr "%s Guardada"
 
 #: src/screen_client.cxx:41
-#, fuzzy
 msgid "Database update running"
-msgstr "Actualizando la base de datos..."
+msgstr "Actualización de la base de datos en marcha"
 
 #: src/screen_client.cxx:48
 #, c-format
@@ -1066,7 +1055,7 @@ msgstr "Duración"
 
 #: src/SongPage.cxx:66
 msgid "Position"
-msgstr ""
+msgstr "Posición"
 
 #: src/SongPage.cxx:67
 msgid "Composer"
@@ -1106,7 +1095,7 @@ msgstr "Bitrate"
 
 #: src/SongPage.cxx:76
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 #: src/SongPage.cxx:93
 msgid "Number of artists"
@@ -1159,7 +1148,7 @@ msgstr "%d kbps"
 
 #: src/SongPage.cxx:555
 msgid "Song"
-msgstr ""
+msgstr "Canción"
 
 #: src/StatusBar.cxx:100
 msgid "Playing:"
@@ -1170,14 +1159,12 @@ msgid "[Paused]"
 msgstr "[Parado]"
 
 #: src/Styles.cxx:252 src/Styles.cxx:313
-#, fuzzy
 msgid "Unknown color"
-msgstr "Comando desconocido"
+msgstr "Color desconocido"
 
 #: src/Styles.cxx:323
-#, fuzzy
 msgid "Unknown color field"
-msgstr "Advertencia: Propiedad del color - %s no reconocida\n"
+msgstr "Área de color desconocida"
 
 #: src/Styles.cxx:356
 msgid "Terminal lacks color capabilities"
@@ -1189,27 +1176,27 @@ msgstr "Todas las pistas"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr ""
+msgstr "año"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr ""
+msgstr "años"
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr ""
+msgstr "semana"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr ""
+msgstr "semanas"
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr ""
+msgstr "día"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr ""
+msgstr "días"
 
 #: src/TitleBar.cxx:101
 msgid "Volume n/a"
