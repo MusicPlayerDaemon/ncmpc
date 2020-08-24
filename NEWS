@@ -1,3 +1,5 @@
+ncmpc 0.40 - not yet released
+
 ncmpc 0.39 - (2020-08-21)
 * library page: skip tags when there is only one value
 * fix jumping cursor with large scroll-offset values
