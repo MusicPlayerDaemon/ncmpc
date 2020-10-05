@@ -558,9 +558,10 @@ FileListPage::PaintStatusBarOverride(const Window &window) const noexcept
 	for (const unsigned i : lw.GetRange()) {
 		assert(i < filelist->size());
 		const auto &entry = (*filelist)[i];
+		const auto *entity = entry.entity;
 
-		if (mpd_entity_get_type(entry.entity) == MPD_ENTITY_TYPE_SONG)
-			duration += mpd_song_get_duration(mpd_entity_get_song(entry.entity));
+		if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG)
+			duration += mpd_song_get_duration(mpd_entity_get_song(entity));
 	}
 
 	char duration_string[32];
