@@ -51,7 +51,8 @@ paint_song_row(WINDOW *w, gcc_unused unsigned y, unsigned width,
 		waddstr(w, duration);
 	}
 
-	if (hscroll != nullptr && StringWidthMB(buffer) >= width) {
+	if (hscroll != nullptr && width > 3 &&
+	    StringWidthMB(buffer) >= width) {
 		hscroll->Set(0, y, width, buffer,
 			     highlight ? Style::LIST_BOLD : Style::LIST,
 			     selected ? A_REVERSE : 0);

@@ -1,5 +1,6 @@
 ncmpc 0.40 - not yet released
 * fix crash when range selection includes ".."
+* fix another crash with a very narrow terminal window
 * another jumping cursor fix for large scroll-offset values
 * show elapsed time of streams
 
