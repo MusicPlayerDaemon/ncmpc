@@ -560,7 +560,8 @@ FileListPage::PaintStatusBarOverride(const Window &window) const noexcept
 		const auto &entry = (*filelist)[i];
 		const auto *entity = entry.entity;
 
-		if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG)
+		if (entity != nullptr &&
+		    mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG)
 			duration += mpd_song_get_duration(mpd_entity_get_song(entity));
 	}
 
