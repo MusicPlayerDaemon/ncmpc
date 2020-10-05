@@ -52,9 +52,6 @@ class StatusBar {
 	std::string center_text;
 
 	unsigned left_width, right_width;
-#ifndef NCMPC_MINI
-	unsigned center_width;
-#endif
 
 public:
 	StatusBar(boost::asio::io_service &io_service,
