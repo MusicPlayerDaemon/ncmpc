@@ -236,19 +236,18 @@ FileListPage::HandleEnter(struct mpdclient &c)
 }
 
 static bool
-browser_select_entry(struct mpdclient *c, FileListEntry *entry,
+browser_select_entry(struct mpdclient &c, FileListEntry &entry,
 		     gcc_unused bool toggle)
 {
-	assert(entry != nullptr);
-	assert(entry->entity != nullptr);
+	assert(entry.entity != nullptr);
 
-	if (mpd_entity_get_type(entry->entity) == MPD_ENTITY_TYPE_PLAYLIST)
-		return load_playlist(c, mpd_entity_get_playlist(entry->entity));
+	if (mpd_entity_get_type(entry.entity) == MPD_ENTITY_TYPE_PLAYLIST)
+		return load_playlist(&c, mpd_entity_get_playlist(entry.entity));
 
-	if (mpd_entity_get_type(entry->entity) == MPD_ENTITY_TYPE_DIRECTORY) {
-		const auto *dir = mpd_entity_get_directory(entry->entity);
+	if (mpd_entity_get_type(entry.entity) == MPD_ENTITY_TYPE_DIRECTORY) {
+		const auto *dir = mpd_entity_get_directory(entry.entity);
 
-		if (!mpdclient_cmd_add_path(c, mpd_directory_get_path(dir)))
+		if (!mpdclient_cmd_add_path(&c, mpd_directory_get_path(dir)))
 			return false;
 
 		screen_status_printf(_("Adding \'%s\' to queue"),
@@ -256,20 +255,20 @@ browser_select_entry(struct mpdclient *c, FileListEntry *entry,
 		return true;
 	}
 
-	if (mpd_entity_get_type(entry->entity) != MPD_ENTITY_TYPE_SONG)
+	if (mpd_entity_get_type(entry.entity) != MPD_ENTITY_TYPE_SONG)
 		return false;
 
 #ifndef NCMPC_MINI
-	if (!toggle || (entry->flags & HIGHLIGHT) == 0)
+	if (!toggle || (entry.flags & HIGHLIGHT) == 0)
 #endif
 	{
-		const auto *song = mpd_entity_get_song(entry->entity);
+		const auto *song = mpd_entity_get_song(entry.entity);
 
 #ifndef NCMPC_MINI
-		entry->flags |= HIGHLIGHT;
+		entry.flags |= HIGHLIGHT;
 #endif
 
-		if (c->RunAdd(*song)) {
+		if (c.RunAdd(*song)) {
 			char buf[BUFSIZE];
 
 			strfsong(buf, BUFSIZE,
@@ -279,13 +278,13 @@ browser_select_entry(struct mpdclient *c, FileListEntry *entry,
 #ifndef NCMPC_MINI
 	} else {
 		/* remove song from playlist */
-		const auto *song = mpd_entity_get_song(entry->entity);
+		const auto *song = mpd_entity_get_song(entry.entity);
 		int idx;
 
-		entry->flags &= ~HIGHLIGHT;
+		entry.flags &= ~HIGHLIGHT;
 
-		while ((idx = c->playlist.FindByUri(mpd_song_get_uri(song))) >= 0)
-			c->RunDelete(idx);
+		while ((idx = c.playlist.FindByUri(mpd_song_get_uri(song))) >= 0)
+			c.RunDelete(idx);
 #endif
 	}
 
@@ -301,7 +300,7 @@ FileListPage::HandleSelect(struct mpdclient &c)
 	for (const unsigned i : range) {
 		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
-			success = browser_select_entry(&c, entry, true);
+			success = browser_select_entry(c, *entry, true);
 	}
 
 	SetDirty();
@@ -318,7 +317,7 @@ FileListPage::HandleAdd(struct mpdclient &c)
 	for (const unsigned i : range) {
 		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
-			success = browser_select_entry(&c, entry, false) ||
+			success = browser_select_entry(c, *entry, false) ||
 				success;
 	}
 
@@ -335,7 +334,7 @@ FileListPage::HandleSelectAll(struct mpdclient &c)
 		auto &entry = (*filelist)[i];
 
 		if (entry.entity != nullptr)
-			browser_select_entry(&c, &entry, false);
+			browser_select_entry(c, entry, false);
 	}
 
 	SetDirty();
