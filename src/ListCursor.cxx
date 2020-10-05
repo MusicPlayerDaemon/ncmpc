@@ -131,15 +131,18 @@ ListCursor::MoveCursor(unsigned n) noexcept
 void
 ListCursor::FetchCursor() noexcept
 {
-	if (options.scroll_offset * 2 >= GetHeight())
-		// Center if the offset is more than half the screen
-		MoveCursor(start + GetHeight() / 2);
-	else if (start > 0 &&
-		 selected < start + options.scroll_offset)
-		MoveCursor(start + options.scroll_offset);
+	/* clamp the scroll-offset setting to slightly less than half
+	   of the screen height */
+	const unsigned scroll_offset = options.scroll_offset * 2 < GetHeight()
+		? options.scroll_offset
+		: std::max(GetHeight() / 2, 1U) - 1;
+
+	if (start > 0 &&
+	    selected < start + scroll_offset)
+		MoveCursor(start + scroll_offset);
 	else if (start + GetHeight() < length &&
-		 selected > start + GetHeight() - 1 - options.scroll_offset)
-		MoveCursor(start + GetHeight() - 1 - options.scroll_offset);
+		 selected > start + GetHeight() - 1 - scroll_offset)
+		MoveCursor(start + GetHeight() - 1 - scroll_offset);
 }
 
 ListWindowRange

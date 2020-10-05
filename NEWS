@@ -1,5 +1,6 @@
 ncmpc 0.40 - not yet released
 * fix crash when range selection includes ".."
+* another jumping cursor fix for large scroll-offset values
 
 ncmpc 0.39 - (2020-08-21)
 * library page: skip tags when there is only one value
