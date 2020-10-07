@@ -97,8 +97,6 @@ FormatCurrentSongTime(char *buffer, size_t size,
 		return;
 
 	const unsigned total_time = mpd_status_get_total_time(&status);
-	if (total_time == 0)
-		return;
 
 	unsigned elapsed_time = seek.IsSeeking(mpd_status_get_song_id(&status))
 		? seek.GetTime()
@@ -116,6 +114,9 @@ FormatCurrentSongTime(char *buffer, size_t size,
 		break;
 
 	case CurrentTimeDisplay::REMAINING:
+		if (total_time == 0)
+			return;
+
 		elapsed_time = elapsed_time < total_time
 			? total_time - elapsed_time
 			: 0;
@@ -126,6 +127,12 @@ FormatCurrentSongTime(char *buffer, size_t size,
 	format_duration_short(elapsed_string,
 			      sizeof(elapsed_string),
 			      elapsed_time);
+
+	if (total_time == 0) {
+		snprintf(buffer, size, " [%s]", elapsed_string);
+		return;
+	}
+
 	format_duration_short(duration_string,
 			      sizeof(duration_string),
 			      total_time);
