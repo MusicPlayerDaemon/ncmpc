@@ -1,3 +1,5 @@
+ncmpc 0.41 - not yet released
+
 ncmpc 0.40 - (2020-10-07)
 * fix crash when range selection includes ".."
 * fix another crash with a very narrow terminal window
