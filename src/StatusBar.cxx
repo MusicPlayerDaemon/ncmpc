@@ -101,8 +101,6 @@ FormatCurrentSongTime(char *buffer, size_t size,
 	unsigned elapsed_time = seek.IsSeeking(mpd_status_get_song_id(&status))
 		? seek.GetTime()
 		: mpd_status_get_elapsed_time(&status);
-	if (elapsed_time == 0)
-		return;
 
 	char elapsed_string[32], duration_string[32];
 
