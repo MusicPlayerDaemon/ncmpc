@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2019-09-16 09:02+0000\n"
+"PO-Revision-Date: 2020-10-10 15:26+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 "X-Launchpad-Export-Date: 2009-10-19 13:36+0000\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
@@ -802,7 +802,7 @@ msgstr "번역자-기여"
 #: src/OutputsPage.cxx:168
 #, c-format
 msgid "Switched to partition '%s'"
-msgstr ""
+msgstr "'%s' 칸막이로 바꾸기"
 
 #: src/OutputsPage.cxx:180 src/SongPage.cxx:69
 msgid "Name"
@@ -823,13 +823,12 @@ msgid "Outputs"
 msgstr "출력"
 
 #: src/OutputsPage.cxx:383
-#, fuzzy
 msgid "Partition"
-msgstr "위치"
+msgstr "칸막이"
 
 #: src/OutputsPage.cxx:407
 msgid "Create new partition"
-msgstr ""
+msgstr "새 칸막이 만들기"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
@@ -1035,7 +1034,7 @@ msgstr "연주가 + 제목"
 
 #: src/SearchPage.cxx:285 src/SearchPage.cxx:289
 msgid "Unrecognized suffix"
-msgstr ""
+msgstr "미 인식 서픽스"
 
 #: src/SearchPage.cxx:337
 #, c-format
@@ -1070,7 +1069,6 @@ msgid "Composer"
 msgstr "작곡가"
 
 #: src/SongPage.cxx:68
-#, fuzzy
 msgid "Performer"
 msgstr "연주가"
 
