@@ -33,8 +33,6 @@
 #include "screen_utils.hxx"
 #include "ncu.hxx"
 
-#include <boost/asio/steady_timer.hpp>
-
 #include <string>
 
 #include <assert.h>
@@ -65,19 +63,20 @@ class LyricsPage final : public TextPage, PluginResponseHandler {
 
 	PluginCycle *loader = nullptr;
 
-	boost::asio::steady_timer loader_timeout;
+	TimerEvent loader_timeout;
 
 public:
 	LyricsPage(ScreenManager &_screen, WINDOW *w, Size size)
 		:TextPage(_screen, w, size),
-		 loader_timeout(_screen.get_io_service()) {}
+		 loader_timeout(_screen.GetEventLoop(),
+				BIND_THIS_METHOD(OnTimeout)) {}
 
 	~LyricsPage() override {
 		Cancel();
 	}
 
-	auto &get_io_service() noexcept {
-		return screen.get_io_service();
+	auto &GetEventLoop() noexcept {
+		return loader_timeout.GetEventLoop();
 	}
 
 private:
@@ -111,7 +110,7 @@ private:
 	/** save current lyrics to a file and run editor on it */
 	void Edit();
 
-	void OnTimeout(const boost::system::error_code &error) noexcept;
+	void OnTimeout() noexcept;
 
 public:
 	/* virtual methods from class Page */
@@ -135,7 +134,7 @@ LyricsPage::Cancel()
 		loader = nullptr;
 	}
 
-	loader_timeout.cancel();
+	loader_timeout.Cancel();
 
 	plugin_name.clear();
 
@@ -236,7 +235,7 @@ LyricsPage::OnPluginSuccess(const char *_plugin_name,
 	if (options.lyrics_autosave && !exists_lyr_file(artist, title))
 		Save();
 
-	loader_timeout.cancel();
+	loader_timeout.Cancel();
 
 	plugin_stop(loader);
 	loader = nullptr;
@@ -252,18 +251,15 @@ LyricsPage::OnPluginError(std::string error) noexcept
 	/* translators: no lyrics were found for the song */
 	screen_status_message(_("No lyrics"));
 
-	loader_timeout.cancel();
+	loader_timeout.Cancel();
 
 	plugin_stop(loader);
 	loader = nullptr;
 }
 
 void
-LyricsPage::OnTimeout(const boost::system::error_code &error) noexcept
+LyricsPage::OnTimeout() noexcept
 {
-	if (error)
-		return;
-
 	plugin_stop(loader);
 	loader = nullptr;
 
@@ -286,16 +282,11 @@ LyricsPage::Load(const struct mpd_song &_song) noexcept
 		return;
 	}
 
-	loader = lyrics_load(get_io_service(),
+	loader = lyrics_load(GetEventLoop(),
 			     artist, title, *this);
 
-	if (options.lyrics_timeout > std::chrono::steady_clock::duration::zero()) {
-		boost::system::error_code error;
-		loader_timeout.expires_from_now(options.lyrics_timeout,
-						error);
-		loader_timeout.async_wait(std::bind(&LyricsPage::OnTimeout, this,
-						     std::placeholders::_1));
-	}
+	if (options.lyrics_timeout > std::chrono::steady_clock::duration::zero())
+		loader_timeout.Schedule(options.lyrics_timeout);
 }
 
 void
@@ -312,7 +303,7 @@ LyricsPage::Reload()
 {
 	if (loader == nullptr && artist != nullptr && title != nullptr) {
 		reloading = true;
-		loader = lyrics_load(get_io_service(),
+		loader = lyrics_load(GetEventLoop(),
 				     artist, title, *this);
 		Repaint();
 	}

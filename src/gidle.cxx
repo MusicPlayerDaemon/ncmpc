@@ -34,22 +34,21 @@
 #include <assert.h>
 #include <string.h>
 
-MpdIdleSource::MpdIdleSource(boost::asio::io_service &io_service,
+MpdIdleSource::MpdIdleSource(EventLoop &event_loop,
 			     struct mpd_connection &_connection,
 			     MpdIdleHandler &_handler) noexcept
 	:connection(&_connection),
 	 async(mpd_connection_get_async(connection)),
 	 parser(mpd_parser_new()),
-	 handler(_handler),
-	 socket(io_service, mpd_async_get_fd(async))
+	 event(event_loop, BIND_THIS_METHOD(OnSocketReady),
+	       SocketDescriptor(mpd_async_get_fd(async))),
+	 handler(_handler)
 {
 	/* TODO check parser!=nullptr */
 }
 
 MpdIdleSource::~MpdIdleSource() noexcept
 {
-	socket.release();
-
 	mpd_parser_free(parser);
 
 }
@@ -70,6 +69,7 @@ MpdIdleSource::Feed(char *line) noexcept
 	result = mpd_parser_feed(parser, line);
 	switch (result) {
 	case MPD_PARSER_MALFORMED:
+		event.Cancel();
 		io_events = 0;
 
 		InvokeError(MPD_ERROR_MALFORMED,
@@ -78,12 +78,14 @@ MpdIdleSource::Feed(char *line) noexcept
 		return false;
 
 	case MPD_PARSER_SUCCESS:
+		event.Cancel();
 		io_events = 0;
 
 		InvokeCallback();
 		return false;
 
 	case MPD_PARSER_ERROR:
+		event.Cancel();
 		io_events = 0;
 
 		InvokeError(MPD_ERROR_SERVER,
@@ -113,6 +115,7 @@ MpdIdleSource::Receive() noexcept
 	}
 
 	if (mpd_async_get_error(async) != MPD_ERROR_SUCCESS) {
+		event.Cancel();
 		io_events = 0;
 
 		InvokeAsyncError();
@@ -123,72 +126,27 @@ MpdIdleSource::Receive() noexcept
 }
 
 void
-MpdIdleSource::OnReadable(const boost::system::error_code &error) noexcept
+MpdIdleSource::OnSocketReady(unsigned flags) noexcept
 {
-	if (error) {
-		if (error == boost::asio::error::operation_aborted)
-			return;
+	unsigned events = 0;
+	if (flags & SocketEvent::READ)
+		events |= MPD_ASYNC_EVENT_READ;
+	if (flags & SocketEvent::WRITE)
+		events |= MPD_ASYNC_EVENT_WRITE;
 
-		// TODO
-		return;
-	}
-
-	io_events &= ~MPD_ASYNC_EVENT_READ;
-
-	if (!mpd_async_io(async, MPD_ASYNC_EVENT_READ)) {
-		socket.cancel();
+	if (!mpd_async_io(async, (enum mpd_async_event)events)) {
+		event.Cancel();
 		io_events = 0;
 
 		InvokeAsyncError();
 		return;
 	}
 
-	if (!Receive())
-		return;
-
-	UpdateSocket();
-}
-
-void
-MpdIdleSource::OnWritable(const boost::system::error_code &error) noexcept
-{
-	if (error) {
-		if (error == boost::asio::error::operation_aborted)
+	if (flags & SocketEvent::READ)
+		if (!Receive())
 			return;
 
-		// TODO
-		return;
-	}
-
-	io_events &= ~MPD_ASYNC_EVENT_WRITE;
-
-	if (!mpd_async_io(async, MPD_ASYNC_EVENT_WRITE)) {
-		socket.cancel();
-		io_events = 0;
-
-		InvokeAsyncError();
-		return;
-	}
-
 	UpdateSocket();
-}
-
-void
-MpdIdleSource::AsyncRead() noexcept
-{
-	io_events |= MPD_ASYNC_EVENT_READ;
-	socket.async_read_some(boost::asio::null_buffers(),
-			       std::bind(&MpdIdleSource::OnReadable, this,
-					 std::placeholders::_1));
-}
-
-void
-MpdIdleSource::AsyncWrite() noexcept
-{
-	io_events |= MPD_ASYNC_EVENT_WRITE;
-	socket.async_write_some(boost::asio::null_buffers(),
-				std::bind(&MpdIdleSource::OnWritable, this,
-					  std::placeholders::_1));
 }
 
 void
@@ -198,13 +156,14 @@ MpdIdleSource::UpdateSocket() noexcept
 	if (events == io_events)
 		return;
 
-	socket.cancel();
-
+	unsigned flags = 0;
 	if (events & MPD_ASYNC_EVENT_READ)
-		AsyncRead();
+		flags |= SocketEvent::READ;
 
 	if (events & MPD_ASYNC_EVENT_WRITE)
-		AsyncWrite();
+		flags |= SocketEvent::WRITE;
+
+	event.Schedule(flags);
 
 	io_events = events;
 }
@@ -232,7 +191,7 @@ MpdIdleSource::Leave() noexcept
 		/* already left, callback was invoked */
 		return;
 
-	socket.cancel();
+	event.Cancel();
 	io_events = 0;
 
 	enum mpd_idle events = idle_events == 0

@@ -21,14 +21,12 @@
 #define NCMPC_STATUS_BAR_HXX
 
 #include "config.h" // IWYU pragma: keep
-#include "AsioServiceFwd.hxx"
 #include "Window.hxx"
+#include "event/TimerEvent.hxx"
 
 #ifndef NCMPC_MINI
 #include "hscroll.hxx"
 #endif
-
-#include <boost/asio/steady_timer.hpp>
 
 #include <string>
 
@@ -40,7 +38,7 @@ class StatusBar {
 	Window window;
 
 	std::string message;
-	boost::asio::steady_timer message_timer;
+	TimerEvent message_timer;
 
 #ifndef NCMPC_MINI
 	class hscroll hscroll;
@@ -54,7 +52,7 @@ class StatusBar {
 	unsigned left_width, right_width;
 
 public:
-	StatusBar(boost::asio::io_service &io_service,
+	StatusBar(EventLoop &event_loop,
 		  Point p, unsigned width) noexcept;
 	~StatusBar() noexcept;
 
@@ -72,9 +70,8 @@ public:
 	void Paint() const noexcept;
 
 private:
-	void OnMessageTimer(const boost::system::error_code &error) noexcept {
-		if (!error)
-			ClearMessage();
+	void OnMessageTimer() noexcept {
+		ClearMessage();
 	}
 };
 

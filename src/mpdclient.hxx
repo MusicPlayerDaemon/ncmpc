@@ -24,7 +24,7 @@
 #include "Queue.hxx"
 #include "gidle.hxx"
 #include "util/Compiler.h"
-#include "AsioServiceFwd.hxx"
+#include "event/TimerEvent.hxx"
 
 #ifdef ENABLE_ASYNC_CONNECT
 #include "aconnect.hxx"
@@ -37,8 +37,6 @@
 #include "TagMask.hxx"
 #endif
 
-#include <boost/asio/steady_timer.hpp>
-
 #include <string>
 
 struct AsyncMpdConnect;
@@ -49,6 +47,8 @@ struct mpdclient final
 	, AsyncMpdConnectHandler
 #endif
 {
+	EventLoop &event_loop;
+
 #ifdef ENABLE_ASYNC_CONNECT
 	/**
 	 * These settings are used to connect to MPD asynchronously.
@@ -92,15 +92,11 @@ struct mpdclient final
 	struct mpd_status *status = nullptr;
 	const struct mpd_song *current_song = nullptr;
 
-#if BOOST_VERSION >= 107000
-	boost::asio::io_context &io_context;
-#endif
-
 	/**
 	 * A timer which re-enters MPD idle mode before the next main
 	 * loop iteration.
 	 */
-	boost::asio::steady_timer enter_idle_timer;
+	TimerEvent enter_idle_timer;
 
 	/**
 	 * This attribute is incremented whenever the connection changes
@@ -142,7 +138,7 @@ struct mpdclient final
 	 */
 	bool playing_or_paused = false;
 
-	mpdclient(boost::asio::io_service &io_service,
+	mpdclient(EventLoop &_event_loop,
 		  const char *host, unsigned port,
 		  unsigned _timeout_ms, const char *_password);
 
@@ -159,12 +155,8 @@ struct mpdclient final
 #endif
 	}
 
-	auto &get_io_service() noexcept {
-#if BOOST_VERSION >= 107000
-		return io_context;
-#else
-		return enter_idle_timer.get_io_service();
-#endif
+	auto &GetEventLoop() const noexcept {
+		return event_loop;
 	}
 
 #ifdef ENABLE_ASYNC_CONNECT
@@ -324,11 +316,15 @@ private:
 
 	void ClearStatus() noexcept;
 
-	void ScheduleEnterIdle() noexcept;
-	void CancelEnterIdle() noexcept {
-		enter_idle_timer.cancel();
+	void ScheduleEnterIdle() noexcept {
+		enter_idle_timer.Schedule(std::chrono::milliseconds(10));
 	}
-	void OnEnterIdleTimer(const boost::system::error_code &error) noexcept;
+
+	void CancelEnterIdle() noexcept {
+		enter_idle_timer.Cancel();
+	}
+
+	void OnEnterIdleTimer() noexcept;
 
 #ifdef ENABLE_ASYNC_CONNECT
 	/* virtual methods from AsyncMpdConnectHandler */

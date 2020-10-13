@@ -29,12 +29,11 @@
 #ifndef ACONNECT_H
 #define ACONNECT_H
 
-#include "AsioServiceFwd.hxx"
-
 #include <mpd/client.h>
 
 struct mpd_connection;
 struct AsyncMpdConnect;
+class EventLoop;
 
 class AsyncMpdConnectHandler {
 public:
@@ -43,7 +42,7 @@ public:
 };
 
 void
-aconnect_start(boost::asio::io_service &io_service,
+aconnect_start(EventLoop &event_loop,
 	       AsyncMpdConnect **acp,
 	       const char *host, unsigned port,
 	       AsyncMpdConnectHandler &handler);

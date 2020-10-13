@@ -123,11 +123,8 @@ Instance::UpdateClient() noexcept
 }
 
 void
-Instance::OnReconnectTimer(const boost::system::error_code &error) noexcept
+Instance::OnReconnectTimer() noexcept
 {
-	if (error)
-		return;
-
 	assert(client.IsDead());
 
 	screen_status_printf(_("Connecting to %s"),
@@ -198,11 +195,8 @@ mpdclient_idle_callback(gcc_unused unsigned events) noexcept
 }
 
 void
-Instance::OnUpdateTimer(const boost::system::error_code &error) noexcept
+Instance::OnUpdateTimer() noexcept
 {
-	if (error)
-		return;
-
 	assert(pending_update_timer);
 	pending_update_timer = false;
 
@@ -226,10 +220,10 @@ void end_input_event() noexcept
 }
 
 bool
-do_input_event(boost::asio::io_service &io_service, Command cmd) noexcept
+do_input_event(EventLoop &event_loop, Command cmd) noexcept
 {
 	if (cmd == Command::QUIT) {
-		io_service.stop();
+		event_loop.Break();
 		return false;
 	}
 
@@ -267,11 +261,8 @@ do_mouse_event(Point p, mmask_t bstate) noexcept
  * message every 10 seconds.
  */
 void
-Instance::OnCheckKeyBindings(const boost::system::error_code &error) noexcept
+Instance::OnCheckKeyBindings() noexcept
 {
-	if (error)
-		return;
-
 	char buf[256];
 
 	if (GetGlobalKeyBindings().Check(buf, sizeof(buf)))

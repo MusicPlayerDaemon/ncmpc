@@ -20,14 +20,13 @@
 #ifndef NCMPC_H
 #define NCMPC_H
 
-#include "AsioServiceFwd.hxx"
-
 #ifdef HAVE_GETMOUSE
 #include <curses.h>
 #endif
 
 enum class Command : unsigned;
 struct Point;
+class EventLoop;
 class ScreenManager;
 extern ScreenManager *screen;
 
@@ -41,7 +40,7 @@ end_input_event() noexcept;
  * @return false if the application shall quit
  */
 bool
-do_input_event(boost::asio::io_service &io_service, Command cmd) noexcept;
+do_input_event(EventLoop &event_loop, Command cmd) noexcept;
 
 #ifdef HAVE_GETMOUSE
 void

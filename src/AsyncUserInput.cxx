@@ -40,18 +40,11 @@ translate_key(int key)
 }
 
 void
-AsyncUserInput::OnReadable(const boost::system::error_code &error)
+AsyncUserInput::OnSocketReady(unsigned) noexcept
 {
-	if (error) {
-		get_io_context().stop();
-		return;
-	}
-
 	int key = wgetch(&w);
-	if (ignore_key(key)) {
-		AsyncWait();
+	if (ignore_key(key))
 		return;
-	}
 
 #ifdef HAVE_GETMOUSE
 	if (key == KEY_MOUSE) {
@@ -68,39 +61,38 @@ AsyncUserInput::OnReadable(const boost::system::error_code &error)
 		do_mouse_event({event.x, event.y}, event.bstate);
 		end_input_event();
 
-		AsyncWait();
 		return;
 	}
 #endif
 
 	Command cmd = translate_key(key);
-	if (cmd == Command::NONE) {
-		AsyncWait();
+	if (cmd == Command::NONE)
 		return;
-	}
 
 	begin_input_event();
 
-	if (!do_input_event(get_io_context(), cmd))
+	if (!do_input_event(socket_event.GetEventLoop(), cmd))
 		return;
 
 	end_input_event();
-	AsyncWait();
+	return;
 }
 
-AsyncUserInput::AsyncUserInput(boost::asio::io_service &io_service, WINDOW &_w)
-	:UserInput(io_service), w(_w)
+AsyncUserInput::AsyncUserInput(EventLoop &event_loop, WINDOW &_w) noexcept
+	:socket_event(event_loop, BIND_THIS_METHOD(OnSocketReady),
+		      SocketDescriptor(STDIN_FILENO)),
+	 w(_w)
 {
-	AsyncWait();
+	socket_event.ScheduleRead();
 }
 
 void
-keyboard_unread(boost::asio::io_service &io_service, int key)
+keyboard_unread(EventLoop &event_loop, int key)
 {
 	if (ignore_key(key))
 		return;
 
 	Command cmd = translate_key(key);
 	if (cmd != Command::NONE)
-		do_input_event(io_service, cmd);
+		do_input_event(event_loop, cmd);
 }

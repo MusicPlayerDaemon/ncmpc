@@ -29,57 +29,58 @@
 #include "aconnect.hxx"
 #include "net/AsyncResolveConnect.hxx"
 #include "net/AsyncHandler.hxx"
+#include "net/UniqueSocketDescriptor.hxx"
+#include "event/SocketEvent.hxx"
 
 #include <mpd/client.h>
 #include <mpd/async.h>
 
-#include <boost/asio/generic/stream_protocol.hpp>
+#include <cerrno>
+#include <cstdio>
+#include <cstring>
 
 struct AsyncMpdConnect final : AsyncConnectHandler {
 	AsyncMpdConnectHandler &handler;
 
 	AsyncResolveConnect rconnect;
 
-	boost::asio::generic::stream_protocol::socket socket;
+	SocketEvent socket;
 
-	char buffer[256];
-
-	explicit AsyncMpdConnect(boost::asio::io_service &io_service,
+	explicit AsyncMpdConnect(EventLoop &event_loop,
 				 AsyncMpdConnectHandler &_handler) noexcept
 		:handler(_handler),
-		 rconnect(io_service, *this), socket(io_service) {}
+		 rconnect(event_loop, *this),
+		 socket(event_loop, BIND_THIS_METHOD(OnReceive)) {}
 
-	void OnReceive(const boost::system::error_code &error,
-		       std::size_t bytes_transferred) noexcept;
+	~AsyncMpdConnect() noexcept {
+		socket.Close();
+	}
+
+	void OnReceive(unsigned events) noexcept;
 
 	/* virtual methods from AsyncConnectHandler */
-	void OnConnect(boost::asio::generic::stream_protocol::socket socket) override;
+	void OnConnect(UniqueSocketDescriptor fd) noexcept override;
 	void OnConnectError(const char *message) override;
 };
 
 void
-AsyncMpdConnect::OnReceive(const boost::system::error_code &error,
-			   std::size_t bytes_transferred) noexcept
+AsyncMpdConnect::OnReceive(unsigned) noexcept
 {
-	if (error) {
-		if (error == boost::asio::error::operation_aborted)
-			/* this object has already been deleted; bail out
-			   quickly without touching anything */
-			return;
+	char buffer[256];
+	ssize_t nbytes = socket.GetSocket().Read(buffer, sizeof(buffer));
 
-		snprintf(buffer, sizeof(buffer),
-			 "Failed to receive from MPD: %s",
-			 error.message().c_str());
+	if (nbytes < 0) {
+		std::snprintf(buffer, sizeof(buffer),
+			      "Failed to receive from MPD: %s",
+			      std::strerror(errno));
 		handler.OnAsyncMpdConnectError(buffer);
 		delete this;
 		return;
 	}
 
-	buffer[bytes_transferred] = 0;
+	buffer[nbytes] = 0;
 
-	/* the dup() is necessary because Boost 1.62 doesn't have the
-	   release() method yet */
-	struct mpd_async *async = mpd_async_new(dup(socket.native_handle()));
+	struct mpd_async *async = mpd_async_new(socket.Steal().Get());
 	if (async == nullptr) {
 		handler.OnAsyncMpdConnectError("Out of memory");
 		delete this;
@@ -99,13 +100,10 @@ AsyncMpdConnect::OnReceive(const boost::system::error_code &error,
 }
 
 void
-AsyncMpdConnect::OnConnect(boost::asio::generic::stream_protocol::socket _socket)
+AsyncMpdConnect::OnConnect(UniqueSocketDescriptor fd) noexcept
 {
-	socket = std::move(_socket);
-	socket.async_receive(boost::asio::buffer(buffer, sizeof(buffer) - 1),
-			     std::bind(&AsyncMpdConnect::OnReceive, this,
-				       std::placeholders::_1,
-				       std::placeholders::_2));
+	socket.Open(fd.Release());
+	socket.ScheduleRead();
 }
 
 void
@@ -116,16 +114,16 @@ AsyncMpdConnect::OnConnectError(const char *message)
 }
 
 void
-aconnect_start(boost::asio::io_service &io_service,
+aconnect_start(EventLoop &event_loop,
 	       AsyncMpdConnect **acp,
 	       const char *host, unsigned port,
 	       AsyncMpdConnectHandler &handler)
 {
-	auto *ac = new AsyncMpdConnect(io_service, handler);
+	auto *ac = new AsyncMpdConnect(event_loop, handler);
 
 	*acp = ac;
 
-	ac->rconnect.Start(io_service, host, port);
+	ac->rconnect.Start(host, port);
 }
 
 void

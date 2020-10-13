@@ -20,26 +20,23 @@
 #ifndef ASYNC_USER_INPUT_HXX
 #define ASYNC_USER_INPUT_HXX
 
-#include "UserInput.hxx"
+#include "event/SocketEvent.hxx"
 
 #include <curses.h>
 
-class AsyncUserInput : public UserInput {
+class AsyncUserInput {
+	SocketEvent socket_event;
+
 	WINDOW &w;
 
 public:
-	AsyncUserInput(boost::asio::io_service &io_service, WINDOW &_w);
+	AsyncUserInput(EventLoop &event_loop, WINDOW &_w) noexcept;
 
 private:
-	void AsyncWait() {
-		UserInput::AsyncWait(std::bind(&AsyncUserInput::OnReadable, this,
-					       std::placeholders::_1));
-	}
-
-	void OnReadable(const boost::system::error_code &error);
+	void OnSocketReady(unsigned flags) noexcept;
 };
 
 void
-keyboard_unread(boost::asio::io_service &io_service, int key);
+keyboard_unread(EventLoop &event_loop, int key);
 
 #endif

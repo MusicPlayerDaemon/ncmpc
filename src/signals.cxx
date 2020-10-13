@@ -20,7 +20,7 @@
 #include "Instance.hxx"
 
 void
-Instance::OnSigwinch()
+Instance::OnSigwinch() noexcept
 {
 	endwin();
 	refresh();
@@ -28,22 +28,8 @@ Instance::OnSigwinch()
 }
 
 void
-Instance::AsyncWaitSigwinch()
-{
-	sigwinch.async_wait([this](const auto &error, int){
-			if (error)
-				return;
-
-			this->OnSigwinch();
-			this->AsyncWaitSigwinch();
-		});
-}
-
-void
 Instance::InitSignals()
 {
-	AsyncWaitSigwinch();
-
 	/* ignore SIGPIPE */
 
 	struct sigaction act;

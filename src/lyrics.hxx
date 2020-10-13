@@ -20,15 +20,14 @@
 #ifndef LYRICS_H
 #define LYRICS_H
 
-#include "AsioServiceFwd.hxx"
-
 struct PluginCycle;
 class PluginResponseHandler;
+class EventLoop;
 
 void lyrics_init();
 
 PluginCycle *
-lyrics_load(boost::asio::io_service &io_service,
+lyrics_load(EventLoop &event_loop,
 	    const char *artist, const char *title,
 	    PluginResponseHandler &handler);
 

@@ -19,11 +19,11 @@
 
 #include "plugin.hxx"
 #include "io/Path.hxx"
+#include "io/UniqueFileDescriptor.hxx"
+#include "event/SocketEvent.hxx"
+#include "event/TimerEvent.hxx"
 #include "util/ScopeExit.hxx"
 #include "util/UriUtil.hxx"
-
-#include <boost/asio/steady_timer.hpp>
-#include <boost/asio/posix/stream_descriptor.hpp>
 
 #include <algorithm>
 #include <memory>
@@ -42,37 +42,32 @@ class PluginPipe {
 	PluginCycle &cycle;
 
 	/** the pipe to the plugin process */
-	boost::asio::posix::stream_descriptor fd;
+	SocketEvent socket_event;
 
 	/** the output of the current plugin */
 	std::string data;
 
-	std::array<char, 256> buffer;
-
 public:
-	PluginPipe(boost::asio::io_service &io_service,
+	PluginPipe(EventLoop &event_loop,
 		   PluginCycle &_cycle) noexcept
-		:cycle(_cycle), fd(io_service) {}
+		:cycle(_cycle),
+		 socket_event(event_loop, BIND_THIS_METHOD(OnRead)) {}
 
 	~PluginPipe() noexcept {
-		Close();
+		socket_event.Close();
 	}
 
-	void Start(int _fd) noexcept {
-		fd.assign(_fd);
-		AsyncRead();
+	void Start(UniqueFileDescriptor &&fd) noexcept {
+		socket_event.Open(SocketDescriptor::FromFileDescriptor(fd.Release()));
+		socket_event.ScheduleRead();
 	}
 
 	void Close() noexcept {
-		if (!fd.is_open())
-			return;
-
-		fd.cancel();
-		fd.close();
+		socket_event.Close();
 	}
 
 	bool IsOpen() const noexcept {
-		return fd.is_open();
+		return socket_event.IsDefined();
 	}
 
 	bool IsEmpty() const noexcept {
@@ -88,15 +83,7 @@ public:
 	}
 
 private:
-	void AsyncRead() noexcept {
-		fd.async_read_some(boost::asio::buffer(buffer),
-				   std::bind(&PluginPipe::OnRead, this,
-					     std::placeholders::_1,
-					     std::placeholders::_2));
-	}
-
-	void OnRead(const boost::system::error_code &error,
-		    std::size_t bytes_transferred) noexcept;
+	void OnRead(unsigned events) noexcept;
 };
 
 struct PluginCycle {
@@ -125,28 +112,23 @@ struct PluginCycle {
 	/** list of all error messages from failed plugins */
 	std::string all_errors;
 
-	boost::asio::steady_timer delayed_fail_timer;
+	TimerEvent delayed_fail_timer;
 
-	PluginCycle(boost::asio::io_service &io_service,
+	PluginCycle(EventLoop &event_loop,
 		    const PluginList &_list, std::unique_ptr<char *[]> &&_argv,
 		    PluginResponseHandler &_handler) noexcept
 		:list(_list), argv(std::move(_argv)),
 		 handler(_handler),
-		 pipe_stdout(io_service, *this),
-		 pipe_stderr(io_service, *this),
-		 delayed_fail_timer(io_service) {}
+		 pipe_stdout(event_loop, *this),
+		 pipe_stderr(event_loop, *this),
+		 delayed_fail_timer(event_loop, BIND_THIS_METHOD(OnDelayedFail)) {}
 
 	void TryNextPlugin() noexcept;
 
 	void Stop() noexcept;
 
 	void ScheduleDelayedFail() noexcept {
-		boost::system::error_code error;
-		delayed_fail_timer.expires_from_now(std::chrono::seconds(0),
-						    error);
-		delayed_fail_timer.async_wait(std::bind(&PluginCycle::OnDelayedFail,
-							this,
-							std::placeholders::_1));
+		delayed_fail_timer.Schedule(std::chrono::seconds(0));
 	}
 
 	void OnEof() noexcept;
@@ -154,7 +136,7 @@ struct PluginCycle {
 private:
 	int LaunchPlugin(const char *plugin_path) noexcept;
 
-	void OnDelayedFail(const boost::system::error_code &error) noexcept;
+	void OnDelayedFail() noexcept;
 };
 
 static bool
@@ -231,22 +213,19 @@ PluginCycle::OnEof() noexcept
 }
 
 void
-PluginPipe::OnRead(const boost::system::error_code &error,
-		   std::size_t bytes_transferred) noexcept
+PluginPipe::OnRead(unsigned) noexcept
 {
-	if (error) {
-		if (error == boost::asio::error::operation_aborted)
-			/* this object has already been deleted; bail out
-			   quickly without touching anything */
-			return;
-
-		fd.close();
+	char buffer[256];
+	ssize_t nbytes = read(socket_event.GetSocket().Get(),
+			      buffer, sizeof(buffer));
+	if (nbytes <= 0) {
+		socket_event.Close();
 		cycle.OnEof();
 		return;
 	}
 
-	data.append(&buffer.front(), bytes_transferred);
-	AsyncRead();
+	data.append(buffer, nbytes);
+	socket_event.ScheduleRead();
 }
 
 /**
@@ -257,11 +236,8 @@ PluginPipe::OnRead(const boost::system::error_code &error,
  * moment after.
  */
 void
-PluginCycle::OnDelayedFail(const boost::system::error_code &error) noexcept
+PluginCycle::OnDelayedFail() noexcept
 {
-	if (error)
-		return;
-
 	assert(!pipe_stdout.IsOpen());
 	assert(!pipe_stderr.IsOpen());
 	assert(pid < 0);
@@ -282,34 +258,25 @@ PluginCycle::LaunchPlugin(const char *plugin_path) noexcept
 	   plugin */
 	argv[0] = const_cast<char *>(GetUriFilename(plugin_path));
 
-	int fds_stdout[2];
-	if (pipe(fds_stdout) < 0)
+	UniqueFileDescriptor stdout_r, stdout_w;
+	UniqueFileDescriptor stderr_r, stderr_w;
+	if (!UniqueFileDescriptor::CreatePipe(stdout_r, stdout_w) ||
+	    !UniqueFileDescriptor::CreatePipe(stderr_r, stderr_w))
 		return -1;
-
-	int fds_stderr[2];
-	if (pipe(fds_stderr) < 0) {
-		close(fds_stdout[0]);
-		close(fds_stdout[1]);
-		return -1;
-	}
 
 	pid = fork();
 
-	if (pid < 0) {
-		close(fds_stdout[0]);
-		close(fds_stdout[1]);
-		close(fds_stderr[0]);
-		close(fds_stderr[1]);
+	if (pid < 0)
 		return -1;
-	}
 
 	if (pid == 0) {
-		dup2(fds_stdout[1], 1);
-		dup2(fds_stderr[1], 2);
-		close(fds_stdout[0]);
-		close(fds_stdout[1]);
-		close(fds_stderr[0]);
-		close(fds_stderr[1]);
+		stdout_w.Duplicate(FileDescriptor(STDOUT_FILENO));
+		stderr_w.Duplicate(FileDescriptor(STDERR_FILENO));
+
+		stdout_r.Close();
+		stdout_w.Close();
+		stderr_r.Close();
+		stderr_w.Close();
 		close(0);
 		/* XXX close other fds? */
 
@@ -317,13 +284,10 @@ PluginCycle::LaunchPlugin(const char *plugin_path) noexcept
 		_exit(1);
 	}
 
-	close(fds_stdout[1]);
-	close(fds_stderr[1]);
-
 	/* XXX CLOEXEC? */
 
-	pipe_stdout.Start(fds_stdout[0]);
-	pipe_stderr.Start(fds_stderr[0]);
+	pipe_stdout.Start(std::move(stdout_r));
+	pipe_stderr.Start(std::move(stderr_r));
 
 	return 0;
 }
@@ -377,13 +341,13 @@ make_argv(const char*const* args) noexcept
 }
 
 PluginCycle *
-plugin_run(boost::asio::io_service &io_service,
+plugin_run(EventLoop &event_loop,
 	   PluginList *list, const char *const*args,
 	   PluginResponseHandler &handler) noexcept
 {
 	assert(args != nullptr);
 
-	auto *cycle = new PluginCycle(io_service, *list, make_argv(args),
+	auto *cycle = new PluginCycle(event_loop, *list, make_argv(args),
 				      handler);
 	cycle->TryNextPlugin();
 

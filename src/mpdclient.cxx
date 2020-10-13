@@ -28,27 +28,12 @@
 #include <assert.h>
 
 void
-mpdclient::OnEnterIdleTimer(const boost::system::error_code &error) noexcept
+mpdclient::OnEnterIdleTimer() noexcept
 {
-	if (error)
-		return;
-
 	assert(source != nullptr);
 	assert(!idle);
 
 	idle = source->Enter();
-}
-
-void
-mpdclient::ScheduleEnterIdle() noexcept
-{
-	assert(source != nullptr);
-
-	/* automatically re-enter MPD "idle" mode */
-	boost::system::error_code error;
-	enter_idle_timer.expires_from_now(std::chrono::seconds(0), error);
-	enter_idle_timer.async_wait(std::bind(&mpdclient::OnEnterIdleTimer,
-					      this, std::placeholders::_1));
 }
 
 static void
@@ -164,14 +149,12 @@ settings_is_local_socket(const struct mpd_settings *settings)
 #endif
 #endif
 
-mpdclient::mpdclient(boost::asio::io_service &io_service,
+mpdclient::mpdclient(EventLoop &_event_loop,
 		     const char *_host, unsigned _port,
 		     unsigned _timeout_ms, const char *_password)
-	:timeout_ms(_timeout_ms), password(_password),
-#if BOOST_VERSION >= 107000
-	 io_context(io_service),
-#endif
-	 enter_idle_timer(io_service)
+	:event_loop(_event_loop),
+	 timeout_ms(_timeout_ms), password(_password),
+	 enter_idle_timer(event_loop, BIND_THIS_METHOD(OnEnterIdleTimer))
 {
 #ifdef ENABLE_ASYNC_CONNECT
 	settings = mpd_settings_new(_host, _port, _timeout_ms,
@@ -355,7 +338,7 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 	}
 #endif
 
-	source = new MpdIdleSource(get_io_service(), *connection, *this);
+	source = new MpdIdleSource(GetEventLoop(), *connection, *this);
 	ScheduleEnterIdle();
 
 	++connection_id;
@@ -409,7 +392,7 @@ mpdclient::OnAsyncMpdConnectError(const char *message) noexcept
 void
 mpdclient::StartConnect(const struct mpd_settings &s) noexcept
 {
-	aconnect_start(get_io_service(), &async_connect,
+	aconnect_start(GetEventLoop(), &async_connect,
 		       mpd_settings_get_host(&s),
 		       mpd_settings_get_port(&s),
 		       *this);

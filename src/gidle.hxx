@@ -29,11 +29,9 @@
 #ifndef MPD_GLIB_SOURCE_H
 #define MPD_GLIB_SOURCE_H
 
-#include "AsioServiceFwd.hxx"
+#include "event/SocketEvent.hxx"
 
 #include <mpd/client.h>
-
-#include <boost/asio/posix/stream_descriptor.hpp>
 
 class MpdIdleHandler {
 public:
@@ -43,21 +41,21 @@ public:
 				 const char *message) noexcept = 0;
 };
 
-class MpdIdleSource {
+class MpdIdleSource final {
 	struct mpd_connection *connection;
 	struct mpd_async *async;
 	struct mpd_parser *parser;
 
-	MpdIdleHandler &handler;
+	SocketEvent event;
 
-	boost::asio::posix::stream_descriptor socket;
+	MpdIdleHandler &handler;
 
 	unsigned io_events = 0;
 
 	unsigned idle_events;
 
 public:
-	MpdIdleSource(boost::asio::io_service &io_service,
+	MpdIdleSource(EventLoop &event_loop,
 		      struct mpd_connection &_connection,
 		      MpdIdleHandler &_handler) noexcept;
 	~MpdIdleSource() noexcept;
@@ -103,11 +101,8 @@ private:
 	 */
 	bool Receive() noexcept;
 
-	void OnReadable(const boost::system::error_code &error) noexcept;
-	void OnWritable(const boost::system::error_code &error) noexcept;
+	void OnSocketReady(unsigned flags) noexcept;
 
-	void AsyncRead() noexcept;
-	void AsyncWrite() noexcept;
 	void UpdateSocket() noexcept;
 };
 

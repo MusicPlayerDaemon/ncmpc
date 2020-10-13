@@ -29,30 +29,36 @@
 #ifndef NET_ASYNC_CONNECT_HXX
 #define NET_ASYNC_CONNECT_HXX
 
-#include "AsioServiceFwd.hxx"
+#include "event/SocketEvent.hxx"
 
-#include <boost/asio/ip/tcp.hpp>
-
+class SocketAddress;
 class AsyncConnectHandler;
+class UniqueSocketDescriptor;
 
 class AsyncConnect {
+	SocketEvent event;
+
 	AsyncConnectHandler &handler;
 
-	boost::asio::ip::tcp::socket socket;
-
 public:
-	AsyncConnect(boost::asio::io_service &io_service,
+	AsyncConnect(EventLoop &event_loop,
 		     AsyncConnectHandler &_handler) noexcept
-		:handler(_handler),
-		 socket(io_service) {}
+		:event(event_loop, BIND_THIS_METHOD(OnSocketReady)),
+		 handler(_handler) {}
+
+	~AsyncConnect() noexcept {
+		event.Close();
+	}
 
 	/**
 	 * Create a socket and connect it to the given address.
 	 */
-	void Start(const boost::asio::ip::tcp::endpoint &endpoint) noexcept;
+	bool Start(SocketAddress address) noexcept;
+
+	void WaitConnected(UniqueSocketDescriptor fd) noexcept;
 
 private:
-	void OnConnected(const boost::system::error_code &error) noexcept;
+	void OnSocketReady(unsigned events) noexcept;
 };
 
 #endif

@@ -19,6 +19,7 @@
 
 #include "Instance.hxx"
 #include "Options.hxx"
+#include "event/SignalMonitor.hxx"
 
 #include <signal.h>
 
@@ -44,36 +45,32 @@ static constexpr TagMask global_tag_whitelist{
 #endif
 
 Instance::Instance()
-	:io_service(),
-#ifndef _WIN32
-	 sigterm(io_service, SIGTERM, SIGINT, SIGHUP),
-	 sigwinch(io_service, SIGWINCH, SIGCONT),
-#endif
-	 client(io_service,
+	:client(event_loop,
 		options.host.empty() ? nullptr : options.host.c_str(),
 		options.port,
 		options.timeout_ms,
 		options.password.empty() ? nullptr : options.password.c_str()),
-	 seek(io_service, client),
-	 reconnect_timer(io_service),
-	 update_timer(io_service),
+	 seek(event_loop, client),
+	 reconnect_timer(event_loop, BIND_THIS_METHOD(OnReconnectTimer)),
+	 update_timer(event_loop, BIND_THIS_METHOD(OnUpdateTimer)),
 #ifndef NCMPC_MINI
-	 check_key_bindings_timer(io_service),
+	 check_key_bindings_timer(event_loop, BIND_THIS_METHOD(OnCheckKeyBindings)),
 #endif
-	 screen_manager(io_service),
+	 screen_manager(event_loop),
 #ifdef ENABLE_LIRC
-	 lirc_input(io_service),
+	 lirc_input(event_loop),
 #endif
-	 user_input(io_service, *screen_manager.main_window.w)
+	 user_input(event_loop, *screen_manager.main_window.w)
 {
 	screen_manager.Init(&client);
 
-	sigterm.async_wait([this](const auto &, int){
-			this->io_service.stop();
-		});
-
 #ifndef _WIN32
-	AsyncWaitSigwinch();
+	SignalMonitorInit(event_loop);
+	SignalMonitorRegister(SIGTERM, BIND_THIS_METHOD(Quit));
+	SignalMonitorRegister(SIGINT, BIND_THIS_METHOD(Quit));
+	SignalMonitorRegister(SIGHUP, BIND_THIS_METHOD(Quit));
+	SignalMonitorRegister(SIGWINCH, BIND_THIS_METHOD(OnSigwinch));
+	SignalMonitorRegister(SIGCONT, BIND_THIS_METHOD(OnSigwinch));
 #endif
 
 #ifdef HAVE_TAG_WHITELIST
@@ -92,6 +89,7 @@ Instance::Instance()
 Instance::~Instance()
 {
 	screen_manager.Exit();
+	SignalMonitorFinish();
 }
 
 void
@@ -99,5 +97,5 @@ Instance::Run()
 {
 	screen_manager.Update(client, seek);
 
-	io_service.run();
+	event_loop.Run();
 }

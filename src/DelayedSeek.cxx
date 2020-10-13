@@ -42,25 +42,19 @@ DelayedSeek::Commit() noexcept
 void
 DelayedSeek::Cancel() noexcept
 {
-	commit_timer.cancel();
+	commit_timer.Cancel();
 }
 
 void
-DelayedSeek::OnTimer(const boost::system::error_code &error) noexcept
+DelayedSeek::OnTimer() noexcept
 {
-	if (error)
-		return;
-
 	Commit();
 }
 
 void
 DelayedSeek::ScheduleTimer() noexcept
 {
-	boost::system::error_code error;
-	commit_timer.expires_from_now(std::chrono::milliseconds(500), error);
-	commit_timer.async_wait(std::bind(&DelayedSeek::OnTimer,
-					  this, std::placeholders::_1));
+	commit_timer.Schedule(std::chrono::milliseconds(500));
 }
 
 bool

@@ -30,12 +30,12 @@
 
 #include <string.h>
 
-StatusBar::StatusBar(boost::asio::io_service &io_service,
+StatusBar::StatusBar(EventLoop &event_loop,
 		     Point p, unsigned width) noexcept
 	:window(p, {width, 1u}),
-	 message_timer(io_service)
+	 message_timer(event_loop, BIND_THIS_METHOD(OnMessageTimer))
 #ifndef NCMPC_MINI
-	, hscroll(io_service, window.w, options.scroll_sep.c_str())
+	, hscroll(event_loop, window.w, options.scroll_sep.c_str())
 #endif
 {
 	leaveok(window.w, false);
@@ -58,7 +58,7 @@ StatusBar::~StatusBar() noexcept
 void
 StatusBar::ClearMessage() noexcept
 {
-	message_timer.cancel();
+	message_timer.Cancel();
 	message.clear();
 
 	Paint();
@@ -291,9 +291,5 @@ StatusBar::SetMessage(const char *msg) noexcept
 	Paint();
 	doupdate();
 
-	boost::system::error_code error;
-	message_timer.expires_from_now(options.status_message_time,
-				       error);
-	message_timer.async_wait(std::bind(&StatusBar::OnMessageTimer, this,
-					   std::placeholders::_1));
+	message_timer.Schedule(options.status_message_time);
 }

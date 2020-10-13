@@ -29,64 +29,28 @@
 #include "AsyncResolveConnect.hxx"
 #include "AsyncConnect.hxx"
 #include "AsyncHandler.hxx"
+#include "AllocatedSocketAddress.hxx"
+#include "AddressInfo.hxx"
+#include "Resolver.hxx"
 
-#ifndef _WIN32
-#include <boost/asio/local/stream_protocol.hpp>
-#endif
-
-#include <string>
-
-void
-AsyncResolveConnect::OnResolved(const boost::system::error_code &error,
-				boost::asio::ip::tcp::resolver::iterator i) noexcept
-{
-	if (error) {
-		if (error == boost::asio::error::operation_aborted)
-			/* this object has already been deleted; bail
-			   out quickly without touching anything */
-			return;
-
-		handler.OnConnectError(error.message().c_str());
-		return;
-	}
-
-	connect.Start(*i);
-}
+#include <exception>
 
 void
-AsyncResolveConnect::Start(boost::asio::io_service &io_service,
-			   const char *host, unsigned port) noexcept
+AsyncResolveConnect::Start(const char *host, unsigned port) noexcept
 {
 #ifndef _WIN32
 	if (host[0] == '/' || host[0] == '@') {
-		std::string s(host);
-		if (host[0] == '@')
-			/* abstract socket */
-			s.front() = 0;
+		AllocatedSocketAddress address;
+		address.SetLocal(host);
 
-		boost::asio::local::stream_protocol::endpoint ep(std::move(s));
-		boost::asio::local::stream_protocol::socket socket(io_service);
-
-		boost::system::error_code error;
-		socket.connect(ep, error);
-		if (error) {
-			handler.OnConnectError(error.message().c_str());
-			return;
-		}
-
-		handler.OnConnect(std::move(socket));
+		connect.Start(address);
 		return;
 	}
-#else
-	(void)io_service;
 #endif /* _WIN32 */
 
-	char service[20];
-	snprintf(service, sizeof(service), "%u", port);
-
-	resolver.async_resolve({host, service},
-			       std::bind(&AsyncResolveConnect::OnResolved,
-					 this,
-					 std::placeholders::_1,
-					 std::placeholders::_2));
+	try {
+		connect.Start(Resolve(host, port, 0, SOCK_STREAM).GetBest());
+	} catch (const std::exception &e) {
+		handler.OnConnectError(e.what());
+	}
 }

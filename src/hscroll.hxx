@@ -21,11 +21,9 @@
 #define HSCROLL_H
 
 #include "BasicMarquee.hxx"
-#include "AsioServiceFwd.hxx"
+#include "event/TimerEvent.hxx"
 
 #include <curses.h>
-
-#include <boost/asio/steady_timer.hpp>
 
 enum class Style : unsigned;
 
@@ -55,12 +53,13 @@ class hscroll {
 	/**
 	 * A timer which updates the scrolled area every second.
 	 */
-	boost::asio::steady_timer timer;
+	TimerEvent timer;
 
 public:
-	hscroll(boost::asio::io_service &io_service,
+	hscroll(EventLoop &event_loop,
 		WINDOW *_w, const char *_separator) noexcept
-		:w(_w), basic(_separator), timer(io_service)
+		:w(_w), basic(_separator),
+		 timer(event_loop, BIND_THIS_METHOD(OnTimer))
 	{
 	}
 
@@ -97,13 +96,10 @@ public:
 	void Paint() const noexcept;
 
 private:
-	void TimerCallback(const boost::system::error_code &error) noexcept;
+	void OnTimer() noexcept;
 
 	void ScheduleTimer() noexcept {
-		boost::system::error_code error;
-		timer.expires_from_now(std::chrono::seconds(1), error);
-		timer.async_wait(std::bind(&hscroll::TimerCallback, this,
-					   std::placeholders::_1));
+		timer.Schedule(std::chrono::seconds(1));
 	}
 };
 

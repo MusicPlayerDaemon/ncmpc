@@ -28,7 +28,6 @@
 #include "History.hxx"
 #include "Point.hxx"
 #include "util/Compiler.h"
-#include "AsioServiceFwd.hxx"
 
 #include <curses.h>
 
@@ -43,9 +42,10 @@ struct mpdclient;
 struct PageMeta;
 class Page;
 class DelayedSeek;
+class EventLoop;
 
 class ScreenManager {
-	boost::asio::io_service &io_service;
+	EventLoop &event_loop;
 
 	struct Layout {
 		Size size;
@@ -102,11 +102,11 @@ public:
 	std::string findbuf;
 	History find_history;
 
-	explicit ScreenManager(boost::asio::io_service &io_service) noexcept;
+	explicit ScreenManager(EventLoop &_event_loop) noexcept;
 	~ScreenManager() noexcept;
 
-	auto &get_io_service() const noexcept {
-		return io_service;
+	auto &GetEventLoop() const noexcept {
+		return event_loop;
 	}
 
 	void Init(struct mpdclient *c) noexcept;

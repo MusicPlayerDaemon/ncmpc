@@ -34,25 +34,18 @@
 class AsyncResolveConnect {
 	AsyncConnectHandler &handler;
 
-	boost::asio::ip::tcp::resolver resolver;
-
 	AsyncConnect connect;
 
 public:
-	AsyncResolveConnect(boost::asio::io_service &io_service,
+	AsyncResolveConnect(EventLoop &event_loop,
 			    AsyncConnectHandler &_handler) noexcept
-		:handler(_handler), resolver(io_service),
-		 connect(io_service, _handler) {}
+		:handler(_handler),
+		 connect(event_loop, _handler) {}
 
 	/**
 	 * Resolve a host name and connect to it asynchronously.
 	 */
-	void Start(boost::asio::io_service &io_service,
-		   const char *host, unsigned port) noexcept;
-
-private:
-	void OnResolved(const boost::system::error_code &error,
-			boost::asio::ip::tcp::resolver::iterator i) noexcept;
+	void Start(const char *host, unsigned port) noexcept;
 };
 
 #endif

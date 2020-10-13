@@ -42,6 +42,7 @@
 #include "SongPage.hxx"
 #include "LyricsPage.hxx"
 #include "db_completion.hxx"
+#include "event/TimerEvent.hxx"
 #include "util/Compiler.h"
 
 #ifndef NCMPC_MINI
@@ -49,8 +50,6 @@
 #endif
 
 #include <mpd/client.h>
-
-#include <boost/asio/steady_timer.hpp>
 
 #include <set>
 #include <string>
@@ -66,7 +65,7 @@ class QueuePage final : public ListPage, ListRenderer, ListText {
 	mutable class hscroll hscroll;
 #endif
 
-	boost::asio::steady_timer hide_cursor_timer;
+	TimerEvent hide_cursor_timer;
 
 	MpdQueue *playlist = nullptr;
 	int current_song_id = -1;
@@ -83,10 +82,11 @@ public:
 		:ListPage(w, size),
 		 screen(_screen),
 #ifndef NCMPC_MINI
-		 hscroll(screen.get_io_service(),
+		 hscroll(screen.GetEventLoop(),
 			 w, options.scroll_sep.c_str()),
 #endif
-		 hide_cursor_timer(screen.get_io_service())
+		 hide_cursor_timer(screen.GetEventLoop(),
+				   BIND_THIS_METHOD(OnHideCursorTimer))
 	{
 	}
 
@@ -107,16 +107,12 @@ private:
 
 	bool OnSongChange(const struct mpd_status *status);
 
-	void OnHideCursorTimer(const boost::system::error_code &error) noexcept;
+	void OnHideCursorTimer() noexcept;
 
 	void ScheduleHideCursor() {
 		assert(options.hide_cursor > std::chrono::steady_clock::duration::zero());
 
-		boost::system::error_code error;
-		hide_cursor_timer.expires_from_now(options.hide_cursor,
-						   error);
-		hide_cursor_timer.async_wait(std::bind(&QueuePage::OnHideCursorTimer, this,
-						       std::placeholders::_1));
+		hide_cursor_timer.Schedule(options.hide_cursor);
 	}
 
 	/* virtual methods from class ListRenderer */
@@ -330,12 +326,9 @@ screen_queue_init(ScreenManager &_screen, WINDOW *w, Size size)
 	return std::make_unique<QueuePage>(_screen, w, size);
 }
 
-void
-QueuePage::OnHideCursorTimer(const boost::system::error_code &error) noexcept
+inline void
+QueuePage::OnHideCursorTimer() noexcept
 {
-	if (error)
-		return;
-
 	assert(options.hide_cursor > std::chrono::steady_clock::duration::zero());
 
 	/* hide the cursor when mpd is playing and the user is inactive */
@@ -364,7 +357,7 @@ QueuePage::OnOpen(struct mpdclient &c) noexcept
 void
 QueuePage::OnClose() noexcept
 {
-	hide_cursor_timer.cancel();
+	hide_cursor_timer.Cancel();
 
 #ifndef NCMPC_MINI
 	if (options.scroll)

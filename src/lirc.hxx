@@ -20,32 +20,23 @@
 #ifndef LIRC_H
 #define LIRC_H
 
-#include "AsioServiceFwd.hxx"
-#include "AsioGetIoService.hxx"
+#include "event/SocketEvent.hxx"
 
-#include <boost/asio/posix/stream_descriptor.hpp>
-
-class LircInput {
-	boost::asio::posix::stream_descriptor d;
-
+class LircInput final {
 	struct lirc_config *lc = nullptr;
 
+	SocketEvent event;
+
 public:
-	explicit LircInput(boost::asio::io_service &io_service);
+	explicit LircInput(EventLoop &event_loop) noexcept;
 	~LircInput();
 
-	auto &get_io_context() noexcept {
-		return ::get_io_service(d);
+	auto &GetEventLoop() const noexcept {
+		return event.GetEventLoop();
 	}
 
 private:
-	void AsyncWait() {
-		d.async_read_some(boost::asio::null_buffers(),
-				  std::bind(&LircInput::OnReadable, this,
-					    std::placeholders::_1));
-	}
-
-	void OnReadable(const boost::system::error_code &error);
+	void OnSocketReady(unsigned flags) noexcept;
 };
 
 #endif

@@ -22,12 +22,9 @@
 
 #include <assert.h>
 
-inline void
-hscroll::TimerCallback(const boost::system::error_code &error) noexcept
+void
+hscroll::OnTimer() noexcept
 {
-	if (error)
-		return;
-
 	Step();
 	Paint();
 	wrefresh(w);
@@ -56,7 +53,7 @@ void
 hscroll::Clear() noexcept
 {
 	basic.Clear();
-	timer.cancel();
+	timer.Cancel();
 }
 
 void

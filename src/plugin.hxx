@@ -20,10 +20,10 @@
 #ifndef PLUGIN_H
 #define PLUGIN_H
 
-#include "AsioServiceFwd.hxx"
-
 #include <vector>
 #include <string>
+
+class EventLoop;
 
 /**
  * When a plugin cycle is finished, one method of this class is called.  In any
@@ -71,7 +71,7 @@ plugin_list_load_directory(const char *path) noexcept;
  * available
  */
 PluginCycle *
-plugin_run(boost::asio::io_service &io_service,
+plugin_run(EventLoop &event_loop,
 	   PluginList *list, const char *const*args,
 	   PluginResponseHandler &handler) noexcept;
 

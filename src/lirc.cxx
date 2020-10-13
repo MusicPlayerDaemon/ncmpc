@@ -25,11 +25,8 @@
 #include <lirc/lirc_client.h>
 
 void
-LircInput::OnReadable(const boost::system::error_code &error)
+LircInput::OnSocketReady(unsigned) noexcept
 {
-	if (error)
-		return;
-
 	char *code, *txt;
 
 	begin_input_event();
@@ -37,17 +34,16 @@ LircInput::OnReadable(const boost::system::error_code &error)
 	if (lirc_nextcode(&code) == 0) {
 		while (lirc_code2char(lc, code, &txt) == 0 && txt != nullptr) {
 			const auto cmd = get_key_command_from_name(txt);
-			if (!do_input_event(get_io_context(), cmd))
+			if (!do_input_event(GetEventLoop(), cmd))
 				return;
 		}
 	}
 
 	end_input_event();
-	AsyncWait();
 }
 
-LircInput::LircInput(boost::asio::io_service &io_service)
-	:d(io_service)
+LircInput::LircInput(EventLoop &_event_loop) noexcept
+	:event(_event_loop, BIND_THIS_METHOD(OnSocketReady))
 {
 	int lirc_socket = 0;
 
@@ -59,14 +55,14 @@ LircInput::LircInput(boost::asio::io_service &io_service)
 		return;
 	}
 
-	d.assign(lirc_socket);
-	AsyncWait();
+	event.Open(SocketDescriptor(lirc_socket));
+	event.ScheduleRead();
 }
 
 LircInput::~LircInput()
 {
 	if (lc)
 		lirc_freeconfig(lc);
-	if (d.is_open())
+	if (event.IsDefined())
 		lirc_deinit();
 }

@@ -25,26 +25,18 @@
 #include "mpdclient.hxx"
 #include "DelayedSeek.hxx"
 #include "screen.hxx"
+#include "event/Loop.hxx"
+#include "event/TimerEvent.hxx"
 
 #ifdef ENABLE_LIRC
 #include "lirc.hxx"
-#endif
-
-#include <boost/asio/io_service.hpp>
-#include <boost/asio/steady_timer.hpp>
-#ifndef _WIN32
-#include <boost/asio/signal_set.hpp>
 #endif
 
 /**
  * A singleton holding global instance variables.
  */
 class Instance {
-	boost::asio::io_service io_service;
-
-#ifndef _WIN32
-	boost::asio::signal_set sigterm, sigwinch;
-#endif
+	EventLoop event_loop;
 
 	struct mpdclient client;
 
@@ -55,13 +47,13 @@ class Instance {
 	 * server is broken.  It tries to recover by reconnecting
 	 * periodically.
 	 */
-	boost::asio::steady_timer reconnect_timer;
+	TimerEvent reconnect_timer;
 
-	boost::asio::steady_timer update_timer;
+	TimerEvent update_timer;
 	bool pending_update_timer = false;
 
 #ifndef NCMPC_MINI
-	boost::asio::steady_timer check_key_bindings_timer;
+	TimerEvent check_key_bindings_timer;
 #endif
 
 	ScreenManager screen_manager;
@@ -79,10 +71,6 @@ public:
 	Instance(const Instance &) = delete;
 	Instance &operator=(const Instance &) = delete;
 
-	auto &get_io_service() {
-		return io_service;
-	}
-
 	auto &GetClient() {
 		return client;
 	}
@@ -95,17 +83,17 @@ public:
 		return screen_manager;
 	}
 
+	void Quit() noexcept {
+		event_loop.Break();
+	}
+
 	void UpdateClient() noexcept;
 
 	void Run();
 
 	template<typename D>
 	void ScheduleReconnect(const D &expiry_time) {
-		boost::system::error_code error;
-		reconnect_timer.expires_from_now(expiry_time, error);
-		reconnect_timer.async_wait(std::bind(&Instance::OnReconnectTimer,
-						     this,
-						     std::placeholders::_1));
+		reconnect_timer.Schedule(expiry_time);
 	}
 
 	void EnableUpdateTimer() noexcept {
@@ -116,44 +104,33 @@ public:
 	void DisableUpdateTimer() noexcept {
 		if (pending_update_timer) {
 			pending_update_timer = false;
-			update_timer.cancel();
+			update_timer.Cancel();
 		}
 	}
 
 #ifndef NCMPC_MINI
 	void ScheduleCheckKeyBindings() noexcept {
-		boost::system::error_code error;
-		check_key_bindings_timer.expires_from_now(std::chrono::seconds(10),
-							  error);
-		check_key_bindings_timer.async_wait(std::bind(&Instance::OnCheckKeyBindings,
-							      this,
-							      std::placeholders::_1));
+		check_key_bindings_timer.Schedule(std::chrono::seconds(10));
 	}
 #endif
 
 private:
 #ifndef _WIN32
 	void InitSignals();
-	void OnSigwinch();
-	void AsyncWaitSigwinch();
+	void OnSigwinch() noexcept;
 #endif
 
-	void OnReconnectTimer(const boost::system::error_code &error) noexcept;
+	void OnReconnectTimer() noexcept;
 
-	void OnUpdateTimer(const boost::system::error_code &error) noexcept;
+	void OnUpdateTimer() noexcept;
 
 	void ScheduleUpdateTimer() noexcept {
 		pending_update_timer = true;
-		boost::system::error_code error;
-		update_timer.expires_from_now(std::chrono::milliseconds(500),
-					      error);
-		update_timer.async_wait(std::bind(&Instance::OnUpdateTimer,
-						  this,
-						  std::placeholders::_1));
+		update_timer.Schedule(std::chrono::milliseconds(500));
 	}
 
 #ifndef NCMPC_MINI
-	void OnCheckKeyBindings(const boost::system::error_code &error) noexcept;
+	void OnCheckKeyBindings() noexcept;
 #endif
 };
 

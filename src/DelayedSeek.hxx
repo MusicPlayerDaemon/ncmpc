@@ -20,9 +20,7 @@
 #ifndef NCMPC_DELAYED_SEEK_HXX
 #define NCMPC_DELAYED_SEEK_HXX
 
-#include "AsioServiceFwd.hxx"
-
-#include <boost/asio/steady_timer.hpp>
+#include "event/TimerEvent.hxx"
 
 struct mpdclient;
 
@@ -36,12 +34,12 @@ class DelayedSeek {
 	int id = -1;
 	unsigned time;
 
-	boost::asio::steady_timer commit_timer;
+	TimerEvent commit_timer;
 
 public:
-	DelayedSeek(boost::asio::io_service &io_service,
+	DelayedSeek(EventLoop &event_loop,
 		    struct mpdclient &_c) noexcept
-		:c(_c), commit_timer(io_service) {}
+		:c(_c), commit_timer(event_loop, BIND_THIS_METHOD(OnTimer)) {}
 
 	~DelayedSeek() noexcept {
 		Cancel();
@@ -61,7 +59,7 @@ public:
 	void Cancel() noexcept;
 
 private:
-	void OnTimer(const boost::system::error_code &error) noexcept;
+	void OnTimer() noexcept;
 	void ScheduleTimer() noexcept;
 };
 

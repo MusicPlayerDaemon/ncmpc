@@ -28,28 +28,58 @@
 
 #include "AsyncConnect.hxx"
 #include "AsyncHandler.hxx"
+#include "net/UniqueSocketDescriptor.hxx"
+#include "net/SocketAddress.hxx"
+#include "system/Error.hxx"
 
-void
-AsyncConnect::OnConnected(const boost::system::error_code &error) noexcept
+#include <exception>
+
+static UniqueSocketDescriptor
+Connect(const SocketAddress address)
 {
-	if (error) {
-		if (error == boost::asio::error::operation_aborted)
-			/* this object has already been deleted; bail out
-			   quickly without touching anything */
-			return;
+	UniqueSocketDescriptor fd;
+	if (!fd.CreateNonBlock(address.GetFamily(), SOCK_STREAM, 0))
+		throw MakeErrno("Failed to create socket");
 
-		socket.close();
-		handler.OnConnectError(error.message().c_str());
-		return;
+	if (!fd.Connect(address) && errno != EINPROGRESS)
+		throw MakeErrno("Failed to connect");
+
+	return fd;
+}
+
+bool
+AsyncConnect::Start(const SocketAddress address) noexcept
+{
+	assert(!event.IsDefined());
+
+	try {
+		WaitConnected(::Connect(address));
+		return true;
+	} catch (const std::exception &e) {
+		handler.OnConnectError(e.what());
+		return false;
 	}
-
-	handler.OnConnect(std::move(socket));
 }
 
 void
-AsyncConnect::Start(const boost::asio::ip::tcp::endpoint &endpoint) noexcept
+AsyncConnect::WaitConnected(UniqueSocketDescriptor fd) noexcept
 {
-	socket.async_connect(endpoint,
-			     std::bind(&AsyncConnect::OnConnected, this,
-				       std::placeholders::_1));
+	assert(!event.IsDefined());
+
+	event.Open(fd.Release());
+	event.ScheduleWrite();
+}
+
+void
+AsyncConnect::OnSocketReady(unsigned) noexcept
+{
+	event.Cancel();
+
+	int s_err = event.GetSocket().GetError();
+	if (s_err != 0) {
+		handler.OnConnectError(strerror(errno));
+		return;
+	}
+
+	handler.OnConnect(UniqueSocketDescriptor(event.Steal()));
 }
