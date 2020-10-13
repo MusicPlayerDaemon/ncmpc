@@ -164,6 +164,9 @@ endforeach
 
 add_global_arguments(common_cflags, language: 'cpp')
 
+is_linux = host_machine.system() == 'linux'
+is_windows = host_machine.system() == 'windows'
+
 thread_dep = dependency('threads')
 boost_dep = dependency('boost', version: '>= 1.62')
 libmpdclient_dep = dependency('libmpdclient', version: '>= 2.9')
@@ -306,6 +309,11 @@ if host_machine.system() == 'windows'
   subdir('src/win')
 endif
 
+subdir('src/io')
+subdir('src/system')
+subdir('src/net')
+subdir('src/event')
+
 ncmpc = executable('ncmpc',
   'src/Main.cxx',
   'src/Instance.cxx',
@@ -367,6 +375,7 @@ ncmpc = executable('ncmpc',
   dependencies: [
     thread_dep,
     boost_dep,
+    event_dep,
     pcre_dep,
     curses_dep,
     lirc_dep,

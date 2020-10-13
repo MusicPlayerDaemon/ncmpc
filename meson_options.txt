@@ -1,3 +1,7 @@
+option('epoll', type: 'boolean', value: true, description: 'Use epoll on Linux')
+option('eventfd', type: 'boolean', value: true, description: 'Use eventfd() on Linux')
+option('signalfd', type: 'boolean', value: true, description: 'Use signalfd() on Linux')
+
 option('curses', type: 'combo',
   choices: ['ncursesw', 'ncurses', 'auto'],
   value: 'auto',
