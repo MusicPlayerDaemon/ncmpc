@@ -1,4 +1,5 @@
 ncmpc 0.41 - not yet released
+* lyrics: remove the "lyricwiki" plugin because the site is gone
 
 ncmpc 0.40 - (2020-10-07)
 * fix crash when range selection includes ".."

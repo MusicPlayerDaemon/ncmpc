@@ -271,7 +271,6 @@ if enable_lyrics_screen
   conf.set_quoted('LYRICS_PLUGIN_DIR', lyrics_plugin_dir)
   install_data(
     'lyrics/10-hd.sh',
-    'lyrics/20-lyricwiki.rb',
     install_dir: lyrics_plugin_dir)
 
   need_screen_text = true
