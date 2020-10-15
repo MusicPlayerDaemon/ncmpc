@@ -29,12 +29,14 @@
 #ifndef NET_ASYNC_HANDLER_HXX
 #define NET_ASYNC_HANDLER_HXX
 
+#include <exception>
+
 class UniqueSocketDescriptor;
 
 class AsyncConnectHandler {
 public:
 	virtual void OnConnect(UniqueSocketDescriptor fd) noexcept = 0;
-	virtual void OnConnectError(const char *message) = 0;
+	virtual void OnConnectError(std::exception_ptr e) noexcept = 0;
 };
 
 #endif

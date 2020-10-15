@@ -50,7 +50,7 @@ AsyncResolveConnect::Start(const char *host, unsigned port) noexcept
 
 	try {
 		connect.Start(Resolve(host, port, 0, SOCK_STREAM).GetBest());
-	} catch (const std::exception &e) {
-		handler.OnConnectError(e.what());
+	} catch (...) {
+		handler.OnConnectError(std::current_exception());
 	}
 }

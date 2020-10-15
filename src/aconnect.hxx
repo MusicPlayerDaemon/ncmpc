@@ -29,6 +29,8 @@
 #ifndef ACONNECT_H
 #define ACONNECT_H
 
+#include <exception>
+
 #include <mpd/client.h>
 
 struct mpd_connection;
@@ -38,7 +40,7 @@ class EventLoop;
 class AsyncMpdConnectHandler {
 public:
 	virtual void OnAsyncMpdConnect(struct mpd_connection *c) noexcept = 0;
-	virtual void OnAsyncMpdConnectError(const char *message) noexcept = 0;
+	virtual void OnAsyncMpdConnectError(std::exception_ptr e) noexcept = 0;
 };
 
 void

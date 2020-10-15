@@ -329,7 +329,7 @@ private:
 #ifdef ENABLE_ASYNC_CONNECT
 	/* virtual methods from AsyncMpdConnectHandler */
 	void OnAsyncMpdConnect(struct mpd_connection *c) noexcept override;
-	void OnAsyncMpdConnectError(const char *message) noexcept override;
+	void OnAsyncMpdConnectError(std::exception_ptr e) noexcept override;
 #endif
 
 	/* virtual methods from MpdIdleHandler */

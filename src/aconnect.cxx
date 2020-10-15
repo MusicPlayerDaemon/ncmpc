@@ -30,6 +30,7 @@
 #include "net/AsyncResolveConnect.hxx"
 #include "net/AsyncHandler.hxx"
 #include "net/UniqueSocketDescriptor.hxx"
+#include "system/Error.hxx"
 #include "event/SocketEvent.hxx"
 
 #include <mpd/client.h>
@@ -60,42 +61,34 @@ struct AsyncMpdConnect final : AsyncConnectHandler {
 
 	/* virtual methods from AsyncConnectHandler */
 	void OnConnect(UniqueSocketDescriptor fd) noexcept override;
-	void OnConnectError(const char *message) override;
+	void OnConnectError(std::exception_ptr e) noexcept override;
 };
 
 void
 AsyncMpdConnect::OnReceive(unsigned) noexcept
-{
+try {
 	char buffer[256];
 	ssize_t nbytes = socket.GetSocket().Read(buffer, sizeof(buffer));
 
-	if (nbytes < 0) {
-		std::snprintf(buffer, sizeof(buffer),
-			      "Failed to receive from MPD: %s",
-			      std::strerror(errno));
-		handler.OnAsyncMpdConnectError(buffer);
-		delete this;
-		return;
-	}
+	if (nbytes < 0)
+		throw MakeErrno("Failed to receive from MPD");
 
 	buffer[nbytes] = 0;
 
 	struct mpd_async *async = mpd_async_new(socket.ReleaseSocket().Get());
-	if (async == nullptr) {
-		handler.OnAsyncMpdConnectError("Out of memory");
-		delete this;
-		return;
-	}
+	if (async == nullptr)
+		throw std::bad_alloc{};
 
 	struct mpd_connection *c = mpd_connection_new_async(async, buffer);
 	if (c == nullptr) {
 		mpd_async_free(async);
-		handler.OnAsyncMpdConnectError("Out of memory");
-		delete this;
-		return;
+		throw std::bad_alloc{};
 	}
 
 	handler.OnAsyncMpdConnect(c);
+	delete this;
+} catch (...) {
+	handler.OnAsyncMpdConnectError(std::current_exception());
 	delete this;
 }
 
@@ -107,9 +100,9 @@ AsyncMpdConnect::OnConnect(UniqueSocketDescriptor fd) noexcept
 }
 
 void
-AsyncMpdConnect::OnConnectError(const char *message)
+AsyncMpdConnect::OnConnectError(std::exception_ptr e) noexcept
 {
-	handler.OnAsyncMpdConnectError(message);
+	handler.OnAsyncMpdConnectError(std::move(e));
 	delete this;
 }
 

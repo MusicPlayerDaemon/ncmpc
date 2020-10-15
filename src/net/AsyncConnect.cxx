@@ -55,8 +55,8 @@ AsyncConnect::Start(const SocketAddress address) noexcept
 	try {
 		WaitConnected(::Connect(address));
 		return true;
-	} catch (const std::exception &e) {
-		handler.OnConnectError(e.what());
+	} catch (...) {
+		handler.OnConnectError(std::current_exception());
 		return false;
 	}
 }
@@ -77,7 +77,7 @@ AsyncConnect::OnSocketReady(unsigned events) noexcept
 		int s_err = event.GetSocket().GetError();
 		if (s_err != 0) {
 			event.Close();
-			handler.OnConnectError(strerror(s_err));
+			handler.OnConnectError(std::make_exception_ptr(MakeErrno(s_err, "Failed to connect")));
 			return;
 		}
 	}
