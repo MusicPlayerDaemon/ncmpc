@@ -22,11 +22,16 @@
 
 #include "util/Compiler.h"
 
+#include <exception>
+
 void
 screen_status_message(const char *msg) noexcept;
 
 gcc_printf(1, 2)
 void
 screen_status_printf(const char *format, ...) noexcept;
+
+void
+screen_status_error(std::exception_ptr e) noexcept;
 
 #endif

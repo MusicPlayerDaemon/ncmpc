@@ -22,7 +22,6 @@
 #include "config.h"
 #include "gidle.hxx"
 #include "charset.hxx"
-#include "util/Exception.hxx"
 
 #include <mpd/client.h>
 
@@ -386,7 +385,7 @@ mpdclient::OnAsyncMpdConnectError(std::exception_ptr e) noexcept
 	}
 #endif
 
-	mpdclient_error_callback(GetFullMessage(e).c_str());
+	mpdclient_error_callback(std::move(e));
 	mpdclient_failed_callback();
 }
 

@@ -20,6 +20,7 @@
 #include "screen_status.hxx"
 #include "screen.hxx"
 #include "ncmpc.hxx"
+#include "util/Exception.hxx"
 
 #include <stdarg.h>
 
@@ -38,4 +39,10 @@ screen_status_printf(const char *format, ...) noexcept
 	vsnprintf(msg, sizeof(msg), format, ap);
 	va_end(ap);
 	screen_status_message(msg);
+}
+
+void
+screen_status_error(std::exception_ptr e) noexcept
+{
+	screen_status_message(GetFullMessage(std::move(e)).c_str());
 }

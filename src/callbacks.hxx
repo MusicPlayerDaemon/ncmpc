@@ -20,6 +20,8 @@
 #ifndef NCMPC_CALLBACKS_H
 #define NCMPC_CALLBACKS_H
 
+#include <exception>
+
 struct mpdclient;
 
 /**
@@ -50,6 +52,9 @@ mpdclient_lost_callback() noexcept;
  */
 void
 mpdclient_error_callback(const char *message) noexcept;
+
+void
+mpdclient_error_callback(std::exception_ptr e) noexcept;
 
 bool
 mpdclient_auth_callback(struct mpdclient *c) noexcept;

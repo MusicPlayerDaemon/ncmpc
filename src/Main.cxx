@@ -230,7 +230,7 @@ do_input_event(EventLoop &event_loop, Command cmd) noexcept
 	try {
 		screen->OnCommand(*mpd, global_instance->GetSeek(), cmd);
 	} catch (...) {
-		screen_status_message(GetFullMessage(std::current_exception()).c_str());
+		screen_status_error(std::current_exception());
 		return true;
 	}
 
@@ -249,7 +249,7 @@ do_mouse_event(Point p, mmask_t bstate) noexcept
 	try {
 		screen->OnMouse(*mpd, global_instance->GetSeek(), p, bstate);
 	} catch (...) {
-		screen_status_message(GetFullMessage(std::current_exception()).c_str());
+		screen_status_error(std::current_exception());
 	}
 }
 

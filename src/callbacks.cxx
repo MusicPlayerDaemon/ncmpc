@@ -55,3 +55,11 @@ mpdclient_error_callback(const char *message) noexcept
 	screen_bell();
 	doupdate();
 }
+
+void
+mpdclient_error_callback(std::exception_ptr e) noexcept
+{
+	screen_status_error(std::move(e));
+	screen_bell();
+	doupdate();
+}
