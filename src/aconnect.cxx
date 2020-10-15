@@ -80,7 +80,7 @@ AsyncMpdConnect::OnReceive(unsigned) noexcept
 
 	buffer[nbytes] = 0;
 
-	struct mpd_async *async = mpd_async_new(socket.Steal().Get());
+	struct mpd_async *async = mpd_async_new(socket.ReleaseSocket().Get());
 	if (async == nullptr) {
 		handler.OnAsyncMpdConnectError("Out of memory");
 		delete this;

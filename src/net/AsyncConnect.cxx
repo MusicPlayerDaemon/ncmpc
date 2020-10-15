@@ -81,5 +81,5 @@ AsyncConnect::OnSocketReady(unsigned) noexcept
 		return;
 	}
 
-	handler.OnConnect(UniqueSocketDescriptor(event.Steal()));
+	handler.OnConnect(UniqueSocketDescriptor(event.ReleaseSocket()));
 }
