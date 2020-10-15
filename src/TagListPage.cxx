@@ -178,8 +178,10 @@ add_query(struct mpdclient *c, const TagFilter &filter,
 		return;
 
 	const char *text = value;
-	if (value == nullptr)
-		value = filter.empty() ? "?" : filter.front().second.c_str();
+	if (text == nullptr)
+		/* adding the special "[All]" entry: show the name of
+		   the previous level in the filter */
+		text = filter.empty() ? "?" : filter.front().second.c_str();
 
 	screen_status_printf(_("Adding \'%s\' to queue"),
 			     Utf8ToLocale(text).c_str());

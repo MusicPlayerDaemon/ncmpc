@@ -1,5 +1,6 @@
 ncmpc 0.41 - not yet released
 * new main loop (copying code from MPD, replacing boost::asio)
+* library page: fix crash bug
 * lyrics: remove the "lyricwiki" plugin because the site is gone
 
 ncmpc 0.40 - (2020-10-07)
