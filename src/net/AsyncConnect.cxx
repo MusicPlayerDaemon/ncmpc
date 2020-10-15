@@ -71,14 +71,16 @@ AsyncConnect::WaitConnected(UniqueSocketDescriptor fd) noexcept
 }
 
 void
-AsyncConnect::OnSocketReady(unsigned) noexcept
+AsyncConnect::OnSocketReady(unsigned events) noexcept
 {
 	event.Cancel();
 
-	int s_err = event.GetSocket().GetError();
-	if (s_err != 0) {
-		handler.OnConnectError(strerror(s_err));
-		return;
+	if (SocketEvent::ERROR == 0 || events & SocketEvent::ERROR) {
+		int s_err = event.GetSocket().GetError();
+		if (s_err != 0) {
+			handler.OnConnectError(strerror(s_err));
+			return;
+		}
 	}
 
 	handler.OnConnect(UniqueSocketDescriptor(event.ReleaseSocket()));
