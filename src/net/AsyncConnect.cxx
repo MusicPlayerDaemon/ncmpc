@@ -77,7 +77,7 @@ AsyncConnect::OnSocketReady(unsigned) noexcept
 
 	int s_err = event.GetSocket().GetError();
 	if (s_err != 0) {
-		handler.OnConnectError(strerror(errno));
+		handler.OnConnectError(strerror(s_err));
 		return;
 	}
 
