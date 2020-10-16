@@ -1,3 +1,5 @@
+ncmpc 0.42 - not yet released
+
 ncmpc 0.41 - (2020-10-16)
 * new main loop (copying code from MPD, replacing boost::asio)
 * library page: fix crash bug
