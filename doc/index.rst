@@ -110,11 +110,15 @@ Interface
 :command:`enable-mouse = yes|no` - Enable mouse support (if enabled at compile time).
 
 :command:`screen-list = SCREEN1 SCREEN2...` - A list of screens to
-cycle through when using the previous/next screen commands.  Valid
+cycle through when using the commands :command:`screen-next` (bound to
+"Tab" by default) and :command:`screen-prev` ("Shift+Tab").  Valid
 choices, if enabled at compile time, are:
 
  ``help``, ``playlist``, ``browse``, ``library``, ``search``,
  ``lyrics``, ``outputs``, ``chat``, ``song``, ``keydef``
+
+The default is ``playlist browser``, i.e. the "Tab" key cycles only
+between those two pages.
 
 :command:`library-page-tags = TAG1 TAG2 ...` - A list of tags to group
 the library page.  The default is ``artist album``.
