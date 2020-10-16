@@ -111,8 +111,10 @@ Interface
 
 :command:`screen-list = SCREEN1 SCREEN2...` - A list of screens to
 cycle through when using the previous/next screen commands.  Valid
-choices, if enabled at compile time, are playlist, browse, library,
-help, search, song, keydef, lyrics, outputs, and chat.
+choices, if enabled at compile time, are:
+
+ ``help``, ``playlist``, ``browse``, ``library``, ``search``,
+ ``lyrics``, ``outputs``, ``chat``, ``song``, ``keydef``
 
 :command:`library-page-tags = TAG1 TAG2 ...` - A list of tags to group
 the library page.  The default is ``artist album``.
@@ -166,7 +168,7 @@ lyrics.
 
 :command:`chat-prefix = PREFIX` - Prefix messages send with the chat
 screen with PREFIX.  By default they are prefixed with the current
-user name enclosed by "<" and ">" and a space (i.e. "<name> ").
+user name enclosed by ``<`` and ``>`` and a space (i.e. "<name> ").
 
 :command:`second-column = yes|no` - Display song length in a second
 column.
@@ -339,15 +341,16 @@ Song Format
 -----------
 
 Format of song display for status and the list window.  The metadata
-delimiters are: %artist%, %albumartist%, %composer%, %performer%,
-%title%, %album%, %shortalbum%, %track%, %disc, %genre%, %name%,
-%time%, %date%, %file%, %shortfile%.
+delimiters are: ``%artist%``, ``%albumartist%``, ``%composer%``,
+``%performer%``, ``%title%``, ``%album%``, ``%shortalbum%``,
+``%track%``, ``%disc``, ``%genre%``, ``%name%``, ``%time%``,
+``%date%``, ``%file%``, ``%shortfile%``.
 
-The [] operators are used to group output such that if none of the
-metadata delimiters between '[' and ']' are matched, then none of the
-characters between '[' and ']' are output; literal text is always
-output. '&' and '|' are logical operators for AND and OR. '#' is used
-to escape characters.
+The ``[]`` operators are used to group output such that if none of the
+metadata delimiters between ``[`` and ``]`` are matched, then none of
+the characters between ``[`` and ``]`` are output; literal text is
+always output.  ``&`` and ``|`` are logical operators for *and* and
+*or*.  ``#`` is used to escape characters.
 
 Some useful examples for format are::
 
