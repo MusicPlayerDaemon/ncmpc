@@ -243,6 +243,12 @@ if enable_search_screen
   sources += ['src/SearchPage.cxx']
 endif
 
+enable_playlist_editor = get_option('playlist_editor') and not mini
+conf.set('ENABLE_PLAYLIST_EDITOR', enable_playlist_editor)
+if enable_playlist_editor
+  sources += ['src/EditPlaylistPage.cxx']
+endif
+
 enable_song_screen = get_option('song_screen') and not mini
 conf.set('ENABLE_SONG_SCREEN', enable_song_screen)
 if enable_song_screen

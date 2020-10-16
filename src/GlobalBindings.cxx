@@ -139,6 +139,9 @@ static KeyBindings global_key_bindings{{{
 	{'5', F5},
 	{'m'},
 #endif
+#ifdef ENABLE_PLAYLIST_EDITOR
+	{C('P')},
+#endif
 #ifdef ENABLE_SONG_SCREEN
 	{'i'},
 #endif
@@ -146,6 +149,8 @@ static KeyBindings global_key_bindings{{{
 	{'7', F7},
 	{ESC},
 	{'u'},
+#endif
+#if defined(ENABLE_LYRICS_SCREEN) || defined(ENABLE_PLAYLIST_EDITOR)
 	{'e'},
 #endif
 

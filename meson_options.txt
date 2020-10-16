@@ -50,6 +50,10 @@ option('search_screen', type: 'boolean',
   value: true,
   description: 'Enable the search screen')
 
+option('playlist_editor', type: 'boolean',
+  value: true,
+  description: 'Enable the playlist editor')
+
 option('song_screen', type: 'boolean',
   value: true,
   description: 'Enable the song viewer screen')

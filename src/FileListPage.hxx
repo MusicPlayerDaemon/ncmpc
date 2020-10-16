@@ -66,6 +66,7 @@ protected:
 private:
 	bool HandleSelect(struct mpdclient &c);
 	bool HandleAdd(struct mpdclient &c);
+	bool HandleEdit(struct mpdclient &c);
 
 	void HandleSelectAll(struct mpdclient &c);
 

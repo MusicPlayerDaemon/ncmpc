@@ -25,6 +25,7 @@
 #include "SearchPage.hxx"
 #include "SongPage.hxx"
 #include "KeyDefPage.hxx"
+#include "EditPlaylistPage.hxx"
 #include "LyricsPage.hxx"
 #include "OutputsPage.hxx"
 #include "ChatPage.hxx"
@@ -60,6 +61,9 @@ static const PageMeta *const screens[] = {
 #endif
 #ifdef ENABLE_KEYDEF_SCREEN
 	&screen_keydef,
+#endif
+#ifdef ENABLE_PLAYLIST_EDITOR
+	&edit_playlist_page,
 #endif
 };
 

@@ -185,6 +185,10 @@ static constexpr command_definition_t cmds[] = {
 	{ "search-mode",
 	  N_("Change search mode") },
 #endif
+#ifdef ENABLE_PLAYLIST_EDITOR
+	{ "playlist-editor-page",
+	  N_("Playlist editor") },
+#endif
 #ifdef ENABLE_SONG_SCREEN
 	{ "view",
 	  N_("View the selected and the currently playing song") },
@@ -198,8 +202,8 @@ static constexpr command_definition_t cmds[] = {
 	  N_("Interrupt action") },
 	{ "lyrics-update",
 	  N_("Update Lyrics") },
-	/* this command may move out of #ifdef ENABLE_LYRICS_SCREEN
-	   at some point */
+#endif
+#if defined(ENABLE_LYRICS_SCREEN) || defined(ENABLE_PLAYLIST_EDITOR)
 	{ "edit",
 	  N_("Edit the current item") },
 #endif

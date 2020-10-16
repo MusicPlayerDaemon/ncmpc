@@ -20,6 +20,7 @@
 #include "FileListPage.hxx"
 #include "FileBrowserPage.hxx"
 #include "SongPage.hxx"
+#include "EditPlaylistPage.hxx"
 #include "LyricsPage.hxx"
 #include "Command.hxx"
 #include "screen_status.hxx"
@@ -323,6 +324,25 @@ FileListPage::HandleAdd(struct mpdclient &c)
 	return range.end_index == range.start_index + 1 && success;
 }
 
+#ifdef ENABLE_PLAYLIST_EDITOR
+
+inline bool
+FileListPage::HandleEdit(struct mpdclient &c)
+{
+	const auto *entity = GetSelectedEntity();
+	if (entity == nullptr ||
+	    mpd_entity_get_type(entity) != MPD_ENTITY_TYPE_PLAYLIST)
+		return false;
+
+	const auto *playlist = mpd_entity_get_playlist(entity);
+	assert(playlist != nullptr);
+
+	EditPlaylist(screen, c, mpd_playlist_get_path(playlist));
+	return true;
+}
+
+#endif
+
 inline void
 FileListPage::HandleSelectAll(struct mpdclient &c)
 {
@@ -441,6 +461,13 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 			lw.HandleCommand(Command::LIST_NEXT);
 		SetDirty();
 		return true;
+
+#ifdef ENABLE_PLAYLIST_EDITOR
+	case Command::EDIT:
+		if (HandleEdit(c))
+			return true;
+		break;
+#endif
 
 	case Command::SELECT_ALL:
 		HandleSelectAll(c);

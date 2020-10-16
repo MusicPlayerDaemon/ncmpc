@@ -110,6 +110,9 @@ enum class Command : unsigned {
 	SCREEN_SEARCH,
 	SEARCH_MODE,
 #endif
+#ifdef ENABLE_PLAYLIST_EDITOR
+	PLAYLIST_EDITOR_PAGE,
+#endif
 #ifdef ENABLE_SONG_SCREEN
 	SCREEN_SONG,
 #endif
@@ -117,6 +120,8 @@ enum class Command : unsigned {
 	SCREEN_LYRICS,
 	INTERRUPT,
 	LYRICS_UPDATE,
+#endif
+#if defined(ENABLE_LYRICS_SCREEN) || defined(ENABLE_PLAYLIST_EDITOR)
 	EDIT,
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
