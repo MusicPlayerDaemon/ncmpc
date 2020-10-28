@@ -285,6 +285,20 @@ ListWindow::HandleScrollCommand(Command cmd) noexcept
 bool
 ListWindow::HandleMouse(mmask_t bstate, int y) noexcept
 {
+#if defined(BUTTON4_PRESSED) && defined(BUTTON5_PRESSED)
+	if (bstate & BUTTON4_PRESSED) {
+		/* mouse wheel up */
+		ScrollUp(4);
+		return true;
+	}
+
+	if (bstate & BUTTON5_PRESSED) {
+		/* mouse wheel down */
+		ScrollDown(4);
+		return true;
+	}
+#endif
+
 	/* if the even occurred above the list window move up */
 	if (y < 0) {
 		if (bstate & BUTTON3_CLICKED)
