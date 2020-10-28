@@ -30,7 +30,7 @@
 
 class ScreenManager;
 
-class TagListPage final : public ListPage, ListRenderer, ListText {
+class TagListPage : public ListPage, ListRenderer, ListText {
 	ScreenManager &screen;
 	Page *const parent;
 

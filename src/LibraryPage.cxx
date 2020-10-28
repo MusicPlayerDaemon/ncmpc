@@ -107,9 +107,18 @@ SongListPage::Update(struct mpdclient &c, unsigned events) noexcept
 	}
 }
 
+class LibraryTagListPage final : public TagListPage {
+public:
+	LibraryTagListPage(ScreenManager &_screen, Page *_parent,
+			   const enum mpd_tag_type _tag,
+			   const char *_all_text,
+			   WINDOW *_w, Size size) noexcept
+		:TagListPage(_screen, _parent, _tag, _all_text, _w, size) {}
+};
+
 class ArtistBrowserPage final : public ProxyPage {
-	std::list<TagListPage> tag_list_pages;
-	std::list<TagListPage>::iterator current_tag_list_page;
+	std::list<LibraryTagListPage> tag_list_pages;
+	std::list<LibraryTagListPage>::iterator current_tag_list_page;
 
 	SongListPage song_list_page;
 
