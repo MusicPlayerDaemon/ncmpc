@@ -273,3 +273,31 @@ TagListPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	return false;
 }
+
+#ifdef HAVE_GETMOUSE
+
+bool
+TagListPage::OnMouse(struct mpdclient &c, Point p,
+		      mmask_t bstate)
+{
+	unsigned prev_selected = lw.GetCursorIndex();
+
+	if (ListPage::OnMouse(c, p, bstate))
+		return true;
+
+	lw.SetCursorFromOrigin(p.y);
+
+	if( bstate & BUTTON1_CLICKED ) {
+		if (prev_selected == lw.GetCursorIndex())
+			HandleEnter(c);
+	} else if (bstate & BUTTON3_CLICKED) {
+		if (prev_selected == lw.GetCursorIndex())
+			HandleSelect(c);
+	}
+
+	SetDirty();
+
+	return true;
+}
+
+#endif
