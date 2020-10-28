@@ -95,8 +95,10 @@ public:
 			: nullptr;
 	}
 
+protected:
+	virtual bool HandleEnter(struct mpdclient &c);
+
 private:
-	bool HandleEnter(struct mpdclient &c);
 	bool HandleSelect(struct mpdclient &c);
 
 	void LoadValues(struct mpdclient &c) noexcept;

@@ -107,13 +107,23 @@ SongListPage::Update(struct mpdclient &c, unsigned events) noexcept
 	}
 }
 
+class ArtistBrowserPage;
+
 class LibraryTagListPage final : public TagListPage {
+	ArtistBrowserPage &library_page;
+
 public:
-	LibraryTagListPage(ScreenManager &_screen, Page *_parent,
+	LibraryTagListPage(ScreenManager &_screen,
+			   ArtistBrowserPage &_library_page,
+			   Page *_parent,
 			   const enum mpd_tag_type _tag,
 			   const char *_all_text,
 			   WINDOW *_w, Size size) noexcept
-		:TagListPage(_screen, _parent, _tag, _all_text, _w, size) {}
+		:TagListPage(_screen, _parent, _tag, _all_text, _w, size),
+		 library_page(_library_page) {}
+
+protected:
+	bool HandleEnter(struct mpdclient &c) override;
 };
 
 class ArtistBrowserPage final : public ProxyPage {
@@ -131,7 +141,7 @@ public:
 
 		bool first = true;
 		for (const auto &tag : options.library_page_tags) {
-			tag_list_pages.emplace_back(_screen,
+			tag_list_pages.emplace_back(_screen, *this,
 						    first ? nullptr : this,
 						    tag,
 						    first ? nullptr : _("All"),
@@ -139,6 +149,8 @@ public:
 			first = false;
 		}
 	}
+
+	void EnterTag(struct mpdclient &c, TagFilter &&filter);
 
 private:
 	void OpenTagPage(struct mpdclient &c,
@@ -260,6 +272,43 @@ ArtistBrowserPage::Update(struct mpdclient &c, unsigned events) noexcept
 	ProxyPage::Update(c, events);
 }
 
+inline void
+ArtistBrowserPage::EnterTag(struct mpdclient &c, TagFilter &&filter)
+{
+	assert(current_tag_list_page != tag_list_pages.end());
+
+	++current_tag_list_page;
+
+	if (current_tag_list_page != tag_list_pages.end()) {
+		while (true) {
+			OpenTagPage(c,  std::move(filter));
+			if (current_tag_list_page->HasMultipleValues())
+				break;
+
+			/* skip tags which have just
+			   one value */
+			filter = current_tag_list_page->GetFilter();
+			++current_tag_list_page;
+			if (current_tag_list_page == tag_list_pages.end()) {
+				OpenSongList(c, std::move(filter));
+				break;
+			}
+		}
+	} else
+		OpenSongList(c, std::move(filter));
+}
+
+bool
+LibraryTagListPage::HandleEnter(struct mpdclient &c)
+{
+	auto new_filter = MakeCursorFilter();
+	if (new_filter.empty())
+		return TagListPage::HandleEnter(c);
+
+	library_page.EnterTag(c, std::move(new_filter));
+	return true;
+}
+
 bool
 ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 {
@@ -267,36 +316,6 @@ ArtistBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	switch (cmd) {
-	case Command::PLAY:
-		if (current_tag_list_page != tag_list_pages.end()) {
-			auto filter = current_tag_list_page->MakeCursorFilter();
-			if (filter.empty())
-				break;
-
-			++current_tag_list_page;
-
-			if (current_tag_list_page != tag_list_pages.end()) {
-				while (true) {
-					OpenTagPage(c,  std::move(filter));
-					if (current_tag_list_page->HasMultipleValues())
-						break;
-
-					/* skip tags which have just
-					   one value */
-					filter = current_tag_list_page->GetFilter();
-					++current_tag_list_page;
-					if (current_tag_list_page == tag_list_pages.end()) {
-						OpenSongList(c, std::move(filter));
-						break;
-					}
-				}
-			} else
-				OpenSongList(c, std::move(filter));
-			return true;
-		}
-
-		break;
-
 	case Command::GO_ROOT_DIRECTORY:
 		if (GetCurrentPage() != &tag_list_pages.front()) {
 			current_tag_list_page = tag_list_pages.begin();
