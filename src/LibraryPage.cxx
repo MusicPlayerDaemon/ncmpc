@@ -88,6 +88,11 @@ public:
 
 	void LoadSongList(struct mpdclient &c);
 
+protected:
+	/* virtual methods from class FileListPage */
+	bool HandleEnter(struct mpdclient &c) override;
+
+public:
 	/* virtual methods from class Page */
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
@@ -198,17 +203,19 @@ SongListPage::GetTitle(char *str, size_t size) const noexcept
 }
 
 bool
+SongListPage::HandleEnter(struct mpdclient &c)
+{
+	if (lw.GetCursorIndex() == 0 && parent != nullptr)
+		/* handle ".." */
+		return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
+
+	return FileListPage::HandleEnter(c);
+}
+
+bool
 SongListPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch(cmd) {
-	case Command::PLAY:
-		if (lw.GetCursorIndex() == 0 && parent != nullptr)
-			/* handle ".." */
-			return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
-
-		break;
-
-		/* continue and update... */
 	case Command::SCREEN_UPDATE:
 		LoadSongList(c);
 		return false;
