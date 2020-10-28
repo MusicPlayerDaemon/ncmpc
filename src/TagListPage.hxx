@@ -96,6 +96,9 @@ public:
 	}
 
 private:
+	bool HandleEnter(struct mpdclient &c);
+	bool HandleSelect(struct mpdclient &c);
+
 	void LoadValues(struct mpdclient &c) noexcept;
 	void Reload(struct mpdclient &c);
 

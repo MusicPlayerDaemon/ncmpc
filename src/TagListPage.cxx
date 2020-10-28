@@ -166,6 +166,16 @@ TagListPage::Update(struct mpdclient &c, unsigned events) noexcept
 	}
 }
 
+bool
+TagListPage::HandleEnter(struct mpdclient &c)
+{
+	if (lw.GetCursorIndex() == 0 && parent != nullptr)
+		/* handle ".." */
+		return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
+
+	return false;
+}
+
 /* add_query - Add all songs satisfying specified criteria.
    _artist is actually only used in the ALBUM case to distinguish albums with
    the same name from different artists. */
@@ -198,31 +208,40 @@ add_query(struct mpdclient *c, const TagFilter &filter,
 }
 
 bool
+TagListPage::HandleSelect(struct mpdclient &c)
+{
+	bool result = false;
+
+	for (unsigned i : lw.GetRange()) {
+		if (parent != nullptr) {
+			if (i == 0)
+				continue;
+
+			--i;
+		}
+
+		add_query(&c, filter, tag,
+			  i < values.size()
+			  ? values[i].c_str() : nullptr);
+		result = true;
+	}
+
+	return result;
+}
+
+
+bool
 TagListPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch(cmd) {
 	case Command::PLAY:
-		if (lw.GetCursorIndex() == 0 && parent != nullptr)
-			/* handle ".." */
-			return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
-
-		break;
+		return HandleEnter(c);
 
 	case Command::SELECT:
 	case Command::ADD:
-		for (unsigned i : lw.GetRange()) {
-			if (parent != nullptr) {
-				if (i == 0)
-					continue;
-
-				--i;
-			}
-
-			add_query(&c, filter, tag,
-				  i < values.size()
-				  ? values[i].c_str() : nullptr);
+		if (HandleSelect(c))
 			cmd = Command::LIST_NEXT; /* continue and select next item... */
-		}
+
 		break;
 
 		/* continue and update... */
