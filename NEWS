@@ -1,4 +1,5 @@
 ncmpc 0.42 - not yet released
+* library page: repaint after moving cursor with mouse
 * fix assertion failure on exit
 
 ncmpc 0.41 - (2020-10-16)

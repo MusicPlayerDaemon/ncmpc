@@ -361,6 +361,8 @@ FileListPage::OnMouse(struct mpdclient &c, Point p,
 			HandleSelect(c);
 	}
 
+	SetDirty();
+
 	return true;
 }
 
