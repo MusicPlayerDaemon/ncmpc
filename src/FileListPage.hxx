@@ -61,8 +61,10 @@ protected:
 
 	FileListEntry *GetIndex(unsigned i) const;
 
+protected:
+	virtual bool HandleEnter(struct mpdclient &c);
+
 private:
-	bool HandleEnter(struct mpdclient &c);
 	bool HandleSelect(struct mpdclient &c);
 	bool HandleAdd(struct mpdclient &c);
 

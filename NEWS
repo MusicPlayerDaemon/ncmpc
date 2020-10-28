@@ -1,5 +1,6 @@
 ncmpc 0.42 - not yet released
 * file page: repaint after moving cursor with mouse
+* file page: handle mouse click on directory
 * suppor the mouse wheel
 * fix assertion failure on exit
 

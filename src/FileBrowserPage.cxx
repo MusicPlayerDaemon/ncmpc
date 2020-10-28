@@ -71,7 +71,10 @@ private:
 	 */
 	bool ChangeToEntry(struct mpdclient &c, const FileListEntry &entry);
 
-	bool HandleEnter(struct mpdclient &c);
+protected:
+	bool HandleEnter(struct mpdclient &c) override;
+
+private:
 	void HandleSave(struct mpdclient &c);
 	void HandleDelete(struct mpdclient &c);
 
@@ -190,10 +193,10 @@ bool
 FileBrowserPage::HandleEnter(struct mpdclient &c)
 {
 	const auto *entry = GetSelectedEntry();
-	if (entry == nullptr)
-		return false;
+	if (entry != nullptr && ChangeToEntry(c, *entry))
+		return true;
 
-	return ChangeToEntry(c, *entry);
+	return FileListPage::HandleEnter(c);
 }
 
 void
@@ -322,12 +325,6 @@ bool
 FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch(cmd) {
-	case Command::PLAY:
-		if (HandleEnter(c))
-			return true;
-
-		break;
-
 	case Command::GO_ROOT_DIRECTORY:
 		ChangeDirectory(c, {});
 		return true;
