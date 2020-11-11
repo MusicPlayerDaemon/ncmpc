@@ -119,15 +119,6 @@ conf.set('ENABLE_COLORS', curses_color and get_option('colors'))
 common_cflags = [
   # for getaddrinfo() and sigaction() with glibc
   '-D_GNU_SOURCE',
-
-  # no header bloat for the iostream library we don't use
-  '-DBOOST_NO_IOSTREAM',
-
-  # avoid the runtime dependency on libboost_system
-  '-DBOOST_ERROR_CODE_HEADER_ONLY',
-
-  # disable deprecated boost::system features
-  '-DBOOST_SYSTEM_NO_DEPRECATED',
 ]
 
 test_cflags = [
