@@ -33,15 +33,15 @@ struct FileListEntry {
 	unsigned flags = 0;
 	struct mpd_entity *entity;
 
-	explicit FileListEntry(struct mpd_entity *_entity)
+	explicit FileListEntry(struct mpd_entity *_entity) noexcept
 		:entity(_entity) {}
-	~FileListEntry();
+	~FileListEntry() noexcept;
 
-	FileListEntry(FileListEntry &&src)
+	FileListEntry(FileListEntry &&src) noexcept
 		:flags(src.flags),
 		 entity(std::exchange(src.entity, nullptr)) {}
 
-	FileListEntry &operator=(FileListEntry &&src) {
+	FileListEntry &operator=(FileListEntry &&src) noexcept {
 		using std::swap;
 		flags = src.flags;
 		swap(entity, src.entity);
@@ -49,7 +49,7 @@ struct FileListEntry {
 	}
 
 	gcc_pure
-	bool operator<(const FileListEntry &other) const;
+	bool operator<(const FileListEntry &other) const noexcept;
 };
 
 class FileList {
@@ -66,48 +66,48 @@ public:
 	FileList(const FileList &) = delete;
 	FileList &operator=(const FileList &) = delete;
 
-	size_type size() const {
+	size_type size() const noexcept {
 		return entries.size();
 	}
 
-	bool empty() const {
+	bool empty() const noexcept {
 		return entries.empty();
 	}
 
-	FileListEntry &operator[](size_type i) {
+	FileListEntry &operator[](size_type i) noexcept {
 		return entries[i];
 	}
 
-	const FileListEntry &operator[](size_type i) const {
+	const FileListEntry &operator[](size_type i) const noexcept {
 		return entries[i];
 	}
 
-	FileListEntry &emplace_back(struct mpd_entity *entity);
+	FileListEntry &emplace_back(struct mpd_entity *entity) noexcept;
 
-	void MoveFrom(FileList &&src);
+	void MoveFrom(FileList &&src) noexcept;
 
 	/**
 	 * Sort the whole list.
 	 */
-	void Sort();
+	void Sort() noexcept;
 
 	/**
 	 * Eliminates duplicate songs from the FileList.
 	 */
-	void RemoveDuplicateSongs();
+	void RemoveDuplicateSongs() noexcept;
 
 	gcc_pure
-	int FindSong(const struct mpd_song &song) const;
+	int FindSong(const struct mpd_song &song) const noexcept;
 
 	gcc_pure
-	int FindDirectory(const char *name) const;
+	int FindDirectory(const char *name) const noexcept;
 
 	/**
 	 * Receives entities from the connection, and appends them to the
 	 * specified FileList.  This does not finish the response, and does
 	 * not check for errors.
 	 */
-	void Receive(struct mpd_connection &connection);
+	void Receive(struct mpd_connection &connection) noexcept;
 };
 
 /**
@@ -115,6 +115,6 @@ public:
  * This does not finish the response, and does not check for errors.
  */
 std::unique_ptr<FileList>
-filelist_new_recv(struct mpd_connection *connection);
+filelist_new_recv(struct mpd_connection *connection) noexcept;
 
 #endif

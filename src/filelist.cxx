@@ -27,7 +27,7 @@
 #include <string.h>
 #include <assert.h>
 
-FileListEntry::~FileListEntry()
+FileListEntry::~FileListEntry() noexcept
 {
 	if (entity)
 		mpd_entity_free(entity);
@@ -35,7 +35,7 @@ FileListEntry::~FileListEntry()
 
 gcc_pure
 static bool
-Less(const struct mpd_entity &a, struct mpd_entity &b)
+Less(const struct mpd_entity &a, struct mpd_entity &b) noexcept
 {
 	const auto a_type = mpd_entity_get_type(&a);
 	const auto b_type = mpd_entity_get_type(&b);
@@ -63,7 +63,7 @@ Less(const struct mpd_entity &a, struct mpd_entity &b)
 
 gcc_pure
 static bool
-Less(const struct mpd_entity *a, struct mpd_entity *b)
+Less(const struct mpd_entity *a, struct mpd_entity *b) noexcept
 {
 	if (a == nullptr)
 		return b != nullptr;
@@ -74,20 +74,20 @@ Less(const struct mpd_entity *a, struct mpd_entity *b)
 }
 
 bool
-FileListEntry::operator<(const FileListEntry &other) const
+FileListEntry::operator<(const FileListEntry &other) const noexcept
 {
 	return Less(entity, other.entity);
 }
 
 FileListEntry &
-FileList::emplace_back(struct mpd_entity *entity)
+FileList::emplace_back(struct mpd_entity *entity) noexcept
 {
 	entries.emplace_back(entity);
 	return entries.back();
 }
 
 void
-FileList::MoveFrom(FileList &&src)
+FileList::MoveFrom(FileList &&src) noexcept
 {
 	entries.reserve(size() + src.size());
 	for (auto &i : src.entries)
@@ -96,13 +96,13 @@ FileList::MoveFrom(FileList &&src)
 }
 
 void
-FileList::Sort()
+FileList::Sort() noexcept
 {
 	std::stable_sort(entries.begin(), entries.end());
 }
 
 void
-FileList::RemoveDuplicateSongs()
+FileList::RemoveDuplicateSongs() noexcept
 {
 	for (int i = size() - 1; i >= 0; --i) {
 		auto &entry = (*this)[i];
@@ -117,14 +117,15 @@ FileList::RemoveDuplicateSongs()
 	}
 }
 
+gcc_pure
 static bool
-same_song(const struct mpd_song *a, const struct mpd_song *b)
+same_song(const struct mpd_song *a, const struct mpd_song *b) noexcept
 {
 	return strcmp(mpd_song_get_uri(a), mpd_song_get_uri(b)) == 0;
 }
 
 int
-FileList::FindSong(const struct mpd_song &song) const
+FileList::FindSong(const struct mpd_song &song) const noexcept
 {
 	for (unsigned i = 0; i < size(); ++i) {
 		auto &entry = (*this)[i];
@@ -142,7 +143,7 @@ FileList::FindSong(const struct mpd_song &song) const
 }
 
 int
-FileList::FindDirectory(const char *name) const
+FileList::FindDirectory(const char *name) const noexcept
 {
 	assert(name != nullptr);
 
@@ -161,7 +162,7 @@ FileList::FindDirectory(const char *name) const
 }
 
 void
-FileList::Receive(struct mpd_connection &connection)
+FileList::Receive(struct mpd_connection &connection) noexcept
 {
 	struct mpd_entity *entity;
 
@@ -170,7 +171,7 @@ FileList::Receive(struct mpd_connection &connection)
 }
 
 std::unique_ptr<FileList>
-filelist_new_recv(struct mpd_connection *connection)
+filelist_new_recv(struct mpd_connection *connection) noexcept
 {
 	auto filelist = std::make_unique<FileList>();
 	filelist->Receive(*connection);
