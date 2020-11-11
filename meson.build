@@ -138,7 +138,10 @@ test_cflags = [
   '-Wwrite-strings',
   '-Wmissing-declarations', '-Wmissing-noreturn', '-Wmissing-format-attribute',
   '-Wredundant-decls', '-Wundef',
+  '-Wvla',
+
   '-Wno-non-virtual-dtor',
+
   '-fvisibility=hidden',
 
   # the only warnings we got from this are from formatted error
