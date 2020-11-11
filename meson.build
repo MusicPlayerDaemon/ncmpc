@@ -131,7 +131,6 @@ common_cflags = [
 ]
 
 test_cflags = [
-  '-Wno-deprecated-declarations',
   '-Wshadow',
   '-Wpointer-arith',
   '-Wcast-qual',
