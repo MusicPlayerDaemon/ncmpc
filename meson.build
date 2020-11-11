@@ -131,8 +131,6 @@ common_cflags = [
 ]
 
 test_cflags = [
-  '-Wall',
-  '-Wextra',
   '-Wno-deprecated-declarations',
   '-Wshadow',
   '-Wpointer-arith',
