@@ -24,14 +24,14 @@
 #include <string.h>
 
 void
-MpdQueue::clear()
+MpdQueue::clear() noexcept
 {
 	version = 0;
 	items.clear();
 }
 
 const struct mpd_song *
-MpdQueue::GetChecked(int idx) const
+MpdQueue::GetChecked(int idx) const noexcept
 {
 	if (idx < 0 || (size_type)idx >= size())
 		return nullptr;
@@ -40,7 +40,7 @@ MpdQueue::GetChecked(int idx) const
 }
 
 void
-MpdQueue::Move(unsigned dest, unsigned src)
+MpdQueue::Move(unsigned dest, unsigned src) noexcept
 {
 	assert(src < size());
 	assert(dest < size());
@@ -63,7 +63,7 @@ MpdQueue::Move(unsigned dest, unsigned src)
 }
 
 MpdQueue::size_type
-MpdQueue::FindByReference(const struct mpd_song &song) const
+MpdQueue::FindByReference(const struct mpd_song &song) const noexcept
 {
 	for (size_type i = 0;; ++i) {
 		assert(i < size());
@@ -74,7 +74,7 @@ MpdQueue::FindByReference(const struct mpd_song &song) const
 }
 
 int
-MpdQueue::FindById(unsigned id) const
+MpdQueue::FindById(unsigned id) const noexcept
 {
 	for (size_type i = 0; i < size(); ++i) {
 		const auto &song = (*this)[i];
@@ -86,7 +86,7 @@ MpdQueue::FindById(unsigned id) const
 }
 
 int
-MpdQueue::FindByUri(const char *filename) const
+MpdQueue::FindByUri(const char *filename) const noexcept
 {
 	for (size_type i = 0; i < size(); ++i) {
 		const auto &song = (*this)[i];
