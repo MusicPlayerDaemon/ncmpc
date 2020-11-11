@@ -291,7 +291,7 @@ browser_select_entry(struct mpdclient &c, FileListEntry &entry,
 	return true;
 }
 
-bool
+inline bool
 FileListPage::HandleSelect(struct mpdclient &c)
 {
 	bool success = false;
@@ -308,7 +308,7 @@ FileListPage::HandleSelect(struct mpdclient &c)
 	return range.end_index == range.start_index + 1 && success;
 }
 
-bool
+inline bool
 FileListPage::HandleAdd(struct mpdclient &c)
 {
 	bool success = false;
@@ -324,7 +324,7 @@ FileListPage::HandleAdd(struct mpdclient &c)
 	return range.end_index == range.start_index + 1 && success;
 }
 
-void
+inline void
 FileListPage::HandleSelectAll(struct mpdclient &c)
 {
 	if (filelist == nullptr)
