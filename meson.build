@@ -142,11 +142,14 @@ test_cflags = [
 
   '-Wno-non-virtual-dtor',
 
-  '-fvisibility=hidden',
-
   # the only warnings we got from this are from formatted error
   # messages, and their truncation is harmless
   '-Wno-format-truncation',
+
+  '-fvisibility=hidden',
+
+  '-fno-threadsafe-statics',
+  '-fmerge-all-constants',
 ]
 
 if get_option('buildtype') != 'debug'
