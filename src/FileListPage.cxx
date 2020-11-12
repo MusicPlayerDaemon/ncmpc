@@ -372,11 +372,13 @@ FileListPage::OnMouse(struct mpdclient &c, Point p,
 
 	lw.SetCursorFromOrigin(p.y);
 
-	if( bstate & BUTTON1_CLICKED ) {
-		if (prev_selected == lw.GetCursorIndex())
+	if (bstate & (BUTTON1_CLICKED|BUTTON1_DOUBLE_CLICKED)) {
+		if ((bstate & BUTTON1_DOUBLE_CLICKED) ||
+		    prev_selected == lw.GetCursorIndex())
 			HandleEnter(c);
-	} else if (bstate & BUTTON3_CLICKED) {
-		if (prev_selected == lw.GetCursorIndex())
+	} else if (bstate & (BUTTON3_CLICKED|BUTTON3_DOUBLE_CLICKED)) {
+		if ((bstate & BUTTON3_DOUBLE_CLICKED) ||
+		    prev_selected == lw.GetCursorIndex())
 			HandleSelect(c);
 	}
 

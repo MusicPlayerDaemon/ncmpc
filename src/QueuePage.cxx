@@ -492,9 +492,10 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 					     mpd_song_get_id(song)))
 				c.HandleError();
 		}
-	} else if (bstate & BUTTON3_CLICKED) {
+	} else if (bstate & (BUTTON3_CLICKED|BUTTON3_DOUBLE_CLICKED)) {
 		/* delete */
-		if (lw.GetCursorIndex() == old_selected)
+		if ((bstate & BUTTON3_DOUBLE_CLICKED) ||
+		    lw.GetCursorIndex() == old_selected)
 			c.RunDelete(lw.GetCursorIndex());
 
 		lw.SetLength(playlist->size());
