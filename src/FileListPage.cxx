@@ -45,7 +45,7 @@
 #define BUFSIZE 1024
 
 #ifndef NCMPC_MINI
-#define HIGHLIGHT  (0x01)
+static constexpr unsigned HIGHLIGHT = 0x01;
 #endif
 
 FileListPage::FileListPage(ScreenManager &_screen, WINDOW *_w,
@@ -529,7 +529,7 @@ FileListPage::PaintListItem(WINDOW *w, unsigned i,
 #ifndef NCMPC_MINI
 	const bool highlight = (entry.flags & HIGHLIGHT) != 0;
 #else
-	const bool highlight = false;
+	constexpr bool highlight = false;
 #endif
 
 	switch (mpd_entity_get_type(entity)) {
