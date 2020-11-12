@@ -4,7 +4,7 @@ ncmpc 0.42 - (2020-10-28)
 * file page: repaint after moving cursor with mouse
 * file page: handle mouse click on directory
 * library page: mouse support
-* suppor the mouse wheel
+* support the mouse wheel
 * fix assertion failure on exit
 
 ncmpc 0.41 - (2020-10-16)
