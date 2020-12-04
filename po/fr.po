@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2020-04-23 13:11+0000\n"
-"Last-Translator: Jeannette L <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2020-12-04 09:38+0000\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/ncmpc/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0.2-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
@@ -561,7 +561,7 @@ msgstr "Effacé"
 #: src/KeyDefPage.cxx:177
 #, c-format
 msgid "Enter new key for %s: "
-msgstr "Entrez la nouvelle touche pour %s: "
+msgstr "Entrez la nouvelle touche pour %s : "
 
 #: src/KeyDefPage.cxx:187
 msgid "Ctrl-Space can't be used"
@@ -570,7 +570,7 @@ msgstr "Ctrl-Espace ne peut être utilisé"
 #: src/KeyDefPage.cxx:193
 #, c-format
 msgid "Error: key %s is already used for %s"
-msgstr "Erreur: la touche %s est déja attribuée à %s"
+msgstr "Erreur : la touche %s est déjà attribuée à %s"
 
 #: src/KeyDefPage.cxx:203
 #, c-format
@@ -813,7 +813,7 @@ msgstr ""
 #: src/OutputsPage.cxx:168
 #, c-format
 msgid "Switched to partition '%s'"
-msgstr ""
+msgstr "Passé à la partition « %s »"
 
 #: src/OutputsPage.cxx:180 src/SongPage.cxx:69
 msgid "Name"
@@ -834,13 +834,12 @@ msgid "Outputs"
 msgstr "Sorties"
 
 #: src/OutputsPage.cxx:383
-#, fuzzy
 msgid "Partition"
-msgstr "Position"
+msgstr "Partition"
 
 #: src/OutputsPage.cxx:407
 msgid "Create new partition"
-msgstr ""
+msgstr "Créer une nouvelle partition"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
@@ -945,15 +944,15 @@ msgstr "Base de données mise à jour"
 
 #: src/screen.cxx:248
 msgid "Find mode: Wrapped"
-msgstr "Mode de recherche: Enveloppe"
+msgstr "Mode de recherche : Enveloppe"
 
 #: src/screen.cxx:249
 msgid "Find mode: Normal"
-msgstr "Mode de recherche: Normal"
+msgstr "Mode de recherche : Normal"
 
 #: src/screen.cxx:254
 msgid "Auto center mode: On"
-msgstr "Mode d'auto-centrage: Actif"
+msgstr "Mode d'auto-centrage : Actif"
 
 #: src/screen.cxx:255
 msgid "Auto center mode: Off"
@@ -1046,7 +1045,7 @@ msgstr "Artiste + Titre"
 
 #: src/SearchPage.cxx:285 src/SearchPage.cxx:289
 msgid "Unrecognized suffix"
-msgstr ""
+msgstr "Suffixe non reconnu"
 
 #: src/SearchPage.cxx:337
 #, c-format
@@ -1081,9 +1080,8 @@ msgid "Composer"
 msgstr "Compositeur"
 
 #: src/SongPage.cxx:68
-#, fuzzy
 msgid "Performer"
-msgstr "interprète"
+msgstr "Interprète"
 
 #: src/SongPage.cxx:70
 msgid "Disc"
