@@ -31,6 +31,7 @@
 #include "net/SocketAddress.hxx"
 #include "system/Error.hxx"
 
+#include <cassert>
 #include <exception>
 
 static UniqueSocketDescriptor
