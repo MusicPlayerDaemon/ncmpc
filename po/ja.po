@@ -8,13 +8,16 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-12-17 04:29+0000\n"
+"Last-Translator: Takuro Onoue <kusanaginoturugi@gmail.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/ncmpc/"
+"translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
 #, c-format
@@ -23,167 +26,167 @@ msgstr ""
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
-msgstr ""
+msgstr "チャット"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr ""
+msgstr "あなたのメッセージ"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr ""
+msgstr "メッセージを送信できませんでした"
 
 #: src/Command.cxx:30
 msgid "Key configuration screen"
-msgstr ""
+msgstr "キー設定画面"
 
 #: src/Command.cxx:33
 msgid "Quit"
-msgstr ""
+msgstr "終了"
 
 #: src/Command.cxx:37
 msgid "Move cursor up"
-msgstr ""
+msgstr "カーソルを上に移動"
 
 #: src/Command.cxx:39
 msgid "Move cursor down"
-msgstr ""
+msgstr "カーソルを下に移動"
 
 #: src/Command.cxx:41
 msgid "Move cursor to the top of screen"
-msgstr ""
+msgstr "画面上部にカーソルを移動"
 
 #: src/Command.cxx:43
 msgid "Move cursor to the middle of screen"
-msgstr ""
+msgstr "画面中央にカーソルを移動"
 
 #: src/Command.cxx:45
 msgid "Move cursor to the bottom of screen"
-msgstr ""
+msgstr "画面下部にカーソルを移動"
 
 #: src/Command.cxx:47
 msgid "Move cursor to the top of the list"
-msgstr ""
+msgstr "リストの一番上にカーソルを移動"
 
 #: src/Command.cxx:49
 msgid "Move cursor to the bottom of the list"
-msgstr ""
+msgstr "リストの一番下にカーソルを移動"
 
 #: src/Command.cxx:51
 msgid "Page up"
-msgstr ""
+msgstr "ページアップ"
 
 #: src/Command.cxx:53
 msgid "Page down"
-msgstr ""
+msgstr "ページダウン"
 
 #: src/Command.cxx:55
 msgid "Range selection"
-msgstr ""
+msgstr "範囲選択"
 
 #: src/Command.cxx:57
 msgid "Scroll down one line"
-msgstr ""
+msgstr "1行スクロールダウン"
 
 #: src/Command.cxx:59
 msgid "Scroll up one line"
-msgstr ""
+msgstr "1行スクロールアップ"
 
 #: src/Command.cxx:61
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "半画面スクロールアップ"
 
 #: src/Command.cxx:63
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "半画面スクロールダウン"
 
 #: src/Command.cxx:65
 msgid "Select currently playing song"
-msgstr ""
+msgstr "再生中の曲を選択"
 
 #: src/Command.cxx:70
 msgid "Help screen"
-msgstr ""
+msgstr "ヘルプ画面"
 
 #: src/Command.cxx:72 src/HelpPage.cxx:141
 msgid "Queue screen"
-msgstr ""
+msgstr "キュー画面"
 
 #: src/Command.cxx:74 src/HelpPage.cxx:156
 msgid "Browse screen"
-msgstr ""
+msgstr "ブラウズ画面"
 
 #: src/Command.cxx:79
 msgid "Play/Enter directory"
-msgstr ""
+msgstr "再生/入力 ディレクトリ"
 
 #: src/Command.cxx:81
 msgid "Pause"
-msgstr ""
+msgstr "一時停止"
 
 #: src/Command.cxx:83
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #: src/Command.cxx:85
 msgid "Crop"
-msgstr ""
+msgstr "クロップ"
 
 #: src/Command.cxx:87
 msgid "Next track"
-msgstr ""
+msgstr "次のトラック"
 
 #: src/Command.cxx:89
 msgid "Previous track"
-msgstr ""
+msgstr "前のトラック"
 
 #: src/Command.cxx:91
 msgid "Seek forward"
-msgstr ""
+msgstr "早送り"
 
 #: src/Command.cxx:93
 msgid "Seek backward"
-msgstr ""
+msgstr "巻き戻し"
 
 #: src/Command.cxx:95
 msgid "Increase volume"
-msgstr ""
+msgstr "音量上げ"
 
 #: src/Command.cxx:97
 msgid "Decrease volume"
-msgstr ""
+msgstr "音量下げ"
 
 #: src/Command.cxx:99
 msgid "Select/deselect song in queue"
-msgstr ""
+msgstr "キュー内の曲を選択/選択解除"
 
 #: src/Command.cxx:101
 msgid "Select all listed items"
-msgstr ""
+msgstr "リストされているすべてのアイテムを選択"
 
 #: src/Command.cxx:103
 msgid "Delete song from queue"
-msgstr ""
+msgstr "キューから曲を削除"
 
 #: src/Command.cxx:105
 msgid "Shuffle queue"
-msgstr ""
+msgstr "キューをシャッフル"
 
 #: src/Command.cxx:107
 msgid "Clear queue"
-msgstr ""
+msgstr "キューをクリア"
 
 #: src/Command.cxx:109
 msgid "Toggle repeat mode"
-msgstr ""
+msgstr "リピートモードの切り替え"
 
 #: src/Command.cxx:111
 msgid "Toggle random mode"
-msgstr ""
+msgstr "ランダムモードの切り替え"
 
 #: src/Command.cxx:113
 msgid "Toggle single mode"
-msgstr ""
+msgstr "シンプルモードに切り替え"
 
 #: src/Command.cxx:115
 msgid "Toggle consume mode"
