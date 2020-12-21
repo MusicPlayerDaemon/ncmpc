@@ -1,6 +1,7 @@
 ncmpc 0.43 - not yet released
 * support MPD 0.22 tags "conductor", "work", "grouping" (requires
   libmpdclient 2.17)
+* show "conductor" and "work" on song page
 * playlist editor
 * file page: handle mouse double clicks
 

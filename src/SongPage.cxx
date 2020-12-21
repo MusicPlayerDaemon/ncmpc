@@ -63,10 +63,16 @@ static constexpr struct tag_label tag_labels[] = {
 	{ MPD_TAG_ARTIST, N_("Artist") },
 	{ MPD_TAG_TITLE, N_("Title") },
 	{ MPD_TAG_ALBUM, N_("Album") },
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	{ MPD_TAG_WORK, N_("Work") },
+#endif
 	{ LABEL_LENGTH, N_("Length") },
 	{ LABEL_POSITION, N_("Position") },
 	{ MPD_TAG_COMPOSER, N_("Composer") },
 	{ MPD_TAG_PERFORMER, N_("Performer") },
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	{ MPD_TAG_CONDUCTOR, N_("Conductor") },
+#endif
 	{ MPD_TAG_NAME, N_("Name") },
 	{ MPD_TAG_DISC, N_("Disc") },
 	{ MPD_TAG_TRACK, N_("Track") },
