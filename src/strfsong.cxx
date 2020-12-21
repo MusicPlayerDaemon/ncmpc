@@ -194,6 +194,14 @@ _strfsong(char *const s0, char *const end,
 			tag = MPD_TAG_COMPOSER;
 		else if (strncmp("%performer%", p, n) == 0)
 			tag = MPD_TAG_PERFORMER;
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+		else if (strncmp("%conductor%", p, n) == 0)
+			tag = MPD_TAG_CONDUCTOR;
+		else if (strncmp("%work%", p, n) == 0)
+			tag = MPD_TAG_WORK;
+		else if (strncmp("%grouping%", p, n) == 0)
+			tag = MPD_TAG_GROUPING;
+#endif
 		else if (strncmp("%title%", p, n) == 0)
 			tag = MPD_TAG_TITLE;
 		else if (strncmp("%album%", p, n) == 0)
