@@ -57,6 +57,8 @@ struct tag_label {
 	const char *label;
 };
 
+/* note: add all tags mentioned here to #global_tag_whitelist in
+   Instance.cxx */
 static constexpr struct tag_label tag_labels[] = {
 	{ MPD_TAG_ARTIST, N_("Artist") },
 	{ MPD_TAG_TITLE, N_("Title") },

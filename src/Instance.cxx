@@ -33,6 +33,7 @@ static constexpr TagMask global_tag_whitelist{
 	MPD_TAG_TITLE,
 	MPD_TAG_ALBUM,
 	MPD_TAG_COMPOSER,
+	MPD_TAG_PERFORMER,
 	MPD_TAG_NAME,
 	MPD_TAG_DISC,
 	MPD_TAG_TRACK,
