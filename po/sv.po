@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2020-08-21 10:36+0000\n"
+"PO-Revision-Date: 2020-12-24 02:29+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/ncmpc/"
 "translations/sv/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2.1-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 "X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
@@ -472,9 +472,8 @@ msgid "Delete playlist"
 msgstr "Ta bort spellista"
 
 #: src/HelpPage.cxx:172
-#, fuzzy
 msgid "New search"
-msgstr "Sök"
+msgstr "Ny sökning"
 
 #: src/HelpPage.cxx:173
 msgid "Select and play"
@@ -499,18 +498,16 @@ msgid "Download lyrics for currently playing song"
 msgstr "Ladda ner texter till låten som spelas just nu"
 
 #: src/HelpPage.cxx:190
-#, fuzzy
 msgid "Add or edit lyrics"
-msgstr "Spara texter"
+msgstr "Lägg till eller redigera texter"
 
 #: src/HelpPage.cxx:191
 msgid "Save lyrics"
 msgstr "Spara texter"
 
 #: src/HelpPage.cxx:192
-#, fuzzy
 msgid "Delete saved lyrics"
-msgstr "Spara texter"
+msgstr "Ta bort sparade texter"
 
 #: src/HelpPage.cxx:199
 msgid "Enable/disable output"
@@ -788,9 +785,8 @@ msgid "Lyrics deleted"
 msgstr "Spellista borttagen"
 
 #: src/LyricsPage.cxx:463
-#, fuzzy
 msgid "No saved lyrics"
-msgstr "Spara texter"
+msgstr "Inga sparade texter"
 
 #: src/Main.cxx:133
 #, c-format
@@ -816,7 +812,7 @@ msgstr ""
 #: src/OutputsPage.cxx:168
 #, c-format
 msgid "Switched to partition '%s'"
-msgstr ""
+msgstr "Ändrade till partition '%s'"
 
 #: src/OutputsPage.cxx:180 src/SongPage.cxx:69
 msgid "Name"
@@ -837,13 +833,12 @@ msgid "Outputs"
 msgstr "Utgångar"
 
 #: src/OutputsPage.cxx:383
-#, fuzzy
 msgid "Partition"
-msgstr "Position"
+msgstr "Partition"
 
 #: src/OutputsPage.cxx:407
 msgid "Create new partition"
-msgstr ""
+msgstr "Skapa ny partition"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
