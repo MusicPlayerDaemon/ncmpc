@@ -28,6 +28,7 @@
 
 #ifndef _WIN32
 #include "WaitUserInput.hxx"
+#include <cerrno>
 #endif
 
 #include <string.h>
