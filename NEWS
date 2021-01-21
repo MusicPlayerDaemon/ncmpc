@@ -5,6 +5,7 @@ ncmpc 0.43 - not yet released
 * playlist editor
 * file page: handle mouse double clicks
 * fix build failure on macOS
+* add azlyrics plugin
 
 ncmpc 0.42 - (2020-10-28)
 * file page: repaint after moving cursor with mouse
