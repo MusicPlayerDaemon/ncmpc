@@ -28,16 +28,16 @@
 #ifndef NET_ASYNC_RESOLVE_CONNECT_HXX
 #define NET_ASYNC_RESOLVE_CONNECT_HXX
 
-#include "AsyncConnect.hxx"
+#include "event/net/ConnectSocket.hxx"
 
 class AsyncResolveConnect {
-	AsyncConnectHandler &handler;
+	ConnectSocketHandler &handler;
 
-	AsyncConnect connect;
+	ConnectSocket connect;
 
 public:
 	AsyncResolveConnect(EventLoop &event_loop,
-			    AsyncConnectHandler &_handler) noexcept
+			    ConnectSocketHandler &_handler) noexcept
 		:handler(_handler),
 		 connect(event_loop, _handler) {}
 

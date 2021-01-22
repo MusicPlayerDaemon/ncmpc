@@ -26,8 +26,6 @@
 */
 
 #include "AsyncResolveConnect.hxx"
-#include "AsyncConnect.hxx"
-#include "AsyncHandler.hxx"
 #include "AllocatedSocketAddress.hxx"
 #include "AddressInfo.hxx"
 #include "Resolver.hxx"
@@ -42,14 +40,15 @@ AsyncResolveConnect::Start(const char *host, unsigned port) noexcept
 		AllocatedSocketAddress address;
 		address.SetLocal(host);
 
-		connect.Start(address);
+		connect.Connect(address, std::chrono::seconds(30));
 		return;
 	}
 #endif /* _WIN32 */
 
 	try {
-		connect.Start(Resolve(host, port, 0, SOCK_STREAM).GetBest());
+		connect.Connect(Resolve(host, port, 0, SOCK_STREAM).GetBest(),
+				std::chrono::seconds(30));
 	} catch (...) {
-		handler.OnConnectError(std::current_exception());
+		handler.OnSocketConnectError(std::current_exception());
 	}
 }

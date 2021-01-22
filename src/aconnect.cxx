@@ -27,7 +27,6 @@
 
 #include "aconnect.hxx"
 #include "net/AsyncResolveConnect.hxx"
-#include "net/AsyncHandler.hxx"
 #include "net/SocketError.hxx"
 #include "net/UniqueSocketDescriptor.hxx"
 #include "system/Error.hxx"
@@ -39,7 +38,7 @@
 #include <cstdio>
 #include <cstring>
 
-struct AsyncMpdConnect final : AsyncConnectHandler {
+struct AsyncMpdConnect final : ConnectSocketHandler {
 	AsyncMpdConnectHandler &handler;
 
 	AsyncResolveConnect rconnect;
@@ -59,8 +58,8 @@ struct AsyncMpdConnect final : AsyncConnectHandler {
 	void OnReceive(unsigned events) noexcept;
 
 	/* virtual methods from AsyncConnectHandler */
-	void OnConnect(UniqueSocketDescriptor fd) noexcept override;
-	void OnConnectError(std::exception_ptr e) noexcept override;
+	void OnSocketConnectSuccess(UniqueSocketDescriptor fd) noexcept override;
+	void OnSocketConnectError(std::exception_ptr ep) noexcept override;
 };
 
 void
@@ -92,14 +91,14 @@ try {
 }
 
 void
-AsyncMpdConnect::OnConnect(UniqueSocketDescriptor fd) noexcept
+AsyncMpdConnect::OnSocketConnectSuccess(UniqueSocketDescriptor fd) noexcept
 {
 	socket.Open(fd.Release());
 	socket.ScheduleRead();
 }
 
 void
-AsyncMpdConnect::OnConnectError(std::exception_ptr e) noexcept
+AsyncMpdConnect::OnSocketConnectError(std::exception_ptr e) noexcept
 {
 	handler.OnAsyncMpdConnectError(std::move(e));
 	delete this;

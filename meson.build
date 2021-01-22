@@ -210,8 +210,8 @@ endif
 if async_connect
   sources += [
     'src/net/SocketError.cxx',
-    'src/net/AsyncConnect.cxx',
     'src/net/AsyncResolveConnect.cxx',
+    'src/event/net/ConnectSocket.cxx',
     'src/aconnect.cxx',
   ]
 endif
