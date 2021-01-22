@@ -28,6 +28,7 @@
 #include "aconnect.hxx"
 #include "net/AsyncResolveConnect.hxx"
 #include "net/AsyncHandler.hxx"
+#include "net/SocketError.hxx"
 #include "net/UniqueSocketDescriptor.hxx"
 #include "system/Error.hxx"
 #include "event/SocketEvent.hxx"
@@ -35,7 +36,6 @@
 #include <mpd/client.h>
 #include <mpd/async.h>
 
-#include <cerrno>
 #include <cstdio>
 #include <cstring>
 
@@ -70,7 +70,7 @@ try {
 	ssize_t nbytes = socket.GetSocket().Read(buffer, sizeof(buffer));
 
 	if (nbytes < 0)
-		throw MakeErrno("Failed to receive from MPD");
+		throw MakeSocketError("Failed to receive from MPD");
 
 	buffer[nbytes] = 0;
 

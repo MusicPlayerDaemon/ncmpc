@@ -27,9 +27,9 @@
 
 #include "AsyncConnect.hxx"
 #include "AsyncHandler.hxx"
+#include "SocketError.hxx"
 #include "net/UniqueSocketDescriptor.hxx"
 #include "net/SocketAddress.hxx"
-#include "system/Error.hxx"
 
 #include <cassert>
 #include <exception>
@@ -39,10 +39,13 @@ Connect(const SocketAddress address)
 {
 	UniqueSocketDescriptor fd;
 	if (!fd.CreateNonBlock(address.GetFamily(), SOCK_STREAM, 0))
-		throw MakeErrno("Failed to create socket");
+		throw MakeSocketError("Failed to create socket");
 
-	if (!fd.Connect(address) && errno != EINPROGRESS)
-		throw MakeErrno("Failed to connect");
+	if (!fd.Connect(address)) {
+		const auto e = GetSocketError();
+		if (!IsSocketErrorConnectWouldBlock(e))
+			throw MakeSocketError(e, "Failed to connect");
+	}
 
 	return fd;
 }
@@ -77,7 +80,7 @@ AsyncConnect::OnSocketReady(unsigned events) noexcept
 		int s_err = event.GetSocket().GetError();
 		if (s_err != 0) {
 			event.Close();
-			handler.OnConnectError(std::make_exception_ptr(MakeErrno(s_err, "Failed to connect")));
+			handler.OnConnectError(std::make_exception_ptr(MakeSocketError(s_err, "Failed to connect")));
 			return;
 		}
 	}
