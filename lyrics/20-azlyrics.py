@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #
-#  (c) 2004-2020 The Music Player Daemon Project
+#  Copyright 2004-2021 The Music Player Daemon Project
 #  http://www.musicpd.org/
 #
 #  This program is free software; you can redistribute it and/or modify
