@@ -50,8 +50,9 @@ option('search_screen', type: 'boolean',
   value: true,
   description: 'Enable the search screen')
 
+# The playlist editor is work in progress, not usable yet.
 option('playlist_editor', type: 'boolean',
-  value: true,
+  value: false,
   description: 'Enable the playlist editor')
 
 option('song_screen', type: 'boolean',
