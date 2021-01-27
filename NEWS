@@ -4,6 +4,7 @@ ncmpc 0.43 - not yet released
 * show "conductor" and "work" on song page
 * playlist editor (work in progress)
 * file page: handle mouse double clicks
+* fix crash bug
 * fix build failure on macOS
 * add azlyrics plugin
 

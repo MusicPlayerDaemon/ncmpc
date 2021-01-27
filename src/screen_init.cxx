@@ -27,8 +27,8 @@
 static const unsigned SCREEN_MIN_COLS = 14;
 static const unsigned SCREEN_MIN_ROWS = 5;
 
-ScreenManager::ScreenManager(EventLoop &_event_loop) noexcept
-	:event_loop(_event_loop),
+ScreenManager::ScreenManager(EventLoop &event_loop) noexcept
+	:paint_event(event_loop, BIND_THIS_METHOD(Paint)),
 	 layout({std::max<unsigned>(COLS, SCREEN_MIN_COLS),
 		 std::max<unsigned>(LINES, SCREEN_MIN_ROWS)}),
 	 title_bar({layout.title_x, layout.title_y}, layout.size.width),
@@ -104,7 +104,7 @@ ScreenManager::OnResize() noexcept
 	curs_set(1);
 	curs_set(0);
 
-	Paint();
+	SchedulePaint();
 }
 
 void

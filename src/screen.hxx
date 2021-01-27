@@ -26,6 +26,7 @@
 #include "StatusBar.hxx"
 #include "History.hxx"
 #include "Point.hxx"
+#include "event/IdleEvent.hxx"
 #include "util/Compiler.h"
 
 #include <curses.h>
@@ -44,7 +45,11 @@ class DelayedSeek;
 class EventLoop;
 
 class ScreenManager {
-	EventLoop &event_loop;
+	/**
+	 * This event defers Paint() calls until after the EventLoop
+	 * has handled all other events.
+	 */
+	IdleEvent paint_event;
 
 	struct Layout {
 		Size size;
@@ -105,7 +110,7 @@ public:
 	~ScreenManager() noexcept;
 
 	auto &GetEventLoop() const noexcept {
-		return event_loop;
+		return paint_event.GetEventLoop();
 	}
 
 	void Init(struct mpdclient *c) noexcept;
@@ -132,7 +137,6 @@ public:
 	void Swap(struct mpdclient &c, const struct mpd_song *song) noexcept;
 
 	void PaintTopWindow() noexcept;
-	void Paint() noexcept;
 
 	void Update(struct mpdclient &c, const DelayedSeek &seek) noexcept;
 	void OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd);
@@ -144,6 +148,12 @@ public:
 
 private:
 	void NextMode(struct mpdclient &c, int offset) noexcept;
+
+	void SchedulePaint() noexcept {
+		paint_event.Schedule();
+	}
+
+	void Paint() noexcept;
 };
 
 #endif
