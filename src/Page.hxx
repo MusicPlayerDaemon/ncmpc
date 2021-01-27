@@ -64,6 +64,7 @@ public:
 			return;
 
 		last_size = new_size;
+		SetDirty();
 		OnResize(new_size);
 	}
 

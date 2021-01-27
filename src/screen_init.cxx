@@ -104,7 +104,7 @@ ScreenManager::OnResize() noexcept
 	curs_set(1);
 	curs_set(0);
 
-	Paint(true);
+	Paint();
 }
 
 void

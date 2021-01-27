@@ -222,7 +222,7 @@ ScreenManager::Update(struct mpdclient &c, const DelayedSeek &seek) noexcept
 	/* update the main window */
 	current_page->second->Update(c);
 
-	Paint(current_page->second->IsDirty());
+	Paint();
 }
 
 void

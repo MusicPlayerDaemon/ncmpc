@@ -32,7 +32,7 @@ ScreenManager::PaintTopWindow() noexcept
 }
 
 void
-ScreenManager::Paint(bool main_dirty) noexcept
+ScreenManager::Paint() noexcept
 {
 	/* update title/header window */
 	PaintTopWindow();
@@ -46,7 +46,7 @@ ScreenManager::Paint(bool main_dirty) noexcept
 
 	/* paint the main window */
 
-	if (main_dirty) {
+	if (current_page->second->IsDirty()) {
 		current_page->second->Paint();
 		current_page->second->SetDirty(false);
 	}

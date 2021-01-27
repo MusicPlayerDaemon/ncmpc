@@ -132,7 +132,7 @@ public:
 	void Swap(struct mpdclient &c, const struct mpd_song *song) noexcept;
 
 	void PaintTopWindow() noexcept;
-	void Paint(bool main_dirty) noexcept;
+	void Paint() noexcept;
 
 	void Update(struct mpdclient &c, const DelayedSeek &seek) noexcept;
 	void OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd);
