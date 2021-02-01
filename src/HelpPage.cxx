@@ -226,7 +226,7 @@ class HelpPage final : public ListPage, ListRenderer, ListText {
 public:
 	HelpPage(ScreenManager &_screen, WINDOW *w, Size size)
 		:ListPage(w, size), screen(_screen) {
-		lw.DisableCursor();
+		lw.HideCursor();
 		lw.SetLength(std::size(help_text));
 	}
 

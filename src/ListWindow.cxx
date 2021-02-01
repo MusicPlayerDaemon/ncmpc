@@ -33,11 +33,11 @@
 void
 ListWindow::Paint(const ListRenderer &renderer) const noexcept
 {
-	bool show_cursor = HasCursor() &&
+	bool cursor_visible = HasCursor() &&
 		(!options.hardware_cursor || HasRangeSelection());
 	ListWindowRange range;
 
-	if (show_cursor)
+	if (cursor_visible)
 		range = GetRange();
 
 	for (unsigned i = 0; i < GetHeight(); i++) {
@@ -49,7 +49,7 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 			break;
 		}
 
-		bool is_selected = show_cursor &&
+		bool is_selected = cursor_visible &&
 			range.Contains(j);
 
 		renderer.PaintListItem(w, j, i, width, is_selected);

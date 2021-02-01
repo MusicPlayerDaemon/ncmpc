@@ -41,7 +41,7 @@ public:
 	TextPage(ScreenManager &_screen,
 		 WINDOW *w, Size size) noexcept
 		:ListPage(w, size), screen(_screen) {
-		lw.DisableCursor();
+		lw.HideCursor();
 	}
 
 protected:

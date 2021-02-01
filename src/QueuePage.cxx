@@ -333,7 +333,7 @@ QueuePage::OnHideCursorTimer() noexcept
 	/* hide the cursor when mpd is playing and the user is inactive */
 
 	if (playing) {
-		lw.DisableCursor();
+		lw.HideCursor();
 		Repaint();
 	} else
 		ScheduleHideCursor();
@@ -345,7 +345,7 @@ QueuePage::OnOpen(struct mpdclient &c) noexcept
 	playlist = &c.playlist;
 
 	if (options.hide_cursor > std::chrono::steady_clock::duration::zero()) {
-		lw.EnableCursor();
+		lw.ShowCursor();
 		ScheduleHideCursor();
 	}
 
@@ -517,7 +517,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	const Command prev_cmd = cached_cmd;
 	cached_cmd = cmd;
 
-	lw.EnableCursor();
+	lw.ShowCursor();
 
 	if (options.hide_cursor > std::chrono::steady_clock::duration::zero()) {
 		ScheduleHideCursor();

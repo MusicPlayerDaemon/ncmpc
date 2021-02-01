@@ -102,7 +102,7 @@ class ListCursor {
 	 */
 	bool range_selection = false;
 
-	bool hide_cursor = false;
+	bool show_cursor = true;
 
 public:
 	explicit ListCursor(unsigned _height) noexcept;
@@ -123,16 +123,16 @@ public:
 		start = new_orign;
 	}
 
-	void DisableCursor() {
-		hide_cursor = true;
+	void HideCursor() noexcept {
+		show_cursor = false;
 	}
 
-	void EnableCursor() {
-		hide_cursor = false;
+	void ShowCursor() noexcept {
+		show_cursor = true;
 	}
 
 	constexpr bool HasCursor() const noexcept {
-		return !hide_cursor;
+		return show_cursor;
 	}
 
 	constexpr bool HasRangeSelection() const noexcept {

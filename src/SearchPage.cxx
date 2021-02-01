@@ -126,7 +126,7 @@ public:
 			      !options.search_format.empty()
 			      ? options.search_format.c_str()
 			      : options.list_format.c_str()) {
-		lw.DisableCursor();
+		lw.HideCursor();
 		lw.SetLength(std::size(help_text));
 	}
 
@@ -423,7 +423,7 @@ SearchPage::Reload(struct mpdclient &c)
 	if (pattern.empty())
 		return;
 
-	lw.EnableCursor();
+	lw.ShowCursor();
 	filelist = do_search(&c, pattern.c_str());
 	if (filelist == nullptr)
 		filelist = std::make_unique<FileList>();

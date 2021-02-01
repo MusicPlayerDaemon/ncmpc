@@ -123,7 +123,7 @@ public:
 	SongPage(ScreenManager &_screen, WINDOW *w, Size size) noexcept
 		:ListPage(w, size),
 		 screen(_screen) {
-		lw.DisableCursor();
+		lw.HideCursor();
 	}
 
 	~SongPage() noexcept override {
