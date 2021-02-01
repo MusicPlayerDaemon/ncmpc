@@ -33,7 +33,7 @@
 void
 ListWindow::Paint(const ListRenderer &renderer) const noexcept
 {
-	bool cursor_visible = HasCursor() &&
+	bool cursor_visible = IsCursorVisible() &&
 		(!options.hardware_cursor || HasRangeSelection());
 	ListWindowRange range;
 
@@ -87,6 +87,7 @@ ListWindow::Find(const ListText &text,
 
 			if (m(label)) {
 				MoveCursor(i);
+				HighlightCursor();
 				return true;
 			}
 			if (wrap && i == GetCursorIndex())
@@ -133,6 +134,7 @@ ListWindow::ReverseFind(const ListText &text,
 
 			if (m(label)) {
 				MoveCursor(i);
+				HighlightCursor();
 				return true;
 			}
 			if (wrap && i == (int)GetCursorIndex())
@@ -168,6 +170,7 @@ ListWindow::Jump(const ListText &text, const char *str) noexcept
 
 		if (m(label)) {
 			MoveCursor(i);
+			HighlightCursor();
 			return true;
 		}
 	}

@@ -549,8 +549,6 @@ SongPage::OnCommand(struct mpdclient &c, Command cmd)
 	}
 
 	if (screen_find(screen, lw, cmd, *this)) {
-		/* center the row */
-		lw.Center(lw.GetCursorIndex());
 		SetDirty();
 		return true;
 	}

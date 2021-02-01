@@ -30,6 +30,7 @@ ListCursor::Reset() noexcept
 {
 	selected = 0;
 	range_selection = false;
+	highlight_cursor = false;
 	range_base = 0;
 	start = 0;
 }
@@ -78,6 +79,8 @@ ListCursor::SetLength(unsigned _length) noexcept
 void
 ListCursor::Center(unsigned n) noexcept
 {
+	highlight_cursor = false;
+
 	if (n > GetHeight() / 2)
 		start = n - GetHeight() / 2;
 	else
@@ -94,6 +97,8 @@ ListCursor::Center(unsigned n) noexcept
 void
 ListCursor::ScrollTo(unsigned n) noexcept
 {
+	highlight_cursor = false;
+
 	int new_start = start;
 
 	if (n < start + scroll_offset)
@@ -125,6 +130,7 @@ void
 ListCursor::MoveCursor(unsigned n) noexcept
 {
 	selected = n;
+	highlight_cursor = false;
 
 	CheckSelected();
 	CheckOrigin();
@@ -226,6 +232,8 @@ ListCursor::MoveCursorLast() noexcept
 void
 ListCursor::MoveCursorNextPage() noexcept
 {
+	highlight_cursor = false;
+
 	if (GetHeight() < 2)
 		return;
 	if (selected + GetHeight() < length)
@@ -237,6 +245,8 @@ ListCursor::MoveCursorNextPage() noexcept
 void
 ListCursor::MoveCursorPreviousPage() noexcept
 {
+	highlight_cursor = false;
+
 	if (GetHeight() < 2)
 		return;
 	if (selected > GetHeight() - 1)
@@ -248,6 +258,8 @@ ListCursor::MoveCursorPreviousPage() noexcept
 void
 ListCursor::ScrollUp(unsigned n) noexcept
 {
+	highlight_cursor = false;
+
 	if (start > 0) {
 		if (n > start)
 			start = 0;
@@ -261,6 +273,8 @@ ListCursor::ScrollUp(unsigned n) noexcept
 void
 ListCursor::ScrollDown(unsigned n) noexcept
 {
+	highlight_cursor = false;
+
 	if (start + GetHeight() < length) {
 		if (start + GetHeight() + n > length - 1)
 			start = length - GetHeight();
@@ -274,6 +288,8 @@ ListCursor::ScrollDown(unsigned n) noexcept
 void
 ListCursor::ScrollNextPage() noexcept
 {
+	highlight_cursor = false;
+
 	start += GetHeight();
 	if (start + GetHeight() > length)
 		start = length > GetHeight()
@@ -284,6 +300,8 @@ ListCursor::ScrollNextPage() noexcept
 void
 ListCursor::ScrollPreviousPage() noexcept
 {
+	highlight_cursor = false;
+
 	start = start > GetHeight()
 		? start - GetHeight()
 		: 0;
@@ -292,6 +310,8 @@ ListCursor::ScrollPreviousPage() noexcept
 void
 ListCursor::ScrollNextHalfPage() noexcept
 {
+	highlight_cursor = false;
+
 	start += (GetHeight() - 1) / 2;
 	if (start + GetHeight() > length) {
 		start = length > GetHeight()
@@ -303,6 +323,8 @@ ListCursor::ScrollNextHalfPage() noexcept
 void
 ListCursor::ScrollPreviousHalfPage() noexcept
 {
+	highlight_cursor = false;
+
 	start = start > (GetHeight() - 1) / 2
 		? start - (GetHeight() - 1) / 2
 		: 0;

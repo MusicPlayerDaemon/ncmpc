@@ -104,6 +104,11 @@ class ListCursor {
 
 	bool show_cursor = true;
 
+	/**
+	 * @see HighlightCursor()
+	 */
+	bool highlight_cursor = false;
+
 public:
 	explicit ListCursor(unsigned _height) noexcept;
 
@@ -131,8 +136,21 @@ public:
 		show_cursor = true;
 	}
 
+	/**
+	 * Make the cursor visible temporarily (until it is moved)?
+	 * This is useful for highlighting a matching line after
+	 * searching in a (cursorless) text page.
+	 */
+	void HighlightCursor() noexcept {
+		highlight_cursor = true;
+	}
+
 	constexpr bool HasCursor() const noexcept {
 		return show_cursor;
+	}
+
+	constexpr bool IsCursorVisible() const noexcept {
+		return show_cursor || highlight_cursor;
 	}
 
 	constexpr bool HasRangeSelection() const noexcept {
