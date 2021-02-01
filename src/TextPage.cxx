@@ -88,7 +88,13 @@ TextPage::OnCommand(struct mpdclient &c, Command cmd)
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
-	lw.SetCursorFromOrigin(0);
+	if (!lw.IsCursorVisible())
+		/* start searching at the beginning of the page (not
+		   where the invisible cursor just happens to be),
+		   unless the cursor is still visible from the last
+		   search */
+		lw.SetCursorFromOrigin(0);
+
 	if (screen_find(screen, lw, cmd, *this)) {
 		SetDirty();
 		return true;
