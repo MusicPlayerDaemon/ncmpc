@@ -1,4 +1,4 @@
-ncmpc 0.44 - not yet released
+ncmpc 0.44 - (2021-02-01)
 * fix scrolling problems on help page
 * highlight find results on help page
 * don't attempt IPv6 connection if IPv6 routing is disabled
