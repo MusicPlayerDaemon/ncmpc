@@ -274,13 +274,14 @@ help_init(ScreenManager &screen, WINDOW *w, Size size)
 void
 HelpPage::PaintListItem(WINDOW *w, unsigned i,
 			unsigned y, unsigned width,
-			gcc_unused bool selected) const noexcept
+			bool selected) const noexcept
 {
 	const auto *row = &help_text[i];
 
 	assert(i < std::size(help_text));
 
-	row_color(w, row->highlight ? Style::LIST_BOLD : Style::LIST, false);
+	row_color(w, row->highlight ? Style::LIST_BOLD : Style::LIST,
+		  selected);
 
 	wclrtoeol(w);
 
