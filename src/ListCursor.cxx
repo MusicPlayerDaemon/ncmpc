@@ -19,6 +19,12 @@
 #include "ListCursor.hxx"
 #include "Options.hxx"
 
+ListCursor::ListCursor(unsigned _height) noexcept
+	:height(_height),
+	 scroll_offset(ClampScrollOffset(options.scroll_offset, height))
+{
+}
+
 void
 ListCursor::Reset() noexcept
 {
@@ -52,6 +58,8 @@ void
 ListCursor::SetHeight(unsigned _height) noexcept
 {
 	height = _height;
+	scroll_offset = ClampScrollOffset(options.scroll_offset, height);
+
 	CheckOrigin();
 }
 
@@ -130,12 +138,6 @@ ListCursor::MoveCursor(unsigned n) noexcept
 void
 ListCursor::FetchCursor() noexcept
 {
-	/* clamp the scroll-offset setting to slightly less than half
-	   of the screen height */
-	const unsigned scroll_offset = options.scroll_offset * 2 < GetHeight()
-		? options.scroll_offset
-		: std::max(GetHeight() / 2, 1U) - 1;
-
 	if (start > 0 &&
 	    selected < start + scroll_offset)
 		MoveCursor(start + scroll_offset);

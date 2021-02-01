@@ -21,6 +21,8 @@
 
 #include "util/Compiler.h"
 
+#include <algorithm>
+
 /**
  * The bounds of a range selection, see list_window_get_range().
  */
@@ -78,6 +80,11 @@ class ListCursor {
 	unsigned height;
 
 	/**
+	 * A clamped copy of #Options::scroll_offset.
+	 */
+	unsigned scroll_offset = 0;
+
+	/**
 	 * Number of items in this list.
 	 */
 	unsigned length = 0;
@@ -98,8 +105,7 @@ class ListCursor {
 	bool hide_cursor = false;
 
 public:
-	explicit constexpr ListCursor(unsigned _height) noexcept
-		:height(_height) {}
+	explicit ListCursor(unsigned _height) noexcept;
 
 	constexpr unsigned GetHeight() const noexcept {
 		return height;
@@ -278,6 +284,18 @@ public:
 	}
 
 private:
+	/**
+	 * Clamp the scroll-offset setting to slightly less than half
+	 * of the screen height.
+	 */
+	static constexpr unsigned ClampScrollOffset(unsigned scroll_offset,
+						    unsigned height) noexcept
+	{
+		return scroll_offset * 2 < height
+			? scroll_offset
+			: std::max(height / 2, 1U) - 1;
+	}
+
 	gcc_pure
 	unsigned ValidateIndex(unsigned i) const noexcept;
 
