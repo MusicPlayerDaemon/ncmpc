@@ -46,7 +46,7 @@ AsyncResolveConnect::Start(const char *host, unsigned port) noexcept
 #endif /* _WIN32 */
 
 	try {
-		connect.Connect(Resolve(host, port, 0, SOCK_STREAM).GetBest(),
+		connect.Connect(Resolve(host, port, AI_ADDRCONFIG, SOCK_STREAM).GetBest(),
 				std::chrono::seconds(30));
 	} catch (...) {
 		handler.OnSocketConnectError(std::current_exception());

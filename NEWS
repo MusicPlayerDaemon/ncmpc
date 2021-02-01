@@ -1,4 +1,5 @@
 ncmpc 0.44 - not yet released
+* don't attempt IPv6 connection if IPv6 routing is disabled
 
 ncmpc 0.43 - (2021-01-27)
 * support MPD 0.22 tags "conductor", "work", "grouping" (requires
