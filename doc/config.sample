@@ -35,6 +35,9 @@
 ## Auto center (center the playing track in the playlist)
 #auto-center = no
 
+## Keep at least NUM lines above and below the cursor on list windows, if possible.
+#scroll-offset = 0
+
 ## Show the most recent query when using find.
 #find-show-last = no
 
@@ -58,6 +61,9 @@
 
 ## Seek forward/backward by NUM seconds.
 #seek-time = 1
+
+## Quits downloading lyrics of a song after the timeout of NUM seconds is reached, if NUM is greater than zero.
+#lyrics-timeout = 60
 
 ############## Display ######################
 ## Show a list of the screens in the top line.
@@ -106,6 +112,9 @@
 
 ## Automatically save the lyrics after receiving them.
 #lyrics-autosave = no
+
+## Show the name of the plugin used to receive lyrics on the lyrics screen.
+#lyrics-show-plugin = no
 
 ## The text editor used for editing lyrics.
 #text-editor = emacs
