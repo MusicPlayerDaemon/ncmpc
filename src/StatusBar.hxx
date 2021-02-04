@@ -21,7 +21,7 @@
 
 #include "config.h" // IWYU pragma: keep
 #include "Window.hxx"
-#include "event/TimerEvent.hxx"
+#include "event/CoarseTimerEvent.hxx"
 
 #ifndef NCMPC_MINI
 #include "hscroll.hxx"
@@ -37,7 +37,7 @@ class StatusBar {
 	Window window;
 
 	std::string message;
-	TimerEvent message_timer;
+	CoarseTimerEvent message_timer;
 
 #ifndef NCMPC_MINI
 	class hscroll hscroll;

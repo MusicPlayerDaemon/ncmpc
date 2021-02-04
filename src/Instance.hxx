@@ -25,7 +25,8 @@
 #include "DelayedSeek.hxx"
 #include "screen.hxx"
 #include "event/Loop.hxx"
-#include "event/TimerEvent.hxx"
+#include "event/CoarseTimerEvent.hxx"
+#include "event/FineTimerEvent.hxx"
 
 #ifdef ENABLE_LIRC
 #include "lirc.hxx"
@@ -46,13 +47,13 @@ class Instance {
 	 * server is broken.  It tries to recover by reconnecting
 	 * periodically.
 	 */
-	TimerEvent reconnect_timer;
+	CoarseTimerEvent reconnect_timer;
 
-	TimerEvent update_timer;
+	FineTimerEvent update_timer;
 	bool pending_update_timer = false;
 
 #ifndef NCMPC_MINI
-	TimerEvent check_key_bindings_timer;
+	CoarseTimerEvent check_key_bindings_timer;
 #endif
 
 	ScreenManager screen_manager;

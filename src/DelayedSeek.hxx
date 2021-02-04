@@ -19,7 +19,7 @@
 #ifndef NCMPC_DELAYED_SEEK_HXX
 #define NCMPC_DELAYED_SEEK_HXX
 
-#include "event/TimerEvent.hxx"
+#include "event/CoarseTimerEvent.hxx"
 
 struct mpdclient;
 
@@ -33,7 +33,7 @@ class DelayedSeek {
 	int id = -1;
 	unsigned time;
 
-	TimerEvent commit_timer;
+	CoarseTimerEvent commit_timer;
 
 public:
 	DelayedSeek(EventLoop &event_loop,

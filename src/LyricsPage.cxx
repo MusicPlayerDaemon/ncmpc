@@ -62,7 +62,7 @@ class LyricsPage final : public TextPage, PluginResponseHandler {
 
 	PluginCycle *loader = nullptr;
 
-	TimerEvent loader_timeout;
+	CoarseTimerEvent loader_timeout;
 
 public:
 	LyricsPage(ScreenManager &_screen, WINDOW *w, Size size)

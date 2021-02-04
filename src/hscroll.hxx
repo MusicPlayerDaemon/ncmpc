@@ -20,7 +20,7 @@
 #define HSCROLL_H
 
 #include "BasicMarquee.hxx"
-#include "event/TimerEvent.hxx"
+#include "event/FineTimerEvent.hxx"
 
 #include <curses.h>
 
@@ -52,7 +52,7 @@ class hscroll {
 	/**
 	 * A timer which updates the scrolled area every second.
 	 */
-	TimerEvent timer;
+	FineTimerEvent timer;
 
 public:
 	hscroll(EventLoop &event_loop,

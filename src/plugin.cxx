@@ -20,7 +20,7 @@
 #include "io/Path.hxx"
 #include "io/UniqueFileDescriptor.hxx"
 #include "event/SocketEvent.hxx"
-#include "event/TimerEvent.hxx"
+#include "event/CoarseTimerEvent.hxx"
 #include "util/ScopeExit.hxx"
 #include "util/UriUtil.hxx"
 
@@ -111,7 +111,7 @@ struct PluginCycle {
 	/** list of all error messages from failed plugins */
 	std::string all_errors;
 
-	TimerEvent delayed_fail_timer;
+	CoarseTimerEvent delayed_fail_timer;
 
 	PluginCycle(EventLoop &event_loop,
 		    const PluginList &_list, std::unique_ptr<char *[]> &&_argv,

@@ -23,7 +23,7 @@
 #include "Queue.hxx"
 #include "gidle.hxx"
 #include "util/Compiler.h"
-#include "event/TimerEvent.hxx"
+#include "event/FineTimerEvent.hxx"
 
 #ifdef ENABLE_ASYNC_CONNECT
 #include "aconnect.hxx"
@@ -95,7 +95,7 @@ struct mpdclient final
 	 * A timer which re-enters MPD idle mode before the next main
 	 * loop iteration.
 	 */
-	TimerEvent enter_idle_timer;
+	FineTimerEvent enter_idle_timer;
 
 	/**
 	 * This attribute is incremented whenever the connection changes

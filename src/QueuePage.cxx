@@ -41,7 +41,7 @@
 #include "SongPage.hxx"
 #include "LyricsPage.hxx"
 #include "db_completion.hxx"
-#include "event/TimerEvent.hxx"
+#include "event/CoarseTimerEvent.hxx"
 #include "util/Compiler.h"
 
 #ifndef NCMPC_MINI
@@ -64,7 +64,7 @@ class QueuePage final : public ListPage, ListRenderer, ListText {
 	mutable class hscroll hscroll;
 #endif
 
-	TimerEvent hide_cursor_timer;
+	CoarseTimerEvent hide_cursor_timer;
 
 	MpdQueue *playlist = nullptr;
 	int current_song_id = -1;
