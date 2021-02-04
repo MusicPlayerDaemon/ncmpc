@@ -18,7 +18,7 @@ event = static_library(
   'event',
   'SignalMonitor.cxx',
   'TimerList.cxx',
-  'TimerEvent.cxx',
+  'FineTimerEvent.cxx',
   'DeferEvent.cxx',
   'IdleEvent.cxx',
   'SocketEvent.cxx',
