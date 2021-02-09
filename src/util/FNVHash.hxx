@@ -8,8 +8,7 @@
 
 #pragma once
 
-#include <stddef.h>
-#include <stdint.h>
+#include <cstdint>
 
 template<typename T>
 struct FNVTraits {};
