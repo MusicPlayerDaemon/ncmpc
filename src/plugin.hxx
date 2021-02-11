@@ -71,7 +71,7 @@ plugin_list_load_directory(const char *path) noexcept;
  */
 PluginCycle *
 plugin_run(EventLoop &event_loop,
-	   PluginList &list, const char *const*args,
+	   const PluginList &list, const char *const*args,
 	   PluginResponseHandler &handler) noexcept;
 
 /**

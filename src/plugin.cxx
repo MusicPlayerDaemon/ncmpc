@@ -341,7 +341,7 @@ make_argv(const char*const* args) noexcept
 
 PluginCycle *
 plugin_run(EventLoop &event_loop,
-	   PluginList &list, const char *const*args,
+	   const PluginList &list, const char *const*args,
 	   PluginResponseHandler &handler) noexcept
 {
 	assert(args != nullptr);
