@@ -60,6 +60,8 @@ class LyricsPage final : public TextPage, PluginResponseHandler {
 
 	std::string plugin_name;
 
+	LyricsLoader loader;
+
 	PluginCycle *plugin_cycle = nullptr;
 
 	CoarseTimerEvent plugin_timeout;
@@ -282,8 +284,7 @@ LyricsPage::Load(const struct mpd_song &_song) noexcept
 		return;
 	}
 
-	plugin_cycle = lyrics_load(GetEventLoop(),
-				   artist, title, *this);
+	plugin_cycle = loader.Load(GetEventLoop(), artist, title, *this);
 
 	if (options.lyrics_timeout > std::chrono::steady_clock::duration::zero())
 		plugin_timeout.Schedule(options.lyrics_timeout);
@@ -303,8 +304,7 @@ LyricsPage::Reload()
 {
 	if (plugin_cycle == nullptr && artist != nullptr && title != nullptr) {
 		reloading = true;
-		plugin_cycle = lyrics_load(GetEventLoop(),
-					   artist, title, *this);
+		plugin_cycle = loader.Load(GetEventLoop(), artist, title, *this);
 		Repaint();
 	}
 }

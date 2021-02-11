@@ -19,15 +19,17 @@
 #ifndef LYRICS_LOADER_HXX
 #define LYRICS_LOADER_HXX
 
-struct PluginCycle;
-class PluginResponseHandler;
-class EventLoop;
+#include "plugin.hxx"
 
-void lyrics_init();
+class LyricsLoader {
+	const PluginList plugins;
 
-PluginCycle *
-lyrics_load(EventLoop &event_loop,
-	    const char *artist, const char *title,
-	    PluginResponseHandler &handler);
+public:
+	LyricsLoader() noexcept;
+
+	PluginCycle *Load(EventLoop &event_loop,
+			  const char *artist, const char *title,
+			  PluginResponseHandler &handler) noexcept;
+};
 
 #endif

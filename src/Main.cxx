@@ -42,10 +42,6 @@
 #include "ConfigFile.hxx"
 #endif
 
-#ifdef ENABLE_LYRICS_SCREEN
-#include "LyricsLoader.hxx"
-#endif
-
 #include <mpd/client.h>
 
 #include <curses.h>
@@ -318,10 +314,6 @@ try {
 	options_parse(argc, argv);
 
 	const ScopeCursesInit curses_init;
-
-#ifdef ENABLE_LYRICS_SCREEN
-	lyrics_init();
-#endif
 
 	/* create the global Instance */
 	Instance instance;

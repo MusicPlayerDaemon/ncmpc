@@ -17,22 +17,19 @@
  */
 
 #include "LyricsLoader.hxx"
-#include "plugin.hxx"
 #include "config.h"
 
 #include <assert.h>
 
-static PluginList plugins;
-
-void lyrics_init()
+LyricsLoader::LyricsLoader() noexcept
+	:plugins(plugin_list_load_directory(LYRICS_PLUGIN_DIR))
 {
-	plugins = plugin_list_load_directory(LYRICS_PLUGIN_DIR);
 }
 
 PluginCycle *
-lyrics_load(EventLoop &event_loop,
-	    const char *artist, const char *title,
-	    PluginResponseHandler &handler)
+LyricsLoader::Load(EventLoop &event_loop,
+		   const char *artist, const char *title,
+		   PluginResponseHandler &handler) noexcept
 {
 	assert(artist != nullptr);
 	assert(title != nullptr);
