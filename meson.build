@@ -278,7 +278,6 @@ if enable_lyrics_screen
 
   conf.set_quoted('LYRICS_PLUGIN_DIR', lyrics_plugin_dir)
   install_data(
-    'lyrics/10-hd.sh',
     'lyrics/20-azlyrics.py',
     install_dir: lyrics_plugin_dir)
 

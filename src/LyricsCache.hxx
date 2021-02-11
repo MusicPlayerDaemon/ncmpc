@@ -42,6 +42,8 @@ public:
 	gcc_pure
 	bool Exists(const char *artist, const char *title) const noexcept;
 
+	std::string Load(const char *artist, const char *title) const noexcept;
+
 	FILE *Save(const char *artist, const char *title) noexcept;
 
 	/**

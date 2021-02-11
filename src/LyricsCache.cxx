@@ -95,6 +95,39 @@ LyricsCache::Exists(const char *artist, const char *title) const noexcept
 	return ExistsFile(MakePath(artist, title));
 }
 
+gcc_pure
+static std::string
+LoadFile(const std::string &path) noexcept
+{
+	if (path.empty())
+		return {};
+
+	FILE *file = fopen(path.c_str(), "r");
+	if (file == nullptr)
+		return {};
+
+	constexpr std::size_t MAX_SIZE = 256 * 1024;
+	std::string value;
+
+	do {
+		char buffer[1024];
+		auto nbytes = fread(buffer, 1, sizeof(buffer), file);
+		if (nbytes <= 0)
+			break;
+
+		value.append(buffer, nbytes);
+	} while (value.length() < MAX_SIZE);
+
+	fclose(file);
+	return value;
+}
+
+std::string
+LyricsCache::Load(const char *artist, const char *title) const noexcept
+{
+	return LoadFile(MakePath(artist, title));
+}
+
 FILE *
 LyricsCache::Save(const char *artist, const char *title) noexcept
 {

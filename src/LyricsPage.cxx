@@ -258,7 +258,13 @@ LyricsPage::Load(const struct mpd_song &_song) noexcept
 		return;
 	}
 
-	StartPluginCycle();
+	if (auto from_cache = cache.Load(artist, title); !from_cache.empty()) {
+		/* cached */
+		plugin_name = "cache";
+		Set(from_cache.c_str());
+	} else
+		/* not cached - invoke plugins */
+		StartPluginCycle();
 }
 
 void
