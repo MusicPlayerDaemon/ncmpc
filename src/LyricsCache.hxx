@@ -32,6 +32,10 @@ class LyricsCache {
 public:
 	LyricsCache() noexcept;
 
+	bool IsAvailable() const noexcept {
+		return !directory.empty();
+	}
+
 	std::string MakePath(const char *artist,
 			     const char *title) const noexcept;
 

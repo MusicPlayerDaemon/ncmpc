@@ -26,7 +26,11 @@
 static std::string
 GetLyricsCacheDirectory() noexcept
 {
-	return BuildPath(getenv("HOME"), ".lyrics");
+	const char *home = getenv("HOME");
+	if (home == nullptr)
+		return {};
+
+	return BuildPath(home, ".lyrics");
 }
 
 LyricsCache::LyricsCache() noexcept
@@ -37,6 +41,9 @@ LyricsCache::LyricsCache() noexcept
 std::string
 LyricsCache::MakePath(const char *artist, const char *title) const noexcept
 {
+	if (!IsAvailable())
+		return {};
+
 	char filename[1024];
 	snprintf(filename, sizeof(filename), "%s - %s.txt", artist, title);
 
@@ -47,6 +54,8 @@ bool
 LyricsCache::Exists(const char *artist, const char *title) const noexcept
 {
 	const auto path = MakePath(artist, title);
+	if (path.empty())
+		return false;
 
 	struct stat result;
 	return (stat(path.c_str(), &result) == 0);
@@ -55,6 +64,9 @@ LyricsCache::Exists(const char *artist, const char *title) const noexcept
 FILE *
 LyricsCache::Save(const char *artist, const char *title) noexcept
 {
+	if (!IsAvailable())
+		return nullptr;
+
 	mkdir(directory.c_str(), S_IRWXU);
 
 	const auto path = MakePath(artist, title);
@@ -65,5 +77,8 @@ bool
 LyricsCache::Delete(const char *artist, const char *title) noexcept
 {
 	const auto path = MakePath(artist, title);
+	if (path.empty())
+		return false;
+
 	return unlink(path.c_str()) == 0;
 }

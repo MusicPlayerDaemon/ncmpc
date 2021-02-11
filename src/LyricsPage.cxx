@@ -196,7 +196,8 @@ LyricsPage::OnPluginSuccess(const char *_plugin_name,
 
 	Set(result.c_str());
 
-	if (options.lyrics_autosave && !cache.Exists(artist, title))
+	if (options.lyrics_autosave && cache.IsAvailable() &&
+	    !cache.Exists(artist, title))
 		Save();
 
 	plugin_timeout.Cancel();
@@ -323,6 +324,12 @@ LyricsPage::GetTitle(char *str, size_t size) const noexcept
 void
 LyricsPage::Edit()
 {
+	const auto path = cache.MakePath(artist, title);
+	if (path.empty()) {
+		screen_status_message(_("Lyrics cache is unavailable"));
+		return;
+	}
+
 	if (options.text_editor.empty()) {
 		screen_status_message(_("Editor not configured"));
 		return;
@@ -353,7 +360,6 @@ LyricsPage::Edit()
 		ncu_init();
 		return;
 	} else if (pid == 0) {
-		const auto path = cache.MakePath(artist, title);
 		execlp(editor, editor, path.c_str(), nullptr);
 		/* exec failed, do what system does */
 		_exit(127);
