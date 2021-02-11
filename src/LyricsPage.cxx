@@ -60,14 +60,14 @@ class LyricsPage final : public TextPage, PluginResponseHandler {
 
 	std::string plugin_name;
 
-	PluginCycle *loader = nullptr;
+	PluginCycle *plugin_cycle = nullptr;
 
-	CoarseTimerEvent loader_timeout;
+	CoarseTimerEvent plugin_timeout;
 
 public:
 	LyricsPage(ScreenManager &_screen, WINDOW *w, Size size)
 		:TextPage(_screen, w, size),
-		 loader_timeout(_screen.GetEventLoop(),
+		 plugin_timeout(_screen.GetEventLoop(),
 				BIND_THIS_METHOD(OnTimeout)) {}
 
 	~LyricsPage() override {
@@ -75,15 +75,15 @@ public:
 	}
 
 	auto &GetEventLoop() noexcept {
-		return loader_timeout.GetEventLoop();
+		return plugin_timeout.GetEventLoop();
 	}
 
 private:
 	void StopPluginCycle() noexcept {
-		assert(loader != nullptr);
+		assert(plugin_cycle != nullptr);
 
-		plugin_stop(*loader);
-		loader = nullptr;
+		plugin_stop(*plugin_cycle);
+		plugin_cycle = nullptr;
 	}
 
 	void Cancel();
@@ -135,10 +135,10 @@ private:
 void
 LyricsPage::Cancel()
 {
-	if (loader != nullptr)
+	if (plugin_cycle != nullptr)
 		StopPluginCycle();
 
-	loader_timeout.Cancel();
+	plugin_timeout.Cancel();
 
 	plugin_name.clear();
 
@@ -239,7 +239,7 @@ LyricsPage::OnPluginSuccess(const char *_plugin_name,
 	if (options.lyrics_autosave && !exists_lyr_file(artist, title))
 		Save();
 
-	loader_timeout.Cancel();
+	plugin_timeout.Cancel();
 
 	StopPluginCycle();
 }
@@ -254,7 +254,7 @@ LyricsPage::OnPluginError(std::string error) noexcept
 	/* translators: no lyrics were found for the song */
 	screen_status_message(_("No lyrics"));
 
-	loader_timeout.Cancel();
+	plugin_timeout.Cancel();
 	StopPluginCycle();
 }
 
@@ -282,11 +282,11 @@ LyricsPage::Load(const struct mpd_song &_song) noexcept
 		return;
 	}
 
-	loader = lyrics_load(GetEventLoop(),
-			     artist, title, *this);
+	plugin_cycle = lyrics_load(GetEventLoop(),
+				   artist, title, *this);
 
 	if (options.lyrics_timeout > std::chrono::steady_clock::duration::zero())
-		loader_timeout.Schedule(options.lyrics_timeout);
+		plugin_timeout.Schedule(options.lyrics_timeout);
 }
 
 void
@@ -301,10 +301,10 @@ LyricsPage::MaybeLoad(const struct mpd_song &new_song) noexcept
 void
 LyricsPage::Reload()
 {
-	if (loader == nullptr && artist != nullptr && title != nullptr) {
+	if (plugin_cycle == nullptr && artist != nullptr && title != nullptr) {
 		reloading = true;
-		loader = lyrics_load(GetEventLoop(),
-				     artist, title, *this);
+		plugin_cycle = lyrics_load(GetEventLoop(),
+					   artist, title, *this);
 		Repaint();
 	}
 }
@@ -339,7 +339,7 @@ LyricsPage::Update(struct mpdclient &c, unsigned) noexcept
 const char *
 LyricsPage::GetTitle(char *str, size_t size) const noexcept
 {
-	if (loader != nullptr) {
+	if (plugin_cycle != nullptr) {
 		snprintf(str, size, "%s (%s)",
 			 _("Lyrics"),
 			 /* translators: this message is displayed
@@ -435,19 +435,19 @@ LyricsPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	switch(cmd) {
 	case Command::INTERRUPT:
-		if (loader != nullptr) {
+		if (plugin_cycle != nullptr) {
 			Cancel();
 			Clear();
 		}
 		return true;
 	case Command::SAVE_PLAYLIST:
-		if (loader == nullptr && artist != nullptr &&
+		if (plugin_cycle == nullptr && artist != nullptr &&
 		    title != nullptr && Save())
 			/* lyrics for the song were saved on hard disk */
 			screen_status_message (_("Lyrics saved"));
 		return true;
 	case Command::DELETE:
-		if (loader == nullptr && artist != nullptr &&
+		if (plugin_cycle == nullptr && artist != nullptr &&
 		    title != nullptr) {
 			screen_status_message(Delete()
 					      ? _("Lyrics deleted")
