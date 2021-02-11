@@ -276,9 +276,59 @@ mpdclient::Disconnect()
 
 #ifdef HAVE_TAG_WHITELIST
 
+/**
+ * Receive a "tagtypes" response and convert it to a #TagMask.
+ */
+static TagMask
+ReceiveTagList(struct mpd_connection *c) noexcept
+{
+	auto result = TagMask::None();
+
+	while (auto *pair = mpd_recv_tag_type_pair(c)) {
+		const auto type = mpd_tag_name_parse(pair->value);
+		if (type != MPD_TAG_UNKNOWN)
+			result |= type;
+
+		mpd_return_pair(c, pair);
+	}
+
+	return result;
+}
+
+/**
+ * Reset the tag mask and return all tag types known to MPD as a
+ * #TagMask.  (Without the reset, we would only see the tags currently
+ * enabled for this client.)
+ *
+ * Returns an empty mask on error.
+ */
+static TagMask
+ResetAndObtainTagList(struct mpd_connection *c) noexcept
+{
+	if (!mpd_command_list_begin(c, false) ||
+	    !mpd_send_all_tag_types(c) ||
+	    !mpd_send_list_tag_types(c) ||
+	    !mpd_command_list_end(c))
+		return TagMask::None();
+
+	auto mask = ReceiveTagList(c);
+	if (!mpd_response_finish(c))
+		return TagMask::None();
+
+	return mask;
+}
+
 static bool
 SendTagWhitelist(struct mpd_connection *c, const TagMask whitelist) noexcept
 {
+	const auto available_tags = ResetAndObtainTagList(c);
+	if (!available_tags.TestAny())
+		return false;
+
+	/* enable only the tags supported by MPD (or else the
+	   "tagtypes" request will fail */
+	const auto mask = whitelist & available_tags;
+
 	if (!mpd_command_list_begin(c, false) ||
 	    !mpd_send_clear_tag_types(c))
 		return false;
@@ -290,7 +340,7 @@ SendTagWhitelist(struct mpd_connection *c, const TagMask whitelist) noexcept
 	unsigned n = 0;
 
 	for (unsigned i = 0; i < MPD_TAG_COUNT; ++i)
-		if (whitelist.Test((enum mpd_tag_type)i))
+		if (mask.Test((enum mpd_tag_type)i))
 			types[n++] = (enum mpd_tag_type)i;
 
 	return (n == 0 || mpd_send_enable_tag_types(c, types, n)) &&
