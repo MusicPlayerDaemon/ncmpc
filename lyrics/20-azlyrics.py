@@ -26,6 +26,7 @@ import sys
 import urllib.request
 
 import requests
+import html
 
 try:
     # using the "unidecode" library if installed
@@ -47,7 +48,7 @@ def html_elements_to_text(s):
         .replace("</div>", "")
 
 def html_to_text(s):
-    return html_elements_to_text(s)
+    return html.unescape(html_elements_to_text(s))
 
 artist = normalize_parameter(sys.argv[1])
 title = normalize_parameter(sys.argv[2])

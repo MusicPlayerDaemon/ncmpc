@@ -2,6 +2,7 @@ ncmpc 0.45 - not yet released
 * make "tagtypes" errors non-fatal
 * check which tag types are supported by MPD (fixes MPD 0.21 support)
 * lyrics/azlyrics: normalize accented letters (using the "unidecode" library)
+* lyrics/azlyrics: unescape HTML entities
 
 ncmpc 0.44 - (2021-02-01)
 * fix scrolling problems on help page
