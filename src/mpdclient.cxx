@@ -286,7 +286,7 @@ SendTagWhitelist(struct mpd_connection *c, const TagMask whitelist) noexcept
 	/* convert the "tag_bits" mask to an array of enum
 	   mpd_tag_type for mpd_send_enable_tag_types() */
 
-	enum mpd_tag_type types[64];
+	enum mpd_tag_type types[MPD_TAG_COUNT];
 	unsigned n = 0;
 
 	for (unsigned i = 0; i < MPD_TAG_COUNT; ++i)
