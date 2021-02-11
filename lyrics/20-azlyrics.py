@@ -44,6 +44,8 @@ def normalize_parameter(s):
 def html_elements_to_text(s):
     return s \
         .replace("<br>", "") \
+        .replace("<i>", "").replace("</i>", "") \
+        .replace("<b>", "").replace("</b>", "") \
         .replace("<div>", "") \
         .replace("</div>", "")
 
