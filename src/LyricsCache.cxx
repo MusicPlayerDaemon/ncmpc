@@ -45,7 +45,11 @@ LyricsCache::MakePath(const char *artist, const char *title) const noexcept
 		return {};
 
 	char filename[1024];
-	snprintf(filename, sizeof(filename), "%s - %s.txt", artist, title);
+	int length = snprintf(filename, sizeof(filename), "%s - %s.txt",
+			      artist, title);
+	if (length <= 0 || size_t(length) >= sizeof(filename))
+		/* too long for the buffer, bail out */
+		return {};
 
 	return BuildPath(directory.c_str(), filename);
 }
