@@ -268,6 +268,7 @@ if enable_lyrics_screen
   sources += [
     'src/LyricsPage.cxx',
     'src/LyricsLoader.cxx',
+    'src/LyricsCache.cxx',
   ]
 
   lyrics_plugin_dir = get_option('lyrics_plugin_dir')

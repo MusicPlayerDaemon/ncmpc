@@ -17,6 +17,7 @@
  */
 
 #include "LyricsPage.hxx"
+#include "LyricsCache.hxx"
 #include "LyricsLoader.hxx"
 #include "PageMeta.hxx"
 #include "screen_status.hxx"
@@ -36,11 +37,9 @@
 
 #include <assert.h>
 #include <errno.h>
-#include <sys/stat.h>
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <stdio.h>
 
 static struct mpd_song *next_song;
@@ -57,6 +56,8 @@ class LyricsPage final : public TextPage, PluginResponseHandler {
 	 * become invalid as soon as the mpd_song_free() is called.
 	 */
 	const char *artist = nullptr, *title = nullptr;
+
+	LyricsCache cache;
 
 	std::string plugin_name;
 
@@ -113,7 +114,6 @@ private:
 	void Reload();
 
 	bool Save();
-	bool Delete();
 
 	/** save current lyrics to a file and run editor on it */
 	void Edit();
@@ -152,41 +152,10 @@ LyricsPage::Cancel()
 	}
 }
 
-static void
-path_lyr_file(char *path, size_t size,
-		const char *artist, const char *title)
-{
-	snprintf(path, size, "%s/.lyrics/%s - %s.txt",
-			getenv("HOME"), artist, title);
-}
-
-static bool
-exists_lyr_file(const char *artist, const char *title)
-{
-	char path[1024];
-	path_lyr_file(path, 1024, artist, title);
-
-	struct stat result;
-	return (stat(path, &result) == 0);
-}
-
-static FILE *
-create_lyr_file(const char *artist, const char *title)
-{
-	char path[1024];
-	snprintf(path, 1024, "%s/.lyrics",
-		 getenv("HOME"));
-	mkdir(path, S_IRWXU);
-
-	path_lyr_file(path, 1024, artist, title);
-
-	return fopen(path, "w");
-}
-
 bool
 LyricsPage::Save()
 {
-	FILE *lyr_file = create_lyr_file(artist, title);
+	FILE *lyr_file = cache.Save(artist, title);
 	if (lyr_file == nullptr)
 		return false;
 
@@ -195,17 +164,6 @@ LyricsPage::Save()
 
 	fclose(lyr_file);
 	return true;
-}
-
-bool
-LyricsPage::Delete()
-{
-	if (!exists_lyr_file(artist, title))
-		return false;
-
-	char path[1024];
-	path_lyr_file(path, 1024, artist, title);
-	return unlink(path) == 0;
 }
 
 void
@@ -238,7 +196,7 @@ LyricsPage::OnPluginSuccess(const char *_plugin_name,
 
 	Set(result.c_str());
 
-	if (options.lyrics_autosave && !exists_lyr_file(artist, title))
+	if (options.lyrics_autosave && !cache.Exists(artist, title))
 		Save();
 
 	plugin_timeout.Cancel();
@@ -396,7 +354,7 @@ LyricsPage::Edit()
 		return;
 	} else if (pid == 0) {
 		char path[1024];
-		path_lyr_file(path, sizeof(path), artist, title);
+		cache.MakePath(path, sizeof(path), artist, title);
 		execlp(editor, editor, path, nullptr);
 		/* exec failed, do what system does */
 		_exit(127);
@@ -449,7 +407,7 @@ LyricsPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::DELETE:
 		if (plugin_cycle == nullptr && artist != nullptr &&
 		    title != nullptr) {
-			screen_status_message(Delete()
+			screen_status_message(cache.Delete(artist, title)
 					      ? _("Lyrics deleted")
 					      : _("No saved lyrics"));
 		}
