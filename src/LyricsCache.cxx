@@ -53,10 +53,11 @@ SanitizeFilename(char *p) noexcept
 	}
 }
 
-std::string
-LyricsCache::MakePath(const char *artist, const char *title) const noexcept
+static std::string
+MakePath(const std::string &directory,
+	 const char *artist, const char *title) noexcept
 {
-	if (!IsAvailable())
+	if (directory.empty())
 		return {};
 
 	char filename[1024];
@@ -71,15 +72,27 @@ LyricsCache::MakePath(const char *artist, const char *title) const noexcept
 	return BuildPath(directory.c_str(), filename);
 }
 
-bool
-LyricsCache::Exists(const char *artist, const char *title) const noexcept
+std::string
+LyricsCache::MakePath(const char *artist, const char *title) const noexcept
 {
-	const auto path = MakePath(artist, title);
+	return ::MakePath(directory, artist, title);
+}
+
+gcc_pure
+static bool
+ExistsFile(const std::string &path) noexcept
+{
 	if (path.empty())
 		return false;
 
 	struct stat result;
-	return (stat(path.c_str(), &result) == 0);
+	return stat(path.c_str(), &result) == 0;
+}
+
+bool
+LyricsCache::Exists(const char *artist, const char *title) const noexcept
+{
+	return ExistsFile(MakePath(artist, title));
 }
 
 FILE *
@@ -94,12 +107,14 @@ LyricsCache::Save(const char *artist, const char *title) noexcept
 	return fopen(path.c_str(), "w");
 }
 
+static bool
+DeleteFile(const std::string &path) noexcept
+{
+	return !path.empty() && unlink(path.c_str()) == 0;
+}
+
 bool
 LyricsCache::Delete(const char *artist, const char *title) noexcept
 {
-	const auto path = MakePath(artist, title);
-	if (path.empty())
-		return false;
-
-	return unlink(path.c_str()) == 0;
+	return DeleteFile(MakePath(artist, title));
 }
