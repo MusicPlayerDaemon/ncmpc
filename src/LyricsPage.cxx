@@ -17,6 +17,7 @@
  */
 
 #include "LyricsPage.hxx"
+#include "LyricsLoader.hxx"
 #include "PageMeta.hxx"
 #include "screen_status.hxx"
 #include "FileBrowserPage.hxx"
@@ -26,7 +27,6 @@
 #include "Options.hxx"
 #include "mpdclient.hxx"
 #include "screen.hxx"
-#include "lyrics.hxx"
 #include "plugin.hxx"
 #include "TextPage.hxx"
 #include "screen_utils.hxx"

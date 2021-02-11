@@ -43,7 +43,7 @@
 #endif
 
 #ifdef ENABLE_LYRICS_SCREEN
-#include "lyrics.hxx"
+#include "LyricsLoader.hxx"
 #endif
 
 #include <mpd/client.h>

@@ -16,18 +16,28 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef LYRICS_H
-#define LYRICS_H
+#include "LyricsLoader.hxx"
+#include "plugin.hxx"
+#include "config.h"
 
-struct PluginCycle;
-class PluginResponseHandler;
-class EventLoop;
+#include <assert.h>
 
-void lyrics_init();
+static PluginList plugins;
+
+void lyrics_init()
+{
+	plugins = plugin_list_load_directory(LYRICS_PLUGIN_DIR);
+}
 
 PluginCycle *
 lyrics_load(EventLoop &event_loop,
 	    const char *artist, const char *title,
-	    PluginResponseHandler &handler);
+	    PluginResponseHandler &handler)
+{
+	assert(artist != nullptr);
+	assert(title != nullptr);
 
-#endif
+	const char *args[3] = { artist, title, nullptr };
+
+	return plugin_run(event_loop, plugins, args, handler);
+}

@@ -265,7 +265,10 @@ endif
 enable_lyrics_screen = get_option('lyrics_screen') and not mini
 conf.set('ENABLE_LYRICS_SCREEN', enable_lyrics_screen)
 if enable_lyrics_screen
-  sources += ['src/LyricsPage.cxx', 'src/lyrics.cxx']
+  sources += [
+    'src/LyricsPage.cxx',
+    'src/LyricsLoader.cxx',
+  ]
 
   lyrics_plugin_dir = get_option('lyrics_plugin_dir')
   if lyrics_plugin_dir == ''
