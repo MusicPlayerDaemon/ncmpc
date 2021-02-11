@@ -21,11 +21,17 @@
 
 #include "util/Compiler.h"
 
+#include <string>
+
 #include <stddef.h>
 #include <stdio.h>
 
 class LyricsCache {
+	const std::string directory;
+
 public:
+	LyricsCache() noexcept;
+
 	void MakePath(char *path, size_t size,
 		      const char *artist, const char *title) const noexcept;
 

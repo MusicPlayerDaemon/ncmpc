@@ -17,17 +17,29 @@
  */
 
 #include "LyricsCache.hxx"
+#include "io/Path.hxx"
 
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
+static std::string
+GetLyricsCacheDirectory() noexcept
+{
+	return BuildPath(getenv("HOME"), ".lyrics");
+}
+
+LyricsCache::LyricsCache() noexcept
+	:directory(GetLyricsCacheDirectory())
+{
+}
+
 void
 LyricsCache::MakePath(char *path, size_t size,
 		      const char *artist, const char *title) const noexcept
 {
-	snprintf(path, size, "%s/.lyrics/%s - %s.txt",
-		 getenv("HOME"), artist, title);
+	snprintf(path, size, "%s/%s - %s.txt",
+		 directory.c_str(), artist, title);
 }
 
 bool
@@ -43,11 +55,9 @@ LyricsCache::Exists(const char *artist, const char *title) const noexcept
 FILE *
 LyricsCache::Save(const char *artist, const char *title) noexcept
 {
-	char path[1024];
-	snprintf(path, 1024, "%s/.lyrics",
-		 getenv("HOME"));
-	mkdir(path, S_IRWXU);
+	mkdir(directory.c_str(), S_IRWXU);
 
+	char path[1024];
 	MakePath(path, 1024, artist, title);
 
 	return fopen(path, "w");
