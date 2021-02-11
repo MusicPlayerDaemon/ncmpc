@@ -129,7 +129,7 @@ void
 LyricsPage::Cancel()
 {
 	if (loader != nullptr) {
-		plugin_stop(loader);
+		plugin_stop(*loader);
 		loader = nullptr;
 	}
 
@@ -236,7 +236,7 @@ LyricsPage::OnPluginSuccess(const char *_plugin_name,
 
 	loader_timeout.Cancel();
 
-	plugin_stop(loader);
+	plugin_stop(*loader);
 	loader = nullptr;
 }
 
@@ -252,14 +252,14 @@ LyricsPage::OnPluginError(std::string error) noexcept
 
 	loader_timeout.Cancel();
 
-	plugin_stop(loader);
+	plugin_stop(*loader);
 	loader = nullptr;
 }
 
 void
 LyricsPage::OnTimeout() noexcept
 {
-	plugin_stop(loader);
+	plugin_stop(*loader);
 	loader = nullptr;
 
 	screen_status_printf(_("Lyrics timeout occurred after %d seconds"),

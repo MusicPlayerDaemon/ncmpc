@@ -341,12 +341,12 @@ make_argv(const char*const* args) noexcept
 
 PluginCycle *
 plugin_run(EventLoop &event_loop,
-	   PluginList *list, const char *const*args,
+	   PluginList &list, const char *const*args,
 	   PluginResponseHandler &handler) noexcept
 {
 	assert(args != nullptr);
 
-	auto *cycle = new PluginCycle(event_loop, *list, make_argv(args),
+	auto *cycle = new PluginCycle(event_loop, list, make_argv(args),
 				      handler);
 	cycle->TryNextPlugin();
 
@@ -372,7 +372,7 @@ PluginCycle::Stop() noexcept
 }
 
 void
-plugin_stop(PluginCycle *cycle) noexcept
+plugin_stop(PluginCycle &cycle) noexcept
 {
-	cycle->Stop();
+	cycle.Stop();
 }

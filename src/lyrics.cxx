@@ -39,5 +39,5 @@ lyrics_load(EventLoop &event_loop,
 
 	const char *args[3] = { artist, title, nullptr };
 
-	return plugin_run(event_loop, &plugins, args, handler);
+	return plugin_run(event_loop, plugins, args, handler);
 }
