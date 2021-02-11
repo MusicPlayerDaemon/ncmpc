@@ -331,9 +331,12 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 	    mpd_connection_cmp_server_version(connection, 0, 21, 0) >= 0 &&
 	    !SendTagWhitelist(connection, tag_whitelist)) {
 		InvokeErrorCallback();
-		Disconnect();
-		mpdclient_failed_callback();
-		return false;
+
+		if (!mpd_connection_clear_error(connection)) {
+			Disconnect();
+			mpdclient_failed_callback();
+			return false;
+		}
 	}
 #endif
 

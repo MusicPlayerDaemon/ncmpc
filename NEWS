@@ -1,4 +1,5 @@
 ncmpc 0.45 - not yet released
+* make "tagtypes" errors non-fatal
 
 ncmpc 0.44 - (2021-02-01)
 * fix scrolling problems on help page
