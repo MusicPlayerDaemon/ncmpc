@@ -29,6 +29,8 @@
 class LyricsCache {
 	const std::string directory;
 
+	const std::string legacy_directory;
+
 public:
 	LyricsCache() noexcept;
 

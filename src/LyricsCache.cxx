@@ -26,6 +26,12 @@
 static std::string
 GetLyricsCacheDirectory() noexcept
 {
+	return {};
+}
+
+static std::string
+GetLegacyLyricsCacheDirectory() noexcept
+{
 	const char *home = getenv("HOME");
 	if (home == nullptr)
 		return {};
@@ -34,7 +40,8 @@ GetLyricsCacheDirectory() noexcept
 }
 
 LyricsCache::LyricsCache() noexcept
-	:directory(GetLyricsCacheDirectory())
+	:directory(GetLyricsCacheDirectory()),
+	 legacy_directory(GetLegacyLyricsCacheDirectory())
 {
 }
 
@@ -75,7 +82,11 @@ MakePath(const std::string &directory,
 std::string
 LyricsCache::MakePath(const char *artist, const char *title) const noexcept
 {
-	return ::MakePath(directory, artist, title);
+	auto path = ::MakePath(directory, artist, title);
+	if (path.empty())
+		path = ::MakePath(legacy_directory, artist, title);
+
+	return path;
 }
 
 gcc_pure
@@ -92,7 +103,8 @@ ExistsFile(const std::string &path) noexcept
 bool
 LyricsCache::Exists(const char *artist, const char *title) const noexcept
 {
-	return ExistsFile(MakePath(artist, title));
+	return ExistsFile(::MakePath(directory, artist, title)) ||
+		ExistsFile(::MakePath(legacy_directory, artist, title));
 }
 
 gcc_pure
@@ -125,18 +137,22 @@ LoadFile(const std::string &path) noexcept
 std::string
 LyricsCache::Load(const char *artist, const char *title) const noexcept
 {
-	return LoadFile(MakePath(artist, title));
+	auto s = LoadFile(::MakePath(directory, artist, title));
+	if (s.empty())
+		s = LoadFile(::MakePath(legacy_directory, artist, title));
+	return s;
 }
 
 FILE *
 LyricsCache::Save(const char *artist, const char *title) noexcept
 {
-	if (!IsAvailable())
+	const auto &d = directory.empty() ? legacy_directory : directory;
+	if (d.empty())
 		return nullptr;
 
-	mkdir(directory.c_str(), S_IRWXU);
+	mkdir(d.c_str(), S_IRWXU);
 
-	const auto path = MakePath(artist, title);
+	const auto path = ::MakePath(d, artist, title);
 	return fopen(path.c_str(), "w");
 }
 
@@ -149,5 +165,6 @@ DeleteFile(const std::string &path) noexcept
 bool
 LyricsCache::Delete(const char *artist, const char *title) noexcept
 {
-	return DeleteFile(MakePath(artist, title));
+	return DeleteFile(::MakePath(directory, artist, title)) ||
+		DeleteFile(::MakePath(legacy_directory, artist, title));
 }
