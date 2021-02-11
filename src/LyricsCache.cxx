@@ -56,9 +56,6 @@ LyricsCache::Save(const char *artist, const char *title) noexcept
 bool
 LyricsCache::Delete(const char *artist, const char *title) noexcept
 {
-	if (!Exists(artist, title))
-		return false;
-
 	char path[1024];
 	MakePath(path, 1024, artist, title);
 	return unlink(path) == 0;
