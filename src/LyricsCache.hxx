@@ -27,10 +27,10 @@
 class LyricsCache {
 public:
 	void MakePath(char *path, size_t size,
-		      const char *artist, const char *title) noexcept;
+		      const char *artist, const char *title) const noexcept;
 
 	gcc_pure
-	bool Exists(const char *artist, const char *title) noexcept;
+	bool Exists(const char *artist, const char *title) const noexcept;
 
 	FILE *Save(const char *artist, const char *title) noexcept;
 

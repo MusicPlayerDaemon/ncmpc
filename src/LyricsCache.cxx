@@ -24,14 +24,14 @@
 
 void
 LyricsCache::MakePath(char *path, size_t size,
-		      const char *artist, const char *title) noexcept
+		      const char *artist, const char *title) const noexcept
 {
 	snprintf(path, size, "%s/.lyrics/%s - %s.txt",
 		 getenv("HOME"), artist, title);
 }
 
 bool
-LyricsCache::Exists(const char *artist, const char *title) noexcept
+LyricsCache::Exists(const char *artist, const char *title) const noexcept
 {
 	char path[1024];
 	MakePath(path, 1024, artist, title);
