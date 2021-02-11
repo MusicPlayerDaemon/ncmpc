@@ -40,6 +40,15 @@ except ImportError:
 def normalize_parameter(s):
     return unidecode(s).lower()
 
+def html_elements_to_text(s):
+    return s \
+        .replace("<br>", "") \
+        .replace("<div>", "") \
+        .replace("</div>", "")
+
+def html_to_text(s):
+    return html_elements_to_text(s)
+
 artist = normalize_parameter(sys.argv[1])
 title = normalize_parameter(sys.argv[2])
 artist = re.sub("[^A-Za-z0-9]+", "", artist)
@@ -54,7 +63,7 @@ try:
     end = response.find("<!-- MxM")
     lyrics = response[start + 9 : end]
     lyrics = (
-        lyrics.replace("<br>", "").replace("<div>", "").replace("</div>", "").strip()
+        html_to_text(lyrics).strip()
     )
     print(lyrics)
 except urllib.error.HTTPError:
