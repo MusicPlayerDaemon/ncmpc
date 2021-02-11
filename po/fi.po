@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2011-03-06 16:02+0000\n"
-"Last-Translator: Sami Sankala <Unknown>\n"
-"Language-Team: Finnish <fi@li.org>\n"
+"PO-Revision-Date: 2021-01-30 15:41+0000\n"
+"Last-Translator: Riku Viitanen <riku.viitanen@protonmail.com>\n"
+"Language-Team: Finnish <https://hosted.weblate.org/projects/ncmpc/"
+"translations/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
-"X-Generator: Launchpad (build 13265)\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
 #, c-format
@@ -29,19 +31,19 @@ msgstr ""
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr ""
+msgstr "Viestisi"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr ""
+msgstr "Viestiä ei voitu lähettää"
 
 #: src/Command.cxx:30
 msgid "Key configuration screen"
-msgstr ""
+msgstr "Näppäinten asetukset"
 
 #: src/Command.cxx:33
 msgid "Quit"
-msgstr ""
+msgstr "Lopeta"
 
 #: src/Command.cxx:37
 msgid "Move cursor up"
@@ -73,11 +75,11 @@ msgstr ""
 
 #: src/Command.cxx:51
 msgid "Page up"
-msgstr ""
+msgstr "Sivu ylöspäin"
 
 #: src/Command.cxx:53
 msgid "Page down"
-msgstr ""
+msgstr "Sivu alaspäin"
 
 #: src/Command.cxx:55
 msgid "Range selection"
@@ -85,19 +87,19 @@ msgstr ""
 
 #: src/Command.cxx:57
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Siirry yksi rivi alaspäin"
 
 #: src/Command.cxx:59
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Siirry yksi rivi ylöspäin"
 
 #: src/Command.cxx:61
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Siirry puoli näyttöä ylöspäin"
 
 #: src/Command.cxx:63
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Siirry puoli näyttöä alaspäin"
 
 #: src/Command.cxx:65
 msgid "Select currently playing song"
@@ -108,9 +110,8 @@ msgid "Help screen"
 msgstr ""
 
 #: src/Command.cxx:72 src/HelpPage.cxx:141
-#, fuzzy
 msgid "Queue screen"
-msgstr "Näppäinmäärittely ruutu"
+msgstr "Jononäkymä"
 
 #: src/Command.cxx:74 src/HelpPage.cxx:156
 msgid "Browse screen"
@@ -126,19 +127,19 @@ msgstr ""
 
 #: src/Command.cxx:83
 msgid "Stop"
-msgstr ""
+msgstr "Pysäytä"
 
 #: src/Command.cxx:85
 msgid "Crop"
-msgstr ""
+msgstr "Rajaa"
 
 #: src/Command.cxx:87
 msgid "Next track"
-msgstr ""
+msgstr "Seuraava raita"
 
 #: src/Command.cxx:89
 msgid "Previous track"
-msgstr ""
+msgstr "Edellinen raita"
 
 #: src/Command.cxx:91
 msgid "Seek forward"
@@ -150,11 +151,11 @@ msgstr ""
 
 #: src/Command.cxx:95
 msgid "Increase volume"
-msgstr ""
+msgstr "Nosta äänenvoimakkuutta"
 
 #: src/Command.cxx:97
 msgid "Decrease volume"
-msgstr ""
+msgstr "Laske äänenvoimakkuutta"
 
 #: src/Command.cxx:99
 msgid "Select/deselect song in queue"
@@ -166,15 +167,15 @@ msgstr ""
 
 #: src/Command.cxx:103
 msgid "Delete song from queue"
-msgstr ""
+msgstr "Poista kappale jonosta"
 
 #: src/Command.cxx:105
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Sekoita jono"
 
 #: src/Command.cxx:107
 msgid "Clear queue"
-msgstr ""
+msgstr "Tyhjennä jono"
 
 #: src/Command.cxx:109
 msgid "Toggle repeat mode"
@@ -202,7 +203,7 @@ msgstr ""
 
 #: src/Command.cxx:121
 msgid "Save queue"
-msgstr ""
+msgstr "Tallenna jono"
 
 #: src/Command.cxx:123 src/HelpPage.cxx:175
 #, fuzzy
@@ -211,7 +212,7 @@ msgstr "Lisää kappale soittolistaan"
 
 #: src/Command.cxx:126
 msgid "Go to root directory"
-msgstr ""
+msgstr "Mene juurihakemistoon"
 
 #: src/Command.cxx:128
 msgid "Go to parent directory"
@@ -231,7 +232,7 @@ msgstr ""
 
 #: src/Command.cxx:139
 msgid "Refresh screen"
-msgstr ""
+msgstr "Päivitä näkymä"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
@@ -247,15 +248,15 @@ msgstr ""
 
 #: src/Command.cxx:155
 msgid "Next screen"
-msgstr ""
+msgstr "Seuraava näkymä"
 
 #: src/Command.cxx:157
 msgid "Previous screen"
-msgstr ""
+msgstr "Edellinen näkymä"
 
 #: src/Command.cxx:159
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Vaihda viimeisimpään näkymään"
 
 #: src/Command.cxx:164
 msgid "Forward find"
@@ -282,7 +283,7 @@ msgstr ""
 
 #: src/Command.cxx:181
 msgid "Library page"
-msgstr ""
+msgstr "Kirjastosivu"
 
 #: src/Command.cxx:185 src/HelpPage.cxx:170
 msgid "Search screen"
@@ -290,7 +291,7 @@ msgstr "Hakunäkymä"
 
 #: src/Command.cxx:187
 msgid "Change search mode"
-msgstr ""
+msgstr "Vaihda hakutilaa"
 
 #: src/Command.cxx:191
 msgid "View the selected and the currently playing song"
@@ -319,9 +320,8 @@ msgid "Outputs screen"
 msgstr ""
 
 #: src/Command.cxx:215 src/HelpPage.cxx:204
-#, fuzzy
 msgid "Chat screen"
-msgstr "Soittolista näyttö"
+msgstr "Keskustelunäkymä"
 
 #: src/ConfigParser.cxx:120
 msgid "Word expected"
@@ -360,7 +360,7 @@ msgstr ""
 #. configuration file line
 #: src/ConfigParser.cxx:224 src/ConfigParser.cxx:454
 msgid "Missing '='"
-msgstr ""
+msgstr "Puuttuva '='"
 
 #: src/ConfigParser.cxx:273
 msgid "Bad color name"
@@ -368,11 +368,11 @@ msgstr ""
 
 #: src/ConfigParser.cxx:282
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Epätäydellisesti määritelty väri"
 
 #: src/ConfigParser.cxx:288 src/SearchPage.cxx:244
 msgid "Invalid number"
-msgstr ""
+msgstr "Virheellinen luku"
 
 #: src/ConfigParser.cxx:295
 msgid "Malformed color definition"
@@ -405,7 +405,7 @@ msgstr ""
 
 #: src/CustomColors.cxx:57
 msgid "Terminal lacks support for changing colors"
-msgstr ""
+msgstr "Pääte ei tue värien vaihtamista"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
@@ -415,9 +415,9 @@ msgid "Deleting this item is not possible"
 msgstr "Tämän kohteen poistaminen ei ole mahdollista"
 
 #: src/FileBrowserPage.cxx:254
-#, fuzzy, c-format
+#, c-format
 msgid "Delete playlist %s?"
-msgstr "Poista soittolista"
+msgstr "Poistetaanko soittolista %s?"
 
 #. translators: a dialog was aborted by the user
 #: src/FileBrowserPage.cxx:259 src/KeyDefPage.cxx:182 src/LyricsPage.cxx:388
@@ -437,15 +437,15 @@ msgid "Browse"
 msgstr "Selaa"
 
 #: src/FileListPage.cxx:125
-#, fuzzy, c-format
+#, c-format
 msgid "Loading playlist '%s'"
-msgstr "Ladataan soittolistaa %s..."
+msgstr "Ladataan soittolistaa '%s'"
 
 #: src/FileListPage.cxx:165 src/FileListPage.cxx:254 src/FileListPage.cxx:277
 #: src/TagListPage.cxx:184
-#, fuzzy, c-format
+#, c-format
 msgid "Adding '%s' to queue"
-msgstr "Soittolistaan lisätään '%s'"
+msgstr "Lisätään '%s' jonoon"
 
 #: src/HelpPage.cxx:61
 msgid "Movement"
@@ -472,9 +472,8 @@ msgid "Delete playlist"
 msgstr "Poista soittolista"
 
 #: src/HelpPage.cxx:172
-#, fuzzy
 msgid "New search"
-msgstr "Haku"
+msgstr "Uusi haku"
 
 #: src/HelpPage.cxx:173
 msgid "Select and play"
@@ -499,9 +498,8 @@ msgid "Download lyrics for currently playing song"
 msgstr "Lataa sanoitukset toistettavaan kappaleeseen"
 
 #: src/HelpPage.cxx:190
-#, fuzzy
 msgid "Add or edit lyrics"
-msgstr "Ei talletettuja sanoituksia"
+msgstr "Lisää tai muokkaa sanoituksia"
 
 #: src/HelpPage.cxx:191
 msgid "Save lyrics"
@@ -517,7 +515,7 @@ msgstr "Ulostulo päälle/poissa"
 
 #: src/HelpPage.cxx:206
 msgid "Write a message"
-msgstr ""
+msgstr "Kirjoita viesti"
 
 #: src/HelpPage.cxx:211
 msgid "Keydef screen"
@@ -532,9 +530,8 @@ msgid "Remove selected keydef"
 msgstr "Poista valittu näppäinmäärittely"
 
 #: src/HelpPage.cxx:215
-#, fuzzy
 msgid "Add a keydef"
-msgstr "Lisää uusi näppäin"
+msgstr "Lisää näppäinmäärittely"
 
 #: src/HelpPage.cxx:216
 msgid "Go up a level"
@@ -602,7 +599,7 @@ msgstr ""
 
 #: src/KeyDefPage.cxx:416 src/KeyDefPage.cxx:425
 msgid "Error"
-msgstr ""
+msgstr "Virhe"
 
 #: src/KeyDefPage.cxx:423
 #, c-format
@@ -635,11 +632,11 @@ msgstr ""
 
 #: src/KeyName.cxx:117
 msgid "Space"
-msgstr ""
+msgstr "Välilyönti"
 
 #: src/KeyName.cxx:119
 msgid "Enter"
-msgstr ""
+msgstr "Enter"
 
 #: src/KeyName.cxx:121
 msgid "Backspace"
@@ -647,7 +644,7 @@ msgstr ""
 
 #: src/KeyName.cxx:123
 msgid "Delete"
-msgstr ""
+msgstr "Delete"
 
 #: src/KeyName.cxx:125
 msgid "Up"
@@ -667,23 +664,23 @@ msgstr ""
 
 #: src/KeyName.cxx:133
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: src/KeyName.cxx:135
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: src/KeyName.cxx:137
 msgid "PageDown"
-msgstr ""
+msgstr "PageDown"
 
 #: src/KeyName.cxx:139
 msgid "PageUp"
-msgstr ""
+msgstr "PageUp"
 
 #: src/KeyName.cxx:141
 msgid "Tab"
-msgstr ""
+msgstr "Sarkain"
 
 #: src/KeyName.cxx:143
 msgid "Shift+Tab"
@@ -691,11 +688,11 @@ msgstr ""
 
 #: src/KeyName.cxx:145
 msgid "Esc"
-msgstr ""
+msgstr "Esc"
 
 #: src/KeyName.cxx:147
 msgid "Insert"
-msgstr ""
+msgstr "Insert"
 
 #. translate "^X" to "Ctrl-X"
 #: src/KeyName.cxx:167
@@ -721,7 +718,7 @@ msgstr "Albumi"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "Kaikki"
 
 #: src/LibraryPage.cxx:197
 msgid "Songs"
@@ -729,7 +726,7 @@ msgstr ""
 
 #: src/LibraryPage.cxx:314
 msgid "Library"
-msgstr ""
+msgstr "Kirjasto"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
@@ -790,14 +787,14 @@ msgid "No saved lyrics"
 msgstr "Ei talletettuja sanoituksia"
 
 #: src/Main.cxx:133
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to %s"
-msgstr "Yhdistetty kohteeseen %s"
+msgstr "Yhdistetään kohteeseen %s"
 
 #: src/Main.cxx:149
-#, fuzzy, c-format
+#, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "Virhe: MPD versio %d.%d.%d on liian vanha (tarvitaan %s)"
+msgstr "Virhe: MPD:n versio %d.%d.%d on liian vanha (%s vaaditaan)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -811,7 +808,7 @@ msgstr ""
 #: src/OutputsPage.cxx:168
 #, c-format
 msgid "Switched to partition '%s'"
-msgstr ""
+msgstr "Vaihdettu osioon '%s'"
 
 #: src/OutputsPage.cxx:180 src/SongPage.cxx:69
 msgid "Name"
@@ -838,15 +835,15 @@ msgstr "esittäjä"
 
 #: src/OutputsPage.cxx:407
 msgid "Create new partition"
-msgstr ""
+msgstr "Luo uusi osio"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
-msgstr ""
+msgstr "Sekoitettu jono"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
-msgstr ""
+msgstr "Tyhjennetty jono"
 
 #. get path
 #: src/QueuePage.cxx:314
@@ -855,7 +852,7 @@ msgstr "Lisää"
 
 #: src/QueuePage.cxx:379 src/QueuePage.cxx:697
 msgid "Queue"
-msgstr ""
+msgstr "Jono"
 
 #: src/QueuePage.cxx:381
 #, c-format
@@ -865,12 +862,12 @@ msgstr ""
 #. query the user for a filename
 #: src/save_playlist.cxx:86
 msgid "Save queue as"
-msgstr ""
+msgstr "Tallenna jono nimellä"
 
 #: src/save_playlist.cxx:108
-#, fuzzy, c-format
+#, c-format
 msgid "Replace %s?"
-msgstr "Korvaa %s [%s/%s] ? "
+msgstr "Korvaa %s?"
 
 #. success
 #: src/save_playlist.cxx:129
@@ -879,18 +876,17 @@ msgid "Saved %s"
 msgstr "Tallennettu %s"
 
 #: src/screen_client.cxx:41
-#, fuzzy
 msgid "Database update running"
-msgstr "Tietokannan päivitys käynnissä..."
+msgstr "Tietokannan päivitys käynnissä"
 
 #: src/screen_client.cxx:48
 #, c-format
 msgid "Database update of %s started"
-msgstr "Tietokannan %s päivitys käynnistyi"
+msgstr "Tietokannan %s päivitys alkoi"
 
 #: src/screen_client.cxx:51
 msgid "Database update started"
-msgstr "Tietokannan päivitys käynnistyi"
+msgstr "Tietokannan päivitys alkoi"
 
 #: src/screen.cxx:158
 msgid "Repeat mode is on"
@@ -1098,35 +1094,35 @@ msgstr ""
 
 #: src/SongPage.cxx:73
 msgid "Genre"
-msgstr ""
+msgstr "Tyylilaji"
 
 #: src/SongPage.cxx:74
 msgid "Comment"
-msgstr ""
+msgstr "Kommentti"
 
 #: src/SongPage.cxx:75
 msgid "Path"
-msgstr ""
+msgstr "Polku"
 
 #: src/SongPage.cxx:76
 msgid "Bitrate"
-msgstr ""
+msgstr "Bittinopeus"
 
 #: src/SongPage.cxx:77
 msgid "Format"
-msgstr ""
+msgstr "Muoto"
 
 #: src/SongPage.cxx:94
 msgid "Number of artists"
-msgstr ""
+msgstr "Esittäjien lukumäärä"
 
 #: src/SongPage.cxx:95
 msgid "Number of albums"
-msgstr ""
+msgstr "Albumien lukumäärä"
 
 #: src/SongPage.cxx:96
 msgid "Number of songs"
-msgstr ""
+msgstr "Kappaleiden lukumäärä"
 
 #: src/SongPage.cxx:97
 msgid "Uptime"
@@ -1138,7 +1134,7 @@ msgstr ""
 
 #: src/SongPage.cxx:99
 msgid "Playtime"
-msgstr ""
+msgstr "Toistoaika"
 
 #: src/SongPage.cxx:100
 msgid "DB playtime"
@@ -1150,11 +1146,11 @@ msgstr ""
 
 #: src/SongPage.cxx:371
 msgid "MPD statistics"
-msgstr ""
+msgstr "MPD-tilastot"
 
 #: src/SongPage.cxx:457
 msgid "Selected song"
-msgstr ""
+msgstr "Valittu kappale"
 
 #: src/SongPage.cxx:467
 msgid "Currently playing song"
@@ -1163,23 +1159,23 @@ msgstr ""
 #: src/SongPage.cxx:472
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kb/s"
 
 #: src/SongPage.cxx:556
 msgid "Song"
-msgstr ""
+msgstr "Kappale"
 
 #: src/StatusBar.cxx:165
 msgid "Playing:"
-msgstr ""
+msgstr "Toistetaan:"
 
 #: src/StatusBar.cxx:169
 msgid "[Paused]"
-msgstr ""
+msgstr "[Keskeytetty]"
 
 #: src/Styles.cxx:252 src/Styles.cxx:313
 msgid "Unknown color"
-msgstr ""
+msgstr "Tuntematon väri"
 
 #: src/Styles.cxx:323
 msgid "Unknown color field"
@@ -1187,7 +1183,7 @@ msgstr ""
 
 #: src/Styles.cxx:356
 msgid "Terminal lacks color capabilities"
-msgstr ""
+msgstr "Pääte ei tue värejä"
 
 #: src/TagListPage.cxx:71
 msgid "All tracks"
@@ -1195,36 +1191,36 @@ msgstr "Kaikki kappaleet"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr ""
+msgstr "vuosi"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr ""
+msgstr "vuotta"
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr ""
+msgstr "viikko"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr ""
+msgstr "viikkoa"
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr ""
+msgstr "päivä"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr ""
+msgstr "päivää"
 
 #: src/TitleBar.cxx:101
 msgid "Volume n/a"
-msgstr ""
+msgstr "Äänenvoimakkuus n/a"
 
 #: src/TitleBar.cxx:103
 #, c-format
 msgid "Volume %d%%"
-msgstr ""
+msgstr "Äänenvoimakkuus %d%%"
 
 #~ msgid "Albums of artist: %s"
 #~ msgstr "Kaikki albumit esittäjältä: %s"
