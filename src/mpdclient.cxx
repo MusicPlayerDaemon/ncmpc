@@ -306,7 +306,9 @@ static TagMask
 ResetAndObtainTagList(struct mpd_connection *c) noexcept
 {
 	if (!mpd_command_list_begin(c, false) ||
+#if LIBMPDCLIENT_CHECK_VERSION(2,19,0)
 	    !mpd_send_all_tag_types(c) ||
+#endif
 	    !mpd_send_list_tag_types(c) ||
 	    !mpd_command_list_end(c))
 		return TagMask::None();
