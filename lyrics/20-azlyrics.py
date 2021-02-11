@@ -27,8 +27,18 @@ import urllib.request
 
 import requests
 
+try:
+    # using the "unidecode" library if installed
+    # (https://pypi.org/project/Unidecode/ or package
+    # "python3-unidecode" on Debian)
+    from unidecode import unidecode
+except ImportError:
+    # Dummy fallback (don't crash if "unidecode" is not installed)
+    def unidecode(s):
+        return s
+
 def normalize_parameter(s):
-    return s.lower()
+    return unidecode(s).lower()
 
 artist = normalize_parameter(sys.argv[1])
 title = normalize_parameter(sys.argv[2])
