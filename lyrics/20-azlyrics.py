@@ -27,8 +27,11 @@ import urllib.request
 
 import requests
 
-artist = sys.argv[1].lower()
-title = sys.argv[2].lower()
+def normalize_parameter(s):
+    return s.lower()
+
+artist = normalize_parameter(sys.argv[1])
+title = normalize_parameter(sys.argv[2])
 artist = re.sub("[^A-Za-z0-9]+", "", artist)
 title = re.sub("[^A-Za-z0-9]+", "", title)
 
