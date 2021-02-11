@@ -34,22 +34,22 @@ LyricsCache::LyricsCache() noexcept
 {
 }
 
-void
-LyricsCache::MakePath(char *path, size_t size,
-		      const char *artist, const char *title) const noexcept
+std::string
+LyricsCache::MakePath(const char *artist, const char *title) const noexcept
 {
-	snprintf(path, size, "%s/%s - %s.txt",
-		 directory.c_str(), artist, title);
+	char filename[1024];
+	snprintf(filename, sizeof(filename), "%s - %s.txt", artist, title);
+
+	return BuildPath(directory.c_str(), filename);
 }
 
 bool
 LyricsCache::Exists(const char *artist, const char *title) const noexcept
 {
-	char path[1024];
-	MakePath(path, 1024, artist, title);
+	const auto path = MakePath(artist, title);
 
 	struct stat result;
-	return (stat(path, &result) == 0);
+	return (stat(path.c_str(), &result) == 0);
 }
 
 FILE *
@@ -57,16 +57,13 @@ LyricsCache::Save(const char *artist, const char *title) noexcept
 {
 	mkdir(directory.c_str(), S_IRWXU);
 
-	char path[1024];
-	MakePath(path, 1024, artist, title);
-
-	return fopen(path, "w");
+	const auto path = MakePath(artist, title);
+	return fopen(path.c_str(), "w");
 }
 
 bool
 LyricsCache::Delete(const char *artist, const char *title) noexcept
 {
-	char path[1024];
-	MakePath(path, 1024, artist, title);
-	return unlink(path) == 0;
+	const auto path = MakePath(artist, title);
+	return unlink(path.c_str()) == 0;
 }

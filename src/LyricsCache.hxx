@@ -32,8 +32,8 @@ class LyricsCache {
 public:
 	LyricsCache() noexcept;
 
-	void MakePath(char *path, size_t size,
-		      const char *artist, const char *title) const noexcept;
+	std::string MakePath(const char *artist,
+			     const char *title) const noexcept;
 
 	gcc_pure
 	bool Exists(const char *artist, const char *title) const noexcept;

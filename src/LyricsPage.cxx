@@ -353,9 +353,8 @@ LyricsPage::Edit()
 		ncu_init();
 		return;
 	} else if (pid == 0) {
-		char path[1024];
-		cache.MakePath(path, sizeof(path), artist, title);
-		execlp(editor, editor, path, nullptr);
+		const auto path = cache.MakePath(artist, title);
+		execlp(editor, editor, path.c_str(), nullptr);
 		/* exec failed, do what system does */
 		_exit(127);
 	} else {
