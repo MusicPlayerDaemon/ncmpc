@@ -103,6 +103,8 @@ private:
 
 	void Set(const char *s);
 
+	void StartPluginCycle() noexcept;
+
 	void Load(const struct mpd_song &song) noexcept;
 	void MaybeLoad(const struct mpd_song &new_song) noexcept;
 
@@ -229,6 +231,19 @@ LyricsPage::OnTimeout() noexcept
 }
 
 void
+LyricsPage::StartPluginCycle() noexcept
+{
+	assert(artist != nullptr);
+	assert(title != nullptr);
+	assert(plugin_cycle == nullptr);
+
+	plugin_cycle = loader.Load(GetEventLoop(), artist, title, *this);
+
+	if (options.lyrics_timeout > std::chrono::steady_clock::duration::zero())
+		plugin_timeout.Schedule(options.lyrics_timeout);
+}
+
+void
 LyricsPage::Load(const struct mpd_song &_song) noexcept
 {
 	Cancel();
@@ -243,10 +258,7 @@ LyricsPage::Load(const struct mpd_song &_song) noexcept
 		return;
 	}
 
-	plugin_cycle = loader.Load(GetEventLoop(), artist, title, *this);
-
-	if (options.lyrics_timeout > std::chrono::steady_clock::duration::zero())
-		plugin_timeout.Schedule(options.lyrics_timeout);
+	StartPluginCycle();
 }
 
 void
@@ -263,7 +275,7 @@ LyricsPage::Reload()
 {
 	if (plugin_cycle == nullptr && artist != nullptr && title != nullptr) {
 		reloading = true;
-		plugin_cycle = loader.Load(GetEventLoop(), artist, title, *this);
+		StartPluginCycle();
 		Repaint();
 	}
 }
