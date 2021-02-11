@@ -79,6 +79,13 @@ public:
 	}
 
 private:
+	void StopPluginCycle() noexcept {
+		assert(loader != nullptr);
+
+		plugin_stop(*loader);
+		loader = nullptr;
+	}
+
 	void Cancel();
 
 	/**
@@ -128,10 +135,8 @@ private:
 void
 LyricsPage::Cancel()
 {
-	if (loader != nullptr) {
-		plugin_stop(*loader);
-		loader = nullptr;
-	}
+	if (loader != nullptr)
+		StopPluginCycle();
 
 	loader_timeout.Cancel();
 
@@ -236,8 +241,7 @@ LyricsPage::OnPluginSuccess(const char *_plugin_name,
 
 	loader_timeout.Cancel();
 
-	plugin_stop(*loader);
-	loader = nullptr;
+	StopPluginCycle();
 }
 
 void
@@ -251,16 +255,13 @@ LyricsPage::OnPluginError(std::string error) noexcept
 	screen_status_message(_("No lyrics"));
 
 	loader_timeout.Cancel();
-
-	plugin_stop(*loader);
-	loader = nullptr;
+	StopPluginCycle();
 }
 
 void
 LyricsPage::OnTimeout() noexcept
 {
-	plugin_stop(*loader);
-	loader = nullptr;
+	StopPluginCycle();
 
 	screen_status_printf(_("Lyrics timeout occurred after %d seconds"),
 			     (int)std::chrono::duration_cast<std::chrono::seconds>(options.lyrics_timeout).count());
