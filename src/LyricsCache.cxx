@@ -38,6 +38,21 @@ LyricsCache::LyricsCache() noexcept
 {
 }
 
+/**
+ * Strip dangerous/illegal characters from a file name, to avoid path
+ * injection bugs.
+ */
+static void
+SanitizeFilename(char *p) noexcept
+{
+	for (; *p; ++p) {
+		char ch = *p;
+
+		if (ch == '/')
+			*p = '-';
+	}
+}
+
 std::string
 LyricsCache::MakePath(const char *artist, const char *title) const noexcept
 {
@@ -50,6 +65,8 @@ LyricsCache::MakePath(const char *artist, const char *title) const noexcept
 	if (length <= 0 || size_t(length) >= sizeof(filename))
 		/* too long for the buffer, bail out */
 		return {};
+
+	SanitizeFilename(filename);
 
 	return BuildPath(directory.c_str(), filename);
 }
