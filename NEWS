@@ -1,4 +1,4 @@
-ncmpc 0.45 - not yet released
+ncmpc 0.45 - (2021-02-12)
 * make "tagtypes" errors non-fatal
 * check which tag types are supported by MPD (fixes MPD 0.21 support)
 * lyrics: update page title after loading has finished
