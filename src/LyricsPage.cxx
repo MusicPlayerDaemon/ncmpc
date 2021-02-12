@@ -205,6 +205,9 @@ LyricsPage::OnPluginSuccess(const char *_plugin_name,
 	plugin_timeout.Cancel();
 
 	StopPluginCycle();
+
+	/* schedule a full repaint so the page title gets updated */
+	screen.SchedulePaint();
 }
 
 void
@@ -219,6 +222,9 @@ LyricsPage::OnPluginError(std::string error) noexcept
 
 	plugin_timeout.Cancel();
 	StopPluginCycle();
+
+	/* schedule a full repaint so the page title gets updated */
+	screen.SchedulePaint();
 }
 
 void
@@ -228,6 +234,9 @@ LyricsPage::OnTimeout() noexcept
 
 	screen_status_printf(_("Lyrics timeout occurred after %d seconds"),
 			     (int)std::chrono::duration_cast<std::chrono::seconds>(options.lyrics_timeout).count());
+
+	/* schedule a full repaint so the page title gets updated */
+	screen.SchedulePaint();
 }
 
 void

@@ -146,12 +146,12 @@ public:
 		     Point p, mmask_t bstate);
 #endif
 
-private:
-	void NextMode(struct mpdclient &c, int offset) noexcept;
-
 	void SchedulePaint() noexcept {
 		paint_event.Schedule();
 	}
+
+private:
+	void NextMode(struct mpdclient &c, int offset) noexcept;
 
 	void Paint() noexcept;
 };
