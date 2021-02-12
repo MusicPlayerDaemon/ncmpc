@@ -44,4 +44,12 @@ GetHomeConfigDirectory(const char *package) noexcept;
 std::string
 MakeUserConfigPath(const char *filename) noexcept;
 
+gcc_const
+std::string
+GetHomeCacheDirectory() noexcept;
+
+gcc_pure
+std::string
+GetHomeCacheDirectory(const char *package) noexcept;
+
 #endif

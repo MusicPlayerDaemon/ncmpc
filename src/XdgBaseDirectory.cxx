@@ -73,3 +73,27 @@ MakeUserConfigPath(const char *filename) noexcept
 		? BuildPath(directory, filename)
 		: std::string();
 }
+
+std::string
+GetHomeCacheDirectory() noexcept
+{
+	const char *cache_home = getenv("XDG_CACHE_HOME");
+	if (cache_home != nullptr && *cache_home != 0)
+		return cache_home;
+
+	const char *home = GetHomeDirectory();
+	if (home != nullptr)
+		return BuildPath(home, ".cache");
+
+	return {};
+}
+
+std::string
+GetHomeCacheDirectory(const char *package) noexcept
+{
+	const auto dir = GetHomeCacheDirectory();
+	if (dir.empty())
+		return {};
+
+	return BuildPath(dir, package);
+}

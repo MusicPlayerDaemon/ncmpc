@@ -17,7 +17,9 @@
  */
 
 #include "LyricsCache.hxx"
+#include "XdgBaseDirectory.hxx"
 #include "io/Path.hxx"
+#include "config.h"
 
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -26,7 +28,12 @@
 static std::string
 GetLyricsCacheDirectory() noexcept
 {
-	return {};
+	const auto ncmpc_cache_directory = GetHomeCacheDirectory(PACKAGE);
+	if (ncmpc_cache_directory.empty())
+		return {};
+
+	mkdir(ncmpc_cache_directory.c_str(), 0777);
+	return BuildPath(ncmpc_cache_directory, "lyrics");
 }
 
 static std::string

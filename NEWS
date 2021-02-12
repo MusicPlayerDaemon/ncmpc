@@ -3,6 +3,7 @@ ncmpc 0.45 - not yet released
 * check which tag types are supported by MPD (fixes MPD 0.21 support)
 * lyrics: fix path injection bug
 * lyrics: load cached lyrics without plugin
+* lyrics: use $XDG_CACHE_HOME/ncmpc/lyrics instead of ~/.lyrics
 * lyrics/azlyrics: normalize accented letters (using the "unidecode" library)
 * lyrics/azlyrics: unescape HTML entities
 
