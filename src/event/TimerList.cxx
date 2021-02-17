@@ -33,6 +33,10 @@
 #include "Loop.hxx"
 #include "FineTimerEvent.hxx"
 
+#ifdef NO_BOOST
+#include <algorithm>
+#endif
+
 constexpr bool
 TimerList::Compare::operator()(const FineTimerEvent &a,
 			       const FineTimerEvent &b) const noexcept
@@ -50,7 +54,15 @@ TimerList::~TimerList() noexcept
 void
 TimerList::Insert(FineTimerEvent &t) noexcept
 {
+#ifdef NO_BOOST
+	auto i = std::find_if(timers.begin(), timers.end(), [due = t.GetDue()](const auto &other){
+		return other.GetDue() >= due;
+	});
+
+	timers.insert(i, t);
+#else
 	timers.insert(t);
+#endif
 }
 
 Event::Duration

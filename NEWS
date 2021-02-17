@@ -1,4 +1,5 @@
 ncmpc 0.46 - not yet released
+* eliminate Boost dependency
 
 ncmpc 0.45 - (2021-02-12)
 * make "tagtypes" errors non-fatal

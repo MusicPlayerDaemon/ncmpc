@@ -162,7 +162,6 @@ is_linux = host_machine.system() == 'linux'
 is_windows = host_machine.system() == 'windows'
 
 thread_dep = dependency('threads')
-boost_dep = dependency('boost', version: '>= 1.62')
 libmpdclient_dep = dependency('libmpdclient', version: '>= 2.9')
 
 if not mini
@@ -378,7 +377,6 @@ ncmpc = executable('ncmpc',
   include_directories: inc,
   dependencies: [
     thread_dep,
-    boost_dep,
     event_dep,
     pcre_dep,
     curses_dep,

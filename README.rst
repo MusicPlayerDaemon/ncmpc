@@ -15,7 +15,6 @@ You need:
 
 - a C++17 compliant compiler (e.g. gcc or clang)
 - `libmpdclient <https://www.musicpd.org/libs/libmpdclient/>`__ 2.9
-- `Boost 1.62 <https://www.boost.org/>`__
 - `ncurses <https://www.gnu.org/software/ncurses/>`__
 - `Meson 0.47 <http://mesonbuild.com/>`__ and `Ninja <https://ninja-build.org/>`__
 
