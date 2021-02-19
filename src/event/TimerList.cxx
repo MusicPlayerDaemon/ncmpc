@@ -78,7 +78,11 @@ TimerList::Run(const Event::TimePoint now) noexcept
 		if (timeout > timeout.zero())
 			return timeout;
 
+#ifdef NO_BOOST
+		t.Cancel();
+#else
 		timers.erase(i);
+#endif
 
 		t.Run();
 	}
