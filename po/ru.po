@@ -1,5 +1,5 @@
 # Russian
-# Copyright (C) 2004 Kalle Wallin 
+# Copyright (C) 2004 Kalle Wallin
 # This file is distributed under the same license as the ncmpc package.
 # Original translation by Nikolay Pavlov <quetzal@roks.biz>, 2004.
 # Currently maintained by Max Arnold <lwarxx@gmail.com>, 2009.
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2020-11-18 21:28+0000\n"
+"PO-Revision-Date: 2021-04-11 19:43+0700\n"
 "Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ru/>\n"
@@ -387,9 +387,8 @@ msgid "Unknown screen name"
 msgstr "Неизвестное название экрана"
 
 #: src/ConfigParser.cxx:388
-#, fuzzy
 msgid "Unknown MPD tag"
-msgstr "Неизвестная команда"
+msgstr "Неизвестный тег MPD"
 
 #: src/ConfigParser.cxx:415
 msgid "Invalid search mode"
@@ -719,9 +718,8 @@ msgid "All"
 msgstr "Всё"
 
 #: src/LibraryPage.cxx:197
-#, fuzzy
 msgid "Songs"
-msgstr "Композиция"
+msgstr "Композиции"
 
 #: src/LibraryPage.cxx:314
 msgid "Library"
@@ -804,7 +802,7 @@ msgstr "Перевод: Max Arnold <lwarxx@gmail.com>"
 #: src/OutputsPage.cxx:168
 #, c-format
 msgid "Switched to partition '%s'"
-msgstr ""
+msgstr "Переключено на раздел '%s'"
 
 #: src/OutputsPage.cxx:180 src/SongPage.cxx:69
 msgid "Name"
@@ -825,13 +823,12 @@ msgid "Outputs"
 msgstr "Аудиовыходы"
 
 #: src/OutputsPage.cxx:383
-#, fuzzy
 msgid "Partition"
-msgstr "Позиция"
+msgstr "Раздел"
 
 #: src/OutputsPage.cxx:407
 msgid "Create new partition"
-msgstr ""
+msgstr "Создать новый раздел"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
@@ -1037,7 +1034,7 @@ msgstr "Исполнитель + Композиция"
 
 #: src/SearchPage.cxx:285 src/SearchPage.cxx:289
 msgid "Unrecognized suffix"
-msgstr ""
+msgstr "Неизвестный суффикс"
 
 #: src/SearchPage.cxx:337
 #, c-format
@@ -1072,9 +1069,8 @@ msgid "Composer"
 msgstr "Композитор"
 
 #: src/SongPage.cxx:68
-#, fuzzy
 msgid "Performer"
-msgstr "performer"
+msgstr "Исполнитель"
 
 #: src/SongPage.cxx:70
 msgid "Disc"
