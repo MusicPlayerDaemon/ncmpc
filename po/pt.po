@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-08 17:59+0200\n"
-"PO-Revision-Date: 2020-08-24 13:21+0000\n"
+"PO-Revision-Date: 2021-05-10 16:33+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/ncmpc/"
 "translations/pt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2.1-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:87
 #, c-format
@@ -567,7 +567,7 @@ msgstr "Ctrl-Espaço não pode ser usado"
 #: src/KeyDefPage.cxx:192
 #, c-format
 msgid "Error: key %s is already used for %s"
-msgstr "Erro: tecla %s já está sendo usada para %s"
+msgstr "Erro: tecla %s já está a ser usada para %s"
 
 #: src/KeyDefPage.cxx:202
 #, c-format
