@@ -107,6 +107,9 @@ ListCursor::ScrollTo(unsigned n) noexcept
 	if (n >= start + GetHeight() - scroll_offset)
 		new_start = n - GetHeight() + 1 + scroll_offset;
 
+	if (scroll_offset * 2 == GetHeight())
+		new_start = n - GetHeight() + scroll_offset;
+
 	if (new_start + GetHeight() > length)
 		new_start = length - GetHeight();
 
@@ -208,6 +211,8 @@ ListCursor::MoveCursorBottom() noexcept
 	if (length >= GetHeight())
 		if (start + GetHeight() == length)
 			MoveCursor(length - 1);
+		else if (scroll_offset * 2 == GetHeight())
+			MoveCursor(start + GetHeight() - scroll_offset);
 		else
 			MoveCursor(start + GetHeight() - 1 - scroll_offset);
 	else

@@ -309,9 +309,7 @@ private:
 	static constexpr unsigned ClampScrollOffset(unsigned scroll_offset,
 						    unsigned height) noexcept
 	{
-		return scroll_offset * 2 < height
-			? scroll_offset
-			: std::max(height / 2, 1U) - 1;
+		return scroll_offset * 2 < height ? scroll_offset : height / 2;
 	}
 
 	gcc_pure
