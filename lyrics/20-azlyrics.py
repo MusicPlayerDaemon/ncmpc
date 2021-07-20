@@ -55,6 +55,7 @@ def html_to_text(s):
 artist = normalize_parameter(sys.argv[1])
 title = normalize_parameter(sys.argv[2])
 artist = re.sub("[^A-Za-z0-9]+", "", artist)
+title = re.sub('\(.*\)', '', title)
 title = re.sub("[^A-Za-z0-9]+", "", title)
 
 url = "http://azlyrics.com/lyrics/" + artist + "/" + title + ".html"
