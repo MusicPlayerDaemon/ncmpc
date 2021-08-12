@@ -8,102 +8,107 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-08-12 21:36+0000\n"
+"Last-Translator: Gediminas Murauskas <muziejusinfo@gmail.com>\n"
+"Language-Team: Lithuanian <https://hosted.weblate.org/projects/ncmpc/"
+"translations/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
+"19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
+"1 : 2);\n"
+"X-Generator: Weblate 4.8-dev\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr ""
+msgstr "Klavišas %s priskirtas %s ir %s"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
-msgstr ""
+msgstr "Pokalbiai"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr ""
+msgstr "Tavo pranešimas"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr ""
+msgstr "Pranešimo nepavyko išsiųsti"
 
 #: src/Command.cxx:30
 msgid "Key configuration screen"
-msgstr ""
+msgstr "Klavišų konfigūracijos ekranas"
 
 #: src/Command.cxx:33
 msgid "Quit"
-msgstr ""
+msgstr "Išeiti"
 
 #: src/Command.cxx:37
 msgid "Move cursor up"
-msgstr ""
+msgstr "Perkelti žymeklį aukštyn"
 
 #: src/Command.cxx:39
 msgid "Move cursor down"
-msgstr ""
+msgstr "Perkelti žymeklį žemyn"
 
 #: src/Command.cxx:41
 msgid "Move cursor to the top of screen"
-msgstr ""
+msgstr "Perkelti žymeklį į ekrano viršų"
 
 #: src/Command.cxx:43
 msgid "Move cursor to the middle of screen"
-msgstr ""
+msgstr "Perkelti žymeklį į ekrano vidurį"
 
 #: src/Command.cxx:45
 msgid "Move cursor to the bottom of screen"
-msgstr ""
+msgstr "Perkelti žymeklį į ekrano apačią"
 
 #: src/Command.cxx:47
 msgid "Move cursor to the top of the list"
-msgstr ""
+msgstr "Perkelti žymeklį į sąrašo viršų"
 
 #: src/Command.cxx:49
 msgid "Move cursor to the bottom of the list"
-msgstr ""
+msgstr "Perkelti žymeklį į sąrašo apačią"
 
 #: src/Command.cxx:51
 msgid "Page up"
-msgstr ""
+msgstr "Puslapis aukštyn"
 
 #: src/Command.cxx:53
 msgid "Page down"
-msgstr ""
+msgstr "Puslapis žemyn"
 
 #: src/Command.cxx:55
 msgid "Range selection"
-msgstr ""
+msgstr "Diapazono pasirinkimas"
 
 #: src/Command.cxx:57
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Slinkti viena eilute žemyn"
 
 #: src/Command.cxx:59
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Slinkti viena eilute aukštyn"
 
 #: src/Command.cxx:61
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Slinkti aukštyn pusę ekrano"
 
 #: src/Command.cxx:63
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Slinkite žemyn pusę ekrano"
 
 #: src/Command.cxx:65
 msgid "Select currently playing song"
-msgstr ""
+msgstr "Pasirinkti šiuo metu leidžiamą dainą"
 
 #: src/Command.cxx:70
 msgid "Help screen"
-msgstr ""
+msgstr "Žinyno ekranas"
 
 #: src/Command.cxx:72 src/HelpPage.cxx:141
 msgid "Queue screen"
@@ -111,7 +116,7 @@ msgstr ""
 
 #: src/Command.cxx:74 src/HelpPage.cxx:156
 msgid "Browse screen"
-msgstr ""
+msgstr "Naršymo ekranas"
 
 #: src/Command.cxx:79
 msgid "Play/Enter directory"
@@ -119,15 +124,15 @@ msgstr ""
 
 #: src/Command.cxx:81
 msgid "Pause"
-msgstr ""
+msgstr "Pauzė"
 
 #: src/Command.cxx:83
 msgid "Stop"
-msgstr ""
+msgstr "Sustabdyti"
 
 #: src/Command.cxx:85
 msgid "Crop"
-msgstr ""
+msgstr "Apkarpyti"
 
 #: src/Command.cxx:87
 msgid "Next track"
@@ -147,11 +152,11 @@ msgstr ""
 
 #: src/Command.cxx:95
 msgid "Increase volume"
-msgstr ""
+msgstr "Padidinti garsą"
 
 #: src/Command.cxx:97
 msgid "Decrease volume"
-msgstr ""
+msgstr "Sumažinti garsą"
 
 #: src/Command.cxx:99
 msgid "Select/deselect song in queue"
