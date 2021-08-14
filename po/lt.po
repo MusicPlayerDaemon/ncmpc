@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2021-08-12 21:36+0000\n"
+"PO-Revision-Date: 2021-08-15 17:35+0000\n"
 "Last-Translator: Gediminas Murauskas <muziejusinfo@gmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/ncmpc/"
 "translations/lt/>\n"
@@ -232,31 +232,31 @@ msgstr ""
 
 #: src/Command.cxx:139
 msgid "Refresh screen"
-msgstr ""
+msgstr "Atnaujinti ekraną"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
 #: src/Command.cxx:146
 msgid "Toggle find mode"
-msgstr ""
+msgstr "Perjungti paieškos režimą"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
 #: src/Command.cxx:150
 msgid "Toggle auto center mode"
-msgstr ""
+msgstr "Perjungti automatinio centravimo režimą"
 
 #: src/Command.cxx:155
 msgid "Next screen"
-msgstr ""
+msgstr "Kitas langas"
 
 #: src/Command.cxx:157
 msgid "Previous screen"
-msgstr ""
+msgstr "Ankstesnis langas"
 
 #: src/Command.cxx:159
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Perjungti į paskiausią langą"
 
 #: src/Command.cxx:164
 msgid "Forward find"
@@ -279,33 +279,33 @@ msgstr ""
 #. * to the entry which begins with this string
 #: src/Command.cxx:175
 msgid "Jump to"
-msgstr ""
+msgstr "Pereiti prie"
 
 #: src/Command.cxx:181
 msgid "Library page"
-msgstr ""
+msgstr "Bibliotekos puslapis"
 
 #: src/Command.cxx:185 src/HelpPage.cxx:170
 msgid "Search screen"
-msgstr ""
+msgstr "Paieškos ekranas"
 
 #: src/Command.cxx:187
 msgid "Change search mode"
-msgstr ""
+msgstr "Pakeiskite paieškos režimą"
 
 #: src/Command.cxx:191
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "Peržiūrėti pasirinktą ir šiuo metu grojamą dainą"
 
 #: src/Command.cxx:195 src/HelpPage.cxx:182
 msgid "Lyrics screen"
-msgstr ""
+msgstr "Dainos teksto langas"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
 #: src/Command.cxx:199
 msgid "Interrupt action"
-msgstr ""
+msgstr "Nutraukti veiksmą"
 
 #: src/Command.cxx:201
 msgid "Update Lyrics"
@@ -313,15 +313,15 @@ msgstr ""
 
 #: src/Command.cxx:205
 msgid "Edit the current item"
-msgstr ""
+msgstr "Redaguoti dabartinį elementą"
 
 #: src/Command.cxx:210 src/HelpPage.cxx:197
 msgid "Outputs screen"
-msgstr ""
+msgstr "Išvesties ekranas"
 
 #: src/Command.cxx:215 src/HelpPage.cxx:204
 msgid "Chat screen"
-msgstr ""
+msgstr "Pokalbių ekranas"
 
 #: src/ConfigParser.cxx:120
 msgid "Word expected"
@@ -335,14 +335,14 @@ msgstr ""
 #. line is incomplete
 #: src/ConfigParser.cxx:158
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "Nebaigta sparčiųjų klavišų konfigūracija"
 
 #. the hotkey configuration
 #. contains an unknown
 #. command
 #: src/ConfigParser.cxx:172
 msgid "Unknown command"
-msgstr ""
+msgstr "Nežinoma komanda"
 
 #. translators: ncmpc
 #. supports displaying the
@@ -354,7 +354,7 @@ msgstr ""
 #. setting
 #: src/ConfigParser.cxx:210
 msgid "Bad time display type"
-msgstr ""
+msgstr "Netinkamas laiko rodymo tipas"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
@@ -364,19 +364,19 @@ msgstr ""
 
 #: src/ConfigParser.cxx:273
 msgid "Bad color name"
-msgstr ""
+msgstr "Blogas spalvos pavadinimas"
 
 #: src/ConfigParser.cxx:282
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Nebaigtas spalvos apibrėžimas"
 
 #: src/ConfigParser.cxx:288 src/SearchPage.cxx:244
 msgid "Invalid number"
-msgstr ""
+msgstr "Netinkamas skaičius"
 
 #: src/ConfigParser.cxx:295
 msgid "Malformed color definition"
-msgstr ""
+msgstr "Netinkamai suformuotas spalvos apibrėžimas"
 
 #. an unknown screen
 #. name was specified
