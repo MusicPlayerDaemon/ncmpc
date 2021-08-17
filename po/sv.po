@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2020-12-24 02:29+0000\n"
+"PO-Revision-Date: 2021-08-18 10:35+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/ncmpc/"
 "translations/sv/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 "X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
@@ -282,7 +282,7 @@ msgstr "Hoppa till"
 
 #: src/Command.cxx:181
 msgid "Library page"
-msgstr ""
+msgstr "Bibliotekssida"
 
 #: src/Command.cxx:185 src/HelpPage.cxx:170
 msgid "Search screen"
@@ -294,7 +294,7 @@ msgstr "Ändra måltyp för databassökning"
 
 #: src/Command.cxx:191
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "Visa den valda och den låt som spelas just nu"
 
 #: src/Command.cxx:195 src/HelpPage.cxx:182
 msgid "Lyrics screen"
@@ -312,7 +312,7 @@ msgstr "Uppdatera texter"
 
 #: src/Command.cxx:205
 msgid "Edit the current item"
-msgstr ""
+msgstr "Redigera det aktuella objektet"
 
 #: src/Command.cxx:210 src/HelpPage.cxx:197
 msgid "Outputs screen"
@@ -387,9 +387,8 @@ msgid "Unknown screen name"
 msgstr "Skärmnamn okänt"
 
 #: src/ConfigParser.cxx:388
-#, fuzzy
 msgid "Unknown MPD tag"
-msgstr "Okänt kommando"
+msgstr "Okänd MPD tagg"
 
 #: src/ConfigParser.cxx:415
 msgid "Invalid search mode"
@@ -879,9 +878,8 @@ msgid "Saved %s"
 msgstr "%s sparad"
 
 #: src/screen_client.cxx:41
-#, fuzzy
 msgid "Database update running"
-msgstr "Databasen uppdateras..."
+msgstr "Databasuppdatering körs"
 
 #: src/screen_client.cxx:48
 #, c-format
@@ -1045,7 +1043,7 @@ msgstr "Artist + titel"
 
 #: src/SearchPage.cxx:285 src/SearchPage.cxx:289
 msgid "Unrecognized suffix"
-msgstr ""
+msgstr "Okänt suffix"
 
 #: src/SearchPage.cxx:337
 #, c-format
@@ -1142,7 +1140,7 @@ msgstr "Speltid"
 
 #: src/SongPage.cxx:100
 msgid "DB playtime"
-msgstr ""
+msgstr "DB speltid"
 
 #: src/SongPage.cxx:205
 msgid "Song viewer"
