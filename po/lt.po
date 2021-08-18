@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2021-08-15 17:35+0000\n"
+"PO-Revision-Date: 2021-08-19 17:36+0000\n"
 "Last-Translator: Gediminas Murauskas <muziejusinfo@gmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/ncmpc/"
 "translations/lt/>\n"
@@ -112,7 +112,7 @@ msgstr "Žinyno ekranas"
 
 #: src/Command.cxx:72 src/HelpPage.cxx:141
 msgid "Queue screen"
-msgstr ""
+msgstr "Eilės ekranas"
 
 #: src/Command.cxx:74 src/HelpPage.cxx:156
 msgid "Browse screen"
@@ -136,11 +136,11 @@ msgstr "Apkarpyti"
 
 #: src/Command.cxx:87
 msgid "Next track"
-msgstr ""
+msgstr "Kitas kūrinys"
 
 #: src/Command.cxx:89
 msgid "Previous track"
-msgstr ""
+msgstr "Ankstesnis kūrinys"
 
 #: src/Command.cxx:91
 msgid "Seek forward"
