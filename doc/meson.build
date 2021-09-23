@@ -17,18 +17,6 @@ if get_option('html_manual')
     install: true,
     install_dir: join_paths(get_option('datadir'), 'doc', meson.project_name()),
   )
-
-  custom_target(
-    'upload',
-    input: sphinx_output,
-    output: 'upload',
-    build_always_stale: true,
-    command: [
-      'rsync', '-vpruz', '--delete', '@INPUT@',
-      'www.musicpd.org:/var/www/mpd/doc/ncmpc/',
-      '--chmod=a+rX',
-    ],
-  )
 endif
 
 if get_option('manual')
