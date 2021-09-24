@@ -1,6 +1,6 @@
 project('ncmpc', 'cpp',
   version: '0.46',
-  meson_version: '>= 0.47',
+  meson_version: '>= 0.49',
   default_options: [
     'cpp_std=c++17',
     'warning_level=3',

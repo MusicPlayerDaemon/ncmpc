@@ -24,7 +24,8 @@ if get_option('html_manual')
     output: 'upload',
     build_always_stale: true,
     command: [
-      'rsync', '-vpruz', '--delete', '@INPUT@',
+      find_program('rsync', required: false, disabler: true)
+      , '-vpruz', '--delete', '@INPUT@',
       'www.musicpd.org:/var/www/mpd/doc/ncmpc/',
       '--chmod=a+rX',
     ],
