@@ -19,8 +19,6 @@
 #ifndef URI_UTIL_HXX
 #define URI_UTIL_HXX
 
-#include "Compiler.h"
-
 #include <string>
 
 /**
@@ -28,7 +26,7 @@
  * after the last slash.  May return an empty string if the URI ends
  * with a slash.
  */
-gcc_pure
+[[gnu::pure]]
 const char *
 GetUriFilename(const char *uri);
 
@@ -37,7 +35,7 @@ GetUriFilename(const char *uri);
  * portion up to the last (forward) slash.  Returns an empty string if
  * there is no parent.
  */
-gcc_pure
+[[gnu::pure]]
 std::string
 GetParentUri(const char *uri);
 
