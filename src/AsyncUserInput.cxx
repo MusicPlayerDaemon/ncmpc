@@ -79,7 +79,7 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 
 AsyncUserInput::AsyncUserInput(EventLoop &event_loop, WINDOW &_w) noexcept
 	:socket_event(event_loop, BIND_THIS_METHOD(OnSocketReady),
-		      SocketDescriptor(STDIN_FILENO)),
+		      FileDescriptor{STDIN_FILENO}),
 	 w(_w)
 {
 	socket_event.ScheduleRead();

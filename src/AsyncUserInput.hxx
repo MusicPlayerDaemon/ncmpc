@@ -19,12 +19,12 @@
 #ifndef ASYNC_USER_INPUT_HXX
 #define ASYNC_USER_INPUT_HXX
 
-#include "event/SocketEvent.hxx"
+#include "event/PipeEvent.hxx"
 
 #include <curses.h>
 
 class AsyncUserInput {
-	SocketEvent socket_event;
+	PipeEvent socket_event;
 
 	WINDOW &w;
 

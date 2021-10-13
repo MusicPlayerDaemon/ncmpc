@@ -19,7 +19,7 @@
 #include "plugin.hxx"
 #include "io/Path.hxx"
 #include "io/UniqueFileDescriptor.hxx"
-#include "event/SocketEvent.hxx"
+#include "event/PipeEvent.hxx"
 #include "event/CoarseTimerEvent.hxx"
 #include "util/ScopeExit.hxx"
 #include "util/UriUtil.hxx"
@@ -41,7 +41,7 @@ class PluginPipe {
 	PluginCycle &cycle;
 
 	/** the pipe to the plugin process */
-	SocketEvent socket_event;
+	PipeEvent socket_event;
 
 	/** the output of the current plugin */
 	std::string data;
@@ -57,7 +57,7 @@ public:
 	}
 
 	void Start(UniqueFileDescriptor &&fd) noexcept {
-		socket_event.Open(SocketDescriptor::FromFileDescriptor(fd.Release()));
+		socket_event.Open(fd.Release());
 		socket_event.ScheduleRead();
 	}
 
@@ -215,8 +215,8 @@ void
 PluginPipe::OnRead(unsigned) noexcept
 {
 	char buffer[256];
-	ssize_t nbytes = read(socket_event.GetSocket().Get(),
-			      buffer, sizeof(buffer));
+	ssize_t nbytes = socket_event.GetFileDescriptor().Read(buffer,
+							       sizeof(buffer));
 	if (nbytes <= 0) {
 		socket_event.Close();
 		cycle.OnEof();
