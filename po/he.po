@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2020-09-30 11:40+0000\n"
+"PO-Revision-Date: 2021-11-05 13:34+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/ncmpc/"
 "translations/he/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 "X-Launchpad-Export-Date: 2010-09-07 18:28+0000\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
@@ -154,26 +154,24 @@ msgid "Decrease volume"
 msgstr "הנמך"
 
 #: src/Command.cxx:99
-#, fuzzy
 msgid "Select/deselect song in queue"
-msgstr "בחר/הסר שיר ברשימת שירים"
+msgstr "בחירת/ביטול שיר בתור"
 
 #: src/Command.cxx:101
 msgid "Select all listed items"
 msgstr "בחר את הכל"
 
 #: src/Command.cxx:103
-#, fuzzy
 msgid "Delete song from queue"
-msgstr "מחק שיר מרשימת השירים"
+msgstr "מחיקת שיר מהתור"
 
 #: src/Command.cxx:105
 msgid "Shuffle queue"
-msgstr ""
+msgstr "ערבוב תור"
 
 #: src/Command.cxx:107
 msgid "Clear queue"
-msgstr ""
+msgstr "פינוי תור"
 
 #: src/Command.cxx:109
 msgid "Toggle repeat mode"
@@ -201,12 +199,11 @@ msgstr "התחל עדכון בסיס הנתונים המוזיקלי"
 
 #: src/Command.cxx:121
 msgid "Save queue"
-msgstr ""
+msgstr "שמירת תור"
 
 #: src/Command.cxx:123 src/HelpPage.cxx:175
-#, fuzzy
 msgid "Append song to queue"
-msgstr "הוסף שיר לרשימת שירים"
+msgstr "הוספת שיר לתור"
 
 #: src/Command.cxx:126
 msgid "Go to root directory"
@@ -281,7 +278,7 @@ msgstr "קפוץ ל"
 
 #: src/Command.cxx:181
 msgid "Library page"
-msgstr ""
+msgstr "עמוד ספריה"
 
 #: src/Command.cxx:185 src/HelpPage.cxx:170
 msgid "Search screen"
@@ -311,20 +308,19 @@ msgstr "רענן מילים לשיר"
 
 #: src/Command.cxx:205
 msgid "Edit the current item"
-msgstr ""
+msgstr "עריכת הפריט הנוכחי"
 
 #: src/Command.cxx:210 src/HelpPage.cxx:197
 msgid "Outputs screen"
 msgstr "מסך הפלט"
 
 #: src/Command.cxx:215 src/HelpPage.cxx:204
-#, fuzzy
 msgid "Chat screen"
-msgstr "מסך הבא"
+msgstr "מסך צ׳אט"
 
 #: src/ConfigParser.cxx:120
 msgid "Word expected"
-msgstr ""
+msgstr "מילה צפויה"
 
 #: src/ConfigParser.cxx:139
 msgid "Malformed hotkey definition"
@@ -387,9 +383,8 @@ msgid "Unknown screen name"
 msgstr "שם מסך לא ידוע"
 
 #: src/ConfigParser.cxx:388
-#, fuzzy
 msgid "Unknown MPD tag"
-msgstr "פקודה לא ידועה"
+msgstr "תגית MPD בלתי מוכרת"
 
 #: src/ConfigParser.cxx:415
 msgid "Invalid search mode"
@@ -437,15 +432,15 @@ msgid "Browse"
 msgstr "דפדף"
 
 #: src/FileListPage.cxx:125
-#, fuzzy, c-format
+#, c-format
 msgid "Loading playlist '%s'"
-msgstr "טוען רשימת שירים %s...."
+msgstr "רשימת הנגינה ‚%s’ נטענת"
 
 #: src/FileListPage.cxx:165 src/FileListPage.cxx:254 src/FileListPage.cxx:277
 #: src/TagListPage.cxx:184
-#, fuzzy, c-format
+#, c-format
 msgid "Adding '%s' to queue"
-msgstr "מוסיף %s לרשימת השירים"
+msgstr "‚%s’ נוסף לרשימת הנגינה"
 
 #: src/HelpPage.cxx:61
 msgid "Movement"
@@ -472,9 +467,8 @@ msgid "Delete playlist"
 msgstr "מחק רשימת שירים"
 
 #: src/HelpPage.cxx:172
-#, fuzzy
 msgid "New search"
-msgstr "חיפוש"
+msgstr "חיפוש חדש"
 
 #: src/HelpPage.cxx:173
 msgid "Select and play"
@@ -500,7 +494,7 @@ msgstr "הורד מילים לשיר המנגן כרגע"
 
 #: src/HelpPage.cxx:190
 msgid "Add or edit lyrics"
-msgstr ""
+msgstr "עריכת או הוספת מילות שיר"
 
 #: src/HelpPage.cxx:191
 msgid "Save lyrics"
@@ -508,15 +502,15 @@ msgstr "שמור מילים לשיר"
 
 #: src/HelpPage.cxx:192
 msgid "Delete saved lyrics"
-msgstr ""
+msgstr "מחיקת מילות שירים שמורות"
 
 #: src/HelpPage.cxx:199
 msgid "Enable/disable output"
-msgstr "אשר/אסור על פלט"
+msgstr "הפעלת/השבתת פלט"
 
 #: src/HelpPage.cxx:206
 msgid "Write a message"
-msgstr ""
+msgstr "כתיבת הודעה"
 
 #: src/HelpPage.cxx:211
 msgid "Keydef screen"
