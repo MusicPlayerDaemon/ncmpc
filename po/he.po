@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2021-11-05 13:34+0000\n"
+"PO-Revision-Date: 2021-11-08 13:50+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/ncmpc/"
 "translations/he/>\n"
@@ -560,7 +560,7 @@ msgstr "הכנס מקש חדש ל %s "
 
 #: src/KeyDefPage.cxx:187
 msgid "Ctrl-Space can't be used"
-msgstr ""
+msgstr "אי אפשר להשתמש ב־Ctrl-רווח"
 
 #: src/KeyDefPage.cxx:193
 #, c-format
@@ -570,7 +570,7 @@ msgstr "שגיאה: המקש %s כבר קיים ל %s"
 #: src/KeyDefPage.cxx:203
 #, c-format
 msgid "Assigned %s to %s"
-msgstr "הוקצה  %s ל %s"
+msgstr "הוקצה %s אל %s"
 
 #: src/KeyDefPage.cxx:230
 msgid "Add new key"
@@ -590,9 +590,8 @@ msgid "Keybindings unchanged."
 msgstr "תצורת מקשים לא שונתה."
 
 #: src/KeyDefPage.cxx:407
-#, fuzzy
 msgid "Unable to write configuration"
-msgstr "הגדרת המקשים החמים חסרה"
+msgstr "לא ניתן לכתוב את ההגדרות"
 
 #: src/KeyDefPage.cxx:416 src/KeyDefPage.cxx:425
 msgid "Error"
@@ -621,7 +620,7 @@ msgstr "אזהרה: שכחת ‚להחיל’ את השינויים?"
 
 #: src/KeyDefPage.cxx:607
 msgid "Keys"
-msgstr ""
+msgstr "מקשים"
 
 #: src/KeyName.cxx:115
 msgid "Undefined"
@@ -695,35 +694,33 @@ msgstr "Insert"
 #: src/KeyName.cxx:167
 #, c-format
 msgid "Ctrl-%c"
-msgstr ""
+msgstr "Ctrl-%c"
 
 #. translate "M-X" to "Alt-X"
 #: src/KeyName.cxx:173
 #, c-format
 msgid "Alt-%c"
-msgstr ""
+msgstr "Alt-%c"
 
 #: src/LibraryPage.cxx:45
-#, fuzzy
 msgid "Artists"
-msgstr "אומן"
+msgstr "אומנים"
 
 #: src/LibraryPage.cxx:48 src/LibraryPage.cxx:175
-#, fuzzy
 msgid "Albums"
-msgstr "אלבום"
+msgstr "אלבומים"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "הכול"
 
 #: src/LibraryPage.cxx:197
 msgid "Songs"
-msgstr ""
+msgstr "שירים"
 
 #: src/LibraryPage.cxx:314
 msgid "Library"
-msgstr ""
+msgstr "ספרייה"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
@@ -741,7 +738,7 @@ msgstr "אין מילים לשיר"
 #: src/LyricsPage.cxx:270
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
-msgstr ""
+msgstr "אירעה שגיאת תום זמן המתנה לאחר %d שניות"
 
 #: src/LyricsPage.cxx:353 src/LyricsPage.cxx:361 src/LyricsPage.cxx:371
 #: src/LyricsPage.cxx:507
@@ -756,19 +753,19 @@ msgstr "טוען...."
 
 #: src/LyricsPage.cxx:378
 msgid "Editor not configured"
-msgstr ""
+msgstr "העורך לא מוגדר"
 
 #: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr ""
+msgstr "להפעיל את העורך ולערוך את מילות השירים האלה?"
 
 #: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
-msgstr ""
+msgstr "אי אפשר להפעיל את העורך"
 
 #: src/LyricsPage.cxx:430 src/LyricsPage.cxx:434
 msgid "Editor exited unexpectedly"
-msgstr ""
+msgstr "העורך נעצר באופן פתאומי"
 
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:456
@@ -777,21 +774,21 @@ msgstr "מילים לשיר נשמרו"
 
 #: src/LyricsPage.cxx:462
 msgid "Lyrics deleted"
-msgstr ""
+msgstr "מילות השירים נמחקו"
 
 #: src/LyricsPage.cxx:463
 msgid "No saved lyrics"
-msgstr ""
+msgstr "אין מילות שירים שנשמרו"
 
 #: src/Main.cxx:133
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to %s"
-msgstr "מתחבר ל %s"
+msgstr "מתבצעת התחברות אל %s"
 
 #: src/Main.cxx:149
-#, fuzzy, c-format
+#, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "שגיאה: גרסת התוכנה %d.%d.%d ישנה מדי (צריך %s)"
+msgstr "שגיאה: גרסת ה־MPD‏ %d.%d.%d ישנה מדי (צריך %s)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -813,33 +810,32 @@ msgstr "שם"
 #: src/OutputsPage.cxx:230
 #, c-format
 msgid "Output '%s' enabled"
-msgstr "פלט  '%s' אפשרי"
+msgstr "הפלט ‚%s’ מופעל"
 
 #: src/OutputsPage.cxx:241
 #, c-format
 msgid "Output '%s' disabled"
-msgstr "פלט  '%s' אינו אפשרי"
+msgstr "הפלט ‚%s’ מושבת"
 
 #: src/OutputsPage.cxx:371 src/OutputsPage.cxx:480
 msgid "Outputs"
 msgstr "פלטים"
 
 #: src/OutputsPage.cxx:383
-#, fuzzy
 msgid "Partition"
-msgstr "אומן"
+msgstr "מחיצה"
 
 #: src/OutputsPage.cxx:407
 msgid "Create new partition"
-msgstr ""
+msgstr "יצירת מחיצה חדשה"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
-msgstr ""
+msgstr "תור מעורבב"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
-msgstr ""
+msgstr "התור התפנה"
 
 #. get path
 #: src/QueuePage.cxx:314
@@ -848,17 +844,17 @@ msgstr "הוסף"
 
 #: src/QueuePage.cxx:379 src/QueuePage.cxx:697
 msgid "Queue"
-msgstr ""
+msgstr "תור"
 
 #: src/QueuePage.cxx:381
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "תור על %s"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
 msgid "Save queue as"
-msgstr ""
+msgstr "שמירת התור בשם"
 
 #: src/save_playlist.cxx:108
 #, c-format
@@ -872,9 +868,8 @@ msgid "Saved %s"
 msgstr "שמירת %s"
 
 #: src/screen_client.cxx:41
-#, fuzzy
 msgid "Database update running"
-msgstr "עדכון בסיס הנתנונים פועל...."
+msgstr "עדכון מסד נתונים פעיל"
 
 #: src/screen_client.cxx:48
 #, c-format
@@ -1038,7 +1033,7 @@ msgstr "אומן+שם"
 
 #: src/SearchPage.cxx:285 src/SearchPage.cxx:289
 msgid "Unrecognized suffix"
-msgstr ""
+msgstr "סיומת לא מוכרת"
 
 #: src/SearchPage.cxx:337
 #, c-format
@@ -1062,18 +1057,17 @@ msgstr "צורת חיפוש: %s"
 
 #: src/SongPage.cxx:65
 msgid "Length"
-msgstr ""
+msgstr "משך"
 
 #: src/SongPage.cxx:66
 msgid "Position"
-msgstr ""
+msgstr "מיקום"
 
 #: src/SongPage.cxx:67
 msgid "Composer"
 msgstr "מלחון"
 
 #: src/SongPage.cxx:68
-#, fuzzy
 msgid "Performer"
 msgstr "מבצע"
 
@@ -1107,7 +1101,7 @@ msgstr "ביטרייט"
 
 #: src/SongPage.cxx:77
 msgid "Format"
-msgstr ""
+msgstr "תצורה"
 
 #: src/SongPage.cxx:94
 msgid "Number of artists"
@@ -1160,7 +1154,7 @@ msgstr "%d kbps"
 
 #: src/SongPage.cxx:556
 msgid "Song"
-msgstr ""
+msgstr "שיר"
 
 #: src/StatusBar.cxx:165
 msgid "Playing:"
@@ -1171,9 +1165,8 @@ msgid "[Paused]"
 msgstr "[הפסקה]"
 
 #: src/Styles.cxx:252 src/Styles.cxx:313
-#, fuzzy
 msgid "Unknown color"
-msgstr "פקודה לא ידועה"
+msgstr "צבע לא ידוע"
 
 #: src/Styles.cxx:323
 msgid "Unknown color field"
@@ -1181,7 +1174,7 @@ msgstr "שדה הצבע אינו מוכר"
 
 #: src/Styles.cxx:356
 msgid "Terminal lacks color capabilities"
-msgstr "המסוף ללא  יכולת תמיכה בצבעים"
+msgstr "למסוף אין תמיכה בצבעים"
 
 #: src/TagListPage.cxx:71
 msgid "All tracks"
@@ -1189,27 +1182,27 @@ msgstr "כל השירים"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr ""
+msgstr "שנה"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr ""
+msgstr "שנים"
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr ""
+msgstr "שבוע"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr ""
+msgstr "שבועות"
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr ""
+msgstr "יום"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr ""
+msgstr "ימים"
 
 #: src/TitleBar.cxx:101
 msgid "Volume n/a"
