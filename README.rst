@@ -29,7 +29,7 @@ Optional:
 
 Run ``meson``::
 
- meson . output
+ meson . output --buildtype=debugoptimized -Db_ndebug=true
 
 Compile and install::
 
