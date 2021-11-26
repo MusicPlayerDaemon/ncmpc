@@ -33,6 +33,7 @@ jobs:
           sudo apt install -y --no-install-recommends \
             meson \
             libncursesw5-dev \
+            libpcre2-dev \
             libmpdclient-dev
 
       - name: Build
@@ -60,6 +61,7 @@ jobs:
           brew install \
             meson ninja \
             ncurses \
+            pcre2 \
             libmpdclient
 
       - name: Meson Build
