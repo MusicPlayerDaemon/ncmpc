@@ -28,7 +28,7 @@
 
 #include <string.h>
 
-gcc_pure
+[[gnu::pure]]
 static const char *
 skip(const char *p) noexcept
 {

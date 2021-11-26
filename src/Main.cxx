@@ -36,7 +36,6 @@
 #include "util/PrintException.hxx"
 #include "util/ScopeExit.hxx"
 #include "util/StringUTF8.hxx"
-#include "util/Compiler.h"
 
 #ifndef NCMPC_MINI
 #include "ConfigFile.hxx"
@@ -178,7 +177,7 @@ mpdclient_lost_callback() noexcept
  * idle event (or when the connection dies).
  */
 void
-mpdclient_idle_callback(gcc_unused unsigned events) noexcept
+mpdclient_idle_callback([[maybe_unused]] unsigned events) noexcept
 {
 #ifndef NCMPC_MINI
 	if (options.enable_xterm_title)

@@ -19,8 +19,6 @@
 #ifndef NCMPC_TAG_FILTER_HXX
 #define NCMPC_TAG_FILTER_HXX
 
-#include "util/Compiler.h"
-
 #include <mpd/tag.h>
 
 #include <string>
@@ -30,7 +28,7 @@ class ScreenManager;
 
 using TagFilter = std::forward_list<std::pair<enum mpd_tag_type, std::string>>;
 
-gcc_pure
+[[gnu::pure]]
 const char *
 FindTag(const TagFilter &filter, enum mpd_tag_type tag) noexcept;
 
@@ -38,7 +36,7 @@ void
 AddConstraints(struct mpd_connection *connection,
 	       const TagFilter &filter) noexcept;
 
-gcc_pure
+[[gnu::pure]]
 std::string
 ToString(const TagFilter &filter) noexcept;
 

@@ -19,8 +19,6 @@
 #ifndef IO_PATH_HXX
 #define IO_PATH_HXX
 
-#include "util/Compiler.h"
-
 #include <string>
 
 #include <string.h>
@@ -33,14 +31,14 @@ static constexpr char SEPARATOR = '\\';
 static constexpr char SEPARATOR = '/';
 #endif
 
-gcc_pure
+[[gnu::pure]]
 inline size_t
 GetLength(const char *s) noexcept
 {
 	return strlen(s);
 }
 
-gcc_pure
+[[gnu::pure]]
 inline size_t
 GetLength(const std::string &s) noexcept
 {

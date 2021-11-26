@@ -27,7 +27,6 @@
 #include "History.hxx"
 #include "Point.hxx"
 #include "event/IdleEvent.hxx"
-#include "util/Compiler.h"
 
 #include <curses.h>
 
@@ -128,7 +127,7 @@ public:
 
 	void OnResize() noexcept;
 
-	gcc_pure
+	[[gnu::pure]]
 	bool IsVisible(const Page &page) const noexcept {
 		return &page == current_page->second.get();
 	}

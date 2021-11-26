@@ -73,12 +73,12 @@ public:
 	 */
 	TagFilter MakeCursorFilter() const noexcept;
 
-	gcc_pure
+	[[gnu::pure]]
 	bool HasMultipleValues() const noexcept {
 		return values.size() > 1;
 	}
 
-	gcc_pure
+	[[gnu::pure]]
 	const char *GetSelectedValue() const {
 		unsigned i = lw.GetCursorIndex();
 

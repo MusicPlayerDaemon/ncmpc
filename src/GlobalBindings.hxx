@@ -19,11 +19,9 @@
 #ifndef GLOBAL_BINDINGS_HXX
 #define GLOBAL_BINDINGS_HXX
 
-#include "util/Compiler.h"
-
 struct KeyBindings;
 
-gcc_const
+[[gnu::const]]
 KeyBindings &
 GetGlobalKeyBindings() noexcept;
 

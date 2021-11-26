@@ -57,7 +57,7 @@ ScopeInitUTF8::~ScopeInitUTF8() noexcept
 
 #endif
 
-gcc_pure
+[[gnu::pure]]
 int
 CollateUTF8(const char *a, const char *b)
 {

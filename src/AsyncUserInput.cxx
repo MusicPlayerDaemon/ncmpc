@@ -23,7 +23,6 @@
 #include "GlobalBindings.hxx"
 #include "ncmpc.hxx"
 #include "Point.hxx"
-#include "util/Compiler.h"
 
 static bool
 ignore_key(int key)
@@ -31,7 +30,7 @@ ignore_key(int key)
 	return key == ERR || key == '\0';
 }
 
-gcc_pure
+[[gnu::pure]]
 static Command
 translate_key(int key)
 {

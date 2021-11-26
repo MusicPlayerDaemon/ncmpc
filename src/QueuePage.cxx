@@ -42,7 +42,6 @@
 #include "LyricsPage.hxx"
 #include "db_completion.hxx"
 #include "event/CoarseTimerEvent.hxx"
-#include "util/Compiler.h"
 
 #ifndef NCMPC_MINI
 #include "hscroll.hxx"
@@ -90,7 +89,7 @@ public:
 	}
 
 private:
-	gcc_pure
+	[[gnu::pure]]
 	const struct mpd_song *GetSelectedSong() const;
 
 	void SaveSelection();
@@ -214,7 +213,7 @@ QueuePage::CenterPlayingItem(const struct mpd_status *status,
 	lw.FetchCursor();
 }
 
-gcc_pure
+[[gnu::pure]]
 static int
 get_current_song_id(const struct mpd_status *status)
 {

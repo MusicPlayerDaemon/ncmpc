@@ -19,14 +19,12 @@
 #ifndef BASIC_COLORS_HXX
 #define BASIC_COLORS_HXX
 
-#include "util/Compiler.h"
-
 /**
  * Parse an ncurses color name.
  *
  * @return the COLOR_* integer value or -1 on error
  */
-gcc_pure
+[[gnu::pure]]
 short
 ParseBasicColorName(const char *name) noexcept;
 
@@ -35,7 +33,7 @@ ParseBasicColorName(const char *name) noexcept;
  *
  * @return the color integer value or -1 on error
  */
-gcc_pure
+[[gnu::pure]]
 short
 ParseColorNameOrNumber(const char *s) noexcept;
 

@@ -35,7 +35,7 @@
 #include <assert.h>
 #include <string.h>
 
-gcc_const
+[[gnu::const]]
 static const char *
 GetTagPlural(enum mpd_tag_type tag) noexcept
 {

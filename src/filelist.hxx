@@ -19,8 +19,6 @@
 #ifndef FILELIST_H
 #define FILELIST_H
 
-#include "util/Compiler.h"
-
 #include <memory>
 #include <vector>
 #include <utility>
@@ -47,7 +45,7 @@ struct FileListEntry {
 		return *this;
 	}
 
-	gcc_pure
+	[[gnu::pure]]
 	bool operator<(const FileListEntry &other) const noexcept;
 };
 
@@ -95,10 +93,10 @@ public:
 	 */
 	void RemoveDuplicateSongs() noexcept;
 
-	gcc_pure
+	[[gnu::pure]]
 	int FindSong(const struct mpd_song &song) const noexcept;
 
-	gcc_pure
+	[[gnu::pure]]
 	int FindDirectory(const char *name) const noexcept;
 
 	/**

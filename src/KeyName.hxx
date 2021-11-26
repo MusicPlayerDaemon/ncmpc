@@ -19,8 +19,6 @@
 #ifndef KEY_NAME_HXX
 #define KEY_NAME_HXX
 
-#include "util/Compiler.h"
-
 #include <utility>
 
 /**
@@ -29,7 +27,7 @@
  * @return the keycode and the first unparsed character; -1 indicates
  * error
  */
-gcc_pure
+[[gnu::pure]]
 std::pair<int, const char *>
 ParseKeyName(const char *s) noexcept;
 
@@ -39,7 +37,7 @@ ParseKeyName(const char *s) noexcept;
  *
  * The returned pointer is invalidated by the next call.
  */
-gcc_pure
+[[gnu::pure]]
 const char *
 GetKeyName(int key) noexcept;
 
@@ -48,7 +46,7 @@ GetKeyName(int key) noexcept;
  *
  * The returned pointer is invalidated by the next call.
  */
-gcc_pure
+[[gnu::pure]]
 const char *
 GetLocalizedKeyName(int key) noexcept;
 

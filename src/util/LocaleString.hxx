@@ -30,14 +30,12 @@
 #ifndef LOCALE_STRING_HXX
 #define LOCALE_STRING_HXX
 
-#include "Compiler.h"
-
 #include <cstddef>
 
 /**
  * Is the given character incomplete?
  */
-gcc_pure
+[[gnu::pure]]
 bool
 IsIncompleteCharMB(const char *s, size_t n) noexcept;
 
@@ -45,7 +43,7 @@ IsIncompleteCharMB(const char *s, size_t n) noexcept;
  * Returns the length of the given locale (multi-byte) string in
  * characters.
  */
-gcc_pure
+[[gnu::pure]]
 std::size_t
 StringLengthMB(const char *s, size_t n) noexcept;
 
@@ -53,7 +51,7 @@ StringLengthMB(const char *s, size_t n) noexcept;
  * Wrapper for std::mbrlen() which attempts to recover with a best
  * effort from invalid or incomplete sequences.
  */
-gcc_pure
+[[gnu::pure]]
 std::size_t
 CharSizeMB(const char *s, size_t n) noexcept;
 
@@ -62,7 +60,7 @@ CharSizeMB(const char *s, size_t n) noexcept;
  *
  * @param s the start of the string
  */
-gcc_pure
+[[gnu::pure]]
 const char *
 PrevCharMB(const char *start, const char *reference) noexcept;
 
@@ -72,7 +70,7 @@ PrevCharMB(const char *start, const char *reference) noexcept;
  *
  * @param s the start of the string
  */
-gcc_pure
+[[gnu::pure]]
 const char *
 AtCharMB(const char *s, size_t length, size_t i) noexcept;
 
@@ -80,11 +78,11 @@ AtCharMB(const char *s, size_t length, size_t i) noexcept;
  * Returns the number of terminal cells occupied by this multi-byte
  * string.
  */
-gcc_pure
+[[gnu::pure]]
 size_t
 StringWidthMB(const char *s, size_t length) noexcept;
 
-gcc_pure
+[[gnu::pure]]
 size_t
 StringWidthMB(const char *s) noexcept;
 
@@ -93,7 +91,7 @@ StringWidthMB(const char *s) noexcept;
  *
  * @param s the start of the string
  */
-gcc_pure
+[[gnu::pure]]
 const char *
 AtWidthMB(const char *s, size_t length, size_t width) noexcept;
 

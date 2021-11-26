@@ -116,7 +116,7 @@ Iconv(const char *tocode, const char *fromcode,
 	return Iconv(i, dest, dest_size, src, src_length);
 }
 
-gcc_pure
+[[gnu::pure]]
 static std::string
 Iconv(iconv_t i,
       const char *src, size_t src_length) noexcept
@@ -163,7 +163,7 @@ Iconv(iconv_t i,
 	return dest;
 }
 
-gcc_pure
+[[gnu::pure]]
 static std::string
 Iconv(const char *tocode, const char *fromcode,
       const char *src, size_t src_length) noexcept
@@ -177,7 +177,7 @@ Iconv(const char *tocode, const char *fromcode,
 	return Iconv(i, src, src_length);
 }
 
-gcc_pure
+[[gnu::pure]]
 static std::string
 utf8_to_locale(const char *src, size_t length) noexcept
 {
@@ -229,7 +229,7 @@ utf8_to_locale(const char *src, char *buffer, size_t size) noexcept
 
 #ifdef HAVE_ICONV
 
-gcc_pure
+[[gnu::pure]]
 static std::string
 locale_to_utf8(const char *src) noexcept
 {

@@ -23,7 +23,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 
-gcc_pure
+[[gnu::pure]]
 static bool
 IsDirectory(const char *path) noexcept
 {

@@ -32,7 +32,7 @@ FileListEntry::~FileListEntry() noexcept
 		mpd_entity_free(entity);
 }
 
-gcc_pure
+[[gnu::pure]]
 static bool
 Less(const struct mpd_entity &a, struct mpd_entity &b) noexcept
 {
@@ -60,7 +60,7 @@ Less(const struct mpd_entity &a, struct mpd_entity &b) noexcept
 	return false;
 }
 
-gcc_pure
+[[gnu::pure]]
 static bool
 Less(const struct mpd_entity *a, struct mpd_entity *b) noexcept
 {
@@ -116,7 +116,7 @@ FileList::RemoveDuplicateSongs() noexcept
 	}
 }
 
-gcc_pure
+[[gnu::pure]]
 static bool
 same_song(const struct mpd_song *a, const struct mpd_song *b) noexcept
 {

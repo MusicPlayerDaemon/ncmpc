@@ -31,7 +31,6 @@
 #include "PageMeta.hxx"
 #include "Options.hxx"
 #include "util/CharUtil.hxx"
-#include "util/Compiler.h"
 #include "util/PrintException.hxx"
 #include "util/RuntimeError.hxx"
 #include "util/ScopeExit.hxx"
@@ -97,7 +96,7 @@
 #define CONF_CHAT_PREFIX "chat-prefix"
 #define CONF_SECOND_COLUMN "second-column"
 
-gcc_pure
+[[gnu::pure]]
 static bool
 str2bool(char *str) noexcept
 {

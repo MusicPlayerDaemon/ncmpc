@@ -62,7 +62,7 @@ static constexpr OptionDefinition option_table[] = {
 #endif
 };
 
-gcc_pure
+[[gnu::pure]]
 static const OptionDefinition *
 FindOption(int s) noexcept
 {

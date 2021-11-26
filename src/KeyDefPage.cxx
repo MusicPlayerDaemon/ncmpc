@@ -31,7 +31,6 @@
 #include "GlobalBindings.hxx"
 #include "screen_utils.hxx"
 #include "Options.hxx"
-#include "util/Compiler.h"
 
 #include <assert.h>
 #include <errno.h>
@@ -73,20 +72,20 @@ private:
 	}
 
 	/** The position of the "add a key" item */
-	gcc_pure
+	[[gnu::pure]]
 	unsigned GetAddPosition() const noexcept {
 		return n_keys + 1;
 	}
 
 	/** The number of items in the list_window, if there's a command being edited */
-	gcc_pure
+	[[gnu::pure]]
 	unsigned CalculateListLength() const noexcept {
 		/* show "add key" only if there is room for more keys */
 		return GetAddPosition() + (n_keys < MAX_COMMAND_KEYS);
 	}
 
 	/** Check whether a given item is a key */
-	gcc_pure
+	[[gnu::pure]]
 	bool IsKeyPosition(unsigned i) const noexcept {
 		return (i > GetLeavePosition() && i < GetAddPosition());
 	}
@@ -240,7 +239,7 @@ CommandKeysPage::GetListItemText(char *buffer, size_t size,
 }
 
 void
-CommandKeysPage::OnOpen(gcc_unused struct mpdclient &c) noexcept
+CommandKeysPage::OnOpen([[maybe_unused]] struct mpdclient &c) noexcept
 {
 	// TODO
 }
@@ -347,7 +346,7 @@ private:
 	}
 
 	/** the number of items in the "command" view */
-	gcc_pure
+	[[gnu::pure]]
 	unsigned command_length() const {
 		return command_item_save() + 1;
 	}
@@ -460,7 +459,7 @@ CommandListPage::GetListItemText(char *buffer, size_t size,
 }
 
 void
-CommandListPage::OnOpen(gcc_unused struct mpdclient &c) noexcept
+CommandListPage::OnOpen([[maybe_unused]] struct mpdclient &c) noexcept
 {
 	if (bindings == nullptr)
 		bindings = new KeyBindings(GetGlobalKeyBindings());

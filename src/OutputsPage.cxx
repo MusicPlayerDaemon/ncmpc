@@ -39,14 +39,14 @@
 
 #if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 
-gcc_pure
+[[gnu::pure]]
 static uint64_t
 PartitionNameHash(const char *name) noexcept
 {
 	return FNV1aHash64(name) ^ 0x1;
 }
 
-gcc_pure
+[[gnu::pure]]
 static uint64_t
 GetActivePartitionNameHash(const struct mpd_status *status) noexcept
 {
@@ -91,7 +91,7 @@ class OutputsPage final : public ListPage, ListRenderer {
 			:partition(_partition) {}
 #endif
 
-		gcc_pure
+		[[gnu::pure]]
 		uint64_t GetHash() const noexcept {
 #if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 			switch (special) {
@@ -389,7 +389,7 @@ PaintPartition(WINDOW *w, unsigned width, bool selected, bool active,
 
 void
 OutputsPage::PaintListItem(WINDOW *w, unsigned i,
-			   gcc_unused unsigned y, unsigned width,
+			   [[maybe_unused]] unsigned y, unsigned width,
 			   bool selected) const noexcept
 {
 	assert(i < items.size());

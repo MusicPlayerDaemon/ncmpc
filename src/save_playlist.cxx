@@ -25,7 +25,6 @@
 #include "mpdclient.hxx"
 #include "Completion.hxx"
 #include "screen_utils.hxx"
-#include "util/Compiler.h"
 
 #include <mpd/client.h>
 
@@ -47,7 +46,7 @@ protected:
 };
 
 void
-PlaylistNameCompletion::Pre(gcc_unused const char *value) noexcept
+PlaylistNameCompletion::Pre([[maybe_unused]] const char *value) noexcept
 {
 	if (empty()) {
 		/* create completion list */
@@ -56,7 +55,7 @@ PlaylistNameCompletion::Pre(gcc_unused const char *value) noexcept
 }
 
 void
-PlaylistNameCompletion::Post(gcc_unused const char *value,
+PlaylistNameCompletion::Post([[maybe_unused]] const char *value,
 			     Range range) noexcept
 {
 	if (range.begin() != range.end() &&

@@ -21,7 +21,6 @@
 
 #include "config.h" // IWYU pragma: keep
 #include "Command.hxx"
-#include "util/Compiler.h"
 
 #include <array>
 #include <algorithm>
@@ -45,12 +44,12 @@ struct KeyBinding {
 	constexpr KeyBinding(int a, int b=0, int c=0) noexcept
 		:keys{{a, b, c}} {}
 
-	gcc_pure
+	[[gnu::pure]]
 	bool HasKey(int key) const noexcept {
 		return std::find(keys.begin(), keys.end(), key) != keys.end();
 	}
 
-	gcc_pure
+	[[gnu::pure]]
 	size_t GetKeyCount() const noexcept {
 		return std::distance(keys.begin(),
 				     std::find(keys.begin(), keys.end(), 0));
@@ -72,17 +71,17 @@ struct KeyBinding {
 struct KeyBindings {
 	std::array<KeyBinding, size_t(Command::NONE)> key_bindings;
 
-	gcc_pure
+	[[gnu::pure]]
 	Command FindKey(int key) const noexcept;
 
 	/**
 	 * Returns the name of the first key bound to the given
 	 * command, or nullptr if there is no key binding.
 	 */
-	gcc_pure
+	[[gnu::pure]]
 	const char *GetFirstKeyName(Command command) const noexcept;
 
-	gcc_pure
+	[[gnu::pure]]
 	std::string GetKeyNames(Command command) const noexcept;
 
 	void SetKey(Command command,

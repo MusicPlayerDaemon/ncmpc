@@ -22,7 +22,6 @@
 #include "config.h"
 #include "Queue.hxx"
 #include "gidle.hxx"
-#include "util/Compiler.h"
 #include "event/FineTimerEvent.hxx"
 
 #ifdef ENABLE_ASYNC_CONNECT
@@ -192,7 +191,7 @@ struct mpdclient final
 	 * Is this object "dead"?  i.e. not connected and not
 	 * currently doing anything to connect.
 	 */
-	gcc_pure
+	[[gnu::pure]]
 	bool IsDead() const {
 		return connection == nullptr
 #ifdef ENABLE_ASYNC_CONNECT
@@ -201,14 +200,14 @@ struct mpdclient final
 			;
 	}
 
-	gcc_pure
+	[[gnu::pure]]
 	int GetCurrentSongId() const noexcept {
 		return status != nullptr
 			? mpd_status_get_song_id(status)
 			: -1;
 	}
 
-	gcc_pure
+	[[gnu::pure]]
 	int GetCurrentSongPos() const noexcept {
 		return status != nullptr
 			? mpd_status_get_song_pos(status)
@@ -219,12 +218,12 @@ struct mpdclient final
 	 * Returns the song that is "current".  This can be valid even
 	 * if MPD is not playing.
 	 */
-	gcc_pure
+	[[gnu::pure]]
 	const struct mpd_song *GetCurrentSong() const {
 		return current_song;
 	}
 
-	gcc_pure
+	[[gnu::pure]]
 	int GetPlayingSongId() const noexcept {
 		return playing_or_paused
 			? GetCurrentSongId()
@@ -235,7 +234,7 @@ struct mpdclient final
 	 * Returns the song that is currently being played (or
 	 * paused).
 	 */
-	gcc_pure
+	[[gnu::pure]]
 	const struct mpd_song *GetPlayingSong() const {
 		return playing_or_paused
 			? GetCurrentSong()

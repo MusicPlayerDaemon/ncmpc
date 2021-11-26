@@ -20,7 +20,6 @@
 #include "EventPipe.hxx"
 #include "io/FileDescriptor.hxx"
 #include "system/Error.hxx"
-#include "util/Compiler.h"
 
 #include <cassert>
 

@@ -49,13 +49,13 @@ public:
 	~FileListPage() noexcept override;
 
 protected:
-	gcc_pure
+	[[gnu::pure]]
 	FileListEntry *GetSelectedEntry() const;
 
-	gcc_pure
+	[[gnu::pure]]
 	const struct mpd_entity *GetSelectedEntity() const;
 
-	gcc_pure
+	[[gnu::pure]]
 	const struct mpd_song *GetSelectedSong() const;
 
 	FileListEntry *GetIndex(unsigned i) const;

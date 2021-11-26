@@ -21,7 +21,6 @@
 #include "config.h"
 #include "Options.hxx"
 #include "io/Path.hxx"
-#include "util/Compiler.h"
 
 #include <sys/stat.h>
 
@@ -39,7 +38,7 @@
 #define KEYS_FILENAME "keys"
 #endif
 
-gcc_pure
+[[gnu::pure]]
 static bool
 IsFile(const char *path) noexcept
 {
@@ -97,7 +96,7 @@ GetSystemConfigPath() noexcept
 
 #ifndef _WIN32
 
-gcc_pure
+[[gnu::pure]]
 static std::string
 GetHomeKeysPath() noexcept
 {
@@ -110,7 +109,7 @@ GetHomeKeysPath() noexcept
 
 #endif
 
-gcc_pure
+[[gnu::pure]]
 static std::string
 GetUserKeysPath() noexcept
 {
@@ -121,7 +120,7 @@ GetUserKeysPath() noexcept
 	return BuildPath(dir, PACKAGE, KEYS_FILENAME);
 }
 
-gcc_pure
+[[gnu::pure]]
 static std::string
 GetSystemKeysPath() noexcept
 {

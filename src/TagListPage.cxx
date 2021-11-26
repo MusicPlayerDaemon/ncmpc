@@ -48,7 +48,7 @@ TagListPage::MakeCursorFilter() const noexcept
 	return new_filter;
 }
 
-gcc_pure
+[[gnu::pure]]
 static bool
 CompareUTF8(const std::string &a, const std::string &b)
 {
@@ -122,7 +122,7 @@ TagListPage::Reload(struct mpdclient &c)
  */
 void
 TagListPage::PaintListItem(WINDOW *w, unsigned i,
-			     gcc_unused unsigned y, unsigned width,
+			     [[maybe_unused]] unsigned y, unsigned width,
 			     bool selected) const noexcept
 {
 	if (parent != nullptr) {

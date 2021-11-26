@@ -20,7 +20,6 @@
 #define MATCH_H
 
 #include "config.h"
-#include "util/Compiler.h"
 
 #ifdef HAVE_PCRE
 #include <pcre.h>
@@ -46,7 +45,7 @@ public:
 
 	bool Compile(const char *src, bool anchor) noexcept;
 
-	gcc_pure
+	[[gnu::pure]]
 	bool operator()(const char *line) const noexcept;
 };
 

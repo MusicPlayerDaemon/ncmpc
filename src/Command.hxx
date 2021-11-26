@@ -20,7 +20,6 @@
 #define COMMAND_H
 
 #include "config.h"
-#include "util/Compiler.h"
 
 #include <stddef.h>
 
@@ -142,17 +141,17 @@ typedef struct  {
 const command_definition_t *
 get_command_definitions();
 
-gcc_const
+[[gnu::const]]
 size_t
 get_cmds_max_name_width();
 
-gcc_pure
+[[gnu::pure]]
 const char *get_key_description(Command command);
 
-gcc_pure
+[[gnu::pure]]
 const char *get_key_command_name(Command command);
 
-gcc_pure
+[[gnu::pure]]
 Command
 get_key_command_from_name(const char *name);
 

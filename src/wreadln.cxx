@@ -80,7 +80,7 @@ struct wreadln {
 	void Paint() const noexcept;
 
 	/** returns the screen column where the cursor is located */
-	gcc_pure
+	[[gnu::pure]]
 	unsigned GetCursorColumn() const noexcept;
 
 	/** move the cursor one step to the right */
@@ -103,7 +103,7 @@ struct wreadln {
 static constexpr std::size_t wrln_max_history_length = 32;
 
 /** converts a byte position to a screen column */
-gcc_pure
+[[gnu::pure]]
 static unsigned
 byte_to_screen(const char *data, size_t x) noexcept
 {
@@ -119,7 +119,7 @@ byte_to_screen(const char *data, size_t x) noexcept
 }
 
 /** finds the first character which doesn't fit on the screen */
-gcc_pure
+[[gnu::pure]]
 static size_t
 screen_to_bytes(const char *data, unsigned width) noexcept
 {
@@ -148,7 +148,7 @@ wreadln::GetCursorColumn() const noexcept
 
 /** returns the offset in the string to align it at the right border
     of the screen */
-gcc_pure
+[[gnu::pure]]
 static inline size_t
 right_align_bytes(const char *data, size_t right, unsigned width) noexcept
 {

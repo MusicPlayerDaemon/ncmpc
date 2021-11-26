@@ -19,20 +19,18 @@
 #ifndef SCREEN_LIST_H
 #define SCREEN_LIST_H
 
-#include "util/Compiler.h"
-
 enum class Command : unsigned;
 struct PageMeta;
 
-gcc_const
+[[gnu::const]]
 const PageMeta *
 GetPageMeta(unsigned i) noexcept;
 
-gcc_pure
+[[gnu::pure]]
 const PageMeta *
 screen_lookup_name(const char *name) noexcept;
 
-gcc_const
+[[gnu::const]]
 const PageMeta *
 PageByCommand(Command cmd) noexcept;
 

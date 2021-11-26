@@ -19,8 +19,6 @@
 #ifndef LIST_TEXT_HXX
 #define LIST_TEXT_HXX
 
-#include "util/Compiler.h"
-
 #include <stddef.h>
 
 class ListText {
@@ -28,7 +26,7 @@ public:
 	/**
 	 * @return the text in the locale charset
 	 */
-	gcc_pure
+	[[gnu::pure]]
 	virtual const char *GetListItemText(char *buffer, size_t size,
 					    unsigned i) const noexcept = 0;
 };

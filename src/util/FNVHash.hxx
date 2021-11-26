@@ -37,8 +37,6 @@
 #ifndef FNV_HASH_HXX
 #define FNV_HASH_HXX
 
-#include "Compiler.h"
-
 #include <stddef.h>
 #include <stdint.h>
 
@@ -68,12 +66,12 @@ struct FNV1aAlgorithm {
 	typedef typename Traits::value_type value_type;
 	typedef typename Traits::fast_type fast_type;
 
-	gcc_hot
+	[[gnu::hot]]
 	static constexpr fast_type Update(fast_type hash, uint8_t b) noexcept {
 		return (hash ^ b) * Traits::PRIME;
 	}
 
-	gcc_pure gcc_hot
+	[[gnu::pure]] [[gnu::hot]]
 	static value_type StringHash(const char *s) noexcept {
 		using Algorithm = FNV1aAlgorithm<Traits>;
 
@@ -85,7 +83,7 @@ struct FNV1aAlgorithm {
 	}
 };
 
-gcc_pure gcc_hot
+[[gnu::pure]] [[gnu::hot]]
 inline uint32_t
 FNV1aHash32(const char *s) noexcept
 {
@@ -94,7 +92,7 @@ FNV1aHash32(const char *s) noexcept
 	return Algorithm::StringHash(s);
 }
 
-gcc_pure gcc_hot
+[[gnu::pure]] [[gnu::hot]]
 inline uint64_t
 FNV1aHash64(const char *s) noexcept
 {
@@ -103,7 +101,7 @@ FNV1aHash64(const char *s) noexcept
 	return Algorithm::StringHash(s);
 }
 
-gcc_pure gcc_hot
+[[gnu::pure]] [[gnu::hot]]
 inline uint32_t
 FNV1aHashFold32(const char *s) noexcept
 {

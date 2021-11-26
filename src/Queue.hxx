@@ -19,7 +19,6 @@
 #ifndef QUEUE_HXX
 #define QUEUE_HXX
 
-#include "util/Compiler.h"
 #include "SongPtr.hxx"
 
 #include <mpd/client.h>
@@ -62,7 +61,7 @@ struct MpdQueue {
 		return *items[i];
 	}
 
-	gcc_pure
+	[[gnu::pure]]
 	const struct mpd_song *GetChecked(int i) const noexcept;
 
 	void push_back(const struct mpd_song &song) noexcept {
@@ -86,7 +85,7 @@ struct MpdQueue {
 	 *
 	 * @return the song position
 	 */
-	gcc_pure
+	[[gnu::pure]]
 	size_type FindByReference(const struct mpd_song &song) const noexcept;
 
 	/**
@@ -94,7 +93,7 @@ struct MpdQueue {
 	 *
 	 * @return the song position
 	 */
-	gcc_pure
+	[[gnu::pure]]
 	int FindById(unsigned id) const noexcept;
 
 	/**
@@ -102,7 +101,7 @@ struct MpdQueue {
 	 *
 	 * @return the song position
 	 */
-	gcc_pure
+	[[gnu::pure]]
 	int FindByUri(const char *uri) const noexcept;
 
 	/**
@@ -110,7 +109,7 @@ struct MpdQueue {
 	 *
 	 * @return the song id
 	 */
-	gcc_pure
+	[[gnu::pure]]
 	int FindIdByUri(const char *uri) const noexcept {
 		int i = FindByUri(uri);
 		if (i >= 0)
@@ -118,7 +117,7 @@ struct MpdQueue {
 		return i;
 	}
 
-	gcc_pure
+	[[gnu::pure]]
 	bool ContainsUri(const char *uri) const noexcept {
 		return FindByUri(uri) >= 0;
 	}

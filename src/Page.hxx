@@ -22,7 +22,6 @@
 #include "config.h"
 #include "Point.hxx"
 #include "Size.hxx"
-#include "util/Compiler.h"
 
 #include <curses.h>
 
@@ -121,14 +120,14 @@ public:
 	 * @return true if the event was handled (and should not be
 	 * handled by the ncmpc core)
 	 */
-	virtual bool OnMouse(gcc_unused struct mpdclient &c,
-			     gcc_unused Point position,
-			     gcc_unused mmask_t bstate) {
+	virtual bool OnMouse([[maybe_unused]] struct mpdclient &c,
+			     [[maybe_unused]] Point position,
+			     [[maybe_unused]] mmask_t bstate) {
 		return false;
 	}
 #endif
 
-	gcc_pure
+	[[gnu::pure]]
 	virtual const char *GetTitle(char *s, size_t size) const noexcept = 0;
 };
 

@@ -19,19 +19,17 @@
 #ifndef XDG_BASE_DIRECTORY_HXX
 #define XDG_BASE_DIRECTORY_HXX
 
-#include "util/Compiler.h"
-
 #include <string>
 
-gcc_const
+[[gnu::const]]
 const char *
 GetHomeDirectory() noexcept;
 
-gcc_const
+[[gnu::const]]
 std::string
 GetHomeConfigDirectory() noexcept;
 
-gcc_pure
+[[gnu::pure]]
 std::string
 GetHomeConfigDirectory(const char *package) noexcept;
 
@@ -44,11 +42,11 @@ GetHomeConfigDirectory(const char *package) noexcept;
 std::string
 MakeUserConfigPath(const char *filename) noexcept;
 
-gcc_const
+[[gnu::const]]
 std::string
 GetHomeCacheDirectory() noexcept;
 
-gcc_pure
+[[gnu::pure]]
 std::string
 GetHomeCacheDirectory(const char *package) noexcept;
 

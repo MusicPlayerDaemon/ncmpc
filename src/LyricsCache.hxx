@@ -19,8 +19,6 @@
 #ifndef LYRICS_CACHE_HXX
 #define LYRICS_CACHE_HXX
 
-#include "util/Compiler.h"
-
 #include <string>
 
 #include <stddef.h>
@@ -41,7 +39,7 @@ public:
 	std::string MakePath(const char *artist,
 			     const char *title) const noexcept;
 
-	gcc_pure
+	[[gnu::pure]]
 	bool Exists(const char *artist, const char *title) const noexcept;
 
 	std::string Load(const char *artist, const char *title) const noexcept;

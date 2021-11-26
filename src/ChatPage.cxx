@@ -49,7 +49,7 @@ private:
 
 	void ProcessMessage(const struct mpd_message &message);
 
-	gcc_pure
+	[[gnu::pure]]
 	const std::string &GetPrefix() noexcept;
 
 	void SendMessage(struct mpdclient &c, const char *msg) noexcept;

@@ -19,8 +19,6 @@
 #ifndef BASIC_MARQUEE_HXX
 #define BASIC_MARQUEE_HXX
 
-#include "util/Compiler.h"
-
 #include <string>
 #include <utility>
 
@@ -91,7 +89,7 @@ public:
 			offset = 0;
 	}
 
-	gcc_pure
+	[[gnu::pure]]
 	std::pair<const char *, size_t> ScrollString() const noexcept;
 };
 

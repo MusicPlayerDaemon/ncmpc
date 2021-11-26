@@ -20,7 +20,6 @@
 #define STRING_UTF8_HXX
 
 #include "config.h"
-#include "Compiler.h"
 
 class ScopeInitUTF8 {
 #ifdef HAVE_LOCALE_T
@@ -33,7 +32,7 @@ public:
 #endif
 };
 
-gcc_pure
+[[gnu::pure]]
 int
 CollateUTF8(const char *a, const char *b);
 

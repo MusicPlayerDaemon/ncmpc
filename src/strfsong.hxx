@@ -19,8 +19,6 @@
 #ifndef STRFSONG_H
 #define STRFSONG_H
 
-#include "util/Compiler.h"
-
 #include <stddef.h>
 
 struct mpd_song;
@@ -33,7 +31,7 @@ strfsong(char *s, size_t max, const char *format,
 /**
  * Check which tags are referenced by the given song format.
  */
-gcc_pure
+[[gnu::pure]]
 TagMask
 SongFormatToTagMask(const char *format) noexcept;
 

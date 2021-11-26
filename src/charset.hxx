@@ -20,7 +20,6 @@
 #define CHARSET_H
 
 #include "config.h"
-#include "util/Compiler.h"
 
 #include <string>
 
@@ -38,7 +37,7 @@ char *
 CopyUtf8ToLocale(char *dest, size_t dest_size,
 		 const char *src, size_t src_length) noexcept;
 
-gcc_pure
+[[gnu::pure]]
 const char *
 utf8_to_locale(const char *src, char *buffer, size_t size) noexcept;
 

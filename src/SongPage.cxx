@@ -207,7 +207,8 @@ screen_song_init(ScreenManager &_screen, WINDOW *w, Size size) noexcept
 }
 
 const char *
-SongPage::GetTitle(gcc_unused char *str, gcc_unused size_t size) const noexcept
+SongPage::GetTitle([[maybe_unused]] char *str,
+		   [[maybe_unused]] size_t size) const noexcept
 {
 	return _("Song viewer");
 }
@@ -275,7 +276,7 @@ SongPage::AppendLine(const char *label, const char *value_utf8,
 	}
 }
 
-gcc_pure
+[[gnu::pure]]
 static const char *
 get_tag_label(unsigned tag) noexcept
 {

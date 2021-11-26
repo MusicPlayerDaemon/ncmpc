@@ -19,8 +19,6 @@
 #ifndef LIST_CURSOR_HXX
 #define LIST_CURSOR_HXX
 
-#include "util/Compiler.h"
-
 #include <algorithm>
 
 /**
@@ -270,11 +268,11 @@ public:
 	 * range selection is disabled, it returns the cursor position (range
 	 * length is 1).
 	 */
-	gcc_pure
+	[[gnu::pure]]
 	ListWindowRange GetRange() const noexcept;
 
 	template<typename ItemList>
-	gcc_pure
+	[[gnu::pure]]
 	auto GetCursorHash(const ItemList &items) const noexcept -> decltype(items.front().GetHash()) {
 		if (IsSingleCursor())
 			return items[GetCursorIndex()].GetHash();
@@ -314,7 +312,7 @@ private:
 			: std::max(height / 2, 1U) - 1;
 	}
 
-	gcc_pure
+	[[gnu::pure]]
 	unsigned ValidateIndex(unsigned i) const noexcept;
 
 	void CheckSelected() noexcept;

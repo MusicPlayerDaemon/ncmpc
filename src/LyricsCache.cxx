@@ -96,7 +96,7 @@ LyricsCache::MakePath(const char *artist, const char *title) const noexcept
 	return path;
 }
 
-gcc_pure
+[[gnu::pure]]
 static bool
 ExistsFile(const std::string &path) noexcept
 {
@@ -114,7 +114,7 @@ LyricsCache::Exists(const char *artist, const char *title) const noexcept
 		ExistsFile(::MakePath(legacy_directory, artist, title));
 }
 
-gcc_pure
+[[gnu::pure]]
 static std::string
 LoadFile(const std::string &path) noexcept
 {

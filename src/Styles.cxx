@@ -22,7 +22,6 @@
 #include "i18n.h"
 #include "util/RuntimeError.hxx"
 #include "util/StringStrip.hxx"
-#include "util/Compiler.h"
 
 #ifdef ENABLE_COLORS
 #include "Options.hxx"
@@ -194,7 +193,7 @@ GetStyle(Style style) noexcept
 
 #ifdef ENABLE_COLORS
 
-gcc_pure
+[[gnu::pure]]
 static Style
 StyleByName(const char *name) noexcept
 {

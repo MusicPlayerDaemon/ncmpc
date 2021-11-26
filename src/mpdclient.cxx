@@ -77,7 +77,7 @@ mpdclient::OnIdle(unsigned _events) noexcept
 
 void
 mpdclient::OnIdleError(enum mpd_error error,
-		       gcc_unused enum mpd_server_error server_error,
+		       enum mpd_server_error,
 		       const char *message) noexcept
 {
 	assert(IsConnected());
