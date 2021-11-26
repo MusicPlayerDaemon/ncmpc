@@ -262,7 +262,6 @@ handle_option(int c, const char *arg)
 		GetGlobalKeyBindings().WriteToFile(stdout,
 						   KEYDEF_WRITE_ALL | KEYDEF_COMMENT_ALL);
 		exit(EXIT_SUCCESS);
-		break;
 #endif
 	default:
 		fprintf(stderr,"Unknown Option %c = %s\n", c, arg);

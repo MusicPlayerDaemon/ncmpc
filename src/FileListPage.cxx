@@ -237,7 +237,7 @@ FileListPage::HandleEnter(struct mpdclient &c)
 
 static bool
 browser_select_entry(struct mpdclient &c, FileListEntry &entry,
-		     gcc_unused bool toggle)
+		     [[maybe_unused]] bool toggle)
 {
 	assert(entry.entity != nullptr);
 
@@ -399,10 +399,6 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	switch (cmd) {
-#if defined(ENABLE_SONG_SCREEN) || defined(ENABLE_LYRICS_SCREEN)
-		const struct mpd_song *song;
-#endif
-
 	case Command::LIST_FIND:
 	case Command::LIST_RFIND:
 	case Command::LIST_FIND_NEXT:
@@ -417,22 +413,22 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 
 #ifdef ENABLE_SONG_SCREEN
 	case Command::SCREEN_SONG:
-		song = GetSelectedSong();
-		if (song == nullptr)
+		if (const auto *song = GetSelectedSong()) {
+			screen_song_switch(screen, c, *song);
+			return true;
+		} else
 			return false;
 
-		screen_song_switch(screen, c, *song);
-		return true;
 #endif
 
 #ifdef ENABLE_LYRICS_SCREEN
 	case Command::SCREEN_LYRICS:
-		song = GetSelectedSong();
-		if (song == nullptr)
+		if (const auto *song = GetSelectedSong()) {
+			screen_lyrics_switch(screen, c, *song, false);
+			return true;
+		} else
 			return false;
 
-		screen_lyrics_switch(screen, c, *song, false);
-		return true;
 #endif
 	case Command::SCREEN_SWAP:
 		screen.Swap(c, GetSelectedSong());
@@ -446,8 +442,6 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 		return false;
 
 	switch (cmd) {
-		const struct mpd_song *song;
-
 	case Command::PLAY:
 		HandleEnter(c);
 		return true;
@@ -476,12 +470,12 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	case Command::LOCATE:
-		song = GetSelectedSong();
-		if (song == nullptr)
+		if (const auto *song = GetSelectedSong()) {
+			screen_file_goto_song(screen, c, *song);
+			return true;
+		} else
 			return false;
 
-		screen_file_goto_song(screen, c, *song);
-		return true;
 
 	default:
 		break;
@@ -533,16 +527,13 @@ FileListPage::PaintListItem(WINDOW *w, unsigned i,
 #endif
 
 	switch (mpd_entity_get_type(entity)) {
-		const struct mpd_directory *directory;
-		const struct mpd_playlist *playlist;
-		const char *name;
-
-	case MPD_ENTITY_TYPE_DIRECTORY:
-		directory = mpd_entity_get_directory(entity);
-		name = GetUriFilename(mpd_directory_get_path(directory));
+	case MPD_ENTITY_TYPE_DIRECTORY: {
+		const auto *directory = mpd_entity_get_directory(entity);
+		const char *name = GetUriFilename(mpd_directory_get_path(directory));
 		screen_browser_paint_directory(w, width, selected,
 					       Utf8ToLocale(name).c_str());
 		break;
+	}
 
 	case MPD_ENTITY_TYPE_SONG:
 		paint_song_row(w, y, width, selected, highlight,
@@ -550,12 +541,13 @@ FileListPage::PaintListItem(WINDOW *w, unsigned i,
 			       song_format);
 		break;
 
-	case MPD_ENTITY_TYPE_PLAYLIST:
-		playlist = mpd_entity_get_playlist(entity);
-		name = GetUriFilename(mpd_playlist_get_path(playlist));
+	case MPD_ENTITY_TYPE_PLAYLIST: {
+		const auto *playlist = mpd_entity_get_playlist(entity);
+		const char *name = GetUriFilename(mpd_playlist_get_path(playlist));
 		screen_browser_paint_playlist(w, width, selected,
 					      Utf8ToLocale(name).c_str());
 		break;
+	}
 
 	default:
 		row_paint_text(w, width,

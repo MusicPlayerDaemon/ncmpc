@@ -529,21 +529,18 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	}
 
 	switch(cmd) {
-		int pos;
-
 	case Command::SCREEN_UPDATE:
 		CenterPlayingItem(c.status, prev_cmd == Command::SCREEN_UPDATE);
 		SetDirty();
 		return false;
 	case Command::SELECT_PLAYING:
-		pos = c.GetCurrentSongPos();
-		if (pos < 0)
+		if (int pos = c.GetCurrentSongPos(); pos >= 0) {
+			lw.SetCursor(pos);
+			SaveSelection();
+			SetDirty();
+			return true;
+		} else
 			return false;
-
-		lw.SetCursor(pos);
-		SaveSelection();
-		SetDirty();
-		return true;
 
 	case Command::LIST_FIND:
 	case Command::LIST_RFIND:
@@ -599,27 +596,24 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		return false;
 
 	switch(cmd) {
-		const struct mpd_song *song;
-		ListWindowRange range;
-
 	case Command::PLAY:
-		song = GetSelectedSong();
-		if (song == nullptr)
+		if (const auto *song = GetSelectedSong()) {
+			if (connection = c.GetConnection();
+			    connection != nullptr &&
+			    !mpd_run_play_id(connection, mpd_song_get_id(song)))
+				c.HandleError();
+
+			return true;
+		} else
 			return false;
 
-		connection = c.GetConnection();
-		if (connection != nullptr &&
-		    !mpd_run_play_id(connection, mpd_song_get_id(song)))
-			c.HandleError();
-
-		return true;
-
-	case Command::DELETE:
-		range = lw.GetRange();
+	case Command::DELETE: {
+		const auto range = lw.GetRange();
 		c.RunDeleteRange(range.start_index, range.end_index);
 
 		lw.SetCursor(range.start_index);
 		return true;
+	}
 
 	case Command::SAVE_PLAYLIST:
 		playlist_save(&c, nullptr, nullptr);
@@ -629,8 +623,8 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		handle_add_to_playlist(&c);
 		return true;
 
-	case Command::SHUFFLE:
-		range = lw.GetRange();
+	case Command::SHUFFLE: {
+		const auto range = lw.GetRange();
 		if (range.end_index <= range.start_index + 1)
 			/* No range selection, shuffle all list. */
 			break;
@@ -645,9 +639,10 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		else
 			c.HandleError();
 		return true;
+	}
 
-	case Command::LIST_MOVE_UP:
-		range = lw.GetRange();
+	case Command::LIST_MOVE_UP: {
+		const auto range = lw.GetRange();
 		if (range.start_index == 0 || range.empty())
 			return false;
 
@@ -657,9 +652,10 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		lw.SelectionMovedUp();
 		SaveSelection();
 		return true;
+	}
 
-	case Command::LIST_MOVE_DOWN:
-		range = lw.GetRange();
+	case Command::LIST_MOVE_DOWN: {
+		const auto range = lw.GetRange();
 		if (range.end_index >= playlist->size())
 			return false;
 
@@ -669,6 +665,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		lw.SelectionMovedDown();
 		SaveSelection();
 		return true;
+	}
 
 	case Command::LOCATE:
 		if (GetSelectedSong() != nullptr) {

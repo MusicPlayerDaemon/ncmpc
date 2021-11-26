@@ -29,9 +29,9 @@
 #include <string.h>
 
 void
-paint_song_row(WINDOW *w, gcc_unused unsigned y, unsigned width,
+paint_song_row(WINDOW *w, [[maybe_unused]] unsigned y, unsigned width,
 	       bool selected, bool highlight, const struct mpd_song *song,
-	       gcc_unused class hscroll *hscroll, const char *format)
+	       [[maybe_unused]] class hscroll *hscroll, const char *format)
 {
 	char buffer[1024];
 
