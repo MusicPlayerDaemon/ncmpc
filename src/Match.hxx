@@ -22,7 +22,7 @@
 #include "config.h"
 
 #ifdef HAVE_PCRE
-#include <pcre.h>
+#include <pcre2.h>
 #else
 #include <stddef.h>
 #endif
@@ -33,7 +33,7 @@ class MatchExpression {
 	size_t length;
 	bool anchored;
 #else
-	pcre *re = nullptr;
+	pcre2_code_8 *re = nullptr;
 #endif
 
 public:

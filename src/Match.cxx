@@ -17,6 +17,7 @@
  */
 
 #include "Match.hxx"
+#include "util/ScopeExit.hxx"
 
 #include <assert.h>
 #include <string.h>
@@ -24,7 +25,7 @@
 MatchExpression::~MatchExpression() noexcept
 {
 #ifdef HAVE_PCRE
-	pcre_free(re);
+	pcre2_code_free_8(re);
 #endif
 }
 
@@ -40,13 +41,14 @@ MatchExpression::Compile(const char *src, bool anchor) noexcept
 #else
 	assert(re == nullptr);
 
-	int options = PCRE_CASELESS|PCRE_DOTALL|PCRE_NO_AUTO_CAPTURE;
+	int options = PCRE2_CASELESS|PCRE2_DOTALL|PCRE2_NO_AUTO_CAPTURE;
 	if (anchor)
-		options |= PCRE_ANCHORED;
+		options |= PCRE2_ANCHORED;
 
-	const char *error_string;
-	int error_offset;
-	re = pcre_compile(src, options, &error_string, &error_offset, nullptr);
+	int error_number;
+	PCRE2_SIZE error_offset;
+	re = pcre2_compile_8(PCRE2_SPTR8(src), PCRE2_ZERO_TERMINATED,
+			     options, &error_number, &error_offset, nullptr);
 	return re != nullptr;
 #endif
 }
@@ -63,7 +65,13 @@ MatchExpression::operator()(const char *line) const noexcept
 #else
 	assert(re != nullptr);
 
-	return pcre_exec(re, nullptr, line, strlen(line),
-			 0, 0, nullptr, 0) >= 0;
+	const auto match_data =
+		pcre2_match_data_create_from_pattern_8(re, nullptr);
+	AtScopeExit(match_data) {
+		pcre2_match_data_free_8(match_data);
+	};
+
+	return pcre2_match_8(re, (PCRE2_SPTR8)line, strlen(line),
+			     0, 0, match_data, nullptr) >= 0;
 #endif
 }

@@ -188,7 +188,15 @@ thread_dep = dependency('threads')
 libmpdclient_dep = dependency('libmpdclient', version: '>= 2.9')
 
 if not mini
-  pcre_dep = dependency('libpcre', required: get_option('regex'))
+  pcre_dep = dependency('libpcre2-8', required: get_option('regex'))
+
+  if pcre_dep.found()
+    pcre_dep = declare_dependency(
+      compile_args: '-DPCRE2_CODE_UNIT_WIDTH=0',
+      dependencies: pcre_dep,
+    )
+  endif
+
   conf.set('HAVE_PCRE', pcre_dep.found())
 else
   pcre_dep = declare_dependency()
