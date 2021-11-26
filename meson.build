@@ -128,6 +128,7 @@ test_global_common_flags = [
 test_common_flags = [
   '-Wcast-qual',
   '-Wcast-align',
+  '-Wdouble-promotion',
   '-Wmissing-declarations',
   '-Wmissing-format-attribute',
   '-Wmissing-noreturn',
@@ -136,6 +137,10 @@ test_common_flags = [
   '-Wundef',
   '-Wvla',
   '-Wwrite-strings',
+
+  # clang specific warning options:
+  '-Wunreachable-code-aggressive',
+  '-Wused-but-marked-unused',
 ]
 
 test_global_cxxflags = test_global_common_flags + [
@@ -151,6 +156,11 @@ test_cxxflags = test_common_flags + [
   # the only warnings we got from this are from formatted error
   # messages, and their truncation is harmless
   '-Wno-format-truncation',
+
+  # clang specific warning options:
+  '-Wcomma',
+  '-Wheader-hygiene',
+  '-Winconsistent-missing-destructor-override',
 ]
 
 if get_option('buildtype') != 'debug'
