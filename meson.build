@@ -121,7 +121,11 @@ common_cppflags = [
   '-D_GNU_SOURCE',
 ]
 
-test_cxxflags = [
+test_global_common_flags = [
+  '-fvisibility=hidden',
+]
+
+test_common_flags = [
   '-Wcast-qual',
   '-Wcast-align',
   '-Wmissing-declarations',
@@ -132,6 +136,14 @@ test_cxxflags = [
   '-Wundef',
   '-Wvla',
   '-Wwrite-strings',
+]
+
+test_global_cxxflags = test_global_common_flags + [
+]
+
+test_cxxflags = test_common_flags + [
+  '-fno-threadsafe-statics',
+  '-fmerge-all-constants',
 
   # a vtable without a dtor is just fine
   '-Wno-non-virtual-dtor',
@@ -139,22 +151,18 @@ test_cxxflags = [
   # the only warnings we got from this are from formatted error
   # messages, and their truncation is harmless
   '-Wno-format-truncation',
-
-  '-fvisibility=hidden',
-
-  '-fno-threadsafe-statics',
-  '-fmerge-all-constants',
 ]
 
 if get_option('buildtype') != 'debug'
-  test_cxxflags += [
+  test_global_cxxflags += [
     '-ffunction-sections',
     '-fdata-sections',
   ]
 endif
 
 add_global_arguments(common_cppflags, language: 'cpp')
-add_global_arguments(cc.get_supported_arguments(test_cxxflags), language: 'cpp')
+add_global_arguments(cc.get_supported_arguments(test_global_cxxflags), language: 'cpp')
+add_project_arguments(cc.get_supported_arguments(test_cxxflags), language: 'cpp')
 
 is_linux = host_machine.system() == 'linux'
 is_windows = host_machine.system() == 'windows'
