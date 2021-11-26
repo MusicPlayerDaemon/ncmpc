@@ -121,7 +121,7 @@ common_cppflags = [
   '-D_GNU_SOURCE',
 ]
 
-test_cflags = [
+test_cxxflags = [
   '-Wshadow',
   '-Wpointer-arith',
   '-Wcast-qual',
@@ -144,14 +144,14 @@ test_cflags = [
 ]
 
 if get_option('buildtype') != 'debug'
-  test_cflags += [
+  test_cxxflags += [
     '-ffunction-sections',
     '-fdata-sections',
   ]
 endif
 
 add_global_arguments(common_cppflags, language: 'cpp')
-add_global_arguments(cc.get_supported_arguments(test_cflags), language: 'cpp')
+add_global_arguments(cc.get_supported_arguments(test_cxxflags), language: 'cpp')
 
 is_linux = host_machine.system() == 'linux'
 is_windows = host_machine.system() == 'windows'
