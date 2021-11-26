@@ -163,16 +163,23 @@ test_cxxflags = test_common_flags + [
   '-Winconsistent-missing-destructor-override',
 ]
 
+test_ldflags = [
+]
+
 if get_option('buildtype') != 'debug'
   test_global_cxxflags += [
     '-ffunction-sections',
     '-fdata-sections',
+  ]
+  test_ldflags += [
+    '-Wl,--gc-sections',
   ]
 endif
 
 add_global_arguments(common_cppflags, language: 'cpp')
 add_global_arguments(cc.get_supported_arguments(test_global_cxxflags), language: 'cpp')
 add_project_arguments(cc.get_supported_arguments(test_cxxflags), language: 'cpp')
+add_project_link_arguments(cc.get_supported_link_arguments(test_ldflags), language: 'cpp')
 
 is_linux = host_machine.system() == 'linux'
 is_windows = host_machine.system() == 'windows'
