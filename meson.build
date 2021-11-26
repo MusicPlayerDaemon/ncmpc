@@ -127,7 +127,6 @@ test_cxxflags = [
   '-Wmissing-declarations',
   '-Wmissing-format-attribute',
   '-Wmissing-noreturn',
-  '-Wpointer-arith',
   '-Wredundant-decls',
   '-Wshadow',
   '-Wundef',
