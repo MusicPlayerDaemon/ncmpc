@@ -150,13 +150,8 @@ if get_option('buildtype') != 'debug'
   ]
 endif
 
-foreach f: test_cflags
-  if cc.has_argument(f)
-    common_cflags += [ f ]
-  endif
-endforeach
-
 add_global_arguments(common_cflags, language: 'cpp')
+add_global_arguments(cc.get_supported_arguments(test_cflags), language: 'cpp')
 
 is_linux = host_machine.system() == 'linux'
 is_windows = host_machine.system() == 'windows'
