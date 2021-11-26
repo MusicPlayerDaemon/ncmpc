@@ -122,15 +122,19 @@ common_cppflags = [
 ]
 
 test_cxxflags = [
-  '-Wshadow',
-  '-Wpointer-arith',
   '-Wcast-qual',
   '-Wcast-align',
-  '-Wwrite-strings',
-  '-Wmissing-declarations', '-Wmissing-noreturn', '-Wmissing-format-attribute',
-  '-Wredundant-decls', '-Wundef',
+  '-Wmissing-declarations',
+  '-Wmissing-format-attribute',
+  '-Wmissing-noreturn',
+  '-Wpointer-arith',
+  '-Wredundant-decls',
+  '-Wshadow',
+  '-Wundef',
   '-Wvla',
+  '-Wwrite-strings',
 
+  # a vtable without a dtor is just fine
   '-Wno-non-virtual-dtor',
 
   # the only warnings we got from this are from formatted error
