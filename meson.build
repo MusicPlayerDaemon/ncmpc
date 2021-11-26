@@ -116,7 +116,7 @@ conf.set('ENABLE_LIRC', lirc_dep.found())
 
 conf.set('ENABLE_COLORS', curses_color and get_option('colors'))
 
-common_cflags = [
+common_cppflags = [
   # for getaddrinfo() and sigaction() with glibc
   '-D_GNU_SOURCE',
 ]
@@ -150,7 +150,7 @@ if get_option('buildtype') != 'debug'
   ]
 endif
 
-add_global_arguments(common_cflags, language: 'cpp')
+add_global_arguments(common_cppflags, language: 'cpp')
 add_global_arguments(cc.get_supported_arguments(test_cflags), language: 'cpp')
 
 is_linux = host_machine.system() == 'linux'
