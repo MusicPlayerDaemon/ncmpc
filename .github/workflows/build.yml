@@ -48,7 +48,7 @@ jobs:
         uses: BSFishy/meson-build@v1.0.3
         with:
           action: test
-          directory: output/full
+          directory: output/mini
           setup-options: -Ddocumentation=disabled -Dbuildtype=minsize -Db_ndebug=true -Db_lto=true -Dauto_features=disabled -Dcurses=ncurses -Dcolors=false -Dmultibyte=false -Dtcp=false -Dasync_connect=false -Dmini=true
 
   build-macos:
