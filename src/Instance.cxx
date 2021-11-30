@@ -22,8 +22,6 @@
 
 #include <signal.h>
 
-#ifdef HAVE_TAG_WHITELIST
-
 #include "strfsong.hxx"
 #include "TagMask.hxx"
 
@@ -45,8 +43,6 @@ static constexpr TagMask global_tag_whitelist{
 	MPD_TAG_GENRE,
 	MPD_TAG_COMMENT,
 };
-
-#endif
 
 Instance::Instance()
 	:client(event_loop,
@@ -77,7 +73,6 @@ Instance::Instance()
 	SignalMonitorRegister(SIGCONT, BIND_THIS_METHOD(OnSigwinch));
 #endif
 
-#ifdef HAVE_TAG_WHITELIST
 	TagMask tag_mask = global_tag_whitelist;
 	tag_mask |= SongFormatToTagMask(options.list_format.c_str());
 	tag_mask |= SongFormatToTagMask(options.search_format.c_str());
@@ -87,7 +82,6 @@ Instance::Instance()
 #endif
 
 	client.WhitelistTags(tag_mask);
-#endif
 }
 
 Instance::~Instance()

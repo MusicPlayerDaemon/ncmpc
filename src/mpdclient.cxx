@@ -212,8 +212,6 @@ mpdclient::GetSettingsName() const
 #endif
 }
 
-#ifdef HAVE_TAG_WHITELIST
-
 void
 mpdclient::WhitelistTags(TagMask mask) noexcept
 {
@@ -224,8 +222,6 @@ mpdclient::WhitelistTags(TagMask mask) noexcept
 
 	tag_whitelist |= mask;
 }
-
-#endif
 
 void
 mpdclient::ClearStatus() noexcept
@@ -273,8 +269,6 @@ mpdclient::Disconnect()
 	/* everything has changed after a disconnect */
 	events |= MPD_IDLE_ALL;
 }
-
-#ifdef HAVE_TAG_WHITELIST
 
 /**
  * Receive a "tagtypes" response and convert it to a #TagMask.
@@ -350,8 +344,6 @@ SendTagWhitelist(struct mpd_connection *c, const TagMask whitelist) noexcept
 		mpd_response_finish(c);
 }
 
-#endif
-
 bool
 mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 {
@@ -378,7 +370,6 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 		return false;
 	}
 
-#ifdef HAVE_TAG_WHITELIST
 	if (enable_tag_whitelist &&
 	    mpd_connection_cmp_server_version(connection, 0, 21, 0) >= 0 &&
 	    !SendTagWhitelist(connection, tag_whitelist)) {
@@ -390,7 +381,6 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 			return false;
 		}
 	}
-#endif
 
 	source = new MpdIdleSource(GetEventLoop(), *connection, *this);
 	ScheduleEnterIdle();

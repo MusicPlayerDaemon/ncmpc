@@ -413,7 +413,6 @@ static void
 audio_format_to_string(char *buffer, size_t size,
 		       const struct mpd_audio_format *format) noexcept
 {
-#if LIBMPDCLIENT_CHECK_VERSION(2,10,0)
 	if (format->bits == MPD_SAMPLE_FORMAT_FLOAT) {
 		snprintf(buffer, size, "%u:f:%u",
 			 format->sample_rate,
@@ -437,7 +436,6 @@ audio_format_to_string(char *buffer, size_t size,
 			 format->channels);
 		return;
 	}
-#endif
 
 	snprintf(buffer, size, "%u:%u:%u",
 		 format->sample_rate, format->bits,

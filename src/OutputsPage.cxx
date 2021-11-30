@@ -294,7 +294,6 @@ fill_outputs_list(struct mpdclient *c, O &items)
 
 	struct mpd_output *output;
 	while ((output = mpd_recv_output(connection)) != nullptr) {
-#if LIBMPDCLIENT_CHECK_VERSION(2,14,0)
 		const char *plugin = mpd_output_get_plugin(output);
 		if (plugin != nullptr && StringIsEqual(plugin, "dummy")) {
 			/* hide "dummy" outputs; they are placeholders
@@ -303,7 +302,6 @@ fill_outputs_list(struct mpdclient *c, O &items)
 			mpd_output_free(output);
 			continue;
 		}
-#endif
 
 		items.emplace_back(output);
 	}
