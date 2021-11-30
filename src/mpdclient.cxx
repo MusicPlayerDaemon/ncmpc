@@ -371,7 +371,6 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 	}
 
 	if (enable_tag_whitelist &&
-	    mpd_connection_cmp_server_version(connection, 0, 21, 0) >= 0 &&
 	    !SendTagWhitelist(connection, tag_whitelist)) {
 		InvokeErrorCallback();
 

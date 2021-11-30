@@ -1,5 +1,6 @@
 ncmpc 0.47 - not yet released
 * require libmpdclient 2.16 or newer
+* require MPD 0.21 or newer
 
 ncmpc 0.46 - (2021-11-26)
 * eliminate Boost dependency
