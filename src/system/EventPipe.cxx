@@ -23,8 +23,6 @@
 
 #include <cassert>
 
-#include <unistd.h>
-
 #ifdef _WIN32
 #include "net/IPv4Address.hxx"
 #include "net/StaticSocketAddress.hxx"
