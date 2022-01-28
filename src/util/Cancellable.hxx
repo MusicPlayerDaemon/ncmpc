@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: BSD-2-Clause
 // author: Max Kellermann <max.kellermann@gmail.com>
 
-#ifndef CANCELLABLE_HXX
-#define CANCELLABLE_HXX
+#pragma once
 
+#include <cassert>
 #include <utility>
 
 /**
@@ -48,12 +48,14 @@ public:
 	}
 
 	void Cancel() noexcept {
+		assert(cancellable != nullptr);
+
 		cancellable->Cancel();
 	}
 
 	void CancelAndClear() noexcept {
+		assert(cancellable != nullptr);
+
 		std::exchange(cancellable, nullptr)->Cancel();
 	}
 };
-
-#endif
