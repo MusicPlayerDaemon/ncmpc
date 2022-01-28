@@ -52,9 +52,7 @@ public:
 	}
 
 	void CancelAndClear() noexcept {
-		auto *c = cancellable;
-		cancellable = nullptr;
-		c->Cancel();
+		std::exchange(cancellable, nullptr)->Cancel();
 	}
 };
 
