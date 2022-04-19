@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 Max Kellermann <max.kellermann@gmail.com>
+ * Copyright 2012-2022 Max Kellermann <max.kellermann@gmail.com>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -32,16 +32,26 @@
 
 #include "Features.hxx"
 
-#include <cstddef>
-
 #ifdef _WIN32
 #include <winsock2.h> // IWYU pragma: export
 #else
 #include <sys/socket.h> // IWYU pragma: export
 #endif
 
-template<typename T> struct ConstBuffer;
-struct StringView;
+#include <cstddef>
+
+#if __cplusplus >= 202002 || (defined(__GNUC__) && __GNUC__ >= 10)
+#include <version>
+#endif
+
+#ifdef __cpp_lib_span
+#include <span>
+#endif
+
+#ifdef HAVE_UN
+#include <string_view>
+#endif
+
 class IPv4Address;
 
 /**
@@ -118,7 +128,7 @@ public:
 	 * nullptr if not applicable.
 	 */
 	[[gnu::pure]]
-	StringView GetLocalRaw() const noexcept;
+	std::string_view GetLocalRaw() const noexcept;
 
 	/**
 	 * Returns the local socket path or nullptr if not applicable
@@ -154,6 +164,7 @@ public:
 	unsigned GetPort() const noexcept;
 #endif
 
+#ifdef __cpp_lib_span
 	/**
 	 * Return a buffer pointing to the "steady" portion of the
 	 * address, i.e. without volatile parts like the port number.
@@ -162,7 +173,8 @@ public:
 	 * not supported.
 	 */
 	[[gnu::pure]]
-	ConstBuffer<void> GetSteadyPart() const noexcept;
+	std::span<const std::byte> GetSteadyPart() const noexcept;
+#endif
 
 	[[gnu::pure]]
 	bool operator==(const SocketAddress other) const noexcept;
