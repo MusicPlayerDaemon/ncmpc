@@ -309,6 +309,10 @@ if enable_lyrics_screen
   conf.set_quoted('LYRICS_PLUGIN_DIR', lyrics_plugin_dir)
   install_data(
     'lyrics/20-azlyrics.py',
+    'lyrics/30-karaoke_texty.py',
+    'lyrics/40-tekstowo.py',
+    'lyrics/50-genius.py',
+    'lyrics/60-google.py',
     install_dir: lyrics_plugin_dir)
 
   need_screen_text = true
