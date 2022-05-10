@@ -312,6 +312,7 @@ if enable_lyrics_screen
     'lyrics/30-karaoke_texty.py',
     'lyrics/40-tekstowo.py',
     'lyrics/50-genius.py',
+    'lyrics/51-supermusic.py',
     'lyrics/60-google.py',
     install_dir: lyrics_plugin_dir)
 
