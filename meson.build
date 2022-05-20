@@ -313,6 +313,7 @@ if enable_lyrics_screen
     'lyrics/40-tekstowo.py',
     'lyrics/50-genius.py',
     'lyrics/51-supermusic.py',
+    'lyrics/52-zeneszoveg.py',
     'lyrics/60-google.py',
     install_dir: lyrics_plugin_dir)
 
