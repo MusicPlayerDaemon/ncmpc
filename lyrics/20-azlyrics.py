@@ -38,31 +38,32 @@ except ImportError:
     def unidecode(s):
         return s
 
+
 def normalize_parameter(s):
     return unidecode(s).lower()
 
+
 def html_elements_to_text(s):
-    return s \
-        .replace("<br>", "") \
-        .replace("<i>", "").replace("</i>", "") \
-        .replace("<b>", "").replace("</b>", "") \
-        .replace("<div>", "") \
+    return (
+        s.replace("<br>", "")
+        .replace("<i>", "")
+        .replace("</i>", "")
+        .replace("<b>", "")
+        .replace("</b>", "")
+        .replace("<div>", "")
         .replace("</div>", "")
+    )
+
 
 def html_to_text(s):
     return html.unescape(html_elements_to_text(s))
 
+
 artists = normalize_parameter(sys.argv[1])
 title = normalize_parameter(sys.argv[2])
-artists = [
-    artist.removeprefix('the ')
-    for artist in artists.split(',')
-]
-artists = [
-    re.sub("[^A-Za-z0-9]+", "", artist)
-    for artist in artists
-]
-title = re.sub('\(.*\)', '', title)
+artists = [artist.removeprefix("the ") for artist in artists.split(",")]
+artists = [re.sub("[^A-Za-z0-9]+", "", artist) for artist in artists]
+title = re.sub("\(.*\)", "", title)
 title = re.sub("[^A-Za-z0-9]+", "", title)
 
 for artist in artists:
@@ -74,9 +75,7 @@ for artist in artists:
         start = response.find("that. -->")
         end = response.find("<!-- MxM")
         lyrics = response[start + 9 : end]
-        lyrics = (
-            html_to_text(lyrics).strip()
-        )
+        lyrics = html_to_text(lyrics).strip()
         print(lyrics)
         exit(0)
     except urllib.error.HTTPError:

@@ -41,24 +41,29 @@ def normalize_parameter(s):
     return unidecode(s).lower()
 
 
-base_url = 'https://genius.com/'
+base_url = "https://genius.com/"
 artists = normalize_parameter(sys.argv[1])
 title = normalize_parameter(sys.argv[2])
-artists = [
-    artist
-    for artist in artists.split(',')
-]
+artists = [artist for artist in artists.split(",")]
 
-title = re.sub('\(.*\)', '', title)
+title = re.sub("\(.*\)", "", title)
 
 for artist in artists:
-    title = title.replace(' ', '-').replace("'", "")
-    artist = artist.replace(' ', '-').replace("'", "")
-    r = requests.get(f'{base_url}{artist}-{title}-lyrics')
+    title = title.replace(" ", "-").replace("'", "")
+    artist = artist.replace(" ", "-").replace("'", "")
+    r = requests.get(f"{base_url}{artist}-{title}-lyrics")
     try:
         r.raise_for_status()
     except:
         exit(1)
-    soup = bs4.BeautifulSoup(r.text, 'html5lib')
-    lyrics = [x.getText('\n') for x in soup.find(attrs={'data-lyrics-container': 'true'})]
-    print(re.sub(r'\n\n+', '\n', ''.join([x.replace('', '\n') if not x else x for x in lyrics])))
+    soup = bs4.BeautifulSoup(r.text, "html5lib")
+    lyrics = [
+        x.getText("\n") for x in soup.find(attrs={"data-lyrics-container": "true"})
+    ]
+    print(
+        re.sub(
+            r"\n\n+",
+            "\n",
+            "".join([x.replace("", "\n") if not x else x for x in lyrics]),
+        )
+    )

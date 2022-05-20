@@ -43,19 +43,22 @@ def normalize_parameter(s):
 
 artists = normalize_parameter(sys.argv[1])
 title = normalize_parameter(sys.argv[2])
-artists = [
-    artist.removeprefix('the ')
-    for artist in artists.split(',')
-]
+artists = [artist.removeprefix("the ") for artist in artists.split(",")]
 
-title = re.sub('\(.*\)', '', title)
+title = re.sub("\(.*\)", "", title)
 
 for artist in artists:
-    r = requests.get(f'https://www.tekstowo.pl/wyszukaj.html?search-artist={artist}&search-title={title}')
+    r = requests.get(
+        f"https://www.tekstowo.pl/wyszukaj.html?search-artist={artist}&search-title={title}"
+    )
     r.raise_for_status()
-    soup = bs4.BeautifulSoup(r.text, 'html5lib')
-    results = soup.find(attrs={'class': 'card-body p-0'}).select('a')
-    matches = [x for x in results if re.search(title, normalize_parameter(x.text).split(' - ')[1])]
+    soup = bs4.BeautifulSoup(r.text, "html5lib")
+    results = soup.find(attrs={"class": "card-body p-0"}).select("a")
+    matches = [
+        x
+        for x in results
+        if re.search(title, normalize_parameter(x.text).split(" - ")[1])
+    ]
     if not matches:
         print("Lyrics not found :(", file=sys.stderr)
         exit(1)
@@ -64,5 +67,5 @@ for artist in artists:
     song_url = f'https://www.tekstowo.pl{matches[0].get("href")}'
     r = requests.get(song_url)
     r.raise_for_status()
-    soup = bs4.BeautifulSoup(r.text)
-    print(soup.select_one('#songText').text)
+    soup = bs4.BeautifulSoup(r.text, "lxml")
+    print(soup.select_one("#songText .inner-text").text)

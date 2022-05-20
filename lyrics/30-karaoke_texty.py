@@ -41,32 +41,43 @@ def normalize_parameter(s):
     return unidecode(s).lower()
 
 
+base_url = "https://www.karaoketexty.sk"
 artists = normalize_parameter(sys.argv[1])
 title = normalize_parameter(sys.argv[2])
-artists = [
-    artist.removeprefix('the ')
-    for artist in artists.split(',')
-]
+artists = [artist.removeprefix("the ") for artist in artists.split(",")]
 
-title = re.sub('\(.*\)', '', title)
+title = re.sub("\(.*\)", "", title)
 
 for artist in artists:
-    r = requests.get(f'https://www.karaoketexty.sk/search?sid=outxq&q={artist}-{title}')
+    r = requests.get(f"{base_url}/search?sid=outxq&q={title}")
     r.raise_for_status()
-    soup = bs4.BeautifulSoup(r.text, 'html5lib')
-    results = soup.findAll(attrs={'class': 'h2_search'})[1]
-    matches = [x.a for x in results.findAllNext('span', attrs={'class': 'searchresrow_songs'})]
-    matches = [x for x in matches if re.search(title, normalize_parameter(x.text).split(' - ')[1])]
+    soup = bs4.BeautifulSoup(r.text, "html5lib")
+    results = soup.findAll(attrs={"class": "h2_search"})[1]
+    matches = [
+        x.a for x in results.findAllNext("span", attrs={"class": "searchresrow_songs"})
+    ]
+    matches = [
+        x for x in matches if f"{artist} - {title}" == normalize_parameter(x.text)
+    ]
     if not matches:
         print("Lyrics not found :(", file=sys.stderr)
         exit(1)
 
     # first match is a good match
-    song_url = f'https://www.karaoketexty.sk{matches[0].get("href")}'
+    song_url = f'{base_url}{matches[0].get("href")}'
     r = requests.get(song_url)
     r.raise_for_status()
-    soup = bs4.BeautifulSoup(r.text)
-    lyrics_block = soup.find(attrs={'class': 'lyrics_cont'}).findAll(attrs={'class': 'para_row'})
-    lyrics_paragraphs = [x.findAll('span') for x in lyrics_block]
-    lyrics = ''.join([x.text for x in soup.find(attrs={'class': 'lyrics_cont'}).findAll(attrs={'class': 'para_row'})])
-    print('\n'.join(['\n'.join([x.text for x in x]) for x in lyrics_paragraphs]))
+    soup = bs4.BeautifulSoup(r.text, "html5lib")
+    lyrics_block = soup.find(attrs={"class": "lyrics_cont"}).findAll(
+        attrs={"class": "para_row"}
+    )
+    lyrics_paragraphs = [x.findAll("span") for x in lyrics_block]
+    lyrics = "".join(
+        [
+            x.text
+            for x in soup.find(attrs={"class": "lyrics_cont"}).findAll(
+                attrs={"class": "para_row"}
+            )
+        ]
+    )
+    print("\n".join(["\n".join([x.text for x in x]) for x in lyrics_paragraphs]))

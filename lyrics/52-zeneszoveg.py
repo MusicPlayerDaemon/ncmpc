@@ -45,29 +45,37 @@ def normalize_parameter(s):
 
 
 def get_artist_url(artist):
-    r = requests.get(f'{base_url}eloadok/{artist[0]}')
+    r = requests.get(f"{base_url}eloadok/{artist[0]}")
     r.raise_for_status()
-    soup = bs4.BeautifulSoup(r.text, 'html5lib')
-    pages = [x['href'] for x in soup.select('div.paginator > a') if len(x.text.strip()) < 3]
+    soup = bs4.BeautifulSoup(r.text, "html5lib")
+    pages = [
+        x["href"] for x in soup.select("div.paginator > a") if len(x.text.strip()) < 3
+    ]
     for page in pages:
-        r = requests.get(f'{base_url}{page}')
-        soup = bs4.BeautifulSoup(r.text, 'html5lib')
-        match = [x for x in soup.select('.col2.olist a')
-                   if normalize_parameter(x.text) == artist]
+        r = requests.get(f"{base_url}{page}")
+        soup = bs4.BeautifulSoup(r.text, "html5lib")
+        match = [
+            x
+            for x in soup.select(".col2.olist a")
+            if normalize_parameter(x.text) == artist
+        ]
         if match:
             break
     else:
         print("Artist not found :(", file=sys.stderr)
         exit(1)
-    return match[0].get('href')
+    return match[0].get("href")
 
 
 def get_title_url(artist_url, title):
-    r = requests.get(f'{base_url}{artist_url}')
+    r = requests.get(f"{base_url}{artist_url}")
     r.raise_for_status()
-    soup = bs4.BeautifulSoup(r.text, 'html5lib')
-    match = [x.select('a')[-1]['href'] for x in soup.select('.artistRelatedList .search-result h3')
-                                       if normalize_parameter(x.text.strip()) == title]
+    soup = bs4.BeautifulSoup(r.text, "html5lib")
+    match = [
+        x.select("a")[-1]["href"]
+        for x in soup.select(".artistRelatedList .search-result h3")
+        if normalize_parameter(x.text.strip()) == title
+    ]
     if not match:
         print("Song not found :(", file=sys.stderr)
         exit(1)
@@ -75,25 +83,23 @@ def get_title_url(artist_url, title):
 
 
 def get_lyrics(title_url):
-    r = requests.get(f'{base_url}{title_url}')
+    r = requests.get(f"{base_url}{title_url}")
     r.raise_for_status()
-    soup = bs4.BeautifulSoup(r.text, 'html5lib')
-    lyrics = soup.select_one('div.lyrics-plain-text.trans_original').text.lstrip()
+    soup = bs4.BeautifulSoup(r.text, "html5lib")
+    lyrics = soup.select_one("div.lyrics-plain-text")
     if not lyrics:
         print("Lyrics not found :(", file=sys.stderr)
         exit(1)
+    lyrics = lyrics.text.lstrip()
     return lyrics
 
 
 artists = normalize_parameter(sys.argv[1])
 title = normalize_parameter(sys.argv[2])
-artists = [
-    artist.removeprefix('the ')
-    for artist in artists.split(',')
-]
+artists = [artist.removeprefix("the ") for artist in artists.split(",")]
 
-title = re.sub('\(.*\)', '', title)
-base_url = 'https://kulfoldi.zeneszoveg.hu/'
+title = re.sub("\(.*\)", "", title)
+base_url = "https://kulfoldi.zeneszoveg.hu/"
 
 for artist in artists:
     artist_url = get_artist_url(artist)

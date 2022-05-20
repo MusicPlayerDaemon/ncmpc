@@ -46,33 +46,45 @@ def normalize_parameter(s):
 
 artists = normalize_parameter(sys.argv[1])
 title = normalize_parameter(sys.argv[2])
-artists = [
-    artist.removeprefix('the ')
-    for artist in artists.split(',')
-]
+artists = [artist.removeprefix("the ") for artist in artists.split(",")]
 
-title = re.sub('\(.*\)', '', title)
-base_url = 'https://supermusic.cz/'
+title = re.sub("\(.*\)", "", title)
+base_url = "https://supermusic.cz/"
 
 for artist in artists:
-    r = requests.post(f'{base_url}najdi.php',
-                      data={'hladane': f'"{title}"', 'typhladania': 'piesen', 'fraza': 'off'})
+    r = requests.post(
+        f"{base_url}najdi.php",
+        data={"hladane": f'"{title}"', "typhladania": "piesen", "fraza": "off"},
+    )
     r.raise_for_status()
-    soup = bs4.BeautifulSoup(r.text, 'html5lib')
-    results = soup.select('.clanok a[target]')
+    soup = bs4.BeautifulSoup(r.text, "html5lib")
+    results = soup.select(".clanok a[target]")
     # drop melody, notes and guitar tabs from results
-    results = [x for x in results if '- taby' not in x.nextSibling and
-                                  '- melodia' not in x.nextSibling and
-                                  '- preklad' not in x.nextSibling and
-                                  '- noty' not in x.nextSibling]
+    results = [
+        x
+        for x in results
+        if "- taby" not in x.nextSibling
+        and "- melodia" not in x.nextSibling
+        and "- akordy" not in x.nextSibling
+        and "- preklad" not in x.nextSibling
+        and "- noty" not in x.nextSibling
+    ]
     # filter on artist name
     results = [x for x in results if normalize_parameter(x.text) == artist]
     if not results:
         print("Lyrics not found :(", file=sys.stderr)
         exit(1)
     song_url = f'{base_url}{results[0]["href"]}'
-    song_id = re.search(r'idpiesne=(.*)', song_url).group(1)
-    r = requests.get(f'{base_url}export.php?idpiesne={song_id}&typ=TXT')
+    song_id = re.search(r"idpiesne=(.*)", song_url).group(1)
+    r = requests.get(f"{base_url}export.php?idpiesne={song_id}&typ=TXT")
     r.raise_for_status()
-    soup = bs4.BeautifulSoup(r.text, 'html5lib')
-    print(''.join([x.text for x in soup.select_one('td[valign="top"]') if x.text != 'SŤAHUJ']))
+    soup = bs4.BeautifulSoup(r.text, "html5lib")
+    print(
+        "".join(
+            [
+                x.text
+                for x in soup.select_one('td[valign="top"]')
+                if x.text != "SŤAHUJ" and x.text
+            ][2:]
+        )
+    )

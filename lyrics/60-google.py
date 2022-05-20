@@ -41,27 +41,26 @@ def normalize_parameter(s):
     return unidecode(s).lower()
 
 
-base_url = 'http://www.google.com/'
+base_url = "http://www.google.com/"
 artists = normalize_parameter(sys.argv[1])
 title = normalize_parameter(sys.argv[2])
-artists = [
-    artist.removeprefix('the ')
-    for artist in artists.split(',')
-]
+artists = [artist.removeprefix("the ") for artist in artists.split(",")]
 
-title = re.sub('\(.*\)', '', title)
+title = re.sub("\(.*\)", "", title)
 
 for artist in artists:
-    artist = artist.replace(' ', '+')
-    title = title.replace(' ', '+')
-    r = requests.get(f'{base_url}/search?q={artist}+{title}+lyrics',
-                     headers={'client': "google-csbe"})
+    artist = artist.replace(" ", "+")
+    title = title.replace(" ", "+")
+    r = requests.get(
+        f"{base_url}/search?q={artist}+{title}+lyrics",
+        headers={"client": "google-csbe"},
+    )
     try:
         r.raise_for_status()
     except:
         exit(1)
-    soup = bs4.BeautifulSoup(r.text, 'html5lib')
-    results = [x for x in soup.select('div') if len(x.select('div')) == 0]
+    soup = bs4.BeautifulSoup(r.text, "html5lib")
+    results = [x for x in soup.select("div") if len(x.select("div")) == 0]
     # element with the longest text node is usually a match
     results.sort(key=lambda n: len(n.text))
     print(results[-1].text)
