@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2020-09-04 14:36+0000\n"
-"Last-Translator: J.MarSar <marsarjorge@gmail.com>\n"
+"PO-Revision-Date: 2021-12-29 10:52+0000\n"
+"Last-Translator: badlop <badlop@process-one.net>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/ncmpc/"
 "translations/es/>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.10.1\n"
 "X-Launchpad-Export-Date: 2013-04-11 07:56+0000\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
@@ -816,9 +816,9 @@ msgstr ""
 "  Paco Molinero https://launchpad.net/~franciscomol"
 
 #: src/OutputsPage.cxx:168
-#, c-format, fuzzy
+#, c-format
 msgid "Switched to partition '%s'"
-msgstr "Cambiado a partición '%s'"
+msgstr "Cambiado a la partición '%s'"
 
 #: src/OutputsPage.cxx:180 src/SongPage.cxx:69
 msgid "Name"
