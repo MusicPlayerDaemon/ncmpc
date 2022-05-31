@@ -42,7 +42,7 @@ struct Window {
 	Window &operator=(const Window &) = delete;
 
 	void SetBackgroundStyle(Style style) noexcept {
-		wbkgd(w, COLOR_PAIR(style));
+		wbkgd(w, COLOR_PAIR(unsigned(style)));
 	}
 
 	void Move(Point p) noexcept {
