@@ -27,15 +27,15 @@
 struct Point {
 	int x, y;
 
-	constexpr Point operator+(Point other) const {
+	constexpr Point operator+(Point other) const noexcept {
 		return {x + other.x, y + other.y};
 	}
 
-	constexpr Point operator-(Point other) const {
+	constexpr Point operator-(Point other) const noexcept {
 		return {x - other.x, y - other.y};
 	}
 
-	constexpr Point operator+(Size size) const {
+	constexpr Point operator+(Size size) const noexcept {
 		return {x + int(size.width), y + int(size.height)};
 	}
 };
