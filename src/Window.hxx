@@ -28,22 +28,22 @@ struct Window {
 	WINDOW *const w;
 	Size size;
 
-	Window(Point p, Size _size)
+	Window(Point p, Size _size) noexcept
 		:w(newwin(_size.height, _size.width, p.y, p.x)),
 		 size(_size) {}
 
-	~Window() {
+	~Window() noexcept {
 		delwin(w);
 	}
 
 	Window(const Window &) = delete;
 	Window &operator=(const Window &) = delete;
 
-	void Move(Point p) {
+	void Move(Point p) noexcept {
 		mvwin(w, p.y, p.x);
 	}
 
-	void Resize(Size new_size) {
+	void Resize(Size new_size) noexcept {
 		size = new_size;
 		wresize(w, size.height, size.width);
 	}
