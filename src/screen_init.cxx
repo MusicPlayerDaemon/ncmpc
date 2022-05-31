@@ -49,7 +49,6 @@ ScreenManager::ScreenManager(EventLoop &event_loop) noexcept
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* set background attributes */
-		wbkgd(stdscr, COLOR_PAIR(Style::LIST));
 		wbkgd(main_window.w, COLOR_PAIR(Style::LIST));
 	}
 #endif
