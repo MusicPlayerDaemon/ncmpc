@@ -287,7 +287,7 @@ try {
 	charset_init();
 #endif
 
-	const ScopeInitUTF8 init_utf8;
+	[[maybe_unused]] const ScopeInitUTF8 init_utf8;
 
 	/* initialize i18n support */
 #endif
