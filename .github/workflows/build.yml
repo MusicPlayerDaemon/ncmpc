@@ -40,14 +40,14 @@ jobs:
       - name: Full Build
         uses: BSFishy/meson-build@v1.0.3
         with:
-          action: test
+          action: build
           directory: output/full
           setup-options: -Ddocumentation=disabled -Dlyrics_screen=true -Dchat_screen=true
 
       - name: Mini Build
         uses: BSFishy/meson-build@v1.0.3
         with:
-          action: test
+          action: build
           directory: output/mini
           setup-options: -Ddocumentation=disabled -Dbuildtype=minsize -Db_ndebug=true -Db_lto=true -Dauto_features=disabled -Dcurses=ncurses -Dcolors=false -Dmultibyte=false -Dtcp=false -Dasync_connect=false -Dmini=true
 
@@ -75,6 +75,6 @@ jobs:
       - name: Meson Build
         uses: BSFishy/meson-build@v1.0.3
         with:
-          action: test
+          action: build
           directory: output
           setup-options: -Ddocumentation=disabled -Dlyrics_screen=true -Dchat_screen=true
