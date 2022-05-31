@@ -364,6 +364,7 @@ _wreadln(WINDOW *w,
 #endif
 			break;
 
+		case KEY_CTRL_C:
 		case KEY_CTRL_G:
 			screen_bell();
 			if (history) {

@@ -46,6 +46,9 @@ ncu_init()
 	ApplyStyles();
 #endif
 
+	/* Ctrl-C generates keycode 0x03 instead of SIGINT */
+	raw();
+
 	/* tell curses not to do NL->CR/NL on output */
 	nonl();
 
