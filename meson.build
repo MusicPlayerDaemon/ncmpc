@@ -432,7 +432,7 @@ install_data('AUTHORS', 'COPYING', 'NEWS', 'README.rst',
   'doc/ncmpc.lirc',
   install_dir: docdir)
 
-if not mini
+if get_option('test')
   subdir('test')
 endif
 
