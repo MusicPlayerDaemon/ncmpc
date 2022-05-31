@@ -29,7 +29,7 @@ ProgressBar::ProgressBar(Point p, unsigned _width) noexcept
 	leaveok(window.w, true);
 #ifdef ENABLE_COLORS
 	if (options.enable_colors)
-		wbkgd(window.w, COLOR_PAIR(Style::PROGRESSBAR));
+		window.SetBackgroundStyle(Style::PROGRESSBAR);
 #endif
 }
 

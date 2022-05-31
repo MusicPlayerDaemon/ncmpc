@@ -42,7 +42,7 @@ StatusBar::StatusBar(EventLoop &event_loop,
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors)
-		wbkgd(window.w, COLOR_PAIR(Style::STATUS));
+		window.SetBackgroundStyle(Style::STATUS);
 #endif
 }
 

@@ -24,6 +24,8 @@
 
 #include <curses.h>
 
+enum class Style : unsigned;
+
 struct Window {
 	WINDOW *const w;
 	Size size;
@@ -38,6 +40,10 @@ struct Window {
 
 	Window(const Window &) = delete;
 	Window &operator=(const Window &) = delete;
+
+	void SetBackgroundStyle(Style style) noexcept {
+		wbkgd(w, COLOR_PAIR(style));
+	}
 
 	void Move(Point p) noexcept {
 		mvwin(w, p.y, p.x);

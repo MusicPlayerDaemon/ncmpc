@@ -37,7 +37,7 @@ TitleBar::TitleBar(Point p, unsigned width) noexcept
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors)
-		wbkgd(window.w, COLOR_PAIR(Style::TITLE));
+		window.SetBackgroundStyle(Style::TITLE);
 #endif
 }
 
