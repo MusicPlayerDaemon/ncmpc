@@ -24,9 +24,7 @@
 
 /**
  * This class is used to auto-scroll text which does not fit on the
- * screen.  Call hscroll_init() to initialize the object,
- * hscroll_clear() to free resources, and hscroll_set() to begin
- * scrolling.
+ * screen.  Call Set() to begin scrolling.
  */
 class BasicMarquee {
 	const char *const separator;
