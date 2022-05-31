@@ -1,5 +1,6 @@
 ncmpc 0.47 - not yet released
 * handle Ctrl-C in search prompt
+* link with libiconv if necessary
 * require libmpdclient 2.16 or newer
 * require MPD 0.21 or newer
 
