@@ -25,19 +25,19 @@
 struct Size {
 	unsigned width, height;
 
-	constexpr bool operator==(Size other) const {
+	constexpr bool operator==(Size other) const noexcept {
 		return width == other.width && height == other.height;
 	}
 
-	constexpr bool operator!=(Size other) const {
+	constexpr bool operator!=(Size other) const noexcept {
 		return !(*this == other);
 	}
 
-	constexpr Size operator+(Size other) const {
+	constexpr Size operator+(Size other) const noexcept {
 		return {width + other.width, height + other.height};
 	}
 
-	constexpr Size operator-(Size other) const {
+	constexpr Size operator-(Size other) const noexcept {
 		return {width - other.width, height - other.height};
 	}
 };
