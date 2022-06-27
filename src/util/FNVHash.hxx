@@ -37,7 +37,7 @@ struct FNV1aAlgorithm {
 	using fast_type = typename Traits::fast_type;
 
 	[[gnu::hot]]
-	static constexpr fast_type Update(fast_type hash, uint8_t b) noexcept {
+	static constexpr fast_type Update(fast_type hash, fast_type b) noexcept {
 		return (hash ^ b) * Traits::PRIME;
 	}
 
@@ -47,7 +47,10 @@ struct FNV1aAlgorithm {
 
 		fast_type hash = Traits::OFFSET_BASIS;
 		while (*s)
-			hash = Algorithm::Update(hash, *s++);
+			/* cast to uint8_t first to avoid problems
+			   with signed char */
+			hash = Algorithm::Update(hash,
+						 static_cast<uint8_t>(*s++));
 
 		return hash;
 	}
