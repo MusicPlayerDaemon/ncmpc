@@ -58,7 +58,7 @@ private:
 	 * Change to the specified absolute directory.
 	 */
 	bool ChangeDirectory(struct mpdclient &c,
-			     std::string &&new_path) noexcept;
+			     std::string_view new_path) noexcept;
 
 	/**
 	 * Change to the parent directory of the current directory.
@@ -118,9 +118,9 @@ FileBrowserPage::Reload(struct mpdclient &c) noexcept
 
 bool
 FileBrowserPage::ChangeDirectory(struct mpdclient &c,
-				 std::string &&new_path) noexcept
+				 std::string_view new_path) noexcept
 {
-	current_path = std::move(new_path);
+	current_path = new_path;
 
 	Reload(c);
 
@@ -134,10 +134,9 @@ FileBrowserPage::ChangeDirectory(struct mpdclient &c,
 bool
 FileBrowserPage::ChangeToParent(struct mpdclient &c) noexcept
 {
-	std::string parent{GetParentUri(current_path.c_str())};
 	const auto old_path = std::move(current_path);
 
-	bool success = ChangeDirectory(c, std::move(parent));
+	bool success = ChangeDirectory(c, GetParentUri(old_path));
 
 	int idx = success
 		? filelist->FindDirectory(old_path.c_str())
@@ -178,7 +177,7 @@ FileBrowserPage::GotoSong(struct mpdclient &c, const struct mpd_song &song) noex
 
 	/* determine the song's parent directory and go there */
 
-	if (!ChangeDirectory(c, std::string{GetParentUri(uri)}))
+	if (!ChangeDirectory(c, GetParentUri(uri)))
 		return false;
 
 	/* select the specified song */
