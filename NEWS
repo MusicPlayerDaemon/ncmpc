@@ -1,4 +1,4 @@
-ncmpc 0.47 - not yet released
+ncmpc 0.47 - (2022-06-30)
 * handle Ctrl-C in search prompt
 * link with libintl and libiconv if necessary
 * require libmpdclient 2.16 or newer
