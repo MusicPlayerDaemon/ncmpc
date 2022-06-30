@@ -28,6 +28,6 @@ extern const PageMeta screen_browse;
 
 bool
 screen_file_goto_song(ScreenManager &_screen, struct mpdclient &c,
-		      const struct mpd_song &song);
+		      const struct mpd_song &song) noexcept;
 
 #endif

@@ -45,37 +45,39 @@ class FileBrowserPage final : public FileListPage {
 
 public:
 	FileBrowserPage(ScreenManager &_screen, WINDOW *_w,
-			Size size)
+			Size size) noexcept
 		:FileListPage(_screen, _w, size,
 			      options.list_format.c_str()) {}
 
-	bool GotoSong(struct mpdclient &c, const struct mpd_song &song);
+	bool GotoSong(struct mpdclient &c, const struct mpd_song &song) noexcept;
 
 private:
-	void Reload(struct mpdclient &c);
+	void Reload(struct mpdclient &c) noexcept;
 
 	/**
 	 * Change to the specified absolute directory.
 	 */
-	bool ChangeDirectory(struct mpdclient &c, std::string &&new_path);
+	bool ChangeDirectory(struct mpdclient &c,
+			     std::string &&new_path) noexcept;
 
 	/**
 	 * Change to the parent directory of the current directory.
 	 */
-	bool ChangeToParent(struct mpdclient &c);
+	bool ChangeToParent(struct mpdclient &c) noexcept;
 
 	/**
 	 * Change to the directory referred by the specified
 	 * #FileListEntry object.
 	 */
-	bool ChangeToEntry(struct mpdclient &c, const FileListEntry &entry);
+	bool ChangeToEntry(struct mpdclient &c,
+			   const FileListEntry &entry) noexcept;
 
 protected:
 	bool HandleEnter(struct mpdclient &c) override;
 
 private:
-	void HandleSave(struct mpdclient &c);
-	void HandleDelete(struct mpdclient &c);
+	void HandleSave(struct mpdclient &c) noexcept;
+	void HandleDelete(struct mpdclient &c) noexcept;
 
 public:
 	/* virtual methods from class Page */
@@ -100,7 +102,7 @@ screen_file_load_list(struct mpdclient *c, const char *current_path,
 }
 
 void
-FileBrowserPage::Reload(struct mpdclient &c)
+FileBrowserPage::Reload(struct mpdclient &c) noexcept
 {
 	filelist = std::make_unique<FileList>();
 	if (!current_path.empty())
@@ -115,7 +117,8 @@ FileBrowserPage::Reload(struct mpdclient &c)
 }
 
 bool
-FileBrowserPage::ChangeDirectory(struct mpdclient &c, std::string &&new_path)
+FileBrowserPage::ChangeDirectory(struct mpdclient &c,
+				 std::string &&new_path) noexcept
 {
 	current_path = std::move(new_path);
 
@@ -129,7 +132,7 @@ FileBrowserPage::ChangeDirectory(struct mpdclient &c, std::string &&new_path)
 }
 
 bool
-FileBrowserPage::ChangeToParent(struct mpdclient &c)
+FileBrowserPage::ChangeToParent(struct mpdclient &c) noexcept
 {
 	std::string parent{GetParentUri(current_path.c_str())};
 	const auto old_path = std::move(current_path);
@@ -154,7 +157,8 @@ FileBrowserPage::ChangeToParent(struct mpdclient &c)
  * object.
  */
 bool
-FileBrowserPage::ChangeToEntry(struct mpdclient &c, const FileListEntry &entry)
+FileBrowserPage::ChangeToEntry(struct mpdclient &c,
+			       const FileListEntry &entry) noexcept
 {
 	if (entry.entity == nullptr)
 		return ChangeToParent(c);
@@ -165,7 +169,7 @@ FileBrowserPage::ChangeToEntry(struct mpdclient &c, const FileListEntry &entry)
 }
 
 bool
-FileBrowserPage::GotoSong(struct mpdclient &c, const struct mpd_song &song)
+FileBrowserPage::GotoSong(struct mpdclient &c, const struct mpd_song &song) noexcept
 {
 	const char *uri = mpd_song_get_uri(&song);
 	if (strstr(uri, "//") != nullptr)
@@ -199,7 +203,7 @@ FileBrowserPage::HandleEnter(struct mpdclient &c)
 }
 
 void
-FileBrowserPage::HandleSave(struct mpdclient &c)
+FileBrowserPage::HandleSave(struct mpdclient &c) noexcept
 {
 	const char *defaultname = nullptr;
 
@@ -226,7 +230,7 @@ FileBrowserPage::HandleSave(struct mpdclient &c)
 }
 
 void
-FileBrowserPage::HandleDelete(struct mpdclient &c)
+FileBrowserPage::HandleDelete(struct mpdclient &c) noexcept
 {
 	auto *connection = c.GetConnection();
 
@@ -276,7 +280,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 }
 
 static std::unique_ptr<Page>
-screen_file_init(ScreenManager &_screen, WINDOW *w, Size size)
+screen_file_init(ScreenManager &_screen, WINDOW *w, Size size) noexcept
 {
 	return std::make_unique<FileBrowserPage>(_screen, w, size);
 }
@@ -381,7 +385,7 @@ const PageMeta screen_browse = {
 
 bool
 screen_file_goto_song(ScreenManager &_screen, struct mpdclient &c,
-		      const struct mpd_song &song)
+		      const struct mpd_song &song) noexcept
 {
 	auto pi = _screen.MakePage(screen_browse);
 	auto &page = (FileBrowserPage &)*pi->second;
