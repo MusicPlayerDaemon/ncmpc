@@ -134,7 +134,7 @@ struct mpdclient final
 		  const char *host, unsigned port,
 		  unsigned _timeout_ms, const char *_password);
 
-	~mpdclient() {
+	~mpdclient() noexcept {
 		Disconnect();
 
 #ifdef ENABLE_ASYNC_CONNECT
@@ -171,11 +171,11 @@ struct mpdclient final
 	 * @return an allocated string that needs to be freed (with g_free())
 	 * by the caller
 	 */
-	std::string GetSettingsName() const;
+	std::string GetSettingsName() const noexcept;
 
 	void WhitelistTags(TagMask mask) noexcept;
 
-	bool IsConnected() const {
+	bool IsConnected() const noexcept {
 		return connection != nullptr;
 	}
 
@@ -184,7 +184,7 @@ struct mpdclient final
 	 * currently doing anything to connect.
 	 */
 	[[gnu::pure]]
-	bool IsDead() const {
+	bool IsDead() const noexcept {
 		return connection == nullptr
 #ifdef ENABLE_ASYNC_CONNECT
 			&& async_connect == nullptr
@@ -211,7 +211,7 @@ struct mpdclient final
 	 * if MPD is not playing.
 	 */
 	[[gnu::pure]]
-	const struct mpd_song *GetCurrentSong() const {
+	const struct mpd_song *GetCurrentSong() const noexcept {
 		return current_song;
 	}
 
@@ -227,21 +227,21 @@ struct mpdclient final
 	 * paused).
 	 */
 	[[gnu::pure]]
-	const struct mpd_song *GetPlayingSong() const {
+	const struct mpd_song *GetPlayingSong() const noexcept {
 		return playing_or_paused
 			? GetCurrentSong()
 			: nullptr;
 	}
 
-	void Connect();
+	void Connect() noexcept;
 
-	void Disconnect();
+	void Disconnect() noexcept;
 
 	/**
 	 * @return true if the cause has been fixed (e.g. by sending a
 	 * password) and the caller may retry the operation
 	 */
-	bool HandleError();
+	bool HandleError() noexcept;
 
 	/**
 	 * Like HandleError(), but called from inside the auth
@@ -249,9 +249,9 @@ struct mpdclient final
 	 */
 	void HandleAuthError() noexcept;
 
-	struct mpd_connection *GetConnection();
+	struct mpd_connection *GetConnection() noexcept;
 
-	bool FinishCommand() {
+	bool FinishCommand() noexcept {
 		if (mpd_response_finish(connection))
 			return true;
 
@@ -259,7 +259,7 @@ struct mpdclient final
 		return false;
 	}
 
-	bool Update();
+	bool Update() noexcept;
 
 	bool OnConnected(struct mpd_connection *_connection) noexcept;
 
@@ -301,8 +301,8 @@ private:
 
 	void InvokeErrorCallback() noexcept;
 
-	bool UpdateQueue();
-	bool UpdateQueueChanges();
+	bool UpdateQueue() noexcept;
+	bool UpdateQueueChanges() noexcept;
 
 	void ClearStatus() noexcept;
 
@@ -348,22 +348,22 @@ static constexpr unsigned MPD_IDLE_ALL = MPD_IDLE_DATABASE
 /*** MPD Commands  **********************************************************/
 
 bool
-mpdclient_cmd_crop(struct mpdclient *c);
+mpdclient_cmd_crop(struct mpdclient *c) noexcept;
 
 bool
-mpdclient_cmd_clear(struct mpdclient *c);
+mpdclient_cmd_clear(struct mpdclient *c) noexcept;
 
 bool
-mpdclient_cmd_add_path(struct mpdclient *c, const char *path);
+mpdclient_cmd_add_path(struct mpdclient *c, const char *path) noexcept;
 
 bool
-mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel);
+mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel) noexcept;
 
 bool
-mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel);
+mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel) noexcept;
 
 bool
 mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
-			   const char *text);
+			   const char *text) noexcept;
 
 #endif

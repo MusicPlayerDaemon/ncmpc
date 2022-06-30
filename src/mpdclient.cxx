@@ -37,7 +37,7 @@ mpdclient::OnEnterIdleTimer() noexcept
 
 static void
 mpdclient_invoke_error_callback(enum mpd_error error,
-				const char *message)
+				const char *message) noexcept
 {
 	if (error == MPD_ERROR_SERVER)
 		/* server errors are UTF-8, the others are locale */
@@ -94,7 +94,7 @@ mpdclient::OnIdleError(enum mpd_error error,
 /****************************************************************************/
 
 bool
-mpdclient::HandleError()
+mpdclient::HandleError() noexcept
 {
 	enum mpd_error error = mpd_connection_get_error(connection);
 	assert(error != MPD_ERROR_SUCCESS);
@@ -133,13 +133,13 @@ mpdclient::HandleAuthError() noexcept
 #ifndef _WIN32
 
 static bool
-is_local_socket(const char *host)
+is_local_socket(const char *host) noexcept
 {
 	return *host == '/' || *host == '@';
 }
 
 static bool
-settings_is_local_socket(const struct mpd_settings *settings)
+settings_is_local_socket(const struct mpd_settings *settings) noexcept
 {
 	const char *host = mpd_settings_get_host(settings);
 	return host != nullptr && is_local_socket(host);
@@ -175,7 +175,7 @@ mpdclient::mpdclient(EventLoop &_event_loop,
 }
 
 static std::string
-settings_name(const struct mpd_settings *settings)
+settings_name(const struct mpd_settings *settings) noexcept
 {
 	assert(settings != nullptr);
 
@@ -196,7 +196,7 @@ settings_name(const struct mpd_settings *settings)
 }
 
 std::string
-mpdclient::GetSettingsName() const
+mpdclient::GetSettingsName() const noexcept
 {
 #ifdef ENABLE_ASYNC_CONNECT
 	return settings_name(settings);
@@ -239,7 +239,7 @@ mpdclient::ClearStatus() noexcept
 }
 
 void
-mpdclient::Disconnect()
+mpdclient::Disconnect() noexcept
 {
 #ifdef ENABLE_ASYNC_CONNECT
 	if (async_connect != nullptr) {
@@ -444,7 +444,7 @@ mpdclient::StartConnect(const struct mpd_settings &s) noexcept
 #endif
 
 void
-mpdclient::Connect()
+mpdclient::Connect() noexcept
 {
 	/* close any open connection */
 	Disconnect();
@@ -466,7 +466,7 @@ mpdclient::Connect()
 }
 
 bool
-mpdclient::Update()
+mpdclient::Update() noexcept
 {
 	auto *c = GetConnection();
 
@@ -507,7 +507,7 @@ mpdclient::Update()
 }
 
 struct mpd_connection *
-mpdclient::GetConnection()
+mpdclient::GetConnection() noexcept
 {
 	if (source != nullptr && idle) {
 		idle = false;
@@ -541,7 +541,7 @@ mpdclient::ReceiveStatus() noexcept
 /****************************************************************************/
 
 bool
-mpdclient_cmd_crop(struct mpdclient *c)
+mpdclient_cmd_crop(struct mpdclient *c) noexcept
 {
 	if (!c->playing_or_paused)
 		return false;
@@ -632,7 +632,7 @@ mpdclient::RunVolumeDown() noexcept
 }
 
 bool
-mpdclient_cmd_add_path(struct mpdclient *c, const char *path_utf8)
+mpdclient_cmd_add_path(struct mpdclient *c, const char *path_utf8) noexcept
 {
 	return c->WithConnection([path_utf8](struct mpd_connection &conn){
 		return mpd_run_add(&conn, path_utf8);
@@ -838,7 +838,7 @@ mpdclient::RunMove(unsigned dest_pos, unsigned src_pos) noexcept
 /* The client-to-client protocol (MPD 0.17.0) */
 
 bool
-mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel)
+mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel) noexcept
 {
 	return c->WithConnection([channel](struct mpd_connection &conn){
 		return mpd_run_subscribe(&conn, channel);
@@ -846,7 +846,7 @@ mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel)
 }
 
 bool
-mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel)
+mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel) noexcept
 {
 	return c->WithConnection([channel](struct mpd_connection &conn){
 		return mpd_run_unsubscribe(&conn, channel);
@@ -855,7 +855,7 @@ mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel)
 
 bool
 mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
-			   const char *text)
+			   const char *text) noexcept
 {
 	return c->WithConnection([channel, text](struct mpd_connection &conn){
 		return mpd_run_send_message(&conn, channel, text);
@@ -868,7 +868,7 @@ mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
 
 /* update playlist */
 bool
-mpdclient::UpdateQueue()
+mpdclient::UpdateQueue() noexcept
 {
 	auto *c = GetConnection();
 	if (c == nullptr)
@@ -894,7 +894,7 @@ mpdclient::UpdateQueue()
 
 /* update playlist (plchanges) */
 bool
-mpdclient::UpdateQueueChanges()
+mpdclient::UpdateQueueChanges() noexcept
 {
 	auto *c = GetConnection();
 	if (c == nullptr)
