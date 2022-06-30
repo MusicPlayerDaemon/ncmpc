@@ -2,7 +2,7 @@ project('ncmpc', 'cpp',
   version: '0.47',
   meson_version: '>= 0.49',
   default_options: [
-    'cpp_std=c++20',
+    'cpp_std=c++2a',
     'warning_level=3',
   ],
   license: 'GPLv2+',
