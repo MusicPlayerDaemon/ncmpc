@@ -174,7 +174,7 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 }
 
 FileListEntry *
-FileListPage::GetSelectedEntry() const
+FileListPage::GetSelectedEntry() const noexcept
 {
 	const auto range = lw.GetRange();
 
@@ -188,7 +188,7 @@ FileListPage::GetSelectedEntry() const
 }
 
 const struct mpd_entity *
-FileListPage::GetSelectedEntity() const
+FileListPage::GetSelectedEntity() const noexcept
 {
 	const auto *entry = GetSelectedEntry();
 
@@ -198,7 +198,7 @@ FileListPage::GetSelectedEntity() const
 }
 
 const struct mpd_song *
-FileListPage::GetSelectedSong() const
+FileListPage::GetSelectedSong() const noexcept
 {
 	const auto *entity = GetSelectedEntity();
 
@@ -209,7 +209,7 @@ FileListPage::GetSelectedSong() const
 }
 
 FileListEntry *
-FileListPage::GetIndex(unsigned i) const
+FileListPage::GetIndex(unsigned i) const noexcept
 {
 	if (filelist == nullptr || i >= filelist->size())
 		return nullptr;
@@ -237,7 +237,7 @@ FileListPage::HandleEnter(struct mpdclient &c)
 
 static bool
 browser_select_entry(struct mpdclient &c, FileListEntry &entry,
-		     [[maybe_unused]] bool toggle)
+		     [[maybe_unused]] bool toggle) noexcept
 {
 	assert(entry.entity != nullptr);
 
@@ -292,7 +292,7 @@ browser_select_entry(struct mpdclient &c, FileListEntry &entry,
 }
 
 inline bool
-FileListPage::HandleSelect(struct mpdclient &c)
+FileListPage::HandleSelect(struct mpdclient &c) noexcept
 {
 	bool success = false;
 
@@ -309,7 +309,7 @@ FileListPage::HandleSelect(struct mpdclient &c)
 }
 
 inline bool
-FileListPage::HandleAdd(struct mpdclient &c)
+FileListPage::HandleAdd(struct mpdclient &c) noexcept
 {
 	bool success = false;
 
@@ -327,7 +327,7 @@ FileListPage::HandleAdd(struct mpdclient &c)
 #ifdef ENABLE_PLAYLIST_EDITOR
 
 inline bool
-FileListPage::HandleEdit(struct mpdclient &c)
+FileListPage::HandleEdit(struct mpdclient &c) noexcept
 {
 	const auto *entity = GetSelectedEntity();
 	if (entity == nullptr ||
@@ -344,7 +344,7 @@ FileListPage::HandleEdit(struct mpdclient &c)
 #endif
 
 inline void
-FileListPage::HandleSelectAll(struct mpdclient &c)
+FileListPage::HandleSelectAll(struct mpdclient &c) noexcept
 {
 	if (filelist == nullptr)
 		return;
@@ -486,7 +486,7 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 
 void
 screen_browser_paint_directory(WINDOW *w, unsigned width,
-			       bool selected, const char *name)
+			       bool selected, const char *name) noexcept
 {
 	row_color(w, Style::DIRECTORY, selected);
 
@@ -500,7 +500,7 @@ screen_browser_paint_directory(WINDOW *w, unsigned width,
 
 static void
 screen_browser_paint_playlist(WINDOW *w, unsigned width,
-			      bool selected, const char *name)
+			      bool selected, const char *name) noexcept
 {
 	row_paint_text(w, width, Style::PLAYLIST, selected, name);
 }

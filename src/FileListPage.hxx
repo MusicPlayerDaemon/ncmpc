@@ -50,29 +50,30 @@ public:
 
 protected:
 	[[gnu::pure]]
-	FileListEntry *GetSelectedEntry() const;
+	FileListEntry *GetSelectedEntry() const noexcept;
 
 	[[gnu::pure]]
-	const struct mpd_entity *GetSelectedEntity() const;
+	const struct mpd_entity *GetSelectedEntity() const noexcept;
 
 	[[gnu::pure]]
-	const struct mpd_song *GetSelectedSong() const;
+	const struct mpd_song *GetSelectedSong() const noexcept;
 
-	FileListEntry *GetIndex(unsigned i) const;
+	[[gnu::pure]]
+	FileListEntry *GetIndex(unsigned i) const noexcept;
 
 protected:
 	virtual bool HandleEnter(struct mpdclient &c);
 
 private:
-	bool HandleSelect(struct mpdclient &c);
-	bool HandleAdd(struct mpdclient &c);
-	bool HandleEdit(struct mpdclient &c);
+	bool HandleSelect(struct mpdclient &c) noexcept;
+	bool HandleAdd(struct mpdclient &c) noexcept;
+	bool HandleEdit(struct mpdclient &c) noexcept;
 
-	void HandleSelectAll(struct mpdclient &c);
+	void HandleSelectAll(struct mpdclient &c) noexcept;
 
 	static void PaintRow(WINDOW *w, unsigned i,
 			     unsigned y, unsigned width,
-			     bool selected, const void *data);
+			     bool selected, const void *data) noexcept;
 
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(WINDOW *w, unsigned i,
@@ -112,6 +113,6 @@ screen_browser_sync_highlights(FileList &, const MpdQueue &) noexcept
 
 void
 screen_browser_paint_directory(WINDOW *w, unsigned width,
-			       bool selected, const char *name);
+			       bool selected, const char *name) noexcept;
 
 #endif
