@@ -36,7 +36,7 @@ GetUriFilename(const char *uri) noexcept;
  * there is no parent.
  */
 [[gnu::pure]]
-std::string
-GetParentUri(const char *uri) noexcept;
+std::string_view
+GetParentUri(std::string_view uri) noexcept;
 
 #endif

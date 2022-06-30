@@ -131,7 +131,7 @@ FileBrowserPage::ChangeDirectory(struct mpdclient &c, std::string &&new_path)
 bool
 FileBrowserPage::ChangeToParent(struct mpdclient &c)
 {
-	auto parent = GetParentUri(current_path.c_str());
+	std::string parent{GetParentUri(current_path.c_str())};
 	const auto old_path = std::move(current_path);
 
 	bool success = ChangeDirectory(c, std::move(parent));
@@ -174,7 +174,7 @@ FileBrowserPage::GotoSong(struct mpdclient &c, const struct mpd_song &song)
 
 	/* determine the song's parent directory and go there */
 
-	if (!ChangeDirectory(c, GetParentUri(uri)))
+	if (!ChangeDirectory(c, std::string{GetParentUri(uri)}))
 		return false;
 
 	/* select the specified song */

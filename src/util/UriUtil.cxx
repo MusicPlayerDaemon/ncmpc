@@ -27,11 +27,12 @@ GetUriFilename(const char *uri) noexcept
 	return slash != nullptr ? slash + 1 : uri;
 }
 
-std::string
-GetParentUri(const char *uri) noexcept
+std::string_view
+GetParentUri(std::string_view uri) noexcept
 {
-	const char *slash = strrchr(uri, '/');
-	if (slash == nullptr)
-		slash = uri;
-	return std::string(uri, slash);
+	const auto slash = uri.rfind('/');
+	if (slash == uri.npos)
+		return {};
+
+	return uri.substr(0, slash);
 }
