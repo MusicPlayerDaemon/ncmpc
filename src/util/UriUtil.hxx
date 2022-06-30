@@ -28,7 +28,7 @@
  */
 [[gnu::pure]]
 const char *
-GetUriFilename(const char *uri);
+GetUriFilename(const char *uri) noexcept;
 
 /**
  * Return the "parent directory" of the given URI path, i.e. the
@@ -37,6 +37,6 @@ GetUriFilename(const char *uri);
  */
 [[gnu::pure]]
 std::string
-GetParentUri(const char *uri);
+GetParentUri(const char *uri) noexcept;
 
 #endif

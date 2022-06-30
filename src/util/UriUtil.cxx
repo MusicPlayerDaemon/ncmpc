@@ -21,14 +21,14 @@
 #include <string.h>
 
 const char *
-GetUriFilename(const char *uri)
+GetUriFilename(const char *uri) noexcept
 {
 	const char *slash = strrchr(uri, '/');
 	return slash != nullptr ? slash + 1 : uri;
 }
 
 std::string
-GetParentUri(const char *uri)
+GetParentUri(const char *uri) noexcept
 {
 	const char *slash = strrchr(uri, '/');
 	if (slash == nullptr)
