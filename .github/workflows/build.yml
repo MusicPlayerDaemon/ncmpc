@@ -18,10 +18,23 @@ on:
 
 jobs:
   build-linux:
-    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-20.04]
+        include:
+          - os: ubuntu-22.04
+            cc: gcc-11
+            cxx: g++-11
+          - os: ubuntu-20.04
+            cc: gcc-10
+            cxx: g++-10
+
+    runs-on: ${{ matrix.os }}
+
     env:
-      CC: 'ccache gcc-10'
-      CXX: 'ccache g++-10'
+      CC: ccache ${{ matrix.cc }}
+      CXX: ccache ${{ matrix.cxx }}
+
     steps:
       - id: checkout
         uses: actions/checkout@v3
@@ -29,13 +42,13 @@ jobs:
       - id: cache-ccache
         uses: hendrikmuhs/ccache-action@v1
         with:
-          key: linux
+          key: ${{ matrix.os }}
 
       - name: Install dependencies
         run: |
           sudo apt-get install -y --no-install-recommends \
             meson \
-            g++-10 \
+            ${{ matrix.cxx }} ${{matrix.cc }} \
             libncursesw5-dev \
             libncurses5-dev \
             libpcre2-dev \
