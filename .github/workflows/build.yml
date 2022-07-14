@@ -67,7 +67,7 @@ jobs:
         with:
           action: build
           directory: output/mini
-          setup-options: -Ddocumentation=disabled -Dbuildtype=minsize -Db_ndebug=true -Db_lto=true -Dauto_features=disabled -Dcurses=ncurses -Dcolors=false -Dmultibyte=false -Dtcp=false -Dasync_connect=false -Dmini=true
+          setup-options: -Ddocumentation=disabled -Dbuildtype=minsize -Db_ndebug=true -Db_lto=true -Dauto_features=disabled -Dcurses=ncurses -Dcolors=false -Dmultibyte=false -Dasync_connect=false -Dmini=true
 
   build-macos:
     runs-on: macos-latest
