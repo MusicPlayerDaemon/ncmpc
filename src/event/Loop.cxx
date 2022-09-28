@@ -207,7 +207,7 @@ EventLoop::AddIdle(DeferEvent &e) noexcept
 {
 	assert(IsInside());
 
-	idle.push_front(e);
+	idle.push_back(e);
 
 #ifdef HAVE_THREADED_EVENT_LOOP
 	/* setting this flag here is only relevant if we've been
