@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2020-10-10 15:26+0000\n"
-"Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
+"PO-Revision-Date: 2022-09-30 08:16+0000\n"
+"Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ko/>\n"
 "Language: ko\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.14.1\n"
 "X-Launchpad-Export-Date: 2009-10-19 13:36+0000\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
@@ -707,7 +707,7 @@ msgstr "Alt-%c"
 
 #: src/LibraryPage.cxx:45
 msgid "Artists"
-msgstr "연주가"
+msgstr "아티스트"
 
 #: src/LibraryPage.cxx:48 src/LibraryPage.cxx:175
 msgid "Albums"
@@ -752,7 +752,7 @@ msgstr "가사"
 #. while data is retrieved
 #: src/LyricsPage.cxx:356
 msgid "loading..."
-msgstr "읽는 중..."
+msgstr "불러오는 중..."
 
 #: src/LyricsPage.cxx:378
 msgid "Editor not configured"
@@ -773,15 +773,15 @@ msgstr "편집기가 갑자기 종료됨"
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:456
 msgid "Lyrics saved"
-msgstr "가사 저장"
+msgstr "가사 저장됨"
 
 #: src/LyricsPage.cxx:462
 msgid "Lyrics deleted"
-msgstr "가사 지움"
+msgstr "가사 삭제됨"
 
 #: src/LyricsPage.cxx:463
 msgid "No saved lyrics"
-msgstr "저장된 가사가 없음"
+msgstr "저장된 가사 없음"
 
 #: src/Main.cxx:133
 #, c-format
@@ -797,12 +797,12 @@ msgstr "오류: 너무 오래된 MPD %d.%d.%d 버전 (%s 필요)"
 #. when ncmpc is started with "--version"
 #: src/Options.cxx:216 src/Options.cxx:219
 msgid "translator-credits"
-msgstr "번역자-기여"
+msgstr "이정희 <daemul72@gmail.com>"
 
 #: src/OutputsPage.cxx:168
 #, c-format
 msgid "Switched to partition '%s'"
-msgstr "'%s' 칸막이로 바꾸기"
+msgstr "'%s' 칸막이로 전환됨"
 
 #: src/OutputsPage.cxx:180 src/SongPage.cxx:69
 msgid "Name"
@@ -811,12 +811,12 @@ msgstr "이름"
 #: src/OutputsPage.cxx:230
 #, c-format
 msgid "Output '%s' enabled"
-msgstr "출력 '%s' 사용함"
+msgstr "출력 '%s' 활성화됨"
 
 #: src/OutputsPage.cxx:241
 #, c-format
 msgid "Output '%s' disabled"
-msgstr "출력 '%s' 사용 안 함"
+msgstr "출력 '%s' 비활성화됨"
 
 #: src/OutputsPage.cxx:371 src/OutputsPage.cxx:480
 msgid "Outputs"
@@ -841,7 +841,7 @@ msgstr "순서 지움"
 #. get path
 #: src/QueuePage.cxx:314
 msgid "Add"
-msgstr "추가"
+msgstr "추가하기"
 
 #: src/QueuePage.cxx:379 src/QueuePage.cxx:697
 msgid "Queue"
@@ -866,20 +866,20 @@ msgstr "%s 바꿀까요?"
 #: src/save_playlist.cxx:129
 #, c-format
 msgid "Saved %s"
-msgstr "%s 저장함"
+msgstr "%s 저장됨"
 
 #: src/screen_client.cxx:41
 msgid "Database update running"
-msgstr "데이터베이스 업데이트 중"
+msgstr "데이터베이스 업데이트 실행 중"
 
 #: src/screen_client.cxx:48
 #, c-format
 msgid "Database update of %s started"
-msgstr "%s 데이터베이스 업데이트 시작"
+msgstr "%s의 데이터베이스 업데이트 시작됨"
 
 #: src/screen_client.cxx:51
 msgid "Database update started"
-msgstr "데이터베이스 업데이트 시작"
+msgstr "데이터베이스 업데이트 시작됨"
 
 #: src/screen.cxx:158
 msgid "Repeat mode is on"
@@ -929,23 +929,23 @@ msgstr "크로스페이드 %d 초"
 
 #: src/screen.cxx:198
 msgid "Database updated"
-msgstr "데이터베이스 업데이트 함"
+msgstr "데이터베이스 업데이트됨"
 
 #: src/screen.cxx:248
 msgid "Find mode: Wrapped"
-msgstr "찾기 방식: 줄 바꿈"
+msgstr "찾기 모드: 줄 바꿈"
 
 #: src/screen.cxx:249
 msgid "Find mode: Normal"
-msgstr "찾기 방식: 보통"
+msgstr "찾기 모드: 보통"
 
 #: src/screen.cxx:254
 msgid "Auto center mode: On"
-msgstr "자동 가운데 방식: 켜짐"
+msgstr "자동 중앙 모드: 켜짐"
 
 #: src/screen.cxx:255
 msgid "Auto center mode: Off"
-msgstr "자동 가운데 방식: 꺼짐"
+msgstr "자동 중앙 모드: 꺼짐"
 
 #: src/screen_find.cxx:33
 msgid "Find"
