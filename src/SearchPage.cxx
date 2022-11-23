@@ -77,7 +77,7 @@ search_get_tag_id(const char *name)
 }
 
 struct SearchMode {
-	enum mpd_tag_type table;
+	int table;
 	const char *label;
 };
 
@@ -85,8 +85,8 @@ static constexpr SearchMode mode[] = {
 	{ MPD_TAG_TITLE, N_("Title") },
 	{ MPD_TAG_ARTIST, N_("Artist") },
 	{ MPD_TAG_ALBUM, N_("Album") },
-	{ (enum mpd_tag_type)SEARCH_URI, N_("Filename") },
-	{ (enum mpd_tag_type)SEARCH_ARTIST_TITLE, N_("Artist + Title") },
+	{ SEARCH_URI, N_("Filename") },
+	{ SEARCH_ARTIST_TITLE, N_("Artist + Title") },
 	{ MPD_TAG_COUNT, nullptr }
 };
 
