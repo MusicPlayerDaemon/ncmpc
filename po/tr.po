@@ -8,336 +8,339 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-11-26 17:48+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/ncmpc/"
+"translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.15-dev\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr ""
+msgstr "%s tuşu, %s ve %s komutlarına atandı"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
-msgstr ""
+msgstr "Sohbet"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr ""
+msgstr "Mesajınız"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr ""
+msgstr "Mesaj gönderilemedi"
 
 #: src/Command.cxx:30
 msgid "Key configuration screen"
-msgstr ""
+msgstr "Tuş yapılandırma ekranı"
 
 #: src/Command.cxx:33
 msgid "Quit"
-msgstr ""
+msgstr "Çıkış"
 
 #: src/Command.cxx:37
 msgid "Move cursor up"
-msgstr ""
+msgstr "İmleci yukarı taşı"
 
 #: src/Command.cxx:39
 msgid "Move cursor down"
-msgstr ""
+msgstr "İmleci aşağı taşı"
 
 #: src/Command.cxx:41
 msgid "Move cursor to the top of screen"
-msgstr ""
+msgstr "İmleci ekranın en üstüne taşı"
 
 #: src/Command.cxx:43
 msgid "Move cursor to the middle of screen"
-msgstr ""
+msgstr "İmleci ekranın ortasına taşı"
 
 #: src/Command.cxx:45
 msgid "Move cursor to the bottom of screen"
-msgstr ""
+msgstr "İmleci ekranın en altına taşı"
 
 #: src/Command.cxx:47
 msgid "Move cursor to the top of the list"
-msgstr ""
+msgstr "İmleci listenin en üstüne taşı"
 
 #: src/Command.cxx:49
 msgid "Move cursor to the bottom of the list"
-msgstr ""
+msgstr "İmleci listenin en altına taşı"
 
 #: src/Command.cxx:51
 msgid "Page up"
-msgstr ""
+msgstr "Bir sayfa yukarı"
 
 #: src/Command.cxx:53
 msgid "Page down"
-msgstr ""
+msgstr "Bir sayfa aşağı"
 
 #: src/Command.cxx:55
 msgid "Range selection"
-msgstr ""
+msgstr "Aralık seçimi"
 
 #: src/Command.cxx:57
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Bir satır aşağı kaydır"
 
 #: src/Command.cxx:59
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Bir satır yukarı kaydır"
 
 #: src/Command.cxx:61
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Yarım ekran yukarı kaydır"
 
 #: src/Command.cxx:63
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Yarım ekran aşağı kaydır"
 
 #: src/Command.cxx:65
 msgid "Select currently playing song"
-msgstr ""
+msgstr "O anda çalan şarkıyı seçin"
 
 #: src/Command.cxx:70
 msgid "Help screen"
-msgstr ""
+msgstr "Yardım ekranı"
 
 #: src/Command.cxx:72 src/HelpPage.cxx:141
 msgid "Queue screen"
-msgstr ""
+msgstr "Kuyruk ekranı"
 
 #: src/Command.cxx:74 src/HelpPage.cxx:156
 msgid "Browse screen"
-msgstr ""
+msgstr "Göz atma ekranı"
 
 #: src/Command.cxx:79
 msgid "Play/Enter directory"
-msgstr ""
+msgstr "Oynat/Dizine gir"
 
 #: src/Command.cxx:81
 msgid "Pause"
-msgstr ""
+msgstr "Duraklat"
 
 #: src/Command.cxx:83
 msgid "Stop"
-msgstr ""
+msgstr "Durdur"
 
 #: src/Command.cxx:85
 msgid "Crop"
-msgstr ""
+msgstr "Kırp"
 
 #: src/Command.cxx:87
 msgid "Next track"
-msgstr ""
+msgstr "Sonraki parça"
 
 #: src/Command.cxx:89
 msgid "Previous track"
-msgstr ""
+msgstr "Önceki parça"
 
 #: src/Command.cxx:91
 msgid "Seek forward"
-msgstr ""
+msgstr "İleri sar"
 
 #: src/Command.cxx:93
 msgid "Seek backward"
-msgstr ""
+msgstr "Geri sar"
 
 #: src/Command.cxx:95
 msgid "Increase volume"
-msgstr ""
+msgstr "Sesi arttır"
 
 #: src/Command.cxx:97
 msgid "Decrease volume"
-msgstr ""
+msgstr "Sesi azalt"
 
 #: src/Command.cxx:99
 msgid "Select/deselect song in queue"
-msgstr ""
+msgstr "Kuyruktaki şarkıyı seç/seçimini kaldır"
 
 #: src/Command.cxx:101
 msgid "Select all listed items"
-msgstr ""
+msgstr "Listelenen tüm ögeleri seç"
 
 #: src/Command.cxx:103
 msgid "Delete song from queue"
-msgstr ""
+msgstr "Şarkıyı kuyruktan sil"
 
 #: src/Command.cxx:105
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Kuyruğu karıştır"
 
 #: src/Command.cxx:107
 msgid "Clear queue"
-msgstr ""
+msgstr "Kuyruğu temizle"
 
 #: src/Command.cxx:109
 msgid "Toggle repeat mode"
-msgstr ""
+msgstr "Tekrar modunu değiştir"
 
 #: src/Command.cxx:111
 msgid "Toggle random mode"
-msgstr ""
+msgstr "Rastgele modu değiştir"
 
 #: src/Command.cxx:113
 msgid "Toggle single mode"
-msgstr ""
+msgstr "Tekli modunu değiştir"
 
 #: src/Command.cxx:115
 msgid "Toggle consume mode"
-msgstr ""
+msgstr "Tüketim modunu değiştir"
 
 #: src/Command.cxx:117
 msgid "Toggle crossfade mode"
-msgstr ""
+msgstr "Şarkı geçiş modunu değiştir"
 
 #: src/Command.cxx:119
 msgid "Start a music database update"
-msgstr ""
+msgstr "Müzik veri tabanı güncellemesi başlat"
 
 #: src/Command.cxx:121
 msgid "Save queue"
-msgstr ""
+msgstr "Kuyruğu kaydet"
 
 #: src/Command.cxx:123 src/HelpPage.cxx:175
 msgid "Append song to queue"
-msgstr ""
+msgstr "Şarkıyı kuyruğa ekle"
 
 #: src/Command.cxx:126
 msgid "Go to root directory"
-msgstr ""
+msgstr "Kök dizine git"
 
 #: src/Command.cxx:128
 msgid "Go to parent directory"
-msgstr ""
+msgstr "Üst dizine git"
 
 #: src/Command.cxx:131
 msgid "Locate song in browser"
-msgstr ""
+msgstr "Şarkıyı tarayıcıda bul"
 
 #: src/Command.cxx:135
 msgid "Move item up"
-msgstr ""
+msgstr "Ögeyi yukarı taşı"
 
 #: src/Command.cxx:137
 msgid "Move item down"
-msgstr ""
+msgstr "Ögeyi aşağı taşı"
 
 #: src/Command.cxx:139
 msgid "Refresh screen"
-msgstr ""
+msgstr "Ekranı yenile"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
 #: src/Command.cxx:146
 msgid "Toggle find mode"
-msgstr ""
+msgstr "Bulma modunu değiştir"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
 #: src/Command.cxx:150
 msgid "Toggle auto center mode"
-msgstr ""
+msgstr "Otomatik merkez modunu değiştir"
 
 #: src/Command.cxx:155
 msgid "Next screen"
-msgstr ""
+msgstr "Sonraki ekran"
 
 #: src/Command.cxx:157
 msgid "Previous screen"
-msgstr ""
+msgstr "Önceki ekran"
 
 #: src/Command.cxx:159
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "En son ekrana geç"
 
 #: src/Command.cxx:164
 msgid "Forward find"
-msgstr ""
+msgstr "İleri doğru bul"
 
 #: src/Command.cxx:166
 msgid "Forward find next"
-msgstr ""
+msgstr "İleri doğru sonrakini bul"
 
 #: src/Command.cxx:168
 msgid "Backward find"
-msgstr ""
+msgstr "Geriye doğru bul"
 
 #: src/Command.cxx:170
 msgid "Backward find previous"
-msgstr ""
+msgstr "Geriye doğru öncekini bul"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
 #: src/Command.cxx:175
 msgid "Jump to"
-msgstr ""
+msgstr "Atla"
 
 #: src/Command.cxx:181
 msgid "Library page"
-msgstr ""
+msgstr "Kütüphane sayfası"
 
 #: src/Command.cxx:185 src/HelpPage.cxx:170
 msgid "Search screen"
-msgstr ""
+msgstr "Arama ekranı"
 
 #: src/Command.cxx:187
 msgid "Change search mode"
-msgstr ""
+msgstr "Arama modunu değiştir"
 
 #: src/Command.cxx:191
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "Seçilen ve çalmakta olan şarkıyı görüntüle"
 
 #: src/Command.cxx:195 src/HelpPage.cxx:182
 msgid "Lyrics screen"
-msgstr ""
+msgstr "Şarkı sözü ekranı"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
 #: src/Command.cxx:199
 msgid "Interrupt action"
-msgstr ""
+msgstr "Eylemi durdur"
 
 #: src/Command.cxx:201
 msgid "Update Lyrics"
-msgstr ""
+msgstr "Şarkı Sözlerini Güncelle"
 
 #: src/Command.cxx:205
 msgid "Edit the current item"
-msgstr ""
+msgstr "Geçerli ögeyi düzenle"
 
 #: src/Command.cxx:210 src/HelpPage.cxx:197
 msgid "Outputs screen"
-msgstr ""
+msgstr "Çıktı ekranı"
 
 #: src/Command.cxx:215 src/HelpPage.cxx:204
 msgid "Chat screen"
-msgstr ""
+msgstr "Sohbet ekranı"
 
 #: src/ConfigParser.cxx:120
 msgid "Word expected"
-msgstr ""
+msgstr "Beklenen sözcük"
 
 #: src/ConfigParser.cxx:139
 msgid "Malformed hotkey definition"
-msgstr ""
+msgstr "Hatalı kısayol tuşu tanımı"
 
 #. the hotkey configuration
 #. line is incomplete
 #: src/ConfigParser.cxx:158
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "Eksik kısayol tuşu yapılandırması"
 
 #. the hotkey configuration
 #. contains an unknown
 #. command
 #: src/ConfigParser.cxx:172
 msgid "Unknown command"
-msgstr ""
+msgstr "Bilinmeyen komut"
 
 #. translators: ncmpc
 #. supports displaying the
@@ -349,29 +352,29 @@ msgstr ""
 #. setting
 #: src/ConfigParser.cxx:210
 msgid "Bad time display type"
-msgstr ""
+msgstr "Hatalı zaman görüntüleme türü"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/ConfigParser.cxx:224 src/ConfigParser.cxx:454
 msgid "Missing '='"
-msgstr ""
+msgstr "Eksik '='"
 
 #: src/ConfigParser.cxx:273
 msgid "Bad color name"
-msgstr ""
+msgstr "Hatalı renk adı"
 
 #: src/ConfigParser.cxx:282
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "Eksik renk tanımı"
 
 #: src/ConfigParser.cxx:288 src/SearchPage.cxx:244
 msgid "Invalid number"
-msgstr ""
+msgstr "Geçersiz sayı"
 
 #: src/ConfigParser.cxx:295
 msgid "Malformed color definition"
-msgstr ""
+msgstr "Hatalı renk tanımı"
 
 #. an unknown screen
 #. name was specified
@@ -380,518 +383,520 @@ msgstr ""
 #. file
 #: src/ConfigParser.cxx:359
 msgid "Unknown screen name"
-msgstr ""
+msgstr "Bilinmeyen ekran adı"
 
 #: src/ConfigParser.cxx:388
 msgid "Unknown MPD tag"
-msgstr ""
+msgstr "Bilinmeyen MPD etiketi"
 
 #: src/ConfigParser.cxx:415
 msgid "Invalid search mode"
-msgstr ""
+msgstr "Geçersiz arama modu"
 
 #: src/ConfigParser.cxx:433
 msgid "Unknown search mode"
-msgstr ""
+msgstr "Bilinmeyen arama modu"
 
 #: src/ConfigParser.cxx:621
 msgid "Unknown configuration parameter"
-msgstr ""
+msgstr "Bilinmeyen yapılandırma parametresi"
 
 #: src/CustomColors.cxx:57
 msgid "Terminal lacks support for changing colors"
-msgstr ""
+msgstr "Terminalin renklerin değiştirilmesi desteği yok"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/FileBrowserPage.cxx:246
 msgid "Deleting this item is not possible"
-msgstr ""
+msgstr "Bu öge silinemez"
 
 #: src/FileBrowserPage.cxx:254
 #, c-format
 msgid "Delete playlist %s?"
-msgstr ""
+msgstr "%s oynatma listesi silinsin mi?"
 
 #. translators: a dialog was aborted by the user
 #: src/FileBrowserPage.cxx:259 src/KeyDefPage.cxx:182 src/LyricsPage.cxx:388
 #: src/save_playlist.cxx:111
 msgid "Aborted"
-msgstr ""
+msgstr "İptal edildi"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
 #: src/FileBrowserPage.cxx:272
 msgid "Playlist deleted"
-msgstr ""
+msgstr "Oynatma listesi silindi"
 
 #. translators: caption of the browser screen
 #: src/FileBrowserPage.cxx:299 src/FileBrowserPage.cxx:381
 msgid "Browse"
-msgstr ""
+msgstr "Göz at"
 
 #: src/FileListPage.cxx:125
 #, c-format
 msgid "Loading playlist '%s'"
-msgstr ""
+msgstr "'%s' oynatma listesi yükleniyor"
 
 #: src/FileListPage.cxx:165 src/FileListPage.cxx:254 src/FileListPage.cxx:277
 #: src/TagListPage.cxx:184
 #, c-format
 msgid "Adding '%s' to queue"
-msgstr ""
+msgstr "'%s' kuyruğa ekleniyor"
 
 #: src/HelpPage.cxx:61
 msgid "Movement"
-msgstr ""
+msgstr "Hareket"
 
 #: src/HelpPage.cxx:106
 msgid "Global"
-msgstr ""
+msgstr "Genel"
 
 #: src/HelpPage.cxx:143
 msgid "Play"
-msgstr ""
+msgstr "Oynat"
 
 #: src/HelpPage.cxx:150
 msgid "Center"
-msgstr ""
+msgstr "Merkez"
 
 #: src/HelpPage.cxx:158
 msgid "Enter directory/Select and play song"
-msgstr ""
+msgstr "Dizin gir/Şarkı seç ve oynat"
 
 #: src/HelpPage.cxx:162
 msgid "Delete playlist"
-msgstr ""
+msgstr "Oynatma listesini sil"
 
 #: src/HelpPage.cxx:172
 msgid "New search"
-msgstr ""
+msgstr "Yeni arama"
 
 #: src/HelpPage.cxx:173
 msgid "Select and play"
-msgstr ""
+msgstr "Seç ve oynat"
 
 #: src/HelpPage.cxx:184
 msgid "View Lyrics"
-msgstr ""
+msgstr "Şarkı Sözlerini Görüntüle"
 
 #: src/HelpPage.cxx:185
 msgid "(Re)load lyrics"
-msgstr ""
+msgstr "Şarkı sözlerini (yeniden) yükle"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
 #: src/HelpPage.cxx:188
 msgid "Interrupt retrieval"
-msgstr ""
+msgstr "İndirmeyi iptal et"
 
 #: src/HelpPage.cxx:189
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "Şu anda çalan şarkının sözlerini indir"
 
 #: src/HelpPage.cxx:190
 msgid "Add or edit lyrics"
-msgstr ""
+msgstr "Şarkı sözü ekle veya düzenle"
 
 #: src/HelpPage.cxx:191
 msgid "Save lyrics"
-msgstr ""
+msgstr "Şarkı sözlerini kaydet"
 
 #: src/HelpPage.cxx:192
 msgid "Delete saved lyrics"
-msgstr ""
+msgstr "Kaydedilen şarkı sözlerini sil"
 
 #: src/HelpPage.cxx:199
 msgid "Enable/disable output"
-msgstr ""
+msgstr "Çıktıyı etkinleştir/devre dışı bırak"
 
 #: src/HelpPage.cxx:206
 msgid "Write a message"
-msgstr ""
+msgstr "Bir mesaj yaz"
 
 #: src/HelpPage.cxx:211
 msgid "Keydef screen"
-msgstr ""
+msgstr "Tuş tanımlama ekranı"
 
 #: src/HelpPage.cxx:213
 msgid "Edit keydefs for selected command"
-msgstr ""
+msgstr "Seçili komut için tuş tanımlarını düzenle"
 
 #: src/HelpPage.cxx:214
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "Seçilen tuş tanımını kaldır"
 
 #: src/HelpPage.cxx:215
 msgid "Add a keydef"
-msgstr ""
+msgstr "Bir tuş tanımı ekle"
 
 #: src/HelpPage.cxx:216
 msgid "Go up a level"
-msgstr ""
+msgstr "Bir seviye yukarı git"
 
 #: src/HelpPage.cxx:217
 msgid "Apply and save changes"
-msgstr ""
+msgstr "Değişiklikleri uygula ve kaydet"
 
 #: src/HelpPage.cxx:246 src/HelpPage.cxx:330
 msgid "Help"
-msgstr ""
+msgstr "Yardım"
 
 #: src/i18n.h:43
 msgid "y"
-msgstr ""
+msgstr "e"
 
 #: src/i18n.h:44
 msgid "n"
-msgstr ""
+msgstr "h"
 
 #: src/KeyDefPage.cxx:161
 msgid "Deleted"
-msgstr ""
+msgstr "Silindi"
 
 #: src/KeyDefPage.cxx:177
 #, c-format
 msgid "Enter new key for %s: "
-msgstr ""
+msgstr "%s için yeni tuş girin: "
 
 #: src/KeyDefPage.cxx:187
 msgid "Ctrl-Space can't be used"
-msgstr ""
+msgstr "Ctrl-Space kullanılamaz"
 
 #: src/KeyDefPage.cxx:193
 #, c-format
 msgid "Error: key %s is already used for %s"
-msgstr ""
+msgstr "Hata: %s tuşu zaten %s için kullanılıyor"
 
 #: src/KeyDefPage.cxx:203
 #, c-format
 msgid "Assigned %s to %s"
-msgstr ""
+msgstr "%s tuşu, %s komutuna atandı"
 
 #: src/KeyDefPage.cxx:230
 msgid "Add new key"
-msgstr ""
+msgstr "Yeni tuş ekle"
 
 #: src/KeyDefPage.cxx:252
 #, c-format
 msgid "Edit keys for %s"
-msgstr ""
+msgstr "%s komutu için tuşları düzenle"
 
 #: src/KeyDefPage.cxx:395
 msgid "You have new key bindings"
-msgstr ""
+msgstr "Yeni tuş atamalarınız var"
 
 #: src/KeyDefPage.cxx:397
 msgid "Keybindings unchanged."
-msgstr ""
+msgstr "Tuş atamaları değişmedi."
 
 #: src/KeyDefPage.cxx:407
 msgid "Unable to write configuration"
-msgstr ""
+msgstr "Yapılandırma yazılamıyor"
 
 #: src/KeyDefPage.cxx:416 src/KeyDefPage.cxx:425
 msgid "Error"
-msgstr ""
+msgstr "Hata"
 
 #: src/KeyDefPage.cxx:423
 #, c-format
 msgid "Wrote %s"
-msgstr ""
+msgstr "%s yazıldı"
 
 #: src/KeyDefPage.cxx:436
 msgid "===> Apply key bindings "
-msgstr ""
+msgstr "===> Tuş atamalarını uygula "
 
 #: src/KeyDefPage.cxx:438
 msgid "===> Apply & Save key bindings  "
-msgstr ""
+msgstr "===> Tuş atamalarını uygula ve kaydet  "
 
 #: src/KeyDefPage.cxx:475
 msgid "Edit key bindings"
-msgstr ""
+msgstr "Tuş atamalarını düzenle"
 
 #: src/KeyDefPage.cxx:557
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr ""
+msgstr "Not: Değişikliklerinizi 'uygulamayı' mı unuttunuz?"
 
 #: src/KeyDefPage.cxx:607
 msgid "Keys"
-msgstr ""
+msgstr "Tuşlar"
 
 #: src/KeyName.cxx:115
 msgid "Undefined"
-msgstr ""
+msgstr "Tanımlanmadı"
 
 #: src/KeyName.cxx:117
 msgid "Space"
-msgstr ""
+msgstr "Space"
 
 #: src/KeyName.cxx:119
 msgid "Enter"
-msgstr ""
+msgstr "Enter"
 
 #: src/KeyName.cxx:121
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 #: src/KeyName.cxx:123
 msgid "Delete"
-msgstr ""
+msgstr "Delete"
 
 #: src/KeyName.cxx:125
 msgid "Up"
-msgstr ""
+msgstr "Yukarı"
 
 #: src/KeyName.cxx:127
 msgid "Down"
-msgstr ""
+msgstr "Aşağı"
 
 #: src/KeyName.cxx:129
 msgid "Left"
-msgstr ""
+msgstr "Sol"
 
 #: src/KeyName.cxx:131
 msgid "Right"
-msgstr ""
+msgstr "Sağ"
 
 #: src/KeyName.cxx:133
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: src/KeyName.cxx:135
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: src/KeyName.cxx:137
 msgid "PageDown"
-msgstr ""
+msgstr "PageDown"
 
 #: src/KeyName.cxx:139
 msgid "PageUp"
-msgstr ""
+msgstr "PageUp"
 
 #: src/KeyName.cxx:141
 msgid "Tab"
-msgstr ""
+msgstr "Tab"
 
 #: src/KeyName.cxx:143
 msgid "Shift+Tab"
-msgstr ""
+msgstr "Shift+Tab"
 
 #: src/KeyName.cxx:145
 msgid "Esc"
-msgstr ""
+msgstr "Esc"
 
 #: src/KeyName.cxx:147
 msgid "Insert"
-msgstr ""
+msgstr "Insert"
 
 #. translate "^X" to "Ctrl-X"
 #: src/KeyName.cxx:167
 #, c-format
 msgid "Ctrl-%c"
-msgstr ""
+msgstr "Ctrl-%c"
 
 #. translate "M-X" to "Alt-X"
 #: src/KeyName.cxx:173
 #, c-format
 msgid "Alt-%c"
-msgstr ""
+msgstr "Alt-%c"
 
 #: src/LibraryPage.cxx:45
 msgid "Artists"
-msgstr ""
+msgstr "Sanatçılar"
 
 #: src/LibraryPage.cxx:48 src/LibraryPage.cxx:175
 msgid "Albums"
-msgstr ""
+msgstr "Albümler"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr ""
+msgstr "Tümü"
 
 #: src/LibraryPage.cxx:197
 msgid "Songs"
-msgstr ""
+msgstr "Şarkılar"
 
 #: src/LibraryPage.cxx:314
 msgid "Library"
-msgstr ""
+msgstr "Kütüphane"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
-msgstr ""
+msgstr "Aralık seçimi devre dışı"
 
 #: src/ListWindow.cxx:216
 msgid "Range selection enabled"
-msgstr ""
+msgstr "Aralık seçimi etkin"
 
 #. translators: no lyrics were found for the song
 #: src/LyricsPage.cxx:253
 msgid "No lyrics"
-msgstr ""
+msgstr "Şarkı sözü yok"
 
 #: src/LyricsPage.cxx:270
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
-msgstr ""
+msgstr "%d saniye sonra şarkı sözü zaman aşımı gerçekleşti"
 
 #: src/LyricsPage.cxx:353 src/LyricsPage.cxx:361 src/LyricsPage.cxx:371
 #: src/LyricsPage.cxx:507
 msgid "Lyrics"
-msgstr ""
+msgstr "Şarkı sözleri"
 
 #. translators: this message is displayed
 #. while data is retrieved
 #: src/LyricsPage.cxx:356
 msgid "loading..."
-msgstr ""
+msgstr "yükleniyor..."
 
 #: src/LyricsPage.cxx:378
 msgid "Editor not configured"
-msgstr ""
+msgstr "Düzenleyici yapılandırılmadı"
 
 #: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
 msgstr ""
+"Gerçekten bir düzenleyici başlatmak ve bu şarkı sözlerini düzenlemek istiyor "
+"musunuz?"
 
 #: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
-msgstr ""
+msgstr "Düzenleyici başlatılamıyor"
 
 #: src/LyricsPage.cxx:430 src/LyricsPage.cxx:434
 msgid "Editor exited unexpectedly"
-msgstr ""
+msgstr "Düzenleyici beklenmedik şekilde sonlandı"
 
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:456
 msgid "Lyrics saved"
-msgstr ""
+msgstr "Şarkı sözleri kaydedildi"
 
 #: src/LyricsPage.cxx:462
 msgid "Lyrics deleted"
-msgstr ""
+msgstr "Şarkı sözleri silindi"
 
 #: src/LyricsPage.cxx:463
 msgid "No saved lyrics"
-msgstr ""
+msgstr "Kaydedilen şarkı sözü yok"
 
 #: src/Main.cxx:133
 #, c-format
 msgid "Connecting to %s"
-msgstr ""
+msgstr "%s ile bağlantı kuruluyor"
 
 #: src/Main.cxx:149
 #, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr ""
+msgstr "Hata: MPD sürümü %d.%d.%d çok eski (%s gerekli)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
 #: src/Options.cxx:216 src/Options.cxx:219
 msgid "translator-credits"
-msgstr ""
+msgstr "Oğuz Ersen <oguz@ersen.moe>"
 
 #: src/OutputsPage.cxx:168
 #, c-format
 msgid "Switched to partition '%s'"
-msgstr ""
+msgstr "'%s' bölümüne geçildi"
 
 #: src/OutputsPage.cxx:180 src/SongPage.cxx:69
 msgid "Name"
-msgstr ""
+msgstr "Ad"
 
 #: src/OutputsPage.cxx:230
 #, c-format
 msgid "Output '%s' enabled"
-msgstr ""
+msgstr "'%s' çıktısı etkin"
 
 #: src/OutputsPage.cxx:241
 #, c-format
 msgid "Output '%s' disabled"
-msgstr ""
+msgstr "'%s' çıktısı devre dışı"
 
 #: src/OutputsPage.cxx:371 src/OutputsPage.cxx:480
 msgid "Outputs"
-msgstr ""
+msgstr "Çıktılar"
 
 #: src/OutputsPage.cxx:383
 msgid "Partition"
-msgstr ""
+msgstr "Bölüm"
 
 #: src/OutputsPage.cxx:407
 msgid "Create new partition"
-msgstr ""
+msgstr "Yeni bölüm oluştur"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
-msgstr ""
+msgstr "Kuyruk karıştırıldı"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
-msgstr ""
+msgstr "Kuyruk temizlendi"
 
 #. get path
 #: src/QueuePage.cxx:314
 msgid "Add"
-msgstr ""
+msgstr "Ekle"
 
 #: src/QueuePage.cxx:379 src/QueuePage.cxx:697
 msgid "Queue"
-msgstr ""
+msgstr "Kuyruk"
 
 #: src/QueuePage.cxx:381
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "%s kuyruğu"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
 msgid "Save queue as"
-msgstr ""
+msgstr "Kuyruğu farklı kaydet"
 
 #: src/save_playlist.cxx:108
 #, c-format
 msgid "Replace %s?"
-msgstr ""
+msgstr "%s değiştirilsin mi?"
 
 #. success
 #: src/save_playlist.cxx:129
 #, c-format
 msgid "Saved %s"
-msgstr ""
+msgstr "%s kaydedildi"
 
 #: src/screen_client.cxx:41
 msgid "Database update running"
-msgstr ""
+msgstr "Veri tabanı güncellemesi çalışıyor"
 
 #: src/screen_client.cxx:48
 #, c-format
 msgid "Database update of %s started"
-msgstr ""
+msgstr "%s veri tabanı güncellemesi başladı"
 
 #: src/screen_client.cxx:51
 msgid "Database update started"
-msgstr ""
+msgstr "Veri tabanı güncellemesi başladı"
 
 #: src/screen.cxx:158
 msgid "Repeat mode is on"
-msgstr ""
+msgstr "Tekrar modu açık"
 
 #: src/screen.cxx:159
 msgid "Repeat mode is off"
-msgstr ""
+msgstr "Tekrar modu kapalı"
 
 #: src/screen.cxx:163
 msgid "Random mode is on"
-msgstr ""
+msgstr "Rastgele modu açık"
 
 #: src/screen.cxx:164
 msgid "Random mode is off"
-msgstr ""
+msgstr "Rastgele modu kapalı"
 
 #. "single" mode means
 #. that MPD will
@@ -900,11 +905,11 @@ msgstr ""
 #. single song
 #: src/screen.cxx:173
 msgid "Single mode is on"
-msgstr ""
+msgstr "Tekli modu açık"
 
 #: src/screen.cxx:174
 msgid "Single mode is off"
-msgstr ""
+msgstr "Tekli modu kapalı"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -912,300 +917,300 @@ msgstr ""
 #. finished playing
 #: src/screen.cxx:182
 msgid "Consume mode is on"
-msgstr ""
+msgstr "Tüketim modu açık"
 
 #: src/screen.cxx:183
 msgid "Consume mode is off"
-msgstr ""
+msgstr "Tüketim modu kapalı"
 
 #: src/screen.cxx:186
 #, c-format
 msgid "Crossfade %d seconds"
-msgstr ""
+msgstr "%d saniye şarkı geçişi"
 
 #: src/screen.cxx:198
 msgid "Database updated"
-msgstr ""
+msgstr "Veri tabanı güncellendi"
 
 #: src/screen.cxx:248
 msgid "Find mode: Wrapped"
-msgstr ""
+msgstr "Bulma modu: Başa dön"
 
 #: src/screen.cxx:249
 msgid "Find mode: Normal"
-msgstr ""
+msgstr "Bulma modu: Normal"
 
 #: src/screen.cxx:254
 msgid "Auto center mode: On"
-msgstr ""
+msgstr "Otomatik merkez modu: Açık"
 
 #: src/screen.cxx:255
 msgid "Auto center mode: Off"
-msgstr ""
+msgstr "Otomatik merkez modu: Kapalı"
 
 #: src/screen_find.cxx:33
 msgid "Find"
-msgstr ""
+msgstr "Bul"
 
 #: src/screen_find.cxx:34
 msgid "Find backward"
-msgstr ""
+msgstr "Geriye doğru bul"
 
 #: src/screen_find.cxx:35
 msgid "Jump"
-msgstr ""
+msgstr "Atla"
 
 #: src/screen_find.cxx:81
 #, c-format
 msgid "Unable to find '%s'"
-msgstr ""
+msgstr "'%s' bulunamıyor"
 
 #: src/screen_utils.cxx:150
 msgid "Password"
-msgstr ""
+msgstr "Parola"
 
 #: src/SearchPage.cxx:51
 msgid "artist"
-msgstr ""
+msgstr "sanatçı"
 
 #: src/SearchPage.cxx:52
 msgid "album"
-msgstr ""
+msgstr "albüm"
 
 #: src/SearchPage.cxx:53
 msgid "title"
-msgstr ""
+msgstr "başlık"
 
 #: src/SearchPage.cxx:54
 msgid "track"
-msgstr ""
+msgstr "parça"
 
 #: src/SearchPage.cxx:55
 msgid "name"
-msgstr ""
+msgstr "ad"
 
 #: src/SearchPage.cxx:56
 msgid "genre"
-msgstr ""
+msgstr "tür"
 
 #: src/SearchPage.cxx:57
 msgid "date"
-msgstr ""
+msgstr "tarih"
 
 #: src/SearchPage.cxx:58
 msgid "composer"
-msgstr ""
+msgstr "besteci"
 
 #: src/SearchPage.cxx:59
 msgid "performer"
-msgstr ""
+msgstr "söyleyen"
 
 #: src/SearchPage.cxx:60
 msgid "comment"
-msgstr ""
+msgstr "yorum"
 
 #: src/SearchPage.cxx:68
 msgid "file"
-msgstr ""
+msgstr "dosya"
 
 #: src/SearchPage.cxx:90 src/SongPage.cxx:63
 msgid "Title"
-msgstr ""
+msgstr "Başlık"
 
 #: src/SearchPage.cxx:91 src/SongPage.cxx:62
 msgid "Artist"
-msgstr ""
+msgstr "Sanatçı"
 
 #: src/SearchPage.cxx:92 src/SongPage.cxx:64
 msgid "Album"
-msgstr ""
+msgstr "Albüm"
 
 #: src/SearchPage.cxx:93
 msgid "Filename"
-msgstr ""
+msgstr "Dosya adı"
 
 #: src/SearchPage.cxx:94
 msgid "Artist + Title"
-msgstr ""
+msgstr "Sanatçı + Başlık"
 
 #: src/SearchPage.cxx:285 src/SearchPage.cxx:289
 msgid "Unrecognized suffix"
-msgstr ""
+msgstr "Tanınmayan son ek"
 
 #: src/SearchPage.cxx:337
 #, c-format
 msgid "Bad search tag %s"
-msgstr ""
+msgstr "Hatalı arama etiketi %s"
 
 #: src/SearchPage.cxx:351
 #, c-format
 msgid "No argument for search tag %s"
-msgstr ""
+msgstr "Arama etiketi için argüman yok %s"
 
 #: src/SearchPage.cxx:446 src/SearchPage.cxx:479 src/SearchPage.cxx:483
 #: src/SearchPage.cxx:487 src/SearchPage.cxx:546
 msgid "Search"
-msgstr ""
+msgstr "Ara"
 
 #: src/SearchPage.cxx:509
 #, c-format
 msgid "Search mode: %s"
-msgstr ""
+msgstr "Arama modu: %s"
 
 #: src/SongPage.cxx:65
 msgid "Length"
-msgstr ""
+msgstr "Uzunluk"
 
 #: src/SongPage.cxx:66
 msgid "Position"
-msgstr ""
+msgstr "Konum"
 
 #: src/SongPage.cxx:67
 msgid "Composer"
-msgstr ""
+msgstr "Besteci"
 
 #: src/SongPage.cxx:68
 msgid "Performer"
-msgstr ""
+msgstr "Söyleyen"
 
 #: src/SongPage.cxx:70
 msgid "Disc"
-msgstr ""
+msgstr "Disk"
 
 #: src/SongPage.cxx:71
 msgid "Track"
-msgstr ""
+msgstr "Parça"
 
 #: src/SongPage.cxx:72
 msgid "Date"
-msgstr ""
+msgstr "Tarih"
 
 #: src/SongPage.cxx:73
 msgid "Genre"
-msgstr ""
+msgstr "Tür"
 
 #: src/SongPage.cxx:74
 msgid "Comment"
-msgstr ""
+msgstr "Yorum"
 
 #: src/SongPage.cxx:75
 msgid "Path"
-msgstr ""
+msgstr "Yol"
 
 #: src/SongPage.cxx:76
 msgid "Bitrate"
-msgstr ""
+msgstr "Bit hızı"
 
 #: src/SongPage.cxx:77
 msgid "Format"
-msgstr ""
+msgstr "Biçim"
 
 #: src/SongPage.cxx:94
 msgid "Number of artists"
-msgstr ""
+msgstr "Sanatçı sayısı"
 
 #: src/SongPage.cxx:95
 msgid "Number of albums"
-msgstr ""
+msgstr "Albüm sayısı"
 
 #: src/SongPage.cxx:96
 msgid "Number of songs"
-msgstr ""
+msgstr "Şarkı sayısı"
 
 #: src/SongPage.cxx:97
 msgid "Uptime"
-msgstr ""
+msgstr "Çalışma süresi"
 
 #: src/SongPage.cxx:98
 msgid "Most recent db update"
-msgstr ""
+msgstr "En son v.t. güncellemesi"
 
 #: src/SongPage.cxx:99
 msgid "Playtime"
-msgstr ""
+msgstr "Çalma süresi"
 
 #: src/SongPage.cxx:100
 msgid "DB playtime"
-msgstr ""
+msgstr "V.T. çalma süresi"
 
 #: src/SongPage.cxx:205
 msgid "Song viewer"
-msgstr ""
+msgstr "Şarkı görüntüleyici"
 
 #: src/SongPage.cxx:371
 msgid "MPD statistics"
-msgstr ""
+msgstr "MPD istatistikleri"
 
 #: src/SongPage.cxx:457
 msgid "Selected song"
-msgstr ""
+msgstr "Seçilen şarkı"
 
 #: src/SongPage.cxx:467
 msgid "Currently playing song"
-msgstr ""
+msgstr "Çalan şarkı"
 
 #: src/SongPage.cxx:472
 #, c-format
 msgid "%d kbps"
-msgstr ""
+msgstr "%d kbps"
 
 #: src/SongPage.cxx:556
 msgid "Song"
-msgstr ""
+msgstr "Şarkı"
 
 #: src/StatusBar.cxx:165
 msgid "Playing:"
-msgstr ""
+msgstr "Oynatılıyor:"
 
 #: src/StatusBar.cxx:169
 msgid "[Paused]"
-msgstr ""
+msgstr "[Duraklatıldı]"
 
 #: src/Styles.cxx:252 src/Styles.cxx:313
 msgid "Unknown color"
-msgstr ""
+msgstr "Bilinmeyen renk"
 
 #: src/Styles.cxx:323
 msgid "Unknown color field"
-msgstr ""
+msgstr "Bilinmeyen renk alanı"
 
 #: src/Styles.cxx:356
 msgid "Terminal lacks color capabilities"
-msgstr ""
+msgstr "Terminal renk özelliklerine sahip değil"
 
 #: src/TagListPage.cxx:71
 msgid "All tracks"
-msgstr ""
+msgstr "Tüm parçalar"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr ""
+msgstr "yıl"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr ""
+msgstr "yıl"
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr ""
+msgstr "hafta"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr ""
+msgstr "hafta"
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr ""
+msgstr "gün"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr ""
+msgstr "gün"
 
 #: src/TitleBar.cxx:101
 msgid "Volume n/a"
-msgstr ""
+msgstr "Ses yok"
 
 #: src/TitleBar.cxx:103
 #, c-format
 msgid "Volume %d%%"
-msgstr ""
+msgstr "Ses %d%%"
