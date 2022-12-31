@@ -81,8 +81,8 @@ ListCursor::Center(unsigned n) noexcept
 {
 	highlight_cursor = false;
 
-	if (n > GetHeight() / 2)
-		start = n - GetHeight() / 2;
+	if (n > (GetHeight() - 1) / 2)
+		start = n - (GetHeight() - 1) / 2;
 	else
 		start = 0;
 
@@ -197,7 +197,7 @@ void
 ListCursor::MoveCursorMiddle() noexcept
 {
 	if (length >= GetHeight())
-		MoveCursor(start + GetHeight() / 2);
+		MoveCursor(start + (GetHeight() - 1) / 2);
 	else
 		MoveCursor(length / 2);
 }
