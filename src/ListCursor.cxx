@@ -104,7 +104,7 @@ ListCursor::ScrollTo(unsigned n) noexcept
 	if (n < start + scroll_offset)
 		new_start = n - scroll_offset;
 
-	if (n >= start + GetHeight() - scroll_offset)
+	if (n >= new_start + GetHeight() - scroll_offset)
 		new_start = n - GetHeight() + 1 + scroll_offset;
 
 	if (new_start + GetHeight() > length)
@@ -139,12 +139,17 @@ ListCursor::MoveCursor(unsigned n) noexcept
 void
 ListCursor::FetchCursor() noexcept
 {
+	unsigned int target = selected;
+
 	if (start > 0 &&
-	    selected < start + scroll_offset)
-		MoveCursor(start + scroll_offset);
-	else if (start + GetHeight() < length &&
-		 selected > start + GetHeight() - 1 - scroll_offset)
-		MoveCursor(start + GetHeight() - 1 - scroll_offset);
+	    target < start + scroll_offset)
+		target = start + scroll_offset;
+
+	if (start + GetHeight() < length &&
+		 target > start + GetHeight() - 1 - scroll_offset)
+		target = start + GetHeight() - 1 - scroll_offset;
+
+	MoveCursor(target);
 }
 
 ListWindowRange
