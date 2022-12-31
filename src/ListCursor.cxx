@@ -194,8 +194,10 @@ ListCursor::MoveCursorTop() noexcept
 {
 	if (start == 0)
 		MoveCursor(start);
-	else
+	else if (start + scroll_offset < start + GetHeight() - 1 - scroll_offset)
 		MoveCursor(start + scroll_offset);
+	else
+		MoveCursor(start + GetHeight() - 1 - scroll_offset);
 }
 
 void
