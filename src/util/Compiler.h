@@ -57,7 +57,7 @@
   (GCC_VERSION && !CLANG_VERSION && \
    GCC_VERSION < GCC_MAKE_VERSION(major, minor, 0))
 
-#if CLANG_OR_GCC_VERSION(4,0)
+#ifdef __GNUC__
 
 /* GCC 4.x */
 
@@ -140,7 +140,7 @@
 #ifndef __cplusplus
 /* plain C99 has "restrict" */
 #define gcc_restrict restrict
-#elif CLANG_OR_GCC_VERSION(4,0)
+#elif defined(__GNUC__)
 /* "__restrict__" is a GCC extension for C++ */
 #define gcc_restrict __restrict__
 #else
