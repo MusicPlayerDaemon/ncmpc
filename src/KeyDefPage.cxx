@@ -300,8 +300,6 @@ CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 		return false;
 	}
 
-	/* unreachable */
-	assert(0);
 	return false;
 }
 
