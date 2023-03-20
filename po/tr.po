@@ -1,347 +1,346 @@
-# Korean translation for ncmpc
-# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the ncmpc package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2022-09-30 08:16+0000\n"
-"Last-Translator: 이정희 <daemul72@gmail.com>\n"
-"Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
-"translations/ko/>\n"
-"Language: ko\n"
+"PO-Revision-Date: 2022-11-26 17:48+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/ncmpc/"
+"translations/tr/>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14.1\n"
-"X-Launchpad-Export-Date: 2009-10-19 13:36+0000\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.15-dev\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "%s 키가 %s 및 %s 에 지정됨"
+msgstr "%s tuşu, %s ve %s komutlarına atandı"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
-msgstr "채팅"
+msgstr "Sohbet"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr "나의 메시지"
+msgstr "Mesajınız"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr "메시지를 보낼 수 없습니다"
+msgstr "Mesaj gönderilemedi"
 
 #: src/Command.cxx:30
 msgid "Key configuration screen"
-msgstr "키 설정 화면"
+msgstr "Tuş yapılandırma ekranı"
 
 #: src/Command.cxx:33
 msgid "Quit"
-msgstr "나가기"
+msgstr "Çıkış"
 
 #: src/Command.cxx:37
 msgid "Move cursor up"
-msgstr "커서를 위로 올리기"
+msgstr "İmleci yukarı taşı"
 
 #: src/Command.cxx:39
 msgid "Move cursor down"
-msgstr "커서를 아래로 내리기"
+msgstr "İmleci aşağı taşı"
 
 #: src/Command.cxx:41
 msgid "Move cursor to the top of screen"
-msgstr "커서를 화면 맨 위로 옮기기"
+msgstr "İmleci ekranın en üstüne taşı"
 
 #: src/Command.cxx:43
 msgid "Move cursor to the middle of screen"
-msgstr "커서를 화면 가운데로 옮기기"
+msgstr "İmleci ekranın ortasına taşı"
 
 #: src/Command.cxx:45
 msgid "Move cursor to the bottom of screen"
-msgstr "커서를 화면 맨 아래로 옮기기"
+msgstr "İmleci ekranın en altına taşı"
 
 #: src/Command.cxx:47
 msgid "Move cursor to the top of the list"
-msgstr "커서를 목록 맨 위로 옮기기"
+msgstr "İmleci listenin en üstüne taşı"
 
 #: src/Command.cxx:49
 msgid "Move cursor to the bottom of the list"
-msgstr "커서를 목록 맨 아래로 옮기기"
+msgstr "İmleci listenin en altına taşı"
 
 #: src/Command.cxx:51
 msgid "Page up"
-msgstr "위쪽 페이지"
+msgstr "Bir sayfa yukarı"
 
 #: src/Command.cxx:53
 msgid "Page down"
-msgstr "아래쪽 페이지"
+msgstr "Bir sayfa aşağı"
 
 #: src/Command.cxx:55
 msgid "Range selection"
-msgstr "범위 선택"
+msgstr "Aralık seçimi"
 
 #: src/Command.cxx:57
 msgid "Scroll down one line"
-msgstr "한 줄 아래로 내리기"
+msgstr "Bir satır aşağı kaydır"
 
 #: src/Command.cxx:59
 msgid "Scroll up one line"
-msgstr "한 줄 위로 올리기"
+msgstr "Bir satır yukarı kaydır"
 
 #: src/Command.cxx:61
 msgid "Scroll up half a screen"
-msgstr "화면 반 위로 올리기"
+msgstr "Yarım ekran yukarı kaydır"
 
 #: src/Command.cxx:63
 msgid "Scroll down half a screen"
-msgstr "화면 반 아래로 내리기"
+msgstr "Yarım ekran aşağı kaydır"
 
 #: src/Command.cxx:65
 msgid "Select currently playing song"
-msgstr "지금 연주 중인 곡을 선택"
+msgstr "O anda çalan şarkıyı seçin"
 
 #: src/Command.cxx:70
 msgid "Help screen"
-msgstr "도움 화면"
+msgstr "Yardım ekranı"
 
 #: src/Command.cxx:72 src/HelpPage.cxx:141
 msgid "Queue screen"
-msgstr "순서 화면"
+msgstr "Kuyruk ekranı"
 
 #: src/Command.cxx:74 src/HelpPage.cxx:156
 msgid "Browse screen"
-msgstr "음원 화면"
+msgstr "Göz atma ekranı"
 
 #: src/Command.cxx:79
 msgid "Play/Enter directory"
-msgstr "연주/디렉터리 입력"
+msgstr "Oynat/Dizine gir"
 
 #: src/Command.cxx:81
 msgid "Pause"
-msgstr "잠깐 멈춤"
+msgstr "Duraklat"
 
 #: src/Command.cxx:83
 msgid "Stop"
-msgstr "멈춤"
+msgstr "Durdur"
 
 #: src/Command.cxx:85
 msgid "Crop"
-msgstr "선택"
+msgstr "Kırp"
 
 #: src/Command.cxx:87
 msgid "Next track"
-msgstr "다음 곡"
+msgstr "Sonraki parça"
 
 #: src/Command.cxx:89
 msgid "Previous track"
-msgstr "이전 곡"
+msgstr "Önceki parça"
 
 #: src/Command.cxx:91
 msgid "Seek forward"
-msgstr "앞으로 찾기"
+msgstr "İleri sar"
 
 #: src/Command.cxx:93
 msgid "Seek backward"
-msgstr "뒤로 찾기"
+msgstr "Geri sar"
 
 #: src/Command.cxx:95
 msgid "Increase volume"
-msgstr "음량 높이기"
+msgstr "Sesi arttır"
 
 #: src/Command.cxx:97
 msgid "Decrease volume"
-msgstr "음량 낮추기"
+msgstr "Sesi azalt"
 
 #: src/Command.cxx:99
 msgid "Select/deselect song in queue"
-msgstr "순서에서 곡 선택함/안 함"
+msgstr "Kuyruktaki şarkıyı seç/seçimini kaldır"
 
 #: src/Command.cxx:101
 msgid "Select all listed items"
-msgstr "목록의 모든 항목 선택"
+msgstr "Listelenen tüm ögeleri seç"
 
 #: src/Command.cxx:103
 msgid "Delete song from queue"
-msgstr "순서에서 곡 지우기"
+msgstr "Şarkıyı kuyruktan sil"
 
 #: src/Command.cxx:105
 msgid "Shuffle queue"
-msgstr "순서 뒤섞기"
+msgstr "Kuyruğu karıştır"
 
 #: src/Command.cxx:107
 msgid "Clear queue"
-msgstr "순서 지우기"
+msgstr "Kuyruğu temizle"
 
 #: src/Command.cxx:109
 msgid "Toggle repeat mode"
-msgstr "반복연주 모드 토글"
+msgstr "Tekrar modunu değiştir"
 
 #: src/Command.cxx:111
 msgid "Toggle random mode"
-msgstr "무작위연주 모드 토글"
+msgstr "Rastgele modu değiştir"
 
 #: src/Command.cxx:113
 msgid "Toggle single mode"
-msgstr "한 곡 모드 토글"
+msgstr "Tekli modunu değiştir"
 
 #: src/Command.cxx:115
 msgid "Toggle consume mode"
-msgstr "소비 모드 토글"
+msgstr "Tüketim modunu değiştir"
 
 #: src/Command.cxx:117
 msgid "Toggle crossfade mode"
-msgstr "크로스페이드 모드 토글"
+msgstr "Şarkı geçiş modunu değiştir"
 
 #: src/Command.cxx:119
 msgid "Start a music database update"
-msgstr "음악 데이터베이스 업데이트 시작"
+msgstr "Müzik veri tabanı güncellemesi başlat"
 
 #: src/Command.cxx:121
 msgid "Save queue"
-msgstr "순서 저장"
+msgstr "Kuyruğu kaydet"
 
 #: src/Command.cxx:123 src/HelpPage.cxx:175
 msgid "Append song to queue"
-msgstr "순서에 곡 더하기"
+msgstr "Şarkıyı kuyruğa ekle"
 
 #: src/Command.cxx:126
 msgid "Go to root directory"
-msgstr "루트 디렉터리로 가기"
+msgstr "Kök dizine git"
 
 #: src/Command.cxx:128
 msgid "Go to parent directory"
-msgstr "상위 디렉터리로 가기"
+msgstr "Üst dizine git"
 
 #: src/Command.cxx:131
 msgid "Locate song in browser"
-msgstr "음원에서 곡 찾기"
+msgstr "Şarkıyı tarayıcıda bul"
 
 #: src/Command.cxx:135
 msgid "Move item up"
-msgstr "항목 위로 올리기"
+msgstr "Ögeyi yukarı taşı"
 
 #: src/Command.cxx:137
 msgid "Move item down"
-msgstr "항목 아래로 내리기"
+msgstr "Ögeyi aşağı taşı"
 
 #: src/Command.cxx:139
 msgid "Refresh screen"
-msgstr "화면 새로 고치기"
+msgstr "Ekranı yenile"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
 #: src/Command.cxx:146
 msgid "Toggle find mode"
-msgstr "찾기 모드 토글"
+msgstr "Bulma modunu değiştir"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
 #: src/Command.cxx:150
 msgid "Toggle auto center mode"
-msgstr "자동 가운데 모드 토글"
+msgstr "Otomatik merkez modunu değiştir"
 
 #: src/Command.cxx:155
 msgid "Next screen"
-msgstr "다음 화면"
+msgstr "Sonraki ekran"
 
 #: src/Command.cxx:157
 msgid "Previous screen"
-msgstr "이전 화면"
+msgstr "Önceki ekran"
 
 #: src/Command.cxx:159
 msgid "Swap to most recent screen"
-msgstr "최근 화면으로 바꾸기"
+msgstr "En son ekrana geç"
 
 #: src/Command.cxx:164
 msgid "Forward find"
-msgstr "앞으로 찾기"
+msgstr "İleri doğru bul"
 
 #: src/Command.cxx:166
 msgid "Forward find next"
-msgstr "앞으로 다음 찾기"
+msgstr "İleri doğru sonrakini bul"
 
 #: src/Command.cxx:168
 msgid "Backward find"
-msgstr "뒤로 찾기"
+msgstr "Geriye doğru bul"
 
 #: src/Command.cxx:170
 msgid "Backward find previous"
-msgstr "뒤로 이전 찾기"
+msgstr "Geriye doğru öncekini bul"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
 #: src/Command.cxx:175
 msgid "Jump to"
-msgstr "바로 이동"
+msgstr "Atla"
 
 #: src/Command.cxx:181
 msgid "Library page"
-msgstr "라이브러리 페이지"
+msgstr "Kütüphane sayfası"
 
 #: src/Command.cxx:185 src/HelpPage.cxx:170
 msgid "Search screen"
-msgstr "찾기 화면"
+msgstr "Arama ekranı"
 
 #: src/Command.cxx:187
 msgid "Change search mode"
-msgstr "찾기 모드 변경"
+msgstr "Arama modunu değiştir"
 
 #: src/Command.cxx:191
 msgid "View the selected and the currently playing song"
-msgstr "선택하고 지금 연주 중인 곡 보기"
+msgstr "Seçilen ve çalmakta olan şarkıyı görüntüle"
 
 #: src/Command.cxx:195 src/HelpPage.cxx:182
 msgid "Lyrics screen"
-msgstr "가사 화면"
+msgstr "Şarkı sözü ekranı"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
 #: src/Command.cxx:199
 msgid "Interrupt action"
-msgstr "백그라운드 실행 중지"
+msgstr "Eylemi durdur"
 
 #: src/Command.cxx:201
 msgid "Update Lyrics"
-msgstr "가사 업데이트"
+msgstr "Şarkı Sözlerini Güncelle"
 
 #: src/Command.cxx:205
 msgid "Edit the current item"
-msgstr "현재 항목 수정"
+msgstr "Geçerli ögeyi düzenle"
 
 #: src/Command.cxx:210 src/HelpPage.cxx:197
 msgid "Outputs screen"
-msgstr "출력 화면"
+msgstr "Çıktı ekranı"
 
 #: src/Command.cxx:215 src/HelpPage.cxx:204
 msgid "Chat screen"
-msgstr "채팅 화면"
+msgstr "Sohbet ekranı"
 
 #: src/ConfigParser.cxx:120
 msgid "Word expected"
-msgstr "단어 요구됨"
+msgstr "Beklenen sözcük"
 
 #: src/ConfigParser.cxx:139
 msgid "Malformed hotkey definition"
-msgstr "잘못된 단축키 정의"
+msgstr "Hatalı kısayol tuşu tanımı"
 
 #. the hotkey configuration
 #. line is incomplete
 #: src/ConfigParser.cxx:158
 msgid "Incomplete hotkey configuration"
-msgstr "불완전한 단축키 설정"
+msgstr "Eksik kısayol tuşu yapılandırması"
 
 #. the hotkey configuration
 #. contains an unknown
 #. command
 #: src/ConfigParser.cxx:172
 msgid "Unknown command"
-msgstr "모르는 명령어"
+msgstr "Bilinmeyen komut"
 
 #. translators: ncmpc
 #. supports displaying the
@@ -353,29 +352,29 @@ msgstr "모르는 명령어"
 #. setting
 #: src/ConfigParser.cxx:210
 msgid "Bad time display type"
-msgstr "잘못된 시간 표시 형식"
+msgstr "Hatalı zaman görüntüleme türü"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/ConfigParser.cxx:224 src/ConfigParser.cxx:454
 msgid "Missing '='"
-msgstr "'=' 기호가 없음"
+msgstr "Eksik '='"
 
 #: src/ConfigParser.cxx:273
 msgid "Bad color name"
-msgstr "잘못된 색상 이름"
+msgstr "Hatalı renk adı"
 
 #: src/ConfigParser.cxx:282
 msgid "Incomplete color definition"
-msgstr "불완전한 색상 지정"
+msgstr "Eksik renk tanımı"
 
 #: src/ConfigParser.cxx:288 src/SearchPage.cxx:244
 msgid "Invalid number"
-msgstr "잘못된 숫자"
+msgstr "Geçersiz sayı"
 
 #: src/ConfigParser.cxx:295
 msgid "Malformed color definition"
-msgstr "잘못된 색상 지정"
+msgstr "Hatalı renk tanımı"
 
 #. an unknown screen
 #. name was specified
@@ -384,250 +383,250 @@ msgstr "잘못된 색상 지정"
 #. file
 #: src/ConfigParser.cxx:359
 msgid "Unknown screen name"
-msgstr "모르는 화면 이름"
+msgstr "Bilinmeyen ekran adı"
 
 #: src/ConfigParser.cxx:388
 msgid "Unknown MPD tag"
-msgstr "모르는 MPD 태그"
+msgstr "Bilinmeyen MPD etiketi"
 
 #: src/ConfigParser.cxx:415
 msgid "Invalid search mode"
-msgstr "잘못된 검색 모드"
+msgstr "Geçersiz arama modu"
 
 #: src/ConfigParser.cxx:433
 msgid "Unknown search mode"
-msgstr "모르는 검색 모드"
+msgstr "Bilinmeyen arama modu"
 
 #: src/ConfigParser.cxx:621
 msgid "Unknown configuration parameter"
-msgstr "모르는 설정 요소"
+msgstr "Bilinmeyen yapılandırma parametresi"
 
 #: src/CustomColors.cxx:57
 msgid "Terminal lacks support for changing colors"
-msgstr "터미널의 색상 변경 지원이 부족합니다"
+msgstr "Terminalin renklerin değiştirilmesi desteği yok"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/FileBrowserPage.cxx:246
 msgid "Deleting this item is not possible"
-msgstr "이 항목을 지울 수 없습니다"
+msgstr "Bu öge silinemez"
 
 #: src/FileBrowserPage.cxx:254
 #, c-format
 msgid "Delete playlist %s?"
-msgstr "%s 연주목록을 지울까요?"
+msgstr "%s oynatma listesi silinsin mi?"
 
 #. translators: a dialog was aborted by the user
 #: src/FileBrowserPage.cxx:259 src/KeyDefPage.cxx:182 src/LyricsPage.cxx:388
 #: src/save_playlist.cxx:111
 msgid "Aborted"
-msgstr "중단됨"
+msgstr "İptal edildi"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
 #: src/FileBrowserPage.cxx:272
 msgid "Playlist deleted"
-msgstr "연주목록을 지움"
+msgstr "Oynatma listesi silindi"
 
 #. translators: caption of the browser screen
 #: src/FileBrowserPage.cxx:299 src/FileBrowserPage.cxx:381
 msgid "Browse"
-msgstr "음원"
+msgstr "Göz at"
 
 #: src/FileListPage.cxx:125
 #, c-format
 msgid "Loading playlist '%s'"
-msgstr "'%s' 연주목록을 읽는 중"
+msgstr "'%s' oynatma listesi yükleniyor"
 
 #: src/FileListPage.cxx:165 src/FileListPage.cxx:254 src/FileListPage.cxx:277
 #: src/TagListPage.cxx:184
 #, c-format
 msgid "Adding '%s' to queue"
-msgstr "순서에 '%s' 추가"
+msgstr "'%s' kuyruğa ekleniyor"
 
 #: src/HelpPage.cxx:61
 msgid "Movement"
-msgstr "이동"
+msgstr "Hareket"
 
 #: src/HelpPage.cxx:106
 msgid "Global"
-msgstr "전체"
+msgstr "Genel"
 
 #: src/HelpPage.cxx:143
 msgid "Play"
-msgstr "연주"
+msgstr "Oynat"
 
 #: src/HelpPage.cxx:150
 msgid "Center"
-msgstr "가운데"
+msgstr "Merkez"
 
 #: src/HelpPage.cxx:158
 msgid "Enter directory/Select and play song"
-msgstr "디렉터리를 입력/곡을 선택하고 연주"
+msgstr "Dizin gir/Şarkı seç ve oynat"
 
 #: src/HelpPage.cxx:162
 msgid "Delete playlist"
-msgstr "연주목록 지우기"
+msgstr "Oynatma listesini sil"
 
 #: src/HelpPage.cxx:172
 msgid "New search"
-msgstr "새로 찾기"
+msgstr "Yeni arama"
 
 #: src/HelpPage.cxx:173
 msgid "Select and play"
-msgstr "선택하고 연주"
+msgstr "Seç ve oynat"
 
 #: src/HelpPage.cxx:184
 msgid "View Lyrics"
-msgstr "가사 보기"
+msgstr "Şarkı Sözlerini Görüntüle"
 
 #: src/HelpPage.cxx:185
 msgid "(Re)load lyrics"
-msgstr "가사 (다시)읽기"
+msgstr "Şarkı sözlerini (yeniden) yükle"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
 #: src/HelpPage.cxx:188
 msgid "Interrupt retrieval"
-msgstr "가사 가져오기 중지"
+msgstr "İndirmeyi iptal et"
 
 #: src/HelpPage.cxx:189
 msgid "Download lyrics for currently playing song"
-msgstr "연주 중인 노래의 가사 내려받기"
+msgstr "Şu anda çalan şarkının sözlerini indir"
 
 #: src/HelpPage.cxx:190
 msgid "Add or edit lyrics"
-msgstr "가사를 추가하거나 수정하기"
+msgstr "Şarkı sözü ekle veya düzenle"
 
 #: src/HelpPage.cxx:191
 msgid "Save lyrics"
-msgstr "가사 저장하기"
+msgstr "Şarkı sözlerini kaydet"
 
 #: src/HelpPage.cxx:192
 msgid "Delete saved lyrics"
-msgstr "저장된 가사 지우기"
+msgstr "Kaydedilen şarkı sözlerini sil"
 
 #: src/HelpPage.cxx:199
 msgid "Enable/disable output"
-msgstr "출력 사용함/안 함"
+msgstr "Çıktıyı etkinleştir/devre dışı bırak"
 
 #: src/HelpPage.cxx:206
 msgid "Write a message"
-msgstr "메시지 작성"
+msgstr "Bir mesaj yaz"
 
 #: src/HelpPage.cxx:211
 msgid "Keydef screen"
-msgstr "키설정 화면"
+msgstr "Tuş tanımlama ekranı"
 
 #: src/HelpPage.cxx:213
 msgid "Edit keydefs for selected command"
-msgstr "선택한 명령을 위한 키설정 편집"
+msgstr "Seçili komut için tuş tanımlarını düzenle"
 
 #: src/HelpPage.cxx:214
 msgid "Remove selected keydef"
-msgstr "선택한 키설정 삭제"
+msgstr "Seçilen tuş tanımını kaldır"
 
 #: src/HelpPage.cxx:215
 msgid "Add a keydef"
-msgstr "키 설정 추가"
+msgstr "Bir tuş tanımı ekle"
 
 #: src/HelpPage.cxx:216
 msgid "Go up a level"
-msgstr "한 단계 위로 가기"
+msgstr "Bir seviye yukarı git"
 
 #: src/HelpPage.cxx:217
 msgid "Apply and save changes"
-msgstr "적용하고 변경사항을 저장"
+msgstr "Değişiklikleri uygula ve kaydet"
 
 #: src/HelpPage.cxx:246 src/HelpPage.cxx:330
 msgid "Help"
-msgstr "도움"
+msgstr "Yardım"
 
 #: src/i18n.h:43
 msgid "y"
-msgstr "y"
+msgstr "e"
 
 #: src/i18n.h:44
 msgid "n"
-msgstr "n"
+msgstr "h"
 
 #: src/KeyDefPage.cxx:161
 msgid "Deleted"
-msgstr "삭제됨"
+msgstr "Silindi"
 
 #: src/KeyDefPage.cxx:177
 #, c-format
 msgid "Enter new key for %s: "
-msgstr "%s의 새 키 입력: "
+msgstr "%s için yeni tuş girin: "
 
 #: src/KeyDefPage.cxx:187
 msgid "Ctrl-Space can't be used"
-msgstr "Ctrl-Space 사용할 수 없음"
+msgstr "Ctrl-Space kullanılamaz"
 
 #: src/KeyDefPage.cxx:193
 #, c-format
 msgid "Error: key %s is already used for %s"
-msgstr "오류: %s 키는 이미 %s에 사용함"
+msgstr "Hata: %s tuşu zaten %s için kullanılıyor"
 
 #: src/KeyDefPage.cxx:203
 #, c-format
 msgid "Assigned %s to %s"
-msgstr "%s 키가 %s에 지정됨"
+msgstr "%s tuşu, %s komutuna atandı"
 
 #: src/KeyDefPage.cxx:230
 msgid "Add new key"
-msgstr "새로운 키 추가"
+msgstr "Yeni tuş ekle"
 
 #: src/KeyDefPage.cxx:252
 #, c-format
 msgid "Edit keys for %s"
-msgstr "%s 키 편집"
+msgstr "%s komutu için tuşları düzenle"
 
 #: src/KeyDefPage.cxx:395
 msgid "You have new key bindings"
-msgstr "새로운 키 조합입니다"
+msgstr "Yeni tuş atamalarınız var"
 
 #: src/KeyDefPage.cxx:397
 msgid "Keybindings unchanged."
-msgstr "키 조합이 바뀌지 않았습니다."
+msgstr "Tuş atamaları değişmedi."
 
 #: src/KeyDefPage.cxx:407
 msgid "Unable to write configuration"
-msgstr "설정 쓰기가 안 됨"
+msgstr "Yapılandırma yazılamıyor"
 
 #: src/KeyDefPage.cxx:416 src/KeyDefPage.cxx:425
 msgid "Error"
-msgstr "오류"
+msgstr "Hata"
 
 #: src/KeyDefPage.cxx:423
 #, c-format
 msgid "Wrote %s"
-msgstr "%s 쓰기"
+msgstr "%s yazıldı"
 
 #: src/KeyDefPage.cxx:436
 msgid "===> Apply key bindings "
-msgstr "===> 키 조합을 적용 "
+msgstr "===> Tuş atamalarını uygula "
 
 #: src/KeyDefPage.cxx:438
 msgid "===> Apply & Save key bindings  "
-msgstr "===> 키 조합을 적용하고 저장  "
+msgstr "===> Tuş atamalarını uygula ve kaydet  "
 
 #: src/KeyDefPage.cxx:475
 msgid "Edit key bindings"
-msgstr "키 조합 편집"
+msgstr "Tuş atamalarını düzenle"
 
 #: src/KeyDefPage.cxx:557
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr "주의: 변경사항 '적용하기'를 잊었나요?"
+msgstr "Not: Değişikliklerinizi 'uygulamayı' mı unuttunuz?"
 
 #: src/KeyDefPage.cxx:607
 msgid "Keys"
-msgstr "키"
+msgstr "Tuşlar"
 
 #: src/KeyName.cxx:115
 msgid "Undefined"
-msgstr "정의되지 않음"
+msgstr "Tanımlanmadı"
 
 #: src/KeyName.cxx:117
 msgid "Space"
@@ -647,19 +646,19 @@ msgstr "Delete"
 
 #: src/KeyName.cxx:125
 msgid "Up"
-msgstr "Up"
+msgstr "Yukarı"
 
 #: src/KeyName.cxx:127
 msgid "Down"
-msgstr "Down"
+msgstr "Aşağı"
 
 #: src/KeyName.cxx:129
 msgid "Left"
-msgstr "Left"
+msgstr "Sol"
 
 #: src/KeyName.cxx:131
 msgid "Right"
-msgstr "Right"
+msgstr "Sağ"
 
 #: src/KeyName.cxx:133
 msgid "Home"
@@ -707,195 +706,197 @@ msgstr "Alt-%c"
 
 #: src/LibraryPage.cxx:45
 msgid "Artists"
-msgstr "아티스트"
+msgstr "Sanatçılar"
 
 #: src/LibraryPage.cxx:48 src/LibraryPage.cxx:175
 msgid "Albums"
-msgstr "음반"
+msgstr "Albümler"
 
 #: src/LibraryPage.cxx:123
 msgid "All"
-msgstr "모두"
+msgstr "Tümü"
 
 #: src/LibraryPage.cxx:197
 msgid "Songs"
-msgstr "곡"
+msgstr "Şarkılar"
 
 #: src/LibraryPage.cxx:314
 msgid "Library"
-msgstr "라이브러리"
+msgstr "Kütüphane"
 
 #: src/ListWindow.cxx:213
 msgid "Range selection disabled"
-msgstr "범위 선택을 사용 안 함"
+msgstr "Aralık seçimi devre dışı"
 
 #: src/ListWindow.cxx:216
 msgid "Range selection enabled"
-msgstr "범위 선택을 사용함"
+msgstr "Aralık seçimi etkin"
 
 #. translators: no lyrics were found for the song
 #: src/LyricsPage.cxx:253
 msgid "No lyrics"
-msgstr "가사 없음"
+msgstr "Şarkı sözü yok"
 
 #: src/LyricsPage.cxx:270
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
-msgstr "%d 초 후에 가사 끝남"
+msgstr "%d saniye sonra şarkı sözü zaman aşımı gerçekleşti"
 
 #: src/LyricsPage.cxx:353 src/LyricsPage.cxx:361 src/LyricsPage.cxx:371
 #: src/LyricsPage.cxx:507
 msgid "Lyrics"
-msgstr "가사"
+msgstr "Şarkı sözleri"
 
 #. translators: this message is displayed
 #. while data is retrieved
 #: src/LyricsPage.cxx:356
 msgid "loading..."
-msgstr "불러오는 중..."
+msgstr "yükleniyor..."
 
 #: src/LyricsPage.cxx:378
 msgid "Editor not configured"
-msgstr "편집기 설정 안됨"
+msgstr "Düzenleyici yapılandırılmadı"
 
 #: src/LyricsPage.cxx:385
 msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr "편집기를 시작하고 가사를 수정할까요?"
+msgstr ""
+"Gerçekten bir düzenleyici başlatmak ve bu şarkı sözlerini düzenlemek istiyor "
+"musunuz?"
 
 #: src/LyricsPage.cxx:403 src/LyricsPage.cxx:427
 msgid "Can't start editor"
-msgstr "편집기를 사용할 수 없음"
+msgstr "Düzenleyici başlatılamıyor"
 
 #: src/LyricsPage.cxx:430 src/LyricsPage.cxx:434
 msgid "Editor exited unexpectedly"
-msgstr "편집기가 갑자기 종료됨"
+msgstr "Düzenleyici beklenmedik şekilde sonlandı"
 
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:456
 msgid "Lyrics saved"
-msgstr "가사 저장됨"
+msgstr "Şarkı sözleri kaydedildi"
 
 #: src/LyricsPage.cxx:462
 msgid "Lyrics deleted"
-msgstr "가사 삭제됨"
+msgstr "Şarkı sözleri silindi"
 
 #: src/LyricsPage.cxx:463
 msgid "No saved lyrics"
-msgstr "저장된 가사 없음"
+msgstr "Kaydedilen şarkı sözü yok"
 
 #: src/Main.cxx:133
 #, c-format
 msgid "Connecting to %s"
-msgstr "%s로 연결 중"
+msgstr "%s ile bağlantı kuruluyor"
 
 #: src/Main.cxx:149
 #, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "오류: 너무 오래된 MPD %d.%d.%d 버전 (%s 필요)"
+msgstr "Hata: MPD sürümü %d.%d.%d çok eski (%s gerekli)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
 #: src/Options.cxx:216 src/Options.cxx:219
 msgid "translator-credits"
-msgstr "이정희 <daemul72@gmail.com>"
+msgstr "Oğuz Ersen <oguz@ersen.moe>"
 
 #: src/OutputsPage.cxx:168
 #, c-format
 msgid "Switched to partition '%s'"
-msgstr "'%s' 칸막이로 전환됨"
+msgstr "'%s' bölümüne geçildi"
 
 #: src/OutputsPage.cxx:180 src/SongPage.cxx:69
 msgid "Name"
-msgstr "이름"
+msgstr "Ad"
 
 #: src/OutputsPage.cxx:230
 #, c-format
 msgid "Output '%s' enabled"
-msgstr "출력 '%s' 활성화됨"
+msgstr "'%s' çıktısı etkin"
 
 #: src/OutputsPage.cxx:241
 #, c-format
 msgid "Output '%s' disabled"
-msgstr "출력 '%s' 비활성화됨"
+msgstr "'%s' çıktısı devre dışı"
 
 #: src/OutputsPage.cxx:371 src/OutputsPage.cxx:480
 msgid "Outputs"
-msgstr "출력"
+msgstr "Çıktılar"
 
 #: src/OutputsPage.cxx:383
 msgid "Partition"
-msgstr "칸막이"
+msgstr "Bölüm"
 
 #: src/OutputsPage.cxx:407
 msgid "Create new partition"
-msgstr "새 칸막이 만들기"
+msgstr "Yeni bölüm oluştur"
 
 #: src/player_command.cxx:94 src/QueuePage.cxx:651
 msgid "Shuffled queue"
-msgstr "순서 뒤섞음"
+msgstr "Kuyruk karıştırıldı"
 
 #: src/player_command.cxx:100
 msgid "Cleared queue"
-msgstr "순서 지움"
+msgstr "Kuyruk temizlendi"
 
 #. get path
 #: src/QueuePage.cxx:314
 msgid "Add"
-msgstr "추가하기"
+msgstr "Ekle"
 
 #: src/QueuePage.cxx:379 src/QueuePage.cxx:697
 msgid "Queue"
-msgstr "순서"
+msgstr "Kuyruk"
 
 #: src/QueuePage.cxx:381
 #, c-format
 msgid "Queue on %s"
-msgstr "순서 %s"
+msgstr "%s kuyruğu"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
 msgid "Save queue as"
-msgstr "순서 저장"
+msgstr "Kuyruğu farklı kaydet"
 
 #: src/save_playlist.cxx:108
 #, c-format
 msgid "Replace %s?"
-msgstr "%s 바꿀까요?"
+msgstr "%s değiştirilsin mi?"
 
 #. success
 #: src/save_playlist.cxx:129
 #, c-format
 msgid "Saved %s"
-msgstr "%s 저장됨"
+msgstr "%s kaydedildi"
 
 #: src/screen_client.cxx:41
 msgid "Database update running"
-msgstr "데이터베이스 업데이트 실행 중"
+msgstr "Veri tabanı güncellemesi çalışıyor"
 
 #: src/screen_client.cxx:48
 #, c-format
 msgid "Database update of %s started"
-msgstr "%s의 데이터베이스 업데이트 시작됨"
+msgstr "%s veri tabanı güncellemesi başladı"
 
 #: src/screen_client.cxx:51
 msgid "Database update started"
-msgstr "데이터베이스 업데이트 시작됨"
+msgstr "Veri tabanı güncellemesi başladı"
 
 #: src/screen.cxx:158
 msgid "Repeat mode is on"
-msgstr "반복 모드 켜짐"
+msgstr "Tekrar modu açık"
 
 #: src/screen.cxx:159
 msgid "Repeat mode is off"
-msgstr "반복 모드 꺼짐"
+msgstr "Tekrar modu kapalı"
 
 #: src/screen.cxx:163
 msgid "Random mode is on"
-msgstr "무작위 모드 켜짐"
+msgstr "Rastgele modu açık"
 
 #: src/screen.cxx:164
 msgid "Random mode is off"
-msgstr "무작위 모드 꺼짐"
+msgstr "Rastgele modu kapalı"
 
 #. "single" mode means
 #. that MPD will
@@ -904,11 +905,11 @@ msgstr "무작위 모드 꺼짐"
 #. single song
 #: src/screen.cxx:173
 msgid "Single mode is on"
-msgstr "한 곡 모드 켜짐"
+msgstr "Tekli modu açık"
 
 #: src/screen.cxx:174
 msgid "Single mode is off"
-msgstr "한 곡 모드 꺼짐"
+msgstr "Tekli modu kapalı"
 
 #. "consume" mode means
 #. that MPD removes each
@@ -916,237 +917,237 @@ msgstr "한 곡 모드 꺼짐"
 #. finished playing
 #: src/screen.cxx:182
 msgid "Consume mode is on"
-msgstr "소비 모드 켜짐"
+msgstr "Tüketim modu açık"
 
 #: src/screen.cxx:183
 msgid "Consume mode is off"
-msgstr "소비 모드 꺼짐"
+msgstr "Tüketim modu kapalı"
 
 #: src/screen.cxx:186
 #, c-format
 msgid "Crossfade %d seconds"
-msgstr "크로스페이드 %d 초"
+msgstr "%d saniye şarkı geçişi"
 
 #: src/screen.cxx:198
 msgid "Database updated"
-msgstr "데이터베이스 업데이트됨"
+msgstr "Veri tabanı güncellendi"
 
 #: src/screen.cxx:248
 msgid "Find mode: Wrapped"
-msgstr "찾기 모드: 줄 바꿈"
+msgstr "Bulma modu: Başa dön"
 
 #: src/screen.cxx:249
 msgid "Find mode: Normal"
-msgstr "찾기 모드: 보통"
+msgstr "Bulma modu: Normal"
 
 #: src/screen.cxx:254
 msgid "Auto center mode: On"
-msgstr "자동 중앙 모드: 켜짐"
+msgstr "Otomatik merkez modu: Açık"
 
 #: src/screen.cxx:255
 msgid "Auto center mode: Off"
-msgstr "자동 중앙 모드: 꺼짐"
+msgstr "Otomatik merkez modu: Kapalı"
 
 #: src/screen_find.cxx:33
 msgid "Find"
-msgstr "찾기"
+msgstr "Bul"
 
 #: src/screen_find.cxx:34
 msgid "Find backward"
-msgstr "뒤로 찾기"
+msgstr "Geriye doğru bul"
 
 #: src/screen_find.cxx:35
 msgid "Jump"
-msgstr "이동"
+msgstr "Atla"
 
 #: src/screen_find.cxx:81
 #, c-format
 msgid "Unable to find '%s'"
-msgstr "'%s' 찾을 수 없음"
+msgstr "'%s' bulunamıyor"
 
 #: src/screen_utils.cxx:150
 msgid "Password"
-msgstr "열쇠글"
+msgstr "Parola"
 
 #: src/SearchPage.cxx:51
 msgid "artist"
-msgstr "연주가"
+msgstr "sanatçı"
 
 #: src/SearchPage.cxx:52
 msgid "album"
-msgstr "음반"
+msgstr "albüm"
 
 #: src/SearchPage.cxx:53
 msgid "title"
-msgstr "제목"
+msgstr "başlık"
 
 #: src/SearchPage.cxx:54
 msgid "track"
-msgstr "곡"
+msgstr "parça"
 
 #: src/SearchPage.cxx:55
 msgid "name"
-msgstr "이름"
+msgstr "ad"
 
 #: src/SearchPage.cxx:56
 msgid "genre"
-msgstr "장르"
+msgstr "tür"
 
 #: src/SearchPage.cxx:57
 msgid "date"
-msgstr "날짜"
+msgstr "tarih"
 
 #: src/SearchPage.cxx:58
 msgid "composer"
-msgstr "작곡가"
+msgstr "besteci"
 
 #: src/SearchPage.cxx:59
 msgid "performer"
-msgstr "연주가"
+msgstr "söyleyen"
 
 #: src/SearchPage.cxx:60
 msgid "comment"
-msgstr "설명"
+msgstr "yorum"
 
 #: src/SearchPage.cxx:68
 msgid "file"
-msgstr "파일"
+msgstr "dosya"
 
 #: src/SearchPage.cxx:90 src/SongPage.cxx:63
 msgid "Title"
-msgstr "제목"
+msgstr "Başlık"
 
 #: src/SearchPage.cxx:91 src/SongPage.cxx:62
 msgid "Artist"
-msgstr "연주가"
+msgstr "Sanatçı"
 
 #: src/SearchPage.cxx:92 src/SongPage.cxx:64
 msgid "Album"
-msgstr "음반"
+msgstr "Albüm"
 
 #: src/SearchPage.cxx:93
 msgid "Filename"
-msgstr "파일이름"
+msgstr "Dosya adı"
 
 #: src/SearchPage.cxx:94
 msgid "Artist + Title"
-msgstr "연주가 + 제목"
+msgstr "Sanatçı + Başlık"
 
 #: src/SearchPage.cxx:285 src/SearchPage.cxx:289
 msgid "Unrecognized suffix"
-msgstr "미 인식 서픽스"
+msgstr "Tanınmayan son ek"
 
 #: src/SearchPage.cxx:337
 #, c-format
 msgid "Bad search tag %s"
-msgstr "잘못된 찾기 태그 %s"
+msgstr "Hatalı arama etiketi %s"
 
 #: src/SearchPage.cxx:351
 #, c-format
 msgid "No argument for search tag %s"
-msgstr "%s 찾기 태그의 인자가 없음"
+msgstr "Arama etiketi için argüman yok %s"
 
 #: src/SearchPage.cxx:446 src/SearchPage.cxx:479 src/SearchPage.cxx:483
 #: src/SearchPage.cxx:487 src/SearchPage.cxx:546
 msgid "Search"
-msgstr "찾기"
+msgstr "Ara"
 
 #: src/SearchPage.cxx:509
 #, c-format
 msgid "Search mode: %s"
-msgstr "찾기 방식: %s"
+msgstr "Arama modu: %s"
 
 #: src/SongPage.cxx:65
 msgid "Length"
-msgstr "길이"
+msgstr "Uzunluk"
 
 #: src/SongPage.cxx:66
 msgid "Position"
-msgstr "위치"
+msgstr "Konum"
 
 #: src/SongPage.cxx:67
 msgid "Composer"
-msgstr "작곡가"
+msgstr "Besteci"
 
 #: src/SongPage.cxx:68
 msgid "Performer"
-msgstr "연주가"
+msgstr "Söyleyen"
 
 #: src/SongPage.cxx:70
 msgid "Disc"
-msgstr "디스크"
+msgstr "Disk"
 
 #: src/SongPage.cxx:71
 msgid "Track"
-msgstr "곡"
+msgstr "Parça"
 
 #: src/SongPage.cxx:72
 msgid "Date"
-msgstr "날짜"
+msgstr "Tarih"
 
 #: src/SongPage.cxx:73
 msgid "Genre"
-msgstr "장르"
+msgstr "Tür"
 
 #: src/SongPage.cxx:74
 msgid "Comment"
-msgstr "설명"
+msgstr "Yorum"
 
 #: src/SongPage.cxx:75
 msgid "Path"
-msgstr "경로"
+msgstr "Yol"
 
 #: src/SongPage.cxx:76
 msgid "Bitrate"
-msgstr "비트 전송률"
+msgstr "Bit hızı"
 
 #: src/SongPage.cxx:77
 msgid "Format"
-msgstr "형식"
+msgstr "Biçim"
 
 #: src/SongPage.cxx:94
 msgid "Number of artists"
-msgstr "연주가 수"
+msgstr "Sanatçı sayısı"
 
 #: src/SongPage.cxx:95
 msgid "Number of albums"
-msgstr "음반 수"
+msgstr "Albüm sayısı"
 
 #: src/SongPage.cxx:96
 msgid "Number of songs"
-msgstr "곡 수"
+msgstr "Şarkı sayısı"
 
 #: src/SongPage.cxx:97
 msgid "Uptime"
-msgstr "가동시간"
+msgstr "Çalışma süresi"
 
 #: src/SongPage.cxx:98
 msgid "Most recent db update"
-msgstr "마지막 데이터베이스 업데이트"
+msgstr "En son v.t. güncellemesi"
 
 #: src/SongPage.cxx:99
 msgid "Playtime"
-msgstr "연주시간"
+msgstr "Çalma süresi"
 
 #: src/SongPage.cxx:100
 msgid "DB playtime"
-msgstr "데이터베이스 연주시간"
+msgstr "V.T. çalma süresi"
 
 #: src/SongPage.cxx:205
 msgid "Song viewer"
-msgstr "곡 보기"
+msgstr "Şarkı görüntüleyici"
 
 #: src/SongPage.cxx:371
 msgid "MPD statistics"
-msgstr "MPD 통계"
+msgstr "MPD istatistikleri"
 
 #: src/SongPage.cxx:457
 msgid "Selected song"
-msgstr "선택한 곡"
+msgstr "Seçilen şarkı"
 
 #: src/SongPage.cxx:467
 msgid "Currently playing song"
-msgstr "지금 연주 중인 곡"
+msgstr "Çalan şarkı"
 
 #: src/SongPage.cxx:472
 #, c-format
@@ -1155,168 +1156,61 @@ msgstr "%d kbps"
 
 #: src/SongPage.cxx:556
 msgid "Song"
-msgstr "곡"
+msgstr "Şarkı"
 
 #: src/StatusBar.cxx:165
 msgid "Playing:"
-msgstr "연주 중:"
+msgstr "Oynatılıyor:"
 
 #: src/StatusBar.cxx:169
 msgid "[Paused]"
-msgstr "[잠깐 멈춤]"
+msgstr "[Duraklatıldı]"
 
 #: src/Styles.cxx:252 src/Styles.cxx:313
 msgid "Unknown color"
-msgstr "모르는 색상"
+msgstr "Bilinmeyen renk"
 
 #: src/Styles.cxx:323
 msgid "Unknown color field"
-msgstr "모르는 색상 필드"
+msgstr "Bilinmeyen renk alanı"
 
 #: src/Styles.cxx:356
 msgid "Terminal lacks color capabilities"
-msgstr "터미널의 색상 기능이 부족합니다"
+msgstr "Terminal renk özelliklerine sahip değil"
 
 #: src/TagListPage.cxx:71
 msgid "All tracks"
-msgstr "모든 곡"
+msgstr "Tüm parçalar"
 
 #: src/time_format.cxx:44
 msgid "year"
-msgstr "년"
+msgstr "yıl"
 
 #: src/time_format.cxx:46
 msgid "years"
-msgstr "년"
+msgstr "yıl"
 
 #: src/time_format.cxx:54
 msgid "week"
-msgstr "주"
+msgstr "hafta"
 
 #: src/time_format.cxx:57
 msgid "weeks"
-msgstr "주"
+msgstr "hafta"
 
 #: src/time_format.cxx:65
 msgid "day"
-msgstr "일"
+msgstr "gün"
 
 #: src/time_format.cxx:68
 msgid "days"
-msgstr "일"
+msgstr "gün"
 
 #: src/TitleBar.cxx:101
 msgid "Volume n/a"
-msgstr "음량 없음"
+msgstr "Ses yok"
 
 #: src/TitleBar.cxx:103
 #, c-format
 msgid "Volume %d%%"
-msgstr "음량 %d%%"
-
-#~ msgid "Artist screen"
-#~ msgstr "연주가 화면"
-
-#~ msgid "Albums of artist: %s"
-#~ msgstr "아티스트의 앨범: %s"
-
-#~ msgid "All artists"
-#~ msgstr "모든 아티스트"
-
-#~ msgid "All tracks of artist: %s"
-#~ msgstr "아티스트의 모든 트랙: %s"
-
-#, fuzzy
-#~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "아티스트의 앨범: %s"
-
-#, fuzzy
-#~ msgid "Add url/file to queue"
-#~ msgstr "연주목록에 url/파일 더하기"
-
-#~ msgid "Move song up"
-#~ msgstr "곡을 위로 올리기"
-
-#~ msgid "Move song down"
-#~ msgstr "곡을 아래로 내리기"
-
-#~ msgid "Press %s for a new search"
-#~ msgstr "새로운 찾기를 위하여 %s(을)를 누르십시오."
-
-#~ msgid "Search: %s"
-#~ msgstr "찾기: %s"
-
-#~ msgid "Search: Results for %s [%s]"
-#~ msgstr "찾기: %s 결과 [%s]"
-
-#~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "찾기: %s(을)를 눌러 새롭게 찾기 [%s]"
-
-#~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "%s(으)로 연결중입니다. [취소하려면 %s키를 누르십시오]"
-
-#~ msgid "press %s for the key editor"
-#~ msgstr "키 편집기 사용을 위하여 %s(을)를 누르십시오."
-
-#~ msgid "Album: %s - %s"
-#~ msgstr "앨범: %s - %s"
-
-#, fuzzy
-#~ msgid "Adding album %s..."
-#~ msgstr "연주목록 %s(을)를 올리는 중..."
-
-#, fuzzy
-#~ msgid "Adding %s..."
-#~ msgstr "올리는 중..."
-
-#~ msgid "Error: Screen too small"
-#~ msgstr "오류: 화면이 너무 작습니다."
-
-#~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "오류: ~/.ncmpc 폴더를 만들 수 없습니다. - %s"
-
-#~ msgid "Error: %s - %s"
-#~ msgstr "오류: %s - %s"
-
-#, fuzzy
-#~ msgid "%s [%s/%s] "
-#~ msgstr "변경하기 %s [%s/%s] ? "
-
-#~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "연주목록 %s [%s/%s] 삭제하기 ? "
-
-#~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "경고: 알 수 없는 색상 - %s\n"
-
-#~ msgid "Shuffled playlist"
-#~ msgstr "섞여진 연주목록"
-
-#~ msgid "Cleared playlist"
-#~ msgstr "지워진 연주목록"
-
-#~ msgid "Save playlist as"
-#~ msgstr "연주목록으로 저장"
-
-#~ msgid "Playlist"
-#~ msgstr "연주 목록"
-
-#~ msgid "Playlist on %s"
-#~ msgstr "%s 상의 연주목록"
-
-#~ msgid "Playlist screen"
-#~ msgstr "연주목록 화면"
-
-#~ msgid "Shuffle playlist"
-#~ msgstr "연주목록 섞기"
-
-#~ msgid "Clear playlist"
-#~ msgstr "연주목록 비우기"
-
-#~ msgid "Save playlist"
-#~ msgstr "연주목록 저장"
-
-#~ msgid "Search: "
-#~ msgstr "찾기: "
-
-#~ msgid "Explicitly download lyrics"
-#~ msgstr "가사를 명식적으로 다운로드"
+msgstr "Ses %d%%"

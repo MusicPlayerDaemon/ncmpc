@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2021-11-08 13:50+0000\n"
+"PO-Revision-Date: 2022-10-17 00:55+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/ncmpc/"
 "translations/he/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.15-dev\n"
 "X-Launchpad-Export-Date: 2010-09-07 18:28+0000\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
@@ -525,9 +525,8 @@ msgid "Remove selected keydef"
 msgstr "הסר שוני מקשים"
 
 #: src/HelpPage.cxx:215
-#, fuzzy
 msgid "Add a keydef"
-msgstr "הוסף מקש חדש"
+msgstr "הוספת שוני מקשים"
 
 #: src/HelpPage.cxx:216
 msgid "Go up a level"
@@ -801,7 +800,7 @@ msgstr ""
 #: src/OutputsPage.cxx:168
 #, c-format
 msgid "Switched to partition '%s'"
-msgstr ""
+msgstr "עברת למחיצה ‚%s’"
 
 #: src/OutputsPage.cxx:180 src/SongPage.cxx:69
 msgid "Name"

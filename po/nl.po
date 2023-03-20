@@ -8,291 +8,293 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-24 15:23+0200\n"
-"PO-Revision-Date: 2010-02-24 11:17+0000\n"
-"Last-Translator: Tom Postma <tom-postma@hetnet.nl>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"PO-Revision-Date: 2022-08-23 03:43+0000\n"
+"Last-Translator: JeibborRip <rob.jorna@gmail.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/ncmpc/translations/"
+"nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14-dev\n"
 "X-Launchpad-Export-Date: 2010-04-05 17:16+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr ""
+msgstr "Toets %s is toegewezen aan %s en %s"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
-msgstr ""
+msgstr "Babbel"
 
 #: src/ChatPage.cxx:163
 msgid "Your message"
-msgstr ""
+msgstr "Jouw bericht"
 
 #: src/ChatPage.cxx:172
 msgid "Message could not be sent"
-msgstr ""
+msgstr "Bericht kon niet worden verstuurd"
 
 #: src/Command.cxx:30
 msgid "Key configuration screen"
-msgstr ""
+msgstr "Instel scherm voor toets bediening"
 
 #: src/Command.cxx:33
 msgid "Quit"
-msgstr ""
+msgstr "Afsluiten"
 
 #: src/Command.cxx:37
 msgid "Move cursor up"
-msgstr ""
+msgstr "Cursor omhoog"
 
 #: src/Command.cxx:39
 msgid "Move cursor down"
-msgstr ""
+msgstr "Beweeg cursor omlaag"
 
 #: src/Command.cxx:41
 msgid "Move cursor to the top of screen"
-msgstr ""
+msgstr "Plaats de cursor naar het begin van het scherm"
 
 #: src/Command.cxx:43
 msgid "Move cursor to the middle of screen"
-msgstr ""
+msgstr "Plaats de cursor in het midden van het scherm"
 
 #: src/Command.cxx:45
 msgid "Move cursor to the bottom of screen"
-msgstr ""
+msgstr "Plaats de cursor onder aan het scherm"
 
 #: src/Command.cxx:47
 msgid "Move cursor to the top of the list"
-msgstr ""
+msgstr "Plaats de cursor naar het begin van de lijst"
 
 #: src/Command.cxx:49
 msgid "Move cursor to the bottom of the list"
-msgstr ""
+msgstr "Plaats de cursor naar het einde van de lijst"
 
 #: src/Command.cxx:51
 msgid "Page up"
-msgstr ""
+msgstr "Pagina omhoog"
 
 #: src/Command.cxx:53
 msgid "Page down"
-msgstr ""
+msgstr "Pagina omlaag"
 
 #: src/Command.cxx:55
 msgid "Range selection"
-msgstr ""
+msgstr "Selecteer bereik"
 
 #: src/Command.cxx:57
 msgid "Scroll down one line"
-msgstr ""
+msgstr "Eén regel omlaag scrollen"
 
 #: src/Command.cxx:59
 msgid "Scroll up one line"
-msgstr ""
+msgstr "Eén regel omhoog scrollen"
 
 #: src/Command.cxx:61
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "Een halve pagina omhoog scrollen"
 
 #: src/Command.cxx:63
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "Een halve pagina omlaag scrollen"
 
 #: src/Command.cxx:65
 msgid "Select currently playing song"
-msgstr ""
+msgstr "Selecteer huidig nummer"
 
 #: src/Command.cxx:70
 msgid "Help screen"
-msgstr ""
+msgstr "Help scherm"
 
 #: src/Command.cxx:72 src/HelpPage.cxx:141
 msgid "Queue screen"
-msgstr ""
+msgstr "Scherm met afspeellijst"
 
 #: src/Command.cxx:74 src/HelpPage.cxx:156
 msgid "Browse screen"
-msgstr ""
+msgstr "Bladerscherm"
 
 #: src/Command.cxx:79
 msgid "Play/Enter directory"
-msgstr ""
+msgstr "Speel/toon map"
 
 #: src/Command.cxx:81
 msgid "Pause"
-msgstr ""
+msgstr "Pauzeer"
 
 #: src/Command.cxx:83
 msgid "Stop"
-msgstr ""
+msgstr "Afsluiten"
 
 #: src/Command.cxx:85
 msgid "Crop"
-msgstr ""
+msgstr "Bijsnijden"
 
 #: src/Command.cxx:87
 msgid "Next track"
-msgstr ""
+msgstr "Volgend nummer"
 
 #: src/Command.cxx:89
 msgid "Previous track"
-msgstr ""
+msgstr "Vorig nummer"
 
 #: src/Command.cxx:91
 msgid "Seek forward"
-msgstr ""
+msgstr "Omlaag zoeken"
 
 #: src/Command.cxx:93
 msgid "Seek backward"
-msgstr ""
+msgstr "Omhoog zoeken"
 
 #: src/Command.cxx:95
 msgid "Increase volume"
-msgstr ""
+msgstr "Harder"
 
 #: src/Command.cxx:97
 msgid "Decrease volume"
-msgstr ""
+msgstr "Zachter"
 
 #: src/Command.cxx:99
 msgid "Select/deselect song in queue"
-msgstr ""
+msgstr "Selecteer/deselecteer nummer in lijst"
 
 #: src/Command.cxx:101
 msgid "Select all listed items"
-msgstr ""
+msgstr "Kies selectie"
 
 #: src/Command.cxx:103
 msgid "Delete song from queue"
-msgstr ""
+msgstr "Verwijder nummer uit de afspeellijst"
 
 #: src/Command.cxx:105
 msgid "Shuffle queue"
-msgstr ""
+msgstr "Herschik de wachtrij"
 
 #: src/Command.cxx:107
 msgid "Clear queue"
-msgstr ""
+msgstr "Leeg huidige afspeellijst"
 
 #: src/Command.cxx:109
 msgid "Toggle repeat mode"
-msgstr ""
+msgstr "Verander de herhaal modus"
 
 #: src/Command.cxx:111
 msgid "Toggle random mode"
-msgstr ""
+msgstr "Willekeur aan/uit zetten"
 
 #: src/Command.cxx:113
 msgid "Toggle single mode"
-msgstr ""
+msgstr "Herhalen aan/uit zetten"
 
 #: src/Command.cxx:115
 msgid "Toggle consume mode"
-msgstr ""
+msgstr "Huidige speellijst bewaren of niet"
 
 #: src/Command.cxx:117
 msgid "Toggle crossfade mode"
-msgstr ""
+msgstr "Nummers in elkaar overvloeien of niet"
 
 #: src/Command.cxx:119
 msgid "Start a music database update"
-msgstr ""
+msgstr "Start een update van de muziekdatabase"
 
 #: src/Command.cxx:121
 msgid "Save queue"
-msgstr ""
+msgstr "Wachtrij bewaren"
 
 #: src/Command.cxx:123 src/HelpPage.cxx:175
 msgid "Append song to queue"
-msgstr ""
+msgstr "Aan de wachtrij toevoegen"
 
 #: src/Command.cxx:126
 msgid "Go to root directory"
-msgstr ""
+msgstr "Naar de hoofdmap"
 
 #: src/Command.cxx:128
 msgid "Go to parent directory"
-msgstr ""
+msgstr "Naar de bovenliggende map"
 
 #: src/Command.cxx:131
 msgid "Locate song in browser"
-msgstr ""
+msgstr "Focus nummer in overzicht"
 
 #: src/Command.cxx:135
 msgid "Move item up"
-msgstr ""
+msgstr "Verplaats item omhoog"
 
 #: src/Command.cxx:137
 msgid "Move item down"
-msgstr ""
+msgstr "Verplaats item omlaag"
 
 #: src/Command.cxx:139
 msgid "Refresh screen"
-msgstr ""
+msgstr "Beeld opnieuw opbouwen"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
 #: src/Command.cxx:146
 msgid "Toggle find mode"
-msgstr ""
+msgstr "Verander de manier van zoeken"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
 #: src/Command.cxx:150
 msgid "Toggle auto center mode"
-msgstr ""
+msgstr "Automatisch centreren aan/uitzetten"
 
 #: src/Command.cxx:155
 msgid "Next screen"
-msgstr ""
+msgstr "Volgende pagina"
 
 #: src/Command.cxx:157
 msgid "Previous screen"
-msgstr ""
+msgstr "Vorige pagina"
 
 #: src/Command.cxx:159
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "Terug naar het vorige overzicht"
 
 #: src/Command.cxx:164
 msgid "Forward find"
-msgstr ""
+msgstr "Zoek vooruit"
 
 #: src/Command.cxx:166
 msgid "Forward find next"
-msgstr ""
+msgstr "Volgende vondst"
 
 #: src/Command.cxx:168
 msgid "Backward find"
-msgstr ""
+msgstr "Achterwaarts zoeken"
 
 #: src/Command.cxx:170
 msgid "Backward find previous"
-msgstr ""
+msgstr "Vorige achterwaartse vondst"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
 #: src/Command.cxx:175
 msgid "Jump to"
-msgstr ""
+msgstr "Ga naar"
 
 #: src/Command.cxx:181
 msgid "Library page"
-msgstr ""
+msgstr "Overzicht muziek verzameling"
 
 #: src/Command.cxx:185 src/HelpPage.cxx:170
 msgid "Search screen"
-msgstr ""
+msgstr "Onderzoek"
 
 #: src/Command.cxx:187
 msgid "Change search mode"
-msgstr ""
+msgstr "Manier van zoeken aanpassen"
 
 #: src/Command.cxx:191
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "Informatie over het huidig spelende / geselecteerde nummer"
 
 #: src/Command.cxx:195 src/HelpPage.cxx:182
 msgid "Lyrics screen"
