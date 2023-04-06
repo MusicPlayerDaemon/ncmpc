@@ -2,7 +2,6 @@
 // Copyright The Music Player Daemon Project
 
 #include "XdgBaseDirectory.hxx"
-#include "config.h"
 #include "io/Path.hxx"
 
 #include <stdlib.h>
@@ -47,9 +46,10 @@ GetHomeConfigDirectory(std::string_view package) noexcept
 }
 
 std::string
-MakeUserConfigPath(std::string_view filename) noexcept
+MakeUserConfigPath(std::string_view package,
+		   std::string_view filename) noexcept
 {
-	const auto directory = GetHomeConfigDirectory(PACKAGE);
+	const auto directory = GetHomeConfigDirectory(package);
 	if (directory.empty())
 		return {};
 

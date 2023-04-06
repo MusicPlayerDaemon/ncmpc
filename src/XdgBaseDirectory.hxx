@@ -26,7 +26,8 @@ GetHomeConfigDirectory(std::string_view package) noexcept;
  * directory could be created
  */
 std::string
-MakeUserConfigPath(std::string_view filename) noexcept;
+MakeUserConfigPath(std::string_view package,
+		   std::string_view filename) noexcept;
 
 [[gnu::const]]
 std::string

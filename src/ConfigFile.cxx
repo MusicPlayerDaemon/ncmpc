@@ -34,7 +34,7 @@ IsFile(const char *path) noexcept
 std::string
 MakeKeysPath()
 {
-	return MakeUserConfigPath(KEYS_FILENAME);
+	return MakeUserConfigPath(PACKAGE, KEYS_FILENAME);
 }
 
 std::string
