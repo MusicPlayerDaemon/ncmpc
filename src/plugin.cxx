@@ -14,6 +14,7 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <spawn.h>
 #include <unistd.h>
 #include <dirent.h>
 #include <signal.h>
@@ -248,27 +249,19 @@ PluginCycle::LaunchPlugin(const char *plugin_path) noexcept
 	    !UniqueFileDescriptor::CreatePipe(stderr_r, stderr_w))
 		return -1;
 
-	pid = fork();
+	posix_spawn_file_actions_t file_actions;
+	posix_spawn_file_actions_init(&file_actions);
+	AtScopeExit(&file_actions) { posix_spawn_file_actions_destroy(&file_actions); };
 
-	if (pid < 0)
+	posix_spawn_file_actions_addclose(&file_actions, STDIN_FILENO);
+	posix_spawn_file_actions_adddup2(&file_actions, stdout_w.Get(),
+					 STDOUT_FILENO);
+	posix_spawn_file_actions_adddup2(&file_actions, stderr_w.Get(),
+					 STDERR_FILENO);
+
+	if (posix_spawn(&pid, plugin_path, &file_actions, nullptr,
+			argv.get(), environ) != 0)
 		return -1;
-
-	if (pid == 0) {
-		stdout_w.Duplicate(FileDescriptor(STDOUT_FILENO));
-		stderr_w.Duplicate(FileDescriptor(STDERR_FILENO));
-
-		stdout_r.Close();
-		stdout_w.Close();
-		stderr_r.Close();
-		stderr_w.Close();
-		close(0);
-		/* XXX close other fds? */
-
-		execv(plugin_path, argv.get());
-		_exit(1);
-	}
-
-	/* XXX CLOEXEC? */
 
 	pipe_stdout.Start(std::move(stdout_r));
 	pipe_stderr.Start(std::move(stderr_r));
