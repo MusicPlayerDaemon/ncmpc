@@ -39,15 +39,14 @@
 #endif
 
 static Instance *global_instance;
-static struct mpdclient *mpd = nullptr;
 
 ScreenManager *screen;
 
 #ifndef NCMPC_MINI
 static void
-update_xterm_title() noexcept
+update_xterm_title(struct mpdclient &client) noexcept
 {
-	const struct mpd_song *song = mpd->GetPlayingSong();
+	const struct mpd_song *song = client.GetPlayingSong();
 
 	static constexpr std::size_t BUFSIZE = 1024;
 
@@ -71,15 +70,15 @@ update_xterm_title() noexcept
 #endif
 
 static bool
-should_enable_update_timer() noexcept
+should_enable_update_timer(struct mpdclient &client) noexcept
 {
-	return mpd->playing;
+	return client.playing;
 }
 
 static void
 auto_update_timer(Instance &instance) noexcept
 {
-	if (should_enable_update_timer())
+	if (should_enable_update_timer(instance.GetClient()))
 		instance.EnableUpdateTimer();
 	else
 		instance.DisableUpdateTimer();
@@ -94,7 +93,7 @@ Instance::UpdateClient() noexcept
 
 #ifndef NCMPC_MINI
 	if (options.enable_xterm_title)
-		update_xterm_title();
+		update_xterm_title(client);
 #endif
 
 	screen_manager.Update(client, seek);
@@ -118,14 +117,15 @@ mpdclient_connected_callback() noexcept
 {
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.14 - song id not supported by mpd */
-	auto *connection = mpd->GetConnection();
+	auto &client = global_instance->GetClient();
+	auto *connection = client.GetConnection();
 	if (mpd_connection_cmp_server_version(connection, 0, 21, 0) < 0) {
 		const unsigned *version =
 			mpd_connection_get_server_version(connection);
 		screen_status_printf(_("Error: MPD version %d.%d.%d is too old (%s needed)"),
 				     version[0], version[1], version[2],
 				     "0.21.0");
-		mpd->Disconnect();
+		client.Disconnect();
 		doupdate();
 
 		/* try again after 30 seconds */
@@ -152,7 +152,8 @@ mpdclient_failed_callback() noexcept
 void
 mpdclient_lost_callback() noexcept
 {
-	screen->Update(*mpd, global_instance->GetSeek());
+	screen->Update(global_instance->GetClient(),
+		       global_instance->GetSeek());
 
 	global_instance->ScheduleReconnect(std::chrono::seconds(1));
 }
@@ -164,12 +165,14 @@ mpdclient_lost_callback() noexcept
 void
 mpdclient_idle_callback([[maybe_unused]] unsigned events) noexcept
 {
+	auto &client = global_instance->GetClient();
+
 #ifndef NCMPC_MINI
 	if (options.enable_xterm_title)
-		update_xterm_title();
+		update_xterm_title(client);
 #endif
 
-	screen->Update(*mpd, global_instance->GetSeek());
+	screen->Update(client, global_instance->GetSeek());
 	auto_update_timer(*global_instance);
 }
 
@@ -181,7 +184,7 @@ Instance::OnUpdateTimer() noexcept
 
 	UpdateClient();
 
-	if (should_enable_update_timer())
+	if (should_enable_update_timer(client))
 		ScheduleUpdateTimer();
 }
 
@@ -192,8 +195,10 @@ begin_input_event() noexcept
 
 void end_input_event() noexcept
 {
-	screen->Update(*mpd, global_instance->GetSeek());
-	mpd->events = (enum mpd_idle)0;
+	auto &client = global_instance->GetClient();
+
+	screen->Update(client, global_instance->GetSeek());
+	client.events = (enum mpd_idle)0;
 
 	auto_update_timer(*global_instance);
 }
@@ -207,7 +212,8 @@ do_input_event(EventLoop &event_loop, Command cmd) noexcept
 	}
 
 	try {
-		screen->OnCommand(*mpd, global_instance->GetSeek(), cmd);
+		screen->OnCommand(global_instance->GetClient(),
+				  global_instance->GetSeek(), cmd);
 	} catch (...) {
 		screen_status_error(std::current_exception());
 		return true;
@@ -226,7 +232,8 @@ void
 do_mouse_event(Point p, mmask_t bstate) noexcept
 {
 	try {
-		screen->OnMouse(*mpd, global_instance->GetSeek(), p, bstate);
+		screen->OnMouse(global_instance->GetClient(),
+				global_instance->GetSeek(), p, bstate);
 	} catch (...) {
 		screen_status_error(std::current_exception());
 	}
@@ -302,7 +309,6 @@ try {
 	/* create the global Instance */
 	Instance instance;
 	global_instance = &instance;
-	mpd = &instance.GetClient();
 	screen = &instance.GetScreenManager();
 
 	AtScopeExit() {
