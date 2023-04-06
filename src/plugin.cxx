@@ -21,6 +21,10 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
+#ifdef __APPLE__
+extern char **environ;
+#endif
+
 struct PluginCycle;
 
 class PluginPipe {
