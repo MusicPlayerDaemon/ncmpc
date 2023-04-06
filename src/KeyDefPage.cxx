@@ -284,8 +284,6 @@ CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 	default:
 		return false;
 	}
-
-	return false;
 }
 
 class CommandListPage final : public ListPage, ListText {
