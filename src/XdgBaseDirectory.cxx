@@ -15,7 +15,8 @@ IsDirectory(const char *path) noexcept
 	return stat(path, &st) == 0 && S_ISDIR(st.st_mode);
 }
 
-const char *
+[[gnu::const]]
+static const char *
 GetHomeDirectory() noexcept
 {
 	return getenv("HOME");

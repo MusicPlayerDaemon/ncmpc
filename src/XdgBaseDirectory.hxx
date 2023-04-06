@@ -8,10 +8,6 @@
 #include <string_view>
 
 [[gnu::const]]
-const char *
-GetHomeDirectory() noexcept;
-
-[[gnu::const]]
 std::string
 GetHomeConfigDirectory() noexcept;
 
