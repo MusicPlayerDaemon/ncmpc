@@ -9,7 +9,7 @@
 #include <curses.h>
 
 class AsyncUserInput {
-	PipeEvent socket_event;
+	PipeEvent stdin_event;
 
 	WINDOW &w;
 

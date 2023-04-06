@@ -54,7 +54,7 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 
 	begin_input_event();
 
-	if (!do_input_event(socket_event.GetEventLoop(), cmd))
+	if (!do_input_event(stdin_event.GetEventLoop(), cmd))
 		return;
 
 	end_input_event();
@@ -62,11 +62,11 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 }
 
 AsyncUserInput::AsyncUserInput(EventLoop &event_loop, WINDOW &_w) noexcept
-	:socket_event(event_loop, BIND_THIS_METHOD(OnSocketReady),
+	:stdin_event(event_loop, BIND_THIS_METHOD(OnSocketReady),
 		      FileDescriptor{STDIN_FILENO}),
 	 w(_w)
 {
-	socket_event.ScheduleRead();
+	stdin_event.ScheduleRead();
 }
 
 void
