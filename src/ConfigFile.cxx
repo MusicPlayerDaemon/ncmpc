@@ -40,7 +40,7 @@ MakeKeysPath()
 std::string
 GetUserConfigPath() noexcept
 {
-	const auto dir = GetHomeConfigDirectory(PACKAGE);
+	const auto dir = GetUserConfigDirectory(PACKAGE);
 	if (dir.empty())
 		return {};
 
@@ -69,7 +69,7 @@ GetSystemConfigPath() noexcept
 static std::string
 GetUserKeysPath() noexcept
 {
-	const auto dir = GetHomeConfigDirectory(PACKAGE);
+	const auto dir = GetUserConfigDirectory(PACKAGE);
 	if (dir.empty())
 		return {};
 

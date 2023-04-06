@@ -17,20 +17,20 @@ IsDirectory(const char *path) noexcept
 
 [[gnu::const]]
 static const char *
-GetHomeDirectory() noexcept
+GetUserDirectory() noexcept
 {
 	return getenv("HOME");
 }
 
 [[gnu::const]]
 static std::string
-GetHomeConfigDirectory() noexcept
+GetUserConfigDirectory() noexcept
 {
 	const char *config_home = getenv("XDG_CONFIG_HOME");
 	if (config_home != nullptr && *config_home != 0)
 		return config_home;
 
-	const char *home = GetHomeDirectory();
+	const char *home = GetUserDirectory();
 	if (home != nullptr)
 		return BuildPath(home, ".config");
 
@@ -38,9 +38,9 @@ GetHomeConfigDirectory() noexcept
 }
 
 std::string
-GetHomeConfigDirectory(std::string_view package) noexcept
+GetUserConfigDirectory(std::string_view package) noexcept
 {
-	const auto dir = GetHomeConfigDirectory();
+	const auto dir = GetUserConfigDirectory();
 	if (dir.empty())
 		return {};
 
@@ -51,7 +51,7 @@ std::string
 MakeUserConfigPath(std::string_view package,
 		   std::string_view filename) noexcept
 {
-	const auto directory = GetHomeConfigDirectory(package);
+	const auto directory = GetUserConfigDirectory(package);
 	if (directory.empty())
 		return {};
 
@@ -63,13 +63,13 @@ MakeUserConfigPath(std::string_view package,
 
 [[gnu::const]]
 static std::string
-GetHomeCacheDirectory() noexcept
+GetUserCacheDirectory() noexcept
 {
 	const char *cache_home = getenv("XDG_CACHE_HOME");
 	if (cache_home != nullptr && *cache_home != 0)
 		return cache_home;
 
-	const char *home = GetHomeDirectory();
+	const char *home = GetUserDirectory();
 	if (home != nullptr)
 		return BuildPath(home, ".cache");
 
@@ -77,9 +77,9 @@ GetHomeCacheDirectory() noexcept
 }
 
 std::string
-GetHomeCacheDirectory(std::string_view package) noexcept
+GetUserCacheDirectory(std::string_view package) noexcept
 {
-	const auto dir = GetHomeCacheDirectory();
+	const auto dir = GetUserCacheDirectory();
 	if (dir.empty())
 		return {};
 

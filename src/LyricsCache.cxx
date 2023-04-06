@@ -13,7 +13,7 @@
 static std::string
 GetLyricsCacheDirectory() noexcept
 {
-	const auto ncmpc_cache_directory = GetHomeCacheDirectory(PACKAGE);
+	const auto ncmpc_cache_directory = GetUserCacheDirectory(PACKAGE);
 	if (ncmpc_cache_directory.empty())
 		return {};
 

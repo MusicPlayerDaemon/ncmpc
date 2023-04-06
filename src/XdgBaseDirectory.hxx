@@ -9,7 +9,7 @@
 
 [[gnu::pure]]
 std::string
-GetHomeConfigDirectory(std::string_view package) noexcept;
+GetUserConfigDirectory(std::string_view package) noexcept;
 
 /**
  * Find or create the directory for writing configuration files.
@@ -23,6 +23,6 @@ MakeUserConfigPath(std::string_view package,
 
 [[gnu::pure]]
 std::string
-GetHomeCacheDirectory(std::string_view package) noexcept;
+GetUserCacheDirectory(std::string_view package) noexcept;
 
 #endif
