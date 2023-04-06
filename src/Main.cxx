@@ -38,8 +38,6 @@
 #include <locale.h>
 #endif
 
-#define BUFSIZE 1024
-
 static Instance *global_instance;
 static struct mpdclient *mpd = nullptr;
 
@@ -50,6 +48,8 @@ static void
 update_xterm_title() noexcept
 {
 	const struct mpd_song *song = mpd->GetPlayingSong();
+
+	static constexpr std::size_t BUFSIZE = 1024;
 
 	char tmp[BUFSIZE];
 	const char *new_title = nullptr;
