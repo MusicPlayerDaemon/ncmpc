@@ -34,7 +34,12 @@ IsFile(const char *path) noexcept
 std::string
 MakeKeysPath()
 {
-	return MakeUserConfigPath(PACKAGE, KEYS_FILENAME);
+	const auto dir = GetUserConfigDirectory(PACKAGE);
+	if (dir.empty())
+		return {};
+
+	mkdir(dir.c_str(), 0777);
+	return BuildPath(dir, KEYS_FILENAME);
 }
 
 std::string
