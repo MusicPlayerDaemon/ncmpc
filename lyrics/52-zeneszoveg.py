@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 #
 #  Copyright 2004-2021 The Music Player Daemon Project
 #  http://www.musicpd.org/
