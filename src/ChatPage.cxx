@@ -144,7 +144,8 @@ ChatPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	if (cmd == Command::PLAY) {
-		auto message = screen_readln(_("Your message"), nullptr, nullptr, nullptr);
+		auto message = screen_readln(screen, _("Your message"),
+					     nullptr, nullptr, nullptr);
 
 		/* the user entered an empty line */
 		if (message.empty())

@@ -43,7 +43,7 @@ screen_find(ScreenManager &screen, ListWindow &lw, Command findcmd,
 		if (screen.findbuf.empty()) {
 			char *value = options.find_show_last_pattern
 				? (char *) -1 : nullptr;
-			screen.findbuf=screen_readln(prompt,
+			screen.findbuf=screen_readln(screen, prompt,
 						     value,
 						     &screen.find_history,
 						     nullptr);
@@ -91,7 +91,7 @@ screen_jump(ScreenManager &screen, ListWindow &lw,
 	char *iter = search_str;
 
 	while(1) {
-		key = screen_getch(buffer);
+		key = screen_getch(screen, buffer);
 		/* if backspace or delete was pressed, process instead of ending loop */
 		if (key == KEY_BACKSPACE || key == KEY_DC) {
 			const char *prev = PrevCharMB(buffer, iter);

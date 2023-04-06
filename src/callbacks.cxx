@@ -5,6 +5,7 @@
 #include "screen_utils.hxx"
 #include "screen_status.hxx"
 #include "mpdclient.hxx"
+#include "ncmpc.hxx"
 
 #include <curses.h>
 
@@ -17,7 +18,7 @@ mpdclient_auth_callback(struct mpdclient *c) noexcept
 
 	mpd_connection_clear_error(connection);
 
-	const auto password = screen_read_password(nullptr);
+	const auto password = screen_read_password(*screen, nullptr);
 	if (password.empty())
 		return false;
 

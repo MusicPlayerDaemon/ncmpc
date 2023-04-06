@@ -234,12 +234,14 @@ add_dir(Completion &completion, const char *dir,
 }
 
 class DatabaseCompletion final : public Completion {
+	ScreenManager &screen;
 	struct mpdclient &c;
 	std::set<std::string> dir_list;
 
 public:
-	explicit DatabaseCompletion(struct mpdclient &_c) noexcept
-		:c(_c) {}
+	DatabaseCompletion(ScreenManager &_screen,
+			   struct mpdclient &_c) noexcept
+		:screen(_screen), c(_c) {}
 
 protected:
 	/* virtual methods from class Completion */
@@ -266,7 +268,7 @@ DatabaseCompletion::Post(const char *line, Range range) noexcept
 {
 	if (range.begin() != range.end() &&
 	    std::next(range.begin()) != range.end())
-		screen_display_completion_list(range);
+		screen_display_completion_list(screen, range);
 
 	if (line && line[0] && line[strlen(line) - 1] == '/') {
 		/* add directory content to list */
@@ -279,18 +281,18 @@ DatabaseCompletion::Post(const char *line, Range range) noexcept
 #endif
 
 static int
-handle_add_to_playlist(struct mpdclient *c)
+handle_add_to_playlist(ScreenManager &screen, struct mpdclient *c)
 {
 #ifndef NCMPC_MINI
 	/* initialize completion support */
-	DatabaseCompletion _completion(*c);
+	DatabaseCompletion _completion{screen, *c};
 	Completion *completion = &_completion;
 #else
 	Completion *completion = nullptr;
 #endif
 
 	/* get path */
-	auto path = screen_readln(_("Add"),
+	auto path = screen_readln(screen, _("Add"),
 				  nullptr,
 				  nullptr,
 				  completion);
@@ -600,11 +602,11 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	}
 
 	case Command::SAVE_PLAYLIST:
-		playlist_save(&c, nullptr, nullptr);
+		playlist_save(screen, &c, nullptr, nullptr);
 		return true;
 
 	case Command::ADD:
-		handle_add_to_playlist(&c);
+		handle_add_to_playlist(screen, &c);
 		return true;
 
 	case Command::SHUFFLE: {

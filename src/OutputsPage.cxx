@@ -96,6 +96,8 @@ class OutputsPage final : public ListPage, ListRenderer {
 		}
 	};
 
+	ScreenManager &screen;
+
 	std::vector<Item> items;
 
 #if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
@@ -103,8 +105,8 @@ class OutputsPage final : public ListPage, ListRenderer {
 #endif
 
 public:
-	OutputsPage(WINDOW *w, Size size)
-		:ListPage(w, size) {}
+	OutputsPage(ScreenManager &_screen, WINDOW *w, Size size)
+		:ListPage(w, size), screen(_screen) {}
 
 private:
 	void Clear();
@@ -161,7 +163,7 @@ OutputsPage::CreateNewPartition(struct mpdclient &c) noexcept
 	if (connection == nullptr)
 		return false;
 
-	auto name = screen_readln(_("Name"), nullptr, nullptr, nullptr);
+	auto name = screen_readln(screen, _("Name"), nullptr, nullptr, nullptr);
 	if (name.empty())
 		return false;
 
@@ -342,9 +344,9 @@ OutputsPage::Reload(struct mpdclient &c) noexcept
 }
 
 static std::unique_ptr<Page>
-outputs_init(ScreenManager &, WINDOW *w, Size size)
+outputs_init(ScreenManager &screen, WINDOW *w, Size size)
 {
-	return std::make_unique<OutputsPage>(w, size);
+	return std::make_unique<OutputsPage>(screen, w, size);
 }
 
 const char *

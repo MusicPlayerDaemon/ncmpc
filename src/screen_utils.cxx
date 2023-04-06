@@ -8,7 +8,6 @@
 #include "Options.hxx"
 #include "Styles.hxx"
 #include "wreadln.hxx"
-#include "ncmpc.hxx"
 #include "config.h"
 
 #ifndef _WIN32
@@ -39,9 +38,9 @@ ignore_key(int key) noexcept
 }
 
 int
-screen_getch(const char *prompt) noexcept
+screen_getch(ScreenManager &screen, const char *prompt) noexcept
 {
-	WINDOW *w = screen->status_bar.GetWindow().w;
+	WINDOW *w = screen.status_bar.GetWindow().w;
 
 	SelectStyle(w, Style::STATUS_ALERT);
 	werase(w);
@@ -76,7 +75,7 @@ screen_getch(const char *prompt) noexcept
 }
 
 bool
-screen_get_yesno(const char *_prompt, bool def) noexcept
+screen_get_yesno(ScreenManager &screen, const char *_prompt, bool def) noexcept
 {
 	/* NOTE: if one day a translator decides to use a multi-byte character
 	   for one of the yes/no keys, we'll have to parse it properly */
@@ -85,7 +84,7 @@ screen_get_yesno(const char *_prompt, bool def) noexcept
 	snprintf(prompt, sizeof(prompt),
 		 "%s [%s/%s] ", _prompt,
 		 YES_TRANSLATION, NO_TRANSLATION);
-	int key = tolower(screen_getch(prompt));
+	int key = tolower(screen_getch(screen, prompt));
 	if (key == YES_TRANSLATION[0])
 		return true;
 	else if (key == NO_TRANSLATION[0])
@@ -95,12 +94,12 @@ screen_get_yesno(const char *_prompt, bool def) noexcept
 }
 
 std::string
-screen_readln(const char *prompt,
+screen_readln(ScreenManager &screen, const char *prompt,
 	      const char *value,
 	      History *history,
 	      Completion *completion) noexcept
 {
-	auto *window = &screen->status_bar.GetWindow();
+	auto *window = &screen.status_bar.GetWindow();
 	WINDOW *w = window->w;
 
 	wmove(w, 0,0);
@@ -122,9 +121,9 @@ screen_readln(const char *prompt,
 }
 
 std::string
-screen_read_password(const char *prompt) noexcept
+screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 {
-	auto *window = &screen->status_bar.GetWindow();
+	auto *window = &screen.status_bar.GetWindow();
 	WINDOW *w = window->w;
 
 	wmove(w, 0,0);
@@ -168,16 +167,16 @@ CompletionDisplayString(const char *value) noexcept
 }
 
 void
-screen_display_completion_list(Completion::Range range) noexcept
+screen_display_completion_list(ScreenManager &screen, Completion::Range range) noexcept
 {
 	static Completion::Range prev_range;
 	static size_t prev_length = 0;
 	static unsigned offset = 0;
-	WINDOW *w = screen->main_window.w;
+	WINDOW *w = screen.main_window.w;
 
 	size_t length = std::distance(range.begin(), range.end());
 	if (range == prev_range && length == prev_length) {
-		offset += screen->main_window.size.height;
+		offset += screen.main_window.size.height;
 		if (offset >= length)
 			offset = 0;
 	} else {
@@ -189,7 +188,7 @@ screen_display_completion_list(Completion::Range range) noexcept
 	SelectStyle(w, Style::STATUS_ALERT);
 
 	auto i = std::next(range.begin(), offset);
-	for (unsigned y = 0; y < screen->main_window.size.height; ++y, ++i) {
+	for (unsigned y = 0; y < screen.main_window.size.height; ++y, ++i) {
 		wmove(w, y, 0);
 		if (i == range.end())
 			break;

@@ -413,7 +413,7 @@ SearchPage::Start(struct mpdclient &c)
 
 	Clear(true);
 
-	pattern = screen_readln(_("Search"),
+	pattern = screen_readln(screen, _("Search"),
 				nullptr,
 				&search_history,
 				nullptr);

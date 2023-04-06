@@ -4,10 +4,12 @@
 #ifndef SAVE_PLAYLIST_H
 #define SAVE_PLAYLIST_H
 
+class ScreenManager;
 struct mpdclient;
 
 int
-playlist_save(struct mpdclient *c, const char *name,
+playlist_save(ScreenManager &screen, struct mpdclient *c,
+	      const char *name,
 	      const char *defaultname) noexcept;
 
 #endif

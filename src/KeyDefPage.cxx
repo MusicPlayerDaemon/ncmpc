@@ -159,7 +159,7 @@ CommandKeysPage::OverwriteKey(int key_index)
 	snprintf(prompt, sizeof(prompt),
 		 _("Enter new key for %s: "),
 		 get_key_command_name(Command(subcmd)));
-	const int key = screen_getch(prompt);
+	const int key = screen_getch(screen, prompt);
 
 	if (key == ERR) {
 		screen_status_message(_("Aborted"));

@@ -18,11 +18,13 @@
 #ifndef NCMPC_MINI
 
 class PlaylistNameCompletion final : public Completion {
+	ScreenManager &screen;
 	struct mpdclient &c;
 
 public:
-	explicit PlaylistNameCompletion(struct mpdclient &_c) noexcept
-		:c(_c) {}
+	PlaylistNameCompletion(ScreenManager &_screen,
+			       struct mpdclient &_c) noexcept
+		:screen(_screen), c(_c) {}
 
 protected:
 	/* virtual methods from class Completion */
@@ -45,13 +47,14 @@ PlaylistNameCompletion::Post([[maybe_unused]] const char *value,
 {
 	if (range.begin() != range.end() &&
 	    std::next(range.begin()) != range.end())
-		screen_display_completion_list(range);
+		screen_display_completion_list(screen, range);
 }
 
 #endif
 
 int
-playlist_save(struct mpdclient *c, const char *name,
+playlist_save(ScreenManager &screen, struct mpdclient *c,
+	      const char *name,
 	      const char *defaultname) noexcept
 {
 	std::string filename;
@@ -61,12 +64,12 @@ playlist_save(struct mpdclient *c, const char *name,
 		Completion *completion = nullptr;
 #else
 		/* initialize completion support */
-		PlaylistNameCompletion _completion(*c);
+		PlaylistNameCompletion _completion{screen, *c};
 		auto *completion = &_completion;
 #endif
 
 		/* query the user for a filename */
-		filename = screen_readln(_("Save queue as"),
+		filename = screen_readln(screen, _("Save queue as"),
 					 defaultname,
 					 nullptr,
 					 completion);
@@ -89,7 +92,7 @@ playlist_save(struct mpdclient *c, const char *name,
 			char prompt[256];
 			snprintf(prompt, sizeof(prompt),
 				 _("Replace %s?"), filename.c_str());
-			bool replace = screen_get_yesno(prompt, false);
+			bool replace = screen_get_yesno(screen, prompt, false);
 			if (!replace) {
 				screen_status_message(_("Aborted"));
 				return -1;

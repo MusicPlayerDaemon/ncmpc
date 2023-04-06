@@ -208,9 +208,10 @@ FileBrowserPage::HandleSave(struct mpdclient &c) noexcept
 	}
 
 	if(defaultname)
-		playlist_save(&c, nullptr, Utf8ToLocale(defaultname).c_str());
+		playlist_save(screen, &c, nullptr,
+			      Utf8ToLocale(defaultname).c_str());
 	else
-		playlist_save(&c, nullptr, nullptr);
+		playlist_save(screen, &c, nullptr, nullptr);
 }
 
 void
@@ -243,7 +244,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c) noexcept
 		snprintf(prompt, sizeof(prompt),
 			 _("Delete playlist %s?"),
 			 Utf8ToLocale(GetUriFilename(mpd_playlist_get_path(playlist))).c_str());
-		bool confirmed = screen_get_yesno(prompt, false);
+		bool confirmed = screen_get_yesno(screen, prompt, false);
 		if (!confirmed) {
 			/* translators: a dialog was aborted by the user */
 			screen_status_message(_("Aborted"));

@@ -7,13 +7,15 @@
 #include "History.hxx"
 #include "Completion.hxx"
 
+class ScreenManager;
+
 /* sound an audible and/or visible bell */
 void
 screen_bell() noexcept;
 
 /* read a character from the status window */
 int
-screen_getch(const char *prompt) noexcept;
+screen_getch(ScreenManager &screen, const char *prompt) noexcept;
 
 /**
  * display a prompt, wait for the user to press a key, and compare it with
@@ -23,16 +25,18 @@ screen_getch(const char *prompt) noexcept;
  *	    pressed the key for "no"; def otherwise
  */
 bool
-screen_get_yesno(const char *prompt, bool def) noexcept;
+screen_get_yesno(ScreenManager &screen, const char *prompt, bool def) noexcept;
 
 std::string
-screen_read_password(const char *prompt) noexcept;
+screen_read_password(ScreenManager &screen, const char *prompt) noexcept;
 
 std::string
-screen_readln(const char *prompt, const char *value,
+screen_readln(ScreenManager &screen, const char *prompt,
+	      const char *value,
 	      History *history, Completion *completion) noexcept;
 
 void
-screen_display_completion_list(Completion::Range range) noexcept;
+screen_display_completion_list(ScreenManager &screen,
+			       Completion::Range range) noexcept;
 
 #endif
