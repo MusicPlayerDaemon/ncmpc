@@ -4,14 +4,14 @@
 #ifndef NCMPC_SCREEN_STATUS_H
 #define NCMPC_SCREEN_STATUS_H
 
-#include "util/Compiler.h"
-
 #include <exception>
 
 void
 screen_status_message(const char *msg) noexcept;
 
-gcc_printf(1, 2)
+#ifdef __GNUC__
+__attribute__((format(printf, 1, 2)))
+#endif
 void
 screen_status_printf(const char *format, ...) noexcept;
 
