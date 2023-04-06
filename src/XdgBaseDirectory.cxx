@@ -37,7 +37,7 @@ GetHomeConfigDirectory() noexcept
 }
 
 std::string
-GetHomeConfigDirectory(const char *package) noexcept
+GetHomeConfigDirectory(std::string_view package) noexcept
 {
 	const auto dir = GetHomeConfigDirectory();
 	if (dir.empty())
@@ -47,7 +47,7 @@ GetHomeConfigDirectory(const char *package) noexcept
 }
 
 std::string
-MakeUserConfigPath(const char *filename) noexcept
+MakeUserConfigPath(std::string_view filename) noexcept
 {
 	const auto directory = GetHomeConfigDirectory(PACKAGE);
 	if (directory.empty())
@@ -74,7 +74,7 @@ GetHomeCacheDirectory() noexcept
 }
 
 std::string
-GetHomeCacheDirectory(const char *package) noexcept
+GetHomeCacheDirectory(std::string_view package) noexcept
 {
 	const auto dir = GetHomeCacheDirectory();
 	if (dir.empty())
