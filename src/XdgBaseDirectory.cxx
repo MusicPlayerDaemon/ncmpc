@@ -55,7 +55,7 @@ MakeUserConfigPath(std::string_view package,
 		return {};
 
 	return IsDirectory(directory.c_str()) ||
-		mkdir(directory.c_str(), 0755) == 0
+		mkdir(directory.c_str(), 0777) == 0
 		? BuildPath(directory, filename)
 		: std::string();
 }
