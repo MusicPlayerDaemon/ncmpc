@@ -77,12 +77,12 @@ should_enable_update_timer() noexcept
 }
 
 static void
-auto_update_timer() noexcept
+auto_update_timer(Instance &instance) noexcept
 {
 	if (should_enable_update_timer())
-		global_instance->EnableUpdateTimer();
+		instance.EnableUpdateTimer();
 	else
-		global_instance->DisableUpdateTimer();
+		instance.DisableUpdateTimer();
 }
 
 void
@@ -139,7 +139,7 @@ mpdclient_connected_callback() noexcept
 
 	global_instance->UpdateClient();
 
-	auto_update_timer();
+	auto_update_timer(*global_instance);
 }
 
 void
@@ -170,7 +170,7 @@ mpdclient_idle_callback([[maybe_unused]] unsigned events) noexcept
 #endif
 
 	screen->Update(*mpd, global_instance->GetSeek());
-	auto_update_timer();
+	auto_update_timer(*global_instance);
 }
 
 void
@@ -195,7 +195,7 @@ void end_input_event() noexcept
 	screen->Update(*mpd, global_instance->GetSeek());
 	mpd->events = (enum mpd_idle)0;
 
-	auto_update_timer();
+	auto_update_timer(*global_instance);
 }
 
 bool
@@ -317,7 +317,7 @@ try {
 	/* attempt to connect */
 	instance.ScheduleReconnect(std::chrono::seconds(0));
 
-	auto_update_timer();
+	auto_update_timer(instance);
 
 #ifndef NCMPC_MINI
 	instance.ScheduleCheckKeyBindings();
