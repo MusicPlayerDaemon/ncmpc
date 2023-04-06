@@ -37,20 +37,6 @@ MakeKeysPath()
 	return MakeUserConfigPath(KEYS_FILENAME);
 }
 
-#ifndef _WIN32
-
-std::string
-GetHomeConfigPath() noexcept
-{
-	const char *home = GetHomeDirectory();
-	if (home == nullptr)
-		return {};
-
-	return BuildPath(home, "." PACKAGE, CONFIG_FILENAME);
-}
-
-#endif
-
 std::string
 GetUserConfigPath() noexcept
 {
@@ -135,13 +121,6 @@ find_config_file() noexcept
 	auto filename = GetUserConfigPath();
 	if (!filename.empty() && IsFile(filename.c_str()))
 		return filename;
-
-#ifndef _WIN32
-	/* check for user configuration ~/.ncmpc/config */
-	filename = GetHomeConfigPath();
-	if (!filename.empty() && IsFile(filename.c_str()))
-		return filename;
-#endif
 
 	/* check for  global configuration SYSCONFDIR/ncmpc/config */
 	filename = GetSystemConfigPath();

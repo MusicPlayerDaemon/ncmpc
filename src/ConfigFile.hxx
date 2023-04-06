@@ -9,11 +9,6 @@
 std::string
 MakeKeysPath();
 
-#ifndef _WIN32
-std::string
-GetHomeConfigPath() noexcept;
-#endif
-
 std::string
 GetUserConfigPath() noexcept;
 
