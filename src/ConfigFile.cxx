@@ -65,21 +65,6 @@ GetSystemConfigPath() noexcept
 #endif
 }
 
-#ifndef _WIN32
-
-[[gnu::pure]]
-static std::string
-GetHomeKeysPath() noexcept
-{
-	const char *home = GetHomeDirectory();
-	if (home == nullptr)
-		return {};
-
-	return BuildPath(home, "." PACKAGE, KEYS_FILENAME);
-}
-
-#endif
-
 [[gnu::pure]]
 static std::string
 GetUserKeysPath() noexcept
@@ -141,13 +126,6 @@ find_keys_file() noexcept
 	auto filename = GetUserKeysPath();
 	if (!filename.empty() && IsFile(filename.c_str()))
 		return filename;
-
-#ifndef _WIN32
-	/* check for  user key bindings ~/.ncmpc/keys */
-	filename = GetHomeKeysPath();
-	if (!filename.empty() && IsFile(filename.c_str()))
-		return filename;
-#endif
 
 	/* check for  global key bindings SYSCONFDIR/ncmpc/keys */
 	filename = GetSystemKeysPath();
