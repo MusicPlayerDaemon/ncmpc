@@ -1,4 +1,4 @@
-ncmpc 0.48 - not yet released
+ncmpc 0.48 - (2023-04-06)
 * drop support for ~/.ncmpc/; using only ~/.config/ncmpc/ (XDG)
 * improve scroll-offset handling
 * experimental table layout
