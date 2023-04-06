@@ -21,6 +21,6 @@ private:
 };
 
 void
-keyboard_unread(EventLoop &event_loop, int key);
+keyboard_unread(EventLoop &event_loop, int key) noexcept;
 
 #endif

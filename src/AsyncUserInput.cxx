@@ -9,15 +9,15 @@
 #include "ncmpc.hxx"
 #include "Point.hxx"
 
-static bool
-ignore_key(int key)
+static constexpr bool
+ignore_key(int key) noexcept
 {
 	return key == ERR || key == '\0';
 }
 
 [[gnu::pure]]
 static Command
-translate_key(int key)
+translate_key(int key) noexcept
 {
 	return GetGlobalKeyBindings().FindKey(key);
 }
@@ -70,7 +70,7 @@ AsyncUserInput::AsyncUserInput(EventLoop &event_loop, WINDOW &_w) noexcept
 }
 
 void
-keyboard_unread(EventLoop &event_loop, int key)
+keyboard_unread(EventLoop &event_loop, int key) noexcept
 {
 	if (ignore_key(key))
 		return;
