@@ -2,6 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "StringUTF8.hxx"
+#include "StringAPI.hxx"
 
 #include <string.h>
 
@@ -14,7 +15,7 @@ static locale_t utf8_locale = locale_t(0);
 ScopeInitUTF8::ScopeInitUTF8() noexcept
 {
 	const char *charset = nl_langinfo(CODESET);
-	if (charset == nullptr || strcasecmp(charset, "utf-8") == 0)
+	if (charset == nullptr || StringIsEqualIgnoreCase(charset, "utf-8"))
 		/* if we're already UTF-8, we don't need a special
 		   UTF-8 locale */
 		return;

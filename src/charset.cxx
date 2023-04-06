@@ -3,11 +3,11 @@
 
 #include "charset.hxx"
 #include "util/ScopeExit.hxx"
+#include "util/StringAPI.hxx"
 
 #include <algorithm>
 
 #include <assert.h>
-#include <string.h>
 
 #ifdef HAVE_ICONV
 #include <langinfo.h>
@@ -23,7 +23,7 @@ void
 charset_init() noexcept
 {
 	charset = nl_langinfo(CODESET);
-	noconvert = charset == nullptr || strcasecmp(charset, "utf-8") == 0;
+	noconvert = charset == nullptr || StringIsEqualIgnoreCase(charset, "utf-8");
 }
 #endif
 

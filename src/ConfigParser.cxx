@@ -34,8 +34,6 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <strings.h>
 
 #define MAX_LINE_LENGTH 1024
 #define COMMENT_TOKEN '#'
@@ -91,8 +89,10 @@
 static bool
 str2bool(char *str) noexcept
 {
-	return strcasecmp(str, "yes") == 0 || strcasecmp(str, "true") == 0 ||
-		strcasecmp(str, "on") == 0 || strcasecmp(str, "1") == 0;
+	return StringIsEqualIgnoreCase(str, "yes") ||
+		StringIsEqualIgnoreCase(str, "true") ||
+		StringIsEqualIgnoreCase(str, "on") ||
+		StringIsEqualIgnoreCase(str, "1");
 }
 
 static constexpr bool
@@ -493,15 +493,15 @@ get_search_mode(char *value)
 	{
 		// TODO: modify screen_search so that its own list of modes can be used
 		// for comparison instead of specifying them here
-		if (strcasecmp(value, "title") == 0)
+		if (StringIsEqualIgnoreCase(value, "title"))
 			return 0;
-		else if (strcasecmp(value, "artist") == 0)
+		else if (StringIsEqualIgnoreCase(value, "artist"))
 			return 1;
-		else if (strcasecmp(value, "album") == 0)
+		else if (StringIsEqualIgnoreCase(value, "album"))
 			return 2;
-		else if (strcasecmp(value, "filename") == 0)
+		else if (StringIsEqualIgnoreCase(value, "filename"))
 			return 3;
-		else if (strcasecmp(value, "artist+album") == 0)
+		else if (StringIsEqualIgnoreCase(value, "artist+album"))
 			return 4;
 		else
 			throw FormatRuntimeError("%s: %s",
@@ -591,142 +591,142 @@ parse_line(char *line)
 	char *const value = line;
 
 	/* key definition */
-	if (!strcasecmp(CONF_KEY_DEFINITION, name))
+	if (StringIsEqualIgnoreCase(CONF_KEY_DEFINITION, name))
 		parse_key_definition(value);
 	/* enable colors */
-	else if(!strcasecmp(CONF_ENABLE_COLORS, name))
+	else if(StringIsEqualIgnoreCase(CONF_ENABLE_COLORS, name))
 #ifdef ENABLE_COLORS
 		options.enable_colors = str2bool(value);
 #else
 	{}
 #endif
-	else if (!strcasecmp(CONF_SCROLL_OFFSET, name))
+	else if (StringIsEqualIgnoreCase(CONF_SCROLL_OFFSET, name))
 		options.scroll_offset = atoi(value);
 	/* auto center */
-	else if (!strcasecmp(CONF_AUTO_CENTER, name))
+	else if (StringIsEqualIgnoreCase(CONF_AUTO_CENTER, name))
 		options.auto_center = str2bool(value);
 	/* color assignment */
-	else if (!strcasecmp(CONF_COLOR, name))
+	else if (StringIsEqualIgnoreCase(CONF_COLOR, name))
 #ifdef ENABLE_COLORS
 		parse_color(value);
 #else
 	{}
 #endif
 	/* wide cursor */
-	else if (!strcasecmp(CONF_WIDE_CURSOR, name))
+	else if (StringIsEqualIgnoreCase(CONF_WIDE_CURSOR, name))
 		options.wide_cursor = str2bool(value);
-	else if (strcasecmp(name, CONF_HARDWARE_CURSOR) == 0)
+	else if (StringIsEqualIgnoreCase(name, CONF_HARDWARE_CURSOR))
 		options.hardware_cursor = str2bool(value);
 	/* welcome screen list */
-	else if (!strcasecmp(CONF_WELCOME_SCREEN_LIST, name))
+	else if (StringIsEqualIgnoreCase(CONF_WELCOME_SCREEN_LIST, name))
 		options.welcome_screen_list = str2bool(value);
 	/* visible bitrate */
-	else if (!strcasecmp(CONF_VISIBLE_BITRATE, name))
+	else if (StringIsEqualIgnoreCase(CONF_VISIBLE_BITRATE, name))
 		options.visible_bitrate = str2bool(value);
 	/* timer display type */
-	else if (!strcasecmp(CONF_TIMEDISPLAY_TYPE, name))
+	else if (StringIsEqualIgnoreCase(CONF_TIMEDISPLAY_TYPE, name))
 		options.current_time_display = ParseCurrentTimeDisplay(value);
 		/* color definition */
-	else if (!strcasecmp(CONF_COLOR_DEFINITION, name))
+	else if (StringIsEqualIgnoreCase(CONF_COLOR_DEFINITION, name))
 #ifdef ENABLE_COLORS
 		parse_color_definition(value);
 #else
 	{}
 #endif
 	/* list format string */
-	else if (!strcasecmp(CONF_LIST_FORMAT, name)) {
+	else if (StringIsEqualIgnoreCase(CONF_LIST_FORMAT, name)) {
 		options.list_format = GetStringValue(value);
-	} else if (!strcasecmp("song-table-column", name)) {
+	} else if (StringIsEqualIgnoreCase("song-table-column", name)) {
 #ifndef NCMPC_MINI
 		ParseTableColumn(song_table_structure, value);
 #endif
 
 		/* search format string */
-	} else if (!strcasecmp(CONF_SEARCH_FORMAT, name)) {
+	} else if (StringIsEqualIgnoreCase(CONF_SEARCH_FORMAT, name)) {
 		options.search_format = GetStringValue(value);
 		/* status format string */
-	} else if (!strcasecmp(CONF_STATUS_FORMAT, name)) {
+	} else if (StringIsEqualIgnoreCase(CONF_STATUS_FORMAT, name)) {
 		options.status_format = GetStringValue(value);
 		/* xterm title format string */
-	} else if (!strcasecmp(CONF_XTERM_TITLE_FORMAT, name)) {
+	} else if (StringIsEqualIgnoreCase(CONF_XTERM_TITLE_FORMAT, name)) {
 		options.xterm_title_format = GetStringValue(value);
-	} else if (!strcasecmp(CONF_LIST_WRAP, name))
+	} else if (StringIsEqualIgnoreCase(CONF_LIST_WRAP, name))
 		options.list_wrap = str2bool(value);
-	else if (!strcasecmp(CONF_FIND_WRAP, name))
+	else if (StringIsEqualIgnoreCase(CONF_FIND_WRAP, name))
 		options.find_wrap = str2bool(value);
-	else if (!strcasecmp(CONF_FIND_SHOW_LAST,name))
+	else if (StringIsEqualIgnoreCase(CONF_FIND_SHOW_LAST,name))
 		options.find_show_last_pattern = str2bool(value);
-	else if (!strcasecmp(CONF_AUDIBLE_BELL, name))
+	else if (StringIsEqualIgnoreCase(CONF_AUDIBLE_BELL, name))
 		options.audible_bell = str2bool(value);
-	else if (!strcasecmp(CONF_VISIBLE_BELL, name))
+	else if (StringIsEqualIgnoreCase(CONF_VISIBLE_BELL, name))
 		options.visible_bell = str2bool(value);
-	else if (!strcasecmp(CONF_BELL_ON_WRAP, name))
+	else if (StringIsEqualIgnoreCase(CONF_BELL_ON_WRAP, name))
 		options.bell_on_wrap = str2bool(value);
-	else if (!strcasecmp(CONF_STATUS_MESSAGE_TIME, name))
+	else if (StringIsEqualIgnoreCase(CONF_STATUS_MESSAGE_TIME, name))
 		options.status_message_time = std::chrono::seconds(atoi(value));
-	else if (!strcasecmp(CONF_XTERM_TITLE, name))
+	else if (StringIsEqualIgnoreCase(CONF_XTERM_TITLE, name))
 		options.enable_xterm_title = str2bool(value);
-	else if (!strcasecmp(CONF_ENABLE_MOUSE, name))
+	else if (StringIsEqualIgnoreCase(CONF_ENABLE_MOUSE, name))
 #ifdef HAVE_GETMOUSE
 		options.enable_mouse = str2bool(value);
 #else
 	{}
 #endif
-	else if (!strcasecmp(CONF_CROSSFADE_TIME, name))
+	else if (StringIsEqualIgnoreCase(CONF_CROSSFADE_TIME, name))
 		options.crossfade_time = atoi(value);
-	else if (!strcasecmp(CONF_SEARCH_MODE, name))
+	else if (StringIsEqualIgnoreCase(CONF_SEARCH_MODE, name))
 		options.search_mode = get_search_mode(value);
-	else if (!strcasecmp(CONF_HIDE_CURSOR, name))
+	else if (StringIsEqualIgnoreCase(CONF_HIDE_CURSOR, name))
 		options.hide_cursor = std::chrono::seconds(atoi(value));
-	else if (!strcasecmp(CONF_SEEK_TIME, name))
+	else if (StringIsEqualIgnoreCase(CONF_SEEK_TIME, name))
 		options.seek_time = atoi(value);
-	else if (!strcasecmp(CONF_LIBRARY_PAGE_TAGS, name)) {
+	else if (StringIsEqualIgnoreCase(CONF_LIBRARY_PAGE_TAGS, name)) {
 #ifdef ENABLE_LIBRARY_PAGE
 		options.library_page_tags = ParseTagList(value);
 #endif
-	} else if (!strcasecmp(CONF_SCREEN_LIST, name)) {
+	} else if (StringIsEqualIgnoreCase(CONF_SCREEN_LIST, name)) {
 		options.screen_list = check_screen_list(value);
-	} else if (!strcasecmp(CONF_HOST, name))
+	} else if (StringIsEqualIgnoreCase(CONF_HOST, name))
 		options.host = GetStringValue(value);
-	else if (!strcasecmp(CONF_PORT, name))
+	else if (StringIsEqualIgnoreCase(CONF_PORT, name))
 		options.port = atoi(GetStringValue(value).c_str());
-	else if (!strcasecmp(CONF_PASSWORD, name))
+	else if (StringIsEqualIgnoreCase(CONF_PASSWORD, name))
 		options.password = GetStringValue(value);
-	else if (!strcasecmp(CONF_TIMEOUT, name))
+	else if (StringIsEqualIgnoreCase(CONF_TIMEOUT, name))
 		options.timeout_ms = atoi(GetStringValue(value).c_str())
 				     * 1000 /* seconds -> milliseconds */;
-	else if (!strcasecmp(CONF_LYRICS_TIMEOUT, name))
+	else if (StringIsEqualIgnoreCase(CONF_LYRICS_TIMEOUT, name))
 #ifdef ENABLE_LYRICS_SCREEN
 		options.lyrics_timeout = std::chrono::seconds(atoi(GetStringValue(value).c_str()));
 #else
 	{}
 #endif
-	else if (!strcasecmp(CONF_SCROLL, name))
+	else if (StringIsEqualIgnoreCase(CONF_SCROLL, name))
 		options.scroll = str2bool(value);
-	else if (!strcasecmp(CONF_SCROLL_SEP, name)) {
+	else if (StringIsEqualIgnoreCase(CONF_SCROLL_SEP, name)) {
 		options.scroll_sep = GetStringValue(value);
-	} else if (!strcasecmp(CONF_DISPLAY_TIME, name))
+	} else if (StringIsEqualIgnoreCase(CONF_DISPLAY_TIME, name))
 		/* obsolete, ignore */
 		{}
-	else if (!strcasecmp(CONF_JUMP_PREFIX_ONLY, name))
+	else if (StringIsEqualIgnoreCase(CONF_JUMP_PREFIX_ONLY, name))
 #ifdef NCMPC_MINI
 		{}
 #else
 		options.jump_prefix_only = str2bool(value);
 #endif
-	else if (!strcasecmp(CONF_LYRICS_AUTOSAVE, name))
+	else if (StringIsEqualIgnoreCase(CONF_LYRICS_AUTOSAVE, name))
 #ifdef ENABLE_LYRICS_SCREEN
 		options.lyrics_autosave = str2bool(value);
 #else
 	{}
 #endif
-	else if (!strcasecmp(CONF_LYRICS_SHOW_PLUGIN, name))
+	else if (StringIsEqualIgnoreCase(CONF_LYRICS_SHOW_PLUGIN, name))
 #ifdef ENABLE_LYRICS_SCREEN
 		options.lyrics_show_plugin = str2bool(value);
 #else
 		{}
 #endif
-	else if (!strcasecmp(name, CONF_TEXT_EDITOR))
+	else if (StringIsEqualIgnoreCase(name, CONF_TEXT_EDITOR))
 #ifdef ENABLE_LYRICS_SCREEN
 		{
 			options.text_editor = GetStringValue(value);
@@ -734,19 +734,19 @@ parse_line(char *line)
 #else
 		{}
 #endif
-	else if (!strcasecmp(name, CONF_TEXT_EDITOR_ASK))
+	else if (StringIsEqualIgnoreCase(name, CONF_TEXT_EDITOR_ASK))
 #ifdef ENABLE_LYRICS_SCREEN
 		options.text_editor_ask = str2bool(value);
 #else
 		{}
 #endif
-	else if (!strcasecmp(name, CONF_CHAT_PREFIX))
+	else if (StringIsEqualIgnoreCase(name, CONF_CHAT_PREFIX))
 #ifdef ENABLE_CHAT_SCREEN
 		options.chat_prefix = GetStringValue(value);
 #else
 		{}
 #endif
-	else if (!strcasecmp(CONF_SECOND_COLUMN, name))
+	else if (StringIsEqualIgnoreCase(CONF_SECOND_COLUMN, name))
 #ifdef NCMPC_MINI
 		{}
 #else

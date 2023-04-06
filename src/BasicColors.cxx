@@ -2,10 +2,10 @@
 // Copyright The Music Player Daemon Project
 
 #include "BasicColors.hxx"
+#include "util/StringAPI.hxx"
 
 #include <curses.h>
 
-#include <strings.h>
 #include <stdlib.h>
 
 static constexpr const char *basic_color_names[] = {
@@ -33,7 +33,7 @@ short
 ParseBasicColorName(const char *name) noexcept
 {
 	for (size_t i = 0; basic_color_names[i] != nullptr; ++i)
-		if (strcasecmp(basic_color_names[i], name) == 0)
+		if (StringIsEqualIgnoreCase(basic_color_names[i], name))
 			return i;
 
 	return -1;

@@ -14,6 +14,7 @@
 #include "screen_utils.hxx"
 #include "FileListPage.hxx"
 #include "filelist.hxx"
+#include "util/StringAPI.hxx"
 
 #include <iterator>
 
@@ -46,16 +47,16 @@ static constexpr struct {
 static int
 search_get_tag_id(const char *name)
 {
-	if (strcasecmp(name, "file") == 0 ||
-	    strcasecmp(name, _("file")) == 0)
+	if (StringIsEqualIgnoreCase(name, "file") ||
+	    StringIsEqualIgnoreCase(name, _("file")))
 		return SEARCH_URI;
 
-	if (strcasecmp(name, "modified") == 0)
+	if (StringIsEqualIgnoreCase(name, "modified"))
 		return SEARCH_MODIFIED;
 
 	for (unsigned i = 0; search_tag[i].name != nullptr; ++i)
-		if (strcasecmp(search_tag[i].name, name) == 0 ||
-		    strcasecmp(search_tag[i].localname, name) == 0)
+		if (StringIsEqualIgnoreCase(search_tag[i].name, name) ||
+		    StringIsEqualIgnoreCase(search_tag[i].localname, name))
 			return search_tag[i].tag_type;
 
 	return -1;

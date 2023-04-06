@@ -6,6 +6,7 @@
 #include "CustomColors.hxx"
 #include "i18n.h"
 #include "util/RuntimeError.hxx"
+#include "util/StringAPI.hxx"
 #include "util/StringStrip.hxx"
 
 #ifdef ENABLE_COLORS
@@ -14,8 +15,6 @@
 
 #include <assert.h>
 #include <stdio.h>
-#include <strings.h>
-#include <string.h>
 
 /**
  * Use the terminal's default color.
@@ -183,7 +182,7 @@ static Style
 StyleByName(const char *name) noexcept
 {
 	for (size_t i = 1; i < size_t(Style::END); ++i)
-		if (!strcasecmp(styles[i].name, name))
+		if (StringIsEqualIgnoreCase(styles[i].name, name))
 			return Style(i);
 
 	return Style::END;
@@ -229,7 +228,7 @@ ParseBackgroundColor(const char *s)
 	if (color >= 0)
 		return color;
 
-	if (!strcasecmp(s, "none"))
+	if (StringIsEqualIgnoreCase(s, "none"))
 		return COLOR_NONE;
 
 	throw FormatRuntimeError("%s: %s", _("Unknown color"), s);
@@ -270,26 +269,26 @@ ParseStyle(StyleData &d, const char *str)
 			continue;
 		}
 
-		if (!strcasecmp(cur, "none"))
+		if (StringIsEqualIgnoreCase(cur, "none"))
 			d.fg_color = COLOR_NONE;
-		else if (!strcasecmp(cur, "grey") ||
-			 !strcasecmp(cur, "gray")) {
+		else if (StringIsEqualIgnoreCase(cur, "grey") ||
+			 StringIsEqualIgnoreCase(cur, "gray")) {
 			d.fg_color = COLOR_BLACK;
 			d.attr |= A_BOLD;
 		}
 
 		/* Attributes */
-		else if (!strcasecmp(cur, "standout"))
+		else if (StringIsEqualIgnoreCase(cur, "standout"))
 			d.attr |= A_STANDOUT;
-		else if (!strcasecmp(cur, "underline"))
+		else if (StringIsEqualIgnoreCase(cur, "underline"))
 			d.attr |= A_UNDERLINE;
-		else if (!strcasecmp(cur, "reverse"))
+		else if (StringIsEqualIgnoreCase(cur, "reverse"))
 			d.attr |= A_REVERSE;
-		else if (!strcasecmp(cur, "blink"))
+		else if (StringIsEqualIgnoreCase(cur, "blink"))
 			d.attr |= A_BLINK;
-		else if (!strcasecmp(cur, "dim"))
+		else if (StringIsEqualIgnoreCase(cur, "dim"))
 			d.attr |= A_DIM;
-		else if (!strcasecmp(cur, "bold"))
+		else if (StringIsEqualIgnoreCase(cur, "bold"))
 			d.attr |= A_BOLD;
 		else
 			throw FormatRuntimeError("%s: %s",
