@@ -22,7 +22,8 @@ GetHomeDirectory() noexcept
 	return getenv("HOME");
 }
 
-std::string
+[[gnu::const]]
+static std::string
 GetHomeConfigDirectory() noexcept
 {
 	const char *config_home = getenv("XDG_CONFIG_HOME");
@@ -60,7 +61,8 @@ MakeUserConfigPath(std::string_view package,
 		: std::string();
 }
 
-std::string
+[[gnu::const]]
+static std::string
 GetHomeCacheDirectory() noexcept
 {
 	const char *cache_home = getenv("XDG_CACHE_HOME");

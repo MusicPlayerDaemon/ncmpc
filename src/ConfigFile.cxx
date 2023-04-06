@@ -40,11 +40,11 @@ MakeKeysPath()
 std::string
 GetUserConfigPath() noexcept
 {
-	const auto dir = GetHomeConfigDirectory();
+	const auto dir = GetHomeConfigDirectory(PACKAGE);
 	if (dir.empty())
 		return {};
 
-	return BuildPath(dir, PACKAGE, CONFIG_FILENAME);
+	return BuildPath(dir, CONFIG_FILENAME);
 }
 
 std::string
@@ -69,11 +69,11 @@ GetSystemConfigPath() noexcept
 static std::string
 GetUserKeysPath() noexcept
 {
-	const auto dir = GetHomeConfigDirectory();
+	const auto dir = GetHomeConfigDirectory(PACKAGE);
 	if (dir.empty())
 		return {};
 
-	return BuildPath(dir, PACKAGE, KEYS_FILENAME);
+	return BuildPath(dir, KEYS_FILENAME);
 }
 
 [[gnu::pure]]

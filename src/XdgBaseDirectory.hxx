@@ -7,10 +7,6 @@
 #include <string>
 #include <string_view>
 
-[[gnu::const]]
-std::string
-GetHomeConfigDirectory() noexcept;
-
 [[gnu::pure]]
 std::string
 GetHomeConfigDirectory(std::string_view package) noexcept;
@@ -24,10 +20,6 @@ GetHomeConfigDirectory(std::string_view package) noexcept;
 std::string
 MakeUserConfigPath(std::string_view package,
 		   std::string_view filename) noexcept;
-
-[[gnu::const]]
-std::string
-GetHomeCacheDirectory() noexcept;
 
 [[gnu::pure]]
 std::string
