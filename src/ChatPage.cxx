@@ -11,6 +11,7 @@
 #include "charset.hxx"
 #include "Command.hxx"
 #include "Options.hxx"
+#include "util/StringAPI.hxx"
 
 #include <mpd/idle.h>
 
@@ -79,7 +80,7 @@ ChatPage::ProcessMessage(const struct mpd_message &message)
 {
 	/* You'll have to move this out of screen_chat, if you want to use
 	   client-to-client messages anywhere else */
-	assert(strcmp(mpd_message_get_channel(&message), chat_channel) == 0);
+	assert(StringIsEqual(mpd_message_get_channel(&message), chat_channel));
 
 	Append(mpd_message_get_text(&message));
 

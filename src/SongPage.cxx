@@ -16,6 +16,7 @@
 #include "time_format.hxx"
 #include "mpdclient.hxx"
 #include "util/LocaleString.hxx"
+#include "util/StringAPI.hxx"
 #include "util/StringStrip.hxx"
 
 #include <mpd/client.h>
@@ -26,7 +27,6 @@
 #include <string>
 
 #include <assert.h>
-#include <string.h>
 #include <time.h>
 
 enum {
@@ -443,8 +443,8 @@ SongPage::Update(struct mpdclient &c, unsigned) noexcept
 
 	if (selected_song != nullptr &&
 	    (playing_song == nullptr ||
-	     strcmp(mpd_song_get_uri(selected_song),
-		    mpd_song_get_uri(playing_song)) != 0)) {
+	     !StringIsEqual(mpd_song_get_uri(selected_song),
+			    mpd_song_get_uri(playing_song)))) {
 		lines.emplace_back(_("Selected song"));
 		AddSong(selected_song);
 		lines.emplace_back(std::string());

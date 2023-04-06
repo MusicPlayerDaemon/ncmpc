@@ -17,6 +17,7 @@
 #include "TextPage.hxx"
 #include "screen_utils.hxx"
 #include "ncu.hxx"
+#include "util/StringAPI.hxx"
 
 #include <string>
 
@@ -265,8 +266,8 @@ void
 LyricsPage::MaybeLoad(const struct mpd_song &new_song) noexcept
 {
 	if (song == nullptr ||
-	    strcmp(mpd_song_get_uri(&new_song),
-		   mpd_song_get_uri(song)) != 0)
+	    !StringIsEqual(mpd_song_get_uri(&new_song),
+			   mpd_song_get_uri(song)))
 		Load(new_song);
 }
 

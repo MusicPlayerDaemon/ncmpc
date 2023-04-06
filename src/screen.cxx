@@ -15,10 +15,9 @@
 #include "player_command.hxx"
 #include "SongPage.hxx"
 #include "LyricsPage.hxx"
+#include "util/StringAPI.hxx"
 
 #include <mpd/client.h>
-
-#include <string.h>
 
 ScreenManager::PageMap::iterator
 ScreenManager::MakePage(const PageMeta &sf) noexcept
@@ -87,7 +86,7 @@ find_configured_screen(const char *name) noexcept
 	unsigned i;
 
 	for (i = 0; i < options.screen_list.size(); ++i)
-		if (strcmp(options.screen_list[i].c_str(), name) == 0)
+		if (StringIsEqual(options.screen_list[i].c_str(), name))
 			return i;
 
 	return -1;

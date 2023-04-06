@@ -8,10 +8,10 @@
 #include "charset.hxx"
 #include "ConfigFile.hxx"
 #include "i18n.h"
+#include "util/StringAPI.hxx"
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 
 #define ERROR_UNKNOWN_OPTION    0x01
 #define ERROR_BAD_ARGUMENT      0x02
@@ -62,7 +62,7 @@ static const OptionDefinition *
 FindOption(const char *l) noexcept
 {
 	for (const auto &i : option_table)
-		if (strcmp(l, i.longopt) == 0)
+		if (StringIsEqual(l, i.longopt))
 			return &i;
 
 	return nullptr;
@@ -197,7 +197,7 @@ handle_option(int c, const char *arg)
 #endif
 		       GetSystemConfigPath().c_str());
 
-		if (strcmp("translator-credits", _("translator-credits")) != 0)
+		if (!StringIsEqual("translator-credits", _("translator-credits")))
 			/* To translators: these credits are shown
 			   when ncmpc is started with "--version" */
 			printf("\n%s\n", _("translator-credits"));

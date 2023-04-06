@@ -3,6 +3,7 @@
 
 #include "Command.hxx"
 #include "i18n.h"
+#include "util/StringAPI.hxx"
 
 #include <iterator>
 
@@ -250,12 +251,12 @@ Command
 get_key_command_from_name(const char *name)
 {
 	for (size_t i = 0; i < size_t(Command::NONE); ++i)
-		if (strcmp(name, cmds[i].name) == 0)
+		if (StringIsEqual(name, cmds[i].name))
 			return Command(i);
 
 #ifdef ENABLE_LIBRARY_PAGE
 	/* compatibility with 0.32 and older */
-	if (strcmp(name, "screen-artist") == 0)
+	if (StringIsEqual(name, "screen-artist"))
 		return Command::LIBRARY_PAGE;
 #endif
 

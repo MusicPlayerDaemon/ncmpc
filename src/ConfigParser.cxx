@@ -19,6 +19,7 @@
 #include "util/PrintException.hxx"
 #include "util/RuntimeError.hxx"
 #include "util/ScopeExit.hxx"
+#include "util/StringAPI.hxx"
 #include "util/StringStrip.hxx"
 
 #include <algorithm>
@@ -174,11 +175,11 @@ parse_key_definition(char *str)
 static CurrentTimeDisplay
 ParseCurrentTimeDisplay(const char *str)
 {
-	if (strcmp(str, "elapsed") == 0)
+	if (StringIsEqual(str, "elapsed"))
 		return CurrentTimeDisplay::ELAPSED;
-	else if (strcmp(str, "remaining") == 0)
+	else if (StringIsEqual(str, "remaining"))
 		return CurrentTimeDisplay::REMAINING;
-	else if (strcmp(str, "none") == 0)
+	else if (StringIsEqual(str, "none"))
 		return CurrentTimeDisplay::NONE;
 	else
 		throw FormatRuntimeError("%s: %s",

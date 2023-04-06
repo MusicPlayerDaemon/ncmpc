@@ -2,13 +2,13 @@
 // Copyright The Music Player Daemon Project
 
 #include "filelist.hxx"
+#include "util/StringAPI.hxx"
 #include "util/StringUTF8.hxx"
 
 #include <mpd/client.h>
 
 #include <algorithm>
 
-#include <string.h>
 #include <assert.h>
 
 FileListEntry::~FileListEntry() noexcept
@@ -105,7 +105,7 @@ FileList::RemoveDuplicateSongs() noexcept
 static bool
 same_song(const struct mpd_song *a, const struct mpd_song *b) noexcept
 {
-	return strcmp(mpd_song_get_uri(a), mpd_song_get_uri(b)) == 0;
+	return StringIsEqual(mpd_song_get_uri(a), mpd_song_get_uri(b));
 }
 
 int
@@ -137,8 +137,8 @@ FileList::FindDirectory(const char *name) const noexcept
 
 		if (entity != nullptr &&
 		    mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY &&
-		    strcmp(mpd_directory_get_path(mpd_entity_get_directory(entity)),
-			   name) == 0)
+		    StringIsEqual(mpd_directory_get_path(mpd_entity_get_directory(entity)),
+				  name))
 			return i;
 	}
 

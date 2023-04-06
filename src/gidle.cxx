@@ -2,6 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "gidle.hxx"
+#include "util/StringAPI.hxx"
 
 #include <mpd/async.h>
 #include <mpd/parser.h>
@@ -69,8 +70,7 @@ MpdIdleSource::Feed(char *line) noexcept
 		return false;
 
 	case MPD_PARSER_PAIR:
-		if (strcmp(mpd_parser_get_name(parser),
-			   "changed") == 0)
+		if (StringIsEqual(mpd_parser_get_name(parser), "changed"))
 			idle_events |=
 				mpd_idle_name_parse(mpd_parser_get_value(parser));
 

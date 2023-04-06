@@ -15,6 +15,7 @@
 #include "OutputsPage.hxx"
 #include "ChatPage.hxx"
 #include "config.h"
+#include "util/StringAPI.hxx"
 
 #include <iterator>
 
@@ -64,12 +65,12 @@ const PageMeta *
 screen_lookup_name(const char *name) noexcept
 {
 	for (const auto *i : screens)
-		if (strcmp(name, i->name) == 0)
+		if (StringIsEqual(name, i->name))
 			return i;
 
 #ifdef ENABLE_LIBRARY_PAGE
 	/* compatibility with 0.32 and older */
-	if (strcmp(name, "artist") == 0)
+	if (StringIsEqual(name, "artist"))
 		return &library_page;
 #endif
 
