@@ -1,4 +1,4 @@
-ncmpc 0.49 - not yet released
+ncmpc 0.49 - (2023-08-04)
 * fix UI freeze if lyrics plugin is stuck
 * fix missing tags with libmpdclient 2.21
 * fix build failure on macOS
