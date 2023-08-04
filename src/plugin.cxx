@@ -6,6 +6,7 @@
 #include "io/UniqueFileDescriptor.hxx"
 #include "event/PipeEvent.hxx"
 #include "event/CoarseTimerEvent.hxx"
+#include "event/Features.h" // for USE_SIGNALFD
 #include "util/ScopeExit.hxx"
 #include "util/UriUtil.hxx"
 
@@ -263,7 +264,15 @@ PluginCycle::LaunchPlugin(const char *plugin_path) noexcept
 	posix_spawn_file_actions_adddup2(&file_actions, stderr_w.Get(),
 					 STDERR_FILENO);
 
-	if (posix_spawn(&pid, plugin_path, &file_actions, nullptr,
+	posix_spawnattr_t attr;
+	posix_spawnattr_init(&attr);
+
+#ifdef USE_SIGNALFD
+	/* unblock all signals which may be blocked for signalfd */
+	posix_spawnattr_setflags(&attr, POSIX_SPAWN_SETSIGMASK);
+#endif
+
+	if (posix_spawn(&pid, plugin_path, &file_actions, &attr,
 			argv.get(), environ) != 0)
 		return -1;
 
