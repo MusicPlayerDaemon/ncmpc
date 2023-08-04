@@ -11,7 +11,7 @@
 #include <stdint.h>
 
 class TagMask {
-	typedef uint_least32_t mask_t;
+	using mask_t = uint_least64_t;
 
 	static_assert(sizeof(mask_t) * 8 >= MPD_TAG_COUNT,
 		      "The mask does not have enough bits for the tags supported by MPD");
