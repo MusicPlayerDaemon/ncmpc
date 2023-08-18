@@ -38,6 +38,10 @@ class IPv4Address {
 	typedef uint32_t in_addr_t;
 #endif
 
+#ifdef __APPLE__
+    typedef uint32_t u_int32_t;
+#endif
+
 	static constexpr in_addr_t ConstructInAddrT(uint8_t a, uint8_t b,
 						    uint8_t c, uint8_t d) noexcept {
 		return ToBE32((a << 24) | (b << 16) | (c << 8) | d);
