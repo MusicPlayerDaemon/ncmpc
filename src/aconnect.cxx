@@ -42,12 +42,12 @@ void
 AsyncMpdConnect::OnReceive(unsigned) noexcept
 try {
 	char buffer[256];
-	ssize_t nbytes = socket.GetSocket().Read(buffer, sizeof(buffer));
+	ssize_t nbytes = socket.GetSocket().ReadNoWait(std::as_writable_bytes(std::span{buffer}));
 
 	if (nbytes < 0)
 		throw MakeSocketError("Failed to receive from MPD");
 
-	buffer[nbytes] = 0;
+	buffer[nbytes] = {};
 
 	struct mpd_async *async = mpd_async_new(socket.ReleaseSocket().Get());
 	if (async == nullptr)
