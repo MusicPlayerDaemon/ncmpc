@@ -38,14 +38,30 @@ for artist in artists:
     title = title.replace(" ", "+")
     r = requests.get(
         f"{base_url}/search?q={artist}+{title}+lyrics",
-        headers={"client": "google-csbe"},
+        headers={
+            "authority": "www.google.com",
+            # doesn't seem to work without this
+            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36",
+            "accept": "text/html,application/xhtml+xml"
+        }
     )
     try:
         r.raise_for_status()
     except:
         exit(1)
     soup = bs4.BeautifulSoup(r.text, "html5lib")
-    results = [x for x in soup.select("div") if len(x.select("div")) == 0]
-    # element with the longest text node is usually a match
-    results.sort(key=lambda n: len(n.text))
-    print(results[-1].text)
+    try:
+        lyrics_container = soup.select_one("div[data-lyricid]")
+        if not lyrics_container: raise IndexError
+        print(lyrics_container)
+        for tag in lyrics_container:
+            lyrics = tag.find_all("span")
+            for lyric in lyrics:
+                print(lyric.text)
+            break
+    except IndexError:
+        print("Lyrics not found :(")
+        exit(1)
+    except Exception as e:
+        print("Unknown error: ", e)
+        exit(2)
