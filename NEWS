@@ -1,4 +1,5 @@
 ncmpc 0.50 - not yet released
+* lyrics/musixmatch: add new lyrics extension
 
 ncmpc 0.49 - (2023-08-04)
 * fix UI freeze if lyrics plugin is stuck

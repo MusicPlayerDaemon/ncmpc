@@ -342,6 +342,7 @@ if enable_lyrics_screen
   conf.set_quoted('LYRICS_PLUGIN_DIR', lyrics_plugin_dir)
   install_data(
     'lyrics/20-azlyrics.py',
+    'lyrics/25-musixmatch.py',
     'lyrics/30-karaoke_texty.py',
     'lyrics/40-tekstowo.py',
     'lyrics/50-genius.py',
