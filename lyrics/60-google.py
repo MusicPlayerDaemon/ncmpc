@@ -53,7 +53,6 @@ for artist in artists:
     try:
         lyrics_container = soup.select_one("div[data-lyricid]")
         if not lyrics_container: raise IndexError
-        print(lyrics_container)
         for tag in lyrics_container:
             lyrics = tag.find_all("span")
             for lyric in lyrics:
