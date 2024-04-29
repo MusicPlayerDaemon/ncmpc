@@ -2,7 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "AsyncResolveConnect.hxx"
-#include "AllocatedSocketAddress.hxx"
+#include "LocalSocketAddress.hxx"
 #include "AddressInfo.hxx"
 #include "Resolver.hxx"
 
@@ -13,10 +13,8 @@ AsyncResolveConnect::Start(const char *host, unsigned port) noexcept
 {
 #ifndef _WIN32
 	if (host[0] == '/' || host[0] == '@') {
-		AllocatedSocketAddress address;
-		address.SetLocal(host);
-
-		connect.Connect(address, std::chrono::seconds(30));
+		connect.Connect(LocalSocketAddress{host},
+				std::chrono::seconds(30));
 		return;
 	}
 #endif /* _WIN32 */
