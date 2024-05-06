@@ -5,19 +5,20 @@
 #include "LocalSocketAddress.hxx"
 #include "AddressInfo.hxx"
 #include "Resolver.hxx"
+#include "Features.hxx"
 
 #include <exception>
 
 void
 AsyncResolveConnect::Start(const char *host, unsigned port) noexcept
 {
-#ifndef _WIN32
+#ifdef HAVE_UN
 	if (host[0] == '/' || host[0] == '@') {
 		connect.Connect(LocalSocketAddress{host},
 				std::chrono::seconds(30));
 		return;
 	}
-#endif /* _WIN32 */
+#endif // HAVE_UN
 
 	try {
 		connect.Connect(Resolve(host, port, AI_ADDRCONFIG, SOCK_STREAM).GetBest(),
