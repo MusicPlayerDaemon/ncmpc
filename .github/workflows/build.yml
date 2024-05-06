@@ -43,21 +43,22 @@ jobs:
       - id: checkout
         uses: actions/checkout@v4
 
-      - id: cache-ccache
-        uses: hendrikmuhs/ccache-action@v1
-        with:
-          key: ${{ matrix.os }}
-
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             meson \
+            ncmpc \
             ${{ matrix.cxx }} ${{matrix.cc }} \
             libncursesw5-dev \
             libncurses5-dev \
             libpcre2-dev \
             libmpdclient-dev
+
+      - id: cache-ccache
+        uses: hendrikmuhs/ccache-action@v1
+        with:
+          key: ${{ matrix.os }}
 
       - name: Full Build
         uses: BSFishy/meson-build@v1.0.3
@@ -79,11 +80,6 @@ jobs:
       - id: checkout
         uses: actions/checkout@v4
 
-      - id: cache-ccache
-        uses: hendrikmuhs/ccache-action@v1
-        with:
-          key: macos
-
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
@@ -92,9 +88,15 @@ jobs:
         run: |
           brew install \
             meson ninja \
+            ccache \
             ncurses \
             pcre2 \
             libmpdclient
+
+      - id: cache-ccache
+        uses: hendrikmuhs/ccache-action@v1
+        with:
+          key: macos
 
       - name: Full Build
         uses: BSFishy/meson-build@v1.0.3
