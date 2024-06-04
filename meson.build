@@ -35,6 +35,12 @@ else
 endif
 conf.set('ENABLE_LOCALE', enable_locale)
 
+# Always check for libintl.h to avoid a clash with ncmpc fake gettext
+# Indeed, a toolchain can provide an external gettext definition in
+# libintl.h which will be included indirectly into ncmpc 
+# (e.g., though include <chrono>)
+conf.set('HAVE_LIBINTL_H', cc.has_header('libintl.h'))
+
 enable_nls = get_option('nls')
 if meson.version().version_compare('>= 0.59') and not mini
   # Meson 0.59 has native libintl support

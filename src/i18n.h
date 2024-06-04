@@ -6,9 +6,11 @@
 
 #include "config.h"
 
-#ifdef ENABLE_NLS
-
+#ifdef HAVE_LIBINTL_H
 #include <libintl.h> // IWYU pragma: export
+#endif
+
+#ifdef ENABLE_NLS
 
 #define _(x) gettext(x)
 
@@ -19,6 +21,8 @@
 #endif
 
 #else
+// undef gettext as it can defined in libintl.h even when NLS is disabled by the user
+#undef gettext
 #define gettext(x) (x)
 #define  _(x) x
 #define N_(x) x
