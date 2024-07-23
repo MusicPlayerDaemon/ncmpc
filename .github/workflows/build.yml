@@ -30,28 +30,33 @@ jobs:
             os: ubuntu-24.04
             cc: gcc-14
             cxx: g++-14
+            ldflags:
             packages: g++-14
           - compiler: gcc11
             os: ubuntu-22.04
             cc: gcc-11
             cxx: g++-11
+            ldflags:
             packages: g++-11
           - compiler: gcc10
             os: ubuntu-20.04
             cc: gcc-10
             cxx: g++-10
+            ldflags:
             packages: g++-10
           - compiler: clang
             os: ubuntu-24.04
             cc: clang
             cxx: clang++
-            packages: clang
+            ldflags: -fuse-ld=lld
+            packages: clang lld
 
     runs-on: ${{ matrix.os }}
 
     env:
       CC: ccache ${{ matrix.cc }}
       CXX: ccache ${{ matrix.cxx }}
+      LDFLAGS: ${{ matrix.ldflags }}
 
     steps:
       - id: checkout
