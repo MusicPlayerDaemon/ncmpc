@@ -107,7 +107,7 @@ jobs:
             -Dcolors=false \
             -Dmultibyte=false \
             -Dasync_connect=false \
-            -Dmini=true
+            -Dmini=true \
             --wrap-mode nofallback \
             ${{ matrix.meson_options }} \
             output/mini
@@ -162,7 +162,7 @@ jobs:
             -Dcolors=false \
             -Dmultibyte=false \
             -Dasync_connect=false \
-            -Dmini=true
+            -Dmini=true \
             --wrap-mode nofallback \
             ${{ matrix.meson_options }} \
             output/mini
