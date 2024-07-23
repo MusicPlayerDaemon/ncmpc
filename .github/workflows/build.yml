@@ -48,6 +48,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             meson \
+            ccache \
             ncmpc \
             ${{ matrix.cxx }} ${{matrix.cc }} \
             libncursesw5-dev \
