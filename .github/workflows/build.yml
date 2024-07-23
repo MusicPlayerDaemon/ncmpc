@@ -41,6 +41,11 @@ jobs:
             cc: gcc-10
             cxx: g++-10
             packages: g++-10
+          - compiler: clang
+            os: ubuntu-24.04
+            cc: clang
+            cxx: clang++
+            packages: clang
 
     runs-on: ${{ matrix.os }}
 
