@@ -48,7 +48,7 @@ PaintTabBar(WINDOW *w, const PageMeta &current_page_meta,
 			title = current_page_title;
 
 		if (title == nullptr)
-			title = gettext(page->title);
+			title = my_gettext(page->title);
 
 		PaintPageTab(w, page->command, title,
 			     page == &current_page_meta);

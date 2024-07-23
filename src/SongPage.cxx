@@ -174,14 +174,14 @@ static std::unique_ptr<Page>
 screen_song_init(ScreenManager &_screen, WINDOW *w, Size size) noexcept
 {
 	for (unsigned i = 0; tag_labels[i].label != nullptr; ++i) {
-		unsigned width = StringWidthMB(gettext(tag_labels[i].label));
+		unsigned width = StringWidthMB(my_gettext(tag_labels[i].label));
 		if (width > max_tag_label_width)
 			max_tag_label_width = width;
 	}
 
 	for (unsigned i = 0; i < std::size(stats_labels); ++i) {
 		if (stats_labels[i] != nullptr) {
-			unsigned width = StringWidthMB(gettext(stats_labels[i]));
+			unsigned width = StringWidthMB(my_gettext(stats_labels[i]));
 
 			if (width > max_stats_label_width)
 				max_stats_label_width = width;
@@ -267,7 +267,7 @@ get_tag_label(unsigned tag) noexcept
 {
 	for (unsigned i = 0; tag_labels[i].label != nullptr; ++i)
 		if (tag_labels[i].tag_type == tag)
-			return gettext(tag_labels[i].label);
+			return my_gettext(tag_labels[i].label);
 
 	assert(tag < MPD_TAG_COUNT);
 	return mpd_tag_name((enum mpd_tag_type)tag);
@@ -351,7 +351,7 @@ SongPage::AddSong(const struct mpd_song *song) noexcept
 void
 SongPage::AppendStatsLine(enum stats_label label, const char *value) noexcept
 {
-	AppendLine(gettext(stats_labels[label]), value, max_stats_label_width);
+	AppendLine(my_gettext(stats_labels[label]), value, max_stats_label_width);
 }
 
 bool

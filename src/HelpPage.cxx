@@ -242,7 +242,7 @@ HelpPage::GetListItemText(char *, size_t, unsigned i) const noexcept
 	assert(i < std::size(help_text));
 
 	if (row->text != nullptr)
-		return gettext(row->text);
+		return my_gettext(row->text);
 
 	if (row->command != Command::NONE)
 		return get_key_description(row->command);
@@ -272,7 +272,7 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 
 	if (row->command == Command::NONE) {
 		if (row->text != nullptr)
-			mvwaddstr(w, y, 6, gettext(row->text));
+			mvwaddstr(w, y, 6, my_gettext(row->text));
 		else if (row->highlight == 2)
 			mvwhline(w, y, 3, ACS_HLINE, width - 6);
 	} else {
@@ -285,7 +285,7 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 		mvwaddch(w, y, 21, ':');
 		mvwaddstr(w, y, 23,
 			  row->text != nullptr
-			  ? gettext(row->text)
+			  ? my_gettext(row->text)
 			  : get_key_description(row->command));
 	}
 }

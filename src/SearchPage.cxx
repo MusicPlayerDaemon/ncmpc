@@ -142,7 +142,7 @@ public:
 				 " %s : %s [%s]",
 				 GetGlobalKeyBindings().GetKeyNames(Command::SEARCH_MODE).c_str(),
 				 get_key_description(Command::SEARCH_MODE),
-				 gettext(mode[options.search_mode].label));
+				 my_gettext(mode[options.search_mode].label));
 			return buffer;
 		}
 
@@ -453,7 +453,7 @@ SearchPage::GetTitle(char *str, size_t size) const noexcept
 			 "%s '%s' [%s]",
 			 _("Search"),
 			 pattern.c_str(),
-			 gettext(mode[options.search_mode].label));
+			 my_gettext(mode[options.search_mode].label));
 	else
 		return _("Search");
 
@@ -478,7 +478,7 @@ SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 		if (mode[options.search_mode].label == nullptr)
 			options.search_mode = 0;
 		screen_status_printf(_("Search mode: %s"),
-				     gettext(mode[options.search_mode].label));
+				     my_gettext(mode[options.search_mode].label));
 
 		if (pattern.empty())
 			/* show the new mode in the help text */

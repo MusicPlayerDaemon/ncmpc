@@ -238,7 +238,7 @@ get_cmds_max_name_width()
 const char *
 get_key_description(Command command)
 {
-	return gettext(cmds[size_t(command)].description);
+	return my_gettext(cmds[size_t(command)].description);
 }
 
 const char *
