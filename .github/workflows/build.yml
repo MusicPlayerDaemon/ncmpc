@@ -29,9 +29,11 @@ jobs:
           - os: ubuntu-22.04
             cc: gcc-11
             cxx: g++-11
+            packages: g++-11
           - os: ubuntu-20.04
             cc: gcc-10
             cxx: g++-10
+            packages: g++-10
 
     runs-on: ${{ matrix.os }}
 
@@ -50,7 +52,7 @@ jobs:
             meson \
             ccache \
             ncmpc \
-            ${{ matrix.cxx }} ${{matrix.cc }} \
+            ${{ matrix.packages }} \
             libncursesw5-dev \
             libncurses5-dev \
             libpcre2-dev \
