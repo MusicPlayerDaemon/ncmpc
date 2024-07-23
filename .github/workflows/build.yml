@@ -30,8 +30,8 @@ jobs:
             os: ubuntu-24.04
             cc: gcc-14
             cxx: g++-14
-            ldflags:
-            packages: g++-14
+            ldflags: -fuse-ld=mold
+            packages: g++-14 mold
           - compiler: gcc11
             os: ubuntu-22.04
             cc: gcc-11
