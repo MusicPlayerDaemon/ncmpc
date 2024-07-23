@@ -40,13 +40,6 @@ jobs:
             ldflags:
             packages: g++-11
             meson_options:
-          - compiler: gcc10
-            os: ubuntu-20.04
-            cc: gcc-10
-            cxx: g++-10
-            ldflags:
-            packages: g++-10
-            meson_options:
           - compiler: clang
             os: ubuntu-24.04
             cc: clang
