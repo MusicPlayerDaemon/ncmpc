@@ -32,24 +32,28 @@ jobs:
             cxx: g++-14
             ldflags: -fuse-ld=mold
             packages: g++-14 mold
+            meson_options:
           - compiler: gcc11
             os: ubuntu-22.04
             cc: gcc-11
             cxx: g++-11
             ldflags:
             packages: g++-11
+            meson_options:
           - compiler: gcc10
             os: ubuntu-20.04
             cc: gcc-10
             cxx: g++-10
             ldflags:
             packages: g++-10
+            meson_options:
           - compiler: clang
             os: ubuntu-24.04
             cc: clang
             cxx: clang++
             ldflags: -fuse-ld=lld
             packages: clang lld
+            meson_options:
 
     runs-on: ${{ matrix.os }}
 
@@ -80,19 +84,36 @@ jobs:
         with:
           key: ${{ matrix.compiler }}
 
-      - name: Full Build
-        uses: BSFishy/meson-build@v1.0.3
-        with:
-          action: build
-          directory: output/full
-          setup-options: -Ddocumentation=disabled -Dlyrics_screen=true -Dchat_screen=true
+      - name: Configure Full
+        run: |
+          meson setup \
+            -Ddocumentation=disabled \
+            -Dlyrics_screen=true \
+            -Dchat_screen=true \
+            --wrap-mode nofallback \
+            ${{ matrix.meson_options }} \
+            output/full
 
-      - name: Mini Build
-        uses: BSFishy/meson-build@v1.0.3
-        with:
-          action: build
-          directory: output/mini
-          setup-options: -Ddocumentation=disabled -Dbuildtype=minsize -Db_ndebug=true -Db_lto=true -Dauto_features=disabled -Dcurses=ncurses -Dcolors=false -Dmultibyte=false -Dasync_connect=false -Dmini=true
+      - name: Build Full
+        run: meson compile -C output/full --verbose
+
+      - name: Configure Mini
+        run: |
+          meson setup \
+            -Dbuildtype=minsize \
+            -Dauto_features=disabled \
+            -Db_ndebug=true -Db_lto=true \
+            -Dcurses=ncurses \
+            -Dcolors=false \
+            -Dmultibyte=false \
+            -Dasync_connect=false \
+            -Dmini=true
+            --wrap-mode nofallback \
+            ${{ matrix.meson_options }} \
+            output/mini
+
+      - name: Build Mini
+        run: meson compile -C output/mini --verbose
 
   build-macos:
     runs-on: macos-latest
@@ -118,16 +139,33 @@ jobs:
         with:
           key: macos
 
-      - name: Full Build
-        uses: BSFishy/meson-build@v1.0.3
-        with:
-          action: build
-          directory: output/full
-          setup-options: -Ddocumentation=disabled -Dlyrics_screen=true -Dchat_screen=true
+      - name: Configure Full
+        run: |
+          meson setup \
+            -Ddocumentation=disabled \
+            -Dlyrics_screen=true \
+            -Dchat_screen=true \
+            --wrap-mode nofallback \
+            ${{ matrix.meson_options }} \
+            output/full
 
-      - name: Mini Build
-        uses: BSFishy/meson-build@v1.0.3
-        with:
-          action: build
-          directory: output/mini
-          setup-options: -Ddocumentation=disabled -Dbuildtype=minsize -Db_ndebug=true -Db_lto=true -Dauto_features=disabled -Dcurses=ncurses -Dcolors=false -Dmultibyte=false -Dasync_connect=false -Dmini=true
+      - name: Build Full
+        run: meson compile -C output/full --verbose
+
+      - name: Configure Mini
+        run: |
+          meson setup \
+            -Dbuildtype=minsize \
+            -Dauto_features=disabled \
+            -Db_ndebug=true -Db_lto=true \
+            -Dcurses=ncurses \
+            -Dcolors=false \
+            -Dmultibyte=false \
+            -Dasync_connect=false \
+            -Dmini=true
+            --wrap-mode nofallback \
+            ${{ matrix.meson_options }} \
+            output/mini
+
+      - name: Build Mini
+        run: meson compile -C output/mini --verbose
