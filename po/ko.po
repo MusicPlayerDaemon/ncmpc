@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-23 14:18+0200\n"
-"PO-Revision-Date: 2022-09-30 08:16+0000\n"
-"Last-Translator: 이정희 <daemul72@gmail.com>\n"
+"PO-Revision-Date: 2024-07-24 13:09+0000\n"
+"Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ko/>\n"
 "Language: ko\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 5.7-dev\n"
 "X-Launchpad-Export-Date: 2009-10-19 13:36+0000\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
@@ -293,9 +293,8 @@ msgid "Change search mode"
 msgstr "찾기 모드 변경"
 
 #: src/Command.cxx:176
-#, fuzzy
 msgid "Playlist editor"
-msgstr "연주목록을 지움"
+msgstr "연주목록 편집기"
 
 #: src/Command.cxx:180
 msgid "View the selected and the currently playing song"
@@ -332,22 +331,20 @@ msgid "Word expected"
 msgstr "단어 요구됨"
 
 #: src/ConfigParser.cxx:153
-#, fuzzy
 msgid "Whitespace expected"
-msgstr "단어 요구됨"
+msgstr "띄우기 요구됨"
 
 #: src/ConfigParser.cxx:167
-#, fuzzy
 msgid "Quoted value expected"
-msgstr "단어 요구됨"
+msgstr "인용값 요구됨"
 
 #: src/ConfigParser.cxx:176
 msgid "Closing quote missing"
-msgstr ""
+msgstr "마감 따옴표 누락"
 
 #: src/ConfigParser.cxx:194
 msgid "Syntax error"
-msgstr ""
+msgstr "문법 오류"
 
 #: src/ConfigParser.cxx:214
 msgid "Malformed hotkey definition"
@@ -423,11 +420,11 @@ msgstr "모르는 검색 모드"
 
 #: src/ConfigParser.cxx:541
 msgid "Invalid column width"
-msgstr ""
+msgstr "잘못된 열 너비"
 
 #: src/ConfigParser.cxx:550
 msgid "Invalid column fraction width"
-msgstr ""
+msgstr "잘못된 열 나누기 너비"
 
 #: src/ConfigParser.cxx:757
 msgid "Unknown configuration parameter"
@@ -787,7 +784,7 @@ msgstr "불러오는 중..."
 
 #: src/LyricsPage.cxx:342
 msgid "Lyrics cache is unavailable"
-msgstr ""
+msgstr "가사 캐시를 사용할 수 없습니다"
 
 #: src/LyricsPage.cxx:347
 msgid "Editor not configured"
@@ -1093,7 +1090,7 @@ msgstr "찾기 방식: %s"
 
 #: src/SongPage.cxx:52
 msgid "Work"
-msgstr ""
+msgstr "작품"
 
 #: src/SongPage.cxx:54
 msgid "Length"
@@ -1113,7 +1110,7 @@ msgstr "연주가"
 
 #: src/SongPage.cxx:59
 msgid "Conductor"
-msgstr ""
+msgstr "지휘자"
 
 #: src/SongPage.cxx:62
 msgid "Disc"
