@@ -2,6 +2,7 @@ ncmpc 0.50 - not yet released
 * build: require Meson 0.56
 * lyrics/musixmatch: add new lyrics extension
 * lyrics/google: fix partial loading of lyrics
+* support MPD 0.22 tag "label" (requires libmpdclient 2.17)
 
 ncmpc 0.49 - (2023-08-04)
 * fix UI freeze if lyrics plugin is stuck
