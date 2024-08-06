@@ -26,6 +26,9 @@ static constexpr TagMask global_tag_whitelist{
 	MPD_TAG_TRACK,
 	MPD_TAG_DATE,
 	MPD_TAG_GENRE,
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	MPD_TAG_LABEL,
+#endif
 	MPD_TAG_COMMENT,
 };
 
