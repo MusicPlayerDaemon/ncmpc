@@ -97,4 +97,6 @@ extern Options options;
 
 void options_parse(int argc, const char **argv);
 
+void options_env();
+
 #endif

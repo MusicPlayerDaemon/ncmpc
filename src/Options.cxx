@@ -320,7 +320,11 @@ options_parse(int argc, const char *argv[])
 		handle_option(opt->shortopt, nullptr);
 	else if (opt && opt->argument)
 		option_error(ERROR_MISSING_ARGUMENT, opt->longopt, opt->argument);
+}
 
-	if (options.host.empty() && getenv("MPD_HOST"))
+void
+options_env()
+{
+	if (getenv("MPD_HOST"))
 		options.host = getenv("MPD_HOST");
 }

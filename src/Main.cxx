@@ -301,6 +301,9 @@ try {
 	GetGlobalKeyBindings().Check(nullptr, 0);
 #endif
 
+	/* set options from environment variables */
+	options_env();
+
 	/* parse command line options - 2 pass */
 	options_parse(argc, argv);
 
