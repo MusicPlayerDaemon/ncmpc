@@ -6,8 +6,7 @@
 #include "BasicMarquee.hxx"
 #include "event/FineTimerEvent.hxx"
 #include "Point.hxx"
-
-#include <curses.h>
+#include "Window.hxx"
 
 enum class Style : unsigned;
 
@@ -18,7 +17,7 @@ enum class Style : unsigned;
  * scrolling.
  */
 class hscroll {
-	WINDOW *const w;
+	const Window window;
 
 	BasicMarquee basic;
 
@@ -41,8 +40,8 @@ class hscroll {
 
 public:
 	hscroll(EventLoop &event_loop,
-		WINDOW *_w, const char *_separator) noexcept
-		:w(_w), basic(_separator),
+		const Window _window, const char *_separator) noexcept
+		:window(_window), basic(_separator),
 		 timer(event_loop, BIND_THIS_METHOD(OnTimer))
 	{
 	}

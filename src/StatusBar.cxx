@@ -19,7 +19,7 @@ StatusBar::StatusBar(EventLoop &event_loop,
 	:window(p, {width, 1u}),
 	 message_timer(event_loop, BIND_THIS_METHOD(OnMessageTimer))
 #ifndef NCMPC_MINI
-	, hscroll(event_loop, window.w, options.scroll_sep.c_str())
+	, hscroll(event_loop, window, options.scroll_sep.c_str())
 #endif
 {
 	leaveok(window.w, false);
