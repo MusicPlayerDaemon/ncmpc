@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef LIST_CURSOR_HXX
-#define LIST_CURSOR_HXX
+#pragma once
 
 #include <algorithm>
 
@@ -37,13 +36,7 @@ struct ListWindowRange {
 			return *this;
 		}
 
-		constexpr bool operator==(const const_iterator &other) const noexcept {
-			return value == other.value;
-		}
-
-		constexpr bool operator!=(const const_iterator &other) const noexcept {
-			return !(*this == other);
-		}
+		constexpr bool operator==(const const_iterator &) const noexcept = default;
 
 		const unsigned &operator *() const noexcept {
 			return value;
@@ -308,5 +301,3 @@ private:
 		ScrollTo(selected);
 	}
 };
-
-#endif
