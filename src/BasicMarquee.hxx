@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef BASIC_MARQUEE_HXX
-#define BASIC_MARQUEE_HXX
+#pragma once
 
 #include <string>
 #include <utility>
@@ -73,7 +72,5 @@ public:
 	}
 
 	[[gnu::pure]]
-	std::pair<const char *, size_t> ScrollString() const noexcept;
+	std::string_view ScrollString() const noexcept;
 };
-
-#endif

@@ -7,14 +7,14 @@
 #include <assert.h>
 #include <string.h>
 
-std::pair<const char *, size_t>
+std::string_view
 BasicMarquee::ScrollString() const noexcept
 {
 	assert(separator != nullptr);
 
 	const char *p = AtCharMB(buffer.data(), buffer.length(), offset);
 	const char *end = AtWidthMB(p, strlen(p), width);
-	return std::make_pair(p, size_t(end - p));
+	return {p, end};
 }
 
 bool

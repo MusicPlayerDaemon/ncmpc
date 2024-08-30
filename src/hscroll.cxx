@@ -52,7 +52,7 @@ hscroll::Paint() const noexcept
 
 	/* scroll the string, and draw it */
 	const auto s = basic.ScrollString();
-	mvwaddnstr(w, position.y, position.x, s.first, s.second);
+	mvwaddnstr(w, position.y, position.x, s.data(), s.size());
 
 	if (attr != 0)
 		wattroff(w, attr);
