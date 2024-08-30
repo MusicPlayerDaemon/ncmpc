@@ -99,8 +99,8 @@ screen_readln(ScreenManager &screen, const char *prompt,
 	      History *history,
 	      Completion *completion) noexcept
 {
-	auto *window = &screen.status_bar.GetWindow();
-	WINDOW *w = window->w;
+	const auto &window = screen.status_bar.GetWindow();
+	WINDOW *w = window.w;
 
 	wmove(w, 0,0);
 	curs_set(1);
@@ -114,7 +114,7 @@ screen_readln(ScreenManager &screen, const char *prompt,
 	SelectStyle(w, Style::STATUS);
 	wattron(w, A_REVERSE);
 
-	auto result = wreadln(w, value, window->GetWidth(),
+	auto result = wreadln(w, value, window.GetWidth(),
 			      history, completion);
 	curs_set(0);
 	return result;
@@ -123,8 +123,8 @@ screen_readln(ScreenManager &screen, const char *prompt,
 std::string
 screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 {
-	auto *window = &screen.status_bar.GetWindow();
-	WINDOW *w = window->w;
+	const auto &window = screen.status_bar.GetWindow();
+	WINDOW *w = window.w;
 
 	wmove(w, 0,0);
 	curs_set(1);
@@ -139,7 +139,7 @@ screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 	SelectStyle(w, Style::STATUS);
 	wattron(w, A_REVERSE);
 
-	auto result = wreadln_masked(w, nullptr, window->GetWidth());
+	auto result = wreadln_masked(w, nullptr, window.GetWidth());
 	curs_set(0);
 	return result;
 }

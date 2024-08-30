@@ -10,18 +10,13 @@
 
 enum class Style : unsigned;
 
+/**
+ * A non-owning wrapper for a ncurses #WINDOW pointer.
+ */
 struct Window {
-	WINDOW *const w;
+	WINDOW *w;
 
-	Window(Point p, Size _size) noexcept
-		:w(newwin(_size.height, _size.width, p.y, p.x)) {}
-
-	~Window() noexcept {
-		delwin(w);
-	}
-
-	Window(const Window &) = delete;
-	Window &operator=(const Window &) = delete;
+	explicit constexpr Window(WINDOW *_w) noexcept:w(_w) {}
 
 	[[gnu::pure]]
 	const Size GetSize() const noexcept {
@@ -47,8 +42,24 @@ struct Window {
 	void Move(Point p) const noexcept {
 		mvwin(w, p.y, p.x);
 	}
+};
 
-	void Resize(Size size) noexcept {
-		wresize(w, size.height, size.width);
+/**
+ * Like #Window, but this class owns the #WINDOW.  The constructor
+ * creates a new instance and the destructor deletes it.
+ */
+struct UniqueWindow : Window {
+	UniqueWindow(Point p, Size _size) noexcept
+		:Window(newwin(_size.height, _size.width, p.y, p.x)) {}
+
+	~UniqueWindow() noexcept {
+		delwin(w);
+	}
+
+	UniqueWindow(const UniqueWindow &) = delete;
+	UniqueWindow &operator=(const UniqueWindow &) = delete;
+
+	void Resize(Size new_size) noexcept {
+		wresize(w, new_size.height, new_size.width);
 	}
 };

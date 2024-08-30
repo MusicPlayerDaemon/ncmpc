@@ -19,7 +19,7 @@ struct mpd_song;
 class DelayedSeek;
 
 class StatusBar {
-	Window window;
+	UniqueWindow window;
 
 	std::string message;
 	CoarseTimerEvent message_timer;
@@ -40,7 +40,7 @@ public:
 		  Point p, unsigned width) noexcept;
 	~StatusBar() noexcept;
 
-	const Window &GetWindow() const noexcept {
+	Window GetWindow() const noexcept {
 		return window;
 	}
 

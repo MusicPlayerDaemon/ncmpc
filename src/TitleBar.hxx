@@ -10,7 +10,7 @@ struct mpd_status;
 struct PageMeta;
 
 class TitleBar {
-	Window window;
+	UniqueWindow window;
 
 	int volume;
 	char flags[8];

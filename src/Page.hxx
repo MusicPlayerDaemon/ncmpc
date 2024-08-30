@@ -78,9 +78,7 @@ public:
 	 * object is not interested in overriding the status bar
 	 * contents
 	 */
-	virtual bool PaintStatusBarOverride(const Window &) const noexcept {
-		return false;
-	}
+	virtual bool PaintStatusBarOverride(Window window) const noexcept;
 
 	virtual void Update(struct mpdclient &, unsigned) noexcept {}
 

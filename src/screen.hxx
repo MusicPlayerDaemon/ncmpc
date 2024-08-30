@@ -67,7 +67,7 @@ class ScreenManager {
 
 	TitleBar title_bar;
 public:
-	Window main_window;
+	UniqueWindow main_window;
 
 private:
 	ProgressBar progress_bar;

@@ -130,7 +130,7 @@ public:
 	}
 
 	void Paint() const noexcept override;
-	bool PaintStatusBarOverride(const Window &window) const noexcept override;
+	bool PaintStatusBarOverride(Window window) const noexcept override;
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
@@ -418,7 +418,7 @@ QueuePage::Paint() const noexcept
 }
 
 bool
-QueuePage::PaintStatusBarOverride(const Window &window) const noexcept
+QueuePage::PaintStatusBarOverride(const Window window) const noexcept
 {
 	if (!lw.HasRangeSelection())
 		return false;

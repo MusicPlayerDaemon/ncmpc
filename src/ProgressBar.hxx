@@ -7,7 +7,7 @@
 #include "Window.hxx"
 
 class ProgressBar {
-	Window window;
+	UniqueWindow window;
 
 	unsigned current = 0, max = 0;
 

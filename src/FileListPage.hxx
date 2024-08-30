@@ -72,7 +72,7 @@ private:
 public:
 	/* virtual methods from class Page */
 	void Paint() const noexcept override;
-	bool PaintStatusBarOverride(const Window &window) const noexcept override;
+	bool PaintStatusBarOverride(Window window) const noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
 #ifdef HAVE_GETMOUSE

@@ -548,7 +548,7 @@ FileListPage::Paint() const noexcept
 }
 
 bool
-FileListPage::PaintStatusBarOverride(const Window &window) const noexcept
+FileListPage::PaintStatusBarOverride(const Window window) const noexcept
 {
 	if (!lw.HasRangeSelection())
 		return false;
