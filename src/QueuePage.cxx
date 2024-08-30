@@ -66,13 +66,13 @@ class QueuePage final : public ListPage, ListRenderer, ListText {
 	bool playing = false;
 
 public:
-	QueuePage(ScreenManager &_screen, WINDOW *w,
+	QueuePage(ScreenManager &_screen, Window _window,
 		  Size size)
-		:ListPage(w, size),
+		:ListPage(_window, size),
 		 screen(_screen),
 #ifndef NCMPC_MINI
 		 hscroll(screen.GetEventLoop(),
-			 w, options.scroll_sep.c_str()),
+			 _window.w, options.scroll_sep.c_str()),
 		 table_layout(song_table_structure),
 #endif
 		 hide_cursor_timer(screen.GetEventLoop(),
@@ -109,7 +109,7 @@ private:
 	}
 
 	/* virtual methods from class ListRenderer */
-	void PaintListItem(WINDOW *w, unsigned i,
+	void PaintListItem(Window window, unsigned i,
 			   unsigned y, unsigned width,
 			   bool selected) const noexcept override;
 
@@ -324,9 +324,9 @@ handle_add_to_playlist(ScreenManager &screen, struct mpdclient *c)
 }
 
 static std::unique_ptr<Page>
-screen_queue_init(ScreenManager &_screen, WINDOW *w, Size size)
+screen_queue_init(ScreenManager &_screen, Window window, Size size)
 {
-	return std::make_unique<QueuePage>(_screen, w, size);
+	return std::make_unique<QueuePage>(_screen, window, size);
 }
 
 inline void
@@ -379,7 +379,7 @@ QueuePage::GetTitle(char *str, size_t size) const noexcept
 }
 
 void
-QueuePage::PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
+QueuePage::PaintListItem(const Window window, unsigned i, unsigned y, unsigned width,
 			 bool selected) const noexcept
 {
 	assert(playlist != nullptr);
@@ -388,7 +388,7 @@ QueuePage::PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
 
 #ifndef NCMPC_MINI
 	if (!song_table_structure.columns.empty()) {
-		PaintTableRow(w, width, selected,
+		PaintTableRow(window, width, selected,
 			      (int)mpd_song_get_id(&song) == current_song_id,
 			      song, table_layout);
 		return;
@@ -401,7 +401,7 @@ QueuePage::PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
 		? &hscroll : nullptr;
 #endif
 
-	paint_song_row(w, y, width, selected,
+	paint_song_row(window, y, width, selected,
 		       (int)mpd_song_get_id(&song) == current_song_id,
 		       &song, row_hscroll, options.list_format.c_str());
 }

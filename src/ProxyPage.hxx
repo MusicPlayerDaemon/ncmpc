@@ -1,21 +1,22 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_PROXY_PAGE_HXX
-#define NCMPC_PROXY_PAGE_HXX
+#pragma once
 
 #include "Page.hxx"
+#include "Window.hxx"
 #include "config.h"
 
 class ProxyPage : public Page {
-	WINDOW *const w;
+	const Window window;
 
 	Page *current_page = nullptr;
 
 	bool is_open = false;
 
 public:
-	explicit ProxyPage(WINDOW *_w) noexcept:w(_w) {}
+	explicit ProxyPage(const Window _window) noexcept
+		:window(_window) {}
 
 	const Page *GetCurrentPage() const {
 		return current_page;
@@ -50,5 +51,3 @@ public:
 
 	const char *GetTitle(char *s, size_t size) const noexcept override;
 };
-
-#endif

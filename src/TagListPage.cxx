@@ -106,13 +106,13 @@ TagListPage::Reload(struct mpdclient &c)
  * to view the tracks of all albums.
  */
 void
-TagListPage::PaintListItem(WINDOW *w, unsigned i,
-			     [[maybe_unused]] unsigned y, unsigned width,
-			     bool selected) const noexcept
+TagListPage::PaintListItem(const Window window, unsigned i,
+			   [[maybe_unused]] unsigned y, unsigned width,
+			   bool selected) const noexcept
 {
 	if (parent != nullptr) {
 		if (i == 0) {
-			screen_browser_paint_directory(w, width, selected,
+			screen_browser_paint_directory(window, width, selected,
 						       "..");
 			return;
 		}
@@ -121,10 +121,10 @@ TagListPage::PaintListItem(WINDOW *w, unsigned i,
 	}
 
 	if (i < values.size())
-		screen_browser_paint_directory(w, width, selected,
+		screen_browser_paint_directory(window, width, selected,
 					       Utf8ToLocale(values[i].c_str()).c_str());
 	else
-		screen_browser_paint_directory(w, width, selected,
+		screen_browser_paint_directory(window, width, selected,
 					       all_text);
 }
 

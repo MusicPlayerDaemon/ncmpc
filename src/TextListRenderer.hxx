@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_TEXT_LIST_RENDERER_HXX
-#define NCMPC_TEXT_LIST_RENDERER_HXX
+#pragma once
 
 #include "ListRenderer.hxx"
 
@@ -16,8 +15,6 @@ public:
 		:text(_text) {}
 
 	/* virtual methods from class ListRenderer */
-	void PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
+	void PaintListItem(const Window window, unsigned i, unsigned y, unsigned width,
 			   bool selected) const noexcept override;
 };
-
-#endif

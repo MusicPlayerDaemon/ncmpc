@@ -55,8 +55,8 @@ class SongListPage final : public FileListPage {
 
 public:
 	SongListPage(ScreenManager &_screen, Page *_parent,
-		     WINDOW *_w, Size size) noexcept
-		:FileListPage(_screen, _w, size,
+		     const Window _window, Size size) noexcept
+		:FileListPage(_screen, _window, size,
 			      options.list_format.c_str()),
 		 parent(_parent) {}
 
@@ -102,8 +102,8 @@ public:
 			   Page *_parent,
 			   const enum mpd_tag_type _tag,
 			   const char *_all_text,
-			   WINDOW *_w, Size size) noexcept
-		:TagListPage(_screen, _parent, _tag, _all_text, _w, size),
+			   const Window _window, Size size) noexcept
+		:TagListPage(_screen, _parent, _tag, _all_text, _window, size),
 		 library_page(_library_page) {}
 
 protected:
@@ -117,11 +117,11 @@ class ArtistBrowserPage final : public ProxyPage {
 	SongListPage song_list_page;
 
 public:
-	ArtistBrowserPage(ScreenManager &_screen, WINDOW *_w,
+	ArtistBrowserPage(ScreenManager &_screen, const Window _window,
 			  Size size)
-		:ProxyPage(_w),
+		:ProxyPage(_window),
 		 song_list_page(_screen, this,
-				_w, size) {
+				_window, size) {
 
 		bool first = true;
 		for (const auto &tag : options.library_page_tags) {
@@ -129,7 +129,7 @@ public:
 						    first ? nullptr : this,
 						    tag,
 						    first ? nullptr : _("All"),
-						    _w, size);
+						    _window, size);
 			first = false;
 		}
 	}
@@ -196,9 +196,9 @@ ArtistBrowserPage::OpenSongList(struct mpdclient &c, TagFilter &&filter)
 }
 
 static std::unique_ptr<Page>
-InitLibraryPage(ScreenManager &_screen, WINDOW *w, Size size)
+InitLibraryPage(ScreenManager &_screen, const Window window, Size size)
 {
-	return std::make_unique<ArtistBrowserPage>(_screen, w, size);
+	return std::make_unique<ArtistBrowserPage>(_screen, window, size);
 }
 
 const char *

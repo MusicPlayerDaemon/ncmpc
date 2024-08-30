@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_SONG_ROW_PAINT_HXX
-#define NCMPC_SONG_ROW_PAINT_HXX
-
-#include <curses.h>
+#pragma once
 
 struct mpd_song;
+struct Window;
 class hscroll;
 
 /**
@@ -23,8 +21,6 @@ class hscroll;
  * @param format the song format
  */
 void
-paint_song_row(WINDOW *w, int y, unsigned width,
+paint_song_row(Window window, int y, unsigned width,
 	       bool selected, bool highlight, const struct mpd_song *song,
 	       class hscroll *hscroll, const char *format);
-
-#endif

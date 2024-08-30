@@ -33,10 +33,10 @@
 static constexpr unsigned HIGHLIGHT = 0x01;
 #endif
 
-FileListPage::FileListPage(ScreenManager &_screen, WINDOW *_w,
+FileListPage::FileListPage(ScreenManager &_screen, Window _window,
 			   Size size,
 			   const char *_song_format) noexcept
-	:ListPage(_w, size),
+	:ListPage(_window, size),
 	 screen(_screen),
 	 song_format(_song_format)
 {
@@ -470,28 +470,28 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 }
 
 void
-screen_browser_paint_directory(WINDOW *w, unsigned width,
+screen_browser_paint_directory(const Window window, unsigned width,
 			       bool selected, const char *name) noexcept
 {
-	row_color(w, Style::DIRECTORY, selected);
+	row_color(window, Style::DIRECTORY, selected);
 
-	waddch(w, '[');
-	waddstr(w, name);
-	waddch(w, ']');
+	waddch(window.w, '[');
+	waddstr(window.w, name);
+	waddch(window.w, ']');
 
 	/* erase the unused space after the text */
-	row_clear_to_eol(w, width, selected);
+	row_clear_to_eol(window, width, selected);
 }
 
 static void
-screen_browser_paint_playlist(WINDOW *w, unsigned width,
+screen_browser_paint_playlist(const Window window, unsigned width,
 			      bool selected, const char *name) noexcept
 {
-	row_paint_text(w, width, Style::PLAYLIST, selected, name);
+	row_paint_text(window, width, Style::PLAYLIST, selected, name);
 }
 
 void
-FileListPage::PaintListItem(WINDOW *w, unsigned i,
+FileListPage::PaintListItem(const Window window, unsigned i,
 			    unsigned y, unsigned width,
 			    bool selected) const noexcept
 {
@@ -501,7 +501,7 @@ FileListPage::PaintListItem(WINDOW *w, unsigned i,
 	const auto &entry = (*filelist)[i];
 	const struct mpd_entity *entity = entry.entity;
 	if (entity == nullptr) {
-		screen_browser_paint_directory(w, width, selected, "..");
+		screen_browser_paint_directory(window, width, selected, "..");
 		return;
 	}
 
@@ -515,13 +515,13 @@ FileListPage::PaintListItem(WINDOW *w, unsigned i,
 	case MPD_ENTITY_TYPE_DIRECTORY: {
 		const auto *directory = mpd_entity_get_directory(entity);
 		const char *name = GetUriFilename(mpd_directory_get_path(directory));
-		screen_browser_paint_directory(w, width, selected,
+		screen_browser_paint_directory(window, width, selected,
 					       Utf8ToLocale(name).c_str());
 		break;
 	}
 
 	case MPD_ENTITY_TYPE_SONG:
-		paint_song_row(w, y, width, selected, highlight,
+		paint_song_row(window, y, width, selected, highlight,
 			       mpd_entity_get_song(entity), nullptr,
 			       song_format);
 		break;
@@ -529,13 +529,13 @@ FileListPage::PaintListItem(WINDOW *w, unsigned i,
 	case MPD_ENTITY_TYPE_PLAYLIST: {
 		const auto *playlist = mpd_entity_get_playlist(entity);
 		const char *name = GetUriFilename(mpd_playlist_get_path(playlist));
-		screen_browser_paint_playlist(w, width, selected,
+		screen_browser_paint_playlist(window, width, selected,
 					      Utf8ToLocale(name).c_str());
 		break;
 	}
 
 	default:
-		row_paint_text(w, width,
+		row_paint_text(window, width,
 			       highlight ? Style::LIST_BOLD : Style::LIST,
 			       selected, "<unknown>");
 	}

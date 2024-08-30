@@ -1,27 +1,25 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef LIST_WINDOW_HXX
-#define LIST_WINDOW_HXX
+#pragma once
 
 #include "ListCursor.hxx"
 #include "Size.hxx"
+#include "Window.hxx"
 #include "config.h"
-
-#include <curses.h>
 
 enum class Command : unsigned;
 class ListText;
 class ListRenderer;
 
 class ListWindow : public ListCursor {
-	WINDOW *const w;
+	const Window window;
 
 	unsigned width;
 
 public:
-	ListWindow(WINDOW *_w, Size _size) noexcept
-		:ListCursor(_size.height), w(_w), width(_size.width) {}
+	ListWindow(Window _window, Size _size) noexcept
+		:ListCursor(_size.height), window(_window), width(_size.width) {}
 
 	unsigned GetWidth() const noexcept {
 		return width;
@@ -33,7 +31,7 @@ public:
 	}
 
 	void Refresh() const noexcept {
-		wrefresh(w);
+		wrefresh(window.w);
 	}
 
 	void Paint(const ListRenderer &renderer) const noexcept;
@@ -77,5 +75,3 @@ public:
 	 */
 	bool Jump(const ListText &text, const char *str) noexcept;
 };
-
-#endif

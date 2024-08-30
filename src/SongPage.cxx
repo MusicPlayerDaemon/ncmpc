@@ -105,8 +105,8 @@ class SongPage final : public ListPage, ListText {
 	std::vector<std::string> lines;
 
 public:
-	SongPage(ScreenManager &_screen, WINDOW *w, Size size) noexcept
-		:ListPage(w, size),
+	SongPage(ScreenManager &_screen, const Window _window, Size size) noexcept
+		:ListPage(_window, size),
 		 screen(_screen) {
 		lw.HideCursor();
 	}
@@ -171,7 +171,7 @@ SongPage::GetListItemText(char *, size_t, unsigned idx) const noexcept
 }
 
 static std::unique_ptr<Page>
-screen_song_init(ScreenManager &_screen, WINDOW *w, Size size) noexcept
+screen_song_init(ScreenManager &_screen, const Window window, Size size) noexcept
 {
 	for (unsigned i = 0; tag_labels[i].label != nullptr; ++i) {
 		unsigned width = StringWidthMB(my_gettext(tag_labels[i].label));
@@ -188,7 +188,7 @@ screen_song_init(ScreenManager &_screen, WINDOW *w, Size size) noexcept
 		}
 	}
 
-	return std::make_unique<SongPage>(_screen, w, size);
+	return std::make_unique<SongPage>(_screen, window, size);
 }
 
 const char *

@@ -105,8 +105,8 @@ class OutputsPage final : public ListPage, ListRenderer {
 #endif
 
 public:
-	OutputsPage(ScreenManager &_screen, WINDOW *w, Size size)
-		:ListPage(w, size), screen(_screen) {}
+	OutputsPage(ScreenManager &_screen, const Window window, Size size)
+		:ListPage(window, size), screen(_screen) {}
 
 private:
 	void Clear();
@@ -130,7 +130,7 @@ public:
 	const char *GetTitle(char *s, size_t size) const noexcept override;
 
 	/* virtual methods from class ListRenderer */
-	void PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
+	void PaintListItem(Window window, unsigned i, unsigned y, unsigned width,
 			   bool selected) const noexcept override;
 };
 
@@ -344,9 +344,9 @@ OutputsPage::Reload(struct mpdclient &c) noexcept
 }
 
 static std::unique_ptr<Page>
-outputs_init(ScreenManager &screen, WINDOW *w, Size size)
+outputs_init(ScreenManager &screen, const Window window, Size size)
 {
-	return std::make_unique<OutputsPage>(screen, w, size);
+	return std::make_unique<OutputsPage>(screen, window, size);
 }
 
 const char *
@@ -358,22 +358,22 @@ OutputsPage::GetTitle(char *, size_t) const noexcept
 #if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 
 static void
-PaintPartition(WINDOW *w, unsigned width, bool selected, bool active,
+PaintPartition(const Window window, unsigned width, bool selected, bool active,
 	       const struct mpd_partition &partition) noexcept
 {
 	const char *name = mpd_partition_get_name(&partition);
 
-	row_color(w, active ? Style::LIST_BOLD : Style::LIST, selected);
-	waddstr(w, _("Partition"));
-	waddstr(w, ": ");
-	waddstr(w, name);
-	row_clear_to_eol(w, width, selected);
+	row_color(window, active ? Style::LIST_BOLD : Style::LIST, selected);
+	waddstr(window.w, _("Partition"));
+	waddstr(window.w, ": ");
+	waddstr(window.w, name);
+	row_clear_to_eol(window, width, selected);
 }
 
 #endif
 
 void
-OutputsPage::PaintListItem(WINDOW *w, unsigned i,
+OutputsPage::PaintListItem(Window window, unsigned i,
 			   [[maybe_unused]] unsigned y, unsigned width,
 			   bool selected) const noexcept
 {
@@ -386,16 +386,16 @@ OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 		break;
 
 	case Item::Special::NEW_PARTITION:
-		row_color(w, Style::LIST, selected);
-		waddch(w, '[');
-		waddstr(w, _("Create new partition"));
-		waddch(w, ']');
-		row_clear_to_eol(w, width, selected);
+		row_color(window, Style::LIST, selected);
+		waddch(window.w, '[');
+		waddstr(window.w, _("Create new partition"));
+		waddch(window.w, ']');
+		row_clear_to_eol(window, width, selected);
 		return;
 	}
 
 	if (item.partition) {
-		PaintPartition(w, width, selected,
+		PaintPartition(window, width, selected,
 			       active_partition == item.GetHash(),
 			       *item.partition);
 		return;
@@ -406,10 +406,10 @@ OutputsPage::PaintListItem(WINDOW *w, unsigned i,
 
 	const auto *output = item.output.get();
 
-	row_color(w, Style::LIST, selected);
-	waddstr(w, mpd_output_get_enabled(output) ? "[X] " : "[ ] ");
-	waddstr(w, mpd_output_get_name(output));
-	row_clear_to_eol(w, width, selected);
+	row_color(window, Style::LIST, selected);
+	waddstr(window.w, mpd_output_get_enabled(output) ? "[X] " : "[ ] ");
+	waddstr(window.w, mpd_output_get_name(output));
+	row_clear_to_eol(window, width, selected);
 }
 
 void

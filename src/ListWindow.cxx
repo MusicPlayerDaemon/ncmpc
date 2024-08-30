@@ -26,25 +26,25 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 		range = GetRange();
 
 	for (unsigned i = 0; i < GetHeight(); i++) {
-		wmove(w, i, 0);
+		wmove(window.w, i, 0);
 
 		const unsigned j = GetOrigin() + i;
 		if (j >= GetLength()) {
-			wclrtobot(w);
+			wclrtobot(window.w);
 			break;
 		}
 
 		bool is_selected = cursor_visible &&
 			range.Contains(j);
 
-		renderer.PaintListItem(w, j, i, width, is_selected);
+		renderer.PaintListItem(window, j, i, width, is_selected);
 	}
 
-	row_color_end(w);
+	row_color_end(window);
 
 	if (options.hardware_cursor && IsVisible(GetCursorIndex())) {
 		curs_set(1);
-		wmove(w, GetCursorIndex() - GetOrigin(), 0);
+		wmove(window.w, GetCursorIndex() - GetOrigin(), 0);
 	}
 }
 

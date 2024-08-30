@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef TEXT_PAGE_HXX
-#define TEXT_PAGE_HXX
+#pragma once
 
 #include "ListPage.hxx"
 #include "ListText.hxx"
@@ -24,8 +23,8 @@ protected:
 
 public:
 	TextPage(ScreenManager &_screen,
-		 WINDOW *w, Size size) noexcept
-		:ListPage(w, size), screen(_screen) {
+		 Window window, Size size) noexcept
+		:ListPage(window, size), screen(_screen) {
 		lw.HideCursor();
 	}
 
@@ -67,5 +66,3 @@ private:
 	const char *GetListItemText(char *buffer, size_t size,
 				    unsigned i) const noexcept override;
 };
-
-#endif

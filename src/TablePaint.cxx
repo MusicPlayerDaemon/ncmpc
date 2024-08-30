@@ -9,20 +9,20 @@
 #include "util/LocaleString.hxx"
 
 static void
-FillSpace(WINDOW *w, unsigned n) noexcept
+FillSpace(const Window window, unsigned n) noexcept
 {
 	// TODO: use whline(), which unfortunately doesn't move the cursor
 	while (n-- > 0)
-		waddch(w, ' ');
+		waddch(window.w, ' ');
 }
 
 void
-PaintTableRow(WINDOW *w, unsigned width,
+PaintTableRow(const Window window, unsigned width,
 	      bool selected, bool highlight, const struct mpd_song &song,
 	      const TableLayout &layout) noexcept
 {
 	const auto color = highlight ? Style::LIST_BOLD : Style::LIST;
-	row_color(w, color, selected);
+	row_color(window, color, selected);
 
 	const size_t n_columns = layout.structure.columns.size();
 	for (size_t i = 0; i < n_columns; ++i) {
@@ -32,9 +32,9 @@ PaintTableRow(WINDOW *w, unsigned width,
 			break;
 
 		if (i > 0) {
-			SelectStyle(w, Style::LINE);
-			waddch(w, ACS_VLINE);
-			row_color(w, color, selected);
+			SelectStyle(window.w, Style::LINE);
+			waddch(window.w, ACS_VLINE);
+			row_color(window, color, selected);
 		}
 
 		char buffer[1024];
@@ -44,9 +44,9 @@ PaintTableRow(WINDOW *w, unsigned width,
 		const char *end = AtWidthMB(buffer, length, cl.width);
 		length = end - buffer;
 
-		waddnstr(w, buffer, length);
-		FillSpace(w, cl.width - StringWidthMB(buffer, length));
+		waddnstr(window.w, buffer, length);
+		FillSpace(window, cl.width - StringWidthMB(buffer, length));
 	}
 
-	row_clear_to_eol(w, width, selected);
+	row_clear_to_eol(window, width, selected);
 }

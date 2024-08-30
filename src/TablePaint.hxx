@@ -3,12 +3,11 @@
 
 #pragma once
 
-#include <curses.h>
-
+struct Window;
 struct TableLayout;
 struct mpd_song;
 
 void
-PaintTableRow(WINDOW *w, unsigned width,
+PaintTableRow(Window window, unsigned width,
 	      bool selected, bool highlight, const struct mpd_song &song,
 	      const TableLayout &layout) noexcept;

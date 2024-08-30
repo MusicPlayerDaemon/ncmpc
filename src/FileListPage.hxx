@@ -1,15 +1,12 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef FILE_LIST_PAGE_HXX
-#define FILE_LIST_PAGE_HXX
+#pragma once
 
 #include "config.h"
 #include "ListPage.hxx"
 #include "ListRenderer.hxx"
 #include "ListText.hxx"
-
-#include <curses.h>
 
 #include <memory>
 
@@ -27,7 +24,7 @@ protected:
 	const char *const song_format;
 
 public:
-	FileListPage(ScreenManager &_screen, WINDOW *_w,
+	FileListPage(ScreenManager &_screen, Window _window,
 		     Size size,
 		     const char *_song_format) noexcept;
 
@@ -56,12 +53,12 @@ private:
 
 	void HandleSelectAll(struct mpdclient &c) noexcept;
 
-	static void PaintRow(WINDOW *w, unsigned i,
+	static void PaintRow(Window window, unsigned i,
 			     unsigned y, unsigned width,
 			     bool selected, const void *data) noexcept;
 
 	/* virtual methods from class ListRenderer */
-	void PaintListItem(WINDOW *w, unsigned i,
+	void PaintListItem(Window window, unsigned i,
 			   unsigned y, unsigned width,
 			   bool selected) const noexcept final;
 
@@ -97,7 +94,5 @@ screen_browser_sync_highlights(FileList &, const MpdQueue &) noexcept
 #endif
 
 void
-screen_browser_paint_directory(WINDOW *w, unsigned width,
+screen_browser_paint_directory(Window window, unsigned width,
 			       bool selected, const char *name) noexcept;
-
-#endif

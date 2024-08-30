@@ -25,8 +25,8 @@ class EditPlaylistPage final : public FileListPage {
 	SongPtr selected_song;
 
 public:
-	EditPlaylistPage(ScreenManager &_screen, WINDOW *w, Size size) noexcept
-		:FileListPage(_screen, w, size,
+	EditPlaylistPage(ScreenManager &_screen, const Window _window, Size size) noexcept
+		:FileListPage(_screen, _window, size,
 			      options.list_format.c_str())
 	{
 	}
@@ -107,9 +107,9 @@ EditPlaylistPage::RestoreSelection() noexcept
 }
 
 static std::unique_ptr<Page>
-edit_playlist_page_init(ScreenManager &_screen, WINDOW *w, Size size)
+edit_playlist_page_init(ScreenManager &_screen, const Window window, Size size)
 {
-	return std::make_unique<EditPlaylistPage>(_screen, w, size);
+	return std::make_unique<EditPlaylistPage>(_screen, window, size);
 }
 
 const char *

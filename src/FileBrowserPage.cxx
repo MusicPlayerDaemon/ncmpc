@@ -29,9 +29,9 @@ class FileBrowserPage final : public FileListPage {
 	std::string current_path;
 
 public:
-	FileBrowserPage(ScreenManager &_screen, WINDOW *_w,
+	FileBrowserPage(ScreenManager &_screen, const Window _window,
 			Size size) noexcept
-		:FileListPage(_screen, _w, size,
+		:FileListPage(_screen, _window, size,
 			      options.list_format.c_str()) {}
 
 	bool GotoSong(struct mpdclient &c, const struct mpd_song &song) noexcept;
@@ -265,9 +265,9 @@ FileBrowserPage::HandleDelete(struct mpdclient &c) noexcept
 }
 
 static std::unique_ptr<Page>
-screen_file_init(ScreenManager &_screen, WINDOW *w, Size size) noexcept
+screen_file_init(ScreenManager &_screen, const Window window, Size size) noexcept
 {
-	return std::make_unique<FileBrowserPage>(_screen, w, size);
+	return std::make_unique<FileBrowserPage>(_screen, window, size);
 }
 
 const char *

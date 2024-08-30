@@ -27,8 +27,8 @@ class ChatPage final : public TextPage {
 	std::string prefix;
 
 public:
-	ChatPage(ScreenManager &_screen, WINDOW *w, Size size)
-		:TextPage(_screen, w, size) {}
+	ChatPage(ScreenManager &_screen, const Window _window, Size size)
+		:TextPage(_screen, _window, size) {}
 
 private:
 	bool CheckChatSupport(struct mpdclient &c);
@@ -70,9 +70,9 @@ ChatPage::CheckChatSupport(struct mpdclient &c)
 }
 
 static std::unique_ptr<Page>
-screen_chat_init(ScreenManager &screen, WINDOW *w, Size size)
+screen_chat_init(ScreenManager &screen, const Window window, Size size)
 {
-	return std::make_unique<ChatPage>(screen, w, size);
+	return std::make_unique<ChatPage>(screen, window, size);
 }
 
 void

@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_LIST_PAGE_HXX
-#define NCMPC_LIST_PAGE_HXX
+#pragma once
 
 #include "Page.hxx"
 #include "ListWindow.hxx"
@@ -15,8 +14,8 @@ protected:
 	ListWindow lw;
 
 public:
-	ListPage(WINDOW *w, Size size)
-		:lw(w, size) {}
+	ListPage(Window window, Size size)
+		:lw(window, size) {}
 
 public:
 	/* virtual methods from class Page */
@@ -48,5 +47,3 @@ public:
 
 #endif
 };
-
-#endif

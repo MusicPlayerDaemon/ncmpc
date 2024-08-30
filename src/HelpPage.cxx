@@ -209,15 +209,15 @@ class HelpPage final : public ListPage, ListRenderer, ListText {
 	ScreenManager &screen;
 
 public:
-	HelpPage(ScreenManager &_screen, WINDOW *w, Size size)
-		:ListPage(w, size), screen(_screen) {
+	HelpPage(ScreenManager &_screen, const Window _window, Size size)
+		:ListPage(_window, size), screen(_screen) {
 		lw.HideCursor();
 		lw.SetLength(std::size(help_text));
 	}
 
 public:
 	/* virtual methods from class ListRenderer */
-	void PaintListItem(WINDOW *w, unsigned i,
+	void PaintListItem(const Window window, unsigned i,
 			   unsigned y, unsigned width,
 			   bool selected) const noexcept override;
 
@@ -251,13 +251,13 @@ HelpPage::GetListItemText(char *, size_t, unsigned i) const noexcept
 }
 
 static std::unique_ptr<Page>
-help_init(ScreenManager &screen, WINDOW *w, Size size)
+help_init(ScreenManager &screen, const Window window, Size size)
 {
-	return std::make_unique<HelpPage>(screen, w, size);
+	return std::make_unique<HelpPage>(screen, window, size);
 }
 
 void
-HelpPage::PaintListItem(WINDOW *w, unsigned i,
+HelpPage::PaintListItem(const Window window, unsigned i,
 			unsigned y, unsigned width,
 			bool selected) const noexcept
 {
@@ -265,25 +265,25 @@ HelpPage::PaintListItem(WINDOW *w, unsigned i,
 
 	assert(i < std::size(help_text));
 
-	row_color(w, row->highlight ? Style::LIST_BOLD : Style::LIST,
+	row_color(window, row->highlight ? Style::LIST_BOLD : Style::LIST,
 		  selected);
 
-	wclrtoeol(w);
+	wclrtoeol(window.w);
 
 	if (row->command == Command::NONE) {
 		if (row->text != nullptr)
-			mvwaddstr(w, y, 6, my_gettext(row->text));
+			mvwaddstr(window.w, y, 6, my_gettext(row->text));
 		else if (row->highlight == 2)
-			mvwhline(w, y, 3, ACS_HLINE, width - 6);
+			mvwhline(window.w, y, 3, ACS_HLINE, width - 6);
 	} else {
 		const auto key =
 			GetGlobalKeyBindings().GetKeyNames(row->command);
 
 		if (StringWidthMB(key.c_str()) < 20)
-			wmove(w, y, 20 - StringWidthMB(key.c_str()));
-		waddstr(w, key.c_str());
-		mvwaddch(w, y, 21, ':');
-		mvwaddstr(w, y, 23,
+			wmove(window.w, y, 20 - StringWidthMB(key.c_str()));
+		waddstr(window.w, key.c_str());
+		mvwaddch(window.w, y, 21, ':');
+		mvwaddstr(window.w, y, 23,
 			  row->text != nullptr
 			  ? my_gettext(row->text)
 			  : get_key_description(row->command));

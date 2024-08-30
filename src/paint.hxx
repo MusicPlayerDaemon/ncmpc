@@ -1,25 +1,25 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_PAINT_H
-#define NCMPC_PAINT_H
+#pragma once
 
 #include "Styles.hxx"
 #include "Options.hxx"
+#include "Window.hxx"
 
 /**
  * Sets the specified color, and enables "reverse" mode if selected is
  * true.
  */
 static inline void
-row_color(WINDOW *w, Style style, bool selected) noexcept
+row_color(const Window window, Style style, bool selected) noexcept
 {
-	SelectStyle(w, style);
+	SelectStyle(window.w, style);
 
 	if (selected)
-		wattron(w, A_REVERSE);
+		wattron(window.w, A_REVERSE);
 	else
-		wattroff(w, A_REVERSE);
+		wattroff(window.w, A_REVERSE);
 }
 
 /**
@@ -27,9 +27,9 @@ row_color(WINDOW *w, Style style, bool selected) noexcept
  * "reverse" mode.
  */
 static inline void
-row_color_end(WINDOW *w) noexcept
+row_color_end(const Window window) noexcept
 {
-	wattroff(w, A_REVERSE);
+	wattroff(window.w, A_REVERSE);
 }
 
 /**
@@ -38,28 +38,26 @@ row_color_end(WINDOW *w) noexcept
  * on the space.
  */
 static inline void
-row_clear_to_eol(WINDOW *w, unsigned width, bool selected) noexcept
+row_clear_to_eol(const Window window, unsigned width, bool selected) noexcept
 {
 	if (selected && options.wide_cursor)
-		whline(w, ' ', width);
+		whline(window.w, ' ', width);
 	else
-		wclrtoeol(w);
+		wclrtoeol(window.w);
 }
 
 /**
  * Paint a plain-text row.
  */
 static inline void
-row_paint_text(WINDOW *w, unsigned width,
+row_paint_text(const Window window, unsigned width,
 	       Style style, bool selected,
 	       const char *text) noexcept
 {
-	row_color(w, style, selected);
+	row_color(window, style, selected);
 
-	waddstr(w, text);
+	waddstr(window.w, text);
 
 	/* erase the unused space after the text */
-	row_clear_to_eol(w, width, selected);
+	row_clear_to_eol(window, width, selected);
 }
-
-#endif

@@ -2,6 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "SongRowPaint.hxx"
+#include "Window.hxx"
 #include "paint.hxx"
 #include "strfsong.hxx"
 #include "time_format.hxx"
@@ -14,14 +15,14 @@
 #include <string.h>
 
 void
-paint_song_row(WINDOW *w, [[maybe_unused]] int y, unsigned width,
+paint_song_row(const Window window, [[maybe_unused]] int y, unsigned width,
 	       bool selected, bool highlight, const struct mpd_song *song,
 	       [[maybe_unused]] class hscroll *hscroll, const char *format)
 {
 	char buffer[1024];
 
 	strfsong(buffer, sizeof(buffer), format, song);
-	row_paint_text(w, width, highlight ? Style::LIST_BOLD : Style::LIST,
+	row_paint_text(window, width, highlight ? Style::LIST_BOLD : Style::LIST,
 		       selected, buffer);
 
 #ifndef NCMPC_MINI
@@ -30,9 +31,9 @@ paint_song_row(WINDOW *w, [[maybe_unused]] int y, unsigned width,
 		format_duration_short(duration, sizeof(duration),
 				      mpd_song_get_duration(song));
 		width -= strlen(duration) + 1;
-		wmove(w, y, width);
-		waddch(w, ' ');
-		waddstr(w, duration);
+		wmove(window.w, y, width);
+		waddch(window.w, ' ');
+		waddstr(window.w, duration);
 	}
 
 	if (hscroll != nullptr && width > 3 &&

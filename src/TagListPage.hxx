@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_TAG_LIST_PAGE_HXX
-#define NCMPC_TAG_LIST_PAGE_HXX
+#pragma once
 
 #include "TagFilter.hxx"
 #include "ListPage.hxx"
@@ -30,8 +29,8 @@ public:
 	TagListPage(ScreenManager &_screen, Page *_parent,
 		    const enum mpd_tag_type _tag,
 		    const char *_all_text,
-		    WINDOW *_w, Size size) noexcept
-		:ListPage(_w, size), screen(_screen), parent(_parent),
+		    Window _window, Size size) noexcept
+		:ListPage(_window, size), screen(_screen), parent(_parent),
 		 tag(_tag), all_text(_all_text) {}
 
 	auto GetTag() const noexcept {
@@ -102,12 +101,10 @@ public:
 	const char *GetTitle(char *s, size_t size) const noexcept override;
 
 	/* virtual methods from class ListRenderer */
-	void PaintListItem(WINDOW *w, unsigned i, unsigned y, unsigned width,
+	void PaintListItem(Window window, unsigned i, unsigned y, unsigned width,
 			   bool selected) const noexcept override;
 
 	/* virtual methods from class ListText */
 	const char *GetListItemText(char *buffer, size_t size,
 				    unsigned i) const noexcept override;
 };
-
-#endif

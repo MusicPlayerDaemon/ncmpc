@@ -1,16 +1,13 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef LIST_RENDERER_HXX
-#define LIST_RENDERER_HXX
+#pragma once
 
-#include <curses.h>
+struct Window;
 
 class ListRenderer {
 public:
-	virtual void PaintListItem(WINDOW *w, unsigned i,
+	virtual void PaintListItem(Window window, unsigned i,
 				   unsigned y, unsigned width,
 				   bool selected) const noexcept = 0;
 };
-
-#endif

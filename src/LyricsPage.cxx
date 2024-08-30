@@ -54,8 +54,8 @@ class LyricsPage final : public TextPage, PluginResponseHandler {
 	CoarseTimerEvent plugin_timeout;
 
 public:
-	LyricsPage(ScreenManager &_screen, WINDOW *w, Size size)
-		:TextPage(_screen, w, size),
+	LyricsPage(ScreenManager &_screen, const Window _window, Size size)
+		:TextPage(_screen, _window, size),
 		 plugin_timeout(_screen.GetEventLoop(),
 				BIND_THIS_METHOD(OnTimeout)) {}
 
@@ -282,9 +282,9 @@ LyricsPage::Reload()
 }
 
 static std::unique_ptr<Page>
-lyrics_screen_init(ScreenManager &_screen, WINDOW *w, Size size)
+lyrics_screen_init(ScreenManager &_screen, const Window window, Size size)
 {
-	return std::make_unique<LyricsPage>(_screen, w, size);
+	return std::make_unique<LyricsPage>(_screen, window, size);
 }
 
 void

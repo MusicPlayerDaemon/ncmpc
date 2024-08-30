@@ -1,18 +1,16 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_PAGE_META_HXX
-#define NCMPC_PAGE_META_HXX
+#pragma once
 
 #include "Size.hxx"
 
 #include <memory>
 
-#include <curses.h>
-
 enum class Command : unsigned;
 class Page;
 class ScreenManager;
+struct Window;
 
 struct PageMeta {
 	const char *name;
@@ -28,7 +26,5 @@ struct PageMeta {
 	 */
 	Command command;
 
-	std::unique_ptr<Page> (*init)(ScreenManager &screen, WINDOW *w, Size size);
+	std::unique_ptr<Page> (*init)(ScreenManager &screen, Window window, Size size);
 };
-
-#endif
