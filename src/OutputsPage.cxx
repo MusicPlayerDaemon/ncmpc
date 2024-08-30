@@ -22,6 +22,8 @@
 
 #include <assert.h>
 
+using std::string_view_literals::operator""sv;
+
 #if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 
 [[gnu::pure]]
@@ -365,7 +367,7 @@ PaintPartition(const Window window, unsigned width, bool selected, bool active,
 
 	row_color(window, active ? Style::LIST_BOLD : Style::LIST, selected);
 	window.String(_("Partition"));
-	window.String(": ");
+	window.String(": "sv);
 	window.String(name);
 	row_clear_to_eol(window, width, selected);
 }
@@ -407,7 +409,7 @@ OutputsPage::PaintListItem(Window window, unsigned i,
 	const auto *output = item.output.get();
 
 	row_color(window, Style::LIST, selected);
-	window.String(mpd_output_get_enabled(output) ? "[X] " : "[ ] ");
+	window.String(mpd_output_get_enabled(output) ? "[X] "sv : "[ ] "sv);
 	window.String(mpd_output_get_name(output));
 	row_clear_to_eol(window, width, selected);
 }

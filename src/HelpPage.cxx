@@ -281,7 +281,7 @@ HelpPage::PaintListItem(const Window window, unsigned i,
 
 		if (StringWidthMB(key.c_str()) < 20)
 			window.MoveCursor({20 - (int)StringWidthMB(key.c_str()), (int)y});
-		window.String(key.c_str());
+		window.String(key);
 		window.Char({21, (int)y}, ':');
 		window.String({23, (int)y},
 			      row->text != nullptr

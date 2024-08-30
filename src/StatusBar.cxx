@@ -217,7 +217,7 @@ StatusBar::Paint() const noexcept
 
 	if (!message.empty()) {
 		SelectStyle(w, Style::STATUS_ALERT);
-		window.String(message.c_str());
+		window.String(message);
 		window.RefreshNoOut();
 		return;
 	}
@@ -246,7 +246,7 @@ StatusBar::Paint() const noexcept
 			hscroll.Paint();
 		else
 #endif
-			window.String({(int)left_width, 0}, center_text.c_str());
+			window.String({(int)left_width, 0}, center_text);
 	}
 
 	/* display time string */

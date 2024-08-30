@@ -17,6 +17,8 @@
 
 #include <string.h>
 
+using std::string_view_literals::operator""sv;
+
 void
 screen_bell() noexcept
 {
@@ -109,7 +111,7 @@ screen_readln(ScreenManager &screen, const char *prompt,
 	if (prompt != nullptr) {
 		SelectStyle(w, Style::STATUS_ALERT);
 		window.String(prompt);
-		window.String(": ");
+		window.String(": "sv);
 	}
 
 	SelectStyle(w, Style::STATUS);
@@ -135,7 +137,7 @@ screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 		prompt = _("Password");
 
 	window.String(prompt);
-	window.String(": ");
+	window.String(": "sv);
 
 	SelectStyle(w, Style::STATUS);
 	window.AttributeOn(A_REVERSE);
