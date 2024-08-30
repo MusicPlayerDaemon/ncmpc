@@ -2,6 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "wreadln.hxx"
+#include "Window.hxx"
 #include "Completion.hxx"
 #include "screen_utils.hxx"
 #include "Point.hxx"
@@ -37,7 +38,7 @@
 
 struct wreadln {
 	/** the ncurses window where this field is displayed */
-	WINDOW *const w;
+	const Window window;
 
 	/** the origin coordinates in the window */
 	Point point;
@@ -58,8 +59,8 @@ struct wreadln {
 	/** the current value */
 	std::string value;
 
-	wreadln(WINDOW *_w, bool _masked) noexcept
-		:w(_w), masked(_masked) {}
+	wreadln(const Window _window, bool _masked) noexcept
+		:window(_window), masked(_masked) {}
 
 	/** draw line buffer and update cursor position */
 	void Paint() const noexcept;
@@ -192,17 +193,16 @@ wreadln::MoveCursorToEnd() noexcept
 void
 wreadln::Paint() const noexcept
 {
-	wmove(w, point.y, point.x);
+	window.MoveCursor(point);
 	/* clear input area */
-	whline(w, ' ', width);
+	window.HLine(width, ' ');
 	/* print visible part of the line buffer */
 	if (masked)
-		whline(w, '*', StringWidthMB(value.c_str() + start));
+		window.HLine(StringWidthMB(value.c_str() + start), '*');
 	else
-		waddnstr(w, value.c_str() + start,
-			 screen_to_bytes(value.c_str(), width));
+		window.String({value.c_str() + start, screen_to_bytes(value.c_str() + start, width)});
 	/* move the cursor to the correct position */
-	wmove(w, point.y, point.x + GetCursorColumn());
+	window.MoveCursor({point.x + (int)GetCursorColumn(), point.y});
 	/* tell ncurses to redraw the screen */
 	doupdate();
 }
@@ -228,7 +228,7 @@ wreadln::InsertByte(int key) noexcept
 			/* no more input from keyboard */
 			break;
 
-		buffer[length++] = wgetch(w);
+		buffer[length++] = window.GetChar();
 	}
 
 	value.insert(cursor, buffer, length);
@@ -254,14 +254,14 @@ wreadln::DeleteChar(size_t x) noexcept
 /* libcurses version */
 
 static std::string
-_wreadln(WINDOW *w,
+_wreadln(const Window window,
 	 const char *initial_value,
 	 unsigned x1,
 	 History *history,
 	 Completion *completion,
 	 bool masked) noexcept
 {
-	struct wreadln wr(w, masked);
+	struct wreadln wr{window, masked};
 	History::iterator hlist, hcurrent;
 
 #ifdef NCMPC_MINI
@@ -271,13 +271,13 @@ _wreadln(WINDOW *w,
 	/* make sure the cursor is visible */
 	curs_set(1);
 	/* retrieve y and x0 position */
-	getyx(w, wr.point.y, wr.point.x);
+	getyx(window.w, wr.point.y, wr.point.x);
 	/* check the x1 value */
 	if (x1 <= (unsigned)wr.point.x || x1 > (unsigned)COLS)
 		x1 = COLS;
 	wr.width = x1 - wr.point.x;
 	/* clear input area */
-	mvwhline(w, wr.point.y, wr.point.x, ' ', wr.width);
+	window.HLine(wr.point, wr.width, ' ');
 
 	if (history) {
 		/* append the a new line to our history list */
@@ -308,7 +308,7 @@ _wreadln(WINDOW *w,
 
 	int key = 0;
 	while (key != 13 && key != '\n') {
-		key = wgetch(w);
+		key = window.GetChar();
 
 #ifndef _WIN32
 		if (key == ERR && errno == EAGAIN) {
@@ -470,20 +470,20 @@ _wreadln(WINDOW *w,
 }
 
 std::string
-wreadln(WINDOW *w,
+wreadln(const Window window,
 	const char *initial_value,
 	unsigned x1,
 	History *history,
 	Completion *completion) noexcept
 {
-	return  _wreadln(w, initial_value, x1,
-			 history, completion, false);
+	return _wreadln(window, initial_value, x1,
+			history, completion, false);
 }
 
 std::string
-wreadln_masked(WINDOW *w,
+wreadln_masked(const Window window,
 	       const char *initial_value,
 	       unsigned x1) noexcept
 {
-	return  _wreadln(w, initial_value, x1, nullptr, nullptr, true);
+	return  _wreadln(window, initial_value, x1, nullptr, nullptr, true);
 }

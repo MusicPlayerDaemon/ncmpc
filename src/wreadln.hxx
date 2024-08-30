@@ -1,16 +1,14 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef WREADLN_H
-#define WREADLN_H
+#pragma once
 
 #include "History.hxx"
-
-#include <curses.h>
 
 #include <string>
 
 class Completion;
+struct Window;
 
 /**
  *
@@ -25,15 +23,13 @@ class Completion;
  * @param a #Completion instance or nullptr
  */
 std::string
-wreadln(WINDOW *w,
+wreadln(Window window,
 	const char *initial_value,
 	unsigned x1,
 	History *history,
 	Completion *completion) noexcept;
 
 std::string
-wreadln_masked(WINDOW *w,
+wreadln_masked(Window window,
 	       const char *initial_value,
 	       unsigned x1) noexcept;
-
-#endif

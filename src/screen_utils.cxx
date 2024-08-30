@@ -117,7 +117,7 @@ screen_readln(ScreenManager &screen, const char *prompt,
 	SelectStyle(w, Style::STATUS);
 	window.AttributeOn(A_REVERSE);
 
-	auto result = wreadln(w, value, window.GetWidth(),
+	auto result = wreadln(window, value, window.GetWidth(),
 			      history, completion);
 	curs_set(0);
 	return result;
@@ -142,7 +142,7 @@ screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 	SelectStyle(w, Style::STATUS);
 	window.AttributeOn(A_REVERSE);
 
-	auto result = wreadln_masked(w, nullptr, window.GetWidth());
+	auto result = wreadln_masked(window, nullptr, window.GetWidth());
 	curs_set(0);
 	return result;
 }
