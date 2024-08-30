@@ -26,11 +26,11 @@ struct Window {
 	Window(const Window &) = delete;
 	Window &operator=(const Window &) = delete;
 
-	void SetBackgroundStyle(Style style) noexcept {
+	void SetBackgroundStyle(Style style) const noexcept {
 		wbkgd(w, COLOR_PAIR(unsigned(style)));
 	}
 
-	void Move(Point p) noexcept {
+	void Move(Point p) const noexcept {
 		mvwin(w, p.y, p.x);
 	}
 
