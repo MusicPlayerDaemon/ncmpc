@@ -423,8 +423,6 @@ QueuePage::PaintStatusBarOverride(const Window window) const noexcept
 	if (!lw.HasRangeSelection())
 		return false;
 
-	WINDOW *const w = window.w;
-
 	window.MoveCursor({0, 0});
 	window.ClearToEol();
 
@@ -443,7 +441,7 @@ QueuePage::PaintStatusBarOverride(const Window window) const noexcept
 			      duration);
 	const unsigned duration_width = strlen(duration_string);
 
-	SelectStyle(w, Style::STATUS_TIME);
+	SelectStyle(window, Style::STATUS_TIME);
 	window.String({(int)window.GetWidth() - (int)duration_width, 0}, duration_string);
 
 	window.RefreshNoOut();

@@ -43,7 +43,7 @@ hscroll::Paint() const noexcept
 {
 	assert(basic.IsDefined());
 
-	SelectStyle(window.w, style);
+	SelectStyle(window, style);
 
 	if (attr != 0)
 		window.AttributeOn(attr);

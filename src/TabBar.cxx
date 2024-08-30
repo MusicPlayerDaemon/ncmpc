@@ -13,7 +13,7 @@
 static void
 PaintPageTab(const Window window, Command cmd, const char *label, bool selected) noexcept
 {
-	SelectStyle(window.w, selected ? Style::TITLE : Style::TITLE_BOLD);
+	SelectStyle(window, selected ? Style::TITLE : Style::TITLE_BOLD);
 	if (selected)
 		window.AttributeOn(A_REVERSE);
 
@@ -23,7 +23,7 @@ PaintPageTab(const Window window, Command cmd, const char *label, bool selected)
 	if (key != nullptr)
 		window.String(key);
 
-	SelectStyle(window.w, Style::TITLE);
+	SelectStyle(window, Style::TITLE);
 	if (selected)
 		window.AttributeOn(A_REVERSE);
 

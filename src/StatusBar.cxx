@@ -209,20 +209,19 @@ StatusBar::Update(const struct mpd_status *status,
 void
 StatusBar::Paint() const noexcept
 {
-	WINDOW *w = window.w;
 	const unsigned window_width = window.GetWidth();
 
 	window.MoveCursor({0, 0});
 	window.ClearToEol();
 
 	if (!message.empty()) {
-		SelectStyle(w, Style::STATUS_ALERT);
+		SelectStyle(window, Style::STATUS_ALERT);
 		window.String(message);
 		window.RefreshNoOut();
 		return;
 	}
 
-	SelectStyle(w, Style::STATUS_BOLD);
+	SelectStyle(window, Style::STATUS_BOLD);
 
 	if (left_text != nullptr)
 		/* display state */
@@ -231,14 +230,14 @@ StatusBar::Paint() const noexcept
 	if (right_width > 0) {
 		/* display time string */
 		int x = window_width - right_width;
-		SelectStyle(w, Style::STATUS_TIME);
+		SelectStyle(window, Style::STATUS_TIME);
 		window.String({x, 0}, right_text);
 	}
 
 	if (!center_text.empty()) {
 		/* display song name */
 
-		SelectStyle(w, Style::STATUS);
+		SelectStyle(window, Style::STATUS);
 
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
@@ -251,7 +250,7 @@ StatusBar::Paint() const noexcept
 
 	/* display time string */
 	int x = window_width - right_width;
-	SelectStyle(w, Style::STATUS_TIME);
+	SelectStyle(window, Style::STATUS_TIME);
 	window.String({x, 0}, right_text);
 
 	window.RefreshNoOut();

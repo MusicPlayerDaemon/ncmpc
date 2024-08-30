@@ -8,6 +8,7 @@
 #include "util/RuntimeError.hxx"
 #include "util/StringAPI.hxx"
 #include "util/StringStrip.hxx"
+#include "Window.hxx"
 
 #ifdef ENABLE_COLORS
 #include "Options.hxx"
@@ -342,18 +343,18 @@ ApplyStyles() noexcept
 #endif
 
 void
-SelectStyle(WINDOW *w, Style style) noexcept
+SelectStyle(const Window window, Style style) noexcept
 {
 	const auto &data = GetStyle(style);
 
 #ifdef ENABLE_COLORS
 	if (options.enable_colors) {
 		/* color mode */
-		wattr_set(w, data.attr, short(style), nullptr);
+		wattr_set(window.w, data.attr, short(style), nullptr);
 	} else {
 #endif
 		/* mono mode */
-		(void)wattrset(w, data.mono);
+		(void)wattrset(window.w, data.mono);
 #ifdef ENABLE_COLORS
 	}
 #endif

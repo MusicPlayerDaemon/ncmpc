@@ -26,7 +26,7 @@ ProgressBar::Paint() const noexcept
 	if (max > 0) {
 		assert(width < window_width);
 
-		SelectStyle(window.w, Style::PROGRESSBAR);
+		SelectStyle(window, Style::PROGRESSBAR);
 
 		if (width > 0)
 			window.HLine({0, 0}, width, '=');
@@ -35,12 +35,12 @@ ProgressBar::Paint() const noexcept
 		unsigned x = width + 1;
 
 		if (x < window_width) {
-			SelectStyle(window.w, Style::PROGRESSBAR_BACKGROUND);
+			SelectStyle(window, Style::PROGRESSBAR_BACKGROUND);
 			window.HLine({(int)x, 0}, window_width - x, ACS_HLINE);
 		}
 	} else {
 		/* no progress bar, just a simple horizontal line */
-		SelectStyle(window.w, Style::LINE);
+		SelectStyle(window, Style::LINE);
 		window.HLine({0, 0}, window_width, ACS_HLINE);
 	}
 

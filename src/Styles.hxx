@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef STYLES_HXX
-#define STYLES_HXX
+#pragma once
 
 #include "config.h"
 
-#include <curses.h>
+struct Window;
 
 enum class Style : unsigned {
 	/**
@@ -49,6 +48,4 @@ ApplyStyles() noexcept;
 #endif
 
 void
-SelectStyle(WINDOW *w, Style style) noexcept;
-
-#endif
+SelectStyle(Window window, Style style) noexcept;

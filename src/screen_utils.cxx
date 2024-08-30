@@ -43,9 +43,8 @@ int
 screen_getch(ScreenManager &screen, const char *prompt) noexcept
 {
 	const auto &window = screen.status_bar.GetWindow();
-	WINDOW *w = window.w;
 
-	SelectStyle(w, Style::STATUS_ALERT);
+	SelectStyle(window, Style::STATUS_ALERT);
 	window.Erase();
 	window.MoveCursor({0, 0});
 	window.String(prompt);
@@ -103,18 +102,17 @@ screen_readln(ScreenManager &screen, const char *prompt,
 	      Completion *completion) noexcept
 {
 	const auto &window = screen.status_bar.GetWindow();
-	WINDOW *w = window.w;
 
 	window.MoveCursor({0, 0});
 	curs_set(1);
 
 	if (prompt != nullptr) {
-		SelectStyle(w, Style::STATUS_ALERT);
+		SelectStyle(window, Style::STATUS_ALERT);
 		window.String(prompt);
 		window.String(": "sv);
 	}
 
-	SelectStyle(w, Style::STATUS);
+	SelectStyle(window, Style::STATUS);
 	window.AttributeOn(A_REVERSE);
 
 	auto result = wreadln(window, value, window.GetWidth(),
@@ -127,11 +125,10 @@ std::string
 screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 {
 	const auto &window = screen.status_bar.GetWindow();
-	WINDOW *w = window.w;
 
 	window.MoveCursor({0, 0});
 	curs_set(1);
-	SelectStyle(w, Style::STATUS_ALERT);
+	SelectStyle(window, Style::STATUS_ALERT);
 
 	if (prompt == nullptr)
 		prompt = _("Password");
@@ -139,7 +136,7 @@ screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 	window.String(prompt);
 	window.String(": "sv);
 
-	SelectStyle(w, Style::STATUS);
+	SelectStyle(window, Style::STATUS);
 	window.AttributeOn(A_REVERSE);
 
 	auto result = wreadln_masked(window, nullptr, window.GetWidth());
@@ -176,7 +173,6 @@ screen_display_completion_list(ScreenManager &screen, Completion::Range range) n
 	static size_t prev_length = 0;
 	static unsigned offset = 0;
 	const Window window = screen.main_window;
-	WINDOW *w = window.w;
 	const unsigned height = screen.main_window.GetHeight();
 
 	size_t length = std::distance(range.begin(), range.end());
@@ -190,7 +186,7 @@ screen_display_completion_list(ScreenManager &screen, Completion::Range range) n
 		offset = 0;
 	}
 
-	SelectStyle(w, Style::STATUS_ALERT);
+	SelectStyle(window, Style::STATUS_ALERT);
 
 	auto i = std::next(range.begin(), offset);
 	for (unsigned y = 0; y < height; ++y, ++i) {
@@ -206,5 +202,5 @@ screen_display_completion_list(ScreenManager &screen, Completion::Range range) n
 	window.ClearToBottom();
 
 	window.Refresh();
-	SelectStyle(w, Style::LIST);
+	SelectStyle(window, Style::LIST);
 }

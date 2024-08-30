@@ -553,8 +553,6 @@ FileListPage::PaintStatusBarOverride(const Window window) const noexcept
 	if (!lw.HasRangeSelection())
 		return false;
 
-	WINDOW *const w = window.w;
-
 	window.MoveCursor({0, 0});
 	window.ClearToEol();
 
@@ -576,7 +574,7 @@ FileListPage::PaintStatusBarOverride(const Window window) const noexcept
 			      duration);
 	const unsigned duration_width = strlen(duration_string);
 
-	SelectStyle(w, Style::STATUS_TIME);
+	SelectStyle(window, Style::STATUS_TIME);
 	window.String({0, (int)window.GetWidth() - (int)duration_width}, duration_string);
 
 	window.RefreshNoOut();

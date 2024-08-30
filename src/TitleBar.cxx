@@ -61,8 +61,6 @@ void
 TitleBar::Paint(const PageMeta &current_page_meta,
 		const char *title) const noexcept
 {
-	WINDOW *w = window.w;
-
 	window.MoveCursor({0, 0});
 	window.ClearToEol();
 
@@ -73,7 +71,7 @@ TitleBar::Paint(const PageMeta &current_page_meta,
 #else
 		(void)current_page_meta;
 #endif
-		SelectStyle(w, Style::TITLE_BOLD);
+		SelectStyle(window, Style::TITLE_BOLD);
 		window.String({0, 0}, title);
 #ifndef NCMPC_MINI
 	}
@@ -88,19 +86,19 @@ TitleBar::Paint(const PageMeta &current_page_meta,
 		volume_string = buf;
 	}
 
-	SelectStyle(w, Style::TITLE);
+	SelectStyle(window, Style::TITLE);
 	const int window_width = window.GetWidth();
 	window.String({window_width - (int)StringWidthMB(volume_string), 0},
 		      volume_string);
 
-	SelectStyle(w, Style::LINE);
+	SelectStyle(window, Style::LINE);
 	window.HLine({0, 1}, window_width, ACS_HLINE);
 	if (flags[0]) {
 		window.MoveCursor({window_width - (int)strlen(flags) - 3, 1});
 		window.Char('[');
-		SelectStyle(w, Style::LINE_FLAGS);
+		SelectStyle(window, Style::LINE_FLAGS);
 		window.String(flags);
-		SelectStyle(w, Style::LINE);
+		SelectStyle(window, Style::LINE);
 		window.Char(']');
 	}
 

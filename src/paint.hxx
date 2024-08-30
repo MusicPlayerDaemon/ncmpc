@@ -14,7 +14,7 @@
 static inline void
 row_color(const Window window, Style style, bool selected) noexcept
 {
-	SelectStyle(window.w, style);
+	SelectStyle(window, style);
 
 	if (selected)
 		window.AttributeOn(A_REVERSE);
