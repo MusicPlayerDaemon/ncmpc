@@ -63,8 +63,8 @@ TitleBar::Paint(const PageMeta &current_page_meta,
 {
 	WINDOW *w = window.w;
 
-	wmove(w, 0, 0);
-	wclrtoeol(w);
+	window.MoveCursor({0, 0});
+	window.ClearToEol();
 
 #ifndef NCMPC_MINI
 	if (options.welcome_screen_list) {
@@ -74,7 +74,7 @@ TitleBar::Paint(const PageMeta &current_page_meta,
 		(void)current_page_meta;
 #endif
 		SelectStyle(w, Style::TITLE_BOLD);
-		mvwaddstr(w, 0, 0, title);
+		window.String({0, 0}, title);
 #ifndef NCMPC_MINI
 	}
 #endif
@@ -89,22 +89,22 @@ TitleBar::Paint(const PageMeta &current_page_meta,
 	}
 
 	SelectStyle(w, Style::TITLE);
-	const unsigned window_width = window.GetWidth();
-	mvwaddstr(w, 0, window_width - StringWidthMB(volume_string),
-		  volume_string);
+	const int window_width = window.GetWidth();
+	window.String({window_width - (int)StringWidthMB(volume_string), 0},
+		      volume_string);
 
 	SelectStyle(w, Style::LINE);
-	mvwhline(w, 1, 0, ACS_HLINE, window_width);
+	window.HLine({0, 1}, window_width, ACS_HLINE);
 	if (flags[0]) {
-		wmove(w, 1, window_width - strlen(flags) - 3);
-		waddch(w, '[');
+		window.MoveCursor({window_width - (int)strlen(flags) - 3, 1});
+		window.Char('[');
 		SelectStyle(w, Style::LINE_FLAGS);
-		waddstr(w, flags);
+		window.String(flags);
 		SelectStyle(w, Style::LINE);
-		waddch(w, ']');
+		window.Char(']');
 	}
 
-	wnoutrefresh(w);
+	window.RefreshNoOut();
 }
 
 void

@@ -40,12 +40,13 @@ ignore_key(int key) noexcept
 int
 screen_getch(ScreenManager &screen, const char *prompt) noexcept
 {
-	WINDOW *w = screen.status_bar.GetWindow().w;
+	const auto &window = screen.status_bar.GetWindow();
+	WINDOW *w = window.w;
 
 	SelectStyle(w, Style::STATUS_ALERT);
-	werase(w);
-	wmove(w, 0, 0);
-	waddstr(w, prompt);
+	window.Erase();
+	window.MoveCursor({0, 0});
+	window.String(prompt);
 
 	echo();
 	curs_set(1);
@@ -56,7 +57,7 @@ screen_getch(ScreenManager &screen, const char *prompt) noexcept
 
 	int key;
 	do {
-		key = wgetch(w);
+		key = window.GetChar();
 
 #ifndef _WIN32
 		if (key == ERR && errno == EAGAIN) {
@@ -102,17 +103,17 @@ screen_readln(ScreenManager &screen, const char *prompt,
 	const auto &window = screen.status_bar.GetWindow();
 	WINDOW *w = window.w;
 
-	wmove(w, 0,0);
+	window.MoveCursor({0, 0});
 	curs_set(1);
 
 	if (prompt != nullptr) {
 		SelectStyle(w, Style::STATUS_ALERT);
-		waddstr(w, prompt);
-		waddstr(w, ": ");
+		window.String(prompt);
+		window.String(": ");
 	}
 
 	SelectStyle(w, Style::STATUS);
-	wattron(w, A_REVERSE);
+	window.AttributeOn(A_REVERSE);
 
 	auto result = wreadln(w, value, window.GetWidth(),
 			      history, completion);
@@ -126,18 +127,18 @@ screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 	const auto &window = screen.status_bar.GetWindow();
 	WINDOW *w = window.w;
 
-	wmove(w, 0,0);
+	window.MoveCursor({0, 0});
 	curs_set(1);
 	SelectStyle(w, Style::STATUS_ALERT);
 
 	if (prompt == nullptr)
 		prompt = _("Password");
 
-	waddstr(w, prompt);
-	waddstr(w, ": ");
+	window.String(prompt);
+	window.String(": ");
 
 	SelectStyle(w, Style::STATUS);
-	wattron(w, A_REVERSE);
+	window.AttributeOn(A_REVERSE);
 
 	auto result = wreadln_masked(w, nullptr, window.GetWidth());
 	curs_set(0);
@@ -172,7 +173,8 @@ screen_display_completion_list(ScreenManager &screen, Completion::Range range) n
 	static Completion::Range prev_range;
 	static size_t prev_length = 0;
 	static unsigned offset = 0;
-	WINDOW *w = screen.main_window.w;
+	const Window window = screen.main_window;
+	WINDOW *w = window.w;
 	const unsigned height = screen.main_window.GetHeight();
 
 	size_t length = std::distance(range.begin(), range.end());
@@ -190,17 +192,17 @@ screen_display_completion_list(ScreenManager &screen, Completion::Range range) n
 
 	auto i = std::next(range.begin(), offset);
 	for (unsigned y = 0; y < height; ++y, ++i) {
-		wmove(w, y, 0);
+		window.MoveCursor({0, (int)y});
 		if (i == range.end())
 			break;
 
 		const char *value = i->c_str();
-		waddstr(w, CompletionDisplayString(value));
-		wclrtoeol(w);
+		window.String(CompletionDisplayString(value));
+		window.ClearToEol();
 	}
 
-	wclrtobot(w);
+	window.ClearToBottom();
 
-	wrefresh(w);
+	window.Refresh();
 	SelectStyle(w, Style::LIST);
 }

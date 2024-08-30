@@ -29,22 +29,22 @@ ProgressBar::Paint() const noexcept
 		SelectStyle(window.w, Style::PROGRESSBAR);
 
 		if (width > 0)
-			mvwhline(window.w, 0, 0, '=', width);
+			window.HLine({0, 0}, width, '=');
 
-		mvwaddch(window.w, 0, width, '>');
+		window.Char({0, (int)width}, '>');
 		unsigned x = width + 1;
 
 		if (x < window_width) {
 			SelectStyle(window.w, Style::PROGRESSBAR_BACKGROUND);
-			mvwhline(window.w, 0, x, ACS_HLINE, window_width - x);
+			window.HLine({(int)x, 0}, window_width - x, ACS_HLINE);
 		}
 	} else {
 		/* no progress bar, just a simple horizontal line */
 		SelectStyle(window.w, Style::LINE);
-		mvwhline(window.w, 0, 0, ACS_HLINE, window_width);
+		window.HLine({0, 0}, window_width, ACS_HLINE);
 	}
 
-	wnoutrefresh(window.w);
+	window.RefreshNoOut();
 }
 
 bool

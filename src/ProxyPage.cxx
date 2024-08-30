@@ -60,7 +60,7 @@ ProxyPage::Paint() const noexcept
 	if (current_page != nullptr)
 		current_page->Paint();
 	else
-		wclrtobot(window.w);
+		window.ClearToBottom();
 }
 
 void

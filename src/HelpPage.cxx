@@ -268,25 +268,25 @@ HelpPage::PaintListItem(const Window window, unsigned i,
 	row_color(window, row->highlight ? Style::LIST_BOLD : Style::LIST,
 		  selected);
 
-	wclrtoeol(window.w);
+	window.ClearToEol();
 
 	if (row->command == Command::NONE) {
 		if (row->text != nullptr)
-			mvwaddstr(window.w, y, 6, my_gettext(row->text));
+			window.String({6, (int)y}, my_gettext(row->text));
 		else if (row->highlight == 2)
-			mvwhline(window.w, y, 3, ACS_HLINE, width - 6);
+			window.HLine({3, (int)y}, width - 6, ACS_HLINE);
 	} else {
 		const auto key =
 			GetGlobalKeyBindings().GetKeyNames(row->command);
 
 		if (StringWidthMB(key.c_str()) < 20)
-			wmove(window.w, y, 20 - StringWidthMB(key.c_str()));
-		waddstr(window.w, key.c_str());
-		mvwaddch(window.w, y, 21, ':');
-		mvwaddstr(window.w, y, 23,
-			  row->text != nullptr
-			  ? my_gettext(row->text)
-			  : get_key_description(row->command));
+			window.MoveCursor({20 - (int)StringWidthMB(key.c_str()), (int)y});
+		window.String(key.c_str());
+		window.Char({21, (int)y}, ':');
+		window.String({23, (int)y},
+			      row->text != nullptr
+			      ? my_gettext(row->text)
+			      : get_key_description(row->command));
 	}
 }
 

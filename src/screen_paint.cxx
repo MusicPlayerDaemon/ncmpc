@@ -39,9 +39,9 @@ ScreenManager::Paint() noexcept
 	/* move the cursor to the origin */
 
 	if (!options.hardware_cursor)
-		wmove(main_window.w, 0, 0);
+		main_window.MoveCursor({0, 0});
 
-	wnoutrefresh(main_window.w);
+	main_window.RefreshNoOut();
 
 	/* tell curses to update */
 	doupdate();

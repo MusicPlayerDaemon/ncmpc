@@ -17,9 +17,9 @@ row_color(const Window window, Style style, bool selected) noexcept
 	SelectStyle(window.w, style);
 
 	if (selected)
-		wattron(window.w, A_REVERSE);
+		window.AttributeOn(A_REVERSE);
 	else
-		wattroff(window.w, A_REVERSE);
+		window.AttributeOff(A_REVERSE);
 }
 
 /**
@@ -29,7 +29,7 @@ row_color(const Window window, Style style, bool selected) noexcept
 static inline void
 row_color_end(const Window window) noexcept
 {
-	wattroff(window.w, A_REVERSE);
+	window.AttributeOff(A_REVERSE);
 }
 
 /**
@@ -41,9 +41,9 @@ static inline void
 row_clear_to_eol(const Window window, unsigned width, bool selected) noexcept
 {
 	if (selected && options.wide_cursor)
-		whline(window.w, ' ', width);
+		window.HLine(width, ' ');
 	else
-		wclrtoeol(window.w);
+		window.ClearToEol();
 }
 
 /**
@@ -56,7 +56,7 @@ row_paint_text(const Window window, unsigned width,
 {
 	row_color(window, style, selected);
 
-	waddstr(window.w, text);
+	window.String(text);
 
 	/* erase the unused space after the text */
 	row_clear_to_eol(window, width, selected);

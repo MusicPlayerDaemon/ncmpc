@@ -364,9 +364,9 @@ PaintPartition(const Window window, unsigned width, bool selected, bool active,
 	const char *name = mpd_partition_get_name(&partition);
 
 	row_color(window, active ? Style::LIST_BOLD : Style::LIST, selected);
-	waddstr(window.w, _("Partition"));
-	waddstr(window.w, ": ");
-	waddstr(window.w, name);
+	window.String(_("Partition"));
+	window.String(": ");
+	window.String(name);
 	row_clear_to_eol(window, width, selected);
 }
 
@@ -387,9 +387,9 @@ OutputsPage::PaintListItem(Window window, unsigned i,
 
 	case Item::Special::NEW_PARTITION:
 		row_color(window, Style::LIST, selected);
-		waddch(window.w, '[');
-		waddstr(window.w, _("Create new partition"));
-		waddch(window.w, ']');
+		window.Char('[');
+		window.String(_("Create new partition"));
+		window.Char(']');
 		row_clear_to_eol(window, width, selected);
 		return;
 	}
@@ -407,8 +407,8 @@ OutputsPage::PaintListItem(Window window, unsigned i,
 	const auto *output = item.output.get();
 
 	row_color(window, Style::LIST, selected);
-	waddstr(window.w, mpd_output_get_enabled(output) ? "[X] " : "[ ] ");
-	waddstr(window.w, mpd_output_get_name(output));
+	window.String(mpd_output_get_enabled(output) ? "[X] " : "[ ] ");
+	window.String(mpd_output_get_name(output));
 	row_clear_to_eol(window, width, selected);
 }
 

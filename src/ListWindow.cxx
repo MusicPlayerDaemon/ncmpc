@@ -26,11 +26,11 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 		range = GetRange();
 
 	for (unsigned i = 0; i < GetHeight(); i++) {
-		wmove(window.w, i, 0);
+		window.MoveCursor({0, (int)i});
 
 		const unsigned j = GetOrigin() + i;
 		if (j >= GetLength()) {
-			wclrtobot(window.w);
+			window.ClearToBottom();
 			break;
 		}
 
@@ -44,7 +44,7 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 
 	if (options.hardware_cursor && IsVisible(GetCursorIndex())) {
 		curs_set(1);
-		wmove(window.w, GetCursorIndex() - GetOrigin(), 0);
+		window.MoveCursor({0, (int)GetCursorIndex() - (int)GetOrigin()});
 	}
 }
 

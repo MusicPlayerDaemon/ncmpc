@@ -31,7 +31,7 @@ public:
 	}
 
 	void Refresh() const noexcept {
-		wrefresh(window.w);
+		window.Refresh();
 	}
 
 	void Paint(const ListRenderer &renderer) const noexcept;

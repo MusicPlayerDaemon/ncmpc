@@ -13,7 +13,7 @@ FillSpace(const Window window, unsigned n) noexcept
 {
 	// TODO: use whline(), which unfortunately doesn't move the cursor
 	while (n-- > 0)
-		waddch(window.w, ' ');
+		window.Char(' ');
 }
 
 void
@@ -33,7 +33,7 @@ PaintTableRow(const Window window, unsigned width,
 
 		if (i > 0) {
 			SelectStyle(window.w, Style::LINE);
-			waddch(window.w, ACS_VLINE);
+			window.Char(ACS_VLINE);
 			row_color(window, color, selected);
 		}
 
@@ -44,7 +44,7 @@ PaintTableRow(const Window window, unsigned width,
 		const char *end = AtWidthMB(buffer, length, cl.width);
 		length = end - buffer;
 
-		waddnstr(window.w, buffer, length);
+		window.String({buffer, length});
 		FillSpace(window, cl.width - StringWidthMB(buffer, length));
 	}
 

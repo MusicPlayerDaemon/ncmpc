@@ -31,9 +31,9 @@ paint_song_row(const Window window, [[maybe_unused]] int y, unsigned width,
 		format_duration_short(duration, sizeof(duration),
 				      mpd_song_get_duration(song));
 		width -= strlen(duration) + 1;
-		wmove(window.w, y, width);
-		waddch(window.w, ' ');
-		waddstr(window.w, duration);
+		window.MoveCursor({(int)width, y});
+		window.Char(' ');
+		window.String(duration);
 	}
 
 	if (hscroll != nullptr && width > 3 &&

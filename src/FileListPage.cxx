@@ -475,9 +475,9 @@ screen_browser_paint_directory(const Window window, unsigned width,
 {
 	row_color(window, Style::DIRECTORY, selected);
 
-	waddch(window.w, '[');
-	waddstr(window.w, name);
-	waddch(window.w, ']');
+	window.Char('[');
+	window.String(name);
+	window.Char(']');
 
 	/* erase the unused space after the text */
 	row_clear_to_eol(window, width, selected);
@@ -555,8 +555,8 @@ FileListPage::PaintStatusBarOverride(const Window window) const noexcept
 
 	WINDOW *const w = window.w;
 
-	wmove(w, 0, 0);
-	wclrtoeol(w);
+	window.MoveCursor({0, 0});
+	window.ClearToEol();
 
 	unsigned duration = 0;
 
@@ -577,9 +577,9 @@ FileListPage::PaintStatusBarOverride(const Window window) const noexcept
 	const unsigned duration_width = strlen(duration_string);
 
 	SelectStyle(w, Style::STATUS_TIME);
-	mvwaddstr(w, 0, window.GetWidth() - duration_width, duration_string);
+	window.String({0, (int)window.GetWidth() - (int)duration_width}, duration_string);
 
-	wnoutrefresh(w);
+	window.RefreshNoOut();
 
 	return true;
 }

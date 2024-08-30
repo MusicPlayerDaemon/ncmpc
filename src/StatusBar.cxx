@@ -212,13 +212,13 @@ StatusBar::Paint() const noexcept
 	WINDOW *w = window.w;
 	const unsigned window_width = window.GetWidth();
 
-	wmove(w, 0, 0);
-	wclrtoeol(w);
+	window.MoveCursor({0, 0});
+	window.ClearToEol();
 
 	if (!message.empty()) {
 		SelectStyle(w, Style::STATUS_ALERT);
-		waddstr(w, message.c_str());
-		wnoutrefresh(w);
+		window.String(message.c_str());
+		window.RefreshNoOut();
 		return;
 	}
 
@@ -226,13 +226,13 @@ StatusBar::Paint() const noexcept
 
 	if (left_text != nullptr)
 		/* display state */
-		waddstr(w, left_text);
+		window.String(left_text);
 
 	if (right_width > 0) {
 		/* display time string */
 		int x = window_width - right_width;
 		SelectStyle(w, Style::STATUS_TIME);
-		mvwaddstr(w, 0, x, right_text);
+		window.String({x, 0}, right_text);
 	}
 
 	if (!center_text.empty()) {
@@ -246,15 +246,15 @@ StatusBar::Paint() const noexcept
 			hscroll.Paint();
 		else
 #endif
-			mvwaddstr(w, 0, left_width, center_text.c_str());
+			window.String({(int)left_width, 0}, center_text.c_str());
 	}
 
 	/* display time string */
 	int x = window_width - right_width;
 	SelectStyle(w, Style::STATUS_TIME);
-	mvwaddstr(w, 0, x, right_text);
+	window.String({x, 0}, right_text);
 
-	wnoutrefresh(w);
+	window.RefreshNoOut();
 }
 
 void
