@@ -16,14 +16,13 @@ hscroll::OnTimer() noexcept
 }
 
 void
-hscroll::Set(unsigned _x, unsigned _y, unsigned _width, const char *_text,
+hscroll::Set(Point _position, unsigned _width, const char *_text,
 	     Style _style, attr_t _attr) noexcept
 {
 	assert(w != nullptr);
 	assert(_text != nullptr);
 
-	x = _x;
-	y = _y;
+	position = _position;
 	style = _style;
 	attr = _attr;
 
@@ -53,7 +52,7 @@ hscroll::Paint() const noexcept
 
 	/* scroll the string, and draw it */
 	const auto s = basic.ScrollString();
-	mvwaddnstr(w, y, x, s.first, s.second);
+	mvwaddnstr(w, position.y, position.x, s.first, s.second);
 
 	if (attr != 0)
 		wattroff(w, attr);

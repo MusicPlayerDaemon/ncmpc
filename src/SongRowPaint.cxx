@@ -37,7 +37,7 @@ paint_song_row(WINDOW *w, [[maybe_unused]] unsigned y, unsigned width,
 
 	if (hscroll != nullptr && width > 3 &&
 	    StringWidthMB(buffer) >= width) {
-		hscroll->Set(0, y, width, buffer,
+		hscroll->Set(Point(0, y), width, buffer,
 			     highlight ? Style::LIST_BOLD : Style::LIST,
 			     selected ? A_REVERSE : 0);
 		hscroll->Paint();

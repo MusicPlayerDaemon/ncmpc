@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef HSCROLL_H
-#define HSCROLL_H
+#pragma once
 
 #include "BasicMarquee.hxx"
 #include "event/FineTimerEvent.hxx"
+#include "Point.hxx"
 
 #include <curses.h>
 
@@ -25,7 +25,7 @@ class hscroll {
 	/**
 	 * The postion on the screen.
 	 */
-	unsigned x, y;
+	Point position;
 
 	/**
 	 * Style for drawing the text.
@@ -56,7 +56,7 @@ public:
 	 * every second with the current window attributes.  Call
 	 * hscroll_clear() to disable it.
 	 */
-	void Set(unsigned x, unsigned y, unsigned width, const char *text,
+	void Set(Point _position, unsigned width, const char *text,
 		 Style style, attr_t attr=0) noexcept;
 
 	/**
@@ -86,5 +86,3 @@ private:
 		timer.Schedule(std::chrono::seconds(1));
 	}
 };
-
-#endif
