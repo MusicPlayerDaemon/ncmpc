@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef COMPLETION_HXX
-#define COMPLETION_HXX
+#pragma once
 
 #include <set>
 #include <string>
@@ -42,13 +41,7 @@ public:
 		using const_iterator = List::const_iterator;
 		const_iterator _begin, _end;
 
-		bool operator==(const Range other) const noexcept {
-			return _begin == other._begin && _end == other._end;
-		}
-
-		bool operator!=(const Range other) const noexcept {
-			return !(*this == other);
-		}
+		bool operator==(const Range &) const noexcept = default;
 
 		const_iterator begin() const noexcept {
 			return _begin;
@@ -70,5 +63,3 @@ public:
 	virtual void Pre(const char *value) noexcept = 0;
 	virtual void Post(const char *value, Range range) noexcept = 0;
 };
-
-#endif
