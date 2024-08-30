@@ -8,34 +8,35 @@
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "i18n.h"
+#include "Window.hxx"
 
 static void
-PaintPageTab(WINDOW *w, Command cmd, const char *label, bool selected) noexcept
+PaintPageTab(const Window window, Command cmd, const char *label, bool selected) noexcept
 {
-	SelectStyle(w, selected ? Style::TITLE : Style::TITLE_BOLD);
+	SelectStyle(window.w, selected ? Style::TITLE : Style::TITLE_BOLD);
 	if (selected)
-		wattron(w, A_REVERSE);
+		window.AttributeOn(A_REVERSE);
 
-	waddch(w, ' ');
+	window.Char(' ');
 
 	const char *key = GetGlobalKeyBindings().GetFirstKeyName(cmd);
 	if (key != nullptr)
-		waddstr(w, key);
+		window.String(key);
 
-	SelectStyle(w, Style::TITLE);
+	SelectStyle(window.w, Style::TITLE);
 	if (selected)
-		wattron(w, A_REVERSE);
+		window.AttributeOn(A_REVERSE);
 
-	waddch(w, ':');
-	waddstr(w, label);
-	waddch(w, ' ');
+	window.Char(':');
+	window.String(label);
+	window.Char(' ');
 
 	if (selected)
-		wattroff(w, A_REVERSE);
+		window.AttributeOff(A_REVERSE);
 }
 
 void
-PaintTabBar(WINDOW *w, const PageMeta &current_page_meta,
+PaintTabBar(const Window window, const PageMeta &current_page_meta,
 	    const char *current_page_title) noexcept
 {
 	for (unsigned i = 0;; ++i) {
@@ -50,7 +51,7 @@ PaintTabBar(WINDOW *w, const PageMeta &current_page_meta,
 		if (title == nullptr)
 			title = my_gettext(page->title);
 
-		PaintPageTab(w, page->command, title,
+		PaintPageTab(window, page->command, title,
 			     page == &current_page_meta);
 	}
 }

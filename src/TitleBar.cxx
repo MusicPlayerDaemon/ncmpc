@@ -68,7 +68,7 @@ TitleBar::Paint(const PageMeta &current_page_meta,
 
 #ifndef NCMPC_MINI
 	if (options.welcome_screen_list) {
-		PaintTabBar(w, current_page_meta, title);
+		PaintTabBar(window, current_page_meta, title);
 	} else {
 #else
 		(void)current_page_meta;
