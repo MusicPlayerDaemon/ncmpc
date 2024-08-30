@@ -210,6 +210,7 @@ void
 StatusBar::Paint() const noexcept
 {
 	WINDOW *w = window.w;
+	const unsigned window_width = window.GetWidth();
 
 	wmove(w, 0, 0);
 	wclrtoeol(w);
@@ -229,7 +230,7 @@ StatusBar::Paint() const noexcept
 
 	if (right_width > 0) {
 		/* display time string */
-		int x = window.size.width - right_width;
+		int x = window_width - right_width;
 		SelectStyle(w, Style::STATUS_TIME);
 		mvwaddstr(w, 0, x, right_text);
 	}
@@ -249,7 +250,7 @@ StatusBar::Paint() const noexcept
 	}
 
 	/* display time string */
-	int x = window.size.width - right_width;
+	int x = window_width - right_width;
 	SelectStyle(w, Style::STATUS_TIME);
 	mvwaddstr(w, 0, x, right_text);
 

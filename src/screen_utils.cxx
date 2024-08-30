@@ -114,7 +114,7 @@ screen_readln(ScreenManager &screen, const char *prompt,
 	SelectStyle(w, Style::STATUS);
 	wattron(w, A_REVERSE);
 
-	auto result = wreadln(w, value, window->size.width,
+	auto result = wreadln(w, value, window->GetWidth(),
 			      history, completion);
 	curs_set(0);
 	return result;
@@ -139,7 +139,7 @@ screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 	SelectStyle(w, Style::STATUS);
 	wattron(w, A_REVERSE);
 
-	auto result = wreadln_masked(w, nullptr, window->size.width);
+	auto result = wreadln_masked(w, nullptr, window->GetWidth());
 	curs_set(0);
 	return result;
 }
@@ -173,10 +173,11 @@ screen_display_completion_list(ScreenManager &screen, Completion::Range range) n
 	static size_t prev_length = 0;
 	static unsigned offset = 0;
 	WINDOW *w = screen.main_window.w;
+	const unsigned height = screen.main_window.GetHeight();
 
 	size_t length = std::distance(range.begin(), range.end());
 	if (range == prev_range && length == prev_length) {
-		offset += screen.main_window.size.height;
+		offset += height;
 		if (offset >= length)
 			offset = 0;
 	} else {
@@ -188,7 +189,7 @@ screen_display_completion_list(ScreenManager &screen, Completion::Range range) n
 	SelectStyle(w, Style::STATUS_ALERT);
 
 	auto i = std::next(range.begin(), offset);
-	for (unsigned y = 0; y < screen.main_window.size.height; ++y, ++i) {
+	for (unsigned y = 0; y < height; ++y, ++i) {
 		wmove(w, y, 0);
 		if (i == range.end())
 			break;

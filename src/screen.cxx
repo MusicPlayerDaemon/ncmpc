@@ -28,7 +28,7 @@ ScreenManager::MakePage(const PageMeta &sf) noexcept
 
 	auto j = pages.emplace(&sf,
 			       sf.init(*this, main_window.w,
-				       main_window.size));
+				       main_window.GetSize()));
 	assert(j.second);
 	return j.first;
 }
@@ -52,7 +52,7 @@ ScreenManager::Switch(const PageMeta &sf, struct mpdclient &c) noexcept
 	/* open the new mode */
 	auto &p = *page->second;
 	p.OnOpen(c);
-	p.Resize(main_window.size);
+	p.Resize(main_window.GetSize());
 	p.Update(c);
 	p.SetDirty();
 }

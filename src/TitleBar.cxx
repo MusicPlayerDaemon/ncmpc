@@ -89,13 +89,14 @@ TitleBar::Paint(const PageMeta &current_page_meta,
 	}
 
 	SelectStyle(w, Style::TITLE);
-	mvwaddstr(w, 0, window.size.width - StringWidthMB(volume_string),
+	const unsigned window_width = window.GetWidth();
+	mvwaddstr(w, 0, window_width - StringWidthMB(volume_string),
 		  volume_string);
 
 	SelectStyle(w, Style::LINE);
-	mvwhline(w, 1, 0, ACS_HLINE, window.size.width);
+	mvwhline(w, 1, 0, ACS_HLINE, window_width);
 	if (flags[0]) {
-		wmove(w, 1, window.size.width - strlen(flags) - 3);
+		wmove(w, 1, window_width - strlen(flags) - 3);
 		waddch(w, '[');
 		SelectStyle(w, Style::LINE_FLAGS);
 		waddstr(w, flags);

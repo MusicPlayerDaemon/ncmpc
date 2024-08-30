@@ -21,8 +21,10 @@ ProgressBar::ProgressBar(Point p, unsigned _width) noexcept
 void
 ProgressBar::Paint() const noexcept
 {
+	const unsigned window_width = window.GetWidth();
+
 	if (max > 0) {
-		assert(width < window.size.width);
+		assert(width < window_width);
 
 		SelectStyle(window.w, Style::PROGRESSBAR);
 
@@ -32,14 +34,14 @@ ProgressBar::Paint() const noexcept
 		mvwaddch(window.w, 0, width, '>');
 		unsigned x = width + 1;
 
-		if (x < window.size.width) {
+		if (x < window_width) {
 			SelectStyle(window.w, Style::PROGRESSBAR_BACKGROUND);
-			mvwhline(window.w, 0, x, ACS_HLINE, window.size.width - x);
+			mvwhline(window.w, 0, x, ACS_HLINE, window_width - x);
 		}
 	} else {
 		/* no progress bar, just a simple horizontal line */
 		SelectStyle(window.w, Style::LINE);
-		mvwhline(window.w, 0, 0, ACS_HLINE, window.size.width);
+		mvwhline(window.w, 0, 0, ACS_HLINE, window_width);
 	}
 
 	wnoutrefresh(window.w);
@@ -51,9 +53,10 @@ ProgressBar::Calculate() noexcept
 	if (max == 0)
 		return false;
 
+	const unsigned window_width = window.GetWidth();
 	unsigned old_width = width;
-	width = (window.size.width * current) / (max + 1);
-	assert(width < window.size.width);
+	width = (window_width * current) / (max + 1);
+	assert(width < window_width);
 
 	return width != old_width;
 }
