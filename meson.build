@@ -1,6 +1,6 @@
 project('ncmpc', 'cpp',
   version: '0.50',
-  meson_version: '>= 0.56',
+  meson_version: '>= 0.60',
   default_options: [
     'cpp_std=c++2a',
     'warning_level=3',
@@ -35,23 +35,14 @@ else
 endif
 conf.set('ENABLE_LOCALE', enable_locale)
 
-enable_nls = get_option('nls')
-if meson.version().version_compare('>= 0.59') and not mini
-  # Meson 0.59 has native libintl support
-  intl_dep = dependency('intl', required: enable_nls)
-  enable_nls = intl_dep.found()
-elif enable_nls.disabled() or mini
-  intl_dep = dependency('', required: false)
-  enable_nls = false
-elif cc.has_header('libintl.h')
-  intl_dep = dependency('', required: false)
-  enable_nls = true
-elif enable_nls.auto()
-  intl_dep = dependency('', required: false)
+if mini
   enable_nls = false
 else
-  error('libintl.h not found')
+  enable_nls = get_option('nls')
 endif
+
+intl_dep = dependency('intl', required: enable_nls)
+enable_nls = intl_dep.found()
 conf.set('ENABLE_NLS', enable_nls)
 if enable_nls
   conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())

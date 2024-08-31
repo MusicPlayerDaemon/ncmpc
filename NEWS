@@ -1,5 +1,5 @@
 ncmpc 0.50 - not yet released
-* build: require Meson 0.56
+* build: require Meson 0.60
 * lyrics/musixmatch: add new lyrics extension
 * lyrics/google: fix partial loading of lyrics
 
