@@ -60,3 +60,26 @@ MatchExpression::operator()(const char *line) const noexcept
 			     0, 0, match_data, nullptr) >= 0;
 #endif
 }
+
+bool
+MatchExpression::operator()(std::string_view line) const noexcept
+{
+#ifndef HAVE_PCRE
+	assert(expression != nullptr);
+
+	return anchored
+		? strncasecmp(line.data(), expression, std::min(length, line.size())) == 0
+		: std::string_view{expression,length}.find(line) != std::string_view::npos;
+#else
+	assert(re != nullptr);
+
+	const auto match_data =
+		pcre2_match_data_create_from_pattern_8(re, nullptr);
+	AtScopeExit(match_data) {
+		pcre2_match_data_free_8(match_data);
+	};
+
+	return pcre2_match_8(re, (PCRE2_SPTR8)line.data(), line.size(),
+			     0, 0, match_data, nullptr) >= 0;
+#endif
+}

@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef MATCH_H
-#define MATCH_H
+#pragma once
 
 #include "config.h"
 
@@ -11,6 +10,8 @@
 #else
 #include <stddef.h>
 #endif
+
+#include <string_view>
 
 class MatchExpression {
 #ifndef HAVE_PCRE
@@ -32,6 +33,7 @@ public:
 
 	[[gnu::pure]]
 	bool operator()(const char *line) const noexcept;
-};
 
-#endif
+	[[gnu::pure]]
+	bool operator()(std::string_view line) const noexcept;
+};
