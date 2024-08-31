@@ -266,11 +266,12 @@ _strfsong(char *const s0, char *const end,
 	return s - s0;
 }
 
-size_t
+std::string_view
 strfsong(std::span<char> buffer, const char *format,
 	 const struct mpd_song *song) noexcept
 {
-	return _strfsong(buffer.data(), buffer.data() + buffer.size(), format, song, nullptr);
+	std::size_t length = _strfsong(buffer.data(), buffer.data() + buffer.size(), format, song, nullptr);
+	return {buffer.data(), length};
 }
 
 TagMask

@@ -4,13 +4,12 @@
 #pragma once
 
 #include <span>
-
-#include <stddef.h>
+#include <string_view>
 
 struct mpd_song;
 class TagMask;
 
-size_t
+std::string_view
 strfsong(std::span<char> buffer, const char *format,
 	 const struct mpd_song *song) noexcept;
 

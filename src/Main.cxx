@@ -52,11 +52,11 @@ update_xterm_title(struct mpdclient &client) noexcept
 
 	char tmp[BUFSIZE];
 	const char *new_title = nullptr;
-	if (!options.xterm_title_format.empty() && song != nullptr)
-		new_title = strfsong(tmp,
-				     options.xterm_title_format.c_str(), song) > 0
-			? tmp
-			: nullptr;
+	if (!options.xterm_title_format.empty() && song != nullptr) {
+		const auto s = strfsong(tmp, options.xterm_title_format.c_str(), song);
+		if (!s.empty())
+			new_title = s.data();
+	}
 
 	if (new_title == nullptr)
 		new_title = PACKAGE " version " VERSION;

@@ -38,14 +38,13 @@ PaintTableRow(const Window window, unsigned width,
 		}
 
 		char buffer[1024];
-		size_t length = strfsong(buffer,
-					 cs.format.c_str(), &song);
 
-		const char *end = AtWidthMB(buffer, length, cl.width);
-		length = end - buffer;
+		std::string_view s = strfsong(buffer, cs.format.c_str(), &song);
+		const char *end = AtWidthMB(s.data(), s.size(), cl.width);
+		s = {s.data(), end};
 
-		window.String({buffer, length});
-		FillSpace(window, cl.width - StringWidthMB(buffer, length));
+		window.String(s);
+		FillSpace(window, cl.width - StringWidthMB(s.data(), s.size()));
 	}
 
 	row_clear_to_eol(window, width, selected);
