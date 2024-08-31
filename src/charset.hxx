@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef CHARSET_H
-#define CHARSET_H
+#pragma once
 
 #include "config.h"
-
-#include <string>
 
 #include <stddef.h>
 
 #ifdef HAVE_ICONV
+
+#include <string>
+
 void
 charset_init() noexcept;
 #endif
@@ -90,5 +90,3 @@ public:
 #endif
 	}
 };
-
-#endif
