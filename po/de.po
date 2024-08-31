@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-23 14:18+0200\n"
-"PO-Revision-Date: 2023-06-11 17:52+0000\n"
+"PO-Revision-Date: 2024-08-06 17:09+0000\n"
 "Last-Translator: Quentin Frey <quentin.frey@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/ncmpc/"
 "translations/de/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 "X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
@@ -333,22 +333,20 @@ msgid "Word expected"
 msgstr "Wort erwartet"
 
 #: src/ConfigParser.cxx:153
-#, fuzzy
 msgid "Whitespace expected"
-msgstr "Wort erwartet"
+msgstr "Leerzeichen erwartet"
 
 #: src/ConfigParser.cxx:167
-#, fuzzy
 msgid "Quoted value expected"
-msgstr "Wort erwartet"
+msgstr "Wort in Anführungszeichen erwartet"
 
 #: src/ConfigParser.cxx:176
 msgid "Closing quote missing"
-msgstr ""
+msgstr "Hinteres Anführungszeichen fehlt"
 
 #: src/ConfigParser.cxx:194
 msgid "Syntax error"
-msgstr ""
+msgstr "Syntaxfehler"
 
 #: src/ConfigParser.cxx:214
 msgid "Malformed hotkey definition"
@@ -424,7 +422,7 @@ msgstr "Unbekannter Suchmodus"
 
 #: src/ConfigParser.cxx:541
 msgid "Invalid column width"
-msgstr ""
+msgstr "Ungültige Spaltenbreite"
 
 #: src/ConfigParser.cxx:550
 msgid "Invalid column fraction width"
@@ -784,11 +782,11 @@ msgstr "Liedtexte"
 #. while data is retrieved
 #: src/LyricsPage.cxx:319
 msgid "loading..."
-msgstr "lade …"
+msgstr "lade…"
 
 #: src/LyricsPage.cxx:342
 msgid "Lyrics cache is unavailable"
-msgstr ""
+msgstr "Liedtext-Cache ist nicht verfügbar"
 
 #: src/LyricsPage.cxx:347
 msgid "Editor not configured"
@@ -845,9 +843,9 @@ msgstr ""
 "  cmdrhenner https://launchpad.net/~cmdrhenner"
 
 #: src/OutputsPage.cxx:154
-#, fuzzy, c-format
+#, c-format
 msgid "Switched to partition '%s'"
-msgstr "Zu Partition '%s' gewechselt"
+msgstr "Zu Profil '%s' gewechselt"
 
 #: src/OutputsPage.cxx:166 src/SongPage.cxx:61
 msgid "Name"
@@ -868,14 +866,12 @@ msgid "Outputs"
 msgstr "Ausgabegeräte"
 
 #: src/OutputsPage.cxx:367
-#, fuzzy
 msgid "Partition"
-msgstr "Partition"
+msgstr "Profil"
 
 #: src/OutputsPage.cxx:391
-#, fuzzy
 msgid "Create new partition"
-msgstr "Erstelle eine neue Partition"
+msgstr "Neues Profil erstellen"
 
 #: src/player_command.cxx:62 src/QueuePage.cxx:651
 msgid "Shuffled queue"
@@ -1125,7 +1121,7 @@ msgstr "Interpret"
 
 #: src/SongPage.cxx:59
 msgid "Conductor"
-msgstr ""
+msgstr "Dirigent"
 
 #: src/SongPage.cxx:62
 msgid "Disc"
@@ -1206,7 +1202,7 @@ msgstr "Gerade laufendes Lied"
 #: src/SongPage.cxx:463
 #, c-format
 msgid "%d kbps"
-msgstr "%d kB/s"
+msgstr "%d kB/s"
 
 #: src/SongPage.cxx:545
 msgid "Song"
