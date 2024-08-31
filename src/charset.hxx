@@ -5,6 +5,8 @@
 
 #include "config.h"
 
+#include <string_view>
+
 #include <stddef.h>
 
 #ifdef HAVE_ICONV
@@ -16,11 +18,7 @@ charset_init() noexcept;
 #endif
 
 char *
-CopyUtf8ToLocale(char *dest, size_t dest_size, const char *src) noexcept;
-
-char *
-CopyUtf8ToLocale(char *dest, size_t dest_size,
-		 const char *src, size_t src_length) noexcept;
+CopyUtf8ToLocale(char *dest, size_t dest_size, std::string_view src) noexcept;
 
 [[gnu::pure]]
 const char *
@@ -40,8 +38,7 @@ class Utf8ToLocale {
 
 public:
 #ifdef HAVE_ICONV
-	explicit Utf8ToLocale(const char *src) noexcept;
-	Utf8ToLocale(const char *src, size_t length) noexcept;
+	explicit Utf8ToLocale(const std::string_view src) noexcept;
 
 	Utf8ToLocale(const Utf8ToLocale &) = delete;
 	Utf8ToLocale &operator=(const Utf8ToLocale &) = delete;
@@ -73,7 +70,7 @@ class LocaleToUtf8 {
 
 public:
 #ifdef HAVE_ICONV
-	explicit LocaleToUtf8(const char *src) noexcept;
+	explicit LocaleToUtf8(const std::string_view src) noexcept;
 
 	LocaleToUtf8(const LocaleToUtf8 &) = delete;
 	LocaleToUtf8 &operator=(const LocaleToUtf8 &) = delete;

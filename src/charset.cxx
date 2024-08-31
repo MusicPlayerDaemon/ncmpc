@@ -28,10 +28,9 @@ charset_init() noexcept
 #endif
 
 static char *
-CopyTruncateString(char *dest, size_t dest_size,
-		   const char *src, size_t src_length) noexcept
+CopyTruncateString(char *dest, size_t dest_size, const std::string_view src) noexcept
 {
-	dest = std::copy_n(src, std::min(dest_size - 1, src_length), dest);
+	dest = std::copy_n(src.begin(), std::min(dest_size - 1, src.size()), dest);
 	*dest = 0;
 	return dest;
 }
@@ -41,15 +40,18 @@ CopyTruncateString(char *dest, size_t dest_size,
 static char *
 Iconv(iconv_t i,
       char *dest, size_t dest_size,
-      const char *src, size_t src_length) noexcept
+      const std::string_view _src) noexcept
 {
 	static constexpr char FALLBACK = '?';
 
 	--dest_size; /* reserve once byte for the null terminator */
 
+	char *src = const_cast<char *>(_src.data());
+	std::size_t src_length = _src.size();
+
 	while (src_length > 0) {
 		size_t err = iconv(i,
-				   const_cast<char **>(&src), &src_length,
+				   &src, &src_length,
 				   &dest, &dest_size);
 		if (err == (size_t)-1) {
 			switch (errno) {
@@ -88,34 +90,36 @@ Iconv(iconv_t i,
 static char *
 Iconv(const char *tocode, const char *fromcode,
       char *dest, size_t dest_size,
-      const char *src, size_t src_length) noexcept
+      const std::string_view src) noexcept
 {
 	const auto i = iconv_open(tocode, fromcode);
 	if (i == (iconv_t)-1) {
-		CopyTruncateString(dest, dest_size, src, src_length);
+		CopyTruncateString(dest, dest_size, src);
 		return dest;
 	}
 
 	AtScopeExit(i) { iconv_close(i); };
 
-	return Iconv(i, dest, dest_size, src, src_length);
+	return Iconv(i, dest, dest_size, src);
 }
 
 [[gnu::pure]]
 static std::string
-Iconv(iconv_t i,
-      const char *src, size_t src_length) noexcept
+Iconv(iconv_t i, const std::string_view _src) noexcept
 {
 	static constexpr char FALLBACK = '?';
 
 	std::string dest;
+
+	char *src = const_cast<char *>(_src.data());
+	std::size_t src_length = _src.size();
 
 	while (src_length > 0) {
 		char buffer[1024], *outbuf = buffer;
 		size_t outbytesleft = sizeof(buffer);
 
 		size_t err = iconv(i,
-				   const_cast<char **>(&src), &src_length,
+				   &src, &src_length,
 				   &outbuf, &outbytesleft);
 		dest.append(buffer, outbuf);
 		if (err == (size_t)-1) {
@@ -151,50 +155,39 @@ Iconv(iconv_t i,
 [[gnu::pure]]
 static std::string
 Iconv(const char *tocode, const char *fromcode,
-      const char *src, size_t src_length) noexcept
+      const std::string_view src) noexcept
 {
 	const auto i = iconv_open(tocode, fromcode);
 	if (i == (iconv_t)-1)
-		return {src, src_length};
+		return std::string{src};
 
 	AtScopeExit(i) { iconv_close(i); };
 
-	return Iconv(i, src, src_length);
+	return Iconv(i, src);
 }
 
 [[gnu::pure]]
 static std::string
-utf8_to_locale(const char *src, size_t length) noexcept
+utf8_to_locale(const std::string_view src) noexcept
 {
-	assert(src != nullptr);
-
 	if (noconvert)
-		return {src, length};
+		return std::string{src};
 
-	return Iconv(charset, "utf-8",
-		     src, length);
+	return Iconv(charset, "utf-8", src);
 }
 
 #endif
 
 char *
-CopyUtf8ToLocale(char *dest, size_t dest_size, const char *src) noexcept
-{
-	return CopyUtf8ToLocale(dest, dest_size, src, strlen(src));
-}
-
-char *
-CopyUtf8ToLocale(char *dest, size_t dest_size,
-		 const char *src, size_t src_length) noexcept
+CopyUtf8ToLocale(char *dest, size_t dest_size, const std::string_view src) noexcept
 {
 #ifdef HAVE_ICONV
 	if (noconvert) {
 #endif
-		return CopyTruncateString(dest, dest_size, src, src_length);
+		return CopyTruncateString(dest, dest_size, src);
 #ifdef HAVE_ICONV
 	} else {
-		return Iconv(charset, "utf-8", dest, dest_size,
-			     src, src_length);
+		return Iconv(charset, "utf-8", dest, dest_size, src);
 	}
 #endif
 }
@@ -216,24 +209,18 @@ utf8_to_locale(const char *src, char *buffer, size_t size) noexcept
 
 [[gnu::pure]]
 static std::string
-locale_to_utf8(const char *src) noexcept
+locale_to_utf8(const std::string_view src) noexcept
 {
-	assert(src != nullptr);
-
 	if (noconvert)
-		return src;
+		return std::string{src};
 
-	return Iconv("utf-8", charset,
-		     src, strlen(src));
+	return Iconv("utf-8", charset, src);
 }
 
-Utf8ToLocale::Utf8ToLocale(const char *src) noexcept
-	:Utf8ToLocale(src, strlen(src)) {}
+Utf8ToLocale::Utf8ToLocale(const std::string_view src) noexcept
+	:value(utf8_to_locale(src)) {}
 
-Utf8ToLocale::Utf8ToLocale(const char *src, size_t length) noexcept
-	:value(utf8_to_locale(src, length)) {}
-
-LocaleToUtf8::LocaleToUtf8(const char *src) noexcept
+LocaleToUtf8::LocaleToUtf8(const std::string_view src) noexcept
 	:value(locale_to_utf8(src)) {}
 
 #endif
