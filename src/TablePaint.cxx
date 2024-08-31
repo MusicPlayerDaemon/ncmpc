@@ -38,7 +38,7 @@ PaintTableRow(const Window window, unsigned width,
 		}
 
 		char buffer[1024];
-		size_t length = strfsong(buffer, sizeof(buffer),
+		size_t length = strfsong(buffer,
 					 cs.format.c_str(), &song);
 
 		const char *end = AtWidthMB(buffer, length, cl.width);

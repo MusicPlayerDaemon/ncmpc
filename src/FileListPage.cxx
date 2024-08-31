@@ -87,7 +87,7 @@ FileListPage::GetListItemText(std::span<char> buffer,
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 		const auto *song = mpd_entity_get_song(entity);
 
-		strfsong(buffer.data(), buffer.size(), options.list_format.c_str(), song);
+		strfsong(buffer, options.list_format.c_str(), song);
 		return buffer.data();
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
 		const auto *playlist = mpd_entity_get_playlist(entity);
@@ -146,7 +146,7 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 #ifndef NCMPC_MINI
 		entry->flags |= HIGHLIGHT;
 #endif
-		strfsong(buf, BUFSIZE, options.list_format.c_str(), song);
+		strfsong(buf, options.list_format.c_str(), song);
 		screen_status_printf(_("Adding \'%s\' to queue"), buf);
 	}
 
@@ -256,7 +256,7 @@ browser_select_entry(struct mpdclient &c, FileListEntry &entry,
 		if (c.RunAdd(*song)) {
 			char buf[BUFSIZE];
 
-			strfsong(buf, BUFSIZE,
+			strfsong(buf,
 				 options.list_format.c_str(), song);
 			screen_status_printf(_("Adding \'%s\' to queue"), buf);
 		}

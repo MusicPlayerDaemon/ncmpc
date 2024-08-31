@@ -21,7 +21,7 @@ paint_song_row(const Window window, [[maybe_unused]] int y, unsigned width,
 {
 	char buffer[1024];
 
-	strfsong(buffer, sizeof(buffer), format, song);
+	strfsong(buffer, format, song);
 	row_paint_text(window, width, highlight ? Style::LIST_BOLD : Style::LIST,
 		       selected, buffer);
 

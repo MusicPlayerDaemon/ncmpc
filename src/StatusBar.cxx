@@ -174,7 +174,7 @@ StatusBar::Update(const struct mpd_status *status,
 
 		if (song) {
 			char buffer[1024];
-			strfsong(buffer, sizeof(buffer),
+			strfsong(buffer,
 				 options.status_format.c_str(), song);
 			center_text = buffer;
 		} else

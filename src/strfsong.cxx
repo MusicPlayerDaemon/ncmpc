@@ -267,10 +267,10 @@ _strfsong(char *const s0, char *const end,
 }
 
 size_t
-strfsong(char *s, size_t max, const char *format,
+strfsong(std::span<char> buffer, const char *format,
 	 const struct mpd_song *song) noexcept
 {
-	return _strfsong(s, s + max, format, song, nullptr);
+	return _strfsong(buffer.data(), buffer.data() + buffer.size(), format, song, nullptr);
 }
 
 TagMask
