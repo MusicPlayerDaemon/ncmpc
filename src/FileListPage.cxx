@@ -83,7 +83,7 @@ FileListPage::GetListItemText(char *buffer, size_t size,
 	if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY) {
 		const auto *dir = mpd_entity_get_directory(entity);
 		const char *name = GetUriFilename(mpd_directory_get_path(dir));
-		return utf8_to_locale(name, buffer, size);
+		return utf8_to_locale(name, {buffer, size});
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 		const auto *song = mpd_entity_get_song(entity);
 
@@ -92,7 +92,7 @@ FileListPage::GetListItemText(char *buffer, size_t size,
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
 		const auto *playlist = mpd_entity_get_playlist(entity);
 		const char *name = GetUriFilename(mpd_playlist_get_path(playlist));
-		return utf8_to_locale(name, buffer, size);
+		return utf8_to_locale(name, {buffer, size});
 	}
 
 	return "Error: Unknown entry!";

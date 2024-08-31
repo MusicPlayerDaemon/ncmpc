@@ -28,22 +28,24 @@ charset_init() noexcept
 #endif
 
 static char *
-CopyTruncateString(char *dest, size_t dest_size, const std::string_view src) noexcept
+CopyTruncateString(std::span<char> dest, const std::string_view src) noexcept
 {
-	dest = std::copy_n(src.begin(), std::min(dest_size - 1, src.size()), dest);
-	*dest = 0;
-	return dest;
+	char *p = std::copy_n(src.begin(), std::min(dest.size() - 1, src.size()), dest.data());
+	*p = 0;
+	return p;
 }
 
 #ifdef HAVE_ICONV
 
 static char *
 Iconv(iconv_t i,
-      char *dest, size_t dest_size,
+      std::span<char> _dest,
       const std::string_view _src) noexcept
 {
 	static constexpr char FALLBACK = '?';
 
+	char *dest = _dest.data();
+	std::size_t dest_size = _dest.size();
 	--dest_size; /* reserve once byte for the null terminator */
 
 	char *src = const_cast<char *>(_src.data());
@@ -89,18 +91,18 @@ Iconv(iconv_t i,
 
 static char *
 Iconv(const char *tocode, const char *fromcode,
-      char *dest, size_t dest_size,
+      std::span<char> dest,
       const std::string_view src) noexcept
 {
 	const auto i = iconv_open(tocode, fromcode);
 	if (i == (iconv_t)-1) {
-		CopyTruncateString(dest, dest_size, src);
-		return dest;
+		CopyTruncateString(dest, src);
+		return dest.data();
 	}
 
 	AtScopeExit(i) { iconv_close(i); };
 
-	return Iconv(i, dest, dest_size, src);
+	return Iconv(i, dest, src);
 }
 
 [[gnu::pure]]
@@ -179,28 +181,27 @@ utf8_to_locale(const std::string_view src) noexcept
 #endif
 
 char *
-CopyUtf8ToLocale(char *dest, size_t dest_size, const std::string_view src) noexcept
+CopyUtf8ToLocale(std::span<char> dest, const std::string_view src) noexcept
 {
 #ifdef HAVE_ICONV
 	if (noconvert) {
 #endif
-		return CopyTruncateString(dest, dest_size, src);
+		return CopyTruncateString(dest, src);
 #ifdef HAVE_ICONV
 	} else {
-		return Iconv(charset, "utf-8", dest, dest_size, src);
+		return Iconv(charset, "utf-8", dest, src);
 	}
 #endif
 }
 
 const char *
-utf8_to_locale(const char *src, char *buffer, size_t size) noexcept
+utf8_to_locale(const char *src, std::span<char> buffer) noexcept
 {
 #ifdef HAVE_ICONV
-	CopyUtf8ToLocale(buffer, size, src);
-	return buffer;
+	CopyUtf8ToLocale(buffer, src);
+	return buffer.data();
 #else
 	(void)buffer;
-	(void)size;
 	return src;
 #endif
 }

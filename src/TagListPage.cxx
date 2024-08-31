@@ -56,7 +56,7 @@ TagListPage::GetListItemText(char *buffer, size_t size,
 
 	assert(idx < values.size());
 
-	return utf8_to_locale(values[idx].c_str(), buffer, size);
+	return utf8_to_locale(values[idx].c_str(), {buffer, size});
 }
 
 static void

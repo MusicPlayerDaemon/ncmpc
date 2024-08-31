@@ -5,9 +5,8 @@
 
 #include "config.h"
 
+#include <span>
 #include <string_view>
-
-#include <stddef.h>
 
 #ifdef HAVE_ICONV
 
@@ -18,11 +17,11 @@ charset_init() noexcept;
 #endif
 
 char *
-CopyUtf8ToLocale(char *dest, size_t dest_size, std::string_view src) noexcept;
+CopyUtf8ToLocale(std::span<char> dest, std::string_view src) noexcept;
 
 [[gnu::pure]]
 const char *
-utf8_to_locale(const char *src, char *buffer, size_t size) noexcept;
+utf8_to_locale(const char *src, std::span<char> buffer) noexcept;
 
 /**
  * Convert an UTF-8 string to the locale charset.  The source string

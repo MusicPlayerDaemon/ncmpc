@@ -52,7 +52,7 @@ static char *
 CopyStringFromUTF8(char *dest, char *const dest_end,
 		   const char *src_utf8) noexcept
 {
-	return CopyUtf8ToLocale(dest, dest_end - dest, src_utf8);
+	return CopyUtf8ToLocale({dest, dest_end}, src_utf8);
 }
 
 static char *

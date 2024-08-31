@@ -58,7 +58,7 @@ TextPage::GetListItemText(char *buffer, size_t size, unsigned idx) const noexcep
 {
 	assert(idx < lines.size());
 
-	return utf8_to_locale(lines[idx].c_str(), buffer, size);
+	return utf8_to_locale(lines[idx].c_str(), {buffer, size});
 }
 
 void
