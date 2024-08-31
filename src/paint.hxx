@@ -52,7 +52,7 @@ row_clear_to_eol(const Window window, unsigned width, bool selected) noexcept
 static inline void
 row_paint_text(const Window window, unsigned width,
 	       Style style, bool selected,
-	       const char *text) noexcept
+	       std::string_view text) noexcept
 {
 	row_color(window, style, selected);
 

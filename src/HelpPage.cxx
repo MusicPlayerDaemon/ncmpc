@@ -222,8 +222,8 @@ public:
 			   bool selected) const noexcept override;
 
 	/* virtual methods from class ListText */
-	const char *GetListItemText(std::span<char> buffer,
-				    unsigned i) const noexcept override;
+	std::string_view GetListItemText(std::span<char> buffer,
+					 unsigned i) const noexcept override;
 
 	/* virtual methods from class Page */
 	void Paint() const noexcept override;
@@ -234,7 +234,7 @@ public:
 	}
 };
 
-const char *
+std::string_view
 HelpPage::GetListItemText(std::span<char>, unsigned i) const noexcept
 {
 	const auto *row = &help_text[i];
@@ -247,7 +247,7 @@ HelpPage::GetListItemText(std::span<char>, unsigned i) const noexcept
 	if (row->command != Command::NONE)
 		return get_key_description(row->command);
 
-	return "";
+	return {};
 }
 
 static std::unique_ptr<Page>

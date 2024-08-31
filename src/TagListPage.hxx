@@ -105,6 +105,6 @@ public:
 			   bool selected) const noexcept override;
 
 	/* virtual methods from class ListText */
-	const char *GetListItemText(std::span<char> buffer,
-				    unsigned i) const noexcept override;
+	std::string_view GetListItemText(std::span<char> buffer,
+					 unsigned i) const noexcept override;
 };

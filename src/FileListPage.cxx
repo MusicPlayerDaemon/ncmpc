@@ -27,6 +27,8 @@
 
 #include <string.h>
 
+using std::string_view_literals::operator""sv;
+
 #define BUFSIZE 1024
 
 #ifndef NCMPC_MINI
@@ -67,7 +69,7 @@ screen_browser_sync_highlights(FileList &fl, const MpdQueue &playlist) noexcept
 
 #endif
 
-const char *
+std::string_view
 FileListPage::GetListItemText(std::span<char> buffer,
 			      unsigned idx) const noexcept
 {
@@ -78,7 +80,7 @@ FileListPage::GetListItemText(std::span<char> buffer,
 	const auto *entity = entry.entity;
 
 	if( entity == nullptr )
-		return "..";
+		return ".."sv;
 
 	if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_DIRECTORY) {
 		const auto *dir = mpd_entity_get_directory(entity);
@@ -87,15 +89,14 @@ FileListPage::GetListItemText(std::span<char> buffer,
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 		const auto *song = mpd_entity_get_song(entity);
 
-		strfsong(buffer, options.list_format.c_str(), song);
-		return buffer.data();
+		return strfsong(buffer, options.list_format.c_str(), song);
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
 		const auto *playlist = mpd_entity_get_playlist(entity);
 		const char *name = GetUriFilename(mpd_playlist_get_path(playlist));
 		return utf8_to_locale(name, buffer);
 	}
 
-	return "Error: Unknown entry!";
+	return "Error: Unknown entry!"sv;
 }
 
 static bool
@@ -485,7 +486,7 @@ screen_browser_paint_directory(const Window window, unsigned width,
 
 static void
 screen_browser_paint_playlist(const Window window, unsigned width,
-			      bool selected, const char *name) noexcept
+			      bool selected, std::string_view name) noexcept
 {
 	row_paint_text(window, width, Style::PLAYLIST, selected, name);
 }

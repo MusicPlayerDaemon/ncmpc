@@ -53,7 +53,7 @@ TextPage::Append(const char *str) noexcept
 	lw.SetLength(lines.size());
 }
 
-const char *
+std::string_view
 TextPage::GetListItemText(std::span<char> buffer, unsigned idx) const noexcept
 {
 	assert(idx < lines.size());

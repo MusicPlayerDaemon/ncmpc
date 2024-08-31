@@ -145,8 +145,8 @@ public:
 
 private:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(std::span<char> buffer,
-				    unsigned i) const noexcept override;
+	std::string_view GetListItemText(std::span<char> buffer,
+					 unsigned i) const noexcept override;
 };
 
 void
@@ -164,10 +164,10 @@ SongPage::Clear() noexcept
 	}
 }
 
-const char *
+std::string_view
 SongPage::GetListItemText(std::span<char>, unsigned idx) const noexcept
 {
-	return lines[idx].c_str();
+	return lines[idx];
 }
 
 static std::unique_ptr<Page>

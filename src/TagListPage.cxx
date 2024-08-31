@@ -16,6 +16,8 @@
 #include <assert.h>
 #include <string.h>
 
+using std::string_view_literals::operator""sv;
+
 TagFilter
 TagListPage::MakeCursorFilter() const noexcept
 {
@@ -40,13 +42,13 @@ CompareUTF8(const std::string &a, const std::string &b)
 	return CollateUTF8(a.c_str(), b.c_str()) < 0;
 }
 
-const char *
+std::string_view
 TagListPage::GetListItemText(std::span<char> buffer,
 			     unsigned idx) const noexcept
 {
 	if (parent != nullptr) {
 		if (idx == 0)
-			return "..";
+			return ".."sv;
 
 		--idx;
 	}

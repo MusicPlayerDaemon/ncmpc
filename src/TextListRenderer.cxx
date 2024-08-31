@@ -9,7 +9,7 @@
 
 static void
 list_window_paint_row(const Window window, unsigned width, bool selected,
-		      const char *text) noexcept
+		      std::string_view text) noexcept
 {
 	row_paint_text(window, width, Style::LIST,
 		       selected, text);
@@ -20,8 +20,7 @@ TextListRenderer::PaintListItem(const Window window, unsigned i, unsigned,
 				unsigned width, bool selected) const noexcept
 {
 	char buffer[1024];
-	const char *label = text.GetListItemText(buffer, i);
-	assert(label != nullptr);
+	const std::string_view label = text.GetListItemText(buffer, i);
 
 	list_window_paint_row(window, width, selected, label);
 }

@@ -21,6 +21,8 @@
 #include <errno.h>
 #include <string.h>
 
+using std::string_view_literals::operator""sv;
+
 class CommandKeysPage final : public ListPage, ListText {
 	ScreenManager &screen;
 	Page *const parent;
@@ -112,8 +114,8 @@ public:
 
 private:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(std::span<char> buffer,
-				    unsigned i) const noexcept override;
+	std::string_view GetListItemText(std::span<char> buffer,
+					 unsigned i) const noexcept override;
 };
 
 /* TODO: rename to check_n_keys / subcmd_count_keys? */
@@ -202,25 +204,25 @@ CommandKeysPage::AddKey()
 		OverwriteKey(n_keys);
 }
 
-const char *
+std::string_view
 CommandKeysPage::GetListItemText(std::span<char> buffer,
 				 unsigned idx) const noexcept
 {
 	if (idx == GetLeavePosition())
-		return "[..]";
+		return "[..]"sv;
 
 	if (idx == GetAddPosition()) {
-		snprintf(buffer.data(), buffer.size(), "%d. %s", idx, _("Add new key"));
-		return buffer.data();
+		std::size_t length = snprintf(buffer.data(), buffer.size(), "%d. %s", idx, _("Add new key"));
+		return {buffer.data(), length};
 	}
 
 	assert(IsKeyPosition(idx));
 
-	snprintf(buffer.data(), buffer.size(),
-		 "%d. %-20s   (%d) ", idx,
-		 GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]),
-		 binding->keys[PositionToKeyIndex(idx)]);
-	return buffer.data();
+	std::size_t length = snprintf(buffer.data(), buffer.size(),
+				      "%d. %-20s   (%d) ", idx,
+				      GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]),
+				      binding->keys[PositionToKeyIndex(idx)]);
+	return {buffer.data(), length};
 }
 
 void
@@ -352,8 +354,8 @@ public:
 
 private:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(std::span<char> buffer,
-				    unsigned i) const noexcept override;
+	std::string_view GetListItemText(std::span<char> buffer,
+					 unsigned i) const noexcept override;
 };
 
 bool
@@ -407,7 +409,7 @@ CommandListPage::Save()
 	fclose(f);
 }
 
-const char *
+std::string_view
 CommandListPage::GetListItemText(std::span<char> buffer,
 				 unsigned idx) const noexcept
 {
@@ -432,11 +434,11 @@ CommandListPage::GetListItemText(std::span<char> buffer,
 	if (len < get_cmds_max_name_width())
 		memset(buffer.data() + len, ' ', get_cmds_max_name_width() - len);
 
-	snprintf(buffer.data() + get_cmds_max_name_width(),
-		 buffer.size() - get_cmds_max_name_width(),
-		 " - %s", my_gettext(get_command_definitions()[idx].description));
+	std::size_t length = snprintf(buffer.data() + get_cmds_max_name_width(),
+				      buffer.size() - get_cmds_max_name_width(),
+				      " - %s", my_gettext(get_command_definitions()[idx].description));
 
-	return buffer.data();
+	return {buffer.data(), length};
 }
 
 void

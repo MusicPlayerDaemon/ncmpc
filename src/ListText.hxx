@@ -4,6 +4,7 @@
 #pragma once
 
 #include <span>
+#include <string_view>
 
 class ListText {
 public:
@@ -11,6 +12,6 @@ public:
 	 * @return the text in the locale charset
 	 */
 	[[gnu::pure]]
-	virtual const char *GetListItemText(std::span<char> buffer,
-					    unsigned i) const noexcept = 0;
+	virtual std::string_view GetListItemText(std::span<char> buffer,
+						 unsigned i) const noexcept = 0;
 };

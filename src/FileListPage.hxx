@@ -63,8 +63,8 @@ private:
 			   bool selected) const noexcept final;
 
 	/* virtual methods from class ListText */
-	const char *GetListItemText(std::span<char> buffer,
-				    unsigned i) const noexcept override;
+	std::string_view GetListItemText(std::span<char> buffer,
+					 unsigned i) const noexcept override;
 
 public:
 	/* virtual methods from class Page */
