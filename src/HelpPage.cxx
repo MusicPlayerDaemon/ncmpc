@@ -25,18 +25,18 @@ struct HelpRow {
 
 	constexpr HelpRow(signed char _highlight,
 			  Command _command,
-			  const char *_text=nullptr)
+			  const char *_text=nullptr) noexcept
 		:highlight(_highlight), command(_command), text(_text) {}
 
 	constexpr HelpRow(Command _command,
-			  const char *_text=nullptr)
+			  const char *_text=nullptr) noexcept
 		:HelpRow(0, _command, _text) {}
 };
 
 static constexpr HelpRow HLINE{2, Command::NONE};
 
 static constexpr HelpRow
-Heading(const char *text)
+Heading(const char *text) noexcept
 {
 	return {1, Command::NONE, text};
 }
