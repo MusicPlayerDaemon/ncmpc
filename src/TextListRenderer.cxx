@@ -20,7 +20,7 @@ TextListRenderer::PaintListItem(const Window window, unsigned i, unsigned,
 				unsigned width, bool selected) const noexcept
 {
 	char buffer[1024];
-	const char *label = text.GetListItemText(buffer, sizeof(buffer), i);
+	const char *label = text.GetListItemText(buffer, i);
 	assert(label != nullptr);
 
 	list_window_paint_row(window, width, selected, label);

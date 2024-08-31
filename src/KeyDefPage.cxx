@@ -112,7 +112,7 @@ public:
 
 private:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(char *buffer, size_t size,
+	const char *GetListItemText(std::span<char> buffer,
 				    unsigned i) const noexcept override;
 };
 
@@ -203,24 +203,24 @@ CommandKeysPage::AddKey()
 }
 
 const char *
-CommandKeysPage::GetListItemText(char *buffer, size_t size,
+CommandKeysPage::GetListItemText(std::span<char> buffer,
 				 unsigned idx) const noexcept
 {
 	if (idx == GetLeavePosition())
 		return "[..]";
 
 	if (idx == GetAddPosition()) {
-		snprintf(buffer, size, "%d. %s", idx, _("Add new key"));
-		return buffer;
+		snprintf(buffer.data(), buffer.size(), "%d. %s", idx, _("Add new key"));
+		return buffer.data();
 	}
 
 	assert(IsKeyPosition(idx));
 
-	snprintf(buffer, size,
+	snprintf(buffer.data(), buffer.size(),
 		 "%d. %-20s   (%d) ", idx,
 		 GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]),
 		 binding->keys[PositionToKeyIndex(idx)]);
-	return buffer;
+	return buffer.data();
 }
 
 void
@@ -352,7 +352,7 @@ public:
 
 private:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(char *buffer, size_t size,
+	const char *GetListItemText(std::span<char> buffer,
 				    unsigned i) const noexcept override;
 };
 
@@ -408,7 +408,7 @@ CommandListPage::Save()
 }
 
 const char *
-CommandListPage::GetListItemText(char *buffer, size_t size,
+CommandListPage::GetListItemText(std::span<char> buffer,
 				 unsigned idx) const noexcept
 {
 	if (idx == command_item_apply())
@@ -427,16 +427,16 @@ CommandListPage::GetListItemText(char *buffer, size_t size,
 	 */
 	const char *name = get_key_command_name(Command(idx));
 	size_t len = strlen(name);
-	strncpy(buffer, name, size);
+	strncpy(buffer.data(), name, buffer.size());
 
 	if (len < get_cmds_max_name_width())
-		memset(buffer + len, ' ', get_cmds_max_name_width() - len);
+		memset(buffer.data() + len, ' ', get_cmds_max_name_width() - len);
 
-	snprintf(buffer + get_cmds_max_name_width(),
-		 size - get_cmds_max_name_width(),
+	snprintf(buffer.data() + get_cmds_max_name_width(),
+		 buffer.size() - get_cmds_max_name_width(),
 		 " - %s", my_gettext(get_command_definitions()[idx].description));
 
-	return buffer;
+	return buffer.data();
 }
 
 void

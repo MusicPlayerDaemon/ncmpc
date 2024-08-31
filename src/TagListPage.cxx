@@ -41,7 +41,7 @@ CompareUTF8(const std::string &a, const std::string &b)
 }
 
 const char *
-TagListPage::GetListItemText(char *buffer, size_t size,
+TagListPage::GetListItemText(std::span<char> buffer,
 			     unsigned idx) const noexcept
 {
 	if (parent != nullptr) {
@@ -56,7 +56,7 @@ TagListPage::GetListItemText(char *buffer, size_t size,
 
 	assert(idx < values.size());
 
-	return utf8_to_locale(values[idx].c_str(), {buffer, size});
+	return utf8_to_locale(values[idx].c_str(), buffer);
 }
 
 static void

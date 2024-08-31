@@ -65,9 +65,7 @@ ListWindow::Find(const ListText &text,
 	do {
 		while (i < GetLength()) {
 			char buffer[1024];
-			const char *label =
-				text.GetListItemText(buffer, sizeof(buffer),
-						     i);
+			const char *label = text.GetListItemText(buffer, i);
 			assert(label != nullptr);
 
 			if (m(label)) {
@@ -112,9 +110,7 @@ ListWindow::ReverseFind(const ListText &text,
 	do {
 		while (i >= 0) {
 			char buffer[1024];
-			const char *label =
-				text.GetListItemText(buffer, sizeof(buffer),
-						     i);
+			const char *label = text.GetListItemText(buffer, i);
 			assert(label != nullptr);
 
 			if (m(label)) {
@@ -148,9 +144,7 @@ ListWindow::Jump(const ListText &text, const char *str) noexcept
 
 	for (unsigned i = 0; i < GetLength(); i++) {
 		char buffer[1024];
-		const char *label =
-			text.GetListItemText(buffer, sizeof(buffer),
-					     i);
+		const char *label = text.GetListItemText(buffer, i);
 		assert(label != nullptr);
 
 		if (m(label)) {

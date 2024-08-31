@@ -114,7 +114,7 @@ private:
 			   bool selected) const noexcept override;
 
 	/* virtual methods from class ListText */
-	const char *GetListItemText(char *buffer, size_t size,
+	const char *GetListItemText(std::span<char> buffer,
 				    unsigned i) const noexcept override;
 
 public:
@@ -180,15 +180,15 @@ QueuePage::RestoreSelection()
 }
 
 const char *
-QueuePage::GetListItemText(char *buffer, size_t size,
+QueuePage::GetListItemText(std::span<char> buffer,
 			   unsigned idx) const noexcept
 {
 	assert(idx < playlist->size());
 
 	const auto &song = (*playlist)[idx];
-	strfsong(buffer, size, options.list_format.c_str(), &song);
+	strfsong(buffer.data(), buffer.size(), options.list_format.c_str(), &song);
 
-	return buffer;
+	return buffer.data();
 }
 
 void

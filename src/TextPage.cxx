@@ -54,11 +54,11 @@ TextPage::Append(const char *str) noexcept
 }
 
 const char *
-TextPage::GetListItemText(char *buffer, size_t size, unsigned idx) const noexcept
+TextPage::GetListItemText(std::span<char> buffer, unsigned idx) const noexcept
 {
 	assert(idx < lines.size());
 
-	return utf8_to_locale(lines[idx].c_str(), {buffer, size});
+	return utf8_to_locale(lines[idx].c_str(), buffer);
 }
 
 void

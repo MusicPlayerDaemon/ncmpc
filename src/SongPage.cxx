@@ -145,7 +145,7 @@ public:
 
 private:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(char *buffer, size_t size,
+	const char *GetListItemText(std::span<char> buffer,
 				    unsigned i) const noexcept override;
 };
 
@@ -165,7 +165,7 @@ SongPage::Clear() noexcept
 }
 
 const char *
-SongPage::GetListItemText(char *, size_t, unsigned idx) const noexcept
+SongPage::GetListItemText(std::span<char>, unsigned idx) const noexcept
 {
 	return lines[idx].c_str();
 }

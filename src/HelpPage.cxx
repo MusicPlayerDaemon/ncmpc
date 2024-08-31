@@ -222,7 +222,7 @@ public:
 			   bool selected) const noexcept override;
 
 	/* virtual methods from class ListText */
-	const char *GetListItemText(char *buffer, size_t size,
+	const char *GetListItemText(std::span<char> buffer,
 				    unsigned i) const noexcept override;
 
 	/* virtual methods from class Page */
@@ -235,7 +235,7 @@ public:
 };
 
 const char *
-HelpPage::GetListItemText(char *, size_t, unsigned i) const noexcept
+HelpPage::GetListItemText(std::span<char>, unsigned i) const noexcept
 {
 	const auto *row = &help_text[i];
 

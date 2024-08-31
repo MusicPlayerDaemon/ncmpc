@@ -63,6 +63,6 @@ public:
 
 private:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(char *buffer, size_t size,
+	const char *GetListItemText(std::span<char> buffer,
 				    unsigned i) const noexcept override;
 };

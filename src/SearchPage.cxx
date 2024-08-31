@@ -125,25 +125,25 @@ public:
 class SearchHelpText final : public ListText {
 public:
 	/* virtual methods from class ListText */
-	const char *GetListItemText(char *buffer, size_t size,
+	const char *GetListItemText(std::span<char> buffer,
 				    unsigned idx) const noexcept override {
 		assert(idx < std::size(help_text));
 
 		if (idx == 0) {
-			snprintf(buffer, size,
+			snprintf(buffer.data(), buffer.size(),
 				 " %s : %s",
 				 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH).c_str(),
 				 "New search");
-			return buffer;
+			return buffer.data();
 		}
 
 		if (idx == 1) {
-			snprintf(buffer, size,
+			snprintf(buffer.data(), buffer.size(),
 				 " %s : %s [%s]",
 				 GetGlobalKeyBindings().GetKeyNames(Command::SEARCH_MODE).c_str(),
 				 get_key_description(Command::SEARCH_MODE),
 				 my_gettext(mode[options.search_mode].label));
-			return buffer;
+			return buffer.data();
 		}
 
 		return help_text[idx];
