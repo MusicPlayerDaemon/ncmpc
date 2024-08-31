@@ -194,12 +194,12 @@ CopyUtf8ToLocale(std::span<char> dest, const std::string_view src) noexcept
 #endif
 }
 
-const char *
-utf8_to_locale(const char *src, std::span<char> buffer) noexcept
+std::string_view
+utf8_to_locale(std::string_view src, std::span<char> buffer) noexcept
 {
 #ifdef HAVE_ICONV
-	CopyUtf8ToLocale(buffer, src);
-	return buffer.data();
+	char *end = CopyUtf8ToLocale(buffer, src);
+	return {buffer.data(), end};
 #else
 	(void)buffer;
 	return src;

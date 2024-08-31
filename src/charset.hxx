@@ -20,8 +20,8 @@ char *
 CopyUtf8ToLocale(std::span<char> dest, std::string_view src) noexcept;
 
 [[gnu::pure]]
-const char *
-utf8_to_locale(const char *src, std::span<char> buffer) noexcept;
+std::string_view
+utf8_to_locale(std::string_view src, std::span<char> buffer) noexcept;
 
 /**
  * Convert an UTF-8 string to the locale charset.  The source string
