@@ -14,12 +14,14 @@
 #include "screen_utils.hxx"
 #include "FileListPage.hxx"
 #include "filelist.hxx"
-#include "util/SPrintf.hxx"
+#include "lib/fmt/ToSpan.hxx"
 #include "util/StringAPI.hxx"
 
 #include <iterator>
 
 #include <string.h>
+
+using std::string_view_literals::operator""sv;
 
 enum {
 	SEARCH_URI = MPD_TAG_COUNT + 100,
@@ -131,15 +133,15 @@ public:
 		assert(idx < std::size(help_text));
 
 		if (idx == 0)
-			return SPrintf(buffer, " %s : %s",
-				       GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH).c_str(),
-				       "New search");
+			return FmtTruncate(buffer, " {} : {}"sv,
+					   GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH),
+					   "New search"sv);
 
 		if (idx == 1)
-			return SPrintf(buffer, " %s : %s [%s]",
-				       GetGlobalKeyBindings().GetKeyNames(Command::SEARCH_MODE).c_str(),
-				       get_key_description(Command::SEARCH_MODE),
-				       my_gettext(mode[options.search_mode].label));
+			return FmtTruncate(buffer, " {} : {} [{}]"sv,
+					   GetGlobalKeyBindings().GetKeyNames(Command::SEARCH_MODE),
+					   get_key_description(Command::SEARCH_MODE),
+					   my_gettext(mode[options.search_mode].label));
 
 		return help_text[idx];
 	}
@@ -442,12 +444,12 @@ std::string_view
 SearchPage::GetTitle(std::span<char> buffer) const noexcept
 {
 	if (advanced_search_mode && !pattern.empty())
-		return SPrintf(buffer, "%s '%s'", _("Search"), pattern.c_str());
+		return FmtTruncate(buffer, "{} '{}'"sv, _("Search"), pattern);
 	else if (!pattern.empty())
-		return SPrintf(buffer, "%s '%s' [%s]",
-			       _("Search"),
-			       pattern.c_str(),
-			       my_gettext(mode[options.search_mode].label));
+		return FmtTruncate(buffer, "{} '{}' [{}]",
+				   _("Search"),
+				   pattern,
+				   my_gettext(mode[options.search_mode].label));
 	else
 		return _("Search");
 }

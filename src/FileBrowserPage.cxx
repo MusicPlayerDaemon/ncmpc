@@ -16,7 +16,7 @@
 #include "screen_client.hxx"
 #include "Command.hxx"
 #include "Options.hxx"
-#include "util/SPrintf.hxx"
+#include "lib/fmt/ToSpan.hxx"
 #include "util/UriUtil.hxx"
 
 #include <mpd/client.h>
@@ -286,9 +286,9 @@ FileBrowserPage::GetTitle(std::span<char> buffer) const noexcept
 		/* fall back to full path */
 		path = current_path.c_str();
 
-	return SPrintf(buffer, "%s: %s",
-		       /* translators: caption of the browser screen */
-		       _("Browse"), Utf8ToLocale(path).c_str());
+	return FmtTruncate(buffer, "{}: {}",
+			   /* translators: caption of the browser screen */
+			   _("Browse"), Utf8ToLocale(path).c_str());
 }
 
 void

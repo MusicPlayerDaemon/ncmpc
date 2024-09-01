@@ -12,11 +12,13 @@
 #include "Options.hxx"
 #include "mpdclient.hxx"
 #include "screen.hxx"
-#include "util/SPrintf.hxx"
+#include "lib/fmt/ToSpan.hxx"
 
 #include <mpd/client.h>
 
 #include <string>
+
+using std::string_view_literals::operator""sv;
 
 static std::string next_playlist_name;
 
@@ -119,7 +121,7 @@ EditPlaylistPage::GetTitle(std::span<char> buffer) const noexcept
 	if (name.empty())
 		return _("Playlist");
 
-	return SPrintf(buffer, "%s: %s", _("Playlist"), name.c_str());
+	return FmtTruncate(buffer, "{}: {}"sv, _("Playlist"), name);
 }
 
 void

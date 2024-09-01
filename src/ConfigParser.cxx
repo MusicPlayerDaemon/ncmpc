@@ -15,9 +15,9 @@
 #include "screen_list.hxx"
 #include "PageMeta.hxx"
 #include "Options.hxx"
+#include "lib/fmt/RuntimeError.hxx"
 #include "util/CharUtil.hxx"
 #include "util/PrintException.hxx"
-#include "util/RuntimeError.hxx"
 #include "util/ScopeExit.hxx"
 #include "util/StringAPI.hxx"
 #include "util/StringStrip.hxx"
@@ -105,8 +105,8 @@ static char *
 after_unquoted_word(char *p)
 {
 	if (!is_word_char(*p))
-		throw FormatRuntimeError("%s: %s",
-					 _("Word expected"), p);
+		throw FmtRuntimeError("{}: {:?}",
+				      _("Word expected"), p);
 
 	++p;
 
@@ -149,8 +149,8 @@ NextUnquotedValue(char *&pp)
 		*end = 0;
 		pp = StripLeft(end + 1);
 	} else
-		throw FormatRuntimeError("%s: %s",
-					 _("Whitespace expected"), end);
+		throw FmtRuntimeError("{}: {:?}",
+				      _("Whitespace expected"), end);
 
 	return value;
 }
@@ -163,8 +163,8 @@ NextQuotedValue(char *&pp)
 {
 	char *p = pp;
 	if (*p != '"')
-		throw FormatRuntimeError("%s: %s",
-					 _("Quoted value expected"), p);
+		throw FmtRuntimeError("{}: {:?}",
+				      _("Quoted value expected"), p);
 
 	++p;
 
@@ -172,8 +172,8 @@ NextQuotedValue(char *&pp)
 
 	char *end = strchr(p, '"');
 	if (end == nullptr)
-		throw FormatRuntimeError("%s: %s",
-					 _("Closing quote missing"), p);
+		throw FmtRuntimeError("{}: {:?}",
+				      _("Closing quote missing"), p);
 
 	*end = 0;
 	pp = end + 1;
@@ -190,8 +190,8 @@ NextNameValue(char *&p)
 
 	p = after_unquoted_word(p);
 	if (*p != '=')
-		throw FormatRuntimeError("%s: %s",
-					 _("Syntax error"), p);
+		throw FmtRuntimeError("{}: {:?}",
+				      _("Syntax error"), p);
 
 	*p++ = 0;
 
@@ -210,9 +210,9 @@ parse_key_value(const char *str, const char **end)
 {
 	auto result = ParseKeyName(str);
 	if (result.first == -1)
-		throw FormatRuntimeError("%s: %s",
-					 _("Malformed hotkey definition"),
-					 result.second);
+		throw FmtRuntimeError("{}: {:?}",
+				      _("Malformed hotkey definition"),
+				      result.second);
 
 	*end = result.second;
 	return result.first;
@@ -227,11 +227,11 @@ parse_key_definition(char *str)
 	/* get the command name */
 	char *eq = strchr(str, '=');
 	if (eq == nullptr)
-		throw FormatRuntimeError("%s: %s",
-					 /* the hotkey configuration
-					    line is incomplete */
-					 _("Incomplete hotkey configuration"),
-					 str);
+		throw FmtRuntimeError("{}: {:?}",
+				      /* the hotkey configuration line
+					 is incomplete */
+				      _("Incomplete hotkey configuration"),
+				      str);
 
 	char *command_name = str;
 	str = StripLeft(eq + 1);
@@ -240,11 +240,11 @@ parse_key_definition(char *str)
 	StripRight(command_name);
 	const auto cmd = get_key_command_from_name(command_name);
 	if (cmd == Command::NONE)
-		throw FormatRuntimeError("%s: %s",
-					 /* the hotkey configuration
-					    contains an unknown
-					    command */
-					 _("Unknown command"), command_name);
+		throw FmtRuntimeError("{}: {:?}",
+				      /* the hotkey configuration
+					 contains an unknown
+					 command */
+				      _("Unknown command"), command_name);
 
 	/* parse key values */
 	size_t i = 0;
@@ -273,16 +273,15 @@ ParseCurrentTimeDisplay(const char *str)
 	else if (StringIsEqual(str, "none"))
 		return CurrentTimeDisplay::NONE;
 	else
-		throw FormatRuntimeError("%s: %s",
-					 /* translators: ncmpc
-					    supports displaying the
-					    "elapsed" or "remaining"
-					    time of a song being
-					    played; in this case, the
-					    configuration file
-					    contained an invalid
-					    setting */
-					 _("Bad time display type"), str);
+		throw FmtRuntimeError("{}: {:?}",
+				      /* translators: ncmpc supports
+					 displaying the "elapsed" or
+					 "remaining" time of a song
+					 being played; in this case,
+					 the configuration file
+					 contained an invalid
+					 setting */
+				      _("Bad time display type"), str);
 }
 
 #ifdef ENABLE_COLORS
@@ -344,8 +343,8 @@ parse_color_definition(char *str)
 	/* get the command name */
 	short color = ParseColorNameOrNumber(str);
 	if (color < 0)
-		throw FormatRuntimeError("%s: %s",
-					 _("Bad color name"), str);
+		throw FmtRuntimeError("{}: {:?}",
+				      _("Bad color name"), str);
 
 	/* parse r,g,b values */
 
@@ -353,21 +352,21 @@ parse_color_definition(char *str)
 	for (unsigned i = 0; i < 3; ++i) {
 		char *next = after_comma(value), *endptr;
 		if (*value == 0)
-			throw FormatRuntimeError("%s: %s",
-						 _("Incomplete color definition"),
-						 str);
+			throw FmtRuntimeError("{}: {:?}",
+					      _("Incomplete color definition"),
+					      str);
 
 		rgb[i] = strtol(value, &endptr, 0);
 		if (endptr == value || *endptr != 0)
-			throw FormatRuntimeError("%s: %s",
-						 _("Invalid number"), value);
+			throw FmtRuntimeError("{}: {:?}",
+					      _("Invalid number"), value);
 
 		value = next;
 	}
 
 	if (*value != 0)
-		throw FormatRuntimeError("%s: %s",
-					 _("Malformed color definition"), str);
+		throw FmtRuntimeError("{}: {:?}",
+				      _("Malformed color definition"), str);
 
 	colors_define(color, rgb[0], rgb[1], rgb[2]);
 }
@@ -425,14 +424,13 @@ check_screen_list(char *value)
 
 		const auto *page_meta = screen_lookup_name(name);
 		if (page_meta == nullptr)
-			throw FormatRuntimeError("%s: %s",
-						 /* an unknown screen
-						    name was specified
-						    in the
-						    configuration
-						    file */
-						 _("Unknown screen name"),
-						 name);
+			throw FmtRuntimeError("{}: {:?}",
+					      /* an unknown screen
+						 name was specified in
+						 the configuration
+						 file */
+					      _("Unknown screen name"),
+					      name);
 
 		/* use PageMeta::name because
 		   screen_lookup_name() may have translated a
@@ -459,8 +457,8 @@ ParseTagList(char *value)
 	while (char *name = NextItem(value)) {
 		auto type = mpd_tag_name_iparse(name);
 		if (type == MPD_TAG_UNKNOWN)
-			throw FormatRuntimeError("%s: %s",
-						 _("Unknown MPD tag"), name);
+			throw FmtRuntimeError("{}: {:?}",
+					      _("Unknown MPD tag"), name);
 
 		result.emplace_back(type);
 	}
@@ -486,8 +484,8 @@ get_search_mode(char *value)
 		if (0 <= mode && mode <= 4)
 			return mode;
 		else
-			throw FormatRuntimeError("%s: %s",
-						 _("Invalid search mode"),value);
+			throw FmtRuntimeError("{}: {:?}",
+					      _("Invalid search mode"),value);
 	}
 	else
 	{
@@ -504,9 +502,9 @@ get_search_mode(char *value)
 		else if (StringIsEqualIgnoreCase(value, "artist+album"))
 			return 4;
 		else
-			throw FormatRuntimeError("%s: %s",
-						 _("Unknown search mode"),
-						 value);
+			throw FmtRuntimeError("{}: {:?}",
+					      _("Unknown search mode"),
+					      value);
 	}
 }
 
@@ -537,18 +535,18 @@ ParseTableColumn(char *s)
 			column.min_width = strtoul(value, &endptr, 10);
 			if (endptr == value || *endptr != 0 ||
 			    column.min_width == 0 || column.min_width > 1000)
-				throw FormatRuntimeError("%s: %s",
-							 _("Invalid column width"),
-							 value);
+				throw FmtRuntimeError("{}: {:?}",
+						      _("Invalid column width"),
+						      value);
 		} else if (StringIsEqual(name, "fraction")) {
 			char *endptr;
 			column.fraction_width = strtod(value, &endptr);
 			if (endptr == value || *endptr != 0 ||
 			    column.fraction_width < 0 ||
 			    column.fraction_width > 1000)
-				throw FormatRuntimeError("%s: %s",
-							 _("Invalid column fraction width"),
-							 value);
+				throw FmtRuntimeError("{}: {:?}",
+						      _("Invalid column fraction width"),
+						      value);
 		}
 	}
 
@@ -581,8 +579,8 @@ parse_line(char *line)
 		++line;
 		line = StripLeft(line);
 	} else if (line == name_end) {
-		throw FormatRuntimeError("%s: %s",
-					 _("Missing '='"), name_end);
+		throw FmtRuntimeError("{}: {:?}",
+				      _("Missing '='"), name_end);
 	}
 
 	*name_end = 0;
@@ -753,9 +751,9 @@ parse_line(char *line)
 		options.second_column = str2bool(value);
 #endif
 	else
-		throw FormatRuntimeError("%s: %s",
-					 _("Unknown configuration parameter"),
-					 name);
+		throw FmtRuntimeError("{}: {:?}",
+				      _("Unknown configuration parameter"),
+				      name);
 }
 
 bool
@@ -784,9 +782,9 @@ ReadConfigFile(const char *filename)
 		try {
 			parse_line(p);
 		} catch (...) {
-			fprintf(stderr,
-				"Failed to parse '%s' line %u: ",
-				filename, no);
+			fmt::print(stderr,
+				   "Failed to parse {:?} line {}: ",
+				   filename, no);
 			PrintException(std::current_exception());
 		}
 	}

@@ -5,7 +5,7 @@
 #include "BasicColors.hxx"
 #include "CustomColors.hxx"
 #include "i18n.h"
-#include "util/RuntimeError.hxx"
+#include "lib/fmt/RuntimeError.hxx"
 #include "util/StringAPI.hxx"
 #include "util/StringStrip.hxx"
 #include "Window.hxx"
@@ -232,7 +232,7 @@ ParseBackgroundColor(const char *s)
 	if (StringIsEqualIgnoreCase(s, "none"))
 		return COLOR_NONE;
 
-	throw FormatRuntimeError("%s: %s", _("Unknown color"), s);
+	throw FmtRuntimeError("{}: {:?}", _("Unknown color"), s);
 }
 
 /**
@@ -292,8 +292,8 @@ ParseStyle(StyleData &d, const char *str)
 		else if (StringIsEqualIgnoreCase(cur, "bold"))
 			d.attr |= A_BOLD;
 		else
-			throw FormatRuntimeError("%s: %s",
-						 _("Unknown color"), str);
+			throw FmtRuntimeError("{}: {:?}",
+					      _("Unknown color"), str);
 	}
 }
 
@@ -302,8 +302,8 @@ ModifyStyle(const char *name, const char *value)
 {
 	const auto style = StyleByName(name);
 	if (style == Style::END)
-		throw FormatRuntimeError("%s: %s",
-					 _("Unknown color field"), name);
+		throw FmtRuntimeError("{}: {:?}",
+				      _("Unknown color field"), name);
 
 	auto &data = GetStyle(style);
 

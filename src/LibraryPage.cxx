@@ -12,7 +12,7 @@
 #include "mpdclient.hxx"
 #include "filelist.hxx"
 #include "Options.hxx"
-#include "util/SPrintf.hxx"
+#include "lib/fmt/ToSpan.hxx"
 
 #include <list>
 #include <string>
@@ -20,6 +20,8 @@
 
 #include <assert.h>
 #include <string.h>
+
+using std::string_view_literals::operator""sv;
 
 [[gnu::const]]
 static const char *
@@ -38,14 +40,14 @@ GetTagPlural(enum mpd_tag_type tag) noexcept
 }
 
 static std::string_view 
-MakePageTitle(std::span<char> buffer, const char *prefix,
+MakePageTitle(std::span<char> buffer, std::string_view prefix,
 	      const TagFilter &filter)
 {
 	if (filter.empty())
 		return prefix;
 
-	return SPrintf(buffer, "%s: %s", prefix,
-		       Utf8ToLocale(ToString(filter).c_str()).c_str());
+	return FmtTruncate(buffer, "{}: {}"sv, prefix,
+			   Utf8ToLocale{ToString(filter)}.c_str());
 }
 
 class SongListPage final : public FileListPage {

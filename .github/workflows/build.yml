@@ -31,7 +31,7 @@ jobs:
             cc: gcc-14
             cxx: g++-14
             ldflags: -fuse-ld=mold
-            packages: g++-14 mold
+            packages: g++-14 mold libfmt-dev
             meson_options:
           - compiler: gcc11
             os: ubuntu-22.04
@@ -39,13 +39,13 @@ jobs:
             cxx: g++-11
             ldflags:
             packages: g++-11
-            meson_options:
+            meson_options: --force-fallback-for=fmt
           - compiler: clang
             os: ubuntu-24.04
             cc: clang
             cxx: clang++
             ldflags: -fuse-ld=lld
-            packages: clang lld
+            packages: clang lld libfmt-dev
             meson_options:
 
     runs-on: ${{ matrix.os }}

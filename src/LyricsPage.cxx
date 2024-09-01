@@ -17,7 +17,7 @@
 #include "TextPage.hxx"
 #include "screen_utils.hxx"
 #include "ncu.hxx"
-#include "util/SPrintf.hxx"
+#include "lib/fmt/ToSpan.hxx"
 #include "util/StringAPI.hxx"
 
 #include <string>
@@ -313,11 +313,12 @@ std::string_view
 LyricsPage::GetTitle(std::span<char> buffer) const noexcept
 {
 	if (plugin_cycle != nullptr) {
-		return SPrintf(buffer, "%s (%s)",
-			       _("Lyrics"),
-			       /* translators: this message is displayed
-				  while data is retrieved */
-			       _("loading..."));
+		return FmtTruncate(buffer, "{} ({})",
+				   _("Lyrics"),
+				   /* translators: this message is
+				      displayed while data is
+				      retrieved */
+				   _("loading..."));
 	} else if (artist != nullptr && title != nullptr && !IsEmpty()) {
 		std::size_t n;
 		n = snprintf(buffer.data(), buffer.size(), "%s: %s - %s",

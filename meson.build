@@ -13,6 +13,7 @@ project('ncmpc', 'cpp',
 )
 
 cc = meson.get_compiler('cpp')
+compiler = cc
 
 conf = configuration_data()
 conf.set_quoted('PACKAGE', meson.project_name())
@@ -379,6 +380,7 @@ if host_machine.system() == 'windows'
   subdir('src/win')
 endif
 
+subdir('src/lib/fmt')
 subdir('src/io')
 subdir('src/system')
 subdir('src/net')
@@ -451,6 +453,7 @@ ncmpc = executable('ncmpc',
     curses_dep,
     lirc_dep,
     libmpdclient_dep,
+    fmt_dep,
   ],
   install: true
 )
