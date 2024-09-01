@@ -478,8 +478,8 @@ msgstr "Načítám seznam skladeb: %s..."
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, fuzzy, c-format
-msgid "Adding '%s' to queue"
-msgstr "Přidávám '%s' do seznamu skladeb"
+msgid "Adding '{}' to queue"
+msgstr "Přidávám '{}' do seznamu skladeb"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

@@ -472,8 +472,8 @@ msgstr "Laddar spellista '%s'"
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, c-format
-msgid "Adding '%s' to queue"
-msgstr "Lägger till '%s' till kö"
+msgid "Adding '{}' to queue"
+msgstr "Lägger till '{}' till kö"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

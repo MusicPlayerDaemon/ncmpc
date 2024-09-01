@@ -470,8 +470,8 @@ msgstr "Laden afspeellijst %s..."
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, fuzzy, c-format
-msgid "Adding '%s' to queue"
-msgstr "Toevoegen '%s' aan afspeellijst"
+msgid "Adding '{}' to queue"
+msgstr "Toevoegen '{}' aan afspeellijst"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

@@ -468,8 +468,8 @@ msgstr "רשימת הנגינה ‚%s’ נטענת"
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, c-format
-msgid "Adding '%s' to queue"
-msgstr "‚%s’ נוסף לרשימת הנגינה"
+msgid "Adding '{}' to queue"
+msgstr "‚{}’ נוסף לרשימת הנגינה"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

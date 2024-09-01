@@ -472,8 +472,8 @@ msgstr "Загружается плейлист '%s'"
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, c-format
-msgid "Adding '%s' to queue"
-msgstr "В очередь добавляется '%s'"
+msgid "Adding '{}' to queue"
+msgstr "В очередь добавляется '{}'"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

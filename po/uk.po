@@ -475,8 +475,8 @@ msgstr "Завантажується перелік програвання %s...
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, fuzzy, c-format
-msgid "Adding '%s' to queue"
-msgstr "Додається '%s' до переліку програвання"
+msgid "Adding '{}' to queue"
+msgstr "Додається '{}' до переліку програвання"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

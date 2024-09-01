@@ -442,8 +442,8 @@ msgstr "'%s' oynatma listesi yükleniyor"
 #: src/FileListPage.cxx:165 src/FileListPage.cxx:254 src/FileListPage.cxx:277
 #: src/TagListPage.cxx:184
 #, c-format
-msgid "Adding '%s' to queue"
-msgstr "'%s' kuyruğa ekleniyor"
+msgid "Adding '{}' to queue"
+msgstr "'{}' kuyruğa ekleniyor"
 
 #: src/HelpPage.cxx:61
 msgid "Movement"

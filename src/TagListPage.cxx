@@ -179,8 +179,8 @@ add_query(struct mpdclient *c, const TagFilter &filter,
 		   the previous level in the filter */
 		text = filter.empty() ? "?" : filter.front().second.c_str();
 
-	screen_status_printf(_("Adding \'%s\' to queue"),
-			     Utf8ToLocale(text).c_str());
+	screen_status_fmt(_("Adding '{}' to queue"),
+			  Utf8ToLocale(text).c_str());
 
 	mpd_search_add_db_songs(connection, true);
 	AddConstraints(connection, filter);

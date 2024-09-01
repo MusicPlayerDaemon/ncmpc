@@ -474,8 +474,8 @@ msgstr "Cargando a lista de reprodución %s..."
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, fuzzy, c-format
-msgid "Adding '%s' to queue"
-msgstr "Engadindo «%s» á lista de reprodución"
+msgid "Adding '{}' to queue"
+msgstr "Engadindo «{}» á lista de reprodución"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

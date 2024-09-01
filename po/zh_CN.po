@@ -472,8 +472,8 @@ msgstr "加载播放列表 %s"
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, c-format
-msgid "Adding '%s' to queue"
-msgstr "添加 '%s' 到播放列表"
+msgid "Adding '{}' to queue"
+msgstr "添加 '{}' 到播放列表"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

@@ -136,8 +136,6 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 		id = c->playlist.FindIdByUri(mpd_song_get_uri(song));
 
 	if (id < 0) {
-		char buf[BUFSIZE];
-
 		id = mpd_run_add_id(connection, mpd_song_get_uri(song));
 		if (id < 0) {
 			c->HandleError();
@@ -147,8 +145,10 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 #ifndef NCMPC_MINI
 		entry->flags |= HIGHLIGHT;
 #endif
-		strfsong(buf, options.list_format.c_str(), song);
-		screen_status_printf(_("Adding \'%s\' to queue"), buf);
+
+		char buf[BUFSIZE];
+		screen_status_fmt(_("Adding '{}' to queue"),
+				  strfsong(buf, options.list_format.c_str(), song));
 	}
 
 	if (!mpd_run_play_id(connection, id)) {
@@ -236,8 +236,8 @@ browser_select_entry(struct mpdclient &c, FileListEntry &entry,
 		if (!mpdclient_cmd_add_path(c, mpd_directory_get_path(dir)))
 			return false;
 
-		screen_status_printf(_("Adding \'%s\' to queue"),
-				     Utf8ToLocale(mpd_directory_get_path(dir)).c_str());
+		screen_status_fmt(_("Adding '{}' to queue"),
+				  Utf8ToLocale(mpd_directory_get_path(dir)).c_str());
 		return true;
 	}
 
@@ -256,10 +256,8 @@ browser_select_entry(struct mpdclient &c, FileListEntry &entry,
 
 		if (c.RunAdd(*song)) {
 			char buf[BUFSIZE];
-
-			strfsong(buf,
-				 options.list_format.c_str(), song);
-			screen_status_printf(_("Adding \'%s\' to queue"), buf);
+			screen_status_fmt(_("Adding '{}' to queue"),
+					  strfsong(buf, options.list_format.c_str(), song));
 		}
 #ifndef NCMPC_MINI
 	} else {

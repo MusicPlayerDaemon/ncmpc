@@ -469,8 +469,8 @@ msgstr "'%s' 연주목록을 읽는 중"
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, c-format
-msgid "Adding '%s' to queue"
-msgstr "순서에 '%s' 추가"
+msgid "Adding '{}' to queue"
+msgstr "순서에 '{}' 추가"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

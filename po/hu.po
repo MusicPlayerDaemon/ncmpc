@@ -474,8 +474,8 @@ msgstr "%s lejátszólista betöltése..."
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, fuzzy, c-format
-msgid "Adding '%s' to queue"
-msgstr "'%s' hozzáadása a lejátszólistához"
+msgid "Adding '{}' to queue"
+msgstr "'{}' hozzáadása a lejátszólistához"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

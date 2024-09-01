@@ -474,8 +474,8 @@ msgstr "Henter %s..."
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, fuzzy, c-format
-msgid "Adding '%s' to queue"
-msgstr "Tilføjer '%s' til listen"
+msgid "Adding '{}' to queue"
+msgstr "Tilføjer '{}' til listen"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

@@ -471,8 +471,8 @@ msgstr "Carregando lista de reprodução '%s'"
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, c-format
-msgid "Adding '%s' to queue"
-msgstr "Adicionando '%s' para a fila"
+msgid "Adding '{}' to queue"
+msgstr "Adicionando '{}' para a fila"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"

@@ -474,8 +474,8 @@ msgstr "Chargement de la liste de lecture « %s »"
 #: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
 #: src/TagListPage.cxx:182
 #, c-format
-msgid "Adding '%s' to queue"
-msgstr "Ajout de « %s » à la file d’attente"
+msgid "Adding '{}' to queue"
+msgstr "Ajout de « {} » à la file d’attente"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"
