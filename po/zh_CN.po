@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-23 14:18+0200\n"
+"POT-Creation-Date: 2024-09-01 21:25+0200\n"
 "PO-Revision-Date: 2021-01-19 16:32+0000\n"
 "Last-Translator: Lilian Wang <li330wang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -353,8 +353,8 @@ msgstr ""
 msgid "Malformed hotkey definition"
 msgstr "不正确的快捷键定义"
 
-#. the hotkey configuration
-#. line is incomplete
+#. the hotkey configuration line
+#. is incomplete
 #: src/ConfigParser.cxx:233
 msgid "Incomplete hotkey configuration"
 msgstr "不完整的快捷键配置"
@@ -366,70 +366,68 @@ msgstr "不完整的快捷键配置"
 msgid "Unknown command"
 msgstr "未知命令"
 
-#. translators: ncmpc
-#. supports displaying the
-#. "elapsed" or "remaining"
-#. time of a song being
-#. played; in this case, the
-#. configuration file
+#. translators: ncmpc supports
+#. displaying the "elapsed" or
+#. "remaining" time of a song
+#. being played; in this case,
+#. the configuration file
 #. contained an invalid
 #. setting
-#: src/ConfigParser.cxx:285
+#: src/ConfigParser.cxx:284
 msgid "Bad time display type"
 msgstr "错误的时间显示类型"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:585
+#: src/ConfigParser.cxx:298 src/ConfigParser.cxx:583
 msgid "Missing '='"
 msgstr "缺少 '='"
 
-#: src/ConfigParser.cxx:348
+#: src/ConfigParser.cxx:347
 msgid "Bad color name"
 msgstr "错误的颜色名"
 
-#: src/ConfigParser.cxx:357
+#: src/ConfigParser.cxx:356
 msgid "Incomplete color definition"
 msgstr "不完整的颜色定义"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:219
+#: src/ConfigParser.cxx:362 src/SearchPage.cxx:216
 msgid "Invalid number"
 msgstr "无效的数字"
 
-#: src/ConfigParser.cxx:370
+#: src/ConfigParser.cxx:369
 msgid "Malformed color definition"
 msgstr "不正确的颜色定义"
 
 #. an unknown screen
-#. name was specified
-#. in the
-#. configuration
+#. name was specified in
+#. the configuration
 #. file
-#: src/ConfigParser.cxx:434
+#: src/ConfigParser.cxx:432
 msgid "Unknown screen name"
 msgstr "未知的页面名"
 
-#: src/ConfigParser.cxx:463
+#: src/ConfigParser.cxx:461
 msgid "Unknown MPD tag"
 msgstr "未知的MPD标签"
 
-#: src/ConfigParser.cxx:490
+#: src/ConfigParser.cxx:488
 msgid "Invalid search mode"
 msgstr "无效的搜索模式"
 
-#: src/ConfigParser.cxx:508
+#: src/ConfigParser.cxx:506
 msgid "Unknown search mode"
 msgstr "未知的搜索模式"
 
-#: src/ConfigParser.cxx:541
+#: src/ConfigParser.cxx:539
 msgid "Invalid column width"
 msgstr ""
 
-#: src/ConfigParser.cxx:550
+#: src/ConfigParser.cxx:548
 msgid "Invalid column fraction width"
 msgstr ""
 
-#: src/ConfigParser.cxx:757
+#: src/ConfigParser.cxx:755
 msgid "Unknown configuration parameter"
 msgstr "未知的配置参数"
 
@@ -440,39 +438,39 @@ msgstr "终端不支持改变颜色"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:237
+#: src/FileBrowserPage.cxx:238
 msgid "Deleting this item is not possible"
 msgstr "此项目不能被删除"
 
-#: src/FileBrowserPage.cxx:245
+#: src/FileBrowserPage.cxx:246
 #, c-format
 msgid "Delete playlist %s?"
 msgstr "删除播放列表 %s？"
 
 #. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:250 src/KeyDefPage.cxx:165 src/LyricsPage.cxx:357
+#: src/FileBrowserPage.cxx:251 src/KeyDefPage.cxx:168 src/LyricsPage.cxx:357
 #: src/save_playlist.cxx:97
 msgid "Aborted"
 msgstr "已放弃"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:263
+#: src/FileBrowserPage.cxx:264
 msgid "Playlist deleted"
 msgstr "播放列表已删除"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:290 src/FileBrowserPage.cxx:366
+#: src/FileBrowserPage.cxx:291 src/FileBrowserPage.cxx:366
 msgid "Browse"
 msgstr "目录"
 
-#: src/FileListPage.cxx:110
+#: src/FileListPage.cxx:111
 #, c-format
 msgid "Loading playlist '%s'"
 msgstr "加载播放列表 %s"
 
-#: src/FileListPage.cxx:150 src/FileListPage.cxx:238 src/FileListPage.cxx:261
-#: src/TagListPage.cxx:180
+#: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
+#: src/TagListPage.cxx:182
 #, c-format
 msgid "Adding '%s' to queue"
 msgstr "添加 '%s' 到播放列表"
@@ -583,76 +581,76 @@ msgstr "y"
 msgid "n"
 msgstr "n"
 
-#: src/KeyDefPage.cxx:144
+#: src/KeyDefPage.cxx:147
 msgid "Deleted"
 msgstr "已删除"
 
-#: src/KeyDefPage.cxx:160
+#: src/KeyDefPage.cxx:163
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "为 %s 输入新的按键: "
 
-#: src/KeyDefPage.cxx:170
+#: src/KeyDefPage.cxx:173
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-空格键无法使用"
 
-#: src/KeyDefPage.cxx:176
+#: src/KeyDefPage.cxx:179
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "错误：%s 键已经绑定到 %s"
 
-#: src/KeyDefPage.cxx:186
+#: src/KeyDefPage.cxx:189
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "分配 %s 到 %s"
 
-#: src/KeyDefPage.cxx:213
+#: src/KeyDefPage.cxx:216
 msgid "Add new key"
 msgstr "添加新的键"
 
-#: src/KeyDefPage.cxx:235
+#: src/KeyDefPage.cxx:234
 #, c-format
 msgid "Edit keys for %s"
 msgstr "为 %s 编辑快捷键"
 
-#: src/KeyDefPage.cxx:374
+#: src/KeyDefPage.cxx:372
 msgid "You have new key bindings"
 msgstr "你有新绑定的快捷键"
 
-#: src/KeyDefPage.cxx:376
+#: src/KeyDefPage.cxx:374
 msgid "Keybindings unchanged."
 msgstr "取消快捷键变更."
 
-#: src/KeyDefPage.cxx:386
+#: src/KeyDefPage.cxx:384
 msgid "Unable to write configuration"
 msgstr "无法保存配置"
 
-#: src/KeyDefPage.cxx:395 src/KeyDefPage.cxx:404
+#: src/KeyDefPage.cxx:393 src/KeyDefPage.cxx:402
 msgid "Error"
 msgstr "错误"
 
-#: src/KeyDefPage.cxx:402
+#: src/KeyDefPage.cxx:400
 #, c-format
 msgid "Wrote %s"
 msgstr "写入 %s"
 
-#: src/KeyDefPage.cxx:415
+#: src/KeyDefPage.cxx:413
 msgid "===> Apply key bindings "
 msgstr "===> 应用快捷键设置 "
 
-#: src/KeyDefPage.cxx:417
+#: src/KeyDefPage.cxx:415
 msgid "===> Apply & Save key bindings  "
 msgstr "===> 应用并保存快捷键设置  "
 
-#: src/KeyDefPage.cxx:454
+#: src/KeyDefPage.cxx:451
 msgid "Edit key bindings"
 msgstr "编辑快捷键设置"
 
-#: src/KeyDefPage.cxx:536
+#: src/KeyDefPage.cxx:533
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "提示: 你忘记了保存你的设置?"
 
-#: src/KeyDefPage.cxx:586
+#: src/KeyDefPage.cxx:583
 msgid "Keys"
 msgstr "快捷键"
 
@@ -736,52 +734,53 @@ msgstr "Ctrl-%c"
 msgid "Alt-%c"
 msgstr "Alt-%c"
 
-#: src/LibraryPage.cxx:29
+#: src/LibraryPage.cxx:32
 msgid "Artists"
 msgstr "艺术家"
 
-#: src/LibraryPage.cxx:32 src/LibraryPage.cxx:185
+#: src/LibraryPage.cxx:35 src/LibraryPage.cxx:187
 msgid "Albums"
 msgstr "专辑"
 
-#: src/LibraryPage.cxx:131
+#: src/LibraryPage.cxx:133
 msgid "All"
 msgstr "全部"
 
-#: src/LibraryPage.cxx:207
+#: src/LibraryPage.cxx:209
 msgid "Songs"
 msgstr "歌曲"
 
-#: src/LibraryPage.cxx:333
+#: src/LibraryPage.cxx:335
 msgid "Library"
 msgstr "曲库"
 
-#: src/ListWindow.cxx:200
+#: src/ListWindow.cxx:185
 msgid "Range selection disabled"
 msgstr "范围选择取消"
 
-#: src/ListWindow.cxx:203
+#: src/ListWindow.cxx:188
 msgid "Range selection enabled"
 msgstr "范围选择开启"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:207
+#: src/LyricsPage.cxx:208
 msgid "No lyrics"
 msgstr "无歌词"
 
-#: src/LyricsPage.cxx:221
+#: src/LyricsPage.cxx:222
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr "%d秒无法获取歌词"
 
-#: src/LyricsPage.cxx:316 src/LyricsPage.cxx:324 src/LyricsPage.cxx:334
+#: src/LyricsPage.cxx:317 src/LyricsPage.cxx:325 src/LyricsPage.cxx:334
 #: src/LyricsPage.cxx:474
 msgid "Lyrics"
 msgstr "歌词"
 
-#. translators: this message is displayed
-#. while data is retrieved
-#: src/LyricsPage.cxx:319
+#. translators: this message is
+#. displayed while data is
+#. retrieved
+#: src/LyricsPage.cxx:321
 msgid "loading..."
 msgstr "正在载入..."
 
@@ -818,12 +817,12 @@ msgstr "歌词已被删除"
 msgid "No saved lyrics"
 msgstr "没有歌词"
 
-#: src/Main.cxx:108
+#: src/Main.cxx:110
 #, c-format
 msgid "Connecting to %s"
 msgstr "连接到服务器 %s"
 
-#: src/Main.cxx:125
+#: src/Main.cxx:127
 #, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "错误: MPD版本%d.%d.%d过低 (需要 %s)"
@@ -839,38 +838,38 @@ msgstr ""
 "deactivatedaccount\n"
 "  snowdream https://launchpad.net/~yanghui"
 
-#: src/OutputsPage.cxx:154
+#: src/OutputsPage.cxx:156
 #, c-format
 msgid "Switched to partition '%s'"
 msgstr "切换至“%s”分区"
 
-#: src/OutputsPage.cxx:166 src/SongPage.cxx:61
+#: src/OutputsPage.cxx:168 src/SongPage.cxx:61
 msgid "Name"
 msgstr "名字"
 
-#: src/OutputsPage.cxx:216
+#: src/OutputsPage.cxx:218
 #, c-format
 msgid "Output '%s' enabled"
 msgstr "启用 '%s' 输出"
 
-#: src/OutputsPage.cxx:227
+#: src/OutputsPage.cxx:229
 #, c-format
 msgid "Output '%s' disabled"
 msgstr "禁用 '%s' 输出"
 
-#: src/OutputsPage.cxx:355 src/OutputsPage.cxx:464
+#: src/OutputsPage.cxx:357 src/OutputsPage.cxx:466
 msgid "Outputs"
 msgstr "输出"
 
-#: src/OutputsPage.cxx:367
+#: src/OutputsPage.cxx:369
 msgid "Partition"
 msgstr "分区"
 
-#: src/OutputsPage.cxx:391
+#: src/OutputsPage.cxx:393
 msgid "Create new partition"
 msgstr "创建新分区"
 
-#: src/player_command.cxx:62 src/QueuePage.cxx:651
+#: src/player_command.cxx:62 src/QueuePage.cxx:646
 msgid "Shuffled queue"
 msgstr "随机播放列表"
 
@@ -879,15 +878,15 @@ msgid "Cleared queue"
 msgstr "清空播放列表"
 
 #. get path
-#: src/QueuePage.cxx:313
+#: src/QueuePage.cxx:312
 msgid "Add"
 msgstr "增加"
 
-#: src/QueuePage.cxx:375 src/QueuePage.cxx:700
+#: src/QueuePage.cxx:374 src/QueuePage.cxx:695
 msgid "Queue"
 msgstr "播放列表"
 
-#: src/QueuePage.cxx:377
+#: src/QueuePage.cxx:376
 #, c-format
 msgid "Queue on %s"
 msgstr "播放列表 %s"
@@ -908,16 +907,16 @@ msgstr "替换 %s?"
 msgid "Saved %s"
 msgstr "保存到 %s"
 
-#: src/screen_client.cxx:25
+#: src/screen_client.cxx:24
 msgid "Database update running"
 msgstr "正在更新数据库"
 
-#: src/screen_client.cxx:32
+#: src/screen_client.cxx:31
 #, c-format
 msgid "Database update of %s started"
 msgstr "开始更新数据库 %s"
 
-#: src/screen_client.cxx:35
+#: src/screen_client.cxx:34
 msgid "Database update started"
 msgstr "更新数据库中"
 
@@ -1008,90 +1007,90 @@ msgstr "找不到 '%s'"
 msgid "Password"
 msgstr "密码"
 
-#: src/SearchPage.cxx:34
+#: src/SearchPage.cxx:37
 msgid "artist"
 msgstr "艺术家"
 
-#: src/SearchPage.cxx:35
+#: src/SearchPage.cxx:38
 msgid "album"
 msgstr "专辑"
 
-#: src/SearchPage.cxx:36
+#: src/SearchPage.cxx:39
 msgid "title"
 msgstr "标题"
 
-#: src/SearchPage.cxx:37
+#: src/SearchPage.cxx:40
 msgid "track"
 msgstr "曲目"
 
-#: src/SearchPage.cxx:38
+#: src/SearchPage.cxx:41
 msgid "name"
 msgstr "名称"
 
-#: src/SearchPage.cxx:39
+#: src/SearchPage.cxx:42
 msgid "genre"
 msgstr "流派"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:43
 msgid "date"
 msgstr "日期"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:44
 msgid "composer"
 msgstr "作曲"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:45
 msgid "performer"
 msgstr "歌手"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:46
 msgid "comment"
 msgstr "注释"
 
-#: src/SearchPage.cxx:51
+#: src/SearchPage.cxx:54
 msgid "file"
 msgstr "文件"
 
-#: src/SearchPage.cxx:71 src/SongPage.cxx:49
+#: src/SearchPage.cxx:74 src/SongPage.cxx:49
 msgid "Title"
 msgstr "标题"
 
-#: src/SearchPage.cxx:72 src/SongPage.cxx:48
+#: src/SearchPage.cxx:75 src/SongPage.cxx:48
 msgid "Artist"
 msgstr "艺术家"
 
-#: src/SearchPage.cxx:73 src/SongPage.cxx:50
+#: src/SearchPage.cxx:76 src/SongPage.cxx:50
 msgid "Album"
 msgstr "专辑"
 
-#: src/SearchPage.cxx:74
+#: src/SearchPage.cxx:77
 msgid "Filename"
 msgstr "文件名"
 
-#: src/SearchPage.cxx:75
+#: src/SearchPage.cxx:78
 msgid "Artist + Title"
 msgstr "艺术家 + 标题"
 
-#: src/SearchPage.cxx:260 src/SearchPage.cxx:264
+#: src/SearchPage.cxx:257 src/SearchPage.cxx:261
 msgid "Unrecognized suffix"
 msgstr "未识别后缀"
 
-#: src/SearchPage.cxx:310
+#: src/SearchPage.cxx:307
 #, c-format
 msgid "Bad search tag %s"
 msgstr "不正确的搜索条目 %s"
 
-#: src/SearchPage.cxx:324
+#: src/SearchPage.cxx:321
 #, c-format
 msgid "No argument for search tag %s"
 msgstr "搜索条目 %s 没有参数"
 
-#: src/SearchPage.cxx:417 src/SearchPage.cxx:450 src/SearchPage.cxx:454
-#: src/SearchPage.cxx:458 src/SearchPage.cxx:517
+#: src/SearchPage.cxx:414 src/SearchPage.cxx:447 src/SearchPage.cxx:450
+#: src/SearchPage.cxx:454 src/SearchPage.cxx:511
 msgid "Search"
 msgstr "搜索"
 
-#: src/SearchPage.cxx:480
+#: src/SearchPage.cxx:474
 #, c-format
 msgid "Search mode: %s"
 msgstr "搜索模式: %s"
@@ -1180,52 +1179,52 @@ msgstr "播放时间"
 msgid "DB playtime"
 msgstr "数据库播放时间"
 
-#: src/SongPage.cxx:198
+#: src/SongPage.cxx:197
 msgid "Song viewer"
 msgstr "歌曲查看器"
 
-#: src/SongPage.cxx:364
+#: src/SongPage.cxx:358
 msgid "MPD statistics"
 msgstr "MPD统计信息"
 
-#: src/SongPage.cxx:448
+#: src/SongPage.cxx:439
 msgid "Selected song"
 msgstr "选中曲目"
 
-#: src/SongPage.cxx:458
+#: src/SongPage.cxx:449
 msgid "Currently playing song"
 msgstr "当前播放曲目"
 
-#: src/SongPage.cxx:463
+#: src/SongPage.cxx:454
 #, c-format
 msgid "%d kbps"
 msgstr "码率 %d kbps"
 
-#: src/SongPage.cxx:545
+#: src/SongPage.cxx:536
 msgid "Song"
 msgstr "歌曲"
 
-#: src/StatusBar.cxx:154
+#: src/StatusBar.cxx:149
 msgid "Playing:"
 msgstr "播放中:"
 
-#: src/StatusBar.cxx:158
+#: src/StatusBar.cxx:153
 msgid "[Paused]"
 msgstr "[暂停]"
 
-#: src/Styles.cxx:234 src/Styles.cxx:295
+#: src/Styles.cxx:235 src/Styles.cxx:296
 msgid "Unknown color"
 msgstr "未知颜色"
 
-#: src/Styles.cxx:305
+#: src/Styles.cxx:306
 msgid "Unknown color field"
 msgstr "未知的颜色块"
 
-#: src/Styles.cxx:338
+#: src/Styles.cxx:339
 msgid "Terminal lacks color capabilities"
 msgstr "终端不支持彩色"
 
-#: src/TagListPage.cxx:55
+#: src/TagListPage.cxx:57
 msgid "All tracks"
 msgstr "全部音轨"
 
@@ -1237,27 +1236,27 @@ msgstr "年"
 msgid "years"
 msgstr "年"
 
-#: src/time_format.cxx:38
+#: src/time_format.cxx:37
 msgid "week"
 msgstr "周"
 
-#: src/time_format.cxx:41
+#: src/time_format.cxx:40
 msgid "weeks"
 msgstr "周"
 
-#: src/time_format.cxx:49
+#: src/time_format.cxx:47
 msgid "day"
 msgstr "日"
 
-#: src/time_format.cxx:52
+#: src/time_format.cxx:50
 msgid "days"
 msgstr "日"
 
-#: src/TitleBar.cxx:85
+#: src/TitleBar.cxx:83
 msgid "Volume n/a"
 msgstr "音量 n/a"
 
-#: src/TitleBar.cxx:87
+#: src/TitleBar.cxx:85
 #, c-format
 msgid "Volume %d%%"
 msgstr "音量 %d%%"
