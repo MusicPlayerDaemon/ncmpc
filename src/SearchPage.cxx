@@ -14,6 +14,7 @@
 #include "screen_utils.hxx"
 #include "FileListPage.hxx"
 #include "filelist.hxx"
+#include "util/SPrintf.hxx"
 #include "util/StringAPI.hxx"
 
 #include <iterator>
@@ -129,24 +130,16 @@ public:
 					 unsigned idx) const noexcept override {
 		assert(idx < std::size(help_text));
 
-		if (idx == 0) {
-			std::size_t length =
-				snprintf(buffer.data(), buffer.size(),
-					 " %s : %s",
-					 GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH).c_str(),
-					 "New search");
-			return {buffer.data(), length};
-		}
+		if (idx == 0)
+			return SPrintf(buffer, " %s : %s",
+				       GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH).c_str(),
+				       "New search");
 
-		if (idx == 1) {
-			std::size_t length =
-				snprintf(buffer.data(), buffer.size(),
-					 " %s : %s [%s]",
-					 GetGlobalKeyBindings().GetKeyNames(Command::SEARCH_MODE).c_str(),
-					 get_key_description(Command::SEARCH_MODE),
-					 my_gettext(mode[options.search_mode].label));
-			return {buffer.data(), length};
-		}
+		if (idx == 1)
+			return SPrintf(buffer, " %s : %s [%s]",
+				       GetGlobalKeyBindings().GetKeyNames(Command::SEARCH_MODE).c_str(),
+				       get_key_description(Command::SEARCH_MODE),
+				       my_gettext(mode[options.search_mode].label));
 
 		return help_text[idx];
 	}

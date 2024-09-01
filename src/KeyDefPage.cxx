@@ -16,6 +16,7 @@
 #include "GlobalBindings.hxx"
 #include "screen_utils.hxx"
 #include "Options.hxx"
+#include "util/SPrintf.hxx"
 
 #include <assert.h>
 #include <errno.h>
@@ -211,18 +212,14 @@ CommandKeysPage::GetListItemText(std::span<char> buffer,
 	if (idx == GetLeavePosition())
 		return "[..]"sv;
 
-	if (idx == GetAddPosition()) {
-		std::size_t length = snprintf(buffer.data(), buffer.size(), "%d. %s", idx, _("Add new key"));
-		return {buffer.data(), length};
-	}
+	if (idx == GetAddPosition())
+		return SPrintf(buffer, "%d. %s", idx, _("Add new key"));
 
 	assert(IsKeyPosition(idx));
 
-	std::size_t length = snprintf(buffer.data(), buffer.size(),
-				      "%d. %-20s   (%d) ", idx,
-				      GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]),
-				      binding->keys[PositionToKeyIndex(idx)]);
-	return {buffer.data(), length};
+	return SPrintf(buffer, "%d. %-20s   (%d) ", idx,
+		       GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]),
+		       binding->keys[PositionToKeyIndex(idx)]);
 }
 
 void
@@ -434,9 +431,8 @@ CommandListPage::GetListItemText(std::span<char> buffer,
 	if (len < get_cmds_max_name_width())
 		memset(buffer.data() + len, ' ', get_cmds_max_name_width() - len);
 
-	std::size_t length = snprintf(buffer.data() + get_cmds_max_name_width(),
-				      buffer.size() - get_cmds_max_name_width(),
-				      " - %s", my_gettext(get_command_definitions()[idx].description));
+	std::size_t length = SPrintf(buffer.subspan(get_cmds_max_name_width()),
+				     " - %s", my_gettext(get_command_definitions()[idx].description)).size();
 
 	return {buffer.data(), get_cmds_max_name_width() + length};
 }
