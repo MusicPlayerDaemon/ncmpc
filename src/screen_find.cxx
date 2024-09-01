@@ -54,11 +54,11 @@ screen_find(ScreenManager &screen, ListWindow &lw, Command findcmd,
 
 		found = reversed
 			? lw.ReverseFind(text,
-					 screen.findbuf.c_str(),
+					 screen.findbuf,
 					 options.find_wrap,
 					 options.bell_on_wrap)
 			: lw.Find(text,
-				  screen.findbuf.c_str(),
+				  screen.findbuf,
 				  options.find_wrap,
 				  options.bell_on_wrap);
 		if (!found) {

@@ -57,7 +57,7 @@ public:
 	 * Find a string in a list window.
 	 */
 	bool Find(const ListText &text,
-		  const char *str,
+		  std::string_view str,
 		  bool wrap,
 		  bool bell_on_wrap) noexcept;
 
@@ -65,7 +65,7 @@ public:
 	 * Find a string in a list window (reversed).
 	 */
 	bool ReverseFind(const ListText &text,
-			 const char *str,
+			 std::string_view str,
 			 bool wrap,
 			 bool bell_on_wrap) noexcept;
 
@@ -73,5 +73,5 @@ public:
 	 * Find a string in a list window which begins with the given
 	 * characters in *str.
 	 */
-	bool Jump(const ListText &text, const char *str) noexcept;
+	bool Jump(const ListText &text, std::string_view str) noexcept;
 };

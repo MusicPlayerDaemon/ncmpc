@@ -50,13 +50,11 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 
 bool
 ListWindow::Find(const ListText &text,
-		 const char *str,
+		 std::string_view str,
 		 bool wrap,
 		 bool bell_on_wrap) noexcept
 {
 	unsigned i = GetCursorIndex() + 1;
-
-	assert(str != nullptr);
 
 	MatchExpression m;
 	if (!m.Compile(str, false))
@@ -91,13 +89,11 @@ ListWindow::Find(const ListText &text,
 
 bool
 ListWindow::ReverseFind(const ListText &text,
-			const char *str,
+			std::string_view str,
 			bool wrap,
 			bool bell_on_wrap) noexcept
 {
 	int i = GetCursorIndex() - 1;
-
-	assert(str != nullptr);
 
 	if (GetLength() == 0)
 		return false;
@@ -132,10 +128,8 @@ ListWindow::ReverseFind(const ListText &text,
 }
 
 bool
-ListWindow::Jump(const ListText &text, const char *str) noexcept
+ListWindow::Jump(const ListText &text, std::string_view str) noexcept
 {
-	assert(str != nullptr);
-
 	MatchExpression m;
 	if (!m.Compile(str, options.jump_prefix_only))
 		return false;

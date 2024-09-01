@@ -15,7 +15,7 @@ MatchExpression::~MatchExpression() noexcept
 }
 
 bool
-MatchExpression::Compile(const char *src, bool anchor) noexcept
+MatchExpression::Compile(std::string_view src, bool anchor) noexcept
 {
 #ifndef HAVE_PCRE
 	expression = src;
@@ -31,7 +31,7 @@ MatchExpression::Compile(const char *src, bool anchor) noexcept
 
 	int error_number;
 	PCRE2_SIZE error_offset;
-	re = pcre2_compile_8(PCRE2_SPTR8(src), PCRE2_ZERO_TERMINATED,
+	re = pcre2_compile_8(PCRE2_SPTR8(src.data()), src.size(),
 			     options, &error_number, &error_offset, nullptr);
 	return re != nullptr;
 #endif

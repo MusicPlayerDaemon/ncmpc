@@ -28,7 +28,7 @@ public:
 	MatchExpression(const MatchExpression &) = delete;
 	MatchExpression &operator=(const MatchExpression &) = delete;
 
-	bool Compile(const char *src, bool anchor) noexcept;
+	bool Compile(std::string_view src, bool anchor) noexcept;
 
 	[[gnu::pure]]
 	bool operator()(std::string_view line) const noexcept;
