@@ -53,7 +53,7 @@ PlaylistNameCompletion::Post([[maybe_unused]] const char *value,
 #endif
 
 int
-playlist_save(ScreenManager &screen, struct mpdclient *c,
+playlist_save(ScreenManager &screen, struct mpdclient &c,
 	      const char *name,
 	      const char *defaultname) noexcept
 {
@@ -64,7 +64,7 @@ playlist_save(ScreenManager &screen, struct mpdclient *c,
 		Completion *completion = nullptr;
 #else
 		/* initialize completion support */
-		PlaylistNameCompletion _completion{screen, *c};
+		PlaylistNameCompletion _completion{screen, c};
 		auto *completion = &_completion;
 #endif
 
@@ -80,7 +80,7 @@ playlist_save(ScreenManager &screen, struct mpdclient *c,
 
 	/* send save command to mpd */
 
-	auto *connection = c->GetConnection();
+	auto *connection = c.GetConnection();
 	if (connection == nullptr)
 		return -1;
 
@@ -100,16 +100,16 @@ playlist_save(ScreenManager &screen, struct mpdclient *c,
 
 			if (!mpd_run_rm(connection, filename_utf8.c_str()) ||
 			    !mpd_run_save(connection, filename_utf8.c_str())) {
-				c->HandleError();
+				c.HandleError();
 				return -1;
 			}
 		} else {
-			c->HandleError();
+			c.HandleError();
 			return -1;
 		}
 	}
 
-	c->events |= MPD_IDLE_STORED_PLAYLIST;
+	c.events |= MPD_IDLE_STORED_PLAYLIST;
 
 	/* success */
 	screen_status_printf(_("Saved %s"), filename.c_str());

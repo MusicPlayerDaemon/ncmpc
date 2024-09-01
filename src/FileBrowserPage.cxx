@@ -209,10 +209,10 @@ FileBrowserPage::HandleSave(struct mpdclient &c) noexcept
 	}
 
 	if(defaultname)
-		playlist_save(screen, &c, nullptr,
+		playlist_save(screen, c, nullptr,
 			      Utf8ToLocale(defaultname).c_str());
 	else
-		playlist_save(screen, &c, nullptr, nullptr);
+		playlist_save(screen, c, nullptr, nullptr);
 }
 
 void

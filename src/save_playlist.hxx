@@ -8,7 +8,7 @@ class ScreenManager;
 struct mpdclient;
 
 int
-playlist_save(ScreenManager &screen, struct mpdclient *c,
+playlist_save(ScreenManager &screen, struct mpdclient &c,
 	      const char *name,
 	      const char *defaultname) noexcept;
 
