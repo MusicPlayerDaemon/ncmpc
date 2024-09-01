@@ -14,6 +14,8 @@
 
 #include <string.h>
 
+using std::string_view_literals::operator""sv;
+
 [[gnu::pure]]
 static const char *
 skip(const char *p) noexcept
@@ -155,6 +157,7 @@ _strfsong(char *const s0, char *const end,
 		const char *name_end = p + 1;
 		while (IsLowerAlphaASCII(*name_end))
 			++name_end;
+		const std::string_view name{p + 1, name_end};
 		size_t n = name_end - p + 1;
 
 		const char *value = nullptr, *value_utf8 = nullptr;
@@ -164,48 +167,48 @@ _strfsong(char *const s0, char *const end,
 
 		if (*name_end != '%')
 			n--;
-		else if (strncmp("%file%", p, n) == 0)
+		else if (name == "file"sv)
 			value_utf8 = mpd_song_get_uri(&song);
-		else if (strncmp("%artist%", p, n) == 0)
+		else if (name == "artist"sv)
 			tag = MPD_TAG_ARTIST;
-		else if (strncmp("%albumartist%", p, n) == 0)
+		else if (name == "albumartist"sv)
 			tag = MPD_TAG_ALBUM_ARTIST;
-		else if (strncmp("%composer%", p, n) == 0)
+		else if (name == "composer"sv)
 			tag = MPD_TAG_COMPOSER;
-		else if (strncmp("%performer%", p, n) == 0)
+		else if (name == "performer"sv)
 			tag = MPD_TAG_PERFORMER;
 #if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
-		else if (strncmp("%conductor%", p, n) == 0)
+		else if (name == "conductor"sv)
 			tag = MPD_TAG_CONDUCTOR;
-		else if (strncmp("%work%", p, n) == 0)
+		else if (name == "work"sv)
 			tag = MPD_TAG_WORK;
-		else if (strncmp("%grouping%", p, n) == 0)
+		else if (name == "grouping"sv)
 			tag = MPD_TAG_GROUPING;
 #endif
-		else if (strncmp("%title%", p, n) == 0)
+		else if (name == "title"sv)
 			tag = MPD_TAG_TITLE;
-		else if (strncmp("%album%", p, n) == 0)
+		else if (name == "album"sv)
 			tag = MPD_TAG_ALBUM;
-		else if (strncmp("%shortalbum%", p, n) == 0) {
+		else if (name == "shortalbum"sv) {
 			tag = MPD_TAG_ALBUM;
 			short_tag = true;
 		}
-		else if (strncmp("%track%", p, n) == 0)
+		else if (name == "track"sv)
 			tag = MPD_TAG_TRACK;
-		else if (strncmp("%disc%", p, n) == 0)
+		else if (name == "disc"sv)
 			tag = MPD_TAG_DISC;
-		else if (strncmp("%name%", p, n) == 0)
+		else if (name == "name"sv)
 			tag = MPD_TAG_NAME;
-		else if (strncmp("%date%", p, n) == 0)
+		else if (name == "date"sv)
 			tag = MPD_TAG_DATE;
-		else if (strncmp("%genre%", p, n) == 0)
+		else if (name == "genre"sv)
 			tag = MPD_TAG_GENRE;
-		else if (strncmp("%shortfile%", p, n) == 0) {
+		else if (name == "shortfile"sv) {
 			const char *uri = mpd_song_get_uri(&song);
 			if (strstr(uri, "://") == nullptr)
 				uri = GetUriFilename(uri);
 			value_utf8 = uri;
-		} else if (strncmp("%time%", p, n) == 0) {
+		} else if (name == "time"sv) {
 			unsigned duration = mpd_song_get_duration(&song);
 
 			if (duration > 0)  {
