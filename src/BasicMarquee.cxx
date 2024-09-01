@@ -14,8 +14,8 @@ using std::string_view_literals::operator""sv;
 std::string_view
 BasicMarquee::ScrollString() const noexcept
 {
-	const char *p = AtCharMB(buffer.data(), buffer.length(), offset);
-	const char *end = AtWidthMB(p, strlen(p), width);
+	const char *p = AtCharMB(buffer, offset);
+	const char *end = AtWidthMB(p, width);
 	return {p, end};
 }
 
@@ -34,7 +34,7 @@ BasicMarquee::Set(unsigned _width, std::string_view _text) noexcept
 
 	/* create a buffer containing the string and the separator */
 	buffer = fmt::format("{}{}{}{}"sv, text, separator, text, separator);
-	max_offset = StringLengthMB(buffer.data(), buffer.length() / 2);
+	max_offset = StringLengthMB(buffer.substr(buffer.size() / 2));
 
 	return true;
 }

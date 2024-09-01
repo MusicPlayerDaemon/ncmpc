@@ -245,8 +245,7 @@ SongPage::AppendLine(const char *label, const char *value_utf8,
 		/* skip whitespaces */
 		value_iter = StripLeft(value_iter);
 
-		const char *value_iter_end = AtWidthMB(value_iter,
-						       value_end - value_iter,
+		const char *value_iter_end = AtWidthMB({value_iter, value_end},
 						       value_col);
 		if (value_iter_end == value_iter)
 			/* not enough room for anything - bail out */

@@ -177,7 +177,7 @@ StatusBar::Update(const struct mpd_status *status,
 #ifndef NCMPC_MINI
 		if (options.scroll) {
 			const unsigned center_width =
-				StringWidthMB(center_text.c_str());
+				StringWidthMB(center_text);
 			if (width > 3 && center_width > (unsigned)width) {
 				hscroll.Set({(int)left_width, 0}, width,
 					    center_text,

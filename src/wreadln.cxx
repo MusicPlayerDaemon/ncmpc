@@ -96,7 +96,7 @@ byte_to_screen(const char *data, size_t x) noexcept
 #if defined(HAVE_CURSES_ENHANCED) || defined(ENABLE_MULTIBYTE)
 	assert(x <= strlen(data));
 
-	return StringWidthMB(data, x);
+	return StringWidthMB({data, x});
 #else
 	(void)data;
 
@@ -113,7 +113,7 @@ screen_to_bytes(const char *data, unsigned width) noexcept
 	size_t length = strlen(data);
 
 	while (true) {
-		unsigned p_width = StringWidthMB(data, length);
+		unsigned p_width = StringWidthMB({data, length});
 		if (p_width <= width)
 			return length;
 
@@ -144,10 +144,10 @@ right_align_bytes(const char *data, size_t right, unsigned width) noexcept
 	assert(right <= strlen(data));
 
 	while (start < right) {
-		if (StringWidthMB(data + start, right - start) < width)
+		if (StringWidthMB({data + start, right - start}) < width)
 			break;
 
-		start += CharSizeMB(data + start, right - start);
+		start += CharSizeMB({data + start, right - start});
 	}
 
 	return start;
@@ -164,8 +164,7 @@ wreadln::MoveCursorRight() noexcept
 	if (cursor == value.length())
 		return;
 
-	size_t size = CharSizeMB(value.data() + cursor,
-				 value.length() - cursor);
+	size_t size = CharSizeMB(value.substr(cursor));
 	cursor += size;
 	if (GetCursorColumn() >= width)
 		start = right_align_bytes(value.c_str(), cursor, width);
@@ -198,7 +197,7 @@ wreadln::Paint() const noexcept
 	window.HLine(width, ' ');
 	/* print visible part of the line buffer */
 	if (masked)
-		window.HLine(StringWidthMB(value.c_str() + start), '*');
+		window.HLine(StringWidthMB(value.substr(start)), '*');
 	else
 		window.String({value.c_str() + start, screen_to_bytes(value.c_str() + start, width)});
 	/* move the cursor to the correct position */
@@ -218,7 +217,7 @@ wreadln::InsertByte(int key) noexcept
 	/* wide version: try to complete the multibyte sequence */
 
 	while (length < sizeof(buffer)) {
-		if (!IsIncompleteCharMB(buffer, length))
+		if (!IsIncompleteCharMB({buffer, length}))
 			/* sequence is complete */
 			break;
 
@@ -247,7 +246,7 @@ wreadln::DeleteChar(size_t x) noexcept
 {
 	assert(x < value.length());
 
-	size_t length = CharSizeMB(value.data() + x, value.length() - x);
+	size_t length = CharSizeMB(value.substr(x));
 	value.erase(x, length);
 }
 

@@ -279,8 +279,8 @@ HelpPage::PaintListItem(const Window window, unsigned i,
 		const auto key =
 			GetGlobalKeyBindings().GetKeyNames(row->command);
 
-		if (StringWidthMB(key.c_str()) < 20)
-			window.MoveCursor({20 - (int)StringWidthMB(key.c_str()), (int)y});
+		if (const auto key_width = StringWidthMB(key); key_width < 20)
+			window.MoveCursor({20 - (int)key_width, (int)y});
 		window.String(key);
 		window.Char({21, (int)y}, ':');
 		window.String({23, (int)y},

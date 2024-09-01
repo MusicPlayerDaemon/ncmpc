@@ -8,17 +8,18 @@
 #include <string.h>
 
 bool
-IsIncompleteCharMB(const char *s, size_t n) noexcept
+IsIncompleteCharMB(std::string_view s) noexcept
 {
 	auto mb = std::mbstate_t();
-	const std::size_t length = std::mbrlen(s, n, &mb);
+	const std::size_t length = std::mbrlen(s.data(), s.size(), &mb);
 	return length == std::size_t(-2);
 }
 
 std::size_t
-StringLengthMB(const char *s, size_t byte_length) noexcept
+StringLengthMB(std::string_view _s) noexcept
 {
-	const char *const end = s + byte_length;
+	const char *s = _s.data();
+	const char *const end = s + _s.size();
 	auto state = std::mbstate_t();
 
 	size_t length = 0;
@@ -41,12 +42,12 @@ StringLengthMB(const char *s, size_t byte_length) noexcept
 }
 
 std::size_t
-CharSizeMB(const char *s, size_t n) noexcept
+CharSizeMB(std::string_view s) noexcept
 {
 	auto mb = std::mbstate_t();
-	const std::size_t length = std::mbrlen(s, n, &mb);
+	const std::size_t length = std::mbrlen(s.data(), s.size(), &mb);
 	if (length == std::size_t(-2))
-		return n;
+		return s.size();
 
 	if (length == std::size_t(-1))
 		return 1;
@@ -72,9 +73,10 @@ PrevCharMB(const char *start, const char *reference) noexcept
 }
 
 const char *
-AtCharMB(const char *s, size_t length, size_t i) noexcept
+AtCharMB(std::string_view _s, size_t i) noexcept
 {
-	const char *const end = s + length;
+	const char *s = _s.data();
+	const char *const end = s + _s.size();
 	auto state = std::mbstate_t();
 
 	while (i > 0) {
@@ -98,9 +100,10 @@ AtCharMB(const char *s, size_t length, size_t i) noexcept
 }
 
 size_t
-StringWidthMB(const char *s, size_t length) noexcept
+StringWidthMB(std::string_view _s) noexcept
 {
-	const char *const end = s + length;
+	const char *s = _s.data();
+	const char *const end = s + _s.size();
 	auto state = std::mbstate_t();
 
 	size_t width = 0;
@@ -123,16 +126,11 @@ StringWidthMB(const char *s, size_t length) noexcept
 	return width;
 }
 
-size_t
-StringWidthMB(const char *s) noexcept
-{
-	return StringWidthMB(s, strlen(s));
-}
-
 const char *
-AtWidthMB(const char *s, size_t length, size_t width) noexcept
+AtWidthMB(std::string_view _s, size_t width) noexcept
 {
-	const char *const end = s + length;
+	const char *s = _s.data();
+	const char *const end = s + _s.size();
 	auto state = std::mbstate_t();
 
 	while (width > 0 && s < end) {

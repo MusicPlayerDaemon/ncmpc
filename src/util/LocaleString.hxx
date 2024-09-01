@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: BSD-2-Clause
 // author: Max Kellermann <max.kellermann@gmail.com>
 
-#ifndef LOCALE_STRING_HXX
-#define LOCALE_STRING_HXX
+#pragma once
 
 #include <cstddef>
+#include <string_view>
 
 /**
  * Is the given character incomplete?
  */
 [[gnu::pure]]
 bool
-IsIncompleteCharMB(const char *s, size_t n) noexcept;
+IsIncompleteCharMB(std::string_view s) noexcept;
 
 /**
  * Returns the length of the given locale (multi-byte) string in
@@ -19,7 +19,7 @@ IsIncompleteCharMB(const char *s, size_t n) noexcept;
  */
 [[gnu::pure]]
 std::size_t
-StringLengthMB(const char *s, size_t n) noexcept;
+StringLengthMB(std::string_view s) noexcept;
 
 /**
  * Wrapper for std::mbrlen() which attempts to recover with a best
@@ -27,7 +27,7 @@ StringLengthMB(const char *s, size_t n) noexcept;
  */
 [[gnu::pure]]
 std::size_t
-CharSizeMB(const char *s, size_t n) noexcept;
+CharSizeMB(std::string_view s) noexcept;
 
 /**
  * Determine the start of the character preceding the given reference.
@@ -46,7 +46,7 @@ PrevCharMB(const char *start, const char *reference) noexcept;
  */
 [[gnu::pure]]
 const char *
-AtCharMB(const char *s, size_t length, size_t i) noexcept;
+AtCharMB(std::string_view s, size_t i) noexcept;
 
 /**
  * Returns the number of terminal cells occupied by this multi-byte
@@ -54,11 +54,7 @@ AtCharMB(const char *s, size_t length, size_t i) noexcept;
  */
 [[gnu::pure]]
 size_t
-StringWidthMB(const char *s, size_t length) noexcept;
-
-[[gnu::pure]]
-size_t
-StringWidthMB(const char *s) noexcept;
+StringWidthMB(std::string_view s) noexcept;
 
 /**
  * Find the first character which doesn't fully fit into the given width.
@@ -67,6 +63,4 @@ StringWidthMB(const char *s) noexcept;
  */
 [[gnu::pure]]
 const char *
-AtWidthMB(const char *s, size_t length, size_t width) noexcept;
-
-#endif
+AtWidthMB(std::string_view s, size_t width) noexcept;

@@ -40,11 +40,11 @@ PaintTableRow(const Window window, unsigned width,
 		char buffer[1024];
 
 		std::string_view s = strfsong(buffer, cs.format.c_str(), &song);
-		const char *end = AtWidthMB(s.data(), s.size(), cl.width);
+		const char *end = AtWidthMB(s, cl.width);
 		s = {s.data(), end};
 
 		window.String(s);
-		FillSpace(window, cl.width - StringWidthMB(s.data(), s.size()));
+		FillSpace(window, cl.width - StringWidthMB(s));
 	}
 
 	row_clear_to_eol(window, width, selected);
