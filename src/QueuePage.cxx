@@ -187,9 +187,7 @@ QueuePage::GetListItemText(std::span<char> buffer,
 	assert(idx < playlist->size());
 
 	const auto &song = (*playlist)[idx];
-	strfsong(buffer, options.list_format.c_str(), &song);
-
-	return buffer.data();
+	return strfsong(buffer, options.list_format.c_str(), &song);
 }
 
 void
