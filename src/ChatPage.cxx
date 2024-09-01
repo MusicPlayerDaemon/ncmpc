@@ -15,8 +15,12 @@
 
 #include <mpd/idle.h>
 
+#include <fmt/core.h>
+
 #include <string.h>
 #include <stdlib.h>
+
+using std::string_view_literals::operator""sv;
 
 static constexpr char chat_channel[] = "chat";
 
@@ -126,14 +130,14 @@ ChatPage::GetPrefix() noexcept
 	if (user == nullptr)
 		user = "nobody";
 
-	prefix = std::string("<") + user + "> ";
+	prefix = fmt::format("<{}>"sv, user);
 	return prefix;
 }
 
 void
 ChatPage::SendMessage(struct mpdclient &c, const char *msg) noexcept
 {
-	const std::string full_msg = GetPrefix() + LocaleToUtf8(msg).c_str();
+	const std::string full_msg = fmt::format("{}{}"sv, GetPrefix(), LocaleToUtf8(msg).c_str());
 
 	(void) mpdclient_cmd_send_message(c, chat_channel, full_msg.c_str());
 }
