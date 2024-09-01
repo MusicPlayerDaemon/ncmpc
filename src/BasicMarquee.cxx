@@ -14,8 +14,7 @@ using std::string_view_literals::operator""sv;
 std::string_view
 BasicMarquee::ScrollString() const noexcept
 {
-	const char *p = AtCharMB(buffer, offset);
-	return TruncateAtWidthMB(p, width);
+	return TruncateAtWidthMB(SplitAtCharMB(buffer, offset).second, width);
 }
 
 bool

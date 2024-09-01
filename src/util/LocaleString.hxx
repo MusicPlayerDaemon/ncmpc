@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "util/StringSplit.hxx"
+
 #include <cstddef>
 #include <string_view>
 
@@ -47,6 +49,13 @@ PrevCharMB(const char *start, const char *reference) noexcept;
 [[gnu::pure]]
 const char *
 AtCharMB(std::string_view s, size_t i) noexcept;
+
+inline std::pair<std::string_view, std::string_view>
+SplitAtCharMB(std::string_view s, std::size_t i) noexcept
+{
+	const char *p = AtCharMB(s, i);
+	return Partition(s, p - s.data());
+}
 
 /**
  * Returns the number of terminal cells occupied by this multi-byte
