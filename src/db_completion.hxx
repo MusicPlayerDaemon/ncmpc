@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef DB_COMPLETION_H
-#define DB_COMPLETION_H
+#pragma once
 
 struct mpdclient;
 class Completion;
@@ -17,8 +16,6 @@ class Completion;
  * Create a list suitable for #Completion from path.
  */
 void
-gcmp_list_from_path(struct mpdclient *c, const char *path,
+gcmp_list_from_path(struct mpdclient &c, const char *path,
 		    Completion &completion,
 		    int types);
-
-#endif

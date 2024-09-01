@@ -37,7 +37,7 @@ PlaylistNameCompletion::Pre([[maybe_unused]] const char *value) noexcept
 {
 	if (empty()) {
 		/* create completion list */
-		gcmp_list_from_path(&c, "", *this, GCMP_TYPE_PLAYLIST);
+		gcmp_list_from_path(c, "", *this, GCMP_TYPE_PLAYLIST);
 	}
 }
 

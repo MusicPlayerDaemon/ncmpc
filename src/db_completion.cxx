@@ -10,11 +10,11 @@
 #include <string>
 
 void
-gcmp_list_from_path(struct mpdclient *c, const char *path,
+gcmp_list_from_path(struct mpdclient &c, const char *path,
 		    Completion &completion,
 		    int types)
 {
-	auto *connection = c->GetConnection();
+	auto *connection = c.GetConnection();
 	if (connection == nullptr)
 		return;
 
