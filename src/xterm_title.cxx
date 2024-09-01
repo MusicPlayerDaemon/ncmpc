@@ -4,11 +4,15 @@
 #include "xterm_title.hxx"
 #include "Options.hxx"
 
+#include <fmt/core.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 
+using std::string_view_literals::operator""sv;
+
 void
-set_xterm_title(const char *title) noexcept
+set_xterm_title(std::string_view title) noexcept
 {
 	/* the current xterm title exists under the WM_NAME property */
 	/* and can be retrieved with xprop -id $WINDOWID */
@@ -21,6 +25,6 @@ set_xterm_title(const char *title) noexcept
 		return;
 	}
 
-	printf("\033]0;%s\033\\", title);
+	fmt::print("\033]0;{}\033\\"sv, title);
 	fflush(stdout);
 }

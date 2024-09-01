@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef XTERM_TITLE_H
-#define XTERM_TITLE_H
+#pragma once
+
+#include <string_view>
 
 void
-set_xterm_title(const char *title) noexcept;
-
-#endif
+set_xterm_title(std::string_view title) noexcept;
