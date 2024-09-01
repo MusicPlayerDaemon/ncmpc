@@ -14,8 +14,6 @@ using std::string_view_literals::operator""sv;
 std::string_view
 BasicMarquee::ScrollString() const noexcept
 {
-	assert(separator != nullptr);
-
 	const char *p = AtCharMB(buffer.data(), buffer.length(), offset);
 	const char *end = AtWidthMB(p, strlen(p), width);
 	return {p, end};
@@ -24,7 +22,6 @@ BasicMarquee::ScrollString() const noexcept
 bool
 BasicMarquee::Set(unsigned _width, const char *_text) noexcept
 {
-	assert(separator != nullptr);
 	assert(_text != nullptr);
 
 	if (_width == width && text == _text)

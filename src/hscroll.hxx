@@ -40,7 +40,7 @@ class hscroll {
 
 public:
 	hscroll(EventLoop &event_loop,
-		const Window _window, const char *_separator) noexcept
+		const Window _window, std::string_view _separator) noexcept
 		:window(_window), basic(_separator),
 		 timer(event_loop, BIND_THIS_METHOD(OnTimer))
 	{

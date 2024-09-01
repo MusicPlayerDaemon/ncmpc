@@ -73,7 +73,7 @@ public:
 		 screen(_screen),
 #ifndef NCMPC_MINI
 		 hscroll(screen.GetEventLoop(),
-			 _window, options.scroll_sep.c_str()),
+			 _window, options.scroll_sep),
 		 table_layout(song_table_structure),
 #endif
 		 hide_cursor_timer(screen.GetEventLoop(),

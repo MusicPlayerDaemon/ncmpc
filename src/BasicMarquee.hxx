@@ -4,6 +4,7 @@
 #pragma once
 
 #include <string>
+#include <string_view>
 #include <utility>
 
 /**
@@ -11,7 +12,7 @@
  * screen.  Call Set() to begin scrolling.
  */
 class BasicMarquee {
-	const char *const separator;
+	const std::string_view separator;
 
 	/**
 	 * The scrolled text, in the current locale.
@@ -40,7 +41,7 @@ class BasicMarquee {
 	unsigned offset;
 
 public:
-	BasicMarquee(const char *_separator) noexcept
+	explicit BasicMarquee(std::string_view _separator) noexcept
 		:separator(_separator) {}
 
 	bool IsDefined() const noexcept {
