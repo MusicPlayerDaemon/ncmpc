@@ -305,8 +305,7 @@ SongPage::AddSong(const struct mpd_song *song) noexcept
 	/* create time string and add it */
 	if (mpd_song_get_duration(song) > 0) {
 		char length[16];
-		format_duration_short(length, sizeof(length),
-				      mpd_song_get_duration(song));
+		format_duration_short(length, mpd_song_get_duration(song));
 
 		const char *value = length;
 
@@ -314,18 +313,15 @@ SongPage::AddSong(const struct mpd_song *song) noexcept
 
 		if (mpd_song_get_end(song) > 0) {
 			char start[16], end[16];
-			format_duration_short(start, sizeof(start),
-					      mpd_song_get_start(song));
-			format_duration_short(end, sizeof(end),
-					      mpd_song_get_end(song));
+			format_duration_short(start, mpd_song_get_start(song));
+			format_duration_short(end, mpd_song_get_end(song));
 
 			snprintf(buffer, sizeof(buffer), "%s [%s-%s]\n",
 				 length, start, end);
 			value = buffer;
 		} else if (mpd_song_get_start(song) > 0) {
 			char start[16];
-			format_duration_short(start, sizeof(start),
-					      mpd_song_get_start(song));
+			format_duration_short(start, mpd_song_get_start(song));
 
 			snprintf(buffer, sizeof(buffer), "%s [%s-]\n",
 				 length, start);
@@ -374,16 +370,13 @@ SongPage::AddStats(struct mpd_connection *connection) noexcept
 		 mpd_stats_get_number_of_songs(mpd_stats));
 	AppendStatsLine(STATS_SONGS, buf);
 
-	format_duration_long(buf, sizeof(buf),
-			     mpd_stats_get_db_play_time(mpd_stats));
+	format_duration_long(buf, mpd_stats_get_db_play_time(mpd_stats));
 	AppendStatsLine(STATS_DBPLAYTIME, buf);
 
-	format_duration_long(buf, sizeof(buf),
-			     mpd_stats_get_play_time(mpd_stats));
+	format_duration_long(buf, mpd_stats_get_play_time(mpd_stats));
 	AppendStatsLine(STATS_PLAYTIME, buf);
 
-	format_duration_long(buf, sizeof(buf),
-			     mpd_stats_get_uptime(mpd_stats));
+	format_duration_long(buf, mpd_stats_get_uptime(mpd_stats));
 	AppendStatsLine(STATS_UPTIME, buf);
 
 	const time_t t = mpd_stats_get_db_update_time(mpd_stats);

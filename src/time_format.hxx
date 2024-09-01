@@ -1,15 +1,12 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef TIME_FORMAT_H
-#define TIME_FORMAT_H
+#pragma once
 
-#include <stddef.h>
-
-void
-format_duration_short(char *buffer, size_t length, unsigned duration) noexcept;
+#include <span>
 
 void
-format_duration_long(char *buffer, size_t length, unsigned long duration) noexcept;
+format_duration_short(std::span<char> buffer, unsigned duration) noexcept;
 
-#endif
+void
+format_duration_long(std::span<char> buffer, unsigned long duration) noexcept;

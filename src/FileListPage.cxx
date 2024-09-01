@@ -571,8 +571,7 @@ FileListPage::PaintStatusBarOverride(const Window window) const noexcept
 	}
 
 	char duration_string[32];
-	format_duration_short(duration_string, sizeof(duration_string),
-			      duration);
+	format_duration_short(duration_string, duration);
 	const unsigned duration_width = strlen(duration_string);
 
 	SelectStyle(window, Style::STATUS_TIME);

@@ -106,19 +106,14 @@ FormatCurrentSongTime(char *buffer, size_t size,
 	}
 
 	/* write out the time */
-	format_duration_short(elapsed_string,
-			      sizeof(elapsed_string),
-			      elapsed_time);
+	format_duration_short(elapsed_string, elapsed_time);
 
 	if (total_time == 0) {
 		snprintf(buffer, size, " [%s]", elapsed_string);
 		return;
 	}
 
-	format_duration_short(duration_string,
-			      sizeof(duration_string),
-			      total_time);
-
+	format_duration_short(duration_string, total_time);
 	snprintf(buffer, size, " [%s/%s]", elapsed_string, duration_string);
 }
 
