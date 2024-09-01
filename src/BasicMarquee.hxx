@@ -54,7 +54,7 @@ public:
 	 * @param text the text in the locale charset
 	 * @return false if nothing was changed
 	 */
-	bool Set(unsigned width, const char *text) noexcept;
+	bool Set(unsigned width, std::string_view _text) noexcept;
 
 	/**
 	 * Removes the text.  It may be reused with Set().

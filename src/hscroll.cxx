@@ -16,11 +16,9 @@ hscroll::OnTimer() noexcept
 }
 
 void
-hscroll::Set(Point _position, unsigned _width, const char *_text,
+hscroll::Set(Point _position, unsigned _width, std::string_view _text,
 	     Style _style, attr_t _attr) noexcept
 {
-	assert(_text != nullptr);
-
 	position = _position;
 	style = _style;
 	attr = _attr;

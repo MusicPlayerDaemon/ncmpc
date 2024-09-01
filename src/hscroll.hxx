@@ -55,7 +55,7 @@ public:
 	 * every second with the current window attributes.  Call
 	 * hscroll_clear() to disable it.
 	 */
-	void Set(Point _position, unsigned width, const char *text,
+	void Set(Point _position, unsigned width, std::string_view text,
 		 Style style, attr_t attr=0) noexcept;
 
 	/**

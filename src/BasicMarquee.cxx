@@ -20,10 +20,8 @@ BasicMarquee::ScrollString() const noexcept
 }
 
 bool
-BasicMarquee::Set(unsigned _width, const char *_text) noexcept
+BasicMarquee::Set(unsigned _width, std::string_view _text) noexcept
 {
-	assert(_text != nullptr);
-
 	if (_width == width && text == _text)
 		/* no change, do nothing (and, most importantly, do
 		   not reset the current offset!) */

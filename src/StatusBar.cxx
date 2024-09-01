@@ -182,7 +182,7 @@ StatusBar::Update(const struct mpd_status *status,
 				StringWidthMB(center_text.c_str());
 			if (width > 3 && center_width > (unsigned)width) {
 				hscroll.Set({(int)left_width, 0}, width,
-					    center_text.c_str(),
+					    center_text,
 					    Style::STATUS);
 			} else {
 				hscroll.Clear();
