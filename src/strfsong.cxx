@@ -4,6 +4,7 @@
 #include "strfsong.hxx"
 #include "charset.hxx"
 #include "time_format.hxx"
+#include "util/CharUtil.hxx"
 #include "util/UriUtil.hxx"
 #include "TagMask.hxx"
 
@@ -152,7 +153,7 @@ _strfsong(char *const s0, char *const end,
 
 		/* find the extent of this format specifier (stop at \0, ' ', or esc) */
 		const char *name_end = p + 1;
-		while (*name_end >= 'a' && *name_end <= 'z')
+		while (IsLowerAlphaASCII(*name_end))
 			++name_end;
 		size_t n = name_end - p + 1;
 
