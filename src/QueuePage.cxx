@@ -264,36 +264,36 @@ public:
 
 protected:
 	/* virtual methods from class Completion */
-	void Pre(const char *value) noexcept override;
-	void Post(const char *value, Range range) noexcept override;
+	void Pre(std::string_view value) noexcept override;
+	void Post(std::string_view value, Range range) noexcept override;
 };
 
 void
-DatabaseCompletion::Pre(const char *line) noexcept
+DatabaseCompletion::Pre(std::string_view line) noexcept
 {
 	if (empty()) {
 		/* create initial list */
 		gcmp_list_from_path(c, "", *this, GCMP_TYPE_RFILE);
-	} else if (line && line[0] && line[strlen(line) - 1] == '/') {
-		auto i = dir_list.emplace(line);
-		if (i.second)
+	} else if (line.ends_with('/')) {
+		const auto [it, inserted] = dir_list.emplace(line);
+		if (inserted)
 			/* add directory content to list */
-			add_dir(*this, line, c);
+			add_dir(*this, it->c_str(), c);
 	}
 }
 
 void
-DatabaseCompletion::Post(const char *line, Range range) noexcept
+DatabaseCompletion::Post(std::string_view line, Range range) noexcept
 {
 	if (range.begin() != range.end() &&
 	    std::next(range.begin()) != range.end())
 		screen_display_completion_list(screen, range);
 
-	if (line && line[0] && line[strlen(line) - 1] == '/') {
+	if (line.ends_with('/')) {
 		/* add directory content to list */
-		auto i = dir_list.emplace(line);
-		if (i.second)
-			add_dir(*this, line, c);
+		const auto [it, inserted] = dir_list.emplace(line);
+		if (inserted)
+			add_dir(*this, it->c_str(), c);
 	}
 }
 

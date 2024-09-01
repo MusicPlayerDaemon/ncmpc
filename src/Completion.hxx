@@ -5,6 +5,7 @@
 
 #include <set>
 #include <string>
+#include <string_view>
 
 class Completion {
 protected:
@@ -60,6 +61,6 @@ public:
 
 	Result Complete(const std::string &prefix) const noexcept;
 
-	virtual void Pre(const char *value) noexcept = 0;
-	virtual void Post(const char *value, Range range) noexcept = 0;
+	virtual void Pre(std::string_view value) noexcept = 0;
+	virtual void Post(std::string_view value, Range range) noexcept = 0;
 };

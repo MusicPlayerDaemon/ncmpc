@@ -28,12 +28,12 @@ public:
 
 protected:
 	/* virtual methods from class Completion */
-	void Pre(const char *value) noexcept override;
-	void Post(const char *value, Range range) noexcept override;
+	void Pre(std::string_view value) noexcept override;
+	void Post(std::string_view value, Range range) noexcept override;
 };
 
 void
-PlaylistNameCompletion::Pre([[maybe_unused]] const char *value) noexcept
+PlaylistNameCompletion::Pre([[maybe_unused]] std::string_view value) noexcept
 {
 	if (empty()) {
 		/* create completion list */
@@ -42,7 +42,7 @@ PlaylistNameCompletion::Pre([[maybe_unused]] const char *value) noexcept
 }
 
 void
-PlaylistNameCompletion::Post([[maybe_unused]] const char *value,
+PlaylistNameCompletion::Post([[maybe_unused]] std::string_view value,
 			     Range range) noexcept
 {
 	if (range.begin() != range.end() &&

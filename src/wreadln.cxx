@@ -336,15 +336,15 @@ _wreadln(const Window window,
 		case TAB:
 #ifndef NCMPC_MINI
 			if (completion != nullptr) {
-				completion->Pre(wr.value.c_str());
-				auto r = completion->Complete(wr.value.c_str());
+				completion->Pre(wr.value);
+				auto r = completion->Complete(wr.value);
 				if (!r.new_prefix.empty()) {
 					wr.value = std::move(r.new_prefix);
 					wr.MoveCursorToEnd();
 				} else
 					screen_bell();
 
-				completion->Post(wr.value.c_str(), r.range);
+				completion->Post(wr.value, r.range);
 			}
 #endif
 			break;
