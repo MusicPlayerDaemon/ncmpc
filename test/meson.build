@@ -6,4 +6,7 @@ executable(
     'src/util/LocaleString.cxx',
   ),
   include_directories: inc,
+  dependencies: [
+    fmt_dep,
+  ],
 )

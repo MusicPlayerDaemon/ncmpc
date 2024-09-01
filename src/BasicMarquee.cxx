@@ -4,8 +4,12 @@
 #include "BasicMarquee.hxx"
 #include "util/LocaleString.hxx"
 
+#include <fmt/core.h>
+
 #include <assert.h>
 #include <string.h>
+
+using std::string_view_literals::operator""sv;
 
 std::string_view
 BasicMarquee::ScrollString() const noexcept
@@ -34,7 +38,7 @@ BasicMarquee::Set(unsigned _width, const char *_text) noexcept
 	text = _text;
 
 	/* create a buffer containing the string and the separator */
-	buffer = text + separator + text + separator;
+	buffer = fmt::format("{}{}{}{}"sv, text, separator, text, separator);
 	max_offset = StringLengthMB(buffer.data(), buffer.length() / 2);
 
 	return true;
