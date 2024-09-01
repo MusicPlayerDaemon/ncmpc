@@ -9,6 +9,7 @@
 struct mpd_song;
 class TagMask;
 
+[[nodiscard]] [[gnu::pure]]
 std::string_view
 strfsong(std::span<char> buffer, const char *format,
 	 const struct mpd_song *song) noexcept;
