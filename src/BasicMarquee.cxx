@@ -15,8 +15,7 @@ std::string_view
 BasicMarquee::ScrollString() const noexcept
 {
 	const char *p = AtCharMB(buffer, offset);
-	const char *end = AtWidthMB(p, width);
-	return {p, end};
+	return TruncateAtWidthMB(p, width);
 }
 
 bool

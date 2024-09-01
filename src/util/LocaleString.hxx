@@ -64,3 +64,18 @@ StringWidthMB(std::string_view s) noexcept;
 [[gnu::pure]]
 const char *
 AtWidthMB(std::string_view s, size_t width) noexcept;
+
+/**
+ * Return a version of the given string truncated at the specified
+ * width.
+ *
+ * @param s the string
+ * @param width the maximum width in terminal cells
+ */
+[[gnu::pure]]
+inline std::string_view
+TruncateAtWidthMB(std::string_view s, std::size_t width) noexcept
+{
+	const char *end = AtWidthMB(s, width);
+	return {s.data(), end};
+}
