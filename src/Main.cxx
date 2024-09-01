@@ -38,6 +38,8 @@
 #include <locale.h>
 #endif
 
+using std::string_view_literals::operator""sv;
+
 static Instance *global_instance;
 
 ScreenManager *screen;
@@ -51,20 +53,20 @@ update_xterm_title(struct mpdclient &client) noexcept
 	static constexpr std::size_t BUFSIZE = 1024;
 
 	char tmp[BUFSIZE];
-	const char *new_title = nullptr;
+	std::string_view new_title = PACKAGE " version " VERSION ""sv;
 	if (!options.xterm_title_format.empty() && song != nullptr) {
 		const auto s = strfsong(tmp, options.xterm_title_format.c_str(), song);
 		if (!s.empty())
-			new_title = s.data();
+			new_title = s;
 	}
 
-	if (new_title == nullptr)
-		new_title = PACKAGE " version " VERSION;
+	static char old_title[BUFSIZE];
+	static std::size_t old_title_length = 0;
 
-	static char title[BUFSIZE];
-	if (strncmp(title, new_title, BUFSIZE)) {
-		strcpy(title, new_title);
-		set_xterm_title(title);
+	if (new_title != std::string_view{old_title, old_title_length}) {
+		std::copy(new_title.begin(), new_title.end(), old_title);
+		old_title_length = new_title.size();
+		set_xterm_title(new_title);
 	}
 }
 #endif
