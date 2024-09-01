@@ -21,9 +21,9 @@ paint_song_row(const Window window, [[maybe_unused]] int y, unsigned width,
 {
 	char buffer[1024];
 
-	strfsong(buffer, format, song);
+	const std::string_view text = strfsong(buffer, format, song);
 	row_paint_text(window, width, highlight ? Style::LIST_BOLD : Style::LIST,
-		       selected, buffer);
+		       selected, text);
 
 #ifndef NCMPC_MINI
 	if (options.second_column && mpd_song_get_duration(song) > 0) {
@@ -36,8 +36,8 @@ paint_song_row(const Window window, [[maybe_unused]] int y, unsigned width,
 	}
 
 	if (hscroll != nullptr && width > 3 &&
-	    StringWidthMB(buffer) >= width) {
-		    hscroll->Set({0, y}, width, buffer,
+	    StringWidthMB(text) >= width) {
+		    hscroll->Set({0, y}, width, text,
 			     highlight ? Style::LIST_BOLD : Style::LIST,
 			     selected ? A_REVERSE : 0);
 		hscroll->Paint();
