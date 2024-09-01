@@ -45,8 +45,8 @@ jobs:
             cc: clang
             cxx: clang++
             ldflags: -fuse-ld=lld
-            packages: clang lld libfmt-dev
-            meson_options:
+            packages: clang lld
+            meson_options: --force-fallback-for=fmt
 
     runs-on: ${{ matrix.os }}
 
