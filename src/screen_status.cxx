@@ -21,6 +21,12 @@ screen_status_message(const char *msg) noexcept
 }
 
 void
+screen_status_vfmt(fmt::string_view format_str, fmt::format_args args) noexcept
+{
+	screen_status_message(fmt::vformat(format_str, std::move(args)));
+}
+
+void
 screen_status_printf(const char *format, ...) noexcept
 {
 	va_list ap;
