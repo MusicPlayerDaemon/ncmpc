@@ -229,7 +229,7 @@ public:
 	void Paint() const noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 
-	const char *GetTitle(char *, size_t) const noexcept override {
+	std::string_view GetTitle(std::span<char>) const noexcept override {
 		return _("Help");
 	}
 };

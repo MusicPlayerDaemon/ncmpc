@@ -98,7 +98,7 @@ public:
 		     mmask_t bstate) override;
 #endif
 
-	const char *GetTitle(char *s, size_t size) const noexcept override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
 
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(Window window, unsigned i, unsigned y, unsigned width,

@@ -129,7 +129,7 @@ public:
 	void Paint() const noexcept override;
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const noexcept override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
 
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(Window window, unsigned i, unsigned y, unsigned width,
@@ -351,8 +351,8 @@ outputs_init(ScreenManager &screen, const Window window, Size size)
 	return std::make_unique<OutputsPage>(screen, window, size);
 }
 
-const char *
-OutputsPage::GetTitle(char *, size_t) const noexcept
+std::string_view 
+OutputsPage::GetTitle(std::span<char>) const noexcept
 {
 	return _("Outputs");
 }

@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_PAGE_HXX
-#define NCMPC_PAGE_HXX
+#pragma once
 
 #include "config.h"
 #include "Point.hxx"
@@ -11,8 +10,8 @@
 #include <curses.h>
 
 #include <utility>
-
-#include <stddef.h>
+#include <span>
+#include <string_view>
 
 enum class Command : unsigned;
 struct mpdclient;
@@ -111,7 +110,5 @@ public:
 #endif
 
 	[[gnu::pure]]
-	virtual const char *GetTitle(char *s, size_t size) const noexcept = 0;
+	virtual std::string_view GetTitle(std::span<char> buffer) const noexcept = 0;
 };
-
-#endif

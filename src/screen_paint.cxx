@@ -5,14 +5,10 @@
 #include "Page.hxx"
 #include "Options.hxx"
 
-#include <assert.h>
-
 void
 ScreenManager::PaintTopWindow() noexcept
 {
-	const char *title = current_page->second->GetTitle(buf, buf_size);
-	assert(title != nullptr);
-
+	const auto title = current_page->second->GetTitle({buf, buf_size});
 	title_bar.Paint(GetCurrentPageMeta(), title);
 }
 

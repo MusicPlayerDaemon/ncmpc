@@ -12,6 +12,7 @@
 #include "Options.hxx"
 #include "mpdclient.hxx"
 #include "screen.hxx"
+#include "util/SPrintf.hxx"
 
 #include <mpd/client.h>
 
@@ -50,7 +51,7 @@ public:
 	bool OnMouse(struct mpdclient &c, Point p, mmask_t bstate) override;
 #endif
 
-	const char *GetTitle(char *s, size_t size) const noexcept override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
 };
 
 static bool
@@ -112,14 +113,13 @@ edit_playlist_page_init(ScreenManager &_screen, const Window window, Size size)
 	return std::make_unique<EditPlaylistPage>(_screen, window, size);
 }
 
-const char *
-EditPlaylistPage::GetTitle(char *str, size_t size) const noexcept
+std::string_view
+EditPlaylistPage::GetTitle(std::span<char> buffer) const noexcept
 {
 	if (name.empty())
 		return _("Playlist");
 
-	snprintf(str, size, "%s: %s", _("Playlist"), name.c_str());
-	return str;
+	return SPrintf(buffer, "%s: %s", _("Playlist"), name.c_str());
 }
 
 void

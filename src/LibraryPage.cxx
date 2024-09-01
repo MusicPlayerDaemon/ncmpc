@@ -12,6 +12,7 @@
 #include "mpdclient.hxx"
 #include "filelist.hxx"
 #include "Options.hxx"
+#include "util/SPrintf.hxx"
 
 #include <list>
 #include <string>
@@ -36,16 +37,15 @@ GetTagPlural(enum mpd_tag_type tag) noexcept
 	}
 }
 
-static const char *
-MakePageTitle(char *buffer, size_t size, const char *prefix,
+static std::string_view 
+MakePageTitle(std::span<char> buffer, const char *prefix,
 	      const TagFilter &filter)
 {
 	if (filter.empty())
 		return prefix;
 
-	snprintf(buffer, size, "%s: %s", prefix,
-		 Utf8ToLocale(ToString(filter).c_str()).c_str());
-	return buffer;
+	return SPrintf(buffer, "%s: %s", prefix,
+		       Utf8ToLocale(ToString(filter).c_str()).c_str());
 }
 
 class SongListPage final : public FileListPage {
@@ -80,7 +80,7 @@ public:
 	/* virtual methods from class Page */
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const noexcept override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
 };
 
 void
@@ -181,7 +181,7 @@ ArtistBrowserPage::OpenTagPage(struct mpdclient &c,
 	page->SetFilter(std::move(filter));
 
 	char buffer[64];
-	page->SetTitle(MakePageTitle(buffer, sizeof(buffer),
+	page->SetTitle(MakePageTitle(buffer,
 				     _("Albums"),
 				     page->GetFilter()));
 
@@ -201,10 +201,10 @@ InitLibraryPage(ScreenManager &_screen, const Window window, Size size)
 	return std::make_unique<ArtistBrowserPage>(_screen, window, size);
 }
 
-const char *
-SongListPage::GetTitle(char *str, size_t size) const noexcept
+std::string_view
+SongListPage::GetTitle(std::span<char> buffer) const noexcept
 {
-	return MakePageTitle(str, size, _("Songs"), filter);
+	return MakePageTitle(buffer, _("Songs"), filter);
 }
 
 bool

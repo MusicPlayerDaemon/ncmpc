@@ -141,7 +141,7 @@ public:
 	void Paint() const noexcept override;
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const noexcept override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
 
 private:
 	/* virtual methods from class ListText */
@@ -191,9 +191,8 @@ screen_song_init(ScreenManager &_screen, const Window window, Size size) noexcep
 	return std::make_unique<SongPage>(_screen, window, size);
 }
 
-const char *
-SongPage::GetTitle([[maybe_unused]] char *str,
-		   [[maybe_unused]] size_t size) const noexcept
+std::string_view
+SongPage::GetTitle(std::span<char>) const noexcept
 {
 	return _("Song viewer");
 }

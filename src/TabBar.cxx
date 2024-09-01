@@ -11,7 +11,7 @@
 #include "Window.hxx"
 
 static void
-PaintPageTab(const Window window, Command cmd, const char *label, bool selected) noexcept
+PaintPageTab(const Window window, Command cmd, std::string_view label, bool selected) noexcept
 {
 	SelectStyle(window, selected ? Style::TITLE : Style::TITLE_BOLD);
 	if (selected)
@@ -37,18 +37,18 @@ PaintPageTab(const Window window, Command cmd, const char *label, bool selected)
 
 void
 PaintTabBar(const Window window, const PageMeta &current_page_meta,
-	    const char *current_page_title) noexcept
+	    std::string_view current_page_title) noexcept
 {
 	for (unsigned i = 0;; ++i) {
 		const auto *page = GetPageMeta(i);
 		if (page == nullptr)
 			break;
 
-		const char *title = nullptr;
+		std::string_view title{};
 		if (page == &current_page_meta)
 			title = current_page_title;
 
-		if (title == nullptr)
+		if (title.data() == nullptr)
 			title = my_gettext(page->title);
 
 		PaintPageTab(window, page->command, title,

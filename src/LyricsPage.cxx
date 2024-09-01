@@ -17,6 +17,7 @@
 #include "TextPage.hxx"
 #include "screen_utils.hxx"
 #include "ncu.hxx"
+#include "util/SPrintf.hxx"
 #include "util/StringAPI.hxx"
 
 #include <string>
@@ -113,7 +114,7 @@ public:
 	void OnOpen(struct mpdclient &c) noexcept override;
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *, size_t) const noexcept override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
 
 private:
 	/* virtual methods from class PluginResponseHandler */
@@ -308,28 +309,26 @@ LyricsPage::Update(struct mpdclient &c, unsigned) noexcept
 		MaybeLoad(c.GetPlayingSong());
 }
 
-const char *
-LyricsPage::GetTitle(char *str, size_t size) const noexcept
+std::string_view
+LyricsPage::GetTitle(std::span<char> buffer) const noexcept
 {
 	if (plugin_cycle != nullptr) {
-		snprintf(str, size, "%s (%s)",
-			 _("Lyrics"),
-			 /* translators: this message is displayed
-			    while data is retrieved */
-			 _("loading..."));
-		return str;
+		return SPrintf(buffer, "%s (%s)",
+			       _("Lyrics"),
+			       /* translators: this message is displayed
+				  while data is retrieved */
+			       _("loading..."));
 	} else if (artist != nullptr && title != nullptr && !IsEmpty()) {
-		int n;
-		n = snprintf(str, size, "%s: %s - %s",
+		std::size_t n;
+		n = snprintf(buffer.data(), buffer.size(), "%s: %s - %s",
 			     _("Lyrics"),
 			     artist, title);
 
 		if (options.lyrics_show_plugin && !plugin_name.empty() &&
-		    (unsigned int) n < size - 1)
-			snprintf(str + n, size - n, " (%s)",
-				 plugin_name.c_str());
+		    n < buffer.size() - 1)
+			n += snprintf(buffer.data() + n, buffer.size() - n, " (%s)", plugin_name.c_str());
 
-		return str;
+		return {buffer.data(), n};
 	} else
 		return _("Lyrics");
 }

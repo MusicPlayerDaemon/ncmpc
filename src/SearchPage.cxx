@@ -119,7 +119,7 @@ public:
 	void Paint() const noexcept override;
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const noexcept override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
 };
 
 /* search info */
@@ -438,21 +438,18 @@ SearchPage::Paint() const noexcept
 	}
 }
 
-const char *
-SearchPage::GetTitle(char *str, size_t size) const noexcept
+std::string_view
+SearchPage::GetTitle(std::span<char> buffer) const noexcept
 {
 	if (advanced_search_mode && !pattern.empty())
-		snprintf(str, size, "%s '%s'", _("Search"), pattern.c_str());
+		return SPrintf(buffer, "%s '%s'", _("Search"), pattern.c_str());
 	else if (!pattern.empty())
-		snprintf(str, size,
-			 "%s '%s' [%s]",
-			 _("Search"),
-			 pattern.c_str(),
-			 my_gettext(mode[options.search_mode].label));
+		return SPrintf(buffer, "%s '%s' [%s]",
+			       _("Search"),
+			       pattern.c_str(),
+			       my_gettext(mode[options.search_mode].label));
 	else
 		return _("Search");
-
-	return str;
 }
 
 void

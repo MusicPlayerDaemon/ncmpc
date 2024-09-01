@@ -27,6 +27,7 @@
 #include "LyricsPage.hxx"
 #include "db_completion.hxx"
 #include "event/CoarseTimerEvent.hxx"
+#include "util/SPrintf.hxx"
 
 #ifndef NCMPC_MINI
 #include "hscroll.hxx"
@@ -138,7 +139,7 @@ public:
 	bool OnMouse(struct mpdclient &c, Point p, mmask_t bstate) override;
 #endif
 
-	const char *GetTitle(char *s, size_t size) const noexcept override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
 };
 
 const struct mpd_song *
@@ -368,14 +369,13 @@ QueuePage::OnClose() noexcept
 #endif
 }
 
-const char *
-QueuePage::GetTitle(char *str, size_t size) const noexcept
+std::string_view
+QueuePage::GetTitle(std::span<char> buffer) const noexcept
 {
 	if (connection_name.empty())
 		return _("Queue");
 
-	snprintf(str, size, _("Queue on %s"), connection_name.c_str());
-	return str;
+	return SPrintf(buffer, _("Queue on %s"), connection_name.c_str());
 }
 
 void

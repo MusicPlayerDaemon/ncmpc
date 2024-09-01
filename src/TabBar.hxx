@@ -3,9 +3,11 @@
 
 #pragma once
 
+#include <string_view>
+
 struct Window;
 struct PageMeta;
 
 void
 PaintTabBar(Window window, const PageMeta &current_page_meta,
-	    const char *current_page_title) noexcept;
+	    std::string_view current_page_title) noexcept;

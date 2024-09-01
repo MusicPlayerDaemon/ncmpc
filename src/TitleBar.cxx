@@ -59,7 +59,7 @@ TitleBar::Update(const struct mpd_status *status) noexcept
 
 void
 TitleBar::Paint(const PageMeta &current_page_meta,
-		const char *title) const noexcept
+		std::string_view title) const noexcept
 {
 	window.MoveCursor({0, 0});
 	window.ClearToEol();

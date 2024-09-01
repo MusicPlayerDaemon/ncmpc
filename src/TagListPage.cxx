@@ -136,10 +136,10 @@ TagListPage::Paint() const noexcept
 	lw.Paint(*this);
 }
 
-const char *
-TagListPage::GetTitle(char *, size_t) const noexcept
+std::string_view
+TagListPage::GetTitle(std::span<char>) const noexcept
 {
-	return title.c_str();
+	return title;
 }
 
 void

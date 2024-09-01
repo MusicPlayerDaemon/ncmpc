@@ -111,7 +111,7 @@ public:
 	void OnOpen(struct mpdclient &c) noexcept override;
 	void Paint() const noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const noexcept override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
 
 private:
 	/* virtual methods from class ListText */
@@ -228,12 +228,11 @@ CommandKeysPage::OnOpen([[maybe_unused]] struct mpdclient &c) noexcept
 	// TODO
 }
 
-const char *
-CommandKeysPage::GetTitle(char *str, size_t size) const noexcept
+std::string_view
+CommandKeysPage::GetTitle(std::span<char> buffer) const noexcept
 {
-	snprintf(str, size, _("Edit keys for %s"),
-		 get_key_command_name(Command(subcmd)));
-	return str;
+	return SPrintf(buffer, _("Edit keys for %s"),
+		       get_key_command_name(Command(subcmd)));
 }
 
 void
@@ -347,7 +346,7 @@ public:
 	void OnOpen(struct mpdclient &c) noexcept override;
 	void Paint() const noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	const char *GetTitle(char *s, size_t size) const noexcept override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
 
 private:
 	/* virtual methods from class ListText */
@@ -446,8 +445,8 @@ CommandListPage::OnOpen([[maybe_unused]] struct mpdclient &c) noexcept
 	lw.SetLength(command_length());
 }
 
-const char *
-CommandListPage::GetTitle(char *, size_t) const noexcept
+std::string_view
+CommandListPage::GetTitle(std::span<char>) const noexcept
 {
 	return _("Edit key bindings");
 }

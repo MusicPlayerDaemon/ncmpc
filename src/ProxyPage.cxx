@@ -97,10 +97,10 @@ ProxyPage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 }
 #endif
 
-const char *
-ProxyPage::GetTitle(char *s, size_t size) const noexcept
+std::string_view
+ProxyPage::GetTitle(std::span<char> buffer) const noexcept
 {
 	return current_page != nullptr
-		? current_page->GetTitle(s, size)
-		: "";
+		? current_page->GetTitle(buffer)
+		: std::string_view{};
 }
