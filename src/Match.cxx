@@ -38,27 +38,6 @@ MatchExpression::Compile(const char *src, bool anchor) noexcept
 }
 
 bool
-MatchExpression::operator()(const char *line) const noexcept
-{
-#ifndef HAVE_PCRE
-	return anchored
-		? strncasecmp(line, expression.data(), expression.size()) == 0
-		: expression.find(line) != expression.npos;
-#else
-	assert(re != nullptr);
-
-	const auto match_data =
-		pcre2_match_data_create_from_pattern_8(re, nullptr);
-	AtScopeExit(match_data) {
-		pcre2_match_data_free_8(match_data);
-	};
-
-	return pcre2_match_8(re, (PCRE2_SPTR8)line, strlen(line),
-			     0, 0, match_data, nullptr) >= 0;
-#endif
-}
-
-bool
 MatchExpression::operator()(std::string_view line) const noexcept
 {
 #ifndef HAVE_PCRE

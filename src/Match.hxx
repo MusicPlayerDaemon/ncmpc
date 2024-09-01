@@ -31,8 +31,5 @@ public:
 	bool Compile(const char *src, bool anchor) noexcept;
 
 	[[gnu::pure]]
-	bool operator()(const char *line) const noexcept;
-
-	[[gnu::pure]]
 	bool operator()(std::string_view line) const noexcept;
 };
