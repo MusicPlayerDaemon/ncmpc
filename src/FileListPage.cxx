@@ -233,7 +233,7 @@ browser_select_entry(struct mpdclient &c, FileListEntry &entry,
 	if (mpd_entity_get_type(entry.entity) == MPD_ENTITY_TYPE_DIRECTORY) {
 		const auto *dir = mpd_entity_get_directory(entry.entity);
 
-		if (!mpdclient_cmd_add_path(&c, mpd_directory_get_path(dir)))
+		if (!mpdclient_cmd_add_path(c, mpd_directory_get_path(dir)))
 			return false;
 
 		screen_status_printf(_("Adding \'%s\' to queue"),

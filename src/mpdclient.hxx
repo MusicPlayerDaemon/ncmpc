@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef MPDCLIENT_HXX
-#define MPDCLIENT_HXX
+#pragma once
 
 #include "config.h"
 #include "Queue.hxx"
@@ -333,22 +332,20 @@ static constexpr unsigned MPD_IDLE_ALL = MPD_IDLE_DATABASE
 /*** MPD Commands  **********************************************************/
 
 bool
-mpdclient_cmd_crop(struct mpdclient *c) noexcept;
+mpdclient_cmd_crop(struct mpdclient &c) noexcept;
 
 bool
-mpdclient_cmd_clear(struct mpdclient *c) noexcept;
+mpdclient_cmd_clear(struct mpdclient &c) noexcept;
 
 bool
-mpdclient_cmd_add_path(struct mpdclient *c, const char *path) noexcept;
+mpdclient_cmd_add_path(struct mpdclient &c, const char *path) noexcept;
 
 bool
-mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel) noexcept;
+mpdclient_cmd_subscribe(struct mpdclient &c, const char *channel) noexcept;
 
 bool
-mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel) noexcept;
+mpdclient_cmd_unsubscribe(struct mpdclient &c, const char *channel) noexcept;
 
 bool
-mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
+mpdclient_cmd_send_message(struct mpdclient &c, const char *channel,
 			   const char *text) noexcept;
-
-#endif

@@ -526,17 +526,17 @@ mpdclient::ReceiveStatus() noexcept
 /****************************************************************************/
 
 bool
-mpdclient_cmd_crop(struct mpdclient *c) noexcept
+mpdclient_cmd_crop(struct mpdclient &c) noexcept
 {
-	if (!c->playing_or_paused)
+	if (!c.playing_or_paused)
 		return false;
 
-	int length = mpd_status_get_queue_length(c->status);
-	int current = mpd_status_get_song_pos(c->status);
-	if (current < 0 || mpd_status_get_queue_length(c->status) < 2)
+	int length = mpd_status_get_queue_length(c.status);
+	int current = mpd_status_get_song_pos(c.status);
+	if (current < 0 || mpd_status_get_queue_length(c.status) < 2)
 		return true;
 
-	struct mpd_connection *connection = c->GetConnection();
+	struct mpd_connection *connection = c.GetConnection();
 	if (connection == nullptr)
 		return false;
 
@@ -549,7 +549,7 @@ mpdclient_cmd_crop(struct mpdclient *c) noexcept
 
 	mpd_command_list_end(connection);
 
-	return c->FinishCommand();
+	return c.FinishCommand();
 }
 
 bool
@@ -617,9 +617,9 @@ mpdclient::RunVolumeDown() noexcept
 }
 
 bool
-mpdclient_cmd_add_path(struct mpdclient *c, const char *path_utf8) noexcept
+mpdclient_cmd_add_path(struct mpdclient &c, const char *path_utf8) noexcept
 {
-	return c->WithConnection([path_utf8](struct mpd_connection &conn){
+	return c.WithConnection([path_utf8](struct mpd_connection &conn){
 		return mpd_run_add(&conn, path_utf8);
 	});
 }
@@ -823,26 +823,26 @@ mpdclient::RunMove(unsigned dest_pos, unsigned src_pos) noexcept
 /* The client-to-client protocol (MPD 0.17.0) */
 
 bool
-mpdclient_cmd_subscribe(struct mpdclient *c, const char *channel) noexcept
+mpdclient_cmd_subscribe(struct mpdclient &c, const char *channel) noexcept
 {
-	return c->WithConnection([channel](struct mpd_connection &conn){
+	return c.WithConnection([channel](struct mpd_connection &conn){
 		return mpd_run_subscribe(&conn, channel);
 	});
 }
 
 bool
-mpdclient_cmd_unsubscribe(struct mpdclient *c, const char *channel) noexcept
+mpdclient_cmd_unsubscribe(struct mpdclient &c, const char *channel) noexcept
 {
-	return c->WithConnection([channel](struct mpd_connection &conn){
+	return c.WithConnection([channel](struct mpd_connection &conn){
 		return mpd_run_unsubscribe(&conn, channel);
 	});
 }
 
 bool
-mpdclient_cmd_send_message(struct mpdclient *c, const char *channel,
+mpdclient_cmd_send_message(struct mpdclient &c, const char *channel,
 			   const char *text) noexcept
 {
-	return c->WithConnection([channel, text](struct mpd_connection &conn){
+	return c.WithConnection([channel, text](struct mpd_connection &conn){
 		return mpd_run_send_message(&conn, channel, text);
 	});
 }

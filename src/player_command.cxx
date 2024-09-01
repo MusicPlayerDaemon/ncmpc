@@ -36,7 +36,7 @@ handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 			c.HandleError();
 		break;
 	case Command::CROP:
-		mpdclient_cmd_crop(&c);
+		mpdclient_cmd_crop(c);
 		break;
 	case Command::SEEK_FORWARD:
 		seek.Seek(options.seek_time);
@@ -106,7 +106,7 @@ handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 			c.HandleError();
 		break;
 	case Command::DB_UPDATE:
-		screen_database_update(&c, nullptr);
+		screen_database_update(c, nullptr);
 		break;
 	case Command::VOLUME_UP:
 		c.RunVolumeUp();

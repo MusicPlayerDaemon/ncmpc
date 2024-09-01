@@ -62,7 +62,7 @@ ChatPage::CheckChatSupport(struct mpdclient &c)
 	last_connection_id = c.connection_id;
 
 	/* mpdclient_get_connection? */
-	if (!mpdclient_cmd_subscribe(&c, chat_channel))
+	if (!mpdclient_cmd_subscribe(c, chat_channel))
 		return (was_supported = false);
 	/* mpdclient_put_connection? */
 
@@ -135,7 +135,7 @@ ChatPage::SendMessage(struct mpdclient &c, const char *msg) noexcept
 {
 	const std::string full_msg = GetPrefix() + LocaleToUtf8(msg).c_str();
 
-	(void) mpdclient_cmd_send_message(&c, chat_channel, full_msg.c_str());
+	(void) mpdclient_cmd_send_message(c, chat_channel, full_msg.c_str());
 }
 
 bool

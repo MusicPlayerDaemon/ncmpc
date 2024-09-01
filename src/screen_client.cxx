@@ -8,12 +8,11 @@
 #include "charset.hxx"
 
 void
-screen_database_update(struct mpdclient *c, const char *path)
+screen_database_update(struct mpdclient &c, const char *path)
 {
-	assert(c != nullptr);
-	assert(c->IsConnected());
+	assert(c.IsConnected());
 
-	auto *connection = c->GetConnection();
+	auto *connection = c.GetConnection();
 	if (connection == nullptr)
 		return;
 
@@ -24,7 +23,7 @@ screen_database_update(struct mpdclient *c, const char *path)
 		    mpd_connection_clear_error(connection))
 			screen_status_message(_("Database update running"));
 		else
-			c->HandleError();
+			c.HandleError();
 		return;
 	}
 

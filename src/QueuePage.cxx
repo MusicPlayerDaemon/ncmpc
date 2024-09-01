@@ -300,11 +300,11 @@ DatabaseCompletion::Post(const char *line, Range range) noexcept
 #endif
 
 static int
-handle_add_to_playlist(ScreenManager &screen, struct mpdclient *c)
+handle_add_to_playlist(ScreenManager &screen, struct mpdclient &c)
 {
 #ifndef NCMPC_MINI
 	/* initialize completion support */
-	DatabaseCompletion _completion{screen, *c};
+	DatabaseCompletion _completion{screen, c};
 	Completion *completion = &_completion;
 #else
 	Completion *completion = nullptr;
@@ -630,7 +630,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	case Command::ADD:
-		handle_add_to_playlist(screen, &c);
+		handle_add_to_playlist(screen, c);
 		return true;
 
 	case Command::SHUFFLE: {
