@@ -438,7 +438,7 @@ CommandListPage::GetListItemText(std::span<char> buffer,
 				      buffer.size() - get_cmds_max_name_width(),
 				      " - %s", my_gettext(get_command_definitions()[idx].description));
 
-	return {buffer.data(), length};
+	return {buffer.data(), get_cmds_max_name_width() + length};
 }
 
 void
