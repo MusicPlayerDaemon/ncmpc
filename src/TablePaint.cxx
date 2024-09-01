@@ -39,7 +39,7 @@ PaintTableRow(const Window window, unsigned width,
 
 		char buffer[1024];
 
-		std::string_view s = TruncateAtWidthMB(strfsong(buffer, cs.format.c_str(), &song), cl.width);
+		std::string_view s = TruncateAtWidthMB(strfsong(buffer, cs.format.c_str(), song), cl.width);
 		window.String(s);
 		FillSpace(window, cl.width - StringWidthMB(s));
 	}

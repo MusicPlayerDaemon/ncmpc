@@ -187,7 +187,7 @@ QueuePage::GetListItemText(std::span<char> buffer,
 	assert(idx < playlist->size());
 
 	const auto &song = (*playlist)[idx];
-	return strfsong(buffer, options.list_format.c_str(), &song);
+	return strfsong(buffer, options.list_format.c_str(), song);
 }
 
 void
@@ -401,7 +401,7 @@ QueuePage::PaintListItem(const Window window, unsigned i, unsigned y, unsigned w
 
 	paint_song_row(window, y, width, selected,
 		       (int)mpd_song_get_id(&song) == current_song_id,
-		       &song, row_hscroll, options.list_format.c_str());
+		       song, row_hscroll, options.list_format.c_str());
 }
 
 void

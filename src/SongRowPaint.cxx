@@ -16,7 +16,7 @@
 
 void
 paint_song_row(const Window window, [[maybe_unused]] int y, unsigned width,
-	       bool selected, bool highlight, const struct mpd_song *song,
+	       bool selected, bool highlight, const struct mpd_song &song,
 	       [[maybe_unused]] class hscroll *hscroll, const char *format)
 {
 	char buffer[1024];
@@ -26,9 +26,9 @@ paint_song_row(const Window window, [[maybe_unused]] int y, unsigned width,
 		       selected, text);
 
 #ifndef NCMPC_MINI
-	if (options.second_column && mpd_song_get_duration(song) > 0) {
+	if (options.second_column && mpd_song_get_duration(&song) > 0) {
 		char duration[32];
-		format_duration_short(duration, mpd_song_get_duration(song));
+		format_duration_short(duration, mpd_song_get_duration(&song));
 		width -= strlen(duration) + 1;
 		window.MoveCursor({(int)width, y});
 		window.Char(' ');

@@ -89,7 +89,7 @@ FileListPage::GetListItemText(std::span<char> buffer,
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG) {
 		const auto *song = mpd_entity_get_song(entity);
 
-		return strfsong(buffer, options.list_format.c_str(), song);
+		return strfsong(buffer, options.list_format.c_str(), *song);
 	} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
 		const auto *playlist = mpd_entity_get_playlist(entity);
 		const char *name = GetUriFilename(mpd_playlist_get_path(playlist));
@@ -126,6 +126,8 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 		return false;
 
 	const auto *song = mpd_entity_get_song(entry->entity);
+	assert(song != nullptr);
+
 	int id;
 
 #ifndef NCMPC_MINI
@@ -148,7 +150,7 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 
 		char buf[BUFSIZE];
 		screen_status_fmt(_("Adding '{}' to queue"),
-				  strfsong(buf, options.list_format.c_str(), song));
+				  strfsong(buf, options.list_format.c_str(), *song));
 	}
 
 	if (!mpd_run_play_id(connection, id)) {
@@ -257,7 +259,7 @@ browser_select_entry(struct mpdclient &c, FileListEntry &entry,
 		if (c.RunAdd(*song)) {
 			char buf[BUFSIZE];
 			screen_status_fmt(_("Adding '{}' to queue"),
-					  strfsong(buf, options.list_format.c_str(), song));
+					  strfsong(buf, options.list_format.c_str(), *song));
 		}
 #ifndef NCMPC_MINI
 	} else {
@@ -521,7 +523,7 @@ FileListPage::PaintListItem(const Window window, unsigned i,
 
 	case MPD_ENTITY_TYPE_SONG:
 		paint_song_row(window, y, width, selected, highlight,
-			       mpd_entity_get_song(entity), nullptr,
+			       *mpd_entity_get_song(entity), nullptr,
 			       song_format);
 		break;
 

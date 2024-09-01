@@ -12,7 +12,7 @@ class TagMask;
 [[nodiscard]] [[gnu::pure]]
 std::string_view
 strfsong(std::span<char> buffer, const char *format,
-	 const struct mpd_song *song) noexcept;
+	 const struct mpd_song &song) noexcept;
 
 /**
  * Check which tags are referenced by the given song format.

@@ -22,5 +22,5 @@ class hscroll;
  */
 void
 paint_song_row(Window window, int y, unsigned width,
-	       bool selected, bool highlight, const struct mpd_song *song,
+	       bool selected, bool highlight, const struct mpd_song &song,
 	       class hscroll *hscroll, const char *format);

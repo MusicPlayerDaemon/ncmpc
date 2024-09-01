@@ -55,7 +55,7 @@ update_xterm_title(struct mpdclient &client) noexcept
 	char tmp[BUFSIZE];
 	std::string_view new_title = PACKAGE " version " VERSION ""sv;
 	if (!options.xterm_title_format.empty() && song != nullptr) {
-		const auto s = strfsong(tmp, options.xterm_title_format.c_str(), song);
+		const auto s = strfsong(tmp, options.xterm_title_format.c_str(), *song);
 		if (!s.empty())
 			new_title = s;
 	}

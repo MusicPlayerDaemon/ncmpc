@@ -57,16 +57,16 @@ CopyStringFromUTF8(char *dest, char *const dest_end,
 
 static char *
 CopyTag(char *dest, char *const end,
-	const struct mpd_song *song, enum mpd_tag_type tag) noexcept
+	const struct mpd_song &song, enum mpd_tag_type tag) noexcept
 {
-	const char *value = mpd_song_get_tag(song, tag, 0);
+	const char *value = mpd_song_get_tag(&song, tag, 0);
 	if (value == nullptr)
 		return dest;
 
 	dest = CopyStringFromUTF8(dest, end, value);
 
 	for (unsigned i = 1; dest + 5 < end &&
-		     (value = mpd_song_get_tag(song, tag, i)) != nullptr;
+		     (value = mpd_song_get_tag(&song, tag, i)) != nullptr;
 	     ++i) {
 		*dest++ = ',';
 		*dest++ = ' ';
@@ -79,19 +79,13 @@ CopyTag(char *dest, char *const end,
 static size_t
 _strfsong(char *const s0, char *const end,
 	  const char *format,
-	  const struct mpd_song *song,
+	  const struct mpd_song &song,
 	  const char **last) noexcept
 {
 	bool found = false;
 	/* "missed" helps handling the case of mere literal text like
 	   found==true instead of found==false. */
 	bool missed = false;
-
-
-	if (song == nullptr) {
-		s0[0] = '\0';
-		return 0;
-	}
 
 	char *s = s0;
 	const char *p;
@@ -170,7 +164,7 @@ _strfsong(char *const s0, char *const end,
 		if (*name_end != '%')
 			n--;
 		else if (strncmp("%file%", p, n) == 0)
-			value_utf8 = mpd_song_get_uri(song);
+			value_utf8 = mpd_song_get_uri(&song);
 		else if (strncmp("%artist%", p, n) == 0)
 			tag = MPD_TAG_ARTIST;
 		else if (strncmp("%albumartist%", p, n) == 0)
@@ -206,12 +200,12 @@ _strfsong(char *const s0, char *const end,
 		else if (strncmp("%genre%", p, n) == 0)
 			tag = MPD_TAG_GENRE;
 		else if (strncmp("%shortfile%", p, n) == 0) {
-			const char *uri = mpd_song_get_uri(song);
+			const char *uri = mpd_song_get_uri(&song);
 			if (strstr(uri, "://") == nullptr)
 				uri = GetUriFilename(uri);
 			value_utf8 = uri;
 		} else if (strncmp("%time%", p, n) == 0) {
-			unsigned duration = mpd_song_get_duration(song);
+			unsigned duration = mpd_song_get_duration(&song);
 
 			if (duration > 0)  {
 				format_duration_short(buffer, duration);
@@ -267,7 +261,7 @@ _strfsong(char *const s0, char *const end,
 
 std::string_view
 strfsong(std::span<char> buffer, const char *format,
-	 const struct mpd_song *song) noexcept
+	 const struct mpd_song &song) noexcept
 {
 	std::size_t length = _strfsong(buffer.data(), buffer.data() + buffer.size(), format, song, nullptr);
 	return {buffer.data(), length};
