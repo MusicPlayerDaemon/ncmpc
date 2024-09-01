@@ -19,7 +19,6 @@ MatchExpression::Compile(const char *src, bool anchor) noexcept
 {
 #ifndef HAVE_PCRE
 	expression = src;
-	length = strlen(expression);
 	anchored = anchor;
 
 	return true;
@@ -42,11 +41,9 @@ bool
 MatchExpression::operator()(const char *line) const noexcept
 {
 #ifndef HAVE_PCRE
-	assert(expression != nullptr);
-
 	return anchored
-		? strncasecmp(line, expression, length) == 0
-		: strstr(line, expression) != nullptr;
+		? strncasecmp(line, expression.data(), expression.size()) == 0
+		: expression.find(line) != expression.npos;
 #else
 	assert(re != nullptr);
 
@@ -65,11 +62,9 @@ bool
 MatchExpression::operator()(std::string_view line) const noexcept
 {
 #ifndef HAVE_PCRE
-	assert(expression != nullptr);
-
 	return anchored
-		? strncasecmp(line.data(), expression, std::min(length, line.size())) == 0
-		: std::string_view{expression,length}.find(line) != std::string_view::npos;
+		? strncasecmp(line.data(), expression.data(), std::min(expression.size(), line.size())) == 0
+		: expression.find(line) != expression.npos;
 #else
 	assert(re != nullptr);
 

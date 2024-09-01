@@ -15,8 +15,7 @@
 
 class MatchExpression {
 #ifndef HAVE_PCRE
-	const char *expression;
-	size_t length;
+	std::string_view expression;
 	bool anchored;
 #else
 	pcre2_code_8 *re = nullptr;
