@@ -9,9 +9,15 @@
 #include <stdarg.h>
 
 void
+screen_status_message(std::string &&msg) noexcept
+{
+	screen->status_bar.SetMessage(std::move(msg));
+}
+
+void
 screen_status_message(const char *msg) noexcept
 {
-	screen->status_bar.SetMessage(msg);
+	screen_status_message(std::string{msg});
 }
 
 void
@@ -28,5 +34,5 @@ screen_status_printf(const char *format, ...) noexcept
 void
 screen_status_error(std::exception_ptr e) noexcept
 {
-	screen_status_message(GetFullMessage(std::move(e)).c_str());
+	screen_status_message(GetFullMessage(std::move(e)));
 }

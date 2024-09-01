@@ -44,7 +44,7 @@ public:
 		return window;
 	}
 
-	void SetMessage(const char *msg) noexcept;
+	void SetMessage(std::string &&msg) noexcept;
 	void ClearMessage() noexcept;
 
 	void OnResize(Point p, unsigned width) noexcept;

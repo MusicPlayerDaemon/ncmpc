@@ -257,14 +257,14 @@ StatusBar::OnResize(Point p, unsigned width) noexcept
 }
 
 void
-StatusBar::SetMessage(const char *msg) noexcept
+StatusBar::SetMessage(std::string &&msg) noexcept
 {
 #ifndef NCMPC_MINI
 	if (options.scroll)
 		hscroll.Clear();
 #endif
 
-	message = msg;
+	message = std::move(msg);
 	Paint();
 	doupdate();
 
