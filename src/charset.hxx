@@ -16,10 +16,11 @@ void
 charset_init() noexcept;
 #endif
 
+[[nodiscard]]
 char *
 CopyUtf8ToLocale(std::span<char> dest, std::string_view src) noexcept;
 
-[[gnu::pure]]
+[[nodiscard]] [[gnu::pure]]
 std::string_view
 utf8_to_locale(std::string_view src, std::span<char> buffer) noexcept;
 
@@ -37,15 +38,18 @@ class Utf8ToLocale {
 
 public:
 #ifdef HAVE_ICONV
+	[[nodiscard]]
 	explicit Utf8ToLocale(const std::string_view src) noexcept;
 
 	Utf8ToLocale(const Utf8ToLocale &) = delete;
 	Utf8ToLocale &operator=(const Utf8ToLocale &) = delete;
 #else
+	[[nodiscard]]
 	explicit Utf8ToLocale(const char *src) noexcept
 		:value(src) {}
 #endif
 
+	[[nodiscard]] [[gnu::pure]]
 	const char *c_str() const noexcept {
 #ifdef HAVE_ICONV
 		return value.c_str();
@@ -69,15 +73,18 @@ class LocaleToUtf8 {
 
 public:
 #ifdef HAVE_ICONV
+	[[nodiscard]]
 	explicit LocaleToUtf8(const std::string_view src) noexcept;
 
 	LocaleToUtf8(const LocaleToUtf8 &) = delete;
 	LocaleToUtf8 &operator=(const LocaleToUtf8 &) = delete;
 #else
+	[[nodiscard]]
 	explicit LocaleToUtf8(const char *src) noexcept
 		:value(src) {}
 #endif
 
+	[[nodiscard]] [[gnu::pure]]
 	const char *c_str() const noexcept {
 #ifdef HAVE_ICONV
 		return value.c_str();
