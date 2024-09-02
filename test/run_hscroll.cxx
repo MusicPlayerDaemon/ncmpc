@@ -1,6 +1,8 @@
 #include "BasicMarquee.hxx"
 #include "config.h"
 
+#include <fmt/core.h>
+
 #include <stdlib.h>
 
 #ifdef ENABLE_LOCALE
@@ -30,7 +32,7 @@ int main(int argc, char **argv)
 
 	for (unsigned i = 0; i < count; ++i) {
 		const auto s = hscroll.ScrollString();
-		fprintf(stderr, "%.*s\n", int(s.size()), s.data());
+		fmt::print("{}\n", s);
 
 		hscroll.Step();
 	}
