@@ -12,6 +12,9 @@ void
 screen_status_message(const char *msg) noexcept;
 
 void
+screen_status_message(std::string_view msg) noexcept;
+
+void
 screen_status_message(std::string &&msg) noexcept;
 
 void
