@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-01 21:25+0200\n"
+"POT-Creation-Date: 2024-09-02 13:13+0200\n"
 "PO-Revision-Date: 2024-07-24 13:09+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "%s 키가 %s 및 %s 에 지정됨"
 
-#: src/ChatPage.cxx:49 src/ChatPage.cxx:168
+#: src/ChatPage.cxx:53 src/ChatPage.cxx:172
 msgid "Chat"
 msgstr "채팅"
 
-#: src/ChatPage.cxx:148
+#: src/ChatPage.cxx:152
 msgid "Your message"
 msgstr "나의 메시지"
 
-#: src/ChatPage.cxx:158
+#: src/ChatPage.cxx:162
 msgid "Message could not be sent"
 msgstr "메시지를 보낼 수 없습니다"
 
@@ -466,9 +466,9 @@ msgstr "음원"
 msgid "Loading playlist '%s'"
 msgstr "'%s' 연주목록을 읽는 중"
 
-#: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
+#: src/FileListPage.cxx:152 src/FileListPage.cxx:241 src/FileListPage.cxx:261
 #: src/TagListPage.cxx:182
-#, c-format
+#, c++-format
 msgid "Adding '{}' to queue"
 msgstr "순서에 '{}' 추가"
 
@@ -835,7 +835,7 @@ msgstr "이정희 <daemul72@gmail.com>"
 msgid "Switched to partition '%s'"
 msgstr "'%s' 칸막이로 전환됨"
 
-#: src/OutputsPage.cxx:168 src/SongPage.cxx:61
+#: src/OutputsPage.cxx:168 src/SongPage.cxx:66
 msgid "Name"
 msgstr "이름"
 
@@ -1043,15 +1043,15 @@ msgstr "설명"
 msgid "file"
 msgstr "파일"
 
-#: src/SearchPage.cxx:74 src/SongPage.cxx:49
+#: src/SearchPage.cxx:74 src/SongPage.cxx:54
 msgid "Title"
 msgstr "제목"
 
-#: src/SearchPage.cxx:75 src/SongPage.cxx:48
+#: src/SearchPage.cxx:75 src/SongPage.cxx:53
 msgid "Artist"
 msgstr "연주가"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:50
+#: src/SearchPage.cxx:76 src/SongPage.cxx:55
 msgid "Album"
 msgstr "음반"
 
@@ -1087,91 +1087,91 @@ msgstr "찾기"
 msgid "Search mode: %s"
 msgstr "찾기 방식: %s"
 
-#: src/SongPage.cxx:52
+#: src/SongPage.cxx:57
 msgid "Work"
 msgstr "작품"
 
-#: src/SongPage.cxx:54
+#: src/SongPage.cxx:59
 msgid "Length"
 msgstr "길이"
 
-#: src/SongPage.cxx:55
+#: src/SongPage.cxx:60
 msgid "Position"
 msgstr "위치"
 
-#: src/SongPage.cxx:56
+#: src/SongPage.cxx:61
 msgid "Composer"
 msgstr "작곡가"
 
-#: src/SongPage.cxx:57
+#: src/SongPage.cxx:62
 msgid "Performer"
 msgstr "연주가"
 
-#: src/SongPage.cxx:59
+#: src/SongPage.cxx:64
 msgid "Conductor"
 msgstr "지휘자"
 
-#: src/SongPage.cxx:62
+#: src/SongPage.cxx:67
 msgid "Disc"
 msgstr "디스크"
 
-#: src/SongPage.cxx:63
+#: src/SongPage.cxx:68
 msgid "Track"
 msgstr "곡"
 
-#: src/SongPage.cxx:64
+#: src/SongPage.cxx:69
 msgid "Date"
 msgstr "날짜"
 
-#: src/SongPage.cxx:65
+#: src/SongPage.cxx:70
 msgid "Genre"
 msgstr "장르"
 
-#: src/SongPage.cxx:66
+#: src/SongPage.cxx:71
 msgid "Comment"
 msgstr "설명"
 
-#: src/SongPage.cxx:67
+#: src/SongPage.cxx:72
 msgid "Path"
 msgstr "경로"
 
-#: src/SongPage.cxx:68
+#: src/SongPage.cxx:73
 msgid "Bitrate"
 msgstr "비트 전송률"
 
-#: src/SongPage.cxx:69
+#: src/SongPage.cxx:74
 msgid "Format"
 msgstr "형식"
 
-#: src/SongPage.cxx:86
+#: src/SongPage.cxx:91
 msgid "Number of artists"
 msgstr "연주가 수"
 
-#: src/SongPage.cxx:87
+#: src/SongPage.cxx:92
 msgid "Number of albums"
 msgstr "음반 수"
 
-#: src/SongPage.cxx:88
+#: src/SongPage.cxx:93
 msgid "Number of songs"
 msgstr "곡 수"
 
-#: src/SongPage.cxx:89
+#: src/SongPage.cxx:94
 msgid "Uptime"
 msgstr "가동시간"
 
-#: src/SongPage.cxx:90
+#: src/SongPage.cxx:95
 msgid "Most recent db update"
 msgstr "마지막 데이터베이스 업데이트"
 
-#: src/SongPage.cxx:91
+#: src/SongPage.cxx:96
 msgid "Playtime"
 msgstr "연주시간"
 
-#: src/SongPage.cxx:92
+#: src/SongPage.cxx:97
 msgid "DB playtime"
 msgstr "데이터베이스 연주시간"
 
-#: src/SongPage.cxx:197
+#: src/SongPage.cxx:202
 msgid "Song viewer"
 msgstr "곡 보기"
 
@@ -1179,20 +1179,20 @@ msgstr "곡 보기"
 msgid "MPD statistics"
 msgstr "MPD 통계"
 
-#: src/SongPage.cxx:439
+#: src/SongPage.cxx:433
 msgid "Selected song"
 msgstr "선택한 곡"
 
-#: src/SongPage.cxx:449
+#: src/SongPage.cxx:443
 msgid "Currently playing song"
 msgstr "지금 연주 중인 곡"
 
-#: src/SongPage.cxx:454
-#, c-format
+#: src/SongPage.cxx:450
+#, c++-format
 msgid "{} kbps"
 msgstr "{} kbps"
 
-#: src/SongPage.cxx:536
+#: src/SongPage.cxx:530
 msgid "Song"
 msgstr "곡"
 

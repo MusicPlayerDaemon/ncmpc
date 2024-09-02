@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-01 21:25+0200\n"
+"POT-Creation-Date: 2024-09-02 13:13+0200\n"
 "PO-Revision-Date: 2021-04-11 19:43+0700\n"
 "Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/ncmpc/"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "Клавиша %s назначена для %s и %s"
 
-#: src/ChatPage.cxx:49 src/ChatPage.cxx:168
+#: src/ChatPage.cxx:53 src/ChatPage.cxx:172
 msgid "Chat"
 msgstr "Чат"
 
-#: src/ChatPage.cxx:148
+#: src/ChatPage.cxx:152
 msgid "Your message"
 msgstr "Ваше сообщение"
 
-#: src/ChatPage.cxx:158
+#: src/ChatPage.cxx:162
 msgid "Message could not be sent"
 msgstr "Сообщение не может быть отправлено"
 
@@ -469,9 +469,9 @@ msgstr "Навигация"
 msgid "Loading playlist '%s'"
 msgstr "Загружается плейлист '%s'"
 
-#: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
+#: src/FileListPage.cxx:152 src/FileListPage.cxx:241 src/FileListPage.cxx:261
 #: src/TagListPage.cxx:182
-#, c-format
+#, c++-format
 msgid "Adding '{}' to queue"
 msgstr "В очередь добавляется '{}'"
 
@@ -838,7 +838,7 @@ msgstr "Перевод: Max Arnold <lwarxx@gmail.com>"
 msgid "Switched to partition '%s'"
 msgstr "Переключено на раздел '%s'"
 
-#: src/OutputsPage.cxx:168 src/SongPage.cxx:61
+#: src/OutputsPage.cxx:168 src/SongPage.cxx:66
 msgid "Name"
 msgstr "Название"
 
@@ -1046,15 +1046,15 @@ msgstr "комментарий"
 msgid "file"
 msgstr "файл"
 
-#: src/SearchPage.cxx:74 src/SongPage.cxx:49
+#: src/SearchPage.cxx:74 src/SongPage.cxx:54
 msgid "Title"
 msgstr "Композиция"
 
-#: src/SearchPage.cxx:75 src/SongPage.cxx:48
+#: src/SearchPage.cxx:75 src/SongPage.cxx:53
 msgid "Artist"
 msgstr "Исполнитель"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:50
+#: src/SearchPage.cxx:76 src/SongPage.cxx:55
 msgid "Album"
 msgstr "Альбом"
 
@@ -1090,92 +1090,92 @@ msgstr "Поиск"
 msgid "Search mode: %s"
 msgstr "Поле для поиска: %s"
 
-#: src/SongPage.cxx:52
+#: src/SongPage.cxx:57
 msgid "Work"
 msgstr ""
 
-#: src/SongPage.cxx:54
+#: src/SongPage.cxx:59
 msgid "Length"
 msgstr "Длительность"
 
-#: src/SongPage.cxx:55
+#: src/SongPage.cxx:60
 msgid "Position"
 msgstr "Позиция"
 
-#: src/SongPage.cxx:56
+#: src/SongPage.cxx:61
 msgid "Composer"
 msgstr "Композитор"
 
-#: src/SongPage.cxx:57
+#: src/SongPage.cxx:62
 msgid "Performer"
 msgstr "Исполнитель"
 
-#: src/SongPage.cxx:59
+#: src/SongPage.cxx:64
 msgid "Conductor"
 msgstr ""
 
-#: src/SongPage.cxx:62
+#: src/SongPage.cxx:67
 msgid "Disc"
 msgstr "Диск"
 
-#: src/SongPage.cxx:63
+#: src/SongPage.cxx:68
 msgid "Track"
 msgstr "Дорожка"
 
-#: src/SongPage.cxx:64
+#: src/SongPage.cxx:69
 msgid "Date"
 msgstr "Дата"
 
-#: src/SongPage.cxx:65
+#: src/SongPage.cxx:70
 msgid "Genre"
 msgstr "Жанр"
 
-#: src/SongPage.cxx:66
+#: src/SongPage.cxx:71
 msgid "Comment"
 msgstr "Комментарий"
 
-#: src/SongPage.cxx:67
+#: src/SongPage.cxx:72
 msgid "Path"
 msgstr "Путь"
 
-#: src/SongPage.cxx:68
+#: src/SongPage.cxx:73
 msgid "Bitrate"
 msgstr "Битрейт"
 
-#: src/SongPage.cxx:69
+#: src/SongPage.cxx:74
 msgid "Format"
 msgstr "Формат"
 
-#: src/SongPage.cxx:86
+#: src/SongPage.cxx:91
 msgid "Number of artists"
 msgstr "Количество исполнителей"
 
-#: src/SongPage.cxx:87
+#: src/SongPage.cxx:92
 msgid "Number of albums"
 msgstr "Количество альбомов"
 
-#: src/SongPage.cxx:88
+#: src/SongPage.cxx:93
 msgid "Number of songs"
 msgstr "Количество композиций"
 
-#: src/SongPage.cxx:89
+#: src/SongPage.cxx:94
 msgid "Uptime"
 msgstr "Время работы"
 
-#: src/SongPage.cxx:90
+#: src/SongPage.cxx:95
 msgid "Most recent db update"
 msgstr "Последнее обновление базы"
 
-#: src/SongPage.cxx:91
+#: src/SongPage.cxx:96
 msgid "Playtime"
 msgstr "Время воспроизведения"
 
-#: src/SongPage.cxx:92
+#: src/SongPage.cxx:97
 msgid "DB playtime"
 msgstr "Время воспроизведения базы"
 
 # Several translations for Song Viewer:
-#: src/SongPage.cxx:197
+#: src/SongPage.cxx:202
 msgid "Song viewer"
 msgstr "Информация о композиции"
 
@@ -1183,20 +1183,20 @@ msgstr "Информация о композиции"
 msgid "MPD statistics"
 msgstr "Статистика MPD"
 
-#: src/SongPage.cxx:439
+#: src/SongPage.cxx:433
 msgid "Selected song"
 msgstr "Выбранная композиция"
 
-#: src/SongPage.cxx:449
+#: src/SongPage.cxx:443
 msgid "Currently playing song"
 msgstr "Проигрываемая композиция"
 
-#: src/SongPage.cxx:454
-#, c-format
+#: src/SongPage.cxx:450
+#, c++-format
 msgid "{} kbps"
 msgstr "{} кбит/с"
 
-#: src/SongPage.cxx:536
+#: src/SongPage.cxx:530
 msgid "Song"
 msgstr "Композиция"
 

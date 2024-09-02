@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-01 21:25+0200\n"
+"POT-Creation-Date: 2024-09-02 13:13+0200\n"
 "PO-Revision-Date: 2024-06-15 05:56+0000\n"
 "Last-Translator: Wojciech Teichert <wojtekt99@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/ncmpc/"
@@ -26,15 +26,15 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "Klawisz %s przypisany do %s oraz %s"
 
-#: src/ChatPage.cxx:49 src/ChatPage.cxx:168
+#: src/ChatPage.cxx:53 src/ChatPage.cxx:172
 msgid "Chat"
 msgstr "Rozmowa"
 
-#: src/ChatPage.cxx:148
+#: src/ChatPage.cxx:152
 msgid "Your message"
 msgstr "Twoja wiadomość"
 
-#: src/ChatPage.cxx:158
+#: src/ChatPage.cxx:162
 msgid "Message could not be sent"
 msgstr "Wiadomość nie mogła zostać wysłana"
 
@@ -470,9 +470,9 @@ msgstr "Przeglądaj"
 msgid "Loading playlist '%s'"
 msgstr "Ładowanie listy odtwarzania %s"
 
-#: src/FileListPage.cxx:151 src/FileListPage.cxx:239 src/FileListPage.cxx:262
+#: src/FileListPage.cxx:152 src/FileListPage.cxx:241 src/FileListPage.cxx:261
 #: src/TagListPage.cxx:182
-#, c-format
+#, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Dodawanie '{}' do listy odtwarzania"
 
@@ -839,7 +839,7 @@ msgstr "Uznanie tłumaczy"
 msgid "Switched to partition '%s'"
 msgstr "Przełączono na sekcję '%s'"
 
-#: src/OutputsPage.cxx:168 src/SongPage.cxx:61
+#: src/OutputsPage.cxx:168 src/SongPage.cxx:66
 msgid "Name"
 msgstr "Nazwa"
 
@@ -1047,15 +1047,15 @@ msgstr "komentarz"
 msgid "file"
 msgstr "plik"
 
-#: src/SearchPage.cxx:74 src/SongPage.cxx:49
+#: src/SearchPage.cxx:74 src/SongPage.cxx:54
 msgid "Title"
 msgstr "Tytuł"
 
-#: src/SearchPage.cxx:75 src/SongPage.cxx:48
+#: src/SearchPage.cxx:75 src/SongPage.cxx:53
 msgid "Artist"
 msgstr "Artysta"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:50
+#: src/SearchPage.cxx:76 src/SongPage.cxx:55
 msgid "Album"
 msgstr "Album"
 
@@ -1091,91 +1091,91 @@ msgstr "Znajdź"
 msgid "Search mode: %s"
 msgstr "Tryb szukania: %s"
 
-#: src/SongPage.cxx:52
+#: src/SongPage.cxx:57
 msgid "Work"
 msgstr ""
 
-#: src/SongPage.cxx:54
+#: src/SongPage.cxx:59
 msgid "Length"
 msgstr "Długość"
 
-#: src/SongPage.cxx:55
+#: src/SongPage.cxx:60
 msgid "Position"
 msgstr "Pozycja"
 
-#: src/SongPage.cxx:56
+#: src/SongPage.cxx:61
 msgid "Composer"
 msgstr "Kompozytor"
 
-#: src/SongPage.cxx:57
+#: src/SongPage.cxx:62
 msgid "Performer"
 msgstr "Wykonawca"
 
-#: src/SongPage.cxx:59
+#: src/SongPage.cxx:64
 msgid "Conductor"
 msgstr ""
 
-#: src/SongPage.cxx:62
+#: src/SongPage.cxx:67
 msgid "Disc"
 msgstr "Dysk"
 
-#: src/SongPage.cxx:63
+#: src/SongPage.cxx:68
 msgid "Track"
 msgstr "Ścieżka"
 
-#: src/SongPage.cxx:64
+#: src/SongPage.cxx:69
 msgid "Date"
 msgstr "Data"
 
-#: src/SongPage.cxx:65
+#: src/SongPage.cxx:70
 msgid "Genre"
 msgstr "Rodzaj"
 
-#: src/SongPage.cxx:66
+#: src/SongPage.cxx:71
 msgid "Comment"
 msgstr "Komentarz"
 
-#: src/SongPage.cxx:67
+#: src/SongPage.cxx:72
 msgid "Path"
 msgstr "Ścieżka"
 
-#: src/SongPage.cxx:68
+#: src/SongPage.cxx:73
 msgid "Bitrate"
 msgstr "Przepływność bitowa"
 
-#: src/SongPage.cxx:69
+#: src/SongPage.cxx:74
 msgid "Format"
 msgstr "Format"
 
-#: src/SongPage.cxx:86
+#: src/SongPage.cxx:91
 msgid "Number of artists"
 msgstr "Ilość artystów"
 
-#: src/SongPage.cxx:87
+#: src/SongPage.cxx:92
 msgid "Number of albums"
 msgstr "Ilość albumów"
 
-#: src/SongPage.cxx:88
+#: src/SongPage.cxx:93
 msgid "Number of songs"
 msgstr "Ilość piosenek"
 
-#: src/SongPage.cxx:89
+#: src/SongPage.cxx:94
 msgid "Uptime"
 msgstr "Czas od uruchomienia"
 
-#: src/SongPage.cxx:90
+#: src/SongPage.cxx:95
 msgid "Most recent db update"
 msgstr "Ostatnia aktualizacja bazy"
 
-#: src/SongPage.cxx:91
+#: src/SongPage.cxx:96
 msgid "Playtime"
 msgstr "Czas odtwarzania"
 
-#: src/SongPage.cxx:92
+#: src/SongPage.cxx:97
 msgid "DB playtime"
 msgstr "czas odtwarzania w bazie"
 
-#: src/SongPage.cxx:197
+#: src/SongPage.cxx:202
 msgid "Song viewer"
 msgstr "Przeglądarka utworów"
 
@@ -1183,20 +1183,20 @@ msgstr "Przeglądarka utworów"
 msgid "MPD statistics"
 msgstr "statystyki MPD"
 
-#: src/SongPage.cxx:439
+#: src/SongPage.cxx:433
 msgid "Selected song"
 msgstr "Wybrany utwór"
 
-#: src/SongPage.cxx:449
+#: src/SongPage.cxx:443
 msgid "Currently playing song"
 msgstr "Obecnie odtwarzany utwór"
 
-#: src/SongPage.cxx:454
-#, c-format
+#: src/SongPage.cxx:450
+#, c++-format
 msgid "{} kbps"
 msgstr "{} kbps"
 
-#: src/SongPage.cxx:536
+#: src/SongPage.cxx:530
 msgid "Song"
 msgstr "Utwór"
 
