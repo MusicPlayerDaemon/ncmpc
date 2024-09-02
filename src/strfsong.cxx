@@ -43,17 +43,17 @@ skip(const char *p) noexcept
 
 static char *
 CopyString(char *dest, char *const dest_end,
-	   const char *src, size_t length) noexcept
+	   std::string_view src) noexcept
 {
-	if (length >= size_t(dest_end - dest))
-		length = dest_end - dest - 1;
+	if (src.size() >= size_t(dest_end - dest))
+		src = src.substr(0, dest_end - dest - 1);
 
-	return std::copy_n(src, length, dest);
+	return std::copy(src.begin(), src.end(), dest);
 }
 
 static char *
 CopyStringFromUTF8(char *dest, char *const dest_end,
-		   const char *src_utf8) noexcept
+		   std::string_view src_utf8) noexcept
 {
 	return CopyUtf8ToLocale({dest, dest_end}, src_utf8);
 }
@@ -160,7 +160,7 @@ _strfsong(char *const s0, char *const end,
 		const std::string_view name{p + 1, name_end};
 		size_t n = name_end - p + 1;
 
-		const char *value = nullptr, *value_utf8 = nullptr;
+		std::string_view value{}, value_utf8{};
 		enum mpd_tag_type tag = MPD_TAG_UNKNOWN;
 		bool short_tag = false;
 		char buffer[32];
@@ -234,27 +234,22 @@ _strfsong(char *const s0, char *const end,
 			continue;
 		}
 
-		if (value_utf8 != nullptr) {
+		if (value_utf8.data() != nullptr) {
 			found = true;
 			s = CopyStringFromUTF8(s, end, value_utf8);
 			continue;
 		}
 
-		size_t value_length;
-
-		if (value == nullptr) {
+		if (value.data() == nullptr) {
 			/* just pass-through any unknown specifiers (including esc) */
 			value = p;
-			value_length = n;
 
 			missed = true;
 		} else {
-			value_length = strlen(value);
-
 			found = true;
 		}
 
-		s = CopyString(s, end, value, value_length);
+		s = CopyString(s, end, value);
 	}
 
 	if(last) *last = p;
