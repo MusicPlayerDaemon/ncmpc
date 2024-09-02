@@ -209,13 +209,13 @@ static_assert(std::size(cmds) == size_t(Command::NONE),
 	      "Wrong command table size");
 
 const command_definition_t *
-get_command_definitions()
+get_command_definitions() noexcept
 {
 	return cmds;
 }
 
-size_t
-get_cmds_max_name_width()
+std::size_t
+get_cmds_max_name_width() noexcept
 {
 	static size_t max = 0;
 
@@ -236,19 +236,19 @@ get_cmds_max_name_width()
 }
 
 const char *
-get_key_description(Command command)
+get_key_description(Command command) noexcept
 {
 	return my_gettext(cmds[size_t(command)].description);
 }
 
 const char *
-get_key_command_name(Command command)
+get_key_command_name(Command command) noexcept
 {
 	return cmds[size_t(command)].name;
 }
 
 Command
-get_key_command_from_name(const char *name)
+get_key_command_from_name(const char *name) noexcept
 {
 	for (size_t i = 0; i < size_t(Command::NONE); ++i)
 		if (StringIsEqual(name, cmds[i].name))

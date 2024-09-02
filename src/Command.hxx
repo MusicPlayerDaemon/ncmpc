@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef COMMAND_H
-#define COMMAND_H
+#pragma once
 
 #include "config.h"
 
-#include <stddef.h>
+#include <cstddef>
 
 /* commands */
 enum class Command : unsigned {
@@ -123,21 +122,22 @@ typedef struct  {
 	const char *description;
 } command_definition_t;
 
+[[gnu::const]]
 const command_definition_t *
-get_command_definitions();
+get_command_definitions() noexcept;
 
 [[gnu::const]]
-size_t
-get_cmds_max_name_width();
+std::size_t
+get_cmds_max_name_width() noexcept;
 
 [[gnu::pure]]
-const char *get_key_description(Command command);
+const char *
+get_key_description(Command command) noexcept;
 
 [[gnu::pure]]
-const char *get_key_command_name(Command command);
+const char *
+get_key_command_name(Command command) noexcept;
 
 [[gnu::pure]]
 Command
-get_key_command_from_name(const char *name);
-
-#endif
+get_key_command_from_name(const char *name) noexcept;
