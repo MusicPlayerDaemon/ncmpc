@@ -25,11 +25,17 @@ Resolve(const char *node, const char *service,
 {
 	struct addrinfo *ai;
 	int error = getaddrinfo(node, service, hints, &ai);
-	if (error != 0)
+	if (error != 0) {
+#ifdef _WIN32
+		const char *msg = gai_strerrorA(error);
+#else
+		const char *msg = gai_strerror(error);
+#endif
 		throw FmtRuntimeError("Failed to resolve {:?}:{:?}: {}",
 				      node == nullptr ? "" : node,
 				      service == nullptr ? "" : service,
-				      gai_strerror(error));
+				      msg);
+	}
 
 	return AddressInfoList(ai);
 }
