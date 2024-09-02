@@ -1204,8 +1204,8 @@ msgstr "Пісня, що зараз програється"
 
 #: src/SongPage.cxx:454
 #, c-format
-msgid "%d kbps"
-msgstr "%d кбіт/с"
+msgid "{} kbps"
+msgstr "{} кбіт/с"
 
 #: src/SongPage.cxx:536
 msgid "Song"

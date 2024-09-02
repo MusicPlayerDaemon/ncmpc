@@ -1151,8 +1151,8 @@ msgstr "Çalan şarkı"
 
 #: src/SongPage.cxx:472
 #, c-format
-msgid "%d kbps"
-msgstr "%d kbps"
+msgid "{} kbps"
+msgstr "{} kbps"
 
 #: src/SongPage.cxx:556
 msgid "Song"

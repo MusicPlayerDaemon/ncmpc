@@ -1196,8 +1196,8 @@ msgstr "Nuntempe ludata kanto"
 
 #: src/SongPage.cxx:454
 #, c-format
-msgid "%d kbps"
-msgstr "%d kilobitoj/sek"
+msgid "{} kbps"
+msgstr "{} kilobitoj/sek"
 
 #: src/SongPage.cxx:536
 msgid "Song"

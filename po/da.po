@@ -1209,8 +1209,8 @@ msgstr "Nummer der afspilles"
 
 #: src/SongPage.cxx:454
 #, c-format
-msgid "%d kbps"
-msgstr "%d kb/sek"
+msgid "{} kbps"
+msgstr "{} kb/sek"
 
 #: src/SongPage.cxx:536
 msgid "Song"

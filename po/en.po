@@ -1191,8 +1191,8 @@ msgstr "Currently playing song"
 
 #: src/SongPage.cxx:454
 #, c-format
-msgid "%d kbps"
-msgstr "%d kbps"
+msgid "{} kbps"
+msgstr "{} kbps"
 
 #: src/SongPage.cxx:536
 msgid "Song"

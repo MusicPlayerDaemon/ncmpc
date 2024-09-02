@@ -15,6 +15,7 @@
 #include "charset.hxx"
 #include "time_format.hxx"
 #include "mpdclient.hxx"
+#include "lib/fmt/ToSpan.hxx"
 #include "util/LocaleString.hxx"
 #include "util/StringAPI.hxx"
 #include "util/StringStrip.hxx"
@@ -30,6 +31,8 @@
 
 #include <assert.h>
 #include <time.h>
+
+using std::string_view_literals::operator""sv;
 
 enum {
 	LABEL_LENGTH = MPD_TAG_COUNT,
@@ -306,7 +309,7 @@ SongPage::AddSong(const struct mpd_song *song) noexcept
 		char length[16];
 		format_duration_short(length, mpd_song_get_duration(song));
 
-		const char *value = length;
+		std::string_view value = length;
 
 		char buffer[64];
 
@@ -315,16 +318,12 @@ SongPage::AddSong(const struct mpd_song *song) noexcept
 			format_duration_short(start, mpd_song_get_start(song));
 			format_duration_short(end, mpd_song_get_end(song));
 
-			snprintf(buffer, sizeof(buffer), "%s [%s-%s]\n",
-				 length, start, end);
-			value = buffer;
+			value = FmtTruncate(buffer, "{} [{}-{}]"sv, length, start, end);
 		} else if (mpd_song_get_start(song) > 0) {
 			char start[16];
 			format_duration_short(start, mpd_song_get_start(song));
 
-			snprintf(buffer, sizeof(buffer), "%s [%s-]\n",
-				 length, start);
-			value = buffer;
+			value = FmtTruncate(buffer, "{} [{}-]"sv, length, start);
 		}
 
 		AppendLine(get_tag_label(LABEL_LENGTH), value,
@@ -380,37 +379,37 @@ SongPage::AddStats(struct mpd_connection *connection) noexcept
 	return true;
 }
 
-static void
-audio_format_to_string(char *buffer, size_t size,
-		       const struct mpd_audio_format *format) noexcept
+[[nodiscard]] [[gnu::pure]]
+static std::string_view
+audio_format_to_string(std::span<char> buffer,
+		       const struct mpd_audio_format &format) noexcept
 {
-	if (format->bits == MPD_SAMPLE_FORMAT_FLOAT) {
-		snprintf(buffer, size, "%u:f:%u",
-			 format->sample_rate,
-			 format->channels);
-		return;
+	if (format.bits == MPD_SAMPLE_FORMAT_FLOAT) {
+		return FmtTruncate(buffer, "{}:f:{}"sv,
+				   format.sample_rate,
+				   format.channels);
 	}
 
-	if (format->bits == MPD_SAMPLE_FORMAT_DSD) {
-		if (format->sample_rate > 0 &&
-		    format->sample_rate % 44100 == 0) {
+	if (format.bits == MPD_SAMPLE_FORMAT_DSD) {
+		if (format.sample_rate > 0 &&
+		    format.sample_rate % 44100 == 0) {
 			/* use shortcuts such as "dsd64" which implies the
 			   sample rate */
-			snprintf(buffer, size, "dsd%u:%u",
-				 format->sample_rate * 8 / 44100,
-				 format->channels);
-			return;
+
+			return FmtTruncate(buffer, "dsd{}:{}"sv,
+					   format.sample_rate * 8 / 44100,
+					   format.channels);
 		}
 
-		snprintf(buffer, size, "%u:dsd:%u",
-			 format->sample_rate,
-			 format->channels);
-		return;
+		return FmtTruncate(buffer, "{}:dsd:{}"sv,
+				   format.sample_rate,
+				   format.channels);
 	}
 
-	snprintf(buffer, size, "%u:%u:%u",
-		 format->sample_rate, format->bits,
-		 format->channels);
+	return FmtTruncate(buffer, "{}:{}:{}"sv,
+			   format.sample_rate,
+			   format.bits,
+			   format.channels);
 }
 
 void
@@ -444,11 +443,11 @@ SongPage::Update(struct mpdclient &c, unsigned) noexcept
 		lines.emplace_back(_("Currently playing song"));
 		AddSong(played_song);
 
-		if (mpd_status_get_kbit_rate(c.status) > 0) {
+		if (const auto kbit_rate = mpd_status_get_kbit_rate(c.status);
+		    kbit_rate > 0) {
 			char buf[16];
-			snprintf(buf, sizeof(buf), _("%d kbps"),
-				 mpd_status_get_kbit_rate(c.status));
-			AppendLine(get_tag_label(LABEL_BITRATE), buf,
+			AppendLine(get_tag_label(LABEL_BITRATE),
+				   FmtTruncate(buf, _("{} kbps"), kbit_rate),
 				   max_tag_label_width);
 		}
 
@@ -456,8 +455,8 @@ SongPage::Update(struct mpdclient &c, unsigned) noexcept
 			mpd_status_get_audio_format(c.status);
 		if (format) {
 			char buf[32];
-			audio_format_to_string(buf, sizeof(buf), format);
-			AppendLine(get_tag_label(LABEL_FORMAT), buf,
+			AppendLine(get_tag_label(LABEL_FORMAT),
+				   audio_format_to_string(buf, *format),
 				   max_tag_label_width);
 		}
 

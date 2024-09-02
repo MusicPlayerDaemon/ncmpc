@@ -1197,8 +1197,8 @@ msgstr "当前播放曲目"
 
 #: src/SongPage.cxx:454
 #, c-format
-msgid "%d kbps"
-msgstr "码率 %d kbps"
+msgid "{} kbps"
+msgstr "码率 {} kbps"
 
 #: src/SongPage.cxx:536
 msgid "Song"

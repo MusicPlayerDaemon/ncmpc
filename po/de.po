@@ -1200,8 +1200,8 @@ msgstr "Gerade laufendes Lied"
 
 #: src/SongPage.cxx:454
 #, c-format
-msgid "%d kbps"
-msgstr "%d kB/s"
+msgid "{} kbps"
+msgstr "{} kB/s"
 
 #: src/SongPage.cxx:536
 msgid "Song"

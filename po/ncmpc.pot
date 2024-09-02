@@ -1186,7 +1186,7 @@ msgstr ""
 
 #: src/SongPage.cxx:454
 #, c-format
-msgid "%d kbps"
+msgid "{} kbps"
 msgstr ""
 
 #: src/SongPage.cxx:536
