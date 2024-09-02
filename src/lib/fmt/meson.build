@@ -14,6 +14,7 @@ endif
 fmt = static_library(
   'fmt',
   'RuntimeError.cxx',
+  'ToSpan.cxx',
   include_directories: inc,
   dependencies: libfmt,
 )

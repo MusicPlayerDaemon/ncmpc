@@ -9,14 +9,9 @@
 #include <string_view>
 
 [[nodiscard]] [[gnu::pure]]
-inline std::string_view
+std::string_view
 VFmtTruncate(std::span<char> buffer,
-	     fmt::string_view format_str, fmt::format_args args) noexcept
-{
-	auto [p, _] = fmt::vformat_to_n(buffer.begin(), buffer.size(),
-					format_str, args);
-	return {buffer.begin(), p};
-}
+	     fmt::string_view format_str, fmt::format_args args) noexcept;
 
 template<typename S, typename... Args>
 [[nodiscard]] [[gnu::pure]]
