@@ -31,7 +31,7 @@ ProgressBar::Paint() const noexcept
 		if (width > 0)
 			window.HLine({0, 0}, width, '=');
 
-		window.Char({0, (int)width}, '>');
+		window.Char({(int)width, 0}, '>');
 		unsigned x = width + 1;
 
 		if (x < window_width) {
