@@ -241,11 +241,6 @@ StatusBar::Paint() const noexcept
 			window.String({(int)left_width, 0}, center_text);
 	}
 
-	/* display time string */
-	int x = window_width - right_width;
-	SelectStyle(window, Style::STATUS_TIME);
-	window.String({x, 0}, right_text);
-
 	window.RefreshNoOut();
 }
 
