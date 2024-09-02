@@ -245,16 +245,19 @@ SongPage::AppendLine(const char *label, const char *value_utf8,
 		/* skip whitespaces */
 		value_iter = StripLeft(value_iter);
 
-		const char *value_iter_end = AtWidthMB({value_iter, value_end},
-						       value_col);
-		if (value_iter_end == value_iter)
+		auto truncated_value = TruncateAtWidthMB({value_iter, value_end},
+							 value_col);
+		if (truncated_value.empty())
 			/* not enough room for anything - bail out */
 			break;
 
-		p += snprintf(p, buffer_end - p, "%.*s",
-			      int(value_iter_end - value_iter), value_iter);
-		value_iter = value_iter_end;
+		value_iter += truncated_value.size();
 
+		const std::size_t remaining_space = buffer_end - p;
+		if (truncated_value.size() > remaining_space)
+			truncated_value = truncated_value.substr(0, remaining_space);
+
+		p = std::copy(truncated_value.begin(), truncated_value.end(), p);
 		lines.emplace_back(buffer, p);
 	}
 }
