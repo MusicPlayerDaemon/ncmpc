@@ -34,7 +34,7 @@ mpdclient_auth_callback(struct mpdclient *c) noexcept
 }
 
 void
-mpdclient_error_callback(const char *message) noexcept
+mpdclient_error_callback(std::string_view message) noexcept
 {
 	screen_status_message(message);
 	screen_bell();

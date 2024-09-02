@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_CALLBACKS_H
-#define NCMPC_CALLBACKS_H
+#pragma once
 
 #include <exception>
+#include <string_view>
 
 struct mpdclient;
 
@@ -35,7 +35,7 @@ mpdclient_lost_callback() noexcept;
  * @param message a human-readable error message in the locale charset
  */
 void
-mpdclient_error_callback(const char *message) noexcept;
+mpdclient_error_callback(std::string_view message) noexcept;
 
 void
 mpdclient_error_callback(std::exception_ptr e) noexcept;
@@ -45,5 +45,3 @@ mpdclient_auth_callback(struct mpdclient *c) noexcept;
 
 void
 mpdclient_idle_callback(unsigned events) noexcept;
-
-#endif

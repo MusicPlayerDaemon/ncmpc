@@ -26,7 +26,7 @@ mpdclient_invoke_error_callback(enum mpd_error error,
 {
 	if (error == MPD_ERROR_SERVER)
 		/* server errors are UTF-8, the others are locale */
-		mpdclient_error_callback(Utf8ToLocale(message).c_str());
+		mpdclient_error_callback(Utf8ToLocale{message});
 	else
 		mpdclient_error_callback(message);
 }
