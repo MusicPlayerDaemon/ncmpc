@@ -124,7 +124,7 @@ TagListPage::PaintListItem(const Window window, unsigned i,
 
 	if (i < values.size())
 		screen_browser_paint_directory(window, width, selected,
-					       Utf8ToLocale(values[i].c_str()).c_str());
+					       Utf8ToLocale{values[i]});
 	else
 		screen_browser_paint_directory(window, width, selected,
 					       all_text);
@@ -180,7 +180,7 @@ add_query(struct mpdclient *c, const TagFilter &filter,
 		text = filter.empty() ? "?" : filter.front().second.c_str();
 
 	screen_status_fmt(_("Adding '{}' to queue"),
-			  Utf8ToLocale(text).c_str());
+			  (std::string_view)Utf8ToLocale{text});
 
 	mpd_search_add_db_songs(connection, true);
 	AddConstraints(connection, filter);
