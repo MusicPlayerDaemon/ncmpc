@@ -6,6 +6,7 @@
 #include "screen_status.hxx"
 #include "mpdclient.hxx"
 #include "ncmpc.hxx"
+#include "ui/Bell.hxx"
 
 #include <curses.h>
 
@@ -37,7 +38,7 @@ void
 mpdclient_error_callback(std::string_view message) noexcept
 {
 	screen_status_message(message);
-	screen_bell();
+	Bell();
 	doupdate();
 }
 
@@ -45,6 +46,6 @@ void
 mpdclient_error_callback(std::exception_ptr e) noexcept
 {
 	screen_status_error(std::move(e));
-	screen_bell();
+	Bell();
 	doupdate();
 }

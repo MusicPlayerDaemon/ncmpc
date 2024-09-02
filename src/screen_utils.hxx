@@ -9,10 +9,6 @@
 
 class ScreenManager;
 
-/* sound an audible and/or visible bell */
-void
-screen_bell() noexcept;
-
 /* read a character from the status window */
 int
 screen_getch(ScreenManager &screen, const char *prompt) noexcept;

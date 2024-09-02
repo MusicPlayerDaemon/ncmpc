@@ -9,6 +9,7 @@
 #include "i18n.h"
 #include "Command.hxx"
 #include "Options.hxx"
+#include "ui/Bell.hxx"
 #include "ui/ListWindow.hxx"
 #include "util/LocaleString.hxx"
 
@@ -58,7 +59,7 @@ screen_find(ScreenManager &screen, ListWindow &lw, Command findcmd,
 		if (!found) {
 			screen_status_printf(_("Unable to find \'%s\'"),
 					     screen.findbuf.c_str());
-			screen_bell();
+			Bell();
 		}
 		return true;
 	default:

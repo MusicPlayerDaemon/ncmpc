@@ -4,12 +4,12 @@
 #include "ListWindow.hxx"
 #include "ListRenderer.hxx"
 #include "ListText.hxx"
+#include "Bell.hxx"
 #include "config.h"
 #include "Match.hxx"
 #include "Options.hxx"
 #include "Command.hxx"
 #include "paint.hxx"
-#include "screen_utils.hxx"
 
 void
 ListWindow::Paint(const ListRenderer &renderer) const noexcept
@@ -75,7 +75,7 @@ ListWindow::Find(const ListText &text,
 				return 1;
 			i=0; /* first item */
 			if (options.bell_on_wrap) {
-				screen_bell();
+				Bell();
 			}
 		}
 	} while (wrap);
@@ -115,7 +115,7 @@ ListWindow::ReverseFind(const ListText &text,
 		if (wrap) {
 			i = GetLength() - 1; /* last item */
 			if (options.bell_on_wrap) {
-				screen_bell();
+				Bell();
 			}
 		}
 	} while (wrap);

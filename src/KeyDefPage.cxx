@@ -14,6 +14,7 @@
 #include "GlobalBindings.hxx"
 #include "screen_utils.hxx"
 #include "Options.hxx"
+#include "ui/Bell.hxx"
 #include "ui/ListText.hxx"
 #include "ui/TextListRenderer.hxx"
 #include "util/SPrintf.hxx"
@@ -179,7 +180,7 @@ CommandKeysPage::OverwriteKey(int key_index)
 		screen_status_printf(_("Error: key %s is already used for %s"),
 				     GetLocalizedKeyName(key),
 				     get_key_command_name(cmd));
-		screen_bell();
+		Bell();
 		return;
 	}
 
@@ -382,7 +383,7 @@ CommandListPage::Save()
 		filename = MakeKeysPath();
 		if (filename.empty()) {
 			screen_status_message(_("Unable to write configuration"));
-			screen_bell();
+			Bell();
 			return;
 		}
 	} else
@@ -392,7 +393,7 @@ CommandListPage::Save()
 	if (f == nullptr) {
 		screen_status_printf("%s: %s - %s", _("Error"),
 				     filename.c_str(), strerror(errno));
-		screen_bell();
+		Bell();
 		return;
 	}
 

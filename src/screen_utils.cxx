@@ -5,7 +5,6 @@
 #include "screen.hxx"
 #include "config.h"
 #include "i18n.h"
-#include "Options.hxx"
 #include "Styles.hxx"
 #include "wreadln.hxx"
 #include "config.h"
@@ -18,15 +17,6 @@
 #include <string.h>
 
 using std::string_view_literals::operator""sv;
-
-void
-screen_bell() noexcept
-{
-	if (options.audible_bell)
-		beep();
-	if (options.visible_bell)
-		flash();
-}
 
 static constexpr bool
 ignore_key(int key) noexcept

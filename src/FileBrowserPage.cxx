@@ -16,6 +16,7 @@
 #include "screen_client.hxx"
 #include "Command.hxx"
 #include "Options.hxx"
+#include "ui/Bell.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "util/UriUtil.hxx"
 
@@ -236,7 +237,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c) noexcept
 			   for playlists; the user attempted to delete a song
 			   or a directory or something else */
 			screen_status_message(_("Deleting this item is not possible"));
-			screen_bell();
+			Bell();
 			continue;
 		}
 

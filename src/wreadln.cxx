@@ -3,8 +3,9 @@
 
 #include "wreadln.hxx"
 #include "Completion.hxx"
-#include "screen_utils.hxx"
+//#include "screen_utils.hxx"
 #include "config.h"
+#include "ui/Bell.hxx"
 #include "ui/Point.hxx"
 #include "ui/Window.hxx"
 #include "util/LocaleString.hxx"
@@ -341,7 +342,7 @@ _wreadln(const Window window,
 					wr.value = std::move(r.new_prefix);
 					wr.MoveCursorToEnd();
 				} else
-					screen_bell();
+					Bell();
 
 				completion->Post(wr.value, r.range);
 			}
@@ -350,7 +351,7 @@ _wreadln(const Window window,
 
 		case KEY_CTRL_C:
 		case KEY_CTRL_G:
-			screen_bell();
+			Bell();
 			if (history) {
 				history->pop_back();
 			}
