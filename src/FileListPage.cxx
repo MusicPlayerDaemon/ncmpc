@@ -568,9 +568,9 @@ FileListPage::PaintStatusBarOverride(const Window window) const noexcept
 			duration += mpd_song_get_duration(mpd_entity_get_song(entity));
 	}
 
-	char duration_string[32];
-	format_duration_short(duration_string, duration);
-	const unsigned duration_width = strlen(duration_string);
+	char duration_buffer[32];
+	const auto duration_string = format_duration_short(duration_buffer, duration);
+	const unsigned duration_width = duration_string.size();
 
 	SelectStyle(window, Style::STATUS_TIME);
 	window.String({0, (int)window.GetWidth() - (int)duration_width}, duration_string);

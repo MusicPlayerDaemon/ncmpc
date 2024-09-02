@@ -306,8 +306,8 @@ SongPage::AddSong(const struct mpd_song *song) noexcept
 
 	/* create time string and add it */
 	if (mpd_song_get_duration(song) > 0) {
-		char length[16];
-		format_duration_short(length, mpd_song_get_duration(song));
+		char length_buffer[16];
+		const auto length = format_duration_short(length_buffer, mpd_song_get_duration(song));
 
 		std::string_view value = length;
 
@@ -315,15 +315,15 @@ SongPage::AddSong(const struct mpd_song *song) noexcept
 
 		if (mpd_song_get_end(song) > 0) {
 			char start[16], end[16];
-			format_duration_short(start, mpd_song_get_start(song));
-			format_duration_short(end, mpd_song_get_end(song));
 
-			value = FmtTruncate(buffer, "{} [{}-{}]"sv, length, start, end);
+			value = FmtTruncate(buffer, "{} [{}-{}]"sv, length,
+					    format_duration_short(start, mpd_song_get_start(song)),
+					    format_duration_short(end, mpd_song_get_end(song)));
 		} else if (mpd_song_get_start(song) > 0) {
 			char start[16];
-			format_duration_short(start, mpd_song_get_start(song));
 
-			value = FmtTruncate(buffer, "{} [{}-]"sv, length, start);
+			value = FmtTruncate(buffer, "{} [{}-]"sv, length,
+					    format_duration_short(start, mpd_song_get_start(song)));
 		}
 
 		AppendLine(get_tag_label(LABEL_LENGTH), value,

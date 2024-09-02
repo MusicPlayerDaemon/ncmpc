@@ -3,19 +3,22 @@
 
 #include "time_format.hxx"
 #include "i18n.h"
+#include "lib/fmt/ToSpan.hxx"
 
 #include <stdio.h>
 
-void
+using std::string_view_literals::operator""sv;
+
+std::string_view
 format_duration_short(std::span<char> buffer, unsigned duration) noexcept
 {
 	if (duration < 3600)
-		snprintf(buffer.data(), buffer.size(),
-			 "%i:%02i", duration / 60, duration % 60);
+		return FmtTruncate(buffer, "{}:{:02}"sv, duration / 60, duration % 60);
 	else
-		snprintf(buffer.data(), buffer.size(),
-			 "%i:%02i:%02i", duration / 3600,
-			 (duration % 3600) / 60, duration % 60);
+		return FmtTruncate(buffer, "{}:{:02}:{:02}"sv,
+				   duration / 3600,
+				   (duration % 3600) / 60,
+				   duration % 60);
 }
 
 void

@@ -4,8 +4,10 @@
 #pragma once
 
 #include <span>
+#include <string_view>
 
-void
+[[nodiscard]] [[gnu::pure]]
+std::string_view
 format_duration_short(std::span<char> buffer, unsigned duration) noexcept;
 
 void

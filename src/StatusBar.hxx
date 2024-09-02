@@ -29,7 +29,8 @@ class StatusBar {
 #endif
 
 	const char *left_text;
-	char right_text[64];
+	char right_buffer[64];
+	std::size_t right_length;
 
 	std::string center_text;
 

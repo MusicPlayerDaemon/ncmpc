@@ -212,8 +212,7 @@ _strfsong(char *const s0, char *const end,
 			unsigned duration = mpd_song_get_duration(&song);
 
 			if (duration > 0)  {
-				format_duration_short(buffer, duration);
-				value = buffer;
+				value = format_duration_short(buffer, duration);
 			}
 		}
 

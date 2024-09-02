@@ -27,9 +27,9 @@ paint_song_row(const Window window, [[maybe_unused]] int y, unsigned width,
 
 #ifndef NCMPC_MINI
 	if (options.second_column && mpd_song_get_duration(&song) > 0) {
-		char duration[32];
-		format_duration_short(duration, mpd_song_get_duration(&song));
-		width -= strlen(duration) + 1;
+		char duration_buffer[32];
+		const auto duration = format_duration_short(duration_buffer, mpd_song_get_duration(&song));
+		width -= duration.size() + 1;
 		window.MoveCursor({(int)width, y});
 		window.Char(' ');
 		window.String(duration);
