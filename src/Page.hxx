@@ -4,8 +4,8 @@
 #pragma once
 
 #include "config.h"
-#include "Point.hxx"
-#include "Size.hxx"
+#include "ui/Point.hxx"
+#include "ui/Size.hxx"
 
 #include <curses.h>
 

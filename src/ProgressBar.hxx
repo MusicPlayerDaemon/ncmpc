@@ -4,7 +4,7 @@
 #ifndef NCMPC_PROGRESS_BAR_HXX
 #define NCMPC_PROGRESS_BAR_HXX
 
-#include "Window.hxx"
+#include "ui/Window.hxx"
 
 class ProgressBar {
 	UniqueWindow window;

@@ -2,7 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "Page.hxx"
-#include "Window.hxx"
+#include "ui/Window.hxx"
 
 bool
 Page::PaintStatusBarOverride(Window) const noexcept

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Size.hxx"
+#include "ui/Size.hxx"
 
 #include <memory>
 

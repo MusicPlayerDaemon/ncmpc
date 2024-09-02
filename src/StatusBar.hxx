@@ -5,7 +5,7 @@
 #define NCMPC_STATUS_BAR_HXX
 
 #include "config.h" // IWYU pragma: keep
-#include "Window.hxx"
+#include "ui/Window.hxx"
 #include "event/CoarseTimerEvent.hxx"
 
 #ifndef NCMPC_MINI

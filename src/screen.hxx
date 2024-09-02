@@ -5,12 +5,12 @@
 #define SCREEN_H
 
 #include "config.h"
-#include "Window.hxx"
 #include "TitleBar.hxx"
 #include "ProgressBar.hxx"
 #include "StatusBar.hxx"
 #include "History.hxx"
-#include "Point.hxx"
+#include "ui/Point.hxx"
+#include "ui/Window.hxx"
 #include "event/IdleEvent.hxx"
 
 #include <curses.h>

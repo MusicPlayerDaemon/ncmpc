@@ -5,11 +5,11 @@
 #include "screen_utils.hxx"
 #include "screen_status.hxx"
 #include "screen.hxx"
-#include "ListWindow.hxx"
 #include "AsyncUserInput.hxx"
 #include "i18n.h"
 #include "Command.hxx"
 #include "Options.hxx"
+#include "ui/ListWindow.hxx"
 #include "util/LocaleString.hxx"
 
 #include <ctype.h>

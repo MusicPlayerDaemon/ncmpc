@@ -4,8 +4,6 @@
 #include "KeyDefPage.hxx"
 #include "PageMeta.hxx"
 #include "ListPage.hxx"
-#include "ListText.hxx"
-#include "TextListRenderer.hxx"
 #include "ProxyPage.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
@@ -16,6 +14,8 @@
 #include "GlobalBindings.hxx"
 #include "screen_utils.hxx"
 #include "Options.hxx"
+#include "ui/ListText.hxx"
+#include "ui/TextListRenderer.hxx"
 #include "util/SPrintf.hxx"
 
 #include <assert.h>

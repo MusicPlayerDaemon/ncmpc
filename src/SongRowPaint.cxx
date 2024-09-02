@@ -2,13 +2,13 @@
 // Copyright The Music Player Daemon Project
 
 #include "SongRowPaint.hxx"
-#include "Window.hxx"
-#include "paint.hxx"
 #include "strfsong.hxx"
 #include "time_format.hxx"
 #include "hscroll.hxx"
-#include "config.h" // IWYU pragma: keep
+#include "ui/Window.hxx"
+#include "ui/paint.hxx"
 #include "util/LocaleString.hxx"
+#include "config.h" // IWYU pragma: keep
 
 #include <mpd/client.h>
 

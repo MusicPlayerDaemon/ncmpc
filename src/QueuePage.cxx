@@ -4,8 +4,6 @@
 #include "QueuePage.hxx"
 #include "PageMeta.hxx"
 #include "ListPage.hxx"
-#include "ListRenderer.hxx"
-#include "ListText.hxx"
 #include "FileBrowserPage.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
@@ -26,6 +24,8 @@
 #include "SongPage.hxx"
 #include "LyricsPage.hxx"
 #include "db_completion.hxx"
+#include "ui/ListRenderer.hxx"
+#include "ui/ListText.hxx"
 #include "event/CoarseTimerEvent.hxx"
 #include "util/SPrintf.hxx"
 

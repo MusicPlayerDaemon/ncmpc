@@ -4,7 +4,7 @@
 #pragma once
 
 #include "Page.hxx"
-#include "ListWindow.hxx"
+#include "ui/ListWindow.hxx"
 
 /**
  * An abstract #Page implementation which shows a #ListWindow.

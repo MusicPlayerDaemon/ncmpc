@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Window.hxx"
+#include "ui/Window.hxx"
 
 #include <string_view>
 

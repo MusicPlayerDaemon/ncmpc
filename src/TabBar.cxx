@@ -8,7 +8,7 @@
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "i18n.h"
-#include "Window.hxx"
+#include "ui/Window.hxx"
 
 static void
 PaintPageTab(const Window window, Command cmd, std::string_view label, bool selected) noexcept

@@ -4,7 +4,7 @@
 #pragma once
 
 #include "Page.hxx"
-#include "Window.hxx"
+#include "ui/Window.hxx"
 #include "config.h"
 
 class ProxyPage : public Page {

@@ -2,11 +2,11 @@
 // Copyright The Music Player Daemon Project
 
 #include "wreadln.hxx"
-#include "Window.hxx"
 #include "Completion.hxx"
 #include "screen_utils.hxx"
-#include "Point.hxx"
 #include "config.h"
+#include "ui/Point.hxx"
+#include "ui/Window.hxx"
 #include "util/LocaleString.hxx"
 
 #include <string>

@@ -4,14 +4,14 @@
 #include "HelpPage.hxx"
 #include "PageMeta.hxx"
 #include "ListPage.hxx"
-#include "ListRenderer.hxx"
-#include "ListText.hxx"
 #include "screen_find.hxx"
-#include "paint.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "config.h"
 #include "i18n.h"
+#include "ui/ListRenderer.hxx"
+#include "ui/ListText.hxx"
+#include "ui/paint.hxx"
 #include "util/LocaleString.hxx"
 
 #include <iterator>

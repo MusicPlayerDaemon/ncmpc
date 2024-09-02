@@ -2,9 +2,9 @@
 // Copyright The Music Player Daemon Project
 
 #include "TextPage.hxx"
-#include "TextListRenderer.hxx"
 #include "screen_find.hxx"
 #include "charset.hxx"
+#include "ui/TextListRenderer.hxx"
 
 #include <algorithm>
 

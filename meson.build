@@ -373,6 +373,7 @@ subdir('src/io')
 subdir('src/system')
 subdir('src/net')
 subdir('src/event')
+subdir('src/ui')
 
 ncmpc = executable('ncmpc',
   'src/Main.cxx',
@@ -409,9 +410,6 @@ ncmpc = executable('ncmpc',
   'src/FileListPage.cxx',
   'src/FileBrowserPage.cxx',
   'src/ProxyPage.cxx',
-  'src/ListCursor.cxx',
-  'src/ListWindow.cxx',
-  'src/TextListRenderer.cxx',
   'src/save_playlist.cxx',
   'src/SongRowPaint.cxx',
   'src/BasicColors.cxx',
@@ -442,6 +440,7 @@ ncmpc = executable('ncmpc',
     lirc_dep,
     libmpdclient_dep,
     fmt_dep,
+    ui_dep,
   ],
   install: true
 )

@@ -18,9 +18,9 @@
 #include "mpdclient.hxx"
 #include "filelist.hxx"
 #include "Styles.hxx"
-#include "paint.hxx"
 #include "SongRowPaint.hxx"
 #include "time_format.hxx"
+#include "ui/paint.hxx"
 #include "util/UriUtil.hxx"
 
 #include <mpd/client.h>

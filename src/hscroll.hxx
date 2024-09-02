@@ -4,9 +4,9 @@
 #pragma once
 
 #include "BasicMarquee.hxx"
+#include "ui/Point.hxx"
+#include "ui/Window.hxx"
 #include "event/FineTimerEvent.hxx"
-#include "Point.hxx"
-#include "Window.hxx"
 
 enum class Style : unsigned;
 

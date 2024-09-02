@@ -5,7 +5,7 @@
 #include "TableLayout.hxx"
 #include "TableStructure.hxx"
 #include "strfsong.hxx"
-#include "paint.hxx"
+#include "ui/paint.hxx"
 #include "util/LocaleString.hxx"
 
 static void

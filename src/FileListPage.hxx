@@ -5,8 +5,8 @@
 
 #include "config.h"
 #include "ListPage.hxx"
-#include "ListRenderer.hxx"
-#include "ListText.hxx"
+#include "ui/ListRenderer.hxx"
+#include "ui/ListText.hxx"
 
 #include <memory>
 

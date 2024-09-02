@@ -7,7 +7,7 @@
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "ncmpc.hxx"
-#include "Point.hxx"
+#include "ui/Point.hxx"
 
 static constexpr bool
 ignore_key(int key) noexcept

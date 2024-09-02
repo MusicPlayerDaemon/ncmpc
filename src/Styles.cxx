@@ -5,10 +5,10 @@
 #include "BasicColors.hxx"
 #include "CustomColors.hxx"
 #include "i18n.h"
+#include "ui/Window.hxx"
 #include "lib/fmt/RuntimeError.hxx"
 #include "util/StringAPI.hxx"
 #include "util/StringStrip.hxx"
-#include "Window.hxx"
 
 #ifdef ENABLE_COLORS
 #include "Options.hxx"

@@ -5,8 +5,8 @@
 
 #include "TagFilter.hxx"
 #include "ListPage.hxx"
-#include "ListRenderer.hxx"
-#include "ListText.hxx"
+#include "ui/ListRenderer.hxx"
+#include "ui/ListText.hxx"
 
 #include <vector>
 #include <string>

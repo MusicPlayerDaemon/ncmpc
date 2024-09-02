@@ -4,7 +4,6 @@
 #include "SearchPage.hxx"
 #include "PageMeta.hxx"
 #include "screen_status.hxx"
-#include "TextListRenderer.hxx"
 #include "i18n.h"
 #include "Options.hxx"
 #include "Bindings.hxx"
@@ -14,6 +13,7 @@
 #include "screen_utils.hxx"
 #include "FileListPage.hxx"
 #include "filelist.hxx"
+#include "ui/TextListRenderer.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "util/StringAPI.hxx"
 

@@ -4,7 +4,7 @@
 #pragma once
 
 #include "ListPage.hxx"
-#include "ListText.hxx"
+#include "ui/ListText.hxx"
 
 #include <vector>
 #include <string>
