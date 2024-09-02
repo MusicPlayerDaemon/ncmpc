@@ -118,7 +118,7 @@ public:
 		:value(src) {}
 
 	[[nodiscard]]
-	explicit constexpr Utf8ToLocaleZ(const std::string &src) noexcept
+	explicit Utf8ToLocaleZ(const std::string &src) noexcept
 		:Utf8ToLocaleZ(src.c_str()) {}
 
 	[[nodiscard]] [[gnu::pure]]
@@ -139,7 +139,7 @@ public:
 		:value(src) {}
 
 	[[nodiscard]]
-	explicit constexpr LocaleToUtf8Z(const std::string &src) noexcept
+	explicit LocaleToUtf8Z(const std::string &src) noexcept
 		:LocaleToUtf8Z(src.c_str()) {}
 
 	[[nodiscard]] [[gnu::pure]]
