@@ -21,6 +21,8 @@
 
 #include <mpd/client.h>
 
+#include <fmt/format.h>
+
 #include <algorithm>
 #include <iterator>
 #include <vector>
@@ -294,9 +296,8 @@ SongPage::AddSong(const struct mpd_song *song) noexcept
 {
 	assert(song != nullptr);
 
-	char songpos[16];
-	snprintf(songpos, sizeof(songpos), "%d", mpd_song_get_pos(song) + 1);
-	AppendLine(get_tag_label(LABEL_POSITION), songpos,
+	AppendLine(get_tag_label(LABEL_POSITION),
+		   fmt::format_int{mpd_song_get_pos(song) + 1}.c_str(),
 		   max_tag_label_width);
 
 	AppendTag(song, MPD_TAG_ARTIST);
@@ -360,17 +361,11 @@ SongPage::AddStats(struct mpd_connection *connection) noexcept
 
 	lines.emplace_back(_("MPD statistics"));
 
-	char buf[64];
-	snprintf(buf, sizeof(buf), "%d",
-		 mpd_stats_get_number_of_artists(mpd_stats));
-	AppendStatsLine(STATS_ARTISTS, buf);
-	snprintf(buf, sizeof(buf), "%d",
-		 mpd_stats_get_number_of_albums(mpd_stats));
-	AppendStatsLine(STATS_ALBUMS, buf);
-	snprintf(buf, sizeof(buf), "%d",
-		 mpd_stats_get_number_of_songs(mpd_stats));
-	AppendStatsLine(STATS_SONGS, buf);
+	AppendStatsLine(STATS_ARTISTS, fmt::format_int{mpd_stats_get_number_of_artists(mpd_stats)}.c_str());
+	AppendStatsLine(STATS_ALBUMS, fmt::format_int{mpd_stats_get_number_of_albums(mpd_stats)}.c_str());
+	AppendStatsLine(STATS_SONGS, fmt::format_int{mpd_stats_get_number_of_songs(mpd_stats)}.c_str());
 
+	char buf[64];
 	format_duration_long(buf, mpd_stats_get_db_play_time(mpd_stats));
 	AppendStatsLine(STATS_DBPLAYTIME, buf);
 
