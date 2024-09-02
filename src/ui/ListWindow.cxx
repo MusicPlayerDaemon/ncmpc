@@ -13,8 +13,6 @@
 #include "screen_utils.hxx"
 #include "i18n.h"
 
-#include <assert.h>
-
 void
 ListWindow::Paint(const ListRenderer &renderer) const noexcept
 {
