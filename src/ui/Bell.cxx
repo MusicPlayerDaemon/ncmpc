@@ -6,8 +6,8 @@
 void
 Bell() noexcept
 {
-	if (options.audible_bell)
+	if (ui_options.audible_bell)
 		beep();
-	if (options.visible_bell)
+	if (ui_options.visible_bell)
 		flash();
 }

@@ -15,6 +15,7 @@
 #include "screen_list.hxx"
 #include "PageMeta.hxx"
 #include "Options.hxx"
+#include "ui/Options.hxx"
 #include "lib/fmt/RuntimeError.hxx"
 #include "util/CharUtil.hxx"
 #include "util/PrintException.hxx"
@@ -594,12 +595,12 @@ parse_line(char *line)
 	/* enable colors */
 	else if(StringIsEqualIgnoreCase(CONF_ENABLE_COLORS, name))
 #ifdef ENABLE_COLORS
-		options.enable_colors = str2bool(value);
+		ui_options.enable_colors = str2bool(value);
 #else
 	{}
 #endif
 	else if (StringIsEqualIgnoreCase(CONF_SCROLL_OFFSET, name))
-		options.scroll_offset = atoi(value);
+		ui_options.scroll_offset = atoi(value);
 	/* auto center */
 	else if (StringIsEqualIgnoreCase(CONF_AUTO_CENTER, name))
 		options.auto_center = str2bool(value);
@@ -612,9 +613,9 @@ parse_line(char *line)
 #endif
 	/* wide cursor */
 	else if (StringIsEqualIgnoreCase(CONF_WIDE_CURSOR, name))
-		options.wide_cursor = str2bool(value);
+		ui_options.wide_cursor = str2bool(value);
 	else if (StringIsEqualIgnoreCase(name, CONF_HARDWARE_CURSOR))
-		options.hardware_cursor = str2bool(value);
+		ui_options.hardware_cursor = str2bool(value);
 	/* welcome screen list */
 	else if (StringIsEqualIgnoreCase(CONF_WELCOME_SCREEN_LIST, name))
 		options.welcome_screen_list = str2bool(value);
@@ -649,17 +650,17 @@ parse_line(char *line)
 	} else if (StringIsEqualIgnoreCase(CONF_XTERM_TITLE_FORMAT, name)) {
 		options.xterm_title_format = GetStringValue(value);
 	} else if (StringIsEqualIgnoreCase(CONF_LIST_WRAP, name))
-		options.list_wrap = str2bool(value);
+		ui_options.list_wrap = str2bool(value);
 	else if (StringIsEqualIgnoreCase(CONF_FIND_WRAP, name))
-		options.find_wrap = str2bool(value);
+		ui_options.find_wrap = str2bool(value);
 	else if (StringIsEqualIgnoreCase(CONF_FIND_SHOW_LAST,name))
-		options.find_show_last_pattern = str2bool(value);
+		ui_options.find_show_last_pattern = str2bool(value);
 	else if (StringIsEqualIgnoreCase(CONF_AUDIBLE_BELL, name))
-		options.audible_bell = str2bool(value);
+		ui_options.audible_bell = str2bool(value);
 	else if (StringIsEqualIgnoreCase(CONF_VISIBLE_BELL, name))
-		options.visible_bell = str2bool(value);
+		ui_options.visible_bell = str2bool(value);
 	else if (StringIsEqualIgnoreCase(CONF_BELL_ON_WRAP, name))
-		options.bell_on_wrap = str2bool(value);
+		ui_options.bell_on_wrap = str2bool(value);
 	else if (StringIsEqualIgnoreCase(CONF_STATUS_MESSAGE_TIME, name))
 		options.status_message_time = std::chrono::seconds(atoi(value));
 	else if (StringIsEqualIgnoreCase(CONF_XTERM_TITLE, name))
@@ -710,7 +711,7 @@ parse_line(char *line)
 #ifdef NCMPC_MINI
 		{}
 #else
-		options.jump_prefix_only = str2bool(value);
+		ui_options.jump_prefix_only = str2bool(value);
 #endif
 	else if (StringIsEqualIgnoreCase(CONF_LYRICS_AUTOSAVE, name))
 #ifdef ENABLE_LYRICS_SCREEN

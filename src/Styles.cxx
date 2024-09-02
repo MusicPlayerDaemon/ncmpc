@@ -11,7 +11,7 @@
 #include "util/StringStrip.hxx"
 
 #ifdef ENABLE_COLORS
-#include "Options.hxx"
+#include "ui/Options.hxx"
 #endif
 
 #include <assert.h>
@@ -329,15 +329,15 @@ ApplyStyles() noexcept
 		/* define any custom colors defined in the configuration file */
 		ApplyCustomColors();
 
-		if (options.enable_colors) {
+		if (ui_options.enable_colors) {
 			for (size_t i = 1; i < size_t(Style::END); ++i)
 				/* update the color pairs */
 				colors_update_pair(Style(i));
 		}
-	} else if (options.enable_colors) {
+	} else if (ui_options.enable_colors) {
 		fprintf(stderr, "%s\n",
 			_("Terminal lacks color capabilities"));
-		options.enable_colors = false;
+		ui_options.enable_colors = false;
 	}
 }
 #endif
@@ -348,7 +348,7 @@ SelectStyle(const Window window, Style style) noexcept
 	const auto &data = GetStyle(style);
 
 #ifdef ENABLE_COLORS
-	if (options.enable_colors) {
+	if (ui_options.enable_colors) {
 		/* color mode */
 		wattr_set(window.w, data.attr, short(style), nullptr);
 	} else {

@@ -6,6 +6,7 @@
 #include "Styles.hxx"
 #include "Options.hxx"
 #include "i18n.h"
+#include "ui/Options.hxx"
 #include "util/LocaleString.hxx"
 
 #include "config.h"
@@ -21,7 +22,7 @@ TitleBar::TitleBar(Point p, unsigned width) noexcept
 	keypad(window.w, true);
 
 #ifdef ENABLE_COLORS
-	if (options.enable_colors)
+	if (ui_options.enable_colors)
 		window.SetBackgroundStyle(Style::TITLE);
 #endif
 }

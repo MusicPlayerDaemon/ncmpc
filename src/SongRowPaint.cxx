@@ -5,6 +5,7 @@
 #include "strfsong.hxx"
 #include "time_format.hxx"
 #include "hscroll.hxx"
+#include "Options.hxx"
 #include "ui/Window.hxx"
 #include "ui/paint.hxx"
 #include "util/LocaleString.hxx"

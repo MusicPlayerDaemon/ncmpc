@@ -8,6 +8,7 @@
 #include "charset.hxx"
 #include "ConfigFile.hxx"
 #include "i18n.h"
+#include "ui/Options.hxx"
 #include "util/StringAPI.hxx"
 
 #include <stdlib.h>
@@ -199,12 +200,12 @@ handle_option(int c, const char *arg)
 		exit(EXIT_SUCCESS);
 	case 'c': /* --colors */
 #ifdef ENABLE_COLORS
-		options.enable_colors = true;
+		ui_options.enable_colors = true;
 #endif
 		break;
 	case 'C': /* --no-colors */
 #ifdef ENABLE_COLORS
-		options.enable_colors = false;
+		ui_options.enable_colors = false;
 #endif
 		break;
 	case 'm': /* --mouse */

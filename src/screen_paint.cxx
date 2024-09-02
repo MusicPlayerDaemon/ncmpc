@@ -3,7 +3,7 @@
 
 #include "screen.hxx"
 #include "Page.hxx"
-#include "Options.hxx"
+#include "ui/Options.hxx"
 
 void
 ScreenManager::PaintTopWindow() noexcept
@@ -34,7 +34,7 @@ ScreenManager::Paint() noexcept
 
 	/* move the cursor to the origin */
 
-	if (!options.hardware_cursor)
+	if (!ui_options.hardware_cursor)
 		main_window.MoveCursor({0, 0});
 
 	main_window.RefreshNoOut();

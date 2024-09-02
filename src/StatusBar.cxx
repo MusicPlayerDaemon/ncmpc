@@ -8,6 +8,7 @@
 #include "strfsong.hxx"
 #include "DelayedSeek.hxx"
 #include "time_format.hxx"
+#include "ui/Options.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "util/LocaleString.hxx"
 
@@ -29,7 +30,7 @@ StatusBar::StatusBar(EventLoop &event_loop,
 	keypad(window.w, true);
 
 #ifdef ENABLE_COLORS
-	if (options.enable_colors)
+	if (ui_options.enable_colors)
 		window.SetBackgroundStyle(Style::STATUS);
 #endif
 }

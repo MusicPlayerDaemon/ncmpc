@@ -15,6 +15,7 @@
 #include "player_command.hxx"
 #include "SongPage.hxx"
 #include "LyricsPage.hxx"
+#include "ui/Options.hxx"
 #include "util/StringAPI.hxx"
 
 #include <mpd/client.h>
@@ -226,8 +227,8 @@ ScreenManager::OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 
 	switch(cmd) {
 	case Command::TOGGLE_FIND_WRAP:
-		options.find_wrap = !options.find_wrap;
-		screen_status_message(options.find_wrap ?
+		ui_options.find_wrap = !ui_options.find_wrap;
+		screen_status_message(ui_options.find_wrap ?
 				      _("Find mode: Wrapped") :
 				      _("Find mode: Normal"));
 		break;

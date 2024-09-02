@@ -3,7 +3,7 @@
 
 #include "ProgressBar.hxx"
 #include "Styles.hxx"
-#include "Options.hxx"
+#include "ui/Options.hxx"
 #include "config.h"
 
 #include <assert.h>
@@ -13,7 +13,7 @@ ProgressBar::ProgressBar(Point p, unsigned _width) noexcept
 {
 	leaveok(window.w, true);
 #ifdef ENABLE_COLORS
-	if (options.enable_colors)
+	if (ui_options.enable_colors)
 		window.SetBackgroundStyle(Style::PROGRESSBAR);
 #endif
 }

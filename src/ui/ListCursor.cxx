@@ -6,7 +6,7 @@
 
 ListCursor::ListCursor(unsigned _height) noexcept
 	:height(_height),
-	 scroll_offset(ClampScrollOffset(options.scroll_offset, height))
+	 scroll_offset(ClampScrollOffset(ui_options.scroll_offset, height))
 {
 }
 
@@ -44,7 +44,7 @@ void
 ListCursor::SetHeight(unsigned _height) noexcept
 {
 	height = _height;
-	scroll_offset = ClampScrollOffset(options.scroll_offset, height);
+	scroll_offset = ClampScrollOffset(ui_options.scroll_offset, height);
 
 	CheckOrigin();
 }
@@ -161,7 +161,7 @@ ListCursor::MoveCursorNext() noexcept
 {
 	if (selected + 1 < length)
 		MoveCursor(selected + 1);
-	else if (options.list_wrap)
+	else if (ui_options.list_wrap)
 		MoveCursor(0);
 }
 
@@ -170,7 +170,7 @@ ListCursor::MoveCursorPrevious() noexcept
 {
 	if (selected > 0)
 		MoveCursor(selected - 1);
-	else if (options.list_wrap)
+	else if (ui_options.list_wrap)
 		MoveCursor(length - 1);
 }
 

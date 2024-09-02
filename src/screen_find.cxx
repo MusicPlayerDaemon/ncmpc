@@ -8,9 +8,9 @@
 #include "AsyncUserInput.hxx"
 #include "i18n.h"
 #include "Command.hxx"
-#include "Options.hxx"
 #include "ui/Bell.hxx"
 #include "ui/ListWindow.hxx"
+#include "ui/Options.hxx"
 #include "util/LocaleString.hxx"
 
 #include <ctype.h>
@@ -42,7 +42,7 @@ screen_find(ScreenManager &screen, ListWindow &lw, Command findcmd,
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
 		if (screen.findbuf.empty()) {
-			char *value = options.find_show_last_pattern
+			char *value = ui_options.find_show_last_pattern
 				? (char *) -1 : nullptr;
 			screen.findbuf=screen_readln(screen, prompt,
 						     value,

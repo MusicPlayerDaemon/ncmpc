@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef OPTIONS_HXX
-#define OPTIONS_HXX
+#pragma once
 
 #include "config.h"
 #include "defaults.hxx"
@@ -47,8 +46,6 @@ struct Options {
 	int search_mode;
 	int seek_time = 1;
 
-	unsigned scroll_offset = 0;
-
 #ifdef ENABLE_CHAT_SCREEN
 	std::string chat_prefix;
 #endif
@@ -61,32 +58,18 @@ struct Options {
 	bool text_editor_ask = false;
 #endif
 
-	bool find_wrap = true;
-	bool find_show_last_pattern;
-	bool list_wrap;
 	bool auto_center;
-	bool wide_cursor = true;
-	bool hardware_cursor;
 
-#ifdef ENABLE_COLORS
-	bool enable_colors = true;
-#endif
-	bool audible_bell = true;
-	bool visible_bell;
-	bool bell_on_wrap = true;
 #ifndef NCMPC_MINI
 	bool enable_xterm_title;
 #endif
 #ifdef HAVE_GETMOUSE
 	bool enable_mouse;
 #endif
-#ifdef NCMPC_MINI
-	static constexpr bool jump_prefix_only = true;
-#else
+#ifndef NCMPC_MINI
 	bool scroll = DEFAULT_SCROLL;
 	bool visible_bitrate;
 	bool welcome_screen_list = true;
-	bool jump_prefix_only = true;
 	bool second_column = true;
 #endif
 
@@ -96,5 +79,3 @@ struct Options {
 extern Options options;
 
 void options_parse(int argc, const char **argv);
-
-#endif

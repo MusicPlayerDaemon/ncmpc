@@ -5,8 +5,8 @@
 #include "Page.hxx"
 #include "QueuePage.hxx"
 #include "config.h"
-#include "Options.hxx"
 #include "Styles.hxx"
+#include "ui/Options.hxx"
 
 /* minimum window size */
 static const unsigned SCREEN_MIN_COLS = 14;
@@ -26,13 +26,13 @@ ScreenManager::ScreenManager(EventLoop &event_loop) noexcept
 	buf_size = layout.size.width;
 	buf = new char[buf_size];
 
-	if (!options.hardware_cursor)
+	if (!ui_options.hardware_cursor)
 		leaveok(main_window.w, true);
 
 	keypad(main_window.w, true);
 
 #ifdef ENABLE_COLORS
-	if (options.enable_colors) {
+	if (ui_options.enable_colors) {
 		/* set background attributes */
 		main_window.SetBackgroundStyle(Style::LIST);
 	}

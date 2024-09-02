@@ -15,7 +15,7 @@ void
 ListWindow::Paint(const ListRenderer &renderer) const noexcept
 {
 	bool cursor_visible = IsCursorVisible() &&
-		(!options.hardware_cursor || HasRangeSelection());
+		(!ui_options.hardware_cursor || HasRangeSelection());
 	ListWindowRange range;
 
 	if (cursor_visible)
@@ -38,7 +38,7 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 
 	row_color_end(window);
 
-	if (options.hardware_cursor && IsVisible(GetCursorIndex())) {
+	if (ui_options.hardware_cursor && IsVisible(GetCursorIndex())) {
 		curs_set(1);
 		window.MoveCursor({0, (int)GetCursorIndex() - (int)GetOrigin()});
 	}
@@ -54,7 +54,7 @@ ListWindow::Find(const ListText &text,
 	if (!m.Compile(str, false))
 		return false;
 
-	const bool wrap = options.find_wrap;
+	const bool wrap = ui_options.find_wrap;
 
 	do {
 		while (i < GetLength()) {
@@ -74,7 +74,7 @@ ListWindow::Find(const ListText &text,
 			if (i == 0) /* empty list */
 				return 1;
 			i=0; /* first item */
-			if (options.bell_on_wrap) {
+			if (ui_options.bell_on_wrap) {
 				Bell();
 			}
 		}
@@ -96,7 +96,7 @@ ListWindow::ReverseFind(const ListText &text,
 	if (!m.Compile(str, false))
 		return false;
 
-	const bool wrap = options.find_wrap;
+	const bool wrap = ui_options.find_wrap;
 
 	do {
 		while (i >= 0) {
@@ -114,7 +114,7 @@ ListWindow::ReverseFind(const ListText &text,
 		}
 		if (wrap) {
 			i = GetLength() - 1; /* last item */
-			if (options.bell_on_wrap) {
+			if (ui_options.bell_on_wrap) {
 				Bell();
 			}
 		}
@@ -127,7 +127,7 @@ bool
 ListWindow::Jump(const ListText &text, std::string_view str) noexcept
 {
 	MatchExpression m;
-	if (!m.Compile(str, options.jump_prefix_only))
+	if (!m.Compile(str, ui_options.jump_prefix_only))
 		return false;
 
 	for (unsigned i = 0; i < GetLength(); i++) {

@@ -40,7 +40,7 @@ row_color_end(const Window window) noexcept
 static inline void
 row_clear_to_eol(const Window window, unsigned width, bool selected) noexcept
 {
-	if (selected && options.wide_cursor)
+	if (selected && ui_options.wide_cursor)
 		window.HLine(width, ' ');
 	else
 		window.ClearToEol();
