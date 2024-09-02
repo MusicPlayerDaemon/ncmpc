@@ -6,11 +6,10 @@
 #include "config.h"
 
 #include <span>
+#include <string>
 #include <string_view>
 
 #ifdef HAVE_ICONV
-
-#include <string>
 
 void
 charset_init() noexcept;
@@ -68,7 +67,7 @@ class LocaleToUtf8 {
 #ifdef HAVE_ICONV
 	const std::string value;
 #else
-	const char *const value;
+	const std::string_view value;
 #endif
 
 public:
@@ -80,16 +79,48 @@ public:
 	LocaleToUtf8 &operator=(const LocaleToUtf8 &) = delete;
 #else
 	[[nodiscard]]
-	explicit LocaleToUtf8(const char *src) noexcept
+	explicit LocaleToUtf8(std::string_view src) noexcept
 		:value(src) {}
 #endif
 
+	[[nodiscard]]
+	operator std::string_view() const noexcept {
+			return value;
+	}
+
+#ifdef HAVE_ICONV
 	[[nodiscard]] [[gnu::pure]]
 	const char *c_str() const noexcept {
-#ifdef HAVE_ICONV
 		return value.c_str();
-#else
-		return value;
+	}
 #endif
+};
+
+#ifdef HAVE_ICONV
+
+using LocaleToUtf8Z = LocaleToUtf8;
+
+#else
+
+/**
+ * Like #LocaleToUtf8Z, but return a null-terminated string.
+ */
+class LocaleToUtf8Z {
+	const char *const value;
+
+public:
+	[[nodiscard]]
+	explicit constexpr LocaleToUtf8Z(const char *src) noexcept
+		:value(src) {}
+
+	[[nodiscard]]
+	explicit constexpr LocaleToUtf8Z(const std::string &src) noexcept
+		:LocaleToUtf8Z(src.c_str()) {}
+
+	[[nodiscard]] [[gnu::pure]]
+	constexpr const char *c_str() const noexcept {
+		return value;
 	}
 };
+
+#endif // !HAVE_ICONV

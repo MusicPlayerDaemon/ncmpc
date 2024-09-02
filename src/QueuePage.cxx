@@ -316,7 +316,7 @@ handle_add_to_playlist(ScreenManager &screen, struct mpdclient &c)
 
 	/* add the path to the playlist */
 	if (!path.empty()) {
-		mpdclient_cmd_add_path(c, LocaleToUtf8(path.c_str()).c_str());
+		mpdclient_cmd_add_path(c, LocaleToUtf8Z{path}.c_str());
 	}
 
 	return 0;

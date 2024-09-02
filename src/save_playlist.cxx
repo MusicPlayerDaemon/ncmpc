@@ -84,7 +84,7 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 	if (connection == nullptr)
 		return -1;
 
-	const LocaleToUtf8 filename_utf8(filename.c_str());
+	const LocaleToUtf8Z filename_utf8{filename};
 	if (!mpd_run_save(connection, filename_utf8.c_str())) {
 		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_EXIST &&

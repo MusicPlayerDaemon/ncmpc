@@ -122,7 +122,7 @@ ChatPage::GetPrefix() noexcept
 
 	if (!options.chat_prefix.empty()) {
 		/* Options are encoded in the "locale" charset */
-		prefix = LocaleToUtf8(options.chat_prefix.c_str()).c_str();
+		prefix = LocaleToUtf8{options.chat_prefix};
 		return prefix;
 	}
 
@@ -137,7 +137,7 @@ ChatPage::GetPrefix() noexcept
 void
 ChatPage::SendMessage(struct mpdclient &c, const char *msg) noexcept
 {
-	const std::string full_msg = fmt::format("{}{}"sv, GetPrefix(), LocaleToUtf8(msg).c_str());
+	const std::string full_msg = fmt::format("{}{}"sv, GetPrefix(), (std::string_view)LocaleToUtf8{msg});
 
 	(void) mpdclient_cmd_send_message(c, chat_channel, full_msg.c_str());
 }

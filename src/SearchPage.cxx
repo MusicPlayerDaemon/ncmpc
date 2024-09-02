@@ -164,7 +164,7 @@ static std::unique_ptr<FileList>
 search_simple_query(struct mpd_connection *connection, bool exact_match,
 		    int table, const char *local_pattern)
 {
-	const LocaleToUtf8 filter_utf8(local_pattern);
+	const LocaleToUtf8Z filter_utf8(local_pattern);
 
 	if (table == SEARCH_ARTIST_TITLE) {
 		mpd_command_list_begin(connection, false);
@@ -334,7 +334,7 @@ try {
 	mpd_search_db_songs(connection, false);
 
 	for (size_t i = 0; i < n; i++) {
-		const LocaleToUtf8 value(matchv[i]);
+		const LocaleToUtf8Z value{matchv[i]};
 
 		if (table[i] == SEARCH_URI)
 			mpd_search_add_uri_constraint(connection,

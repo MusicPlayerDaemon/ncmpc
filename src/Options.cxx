@@ -227,7 +227,7 @@ handle_option(int c, const char *arg)
 		options.host = arg;
 		break;
 	case 'P': /* --password */
-		options.password = LocaleToUtf8(arg).c_str();
+		options.password = LocaleToUtf8{arg};
 		break;
 	case 'f': /* --config */
 		options.config_file = arg;
