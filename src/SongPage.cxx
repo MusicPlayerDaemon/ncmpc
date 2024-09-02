@@ -124,14 +124,14 @@ private:
 	 * Appends a line with a fixed width for the label column.
 	 * Handles nullptr strings gracefully.
 	 */
-	void AppendLine(const char *label, const char *value,
+	void AppendLine(const char *label, std::string_view value,
 			unsigned label_col) noexcept;
 
 	void AppendTag(const struct mpd_song *song,
 		       enum mpd_tag_type tag) noexcept;
 	void AddSong(const struct mpd_song *song) noexcept;
 	void AppendStatsLine(enum stats_label label,
-			     const char *value) noexcept;
+			     std::string_view value) noexcept;
 	bool AddStats(struct mpd_connection *connection) noexcept;
 
 public:
@@ -206,11 +206,10 @@ SongPage::Paint() const noexcept
 }
 
 void
-SongPage::AppendLine(const char *label, const char *value_utf8,
+SongPage::AppendLine(const char *label, std::string_view value_utf8,
 		     unsigned label_col) noexcept
 {
 	assert(label != nullptr);
-	assert(value_utf8 != nullptr);
 
 	static constexpr size_t BUFFER_SIZE = 1024;
 	if (label_col >= BUFFER_SIZE - 16)
@@ -221,18 +220,17 @@ SongPage::AppendLine(const char *label, const char *value_utf8,
 	const int value_col = lw.GetWidth() - label_col;
 	/* calculate the number of required linebreaks */
 	const Utf8ToLocale value_locale(value_utf8);
-	const char *value = value_locale.c_str();
+	const std::string_view value = value_locale;
 
-	const char *const value_end = value + strlen(value);
-	const char *value_iter = value;
+	std::string_view value_iter = value;
 
-	while (*value_iter != 0) {
+	while (!value_iter.empty()) {
 		char buffer[BUFFER_SIZE];
 		const char *const buffer_end = buffer + BUFFER_SIZE;
 
 		char *p = buffer;
 		size_t n_space = label_col;
-		if (value_iter == value) {
+		if (value_iter.data() == value.data()) {
 			const size_t label_length = std::min(strlen(label),
 							     BUFFER_SIZE - 16);
 			p = std::copy_n(label, label_length, p);
@@ -247,13 +245,12 @@ SongPage::AppendLine(const char *label, const char *value_utf8,
 		/* skip whitespaces */
 		value_iter = StripLeft(value_iter);
 
-		auto truncated_value = TruncateAtWidthMB({value_iter, value_end},
-							 value_col);
+		auto truncated_value = TruncateAtWidthMB(value_iter, value_col);
 		if (truncated_value.empty())
 			/* not enough room for anything - bail out */
 			break;
 
-		value_iter += truncated_value.size();
+		value_iter = value_iter.substr(truncated_value.size());
 
 		const std::size_t remaining_space = buffer_end - p;
 		if (truncated_value.size() > remaining_space)
@@ -347,7 +344,7 @@ SongPage::AddSong(const struct mpd_song *song) noexcept
 }
 
 void
-SongPage::AppendStatsLine(enum stats_label label, const char *value) noexcept
+SongPage::AppendStatsLine(enum stats_label label, std::string_view value) noexcept
 {
 	AppendLine(my_gettext(stats_labels[label]), value, max_stats_label_width);
 }
