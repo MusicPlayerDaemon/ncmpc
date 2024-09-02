@@ -47,7 +47,7 @@ MakePageTitle(std::span<char> buffer, std::string_view prefix,
 		return prefix;
 
 	return FmtTruncate(buffer, "{}: {}"sv, prefix,
-			   Utf8ToLocale{ToString(filter)}.c_str());
+			   (std::string_view)Utf8ToLocale{ToString(filter)});
 }
 
 class SongListPage final : public FileListPage {

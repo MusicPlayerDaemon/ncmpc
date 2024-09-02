@@ -95,4 +95,4 @@ screen_browser_sync_highlights(FileList &, const MpdQueue &) noexcept
 
 void
 screen_browser_paint_directory(Window window, unsigned width,
-			       bool selected, const char *name) noexcept;
+			       bool selected, std::string_view name) noexcept;

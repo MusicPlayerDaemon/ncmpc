@@ -109,7 +109,7 @@ load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
 	if (mpd_run_load(connection, mpd_playlist_get_path(playlist))) {
 		const char *name = GetUriFilename(mpd_playlist_get_path(playlist));
 		screen_status_printf(_("Loading playlist '%s'"),
-				     Utf8ToLocale(name).c_str());
+				     Utf8ToLocaleZ{name}.c_str());
 
 		c->events |= MPD_IDLE_QUEUE;
 	} else
@@ -239,7 +239,7 @@ browser_select_entry(struct mpdclient &c, FileListEntry &entry,
 			return false;
 
 		screen_status_fmt(_("Adding '{}' to queue"),
-				  Utf8ToLocale(mpd_directory_get_path(dir)).c_str());
+				  (std::string_view)Utf8ToLocale{mpd_directory_get_path(dir)});
 		return true;
 	}
 
@@ -472,7 +472,7 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 
 void
 screen_browser_paint_directory(const Window window, unsigned width,
-			       bool selected, const char *name) noexcept
+			       bool selected, std::string_view name) noexcept
 {
 	row_color(window, Style::DIRECTORY, selected);
 
@@ -502,7 +502,7 @@ FileListPage::PaintListItem(const Window window, unsigned i,
 	const auto &entry = (*filelist)[i];
 	const struct mpd_entity *entity = entry.entity;
 	if (entity == nullptr) {
-		screen_browser_paint_directory(window, width, selected, "..");
+		screen_browser_paint_directory(window, width, selected, ".."sv);
 		return;
 	}
 
@@ -516,8 +516,7 @@ FileListPage::PaintListItem(const Window window, unsigned i,
 	case MPD_ENTITY_TYPE_DIRECTORY: {
 		const auto *directory = mpd_entity_get_directory(entity);
 		const char *name = GetUriFilename(mpd_directory_get_path(directory));
-		screen_browser_paint_directory(window, width, selected,
-					       Utf8ToLocale(name).c_str());
+		screen_browser_paint_directory(window, width, selected, Utf8ToLocale{name});
 		break;
 	}
 
@@ -530,8 +529,7 @@ FileListPage::PaintListItem(const Window window, unsigned i,
 	case MPD_ENTITY_TYPE_PLAYLIST: {
 		const auto *playlist = mpd_entity_get_playlist(entity);
 		const char *name = GetUriFilename(mpd_playlist_get_path(playlist));
-		screen_browser_paint_playlist(window, width, selected,
-					      Utf8ToLocale(name).c_str());
+		screen_browser_paint_playlist(window, width, selected, Utf8ToLocale{name});
 		break;
 	}
 

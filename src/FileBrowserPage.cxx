@@ -210,7 +210,7 @@ FileBrowserPage::HandleSave(struct mpdclient &c) noexcept
 
 	if(defaultname)
 		playlist_save(screen, c, nullptr,
-			      Utf8ToLocale(defaultname).c_str());
+			      Utf8ToLocaleZ{defaultname}.c_str());
 	else
 		playlist_save(screen, c, nullptr, nullptr);
 }
@@ -244,7 +244,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c) noexcept
 		char prompt[256];
 		snprintf(prompt, sizeof(prompt),
 			 _("Delete playlist %s?"),
-			 Utf8ToLocale(GetUriFilename(mpd_playlist_get_path(playlist))).c_str());
+			 Utf8ToLocaleZ{GetUriFilename(mpd_playlist_get_path(playlist))}.c_str());
 		bool confirmed = screen_get_yesno(screen, prompt, false);
 		if (!confirmed) {
 			/* translators: a dialog was aborted by the user */
@@ -288,7 +288,7 @@ FileBrowserPage::GetTitle(std::span<char> buffer) const noexcept
 
 	return FmtTruncate(buffer, "{}: {}",
 			   /* translators: caption of the browser screen */
-			   _("Browse"), Utf8ToLocale(path).c_str());
+			   _("Browse"), (std::string_view)Utf8ToLocale{path});
 }
 
 void

@@ -32,7 +32,7 @@ class Utf8ToLocale {
 #ifdef HAVE_ICONV
 	const std::string value;
 #else
-	const char *const value;
+	const std::string_view value;
 #endif
 
 public:
@@ -44,18 +44,21 @@ public:
 	Utf8ToLocale &operator=(const Utf8ToLocale &) = delete;
 #else
 	[[nodiscard]]
-	explicit Utf8ToLocale(const char *src) noexcept
+	explicit Utf8ToLocale(std::string_view src) noexcept
 		:value(src) {}
 #endif
 
+	[[nodiscard]]
+	operator std::string_view() const noexcept {
+			return value;
+	}
+
+#ifdef HAVE_ICONV
 	[[nodiscard]] [[gnu::pure]]
 	const char *c_str() const noexcept {
-#ifdef HAVE_ICONV
 		return value.c_str();
-#else
-		return value;
-#endif
 	}
+#endif
 };
 
 /**
@@ -98,9 +101,31 @@ public:
 
 #ifdef HAVE_ICONV
 
+using Utf8ToLocaleZ = Utf8ToLocale;
 using LocaleToUtf8Z = LocaleToUtf8;
 
 #else
+
+/**
+ * Like #Utf8ToLocaleZ, but return a null-terminated string.
+ */
+class Utf8ToLocaleZ {
+	const char *const value;
+
+public:
+	[[nodiscard]]
+	explicit constexpr Utf8ToLocaleZ(const char *src) noexcept
+		:value(src) {}
+
+	[[nodiscard]]
+	explicit constexpr Utf8ToLocaleZ(const std::string &src) noexcept
+		:Utf8ToLocaleZ(src.c_str()) {}
+
+	[[nodiscard]] [[gnu::pure]]
+	constexpr const char *c_str() const noexcept {
+		return value;
+	}
+};
 
 /**
  * Like #LocaleToUtf8Z, but return a null-terminated string.
