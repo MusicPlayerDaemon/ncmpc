@@ -27,6 +27,9 @@ option('locale', type: 'feature',
 option('nls', type: 'feature',
   description: 'Enable NLS support')
 
+option('iconv', type: 'feature',
+  description: 'Enable iconv support')
+
 option('lirc', type: 'feature',
   description: 'Enable LIRC support')
 
