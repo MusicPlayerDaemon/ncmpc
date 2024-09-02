@@ -53,14 +53,8 @@ screen_find(ScreenManager &screen, ListWindow &lw, Command findcmd,
 			return true;
 
 		found = reversed
-			? lw.ReverseFind(text,
-					 screen.findbuf,
-					 options.find_wrap,
-					 options.bell_on_wrap)
-			: lw.Find(text,
-				  screen.findbuf,
-				  options.find_wrap,
-				  options.bell_on_wrap);
+			? lw.ReverseFind(text, screen.findbuf)
+			: lw.Find(text, screen.findbuf);
 		if (!found) {
 			screen_status_printf(_("Unable to find \'%s\'"),
 					     screen.findbuf.c_str());

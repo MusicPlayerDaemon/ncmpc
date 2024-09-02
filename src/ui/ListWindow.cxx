@@ -46,15 +46,15 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 
 bool
 ListWindow::Find(const ListText &text,
-		 std::string_view str,
-		 bool wrap,
-		 bool bell_on_wrap) noexcept
+		 std::string_view str) noexcept
 {
 	unsigned i = GetCursorIndex() + 1;
 
 	MatchExpression m;
 	if (!m.Compile(str, false))
 		return false;
+
+	const bool wrap = options.find_wrap;
 
 	do {
 		while (i < GetLength()) {
@@ -74,7 +74,7 @@ ListWindow::Find(const ListText &text,
 			if (i == 0) /* empty list */
 				return 1;
 			i=0; /* first item */
-			if (bell_on_wrap) {
+			if (options.bell_on_wrap) {
 				screen_bell();
 			}
 		}
@@ -85,9 +85,7 @@ ListWindow::Find(const ListText &text,
 
 bool
 ListWindow::ReverseFind(const ListText &text,
-			std::string_view str,
-			bool wrap,
-			bool bell_on_wrap) noexcept
+			std::string_view str) noexcept
 {
 	int i = GetCursorIndex() - 1;
 
@@ -97,6 +95,8 @@ ListWindow::ReverseFind(const ListText &text,
 	MatchExpression m;
 	if (!m.Compile(str, false))
 		return false;
+
+	const bool wrap = options.find_wrap;
 
 	do {
 		while (i >= 0) {
@@ -114,7 +114,7 @@ ListWindow::ReverseFind(const ListText &text,
 		}
 		if (wrap) {
 			i = GetLength() - 1; /* last item */
-			if (bell_on_wrap) {
+			if (options.bell_on_wrap) {
 				screen_bell();
 			}
 		}

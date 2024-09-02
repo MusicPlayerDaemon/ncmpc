@@ -57,17 +57,13 @@ public:
 	 * Find a string in a list window.
 	 */
 	bool Find(const ListText &text,
-		  std::string_view str,
-		  bool wrap,
-		  bool bell_on_wrap) noexcept;
+		  std::string_view str) noexcept;
 
 	/**
 	 * Find a string in a list window (reversed).
 	 */
 	bool ReverseFind(const ListText &text,
-			 std::string_view str,
-			 bool wrap,
-			 bool bell_on_wrap) noexcept;
+			 std::string_view str) noexcept;
 
 	/**
 	 * Find a string in a list window which begins with the given
