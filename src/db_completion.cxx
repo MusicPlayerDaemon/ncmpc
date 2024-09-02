@@ -29,18 +29,18 @@ gcmp_list_from_path(struct mpdclient &c, const char *path,
 		    types & GCMP_TYPE_DIR) {
 			const struct mpd_directory *dir =
 				mpd_entity_get_directory(entity);
-			name = Utf8ToLocale(mpd_directory_get_path(dir)).c_str();
+			name = Utf8ToLocale{mpd_directory_get_path(dir)};
 			name.push_back('/');
 		} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG &&
 			   types & GCMP_TYPE_FILE) {
 			const struct mpd_song *song =
 				mpd_entity_get_song(entity);
-			name = Utf8ToLocale(mpd_song_get_uri(song)).c_str();
+			name = Utf8ToLocale{mpd_song_get_uri(song)};
 		} else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST &&
 			   types & GCMP_TYPE_PLAYLIST) {
 			const struct mpd_playlist *playlist =
 				mpd_entity_get_playlist(entity);
-			name = Utf8ToLocale(mpd_playlist_get_path(playlist)).c_str();
+			name = Utf8ToLocale{mpd_playlist_get_path(playlist)};
 		} else {
 			continue;
 		}
