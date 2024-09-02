@@ -9,9 +9,7 @@
 #include "Options.hxx"
 #include "Command.hxx"
 #include "paint.hxx"
-#include "screen_status.hxx"
 #include "screen_utils.hxx"
-#include "i18n.h"
 
 void
 ListWindow::Paint(const ListRenderer &renderer) const noexcept
@@ -180,10 +178,8 @@ ListWindow::HandleCommand(Command cmd) noexcept
 		break;
 	case Command::LIST_RANGE_SELECT:
 		if (HasRangeSelection()) {
-			screen_status_message(_("Range selection disabled"));
 			DisableRangeSelection();
 		} else {
-			screen_status_message(_("Range selection enabled"));
 			EnableRangeSelection();
 		}
 		break;
