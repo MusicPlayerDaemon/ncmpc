@@ -43,22 +43,22 @@ class ScreenManager {
 		static constexpr int progress_x = 0;
 		static constexpr int status_x = 0;
 
-		constexpr explicit Layout(Size _size)
+		constexpr explicit Layout(Size _size) noexcept
 			:size(_size) {}
 
-		constexpr unsigned GetMainRows() const {
+		constexpr unsigned GetMainRows() const noexcept {
 			return GetProgressY() - main_y;
 		}
 
-		constexpr Size GetMainSize() const {
+		constexpr Size GetMainSize() const noexcept {
 			return {size.width, GetMainRows()};
 		}
 
-		constexpr int GetProgressY() const {
+		constexpr int GetProgressY() const noexcept {
 			return GetStatusY() - 1;
 		}
 
-		constexpr int GetStatusY() const {
+		constexpr int GetStatusY() const noexcept {
 			return size.height - 1;
 		}
 	};
