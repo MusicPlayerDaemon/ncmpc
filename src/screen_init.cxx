@@ -16,11 +16,10 @@ ScreenManager::ScreenManager(EventLoop &event_loop) noexcept
 	:paint_event(event_loop, BIND_THIS_METHOD(Paint)),
 	 layout({std::max<unsigned>(COLS, SCREEN_MIN_COLS),
 		 std::max<unsigned>(LINES, SCREEN_MIN_ROWS)}),
-	 title_bar({layout.title_x, layout.title_y}, layout.size.width),
-	 main_window({layout.main_x, layout.main_y}, layout.GetMainSize()),
-	 progress_bar({layout.progress_x, layout.GetProgressY()}, layout.size.width),
-	 status_bar(event_loop,
-		    {layout.status_x, layout.GetStatusY()}, layout.size.width),
+	 title_bar(layout.title, layout.size.width),
+	 main_window(layout.main, layout.GetMainSize()),
+	 progress_bar(layout.GetProgress(), layout.size.width),
+	 status_bar(event_loop, layout.GetStatus(), layout.size.width),
 	 mode_fn_prev(&screen_queue)
 {
 	buf_size = layout.size.width;
@@ -70,12 +69,10 @@ ScreenManager::OnResize() noexcept
 	main_window.Resize(layout.GetMainSize());
 
 	/* progress window */
-	progress_bar.OnResize({layout.progress_x, layout.GetProgressY()},
-			      layout.size.width);
+	progress_bar.OnResize(layout.GetProgress(), layout.size.width);
 
 	/* status window */
-	status_bar.OnResize({layout.status_x, layout.GetStatusY()},
-			    layout.size.width);
+	status_bar.OnResize(layout.GetStatus(), layout.size.width);
 
 	buf_size = layout.size.width;
 	delete[] buf;

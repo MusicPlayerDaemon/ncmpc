@@ -38,8 +38,8 @@ class ScreenManager {
 	struct Layout {
 		Size size;
 
-		static constexpr int title_y = 0, title_x = 0;
-		static constexpr int main_y = TitleBar::GetHeight(), main_x = 0;
+		static constexpr Point title{0, 0};
+		static constexpr Point main{0, (int)TitleBar::GetHeight()};
 		static constexpr int progress_x = 0;
 		static constexpr int status_x = 0;
 
@@ -47,19 +47,19 @@ class ScreenManager {
 			:size(_size) {}
 
 		constexpr unsigned GetMainRows() const noexcept {
-			return GetProgressY() - main_y;
+			return GetProgress().y - main.y;
 		}
 
 		constexpr Size GetMainSize() const noexcept {
 			return {size.width, GetMainRows()};
 		}
 
-		constexpr int GetProgressY() const noexcept {
-			return GetStatusY() - 1;
+		constexpr Point GetProgress() const noexcept {
+			return {progress_x, GetStatus().y - 1};
 		}
 
-		constexpr int GetStatusY() const noexcept {
-			return size.height - 1;
+		constexpr Point GetStatus() const noexcept {
+			return {status_x, (int)size.height - 1};
 		}
 	};
 
