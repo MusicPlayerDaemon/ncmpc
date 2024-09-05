@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_INSTANCE_HXX
-#define NCMPC_INSTANCE_HXX
+#pragma once
 
 #include "config.h"
 #include "AsyncUserInput.hxx"
+#include "UserInputHandler.hxx"
 #include "mpdclient.hxx"
 #include "DelayedSeek.hxx"
 #include "screen.hxx"
@@ -20,7 +20,7 @@
 /**
  * A singleton holding global instance variables.
  */
-class Instance {
+class Instance final : UserInputHandler {
 	EventLoop event_loop;
 
 	struct mpdclient client;
@@ -117,6 +117,10 @@ private:
 #ifndef NCMPC_MINI
 	void OnCheckKeyBindings() noexcept;
 #endif
-};
 
+	// virtual methods from AsyncUserInputHandler
+	bool OnCommand(Command cmd) noexcept override;
+#ifdef HAVE_GETMOUSE
+	bool OnMouse(Point p, mmask_t bstate) noexcept override;
 #endif
+};

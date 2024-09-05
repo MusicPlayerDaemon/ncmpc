@@ -206,7 +206,7 @@ void end_input_event() noexcept
 }
 
 bool
-do_input_event(EventLoop &event_loop, Command cmd) noexcept
+Instance::OnCommand(Command cmd) noexcept
 {
 	if (cmd == Command::QUIT) {
 		event_loop.Break();
@@ -214,8 +214,7 @@ do_input_event(EventLoop &event_loop, Command cmd) noexcept
 	}
 
 	try {
-		screen->OnCommand(global_instance->GetClient(),
-				  global_instance->GetSeek(), cmd);
+		screen_manager.OnCommand(GetClient(), GetSeek(), cmd);
 	} catch (...) {
 		screen_status_error(std::current_exception());
 		return true;
@@ -223,22 +222,23 @@ do_input_event(EventLoop &event_loop, Command cmd) noexcept
 
 	if (cmd == Command::VOLUME_UP || cmd == Command::VOLUME_DOWN)
 		/* make sure we don't update the volume yet */
-		global_instance->DisableUpdateTimer();
+		DisableUpdateTimer();
 
 	return true;
 }
 
 #ifdef HAVE_GETMOUSE
 
-void
-do_mouse_event(Point p, mmask_t bstate) noexcept
+bool
+Instance::OnMouse(Point p, mmask_t bstate) noexcept
 {
 	try {
-		screen->OnMouse(global_instance->GetClient(),
-				global_instance->GetSeek(), p, bstate);
+		screen_manager.OnMouse(GetClient(), GetSeek(), p, bstate);
 	} catch (...) {
 		screen_status_error(std::current_exception());
 	}
+
+	return true;
 }
 
 #endif

@@ -113,5 +113,5 @@ screen_jump(ScreenManager &screen, ListWindow &lw,
 	screen.findbuf = search_str;
 
 	/* ncmpc should get the command */
-	keyboard_unread(screen.GetEventLoop(), key);
+	keyboard_unread(key);
 }

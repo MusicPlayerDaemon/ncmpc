@@ -3,11 +3,15 @@
 
 #include "config.h"
 #include "AsyncUserInput.hxx"
+#include "UserInputHandler.hxx"
 #include "Command.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "ncmpc.hxx"
 #include "ui/Point.hxx"
+
+// TODO remove this kludge
+static AsyncUserInput *global_async_user_input;
 
 static constexpr bool
 ignore_key(int key) noexcept
@@ -41,7 +45,10 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 #endif
 
 		begin_input_event();
-		do_mouse_event({event.x, event.y}, event.bstate);
+
+		if (!handler.OnMouse({event.x, event.y}, event.bstate))
+			return;
+
 		end_input_event();
 
 		return;
@@ -54,28 +61,38 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 
 	begin_input_event();
 
-	if (!do_input_event(stdin_event.GetEventLoop(), cmd))
+	if (!handler.OnCommand(cmd))
 		return;
 
 	end_input_event();
 	return;
 }
 
-AsyncUserInput::AsyncUserInput(EventLoop &event_loop, WINDOW &_w) noexcept
+AsyncUserInput::AsyncUserInput(EventLoop &event_loop, WINDOW &_w,
+			       UserInputHandler &_handler) noexcept
 	:stdin_event(event_loop, BIND_THIS_METHOD(OnSocketReady),
 		      FileDescriptor{STDIN_FILENO}),
-	 w(_w)
+	 w(_w),
+	 handler(_handler)
 {
 	stdin_event.ScheduleRead();
+
+	// TODO remove this kludge
+	global_async_user_input = this;
 }
 
-void
-keyboard_unread(EventLoop &event_loop, int key) noexcept
+inline void
+AsyncUserInput::InjectKey(int key) noexcept
 {
 	if (ignore_key(key))
 		return;
 
-	Command cmd = translate_key(key);
-	if (cmd != Command::NONE)
-		do_input_event(event_loop, cmd);
+	if (Command cmd = translate_key(key); cmd != Command::NONE)
+		handler.OnCommand(cmd);
+}
+
+void
+keyboard_unread(int key) noexcept
+{
+	global_async_user_input->InjectKey(key);
 }

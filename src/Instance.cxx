@@ -43,9 +43,9 @@ Instance::Instance()
 #endif
 	 screen_manager(event_loop),
 #ifdef ENABLE_LIRC
-	 lirc_input(event_loop),
+	 lirc_input(event_loop, *this),
 #endif
-	 user_input(event_loop, *screen_manager.main_window.w)
+	 user_input(event_loop, *screen_manager.main_window.w, *this)
 {
 	screen_manager.Init(&client);
 
