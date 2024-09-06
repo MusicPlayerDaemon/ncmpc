@@ -734,11 +734,8 @@ parse_line(char *line)
 		{}
 #endif
 	else if (StringIsEqualIgnoreCase(name, CONF_TEXT_EDITOR_ASK))
-#ifdef ENABLE_LYRICS_SCREEN
-		options.text_editor_ask = str2bool(value);
-#else
+		/* obsolete, ignore */
 		{}
-#endif
 	else if (StringIsEqualIgnoreCase(name, CONF_CHAT_PREFIX))
 #ifdef ENABLE_CHAT_SCREEN
 		options.chat_prefix = GetStringValue(value);

@@ -15,7 +15,6 @@
 #include "screen.hxx"
 #include "plugin.hxx"
 #include "TextPage.hxx"
-#include "screen_utils.hxx"
 #include "ncu.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "util/StringAPI.hxx"
@@ -349,13 +348,6 @@ LyricsPage::Edit()
 	}
 
 	const char *editor = options.text_editor.c_str();
-	if (options.text_editor_ask) {
-		const char *prompt =
-			_("Do you really want to start an editor and edit these lyrics?");
-		bool really = screen_get_yesno(screen, prompt, false);
-		if (!really)
-			return;
-	}
 
 	if (!Save())
 		return;

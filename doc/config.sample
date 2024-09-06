@@ -119,9 +119,6 @@
 ## The text editor used for editing lyrics.
 #text-editor = emacs
 
-## Ask before starting an editor.
-#text-editor-ask = yes
-
 ## The prefix of chat messages
 #chat-prefix = "<user> "
 

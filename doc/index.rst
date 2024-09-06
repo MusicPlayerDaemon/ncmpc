@@ -168,8 +168,6 @@ used to receive lyrics on the lyrics screen.
 :command:`text-editor = EDITOR` - The text editor used for editing
 lyrics.
 
-:command:`text-editor-ask = yes|no` - Ask before starting an editor.
-
 :command:`chat-prefix = PREFIX` - Prefix messages send with the chat
 screen with PREFIX.  By default they are prefixed with the current
 user name enclosed by ``<`` and ``>`` and a space (i.e. "<name> ").

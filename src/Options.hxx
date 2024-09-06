@@ -55,7 +55,6 @@ struct Options {
 	std::chrono::steady_clock::duration lyrics_timeout = std::chrono::minutes(1);
 	bool lyrics_autosave = false;
 	bool lyrics_show_plugin = false;
-	bool text_editor_ask = false;
 #endif
 
 	bool auto_center;
