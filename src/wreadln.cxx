@@ -194,13 +194,13 @@ void
 wreadln::Paint() const noexcept
 {
 	window.MoveCursor(point);
-	/* clear input area */
-	window.HLine(width, ' ');
 	/* print visible part of the line buffer */
 	if (masked)
 		window.HLine(StringWidthMB(value.substr(start)), '*');
 	else
 		window.String({value.c_str() + start, screen_to_bytes(value.c_str() + start, width)});
+	/* clear the rest */
+	window.ClearToEol();
 	/* move the cursor to the correct position */
 	window.MoveCursor({point.x + (int)GetCursorColumn(), point.y});
 	/* tell ncurses to redraw the screen */
