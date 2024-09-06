@@ -79,7 +79,7 @@ ScreenManager::OnResize() noexcept
 	buf = new char[buf_size];
 
 	/* resize all screens */
-	current_page->second->Resize(main_window.GetSize());
+	current_page->second->Resize(layout.GetMainSize());
 
 	/* ? - without this the cursor becomes visible with aterm & Eterm */
 	curs_set(1);
