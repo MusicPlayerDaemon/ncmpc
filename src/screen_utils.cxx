@@ -36,8 +36,7 @@ screen_getch(ScreenManager &screen, const char *prompt) noexcept
 
 	SelectStyle(window, Style::STATUS_ALERT);
 	window.Erase();
-	window.MoveCursor({0, 0});
-	window.String(prompt);
+	window.String({0, 0}, prompt);
 
 	echo();
 	curs_set(1);
