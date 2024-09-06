@@ -81,10 +81,6 @@ ScreenManager::OnResize() noexcept
 	/* resize all screens */
 	current_page->second->Resize(layout.GetMainSize());
 
-	/* ? - without this the cursor becomes visible with aterm & Eterm */
-	curs_set(1);
-	curs_set(0);
-
 	SchedulePaint();
 }
 
