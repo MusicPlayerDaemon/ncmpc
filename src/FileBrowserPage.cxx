@@ -64,7 +64,9 @@ protected:
 
 private:
 	void HandleSave(struct mpdclient &c) noexcept;
-	void HandleDelete(struct mpdclient &c) noexcept;
+
+	[[nodiscard]]
+	Co::InvokeTask HandleDelete(struct mpdclient &c);
 
 public:
 	/* virtual methods from class Page */
@@ -213,13 +215,11 @@ FileBrowserPage::HandleSave(struct mpdclient &c) noexcept
 		      defaultname != nullptr ? Utf8ToLocale{defaultname}.str() : std::string{});
 }
 
-void
-FileBrowserPage::HandleDelete(struct mpdclient &c) noexcept
+inline Co::InvokeTask
+FileBrowserPage::HandleDelete(struct mpdclient &c)
 {
-	auto *connection = c.GetConnection();
-
-	if (connection == nullptr)
-		return;
+	if (!c.IsConnected())
+		co_return;
 
 	const auto range = lw.GetRange();
 	for (const unsigned i : range) {
@@ -245,7 +245,11 @@ FileBrowserPage::HandleDelete(struct mpdclient &c) noexcept
 			 Utf8ToLocaleZ{GetUriFilename(mpd_playlist_get_path(playlist))}.c_str());
 		bool confirmed = screen_get_yesno(screen, prompt, false);
 		if (!confirmed)
-			return;
+			co_return;
+
+		auto *connection = c.GetConnection();
+		if (connection == nullptr)
+			throw std::runtime_error{"Not connected"};
 
 		if (!mpd_run_rm(connection, mpd_playlist_get_path(playlist))) {
 			c.HandleError();
@@ -307,6 +311,8 @@ FileBrowserPage::Update(struct mpdclient &c, unsigned events) noexcept
 bool
 FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 {
+	CoCancel();
+
 	switch(cmd) {
 	case Command::GO_ROOT_DIRECTORY:
 		ChangeDirectory(c, {});
@@ -332,8 +338,8 @@ FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	switch(cmd) {
 	case Command::DELETE:
-		HandleDelete(c);
-		break;
+		CoStart(HandleDelete(c));
+		return true;
 
 	case Command::SAVE_PLAYLIST:
 		HandleSave(c);
