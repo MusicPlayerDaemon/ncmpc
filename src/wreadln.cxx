@@ -277,8 +277,6 @@ _wreadln(const Window window,
 	if (x1 <= (unsigned)wr.point.x || x1 > (unsigned)COLS)
 		x1 = COLS;
 	wr.width = x1 - wr.point.x;
-	/* clear input area */
-	window.HLine(wr.point, wr.width, ' ');
 
 	if (history) {
 		/* append the a new line to our history list */
@@ -294,14 +292,13 @@ _wreadln(const Window window,
 			--hlist;
 			wr.value = *hlist;
 		}
-		wr.MoveCursorToEnd();
-		wr.Paint();
 	} else if (initial_value) {
 		/* copy the initial value to the line buffer */
 		wr.value = initial_value;
-		wr.MoveCursorToEnd();
-		wr.Paint();
 	}
+
+	wr.MoveCursorToEnd();
+	wr.Paint();
 
 #ifndef _WIN32
 	WaitUserInput wui;
