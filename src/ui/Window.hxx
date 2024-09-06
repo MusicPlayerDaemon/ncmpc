@@ -28,6 +28,13 @@ struct Window {
 	}
 
 	[[gnu::pure]]
+	const Point GetCursor() const noexcept {
+		Point p;
+		getyx(w, p.y, p.x);
+		return p;
+	}
+
+	[[gnu::pure]]
 	unsigned GetWidth() const noexcept {
 		return getmaxx(w);
 	}

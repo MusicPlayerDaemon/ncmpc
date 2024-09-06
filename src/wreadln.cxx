@@ -271,7 +271,7 @@ _wreadln(const Window window,
 	/* make sure the cursor is visible */
 	curs_set(1);
 	/* retrieve y and x0 position */
-	getyx(window.w, wr.point.y, wr.point.x);
+	wr.point = window.GetCursor();
 	/* check the x1 value */
 	if (x1 <= (unsigned)wr.point.x || x1 > (unsigned)COLS)
 		x1 = COLS;
