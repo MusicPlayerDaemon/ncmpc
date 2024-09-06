@@ -164,10 +164,6 @@ StatusBar::Update(const struct mpd_status *status,
 		right_length = right_text.size();
 		right_width = StringWidthMB(right_text);
 
-#ifndef NCMPC_MINI
-		int width = COLS - left_width - right_width;
-#endif
-
 		if (song) {
 			char buffer[1024];
 			center_text = strfsong(buffer, options.status_format.c_str(), *song);
@@ -177,10 +173,11 @@ StatusBar::Update(const struct mpd_status *status,
 		/* scroll if the song name is to long */
 #ifndef NCMPC_MINI
 		if (options.scroll) {
+			const unsigned window_width = window.GetWidth();
 			const unsigned center_width =
 				StringWidthMB(center_text);
-			if (width > 3 && center_width > (unsigned)width) {
-				hscroll.Set({(int)left_width, 0}, width,
+			if (window_width > 3 && center_width > window_width) {
+				hscroll.Set({(int)left_width, 0}, window_width,
 					    center_text,
 					    Style::STATUS);
 			} else {
