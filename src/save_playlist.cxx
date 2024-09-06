@@ -10,6 +10,7 @@
 #include "mpdclient.hxx"
 #include "Completion.hxx"
 #include "screen_utils.hxx"
+#include "co/InvokeTask.hxx"
 
 #include <mpd/client.h>
 
@@ -52,8 +53,7 @@ PlaylistNameCompletion::Post([[maybe_unused]] std::string_view value,
 
 #endif
 
-
-int
+Co::InvokeTask
 playlist_save(ScreenManager &screen, struct mpdclient &c,
 	      std::string filename) noexcept
 {
@@ -72,14 +72,14 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 					 nullptr,
 					 completion);
 		if (filename.empty())
-			return -1;
+			co_return;
 	}
 
 	/* send save command to mpd */
 
 	auto *connection = c.GetConnection();
 	if (connection == nullptr)
-		return -1;
+		co_return;
 
 	const LocaleToUtf8Z filename_utf8{filename};
 	if (!mpd_run_save(connection, filename_utf8.c_str())) {
@@ -91,16 +91,16 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 				 _("Replace %s?"), filename.c_str());
 			bool replace = screen_get_yesno(screen, prompt, false);
 			if (!replace)
-				return -1;
+				co_return;
 
 			if (!mpd_run_rm(connection, filename_utf8.c_str()) ||
 			    !mpd_run_save(connection, filename_utf8.c_str())) {
 				c.HandleError();
-				return -1;
+				co_return;
 			}
 		} else {
 			c.HandleError();
-			return -1;
+			co_return;
 		}
 	}
 
@@ -108,5 +108,4 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 
 	/* success */
 	screen_status_printf(_("Saved %s"), filename.c_str());
-	return 0;
 }

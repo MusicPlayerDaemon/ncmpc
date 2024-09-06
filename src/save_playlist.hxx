@@ -7,7 +7,9 @@
 
 class ScreenManager;
 struct mpdclient;
+namespace Co { class InvokeTask; }
 
-int
+[[nodiscard]]
+Co::InvokeTask
 playlist_save(ScreenManager &screen, struct mpdclient &c,
 	      std::string name={}) noexcept;

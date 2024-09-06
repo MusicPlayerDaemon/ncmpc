@@ -211,8 +211,8 @@ FileBrowserPage::HandleSave(struct mpdclient &c) noexcept
 		}
 	}
 
-	playlist_save(screen, c,
-		      defaultname != nullptr ? Utf8ToLocale{defaultname}.str() : std::string{});
+	CoStart(playlist_save(screen, c,
+			      defaultname != nullptr ? Utf8ToLocale{defaultname}.str() : std::string{}));
 }
 
 inline Co::InvokeTask

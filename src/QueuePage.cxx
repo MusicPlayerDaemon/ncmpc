@@ -511,6 +511,8 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 bool
 QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 {
+	CoCancel();
+
 	struct mpd_connection *connection;
 	static Command cached_cmd = Command::NONE;
 
@@ -584,7 +586,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	}
 
 	case Command::SAVE_PLAYLIST:
-		playlist_save(screen, c);
+		CoStart(playlist_save(screen, c));
 		return true;
 
 	case Command::ADD:
