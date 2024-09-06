@@ -368,6 +368,7 @@ if host_machine.system() == 'windows'
   subdir('src/win')
 endif
 
+subdir('src/util')
 subdir('src/lib/fmt')
 subdir('src/io')
 subdir('src/system')
@@ -420,16 +421,10 @@ ncmpc = executable('ncmpc',
   'src/Completion.cxx',
   'src/strfsong.cxx',
   'src/time_format.cxx',
-  'src/util/LocaleString.cxx',
-  'src/util/Exception.cxx',
-  'src/util/PrintException.cxx',
-  'src/util/StringCompare.cxx',
-  'src/util/StringStrip.cxx',
-  'src/util/StringUTF8.cxx',
-  'src/util/UriUtil.cxx',
   sources,
   include_directories: inc,
   dependencies: [
+    util_dep,
     thread_dep,
     event_dep,
     pcre_dep,
