@@ -54,8 +54,7 @@ PlaylistNameCompletion::Post([[maybe_unused]] std::string_view value,
 
 int
 playlist_save(ScreenManager &screen, struct mpdclient &c,
-	      const char *name,
-	      const char *defaultname) noexcept
+	      const char *name) noexcept
 {
 	std::string filename;
 
@@ -70,7 +69,7 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 
 		/* query the user for a filename */
 		filename = screen_readln(screen, _("Save queue as"),
-					 defaultname,
+					 nullptr,
 					 nullptr,
 					 completion);
 		if (filename.empty())
