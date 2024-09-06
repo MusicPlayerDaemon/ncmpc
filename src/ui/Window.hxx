@@ -45,7 +45,7 @@ struct Window {
 	}
 
 	void SetBackgroundStyle(Style style) const noexcept {
-		wbkgd(w, COLOR_PAIR(unsigned(style)));
+		wbkgdset(w, COLOR_PAIR(unsigned(style)));
 	}
 
 	void Move(Point p) const noexcept {
