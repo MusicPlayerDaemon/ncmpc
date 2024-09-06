@@ -8,6 +8,7 @@
 #include "ui/Point.hxx"
 #include "ui/Window.hxx"
 #include "util/LocaleString.hxx"
+#include "util/ScopeExit.hxx"
 
 #include <string>
 
@@ -269,6 +270,7 @@ _wreadln(const Window window,
 
 	/* make sure the cursor is visible */
 	curs_set(1);
+	AtScopeExit() { curs_set(0); };
 	/* retrieve y and x0 position */
 	wr.point = window.GetCursor();
 	/* check the x1 value */
