@@ -119,6 +119,7 @@ private:
 #endif
 
 	// virtual methods from AsyncUserInputHandler
+	bool OnRawKey(int key) noexcept override;
 	bool OnCommand(Command cmd) noexcept override;
 #ifdef HAVE_GETMOUSE
 	bool OnMouse(Point p, mmask_t bstate) noexcept override;

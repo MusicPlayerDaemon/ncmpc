@@ -82,3 +82,10 @@ Instance::Run()
 
 	event_loop.Run();
 }
+
+bool
+Instance::OnRawKey(int key) noexcept
+{
+	(void)key;
+	return false;
+}

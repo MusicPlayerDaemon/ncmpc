@@ -16,6 +16,16 @@ struct Point;
 class UserInputHandler {
 public:
 	/**
+	 * Implementing this method gives the handler a chance to
+	 * handle a key code pressed by the user.  This is called
+	 * before looking up hot keys.
+	 *
+	 * @return true if the character was consumed, false to pass
+	 * it on to the hot key checker
+	 */
+	virtual bool OnRawKey(int key) noexcept = 0;
+
+	/**
 	 * A hot key for a #Command was pressed.
 	 *
 	 * @return false if ncmpc will quit

@@ -55,6 +55,12 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 	}
 #endif
 
+	if (handler.OnRawKey(key)) {
+		// TODO: begin_input_event() ?
+		end_input_event();
+		return;
+	}
+
 	Command cmd = translate_key(key);
 	if (cmd == Command::NONE)
 		return;
