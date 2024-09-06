@@ -103,7 +103,7 @@ screen_readln(ScreenManager &screen, const char *prompt,
 	SelectStyle(window, Style::STATUS);
 	window.AttributeOn(A_REVERSE);
 
-	return wreadln(window, value, window.GetWidth(), history, completion);
+	return wreadln(window, value, history, completion);
 }
 
 std::string
@@ -123,7 +123,7 @@ screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 	SelectStyle(window, Style::STATUS);
 	window.AttributeOn(A_REVERSE);
 
-	return wreadln_masked(window, nullptr, window.GetWidth());
+	return wreadln_masked(window, nullptr);
 }
 
 static const char *

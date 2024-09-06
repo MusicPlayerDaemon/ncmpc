@@ -256,7 +256,6 @@ wreadln::DeleteChar(size_t x) noexcept
 static std::string
 _wreadln(const Window window,
 	 const char *initial_value,
-	 unsigned x1,
 	 History *history,
 	 Completion *completion,
 	 bool masked) noexcept
@@ -273,10 +272,7 @@ _wreadln(const Window window,
 	AtScopeExit() { curs_set(0); };
 	/* retrieve y and x0 position */
 	wr.point = window.GetCursor();
-	/* check the x1 value */
-	if (x1 <= (unsigned)wr.point.x || x1 > (unsigned)COLS)
-		x1 = COLS;
-	wr.width = x1 - wr.point.x;
+	wr.width = window.GetWidth() - wr.point.x;
 
 	if (history) {
 		/* append the a new line to our history list */
@@ -470,18 +466,16 @@ _wreadln(const Window window,
 std::string
 wreadln(const Window window,
 	const char *initial_value,
-	unsigned x1,
 	History *history,
 	Completion *completion) noexcept
 {
-	return _wreadln(window, initial_value, x1,
+	return _wreadln(window, initial_value,
 			history, completion, false);
 }
 
 std::string
 wreadln_masked(const Window window,
-	       const char *initial_value,
-	       unsigned x1) noexcept
+	       const char *initial_value) noexcept
 {
-	return  _wreadln(window, initial_value, x1, nullptr, nullptr, true);
+	return  _wreadln(window, initial_value, nullptr, nullptr, true);
 }
