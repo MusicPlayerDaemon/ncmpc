@@ -374,6 +374,7 @@ if host_machine.system() == 'windows'
 endif
 
 subdir('src/util')
+subdir('src/co')
 subdir('src/lib/fmt')
 subdir('src/io')
 subdir('src/system')
@@ -428,6 +429,7 @@ ncmpc = executable('ncmpc',
   include_directories: inc,
   dependencies: [
     util_dep,
+    coroutines_dep,
     thread_dep,
     event_dep,
     pcre_dep,
