@@ -273,7 +273,7 @@ EditPlaylistPage::OnCommand(struct mpdclient &c, Command cmd)
 		return HandleDelete(c);
 
 	case Command::SAVE_PLAYLIST:
-		//playlist_save(screen, c, nullptr);
+		//playlist_save(screen, c);
 		// TODO
 		return true;
 

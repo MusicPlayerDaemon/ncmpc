@@ -3,9 +3,11 @@
 
 #pragma once
 
+#include <string>
+
 class ScreenManager;
 struct mpdclient;
 
 int
 playlist_save(ScreenManager &screen, struct mpdclient &c,
-	      const char *name) noexcept;
+	      std::string name={}) noexcept;

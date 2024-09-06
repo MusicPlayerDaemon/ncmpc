@@ -52,13 +52,12 @@ PlaylistNameCompletion::Post([[maybe_unused]] std::string_view value,
 
 #endif
 
+
 int
 playlist_save(ScreenManager &screen, struct mpdclient &c,
-	      const char *name) noexcept
+	      std::string filename) noexcept
 {
-	std::string filename;
-
-	if (name == nullptr) {
+	if (filename.empty()) {
 #ifdef NCMPC_MINI
 		Completion *completion = nullptr;
 #else
@@ -74,8 +73,7 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 					 completion);
 		if (filename.empty())
 			return -1;
-	} else
-		filename = name;
+	}
 
 	/* send save command to mpd */
 

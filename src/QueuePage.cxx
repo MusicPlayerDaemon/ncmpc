@@ -624,7 +624,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	}
 
 	case Command::SAVE_PLAYLIST:
-		playlist_save(screen, c, nullptr);
+		playlist_save(screen, c);
 		return true;
 
 	case Command::ADD:
