@@ -101,6 +101,24 @@ struct Window {
 		mvwhline(w, p.y, p.x, ch, width);
 	}
 
+#if NCURSES_WIDECHAR
+	void Char(const cchar_t *ch) const noexcept {
+		wadd_wch(w, ch);
+	}
+
+	void Char(Point p, const cchar_t *ch) const noexcept {
+		mvwadd_wch(w, p.y, p.x, ch);
+	}
+
+	void HLine(unsigned width, const cchar_t *ch) const noexcept {
+		whline_set(w, ch, width);
+	}
+
+	void HLine(Point p, unsigned width, const cchar_t *ch) const noexcept {
+		mvwhline_set(w, p.y, p.x, ch, width);
+	}
+#endif // NCURSES_WIDECHAR
+
 	void RefreshNoOut() const noexcept {
 		wnoutrefresh(w);
 	}
