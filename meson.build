@@ -101,6 +101,14 @@ if curses == 'ncursesw'
 elif curses == 'ncurses'
   curses_enhanced = true
   curses_color = true
+
+  # Manually override NCURSES_WIDECHAR; this suppresses definitions
+  # for symbols which are not present in the non-wide ncurses build.
+  # This macro really belongs in ncurses.pc, not here.
+  curses_dep = declare_dependency(
+    compile_args: '-DNCURSES_WIDECHAR=0',
+    dependencies: curses_dep,
+  )
 else
   # TODO: test this with pdcurses
   curses_enhanced = cc.has_header_symbol('curses.h', '_XOPEN_CURSES', dependencies: curses_dep)
