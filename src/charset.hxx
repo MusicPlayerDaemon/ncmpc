@@ -30,7 +30,7 @@ utf8_to_locale(std::string_view src, std::span<char> buffer) noexcept;
  */
 class Utf8ToLocale {
 #ifdef HAVE_ICONV
-	const std::string value;
+	std::string value;
 #else
 	const std::string_view value;
 #endif
@@ -58,6 +58,14 @@ public:
 	const char *c_str() const noexcept {
 		return value.c_str();
 	}
+
+	std::string &&str() && noexcept {
+		return std::move(value);
+	}
+#else
+	std::string str() && noexcept {
+		return std::string{value};
+	}
 #endif
 };
 
@@ -68,7 +76,7 @@ public:
  */
 class LocaleToUtf8 {
 #ifdef HAVE_ICONV
-	const std::string value;
+	std::string value;
 #else
 	const std::string_view value;
 #endif
@@ -95,6 +103,14 @@ public:
 	[[nodiscard]] [[gnu::pure]]
 	const char *c_str() const noexcept {
 		return value.c_str();
+	}
+
+	std::string &&str() && noexcept {
+		return std::move(value);
+	}
+#else
+	std::string str() && noexcept {
+		return std::string{value};
 	}
 #endif
 };
