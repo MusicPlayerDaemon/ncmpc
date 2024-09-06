@@ -29,10 +29,8 @@ StatusBar::StatusBar(EventLoop &event_loop,
 	leaveok(window.w, false);
 	keypad(window.w, true);
 
-#ifdef ENABLE_COLORS
 	if (ui_options.enable_colors)
 		window.SetBackgroundStyle(Style::STATUS);
-#endif
 }
 
 StatusBar::~StatusBar() noexcept

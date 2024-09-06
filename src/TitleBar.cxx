@@ -21,10 +21,8 @@ TitleBar::TitleBar(Point p, unsigned width) noexcept
 	leaveok(window.w, true);
 	keypad(window.w, true);
 
-#ifdef ENABLE_COLORS
 	if (ui_options.enable_colors)
 		window.SetBackgroundStyle(Style::TITLE);
-#endif
 }
 
 static inline int

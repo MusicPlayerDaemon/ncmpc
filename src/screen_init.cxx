@@ -30,12 +30,10 @@ ScreenManager::ScreenManager(EventLoop &event_loop) noexcept
 
 	keypad(main_window.w, true);
 
-#ifdef ENABLE_COLORS
 	if (ui_options.enable_colors) {
 		/* set background attributes */
 		main_window.SetBackgroundStyle(Style::LIST);
 	}
-#endif
 }
 
 ScreenManager::~ScreenManager() noexcept

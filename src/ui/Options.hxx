@@ -16,7 +16,10 @@ struct UiOptions {
 
 #ifdef ENABLE_COLORS
 	bool enable_colors = true;
+#else
+	static constexpr bool enable_colors = false;
 #endif
+
 	bool audible_bell = true;
 	bool visible_bell;
 	bool bell_on_wrap = true;

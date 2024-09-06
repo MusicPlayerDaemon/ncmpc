@@ -12,10 +12,9 @@ ProgressBar::ProgressBar(Point p, unsigned _width) noexcept
 	:window(p, {_width, 1u})
 {
 	leaveok(window.w, true);
-#ifdef ENABLE_COLORS
+
 	if (ui_options.enable_colors)
 		window.SetBackgroundStyle(Style::PROGRESSBAR);
-#endif
 }
 
 void
