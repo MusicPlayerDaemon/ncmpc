@@ -96,11 +96,9 @@ if not cc.has_header('curses.h', dependencies: curses_dep)
 endif
 
 if curses == 'ncursesw'
-  conf.set('HAVE_NCURSESW', true)
   curses_enhanced = true
   curses_color = true
 elif curses == 'ncurses'
-  conf.set('HAVE_NCURSES', true)
   curses_enhanced = true
   curses_color = true
 else
