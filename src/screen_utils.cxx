@@ -94,7 +94,6 @@ screen_readln(ScreenManager &screen, const char *prompt,
 	const auto &window = screen.status_bar.GetWindow();
 
 	window.MoveCursor({0, 0});
-	curs_set(1);
 
 	if (prompt != nullptr) {
 		SelectStyle(window, Style::STATUS_ALERT);
@@ -105,10 +104,7 @@ screen_readln(ScreenManager &screen, const char *prompt,
 	SelectStyle(window, Style::STATUS);
 	window.AttributeOn(A_REVERSE);
 
-	auto result = wreadln(window, value, window.GetWidth(),
-			      history, completion);
-	curs_set(0);
-	return result;
+	return wreadln(window, value, window.GetWidth(), history, completion);
 }
 
 std::string
@@ -117,7 +113,6 @@ screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 	const auto &window = screen.status_bar.GetWindow();
 
 	window.MoveCursor({0, 0});
-	curs_set(1);
 	SelectStyle(window, Style::STATUS_ALERT);
 
 	if (prompt == nullptr)
@@ -129,9 +124,7 @@ screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 	SelectStyle(window, Style::STATUS);
 	window.AttributeOn(A_REVERSE);
 
-	auto result = wreadln_masked(window, nullptr, window.GetWidth());
-	curs_set(0);
-	return result;
+	return wreadln_masked(window, nullptr, window.GetWidth());
 }
 
 static const char *
