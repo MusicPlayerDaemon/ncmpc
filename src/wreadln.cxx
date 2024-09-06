@@ -3,7 +3,6 @@
 
 #include "wreadln.hxx"
 #include "Completion.hxx"
-//#include "screen_utils.hxx"
 #include "config.h"
 #include "ui/Bell.hxx"
 #include "ui/Point.hxx"
