@@ -11,6 +11,7 @@
 #include "Completion.hxx"
 #include "screen.hxx"
 #include "screen_utils.hxx"
+#include "dialogs/TextInputDialog.hxx"
 #include "dialogs/YesNoDialog.hxx"
 #include "co/InvokeTask.hxx"
 
@@ -69,10 +70,13 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 #endif
 
 		/* query the user for a filename */
-		filename = screen_readln(screen, _("Save queue as"),
-					 nullptr,
-					 nullptr,
-					 completion);
+		filename = co_await TextInputDialog{
+			screen, _("Save queue as"),
+			{},
+			nullptr,
+			completion,
+		};
+
 		if (filename.empty())
 			co_return;
 	}

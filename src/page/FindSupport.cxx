@@ -2,12 +2,14 @@
 // Copyright The Music Player Daemon Project
 
 #include "FindSupport.hxx"
+#include "screen.hxx"
 #include "screen_utils.hxx"
 #include "screen_status.hxx"
 #include "screen.hxx"
 #include "AsyncUserInput.hxx"
 #include "i18n.h"
 #include "Command.hxx"
+#include "dialogs/TextInputDialog.hxx"
 #include "ui/Bell.hxx"
 #include "ui/ListWindow.hxx"
 #include "ui/Options.hxx"
@@ -25,13 +27,17 @@ FindSupport::DoFind(ListWindow &lw, const ListText &text, bool reversed) noexcep
 {
 	if (last.empty()) {
 		const char *const prompt = reversed ? RFIND_PROMPT : FIND_PROMPT;
-		char *value = ui_options.find_show_last_pattern
-			? (char *) -1 : nullptr;
-		last = screen_readln(screen,
-				     prompt,
-				     value,
-				     &history,
-				     nullptr);
+
+		std::string value;
+		if (ui_options.find_show_last_pattern && !history.empty())
+			value = history.back();
+
+		last = co_await TextInputDialog{
+			screen,
+			prompt,
+			std::move(value),
+			&history,
+		};
 	}
 
 	if (last.empty())

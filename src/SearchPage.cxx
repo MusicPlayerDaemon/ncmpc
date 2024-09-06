@@ -11,9 +11,9 @@
 #include "GlobalBindings.hxx"
 #include "charset.hxx"
 #include "mpdclient.hxx"
-#include "screen_utils.hxx"
 #include "FileListPage.hxx"
 #include "filelist.hxx"
+#include "dialogs/TextInputDialog.hxx"
 #include "ui/TextListRenderer.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "util/StringAPI.hxx"
@@ -414,10 +414,11 @@ SearchPage::Start(struct mpdclient &c)
 
 	Clear(true);
 
-	pattern = screen_readln(screen, _("Search"),
-				nullptr,
-				&search_history,
-				nullptr);
+	pattern = co_await TextInputDialog{
+		screen, _("Search"),
+		{},
+		&search_history,
+	};
 
 	if (pattern.empty()) {
 		lw.Reset();

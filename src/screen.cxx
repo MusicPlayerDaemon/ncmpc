@@ -5,7 +5,6 @@
 #include "PageMeta.hxx"
 #include "screen_list.hxx"
 #include "screen_status.hxx"
-#include "screen_utils.hxx"
 #include "Command.hxx"
 #include "config.h"
 #include "i18n.h"
@@ -19,6 +18,7 @@
 #include "QueuePage.hxx"
 #include "page/Page.hxx"
 #include "dialogs/ModalDialog.hxx"
+#include "dialogs/TextInputDialog.hxx"
 #include "ui/Options.hxx"
 #include "co/Task.hxx"
 #include "util/ScopeExit.hxx"
@@ -342,7 +342,10 @@ EnterPassword(ScreenManager &screen, struct mpdclient &c)
 		c.authenticating = false;
 	};
 
-	co_return screen_read_password(screen, nullptr);
+	co_return co_await TextInputDialog{
+		screen, _("Password"), {},
+		nullptr, nullptr, true,
+	};
 }
 
 inline Co::InvokeTask

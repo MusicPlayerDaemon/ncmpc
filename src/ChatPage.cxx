@@ -4,7 +4,6 @@
 #include "ChatPage.hxx"
 #include "PageMeta.hxx"
 #include "screen.hxx"
-#include "screen_utils.hxx"
 #include "screen_status.hxx"
 #include "mpdclient.hxx"
 #include "i18n.h"
@@ -12,6 +11,7 @@
 #include "Command.hxx"
 #include "Options.hxx"
 #include "page/TextPage.hxx"
+#include "dialogs/TextInputDialog.hxx"
 #include "util/StringAPI.hxx"
 
 #include <mpd/idle.h>
@@ -150,8 +150,9 @@ ChatPage::SendMessage(struct mpdclient &c, const char *msg) noexcept
 inline Co::InvokeTask
 ChatPage::EnterMessage(struct mpdclient &c)
 {
-	auto message = screen_readln(screen, _("Your message"),
-					     nullptr, nullptr, nullptr);
+	const auto message = co_await TextInputDialog{
+		screen, _("Your message"),
+	};
 
 	/* the user entered an empty line */
 	if (message.empty())

@@ -3,10 +3,7 @@
 
 #include "screen_utils.hxx"
 #include "screen.hxx"
-#include "config.h"
-#include "i18n.h"
 #include "Styles.hxx"
-#include "wreadln.hxx"
 #include "ui/Options.hxx"
 #include "util/ScopeExit.hxx"
 #include "config.h"
@@ -73,62 +70,6 @@ screen_getch(ScreenManager &screen, const char *prompt) noexcept
 	curs_set(0);
 
 	return key;
-}
-
-std::string
-screen_readln(ScreenManager &screen, const char *prompt,
-	      const char *value,
-	      History *history,
-	      Completion *completion) noexcept
-{
-	const auto &window = screen.status_bar.GetWindow();
-
-	if (ui_options.enable_colors)
-		window.SetBackgroundStyle(Style::INPUT);
-
-	AtScopeExit(&window) {
-		if (ui_options.enable_colors)
-			window.SetBackgroundStyle(Style::STATUS);
-	};
-
-	window.MoveCursor({0, 0});
-
-	if (prompt != nullptr) {
-		SelectStyle(window, Style::STATUS_ALERT);
-		window.String(prompt);
-		window.String(": "sv);
-	}
-
-	SelectStyle(window, Style::INPUT);
-
-	return wreadln(window, value, history, completion);
-}
-
-std::string
-screen_read_password(ScreenManager &screen, const char *prompt) noexcept
-{
-	const auto &window = screen.status_bar.GetWindow();
-
-	if (ui_options.enable_colors)
-		window.SetBackgroundStyle(Style::INPUT);
-
-	AtScopeExit(&window) {
-		if (ui_options.enable_colors)
-			window.SetBackgroundStyle(Style::STATUS);
-	};
-
-	window.MoveCursor({0, 0});
-	SelectStyle(window, Style::STATUS_ALERT);
-
-	if (prompt == nullptr)
-		prompt = _("Password");
-
-	window.String(prompt);
-	window.String(": "sv);
-
-	SelectStyle(window, Style::INPUT);
-
-	return wreadln_masked(window, nullptr);
 }
 
 static const char *

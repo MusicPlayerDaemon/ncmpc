@@ -7,10 +7,10 @@
 #include "screen.hxx"
 #include "screen_status.hxx"
 #include "Command.hxx"
-#include "screen_utils.hxx"
 #include "i18n.h"
 #include "mpdclient.hxx"
 #include "page/ListPage.hxx"
+#include "dialogs/TextInputDialog.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/paint.hxx"
 #include "util/FNVHash.hxx"
@@ -167,7 +167,9 @@ OutputsPage::CreateNewPartition(struct mpdclient &c) noexcept
 	if (!c.IsConnected())
 		co_return;
 
-	auto name = screen_readln(screen, _("Name"), nullptr, nullptr, nullptr);
+	const auto name = co_await TextInputDialog{
+		screen, _("Name"),
+	};
 	if (name.empty())
 		co_return;
 

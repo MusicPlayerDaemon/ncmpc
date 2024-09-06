@@ -20,6 +20,7 @@
 #include "screen_utils.hxx"
 #include "db_completion.hxx"
 #include "page/ListPage.hxx"
+#include "dialogs/TextInputDialog.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"
 #include "event/CoarseTimerEvent.hxx"
@@ -300,10 +301,13 @@ handle_add_to_playlist(ScreenManager &screen, struct mpdclient &c)
 #endif
 
 	/* get path */
-	auto path = screen_readln(screen, _("Add"),
-				  nullptr,
-				  nullptr,
-				  completion);
+	const auto path = co_await TextInputDialog{
+		screen,
+		_("Add"),
+		{},
+		nullptr,
+		completion,
+	};
 
 	/* add the path to the playlist */
 	if (!path.empty()) {
