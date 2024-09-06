@@ -28,8 +28,13 @@ ProgressBar::Paint() const noexcept
 
 		SelectStyle(window, Style::PROGRESSBAR);
 
-		if (width > 0)
+		if (width > 0) {
+#if NCURSES_WIDECHAR
+			window.HLine({0, 0}, width, WACS_D_HLINE);
+#else
 			window.HLine({0, 0}, width, '=');
+#endif
+		}
 
 		window.Char({(int)width, 0}, '>');
 		unsigned x = width + 1;
