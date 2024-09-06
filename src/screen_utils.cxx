@@ -7,6 +7,8 @@
 #include "i18n.h"
 #include "Styles.hxx"
 #include "wreadln.hxx"
+#include "ui/Options.hxx"
+#include "util/ScopeExit.hxx"
 #include "config.h"
 
 #ifndef _WIN32
@@ -34,9 +36,17 @@ screen_getch(ScreenManager &screen, const char *prompt) noexcept
 {
 	const auto &window = screen.status_bar.GetWindow();
 
+	if (ui_options.enable_colors)
+		window.SetBackgroundStyle(Style::INPUT);
+
+	AtScopeExit(&window) {
+		if (ui_options.enable_colors)
+			window.SetBackgroundStyle(Style::STATUS);
+	};
+
 	SelectStyle(window, Style::STATUS_ALERT);
-	window.Erase();
 	window.String({0, 0}, prompt);
+	window.ClearToEol();
 
 	echo();
 	curs_set(1);
@@ -92,6 +102,14 @@ screen_readln(ScreenManager &screen, const char *prompt,
 {
 	const auto &window = screen.status_bar.GetWindow();
 
+	if (ui_options.enable_colors)
+		window.SetBackgroundStyle(Style::INPUT);
+
+	AtScopeExit(&window) {
+		if (ui_options.enable_colors)
+			window.SetBackgroundStyle(Style::STATUS);
+	};
+
 	window.MoveCursor({0, 0});
 
 	if (prompt != nullptr) {
@@ -100,8 +118,7 @@ screen_readln(ScreenManager &screen, const char *prompt,
 		window.String(": "sv);
 	}
 
-	SelectStyle(window, Style::STATUS);
-	window.AttributeOn(A_REVERSE);
+	SelectStyle(window, Style::INPUT);
 
 	return wreadln(window, value, history, completion);
 }
@@ -110,6 +127,14 @@ std::string
 screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 {
 	const auto &window = screen.status_bar.GetWindow();
+
+	if (ui_options.enable_colors)
+		window.SetBackgroundStyle(Style::INPUT);
+
+	AtScopeExit(&window) {
+		if (ui_options.enable_colors)
+			window.SetBackgroundStyle(Style::STATUS);
+	};
 
 	window.MoveCursor({0, 0});
 	SelectStyle(window, Style::STATUS_ALERT);
@@ -120,8 +145,7 @@ screen_read_password(ScreenManager &screen, const char *prompt) noexcept
 	window.String(prompt);
 	window.String(": "sv);
 
-	SelectStyle(window, Style::STATUS);
-	window.AttributeOn(A_REVERSE);
+	SelectStyle(window, Style::INPUT);
 
 	return wreadln_masked(window, nullptr);
 }

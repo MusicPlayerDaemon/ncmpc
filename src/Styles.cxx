@@ -164,6 +164,11 @@ static StyleData styles[size_t(Style::END)] = {
 		A_NORMAL,
 	},
 	{
+		"input", Style::BACKGROUND,
+		COLOR_NONE, COLOR_INHERIT, A_NORMAL,
+		A_NORMAL,
+	},
+	{
 		"background", Style::DEFAULT,
 		COLOR_NONE, COLOR_BLACK, A_NORMAL,
 		A_NORMAL,

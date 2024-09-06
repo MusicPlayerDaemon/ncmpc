@@ -30,6 +30,7 @@ enum class Style : unsigned {
 	STATUS_ALERT,
 	DIRECTORY,
 	PLAYLIST,
+	INPUT,
 	BACKGROUND,
 	END
 };
