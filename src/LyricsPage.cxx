@@ -353,10 +353,8 @@ LyricsPage::Edit()
 		const char *prompt =
 			_("Do you really want to start an editor and edit these lyrics?");
 		bool really = screen_get_yesno(screen, prompt, false);
-		if (!really) {
-			screen_status_message(_("Aborted"));
+		if (!really)
 			return;
-		}
 	}
 
 	if (!Save())

@@ -93,10 +93,8 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 			snprintf(prompt, sizeof(prompt),
 				 _("Replace %s?"), filename.c_str());
 			bool replace = screen_get_yesno(screen, prompt, false);
-			if (!replace) {
-				screen_status_message(_("Aborted"));
+			if (!replace)
 				return -1;
-			}
 
 			if (!mpd_run_rm(connection, filename_utf8.c_str()) ||
 			    !mpd_run_save(connection, filename_utf8.c_str())) {

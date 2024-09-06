@@ -247,11 +247,8 @@ FileBrowserPage::HandleDelete(struct mpdclient &c) noexcept
 			 _("Delete playlist %s?"),
 			 Utf8ToLocaleZ{GetUriFilename(mpd_playlist_get_path(playlist))}.c_str());
 		bool confirmed = screen_get_yesno(screen, prompt, false);
-		if (!confirmed) {
-			/* translators: a dialog was aborted by the user */
-			screen_status_message(_("Aborted"));
+		if (!confirmed)
 			return;
-		}
 
 		if (!mpd_run_rm(connection, mpd_playlist_get_path(playlist))) {
 			c.HandleError();
