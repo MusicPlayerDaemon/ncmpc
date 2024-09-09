@@ -7,5 +7,7 @@
 
 #define KEY_CTL(x) ((x) & 0x1f) /* KEY_CTL(A) == ^A == \1 */
 
-#define KEY_BCKSPC   8
-#define TAB          9
+enum : int {
+	KEY_BCKSPC = 8,
+	TAB = 9,
+};
