@@ -3,11 +3,10 @@
 
 #include "GlobalBindings.hxx"
 #include "Bindings.hxx"
+#include "ui/Keys.hxx"
 #include "config.h"
 
 #include <curses.h>
-
-#define KEY_CTL(x) ((x) & 0x1f) /* KEY_CTL(A) == ^A == \1 */
 
 #define BS   KEY_BACKSPACE
 #define DEL  KEY_DC
@@ -19,7 +18,6 @@
 #define END  KEY_END
 #define PGDN KEY_NPAGE
 #define PGUP KEY_PPAGE
-#define TAB  0x09
 #define STAB 0x161
 #define ESC  0x1B
 #define RET  '\r'

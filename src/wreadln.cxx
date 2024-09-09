@@ -5,6 +5,7 @@
 #include "Completion.hxx"
 #include "config.h"
 #include "ui/Bell.hxx"
+#include "ui/Keys.hxx"
 #include "ui/Point.hxx"
 #include "ui/Window.hxx"
 #include "util/LocaleString.hxx"
@@ -20,22 +21,6 @@
 #include "WaitUserInput.hxx"
 #include <errno.h>
 #endif
-
-#define KEY_CTRL_A   1
-#define KEY_CTRL_B   2
-#define KEY_CTRL_C   3
-#define KEY_CTRL_D   4
-#define KEY_CTRL_E   5
-#define KEY_CTRL_F   6
-#define KEY_CTRL_G   7
-#define KEY_CTRL_K   11
-#define KEY_CTRL_N   14
-#define KEY_CTRL_P   16
-#define KEY_CTRL_U   21
-#define KEY_CTRL_W   23
-#define KEY_CTRL_Z   26
-#define KEY_BCKSPC   8
-#define TAB          9
 
 struct wreadln {
 	/** the ncurses window where this field is displayed */
