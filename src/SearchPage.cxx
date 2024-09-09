@@ -115,7 +115,9 @@ public:
 private:
 	void Clear(bool clear_pattern) noexcept;
 	void Reload(struct mpdclient &c);
-	void Start(struct mpdclient &c);
+
+	[[nodiscard]]
+	Co::InvokeTask Start(struct mpdclient &c);
 
 public:
 	/* virtual methods from class Page */
@@ -404,11 +406,11 @@ SearchPage::Reload(struct mpdclient &c)
 	SchedulePaint();
 }
 
-void
+inline Co::InvokeTask
 SearchPage::Start(struct mpdclient &c)
 {
 	if (!c.IsReady())
-		return;
+		co_return;
 
 	Clear(true);
 
@@ -419,7 +421,7 @@ SearchPage::Start(struct mpdclient &c)
 
 	if (pattern.empty()) {
 		lw.Reset();
-		return;
+		co_return;
 	}
 
 	Reload(c);
@@ -489,7 +491,7 @@ SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	case Command::SCREEN_SEARCH:
-		Start(c);
+		CoStart(Start(c));
 		return true;
 
 	case Command::CLEAR:
