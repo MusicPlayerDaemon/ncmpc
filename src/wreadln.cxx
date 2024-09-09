@@ -412,7 +412,7 @@ _wreadln(const Window window,
 			wr.MoveCursorToEnd();
 			break;
 
-		case KEY_LINENEED:
+		case KEY_LINEFEED:
 		case KEY_RETURN:
 		case KEY_IC:
 		case KEY_PPAGE:
