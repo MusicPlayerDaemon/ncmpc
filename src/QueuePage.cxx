@@ -286,7 +286,8 @@ DatabaseCompletion::Post(std::string_view line, Range range) noexcept
 
 #endif
 
-static int
+[[nodiscard]]
+static Co::InvokeTask
 handle_add_to_playlist(ScreenManager &screen, struct mpdclient &c)
 {
 #ifndef NCMPC_MINI
@@ -308,7 +309,7 @@ handle_add_to_playlist(ScreenManager &screen, struct mpdclient &c)
 		mpdclient_cmd_add_path(c, LocaleToUtf8Z{path}.c_str());
 	}
 
-	return 0;
+	co_return;
 }
 
 static std::unique_ptr<Page>
@@ -587,7 +588,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	case Command::ADD:
-		handle_add_to_playlist(screen, c);
+		CoStart(handle_add_to_playlist(screen, c));
 		return true;
 
 	case Command::SHUFFLE: {
