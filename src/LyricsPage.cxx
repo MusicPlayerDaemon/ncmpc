@@ -52,9 +52,11 @@ class LyricsPage final : public TextPage, PluginResponseHandler {
 	CoarseTimerEvent plugin_timeout;
 
 public:
-	LyricsPage(ScreenManager &_screen, const Window _window, Size size) noexcept
-		:TextPage(_screen, _window, size),
-		 plugin_timeout(_screen.GetEventLoop(),
+	LyricsPage(EventLoop &event_loop,
+		   PageContainer &_parent, const Window _window, Size size,
+		   FindSupport &_find_support) noexcept
+		:TextPage(_parent, _window, size, _find_support),
+		 plugin_timeout(event_loop,
 				BIND_THIS_METHOD(OnTimeout)) {}
 
 	~LyricsPage() noexcept override {
@@ -272,7 +274,9 @@ LyricsPage::Reload() noexcept
 static std::unique_ptr<Page>
 lyrics_screen_init(ScreenManager &_screen, const Window window, Size size) noexcept
 {
-	return std::make_unique<LyricsPage>(_screen, window, size);
+	return std::make_unique<LyricsPage>(_screen.GetEventLoop(),
+					    _screen, window, size,
+					    _screen.find_support);
 }
 
 void

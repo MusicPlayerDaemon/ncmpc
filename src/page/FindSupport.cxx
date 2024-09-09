@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#include "screen_find.hxx"
+#include "FindSupport.hxx"
 #include "screen_utils.hxx"
 #include "screen_status.hxx"
 #include "screen.hxx"
@@ -19,10 +19,8 @@
 #define RFIND_PROMPT _("Find backward")
 #define JUMP_PROMPT _("Jump")
 
-/* query user for a string and find it in a list window */
 bool
-screen_find(ScreenManager &screen, ListWindow &lw, Command findcmd,
-	    const ListText &text) noexcept
+FindSupport::Find(ListWindow &lw, const ListText &text, Command findcmd) noexcept
 {
 	bool found;
 	const char *prompt = FIND_PROMPT;
@@ -36,29 +34,30 @@ screen_find(ScreenManager &screen, ListWindow &lw, Command findcmd,
 	switch (findcmd) {
 	case Command::LIST_FIND:
 	case Command::LIST_RFIND:
-		screen.findbuf.clear();
+		last.clear();
 		/* fall through */
 
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
-		if (screen.findbuf.empty()) {
+		if (last.empty()) {
 			char *value = ui_options.find_show_last_pattern
 				? (char *) -1 : nullptr;
-			screen.findbuf=screen_readln(screen, prompt,
-						     value,
-						     &screen.find_history,
-						     nullptr);
+			last = screen_readln(screen,
+					     prompt,
+					     value,
+					     &history,
+					     nullptr);
 		}
 
-		if (screen.findbuf.empty())
+		if (last.empty())
 			return true;
 
 		found = reversed
-			? lw.ReverseFind(text, screen.findbuf)
-			: lw.Find(text, screen.findbuf);
+			? lw.ReverseFind(text, last)
+			: lw.Find(text, last);
 		if (!found) {
 			screen_status_printf(_("Unable to find \'%s\'"),
-					     screen.findbuf.c_str());
+					     last.c_str());
 			Bell();
 		}
 		return true;
@@ -68,19 +67,17 @@ screen_find(ScreenManager &screen, ListWindow &lw, Command findcmd,
 	return false;
 }
 
-/* query user for a string and jump to the entry
- * which begins with this string while the users types */
 void
-screen_jump(ScreenManager &screen, ListWindow &lw,
-	    const ListText &text,
-	    const ListRenderer &renderer) noexcept
+FindSupport::Jump(ListWindow &lw,
+		  const ListText &text,
+		  const ListRenderer &renderer) noexcept
 {
 	constexpr size_t WRLN_MAX_LINE_SIZE = 1024;
 	int key = 65;
 
 	char buffer[WRLN_MAX_LINE_SIZE];
 
-	/* In screen.findbuf is the whole string which is displayed in the status_window
+	/* In last is the whole string which is displayed in the status_window
 	 * and search_str is the string the user entered (without the prompt) */
 	char *search_str = buffer + snprintf(buffer, WRLN_MAX_LINE_SIZE, "%s: ", JUMP_PROMPT);
 	char *iter = search_str;
@@ -110,7 +107,7 @@ screen_jump(ScreenManager &screen, ListWindow &lw,
 		lw.Refresh();
 	}
 
-	screen.findbuf = search_str;
+	last = search_str;
 
 	/* ncmpc should get the command */
 	keyboard_unread(key);

@@ -2,7 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "TextPage.hxx"
-#include "screen_find.hxx"
+#include "FindSupport.hxx"
 #include "charset.hxx"
 #include "ui/TextListRenderer.hxx"
 #include "screen.hxx"
@@ -12,9 +12,9 @@
 #include <assert.h>
 #include <string.h>
 
-TextPage::TextPage(ScreenManager &_screen,
-		   Window window, Size size) noexcept
-	:ListPage(_screen, window, size), screen(_screen)
+TextPage::TextPage(PageContainer &_parent, Window window, Size size,
+		   FindSupport &_find_support) noexcept
+	:ListPage(_parent, window, size), find_support(_find_support)
 {
 	lw.HideCursor();
 }
@@ -90,7 +90,7 @@ TextPage::OnCommand(struct mpdclient &c, Command cmd)
 		   search */
 		lw.SetCursorFromOrigin(0);
 
-	if (screen_find(screen, lw, cmd, *this)) {
+	if (find_support.Find(lw, *this, cmd)) {
 		SchedulePaint();
 		return true;
 	}

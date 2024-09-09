@@ -7,7 +7,6 @@
 #include "EditPlaylistPage.hxx"
 #include "Command.hxx"
 #include "screen_status.hxx"
-#include "screen_find.hxx"
 #include "screen.hxx"
 #include "i18n.h"
 #include "Options.hxx"
@@ -387,11 +386,11 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_RFIND:
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
-		screen_find(screen, lw, cmd, *this);
+		screen.find_support.Find(lw, *this, cmd);
 		SchedulePaint();
 		return true;
 	case Command::LIST_JUMP:
-		screen_jump(screen, lw, *this, *this);
+		screen.find_support.Jump(lw, *this, *this);
 		SchedulePaint();
 		return true;
 

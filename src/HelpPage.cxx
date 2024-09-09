@@ -3,7 +3,6 @@
 
 #include "HelpPage.hxx"
 #include "PageMeta.hxx"
-#include "screen_find.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "config.h"
@@ -310,7 +309,7 @@ HelpPage::OnCommand(struct mpdclient &c, Command cmd)
 		   search */
 		lw.SetCursorFromOrigin(0);
 
-	if (screen_find(screen, lw, cmd, *this)) {
+	if (screen.find_support.Find(lw, *this, cmd)) {
 		SchedulePaint();
 		return true;
 	}

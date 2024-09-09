@@ -106,7 +106,7 @@ public:
 			   const enum mpd_tag_type _tag,
 			   const char *_all_text,
 			   const Window _window, Size size) noexcept
-		:TagListPage(_container, _screen, _parent, _tag, _all_text, _window, size),
+		:TagListPage(_container, _screen.find_support, _parent, _tag, _all_text, _window, size),
 		 library_page(_library_page) {}
 
 protected:

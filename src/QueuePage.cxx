@@ -4,7 +4,6 @@
 #include "QueuePage.hxx"
 #include "PageMeta.hxx"
 #include "screen_status.hxx"
-#include "screen_find.hxx"
 #include "save_playlist.hxx"
 #include "config.h"
 #include "i18n.h"
@@ -544,12 +543,12 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_RFIND:
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
-		screen_find(screen, lw, cmd, *this);
+		screen.find_support.Find(lw, *this, cmd);
 		SaveSelection();
 		SchedulePaint();
 		return true;
 	case Command::LIST_JUMP:
-		screen_jump(screen, lw, *this, *this);
+		screen.find_support.Jump(lw, *this, *this);
 		SaveSelection();
 		SchedulePaint();
 		return true;

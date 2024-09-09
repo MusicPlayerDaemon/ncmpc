@@ -3,12 +3,12 @@
 
 #include "TagListPage.hxx"
 #include "screen_status.hxx"
-#include "screen_find.hxx"
 #include "FileListPage.hxx"
 #include "Command.hxx"
 #include "i18n.h"
 #include "charset.hxx"
 #include "mpdclient.hxx"
+#include "page/FindSupport.hxx"
 #include "util/StringUTF8.hxx"
 
 #include <algorithm>
@@ -240,12 +240,12 @@ TagListPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_RFIND:
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
-		screen_find(screen, lw, cmd, *this);
+		find_support.Find(lw, *this, cmd);
 		SchedulePaint();
 		return true;
 
 	case Command::LIST_JUMP:
-		screen_jump(screen, lw, *this, *this);
+		find_support.Jump(lw, *this, *this);
 		SchedulePaint();
 		return true;
 

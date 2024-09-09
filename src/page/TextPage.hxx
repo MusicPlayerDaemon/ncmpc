@@ -10,20 +10,20 @@
 #include <string>
 
 struct mpdclient;
-class ScreenManager;
+class FindSupport;
 
 class TextPage : public ListPage, ListText {
-protected:
-	ScreenManager &screen;
+	FindSupport &find_support;
 
+protected:
 	/**
 	 * Strings are UTF-8.
 	 */
 	std::vector<std::string> lines;
 
 public:
-	TextPage(ScreenManager &_screen,
-		 Window window, Size size) noexcept;
+	TextPage(PageContainer &_parent, Window window, Size size,
+		 FindSupport &_find_support) noexcept;
 
 protected:
 	bool IsEmpty() const noexcept {

@@ -1,6 +1,7 @@
 page_sources = [
   'Page.cxx',
   'ProxyPage.cxx',
+  'FindSupport.cxx',
 ]
 
 if need_screen_text

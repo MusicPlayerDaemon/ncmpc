@@ -3,7 +3,6 @@
 
 #include "SongPage.hxx"
 #include "PageMeta.hxx"
-#include "screen_find.hxx"
 #include "Command.hxx"
 #include "i18n.h"
 #include "screen.hxx"
@@ -480,7 +479,7 @@ SongPage::OnCommand(struct mpdclient &c, Command cmd)
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
-	if (screen_find(screen, lw, cmd, *this)) {
+	if (screen.find_support.Find(lw, *this, cmd)) {
 		SchedulePaint();
 		return true;
 	}

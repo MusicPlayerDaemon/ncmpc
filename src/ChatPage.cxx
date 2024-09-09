@@ -3,6 +3,7 @@
 
 #include "ChatPage.hxx"
 #include "PageMeta.hxx"
+#include "screen.hxx"
 #include "screen_utils.hxx"
 #include "screen_status.hxx"
 #include "mpdclient.hxx"
@@ -25,6 +26,8 @@ using std::string_view_literals::operator""sv;
 static constexpr char chat_channel[] = "chat";
 
 class ChatPage final : public TextPage {
+	ScreenManager &screen;
+
 	unsigned last_connection_id = 0;
 	bool was_supported = false;
 
@@ -32,7 +35,8 @@ class ChatPage final : public TextPage {
 
 public:
 	ChatPage(ScreenManager &_screen, const Window _window, Size size)
-		:TextPage(_screen, _window, size) {}
+		:TextPage(_screen, _window, size, _screen.find_support),
+		 screen(_screen) {}
 
 private:
 	bool CheckChatSupport(struct mpdclient &c);

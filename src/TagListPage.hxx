@@ -11,10 +11,10 @@
 #include <vector>
 #include <string>
 
-class ScreenManager;
+class FindSupport;
 
 class TagListPage : public ListPage, ListRenderer, ListText {
-	ScreenManager &screen;
+	FindSupport &find_support;
 	Page *const parent;
 
 	const enum mpd_tag_type tag;
@@ -26,11 +26,13 @@ class TagListPage : public ListPage, ListRenderer, ListText {
 	std::vector<std::string> values;
 
 public:
-	TagListPage(PageContainer &_container, ScreenManager &_screen, Page *_parent,
+	TagListPage(PageContainer &_container,
+		    FindSupport &_find_support, Page *_parent,
 		    const enum mpd_tag_type _tag,
 		    const char *_all_text,
 		    Window _window, Size size) noexcept
-		:ListPage(_container, _window, size), screen(_screen), parent(_parent),
+		:ListPage(_container, _window, size),
+		 find_support(_find_support), parent(_parent),
 		 tag(_tag), all_text(_all_text) {}
 
 	auto GetTag() const noexcept {

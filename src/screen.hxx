@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef SCREEN_H
-#define SCREEN_H
+#pragma once
 
 #include "config.h"
 #include "TitleBar.hxx"
 #include "ProgressBar.hxx"
 #include "StatusBar.hxx"
-#include "History.hxx"
 #include "page/Container.hxx"
+#include "page/FindSupport.hxx"
 #include "ui/Point.hxx"
 #include "ui/Window.hxx"
 #include "event/IdleEvent.hxx"
@@ -18,7 +17,6 @@
 
 #include <map>
 #include <memory>
-#include <string>
 #include <utility>
 
 enum class Command : unsigned;
@@ -93,8 +91,7 @@ private:
 	bool main_dirty = true;
 
 public:
-	std::string findbuf;
-	History find_history;
+	FindSupport find_support{*this};
 
 	explicit ScreenManager(EventLoop &_event_loop) noexcept;
 	~ScreenManager() noexcept;
@@ -158,5 +155,3 @@ public:
 	// virtual methods from PageContainer
 	void SchedulePaint(Page &page) noexcept override;
 };
-
-#endif
