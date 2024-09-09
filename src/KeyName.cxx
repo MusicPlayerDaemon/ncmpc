@@ -3,10 +3,9 @@
 
 #include "KeyName.hxx"
 #include "i18n.h"
+#include "ui/Keys.hxx"
 #include "util/CharUtil.hxx"
 #include "util/StringCompare.hxx"
-
-#include <curses.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -99,7 +98,7 @@ GetLocalizedKeyName(int key) noexcept
 		return _("Undefined");
 	case ' ':
 		return _("Space");
-	case '\r':
+	case KEY_RETURN:
 		return _("Enter");
 	case KEY_BACKSPACE:
 		return _("Backspace");
@@ -121,11 +120,11 @@ GetLocalizedKeyName(int key) noexcept
 		return _("PageDown");
 	case KEY_PPAGE:
 		return _("PageUp");
-	case '\t':
+	case KEY_TAB:
 		return _("Tab");
 	case KEY_BTAB:
 		return _("Shift+Tab");
-	case '\x1b':
+	case KEY_ESCAPE:
 		return _("Esc");
 	case KEY_IC:
 		return _("Insert");
