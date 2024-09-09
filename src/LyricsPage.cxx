@@ -54,12 +54,12 @@ class LyricsPage final : public TextPage, PluginResponseHandler {
 	CoarseTimerEvent plugin_timeout;
 
 public:
-	LyricsPage(ScreenManager &_screen, const Window _window, Size size)
+	LyricsPage(ScreenManager &_screen, const Window _window, Size size) noexcept
 		:TextPage(_screen, _window, size),
 		 plugin_timeout(_screen.GetEventLoop(),
 				BIND_THIS_METHOD(OnTimeout)) {}
 
-	~LyricsPage() override {
+	~LyricsPage() noexcept override {
 		Cancel();
 	}
 
@@ -75,19 +75,19 @@ private:
 		plugin_cycle = nullptr;
 	}
 
-	void Cancel();
+	void Cancel() noexcept;
 
 	/**
 	 * Repaint and update the screen, if it is currently active.
 	 */
-	void RepaintIfActive() {
+	void RepaintIfActive() noexcept {
 		if (screen.IsVisible(*this))
 			Repaint();
 
 		/* XXX repaint the screen title */
 	}
 
-	void Set(const char *s);
+	void Set(const char *s) noexcept;
 
 	void StartPluginCycle() noexcept;
 
@@ -99,12 +99,12 @@ private:
 			MaybeLoad(*new_song);
 	}
 
-	void Reload();
+	void Reload() noexcept;
 
-	bool Save();
+	bool Save() noexcept;
 
 	/** save current lyrics to a file and run editor on it */
-	void Edit();
+	void Edit() noexcept;
 
 	void OnTimeout() noexcept;
 
@@ -123,7 +123,7 @@ private:
 };
 
 void
-LyricsPage::Cancel()
+LyricsPage::Cancel() noexcept
 {
 	if (plugin_cycle != nullptr)
 		StopPluginCycle();
@@ -141,7 +141,7 @@ LyricsPage::Cancel()
 }
 
 bool
-LyricsPage::Save()
+LyricsPage::Save() noexcept
 {
 	FILE *lyr_file = cache.Save(artist, title);
 	if (lyr_file == nullptr)
@@ -155,7 +155,7 @@ LyricsPage::Save()
 }
 
 void
-LyricsPage::Set(const char *s)
+LyricsPage::Set(const char *s) noexcept
 {
 	if (reloading) {
 		unsigned saved_start = lw.GetOrigin();
@@ -272,7 +272,7 @@ LyricsPage::MaybeLoad(const struct mpd_song &new_song) noexcept
 }
 
 void
-LyricsPage::Reload()
+LyricsPage::Reload() noexcept
 {
 	if (plugin_cycle == nullptr && artist != nullptr && title != nullptr) {
 		reloading = true;
@@ -282,7 +282,7 @@ LyricsPage::Reload()
 }
 
 static std::unique_ptr<Page>
-lyrics_screen_init(ScreenManager &_screen, const Window window, Size size)
+lyrics_screen_init(ScreenManager &_screen, const Window window, Size size) noexcept
 {
 	return std::make_unique<LyricsPage>(_screen, window, size);
 }
@@ -334,7 +334,7 @@ LyricsPage::GetTitle(std::span<char> buffer) const noexcept
 }
 
 void
-LyricsPage::Edit()
+LyricsPage::Edit() noexcept
 {
 	const auto path = cache.MakePath(artist, title);
 	if (path.empty()) {
