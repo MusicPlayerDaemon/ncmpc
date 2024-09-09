@@ -208,7 +208,7 @@ LyricsPage::OnTimeout() noexcept
 			     (int)std::chrono::duration_cast<std::chrono::seconds>(options.lyrics_timeout).count());
 
 	/* schedule a full repaint so the page title gets updated */
-	screen.SchedulePaint();
+	SchedulePaint();
 }
 
 void
