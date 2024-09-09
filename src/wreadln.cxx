@@ -374,7 +374,7 @@ _wreadln(const Window window,
 				wr.DeleteChar();
 			}
 			break;
-		case 127:
+		case KEY_BACKSPACE3:
 		case KEY_BACKSPACE2:	/* handle backspace: copy all */
 		case KEY_BACKSPACE:	/* chars starting from curpos */
 			if (wr.cursor > 0) { /* - 1 from buf[n+1] to buf   */
@@ -412,7 +412,7 @@ _wreadln(const Window window,
 			wr.MoveCursorToEnd();
 			break;
 
-		case '\n':
+		case KEY_LINENEED:
 		case KEY_RETURN:
 		case KEY_IC:
 		case KEY_PPAGE:

@@ -10,6 +10,8 @@
 enum : int {
 	KEY_BACKSPACE2 = 8,
 	KEY_TAB = 9,
+	KEY_LINENEED = '\n',
 	KEY_RETURN = '\r',
 	KEY_ESCAPE = 0x1b,
+	KEY_BACKSPACE3 = 0x7f,
 };
