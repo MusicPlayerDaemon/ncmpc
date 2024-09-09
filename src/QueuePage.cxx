@@ -86,10 +86,10 @@ public:
 
 private:
 	[[gnu::pure]]
-	const struct mpd_song *GetSelectedSong() const;
+	const struct mpd_song *GetSelectedSong() const noexcept;
 
-	void SaveSelection();
-	void RestoreSelection();
+	void SaveSelection() noexcept;
+	void RestoreSelection() noexcept;
 
 	void CenterPlayingItem(const struct mpd_status *status,
 			       bool center_cursor);
@@ -138,7 +138,7 @@ public:
 };
 
 const struct mpd_song *
-QueuePage::GetSelectedSong() const
+QueuePage::GetSelectedSong() const noexcept
 {
 	return lw.IsSingleCursor()
 		? &(*playlist)[lw.GetCursorIndex()]
@@ -146,7 +146,7 @@ QueuePage::GetSelectedSong() const
 }
 
 void
-QueuePage::SaveSelection()
+QueuePage::SaveSelection() noexcept
 {
 	selected_song_id = GetSelectedSong() != nullptr
 		? (int)mpd_song_get_id(GetSelectedSong())
@@ -154,7 +154,7 @@ QueuePage::SaveSelection()
 }
 
 void
-QueuePage::RestoreSelection()
+QueuePage::RestoreSelection() noexcept
 {
 	lw.SetLength(playlist->size());
 
