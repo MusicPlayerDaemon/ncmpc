@@ -328,8 +328,8 @@ _wreadln(const Window window,
 #endif
 			break;
 
-		case KEY_CTRL_C:
-		case KEY_CTRL_G:
+		case KEY_CTL('C'):
+		case KEY_CTL('G'):
 			Bell();
 			if (history) {
 				history->pop_back();
@@ -337,30 +337,30 @@ _wreadln(const Window window,
 			return {};
 
 		case KEY_LEFT:
-		case KEY_CTRL_B:
+		case KEY_CTL('B'):
 			wr.MoveCursorLeft();
 			break;
 		case KEY_RIGHT:
-		case KEY_CTRL_F:
+		case KEY_CTL('F'):
 			wr.MoveCursorRight();
 			break;
 		case KEY_HOME:
-		case KEY_CTRL_A:
+		case KEY_CTL('A'):
 			wr.cursor = 0;
 			wr.start = 0;
 			break;
 		case KEY_END:
-		case KEY_CTRL_E:
+		case KEY_CTL('E'):
 			wr.MoveCursorToEnd();
 			break;
-		case KEY_CTRL_K:
+		case KEY_CTL('K'):
 			wr.value.erase(wr.cursor);
 			break;
-		case KEY_CTRL_U:
+		case KEY_CTL('U'):
 			wr.value.erase(0, wr.cursor);
 			wr.cursor = 0;
 			break;
-		case KEY_CTRL_W:
+		case KEY_CTL('W'):
 			/* Firstly remove trailing spaces. */
 			for (; wr.cursor > 0 && wr.value[wr.cursor - 1] == ' ';)
 			{
@@ -383,12 +383,12 @@ _wreadln(const Window window,
 			}
 			break;
 		case KEY_DC:		/* handle delete key. As above */
-		case KEY_CTRL_D:
+		case KEY_CTL('D'):
 			if (wr.cursor < wr.value.length())
 				wr.DeleteChar();
 			break;
 		case KEY_UP:
-		case KEY_CTRL_P:
+		case KEY_CTL('P'):
 			/* get previous history entry */
 			if (history && hlist != history->begin()) {
 				if (hlist == hcurrent)
@@ -402,7 +402,7 @@ _wreadln(const Window window,
 			wr.MoveCursorToEnd();
 			break;
 		case KEY_DOWN:
-		case KEY_CTRL_N:
+		case KEY_CTL('N'):
 			/* get next history entry */
 			if (history && std::next(hlist) != history->end()) {
 				/* get next line */
