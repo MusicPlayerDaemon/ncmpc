@@ -138,6 +138,7 @@ public:
 	/* virtual methods from class Page */
 	void OnClose() noexcept override {
 		Clear();
+		ListPage::OnClose();
 	}
 
 	void Paint() const noexcept override;

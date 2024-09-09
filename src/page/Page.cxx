@@ -4,6 +4,14 @@
 #include "Page.hxx"
 #include "Container.hxx"
 #include "ui/Window.hxx"
+#include "screen_status.hxx"
+
+void
+Page::OnClose() noexcept
+{
+	// cancel any pending coroutine
+	CoCancel();
+}
 
 void
 Page::SchedulePaint() noexcept
@@ -15,4 +23,26 @@ bool
 Page::PaintStatusBarOverride(Window) const noexcept
 {
 	return false;
+}
+
+void
+Page::OnCoComplete() noexcept
+{
+	SchedulePaint();
+}
+
+void
+Page::CoStart(Co::InvokeTask _task) noexcept
+{
+	co_task = std::move(_task);
+	co_task.Start(BIND_THIS_METHOD(_OnCoComplete));
+}
+
+inline void
+Page::_OnCoComplete(std::exception_ptr error) noexcept
+{
+	if (error)
+		screen_status_error(std::move(error));
+	else
+		OnCoComplete();
 }

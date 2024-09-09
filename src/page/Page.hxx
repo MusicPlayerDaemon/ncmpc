@@ -6,9 +6,11 @@
 #include "config.h"
 #include "ui/Point.hxx"
 #include "ui/Size.hxx"
+#include "co/InvokeTask.hxx"
 
 #include <curses.h>
 
+#include <exception>
 #include <utility>
 #include <span>
 #include <string_view>
@@ -21,6 +23,12 @@ class PageContainer;
 
 class Page {
 	PageContainer &parent;
+
+	/**
+	 * A coroutine running an asynchronous operation.  It will be
+	 * canceled when the page is closed.
+	 */
+	Co::InvokeTask co_task;
 
 	Size last_size{0, 0};
 
@@ -60,9 +68,34 @@ protected:
 
 	void SchedulePaint() noexcept;
 
+	/**
+	 * Start a coroutine.  This method returns when the coroutine
+	 * finishes or gets suspended.  When the coroutine finishes,
+	 * OnCoComplete() gets called.
+	 *
+	 * If suspended, then the coroutine can be canceled using
+         * CoCancel().
+	 *
+	 * If a coroutine is already in progress (but suspended), it
+         * is canceled.
+	 */
+	void CoStart(Co::InvokeTask _task) noexcept;
+
+	/**
+	 * Cancel further execution of the coroutine started with
+         * CoStart().  After returning, the coroutine promise and
+         * stack frame are destructed.
+	 *
+	 * Calling this method is only allowed if the coroutine is
+         * suspended.
+	 */
+	void CoCancel() noexcept {
+		co_task = {};
+	}
+
 public:
 	virtual void OnOpen(struct mpdclient &) noexcept {}
-	virtual void OnClose() noexcept {}
+	virtual void OnClose() noexcept;
 	virtual void OnResize(Size size) noexcept = 0;
 	virtual void Paint() const noexcept = 0;
 
@@ -87,6 +120,12 @@ public:
 	 * ncmpc core
 	 */
 	virtual bool OnCommand(struct mpdclient &c, Command cmd) = 0;
+
+	/**
+	 * Called when the coroutine started with CoStart() finishes.
+         * It is not called when the coroutine is canceled.
+	 */
+	virtual void OnCoComplete() noexcept;
 
 #ifdef HAVE_GETMOUSE
 	/**
@@ -117,4 +156,7 @@ public:
 	virtual const struct mpd_song *GetSelectedSong() const noexcept {
 		return nullptr;
 	}
+
+private:
+	void _OnCoComplete(std::exception_ptr error) noexcept;
 };

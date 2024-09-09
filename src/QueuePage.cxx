@@ -354,6 +354,8 @@ QueuePage::OnClose() noexcept
 	if (options.scroll)
 		hscroll.Clear();
 #endif
+
+	ListPage::OnClose();
 }
 
 std::string_view

@@ -40,6 +40,8 @@ ProxyPage::OnClose() noexcept
 
 	if (current_page != nullptr)
 		current_page->OnClose();
+
+	Page::OnClose();
 }
 
 void
