@@ -6,7 +6,7 @@
 #include <assert.h>
 
 void
-ProxyPage::SetCurrentPage(struct mpdclient &c, Page *new_page)
+ProxyPage::SetCurrentPage(struct mpdclient &c, Page *new_page) noexcept
 {
 	if (current_page != nullptr && is_open)
 		current_page->OnClose();

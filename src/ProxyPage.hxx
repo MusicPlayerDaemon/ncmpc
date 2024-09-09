@@ -18,15 +18,17 @@ public:
 	explicit ProxyPage(const Window _window) noexcept
 		:window(_window) {}
 
-	const Page *GetCurrentPage() const {
+	[[nodiscard]]
+	const Page *GetCurrentPage() const noexcept {
 		return current_page;
 	}
 
-	Page *GetCurrentPage() {
+	[[nodiscard]]
+	Page *GetCurrentPage() noexcept {
 		return current_page;
 	}
 
-	void SetCurrentPage(struct mpdclient &c, Page *new_page);
+	void SetCurrentPage(struct mpdclient &c, Page *new_page) noexcept;
 
 private:
 	void MoveDirty() {
