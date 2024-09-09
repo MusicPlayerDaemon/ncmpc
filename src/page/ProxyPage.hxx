@@ -4,10 +4,11 @@
 #pragma once
 
 #include "Page.hxx"
+#include "Container.hxx"
 #include "ui/Window.hxx"
 #include "config.h"
 
-class ProxyPage : public Page {
+class ProxyPage : public Page, public PageContainer {
 	const Window window;
 
 	Page *current_page = nullptr;
@@ -15,8 +16,8 @@ class ProxyPage : public Page {
 	bool is_open = false;
 
 public:
-	explicit ProxyPage(const Window _window) noexcept
-		:window(_window) {}
+	explicit ProxyPage(PageContainer &_parent, const Window _window) noexcept
+		:Page(_parent), window(_window) {}
 
 	[[nodiscard]]
 	const Page *GetCurrentPage() const noexcept {
@@ -30,15 +31,8 @@ public:
 
 	void SetCurrentPage(struct mpdclient &c, Page *new_page) noexcept;
 
-private:
-	void MoveDirty() {
-		if (current_page != nullptr && current_page->IsDirty()) {
-			current_page->SetDirty(false);
-			SetDirty();
-		}
-	}
+	using Page::SchedulePaint;
 
-public:
 	/* virtual methods from Page */
 	void OnOpen(struct mpdclient &c) noexcept override;
 	void OnClose() noexcept override;
@@ -52,4 +46,7 @@ public:
 #endif
 
 	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
+
+	// virtual methods from PageContainer
+	void SchedulePaint(Page &page) noexcept override;
 };

@@ -35,10 +35,10 @@ using std::string_view_literals::operator""sv;
 static constexpr unsigned HIGHLIGHT = 0x01;
 #endif
 
-FileListPage::FileListPage(ScreenManager &_screen, Window _window,
+FileListPage::FileListPage(PageContainer &_parent, ScreenManager &_screen, Window _window,
 			   Size size,
 			   const char *_song_format) noexcept
-	:ListPage(_window, size),
+	:ListPage(_parent, _window, size),
 	 screen(_screen),
 	 song_format(_song_format)
 {
@@ -289,7 +289,7 @@ FileListPage::HandleSelect(struct mpdclient &c) noexcept
 			success = browser_select_entry(c, *entry, true);
 	}
 
-	SetDirty();
+	SchedulePaint();
 
 	return range.end_index == range.start_index + 1 && success;
 }
@@ -342,7 +342,7 @@ FileListPage::HandleSelectAll(struct mpdclient &c) noexcept
 			browser_select_entry(c, entry, false);
 	}
 
-	SetDirty();
+	SchedulePaint();
 }
 
 #ifdef HAVE_GETMOUSE
@@ -368,7 +368,7 @@ FileListPage::OnMouse(struct mpdclient &c, Point p,
 			HandleSelect(c);
 	}
 
-	SetDirty();
+	SchedulePaint();
 
 	return true;
 }
@@ -390,11 +390,11 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
 		screen_find(screen, lw, cmd, *this);
-		SetDirty();
+		SchedulePaint();
 		return true;
 	case Command::LIST_JUMP:
 		screen_jump(screen, lw, *this, *this);
-		SetDirty();
+		SchedulePaint();
 		return true;
 
 #ifdef ENABLE_SONG_SCREEN
@@ -435,13 +435,13 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::SELECT:
 		if (HandleSelect(c))
 			lw.HandleCommand(Command::LIST_NEXT);
-		SetDirty();
+		SchedulePaint();
 		return true;
 
 	case Command::ADD:
 		if (HandleAdd(c))
 			lw.HandleCommand(Command::LIST_NEXT);
-		SetDirty();
+		SchedulePaint();
 		return true;
 
 #ifdef ENABLE_PLAYLIST_EDITOR

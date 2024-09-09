@@ -26,11 +26,11 @@ class TagListPage : public ListPage, ListRenderer, ListText {
 	std::vector<std::string> values;
 
 public:
-	TagListPage(ScreenManager &_screen, Page *_parent,
+	TagListPage(PageContainer &_container, ScreenManager &_screen, Page *_parent,
 		    const enum mpd_tag_type _tag,
 		    const char *_all_text,
 		    Window _window, Size size) noexcept
-		:ListPage(_window, size), screen(_screen), parent(_parent),
+		:ListPage(_container, _window, size), screen(_screen), parent(_parent),
 		 tag(_tag), all_text(_all_text) {}
 
 	auto GetTag() const noexcept {

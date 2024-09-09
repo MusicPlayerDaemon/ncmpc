@@ -8,6 +8,7 @@
 #include "GlobalBindings.hxx"
 #include "config.h"
 #include "i18n.h"
+#include "screen.hxx"
 #include "page/ListPage.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"
@@ -210,7 +211,7 @@ class HelpPage final : public ListPage, ListRenderer, ListText {
 
 public:
 	HelpPage(ScreenManager &_screen, const Window _window, Size size)
-		:ListPage(_window, size), screen(_screen) {
+		:ListPage(_screen, _window, size), screen(_screen) {
 		lw.HideCursor();
 		lw.SetLength(std::size(help_text));
 	}
@@ -310,7 +311,7 @@ HelpPage::OnCommand(struct mpdclient &c, Command cmd)
 		lw.SetCursorFromOrigin(0);
 
 	if (screen_find(screen, lw, cmd, *this)) {
-		SetDirty();
+		SchedulePaint();
 		return true;
 	}
 

@@ -77,16 +77,6 @@ private:
 
 	void Cancel() noexcept;
 
-	/**
-	 * Repaint and update the screen, if it is currently active.
-	 */
-	void RepaintIfActive() noexcept {
-		if (screen.IsVisible(*this))
-			Repaint();
-
-		/* XXX repaint the screen title */
-	}
-
 	void Set(const char *s) noexcept;
 
 	void StartPluginCycle() noexcept;
@@ -170,10 +160,6 @@ LyricsPage::Set(const char *s) noexcept
 	}
 
 	reloading = false;
-
-	/* paint new data */
-
-	RepaintIfActive();
 }
 
 void
@@ -193,7 +179,7 @@ LyricsPage::OnPluginSuccess(const char *_plugin_name,
 	StopPluginCycle();
 
 	/* schedule a full repaint so the page title gets updated */
-	screen.SchedulePaint();
+	SchedulePaint();
 }
 
 void
@@ -210,7 +196,7 @@ LyricsPage::OnPluginError(std::string error) noexcept
 	StopPluginCycle();
 
 	/* schedule a full repaint so the page title gets updated */
-	screen.SchedulePaint();
+	SchedulePaint();
 }
 
 void
@@ -277,7 +263,7 @@ LyricsPage::Reload() noexcept
 	if (plugin_cycle == nullptr && artist != nullptr && title != nullptr) {
 		reloading = true;
 		StartPluginCycle();
-		Repaint();
+		SchedulePaint();
 	}
 }
 

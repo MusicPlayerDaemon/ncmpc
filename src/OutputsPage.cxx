@@ -4,6 +4,7 @@
 #include "OutputsPage.hxx"
 #include "Deleter.hxx"
 #include "PageMeta.hxx"
+#include "screen.hxx"
 #include "screen_status.hxx"
 #include "Command.hxx"
 #include "screen_utils.hxx"
@@ -108,7 +109,7 @@ class OutputsPage final : public ListPage, ListRenderer {
 
 public:
 	OutputsPage(ScreenManager &_screen, const Window window, Size size)
-		:ListPage(window, size), screen(_screen) {}
+		:ListPage(_screen, window, size), screen(_screen) {}
 
 private:
 	void Clear();
@@ -339,7 +340,7 @@ OutputsPage::Reload(struct mpdclient &c) noexcept
 #endif
 
 	lw.SetLength(items.size());
-	SetDirty();
+	SchedulePaint();
 
 	/* restore the cursor position */
 	lw.SetCursorHash(items, hash);
@@ -446,7 +447,7 @@ OutputsPage::OnCommand(struct mpdclient &c, Command cmd)
 		Clear();
 		fill_outputs_list(&c, items);
 		lw.SetLength(items.size());
-		SetDirty();
+		SchedulePaint();
 		return true;
 
 #if LIBMPDCLIENT_CHECK_VERSION(2,18,0)

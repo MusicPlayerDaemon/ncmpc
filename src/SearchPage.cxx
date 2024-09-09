@@ -3,6 +3,7 @@
 
 #include "SearchPage.hxx"
 #include "PageMeta.hxx"
+#include "screen.hxx"
 #include "screen_status.hxx"
 #include "i18n.h"
 #include "Options.hxx"
@@ -103,7 +104,7 @@ class SearchPage final : public FileListPage {
 
 public:
 	SearchPage(ScreenManager &_screen, const Window _window, Size size) noexcept
-		:FileListPage(_screen, _window, size,
+		:FileListPage(_screen, _screen, _window, size,
 			      !options.search_format.empty()
 			      ? options.search_format.c_str()
 			      : options.list_format.c_str()) {
@@ -157,7 +158,7 @@ SearchPage::Clear(bool clear_pattern) noexcept
 	if (clear_pattern)
 		pattern.clear();
 
-	SetDirty();
+	SchedulePaint();
 }
 
 static std::unique_ptr<FileList>
@@ -400,7 +401,7 @@ SearchPage::Reload(struct mpdclient &c)
 
 	screen_browser_sync_highlights(*filelist, c.playlist);
 
-	SetDirty();
+	SchedulePaint();
 }
 
 void
@@ -459,7 +460,7 @@ SearchPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	if (filelist != nullptr && events & MPD_IDLE_QUEUE) {
 		screen_browser_sync_highlights(*filelist, c.playlist);
-		SetDirty();
+		SchedulePaint();
 	}
 }
 
@@ -476,7 +477,7 @@ SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 
 		if (pattern.empty())
 			/* show the new mode in the help text */
-			SetDirty();
+			SchedulePaint();
 		else if (!advanced_search_mode)
 			/* reload only if the new search mode is going
 			   to be considered */

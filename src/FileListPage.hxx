@@ -24,7 +24,7 @@ protected:
 	const char *const song_format;
 
 public:
-	FileListPage(ScreenManager &_screen, Window _window,
+	FileListPage(PageContainer &_parent, ScreenManager &_screen, Window _window,
 		     Size size,
 		     const char *_song_format) noexcept;
 

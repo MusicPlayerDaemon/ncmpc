@@ -23,10 +23,7 @@ protected:
 
 public:
 	TextPage(ScreenManager &_screen,
-		 Window window, Size size) noexcept
-		:ListPage(window, size), screen(_screen) {
-		lw.HideCursor();
-	}
+		 Window window, Size size) noexcept;
 
 protected:
 	bool IsEmpty() const noexcept {
@@ -46,14 +43,6 @@ protected:
 	void Set(const char *str) noexcept {
 		Clear();
 		Append(str);
-	}
-
-	/**
-	 * Repaint and update the screen.
-	 */
-	void Repaint() noexcept {
-		Paint();
-		lw.Refresh();
 	}
 
 public:

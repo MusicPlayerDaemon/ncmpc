@@ -33,7 +33,7 @@ class FileBrowserPage final : public FileListPage {
 public:
 	FileBrowserPage(ScreenManager &_screen, const Window _window,
 			Size size) noexcept
-		:FileListPage(_screen, _window, size,
+		:FileListPage(_screen, _screen, _window, size,
 			      options.list_format.c_str()) {}
 
 	bool GotoSong(struct mpdclient &c, const struct mpd_song &song) noexcept;
@@ -100,7 +100,7 @@ FileBrowserPage::Reload(struct mpdclient &c) noexcept
 
 	lw.SetLength(filelist->size());
 
-	SetDirty();
+	SchedulePaint();
 }
 
 bool
@@ -174,7 +174,7 @@ FileBrowserPage::GotoSong(struct mpdclient &c, const struct mpd_song &song) noex
 		i = 0;
 
 	lw.SetCursor(i);
-	SetDirty();
+	SchedulePaint();
 	return true;
 }
 
@@ -300,7 +300,7 @@ FileBrowserPage::Update(struct mpdclient &c, unsigned events) noexcept
 #endif
 		      )) {
 		screen_browser_sync_highlights(*filelist, c.playlist);
-		SetDirty();
+		SchedulePaint();
 	}
 }
 

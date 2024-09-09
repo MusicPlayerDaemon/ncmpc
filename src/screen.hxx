@@ -9,6 +9,7 @@
 #include "ProgressBar.hxx"
 #include "StatusBar.hxx"
 #include "History.hxx"
+#include "page/Container.hxx"
 #include "ui/Point.hxx"
 #include "ui/Window.hxx"
 #include "event/IdleEvent.hxx"
@@ -28,7 +29,7 @@ class Page;
 class DelayedSeek;
 class EventLoop;
 
-class ScreenManager {
+class ScreenManager final : public PageContainer {
 	/**
 	 * This event defers Paint() calls until after the EventLoop
 	 * has handled all other events.
@@ -86,6 +87,11 @@ private:
 	char *buf;
 	size_t buf_size;
 
+	/**
+	 * Does the main area (the current page) need to be repainted?
+	 */
+	bool main_dirty = true;
+
 public:
 	std::string findbuf;
 	History find_history;
@@ -138,6 +144,10 @@ private:
 	void NextMode(struct mpdclient &c, int offset) noexcept;
 
 	void Paint() noexcept;
+
+public:
+	// virtual methods from PageContainer
+	void SchedulePaint(Page &page) noexcept override;
 };
 
 #endif

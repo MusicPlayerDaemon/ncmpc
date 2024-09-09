@@ -93,6 +93,8 @@ TagListPage::LoadValues(struct mpdclient &c) noexcept
 	/* sort list */
 	std::sort(values.begin(), values.end(), CompareUTF8);
 	lw.SetLength((parent != nullptr) + values.size() + (all_text != nullptr));
+
+	SchedulePaint();
 }
 
 void
@@ -148,7 +150,6 @@ TagListPage::Update(struct mpdclient &c, unsigned events) noexcept
 	if (events & MPD_IDLE_DATABASE) {
 		/* the db has changed -> update the list */
 		Reload(c);
-		SetDirty();
 	}
 }
 
@@ -240,12 +241,12 @@ TagListPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
 		screen_find(screen, lw, cmd, *this);
-		SetDirty();
+		SchedulePaint();
 		return true;
 
 	case Command::LIST_JUMP:
 		screen_jump(screen, lw, *this, *this);
-		SetDirty();
+		SchedulePaint();
 		return true;
 
 	default:
@@ -253,7 +254,7 @@ TagListPage::OnCommand(struct mpdclient &c, Command cmd)
 	}
 
 	if (lw.HandleCommand(cmd)) {
-		SetDirty();
+		SchedulePaint();
 		return true;
 	}
 
@@ -283,7 +284,7 @@ TagListPage::OnMouse(struct mpdclient &c, Point p,
 			HandleSelect(c);
 	}
 
-	SetDirty();
+	SchedulePaint();
 
 	return true;
 }

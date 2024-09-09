@@ -69,7 +69,7 @@ class QueuePage final : public ListPage, ListRenderer, ListText {
 public:
 	QueuePage(ScreenManager &_screen, Window _window,
 		  Size size)
-		:ListPage(_window, size),
+		:ListPage(_screen, _window, size),
 		 screen(_screen),
 #ifndef NCMPC_MINI
 		 hscroll(screen.GetEventLoop(),
@@ -90,11 +90,6 @@ private:
 
 	void SaveSelection();
 	void RestoreSelection();
-
-	void Repaint() const {
-		Paint();
-		lw.Refresh();
-	}
 
 	void CenterPlayingItem(const struct mpd_status *status,
 			       bool center_cursor);
@@ -337,7 +332,7 @@ QueuePage::OnHideCursorTimer() noexcept
 
 	if (playing) {
 		lw.HideCursor();
-		Repaint();
+		SchedulePaint();
 	} else
 		ScheduleHideCursor();
 }
@@ -467,7 +462,7 @@ QueuePage::Update(struct mpdclient &c, unsigned events) noexcept
 	    events & MPD_IDLE_QUEUE)
 		/* the queue or the current song has changed, we must
 		   paint the new version */
-		SetDirty();
+		SchedulePaint();
 }
 
 #ifdef HAVE_GETMOUSE
@@ -510,7 +505,7 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 	}
 
 	SaveSelection();
-	SetDirty();
+	SchedulePaint();
 
 	return true;
 }
@@ -539,13 +534,13 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	switch(cmd) {
 	case Command::SCREEN_UPDATE:
 		CenterPlayingItem(c.status, prev_cmd == Command::SCREEN_UPDATE);
-		SetDirty();
+		SchedulePaint();
 		return false;
 	case Command::SELECT_PLAYING:
 		if (int pos = c.GetCurrentSongPos(); pos >= 0) {
 			lw.SetCursor(pos);
 			SaveSelection();
-			SetDirty();
+			SchedulePaint();
 			return true;
 		} else
 			return false;
@@ -556,12 +551,12 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_RFIND_NEXT:
 		screen_find(screen, lw, cmd, *this);
 		SaveSelection();
-		SetDirty();
+		SchedulePaint();
 		return true;
 	case Command::LIST_JUMP:
 		screen_jump(screen, lw, *this, *this);
 		SaveSelection();
-		SetDirty();
+		SchedulePaint();
 		return true;
 
 #ifdef ENABLE_SONG_SCREEN

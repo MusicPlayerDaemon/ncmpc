@@ -11,6 +11,7 @@
 #include "mpdclient.hxx"
 #include "filelist.hxx"
 #include "Options.hxx"
+#include "screen.hxx"
 #include "page/ProxyPage.hxx"
 #include "lib/fmt/ToSpan.hxx"
 
@@ -56,9 +57,9 @@ class SongListPage final : public FileListPage {
 	TagFilter filter;
 
 public:
-	SongListPage(ScreenManager &_screen, Page *_parent,
+	SongListPage(PageContainer &_container, ScreenManager &_screen, Page *_parent,
 		     const Window _window, Size size) noexcept
-		:FileListPage(_screen, _window, size,
+		:FileListPage(_container, _screen, _window, size,
 			      options.list_format.c_str()),
 		 parent(_parent) {}
 
@@ -99,13 +100,13 @@ class LibraryTagListPage final : public TagListPage {
 	ArtistBrowserPage &library_page;
 
 public:
-	LibraryTagListPage(ScreenManager &_screen,
+	LibraryTagListPage(PageContainer &_container, ScreenManager &_screen,
 			   ArtistBrowserPage &_library_page,
 			   Page *_parent,
 			   const enum mpd_tag_type _tag,
 			   const char *_all_text,
 			   const Window _window, Size size) noexcept
-		:TagListPage(_screen, _parent, _tag, _all_text, _window, size),
+		:TagListPage(_container, _screen, _parent, _tag, _all_text, _window, size),
 		 library_page(_library_page) {}
 
 protected:
@@ -121,13 +122,13 @@ class ArtistBrowserPage final : public ProxyPage {
 public:
 	ArtistBrowserPage(ScreenManager &_screen, const Window _window,
 			  Size size)
-		:ProxyPage(_window),
-		 song_list_page(_screen, this,
+		:ProxyPage(_screen, _window),
+		 song_list_page(*this, _screen, this,
 				_window, size) {
 
 		bool first = true;
 		for (const auto &tag : options.library_page_tags) {
-			tag_list_pages.emplace_back(_screen, *this,
+			tag_list_pages.emplace_back(*this, _screen, *this,
 						    first ? nullptr : this,
 						    tag,
 						    first ? nullptr : _("All"),

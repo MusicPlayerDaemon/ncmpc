@@ -13,9 +13,8 @@ class ListPage : public Page {
 protected:
 	ListWindow lw;
 
-public:
-	ListPage(Window window, Size size)
-		:lw(window, size) {}
+	ListPage(PageContainer &_parent, Window window, Size size) noexcept
+		:Page(_parent), lw(window, size) {}
 
 public:
 	/* virtual methods from class Page */
@@ -27,7 +26,7 @@ public:
 		if (lw.HasCursor()
 		    ? lw.HandleCommand(cmd)
 		    : lw.HandleScrollCommand(cmd)) {
-			SetDirty();
+			SchedulePaint();
 			return true;
 		}
 
@@ -38,7 +37,7 @@ public:
 	bool OnMouse(struct mpdclient &, Point p,
 		     mmask_t bstate) override {
 		if (lw.HandleMouse(bstate, p.y)) {
-			SetDirty();
+			SchedulePaint();
 			return true;
 		}
 

@@ -27,9 +27,9 @@ ScreenManager::Paint() noexcept
 
 	/* paint the main window */
 
-	if (current_page->second->IsDirty()) {
+	if (main_dirty) {
+		main_dirty = false;
 		current_page->second->Paint();
-		current_page->second->SetDirty(false);
 	}
 
 	/* move the cursor to the origin */

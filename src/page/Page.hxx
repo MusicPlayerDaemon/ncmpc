@@ -16,8 +16,11 @@
 enum class Command : unsigned;
 struct mpdclient;
 struct Window;
+class PageContainer;
 
 class Page {
+	PageContainer &parent;
+
 	Size last_size{0, 0};
 
 	/**
@@ -26,28 +29,18 @@ class Page {
 	 */
 	unsigned pending_events = ~0u;
 
-	/**
-	 * Does this page need to be repainted?
-	 */
-	bool dirty = true;
+protected:
+	explicit Page(PageContainer &_parent) noexcept
+		:parent(_parent) {}
 
 public:
 	virtual ~Page() noexcept = default;
-
-	bool IsDirty() const noexcept {
-		return dirty;
-	}
-
-	void SetDirty(bool _dirty=true) noexcept {
-		dirty = _dirty;
-	}
 
 	void Resize(Size new_size) noexcept {
 		if (new_size == last_size)
 			return;
 
 		last_size = new_size;
-		SetDirty();
 		OnResize(new_size);
 	}
 
@@ -63,6 +56,8 @@ protected:
 	const Size &GetLastSize() const noexcept {
 		return last_size;
 	}
+
+	void SchedulePaint() noexcept;
 
 public:
 	virtual void OnOpen(struct mpdclient &) noexcept {}

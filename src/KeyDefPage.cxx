@@ -3,6 +3,7 @@
 
 #include "KeyDefPage.hxx"
 #include "PageMeta.hxx"
+#include "screen.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "KeyName.hxx"
@@ -42,9 +43,9 @@ class CommandKeysPage final : public ListPage, ListText {
 	unsigned n_keys = 0;
 
 public:
-	CommandKeysPage(ScreenManager &_screen, Page *_parent,
+	CommandKeysPage(PageContainer &_container, ScreenManager &_screen, Page *_parent,
 			const Window _window, Size size) noexcept
-		:ListPage(_window, size), screen(_screen), parent(_parent) {}
+		:ListPage(_container, _window, size), screen(_screen), parent(_parent) {}
 
 	void SetCommand(KeyBindings *_bindings, unsigned _cmd) {
 		bindings = _bindings;
@@ -148,7 +149,7 @@ CommandKeysPage::DeleteKey(int key_index)
 	screen_status_message(_("Deleted"));
 
 	/* repaint */
-	SetDirty();
+	SchedulePaint();
 
 	/* update key conflict flags */
 	bindings->Check(nullptr, 0);
@@ -193,7 +194,7 @@ CommandKeysPage::OverwriteKey(int key_index)
 	UpdateListLength();
 
 	/* repaint */
-	SetDirty();
+	SchedulePaint();
 
 	/* update key conflict flags */
 	bindings->Check(nullptr, 0);
@@ -277,7 +278,7 @@ CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
 		screen_find(screen, lw, cmd, *this);
-		SetDirty();
+		SchedulePaint();
 		return true;
 
 	default:
@@ -294,8 +295,8 @@ class CommandListPage final : public ListPage, ListText {
 	static constexpr size_t command_n_commands = size_t(Command::NONE);
 
 public:
-	CommandListPage(ScreenManager &_screen, const Window _window, Size size)
-		:ListPage(_window, size), screen(_screen) {}
+	CommandListPage(PageContainer &_container, ScreenManager &_screen, const Window _window, Size size)
+		:ListPage(_container, _window, size), screen(_screen) {}
 
 	~CommandListPage() override {
 		delete bindings;
@@ -485,7 +486,7 @@ CommandListPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
 		screen_find(screen, lw, cmd, *this);
-		SetDirty();
+		SchedulePaint();
 		return true;
 
 	default:
@@ -501,9 +502,9 @@ class KeyDefPage final : public ProxyPage {
 
 public:
 	KeyDefPage(ScreenManager &screen, const Window _window, Size size)
-		:ProxyPage(_window),
-		 command_list_page(screen, _window, size),
-		 command_keys_page(screen, this, _window, size) {}
+		:ProxyPage(screen, _window),
+		 command_list_page(*this, screen, _window, size),
+		 command_keys_page(*this, screen, this, _window, size) {}
 
 public:
 	/* virtual methods from class Page */

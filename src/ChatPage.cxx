@@ -87,8 +87,6 @@ ChatPage::ProcessMessage(const struct mpd_message &message)
 	assert(StringIsEqual(mpd_message_get_channel(&message), chat_channel));
 
 	Append(mpd_message_get_text(&message));
-
-	SetDirty();
 }
 
 void

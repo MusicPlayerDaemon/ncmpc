@@ -5,11 +5,19 @@
 #include "screen_find.hxx"
 #include "charset.hxx"
 #include "ui/TextListRenderer.hxx"
+#include "screen.hxx"
 
 #include <algorithm>
 
 #include <assert.h>
 #include <string.h>
+
+TextPage::TextPage(ScreenManager &_screen,
+		   Window window, Size size) noexcept
+	:ListPage(_screen, window, size), screen(_screen)
+{
+	lw.HideCursor();
+}
 
 void
 TextPage::Clear() noexcept
@@ -51,6 +59,8 @@ TextPage::Append(const char *str) noexcept
 		lines.emplace_back(str);
 
 	lw.SetLength(lines.size());
+
+	SchedulePaint();
 }
 
 std::string_view
@@ -81,7 +91,7 @@ TextPage::OnCommand(struct mpdclient &c, Command cmd)
 		lw.SetCursorFromOrigin(0);
 
 	if (screen_find(screen, lw, cmd, *this)) {
-		SetDirty();
+		SchedulePaint();
 		return true;
 	}
 

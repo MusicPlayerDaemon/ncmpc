@@ -29,7 +29,7 @@ class EditPlaylistPage final : public FileListPage {
 
 public:
 	EditPlaylistPage(ScreenManager &_screen, const Window _window, Size size) noexcept
-		:FileListPage(_screen, _window, size,
+		:FileListPage(_screen, _screen, _window, size,
 			      options.list_format.c_str())
 	{
 	}
@@ -83,7 +83,7 @@ EditPlaylistPage::Reload(struct mpdclient &c)
 {
 	filelist = LoadPlaylist(c, name.c_str());
 	lw.SetLength(filelist->size());
-	SetDirty();
+	SchedulePaint();
 }
 
 void
@@ -178,7 +178,7 @@ EditPlaylistPage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 	}
 
 	SaveSelection();
-	SetDirty();
+	SchedulePaint();
 
 	return true;
 }

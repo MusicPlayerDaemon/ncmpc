@@ -17,10 +17,9 @@ ProxyPage::SetCurrentPage(struct mpdclient &c, Page *new_page) noexcept
 		current_page->OnOpen(c);
 		current_page->Resize(GetLastSize());
 		current_page->Update(c);
-		current_page->SetDirty(false);
 	}
 
-	SetDirty();
+	SchedulePaint();
 }
 
 void
@@ -31,8 +30,6 @@ ProxyPage::OnOpen(struct mpdclient &c) noexcept
 
 	if (current_page != nullptr)
 		current_page->OnOpen(c);
-
-	MoveDirty();
 }
 
 void
@@ -50,8 +47,6 @@ ProxyPage::OnResize(Size size) noexcept
 {
 	if (current_page != nullptr)
 		current_page->Resize(size);
-
-	MoveDirty();
 }
 
 void
@@ -69,31 +64,22 @@ ProxyPage::Update(struct mpdclient &c, unsigned events) noexcept
 	if (current_page != nullptr) {
 		current_page->AddPendingEvents(events);
 		current_page->Update(c);
-		MoveDirty();
 	}
 }
 
 bool
 ProxyPage::OnCommand(struct mpdclient &c, Command cmd)
 {
-	if (current_page != nullptr) {
-		bool result = current_page->OnCommand(c, cmd);
-		MoveDirty();
-		return result;
-	} else
-		return false;
+	return current_page != nullptr &&
+	       current_page->OnCommand(c, cmd);
 }
 
 #ifdef HAVE_GETMOUSE
 bool
 ProxyPage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 {
-	if (current_page != nullptr) {
-		bool result = current_page->OnMouse(c, p, bstate);
-		MoveDirty();
-		return result;
-	} else
-		return false;
+	return current_page != nullptr &&
+	       current_page->OnMouse(c, p, bstate);
 }
 #endif
 
@@ -103,4 +89,11 @@ ProxyPage::GetTitle(std::span<char> buffer) const noexcept
 	return current_page != nullptr
 		? current_page->GetTitle(buffer)
 		: std::string_view{};
+}
+
+void
+ProxyPage::SchedulePaint(Page &page) noexcept
+{
+	if (&page == current_page)
+		SchedulePaint();
 }

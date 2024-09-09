@@ -50,12 +50,13 @@ ScreenManager::Switch(const PageMeta &sf, struct mpdclient &c) noexcept
 	/* get functions for the new mode */
 	current_page = page;
 
+	main_dirty = true;
+
 	/* open the new mode */
 	auto &p = *page->second;
 	p.OnOpen(c);
 	p.Resize(layout.GetMainSize());
 	p.Update(c);
-	p.SetDirty();
 }
 
 void
@@ -239,7 +240,8 @@ ScreenManager::OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 				      _("Auto center mode: Off"));
 		break;
 	case Command::SCREEN_UPDATE:
-		current_page->second->SetDirty();
+		main_dirty = true;
+		SchedulePaint();
 		break;
 	case Command::SCREEN_PREVIOUS:
 		NextMode(c, -1);
@@ -276,3 +278,13 @@ ScreenManager::OnMouse(struct mpdclient &c, DelayedSeek &seek,
 }
 
 #endif
+
+void
+ScreenManager::SchedulePaint(Page &page) noexcept
+{
+	if (!IsVisible(page))
+		return;
+
+	main_dirty = true;
+	SchedulePaint();
+}

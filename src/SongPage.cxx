@@ -111,7 +111,7 @@ class SongPage final : public ListPage, ListText {
 
 public:
 	SongPage(ScreenManager &_screen, const Window _window, Size size) noexcept
-		:ListPage(_window, size),
+		:ListPage(_screen, _window, size),
 		 screen(_screen) {
 		lw.HideCursor();
 	}
@@ -469,7 +469,7 @@ SongPage::Update(struct mpdclient &c, unsigned) noexcept
 		c.HandleError();
 
 	lw.SetLength(lines.size());
-	SetDirty();
+	SchedulePaint();
 }
 
 bool
@@ -518,7 +518,7 @@ SongPage::OnCommand(struct mpdclient &c, Command cmd)
 	}
 
 	if (screen_find(screen, lw, cmd, *this)) {
-		SetDirty();
+		SchedulePaint();
 		return true;
 	}
 
