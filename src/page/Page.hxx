@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-2.0-or-lateryes
 // Copyright The Music Player Daemon Project
 
 #pragma once

@@ -3,12 +3,12 @@
 
 #include "HelpPage.hxx"
 #include "PageMeta.hxx"
-#include "ListPage.hxx"
 #include "screen_find.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "config.h"
 #include "i18n.h"
+#include "page/ListPage.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"
 #include "ui/paint.hxx"

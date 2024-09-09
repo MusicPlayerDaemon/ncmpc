@@ -3,8 +3,6 @@
 
 #include "KeyDefPage.hxx"
 #include "PageMeta.hxx"
-#include "ListPage.hxx"
-#include "ProxyPage.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "KeyName.hxx"
@@ -14,6 +12,8 @@
 #include "GlobalBindings.hxx"
 #include "screen_utils.hxx"
 #include "Options.hxx"
+#include "page/ListPage.hxx"
+#include "page/ProxyPage.hxx"
 #include "ui/Bell.hxx"
 #include "ui/ListText.hxx"
 #include "ui/TextListRenderer.hxx"

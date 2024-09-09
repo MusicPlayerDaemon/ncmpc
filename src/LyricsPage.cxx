@@ -14,8 +14,8 @@
 #include "mpdclient.hxx"
 #include "screen.hxx"
 #include "plugin.hxx"
-#include "TextPage.hxx"
 #include "ncu.hxx"
+#include "page/TextPage.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "util/StringAPI.hxx"
 

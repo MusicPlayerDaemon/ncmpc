@@ -5,7 +5,6 @@
 #include "PageMeta.hxx"
 #include "screen_list.hxx"
 #include "screen_status.hxx"
-#include "Page.hxx"
 #include "Command.hxx"
 #include "config.h"
 #include "i18n.h"
@@ -15,6 +14,7 @@
 #include "player_command.hxx"
 #include "SongPage.hxx"
 #include "LyricsPage.hxx"
+#include "page/Page.hxx"
 #include "ui/Options.hxx"
 #include "util/StringAPI.hxx"
 

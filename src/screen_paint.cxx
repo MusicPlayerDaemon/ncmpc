@@ -2,7 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "screen.hxx"
-#include "Page.hxx"
+#include "page/Page.hxx"
 #include "ui/Options.hxx"
 
 void

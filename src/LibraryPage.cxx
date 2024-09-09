@@ -6,12 +6,12 @@
 #include "PageMeta.hxx"
 #include "FileListPage.hxx"
 #include "Command.hxx"
-#include "ProxyPage.hxx"
 #include "i18n.h"
 #include "charset.hxx"
 #include "mpdclient.hxx"
 #include "filelist.hxx"
 #include "Options.hxx"
+#include "page/ProxyPage.hxx"
 #include "lib/fmt/ToSpan.hxx"
 
 #include <list>

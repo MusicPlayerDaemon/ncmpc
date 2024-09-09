@@ -4,7 +4,7 @@
 #pragma once
 
 #include "TagFilter.hxx"
-#include "ListPage.hxx"
+#include "page/ListPage.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"
 

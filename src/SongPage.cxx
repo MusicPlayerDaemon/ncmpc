@@ -3,7 +3,6 @@
 
 #include "SongPage.hxx"
 #include "PageMeta.hxx"
-#include "ListPage.hxx"
 #include "FileBrowserPage.hxx"
 #include "LyricsPage.hxx"
 #include "screen_find.hxx"
@@ -13,6 +12,7 @@
 #include "charset.hxx"
 #include "time_format.hxx"
 #include "mpdclient.hxx"
+#include "page/ListPage.hxx"
 #include "ui/ListText.hxx"
 #include "ui/TextListRenderer.hxx"
 #include "lib/fmt/ToSpan.hxx"

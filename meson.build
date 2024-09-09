@@ -361,10 +361,6 @@ if enable_chat_screen
   need_screen_text = true
 endif
 
-if need_screen_text
-  sources += ['src/TextPage.cxx']
-endif
-
 if need_plugin_library
   if host_machine.system() == 'windows'
     error('Plugins not yet compatible with Windows')
@@ -384,6 +380,7 @@ subdir('src/system')
 subdir('src/net')
 subdir('src/event')
 subdir('src/ui')
+subdir('src/page')
 
 ncmpc = executable('ncmpc',
   'src/Main.cxx',
@@ -415,11 +412,9 @@ ncmpc = executable('ncmpc',
   'src/screen_list.cxx',
   'src/screen_find.cxx',
   'src/screen_client.cxx',
-  'src/Page.cxx',
   'src/QueuePage.cxx',
   'src/FileListPage.cxx',
   'src/FileBrowserPage.cxx',
-  'src/ProxyPage.cxx',
   'src/save_playlist.cxx',
   'src/SongRowPaint.cxx',
   'src/BasicColors.cxx',
@@ -445,6 +440,7 @@ ncmpc = executable('ncmpc',
     libmpdclient_dep,
     fmt_dep,
     ui_dep,
+    page_dep,
   ],
   install: true
 )

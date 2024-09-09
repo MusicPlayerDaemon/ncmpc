@@ -2,10 +2,10 @@
 // Copyright The Music Player Daemon Project
 
 #include "screen.hxx"
-#include "Page.hxx"
 #include "QueuePage.hxx"
 #include "config.h"
 #include "Styles.hxx"
+#include "page/Page.hxx"
 #include "ui/Options.hxx"
 
 /* minimum window size */
