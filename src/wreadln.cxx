@@ -413,7 +413,7 @@ _wreadln(const Window window,
 			break;
 
 		case '\n':
-		case 13:
+		case KEY_RETURN:
 		case KEY_IC:
 		case KEY_PPAGE:
 		case KEY_NPAGE:
