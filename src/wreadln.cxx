@@ -312,7 +312,7 @@ _wreadln(const Window window,
 		case ERR: /* ignore errors */
 			break;
 
-		case TAB:
+		case KEY_TAB:
 #ifndef NCMPC_MINI
 			if (completion != nullptr) {
 				completion->Pre(wr.value);
@@ -375,7 +375,7 @@ _wreadln(const Window window,
 			}
 			break;
 		case 127:
-		case KEY_BCKSPC:	/* handle backspace: copy all */
+		case KEY_BACKSPACE2:	/* handle backspace: copy all */
 		case KEY_BACKSPACE:	/* chars starting from curpos */
 			if (wr.cursor > 0) { /* - 1 from buf[n+1] to buf   */
 				wr.MoveCursorLeft();

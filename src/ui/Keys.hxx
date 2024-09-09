@@ -8,6 +8,6 @@
 #define KEY_CTL(x) ((x) & 0x1f) /* KEY_CTL(A) == ^A == \1 */
 
 enum : int {
-	KEY_BCKSPC = 8,
-	TAB = 9,
+	KEY_BACKSPACE2 = 8,
+	KEY_TAB = 9,
 };

@@ -80,7 +80,7 @@ static KeyBindings global_key_bindings{{{
 	{'U'},
 
 	/* change screen */
-	{TAB},
+	{KEY_TAB},
 	{KEY_STAB},
 	{'`'},
 
