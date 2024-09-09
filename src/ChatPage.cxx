@@ -48,6 +48,9 @@ private:
 
 	void SendMessage(struct mpdclient &c, const char *msg) noexcept;
 
+	[[nodiscard]]
+	Co::InvokeTask EnterMessage(struct mpdclient &c);
+
 public:
 	/* virtual methods from class Page */
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
@@ -136,7 +139,7 @@ ChatPage::GetPrefix() noexcept
 	return prefix;
 }
 
-void
+inline void
 ChatPage::SendMessage(struct mpdclient &c, const char *msg) noexcept
 {
 	const std::string full_msg = fmt::format("{}{}"sv, GetPrefix(), (std::string_view)LocaleToUtf8{msg});
@@ -144,25 +147,32 @@ ChatPage::SendMessage(struct mpdclient &c, const char *msg) noexcept
 	(void) mpdclient_cmd_send_message(c, chat_channel, full_msg.c_str());
 }
 
+inline Co::InvokeTask
+ChatPage::EnterMessage(struct mpdclient &c)
+{
+	auto message = screen_readln(screen, _("Your message"),
+					     nullptr, nullptr, nullptr);
+
+	/* the user entered an empty line */
+	if (message.empty())
+		co_return;
+
+	if (CheckChatSupport(c))
+		SendMessage(c, message.c_str());
+	else
+		screen_status_message(_("Message could not be sent"));
+}
+
 bool
 ChatPage::OnCommand(struct mpdclient &c, Command cmd)
 {
+	CoCancel();
+
 	if (TextPage::OnCommand(c, cmd))
 		return true;
 
 	if (cmd == Command::PLAY) {
-		auto message = screen_readln(screen, _("Your message"),
-					     nullptr, nullptr, nullptr);
-
-		/* the user entered an empty line */
-		if (message.empty())
-			return true;
-
-		if (CheckChatSupport(c))
-			SendMessage(c, message.c_str());
-		else
-			screen_status_message(_("Message could not be sent"));
-
+		CoStart(EnterMessage(c));
 		return true;
 	}
 
