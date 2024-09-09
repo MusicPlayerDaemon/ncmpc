@@ -118,7 +118,9 @@ private:
 #if LIBMPDCLIENT_CHECK_VERSION(2,18,0)
 	bool ActivatePartition(struct mpdclient &c,
 			       const struct mpd_partition &partition) noexcept;
-	bool CreateNewPartition(struct mpdclient &c) noexcept;
+
+	[[nodiscard]]
+	Co::InvokeTask CreateNewPartition(struct mpdclient &c) noexcept;
 #endif
 
 	bool Toggle(struct mpdclient &c, unsigned output_index);
@@ -159,28 +161,28 @@ OutputsPage::ActivatePartition(struct mpdclient &c,
 	return true;
 }
 
-inline bool
+inline Co::InvokeTask
 OutputsPage::CreateNewPartition(struct mpdclient &c) noexcept
 {
-	auto *connection = c.GetConnection();
-	if (connection == nullptr)
-		return false;
+	if (!c.IsConnected())
+		co_return;
 
 	auto name = screen_readln(screen, _("Name"), nullptr, nullptr, nullptr);
 	if (name.empty())
-		return false;
+		co_return;
+
+	auto *connection = c.GetConnection();
+	if (connection == nullptr)
+		co_return;
 
 	if (!mpd_run_newpartition(connection, name.c_str())) {
 		c.HandleError();
-		return false;
 	}
-
-	return true;
 }
 
 #endif
 
-bool
+inline bool
 OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 {
 	if (output_index >= items.size())
@@ -193,7 +195,8 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 		break;
 
 	case Item::Special::NEW_PARTITION:
-		return CreateNewPartition(c);
+		CoStart(CreateNewPartition(c));
+		return true;
 	}
 
 	if (item.partition)
@@ -435,6 +438,8 @@ OutputsPage::Update(struct mpdclient &c, unsigned events) noexcept
 bool
 OutputsPage::OnCommand(struct mpdclient &c, Command cmd)
 {
+	CoCancel();
+
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
