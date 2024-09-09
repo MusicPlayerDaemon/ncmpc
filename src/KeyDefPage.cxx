@@ -276,8 +276,7 @@ CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_RFIND:
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
-		screen.find_support.Find(lw, *this, cmd);
-		SchedulePaint();
+		CoStart(screen.find_support.Find(lw, *this, cmd));
 		return true;
 
 	default:
@@ -484,8 +483,7 @@ CommandListPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_RFIND:
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
-		screen.find_support.Find(lw, *this, cmd);
-		SchedulePaint();
+		CoStart(screen.find_support.Find(lw, *this, cmd));
 		return true;
 
 	default:

@@ -7,6 +7,7 @@
 
 #include <string>
 
+namespace Co { class InvokeTask; }
 enum class Command : unsigned;
 class ScreenManager;
 class ListWindow;
@@ -30,11 +31,16 @@ public:
 	 * @param findcmd the search command/mode
 	 * @param callback_fn a function returning the text of a given line
 	 * @param callback_data a pointer passed to callback_fn
-	 * @return true if the command has been handled, false if not
+	 * @return a task if the command has been handled, an empty task if not
 	 */
-	bool Find(ListWindow &lw, const ListText &text, Command cmd) noexcept;
+	[[nodiscard]]
+	Co::InvokeTask Find(ListWindow &lw, const ListText &text, Command cmd) noexcept;
 
 	/* query user for a string and jump to the entry
 	 * which begins with this string while the users types */
 	void Jump(ListWindow &lw, const ListText &text, const ListRenderer &renderer) noexcept;
+
+private:
+	[[nodiscard]]
+	Co::InvokeTask DoFind(ListWindow &lw, const ListText &text, bool reversed) noexcept;
 };

@@ -122,6 +122,7 @@ public:
 	bool PaintStatusBarOverride(Window window) const noexcept override;
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
+	void OnCoComplete() noexcept override;
 
 #ifdef HAVE_GETMOUSE
 	bool OnMouse(struct mpdclient &c, Point p, mmask_t bstate) override;
@@ -548,9 +549,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_RFIND:
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
-		screen.find_support.Find(lw, *this, cmd);
-		SaveSelection();
-		SchedulePaint();
+		CoStart(screen.find_support.Find(lw, *this, cmd));
 		return true;
 	case Command::LIST_JUMP:
 		screen.find_support.Jump(lw, *this, *this);
@@ -642,6 +641,13 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	}
 
 	return false;
+}
+
+void
+QueuePage::OnCoComplete() noexcept
+{
+	SaveSelection();
+	ListPage::OnCoComplete();
 }
 
 const PageMeta screen_queue = {

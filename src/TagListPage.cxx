@@ -240,8 +240,7 @@ TagListPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_RFIND:
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
-		find_support.Find(lw, *this, cmd);
-		SchedulePaint();
+		CoStart(find_support.Find(lw, *this, cmd));
 		return true;
 
 	case Command::LIST_JUMP:

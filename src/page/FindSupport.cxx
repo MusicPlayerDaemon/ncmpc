@@ -11,6 +11,7 @@
 #include "ui/Bell.hxx"
 #include "ui/ListWindow.hxx"
 #include "ui/Options.hxx"
+#include "co/InvokeTask.hxx"
 #include "util/LocaleString.hxx"
 
 #include <ctype.h>
@@ -19,19 +20,41 @@
 #define RFIND_PROMPT _("Find backward")
 #define JUMP_PROMPT _("Jump")
 
-bool
-FindSupport::Find(ListWindow &lw, const ListText &text, Command findcmd) noexcept
+inline Co::InvokeTask
+FindSupport::DoFind(ListWindow &lw, const ListText &text, bool reversed) noexcept
 {
-	bool found;
-	const char *prompt = FIND_PROMPT;
+	if (last.empty()) {
+		const char *const prompt = reversed ? RFIND_PROMPT : FIND_PROMPT;
+		char *value = ui_options.find_show_last_pattern
+			? (char *) -1 : nullptr;
+		last = screen_readln(screen,
+				     prompt,
+				     value,
+				     &history,
+				     nullptr);
+	}
 
+	if (last.empty())
+		co_return;
+
+	bool found = reversed
+		? lw.ReverseFind(text, last)
+		: lw.Find(text, last);
+	if (!found) {
+		screen_status_printf(_("Unable to find \'%s\'"),
+				     last.c_str());
+		Bell();
+	}
+}
+
+Co::InvokeTask
+FindSupport::Find(ListWindow &lw, const ListText &text, Command cmd) noexcept
+{
 	const bool reversed =
-		findcmd == Command::LIST_RFIND ||
-		findcmd == Command::LIST_RFIND_NEXT;
-	if (reversed)
-		prompt = RFIND_PROMPT;
+		cmd == Command::LIST_RFIND ||
+		cmd == Command::LIST_RFIND_NEXT;
 
-	switch (findcmd) {
+	switch (cmd) {
 	case Command::LIST_FIND:
 	case Command::LIST_RFIND:
 		last.clear();
@@ -39,32 +62,11 @@ FindSupport::Find(ListWindow &lw, const ListText &text, Command findcmd) noexcep
 
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
-		if (last.empty()) {
-			char *value = ui_options.find_show_last_pattern
-				? (char *) -1 : nullptr;
-			last = screen_readln(screen,
-					     prompt,
-					     value,
-					     &history,
-					     nullptr);
-		}
+		return DoFind(lw, text, reversed);
 
-		if (last.empty())
-			return true;
-
-		found = reversed
-			? lw.ReverseFind(text, last)
-			: lw.Find(text, last);
-		if (!found) {
-			screen_status_printf(_("Unable to find \'%s\'"),
-					     last.c_str());
-			Bell();
-		}
-		return true;
 	default:
-		break;
+		return {};
 	}
-	return false;
 }
 
 void
