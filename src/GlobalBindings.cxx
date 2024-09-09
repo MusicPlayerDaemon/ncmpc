@@ -8,9 +8,6 @@
 
 #include <curses.h>
 
-#define ESC  0x1B
-#define RET  '\r'
-
 static KeyBindings global_key_bindings{{{
 #ifdef ENABLE_KEYDEF_SCREEN
 	{'K'},
@@ -40,7 +37,7 @@ static KeyBindings global_key_bindings{{{
 	{'3', KEY_F(3)},
 
 	/* player commands */
-	{RET},
+	{KEY_RETURN},
 	{'P'},
 	{'s', KEY_BACKSPACE},
 	{'o'},
@@ -109,7 +106,7 @@ static KeyBindings global_key_bindings{{{
 #endif
 #ifdef ENABLE_LYRICS_SCREEN
 	{'7', KEY_F(7)},
-	{ESC},
+	{KEY_ESCAPE},
 	{'u'},
 #endif
 #if defined(ENABLE_LYRICS_SCREEN) || defined(ENABLE_PLAYLIST_EDITOR)
