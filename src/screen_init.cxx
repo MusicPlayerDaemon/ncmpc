@@ -44,7 +44,7 @@ ScreenManager::~ScreenManager() noexcept
 void
 ScreenManager::Exit() noexcept
 {
-	current_page->second->OnClose();
+	GetCurrentPage().OnClose();
 	current_page = pages.end();
 	pages.clear();
 }
@@ -77,7 +77,7 @@ ScreenManager::OnResize() noexcept
 	buf = new char[buf_size];
 
 	/* resize all screens */
-	current_page->second->Resize(layout.GetMainSize());
+	GetCurrentPage().Resize(layout.GetMainSize());
 
 	SchedulePaint();
 }
@@ -86,5 +86,5 @@ void
 ScreenManager::Init(struct mpdclient *c) noexcept
 {
 	current_page = MakePage(screen_queue);
-	current_page->second->OnOpen(*c);
+	GetCurrentPage().OnOpen(*c);
 }

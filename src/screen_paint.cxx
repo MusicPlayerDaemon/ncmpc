@@ -8,7 +8,7 @@
 void
 ScreenManager::PaintTopWindow() noexcept
 {
-	const auto title = current_page->second->GetTitle({buf, buf_size});
+	const auto title = GetCurrentPage().GetTitle({buf, buf_size});
 	title_bar.Paint(GetCurrentPageMeta(), title);
 }
 
@@ -22,14 +22,15 @@ ScreenManager::Paint() noexcept
 
 	progress_bar.Paint();
 
-	if (!current_page->second->PaintStatusBarOverride(status_bar.GetWindow()))
+	const auto &page = GetCurrentPage();
+	if (!page.PaintStatusBarOverride(status_bar.GetWindow()))
 		status_bar.Paint();
 
 	/* paint the main window */
 
 	if (main_dirty) {
 		main_dirty = false;
-		current_page->second->Paint();
+		page.Paint();
 	}
 
 	/* move the cursor to the origin */

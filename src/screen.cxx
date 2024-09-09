@@ -45,7 +45,7 @@ ScreenManager::Switch(const PageMeta &sf, struct mpdclient &c) noexcept
 	mode_fn_prev = &*current_page->first;
 
 	/* close the old mode */
-	current_page->second->OnClose();
+	GetCurrentPage().OnClose();
 
 	/* get functions for the new mode */
 	current_page = page;
@@ -206,7 +206,7 @@ ScreenManager::Update(struct mpdclient &c, const DelayedSeek &seek) noexcept
 		i.second->AddPendingEvents(events);
 
 	/* update the main window */
-	current_page->second->Update(c);
+	GetCurrentPage().Update(c);
 
 	SchedulePaint();
 }
@@ -214,7 +214,7 @@ ScreenManager::Update(struct mpdclient &c, const DelayedSeek &seek) noexcept
 void
 ScreenManager::OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 {
-	if (current_page->second->OnCommand(c, cmd))
+	if (GetCurrentPage().OnCommand(c, cmd))
 		return;
 
 	if (handle_player_command(c, seek, cmd))
@@ -264,8 +264,7 @@ bool
 ScreenManager::OnMouse(struct mpdclient &c, DelayedSeek &seek,
 		       Point p, mmask_t bstate)
 {
-	if (current_page->second->OnMouse(c, p - GetMainPosition(),
-					  bstate))
+	if (GetCurrentPage().OnMouse(c, p - GetMainPosition(), bstate))
 		return true;
 
 	/* if button 2 was pressed switch screen */

@@ -141,6 +141,10 @@ public:
 	}
 
 private:
+	Page &GetCurrentPage() noexcept {
+		return *current_page->second;
+	}
+
 	void NextMode(struct mpdclient &c, int offset) noexcept;
 
 	void Paint() noexcept;
