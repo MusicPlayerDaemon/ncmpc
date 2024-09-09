@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-02 13:13+0200\n"
+"POT-Creation-Date: 2024-09-10 00:19+0200\n"
 "PO-Revision-Date: 2011-08-11 10:30+0300\n"
 "Last-Translator: Oleksandr Kovalenko <alx.kovalenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -24,15 +24,15 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "Клавіша %s призначена до %s та %s"
 
-#: src/ChatPage.cxx:53 src/ChatPage.cxx:172
+#: src/ChatPage.cxx:53 src/ChatPage.cxx:170
 msgid "Chat"
 msgstr ""
 
-#: src/ChatPage.cxx:152
+#: src/ChatPage.cxx:150
 msgid "Your message"
 msgstr ""
 
-#: src/ChatPage.cxx:162
+#: src/ChatPage.cxx:160
 msgid "Message could not be sent"
 msgstr ""
 
@@ -108,12 +108,12 @@ msgstr "Вибрати пісню, що зараз програється"
 msgid "Help screen"
 msgstr "Екран допомоги"
 
-#: src/Command.cxx:57 src/HelpPage.cxx:125
+#: src/Command.cxx:57 src/HelpPage.cxx:126
 #, fuzzy
 msgid "Queue screen"
 msgstr "Екран призначення клавіш"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:140
+#: src/Command.cxx:59 src/HelpPage.cxx:141
 msgid "Browse screen"
 msgstr "Екран перегляду"
 
@@ -207,7 +207,7 @@ msgstr "Розпочати оновлення бази даних музики"
 msgid "Save queue"
 msgstr ""
 
-#: src/Command.cxx:108 src/HelpPage.cxx:162
+#: src/Command.cxx:108 src/HelpPage.cxx:163
 #, fuzzy
 msgid "Append song to queue"
 msgstr "Долучити пісню до переліку програвання"
@@ -287,7 +287,7 @@ msgstr "Перейти до"
 msgid "Library page"
 msgstr ""
 
-#: src/Command.cxx:170 src/HelpPage.cxx:157
+#: src/Command.cxx:170 src/HelpPage.cxx:158
 msgid "Search screen"
 msgstr "Екран пошуку"
 
@@ -304,7 +304,7 @@ msgstr "Перелік програвання видалений"
 msgid "View the selected and the currently playing song"
 msgstr "Переглянути вибрану та пісню, що зараз програється"
 
-#: src/Command.cxx:184 src/HelpPage.cxx:169
+#: src/Command.cxx:184 src/HelpPage.cxx:170
 msgid "Lyrics screen"
 msgstr "Екран текстів пісень"
 
@@ -322,49 +322,49 @@ msgstr "Оновити текст пісні"
 msgid "Edit the current item"
 msgstr ""
 
-#: src/Command.cxx:199 src/HelpPage.cxx:184
+#: src/Command.cxx:199 src/HelpPage.cxx:185
 msgid "Outputs screen"
 msgstr "Екран виходів"
 
-#: src/Command.cxx:204 src/HelpPage.cxx:191
+#: src/Command.cxx:204 src/HelpPage.cxx:192
 #, fuzzy
 msgid "Chat screen"
 msgstr "Наступний екран"
 
-#: src/ConfigParser.cxx:109
+#: src/ConfigParser.cxx:110
 msgid "Word expected"
 msgstr ""
 
-#: src/ConfigParser.cxx:153
+#: src/ConfigParser.cxx:154
 msgid "Whitespace expected"
 msgstr ""
 
-#: src/ConfigParser.cxx:167
+#: src/ConfigParser.cxx:168
 msgid "Quoted value expected"
 msgstr ""
 
-#: src/ConfigParser.cxx:176
+#: src/ConfigParser.cxx:177
 msgid "Closing quote missing"
 msgstr ""
 
-#: src/ConfigParser.cxx:194
+#: src/ConfigParser.cxx:195
 msgid "Syntax error"
 msgstr ""
 
-#: src/ConfigParser.cxx:214
+#: src/ConfigParser.cxx:215
 msgid "Malformed hotkey definition"
 msgstr "Неправильне визначення гарячої клавіші"
 
 #. the hotkey configuration line
 #. is incomplete
-#: src/ConfigParser.cxx:233
+#: src/ConfigParser.cxx:234
 msgid "Incomplete hotkey configuration"
 msgstr "Незавершена конфігурація гарячих клавіш"
 
 #. the hotkey configuration
 #. contains an unknown
 #. command
-#: src/ConfigParser.cxx:247
+#: src/ConfigParser.cxx:248
 msgid "Unknown command"
 msgstr "Невідома команда"
 
@@ -375,29 +375,29 @@ msgstr "Невідома команда"
 #. the configuration file
 #. contained an invalid
 #. setting
-#: src/ConfigParser.cxx:284
+#: src/ConfigParser.cxx:285
 msgid "Bad time display type"
 msgstr "Неправильний тип показу часу"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/ConfigParser.cxx:298 src/ConfigParser.cxx:583
+#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:584
 msgid "Missing '='"
 msgstr "Відсутній \"=\""
 
-#: src/ConfigParser.cxx:347
+#: src/ConfigParser.cxx:348
 msgid "Bad color name"
 msgstr "Неправильна назва кольору"
 
-#: src/ConfigParser.cxx:356
+#: src/ConfigParser.cxx:357
 msgid "Incomplete color definition"
 msgstr "Незавершене визначення кольору"
 
-#: src/ConfigParser.cxx:362 src/SearchPage.cxx:216
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:217
 msgid "Invalid number"
 msgstr "Неправильне число"
 
-#: src/ConfigParser.cxx:369
+#: src/ConfigParser.cxx:370
 msgid "Malformed color definition"
 msgstr "Неправильне визначення кольору"
 
@@ -405,32 +405,32 @@ msgstr "Неправильне визначення кольору"
 #. name was specified in
 #. the configuration
 #. file
-#: src/ConfigParser.cxx:432
+#: src/ConfigParser.cxx:433
 msgid "Unknown screen name"
 msgstr "Невідома назва екрану"
 
-#: src/ConfigParser.cxx:461
+#: src/ConfigParser.cxx:462
 #, fuzzy
 msgid "Unknown MPD tag"
 msgstr "Невідома команда"
 
-#: src/ConfigParser.cxx:488
+#: src/ConfigParser.cxx:489
 msgid "Invalid search mode"
 msgstr "Помилковий режим пошуку"
 
-#: src/ConfigParser.cxx:506
+#: src/ConfigParser.cxx:507
 msgid "Unknown search mode"
 msgstr "Невідомий режим пошуку"
 
-#: src/ConfigParser.cxx:539
+#: src/ConfigParser.cxx:540
 msgid "Invalid column width"
 msgstr ""
 
-#: src/ConfigParser.cxx:548
+#: src/ConfigParser.cxx:549
 msgid "Invalid column fraction width"
 msgstr ""
 
-#: src/ConfigParser.cxx:755
+#: src/ConfigParser.cxx:753
 msgid "Unknown configuration parameter"
 msgstr "Невідомий конфігураційний параметр"
 
@@ -438,32 +438,35 @@ msgstr "Невідомий конфігураційний параметр"
 msgid "Terminal lacks support for changing colors"
 msgstr "Терміналу бракує підтримки зміни кольорів"
 
+#: src/EditPlaylistPage.cxx:122 src/EditPlaylistPage.cxx:124
+msgid "Playlist"
+msgstr "Перелік програвання"
+
+#: src/EditPlaylistPage.cxx:301
+#, fuzzy
+msgid "Playlist Editor"
+msgstr "Перелік програвання видалений"
+
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:238
+#: src/FileBrowserPage.cxx:236
 msgid "Deleting this item is not possible"
 msgstr "Видалити цей елемент неможливо"
 
-#: src/FileBrowserPage.cxx:246
+#: src/FileBrowserPage.cxx:244
 #, fuzzy, c-format
 msgid "Delete playlist %s?"
 msgstr "Видалити перелік програвання"
 
-#. translators: a dialog was aborted by the user
-#: src/FileBrowserPage.cxx:251 src/KeyDefPage.cxx:168 src/LyricsPage.cxx:357
-#: src/save_playlist.cxx:97
-msgid "Aborted"
-msgstr "Перервано"
-
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:264
+#: src/FileBrowserPage.cxx:259
 msgid "Playlist deleted"
 msgstr "Перелік програвання видалений"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:291 src/FileBrowserPage.cxx:366
+#: src/FileBrowserPage.cxx:286 src/FileBrowserPage.cxx:361
 msgid "Browse"
 msgstr "Огляд"
 
@@ -473,356 +476,340 @@ msgid "Loading playlist '%s'"
 msgstr "Завантажується перелік програвання %s..."
 
 #: src/FileListPage.cxx:152 src/FileListPage.cxx:241 src/FileListPage.cxx:261
-#: src/TagListPage.cxx:182
+#: src/TagListPage.cxx:183
 #, fuzzy, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Додається '{}' до переліку програвання"
 
-#: src/HelpPage.cxx:45
+#: src/HelpPage.cxx:46
 msgid "Movement"
 msgstr "Переміщення"
 
-#: src/HelpPage.cxx:90
+#: src/HelpPage.cxx:91
 msgid "Global"
 msgstr "Загальні"
 
-#: src/HelpPage.cxx:127
+#: src/HelpPage.cxx:128
 msgid "Play"
 msgstr "Програти"
 
-#: src/HelpPage.cxx:134
+#: src/HelpPage.cxx:135
 msgid "Center"
 msgstr "По центру"
 
-#: src/HelpPage.cxx:142
+#: src/HelpPage.cxx:143
 msgid "Enter directory/Select and play song"
 msgstr "Ввести теку чи вибрати та програти пісню"
 
-#: src/HelpPage.cxx:149
+#: src/HelpPage.cxx:150
 msgid "Delete playlist"
 msgstr "Видалити перелік програвання"
 
-#: src/HelpPage.cxx:159
+#: src/HelpPage.cxx:160
 #, fuzzy
 msgid "New search"
 msgstr "Пошук"
 
-#: src/HelpPage.cxx:160
+#: src/HelpPage.cxx:161
 msgid "Select and play"
 msgstr "Вибрати та програти"
 
-#: src/HelpPage.cxx:171
+#: src/HelpPage.cxx:172
 msgid "View Lyrics"
 msgstr "Переглянути текст пісні"
 
-#: src/HelpPage.cxx:172
+#: src/HelpPage.cxx:173
 msgid "(Re)load lyrics"
 msgstr "(Пере)завантажити текст пісні"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
-#: src/HelpPage.cxx:175
+#: src/HelpPage.cxx:176
 msgid "Interrupt retrieval"
 msgstr "Припинити отримання"
 
-#: src/HelpPage.cxx:176
+#: src/HelpPage.cxx:177
 msgid "Download lyrics for currently playing song"
 msgstr "Завантажити текст для пісні, що зараз програється"
 
-#: src/HelpPage.cxx:177
+#: src/HelpPage.cxx:178
 #, fuzzy
 msgid "Add or edit lyrics"
 msgstr "Немає збереженого тексту пісні"
 
-#: src/HelpPage.cxx:178
+#: src/HelpPage.cxx:179
 msgid "Save lyrics"
 msgstr "Зберегти текст пісні"
 
-#: src/HelpPage.cxx:179
+#: src/HelpPage.cxx:180
 msgid "Delete saved lyrics"
 msgstr "Видалити збережений текст пісні"
 
-#: src/HelpPage.cxx:186
+#: src/HelpPage.cxx:187
 msgid "Enable/disable output"
 msgstr "Увімкнути/вимкнути вихід"
 
-#: src/HelpPage.cxx:193
+#: src/HelpPage.cxx:194
 msgid "Write a message"
 msgstr ""
 
-#: src/HelpPage.cxx:198
+#: src/HelpPage.cxx:199
 msgid "Keydef screen"
 msgstr "Екран призначення клавіш"
 
-#: src/HelpPage.cxx:200
+#: src/HelpPage.cxx:201
 msgid "Edit keydefs for selected command"
 msgstr "Редагувати призначену клавішу для вибраної команди"
 
-#: src/HelpPage.cxx:201
+#: src/HelpPage.cxx:202
 msgid "Remove selected keydef"
 msgstr "Вилучити вибране призначення клавіші"
 
-#: src/HelpPage.cxx:202
+#: src/HelpPage.cxx:203
 #, fuzzy
 msgid "Add a keydef"
 msgstr "Додати нову клавішу"
 
-#: src/HelpPage.cxx:203
+#: src/HelpPage.cxx:204
 msgid "Go up a level"
 msgstr "На рівень вище"
 
-#: src/HelpPage.cxx:204
+#: src/HelpPage.cxx:205
 msgid "Apply and save changes"
 msgstr "Застосувати та зберегти зміни"
 
-#: src/HelpPage.cxx:233 src/HelpPage.cxx:322
+#: src/HelpPage.cxx:234 src/HelpPage.cxx:323
 msgid "Help"
 msgstr "Допомога"
 
-#: src/i18n.h:27
-msgid "y"
-msgstr "y"
-
-#: src/i18n.h:28
-msgid "n"
-msgstr "n"
-
-#: src/KeyDefPage.cxx:147
+#: src/KeyDefPage.cxx:149
 msgid "Deleted"
 msgstr "Видалена"
 
-#: src/KeyDefPage.cxx:163
+#: src/KeyDefPage.cxx:165
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Введіть нову клавішу для %s: "
 
-#: src/KeyDefPage.cxx:173
+#: src/KeyDefPage.cxx:170
+msgid "Aborted"
+msgstr "Перервано"
+
+#: src/KeyDefPage.cxx:175
 msgid "Ctrl-Space can't be used"
 msgstr ""
 
-#: src/KeyDefPage.cxx:179
+#: src/KeyDefPage.cxx:181
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "Помилка: клавіша %s вже використовується для %s"
 
-#: src/KeyDefPage.cxx:189
+#: src/KeyDefPage.cxx:191
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "Призначення %s до %s"
 
-#: src/KeyDefPage.cxx:216
+#: src/KeyDefPage.cxx:218
 msgid "Add new key"
 msgstr "Додати нову клавішу"
 
-#: src/KeyDefPage.cxx:234
+#: src/KeyDefPage.cxx:236
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Редагувати клавішу для %s"
 
-#: src/KeyDefPage.cxx:372
+#: src/KeyDefPage.cxx:374
 msgid "You have new key bindings"
 msgstr "Ви маєте нову прив'язку клавіші"
 
-#: src/KeyDefPage.cxx:374
+#: src/KeyDefPage.cxx:376
 msgid "Keybindings unchanged."
 msgstr "Прив'язки клавіш не змінені."
 
-#: src/KeyDefPage.cxx:384
+#: src/KeyDefPage.cxx:386
 #, fuzzy
 msgid "Unable to write configuration"
 msgstr "Незавершена конфігурація гарячих клавіш"
 
-#: src/KeyDefPage.cxx:393 src/KeyDefPage.cxx:402
+#: src/KeyDefPage.cxx:395 src/KeyDefPage.cxx:404
 msgid "Error"
 msgstr "Помилка"
 
-#: src/KeyDefPage.cxx:400
+#: src/KeyDefPage.cxx:402
 #, c-format
 msgid "Wrote %s"
 msgstr "Записаний %s"
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:415
 msgid "===> Apply key bindings "
 msgstr "===> Застосування прив'язки клавіші "
 
-#: src/KeyDefPage.cxx:415
+#: src/KeyDefPage.cxx:417
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Застосування та збереження прив'язки клавіші  "
 
-#: src/KeyDefPage.cxx:451
+#: src/KeyDefPage.cxx:453
 msgid "Edit key bindings"
 msgstr "Редагувати прив'язки клавіш"
 
-#: src/KeyDefPage.cxx:533
+#: src/KeyDefPage.cxx:535
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Примітка: ви забули \"Застосувати\" зроблені зміни?"
 
-#: src/KeyDefPage.cxx:583
+#: src/KeyDefPage.cxx:585
 msgid "Keys"
 msgstr ""
 
-#: src/KeyName.cxx:99
+#: src/KeyName.cxx:98
 msgid "Undefined"
 msgstr "Не визначений"
 
-#: src/KeyName.cxx:101
+#: src/KeyName.cxx:100
 msgid "Space"
 msgstr "Space"
 
-#: src/KeyName.cxx:103
+#: src/KeyName.cxx:102
 msgid "Enter"
 msgstr "Enter"
 
-#: src/KeyName.cxx:105
+#: src/KeyName.cxx:104
 msgid "Backspace"
 msgstr "Backspace"
 
-#: src/KeyName.cxx:107
+#: src/KeyName.cxx:106
 msgid "Delete"
 msgstr "Delete"
 
-#: src/KeyName.cxx:109
+#: src/KeyName.cxx:108
 msgid "Up"
 msgstr "Up"
 
-#: src/KeyName.cxx:111
+#: src/KeyName.cxx:110
 msgid "Down"
 msgstr "Down"
 
-#: src/KeyName.cxx:113
+#: src/KeyName.cxx:112
 msgid "Left"
 msgstr "Left"
 
-#: src/KeyName.cxx:115
+#: src/KeyName.cxx:114
 msgid "Right"
 msgstr "Right"
 
-#: src/KeyName.cxx:117
+#: src/KeyName.cxx:116
 msgid "Home"
 msgstr "Home"
 
-#: src/KeyName.cxx:119
+#: src/KeyName.cxx:118
 msgid "End"
 msgstr "End"
 
-#: src/KeyName.cxx:121
+#: src/KeyName.cxx:120
 msgid "PageDown"
 msgstr "PageDown"
 
-#: src/KeyName.cxx:123
+#: src/KeyName.cxx:122
 msgid "PageUp"
 msgstr "PageUp"
 
-#: src/KeyName.cxx:125
+#: src/KeyName.cxx:124
 msgid "Tab"
 msgstr "Tab"
 
-#: src/KeyName.cxx:127
+#: src/KeyName.cxx:126
 msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
-#: src/KeyName.cxx:129
+#: src/KeyName.cxx:128
 msgid "Esc"
 msgstr "Esc"
 
-#: src/KeyName.cxx:131
+#: src/KeyName.cxx:130
 msgid "Insert"
 msgstr "Insert"
 
 #. translate "^X" to "Ctrl-X"
-#: src/KeyName.cxx:151
+#: src/KeyName.cxx:150
 #, c-format
 msgid "Ctrl-%c"
 msgstr ""
 
 #. translate "M-X" to "Alt-X"
-#: src/KeyName.cxx:157
+#: src/KeyName.cxx:156
 #, c-format
 msgid "Alt-%c"
 msgstr ""
 
-#: src/LibraryPage.cxx:32
+#: src/LibraryPage.cxx:33
 #, fuzzy
 msgid "Artists"
 msgstr "Виконавець"
 
-#: src/LibraryPage.cxx:35 src/LibraryPage.cxx:187
+#: src/LibraryPage.cxx:36 src/LibraryPage.cxx:188
 #, fuzzy
 msgid "Albums"
 msgstr "Альбом"
 
-#: src/LibraryPage.cxx:133
+#: src/LibraryPage.cxx:134
 msgid "All"
 msgstr ""
 
-#: src/LibraryPage.cxx:209
+#: src/LibraryPage.cxx:210
 msgid "Songs"
 msgstr ""
 
-#: src/LibraryPage.cxx:335
+#: src/LibraryPage.cxx:336
 msgid "Library"
 msgstr ""
 
-#: src/ListWindow.cxx:185
-msgid "Range selection disabled"
-msgstr "Вибір обсягу вимкнений"
-
-#: src/ListWindow.cxx:188
-msgid "Range selection enabled"
-msgstr "Вибір обсягу увімкнений"
-
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:208
+#: src/LyricsPage.cxx:193
 msgid "No lyrics"
 msgstr "Немає тексту пісні"
 
-#: src/LyricsPage.cxx:222
+#: src/LyricsPage.cxx:207
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr ""
 
-#: src/LyricsPage.cxx:317 src/LyricsPage.cxx:325 src/LyricsPage.cxx:334
-#: src/LyricsPage.cxx:474
+#: src/LyricsPage.cxx:302 src/LyricsPage.cxx:310 src/LyricsPage.cxx:319
+#: src/LyricsPage.cxx:450
 msgid "Lyrics"
 msgstr "Тексти пісень"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:321
+#: src/LyricsPage.cxx:306
 msgid "loading..."
 msgstr "завантаження..."
 
-#: src/LyricsPage.cxx:342
+#: src/LyricsPage.cxx:327
 msgid "Lyrics cache is unavailable"
 msgstr ""
 
-#: src/LyricsPage.cxx:347
+#: src/LyricsPage.cxx:332
 msgid "Editor not configured"
 msgstr ""
 
-#: src/LyricsPage.cxx:354
-msgid "Do you really want to start an editor and edit these lyrics?"
-msgstr ""
-
-#: src/LyricsPage.cxx:372 src/LyricsPage.cxx:394
+#: src/LyricsPage.cxx:348 src/LyricsPage.cxx:370
 msgid "Can't start editor"
 msgstr ""
 
-#: src/LyricsPage.cxx:397 src/LyricsPage.cxx:401
+#: src/LyricsPage.cxx:373 src/LyricsPage.cxx:377
 msgid "Editor exited unexpectedly"
 msgstr ""
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:423
+#: src/LyricsPage.cxx:399
 msgid "Lyrics saved"
 msgstr "Текст пісні збережений"
 
-#: src/LyricsPage.cxx:429
+#: src/LyricsPage.cxx:405
 msgid "Lyrics deleted"
 msgstr "Текст пісні видалений"
 
-#: src/LyricsPage.cxx:430
+#: src/LyricsPage.cxx:406
 msgid "No saved lyrics"
 msgstr "Немає збереженого тексту пісні"
 
@@ -838,265 +825,144 @@ msgstr "Помилка: MPD версії %d.%d.%d застаріла (необх
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
-#: src/Options.cxx:194 src/Options.cxx:197
+#: src/Options.cxx:195 src/Options.cxx:198
 msgid "translator-credits"
 msgstr "Oleksandr Kovalenko <alx.kovalenko@gmail.com>"
 
-#: src/OutputsPage.cxx:156
+#: src/OutputsPage.cxx:157
 #, c-format
 msgid "Switched to partition '%s'"
 msgstr ""
 
-#: src/OutputsPage.cxx:168 src/SongPage.cxx:66
+#: src/OutputsPage.cxx:169 src/SongPage.cxx:66
 msgid "Name"
 msgstr "Назва"
 
-#: src/OutputsPage.cxx:218
+#: src/OutputsPage.cxx:219
 #, c-format
 msgid "Output '%s' enabled"
 msgstr "Вихід '%s' увімкнений"
 
-#: src/OutputsPage.cxx:229
+#: src/OutputsPage.cxx:230
 #, c-format
 msgid "Output '%s' disabled"
 msgstr "Вихід '%s' вимкнений"
 
-#: src/OutputsPage.cxx:357 src/OutputsPage.cxx:466
+#: src/OutputsPage.cxx:358 src/OutputsPage.cxx:467
 msgid "Outputs"
 msgstr "Виходи"
 
-#: src/OutputsPage.cxx:369
+#: src/OutputsPage.cxx:370
 #, fuzzy
 msgid "Partition"
 msgstr "artist"
 
-#: src/OutputsPage.cxx:393
+#: src/OutputsPage.cxx:394
 msgid "Create new partition"
 msgstr ""
 
-#: src/player_command.cxx:62 src/QueuePage.cxx:646
-msgid "Shuffled queue"
-msgstr ""
-
-#: src/player_command.cxx:70
-msgid "Cleared queue"
-msgstr ""
-
 #. get path
-#: src/QueuePage.cxx:312
+#: src/QueuePage.cxx:307
 msgid "Add"
 msgstr "Додати"
 
-#: src/QueuePage.cxx:374 src/QueuePage.cxx:695
+#: src/QueuePage.cxx:369 src/QueuePage.cxx:690
 msgid "Queue"
 msgstr ""
 
-#: src/QueuePage.cxx:376
+#: src/QueuePage.cxx:371
 #, c-format
 msgid "Queue on %s"
 msgstr ""
 
-#. query the user for a filename
-#: src/save_playlist.cxx:72
-msgid "Save queue as"
+#: src/QueuePage.cxx:641 src/player_command.cxx:62
+msgid "Shuffled queue"
 msgstr ""
 
-#: src/save_playlist.cxx:94
-#, fuzzy, c-format
-msgid "Replace %s?"
-msgstr "Замінити %s [%s/%s] ? "
-
-#. success
-#: src/save_playlist.cxx:115
-#, c-format
-msgid "Saved %s"
-msgstr "Збережений %s"
-
-#: src/screen_client.cxx:24
-#, fuzzy
-msgid "Database update running"
-msgstr "Виконується оновлення бази даних..."
-
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
-msgstr "Оновлення бази даних %s розпочате"
-
-#: src/screen_client.cxx:34
-msgid "Database update started"
-msgstr "Початок оновлення бази даних"
-
-#: src/screen.cxx:141
-msgid "Repeat mode is on"
-msgstr "Режим повторення увімкнений"
-
-#: src/screen.cxx:142
-msgid "Repeat mode is off"
-msgstr "Режим повторення вимкнений"
-
-#: src/screen.cxx:146
-msgid "Random mode is on"
-msgstr "Режим випадкового програвання увімкнений"
-
-#: src/screen.cxx:147
-msgid "Random mode is off"
-msgstr "Режим випадкового програвання вимкнений"
-
-#. "single" mode means
-#. that MPD will
-#. automatically stop
-#. after playing one
-#. single song
-#: src/screen.cxx:156
-msgid "Single mode is on"
-msgstr "Режим повторення однієї доріжки увімкнений"
-
-#: src/screen.cxx:157
-msgid "Single mode is off"
-msgstr "Режим повторення однієї доріжки вимкнений"
-
-#. "consume" mode means
-#. that MPD removes each
-#. song which has
-#. finished playing
-#: src/screen.cxx:165
-msgid "Consume mode is on"
-msgstr "Режим вичерпання увімкнений"
-
-#: src/screen.cxx:166
-msgid "Consume mode is off"
-msgstr "Режим вичерпання вимкнений"
-
-#: src/screen.cxx:169
-#, c-format
-msgid "Crossfade %d seconds"
-msgstr "Плавний перехід: %dс"
-
-#: src/screen.cxx:181
-msgid "Database updated"
-msgstr "База даних оновлена"
-
-#: src/screen.cxx:231
-msgid "Find mode: Wrapped"
-msgstr "Режим пошуку: завернутий (розділений???)"
-
-#: src/screen.cxx:232
-msgid "Find mode: Normal"
-msgstr "Режим пошуку: звичайний"
-
-#: src/screen.cxx:237
-msgid "Auto center mode: On"
-msgstr "Режим автоматичного центрування: увімкнено"
-
-#: src/screen.cxx:238
-msgid "Auto center mode: Off"
-msgstr "Режим автоматичного центрування: вимкнено"
-
-#: src/screen_find.cxx:17
-msgid "Find"
-msgstr "Знайти"
-
-#: src/screen_find.cxx:18
-msgid "Find backward"
-msgstr "Знайти позаду"
-
-#: src/screen_find.cxx:19
-msgid "Jump"
-msgstr "Перейти"
-
-#: src/screen_find.cxx:65
-#, c-format
-msgid "Unable to find '%s'"
-msgstr "Не вдається знайти '%s'"
-
-#: src/screen_utils.cxx:134
-msgid "Password"
-msgstr "Пароль"
-
-#: src/SearchPage.cxx:37
+#: src/SearchPage.cxx:38
 msgid "artist"
 msgstr "artist"
 
-#: src/SearchPage.cxx:38
+#: src/SearchPage.cxx:39
 msgid "album"
 msgstr "album"
 
-#: src/SearchPage.cxx:39
+#: src/SearchPage.cxx:40
 msgid "title"
 msgstr "title"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:41
 msgid "track"
 msgstr "track"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:42
 msgid "name"
 msgstr "name"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:43
 msgid "genre"
 msgstr "genre"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:44
 msgid "date"
 msgstr "date"
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:45
 msgid "composer"
 msgstr "composer"
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:46
 msgid "performer"
 msgstr "performer"
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:47
 msgid "comment"
 msgstr "comment"
 
-#: src/SearchPage.cxx:54
+#: src/SearchPage.cxx:55
 msgid "file"
 msgstr "file"
 
-#: src/SearchPage.cxx:74 src/SongPage.cxx:54
+#: src/SearchPage.cxx:75 src/SongPage.cxx:54
 msgid "Title"
 msgstr "Назва"
 
-#: src/SearchPage.cxx:75 src/SongPage.cxx:53
+#: src/SearchPage.cxx:76 src/SongPage.cxx:53
 msgid "Artist"
 msgstr "Виконавець"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:55
+#: src/SearchPage.cxx:77 src/SongPage.cxx:55
 msgid "Album"
 msgstr "Альбом"
 
-#: src/SearchPage.cxx:77
+#: src/SearchPage.cxx:78
 msgid "Filename"
 msgstr "Назва файлу"
 
-#: src/SearchPage.cxx:78
+#: src/SearchPage.cxx:79
 msgid "Artist + Title"
 msgstr "Виконавець + Назва"
 
-#: src/SearchPage.cxx:257 src/SearchPage.cxx:261
+#: src/SearchPage.cxx:258 src/SearchPage.cxx:262
 msgid "Unrecognized suffix"
 msgstr ""
 
-#: src/SearchPage.cxx:307
+#: src/SearchPage.cxx:308
 #, c-format
 msgid "Bad search tag %s"
 msgstr "Неправильна мітка %s"
 
-#: src/SearchPage.cxx:321
+#: src/SearchPage.cxx:322
 #, c-format
 msgid "No argument for search tag %s"
 msgstr "Немає аргументу для пошуку за міткою %s"
 
-#: src/SearchPage.cxx:414 src/SearchPage.cxx:447 src/SearchPage.cxx:450
-#: src/SearchPage.cxx:454 src/SearchPage.cxx:511
+#: src/SearchPage.cxx:415 src/SearchPage.cxx:448 src/SearchPage.cxx:451
+#: src/SearchPage.cxx:455 src/SearchPage.cxx:512
 msgid "Search"
 msgstr "Пошук"
 
-#: src/SearchPage.cxx:474
+#: src/SearchPage.cxx:475
 #, c-format
 msgid "Search mode: %s"
 msgstr "Режим пошуку: %s"
@@ -1219,17 +1085,17 @@ msgstr "Програється:"
 msgid "[Paused]"
 msgstr "[Призупинено]"
 
-#: src/Styles.cxx:235 src/Styles.cxx:296
+#: src/Styles.cxx:240 src/Styles.cxx:301
 #, fuzzy
 msgid "Unknown color"
 msgstr "Невідома команда"
 
-#: src/Styles.cxx:306
+#: src/Styles.cxx:311
 #, fuzzy
 msgid "Unknown color field"
 msgstr "Застереження: невідоме поле кольору - %s\n"
 
-#: src/Styles.cxx:339
+#: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
 msgstr "Терміналу бракує підтримки можливостей кольорів"
 
@@ -1237,38 +1103,173 @@ msgstr "Терміналу бракує підтримки можливосте�
 msgid "All tracks"
 msgstr "Всі доріжки"
 
-#: src/time_format.cxx:28
-msgid "year"
-msgstr ""
-
-#: src/time_format.cxx:30
-msgid "years"
-msgstr ""
-
-#: src/time_format.cxx:37
-msgid "week"
-msgstr ""
-
-#: src/time_format.cxx:40
-msgid "weeks"
-msgstr ""
-
-#: src/time_format.cxx:47
-msgid "day"
-msgstr ""
-
-#: src/time_format.cxx:50
-msgid "days"
-msgstr ""
-
-#: src/TitleBar.cxx:83
+#: src/TitleBar.cxx:82
 msgid "Volume n/a"
 msgstr "Гучність недоступна"
 
-#: src/TitleBar.cxx:85
+#: src/TitleBar.cxx:84
 #, c-format
 msgid "Volume %d%%"
 msgstr "Гучність %d%%"
+
+#: src/i18n.h:27
+msgid "y"
+msgstr "y"
+
+#: src/i18n.h:28
+msgid "n"
+msgstr "n"
+
+#: src/player_command.cxx:70
+msgid "Cleared queue"
+msgstr ""
+
+#. query the user for a filename
+#: src/save_playlist.cxx:70
+msgid "Save queue as"
+msgstr ""
+
+#: src/save_playlist.cxx:91
+#, fuzzy, c-format
+msgid "Replace %s?"
+msgstr "Замінити %s [%s/%s] ? "
+
+#. success
+#: src/save_playlist.cxx:110
+#, c-format
+msgid "Saved %s"
+msgstr "Збережений %s"
+
+#: src/screen.cxx:143
+msgid "Repeat mode is on"
+msgstr "Режим повторення увімкнений"
+
+#: src/screen.cxx:144
+msgid "Repeat mode is off"
+msgstr "Режим повторення вимкнений"
+
+#: src/screen.cxx:148
+msgid "Random mode is on"
+msgstr "Режим випадкового програвання увімкнений"
+
+#: src/screen.cxx:149
+msgid "Random mode is off"
+msgstr "Режим випадкового програвання вимкнений"
+
+#. "single" mode means
+#. that MPD will
+#. automatically stop
+#. after playing one
+#. single song
+#: src/screen.cxx:158
+msgid "Single mode is on"
+msgstr "Режим повторення однієї доріжки увімкнений"
+
+#: src/screen.cxx:159
+msgid "Single mode is off"
+msgstr "Режим повторення однієї доріжки вимкнений"
+
+#. "consume" mode means
+#. that MPD removes each
+#. song which has
+#. finished playing
+#: src/screen.cxx:167
+msgid "Consume mode is on"
+msgstr "Режим вичерпання увімкнений"
+
+#: src/screen.cxx:168
+msgid "Consume mode is off"
+msgstr "Режим вичерпання вимкнений"
+
+#: src/screen.cxx:171
+#, c-format
+msgid "Crossfade %d seconds"
+msgstr "Плавний перехід: %dс"
+
+#: src/screen.cxx:183
+msgid "Database updated"
+msgstr "База даних оновлена"
+
+#: src/screen.cxx:233
+msgid "Find mode: Wrapped"
+msgstr "Режим пошуку: завернутий (розділений???)"
+
+#: src/screen.cxx:234
+msgid "Find mode: Normal"
+msgstr "Режим пошуку: звичайний"
+
+#: src/screen.cxx:239
+msgid "Auto center mode: On"
+msgstr "Режим автоматичного центрування: увімкнено"
+
+#: src/screen.cxx:240
+msgid "Auto center mode: Off"
+msgstr "Режим автоматичного центрування: вимкнено"
+
+#: src/screen_client.cxx:24
+#, fuzzy
+msgid "Database update running"
+msgstr "Виконується оновлення бази даних..."
+
+#: src/screen_client.cxx:31
+#, c-format
+msgid "Database update of %s started"
+msgstr "Оновлення бази даних %s розпочате"
+
+#: src/screen_client.cxx:34
+msgid "Database update started"
+msgstr "Початок оновлення бази даних"
+
+#: src/screen_find.cxx:18
+msgid "Find"
+msgstr "Знайти"
+
+#: src/screen_find.cxx:19
+msgid "Find backward"
+msgstr "Знайти позаду"
+
+#: src/screen_find.cxx:20
+msgid "Jump"
+msgstr "Перейти"
+
+#: src/screen_find.cxx:60
+#, c-format
+msgid "Unable to find '%s'"
+msgstr "Не вдається знайти '%s'"
+
+#: src/screen_utils.cxx:143
+msgid "Password"
+msgstr "Пароль"
+
+#: src/time_format.cxx:31
+msgid "year"
+msgstr ""
+
+#: src/time_format.cxx:33
+msgid "years"
+msgstr ""
+
+#: src/time_format.cxx:40
+msgid "week"
+msgstr ""
+
+#: src/time_format.cxx:43
+msgid "weeks"
+msgstr ""
+
+#: src/time_format.cxx:50
+msgid "day"
+msgstr ""
+
+#: src/time_format.cxx:53
+msgid "days"
+msgstr ""
+
+#~ msgid "Range selection disabled"
+#~ msgstr "Вибір обсягу вимкнений"
+
+#~ msgid "Range selection enabled"
+#~ msgstr "Вибір обсягу увімкнений"
 
 #~ msgid "Artist screen"
 #~ msgstr "Екран виконавців"
@@ -1352,9 +1353,6 @@ msgstr "Гучність %d%%"
 
 #~ msgid "Save playlist as"
 #~ msgstr "Зберегти перелік програвання як"
-
-#~ msgid "Playlist"
-#~ msgstr "Перелік програвання"
 
 #~ msgid "Playlist on %s"
 #~ msgstr "Перелік програвання %s"
