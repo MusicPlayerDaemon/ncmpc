@@ -315,12 +315,6 @@ FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 		ChangeToParent(c);
 		return true;
 
-	case Command::LOCATE:
-		/* don't let browser_cmd() evaluate the locate command
-		   - it's a no-op, and by the way, leads to a
-		   segmentation fault in the current implementation */
-		return false;
-
 	case Command::SCREEN_UPDATE:
 		Reload(c);
 		screen_browser_sync_highlights(*filelist, c.playlist);

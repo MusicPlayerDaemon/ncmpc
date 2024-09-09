@@ -91,6 +91,14 @@ ProxyPage::GetTitle(std::span<char> buffer) const noexcept
 		: std::string_view{};
 }
 
+const struct mpd_song *
+ProxyPage::GetSelectedSong() const noexcept
+{
+	return current_page != nullptr
+		? current_page->GetSelectedSong()
+		: nullptr;
+}
+
 void
 ProxyPage::SchedulePaint(Page &page) noexcept
 {

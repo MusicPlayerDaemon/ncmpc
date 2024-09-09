@@ -13,7 +13,9 @@
 #include "DelayedSeek.hxx"
 #include "player_command.hxx"
 #include "SongPage.hxx"
+#include "FileBrowserPage.hxx"
 #include "LyricsPage.hxx"
+#include "QueuePage.hxx"
 #include "page/Page.hxx"
 #include "ui/Options.hxx"
 #include "util/StringAPI.hxx"
@@ -220,41 +222,80 @@ ScreenManager::OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 	if (handle_player_command(c, seek, cmd))
 		return;
 
-	const auto *new_page = PageByCommand(cmd);
-	if (new_page != nullptr) {
-		Switch(*new_page, c);
-		return;
-	}
-
 	switch(cmd) {
 	case Command::TOGGLE_FIND_WRAP:
 		ui_options.find_wrap = !ui_options.find_wrap;
 		screen_status_message(ui_options.find_wrap ?
 				      _("Find mode: Wrapped") :
 				      _("Find mode: Normal"));
-		break;
+		return;
+
 	case Command::TOGGLE_AUTOCENTER:
 		options.auto_center = !options.auto_center;
 		screen_status_message(options.auto_center ?
 				      _("Auto center mode: On") :
 				      _("Auto center mode: Off"));
-		break;
+		return;
+
 	case Command::SCREEN_UPDATE:
 		main_dirty = true;
 		SchedulePaint();
-		break;
+		return;
+
 	case Command::SCREEN_PREVIOUS:
 		NextMode(c, -1);
-		break;
+		return;
+
 	case Command::SCREEN_NEXT:
 		NextMode(c, 1);
-		break;
+		return;
+
 	case Command::SCREEN_SWAP:
-		Swap(c, nullptr);
+		Swap(c, GetCurrentPage().GetSelectedSong());
+		return;
+
+	case Command::LOCATE:
+		if (!IsVisible(screen_browse)) {
+			if (const auto *song = GetCurrentPage().GetSelectedSong()) {
+				screen_file_goto_song(*this, c, *song);
+				return;
+			}
+		}
+
 		break;
+
+#ifdef ENABLE_SONG_SCREEN
+	case Command::SCREEN_SONG:
+		if (!IsVisible(screen_song)) {
+			if (const auto *song = GetCurrentPage().GetSelectedSong()) {
+				screen_song_switch(*this, c, *song);
+				return;
+			}
+		}
+
+		break;
+#endif
+
+#ifdef ENABLE_LYRICS_SCREEN
+	case Command::SCREEN_LYRICS:
+		if (!IsVisible(screen_lyrics)) {
+			if (const auto *song = GetCurrentPage().GetSelectedSong()) {
+				screen_lyrics_switch(*this, c, *song,
+						     IsVisible(screen_queue) && song == c.GetPlayingSong());
+				return;
+			}
+		}
+
+		break;
+#endif
 
 	default:
 		break;
+	}
+
+	if (const auto *new_page = PageByCommand(cmd)) {
+		Switch(*new_page, c);
+		return;
 	}
 }
 

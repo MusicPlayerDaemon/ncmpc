@@ -4,9 +4,7 @@
 #include "config.h"
 #include "FileListPage.hxx"
 #include "FileBrowserPage.hxx"
-#include "SongPage.hxx"
 #include "EditPlaylistPage.hxx"
-#include "LyricsPage.hxx"
 #include "Command.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
@@ -397,29 +395,6 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 		SchedulePaint();
 		return true;
 
-#ifdef ENABLE_SONG_SCREEN
-	case Command::SCREEN_SONG:
-		if (const auto *song = GetSelectedSong()) {
-			screen_song_switch(screen, c, *song);
-			return true;
-		} else
-			return false;
-
-#endif
-
-#ifdef ENABLE_LYRICS_SCREEN
-	case Command::SCREEN_LYRICS:
-		if (const auto *song = GetSelectedSong()) {
-			screen_lyrics_switch(screen, c, *song, false);
-			return true;
-		} else
-			return false;
-
-#endif
-	case Command::SCREEN_SWAP:
-		screen.Swap(c, GetSelectedSong());
-		return true;
-
 	default:
 		break;
 	}
@@ -454,14 +429,6 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::SELECT_ALL:
 		HandleSelectAll(c);
 		return true;
-
-	case Command::LOCATE:
-		if (const auto *song = GetSelectedSong()) {
-			screen_file_goto_song(screen, c, *song);
-			return true;
-		} else
-			return false;
-
 
 	default:
 		break;

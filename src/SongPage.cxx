@@ -3,8 +3,6 @@
 
 #include "SongPage.hxx"
 #include "PageMeta.hxx"
-#include "FileBrowserPage.hxx"
-#include "LyricsPage.hxx"
 #include "screen_find.hxx"
 #include "Command.hxx"
 #include "i18n.h"
@@ -147,6 +145,10 @@ public:
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
+
+	const struct mpd_song *GetSelectedSong() const noexcept override {
+		return selected_song != nullptr ? selected_song : played_song;
+	}
 
 private:
 	/* virtual methods from class ListText */
@@ -477,45 +479,6 @@ SongPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	if (ListPage::OnCommand(c, cmd))
 		return true;
-
-	switch(cmd) {
-	case Command::LOCATE:
-		if (selected_song != nullptr) {
-			screen_file_goto_song(screen, c, *selected_song);
-			return true;
-		}
-		if (played_song != nullptr) {
-			screen_file_goto_song(screen, c, *played_song);
-			return true;
-		}
-
-		return false;
-
-#ifdef ENABLE_LYRICS_SCREEN
-	case Command::SCREEN_LYRICS:
-		if (selected_song != nullptr) {
-			screen_lyrics_switch(screen, c, *selected_song, false);
-			return true;
-		}
-		if (played_song != nullptr) {
-			screen_lyrics_switch(screen, c, *played_song, true);
-			return true;
-		}
-		return false;
-
-#endif
-
-	case Command::SCREEN_SWAP:
-		if (selected_song != nullptr)
-			screen.Swap(c, selected_song);
-		else
-		// No need to check if this is null - we'd pass null anyway
-			screen.Swap(c, played_song);
-		return true;
-
-	default:
-		break;
-	}
 
 	if (screen_find(screen, lw, cmd, *this)) {
 		SchedulePaint();

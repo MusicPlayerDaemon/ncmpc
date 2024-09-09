@@ -46,6 +46,7 @@ public:
 #endif
 
 	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
+	const struct mpd_song *GetSelectedSong() const noexcept override;
 
 	// virtual methods from PageContainer
 	void SchedulePaint(Page &page) noexcept override;

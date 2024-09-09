@@ -38,9 +38,6 @@ protected:
 	const struct mpd_entity *GetSelectedEntity() const noexcept;
 
 	[[gnu::pure]]
-	const struct mpd_song *GetSelectedSong() const noexcept;
-
-	[[gnu::pure]]
 	FileListEntry *GetIndex(unsigned i) const noexcept;
 
 protected:
@@ -76,6 +73,8 @@ public:
 	bool OnMouse(struct mpdclient &c, Point p,
 		     mmask_t bstate) override;
 #endif
+
+	const struct mpd_song *GetSelectedSong() const noexcept override;
 };
 
 #ifndef NCMPC_MINI

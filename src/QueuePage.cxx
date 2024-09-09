@@ -3,7 +3,6 @@
 
 #include "QueuePage.hxx"
 #include "PageMeta.hxx"
-#include "FileBrowserPage.hxx"
 #include "screen_status.hxx"
 #include "screen_find.hxx"
 #include "save_playlist.hxx"
@@ -20,8 +19,6 @@
 #include "time_format.hxx"
 #include "screen.hxx"
 #include "screen_utils.hxx"
-#include "SongPage.hxx"
-#include "LyricsPage.hxx"
 #include "db_completion.hxx"
 #include "page/ListPage.hxx"
 #include "ui/ListRenderer.hxx"
@@ -85,9 +82,6 @@ public:
 	}
 
 private:
-	[[gnu::pure]]
-	const struct mpd_song *GetSelectedSong() const noexcept;
-
 	void SaveSelection() noexcept;
 	void RestoreSelection() noexcept;
 
@@ -135,6 +129,7 @@ public:
 #endif
 
 	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
+	const struct mpd_song *GetSelectedSong() const noexcept override;
 };
 
 const struct mpd_song *
@@ -559,38 +554,6 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		SchedulePaint();
 		return true;
 
-#ifdef ENABLE_SONG_SCREEN
-	case Command::SCREEN_SONG:
-		if (GetSelectedSong() != nullptr) {
-			screen_song_switch(screen, c, *GetSelectedSong());
-			return true;
-		}
-
-		break;
-#endif
-
-#ifdef ENABLE_LYRICS_SCREEN
-	case Command::SCREEN_LYRICS:
-		if (lw.GetCursorIndex() < playlist->size()) {
-			struct mpd_song &selected = (*playlist)[lw.GetCursorIndex()];
-			bool follow = false;
-
-			if (&selected == c.GetPlayingSong())
-				follow = true;
-
-			screen_lyrics_switch(screen, c, selected, follow);
-			return true;
-		}
-
-		break;
-#endif
-	case Command::SCREEN_SWAP:
-		if (!playlist->empty())
-			screen.Swap(c, &(*playlist)[lw.GetCursorIndex()]);
-		else
-			screen.Swap(c, nullptr);
-		return true;
-
 	default:
 		break;
 	}
@@ -669,14 +632,6 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		SaveSelection();
 		return true;
 	}
-
-	case Command::LOCATE:
-		if (GetSelectedSong() != nullptr) {
-			screen_file_goto_song(screen, c, *GetSelectedSong());
-			return true;
-		}
-
-		break;
 
 	default:
 		break;

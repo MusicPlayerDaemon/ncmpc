@@ -14,6 +14,7 @@
 #include <string_view>
 
 enum class Command : unsigned;
+struct mpd_song;
 struct mpdclient;
 struct Window;
 class PageContainer;
@@ -106,4 +107,14 @@ public:
 
 	[[gnu::pure]]
 	virtual std::string_view GetTitle(std::span<char> buffer) const noexcept = 0;
+
+	/**
+	 * Returns a pointer to the #mpd_song that is currently
+         * selected on this page.  The pointed-to object is owned by
+         * this #Page instance and may be invalidated at any time.
+	 */
+	[[gnu::pure]]
+	virtual const struct mpd_song *GetSelectedSong() const noexcept {
+		return nullptr;
+	}
 };

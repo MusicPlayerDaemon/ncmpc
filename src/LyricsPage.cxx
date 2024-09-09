@@ -6,8 +6,6 @@
 #include "LyricsLoader.hxx"
 #include "PageMeta.hxx"
 #include "screen_status.hxx"
-#include "FileBrowserPage.hxx"
-#include "SongPage.hxx"
 #include "i18n.h"
 #include "Command.hxx"
 #include "Options.hxx"
@@ -104,6 +102,10 @@ public:
 	void Update(struct mpdclient &c, unsigned events) noexcept override;
 	bool OnCommand(struct mpdclient &c, Command cmd) override;
 	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
+
+	const struct mpd_song *GetSelectedSong() const noexcept override {
+		return song;
+	}
 
 private:
 	/* virtual methods from class PluginResponseHandler */
@@ -416,27 +418,6 @@ LyricsPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::SELECT:
 		Reload();
 		return true;
-
-#ifdef ENABLE_SONG_SCREEN
-	case Command::SCREEN_SONG:
-		if (song != nullptr) {
-			screen_song_switch(screen, c, *song);
-			return true;
-		}
-
-		break;
-#endif
-	case Command::SCREEN_SWAP:
-		screen.Swap(c, song);
-		return true;
-
-	case Command::LOCATE:
-		if (song != nullptr) {
-			screen_file_goto_song(screen, c, *song);
-			return true;
-		}
-
-		return false;
 
 	default:
 		break;

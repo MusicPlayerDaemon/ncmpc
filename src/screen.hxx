@@ -119,6 +119,11 @@ public:
 	void OnResize() noexcept;
 
 	[[gnu::pure]]
+	bool IsVisible(const PageMeta &page) const noexcept {
+		return &page == current_page->first;
+	}
+
+	[[gnu::pure]]
 	bool IsVisible(const Page &page) const noexcept {
 		return &page == current_page->second.get();
 	}
