@@ -3,13 +3,13 @@ src/ChatPage.cxx
 src/Command.cxx
 src/ConfigParser.cxx
 src/CustomColors.cxx
+src/EditPlaylistPage.cxx
 src/FileBrowserPage.cxx
 src/FileListPage.cxx
 src/HelpPage.cxx
 src/KeyDefPage.cxx
 src/KeyName.cxx
 src/LibraryPage.cxx
-src/ListWindow.cxx
 src/LyricsPage.cxx
 src/Main.cxx
 src/Options.cxx
