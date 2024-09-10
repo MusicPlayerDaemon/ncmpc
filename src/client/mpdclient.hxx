@@ -17,6 +17,44 @@
 
 #include <string>
 
+class MpdClientHandler {
+public:
+	/**
+	 * A connection to MPD has been established.
+	 */
+	virtual void OnMpdConnected() noexcept = 0;
+
+	/**
+	 * An attempt to connect to MPD has failed.  OnMpdError() has
+	 * been called already.
+	 */
+	virtual void OnMpdConnectFailed() noexcept = 0;
+
+	/**
+	 * The connection to MPD was lost.  If this was due to an error, then
+	 * mpdclient_error_callback() has already been called.
+	 */
+	virtual void OnMpdConnectionLost() noexcept = 0;
+
+	/**
+	 * To be implemented by the application: mpdclient.c calls this to
+	 * display an error message.
+	 *
+	 * @param message a human-readable error message in the locale charset
+	 */
+	virtual void OnMpdError(std::string_view message) noexcept = 0;
+
+	virtual void OnMpdError(std::exception_ptr e) noexcept = 0;
+
+	virtual bool OnMpdAuth() noexcept = 0;
+
+	/**
+	 * This function is called by the gidle.c library when MPD
+	 * sends us an idle event (or when the connection dies).
+	 */
+	virtual void OnMpdIdle(unsigned events) noexcept = 0;
+};
+
 struct AsyncMpdConnect;
 
 struct mpdclient final
@@ -25,6 +63,10 @@ struct mpdclient final
 	, AsyncMpdConnectHandler
 #endif
 {
+private:
+	MpdClientHandler &handler;
+
+public:
 #ifdef ENABLE_ASYNC_CONNECT
 	/**
 	 * These settings are used to connect to MPD asynchronously.
@@ -120,7 +162,8 @@ struct mpdclient final
 
 	mpdclient(EventLoop &_event_loop,
 		  const char *host, unsigned port,
-		  unsigned _timeout_ms, const char *_password);
+		  unsigned _timeout_ms, const char *_password,
+		  MpdClientHandler &_handler);
 
 	~mpdclient() noexcept {
 		Disconnect();

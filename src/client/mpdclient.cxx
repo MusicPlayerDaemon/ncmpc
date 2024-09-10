@@ -2,7 +2,6 @@
 // Copyright The Music Player Daemon Project
 
 #include "mpdclient.hxx"
-#include "callbacks.hxx"
 #include "config.h"
 #include "gidle.hxx"
 #include "charset.hxx"
@@ -24,14 +23,15 @@ mpdclient::OnEnterIdleTimer() noexcept
 }
 
 static void
-mpdclient_invoke_error_callback(enum mpd_error error,
+mpdclient_invoke_error_callback(MpdClientHandler &handler,
+				enum mpd_error error,
 				const char *message) noexcept
 {
 	if (error == MPD_ERROR_SERVER)
 		/* server errors are UTF-8, the others are locale */
-		mpdclient_error_callback(Utf8ToLocale{message});
+		handler.OnMpdError(Utf8ToLocale{message});
 	else
-		mpdclient_error_callback(message);
+		handler.OnMpdError(message);
 }
 
 void
@@ -42,7 +42,7 @@ mpdclient::InvokeErrorCallback() noexcept
 	enum mpd_error error = mpd_connection_get_error(connection);
 	assert(error != MPD_ERROR_SUCCESS);
 
-	mpdclient_invoke_error_callback(error,
+	mpdclient_invoke_error_callback(handler, error,
 					mpd_connection_get_error_message(connection));
 }
 
@@ -56,7 +56,7 @@ mpdclient::OnIdle(unsigned _events) noexcept
 	events |= _events;
 	Update();
 
-	mpdclient_idle_callback(events);
+	handler.OnMpdIdle(events);
 	events = 0;
 
 	if (source != nullptr)
@@ -72,9 +72,9 @@ mpdclient::OnIdleError(enum mpd_error error,
 
 	idle = false;
 
-	mpdclient_invoke_error_callback(error, message);
+	mpdclient_invoke_error_callback(handler, error, message);
 	Disconnect();
-	mpdclient_lost_callback();
+	handler.OnMpdConnectionLost();
 }
 
 /****************************************************************************/
@@ -89,14 +89,14 @@ mpdclient::HandleError() noexcept
 
 	if (error == MPD_ERROR_SERVER &&
 	    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_PERMISSION)
-		return mpdclient_auth_callback(this);
+		return handler.OnMpdAuth();
 
-	mpdclient_invoke_error_callback(error,
+	mpdclient_invoke_error_callback(handler, error,
 					mpd_connection_get_error_message(connection));
 
 	if (!mpd_connection_clear_error(connection)) {
 		Disconnect();
-		mpdclient_lost_callback();
+		handler.OnMpdConnectionLost();
 	}
 
 	return false;
@@ -108,12 +108,12 @@ mpdclient::HandleAuthError() noexcept
 	enum mpd_error error = mpd_connection_get_error(connection);
 	assert(error != MPD_ERROR_SUCCESS);
 
-	mpdclient_invoke_error_callback(error,
+	mpdclient_invoke_error_callback(handler, error,
 					mpd_connection_get_error_message(connection));
 
 	if (!mpd_connection_clear_error(connection)) {
 		Disconnect();
-		mpdclient_lost_callback();
+		handler.OnMpdConnectionLost();
 	}
 }
 
@@ -138,8 +138,10 @@ settings_is_local_socket(const struct mpd_settings *settings) noexcept
 
 mpdclient::mpdclient(EventLoop &event_loop,
 		     const char *_host, unsigned _port,
-		     unsigned _timeout_ms, const char *_password)
-	:timeout_ms(_timeout_ms), password(_password),
+		     unsigned _timeout_ms, const char *_password,
+		     MpdClientHandler &_handler)
+	:handler(_handler),
+	 timeout_ms(_timeout_ms), password(_password),
 	 enter_idle_timer(event_loop, BIND_THIS_METHOD(OnEnterIdleTimer))
 {
 #ifdef ENABLE_ASYNC_CONNECT
@@ -340,7 +342,7 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 	if (mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS) {
 		InvokeErrorCallback();
 		Disconnect();
-		mpdclient_failed_callback();
+		handler.OnMpdConnectFailed();
 		return false;
 	}
 
@@ -354,7 +356,7 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 	    !mpd_run_password(connection, password)) {
 		InvokeErrorCallback();
 		Disconnect();
-		mpdclient_failed_callback();
+		handler.OnMpdConnectFailed();
 		return false;
 	}
 
@@ -364,7 +366,7 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 
 		if (!mpd_connection_clear_error(connection)) {
 			Disconnect();
-			mpdclient_failed_callback();
+			handler.OnMpdConnectFailed();
 			return false;
 		}
 	}
@@ -378,7 +380,7 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 	   established */
 	events = (enum mpd_idle)MPD_IDLE_ALL;
 
-	mpdclient_connected_callback();
+	handler.OnMpdConnected();
 	return true;
 }
 
@@ -393,9 +395,9 @@ mpdclient::OnAsyncMpdConnect(struct mpd_connection *_connection) noexcept
 	const char *password2 =
 		mpd_settings_get_password(&GetSettings());
 	if (password2 != nullptr && !mpd_run_password(_connection, password2)) {
-		mpdclient_error_callback(mpd_connection_get_error_message(_connection));
+		handler.OnMpdError(mpd_connection_get_error_message(_connection));
 		mpd_connection_free(_connection);
-		mpdclient_failed_callback();
+		handler.OnMpdConnectFailed();
 		return;
 	}
 
@@ -416,8 +418,8 @@ mpdclient::OnAsyncMpdConnectError(std::exception_ptr e) noexcept
 	}
 #endif
 
-	mpdclient_error_callback(std::move(e));
-	mpdclient_failed_callback();
+	handler.OnMpdError(std::move(e));
+	handler.OnMpdConnectFailed();
 }
 
 void

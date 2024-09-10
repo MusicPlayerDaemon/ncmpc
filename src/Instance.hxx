@@ -20,7 +20,7 @@
 /**
  * A singleton holding global instance variables.
  */
-class Instance final : UserInputHandler {
+class Instance final : MpdClientHandler, UserInputHandler {
 	EventLoop event_loop;
 
 	struct mpdclient client;
@@ -118,7 +118,16 @@ private:
 	void OnCheckKeyBindings() noexcept;
 #endif
 
-	// virtual methods from AsyncUserInputHandler
+	// virtual methods from Mpdclient
+	void OnMpdConnected() noexcept override;
+	void OnMpdConnectFailed() noexcept override;
+	void OnMpdConnectionLost() noexcept override;
+	void OnMpdError(std::string_view message) noexcept override;
+	void OnMpdError(std::exception_ptr e) noexcept override;
+	bool OnMpdAuth() noexcept override;
+	void OnMpdIdle(unsigned events) noexcept override;
+
+	// virtual methods from UserInputHandler
 	bool OnRawKey(int key) noexcept override;
 	bool OnCommand(Command cmd) noexcept override;
 #ifdef HAVE_GETMOUSE

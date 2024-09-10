@@ -4,7 +4,6 @@
 #include "config.h"
 #include "Instance.hxx"
 #include "ncmpc.hxx"
-#include "callbacks.hxx"
 #include "charset.hxx"
 #include "Options.hxx"
 #include "Command.hxx"
@@ -114,11 +113,10 @@ Instance::OnReconnectTimer() noexcept
 }
 
 void
-mpdclient_connected_callback() noexcept
+Instance::OnMpdConnected() noexcept
 {
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.14 - song id not supported by mpd */
-	auto &client = global_instance->GetClient();
 	auto *connection = client.GetConnection();
 	if (mpd_connection_cmp_server_version(connection, 0, 21, 0) < 0) {
 		const unsigned *version =
@@ -130,51 +128,43 @@ mpdclient_connected_callback() noexcept
 		doupdate();
 
 		/* try again after 30 seconds */
-		global_instance->ScheduleReconnect(std::chrono::seconds(30));
+		ScheduleReconnect(std::chrono::seconds{30});
 		return;
 	}
 #endif
 
-	screen->status_bar.ClearMessage();
+	screen_manager.status_bar.ClearMessage();
 	doupdate();
 
-	global_instance->UpdateClient();
+	UpdateClient();
 
-	auto_update_timer(*global_instance);
+	auto_update_timer(*this);
 }
 
 void
-mpdclient_failed_callback() noexcept
+Instance::OnMpdConnectFailed() noexcept
 {
 	/* try again in 5 seconds */
-	global_instance->ScheduleReconnect(std::chrono::seconds(5));
+	ScheduleReconnect(std::chrono::seconds(5));
 }
 
 void
-mpdclient_lost_callback() noexcept
+Instance::OnMpdConnectionLost() noexcept
 {
-	screen->Update(global_instance->GetClient(),
-		       global_instance->GetSeek());
-
-	global_instance->ScheduleReconnect(std::chrono::seconds(1));
+	screen_manager.Update(client, seek);
+	ScheduleReconnect(std::chrono::seconds{1});
 }
 
-/**
- * This function is called by the gidle.c library when MPD sends us an
- * idle event (or when the connection dies).
- */
 void
-mpdclient_idle_callback([[maybe_unused]] unsigned events) noexcept
+Instance::OnMpdIdle([[maybe_unused]] unsigned events) noexcept
 {
-	auto &client = global_instance->GetClient();
-
 #ifndef NCMPC_MINI
 	if (options.enable_xterm_title)
 		update_xterm_title(client);
 #endif
 
-	screen->Update(client, global_instance->GetSeek());
-	auto_update_timer(*global_instance);
+	screen_manager.Update(client, seek);
+	auto_update_timer(*this);
 }
 
 void

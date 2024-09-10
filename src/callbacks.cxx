@@ -1,31 +1,28 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#include "callbacks.hxx"
-#include "screen.hxx"
+#include "Instance.hxx"
 #include "screen_status.hxx"
-#include "ncmpc.hxx"
 #include "ui/Bell.hxx"
-#include "client/mpdclient.hxx"
 
 #include <curses.h>
 
 bool
-mpdclient_auth_callback(struct mpdclient *c) noexcept
+Instance::OnMpdAuth() noexcept
 {
-	auto *connection = c->GetConnection();
+	auto *connection = client.GetConnection();
 	if (connection == nullptr)
 		return false;
 
 	if (!mpd_connection_clear_error(connection))
 		return false;
 
-	screen->QueryPassword(*c);
+	screen_manager.QueryPassword(client);
 	return false;
 }
 
 void
-mpdclient_error_callback(std::string_view message) noexcept
+Instance::OnMpdError(std::string_view message) noexcept
 {
 	screen_status_message(message);
 	Bell();
@@ -33,7 +30,7 @@ mpdclient_error_callback(std::string_view message) noexcept
 }
 
 void
-mpdclient_error_callback(std::exception_ptr e) noexcept
+Instance::OnMpdError(std::exception_ptr e) noexcept
 {
 	screen_status_error(std::move(e));
 	Bell();
