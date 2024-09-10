@@ -6,11 +6,9 @@
 
 #include <utility>
 
-#if defined(_LIBCPP_VERSION) && defined(__clang__) && (__clang_major__ < 14 || defined(__APPLE__))
+#if defined(_LIBCPP_VERSION) && defined(__clang__) && __clang_major__ < 14
 /* libc++ until 14 has the coroutine definitions in the
    std::experimental namespace */
-/* the standard header is also missing in the Android NDK and on Apple
-   Xcode, even though LLVM upstream has them */
 
 #include <experimental/coroutine>
 
