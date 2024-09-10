@@ -180,10 +180,11 @@ ScreenManager::Update(struct mpdclient &c, const DelayedSeek &seek) noexcept
 		crossfade = mpd_status_get_crossfade(c.status);
 	}
 
+	const bool now_connected = c.IsConnected();
 	if ((events & MPD_IDLE_DATABASE) != 0 && was_connected &&
-	    c.IsConnected())
+	    now_connected)
 		screen_status_message(_("Database updated"));
-	was_connected = c.IsConnected();
+	was_connected = now_connected;
 #endif
 
 	title_bar.Update(c.status);
