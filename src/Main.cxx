@@ -38,8 +38,6 @@
 
 using std::string_view_literals::operator""sv;
 
-static Instance *global_instance;
-
 ScreenManager *screen;
 
 #ifndef NCMPC_MINI
@@ -297,7 +295,6 @@ try {
 
 	/* create the global Instance */
 	Instance instance;
-	global_instance = &instance;
 	screen = &instance.GetScreenManager();
 
 	AtScopeExit() {
