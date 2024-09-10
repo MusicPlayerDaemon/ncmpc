@@ -38,6 +38,7 @@ Instance::Instance()
 		options.password.empty() ? nullptr : options.password.c_str(),
 		*this),
 	 seek(event_loop, client),
+	 update_screen_event(event_loop, BIND_THIS_METHOD(OnUpdateScreen)),
 	 reconnect_timer(event_loop, BIND_THIS_METHOD(OnReconnectTimer)),
 	 update_timer(event_loop, BIND_THIS_METHOD(OnUpdateTimer)),
 #ifndef NCMPC_MINI
@@ -88,6 +89,8 @@ Instance::Run()
 bool
 Instance::OnRawKey(int key) noexcept
 try {
+	update_screen_event.Schedule();
+
 	return screen_manager.OnModalDialogKey(key);
 } catch (...) {
 	screen_manager.status_bar.SetMessage(GetFullMessage(std::current_exception()));

@@ -3,7 +3,6 @@
 
 #include "lirc.hxx"
 #include "UserInputHandler.hxx"
-#include "ncmpc.hxx"
 #include "Command.hxx"
 #include "config.h"
 
@@ -21,8 +20,6 @@ LircInput::OnSocketReady(unsigned) noexcept
 				return;
 		}
 	}
-
-	end_input_event();
 }
 
 LircInput::LircInput(EventLoop &_event_loop,

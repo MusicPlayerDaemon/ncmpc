@@ -7,7 +7,6 @@
 #include "Command.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
-#include "ncmpc.hxx"
 #include "ui/Point.hxx"
 
 // TODO remove this kludge
@@ -39,7 +38,6 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 			/* cancel the modal dialog on mouse click;
 			   though some day, we may allow modal dialogs
 			   to handle mouse events */
-			end_input_event();
 			return;
 		}
 
@@ -55,14 +53,11 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 		if (!handler.OnMouse({event.x, event.y}, event.bstate))
 			return;
 
-		end_input_event();
-
 		return;
 	}
 #endif
 
 	if (handler.OnRawKey(key)) {
-		end_input_event();
 		return;
 	}
 
@@ -73,7 +68,6 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 	if (!handler.OnCommand(cmd))
 		return;
 
-	end_input_event();
 	return;
 }
 

@@ -10,6 +10,7 @@
 #include "screen.hxx"
 #include "client/mpdclient.hxx"
 #include "event/Loop.hxx"
+#include "event/IdleEvent.hxx"
 #include "event/CoarseTimerEvent.hxx"
 #include "event/FineTimerEvent.hxx"
 
@@ -26,6 +27,8 @@ class Instance final : MpdClientHandler, UserInputHandler {
 	struct mpdclient client;
 
 	DelayedSeek seek;
+
+	IdleEvent update_screen_event;
 
 	/**
 	 * This timer is installed when the connection to the MPD
@@ -104,6 +107,8 @@ private:
 	void InitSignals();
 	void OnSigwinch() noexcept;
 #endif
+
+	void OnUpdateScreen() noexcept;
 
 	void OnReconnectTimer() noexcept;
 

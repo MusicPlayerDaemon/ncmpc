@@ -179,19 +179,20 @@ Instance::OnUpdateTimer() noexcept
 		ScheduleUpdateTimer();
 }
 
-void end_input_event() noexcept
+void
+Instance::OnUpdateScreen() noexcept
 {
-	auto &client = global_instance->GetClient();
-
-	screen->Update(client, global_instance->GetSeek());
+	screen_manager.Update(client, seek);
 	client.events = (enum mpd_idle)0;
 
-	auto_update_timer(*global_instance);
+	auto_update_timer(*this);
 }
 
 bool
 Instance::OnCommand(Command cmd) noexcept
 {
+	update_screen_event.Schedule();
+
 	if (cmd == Command::QUIT) {
 		event_loop.Break();
 		return false;
@@ -216,6 +217,8 @@ Instance::OnCommand(Command cmd) noexcept
 bool
 Instance::OnMouse(Point p, mmask_t bstate) noexcept
 {
+	update_screen_event.Schedule();
+
 	try {
 		screen_manager.OnMouse(GetClient(), GetSeek(), p, bstate);
 	} catch (...) {

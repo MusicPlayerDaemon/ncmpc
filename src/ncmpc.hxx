@@ -5,6 +5,3 @@
 
 class ScreenManager;
 extern ScreenManager *screen;
-
-void
-end_input_event() noexcept;
