@@ -13,7 +13,7 @@
 bool
 handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 {
-	if (!c.IsConnected() || c.status == nullptr)
+	if (!c.IsReady() || c.status == nullptr)
 		return false;
 
 	seek.Cancel();

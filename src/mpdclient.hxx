@@ -164,6 +164,14 @@ struct mpdclient final
 	}
 
 	/**
+	 * Is this connection ready to be used? (i.e. connected and
+	 * not currently setting up the connection)
+	 */
+	bool IsReady() const noexcept {
+		return IsConnected();
+	}
+
+	/**
 	 * Is this object "dead"?  i.e. not connected and not
 	 * currently doing anything to connect.
 	 */

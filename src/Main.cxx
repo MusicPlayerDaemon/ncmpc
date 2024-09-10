@@ -89,7 +89,7 @@ auto_update_timer(Instance &instance) noexcept
 void
 Instance::UpdateClient() noexcept
 {
-	if (client.IsConnected() &&
+	if (client.IsReady() &&
 	    (client.events != 0 || client.playing))
 		client.Update();
 

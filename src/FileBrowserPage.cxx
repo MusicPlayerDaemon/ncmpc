@@ -327,7 +327,7 @@ FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 	if (FileListPage::OnCommand(c, cmd))
 		return true;
 
-	if (!c.IsConnected())
+	if (!c.IsReady())
 		return false;
 
 	switch(cmd) {

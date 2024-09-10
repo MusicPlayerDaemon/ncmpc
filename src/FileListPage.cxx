@@ -398,7 +398,7 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 		break;
 	}
 
-	if (!c.IsConnected())
+	if (!c.IsReady())
 		return false;
 
 	switch (cmd) {

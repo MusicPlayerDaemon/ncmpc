@@ -265,7 +265,7 @@ EditPlaylistPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 	}
 
-	if (!c.IsConnected())
+	if (!c.IsReady())
 		return false;
 
 	switch (cmd) {

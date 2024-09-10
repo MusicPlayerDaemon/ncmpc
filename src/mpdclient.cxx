@@ -46,7 +46,7 @@ mpdclient::InvokeErrorCallback() noexcept
 void
 mpdclient::OnIdle(unsigned _events) noexcept
 {
-	assert(IsConnected());
+	assert(IsReady());
 
 	idle = false;
 
@@ -65,7 +65,7 @@ mpdclient::OnIdleError(enum mpd_error error,
 		       enum mpd_server_error,
 		       const char *message) noexcept
 {
-	assert(IsConnected());
+	assert(IsReady());
 
 	idle = false;
 
