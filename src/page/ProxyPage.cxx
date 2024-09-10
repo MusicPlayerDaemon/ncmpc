@@ -107,3 +107,9 @@ ProxyPage::SchedulePaint(Page &page) noexcept
 	if (&page == current_page)
 		SchedulePaint();
 }
+
+void
+ProxyPage::Alert(std::string message) noexcept
+{
+	Page::Alert(std::move(message));
+}

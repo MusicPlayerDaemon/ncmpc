@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <string>
+
 class Page;
 
 /**
@@ -12,4 +14,9 @@ class Page;
 class PageContainer {
 public:
 	virtual void SchedulePaint(Page &page) noexcept = 0;
+
+	/**
+	 * Show a message in the status bar.
+	 */
+	virtual void Alert(std::string message) noexcept = 0;
 };

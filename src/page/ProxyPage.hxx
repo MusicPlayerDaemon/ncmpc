@@ -50,4 +50,5 @@ public:
 
 	// virtual methods from PageContainer
 	void SchedulePaint(Page &page) noexcept override;
+	void Alert(std::string message) noexcept override;
 };

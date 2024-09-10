@@ -145,7 +145,7 @@ CommandKeysPage::DeleteKey(int key_index)
 	binding->modified = true;
 	UpdateListLength();
 
-	screen_status_message(_("Deleted"));
+	Alert(_("Deleted"));
 
 	/* repaint */
 	SchedulePaint();
@@ -166,12 +166,12 @@ CommandKeysPage::OverwriteKey(int key_index)
 	const int key = screen_getch(screen, prompt);
 
 	if (key == ERR) {
-		screen_status_message(_("Aborted"));
+		Alert(_("Aborted"));
 		return;
 	}
 
 	if (key == '\0') {
-		screen_status_message(_("Ctrl-Space can't be used"));
+		Alert(_("Ctrl-Space can't be used"));
 		return;
 	}
 
@@ -369,9 +369,9 @@ CommandListPage::Apply()
 	if (IsModified()) {
 		auto &orginal_bindings = GetGlobalKeyBindings();
 		orginal_bindings = *bindings;
-		screen_status_message(_("You have new key bindings"));
+		Alert(_("You have new key bindings"));
 	} else
-		screen_status_message(_("Keybindings unchanged."));
+		Alert(_("Keybindings unchanged."));
 }
 
 void
@@ -381,7 +381,7 @@ CommandListPage::Save()
 	if (options.key_file.empty()) {
 		filename = MakeKeysPath();
 		if (filename.empty()) {
-			screen_status_message(_("Unable to write configuration"));
+			Alert(_("Unable to write configuration"));
 			Bell();
 			return;
 		}
@@ -529,7 +529,7 @@ void
 KeyDefPage::OnClose() noexcept
 {
 	if (command_list_page.IsModified())
-		screen_status_message(_("Note: Did you forget to \'Apply\' your changes?"));
+		Alert(_("Note: Did you forget to \'Apply\' your changes?"));
 
 	ProxyPage::OnClose();
 }

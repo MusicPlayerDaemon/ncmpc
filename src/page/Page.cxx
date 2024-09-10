@@ -19,6 +19,12 @@ Page::SchedulePaint() noexcept
 	parent.SchedulePaint(*this);
 }
 
+void
+Page::Alert(std::string message) noexcept
+{
+	parent.Alert(std::move(message));
+}
+
 bool
 Page::PaintStatusBarOverride(Window) const noexcept
 {

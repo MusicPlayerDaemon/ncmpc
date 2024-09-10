@@ -608,7 +608,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 
 		if (mpd_run_shuffle_range(connection, range.start_index,
 					  range.end_index))
-			screen_status_message(_("Shuffled queue"));
+			Alert(_("Shuffled queue"));
 		else
 			c.HandleError();
 		return true;

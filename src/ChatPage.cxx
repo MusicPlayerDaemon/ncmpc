@@ -161,7 +161,7 @@ ChatPage::EnterMessage(struct mpdclient &c)
 	if (CheckChatSupport(c))
 		SendMessage(c, message.c_str());
 	else
-		screen_status_message(_("Message could not be sent"));
+		Alert(_("Message could not be sent"));
 }
 
 bool

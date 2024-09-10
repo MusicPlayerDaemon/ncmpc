@@ -68,6 +68,8 @@ protected:
 
 	void SchedulePaint() noexcept;
 
+	void Alert(std::string message) noexcept;
+
 	/**
 	 * Start a coroutine.  This method returns when the coroutine
 	 * finishes or gets suspended.  When the coroutine finishes,

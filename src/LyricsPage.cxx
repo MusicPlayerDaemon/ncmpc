@@ -194,7 +194,7 @@ LyricsPage::OnPluginError(std::string error) noexcept
 	Set(error.c_str());
 
 	/* translators: no lyrics were found for the song */
-	screen_status_message(_("No lyrics"));
+	Alert(_("No lyrics"));
 
 	plugin_timeout.Cancel();
 	StopPluginCycle();
@@ -330,12 +330,12 @@ LyricsPage::Edit() noexcept
 {
 	const auto path = cache.MakePath(artist, title);
 	if (path.empty()) {
-		screen_status_message(_("Lyrics cache is unavailable"));
+		Alert(_("Lyrics cache is unavailable"));
 		return;
 	}
 
 	if (options.text_editor.empty()) {
-		screen_status_message(_("Editor not configured"));
+		Alert(_("Editor not configured"));
 		return;
 	}
 
@@ -373,7 +373,7 @@ LyricsPage::Edit() noexcept
 			/* update to get the changes */
 			Reload();
 		else if (WEXITSTATUS(status) == 127)
-			screen_status_message(_("Can't start editor"));
+			Alert(_("Can't start editor"));
 		else
 			screen_status_printf("%s (%d)",
 					     _("Editor exited unexpectedly"),
@@ -402,14 +402,14 @@ LyricsPage::OnCommand(struct mpdclient &c, Command cmd)
 		if (plugin_cycle == nullptr && artist != nullptr &&
 		    title != nullptr && Save())
 			/* lyrics for the song were saved on hard disk */
-			screen_status_message (_("Lyrics saved"));
+			Alert (_("Lyrics saved"));
 		return true;
 	case Command::DELETE:
 		if (plugin_cycle == nullptr && artist != nullptr &&
 		    title != nullptr) {
-			screen_status_message(cache.Delete(artist, title)
-					      ? _("Lyrics deleted")
-					      : _("No saved lyrics"));
+			Alert(cache.Delete(artist, title)
+			      ? _("Lyrics deleted")
+			      : _("No saved lyrics"));
 		}
 		return true;
 	case Command::LYRICS_UPDATE:

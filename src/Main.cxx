@@ -243,7 +243,7 @@ Instance::OnCheckKeyBindings() noexcept
 		   process */
 		return;
 
-	screen_status_message(buf);
+	screen_manager.Alert(buf);
 
 	doupdate();
 
