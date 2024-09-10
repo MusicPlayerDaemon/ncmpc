@@ -21,3 +21,11 @@ IsFKey(int key) noexcept
 {
 	return key >= KEY_F(0) && key <= KEY_F(63);
 }
+
+constexpr bool
+IsBackspace(int key) noexcept
+{
+	return key == KEY_BACKSPACE ||
+	       key == KEY_BACKSPACE2 ||
+	       key == KEY_BACKSPACE3;
+}

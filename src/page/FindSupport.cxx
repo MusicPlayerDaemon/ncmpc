@@ -11,6 +11,7 @@
 #include "Command.hxx"
 #include "dialogs/TextInputDialog.hxx"
 #include "ui/Bell.hxx"
+#include "ui/Keys.hxx"
 #include "ui/ListWindow.hxx"
 #include "ui/Options.hxx"
 #include "co/InvokeTask.hxx"
@@ -93,7 +94,7 @@ FindSupport::Jump(ListWindow &lw,
 	while(1) {
 		key = screen_getch(screen, buffer);
 		/* if backspace or delete was pressed, process instead of ending loop */
-		if (key == KEY_BACKSPACE || key == KEY_DC) {
+		if (IsBackspace(key) || key == KEY_DC) {
 			const char *prev = PrevCharMB(buffer, iter);
 			if (search_str <= prev)
 				iter = const_cast<char *>(prev);

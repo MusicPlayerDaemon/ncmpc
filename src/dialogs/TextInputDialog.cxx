@@ -223,6 +223,15 @@ TextInputDialog::OnKey(const Window window, int key)
 	if (IsFKey(key))
 		return false;
 
+	if (IsBackspace(key)) {
+		if (cursor > 0) { /* - 1 from buf[n+1] to buf   */
+			MoveCursorLeft();
+			DeleteChar();
+		}
+
+		return true;
+	}
+
 	switch (key) {
 	case KEY_TAB:
 #ifndef NCMPC_MINI
@@ -283,14 +292,6 @@ TextInputDialog::OnKey(const Window window, int key)
 		/* Then remove word until next space. */
 		for (; cursor > 0 && value[cursor - 1] != ' ';)
 		{
-			MoveCursorLeft();
-			DeleteChar();
-		}
-		break;
-	case KEY_BACKSPACE3:
-	case KEY_BACKSPACE2:	/* handle backspace: copy all */
-	case KEY_BACKSPACE:	/* chars starting from curpos */
-		if (cursor > 0) { /* - 1 from buf[n+1] to buf   */
 			MoveCursorLeft();
 			DeleteChar();
 		}
