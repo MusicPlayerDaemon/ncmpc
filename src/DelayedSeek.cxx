@@ -2,7 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "DelayedSeek.hxx"
-#include "mpdclient.hxx"
+#include "client/mpdclient.hxx"
 
 void
 DelayedSeek::Commit() noexcept

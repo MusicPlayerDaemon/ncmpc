@@ -7,12 +7,12 @@
 #include "config.h" // IWYU pragma: keep
 #include "i18n.h"
 #include "charset.hxx"
-#include "mpdclient.hxx"
 #include "Completion.hxx"
 #include "screen.hxx"
 #include "screen_utils.hxx"
 #include "dialogs/TextInputDialog.hxx"
 #include "dialogs/YesNoDialog.hxx"
+#include "client/mpdclient.hxx"
 #include "co/InvokeTask.hxx"
 
 #include <mpd/client.h>

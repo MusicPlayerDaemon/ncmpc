@@ -10,11 +10,9 @@
 #include "i18n.h"
 #include "Command.hxx"
 #include "Options.hxx"
-#include "mpdclient.hxx"
 #include "screen.hxx"
 #include "lib/fmt/ToSpan.hxx"
-
-#include <mpd/client.h>
+#include "client/mpdclient.hxx"
 
 #include <string>
 

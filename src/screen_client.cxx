@@ -3,7 +3,7 @@
 
 #include "screen_client.hxx"
 #include "screen_status.hxx"
-#include "mpdclient.hxx"
+#include "client/mpdclient.hxx"
 #include "i18n.h"
 #include "charset.hxx"
 

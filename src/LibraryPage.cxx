@@ -8,12 +8,12 @@
 #include "Command.hxx"
 #include "i18n.h"
 #include "charset.hxx"
-#include "mpdclient.hxx"
 #include "filelist.hxx"
 #include "Options.hxx"
 #include "screen.hxx"
 #include "page/ProxyPage.hxx"
 #include "lib/fmt/ToSpan.hxx"
+#include "client/mpdclient.hxx"
 
 #include <list>
 #include <string>

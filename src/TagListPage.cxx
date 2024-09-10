@@ -7,8 +7,8 @@
 #include "Command.hxx"
 #include "i18n.h"
 #include "charset.hxx"
-#include "mpdclient.hxx"
 #include "page/FindSupport.hxx"
+#include "client/mpdclient.hxx"
 #include "util/StringUTF8.hxx"
 
 #include <algorithm>

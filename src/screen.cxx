@@ -8,7 +8,6 @@
 #include "Command.hxx"
 #include "config.h"
 #include "i18n.h"
-#include "mpdclient.hxx"
 #include "Options.hxx"
 #include "DelayedSeek.hxx"
 #include "player_command.hxx"
@@ -21,6 +20,7 @@
 #include "dialogs/TextInputDialog.hxx"
 #include "ui/Options.hxx"
 #include "co/Task.hxx"
+#include "client/mpdclient.hxx"
 #include "util/ScopeExit.hxx"
 #include "util/StringAPI.hxx"
 

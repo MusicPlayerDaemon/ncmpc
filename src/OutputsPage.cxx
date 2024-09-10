@@ -8,11 +8,11 @@
 #include "screen_status.hxx"
 #include "Command.hxx"
 #include "i18n.h"
-#include "mpdclient.hxx"
 #include "page/ListPage.hxx"
 #include "dialogs/TextInputDialog.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/paint.hxx"
+#include "client/mpdclient.hxx"
 #include "util/FNVHash.hxx"
 #include "util/StringAPI.hxx"
 

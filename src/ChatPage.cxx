@@ -5,13 +5,13 @@
 #include "PageMeta.hxx"
 #include "screen.hxx"
 #include "screen_status.hxx"
-#include "mpdclient.hxx"
 #include "i18n.h"
 #include "charset.hxx"
 #include "Command.hxx"
 #include "Options.hxx"
 #include "page/TextPage.hxx"
 #include "dialogs/TextInputDialog.hxx"
+#include "client/mpdclient.hxx"
 #include "util/StringAPI.hxx"
 
 #include <mpd/idle.h>

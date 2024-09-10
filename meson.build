@@ -208,8 +208,6 @@ if not mini
   m_dep = cc.find_library('m', required: false)
 endif
 
-libmpdclient_dep = dependency('libmpdclient', version: '>= 2.16')
-
 if not mini
   pcre_dep = dependency('libpcre2-8', required: get_option('regex'))
 
@@ -261,15 +259,6 @@ if not mini
       'src/XdgBaseDirectory.cxx',
     ]
   endif
-endif
-
-if async_connect
-  sources += [
-    'src/net/SocketError.cxx',
-    'src/net/AsyncResolveConnect.cxx',
-    'src/event/net/ConnectSocket.cxx',
-    'src/aconnect.cxx',
-  ]
 endif
 
 if lirc_dep.found()
@@ -380,6 +369,7 @@ subdir('src/io')
 subdir('src/system')
 subdir('src/net')
 subdir('src/event')
+subdir('src/client')
 subdir('src/ui')
 subdir('src/dialogs')
 subdir('src/page')
@@ -387,8 +377,6 @@ subdir('src/page')
 ncmpc = executable('ncmpc',
   'src/Main.cxx',
   'src/Instance.cxx',
-  'src/gidle.cxx',
-  'src/mpdclient.cxx',
   'src/callbacks.cxx',
   'src/Queue.cxx',
   'src/filelist.cxx',
@@ -438,7 +426,7 @@ ncmpc = executable('ncmpc',
     m_dep,
     curses_dep,
     lirc_dep,
-    libmpdclient_dep,
+    client_dep,
     fmt_dep,
     ui_dep,
     dialogs_dep,

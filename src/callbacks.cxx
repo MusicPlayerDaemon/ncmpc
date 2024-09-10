@@ -4,9 +4,9 @@
 #include "callbacks.hxx"
 #include "screen.hxx"
 #include "screen_status.hxx"
-#include "mpdclient.hxx"
 #include "ncmpc.hxx"
 #include "ui/Bell.hxx"
+#include "client/mpdclient.hxx"
 
 #include <curses.h>
 

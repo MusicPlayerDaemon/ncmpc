@@ -9,12 +9,12 @@
 #include "i18n.h"
 #include "Command.hxx"
 #include "Options.hxx"
-#include "mpdclient.hxx"
 #include "screen.hxx"
 #include "plugin.hxx"
 #include "ncu.hxx"
 #include "page/TextPage.hxx"
 #include "lib/fmt/ToSpan.hxx"
+#include "client/mpdclient.hxx"
 #include "util/StringAPI.hxx"
 
 #include <string>

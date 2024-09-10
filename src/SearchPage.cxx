@@ -10,12 +10,12 @@
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
 #include "charset.hxx"
-#include "mpdclient.hxx"
 #include "FileListPage.hxx"
 #include "filelist.hxx"
 #include "dialogs/TextInputDialog.hxx"
 #include "ui/TextListRenderer.hxx"
 #include "lib/fmt/ToSpan.hxx"
+#include "client/mpdclient.hxx"
 #include "util/StringAPI.hxx"
 
 #include <iterator>

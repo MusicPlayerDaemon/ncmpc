@@ -4,11 +4,11 @@
 #include "player_command.hxx"
 #include "DelayedSeek.hxx"
 #include "Command.hxx"
-#include "mpdclient.hxx"
 #include "Options.hxx"
 #include "i18n.h"
 #include "screen_client.hxx"
 #include "screen_status.hxx"
+#include "client/mpdclient.hxx"
 
 bool
 handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd)

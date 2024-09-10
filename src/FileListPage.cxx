@@ -12,12 +12,12 @@
 #include "Options.hxx"
 #include "charset.hxx"
 #include "strfsong.hxx"
-#include "mpdclient.hxx"
 #include "filelist.hxx"
 #include "Styles.hxx"
 #include "SongRowPaint.hxx"
 #include "time_format.hxx"
 #include "ui/paint.hxx"
+#include "client/mpdclient.hxx"
 #include "util/UriUtil.hxx"
 
 #include <mpd/client.h>

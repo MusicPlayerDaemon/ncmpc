@@ -10,7 +10,6 @@
 #include "config.h" // IWYU pragma: keep
 #include "i18n.h"
 #include "charset.hxx"
-#include "mpdclient.hxx"
 #include "filelist.hxx"
 #include "screen_client.hxx"
 #include "Command.hxx"
@@ -18,6 +17,7 @@
 #include "dialogs/YesNoDialog.hxx"
 #include "ui/Bell.hxx"
 #include "lib/fmt/ToSpan.hxx"
+#include "client/mpdclient.hxx"
 #include "util/UriUtil.hxx"
 
 #include <mpd/client.h>

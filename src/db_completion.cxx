@@ -4,7 +4,7 @@
 #include "db_completion.hxx"
 #include "Completion.hxx"
 #include "charset.hxx"
-#include "mpdclient.hxx"
+#include "client/mpdclient.hxx"
 #include "util/ScopeExit.hxx"
 
 #include <string>

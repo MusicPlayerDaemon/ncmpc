@@ -10,7 +10,6 @@
 #include "charset.hxx"
 #include "Command.hxx"
 #include "Options.hxx"
-#include "mpdclient.hxx"
 #include "strfsong.hxx"
 #include "Completion.hxx"
 #include "Styles.hxx"
@@ -23,6 +22,7 @@
 #include "dialogs/TextInputDialog.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"
+#include "client/mpdclient.hxx"
 #include "event/CoarseTimerEvent.hxx"
 #include "util/SPrintf.hxx"
 

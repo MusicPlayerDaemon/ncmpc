@@ -4,7 +4,6 @@
 #include "config.h"
 #include "Instance.hxx"
 #include "ncmpc.hxx"
-#include "mpdclient.hxx"
 #include "callbacks.hxx"
 #include "charset.hxx"
 #include "Options.hxx"
