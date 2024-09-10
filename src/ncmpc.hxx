@@ -7,7 +7,4 @@ class ScreenManager;
 extern ScreenManager *screen;
 
 void
-begin_input_event() noexcept;
-
-void
 end_input_event() noexcept;

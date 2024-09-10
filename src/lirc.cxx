@@ -14,8 +14,6 @@ LircInput::OnSocketReady(unsigned) noexcept
 {
 	char *code, *txt;
 
-	begin_input_event();
-
 	if (lirc_nextcode(&code) == 0) {
 		while (lirc_code2char(lc, code, &txt) == 0 && txt != nullptr) {
 			const auto cmd = get_key_command_from_name(txt);

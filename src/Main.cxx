@@ -179,11 +179,6 @@ Instance::OnUpdateTimer() noexcept
 		ScheduleUpdateTimer();
 }
 
-void
-begin_input_event() noexcept
-{
-}
-
 void end_input_event() noexcept
 {
 	auto &client = global_instance->GetClient();
