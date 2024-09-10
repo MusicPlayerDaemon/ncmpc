@@ -13,6 +13,7 @@
 #include "ui/Point.hxx"
 #include "ui/Window.hxx"
 #include "event/IdleEvent.hxx"
+#include "co/InvokeTask.hxx"
 
 #include <curses.h>
 
@@ -88,10 +89,21 @@ private:
 
 	const PageMeta *mode_fn_prev;
 
+	/**
+	 * The task for QueryPassword().
+	 */
+	Co::InvokeTask query_password_task;
+
 	ModalDialog *modal = nullptr;
 
 	char *buf;
 	size_t buf_size;
+
+	/**
+	 * True if #query_password_task is currently running.
+	 * Meanwhile, the task must not be canceled.
+	 */
+	bool query_password_busy = false;
 
 	/**
 	 * Does the main area (the current page) need to be repainted?
@@ -154,7 +166,15 @@ public:
 		paint_event.Schedule();
 	}
 
+	/**
+	 * Ask the user to enter a password for the MPD connection.
+	 */
+	void QueryPassword(struct mpdclient &c) noexcept;
+
 private:
+	Co::InvokeTask _QueryPassword(struct mpdclient &c);
+	void OnCoComplete(std::exception_ptr error) noexcept;
+
 	Page &GetCurrentPage() noexcept {
 		return *current_page->second;
 	}

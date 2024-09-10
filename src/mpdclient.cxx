@@ -17,6 +17,9 @@ mpdclient::OnEnterIdleTimer() noexcept
 	assert(source != nullptr);
 	assert(!idle);
 
+	if (authenticating)
+		return;
+
 	idle = source->Enter();
 }
 
@@ -238,6 +241,7 @@ mpdclient::Disconnect() noexcept
 	delete source;
 	source = nullptr;
 	idle = false;
+	authenticating = false;
 
 	if (connection) {
 		mpd_connection_free(connection);
@@ -491,9 +495,25 @@ mpdclient::Update() noexcept
 	return true;
 }
 
+void
+mpdclient::AuthenticationFinished() noexcept
+{
+	assert(IsConnected());
+
+	/* reload everything after a password was submitted */
+	events = (enum mpd_idle)MPD_IDLE_ALL;
+
+	ScheduleEnterIdle();
+
+	Update();
+}
+
 struct mpd_connection *
 mpdclient::GetConnection() noexcept
 {
+	if (authenticating)
+		return nullptr;
+
 	if (source != nullptr && idle) {
 		idle = false;
 		source->Leave();

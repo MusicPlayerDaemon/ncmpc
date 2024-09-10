@@ -5,6 +5,7 @@
 #include "PageMeta.hxx"
 #include "screen_list.hxx"
 #include "screen_status.hxx"
+#include "screen_utils.hxx"
 #include "Command.hxx"
 #include "config.h"
 #include "i18n.h"
@@ -19,6 +20,8 @@
 #include "page/Page.hxx"
 #include "dialogs/ModalDialog.hxx"
 #include "ui/Options.hxx"
+#include "co/Task.hxx"
+#include "util/ScopeExit.hxx"
 #include "util/StringAPI.hxx"
 
 #include <mpd/client.h>
@@ -121,6 +124,10 @@ ScreenManager::Update(struct mpdclient &c, const DelayedSeek &seek) noexcept
 {
 	const unsigned events = c.events;
 
+	const bool now_connected = c.IsConnected();
+	if (!now_connected && !query_password_busy)
+		query_password_task = {};
+
 #ifndef NCMPC_MINI
 	static bool was_connected;
 	static bool initialized = false;
@@ -181,7 +188,6 @@ ScreenManager::Update(struct mpdclient &c, const DelayedSeek &seek) noexcept
 		crossfade = mpd_status_get_crossfade(c.status);
 	}
 
-	const bool now_connected = c.IsConnected();
 	if ((events & MPD_IDLE_DATABASE) != 0 && was_connected &&
 	    now_connected)
 		screen_status_message(_("Database updated"));
@@ -320,6 +326,76 @@ ScreenManager::OnMouse(struct mpdclient &c, DelayedSeek &seek,
 }
 
 #endif
+
+static Co::Task<std::string>
+EnterPassword(ScreenManager &screen, struct mpdclient &c)
+{
+	assert(c.IsConnected());
+	assert(!c.authenticating);
+
+	/* set the "authenticating" flag to exclude others from using
+	   the connection meanwhile */
+	c.authenticating = true;
+	AtScopeExit(&c) {
+		/* make sure that the flag gets reverted even if the
+		   coroutine is canceled */
+		c.authenticating = false;
+	};
+
+	co_return screen_read_password(screen, nullptr);
+}
+
+inline Co::InvokeTask
+ScreenManager::_QueryPassword(struct mpdclient &c)
+{
+	assert(c.IsConnected());
+
+	if (c.authenticating)
+		// shouldn't happen
+		co_return;
+
+	const auto password = co_await EnterPassword(*this, c);
+	if (password.empty())
+		co_return;
+
+	auto *connection = c.GetConnection();
+	if (connection == nullptr)
+		co_return;
+
+	assert(!query_password_busy);
+	query_password_busy = true;
+	AtScopeExit(this) {
+		assert(query_password_busy);
+		query_password_busy = false;
+	};
+
+	mpd_send_password(connection, password.c_str());
+
+	if (!mpd_response_finish(connection)) {
+		c.HandleAuthError();
+		co_return;
+	}
+
+	c.AuthenticationFinished();
+}
+
+void
+ScreenManager::QueryPassword(struct mpdclient &c) noexcept
+{
+	if (query_password_task)
+		// already running
+		return;
+
+	query_password_task = _QueryPassword(c);
+	query_password_task.Start(BIND_THIS_METHOD(OnCoComplete));
+}
+
+inline void
+ScreenManager::OnCoComplete(std::exception_ptr error) noexcept
+{
+	if (error)
+		screen_status_error(std::move(error));
+}
 
 void
 ScreenManager::ShowModalDialog(ModalDialog &m) noexcept

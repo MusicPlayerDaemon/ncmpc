@@ -99,6 +99,12 @@ struct mpdclient final
 #endif
 
 	/**
+	 * True if authentication is in progress.  The connection
+	 * cannot be used for something else meanwhile.
+	 */
+	bool authenticating = false;
+
+	/**
 	 * This attribute is true when the connection is currently in
 	 * "idle" mode, and the #mpd_glib_source waits for an event.
 	 */
@@ -168,7 +174,7 @@ struct mpdclient final
 	 * not currently setting up the connection)
 	 */
 	bool IsReady() const noexcept {
-		return IsConnected();
+		return IsConnected() && !authenticating;
 	}
 
 	/**
@@ -252,6 +258,12 @@ struct mpdclient final
 	}
 
 	bool Update() noexcept;
+
+	/**
+	 * Call this after sending a password.  This ensures that
+	 * everything is reloaded and "idle" mode is re-entered.
+	 */
+	void AuthenticationFinished() noexcept;
 
 	bool OnConnected(struct mpd_connection *_connection) noexcept;
 

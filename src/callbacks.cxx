@@ -2,7 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "callbacks.hxx"
-#include "screen_utils.hxx"
+#include "screen.hxx"
 #include "screen_status.hxx"
 #include "mpdclient.hxx"
 #include "ncmpc.hxx"
@@ -20,19 +20,8 @@ mpdclient_auth_callback(struct mpdclient *c) noexcept
 	if (!mpd_connection_clear_error(connection))
 		return false;
 
-	const auto password = screen_read_password(*screen, nullptr);
-	if (password.empty())
-		return false;
-
-	mpd_send_password(connection, password.c_str());
-
-	if (!mpd_response_finish(connection)) {
-		c->HandleAuthError();
-		return false;
-	}
-
-	c->Update();
-	return true;
+	screen->QueryPassword(*c);
+	return false;
 }
 
 void
