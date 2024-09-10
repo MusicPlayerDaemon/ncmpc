@@ -220,11 +220,8 @@ TextInputDialog::OnKey(const Window window, int key)
 	}
 
 	/* check if key is a function key */
-	for (size_t i = 0; i < 63; i++)
-		if (key == (int)KEY_F(i)) {
-			key = KEY_F(1);
-			i = 64;
-		}
+	if (IsFKey(key))
+		return false;
 
 	switch (key) {
 	case KEY_TAB:
@@ -331,7 +328,6 @@ TextInputDialog::OnKey(const Window window, int key)
 	case KEY_IC:
 	case KEY_PPAGE:
 	case KEY_NPAGE:
-	case KEY_F(1):
 		/* ignore char */
 		break;
 	default:

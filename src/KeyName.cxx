@@ -60,11 +60,9 @@ GetKeyName(int key) noexcept
 {
 	static char buf[32];
 
-	for (int i = 0; i < 64; ++i) {
-		if (key == KEY_F(i)) {
-			snprintf(buf, sizeof(buf), "F%u", i);
-			return buf;
-		}
+	if (IsFKey(key)) {
+		snprintf(buf, sizeof(buf), "F%u", key - KEY_F0);
+		return buf;
 	}
 
 	const char *name = keyname(key);
@@ -132,11 +130,9 @@ GetLocalizedKeyName(int key) noexcept
 
 	static char buf[32];
 
-	for (int i = 0; i <= 63; i++) {
-		if (key == KEY_F(i)) {
-			snprintf(buf, sizeof(buf), "F%d", i );
-			return buf;
-		}
+	if (IsFKey(key)) {
+		snprintf(buf, sizeof(buf), "F%u", key - KEY_F0);
+		return buf;
 	}
 
 	const char *name = keyname(key);

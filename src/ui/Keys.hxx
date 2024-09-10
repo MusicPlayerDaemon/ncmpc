@@ -15,3 +15,9 @@ enum : int {
 	KEY_ESCAPE = 0x1b,
 	KEY_BACKSPACE3 = 0x7f,
 };
+
+constexpr bool
+IsFKey(int key) noexcept
+{
+	return key >= KEY_F(0) && key <= KEY_F(63);
+}
