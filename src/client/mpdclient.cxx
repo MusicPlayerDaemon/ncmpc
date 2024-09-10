@@ -136,11 +136,10 @@ settings_is_local_socket(const struct mpd_settings *settings) noexcept
 #endif
 #endif
 
-mpdclient::mpdclient(EventLoop &_event_loop,
+mpdclient::mpdclient(EventLoop &event_loop,
 		     const char *_host, unsigned _port,
 		     unsigned _timeout_ms, const char *_password)
-	:event_loop(_event_loop),
-	 timeout_ms(_timeout_ms), password(_password),
+	:timeout_ms(_timeout_ms), password(_password),
 	 enter_idle_timer(event_loop, BIND_THIS_METHOD(OnEnterIdleTimer))
 {
 #ifdef ENABLE_ASYNC_CONNECT

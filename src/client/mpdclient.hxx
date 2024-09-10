@@ -25,8 +25,6 @@ struct mpdclient final
 	, AsyncMpdConnectHandler
 #endif
 {
-	EventLoop &event_loop;
-
 #ifdef ENABLE_ASYNC_CONNECT
 	/**
 	 * These settings are used to connect to MPD asynchronously.
@@ -138,7 +136,7 @@ struct mpdclient final
 	}
 
 	auto &GetEventLoop() const noexcept {
-		return event_loop;
+		return enter_idle_timer.GetEventLoop();
 	}
 
 #ifdef ENABLE_ASYNC_CONNECT
