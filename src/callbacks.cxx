@@ -17,7 +17,8 @@ mpdclient_auth_callback(struct mpdclient *c) noexcept
 	if (connection == nullptr)
 		return false;
 
-	mpd_connection_clear_error(connection);
+	if (!mpd_connection_clear_error(connection))
+		return false;
 
 	const auto password = screen_read_password(*screen, nullptr);
 	if (password.empty())
