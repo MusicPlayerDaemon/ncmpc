@@ -453,8 +453,7 @@ ScreenManager::OnModalDialogKey(int key)
 	if (modal == nullptr)
 		return false;
 
-	modal->OnKey(status_bar.GetWindow(), key);
-	return true;
+	return modal->OnKey(status_bar.GetWindow(), key);
 }
 
 void
