@@ -20,6 +20,7 @@
 
 #include <assert.h>
 #include <errno.h>
+#include <spawn.h>
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <string.h>
@@ -348,24 +349,32 @@ LyricsPage::Edit() noexcept
 	def_prog_mode();
 	endwin();
 
-	/* TODO: fork/exec/wait won't work on Windows, but building a command
-	   string for system() is too tricky */
-	int status;
-	pid_t pid = fork();
-	if (pid == -1) {
+	posix_spawnattr_t attr;
+	posix_spawnattr_init(&attr);
+
+#ifdef USE_SIGNALFD
+	/* unblock all signals which may be blocked for signalfd */
+	posix_spawnattr_setflags(&attr, POSIX_SPAWN_SETSIGMASK);
+#endif
+
+	char *const argv[] = {
+		const_cast<char *>(editor),
+		const_cast<char *>(path.c_str()),
+		nullptr
+	};
+
+	pid_t pid;
+	if (posix_spawn(&pid, editor, nullptr, &attr,
+			argv, environ) != 0) {
 		reset_prog_mode();
 		FmtAlert("{} ({})"sv, _("Can't start editor"), strerror(errno));
 		return;
-	} else if (pid == 0) {
-		execlp(editor, editor, path.c_str(), nullptr);
-		/* exec failed, do what system does */
-		_exit(127);
-	} else {
-		int ret;
-		do {
-			ret = waitpid(pid, &status, 0);
-		} while (ret == -1 && errno == EINTR);
 	}
+
+	int ret, status;
+	do {
+		ret = waitpid(pid, &status, 0);
+	} while (ret == -1 && errno == EINTR);
 
 	reset_prog_mode();
 
