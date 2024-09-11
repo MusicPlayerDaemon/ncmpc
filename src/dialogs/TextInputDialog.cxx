@@ -358,7 +358,7 @@ TextInputDialog::OnKey(const Window window, int key)
 		/* ignore char */
 		break;
 	default:
-		if (key >= 32)
+		if (key >= 32 && key <= 0xff)
 			InsertByte(window, key);
 		else  if (fragile) {
 			Cancel();
