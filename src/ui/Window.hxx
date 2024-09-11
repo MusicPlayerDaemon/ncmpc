@@ -20,6 +20,16 @@ struct Window {
 
 	explicit constexpr Window(WINDOW *_w) noexcept:w(_w) {}
 
+	/**
+	 * @return the position of this window on the screen
+	 */
+	[[gnu::pure]]
+	const Point GetPosition() const noexcept {
+		Point p;
+		getbegyx(w, p.y, p.x);
+		return p;
+	}
+
 	[[gnu::pure]]
 	const Size GetSize() const noexcept {
 		Size size;
