@@ -4,6 +4,7 @@ ncmpc 0.50 - not yet released
 * draw progress bar as Unicode double line
 * add color style "text" for input text controls
 * remove option "text-editor-ask"
+* fix lyrics editor crash
 * lyrics/musixmatch: add new lyrics extension
 * lyrics/google: fix partial loading of lyrics
 * support MPD 0.22 tag "label" (requires libmpdclient 2.17)

@@ -11,7 +11,6 @@
 #include "Options.hxx"
 #include "screen.hxx"
 #include "plugin.hxx"
-#include "ncu.hxx"
 #include "page/TextPage.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "client/mpdclient.hxx"
@@ -346,15 +345,16 @@ LyricsPage::Edit() noexcept
 	if (!Save())
 		return;
 
-	ncu_deinit();
+	def_prog_mode();
+	endwin();
 
 	/* TODO: fork/exec/wait won't work on Windows, but building a command
 	   string for system() is too tricky */
 	int status;
 	pid_t pid = fork();
 	if (pid == -1) {
+		reset_prog_mode();
 		FmtAlert("{} ({})"sv, _("Can't start editor"), strerror(errno));
-		ncu_init();
 		return;
 	} else if (pid == 0) {
 		execlp(editor, editor, path.c_str(), nullptr);
@@ -367,7 +367,7 @@ LyricsPage::Edit() noexcept
 		} while (ret == -1 && errno == EINTR);
 	}
 
-	ncu_init();
+	reset_prog_mode();
 
 	/* TODO: hardly portable */
 	if (WIFEXITED(status)) {
