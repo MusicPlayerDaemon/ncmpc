@@ -9,10 +9,10 @@
 #include "ConfigFile.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"
-#include "screen_utils.hxx"
 #include "Options.hxx"
 #include "page/ListPage.hxx"
 #include "page/ProxyPage.hxx"
+#include "dialogs/KeyDialog.hxx"
 #include "ui/Bell.hxx"
 #include "ui/ListText.hxx"
 #include "ui/TextListRenderer.hxx"
@@ -99,7 +99,8 @@ private:
 	/**
 	 * Assigns a new key to a key slot.
 	 */
-	void OverwriteKey(int key_index);
+	[[nodiscard]]
+	Co::InvokeTask OverwriteKey(int key_index) noexcept;
 
 	/**
 	 * Assign a new key to a new slot.
@@ -153,23 +154,23 @@ CommandKeysPage::DeleteKey(int key_index)
 	bindings->Check(nullptr, 0);
 }
 
-void
-CommandKeysPage::OverwriteKey(int key_index)
+Co::InvokeTask
+CommandKeysPage::OverwriteKey(int key_index) noexcept
 {
 	assert(key_index < MAX_COMMAND_KEYS);
 
 	const auto prompt = fmt::format(fmt::runtime(_("Enter new key for {}")),
 					get_key_command_name(Command(subcmd)));
-	const int key = screen_getch(screen, prompt.c_str());
+	const int key = co_await KeyDialog{screen, prompt};
 
 	if (key == ERR) {
 		Alert(_("Aborted"));
-		return;
+		co_return;
 	}
 
 	if (key == '\0') {
 		Alert(_("Ctrl-Space can't be used"));
-		return;
+		co_return;
 	}
 
 	const Command cmd = bindings->FindKey(key);
@@ -178,7 +179,7 @@ CommandKeysPage::OverwriteKey(int key_index)
 			 GetLocalizedKeyName(key),
 			 get_key_command_name(cmd));
 		Bell();
-		return;
+		co_return;
 	}
 
 	binding->keys[key_index] = key;
@@ -200,7 +201,7 @@ void
 CommandKeysPage::AddKey()
 {
 	if (n_keys < MAX_COMMAND_KEYS)
-		OverwriteKey(n_keys);
+		CoStart(OverwriteKey(n_keys));
 }
 
 std::string_view
@@ -258,7 +259,7 @@ CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 		} else {
 			/* just to be sure ;-) */
 			assert(IsKeyPosition(lw.GetCursorIndex()));
-			OverwriteKey(PositionToKeyIndex(lw.GetCursorIndex()));
+			CoStart(OverwriteKey(PositionToKeyIndex(lw.GetCursorIndex())));
 		}
 		return true;
 	case Command::DELETE:

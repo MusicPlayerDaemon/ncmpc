@@ -8,10 +8,6 @@
 
 class ScreenManager;
 
-/* read a character from the status window */
-int
-screen_getch(ScreenManager &screen, const char *prompt) noexcept;
-
 void
 screen_display_completion_list(ScreenManager &screen,
 			       Completion::Range range) noexcept;

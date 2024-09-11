@@ -4,74 +4,10 @@
 #include "screen_utils.hxx"
 #include "screen.hxx"
 #include "Styles.hxx"
-#include "ui/Options.hxx"
-#include "util/ScopeExit.hxx"
-#include "config.h"
-
-#ifndef _WIN32
-#include "WaitUserInput.hxx"
-#include <cerrno>
-#endif
 
 #include <string.h>
 
 using std::string_view_literals::operator""sv;
-
-static constexpr bool
-ignore_key(int key) noexcept
-{
-	return
-#ifdef HAVE_GETMOUSE
-		/* ignore mouse events */
-		key == KEY_MOUSE ||
-#endif
-		key == ERR;
-}
-
-int
-screen_getch(ScreenManager &screen, const char *prompt) noexcept
-{
-	const auto &window = screen.status_bar.GetWindow();
-
-	if (ui_options.enable_colors)
-		window.SetBackgroundStyle(Style::INPUT);
-
-	AtScopeExit(&window) {
-		if (ui_options.enable_colors)
-			window.SetBackgroundStyle(Style::STATUS);
-	};
-
-	SelectStyle(window, Style::STATUS_ALERT);
-	window.String({0, 0}, prompt);
-	window.String(": "sv);
-	window.ClearToEol();
-
-	echo();
-	curs_set(1);
-
-#ifndef _WIN32
-	WaitUserInput wui;
-#endif
-
-	int key;
-	do {
-		key = window.GetChar();
-
-#ifndef _WIN32
-		if (key == ERR && errno == EAGAIN) {
-			if (wui.Wait())
-				continue;
-			else
-				break;
-		}
-#endif
-	} while (ignore_key(key));
-
-	noecho();
-	curs_set(0);
-
-	return key;
-}
 
 static const char *
 CompletionDisplayString(const char *value) noexcept
