@@ -9,7 +9,7 @@
 
 class Completion {
 protected:
-	using List = std::set<std::string>;
+	using List = std::set<std::string, std::less<>>;
 	List list;
 
 public:

@@ -243,7 +243,7 @@ add_dir(Completion &completion, const char *dir,
 class DatabaseCompletion final : public Completion {
 	ScreenManager &screen;
 	struct mpdclient &c;
-	std::set<std::string> dir_list;
+	std::set<std::string, std::less<>> dir_list;
 
 public:
 	DatabaseCompletion(ScreenManager &_screen,
