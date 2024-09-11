@@ -279,7 +279,7 @@ DatabaseCompletion::Post(std::string_view line, Range range) noexcept
 {
 	if (range.begin() != range.end() &&
 	    std::next(range.begin()) != range.end())
-		screen_display_completion_list(screen, range);
+		screen_display_completion_list(screen, line, range);
 
 	if (line.ends_with('/')) {
 		/* add directory content to list */

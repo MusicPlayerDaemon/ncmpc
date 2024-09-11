@@ -32,13 +32,27 @@ CompletionDisplayString(std::string_view value) noexcept
 }
 
 void
-screen_display_completion_list(ScreenManager &screen, Completion::Range range) noexcept
+screen_display_completion_list(ScreenManager &screen,
+			       std::string_view prefix,
+			       Completion::Range range) noexcept
 {
 	static Completion::Range prev_range;
 	static size_t prev_length = 0;
 	static unsigned offset = 0;
 	const Window window = screen.main_window;
 	const unsigned height = screen.main_window.GetHeight();
+
+	if (!prefix.ends_with('/')) {
+		/* the current prefix is not a directory; backtrack to
+		   the last slash because we want to strip only
+		   directories and not truncate filenames */
+
+		if (const auto slash = prefix.rfind('/'); slash != prefix.npos) {
+			prefix = prefix.substr(0, slash + 1);
+		} else {
+			prefix = {};
+		}
+	}
 
 	size_t length = std::distance(range.begin(), range.end());
 	if (range == prev_range && length == prev_length) {
@@ -59,7 +73,12 @@ screen_display_completion_list(ScreenManager &screen, Completion::Range range) n
 		if (i == range.end())
 			break;
 
-		window.String(CompletionDisplayString(*i));
+		std::string_view s = *i;
+		assert(s.size() >= prefix.size());
+
+		s = s.substr(prefix.size());
+
+		window.String(CompletionDisplayString(s));
 		window.ClearToEol();
 	}
 

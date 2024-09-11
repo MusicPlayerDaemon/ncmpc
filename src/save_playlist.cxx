@@ -46,12 +46,12 @@ PlaylistNameCompletion::Pre([[maybe_unused]] std::string_view value) noexcept
 }
 
 void
-PlaylistNameCompletion::Post([[maybe_unused]] std::string_view value,
+PlaylistNameCompletion::Post(std::string_view value,
 			     Range range) noexcept
 {
 	if (range.begin() != range.end() &&
 	    std::next(range.begin()) != range.end())
-		screen_display_completion_list(screen, range);
+		screen_display_completion_list(screen, value, range);
 }
 
 #endif

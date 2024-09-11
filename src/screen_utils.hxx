@@ -10,6 +10,7 @@ class ScreenManager;
 
 void
 screen_display_completion_list(ScreenManager &screen,
+			       std::string_view prefix,
 			       Completion::Range range) noexcept;
 
 #endif
