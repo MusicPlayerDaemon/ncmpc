@@ -19,13 +19,13 @@ src/SearchPage.cxx
 src/SongPage.cxx
 src/StatusBar.cxx
 src/Styles.cxx
+src/TabBar.cxx
 src/TagListPage.cxx
 src/TitleBar.cxx
-src/i18n.h
+src/dialogs/YesNoDialog.cxx
+src/page/FindSupport.cxx
 src/player_command.cxx
 src/save_playlist.cxx
 src/screen.cxx
 src/screen_client.cxx
-src/screen_find.cxx
-src/screen_utils.cxx
 src/time_format.cxx
