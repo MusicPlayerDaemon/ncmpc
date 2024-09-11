@@ -5,30 +5,30 @@
 #include "screen.hxx"
 #include "Styles.hxx"
 
-#include <string.h>
-
 using std::string_view_literals::operator""sv;
 
-static const char *
-CompletionDisplayString(const char *value) noexcept
+static std::string_view
+CompletionDisplayString(std::string_view value) noexcept
 {
-	const char *slash = strrchr(value, '/');
-	if (slash == nullptr)
-		return value;
-
-	if (slash[1] == 0) {
+	if (value.ends_with('/')) {
 		/* if the string ends with a slash (directory URIs
 		   usually do), backtrack to the preceding slash (if
 		   any) */
-		while (slash > value) {
-			--slash;
 
-			if (*slash == '/')
-				return slash + 1;
+		if (value.size() > 2) {
+			if (const auto slash = value.rfind('/', value.size() - 2);
+			    slash != value.npos)
+				value = value.substr(slash + 1);
 		}
-	}
 
-	return slash;
+		return value;
+	} else {
+		if (const auto slash = value.rfind('/');
+		    slash != value.npos)
+			value = value.substr(slash);
+
+		return value;
+	}
 }
 
 void
@@ -59,8 +59,7 @@ screen_display_completion_list(ScreenManager &screen, Completion::Range range) n
 		if (i == range.end())
 			break;
 
-		const char *value = i->c_str();
-		window.String(CompletionDisplayString(value));
+		window.String(CompletionDisplayString(*i));
 		window.ClearToEol();
 	}
 
