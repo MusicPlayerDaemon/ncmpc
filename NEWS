@@ -4,6 +4,7 @@ ncmpc 0.55 - not yet released
 * redesigned search page
 * fix connection name if connected to fallback address
 * new "connections" page
+* text input: support Ctrl-Left, Ctrl-Right
 * add Zeroconf support to find MPD on the local network
 * fix broken main area after terminal had been very small
 * fix crash bug

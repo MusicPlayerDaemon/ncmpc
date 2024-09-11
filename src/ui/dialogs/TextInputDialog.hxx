@@ -161,6 +161,12 @@ private:
 	/** move the cursor one step to the left */
 	void MoveCursorLeft() noexcept;
 
+	/** move the cursor one word to the right */
+	void MoveCursorWordRight() noexcept;
+
+	/** move the cursor one word to the left */
+	void MoveCursorWordLeft() noexcept;
+
 	/** move the cursor to the end of the line */
 	void MoveCursorToEnd() noexcept;
 

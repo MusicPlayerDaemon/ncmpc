@@ -7,6 +7,7 @@
 #include "ui/Options.hxx"
 #include "ui/Window.hxx"
 #include "util/LocaleString.hxx"
+#include "util/LocaleWord.hxx"
 #include "Completion.hxx"
 #include "Styles.hxx"
 
@@ -184,6 +185,25 @@ TextInputDialog::MoveCursorLeft() noexcept
 }
 
 inline void
+TextInputDialog::MoveCursorWordRight() noexcept
+{
+	if (cursor == value.length())
+		return;
+
+	const char *new_cursor = NextWordMB(ValueAfterCursor());
+	cursor = new_cursor - value.data();
+	CursorMovedRight();
+}
+
+inline void
+TextInputDialog::MoveCursorWordLeft() noexcept
+{
+	const char *new_cursor = LastWordMB(ValueBeforeCursor());
+	cursor = new_cursor - value.data();
+	CursorMovedLeft();
+}
+
+inline void
 TextInputDialog::MoveCursorToEnd() noexcept
 {
 	cursor = value.length();
@@ -300,6 +320,16 @@ TextInputDialog::OnKey(const Window window, int key)
 			DeleteChar();
 		}
 
+		return true;
+	}
+
+	if (key_control_right && key == key_control_right) {
+		MoveCursorWordRight();
+		return true;
+	}
+
+	if (key_control_left && key == key_control_left) {
+		MoveCursorWordLeft();
 		return true;
 	}
 

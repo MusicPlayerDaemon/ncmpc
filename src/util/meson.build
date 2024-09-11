@@ -1,6 +1,8 @@
 util = static_library(
   'util',
   'LocaleString.cxx',
+  'LocaleExtract.cxx',
+  'LocaleWord.cxx',
   'Exception.cxx',
   'PrintException.cxx',
   'StringCompare.cxx',
