@@ -28,6 +28,10 @@
 
 using std::string_view_literals::operator""sv;
 
+#ifdef __APPLE__
+extern char **environ;
+#endif
+
 static struct mpd_song *next_song;
 static bool follow = false;
 
