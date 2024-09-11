@@ -59,7 +59,7 @@ public:
 		Range range;
 	};
 
-	Result Complete(const std::string &prefix) const noexcept;
+	Result Complete(std::string_view prefix) const noexcept;
 
 	virtual void Pre(std::string_view value) noexcept = 0;
 	virtual void Post(std::string_view value, Range range) noexcept = 0;

@@ -6,7 +6,7 @@
 #include <assert.h>
 
 Completion::Result
-Completion::Complete(const std::string &prefix) const noexcept
+Completion::Complete(const std::string_view prefix) const noexcept
 {
 	auto lower = list.lower_bound(prefix);
 	if (lower == list.end() || !lower->starts_with(prefix))
