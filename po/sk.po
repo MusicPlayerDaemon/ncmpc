@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-10 00:19+0200\n"
+"POT-Creation-Date: 2024-09-11 09:12+0200\n"
 "PO-Revision-Date: 2022-05-04 15:09+0200\n"
 "Last-Translator: Jose Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
@@ -22,15 +22,15 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "Kláves %s priradený pre %s a %s"
 
-#: src/ChatPage.cxx:53 src/ChatPage.cxx:170
+#: src/ChatPage.cxx:60 src/ChatPage.cxx:185
 msgid "Chat"
 msgstr "Chat"
 
-#: src/ChatPage.cxx:150
+#: src/ChatPage.cxx:154
 msgid "Your message"
 msgstr "Vaša správa"
 
-#: src/ChatPage.cxx:160
+#: src/ChatPage.cxx:164
 msgid "Message could not be sent"
 msgstr "Správu sa nepodarilo odoslať"
 
@@ -106,11 +106,11 @@ msgstr "Vybrať práve prehrávanú skladbu"
 msgid "Help screen"
 msgstr "Okno pomocníka"
 
-#: src/Command.cxx:57 src/HelpPage.cxx:126
+#: src/Command.cxx:57 src/HelpPage.cxx:125
 msgid "Queue screen"
 msgstr "Okno s poradím"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:141
+#: src/Command.cxx:59 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "Okno s prehliadaním"
 
@@ -202,7 +202,7 @@ msgstr "Spustiť aktualizáciu hudobnej databázy"
 msgid "Save queue"
 msgstr "Uložiť poradie"
 
-#: src/Command.cxx:108 src/HelpPage.cxx:163
+#: src/Command.cxx:108 src/HelpPage.cxx:162
 msgid "Append song to queue"
 msgstr "Pridať skladbu do poradia"
 
@@ -281,7 +281,7 @@ msgstr "Prejsť na"
 msgid "Library page"
 msgstr "Okno knižnice"
 
-#: src/Command.cxx:170 src/HelpPage.cxx:158
+#: src/Command.cxx:170 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "Okno vyhľadávania"
 
@@ -298,7 +298,7 @@ msgstr "Playlist bol odstránený"
 msgid "View the selected and the currently playing song"
 msgstr "Zobraziť vybranú a momentálne prehrávanú pieseň"
 
-#: src/Command.cxx:184 src/HelpPage.cxx:170
+#: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "Okno textu piesne"
 
@@ -316,11 +316,11 @@ msgstr "Obnoviť text"
 msgid "Edit the current item"
 msgstr "Upraviť aktuálnu položku"
 
-#: src/Command.cxx:199 src/HelpPage.cxx:185
+#: src/Command.cxx:199 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "Obrazovka s výstupmi"
 
-#: src/Command.cxx:204 src/HelpPage.cxx:192
+#: src/Command.cxx:204 src/HelpPage.cxx:191
 msgid "Chat screen"
 msgstr "Obrazovka s chatom"
 
@@ -388,7 +388,7 @@ msgstr "Nesprávny názov farby"
 msgid "Incomplete color definition"
 msgstr "Neúplná definícia farby"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:217
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:219
 msgid "Invalid number"
 msgstr "Neplatné číslo"
 
@@ -432,11 +432,11 @@ msgstr "Neznámy parameter konfigurácie"
 msgid "Terminal lacks support for changing colors"
 msgstr "Terminál nemá podporu pre zmenu farieb"
 
-#: src/EditPlaylistPage.cxx:122 src/EditPlaylistPage.cxx:124
+#: src/EditPlaylistPage.cxx:120 src/EditPlaylistPage.cxx:122
 msgid "Playlist"
 msgstr "Playlist"
 
-#: src/EditPlaylistPage.cxx:301
+#: src/EditPlaylistPage.cxx:299
 #, fuzzy
 msgid "Playlist Editor"
 msgstr "Playlist bol odstránený"
@@ -455,277 +455,277 @@ msgstr "Odstrániť playlist %s?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:259
+#: src/FileBrowserPage.cxx:263
 msgid "Playlist deleted"
 msgstr "Playlist bol odstránený"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:286 src/FileBrowserPage.cxx:361
+#: src/FileBrowserPage.cxx:290 src/FileBrowserPage.cxx:361
 msgid "Browse"
 msgstr "Prehliadať"
 
-#: src/FileListPage.cxx:111
+#: src/FileListPage.cxx:109
 #, c-format
 msgid "Loading playlist '%s'"
 msgstr "Nahrávam playlist '%s'"
 
-#: src/FileListPage.cxx:152 src/FileListPage.cxx:241 src/FileListPage.cxx:261
+#: src/FileListPage.cxx:150 src/FileListPage.cxx:239 src/FileListPage.cxx:259
 #: src/TagListPage.cxx:183
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Pridávam '{}' do poradia"
 
-#: src/HelpPage.cxx:46
+#: src/HelpPage.cxx:45
 msgid "Movement"
 msgstr "Pohyb"
 
-#: src/HelpPage.cxx:91
+#: src/HelpPage.cxx:90
 msgid "Global"
 msgstr "Globálne"
 
-#: src/HelpPage.cxx:128
+#: src/HelpPage.cxx:127
 msgid "Play"
 msgstr "Prehrávať"
 
-#: src/HelpPage.cxx:135
+#: src/HelpPage.cxx:134
 msgid "Center"
 msgstr "Do stredu"
 
-#: src/HelpPage.cxx:143
+#: src/HelpPage.cxx:142
 msgid "Enter directory/Select and play song"
 msgstr "Vstúpiť do adresára/Vybrať a prehrať skladbu"
 
-#: src/HelpPage.cxx:150
+#: src/HelpPage.cxx:149
 msgid "Delete playlist"
 msgstr "Odstrániť playlist"
 
-#: src/HelpPage.cxx:160
+#: src/HelpPage.cxx:159
 msgid "New search"
 msgstr "Nové hľadanie"
 
-#: src/HelpPage.cxx:161
+#: src/HelpPage.cxx:160
 msgid "Select and play"
 msgstr "Vybrať a prehrať"
 
-#: src/HelpPage.cxx:172
+#: src/HelpPage.cxx:171
 msgid "View Lyrics"
 msgstr "Zobraziť text piesne"
 
-#: src/HelpPage.cxx:173
+#: src/HelpPage.cxx:172
 msgid "(Re)load lyrics"
 msgstr "(Znovu)načítať text"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
-#: src/HelpPage.cxx:176
+#: src/HelpPage.cxx:175
 msgid "Interrupt retrieval"
 msgstr "Zachytené prerušenie"
 
-#: src/HelpPage.cxx:177
+#: src/HelpPage.cxx:176
 msgid "Download lyrics for currently playing song"
 msgstr "Stiahnuť text pre momentálne prehrávanú pieseň"
 
-#: src/HelpPage.cxx:178
+#: src/HelpPage.cxx:177
 msgid "Add or edit lyrics"
 msgstr "Pridať alebo upraviť text piesne"
 
-#: src/HelpPage.cxx:179
+#: src/HelpPage.cxx:178
 msgid "Save lyrics"
 msgstr "Uložiť text piesne"
 
-#: src/HelpPage.cxx:180
+#: src/HelpPage.cxx:179
 msgid "Delete saved lyrics"
 msgstr "Odstrániť uložený text piesne"
 
-#: src/HelpPage.cxx:187
+#: src/HelpPage.cxx:186
 msgid "Enable/disable output"
 msgstr "Povoliť/vypnúť výstup"
 
-#: src/HelpPage.cxx:194
+#: src/HelpPage.cxx:193
 msgid "Write a message"
 msgstr "Napísať správu"
 
-#: src/HelpPage.cxx:199
+#: src/HelpPage.cxx:198
 msgid "Keydef screen"
 msgstr "Obrazovka s nastavením kláves"
 
-#: src/HelpPage.cxx:201
+#: src/HelpPage.cxx:200
 msgid "Edit keydefs for selected command"
 msgstr "Upraviť kláves pre vybraný príkaz"
 
-#: src/HelpPage.cxx:202
+#: src/HelpPage.cxx:201
 msgid "Remove selected keydef"
 msgstr "Odstrániť vybrané nastavenie kláves"
 
-#: src/HelpPage.cxx:203
+#: src/HelpPage.cxx:202
 msgid "Add a keydef"
 msgstr "Pridať def. klávesu"
 
-#: src/HelpPage.cxx:204
+#: src/HelpPage.cxx:203
 msgid "Go up a level"
 msgstr "Prejsť o úroveň vyššie"
 
-#: src/HelpPage.cxx:205
+#: src/HelpPage.cxx:204
 msgid "Apply and save changes"
 msgstr "Použiť a uložiť zmeny"
 
-#: src/HelpPage.cxx:234 src/HelpPage.cxx:323
+#: src/HelpPage.cxx:233 src/HelpPage.cxx:322
 msgid "Help"
 msgstr "Pomocník"
 
-#: src/KeyDefPage.cxx:149
+#: src/KeyDefPage.cxx:148
 msgid "Deleted"
 msgstr "Odstránené"
 
-#: src/KeyDefPage.cxx:165
+#: src/KeyDefPage.cxx:164
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Zadajte nový kláves pre %s: "
 
-#: src/KeyDefPage.cxx:170
+#: src/KeyDefPage.cxx:169
 msgid "Aborted"
 msgstr "Zrušené"
 
-#: src/KeyDefPage.cxx:175
+#: src/KeyDefPage.cxx:174
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-medzerník sa nedá použiť"
 
-#: src/KeyDefPage.cxx:181
+#: src/KeyDefPage.cxx:180
 #, c-format
 msgid "Error: key %s is already used for %s"
 msgstr "Chyba: kláves %s je už použitý pre %s"
 
-#: src/KeyDefPage.cxx:191
+#: src/KeyDefPage.cxx:190
 #, c-format
 msgid "Assigned %s to %s"
 msgstr "%s priradené pre %s"
 
-#: src/KeyDefPage.cxx:218
+#: src/KeyDefPage.cxx:217
 msgid "Add new key"
 msgstr "Pridať nový kláves"
 
-#: src/KeyDefPage.cxx:236
+#: src/KeyDefPage.cxx:235
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Upraviť klávesy pre %s"
 
-#: src/KeyDefPage.cxx:374
+#: src/KeyDefPage.cxx:372
 msgid "You have new key bindings"
 msgstr "Nastavili ste nové priradenie klávesov"
 
-#: src/KeyDefPage.cxx:376
+#: src/KeyDefPage.cxx:374
 msgid "Keybindings unchanged."
 msgstr "Priradenie klávesov sa nezmenilo."
 
-#: src/KeyDefPage.cxx:386
+#: src/KeyDefPage.cxx:384
 msgid "Unable to write configuration"
 msgstr "Nepodarilo sa zapísať nastavenie"
 
-#: src/KeyDefPage.cxx:395 src/KeyDefPage.cxx:404
+#: src/KeyDefPage.cxx:393 src/KeyDefPage.cxx:402
 msgid "Error"
 msgstr "Chyba"
 
-#: src/KeyDefPage.cxx:402
+#: src/KeyDefPage.cxx:400
 #, c-format
 msgid "Wrote %s"
 msgstr "Zapísané %s"
 
-#: src/KeyDefPage.cxx:415
+#: src/KeyDefPage.cxx:413
 msgid "===> Apply key bindings "
 msgstr "===> Použiť nastavenie klávesov "
 
-#: src/KeyDefPage.cxx:417
+#: src/KeyDefPage.cxx:415
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Použiť & Uložiť nastavenie klávesov  "
 
-#: src/KeyDefPage.cxx:453
+#: src/KeyDefPage.cxx:451
 msgid "Edit key bindings"
 msgstr "Upraviť priradenie klávesov"
 
-#: src/KeyDefPage.cxx:535
+#: src/KeyDefPage.cxx:532
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Poznámka: Nezabudli ste 'Použiť' vaše zmeny?"
 
-#: src/KeyDefPage.cxx:585
+#: src/KeyDefPage.cxx:582
 msgid "Keys"
 msgstr "Klávesy"
 
-#: src/KeyName.cxx:98
+#: src/KeyName.cxx:96
 msgid "Undefined"
 msgstr "Neurčené"
 
-#: src/KeyName.cxx:100
+#: src/KeyName.cxx:98
 msgid "Space"
 msgstr "Medzera"
 
-#: src/KeyName.cxx:102
+#: src/KeyName.cxx:100
 msgid "Enter"
 msgstr "Enter"
 
-#: src/KeyName.cxx:104
+#: src/KeyName.cxx:102
 msgid "Backspace"
 msgstr "Backspace"
 
-#: src/KeyName.cxx:106
+#: src/KeyName.cxx:104
 msgid "Delete"
 msgstr "Delete"
 
-#: src/KeyName.cxx:108
+#: src/KeyName.cxx:106
 msgid "Up"
 msgstr "Hore"
 
-#: src/KeyName.cxx:110
+#: src/KeyName.cxx:108
 msgid "Down"
 msgstr "Dole"
 
-#: src/KeyName.cxx:112
+#: src/KeyName.cxx:110
 msgid "Left"
 msgstr "Doľava"
 
-#: src/KeyName.cxx:114
+#: src/KeyName.cxx:112
 msgid "Right"
 msgstr "Doprava"
 
-#: src/KeyName.cxx:116
+#: src/KeyName.cxx:114
 msgid "Home"
 msgstr "Home"
 
-#: src/KeyName.cxx:118
+#: src/KeyName.cxx:116
 msgid "End"
 msgstr "End"
 
-#: src/KeyName.cxx:120
+#: src/KeyName.cxx:118
 msgid "PageDown"
 msgstr "PageDown"
 
-#: src/KeyName.cxx:122
+#: src/KeyName.cxx:120
 msgid "PageUp"
 msgstr "PageUp"
 
-#: src/KeyName.cxx:124
+#: src/KeyName.cxx:122
 msgid "Tab"
 msgstr "Tab"
 
-#: src/KeyName.cxx:126
+#: src/KeyName.cxx:124
 msgid "Shift+Tab"
 msgstr "Shift+Tab"
 
-#: src/KeyName.cxx:128
+#: src/KeyName.cxx:126
 msgid "Esc"
 msgstr "Esc"
 
-#: src/KeyName.cxx:130
+#: src/KeyName.cxx:128
 msgid "Insert"
 msgstr "Insert"
 
 #. translate "^X" to "Ctrl-X"
-#: src/KeyName.cxx:150
+#: src/KeyName.cxx:146
 #, c-format
 msgid "Ctrl-%c"
 msgstr "Ctrl-%c"
 
 #. translate "M-X" to "Alt-X"
-#: src/KeyName.cxx:156
+#: src/KeyName.cxx:152
 #, c-format
 msgid "Alt-%c"
 msgstr "Alt-%c"
@@ -751,62 +751,62 @@ msgid "Library"
 msgstr "Knižnica"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:193
+#: src/LyricsPage.cxx:197
 msgid "No lyrics"
 msgstr "Bez textu"
 
-#: src/LyricsPage.cxx:207
+#: src/LyricsPage.cxx:211
 #, c-format
 msgid "Lyrics timeout occurred after %d seconds"
 msgstr "Po %d sekundách vypršal čas na získanie textu piesne"
 
-#: src/LyricsPage.cxx:302 src/LyricsPage.cxx:310 src/LyricsPage.cxx:319
-#: src/LyricsPage.cxx:450
+#: src/LyricsPage.cxx:308 src/LyricsPage.cxx:316 src/LyricsPage.cxx:325
+#: src/LyricsPage.cxx:435
 msgid "Lyrics"
 msgstr "Text piesne"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:306
+#: src/LyricsPage.cxx:312
 msgid "loading..."
 msgstr "načítam..."
 
-#: src/LyricsPage.cxx:327
+#: src/LyricsPage.cxx:333
 msgid "Lyrics cache is unavailable"
 msgstr ""
 
-#: src/LyricsPage.cxx:332
+#: src/LyricsPage.cxx:338
 msgid "Editor not configured"
 msgstr "Editor nie je nastavený"
 
-#: src/LyricsPage.cxx:348 src/LyricsPage.cxx:370
+#: src/LyricsPage.cxx:354 src/LyricsPage.cxx:376
 msgid "Can't start editor"
 msgstr "Nepodarilo sa spustiť editor"
 
-#: src/LyricsPage.cxx:373 src/LyricsPage.cxx:377
+#: src/LyricsPage.cxx:379 src/LyricsPage.cxx:383
 msgid "Editor exited unexpectedly"
 msgstr "Editor neočakávane skončil"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:399
+#: src/LyricsPage.cxx:405
 msgid "Lyrics saved"
 msgstr "Text piesne uložený"
 
-#: src/LyricsPage.cxx:405
+#: src/LyricsPage.cxx:411
 msgid "Lyrics deleted"
 msgstr "Text skladby bol odstránený"
 
-#: src/LyricsPage.cxx:406
+#: src/LyricsPage.cxx:412
 msgid "No saved lyrics"
 msgstr "Žiaden uložený text piesne"
 
-#: src/Main.cxx:110
+#: src/Main.cxx:106
 #, c-format
 msgid "Connecting to %s"
 msgstr "Pripájam sa k %s"
 
-#: src/Main.cxx:127
+#: src/Main.cxx:122
 #, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
 msgstr "Chyba: Verzia MPD %d.%d.%d je príliš stará (potrebná je %s)"
@@ -822,52 +822,51 @@ msgstr ""
 "  Jose Riha https://launchpad.net/~jose1711\n"
 "  Roman Horník https://launchpad.net/~roman.hornik"
 
-#: src/OutputsPage.cxx:157
+#: src/OutputsPage.cxx:159
 #, c-format
 msgid "Switched to partition '%s'"
 msgstr "Prepnuté na partíciu '%s'"
 
-#: src/OutputsPage.cxx:169 src/SongPage.cxx:66
+#: src/OutputsPage.cxx:171 src/SongPage.cxx:63
 msgid "Name"
 msgstr "Názov"
 
-#: src/OutputsPage.cxx:219
+#: src/OutputsPage.cxx:224
 #, c-format
 msgid "Output '%s' enabled"
 msgstr "Výstup '%s' zapnutý"
 
-#: src/OutputsPage.cxx:230
+#: src/OutputsPage.cxx:235
 #, c-format
 msgid "Output '%s' disabled"
 msgstr "Výstup '%s' vypnutý"
 
-#: src/OutputsPage.cxx:358 src/OutputsPage.cxx:467
+#: src/OutputsPage.cxx:363 src/OutputsPage.cxx:474
 msgid "Outputs"
 msgstr "Výstupy"
 
-#: src/OutputsPage.cxx:370
+#: src/OutputsPage.cxx:375
 msgid "Partition"
 msgstr "Partícia"
 
-#: src/OutputsPage.cxx:394
+#: src/OutputsPage.cxx:399
 msgid "Create new partition"
 msgstr "Vytvoriť novú partíciu"
 
-#. get path
-#: src/QueuePage.cxx:307
+#: src/QueuePage.cxx:306
 msgid "Add"
 msgstr "Pridať"
 
-#: src/QueuePage.cxx:369 src/QueuePage.cxx:690
+#: src/QueuePage.cxx:371 src/QueuePage.cxx:659
 msgid "Queue"
 msgstr "Poradie"
 
-#: src/QueuePage.cxx:371
+#: src/QueuePage.cxx:373
 #, c-format
 msgid "Queue on %s"
 msgstr "Poradie na %s"
 
-#: src/QueuePage.cxx:641 src/player_command.cxx:62
+#: src/QueuePage.cxx:611 src/player_command.cxx:62
 msgid "Shuffled queue"
 msgstr "Poradie bolo zamiešané"
 
@@ -915,15 +914,15 @@ msgstr "komentár"
 msgid "file"
 msgstr "súbor"
 
-#: src/SearchPage.cxx:75 src/SongPage.cxx:54
+#: src/SearchPage.cxx:75 src/SongPage.cxx:51
 msgid "Title"
 msgstr "Názov"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:53
+#: src/SearchPage.cxx:76 src/SongPage.cxx:50
 msgid "Artist"
 msgstr "Interpret"
 
-#: src/SearchPage.cxx:77 src/SongPage.cxx:55
+#: src/SearchPage.cxx:77 src/SongPage.cxx:52
 msgid "Album"
 msgstr "Album"
 
@@ -935,136 +934,136 @@ msgstr "Názov súboru"
 msgid "Artist + Title"
 msgstr "Interpret + Názov"
 
-#: src/SearchPage.cxx:258 src/SearchPage.cxx:262
+#: src/SearchPage.cxx:260 src/SearchPage.cxx:264
 msgid "Unrecognized suffix"
 msgstr "Nerozpoznaná prípona"
 
-#: src/SearchPage.cxx:308
+#: src/SearchPage.cxx:310
 #, c-format
 msgid "Bad search tag %s"
 msgstr "Zlá značka vyhľadávania %s"
 
-#: src/SearchPage.cxx:322
+#: src/SearchPage.cxx:324
 #, c-format
 msgid "No argument for search tag %s"
 msgstr "Chýba argument pre značku vyhľadávania %s"
 
-#: src/SearchPage.cxx:415 src/SearchPage.cxx:448 src/SearchPage.cxx:451
-#: src/SearchPage.cxx:455 src/SearchPage.cxx:512
+#: src/SearchPage.cxx:418 src/SearchPage.cxx:451 src/SearchPage.cxx:454
+#: src/SearchPage.cxx:458 src/SearchPage.cxx:515
 msgid "Search"
 msgstr "Hľadanie"
 
-#: src/SearchPage.cxx:475
+#: src/SearchPage.cxx:478
 #, c-format
 msgid "Search mode: %s"
 msgstr "Režim vyhľadávania: %s"
 
-#: src/SongPage.cxx:57
+#: src/SongPage.cxx:54
 msgid "Work"
 msgstr ""
 
-#: src/SongPage.cxx:59
+#: src/SongPage.cxx:56
 msgid "Length"
 msgstr "Dĺžka"
 
-#: src/SongPage.cxx:60
+#: src/SongPage.cxx:57
 msgid "Position"
 msgstr "Pozícia"
 
-#: src/SongPage.cxx:61
+#: src/SongPage.cxx:58
 msgid "Composer"
 msgstr "Skladateľ"
 
-#: src/SongPage.cxx:62
+#: src/SongPage.cxx:59
 msgid "Performer"
 msgstr "Umelec"
 
-#: src/SongPage.cxx:64
+#: src/SongPage.cxx:61
 msgid "Conductor"
 msgstr ""
 
-#: src/SongPage.cxx:67
+#: src/SongPage.cxx:64
 msgid "Disc"
 msgstr "Disk"
 
-#: src/SongPage.cxx:68
+#: src/SongPage.cxx:65
 msgid "Track"
 msgstr "Stopa"
 
-#: src/SongPage.cxx:69
+#: src/SongPage.cxx:66
 msgid "Date"
 msgstr "Dátum"
 
-#: src/SongPage.cxx:70
+#: src/SongPage.cxx:67
 msgid "Genre"
 msgstr "Žáner"
 
-#: src/SongPage.cxx:71
+#: src/SongPage.cxx:68
 msgid "Comment"
 msgstr "Komentár"
 
-#: src/SongPage.cxx:72
+#: src/SongPage.cxx:69
 msgid "Path"
 msgstr "Cesta"
 
-#: src/SongPage.cxx:73
+#: src/SongPage.cxx:70
 msgid "Bitrate"
 msgstr "Bitový tok"
 
-#: src/SongPage.cxx:74
+#: src/SongPage.cxx:71
 msgid "Format"
 msgstr "Formát"
 
-#: src/SongPage.cxx:91
+#: src/SongPage.cxx:88
 msgid "Number of artists"
 msgstr "Počet interpretov"
 
-#: src/SongPage.cxx:92
+#: src/SongPage.cxx:89
 msgid "Number of albums"
 msgstr "Počet albumov"
 
-#: src/SongPage.cxx:93
+#: src/SongPage.cxx:90
 msgid "Number of songs"
 msgstr "Počet piesní"
 
-#: src/SongPage.cxx:94
+#: src/SongPage.cxx:91
 msgid "Uptime"
 msgstr "Doba spustenia"
 
-#: src/SongPage.cxx:95
+#: src/SongPage.cxx:92
 msgid "Most recent db update"
 msgstr "Najnovšia aktualizácia databáze"
 
-#: src/SongPage.cxx:96
+#: src/SongPage.cxx:93
 msgid "Playtime"
 msgstr "Doba hrania"
 
-#: src/SongPage.cxx:97
+#: src/SongPage.cxx:94
 msgid "DB playtime"
 msgstr "Doba hrania databáze"
 
-#: src/SongPage.cxx:202
+#: src/SongPage.cxx:204
 msgid "Song viewer"
 msgstr "Prehliadač piesní"
 
-#: src/SongPage.cxx:358
+#: src/SongPage.cxx:360
 msgid "MPD statistics"
 msgstr "Štatistiky MPD"
 
-#: src/SongPage.cxx:433
+#: src/SongPage.cxx:435
 msgid "Selected song"
 msgstr "Vybraná pieseň"
 
-#: src/SongPage.cxx:443
+#: src/SongPage.cxx:445
 msgid "Currently playing song"
 msgstr "Momentálne prehrávaná pieseň"
 
-#: src/SongPage.cxx:450
+#: src/SongPage.cxx:452
 #, c++-format
 msgid "{} kbps"
 msgstr "{} kbps"
 
-#: src/SongPage.cxx:530
+#: src/SongPage.cxx:493
 msgid "Song"
 msgstr "Skladba"
 
@@ -1101,99 +1100,108 @@ msgstr "Hlasitosť n/a"
 msgid "Volume %d%%"
 msgstr "Hlasitosť %d%%"
 
-#: src/i18n.h:27
-msgid "y"
-msgstr "a"
+#: src/page/FindSupport.cxx:22
+msgid "Find"
+msgstr "Vyhľadať"
 
-#: src/i18n.h:28
-msgid "n"
-msgstr "n"
+#: src/page/FindSupport.cxx:23
+msgid "Find backward"
+msgstr "Vyhľadať spätne"
+
+#: src/page/FindSupport.cxx:24
+msgid "Jump"
+msgstr "Skok"
+
+#: src/page/FindSupport.cxx:51
+#, c-format
+msgid "Unable to find '%s'"
+msgstr "Nepodarilo sa nájsť '%s'"
 
 #: src/player_command.cxx:70
 msgid "Cleared queue"
 msgstr "Vyčistené poradie"
 
-#. query the user for a filename
-#: src/save_playlist.cxx:70
+#: src/save_playlist.cxx:74
 msgid "Save queue as"
 msgstr "Uložiť poradie skladieb ako"
 
-#: src/save_playlist.cxx:91
+#: src/save_playlist.cxx:97
 #, c-format
 msgid "Replace %s?"
 msgstr "Nahradiť %s?"
 
 #. success
-#: src/save_playlist.cxx:110
+#: src/save_playlist.cxx:122
 #, c-format
 msgid "Saved %s"
 msgstr "Uložený %s"
 
-#: src/screen.cxx:143
+#: src/screen.cxx:153
 msgid "Repeat mode is on"
 msgstr "Režim opakovania zapnutý"
 
-#: src/screen.cxx:144
+#: src/screen.cxx:154
 msgid "Repeat mode is off"
 msgstr "Režim opakovania vypnutý"
 
-#: src/screen.cxx:148
+#: src/screen.cxx:158
 msgid "Random mode is on"
 msgstr "Náhodný režim zapnutý"
 
-#: src/screen.cxx:149
+#: src/screen.cxx:159
 msgid "Random mode is off"
 msgstr "Náhodný režim vypnutý"
 
-#. "single" mode means
-#. that MPD will
-#. automatically stop
-#. after playing one
+#. "single" mode means that MPD will
+#. automatically stop after playing one
 #. single song
-#: src/screen.cxx:158
+#: src/screen.cxx:166
 msgid "Single mode is on"
 msgstr "Jednotlivý režim zapnutý"
 
-#: src/screen.cxx:159
+#: src/screen.cxx:167
 msgid "Single mode is off"
 msgstr "Jednotlivý režim vypnutý"
 
-#. "consume" mode means
-#. that MPD removes each
-#. song which has
-#. finished playing
-#: src/screen.cxx:167
+#. "consume" mode means that MPD removes
+#. each song which has finished
+#. playing
+#: src/screen.cxx:174
 msgid "Consume mode is on"
 msgstr "Spotrebný režim zapnutý"
 
-#: src/screen.cxx:168
+#: src/screen.cxx:175
 msgid "Consume mode is off"
 msgstr "Spotrebný režim vypnutý"
 
-#: src/screen.cxx:171
+#: src/screen.cxx:178
 #, c-format
 msgid "Crossfade %d seconds"
 msgstr "Prelínanie %d sekúnd"
 
-#: src/screen.cxx:183
+#: src/screen.cxx:190
 msgid "Database updated"
 msgstr "Databáza aktualizovaná"
 
-#: src/screen.cxx:233
+#: src/screen.cxx:234
 msgid "Find mode: Wrapped"
 msgstr "Režim vyhľadávania: Dookola"
 
-#: src/screen.cxx:234
+#: src/screen.cxx:235
 msgid "Find mode: Normal"
 msgstr "Režim vyhľadávania: Normálny"
 
-#: src/screen.cxx:239
+#: src/screen.cxx:241
 msgid "Auto center mode: On"
 msgstr "Automatické centrovanie: Zapnuté"
 
-#: src/screen.cxx:240
+#: src/screen.cxx:242
 msgid "Auto center mode: Off"
 msgstr "Automatické centrovanie: Vypnuté"
+
+#: src/screen.cxx:343
+msgid "Password"
+msgstr "Heslo"
 
 #: src/screen_client.cxx:24
 msgid "Database update running"
@@ -1207,27 +1215,6 @@ msgstr "Aktualizácia databáze %s začala"
 #: src/screen_client.cxx:34
 msgid "Database update started"
 msgstr "Bola spustená aktualizácia databáze"
-
-#: src/screen_find.cxx:18
-msgid "Find"
-msgstr "Vyhľadať"
-
-#: src/screen_find.cxx:19
-msgid "Find backward"
-msgstr "Vyhľadať spätne"
-
-#: src/screen_find.cxx:20
-msgid "Jump"
-msgstr "Skok"
-
-#: src/screen_find.cxx:60
-#, c-format
-msgid "Unable to find '%s'"
-msgstr "Nepodarilo sa nájsť '%s'"
-
-#: src/screen_utils.cxx:143
-msgid "Password"
-msgstr "Heslo"
 
 #: src/time_format.cxx:31
 msgid "year"
@@ -1252,6 +1239,12 @@ msgstr "deň"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "dni"
+
+#~ msgid "y"
+#~ msgstr "a"
+
+#~ msgid "n"
+#~ msgstr "n"
 
 #~ msgid "Range selection disabled"
 #~ msgstr "Výber rozsahu vypnutý"
