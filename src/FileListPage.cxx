@@ -116,34 +116,34 @@ FileListPage::LoadPlaylist(struct mpdclient &c,
 	return true;
 }
 
-static bool
-enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
+inline bool
+FileListPage::EnqueueAndPlay(struct mpdclient &c, FileListEntry &entry) noexcept
 {
-	auto *connection = c->GetConnection();
+	auto *connection = c.GetConnection();
 	if (connection == nullptr)
 		return false;
 
-	const auto *song = mpd_entity_get_song(entry->entity);
+	const auto *song = mpd_entity_get_song(entry.entity);
 	assert(song != nullptr);
 
 	int id;
 
 #ifndef NCMPC_MINI
-	if (!(entry->flags & HIGHLIGHT))
+	if (!(entry.flags & HIGHLIGHT))
 		id = -1;
 	else
 #endif
-		id = c->playlist.FindIdByUri(mpd_song_get_uri(song));
+		id = c.playlist.FindIdByUri(mpd_song_get_uri(song));
 
 	if (id < 0) {
 		id = mpd_run_add_id(connection, mpd_song_get_uri(song));
 		if (id < 0) {
-			c->HandleError();
+			c.HandleError();
 			return false;
 		}
 
 #ifndef NCMPC_MINI
-		entry->flags |= HIGHLIGHT;
+		entry.flags |= HIGHLIGHT;
 #endif
 
 		char buf[BUFSIZE];
@@ -152,7 +152,7 @@ enqueue_and_play(struct mpdclient *c, FileListEntry *entry)
 	}
 
 	if (!mpd_run_play_id(connection, id)) {
-		c->HandleError();
+		c.HandleError();
 		return false;
 	}
 
@@ -217,7 +217,7 @@ FileListPage::HandleEnter(struct mpdclient &c)
 	if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST)
 		return LoadPlaylist(c, *mpd_entity_get_playlist(entity));
 	else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG)
-		return enqueue_and_play(&c, entry);
+		return EnqueueAndPlay(c, *entry);
 	return false;
 }
 

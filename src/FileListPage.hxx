@@ -44,6 +44,7 @@ protected:
 	virtual bool HandleEnter(struct mpdclient &c);
 
 private:
+	bool EnqueueAndPlay(struct mpdclient &c, FileListEntry &entry) noexcept;
 	bool LoadPlaylist(struct mpdclient &c,
 			  const struct mpd_playlist &playlist) noexcept;
 	bool HandleSelectEntry(struct mpdclient &c, FileListEntry &entry,
