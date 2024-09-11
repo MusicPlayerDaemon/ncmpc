@@ -23,24 +23,6 @@ DelayedSeek::Commit() noexcept
 	id = -1;
 }
 
-void
-DelayedSeek::Cancel() noexcept
-{
-	commit_timer.Cancel();
-}
-
-void
-DelayedSeek::OnTimer() noexcept
-{
-	Commit();
-}
-
-void
-DelayedSeek::ScheduleTimer() noexcept
-{
-	commit_timer.Schedule(std::chrono::milliseconds(500));
-}
-
 bool
 DelayedSeek::Seek(int offset) noexcept
 {

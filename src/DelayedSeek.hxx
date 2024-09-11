@@ -35,9 +35,18 @@ public:
 	bool Seek(int offset) noexcept;
 
 	void Commit() noexcept;
-	void Cancel() noexcept;
+
+	void Cancel() noexcept {
+		commit_timer.Cancel();
+	}
+
 
 private:
-	void OnTimer() noexcept;
-	void ScheduleTimer() noexcept;
+	void OnTimer() noexcept {
+		Commit();
+	}
+
+	void ScheduleTimer() noexcept {
+		commit_timer.Schedule(std::chrono::milliseconds(500));
+	}
 };
