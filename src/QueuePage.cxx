@@ -556,9 +556,7 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 		CoStart(screen.find_support.Find(lw, *this, cmd));
 		return true;
 	case Command::LIST_JUMP:
-		screen.find_support.Jump(lw, *this, *this);
-		SaveSelection();
-		SchedulePaint();
+		CoStart(screen.find_support.Jump(lw, *this, *this));
 		return true;
 
 	default:

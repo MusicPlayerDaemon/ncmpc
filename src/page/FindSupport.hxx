@@ -38,7 +38,8 @@ public:
 
 	/* query user for a string and jump to the entry
 	 * which begins with this string while the users types */
-	void Jump(ListWindow &lw, const ListText &text, const ListRenderer &renderer) noexcept;
+	[[nodiscard]]
+	Co::InvokeTask Jump(ListWindow &lw, const ListText &text, const ListRenderer &renderer) noexcept;
 
 private:
 	[[nodiscard]]

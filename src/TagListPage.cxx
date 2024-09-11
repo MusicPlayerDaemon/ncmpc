@@ -244,8 +244,7 @@ TagListPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	case Command::LIST_JUMP:
-		find_support.Jump(lw, *this, *this);
-		SchedulePaint();
+		CoStart(find_support.Jump(lw, *this, *this));
 		return true;
 
 	default:
