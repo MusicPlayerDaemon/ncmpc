@@ -42,8 +42,8 @@ class CommandKeysPage final : public ListPage, ListText {
 
 public:
 	CommandKeysPage(PageContainer &_container, ScreenManager &_screen, Page *_parent,
-			const Window _window, Size size) noexcept
-		:ListPage(_container, _window, size), screen(_screen), parent(_parent) {}
+			const Window _window) noexcept
+		:ListPage(_container, _window), screen(_screen), parent(_parent) {}
 
 	void SetCommand(KeyBindings *_bindings, unsigned _cmd) {
 		bindings = _bindings;
@@ -291,8 +291,8 @@ class CommandListPage final : public ListPage, ListText {
 	static constexpr size_t command_n_commands = size_t(Command::NONE);
 
 public:
-	CommandListPage(PageContainer &_container, ScreenManager &_screen, const Window _window, Size size)
-		:ListPage(_container, _window, size), screen(_screen) {}
+	CommandListPage(PageContainer &_container, ScreenManager &_screen, const Window _window)
+		:ListPage(_container, _window), screen(_screen) {}
 
 	~CommandListPage() override {
 		delete bindings;
@@ -495,10 +495,10 @@ class KeyDefPage final : public ProxyPage {
 	CommandKeysPage command_keys_page;
 
 public:
-	KeyDefPage(ScreenManager &screen, const Window _window, Size size)
+	KeyDefPage(ScreenManager &screen, const Window _window)
 		:ProxyPage(screen, _window),
-		 command_list_page(*this, screen, _window, size),
-		 command_keys_page(*this, screen, this, _window, size) {}
+		 command_list_page(*this, screen, _window),
+		 command_keys_page(*this, screen, this, _window) {}
 
 public:
 	/* virtual methods from class Page */
@@ -508,9 +508,9 @@ public:
 };
 
 static std::unique_ptr<Page>
-keydef_init(ScreenManager &screen, const Window window, Size size)
+keydef_init(ScreenManager &screen, const Window window)
 {
-	return std::make_unique<KeyDefPage>(screen, window, size);
+	return std::make_unique<KeyDefPage>(screen, window);
 }
 
 void

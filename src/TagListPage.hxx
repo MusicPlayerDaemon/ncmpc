@@ -30,8 +30,8 @@ public:
 		    FindSupport &_find_support, Page *_parent,
 		    const enum mpd_tag_type _tag,
 		    const char *_all_text,
-		    Window _window, Size size) noexcept
-		:ListPage(_container, _window, size),
+		    Window _window) noexcept
+		:ListPage(_container, _window),
 		 find_support(_find_support), parent(_parent),
 		 tag(_tag), all_text(_all_text) {}
 

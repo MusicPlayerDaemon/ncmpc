@@ -107,8 +107,8 @@ class OutputsPage final : public ListPage, ListRenderer {
 #endif
 
 public:
-	OutputsPage(ScreenManager &_screen, const Window window, Size size)
-		:ListPage(_screen, window, size), screen(_screen) {}
+	OutputsPage(ScreenManager &_screen, const Window window)
+		:ListPage(_screen, window), screen(_screen) {}
 
 private:
 	void Clear();
@@ -351,9 +351,9 @@ OutputsPage::Reload(struct mpdclient &c) noexcept
 }
 
 static std::unique_ptr<Page>
-outputs_init(ScreenManager &screen, const Window window, Size size)
+outputs_init(ScreenManager &screen, const Window window)
 {
-	return std::make_unique<OutputsPage>(screen, window, size);
+	return std::make_unique<OutputsPage>(screen, window);
 }
 
 std::string_view 

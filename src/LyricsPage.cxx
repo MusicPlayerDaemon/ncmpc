@@ -54,9 +54,9 @@ class LyricsPage final : public TextPage, PluginResponseHandler {
 
 public:
 	LyricsPage(EventLoop &event_loop,
-		   PageContainer &_parent, const Window _window, Size size,
+		   PageContainer &_parent, const Window _window,
 		   FindSupport &_find_support) noexcept
-		:TextPage(_parent, _window, size, _find_support),
+		:TextPage(_parent, _window, _find_support),
 		 plugin_timeout(event_loop,
 				BIND_THIS_METHOD(OnTimeout)) {}
 
@@ -273,10 +273,10 @@ LyricsPage::Reload() noexcept
 }
 
 static std::unique_ptr<Page>
-lyrics_screen_init(ScreenManager &_screen, const Window window, Size size) noexcept
+lyrics_screen_init(ScreenManager &_screen, const Window window) noexcept
 {
 	return std::make_unique<LyricsPage>(_screen.GetEventLoop(),
-					    _screen, window, size,
+					    _screen, window,
 					    _screen.find_support);
 }
 

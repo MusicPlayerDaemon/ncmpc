@@ -22,7 +22,7 @@ protected:
 	std::vector<std::string> lines;
 
 public:
-	TextPage(PageContainer &_parent, Window window, Size size,
+	TextPage(PageContainer &_parent, Window window,
 		 FindSupport &_find_support) noexcept;
 
 protected:

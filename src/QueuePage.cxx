@@ -64,9 +64,8 @@ class QueuePage final : public ListPage, ListRenderer, ListText {
 	bool playing = false;
 
 public:
-	QueuePage(ScreenManager &_screen, Window _window,
-		  Size size)
-		:ListPage(_screen, _window, size),
+	QueuePage(ScreenManager &_screen, Window _window)
+		:ListPage(_screen, _window),
 		 screen(_screen),
 #ifndef NCMPC_MINI
 		 hscroll(screen.GetEventLoop(),
@@ -77,7 +76,7 @@ public:
 				   BIND_THIS_METHOD(OnHideCursorTimer))
 	{
 #ifndef NCMPC_MINI
-		table_layout.Calculate(size.width);
+		table_layout.Calculate(GetWidth());
 #endif
 	}
 
@@ -318,9 +317,9 @@ handle_add_to_playlist(ScreenManager &screen, struct mpdclient &c)
 }
 
 static std::unique_ptr<Page>
-screen_queue_init(ScreenManager &_screen, Window window, Size size)
+screen_queue_init(ScreenManager &_screen, Window window)
 {
-	return std::make_unique<QueuePage>(_screen, window, size);
+	return std::make_unique<QueuePage>(_screen, window);
 }
 
 inline void

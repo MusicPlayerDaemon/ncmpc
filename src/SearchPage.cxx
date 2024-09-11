@@ -105,8 +105,8 @@ class SearchPage final : public FileListPage {
 	std::string pattern;
 
 public:
-	SearchPage(ScreenManager &_screen, const Window _window, Size size) noexcept
-		:FileListPage(_screen, _screen, _window, size,
+	SearchPage(ScreenManager &_screen, const Window _window) noexcept
+		:FileListPage(_screen, _screen, _window,
 			      !options.search_format.empty()
 			      ? options.search_format.c_str()
 			      : options.list_format.c_str()) {
@@ -431,9 +431,9 @@ SearchPage::Start(struct mpdclient &c)
 }
 
 static std::unique_ptr<Page>
-screen_search_init(ScreenManager &_screen, const Window window, Size size)
+screen_search_init(ScreenManager &_screen, const Window window)
 {
-	return std::make_unique<SearchPage>(_screen, window, size);
+	return std::make_unique<SearchPage>(_screen, window);
 }
 
 void

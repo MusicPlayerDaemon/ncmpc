@@ -33,9 +33,7 @@ ScreenManager::MakePage(const PageMeta &sf) noexcept
 	if (i != pages.end())
 		return i;
 
-	auto j = pages.emplace(&sf,
-			       sf.init(*this, main_window,
-				       layout.GetMainSize()));
+	auto j = pages.emplace(&sf, sf.init(*this, main_window));
 	assert(j.second);
 	return j.first;
 }

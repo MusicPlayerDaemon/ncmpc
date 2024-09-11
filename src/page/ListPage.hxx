@@ -13,10 +13,14 @@ class ListPage : public Page {
 protected:
 	ListWindow lw;
 
-	ListPage(PageContainer &_parent, Window window, Size size) noexcept
-		:Page(_parent), lw(window, size) {}
+	ListPage(PageContainer &_parent, Window window) noexcept
+		:Page(_parent), lw(window, window.GetSize()) {}
 
 public:
+	unsigned GetWidth() const noexcept {
+		return lw.GetWidth();
+	}
+
 	/* virtual methods from class Page */
 	void OnResize(Size size) noexcept override {
 		lw.Resize(size);

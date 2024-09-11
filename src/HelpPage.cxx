@@ -209,8 +209,8 @@ class HelpPage final : public ListPage, ListRenderer, ListText {
 	ScreenManager &screen;
 
 public:
-	HelpPage(ScreenManager &_screen, const Window _window, Size size)
-		:ListPage(_screen, _window, size), screen(_screen) {
+	HelpPage(ScreenManager &_screen, const Window _window)
+		:ListPage(_screen, _window), screen(_screen) {
 		lw.HideCursor();
 		lw.SetLength(std::size(help_text));
 	}
@@ -251,9 +251,9 @@ HelpPage::GetListItemText(std::span<char>, unsigned i) const noexcept
 }
 
 static std::unique_ptr<Page>
-help_init(ScreenManager &screen, const Window window, Size size)
+help_init(ScreenManager &screen, const Window window)
 {
-	return std::make_unique<HelpPage>(screen, window, size);
+	return std::make_unique<HelpPage>(screen, window);
 }
 
 void

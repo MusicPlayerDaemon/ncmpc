@@ -12,9 +12,9 @@
 #include <assert.h>
 #include <string.h>
 
-TextPage::TextPage(PageContainer &_parent, Window window, Size size,
+TextPage::TextPage(PageContainer &_parent, Window window,
 		   FindSupport &_find_support) noexcept
-	:ListPage(_parent, window, size), find_support(_find_support)
+	:ListPage(_parent, window), find_support(_find_support)
 {
 	lw.HideCursor();
 }

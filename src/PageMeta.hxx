@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include "ui/Size.hxx"
-
 #include <memory>
 
 enum class Command : unsigned;
@@ -26,5 +24,5 @@ struct PageMeta {
 	 */
 	Command command;
 
-	std::unique_ptr<Page> (*init)(ScreenManager &screen, Window window, Size size);
+	std::unique_ptr<Page> (*init)(ScreenManager &screen, Window window);
 };

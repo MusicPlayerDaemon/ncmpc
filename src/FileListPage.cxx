@@ -32,9 +32,8 @@ static constexpr unsigned HIGHLIGHT = 0x01;
 #endif
 
 FileListPage::FileListPage(PageContainer &_parent, ScreenManager &_screen, Window _window,
-			   Size size,
 			   const char *_song_format) noexcept
-	:ListPage(_parent, _window, size),
+	:ListPage(_parent, _window),
 	 screen(_screen),
 	 song_format(_song_format)
 {

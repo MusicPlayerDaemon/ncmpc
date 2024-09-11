@@ -25,7 +25,6 @@ protected:
 
 public:
 	FileListPage(PageContainer &_parent, ScreenManager &_screen, Window _window,
-		     Size size,
 		     const char *_song_format) noexcept;
 
 	~FileListPage() noexcept override;
