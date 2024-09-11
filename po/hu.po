@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:51+0200\n"
+"POT-Creation-Date: 2024-09-11 09:59+0200\n"
 "PO-Revision-Date: 2009-09-24 21:45+0000\n"
 "Last-Translator: Kiszel Kristóf <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -586,8 +586,8 @@ msgstr "Törölve"
 
 #: src/KeyDefPage.cxx:163
 #, c-format
-msgid "Enter new key for %s: "
-msgstr "Nyomd meg az új gombot a következőhöz: %s: "
+msgid "Enter new key for %s"
+msgstr "Nyomd meg az új gombot a következőhöz: %s"
 
 #: src/KeyDefPage.cxx:168
 msgid "Aborted"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:51+0200\n"
+"POT-Creation-Date: 2024-09-11 09:59+0200\n"
 "PO-Revision-Date: 2020-12-17 04:29+0000\n"
 "Last-Translator: Takuro Onoue <kusanaginoturugi@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/ncmpc/"
@@ -580,7 +580,7 @@ msgstr ""
 
 #: src/KeyDefPage.cxx:163
 #, c-format
-msgid "Enter new key for %s: "
+msgid "Enter new key for %s"
 msgstr ""
 
 #: src/KeyDefPage.cxx:168

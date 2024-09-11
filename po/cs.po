@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:51+0200\n"
+"POT-Creation-Date: 2024-09-11 09:59+0200\n"
 "PO-Revision-Date: 2020-02-03 11:50+0000\n"
 "Last-Translator: Miroslav Burdych <mirek.burdych@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -591,8 +591,8 @@ msgstr "Odstraněno"
 
 #: src/KeyDefPage.cxx:163
 #, c-format
-msgid "Enter new key for %s: "
-msgstr "Vložte novou klávesu pro %s: "
+msgid "Enter new key for %s"
+msgstr "Vložte novou klávesu pro %s"
 
 #: src/KeyDefPage.cxx:168
 msgid "Aborted"

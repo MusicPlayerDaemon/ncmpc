@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:51+0200\n"
+"POT-Creation-Date: 2024-09-11 09:59+0200\n"
 "PO-Revision-Date: 2022-05-04 15:09+0200\n"
 "Last-Translator: Jose Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
@@ -579,8 +579,8 @@ msgstr "Odstránené"
 
 #: src/KeyDefPage.cxx:163
 #, c-format
-msgid "Enter new key for %s: "
-msgstr "Zadajte nový kláves pre %s: "
+msgid "Enter new key for %s"
+msgstr "Zadajte nový kláves pre %s"
 
 #: src/KeyDefPage.cxx:168
 msgid "Aborted"

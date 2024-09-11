@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:51+0200\n"
+"POT-Creation-Date: 2024-09-11 09:59+0200\n"
 "PO-Revision-Date: 2024-07-24 13:09+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
@@ -579,8 +579,8 @@ msgstr "삭제됨"
 
 #: src/KeyDefPage.cxx:163
 #, c-format
-msgid "Enter new key for %s: "
-msgstr "%s의 새 키 입력: "
+msgid "Enter new key for %s"
+msgstr "%s의 새 키 입력"
 
 #: src/KeyDefPage.cxx:168
 msgid "Aborted"

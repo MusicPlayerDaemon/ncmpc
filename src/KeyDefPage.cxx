@@ -160,7 +160,7 @@ CommandKeysPage::OverwriteKey(int key_index)
 
 	char prompt[256];
 	snprintf(prompt, sizeof(prompt),
-		 _("Enter new key for %s: "),
+		 _("Enter new key for %s"),
 		 get_key_command_name(Command(subcmd)));
 	const int key = screen_getch(screen, prompt);
 

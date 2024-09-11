@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:51+0200\n"
+"POT-Creation-Date: 2024-09-11 09:59+0200\n"
 "PO-Revision-Date: 2011-03-25 19:34+0000\n"
 "Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
 "Language-Team: galician\n"
@@ -587,8 +587,8 @@ msgstr "Borrada"
 
 #: src/KeyDefPage.cxx:163
 #, c-format
-msgid "Enter new key for %s: "
-msgstr "Introduza un novo atallo para %s: "
+msgid "Enter new key for %s"
+msgstr "Introduza un novo atallo para %s"
 
 #: src/KeyDefPage.cxx:168
 msgid "Aborted"

@@ -43,6 +43,7 @@ screen_getch(ScreenManager &screen, const char *prompt) noexcept
 
 	SelectStyle(window, Style::STATUS_ALERT);
 	window.String({0, 0}, prompt);
+	window.String(": "sv);
 	window.ClearToEol();
 
 	echo();

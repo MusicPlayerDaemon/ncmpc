@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:51+0200\n"
+"POT-Creation-Date: 2024-09-11 09:59+0200\n"
 "PO-Revision-Date: 2021-03-29 23:26+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/ncmpc/"
@@ -583,8 +583,8 @@ msgstr "Forviŝiĝis"
 
 #: src/KeyDefPage.cxx:163
 #, c-format
-msgid "Enter new key for %s: "
-msgstr "Premu novan klavon por %s: "
+msgid "Enter new key for %s"
+msgstr "Premu novan klavon por %s"
 
 #: src/KeyDefPage.cxx:168
 msgid "Aborted"
