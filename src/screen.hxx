@@ -69,8 +69,6 @@ class ScreenManager final : public ModalDock, public PageContainer {
 		}
 	};
 
-	Layout layout;
-
 	TitleBar title_bar;
 public:
 	UniqueWindow main_window;
@@ -113,6 +111,7 @@ private:
 public:
 	FindSupport find_support{*this};
 
+	explicit ScreenManager(EventLoop &_event_loop, const Layout &layout) noexcept;
 	explicit ScreenManager(EventLoop &_event_loop) noexcept;
 	~ScreenManager() noexcept;
 

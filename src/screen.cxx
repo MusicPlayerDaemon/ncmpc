@@ -59,7 +59,7 @@ ScreenManager::Switch(const PageMeta &sf, struct mpdclient &c) noexcept
 	/* open the new mode */
 	auto &p = *page->second;
 	p.OnOpen(c);
-	p.Resize(layout.GetMainSize());
+	p.Resize(main_window.GetSize());
 	p.Update(c);
 }
 
@@ -407,7 +407,7 @@ ScreenManager::ShowModalDialog(ModalDialog &m) noexcept
 
 	modal = &m;
 
-	m.OnResize(status_bar.GetWindow(), layout.GetStatusSize());
+	m.OnResize(status_bar.GetWindow(), status_bar.GetWindow().GetSize());
 
 	SchedulePaint();
 }

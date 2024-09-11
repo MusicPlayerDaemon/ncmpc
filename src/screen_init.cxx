@@ -13,10 +13,9 @@
 static const unsigned SCREEN_MIN_COLS = 14;
 static const unsigned SCREEN_MIN_ROWS = 5;
 
-ScreenManager::ScreenManager(EventLoop &event_loop) noexcept
+inline
+ScreenManager::ScreenManager(EventLoop &event_loop, const Layout &layout) noexcept
 	:paint_event(event_loop, BIND_THIS_METHOD(Paint)),
-	 layout({std::max<unsigned>(COLS, SCREEN_MIN_COLS),
-		 std::max<unsigned>(LINES, SCREEN_MIN_ROWS)}),
 	 title_bar(layout.title, layout.size.width),
 	 main_window(layout.main, layout.GetMainSize()),
 	 progress_bar(layout.GetProgress(), layout.size.width),
@@ -37,6 +36,13 @@ ScreenManager::ScreenManager(EventLoop &event_loop) noexcept
 	}
 }
 
+ScreenManager::ScreenManager(EventLoop &event_loop) noexcept
+	:ScreenManager(event_loop,
+		       Layout{{
+			       std::max<unsigned>(COLS, SCREEN_MIN_COLS),
+			       std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
+		       }}) {}
+
 ScreenManager::~ScreenManager() noexcept
 {
 	delete[] buf;
@@ -55,8 +61,10 @@ ScreenManager::Exit() noexcept
 void
 ScreenManager::OnResize() noexcept
 {
-	layout = Layout({std::max<unsigned>(COLS, SCREEN_MIN_COLS),
-			 std::max<unsigned>(LINES, SCREEN_MIN_ROWS)});
+	const Layout layout{{
+		std::max<unsigned>(COLS, SCREEN_MIN_COLS),
+		std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
+	}};
 
 #ifdef PDCURSES
 	resize_term(layout.size.height, layout.size.width);
