@@ -8,6 +8,7 @@
 #include "ui/Point.hxx"
 #include "History.hxx"
 
+#include <functional>
 #include <string>
 
 class Completion;
@@ -20,6 +21,9 @@ class Completion;
  */
 class TextInputDialog final : public ModalDialog {
 	const std::string_view prompt;
+
+	using ModifiedCallback = std::function<void(std::string_view value)>;
+	ModifiedCallback modified_callback;
 
 	/** the current value */
 	std::string value;
@@ -89,6 +93,10 @@ public:
 		Hide();
 	}
 
+	void SetModifiedCallback(ModifiedCallback &&_modified_callback) noexcept {
+		modified_callback = std::move(_modified_callback);
+	}
+
 	/**
 	 * Await completion of this dialog.
 	 *
@@ -127,6 +135,11 @@ private:
 	void DeleteChar(size_t x) noexcept;
 	void DeleteChar() noexcept {
 		DeleteChar(cursor);
+	}
+
+	void InvokeModifiedCallback() const noexcept {
+		if (modified_callback != nullptr)
+			modified_callback(value);
 	}
 
 public:

@@ -184,6 +184,8 @@ TextInputDialog::InsertByte([[maybe_unused]] const Window window, int key) noexc
 	cursor += length;
 	if (GetCursorColumn() >= width)
 		start = right_align_bytes(value.c_str(), cursor, width);
+
+	InvokeModifiedCallback();
 }
 
 inline void
@@ -193,6 +195,8 @@ TextInputDialog::DeleteChar(size_t x) noexcept
 
 	size_t length = CharSizeMB(value.substr(x));
 	value.erase(x, length);
+
+	InvokeModifiedCallback();
 }
 
 void
@@ -277,10 +281,12 @@ TextInputDialog::OnKey(const Window window, int key)
 		break;
 	case KEY_CTL('K'):
 		value.erase(cursor);
+		InvokeModifiedCallback();
 		break;
 	case KEY_CTL('U'):
 		value.erase(0, cursor);
 		cursor = 0;
+		InvokeModifiedCallback();
 		break;
 	case KEY_CTL('W'):
 		/* Firstly remove trailing spaces. */
