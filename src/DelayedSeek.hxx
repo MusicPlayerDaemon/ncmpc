@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_DELAYED_SEEK_HXX
-#define NCMPC_DELAYED_SEEK_HXX
+#pragma once
 
 #include "event/CoarseTimerEvent.hxx"
 
@@ -25,10 +24,6 @@ public:
 		    struct mpdclient &_c) noexcept
 		:c(_c), commit_timer(event_loop, BIND_THIS_METHOD(OnTimer)) {}
 
-	~DelayedSeek() noexcept {
-		Cancel();
-	}
-
 	bool IsSeeking(int _id) const noexcept {
 		return id >= 0 && _id == id;
 	}
@@ -46,5 +41,3 @@ private:
 	void OnTimer() noexcept;
 	void ScheduleTimer() noexcept;
 };
-
-#endif
