@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:12+0200\n"
+"POT-Creation-Date: 2024-09-11 09:51+0200\n"
 "PO-Revision-Date: 2022-05-04 15:09+0200\n"
 "Last-Translator: Jose Riha <jose1711@gmail.com>\n"
 "Language-Team: sk <sk@li.org>\n"
@@ -464,12 +464,12 @@ msgstr "Playlist bol odstránený"
 msgid "Browse"
 msgstr "Prehliadať"
 
-#: src/FileListPage.cxx:109
-#, c-format
-msgid "Loading playlist '%s'"
-msgstr "Nahrávam playlist '%s'"
+#: src/FileListPage.cxx:108
+#, c++-format
+msgid "Loading playlist '{}'"
+msgstr "Nahrávam playlist '{}'"
 
-#: src/FileListPage.cxx:150 src/FileListPage.cxx:239 src/FileListPage.cxx:259
+#: src/FileListPage.cxx:149 src/FileListPage.cxx:238 src/FileListPage.cxx:258
 #: src/TagListPage.cxx:183
 #, c++-format
 msgid "Adding '{}' to queue"
@@ -573,80 +573,80 @@ msgstr "Použiť a uložiť zmeny"
 msgid "Help"
 msgstr "Pomocník"
 
-#: src/KeyDefPage.cxx:148
+#: src/KeyDefPage.cxx:147
 msgid "Deleted"
 msgstr "Odstránené"
 
-#: src/KeyDefPage.cxx:164
+#: src/KeyDefPage.cxx:163
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Zadajte nový kláves pre %s: "
 
-#: src/KeyDefPage.cxx:169
+#: src/KeyDefPage.cxx:168
 msgid "Aborted"
 msgstr "Zrušené"
 
-#: src/KeyDefPage.cxx:174
+#: src/KeyDefPage.cxx:173
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-medzerník sa nedá použiť"
 
-#: src/KeyDefPage.cxx:180
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Chyba: kláves %s je už použitý pre %s"
+#: src/KeyDefPage.cxx:179
+#, c++-format
+msgid "Error: key {} is already used for {}"
+msgstr "Chyba: kláves {} je už použitý pre {}"
 
-#: src/KeyDefPage.cxx:190
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "%s priradené pre %s"
+#: src/KeyDefPage.cxx:189
+#, c++-format
+msgid "Assigned {} to {}"
+msgstr "{} priradené pre {}"
 
-#: src/KeyDefPage.cxx:217
+#: src/KeyDefPage.cxx:216
 msgid "Add new key"
 msgstr "Pridať nový kláves"
 
-#: src/KeyDefPage.cxx:235
+#: src/KeyDefPage.cxx:234
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Upraviť klávesy pre %s"
 
-#: src/KeyDefPage.cxx:372
+#: src/KeyDefPage.cxx:371
 msgid "You have new key bindings"
 msgstr "Nastavili ste nové priradenie klávesov"
 
-#: src/KeyDefPage.cxx:374
+#: src/KeyDefPage.cxx:373
 msgid "Keybindings unchanged."
 msgstr "Priradenie klávesov sa nezmenilo."
 
-#: src/KeyDefPage.cxx:384
+#: src/KeyDefPage.cxx:383
 msgid "Unable to write configuration"
 msgstr "Nepodarilo sa zapísať nastavenie"
 
-#: src/KeyDefPage.cxx:393 src/KeyDefPage.cxx:402
+#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
 msgid "Error"
 msgstr "Chyba"
 
-#: src/KeyDefPage.cxx:400
-#, c-format
-msgid "Wrote %s"
-msgstr "Zapísané %s"
+#: src/KeyDefPage.cxx:399
+#, c++-format
+msgid "Wrote {}"
+msgstr "Zapísané {}"
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:411
 msgid "===> Apply key bindings "
 msgstr "===> Použiť nastavenie klávesov "
 
-#: src/KeyDefPage.cxx:415
+#: src/KeyDefPage.cxx:413
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Použiť & Uložiť nastavenie klávesov  "
 
-#: src/KeyDefPage.cxx:451
+#: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"
 msgstr "Upraviť priradenie klávesov"
 
-#: src/KeyDefPage.cxx:532
+#: src/KeyDefPage.cxx:530
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Poznámka: Nezabudli ste 'Použiť' vaše zmeny?"
 
-#: src/KeyDefPage.cxx:582
+#: src/KeyDefPage.cxx:580
 msgid "Keys"
 msgstr "Klávesy"
 
@@ -751,53 +751,53 @@ msgid "Library"
 msgstr "Knižnica"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:197
+#: src/LyricsPage.cxx:199
 msgid "No lyrics"
 msgstr "Bez textu"
 
-#: src/LyricsPage.cxx:211
-#, c-format
-msgid "Lyrics timeout occurred after %d seconds"
-msgstr "Po %d sekundách vypršal čas na získanie textu piesne"
+#: src/LyricsPage.cxx:213
+#, c++-format
+msgid "Lyrics timeout occurred after {} seconds"
+msgstr "Po {} sekundách vypršal čas na získanie textu piesne"
 
-#: src/LyricsPage.cxx:308 src/LyricsPage.cxx:316 src/LyricsPage.cxx:325
-#: src/LyricsPage.cxx:435
+#: src/LyricsPage.cxx:310 src/LyricsPage.cxx:318 src/LyricsPage.cxx:327
+#: src/LyricsPage.cxx:437
 msgid "Lyrics"
 msgstr "Text piesne"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:312
+#: src/LyricsPage.cxx:314
 msgid "loading..."
 msgstr "načítam..."
 
-#: src/LyricsPage.cxx:333
+#: src/LyricsPage.cxx:335
 msgid "Lyrics cache is unavailable"
 msgstr ""
 
-#: src/LyricsPage.cxx:338
+#: src/LyricsPage.cxx:340
 msgid "Editor not configured"
 msgstr "Editor nie je nastavený"
 
-#: src/LyricsPage.cxx:354 src/LyricsPage.cxx:376
+#: src/LyricsPage.cxx:356 src/LyricsPage.cxx:378
 msgid "Can't start editor"
 msgstr "Nepodarilo sa spustiť editor"
 
-#: src/LyricsPage.cxx:379 src/LyricsPage.cxx:383
+#: src/LyricsPage.cxx:381 src/LyricsPage.cxx:385
 msgid "Editor exited unexpectedly"
 msgstr "Editor neočakávane skončil"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:405
+#: src/LyricsPage.cxx:407
 msgid "Lyrics saved"
 msgstr "Text piesne uložený"
 
-#: src/LyricsPage.cxx:411
+#: src/LyricsPage.cxx:413
 msgid "Lyrics deleted"
 msgstr "Text skladby bol odstránený"
 
-#: src/LyricsPage.cxx:412
+#: src/LyricsPage.cxx:414
 msgid "No saved lyrics"
 msgstr "Žiaden uložený text piesne"
 
@@ -822,34 +822,34 @@ msgstr ""
 "  Jose Riha https://launchpad.net/~jose1711\n"
 "  Roman Horník https://launchpad.net/~roman.hornik"
 
-#: src/OutputsPage.cxx:159
-#, c-format
-msgid "Switched to partition '%s'"
-msgstr "Prepnuté na partíciu '%s'"
+#: src/OutputsPage.cxx:158
+#, c++-format
+msgid "Switched to partition '{}'"
+msgstr "Prepnuté na partíciu '{}'"
 
-#: src/OutputsPage.cxx:171 src/SongPage.cxx:63
+#: src/OutputsPage.cxx:170 src/SongPage.cxx:63
 msgid "Name"
 msgstr "Názov"
 
-#: src/OutputsPage.cxx:224
-#, c-format
-msgid "Output '%s' enabled"
-msgstr "Výstup '%s' zapnutý"
+#: src/OutputsPage.cxx:223
+#, c++-format
+msgid "Output '{}' enabled"
+msgstr "Výstup '{}' zapnutý"
 
-#: src/OutputsPage.cxx:235
-#, c-format
-msgid "Output '%s' disabled"
-msgstr "Výstup '%s' vypnutý"
+#: src/OutputsPage.cxx:234
+#, c++-format
+msgid "Output '{}' disabled"
+msgstr "Výstup '{}' vypnutý"
 
-#: src/OutputsPage.cxx:363 src/OutputsPage.cxx:474
+#: src/OutputsPage.cxx:362 src/OutputsPage.cxx:473
 msgid "Outputs"
 msgstr "Výstupy"
 
-#: src/OutputsPage.cxx:375
+#: src/OutputsPage.cxx:374
 msgid "Partition"
 msgstr "Partícia"
 
-#: src/OutputsPage.cxx:399
+#: src/OutputsPage.cxx:398
 msgid "Create new partition"
 msgstr "Vytvoriť novú partíciu"
 
@@ -954,9 +954,8 @@ msgid "Search"
 msgstr "Hľadanie"
 
 #: src/SearchPage.cxx:478
-#, c-format
-msgid "Search mode: %s"
-msgstr "Režim vyhľadávania: %s"
+msgid "Search mode"
+msgstr "Režim vyhľadávania"
 
 #: src/SongPage.cxx:54
 msgid "Work"
@@ -1132,9 +1131,9 @@ msgstr "Nahradiť %s?"
 
 #. success
 #: src/save_playlist.cxx:122
-#, c-format
-msgid "Saved %s"
-msgstr "Uložený %s"
+#, c++-format
+msgid "Saved {}"
+msgstr "Uložený {}"
 
 #: src/screen.cxx:153
 msgid "Repeat mode is on"
@@ -1175,9 +1174,9 @@ msgid "Consume mode is off"
 msgstr "Spotrebný režim vypnutý"
 
 #: src/screen.cxx:178
-#, c-format
-msgid "Crossfade %d seconds"
-msgstr "Prelínanie %d sekúnd"
+#, c++-format
+msgid "Crossfade {} seconds"
+msgstr "Prelínanie {} sekúnd"
 
 #: src/screen.cxx:190
 msgid "Database updated"

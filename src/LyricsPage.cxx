@@ -26,6 +26,8 @@
 #include <string.h>
 #include <stdio.h>
 
+using std::string_view_literals::operator""sv;
+
 static struct mpd_song *next_song;
 static bool follow = false;
 
@@ -208,8 +210,8 @@ LyricsPage::OnTimeout() noexcept
 {
 	StopPluginCycle();
 
-	screen_status_printf(_("Lyrics timeout occurred after %d seconds"),
-			     (int)std::chrono::duration_cast<std::chrono::seconds>(options.lyrics_timeout).count());
+	FmtAlert(_("Lyrics timeout occurred after {} seconds"),
+		 (int)std::chrono::duration_cast<std::chrono::seconds>(options.lyrics_timeout).count());
 
 	/* schedule a full repaint so the page title gets updated */
 	SchedulePaint();
@@ -351,7 +353,7 @@ LyricsPage::Edit() noexcept
 	int status;
 	pid_t pid = fork();
 	if (pid == -1) {
-		screen_status_printf(("%s (%s)"), _("Can't start editor"), strerror(errno));
+		FmtAlert("{} ({})"sv, _("Can't start editor"), strerror(errno));
 		ncu_init();
 		return;
 	} else if (pid == 0) {
@@ -375,13 +377,13 @@ LyricsPage::Edit() noexcept
 		else if (WEXITSTATUS(status) == 127)
 			Alert(_("Can't start editor"));
 		else
-			screen_status_printf("%s (%d)",
-					     _("Editor exited unexpectedly"),
-					     WEXITSTATUS(status));
+			FmtAlert("{} ({})",
+				 _("Editor exited unexpectedly"),
+				 WEXITSTATUS(status));
 	} else if (WIFSIGNALED(status)) {
-		screen_status_printf("%s (signal %d)",
-				     _("Editor exited unexpectedly"),
-				     WTERMSIG(status));
+		FmtAlert("{} (signal {})"sv,
+			 _("Editor exited unexpectedly"),
+			 WTERMSIG(status));
 	}
 }
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:12+0200\n"
+"POT-Creation-Date: 2024-09-11 09:51+0200\n"
 "PO-Revision-Date: 2009-09-24 10:26+0200\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
@@ -469,12 +469,12 @@ msgstr "Afspilningslisten slettet"
 msgid "Browse"
 msgstr "Gennemse"
 
-#: src/FileListPage.cxx:109
-#, fuzzy, c-format
-msgid "Loading playlist '%s'"
-msgstr "Henter %s..."
+#: src/FileListPage.cxx:108
+#, fuzzy, c++-format
+msgid "Loading playlist '{}'"
+msgstr "Henter {}..."
 
-#: src/FileListPage.cxx:150 src/FileListPage.cxx:239 src/FileListPage.cxx:259
+#: src/FileListPage.cxx:149 src/FileListPage.cxx:238 src/FileListPage.cxx:258
 #: src/TagListPage.cxx:183
 #, fuzzy, c++-format
 msgid "Adding '{}' to queue"
@@ -582,81 +582,81 @@ msgstr "Anvend og gem ændringer"
 msgid "Help"
 msgstr "Hjælp"
 
-#: src/KeyDefPage.cxx:148
+#: src/KeyDefPage.cxx:147
 msgid "Deleted"
 msgstr "Slettet"
 
-#: src/KeyDefPage.cxx:164
+#: src/KeyDefPage.cxx:163
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Ny tast for %s: "
 
-#: src/KeyDefPage.cxx:169
+#: src/KeyDefPage.cxx:168
 msgid "Aborted"
 msgstr "Afbrudt"
 
-#: src/KeyDefPage.cxx:174
+#: src/KeyDefPage.cxx:173
 msgid "Ctrl-Space can't be used"
 msgstr ""
 
-#: src/KeyDefPage.cxx:180
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Tasten %s anvendes allerede til %s"
+#: src/KeyDefPage.cxx:179
+#, c++-format
+msgid "Error: key {} is already used for {}"
+msgstr "Tasten {} anvendes allerede til {}"
 
-#: src/KeyDefPage.cxx:190
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "Tildelt %s til %s"
+#: src/KeyDefPage.cxx:189
+#, c++-format
+msgid "Assigned {} to {}"
+msgstr "Tildelt {} til {}"
 
-#: src/KeyDefPage.cxx:217
+#: src/KeyDefPage.cxx:216
 msgid "Add new key"
 msgstr "Definér ny tast"
 
-#: src/KeyDefPage.cxx:235
+#: src/KeyDefPage.cxx:234
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Modificer tast for '%s'"
 
-#: src/KeyDefPage.cxx:372
+#: src/KeyDefPage.cxx:371
 msgid "You have new key bindings"
 msgstr "Taste bindinger opdaterede"
 
-#: src/KeyDefPage.cxx:374
+#: src/KeyDefPage.cxx:373
 msgid "Keybindings unchanged."
 msgstr "Taste bindinger uændrede!"
 
-#: src/KeyDefPage.cxx:384
+#: src/KeyDefPage.cxx:383
 #, fuzzy
 msgid "Unable to write configuration"
 msgstr "Ufuldstændig hotkey konfiguration"
 
-#: src/KeyDefPage.cxx:393 src/KeyDefPage.cxx:402
+#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
 msgid "Error"
 msgstr "Fejl"
 
-#: src/KeyDefPage.cxx:400
-#, c-format
-msgid "Wrote %s"
-msgstr "Skrev %s"
+#: src/KeyDefPage.cxx:399
+#, c++-format
+msgid "Wrote {}"
+msgstr "Skrev {}"
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:411
 msgid "===> Apply key bindings "
 msgstr "==> Anvend taste bindinger "
 
-#: src/KeyDefPage.cxx:415
+#: src/KeyDefPage.cxx:413
 msgid "===> Apply & Save key bindings  "
 msgstr "==> Anvend og gem taste bindinger  "
 
-#: src/KeyDefPage.cxx:451
+#: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"
 msgstr "Modificer taste bindinger"
 
-#: src/KeyDefPage.cxx:532
+#: src/KeyDefPage.cxx:530
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "OBS! Du glemte vel ikke at 'anvende' dine ændringer?"
 
-#: src/KeyDefPage.cxx:582
+#: src/KeyDefPage.cxx:580
 msgid "Keys"
 msgstr ""
 
@@ -763,54 +763,54 @@ msgid "Library"
 msgstr ""
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:197
+#: src/LyricsPage.cxx:199
 msgid "No lyrics"
 msgstr "Ingen sangtekster"
 
-#: src/LyricsPage.cxx:211
-#, c-format
-msgid "Lyrics timeout occurred after %d seconds"
+#: src/LyricsPage.cxx:213
+#, c++-format
+msgid "Lyrics timeout occurred after {} seconds"
 msgstr ""
 
-#: src/LyricsPage.cxx:308 src/LyricsPage.cxx:316 src/LyricsPage.cxx:325
-#: src/LyricsPage.cxx:435
+#: src/LyricsPage.cxx:310 src/LyricsPage.cxx:318 src/LyricsPage.cxx:327
+#: src/LyricsPage.cxx:437
 msgid "Lyrics"
 msgstr "Sangtekster"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:312
+#: src/LyricsPage.cxx:314
 msgid "loading..."
 msgstr "indlæser..."
 
-#: src/LyricsPage.cxx:333
+#: src/LyricsPage.cxx:335
 msgid "Lyrics cache is unavailable"
 msgstr ""
 
-#: src/LyricsPage.cxx:338
+#: src/LyricsPage.cxx:340
 msgid "Editor not configured"
 msgstr ""
 
-#: src/LyricsPage.cxx:354 src/LyricsPage.cxx:376
+#: src/LyricsPage.cxx:356 src/LyricsPage.cxx:378
 msgid "Can't start editor"
 msgstr ""
 
-#: src/LyricsPage.cxx:379 src/LyricsPage.cxx:383
+#: src/LyricsPage.cxx:381 src/LyricsPage.cxx:385
 msgid "Editor exited unexpectedly"
 msgstr ""
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:405
+#: src/LyricsPage.cxx:407
 msgid "Lyrics saved"
 msgstr "Sangtekster gemt"
 
-#: src/LyricsPage.cxx:411
+#: src/LyricsPage.cxx:413
 #, fuzzy
 msgid "Lyrics deleted"
 msgstr "Afspilningslisten slettet"
 
-#: src/LyricsPage.cxx:412
+#: src/LyricsPage.cxx:414
 #, fuzzy
 msgid "No saved lyrics"
 msgstr "Gem sagtekster"
@@ -834,35 +834,35 @@ msgstr ""
 "  Mikkel Kirkgaard Nielsen https://launchpad.net/~ncmpc\n"
 "  Niels Anker https://launchpad.net/~nanker"
 
-#: src/OutputsPage.cxx:159
-#, c-format
-msgid "Switched to partition '%s'"
+#: src/OutputsPage.cxx:158
+#, c++-format
+msgid "Switched to partition '{}'"
 msgstr ""
 
-#: src/OutputsPage.cxx:171 src/SongPage.cxx:63
+#: src/OutputsPage.cxx:170 src/SongPage.cxx:63
 msgid "Name"
 msgstr "Navn"
 
-#: src/OutputsPage.cxx:224
-#, c-format
-msgid "Output '%s' enabled"
-msgstr "Output '%s' slået til"
+#: src/OutputsPage.cxx:223
+#, c++-format
+msgid "Output '{}' enabled"
+msgstr "Output '{}' slået til"
 
-#: src/OutputsPage.cxx:235
-#, c-format
-msgid "Output '%s' disabled"
-msgstr "Output '%s' slået fra"
+#: src/OutputsPage.cxx:234
+#, c++-format
+msgid "Output '{}' disabled"
+msgstr "Output '{}' slået fra"
 
-#: src/OutputsPage.cxx:363 src/OutputsPage.cxx:474
+#: src/OutputsPage.cxx:362 src/OutputsPage.cxx:473
 msgid "Outputs"
 msgstr "Output"
 
-#: src/OutputsPage.cxx:375
+#: src/OutputsPage.cxx:374
 #, fuzzy
 msgid "Partition"
 msgstr "kunstner"
 
-#: src/OutputsPage.cxx:399
+#: src/OutputsPage.cxx:398
 msgid "Create new partition"
 msgstr ""
 
@@ -967,9 +967,8 @@ msgid "Search"
 msgstr "Søg"
 
 #: src/SearchPage.cxx:478
-#, c-format
-msgid "Search mode: %s"
-msgstr "Søg efter: %s"
+msgid "Search mode"
+msgstr "Søg efter"
 
 #: src/SongPage.cxx:54
 msgid "Work"
@@ -1148,9 +1147,9 @@ msgstr "Erstat '%s' [%s/%s] ? "
 
 #. success
 #: src/save_playlist.cxx:122
-#, c-format
-msgid "Saved %s"
-msgstr "Gemt %s"
+#, c++-format
+msgid "Saved {}"
+msgstr "Gemt {}"
 
 #: src/screen.cxx:153
 msgid "Repeat mode is on"
@@ -1191,9 +1190,9 @@ msgid "Consume mode is off"
 msgstr "\"Consume mode\" er slået fra"
 
 #: src/screen.cxx:178
-#, c-format
-msgid "Crossfade %d seconds"
-msgstr "Crossfade %d sekunder"
+#, c++-format
+msgid "Crossfade {} seconds"
+msgstr "Crossfade {} sekunder"
 
 #: src/screen.cxx:190
 msgid "Database updated"

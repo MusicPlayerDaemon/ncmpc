@@ -6,7 +6,6 @@
 #include "FileBrowserPage.hxx"
 #include "EditPlaylistPage.hxx"
 #include "Command.hxx"
-#include "screen_status.hxx"
 #include "screen.hxx"
 #include "i18n.h"
 #include "Options.hxx"
@@ -106,8 +105,8 @@ FileListPage::LoadPlaylist(struct mpdclient &c,
 
 	if (mpd_run_load(connection, mpd_playlist_get_path(&playlist))) {
 		const char *name = GetUriFilename(mpd_playlist_get_path(&playlist));
-		screen_status_printf(_("Loading playlist '%s'"),
-				     Utf8ToLocaleZ{name}.c_str());
+		FmtAlert(_("Loading playlist '{}'"),
+			 Utf8ToLocaleZ{name}.c_str());
 
 		c.events |= MPD_IDLE_QUEUE;
 	} else
@@ -147,8 +146,8 @@ FileListPage::EnqueueAndPlay(struct mpdclient &c, FileListEntry &entry) noexcept
 #endif
 
 		char buf[BUFSIZE];
-		screen_status_fmt(_("Adding '{}' to queue"),
-				  strfsong(buf, options.list_format.c_str(), *song));
+		FmtAlert(_("Adding '{}' to queue"),
+			 strfsong(buf, options.list_format.c_str(), *song));
 	}
 
 	if (!mpd_run_play_id(connection, id)) {
@@ -236,8 +235,8 @@ FileListPage::HandleSelectEntry(struct mpdclient &c, FileListEntry &entry,
 		if (!mpdclient_cmd_add_path(c, mpd_directory_get_path(dir)))
 			return false;
 
-		screen_status_fmt(_("Adding '{}' to queue"),
-				  (std::string_view)Utf8ToLocale{mpd_directory_get_path(dir)});
+		FmtAlert(_("Adding '{}' to queue"),
+			 (std::string_view)Utf8ToLocale{mpd_directory_get_path(dir)});
 		return true;
 	}
 
@@ -256,8 +255,8 @@ FileListPage::HandleSelectEntry(struct mpdclient &c, FileListEntry &entry,
 
 		if (c.RunAdd(*song)) {
 			char buf[BUFSIZE];
-			screen_status_fmt(_("Adding '{}' to queue"),
-					  strfsong(buf, options.list_format.c_str(), *song));
+			FmtAlert(_("Adding '{}' to queue"),
+				 strfsong(buf, options.list_format.c_str(), *song));
 		}
 #ifndef NCMPC_MINI
 	} else {

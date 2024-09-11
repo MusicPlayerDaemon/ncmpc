@@ -475,8 +475,8 @@ SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 		options.search_mode++;
 		if (mode[options.search_mode].label == nullptr)
 			options.search_mode = 0;
-		screen_status_printf(_("Search mode: %s"),
-				     my_gettext(mode[options.search_mode].label));
+		FmtAlert("{}: {}"sv, _("Search mode"),
+			 my_gettext(mode[options.search_mode].label));
 
 		if (pattern.empty())
 			/* show the new mode in the help text */

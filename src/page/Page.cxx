@@ -25,6 +25,12 @@ Page::Alert(std::string message) noexcept
 	parent.Alert(std::move(message));
 }
 
+void
+Page::VFmtAlert(fmt::string_view format_str, fmt::format_args args) noexcept
+{
+	Alert(fmt::vformat(format_str, std::move(args)));
+}
+
 bool
 Page::PaintStatusBarOverride(Window) const noexcept
 {

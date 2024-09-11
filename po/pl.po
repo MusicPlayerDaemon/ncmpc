@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:12+0200\n"
+"POT-Creation-Date: 2024-09-11 09:51+0200\n"
 "PO-Revision-Date: 2024-06-15 05:56+0000\n"
 "Last-Translator: Wojciech Teichert <wojtekt99@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/ncmpc/"
@@ -468,12 +468,12 @@ msgstr "Lista odtwarzania usunięta"
 msgid "Browse"
 msgstr "Przeglądaj"
 
-#: src/FileListPage.cxx:109
-#, c-format
-msgid "Loading playlist '%s'"
-msgstr "Ładowanie listy odtwarzania %s"
+#: src/FileListPage.cxx:108
+#, c++-format
+msgid "Loading playlist '{}'"
+msgstr "Ładowanie listy odtwarzania {}"
 
-#: src/FileListPage.cxx:150 src/FileListPage.cxx:239 src/FileListPage.cxx:259
+#: src/FileListPage.cxx:149 src/FileListPage.cxx:238 src/FileListPage.cxx:258
 #: src/TagListPage.cxx:183
 #, c++-format
 msgid "Adding '{}' to queue"
@@ -577,80 +577,80 @@ msgstr "Zastosuj i zapisz zmiany"
 msgid "Help"
 msgstr "Pomoc"
 
-#: src/KeyDefPage.cxx:148
+#: src/KeyDefPage.cxx:147
 msgid "Deleted"
 msgstr "Usunięto"
 
-#: src/KeyDefPage.cxx:164
+#: src/KeyDefPage.cxx:163
 #, c-format
 msgid "Enter new key for %s: "
 msgstr "Podaj nowy skrót dla %s: "
 
-#: src/KeyDefPage.cxx:169
+#: src/KeyDefPage.cxx:168
 msgid "Aborted"
 msgstr "Anulowano"
 
-#: src/KeyDefPage.cxx:174
+#: src/KeyDefPage.cxx:173
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-Space nie może być użyte"
 
-#: src/KeyDefPage.cxx:180
-#, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Błąd: klawisz %s już jest używany do %s"
+#: src/KeyDefPage.cxx:179
+#, c++-format
+msgid "Error: key {} is already used for {}"
+msgstr "Błąd: klawisz {} już jest używany do {}"
 
-#: src/KeyDefPage.cxx:190
-#, c-format
-msgid "Assigned %s to %s"
-msgstr "Przypisano klawisz %s do %s"
+#: src/KeyDefPage.cxx:189
+#, c++-format
+msgid "Assigned {} to {}"
+msgstr "Przypisano klawisz {} do {}"
 
-#: src/KeyDefPage.cxx:217
+#: src/KeyDefPage.cxx:216
 msgid "Add new key"
 msgstr "Dodaj nowy klawisz"
 
-#: src/KeyDefPage.cxx:235
+#: src/KeyDefPage.cxx:234
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Edytuj klawisze dla %s"
 
-#: src/KeyDefPage.cxx:372
+#: src/KeyDefPage.cxx:371
 msgid "You have new key bindings"
 msgstr "Masz nowe wiązania klawiszy"
 
-#: src/KeyDefPage.cxx:374
+#: src/KeyDefPage.cxx:373
 msgid "Keybindings unchanged."
 msgstr "Wiązania klawiszy niezmienione."
 
-#: src/KeyDefPage.cxx:384
+#: src/KeyDefPage.cxx:383
 msgid "Unable to write configuration"
 msgstr "Nie mogę zapisać konfiguracji"
 
-#: src/KeyDefPage.cxx:393 src/KeyDefPage.cxx:402
+#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
 msgid "Error"
 msgstr "Błąd"
 
-#: src/KeyDefPage.cxx:400
-#, c-format
-msgid "Wrote %s"
-msgstr "Zapisano %s"
+#: src/KeyDefPage.cxx:399
+#, c++-format
+msgid "Wrote {}"
+msgstr "Zapisano {}"
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:411
 msgid "===> Apply key bindings "
 msgstr "===> Zastosuj wiązania klawiszy "
 
-#: src/KeyDefPage.cxx:415
+#: src/KeyDefPage.cxx:413
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Zastosuj i Zapisz wiązania klawiszy  "
 
-#: src/KeyDefPage.cxx:451
+#: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"
 msgstr "Edytuj wiązania klawiszy"
 
-#: src/KeyDefPage.cxx:532
+#: src/KeyDefPage.cxx:530
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Informacja: Zapomniałeś „Zastosować” swoje zmiany?"
 
-#: src/KeyDefPage.cxx:582
+#: src/KeyDefPage.cxx:580
 msgid "Keys"
 msgstr "Klawisze"
 
@@ -755,53 +755,53 @@ msgid "Library"
 msgstr "Biblioteka"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:197
+#: src/LyricsPage.cxx:199
 msgid "No lyrics"
 msgstr "Brak tekstu utworu"
 
-#: src/LyricsPage.cxx:211
-#, c-format
-msgid "Lyrics timeout occurred after %d seconds"
-msgstr "Przekroczono limit czasu %d sekund na pobranie tekstu utworu"
+#: src/LyricsPage.cxx:213
+#, c++-format
+msgid "Lyrics timeout occurred after {} seconds"
+msgstr "Przekroczono limit czasu {} sekund na pobranie tekstu utworu"
 
-#: src/LyricsPage.cxx:308 src/LyricsPage.cxx:316 src/LyricsPage.cxx:325
-#: src/LyricsPage.cxx:435
+#: src/LyricsPage.cxx:310 src/LyricsPage.cxx:318 src/LyricsPage.cxx:327
+#: src/LyricsPage.cxx:437
 msgid "Lyrics"
 msgstr "Tekst utworu"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:312
+#: src/LyricsPage.cxx:314
 msgid "loading..."
 msgstr "ładowanie…"
 
-#: src/LyricsPage.cxx:333
+#: src/LyricsPage.cxx:335
 msgid "Lyrics cache is unavailable"
 msgstr ""
 
-#: src/LyricsPage.cxx:338
+#: src/LyricsPage.cxx:340
 msgid "Editor not configured"
 msgstr "Nie skonfigurowano edytora"
 
-#: src/LyricsPage.cxx:354 src/LyricsPage.cxx:376
+#: src/LyricsPage.cxx:356 src/LyricsPage.cxx:378
 msgid "Can't start editor"
 msgstr "Nie można uruchomić edytora"
 
-#: src/LyricsPage.cxx:379 src/LyricsPage.cxx:383
+#: src/LyricsPage.cxx:381 src/LyricsPage.cxx:385
 msgid "Editor exited unexpectedly"
 msgstr "Edytor niespodziewanie zakończył działanie"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:405
+#: src/LyricsPage.cxx:407
 msgid "Lyrics saved"
 msgstr "Tekst utworu zapisany"
 
-#: src/LyricsPage.cxx:411
+#: src/LyricsPage.cxx:413
 msgid "Lyrics deleted"
 msgstr "Tekst utworu usunięty"
 
-#: src/LyricsPage.cxx:412
+#: src/LyricsPage.cxx:414
 msgid "No saved lyrics"
 msgstr "Brak zapisanego tekstu utworu"
 
@@ -821,34 +821,34 @@ msgstr "Błąd: MPD w wersji %d.%d.%d jest za stary (potrzebny jest %s)"
 msgid "translator-credits"
 msgstr "Uznanie tłumaczy"
 
-#: src/OutputsPage.cxx:159
-#, c-format
-msgid "Switched to partition '%s'"
-msgstr "Przełączono na sekcję '%s'"
+#: src/OutputsPage.cxx:158
+#, c++-format
+msgid "Switched to partition '{}'"
+msgstr "Przełączono na sekcję '{}'"
 
-#: src/OutputsPage.cxx:171 src/SongPage.cxx:63
+#: src/OutputsPage.cxx:170 src/SongPage.cxx:63
 msgid "Name"
 msgstr "Nazwa"
 
-#: src/OutputsPage.cxx:224
-#, c-format
-msgid "Output '%s' enabled"
-msgstr "Wyjście „%s” włączone"
+#: src/OutputsPage.cxx:223
+#, c++-format
+msgid "Output '{}' enabled"
+msgstr "Wyjście „{}” włączone"
 
-#: src/OutputsPage.cxx:235
-#, c-format
-msgid "Output '%s' disabled"
-msgstr "Wyjście „%s” wyłączone"
+#: src/OutputsPage.cxx:234
+#, c++-format
+msgid "Output '{}' disabled"
+msgstr "Wyjście „{}” wyłączone"
 
-#: src/OutputsPage.cxx:363 src/OutputsPage.cxx:474
+#: src/OutputsPage.cxx:362 src/OutputsPage.cxx:473
 msgid "Outputs"
 msgstr "Wyjścia"
 
-#: src/OutputsPage.cxx:375
+#: src/OutputsPage.cxx:374
 msgid "Partition"
 msgstr "Sekcja"
 
-#: src/OutputsPage.cxx:399
+#: src/OutputsPage.cxx:398
 msgid "Create new partition"
 msgstr "Utwórz nową sekcję"
 
@@ -953,9 +953,8 @@ msgid "Search"
 msgstr "Znajdź"
 
 #: src/SearchPage.cxx:478
-#, c-format
-msgid "Search mode: %s"
-msgstr "Tryb szukania: %s"
+msgid "Search mode"
+msgstr "Tryb szukania"
 
 #: src/SongPage.cxx:54
 msgid "Work"
@@ -1131,9 +1130,9 @@ msgstr "Czy zamienić %s?"
 
 #. success
 #: src/save_playlist.cxx:122
-#, c-format
-msgid "Saved %s"
-msgstr "Zapisano %s"
+#, c++-format
+msgid "Saved {}"
+msgstr "Zapisano {}"
 
 #: src/screen.cxx:153
 msgid "Repeat mode is on"
@@ -1174,9 +1173,9 @@ msgid "Consume mode is off"
 msgstr "Tryb pożerania jest wyłączony"
 
 #: src/screen.cxx:178
-#, c-format
-msgid "Crossfade %d seconds"
-msgstr "Przenikaj %d sekund"
+#, c++-format
+msgid "Crossfade {} seconds"
+msgstr "Przenikaj {} sekund"
 
 #: src/screen.cxx:190
 msgid "Database updated"

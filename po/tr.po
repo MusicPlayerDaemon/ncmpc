@@ -436,8 +436,8 @@ msgstr "Göz at"
 
 #: src/FileListPage.cxx:125
 #, c-format
-msgid "Loading playlist '%s'"
-msgstr "'%s' oynatma listesi yükleniyor"
+msgid "Loading playlist '{}'"
+msgstr "'{}' oynatma listesi yükleniyor"
 
 #: src/FileListPage.cxx:165 src/FileListPage.cxx:254 src/FileListPage.cxx:277
 #: src/TagListPage.cxx:184
@@ -566,13 +566,13 @@ msgstr "Ctrl-Space kullanılamaz"
 
 #: src/KeyDefPage.cxx:193
 #, c-format
-msgid "Error: key %s is already used for %s"
-msgstr "Hata: %s tuşu zaten %s için kullanılıyor"
+msgid "Error: key {} is already used for {}"
+msgstr "Hata: {} tuşu zaten {} için kullanılıyor"
 
 #: src/KeyDefPage.cxx:203
 #, c-format
-msgid "Assigned %s to %s"
-msgstr "%s tuşu, %s komutuna atandı"
+msgid "Assigned {} to {}"
+msgstr "{} tuşu, {} komutuna atandı"
 
 #: src/KeyDefPage.cxx:230
 msgid "Add new key"
@@ -601,8 +601,8 @@ msgstr "Hata"
 
 #: src/KeyDefPage.cxx:423
 #, c-format
-msgid "Wrote %s"
-msgstr "%s yazıldı"
+msgid "Wrote {}"
+msgstr "{} yazıldı"
 
 #: src/KeyDefPage.cxx:436
 msgid "===> Apply key bindings "
@@ -739,8 +739,8 @@ msgstr "Şarkı sözü yok"
 
 #: src/LyricsPage.cxx:270
 #, c-format
-msgid "Lyrics timeout occurred after %d seconds"
-msgstr "%d saniye sonra şarkı sözü zaman aşımı gerçekleşti"
+msgid "Lyrics timeout occurred after {} seconds"
+msgstr "{} saniye sonra şarkı sözü zaman aşımı gerçekleşti"
 
 #: src/LyricsPage.cxx:353 src/LyricsPage.cxx:361 src/LyricsPage.cxx:371
 #: src/LyricsPage.cxx:507
@@ -802,8 +802,8 @@ msgstr "Oğuz Ersen <oguz@ersen.moe>"
 
 #: src/OutputsPage.cxx:168
 #, c-format
-msgid "Switched to partition '%s'"
-msgstr "'%s' bölümüne geçildi"
+msgid "Switched to partition '{}'"
+msgstr "'{}' bölümüne geçildi"
 
 #: src/OutputsPage.cxx:180 src/SongPage.cxx:69
 msgid "Name"
@@ -811,13 +811,13 @@ msgstr "Ad"
 
 #: src/OutputsPage.cxx:230
 #, c-format
-msgid "Output '%s' enabled"
-msgstr "'%s' çıktısı etkin"
+msgid "Output '{}' enabled"
+msgstr "'{}' çıktısı etkin"
 
 #: src/OutputsPage.cxx:241
 #, c-format
-msgid "Output '%s' disabled"
-msgstr "'%s' çıktısı devre dışı"
+msgid "Output '{}' disabled"
+msgstr "'{}' çıktısı devre dışı"
 
 #: src/OutputsPage.cxx:371 src/OutputsPage.cxx:480
 msgid "Outputs"
@@ -866,8 +866,8 @@ msgstr "%s değiştirilsin mi?"
 #. success
 #: src/save_playlist.cxx:129
 #, c-format
-msgid "Saved %s"
-msgstr "%s kaydedildi"
+msgid "Saved {}"
+msgstr "{} kaydedildi"
 
 #: src/screen_client.cxx:41
 msgid "Database update running"
@@ -925,8 +925,8 @@ msgstr "Tüketim modu kapalı"
 
 #: src/screen.cxx:186
 #, c-format
-msgid "Crossfade %d seconds"
-msgstr "%d saniye şarkı geçişi"
+msgid "Crossfade {} seconds"
+msgstr "{} saniye şarkı geçişi"
 
 #: src/screen.cxx:198
 msgid "Database updated"
@@ -1054,8 +1054,8 @@ msgstr "Ara"
 
 #: src/SearchPage.cxx:509
 #, c-format
-msgid "Search mode: %s"
-msgstr "Arama modu: %s"
+msgid "Search mode"
+msgstr "Arama modu"
 
 #: src/SongPage.cxx:65
 msgid "Length"

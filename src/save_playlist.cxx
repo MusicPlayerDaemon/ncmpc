@@ -119,5 +119,5 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 	c.events |= MPD_IDLE_STORED_PLAYLIST;
 
 	/* success */
-	screen_status_printf(_("Saved %s"), filename.c_str());
+	screen.Alert(fmt::format(fmt::runtime(_("Saved {}")), filename));
 }

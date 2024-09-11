@@ -5,7 +5,6 @@
 #include "Deleter.hxx"
 #include "PageMeta.hxx"
 #include "screen.hxx"
-#include "screen_status.hxx"
 #include "Command.hxx"
 #include "i18n.h"
 #include "page/ListPage.hxx"
@@ -156,8 +155,8 @@ OutputsPage::ActivatePartition(struct mpdclient &c,
 		return false;
 	}
 
-	screen_status_printf(_("Switched to partition '%s'"),
-			     partition_name);
+	FmtAlert(_("Switched to partition '{}'"),
+		 partition_name);
 	return true;
 }
 
@@ -221,8 +220,8 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 
 		c.events |= MPD_IDLE_OUTPUT;
 
-		screen_status_printf(_("Output '%s' enabled"),
-				     mpd_output_get_name(&output));
+		FmtAlert(_("Output '{}' enabled"),
+			 mpd_output_get_name(&output));
 	} else {
 		if (!mpd_run_disable_output(connection,
 					    mpd_output_get_id(&output))) {
@@ -232,8 +231,8 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 
 		c.events |= MPD_IDLE_OUTPUT;
 
-		screen_status_printf(_("Output '%s' disabled"),
-				     mpd_output_get_name(&output));
+		FmtAlert(_("Output '{}' disabled"),
+			 mpd_output_get_name(&output));
 	}
 
 	return true;

@@ -10,6 +10,8 @@
 
 #include <curses.h>
 
+#include <fmt/core.h>
+
 #include <exception>
 #include <utility>
 #include <span>
@@ -69,6 +71,13 @@ protected:
 	void SchedulePaint() noexcept;
 
 	void Alert(std::string message) noexcept;
+
+	void VFmtAlert(fmt::string_view format_str, fmt::format_args args) noexcept;
+
+	template<typename S, typename... Args>
+	void FmtAlert(const S &format_str, Args&&... args) noexcept {
+		VFmtAlert(format_str, fmt::make_format_args(args...));
+	}
 
 	/**
 	 * Start a coroutine.  This method returns when the coroutine

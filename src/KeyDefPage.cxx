@@ -4,7 +4,6 @@
 #include "KeyDefPage.hxx"
 #include "PageMeta.hxx"
 #include "screen.hxx"
-#include "screen_status.hxx"
 #include "KeyName.hxx"
 #include "i18n.h"
 #include "ConfigFile.hxx"
@@ -177,9 +176,9 @@ CommandKeysPage::OverwriteKey(int key_index)
 
 	const Command cmd = bindings->FindKey(key);
 	if (cmd != Command::NONE) {
-		screen_status_printf(_("Error: key %s is already used for %s"),
-				     GetLocalizedKeyName(key),
-				     get_key_command_name(cmd));
+		FmtAlert(_("Error: key {} is already used for {}"),
+			 GetLocalizedKeyName(key),
+			 get_key_command_name(cmd));
 		Bell();
 		return;
 	}
@@ -187,9 +186,9 @@ CommandKeysPage::OverwriteKey(int key_index)
 	binding->keys[key_index] = key;
 	binding->modified = true;
 
-	screen_status_printf(_("Assigned %s to %s"),
-			     GetLocalizedKeyName(key),
-			     get_key_command_name(Command(subcmd)));
+	FmtAlert(_("Assigned {} to {}"),
+		 GetLocalizedKeyName(key),
+		 get_key_command_name(Command(subcmd)));
 	UpdateListLength();
 
 	/* repaint */
@@ -390,17 +389,16 @@ CommandListPage::Save()
 
 	FILE *f = fopen(filename.c_str(), "w");
 	if (f == nullptr) {
-		screen_status_printf("%s: %s - %s", _("Error"),
-				     filename.c_str(), strerror(errno));
+		Alert(fmt::format("{}: {} - {}"sv, _("Error"),
+				  filename, strerror(errno)));
 		Bell();
 		return;
 	}
 
 	if (GetGlobalKeyBindings().WriteToFile(f, KEYDEF_WRITE_HEADER))
-		screen_status_printf(_("Wrote %s"), filename.c_str());
+		FmtAlert(_("Wrote {}"), filename);
 	else
-		screen_status_printf("%s: %s - %s", _("Error"),
-				     filename.c_str(), strerror(errno));
+		FmtAlert("{}: {} - {}"sv, _("Error"), filename, strerror(errno));
 
 	fclose(f);
 }

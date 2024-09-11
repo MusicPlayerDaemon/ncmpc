@@ -175,8 +175,8 @@ ScreenManager::Update(struct mpdclient &c, const DelayedSeek &seek) noexcept
 			      _("Consume mode is off"));
 
 		if (crossfade != mpd_status_get_crossfade(c.status))
-			screen_status_printf(_("Crossfade %d seconds"),
-					     mpd_status_get_crossfade(c.status));
+			Alert(fmt::format(fmt::runtime(_("Crossfade {} seconds")),
+					  mpd_status_get_crossfade(c.status)));
 
 		repeat = mpd_status_get_repeat(c.status);
 		random_enabled = mpd_status_get_random(c.status);
