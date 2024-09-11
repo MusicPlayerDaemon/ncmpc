@@ -59,6 +59,7 @@ public:
 		Range range;
 	};
 
+	[[nodiscard]] [[gnu::pure]]
 	Result Complete(std::string_view prefix) const noexcept;
 
 	virtual void Pre(std::string_view value) noexcept = 0;
