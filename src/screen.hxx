@@ -92,10 +92,6 @@ public:
 	void Init(struct mpdclient *c) noexcept;
 	void Exit() noexcept;
 
-	Point GetMainPosition() const noexcept {
-		return {0, (int)title_bar.GetHeight()};
-	}
-
 	const PageMeta &GetCurrentPageMeta() const noexcept {
 		return *current_page->first;
 	}

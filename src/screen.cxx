@@ -309,7 +309,16 @@ void
 ScreenManager::OnMouse(struct mpdclient &c, DelayedSeek &seek,
 		       Point p, mmask_t bstate)
 {
-	if (GetCurrentPage().OnMouse(c, p - GetMainPosition(), bstate))
+	if (options.show_title_bar) {
+		const int title_height = title_bar.GetHeight();
+		if (p.y < title_height) {
+			return;
+		}
+
+		p.y -= title_height;
+	}
+
+	if (GetCurrentPage().OnMouse(c, p, bstate))
 		return;
 
 	/* if button 2 was pressed switch screen */
