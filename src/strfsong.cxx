@@ -184,6 +184,8 @@ _strfsong(char *const s0, char *const end,
 			tag = MPD_TAG_WORK;
 		else if (name == "grouping"sv)
 			tag = MPD_TAG_GROUPING;
+		else if (strncmp("%label%", p, n) == 0)
+			tag = MPD_TAG_LABEL;
 #endif
 		else if (name == "title"sv)
 			tag = MPD_TAG_TITLE;

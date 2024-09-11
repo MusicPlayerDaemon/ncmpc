@@ -65,6 +65,9 @@ static constexpr struct tag_label tag_labels[] = {
 	{ MPD_TAG_TRACK, N_("Track") },
 	{ MPD_TAG_DATE, N_("Date") },
 	{ MPD_TAG_GENRE, N_("Genre") },
+#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
+	{ MPD_TAG_LABEL, N_("Label") },
+#endif
 	{ MPD_TAG_COMMENT, N_("Comment") },
 	{ LABEL_PATH, N_("Path") },
 	{ LABEL_BITRATE, N_("Bitrate") },
@@ -338,6 +341,7 @@ SongPage::AddSong(const struct mpd_song *song) noexcept
 	AppendTag(song, MPD_TAG_TRACK);
 	AppendTag(song, MPD_TAG_DATE);
 	AppendTag(song, MPD_TAG_GENRE);
+	AppendTag(song, MPD_TAG_LABEL);
 	AppendTag(song, MPD_TAG_COMMENT);
 
 	AppendLine(get_tag_label(LABEL_PATH), mpd_song_get_uri(song),

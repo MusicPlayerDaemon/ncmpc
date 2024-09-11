@@ -44,6 +44,7 @@ static constexpr struct {
 	{ MPD_TAG_DATE, "date", N_("date") },
 	{ MPD_TAG_COMPOSER, "composer", N_("composer") },
 	{ MPD_TAG_PERFORMER, "performer", N_("performer") },
+	{ MPD_TAG_LABEL, "label", N_("label") },
 	{ MPD_TAG_COMMENT, "comment", N_("comment") },
 	{ MPD_TAG_COUNT, nullptr, nullptr }
 };
@@ -92,7 +93,8 @@ static const char *const help_text[] = {
 	"		Example: modified:14d (units: s, M, h, d, m, y)",
 	"",
 	"		Available tags: artist, album, title, track,",
-	"		name, genre, date composer, performer, comment, file",
+	"		name, genre, date composer, performer, label,",
+	"		comment, file",
 	"",
 };
 
