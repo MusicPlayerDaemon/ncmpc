@@ -44,6 +44,10 @@ protected:
 	virtual bool HandleEnter(struct mpdclient &c);
 
 private:
+	bool LoadPlaylist(struct mpdclient &c,
+			  const struct mpd_playlist &playlist) noexcept;
+	bool HandleSelectEntry(struct mpdclient &c, FileListEntry &entry,
+			       bool toggle) noexcept;
 	bool HandleSelect(struct mpdclient &c) noexcept;
 	bool HandleAdd(struct mpdclient &c) noexcept;
 	bool HandleEdit(struct mpdclient &c) noexcept;

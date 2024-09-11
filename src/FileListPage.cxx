@@ -96,21 +96,22 @@ FileListPage::GetListItemText(std::span<char> buffer,
 	return "Error: Unknown entry!"sv;
 }
 
-static bool
-load_playlist(struct mpdclient *c, const struct mpd_playlist *playlist)
+bool
+FileListPage::LoadPlaylist(struct mpdclient &c,
+			   const struct mpd_playlist &playlist) noexcept
 {
-	auto *connection = c->GetConnection();
+	auto *connection = c.GetConnection();
 	if (connection == nullptr)
 		return false;
 
-	if (mpd_run_load(connection, mpd_playlist_get_path(playlist))) {
-		const char *name = GetUriFilename(mpd_playlist_get_path(playlist));
+	if (mpd_run_load(connection, mpd_playlist_get_path(&playlist))) {
+		const char *name = GetUriFilename(mpd_playlist_get_path(&playlist));
 		screen_status_printf(_("Loading playlist '%s'"),
 				     Utf8ToLocaleZ{name}.c_str());
 
-		c->events |= MPD_IDLE_QUEUE;
+		c.events |= MPD_IDLE_QUEUE;
 	} else
-		c->HandleError();
+		c.HandleError();
 
 	return true;
 }
@@ -214,20 +215,20 @@ FileListPage::HandleEnter(struct mpdclient &c)
 		return false;
 
 	if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST)
-		return load_playlist(&c, mpd_entity_get_playlist(entity));
+		return LoadPlaylist(c, *mpd_entity_get_playlist(entity));
 	else if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_SONG)
 		return enqueue_and_play(&c, entry);
 	return false;
 }
 
-static bool
-browser_select_entry(struct mpdclient &c, FileListEntry &entry,
-		     [[maybe_unused]] bool toggle) noexcept
+bool
+FileListPage::HandleSelectEntry(struct mpdclient &c, FileListEntry &entry,
+				[[maybe_unused]] bool toggle) noexcept
 {
 	assert(entry.entity != nullptr);
 
 	if (mpd_entity_get_type(entry.entity) == MPD_ENTITY_TYPE_PLAYLIST)
-		return load_playlist(&c, mpd_entity_get_playlist(entry.entity));
+		return LoadPlaylist(c, *mpd_entity_get_playlist(entry.entity));
 
 	if (mpd_entity_get_type(entry.entity) == MPD_ENTITY_TYPE_DIRECTORY) {
 		const auto *dir = mpd_entity_get_directory(entry.entity);
@@ -283,7 +284,7 @@ FileListPage::HandleSelect(struct mpdclient &c) noexcept
 	for (const unsigned i : range) {
 		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
-			success = browser_select_entry(c, *entry, true);
+			success = HandleSelectEntry(c, *entry, true);
 	}
 
 	SchedulePaint();
@@ -300,7 +301,7 @@ FileListPage::HandleAdd(struct mpdclient &c) noexcept
 	for (const unsigned i : range) {
 		auto *entry = GetIndex(i);
 		if (entry != nullptr && entry->entity != nullptr)
-			success = browser_select_entry(c, *entry, false) ||
+			success = HandleSelectEntry(c, *entry, false) ||
 				success;
 	}
 
@@ -336,7 +337,7 @@ FileListPage::HandleSelectAll(struct mpdclient &c) noexcept
 		auto &entry = (*filelist)[i];
 
 		if (entry.entity != nullptr)
-			browser_select_entry(c, entry, false);
+			HandleSelectEntry(c, entry, false);
 	}
 
 	SchedulePaint();

@@ -79,7 +79,7 @@ LoadPlaylist(struct mpdclient &c, const std::string &name)
 void
 EditPlaylistPage::Reload(struct mpdclient &c)
 {
-	filelist = LoadPlaylist(c, name.c_str());
+	filelist = ::LoadPlaylist(c, name.c_str());
 	lw.SetLength(filelist->size());
 	SchedulePaint();
 }
