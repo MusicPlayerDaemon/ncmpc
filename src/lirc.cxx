@@ -16,8 +16,7 @@ LircInput::OnSocketReady(unsigned) noexcept
 	if (lirc_nextcode(&code) == 0) {
 		while (lirc_code2char(lc, code, &txt) == 0 && txt != nullptr) {
 			const auto cmd = get_key_command_from_name(txt);
-			if (!handler.OnCommand(cmd))
-				return;
+			handler.OnCommand(cmd);
 		}
 	}
 }

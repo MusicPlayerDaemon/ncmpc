@@ -127,7 +127,7 @@ public:
 	void OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd);
 
 #ifdef HAVE_GETMOUSE
-	bool OnMouse(struct mpdclient &c, DelayedSeek &seek,
+	void OnMouse(struct mpdclient &c, DelayedSeek &seek,
 		     Point p, mmask_t bstate);
 #endif
 

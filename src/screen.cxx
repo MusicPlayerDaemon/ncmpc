@@ -305,20 +305,18 @@ ScreenManager::OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 
 #ifdef HAVE_GETMOUSE
 
-bool
+void
 ScreenManager::OnMouse(struct mpdclient &c, DelayedSeek &seek,
 		       Point p, mmask_t bstate)
 {
 	if (GetCurrentPage().OnMouse(c, p - GetMainPosition(), bstate))
-		return true;
+		return;
 
 	/* if button 2 was pressed switch screen */
 	if (bstate & BUTTON2_CLICKED) {
 		OnCommand(c, seek, Command::SCREEN_NEXT);
-		return true;
+		return;
 	}
-
-	return false;
 }
 
 #endif

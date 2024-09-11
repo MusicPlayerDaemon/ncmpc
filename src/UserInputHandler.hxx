@@ -27,10 +27,8 @@ public:
 
 	/**
 	 * A hot key for a #Command was pressed.
-	 *
-	 * @return false if ncmpc will quit
 	 */
-	virtual bool OnCommand(Command cmd) noexcept = 0;
+	virtual void OnCommand(Command cmd) noexcept = 0;
 
 #ifdef HAVE_GETMOUSE
 	/**
@@ -38,10 +36,8 @@ public:
 	 *
 	 * @param p the position of the mouse cursor on the screen
 	 * @param bstate the state of all mouse buttons
-	 *
-	 * @return false if ncmpc will quit
 	 */
-	virtual bool OnMouse(Point p, mmask_t bstate) noexcept = 0;
+	virtual void OnMouse(Point p, mmask_t bstate) noexcept = 0;
 #endif
 
 	/**

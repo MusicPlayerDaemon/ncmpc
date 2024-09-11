@@ -186,33 +186,31 @@ Instance::OnUpdateScreen() noexcept
 	auto_update_timer(*this);
 }
 
-bool
+void
 Instance::OnCommand(Command cmd) noexcept
 {
 	update_screen_event.Schedule();
 
 	if (cmd == Command::QUIT) {
 		event_loop.Break();
-		return false;
+		return;
 	}
 
 	try {
 		screen_manager.OnCommand(GetClient(), GetSeek(), cmd);
 	} catch (...) {
 		screen_status_error(std::current_exception());
-		return true;
+		return;
 	}
 
 	if (cmd == Command::VOLUME_UP || cmd == Command::VOLUME_DOWN)
 		/* make sure we don't update the volume yet */
 		DisableUpdateTimer();
-
-	return true;
 }
 
 #ifdef HAVE_GETMOUSE
 
-bool
+void
 Instance::OnMouse(Point p, mmask_t bstate) noexcept
 {
 	update_screen_event.Schedule();
@@ -222,8 +220,6 @@ Instance::OnMouse(Point p, mmask_t bstate) noexcept
 	} catch (...) {
 		screen_status_error(std::current_exception());
 	}
-
-	return true;
 }
 
 #endif

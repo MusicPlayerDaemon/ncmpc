@@ -50,9 +50,7 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 		getmouse(&event);
 #endif
 
-		if (!handler.OnMouse({event.x, event.y}, event.bstate))
-			return;
-
+		handler.OnMouse({event.x, event.y}, event.bstate);
 		return;
 	}
 #endif
@@ -61,14 +59,8 @@ AsyncUserInput::OnSocketReady(unsigned) noexcept
 		return;
 	}
 
-	Command cmd = translate_key(key);
-	if (cmd == Command::NONE)
-		return;
-
-	if (!handler.OnCommand(cmd))
-		return;
-
-	return;
+	if (Command cmd = translate_key(key); cmd != Command::NONE)
+		handler.OnCommand(cmd);
 }
 
 AsyncUserInput::AsyncUserInput(EventLoop &event_loop, WINDOW &_w,

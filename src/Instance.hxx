@@ -134,9 +134,9 @@ private:
 
 	// virtual methods from UserInputHandler
 	bool OnRawKey(int key) noexcept override;
-	bool OnCommand(Command cmd) noexcept override;
+	void OnCommand(Command cmd) noexcept override;
 #ifdef HAVE_GETMOUSE
-	bool OnMouse(Point p, mmask_t bstate) noexcept override;
+	void OnMouse(Point p, mmask_t bstate) noexcept override;
 #endif
 	bool CancelModalDialog() noexcept override;
 };
