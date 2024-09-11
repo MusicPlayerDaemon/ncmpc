@@ -47,4 +47,6 @@ gcmp_list_from_path(struct mpdclient &c, const char *path,
 
 		completion.emplace(std::move(name));
 	}
+
+	c.FinishCommand();
 }
