@@ -57,6 +57,8 @@ struct Options {
 	bool lyrics_show_plugin = false;
 #endif
 
+	bool show_title_bar = true;
+
 	bool auto_center = false;
 
 #ifndef NCMPC_MINI

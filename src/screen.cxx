@@ -189,7 +189,8 @@ ScreenManager::Update(struct mpdclient &c, const DelayedSeek &seek) noexcept
 	was_connected = now_connected;
 #endif
 
-	title_bar.Update(c.status);
+	if (options.show_title_bar)
+		title_bar.Update(c.status);
 
 	unsigned elapsed;
 	if (c.status == nullptr)

@@ -2,6 +2,7 @@ ncmpc 0.50 - not yet released
 * build: require Meson 0.60
 * require libfmt 9
 * draw progress bar as Unicode double line
+* add option to hide the title bar
 * add color style "text" for input text controls
 * remove option "text-editor-ask"
 * fix lyrics editor crash

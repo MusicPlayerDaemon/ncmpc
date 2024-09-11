@@ -5,6 +5,7 @@
 #include "QueuePage.hxx"
 #include "config.h"
 #include "Styles.hxx"
+#include "Options.hxx"
 #include "page/Page.hxx"
 #include "dialogs/ModalDialog.hxx"
 #include "ui/Options.hxx"
@@ -25,14 +26,18 @@ GetCorrectedScreenSize() noexcept
 
 struct ScreenManager::Layout {
 	Size size;
+	Point main{0, 0};
 
 	static constexpr Point title{0, 0};
-	static constexpr Point main{0, (int)TitleBar::GetHeight()};
 	static constexpr int progress_x = 0;
 	static constexpr int status_x = 0;
 
-	constexpr explicit Layout(Size _size) noexcept
-		:size(_size) {}
+	explicit Layout(Size _size) noexcept
+		:size(_size)
+	{
+		if (options.show_title_bar)
+			main.y = TitleBar::GetHeight();
+	}
 
 	constexpr unsigned GetMainRows() const noexcept {
 		return GetProgress().y - main.y;
@@ -108,7 +113,8 @@ ScreenManager::OnResize() noexcept
 	resizeterm(layout.size.height, layout.size.width);
 #endif
 
-	title_bar.OnResize(layout.size.width);
+	if (options.show_title_bar)
+		title_bar.OnResize(layout.size.width);
 
 	/* main window */
 	main_window.Resize(layout.GetMainSize());

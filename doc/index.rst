@@ -107,6 +107,8 @@ is 5 seconds.
 Interface
 ^^^^^^^^^
 
+:command:`show-title-bar = yes|no` - "no" allows hiding the title bar.
+
 :command:`enable-mouse = yes|no` - Enable mouse support (if enabled at compile time).
 
 :command:`screen-list = SCREEN1 SCREEN2...` - A list of screens to

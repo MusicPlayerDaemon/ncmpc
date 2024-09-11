@@ -2,13 +2,16 @@
 // Copyright The Music Player Daemon Project
 
 #include "screen.hxx"
+#include "Options.hxx"
 #include "page/Page.hxx"
 #include "dialogs/ModalDialog.hxx"
 #include "ui/Options.hxx"
 
-void
+inline void
 ScreenManager::PaintTopWindow() noexcept
 {
+	assert(options.show_title_bar);
+
 	const auto title = GetCurrentPage().GetTitle({buf, buf_size});
 	title_bar.Paint(GetCurrentPageMeta(), title);
 }
@@ -17,7 +20,8 @@ void
 ScreenManager::Paint() noexcept
 {
 	/* update title/header window */
-	PaintTopWindow();
+	if (options.show_title_bar)
+		PaintTopWindow();
 
 	/* paint the bottom window */
 
