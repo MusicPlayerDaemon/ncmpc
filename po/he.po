@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:59+0200\n"
+"POT-Creation-Date: 2024-09-11 10:00+0200\n"
 "PO-Revision-Date: 2022-10-17 00:55+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/ncmpc/"
@@ -576,76 +576,76 @@ msgstr "עזרה"
 msgid "Deleted"
 msgstr "נמחק"
 
-#: src/KeyDefPage.cxx:163
-#, c-format
-msgid "Enter new key for %s"
-msgstr "הכנס מקש חדש ל %s"
+#: src/KeyDefPage.cxx:161
+#, c++-format
+msgid "Enter new key for {}"
+msgstr "הכנס מקש חדש ל {}"
 
-#: src/KeyDefPage.cxx:168
+#: src/KeyDefPage.cxx:166
 msgid "Aborted"
 msgstr "בוטל"
 
-#: src/KeyDefPage.cxx:173
+#: src/KeyDefPage.cxx:171
 msgid "Ctrl-Space can't be used"
 msgstr "אי אפשר להשתמש ב־Ctrl-רווח"
 
-#: src/KeyDefPage.cxx:179
+#: src/KeyDefPage.cxx:177
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "שגיאה: המקש {} כבר קיים ל {}"
 
-#: src/KeyDefPage.cxx:189
+#: src/KeyDefPage.cxx:187
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "הוקצה {} אל {}"
 
-#: src/KeyDefPage.cxx:216
+#: src/KeyDefPage.cxx:214
 msgid "Add new key"
 msgstr "הוסף מקש חדש"
 
-#: src/KeyDefPage.cxx:234
+#: src/KeyDefPage.cxx:232
 #, c-format
 msgid "Edit keys for %s"
 msgstr "ערוך את המקש ל %s"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:369
 msgid "You have new key bindings"
 msgstr "יש תצורת מקשים חדשה"
 
-#: src/KeyDefPage.cxx:373
+#: src/KeyDefPage.cxx:371
 msgid "Keybindings unchanged."
 msgstr "תצורת מקשים לא שונתה."
 
-#: src/KeyDefPage.cxx:383
+#: src/KeyDefPage.cxx:381
 msgid "Unable to write configuration"
 msgstr "לא ניתן לכתוב את ההגדרות"
 
-#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
+#: src/KeyDefPage.cxx:390 src/KeyDefPage.cxx:399
 msgid "Error"
 msgstr "שגיאה"
 
-#: src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:397
 #, c++-format
 msgid "Wrote {}"
 msgstr "נכתב {}"
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:409
 msgid "===> Apply key bindings "
 msgstr "=====> ישם תצורת מקשים "
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:411
 msgid "===> Apply & Save key bindings  "
 msgstr "=====> ישם ושמור תצורת מקשים  "
 
-#: src/KeyDefPage.cxx:449
+#: src/KeyDefPage.cxx:447
 msgid "Edit key bindings"
 msgstr "ערוך את תצורת המקשים"
 
-#: src/KeyDefPage.cxx:530
+#: src/KeyDefPage.cxx:528
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "אזהרה: שכחת ‚להחיל’ את השינויים?"
 
-#: src/KeyDefPage.cxx:580
+#: src/KeyDefPage.cxx:578
 msgid "Keys"
 msgstr "מקשים"
 

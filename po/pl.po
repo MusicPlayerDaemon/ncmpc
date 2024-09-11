@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:59+0200\n"
+"POT-Creation-Date: 2024-09-11 10:00+0200\n"
 "PO-Revision-Date: 2024-06-15 05:56+0000\n"
 "Last-Translator: Wojciech Teichert <wojtekt99@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/ncmpc/"
@@ -581,76 +581,76 @@ msgstr "Pomoc"
 msgid "Deleted"
 msgstr "Usunięto"
 
-#: src/KeyDefPage.cxx:163
-#, c-format
-msgid "Enter new key for %s"
-msgstr "Podaj nowy skrót dla %s"
+#: src/KeyDefPage.cxx:161
+#, c++-format
+msgid "Enter new key for {}"
+msgstr "Podaj nowy skrót dla {}"
 
-#: src/KeyDefPage.cxx:168
+#: src/KeyDefPage.cxx:166
 msgid "Aborted"
 msgstr "Anulowano"
 
-#: src/KeyDefPage.cxx:173
+#: src/KeyDefPage.cxx:171
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-Space nie może być użyte"
 
-#: src/KeyDefPage.cxx:179
+#: src/KeyDefPage.cxx:177
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "Błąd: klawisz {} już jest używany do {}"
 
-#: src/KeyDefPage.cxx:189
+#: src/KeyDefPage.cxx:187
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "Przypisano klawisz {} do {}"
 
-#: src/KeyDefPage.cxx:216
+#: src/KeyDefPage.cxx:214
 msgid "Add new key"
 msgstr "Dodaj nowy klawisz"
 
-#: src/KeyDefPage.cxx:234
+#: src/KeyDefPage.cxx:232
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Edytuj klawisze dla %s"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:369
 msgid "You have new key bindings"
 msgstr "Masz nowe wiązania klawiszy"
 
-#: src/KeyDefPage.cxx:373
+#: src/KeyDefPage.cxx:371
 msgid "Keybindings unchanged."
 msgstr "Wiązania klawiszy niezmienione."
 
-#: src/KeyDefPage.cxx:383
+#: src/KeyDefPage.cxx:381
 msgid "Unable to write configuration"
 msgstr "Nie mogę zapisać konfiguracji"
 
-#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
+#: src/KeyDefPage.cxx:390 src/KeyDefPage.cxx:399
 msgid "Error"
 msgstr "Błąd"
 
-#: src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:397
 #, c++-format
 msgid "Wrote {}"
 msgstr "Zapisano {}"
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:409
 msgid "===> Apply key bindings "
 msgstr "===> Zastosuj wiązania klawiszy "
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:411
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Zastosuj i Zapisz wiązania klawiszy  "
 
-#: src/KeyDefPage.cxx:449
+#: src/KeyDefPage.cxx:447
 msgid "Edit key bindings"
 msgstr "Edytuj wiązania klawiszy"
 
-#: src/KeyDefPage.cxx:530
+#: src/KeyDefPage.cxx:528
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Informacja: Zapomniałeś „Zastosować” swoje zmiany?"
 
-#: src/KeyDefPage.cxx:580
+#: src/KeyDefPage.cxx:578
 msgid "Keys"
 msgstr "Klawisze"
 

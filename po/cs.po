@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:59+0200\n"
+"POT-Creation-Date: 2024-09-11 10:00+0200\n"
 "PO-Revision-Date: 2020-02-03 11:50+0000\n"
 "Last-Translator: Miroslav Burdych <mirek.burdych@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -589,77 +589,77 @@ msgstr "Nápověda"
 msgid "Deleted"
 msgstr "Odstraněno"
 
-#: src/KeyDefPage.cxx:163
-#, c-format
-msgid "Enter new key for %s"
-msgstr "Vložte novou klávesu pro %s"
+#: src/KeyDefPage.cxx:161
+#, c++-format
+msgid "Enter new key for {}"
+msgstr "Vložte novou klávesu pro {}"
 
-#: src/KeyDefPage.cxx:168
+#: src/KeyDefPage.cxx:166
 msgid "Aborted"
 msgstr "Přerušeno"
 
-#: src/KeyDefPage.cxx:173
+#: src/KeyDefPage.cxx:171
 msgid "Ctrl-Space can't be used"
 msgstr ""
 
-#: src/KeyDefPage.cxx:179
+#: src/KeyDefPage.cxx:177
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "Chyba: klávesa {} je již použita pro {}"
 
-#: src/KeyDefPage.cxx:189
+#: src/KeyDefPage.cxx:187
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "{} přiřazeno k {}"
 
-#: src/KeyDefPage.cxx:216
+#: src/KeyDefPage.cxx:214
 msgid "Add new key"
 msgstr "Přidat novou klávesovou zkratku"
 
-#: src/KeyDefPage.cxx:234
+#: src/KeyDefPage.cxx:232
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Upravit klávesové zkratky pro %s"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:369
 msgid "You have new key bindings"
 msgstr "Nové klávesové zkratky"
 
-#: src/KeyDefPage.cxx:373
+#: src/KeyDefPage.cxx:371
 msgid "Keybindings unchanged."
 msgstr "Klávesové zkratky nezměněny"
 
-#: src/KeyDefPage.cxx:383
+#: src/KeyDefPage.cxx:381
 #, fuzzy
 msgid "Unable to write configuration"
 msgstr "Neúplné nastavení klávesových zkratek"
 
-#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
+#: src/KeyDefPage.cxx:390 src/KeyDefPage.cxx:399
 msgid "Error"
 msgstr "Chyba"
 
-#: src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:397
 #, c++-format
 msgid "Wrote {}"
 msgstr "Zapsat {}"
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:409
 msgid "===> Apply key bindings "
 msgstr "===> Použít klávesové zkratky "
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:411
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Použít & Uložit klávesové zkratky  "
 
-#: src/KeyDefPage.cxx:449
+#: src/KeyDefPage.cxx:447
 msgid "Edit key bindings"
 msgstr "Upravit klávesové zkratky"
 
-#: src/KeyDefPage.cxx:530
+#: src/KeyDefPage.cxx:528
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Poznámka: Zapomněl jste 'Uplatnit' změny?"
 
-#: src/KeyDefPage.cxx:580
+#: src/KeyDefPage.cxx:578
 msgid "Keys"
 msgstr ""
 

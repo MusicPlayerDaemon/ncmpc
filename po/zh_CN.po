@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:59+0200\n"
+"POT-Creation-Date: 2024-09-11 10:00+0200\n"
 "PO-Revision-Date: 2021-01-19 16:32+0000\n"
 "Last-Translator: Lilian Wang <li330wang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -580,76 +580,76 @@ msgstr "帮助"
 msgid "Deleted"
 msgstr "已删除"
 
-#: src/KeyDefPage.cxx:163
-#, c-format
-msgid "Enter new key for %s"
-msgstr "为 %s 输入新的按键"
+#: src/KeyDefPage.cxx:161
+#, c++-format
+msgid "Enter new key for {}"
+msgstr "为 {} 输入新的按键"
 
-#: src/KeyDefPage.cxx:168
+#: src/KeyDefPage.cxx:166
 msgid "Aborted"
 msgstr "已放弃"
 
-#: src/KeyDefPage.cxx:173
+#: src/KeyDefPage.cxx:171
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-空格键无法使用"
 
-#: src/KeyDefPage.cxx:179
+#: src/KeyDefPage.cxx:177
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "错误：{} 键已经绑定到 {}"
 
-#: src/KeyDefPage.cxx:189
+#: src/KeyDefPage.cxx:187
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "分配 {} 到 {}"
 
-#: src/KeyDefPage.cxx:216
+#: src/KeyDefPage.cxx:214
 msgid "Add new key"
 msgstr "添加新的键"
 
-#: src/KeyDefPage.cxx:234
+#: src/KeyDefPage.cxx:232
 #, c-format
 msgid "Edit keys for %s"
 msgstr "为 %s 编辑快捷键"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:369
 msgid "You have new key bindings"
 msgstr "你有新绑定的快捷键"
 
-#: src/KeyDefPage.cxx:373
+#: src/KeyDefPage.cxx:371
 msgid "Keybindings unchanged."
 msgstr "取消快捷键变更."
 
-#: src/KeyDefPage.cxx:383
+#: src/KeyDefPage.cxx:381
 msgid "Unable to write configuration"
 msgstr "无法保存配置"
 
-#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
+#: src/KeyDefPage.cxx:390 src/KeyDefPage.cxx:399
 msgid "Error"
 msgstr "错误"
 
-#: src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:397
 #, c++-format
 msgid "Wrote {}"
 msgstr "写入 {}"
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:409
 msgid "===> Apply key bindings "
 msgstr "===> 应用快捷键设置 "
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:411
 msgid "===> Apply & Save key bindings  "
 msgstr "===> 应用并保存快捷键设置  "
 
-#: src/KeyDefPage.cxx:449
+#: src/KeyDefPage.cxx:447
 msgid "Edit key bindings"
 msgstr "编辑快捷键设置"
 
-#: src/KeyDefPage.cxx:530
+#: src/KeyDefPage.cxx:528
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "提示: 你忘记了保存你的设置?"
 
-#: src/KeyDefPage.cxx:580
+#: src/KeyDefPage.cxx:578
 msgid "Keys"
 msgstr "快捷键"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 09:59+0200\n"
+"POT-Creation-Date: 2024-09-11 10:00+0200\n"
 "PO-Revision-Date: 2021-08-27 09:34+0000\n"
 "Last-Translator: Gediminas Murauskas <muziejusinfo@gmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/ncmpc/"
@@ -582,76 +582,76 @@ msgstr "Pagalba"
 msgid "Deleted"
 msgstr "Ištrinta"
 
-#: src/KeyDefPage.cxx:163
-#, c-format
-msgid "Enter new key for %s"
-msgstr "Įveskite naują %s klavišą"
+#: src/KeyDefPage.cxx:161
+#, c++-format
+msgid "Enter new key for {}"
+msgstr "Įveskite naują {} klavišą"
 
-#: src/KeyDefPage.cxx:168
+#: src/KeyDefPage.cxx:166
 msgid "Aborted"
 msgstr "Nutraukta"
 
-#: src/KeyDefPage.cxx:173
+#: src/KeyDefPage.cxx:171
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-Space negalima naudoti"
 
-#: src/KeyDefPage.cxx:179
+#: src/KeyDefPage.cxx:177
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "Klaida: klavišas {} jau naudojamas {}"
 
-#: src/KeyDefPage.cxx:189
+#: src/KeyDefPage.cxx:187
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "{} priskirta {}"
 
-#: src/KeyDefPage.cxx:216
+#: src/KeyDefPage.cxx:214
 msgid "Add new key"
 msgstr "Pridėti naują klavišą"
 
-#: src/KeyDefPage.cxx:234
+#: src/KeyDefPage.cxx:232
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Redaguoti %s klavišus"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:369
 msgid "You have new key bindings"
 msgstr "Turite naujus klavišų susiejimus"
 
-#: src/KeyDefPage.cxx:373
+#: src/KeyDefPage.cxx:371
 msgid "Keybindings unchanged."
 msgstr "Klavišų sąsajos nepakeistos."
 
-#: src/KeyDefPage.cxx:383
+#: src/KeyDefPage.cxx:381
 msgid "Unable to write configuration"
 msgstr "Nepavyksta įrašyti konfigūracijos"
 
-#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
+#: src/KeyDefPage.cxx:390 src/KeyDefPage.cxx:399
 msgid "Error"
 msgstr "Klaida"
 
-#: src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:397
 #, c++-format
 msgid "Wrote {}"
 msgstr "Parašė {}"
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:409
 msgid "===> Apply key bindings "
 msgstr "===> Taikyti klavišų susiejimus "
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:411
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Taikyti ir išsaugoti klavišų susiejimus  "
 
-#: src/KeyDefPage.cxx:449
+#: src/KeyDefPage.cxx:447
 msgid "Edit key bindings"
 msgstr "Redaguoti klavišų susiejimus"
 
-#: src/KeyDefPage.cxx:530
+#: src/KeyDefPage.cxx:528
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Pastaba: ar pamiršote „Taikyti“ pakeitimus?"
 
-#: src/KeyDefPage.cxx:580
+#: src/KeyDefPage.cxx:578
 msgid "Keys"
 msgstr "Klavišai"
 

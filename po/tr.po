@@ -557,8 +557,8 @@ msgstr "Silindi"
 
 #: src/KeyDefPage.cxx:177
 #, c-format
-msgid "Enter new key for %s"
-msgstr "%s için yeni tuş girin"
+msgid "Enter new key for {}"
+msgstr "{} için yeni tuş girin"
 
 #: src/KeyDefPage.cxx:187
 msgid "Ctrl-Space can't be used"

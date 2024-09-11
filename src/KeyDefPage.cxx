@@ -158,11 +158,9 @@ CommandKeysPage::OverwriteKey(int key_index)
 {
 	assert(key_index < MAX_COMMAND_KEYS);
 
-	char prompt[256];
-	snprintf(prompt, sizeof(prompt),
-		 _("Enter new key for %s"),
-		 get_key_command_name(Command(subcmd)));
-	const int key = screen_getch(screen, prompt);
+	const auto prompt = fmt::format(fmt::runtime(_("Enter new key for {}")),
+					get_key_command_name(Command(subcmd)));
+	const int key = screen_getch(screen, prompt.c_str());
 
 	if (key == ERR) {
 		Alert(_("Aborted"));
