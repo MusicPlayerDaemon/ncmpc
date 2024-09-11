@@ -233,11 +233,16 @@ QueuePage::OnSongChange(const struct mpd_status *status)
 
 #ifndef NCMPC_MINI
 static void
-add_dir(Completion &completion, const char *dir,
+add_dir(Completion &completion, std::string_view uri,
 	struct mpdclient &c)
 {
+	assert(uri.ends_with('/'));
+	/* strip the trailing slash (because MPD doesn't accept paths
+	   ending with a slash) */
+	uri.remove_suffix(1);
+
 	completion.clear();
-	gcmp_list_from_path(c, dir, completion, GCMP_TYPE_RFILE);
+	gcmp_list_from_path(c, std::string{uri}.c_str(), completion, GCMP_TYPE_RFILE);
 }
 
 class DatabaseCompletion final : public Completion {
@@ -266,7 +271,7 @@ DatabaseCompletion::Pre(std::string_view line) noexcept
 		const auto [it, inserted] = dir_list.emplace(line);
 		if (inserted)
 			/* add directory content to list */
-			add_dir(*this, it->c_str(), c);
+			add_dir(*this, line, c);
 	}
 }
 
@@ -281,7 +286,7 @@ DatabaseCompletion::Post(std::string_view line, Range range) noexcept
 		/* add directory content to list */
 		const auto [it, inserted] = dir_list.emplace(line);
 		if (inserted)
-			add_dir(*this, it->c_str(), c);
+			add_dir(*this, line, c);
 	}
 }
 
