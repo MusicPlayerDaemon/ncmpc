@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 "X-Launchpad-Export-Date: 2013-04-11 07:56+0000\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
@@ -442,7 +442,6 @@ msgid "Playlist"
 msgstr "Lista de canciones"
 
 #: src/EditPlaylistPage.cxx:299
-#, fuzzy
 msgid "Playlist Editor"
 msgstr "Editor de listas de reproducción"
 
