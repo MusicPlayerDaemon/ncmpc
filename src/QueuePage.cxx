@@ -241,7 +241,6 @@ add_dir(Completion &completion, std::string_view uri,
 	   ending with a slash) */
 	uri.remove_suffix(1);
 
-	completion.clear();
 	gcmp_list_from_path(c, std::string{uri}.c_str(), completion, GCMP_TYPE_RFILE);
 }
 
