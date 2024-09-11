@@ -12,7 +12,7 @@ struct UiOptions {
 	bool find_show_last_pattern = false;
 	bool list_wrap = false;
 	bool wide_cursor = true;
-	bool hardware_cursor;
+	bool hardware_cursor = false;
 
 #ifdef ENABLE_COLORS
 	bool enable_colors = true;
@@ -21,7 +21,7 @@ struct UiOptions {
 #endif
 
 	bool audible_bell = true;
-	bool visible_bell;
+	bool visible_bell = false;
 	bool bell_on_wrap = true;
 #ifdef NCMPC_MINI
 	static constexpr bool jump_prefix_only = true;

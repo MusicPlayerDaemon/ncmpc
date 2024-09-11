@@ -37,13 +37,13 @@ struct Options {
 	std::vector<enum mpd_tag_type> library_page_tags{MPD_TAG_ARTIST, MPD_TAG_ALBUM};
 #endif
 
-	std::chrono::steady_clock::duration hide_cursor;
+	std::chrono::steady_clock::duration hide_cursor{0};
 	std::chrono::steady_clock::duration status_message_time = std::chrono::seconds(3);
 
-	int port;
+	int port = 0;
 	int timeout_ms = 0;
 	int crossfade_time = DEFAULT_CROSSFADE_TIME;
-	int search_mode;
+	int search_mode = 0;
 	int seek_time = 1;
 
 #ifdef ENABLE_CHAT_SCREEN
@@ -57,17 +57,17 @@ struct Options {
 	bool lyrics_show_plugin = false;
 #endif
 
-	bool auto_center;
+	bool auto_center = false;
 
 #ifndef NCMPC_MINI
-	bool enable_xterm_title;
+	bool enable_xterm_title = false;
 #endif
 #ifdef HAVE_GETMOUSE
-	bool enable_mouse;
+	bool enable_mouse = false;
 #endif
 #ifndef NCMPC_MINI
 	bool scroll = DEFAULT_SCROLL;
-	bool visible_bitrate;
+	bool visible_bitrate = false;
 	bool welcome_screen_list = true;
 	bool second_column = true;
 #endif
