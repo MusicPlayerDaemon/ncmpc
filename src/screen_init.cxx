@@ -13,6 +13,16 @@
 static const unsigned SCREEN_MIN_COLS = 14;
 static const unsigned SCREEN_MIN_ROWS = 5;
 
+[[gnu::pure]]
+static Size
+GetCorrectedScreenSize() noexcept
+{
+	return {
+		std::max<unsigned>(COLS, SCREEN_MIN_COLS),
+		std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
+	};
+}
+
 inline
 ScreenManager::ScreenManager(EventLoop &event_loop, const Layout &layout) noexcept
 	:paint_event(event_loop, BIND_THIS_METHOD(Paint)),
@@ -38,10 +48,7 @@ ScreenManager::ScreenManager(EventLoop &event_loop, const Layout &layout) noexce
 
 ScreenManager::ScreenManager(EventLoop &event_loop) noexcept
 	:ScreenManager(event_loop,
-		       Layout{{
-			       std::max<unsigned>(COLS, SCREEN_MIN_COLS),
-			       std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
-		       }}) {}
+		       Layout{GetCorrectedScreenSize()}) {}
 
 ScreenManager::~ScreenManager() noexcept
 {
@@ -61,10 +68,7 @@ ScreenManager::Exit() noexcept
 void
 ScreenManager::OnResize() noexcept
 {
-	const Layout layout{{
-		std::max<unsigned>(COLS, SCREEN_MIN_COLS),
-		std::max<unsigned>(LINES, SCREEN_MIN_ROWS),
-	}};
+	const Layout layout{GetCorrectedScreenSize()};
 
 #ifdef PDCURSES
 	resize_term(layout.size.height, layout.size.width);
