@@ -20,6 +20,15 @@ public:
 
 	bool Set(unsigned current, unsigned max) noexcept;
 
+	int ValueAtX(int x) const noexcept {
+		if (max == 0 || x < 0)
+			return -1;
+
+		const unsigned ux = static_cast<unsigned>(x);
+		const unsigned window_width = window.GetWidth();
+		return ux * max / window_width;
+	}
+
 	void Paint() const noexcept;
 
 private:

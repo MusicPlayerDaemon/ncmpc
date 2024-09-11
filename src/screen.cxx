@@ -305,6 +305,33 @@ ScreenManager::OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 
 #ifdef HAVE_GETMOUSE
 
+inline void
+ScreenManager::OnProgressBarMouse(struct mpdclient &c, DelayedSeek &seek,
+				  int x, mmask_t bstate)
+{
+	if (bstate & BUTTON1_CLICKED) {
+		if (!c.IsReady() || !c.playing_or_paused)
+			return;
+
+		const int time = progress_bar.ValueAtX(x);
+		if (time < 0)
+			return;
+
+		const int id = c.GetCurrentSongId();
+		if (id < 0)
+			return;
+
+		seek.Cancel();
+
+		struct mpd_connection *connection = c.GetConnection();
+		if (connection == nullptr)
+			return;
+
+		if (!mpd_run_seek_id(connection, id, time))
+			c.HandleError();
+	}
+}
+
 void
 ScreenManager::OnMouse(struct mpdclient &c, DelayedSeek &seek,
 		       Point p, mmask_t bstate)
@@ -316,6 +343,16 @@ ScreenManager::OnMouse(struct mpdclient &c, DelayedSeek &seek,
 		}
 
 		p.y -= title_height;
+	}
+
+	if (int main_height = main_window.GetSize().height; p.y >= main_height) {
+		p.y -= main_height;
+
+		if (p.y == 0) {
+			OnProgressBarMouse(c, seek, p.x, bstate);
+		}
+
+		return;
 	}
 
 	if (GetCurrentPage().OnMouse(c, p, bstate))
