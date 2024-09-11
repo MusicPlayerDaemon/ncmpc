@@ -42,6 +42,9 @@ class TextInputDialog final : public ModalDialog {
 	/** is the input masked, i.e. characters displayed as '*'? */
 	const bool masked;
 
+	/** @see SetFragile() */
+	bool fragile = false;
+
 	bool ready = false;
 
 	/** the byte position of the cursor */
@@ -91,6 +94,15 @@ public:
 
 	~TextInputDialog() noexcept {
 		Hide();
+	}
+
+	/**
+	 * Enable "fragile" mode: all unknown keys cancel the dialog
+	 * and OnKey() returns false (i.e. the key can be handled by
+	 * somebody else).
+	 */
+	void SetFragile() noexcept {
+		fragile = true;
 	}
 
 	void SetModifiedCallback(ModifiedCallback &&_modified_callback) noexcept {

@@ -224,8 +224,11 @@ TextInputDialog::OnKey(const Window window, int key)
 	}
 
 	/* check if key is a function key */
-	if (IsFKey(key))
+	if (IsFKey(key)) {
+		if (fragile)
+			Cancel();
 		return false;
+	}
 
 	if (IsBackspace(key)) {
 		if (cursor > 0) { /* - 1 from buf[n+1] to buf   */
@@ -249,8 +252,15 @@ TextInputDialog::OnKey(const Window window, int key)
 				Bell();
 
 			completion->Post(value, r.range);
+			return true;
 		}
 #endif
+
+		if (fragile) {
+			Cancel();
+			return false;
+		}
+
 		break;
 
 	case KEY_CTL('C'):
@@ -309,6 +319,11 @@ TextInputDialog::OnKey(const Window window, int key)
 		break;
 	case KEY_UP:
 	case KEY_CTL('P'):
+		if (fragile) {
+			Cancel();
+			return false;
+		}
+
 		/* get previous history entry */
 		if (history && hlist != history->begin()) {
 			if (hlist == hcurrent)
@@ -323,6 +338,11 @@ TextInputDialog::OnKey(const Window window, int key)
 		break;
 	case KEY_DOWN:
 	case KEY_CTL('N'):
+		if (fragile) {
+			Cancel();
+			return false;
+		}
+
 		/* get next history entry */
 		if (history && std::next(hlist) != history->end()) {
 			/* get next line */
@@ -340,6 +360,10 @@ TextInputDialog::OnKey(const Window window, int key)
 	default:
 		if (key >= 32)
 			InsertByte(window, key);
+		else  if (fragile) {
+			Cancel();
+			return false;
+		}
 	}
 
 	return true;
