@@ -23,6 +23,38 @@ GetCorrectedScreenSize() noexcept
 	};
 }
 
+struct ScreenManager::Layout {
+	Size size;
+
+	static constexpr Point title{0, 0};
+	static constexpr Point main{0, (int)TitleBar::GetHeight()};
+	static constexpr int progress_x = 0;
+	static constexpr int status_x = 0;
+
+	constexpr explicit Layout(Size _size) noexcept
+		:size(_size) {}
+
+	constexpr unsigned GetMainRows() const noexcept {
+		return GetProgress().y - main.y;
+	}
+
+	constexpr Size GetMainSize() const noexcept {
+		return {size.width, GetMainRows()};
+	}
+
+	constexpr Point GetProgress() const noexcept {
+		return {progress_x, GetStatus().y - 1};
+	}
+
+	constexpr Point GetStatus() const noexcept {
+		return {status_x, (int)size.height - 1};
+	}
+
+	constexpr Size GetStatusSize() const noexcept {
+		return {size.width, 1U};
+	}
+};
+
 inline
 ScreenManager::ScreenManager(EventLoop &event_loop, const Layout &layout) noexcept
 	:paint_event(event_loop, BIND_THIS_METHOD(Paint)),
