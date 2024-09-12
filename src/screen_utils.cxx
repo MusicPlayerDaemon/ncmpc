@@ -41,7 +41,7 @@ screen_display_completion_list(ScreenManager &screen,
 		offset = 0;
 	}
 
-	SelectStyle(window, Style::STATUS_ALERT);
+	SelectStyle(window, Style::LIST);
 
 	auto i = std::next(range.begin(), offset);
 	for (unsigned y = 0; y < height; ++i) {
@@ -75,5 +75,4 @@ screen_display_completion_list(ScreenManager &screen,
 	window.ClearToBottom();
 
 	window.Refresh();
-	SelectStyle(window, Style::LIST);
 }
