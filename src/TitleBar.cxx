@@ -82,9 +82,9 @@ TitleBar::Paint(const PageMeta &current_page_meta,
 	char buf[32];
 	std::string_view volume_string;
 	if (volume < 0) {
-		volume_string = FmtTruncate(buf, "{} {}"sv, _("Volume"), _("n/a"));
+		volume_string = FmtTruncate(buf, " {} {}"sv, _("Volume"), _("n/a"));
 	} else {
-		volume_string = FmtTruncate(buf, "{} {}"sv, _("Volume"), volume);
+		volume_string = FmtTruncate(buf, " {} {}"sv, _("Volume"), volume);
 	}
 
 	SelectStyle(window, Style::TITLE);
