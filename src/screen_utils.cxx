@@ -7,30 +7,6 @@
 
 using std::string_view_literals::operator""sv;
 
-static std::string_view
-CompletionDisplayString(std::string_view value) noexcept
-{
-	if (value.ends_with('/')) {
-		/* if the string ends with a slash (directory URIs
-		   usually do), backtrack to the preceding slash (if
-		   any) */
-
-		if (value.size() > 2) {
-			if (const auto slash = value.rfind('/', value.size() - 2);
-			    slash != value.npos)
-				value = value.substr(slash + 1);
-		}
-
-		return value;
-	} else {
-		if (const auto slash = value.rfind('/');
-		    slash != value.npos)
-			value = value.substr(slash);
-
-		return value;
-	}
-}
-
 void
 screen_display_completion_list(ScreenManager &screen,
 			       std::string_view prefix,
@@ -78,7 +54,7 @@ screen_display_completion_list(ScreenManager &screen,
 
 		s = s.substr(prefix.size());
 
-		window.String(CompletionDisplayString(s));
+		window.String(s);
 		window.ClearToEol();
 	}
 
