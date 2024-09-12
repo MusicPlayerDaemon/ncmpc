@@ -1,4 +1,4 @@
-ncmpc 0.50 - not yet released
+ncmpc 0.50 - (2024-09-12)
 * build: require Meson 0.60
 * require libfmt 9
 * draw progress bar as Unicode double line
