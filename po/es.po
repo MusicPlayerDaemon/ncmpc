@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:45+0200\n"
+"POT-Creation-Date: 2024-09-12 11:49+0200\n"
 "PO-Revision-Date: 2024-07-24 13:09+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/ncmpc/"
@@ -1113,9 +1113,8 @@ msgid "Volume n/a"
 msgstr "Volumen n/a"
 
 #: src/TitleBar.cxx:84
-#, c-format
-msgid "Volume %d%%"
-msgstr "Volumen %d%%"
+msgid "Volume"
+msgstr "Volumen"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

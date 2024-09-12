@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:45+0200\n"
+"POT-Creation-Date: 2024-09-12 11:49+0200\n"
 "PO-Revision-Date: 2021-08-27 09:34+0000\n"
 "Last-Translator: Gediminas Murauskas <muziejusinfo@gmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/ncmpc/"
@@ -1103,9 +1103,8 @@ msgid "Volume n/a"
 msgstr "Garsas n/a"
 
 #: src/TitleBar.cxx:84
-#, c-format
-msgid "Volume %d%%"
-msgstr "Garsas %d%%"
+msgid "Volume"
+msgstr "Garsas"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:45+0200\n"
+"POT-Creation-Date: 2024-09-12 11:49+0200\n"
 "PO-Revision-Date: 2009-09-24 10:26+0200\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
@@ -1119,9 +1119,8 @@ msgid "Volume n/a"
 msgstr "Volumen: n/a"
 
 #: src/TitleBar.cxx:84
-#, c-format
-msgid "Volume %d%%"
-msgstr "Volumen: %d%%"
+msgid "Volume"
+msgstr "Volumen"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

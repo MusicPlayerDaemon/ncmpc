@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:45+0200\n"
+"POT-Creation-Date: 2024-09-12 11:49+0200\n"
 "PO-Revision-Date: 2021-01-19 16:32+0000\n"
 "Last-Translator: Lilian Wang <li330wang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -1106,9 +1106,8 @@ msgid "Volume n/a"
 msgstr "音量 n/a"
 
 #: src/TitleBar.cxx:84
-#, c-format
-msgid "Volume %d%%"
-msgstr "音量 %d%%"
+msgid "Volume"
+msgstr "音量"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

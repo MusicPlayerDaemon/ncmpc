@@ -81,7 +81,7 @@ TitleBar::Paint(const PageMeta &current_page_meta,
 	if (volume < 0)
 		volume_string = _("Volume n/a");
 	else {
-		snprintf(buf, sizeof(buf), _("Volume %d%%"), volume);
+		snprintf(buf, sizeof(buf), "%s %d%%", _("Volume"), volume);
 		volume_string = buf;
 	}
 

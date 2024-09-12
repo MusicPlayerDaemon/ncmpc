@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:45+0200\n"
+"POT-Creation-Date: 2024-09-12 11:49+0200\n"
 "PO-Revision-Date: 2020-12-17 04:29+0000\n"
 "Last-Translator: Takuro Onoue <kusanaginoturugi@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/ncmpc/"
@@ -1099,8 +1099,7 @@ msgid "Volume n/a"
 msgstr ""
 
 #: src/TitleBar.cxx:84
-#, c-format
-msgid "Volume %d%%"
+msgid "Volume"
 msgstr ""
 
 #: src/page/FindSupport.cxx:15

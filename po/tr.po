@@ -1212,5 +1212,5 @@ msgstr "Ses yok"
 
 #: src/TitleBar.cxx:103
 #, c-format
-msgid "Volume %d%%"
-msgstr "Ses %d%%"
+msgid "Volume"
+msgstr "Ses"
