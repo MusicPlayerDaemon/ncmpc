@@ -44,7 +44,7 @@ screen_display_completion_list(ScreenManager &screen,
 	SelectStyle(window, Style::STATUS_ALERT);
 
 	auto i = std::next(range.begin(), offset);
-	for (unsigned y = 0; y < height; ++y, ++i) {
+	for (unsigned y = 0; y < height; ++i) {
 		window.MoveCursor({0, (int)y});
 		if (i == range.end())
 			break;
@@ -61,8 +61,15 @@ screen_display_completion_list(ScreenManager &screen,
                            directory" */
 			s = "."sv;
 
+		if (const auto slash = s.find('/');
+		    slash != s.npos && slash + 1 < s.size())
+			/* this item is from a deeper directory level:
+			   skip it */
+			continue;
+
 		window.String(s);
 		window.ClearToEol();
+		++y;
 	}
 
 	window.ClearToBottom();
