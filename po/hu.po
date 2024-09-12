@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 10:00+0200\n"
+"POT-Creation-Date: 2024-09-12 11:45+0200\n"
 "PO-Revision-Date: 2009-09-24 21:45+0000\n"
 "Last-Translator: Kiszel Kristóf <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -392,7 +392,7 @@ msgstr "Hibás szín megnevezés"
 msgid "Incomplete color definition"
 msgstr "Hiányos szín megadás"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:219
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:221
 msgid "Invalid number"
 msgstr "Érvénytelen szám"
 
@@ -429,7 +429,7 @@ msgstr ""
 msgid "Invalid column fraction width"
 msgstr ""
 
-#: src/ConfigParser.cxx:753
+#: src/ConfigParser.cxx:755
 msgid "Unknown configuration parameter"
 msgstr "Ismeretlen konfigurációs paraméter"
 
@@ -449,32 +449,32 @@ msgstr "Lejátszólista törölve"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:236
+#: src/FileBrowserPage.cxx:235
 msgid "Deleting this item is not possible"
 msgstr "Ez az elem nem törölhető"
 
-#: src/FileBrowserPage.cxx:244
+#: src/FileBrowserPage.cxx:243
 #, fuzzy, c-format
 msgid "Delete playlist %s?"
 msgstr "Lejátszólista törlése"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:263
+#: src/FileBrowserPage.cxx:262
 msgid "Playlist deleted"
 msgstr "Lejátszólista törölve"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:290 src/FileBrowserPage.cxx:361
+#: src/FileBrowserPage.cxx:289 src/FileBrowserPage.cxx:360
 msgid "Browse"
 msgstr "Tallózás"
 
-#: src/FileListPage.cxx:108
+#: src/FileListPage.cxx:107
 #, fuzzy, c++-format
 msgid "Loading playlist '{}'"
 msgstr "{} lejátszólista betöltése..."
 
-#: src/FileListPage.cxx:149 src/FileListPage.cxx:238 src/FileListPage.cxx:258
+#: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
 #: src/TagListPage.cxx:183
 #, fuzzy, c++-format
 msgid "Adding '{}' to queue"
@@ -580,81 +580,81 @@ msgstr "Alkalmaz és menti a változásokat"
 msgid "Help"
 msgstr "Súgó"
 
-#: src/KeyDefPage.cxx:147
+#: src/KeyDefPage.cxx:148
 msgid "Deleted"
 msgstr "Törölve"
 
-#: src/KeyDefPage.cxx:161
+#: src/KeyDefPage.cxx:162
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "Nyomd meg az új gombot a következőhöz: {}"
 
-#: src/KeyDefPage.cxx:166
+#: src/KeyDefPage.cxx:167
 msgid "Aborted"
 msgstr "Megszakítva"
 
-#: src/KeyDefPage.cxx:171
+#: src/KeyDefPage.cxx:172
 msgid "Ctrl-Space can't be used"
 msgstr ""
 
-#: src/KeyDefPage.cxx:177
+#: src/KeyDefPage.cxx:178
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "Hiba: {} gombot már a következő funkció használja: {}"
 
-#: src/KeyDefPage.cxx:187
+#: src/KeyDefPage.cxx:188
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "{} hozzárendelve a következőhöz: {}"
 
-#: src/KeyDefPage.cxx:214
+#: src/KeyDefPage.cxx:215
 msgid "Add new key"
 msgstr "Új gomb hozzáadása"
 
-#: src/KeyDefPage.cxx:232
+#: src/KeyDefPage.cxx:233
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Gombok módosítása a következőhöz: %s"
 
-#: src/KeyDefPage.cxx:369
+#: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
 msgstr "Új billentyű beállításaid vannak"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:372
 msgid "Keybindings unchanged."
 msgstr "A billentyű beállítások változatlanok."
 
-#: src/KeyDefPage.cxx:381
+#: src/KeyDefPage.cxx:382
 #, fuzzy
 msgid "Unable to write configuration"
 msgstr "Hiányos gyorsbillentyű definíció"
 
-#: src/KeyDefPage.cxx:390 src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:391 src/KeyDefPage.cxx:400
 msgid "Error"
 msgstr "Hiba"
 
-#: src/KeyDefPage.cxx:397
+#: src/KeyDefPage.cxx:398
 #, c++-format
 msgid "Wrote {}"
 msgstr "{} elmentve"
 
-#: src/KeyDefPage.cxx:409
+#: src/KeyDefPage.cxx:410
 msgid "===> Apply key bindings "
 msgstr "===> Billentyű beállítások használata "
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:412
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Alkalmaz és Menti a billentyű beállításokat  "
 
-#: src/KeyDefPage.cxx:447
+#: src/KeyDefPage.cxx:448
 msgid "Edit key bindings"
 msgstr "Billentyűk változtatása"
 
-#: src/KeyDefPage.cxx:528
+#: src/KeyDefPage.cxx:529
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Észrevétel: nem felejtetted el érvényesíteni a változtatásaidat?"
 
-#: src/KeyDefPage.cxx:578
+#: src/KeyDefPage.cxx:579
 msgid "Keys"
 msgstr ""
 
@@ -743,71 +743,71 @@ msgstr ""
 msgid "Artists"
 msgstr "Előadó"
 
-#: src/LibraryPage.cxx:36 src/LibraryPage.cxx:188
+#: src/LibraryPage.cxx:36 src/LibraryPage.cxx:187
 #, fuzzy
 msgid "Albums"
 msgstr "Album"
 
-#: src/LibraryPage.cxx:134
+#: src/LibraryPage.cxx:133
 msgid "All"
 msgstr ""
 
-#: src/LibraryPage.cxx:210
+#: src/LibraryPage.cxx:209
 msgid "Songs"
 msgstr ""
 
-#: src/LibraryPage.cxx:336
+#: src/LibraryPage.cxx:335
 msgid "Library"
 msgstr ""
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:199
+#: src/LyricsPage.cxx:203
 msgid "No lyrics"
 msgstr "Nincs dalszöveg"
 
-#: src/LyricsPage.cxx:213
+#: src/LyricsPage.cxx:217
 #, c++-format
 msgid "Lyrics timeout occurred after {} seconds"
 msgstr ""
 
-#: src/LyricsPage.cxx:310 src/LyricsPage.cxx:318 src/LyricsPage.cxx:327
-#: src/LyricsPage.cxx:437
+#: src/LyricsPage.cxx:314 src/LyricsPage.cxx:322 src/LyricsPage.cxx:331
+#: src/LyricsPage.cxx:450
 msgid "Lyrics"
 msgstr "Dalszövegek"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:314
+#: src/LyricsPage.cxx:318
 msgid "loading..."
 msgstr "betöltés..."
 
-#: src/LyricsPage.cxx:335
+#: src/LyricsPage.cxx:339
 msgid "Lyrics cache is unavailable"
 msgstr ""
 
-#: src/LyricsPage.cxx:340
+#: src/LyricsPage.cxx:344
 msgid "Editor not configured"
 msgstr ""
 
-#: src/LyricsPage.cxx:356 src/LyricsPage.cxx:378
+#: src/LyricsPage.cxx:374 src/LyricsPage.cxx:391
 msgid "Can't start editor"
 msgstr ""
 
-#: src/LyricsPage.cxx:381 src/LyricsPage.cxx:385
+#: src/LyricsPage.cxx:394 src/LyricsPage.cxx:398
 msgid "Editor exited unexpectedly"
 msgstr ""
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:407
+#: src/LyricsPage.cxx:420
 msgid "Lyrics saved"
 msgstr "Dalszövegek elmentve"
 
-#: src/LyricsPage.cxx:413
+#: src/LyricsPage.cxx:426
 msgid "Lyrics deleted"
 msgstr ""
 
-#: src/LyricsPage.cxx:414
+#: src/LyricsPage.cxx:427
 msgid "No saved lyrics"
 msgstr ""
 
@@ -862,20 +862,20 @@ msgstr "előadó"
 msgid "Create new partition"
 msgstr ""
 
-#: src/QueuePage.cxx:306
+#: src/QueuePage.cxx:309
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: src/QueuePage.cxx:371 src/QueuePage.cxx:659
+#: src/QueuePage.cxx:374 src/QueuePage.cxx:660
 msgid "Queue"
 msgstr ""
 
-#: src/QueuePage.cxx:373
+#: src/QueuePage.cxx:376
 #, c-format
 msgid "Queue on %s"
 msgstr ""
 
-#: src/QueuePage.cxx:611 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:62
 msgid "Shuffled queue"
 msgstr ""
 
@@ -916,53 +916,57 @@ msgid "performer"
 msgstr "előadó"
 
 #: src/SearchPage.cxx:47
+msgid "label"
+msgstr ""
+
+#: src/SearchPage.cxx:48
 msgid "comment"
 msgstr "megjegyzés"
 
-#: src/SearchPage.cxx:55
+#: src/SearchPage.cxx:56
 msgid "file"
 msgstr "fájl"
 
-#: src/SearchPage.cxx:75 src/SongPage.cxx:51
+#: src/SearchPage.cxx:76 src/SongPage.cxx:51
 msgid "Title"
 msgstr "Cím"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:50
+#: src/SearchPage.cxx:77 src/SongPage.cxx:50
 msgid "Artist"
 msgstr "Előadó"
 
-#: src/SearchPage.cxx:77 src/SongPage.cxx:52
+#: src/SearchPage.cxx:78 src/SongPage.cxx:52
 msgid "Album"
 msgstr "Album"
 
-#: src/SearchPage.cxx:78
+#: src/SearchPage.cxx:79
 msgid "Filename"
 msgstr "Fájlnév"
 
-#: src/SearchPage.cxx:79
+#: src/SearchPage.cxx:80
 msgid "Artist + Title"
 msgstr "Előadó és Cím"
 
-#: src/SearchPage.cxx:260 src/SearchPage.cxx:264
+#: src/SearchPage.cxx:262 src/SearchPage.cxx:266
 msgid "Unrecognized suffix"
 msgstr ""
 
-#: src/SearchPage.cxx:310
+#: src/SearchPage.cxx:312
 #, c-format
 msgid "Bad search tag %s"
 msgstr "Hibás keresési elem %s"
 
-#: src/SearchPage.cxx:324
+#: src/SearchPage.cxx:326
 #, c-format
 msgid "No argument for search tag %s"
 msgstr "Nincs argumentuma a(z) %s keresési elemnek"
 
-#: src/SearchPage.cxx:418 src/SearchPage.cxx:451 src/SearchPage.cxx:454
-#: src/SearchPage.cxx:458 src/SearchPage.cxx:515
+#: src/SearchPage.cxx:420 src/SearchPage.cxx:453 src/SearchPage.cxx:456
+#: src/SearchPage.cxx:460 src/SearchPage.cxx:517
 msgid "Search"
 msgstr "Keresés"
 
-#: src/SearchPage.cxx:478
+#: src/SearchPage.cxx:480
 msgid "Search mode"
 msgstr "Keresési mód"
 
@@ -1007,72 +1011,76 @@ msgstr "Dátum"
 msgid "Genre"
 msgstr "Műfaj"
 
-#: src/SongPage.cxx:68
+#: src/SongPage.cxx:69
+msgid "Label"
+msgstr ""
+
+#: src/SongPage.cxx:71
 msgid "Comment"
 msgstr "Megjegyzés"
 
-#: src/SongPage.cxx:69
+#: src/SongPage.cxx:72
 msgid "Path"
 msgstr "Elérési út"
 
-#: src/SongPage.cxx:70
+#: src/SongPage.cxx:73
 msgid "Bitrate"
 msgstr "Bitráta"
 
-#: src/SongPage.cxx:71
+#: src/SongPage.cxx:74
 msgid "Format"
 msgstr ""
 
-#: src/SongPage.cxx:88
+#: src/SongPage.cxx:91
 msgid "Number of artists"
 msgstr "Előadók száma"
 
-#: src/SongPage.cxx:89
+#: src/SongPage.cxx:92
 msgid "Number of albums"
 msgstr "Albumok száma"
 
-#: src/SongPage.cxx:90
+#: src/SongPage.cxx:93
 msgid "Number of songs"
 msgstr "Zenék száma"
 
-#: src/SongPage.cxx:91
+#: src/SongPage.cxx:94
 msgid "Uptime"
 msgstr "Üzemidő"
 
-#: src/SongPage.cxx:92
+#: src/SongPage.cxx:95
 msgid "Most recent db update"
 msgstr "Legutóbbi adatbázis frissítés"
 
-#: src/SongPage.cxx:93
+#: src/SongPage.cxx:96
 msgid "Playtime"
 msgstr "Lejátszási idő"
 
-#: src/SongPage.cxx:94
+#: src/SongPage.cxx:97
 msgid "DB playtime"
 msgstr "Teljes adatbázis lejátszási ideje"
 
-#: src/SongPage.cxx:204
+#: src/SongPage.cxx:207
 msgid "Song viewer"
 msgstr "Szám néző"
 
-#: src/SongPage.cxx:360
+#: src/SongPage.cxx:364
 msgid "MPD statistics"
 msgstr "MPD statisztika"
 
-#: src/SongPage.cxx:435
+#: src/SongPage.cxx:439
 msgid "Selected song"
 msgstr "Kiválasztott zene"
 
-#: src/SongPage.cxx:445
+#: src/SongPage.cxx:449
 msgid "Currently playing song"
 msgstr "Jelenlegi zene"
 
-#: src/SongPage.cxx:452
+#: src/SongPage.cxx:456
 #, c++-format
 msgid "{} kbps"
 msgstr "{} kbps"
 
-#: src/SongPage.cxx:493
+#: src/SongPage.cxx:497
 msgid "Song"
 msgstr ""
 
@@ -1111,19 +1119,19 @@ msgstr "Hangerő ismeretlen"
 msgid "Volume %d%%"
 msgstr "Hangerő %d%%"
 
-#: src/page/FindSupport.cxx:22
+#: src/page/FindSupport.cxx:15
 msgid "Find"
 msgstr "Keresés"
 
-#: src/page/FindSupport.cxx:23
+#: src/page/FindSupport.cxx:16
 msgid "Find backward"
 msgstr "Keresés visszafelé"
 
-#: src/page/FindSupport.cxx:24
+#: src/page/FindSupport.cxx:17
 msgid "Jump"
 msgstr "Ugrás"
 
-#: src/page/FindSupport.cxx:51
+#: src/page/FindSupport.cxx:44
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "'%s' nem található"
@@ -1147,70 +1155,70 @@ msgstr "Cserélni a következőt: %s [%s/%s]? "
 msgid "Saved {}"
 msgstr "{} elmentve"
 
-#: src/screen.cxx:153
+#: src/screen.cxx:151
 msgid "Repeat mode is on"
 msgstr "Ismétlő mód be"
 
-#: src/screen.cxx:154
+#: src/screen.cxx:152
 msgid "Repeat mode is off"
 msgstr "Ismétlő mód ki"
 
-#: src/screen.cxx:158
+#: src/screen.cxx:156
 msgid "Random mode is on"
 msgstr "Véletlen mód be"
 
-#: src/screen.cxx:159
+#: src/screen.cxx:157
 msgid "Random mode is off"
 msgstr "Véletlen mód ki"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:166
+#: src/screen.cxx:164
 msgid "Single mode is on"
 msgstr "Egyszeri lejátszás mód be"
 
-#: src/screen.cxx:167
+#: src/screen.cxx:165
 msgid "Single mode is off"
 msgstr "Egyszeri lejátszás mód ki"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:174
+#: src/screen.cxx:172
 msgid "Consume mode is on"
 msgstr "Fogyasztó mód be"
 
-#: src/screen.cxx:175
+#: src/screen.cxx:173
 msgid "Consume mode is off"
 msgstr "Fogyasztó mód ki"
 
-#: src/screen.cxx:178
+#: src/screen.cxx:176
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "Egymásba mosás {} másodperc"
 
-#: src/screen.cxx:190
+#: src/screen.cxx:188
 msgid "Database updated"
 msgstr "Adatbázis frissítve"
 
-#: src/screen.cxx:234
+#: src/screen.cxx:233
 msgid "Find mode: Wrapped"
 msgstr "Keresési mód: újrakezdő"
 
-#: src/screen.cxx:235
+#: src/screen.cxx:234
 msgid "Find mode: Normal"
 msgstr "Keresési mód: normál"
 
-#: src/screen.cxx:241
+#: src/screen.cxx:240
 msgid "Auto center mode: On"
 msgstr "Középre igazítás bekapcsolva"
 
-#: src/screen.cxx:242
+#: src/screen.cxx:241
 msgid "Auto center mode: Off"
 msgstr "Középre igazítás kikapcsolva"
 
-#: src/screen.cxx:343
+#: src/screen.cxx:386
 msgid "Password"
 msgstr "Jelszó"
 

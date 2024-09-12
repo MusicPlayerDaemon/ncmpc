@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-11 10:00+0200\n"
+"POT-Creation-Date: 2024-09-12 11:45+0200\n"
 "PO-Revision-Date: 2021-03-29 23:26+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/ncmpc/"
@@ -391,7 +391,7 @@ msgstr "Nevalida kolornomo"
 msgid "Incomplete color definition"
 msgstr "Nekompleta kolordifino"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:219
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:221
 msgid "Invalid number"
 msgstr "Nevalida nombro"
 
@@ -427,7 +427,7 @@ msgstr ""
 msgid "Invalid column fraction width"
 msgstr ""
 
-#: src/ConfigParser.cxx:753
+#: src/ConfigParser.cxx:755
 msgid "Unknown configuration parameter"
 msgstr "Nekonata agorda parametro"
 
@@ -448,32 +448,32 @@ msgstr "Forviŝiĝis ludlisto"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:236
+#: src/FileBrowserPage.cxx:235
 msgid "Deleting this item is not possible"
 msgstr "Ne eblas forviŝi ĉi tiun eron"
 
-#: src/FileBrowserPage.cxx:244
+#: src/FileBrowserPage.cxx:243
 #, c-format
 msgid "Delete playlist %s?"
 msgstr "Ĉu forviŝi ludliston %s?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:263
+#: src/FileBrowserPage.cxx:262
 msgid "Playlist deleted"
 msgstr "Forviŝiĝis ludlisto"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:290 src/FileBrowserPage.cxx:361
+#: src/FileBrowserPage.cxx:289 src/FileBrowserPage.cxx:360
 msgid "Browse"
 msgstr "Foliumi"
 
-#: src/FileListPage.cxx:108
+#: src/FileListPage.cxx:107
 #, c++-format
 msgid "Loading playlist '{}'"
 msgstr "Ŝargante ludliston '{}'"
 
-#: src/FileListPage.cxx:149 src/FileListPage.cxx:238 src/FileListPage.cxx:258
+#: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
 #: src/TagListPage.cxx:183
 #, c++-format
 msgid "Adding '{}' to queue"
@@ -577,80 +577,80 @@ msgstr "Efektivigi kaj konservi ŝanĝojn"
 msgid "Help"
 msgstr "Helpo"
 
-#: src/KeyDefPage.cxx:147
+#: src/KeyDefPage.cxx:148
 msgid "Deleted"
 msgstr "Forviŝiĝis"
 
-#: src/KeyDefPage.cxx:161
+#: src/KeyDefPage.cxx:162
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "Premu novan klavon por {}"
 
-#: src/KeyDefPage.cxx:166
+#: src/KeyDefPage.cxx:167
 msgid "Aborted"
 msgstr "Nuligita"
 
-#: src/KeyDefPage.cxx:171
+#: src/KeyDefPage.cxx:172
 msgid "Ctrl-Space can't be used"
 msgstr "Stir-Spaceto ne uzeblas"
 
-#: src/KeyDefPage.cxx:177
+#: src/KeyDefPage.cxx:178
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "Eraro: klavo {} jam estas asignita por {}"
 
-#: src/KeyDefPage.cxx:187
+#: src/KeyDefPage.cxx:188
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "Asignis la klavon {} al {}"
 
-#: src/KeyDefPage.cxx:214
+#: src/KeyDefPage.cxx:215
 msgid "Add new key"
 msgstr "Aldoni novan klavon"
 
-#: src/KeyDefPage.cxx:232
+#: src/KeyDefPage.cxx:233
 #, c-format
 msgid "Edit keys for %s"
 msgstr "Redakti klavojn por %s"
 
-#: src/KeyDefPage.cxx:369
+#: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
 msgstr "Efektiviĝis novaj klavasignoj"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:372
 msgid "Keybindings unchanged."
 msgstr "Ne ŝanĝiĝis klavasignoj."
 
-#: src/KeyDefPage.cxx:381
+#: src/KeyDefPage.cxx:382
 msgid "Unable to write configuration"
 msgstr "Malsukcesis skribi agordojn"
 
-#: src/KeyDefPage.cxx:390 src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:391 src/KeyDefPage.cxx:400
 msgid "Error"
 msgstr "Eraro"
 
-#: src/KeyDefPage.cxx:397
+#: src/KeyDefPage.cxx:398
 #, c++-format
 msgid "Wrote {}"
 msgstr "Skribis sur {}"
 
-#: src/KeyDefPage.cxx:409
+#: src/KeyDefPage.cxx:410
 msgid "===> Apply key bindings "
 msgstr "===> Efektivigi klavasignojn "
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:412
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Efektivigi kaj Konservi klavasignojn  "
 
-#: src/KeyDefPage.cxx:447
+#: src/KeyDefPage.cxx:448
 msgid "Edit key bindings"
 msgstr "Redakti klavasignojn"
 
-#: src/KeyDefPage.cxx:528
+#: src/KeyDefPage.cxx:529
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Noto: Ĉu vi forgesis 'Efektivigi' viajn ŝanĝojn?"
 
-#: src/KeyDefPage.cxx:578
+#: src/KeyDefPage.cxx:579
 msgid "Keys"
 msgstr "Klavoj"
 
@@ -738,70 +738,70 @@ msgstr "Alt-%c"
 msgid "Artists"
 msgstr "Muzikistoj"
 
-#: src/LibraryPage.cxx:36 src/LibraryPage.cxx:188
+#: src/LibraryPage.cxx:36 src/LibraryPage.cxx:187
 msgid "Albums"
 msgstr "Albumoj"
 
-#: src/LibraryPage.cxx:134
+#: src/LibraryPage.cxx:133
 msgid "All"
 msgstr "Ĉiuj"
 
-#: src/LibraryPage.cxx:210
+#: src/LibraryPage.cxx:209
 msgid "Songs"
 msgstr "Kantoj"
 
-#: src/LibraryPage.cxx:336
+#: src/LibraryPage.cxx:335
 msgid "Library"
 msgstr "Biblioteko"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:199
+#: src/LyricsPage.cxx:203
 msgid "No lyrics"
 msgstr "Neniuj kantotekstoj"
 
-#: src/LyricsPage.cxx:213
+#: src/LyricsPage.cxx:217
 #, c++-format
 msgid "Lyrics timeout occurred after {} seconds"
 msgstr "Elĉerpiĝis templimo por elŝuti kantotektojn post {} sekundoj"
 
-#: src/LyricsPage.cxx:310 src/LyricsPage.cxx:318 src/LyricsPage.cxx:327
-#: src/LyricsPage.cxx:437
+#: src/LyricsPage.cxx:314 src/LyricsPage.cxx:322 src/LyricsPage.cxx:331
+#: src/LyricsPage.cxx:450
 msgid "Lyrics"
 msgstr "Kantotekstoj"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:314
+#: src/LyricsPage.cxx:318
 msgid "loading..."
 msgstr "ŝargante..."
 
-#: src/LyricsPage.cxx:335
+#: src/LyricsPage.cxx:339
 msgid "Lyrics cache is unavailable"
 msgstr ""
 
-#: src/LyricsPage.cxx:340
+#: src/LyricsPage.cxx:344
 msgid "Editor not configured"
 msgstr "Redaktilo ne estas agordita"
 
-#: src/LyricsPage.cxx:356 src/LyricsPage.cxx:378
+#: src/LyricsPage.cxx:374 src/LyricsPage.cxx:391
 msgid "Can't start editor"
 msgstr "Malsukcesis lanĉi redaktilon"
 
-#: src/LyricsPage.cxx:381 src/LyricsPage.cxx:385
+#: src/LyricsPage.cxx:394 src/LyricsPage.cxx:398
 msgid "Editor exited unexpectedly"
 msgstr "Redaktilo neatendite kolapsis"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:407
+#: src/LyricsPage.cxx:420
 msgid "Lyrics saved"
 msgstr "Konserviĝis kantotekstoj"
 
-#: src/LyricsPage.cxx:413
+#: src/LyricsPage.cxx:426
 msgid "Lyrics deleted"
 msgstr "Forviŝiĝis kantotekstoj"
 
-#: src/LyricsPage.cxx:414
+#: src/LyricsPage.cxx:427
 msgid "No saved lyrics"
 msgstr "Neniuj konservitaj kantotekstoj"
 
@@ -856,20 +856,20 @@ msgstr "Dividaĵo"
 msgid "Create new partition"
 msgstr "Krei novan dividaĵon"
 
-#: src/QueuePage.cxx:306
+#: src/QueuePage.cxx:309
 msgid "Add"
 msgstr "Aldoni"
 
-#: src/QueuePage.cxx:371 src/QueuePage.cxx:659
+#: src/QueuePage.cxx:374 src/QueuePage.cxx:660
 msgid "Queue"
 msgstr "Vico"
 
-#: src/QueuePage.cxx:373
+#: src/QueuePage.cxx:376
 #, c-format
 msgid "Queue on %s"
 msgstr "Vico ĉe %s"
 
-#: src/QueuePage.cxx:611 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:62
 msgid "Shuffled queue"
 msgstr "Miksiĝis vico"
 
@@ -910,53 +910,57 @@ msgid "performer"
 msgstr "interpretisto"
 
 #: src/SearchPage.cxx:47
+msgid "label"
+msgstr ""
+
+#: src/SearchPage.cxx:48
 msgid "comment"
 msgstr "komento"
 
-#: src/SearchPage.cxx:55
+#: src/SearchPage.cxx:56
 msgid "file"
 msgstr "dosiero"
 
-#: src/SearchPage.cxx:75 src/SongPage.cxx:51
+#: src/SearchPage.cxx:76 src/SongPage.cxx:51
 msgid "Title"
 msgstr "Titolo"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:50
+#: src/SearchPage.cxx:77 src/SongPage.cxx:50
 msgid "Artist"
 msgstr "Muzikisto"
 
-#: src/SearchPage.cxx:77 src/SongPage.cxx:52
+#: src/SearchPage.cxx:78 src/SongPage.cxx:52
 msgid "Album"
 msgstr "Albumo"
 
-#: src/SearchPage.cxx:78
+#: src/SearchPage.cxx:79
 msgid "Filename"
 msgstr "Dosiernomo"
 
-#: src/SearchPage.cxx:79
+#: src/SearchPage.cxx:80
 msgid "Artist + Title"
 msgstr "Muzikisto + Titolo"
 
-#: src/SearchPage.cxx:260 src/SearchPage.cxx:264
+#: src/SearchPage.cxx:262 src/SearchPage.cxx:266
 msgid "Unrecognized suffix"
 msgstr "Nekonata sufikso"
 
-#: src/SearchPage.cxx:310
+#: src/SearchPage.cxx:312
 #, c-format
 msgid "Bad search tag %s"
 msgstr "Nekonata serĉa etikedo %s"
 
-#: src/SearchPage.cxx:324
+#: src/SearchPage.cxx:326
 #, c-format
 msgid "No argument for search tag %s"
 msgstr "Mankas argumento de serĉa etikedo %s"
 
-#: src/SearchPage.cxx:418 src/SearchPage.cxx:451 src/SearchPage.cxx:454
-#: src/SearchPage.cxx:458 src/SearchPage.cxx:515
+#: src/SearchPage.cxx:420 src/SearchPage.cxx:453 src/SearchPage.cxx:456
+#: src/SearchPage.cxx:460 src/SearchPage.cxx:517
 msgid "Search"
 msgstr "Serĉi"
 
-#: src/SearchPage.cxx:478
+#: src/SearchPage.cxx:480
 msgid "Search mode"
 msgstr "Serĉa reĝimo"
 
@@ -1000,72 +1004,76 @@ msgstr "Dato"
 msgid "Genre"
 msgstr "Ĝenro"
 
-#: src/SongPage.cxx:68
+#: src/SongPage.cxx:69
+msgid "Label"
+msgstr ""
+
+#: src/SongPage.cxx:71
 msgid "Comment"
 msgstr "Komento"
 
-#: src/SongPage.cxx:69
+#: src/SongPage.cxx:72
 msgid "Path"
 msgstr "Loko"
 
-#: src/SongPage.cxx:70
+#: src/SongPage.cxx:73
 msgid "Bitrate"
 msgstr "Bitrapido"
 
-#: src/SongPage.cxx:71
+#: src/SongPage.cxx:74
 msgid "Format"
 msgstr "Formo"
 
-#: src/SongPage.cxx:88
+#: src/SongPage.cxx:91
 msgid "Number of artists"
 msgstr "Nombro de muzikistoj"
 
-#: src/SongPage.cxx:89
+#: src/SongPage.cxx:92
 msgid "Number of albums"
 msgstr "Nombro de albumoj"
 
-#: src/SongPage.cxx:90
+#: src/SongPage.cxx:93
 msgid "Number of songs"
 msgstr "Nombro de kantoj"
 
-#: src/SongPage.cxx:91
+#: src/SongPage.cxx:94
 msgid "Uptime"
 msgstr "Daŭro de funkciado"
 
-#: src/SongPage.cxx:92
+#: src/SongPage.cxx:95
 msgid "Most recent db update"
 msgstr "Lasta ĝisdatigo de datenbanko"
 
-#: src/SongPage.cxx:93
+#: src/SongPage.cxx:96
 msgid "Playtime"
 msgstr "Daŭro de ludado"
 
-#: src/SongPage.cxx:94
+#: src/SongPage.cxx:97
 msgid "DB playtime"
 msgstr "Daŭro de datenbanka ludado"
 
-#: src/SongPage.cxx:204
+#: src/SongPage.cxx:207
 msgid "Song viewer"
 msgstr "Kantovidigilo"
 
-#: src/SongPage.cxx:360
+#: src/SongPage.cxx:364
 msgid "MPD statistics"
 msgstr "Statistikoj pri MPD"
 
-#: src/SongPage.cxx:435
+#: src/SongPage.cxx:439
 msgid "Selected song"
 msgstr "Elektita kanto"
 
-#: src/SongPage.cxx:445
+#: src/SongPage.cxx:449
 msgid "Currently playing song"
 msgstr "Nuntempe ludata kanto"
 
-#: src/SongPage.cxx:452
+#: src/SongPage.cxx:456
 #, c++-format
 msgid "{} kbps"
 msgstr "{} kilobitoj/sek"
 
-#: src/SongPage.cxx:493
+#: src/SongPage.cxx:497
 msgid "Song"
 msgstr "Kanto"
 
@@ -1102,19 +1110,19 @@ msgstr "Laŭto n/a"
 msgid "Volume %d%%"
 msgstr "Laŭto %d%%"
 
-#: src/page/FindSupport.cxx:22
+#: src/page/FindSupport.cxx:15
 msgid "Find"
 msgstr "Serĉi"
 
-#: src/page/FindSupport.cxx:23
+#: src/page/FindSupport.cxx:16
 msgid "Find backward"
 msgstr "Serĉi komencen"
 
-#: src/page/FindSupport.cxx:24
+#: src/page/FindSupport.cxx:17
 msgid "Jump"
 msgstr "Salti"
 
-#: src/page/FindSupport.cxx:51
+#: src/page/FindSupport.cxx:44
 #, c-format
 msgid "Unable to find '%s'"
 msgstr "Ne troviĝis \"%s\""
@@ -1138,70 +1146,70 @@ msgstr "Ĉu anstataŭigi %s?"
 msgid "Saved {}"
 msgstr "Konserviĝis {}"
 
-#: src/screen.cxx:153
+#: src/screen.cxx:151
 msgid "Repeat mode is on"
 msgstr "Ripeta reĝimo estas aktiva"
 
-#: src/screen.cxx:154
+#: src/screen.cxx:152
 msgid "Repeat mode is off"
 msgstr "Ripeta reĝimo estas neaktiva"
 
-#: src/screen.cxx:158
+#: src/screen.cxx:156
 msgid "Random mode is on"
 msgstr "Hazarda reĝimo estas aktiva"
 
-#: src/screen.cxx:159
+#: src/screen.cxx:157
 msgid "Random mode is off"
 msgstr "Hazarda reĝimo estas neaktiva"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:166
+#: src/screen.cxx:164
 msgid "Single mode is on"
 msgstr "Unuopa reĝimo estas aktiva"
 
-#: src/screen.cxx:167
+#: src/screen.cxx:165
 msgid "Single mode is off"
 msgstr "Unuopa reĝimo estas neaktiva"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:174
+#: src/screen.cxx:172
 msgid "Consume mode is on"
 msgstr "Konsuma reĝimo estas aktiva"
 
-#: src/screen.cxx:175
+#: src/screen.cxx:173
 msgid "Consume mode is off"
 msgstr "Konsuma reĝimo estas neaktiva"
 
-#: src/screen.cxx:178
+#: src/screen.cxx:176
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "{} sekundoj da interfado"
 
-#: src/screen.cxx:190
+#: src/screen.cxx:188
 msgid "Database updated"
 msgstr "Ĝisdatigis datumbazon"
 
-#: src/screen.cxx:234
+#: src/screen.cxx:233
 msgid "Find mode: Wrapped"
 msgstr "Serĉa reĝimo: Linifalda"
 
-#: src/screen.cxx:235
+#: src/screen.cxx:234
 msgid "Find mode: Normal"
 msgstr "Serĉa reĝimo: Normala"
 
-#: src/screen.cxx:241
+#: src/screen.cxx:240
 msgid "Auto center mode: On"
 msgstr "Aŭtomate centriga reĝimo: Aktiva"
 
-#: src/screen.cxx:242
+#: src/screen.cxx:241
 msgid "Auto center mode: Off"
 msgstr "Aŭtomate centriga reĝimo: Neaktiva"
 
-#: src/screen.cxx:343
+#: src/screen.cxx:386
 msgid "Password"
 msgstr "Pasvorto"
 
