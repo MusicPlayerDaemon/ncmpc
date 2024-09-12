@@ -6,6 +6,7 @@
 #include "Styles.hxx"
 #include "Options.hxx"
 #include "i18n.h"
+#include "lib/fmt/ToSpan.hxx"
 #include "ui/Options.hxx"
 #include "util/LocaleString.hxx"
 
@@ -14,6 +15,8 @@
 #include <mpd/client.h>
 
 #include <string.h>
+
+using std::string_view_literals::operator""sv;
 
 TitleBar::TitleBar(Point p, unsigned width) noexcept
 	:window(p, {width, GetHeight()})
@@ -77,13 +80,11 @@ TitleBar::Paint(const PageMeta &current_page_meta,
 #endif
 
 	char buf[32];
-	const char *volume_string;
+	std::string_view volume_string;
 	if (volume < 0) {
-		snprintf(buf, sizeof(buf), "%s %s", _("Volume"), _("n/a"));
-		volume_string = buf;
+		volume_string = FmtTruncate(buf, "{} {}"sv, _("Volume"), _("n/a"));
 	} else {
-		snprintf(buf, sizeof(buf), "%s %d%%", _("Volume"), volume);
-		volume_string = buf;
+		volume_string = FmtTruncate(buf, "{} {}"sv, _("Volume"), volume);
 	}
 
 	SelectStyle(window, Style::TITLE);
