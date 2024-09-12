@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:49+0200\n"
+"POT-Creation-Date: 2024-09-12 11:54+0200\n"
 "PO-Revision-Date: 2009-09-24 10:26+0200\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
@@ -1114,13 +1114,13 @@ msgstr "Terminalen understøtter ikke farver"
 msgid "All tracks"
 msgstr "Alle spor"
 
-#: src/TitleBar.cxx:82
-msgid "Volume n/a"
-msgstr "Volumen: n/a"
-
-#: src/TitleBar.cxx:84
+#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
 msgid "Volume"
 msgstr "Volumen"
+
+#: src/TitleBar.cxx:82
+msgid "n/a"
+msgstr "n/a"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

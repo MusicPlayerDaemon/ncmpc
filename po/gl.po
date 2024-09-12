@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:49+0200\n"
+"POT-Creation-Date: 2024-09-12 11:54+0200\n"
 "PO-Revision-Date: 2011-03-25 19:34+0000\n"
 "Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
 "Language-Team: galician\n"
@@ -1114,13 +1114,13 @@ msgstr "A terminal non ten funcionalidades de cor"
 msgid "All tracks"
 msgstr "Todas as pistas"
 
-#: src/TitleBar.cxx:82
-msgid "Volume n/a"
-msgstr "Volume n/a"
-
-#: src/TitleBar.cxx:84
+#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
 msgid "Volume"
 msgstr "Volume"
+
+#: src/TitleBar.cxx:82
+msgid "n/a"
+msgstr "n/a"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

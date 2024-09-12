@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:49+0200\n"
+"POT-Creation-Date: 2024-09-12 11:54+0200\n"
 "PO-Revision-Date: 2021-03-29 23:26+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/ncmpc/"
@@ -1101,13 +1101,13 @@ msgstr "Al la terminalo mankas koloraj kapabloj"
 msgid "All tracks"
 msgstr "Ĉiuj trakoj"
 
-#: src/TitleBar.cxx:82
-msgid "Volume n/a"
-msgstr "Laŭto n/a"
-
-#: src/TitleBar.cxx:84
+#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
 msgid "Volume"
 msgstr "Laŭto"
+
+#: src/TitleBar.cxx:82
+msgid "n/a"
+msgstr "n/a"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

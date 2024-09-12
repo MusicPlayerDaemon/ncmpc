@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:49+0200\n"
+"POT-Creation-Date: 2024-09-12 11:54+0200\n"
 "PO-Revision-Date: 2020-09-08 16:36+0000\n"
 "Last-Translator: IvanDan <ivandanza@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/ncmpc/"
@@ -1102,13 +1102,13 @@ msgstr "Terminale manca la funzionalità dei colori differenti"
 msgid "All tracks"
 msgstr "Tutte le traccie"
 
-#: src/TitleBar.cxx:82
-msgid "Volume n/a"
-msgstr "Volume n/d"
-
-#: src/TitleBar.cxx:84
+#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
 msgid "Volume"
 msgstr "Volume"
+
+#: src/TitleBar.cxx:82
+msgid "n/a"
+msgstr "n/d"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:49+0200\n"
+"POT-Creation-Date: 2024-09-12 11:54+0200\n"
 "PO-Revision-Date: 2021-01-19 16:32+0000\n"
 "Last-Translator: Lilian Wang <li330wang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -1101,13 +1101,13 @@ msgstr "终端不支持彩色"
 msgid "All tracks"
 msgstr "全部音轨"
 
-#: src/TitleBar.cxx:82
-msgid "Volume n/a"
-msgstr "音量 n/a"
-
-#: src/TitleBar.cxx:84
+#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
 msgid "Volume"
 msgstr "音量"
+
+#: src/TitleBar.cxx:82
+msgid "n/a"
+msgstr "n/a"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

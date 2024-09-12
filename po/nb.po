@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:49+0200\n"
+"POT-Creation-Date: 2024-09-12 11:54+0200\n"
 "PO-Revision-Date: 2020-09-08 16:36+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/ncmpc/"
@@ -1120,13 +1120,13 @@ msgstr "Terminalen mangler støtte for farger"
 msgid "All tracks"
 msgstr "Alle spor"
 
-#: src/TitleBar.cxx:82
-msgid "Volume n/a"
-msgstr "Volum: n/a"
-
-#: src/TitleBar.cxx:84
+#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
 msgid "Volume"
 msgstr "Volum"
+
+#: src/TitleBar.cxx:82
+msgid "n/a"
+msgstr "n/a"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

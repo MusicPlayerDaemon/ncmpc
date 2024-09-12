@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:49+0200\n"
+"POT-Creation-Date: 2024-09-12 11:54+0200\n"
 "PO-Revision-Date: 2024-07-24 13:09+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
@@ -1093,13 +1093,13 @@ msgstr "터미널의 색상 기능이 부족합니다"
 msgid "All tracks"
 msgstr "모든 곡"
 
-#: src/TitleBar.cxx:82
-msgid "Volume n/a"
-msgstr "음량 없음"
-
-#: src/TitleBar.cxx:84
+#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
 msgid "Volume"
 msgstr "음량"
+
+#: src/TitleBar.cxx:82
+msgid "n/a"
+msgstr "없음"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

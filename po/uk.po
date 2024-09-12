@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:49+0200\n"
+"POT-Creation-Date: 2024-09-12 11:54+0200\n"
 "PO-Revision-Date: 2011-08-11 10:30+0300\n"
 "Last-Translator: Oleksandr Kovalenko <alx.kovalenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -1109,13 +1109,13 @@ msgstr "Терміналу бракує підтримки можливосте�
 msgid "All tracks"
 msgstr "Всі доріжки"
 
-#: src/TitleBar.cxx:82
-msgid "Volume n/a"
-msgstr "Гучність недоступна"
-
-#: src/TitleBar.cxx:84
+#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
 msgid "Volume"
 msgstr "Гучність"
+
+#: src/TitleBar.cxx:82
+msgid "n/a"
+msgstr "недоступна"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

@@ -1207,8 +1207,8 @@ msgid "days"
 msgstr "gün"
 
 #: src/TitleBar.cxx:101
-msgid "Volume n/a"
-msgstr "Ses yok"
+msgid "n/a"
+msgstr "yok"
 
 #: src/TitleBar.cxx:103
 #, c-format

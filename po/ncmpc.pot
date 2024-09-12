@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:49+0200\n"
+"POT-Creation-Date: 2024-09-12 11:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1089,12 +1089,12 @@ msgstr ""
 msgid "All tracks"
 msgstr ""
 
-#: src/TitleBar.cxx:82
-msgid "Volume n/a"
+#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
+msgid "Volume"
 msgstr ""
 
-#: src/TitleBar.cxx:84
-msgid "Volume"
+#: src/TitleBar.cxx:82
+msgid "n/a"
 msgstr ""
 
 #: src/page/FindSupport.cxx:15

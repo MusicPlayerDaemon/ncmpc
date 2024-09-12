@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:49+0200\n"
+"POT-Creation-Date: 2024-09-12 11:54+0200\n"
 "PO-Revision-Date: 2022-04-01 16:10+0000\n"
 "Last-Translator: lionelvaux <lionel.vaux@univ-amu.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/ncmpc/"
@@ -1107,13 +1107,13 @@ msgstr "Le terminal ne dispose pas de la gestion des couleurs"
 msgid "All tracks"
 msgstr "Toutes les pistes"
 
-#: src/TitleBar.cxx:82
-msgid "Volume n/a"
-msgstr "Volume n/a"
-
-#: src/TitleBar.cxx:84
+#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
 msgid "Volume"
 msgstr "Volume"
+
+#: src/TitleBar.cxx:82
+msgid "n/a"
+msgstr "n/a"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"

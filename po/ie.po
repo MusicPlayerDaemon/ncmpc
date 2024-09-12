@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:49+0200\n"
+"POT-Creation-Date: 2024-09-12 11:54+0200\n"
 "PO-Revision-Date: 2019-05-19 12:49+0000\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Occidental <https://hosted.weblate.org/projects/ncmpc/"
@@ -1100,13 +1100,13 @@ msgstr "Li terminal manca li capabilitá de color"
 msgid "All tracks"
 msgstr "Omni tracks"
 
-#: src/TitleBar.cxx:82
-msgid "Volume n/a"
-msgstr "Volúmine ??"
-
-#: src/TitleBar.cxx:84
+#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
 msgid "Volume"
 msgstr "Volúmine"
+
+#: src/TitleBar.cxx:82
+msgid "n/a"
+msgstr "??"
 
 #: src/page/FindSupport.cxx:15
 msgid "Find"
