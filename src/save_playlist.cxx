@@ -51,7 +51,7 @@ PlaylistNameCompletion::Post(std::string_view value,
 {
 	if (range.begin() != range.end() &&
 	    std::next(range.begin()) != range.end())
-		screen_display_completion_list(screen, value, range);
+		screen_display_completion_list(screen.main_window, value, range);
 }
 
 #endif

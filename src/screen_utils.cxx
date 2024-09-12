@@ -2,21 +2,22 @@
 // Copyright The Music Player Daemon Project
 
 #include "screen_utils.hxx"
-#include "screen.hxx"
 #include "Styles.hxx"
+#include "ui/Window.hxx"
+
+#include <cassert>
 
 using std::string_view_literals::operator""sv;
 
 void
-screen_display_completion_list(ScreenManager &screen,
+screen_display_completion_list(const Window window,
 			       std::string_view prefix,
 			       Completion::Range range) noexcept
 {
 	static Completion::Range prev_range;
 	static size_t prev_length = 0;
 	static unsigned offset = 0;
-	const Window window = screen.main_window;
-	const unsigned height = screen.main_window.GetHeight();
+	const unsigned height = window.GetHeight();
 
 	if (!prefix.ends_with('/')) {
 		/* the current prefix is not a directory; backtrack to

@@ -1,16 +1,13 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef SCREEN_UTILS_H
-#define SCREEN_UTILS_H
+#pragma once
 
 #include "Completion.hxx"
 
-class ScreenManager;
+struct Window;
 
 void
-screen_display_completion_list(ScreenManager &screen,
+screen_display_completion_list(Window window,
 			       std::string_view prefix,
 			       Completion::Range range) noexcept;
-
-#endif
