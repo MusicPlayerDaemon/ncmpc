@@ -52,7 +52,14 @@ screen_display_completion_list(ScreenManager &screen,
 		std::string_view s = *i;
 		assert(s.size() >= prefix.size());
 
-		s = s.substr(prefix.size());
+		if (s.size() > prefix.size())
+			/* strip the prefix */
+			s = s.substr(prefix.size());
+		else
+			/* if the prefix equals this item, use this
+                           special string which means "current
+                           directory" */
+			s = "."sv;
 
 		window.String(s);
 		window.ClearToEol();
