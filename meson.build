@@ -1,5 +1,5 @@
 project('ncmpc', 'cpp',
-  version: '0.50',
+  version: '0.51',
   meson_version: '>= 0.60',
   default_options: [
     'cpp_std=c++2a',
