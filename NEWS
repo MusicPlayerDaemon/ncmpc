@@ -10,6 +10,7 @@ ncmpc 0.50 - not yet released
 * lyrics/google: fix partial loading of lyrics
 * support MPD 0.22 tag "label" (requires libmpdclient 2.17)
 * fix config file overriding MPD_HOST environment variable
+* click on title bar switches to page
 * click on progress bar seeks current song
 * fix tab completion bug
 

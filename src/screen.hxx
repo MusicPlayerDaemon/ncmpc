@@ -123,6 +123,7 @@ public:
 	void OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd);
 
 #ifdef HAVE_GETMOUSE
+	void OnTitleBarMouse(struct mpdclient &c, int x, mmask_t bstate);
 	void OnProgressBarMouse(struct mpdclient &c, DelayedSeek &seek,
 				int x, mmask_t bstate);
 	void OnMouse(struct mpdclient &c, DelayedSeek &seek,

@@ -11,3 +11,9 @@ struct PageMeta;
 void
 PaintTabBar(Window window, const PageMeta &current_page_meta,
 	    std::string_view current_page_title) noexcept;
+
+[[gnu::pure]]
+const PageMeta *
+GetTabAtX(const PageMeta &current_page_meta,
+	  std::string_view current_page_title,
+	  unsigned x) noexcept;

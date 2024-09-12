@@ -24,6 +24,10 @@
 #include "util/ScopeExit.hxx"
 #include "util/StringAPI.hxx"
 
+#ifdef HAVE_GETMOUSE
+#include "TabBar.hxx"
+#endif
+
 #include <mpd/client.h>
 
 ScreenManager::PageMap::iterator
@@ -306,6 +310,17 @@ ScreenManager::OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 #ifdef HAVE_GETMOUSE
 
 inline void
+ScreenManager::OnTitleBarMouse(struct mpdclient &c, int x, mmask_t bstate)
+{
+	if (options.welcome_screen_list && (bstate & BUTTON1_CLICKED)) {
+		const auto title = GetCurrentPage().GetTitle({buf, buf_size});
+		const auto *page = GetTabAtX(GetCurrentPageMeta(), title, x);
+		if (page != nullptr)
+			Switch(*page, c);
+	}
+}
+
+inline void
 ScreenManager::OnProgressBarMouse(struct mpdclient &c, DelayedSeek &seek,
 				  int x, mmask_t bstate)
 {
@@ -339,6 +354,7 @@ ScreenManager::OnMouse(struct mpdclient &c, DelayedSeek &seek,
 	if (options.show_title_bar) {
 		const int title_height = title_bar.GetHeight();
 		if (p.y < title_height) {
+			OnTitleBarMouse(c, p.x, bstate);
 			return;
 		}
 
