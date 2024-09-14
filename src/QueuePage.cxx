@@ -3,7 +3,6 @@
 
 #include "QueuePage.hxx"
 #include "PageMeta.hxx"
-#include "screen_status.hxx"
 #include "save_playlist.hxx"
 #include "config.h"
 #include "i18n.h"

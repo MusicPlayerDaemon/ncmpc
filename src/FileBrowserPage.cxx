@@ -4,7 +4,6 @@
 #include "FileBrowserPage.hxx"
 #include "PageMeta.hxx"
 #include "FileListPage.hxx"
-#include "screen_status.hxx"
 #include "save_playlist.hxx"
 #include "screen.hxx"
 #include "config.h" // IWYU pragma: keep

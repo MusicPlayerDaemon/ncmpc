@@ -3,7 +3,6 @@
 
 #include "save_playlist.hxx"
 #include "db_completion.hxx"
-#include "screen_status.hxx"
 #include "config.h" // IWYU pragma: keep
 #include "i18n.h"
 #include "charset.hxx"
@@ -16,6 +15,8 @@
 #include "co/InvokeTask.hxx"
 
 #include <mpd/client.h>
+
+#include <fmt/core.h>
 
 #include <stdio.h>
 

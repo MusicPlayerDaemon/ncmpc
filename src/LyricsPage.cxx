@@ -5,7 +5,6 @@
 #include "LyricsCache.hxx"
 #include "LyricsLoader.hxx"
 #include "PageMeta.hxx"
-#include "screen_status.hxx"
 #include "i18n.h"
 #include "Command.hxx"
 #include "Options.hxx"
