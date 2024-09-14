@@ -117,31 +117,9 @@ public:
 
 #ifdef HAVE_ICONV
 
-using Utf8ToLocaleZ = Utf8ToLocale;
 using LocaleToUtf8Z = LocaleToUtf8;
 
 #else
-
-/**
- * Like #Utf8ToLocaleZ, but return a null-terminated string.
- */
-class Utf8ToLocaleZ {
-	const char *const value;
-
-public:
-	[[nodiscard]]
-	explicit constexpr Utf8ToLocaleZ(const char *src) noexcept
-		:value(src) {}
-
-	[[nodiscard]]
-	explicit Utf8ToLocaleZ(const std::string &src) noexcept
-		:Utf8ToLocaleZ(src.c_str()) {}
-
-	[[nodiscard]] [[gnu::pure]]
-	constexpr const char *c_str() const noexcept {
-		return value;
-	}
-};
 
 /**
  * Like #LocaleToUtf8Z, but return a null-terminated string.

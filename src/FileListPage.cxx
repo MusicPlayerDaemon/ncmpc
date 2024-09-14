@@ -105,7 +105,7 @@ FileListPage::LoadPlaylist(struct mpdclient &c,
 	if (mpd_run_load(connection, mpd_playlist_get_path(&playlist))) {
 		const char *name = GetUriFilename(mpd_playlist_get_path(&playlist));
 		FmtAlert(_("Loading playlist '{}'"),
-			 Utf8ToLocaleZ{name}.c_str());
+			 (std::string_view)Utf8ToLocale{name});
 
 		c.events |= MPD_IDLE_QUEUE;
 	} else
