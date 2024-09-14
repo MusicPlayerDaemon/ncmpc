@@ -4,7 +4,6 @@
 #include "SearchPage.hxx"
 #include "PageMeta.hxx"
 #include "screen.hxx"
-#include "screen_status.hxx"
 #include "i18n.h"
 #include "Options.hxx"
 #include "Bindings.hxx"
@@ -274,7 +273,8 @@ ParseModifiedSince(const char *s)
  *-----------------------------------------------------------------------
  */
 static std::unique_ptr<FileList>
-search_advanced_query(struct mpd_connection *connection, const char *query)
+search_advanced_query(Interface &interface,
+		      struct mpd_connection *connection, const char *query)
 try {
 	advanced_search_mode = false;
 	if (strchr(query, ':') == nullptr)
@@ -309,8 +309,8 @@ try {
 			tabv[n] = &str[spi + 1];
 			table[n] = search_get_tag_id(tabv[n]);
 			if (table[n] < 0) {
-				screen_status_printf(_("Bad search tag %s"),
-						     tabv[n]);
+				interface.Alert(fmt::format(fmt::runtime(_("Bad search tag {}")),
+							    tabv[n]));
 				return nullptr;
 			}
 
@@ -323,7 +323,8 @@ try {
 
 	/* Get rid of obvious failure case */
 	if (matchv[n - 1][0] == '\0') {
-		screen_status_printf(_("No argument for search tag %s"), tabv[n - 1]);
+		interface.Alert(fmt::format(fmt::runtime(_("No argument for search tag {}")),
+					    tabv[n - 1]));
 		return nullptr;
 	}
 
@@ -368,13 +369,14 @@ try {
 }
 
 static std::unique_ptr<FileList>
-do_search(struct mpdclient *c, const char *query)
+do_search(Interface &interface,
+	  struct mpdclient *c, const char *query)
 {
 	auto *connection = c->GetConnection();
 	if (connection == nullptr)
 		return nullptr;
 
-	auto fl = search_advanced_query(connection, query);
+	auto fl = search_advanced_query(interface, connection, query);
 	if (fl != nullptr)
 		return fl;
 
@@ -398,7 +400,7 @@ SearchPage::Reload(struct mpdclient &c)
 		return;
 
 	lw.ShowCursor();
-	filelist = do_search(&c, pattern.c_str());
+	filelist = do_search(GetInterface(), &c, pattern.c_str());
 	if (filelist == nullptr)
 		filelist = std::make_unique<FileList>();
 	lw.SetLength(filelist->size());

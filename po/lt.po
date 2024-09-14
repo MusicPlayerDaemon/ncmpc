@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:21+0200\n"
+"POT-Creation-Date: 2024-09-14 22:42+0200\n"
 "PO-Revision-Date: 2021-08-27 09:34+0000\n"
 "Last-Translator: Gediminas Murauskas <muziejusinfo@gmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/ncmpc/"
@@ -392,7 +392,7 @@ msgstr "Blogas spalvos pavadinimas"
 msgid "Incomplete color definition"
 msgstr "Nebaigtas spalvos apibrėžimas"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:221
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:220
 msgid "Invalid number"
 msgstr "Netinkamas skaičius"
 
@@ -870,94 +870,94 @@ msgstr "Eilė ties %s"
 msgid "Shuffled queue"
 msgstr "Eilė sumaišyta"
 
-#: src/SearchPage.cxx:38
+#: src/SearchPage.cxx:37
 msgid "artist"
 msgstr "atlikėjas"
 
-#: src/SearchPage.cxx:39
+#: src/SearchPage.cxx:38
 msgid "album"
 msgstr "albumas"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:39
 msgid "title"
 msgstr "pavadinimas"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:40
 msgid "track"
 msgstr "kūrinys"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:41
 msgid "name"
 msgstr "pavadinimas"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:42
 msgid "genre"
 msgstr "žanras"
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:43
 msgid "date"
 msgstr "data"
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:44
 msgid "composer"
 msgstr "kompozitorius"
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:45
 msgid "performer"
 msgstr "atlikėjas"
 
-#: src/SearchPage.cxx:47
+#: src/SearchPage.cxx:46
 msgid "label"
 msgstr ""
 
-#: src/SearchPage.cxx:48
+#: src/SearchPage.cxx:47
 msgid "comment"
 msgstr "komentaras"
 
-#: src/SearchPage.cxx:56
+#: src/SearchPage.cxx:55
 msgid "file"
 msgstr "failas"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:51
+#: src/SearchPage.cxx:75 src/SongPage.cxx:51
 msgid "Title"
 msgstr "Pavadinimas"
 
-#: src/SearchPage.cxx:77 src/SongPage.cxx:50
+#: src/SearchPage.cxx:76 src/SongPage.cxx:50
 msgid "Artist"
 msgstr "Atlikėjas"
 
-#: src/SearchPage.cxx:78 src/SongPage.cxx:52
+#: src/SearchPage.cxx:77 src/SongPage.cxx:52
 msgid "Album"
 msgstr "Albumas"
 
-#: src/SearchPage.cxx:79
+#: src/SearchPage.cxx:78
 msgid "Filename"
 msgstr "Failo pavadinimas"
 
-#: src/SearchPage.cxx:80
+#: src/SearchPage.cxx:79
 msgid "Artist + Title"
 msgstr "Atlikėjas + pavadinimas"
 
-#: src/SearchPage.cxx:262 src/SearchPage.cxx:266
+#: src/SearchPage.cxx:261 src/SearchPage.cxx:265
 msgid "Unrecognized suffix"
 msgstr "Neatpažinta priesaga"
 
 #: src/SearchPage.cxx:312
-#, c-format
-msgid "Bad search tag %s"
-msgstr "Bloga paieškos žyma %s"
+#, c++-format
+msgid "Bad search tag {}"
+msgstr "Bloga paieškos žyma {}"
 
 #: src/SearchPage.cxx:326
-#, c-format
-msgid "No argument for search tag %s"
-msgstr "Nėra paieškos žymos argumento %s"
+#, c++-format
+msgid "No argument for search tag {}"
+msgstr "Nėra paieškos žymos argumento {}"
 
-#: src/SearchPage.cxx:420 src/SearchPage.cxx:453 src/SearchPage.cxx:456
-#: src/SearchPage.cxx:460 src/SearchPage.cxx:517
+#: src/SearchPage.cxx:422 src/SearchPage.cxx:455 src/SearchPage.cxx:458
+#: src/SearchPage.cxx:462 src/SearchPage.cxx:519
 msgid "Search"
 msgstr "Ieškoti"
 
-#: src/SearchPage.cxx:480
+#: src/SearchPage.cxx:482
 msgid "Search mode"
 msgstr "Paieškos režimas"
 

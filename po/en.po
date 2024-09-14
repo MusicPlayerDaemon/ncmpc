@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:21+0200\n"
+"POT-Creation-Date: 2024-09-14 22:42+0200\n"
 "PO-Revision-Date: 2019-09-08 13:58+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -388,7 +388,7 @@ msgstr "Bad color name"
 msgid "Incomplete color definition"
 msgstr "Incomplete color definition"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:221
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:220
 msgid "Invalid number"
 msgstr "Invalid number"
 
@@ -867,94 +867,94 @@ msgstr "Queue on %s"
 msgid "Shuffled queue"
 msgstr "Shuffled queue"
 
-#: src/SearchPage.cxx:38
+#: src/SearchPage.cxx:37
 msgid "artist"
 msgstr "artist"
 
-#: src/SearchPage.cxx:39
+#: src/SearchPage.cxx:38
 msgid "album"
 msgstr "album"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:39
 msgid "title"
 msgstr "title"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:40
 msgid "track"
 msgstr "track"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:41
 msgid "name"
 msgstr "name"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:42
 msgid "genre"
 msgstr "genre"
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:43
 msgid "date"
 msgstr "date"
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:44
 msgid "composer"
 msgstr "composer"
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:45
 msgid "performer"
 msgstr "performer"
 
-#: src/SearchPage.cxx:47
+#: src/SearchPage.cxx:46
 msgid "label"
 msgstr ""
 
-#: src/SearchPage.cxx:48
+#: src/SearchPage.cxx:47
 msgid "comment"
 msgstr "comment"
 
-#: src/SearchPage.cxx:56
+#: src/SearchPage.cxx:55
 msgid "file"
 msgstr "file"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:51
+#: src/SearchPage.cxx:75 src/SongPage.cxx:51
 msgid "Title"
 msgstr "Title"
 
-#: src/SearchPage.cxx:77 src/SongPage.cxx:50
+#: src/SearchPage.cxx:76 src/SongPage.cxx:50
 msgid "Artist"
 msgstr "Artist"
 
-#: src/SearchPage.cxx:78 src/SongPage.cxx:52
+#: src/SearchPage.cxx:77 src/SongPage.cxx:52
 msgid "Album"
 msgstr "Album"
 
-#: src/SearchPage.cxx:79
+#: src/SearchPage.cxx:78
 msgid "Filename"
 msgstr "Filename"
 
-#: src/SearchPage.cxx:80
+#: src/SearchPage.cxx:79
 msgid "Artist + Title"
 msgstr "Artist + Title"
 
-#: src/SearchPage.cxx:262 src/SearchPage.cxx:266
+#: src/SearchPage.cxx:261 src/SearchPage.cxx:265
 msgid "Unrecognized suffix"
 msgstr ""
 
 #: src/SearchPage.cxx:312
-#, c-format
-msgid "Bad search tag %s"
-msgstr "Bad search tag %s"
+#, c++-format
+msgid "Bad search tag {}"
+msgstr "Bad search tag {}"
 
 #: src/SearchPage.cxx:326
-#, c-format
-msgid "No argument for search tag %s"
-msgstr "No argument for search tag %s"
+#, c++-format
+msgid "No argument for search tag {}"
+msgstr "No argument for search tag {}"
 
-#: src/SearchPage.cxx:420 src/SearchPage.cxx:453 src/SearchPage.cxx:456
-#: src/SearchPage.cxx:460 src/SearchPage.cxx:517
+#: src/SearchPage.cxx:422 src/SearchPage.cxx:455 src/SearchPage.cxx:458
+#: src/SearchPage.cxx:462 src/SearchPage.cxx:519
 msgid "Search"
 msgstr "Search"
 
-#: src/SearchPage.cxx:480
+#: src/SearchPage.cxx:482
 msgid "Search mode"
 msgstr "Search mode"
 

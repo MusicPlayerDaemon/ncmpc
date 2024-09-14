@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:21+0200\n"
+"POT-Creation-Date: 2024-09-14 22:42+0200\n"
 "PO-Revision-Date: 2024-07-24 13:09+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
@@ -388,7 +388,7 @@ msgstr "잘못된 색상 이름"
 msgid "Incomplete color definition"
 msgstr "불완전한 색상 지정"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:221
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:220
 msgid "Invalid number"
 msgstr "잘못된 숫자"
 
@@ -865,94 +865,94 @@ msgstr "순서 %s"
 msgid "Shuffled queue"
 msgstr "순서 뒤섞음"
 
-#: src/SearchPage.cxx:38
+#: src/SearchPage.cxx:37
 msgid "artist"
 msgstr "연주가"
 
-#: src/SearchPage.cxx:39
+#: src/SearchPage.cxx:38
 msgid "album"
 msgstr "음반"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:39
 msgid "title"
 msgstr "제목"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:40
 msgid "track"
 msgstr "곡"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:41
 msgid "name"
 msgstr "이름"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:42
 msgid "genre"
 msgstr "장르"
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:43
 msgid "date"
 msgstr "날짜"
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:44
 msgid "composer"
 msgstr "작곡가"
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:45
 msgid "performer"
 msgstr "연주가"
 
-#: src/SearchPage.cxx:47
+#: src/SearchPage.cxx:46
 msgid "label"
 msgstr ""
 
-#: src/SearchPage.cxx:48
+#: src/SearchPage.cxx:47
 msgid "comment"
 msgstr "설명"
 
-#: src/SearchPage.cxx:56
+#: src/SearchPage.cxx:55
 msgid "file"
 msgstr "파일"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:51
+#: src/SearchPage.cxx:75 src/SongPage.cxx:51
 msgid "Title"
 msgstr "제목"
 
-#: src/SearchPage.cxx:77 src/SongPage.cxx:50
+#: src/SearchPage.cxx:76 src/SongPage.cxx:50
 msgid "Artist"
 msgstr "연주가"
 
-#: src/SearchPage.cxx:78 src/SongPage.cxx:52
+#: src/SearchPage.cxx:77 src/SongPage.cxx:52
 msgid "Album"
 msgstr "음반"
 
-#: src/SearchPage.cxx:79
+#: src/SearchPage.cxx:78
 msgid "Filename"
 msgstr "파일이름"
 
-#: src/SearchPage.cxx:80
+#: src/SearchPage.cxx:79
 msgid "Artist + Title"
 msgstr "연주가 + 제목"
 
-#: src/SearchPage.cxx:262 src/SearchPage.cxx:266
+#: src/SearchPage.cxx:261 src/SearchPage.cxx:265
 msgid "Unrecognized suffix"
 msgstr "미 인식 서픽스"
 
 #: src/SearchPage.cxx:312
-#, c-format
-msgid "Bad search tag %s"
-msgstr "잘못된 찾기 태그 %s"
+#, c++-format
+msgid "Bad search tag {}"
+msgstr "잘못된 찾기 태그 {}"
 
 #: src/SearchPage.cxx:326
-#, c-format
-msgid "No argument for search tag %s"
-msgstr "%s 찾기 태그의 인자가 없음"
+#, c++-format
+msgid "No argument for search tag {}"
+msgstr "{} 찾기 태그의 인자가 없음"
 
-#: src/SearchPage.cxx:420 src/SearchPage.cxx:453 src/SearchPage.cxx:456
-#: src/SearchPage.cxx:460 src/SearchPage.cxx:517
+#: src/SearchPage.cxx:422 src/SearchPage.cxx:455 src/SearchPage.cxx:458
+#: src/SearchPage.cxx:462 src/SearchPage.cxx:519
 msgid "Search"
 msgstr "찾기"
 
-#: src/SearchPage.cxx:480
+#: src/SearchPage.cxx:482
 msgid "Search mode"
 msgstr "찾기 방식"
 

@@ -1039,13 +1039,13 @@ msgstr "Tanınmayan son ek"
 
 #: src/SearchPage.cxx:337
 #, c-format
-msgid "Bad search tag %s"
-msgstr "Hatalı arama etiketi %s"
+msgid "Bad search tag {}"
+msgstr "Hatalı arama etiketi {}"
 
 #: src/SearchPage.cxx:351
 #, c-format
-msgid "No argument for search tag %s"
-msgstr "Arama etiketi için argüman yok %s"
+msgid "No argument for search tag {}"
+msgstr "Arama etiketi için argüman yok {}"
 
 #: src/SearchPage.cxx:446 src/SearchPage.cxx:479 src/SearchPage.cxx:483
 #: src/SearchPage.cxx:487 src/SearchPage.cxx:546
