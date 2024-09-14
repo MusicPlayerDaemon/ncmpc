@@ -227,7 +227,7 @@ ScreenManager::OnCommand(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 	if (GetCurrentPage().OnCommand(c, cmd))
 		return;
 
-	if (handle_player_command(c, seek, cmd))
+	if (handle_player_command(*this, c, seek, cmd))
 		return;
 
 	switch(cmd) {

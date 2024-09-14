@@ -7,11 +7,12 @@
 #include "Options.hxx"
 #include "i18n.h"
 #include "screen_client.hxx"
-#include "screen_status.hxx"
+#include "Interface.hxx"
 #include "client/mpdclient.hxx"
 
 bool
-handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd)
+handle_player_command(Interface &interface,
+		      struct mpdclient &c, DelayedSeek &seek, Command cmd)
 {
 	if (!c.IsReady() || c.status == nullptr)
 		return false;
@@ -59,7 +60,7 @@ handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 	case Command::SHUFFLE:
 		if (auto *connection = c.GetConnection()) {
 			if (mpd_run_shuffle(connection))
-				screen_status_message(_("Shuffled queue"));
+				interface.Alert(_("Shuffled queue"));
 			else
 				c.HandleError();
 		}
@@ -67,7 +68,7 @@ handle_player_command(struct mpdclient &c, DelayedSeek &seek, Command cmd)
 		break;
 	case Command::CLEAR:
 		if (c.RunClearQueue())
-			screen_status_message(_("Cleared queue"));
+			interface.Alert(_("Cleared queue"));
 		break;
 	case Command::REPEAT:
 		if (auto *connection = c.GetConnection();
