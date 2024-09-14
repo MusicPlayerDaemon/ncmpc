@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <string>
+#include "Interface.hxx"
 
 class Page;
 
@@ -11,12 +11,7 @@ class Page;
  * An abstract interface for classes which host one (or more) #Page
  * instances.
  */
-class PageContainer {
+class PageContainer : public Interface {
 public:
 	virtual void SchedulePaint(Page &page) noexcept = 0;
-
-	/**
-	 * Show a message in the status bar.
-	 */
-	virtual void Alert(std::string message) noexcept = 0;
 };
