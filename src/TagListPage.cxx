@@ -2,11 +2,11 @@
 // Copyright The Music Player Daemon Project
 
 #include "TagListPage.hxx"
-#include "screen_status.hxx"
 #include "FileListPage.hxx"
 #include "Command.hxx"
 #include "i18n.h"
 #include "charset.hxx"
+#include "Interface.hxx"
 #include "page/FindSupport.hxx"
 #include "client/mpdclient.hxx"
 #include "util/StringUTF8.hxx"
@@ -167,7 +167,7 @@ TagListPage::HandleEnter(struct mpdclient &c)
    _artist is actually only used in the ALBUM case to distinguish albums with
    the same name from different artists. */
 static void
-add_query(struct mpdclient *c, const TagFilter &filter,
+add_query(Interface &interface, struct mpdclient *c, const TagFilter &filter,
 	  enum mpd_tag_type tag, const char *value) noexcept
 {
 	auto *connection = c->GetConnection();
@@ -180,8 +180,8 @@ add_query(struct mpdclient *c, const TagFilter &filter,
 		   the previous level in the filter */
 		text = filter.empty() ? "?" : filter.front().second.c_str();
 
-	screen_status_fmt(_("Adding '{}' to queue"),
-			  (std::string_view)Utf8ToLocale{text});
+	interface.Alert(fmt::format(fmt::runtime(_("Adding '{}' to queue")),
+				    (std::string_view)Utf8ToLocale{text}));
 
 	mpd_search_add_db_songs(connection, true);
 	AddConstraints(connection, filter);
@@ -207,7 +207,7 @@ TagListPage::HandleSelect(struct mpdclient &c)
 			--i;
 		}
 
-		add_query(&c, filter, tag,
+		add_query(GetInterface(), &c, filter, tag,
 			  i < values.size()
 			  ? values[i].c_str() : nullptr);
 		result = true;
