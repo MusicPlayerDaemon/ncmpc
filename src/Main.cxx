@@ -3,7 +3,6 @@
 
 #include "config.h"
 #include "Instance.hxx"
-#include "ncmpc.hxx"
 #include "charset.hxx"
 #include "Options.hxx"
 #include "Command.hxx"
@@ -38,8 +37,6 @@
 #endif
 
 using std::string_view_literals::operator""sv;
-
-ScreenManager *screen;
 
 #ifndef NCMPC_MINI
 static void
@@ -295,7 +292,6 @@ try {
 
 	/* create the global Instance */
 	Instance instance;
-	screen = &instance.GetScreenManager();
 
 	AtScopeExit() {
 		/* this must be executed after ~Instance(), so we're
