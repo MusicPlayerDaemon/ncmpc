@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:45+0200\n"
+"POT-Creation-Date: 2024-09-14 22:51+0200\n"
 "PO-Revision-Date: 2024-08-06 17:09+0000\n"
 "Last-Translator: Quentin Frey <quentin.frey@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/ncmpc/"
@@ -872,7 +872,7 @@ msgstr "Warteschlange"
 msgid "Queue on %s"
 msgstr "Warteschlange auf %s"
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "durchmischte Warteschlange"
 
@@ -1129,7 +1129,7 @@ msgstr "Springe zu"
 msgid "Unable to find '{}'"
 msgstr "Kann „{}“ nicht finden"
 
-#: src/player_command.cxx:70
+#: src/player_command.cxx:71
 msgid "Cleared queue"
 msgstr "Geleerte Warteschlange"
 
@@ -1215,16 +1215,16 @@ msgstr "Autozentriermodus: aus"
 msgid "Password"
 msgstr "Passwort"
 
-#: src/screen_client.cxx:24
+#: src/screen_client.cxx:26
 msgid "Database update running"
 msgstr "Datenbankaktualisierung läuft"
 
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
-msgstr "Datenbankaktualisierung von %s gestartet"
+#: src/screen_client.cxx:33
+#, c++-format
+msgid "Database update of {} started"
+msgstr "Datenbankaktualisierung von {} gestartet"
 
-#: src/screen_client.cxx:34
+#: src/screen_client.cxx:36
 msgid "Database update started"
 msgstr "Datenbankaktualisierung gestartet"
 

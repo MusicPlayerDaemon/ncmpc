@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:45+0200\n"
+"POT-Creation-Date: 2024-09-14 22:51+0200\n"
 "PO-Revision-Date: 2024-06-15 05:56+0000\n"
 "Last-Translator: Wojciech Teichert <wojtekt99@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/ncmpc/"
@@ -865,7 +865,7 @@ msgstr "Lista odtwarzania"
 msgid "Queue on %s"
 msgstr "Lista odtwarzania na %s"
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "Przetasowano listę odtwarzania"
 
@@ -1122,7 +1122,7 @@ msgstr "Skocz"
 msgid "Unable to find '{}'"
 msgstr "Nie można znaleźć '{}'"
 
-#: src/player_command.cxx:70
+#: src/player_command.cxx:71
 msgid "Cleared queue"
 msgstr "Wyczyszczono listę odtwarzania"
 
@@ -1208,16 +1208,16 @@ msgstr "Tryb automatycznego centrowania: Wyłączony"
 msgid "Password"
 msgstr "Hasło"
 
-#: src/screen_client.cxx:24
+#: src/screen_client.cxx:26
 msgid "Database update running"
 msgstr "Aktualizacja bazy w toku"
 
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
-msgstr "Aktualizacja bazy %s rozpoczęta"
+#: src/screen_client.cxx:33
+#, c++-format
+msgid "Database update of {} started"
+msgstr "Aktualizacja bazy {} rozpoczęta"
 
-#: src/screen_client.cxx:34
+#: src/screen_client.cxx:36
 msgid "Database update started"
 msgstr "Aktualizacja bazy rozpoczęta"
 

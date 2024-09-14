@@ -4,13 +4,11 @@
 #pragma once
 
 struct mpdclient;
-
-bool
-screen_auth(struct mpdclient &c);
+class Interface;
 
 /**
  * Starts a (server-side) database update and displays a status
  * message.
  */
 void
-screen_database_update(struct mpdclient &c, const char *path);
+screen_database_update(Interface &interface, struct mpdclient &c, const char *path);

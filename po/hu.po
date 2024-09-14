@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:45+0200\n"
+"POT-Creation-Date: 2024-09-14 22:51+0200\n"
 "PO-Revision-Date: 2009-09-24 21:45+0000\n"
 "Last-Translator: Kiszel Kristóf <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -875,7 +875,7 @@ msgstr ""
 msgid "Queue on %s"
 msgstr ""
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr ""
 
@@ -1135,7 +1135,7 @@ msgstr "Ugrás"
 msgid "Unable to find '{}'"
 msgstr "'{}' nem található"
 
-#: src/player_command.cxx:70
+#: src/player_command.cxx:71
 msgid "Cleared queue"
 msgstr ""
 
@@ -1221,17 +1221,17 @@ msgstr "Középre igazítás kikapcsolva"
 msgid "Password"
 msgstr "Jelszó"
 
-#: src/screen_client.cxx:24
+#: src/screen_client.cxx:26
 #, fuzzy
 msgid "Database update running"
 msgstr "Adatbázis frissítés folyamatban..."
 
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
-msgstr "%s adatbázis frissítése elkezdődött"
+#: src/screen_client.cxx:33
+#, c++-format
+msgid "Database update of {} started"
+msgstr "{} adatbázis frissítése elkezdődött"
 
-#: src/screen_client.cxx:34
+#: src/screen_client.cxx:36
 msgid "Database update started"
 msgstr "Adatbázis frissítés elindult"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:45+0200\n"
+"POT-Creation-Date: 2024-09-14 22:51+0200\n"
 "PO-Revision-Date: 2023-11-30 10:03+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/ncmpc/"
@@ -869,7 +869,7 @@ msgstr "Kö"
 msgid "Queue on %s"
 msgstr "Kö på %s"
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "Blandad kö"
 
@@ -1126,7 +1126,7 @@ msgstr "Hopp"
 msgid "Unable to find '{}'"
 msgstr "Kan inte hitta '{}'"
 
-#: src/player_command.cxx:70
+#: src/player_command.cxx:71
 msgid "Cleared queue"
 msgstr "Kön tömd"
 
@@ -1212,16 +1212,16 @@ msgstr "Automatisk centrering avslaget"
 msgid "Password"
 msgstr "Lösenord"
 
-#: src/screen_client.cxx:24
+#: src/screen_client.cxx:26
 msgid "Database update running"
 msgstr "Databasuppdatering körs"
 
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
-msgstr "Uppdaterar databasen ifrån %s"
+#: src/screen_client.cxx:33
+#, c++-format
+msgid "Database update of {} started"
+msgstr "Uppdaterar databasen ifrån {}"
 
-#: src/screen_client.cxx:34
+#: src/screen_client.cxx:36
 msgid "Database update started"
 msgstr "Databasuppdatering påbörjad"
 

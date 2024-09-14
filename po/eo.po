@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:45+0200\n"
+"POT-Creation-Date: 2024-09-14 22:51+0200\n"
 "PO-Revision-Date: 2021-03-29 23:26+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/ncmpc/"
@@ -869,7 +869,7 @@ msgstr "Vico"
 msgid "Queue on %s"
 msgstr "Vico ĉe %s"
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "Miksiĝis vico"
 
@@ -1126,7 +1126,7 @@ msgstr "Salti"
 msgid "Unable to find '{}'"
 msgstr "Ne troviĝis \"{}\""
 
-#: src/player_command.cxx:70
+#: src/player_command.cxx:71
 msgid "Cleared queue"
 msgstr "Malpleniĝis vico"
 
@@ -1212,16 +1212,16 @@ msgstr "Aŭtomate centriga reĝimo: Neaktiva"
 msgid "Password"
 msgstr "Pasvorto"
 
-#: src/screen_client.cxx:24
+#: src/screen_client.cxx:26
 msgid "Database update running"
 msgstr "Ĝisdatigante datenbankon"
 
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
-msgstr "Ekĝisdatiĝis datenbanko %s"
+#: src/screen_client.cxx:33
+#, c++-format
+msgid "Database update of {} started"
+msgstr "Ekĝisdatiĝis datenbanko {}"
 
-#: src/screen_client.cxx:34
+#: src/screen_client.cxx:36
 msgid "Database update started"
 msgstr "Ekĝisdatiĝis la datenbanko"
 

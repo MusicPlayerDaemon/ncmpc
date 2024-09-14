@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:45+0200\n"
+"POT-Creation-Date: 2024-09-14 22:51+0200\n"
 "PO-Revision-Date: 2021-04-11 19:43+0700\n"
 "Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/ncmpc/"
@@ -864,7 +864,7 @@ msgstr "Очередь"
 msgid "Queue on %s"
 msgstr "Очередь на %s"
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "Очередь перемешана"
 
@@ -1122,7 +1122,7 @@ msgstr "Перейти"
 msgid "Unable to find '{}'"
 msgstr "Не удалось найти '{}'"
 
-#: src/player_command.cxx:70
+#: src/player_command.cxx:71
 msgid "Cleared queue"
 msgstr "Очередь очищена"
 
@@ -1208,16 +1208,16 @@ msgstr "Режим автоцентрирования: выкл."
 msgid "Password"
 msgstr "Пароль"
 
-#: src/screen_client.cxx:24
+#: src/screen_client.cxx:26
 msgid "Database update running"
 msgstr "Идёт обновление базы"
 
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
-msgstr "Обновление базы %s запущено"
+#: src/screen_client.cxx:33
+#, c++-format
+msgid "Database update of {} started"
+msgstr "Обновление базы {} запущено"
 
-#: src/screen_client.cxx:34
+#: src/screen_client.cxx:36
 msgid "Database update started"
 msgstr "Начато обновление базы"
 

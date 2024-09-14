@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:45+0200\n"
+"POT-Creation-Date: 2024-09-14 22:51+0200\n"
 "PO-Revision-Date: 2024-07-24 13:09+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/ncmpc/"
@@ -876,7 +876,7 @@ msgstr "Lista"
 msgid "Queue on %s"
 msgstr "Lista en %s"
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "Lista aleatoria"
 
@@ -1133,7 +1133,7 @@ msgstr "Saltar"
 msgid "Unable to find '{}'"
 msgstr "No se pudo encontrar {}"
 
-#: src/player_command.cxx:70
+#: src/player_command.cxx:71
 msgid "Cleared queue"
 msgstr "Lista vaciada"
 
@@ -1219,16 +1219,16 @@ msgstr "Modo autocentrado desactivado"
 msgid "Password"
 msgstr "Contraseña"
 
-#: src/screen_client.cxx:24
+#: src/screen_client.cxx:26
 msgid "Database update running"
 msgstr "Actualización de la base de datos en marcha"
 
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
-msgstr "Ha comenzado la actualización de la base de datos %s"
+#: src/screen_client.cxx:33
+#, c++-format
+msgid "Database update of {} started"
+msgstr "Ha comenzado la actualización de la base de datos {}"
 
-#: src/screen_client.cxx:34
+#: src/screen_client.cxx:36
 msgid "Database update started"
 msgstr "Ha comenzado la actualización de la base de datos"
 

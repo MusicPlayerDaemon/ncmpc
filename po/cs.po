@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:45+0200\n"
+"POT-Creation-Date: 2024-09-14 22:51+0200\n"
 "PO-Revision-Date: 2020-02-03 11:50+0000\n"
 "Last-Translator: Miroslav Burdych <mirek.burdych@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -881,7 +881,7 @@ msgstr ""
 msgid "Queue on %s"
 msgstr ""
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr ""
 
@@ -1141,7 +1141,7 @@ msgstr "Přeskočit"
 msgid "Unable to find '{}'"
 msgstr "Nemohu najít '%s'"
 
-#: src/player_command.cxx:70
+#: src/player_command.cxx:71
 msgid "Cleared queue"
 msgstr ""
 
@@ -1227,17 +1227,17 @@ msgstr "Automatické centrování vypnuto"
 msgid "Password"
 msgstr "Heslo"
 
-#: src/screen_client.cxx:24
+#: src/screen_client.cxx:26
 #, fuzzy
 msgid "Database update running"
 msgstr "Probíhá aktualizace databáze"
 
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
+#: src/screen_client.cxx:33
+#, fuzzy, c++-format
+msgid "Database update of {} started"
 msgstr "Aktualizace databáze %s zahájena"
 
-#: src/screen_client.cxx:34
+#: src/screen_client.cxx:36
 msgid "Database update started"
 msgstr "Aktualizace databáze zahájena"
 

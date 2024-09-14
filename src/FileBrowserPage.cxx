@@ -345,7 +345,7 @@ FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 		break;
 
 	case Command::DB_UPDATE:
-		screen_database_update(c, current_path.c_str());
+		screen_database_update(GetInterface(), c, current_path.c_str());
 		return true;
 
 	default:

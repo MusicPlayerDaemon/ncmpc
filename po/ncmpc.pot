@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:45+0200\n"
+"POT-Creation-Date: 2024-09-14 22:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -857,7 +857,7 @@ msgstr ""
 msgid "Queue on %s"
 msgstr ""
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr ""
 
@@ -1114,7 +1114,7 @@ msgstr ""
 msgid "Unable to find '{}'"
 msgstr ""
 
-#: src/player_command.cxx:70
+#: src/player_command.cxx:71
 msgid "Cleared queue"
 msgstr ""
 
@@ -1200,16 +1200,16 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: src/screen_client.cxx:24
+#: src/screen_client.cxx:26
 msgid "Database update running"
 msgstr ""
 
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
+#: src/screen_client.cxx:33
+#, c++-format
+msgid "Database update of {} started"
 msgstr ""
 
-#: src/screen_client.cxx:34
+#: src/screen_client.cxx:36
 msgid "Database update started"
 msgstr ""
 

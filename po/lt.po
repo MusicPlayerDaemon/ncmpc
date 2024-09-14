@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:45+0200\n"
+"POT-Creation-Date: 2024-09-14 22:51+0200\n"
 "PO-Revision-Date: 2021-08-27 09:34+0000\n"
 "Last-Translator: Gediminas Murauskas <muziejusinfo@gmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/ncmpc/"
@@ -866,7 +866,7 @@ msgstr "Eilė"
 msgid "Queue on %s"
 msgstr "Eilė ties %s"
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "Eilė sumaišyta"
 
@@ -1123,7 +1123,7 @@ msgstr "Peršokti"
 msgid "Unable to find '{}'"
 msgstr "Nepavyko rasti „{}“"
 
-#: src/player_command.cxx:70
+#: src/player_command.cxx:71
 msgid "Cleared queue"
 msgstr "Eilė išvalyta"
 
@@ -1209,16 +1209,16 @@ msgstr "Automatinio centravimo režimas: išjungtas"
 msgid "Password"
 msgstr "Slaptažodis"
 
-#: src/screen_client.cxx:24
+#: src/screen_client.cxx:26
 msgid "Database update running"
 msgstr "Vykdomas duomenų bazės atnaujinimas"
 
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
-msgstr "Pradėtas duomenų bazės %s atnaujinimas"
+#: src/screen_client.cxx:33
+#, c++-format
+msgid "Database update of {} started"
+msgstr "Pradėtas duomenų bazės {} atnaujinimas"
 
-#: src/screen_client.cxx:34
+#: src/screen_client.cxx:36
 msgid "Database update started"
 msgstr "Duomenų bazės atnaujinimas pradėtas"
 

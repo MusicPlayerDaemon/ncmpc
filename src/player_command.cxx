@@ -107,7 +107,7 @@ handle_player_command(Interface &interface,
 			c.HandleError();
 		break;
 	case Command::DB_UPDATE:
-		screen_database_update(c, nullptr);
+		screen_database_update(interface, c, nullptr);
 		break;
 	case Command::VOLUME_UP:
 		c.RunVolumeUp();

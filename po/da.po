@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:45+0200\n"
+"POT-Creation-Date: 2024-09-14 22:51+0200\n"
 "PO-Revision-Date: 2009-09-24 10:26+0200\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
@@ -879,7 +879,7 @@ msgstr ""
 msgid "Queue on %s"
 msgstr ""
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:62
+#: src/QueuePage.cxx:612 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr ""
 
@@ -1139,7 +1139,7 @@ msgstr "Spring"
 msgid "Unable to find '{}'"
 msgstr "Kan ikke finde '{}'"
 
-#: src/player_command.cxx:70
+#: src/player_command.cxx:71
 msgid "Cleared queue"
 msgstr ""
 
@@ -1225,17 +1225,17 @@ msgstr "Automatisk centrering er inaktiv"
 msgid "Password"
 msgstr "Adgangskode"
 
-#: src/screen_client.cxx:24
+#: src/screen_client.cxx:26
 #, fuzzy
 msgid "Database update running"
 msgstr "Databasen opdateres..."
 
-#: src/screen_client.cxx:31
-#, c-format
-msgid "Database update of %s started"
-msgstr "Database opdatering af %s startet"
+#: src/screen_client.cxx:33
+#, c++-format
+msgid "Database update of {} started"
+msgstr "Database opdatering af {} startet"
 
-#: src/screen_client.cxx:34
+#: src/screen_client.cxx:36
 msgid "Database update started"
 msgstr "Database opdatering startet"
 

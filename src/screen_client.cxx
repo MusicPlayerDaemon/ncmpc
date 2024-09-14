@@ -2,13 +2,15 @@
 // Copyright The Music Player Daemon Project
 
 #include "screen_client.hxx"
-#include "screen_status.hxx"
 #include "client/mpdclient.hxx"
 #include "i18n.h"
 #include "charset.hxx"
+#include "Interface.hxx"
+
+#include <fmt/core.h>
 
 void
-screen_database_update(struct mpdclient &c, const char *path)
+screen_database_update(Interface &interface, struct mpdclient &c, const char *path)
 {
 	assert(c.IsConnected());
 
@@ -21,15 +23,15 @@ screen_database_update(struct mpdclient &c, const char *path)
 		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_UPDATE_ALREADY &&
 		    mpd_connection_clear_error(connection))
-			screen_status_message(_("Database update running"));
+			interface.Alert(_("Database update running"));
 		else
 			c.HandleError();
 		return;
 	}
 
 	if (path != nullptr && *path != 0) {
-		screen_status_printf(_("Database update of %s started"),
-				     Utf8ToLocaleZ{path}.c_str());
+		interface.Alert(fmt::format(fmt::runtime(_("Database update of {} started")),
+					    (std::string_view)Utf8ToLocale{path}));
 	} else
-		screen_status_message(_("Database update started"));
+		interface.Alert(_("Database update started"));
 }

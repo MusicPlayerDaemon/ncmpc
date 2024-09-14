@@ -875,8 +875,8 @@ msgstr "Veri tabanı güncellemesi çalışıyor"
 
 #: src/screen_client.cxx:48
 #, c-format
-msgid "Database update of %s started"
-msgstr "%s veri tabanı güncellemesi başladı"
+msgid "Database update of {} started"
+msgstr "{} veri tabanı güncellemesi başladı"
 
 #: src/screen_client.cxx:51
 msgid "Database update started"
