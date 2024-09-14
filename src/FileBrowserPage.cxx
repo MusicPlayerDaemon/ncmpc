@@ -237,10 +237,9 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 		}
 
 		const auto *playlist = mpd_entity_get_playlist(entity);
-		char prompt[256];
-		snprintf(prompt, sizeof(prompt),
-			 _("Delete playlist %s?"),
-			 Utf8ToLocaleZ{GetUriFilename(mpd_playlist_get_path(playlist))}.c_str());
+
+		const auto prompt = fmt::format(fmt::runtime(_("Delete playlist {}?")),
+						(std::string_view)Utf8ToLocale{GetUriFilename(mpd_playlist_get_path(playlist))});
 
 		if (co_await YesNoDialog{screen, prompt} != YesNoResult::YES)
 			co_return;

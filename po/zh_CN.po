@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:51+0200\n"
+"POT-Creation-Date: 2024-09-14 23:01+0200\n"
 "PO-Revision-Date: 2021-01-19 16:32+0000\n"
 "Last-Translator: Lilian Wang <li330wang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "按键 %s 分配给 %s 和 %s"
 
-#: src/ChatPage.cxx:60 src/ChatPage.cxx:185
+#: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
 msgstr "对话"
 
-#: src/ChatPage.cxx:154
+#: src/ChatPage.cxx:153
 msgid "Your message"
 msgstr "你的消息"
 
-#: src/ChatPage.cxx:164
+#: src/ChatPage.cxx:163
 msgid "Message could not be sent"
 msgstr "消息无法发出"
 
@@ -447,23 +447,23 @@ msgstr "播放列表已删除"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:235
+#: src/FileBrowserPage.cxx:234
 msgid "Deleting this item is not possible"
 msgstr "此项目不能被删除"
 
-#: src/FileBrowserPage.cxx:243
-#, c-format
-msgid "Delete playlist %s?"
-msgstr "删除播放列表 %s？"
+#: src/FileBrowserPage.cxx:241
+#, c++-format
+msgid "Delete playlist {}?"
+msgstr "删除播放列表 {}？"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:262
+#: src/FileBrowserPage.cxx:260
 msgid "Playlist deleted"
 msgstr "播放列表已删除"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:289 src/FileBrowserPage.cxx:360
+#: src/FileBrowserPage.cxx:287 src/FileBrowserPage.cxx:358
 msgid "Browse"
 msgstr "目录"
 
@@ -754,62 +754,62 @@ msgid "Library"
 msgstr "曲库"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:203
+#: src/LyricsPage.cxx:202
 msgid "No lyrics"
 msgstr "无歌词"
 
-#: src/LyricsPage.cxx:217
+#: src/LyricsPage.cxx:216
 #, c++-format
 msgid "Lyrics timeout occurred after {} seconds"
 msgstr "{}秒无法获取歌词"
 
-#: src/LyricsPage.cxx:314 src/LyricsPage.cxx:322 src/LyricsPage.cxx:331
-#: src/LyricsPage.cxx:450
+#: src/LyricsPage.cxx:313 src/LyricsPage.cxx:321 src/LyricsPage.cxx:330
+#: src/LyricsPage.cxx:449
 msgid "Lyrics"
 msgstr "歌词"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:318
+#: src/LyricsPage.cxx:317
 msgid "loading..."
 msgstr "正在载入..."
 
-#: src/LyricsPage.cxx:339
+#: src/LyricsPage.cxx:338
 msgid "Lyrics cache is unavailable"
 msgstr ""
 
-#: src/LyricsPage.cxx:344
+#: src/LyricsPage.cxx:343
 msgid "Editor not configured"
 msgstr "未配置编辑器"
 
-#: src/LyricsPage.cxx:374 src/LyricsPage.cxx:391
+#: src/LyricsPage.cxx:373 src/LyricsPage.cxx:390
 msgid "Can't start editor"
 msgstr "无法打开编辑器"
 
-#: src/LyricsPage.cxx:394 src/LyricsPage.cxx:398
+#: src/LyricsPage.cxx:393 src/LyricsPage.cxx:397
 msgid "Editor exited unexpectedly"
 msgstr "编辑器异常退出"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:420
+#: src/LyricsPage.cxx:419
 msgid "Lyrics saved"
 msgstr "歌词已保存"
 
-#: src/LyricsPage.cxx:426
+#: src/LyricsPage.cxx:425
 msgid "Lyrics deleted"
 msgstr "歌词已被删除"
 
-#: src/LyricsPage.cxx:427
+#: src/LyricsPage.cxx:426
 msgid "No saved lyrics"
 msgstr "没有歌词"
 
-#: src/Main.cxx:107
+#: src/Main.cxx:104
 #, c++-format
 msgid "Connecting to {}"
 msgstr "连接到服务器 {}"
 
-#: src/Main.cxx:123
+#: src/Main.cxx:120
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "错误: MPD版本{}过低 (需要 {})"
@@ -856,20 +856,20 @@ msgstr "分区"
 msgid "Create new partition"
 msgstr "创建新分区"
 
-#: src/QueuePage.cxx:309
+#: src/QueuePage.cxx:308
 msgid "Add"
 msgstr "增加"
 
-#: src/QueuePage.cxx:374 src/QueuePage.cxx:660
+#: src/QueuePage.cxx:373 src/QueuePage.cxx:659
 msgid "Queue"
 msgstr "播放列表"
 
-#: src/QueuePage.cxx:376
+#: src/QueuePage.cxx:375
 #, c-format
 msgid "Queue on %s"
 msgstr "播放列表 %s"
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:63
+#: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "随机播放列表"
 
@@ -1130,17 +1130,17 @@ msgstr "找不到 '{}'"
 msgid "Cleared queue"
 msgstr "清空播放列表"
 
-#: src/save_playlist.cxx:74
+#: src/save_playlist.cxx:75
 msgid "Save queue as"
 msgstr "播放列表另存为"
 
-#: src/save_playlist.cxx:97
+#: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
 msgstr "替换 %s?"
 
 #. success
-#: src/save_playlist.cxx:122
+#: src/save_playlist.cxx:123
 #, c++-format
 msgid "Saved {}"
 msgstr "保存到 {}"

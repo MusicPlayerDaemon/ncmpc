@@ -414,8 +414,8 @@ msgstr "Bu öge silinemez"
 
 #: src/FileBrowserPage.cxx:254
 #, c-format
-msgid "Delete playlist %s?"
-msgstr "%s oynatma listesi silinsin mi?"
+msgid "Delete playlist {}?"
+msgstr "{} oynatma listesi silinsin mi?"
 
 #. translators: a dialog was aborted by the user
 #: src/FileBrowserPage.cxx:259 src/KeyDefPage.cxx:182 src/LyricsPage.cxx:388

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:51+0200\n"
+"POT-Creation-Date: 2024-09-14 23:01+0200\n"
 "PO-Revision-Date: 2020-09-08 16:36+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/ncmpc/"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "%s-tasten satt til %s og %s"
 
-#: src/ChatPage.cxx:60 src/ChatPage.cxx:185
+#: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
 msgstr "Sludre"
 
-#: src/ChatPage.cxx:154
+#: src/ChatPage.cxx:153
 msgid "Your message"
 msgstr "Din melding"
 
-#: src/ChatPage.cxx:164
+#: src/ChatPage.cxx:163
 msgid "Message could not be sent"
 msgstr "Meldingen kunne ikke sendes"
 
@@ -452,23 +452,23 @@ msgstr "Spillelisten slettet"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:235
+#: src/FileBrowserPage.cxx:234
 msgid "Deleting this item is not possible"
 msgstr "Kan ikke slette dette elementet"
 
-#: src/FileBrowserPage.cxx:243
-#, c-format
-msgid "Delete playlist %s?"
-msgstr "Slett spillelisten %s?"
+#: src/FileBrowserPage.cxx:241
+#, c++-format
+msgid "Delete playlist {}?"
+msgstr "Slett spillelisten {}?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:262
+#: src/FileBrowserPage.cxx:260
 msgid "Playlist deleted"
 msgstr "Spillelisten slettet"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:289 src/FileBrowserPage.cxx:360
+#: src/FileBrowserPage.cxx:287 src/FileBrowserPage.cxx:358
 msgid "Browse"
 msgstr "Filer"
 
@@ -768,62 +768,62 @@ msgid "Library"
 msgstr "Bibliotek"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:203
+#: src/LyricsPage.cxx:202
 msgid "No lyrics"
 msgstr "Ingen sangtekst"
 
-#: src/LyricsPage.cxx:217
+#: src/LyricsPage.cxx:216
 #, c++-format
 msgid "Lyrics timeout occurred after {} seconds"
 msgstr "Sangtekst-tidsavbrudd inntraff etter {} sekunder"
 
-#: src/LyricsPage.cxx:314 src/LyricsPage.cxx:322 src/LyricsPage.cxx:331
-#: src/LyricsPage.cxx:450
+#: src/LyricsPage.cxx:313 src/LyricsPage.cxx:321 src/LyricsPage.cxx:330
+#: src/LyricsPage.cxx:449
 msgid "Lyrics"
 msgstr "Sangtekster"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:318
+#: src/LyricsPage.cxx:317
 msgid "loading..."
 msgstr "laster..."
 
-#: src/LyricsPage.cxx:339
+#: src/LyricsPage.cxx:338
 msgid "Lyrics cache is unavailable"
 msgstr ""
 
-#: src/LyricsPage.cxx:344
+#: src/LyricsPage.cxx:343
 msgid "Editor not configured"
 msgstr "Tekstbehandler ikke satt opp"
 
-#: src/LyricsPage.cxx:374 src/LyricsPage.cxx:391
+#: src/LyricsPage.cxx:373 src/LyricsPage.cxx:390
 msgid "Can't start editor"
 msgstr "Kan ikke starte tekstbehandler"
 
-#: src/LyricsPage.cxx:394 src/LyricsPage.cxx:398
+#: src/LyricsPage.cxx:393 src/LyricsPage.cxx:397
 msgid "Editor exited unexpectedly"
 msgstr "Tekstbehandleren takket for seg uventet"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:420
+#: src/LyricsPage.cxx:419
 msgid "Lyrics saved"
 msgstr "Sangteksten er lagret"
 
-#: src/LyricsPage.cxx:426
+#: src/LyricsPage.cxx:425
 msgid "Lyrics deleted"
 msgstr "Tekster slettet"
 
-#: src/LyricsPage.cxx:427
+#: src/LyricsPage.cxx:426
 msgid "No saved lyrics"
 msgstr "Ingen lagrede tekster"
 
-#: src/Main.cxx:107
+#: src/Main.cxx:104
 #, c++-format
 msgid "Connecting to {}"
 msgstr "Kobler til {}"
 
-#: src/Main.cxx:123
+#: src/Main.cxx:120
 #, fuzzy, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "Feil: MPD-versjon {} er for gammel - oppgrader til versjon {}"
@@ -873,20 +873,20 @@ msgstr "Posisjon"
 msgid "Create new partition"
 msgstr "Opprett ny partisjon"
 
-#: src/QueuePage.cxx:309
+#: src/QueuePage.cxx:308
 msgid "Add"
 msgstr "Legg til"
 
-#: src/QueuePage.cxx:374 src/QueuePage.cxx:660
+#: src/QueuePage.cxx:373 src/QueuePage.cxx:659
 msgid "Queue"
 msgstr "Kø"
 
-#: src/QueuePage.cxx:376
+#: src/QueuePage.cxx:375
 #, c-format
 msgid "Queue on %s"
 msgstr "Kø på %s"
 
-#: src/QueuePage.cxx:612 src/player_command.cxx:63
+#: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "Stokket om kø"
 
@@ -1149,17 +1149,17 @@ msgstr "Fant ikke '{}'"
 msgid "Cleared queue"
 msgstr "Kø tømt"
 
-#: src/save_playlist.cxx:74
+#: src/save_playlist.cxx:75
 msgid "Save queue as"
 msgstr "Lagre kø som"
 
-#: src/save_playlist.cxx:97
+#: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
 msgstr "Erstatt %s?"
 
 #. success
-#: src/save_playlist.cxx:122
+#: src/save_playlist.cxx:123
 #, c++-format
 msgid "Saved {}"
 msgstr "Lagret {}"
