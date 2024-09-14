@@ -22,6 +22,7 @@ struct mpd_song;
 struct mpdclient;
 struct Window;
 class PageContainer;
+class Interface;
 
 class Page {
 	PageContainer &parent;
@@ -69,6 +70,9 @@ protected:
 	}
 
 	void SchedulePaint() noexcept;
+
+	[[gnu::const]]
+	Interface &GetInterface() const noexcept;
 
 	void Alert(std::string message) noexcept;
 

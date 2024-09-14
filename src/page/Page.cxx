@@ -19,6 +19,12 @@ Page::SchedulePaint() noexcept
 	parent.SchedulePaint(*this);
 }
 
+Interface &
+Page::GetInterface() const noexcept
+{
+	return parent;
+}
+
 void
 Page::Alert(std::string message) noexcept
 {
