@@ -786,13 +786,13 @@ msgstr "Kaydedilen şarkı sözü yok"
 
 #: src/Main.cxx:133
 #, c-format
-msgid "Connecting to %s"
-msgstr "%s ile bağlantı kuruluyor"
+msgid "Connecting to {}"
+msgstr "{} ile bağlantı kuruluyor"
 
 #: src/Main.cxx:149
 #, c-format
-msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "Hata: MPD sürümü %d.%d.%d çok eski (%s gerekli)"
+msgid "Error: MPD version {} is too old ({} needed)"
+msgstr "Hata: MPD sürümü {} çok eski ({} gerekli)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"

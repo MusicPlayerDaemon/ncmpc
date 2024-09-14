@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:54+0200\n"
+"POT-Creation-Date: 2024-09-14 22:21+0200\n"
 "PO-Revision-Date: 2024-07-24 13:09+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
@@ -801,15 +801,15 @@ msgstr "가사 삭제됨"
 msgid "No saved lyrics"
 msgstr "저장된 가사 없음"
 
-#: src/Main.cxx:106
-#, c-format
-msgid "Connecting to %s"
-msgstr "%s로 연결 중"
+#: src/Main.cxx:107
+#, c++-format
+msgid "Connecting to {}"
+msgstr "{}로 연결 중"
 
-#: src/Main.cxx:122
-#, c-format
-msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "오류: 너무 오래된 MPD %d.%d.%d 버전 (%s 필요)"
+#: src/Main.cxx:123
+#, c++-format
+msgid "Error: MPD version {} is too old ({} needed)"
+msgstr "오류: 너무 오래된 MPD {} 버전 ({} 필요)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -1093,11 +1093,11 @@ msgstr "터미널의 색상 기능이 부족합니다"
 msgid "All tracks"
 msgstr "모든 곡"
 
-#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
+#: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "음량"
 
-#: src/TitleBar.cxx:82
+#: src/TitleBar.cxx:85
 msgid "n/a"
 msgstr "없음"
 
@@ -1137,70 +1137,70 @@ msgstr "%s 바꿀까요?"
 msgid "Saved {}"
 msgstr "{} 저장됨"
 
-#: src/screen.cxx:151
+#: src/screen.cxx:155
 msgid "Repeat mode is on"
 msgstr "반복 모드 켜짐"
 
-#: src/screen.cxx:152
+#: src/screen.cxx:156
 msgid "Repeat mode is off"
 msgstr "반복 모드 꺼짐"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:160
 msgid "Random mode is on"
 msgstr "무작위 모드 켜짐"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:161
 msgid "Random mode is off"
 msgstr "무작위 모드 꺼짐"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:164
+#: src/screen.cxx:168
 msgid "Single mode is on"
 msgstr "한 곡 모드 켜짐"
 
-#: src/screen.cxx:165
+#: src/screen.cxx:169
 msgid "Single mode is off"
 msgstr "한 곡 모드 꺼짐"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:172
+#: src/screen.cxx:176
 msgid "Consume mode is on"
 msgstr "소비 모드 켜짐"
 
-#: src/screen.cxx:173
+#: src/screen.cxx:177
 msgid "Consume mode is off"
 msgstr "소비 모드 꺼짐"
 
-#: src/screen.cxx:176
+#: src/screen.cxx:180
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "크로스페이드 {} 초"
 
-#: src/screen.cxx:188
+#: src/screen.cxx:192
 msgid "Database updated"
 msgstr "데이터베이스 업데이트됨"
 
-#: src/screen.cxx:233
+#: src/screen.cxx:237
 msgid "Find mode: Wrapped"
 msgstr "찾기 모드: 줄 바꿈"
 
-#: src/screen.cxx:234
+#: src/screen.cxx:238
 msgid "Find mode: Normal"
 msgstr "찾기 모드: 보통"
 
-#: src/screen.cxx:240
+#: src/screen.cxx:244
 msgid "Auto center mode: On"
 msgstr "자동 중앙 모드: 켜짐"
 
-#: src/screen.cxx:241
+#: src/screen.cxx:245
 msgid "Auto center mode: Off"
 msgstr "자동 중앙 모드: 꺼짐"
 
-#: src/screen.cxx:386
+#: src/screen.cxx:402
 msgid "Password"
 msgstr "열쇠글"
 

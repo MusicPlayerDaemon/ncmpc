@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:54+0200\n"
+"POT-Creation-Date: 2024-09-14 22:21+0200\n"
 "PO-Revision-Date: 2024-06-15 05:56+0000\n"
 "Last-Translator: Wojciech Teichert <wojtekt99@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/ncmpc/"
@@ -805,15 +805,15 @@ msgstr "Tekst utworu usunięty"
 msgid "No saved lyrics"
 msgstr "Brak zapisanego tekstu utworu"
 
-#: src/Main.cxx:106
-#, c-format
-msgid "Connecting to %s"
-msgstr "Łączenie z %s"
+#: src/Main.cxx:107
+#, c++-format
+msgid "Connecting to {}"
+msgstr "Łączenie z {}"
 
-#: src/Main.cxx:122
-#, c-format
-msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "Błąd: MPD w wersji %d.%d.%d jest za stary (potrzebny jest %s)"
+#: src/Main.cxx:123
+#, c++-format
+msgid "Error: MPD version {} is too old ({} needed)"
+msgstr "Błąd: MPD w wersji {} jest za stary (potrzebny jest {})"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -1097,11 +1097,11 @@ msgstr "Terminal nie obsługuje kolorów"
 msgid "All tracks"
 msgstr "Wszystkie ścieżki"
 
-#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
+#: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Głośność"
 
-#: src/TitleBar.cxx:82
+#: src/TitleBar.cxx:85
 msgid "n/a"
 msgstr "b/d"
 
@@ -1141,70 +1141,70 @@ msgstr "Czy zamienić %s?"
 msgid "Saved {}"
 msgstr "Zapisano {}"
 
-#: src/screen.cxx:151
+#: src/screen.cxx:155
 msgid "Repeat mode is on"
 msgstr "Tryb powtarzania jest włączony"
 
-#: src/screen.cxx:152
+#: src/screen.cxx:156
 msgid "Repeat mode is off"
 msgstr "Tryb powtarzania jest wyłączony"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:160
 msgid "Random mode is on"
 msgstr "Tryb losowy jest włączony"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:161
 msgid "Random mode is off"
 msgstr "Tryb losowy jest wyłączony"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:164
+#: src/screen.cxx:168
 msgid "Single mode is on"
 msgstr "Tryb pojedynczego utworu jest włączony"
 
-#: src/screen.cxx:165
+#: src/screen.cxx:169
 msgid "Single mode is off"
 msgstr "Tryb pojedynczego utworu jest wyłączony"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:172
+#: src/screen.cxx:176
 msgid "Consume mode is on"
 msgstr "Tryb pożerania jest włączony"
 
-#: src/screen.cxx:173
+#: src/screen.cxx:177
 msgid "Consume mode is off"
 msgstr "Tryb pożerania jest wyłączony"
 
-#: src/screen.cxx:176
+#: src/screen.cxx:180
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "Przenikaj {} sekund"
 
-#: src/screen.cxx:188
+#: src/screen.cxx:192
 msgid "Database updated"
 msgstr "Baza zaktualizowana"
 
-#: src/screen.cxx:233
+#: src/screen.cxx:237
 msgid "Find mode: Wrapped"
 msgstr "Tryb wyszukiwania: Zawinięty"
 
-#: src/screen.cxx:234
+#: src/screen.cxx:238
 msgid "Find mode: Normal"
 msgstr "Tryb wyszukiwania: Normalny"
 
-#: src/screen.cxx:240
+#: src/screen.cxx:244
 msgid "Auto center mode: On"
 msgstr "Tryb automatycznego centrowania: Włączony"
 
-#: src/screen.cxx:241
+#: src/screen.cxx:245
 msgid "Auto center mode: Off"
 msgstr "Tryb automatycznego centrowania: Wyłączony"
 
-#: src/screen.cxx:386
+#: src/screen.cxx:402
 msgid "Password"
 msgstr "Hasło"
 

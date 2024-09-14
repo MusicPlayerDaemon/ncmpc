@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:54+0200\n"
+"POT-Creation-Date: 2024-09-14 22:21+0200\n"
 "PO-Revision-Date: 2020-09-08 16:36+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/ncmpc/"
@@ -818,15 +818,15 @@ msgstr "Tekster slettet"
 msgid "No saved lyrics"
 msgstr "Ingen lagrede tekster"
 
-#: src/Main.cxx:106
-#, c-format
-msgid "Connecting to %s"
-msgstr "Kobler til %s"
+#: src/Main.cxx:107
+#, c++-format
+msgid "Connecting to {}"
+msgstr "Kobler til {}"
 
-#: src/Main.cxx:122
-#, fuzzy, c-format
-msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "Feil: MPD-versjon %d.%d.%d er for gammel - oppgrader til versjon %s"
+#: src/Main.cxx:123
+#, fuzzy, c++-format
+msgid "Error: MPD version {} is too old ({} needed)"
+msgstr "Feil: MPD-versjon {} er for gammel - oppgrader til versjon {}"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -1120,11 +1120,11 @@ msgstr "Terminalen mangler støtte for farger"
 msgid "All tracks"
 msgstr "Alle spor"
 
-#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
+#: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Volum"
 
-#: src/TitleBar.cxx:82
+#: src/TitleBar.cxx:85
 msgid "n/a"
 msgstr "n/a"
 
@@ -1164,71 +1164,71 @@ msgstr "Erstatt %s?"
 msgid "Saved {}"
 msgstr "Lagret {}"
 
-#: src/screen.cxx:151
+#: src/screen.cxx:155
 msgid "Repeat mode is on"
 msgstr "Repeter er på"
 
-#: src/screen.cxx:152
+#: src/screen.cxx:156
 msgid "Repeat mode is off"
 msgstr "Repeter er av"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:160
 msgid "Random mode is on"
 msgstr "Tilfeldig modus er på"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:161
 msgid "Random mode is off"
 msgstr "Tilfeldig modus er av"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:164
+#: src/screen.cxx:168
 #, fuzzy
 msgid "Single mode is on"
 msgstr "Enkelt modus er påslått"
 
-#: src/screen.cxx:165
+#: src/screen.cxx:169
 msgid "Single mode is off"
 msgstr "Enkelt modus er avslått"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:172
+#: src/screen.cxx:176
 msgid "Consume mode is on"
 msgstr "Konsumentmodus er på"
 
-#: src/screen.cxx:173
+#: src/screen.cxx:177
 msgid "Consume mode is off"
 msgstr "Konsumentmodus er av"
 
-#: src/screen.cxx:176
+#: src/screen.cxx:180
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "Crossfade {} sekunder"
 
-#: src/screen.cxx:188
+#: src/screen.cxx:192
 msgid "Database updated"
 msgstr "Databasen er oppdatert"
 
-#: src/screen.cxx:233
+#: src/screen.cxx:237
 msgid "Find mode: Wrapped"
 msgstr "Søkt rundt (starter på ny)"
 
-#: src/screen.cxx:234
+#: src/screen.cxx:238
 msgid "Find mode: Normal"
 msgstr "Søk normalt (til slutt/begynnelse)"
 
-#: src/screen.cxx:240
+#: src/screen.cxx:244
 msgid "Auto center mode: On"
 msgstr "Automatisk sentrering er på"
 
-#: src/screen.cxx:241
+#: src/screen.cxx:245
 msgid "Auto center mode: Off"
 msgstr "Automatisk centrering er av"
 
-#: src/screen.cxx:386
+#: src/screen.cxx:402
 msgid "Password"
 msgstr "Passord"
 

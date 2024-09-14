@@ -11,7 +11,6 @@
 #include "GlobalBindings.hxx"
 #include "ncu.hxx"
 #include "screen.hxx"
-#include "screen_status.hxx"
 #include "xterm_title.hxx"
 #include "strfsong.hxx"
 #include "i18n.h"
@@ -27,6 +26,8 @@
 #include <mpd/client.h>
 
 #include <curses.h>
+
+#include <fmt/core.h>
 
 #include <assert.h>
 #include <stdio.h>
@@ -103,8 +104,8 @@ Instance::OnReconnectTimer() noexcept
 {
 	assert(client.IsDead());
 
-	screen_status_printf(_("Connecting to %s"),
-			     client.GetSettingsName().c_str());
+	screen_manager.Alert(fmt::format(fmt::runtime(_("Connecting to {}")),
+					 client.GetSettingsName()));
 	doupdate();
 
 	client.Connect();
@@ -119,9 +120,9 @@ Instance::OnMpdConnected() noexcept
 	if (mpd_connection_cmp_server_version(connection, 0, 21, 0) < 0) {
 		const unsigned *version =
 			mpd_connection_get_server_version(connection);
-		screen_status_printf(_("Error: MPD version %d.%d.%d is too old (%s needed)"),
-				     version[0], version[1], version[2],
-				     "0.21.0");
+		screen_manager.Alert(fmt::format(fmt::runtime(_("Error: MPD version {} is too old ({} needed)")),
+						 fmt::format("{}.{}.{}"sv, version[0], version[1], version[2]),
+						 "0.21.0"sv));
 		client.Disconnect();
 		doupdate();
 
@@ -199,7 +200,7 @@ Instance::OnCommand(Command cmd) noexcept
 	try {
 		screen_manager.OnCommand(GetClient(), GetSeek(), cmd);
 	} catch (...) {
-		screen_status_error(std::current_exception());
+		screen_manager.Alert(GetFullMessage(std::current_exception()));
 		return;
 	}
 
@@ -218,7 +219,7 @@ Instance::OnMouse(Point p, mmask_t bstate) noexcept
 	try {
 		screen_manager.OnMouse(GetClient(), GetSeek(), p, bstate);
 	} catch (...) {
-		screen_status_error(std::current_exception());
+		screen_manager.Alert(GetFullMessage(std::current_exception()));
 	}
 }
 

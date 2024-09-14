@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:54+0200\n"
+"POT-Creation-Date: 2024-09-14 22:21+0200\n"
 "PO-Revision-Date: 2021-03-29 23:26+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/ncmpc/"
@@ -805,15 +805,15 @@ msgstr "Forviŝiĝis kantotekstoj"
 msgid "No saved lyrics"
 msgstr "Neniuj konservitaj kantotekstoj"
 
-#: src/Main.cxx:106
-#, c-format
-msgid "Connecting to %s"
-msgstr "Konektante al %s"
+#: src/Main.cxx:107
+#, c++-format
+msgid "Connecting to {}"
+msgstr "Konektante al {}"
 
-#: src/Main.cxx:122
-#, c-format
-msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "Eraro: la versio %d.%d.%d de MPD estas tro malnova (necesas %s)"
+#: src/Main.cxx:123
+#, c++-format
+msgid "Error: MPD version {} is too old ({} needed)"
+msgstr "Eraro: la versio {} de MPD estas tro malnova (necesas {})"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -1101,11 +1101,11 @@ msgstr "Al la terminalo mankas koloraj kapabloj"
 msgid "All tracks"
 msgstr "Ĉiuj trakoj"
 
-#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
+#: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Laŭto"
 
-#: src/TitleBar.cxx:82
+#: src/TitleBar.cxx:85
 msgid "n/a"
 msgstr "n/a"
 
@@ -1145,70 +1145,70 @@ msgstr "Ĉu anstataŭigi %s?"
 msgid "Saved {}"
 msgstr "Konserviĝis {}"
 
-#: src/screen.cxx:151
+#: src/screen.cxx:155
 msgid "Repeat mode is on"
 msgstr "Ripeta reĝimo estas aktiva"
 
-#: src/screen.cxx:152
+#: src/screen.cxx:156
 msgid "Repeat mode is off"
 msgstr "Ripeta reĝimo estas neaktiva"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:160
 msgid "Random mode is on"
 msgstr "Hazarda reĝimo estas aktiva"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:161
 msgid "Random mode is off"
 msgstr "Hazarda reĝimo estas neaktiva"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:164
+#: src/screen.cxx:168
 msgid "Single mode is on"
 msgstr "Unuopa reĝimo estas aktiva"
 
-#: src/screen.cxx:165
+#: src/screen.cxx:169
 msgid "Single mode is off"
 msgstr "Unuopa reĝimo estas neaktiva"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:172
+#: src/screen.cxx:176
 msgid "Consume mode is on"
 msgstr "Konsuma reĝimo estas aktiva"
 
-#: src/screen.cxx:173
+#: src/screen.cxx:177
 msgid "Consume mode is off"
 msgstr "Konsuma reĝimo estas neaktiva"
 
-#: src/screen.cxx:176
+#: src/screen.cxx:180
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "{} sekundoj da interfado"
 
-#: src/screen.cxx:188
+#: src/screen.cxx:192
 msgid "Database updated"
 msgstr "Ĝisdatigis datumbazon"
 
-#: src/screen.cxx:233
+#: src/screen.cxx:237
 msgid "Find mode: Wrapped"
 msgstr "Serĉa reĝimo: Linifalda"
 
-#: src/screen.cxx:234
+#: src/screen.cxx:238
 msgid "Find mode: Normal"
 msgstr "Serĉa reĝimo: Normala"
 
-#: src/screen.cxx:240
+#: src/screen.cxx:244
 msgid "Auto center mode: On"
 msgstr "Aŭtomate centriga reĝimo: Aktiva"
 
-#: src/screen.cxx:241
+#: src/screen.cxx:245
 msgid "Auto center mode: Off"
 msgstr "Aŭtomate centriga reĝimo: Neaktiva"
 
-#: src/screen.cxx:386
+#: src/screen.cxx:402
 msgid "Password"
 msgstr "Pasvorto"
 

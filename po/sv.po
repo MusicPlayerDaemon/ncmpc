@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:54+0200\n"
+"POT-Creation-Date: 2024-09-14 22:21+0200\n"
 "PO-Revision-Date: 2023-11-30 10:03+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/ncmpc/"
@@ -804,15 +804,15 @@ msgstr "Låttext raderad"
 msgid "No saved lyrics"
 msgstr "Inga sparade texter"
 
-#: src/Main.cxx:106
-#, c-format
-msgid "Connecting to %s"
-msgstr "Ansluter till %s"
+#: src/Main.cxx:107
+#, c++-format
+msgid "Connecting to {}"
+msgstr "Ansluter till {}"
 
-#: src/Main.cxx:122
-#, c-format
-msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "Fel: MPD version %d.%d.%d är för gammal (%s krävs)"
+#: src/Main.cxx:123
+#, c++-format
+msgid "Error: MPD version {} is too old ({} needed)"
+msgstr "Fel: MPD version {} är för gammal ({} krävs)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -1101,11 +1101,11 @@ msgstr "Terminalen saknar stöd för färger"
 msgid "All tracks"
 msgstr "Alla spår"
 
-#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
+#: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Volym"
 
-#: src/TitleBar.cxx:82
+#: src/TitleBar.cxx:85
 msgid "n/a"
 msgstr "n/a"
 
@@ -1145,70 +1145,70 @@ msgstr "Ersätt %s?"
 msgid "Saved {}"
 msgstr "{} sparad"
 
-#: src/screen.cxx:151
+#: src/screen.cxx:155
 msgid "Repeat mode is on"
 msgstr "Upprepningsläge på"
 
-#: src/screen.cxx:152
+#: src/screen.cxx:156
 msgid "Repeat mode is off"
 msgstr "Upprepningsläge av"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:160
 msgid "Random mode is on"
 msgstr "Slumpningsläge på"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:161
 msgid "Random mode is off"
 msgstr "Slumpningsläge av"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:164
+#: src/screen.cxx:168
 msgid "Single mode is on"
 msgstr "Enstaka läge är på"
 
-#: src/screen.cxx:165
+#: src/screen.cxx:169
 msgid "Single mode is off"
 msgstr "Enstaka läge är av"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:172
+#: src/screen.cxx:176
 msgid "Consume mode is on"
 msgstr "Förtäringsläge på"
 
-#: src/screen.cxx:173
+#: src/screen.cxx:177
 msgid "Consume mode is off"
 msgstr "Förtäringsläge av"
 
-#: src/screen.cxx:176
+#: src/screen.cxx:180
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "Mjuk övergång {} sekunder"
 
-#: src/screen.cxx:188
+#: src/screen.cxx:192
 msgid "Database updated"
 msgstr "Databas uppdaterad"
 
-#: src/screen.cxx:233
+#: src/screen.cxx:237
 msgid "Find mode: Wrapped"
 msgstr "Sökläge: Börja om"
 
-#: src/screen.cxx:234
+#: src/screen.cxx:238
 msgid "Find mode: Normal"
 msgstr "Sökläge: Till början/slut"
 
-#: src/screen.cxx:240
+#: src/screen.cxx:244
 msgid "Auto center mode: On"
 msgstr "Automatisk centrering påslaget"
 
-#: src/screen.cxx:241
+#: src/screen.cxx:245
 msgid "Auto center mode: Off"
 msgstr "Automatisk centrering avslaget"
 
-#: src/screen.cxx:386
+#: src/screen.cxx:402
 msgid "Password"
 msgstr "Lösenord"
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:54+0200\n"
+"POT-Creation-Date: 2024-09-14 22:21+0200\n"
 "PO-Revision-Date: 2011-08-11 10:30+0300\n"
 "Last-Translator: Oleksandr Kovalenko <alx.kovalenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -813,15 +813,15 @@ msgstr "Текст пісні видалений"
 msgid "No saved lyrics"
 msgstr "Немає збереженого тексту пісні"
 
-#: src/Main.cxx:106
-#, fuzzy, c-format
-msgid "Connecting to %s"
-msgstr "Встановлене з'єднання з %s"
+#: src/Main.cxx:107
+#, fuzzy, c++-format
+msgid "Connecting to {}"
+msgstr "Встановлене з'єднання з {}"
 
-#: src/Main.cxx:122
-#, fuzzy, c-format
-msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "Помилка: MPD версії %d.%d.%d застаріла (необхідна %s)"
+#: src/Main.cxx:123
+#, fuzzy, c++-format
+msgid "Error: MPD version {} is too old ({} needed)"
+msgstr "Помилка: MPD версії {} застаріла (необхідна {})"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -1109,11 +1109,11 @@ msgstr "Терміналу бракує підтримки можливосте�
 msgid "All tracks"
 msgstr "Всі доріжки"
 
-#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
+#: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Гучність"
 
-#: src/TitleBar.cxx:82
+#: src/TitleBar.cxx:85
 msgid "n/a"
 msgstr "недоступна"
 
@@ -1153,70 +1153,70 @@ msgstr "Замінити %s [%s/%s] ? "
 msgid "Saved {}"
 msgstr "Збережений {}"
 
-#: src/screen.cxx:151
+#: src/screen.cxx:155
 msgid "Repeat mode is on"
 msgstr "Режим повторення увімкнений"
 
-#: src/screen.cxx:152
+#: src/screen.cxx:156
 msgid "Repeat mode is off"
 msgstr "Режим повторення вимкнений"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:160
 msgid "Random mode is on"
 msgstr "Режим випадкового програвання увімкнений"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:161
 msgid "Random mode is off"
 msgstr "Режим випадкового програвання вимкнений"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:164
+#: src/screen.cxx:168
 msgid "Single mode is on"
 msgstr "Режим повторення однієї доріжки увімкнений"
 
-#: src/screen.cxx:165
+#: src/screen.cxx:169
 msgid "Single mode is off"
 msgstr "Режим повторення однієї доріжки вимкнений"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:172
+#: src/screen.cxx:176
 msgid "Consume mode is on"
 msgstr "Режим вичерпання увімкнений"
 
-#: src/screen.cxx:173
+#: src/screen.cxx:177
 msgid "Consume mode is off"
 msgstr "Режим вичерпання вимкнений"
 
-#: src/screen.cxx:176
+#: src/screen.cxx:180
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "Плавний перехід: {}с"
 
-#: src/screen.cxx:188
+#: src/screen.cxx:192
 msgid "Database updated"
 msgstr "База даних оновлена"
 
-#: src/screen.cxx:233
+#: src/screen.cxx:237
 msgid "Find mode: Wrapped"
 msgstr "Режим пошуку: завернутий (розділений???)"
 
-#: src/screen.cxx:234
+#: src/screen.cxx:238
 msgid "Find mode: Normal"
 msgstr "Режим пошуку: звичайний"
 
-#: src/screen.cxx:240
+#: src/screen.cxx:244
 msgid "Auto center mode: On"
 msgstr "Режим автоматичного центрування: увімкнено"
 
-#: src/screen.cxx:241
+#: src/screen.cxx:245
 msgid "Auto center mode: Off"
 msgstr "Режим автоматичного центрування: вимкнено"
 
-#: src/screen.cxx:386
+#: src/screen.cxx:402
 msgid "Password"
 msgstr "Пароль"
 

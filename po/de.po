@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 11:54+0200\n"
+"POT-Creation-Date: 2024-09-14 22:21+0200\n"
 "PO-Revision-Date: 2024-08-06 17:09+0000\n"
 "Last-Translator: Quentin Frey <quentin.frey@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/ncmpc/"
@@ -803,15 +803,15 @@ msgstr "Texte gelöscht"
 msgid "No saved lyrics"
 msgstr "Keine gespeicherten Texte"
 
-#: src/Main.cxx:106
-#, c-format
-msgid "Connecting to %s"
-msgstr "Verbinden mit %s"
+#: src/Main.cxx:107
+#, c++-format
+msgid "Connecting to {}"
+msgstr "Verbinden mit {}"
 
-#: src/Main.cxx:122
-#, c-format
-msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "Fehler: MPD-Version %d.%d.%d ist zu alt (%s wird benötigt)"
+#: src/Main.cxx:123
+#, c++-format
+msgid "Error: MPD version {} is too old ({} needed)"
+msgstr "Fehler: MPD-Version {} ist zu alt ({} wird benötigt)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -1104,11 +1104,11 @@ msgstr "Das Terminal unterstützt keine Farben"
 msgid "All tracks"
 msgstr "Alle Stücke"
 
-#: src/TitleBar.cxx:82 src/TitleBar.cxx:85
+#: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Lautstärke"
 
-#: src/TitleBar.cxx:82
+#: src/TitleBar.cxx:85
 msgid "n/a"
 msgstr "n/a"
 
@@ -1148,70 +1148,70 @@ msgstr "Ersetze %s?"
 msgid "Saved {}"
 msgstr "{} gespeichert"
 
-#: src/screen.cxx:151
+#: src/screen.cxx:155
 msgid "Repeat mode is on"
 msgstr "Wiederhol-Modus ist aktiviert"
 
-#: src/screen.cxx:152
+#: src/screen.cxx:156
 msgid "Repeat mode is off"
 msgstr "Wiederhol-Modus ist deaktiviert"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:160
 msgid "Random mode is on"
 msgstr "Zufalls-Modus ist aktiviert"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:161
 msgid "Random mode is off"
 msgstr "Zufalls-Modus ist deaktiviert"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:164
+#: src/screen.cxx:168
 msgid "Single mode is on"
 msgstr "Einzelabspiel-Modus ist aktiviert"
 
-#: src/screen.cxx:165
+#: src/screen.cxx:169
 msgid "Single mode is off"
 msgstr "Einzelabspiel-Modus ist deaktiviert"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:172
+#: src/screen.cxx:176
 msgid "Consume mode is on"
 msgstr "Verbrauchs-Modus Aktiviert"
 
-#: src/screen.cxx:173
+#: src/screen.cxx:177
 msgid "Consume mode is off"
 msgstr "Verbrauchs-Modus Deaktiviert"
 
-#: src/screen.cxx:176
+#: src/screen.cxx:180
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "{} Sekunden Crossfade"
 
-#: src/screen.cxx:188
+#: src/screen.cxx:192
 msgid "Database updated"
 msgstr "Datenbank aktualisiert"
 
-#: src/screen.cxx:233
+#: src/screen.cxx:237
 msgid "Find mode: Wrapped"
 msgstr "Suchmodus: Wrapped"
 
-#: src/screen.cxx:234
+#: src/screen.cxx:238
 msgid "Find mode: Normal"
 msgstr "Suchmodus: Normal"
 
-#: src/screen.cxx:240
+#: src/screen.cxx:244
 msgid "Auto center mode: On"
 msgstr "Autozentriermodus: an"
 
-#: src/screen.cxx:241
+#: src/screen.cxx:245
 msgid "Auto center mode: Off"
 msgstr "Autozentriermodus: aus"
 
-#: src/screen.cxx:386
+#: src/screen.cxx:402
 msgid "Password"
 msgstr "Passwort"
 

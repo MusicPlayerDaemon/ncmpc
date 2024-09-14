@@ -4,7 +4,6 @@
 #include "screen.hxx"
 #include "PageMeta.hxx"
 #include "screen_list.hxx"
-#include "screen_status.hxx"
 #include "Command.hxx"
 #include "config.h"
 #include "i18n.h"
@@ -21,6 +20,7 @@
 #include "ui/Options.hxx"
 #include "co/Task.hxx"
 #include "client/mpdclient.hxx"
+#include "util/Exception.hxx"
 #include "util/ScopeExit.hxx"
 #include "util/StringAPI.hxx"
 
@@ -453,7 +453,7 @@ inline void
 ScreenManager::OnCoComplete(std::exception_ptr error) noexcept
 {
 	if (error)
-		screen_status_error(std::move(error));
+		Alert(GetFullMessage(std::move(error)));
 }
 
 void

@@ -2,8 +2,8 @@
 // Copyright The Music Player Daemon Project
 
 #include "Instance.hxx"
-#include "screen_status.hxx"
 #include "ui/Bell.hxx"
+#include "util/Exception.hxx"
 
 #include <curses.h>
 
@@ -24,7 +24,7 @@ Instance::OnMpdAuth() noexcept
 void
 Instance::OnMpdError(std::string_view message) noexcept
 {
-	screen_status_message(message);
+	screen_manager.Alert(std::string{message});
 	Bell();
 	doupdate();
 }
@@ -32,7 +32,7 @@ Instance::OnMpdError(std::string_view message) noexcept
 void
 Instance::OnMpdError(std::exception_ptr e) noexcept
 {
-	screen_status_error(std::move(e));
+	screen_manager.Alert(GetFullMessage(std::move(e)));
 	Bell();
 	doupdate();
 }

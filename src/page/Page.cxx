@@ -4,7 +4,7 @@
 #include "Page.hxx"
 #include "Container.hxx"
 #include "ui/Window.hxx"
-#include "screen_status.hxx"
+#include "util/Exception.hxx"
 
 void
 Page::OnClose() noexcept
@@ -54,7 +54,7 @@ inline void
 Page::_OnCoComplete(std::exception_ptr error) noexcept
 {
 	if (error)
-		screen_status_error(std::move(error));
+		parent.Alert(GetFullMessage(std::move(error)));
 	else
 		OnCoComplete();
 }
