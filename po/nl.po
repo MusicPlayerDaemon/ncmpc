@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:42+0200\n"
+"POT-Creation-Date: 2024-09-14 22:45+0200\n"
 "PO-Revision-Date: 2022-08-23 03:43+0000\n"
 "Last-Translator: JeibborRip <rob.jorna@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -1113,22 +1113,22 @@ msgstr "Volume"
 msgid "n/a"
 msgstr "n/b"
 
-#: src/page/FindSupport.cxx:15
+#: src/page/FindSupport.cxx:16
 msgid "Find"
 msgstr "Vind"
 
-#: src/page/FindSupport.cxx:16
+#: src/page/FindSupport.cxx:17
 msgid "Find backward"
 msgstr ""
 
-#: src/page/FindSupport.cxx:17
+#: src/page/FindSupport.cxx:18
 msgid "Jump"
 msgstr "Spring"
 
-#: src/page/FindSupport.cxx:44
-#, c-format
-msgid "Unable to find '%s'"
-msgstr "Niet mogelijk '%s' te vinden"
+#: src/page/FindSupport.cxx:45
+#, c++-format
+msgid "Unable to find '{}'"
+msgstr "Niet mogelijk '{}' te vinden"
 
 #: src/player_command.cxx:70
 msgid "Cleared queue"

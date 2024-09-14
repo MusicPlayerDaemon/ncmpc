@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:42+0200\n"
+"POT-Creation-Date: 2024-09-14 22:45+0200\n"
 "PO-Revision-Date: 2021-04-11 19:43+0700\n"
 "Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/ncmpc/"
@@ -1105,22 +1105,22 @@ msgstr "Громкость"
 msgid "n/a"
 msgstr "н/д"
 
-#: src/page/FindSupport.cxx:15
+#: src/page/FindSupport.cxx:16
 msgid "Find"
 msgstr "Поиск"
 
-#: src/page/FindSupport.cxx:16
+#: src/page/FindSupport.cxx:17
 msgid "Find backward"
 msgstr "Поиск назад"
 
-#: src/page/FindSupport.cxx:17
+#: src/page/FindSupport.cxx:18
 msgid "Jump"
 msgstr "Перейти"
 
-#: src/page/FindSupport.cxx:44
-#, c-format
-msgid "Unable to find '%s'"
-msgstr "Не удалось найти '%s'"
+#: src/page/FindSupport.cxx:45
+#, c++-format
+msgid "Unable to find '{}'"
+msgstr "Не удалось найти '{}'"
 
 #: src/player_command.cxx:70
 msgid "Cleared queue"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:42+0200\n"
+"POT-Creation-Date: 2024-09-14 22:45+0200\n"
 "PO-Revision-Date: 2024-08-06 17:09+0000\n"
 "Last-Translator: Quentin Frey <quentin.frey@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/ncmpc/"
@@ -1112,22 +1112,22 @@ msgstr "Lautstärke"
 msgid "n/a"
 msgstr "n/a"
 
-#: src/page/FindSupport.cxx:15
+#: src/page/FindSupport.cxx:16
 msgid "Find"
 msgstr "Suche"
 
-#: src/page/FindSupport.cxx:16
+#: src/page/FindSupport.cxx:17
 msgid "Find backward"
 msgstr "Suche rückwärts"
 
-#: src/page/FindSupport.cxx:17
+#: src/page/FindSupport.cxx:18
 msgid "Jump"
 msgstr "Springe zu"
 
-#: src/page/FindSupport.cxx:44
-#, c-format
-msgid "Unable to find '%s'"
-msgstr "Kann „%s“ nicht finden"
+#: src/page/FindSupport.cxx:45
+#, c++-format
+msgid "Unable to find '{}'"
+msgstr "Kann „{}“ nicht finden"
 
 #: src/player_command.cxx:70
 msgid "Cleared queue"

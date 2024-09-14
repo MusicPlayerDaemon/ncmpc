@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:42+0200\n"
+"POT-Creation-Date: 2024-09-14 22:45+0200\n"
 "PO-Revision-Date: 2009-09-24 21:45+0000\n"
 "Last-Translator: Kiszel Kristóf <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -1118,22 +1118,22 @@ msgstr "Hangerő"
 msgid "n/a"
 msgstr "ismeretlen"
 
-#: src/page/FindSupport.cxx:15
+#: src/page/FindSupport.cxx:16
 msgid "Find"
 msgstr "Keresés"
 
-#: src/page/FindSupport.cxx:16
+#: src/page/FindSupport.cxx:17
 msgid "Find backward"
 msgstr "Keresés visszafelé"
 
-#: src/page/FindSupport.cxx:17
+#: src/page/FindSupport.cxx:18
 msgid "Jump"
 msgstr "Ugrás"
 
-#: src/page/FindSupport.cxx:44
-#, c-format
-msgid "Unable to find '%s'"
-msgstr "'%s' nem található"
+#: src/page/FindSupport.cxx:45
+#, c++-format
+msgid "Unable to find '{}'"
+msgstr "'{}' nem található"
 
 #: src/player_command.cxx:70
 msgid "Cleared queue"

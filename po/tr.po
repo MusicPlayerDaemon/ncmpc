@@ -962,8 +962,8 @@ msgstr "Atla"
 
 #: src/screen_find.cxx:81
 #, c-format
-msgid "Unable to find '%s'"
-msgstr "'%s' bulunamıyor"
+msgid "Unable to find '{}'"
+msgstr "'{}' bulunamıyor"
 
 #: src/screen_utils.cxx:150
 msgid "Password"

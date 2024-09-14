@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 22:42+0200\n"
+"POT-Creation-Date: 2024-09-14 22:45+0200\n"
 "PO-Revision-Date: 2024-07-24 13:09+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
@@ -1101,22 +1101,22 @@ msgstr "음량"
 msgid "n/a"
 msgstr "없음"
 
-#: src/page/FindSupport.cxx:15
+#: src/page/FindSupport.cxx:16
 msgid "Find"
 msgstr "찾기"
 
-#: src/page/FindSupport.cxx:16
+#: src/page/FindSupport.cxx:17
 msgid "Find backward"
 msgstr "뒤로 찾기"
 
-#: src/page/FindSupport.cxx:17
+#: src/page/FindSupport.cxx:18
 msgid "Jump"
 msgstr "이동"
 
-#: src/page/FindSupport.cxx:44
-#, c-format
-msgid "Unable to find '%s'"
-msgstr "'%s' 찾을 수 없음"
+#: src/page/FindSupport.cxx:45
+#, c++-format
+msgid "Unable to find '{}'"
+msgstr "'{}' 찾을 수 없음"
 
 #: src/player_command.cxx:70
 msgid "Cleared queue"

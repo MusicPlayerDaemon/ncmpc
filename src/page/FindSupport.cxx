@@ -3,7 +3,6 @@
 
 #include "FindSupport.hxx"
 #include "screen.hxx"
-#include "screen_status.hxx"
 #include "i18n.h"
 #include "Command.hxx"
 #include "dialogs/TextInputDialog.hxx"
@@ -11,6 +10,8 @@
 #include "ui/ListWindow.hxx"
 #include "ui/Options.hxx"
 #include "co/InvokeTask.hxx"
+
+#include <fmt/core.h>
 
 #define FIND_PROMPT  _("Find")
 #define RFIND_PROMPT _("Find backward")
@@ -41,8 +42,8 @@ FindSupport::DoFind(ListWindow &lw, const ListText &text, bool reversed) noexcep
 		? lw.ReverseFind(text, last)
 		: lw.Find(text, last);
 	if (!found) {
-		screen_status_printf(_("Unable to find \'%s\'"),
-				     last.c_str());
+		screen.Alert(fmt::format(fmt::runtime(_("Unable to find \'{}\'")),
+					 last));
 		Bell();
 	}
 }
