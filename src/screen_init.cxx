@@ -118,6 +118,7 @@ ScreenManager::OnResize() noexcept
 
 	/* main window */
 	main_window.Resize(layout.GetMainSize());
+	main_dirty = true;
 
 	/* progress window */
 	progress_bar.OnResize(layout.GetProgress(), layout.size.width);
