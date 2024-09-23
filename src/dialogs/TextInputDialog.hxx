@@ -132,6 +132,7 @@ private:
 		return std::move(value);
 	}
 
+	void CommitHistory() noexcept;
 	void SetReady() noexcept;
 
 	/** returns the screen column where the cursor is located */

@@ -24,27 +24,33 @@ using std::string_view_literals::operator""sv;
 static constexpr std::size_t wrln_max_history_length = 32;
 
 inline void
+TextInputDialog::CommitHistory() noexcept
+{
+	if (history == nullptr)
+		return;
+
+	if (!value.empty()) {
+		/* update the current history entry */
+		*hcurrent = value;
+	} else {
+		/* the line was empty - remove the current history entry */
+		history->erase(hcurrent);
+	}
+
+	auto history_length = history->size();
+	while (history_length > wrln_max_history_length) {
+		history->pop_front();
+		--history_length;
+	}
+}
+
+inline void
 TextInputDialog::SetReady() noexcept
 {
 	assert(!ready);
 	ready = true;
 
-	/* update history */
-	if (history) {
-		if (!value.empty()) {
-			/* update the current history entry */
-			*hcurrent = value;
-		} else {
-			/* the line was empty - remove the current history entry */
-			history->erase(hcurrent);
-		}
-
-		auto history_length = history->size();
-		while (history_length > wrln_max_history_length) {
-			history->pop_front();
-			--history_length;
-		}
-	}
+	CommitHistory();
 
 	if (continuation)
 		continuation.resume();
