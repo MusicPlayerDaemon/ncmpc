@@ -2,6 +2,7 @@ ncmpc 0.51 - not yet released
 * repaint main area after terminal was resized
 * pressing Enter while in "jump mode" activates selected item
 * fix crash in new text input dialog
+* fix crash on song info page
 
 ncmpc 0.50 - (2024-09-12)
 * build: require Meson 0.60

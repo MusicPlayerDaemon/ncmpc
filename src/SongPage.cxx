@@ -289,7 +289,7 @@ SongPage::AppendTag(const struct mpd_song *song,
 	unsigned i = 0;
 	const char *value;
 
-	assert((unsigned)tag < std::size(tag_labels));
+	assert(tag < MPD_TAG_COUNT);
 	assert(label != nullptr);
 
 	while ((value = mpd_song_get_tag(song, tag, i++)) != nullptr)
