@@ -177,7 +177,6 @@ _strfsong(char *const s0, char *const end,
 			tag = MPD_TAG_COMPOSER;
 		else if (name == "performer"sv)
 			tag = MPD_TAG_PERFORMER;
-#if LIBMPDCLIENT_CHECK_VERSION(2,17,0)
 		else if (name == "conductor"sv)
 			tag = MPD_TAG_CONDUCTOR;
 		else if (name == "work"sv)
@@ -186,7 +185,6 @@ _strfsong(char *const s0, char *const end,
 			tag = MPD_TAG_GROUPING;
 		else if (strncmp("%label%", p, n) == 0)
 			tag = MPD_TAG_LABEL;
-#endif
 		else if (name == "title"sv)
 			tag = MPD_TAG_TITLE;
 		else if (name == "album"sv)

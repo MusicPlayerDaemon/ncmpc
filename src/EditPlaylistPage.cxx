@@ -207,8 +207,6 @@ EditPlaylistPage::HandleDelete(struct mpdclient &c)
 	return true;
 }
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,19,0)
-
 inline bool
 EditPlaylistPage::HandleMoveUp(struct mpdclient &c)
 {
@@ -253,8 +251,6 @@ EditPlaylistPage::HandleMoveDown(struct mpdclient &c)
 	return true;
 }
 
-#endif
-
 bool
 EditPlaylistPage::OnCommand(struct mpdclient &c, Command cmd)
 {
@@ -279,13 +275,11 @@ EditPlaylistPage::OnCommand(struct mpdclient &c, Command cmd)
 		// TODO
 		return true;
 
-#if LIBMPDCLIENT_CHECK_VERSION(2,19,0)
 	case Command::LIST_MOVE_UP:
 		return HandleMoveUp(c);
 
 	case Command::LIST_MOVE_DOWN:
 		return HandleMoveDown(c);
-#endif
 
 	default:
 		break;

@@ -1,4 +1,4 @@
-libmpdclient_dep = dependency('libmpdclient', version: '>= 2.16')
+libmpdclient_dep = dependency('libmpdclient', version: '>= 2.19')
 
 client_sources = [
   'gidle.cxx',

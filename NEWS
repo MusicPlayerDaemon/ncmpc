@@ -3,6 +3,7 @@ ncmpc 0.51 - not yet released
 * pressing Enter while in "jump mode" activates selected item
 * fix crash in new text input dialog
 * fix crash on song info page
+* require libmpdclient 2.19 or newer
 
 ncmpc 0.50 - (2024-09-12)
 * build: require Meson 0.60
