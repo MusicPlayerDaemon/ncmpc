@@ -5,6 +5,7 @@
 #include "config.h"
 #include "gidle.hxx"
 #include "charset.hxx"
+#include "util/ScopeExit.hxx"
 
 #include <mpd/client.h>
 
@@ -195,9 +196,9 @@ mpdclient::GetSettingsName() const noexcept
 	if (settings == nullptr)
 		return "unknown";
 
-	auto name = settings_name(settings);
-	mpd_settings_free(settings);
-	return name;
+	AtScopeExit(settings) { mpd_settings_free(settings); };
+
+	return settings_name(settings);
 #endif
 }
 
