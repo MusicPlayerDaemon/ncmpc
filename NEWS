@@ -1,6 +1,7 @@
 ncmpc 0.51 - not yet released
 * repaint main area after terminal was resized
 * pressing Enter while in "jump mode" activates selected item
+* format: fix "%label%" expansion
 * fix crash in new text input dialog
 * fix crash on song info page
 * require libmpdclient 2.19 or newer
