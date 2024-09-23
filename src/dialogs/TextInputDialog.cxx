@@ -212,6 +212,13 @@ void
 TextInputDialog::OnCancel() noexcept
 {
 	value.clear();
+
+	if (history) {
+		/* revert the temporary history entry added by our
+                   constuctor */
+		history->pop_back();
+	}
+
 	SetReady();
 }
 
@@ -271,9 +278,6 @@ TextInputDialog::OnKey(const Window window, int key)
 	case KEY_CTL('C'):
 	case KEY_CTL('G'):
 		Bell();
-		if (history) {
-			history->pop_back();
-		}
 		Cancel();
 		return true;
 
