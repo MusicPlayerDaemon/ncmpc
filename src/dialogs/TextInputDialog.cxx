@@ -50,8 +50,6 @@ TextInputDialog::SetReady() noexcept
 	assert(!ready);
 	ready = true;
 
-	CommitHistory();
-
 	if (continuation)
 		continuation.resume();
 }
@@ -237,6 +235,7 @@ TextInputDialog::OnKey(const Window window, int key)
 			return false;
 		}
 
+		CommitHistory();
 		SetReady();
 		return true;
 	}
