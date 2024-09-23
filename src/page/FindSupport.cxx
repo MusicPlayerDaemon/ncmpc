@@ -31,7 +31,7 @@ FindSupport::DoFind(ListWindow &lw, const ListText &text, bool reversed) noexcep
 			screen,
 			prompt,
 			std::move(value),
-			&history,
+			{ .history = &history },
 		};
 	}
 
@@ -78,9 +78,9 @@ FindSupport::Jump(ListWindow &lw,
 	TextInputDialog dialog{
 		screen,
 		JUMP_PROMPT,
+		{},
+		{ .fragile = true },
 	};
-
-	dialog.SetFragile();
 
 	dialog.SetModifiedCallback([&lw, &text, &renderer](std::string_view value) noexcept {
 		lw.Jump(text, value);

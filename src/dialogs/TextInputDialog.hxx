@@ -13,6 +13,24 @@
 
 class Completion;
 
+struct TextInputDialogOptions {
+	History *history = nullptr;
+
+	Completion *completion = nullptr;
+
+	/**
+	 * Is the input masked, i.e. characters displayed as '*'?
+	 */
+	bool masked = false;
+
+	/**
+	 * "Fragile" mode: all unknown keys cancel the dialog and
+	 * OnKey() returns false (i.e. the key can be handled by
+	 * somebody else).
+	 */
+	bool fragile = false;
+};
+
 /**
  * A #ModalDialog that asks the user to input text.
  *
@@ -39,11 +57,11 @@ class TextInputDialog final : public ModalDialog {
 	/** the screen width of the input field */
 	mutable unsigned width;
 
-	/** is the input masked, i.e. characters displayed as '*'? */
+	/** @see TextInputDialogOptions::masked */
 	const bool masked;
 
-	/** @see SetFragile() */
-	bool fragile = false;
+	/** @see TextInputDialogOptions::fragile */
+	const bool fragile;
 
 	bool ready = false;
 
@@ -67,20 +85,15 @@ public:
 	 * lifetime of this dialog
 	 *
 	 * @param _value the initial value
-	 *
-	 * @param _masked do not display the text, show asterisks
-	 * instead (for password entry)
 	 */
 	TextInputDialog(ModalDock &_dock,
 			std::string_view _prompt,
 			std::string &&_value={},
-			History *_history=nullptr,
-			Completion *_completion=nullptr,
-			bool _masked=false) noexcept
+			TextInputDialogOptions _options={}) noexcept
 		:ModalDialog(_dock), prompt(_prompt),
 		 value(std::move(_value)),
-		 history(_history), completion(_completion),
-		 masked(_masked)
+		 history(_options.history), completion(_options.completion),
+		 masked(_options.masked), fragile(_options.fragile)
 	{
 		Show();
 
@@ -94,15 +107,6 @@ public:
 
 	~TextInputDialog() noexcept {
 		Hide();
-	}
-
-	/**
-	 * Enable "fragile" mode: all unknown keys cancel the dialog
-	 * and OnKey() returns false (i.e. the key can be handled by
-	 * somebody else).
-	 */
-	void SetFragile() noexcept {
-		fragile = true;
 	}
 
 	void SetModifiedCallback(ModifiedCallback &&_modified_callback) noexcept {

@@ -400,7 +400,7 @@ EnterPassword(ScreenManager &screen, struct mpdclient &c)
 
 	co_return co_await TextInputDialog{
 		screen, _("Password"), {},
-		nullptr, nullptr, true,
+		{ .masked = true },
 	};
 }
 

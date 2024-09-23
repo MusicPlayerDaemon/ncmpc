@@ -307,8 +307,7 @@ handle_add_to_playlist(ScreenManager &screen, struct mpdclient &c)
 		screen,
 		_("Add"),
 		{},
-		nullptr,
-		completion,
+		{ .completion = completion },
 	};
 
 	/* add the path to the playlist */

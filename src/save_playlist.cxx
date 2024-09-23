@@ -74,8 +74,7 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 		filename = co_await TextInputDialog{
 			screen, _("Save queue as"),
 			{},
-			nullptr,
-			completion,
+			{ .completion = completion },
 		};
 
 		if (filename.empty())

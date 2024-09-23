@@ -421,7 +421,7 @@ SearchPage::Start(struct mpdclient &c)
 	pattern = co_await TextInputDialog{
 		screen, _("Search"),
 		{},
-		&search_history,
+		{ .history = &search_history },
 	};
 
 	if (pattern.empty()) {
