@@ -1,5 +1,6 @@
 ncmpc 0.51 - not yet released
 * repaint main area after terminal was resized
+* pressing Enter while in "jump mode" activates selected item
 
 ncmpc 0.50 - (2024-09-12)
 * build: require Meson 0.60

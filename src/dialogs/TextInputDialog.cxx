@@ -219,6 +219,11 @@ bool
 TextInputDialog::OnKey(const Window window, int key)
 {
 	if (key == KEY_RETURN || key == KEY_LINEFEED) {
+		if (fragile) {
+			Cancel();
+			return false;
+		}
+
 		SetReady();
 		return true;
 	}
