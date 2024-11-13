@@ -206,8 +206,7 @@ void
 PluginPipe::OnRead(unsigned) noexcept
 {
 	char buffer[256];
-	ssize_t nbytes = socket_event.GetFileDescriptor().Read(buffer,
-							       sizeof(buffer));
+	ssize_t nbytes = socket_event.GetFileDescriptor().Read(std::as_writable_bytes(std::span{buffer}));
 	if (nbytes <= 0) {
 		socket_event.Close();
 		cycle.OnEof();
