@@ -55,6 +55,11 @@ public:
 	void Paint() const noexcept;
 
 private:
+	/**
+	 * Updates #hscroll after a content or size change.
+	 */
+	void UpdateScrollLayout() noexcept;
+
 	void OnMessageTimer() noexcept {
 		ClearMessage();
 	}

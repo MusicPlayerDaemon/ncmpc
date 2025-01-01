@@ -131,6 +131,26 @@ FormatStatusRightText(std::span<char> buffer,
 }
 
 void
+StatusBar::UpdateScrollLayout() noexcept
+{
+#ifndef NCMPC_MINI
+	if (!options.scroll)
+		return;
+
+	const unsigned window_width = window.GetWidth();
+	const unsigned center_width =
+		StringWidthMB(center_text);
+	if (window_width > 3 && center_width > window_width) {
+		hscroll.Set({(int)left_width, 0}, window_width,
+			    center_text,
+			    Style::STATUS);
+	} else {
+		hscroll.Clear();
+	}
+#endif
+}
+
+void
 StatusBar::Update(const struct mpd_status *status,
 		  const struct mpd_song *song,
 		  const DelayedSeek &seek) noexcept
@@ -171,20 +191,7 @@ StatusBar::Update(const struct mpd_status *status,
 			center_text.clear();
 
 		/* scroll if the song name is to long */
-#ifndef NCMPC_MINI
-		if (options.scroll) {
-			const unsigned window_width = window.GetWidth();
-			const unsigned center_width =
-				StringWidthMB(center_text);
-			if (window_width > 3 && center_width > window_width) {
-				hscroll.Set({(int)left_width, 0}, window_width,
-					    center_text,
-					    Style::STATUS);
-			} else {
-				hscroll.Clear();
-			}
-		}
-#endif
+		UpdateScrollLayout();
 	} else {
 		right_width = 0;
 		center_text.clear();
