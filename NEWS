@@ -2,6 +2,7 @@ ncmpc 0.52 - not yet released
 * fix searching on Help and Song page
 * fix scroll bug after resizing window
 * do not overwrite time/bitrate with song text in status bar
+* add option "show-server-address", disabled by default
 * build: require Meson 1.0
 
 ncmpc 0.51 - (2024-09-23)

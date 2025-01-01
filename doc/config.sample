@@ -69,6 +69,9 @@
 ## Show a title bar at the top of the screen
 #show-title-bar = yes
 
+## Show the server address at the top
+#show-server-address = no
+
 ## Show a list of the screens in the top line.
 #welcome-screen-list = yes
 

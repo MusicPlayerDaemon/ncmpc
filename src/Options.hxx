@@ -58,6 +58,7 @@ struct Options {
 #endif
 
 	bool show_title_bar = true;
+	bool show_server_address = false;
 
 	bool auto_center = false;
 

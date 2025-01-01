@@ -594,6 +594,8 @@ parse_line(char *line)
 		parse_key_definition(value);
 	else if (StringIsEqualIgnoreCase("show-title-bar", name))
 		options.show_title_bar = str2bool(value);
+	else if (StringIsEqualIgnoreCase("show-server-address", name))
+		options.show_server_address = str2bool(value);
 	/* enable colors */
 	else if(StringIsEqualIgnoreCase(CONF_ENABLE_COLORS, name))
 #ifdef ENABLE_COLORS

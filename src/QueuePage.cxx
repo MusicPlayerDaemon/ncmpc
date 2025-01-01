@@ -368,7 +368,7 @@ QueuePage::OnClose() noexcept
 std::string_view
 QueuePage::GetTitle(std::span<char> buffer) const noexcept
 {
-	if (connection_name.empty())
+	if (connection_name.empty() || !options.show_server_address)
 		return _("Queue");
 
 	return SPrintf(buffer, _("Queue on %s"), connection_name.c_str());
