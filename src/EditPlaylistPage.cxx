@@ -66,7 +66,7 @@ LoadPlaylist(struct mpdclient &c, const char *name, FileList &l)
 	return c.FinishCommand();
 }
 
-static struct std::unique_ptr<FileList>
+static std::unique_ptr<FileList>
 LoadPlaylist(struct mpdclient &c, const std::string &name)
 {
 	auto l = std::make_unique<FileList>();
