@@ -478,9 +478,16 @@ SongPage::OnCommand(struct mpdclient &c, Command cmd)
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
-	if (screen.find_support.Find(lw, *this, cmd)) {
-		SchedulePaint();
+	switch (cmd) {
+	case Command::LIST_FIND:
+	case Command::LIST_RFIND:
+	case Command::LIST_FIND_NEXT:
+	case Command::LIST_RFIND_NEXT:
+		CoStart(screen.find_support.Find(lw, *this, cmd));
 		return true;
+
+	default:
+		break;
 	}
 
 	return false;
