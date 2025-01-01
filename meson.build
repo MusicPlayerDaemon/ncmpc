@@ -1,8 +1,8 @@
 project('ncmpc', 'cpp',
   version: '0.52',
-  meson_version: '>= 0.60',
+  meson_version: '>= 1.0',
   default_options: [
-    'cpp_std=c++2a',
+    'cpp_std=c++20',
     'warning_level=3',
 
     # If we build libmpdclient, it should be linked statically into
