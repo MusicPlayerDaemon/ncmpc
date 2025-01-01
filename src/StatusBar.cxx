@@ -138,10 +138,16 @@ StatusBar::UpdateScrollLayout() noexcept
 		return;
 
 	const unsigned window_width = window.GetWidth();
+	if (left_width + right_width >= window_width)
+		/* there's no room for the center_text */
+		return;
+
+	const unsigned remaining_width = window_width - (left_width + right_width);
+
 	const unsigned center_width =
 		StringWidthMB(center_text);
-	if (window_width > 3 && center_width > window_width) {
-		hscroll.Set({(int)left_width, 0}, window_width,
+	if (window_width > 3 && center_width > remaining_width) {
+		hscroll.Set({(int)left_width, 0}, remaining_width,
 			    center_text,
 			    Style::STATUS);
 	} else {
@@ -232,7 +238,7 @@ StatusBar::Paint() const noexcept
 		window.String({x, 0}, {right_buffer, right_length});
 	}
 
-	if (!center_text.empty()) {
+	if (!center_text.empty() && left_width + right_length < window_width) {
 		/* display song name */
 
 		SelectStyle(window, Style::STATUS);
