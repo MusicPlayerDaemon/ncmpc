@@ -8,356 +8,359 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-14 23:01+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-01-20 09:16+0000\n"
+"Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/ncmpc/translations/"
+"ta/>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr ""
+msgstr "முக்கிய %s %s மற்றும் %s க்கு ஒதுக்கப்பட்டுள்ளன"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
-msgstr ""
+msgstr "அரட்டை"
 
 #: src/ChatPage.cxx:153
 msgid "Your message"
-msgstr ""
+msgstr "உங்கள் செய்தி"
 
 #: src/ChatPage.cxx:163
 msgid "Message could not be sent"
-msgstr ""
+msgstr "செய்தியை அனுப்ப முடியவில்லை"
 
 #: src/Command.cxx:15
 msgid "Key configuration screen"
-msgstr ""
+msgstr "முக்கிய உள்ளமைவு திரை"
 
 #: src/Command.cxx:18
 msgid "Quit"
-msgstr ""
+msgstr "வெளியேறு"
 
 #: src/Command.cxx:22
 msgid "Move cursor up"
-msgstr ""
+msgstr "கர்சரை மேலே நகர்த்தவும்"
 
 #: src/Command.cxx:24
 msgid "Move cursor down"
-msgstr ""
+msgstr "கர்சரை கீழே நகர்த்தவும்"
 
 #: src/Command.cxx:26
 msgid "Move cursor to the top of screen"
-msgstr ""
+msgstr "கர்சரை திரையின் மேற்புறத்தில் நகர்த்தவும்"
 
 #: src/Command.cxx:28
 msgid "Move cursor to the middle of screen"
-msgstr ""
+msgstr "கர்சரை திரையின் நடுவில் நகர்த்தவும்"
 
 #: src/Command.cxx:30
 msgid "Move cursor to the bottom of screen"
-msgstr ""
+msgstr "கர்சரை திரையின் அடிப்பகுதிக்கு நகர்த்தவும்"
 
 #: src/Command.cxx:32
 msgid "Move cursor to the top of the list"
-msgstr ""
+msgstr "கர்சரை பட்டியலின் மேலே நகர்த்தவும்"
 
 #: src/Command.cxx:34
 msgid "Move cursor to the bottom of the list"
-msgstr ""
+msgstr "கர்சரை பட்டியலின் அடிப்பகுதிக்கு நகர்த்தவும்"
 
 #: src/Command.cxx:36
 msgid "Page up"
-msgstr ""
+msgstr "பக்கம்"
 
 #: src/Command.cxx:38
 msgid "Page down"
-msgstr ""
+msgstr "பக்கம் கீழே"
 
 #: src/Command.cxx:40
 msgid "Range selection"
-msgstr ""
+msgstr "வரம்பு தேர்வு"
 
 #: src/Command.cxx:42
 msgid "Scroll down one line"
-msgstr ""
+msgstr "ஒரு வரியை உருட்டவும்"
 
 #: src/Command.cxx:44
 msgid "Scroll up one line"
-msgstr ""
+msgstr "ஒரு வரியை உருட்டவும்"
 
 #: src/Command.cxx:46
 msgid "Scroll up half a screen"
-msgstr ""
+msgstr "அரை திரை உருட்டவும்"
 
 #: src/Command.cxx:48
 msgid "Scroll down half a screen"
-msgstr ""
+msgstr "அரை திரை கீழே உருட்டவும்"
 
 #: src/Command.cxx:50
 msgid "Select currently playing song"
-msgstr ""
+msgstr "தற்போது வாசிக்கும் பாடலைத் தேர்ந்தெடுக்கவும்"
 
 #: src/Command.cxx:55
 msgid "Help screen"
-msgstr ""
+msgstr "உதவி திரை"
 
 #: src/Command.cxx:57 src/HelpPage.cxx:125
 msgid "Queue screen"
-msgstr ""
+msgstr "வரிசை திரை"
 
 #: src/Command.cxx:59 src/HelpPage.cxx:140
 msgid "Browse screen"
-msgstr ""
+msgstr "திரை திரை"
 
 #: src/Command.cxx:64
 msgid "Play/Enter directory"
-msgstr ""
+msgstr "கோப்பகத்தை இயக்கவும்/உள்ளிடவும்"
 
 #: src/Command.cxx:66
 msgid "Pause"
-msgstr ""
+msgstr "இடைநிறுத்தம்"
 
 #: src/Command.cxx:68
 msgid "Stop"
-msgstr ""
+msgstr "நிறுத்து"
 
 #: src/Command.cxx:70
 msgid "Crop"
-msgstr ""
+msgstr "பயிர்"
 
 #: src/Command.cxx:72
 msgid "Next track"
-msgstr ""
+msgstr "அடுத்த பாடல்"
 
 #: src/Command.cxx:74
 msgid "Previous track"
-msgstr ""
+msgstr "முந்தைய பாடல்"
 
 #: src/Command.cxx:76
 msgid "Seek forward"
-msgstr ""
+msgstr "முன்னோக்கி தேடுங்கள்"
 
 #: src/Command.cxx:78
 msgid "Seek backward"
-msgstr ""
+msgstr "பின்தங்கிய தேடுங்கள்"
 
 #: src/Command.cxx:80
 msgid "Increase volume"
-msgstr ""
+msgstr "அளவை அதிகரிக்கவும்"
 
 #: src/Command.cxx:82
 msgid "Decrease volume"
-msgstr ""
+msgstr "அளவைக் குறைக்கவும்"
 
 #: src/Command.cxx:84
 msgid "Select/deselect song in queue"
-msgstr ""
+msgstr "வரிசையில் பாடலைத் தேர்ந்தெடுக்கவும்/தேர்வுநீக்கவும்"
 
 #: src/Command.cxx:86
 msgid "Select all listed items"
-msgstr ""
+msgstr "பட்டியலிடப்பட்ட அனைத்து பொருட்களையும் தேர்ந்தெடுக்கவும்"
 
 #: src/Command.cxx:88
 msgid "Delete song from queue"
-msgstr ""
+msgstr "வரிசையில் இருந்து பாடலை நீக்கு"
 
 #: src/Command.cxx:90
 msgid "Shuffle queue"
-msgstr ""
+msgstr "கலக்கு வரிசை"
 
 #: src/Command.cxx:92
 msgid "Clear queue"
-msgstr ""
+msgstr "தெளிவான வரிசை"
 
 #: src/Command.cxx:94
 msgid "Toggle repeat mode"
-msgstr ""
+msgstr "மீண்டும் பயன்முறையை மாற்றவும்"
 
 #: src/Command.cxx:96
 msgid "Toggle random mode"
-msgstr ""
+msgstr "சீரற்ற பயன்முறையை மாற்றவும்"
 
 #: src/Command.cxx:98
 msgid "Toggle single mode"
-msgstr ""
+msgstr "ஒற்றை பயன்முறையை மாற்றவும்"
 
 #: src/Command.cxx:100
 msgid "Toggle consume mode"
-msgstr ""
+msgstr "நுகர்வு பயன்முறையை மாற்றவும்"
 
 #: src/Command.cxx:102
 msgid "Toggle crossfade mode"
-msgstr ""
+msgstr "கிராச்ஃபேட் பயன்முறையை மாற்றவும்"
 
 #: src/Command.cxx:104
 msgid "Start a music database update"
-msgstr ""
+msgstr "இசை தரவுத்தள புதுப்பிப்பைத் தொடங்கவும்"
 
 #: src/Command.cxx:106
 msgid "Save queue"
-msgstr ""
+msgstr "வரிசையைச் சேமிக்கவும்"
 
 #: src/Command.cxx:108 src/HelpPage.cxx:162
 msgid "Append song to queue"
-msgstr ""
+msgstr "வரிசையில் பாடலைச் சேர்க்கவும்"
 
 #: src/Command.cxx:111
 msgid "Go to root directory"
-msgstr ""
+msgstr "ரூட் கோப்பகத்திற்குச் செல்லுங்கள்"
 
 #: src/Command.cxx:113
 msgid "Go to parent directory"
-msgstr ""
+msgstr "பெற்றோர் கோப்பகத்திற்குச் செல்லுங்கள்"
 
 #: src/Command.cxx:116
 msgid "Locate song in browser"
-msgstr ""
+msgstr "உலாவியில் பாடலைக் கண்டுபிடி"
 
 #: src/Command.cxx:120
 msgid "Move item up"
-msgstr ""
+msgstr "உருப்படியை நகர்த்தவும்"
 
 #: src/Command.cxx:122
 msgid "Move item down"
-msgstr ""
+msgstr "உருப்படியை கீழே நகர்த்தவும்"
 
 #: src/Command.cxx:124
 msgid "Refresh screen"
-msgstr ""
+msgstr "திரை புதுப்பிக்கவும்"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
 #: src/Command.cxx:131
 msgid "Toggle find mode"
-msgstr ""
+msgstr "கண்டுபிடி பயன்முறையை மாற்றவும்"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
 #: src/Command.cxx:135
 msgid "Toggle auto center mode"
-msgstr ""
+msgstr "ஆட்டோ சென்டர் பயன்முறையை மாற்றவும்"
 
 #: src/Command.cxx:140
 msgid "Next screen"
-msgstr ""
+msgstr "அடுத்த திரை"
 
 #: src/Command.cxx:142
 msgid "Previous screen"
-msgstr ""
+msgstr "முந்தைய திரை"
 
 #: src/Command.cxx:144
 msgid "Swap to most recent screen"
-msgstr ""
+msgstr "மிக அண்மைக் கால திரையில் இடமாற்றம் செய்யுங்கள்"
 
 #: src/Command.cxx:149
 msgid "Forward find"
-msgstr ""
+msgstr "முன்னோக்கி கண்டுபிடி"
 
 #: src/Command.cxx:151
 msgid "Forward find next"
-msgstr ""
+msgstr "முன்னோக்கி அடுத்து கண்டுபிடிக்கவும்"
 
 #: src/Command.cxx:153
 msgid "Backward find"
-msgstr ""
+msgstr "பின்தங்கிய கண்டுபிடிப்பு"
 
 #: src/Command.cxx:155
 msgid "Backward find previous"
-msgstr ""
+msgstr "முந்தையதைக் கண்டுபிடி"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
 #: src/Command.cxx:160
 msgid "Jump to"
-msgstr ""
+msgstr "குதிக்கவும்"
 
 #: src/Command.cxx:166
 msgid "Library page"
-msgstr ""
+msgstr "நூலக பக்கம்"
 
 #: src/Command.cxx:170 src/HelpPage.cxx:157
 msgid "Search screen"
-msgstr ""
+msgstr "தேடல் திரை"
 
 #: src/Command.cxx:172
 msgid "Change search mode"
-msgstr ""
+msgstr "தேடல் பயன்முறையை மாற்றவும்"
 
 #: src/Command.cxx:176
 msgid "Playlist editor"
-msgstr ""
+msgstr "பிளேலிச்ட் ஆசிரியர்"
 
 #: src/Command.cxx:180
 msgid "View the selected and the currently playing song"
-msgstr ""
+msgstr "தேர்ந்தெடுக்கப்பட்ட மற்றும் தற்போது வாசிக்கும் பாடலைக் காண்க"
 
 #: src/Command.cxx:184 src/HelpPage.cxx:169
 msgid "Lyrics screen"
-msgstr ""
+msgstr "பாடல் திரை"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
 #: src/Command.cxx:188
 msgid "Interrupt action"
-msgstr ""
+msgstr "குறுக்கீடு நடவடிக்கை"
 
 #: src/Command.cxx:190
 msgid "Update Lyrics"
-msgstr ""
+msgstr "பாடல் வரிகள்"
 
 #: src/Command.cxx:194
 msgid "Edit the current item"
-msgstr ""
+msgstr "தற்போதைய உருப்படியைத் திருத்தவும்"
 
 #: src/Command.cxx:199 src/HelpPage.cxx:184
 msgid "Outputs screen"
-msgstr ""
+msgstr "வெளியீடுகள் திரை"
 
 #: src/Command.cxx:204 src/HelpPage.cxx:191
 msgid "Chat screen"
-msgstr ""
+msgstr "அரட்டை திரை"
 
 #: src/ConfigParser.cxx:110
 msgid "Word expected"
-msgstr ""
+msgstr "சொல் எதிர்பார்க்கப்படுகிறது"
 
 #: src/ConfigParser.cxx:154
 msgid "Whitespace expected"
-msgstr ""
+msgstr "வைட்ச்பேச் எதிர்பார்க்கப்படுகிறது"
 
 #: src/ConfigParser.cxx:168
 msgid "Quoted value expected"
-msgstr ""
+msgstr "மேற்கோள் மதிப்பு எதிர்பார்க்கப்படுகிறது"
 
 #: src/ConfigParser.cxx:177
 msgid "Closing quote missing"
-msgstr ""
+msgstr "மூடல் மேற்கோள் இல்லை"
 
 #: src/ConfigParser.cxx:195
 msgid "Syntax error"
-msgstr ""
+msgstr "தொடரியல் பிழை"
 
 #: src/ConfigParser.cxx:215
 msgid "Malformed hotkey definition"
-msgstr ""
+msgstr "தவறாக ஆட்ச்கி வரையறை"
 
 #. the hotkey configuration line
 #. is incomplete
 #: src/ConfigParser.cxx:234
 msgid "Incomplete hotkey configuration"
-msgstr ""
+msgstr "முழுமையற்ற ஆட்ச்கி உள்ளமைவு"
 
 #. the hotkey configuration
 #. contains an unknown
 #. command
 #: src/ConfigParser.cxx:248
 msgid "Unknown command"
-msgstr ""
+msgstr "தெரியாத கட்டளை"
 
 #. translators: ncmpc supports
 #. displaying the "elapsed" or
@@ -368,29 +371,29 @@ msgstr ""
 #. setting
 #: src/ConfigParser.cxx:285
 msgid "Bad time display type"
-msgstr ""
+msgstr "மோசமான நேர காட்சி வகை"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
 #: src/ConfigParser.cxx:299 src/ConfigParser.cxx:584
 msgid "Missing '='"
-msgstr ""
+msgstr "'=' காணவில்லை"
 
 #: src/ConfigParser.cxx:348
 msgid "Bad color name"
-msgstr ""
+msgstr "மோசமான வண்ண பெயர்"
 
 #: src/ConfigParser.cxx:357
 msgid "Incomplete color definition"
-msgstr ""
+msgstr "முழுமையற்ற வண்ண வரையறை"
 
 #: src/ConfigParser.cxx:363 src/SearchPage.cxx:220
 msgid "Invalid number"
-msgstr ""
+msgstr "தவறான எண்"
 
 #: src/ConfigParser.cxx:370
 msgid "Malformed color definition"
-msgstr ""
+msgstr "தவறாக வண்ண வரையறை"
 
 #. an unknown screen
 #. name was specified in
@@ -398,840 +401,840 @@ msgstr ""
 #. file
 #: src/ConfigParser.cxx:433
 msgid "Unknown screen name"
-msgstr ""
+msgstr "அறியப்படாத திரை பெயர்"
 
 #: src/ConfigParser.cxx:462
 msgid "Unknown MPD tag"
-msgstr ""
+msgstr "தெரியாத MPD குறிச்சொல்"
 
 #: src/ConfigParser.cxx:489
 msgid "Invalid search mode"
-msgstr ""
+msgstr "தவறான தேடல் முறை"
 
 #: src/ConfigParser.cxx:507
 msgid "Unknown search mode"
-msgstr ""
+msgstr "அறியப்படாத தேடல் முறை"
 
 #: src/ConfigParser.cxx:540
 msgid "Invalid column width"
-msgstr ""
+msgstr "தவறான நெடுவரிசை அகலம்"
 
 #: src/ConfigParser.cxx:549
 msgid "Invalid column fraction width"
-msgstr ""
+msgstr "தவறான நெடுவரிசை பின்னம் அகலம்"
 
 #: src/ConfigParser.cxx:755
 msgid "Unknown configuration parameter"
-msgstr ""
+msgstr "அறியப்படாத உள்ளமைவு அளவுரு"
 
 #: src/CustomColors.cxx:41
 msgid "Terminal lacks support for changing colors"
-msgstr ""
+msgstr "வண்ணங்களை மாற்றுவதற்கான உதவி முனையத்தைக் கொண்டுள்ளது"
 
 #: src/EditPlaylistPage.cxx:120 src/EditPlaylistPage.cxx:122
 msgid "Playlist"
-msgstr ""
+msgstr "பிளேலிச்ட்"
 
 #: src/EditPlaylistPage.cxx:299
 msgid "Playlist Editor"
-msgstr ""
+msgstr "பிளேலிச்ட் ஆசிரியர்"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
 #: src/FileBrowserPage.cxx:234
 msgid "Deleting this item is not possible"
-msgstr ""
+msgstr "இந்த உருப்படியை நீக்குவது சாத்தியமில்லை"
 
 #: src/FileBrowserPage.cxx:241
 #, c++-format
 msgid "Delete playlist {}?"
-msgstr ""
+msgstr "பிளேலிச்ட்டை நீக்கவா?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
 #: src/FileBrowserPage.cxx:260
 msgid "Playlist deleted"
-msgstr ""
+msgstr "பிளேலிச்ட் நீக்கப்பட்டது"
 
 #. translators: caption of the browser screen
 #: src/FileBrowserPage.cxx:287 src/FileBrowserPage.cxx:358
 msgid "Browse"
-msgstr ""
+msgstr "உலாவு"
 
 #: src/FileListPage.cxx:107
 #, c++-format
 msgid "Loading playlist '{}'"
-msgstr ""
+msgstr "பிளேலிச்ட்டை ஏற்றுகிறது '{}'"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
 #: src/TagListPage.cxx:183
 #, c++-format
 msgid "Adding '{}' to queue"
-msgstr ""
+msgstr "வரிசையில் '{}' சேர்ப்பது"
 
 #: src/HelpPage.cxx:45
 msgid "Movement"
-msgstr ""
+msgstr "இயக்கம்"
 
 #: src/HelpPage.cxx:90
 msgid "Global"
-msgstr ""
+msgstr "உலகளாவிய"
 
 #: src/HelpPage.cxx:127
 msgid "Play"
-msgstr ""
+msgstr "விளையாடுங்கள்"
 
 #: src/HelpPage.cxx:134
 msgid "Center"
-msgstr ""
+msgstr "நடுவண்"
 
 #: src/HelpPage.cxx:142
 msgid "Enter directory/Select and play song"
-msgstr ""
+msgstr "கோப்பகத்தை உள்ளிடவும்/தேர்ந்தெடுத்து பாடலை இயக்கவும்"
 
 #: src/HelpPage.cxx:149
 msgid "Delete playlist"
-msgstr ""
+msgstr "பிளேலிச்ட்டை நீக்கு"
 
 #: src/HelpPage.cxx:159
 msgid "New search"
-msgstr ""
+msgstr "புதிய தேடல்"
 
 #: src/HelpPage.cxx:160
 msgid "Select and play"
-msgstr ""
+msgstr "தேர்ந்தெடுத்து விளையாடுங்கள்"
 
 #: src/HelpPage.cxx:171
 msgid "View Lyrics"
-msgstr ""
+msgstr "பாடல் வரிகள்"
 
 #: src/HelpPage.cxx:172
 msgid "(Re)load lyrics"
-msgstr ""
+msgstr "(மறு) பாடல் சுமை"
 
 #. to translators: this hotkey aborts the retrieval of lyrics
 #. from the server
 #: src/HelpPage.cxx:175
 msgid "Interrupt retrieval"
-msgstr ""
+msgstr "மீட்டெடுப்பு மீட்டெடுப்பு"
 
 #: src/HelpPage.cxx:176
 msgid "Download lyrics for currently playing song"
-msgstr ""
+msgstr "தற்போது பாடுவதற்கான பாடல்களைப் பதிவிறக்குங்கள்"
 
 #: src/HelpPage.cxx:177
 msgid "Add or edit lyrics"
-msgstr ""
+msgstr "பாடல் சேர்க்கவும் அல்லது திருத்தவும்"
 
 #: src/HelpPage.cxx:178
 msgid "Save lyrics"
-msgstr ""
+msgstr "பாடல் சேமி"
 
 #: src/HelpPage.cxx:179
 msgid "Delete saved lyrics"
-msgstr ""
+msgstr "சேமித்த வரிகளை நீக்கு"
 
 #: src/HelpPage.cxx:186
 msgid "Enable/disable output"
-msgstr ""
+msgstr "வெளியீட்டை இயக்கவும்/முடக்கவும்"
 
 #: src/HelpPage.cxx:193
 msgid "Write a message"
-msgstr ""
+msgstr "ஒரு செய்தியை எழுதுங்கள்"
 
 #: src/HelpPage.cxx:198
 msgid "Keydef screen"
-msgstr ""
+msgstr "KEYDEF திரை"
 
 #: src/HelpPage.cxx:200
 msgid "Edit keydefs for selected command"
-msgstr ""
+msgstr "தேர்ந்தெடுக்கப்பட்ட கட்டளைக்கு KEYDEFS ஐத் திருத்தவும்"
 
 #: src/HelpPage.cxx:201
 msgid "Remove selected keydef"
-msgstr ""
+msgstr "தேர்ந்தெடுக்கப்பட்ட கீடெப்பை அகற்று"
 
 #: src/HelpPage.cxx:202
 msgid "Add a keydef"
-msgstr ""
+msgstr "ஒரு கீடெப்பைச் சேர்க்கவும்"
 
 #: src/HelpPage.cxx:203
 msgid "Go up a level"
-msgstr ""
+msgstr "ஒரு நிலைக்கு செல்லுங்கள்"
 
 #: src/HelpPage.cxx:204
 msgid "Apply and save changes"
-msgstr ""
+msgstr "மாற்றங்களைப் பயன்படுத்துங்கள் மற்றும் சேமிக்கவும்"
 
 #: src/HelpPage.cxx:233 src/HelpPage.cxx:322
 msgid "Help"
-msgstr ""
+msgstr "உதவி"
 
 #: src/KeyDefPage.cxx:148
 msgid "Deleted"
-msgstr ""
+msgstr "நீக்கப்பட்டது"
 
 #: src/KeyDefPage.cxx:162
 #, c++-format
 msgid "Enter new key for {}"
-msgstr ""
+msgstr "{For க்கு புதிய விசையை உள்ளிடவும்"
 
 #: src/KeyDefPage.cxx:167
 msgid "Aborted"
-msgstr ""
+msgstr "கருக்கலைப்பு"
 
 #: src/KeyDefPage.cxx:172
 msgid "Ctrl-Space can't be used"
-msgstr ""
+msgstr "Ctrl-SPACE ஐப் பயன்படுத்த முடியாது"
 
 #: src/KeyDefPage.cxx:178
 #, c++-format
 msgid "Error: key {} is already used for {}"
-msgstr ""
+msgstr "பிழை: விசை {} ஏற்கனவே {for க்கு பயன்படுத்தப்படுகிறது"
 
 #: src/KeyDefPage.cxx:188
 #, c++-format
 msgid "Assigned {} to {}"
-msgstr ""
+msgstr "{To க்கு ஒதுக்கப்பட்டுள்ளது"
 
 #: src/KeyDefPage.cxx:215
 msgid "Add new key"
-msgstr ""
+msgstr "புதிய விசையைச் சேர்க்கவும்"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
 msgid "Edit keys for %s"
-msgstr ""
+msgstr "%s க்கான விசைகளைத் திருத்தவும்"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
-msgstr ""
+msgstr "உங்களிடம் புதிய முக்கிய பிணைப்புகள் உள்ளன"
 
 #: src/KeyDefPage.cxx:372
 msgid "Keybindings unchanged."
-msgstr ""
+msgstr "விசைப்பலகைகள் மாறாது."
 
 #: src/KeyDefPage.cxx:382
 msgid "Unable to write configuration"
-msgstr ""
+msgstr "உள்ளமைவை எழுத முடியவில்லை"
 
 #: src/KeyDefPage.cxx:391 src/KeyDefPage.cxx:400
 msgid "Error"
-msgstr ""
+msgstr "பிழை"
 
 #: src/KeyDefPage.cxx:398
 #, c++-format
 msgid "Wrote {}"
-msgstr ""
+msgstr "எழுதினார் {}"
 
 #: src/KeyDefPage.cxx:410
 msgid "===> Apply key bindings "
-msgstr ""
+msgstr "===> விசை பிணைப்புகளைப் பயன்படுத்துங்கள் "
 
 #: src/KeyDefPage.cxx:412
 msgid "===> Apply & Save key bindings  "
-msgstr ""
+msgstr "===> விசை பிணைப்புகளைப் பயன்படுத்துங்கள் மற்றும் சேமிக்கவும்  "
 
 #: src/KeyDefPage.cxx:448
 msgid "Edit key bindings"
-msgstr ""
+msgstr "முக்கிய பிணைப்புகளைத் திருத்து"
 
 #: src/KeyDefPage.cxx:529
 msgid "Note: Did you forget to 'Apply' your changes?"
-msgstr ""
+msgstr "குறிப்பு: உங்கள் மாற்றங்களை 'பயன்படுத்த' மறந்துவிட்டீர்களா?"
 
 #: src/KeyDefPage.cxx:579
 msgid "Keys"
-msgstr ""
+msgstr "விசைகள்"
 
 #: src/KeyName.cxx:96
 msgid "Undefined"
-msgstr ""
+msgstr "வரையறுக்கப்படவில்லை"
 
 #: src/KeyName.cxx:98
 msgid "Space"
-msgstr ""
+msgstr "இடைவெளி"
 
 #: src/KeyName.cxx:100
 msgid "Enter"
-msgstr ""
+msgstr "உள்ளிடவும்"
 
 #: src/KeyName.cxx:102
 msgid "Backspace"
-msgstr ""
+msgstr "பேக்ச்பேச்"
 
 #: src/KeyName.cxx:104
 msgid "Delete"
-msgstr ""
+msgstr "நீக்கு"
 
 #: src/KeyName.cxx:106
 msgid "Up"
-msgstr ""
+msgstr "மேலே"
 
 #: src/KeyName.cxx:108
 msgid "Down"
-msgstr ""
+msgstr "கீழே"
 
 #: src/KeyName.cxx:110
 msgid "Left"
-msgstr ""
+msgstr "இடது"
 
 #: src/KeyName.cxx:112
 msgid "Right"
-msgstr ""
+msgstr "வலது"
 
 #: src/KeyName.cxx:114
 msgid "Home"
-msgstr ""
+msgstr "வீடு"
 
 #: src/KeyName.cxx:116
 msgid "End"
-msgstr ""
+msgstr "முடிவு"
 
 #: src/KeyName.cxx:118
 msgid "PageDown"
-msgstr ""
+msgstr "பேசெடவுன்"
 
 #: src/KeyName.cxx:120
 msgid "PageUp"
-msgstr ""
+msgstr "மந்திரவாதி"
 
 #: src/KeyName.cxx:122
 msgid "Tab"
-msgstr ""
+msgstr "தாவல்"
 
 #: src/KeyName.cxx:124
 msgid "Shift+Tab"
-msgstr ""
+msgstr "சிப்ட்+தாவல்"
 
 #: src/KeyName.cxx:126
 msgid "Esc"
-msgstr ""
+msgstr "தப்பி"
 
 #: src/KeyName.cxx:128
 msgid "Insert"
-msgstr ""
+msgstr "செருகவும்"
 
 #. translate "^X" to "Ctrl-X"
 #: src/KeyName.cxx:146
 #, c-format
 msgid "Ctrl-%c"
-msgstr ""
+msgstr "Ctrl-%c"
 
 #. translate "M-X" to "Alt-X"
 #: src/KeyName.cxx:152
 #, c-format
 msgid "Alt-%c"
-msgstr ""
+msgstr "Alt-%c."
 
 #: src/LibraryPage.cxx:33
 msgid "Artists"
-msgstr ""
+msgstr "கலைஞர்கள்"
 
 #: src/LibraryPage.cxx:36 src/LibraryPage.cxx:187
 msgid "Albums"
-msgstr ""
+msgstr "ஆல்பம்"
 
 #: src/LibraryPage.cxx:133
 msgid "All"
-msgstr ""
+msgstr "அனைத்தும்"
 
 #: src/LibraryPage.cxx:209
 msgid "Songs"
-msgstr ""
+msgstr "பாடல்கள்"
 
 #: src/LibraryPage.cxx:335
 msgid "Library"
-msgstr ""
+msgstr "நூலகம்"
 
 #. translators: no lyrics were found for the song
 #: src/LyricsPage.cxx:202
 msgid "No lyrics"
-msgstr ""
+msgstr "பாடல் இல்லை"
 
 #: src/LyricsPage.cxx:216
 #, c++-format
 msgid "Lyrics timeout occurred after {} seconds"
-msgstr ""
+msgstr "{} விநாடிகளுக்குப் பிறகு பாடல் நேரம் முடிந்தது"
 
 #: src/LyricsPage.cxx:313 src/LyricsPage.cxx:321 src/LyricsPage.cxx:330
 #: src/LyricsPage.cxx:449
 msgid "Lyrics"
-msgstr ""
+msgstr "பாடல்"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
 #: src/LyricsPage.cxx:317
 msgid "loading..."
-msgstr ""
+msgstr "ஏற்றுகிறது ..."
 
 #: src/LyricsPage.cxx:338
 msgid "Lyrics cache is unavailable"
-msgstr ""
+msgstr "பாடல் கேச் கிடைக்கவில்லை"
 
 #: src/LyricsPage.cxx:343
 msgid "Editor not configured"
-msgstr ""
+msgstr "ஆசிரியர் கட்டமைக்கப்படவில்லை"
 
 #: src/LyricsPage.cxx:373 src/LyricsPage.cxx:390
 msgid "Can't start editor"
-msgstr ""
+msgstr "எடிட்டரைத் தொடங்க முடியாது"
 
 #: src/LyricsPage.cxx:393 src/LyricsPage.cxx:397
 msgid "Editor exited unexpectedly"
-msgstr ""
+msgstr "ஆசிரியர் எதிர்பாராத விதமாக வெளியேறினார்"
 
 #. lyrics for the song were saved on hard disk
 #: src/LyricsPage.cxx:419
 msgid "Lyrics saved"
-msgstr ""
+msgstr "பாடல் சேமிக்கப்பட்டது"
 
 #: src/LyricsPage.cxx:425
 msgid "Lyrics deleted"
-msgstr ""
+msgstr "பாடல் நீக்கப்பட்டது"
 
 #: src/LyricsPage.cxx:426
 msgid "No saved lyrics"
-msgstr ""
+msgstr "சேமித்த பாடல் இல்லை"
 
 #: src/Main.cxx:104
 #, c++-format
 msgid "Connecting to {}"
-msgstr ""
+msgstr "{} உடன் இணைக்கிறது"
 
 #: src/Main.cxx:120
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
-msgstr ""
+msgstr "பிழை: MPD பதிப்பு {} மிகவும் பழையது ({} தேவை)"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
 #: src/Options.cxx:195 src/Options.cxx:198
 msgid "translator-credits"
-msgstr ""
+msgstr "மொழிபெயர்ப்பாளர்-வரவு"
 
 #: src/OutputsPage.cxx:158
 #, c++-format
 msgid "Switched to partition '{}'"
-msgstr ""
+msgstr "பகிர்வுக்கு மாறியது '{}'"
 
 #: src/OutputsPage.cxx:170 src/SongPage.cxx:63
 msgid "Name"
-msgstr ""
+msgstr "பெயர்"
 
 #: src/OutputsPage.cxx:223
 #, c++-format
 msgid "Output '{}' enabled"
-msgstr ""
+msgstr "வெளியீடு '{}' இயக்கப்பட்டது"
 
 #: src/OutputsPage.cxx:234
 #, c++-format
 msgid "Output '{}' disabled"
-msgstr ""
+msgstr "வெளியீடு '{}' முடக்கப்பட்டது"
 
 #: src/OutputsPage.cxx:362 src/OutputsPage.cxx:473
 msgid "Outputs"
-msgstr ""
+msgstr "வெளியீடுகள்"
 
 #: src/OutputsPage.cxx:374
 msgid "Partition"
-msgstr ""
+msgstr "பிரிவினை"
 
 #: src/OutputsPage.cxx:398
 msgid "Create new partition"
-msgstr ""
+msgstr "புதிய பகிர்வை உருவாக்கவும்"
 
 #: src/QueuePage.cxx:308
 msgid "Add"
-msgstr ""
+msgstr "கூட்டு"
 
 #: src/QueuePage.cxx:373 src/QueuePage.cxx:659
 msgid "Queue"
-msgstr ""
+msgstr "வரிசை"
 
 #: src/QueuePage.cxx:375
 #, c-format
 msgid "Queue on %s"
-msgstr ""
+msgstr "%s இல் வரிசை"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
-msgstr ""
+msgstr "மாற்றப்பட்ட வரிசை"
 
 #: src/SearchPage.cxx:37
 msgid "artist"
-msgstr ""
+msgstr "கலைஞர்"
 
 #: src/SearchPage.cxx:38
 msgid "album"
-msgstr ""
+msgstr "ஆல்பம்"
 
 #: src/SearchPage.cxx:39
 msgid "title"
-msgstr ""
+msgstr "தலைப்பு"
 
 #: src/SearchPage.cxx:40
 msgid "track"
-msgstr ""
+msgstr "மின்தடம்"
 
 #: src/SearchPage.cxx:41
 msgid "name"
-msgstr ""
+msgstr "பெயர்"
 
 #: src/SearchPage.cxx:42
 msgid "genre"
-msgstr ""
+msgstr "வகை"
 
 #: src/SearchPage.cxx:43
 msgid "date"
-msgstr ""
+msgstr "திகதி"
 
 #: src/SearchPage.cxx:44
 msgid "composer"
-msgstr ""
+msgstr "இசையமைப்பாளர்"
 
 #: src/SearchPage.cxx:45
 msgid "performer"
-msgstr ""
+msgstr "நடிகர்"
 
 #: src/SearchPage.cxx:46
 msgid "label"
-msgstr ""
+msgstr "சிட்டை"
 
 #: src/SearchPage.cxx:47
 msgid "comment"
-msgstr ""
+msgstr "கருத்து"
 
 #: src/SearchPage.cxx:55
 msgid "file"
-msgstr ""
+msgstr "கோப்பு"
 
 #: src/SearchPage.cxx:75 src/SongPage.cxx:51
 msgid "Title"
-msgstr ""
+msgstr "தலைப்பு"
 
 #: src/SearchPage.cxx:76 src/SongPage.cxx:50
 msgid "Artist"
-msgstr ""
+msgstr "கலைஞர்"
 
 #: src/SearchPage.cxx:77 src/SongPage.cxx:52
 msgid "Album"
-msgstr ""
+msgstr "ஆல்பம்"
 
 #: src/SearchPage.cxx:78
 msgid "Filename"
-msgstr ""
+msgstr "கோப்புப்பெயர்"
 
 #: src/SearchPage.cxx:79
 msgid "Artist + Title"
-msgstr ""
+msgstr "கலைஞர் + தலைப்பு"
 
 #: src/SearchPage.cxx:261 src/SearchPage.cxx:265
 msgid "Unrecognized suffix"
-msgstr ""
+msgstr "அங்கீகரிக்கப்படாத பின்னொட்டு"
 
 #: src/SearchPage.cxx:312
 #, c++-format
 msgid "Bad search tag {}"
-msgstr ""
+msgstr "மோசமான தேடல் குறிச்சொல் {}"
 
 #: src/SearchPage.cxx:326
 #, c++-format
 msgid "No argument for search tag {}"
-msgstr ""
+msgstr "தேடல் குறிச்சொல்லுக்கு எந்த வாதமும் இல்லை {}"
 
 #: src/SearchPage.cxx:422 src/SearchPage.cxx:455 src/SearchPage.cxx:458
 #: src/SearchPage.cxx:462 src/SearchPage.cxx:519
 msgid "Search"
-msgstr ""
+msgstr "தேடல்"
 
 #: src/SearchPage.cxx:482
 msgid "Search mode"
-msgstr ""
+msgstr "தேடல் பயன்முறை"
 
 #: src/SongPage.cxx:54
 msgid "Work"
-msgstr ""
+msgstr "வேலை"
 
 #: src/SongPage.cxx:56
 msgid "Length"
-msgstr ""
+msgstr "நீளம்"
 
 #: src/SongPage.cxx:57
 msgid "Position"
-msgstr ""
+msgstr "நிலை"
 
 #: src/SongPage.cxx:58
 msgid "Composer"
-msgstr ""
+msgstr "இசையமைப்பாளர்"
 
 #: src/SongPage.cxx:59
 msgid "Performer"
-msgstr ""
+msgstr "நடிகர்"
 
 #: src/SongPage.cxx:61
 msgid "Conductor"
-msgstr ""
+msgstr "நடத்துனர்"
 
 #: src/SongPage.cxx:64
 msgid "Disc"
-msgstr ""
+msgstr "வட்டு"
 
 #: src/SongPage.cxx:65
 msgid "Track"
-msgstr ""
+msgstr "மின்தடம்"
 
 #: src/SongPage.cxx:66
 msgid "Date"
-msgstr ""
+msgstr "திகதி"
 
 #: src/SongPage.cxx:67
 msgid "Genre"
-msgstr ""
+msgstr "வகை"
 
 #: src/SongPage.cxx:69
 msgid "Label"
-msgstr ""
+msgstr "சிட்டை"
 
 #: src/SongPage.cxx:71
 msgid "Comment"
-msgstr ""
+msgstr "கருத்து"
 
 #: src/SongPage.cxx:72
 msgid "Path"
-msgstr ""
+msgstr "பாதை"
 
 #: src/SongPage.cxx:73
 msgid "Bitrate"
-msgstr ""
+msgstr "பிட்ரேட்"
 
 #: src/SongPage.cxx:74
 msgid "Format"
-msgstr ""
+msgstr "வடிவம்"
 
 #: src/SongPage.cxx:91
 msgid "Number of artists"
-msgstr ""
+msgstr "கலைஞர்களின் எண்ணிக்கை"
 
 #: src/SongPage.cxx:92
 msgid "Number of albums"
-msgstr ""
+msgstr "ஆல்பங்களின் எண்ணிக்கை"
 
 #: src/SongPage.cxx:93
 msgid "Number of songs"
-msgstr ""
+msgstr "பாடல்களின் எண்ணிக்கை"
 
 #: src/SongPage.cxx:94
 msgid "Uptime"
-msgstr ""
+msgstr "நேரம்"
 
 #: src/SongPage.cxx:95
 msgid "Most recent db update"
-msgstr ""
+msgstr "மிக அண்மைக் கால டிபி புதுப்பிப்பு"
 
 #: src/SongPage.cxx:96
 msgid "Playtime"
-msgstr ""
+msgstr "விளையாட்டு நேரம்"
 
 #: src/SongPage.cxx:97
 msgid "DB playtime"
-msgstr ""
+msgstr "டி.பி. விளையாட்டு நேரம்"
 
 #: src/SongPage.cxx:207
 msgid "Song viewer"
-msgstr ""
+msgstr "பாடல் பார்வையாளர்"
 
 #: src/SongPage.cxx:364
 msgid "MPD statistics"
-msgstr ""
+msgstr "எம்.பி.டி புள்ளிவிவரங்கள்"
 
 #: src/SongPage.cxx:439
 msgid "Selected song"
-msgstr ""
+msgstr "தேர்ந்தெடுக்கப்பட்ட பாடல்"
 
 #: src/SongPage.cxx:449
 msgid "Currently playing song"
-msgstr ""
+msgstr "தற்போது பாடல் வாசிக்கும்"
 
 #: src/SongPage.cxx:456
 #, c++-format
 msgid "{} kbps"
-msgstr ""
+msgstr "{} kbps"
 
 #: src/SongPage.cxx:497
 msgid "Song"
-msgstr ""
+msgstr "பாடல்"
 
 #: src/StatusBar.cxx:149
 msgid "Playing:"
-msgstr ""
+msgstr "விளையாடுவது:"
 
 #: src/StatusBar.cxx:153
 msgid "[Paused]"
-msgstr ""
+msgstr "[இடைநிறுத்தப்பட்டது]"
 
 #: src/Styles.cxx:240 src/Styles.cxx:301
 msgid "Unknown color"
-msgstr ""
+msgstr "தெரியாத நிறம்"
 
 #: src/Styles.cxx:311
 msgid "Unknown color field"
-msgstr ""
+msgstr "அறியப்படாத வண்ண புலம்"
 
 #: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
-msgstr ""
+msgstr "முனையத்தில் வண்ண திறன்கள் இல்லை"
 
 #: src/TagListPage.cxx:57
 msgid "All tracks"
-msgstr ""
+msgstr "அனைத்து தடங்களும்"
 
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
-msgstr ""
+msgstr "தொகுதி"
 
 #: src/TitleBar.cxx:85
 msgid "n/a"
-msgstr ""
+msgstr "இதற்கில்லை"
 
 #: src/page/FindSupport.cxx:16
 msgid "Find"
-msgstr ""
+msgstr "கண்டுபிடி"
 
 #: src/page/FindSupport.cxx:17
 msgid "Find backward"
-msgstr ""
+msgstr "பின்தங்கிய நிலையில் காண்க"
 
 #: src/page/FindSupport.cxx:18
 msgid "Jump"
-msgstr ""
+msgstr "தாவு"
 
 #: src/page/FindSupport.cxx:45
 #, c++-format
 msgid "Unable to find '{}'"
-msgstr ""
+msgstr "'{}' கண்டுபிடிக்க முடியவில்லை"
 
 #: src/player_command.cxx:71
 msgid "Cleared queue"
-msgstr ""
+msgstr "அழிக்கப்பட்ட வரிசை"
 
 #: src/save_playlist.cxx:75
 msgid "Save queue as"
-msgstr ""
+msgstr "வரிசையை சேமிக்கவும்"
 
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr ""
+msgstr "%s ஐ மாற்றவா?"
 
 #. success
 #: src/save_playlist.cxx:123
 #, c++-format
 msgid "Saved {}"
-msgstr ""
+msgstr "சேமிக்கப்பட்டது {}"
 
 #: src/screen.cxx:155
 msgid "Repeat mode is on"
-msgstr ""
+msgstr "மீண்டும் பயன்முறை இயக்கத்தில் உள்ளது"
 
 #: src/screen.cxx:156
 msgid "Repeat mode is off"
-msgstr ""
+msgstr "மீண்டும் பயன்முறை முடக்கப்பட்டுள்ளது"
 
 #: src/screen.cxx:160
 msgid "Random mode is on"
-msgstr ""
+msgstr "சீரற்ற பயன்முறை இயக்கத்தில் உள்ளது"
 
 #: src/screen.cxx:161
 msgid "Random mode is off"
-msgstr ""
+msgstr "சீரற்ற பயன்முறை முடக்கப்பட்டுள்ளது"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
 #: src/screen.cxx:168
 msgid "Single mode is on"
-msgstr ""
+msgstr "ஒற்றை பயன்முறை இயக்கத்தில் உள்ளது"
 
 #: src/screen.cxx:169
 msgid "Single mode is off"
-msgstr ""
+msgstr "ஒற்றை பயன்முறை முடக்கப்பட்டுள்ளது"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
 #: src/screen.cxx:176
 msgid "Consume mode is on"
-msgstr ""
+msgstr "நுகர்வு முறை இயக்கத்தில் உள்ளது"
 
 #: src/screen.cxx:177
 msgid "Consume mode is off"
-msgstr ""
+msgstr "நுகர்வு முறை முடக்கப்பட்டுள்ளது"
 
 #: src/screen.cxx:180
 #, c++-format
 msgid "Crossfade {} seconds"
-msgstr ""
+msgstr "கிராச்ஃபேட்}} விநாடிகள்"
 
 #: src/screen.cxx:192
 msgid "Database updated"
-msgstr ""
+msgstr "தரவுத்தளம் புதுப்பிக்கப்பட்டது"
 
 #: src/screen.cxx:237
 msgid "Find mode: Wrapped"
-msgstr ""
+msgstr "பயன்முறையைக் கண்டுபிடி: மூடப்பட்டிருக்கும்"
 
 #: src/screen.cxx:238
 msgid "Find mode: Normal"
-msgstr ""
+msgstr "பயன்முறையைக் கண்டுபிடி: இயல்பானது"
 
 #: src/screen.cxx:244
 msgid "Auto center mode: On"
-msgstr ""
+msgstr "ஆட்டோ சென்டர் பயன்முறை: ஆன்"
 
 #: src/screen.cxx:245
 msgid "Auto center mode: Off"
-msgstr ""
+msgstr "ஆட்டோ சென்டர் பயன்முறை: ஆஃப்"
 
 #: src/screen.cxx:402
 msgid "Password"
-msgstr ""
+msgstr "கடவுச்சொல்"
 
 #: src/screen_client.cxx:26
 msgid "Database update running"
-msgstr ""
+msgstr "தரவுத்தள புதுப்பிப்பு இயங்கும்"
 
 #: src/screen_client.cxx:33
 #, c++-format
 msgid "Database update of {} started"
-msgstr ""
+msgstr "} Of இன் தரவுத்தள புதுப்பிப்பு தொடங்கியது"
 
 #: src/screen_client.cxx:36
 msgid "Database update started"
-msgstr ""
+msgstr "தரவுத்தள புதுப்பிப்பு தொடங்கியது"
 
 #: src/time_format.cxx:31
 msgid "year"
-msgstr ""
+msgstr "ஆண்டு"
 
 #: src/time_format.cxx:33
 msgid "years"
-msgstr ""
+msgstr "ஆண்டுகள்"
 
 #: src/time_format.cxx:40
 msgid "week"
-msgstr ""
+msgstr "வாரம்"
 
 #: src/time_format.cxx:43
 msgid "weeks"
-msgstr ""
+msgstr "வாரங்கள்"
 
 #: src/time_format.cxx:50
 msgid "day"
-msgstr ""
+msgstr "நாள்"
 
 #: src/time_format.cxx:53
 msgid "days"
-msgstr ""
+msgstr "நாட்கள்"
