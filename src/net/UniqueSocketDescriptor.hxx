@@ -58,7 +58,7 @@ public:
 
 #ifndef _WIN32
 	UniqueFileDescriptor MoveToFileDescriptor() && noexcept {
-		return UniqueFileDescriptor{Release().ToFileDescriptor()};
+		return UniqueFileDescriptor{AdoptTag{}, Release().ToFileDescriptor()};
 	}
 #endif
 
