@@ -130,7 +130,7 @@ ConnectSocket::OnEvent(unsigned events) noexcept
 		}
 	}
 
-	handler.OnSocketConnectSuccess(UniqueSocketDescriptor(event.ReleaseSocket()));
+	handler.OnSocketConnectSuccess(UniqueSocketDescriptor{AdoptTag{}, event.ReleaseSocket()});
 }
 
 void
