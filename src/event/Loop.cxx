@@ -12,7 +12,7 @@
 #endif
 
 #ifdef HAVE_URING
-#include "UringManager.hxx"
+#include "uring/Manager.hxx"
 #endif
 
 EventLoop::EventLoop(
