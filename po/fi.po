@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-14 23:01+0200\n"
-"PO-Revision-Date: 2025-01-17 12:01+0000\n"
+"PO-Revision-Date: 2025-02-04 14:02+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/ncmpc/"
 "translations/fi/>\n"
@@ -819,7 +819,10 @@ msgstr "Virhe: MPD:n versio {} on liian vanha ({} vaaditaan)"
 #. when ncmpc is started with "--version"
 #: src/Options.cxx:195 src/Options.cxx:198
 msgid "translator-credits"
-msgstr "kääntäjä-hyvitykset"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Katja Viljakainen https://launchpad.net/~katja-viljakainen\n"
+"  Sami Sankala https://launchpad.net/~valijumi"
 
 #: src/OutputsPage.cxx:158
 #, c++-format
