@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-14 23:01+0200\n"
-"PO-Revision-Date: 2024-07-24 13:09+0000\n"
+"PO-Revision-Date: 2024-09-25 15:16+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 "X-Launchpad-Export-Date: 2009-10-19 13:36+0000\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
@@ -896,7 +896,7 @@ msgstr "연주가"
 
 #: src/SearchPage.cxx:46 src/SearchPage.cxx:47
 msgid "label"
-msgstr ""
+msgstr "라벨"
 
 #: src/SearchPage.cxx:47 src/SearchPage.cxx:48
 msgid "comment"
@@ -992,7 +992,7 @@ msgstr "장르"
 
 #: src/SongPage.cxx:69
 msgid "Label"
-msgstr ""
+msgstr "라벨"
 
 #: src/SongPage.cxx:71
 msgid "Comment"

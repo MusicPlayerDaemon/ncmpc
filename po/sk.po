@@ -7,15 +7,17 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-14 23:01+0200\n"
-"PO-Revision-Date: 2022-05-04 15:09+0200\n"
-"Last-Translator: Jose Riha <jose1711@gmail.com>\n"
-"Language-Team: sk <sk@li.org>\n"
+"PO-Revision-Date: 2024-11-03 05:07+0000\n"
+"Last-Translator: Milan Šalka <salka.milan@googlemail.com>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/ncmpc/"
+"translations/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.8.2\n"
 "X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
-"X-Generator: Poedit 3.0.1\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
@@ -290,9 +292,8 @@ msgid "Change search mode"
 msgstr "Zmeniť režim vyhľadávania"
 
 #: src/Command.cxx:176
-#, fuzzy
 msgid "Playlist editor"
-msgstr "Playlist bol odstránený"
+msgstr "Redakcia playlistu"
 
 #: src/Command.cxx:180
 msgid "View the selected and the currently playing song"
@@ -329,22 +330,20 @@ msgid "Word expected"
 msgstr "Očakávané slovo"
 
 #: src/ConfigParser.cxx:154
-#, fuzzy
 msgid "Whitespace expected"
-msgstr "Očakávané slovo"
+msgstr "Očakáva sa, že Biely priestor"
 
 #: src/ConfigParser.cxx:168
-#, fuzzy
 msgid "Quoted value expected"
-msgstr "Očakávané slovo"
+msgstr "Očakávaná hodnota"
 
 #: src/ConfigParser.cxx:177
 msgid "Closing quote missing"
-msgstr ""
+msgstr "Uzavretie citát chýba"
 
 #: src/ConfigParser.cxx:195
 msgid "Syntax error"
-msgstr ""
+msgstr "Syntax chyba"
 
 #: src/ConfigParser.cxx:215
 msgid "Malformed hotkey definition"
@@ -418,11 +417,11 @@ msgstr "Neznámy režim vyhľadávania"
 
 #: src/ConfigParser.cxx:540
 msgid "Invalid column width"
-msgstr ""
+msgstr "Neplatná šírka stĺpcov"
 
 #: src/ConfigParser.cxx:549
 msgid "Invalid column fraction width"
-msgstr ""
+msgstr "Neplatná šírka stĺpca"
 
 #: src/ConfigParser.cxx:755
 msgid "Unknown configuration parameter"
@@ -437,9 +436,8 @@ msgid "Playlist"
 msgstr "Playlist"
 
 #: src/EditPlaylistPage.cxx:299
-#, fuzzy
 msgid "Playlist Editor"
-msgstr "Playlist bol odstránený"
+msgstr "Editor playlistu"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
@@ -774,7 +772,7 @@ msgstr "načítam..."
 
 #: src/LyricsPage.cxx:338
 msgid "Lyrics cache is unavailable"
-msgstr ""
+msgstr "Lyrics cache nie je k dispozícii"
 
 #: src/LyricsPage.cxx:343
 msgid "Editor not configured"
@@ -908,7 +906,7 @@ msgstr "umelec"
 
 #: src/SearchPage.cxx:46
 msgid "label"
-msgstr ""
+msgstr "štítok"
 
 #: src/SearchPage.cxx:47
 msgid "comment"
@@ -963,7 +961,7 @@ msgstr "Režim vyhľadávania"
 
 #: src/SongPage.cxx:54
 msgid "Work"
-msgstr ""
+msgstr "Práca"
 
 #: src/SongPage.cxx:56
 msgid "Length"
@@ -983,7 +981,7 @@ msgstr "Umelec"
 
 #: src/SongPage.cxx:61
 msgid "Conductor"
-msgstr ""
+msgstr "Vodič"
 
 #: src/SongPage.cxx:64
 msgid "Disc"
@@ -1003,7 +1001,7 @@ msgstr "Žáner"
 
 #: src/SongPage.cxx:69
 msgid "Label"
-msgstr ""
+msgstr "Štítok"
 
 #: src/SongPage.cxx:71
 msgid "Comment"

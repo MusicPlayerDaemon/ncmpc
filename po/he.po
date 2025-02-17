@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-14 23:01+0200\n"
-"PO-Revision-Date: 2022-10-17 00:55+0000\n"
+"PO-Revision-Date: 2024-11-11 13:00+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/ncmpc/"
 "translations/he/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 5.8.2\n"
 "X-Launchpad-Export-Date: 2010-09-07 18:28+0000\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
@@ -289,9 +289,8 @@ msgid "Change search mode"
 msgstr "שנה תצורת מסך"
 
 #: src/Command.cxx:176
-#, fuzzy
 msgid "Playlist editor"
-msgstr "רשימת שירים נמחקה"
+msgstr "עורך רשימות נגינה"
 
 #: src/Command.cxx:180
 msgid "View the selected and the currently playing song"
@@ -328,22 +327,20 @@ msgid "Word expected"
 msgstr "מילה צפויה"
 
 #: src/ConfigParser.cxx:154
-#, fuzzy
 msgid "Whitespace expected"
-msgstr "מילה צפויה"
+msgstr "אמור להיות רווח"
 
 #: src/ConfigParser.cxx:168
-#, fuzzy
 msgid "Quoted value expected"
-msgstr "מילה צפויה"
+msgstr "אמור להיות ערך במירכאות"
 
 #: src/ConfigParser.cxx:177
 msgid "Closing quote missing"
-msgstr ""
+msgstr "חסר מירכאות סוגרות"
 
 #: src/ConfigParser.cxx:195
 msgid "Syntax error"
-msgstr ""
+msgstr "שגיאת תחביר"
 
 #: src/ConfigParser.cxx:215
 msgid "Malformed hotkey definition"
@@ -417,11 +414,11 @@ msgstr "מצב חיפוש לא ידוע"
 
 #: src/ConfigParser.cxx:540
 msgid "Invalid column width"
-msgstr ""
+msgstr "רוחב העמודות שגוי"
 
 #: src/ConfigParser.cxx:549
 msgid "Invalid column fraction width"
-msgstr ""
+msgstr "רוחב עמודות בשבר עשרוני שגוי"
 
 #: src/ConfigParser.cxx:755
 msgid "Unknown configuration parameter"
@@ -436,9 +433,8 @@ msgid "Playlist"
 msgstr "רשימת שירים"
 
 #: src/EditPlaylistPage.cxx:299
-#, fuzzy
 msgid "Playlist Editor"
-msgstr "רשימת שירים נמחקה"
+msgstr "עורך רשימת נגינה"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
@@ -773,7 +769,7 @@ msgstr "טוען...."
 
 #: src/LyricsPage.cxx:338
 msgid "Lyrics cache is unavailable"
-msgstr ""
+msgstr "מטמון מילות השירים לא זמין"
 
 #: src/LyricsPage.cxx:343
 msgid "Editor not configured"
@@ -904,7 +900,7 @@ msgstr "מבצע"
 
 #: src/SearchPage.cxx:46
 msgid "label"
-msgstr ""
+msgstr "תווית"
 
 #: src/SearchPage.cxx:47
 msgid "comment"
@@ -959,7 +955,7 @@ msgstr "צורת חיפוש"
 
 #: src/SongPage.cxx:54
 msgid "Work"
-msgstr ""
+msgstr "עבודה"
 
 #: src/SongPage.cxx:56
 msgid "Length"
@@ -979,7 +975,7 @@ msgstr "מבצע"
 
 #: src/SongPage.cxx:61
 msgid "Conductor"
-msgstr ""
+msgstr "ניצוח"
 
 #: src/SongPage.cxx:64
 msgid "Disc"
@@ -999,7 +995,7 @@ msgstr "ג'אנר"
 
 #: src/SongPage.cxx:69
 msgid "Label"
-msgstr ""
+msgstr "תווית"
 
 #: src/SongPage.cxx:71
 msgid "Comment"
