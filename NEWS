@@ -1,6 +1,7 @@
 ncmpc 0.52 - not yet released
 * fix searching on Help and Song page
 * fix scroll bug after resizing window
+* fix cursor keys after resizing window
 * do not overwrite time/bitrate with song text in status bar
 * add option "show-server-address", disabled by default
 * add Tamil translation

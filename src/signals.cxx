@@ -9,6 +9,14 @@ Instance::OnSigwinch() noexcept
 {
 	endwin();
 	refresh();
+
+	/* re-enable keypad mode; it got disabled by endwin() and
+	   ncurses will only automatically re-enable it when calling
+	   wgetch(), but we will do that only after STDIN has become
+	   readable, when a keystroke without keypad mode has already
+	   been put into STDIN by the terminal */
+	keypad(stdscr, true);
+
 	screen_manager.OnResize();
 }
 
