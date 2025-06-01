@@ -354,7 +354,7 @@ Song Format
 Format of song display for status and the list window.  The metadata
 delimiters are: ``%artist%``, ``%albumartist%``, ``%composer%``,
 ``%performer%``, ``%title%``, ``%album%``, ``%shortalbum%``,
-``%track%``, ``%disc``, ``%genre%``, ``%name%``, ``%time%``,
+``%track%``, ``%disc%``, ``%genre%``, ``%name%``, ``%time%``,
 ``%date%``, ``%file%``, ``%shortfile%``.
 
 The ``[]`` operators are used to group output such that if none of the
