@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-14 23:01+0200\n"
-"PO-Revision-Date: 2025-01-20 09:16+0000\n"
+"PO-Revision-Date: 2025-06-21 17:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/ncmpc/translations/"
 "ta/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
@@ -114,7 +114,7 @@ msgstr "வரிசை திரை"
 
 #: src/Command.cxx:59 src/HelpPage.cxx:140
 msgid "Browse screen"
-msgstr "திரை திரை"
+msgstr "திரை உலாவு"
 
 #: src/Command.cxx:64
 msgid "Play/Enter directory"
@@ -311,7 +311,7 @@ msgstr "குறுக்கீடு நடவடிக்கை"
 
 #: src/Command.cxx:190
 msgid "Update Lyrics"
-msgstr "பாடல் வரிகள்"
+msgstr "பாடல் வரிகள் புதுப்பி"
 
 #: src/Command.cxx:194
 msgid "Edit the current item"
@@ -507,7 +507,7 @@ msgstr "தேர்ந்தெடுத்து விளையாடுங�
 
 #: src/HelpPage.cxx:171
 msgid "View Lyrics"
-msgstr "பாடல் வரிகள்"
+msgstr "பாடல் வரிகள் காட்டு"
 
 #: src/HelpPage.cxx:172
 msgid "(Re)load lyrics"
@@ -517,7 +517,7 @@ msgstr "(மறு) பாடல் சுமை"
 #. from the server
 #: src/HelpPage.cxx:175
 msgid "Interrupt retrieval"
-msgstr "மீட்டெடுப்பு மீட்டெடுப்பு"
+msgstr "மீட்டெடுப்பு குறுக்கிடு"
 
 #: src/HelpPage.cxx:176
 msgid "Download lyrics for currently playing song"
@@ -726,7 +726,7 @@ msgstr "Ctrl-%c"
 #: src/KeyName.cxx:152
 #, c-format
 msgid "Alt-%c"
-msgstr "Alt-%c."
+msgstr "மாற்று-%c"
 
 #: src/LibraryPage.cxx:33
 msgid "Artists"
@@ -734,7 +734,7 @@ msgstr "கலைஞர்கள்"
 
 #: src/LibraryPage.cxx:36 src/LibraryPage.cxx:187
 msgid "Albums"
-msgstr "ஆல்பம்"
+msgstr "தொகுப்புகள்"
 
 #: src/LibraryPage.cxx:133
 msgid "All"
@@ -869,7 +869,7 @@ msgstr "கலைஞர்"
 
 #: src/SearchPage.cxx:38
 msgid "album"
-msgstr "ஆல்பம்"
+msgstr "தொகுப்பு"
 
 #: src/SearchPage.cxx:39
 msgid "title"
@@ -921,7 +921,7 @@ msgstr "கலைஞர்"
 
 #: src/SearchPage.cxx:77 src/SongPage.cxx:52
 msgid "Album"
-msgstr "ஆல்பம்"
+msgstr "தொகுப்பு"
 
 #: src/SearchPage.cxx:78
 msgid "Filename"
