@@ -5,6 +5,7 @@
 #include "StringAPI.hxx"
 
 #include <string.h>
+#include <xlocale.h>
 
 #ifdef HAVE_LOCALE_T
 #include <langinfo.h>
