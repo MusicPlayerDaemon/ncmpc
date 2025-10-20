@@ -3,6 +3,8 @@
 
 #include "Completion.hxx"
 
+#include <algorithm> // for std::mismatch()
+
 #include <assert.h>
 
 Completion::Result
