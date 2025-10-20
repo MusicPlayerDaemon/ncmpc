@@ -4,8 +4,11 @@ project(
   version: '0.53',
   meson_version: '>= 1.2',
   default_options: [
-    'cpp_std=c++20',
+    'cpp_std=c++23',
+    'build.cpp_std=c++23',
     'warning_level=3',
+
+    'fmt:cpp_std=c++23',
 
     # If we build libmpdclient, it should be linked statically into
     # our executable.

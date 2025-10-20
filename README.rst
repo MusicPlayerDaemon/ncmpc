@@ -13,7 +13,7 @@ How to compile and install ncmpc
 
 You need:
 
-- a C++20 compliant compiler (e.g. gcc or clang)
+- a C++23 compliant compiler (e.g. gcc or clang)
 - `libfmt <https://fmt.dev/>`__
 - `libmpdclient <https://www.musicpd.org/libs/libmpdclient/>`__ 2.16
 - `ncurses <https://www.gnu.org/software/ncurses/>`__
