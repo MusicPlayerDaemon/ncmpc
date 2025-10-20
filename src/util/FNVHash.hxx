@@ -9,6 +9,7 @@
 #pragma once
 
 #include <cstdint>
+#include <span>
 
 template<typename T>
 struct FNVTraits {};
@@ -55,6 +56,19 @@ struct FNV1aAlgorithm {
 
 		return hash;
 	}
+
+	[[gnu::pure]] [[gnu::hot]]
+	static constexpr value_type BinaryHash(std::span<const std::byte> s,
+					       fast_type init=Traits::OFFSET_BASIS) noexcept {
+		using Algorithm = FNV1aAlgorithm<Traits>;
+
+		fast_type hash = init;
+		for (auto b : s)
+			hash = Algorithm::Update(hash,
+						 static_cast<fast_type>(b));
+
+		return hash;
+	}
 };
 
 [[gnu::pure]] [[gnu::hot]]
@@ -67,12 +81,30 @@ FNV1aHash32(const char *s) noexcept
 }
 
 [[gnu::pure]] [[gnu::hot]]
+constexpr uint32_t
+FNV1aHash32(std::span<const std::byte> s) noexcept
+{
+	using Traits = FNVTraits<uint32_t>;
+	using Algorithm = FNV1aAlgorithm<Traits>;
+	return Algorithm::BinaryHash(s);
+}
+
+[[gnu::pure]] [[gnu::hot]]
 inline uint64_t
 FNV1aHash64(const char *s) noexcept
 {
 	using Traits = FNVTraits<uint64_t>;
 	using Algorithm = FNV1aAlgorithm<Traits>;
 	return Algorithm::StringHash(s);
+}
+
+[[gnu::pure]] [[gnu::hot]]
+constexpr uint64_t
+FNV1aHash64(std::span<const std::byte> s) noexcept
+{
+	using Traits = FNVTraits<uint64_t>;
+	using Algorithm = FNV1aAlgorithm<Traits>;
+	return Algorithm::BinaryHash(s);
 }
 
 [[gnu::pure]] [[gnu::hot]]
