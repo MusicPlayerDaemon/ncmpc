@@ -4,6 +4,8 @@
 #include "TableLayout.hxx"
 #include "TableStructure.hxx"
 
+#include <algorithm> // for std::fill()
+
 #include <math.h>
 
 void
