@@ -450,7 +450,7 @@ ScreenManager::QueryPassword(struct mpdclient &c) noexcept
 }
 
 inline void
-ScreenManager::OnCoComplete(std::exception_ptr error) noexcept
+ScreenManager::OnCoComplete(std::exception_ptr &&error) noexcept
 {
 	if (error)
 		Alert(GetFullMessage(std::move(error)));

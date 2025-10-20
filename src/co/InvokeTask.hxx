@@ -20,7 +20,7 @@ template<typename Task, bool lazy>
 class InvokePromise {
 	friend Task;
 
-	using Callback = BoundMethod<void(std::exception_ptr error) noexcept>;
+	using Callback = BoundMethod<void(std::exception_ptr &&error) noexcept>;
 
 	Task *task;
 

@@ -141,7 +141,7 @@ public:
 
 private:
 	Co::InvokeTask _QueryPassword(struct mpdclient &c);
-	void OnCoComplete(std::exception_ptr error) noexcept;
+	void OnCoComplete(std::exception_ptr &&error) noexcept;
 
 	Page &GetCurrentPage() noexcept {
 		return *current_page->second;

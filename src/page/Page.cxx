@@ -57,7 +57,7 @@ Page::CoStart(Co::InvokeTask _task) noexcept
 }
 
 inline void
-Page::_OnCoComplete(std::exception_ptr error) noexcept
+Page::_OnCoComplete(std::exception_ptr &&error) noexcept
 {
 	if (error)
 		parent.Alert(GetFullMessage(std::move(error)));

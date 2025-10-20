@@ -173,5 +173,5 @@ public:
 	}
 
 private:
-	void _OnCoComplete(std::exception_ptr error) noexcept;
+	void _OnCoComplete(std::exception_ptr &&error) noexcept;
 };
