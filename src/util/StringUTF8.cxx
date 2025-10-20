@@ -10,6 +10,10 @@
 #include <langinfo.h>
 #include <locale.h>
 
+#ifdef __APPLE__
+#include <xlocale.h> // for strcoll_l() (non-standard macOS-specific header)
+#endif
+
 static locale_t utf8_locale = locale_t(0);
 
 ScopeInitUTF8::ScopeInitUTF8() noexcept
