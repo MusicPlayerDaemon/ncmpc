@@ -4,8 +4,7 @@
 
 #pragma once
 
-#include "Compat.hxx"
-
+#include <coroutine>
 #include <exception> // for std::rethrow_exception()
 
 namespace Co {

@@ -5,7 +5,6 @@
 #pragma once
 
 #include "UniqueHandle.hxx"
-#include "Compat.hxx"
 #include "util/BindMethod.hxx"
 
 #include <cassert>
