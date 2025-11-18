@@ -109,11 +109,16 @@ private:
 	}
 
 public:
+	template<bool optional>
 	struct Awaitable final {
 		const std::coroutine_handle<promise> coroutine;
 
 		[[nodiscard]]
 		bool await_ready() const noexcept {
+			if constexpr (optional)
+				if (!coroutine)
+					return true;
+
 			assert(coroutine);
 
 			return coroutine.done();
@@ -137,6 +142,10 @@ public:
 		}
 
 		T await_resume() {
+			if constexpr (optional)
+				if (!coroutine)
+					return T{};
+
 			assert(coroutine);
 
 			return coroutine.promise().GetReturnValue();
@@ -174,7 +183,7 @@ public:
 	}
 
 	[[nodiscard]]
-	typename promise_type::Awaitable operator co_await() const noexcept {
+	typename promise_type::template Awaitable<false> operator co_await() const noexcept {
 		return {coroutine.get()};
 	}
 };
@@ -207,7 +216,42 @@ public:
 	}
 
 	[[nodiscard]]
-	typename promise_type::Awaitable operator co_await() const noexcept {
+	typename promise_type::template Awaitable<false> operator co_await() const noexcept {
+		return {coroutine.get()};
+	}
+};
+
+/**
+ * Like #Task, but a default-constructed instance can be awaited and
+ * immediately returns a default-constructed value.  This is useful to
+ * avoid the overhead for allocating a coroutine handle in some cases.
+ * This comes at the cost of a nullptr check.
+ */
+template<typename T>
+class OptionalTask {
+public:
+	using promise_type = detail::promise<T, OptionalTask<T>, true>;
+	friend promise_type;
+
+private:
+	UniqueHandle<promise_type> coroutine;
+
+	[[nodiscard]]
+	explicit OptionalTask(std::coroutine_handle<promise_type> _coroutine) noexcept
+		:coroutine(_coroutine)
+	{
+	}
+
+public:
+	[[nodiscard]]
+	OptionalTask() = default;
+
+	bool IsDefined() const noexcept {
+		return coroutine;
+	}
+
+	[[nodiscard]]
+	typename promise_type::template Awaitable<true> operator co_await() const noexcept {
 		return {coroutine.get()};
 	}
 };
