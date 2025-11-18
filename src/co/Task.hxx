@@ -114,11 +114,15 @@ public:
 
 		[[nodiscard]]
 		bool await_ready() const noexcept {
+			assert(coroutine);
+
 			return coroutine.done();
 		}
 
 		[[nodiscard]]
 		std::coroutine_handle<> await_suspend(std::coroutine_handle<> _continuation) noexcept {
+			assert(coroutine);
+
 			coroutine.promise().SetContinuation(_continuation);
 
 			if constexpr (!lazy)
@@ -133,6 +137,8 @@ public:
 		}
 
 		T await_resume() {
+			assert(coroutine);
+
 			return coroutine.promise().GetReturnValue();
 		}
 	};
