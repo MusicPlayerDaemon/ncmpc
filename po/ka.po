@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-14 23:01+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-02-02 18:01+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <https://hosted.weblate.org/projects/ncmpc/"
+"translations/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
@@ -24,15 +26,15 @@ msgstr ""
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
-msgstr ""
+msgstr "ჩატი"
 
 #: src/ChatPage.cxx:153
 msgid "Your message"
-msgstr ""
+msgstr "თქვენი შეტყობინება"
 
 #: src/ChatPage.cxx:163
 msgid "Message could not be sent"
-msgstr ""
+msgstr "შეტყობინების გაგზავნა შეუძლებელია"
 
 #: src/Command.cxx:15
 msgid "Key configuration screen"
@@ -40,7 +42,7 @@ msgstr ""
 
 #: src/Command.cxx:18
 msgid "Quit"
-msgstr ""
+msgstr "გასვლა"
 
 #: src/Command.cxx:22
 msgid "Move cursor up"
@@ -72,11 +74,11 @@ msgstr ""
 
 #: src/Command.cxx:36
 msgid "Page up"
-msgstr ""
+msgstr "ზედა გვერდი"
 
 #: src/Command.cxx:38
 msgid "Page down"
-msgstr ""
+msgstr "ქვედა გვერდი"
 
 #: src/Command.cxx:40
 msgid "Range selection"
@@ -120,39 +122,39 @@ msgstr ""
 
 #: src/Command.cxx:66
 msgid "Pause"
-msgstr ""
+msgstr "შეჩერება"
 
 #: src/Command.cxx:68
 msgid "Stop"
-msgstr ""
+msgstr "გაჩერება"
 
 #: src/Command.cxx:70
 msgid "Crop"
-msgstr ""
+msgstr "ამოჭრა"
 
 #: src/Command.cxx:72
 msgid "Next track"
-msgstr ""
+msgstr "შემდეგი აუდიობილიკი"
 
 #: src/Command.cxx:74
 msgid "Previous track"
-msgstr ""
+msgstr "წინა აუდიობილიკი"
 
 #: src/Command.cxx:76
 msgid "Seek forward"
-msgstr ""
+msgstr "წინ გადახვევა"
 
 #: src/Command.cxx:78
 msgid "Seek backward"
-msgstr ""
+msgstr "უკან გადახვევა"
 
 #: src/Command.cxx:80
 msgid "Increase volume"
-msgstr ""
+msgstr "დაკვრის ხმის გაზრდა"
 
 #: src/Command.cxx:82
 msgid "Decrease volume"
-msgstr ""
+msgstr "ხმის შემცირება"
 
 #: src/Command.cxx:84
 msgid "Select/deselect song in queue"
@@ -212,7 +214,7 @@ msgstr ""
 
 #: src/Command.cxx:113
 msgid "Go to parent directory"
-msgstr ""
+msgstr "ზედა საქაღალდეზე გადასვლა"
 
 #: src/Command.cxx:116
 msgid "Locate song in browser"
@@ -220,11 +222,11 @@ msgstr ""
 
 #: src/Command.cxx:120
 msgid "Move item up"
-msgstr ""
+msgstr "ჩანაწერის აწევა"
 
 #: src/Command.cxx:122
 msgid "Move item down"
-msgstr ""
+msgstr "ჩანაწერის ჩამოწევა"
 
 #: src/Command.cxx:124
 msgid "Refresh screen"
@@ -248,7 +250,7 @@ msgstr ""
 
 #: src/Command.cxx:142
 msgid "Previous screen"
-msgstr ""
+msgstr "წინა ეკრანი"
 
 #: src/Command.cxx:144
 msgid "Swap to most recent screen"
@@ -275,7 +277,7 @@ msgstr ""
 #. * to the entry which begins with this string
 #: src/Command.cxx:160
 msgid "Jump to"
-msgstr ""
+msgstr "გადასვლა"
 
 #: src/Command.cxx:166
 msgid "Library page"
@@ -341,7 +343,7 @@ msgstr ""
 
 #: src/ConfigParser.cxx:195
 msgid "Syntax error"
-msgstr ""
+msgstr "სინტაქსის შეცდომა"
 
 #: src/ConfigParser.cxx:215
 msgid "Malformed hotkey definition"
@@ -358,7 +360,7 @@ msgstr ""
 #. command
 #: src/ConfigParser.cxx:248
 msgid "Unknown command"
-msgstr ""
+msgstr "უცნობი ბრძანება"
 
 #. translators: ncmpc supports
 #. displaying the "elapsed" or
@@ -375,7 +377,7 @@ msgstr ""
 #. configuration file line
 #: src/ConfigParser.cxx:299 src/ConfigParser.cxx:584
 msgid "Missing '='"
-msgstr ""
+msgstr "აკლია '='"
 
 #: src/ConfigParser.cxx:348
 msgid "Bad color name"
@@ -387,7 +389,7 @@ msgstr ""
 
 #: src/ConfigParser.cxx:363 src/SearchPage.cxx:220
 msgid "Invalid number"
-msgstr ""
+msgstr "არასწორი ნომერი"
 
 #: src/ConfigParser.cxx:370
 msgid "Malformed color definition"
@@ -431,7 +433,7 @@ msgstr ""
 
 #: src/EditPlaylistPage.cxx:120 src/EditPlaylistPage.cxx:122
 msgid "Playlist"
-msgstr ""
+msgstr "დასაკრავი სია"
 
 #: src/EditPlaylistPage.cxx:299
 msgid "Playlist Editor"
@@ -458,7 +460,7 @@ msgstr ""
 #. translators: caption of the browser screen
 #: src/FileBrowserPage.cxx:287 src/FileBrowserPage.cxx:358
 msgid "Browse"
-msgstr ""
+msgstr "პოვნა"
 
 #: src/FileListPage.cxx:107
 #, c++-format
@@ -473,19 +475,19 @@ msgstr ""
 
 #: src/HelpPage.cxx:45
 msgid "Movement"
-msgstr ""
+msgstr "მოძრაობა"
 
 #: src/HelpPage.cxx:90
 msgid "Global"
-msgstr ""
+msgstr "გლობალური"
 
 #: src/HelpPage.cxx:127
 msgid "Play"
-msgstr ""
+msgstr "დაკვრა"
 
 #: src/HelpPage.cxx:134
 msgid "Center"
-msgstr ""
+msgstr "ცენტრი"
 
 #: src/HelpPage.cxx:142
 msgid "Enter directory/Select and play song"
@@ -497,7 +499,7 @@ msgstr ""
 
 #: src/HelpPage.cxx:159
 msgid "New search"
-msgstr ""
+msgstr "ახალი ძებნა"
 
 #: src/HelpPage.cxx:160
 msgid "Select and play"
@@ -567,11 +569,11 @@ msgstr ""
 
 #: src/HelpPage.cxx:233 src/HelpPage.cxx:322
 msgid "Help"
-msgstr ""
+msgstr "დახმარება"
 
 #: src/KeyDefPage.cxx:148
 msgid "Deleted"
-msgstr ""
+msgstr "წაშლილი"
 
 #: src/KeyDefPage.cxx:162
 #, c++-format
@@ -580,7 +582,7 @@ msgstr ""
 
 #: src/KeyDefPage.cxx:167
 msgid "Aborted"
-msgstr ""
+msgstr "შეწყვეტილია"
 
 #: src/KeyDefPage.cxx:172
 msgid "Ctrl-Space can't be used"
@@ -619,7 +621,7 @@ msgstr ""
 
 #: src/KeyDefPage.cxx:391 src/KeyDefPage.cxx:400
 msgid "Error"
-msgstr ""
+msgstr "შეცდომა"
 
 #: src/KeyDefPage.cxx:398
 #, c++-format
@@ -644,63 +646,63 @@ msgstr ""
 
 #: src/KeyDefPage.cxx:579
 msgid "Keys"
-msgstr ""
+msgstr "გასაღებები"
 
 #: src/KeyName.cxx:96
 msgid "Undefined"
-msgstr ""
+msgstr "აღუწერელია"
 
 #: src/KeyName.cxx:98
 msgid "Space"
-msgstr ""
+msgstr "ჰარე"
 
 #: src/KeyName.cxx:100
 msgid "Enter"
-msgstr ""
+msgstr "შესვლა"
 
 #: src/KeyName.cxx:102
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 #: src/KeyName.cxx:104
 msgid "Delete"
-msgstr ""
+msgstr "წაშლა"
 
 #: src/KeyName.cxx:106
 msgid "Up"
-msgstr ""
+msgstr "მაღლა"
 
 #: src/KeyName.cxx:108
 msgid "Down"
-msgstr ""
+msgstr "გამორთულია"
 
 #: src/KeyName.cxx:110
 msgid "Left"
-msgstr ""
+msgstr "მარცხენა"
 
 #: src/KeyName.cxx:112
 msgid "Right"
-msgstr ""
+msgstr "მარჯვენა"
 
 #: src/KeyName.cxx:114
 msgid "Home"
-msgstr ""
+msgstr "საწყისი"
 
 #: src/KeyName.cxx:116
 msgid "End"
-msgstr ""
+msgstr "დასასრული"
 
 #: src/KeyName.cxx:118
 msgid "PageDown"
-msgstr ""
+msgstr "PageDown"
 
 #: src/KeyName.cxx:120
 msgid "PageUp"
-msgstr ""
+msgstr "PageUp"
 
 #: src/KeyName.cxx:122
 msgid "Tab"
-msgstr ""
+msgstr "ჩანართი"
 
 #: src/KeyName.cxx:124
 msgid "Shift+Tab"
@@ -708,11 +710,11 @@ msgstr ""
 
 #: src/KeyName.cxx:126
 msgid "Esc"
-msgstr ""
+msgstr "Esc"
 
 #: src/KeyName.cxx:128
 msgid "Insert"
-msgstr ""
+msgstr "ჩასმა"
 
 #. translate "^X" to "Ctrl-X"
 #: src/KeyName.cxx:146
@@ -728,23 +730,23 @@ msgstr ""
 
 #: src/LibraryPage.cxx:33
 msgid "Artists"
-msgstr ""
+msgstr "შემსრულებლები"
 
 #: src/LibraryPage.cxx:36 src/LibraryPage.cxx:187
 msgid "Albums"
-msgstr ""
+msgstr "ალბომები"
 
 #: src/LibraryPage.cxx:133
 msgid "All"
-msgstr ""
+msgstr "ყველა"
 
 #: src/LibraryPage.cxx:209
 msgid "Songs"
-msgstr ""
+msgstr "სიმღერები"
 
 #: src/LibraryPage.cxx:335
 msgid "Library"
-msgstr ""
+msgstr "ბიბლიოთეკა"
 
 #. translators: no lyrics were found for the song
 #: src/LyricsPage.cxx:202
@@ -759,14 +761,14 @@ msgstr ""
 #: src/LyricsPage.cxx:313 src/LyricsPage.cxx:321 src/LyricsPage.cxx:330
 #: src/LyricsPage.cxx:449
 msgid "Lyrics"
-msgstr ""
+msgstr "ლირიკა"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
 #: src/LyricsPage.cxx:317
 msgid "loading..."
-msgstr ""
+msgstr "იტვირთება..."
 
 #: src/LyricsPage.cxx:338
 msgid "Lyrics cache is unavailable"
@@ -811,7 +813,7 @@ msgstr ""
 #. when ncmpc is started with "--version"
 #: src/Options.cxx:195 src/Options.cxx:198
 msgid "translator-credits"
-msgstr ""
+msgstr "ეკატერინე პაპავა"
 
 #: src/OutputsPage.cxx:158
 #, c++-format
@@ -820,7 +822,7 @@ msgstr ""
 
 #: src/OutputsPage.cxx:170 src/SongPage.cxx:63
 msgid "Name"
-msgstr ""
+msgstr "სახელი"
 
 #: src/OutputsPage.cxx:223
 #, c++-format
@@ -834,11 +836,11 @@ msgstr ""
 
 #: src/OutputsPage.cxx:362 src/OutputsPage.cxx:473
 msgid "Outputs"
-msgstr ""
+msgstr "გამოტანები"
 
 #: src/OutputsPage.cxx:374
 msgid "Partition"
-msgstr ""
+msgstr "დანაყოფი"
 
 #: src/OutputsPage.cxx:398
 msgid "Create new partition"
@@ -846,11 +848,11 @@ msgstr ""
 
 #: src/QueuePage.cxx:308
 msgid "Add"
-msgstr ""
+msgstr "დამატება"
 
 #: src/QueuePage.cxx:373 src/QueuePage.cxx:659
 msgid "Queue"
-msgstr ""
+msgstr "რიგი"
 
 #: src/QueuePage.cxx:375
 #, c-format
@@ -863,67 +865,67 @@ msgstr ""
 
 #: src/SearchPage.cxx:37
 msgid "artist"
-msgstr ""
+msgstr "შემსრულებელი"
 
 #: src/SearchPage.cxx:38
 msgid "album"
-msgstr ""
+msgstr "ალბომი"
 
 #: src/SearchPage.cxx:39
 msgid "title"
-msgstr ""
+msgstr "სათაური"
 
 #: src/SearchPage.cxx:40
 msgid "track"
-msgstr ""
+msgstr "ტრეკი"
 
 #: src/SearchPage.cxx:41
 msgid "name"
-msgstr ""
+msgstr "სახელი"
 
 #: src/SearchPage.cxx:42
 msgid "genre"
-msgstr ""
+msgstr "ჟანრი"
 
 #: src/SearchPage.cxx:43
 msgid "date"
-msgstr ""
+msgstr "თარიღი"
 
 #: src/SearchPage.cxx:44
 msgid "composer"
-msgstr ""
+msgstr "კომპოზიტორი"
 
 #: src/SearchPage.cxx:45
 msgid "performer"
-msgstr ""
+msgstr "შემსრულებელი"
 
 #: src/SearchPage.cxx:46
 msgid "label"
-msgstr ""
+msgstr "ჭდე"
 
 #: src/SearchPage.cxx:47
 msgid "comment"
-msgstr ""
+msgstr "კომენტარი"
 
 #: src/SearchPage.cxx:55
 msgid "file"
-msgstr ""
+msgstr "ფაილი"
 
 #: src/SearchPage.cxx:75 src/SongPage.cxx:51
 msgid "Title"
-msgstr ""
+msgstr "სათაური"
 
 #: src/SearchPage.cxx:76 src/SongPage.cxx:50
 msgid "Artist"
-msgstr ""
+msgstr "შემსრულებელი"
 
 #: src/SearchPage.cxx:77 src/SongPage.cxx:52
 msgid "Album"
-msgstr ""
+msgstr "ალბომი"
 
 #: src/SearchPage.cxx:78
 msgid "Filename"
-msgstr ""
+msgstr "ფაილის სახელი"
 
 #: src/SearchPage.cxx:79
 msgid "Artist + Title"
@@ -946,71 +948,71 @@ msgstr ""
 #: src/SearchPage.cxx:422 src/SearchPage.cxx:455 src/SearchPage.cxx:458
 #: src/SearchPage.cxx:462 src/SearchPage.cxx:519
 msgid "Search"
-msgstr ""
+msgstr "ძებნა"
 
 #: src/SearchPage.cxx:482
 msgid "Search mode"
-msgstr ""
+msgstr "ძებნის რეჟიმი"
 
 #: src/SongPage.cxx:54
 msgid "Work"
-msgstr ""
+msgstr "სამუშაო"
 
 #: src/SongPage.cxx:56
 msgid "Length"
-msgstr ""
+msgstr "სიგრძე"
 
 #: src/SongPage.cxx:57
 msgid "Position"
-msgstr ""
+msgstr "პოზიცია"
 
 #: src/SongPage.cxx:58
 msgid "Composer"
-msgstr ""
+msgstr "კომპოზიტორი"
 
 #: src/SongPage.cxx:59
 msgid "Performer"
-msgstr ""
+msgstr "შემსრულებელი"
 
 #: src/SongPage.cxx:61
 msgid "Conductor"
-msgstr ""
+msgstr "დირიჟორი"
 
 #: src/SongPage.cxx:64
 msgid "Disc"
-msgstr ""
+msgstr "დისკის #"
 
 #: src/SongPage.cxx:65
 msgid "Track"
-msgstr ""
+msgstr "ტრეკი"
 
 #: src/SongPage.cxx:66
 msgid "Date"
-msgstr ""
+msgstr "თარიღი"
 
 #: src/SongPage.cxx:67
 msgid "Genre"
-msgstr ""
+msgstr "ჟანრი"
 
 #: src/SongPage.cxx:69
 msgid "Label"
-msgstr ""
+msgstr "ჭდე"
 
 #: src/SongPage.cxx:71
 msgid "Comment"
-msgstr ""
+msgstr "კომენტარი"
 
 #: src/SongPage.cxx:72
 msgid "Path"
-msgstr ""
+msgstr "ბილიკი"
 
 #: src/SongPage.cxx:73
 msgid "Bitrate"
-msgstr ""
+msgstr "ბიტური სიჩქარე"
 
 #: src/SongPage.cxx:74
 msgid "Format"
-msgstr ""
+msgstr "ფორმატი"
 
 #: src/SongPage.cxx:91
 msgid "Number of artists"
@@ -1026,7 +1028,7 @@ msgstr ""
 
 #: src/SongPage.cxx:94
 msgid "Uptime"
-msgstr ""
+msgstr "ჩართულობის დრო"
 
 #: src/SongPage.cxx:95
 msgid "Most recent db update"
@@ -1034,7 +1036,7 @@ msgstr ""
 
 #: src/SongPage.cxx:96
 msgid "Playtime"
-msgstr ""
+msgstr "თამაშის დრო"
 
 #: src/SongPage.cxx:97
 msgid "DB playtime"
@@ -1063,7 +1065,7 @@ msgstr ""
 
 #: src/SongPage.cxx:497
 msgid "Song"
-msgstr ""
+msgstr "სიმღერა"
 
 #: src/StatusBar.cxx:149
 msgid "Playing:"
@@ -1075,7 +1077,7 @@ msgstr ""
 
 #: src/Styles.cxx:240 src/Styles.cxx:301
 msgid "Unknown color"
-msgstr ""
+msgstr "უცნობი ფერი"
 
 #: src/Styles.cxx:311
 msgid "Unknown color field"
@@ -1087,19 +1089,19 @@ msgstr ""
 
 #: src/TagListPage.cxx:57
 msgid "All tracks"
-msgstr ""
+msgstr "ყველა ტრეკი"
 
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
-msgstr ""
+msgstr "ხმის სიმაღლე"
 
 #: src/TitleBar.cxx:85
 msgid "n/a"
-msgstr ""
+msgstr "ა/მ"
 
 #: src/page/FindSupport.cxx:16
 msgid "Find"
-msgstr ""
+msgstr "ძებნა"
 
 #: src/page/FindSupport.cxx:17
 msgid "Find backward"
@@ -1107,7 +1109,7 @@ msgstr ""
 
 #: src/page/FindSupport.cxx:18
 msgid "Jump"
-msgstr ""
+msgstr "გადასვლა"
 
 #: src/page/FindSupport.cxx:45
 #, c++-format
@@ -1125,7 +1127,7 @@ msgstr ""
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr ""
+msgstr "ჩავანაცვლო %s?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1198,7 +1200,7 @@ msgstr ""
 
 #: src/screen.cxx:402
 msgid "Password"
-msgstr ""
+msgstr "პაროლი"
 
 #: src/screen_client.cxx:26
 msgid "Database update running"
@@ -1215,24 +1217,24 @@ msgstr ""
 
 #: src/time_format.cxx:31
 msgid "year"
-msgstr ""
+msgstr "წელი"
 
 #: src/time_format.cxx:33
 msgid "years"
-msgstr ""
+msgstr "წელი"
 
 #: src/time_format.cxx:40
 msgid "week"
-msgstr ""
+msgstr "კვირა"
 
 #: src/time_format.cxx:43
 msgid "weeks"
-msgstr ""
+msgstr "კვირა"
 
 #: src/time_format.cxx:50
 msgid "day"
-msgstr ""
+msgstr "დღე"
 
 #: src/time_format.cxx:53
 msgid "days"
-msgstr ""
+msgstr "დღე"
