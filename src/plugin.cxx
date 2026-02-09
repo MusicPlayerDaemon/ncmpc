@@ -6,7 +6,7 @@
 #include "io/UniqueFileDescriptor.hxx"
 #include "event/PipeEvent.hxx"
 #include "event/CoarseTimerEvent.hxx"
-#include "event/Features.h" // for USE_SIGNALFD
+#include "event/config.h" // for USE_SIGNALFD
 #include "util/ScopeExit.hxx"
 #include "util/UriUtil.hxx"
 
