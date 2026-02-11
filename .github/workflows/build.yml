@@ -24,7 +24,7 @@ jobs:
   build-linux:
     strategy:
       matrix:
-        key: [gcc14, gcc11, clang]
+        key: [gcc14, clang]
         include:
           - key: gcc14
             os: ubuntu-24.04
@@ -33,13 +33,6 @@ jobs:
             ldflags: -fuse-ld=mold
             packages: g++-14 mold libfmt-dev
             meson_options:
-          - key: gcc11
-            os: ubuntu-24.04
-            cc: gcc-11
-            cxx: g++-11
-            ldflags:
-            packages: g++-11
-            meson_options: --force-fallback-for=fmt
           - key: clang
             os: ubuntu-24.04
             cc: clang
