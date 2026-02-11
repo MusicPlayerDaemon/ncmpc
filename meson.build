@@ -9,6 +9,7 @@ project(
     'warning_level=3',
 
     'fmt:cpp_std=c++23',
+    'libmpdclient:c_std=c17',
 
     # If we build libmpdclient, it should be linked statically into
     # our executable.
