@@ -24,7 +24,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Klavišas %s priskirtas %s ir %s"
+msgstr "Klavišas %s priskirtas %s ir {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -611,8 +611,8 @@ msgstr "Pridėti naują klavišą"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Redaguoti %s klavišus"
+msgid "Edit keys for {}"
+msgstr "Redaguoti {} klavišus"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -863,8 +863,8 @@ msgstr "Eilė"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "Eilė ties %s"
+msgid "Queue on {}"
+msgstr "Eilė ties {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1134,7 +1134,7 @@ msgstr "Išsaugoti eilę kaip"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Pakeisti %s?"
+msgstr "Pakeisti {}?"
 
 #. success
 #: src/save_playlist.cxx:123

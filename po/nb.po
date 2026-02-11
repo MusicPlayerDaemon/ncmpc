@@ -23,7 +23,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "%s-tasten satt til %s og %s"
+msgstr "%s-tasten satt til %s og {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -617,8 +617,8 @@ msgstr "Legg til ny tast"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Endre taster for '%s'"
+msgid "Edit keys for {}"
+msgstr "Endre taster for '{}'"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -883,8 +883,8 @@ msgstr "Kø"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "Kø på %s"
+msgid "Queue on {}"
+msgstr "Kø på {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1156,7 +1156,7 @@ msgstr "Lagre kø som"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Erstatt %s?"
+msgstr "Erstatt {}?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1290,17 +1290,17 @@ msgstr "dager"
 #~ msgstr "Artistskjerm"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Albumer fra artist: %s"
+#~ msgstr "Albumer fra artist: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Alle artister"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Alle spor fra artist: %s"
+#~ msgstr "Alle spor fra artist: {}"
 
 #, fuzzy
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Albumløse sanger fra artist: %s"
+#~ msgstr "Albumløse sanger fra artist: {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1313,34 +1313,34 @@ msgstr "dager"
 #~ msgstr "Flytt den markerte sangen opp i spillelisten"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Trykk på %s for ett nytt søk"
+#~ msgstr "Trykk på {} for ett nytt søk"
 
 #~ msgid "Search: %s"
-#~ msgstr "Søk: %s"
+#~ msgstr "Søk: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Søk: Resultater %s [%s]"
+#~ msgstr "Søk: Resultater %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Trykk på %s for ett nytt søk [%s]"
+#~ msgstr "Trykk på %s for ett nytt søk [{}]"
 
 #~ msgid "F%d"
 #~ msgstr "F%d"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Kobler til %s... [Trykk %s for å avslutte]"
+#~ msgstr "Kobler til %s... [Trykk {} for å avslutte]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "trykk %s for å rette"
+#~ msgstr "trykk {} for å rette"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Album: %s - %s"
+#~ msgstr "Album: %s - {}"
 
 #~ msgid "Adding album %s..."
-#~ msgstr "Legger til album %s…"
+#~ msgstr "Legger til album {}…"
 
 #~ msgid "Adding %s..."
-#~ msgstr "Legger til %s…"
+#~ msgstr "Legger til {}…"
 
 #, fuzzy
 #~ msgid ""
@@ -1354,23 +1354,23 @@ msgstr "dager"
 #~ msgstr "Feil: Skjermbildet er for lite"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Feil: Kunne ikke opprette mappen ~/.ncmpc - %s"
+#~ msgstr "Feil: Kunne ikke opprette mappen ~/.ncmpc - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Feil: %s - %s"
+#~ msgstr "Feil: %s - {}"
 
 #~ msgid "Editor exited unexpectedly (signal %d)"
 #~ msgstr "Tekstbehandler takket for seg uventet (signal %d)"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Erstatt '%s' [%s/%s] ? "
+#~ msgstr "Erstatt '%s' [%s/{}] ? "
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "Slette '%s' [%s/%s] ? "
+#~ msgstr "Slette '%s' [%s/{}] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Advarsel: Kjenner ikke til fargen %s\n"
+#~ msgstr "Advarsel: Kjenner ikke til fargen {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Tilfeldigjort spillelisten"
@@ -1382,7 +1382,7 @@ msgstr "dager"
 #~ msgstr "Lagre spillelisten som"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Spilleliste på %s"
+#~ msgstr "Spilleliste på {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Spilleliste"

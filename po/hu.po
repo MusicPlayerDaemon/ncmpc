@@ -21,7 +21,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "A(z) %s gomb a követlezőkhoz van rendelve: %s és %s"
+msgstr "A(z) %s gomb a követlezőkhoz van rendelve: %s és {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -613,8 +613,8 @@ msgstr "Új gomb hozzáadása"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Gombok módosítása a következőhöz: %s"
+msgid "Edit keys for {}"
+msgstr "Gombok módosítása a következőhöz: {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -872,7 +872,7 @@ msgstr ""
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
+msgid "Queue on {}"
 msgstr ""
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
@@ -1100,7 +1100,7 @@ msgstr "Ismeretlen parancs"
 #: src/Styles.cxx:311
 #, fuzzy
 msgid "Unknown color field"
-msgstr "Figyelem: ismeretlen szín mező - %s\n"
+msgstr "Figyelem: ismeretlen szín mező - {}\n"
 
 #: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
@@ -1146,7 +1146,7 @@ msgstr ""
 #: src/save_playlist.cxx:98
 #, fuzzy, c-format
 msgid "Replace %s?"
-msgstr "Cserélni a következőt: %s [%s/%s]? "
+msgstr "Cserélni a következőt: %s [%s/{}]? "
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1275,17 +1275,17 @@ msgstr ""
 #~ msgstr "Előadó képernyő"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "%s előadó albumai"
+#~ msgstr "{} előadó albumai"
 
 #~ msgid "All artists"
 #~ msgstr "Minden előadó"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "%s előadó minden száma"
+#~ msgstr "{} előadó minden száma"
 
 #, fuzzy
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "%s előadó albumai"
+#~ msgstr "{} előadó albumai"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1298,50 +1298,50 @@ msgstr ""
 #~ msgstr "Szám mozgatása lefelé"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Új kereséshez nyomj %s gombot"
+#~ msgstr "Új kereséshez nyomj {} gombot"
 
 #~ msgid "Search: %s"
-#~ msgstr "Keresés: %s"
+#~ msgstr "Keresés: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Keresés: találatok a következőhöz %s [%s]"
+#~ msgstr "Keresés: találatok a következőhöz %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Keresés: új kereséshez nyomj %s gombot [%s]"
+#~ msgstr "Keresés: új kereséshez nyomj %s gombot [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
 #~ msgstr ""
 #~ "Kapcsolódás a következőhöz: %s... [Nyomj %s gombot a megszakításhoz]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "nyomj %s-t a szerkesztéshez"
+#~ msgstr "nyomj {}-t a szerkesztéshez"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Album: %s - %s"
+#~ msgstr "Album: %s - {}"
 
 #, fuzzy
 #~ msgid "Adding album %s..."
-#~ msgstr "%s lejátszólista betöltése..."
+#~ msgstr "{} lejátszólista betöltése..."
 
 #, fuzzy
 #~ msgid "Adding %s..."
-#~ msgstr "%s könyvtár hozzáadása...\n"
+#~ msgstr "{} könyvtár hozzáadása...\n"
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Hiba: a képernyő túl kicsi"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Hiba: nem sikerül létrehozni a ~/.ncmpc katalógust - %s"
+#~ msgstr "Hiba: nem sikerül létrehozni a ~/.ncmpc katalógust - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Hiba: %s - %s"
+#~ msgstr "Hiba: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Cserélni a következőt: %s [%s/%s]? "
+#~ msgstr "Cserélni a következőt: %s [%s/{}]? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Figyelem: ismeretlen szín - %s\n"
+#~ msgstr "Figyelem: ismeretlen szín - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Lejátszólista összekeverve"
@@ -1353,7 +1353,7 @@ msgstr ""
 #~ msgstr "Lejátszólista mentése másként"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Lejátszólista itt: %s"
+#~ msgstr "Lejátszólista itt: {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Lejátszólista"

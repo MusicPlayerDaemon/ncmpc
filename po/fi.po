@@ -608,8 +608,8 @@ msgstr "Lisää uusi näppäin"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Muokkaa %s näppäimiä"
+msgid "Edit keys for {}"
+msgstr "Muokkaa {} näppäimiä"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -866,7 +866,7 @@ msgstr "Jono"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
+msgid "Queue on {}"
 msgstr ""
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
@@ -1138,7 +1138,7 @@ msgstr "Tallenna jono nimellä"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Korvaa %s?"
+msgstr "Korvaa {}?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1257,16 +1257,16 @@ msgstr "päivää"
 #~ msgstr "e"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Kaikki albumit esittäjältä: %s"
+#~ msgstr "Kaikki albumit esittäjältä: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Kaikki esittäjät"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Kaikki kappaleet esittäjältä: %s"
+#~ msgstr "Kaikki kappaleet esittäjältä: {}"
 
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Kappaleet tuntemattomista albumeista esittäjältä: %s"
+#~ msgstr "Kappaleet tuntemattomista albumeista esittäjältä: {}"
 
 #~ msgid "Move song up"
 #~ msgstr "Siirrä kappaletta ylemmäksi"
@@ -1275,44 +1275,44 @@ msgstr "päivää"
 #~ msgstr "Siirrä kappaletta alemmaksi"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Paina %s uuteen hakuun"
+#~ msgstr "Paina {} uuteen hakuun"
 
 #~ msgid "Search: %s"
-#~ msgstr "Haku: %s"
+#~ msgstr "Haku: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Haku: Tulokset hauelle %s [%s]"
+#~ msgstr "Haku: Tulokset hauelle %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Haku: Paina %s hakeaksesi uudelleen [%s]"
+#~ msgstr "Haku: Paina %s hakeaksesi uudelleen [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Yhdistetään kohteeseen %s... [Paina %s keskeyttääksesi]"
+#~ msgstr "Yhdistetään kohteeseen %s... [Paina {} keskeyttääksesi]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "Painalla %s pääset näppäineditoriin"
+#~ msgstr "Painalla {} pääset näppäineditoriin"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Levy: %s - %s"
+#~ msgstr "Levy: %s - {}"
 
 #~ msgid "Adding album %s..."
-#~ msgstr "Lisätään albumia %s..."
+#~ msgstr "Lisätään albumia {}..."
 
 #~ msgid "Adding %s..."
-#~ msgstr "Lisätään %s..."
+#~ msgstr "Lisätään {}..."
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Virhe: Ruutu on liian pieni"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Virhe: Hakemistoa ~/ncmpc - %s ei pystytty luomaan"
+#~ msgstr "Virhe: Hakemistoa ~/ncmpc - {} ei pystytty luomaan"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Virhe: %s - %s"
+#~ msgstr "Virhe: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Korvaa %s [%s/%s] ? "
+#~ msgstr "Korvaa %s [%s/{}] ? "
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Sekoitettu soittolista"

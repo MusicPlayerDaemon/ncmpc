@@ -23,7 +23,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Toets %s is toegewezen aan %s en %s"
+msgstr "Toets %s is toegewezen aan %s en {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -610,7 +610,7 @@ msgstr ""
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
+msgid "Edit keys for {}"
 msgstr ""
 
 #: src/KeyDefPage.cxx:370
@@ -869,7 +869,7 @@ msgstr ""
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
+msgid "Queue on {}"
 msgstr ""
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
@@ -1141,7 +1141,7 @@ msgstr ""
 #: src/save_playlist.cxx:98
 #, fuzzy, c-format
 msgid "Replace %s?"
-msgstr "Vervang %s [%s/%s] ? "
+msgstr "Vervang %s [%s/{}] ? "
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1261,30 +1261,30 @@ msgstr ""
 #~ msgstr "n"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Albums van artiest: %s"
+#~ msgstr "Albums van artiest: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Alle artiesten"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Alle nummers van artiest: %s"
+#~ msgstr "Alle nummers van artiest: {}"
 
 #, fuzzy
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Albums van artiest: %s"
+#~ msgstr "Albums van artiest: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Zoeken: Resultaten voor %s [%s]"
+#~ msgstr "Zoeken: Resultaten voor %s [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Verbind met %s... [druk %s om af te breken]"
+#~ msgstr "Verbind met %s... [druk {} om af te breken]"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Album: %s - %s"
+#~ msgstr "Album: %s - {}"
 
 #, fuzzy
 #~ msgid "Adding album %s..."
-#~ msgstr "Laden afspeellijst %s..."
+#~ msgstr "Laden afspeellijst {}..."
 
 #, fuzzy
 #~ msgid "Adding %s..."
@@ -1294,11 +1294,11 @@ msgstr ""
 #~ msgstr "Fout: Scherm te klein"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Fout: %s - %s"
+#~ msgstr "Fout: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Vervang %s [%s/%s] ? "
+#~ msgstr "Vervang %s [%s/{}] ? "
 
 #~ msgid "Save playlist as"
 #~ msgstr "Afspeellijst opslaan als"

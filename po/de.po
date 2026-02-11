@@ -24,7 +24,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Taste %s ist %s und %s zugeordnet"
+msgstr "Taste %s ist %s und {} zugeordnet"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -608,8 +608,8 @@ msgstr "Neue Taste hinzufügen"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Tasten für %s ändern"
+msgid "Edit keys for {}"
+msgstr "Tasten für {} ändern"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -869,8 +869,8 @@ msgstr "Warteschlange"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "Warteschlange auf %s"
+msgid "Queue on {}"
+msgstr "Warteschlange auf {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1140,7 +1140,7 @@ msgstr "Warteschlange speichern unter"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Ersetze %s?"
+msgstr "Ersetze {}?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1272,16 +1272,16 @@ msgstr "Tage"
 #~ msgstr "Künstlerdatenbank"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Alben des Künstlers: %s"
+#~ msgstr "Alben des Künstlers: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Alle Künstler"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Alle Lieder des Künstlers: %s"
+#~ msgstr "Alle Lieder des Künstlers: {}"
 
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Titel von keinem Album des Künstlers: %s"
+#~ msgstr "Titel von keinem Album des Künstlers: {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1294,50 +1294,50 @@ msgstr "Tage"
 #~ msgstr "Stück nach unten bewegen"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Drücke %s für eine neue Suche"
+#~ msgstr "Drücke {} für eine neue Suche"
 
 #~ msgid "Search: %s"
-#~ msgstr "Suche: %s"
+#~ msgstr "Suche: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Suche: Ergebnisse für %s [%s]"
+#~ msgstr "Suche: Ergebnisse für %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Suche: Drücke %s für eine neue Suche [%s]"
+#~ msgstr "Suche: Drücke %s für eine neue Suche [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Verbinde mit %s…   [%s drücken, um abzubrechen]"
+#~ msgstr "Verbinde mit %s…   [{} drücken, um abzubrechen]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "drücken Sie %s für den Tasteneditor"
+#~ msgstr "drücken Sie {} für den Tasteneditor"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Album: %s - %s"
+#~ msgstr "Album: %s - {}"
 
 #~ msgid "Adding album %s..."
-#~ msgstr "Füge Album %s... hinzu"
+#~ msgstr "Füge Album {}... hinzu"
 
 #~ msgid "Adding %s..."
-#~ msgstr "Hinzufügen %s..."
+#~ msgstr "Hinzufügen {}..."
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Fehler: Anzeige zu klein"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Fehler: kann Verzeichnis ~/.ncmpc - %s nicht erstellen"
+#~ msgstr "Fehler: kann Verzeichnis ~/.ncmpc - {} nicht erstellen"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Fehler: %s - %s"
+#~ msgstr "Fehler: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Ersetze %s [%s/%s] ? "
+#~ msgstr "Ersetze %s [%s/{}] ? "
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "Lösche Playlist %s [%s/%s] ? "
+#~ msgstr "Lösche Playlist %s [%s/{}] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Warnung: Unbekannte Farbe - %s\n"
+#~ msgstr "Warnung: Unbekannte Farbe - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Playlist gemischt"
@@ -1349,7 +1349,7 @@ msgstr "Tage"
 #~ msgstr "Speichere Playlist als"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Playlist auf %s"
+#~ msgstr "Playlist auf {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Playlistenanzeige"
@@ -1370,13 +1370,13 @@ msgstr "Tage"
 #~ msgstr " Lautstärke %d%%"
 
 #~ msgid "Adding directory %s...\n"
-#~ msgstr "Füge Verzeichnis %s hinzu...\n"
+#~ msgstr "Füge Verzeichnis {} hinzu...\n"
 
 #~ msgid "You can only delete playlists"
 #~ msgstr "Du kannst nur Playlisten löschen"
 
 #~ msgid "Browse: %s"
-#~ msgstr "Stöbern: %s"
+#~ msgstr "Stöbern: {}"
 
 #~ msgid "Search: "
 #~ msgstr "Suche: "
@@ -1391,7 +1391,7 @@ msgstr "Tage"
 #~ msgstr "Ende "
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-#~ msgstr "Taste %s ist %s und %s zugeordnet (drücke %s für den Tasteneditor)"
+#~ msgstr "Taste %s ist %s und %s zugeordnet (drücke {} für den Tasteneditor)"
 
 #~ msgid "Clock"
 #~ msgstr "Uhr"
@@ -1409,7 +1409,7 @@ msgstr "Tage"
 #~ msgstr "Uhr-Anzeige"
 
 #~ msgid "Error: Unable to convert characters to %s"
-#~ msgstr "Fehler: kann Zeichen nicht nach %s konvertieren"
+#~ msgstr "Fehler: kann Zeichen nicht nach {} konvertieren"
 
 #~ msgid "Error: Unable to convert characters to UTF-8"
 #~ msgstr "Fehler: kann Zeichen nicht nach UTF-8 konvertieren"

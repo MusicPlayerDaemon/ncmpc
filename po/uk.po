@@ -22,7 +22,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Клавіша %s призначена до %s та %s"
+msgstr "Клавіша %s призначена до %s та {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -615,8 +615,8 @@ msgstr "Додати нову клавішу"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Редагувати клавішу для %s"
+msgid "Edit keys for {}"
+msgstr "Редагувати клавішу для {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -871,7 +871,7 @@ msgstr ""
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
+msgid "Queue on {}"
 msgstr ""
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
@@ -1099,7 +1099,7 @@ msgstr "Невідома команда"
 #: src/Styles.cxx:311
 #, fuzzy
 msgid "Unknown color field"
-msgstr "Застереження: невідоме поле кольору - %s\n"
+msgstr "Застереження: невідоме поле кольору - {}\n"
 
 #: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
@@ -1145,7 +1145,7 @@ msgstr ""
 #: src/save_playlist.cxx:98
 #, fuzzy, c-format
 msgid "Replace %s?"
-msgstr "Замінити %s [%s/%s] ? "
+msgstr "Замінити %s [%s/{}] ? "
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1274,16 +1274,16 @@ msgstr ""
 #~ msgstr "Екран виконавців"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Альбоми виконавця: %s"
+#~ msgstr "Альбоми виконавця: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Всі виконавці"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Всі доріжки виконавця: %s"
+#~ msgstr "Всі доріжки виконавця: {}"
 
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Доріжки без альбому виконавця: %s"
+#~ msgstr "Доріжки без альбому виконавця: {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1296,50 +1296,50 @@ msgstr ""
 #~ msgstr "Перемістити пісню вниз"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Натисніть %s для нового пошуку"
+#~ msgstr "Натисніть {} для нового пошуку"
 
 #~ msgid "Search: %s"
-#~ msgstr "Пошук: %s"
+#~ msgstr "Пошук: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Пошук: наслідки пошуку для %s [%s]"
+#~ msgstr "Пошук: наслідки пошуку для %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Пошук: натисніть %s для нового пошуку [%s]"
+#~ msgstr "Пошук: натисніть %s для нового пошуку [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Встановлення з'єднання з %s...  [Натисніть %s щоб припинити]"
+#~ msgstr "Встановлення з'єднання з %s...  [Натисніть {} щоб припинити]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "натисніть %s щоб редагувати клавіші"
+#~ msgstr "натисніть {} щоб редагувати клавіші"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Альбом: %s - %s"
+#~ msgstr "Альбом: %s - {}"
 
 #~ msgid "Adding album %s..."
-#~ msgstr "Додається альбом %s..."
+#~ msgstr "Додається альбом {}..."
 
 #~ msgid "Adding %s..."
-#~ msgstr "Додається %s..."
+#~ msgstr "Додається {}..."
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Помилка: екран занадто маленький"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Помилка: неможливо створити теку ~/.ncmpc - %s"
+#~ msgstr "Помилка: неможливо створити теку ~/.ncmpc - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Помилка: %s - %s"
+#~ msgstr "Помилка: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Замінити %s [%s/%s] ? "
+#~ msgstr "Замінити %s [%s/{}] ? "
 
 #~ msgid "unknown"
 #~ msgstr "невідомо"
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Застереження: невідомий колір - %s\n"
+#~ msgstr "Застереження: невідомий колір - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Перемішаний перелік програвання"
@@ -1351,7 +1351,7 @@ msgstr ""
 #~ msgstr "Зберегти перелік програвання як"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Перелік програвання %s"
+#~ msgstr "Перелік програвання {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Екран переліку програвання"

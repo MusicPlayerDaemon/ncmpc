@@ -16,7 +16,7 @@
 #include "ui/Bell.hxx"
 #include "ui/ListText.hxx"
 #include "ui/TextListRenderer.hxx"
-#include "util/SPrintf.hxx"
+#include "lib/fmt/ToSpan.hxx"
 
 #include <assert.h>
 #include <errno.h>
@@ -212,13 +212,13 @@ CommandKeysPage::GetListItemText(std::span<char> buffer,
 		return "[..]"sv;
 
 	if (idx == GetAddPosition())
-		return SPrintf(buffer, "%d. %s", idx, _("Add new key"));
+		return FmtTruncate(buffer, "{}. {}"sv, idx, _("Add new key"));
 
 	assert(IsKeyPosition(idx));
 
-	return SPrintf(buffer, "%d. %-20s   (%d) ", idx,
-		       GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]),
-		       binding->keys[PositionToKeyIndex(idx)]);
+	return FmtTruncate(buffer, "{}. {:<20}   ({}) "sv, idx,
+			   GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]),
+			   binding->keys[PositionToKeyIndex(idx)]);
 }
 
 void
@@ -230,8 +230,8 @@ CommandKeysPage::OnOpen([[maybe_unused]] struct mpdclient &c) noexcept
 std::string_view
 CommandKeysPage::GetTitle(std::span<char> buffer) const noexcept
 {
-	return SPrintf(buffer, _("Edit keys for %s"),
-		       get_key_command_name(Command(subcmd)));
+	return FmtTruncate(buffer, _("Edit keys for {}"),
+			   get_key_command_name(Command(subcmd)));
 }
 
 void
@@ -427,8 +427,8 @@ CommandListPage::GetListItemText(std::span<char> buffer,
 	if (len < get_cmds_max_name_width())
 		memset(buffer.data() + len, ' ', get_cmds_max_name_width() - len);
 
-	std::size_t length = SPrintf(buffer.subspan(get_cmds_max_name_width()),
-				     " - %s", my_gettext(get_command_definitions()[idx].description)).size();
+	std::size_t length = FmtTruncate(buffer.subspan(get_cmds_max_name_width()),
+					 " - {}"sv, my_gettext(get_command_definitions()[idx].description)).size();
 
 	return {buffer.data(), get_cmds_max_name_width() + length};
 }

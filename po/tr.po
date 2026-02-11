@@ -22,7 +22,7 @@ msgstr ""
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "%s tuşu, %s ve %s komutlarına atandı"
+msgstr "%s tuşu, %s ve {} komutlarına atandı"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"
@@ -580,8 +580,8 @@ msgstr "Yeni tuş ekle"
 
 #: src/KeyDefPage.cxx:252
 #, c-format
-msgid "Edit keys for %s"
-msgstr "%s komutu için tuşları düzenle"
+msgid "Edit keys for {}"
+msgstr "{} komutu için tuşları düzenle"
 
 #: src/KeyDefPage.cxx:395
 msgid "You have new key bindings"
@@ -850,8 +850,8 @@ msgstr "Kuyruk"
 
 #: src/QueuePage.cxx:381
 #, c-format
-msgid "Queue on %s"
-msgstr "%s kuyruğu"
+msgid "Queue on {}"
+msgstr "{} kuyruğu"
 
 #. query the user for a filename
 #: src/save_playlist.cxx:86
@@ -861,7 +861,7 @@ msgstr "Kuyruğu farklı kaydet"
 #: src/save_playlist.cxx:108
 #, c-format
 msgid "Replace %s?"
-msgstr "%s değiştirilsin mi?"
+msgstr "{} değiştirilsin mi?"
 
 #. success
 #: src/save_playlist.cxx:129

@@ -25,7 +25,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "La touche %s est assignée à %s et à %s"
+msgstr "La touche %s est assignée à %s et à {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -611,8 +611,8 @@ msgstr "Ajouter une nouvelle touche"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Modifier les touches pour %s"
+msgid "Edit keys for {}"
+msgstr "Modifier les touches pour {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -872,8 +872,8 @@ msgstr "File d'attente"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "File d'attente en %s"
+msgid "Queue on {}"
+msgstr "File d'attente en {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1143,7 +1143,7 @@ msgstr "Enregistrer la file d'attente sous"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Remplacer %s ?"
+msgstr "Remplacer {} ?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1274,16 +1274,16 @@ msgstr "jours"
 #~ msgstr "Ecran sur l'Artiste"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Albums de l'artiste : %s"
+#~ msgstr "Albums de l'artiste : {}"
 
 #~ msgid "All artists"
 #~ msgstr "Tous les artistes"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Toutes les pistes de l'artiste : %s"
+#~ msgstr "Toutes les pistes de l'artiste : {}"
 
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Piste sans album de l'artiste : %s"
+#~ msgstr "Piste sans album de l'artiste : {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1296,50 +1296,50 @@ msgstr "jours"
 #~ msgstr "Déplacer la chanson vers le bas"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Appuyez sur %s pour une nouvelle recherche"
+#~ msgstr "Appuyez sur {} pour une nouvelle recherche"
 
 #~ msgid "Search: %s"
-#~ msgstr "Rechercher: %s"
+#~ msgstr "Rechercher: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Rechercher: Résultats pour %s [%s]"
+#~ msgstr "Rechercher: Résultats pour %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Rechercher: Appuyez sur %s pour une nouvelle recherche [%s]"
+#~ msgstr "Rechercher: Appuyez sur %s pour une nouvelle recherche [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Connexion à %s...  [Appuyez sur %s pour annuler]"
+#~ msgstr "Connexion à %s...  [Appuyez sur {} pour annuler]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "appuyez sur %s pour l'éditeur de touches"
+#~ msgstr "appuyez sur {} pour l'éditeur de touches"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Album: %s - %s"
+#~ msgstr "Album: %s - {}"
 
 #~ msgid "Adding album %s..."
-#~ msgstr "Ajout de l'album %s en cours..."
+#~ msgstr "Ajout de l'album {} en cours..."
 
 #~ msgid "Adding %s..."
-#~ msgstr "Ajout de %s en cours..."
+#~ msgstr "Ajout de {} en cours..."
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Erreur: Ecran trop petit"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Erreur : Impossible de créer le répertoire ~/.ncmpc - %s"
+#~ msgstr "Erreur : Impossible de créer le répertoire ~/.ncmpc - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Erreur: %s - %s"
+#~ msgstr "Erreur: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Remplacer %s [%s/%s] ? "
+#~ msgstr "Remplacer %s [%s/{}] ? "
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "Effacer la liste de lecture %s [%s/%s] ? "
+#~ msgstr "Effacer la liste de lecture %s [%s/{}] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Attention: Couleur inconnue - %s\n"
+#~ msgstr "Attention: Couleur inconnue - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Liste de lecture aléatoire"
@@ -1351,7 +1351,7 @@ msgstr "jours"
 #~ msgstr "Enregistrer la liste de lecture sous"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Liste de lecture sur %s"
+#~ msgstr "Liste de lecture sur {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Ecran de Liste de lecture"

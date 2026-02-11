@@ -19,7 +19,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "מקש %s מוקצה ל %s ול־%s"
+msgstr "מקש %s מוקצה ל %s ול־{}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -601,8 +601,8 @@ msgstr "הוסף מקש חדש"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "ערוך את המקש ל %s"
+msgid "Edit keys for {}"
+msgstr "ערוך את המקש ל {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -855,8 +855,8 @@ msgstr "תור"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "תור על %s"
+msgid "Queue on {}"
+msgstr "תור על {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1126,7 +1126,7 @@ msgstr "שמירת התור בשם"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "להחליף את %s?"
+msgstr "להחליף את {}?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1257,17 +1257,17 @@ msgstr "ימים"
 #~ msgstr "מסך אומן"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "אלבום של אומן %s"
+#~ msgstr "אלבום של אומן {}"
 
 #~ msgid "All artists"
 #~ msgstr "כל האמנים"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "כל השירים של אומן: %s"
+#~ msgstr "כל השירים של אומן: {}"
 
 #, fuzzy
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "אלבום של אומן %s"
+#~ msgstr "אלבום של אומן {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1280,29 +1280,29 @@ msgstr "ימים"
 #~ msgstr "הזז שיר למטה"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "לחץ %s לביצוע חיפוש חדש"
+#~ msgstr "לחץ {} לביצוע חיפוש חדש"
 
 #~ msgid "Search: %s"
-#~ msgstr "חיפוש: %s"
+#~ msgstr "חיפוש: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "חיפוש: תוצאוצ חיפוש ל %s [%s]"
+#~ msgstr "חיפוש: תוצאוצ חיפוש ל %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "חיפוש: לחץ %s לחיפוש חדש [%s]"
+#~ msgstr "חיפוש: לחץ %s לחיפוש חדש [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "מתחבר ל %s [לחץ על %s לביטול]"
+#~ msgstr "מתחבר ל %s [לחץ על {} לביטול]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "%s לעורך המקשים לחץ"
+#~ msgstr "{} לעורך המקשים לחץ"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "אלבום:%s-%s"
+#~ msgstr "אלבום:%s-{}"
 
 #, fuzzy
 #~ msgid "Adding album %s..."
-#~ msgstr "טוען רשימת שירים %s...."
+#~ msgstr "טוען רשימת שירים {}...."
 
 #, fuzzy
 #~ msgid "Adding %s..."
@@ -1312,20 +1312,20 @@ msgstr "ימים"
 #~ msgstr "שגיאה: המסך קטן מידי"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "שגיאה: לא ניתן ליצור את התיקיה ~/.ncmpc - %s"
+#~ msgstr "שגיאה: לא ניתן ליצור את התיקיה ~/.ncmpc - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "שגיאה:  %s - %s"
+#~ msgstr "שגיאה:  %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "החלף  %s [%s/%s] ? "
+#~ msgstr "החלף  %s [%s/{}] ? "
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "%s [%s/%s] ? מחיקת רשימת שירים "
+#~ msgstr "%s [%s/{}] ? מחיקת רשימת שירים "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "אזהרה: צבע לא מוכר  - %s\n"
+#~ msgstr "אזהרה: צבע לא מוכר  - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "רשימת שירים מעורבבת"
@@ -1337,7 +1337,7 @@ msgstr "ימים"
 #~ msgstr "שמירת רשימת שירים כ"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "רשימת שירים ב %s"
+#~ msgstr "רשימת שירים ב {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "מסך רשימת שירים"

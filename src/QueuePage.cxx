@@ -22,8 +22,8 @@
 #include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"
 #include "client/mpdclient.hxx"
+#include "lib/fmt/ToSpan.hxx"
 #include "event/CoarseTimerEvent.hxx"
-#include "util/SPrintf.hxx"
 
 #ifndef NCMPC_MINI
 #include "hscroll.hxx"
@@ -371,7 +371,7 @@ QueuePage::GetTitle(std::span<char> buffer) const noexcept
 	if (connection_name.empty() || !options.show_server_address)
 		return _("Queue");
 
-	return SPrintf(buffer, _("Queue on %s"), connection_name.c_str());
+	return FmtTruncate(buffer, _("Queue on {}"), connection_name);
 }
 
 void

@@ -23,7 +23,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Tangent %s tilldelad %s och %s"
+msgstr "Tangent %s tilldelad %s och {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -609,8 +609,8 @@ msgstr "Lägg till ny tangent"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Ändra tangenter för kommandot %s"
+msgid "Edit keys for {}"
+msgstr "Ändra tangenter för kommandot {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -866,8 +866,8 @@ msgstr "Kö"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "Kö på %s"
+msgid "Queue on {}"
+msgstr "Kö på {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1137,7 +1137,7 @@ msgstr "Spara kö som"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Ersätt %s?"
+msgstr "Ersätt {}?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1269,17 +1269,17 @@ msgstr "dagar"
 #~ msgstr "Artister"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Album av artist: %s"
+#~ msgstr "Album av artist: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Alla artister"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Alla spår av artist: %s"
+#~ msgstr "Alla spår av artist: {}"
 
 #, fuzzy
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Album av artist: %s"
+#~ msgstr "Album av artist: {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1292,29 +1292,29 @@ msgstr "dagar"
 #~ msgstr "Flytta spår nedåt"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Tryck %s för ny sökning"
+#~ msgstr "Tryck {} för ny sökning"
 
 #~ msgid "Search: %s"
-#~ msgstr "Sök: %s"
+#~ msgstr "Sök: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Sökresultat för %s [%s]"
+#~ msgstr "Sökresultat för %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Tryck %s för ny sökning [%s]"
+#~ msgstr "Tryck %s för ny sökning [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Ansluter till %s... [Tryck %s för att avbryta]"
+#~ msgstr "Ansluter till %s... [Tryck {} för att avbryta]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "tryck på %s för att korrigera"
+#~ msgstr "tryck på {} för att korrigera"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Album: %s - %s"
+#~ msgstr "Album: %s - {}"
 
 #, fuzzy
 #~ msgid "Adding album %s..."
-#~ msgstr "Laddar spellista %s..."
+#~ msgstr "Laddar spellista {}..."
 
 #, fuzzy
 #~ msgid "Adding %s..."
@@ -1324,20 +1324,20 @@ msgstr "dagar"
 #~ msgstr "Fel: Terminalen är för liten"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Fel: Kunde inte skapa mappen ~/.ncmpc - %s"
+#~ msgstr "Fel: Kunde inte skapa mappen ~/.ncmpc - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Fel: %s - %s"
+#~ msgstr "Fel: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Ersätt %s [%s/%s] ? "
+#~ msgstr "Ersätt %s [%s/{}] ? "
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "Ta bort spellista %s [%s/%s] ? "
+#~ msgstr "Ta bort spellista %s [%s/{}] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Varning: Okänd färg - %s\n"
+#~ msgstr "Varning: Okänd färg - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Spellistan slumpsorterades"
@@ -1349,7 +1349,7 @@ msgstr "dagar"
 #~ msgstr "Spara spellistan som"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Spellista på %s"
+#~ msgstr "Spellista på {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Spellista"

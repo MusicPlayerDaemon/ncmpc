@@ -20,7 +20,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Key %s assigned to %s and %s"
+msgstr "Key %s assigned to %s and {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -607,8 +607,8 @@ msgstr "Add new key"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Edit keys for %s"
+msgid "Edit keys for {}"
+msgstr "Edit keys for {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -860,8 +860,8 @@ msgstr "Queue"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "Queue on %s"
+msgid "Queue on {}"
+msgstr "Queue on {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1132,7 +1132,7 @@ msgstr "Save queue as"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Replace %s?"
+msgstr "Replace {}?"
 
 #. success
 #: src/save_playlist.cxx:123

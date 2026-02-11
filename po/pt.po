@@ -22,7 +22,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Tecla %s definida para %s e %s"
+msgstr "Tecla %s definida para %s e {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -609,8 +609,8 @@ msgstr "Adicionar nova tecla"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Editar teclas para %s"
+msgid "Edit keys for {}"
+msgstr "Editar teclas para {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -870,8 +870,8 @@ msgstr "Fila"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "Fila em %s"
+msgid "Queue on {}"
+msgstr "Fila em {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1142,7 +1142,7 @@ msgstr "Gravar fila como"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Substituir %s?"
+msgstr "Substituir {}?"
 
 #. success
 #: src/save_playlist.cxx:123

@@ -24,7 +24,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Klawisz %s przypisany do %s oraz %s"
+msgstr "Klawisz %s przypisany do %s oraz {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -610,8 +610,8 @@ msgstr "Dodaj nowy klawisz"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Edytuj klawisze dla %s"
+msgid "Edit keys for {}"
+msgstr "Edytuj klawisze dla {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -862,8 +862,8 @@ msgstr "Lista odtwarzania"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "Lista odtwarzania na %s"
+msgid "Queue on {}"
+msgstr "Lista odtwarzania na {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1133,7 +1133,7 @@ msgstr "Zapisz listę odtwarzania jako"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Czy zamienić %s?"
+msgstr "Czy zamienić {}?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1265,16 +1265,16 @@ msgstr "dni"
 #~ msgstr "Ekran artysty"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Albumy artysty: %s"
+#~ msgstr "Albumy artysty: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Wszyscy artyści"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Wszystkie piosenki artysty: %s"
+#~ msgstr "Wszystkie piosenki artysty: {}"
 
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Ścieżki bez albumów lub artystów: %s"
+#~ msgstr "Ścieżki bez albumów lub artystów: {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1287,50 +1287,50 @@ msgstr "dni"
 #~ msgstr "Przesuń piosenkę w dół"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Wciśnij %s by rozpocząć nowe wyszukiwanie"
+#~ msgstr "Wciśnij {} by rozpocząć nowe wyszukiwanie"
 
 #~ msgid "Search: %s"
-#~ msgstr "Znajdź: %s"
+#~ msgstr "Znajdź: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Znajdź: Wyniki dla %s [%s]"
+#~ msgstr "Znajdź: Wyniki dla %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Znajdź: Wciśnij %s by rozpocząć nowe wyszkuwanie [%s]"
+#~ msgstr "Znajdź: Wciśnij %s by rozpocząć nowe wyszkuwanie [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Łączenie z %s... [Wciśnij %s by anulować]"
+#~ msgstr "Łączenie z %s... [Wciśnij {} by anulować]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "wciśnij %s by odpalić edytor klawiszy"
+#~ msgstr "wciśnij {} by odpalić edytor klawiszy"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Albumy: %s - %s"
+#~ msgstr "Albumy: %s - {}"
 
 #~ msgid "Adding album %s..."
-#~ msgstr "Dodawanie albumu %s..."
+#~ msgstr "Dodawanie albumu {}..."
 
 #~ msgid "Adding %s..."
-#~ msgstr "Dodawanie %s..."
+#~ msgstr "Dodawanie {}..."
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Błąd: Ekran za mały"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Błąd: Nie można stworzyć katalogu ~/.ncmpc -%s"
+#~ msgstr "Błąd: Nie można stworzyć katalogu ~/.ncmpc -{}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Błąd: %s - %s"
+#~ msgstr "Błąd: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Zamień %s [%s/%s] ? "
+#~ msgstr "Zamień %s [%s/{}] ? "
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "Usuń listę odtwarzania %s [%s/%s] ? "
+#~ msgstr "Usuń listę odtwarzania %s [%s/{}] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Ostrzeżenie: Nieznany kolor - %s\n"
+#~ msgstr "Ostrzeżenie: Nieznany kolor - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Przetasowano listę odtwarzania"
@@ -1342,7 +1342,7 @@ msgstr "dni"
 #~ msgstr "Zapisz listę odtwarzania jako"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Lista odtwarzania na %s"
+#~ msgstr "Lista odtwarzania na {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Ekran listy odtwarzania"

@@ -21,7 +21,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Tast %s tildelt %s og %s"
+msgstr "Tast %s tildelt %s og {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -615,8 +615,8 @@ msgstr "Definér ny tast"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Modificer tast for '%s'"
+msgid "Edit keys for {}"
+msgstr "Modificer tast for '{}'"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -876,7 +876,7 @@ msgstr ""
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
+msgid "Queue on {}"
 msgstr ""
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
@@ -1104,7 +1104,7 @@ msgstr "Ukendt kommando"
 #: src/Styles.cxx:311
 #, fuzzy
 msgid "Unknown color field"
-msgstr "Advarsel: Ukendt farve felt - %s.\n"
+msgstr "Advarsel: Ukendt farve felt - {}.\n"
 
 #: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
@@ -1150,7 +1150,7 @@ msgstr ""
 #: src/save_playlist.cxx:98
 #, fuzzy, c-format
 msgid "Replace %s?"
-msgstr "Erstat '%s' [%s/%s] ? "
+msgstr "Erstat '%s' [%s/{}] ? "
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1279,17 +1279,17 @@ msgstr ""
 #~ msgstr "Kunstner skærm"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Album fra kunstneren: %s"
+#~ msgstr "Album fra kunstneren: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Alle kunstnere"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Alle spor fra kunstneren: %s"
+#~ msgstr "Alle spor fra kunstneren: {}"
 
 #, fuzzy
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Album fra kunstneren: %s"
+#~ msgstr "Album fra kunstneren: {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1302,52 +1302,52 @@ msgstr ""
 #~ msgstr "Flyt markøren ned i afspilningslisten"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Tryk på %s for en ny søgning"
+#~ msgstr "Tryk på {} for en ny søgning"
 
 #~ msgid "Search: %s"
-#~ msgstr "Søg: %s"
+#~ msgstr "Søg: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Søg: Resultater for %s [%s]"
+#~ msgstr "Søg: Resultater for %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Tryk på %s for en ny søgning [%s]"
+#~ msgstr "Tryk på %s for en ny søgning [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Forbinder til %s... [Tryk %s for at afbryde]"
+#~ msgstr "Forbinder til %s... [Tryk {} for at afbryde]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "tryk på %s for at redigere"
+#~ msgstr "tryk på {} for at redigere"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Album: %s - %s"
+#~ msgstr "Album: %s - {}"
 
 #, fuzzy
 #~ msgid "Adding album %s..."
-#~ msgstr "Henter %s..."
+#~ msgstr "Henter {}..."
 
 #, fuzzy
 #~ msgid "Adding %s..."
-#~ msgstr "Tilføjer mappen %s...\n"
+#~ msgstr "Tilføjer mappen {}...\n"
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Fejl: Skærm for lille"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Fejl: Kunne ikke oprette mappe ~/.ncmpc - %s"
+#~ msgstr "Fejl: Kunne ikke oprette mappe ~/.ncmpc - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Fejl: %s - %s"
+#~ msgstr "Fejl: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Erstat '%s' [%s/%s] ? "
+#~ msgstr "Erstat '%s' [%s/{}] ? "
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "Slet '%s' [%s/%s] ? "
+#~ msgstr "Slet '%s' [%s/{}] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Advarsel: Ukendt farve - %s\n"
+#~ msgstr "Advarsel: Ukendt farve - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Afspilninsglisten blandet"
@@ -1359,7 +1359,7 @@ msgstr ""
 #~ msgstr "Gem afspilningslisten som"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Afspilningsliste på %s"
+#~ msgstr "Afspilningsliste på {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Afspilningsliste"
@@ -1380,7 +1380,7 @@ msgstr ""
 #~ msgstr "Hent kun sangtekster"
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-#~ msgstr "Tast %s bundet til kommando %s og %s (tryk på %s for at redigere)"
+#~ msgstr "Tast %s bundet til kommando %s og %s (tryk på {} for at redigere)"
 
 #~ msgid "Clock"
 #~ msgstr "Ur"
@@ -1389,7 +1389,7 @@ msgstr ""
 #~ msgstr "Ur"
 
 #~ msgid "Error: Unable to convert characters to %s"
-#~ msgstr "Fejl: Kan ikke konvertere karakter til %s"
+#~ msgstr "Fejl: Kan ikke konvertere karakter til {}"
 
 #~ msgid "Error: Unable to convert characters to UTF-8"
 #~ msgstr "Fejl: Kan ikke konvertere karakter til UTF-8"

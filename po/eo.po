@@ -23,7 +23,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Klavo %s estas asignita al %s kaj %s"
+msgstr "Klavo %s estas asignita al %s kaj {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -610,8 +610,8 @@ msgstr "Aldoni novan klavon"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Redakti klavojn por %s"
+msgid "Edit keys for {}"
+msgstr "Redakti klavojn por {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -866,8 +866,8 @@ msgstr "Vico"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "Vico ĉe %s"
+msgid "Queue on {}"
+msgstr "Vico ĉe {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1137,7 +1137,7 @@ msgstr "Konservi vicon kiel"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Ĉu anstataŭigi %s?"
+msgstr "Ĉu anstataŭigi {}?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1265,4 +1265,4 @@ msgstr "tagoj"
 #~ msgstr "Ĉu lanĉi redaktilon kaj redakti tiujn kantotekstojn?"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Konektiĝado al %s...  [Premu %s por ĉesigi]"
+#~ msgstr "Konektiĝado al %s...  [Premu {} por ĉesigi]"

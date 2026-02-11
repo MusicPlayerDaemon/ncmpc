@@ -21,7 +21,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "A tecla %s asignouse a %s e a %s"
+msgstr "A tecla %s asignouse a %s e a {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -614,8 +614,8 @@ msgstr "Engadir un novo atallo"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Editar atallos para %s"
+msgid "Edit keys for {}"
+msgstr "Editar atallos para {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -876,7 +876,7 @@ msgstr ""
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
+msgid "Queue on {}"
 msgstr ""
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
@@ -1104,7 +1104,7 @@ msgstr "Orde descoñecida"
 #: src/Styles.cxx:311
 #, fuzzy
 msgid "Unknown color field"
-msgstr "Aviso: Campo de cor descoñecido - %s\n"
+msgstr "Aviso: Campo de cor descoñecido - {}\n"
 
 #: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
@@ -1150,7 +1150,7 @@ msgstr ""
 #: src/save_playlist.cxx:98
 #, fuzzy, c-format
 msgid "Replace %s?"
-msgstr "Substituir %s [%s/%s] ? "
+msgstr "Substituir %s [%s/{}] ? "
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1279,16 +1279,16 @@ msgstr ""
 #~ msgstr "Pantalla de Artistas"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Álbumes do artista: %s"
+#~ msgstr "Álbumes do artista: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Todos os artistas"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Todas as pistas do artista: %s"
+#~ msgstr "Todas as pistas do artista: {}"
 
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Pistas de ningún álbum do artista: %s"
+#~ msgstr "Pistas de ningún álbum do artista: {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1301,50 +1301,50 @@ msgstr ""
 #~ msgstr "Mover a canción cara embaixo"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Prema %s para unha nova busca"
+#~ msgstr "Prema {} para unha nova busca"
 
 #~ msgid "Search: %s"
-#~ msgstr "Buscar: %s"
+#~ msgstr "Buscar: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Buscar: Resultados para %s [%s]"
+#~ msgstr "Buscar: Resultados para %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Buscar: Prema %s para unha nova busca [%s]"
+#~ msgstr "Buscar: Prema %s para unha nova busca [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Conectandose con %s... [Prema %s para interromper]"
+#~ msgstr "Conectandose con %s... [Prema {} para interromper]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "prema %s para ir ao editor de atallos"
+#~ msgstr "prema {} para ir ao editor de atallos"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Álbum: %s - %s"
+#~ msgstr "Álbum: %s - {}"
 
 #~ msgid "Adding album %s..."
-#~ msgstr "Engadindo álbum %s..."
+#~ msgstr "Engadindo álbum {}..."
 
 #~ msgid "Adding %s..."
-#~ msgstr "Engadindo %s..."
+#~ msgstr "Engadindo {}..."
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Erro: A pantalla é moi pequena"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Erro: Non se puido crear o cartafol ~/.ncmpc - %s"
+#~ msgstr "Erro: Non se puido crear o cartafol ~/.ncmpc - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Erro: %s - %s"
+#~ msgstr "Erro: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Substituir %s [%s/%s] ? "
+#~ msgstr "Substituir %s [%s/{}] ? "
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "Borrar a lista de reprodución %s [%s/%s] ? "
+#~ msgstr "Borrar a lista de reprodución %s [%s/{}] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Aviso: Cor descoñecida - %s\n"
+#~ msgstr "Aviso: Cor descoñecida - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Lista de reprodución aleatoria"
@@ -1356,7 +1356,7 @@ msgstr ""
 #~ msgstr "Gardar a lista de reprodución como"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Lista de reprodución en %s"
+#~ msgstr "Lista de reprodución en {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Pantalla da lista de reprodución"
@@ -1383,7 +1383,7 @@ msgstr ""
 #~ msgstr "Procurar: "
 
 #~ msgid "Adding directory %s...\n"
-#~ msgstr "Engadindo o cartafol %s...\n"
+#~ msgstr "Engadindo o cartafol {}...\n"
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
 #~ msgstr ""
@@ -1405,7 +1405,7 @@ msgstr ""
 #~ msgstr "Écrã do relógio"
 
 #~ msgid "Error: Unable to convert characters to %s"
-#~ msgstr "Erro: Impossível converter os caracteres a %s"
+#~ msgstr "Erro: Impossível converter os caracteres a {}"
 
 #~ msgid "Error: Unable to convert characters to UTF-8"
 #~ msgstr "Erro: Impossível converter os caracteres a UTF-8"

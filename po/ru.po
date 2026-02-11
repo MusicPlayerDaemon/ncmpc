@@ -23,7 +23,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Клавиша %s назначена для %s и %s"
+msgstr "Клавиша %s назначена для %s и {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -609,8 +609,8 @@ msgstr "Добавить новую клавишу"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Изменение клавиатурных комбинаций для %s"
+msgid "Edit keys for {}"
+msgstr "Изменение клавиатурных комбинаций для {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -861,8 +861,8 @@ msgstr "Очередь"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "Очередь на %s"
+msgid "Queue on {}"
+msgstr "Очередь на {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1133,7 +1133,7 @@ msgstr "Сохранить очередь как"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Заменить %s?"
+msgstr "Заменить {}?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1264,16 +1264,16 @@ msgstr "дн."
 #~ msgstr "Экран исполнителей"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Альбомы исполнителя: %s"
+#~ msgstr "Альбомы исполнителя: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Все исполнители"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Все композиции исполнителя: %s"
+#~ msgstr "Все композиции исполнителя: {}"
 
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Композиции исполнителя: %s"
+#~ msgstr "Композиции исполнителя: {}"
 
 #~ msgid "Add url/file to queue"
 #~ msgstr "Добавить url/файл в очередь"
@@ -1285,31 +1285,31 @@ msgstr "дн."
 #~ msgstr "Переместить композицию вниз"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Нажмите %s для нового поиска"
+#~ msgstr "Нажмите {} для нового поиска"
 
 #~ msgid "Search: %s"
-#~ msgstr "Поиск: %s"
+#~ msgstr "Поиск: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Поиск: результаты поиска '%s' в поле [%s]"
+#~ msgstr "Поиск: результаты поиска '%s' в поле [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Поиск: нажмите %s для поиска по полю [%s]"
+#~ msgstr "Поиск: нажмите %s для поиска по полю [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Подключение к %s...  [Нажмите %s для отмены]"
+#~ msgstr "Подключение к %s...  [Нажмите {} для отмены]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "%s - редактор клавиш"
+#~ msgstr "{} - редактор клавиш"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Альбом: %s - %s"
+#~ msgstr "Альбом: %s - {}"
 
 #~ msgid "Adding album %s..."
-#~ msgstr "Добавляется альбом %s..."
+#~ msgstr "Добавляется альбом {}..."
 
 #~ msgid "Adding %s..."
-#~ msgstr "Добавляется %s..."
+#~ msgstr "Добавляется {}..."
 
 #~ msgid ""
 #~ "connected to MPD %u.%u.%u (you need at least \n"
@@ -1322,25 +1322,25 @@ msgstr "дн."
 #~ msgstr "Ошибка: экран слишком мал"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Ошибка: не удалось создать директорию ~/.ncmpc - %s"
+#~ msgstr "Ошибка: не удалось создать директорию ~/.ncmpc - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Ошибка: %s - %s"
+#~ msgstr "Ошибка: %s - {}"
 
 #~ msgid "Editor exited unexpectedly (signal %d)"
 #~ msgstr "Редактор неожиданно завершил работу (по сигналу %d)"
 
 #~ msgid "%s [%s/%s] "
-#~ msgstr "%s [%s/%s] "
+#~ msgstr "%s [%s/{}] "
 
 #~ msgid "unknown"
 #~ msgstr "неизвестно"
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "Удалить плейлист %s [%s/%s] ? "
+#~ msgstr "Удалить плейлист %s [%s/{}] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Внимание: неизвестный цвет - %s\n"
+#~ msgstr "Внимание: неизвестный цвет - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Плейлист перемешан"
@@ -1352,7 +1352,7 @@ msgstr "дн."
 #~ msgstr "Сохранить плейлист как"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Плейлист на %s"
+#~ msgstr "Плейлист на {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Экран плейлиста"
@@ -1377,7 +1377,7 @@ msgstr "дн."
 #~ msgstr "Поиск: "
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-#~ msgstr "Клавиша %s назначена для %s и %s (%s - редактор клавиш)"
+#~ msgstr "Клавиша %s назначена для %s и %s ({} - редактор клавиш)"
 
 #~ msgid "Clock"
 #~ msgstr "Часы"
@@ -1386,7 +1386,7 @@ msgstr "дн."
 #~ msgstr "Экран часов"
 
 #~ msgid "Error: Unable to convert characters to %s"
-#~ msgstr "Ошибка: не удалось конвертировать символы в %s"
+#~ msgstr "Ошибка: не удалось конвертировать символы в {}"
 
 #~ msgid "Error: Unable to convert characters to UTF-8"
 #~ msgstr "Ошибка: не удалось конвертировать символы в UTF-8"

@@ -22,7 +22,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Kláves %s priradený pre %s a %s"
+msgstr "Kláves %s priradený pre %s a {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -604,8 +604,8 @@ msgstr "Pridať nový kláves"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Upraviť klávesy pre %s"
+msgid "Edit keys for {}"
+msgstr "Upraviť klávesy pre {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -861,8 +861,8 @@ msgstr "Poradie"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "Poradie na %s"
+msgid "Queue on {}"
+msgstr "Poradie na {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1132,7 +1132,7 @@ msgstr "Uložiť poradie skladieb ako"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Nahradiť %s?"
+msgstr "Nahradiť {}?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1263,17 +1263,17 @@ msgstr "dni"
 #~ msgstr "Okno interpreta"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Albumy od interpreta: %s"
+#~ msgstr "Albumy od interpreta: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Všetci interpreti"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Všetky stopy od interpreta: %s"
+#~ msgstr "Všetky stopy od interpreta: {}"
 
 #, fuzzy
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Albumy od interpreta: %s"
+#~ msgstr "Albumy od interpreta: {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1286,52 +1286,52 @@ msgstr "dni"
 #~ msgstr "Presunúť skladbu nadol"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Stlačte %s pre nové hľadanie"
+#~ msgstr "Stlačte {} pre nové hľadanie"
 
 #~ msgid "Search: %s"
-#~ msgstr "Vyhľadať: %s"
+#~ msgstr "Vyhľadať: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Hľadanie: Výsledky pre reťazec %s[%s]"
+#~ msgstr "Hľadanie: Výsledky pre reťazec %s[{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Hľadanie: Stlačte %s pre opätovné hľadanie [%s]"
+#~ msgstr "Hľadanie: Stlačte %s pre opätovné hľadanie [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Pripájam sa k %s... [Stlačte %s pre zrušenie]"
+#~ msgstr "Pripájam sa k %s... [Stlačte {} pre zrušenie]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "stlačte %s pre editor klávesov"
+#~ msgstr "stlačte {} pre editor klávesov"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Album: %s - %s"
+#~ msgstr "Album: %s - {}"
 
 #, fuzzy
 #~ msgid "Adding album %s..."
-#~ msgstr "Nahrávam playlist %s..."
+#~ msgstr "Nahrávam playlist {}..."
 
 #, fuzzy
 #~ msgid "Adding %s..."
-#~ msgstr "Pridávam adresár %s...\n"
+#~ msgstr "Pridávam adresár {}...\n"
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Chyba: Okno je príliš malé"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Chyba: Nepodarilo sa vytvoriť adresár ~/.ncmpc - %s"
+#~ msgstr "Chyba: Nepodarilo sa vytvoriť adresár ~/.ncmpc - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Chyba: %s - %s"
+#~ msgstr "Chyba: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Nahradiť %s [%s/%s] ? "
+#~ msgstr "Nahradiť %s [%s/{}] ? "
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "Vymazať playlist %s [%s/%s] ? "
+#~ msgstr "Vymazať playlist %s [%s/{}] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Varovania: Neznáma farba - %s\n"
+#~ msgstr "Varovania: Neznáma farba - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Zamiešaný playlist"
@@ -1343,7 +1343,7 @@ msgstr "dni"
 #~ msgstr "Uložiť playlist ako"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Playlist na %s"
+#~ msgstr "Playlist na {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Okno playlistu"
@@ -1364,7 +1364,7 @@ msgstr "dni"
 #~ msgstr "Vyhľadať: "
 
 #~ msgid "Key %s assigned to %s and %s (press %s for the key editor)"
-#~ msgstr "Kláves %s priradený k %s a %s (stlačte %s pre editor klávesov)"
+#~ msgstr "Kláves %s priradený k %s a %s (stlačte {} pre editor klávesov)"
 
 #~ msgid "Clock"
 #~ msgstr "Hodiny"
@@ -1382,7 +1382,7 @@ msgstr "dni"
 #~ msgstr "Obrazovka s hodinami"
 
 #~ msgid "Error: Unable to convert characters to %s"
-#~ msgstr "Chyba: Nepodarilo sa konvertovať znaky na %s"
+#~ msgstr "Chyba: Nepodarilo sa konvertovať znaky na {}"
 
 #~ msgid "Error: Unable to convert characters to UTF-8"
 #~ msgstr "Chyba: Nepodarilo sa konvertovať znaky do UTF-8"

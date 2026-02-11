@@ -23,7 +23,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "按键 %s 分配给 %s 和 %s"
+msgstr "按键 %s 分配给 %s 和 {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -609,8 +609,8 @@ msgstr "添加新的键"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "为 %s 编辑快捷键"
+msgid "Edit keys for {}"
+msgstr "为 {} 编辑快捷键"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -866,8 +866,8 @@ msgstr "播放列表"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "播放列表 %s"
+msgid "Queue on {}"
+msgstr "播放列表 {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1137,7 +1137,7 @@ msgstr "播放列表另存为"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "替换 %s?"
+msgstr "替换 {}?"
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1268,16 +1268,16 @@ msgstr "日"
 #~ msgstr "艺术家页面"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "%s 的专辑:"
+#~ msgstr "{} 的专辑:"
 
 #~ msgid "All artists"
 #~ msgstr "全部艺术家"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "%s 的所有曲目"
+#~ msgstr "{} 的所有曲目"
 
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "艺术家的无专辑曲目: %s"
+#~ msgstr "艺术家的无专辑曲目: {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1290,50 +1290,50 @@ msgstr "日"
 #~ msgstr "下移"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "按 %s 开始新的搜索"
+#~ msgstr "按 {} 开始新的搜索"
 
 #~ msgid "Search: %s"
-#~ msgstr "查找: %s"
+#~ msgstr "查找: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "查找: %s [%s] 的结果"
+#~ msgstr "查找: %s [{}] 的结果"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "查找: 按 %s 开始新的搜索 [%s]"
+#~ msgstr "查找: 按 %s 开始新的搜索 [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "连接到 %s... [按 %s 键取消]"
+#~ msgstr "连接到 %s... [按 {} 键取消]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "按 %s 编辑快捷键"
+#~ msgstr "按 {} 编辑快捷键"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "专辑: %s - %s"
+#~ msgstr "专辑: %s - {}"
 
 #~ msgid "Adding album %s..."
-#~ msgstr "添加专辑 %s..."
+#~ msgstr "添加专辑 {}..."
 
 #~ msgid "Adding %s..."
-#~ msgstr "添加 %s..."
+#~ msgstr "添加 {}..."
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "错误: 屏幕太小"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "错误: 无法创建文件夹 ~/.ncmpc - %s"
+#~ msgstr "错误: 无法创建文件夹 ~/.ncmpc - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "错误 %s - %s"
+#~ msgstr "错误 %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "替换 %s [%s/%s]? "
+#~ msgstr "替换 %s [%s/{}]? "
 
 #~ msgid "Delete playlist %s [%s/%s] ? "
-#~ msgstr "确定要删除列表 %s[%s/%s] ? "
+#~ msgstr "确定要删除列表 %s[%s/{}] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "警告: 未知的颜色 -  %s\n"
+#~ msgstr "警告: 未知的颜色 -  {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "乱序播放列表"
@@ -1345,7 +1345,7 @@ msgstr "日"
 #~ msgstr "播放列表另存为"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "%s 上的播放列表"
+#~ msgstr "{} 上的播放列表"
 
 #~ msgid "Playlist screen"
 #~ msgstr "列表页面"

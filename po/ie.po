@@ -610,7 +610,7 @@ msgstr "Adjunter un nov taste"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
+msgid "Edit keys for {}"
 msgstr ""
 
 #: src/KeyDefPage.cxx:370
@@ -864,8 +864,8 @@ msgstr "Linea"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "Linea sur %s"
+msgid "Queue on {}"
+msgstr "Linea sur {}"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1136,7 +1136,7 @@ msgstr "Gardar li linea quam"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Substituer %s?"
+msgstr "Substituer {}?"
 
 #. success
 #: src/save_playlist.cxx:123

@@ -601,8 +601,8 @@ msgid "Add new key"
 msgstr ""
 
 #: src/KeyDefPage.cxx:233
-#, c-format
-msgid "Edit keys for %s"
+#, c++-format
+msgid "Edit keys for {}"
 msgstr ""
 
 #: src/KeyDefPage.cxx:370
@@ -852,9 +852,9 @@ msgstr ""
 msgid "Queue"
 msgstr ""
 
-#: src/QueuePage.cxx:375
-#, c-format
-msgid "Queue on %s"
+#: src/QueuePage.cxx:374
+#, c++-format
+msgid "Queue on {}"
 msgstr ""
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63

@@ -23,7 +23,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Klávesa %s je přiřazena k %s a %s"
+msgstr "Klávesa %s je přiřazena k %s a {}"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -618,8 +618,8 @@ msgstr "Přidat novou klávesovou zkratku"
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "Upravit klávesové zkratky pro %s"
+msgid "Edit keys for {}"
+msgstr "Upravit klávesové zkratky pro {}"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -819,12 +819,12 @@ msgstr "Žádný uložený text písně"
 #: src/Main.cxx:104
 #, fuzzy, c++-format
 msgid "Connecting to {}"
-msgstr "Připojeno k %s"
+msgstr "Připojeno k {}"
 
 #: src/Main.cxx:120
 #, fuzzy, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
-msgstr "Chyba: MPD verze %d.%d.%d je příliš stará (potřebuji %s)"
+msgstr "Chyba: MPD verze {} je příliš stará (potřebuji {})"
 
 #. To translators: these credits are shown
 #. when ncmpc is started with "--version"
@@ -878,7 +878,7 @@ msgstr ""
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
+msgid "Queue on {}"
 msgstr ""
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
@@ -960,12 +960,12 @@ msgstr ""
 #: src/SearchPage.cxx:312
 #, fuzzy, c++-format
 msgid "Bad search tag {}"
-msgstr "Chybný tag vyhledávání %s"
+msgstr "Chybný tag vyhledávání {}"
 
 #: src/SearchPage.cxx:326
 #, fuzzy, c++-format
 msgid "No argument for search tag {}"
-msgstr "Žádný argument vyhledávání %s"
+msgstr "Žádný argument vyhledávání {}"
 
 #: src/SearchPage.cxx:422 src/SearchPage.cxx:455 src/SearchPage.cxx:458
 #: src/SearchPage.cxx:462 src/SearchPage.cxx:519
@@ -1106,7 +1106,7 @@ msgstr "Neznámý příkaz"
 #: src/Styles.cxx:311
 #, fuzzy
 msgid "Unknown color field"
-msgstr "Varování: Neznámé barevné pole - %s\n"
+msgstr "Varování: Neznámé barevné pole - {}\n"
 
 #: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
@@ -1139,7 +1139,7 @@ msgstr "Přeskočit"
 #: src/page/FindSupport.cxx:45
 #, fuzzy, c++-format
 msgid "Unable to find '{}'"
-msgstr "Nemohu najít '%s'"
+msgstr "Nemohu najít '{}'"
 
 #: src/player_command.cxx:71
 msgid "Cleared queue"
@@ -1152,7 +1152,7 @@ msgstr ""
 #: src/save_playlist.cxx:98
 #, fuzzy, c-format
 msgid "Replace %s?"
-msgstr "Nahradit %s [%s/%s] ? "
+msgstr "Nahradit %s [%s/{}] ? "
 
 #. success
 #: src/save_playlist.cxx:123
@@ -1235,7 +1235,7 @@ msgstr "Probíhá aktualizace databáze"
 #: src/screen_client.cxx:33
 #, fuzzy, c++-format
 msgid "Database update of {} started"
-msgstr "Aktualizace databáze %s zahájena"
+msgstr "Aktualizace databáze {} zahájena"
 
 #: src/screen_client.cxx:36
 msgid "Database update started"
@@ -1281,16 +1281,16 @@ msgstr ""
 #~ msgstr "Obrazovka interpretů"
 
 #~ msgid "Albums of artist: %s"
-#~ msgstr "Alba interpreta: %s"
+#~ msgstr "Alba interpreta: {}"
 
 #~ msgid "All artists"
 #~ msgstr "Všichni interpreti"
 
 #~ msgid "All tracks of artist: %s"
-#~ msgstr "Všechny skladby interpreta: %s"
+#~ msgstr "Všechny skladby interpreta: {}"
 
 #~ msgid "Tracks of no album of artist: %s"
-#~ msgstr "Písničky bez alba zpěváka: %s"
+#~ msgstr "Písničky bez alba zpěváka: {}"
 
 #, fuzzy
 #~ msgid "Add url/file to queue"
@@ -1303,47 +1303,47 @@ msgstr ""
 #~ msgstr "Posunout skladbu dolů"
 
 #~ msgid "Press %s for a new search"
-#~ msgstr "Pro nové hledání stiskněte %s"
+#~ msgstr "Pro nové hledání stiskněte {}"
 
 #~ msgid "Search: %s"
-#~ msgstr "Hledání: %s"
+#~ msgstr "Hledání: {}"
 
 #~ msgid "Search: Results for %s [%s]"
-#~ msgstr "Hledání: Výsledky pro %s [%s]"
+#~ msgstr "Hledání: Výsledky pro %s [{}]"
 
 #~ msgid "Search: Press %s for a new search [%s]"
-#~ msgstr "Hledání: Stiskněte %s pro nové hledání [%s]"
+#~ msgstr "Hledání: Stiskněte %s pro nové hledání [{}]"
 
 #~ msgid "Connecting to %s...  [Press %s to abort]"
-#~ msgstr "Připojuji se k %s... [Pro přerušení stiskněte %s]"
+#~ msgstr "Připojuji se k %s... [Pro přerušení stiskněte {}]"
 
 #~ msgid "press %s for the key editor"
-#~ msgstr "stiskněte %s pro otevření správce klávesových zkratek"
+#~ msgstr "stiskněte {} pro otevření správce klávesových zkratek"
 
 #~ msgid "Album: %s - %s"
-#~ msgstr "Album: %s - %s"
+#~ msgstr "Album: %s - {}"
 
 #~ msgid "Adding album %s..."
-#~ msgstr "Přidávám album %s..."
+#~ msgstr "Přidávám album {}..."
 
 #~ msgid "Adding %s..."
-#~ msgstr "Přidávám %s..."
+#~ msgstr "Přidávám {}..."
 
 #~ msgid "Error: Screen too small"
 #~ msgstr "Chyba: Příliš malá obrazovka"
 
 #~ msgid "Error: Unable to create directory ~/.ncmpc - %s"
-#~ msgstr "Chyba: Nemohu vytvořit adresář ~/.ncmpc - %s"
+#~ msgstr "Chyba: Nemohu vytvořit adresář ~/.ncmpc - {}"
 
 #~ msgid "Error: %s - %s"
-#~ msgstr "Chyba: %s - %s"
+#~ msgstr "Chyba: %s - {}"
 
 #, fuzzy
 #~ msgid "%s [%s/%s] "
-#~ msgstr "Nahradit %s [%s/%s] ? "
+#~ msgstr "Nahradit %s [%s/{}] ? "
 
 #~ msgid "Warning: Unknown color - %s\n"
-#~ msgstr "Varování: Neznámá barva - %s\n"
+#~ msgstr "Varování: Neznámá barva - {}\n"
 
 #~ msgid "Shuffled playlist"
 #~ msgstr "Seznam skladeb zamíchán"
@@ -1355,7 +1355,7 @@ msgstr ""
 #~ msgstr "Uložit seznam skladeb jako"
 
 #~ msgid "Playlist on %s"
-#~ msgstr "Seznam skladeb %s"
+#~ msgstr "Seznam skladeb {}"
 
 #~ msgid "Playlist screen"
 #~ msgstr "Obrazovka seznamu skladeb"

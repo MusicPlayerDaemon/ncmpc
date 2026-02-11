@@ -22,7 +22,7 @@ msgstr ""
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "முக்கிய %s %s மற்றும் %s க்கு ஒதுக்கப்பட்டுள்ளன"
+msgstr "முக்கிய %s %s மற்றும் {} க்கு ஒதுக்கப்பட்டுள்ளன"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -604,8 +604,8 @@ msgstr "புதிய விசையைச் சேர்க்கவும�
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
-msgstr "%s க்கான விசைகளைத் திருத்தவும்"
+msgid "Edit keys for {}"
+msgstr "{} க்கான விசைகளைத் திருத்தவும்"
 
 #: src/KeyDefPage.cxx:370
 msgid "You have new key bindings"
@@ -856,8 +856,8 @@ msgstr "வரிசை"
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
-msgstr "%s இல் வரிசை"
+msgid "Queue on {}"
+msgstr "{} இல் வரிசை"
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
 msgid "Shuffled queue"
@@ -1127,7 +1127,7 @@ msgstr "வரிசையை சேமிக்கவும்"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "%s ஐ மாற்றவா?"
+msgstr "{} ஐ மாற்றவா?"
 
 #. success
 #: src/save_playlist.cxx:123

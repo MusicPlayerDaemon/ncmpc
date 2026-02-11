@@ -601,7 +601,7 @@ msgstr ""
 
 #: src/KeyDefPage.cxx:233
 #, c-format
-msgid "Edit keys for %s"
+msgid "Edit keys for {}"
 msgstr ""
 
 #: src/KeyDefPage.cxx:370
@@ -853,7 +853,7 @@ msgstr ""
 
 #: src/QueuePage.cxx:375
 #, c-format
-msgid "Queue on %s"
+msgid "Queue on {}"
 msgstr ""
 
 #: src/QueuePage.cxx:611 src/player_command.cxx:63
