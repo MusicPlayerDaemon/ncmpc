@@ -1,4 +1,5 @@
 ncmpc 0.53 - not yet released
+* add Georgian translation
 * switch to C++23
 * build: require Meson 1.2
 
