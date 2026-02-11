@@ -35,10 +35,10 @@ jobs:
             meson_options:
           - key: clang
             os: ubuntu-24.04
-            cc: clang
-            cxx: clang++
+            cc: clang-19
+            cxx: clang++-19
             ldflags: -fuse-ld=lld
-            packages: clang lld
+            packages: clang-19 lld-19
             meson_options: --force-fallback-for=fmt
 
     runs-on: ${{ matrix.os }}
