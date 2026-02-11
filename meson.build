@@ -11,6 +11,11 @@ project(
     'fmt:cpp_std=c++23',
     'libmpdclient:c_std=c17',
 
+    # Not interested in compiler warnings from subprojects.
+    'fmt:warning_level=0',
+    'libmpdclient:werror=false',
+    'libmpdclient:warning_level=0',
+
     # If we build libmpdclient, it should be linked statically into
     # our executable.
     'libmpdclient:default_library=static',
