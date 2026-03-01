@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-14 23:01+0200\n"
-"PO-Revision-Date: 2025-06-21 17:01+0000\n"
-"Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
+"PO-Revision-Date: 2026-03-02 06:09+0000\n"
+"Last-Translator: தமிழ்நேரம் <tamilneram247@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/ncmpc/translations/"
 "ta/>\n"
 "Language: ta\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "முக்கிய %s %s மற்றும் {} க்கு ஒதுக்கப்பட்டுள்ளன"
+msgstr "%s விசை %s மற்றும் %s க்கு ஒதுக்கப்பட்டுள்ளன"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -545,11 +545,11 @@ msgstr "ஒரு செய்தியை எழுதுங்கள்"
 
 #: src/HelpPage.cxx:198
 msgid "Keydef screen"
-msgstr "KEYDEF திரை"
+msgstr "விசைவரையறு திரை"
 
 #: src/HelpPage.cxx:200
 msgid "Edit keydefs for selected command"
-msgstr "தேர்ந்தெடுக்கப்பட்ட கட்டளைக்கு KEYDEFS ஐத் திருத்தவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட கட்டளைக்கு விசைவரையறுகள் ஐத் திருத்து"
 
 #: src/HelpPage.cxx:201
 msgid "Remove selected keydef"
@@ -586,7 +586,7 @@ msgstr "கருக்கலைப்பு"
 
 #: src/KeyDefPage.cxx:172
 msgid "Ctrl-Space can't be used"
-msgstr "Ctrl-SPACE ஐப் பயன்படுத்த முடியாது"
+msgstr "கட்டு-இடைவெளி ஐப் பயன்படுத்த முடியாது"
 
 #: src/KeyDefPage.cxx:178
 #, c++-format
@@ -1127,7 +1127,7 @@ msgstr "வரிசையை சேமிக்கவும்"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "{} ஐ மாற்றவா?"
+msgstr "%s ஐ மாற்றவா?"
 
 #. success
 #: src/save_playlist.cxx:123
