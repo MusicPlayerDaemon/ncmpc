@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-14 23:01+0200\n"
-"PO-Revision-Date: 2023-11-30 10:03+0000\n"
+"PO-Revision-Date: 2026-04-17 15:09+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/ncmpc/"
 "translations/sv/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 "X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
@@ -293,9 +293,8 @@ msgid "Change search mode"
 msgstr "Ändra måltyp för databassökning"
 
 #: src/Command.cxx:176
-#, fuzzy
 msgid "Playlist editor"
-msgstr "Spellista borttagen"
+msgstr "Spellisteredigerare"
 
 #: src/Command.cxx:180
 msgid "View the selected and the currently playing song"
@@ -332,22 +331,20 @@ msgid "Word expected"
 msgstr "Ord förväntades"
 
 #: src/ConfigParser.cxx:154
-#, fuzzy
 msgid "Whitespace expected"
-msgstr "Ord förväntades"
+msgstr "Blanktecken förväntades"
 
 #: src/ConfigParser.cxx:168
-#, fuzzy
 msgid "Quoted value expected"
-msgstr "Ord förväntades"
+msgstr "Citerat värde förväntades"
 
 #: src/ConfigParser.cxx:177
 msgid "Closing quote missing"
-msgstr ""
+msgstr "Stäng citat saknas"
 
 #: src/ConfigParser.cxx:195
 msgid "Syntax error"
-msgstr ""
+msgstr "Syntax fel"
 
 #: src/ConfigParser.cxx:215
 msgid "Malformed hotkey definition"
@@ -421,11 +418,11 @@ msgstr "Okänt sökläge"
 
 #: src/ConfigParser.cxx:540
 msgid "Invalid column width"
-msgstr ""
+msgstr "Ogiltig kolumnbredd"
 
 #: src/ConfigParser.cxx:549
 msgid "Invalid column fraction width"
-msgstr ""
+msgstr "Ogiltig kolumn fraktion bredd"
 
 #: src/ConfigParser.cxx:755
 msgid "Unknown configuration parameter"
@@ -440,9 +437,8 @@ msgid "Playlist"
 msgstr "Spellista"
 
 #: src/EditPlaylistPage.cxx:299
-#, fuzzy
 msgid "Playlist Editor"
-msgstr "Spellista borttagen"
+msgstr "Spellisteredigerare"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
@@ -777,7 +773,7 @@ msgstr "laddar..."
 
 #: src/LyricsPage.cxx:338
 msgid "Lyrics cache is unavailable"
-msgstr ""
+msgstr "Sångtextcachen är inte tillgänglig"
 
 #: src/LyricsPage.cxx:343
 msgid "Editor not configured"
@@ -911,7 +907,7 @@ msgstr "uppträdare"
 
 #: src/SearchPage.cxx:46
 msgid "label"
-msgstr ""
+msgstr "bolag"
 
 #: src/SearchPage.cxx:47
 msgid "comment"
@@ -966,7 +962,7 @@ msgstr "Sök efter"
 
 #: src/SongPage.cxx:54
 msgid "Work"
-msgstr ""
+msgstr "Arbete"
 
 #: src/SongPage.cxx:56
 msgid "Length"
@@ -986,7 +982,7 @@ msgstr "Artist"
 
 #: src/SongPage.cxx:61
 msgid "Conductor"
-msgstr ""
+msgstr "Dirigent"
 
 #: src/SongPage.cxx:64
 msgid "Disc"
@@ -1006,7 +1002,7 @@ msgstr "Genre"
 
 #: src/SongPage.cxx:69
 msgid "Label"
-msgstr ""
+msgstr "Bolag"
 
 #: src/SongPage.cxx:71
 msgid "Comment"
