@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-14 23:01+0200\n"
-"PO-Revision-Date: 2024-09-25 15:16+0000\n"
+"PO-Revision-Date: 2026-03-09 02:09+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ko/>\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 "X-Launchpad-Export-Date: 2009-10-19 13:36+0000\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "%s 키가 %s 및 {} 에 지정됨"
+msgstr "%s 키가 %s 및 %s 에 지정됨"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184 src/ChatPage.cxx:60
 #: src/ChatPage.cxx:185
@@ -1121,7 +1121,7 @@ msgstr "순서 저장"
 #: src/save_playlist.cxx:98 src/save_playlist.cxx:97
 #, c-format
 msgid "Replace %s?"
-msgstr "{} 바꿀까요?"
+msgstr "%s 바꿀까요?"
 
 #. success
 #: src/save_playlist.cxx:123 src/save_playlist.cxx:122
@@ -1233,37 +1233,37 @@ msgstr "일"
 #: src/FileBrowserPage.cxx:243
 #, c-format
 msgid "Delete playlist %s?"
-msgstr "{} 연주목록을 지울까요?"
+msgstr "%s 연주목록을 지울까요?"
 
 #: src/Main.cxx:106
 #, c-format
 msgid "Connecting to %s"
-msgstr "{}로 연결 중"
+msgstr "%s 연결 중"
 
 #: src/Main.cxx:122
 #, c-format
 msgid "Error: MPD version %d.%d.%d is too old (%s needed)"
-msgstr "오류: 너무 오래된 MPD %d.%d.%d 버전 ({} 필요)"
+msgstr "오류: 너무 오래된 MPD %d.%d.%d 버전 (%s 필요)"
 
 #: src/SearchPage.cxx:312
 #, c-format
 msgid "Bad search tag %s"
-msgstr "잘못된 찾기 태그 {}"
+msgstr "잘못된 찾기 태그 %s"
 
 #: src/SearchPage.cxx:326
 #, c-format
 msgid "No argument for search tag %s"
-msgstr "{} 찾기 태그의 인자가 없음"
+msgstr "%s 찾기 태그의인자가 없음"
 
 #: src/page/FindSupport.cxx:44
 #, c-format
 msgid "Unable to find '%s'"
-msgstr "'{}' 찾을 수 없음"
+msgstr "'%s' 찾을 수 없음"
 
 #: src/screen_client.cxx:31
 #, c-format
 msgid "Database update of %s started"
-msgstr "{}의 데이터베이스 업데이트 시작됨"
+msgstr "%s 데이터베이스 업데이트 시작됨"
 
 #~ msgid "y"
 #~ msgstr "y"
