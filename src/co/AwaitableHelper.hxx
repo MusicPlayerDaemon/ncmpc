@@ -34,7 +34,7 @@ public:
 		task.continuation = _continuation;
 	}
 
-	decltype(auto) await_resume() {
+	decltype(auto) await_resume() noexcept(!rethrow_error) {
 		if constexpr (rethrow_error)
 			if (this->task.error)
 				std::rethrow_exception(this->task.error);
