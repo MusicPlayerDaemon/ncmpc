@@ -8,22 +8,22 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-14 23:01+0200\n"
-"PO-Revision-Date: 2021-04-11 19:43+0700\n"
-"Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
+"PO-Revision-Date: 2026-05-14 03:11+0000\n"
+"Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 2026.5.dev0\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
 #, c-format
 msgid "Key %s assigned to %s and %s"
-msgstr "Клавиша %s назначена для %s и {}"
+msgstr "Клавиша %s назначена для %s и %s"
 
 #: src/ChatPage.cxx:59 src/ChatPage.cxx:184
 msgid "Chat"
@@ -278,7 +278,7 @@ msgstr "Продолжить поиск назад"
 #. * to the entry which begins with this string
 #: src/Command.cxx:160
 msgid "Jump to"
-msgstr "Перейти к"
+msgstr "Прыжок к"
 
 #: src/Command.cxx:166
 msgid "Library page"
@@ -293,9 +293,8 @@ msgid "Change search mode"
 msgstr "Изменить поле для поиска"
 
 #: src/Command.cxx:176
-#, fuzzy
 msgid "Playlist editor"
-msgstr "Плейлист удалён"
+msgstr "Редактор плейлиста"
 
 #: src/Command.cxx:180
 msgid "View the selected and the currently playing song"
@@ -332,22 +331,20 @@ msgid "Word expected"
 msgstr "Ожидалось слово"
 
 #: src/ConfigParser.cxx:154
-#, fuzzy
 msgid "Whitespace expected"
-msgstr "Ожидалось слово"
+msgstr "Ожидаемый пробел"
 
 #: src/ConfigParser.cxx:168
-#, fuzzy
 msgid "Quoted value expected"
-msgstr "Ожидалось слово"
+msgstr "Ожидаемое указанное значение"
 
 #: src/ConfigParser.cxx:177
 msgid "Closing quote missing"
-msgstr ""
+msgstr "Закрытие цитаты отсутствует"
 
 #: src/ConfigParser.cxx:195
 msgid "Syntax error"
-msgstr ""
+msgstr "Синтаксическая ошибка"
 
 #: src/ConfigParser.cxx:215
 msgid "Malformed hotkey definition"
@@ -421,11 +418,11 @@ msgstr "Неизвестный режим поиска"
 
 #: src/ConfigParser.cxx:540
 msgid "Invalid column width"
-msgstr ""
+msgstr "Недопустимая ширина столбца"
 
 #: src/ConfigParser.cxx:549
 msgid "Invalid column fraction width"
-msgstr ""
+msgstr "Недопустимая дробная ширина столбца"
 
 #: src/ConfigParser.cxx:755
 msgid "Unknown configuration parameter"
@@ -440,9 +437,8 @@ msgid "Playlist"
 msgstr "Плейлист"
 
 #: src/EditPlaylistPage.cxx:299
-#, fuzzy
 msgid "Playlist Editor"
-msgstr "Плейлист удалён"
+msgstr "Редактор плейлиста"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
@@ -777,7 +773,7 @@ msgstr "загружается..."
 
 #: src/LyricsPage.cxx:338
 msgid "Lyrics cache is unavailable"
-msgstr ""
+msgstr "Кэш текстов песен недоступен"
 
 #: src/LyricsPage.cxx:343
 msgid "Editor not configured"
@@ -906,7 +902,7 @@ msgstr "исполнитель"
 
 #: src/SearchPage.cxx:46
 msgid "label"
-msgstr ""
+msgstr "метка"
 
 #: src/SearchPage.cxx:47
 msgid "comment"
@@ -961,7 +957,7 @@ msgstr "Поле для поиска"
 
 #: src/SongPage.cxx:54
 msgid "Work"
-msgstr ""
+msgstr "Работа"
 
 #: src/SongPage.cxx:56
 msgid "Length"
@@ -981,7 +977,7 @@ msgstr "Исполнитель"
 
 #: src/SongPage.cxx:61
 msgid "Conductor"
-msgstr ""
+msgstr "Проводник"
 
 #: src/SongPage.cxx:64
 msgid "Disc"
@@ -1001,7 +997,7 @@ msgstr "Жанр"
 
 #: src/SongPage.cxx:69
 msgid "Label"
-msgstr ""
+msgstr "Метка"
 
 #: src/SongPage.cxx:71
 msgid "Comment"
@@ -1133,7 +1129,7 @@ msgstr "Сохранить очередь как"
 #: src/save_playlist.cxx:98
 #, c-format
 msgid "Replace %s?"
-msgstr "Заменить {}?"
+msgstr "Заменить %s?"
 
 #. success
 #: src/save_playlist.cxx:123
