@@ -4,7 +4,7 @@
 #include "BasicMarquee.hxx"
 #include "util/LocaleString.hxx"
 
-#include <fmt/core.h>
+#include <fmt/format.h>
 
 #include <assert.h>
 #include <string.h>

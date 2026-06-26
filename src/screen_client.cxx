@@ -7,7 +7,7 @@
 #include "charset.hxx"
 #include "Interface.hxx"
 
-#include <fmt/core.h>
+#include <fmt/format.h>
 
 void
 screen_database_update(Interface &interface, struct mpdclient &c, const char *path)

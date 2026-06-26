@@ -13,9 +13,8 @@
 #include "client/mpdclient.hxx"
 #include "util/StringAPI.hxx"
 
+#include <fmt/format.h>
 #include <mpd/idle.h>
-
-#include <fmt/core.h>
 
 #include <string.h>
 #include <stdlib.h>

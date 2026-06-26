@@ -19,6 +19,7 @@
 #include "client/mpdclient.hxx"
 #include "util/UriUtil.hxx"
 
+#include <fmt/format.h>
 #include <mpd/client.h>
 
 #include <string>

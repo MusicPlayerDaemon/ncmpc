@@ -14,9 +14,8 @@
 #include "client/mpdclient.hxx"
 #include "co/InvokeTask.hxx"
 
+#include <fmt/format.h>
 #include <mpd/client.h>
-
-#include <fmt/core.h>
 
 #include <stdio.h>
 

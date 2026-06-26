@@ -22,11 +22,10 @@
 #include "ConfigFile.hxx"
 #endif
 
+#include <fmt/format.h>
 #include <mpd/client.h>
 
 #include <curses.h>
-
-#include <fmt/core.h>
 
 #include <assert.h>
 #include <stdio.h>

@@ -1,5 +1,6 @@
 ncmpc 0.53 - not yet released
 * add Georgian translation
+* support libfmt 12.2.0
 * switch to C++23
 * build: require Meson 1.2
 

@@ -11,6 +11,8 @@
 #include "client/mpdclient.hxx"
 #include "util/StringUTF8.hxx"
 
+#include <fmt/format.h>
+
 #include <algorithm>
 
 #include <assert.h>

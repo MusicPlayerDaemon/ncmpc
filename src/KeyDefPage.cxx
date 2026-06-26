@@ -18,6 +18,8 @@
 #include "ui/TextListRenderer.hxx"
 #include "lib/fmt/ToSpan.hxx"
 
+#include <fmt/format.h>
+
 #include <assert.h>
 #include <errno.h>
 #include <string.h>

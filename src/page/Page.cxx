@@ -6,6 +6,8 @@
 #include "ui/Window.hxx"
 #include "util/Exception.hxx"
 
+#include <fmt/format.h>
+
 void
 Page::OnClose() noexcept
 {

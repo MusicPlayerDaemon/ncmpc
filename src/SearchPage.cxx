@@ -17,6 +17,8 @@
 #include "client/mpdclient.hxx"
 #include "util/StringAPI.hxx"
 
+#include <fmt/format.h>
+
 #include <iterator>
 
 #include <string.h>

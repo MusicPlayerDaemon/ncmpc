@@ -11,7 +11,7 @@
 #include "ui/Options.hxx"
 #include "co/InvokeTask.hxx"
 
-#include <fmt/core.h>
+#include <fmt/format.h>
 
 #define FIND_PROMPT  _("Find")
 #define RFIND_PROMPT _("Find backward")

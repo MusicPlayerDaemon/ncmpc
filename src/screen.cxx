@@ -28,6 +28,7 @@
 #include "TabBar.hxx"
 #endif
 
+#include <fmt/format.h>
 #include <mpd/client.h>
 
 ScreenManager::PageMap::iterator
