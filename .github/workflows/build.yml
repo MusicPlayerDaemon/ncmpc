@@ -50,7 +50,7 @@ jobs:
 
     steps:
       - id: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install dependencies
         run: |
@@ -105,7 +105,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - id: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - uses: actions/setup-python@v6
         with:
