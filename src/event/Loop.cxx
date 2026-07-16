@@ -547,7 +547,7 @@ EventLoop::Run() noexcept
 
 		/* wait for new event */
 
-		if (IsEmpty())
+		if (quit_if_empty && IsEmpty())
 			return;
 
 		if (!next.empty())
