@@ -411,10 +411,7 @@ OutputsPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	case Command::SCREEN_UPDATE:
-		Clear();
-		fill_outputs_list(&c, items);
-		lw.SetLength(items.size());
-		SchedulePaint();
+		Reload(c);
 		return true;
 
 	case Command::DELETE:
