@@ -323,9 +323,9 @@ LyricsPage::GetTitle(std::span<char> buffer) const noexcept
 
 		if (options.lyrics_show_plugin && !plugin_name.empty() &&
 		    n < buffer.size() - 1)
-			n += snprintf(buffer.data() + n, buffer.size() - n, " (%s)", plugin_name.c_str());
+			snprintf(buffer.data() + n, buffer.size() - n, " (%s)", plugin_name.c_str());
 
-		return {buffer.data(), n};
+		return buffer.data();
 	} else
 		return _("Lyrics");
 }
