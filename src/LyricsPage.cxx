@@ -355,6 +355,9 @@ LyricsPage::Edit() noexcept
 
 #ifdef USE_SIGNALFD
 	/* unblock all signals which may be blocked for signalfd */
+	sigset_t signals;
+	sigemptyset(&signals);
+	posix_spawnattr_setsigmask(&attr, &signals);
 	posix_spawnattr_setflags(&attr, POSIX_SPAWN_SETSIGMASK);
 #endif
 
