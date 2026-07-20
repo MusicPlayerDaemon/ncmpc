@@ -25,6 +25,8 @@ ncu_init()
 {
 	/* initialize the curses library */
 	ncu_screen = newterm(nullptr, stdout, stdin);
+	if (ncu_screen == nullptr)
+		throw std::runtime_error{"Failed to initialize terminal"};
 
 	/* initialize color support */
 #ifdef ENABLE_COLORS
