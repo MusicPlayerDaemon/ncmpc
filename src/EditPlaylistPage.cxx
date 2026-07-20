@@ -148,9 +148,6 @@ EditPlaylistPage::Update(struct mpdclient &c, unsigned events) noexcept
 bool
 EditPlaylistPage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 {
-	if (FileListPage::OnMouse(c, p, bstate))
-		return true;
-
 	if (bstate & BUTTON1_DOUBLE_CLICKED) {
 		/* stop */
 
