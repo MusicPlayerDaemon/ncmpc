@@ -8,6 +8,7 @@
 #include "ui/Window.hxx"
 #include "lib/fmt/RuntimeError.hxx"
 #include "util/StringAPI.hxx"
+#include "util/StringCompare.hxx"
 #include "util/StringStrip.hxx"
 
 #ifdef ENABLE_COLORS
@@ -18,6 +19,8 @@
 
 #include <assert.h>
 #include <stdio.h>
+
+using std::string_view_literals::operator""sv;
 
 /**
  * Use the terminal's default color.
@@ -230,13 +233,13 @@ colors_update_pair(Style style) noexcept
  * Throws on error.
  */
 static short
-ParseBackgroundColor(const char *s)
+ParseBackgroundColor(std::string_view s)
 {
 	short color = ParseColorNameOrNumber(s);
 	if (color >= 0)
 		return color;
 
-	if (StringIsEqualIgnoreCase(s, "none"))
+	if (StringIsEqualIgnoreCase(s, "none"sv))
 		return COLOR_NONE;
 
 	throw FmtRuntimeError("{}: {:?}", _("Unknown color"), s);
