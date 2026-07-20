@@ -52,6 +52,7 @@ Instance::Instance()
 	screen_manager.Init(&client);
 
 #ifndef _WIN32
+	InitSignals();
 	SignalMonitorInit(event_loop);
 	SignalMonitorRegister(SIGTERM, BIND_THIS_METHOD(Quit));
 	SignalMonitorRegister(SIGINT, BIND_THIS_METHOD(Quit));
