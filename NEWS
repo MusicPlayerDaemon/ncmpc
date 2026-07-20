@@ -9,6 +9,7 @@ ncmpc 0.53 - not yet released
 * fix crash in search history
 * fix crash on deleting multiple stored playlists
 * fix crash on delete in empty outputs page
+* fix text input dialog overwritten by scrolled song info
 * add Georgian translation
 * support libfmt 12.2.0
 * switch to C++23

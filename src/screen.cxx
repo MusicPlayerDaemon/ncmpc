@@ -463,6 +463,7 @@ ScreenManager::ShowModalDialog(ModalDialog &m) noexcept
 	assert(&m != modal);
 
 	status_bar.ClearMessage();
+	status_bar.SuspendScroll();
 
 	CancelModalDialog();
 	assert(modal == nullptr);
@@ -482,6 +483,7 @@ ScreenManager::HideModalDialog([[maybe_unused]] ModalDialog &m) noexcept
 
 	m.OnLeave(status_bar.GetWindow());
 
+	status_bar.ResumeScroll();
 	SchedulePaint();
 }
 
@@ -494,6 +496,7 @@ ScreenManager::CancelModalDialog(ModalDialog &m) noexcept
 	m.OnLeave(status_bar.GetWindow());
 	m.InvokeCancel();
 
+	status_bar.ResumeScroll();
 	SchedulePaint();
 }
 

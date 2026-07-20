@@ -45,6 +45,18 @@ public:
 		return window;
 	}
 
+	void SuspendScroll() noexcept {
+#ifndef NCMPC_MINI
+		hscroll.Suspend();
+#endif
+	}
+
+	void ResumeScroll() noexcept {
+#ifndef NCMPC_MINI
+		hscroll.Resume();
+#endif
+	}
+
 	void SetMessage(std::string &&msg) noexcept;
 	void ClearMessage() noexcept;
 

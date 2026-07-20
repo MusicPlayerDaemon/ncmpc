@@ -7,8 +7,25 @@
 #include <assert.h>
 
 void
+hscroll::Suspend() noexcept
+{
+	suspended = true;
+	timer.Cancel();
+}
+
+void
+hscroll::Resume() noexcept
+{
+	suspended = false;
+	if (IsDefined())
+		ScheduleTimer();
+}
+
+void
 hscroll::OnTimer() noexcept
 {
+	assert(!suspended);
+
 	Step();
 	Paint();
 	window.Refresh();
@@ -26,7 +43,8 @@ hscroll::Set(Point _position, unsigned _width, std::string_view _text,
 	if (!basic.Set(_width, _text))
 		return;
 
-	ScheduleTimer();
+	if (!suspended)
+		ScheduleTimer();
 }
 
 void

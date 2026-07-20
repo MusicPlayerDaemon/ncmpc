@@ -33,6 +33,8 @@ class hscroll {
 
 	attr_t attr;
 
+	bool suspended = false;
+
 	/**
 	 * A timer which updates the scrolled area every second.
 	 */
@@ -49,6 +51,18 @@ public:
 	bool IsDefined() const noexcept {
 		return basic.IsDefined();
 	}
+
+	/**
+	 * Suspend the timer with automatic redraw until Resume() gets
+	 * called.  This is used to avoid this class from overwriting
+	 * the status bar while a modal dialog is visible.
+	 */
+	void Suspend() noexcept;
+
+	/**
+	 * Undo the effeect of Suspend().
+	 */
+	void Resume() noexcept;
 
 	/**
 	 * Sets a text to scroll.  This installs a timer which redraws
