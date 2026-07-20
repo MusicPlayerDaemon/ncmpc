@@ -1,4 +1,4 @@
-ncmpc 0.53 - not yet released
+ncmpc 0.53 - (2026-07-20)
 * more contrast for default styles "line-flags" and "status-state"
 * fix range total duration display in in status bar
 * fix disappearing partition list on Ctrl-L
