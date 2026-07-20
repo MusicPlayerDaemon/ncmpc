@@ -370,8 +370,9 @@ LyricsPage::Edit() noexcept
 	pid_t pid;
 	if (posix_spawn(&pid, editor, nullptr, &attr,
 			argv, environ) != 0) {
+		const int error = errno;
 		reset_prog_mode();
-		FmtAlert("{} ({})"sv, _("Can't start editor"), strerror(errno));
+		FmtAlert("{} ({})"sv, _("Can't start editor"), strerror(error));
 		return;
 	}
 
