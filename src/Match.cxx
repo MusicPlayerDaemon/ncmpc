@@ -43,7 +43,7 @@ MatchExpression::operator()(std::string_view line) const noexcept
 #ifndef HAVE_PCRE
 	return anchored
 		? strncasecmp(line.data(), expression.data(), std::min(expression.size(), line.size())) == 0
-		: expression.find(line) != expression.npos;
+		: line.find(expression) != line.npos;
 #else
 	assert(re != nullptr);
 
