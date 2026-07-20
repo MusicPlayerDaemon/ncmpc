@@ -265,6 +265,7 @@ PluginCycle::LaunchPlugin(const char *plugin_path) noexcept
 
 	posix_spawnattr_t attr;
 	posix_spawnattr_init(&attr);
+	AtScopeExit(&attr) { posix_spawnattr_destroy(&attr); };
 
 #ifdef USE_SIGNALFD
 	/* unblock all signals which may be blocked for signalfd */

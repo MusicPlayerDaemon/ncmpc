@@ -13,6 +13,7 @@
 #include "page/TextPage.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "client/mpdclient.hxx"
+#include "util/ScopeExit.hxx"
 #include "util/StringAPI.hxx"
 
 #include <string>
@@ -350,6 +351,7 @@ LyricsPage::Edit() noexcept
 
 	posix_spawnattr_t attr;
 	posix_spawnattr_init(&attr);
+	AtScopeExit(&attr) { posix_spawnattr_destroy(&attr); };
 
 #ifdef USE_SIGNALFD
 	/* unblock all signals which may be blocked for signalfd */
