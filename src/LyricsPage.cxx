@@ -316,16 +316,12 @@ LyricsPage::GetTitle(std::span<char> buffer) const noexcept
 				      retrieved */
 				   _("loading..."));
 	} else if (artist != nullptr && title != nullptr && !IsEmpty()) {
-		std::size_t n;
-		n = snprintf(buffer.data(), buffer.size(), "%s: %s - %s",
-			     _("Lyrics"),
-			     artist, title);
-
-		if (options.lyrics_show_plugin && !plugin_name.empty() &&
-		    n < buffer.size() - 1)
-			snprintf(buffer.data() + n, buffer.size() - n, " (%s)", plugin_name.c_str());
-
-		return buffer.data();
+		if (options.lyrics_show_plugin && !plugin_name.empty())
+			return FmtTruncate(buffer, "{}: {} - {} ({})"sv,
+					   _("Lyrics"), artist, title, plugin_name);
+		else
+			return FmtTruncate(buffer, "{}: {} - {}"sv,
+					   _("Lyrics"), artist, title);
 	} else
 		return _("Lyrics");
 }
