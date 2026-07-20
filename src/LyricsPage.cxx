@@ -381,10 +381,16 @@ LyricsPage::Edit() noexcept
 		ret = waitpid(pid, &status, 0);
 	} while (ret == -1 && errno == EINTR);
 
+	const int error = ret < 0 ? errno : 0;
+
 	reset_prog_mode();
 
 	/* TODO: hardly portable */
-	if (WIFEXITED(status)) {
+	if (error) {
+		FmtAlert("{} ({:?})"sv,
+			 _("Editor exited unexpectedly"),
+			 strerror(error));
+	} else if (WIFEXITED(status)) {
 		if (WEXITSTATUS(status) == 0)
 			/* update to get the changes */
 			Reload();
