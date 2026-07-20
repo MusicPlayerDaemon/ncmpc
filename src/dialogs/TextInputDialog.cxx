@@ -346,6 +346,7 @@ TextInputDialog::OnKey(const Window window, int key)
 
 			/* get previous line */
 			--hlist;
+			start = 0;
 			value = *hlist;
 		}
 		MoveCursorToEnd();
@@ -361,6 +362,7 @@ TextInputDialog::OnKey(const Window window, int key)
 		if (history && std::next(hlist) != history->end()) {
 			/* get next line */
 			++hlist;
+			start = 0;
 			value = *hlist;
 		}
 		MoveCursorToEnd();
