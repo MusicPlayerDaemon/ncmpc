@@ -8,6 +8,7 @@ ncmpc 0.53 - not yet released
 * fix crash when searching on library page
 * fix crash in search history
 * fix crash on deleting multiple stored playlists
+* fix crash on delete in empty outputs page
 * add Georgian translation
 * support libfmt 12.2.0
 * switch to C++23

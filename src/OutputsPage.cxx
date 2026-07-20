@@ -219,6 +219,9 @@ OutputsPage::Toggle(struct mpdclient &c, unsigned output_index)
 bool
 OutputsPage::Delete(struct mpdclient &c, unsigned idx)
 {
+	if (idx >= items.size())
+		return false;
+
 	const auto &item = items[idx];
 
 	if (item.partition) {
