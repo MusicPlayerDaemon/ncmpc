@@ -308,6 +308,7 @@ TextInputDialog::OnKey(const Window window, int key)
 		InvokeModifiedCallback();
 		break;
 	case KEY_CTL('U'):
+		start = 0;
 		value.erase(0, cursor);
 		cursor = 0;
 		InvokeModifiedCallback();
