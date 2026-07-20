@@ -1,4 +1,5 @@
 ncmpc 0.53 - not yet released
+* fix range total duration display in in status bar
 * fix disappearing partition list on Ctrl-L
 * fix crash on song move error
 * check for MPD "welcome" lines that are too long

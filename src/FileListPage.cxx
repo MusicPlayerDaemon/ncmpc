@@ -536,7 +536,7 @@ FileListPage::PaintStatusBarOverride(const Window window) const noexcept
 	const unsigned duration_width = duration_string.size();
 
 	SelectStyle(window, Style::STATUS_TIME);
-	window.String({0, (int)window.GetWidth() - (int)duration_width}, duration_string);
+	window.String({(int)window.GetWidth() - (int)duration_width, 0}, duration_string);
 
 	window.RefreshNoOut();
 
