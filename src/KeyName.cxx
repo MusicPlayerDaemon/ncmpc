@@ -19,7 +19,7 @@ ParseKeyName(const char *s) noexcept
 			   backslash */
 			return std::make_pair(s[2], s + 4);
 
-		if (s[1] == '\'' || s[2] != '\'')
+		if (s[1] == '\'' || s[1] == '\0' || s[2] != '\'')
 			return std::make_pair(-1, s);
 
 		return std::make_pair(s[1], s + 3);
