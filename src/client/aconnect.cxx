@@ -38,22 +38,38 @@ struct AsyncMpdConnect final : ConnectSocketHandler {
 	void OnSocketConnectError(std::exception_ptr ep) noexcept override;
 };
 
-void
-AsyncMpdConnect::OnReceive(unsigned) noexcept
-try {
-	char buffer[256];
-	ssize_t nbytes = socket.GetSocket().ReadNoWait(std::as_writable_bytes(std::span{buffer}));
+/**
+ * Receive the "welcome" line from MPD and return it as a
+ * null-terminated string.
+ *
+ * Throw on error.
+ */
+static const char *
+ReceiveWelcome(SocketDescriptor socket, std::span<char> buffer)
+{
+	ssize_t nbytes = socket.ReadNoWait(std::as_writable_bytes(buffer));
 
 	if (nbytes < 0)
 		throw MakeSocketError("Failed to receive from MPD");
 
-	buffer[nbytes] = {};
+	// null-terminate it
+	buffer[nbytes] = '\0';
+
+	return buffer.data();
+}
+
+void
+AsyncMpdConnect::OnReceive(unsigned) noexcept
+try {
+	char buffer[256];
+
+	const char *welcome = ReceiveWelcome(socket.GetSocket(), buffer);
 
 	struct mpd_async *async = mpd_async_new(socket.ReleaseSocket().Get());
 	if (async == nullptr)
 		throw std::bad_alloc{};
 
-	struct mpd_connection *c = mpd_connection_new_async(async, buffer);
+	struct mpd_connection *c = mpd_connection_new_async(async, welcome);
 	if (c == nullptr) {
 		mpd_async_free(async);
 		throw std::bad_alloc{};
