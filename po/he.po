@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 23:01+0200\n"
+"POT-Creation-Date: 2026-07-20 08:20+0200\n"
 "PO-Revision-Date: 2024-11-11 13:00+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/ncmpc/"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "מקש %s מוקצה ל %s ול־{}"
 
-#: src/ChatPage.cxx:59 src/ChatPage.cxx:184
+#: src/ChatPage.cxx:58 src/ChatPage.cxx:183
 msgid "Chat"
 msgstr "צ׳אט"
 
-#: src/ChatPage.cxx:153
+#: src/ChatPage.cxx:152
 msgid "Your message"
 msgstr "ההודעה שלך"
 
-#: src/ChatPage.cxx:163
+#: src/ChatPage.cxx:162
 msgid "Message could not be sent"
 msgstr "לא ניתן לשלוח את ההודעה"
 
@@ -384,7 +384,7 @@ msgstr "צבע שגוי"
 msgid "Incomplete color definition"
 msgstr "הגדרת צבעים חסרה"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:220
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:222
 msgid "Invalid number"
 msgstr "מספר לא תקין"
 
@@ -420,7 +420,7 @@ msgstr "רוחב העמודות שגוי"
 msgid "Invalid column fraction width"
 msgstr "רוחב עמודות בשבר עשרוני שגוי"
 
-#: src/ConfigParser.cxx:755
+#: src/ConfigParser.cxx:757
 msgid "Unknown configuration parameter"
 msgstr "פרמטר קונפיג לא ידוע"
 
@@ -432,30 +432,30 @@ msgstr "המסוף ללא תמיכה בצבעים"
 msgid "Playlist"
 msgstr "רשימת שירים"
 
-#: src/EditPlaylistPage.cxx:299
+#: src/EditPlaylistPage.cxx:293
 msgid "Playlist Editor"
 msgstr "עורך רשימת נגינה"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:234
+#: src/FileBrowserPage.cxx:235
 msgid "Deleting this item is not possible"
 msgstr "מחיקת פריט זה בלתי אפשרית"
 
-#: src/FileBrowserPage.cxx:241
+#: src/FileBrowserPage.cxx:242
 #, c++-format
 msgid "Delete playlist {}?"
 msgstr "למחוק את רשימת השירים {}?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:260
+#: src/FileBrowserPage.cxx:261
 msgid "Playlist deleted"
 msgstr "רשימת שירים נמחקה"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:287 src/FileBrowserPage.cxx:358
+#: src/FileBrowserPage.cxx:288 src/FileBrowserPage.cxx:359
 msgid "Browse"
 msgstr "דפדף"
 
@@ -465,7 +465,7 @@ msgid "Loading playlist '{}'"
 msgstr "רשימת הנגינה ‚{}’ נטענת"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:183
+#: src/TagListPage.cxx:185
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "‚{}’ נוסף לרשימת הנגינה"
@@ -564,84 +564,84 @@ msgstr "עלה רמה אחת"
 msgid "Apply and save changes"
 msgstr "ישם ושמור שינויים"
 
-#: src/HelpPage.cxx:233 src/HelpPage.cxx:322
+#: src/HelpPage.cxx:233 src/HelpPage.cxx:329
 msgid "Help"
 msgstr "עזרה"
 
-#: src/KeyDefPage.cxx:148
+#: src/KeyDefPage.cxx:150
 msgid "Deleted"
 msgstr "נמחק"
 
-#: src/KeyDefPage.cxx:162
+#: src/KeyDefPage.cxx:164
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "הכנס מקש חדש ל {}"
 
-#: src/KeyDefPage.cxx:167
+#: src/KeyDefPage.cxx:169
 msgid "Aborted"
 msgstr "בוטל"
 
-#: src/KeyDefPage.cxx:172
+#: src/KeyDefPage.cxx:174
 msgid "Ctrl-Space can't be used"
 msgstr "אי אפשר להשתמש ב־Ctrl-רווח"
 
-#: src/KeyDefPage.cxx:178
+#: src/KeyDefPage.cxx:180
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "שגיאה: המקש {} כבר קיים ל {}"
 
-#: src/KeyDefPage.cxx:188
+#: src/KeyDefPage.cxx:190
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "הוקצה {} אל {}"
 
-#: src/KeyDefPage.cxx:215
+#: src/KeyDefPage.cxx:217
 msgid "Add new key"
 msgstr "הוסף מקש חדש"
 
-#: src/KeyDefPage.cxx:233
-#, c-format
+#: src/KeyDefPage.cxx:235
+#, c++-format
 msgid "Edit keys for {}"
 msgstr "ערוך את המקש ל {}"
 
-#: src/KeyDefPage.cxx:370
+#: src/KeyDefPage.cxx:372
 msgid "You have new key bindings"
 msgstr "יש תצורת מקשים חדשה"
 
-#: src/KeyDefPage.cxx:372
+#: src/KeyDefPage.cxx:374
 msgid "Keybindings unchanged."
 msgstr "תצורת מקשים לא שונתה."
 
-#: src/KeyDefPage.cxx:382
+#: src/KeyDefPage.cxx:384
 msgid "Unable to write configuration"
 msgstr "לא ניתן לכתוב את ההגדרות"
 
-#: src/KeyDefPage.cxx:391 src/KeyDefPage.cxx:400
+#: src/KeyDefPage.cxx:393 src/KeyDefPage.cxx:402
 msgid "Error"
 msgstr "שגיאה"
 
-#: src/KeyDefPage.cxx:398
+#: src/KeyDefPage.cxx:400
 #, c++-format
 msgid "Wrote {}"
 msgstr "נכתב {}"
 
-#: src/KeyDefPage.cxx:410
+#: src/KeyDefPage.cxx:412
 msgid "===> Apply key bindings "
 msgstr "=====> ישם תצורת מקשים "
 
-#: src/KeyDefPage.cxx:412
+#: src/KeyDefPage.cxx:414
 msgid "===> Apply & Save key bindings  "
 msgstr "=====> ישם ושמור תצורת מקשים  "
 
-#: src/KeyDefPage.cxx:448
+#: src/KeyDefPage.cxx:450
 msgid "Edit key bindings"
 msgstr "ערוך את תצורת המקשים"
 
-#: src/KeyDefPage.cxx:529
+#: src/KeyDefPage.cxx:531
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "אזהרה: שכחת ‚להחיל’ את השינויים?"
 
-#: src/KeyDefPage.cxx:579
+#: src/KeyDefPage.cxx:581
 msgid "Keys"
 msgstr "מקשים"
 
@@ -755,8 +755,8 @@ msgstr "אין מילים לשיר"
 msgid "Lyrics timeout occurred after {} seconds"
 msgstr "אירעה שגיאת תום זמן המתנה לאחר {} שניות"
 
-#: src/LyricsPage.cxx:313 src/LyricsPage.cxx:321 src/LyricsPage.cxx:330
-#: src/LyricsPage.cxx:449
+#: src/LyricsPage.cxx:313 src/LyricsPage.cxx:321 src/LyricsPage.cxx:324
+#: src/LyricsPage.cxx:326 src/LyricsPage.cxx:445
 msgid "Lyrics"
 msgstr "מילים"
 
@@ -767,41 +767,41 @@ msgstr "מילים"
 msgid "loading..."
 msgstr "טוען...."
 
-#: src/LyricsPage.cxx:338
+#: src/LyricsPage.cxx:334
 msgid "Lyrics cache is unavailable"
 msgstr "מטמון מילות השירים לא זמין"
 
-#: src/LyricsPage.cxx:343
+#: src/LyricsPage.cxx:339
 msgid "Editor not configured"
 msgstr "העורך לא מוגדר"
 
-#: src/LyricsPage.cxx:373 src/LyricsPage.cxx:390
+#: src/LyricsPage.cxx:369 src/LyricsPage.cxx:386
 msgid "Can't start editor"
 msgstr "אי אפשר להפעיל את העורך"
 
-#: src/LyricsPage.cxx:393 src/LyricsPage.cxx:397
+#: src/LyricsPage.cxx:389 src/LyricsPage.cxx:393
 msgid "Editor exited unexpectedly"
 msgstr "העורך נעצר באופן פתאומי"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:419
+#: src/LyricsPage.cxx:415
 msgid "Lyrics saved"
 msgstr "מילים לשיר נשמרו"
 
-#: src/LyricsPage.cxx:425
+#: src/LyricsPage.cxx:421
 msgid "Lyrics deleted"
 msgstr "מילות השירים נמחקו"
 
-#: src/LyricsPage.cxx:426
+#: src/LyricsPage.cxx:422
 msgid "No saved lyrics"
 msgstr "אין מילות שירים שנשמרו"
 
-#: src/Main.cxx:104
+#: src/Main.cxx:103
 #, c++-format
 msgid "Connecting to {}"
 msgstr "מתבצעת התחברות אל {}"
 
-#: src/Main.cxx:120
+#: src/Main.cxx:119
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "שגיאה: גרסת ה־MPD‏ {} ישנה מדי (צריך {})"
@@ -814,34 +814,34 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  zeltak https://launchpad.net/~zeltak"
 
-#: src/OutputsPage.cxx:158
+#: src/OutputsPage.cxx:140
 #, c++-format
 msgid "Switched to partition '{}'"
 msgstr "עברת למחיצה ‚{}’"
 
-#: src/OutputsPage.cxx:170 src/SongPage.cxx:63
+#: src/OutputsPage.cxx:152 src/SongPage.cxx:59
 msgid "Name"
 msgstr "שם"
 
-#: src/OutputsPage.cxx:223
+#: src/OutputsPage.cxx:201
 #, c++-format
 msgid "Output '{}' enabled"
 msgstr "הפלט ‚{}’ מופעל"
 
-#: src/OutputsPage.cxx:234
+#: src/OutputsPage.cxx:212
 #, c++-format
 msgid "Output '{}' disabled"
 msgstr "הפלט ‚{}’ מושבת"
 
-#: src/OutputsPage.cxx:362 src/OutputsPage.cxx:473
+#: src/OutputsPage.cxx:330 src/OutputsPage.cxx:429
 msgid "Outputs"
 msgstr "פלטים"
 
-#: src/OutputsPage.cxx:374
+#: src/OutputsPage.cxx:340
 msgid "Partition"
 msgstr "מחיצה"
 
-#: src/OutputsPage.cxx:398
+#: src/OutputsPage.cxx:361
 msgid "Create new partition"
 msgstr "יצירת מחיצה חדשה"
 
@@ -849,244 +849,244 @@ msgstr "יצירת מחיצה חדשה"
 msgid "Add"
 msgstr "הוסף"
 
-#: src/QueuePage.cxx:373 src/QueuePage.cxx:659
+#: src/QueuePage.cxx:372 src/QueuePage.cxx:658
 msgid "Queue"
 msgstr "תור"
 
-#: src/QueuePage.cxx:375
-#, c-format
+#: src/QueuePage.cxx:374
+#, c++-format
 msgid "Queue on {}"
 msgstr "תור על {}"
 
-#: src/QueuePage.cxx:611 src/player_command.cxx:63
+#: src/QueuePage.cxx:610 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "תור מעורבב"
 
-#: src/SearchPage.cxx:37
+#: src/SearchPage.cxx:39
 msgid "artist"
 msgstr "אומן"
 
-#: src/SearchPage.cxx:38
+#: src/SearchPage.cxx:40
 msgid "album"
 msgstr "אלבום"
 
-#: src/SearchPage.cxx:39
+#: src/SearchPage.cxx:41
 msgid "title"
 msgstr "שם"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:42
 msgid "track"
 msgstr "רצועה"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:43
 msgid "name"
 msgstr "שם"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:44
 msgid "genre"
 msgstr "ג'אנר"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:45
 msgid "date"
 msgstr "תאריך"
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:46
 msgid "composer"
 msgstr "מלחין"
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:47
 msgid "performer"
 msgstr "מבצע"
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:48
 msgid "label"
 msgstr "תווית"
 
-#: src/SearchPage.cxx:47
+#: src/SearchPage.cxx:49
 msgid "comment"
 msgstr "הערות"
 
-#: src/SearchPage.cxx:55
+#: src/SearchPage.cxx:57
 msgid "file"
 msgstr "קובץ"
 
-#: src/SearchPage.cxx:75 src/SongPage.cxx:51
+#: src/SearchPage.cxx:77 src/SongPage.cxx:51
 msgid "Title"
 msgstr "שם"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:50
+#: src/SearchPage.cxx:78 src/SongPage.cxx:50
 msgid "Artist"
 msgstr "אומן"
 
-#: src/SearchPage.cxx:77 src/SongPage.cxx:52
+#: src/SearchPage.cxx:79 src/SongPage.cxx:52
 msgid "Album"
 msgstr "אלבום"
 
-#: src/SearchPage.cxx:78
+#: src/SearchPage.cxx:80
 msgid "Filename"
 msgstr "שם קובץ"
 
-#: src/SearchPage.cxx:79
+#: src/SearchPage.cxx:81
 msgid "Artist + Title"
 msgstr "אומן+שם"
 
-#: src/SearchPage.cxx:261 src/SearchPage.cxx:265
+#: src/SearchPage.cxx:263 src/SearchPage.cxx:267
 msgid "Unrecognized suffix"
 msgstr "סיומת לא מוכרת"
 
-#: src/SearchPage.cxx:312
+#: src/SearchPage.cxx:314
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "חיפוש לא תקין של תגית {}"
 
-#: src/SearchPage.cxx:326
+#: src/SearchPage.cxx:328
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "אין טעון לחיפוש תגית {}"
 
-#: src/SearchPage.cxx:422 src/SearchPage.cxx:455 src/SearchPage.cxx:458
-#: src/SearchPage.cxx:462 src/SearchPage.cxx:519
+#: src/SearchPage.cxx:424 src/SearchPage.cxx:457 src/SearchPage.cxx:460
+#: src/SearchPage.cxx:464 src/SearchPage.cxx:521
 msgid "Search"
 msgstr "חיפוש"
 
-#: src/SearchPage.cxx:482
+#: src/SearchPage.cxx:484
 msgid "Search mode"
 msgstr "צורת חיפוש"
 
-#: src/SongPage.cxx:54
+#: src/SongPage.cxx:53
 msgid "Work"
 msgstr "עבודה"
 
-#: src/SongPage.cxx:56
+#: src/SongPage.cxx:54
 msgid "Length"
 msgstr "משך"
 
-#: src/SongPage.cxx:57
+#: src/SongPage.cxx:55
 msgid "Position"
 msgstr "מיקום"
 
-#: src/SongPage.cxx:58
+#: src/SongPage.cxx:56
 msgid "Composer"
 msgstr "מלחון"
 
-#: src/SongPage.cxx:59
+#: src/SongPage.cxx:57
 msgid "Performer"
 msgstr "מבצע"
 
-#: src/SongPage.cxx:61
+#: src/SongPage.cxx:58
 msgid "Conductor"
 msgstr "ניצוח"
 
-#: src/SongPage.cxx:64
+#: src/SongPage.cxx:60
 msgid "Disc"
 msgstr "דיסק"
 
-#: src/SongPage.cxx:65
+#: src/SongPage.cxx:61
 msgid "Track"
 msgstr "רצועה"
 
-#: src/SongPage.cxx:66
+#: src/SongPage.cxx:62
 msgid "Date"
 msgstr "תאריך"
 
-#: src/SongPage.cxx:67
+#: src/SongPage.cxx:63
 msgid "Genre"
 msgstr "ג'אנר"
 
-#: src/SongPage.cxx:69
+#: src/SongPage.cxx:64
 msgid "Label"
 msgstr "תווית"
 
-#: src/SongPage.cxx:71
+#: src/SongPage.cxx:65
 msgid "Comment"
 msgstr "הערה"
 
-#: src/SongPage.cxx:72
+#: src/SongPage.cxx:66
 msgid "Path"
 msgstr "נתיב"
 
-#: src/SongPage.cxx:73
+#: src/SongPage.cxx:67
 msgid "Bitrate"
 msgstr "ביטרייט"
 
-#: src/SongPage.cxx:74
+#: src/SongPage.cxx:68
 msgid "Format"
 msgstr "תצורה"
 
-#: src/SongPage.cxx:91
+#: src/SongPage.cxx:85
 msgid "Number of artists"
 msgstr "מספר אומנים"
 
-#: src/SongPage.cxx:92
+#: src/SongPage.cxx:86
 msgid "Number of albums"
 msgstr "מספר אלבומים"
 
-#: src/SongPage.cxx:93
+#: src/SongPage.cxx:87
 msgid "Number of songs"
 msgstr "מספר שירים"
 
-#: src/SongPage.cxx:94
+#: src/SongPage.cxx:88
 msgid "Uptime"
 msgstr "זמן פעילות"
 
-#: src/SongPage.cxx:95
+#: src/SongPage.cxx:89
 msgid "Most recent db update"
 msgstr "עדכון עדכני אחרון של בסיב נתונים"
 
-#: src/SongPage.cxx:96
+#: src/SongPage.cxx:90
 msgid "Playtime"
 msgstr "זמן נגינה"
 
-#: src/SongPage.cxx:97
+#: src/SongPage.cxx:91
 msgid "DB playtime"
 msgstr "זמן נגינה בסיס נתונים"
 
-#: src/SongPage.cxx:207
+#: src/SongPage.cxx:201
 msgid "Song viewer"
 msgstr "הצגת השיר"
 
-#: src/SongPage.cxx:364
+#: src/SongPage.cxx:358
 msgid "MPD statistics"
 msgstr "סטטיסטיקה MPD"
 
-#: src/SongPage.cxx:439
+#: src/SongPage.cxx:433
 msgid "Selected song"
 msgstr "בחר שיר"
 
-#: src/SongPage.cxx:449
+#: src/SongPage.cxx:443
 msgid "Currently playing song"
 msgstr "שיר עכשווי"
 
-#: src/SongPage.cxx:456
+#: src/SongPage.cxx:450
 #, c++-format
 msgid "{} kbps"
 msgstr "{} kbps"
 
-#: src/SongPage.cxx:497
+#: src/SongPage.cxx:498
 msgid "Song"
 msgstr "שיר"
 
-#: src/StatusBar.cxx:149
+#: src/StatusBar.cxx:175
 msgid "Playing:"
 msgstr "מנגן:"
 
-#: src/StatusBar.cxx:153
+#: src/StatusBar.cxx:179
 msgid "[Paused]"
 msgstr "[הפסקה]"
 
-#: src/Styles.cxx:240 src/Styles.cxx:301
+#: src/Styles.cxx:242 src/Styles.cxx:303
 msgid "Unknown color"
 msgstr "צבע לא ידוע"
 
-#: src/Styles.cxx:311
+#: src/Styles.cxx:313
 msgid "Unknown color field"
 msgstr "שדה הצבע אינו מוכר"
 
-#: src/Styles.cxx:344
+#: src/Styles.cxx:346
 msgid "Terminal lacks color capabilities"
 msgstr "למסוף אין תמיכה בצבעים"
 
-#: src/TagListPage.cxx:57
+#: src/TagListPage.cxx:59
 msgid "All tracks"
 msgstr "כל השירים"
 
@@ -1119,85 +1119,85 @@ msgstr "לא ניתן למצוא את '{}'"
 msgid "Cleared queue"
 msgstr "התור התפנה"
 
-#: src/save_playlist.cxx:75
+#: src/save_playlist.cxx:74
 msgid "Save queue as"
 msgstr "שמירת התור בשם"
 
-#: src/save_playlist.cxx:98
+#: src/save_playlist.cxx:96
 #, c-format
 msgid "Replace %s?"
 msgstr "להחליף את {}?"
 
 #. success
-#: src/save_playlist.cxx:123
+#: src/save_playlist.cxx:121
 #, c++-format
 msgid "Saved {}"
 msgstr "שמירת {}"
 
-#: src/screen.cxx:155
+#: src/screen.cxx:156
 msgid "Repeat mode is on"
 msgstr "מצב חזרה מופעל"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:157
 msgid "Repeat mode is off"
 msgstr "מצב חזרה מופסק"
 
-#: src/screen.cxx:160
+#: src/screen.cxx:161
 msgid "Random mode is on"
 msgstr "מצב רנדומלי מופעל"
 
-#: src/screen.cxx:161
+#: src/screen.cxx:162
 msgid "Random mode is off"
 msgstr "מצב רנדומלי מופסק"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:168
+#: src/screen.cxx:169
 msgid "Single mode is on"
 msgstr "מצב יחיד מופעל"
 
-#: src/screen.cxx:169
+#: src/screen.cxx:170
 msgid "Single mode is off"
 msgstr "מצב יחיד מופסק"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:176
+#: src/screen.cxx:177
 msgid "Consume mode is on"
 msgstr "מצב מתכלה מופעל"
 
-#: src/screen.cxx:177
+#: src/screen.cxx:178
 msgid "Consume mode is off"
 msgstr "מצב יחיד מופסק"
 
-#: src/screen.cxx:180
+#: src/screen.cxx:181
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "קרוספייד שניות {}"
 
-#: src/screen.cxx:192
+#: src/screen.cxx:193
 msgid "Database updated"
 msgstr "בסיס הנתונים עודכן"
 
-#: src/screen.cxx:237
+#: src/screen.cxx:238
 msgid "Find mode: Wrapped"
 msgstr "מצב סופי: כרוך"
 
-#: src/screen.cxx:238
+#: src/screen.cxx:239
 msgid "Find mode: Normal"
 msgstr "מצב סופי: נורמלי"
 
-#: src/screen.cxx:244
+#: src/screen.cxx:245
 msgid "Auto center mode: On"
 msgstr "מצב מרכז אוטומטי: מופעל"
 
-#: src/screen.cxx:245
+#: src/screen.cxx:246
 msgid "Auto center mode: Off"
 msgstr "מצב מרכז אוטומטי: מופסק"
 
-#: src/screen.cxx:402
+#: src/screen.cxx:403
 msgid "Password"
 msgstr "סיסמה"
 

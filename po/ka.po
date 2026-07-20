@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 23:01+0200\n"
+"POT-Creation-Date: 2026-07-20 08:20+0200\n"
 "PO-Revision-Date: 2026-02-28 06:09+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/ncmpc/"
@@ -24,15 +24,15 @@ msgstr ""
 msgid "Key %s assigned to %s and %s"
 msgstr "ღილაკი %s მინიჭებულია %s-ზე და %s-ზე"
 
-#: src/ChatPage.cxx:59 src/ChatPage.cxx:184
+#: src/ChatPage.cxx:58 src/ChatPage.cxx:183
 msgid "Chat"
 msgstr "ჩატი"
 
-#: src/ChatPage.cxx:153
+#: src/ChatPage.cxx:152
 msgid "Your message"
 msgstr "თქვენი შეტყობინება"
 
-#: src/ChatPage.cxx:163
+#: src/ChatPage.cxx:162
 msgid "Message could not be sent"
 msgstr "შეტყობინების გაგზავნა შეუძლებელია"
 
@@ -387,7 +387,7 @@ msgstr "არასწორი ფერის სახელი"
 msgid "Incomplete color definition"
 msgstr "დაუსრულებელი ფერის აღწერა"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:220
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:222
 msgid "Invalid number"
 msgstr "არასწორი ნომერი"
 
@@ -423,7 +423,7 @@ msgstr "არასწორი სვეტის სიგანე"
 msgid "Invalid column fraction width"
 msgstr "არასწორი სვეტის ნაწილის სიგანე"
 
-#: src/ConfigParser.cxx:755
+#: src/ConfigParser.cxx:757
 msgid "Unknown configuration parameter"
 msgstr "უცნობი კონფიგურაციის პარამეტრი"
 
@@ -435,30 +435,30 @@ msgstr "ტერმინალს ფერების შეცვლა ა
 msgid "Playlist"
 msgstr "დასაკრავი სია"
 
-#: src/EditPlaylistPage.cxx:299
+#: src/EditPlaylistPage.cxx:293
 msgid "Playlist Editor"
 msgstr "დასაკრავი სიის რედაქტორი"
 
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:234
+#: src/FileBrowserPage.cxx:235
 msgid "Deleting this item is not possible"
 msgstr "ამ ელემენტის წაშლა შეუძლებელია"
 
-#: src/FileBrowserPage.cxx:241
+#: src/FileBrowserPage.cxx:242
 #, c++-format
 msgid "Delete playlist {}?"
 msgstr "წაიშალოს დასაკრავი სია {}?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:260
+#: src/FileBrowserPage.cxx:261
 msgid "Playlist deleted"
 msgstr "დასაკრავი სია წაიშალა"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:287 src/FileBrowserPage.cxx:358
+#: src/FileBrowserPage.cxx:288 src/FileBrowserPage.cxx:359
 msgid "Browse"
 msgstr "პოვნა"
 
@@ -468,7 +468,7 @@ msgid "Loading playlist '{}'"
 msgstr "იტვირთება დასაკრავი სია '{}'"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:183
+#: src/TagListPage.cxx:185
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "'{}'-ის ჩამატება რიგში"
@@ -567,84 +567,84 @@ msgstr "დონით მაღლა ასვლა"
 msgid "Apply and save changes"
 msgstr "ცვლილებების გადატარება და შენახვა"
 
-#: src/HelpPage.cxx:233 src/HelpPage.cxx:322
+#: src/HelpPage.cxx:233 src/HelpPage.cxx:329
 msgid "Help"
 msgstr "დახმარება"
 
-#: src/KeyDefPage.cxx:148
+#: src/KeyDefPage.cxx:150
 msgid "Deleted"
 msgstr "წაშლილი"
 
-#: src/KeyDefPage.cxx:162
+#: src/KeyDefPage.cxx:164
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "შეიყვანეთ ახალი ღილაკი {}-ისთვის"
 
-#: src/KeyDefPage.cxx:167
+#: src/KeyDefPage.cxx:169
 msgid "Aborted"
 msgstr "შეწყვეტილია"
 
-#: src/KeyDefPage.cxx:172
+#: src/KeyDefPage.cxx:174
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-Space-ს ვერ გამოიყენებთ"
 
-#: src/KeyDefPage.cxx:178
+#: src/KeyDefPage.cxx:180
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "შეცდომა: ღილაკი {} უკვე გამოიყენება {}-ისთვის"
 
-#: src/KeyDefPage.cxx:188
+#: src/KeyDefPage.cxx:190
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "{} მინიჭებულია {}-ზე"
 
-#: src/KeyDefPage.cxx:215
+#: src/KeyDefPage.cxx:217
 msgid "Add new key"
 msgstr "ახალი ღილაკის დამატება"
 
-#: src/KeyDefPage.cxx:233
-#, c-format
+#: src/KeyDefPage.cxx:235
+#, c++-format
 msgid "Edit keys for {}"
 msgstr "ღილაკების ჩასწორება {}-ისთვის"
 
-#: src/KeyDefPage.cxx:370
+#: src/KeyDefPage.cxx:372
 msgid "You have new key bindings"
 msgstr "გაქვთ ახალი ღილაკის მინიჭებები"
 
-#: src/KeyDefPage.cxx:372
+#: src/KeyDefPage.cxx:374
 msgid "Keybindings unchanged."
 msgstr "ღილაკის მინიჭებები არ უცვლელია."
 
-#: src/KeyDefPage.cxx:382
+#: src/KeyDefPage.cxx:384
 msgid "Unable to write configuration"
 msgstr "კონფიგურაციის ჩაწერა შეუძლებელია"
 
-#: src/KeyDefPage.cxx:391 src/KeyDefPage.cxx:400
+#: src/KeyDefPage.cxx:393 src/KeyDefPage.cxx:402
 msgid "Error"
 msgstr "შეცდომა"
 
-#: src/KeyDefPage.cxx:398
+#: src/KeyDefPage.cxx:400
 #, c++-format
 msgid "Wrote {}"
 msgstr "{} ჩაწერილია"
 
-#: src/KeyDefPage.cxx:410
+#: src/KeyDefPage.cxx:412
 msgid "===> Apply key bindings "
 msgstr "===> ღილაკის მინიჭებების გადატარება "
 
-#: src/KeyDefPage.cxx:412
+#: src/KeyDefPage.cxx:414
 msgid "===> Apply & Save key bindings  "
 msgstr "===> ღილაკის მინიჭებების გადატარება და შენახვა  "
 
-#: src/KeyDefPage.cxx:448
+#: src/KeyDefPage.cxx:450
 msgid "Edit key bindings"
 msgstr "ღილაკის მინიჭებების ჩასწორება"
 
-#: src/KeyDefPage.cxx:529
+#: src/KeyDefPage.cxx:531
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "შენიშვნა: დაგავიწყდათ თქვენი ცვლილებების 'გადატარება'?"
 
-#: src/KeyDefPage.cxx:579
+#: src/KeyDefPage.cxx:581
 msgid "Keys"
 msgstr "გასაღებები"
 
@@ -758,8 +758,8 @@ msgstr "ლირიკის გარეშე"
 msgid "Lyrics timeout occurred after {} seconds"
 msgstr "ლირიკის მოლოდინის ვადა ამოიწურა {} წამის შემდეგ"
 
-#: src/LyricsPage.cxx:313 src/LyricsPage.cxx:321 src/LyricsPage.cxx:330
-#: src/LyricsPage.cxx:449
+#: src/LyricsPage.cxx:313 src/LyricsPage.cxx:321 src/LyricsPage.cxx:324
+#: src/LyricsPage.cxx:326 src/LyricsPage.cxx:445
 msgid "Lyrics"
 msgstr "ლირიკა"
 
@@ -770,41 +770,41 @@ msgstr "ლირიკა"
 msgid "loading..."
 msgstr "იტვირთება..."
 
-#: src/LyricsPage.cxx:338
+#: src/LyricsPage.cxx:334
 msgid "Lyrics cache is unavailable"
 msgstr "ლირიკის კეში ხელმისაწვდომი არაა"
 
-#: src/LyricsPage.cxx:343
+#: src/LyricsPage.cxx:339
 msgid "Editor not configured"
 msgstr "რედაქტორი მორგებული არაა"
 
-#: src/LyricsPage.cxx:373 src/LyricsPage.cxx:390
+#: src/LyricsPage.cxx:369 src/LyricsPage.cxx:386
 msgid "Can't start editor"
 msgstr "რედაქტორის გაშვება შეუძლებელია"
 
-#: src/LyricsPage.cxx:393 src/LyricsPage.cxx:397
+#: src/LyricsPage.cxx:389 src/LyricsPage.cxx:393
 msgid "Editor exited unexpectedly"
 msgstr "რედაქტორმა მუშაობა მოულოდნელად შეწყვიტა"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:419
+#: src/LyricsPage.cxx:415
 msgid "Lyrics saved"
 msgstr "ლირიკა შენახულია"
 
-#: src/LyricsPage.cxx:425
+#: src/LyricsPage.cxx:421
 msgid "Lyrics deleted"
 msgstr "ლირიკა წაიშალა"
 
-#: src/LyricsPage.cxx:426
+#: src/LyricsPage.cxx:422
 msgid "No saved lyrics"
 msgstr "წაშლილი ლირიკის გარეშე"
 
-#: src/Main.cxx:104
+#: src/Main.cxx:103
 #, c++-format
 msgid "Connecting to {}"
 msgstr "{}-ისთან დაკავშირება"
 
-#: src/Main.cxx:120
+#: src/Main.cxx:119
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "შეცდომა: MPD-ის ვერსია {} მეტისმეტად ძველია (საჭიროა {})"
@@ -815,34 +815,34 @@ msgstr "შეცდომა: MPD-ის ვერსია {} მეტის�
 msgid "translator-credits"
 msgstr "ეკატერინე პაპავა"
 
-#: src/OutputsPage.cxx:158
+#: src/OutputsPage.cxx:140
 #, c++-format
 msgid "Switched to partition '{}'"
 msgstr "გადავერთე დანაყოფზე '{}'"
 
-#: src/OutputsPage.cxx:170 src/SongPage.cxx:63
+#: src/OutputsPage.cxx:152 src/SongPage.cxx:59
 msgid "Name"
 msgstr "სახელი"
 
-#: src/OutputsPage.cxx:223
+#: src/OutputsPage.cxx:201
 #, c++-format
 msgid "Output '{}' enabled"
 msgstr "გამოტანა '{}' ჩართულია"
 
-#: src/OutputsPage.cxx:234
+#: src/OutputsPage.cxx:212
 #, c++-format
 msgid "Output '{}' disabled"
 msgstr "გამოტანა '{}' გამორთულია"
 
-#: src/OutputsPage.cxx:362 src/OutputsPage.cxx:473
+#: src/OutputsPage.cxx:330 src/OutputsPage.cxx:429
 msgid "Outputs"
 msgstr "გამოტანები"
 
-#: src/OutputsPage.cxx:374
+#: src/OutputsPage.cxx:340
 msgid "Partition"
 msgstr "დანაყოფი"
 
-#: src/OutputsPage.cxx:398
+#: src/OutputsPage.cxx:361
 msgid "Create new partition"
 msgstr "ახალი დანაყოფის შექმნა"
 
@@ -850,244 +850,244 @@ msgstr "ახალი დანაყოფის შექმნა"
 msgid "Add"
 msgstr "დამატება"
 
-#: src/QueuePage.cxx:373 src/QueuePage.cxx:659
+#: src/QueuePage.cxx:372 src/QueuePage.cxx:658
 msgid "Queue"
 msgstr "რიგი"
 
-#: src/QueuePage.cxx:375
-#, c-format
+#: src/QueuePage.cxx:374
+#, c++-format
 msgid "Queue on {}"
 msgstr "რიგშია {}-ზე"
 
-#: src/QueuePage.cxx:611 src/player_command.cxx:63
+#: src/QueuePage.cxx:610 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "არეული რიგი"
 
-#: src/SearchPage.cxx:37
+#: src/SearchPage.cxx:39
 msgid "artist"
 msgstr "შემსრულებელი"
 
-#: src/SearchPage.cxx:38
+#: src/SearchPage.cxx:40
 msgid "album"
 msgstr "ალბომი"
 
-#: src/SearchPage.cxx:39
+#: src/SearchPage.cxx:41
 msgid "title"
 msgstr "სათაური"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:42
 msgid "track"
 msgstr "ტრეკი"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:43
 msgid "name"
 msgstr "სახელი"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:44
 msgid "genre"
 msgstr "ჟანრი"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:45
 msgid "date"
 msgstr "თარიღი"
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:46
 msgid "composer"
 msgstr "კომპოზიტორი"
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:47
 msgid "performer"
 msgstr "შემსრულებელი"
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:48
 msgid "label"
 msgstr "ჭდე"
 
-#: src/SearchPage.cxx:47
+#: src/SearchPage.cxx:49
 msgid "comment"
 msgstr "კომენტარი"
 
-#: src/SearchPage.cxx:55
+#: src/SearchPage.cxx:57
 msgid "file"
 msgstr "ფაილი"
 
-#: src/SearchPage.cxx:75 src/SongPage.cxx:51
+#: src/SearchPage.cxx:77 src/SongPage.cxx:51
 msgid "Title"
 msgstr "სათაური"
 
-#: src/SearchPage.cxx:76 src/SongPage.cxx:50
+#: src/SearchPage.cxx:78 src/SongPage.cxx:50
 msgid "Artist"
 msgstr "შემსრულებელი"
 
-#: src/SearchPage.cxx:77 src/SongPage.cxx:52
+#: src/SearchPage.cxx:79 src/SongPage.cxx:52
 msgid "Album"
 msgstr "ალბომი"
 
-#: src/SearchPage.cxx:78
+#: src/SearchPage.cxx:80
 msgid "Filename"
 msgstr "ფაილის სახელი"
 
-#: src/SearchPage.cxx:79
+#: src/SearchPage.cxx:81
 msgid "Artist + Title"
 msgstr "შემსრულებელი + სახელი"
 
-#: src/SearchPage.cxx:261 src/SearchPage.cxx:265
+#: src/SearchPage.cxx:263 src/SearchPage.cxx:267
 msgid "Unrecognized suffix"
 msgstr "უცნობი სუფიქსი"
 
-#: src/SearchPage.cxx:312
+#: src/SearchPage.cxx:314
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "არასწორი ძებნის ჭდე {}"
 
-#: src/SearchPage.cxx:326
+#: src/SearchPage.cxx:328
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "არგუმენტის გარეშე ძებნის ჭდისთვის {}"
 
-#: src/SearchPage.cxx:422 src/SearchPage.cxx:455 src/SearchPage.cxx:458
-#: src/SearchPage.cxx:462 src/SearchPage.cxx:519
+#: src/SearchPage.cxx:424 src/SearchPage.cxx:457 src/SearchPage.cxx:460
+#: src/SearchPage.cxx:464 src/SearchPage.cxx:521
 msgid "Search"
 msgstr "ძებნა"
 
-#: src/SearchPage.cxx:482
+#: src/SearchPage.cxx:484
 msgid "Search mode"
 msgstr "ძებნის რეჟიმი"
 
-#: src/SongPage.cxx:54
+#: src/SongPage.cxx:53
 msgid "Work"
 msgstr "სამუშაო"
 
-#: src/SongPage.cxx:56
+#: src/SongPage.cxx:54
 msgid "Length"
 msgstr "სიგრძე"
 
-#: src/SongPage.cxx:57
+#: src/SongPage.cxx:55
 msgid "Position"
 msgstr "პოზიცია"
 
-#: src/SongPage.cxx:58
+#: src/SongPage.cxx:56
 msgid "Composer"
 msgstr "კომპოზიტორი"
 
-#: src/SongPage.cxx:59
+#: src/SongPage.cxx:57
 msgid "Performer"
 msgstr "შემსრულებელი"
 
-#: src/SongPage.cxx:61
+#: src/SongPage.cxx:58
 msgid "Conductor"
 msgstr "დირიჟორი"
 
-#: src/SongPage.cxx:64
+#: src/SongPage.cxx:60
 msgid "Disc"
 msgstr "დისკი"
 
-#: src/SongPage.cxx:65
+#: src/SongPage.cxx:61
 msgid "Track"
 msgstr "ტრეკი"
 
-#: src/SongPage.cxx:66
+#: src/SongPage.cxx:62
 msgid "Date"
 msgstr "თარიღი"
 
-#: src/SongPage.cxx:67
+#: src/SongPage.cxx:63
 msgid "Genre"
 msgstr "ჟანრი"
 
-#: src/SongPage.cxx:69
+#: src/SongPage.cxx:64
 msgid "Label"
 msgstr "ჭდე"
 
-#: src/SongPage.cxx:71
+#: src/SongPage.cxx:65
 msgid "Comment"
 msgstr "კომენტარი"
 
-#: src/SongPage.cxx:72
+#: src/SongPage.cxx:66
 msgid "Path"
 msgstr "ბილიკი"
 
-#: src/SongPage.cxx:73
+#: src/SongPage.cxx:67
 msgid "Bitrate"
 msgstr "ბიტური სიჩქარე"
 
-#: src/SongPage.cxx:74
+#: src/SongPage.cxx:68
 msgid "Format"
 msgstr "ფორმატი"
 
-#: src/SongPage.cxx:91
+#: src/SongPage.cxx:85
 msgid "Number of artists"
 msgstr "შემსრულებლების რაოდენობა"
 
-#: src/SongPage.cxx:92
+#: src/SongPage.cxx:86
 msgid "Number of albums"
 msgstr "ალბომების რაოდენობა"
 
-#: src/SongPage.cxx:93
+#: src/SongPage.cxx:87
 msgid "Number of songs"
 msgstr "სიმღერების რაოდენობა"
 
-#: src/SongPage.cxx:94
+#: src/SongPage.cxx:88
 msgid "Uptime"
 msgstr "ჩართულობის დრო"
 
-#: src/SongPage.cxx:95
+#: src/SongPage.cxx:89
 msgid "Most recent db update"
 msgstr "ბაზის უკანასკნელი განახლება"
 
-#: src/SongPage.cxx:96
+#: src/SongPage.cxx:90
 msgid "Playtime"
 msgstr "თამაშის დრო"
 
-#: src/SongPage.cxx:97
+#: src/SongPage.cxx:91
 msgid "DB playtime"
 msgstr "ბაზის დაკვრის დრო"
 
-#: src/SongPage.cxx:207
+#: src/SongPage.cxx:201
 msgid "Song viewer"
 msgstr "ინფორმაცია სიმღერაზე"
 
-#: src/SongPage.cxx:364
+#: src/SongPage.cxx:358
 msgid "MPD statistics"
 msgstr "MPD-ის სტატისტიკა"
 
-#: src/SongPage.cxx:439
+#: src/SongPage.cxx:433
 msgid "Selected song"
 msgstr "არჩეული სიმღერა"
 
-#: src/SongPage.cxx:449
+#: src/SongPage.cxx:443
 msgid "Currently playing song"
 msgstr "ამჟამად დაკრული სიმღერა"
 
-#: src/SongPage.cxx:456
+#: src/SongPage.cxx:450
 #, c++-format
 msgid "{} kbps"
 msgstr "{} კბ/წმ"
 
-#: src/SongPage.cxx:497
+#: src/SongPage.cxx:498
 msgid "Song"
 msgstr "სიმღერა"
 
-#: src/StatusBar.cxx:149
+#: src/StatusBar.cxx:175
 msgid "Playing:"
 msgstr "მიმდინარეობს დაკვრა:"
 
-#: src/StatusBar.cxx:153
+#: src/StatusBar.cxx:179
 msgid "[Paused]"
 msgstr "[შეჩერებულია]"
 
-#: src/Styles.cxx:240 src/Styles.cxx:301
+#: src/Styles.cxx:242 src/Styles.cxx:303
 msgid "Unknown color"
 msgstr "უცნობი ფერი"
 
-#: src/Styles.cxx:311
+#: src/Styles.cxx:313
 msgid "Unknown color field"
 msgstr "უცნობი ფერის ველი"
 
-#: src/Styles.cxx:344
+#: src/Styles.cxx:346
 msgid "Terminal lacks color capabilities"
 msgstr "ტერმინალს ფერების აღქმა არ აქვს"
 
-#: src/TagListPage.cxx:57
+#: src/TagListPage.cxx:59
 msgid "All tracks"
 msgstr "ყველა ტრეკი"
 
@@ -1120,85 +1120,85 @@ msgstr "'{}' აღმოჩენილი არაა"
 msgid "Cleared queue"
 msgstr "რიგი გასუფთავდა"
 
-#: src/save_playlist.cxx:75
+#: src/save_playlist.cxx:74
 msgid "Save queue as"
 msgstr "რიგის შენახვა, როგორც"
 
-#: src/save_playlist.cxx:98
+#: src/save_playlist.cxx:96
 #, c-format
 msgid "Replace %s?"
 msgstr "ჩავანაცვლო %s?"
 
 #. success
-#: src/save_playlist.cxx:123
+#: src/save_playlist.cxx:121
 #, c++-format
 msgid "Saved {}"
 msgstr "{} შენახულია"
 
-#: src/screen.cxx:155
+#: src/screen.cxx:156
 msgid "Repeat mode is on"
 msgstr "გამეორების რეჟიმი ჩართულია"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:157
 msgid "Repeat mode is off"
 msgstr "გამეორების რეჟიმი გამორთულია"
 
-#: src/screen.cxx:160
+#: src/screen.cxx:161
 msgid "Random mode is on"
 msgstr "შემთხვევითობის რეჟიმი ჩართულია"
 
-#: src/screen.cxx:161
+#: src/screen.cxx:162
 msgid "Random mode is off"
 msgstr "შემთხვევითობის რეჟიმი გამორთულია"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:168
+#: src/screen.cxx:169
 msgid "Single mode is on"
 msgstr "მხოლოდ, ერთის დაკვრის რეჟიმი ჩართულია"
 
-#: src/screen.cxx:169
+#: src/screen.cxx:170
 msgid "Single mode is off"
 msgstr "მხოლოდ, ერთის დაკვრის რეჟიმი გამორთულია"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:176
+#: src/screen.cxx:177
 msgid "Consume mode is on"
 msgstr "დაკვრის შემდეგ წაშლის რეჟიმი ჩართულია"
 
-#: src/screen.cxx:177
+#: src/screen.cxx:178
 msgid "Consume mode is off"
 msgstr "დაკვრის შემდეგ წაშლის რეჟიმი გამორთულია"
 
-#: src/screen.cxx:180
+#: src/screen.cxx:181
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "მინავლება {} წამით"
 
-#: src/screen.cxx:192
+#: src/screen.cxx:193
 msgid "Database updated"
 msgstr "მონაცემთა ბაზა განახლდა"
 
-#: src/screen.cxx:237
+#: src/screen.cxx:238
 msgid "Find mode: Wrapped"
 msgstr "ძებნის რეჟიმი: გადატანით"
 
-#: src/screen.cxx:238
+#: src/screen.cxx:239
 msgid "Find mode: Normal"
 msgstr "ძებნის რეჟიმი: ნორმალური"
 
-#: src/screen.cxx:244
+#: src/screen.cxx:245
 msgid "Auto center mode: On"
 msgstr "ავტოდაცენტრების რეჟიმი: ჩართულია"
 
-#: src/screen.cxx:245
+#: src/screen.cxx:246
 msgid "Auto center mode: Off"
 msgstr "ავტოდაცენტრების რეჟიმი: გამორთულია"
 
-#: src/screen.cxx:402
+#: src/screen.cxx:403
 msgid "Password"
 msgstr "პაროლი"
 
