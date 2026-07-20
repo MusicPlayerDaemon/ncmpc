@@ -26,6 +26,9 @@ public:
 
 		const unsigned ux = static_cast<unsigned>(x);
 		const unsigned window_width = window.GetWidth();
+		if (window_width == 0)
+			return -1;
+
 		return ux * max / window_width;
 	}
 
