@@ -3,6 +3,7 @@ ncmpc 0.53 - not yet released
 * fix crash on song move error
 * check for MPD "welcome" lines that are too long
 * fix buffer overflow in lyrics page title
+* fix crash when searching on library page
 * add Georgian translation
 * support libfmt 12.2.0
 * switch to C++23
