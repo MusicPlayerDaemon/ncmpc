@@ -7,15 +7,15 @@
 #include "i18n.h"
 #include "ui/Window.hxx"
 #include "lib/fmt/RuntimeError.hxx"
+#include "util/IterableSplitString.hxx"
 #include "util/StringAPI.hxx"
 #include "util/StringCompare.hxx"
+#include "util/StringSplit.hxx"
 #include "util/StringStrip.hxx"
 
 #ifdef ENABLE_COLORS
 #include "ui/Options.hxx"
 #endif
-
-#include <string>
 
 #include <assert.h>
 #include <stdio.h>
@@ -249,28 +249,23 @@ ParseBackgroundColor(std::string_view s)
  * Throws on error.
  */
 static void
-ParseStyle(StyleData &d, const char *str)
+ParseStyle(StyleData &d, std::string_view str)
 {
-	std::string copy(str);
-
-	for (char *cur = strtok(&copy.front(), ","); cur != nullptr;
-	     cur = strtok(nullptr, ",")) {
+	for (std::string_view cur : IterableSplitString(str, ',')) {
 		cur = Strip(cur);
-		char *slash = strchr(cur, '/');
-		if (slash != nullptr) {
-			const char *name = slash + 1;
-			d.bg_color = ParseBackgroundColor(name);
 
-			*slash = 0;
+		if (const auto [left, right] = Split(cur, '/'); right.data() != nullptr) {
+			d.bg_color = ParseBackgroundColor(right);
 
-			if (*cur == 0)
+			if (left.empty())
 				continue;
+
+			cur = left;
 		}
 
 		/* Legacy colors (brightblue,etc) */
-		if (!strncasecmp(cur, "bright", 6)) {
+		if (SkipPrefixIgnoreCase(cur, "bright"sv)) {
 			d.attr |= A_BOLD;
-			cur += 6;
 		}
 
 		/* Colors */
