@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2009-09-24 10:26+0200\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
@@ -475,7 +475,7 @@ msgid "Loading playlist '{}'"
 msgstr "Henter {}..."
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, fuzzy, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Tilføjer '{}' til listen"
@@ -1110,10 +1110,6 @@ msgstr "Advarsel: Ukendt farve felt - {}.\n"
 msgid "Terminal lacks color capabilities"
 msgstr "Terminalen understøtter ikke farver"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "Alle spor"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Volumen"
@@ -1262,6 +1258,9 @@ msgstr ""
 #: src/time_format.cxx:53
 msgid "days"
 msgstr ""
+
+#~ msgid "All tracks"
+#~ msgstr "Alle spor"
 
 #~ msgid "y"
 #~ msgstr "j"

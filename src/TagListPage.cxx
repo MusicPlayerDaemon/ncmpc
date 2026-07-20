@@ -55,8 +55,10 @@ TagListPage::GetListItemText(std::span<char> buffer,
 		--idx;
 	}
 
-	if (idx == values.size())
-		return _("All tracks");
+	if (idx == values.size()) {
+		assert(all_text != nullptr);
+		return all_text;
+	}
 
 	assert(idx < values.size());
 

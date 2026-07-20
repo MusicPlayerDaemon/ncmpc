@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2024-06-15 05:56+0000\n"
 "Last-Translator: Wojciech Teichert <wojtekt99@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/ncmpc/"
@@ -474,7 +474,7 @@ msgid "Loading playlist '{}'"
 msgstr "Ładowanie listy odtwarzania {}"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Dodawanie '{}' do listy odtwarzania"
@@ -1093,10 +1093,6 @@ msgstr "Nieznany kolor pola"
 msgid "Terminal lacks color capabilities"
 msgstr "Terminal nie obsługuje kolorów"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "Wszystkie ścieżki"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Głośność"
@@ -1244,6 +1240,9 @@ msgstr "dzień"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "dni"
+
+#~ msgid "All tracks"
+#~ msgstr "Wszystkie ścieżki"
 
 #~ msgid "y"
 #~ msgstr "t"

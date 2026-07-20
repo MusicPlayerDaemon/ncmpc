@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2020-08-23 01:43+0000\n"
 "Last-Translator: Matheus do Nascimento <leistermat@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -471,7 +471,7 @@ msgid "Loading playlist '{}'"
 msgstr "Carregando lista de reprodução '{}'"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Adicionando '{}' para a fila"
@@ -1101,10 +1101,6 @@ msgstr "Campo de cor desconhecido"
 msgid "Terminal lacks color capabilities"
 msgstr "Terminal não tem capacidade para trabalhar com cores"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "Todas as faixas"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Volume"
@@ -1252,6 +1248,9 @@ msgstr "dia"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "dias"
+
+#~ msgid "All tracks"
+#~ msgstr "Todas as faixas"
 
 #~ msgid "y"
 #~ msgstr "y (sim)"

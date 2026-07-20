@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2025-02-04 14:02+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/ncmpc/"
@@ -472,7 +472,7 @@ msgid "Loading playlist '{}'"
 msgstr "Ladataan soittolistaa '{}'"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Lisätään '{}' jonoon"
@@ -1098,10 +1098,6 @@ msgstr ""
 msgid "Terminal lacks color capabilities"
 msgstr "Pääte ei tue värejä"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "Kaikki kappaleet"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Äänenvoimakkuus"
@@ -1249,6 +1245,9 @@ msgstr "päivä"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "päivää"
+
+#~ msgid "All tracks"
+#~ msgstr "Kaikki kappaleet"
 
 #~ msgid "y"
 #~ msgstr "k"

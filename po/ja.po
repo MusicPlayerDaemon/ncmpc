@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2020-12-17 04:29+0000\n"
 "Last-Translator: Takuro Onoue <kusanaginoturugi@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/ncmpc/"
@@ -471,7 +471,7 @@ msgid "Loading playlist '{}'"
 msgstr ""
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr ""
@@ -1088,10 +1088,6 @@ msgstr ""
 
 #: src/Styles.cxx:346
 msgid "Terminal lacks color capabilities"
-msgstr ""
-
-#: src/TagListPage.cxx:59
-msgid "All tracks"
 msgstr ""
 
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87

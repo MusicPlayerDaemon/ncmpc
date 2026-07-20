@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2026-04-17 15:09+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/ncmpc/"
@@ -469,7 +469,7 @@ msgid "Loading playlist '{}'"
 msgstr "Laddar spellista '{}'"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Lägger till '{}' till kö"
@@ -1093,10 +1093,6 @@ msgstr "Okänt färg fält"
 msgid "Terminal lacks color capabilities"
 msgstr "Terminalen saknar stöd för färger"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "Alla spår"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Volym"
@@ -1244,6 +1240,9 @@ msgstr "dag"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "dagar"
+
+#~ msgid "All tracks"
+#~ msgstr "Alla spår"
 
 #~ msgid "y"
 #~ msgstr "j"

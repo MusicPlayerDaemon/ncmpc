@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2026-05-14 03:11+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/ncmpc/"
@@ -469,7 +469,7 @@ msgid "Loading playlist '{}'"
 msgstr "Загружается плейлист '{}'"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "В очередь добавляется '{}'"
@@ -1089,10 +1089,6 @@ msgstr "Неизвестное цветовое поле"
 msgid "Terminal lacks color capabilities"
 msgstr "Терминал не поддерживает цвета"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "Все композиции"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Громкость"
@@ -1240,6 +1236,9 @@ msgstr "день"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "дн."
+
+#~ msgid "All tracks"
+#~ msgstr "Все композиции"
 
 #~ msgid "y"
 #~ msgstr "y"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2019-05-19 12:49+0000\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Occidental <https://hosted.weblate.org/projects/ncmpc/"
@@ -474,7 +474,7 @@ msgid "Loading playlist '{}'"
 msgstr "Cargante un playlist '{}'"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Adjuntente '{}' al linea"
@@ -1096,10 +1096,6 @@ msgstr "Ínconosset camp de color"
 msgid "Terminal lacks color capabilities"
 msgstr "Li terminal manca li capabilitá de color"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "Omni tracks"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Volúmine"
@@ -1247,6 +1243,9 @@ msgstr "die"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "dies"
+
+#~ msgid "All tracks"
+#~ msgstr "Omni tracks"
 
 #~ msgid "y"
 #~ msgstr "y"

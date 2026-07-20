@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2026-03-02 06:09+0000\n"
 "Last-Translator: தமிழ்நேரம் <tamilneram247@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -468,7 +468,7 @@ msgid "Loading playlist '{}'"
 msgstr "பிளேலிச்ட்டை ஏற்றுகிறது '{}'"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "வரிசையில் '{}' சேர்ப்பது"
@@ -1087,10 +1087,6 @@ msgstr "அறியப்படாத வண்ண புலம்"
 msgid "Terminal lacks color capabilities"
 msgstr "முனையத்தில் வண்ண திறன்கள் இல்லை"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "அனைத்து தடங்களும்"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "தொகுதி"
@@ -1238,3 +1234,6 @@ msgstr "நாள்"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "நாட்கள்"
+
+#~ msgid "All tracks"
+#~ msgstr "அனைத்து தடங்களும்"

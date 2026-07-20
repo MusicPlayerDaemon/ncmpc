@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2022-04-01 16:10+0000\n"
 "Last-Translator: lionelvaux <lionel.vaux@univ-amu.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/ncmpc/"
@@ -475,7 +475,7 @@ msgid "Loading playlist '{}'"
 msgstr "Chargement de la liste de lecture « {} »"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Ajout de « {} » à la file d’attente"
@@ -1103,10 +1103,6 @@ msgstr "Couleur de champ inconnue"
 msgid "Terminal lacks color capabilities"
 msgstr "Le terminal ne dispose pas de la gestion des couleurs"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "Toutes les pistes"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Volume"
@@ -1254,6 +1250,9 @@ msgstr "jour"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "jours"
+
+#~ msgid "All tracks"
+#~ msgstr "Toutes les pistes"
 
 #~ msgid "y"
 #~ msgstr "o"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2024-08-06 17:09+0000\n"
 "Last-Translator: Quentin Frey <quentin.frey@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/ncmpc/"
@@ -472,7 +472,7 @@ msgid "Loading playlist '{}'"
 msgstr "Lade Wiedergabeliste „{}“"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Füge „{}“ der Wiedergabeliste hinzu"
@@ -1100,10 +1100,6 @@ msgstr "Unbekanntes Farbfeld"
 msgid "Terminal lacks color capabilities"
 msgstr "Das Terminal unterstützt keine Farben"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "Alle Stücke"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Lautstärke"
@@ -1251,6 +1247,9 @@ msgstr "Tag"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "Tage"
+
+#~ msgid "All tracks"
+#~ msgstr "Alle Stücke"
 
 #~ msgid "y"
 #~ msgstr "j"

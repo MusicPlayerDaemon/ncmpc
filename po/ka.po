@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2026-02-28 06:09+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/ncmpc/"
@@ -468,7 +468,7 @@ msgid "Loading playlist '{}'"
 msgstr "იტვირთება დასაკრავი სია '{}'"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "'{}'-ის ჩამატება რიგში"
@@ -1087,10 +1087,6 @@ msgstr "უცნობი ფერის ველი"
 msgid "Terminal lacks color capabilities"
 msgstr "ტერმინალს ფერების აღქმა არ აქვს"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "ყველა ტრეკი"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "ხმის სიმაღლე"
@@ -1238,3 +1234,6 @@ msgstr "დღე"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "დღე"
+
+#~ msgid "All tracks"
+#~ msgstr "ყველა ტრეკი"

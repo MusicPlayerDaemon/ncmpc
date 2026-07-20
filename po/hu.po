@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2009-09-24 21:45+0000\n"
 "Last-Translator: Kiszel Kristóf <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -475,7 +475,7 @@ msgid "Loading playlist '{}'"
 msgstr "{} lejátszólista betöltése..."
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, fuzzy, c++-format
 msgid "Adding '{}' to queue"
 msgstr "'{}' hozzáadása a lejátszólistához"
@@ -1106,10 +1106,6 @@ msgstr "Figyelem: ismeretlen szín mező - {}\n"
 msgid "Terminal lacks color capabilities"
 msgstr "A terminál nem támogatja a színeket"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "Minden szám"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Hangerő"
@@ -1258,6 +1254,9 @@ msgstr ""
 #: src/time_format.cxx:53
 msgid "days"
 msgstr ""
+
+#~ msgid "All tracks"
+#~ msgstr "Minden szám"
 
 #~ msgid "y"
 #~ msgstr "i"

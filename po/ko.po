@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2026-03-09 02:09+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
@@ -469,7 +469,7 @@ msgid "Loading playlist '{}'"
 msgstr "'{}' 연주목록을 읽는 중"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "순서에 '{}' 추가"
@@ -1088,10 +1088,6 @@ msgstr "모르는 색상 필드"
 msgid "Terminal lacks color capabilities"
 msgstr "터미널의 색상 기능이 부족합니다"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "모든 곡"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "음량"
@@ -1239,6 +1235,9 @@ msgstr "일"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "일"
+
+#~ msgid "All tracks"
+#~ msgstr "모든 곡"
 
 #, c-format
 #~ msgid "Delete playlist %s?"

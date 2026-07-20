@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2021-01-19 16:32+0000\n"
 "Last-Translator: Lilian Wang <li330wang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -473,7 +473,7 @@ msgid "Loading playlist '{}'"
 msgstr "加载播放列表 {}"
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
 msgstr "添加 '{}' 到播放列表"
@@ -1097,10 +1097,6 @@ msgstr "未知的颜色块"
 msgid "Terminal lacks color capabilities"
 msgstr "终端不支持彩色"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "全部音轨"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "音量"
@@ -1248,6 +1244,9 @@ msgstr "日"
 #: src/time_format.cxx:53
 msgid "days"
 msgstr "日"
+
+#~ msgid "All tracks"
+#~ msgstr "全部音轨"
 
 #~ msgid "y"
 #~ msgstr "y"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:20+0200\n"
+"POT-Creation-Date: 2026-07-20 08:21+0200\n"
 "PO-Revision-Date: 2020-02-03 11:50+0000\n"
 "Last-Translator: Miroslav Burdych <mirek.burdych@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -479,7 +479,7 @@ msgid "Loading playlist '{}'"
 msgstr "Načítám seznam skladeb: {}..."
 
 #: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
-#: src/TagListPage.cxx:185
+#: src/TagListPage.cxx:187
 #, fuzzy, c++-format
 msgid "Adding '{}' to queue"
 msgstr "Přidávám '{}' do seznamu skladeb"
@@ -1112,10 +1112,6 @@ msgstr "Varování: Neznámé barevné pole - {}\n"
 msgid "Terminal lacks color capabilities"
 msgstr "Terminál postrádá podporu barev"
 
-#: src/TagListPage.cxx:59
-msgid "All tracks"
-msgstr "Všechny skladby"
-
 #: src/TitleBar.cxx:85 src/TitleBar.cxx:87
 msgid "Volume"
 msgstr "Hlasitost"
@@ -1264,6 +1260,9 @@ msgstr ""
 #: src/time_format.cxx:53
 msgid "days"
 msgstr ""
+
+#~ msgid "All tracks"
+#~ msgstr "Všechny skladby"
 
 #~ msgid "y"
 #~ msgstr "a"
