@@ -1,4 +1,5 @@
 ncmpc 0.53 - not yet released
+* more contrast for default styles "line-flags" and "status-state"
 * fix range total duration display in in status bar
 * fix disappearing partition list on Ctrl-L
 * fix crash on song move error

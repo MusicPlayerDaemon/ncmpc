@@ -112,7 +112,7 @@ static StyleData styles[size_t(Style::END)] = {
 	},
 	{
 		"line-flags", Style::LINE,
-		COLOR_GREEN, COLOR_INHERIT, A_BOLD,
+		COLOR_MAGENTA, COLOR_INHERIT, A_BOLD,
 		A_NORMAL,
 	},
 	{
@@ -142,7 +142,7 @@ static StyleData styles[size_t(Style::END)] = {
 	},
 	{
 		"status-state", Style::STATUS,
-		COLOR_GREEN, COLOR_INHERIT, A_BOLD,
+		COLOR_YELLOW, COLOR_INHERIT, A_BOLD,
 		A_BOLD,
 	},
 	{
