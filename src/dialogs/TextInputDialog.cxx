@@ -397,7 +397,18 @@ TextInputDialog::Paint(const Window window) const noexcept
 	window.String(": "sv);
 
 	point = window.GetCursor();
-	width = window.GetWidth() - point.x;
+
+	const int window_width = window.GetWidth();
+	width = window_width;
+	if (point.x + 8 < window_width)
+		width -= point.x;
+	else {
+		/* the terminal is too narrow or the prompt is too
+		   long: avoid integer underflow and erase the prompt,
+		   use the full width for the value */
+		point.x = 0;
+		window.MoveCursor(point);
+	}
 
 	SelectStyle(window, Style::INPUT);
 
