@@ -531,6 +531,10 @@ FileListPage::PaintStatusBarOverride(const Window window) const noexcept
 			duration += mpd_song_get_duration(mpd_entity_get_song(entity));
 	}
 
+	if (duration == 0)
+		/* no song selected: we have nothing to print */
+		return false;
+
 	char duration_buffer[32];
 	const auto duration_string = format_duration_short(duration_buffer, duration);
 	const unsigned duration_width = duration_string.size();
