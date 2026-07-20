@@ -51,6 +51,8 @@ struct KeyBinding {
 	void WriteToFile(FILE *f, const command_definition_t &cmd,
 			 bool comment) const noexcept;
 #endif
+
+	constexpr bool operator==(const KeyBinding &) const noexcept = default;
 };
 
 struct KeyBindings {
@@ -86,6 +88,8 @@ struct KeyBindings {
 	 */
 	bool WriteToFile(FILE *f, int all) const noexcept;
 #endif
+
+	constexpr bool operator==(const KeyBindings &) const noexcept = default;
 };
 
 /* write key bindings flags */
