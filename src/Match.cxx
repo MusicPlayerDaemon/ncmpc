@@ -3,9 +3,9 @@
 
 #include "Match.hxx"
 #include "util/ScopeExit.hxx"
+#include "util/StringCompare.hxx"
 
 #include <assert.h>
-#include <string.h>
 
 MatchExpression::~MatchExpression() noexcept
 {
@@ -42,7 +42,7 @@ MatchExpression::operator()(std::string_view line) const noexcept
 {
 #ifndef HAVE_PCRE
 	return anchored
-		? line.size() >= expression.size() && strncasecmp(line.data(), expression.data(), expression.size()) == 0
+		? StringStartsWithIgnoreCase(line, expression)
 		: line.find(expression) != line.npos;
 #else
 	assert(re != nullptr);
