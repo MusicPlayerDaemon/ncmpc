@@ -378,7 +378,7 @@ GetStringValue(const char *s) noexcept
 {
 	size_t length = strlen(s);
 
-	if (s[0] == '\"' && s[length - 1] == '\"') {
+	if (length >= 2 && s[0] == '\"' && s[length - 1] == '\"') {
 		length -= 2;
 		++s;
 	}
