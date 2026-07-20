@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:21+0200\n"
+"POT-Creation-Date: 2026-07-20 16:17+0200\n"
 "PO-Revision-Date: 2024-11-03 05:07+0000\n"
 "Last-Translator: Milan Šalka <salka.milan@googlemail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/ncmpc/"
@@ -375,7 +375,7 @@ msgstr "Nesprávny typ zobrazovania času"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:584
+#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:587
 msgid "Missing '='"
 msgstr "Chýba '='"
 
@@ -423,7 +423,7 @@ msgstr "Neplatná šírka stĺpcov"
 msgid "Invalid column fraction width"
 msgstr "Neplatná šírka stĺpca"
 
-#: src/ConfigParser.cxx:757
+#: src/ConfigParser.cxx:760
 msgid "Unknown configuration parameter"
 msgstr "Neznámy parameter konfigurácie"
 
@@ -442,23 +442,23 @@ msgstr "Editor playlistu"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:235
+#: src/FileBrowserPage.cxx:240
 msgid "Deleting this item is not possible"
 msgstr "Túto položku nie je možné odstrániť"
 
-#: src/FileBrowserPage.cxx:242
+#: src/FileBrowserPage.cxx:250
 #, c++-format
 msgid "Delete playlist {}?"
 msgstr "Odstrániť playlist {}?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:261
+#: src/FileBrowserPage.cxx:269
 msgid "Playlist deleted"
 msgstr "Playlist bol odstránený"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:288 src/FileBrowserPage.cxx:359
+#: src/FileBrowserPage.cxx:296 src/FileBrowserPage.cxx:367
 msgid "Browse"
 msgstr "Prehliadať"
 
@@ -607,44 +607,44 @@ msgstr "Pridať nový kláves"
 msgid "Edit keys for {}"
 msgstr "Upraviť klávesy pre {}"
 
-#: src/KeyDefPage.cxx:372
+#: src/KeyDefPage.cxx:371
 msgid "You have new key bindings"
 msgstr "Nastavili ste nové priradenie klávesov"
 
-#: src/KeyDefPage.cxx:374
+#: src/KeyDefPage.cxx:373
 msgid "Keybindings unchanged."
 msgstr "Priradenie klávesov sa nezmenilo."
 
-#: src/KeyDefPage.cxx:384
+#: src/KeyDefPage.cxx:383
 msgid "Unable to write configuration"
 msgstr "Nepodarilo sa zapísať nastavenie"
 
-#: src/KeyDefPage.cxx:393 src/KeyDefPage.cxx:402
+#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
 msgid "Error"
 msgstr "Chyba"
 
-#: src/KeyDefPage.cxx:400
+#: src/KeyDefPage.cxx:399
 #, c++-format
 msgid "Wrote {}"
 msgstr "Zapísané {}"
 
-#: src/KeyDefPage.cxx:412
+#: src/KeyDefPage.cxx:411
 msgid "===> Apply key bindings "
 msgstr "===> Použiť nastavenie klávesov "
 
-#: src/KeyDefPage.cxx:414
+#: src/KeyDefPage.cxx:413
 msgid "===> Apply & Save key bindings  "
 msgstr "===> Použiť & Uložiť nastavenie klávesov  "
 
-#: src/KeyDefPage.cxx:450
+#: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"
 msgstr "Upraviť priradenie klávesov"
 
-#: src/KeyDefPage.cxx:531
+#: src/KeyDefPage.cxx:530
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Poznámka: Nezabudli ste 'Použiť' vaše zmeny?"
 
-#: src/KeyDefPage.cxx:581
+#: src/KeyDefPage.cxx:580
 msgid "Keys"
 msgstr "Klávesy"
 
@@ -749,53 +749,53 @@ msgid "Library"
 msgstr "Knižnica"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:202
+#: src/LyricsPage.cxx:203
 msgid "No lyrics"
 msgstr "Bez textu"
 
-#: src/LyricsPage.cxx:216
+#: src/LyricsPage.cxx:217
 #, c++-format
 msgid "Lyrics timeout occurred after {} seconds"
 msgstr "Po {} sekundách vypršal čas na získanie textu piesne"
 
-#: src/LyricsPage.cxx:313 src/LyricsPage.cxx:321 src/LyricsPage.cxx:324
-#: src/LyricsPage.cxx:326 src/LyricsPage.cxx:445
+#: src/LyricsPage.cxx:314 src/LyricsPage.cxx:322 src/LyricsPage.cxx:325
+#: src/LyricsPage.cxx:327 src/LyricsPage.cxx:457
 msgid "Lyrics"
 msgstr "Text piesne"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:317
+#: src/LyricsPage.cxx:318
 msgid "loading..."
 msgstr "načítam..."
 
-#: src/LyricsPage.cxx:334
+#: src/LyricsPage.cxx:335
 msgid "Lyrics cache is unavailable"
 msgstr "Lyrics cache nie je k dispozícii"
 
-#: src/LyricsPage.cxx:339
+#: src/LyricsPage.cxx:340
 msgid "Editor not configured"
 msgstr "Editor nie je nastavený"
 
-#: src/LyricsPage.cxx:369 src/LyricsPage.cxx:386
+#: src/LyricsPage.cxx:375 src/LyricsPage.cxx:398
 msgid "Can't start editor"
 msgstr "Nepodarilo sa spustiť editor"
 
-#: src/LyricsPage.cxx:389 src/LyricsPage.cxx:393
+#: src/LyricsPage.cxx:391 src/LyricsPage.cxx:401 src/LyricsPage.cxx:405
 msgid "Editor exited unexpectedly"
 msgstr "Editor neočakávane skončil"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:415
+#: src/LyricsPage.cxx:427
 msgid "Lyrics saved"
 msgstr "Text piesne uložený"
 
-#: src/LyricsPage.cxx:421
+#: src/LyricsPage.cxx:433
 msgid "Lyrics deleted"
 msgstr "Text skladby bol odstránený"
 
-#: src/LyricsPage.cxx:422
+#: src/LyricsPage.cxx:434
 msgid "No saved lyrics"
 msgstr "Žiaden uložený text piesne"
 
@@ -839,15 +839,15 @@ msgstr "Výstup '{}' zapnutý"
 msgid "Output '{}' disabled"
 msgstr "Výstup '{}' vypnutý"
 
-#: src/OutputsPage.cxx:330 src/OutputsPage.cxx:429
+#: src/OutputsPage.cxx:333 src/OutputsPage.cxx:432
 msgid "Outputs"
 msgstr "Výstupy"
 
-#: src/OutputsPage.cxx:340
+#: src/OutputsPage.cxx:343
 msgid "Partition"
 msgstr "Partícia"
 
-#: src/OutputsPage.cxx:361
+#: src/OutputsPage.cxx:364
 msgid "Create new partition"
 msgstr "Vytvoriť novú partíciu"
 
@@ -1224,19 +1224,19 @@ msgstr "rok"
 msgid "years"
 msgstr "roky"
 
-#: src/time_format.cxx:40
+#: src/time_format.cxx:44
 msgid "week"
 msgstr "týždeň"
 
-#: src/time_format.cxx:43
+#: src/time_format.cxx:47
 msgid "weeks"
 msgstr "týždne"
 
-#: src/time_format.cxx:50
+#: src/time_format.cxx:58
 msgid "day"
 msgstr "deň"
 
-#: src/time_format.cxx:53
+#: src/time_format.cxx:61
 msgid "days"
 msgstr "dni"
 

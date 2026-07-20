@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 08:21+0200\n"
+"POT-Creation-Date: 2026-07-20 16:17+0200\n"
 "PO-Revision-Date: 2026-02-28 06:09+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/ncmpc/"
@@ -375,7 +375,7 @@ msgstr "არასწორი დროის ჩვენების ტი
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:584
+#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:587
 msgid "Missing '='"
 msgstr "აკლია '='"
 
@@ -423,7 +423,7 @@ msgstr "არასწორი სვეტის სიგანე"
 msgid "Invalid column fraction width"
 msgstr "არასწორი სვეტის ნაწილის სიგანე"
 
-#: src/ConfigParser.cxx:757
+#: src/ConfigParser.cxx:760
 msgid "Unknown configuration parameter"
 msgstr "უცნობი კონფიგურაციის პარამეტრი"
 
@@ -442,23 +442,23 @@ msgstr "დასაკრავი სიის რედაქტორი"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:235
+#: src/FileBrowserPage.cxx:240
 msgid "Deleting this item is not possible"
 msgstr "ამ ელემენტის წაშლა შეუძლებელია"
 
-#: src/FileBrowserPage.cxx:242
+#: src/FileBrowserPage.cxx:250
 #, c++-format
 msgid "Delete playlist {}?"
 msgstr "წაიშალოს დასაკრავი სია {}?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:261
+#: src/FileBrowserPage.cxx:269
 msgid "Playlist deleted"
 msgstr "დასაკრავი სია წაიშალა"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:288 src/FileBrowserPage.cxx:359
+#: src/FileBrowserPage.cxx:296 src/FileBrowserPage.cxx:367
 msgid "Browse"
 msgstr "პოვნა"
 
@@ -607,44 +607,44 @@ msgstr "ახალი ღილაკის დამატება"
 msgid "Edit keys for {}"
 msgstr "ღილაკების ჩასწორება {}-ისთვის"
 
-#: src/KeyDefPage.cxx:372
+#: src/KeyDefPage.cxx:371
 msgid "You have new key bindings"
 msgstr "გაქვთ ახალი ღილაკის მინიჭებები"
 
-#: src/KeyDefPage.cxx:374
+#: src/KeyDefPage.cxx:373
 msgid "Keybindings unchanged."
 msgstr "ღილაკის მინიჭებები არ უცვლელია."
 
-#: src/KeyDefPage.cxx:384
+#: src/KeyDefPage.cxx:383
 msgid "Unable to write configuration"
 msgstr "კონფიგურაციის ჩაწერა შეუძლებელია"
 
-#: src/KeyDefPage.cxx:393 src/KeyDefPage.cxx:402
+#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
 msgid "Error"
 msgstr "შეცდომა"
 
-#: src/KeyDefPage.cxx:400
+#: src/KeyDefPage.cxx:399
 #, c++-format
 msgid "Wrote {}"
 msgstr "{} ჩაწერილია"
 
-#: src/KeyDefPage.cxx:412
+#: src/KeyDefPage.cxx:411
 msgid "===> Apply key bindings "
 msgstr "===> ღილაკის მინიჭებების გადატარება "
 
-#: src/KeyDefPage.cxx:414
+#: src/KeyDefPage.cxx:413
 msgid "===> Apply & Save key bindings  "
 msgstr "===> ღილაკის მინიჭებების გადატარება და შენახვა  "
 
-#: src/KeyDefPage.cxx:450
+#: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"
 msgstr "ღილაკის მინიჭებების ჩასწორება"
 
-#: src/KeyDefPage.cxx:531
+#: src/KeyDefPage.cxx:530
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "შენიშვნა: დაგავიწყდათ თქვენი ცვლილებების 'გადატარება'?"
 
-#: src/KeyDefPage.cxx:581
+#: src/KeyDefPage.cxx:580
 msgid "Keys"
 msgstr "გასაღებები"
 
@@ -749,53 +749,53 @@ msgid "Library"
 msgstr "ბიბლიოთეკა"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:202
+#: src/LyricsPage.cxx:203
 msgid "No lyrics"
 msgstr "ლირიკის გარეშე"
 
-#: src/LyricsPage.cxx:216
+#: src/LyricsPage.cxx:217
 #, c++-format
 msgid "Lyrics timeout occurred after {} seconds"
 msgstr "ლირიკის მოლოდინის ვადა ამოიწურა {} წამის შემდეგ"
 
-#: src/LyricsPage.cxx:313 src/LyricsPage.cxx:321 src/LyricsPage.cxx:324
-#: src/LyricsPage.cxx:326 src/LyricsPage.cxx:445
+#: src/LyricsPage.cxx:314 src/LyricsPage.cxx:322 src/LyricsPage.cxx:325
+#: src/LyricsPage.cxx:327 src/LyricsPage.cxx:457
 msgid "Lyrics"
 msgstr "ლირიკა"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:317
+#: src/LyricsPage.cxx:318
 msgid "loading..."
 msgstr "იტვირთება..."
 
-#: src/LyricsPage.cxx:334
+#: src/LyricsPage.cxx:335
 msgid "Lyrics cache is unavailable"
 msgstr "ლირიკის კეში ხელმისაწვდომი არაა"
 
-#: src/LyricsPage.cxx:339
+#: src/LyricsPage.cxx:340
 msgid "Editor not configured"
 msgstr "რედაქტორი მორგებული არაა"
 
-#: src/LyricsPage.cxx:369 src/LyricsPage.cxx:386
+#: src/LyricsPage.cxx:375 src/LyricsPage.cxx:398
 msgid "Can't start editor"
 msgstr "რედაქტორის გაშვება შეუძლებელია"
 
-#: src/LyricsPage.cxx:389 src/LyricsPage.cxx:393
+#: src/LyricsPage.cxx:391 src/LyricsPage.cxx:401 src/LyricsPage.cxx:405
 msgid "Editor exited unexpectedly"
 msgstr "რედაქტორმა მუშაობა მოულოდნელად შეწყვიტა"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:415
+#: src/LyricsPage.cxx:427
 msgid "Lyrics saved"
 msgstr "ლირიკა შენახულია"
 
-#: src/LyricsPage.cxx:421
+#: src/LyricsPage.cxx:433
 msgid "Lyrics deleted"
 msgstr "ლირიკა წაიშალა"
 
-#: src/LyricsPage.cxx:422
+#: src/LyricsPage.cxx:434
 msgid "No saved lyrics"
 msgstr "წაშლილი ლირიკის გარეშე"
 
@@ -834,15 +834,15 @@ msgstr "გამოტანა '{}' ჩართულია"
 msgid "Output '{}' disabled"
 msgstr "გამოტანა '{}' გამორთულია"
 
-#: src/OutputsPage.cxx:330 src/OutputsPage.cxx:429
+#: src/OutputsPage.cxx:333 src/OutputsPage.cxx:432
 msgid "Outputs"
 msgstr "გამოტანები"
 
-#: src/OutputsPage.cxx:340
+#: src/OutputsPage.cxx:343
 msgid "Partition"
 msgstr "დანაყოფი"
 
-#: src/OutputsPage.cxx:361
+#: src/OutputsPage.cxx:364
 msgid "Create new partition"
 msgstr "ახალი დანაყოფის შექმნა"
 
@@ -1219,19 +1219,19 @@ msgstr "წელი"
 msgid "years"
 msgstr "წელი"
 
-#: src/time_format.cxx:40
+#: src/time_format.cxx:44
 msgid "week"
 msgstr "კვირა"
 
-#: src/time_format.cxx:43
+#: src/time_format.cxx:47
 msgid "weeks"
 msgstr "კვირა"
 
-#: src/time_format.cxx:50
+#: src/time_format.cxx:58
 msgid "day"
 msgstr "დღე"
 
-#: src/time_format.cxx:53
+#: src/time_format.cxx:61
 msgid "days"
 msgstr "დღე"
 
