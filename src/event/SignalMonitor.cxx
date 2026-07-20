@@ -72,7 +72,6 @@ private:
 	void OnSocketReady(unsigned flags) noexcept;
 };
 
-/* this should be enough - is it? */
 #ifdef NSIG
 static constexpr unsigned MAX_SIGNAL = NSIG;
 #else
