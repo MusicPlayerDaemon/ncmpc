@@ -1,5 +1,6 @@
 ncmpc 0.53 - not yet released
 * fix disappearing partition list on Ctrl-L
+* fix crash on song move error
 * add Georgian translation
 * support libfmt 12.2.0
 * switch to C++23

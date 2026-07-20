@@ -820,7 +820,7 @@ mpdclient::RunMove(unsigned dest_pos, unsigned src_pos) noexcept
 	events |= MPD_IDLE_QUEUE;
 
 	const struct mpd_status *new_status = ReceiveStatus();
-	if (status == nullptr)
+	if (new_status == nullptr)
 		return false;
 
 	if (!mpd_response_finish(c))
