@@ -42,8 +42,7 @@ ParseBasicColorName(const char *name) noexcept
 short
 ParseColorNameOrNumber(const char *s) noexcept
 {
-	short basic = ParseBasicColorName(s);
-	if (basic >= 0)
+	if (short basic = ParseBasicColorName(s); basic >= 0)
 		return basic;
 
 	char *endptr;
