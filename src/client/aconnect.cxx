@@ -12,6 +12,7 @@
 #include <mpd/client.h>
 #include <mpd/async.h>
 
+#include <algorithm> // for std::find()
 #include <cstdio>
 #include <cstring>
 
@@ -54,6 +55,9 @@ ReceiveWelcome(SocketDescriptor socket, std::span<char> buffer)
 		throw MakeSocketError("Failed to receive from MPD");
 
 	const std::span<const char> line = buffer.first(nbytes);
+
+	if (std::find(line.begin(), line.end(), '\0') != line.end())
+		throw SocketGarbageReceivedError{"Garbage received from server"};
 
 	if (line.size() >= buffer.size())
 		throw SocketMessageTooLargeError{"Welcome line is too long"};
