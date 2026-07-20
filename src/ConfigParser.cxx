@@ -560,6 +560,9 @@ ParseTableColumn(char *s)
 static void
 ParseTableColumn(TableStructure &t, char *s)
 {
+	if (t.columns.full())
+		throw std::runtime_error{"Too many table columns"};
+
 	t.columns.emplace_back(ParseTableColumn(s));
 }
 

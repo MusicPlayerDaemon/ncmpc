@@ -4,9 +4,8 @@
 #pragma once
 
 #include "TableColumn.hxx"
-
-#include <vector>
+#include "util/StaticVector.hxx"
 
 struct TableStructure {
-	std::vector<TableColumn> columns;
+	StaticVector<TableColumn, 64> columns;
 };
