@@ -4,6 +4,7 @@
 #include "aconnect.hxx"
 #include "net/AsyncResolveConnect.hxx"
 #include "net/SocketError.hxx"
+#include "net/SocketProtocolError.hxx"
 #include "net/UniqueSocketDescriptor.hxx"
 #include "system/Error.hxx"
 #include "event/SocketEvent.hxx"
@@ -52,8 +53,13 @@ ReceiveWelcome(SocketDescriptor socket, std::span<char> buffer)
 	if (nbytes < 0)
 		throw MakeSocketError("Failed to receive from MPD");
 
+	const std::span<const char> line = buffer.first(nbytes);
+
+	if (line.size() >= buffer.size())
+		throw SocketMessageTooLargeError{"Welcome line is too long"};
+
 	// null-terminate it
-	buffer[nbytes] = '\0';
+	buffer[line.size()] = '\0';
 
 	return buffer.data();
 }
