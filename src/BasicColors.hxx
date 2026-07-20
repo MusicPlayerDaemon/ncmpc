@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef BASIC_COLORS_HXX
-#define BASIC_COLORS_HXX
+#pragma once
+
+#include <string_view>
 
 /**
  * Parse an ncurses color name.
@@ -11,7 +12,7 @@
  */
 [[gnu::pure]]
 short
-ParseBasicColorName(const char *name) noexcept;
+ParseBasicColorName(std::string_view name) noexcept;
 
 /**
  * Like ParseBasicColorName(), but also allow numeric colors.
@@ -20,6 +21,4 @@ ParseBasicColorName(const char *name) noexcept;
  */
 [[gnu::pure]]
 short
-ParseColorNameOrNumber(const char *s) noexcept;
-
-#endif
+ParseColorNameOrNumber(std::string_view s) noexcept;

@@ -2,13 +2,12 @@
 // Copyright The Music Player Daemon Project
 
 #include "BasicColors.hxx"
-#include "util/StringAPI.hxx"
+#include "util/NumberParser.hxx"
+#include "util/StringCompare.hxx"
 
 #include <curses.h>
 
-#include <stdlib.h>
-
-static constexpr const char *basic_color_names[] = {
+static constexpr std::string_view basic_color_names[] = {
 	"black",
 	"red",
 	"green",
@@ -17,7 +16,7 @@ static constexpr const char *basic_color_names[] = {
 	"magenta",
 	"cyan",
 	"white",
-	nullptr
+	{}
 };
 
 static_assert(COLOR_BLACK == 0, "Unexpected color value");
@@ -30,9 +29,9 @@ static_assert(COLOR_CYAN == 6, "Unexpected color value");
 static_assert(COLOR_WHITE == 7, "Unexpected color value");
 
 short
-ParseBasicColorName(const char *name) noexcept
+ParseBasicColorName(std::string_view name) noexcept
 {
-	for (size_t i = 0; basic_color_names[i] != nullptr; ++i)
+	for (size_t i = 0; !basic_color_names[i].empty(); ++i)
 		if (StringIsEqualIgnoreCase(basic_color_names[i], name))
 			return i;
 
@@ -40,15 +39,13 @@ ParseBasicColorName(const char *name) noexcept
 }
 
 short
-ParseColorNameOrNumber(const char *s) noexcept
+ParseColorNameOrNumber(std::string_view s) noexcept
 {
 	if (short basic = ParseBasicColorName(s); basic >= 0)
 		return basic;
 
-	char *endptr;
-	long numeric = strtol(s, &endptr, 10);
-	if (endptr > s && *endptr == 0 && numeric >= 0 && numeric <= 0xff)
-		return numeric;
+	if (short result; ParseIntegerTo(s, result, 10) && result <= 0xff)
+		return result;
 
 	return -1;
 }
