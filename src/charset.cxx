@@ -30,6 +30,8 @@ charset_init() noexcept
 static char *
 CopyTruncateString(std::span<char> dest, const std::string_view src) noexcept
 {
+	assert(!dest.empty());
+
 	char *p = std::copy_n(src.begin(), std::min(dest.size() - 1, src.size()), dest.data());
 	*p = 0;
 	return p;
