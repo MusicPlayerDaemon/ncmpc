@@ -29,7 +29,10 @@ ScreenManager::Paint() noexcept
 
 	const auto &page = GetCurrentPage();
 	if (modal == nullptr &&
-	    !page.PaintStatusBarOverride(status_bar.GetWindow()))
+	    /* use PaintStatusBarOverride() only if the status bar has
+	       no alert message */
+	    (status_bar.HasMessage() ||
+	     !page.PaintStatusBarOverride(status_bar.GetWindow())))
 		status_bar.Paint();
 
 	/* paint the main window */
