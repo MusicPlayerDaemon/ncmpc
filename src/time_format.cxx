@@ -31,6 +31,10 @@ format_duration_long(std::span<char> buffer, unsigned long duration) noexcept
 			bytes_written = snprintf(buffer.data(), buffer.size(),  "%d %s, ", 1, _("year"));
 		else
 			bytes_written = snprintf(buffer.data(), buffer.size(),  "%lu %s, ", duration / 31536000, _("years"));
+
+		if (bytes_written >= buffer.size())
+			return;
+
 		duration %= 31536000;
 		buffer = buffer.subspan(bytes_written);
 	}
@@ -41,6 +45,10 @@ format_duration_long(std::span<char> buffer, unsigned long duration) noexcept
 		else
 			bytes_written = snprintf(buffer.data(), buffer.size(),  "%lu %s, ",
 						 duration / 604800, _("weeks"));
+
+		if (bytes_written >= buffer.size())
+			return;
+
 		duration %= 604800;
 		buffer = buffer.subspan(bytes_written);
 	}
@@ -51,6 +59,10 @@ format_duration_long(std::span<char> buffer, unsigned long duration) noexcept
 		else
 			bytes_written = snprintf(buffer.data(), buffer.size(),  "%lu %s, ",
 						 duration / 86400, _("days"));
+
+		if (bytes_written >= buffer.size())
+			return;
+
 		duration %= 86400;
 		buffer = buffer.subspan(bytes_written);
 	}
