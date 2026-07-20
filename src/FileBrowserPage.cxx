@@ -22,6 +22,7 @@
 #include <fmt/format.h>
 #include <mpd/client.h>
 
+#include <forward_list>
 #include <string>
 
 #include <stdlib.h>
@@ -220,8 +221,12 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 	if (!c.IsConnected())
 		co_return;
 
+	/* copy the list of playlist paths to be deleted to the stack
+	   because all pointers/indexes could possibly be invalidated
+	   during the co_await in the deletion loop */
+	std::forward_list<std::string> playlists;
 	const auto range = lw.GetRange();
-	for (const unsigned i : range) {
+	for (auto it = playlists.before_begin(); const unsigned i : range) {
 		auto &entry = (*filelist)[i];
 		if (entry.entity == nullptr)
 			continue;
@@ -238,9 +243,12 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 		}
 
 		const auto *playlist = mpd_entity_get_playlist(entity);
+		it = playlists.emplace_after(it, mpd_playlist_get_path(playlist));
+	}
 
+	for (const auto &path : playlists) {
 		const auto prompt = fmt::format(fmt::runtime(_("Delete playlist {}?")),
-						(std::string_view)Utf8ToLocale{GetUriFilename(mpd_playlist_get_path(playlist))});
+						(std::string_view)Utf8ToLocale{GetUriFilename(path.c_str())});
 
 		if (co_await YesNoDialog{screen, prompt} != YesNoResult::YES)
 			co_return;
@@ -249,7 +257,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 		if (connection == nullptr)
 			throw std::runtime_error{"Not connected"};
 
-		if (!mpd_run_rm(connection, mpd_playlist_get_path(playlist))) {
+		if (!mpd_run_rm(connection, path.c_str())) {
 			c.HandleError();
 			break;
 		}
