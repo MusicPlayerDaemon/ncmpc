@@ -14,6 +14,8 @@
 
 #include <curses.h>
 
+#include <stdexcept>
+
 #ifdef NCURSES_VERSION
 #include <string.h>
 #endif
