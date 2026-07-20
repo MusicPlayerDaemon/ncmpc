@@ -48,6 +48,10 @@ public:
 	void SetMessage(std::string &&msg) noexcept;
 	void ClearMessage() noexcept;
 
+	bool HasMessage() const noexcept {
+		return !message.empty();
+	}
+
 	void OnResize(Point p, unsigned width) noexcept;
 	void Update(const struct mpd_status *status,
 		    const struct mpd_song *song,

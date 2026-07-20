@@ -218,7 +218,7 @@ StatusBar::Paint() const noexcept
 	window.MoveCursor({0, 0});
 	window.ClearToEol();
 
-	if (!message.empty()) {
+	if (HasMessage()) {
 		SelectStyle(window, Style::STATUS_ALERT);
 		window.String(message);
 		window.RefreshNoOut();
