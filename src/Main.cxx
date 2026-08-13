@@ -191,6 +191,13 @@ Instance::OnCommand(Command cmd) noexcept
 		return;
 	}
 
+#ifndef _WIN32
+	if (cmd == Command::SUSPEND) {
+		Suspend();
+		return;
+	}
+#endif
+
 	try {
 		screen_manager.OnCommand(GetClient(), GetSeek(), cmd);
 	} catch (...) {

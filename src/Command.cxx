@@ -16,6 +16,8 @@ static constexpr command_definition_t cmds[] = {
 #endif
 	{ "quit",
 	  N_("Quit") },
+	{ "suspend",
+	  N_("Suspend") },
 
 	/* movement */
 	{ "up",

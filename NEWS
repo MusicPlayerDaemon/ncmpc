@@ -1,4 +1,5 @@
 ncmpc 0.54 - not yet released
+* suspend to the shell with Ctrl-Z
 * fix buffer overflow in charset conversion
 * fix searching on lyrics page
 * fix terminal-escape injection

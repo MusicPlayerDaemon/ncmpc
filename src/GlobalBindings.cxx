@@ -13,6 +13,7 @@ static KeyBindings global_key_bindings{{{
 	{'K'},
 #endif
 	{'q', 'Q', KEY_CTL('C')},
+	{KEY_CTL('Z')},
 
 	/* movement */
 	{KEY_UP, 'k'},

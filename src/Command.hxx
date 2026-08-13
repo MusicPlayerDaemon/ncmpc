@@ -13,6 +13,7 @@ enum class Command : unsigned {
 	SCREEN_KEYDEF,
 #endif
 	QUIT,
+	SUSPEND,
 
 	/* movement */
 	LIST_PREVIOUS,

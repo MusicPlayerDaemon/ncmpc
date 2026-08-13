@@ -106,6 +106,13 @@ private:
 #ifndef _WIN32
 	void InitSignals();
 	void OnSigwinch() noexcept;
+
+	/**
+	 * Suspend the process (as if the user had pressed Ctrl-Z on a
+	 * terminal without raw mode): restore the terminal, raise
+	 * SIGTSTP and, once resumed, re-enter curses and repaint.
+	 */
+	void Suspend() noexcept;
 #endif
 
 	void OnUpdateScreen() noexcept;

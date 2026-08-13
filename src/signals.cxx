@@ -25,6 +25,20 @@ Instance::OnSigwinch() noexcept
 }
 
 void
+Instance::Suspend() noexcept
+{
+	/* hand the terminal back to the shell in a sane (cooked) state */
+	endwin();
+
+	/* stop this process; execution resumes here once we get
+	   SIGCONT (e.g. after the shell's "fg") */
+	raise(SIGTSTP);
+
+	/* resumed: re-enter curses and repaint */
+	OnSigwinch();
+}
+
+void
 Instance::InitSignals()
 {
 	/* ignore SIGPIPE */
