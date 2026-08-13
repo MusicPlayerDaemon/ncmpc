@@ -299,7 +299,8 @@ try {
 		/* this must be executed after ~Instance(), so we're
 		   using AtScopeExit() to do the trick */
 #ifndef NCMPC_MINI
-		set_xterm_title({});
+		if (options.enable_xterm_title)
+			set_xterm_title({});
 #endif
 		printf("\n");
 	};

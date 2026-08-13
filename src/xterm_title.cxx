@@ -2,7 +2,6 @@
 // Copyright The Music Player Daemon Project
 
 #include "xterm_title.hxx"
-#include "Options.hxx"
 #include "util/CharUtil.hxx"
 
 #include <fmt/core.h>
@@ -49,7 +48,7 @@ IsSafe(std::string_view s) noexcept
 void
 set_xterm_title(std::string_view title) noexcept
 {
-	if (!options.enable_xterm_title || !SupportsXtermTitle())
+	if (!SupportsXtermTitle())
 		return;
 
 	if (!IsSafe(title))
