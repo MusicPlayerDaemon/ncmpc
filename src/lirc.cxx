@@ -13,7 +13,7 @@ LircInput::OnSocketReady(unsigned) noexcept
 {
 	char *code, *txt;
 
-	if (lirc_nextcode(&code) == 0) {
+	if (lirc_nextcode(&code) == 0 && code != nullptr) {
 		while (lirc_code2char(lc, code, &txt) == 0 && txt != nullptr) {
 			const auto cmd = get_key_command_from_name(txt);
 			handler.OnCommand(cmd);
