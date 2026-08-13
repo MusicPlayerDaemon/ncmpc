@@ -64,13 +64,19 @@ Iconv(iconv_t i,
 				   character instead */
 				++src;
 				--src_length;
-				*dest++ = FALLBACK;
+
+				if (dest_size > 0) {
+					*dest++ = FALLBACK;
+					--dest_size;
+				}
+
 				break;
 
 			case EINVAL:
 				/* incomplete sequence: add fallback
 				   character and stop */
-				*dest++ = FALLBACK;
+				if (dest_size > 0)
+					*dest++ = FALLBACK;
 				*dest = '\0';
 				return dest;
 
