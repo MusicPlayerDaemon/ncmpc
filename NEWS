@@ -4,6 +4,7 @@ ncmpc 0.54 - not yet released
 * fix terminal-escape injection
 * support terminal titles on Wayland
 * re-send the terminal title after resize
+* fix title of library pages
 
 ncmpc 0.53 - (2026-07-20)
 * more contrast for default styles "line-flags" and "status-state"

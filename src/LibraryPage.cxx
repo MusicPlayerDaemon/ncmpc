@@ -184,7 +184,7 @@ ArtistBrowserPage::OpenTagPage(struct mpdclient &c,
 
 	char buffer[64];
 	page->SetTitle(MakePageTitle(buffer,
-				     _("Albums"),
+				     GetTagPlural(current_tag_list_page->GetTag()),
 				     page->GetFilter()));
 
 	SetCurrentPage(c, &*page);
