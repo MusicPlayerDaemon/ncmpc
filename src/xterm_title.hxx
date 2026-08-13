@@ -6,4 +6,7 @@
 #include <string_view>
 
 void
+InitXtermTitle() noexcept;
+
+void
 set_xterm_title(std::string_view title) noexcept;

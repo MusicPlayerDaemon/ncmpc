@@ -292,6 +292,9 @@ try {
 	/* create the global Instance */
 	Instance instance;
 
+#ifndef NCMPC_MINI
+	InitXtermTitle();
+#endif
 	AtScopeExit() {
 		/* this must be executed after ~Instance(), so we're
 		   using AtScopeExit() to do the trick */
