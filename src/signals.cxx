@@ -18,6 +18,10 @@ Instance::OnSigwinch() noexcept
 	keypad(stdscr, true);
 
 	screen_manager.OnResize();
+
+#ifndef NCMPC_MINI
+	UpdateXtermTitle();
+#endif
 }
 
 void
