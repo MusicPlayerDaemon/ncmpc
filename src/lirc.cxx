@@ -44,6 +44,8 @@ LircInput::~LircInput()
 {
 	if (lc)
 		lirc_freeconfig(lc);
-	if (event.IsDefined())
+	if (event.IsDefined()) {
+		event.Cancel();
 		lirc_deinit();
+	}
 }
