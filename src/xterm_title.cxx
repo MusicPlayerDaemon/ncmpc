@@ -3,10 +3,13 @@
 
 #include "xterm_title.hxx"
 #include "Options.hxx"
+#include "util/CharUtil.hxx"
 
 #include <fmt/core.h>
 
 #include <term.h>
+
+#include <algorithm> // for std::all_of()
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,10 +37,25 @@ SupportsXtermTitle() noexcept
 	return to_status_line_ != nullptr;
 }
 
+[[gnu::pure]]
+static bool
+IsSafe(std::string_view s) noexcept
+{
+	return std::all_of(s.begin(), s.end(), [](char ch){
+		return !IsNonPrintableASCII(ch);
+	});
+}
+
 void
 set_xterm_title(std::string_view title) noexcept
 {
 	if (!options.enable_xterm_title || !SupportsXtermTitle())
+		return;
+
+	if (!IsSafe(title))
+		/* refuse to write strings with control characters to
+		   the terminal as this may inject control
+		   sequences */
 		return;
 
 	fmt::print("{}{}{}"sv, to_status_line_, title, from_status_line_);
