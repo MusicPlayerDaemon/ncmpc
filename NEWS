@@ -1,3 +1,5 @@
+ncmpc 0.55 - not yet released
+
 ncmpc 0.54 - (2026-08-13)
 * suspend to the shell with Ctrl-Z
 * fix buffer overflow in charset conversion
