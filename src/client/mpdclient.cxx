@@ -447,8 +447,10 @@ mpdclient::Connect() noexcept
 	/* connect to MPD */
 	struct mpd_connection *new_connection =
 		mpd_connection_new(host, port, timeout_ms);
-	if (new_connection == nullptr)
+	if (new_connection == nullptr) {
 		fprintf(stderr, "Out of memory\n");
+		return;
+	}
 
 	OnConnected(new_connection);
 #endif
