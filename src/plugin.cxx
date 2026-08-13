@@ -183,7 +183,7 @@ PluginCycle::OnEof() noexcept
 		 * (69), log it for later. If all plugins fail, we may get
 		 * some hints for debugging.*/
 		const auto data = pipe_stderr.TakeData();
-		if (!data.empty() && WEXITSTATUS(status) != 69) {
+		if (!data.empty() || !WIFEXITED(status) || WEXITSTATUS(status) != 69) {
 			all_errors += "*** ";
 			all_errors += argv[0];
 			all_errors += " ***\n\n";
