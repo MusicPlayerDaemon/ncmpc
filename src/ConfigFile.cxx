@@ -91,7 +91,7 @@ GetSystemKeysPath() noexcept
 	for (system_data_dirs = g_get_system_config_dirs (); *system_data_dirs != nullptr; system_data_dirs++)
 	{
 		auto path = BuildPath(*system_data_dirs, PACKAGE, KEYS_FILENAME);
-		if (IsFile(pathname.c_str()))
+		if (IsFile(path.c_str()))
 			return path;
 	}
 	return {}
