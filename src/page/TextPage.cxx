@@ -90,8 +90,8 @@ TextPage::OnCommand(struct mpdclient &c, Command cmd)
 		   search */
 		lw.SetCursorFromOrigin(0);
 
-	if (find_support.Find(lw, *this, cmd)) {
-		SchedulePaint();
+	if (auto task = find_support.Find(lw, *this, cmd)) {
+		CoStart(std::move(task));
 		return true;
 	}
 
