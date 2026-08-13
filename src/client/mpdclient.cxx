@@ -548,6 +548,10 @@ mpdclient::ReceiveStatus() noexcept
 bool
 mpdclient_cmd_crop(struct mpdclient &c) noexcept
 {
+	struct mpd_connection *connection = c.GetConnection();
+	if (connection == nullptr)
+		return false;
+
 	if (!c.playing_or_paused)
 		return false;
 
@@ -555,10 +559,6 @@ mpdclient_cmd_crop(struct mpdclient &c) noexcept
 	int current = mpd_status_get_song_pos(c.status);
 	if (current < 0 || mpd_status_get_queue_length(c.status) < 2)
 		return true;
-
-	struct mpd_connection *connection = c.GetConnection();
-	if (connection == nullptr)
-		return false;
 
 	mpd_command_list_begin(connection, false);
 
