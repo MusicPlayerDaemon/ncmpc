@@ -51,14 +51,7 @@ update_xterm_title(const struct mpd_song *song) noexcept
 			new_title = s;
 	}
 
-	static char old_title[BUFSIZE];
-	static std::size_t old_title_length = 0;
-
-	if (new_title != std::string_view{old_title, old_title_length}) {
-		std::copy(new_title.begin(), new_title.end(), old_title);
-		old_title_length = new_title.size();
-		set_xterm_title(new_title);
-	}
+	set_xterm_title(new_title);
 }
 
 void
@@ -94,8 +87,6 @@ Instance::UpdateClient() noexcept
 	if (client.IsReady() &&
 	    (client.events != 0 || client.playing))
 		client.Update();
-
-	UpdateXtermTitle();
 
 	screen_manager.Update(client, seek);
 	client.events = (enum mpd_idle)0;
@@ -138,6 +129,7 @@ Instance::OnMpdConnected() noexcept
 	doupdate();
 
 	UpdateClient();
+	UpdateXtermTitle();
 
 	auto_update_timer(*this);
 }
@@ -153,13 +145,16 @@ void
 Instance::OnMpdConnectionLost() noexcept
 {
 	screen_manager.Update(client, seek);
+	UpdateXtermTitle();
+
 	ScheduleReconnect(std::chrono::seconds{1});
 }
 
 void
-Instance::OnMpdIdle([[maybe_unused]] unsigned events) noexcept
+Instance::OnMpdIdle(unsigned events) noexcept
 {
-	UpdateXtermTitle();
+	if (events & MPD_IDLE_PLAYER)
+		UpdateXtermTitle();
 
 	screen_manager.Update(client, seek);
 	auto_update_timer(*this);
