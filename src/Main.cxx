@@ -39,10 +39,8 @@ using std::string_view_literals::operator""sv;
 
 #ifndef NCMPC_MINI
 static void
-update_xterm_title(struct mpdclient &client) noexcept
+update_xterm_title(const struct mpd_song *song) noexcept
 {
-	const struct mpd_song *song = client.GetPlayingSong();
-
 	static constexpr std::size_t BUFSIZE = 1024;
 
 	char tmp[BUFSIZE];
@@ -62,6 +60,17 @@ update_xterm_title(struct mpdclient &client) noexcept
 		set_xterm_title(new_title);
 	}
 }
+
+void
+Instance::UpdateXtermTitle() noexcept
+{
+	if (!options.enable_xterm_title)
+		return;
+
+	const struct mpd_song *song = client.GetPlayingSong();
+	update_xterm_title(song);
+}
+
 #endif
 
 static bool
@@ -86,10 +95,7 @@ Instance::UpdateClient() noexcept
 	    (client.events != 0 || client.playing))
 		client.Update();
 
-#ifndef NCMPC_MINI
-	if (options.enable_xterm_title)
-		update_xterm_title(client);
-#endif
+	UpdateXtermTitle();
 
 	screen_manager.Update(client, seek);
 	client.events = (enum mpd_idle)0;
@@ -153,10 +159,7 @@ Instance::OnMpdConnectionLost() noexcept
 void
 Instance::OnMpdIdle([[maybe_unused]] unsigned events) noexcept
 {
-#ifndef NCMPC_MINI
-	if (options.enable_xterm_title)
-		update_xterm_title(client);
-#endif
+	UpdateXtermTitle();
 
 	screen_manager.Update(client, seek);
 	auto_update_timer(*this);

@@ -119,7 +119,11 @@ private:
 		update_timer.Schedule(std::chrono::milliseconds(500));
 	}
 
-#ifndef NCMPC_MINI
+#ifdef NCMPC_MINI
+	void UpdateXtermTitle() noexcept {}
+#else
+	void UpdateXtermTitle() noexcept;
+
 	void OnCheckKeyBindings() noexcept;
 #endif
 
