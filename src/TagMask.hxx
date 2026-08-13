@@ -86,7 +86,7 @@ public:
 	}
 
 	void Unset(enum mpd_tag_type tag) noexcept {
-		*this |= ~TagMask(tag);
+		*this &= ~TagMask(tag);
 	}
 };
 
