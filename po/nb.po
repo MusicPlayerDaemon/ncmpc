@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 16:17+0200\n"
+"POT-Creation-Date: 2026-08-16 08:56+0200\n"
 "PO-Revision-Date: 2020-09-08 16:36+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/ncmpc/"
@@ -45,289 +45,293 @@ msgstr "Tastaturkonfigurasjon"
 msgid "Quit"
 msgstr "Avslutt"
 
-#: src/Command.cxx:22
+#: src/Command.cxx:20
+msgid "Suspend"
+msgstr ""
+
+#: src/Command.cxx:24
 msgid "Move cursor up"
 msgstr "Flytt markør opp"
 
-#: src/Command.cxx:24
+#: src/Command.cxx:26
 msgid "Move cursor down"
 msgstr "Flytt markør ned"
 
-#: src/Command.cxx:26
+#: src/Command.cxx:28
 msgid "Move cursor to the top of screen"
 msgstr "Flytt peker til toppen av skjermen"
 
-#: src/Command.cxx:28
+#: src/Command.cxx:30
 msgid "Move cursor to the middle of screen"
 msgstr "Flytt pekeren til midten av skjermen"
 
-#: src/Command.cxx:30
+#: src/Command.cxx:32
 msgid "Move cursor to the bottom of screen"
 msgstr "Flytt pekeren til bunnen av skjermen"
 
-#: src/Command.cxx:32
+#: src/Command.cxx:34
 msgid "Move cursor to the top of the list"
 msgstr "Flytt pekeren til toppen av listen"
 
-#: src/Command.cxx:34
+#: src/Command.cxx:36
 msgid "Move cursor to the bottom of the list"
 msgstr "Flytt pekeren til bunnen av listen"
 
-#: src/Command.cxx:36
+#: src/Command.cxx:38
 msgid "Page up"
 msgstr "Markøren en side opp"
 
-#: src/Command.cxx:38
+#: src/Command.cxx:40
 msgid "Page down"
 msgstr "Markøren en side ned"
 
-#: src/Command.cxx:40
+#: src/Command.cxx:42
 #, fuzzy
 msgid "Range selection"
 msgstr "Områdevalg"
 
-#: src/Command.cxx:42
+#: src/Command.cxx:44
 msgid "Scroll down one line"
 msgstr "Rull nedover én linje"
 
-#: src/Command.cxx:44
+#: src/Command.cxx:46
 msgid "Scroll up one line"
 msgstr "Rull oppover én linje"
 
-#: src/Command.cxx:46
+#: src/Command.cxx:48
 msgid "Scroll up half a screen"
 msgstr "Rull oppover en halv skjerm"
 
-#: src/Command.cxx:48
+#: src/Command.cxx:50
 msgid "Scroll down half a screen"
 msgstr "Rull nedover en halv skjerm"
 
-#: src/Command.cxx:50
+#: src/Command.cxx:52
 msgid "Select currently playing song"
 msgstr "Velg sangen som spilles"
 
-#: src/Command.cxx:55
+#: src/Command.cxx:57
 msgid "Help screen"
 msgstr "Hjelp"
 
-#: src/Command.cxx:57 src/HelpPage.cxx:125
+#: src/Command.cxx:59 src/HelpPage.cxx:125
 msgid "Queue screen"
 msgstr "Køskjerm"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:140
+#: src/Command.cxx:61 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "Filer"
 
-#: src/Command.cxx:64
+#: src/Command.cxx:66
 msgid "Play/Enter directory"
 msgstr "Spill/Velg mappe"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Pause"
 msgstr "Pause"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Stop"
 msgstr "Stopp"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Crop"
 msgstr "Beskjær"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Next track"
 msgstr "Neste"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Previous track"
 msgstr "Forrige"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Seek forward"
 msgstr "Blafre forover"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek backward"
 msgstr "Blafre bakover"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Increase volume"
 msgstr "Øk volumet"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Decrease volume"
 msgstr "Demp volumet"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 #, fuzzy
 msgid "Select/deselect song in queue"
 msgstr "Velg/fravelg i spillelisten"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 msgid "Select all listed items"
 msgstr "Velg alle i listen"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Delete song from queue"
 msgstr "Fjern sang fra kø"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 msgid "Shuffle queue"
 msgstr "Stokk om kø"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 msgid "Clear queue"
 msgstr "Tøm kø"
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 msgid "Toggle repeat mode"
 msgstr "Repeat På/Av"
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle random mode"
 msgstr "Random På/Av"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle single mode"
 msgstr "Veksle enkelt modus"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle consume mode"
 msgstr "Veksle konsumentmodus"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 msgid "Toggle crossfade mode"
 msgstr "Crossfade På/Av"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Start a music database update"
 msgstr "Oppdater databasen"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Save queue"
 msgstr "Lagre kø"
 
-#: src/Command.cxx:108 src/HelpPage.cxx:162
+#: src/Command.cxx:110 src/HelpPage.cxx:162
 #, fuzzy
 msgid "Append song to queue"
 msgstr "Legg sang til spillelisten"
 
-#: src/Command.cxx:111
+#: src/Command.cxx:113
 msgid "Go to root directory"
 msgstr "Gå til rotmappe"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to parent directory"
 msgstr "Gå ett nivå opp"
 
-#: src/Command.cxx:116
+#: src/Command.cxx:118
 msgid "Locate song in browser"
 msgstr "Finn sang i filutforsker"
 
-#: src/Command.cxx:120
+#: src/Command.cxx:122
 msgid "Move item up"
 msgstr "Flytt opp"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item down"
 msgstr "Flytt ned"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Refresh screen"
 msgstr "Oppdater skjermbilde"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:131
+#: src/Command.cxx:133
 msgid "Toggle find mode"
 msgstr "Endre søkeinnstillinger"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:135
+#: src/Command.cxx:137
 msgid "Toggle auto center mode"
 msgstr "Automatisk sentrering på/av"
 
-#: src/Command.cxx:140
+#: src/Command.cxx:142
 msgid "Next screen"
 msgstr "Neste skjerm"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Previous screen"
 msgstr "Forrige skjerm"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Swap to most recent screen"
 msgstr "Bytt til nyligste skjerm"
 
-#: src/Command.cxx:149
+#: src/Command.cxx:151
 msgid "Forward find"
 msgstr "Søk fremover"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find next"
 msgstr "Søk neste (fremover)"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Backward find"
 msgstr "Søk bakover"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find previous"
 msgstr "Søk neste (bakover)"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:160
+#: src/Command.cxx:162
 msgid "Jump to"
 msgstr "Gå til"
 
-#: src/Command.cxx:166
+#: src/Command.cxx:168
 msgid "Library page"
 msgstr "Biblioteksside"
 
-#: src/Command.cxx:170 src/HelpPage.cxx:157
+#: src/Command.cxx:172 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "Database søk"
 
-#: src/Command.cxx:172
+#: src/Command.cxx:174
 msgid "Change search mode"
 msgstr "Endre søkemodus"
 
-#: src/Command.cxx:176
+#: src/Command.cxx:178
 #, fuzzy
 msgid "Playlist editor"
 msgstr "Spillelisten slettet"
 
-#: src/Command.cxx:180
+#: src/Command.cxx:182
 msgid "View the selected and the currently playing song"
 msgstr "Vis valgt og sang som spilles nå"
 
-#: src/Command.cxx:184 src/HelpPage.cxx:169
+#: src/Command.cxx:186 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "Tekstskjerm"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:188
+#: src/Command.cxx:190
 msgid "Interrupt action"
 msgstr "Avbryt handling"
 
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Update Lyrics"
 msgstr "Oppdater sangtekster"
 
-#: src/Command.cxx:194
+#: src/Command.cxx:196
 msgid "Edit the current item"
 msgstr "Rediger gjeldende element"
 
-#: src/Command.cxx:199 src/HelpPage.cxx:184
+#: src/Command.cxx:201 src/HelpPage.cxx:184
 #, fuzzy
 msgid "Outputs screen"
 msgstr "Utganger"
 
-#: src/Command.cxx:204 src/HelpPage.cxx:191
+#: src/Command.cxx:206 src/HelpPage.cxx:191
 msgid "Chat screen"
 msgstr "Sludreskjerm"
 
@@ -750,7 +754,7 @@ msgstr "Alt-%c"
 msgid "Artists"
 msgstr "Artist"
 
-#: src/LibraryPage.cxx:36 src/LibraryPage.cxx:187
+#: src/LibraryPage.cxx:36
 msgid "Albums"
 msgstr "Album"
 
@@ -818,12 +822,12 @@ msgstr "Tekster slettet"
 msgid "No saved lyrics"
 msgstr "Ingen lagrede tekster"
 
-#: src/Main.cxx:103
+#: src/Main.cxx:100
 #, c++-format
 msgid "Connecting to {}"
 msgstr "Kobler til {}"
 
-#: src/Main.cxx:119
+#: src/Main.cxx:116
 #, fuzzy, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "Feil: MPD-versjon {} er for gammel - oppgrader til versjon {}"
@@ -1104,15 +1108,15 @@ msgstr "Spiller:"
 msgid "[Paused]"
 msgstr "[Pause]"
 
-#: src/Styles.cxx:242 src/Styles.cxx:303
+#: src/Styles.cxx:245 src/Styles.cxx:301
 msgid "Unknown color"
 msgstr "Ukjent farge"
 
-#: src/Styles.cxx:313
+#: src/Styles.cxx:311
 msgid "Unknown color field"
 msgstr "Ukjent fargefelt"
 
-#: src/Styles.cxx:346
+#: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
 msgstr "Terminalen mangler støtte for farger"
 

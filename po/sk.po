@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 16:17+0200\n"
+"POT-Creation-Date: 2026-08-16 08:56+0200\n"
 "PO-Revision-Date: 2024-11-03 05:07+0000\n"
 "Last-Translator: Milan Šalka <salka.milan@googlemail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/ncmpc/"
@@ -44,284 +44,288 @@ msgstr "Okno nastavenia klávesov"
 msgid "Quit"
 msgstr "Ukončiť"
 
-#: src/Command.cxx:22
+#: src/Command.cxx:20
+msgid "Suspend"
+msgstr ""
+
+#: src/Command.cxx:24
 msgid "Move cursor up"
 msgstr "Presunúť kurzor vyššie"
 
-#: src/Command.cxx:24
+#: src/Command.cxx:26
 msgid "Move cursor down"
 msgstr "Presunúť kurzor nižšie"
 
-#: src/Command.cxx:26
+#: src/Command.cxx:28
 msgid "Move cursor to the top of screen"
 msgstr "Presunúť kurzor na vrch okna"
 
-#: src/Command.cxx:28
+#: src/Command.cxx:30
 msgid "Move cursor to the middle of screen"
 msgstr "Presunúť kurzor do stredu okna"
 
-#: src/Command.cxx:30
+#: src/Command.cxx:32
 msgid "Move cursor to the bottom of screen"
 msgstr "Presunúť kurzor na spodok okna"
 
-#: src/Command.cxx:32
+#: src/Command.cxx:34
 msgid "Move cursor to the top of the list"
 msgstr "Presunúť kurzor na začiatok zoznamu"
 
-#: src/Command.cxx:34
+#: src/Command.cxx:36
 msgid "Move cursor to the bottom of the list"
 msgstr "Presunúť kurzor na koniec zoznamu"
 
-#: src/Command.cxx:36
+#: src/Command.cxx:38
 msgid "Page up"
 msgstr "O stranu vyššie"
 
-#: src/Command.cxx:38
+#: src/Command.cxx:40
 msgid "Page down"
 msgstr "O stranu nižšie"
 
-#: src/Command.cxx:40
+#: src/Command.cxx:42
 msgid "Range selection"
 msgstr "Výber rozsahu"
 
-#: src/Command.cxx:42
+#: src/Command.cxx:44
 msgid "Scroll down one line"
 msgstr "Posunúť o jeden riadok nadol"
 
-#: src/Command.cxx:44
+#: src/Command.cxx:46
 msgid "Scroll up one line"
 msgstr "Posunúť o jeden riadok nahor"
 
-#: src/Command.cxx:46
+#: src/Command.cxx:48
 msgid "Scroll up half a screen"
 msgstr "Posunúť o polovicu okna nahor"
 
-#: src/Command.cxx:48
+#: src/Command.cxx:50
 msgid "Scroll down half a screen"
 msgstr "Posunúť o polovicu okna nadol"
 
-#: src/Command.cxx:50
+#: src/Command.cxx:52
 msgid "Select currently playing song"
 msgstr "Vybrať práve prehrávanú skladbu"
 
-#: src/Command.cxx:55
+#: src/Command.cxx:57
 msgid "Help screen"
 msgstr "Okno pomocníka"
 
-#: src/Command.cxx:57 src/HelpPage.cxx:125
+#: src/Command.cxx:59 src/HelpPage.cxx:125
 msgid "Queue screen"
 msgstr "Okno s poradím"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:140
+#: src/Command.cxx:61 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "Okno s prehliadaním"
 
-#: src/Command.cxx:64
+#: src/Command.cxx:66
 msgid "Play/Enter directory"
 msgstr "Prehrať/Vstúpiť do adresára"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Pause"
 msgstr "Pauza"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Stop"
 msgstr "Zastaviť"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Crop"
 msgstr "Orezať"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Next track"
 msgstr "Ďalšia stopa"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Previous track"
 msgstr "Predchádzajúca stopa"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Seek forward"
 msgstr "Posunúť dopredu"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek backward"
 msgstr "Posunúť dozadu"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Increase volume"
 msgstr "Zvýšiť hlasitosť"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Decrease volume"
 msgstr "Znížiť hlasitosť"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 msgid "Select/deselect song in queue"
 msgstr "Vybrať/zrušiť výber skladby v poradí"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 msgid "Select all listed items"
 msgstr "Vybrať všetky položky v zozname"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Delete song from queue"
 msgstr "Odstrániť skladbu z poradia"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 msgid "Shuffle queue"
 msgstr "Zamiešať poradie"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 msgid "Clear queue"
 msgstr "Vyčistiť zoznam"
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 msgid "Toggle repeat mode"
 msgstr "Zapnúť/vypnúť režim opakovania"
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle random mode"
 msgstr "Zapnúť/vypnúť náhodný režim"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle single mode"
 msgstr "Zapnúť/vypnúť jednotlivý režim"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle consume mode"
 msgstr "Zapnúť/vypnúť spotrebný režim"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 msgid "Toggle crossfade mode"
 msgstr "Zapnúť/vypnúť režim prelínania skladieb"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Start a music database update"
 msgstr "Spustiť aktualizáciu hudobnej databázy"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Save queue"
 msgstr "Uložiť poradie"
 
-#: src/Command.cxx:108 src/HelpPage.cxx:162
+#: src/Command.cxx:110 src/HelpPage.cxx:162
 msgid "Append song to queue"
 msgstr "Pridať skladbu do poradia"
 
-#: src/Command.cxx:111
+#: src/Command.cxx:113
 msgid "Go to root directory"
 msgstr "Prejsť do koreňového adresára"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to parent directory"
 msgstr "Prejsť do nadradeného adresára"
 
-#: src/Command.cxx:116
+#: src/Command.cxx:118
 msgid "Locate song in browser"
 msgstr "Nájsť skladbu v prehliadači"
 
-#: src/Command.cxx:120
+#: src/Command.cxx:122
 msgid "Move item up"
 msgstr "Presunúť položku vyššie"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item down"
 msgstr "Presunúť položku nižšie"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Refresh screen"
 msgstr "Obnoviť okno"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:131
+#: src/Command.cxx:133
 msgid "Toggle find mode"
 msgstr "Zapnúť/vypnúť režim vyhľadávania"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:135
+#: src/Command.cxx:137
 msgid "Toggle auto center mode"
 msgstr "Zapnúť/vypnúť automatický režim centrovania"
 
-#: src/Command.cxx:140
+#: src/Command.cxx:142
 msgid "Next screen"
 msgstr "Ďalšie okno"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Previous screen"
 msgstr "Predchádzajúce okno"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Swap to most recent screen"
 msgstr "Prepnúť na predchádzajúce okno"
 
-#: src/Command.cxx:149
+#: src/Command.cxx:151
 msgid "Forward find"
 msgstr "Hľadať smerom dopredu"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find next"
 msgstr "Pokračovať v hľadaní smerom dopredu"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Backward find"
 msgstr "Hľadať dozadu"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find previous"
 msgstr "Pokračovať v hľadaní smerom dozadu"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:160
+#: src/Command.cxx:162
 msgid "Jump to"
 msgstr "Prejsť na"
 
-#: src/Command.cxx:166
+#: src/Command.cxx:168
 msgid "Library page"
 msgstr "Okno knižnice"
 
-#: src/Command.cxx:170 src/HelpPage.cxx:157
+#: src/Command.cxx:172 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "Okno vyhľadávania"
 
-#: src/Command.cxx:172
+#: src/Command.cxx:174
 msgid "Change search mode"
 msgstr "Zmeniť režim vyhľadávania"
 
-#: src/Command.cxx:176
+#: src/Command.cxx:178
 msgid "Playlist editor"
 msgstr "Redakcia playlistu"
 
-#: src/Command.cxx:180
+#: src/Command.cxx:182
 msgid "View the selected and the currently playing song"
 msgstr "Zobraziť vybranú a momentálne prehrávanú pieseň"
 
-#: src/Command.cxx:184 src/HelpPage.cxx:169
+#: src/Command.cxx:186 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "Okno textu piesne"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:188
+#: src/Command.cxx:190
 msgid "Interrupt action"
 msgstr "Akcia prerušenia"
 
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Update Lyrics"
 msgstr "Obnoviť text"
 
-#: src/Command.cxx:194
+#: src/Command.cxx:196
 msgid "Edit the current item"
 msgstr "Upraviť aktuálnu položku"
 
-#: src/Command.cxx:199 src/HelpPage.cxx:184
+#: src/Command.cxx:201 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "Obrazovka s výstupmi"
 
-#: src/Command.cxx:204 src/HelpPage.cxx:191
+#: src/Command.cxx:206 src/HelpPage.cxx:191
 msgid "Chat screen"
 msgstr "Obrazovka s chatom"
 
@@ -732,7 +736,7 @@ msgstr "Alt-%c"
 msgid "Artists"
 msgstr "Interpreti"
 
-#: src/LibraryPage.cxx:36 src/LibraryPage.cxx:187
+#: src/LibraryPage.cxx:36
 msgid "Albums"
 msgstr "Albumy"
 
@@ -799,12 +803,12 @@ msgstr "Text skladby bol odstránený"
 msgid "No saved lyrics"
 msgstr "Žiaden uložený text piesne"
 
-#: src/Main.cxx:103
+#: src/Main.cxx:100
 #, c++-format
 msgid "Connecting to {}"
 msgstr "Pripájam sa k {}"
 
-#: src/Main.cxx:119
+#: src/Main.cxx:116
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "Chyba: Verzia MPD {} je príliš stará (potrebná je {})"
@@ -1080,15 +1084,15 @@ msgstr "Prehrávam:"
 msgid "[Paused]"
 msgstr "[Pozastavené]"
 
-#: src/Styles.cxx:242 src/Styles.cxx:303
+#: src/Styles.cxx:245 src/Styles.cxx:301
 msgid "Unknown color"
 msgstr "Neznáma farba"
 
-#: src/Styles.cxx:313
+#: src/Styles.cxx:311
 msgid "Unknown color field"
 msgstr "Neznáme pole farby"
 
-#: src/Styles.cxx:346
+#: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
 msgstr "Terminál nemá schopnosti zobrazovania farieb"
 

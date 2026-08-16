@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 16:17+0200\n"
+"POT-Creation-Date: 2026-08-16 08:56+0200\n"
 "PO-Revision-Date: 2021-03-29 23:26+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/ncmpc/"
@@ -45,285 +45,289 @@ msgstr "Klavo-agorda ekrano"
 msgid "Quit"
 msgstr "Forlasi"
 
-#: src/Command.cxx:22
+#: src/Command.cxx:20
+msgid "Suspend"
+msgstr ""
+
+#: src/Command.cxx:24
 msgid "Move cursor up"
 msgstr "Movi kursoron supren"
 
-#: src/Command.cxx:24
+#: src/Command.cxx:26
 msgid "Move cursor down"
 msgstr "Movi kursoron suben"
 
-#: src/Command.cxx:26
+#: src/Command.cxx:28
 msgid "Move cursor to the top of screen"
 msgstr "Movi kursoron al la supro de la ekrano"
 
-#: src/Command.cxx:28
+#: src/Command.cxx:30
 msgid "Move cursor to the middle of screen"
 msgstr "Movi kursoron al la mezo de la ekrano"
 
-#: src/Command.cxx:30
+#: src/Command.cxx:32
 msgid "Move cursor to the bottom of screen"
 msgstr "Movi kursoron al la malsupro de la ekrano"
 
-#: src/Command.cxx:32
+#: src/Command.cxx:34
 msgid "Move cursor to the top of the list"
 msgstr "Movi kursoron al la supro de la listo"
 
-#: src/Command.cxx:34
+#: src/Command.cxx:36
 msgid "Move cursor to the bottom of the list"
 msgstr "Movi kursoron al la malsupro de la listo"
 
-#: src/Command.cxx:36
+#: src/Command.cxx:38
 msgid "Page up"
 msgstr "Supreniri unu paĝon"
 
-#: src/Command.cxx:38
+#: src/Command.cxx:40
 msgid "Page down"
 msgstr "Malsupreniri unu paĝon"
 
-#: src/Command.cxx:40
+#: src/Command.cxx:42
 msgid "Range selection"
 msgstr "Intervala elektado"
 
-#: src/Command.cxx:42
+#: src/Command.cxx:44
 msgid "Scroll down one line"
 msgstr "Rulumi malsupren unu linion"
 
-#: src/Command.cxx:44
+#: src/Command.cxx:46
 msgid "Scroll up one line"
 msgstr "Rulumi supren unu linion"
 
-#: src/Command.cxx:46
+#: src/Command.cxx:48
 msgid "Scroll up half a screen"
 msgstr "Rulumi supren ekranduonon"
 
-#: src/Command.cxx:48
+#: src/Command.cxx:50
 msgid "Scroll down half a screen"
 msgstr "Rulumi malsupren ekranduonon"
 
-#: src/Command.cxx:50
+#: src/Command.cxx:52
 msgid "Select currently playing song"
 msgstr "Elekti nuntempe ludatan kanton"
 
-#: src/Command.cxx:55
+#: src/Command.cxx:57
 msgid "Help screen"
 msgstr "Helpa ekrano"
 
-#: src/Command.cxx:57 src/HelpPage.cxx:125
+#: src/Command.cxx:59 src/HelpPage.cxx:125
 msgid "Queue screen"
 msgstr "Vica ekrano"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:140
+#: src/Command.cxx:61 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "Foliuma ekrano"
 
-#: src/Command.cxx:64
+#: src/Command.cxx:66
 msgid "Play/Enter directory"
 msgstr "Ludi/Eniri dosierujon"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Pause"
 msgstr "Paŭzi"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Stop"
 msgstr "Ĉesigi"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Crop"
 msgstr "Stuci"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Next track"
 msgstr "Sekva trako"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Previous track"
 msgstr "Antaŭa trako"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Seek forward"
 msgstr "Salti antaŭen"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek backward"
 msgstr "Salti malantaŭen"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Increase volume"
 msgstr "Plilaŭtigi"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Decrease volume"
 msgstr "Malplilaŭtigi"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 msgid "Select/deselect song in queue"
 msgstr "Elekti/malelekti kanton en vico"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 msgid "Select all listed items"
 msgstr "Elekti ĉiujn erojn en listo"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Delete song from queue"
 msgstr "Forigi kanton for de vico"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 msgid "Shuffle queue"
 msgstr "Miksi vicon"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 msgid "Clear queue"
 msgstr "Malplenigi vicon"
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 msgid "Toggle repeat mode"
 msgstr "Baskuligi ripetan reĝimon"
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle random mode"
 msgstr "Baskuligi hazardan reĝimon"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle single mode"
 msgstr "Baskuligi unuopan reĝimon"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle consume mode"
 msgstr "Baskuligi konsuman reĝimon"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 msgid "Toggle crossfade mode"
 msgstr "Baskuligi interfadan reĝimon"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Start a music database update"
 msgstr "Ekĝisdatigi muzikan datenbankon"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Save queue"
 msgstr "Konservi vicon"
 
-#: src/Command.cxx:108 src/HelpPage.cxx:162
+#: src/Command.cxx:110 src/HelpPage.cxx:162
 msgid "Append song to queue"
 msgstr "Postmeti kanton en vicon"
 
-#: src/Command.cxx:111
+#: src/Command.cxx:113
 msgid "Go to root directory"
 msgstr "Iri al radika dosierujo"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to parent directory"
 msgstr "Iri al patra dosierujo"
 
-#: src/Command.cxx:116
+#: src/Command.cxx:118
 msgid "Locate song in browser"
 msgstr "Trovi kanton en foliumilo"
 
-#: src/Command.cxx:120
+#: src/Command.cxx:122
 msgid "Move item up"
 msgstr "Movi eron supren"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item down"
 msgstr "Movi eron malsupren"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Refresh screen"
 msgstr "Reŝargi ekranon"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:131
+#: src/Command.cxx:133
 msgid "Toggle find mode"
 msgstr "Baskuligi serĉan reĝimon"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:135
+#: src/Command.cxx:137
 msgid "Toggle auto center mode"
 msgstr "Baskuligi aŭtomate centrigan reĝimon"
 
-#: src/Command.cxx:140
+#: src/Command.cxx:142
 msgid "Next screen"
 msgstr "Sekva ekrano"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Previous screen"
 msgstr "Antaŭa ekrano"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Swap to most recent screen"
 msgstr "Iri al lasta ekrano"
 
-#: src/Command.cxx:149
+#: src/Command.cxx:151
 msgid "Forward find"
 msgstr "Serĉi finen"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find next"
 msgstr "Serĉi la sekvan"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Backward find"
 msgstr "Serĉi komencen"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find previous"
 msgstr "Serĉi la antaŭan"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:160
+#: src/Command.cxx:162
 msgid "Jump to"
 msgstr "Salti al"
 
-#: src/Command.cxx:166
+#: src/Command.cxx:168
 msgid "Library page"
 msgstr "Biblioteka paĝo"
 
-#: src/Command.cxx:170 src/HelpPage.cxx:157
+#: src/Command.cxx:172 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "Serĉa ekrano"
 
-#: src/Command.cxx:172
+#: src/Command.cxx:174
 msgid "Change search mode"
 msgstr "Ŝanĝi serĉan reĝimon"
 
-#: src/Command.cxx:176
+#: src/Command.cxx:178
 #, fuzzy
 msgid "Playlist editor"
 msgstr "Forviŝiĝis ludlisto"
 
-#: src/Command.cxx:180
+#: src/Command.cxx:182
 msgid "View the selected and the currently playing song"
 msgstr "Vidi la elektitan ludatan kanton"
 
-#: src/Command.cxx:184 src/HelpPage.cxx:169
+#: src/Command.cxx:186 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "Kantoteksta ekrano"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:188
+#: src/Command.cxx:190
 msgid "Interrupt action"
 msgstr "Interrompi agon"
 
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Update Lyrics"
 msgstr "Ĝisdatigi Kantotekstojn"
 
-#: src/Command.cxx:194
+#: src/Command.cxx:196
 msgid "Edit the current item"
 msgstr "Redakti la aktualan eron"
 
-#: src/Command.cxx:199 src/HelpPage.cxx:184
+#: src/Command.cxx:201 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "Eliga ekrano"
 
-#: src/Command.cxx:204 src/HelpPage.cxx:191
+#: src/Command.cxx:206 src/HelpPage.cxx:191
 msgid "Chat screen"
 msgstr "Babila ekrano"
 
@@ -738,7 +742,7 @@ msgstr "Alt-%c"
 msgid "Artists"
 msgstr "Muzikistoj"
 
-#: src/LibraryPage.cxx:36 src/LibraryPage.cxx:187
+#: src/LibraryPage.cxx:36
 msgid "Albums"
 msgstr "Albumoj"
 
@@ -805,12 +809,12 @@ msgstr "Forviŝiĝis kantotekstoj"
 msgid "No saved lyrics"
 msgstr "Neniuj konservitaj kantotekstoj"
 
-#: src/Main.cxx:103
+#: src/Main.cxx:100
 #, c++-format
 msgid "Connecting to {}"
 msgstr "Konektante al {}"
 
-#: src/Main.cxx:119
+#: src/Main.cxx:116
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "Eraro: la versio {} de MPD estas tro malnova (necesas {})"
@@ -1085,15 +1089,15 @@ msgstr "Ludanta:"
 msgid "[Paused]"
 msgstr "[Paŭzita]"
 
-#: src/Styles.cxx:242 src/Styles.cxx:303
+#: src/Styles.cxx:245 src/Styles.cxx:301
 msgid "Unknown color"
 msgstr "Nekonata koloro"
 
-#: src/Styles.cxx:313
+#: src/Styles.cxx:311
 msgid "Unknown color field"
 msgstr "Nekonata kolorkampo"
 
-#: src/Styles.cxx:346
+#: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
 msgstr "Al la terminalo mankas koloraj kapabloj"
 

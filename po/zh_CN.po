@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 16:17+0200\n"
+"POT-Creation-Date: 2026-08-16 08:56+0200\n"
 "PO-Revision-Date: 2021-01-19 16:32+0000\n"
 "Last-Translator: Lilian Wang <li330wang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -45,285 +45,289 @@ msgstr "快捷键设置页面"
 msgid "Quit"
 msgstr "退出"
 
-#: src/Command.cxx:22
+#: src/Command.cxx:20
+msgid "Suspend"
+msgstr ""
+
+#: src/Command.cxx:24
 msgid "Move cursor up"
 msgstr "向上移动光标"
 
-#: src/Command.cxx:24
+#: src/Command.cxx:26
 msgid "Move cursor down"
 msgstr "向下移动光标"
 
-#: src/Command.cxx:26
+#: src/Command.cxx:28
 msgid "Move cursor to the top of screen"
 msgstr "光标移到屏幕顶部"
 
-#: src/Command.cxx:28
+#: src/Command.cxx:30
 msgid "Move cursor to the middle of screen"
 msgstr "光标移到屏幕中部"
 
-#: src/Command.cxx:30
+#: src/Command.cxx:32
 msgid "Move cursor to the bottom of screen"
 msgstr "光标移到屏幕底部"
 
-#: src/Command.cxx:32
+#: src/Command.cxx:34
 msgid "Move cursor to the top of the list"
 msgstr "光标移到列表顶部"
 
-#: src/Command.cxx:34
+#: src/Command.cxx:36
 msgid "Move cursor to the bottom of the list"
 msgstr "光标移到列表底部"
 
-#: src/Command.cxx:36
+#: src/Command.cxx:38
 msgid "Page up"
 msgstr "上一页"
 
-#: src/Command.cxx:38
+#: src/Command.cxx:40
 msgid "Page down"
 msgstr "下一页"
 
-#: src/Command.cxx:40
+#: src/Command.cxx:42
 msgid "Range selection"
 msgstr "范围选择"
 
-#: src/Command.cxx:42
+#: src/Command.cxx:44
 msgid "Scroll down one line"
 msgstr "向下滚动一行"
 
-#: src/Command.cxx:44
+#: src/Command.cxx:46
 msgid "Scroll up one line"
 msgstr "向上滚动一行"
 
-#: src/Command.cxx:46
+#: src/Command.cxx:48
 msgid "Scroll up half a screen"
 msgstr "向上滚动半屏"
 
-#: src/Command.cxx:48
+#: src/Command.cxx:50
 msgid "Scroll down half a screen"
 msgstr "向下滚动半屏"
 
-#: src/Command.cxx:50
+#: src/Command.cxx:52
 msgid "Select currently playing song"
 msgstr "选择当前播放曲目"
 
-#: src/Command.cxx:55
+#: src/Command.cxx:57
 msgid "Help screen"
 msgstr "帮助页面"
 
-#: src/Command.cxx:57 src/HelpPage.cxx:125
+#: src/Command.cxx:59 src/HelpPage.cxx:125
 msgid "Queue screen"
 msgstr "列表页面"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:140
+#: src/Command.cxx:61 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "目录页面"
 
-#: src/Command.cxx:64
+#: src/Command.cxx:66
 msgid "Play/Enter directory"
 msgstr "播放/进入 目录"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Pause"
 msgstr "暂停"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Stop"
 msgstr "停止"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Crop"
 msgstr "剪切"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Next track"
 msgstr "下一曲"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Previous track"
 msgstr "上一曲"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Seek forward"
 msgstr "快进"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek backward"
 msgstr "快退"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Increase volume"
 msgstr "增加音量"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Decrease volume"
 msgstr "降低音量"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 msgid "Select/deselect song in queue"
 msgstr "选择/取消当前列表的歌曲"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 msgid "Select all listed items"
 msgstr "选中所有列出的项"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Delete song from queue"
 msgstr "从播放列表中移除歌曲"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 msgid "Shuffle queue"
 msgstr "随机播放列表"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 msgid "Clear queue"
 msgstr "清空播放列表"
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 msgid "Toggle repeat mode"
 msgstr "切换重复模式"
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle random mode"
 msgstr "切换随机模式"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle single mode"
 msgstr "切换单曲模式"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle consume mode"
 msgstr "切换消除模式"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 msgid "Toggle crossfade mode"
 msgstr "切换淡入淡出模式"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Start a music database update"
 msgstr "更新此数据库"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Save queue"
 msgstr "保存播放列表"
 
-#: src/Command.cxx:108 src/HelpPage.cxx:162
+#: src/Command.cxx:110 src/HelpPage.cxx:162
 msgid "Append song to queue"
 msgstr "添加到播放列表"
 
-#: src/Command.cxx:111
+#: src/Command.cxx:113
 msgid "Go to root directory"
 msgstr "进入根目录"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to parent directory"
 msgstr "进入父目录"
 
-#: src/Command.cxx:116
+#: src/Command.cxx:118
 msgid "Locate song in browser"
 msgstr "定位到音乐所在目录"
 
-#: src/Command.cxx:120
+#: src/Command.cxx:122
 msgid "Move item up"
 msgstr "上移"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item down"
 msgstr "下移"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Refresh screen"
 msgstr "刷新页面"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:131
+#: src/Command.cxx:133
 msgid "Toggle find mode"
 msgstr "切换查找模式"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:135
+#: src/Command.cxx:137
 msgid "Toggle auto center mode"
 msgstr "切换自动居中模式"
 
-#: src/Command.cxx:140
+#: src/Command.cxx:142
 msgid "Next screen"
 msgstr "下一页面"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Previous screen"
 msgstr "上一页面"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Swap to most recent screen"
 msgstr "切换到最近一个页面"
 
-#: src/Command.cxx:149
+#: src/Command.cxx:151
 msgid "Forward find"
 msgstr "前向查找"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find next"
 msgstr "查找下一个"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Backward find"
 msgstr "后向查找"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find previous"
 msgstr "查找前一个"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:160
+#: src/Command.cxx:162
 msgid "Jump to"
 msgstr "跳转到"
 
-#: src/Command.cxx:166
+#: src/Command.cxx:168
 msgid "Library page"
 msgstr "曲库页面"
 
-#: src/Command.cxx:170 src/HelpPage.cxx:157
+#: src/Command.cxx:172 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "查找页面"
 
-#: src/Command.cxx:172
+#: src/Command.cxx:174
 msgid "Change search mode"
 msgstr "更改搜索模式"
 
-#: src/Command.cxx:176
+#: src/Command.cxx:178
 #, fuzzy
 msgid "Playlist editor"
 msgstr "播放列表已删除"
 
-#: src/Command.cxx:180
+#: src/Command.cxx:182
 msgid "View the selected and the currently playing song"
 msgstr "查看所选和当前播放的歌曲"
 
-#: src/Command.cxx:184 src/HelpPage.cxx:169
+#: src/Command.cxx:186 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "歌词页面"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:188
+#: src/Command.cxx:190
 msgid "Interrupt action"
 msgstr "中断后台操作"
 
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Update Lyrics"
 msgstr "更新歌词"
 
-#: src/Command.cxx:194
+#: src/Command.cxx:196
 msgid "Edit the current item"
 msgstr "编辑当前条目"
 
-#: src/Command.cxx:199 src/HelpPage.cxx:184
+#: src/Command.cxx:201 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "输出页面"
 
-#: src/Command.cxx:204 src/HelpPage.cxx:191
+#: src/Command.cxx:206 src/HelpPage.cxx:191
 msgid "Chat screen"
 msgstr "对话页面"
 
@@ -737,7 +741,7 @@ msgstr "Alt-%c"
 msgid "Artists"
 msgstr "艺术家"
 
-#: src/LibraryPage.cxx:36 src/LibraryPage.cxx:187
+#: src/LibraryPage.cxx:36
 msgid "Albums"
 msgstr "专辑"
 
@@ -804,12 +808,12 @@ msgstr "歌词已被删除"
 msgid "No saved lyrics"
 msgstr "没有歌词"
 
-#: src/Main.cxx:103
+#: src/Main.cxx:100
 #, c++-format
 msgid "Connecting to {}"
 msgstr "连接到服务器 {}"
 
-#: src/Main.cxx:119
+#: src/Main.cxx:116
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "错误: MPD版本{}过低 (需要 {})"
@@ -1085,15 +1089,15 @@ msgstr "播放中:"
 msgid "[Paused]"
 msgstr "[暂停]"
 
-#: src/Styles.cxx:242 src/Styles.cxx:303
+#: src/Styles.cxx:245 src/Styles.cxx:301
 msgid "Unknown color"
 msgstr "未知颜色"
 
-#: src/Styles.cxx:313
+#: src/Styles.cxx:311
 msgid "Unknown color field"
 msgstr "未知的颜色块"
 
-#: src/Styles.cxx:346
+#: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
 msgstr "终端不支持彩色"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 16:17+0200\n"
+"POT-Creation-Date: 2026-08-16 08:56+0200\n"
 "PO-Revision-Date: 2026-02-28 06:09+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/ncmpc/"
@@ -44,284 +44,288 @@ msgstr "ღილაკის მორგების ეკრანი"
 msgid "Quit"
 msgstr "გასვლა"
 
-#: src/Command.cxx:22
+#: src/Command.cxx:20
+msgid "Suspend"
+msgstr ""
+
+#: src/Command.cxx:24
 msgid "Move cursor up"
 msgstr "კურსორის ატანა"
 
-#: src/Command.cxx:24
+#: src/Command.cxx:26
 msgid "Move cursor down"
 msgstr "კურსორის ჩამოტანა"
 
-#: src/Command.cxx:26
+#: src/Command.cxx:28
 msgid "Move cursor to the top of screen"
 msgstr "კურსორის ეკრანის ზედა მხარეს ატანა"
 
-#: src/Command.cxx:28
+#: src/Command.cxx:30
 msgid "Move cursor to the middle of screen"
 msgstr "კურსორის ეკრანის შუაში გადატანა"
 
-#: src/Command.cxx:30
+#: src/Command.cxx:32
 msgid "Move cursor to the bottom of screen"
 msgstr "კურსორის ეკრანის ბოლოში ჩამოტანა"
 
-#: src/Command.cxx:32
+#: src/Command.cxx:34
 msgid "Move cursor to the top of the list"
 msgstr "კურსორის სიის დასაწყისში ატანა"
 
-#: src/Command.cxx:34
+#: src/Command.cxx:36
 msgid "Move cursor to the bottom of the list"
 msgstr "კურსორის სიის ბოლოში ცამოტანა"
 
-#: src/Command.cxx:36
+#: src/Command.cxx:38
 msgid "Page up"
 msgstr "ზედა გვერდი"
 
-#: src/Command.cxx:38
+#: src/Command.cxx:40
 msgid "Page down"
 msgstr "ქვედა გვერდი"
 
-#: src/Command.cxx:40
+#: src/Command.cxx:42
 msgid "Range selection"
 msgstr "შუალედის მონიშვნა"
 
-#: src/Command.cxx:42
+#: src/Command.cxx:44
 msgid "Scroll down one line"
 msgstr "ერთი ხაზით დაბლა ჩამოწევა"
 
-#: src/Command.cxx:44
+#: src/Command.cxx:46
 msgid "Scroll up one line"
 msgstr "ერთი ხაზით მაღლა აწევა"
 
-#: src/Command.cxx:46
+#: src/Command.cxx:48
 msgid "Scroll up half a screen"
 msgstr "ნახევარი ეკრანით აწევა"
 
-#: src/Command.cxx:48
+#: src/Command.cxx:50
 msgid "Scroll down half a screen"
 msgstr "ნახევარი ეკრანით ჩამოწევა"
 
-#: src/Command.cxx:50
+#: src/Command.cxx:52
 msgid "Select currently playing song"
 msgstr "ამჟამად დაკრული სიმღერის მონიშვნა"
 
-#: src/Command.cxx:55
+#: src/Command.cxx:57
 msgid "Help screen"
 msgstr "დახმარების ეკრანი"
 
-#: src/Command.cxx:57 src/HelpPage.cxx:125
+#: src/Command.cxx:59 src/HelpPage.cxx:125
 msgid "Queue screen"
 msgstr "რიგის ეკრანი"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:140
+#: src/Command.cxx:61 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "ეკრანის დათვალიერება"
 
-#: src/Command.cxx:64
+#: src/Command.cxx:66
 msgid "Play/Enter directory"
 msgstr "საქაღალდის დაკვრა/შესვლა"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Pause"
 msgstr "შეჩერება"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Stop"
 msgstr "გაჩერება"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Crop"
 msgstr "ამოჭრა"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Next track"
 msgstr "შემდეგი აუდიობილიკი"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Previous track"
 msgstr "წინა აუდიობილიკი"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Seek forward"
 msgstr "წინ გადახვევა"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek backward"
 msgstr "უკან გადახვევა"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Increase volume"
 msgstr "დაკვრის ხმის გაზრდა"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Decrease volume"
 msgstr "ხმის შემცირება"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 msgid "Select/deselect song in queue"
 msgstr "რიგში სიმღერის მონიშვნა/მონიშვნის მოხსნა"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 msgid "Select all listed items"
 msgstr "ყველა ჩამოთვლილი ელემენტის მონიშვნა"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Delete song from queue"
 msgstr "სიმღერის წაშლა რიგიდან"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 msgid "Shuffle queue"
 msgstr "შემთხვევით დაკვრა"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 msgid "Clear queue"
 msgstr "რიგის გასუფთავება"
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 msgid "Toggle repeat mode"
 msgstr "გამეორების რეჟიმის გადართვა"
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle random mode"
 msgstr "შემთხვევითობის რეჟიმის გადართვა"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle single mode"
 msgstr "მხოლოდ, ერთის დაკვრის რეჟიმის გადართვა"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle consume mode"
 msgstr "დაკვრის შემდეგ წაშლის რეჟიმის გადართვა"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 msgid "Toggle crossfade mode"
 msgstr "სიმღერებს შორის მინავლების რეჟიმის გადართვა"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Start a music database update"
 msgstr "მუსიკის მონაცემთა ბაზის განახლების დაწყება"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Save queue"
 msgstr "რიგის შენახვა"
 
-#: src/Command.cxx:108 src/HelpPage.cxx:162
+#: src/Command.cxx:110 src/HelpPage.cxx:162
 msgid "Append song to queue"
 msgstr "სიმღერის მიწერა რიგის ბოლოში"
 
-#: src/Command.cxx:111
+#: src/Command.cxx:113
 msgid "Go to root directory"
 msgstr "საწყის საქაღალდეზე გადასვლა"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to parent directory"
 msgstr "ზედა საქაღალდეზე გადასვლა"
 
-#: src/Command.cxx:116
+#: src/Command.cxx:118
 msgid "Locate song in browser"
 msgstr "სიმღერის პოვნა ბრაუზერში"
 
-#: src/Command.cxx:120
+#: src/Command.cxx:122
 msgid "Move item up"
 msgstr "ჩანაწერის აწევა"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item down"
 msgstr "ჩანაწერის ჩამოწევა"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Refresh screen"
 msgstr "ეკრანის განახლება"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:131
+#: src/Command.cxx:133
 msgid "Toggle find mode"
 msgstr "ძებნის რეჟიმის გადართვა"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:135
+#: src/Command.cxx:137
 msgid "Toggle auto center mode"
 msgstr "ავტოდაცენტრების რეჟიმის გადართვა"
 
-#: src/Command.cxx:140
+#: src/Command.cxx:142
 msgid "Next screen"
 msgstr "შემდეგი ეკრანი"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Previous screen"
 msgstr "წინა ეკრანი"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Swap to most recent screen"
 msgstr "მიმოცვლა ბოლო ეკრანთან"
 
-#: src/Command.cxx:149
+#: src/Command.cxx:151
 msgid "Forward find"
 msgstr "წინ ძებნა"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find next"
 msgstr "წინ შემდეგის ძებნა"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Backward find"
 msgstr "უკან ძებნა"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find previous"
 msgstr "უკან წინას ძებნა"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:160
+#: src/Command.cxx:162
 msgid "Jump to"
 msgstr "გადასვლა"
 
-#: src/Command.cxx:166
+#: src/Command.cxx:168
 msgid "Library page"
 msgstr "ბიბლიოთეკის გვერდი"
 
-#: src/Command.cxx:170 src/HelpPage.cxx:157
+#: src/Command.cxx:172 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "ძებნის ეკრანი"
 
-#: src/Command.cxx:172
+#: src/Command.cxx:174
 msgid "Change search mode"
 msgstr "ძებნის რეჟიმის შეცვლა"
 
-#: src/Command.cxx:176
+#: src/Command.cxx:178
 msgid "Playlist editor"
 msgstr "დასაკრავი სიის რედაქტორი"
 
-#: src/Command.cxx:180
+#: src/Command.cxx:182
 msgid "View the selected and the currently playing song"
 msgstr "ამჟამად დაკრული და მონიშნული სიმღერის ნახვა"
 
-#: src/Command.cxx:184 src/HelpPage.cxx:169
+#: src/Command.cxx:186 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "ლირიკის ეკრანი"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:188
+#: src/Command.cxx:190
 msgid "Interrupt action"
 msgstr "ქმედების შეწყვეტა"
 
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Update Lyrics"
 msgstr "ლირიკის განახლება"
 
-#: src/Command.cxx:194
+#: src/Command.cxx:196
 msgid "Edit the current item"
 msgstr "მიმდინარე ელემენტის ჩასწორება"
 
-#: src/Command.cxx:199 src/HelpPage.cxx:184
+#: src/Command.cxx:201 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "გამოტანის ეკრანი"
 
-#: src/Command.cxx:204 src/HelpPage.cxx:191
+#: src/Command.cxx:206 src/HelpPage.cxx:191
 msgid "Chat screen"
 msgstr "ჩატის ეკრანი"
 
@@ -732,7 +736,7 @@ msgstr "Alt-%c"
 msgid "Artists"
 msgstr "შემსრულებლები"
 
-#: src/LibraryPage.cxx:36 src/LibraryPage.cxx:187
+#: src/LibraryPage.cxx:36
 msgid "Albums"
 msgstr "ალბომები"
 
@@ -799,12 +803,12 @@ msgstr "ლირიკა წაიშალა"
 msgid "No saved lyrics"
 msgstr "წაშლილი ლირიკის გარეშე"
 
-#: src/Main.cxx:103
+#: src/Main.cxx:100
 #, c++-format
 msgid "Connecting to {}"
 msgstr "{}-ისთან დაკავშირება"
 
-#: src/Main.cxx:119
+#: src/Main.cxx:116
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "შეცდომა: MPD-ის ვერსია {} მეტისმეტად ძველია (საჭიროა {})"
@@ -1075,15 +1079,15 @@ msgstr "მიმდინარეობს დაკვრა:"
 msgid "[Paused]"
 msgstr "[შეჩერებულია]"
 
-#: src/Styles.cxx:242 src/Styles.cxx:303
+#: src/Styles.cxx:245 src/Styles.cxx:301
 msgid "Unknown color"
 msgstr "უცნობი ფერი"
 
-#: src/Styles.cxx:313
+#: src/Styles.cxx:311
 msgid "Unknown color field"
 msgstr "უცნობი ფერის ველი"
 
-#: src/Styles.cxx:346
+#: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
 msgstr "ტერმინალს ფერების აღქმა არ აქვს"
 

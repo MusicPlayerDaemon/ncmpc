@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-20 16:17+0200\n"
+"POT-Creation-Date: 2026-08-16 08:56+0200\n"
 "PO-Revision-Date: 2026-03-02 06:09+0000\n"
 "Last-Translator: தமிழ்நேரம் <tamilneram247@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -44,284 +44,288 @@ msgstr "முக்கிய உள்ளமைவு திரை"
 msgid "Quit"
 msgstr "வெளியேறு"
 
-#: src/Command.cxx:22
+#: src/Command.cxx:20
+msgid "Suspend"
+msgstr ""
+
+#: src/Command.cxx:24
 msgid "Move cursor up"
 msgstr "கர்சரை மேலே நகர்த்தவும்"
 
-#: src/Command.cxx:24
+#: src/Command.cxx:26
 msgid "Move cursor down"
 msgstr "கர்சரை கீழே நகர்த்தவும்"
 
-#: src/Command.cxx:26
+#: src/Command.cxx:28
 msgid "Move cursor to the top of screen"
 msgstr "கர்சரை திரையின் மேற்புறத்தில் நகர்த்தவும்"
 
-#: src/Command.cxx:28
+#: src/Command.cxx:30
 msgid "Move cursor to the middle of screen"
 msgstr "கர்சரை திரையின் நடுவில் நகர்த்தவும்"
 
-#: src/Command.cxx:30
+#: src/Command.cxx:32
 msgid "Move cursor to the bottom of screen"
 msgstr "கர்சரை திரையின் அடிப்பகுதிக்கு நகர்த்தவும்"
 
-#: src/Command.cxx:32
+#: src/Command.cxx:34
 msgid "Move cursor to the top of the list"
 msgstr "கர்சரை பட்டியலின் மேலே நகர்த்தவும்"
 
-#: src/Command.cxx:34
+#: src/Command.cxx:36
 msgid "Move cursor to the bottom of the list"
 msgstr "கர்சரை பட்டியலின் அடிப்பகுதிக்கு நகர்த்தவும்"
 
-#: src/Command.cxx:36
+#: src/Command.cxx:38
 msgid "Page up"
 msgstr "பக்கம்"
 
-#: src/Command.cxx:38
+#: src/Command.cxx:40
 msgid "Page down"
 msgstr "பக்கம் கீழே"
 
-#: src/Command.cxx:40
+#: src/Command.cxx:42
 msgid "Range selection"
 msgstr "வரம்பு தேர்வு"
 
-#: src/Command.cxx:42
+#: src/Command.cxx:44
 msgid "Scroll down one line"
 msgstr "ஒரு வரியை உருட்டவும்"
 
-#: src/Command.cxx:44
+#: src/Command.cxx:46
 msgid "Scroll up one line"
 msgstr "ஒரு வரியை உருட்டவும்"
 
-#: src/Command.cxx:46
+#: src/Command.cxx:48
 msgid "Scroll up half a screen"
 msgstr "அரை திரை உருட்டவும்"
 
-#: src/Command.cxx:48
+#: src/Command.cxx:50
 msgid "Scroll down half a screen"
 msgstr "அரை திரை கீழே உருட்டவும்"
 
-#: src/Command.cxx:50
+#: src/Command.cxx:52
 msgid "Select currently playing song"
 msgstr "தற்போது வாசிக்கும் பாடலைத் தேர்ந்தெடுக்கவும்"
 
-#: src/Command.cxx:55
+#: src/Command.cxx:57
 msgid "Help screen"
 msgstr "உதவி திரை"
 
-#: src/Command.cxx:57 src/HelpPage.cxx:125
+#: src/Command.cxx:59 src/HelpPage.cxx:125
 msgid "Queue screen"
 msgstr "வரிசை திரை"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:140
+#: src/Command.cxx:61 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "திரை உலாவு"
 
-#: src/Command.cxx:64
+#: src/Command.cxx:66
 msgid "Play/Enter directory"
 msgstr "கோப்பகத்தை இயக்கவும்/உள்ளிடவும்"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Pause"
 msgstr "இடைநிறுத்தம்"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Stop"
 msgstr "நிறுத்து"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Crop"
 msgstr "பயிர்"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Next track"
 msgstr "அடுத்த பாடல்"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Previous track"
 msgstr "முந்தைய பாடல்"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Seek forward"
 msgstr "முன்னோக்கி தேடுங்கள்"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek backward"
 msgstr "பின்தங்கிய தேடுங்கள்"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Increase volume"
 msgstr "அளவை அதிகரிக்கவும்"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Decrease volume"
 msgstr "அளவைக் குறைக்கவும்"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 msgid "Select/deselect song in queue"
 msgstr "வரிசையில் பாடலைத் தேர்ந்தெடுக்கவும்/தேர்வுநீக்கவும்"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 msgid "Select all listed items"
 msgstr "பட்டியலிடப்பட்ட அனைத்து பொருட்களையும் தேர்ந்தெடுக்கவும்"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Delete song from queue"
 msgstr "வரிசையில் இருந்து பாடலை நீக்கு"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 msgid "Shuffle queue"
 msgstr "கலக்கு வரிசை"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 msgid "Clear queue"
 msgstr "தெளிவான வரிசை"
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 msgid "Toggle repeat mode"
 msgstr "மீண்டும் பயன்முறையை மாற்றவும்"
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle random mode"
 msgstr "சீரற்ற பயன்முறையை மாற்றவும்"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle single mode"
 msgstr "ஒற்றை பயன்முறையை மாற்றவும்"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle consume mode"
 msgstr "நுகர்வு பயன்முறையை மாற்றவும்"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 msgid "Toggle crossfade mode"
 msgstr "கிராச்ஃபேட் பயன்முறையை மாற்றவும்"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Start a music database update"
 msgstr "இசை தரவுத்தள புதுப்பிப்பைத் தொடங்கவும்"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Save queue"
 msgstr "வரிசையைச் சேமிக்கவும்"
 
-#: src/Command.cxx:108 src/HelpPage.cxx:162
+#: src/Command.cxx:110 src/HelpPage.cxx:162
 msgid "Append song to queue"
 msgstr "வரிசையில் பாடலைச் சேர்க்கவும்"
 
-#: src/Command.cxx:111
+#: src/Command.cxx:113
 msgid "Go to root directory"
 msgstr "ரூட் கோப்பகத்திற்குச் செல்லுங்கள்"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to parent directory"
 msgstr "பெற்றோர் கோப்பகத்திற்குச் செல்லுங்கள்"
 
-#: src/Command.cxx:116
+#: src/Command.cxx:118
 msgid "Locate song in browser"
 msgstr "உலாவியில் பாடலைக் கண்டுபிடி"
 
-#: src/Command.cxx:120
+#: src/Command.cxx:122
 msgid "Move item up"
 msgstr "உருப்படியை நகர்த்தவும்"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item down"
 msgstr "உருப்படியை கீழே நகர்த்தவும்"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Refresh screen"
 msgstr "திரை புதுப்பிக்கவும்"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:131
+#: src/Command.cxx:133
 msgid "Toggle find mode"
 msgstr "கண்டுபிடி பயன்முறையை மாற்றவும்"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:135
+#: src/Command.cxx:137
 msgid "Toggle auto center mode"
 msgstr "ஆட்டோ சென்டர் பயன்முறையை மாற்றவும்"
 
-#: src/Command.cxx:140
+#: src/Command.cxx:142
 msgid "Next screen"
 msgstr "அடுத்த திரை"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Previous screen"
 msgstr "முந்தைய திரை"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Swap to most recent screen"
 msgstr "மிக அண்மைக் கால திரையில் இடமாற்றம் செய்யுங்கள்"
 
-#: src/Command.cxx:149
+#: src/Command.cxx:151
 msgid "Forward find"
 msgstr "முன்னோக்கி கண்டுபிடி"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find next"
 msgstr "முன்னோக்கி அடுத்து கண்டுபிடிக்கவும்"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Backward find"
 msgstr "பின்தங்கிய கண்டுபிடிப்பு"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find previous"
 msgstr "முந்தையதைக் கண்டுபிடி"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:160
+#: src/Command.cxx:162
 msgid "Jump to"
 msgstr "குதிக்கவும்"
 
-#: src/Command.cxx:166
+#: src/Command.cxx:168
 msgid "Library page"
 msgstr "நூலக பக்கம்"
 
-#: src/Command.cxx:170 src/HelpPage.cxx:157
+#: src/Command.cxx:172 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "தேடல் திரை"
 
-#: src/Command.cxx:172
+#: src/Command.cxx:174
 msgid "Change search mode"
 msgstr "தேடல் பயன்முறையை மாற்றவும்"
 
-#: src/Command.cxx:176
+#: src/Command.cxx:178
 msgid "Playlist editor"
 msgstr "பிளேலிச்ட் ஆசிரியர்"
 
-#: src/Command.cxx:180
+#: src/Command.cxx:182
 msgid "View the selected and the currently playing song"
 msgstr "தேர்ந்தெடுக்கப்பட்ட மற்றும் தற்போது வாசிக்கும் பாடலைக் காண்க"
 
-#: src/Command.cxx:184 src/HelpPage.cxx:169
+#: src/Command.cxx:186 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "பாடல் திரை"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:188
+#: src/Command.cxx:190
 msgid "Interrupt action"
 msgstr "குறுக்கீடு நடவடிக்கை"
 
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Update Lyrics"
 msgstr "பாடல் வரிகள் புதுப்பி"
 
-#: src/Command.cxx:194
+#: src/Command.cxx:196
 msgid "Edit the current item"
 msgstr "தற்போதைய உருப்படியைத் திருத்தவும்"
 
-#: src/Command.cxx:199 src/HelpPage.cxx:184
+#: src/Command.cxx:201 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "வெளியீடுகள் திரை"
 
-#: src/Command.cxx:204 src/HelpPage.cxx:191
+#: src/Command.cxx:206 src/HelpPage.cxx:191
 msgid "Chat screen"
 msgstr "அரட்டை திரை"
 
@@ -732,7 +736,7 @@ msgstr "மாற்று-%c"
 msgid "Artists"
 msgstr "கலைஞர்கள்"
 
-#: src/LibraryPage.cxx:36 src/LibraryPage.cxx:187
+#: src/LibraryPage.cxx:36
 msgid "Albums"
 msgstr "தொகுப்புகள்"
 
@@ -799,12 +803,12 @@ msgstr "பாடல் நீக்கப்பட்டது"
 msgid "No saved lyrics"
 msgstr "சேமித்த பாடல் இல்லை"
 
-#: src/Main.cxx:103
+#: src/Main.cxx:100
 #, c++-format
 msgid "Connecting to {}"
 msgstr "{} உடன் இணைக்கிறது"
 
-#: src/Main.cxx:119
+#: src/Main.cxx:116
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "பிழை: MPD பதிப்பு {} மிகவும் பழையது ({} தேவை)"
@@ -1075,15 +1079,15 @@ msgstr "விளையாடுவது:"
 msgid "[Paused]"
 msgstr "[இடைநிறுத்தப்பட்டது]"
 
-#: src/Styles.cxx:242 src/Styles.cxx:303
+#: src/Styles.cxx:245 src/Styles.cxx:301
 msgid "Unknown color"
 msgstr "தெரியாத நிறம்"
 
-#: src/Styles.cxx:313
+#: src/Styles.cxx:311
 msgid "Unknown color field"
 msgstr "அறியப்படாத வண்ண புலம்"
 
-#: src/Styles.cxx:346
+#: src/Styles.cxx:344
 msgid "Terminal lacks color capabilities"
 msgstr "முனையத்தில் வண்ண திறன்கள் இல்லை"
 
