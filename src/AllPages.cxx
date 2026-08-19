@@ -20,7 +20,7 @@
 
 using std::string_view_literals::operator""sv;
 
-static constexpr const PageMeta *all_pages[] = {
+constexpr const PageMeta *all_pages[] = {
 #ifdef ENABLE_HELP_SCREEN
 	&screen_help,
 #endif
@@ -51,14 +51,6 @@ static constexpr const PageMeta *all_pages[] = {
 	&edit_playlist_page,
 #endif
 };
-
-const PageMeta *
-GetPageMeta(unsigned i) noexcept
-{
-	return i < std::size(all_pages)
-		   ? all_pages[i]
-		   : nullptr;
-}
 
 const PageMeta *
 screen_lookup_name(std::string_view name) noexcept

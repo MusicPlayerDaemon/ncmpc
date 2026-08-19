@@ -8,9 +8,10 @@
 enum class Command : unsigned;
 struct PageMeta;
 
-[[gnu::const]]
-const PageMeta *
-GetPageMeta(unsigned i) noexcept;
+/**
+ * A nullptr-terminated list of #PageMeta instances.
+ */
+extern const PageMeta *const all_pages[];
 
 [[gnu::pure]]
 const PageMeta *
