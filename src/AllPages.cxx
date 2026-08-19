@@ -21,7 +21,7 @@
 
 #include <string.h>
 
-static const PageMeta *const screens[] = {
+static constexpr const PageMeta *screens[] = {
 #ifdef ENABLE_HELP_SCREEN
 	&screen_help,
 #endif
