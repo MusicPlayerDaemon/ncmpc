@@ -421,7 +421,7 @@ check_screen_list(char *value)
 	std::vector<std::string> screen;
 
 	while (char *name = NextItem(value)) {
-		std::transform(name, name + strlen(name), name, tolower);
+		std::transform(name, name + strlen(name), name, ToLowerASCII);
 
 		const auto *page_meta = screen_lookup_name(name);
 		if (page_meta == nullptr)
