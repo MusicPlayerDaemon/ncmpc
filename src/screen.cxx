@@ -116,7 +116,7 @@ ScreenManager::NextMode(struct mpdclient &c, int offset) noexcept
 		next = 0;
 
 	const PageMeta *sf =
-		screen_lookup_name(options.screen_list[next].c_str());
+		screen_lookup_name(options.screen_list[next]);
 	if (sf != nullptr)
 		Switch(*sf, c);
 }

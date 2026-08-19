@@ -15,11 +15,10 @@
 #include "OutputsPage.hxx"
 #include "ChatPage.hxx"
 #include "config.h"
-#include "util/StringAPI.hxx"
 
 #include <iterator>
 
-#include <string.h>
+using std::string_view_literals::operator""sv;
 
 static constexpr const PageMeta *screens[] = {
 #ifdef ENABLE_HELP_SCREEN
@@ -62,15 +61,15 @@ GetPageMeta(unsigned i) noexcept
 }
 
 const PageMeta *
-screen_lookup_name(const char *name) noexcept
+screen_lookup_name(std::string_view name) noexcept
 {
 	for (const auto *i : screens)
-		if (StringIsEqual(name, i->name))
+		if (name == i->name)
 			return i;
 
 #ifdef ENABLE_LIBRARY_PAGE
 	/* compatibility with 0.32 and older */
-	if (StringIsEqual(name, "artist"))
+	if (name == "artist"sv)
 		return &library_page;
 #endif
 

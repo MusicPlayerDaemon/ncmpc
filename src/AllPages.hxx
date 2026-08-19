@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <string_view>
+
 enum class Command : unsigned;
 struct PageMeta;
 
@@ -12,7 +14,7 @@ GetPageMeta(unsigned i) noexcept;
 
 [[gnu::pure]]
 const PageMeta *
-screen_lookup_name(const char *name) noexcept;
+screen_lookup_name(std::string_view name) noexcept;
 
 [[gnu::const]]
 const PageMeta *
