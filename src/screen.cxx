@@ -22,7 +22,6 @@
 #include "client/mpdclient.hxx"
 #include "util/Exception.hxx"
 #include "util/ScopeExit.hxx"
-#include "util/StringAPI.hxx"
 
 #ifdef HAVE_GETMOUSE
 #include "TabBar.hxx"
@@ -92,12 +91,12 @@ ScreenManager::Swap(struct mpdclient &c, const struct mpd_song *song) noexcept
 
 [[gnu::pure]]
 static int
-find_configured_screen(const char *name) noexcept
+find_configured_screen(std::string_view name) noexcept
 {
 	unsigned i;
 
 	for (i = 0; i < options.screen_list.size(); ++i)
-		if (StringIsEqual(options.screen_list[i].c_str(), name))
+		if (options.screen_list[i].c_str() == name)
 			return i;
 
 	return -1;
