@@ -20,7 +20,7 @@
 
 using std::string_view_literals::operator""sv;
 
-static constexpr const PageMeta *screens[] = {
+static constexpr const PageMeta *all_pages[] = {
 #ifdef ENABLE_HELP_SCREEN
 	&screen_help,
 #endif
@@ -55,15 +55,15 @@ static constexpr const PageMeta *screens[] = {
 const PageMeta *
 GetPageMeta(unsigned i) noexcept
 {
-	return i < std::size(screens)
-		   ? screens[i]
+	return i < std::size(all_pages)
+		   ? all_pages[i]
 		   : nullptr;
 }
 
 const PageMeta *
 screen_lookup_name(std::string_view name) noexcept
 {
-	for (const auto *i : screens)
+	for (const auto *i : all_pages)
 		if (name == i->name)
 			return i;
 
@@ -79,7 +79,7 @@ screen_lookup_name(std::string_view name) noexcept
 const PageMeta *
 PageByCommand(Command cmd) noexcept
 {
-	for (const auto *i : screens)
+	for (const auto *i : all_pages)
 		if (i->command == cmd)
 			return i;
 
