@@ -34,6 +34,7 @@ enum class Command : unsigned {
 
 	/* basic screens */
 	SCREEN_HELP,
+	SCREEN_SWITCH,
 	SCREEN_PLAY,
 	SCREEN_FILE,
 

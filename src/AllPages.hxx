@@ -14,6 +14,10 @@ struct PageMeta;
 extern const PageMeta *const all_pages[];
 
 [[gnu::pure]]
+std::size_t
+GetPageCount() noexcept;
+
+[[gnu::pure]]
 const PageMeta *
 screen_lookup_name(std::string_view name) noexcept;
 

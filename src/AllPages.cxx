@@ -3,6 +3,7 @@
 
 #include "AllPages.hxx"
 #include "PageMeta.hxx"
+#include "SwitchPage.hxx"
 #include "HelpPage.hxx"
 #include "QueuePage.hxx"
 #include "FileBrowserPage.hxx"
@@ -21,6 +22,7 @@
 using std::string_view_literals::operator""sv;
 
 constexpr const PageMeta *all_pages[] = {
+	&switch_page,
 #ifdef ENABLE_HELP_SCREEN
 	&screen_help,
 #endif
@@ -52,6 +54,12 @@ constexpr const PageMeta *all_pages[] = {
 #endif
 	nullptr
 };
+
+std::size_t
+GetPageCount() noexcept
+{
+	return std::size(all_pages) - 1;
+}
 
 const PageMeta *
 screen_lookup_name(std::string_view name) noexcept

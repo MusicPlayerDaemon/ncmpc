@@ -34,6 +34,7 @@ static KeyBindings global_key_bindings{{{
 
 	/* basic screens */
 	{'1', KEY_F(1), 'h'},
+	{'9', KEY_F(9)},
 	{'2', KEY_F(2)},
 	{'3', KEY_F(3)},
 
@@ -119,7 +120,7 @@ static KeyBindings global_key_bindings{{{
 #endif
 
 #ifdef ENABLE_CHAT_SCREEN
-	{'9', KEY_F(9)},
+	{0},
 #endif
 }}};
 

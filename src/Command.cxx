@@ -55,6 +55,8 @@ static constexpr command_definition_t cmds[] = {
 	/* basic screens */
 	{ "screen-help",
 	  N_("Help screen") },
+	{ "screen-switcher",
+	  N_("Page Switcher") },
 	{ "screen-playlist",
 	  N_("Queue screen") },
 	{ "screen-browse",

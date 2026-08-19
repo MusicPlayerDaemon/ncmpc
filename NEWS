@@ -1,5 +1,6 @@
 ncmpc 0.55 - not yet released
 * reduce the number of pages displayed in the top row
+* new page switcher
 
 ncmpc 0.54 - (2026-08-13)
 * suspend to the shell with Ctrl-Z
