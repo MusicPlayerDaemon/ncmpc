@@ -3,7 +3,7 @@
 
 #include "screen.hxx"
 #include "PageMeta.hxx"
-#include "screen_list.hxx"
+#include "AllPages.hxx"
 #include "Command.hxx"
 #include "config.h"
 #include "i18n.h"

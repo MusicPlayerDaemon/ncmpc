@@ -3,7 +3,7 @@
 
 #include "TabBar.hxx"
 #include "PageMeta.hxx"
-#include "screen_list.hxx"
+#include "AllPages.hxx"
 #include "Styles.hxx"
 #include "Bindings.hxx"
 #include "GlobalBindings.hxx"

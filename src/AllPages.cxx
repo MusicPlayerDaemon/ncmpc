@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#include "screen_list.hxx"
+#include "AllPages.hxx"
 #include "PageMeta.hxx"
 #include "HelpPage.hxx"
 #include "QueuePage.hxx"

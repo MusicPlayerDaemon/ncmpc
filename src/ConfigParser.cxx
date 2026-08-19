@@ -12,7 +12,7 @@
 #include "Styles.hxx"
 #include "BasicColors.hxx"
 #include "CustomColors.hxx"
-#include "screen_list.hxx"
+#include "AllPages.hxx"
 #include "PageMeta.hxx"
 #include "Options.hxx"
 #include "ui/Options.hxx"
