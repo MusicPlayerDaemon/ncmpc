@@ -121,14 +121,18 @@ mpdclient::HandleAuthError() noexcept
 	}
 }
 
-#ifdef ENABLE_ASYNC_CONNECT
-#ifndef _WIN32
-
-static bool
+static constexpr bool
 is_local_socket(const char *host) noexcept
 {
+#ifdef _WIN32
+	return false;
+#else
 	return *host == '/' || *host == '@';
+#endif
 }
+
+#ifdef ENABLE_ASYNC_CONNECT
+#ifndef _WIN32
 
 static bool
 settings_is_local_socket(const struct mpd_settings *settings) noexcept
