@@ -21,6 +21,7 @@ client = static_library(
   dependencies: [
     libmpdclient_dep,
     event_dep,
+    fmt_dep,
   ],
 )
 

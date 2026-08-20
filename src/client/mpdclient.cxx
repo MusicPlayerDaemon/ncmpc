@@ -7,9 +7,12 @@
 #include "charset.hxx"
 #include "util/ScopeExit.hxx"
 
+#include <fmt/format.h>
 #include <mpd/client.h>
 
 #include <assert.h>
+
+using std::string_view_literals::operator""sv;
 
 void
 mpdclient::OnEnterIdleTimer() noexcept
@@ -180,9 +183,7 @@ settings_name(const struct mpd_settings *settings) noexcept
 	if (port == 0 || port == 6600)
 		return host;
 
-	char buffer[256];
-	snprintf(buffer, sizeof(buffer), "%s:%u", host, port);
-	return buffer;
+	return fmt::format("{}:{}"sv, host, port);
 }
 
 std::string
