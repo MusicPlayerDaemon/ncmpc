@@ -23,6 +23,8 @@
 class SwitchPage final : public ListPage, ListText {
 	ScreenManager &screen;
 
+	TextListRenderer list_renderer{*this};
+
 public:
 	SwitchPage(ScreenManager &_screen, const Window _window) noexcept
 		:ListPage(_screen, _window), screen(_screen)
@@ -58,7 +60,7 @@ SwitchPage::GetListItemText(std::span<char>, unsigned i) const noexcept
 void
 SwitchPage::Paint() const noexcept
 {
-	lw.Paint(TextListRenderer{*this});
+	lw.Paint(list_renderer);
 }
 
 bool
@@ -84,6 +86,10 @@ SwitchPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::LIST_FIND_NEXT:
 	case Command::LIST_RFIND_NEXT:
 		CoStart(screen.find_support.Find(lw, *this, cmd));
+		return true;
+
+	case Command::LIST_JUMP:
+		CoStart(screen.find_support.Jump(lw, *this, list_renderer));
 		return true;
 
 	default:
