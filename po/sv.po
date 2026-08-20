@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-16 08:56+0200\n"
-"PO-Revision-Date: 2026-04-17 15:09+0000\n"
+"PO-Revision-Date: 2026-08-21 11:52+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/ncmpc/"
 "translations/sv/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 "X-Launchpad-Export-Date: 2010-06-19 15:12+0000\n"
 
 #: src/Bindings.cxx:64 src/Bindings.cxx:70
@@ -47,7 +47,7 @@ msgstr "Avsluta"
 
 #: src/Command.cxx:20
 msgid "Suspend"
-msgstr ""
+msgstr "Suspendera"
 
 #: src/Command.cxx:24
 msgid "Move cursor up"
