@@ -39,10 +39,8 @@ public:
 
 #ifndef NCMPC_MINI
 	[[gnu::pure]]
-	const PageMeta *GetTabAtX(const PageMeta &current_page_meta,
-				  std::string_view current_page_title,
-				  unsigned x) const noexcept {
-		return tab_bar.GetTabAtX(current_page_meta, current_page_title, x);
+	const PageMeta *GetTabAtX(unsigned x) const noexcept {
+		return tab_bar.GetTabAtX(x);
 	}
 #endif // NCMPC_MINI
 };

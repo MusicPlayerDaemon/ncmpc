@@ -40,7 +40,10 @@ void
 TabBar::Paint(const Window window, const PageMeta &current_page_meta,
 	      std::string_view current_page_title) const noexcept
 {
-	for (const PageMeta *const*i = all_pages; *i != nullptr; ++i) {
+	tabs.clear();
+
+	unsigned x = 0;
+	for (const PageMeta *const*i = all_pages; *i != nullptr && !tabs.full(); ++i) {
 		const auto &page = **i;
 
 		std::string_view title{};
@@ -52,42 +55,23 @@ TabBar::Paint(const Window window, const PageMeta &current_page_meta,
 
 		PaintPageTab(window, page.command, title,
 			     &page == &current_page_meta);
+
+		unsigned new_x = window.GetCursor().x;
+		unsigned width = new_x - x;
+		x = new_x;
+
+		tabs.emplace_back(page, width);
 	}
 }
 
-[[gnu::pure]]
-static unsigned
-GetTabWidth(Command cmd, std::string_view label) noexcept
-{
-	unsigned width = 3 + StringWidthMB(label);
-
-	const char *key = GetGlobalKeyBindings().GetFirstKeyName(cmd);
-	if (key != nullptr)
-		width += StringWidthMB(key);
-
-	return width;
-}
-
 const PageMeta *
-TabBar::GetTabAtX(const PageMeta &current_page_meta,
-		  std::string_view current_page_title,
-		  unsigned x) const noexcept
+TabBar::GetTabAtX(unsigned x) const noexcept
 {
-	for (const PageMeta *const*i = all_pages; *i != nullptr; ++i) {
-		const auto &page = **i;
+	for (const auto &i : tabs) {
+		if (x < i.width)
+			return &i.meta;
 
-		std::string_view title{};
-		if (&page == &current_page_meta)
-			title = current_page_title;
-
-		if (title.data() == nullptr)
-			title = my_gettext(page.title);
-
-		const unsigned tab_width = GetTabWidth(page.command, title);
-		if (x < tab_width)
-			return &page;
-
-		x -= tab_width;
+		x -= i.width;
 	}
 
 	return nullptr;

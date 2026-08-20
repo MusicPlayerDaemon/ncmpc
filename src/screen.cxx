@@ -309,8 +309,7 @@ inline void
 ScreenManager::OnTitleBarMouse(struct mpdclient &c, int x, mmask_t bstate)
 {
 	if (options.welcome_screen_list && (bstate & BUTTON1_CLICKED)) {
-		const auto title = GetCurrentPage().GetTitle({buf, buf_size});
-		const auto *page = title_bar.GetTabAtX(GetCurrentPageMeta(), title, x);
+		const auto *page = title_bar.GetTabAtX(x);
 		if (page != nullptr)
 			Switch(*page, c);
 	}
