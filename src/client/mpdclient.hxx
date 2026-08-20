@@ -165,18 +165,7 @@ public:
 		  unsigned _timeout_ms, const char *_password,
 		  MpdClientHandler &_handler);
 
-	~mpdclient() noexcept {
-		Disconnect();
-
-#ifdef ENABLE_ASYNC_CONNECT
-		mpd_settings_free(settings);
-
-#ifndef _WIN32
-		if (settings2 != nullptr)
-			mpd_settings_free(settings2);
-#endif
-#endif
-	}
+	~mpdclient() noexcept;
 
 	auto &GetEventLoop() const noexcept {
 		return enter_idle_timer.GetEventLoop();

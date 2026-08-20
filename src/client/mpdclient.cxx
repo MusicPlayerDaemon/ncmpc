@@ -174,6 +174,20 @@ mpdclient::mpdclient(EventLoop &event_loop,
 #endif
 }
 
+mpdclient::~mpdclient() noexcept
+{
+	Disconnect();
+
+#ifdef ENABLE_ASYNC_CONNECT
+	mpd_settings_free(settings);
+
+#ifndef _WIN32
+	if (settings2 != nullptr)
+		mpd_settings_free(settings2);
+#endif
+#endif
+}
+
 static std::string
 settings_name(const struct mpd_settings *settings) noexcept
 {
