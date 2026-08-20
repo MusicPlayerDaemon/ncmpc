@@ -12,7 +12,7 @@
 const char *
 KeyBindings::GetFirstKeyName(Command command) const noexcept
 {
-	const auto &b = key_bindings[size_t(command)];
+	const auto &b = Get(command);
 	return b.keys.front() != 0
 		? GetLocalizedKeyName(b.keys[0])
 		: nullptr;
@@ -21,7 +21,7 @@ KeyBindings::GetFirstKeyName(Command command) const noexcept
 std::string
 KeyBindings::GetKeyNames(Command command) const noexcept
 {
-	const auto &b = key_bindings[size_t(command)];
+	const auto &b = Get(command);
 
 	std::string s = GetLocalizedKeyName(b.keys[0]);
 

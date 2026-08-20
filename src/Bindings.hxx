@@ -58,6 +58,14 @@ struct KeyBinding {
 struct KeyBindings {
 	std::array<KeyBinding, size_t(Command::NONE)> key_bindings;
 
+	constexpr const KeyBinding &Get(Command cmd) const noexcept {
+		return key_bindings[static_cast<std::size_t>(cmd)];
+	}
+
+	constexpr KeyBinding &Get(Command cmd) noexcept {
+		return key_bindings[static_cast<std::size_t>(cmd)];
+	}
+
 	[[gnu::pure]]
 	Command FindKey(int key) const noexcept;
 
@@ -73,8 +81,7 @@ struct KeyBindings {
 
 	void SetKey(Command command,
 		    const std::array<int, MAX_COMMAND_KEYS> &keys) noexcept {
-		auto &b = key_bindings[size_t(command)];
-		b.SetKey(keys);
+		Get(command).SetKey(keys);
 	}
 
 #ifndef NCMPC_MINI
