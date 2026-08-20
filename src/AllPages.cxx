@@ -50,14 +50,15 @@ constexpr const PageMeta *all_pages[] = {
 #ifdef ENABLE_PLAYLIST_EDITOR
 	&edit_playlist_page,
 #endif
+	nullptr
 };
 
 const PageMeta *
 screen_lookup_name(std::string_view name) noexcept
 {
-	for (const auto *i : all_pages)
-		if (name == i->name)
-			return i;
+	for (const PageMeta *const*i = all_pages; *i != nullptr; ++i)
+		if (name == (*i)->name)
+			return *i;
 
 #ifdef ENABLE_LIBRARY_PAGE
 	/* compatibility with 0.32 and older */
@@ -71,9 +72,9 @@ screen_lookup_name(std::string_view name) noexcept
 const PageMeta *
 PageByCommand(Command cmd) noexcept
 {
-	for (const auto *i : all_pages)
-		if (i->command == cmd)
-			return i;
+	for (const PageMeta *const*i = all_pages; *i != nullptr; ++i)
+		if ((*i)->command == cmd)
+			return *i;
 
 	return nullptr;
 }
