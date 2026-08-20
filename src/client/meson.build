@@ -3,6 +3,7 @@ libmpdclient_dep = dependency('libmpdclient', version: '>= 2.19')
 client_sources = [
   'gidle.cxx',
   'mpdclient.cxx',
+  'Settings.cxx',
 ]
 
 if async_connect

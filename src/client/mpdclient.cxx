@@ -2,6 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "mpdclient.hxx"
+#include "Settings.hxx"
 #include "config.h"
 #include "gidle.hxx"
 #include "charset.hxx"
@@ -121,32 +122,6 @@ mpdclient::HandleAuthError() noexcept
 	}
 }
 
-static constexpr bool
-is_local_socket(const char *host) noexcept
-{
-#ifdef _WIN32
-	return false;
-#elifdef __linux__
-	// Linux has abstract sockets (starting with '@')
-	return *host == '/' || *host == '@';
-#else
-	return *host == '/';
-#endif
-}
-
-#ifdef ENABLE_ASYNC_CONNECT
-#ifndef _WIN32
-
-static bool
-settings_is_local_socket(const struct mpd_settings *settings) noexcept
-{
-	const char *host = mpd_settings_get_host(settings);
-	return host != nullptr && is_local_socket(host);
-}
-
-#endif
-#endif
-
 mpdclient::mpdclient(EventLoop &event_loop,
 		     const char *_host, unsigned _port,
 		     unsigned _timeout_ms, const char *_password,
@@ -163,7 +138,7 @@ mpdclient::mpdclient(EventLoop &event_loop,
 
 #ifndef _WIN32
 	settings2 = _host == nullptr && _port == 0 &&
-		settings_is_local_socket(settings)
+		MPD::IsLocalSocket(*settings)
 		? mpd_settings_new(_host, 6600, _timeout_ms, nullptr, nullptr)
 		: nullptr;
 #endif
@@ -188,30 +163,11 @@ mpdclient::~mpdclient() noexcept
 #endif
 }
 
-static std::string
-settings_name(const struct mpd_settings *settings) noexcept
-{
-	assert(settings != nullptr);
-
-	const char *host = mpd_settings_get_host(settings);
-	if (host == nullptr)
-		host = "unknown";
-
-	if (host[0] == '/' || host[0] == '@')
-		return host;
-
-	unsigned port = mpd_settings_get_port(settings);
-	if (port == 0 || port == 6600)
-		return host;
-
-	return fmt::format("{}:{}"sv, host, port);
-}
-
 std::string
 mpdclient::GetSettingsName() const noexcept
 {
 #ifdef ENABLE_ASYNC_CONNECT
-	return settings_name(settings);
+	return MPD::GetName(*settings);
 #else
 	struct mpd_settings *settings =
 		mpd_settings_new(host, port, 0, nullptr, nullptr);
@@ -220,7 +176,7 @@ mpdclient::GetSettingsName() const noexcept
 
 	AtScopeExit(settings) { mpd_settings_free(settings); };
 
-	return settings_name(settings);
+	return MPD::GetName(*settings);
 #endif
 }
 
