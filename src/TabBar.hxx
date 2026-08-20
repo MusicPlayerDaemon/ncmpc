@@ -8,12 +8,13 @@
 struct Window;
 struct PageMeta;
 
-void
-PaintTabBar(Window window, const PageMeta &current_page_meta,
-	    std::string_view current_page_title) noexcept;
+class TabBar {
+public:
+	void Paint(Window window, const PageMeta &current_page_meta,
+		   std::string_view current_page_title) const noexcept;
 
-[[gnu::pure]]
-const PageMeta *
-GetTabAtX(const PageMeta &current_page_meta,
-	  std::string_view current_page_title,
-	  unsigned x) noexcept;
+	[[gnu::pure]]
+	const PageMeta *GetTabAtX(const PageMeta &current_page_meta,
+				  std::string_view current_page_title,
+				  unsigned x) const noexcept;
+};

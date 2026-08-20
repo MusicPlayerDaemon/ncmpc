@@ -23,10 +23,6 @@
 #include "util/Exception.hxx"
 #include "util/ScopeExit.hxx"
 
-#ifdef HAVE_GETMOUSE
-#include "TabBar.hxx"
-#endif
-
 #include <fmt/format.h>
 #include <mpd/client.h>
 
@@ -314,7 +310,7 @@ ScreenManager::OnTitleBarMouse(struct mpdclient &c, int x, mmask_t bstate)
 {
 	if (options.welcome_screen_list && (bstate & BUTTON1_CLICKED)) {
 		const auto title = GetCurrentPage().GetTitle({buf, buf_size});
-		const auto *page = GetTabAtX(GetCurrentPageMeta(), title, x);
+		const auto *page = title_bar.GetTabAtX(GetCurrentPageMeta(), title, x);
 		if (page != nullptr)
 			Switch(*page, c);
 	}

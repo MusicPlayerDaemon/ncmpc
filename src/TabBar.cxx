@@ -37,8 +37,8 @@ PaintPageTab(const Window window, Command cmd, std::string_view label, bool sele
 }
 
 void
-PaintTabBar(const Window window, const PageMeta &current_page_meta,
-	    std::string_view current_page_title) noexcept
+TabBar::Paint(const Window window, const PageMeta &current_page_meta,
+	      std::string_view current_page_title) const noexcept
 {
 	for (const PageMeta *const*i = all_pages; *i != nullptr; ++i) {
 		const auto &page = **i;
@@ -55,6 +55,7 @@ PaintTabBar(const Window window, const PageMeta &current_page_meta,
 	}
 }
 
+[[gnu::pure]]
 static unsigned
 GetTabWidth(Command cmd, std::string_view label) noexcept
 {
@@ -68,9 +69,9 @@ GetTabWidth(Command cmd, std::string_view label) noexcept
 }
 
 const PageMeta *
-GetTabAtX(const PageMeta &current_page_meta,
-	  std::string_view current_page_title,
-	  unsigned x) noexcept
+TabBar::GetTabAtX(const PageMeta &current_page_meta,
+		  std::string_view current_page_title,
+		  unsigned x) const noexcept
 {
 	for (const PageMeta *const*i = all_pages; *i != nullptr; ++i) {
 		const auto &page = **i;

@@ -3,7 +3,12 @@
 
 #pragma once
 
+#include "config.h"
 #include "ui/Window.hxx"
+
+#ifndef NCMPC_MINI
+#include "TabBar.hxx"
+#endif
 
 #include <string_view>
 
@@ -12,6 +17,10 @@ struct PageMeta;
 
 class TitleBar {
 	UniqueWindow window;
+
+#ifndef NCMPC_MINI
+	TabBar tab_bar;
+#endif
 
 	int volume;
 	char flags[8];
@@ -27,4 +36,13 @@ public:
 	void Update(const struct mpd_status *status) noexcept;
 	void Paint(const PageMeta &current_page_meta,
 		   std::string_view title) const noexcept;
+
+#ifndef NCMPC_MINI
+	[[gnu::pure]]
+	const PageMeta *GetTabAtX(const PageMeta &current_page_meta,
+				  std::string_view current_page_title,
+				  unsigned x) const noexcept {
+		return tab_bar.GetTabAtX(current_page_meta, current_page_title, x);
+	}
+#endif // NCMPC_MINI
 };
