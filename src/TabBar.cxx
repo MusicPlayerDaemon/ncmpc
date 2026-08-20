@@ -29,7 +29,9 @@ PaintPageTab(const Window window, Command cmd, std::string_view label, bool sele
 	if (selected)
 		window.AttributeOn(A_REVERSE);
 
-	window.Char(':');
+	if (key != nullptr)
+		window.Char(':');
+
 	window.String(label);
 	window.Char(' ');
 
