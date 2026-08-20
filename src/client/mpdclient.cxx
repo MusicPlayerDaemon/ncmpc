@@ -126,8 +126,11 @@ is_local_socket(const char *host) noexcept
 {
 #ifdef _WIN32
 	return false;
-#else
+#elifdef __linux__
+	// Linux has abstract sockets (starting with '@')
 	return *host == '/' || *host == '@';
+#else
+	return *host == '/';
 #endif
 }
 
