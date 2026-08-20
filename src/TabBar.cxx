@@ -12,7 +12,8 @@
 #include "util/LocaleString.hxx"
 
 static void
-PaintPageTab(const Window window, Command cmd, std::string_view label, bool selected) noexcept
+PaintPageTab(const Window window, Command cmd, std::string_view label, bool selected,
+	     const KeyBindings &key_bindings) noexcept
 {
 	SelectStyle(window, selected ? Style::TITLE : Style::TITLE_BOLD);
 	if (selected)
@@ -20,7 +21,7 @@ PaintPageTab(const Window window, Command cmd, std::string_view label, bool sele
 
 	window.Char(' ');
 
-	const char *key = GetGlobalKeyBindings().GetFirstKeyName(cmd);
+	const char *key = key_bindings.GetFirstKeyName(cmd);
 	if (key != nullptr)
 		window.String(key);
 
@@ -40,6 +41,8 @@ void
 TabBar::Paint(const Window window, const PageMeta &current_page_meta,
 	      std::string_view current_page_title) const noexcept
 {
+	const auto &key_bindings = GetGlobalKeyBindings();
+
 	tabs.clear();
 
 	unsigned x = 0;
@@ -54,7 +57,8 @@ TabBar::Paint(const Window window, const PageMeta &current_page_meta,
 			title = my_gettext(page.title);
 
 		PaintPageTab(window, page.command, title,
-			     &page == &current_page_meta);
+			     &page == &current_page_meta,
+			     key_bindings);
 
 		unsigned new_x = window.GetCursor().x;
 		unsigned width = new_x - x;
