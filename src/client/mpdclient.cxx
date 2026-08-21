@@ -129,15 +129,17 @@ mpdclient::mpdclient(EventLoop &event_loop,
 	:handler(_handler),
 	 enter_idle_timer(event_loop, BIND_THIS_METHOD(OnEnterIdleTimer))
 {
-	settings = MPD::NewSettings(_host, _port, _timeout_ms,
-				    nullptr, _password);
-	if (settings == nullptr)
+	default_settings = MPD::NewSettings(_host, _port, _timeout_ms,
+					    nullptr, _password);
+	if (default_settings == nullptr)
 		fprintf(stderr, "Out of memory\n");
 
+	current_settings = default_settings;
+
 #if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
-	if (_host == nullptr && _port == 0 && MPD::IsLocalSocket(*settings))
-		settings2 = MPD::NewSettings(_host, 6600, _timeout_ms,
-					     nullptr, _password);
+	if (_host == nullptr && _port == 0 && MPD::IsLocalSocket(*default_settings))
+		fallback_settings = MPD::NewSettings(_host, 6600, _timeout_ms,
+						     nullptr, _password);
 #endif
 }
 
@@ -364,9 +366,9 @@ mpdclient::OnAsyncMpdConnectError(std::exception_ptr e) noexcept
 	async_connect = nullptr;
 
 #ifdef HAVE_UN
-	if (!connecting2 && settings2 != nullptr) {
-		connecting2 = true;
-		StartConnect(*settings2);
+	if (current_settings == default_settings && fallback_settings) {
+		current_settings = fallback_settings;
+		StartConnect(*current_settings);
 		return;
 	}
 #endif
@@ -412,7 +414,8 @@ void
 mpdclient::Connect() noexcept
 {
 #if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
-	connecting2 = false;
+	if (current_settings == fallback_settings)
+		current_settings = default_settings;
 #endif
 
 	DoConnect(GetSettings());

@@ -70,9 +70,19 @@ private:
 
 public:
 	/**
-	 * These settings are used to connect to MPD.
+	 * These settings are used to connect to MPD.  This may point
+	 * to the same instance as #default_settings or
+	 * #fallback_settings (or may be something completely
+	 * different).
 	 */
-	MPD::SharedSettings settings;
+	MPD::SharedSettings current_settings;
+
+	/**
+	 * The default settings that will be used if nothing else is
+	 * specified.  If connecting to this fails, then
+	 * #fallback_settings will be used.
+	 */
+	MPD::SharedSettings default_settings;
 
 #if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
 	/**
@@ -81,7 +91,7 @@ public:
 	 * socket path, and this one is supposed to be a fallback to
 	 * IP on the default port (6600).
 	 */
-	MPD::SharedSettings settings2;
+	MPD::SharedSettings fallback_settings;
 #endif
 
 	/* playlist */
@@ -126,10 +136,6 @@ public:
 	bool enable_tag_whitelist = false;
 	TagMask tag_whitelist;
 
-#if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
-	bool connecting2 = false;
-#endif
-
 	/**
 	 * True if authentication is in progress.  The connection
 	 * cannot be used for something else meanwhile.
@@ -167,12 +173,7 @@ public:
 	 * Returns the #mpd_settings that are currently in use.
 	 */
 	const struct mpd_settings &GetSettings() const noexcept {
-#if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
-		if (connecting2)
-			return *settings2;
-#endif
-
-		return *settings;
+		return *current_settings;
 	}
 
 	/**
@@ -181,7 +182,7 @@ public:
 	 * be set.
 	 */
 	MPD::SharedSettings GetDefaultSettingsPtr() const noexcept {
-		return settings;
+		return default_settings;
 	}
 
 	/**
@@ -191,7 +192,7 @@ public:
 	 */
 	MPD::SharedSettings GetFallbackSettingsPtr() const noexcept {
 #if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
-		return settings2;
+		return fallback_settings;
 #else
 		return {};
 #endif
