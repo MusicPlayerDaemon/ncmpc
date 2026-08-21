@@ -4,6 +4,7 @@
 #pragma once
 
 #define HAVE_TCP
+#define HAVE_IPV6
 
 #ifndef _WIN32
 #define HAVE_UN
