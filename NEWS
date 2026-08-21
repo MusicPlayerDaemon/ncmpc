@@ -1,6 +1,7 @@
 ncmpc 0.55 - not yet released
 * reduce the number of pages displayed in the top row
 * new page switcher
+* fix connection name if connected to fallback address
 
 ncmpc 0.54 - (2026-08-13)
 * suspend to the shell with Ctrl-Z
