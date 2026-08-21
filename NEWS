@@ -3,6 +3,7 @@ ncmpc 0.55 - not yet released
 * new page switcher
 * fix connection name if connected to fallback address
 * new "connections" page
+* add Zeroconf support to find MPD on the local network
 
 ncmpc 0.54 - (2026-08-13)
 * suspend to the shell with Ctrl-Z

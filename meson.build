@@ -401,6 +401,14 @@ subdir('src/ui')
 subdir('src/dialogs')
 subdir('src/page')
 
+if enable_connections_page
+  subdir('src/time')
+  subdir('src/lib/avahi')
+  conf.set('HAVE_AVAHI', avahi_dep.found())
+else
+  avahi_dep = dependency('', required: false)
+endif
+
 ncmpc = executable('ncmpc',
   'src/Main.cxx',
   'src/Instance.cxx',
@@ -458,6 +466,7 @@ ncmpc = executable('ncmpc',
     ui_dep,
     dialogs_dep,
     page_dep,
+    avahi_dep,
   ],
   install: true
 )

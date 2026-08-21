@@ -17,21 +17,69 @@
 #include "ui/paint.hxx"
 #include "util/LocaleString.hxx"
 
+#ifdef HAVE_AVAHI
+#include "lib/avahi/Client.hxx"
+#include "lib/avahi/ErrorHandler.hxx"
+#include "lib/avahi/Explorer.hxx"
+#include "lib/avahi/ExplorerListener.hxx"
+#include "net/InetAddress.hxx"
+#include "util/Exception.hxx"
+#include "util/FNVHash.hxx"
+#include "util/SpanCast.hxx"
+#endif // HAVE_AVAHI
+
+#include <fmt/format.h>
+
+#include <cassert>
 #include <vector>
 
-#include <assert.h>
+using std::string_view_literals::operator""sv;
 
-class ConnectionsPage final : public ListPage, ListText, ListRenderer {
+class ConnectionsPage final
+	: public ListPage, ListText, ListRenderer
+#ifdef HAVE_AVAHI
+	, Avahi::ErrorHandler, Avahi::ServiceExplorerListener
+#endif // HAVE_AVAHI
+{
 	ScreenManager &screen;
+
+#ifdef HAVE_AVAHI
+	Avahi::Client avahi_client{screen.GetEventLoop(), *this};
+	Avahi::ServiceExplorer avahi_explorer{
+		avahi_client,
+		*this,
+		AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC,
+		"_mpd._tcp", nullptr,
+		*this,
+	};
+#endif // HAVE_AVAHI
 
 	struct Item {
 		MPD::SharedSettings settings;
-		const std::string name;
+		std::string name;
 		bool active = false;
+
+#ifdef HAVE_AVAHI
+		std::string avahi_key;
+#endif
 
 		explicit Item(MPD::SharedSettings &&_settings) noexcept
 			:settings(std::move(_settings)),
 			 name(MPD::GetName(*settings)) {}
+
+		explicit Item(std::string &&_name) noexcept
+			:name(std::move(_name)) {}
+
+		bool IsError() const noexcept {
+			return !settings;
+		}
+
+#ifdef HAVE_AVAHI
+		[[gnu::pure]]
+		auto GetHash() const noexcept {
+			return FNV1aHash64(AsBytes(name));
+		}
+#endif // HAVE_AVAHI
 	};
 
 	std::vector<Item> items;
@@ -67,13 +115,27 @@ public:
 	/* virtual methods from class ListRenderer */
 	void PaintListItem(Window window, unsigned i, unsigned y, unsigned width,
 			   bool selected) const noexcept override;
+
+private:
+#ifdef HAVE_AVAHI
+	/* virtual methods from class Avahi::ErrorHandler */
+	bool OnAvahiError(std::exception_ptr e) noexcept override;
+
+	/* virtual methods from class Avahi::ServiceExplorerListener */
+	void OnAvahiNewObject(const std::string &key,
+			      const char *host_name,
+			      const InetAddress &address,
+			      AvahiStringList *txt,
+			      Avahi::ObjectFlags flags) noexcept override;
+	void OnAvahiRemoveObject(const std::string &key) noexcept override;
+#endif // HAVE_AVAHI
 };
 
 inline void
 ConnectionsPage::Activate(struct mpdclient &c, unsigned i)
 {
 	const auto &item = items[i];
-	if (item.active)
+	if (item.IsError() || item.active)
 		return;
 
 	c.Connect(MPD::SharedSettings{item.settings});
@@ -105,7 +167,7 @@ ConnectionsPage::PaintListItem(Window window, unsigned i, [[maybe_unused]] unsig
 {
 	const auto &item = items[i];
 
-	row_color(window, item.active ? Style::LIST_BOLD : Style::LIST, selected);
+	row_color(window, item.active || item.IsError() ? Style::LIST_BOLD : Style::LIST, selected);
 	window.String(item.name);
 	row_clear_to_eol(window, width, selected);
 }
@@ -200,6 +262,70 @@ ConnectionsPage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 }
 
 #endif // HAVE_GETMOUSE
+
+#ifdef HAVE_AVAHI
+
+bool
+ConnectionsPage::OnAvahiError(std::exception_ptr e) noexcept
+{
+	if (items.back().IsError())
+		items.pop_back();
+
+	items.emplace_back(fmt::format("Zeroconf error: {}"sv, GetFullMessage(std::move(e))));
+
+	lw.SetLength(items.size());
+	SchedulePaint();
+
+	return true;
+}
+
+void
+ConnectionsPage::OnAvahiNewObject(const std::string &key,
+				  const char *host_name,
+				  const InetAddress &address,
+				  [[maybe_unused]] AvahiStringList *txt,
+				  [[maybe_unused]] Avahi::ObjectFlags flags) noexcept
+{
+	char buffer[64];
+	const char *address_host = address.Format(buffer);
+	if (address_host == nullptr)
+		return;
+
+	const auto hash = lw.GetCursorHash(items);
+
+	auto pos = items.end();
+	if (items.back().IsError())
+		--pos;
+
+	auto i = items.emplace(pos, MPD::NewSettings(address_host, address.GetPort(), 0, nullptr, nullptr));
+	i->avahi_key = key;
+	i->name = fmt::format("{} (Zeroconf {})"sv, host_name, address_host);
+
+	lw.SetLength(items.size());
+	lw.SetCursorHash(items, hash);
+	SchedulePaint();
+}
+
+void
+ConnectionsPage::OnAvahiRemoveObject(const std::string &key) noexcept
+{
+	const auto i = std::find_if(items.begin(), items.end(), [&key](const auto &item){
+		return key == item.avahi_key;
+	});
+	if (i == items.end())
+		return;
+
+	const auto hash = lw.GetCursorHash(items);
+
+	items.erase(i);
+
+	lw.SetLength(items.size());
+	lw.SetCursorHash(items, hash);
+	SchedulePaint();
+}
+
+#endif // HAVE_AVAHI
+
 
 static std::unique_ptr<Page>
 InitConnectionsPage(ScreenManager &screen, const Window window)

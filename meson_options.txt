@@ -85,6 +85,8 @@ option('chat_screen', type: 'boolean',
   value: false,
   description: 'Enable the chat screen')
 
+option('zeroconf', type: 'feature', description: 'Zeroconf support (using Avahi)')
+
 option('documentation', type: 'feature',
   description: 'Build documentation')
 
