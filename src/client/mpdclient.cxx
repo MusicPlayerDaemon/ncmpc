@@ -386,20 +386,15 @@ mpdclient::StartConnect(const struct mpd_settings &s) noexcept
 
 #endif
 
-void
-mpdclient::Connect() noexcept
+inline void
+mpdclient::DoConnect(const struct mpd_settings &s) noexcept
 {
 	/* close any open connection */
 	Disconnect();
 
 #ifdef ENABLE_ASYNC_CONNECT
-#ifdef HAVE_UN
-	connecting2 = false;
-#endif
-	StartConnect(*settings);
+	StartConnect(s);
 #else
-	/* connect to MPD */
-	auto &s = GetSettings();
 	struct mpd_connection *new_connection =
 		mpd_connection_new(mpd_settings_get_host(&s),
 				   mpd_settings_get_port(&s),
@@ -411,6 +406,16 @@ mpdclient::Connect() noexcept
 
 	OnConnected(new_connection);
 #endif
+}
+
+void
+mpdclient::Connect() noexcept
+{
+#if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
+	connecting2 = false;
+#endif
+
+	DoConnect(GetSettings());
 }
 
 bool

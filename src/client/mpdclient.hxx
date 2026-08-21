@@ -320,6 +320,7 @@ private:
 #ifdef ENABLE_ASYNC_CONNECT
 	void StartConnect(const struct mpd_settings &s) noexcept;
 #endif
+	void DoConnect(const struct mpd_settings &s) noexcept;
 
 	void InvokeErrorCallback() noexcept;
 
