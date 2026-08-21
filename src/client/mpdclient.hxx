@@ -6,6 +6,7 @@
 #include "config.h"
 #include "Queue.hxx"
 #include "gidle.hxx"
+#include "SharedSettings.hxx"
 #include "TagMask.hxx"
 #include "event/FineTimerEvent.hxx"
 
@@ -71,7 +72,7 @@ public:
 	/**
 	 * These settings are used to connect to MPD asynchronously.
 	 */
-	struct mpd_settings *settings;
+	MPD::SharedSettings settings;
 
 #ifndef _WIN32
 	/**
@@ -80,7 +81,7 @@ public:
 	 * socket path, and this one is supposed to be a fallback to
 	 * IP on the default port (6600).
 	 */
-	struct mpd_settings *settings2;
+	MPD::SharedSettings settings2;
 #endif
 
 #else
