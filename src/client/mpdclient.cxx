@@ -134,7 +134,7 @@ mpdclient::mpdclient(EventLoop &event_loop,
 	if (settings == nullptr)
 		fprintf(stderr, "Out of memory\n");
 
-#if defined(ENABLE_ASYNC_CONNECT) && !defined(_WIN32)
+#if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
 	if (_host == nullptr && _port == 0 && MPD::IsLocalSocket(*settings))
 		settings2 = MPD::NewSettings(_host, 6600, _timeout_ms,
 					     nullptr, _password);
@@ -361,7 +361,7 @@ mpdclient::OnAsyncMpdConnectError(std::exception_ptr e) noexcept
 	assert(async_connect != nullptr);
 	async_connect = nullptr;
 
-#ifndef _WIN32
+#ifdef HAVE_UN
 	if (!connecting2 && settings2 != nullptr) {
 		connecting2 = true;
 		StartConnect(*settings2);
@@ -391,7 +391,7 @@ mpdclient::Connect() noexcept
 	Disconnect();
 
 #ifdef ENABLE_ASYNC_CONNECT
-#ifndef _WIN32
+#ifdef HAVE_UN
 	connecting2 = false;
 #endif
 	StartConnect(*settings);

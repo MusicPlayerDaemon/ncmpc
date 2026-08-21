@@ -9,6 +9,7 @@
 #include "SharedSettings.hxx"
 #include "TagMask.hxx"
 #include "event/FineTimerEvent.hxx"
+#include "net/Features.hxx" // for HAVE_UN
 
 #ifdef ENABLE_ASYNC_CONNECT
 #include "aconnect.hxx"
@@ -73,7 +74,7 @@ public:
 	 */
 	MPD::SharedSettings settings;
 
-#if defined(ENABLE_ASYNC_CONNECT) && !defined(_WIN32)
+#if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
 	/**
 	 * A second set of settings, just in case #settings did not
 	 * work.  This is only used if #settings refers to a local
@@ -125,7 +126,7 @@ public:
 	bool enable_tag_whitelist = false;
 	TagMask tag_whitelist;
 
-#if defined(ENABLE_ASYNC_CONNECT) && !defined(_WIN32)
+#if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
 	bool connecting2;
 #endif
 
@@ -163,7 +164,7 @@ public:
 	}
 
 	const struct mpd_settings &GetSettings() const noexcept {
-#if defined(ENABLE_ASYNC_CONNECT) && !defined(_WIN32)
+#if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
 		if (connecting2)
 			return *settings2;
 #endif

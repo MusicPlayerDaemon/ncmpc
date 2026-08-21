@@ -13,7 +13,7 @@ namespace MPD {
 static constexpr bool
 is_local_socket(const char *host) noexcept
 {
-#ifdef _WIN32
+#ifndef HAVE_UN
 	return false;
 #elifdef __linux__
 	// Linux has abstract sockets (starting with '@')
@@ -23,7 +23,7 @@ is_local_socket(const char *host) noexcept
 #endif
 }
 
-#ifndef _WIN32
+#ifdef HAVE_UN
 
 [[gnu::pure]]
 bool
@@ -33,7 +33,7 @@ IsLocalSocket(const struct mpd_settings &settings) noexcept
 	return host != nullptr && is_local_socket(host);
 }
 
-#endif
+#endif // HAVE_UN
 
 std::string
 GetName(const struct mpd_settings &settings) noexcept

@@ -3,19 +3,21 @@
 
 #pragma once
 
+#include "net/Features.hxx" // for HAVE_UN
+
 #include <string>
 
 struct mpd_settings;
 
 namespace MPD {
 
-#ifndef _WIN32
+#ifdef HAVE_UN
 
 [[gnu::pure]]
 bool
 IsLocalSocket(const struct mpd_settings &settings) noexcept;
 
-#endif // _WIN32
+#endif // HAVE_UN
 
 [[gnu::pure]]
 std::string
