@@ -5,8 +5,12 @@
 #include "IPv4Address.hxx"
 
 #include <cassert>
+#include <cstring> // for strlen()
+#include <cstdio> // for sprintf()
 
-#include <string.h>
+#ifndef _WIN32
+#include <arpa/inet.h> // for inet_ntop()
+#endif
 
 IPv6Address::IPv6Address(SocketAddress src) noexcept
 	:address(src.CastTo<struct sockaddr_in6>())
@@ -64,4 +68,28 @@ IPv6Address::operator&(const IPv6Address &other) const
 	BitwiseAnd32(&result, this, &other,
 		     sizeof(result));
 	return result;
+}
+
+const char *
+IPv6Address::Format(std::span<char> buffer) const noexcept
+{
+	if (buffer.size() <= 9) [[unlikely]]
+		return nullptr;
+
+	char *p = buffer.data();
+
+	const unsigned port = GetPort();
+	if (port != 0)
+		*p++ = '[';
+
+	if (inet_ntop(AF_INET6, &address.sin6_addr,
+		      p, buffer.size() - 9) == nullptr)
+		return nullptr;
+
+	if (port != 0) {
+		p += std::strlen(p);
+		std::sprintf(p, "]:%u", port);
+	}
+
+	return buffer.data();
 }

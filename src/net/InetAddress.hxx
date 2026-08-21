@@ -10,6 +10,8 @@
 #include "IPv6Address.hxx"
 #endif
 
+#include <span>
+
 /**
  * A class that can store either an IPv4 or an IPv6 address.
  */
@@ -114,6 +116,28 @@ public:
 
 		default:
 			return {};
+		}
+	}
+
+	/**
+	 * Format this object as a C string into the given buffer.
+	 *
+	 * @return the C string on success, nullptr on error
+	 */
+	[[nodiscard]]
+	const char *Format(std::span<char> buffer) const noexcept {
+		switch (GetFamily()) {
+		case AF_INET:
+			return v4.Format(buffer);
+
+#ifdef HAVE_IPV6
+		case AF_INET6:
+			return v6.Format(buffer);
+#endif
+
+		default:
+			[[unlikely]]
+			return nullptr;
 		}
 	}
 };

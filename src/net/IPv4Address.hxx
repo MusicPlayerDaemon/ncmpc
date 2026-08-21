@@ -232,4 +232,12 @@ public:
 		return IPv4Address(ConstructInAddrBE(GetNumericAddressBE() & other.GetNumericAddressBE()),
 				   GetPort() & other.GetPort());
 	}
+
+	/**
+	 * Format this object as a C string into the given buffer.
+	 *
+	 * @return the C string on success, nullptr on error
+	 */
+	[[nodiscard]]
+	const char *Format(std::span<char> buffer) const noexcept;
 };

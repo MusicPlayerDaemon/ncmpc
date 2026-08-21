@@ -212,6 +212,14 @@ public:
 	[[gnu::pure]]
 	IPv6Address operator&(const IPv6Address &other) const;
 
+	/**
+	 * Format this object as a C string into the given buffer.
+	 *
+	 * @return the C string on success, nullptr on error
+	 */
+	[[nodiscard]]
+	const char *Format(std::span<char> buffer) const noexcept;
+
 private:
 	/**
 	 * Helper function for MaskFromPrefix().
