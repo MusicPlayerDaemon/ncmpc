@@ -83,8 +83,6 @@ public:
 	MPD::SharedSettings settings2;
 #endif
 
-	const char *const password;
-
 	/* playlist */
 	MpdQueue playlist;
 

@@ -127,17 +127,17 @@ mpdclient::mpdclient(EventLoop &event_loop,
 		     unsigned _timeout_ms, const char *_password,
 		     MpdClientHandler &_handler)
 	:handler(_handler),
-	 password(_password),
 	 enter_idle_timer(event_loop, BIND_THIS_METHOD(OnEnterIdleTimer))
 {
 	settings = MPD::NewSettings(_host, _port, _timeout_ms,
-				    nullptr, nullptr);
+				    nullptr, _password);
 	if (settings == nullptr)
 		fprintf(stderr, "Out of memory\n");
 
 #if defined(ENABLE_ASYNC_CONNECT) && !defined(_WIN32)
 	if (_host == nullptr && _port == 0 && MPD::IsLocalSocket(*settings))
-		settings2 = MPD::NewSettings(_host, 6600, _timeout_ms, nullptr, nullptr);
+		settings2 = MPD::NewSettings(_host, 6600, _timeout_ms,
+					     nullptr, _password);
 #endif
 }
 
@@ -302,7 +302,8 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 #endif
 
 	/* send password */
-	if (password != nullptr &&
+	if (const char *password = mpd_settings_get_password(settings.get());
+	    password != nullptr &&
 	    !mpd_run_password(connection, password)) {
 		InvokeErrorCallback();
 		Disconnect();
