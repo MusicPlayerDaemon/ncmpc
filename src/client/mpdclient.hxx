@@ -127,7 +127,7 @@ public:
 	TagMask tag_whitelist;
 
 #if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
-	bool connecting2;
+	bool connecting2 = false;
 #endif
 
 	/**
