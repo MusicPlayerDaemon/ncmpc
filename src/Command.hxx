@@ -112,6 +112,9 @@ enum class Command : unsigned {
 #ifdef ENABLE_OUTPUTS_SCREEN
 	SCREEN_OUTPUTS,
 #endif
+#ifdef ENABLE_CONNECTIONS_PAGE
+	CONNECTIONS_PAGE,
+#endif
 #ifdef ENABLE_CHAT_SCREEN
 	SCREEN_CHAT,
 #endif

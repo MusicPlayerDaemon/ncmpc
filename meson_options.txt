@@ -78,6 +78,9 @@ option('outputs_screen', type: 'boolean',
   value: true,
   description: 'Enable the outputs screen')
 
+option('connections_page', type: 'boolean', value: true,
+       description: 'Enable the connections page')
+
 option('chat_screen', type: 'boolean',
   value: false,
   description: 'Enable the chat screen')

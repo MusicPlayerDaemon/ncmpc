@@ -14,6 +14,7 @@
 #include "EditPlaylistPage.hxx"
 #include "LyricsPage.hxx"
 #include "OutputsPage.hxx"
+#include "ConnectionsPage.hxx"
 #include "ChatPage.hxx"
 #include "config.h"
 
@@ -39,6 +40,9 @@ constexpr const PageMeta *all_pages[] = {
 #endif
 #ifdef ENABLE_OUTPUTS_SCREEN
 	&screen_outputs,
+#endif
+#ifdef ENABLE_CONNECTIONS_PAGE
+	&connections_page,
 #endif
 #ifdef ENABLE_CHAT_SCREEN
 	&screen_chat,

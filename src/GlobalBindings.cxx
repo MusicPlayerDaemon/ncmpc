@@ -119,6 +119,10 @@ static KeyBindings global_key_bindings{{{
 	{'8', KEY_F(8)},
 #endif
 
+#ifdef ENABLE_CONNECTIONS_PAGE
+	{'0', KEY_F(10)},
+#endif
+
 #ifdef ENABLE_CHAT_SCREEN
 	{0},
 #endif

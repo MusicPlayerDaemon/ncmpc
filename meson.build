@@ -364,6 +364,12 @@ if enable_outputs_screen
   sources += ['src/OutputsPage.cxx']
 endif
 
+enable_connections_page = get_option('connections_page') and not mini
+conf.set('ENABLE_CONNECTIONS_PAGE', enable_connections_page)
+if enable_connections_page
+  sources += ['src/ConnectionsPage.cxx']
+endif
+
 enable_chat_screen = get_option('chat_screen') and not mini
 conf.set('ENABLE_CHAT_SCREEN', enable_chat_screen)
 if enable_chat_screen

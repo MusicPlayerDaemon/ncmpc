@@ -203,6 +203,11 @@ static constexpr command_definition_t cmds[] = {
 	  N_("Outputs screen") },
 #endif
 
+#ifdef ENABLE_CONNECTIONS_PAGE
+	{ "connections-page",
+	  N_("Connections") },
+#endif
+
 #ifdef ENABLE_CHAT_SCREEN
 	{ "screen-chat",
 	  N_("Chat screen") },
