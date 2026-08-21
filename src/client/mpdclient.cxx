@@ -127,7 +127,7 @@ mpdclient::mpdclient(EventLoop &event_loop,
 		     unsigned _timeout_ms, const char *_password,
 		     MpdClientHandler &_handler)
 	:handler(_handler),
-	 timeout_ms(_timeout_ms), password(_password),
+	 password(_password),
 	 enter_idle_timer(event_loop, BIND_THIS_METHOD(OnEnterIdleTimer))
 {
 	settings = MPD::NewSettings(_host, _port, _timeout_ms,
@@ -296,7 +296,8 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 	}
 
 #ifdef ENABLE_ASYNC_CONNECT
-	if (timeout_ms > 0)
+	if (const auto timeout_ms = mpd_settings_get_timeout_ms(settings.get());
+	    timeout_ms > 0)
 		mpd_connection_set_timeout(connection, timeout_ms);
 #endif
 
@@ -398,7 +399,7 @@ mpdclient::Connect() noexcept
 	struct mpd_connection *new_connection =
 		mpd_connection_new(mpd_settings_get_host(settings.get()),
 				   mpd_settings_get_port(settings.get()),
-				   timeout_ms);
+				   mpd_settings_get_timeout_ms(settings.get()));
 	if (new_connection == nullptr) {
 		fprintf(stderr, "Out of memory\n");
 		return;

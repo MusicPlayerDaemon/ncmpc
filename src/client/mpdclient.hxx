@@ -83,8 +83,6 @@ public:
 	MPD::SharedSettings settings2;
 #endif
 
-	const unsigned timeout_ms;
-
 	const char *const password;
 
 	/* playlist */
