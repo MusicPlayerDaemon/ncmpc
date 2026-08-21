@@ -295,14 +295,16 @@ mpdclient::OnConnected(struct mpd_connection *_connection) noexcept
 		return false;
 	}
 
+	auto &s = GetSettings();
+
 #ifdef ENABLE_ASYNC_CONNECT
-	if (const auto timeout_ms = mpd_settings_get_timeout_ms(settings.get());
+	if (const auto timeout_ms = mpd_settings_get_timeout_ms(&s);
 	    timeout_ms > 0)
 		mpd_connection_set_timeout(connection, timeout_ms);
 #endif
 
 	/* send password */
-	if (const char *password = mpd_settings_get_password(settings.get());
+	if (const char *password = mpd_settings_get_password(&s);
 	    password != nullptr &&
 	    !mpd_run_password(connection, password)) {
 		InvokeErrorCallback();
@@ -397,10 +399,11 @@ mpdclient::Connect() noexcept
 	StartConnect(*settings);
 #else
 	/* connect to MPD */
+	auto &s = GetSettings();
 	struct mpd_connection *new_connection =
-		mpd_connection_new(mpd_settings_get_host(settings.get()),
-				   mpd_settings_get_port(settings.get()),
-				   mpd_settings_get_timeout_ms(settings.get()));
+		mpd_connection_new(mpd_settings_get_host(&s),
+				   mpd_settings_get_port(&s),
+				   mpd_settings_get_timeout_ms(&s));
 	if (new_connection == nullptr) {
 		fprintf(stderr, "Out of memory\n");
 		return;
