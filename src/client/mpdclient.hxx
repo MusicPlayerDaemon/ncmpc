@@ -68,13 +68,12 @@ private:
 	MpdClientHandler &handler;
 
 public:
-#ifdef ENABLE_ASYNC_CONNECT
 	/**
-	 * These settings are used to connect to MPD asynchronously.
+	 * These settings are used to connect to MPD.
 	 */
 	MPD::SharedSettings settings;
 
-#ifndef _WIN32
+#if defined(ENABLE_ASYNC_CONNECT) && !defined(_WIN32)
 	/**
 	 * A second set of settings, just in case #settings did not
 	 * work.  This is only used if #settings refers to a local
@@ -82,11 +81,6 @@ public:
 	 * IP on the default port (6600).
 	 */
 	MPD::SharedSettings settings2;
-#endif
-
-#else
-	const char *host;
-	unsigned port;
 #endif
 
 	const unsigned timeout_ms;

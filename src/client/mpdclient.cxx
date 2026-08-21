@@ -130,20 +130,14 @@ mpdclient::mpdclient(EventLoop &event_loop,
 	 timeout_ms(_timeout_ms), password(_password),
 	 enter_idle_timer(event_loop, BIND_THIS_METHOD(OnEnterIdleTimer))
 {
-#ifdef ENABLE_ASYNC_CONNECT
 	settings = MPD::NewSettings(_host, _port, _timeout_ms,
 				    nullptr, nullptr);
 	if (settings == nullptr)
 		fprintf(stderr, "Out of memory\n");
 
-#ifndef _WIN32
+#if defined(ENABLE_ASYNC_CONNECT) && !defined(_WIN32)
 	if (_host == nullptr && _port == 0 && MPD::IsLocalSocket(*settings))
 		settings2 = MPD::NewSettings(_host, 6600, _timeout_ms, nullptr, nullptr);
-#endif
-
-#else
-	host = _host;
-	port = _port;
 #endif
 }
 
@@ -155,18 +149,7 @@ mpdclient::~mpdclient() noexcept
 std::string
 mpdclient::GetSettingsName() const noexcept
 {
-#ifdef ENABLE_ASYNC_CONNECT
 	return MPD::GetName(*settings);
-#else
-	struct mpd_settings *settings =
-		mpd_settings_new(host, port, 0, nullptr, nullptr);
-	if (settings == nullptr)
-		return "unknown";
-
-	AtScopeExit(settings) { mpd_settings_free(settings); };
-
-	return MPD::GetName(*settings);
-#endif
 }
 
 void
@@ -413,7 +396,9 @@ mpdclient::Connect() noexcept
 #else
 	/* connect to MPD */
 	struct mpd_connection *new_connection =
-		mpd_connection_new(host, port, timeout_ms);
+		mpd_connection_new(mpd_settings_get_host(settings.get()),
+				   mpd_settings_get_port(settings.get()),
+				   timeout_ms);
 	if (new_connection == nullptr) {
 		fprintf(stderr, "Out of memory\n");
 		return;
