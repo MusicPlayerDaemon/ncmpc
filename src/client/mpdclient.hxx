@@ -162,18 +162,14 @@ public:
 		return enter_idle_timer.GetEventLoop();
 	}
 
-#ifdef ENABLE_ASYNC_CONNECT
-
 	const struct mpd_settings &GetSettings() const noexcept {
-#ifndef _WIN32
+#if defined(ENABLE_ASYNC_CONNECT) && !defined(_WIN32)
 		if (connecting2)
 			return *settings2;
 #endif
 
 		return *settings;
 	}
-
-#endif
 
 	/**
 	 * Determine a human-readable "name" of the settings currently used to

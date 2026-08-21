@@ -149,14 +149,7 @@ mpdclient::~mpdclient() noexcept
 std::string
 mpdclient::GetSettingsName() const noexcept
 {
-	const struct mpd_settings *s = settings.get();
-
-#if defined(ENABLE_ASYNC_CONNECT) && !defined(_WIN32)
-	if (settings2 && connecting2)
-		s = settings2.get();
-#endif
-
-	return MPD::GetName(*s);
+	return MPD::GetName(GetSettings());
 }
 
 void
