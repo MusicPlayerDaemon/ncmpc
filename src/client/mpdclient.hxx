@@ -163,6 +163,9 @@ public:
 		return enter_idle_timer.GetEventLoop();
 	}
 
+	/**
+	 * Returns the #mpd_settings that are currently in use.
+	 */
 	const struct mpd_settings &GetSettings() const noexcept {
 #if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
 		if (connecting2)
@@ -170,6 +173,28 @@ public:
 #endif
 
 		return *settings;
+	}
+
+	/**
+	 * Returns the primary #mpd_settings that are this class will
+	 * connect to by default.  The return value is guaranteed to
+	 * be set.
+	 */
+	MPD::SharedSettings GetDefaultSettingsPtr() const noexcept {
+		return settings;
+	}
+
+	/**
+	 * Returns the secondary #mpd_settings that are this class
+	 * will connect to by default.  Returns nullptr if there is no
+	 * fallback address.
+	 */
+	MPD::SharedSettings GetFallbackSettingsPtr() const noexcept {
+#if defined(ENABLE_ASYNC_CONNECT) && defined(HAVE_UN)
+		return settings2;
+#else
+		return {};
+#endif
 	}
 
 	/**
