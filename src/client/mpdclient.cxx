@@ -421,6 +421,15 @@ mpdclient::Connect() noexcept
 	DoConnect(GetSettings());
 }
 
+void
+mpdclient::Connect(MPD::SharedSettings &&new_settings) noexcept
+{
+	assert(new_settings);
+
+	current_settings = std::move(new_settings);
+	DoConnect(GetSettings());
+}
+
 bool
 mpdclient::Update() noexcept
 {

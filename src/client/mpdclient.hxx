@@ -276,6 +276,7 @@ public:
 	}
 
 	void Connect() noexcept;
+	void Connect(MPD::SharedSettings &&new_settings) noexcept;
 
 	void Disconnect() noexcept;
 
