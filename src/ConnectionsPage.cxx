@@ -104,10 +104,9 @@ ConnectionsPage::PaintListItem(Window window, unsigned i, [[maybe_unused]] unsig
 			       bool selected) const noexcept
 {
 	const auto &item = items[i];
-	const auto name = MPD::GetName(*item.settings);
 
 	row_color(window, item.active ? Style::LIST_BOLD : Style::LIST, selected);
-	window.String(name);
+	window.String(item.name);
 	row_clear_to_eol(window, width, selected);
 }
 
