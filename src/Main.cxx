@@ -107,6 +107,8 @@ Instance::OnReconnectTimer() noexcept
 void
 Instance::OnMpdConnected() noexcept
 {
+	reconnect_timer.Cancel();
+
 #ifndef NCMPC_MINI
 	/* quit if mpd is pre 0.14 - song id not supported by mpd */
 	auto *connection = client.GetConnection();
