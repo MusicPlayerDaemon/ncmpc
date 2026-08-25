@@ -118,6 +118,13 @@ ScreenManager::OnResize() noexcept
 
 	/* main window */
 	main_window.Resize(layout.GetMainSize());
+
+	/* even though the position of the main_window should never
+	   change, this call is needed because the internal ncurses
+	   function adjust_window() may have decided that the
+	   main_window is bottom-aligned and should be moved around */
+	main_window.Move(layout.main);
+
 	main_dirty = true;
 
 	/* progress window */
