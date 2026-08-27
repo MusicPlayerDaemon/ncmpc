@@ -15,7 +15,7 @@ You need:
 
 - a C++23 compliant compiler (e.g. gcc or clang)
 - `libfmt <https://fmt.dev/>`__
-- `libmpdclient <https://www.musicpd.org/libs/libmpdclient/>`__ 2.16
+- `libmpdclient <https://www.musicpd.org/libs/libmpdclient/>`__ 2.19
 - `ncurses <https://www.gnu.org/software/ncurses/>`__
 - `Meson 1.2 <http://mesonbuild.com/>`__ and `Ninja <https://ninja-build.org/>`__
 
