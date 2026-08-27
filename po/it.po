@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 21:38+0200\n"
+"POT-Creation-Date: 2026-08-27 22:09+0200\n"
 "PO-Revision-Date: 2020-09-08 16:36+0000\n"
 "Last-Translator: IvanDan <ivandanza@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/ncmpc/"
@@ -1144,12 +1144,13 @@ msgstr "Coda cancellata"
 msgid "Save queue as"
 msgstr "Salva coda come"
 
-#: src/save_playlist.cxx:95
+#: src/save_playlist.cxx:96
+#, c++-format
 msgid "Replace {:?}?"
 msgstr "Sostituire {:?}?"
 
 #. success
-#: src/save_playlist.cxx:120
+#: src/save_playlist.cxx:121
 #, c++-format
 msgid "Saved {}"
 msgstr "{} salvato"

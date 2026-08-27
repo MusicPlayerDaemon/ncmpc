@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 21:38+0200\n"
+"POT-Creation-Date: 2026-08-27 22:09+0200\n"
 "PO-Revision-Date: 2021-08-27 09:34+0000\n"
 "Last-Translator: Gediminas Murauskas <muziejusinfo@gmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/ncmpc/"
@@ -1140,12 +1140,13 @@ msgstr "Eilė išvalyta"
 msgid "Save queue as"
 msgstr "Išsaugoti eilę kaip"
 
-#: src/save_playlist.cxx:95
+#: src/save_playlist.cxx:96
+#, c++-format
 msgid "Replace {:?}?"
 msgstr "Pakeisti {:?}?"
 
 #. success
-#: src/save_playlist.cxx:120
+#: src/save_playlist.cxx:121
 #, c++-format
 msgid "Saved {}"
 msgstr "{} išsaugota"

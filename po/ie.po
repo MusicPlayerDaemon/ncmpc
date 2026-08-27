@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 21:38+0200\n"
+"POT-Creation-Date: 2026-08-27 22:09+0200\n"
 "PO-Revision-Date: 2019-05-19 12:49+0000\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Occidental <https://hosted.weblate.org/projects/ncmpc/"
@@ -1142,12 +1142,13 @@ msgstr "Linea vacuat"
 msgid "Save queue as"
 msgstr "Gardar li linea quam"
 
-#: src/save_playlist.cxx:95
+#: src/save_playlist.cxx:96
+#, c++-format
 msgid "Replace {:?}?"
 msgstr "Substituer {:?}?"
 
 #. success
-#: src/save_playlist.cxx:120
+#: src/save_playlist.cxx:121
 #, c++-format
 msgid "Saved {}"
 msgstr "{} gardat"

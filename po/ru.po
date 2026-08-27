@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 21:38+0200\n"
+"POT-Creation-Date: 2026-08-27 22:09+0200\n"
 "PO-Revision-Date: 2026-05-14 03:11+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/ncmpc/"
@@ -1135,12 +1135,13 @@ msgstr "Очередь очищена"
 msgid "Save queue as"
 msgstr "Сохранить очередь как"
 
-#: src/save_playlist.cxx:95
+#: src/save_playlist.cxx:96
+#, c++-format
 msgid "Replace {:?}?"
 msgstr "Заменить {:?}?"
 
 #. success
-#: src/save_playlist.cxx:120
+#: src/save_playlist.cxx:121
 #, c++-format
 msgid "Saved {}"
 msgstr "Сохранено в {}"

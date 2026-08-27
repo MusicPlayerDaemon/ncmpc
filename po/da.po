@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 21:38+0200\n"
+"POT-Creation-Date: 2026-08-27 22:09+0200\n"
 "PO-Revision-Date: 2009-09-24 10:26+0200\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
@@ -1156,12 +1156,13 @@ msgstr ""
 msgid "Save queue as"
 msgstr ""
 
-#: src/save_playlist.cxx:95
+#: src/save_playlist.cxx:96
+#, c++-format
 msgid "Replace {:?}?"
 msgstr "Erstat {:?}?"
 
 #. success
-#: src/save_playlist.cxx:120
+#: src/save_playlist.cxx:121
 #, c++-format
 msgid "Saved {}"
 msgstr "Gemt {}"

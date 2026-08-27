@@ -92,6 +92,7 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_EXIST &&
 		    mpd_connection_clear_error(connection)) {
 			const auto prompt =
+				// xgettext:c++-format
 				fmt::format(fmt::runtime(_("Replace {:?}?")), filename);
 
 			if (co_await YesNoDialog{screen, prompt} != YesNoResult::YES)
