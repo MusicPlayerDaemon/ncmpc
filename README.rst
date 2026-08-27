@@ -30,7 +30,7 @@ Optional:
 
 Run ``meson``::
 
- meson . output --buildtype=debugoptimized -Db_ndebug=true
+ meson setup . output --buildtype=debugoptimized -Db_ndebug=true
 
 Compile and install::
 
