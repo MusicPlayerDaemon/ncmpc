@@ -5,6 +5,7 @@
 #include "screen.hxx"
 #include "i18n.h"
 #include "Command.hxx"
+#include "Interface.hxx"
 #include "dialogs/TextInputDialog.hxx"
 #include "ui/Bell.hxx"
 #include "ui/ListWindow.hxx"
@@ -28,7 +29,7 @@ FindSupport::DoFind(ListWindow &lw, const ListText &text, bool reversed) noexcep
 			value = history.back();
 
 		last = co_await TextInputDialog{
-			screen,
+			modal_dock,
 			prompt,
 			std::move(value),
 			{ .history = &history },
@@ -42,8 +43,8 @@ FindSupport::DoFind(ListWindow &lw, const ListText &text, bool reversed) noexcep
 		? lw.ReverseFind(text, last)
 		: lw.Find(text, last);
 	if (!found) {
-		screen.Alert(fmt::format(fmt::runtime(_("Unable to find \'{}\'")),
-					 last));
+		interface.Alert(fmt::format(fmt::runtime(_("Unable to find \'{}\'")),
+					    last));
 		Bell();
 	}
 }
@@ -76,7 +77,7 @@ FindSupport::Jump(ListWindow &lw,
 		  const ListRenderer &renderer) noexcept
 {
 	TextInputDialog dialog{
-		screen,
+		modal_dock,
 		JUMP_PROMPT,
 		{},
 		{ .fragile = true },

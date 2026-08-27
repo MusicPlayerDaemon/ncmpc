@@ -79,7 +79,7 @@ private:
 	bool main_dirty = true;
 
 public:
-	FindSupport find_support{*this};
+	FindSupport find_support{*this, *this};
 
 	explicit ScreenManager(EventLoop &_event_loop, const Layout &layout) noexcept;
 	explicit ScreenManager(EventLoop &_event_loop) noexcept;

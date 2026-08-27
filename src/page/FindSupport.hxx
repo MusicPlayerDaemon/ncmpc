@@ -9,20 +9,24 @@
 
 namespace Co { class InvokeTask; }
 enum class Command : unsigned;
-class ScreenManager;
+class Interface;
+class ModalDock;
 class ListWindow;
 class ListRenderer;
 class ListText;
 
 class FindSupport {
-	ScreenManager &screen;
+	Interface &interface;
+	ModalDock &modal_dock;
 
 	std::string last;
 	History history;
 
 public:
-	explicit FindSupport(ScreenManager &_screen) noexcept
-		:screen(_screen) {}
+	[[nodiscard]]
+	FindSupport(Interface &_interface,
+		    ModalDock &_modal_dock) noexcept
+		:interface(_interface), modal_dock(_modal_dock) {}
 
 	/**
 	 * query user for a string and find it in a list window
