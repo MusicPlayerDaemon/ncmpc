@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 22:09+0200\n"
+"POT-Creation-Date: 2026-08-27 22:13+0200\n"
 "PO-Revision-Date: 2024-06-15 05:56+0000\n"
 "Last-Translator: Wojciech Teichert <wojtekt99@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/ncmpc/"
@@ -21,10 +21,10 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 5.6-dev\n"
 
-#: src/Bindings.cxx:64 src/Bindings.cxx:70
-#, c-format
-msgid "Key %s assigned to %s and %s"
-msgstr "Klawisz %s przypisany do %s oraz {}"
+#: src/Bindings.cxx:67 src/Bindings.cxx:75
+#, c++-format
+msgid "Key {:?} assigned to {:?} and {:?}"
+msgstr "Klawisz {:?} przypisany do {:?} oraz {:?}"
 
 #: src/ChatPage.cxx:58 src/ChatPage.cxx:183
 msgid "Chat"

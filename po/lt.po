@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 22:09+0200\n"
+"POT-Creation-Date: 2026-08-27 22:13+0200\n"
 "PO-Revision-Date: 2021-08-27 09:34+0000\n"
 "Last-Translator: Gediminas Murauskas <muziejusinfo@gmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/ncmpc/"
@@ -21,10 +21,10 @@ msgstr ""
 "1 : 2);\n"
 "X-Generator: Weblate 4.8.1-dev\n"
 
-#: src/Bindings.cxx:64 src/Bindings.cxx:70
-#, c-format
-msgid "Key %s assigned to %s and %s"
-msgstr "Klavišas %s priskirtas %s ir {}"
+#: src/Bindings.cxx:67 src/Bindings.cxx:75
+#, c++-format
+msgid "Key {:?} assigned to {:?} and {:?}"
+msgstr "Klavišas {:?} priskirtas {:?} ir {:?}"
 
 #: src/ChatPage.cxx:58 src/ChatPage.cxx:183
 msgid "Chat"

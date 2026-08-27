@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 22:09+0200\n"
+"POT-Creation-Date: 2026-08-27 22:13+0200\n"
 "PO-Revision-Date: 2026-03-02 06:09+0000\n"
 "Last-Translator: தமிழ்நேரம் <tamilneram247@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -19,10 +19,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.16.1-dev\n"
 
-#: src/Bindings.cxx:64 src/Bindings.cxx:70
-#, c-format
-msgid "Key %s assigned to %s and %s"
-msgstr "%s விசை %s மற்றும் %s க்கு ஒதுக்கப்பட்டுள்ளன"
+#: src/Bindings.cxx:67 src/Bindings.cxx:75
+#, c++-format
+msgid "Key {:?} assigned to {:?} and {:?}"
+msgstr "{:?} விசை {:?} மற்றும் {:?} க்கு ஒதுக்கப்பட்டுள்ளன"
 
 #: src/ChatPage.cxx:58 src/ChatPage.cxx:183
 msgid "Chat"

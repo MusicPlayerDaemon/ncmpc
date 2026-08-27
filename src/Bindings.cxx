@@ -6,6 +6,8 @@
 #include "KeyName.hxx"
 #include "i18n.h"
 
+#include <fmt/format.h>
+
 #include <assert.h>
 #include <stdio.h>
 
@@ -60,18 +62,20 @@ KeyBindings::Check(std::span<char> buffer) const noexcept
 			Command cmd;
 			if ((cmd = FindKey(key)) != Command(i)) {
 				if (!buffer.empty()) {
-					snprintf(buffer.data(), buffer.size(),
-						 _("Key %s assigned to %s and %s"),
-						 GetLocalizedKeyName(key),
-						 get_key_command_name(Command(i)),
-						 get_key_command_name(cmd));
+					auto [p, _] = fmt::format_to_n(buffer.data(), buffer.size() - 1,
+								       // xgettext:c++-format
+								       fmt::runtime(_("Key {:?} assigned to {:?} and {:?}")),
+								       GetLocalizedKeyName(key),
+								       get_key_command_name(Command(i)),
+								       get_key_command_name(cmd));
+					*p = '\0';
 				} else {
-					fprintf(stderr,
-						_("Key %s assigned to %s and %s"),
-						GetLocalizedKeyName(key),
-						get_key_command_name(Command(i)),
-						get_key_command_name(cmd));
-					fputc('\n', stderr);
+					fmt::println(stderr,
+						     // xgettext:c++-format
+						     fmt::runtime(_("Key {:?} assigned to {:?} and {:?}")),
+						     GetLocalizedKeyName(key),
+						     get_key_command_name(Command(i)),
+						     get_key_command_name(cmd));
 				}
 				success = false;
 			}
@@ -85,10 +89,10 @@ void
 KeyBinding::WriteToFile(FILE *f, const command_definition_t &cmd,
 			bool comment) const noexcept
 {
-	fprintf(f, "## %s\n", cmd.description);
+	fmt::print(f, "## {}\n", cmd.description);
 	if (comment)
-		fprintf(f, "#");
-	fprintf(f, "key %s = ", cmd.name);
+		fputc('#', f);
+	fmt::print(f, "key {} = ", cmd.name);
 
 	if (keys.front() == 0) {
 		fputs("0\n\n", f);
@@ -103,11 +107,12 @@ KeyBinding::WriteToFile(FILE *f, const command_definition_t &cmd,
 		if (first)
 			first = false;
 		else
-			fprintf(f, ",  ");
+			fputs(",  ", f);
 
 		fputs(GetKeyName(key), f);
 	}
-	fprintf(f,"\n\n");
+
+	fputs("\n\n", f);
 }
 
 bool

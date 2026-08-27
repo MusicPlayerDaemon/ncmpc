@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 22:09+0200\n"
+"POT-Creation-Date: 2026-08-27 22:13+0200\n"
 "PO-Revision-Date: 2022-04-01 16:10+0000\n"
 "Last-Translator: lionelvaux <lionel.vaux@univ-amu.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/ncmpc/"
@@ -22,10 +22,10 @@ msgstr ""
 "X-Generator: Weblate 4.12-dev\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
 
-#: src/Bindings.cxx:64 src/Bindings.cxx:70
-#, c-format
-msgid "Key %s assigned to %s and %s"
-msgstr "La touche %s est assignée à %s et à {}"
+#: src/Bindings.cxx:67 src/Bindings.cxx:75
+#, c++-format
+msgid "Key {:?} assigned to {:?} and {:?}"
+msgstr "La touche {:?} est assignée à {:?} et à {:?}"
 
 #: src/ChatPage.cxx:58 src/ChatPage.cxx:183
 msgid "Chat"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 22:09+0200\n"
+"POT-Creation-Date: 2026-08-27 22:13+0200\n"
 "PO-Revision-Date: 2024-11-11 13:00+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/ncmpc/"
@@ -16,10 +16,10 @@ msgstr ""
 "X-Generator: Weblate 5.8.2\n"
 "X-Launchpad-Export-Date: 2010-09-07 18:28+0000\n"
 
-#: src/Bindings.cxx:64 src/Bindings.cxx:70
-#, c-format
-msgid "Key %s assigned to %s and %s"
-msgstr "מקש %s מוקצה ל %s ול־{}"
+#: src/Bindings.cxx:67 src/Bindings.cxx:75
+#, c++-format
+msgid "Key {:?} assigned to {:?} and {:?}"
+msgstr "מקש {:?} מוקצה ל {:?} ול־{:?}"
 
 #: src/ChatPage.cxx:58 src/ChatPage.cxx:183
 msgid "Chat"

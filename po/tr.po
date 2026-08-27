@@ -21,8 +21,8 @@ msgstr ""
 
 #: src/Bindings.cxx:80 src/Bindings.cxx:86
 #, c-format
-msgid "Key %s assigned to %s and %s"
-msgstr "%s tuşu, %s ve {} komutlarına atandı"
+msgid "Key {:?} assigned to {:?} and {:?}"
+msgstr "{:?} tuşu, {:?} ve {:?} komutlarına atandı"
 
 #: src/ChatPage.cxx:64 src/ChatPage.cxx:182
 msgid "Chat"

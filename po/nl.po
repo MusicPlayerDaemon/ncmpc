@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 22:09+0200\n"
+"POT-Creation-Date: 2026-08-27 22:13+0200\n"
 "PO-Revision-Date: 2022-08-23 03:43+0000\n"
 "Last-Translator: JeibborRip <rob.jorna@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -20,10 +20,10 @@ msgstr ""
 "X-Generator: Weblate 4.14-dev\n"
 "X-Launchpad-Export-Date: 2010-04-05 17:16+0000\n"
 
-#: src/Bindings.cxx:64 src/Bindings.cxx:70
-#, c-format
-msgid "Key %s assigned to %s and %s"
-msgstr "Toets %s is toegewezen aan %s en {}"
+#: src/Bindings.cxx:67 src/Bindings.cxx:75
+#, c++-format
+msgid "Key {:?} assigned to {:?} and {:?}"
+msgstr "Toets {:?} is toegewezen aan {:?} en {:?}"
 
 #: src/ChatPage.cxx:58 src/ChatPage.cxx:183
 msgid "Chat"
