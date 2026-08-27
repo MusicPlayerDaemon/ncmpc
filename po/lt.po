@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 08:56+0200\n"
+"POT-Creation-Date: 2026-08-27 21:32+0200\n"
 "PO-Revision-Date: 2021-08-27 09:34+0000\n"
 "Last-Translator: Gediminas Murauskas <muziejusinfo@gmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/ncmpc/"
@@ -114,221 +114,230 @@ msgstr "Pasirinkti šiuo metu leidžiamą dainą"
 msgid "Help screen"
 msgstr "Žinyno ekranas"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:125
+#: src/Command.cxx:59
+msgid "Page Switcher"
+msgstr ""
+
+#: src/Command.cxx:61 src/HelpPage.cxx:125
 msgid "Queue screen"
 msgstr "Eilės ekranas"
 
-#: src/Command.cxx:61 src/HelpPage.cxx:140
+#: src/Command.cxx:63 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "Naršymo ekranas"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Play/Enter directory"
 msgstr "Groti/eiti į katalogą"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Pause"
 msgstr "Pauzė"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Stop"
 msgstr "Sustabdyti"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Crop"
 msgstr "Apkarpyti"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Next track"
 msgstr "Kitas kūrinys"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Previous track"
 msgstr "Ankstesnis kūrinys"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek forward"
 msgstr "Persukti pirmyn"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Seek backward"
 msgstr "Persukti atgal"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Increase volume"
 msgstr "Padidinti garsą"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 msgid "Decrease volume"
 msgstr "Sumažinti garsą"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 msgid "Select/deselect song in queue"
 msgstr "Pasirinkti/panaikinti dainos pasirinkimą eilėje"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Select all listed items"
 msgstr "Pasirinkti visus išvardintus elementus"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 msgid "Delete song from queue"
 msgstr "Ištrinti dainą iš eilės"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 msgid "Shuffle queue"
 msgstr "Maišyti eilę"
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 msgid "Clear queue"
 msgstr "Išvalyti eilę"
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle repeat mode"
 msgstr "Perjungti kartojimo režimą"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle random mode"
 msgstr "Perjungti atsitiktinį režimą"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle single mode"
 msgstr "Perjungti vienos dainos režimą"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 msgid "Toggle consume mode"
 msgstr "Perjungti panaikinimo iš eilės po perklausimo režimą"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Toggle crossfade mode"
 msgstr "Perjungti kryžminimo režimą"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Start a music database update"
 msgstr "Pradėti muzikos duomenų bazės atnaujinimą"
 
-#: src/Command.cxx:108
+#: src/Command.cxx:110
 msgid "Save queue"
 msgstr "Išsaugoti eilę"
 
-#: src/Command.cxx:110 src/HelpPage.cxx:162
+#: src/Command.cxx:112 src/HelpPage.cxx:162
 msgid "Append song to queue"
 msgstr "Įtraukti dainą į eilę"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to root directory"
 msgstr "Eiti į šakninį katalogą"
 
-#: src/Command.cxx:115
+#: src/Command.cxx:117
 msgid "Go to parent directory"
 msgstr "Eiti į pirminį katalogą"
 
-#: src/Command.cxx:118
+#: src/Command.cxx:120
 msgid "Locate song in browser"
 msgstr "Surasti dainą naršyklėje"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item up"
 msgstr "Perkelti elementą aukštyn"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Move item down"
 msgstr "Perkelti elementą žemyn"
 
-#: src/Command.cxx:126
+#: src/Command.cxx:128
 msgid "Refresh screen"
 msgstr "Atnaujinti ekraną"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:133
+#: src/Command.cxx:135
 msgid "Toggle find mode"
 msgstr "Perjungti paieškos režimą"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:137
+#: src/Command.cxx:139
 msgid "Toggle auto center mode"
 msgstr "Perjungti automatinio centravimo režimą"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Next screen"
 msgstr "Kitas ekranas"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Previous screen"
 msgstr "Ankstesnis ekranas"
 
-#: src/Command.cxx:146
+#: src/Command.cxx:148
 msgid "Swap to most recent screen"
 msgstr "Perjungti į paskiausią ekraną"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find"
 msgstr "Rasti toliau"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Forward find next"
 msgstr "Rasti toliau sekantį"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find"
 msgstr "Rasti prieš tai"
 
-#: src/Command.cxx:157
+#: src/Command.cxx:159
 msgid "Backward find previous"
 msgstr "Rasti prieš tai sekantį"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:162
+#: src/Command.cxx:164
 msgid "Jump to"
 msgstr "Pereiti prie"
 
-#: src/Command.cxx:168
+#: src/Command.cxx:170
 msgid "Library page"
 msgstr "Bibliotekos puslapis"
 
-#: src/Command.cxx:172 src/HelpPage.cxx:157
+#: src/Command.cxx:174 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "Paieškos ekranas"
 
-#: src/Command.cxx:174
+#: src/Command.cxx:176
 msgid "Change search mode"
 msgstr "Pakeiskite paieškos režimą"
 
-#: src/Command.cxx:178
+#: src/Command.cxx:180
 #, fuzzy
 msgid "Playlist editor"
 msgstr "Grojaraštis ištrintas"
 
-#: src/Command.cxx:182
+#: src/Command.cxx:184
 msgid "View the selected and the currently playing song"
 msgstr "Peržiūrėti pasirinktą ir šiuo metu grojamą dainą"
 
-#: src/Command.cxx:186 src/HelpPage.cxx:169
+#: src/Command.cxx:188 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "Dainos teksto ekranas"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Interrupt action"
 msgstr "Nutraukti veiksmą"
 
-#: src/Command.cxx:192
+#: src/Command.cxx:194
 msgid "Update Lyrics"
 msgstr "Atnaujinti dainos tekstą"
 
-#: src/Command.cxx:196
+#: src/Command.cxx:198
 msgid "Edit the current item"
 msgstr "Redaguoti dabartinį elementą"
 
-#: src/Command.cxx:201 src/HelpPage.cxx:184
+#: src/Command.cxx:203 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "Išvesties ekranas"
 
-#: src/Command.cxx:206 src/HelpPage.cxx:191
+#: src/Command.cxx:208
+#, fuzzy
+msgid "Connections"
+msgstr "Jungiamasi prie {}"
+
+#: src/Command.cxx:213 src/HelpPage.cxx:191
 msgid "Chat screen"
 msgstr "Pokalbių ekranas"
 
@@ -815,7 +824,7 @@ msgstr "Nėra išsaugotų dainų žodžių"
 msgid "Connecting to {}"
 msgstr "Jungiamasi prie {}"
 
-#: src/Main.cxx:116
+#: src/Main.cxx:118
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "Klaida: MPD versija {} yra per sena (reikalinga {})"
@@ -1106,19 +1115,19 @@ msgstr "Garsas"
 msgid "n/a"
 msgstr "n/a"
 
-#: src/page/FindSupport.cxx:16
+#: src/page/FindSupport.cxx:17
 msgid "Find"
 msgstr "Rasti"
 
-#: src/page/FindSupport.cxx:17
+#: src/page/FindSupport.cxx:18
 msgid "Find backward"
 msgstr "Rasti atgal"
 
-#: src/page/FindSupport.cxx:18
+#: src/page/FindSupport.cxx:19
 msgid "Jump"
 msgstr "Peršokti"
 
-#: src/page/FindSupport.cxx:45
+#: src/page/FindSupport.cxx:46
 #, c++-format
 msgid "Unable to find '{}'"
 msgstr "Nepavyko rasti „{}“"
@@ -1142,70 +1151,70 @@ msgstr "Pakeisti {}?"
 msgid "Saved {}"
 msgstr "{} išsaugota"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:151
 msgid "Repeat mode is on"
 msgstr "Kartojimo režimas įjungtas"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:152
 msgid "Repeat mode is off"
 msgstr "Kartojimo režimas išjungtas"
 
-#: src/screen.cxx:161
+#: src/screen.cxx:156
 msgid "Random mode is on"
 msgstr "Atsitiktinis režimas įjungtas"
 
-#: src/screen.cxx:162
+#: src/screen.cxx:157
 msgid "Random mode is off"
 msgstr "Atsitiktinis režimas išjungtas"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:169
+#: src/screen.cxx:164
 msgid "Single mode is on"
 msgstr "Vienos dainos rėžimas įjungtas"
 
-#: src/screen.cxx:170
+#: src/screen.cxx:165
 msgid "Single mode is off"
 msgstr "Vienos dainos rėžimas išjungtas"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:177
+#: src/screen.cxx:172
 msgid "Consume mode is on"
 msgstr "Panaikinimo iš eilės po perklausimo rėžimas įjungtas"
 
-#: src/screen.cxx:178
+#: src/screen.cxx:173
 msgid "Consume mode is off"
 msgstr "Panaikinimo iš eilės po perklausimo rėžimas išjungtas"
 
-#: src/screen.cxx:181
+#: src/screen.cxx:176
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "Kryžminis perėjimas {} sekundžių"
 
-#: src/screen.cxx:193
+#: src/screen.cxx:188
 msgid "Database updated"
 msgstr "Duomenų bazė atnaujinta"
 
-#: src/screen.cxx:238
+#: src/screen.cxx:233
 msgid "Find mode: Wrapped"
 msgstr "Paieškos režimas: ciklinis"
 
-#: src/screen.cxx:239
+#: src/screen.cxx:234
 msgid "Find mode: Normal"
 msgstr "Radimo režimas: įprastas"
 
-#: src/screen.cxx:245
+#: src/screen.cxx:240
 msgid "Auto center mode: On"
 msgstr "Automatinio centravimo režimas: įjungtas"
 
-#: src/screen.cxx:246
+#: src/screen.cxx:241
 msgid "Auto center mode: Off"
 msgstr "Automatinio centravimo režimas: išjungtas"
 
-#: src/screen.cxx:403
+#: src/screen.cxx:397
 msgid "Password"
 msgstr "Slaptažodis"
 

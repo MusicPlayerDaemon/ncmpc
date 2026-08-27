@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 08:56+0200\n"
+"POT-Creation-Date: 2026-08-27 21:32+0200\n"
 "PO-Revision-Date: 2011-08-11 10:30+0300\n"
 "Last-Translator: Oleksandr Kovalenko <alx.kovalenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -112,225 +112,234 @@ msgstr "Вибрати пісню, що зараз програється"
 msgid "Help screen"
 msgstr "Екран допомоги"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:125
+#: src/Command.cxx:59
+msgid "Page Switcher"
+msgstr ""
+
+#: src/Command.cxx:61 src/HelpPage.cxx:125
 #, fuzzy
 msgid "Queue screen"
 msgstr "Екран призначення клавіш"
 
-#: src/Command.cxx:61 src/HelpPage.cxx:140
+#: src/Command.cxx:63 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "Екран перегляду"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Play/Enter directory"
 msgstr "Програти чи увійти до каталогу"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Pause"
 msgstr "Призупинити"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Stop"
 msgstr "Зупинити"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Crop"
 msgstr "Обрізати"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Next track"
 msgstr "Наступна доріжка"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Previous track"
 msgstr "Попередня доріжка"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek forward"
 msgstr "Шукати попереду"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Seek backward"
 msgstr "Шукати позаду"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Increase volume"
 msgstr "Збільшити гучність"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 msgid "Decrease volume"
 msgstr "Зменшити гучність"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 #, fuzzy
 msgid "Select/deselect song in queue"
 msgstr "Вибрати чи зняти виділення пісні в переліку програвання"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Select all listed items"
 msgstr "Вибрати всі перелічені елементи"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 #, fuzzy
 msgid "Delete song from queue"
 msgstr "Видалити пісню з переліку програвання"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 msgid "Shuffle queue"
 msgstr ""
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 msgid "Clear queue"
 msgstr ""
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle repeat mode"
 msgstr "Перемкнути режим повторення"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle random mode"
 msgstr "Перемкнути випадковий режим"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle single mode"
 msgstr "Перемкнути режим повторення однієї пісні"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 msgid "Toggle consume mode"
 msgstr "Перемкнути режим вичерпання"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Toggle crossfade mode"
 msgstr "Перемкнути режим плавного переходу"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Start a music database update"
 msgstr "Розпочати оновлення бази даних музики"
 
-#: src/Command.cxx:108
+#: src/Command.cxx:110
 msgid "Save queue"
 msgstr ""
 
-#: src/Command.cxx:110 src/HelpPage.cxx:162
+#: src/Command.cxx:112 src/HelpPage.cxx:162
 #, fuzzy
 msgid "Append song to queue"
 msgstr "Долучити пісню до переліку програвання"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to root directory"
 msgstr "Перейти до кореневої теки"
 
-#: src/Command.cxx:115
+#: src/Command.cxx:117
 msgid "Go to parent directory"
 msgstr "Перейти до батьківської теки"
 
-#: src/Command.cxx:118
+#: src/Command.cxx:120
 msgid "Locate song in browser"
 msgstr "Визначити розміщення пісні в оглядачі"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item up"
 msgstr "Перемістити елемент догори"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Move item down"
 msgstr "Перемістити елемент донизу"
 
-#: src/Command.cxx:126
+#: src/Command.cxx:128
 msgid "Refresh screen"
 msgstr "Оновити екран"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:133
+#: src/Command.cxx:135
 msgid "Toggle find mode"
 msgstr "Перемкнути режим пошуку"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:137
+#: src/Command.cxx:139
 msgid "Toggle auto center mode"
 msgstr "Перемкнути режим автоматичного центрування"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Next screen"
 msgstr "Наступний екран"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Previous screen"
 msgstr "Попередній екран"
 
-#: src/Command.cxx:146
+#: src/Command.cxx:148
 msgid "Swap to most recent screen"
 msgstr "Поміняти останні екрани"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find"
 msgstr "Знайти попереду"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Forward find next"
 msgstr "Знайти попереду наступне"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find"
 msgstr "Знайти позаду"
 
-#: src/Command.cxx:157
+#: src/Command.cxx:159
 msgid "Backward find previous"
 msgstr "Знайти позаду попереднє"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:162
+#: src/Command.cxx:164
 msgid "Jump to"
 msgstr "Перейти до"
 
-#: src/Command.cxx:168
+#: src/Command.cxx:170
 msgid "Library page"
 msgstr ""
 
-#: src/Command.cxx:172 src/HelpPage.cxx:157
+#: src/Command.cxx:174 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "Екран пошуку"
 
-#: src/Command.cxx:174
+#: src/Command.cxx:176
 msgid "Change search mode"
 msgstr "Змінити режим пошуку"
 
-#: src/Command.cxx:178
+#: src/Command.cxx:180
 #, fuzzy
 msgid "Playlist editor"
 msgstr "Перелік програвання видалений"
 
-#: src/Command.cxx:182
+#: src/Command.cxx:184
 msgid "View the selected and the currently playing song"
 msgstr "Переглянути вибрану та пісню, що зараз програється"
 
-#: src/Command.cxx:186 src/HelpPage.cxx:169
+#: src/Command.cxx:188 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "Екран текстів пісень"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Interrupt action"
 msgstr "Припинити дію"
 
-#: src/Command.cxx:192
+#: src/Command.cxx:194
 msgid "Update Lyrics"
 msgstr "Оновити текст пісні"
 
-#: src/Command.cxx:196
+#: src/Command.cxx:198
 msgid "Edit the current item"
 msgstr ""
 
-#: src/Command.cxx:201 src/HelpPage.cxx:184
+#: src/Command.cxx:203 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "Екран виходів"
 
-#: src/Command.cxx:206 src/HelpPage.cxx:191
+#: src/Command.cxx:208
+#, fuzzy
+msgid "Connections"
+msgstr "Встановлене з'єднання з {}"
+
+#: src/Command.cxx:213 src/HelpPage.cxx:191
 #, fuzzy
 msgid "Chat screen"
 msgstr "Наступний екран"
@@ -822,7 +831,7 @@ msgstr "Немає збереженого тексту пісні"
 msgid "Connecting to {}"
 msgstr "Встановлене з'єднання з {}"
 
-#: src/Main.cxx:116
+#: src/Main.cxx:118
 #, fuzzy, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "Помилка: MPD версії {} застаріла (необхідна {})"
@@ -1117,19 +1126,19 @@ msgstr "Гучність"
 msgid "n/a"
 msgstr "недоступна"
 
-#: src/page/FindSupport.cxx:16
+#: src/page/FindSupport.cxx:17
 msgid "Find"
 msgstr "Знайти"
 
-#: src/page/FindSupport.cxx:17
+#: src/page/FindSupport.cxx:18
 msgid "Find backward"
 msgstr "Знайти позаду"
 
-#: src/page/FindSupport.cxx:18
+#: src/page/FindSupport.cxx:19
 msgid "Jump"
 msgstr "Перейти"
 
-#: src/page/FindSupport.cxx:45
+#: src/page/FindSupport.cxx:46
 #, c++-format
 msgid "Unable to find '{}'"
 msgstr "Не вдається знайти '{}'"
@@ -1153,70 +1162,70 @@ msgstr "Замінити %s [%s/{}] ? "
 msgid "Saved {}"
 msgstr "Збережений {}"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:151
 msgid "Repeat mode is on"
 msgstr "Режим повторення увімкнений"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:152
 msgid "Repeat mode is off"
 msgstr "Режим повторення вимкнений"
 
-#: src/screen.cxx:161
+#: src/screen.cxx:156
 msgid "Random mode is on"
 msgstr "Режим випадкового програвання увімкнений"
 
-#: src/screen.cxx:162
+#: src/screen.cxx:157
 msgid "Random mode is off"
 msgstr "Режим випадкового програвання вимкнений"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:169
+#: src/screen.cxx:164
 msgid "Single mode is on"
 msgstr "Режим повторення однієї доріжки увімкнений"
 
-#: src/screen.cxx:170
+#: src/screen.cxx:165
 msgid "Single mode is off"
 msgstr "Режим повторення однієї доріжки вимкнений"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:177
+#: src/screen.cxx:172
 msgid "Consume mode is on"
 msgstr "Режим вичерпання увімкнений"
 
-#: src/screen.cxx:178
+#: src/screen.cxx:173
 msgid "Consume mode is off"
 msgstr "Режим вичерпання вимкнений"
 
-#: src/screen.cxx:181
+#: src/screen.cxx:176
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "Плавний перехід: {}с"
 
-#: src/screen.cxx:193
+#: src/screen.cxx:188
 msgid "Database updated"
 msgstr "База даних оновлена"
 
-#: src/screen.cxx:238
+#: src/screen.cxx:233
 msgid "Find mode: Wrapped"
 msgstr "Режим пошуку: завернутий (розділений???)"
 
-#: src/screen.cxx:239
+#: src/screen.cxx:234
 msgid "Find mode: Normal"
 msgstr "Режим пошуку: звичайний"
 
-#: src/screen.cxx:245
+#: src/screen.cxx:240
 msgid "Auto center mode: On"
 msgstr "Режим автоматичного центрування: увімкнено"
 
-#: src/screen.cxx:246
+#: src/screen.cxx:241
 msgid "Auto center mode: Off"
 msgstr "Режим автоматичного центрування: вимкнено"
 
-#: src/screen.cxx:403
+#: src/screen.cxx:397
 msgid "Password"
 msgstr "Пароль"
 

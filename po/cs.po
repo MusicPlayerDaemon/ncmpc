@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 08:56+0200\n"
+"POT-Creation-Date: 2026-08-27 21:32+0200\n"
 "PO-Revision-Date: 2020-02-03 11:50+0000\n"
 "Last-Translator: Miroslav Burdych <mirek.burdych@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -113,227 +113,236 @@ msgstr "Zvolit právě hrající skladbu"
 msgid "Help screen"
 msgstr "Obrazovka nápovědy"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:125
+#: src/Command.cxx:59
+msgid "Page Switcher"
+msgstr ""
+
+#: src/Command.cxx:61 src/HelpPage.cxx:125
 msgid "Queue screen"
 msgstr "Obrazovka prohlížení fronty"
 
-#: src/Command.cxx:61 src/HelpPage.cxx:140
+#: src/Command.cxx:63 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "Obrazovka prohlížení"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Play/Enter directory"
 msgstr "Přehrát/Vstoupit do adresáře"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Stop"
 msgstr "Stop"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Crop"
 msgstr "Oříznout"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Next track"
 msgstr "Další stopa"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Previous track"
 msgstr "Předchozí stopa"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek forward"
 msgstr "Přetočit vpřed"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Seek backward"
 msgstr "Přetočit zpět"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Increase volume"
 msgstr "Zvýšit hlasitost"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 msgid "Decrease volume"
 msgstr "Snížit hlasitost"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 #, fuzzy
 msgid "Select/deselect song in queue"
 msgstr "Vybrat/Zrušit výběr skladby v seznamu skladeb"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Select all listed items"
 msgstr "Vybrat všechny vypsané položky"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 #, fuzzy
 msgid "Delete song from queue"
 msgstr "Smazat skladbu ze seznamu skladeb"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 #, fuzzy
 msgid "Shuffle queue"
 msgstr "Zamíchat frontu"
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 #, fuzzy
 msgid "Clear queue"
 msgstr "Vymazat frontu"
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle repeat mode"
 msgstr "Přepnout režim opakování"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle random mode"
 msgstr "Přepnout náhodný režim"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle single mode"
 msgstr "Přepnout jednoduchý mód"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 #, fuzzy
 msgid "Toggle consume mode"
 msgstr "Přepnout spotřební režim"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Toggle crossfade mode"
 msgstr "Zapnout režim prolínání skladeb"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Start a music database update"
 msgstr "Spustit aktualizaci databáze skladeb"
 
-#: src/Command.cxx:108
+#: src/Command.cxx:110
 msgid "Save queue"
 msgstr ""
 
-#: src/Command.cxx:110 src/HelpPage.cxx:162
+#: src/Command.cxx:112 src/HelpPage.cxx:162
 #, fuzzy
 msgid "Append song to queue"
 msgstr "Přidat skladbu do seznamu skladeb"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to root directory"
 msgstr "Přejít do kořenového adresáře"
 
-#: src/Command.cxx:115
+#: src/Command.cxx:117
 msgid "Go to parent directory"
 msgstr "Přejít do nadřazeného adresáře"
 
-#: src/Command.cxx:118
+#: src/Command.cxx:120
 msgid "Locate song in browser"
 msgstr "Najít skladbu v prohlížeči"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item up"
 msgstr "Přesunout položku výše"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Move item down"
 msgstr "Přesunout položku níže"
 
-#: src/Command.cxx:126
+#: src/Command.cxx:128
 msgid "Refresh screen"
 msgstr "Aktualizovat obrazovku"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:133
+#: src/Command.cxx:135
 msgid "Toggle find mode"
 msgstr "Přepnout na režim vyhledávání"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:137
+#: src/Command.cxx:139
 msgid "Toggle auto center mode"
 msgstr "Zapnout režim automatické centrování"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Next screen"
 msgstr "Další obrazovka"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Previous screen"
 msgstr "Předchozí obrazovka"
 
-#: src/Command.cxx:146
+#: src/Command.cxx:148
 msgid "Swap to most recent screen"
 msgstr "Přepnout na nedávnou obrazovku"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find"
 msgstr "Najít vpřed"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Forward find next"
 msgstr "Najít další vpřed"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find"
 msgstr "Najít zpět"
 
-#: src/Command.cxx:157
+#: src/Command.cxx:159
 msgid "Backward find previous"
 msgstr "Najít předchozí"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:162
+#: src/Command.cxx:164
 msgid "Jump to"
 msgstr "Skočit na"
 
-#: src/Command.cxx:168
+#: src/Command.cxx:170
 msgid "Library page"
 msgstr ""
 
-#: src/Command.cxx:172 src/HelpPage.cxx:157
+#: src/Command.cxx:174 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "Obrazovka vyhledávání"
 
-#: src/Command.cxx:174
+#: src/Command.cxx:176
 msgid "Change search mode"
 msgstr "Změnit režim hledání"
 
-#: src/Command.cxx:178
+#: src/Command.cxx:180
 #, fuzzy
 msgid "Playlist editor"
 msgstr "Seznam skladeb smazán"
 
-#: src/Command.cxx:182
+#: src/Command.cxx:184
 msgid "View the selected and the currently playing song"
 msgstr "Zobrazit vybranou a v současnosti přehrávanou píseň"
 
-#: src/Command.cxx:186 src/HelpPage.cxx:169
+#: src/Command.cxx:188 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "Obrazovka textu písně"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Interrupt action"
 msgstr "Přerušit akci"
 
-#: src/Command.cxx:192
+#: src/Command.cxx:194
 msgid "Update Lyrics"
 msgstr "Aktualizovat text písně"
 
-#: src/Command.cxx:196
+#: src/Command.cxx:198
 msgid "Edit the current item"
 msgstr ""
 
-#: src/Command.cxx:201 src/HelpPage.cxx:184
+#: src/Command.cxx:203 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "Obrazovka výstupů"
 
-#: src/Command.cxx:206 src/HelpPage.cxx:191
+#: src/Command.cxx:208
+#, fuzzy
+msgid "Connections"
+msgstr "Připojeno k {}"
+
+#: src/Command.cxx:213 src/HelpPage.cxx:191
 #, fuzzy
 msgid "Chat screen"
 msgstr "Další obrazovka"
@@ -825,7 +834,7 @@ msgstr "Žádný uložený text písně"
 msgid "Connecting to {}"
 msgstr "Připojeno k {}"
 
-#: src/Main.cxx:116
+#: src/Main.cxx:118
 #, fuzzy, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "Chyba: MPD verze {} je příliš stará (potřebuji {})"
@@ -1124,19 +1133,19 @@ msgstr "Hlasitost"
 msgid "n/a"
 msgstr "n/a"
 
-#: src/page/FindSupport.cxx:16
+#: src/page/FindSupport.cxx:17
 msgid "Find"
 msgstr "Najít"
 
-#: src/page/FindSupport.cxx:17
+#: src/page/FindSupport.cxx:18
 msgid "Find backward"
 msgstr "Hledat rekurzivně"
 
-#: src/page/FindSupport.cxx:18
+#: src/page/FindSupport.cxx:19
 msgid "Jump"
 msgstr "Přeskočit"
 
-#: src/page/FindSupport.cxx:45
+#: src/page/FindSupport.cxx:46
 #, fuzzy, c++-format
 msgid "Unable to find '{}'"
 msgstr "Nemohu najít '{}'"
@@ -1160,70 +1169,70 @@ msgstr "Nahradit %s [%s/{}] ? "
 msgid "Saved {}"
 msgstr "Uloženo {}"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:151
 msgid "Repeat mode is on"
 msgstr "Opakování je zapnuto"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:152
 msgid "Repeat mode is off"
 msgstr "Opakování je vypnuto"
 
-#: src/screen.cxx:161
+#: src/screen.cxx:156
 msgid "Random mode is on"
 msgstr "Náhodné přehrávání je zapnuto"
 
-#: src/screen.cxx:162
+#: src/screen.cxx:157
 msgid "Random mode is off"
 msgstr "Náhodné přehrávání je vypnuto"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:169
+#: src/screen.cxx:164
 msgid "Single mode is on"
 msgstr "Jednoduchý mód je zapnutý"
 
-#: src/screen.cxx:170
+#: src/screen.cxx:165
 msgid "Single mode is off"
 msgstr "Jednoduchý mód je vypnutý"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:177
+#: src/screen.cxx:172
 msgid "Consume mode is on"
 msgstr "Režim konzumace zapnut"
 
-#: src/screen.cxx:178
+#: src/screen.cxx:173
 msgid "Consume mode is off"
 msgstr "Režim konzumace vypnut"
 
-#: src/screen.cxx:181
+#: src/screen.cxx:176
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "Přerušení {} sekund"
 
-#: src/screen.cxx:193
+#: src/screen.cxx:188
 msgid "Database updated"
 msgstr "Databáze aktualizována"
 
-#: src/screen.cxx:238
+#: src/screen.cxx:233
 msgid "Find mode: Wrapped"
 msgstr "Režim vyhledávání: Zabalený"
 
-#: src/screen.cxx:239
+#: src/screen.cxx:234
 msgid "Find mode: Normal"
 msgstr "Režim vyhledávání: Normální"
 
-#: src/screen.cxx:245
+#: src/screen.cxx:240
 msgid "Auto center mode: On"
 msgstr "Automatické centrování zapnuto"
 
-#: src/screen.cxx:246
+#: src/screen.cxx:241
 msgid "Auto center mode: Off"
 msgstr "Automatické centrování vypnuto"
 
-#: src/screen.cxx:403
+#: src/screen.cxx:397
 msgid "Password"
 msgstr "Heslo"
 

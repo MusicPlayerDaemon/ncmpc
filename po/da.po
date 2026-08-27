@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 08:56+0200\n"
+"POT-Creation-Date: 2026-08-27 21:32+0200\n"
 "PO-Revision-Date: 2009-09-24 10:26+0200\n"
 "Last-Translator: Niels Anker <nanker@webspeed.dk>\n"
 "Language-Team: da <da@li.org>\n"
@@ -111,225 +111,234 @@ msgstr "Vælg den sang der spilles nu"
 msgid "Help screen"
 msgstr "Hjælp"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:125
+#: src/Command.cxx:59
+msgid "Page Switcher"
+msgstr ""
+
+#: src/Command.cxx:61 src/HelpPage.cxx:125
 #, fuzzy
 msgid "Queue screen"
 msgstr "Tastdefinitions skærm"
 
-#: src/Command.cxx:61 src/HelpPage.cxx:140
+#: src/Command.cxx:63 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "Gennemse"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Play/Enter directory"
 msgstr "Afspil/Gå til mappe"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Pause"
 msgstr "Pause"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Stop"
 msgstr "Stop"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Crop"
 msgstr "Beskær"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Next track"
 msgstr "Næste"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Previous track"
 msgstr "Forrige"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek forward"
 msgstr "Søg fremad"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Seek backward"
 msgstr "Søg tilbage"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Increase volume"
 msgstr "Hæv volumen"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 msgid "Decrease volume"
 msgstr "Sænk volumen"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 #, fuzzy
 msgid "Select/deselect song in queue"
 msgstr "Marker/afmarker sang i afspilningsliste"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Select all listed items"
 msgstr "Vælg alle emner på listen"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 #, fuzzy
 msgid "Delete song from queue"
 msgstr "Slet sang fra afspilningsliste"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 msgid "Shuffle queue"
 msgstr ""
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 msgid "Clear queue"
 msgstr ""
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle repeat mode"
 msgstr "Aktiver/deaktiver gentag"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle random mode"
 msgstr "Aktiver/deaktiver tilfældigt valg"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle single mode"
 msgstr "Aktiver/deaktiver enkelt valg"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 msgid "Toggle consume mode"
 msgstr "Aktiver/deaktiver consume valg"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Toggle crossfade mode"
 msgstr "Aktiver/deaktiver crossfade mellem sange"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Start a music database update"
 msgstr "Opdater databasen"
 
-#: src/Command.cxx:108
+#: src/Command.cxx:110
 msgid "Save queue"
 msgstr ""
 
-#: src/Command.cxx:110 src/HelpPage.cxx:162
+#: src/Command.cxx:112 src/HelpPage.cxx:162
 #, fuzzy
 msgid "Append song to queue"
 msgstr "Tilføj spor til afspilningsliste"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to root directory"
 msgstr "Gå til rod mappen"
 
-#: src/Command.cxx:115
+#: src/Command.cxx:117
 msgid "Go to parent directory"
 msgstr "Gå til forældre mappe"
 
-#: src/Command.cxx:118
+#: src/Command.cxx:120
 msgid "Locate song in browser"
 msgstr "Lokaliser sang i browseren"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item up"
 msgstr "Flyt op"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Move item down"
 msgstr "Flyt ned"
 
-#: src/Command.cxx:126
+#: src/Command.cxx:128
 msgid "Refresh screen"
 msgstr "Genopfrisk skærm"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:133
+#: src/Command.cxx:135
 msgid "Toggle find mode"
 msgstr "Ændre søge tilstand"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:137
+#: src/Command.cxx:139
 msgid "Toggle auto center mode"
 msgstr "Aktiver/deaktiver automatisk centrering"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Next screen"
 msgstr "Næste skærm"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Previous screen"
 msgstr "Forrige skærm"
 
-#: src/Command.cxx:146
+#: src/Command.cxx:148
 msgid "Swap to most recent screen"
 msgstr "Skift til seneste skærm"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find"
 msgstr "Søg"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Forward find next"
 msgstr "Gentag søg"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find"
 msgstr "Søg baglæns"
 
-#: src/Command.cxx:157
+#: src/Command.cxx:159
 msgid "Backward find previous"
 msgstr "Gentag søg baglæns"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:162
+#: src/Command.cxx:164
 msgid "Jump to"
 msgstr "Spring til"
 
-#: src/Command.cxx:168
+#: src/Command.cxx:170
 msgid "Library page"
 msgstr ""
 
-#: src/Command.cxx:172 src/HelpPage.cxx:157
+#: src/Command.cxx:174 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "Database søgning"
 
-#: src/Command.cxx:174
+#: src/Command.cxx:176
 msgid "Change search mode"
 msgstr "Ændre søge tilstand"
 
-#: src/Command.cxx:178
+#: src/Command.cxx:180
 #, fuzzy
 msgid "Playlist editor"
 msgstr "Afspilningslisten slettet"
 
-#: src/Command.cxx:182
+#: src/Command.cxx:184
 msgid "View the selected and the currently playing song"
 msgstr "Vis valgte numre og det der afspilles"
 
-#: src/Command.cxx:186 src/HelpPage.cxx:169
+#: src/Command.cxx:188 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "Sangtekst skærm"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Interrupt action"
 msgstr "Afbryd action"
 
-#: src/Command.cxx:192
+#: src/Command.cxx:194
 msgid "Update Lyrics"
 msgstr "Opdater sangtekster"
 
-#: src/Command.cxx:196
+#: src/Command.cxx:198
 msgid "Edit the current item"
 msgstr ""
 
-#: src/Command.cxx:201 src/HelpPage.cxx:184
+#: src/Command.cxx:203 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "Output skærm"
 
-#: src/Command.cxx:206 src/HelpPage.cxx:191
+#: src/Command.cxx:208
+#, fuzzy
+msgid "Connections"
+msgstr "Forbundet til {}"
+
+#: src/Command.cxx:213 src/HelpPage.cxx:191
 #, fuzzy
 msgid "Chat screen"
 msgstr "Næste skærm"
@@ -824,7 +833,7 @@ msgstr "Gem sagtekster"
 msgid "Connecting to {}"
 msgstr "Forbundet til {}"
 
-#: src/Main.cxx:116
+#: src/Main.cxx:118
 #, fuzzy, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "Fejl: MPD version {} er for gammel (mindst {} er nødvendig)"
@@ -1122,19 +1131,19 @@ msgstr "Volumen"
 msgid "n/a"
 msgstr "n/a"
 
-#: src/page/FindSupport.cxx:16
+#: src/page/FindSupport.cxx:17
 msgid "Find"
 msgstr "Søg"
 
-#: src/page/FindSupport.cxx:17
+#: src/page/FindSupport.cxx:18
 msgid "Find backward"
 msgstr "Søg (baglæns)"
 
-#: src/page/FindSupport.cxx:18
+#: src/page/FindSupport.cxx:19
 msgid "Jump"
 msgstr "Spring"
 
-#: src/page/FindSupport.cxx:45
+#: src/page/FindSupport.cxx:46
 #, c++-format
 msgid "Unable to find '{}'"
 msgstr "Kan ikke finde '{}'"
@@ -1158,70 +1167,70 @@ msgstr "Erstat '%s' [%s/{}] ? "
 msgid "Saved {}"
 msgstr "Gemt {}"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:151
 msgid "Repeat mode is on"
 msgstr "Gentagelse er slået til"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:152
 msgid "Repeat mode is off"
 msgstr "Gentagelse er slået fra"
 
-#: src/screen.cxx:161
+#: src/screen.cxx:156
 msgid "Random mode is on"
 msgstr "Tilfældig orden slået til"
 
-#: src/screen.cxx:162
+#: src/screen.cxx:157
 msgid "Random mode is off"
 msgstr "Tilfældig orden slået fra"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:169
+#: src/screen.cxx:164
 msgid "Single mode is on"
 msgstr "Single afspilning slået til"
 
-#: src/screen.cxx:170
+#: src/screen.cxx:165
 msgid "Single mode is off"
 msgstr "Single afspilning slået fra"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:177
+#: src/screen.cxx:172
 msgid "Consume mode is on"
 msgstr "\"Consume mode\" er slået til"
 
-#: src/screen.cxx:178
+#: src/screen.cxx:173
 msgid "Consume mode is off"
 msgstr "\"Consume mode\" er slået fra"
 
-#: src/screen.cxx:181
+#: src/screen.cxx:176
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "Crossfade {} sekunder"
 
-#: src/screen.cxx:193
+#: src/screen.cxx:188
 msgid "Database updated"
 msgstr "Databasen er opdateret"
 
-#: src/screen.cxx:238
+#: src/screen.cxx:233
 msgid "Find mode: Wrapped"
 msgstr "Søg (begynd forfra)"
 
-#: src/screen.cxx:239
+#: src/screen.cxx:234
 msgid "Find mode: Normal"
 msgstr "Søg normalt (start/slut)"
 
-#: src/screen.cxx:245
+#: src/screen.cxx:240
 msgid "Auto center mode: On"
 msgstr "Automatisk centrering er aktiv"
 
-#: src/screen.cxx:246
+#: src/screen.cxx:241
 msgid "Auto center mode: Off"
 msgstr "Automatisk centrering er inaktiv"
 
-#: src/screen.cxx:403
+#: src/screen.cxx:397
 msgid "Password"
 msgstr "Adgangskode"
 

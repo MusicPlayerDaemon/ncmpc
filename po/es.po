@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 08:56+0200\n"
+"POT-Creation-Date: 2026-08-27 21:32+0200\n"
 "PO-Revision-Date: 2024-09-24 12:15+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/ncmpc/"
@@ -118,220 +118,229 @@ msgstr "Seleccionar la actual canción en reproducción"
 msgid "Help screen"
 msgstr "Ayuda"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:125
+#: src/Command.cxx:59
+msgid "Page Switcher"
+msgstr ""
+
+#: src/Command.cxx:61 src/HelpPage.cxx:125
 msgid "Queue screen"
 msgstr "Pantalla de espera"
 
-#: src/Command.cxx:61 src/HelpPage.cxx:140
+#: src/Command.cxx:63 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "Navegador"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Play/Enter directory"
 msgstr "Reproducir/Entrar en el directorio"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Pause"
 msgstr "Pausa"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Stop"
 msgstr "Parar"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Crop"
 msgstr "Reducir lista de canciónes a canción marcado"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Next track"
 msgstr "Siguiente"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Previous track"
 msgstr "Anterior"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek forward"
 msgstr "Avanzar"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Seek backward"
 msgstr "Retroceder"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Increase volume"
 msgstr "Subir el volumen"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 msgid "Decrease volume"
 msgstr "Bajar el volumen"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 msgid "Select/deselect song in queue"
 msgstr "Seleccionar/Deseleccionar la canción en la lista"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Select all listed items"
 msgstr "Seleccionar todos"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 msgid "Delete song from queue"
 msgstr "Borrar la canción de la lista"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 msgid "Shuffle queue"
 msgstr "Aleatorizar la lista"
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 msgid "Clear queue"
 msgstr "Vaciar la lista"
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle repeat mode"
 msgstr "Alternar modo repetición"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle random mode"
 msgstr "Alternar modo aleatorio"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle single mode"
 msgstr "Alternar modo compacto"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 msgid "Toggle consume mode"
 msgstr "Alternar modo completo"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Toggle crossfade mode"
 msgstr "Alternar modo crossfade"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Start a music database update"
 msgstr "Iniciar la actualización de la BD musical"
 
-#: src/Command.cxx:108
+#: src/Command.cxx:110
 msgid "Save queue"
 msgstr "Guardar lista"
 
-#: src/Command.cxx:110 src/HelpPage.cxx:162
+#: src/Command.cxx:112 src/HelpPage.cxx:162
 msgid "Append song to queue"
 msgstr "Añadir la canción a la lista"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to root directory"
 msgstr "Entrar al directorio fundamental"
 
-#: src/Command.cxx:115
+#: src/Command.cxx:117
 msgid "Go to parent directory"
 msgstr "Entrar al directorio superior"
 
-#: src/Command.cxx:118
+#: src/Command.cxx:120
 msgid "Locate song in browser"
 msgstr "Encontrar la canción en el navegador"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item up"
 msgstr "Moverlo arriba"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Move item down"
 msgstr "Moverlo abajo"
 
-#: src/Command.cxx:126
+#: src/Command.cxx:128
 msgid "Refresh screen"
 msgstr "Actualizar la ventana"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:133
+#: src/Command.cxx:135
 msgid "Toggle find mode"
 msgstr "Alternar modo de búsqueda"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:137
+#: src/Command.cxx:139
 msgid "Toggle auto center mode"
 msgstr "Alternar centrado automático de la ventana"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Next screen"
 msgstr "Pantalla siguiente"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Previous screen"
 msgstr "Pantalla anterior"
 
-#: src/Command.cxx:146
+#: src/Command.cxx:148
 msgid "Swap to most recent screen"
 msgstr "Volver a la anterior pantalla"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find"
 msgstr "Buscar hacia adelante"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Forward find next"
 msgstr "Buscar siguiente"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find"
 msgstr "Buscar hacia atrás"
 
-#: src/Command.cxx:157
+#: src/Command.cxx:159
 msgid "Backward find previous"
 msgstr "Buscar anterior"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:162
+#: src/Command.cxx:164
 msgid "Jump to"
 msgstr "Saltar a"
 
-#: src/Command.cxx:168
+#: src/Command.cxx:170
 msgid "Library page"
 msgstr "Página de la librería"
 
-#: src/Command.cxx:172 src/HelpPage.cxx:157
+#: src/Command.cxx:174 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "Pantalla de búsqueda"
 
-#: src/Command.cxx:174
+#: src/Command.cxx:176
 msgid "Change search mode"
 msgstr "Cambiar el modo de búsqueda"
 
-#: src/Command.cxx:178
+#: src/Command.cxx:180
 msgid "Playlist editor"
 msgstr "Editor de listas de reproducción"
 
-#: src/Command.cxx:182
+#: src/Command.cxx:184
 msgid "View the selected and the currently playing song"
 msgstr "Ver la canción seleccionada y reproducida"
 
-#: src/Command.cxx:186 src/HelpPage.cxx:169
+#: src/Command.cxx:188 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "Letras"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Interrupt action"
 msgstr "Interrumpir la acción"
 
-#: src/Command.cxx:192
+#: src/Command.cxx:194
 msgid "Update Lyrics"
 msgstr "Actualizar las letras"
 
-#: src/Command.cxx:196
+#: src/Command.cxx:198
 msgid "Edit the current item"
 msgstr "Editar el elemento actual"
 
-#: src/Command.cxx:201 src/HelpPage.cxx:184
+#: src/Command.cxx:203 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "Pantalla de salidas"
 
-#: src/Command.cxx:206 src/HelpPage.cxx:191
+#: src/Command.cxx:208
+#, fuzzy
+msgid "Connections"
+msgstr "Conectando a {}"
+
+#: src/Command.cxx:213 src/HelpPage.cxx:191
 msgid "Chat screen"
 msgstr "Pantalla del chat"
 
@@ -814,7 +823,7 @@ msgstr "No hay letras guardadas"
 msgid "Connecting to {}"
 msgstr "Conectando a {}"
 
-#: src/Main.cxx:116
+#: src/Main.cxx:118
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "Error: la versión de MPD {} es demasiado antigua (se necesita {})"
@@ -1114,19 +1123,19 @@ msgstr "Volumen"
 msgid "n/a"
 msgstr "n/a"
 
-#: src/page/FindSupport.cxx:16
+#: src/page/FindSupport.cxx:17
 msgid "Find"
 msgstr "Buscar"
 
-#: src/page/FindSupport.cxx:17
+#: src/page/FindSupport.cxx:18
 msgid "Find backward"
 msgstr "Buscar hacia atrás"
 
-#: src/page/FindSupport.cxx:18
+#: src/page/FindSupport.cxx:19
 msgid "Jump"
 msgstr "Saltar"
 
-#: src/page/FindSupport.cxx:45
+#: src/page/FindSupport.cxx:46
 #, c++-format
 msgid "Unable to find '{}'"
 msgstr "No se pudo encontrar {}"
@@ -1150,70 +1159,70 @@ msgstr "Reemplazar {}?"
 msgid "Saved {}"
 msgstr "{} Guardada"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:151
 msgid "Repeat mode is on"
 msgstr "Modo repetición activado"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:152
 msgid "Repeat mode is off"
 msgstr "Modo repetición desactivado"
 
-#: src/screen.cxx:161
+#: src/screen.cxx:156
 msgid "Random mode is on"
 msgstr "Modo aleatorio activado"
 
-#: src/screen.cxx:162
+#: src/screen.cxx:157
 msgid "Random mode is off"
 msgstr "Modo aleatorio desactivado"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:169
+#: src/screen.cxx:164
 msgid "Single mode is on"
 msgstr "Modo compacto activado"
 
-#: src/screen.cxx:170
+#: src/screen.cxx:165
 msgid "Single mode is off"
 msgstr "Modo compacto desactivado"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:177
+#: src/screen.cxx:172
 msgid "Consume mode is on"
 msgstr "Modo completo activado"
 
-#: src/screen.cxx:178
+#: src/screen.cxx:173
 msgid "Consume mode is off"
 msgstr "Modo compacto desactivado"
 
-#: src/screen.cxx:181
+#: src/screen.cxx:176
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "Desvanecimiento de {} segundos"
 
-#: src/screen.cxx:193
+#: src/screen.cxx:188
 msgid "Database updated"
 msgstr "Base de datos actualizada"
 
-#: src/screen.cxx:238
+#: src/screen.cxx:233
 msgid "Find mode: Wrapped"
 msgstr "Tipo de búsqueda: simple"
 
-#: src/screen.cxx:239
+#: src/screen.cxx:234
 msgid "Find mode: Normal"
 msgstr "Tipo de búsqueda: Normal"
 
-#: src/screen.cxx:245
+#: src/screen.cxx:240
 msgid "Auto center mode: On"
 msgstr "Modo autocentrado activado"
 
-#: src/screen.cxx:246
+#: src/screen.cxx:241
 msgid "Auto center mode: Off"
 msgstr "Modo autocentrado desactivado"
 
-#: src/screen.cxx:403
+#: src/screen.cxx:397
 msgid "Password"
 msgstr "Contraseña"
 

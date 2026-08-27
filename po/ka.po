@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 08:56+0200\n"
+"POT-Creation-Date: 2026-08-27 21:32+0200\n"
 "PO-Revision-Date: 2026-02-28 06:09+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/ncmpc/"
@@ -112,220 +112,229 @@ msgstr "ამჟამად დაკრული სიმღერის მ
 msgid "Help screen"
 msgstr "დახმარების ეკრანი"
 
-#: src/Command.cxx:59 src/HelpPage.cxx:125
+#: src/Command.cxx:59
+msgid "Page Switcher"
+msgstr ""
+
+#: src/Command.cxx:61 src/HelpPage.cxx:125
 msgid "Queue screen"
 msgstr "რიგის ეკრანი"
 
-#: src/Command.cxx:61 src/HelpPage.cxx:140
+#: src/Command.cxx:63 src/HelpPage.cxx:140
 msgid "Browse screen"
 msgstr "ეკრანის დათვალიერება"
 
-#: src/Command.cxx:66
+#: src/Command.cxx:68
 msgid "Play/Enter directory"
 msgstr "საქაღალდის დაკვრა/შესვლა"
 
-#: src/Command.cxx:68
+#: src/Command.cxx:70
 msgid "Pause"
 msgstr "შეჩერება"
 
-#: src/Command.cxx:70
+#: src/Command.cxx:72
 msgid "Stop"
 msgstr "გაჩერება"
 
-#: src/Command.cxx:72
+#: src/Command.cxx:74
 msgid "Crop"
 msgstr "ამოჭრა"
 
-#: src/Command.cxx:74
+#: src/Command.cxx:76
 msgid "Next track"
 msgstr "შემდეგი აუდიობილიკი"
 
-#: src/Command.cxx:76
+#: src/Command.cxx:78
 msgid "Previous track"
 msgstr "წინა აუდიობილიკი"
 
-#: src/Command.cxx:78
+#: src/Command.cxx:80
 msgid "Seek forward"
 msgstr "წინ გადახვევა"
 
-#: src/Command.cxx:80
+#: src/Command.cxx:82
 msgid "Seek backward"
 msgstr "უკან გადახვევა"
 
-#: src/Command.cxx:82
+#: src/Command.cxx:84
 msgid "Increase volume"
 msgstr "დაკვრის ხმის გაზრდა"
 
-#: src/Command.cxx:84
+#: src/Command.cxx:86
 msgid "Decrease volume"
 msgstr "ხმის შემცირება"
 
-#: src/Command.cxx:86
+#: src/Command.cxx:88
 msgid "Select/deselect song in queue"
 msgstr "რიგში სიმღერის მონიშვნა/მონიშვნის მოხსნა"
 
-#: src/Command.cxx:88
+#: src/Command.cxx:90
 msgid "Select all listed items"
 msgstr "ყველა ჩამოთვლილი ელემენტის მონიშვნა"
 
-#: src/Command.cxx:90
+#: src/Command.cxx:92
 msgid "Delete song from queue"
 msgstr "სიმღერის წაშლა რიგიდან"
 
-#: src/Command.cxx:92
+#: src/Command.cxx:94
 msgid "Shuffle queue"
 msgstr "შემთხვევით დაკვრა"
 
-#: src/Command.cxx:94
+#: src/Command.cxx:96
 msgid "Clear queue"
 msgstr "რიგის გასუფთავება"
 
-#: src/Command.cxx:96
+#: src/Command.cxx:98
 msgid "Toggle repeat mode"
 msgstr "გამეორების რეჟიმის გადართვა"
 
-#: src/Command.cxx:98
+#: src/Command.cxx:100
 msgid "Toggle random mode"
 msgstr "შემთხვევითობის რეჟიმის გადართვა"
 
-#: src/Command.cxx:100
+#: src/Command.cxx:102
 msgid "Toggle single mode"
 msgstr "მხოლოდ, ერთის დაკვრის რეჟიმის გადართვა"
 
-#: src/Command.cxx:102
+#: src/Command.cxx:104
 msgid "Toggle consume mode"
 msgstr "დაკვრის შემდეგ წაშლის რეჟიმის გადართვა"
 
-#: src/Command.cxx:104
+#: src/Command.cxx:106
 msgid "Toggle crossfade mode"
 msgstr "სიმღერებს შორის მინავლების რეჟიმის გადართვა"
 
-#: src/Command.cxx:106
+#: src/Command.cxx:108
 msgid "Start a music database update"
 msgstr "მუსიკის მონაცემთა ბაზის განახლების დაწყება"
 
-#: src/Command.cxx:108
+#: src/Command.cxx:110
 msgid "Save queue"
 msgstr "რიგის შენახვა"
 
-#: src/Command.cxx:110 src/HelpPage.cxx:162
+#: src/Command.cxx:112 src/HelpPage.cxx:162
 msgid "Append song to queue"
 msgstr "სიმღერის მიწერა რიგის ბოლოში"
 
-#: src/Command.cxx:113
+#: src/Command.cxx:115
 msgid "Go to root directory"
 msgstr "საწყის საქაღალდეზე გადასვლა"
 
-#: src/Command.cxx:115
+#: src/Command.cxx:117
 msgid "Go to parent directory"
 msgstr "ზედა საქაღალდეზე გადასვლა"
 
-#: src/Command.cxx:118
+#: src/Command.cxx:120
 msgid "Locate song in browser"
 msgstr "სიმღერის პოვნა ბრაუზერში"
 
-#: src/Command.cxx:122
+#: src/Command.cxx:124
 msgid "Move item up"
 msgstr "ჩანაწერის აწევა"
 
-#: src/Command.cxx:124
+#: src/Command.cxx:126
 msgid "Move item down"
 msgstr "ჩანაწერის ჩამოწევა"
 
-#: src/Command.cxx:126
+#: src/Command.cxx:128
 msgid "Refresh screen"
 msgstr "ეკრანის განახლება"
 
 #. translators: toggle between wrapping and non-wrapping
 #. search
-#: src/Command.cxx:133
+#: src/Command.cxx:135
 msgid "Toggle find mode"
 msgstr "ძებნის რეჟიმის გადართვა"
 
 #. translators: the auto center mode always centers the song
 #. currently being played
-#: src/Command.cxx:137
+#: src/Command.cxx:139
 msgid "Toggle auto center mode"
 msgstr "ავტოდაცენტრების რეჟიმის გადართვა"
 
-#: src/Command.cxx:142
+#: src/Command.cxx:144
 msgid "Next screen"
 msgstr "შემდეგი ეკრანი"
 
-#: src/Command.cxx:144
+#: src/Command.cxx:146
 msgid "Previous screen"
 msgstr "წინა ეკრანი"
 
-#: src/Command.cxx:146
+#: src/Command.cxx:148
 msgid "Swap to most recent screen"
 msgstr "მიმოცვლა ბოლო ეკრანთან"
 
-#: src/Command.cxx:151
+#: src/Command.cxx:153
 msgid "Forward find"
 msgstr "წინ ძებნა"
 
-#: src/Command.cxx:153
+#: src/Command.cxx:155
 msgid "Forward find next"
 msgstr "წინ შემდეგის ძებნა"
 
-#: src/Command.cxx:155
+#: src/Command.cxx:157
 msgid "Backward find"
 msgstr "უკან ძებნა"
 
-#: src/Command.cxx:157
+#: src/Command.cxx:159
 msgid "Backward find previous"
 msgstr "უკან წინას ძებნა"
 
 #. translators: this queries the user for a string
 #. * and jumps directly (while the user is typing)
 #. * to the entry which begins with this string
-#: src/Command.cxx:162
+#: src/Command.cxx:164
 msgid "Jump to"
 msgstr "გადასვლა"
 
-#: src/Command.cxx:168
+#: src/Command.cxx:170
 msgid "Library page"
 msgstr "ბიბლიოთეკის გვერდი"
 
-#: src/Command.cxx:172 src/HelpPage.cxx:157
+#: src/Command.cxx:174 src/HelpPage.cxx:157
 msgid "Search screen"
 msgstr "ძებნის ეკრანი"
 
-#: src/Command.cxx:174
+#: src/Command.cxx:176
 msgid "Change search mode"
 msgstr "ძებნის რეჟიმის შეცვლა"
 
-#: src/Command.cxx:178
+#: src/Command.cxx:180
 msgid "Playlist editor"
 msgstr "დასაკრავი სიის რედაქტორი"
 
-#: src/Command.cxx:182
+#: src/Command.cxx:184
 msgid "View the selected and the currently playing song"
 msgstr "ამჟამად დაკრული და მონიშნული სიმღერის ნახვა"
 
-#: src/Command.cxx:186 src/HelpPage.cxx:169
+#: src/Command.cxx:188 src/HelpPage.cxx:169
 msgid "Lyrics screen"
 msgstr "ლირიკის ეკრანი"
 
 #. translators: interrupt the current background action,
 #. e.g. stop loading lyrics from the internet
-#: src/Command.cxx:190
+#: src/Command.cxx:192
 msgid "Interrupt action"
 msgstr "ქმედების შეწყვეტა"
 
-#: src/Command.cxx:192
+#: src/Command.cxx:194
 msgid "Update Lyrics"
 msgstr "ლირიკის განახლება"
 
-#: src/Command.cxx:196
+#: src/Command.cxx:198
 msgid "Edit the current item"
 msgstr "მიმდინარე ელემენტის ჩასწორება"
 
-#: src/Command.cxx:201 src/HelpPage.cxx:184
+#: src/Command.cxx:203 src/HelpPage.cxx:184
 msgid "Outputs screen"
 msgstr "გამოტანის ეკრანი"
 
-#: src/Command.cxx:206 src/HelpPage.cxx:191
+#: src/Command.cxx:208
+#, fuzzy
+msgid "Connections"
+msgstr "{}-ისთან დაკავშირება"
+
+#: src/Command.cxx:213 src/HelpPage.cxx:191
 msgid "Chat screen"
 msgstr "ჩატის ეკრანი"
 
@@ -808,7 +817,7 @@ msgstr "წაშლილი ლირიკის გარეშე"
 msgid "Connecting to {}"
 msgstr "{}-ისთან დაკავშირება"
 
-#: src/Main.cxx:116
+#: src/Main.cxx:118
 #, c++-format
 msgid "Error: MPD version {} is too old ({} needed)"
 msgstr "შეცდომა: MPD-ის ვერსია {} მეტისმეტად ძველია (საჭიროა {})"
@@ -1099,19 +1108,19 @@ msgstr "ხმის სიმაღლე"
 msgid "n/a"
 msgstr "ა/მ"
 
-#: src/page/FindSupport.cxx:16
+#: src/page/FindSupport.cxx:17
 msgid "Find"
 msgstr "ძებნა"
 
-#: src/page/FindSupport.cxx:17
+#: src/page/FindSupport.cxx:18
 msgid "Find backward"
 msgstr "უკან ძებნა"
 
-#: src/page/FindSupport.cxx:18
+#: src/page/FindSupport.cxx:19
 msgid "Jump"
 msgstr "გადასვლა"
 
-#: src/page/FindSupport.cxx:45
+#: src/page/FindSupport.cxx:46
 #, c++-format
 msgid "Unable to find '{}'"
 msgstr "'{}' აღმოჩენილი არაა"
@@ -1135,70 +1144,70 @@ msgstr "ჩავანაცვლო %s?"
 msgid "Saved {}"
 msgstr "{} შენახულია"
 
-#: src/screen.cxx:156
+#: src/screen.cxx:151
 msgid "Repeat mode is on"
 msgstr "გამეორების რეჟიმი ჩართულია"
 
-#: src/screen.cxx:157
+#: src/screen.cxx:152
 msgid "Repeat mode is off"
 msgstr "გამეორების რეჟიმი გამორთულია"
 
-#: src/screen.cxx:161
+#: src/screen.cxx:156
 msgid "Random mode is on"
 msgstr "შემთხვევითობის რეჟიმი ჩართულია"
 
-#: src/screen.cxx:162
+#: src/screen.cxx:157
 msgid "Random mode is off"
 msgstr "შემთხვევითობის რეჟიმი გამორთულია"
 
 #. "single" mode means that MPD will
 #. automatically stop after playing one
 #. single song
-#: src/screen.cxx:169
+#: src/screen.cxx:164
 msgid "Single mode is on"
 msgstr "მხოლოდ, ერთის დაკვრის რეჟიმი ჩართულია"
 
-#: src/screen.cxx:170
+#: src/screen.cxx:165
 msgid "Single mode is off"
 msgstr "მხოლოდ, ერთის დაკვრის რეჟიმი გამორთულია"
 
 #. "consume" mode means that MPD removes
 #. each song which has finished
 #. playing
-#: src/screen.cxx:177
+#: src/screen.cxx:172
 msgid "Consume mode is on"
 msgstr "დაკვრის შემდეგ წაშლის რეჟიმი ჩართულია"
 
-#: src/screen.cxx:178
+#: src/screen.cxx:173
 msgid "Consume mode is off"
 msgstr "დაკვრის შემდეგ წაშლის რეჟიმი გამორთულია"
 
-#: src/screen.cxx:181
+#: src/screen.cxx:176
 #, c++-format
 msgid "Crossfade {} seconds"
 msgstr "მინავლება {} წამით"
 
-#: src/screen.cxx:193
+#: src/screen.cxx:188
 msgid "Database updated"
 msgstr "მონაცემთა ბაზა განახლდა"
 
-#: src/screen.cxx:238
+#: src/screen.cxx:233
 msgid "Find mode: Wrapped"
 msgstr "ძებნის რეჟიმი: გადატანით"
 
-#: src/screen.cxx:239
+#: src/screen.cxx:234
 msgid "Find mode: Normal"
 msgstr "ძებნის რეჟიმი: ნორმალური"
 
-#: src/screen.cxx:245
+#: src/screen.cxx:240
 msgid "Auto center mode: On"
 msgstr "ავტოდაცენტრების რეჟიმი: ჩართულია"
 
-#: src/screen.cxx:246
+#: src/screen.cxx:241
 msgid "Auto center mode: Off"
 msgstr "ავტოდაცენტრების რეჟიმი: გამორთულია"
 
-#: src/screen.cxx:403
+#: src/screen.cxx:397
 msgid "Password"
 msgstr "პაროლი"
 
