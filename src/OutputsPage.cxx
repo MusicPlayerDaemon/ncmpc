@@ -86,7 +86,7 @@ class OutputsPage final : public ListPage, ListRenderer {
 		}
 	};
 
-	ScreenManager &screen;
+	ModalDock &modal_dock;
 
 	std::vector<Item> items;
 
@@ -94,7 +94,7 @@ class OutputsPage final : public ListPage, ListRenderer {
 
 public:
 	OutputsPage(ScreenManager &_screen, const Window window)
-		:ListPage(_screen, window), screen(_screen) {}
+		:ListPage(_screen, window), modal_dock(_screen) {}
 
 private:
 	void Clear();
@@ -149,7 +149,7 @@ OutputsPage::CreateNewPartition(struct mpdclient &c) noexcept
 		co_return;
 
 	const auto name = co_await TextInputDialog{
-		screen, _("Name"),
+		modal_dock, _("Name"),
 	};
 	if (name.empty())
 		co_return;
