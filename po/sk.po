@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 21:32+0200\n"
+"POT-Creation-Date: 2026-08-27 21:38+0200\n"
 "PO-Revision-Date: 2024-11-03 05:07+0000\n"
 "Last-Translator: Milan Šalka <salka.milan@googlemail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/ncmpc/"
@@ -1138,13 +1138,12 @@ msgstr "Vyčistené poradie"
 msgid "Save queue as"
 msgstr "Uložiť poradie skladieb ako"
 
-#: src/save_playlist.cxx:96
-#, c-format
-msgid "Replace %s?"
-msgstr "Nahradiť {}?"
+#: src/save_playlist.cxx:95
+msgid "Replace {:?}?"
+msgstr "Nahradiť {:?}?"
 
 #. success
-#: src/save_playlist.cxx:121
+#: src/save_playlist.cxx:120
 #, c++-format
 msgid "Saved {}"
 msgstr "Uložený {}"

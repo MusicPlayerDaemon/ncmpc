@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.19\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 21:32+0200\n"
+"POT-Creation-Date: 2026-08-27 21:38+0200\n"
 "PO-Revision-Date: 2024-06-15 05:56+0000\n"
 "Last-Translator: Wojciech Teichert <wojtekt99@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/ncmpc/"
@@ -1139,13 +1139,12 @@ msgstr "Wyczyszczono listę odtwarzania"
 msgid "Save queue as"
 msgstr "Zapisz listę odtwarzania jako"
 
-#: src/save_playlist.cxx:96
-#, c-format
-msgid "Replace %s?"
-msgstr "Czy zamienić {}?"
+#: src/save_playlist.cxx:95
+msgid "Replace {:?}?"
+msgstr "Czy zamienić {:?}?"
 
 #. success
-#: src/save_playlist.cxx:121
+#: src/save_playlist.cxx:120
 #, c++-format
 msgid "Saved {}"
 msgstr "Zapisano {}"

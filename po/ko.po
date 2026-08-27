@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 21:32+0200\n"
+"POT-Creation-Date: 2026-08-27 21:38+0200\n"
 "PO-Revision-Date: 2026-03-09 02:09+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
@@ -1134,13 +1134,12 @@ msgstr "순서 지움"
 msgid "Save queue as"
 msgstr "순서 저장"
 
-#: src/save_playlist.cxx:96
-#, c-format
-msgid "Replace %s?"
-msgstr "%s 바꿀까요?"
+#: src/save_playlist.cxx:95
+msgid "Replace {:?}?"
+msgstr "{:?} 바꿀까요?"
 
 #. success
-#: src/save_playlist.cxx:121
+#: src/save_playlist.cxx:120
 #, c++-format
 msgid "Saved {}"
 msgstr "{} 저장됨"

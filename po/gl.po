@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 21:32+0200\n"
+"POT-Creation-Date: 2026-08-27 21:38+0200\n"
 "PO-Revision-Date: 2011-03-25 19:34+0000\n"
 "Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
 "Language-Team: galician\n"
@@ -1156,13 +1156,12 @@ msgstr ""
 msgid "Save queue as"
 msgstr ""
 
-#: src/save_playlist.cxx:96
-#, c-format
-msgid "Replace %s?"
-msgstr "Substituir %s?"
+#: src/save_playlist.cxx:95
+msgid "Replace {:?}?"
+msgstr "Substituir {:?}?"
 
 #. success
-#: src/save_playlist.cxx:121
+#: src/save_playlist.cxx:120
 #, c++-format
 msgid "Saved {}"
 msgstr "Gardouse {}"

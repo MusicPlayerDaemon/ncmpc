@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 21:32+0200\n"
+"POT-Creation-Date: 2026-08-27 21:38+0200\n"
 "PO-Revision-Date: 2025-02-04 14:02+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/ncmpc/"
@@ -1144,13 +1144,12 @@ msgstr "Tyhjennetty jono"
 msgid "Save queue as"
 msgstr "Tallenna jono nimellä"
 
-#: src/save_playlist.cxx:96
-#, c-format
-msgid "Replace %s?"
-msgstr "Korvaa {}?"
+#: src/save_playlist.cxx:95
+msgid "Replace {:?}?"
+msgstr "Korvaa {:?}?"
 
 #. success
-#: src/save_playlist.cxx:121
+#: src/save_playlist.cxx:120
 #, c++-format
 msgid "Saved {}"
 msgstr "Tallennettu {}"

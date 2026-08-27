@@ -91,9 +91,8 @@ playlist_save(ScreenManager &screen, struct mpdclient &c,
 		if (mpd_connection_get_error(connection) == MPD_ERROR_SERVER &&
 		    mpd_connection_get_server_error(connection) == MPD_SERVER_ERROR_EXIST &&
 		    mpd_connection_clear_error(connection)) {
-			char prompt[256];
-			snprintf(prompt, sizeof(prompt),
-				 _("Replace %s?"), filename.c_str());
+			const auto prompt =
+				fmt::format(fmt::runtime(_("Replace {:?}?")), filename);
 
 			if (co_await YesNoDialog{screen, prompt} != YesNoResult::YES)
 				co_return;

@@ -860,8 +860,8 @@ msgstr "Kuyruğu farklı kaydet"
 
 #: src/save_playlist.cxx:108
 #, c-format
-msgid "Replace %s?"
-msgstr "{} değiştirilsin mi?"
+msgid "Replace {:?}?"
+msgstr "{:?} değiştirilsin mi?"
 
 #. success
 #: src/save_playlist.cxx:129
