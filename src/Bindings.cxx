@@ -48,7 +48,7 @@ KeyBindings::FindKey(int key) const noexcept
 #ifndef NCMPC_MINI
 
 bool
-KeyBindings::Check(char *buf, size_t bufsize) const noexcept
+KeyBindings::Check(std::span<char> buffer) const noexcept
 {
 	bool success = true;
 
@@ -59,8 +59,8 @@ KeyBindings::Check(char *buf, size_t bufsize) const noexcept
 
 			Command cmd;
 			if ((cmd = FindKey(key)) != Command(i)) {
-				if (buf) {
-					snprintf(buf, bufsize,
+				if (!buffer.empty()) {
+					snprintf(buffer.data(), buffer.size(),
 						 _("Key %s assigned to %s and %s"),
 						 GetLocalizedKeyName(key),
 						 get_key_command_name(Command(i)),

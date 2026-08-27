@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef BINDINGS_HXX
-#define BINDINGS_HXX
+#pragma once
 
 #include "config.h" // IWYU pragma: keep
 #include "Command.hxx"
 
 #include <array>
 #include <algorithm>
+#include <span>
 #include <string>
 
 #include <stddef.h>
@@ -88,7 +88,7 @@ struct KeyBindings {
 	/**
 	 * @return true on success, false on error
 	 */
-	bool Check(char *buf, size_t size) const noexcept;
+	bool Check(std::span<char> buffer={}) const noexcept;
 
 	/**
 	 * @return true on success, false on error
@@ -103,5 +103,3 @@ struct KeyBindings {
 #define KEYDEF_WRITE_HEADER  0x01
 #define KEYDEF_WRITE_ALL     0x02
 #define KEYDEF_COMMENT_ALL   0x04
-
-#endif

@@ -238,7 +238,7 @@ Instance::OnCheckKeyBindings() noexcept
 {
 	char buf[256];
 
-	if (GetGlobalKeyBindings().Check(buf, sizeof(buf)))
+	if (GetGlobalKeyBindings().Check(buf))
 		/* no error: disable this timer for the rest of this
 		   process */
 		return;
@@ -285,7 +285,7 @@ try {
 	read_configuration();
 
 	/* check key bindings */
-	GetGlobalKeyBindings().Check(nullptr, 0);
+	GetGlobalKeyBindings().Check();
 #endif
 
 	/* set options from environment variables */

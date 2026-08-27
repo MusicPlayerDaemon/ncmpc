@@ -153,7 +153,7 @@ CommandKeysPage::DeleteKey(int key_index)
 	SchedulePaint();
 
 	/* update key conflict flags */
-	bindings->Check(nullptr, 0);
+	bindings->Check();
 }
 
 Co::InvokeTask
@@ -196,7 +196,7 @@ CommandKeysPage::OverwriteKey(int key_index) noexcept
 	SchedulePaint();
 
 	/* update key conflict flags */
-	bindings->Check(nullptr, 0);
+	bindings->Check();
 }
 
 void
