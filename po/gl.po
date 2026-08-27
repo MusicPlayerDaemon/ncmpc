@@ -1157,9 +1157,9 @@ msgid "Save queue as"
 msgstr ""
 
 #: src/save_playlist.cxx:96
-#, fuzzy, c-format
+#, c-format
 msgid "Replace %s?"
-msgstr "Substituir %s [%s/{}] ? "
+msgstr "Substituir %s?"
 
 #. success
 #: src/save_playlist.cxx:121
