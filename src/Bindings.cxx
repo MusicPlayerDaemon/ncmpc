@@ -70,12 +70,13 @@ KeyBindings::Check(std::span<char> buffer) const noexcept
 								       get_key_command_name(cmd));
 					*p = '\0';
 				} else {
-					fmt::println(stderr,
-						     // xgettext:c++-format
-						     fmt::runtime(_("Key {:?} assigned to {:?} and {:?}")),
-						     GetLocalizedKeyName(key),
-						     get_key_command_name(Command(i)),
-						     get_key_command_name(cmd));
+					fmt::print(stderr,
+						   // xgettext:c++-format
+						   fmt::runtime(_("Key {:?} assigned to {:?} and {:?}")),
+						   GetLocalizedKeyName(key),
+						   get_key_command_name(Command(i)),
+						   get_key_command_name(cmd));
+					fputc('\n', stderr);
 				}
 				success = false;
 			}
