@@ -559,7 +559,7 @@ KeyDefPage::OnCommand(struct mpdclient &c, Command cmd)
 			return true;
 		}
 
-		break;
+		return false;
 
 	case Command::SAVE_PLAYLIST:
 		command_list_page.Apply();

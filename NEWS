@@ -5,6 +5,7 @@ ncmpc 0.55 - not yet released
 * new "connections" page
 * add Zeroconf support to find MPD on the local network
 * fix broken main area after terminal had been very small
+* fix crash bug
 
 ncmpc 0.54 - (2026-08-13)
 * suspend to the shell with Ctrl-Z
