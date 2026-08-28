@@ -16,7 +16,7 @@
 #include <string.h>
 
 void
-paint_song_row(const Window window, [[maybe_unused]] int y, unsigned width,
+paint_song_row(const Window window, [[maybe_unused]] unsigned y, unsigned width,
 	       bool selected, bool highlight, const struct mpd_song &song,
 	       [[maybe_unused]] class hscroll *hscroll, const char *format)
 {
@@ -33,7 +33,7 @@ paint_song_row(const Window window, [[maybe_unused]] int y, unsigned width,
 
 		if (duration.size() < width) {
 			width -= duration.size() + 1;
-			window.MoveCursor({(int)width, y});
+			window.MoveCursor({width, y});
 			window.Char(' ');
 			window.String(duration);
 		}
@@ -41,7 +41,7 @@ paint_song_row(const Window window, [[maybe_unused]] int y, unsigned width,
 
 	if (hscroll != nullptr && width > 3 &&
 	    StringWidthMB(text) >= width) {
-		    hscroll->Set({0, y}, width, text,
+		    hscroll->Set({0u, y}, width, text,
 			     highlight ? Style::LIST_BOLD : Style::LIST,
 			     selected ? A_REVERSE : 0);
 		hscroll->Paint();

@@ -35,12 +35,12 @@ ProgressBar::Paint() const noexcept
 #endif
 		}
 
-		window.Char({(int)width, 0}, '>');
+		window.Char({width, 0u}, '>');
 		unsigned x = width + 1;
 
 		if (x < window_width) {
 			SelectStyle(window, Style::PROGRESSBAR_BACKGROUND);
-			window.HLine({(int)x, 0}, window_width - x, ACS_HLINE);
+			window.HLine({x, 0u}, window_width - x, ACS_HLINE);
 		}
 	} else {
 		/* no progress bar, just a simple horizontal line */

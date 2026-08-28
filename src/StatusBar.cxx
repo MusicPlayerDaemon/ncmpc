@@ -147,7 +147,7 @@ StatusBar::UpdateScrollLayout() noexcept
 	const unsigned center_width =
 		StringWidthMB(center_text);
 	if (window_width > 3 && center_width > remaining_width) {
-		hscroll.Set({(int)left_width, 0}, remaining_width,
+		hscroll.Set({left_width, 0u}, remaining_width,
 			    center_text,
 			    Style::STATUS);
 	} else {
@@ -249,7 +249,7 @@ StatusBar::Paint() const noexcept
 			hscroll.Paint();
 		else
 #endif
-			window.String({(int)left_width, 0}, center_text);
+			window.String({left_width, 0u}, center_text);
 	}
 
 	window.RefreshNoOut();

@@ -272,18 +272,18 @@ HelpPage::PaintListItem(const Window window, unsigned i,
 
 	if (row->command == Command::NONE) {
 		if (row->text != nullptr)
-			window.String({6, (int)y}, my_gettext(row->text));
+			window.String({6u, y}, my_gettext(row->text));
 		else if (row->highlight == 2 && width > 6)
-			window.HLine({3, (int)y}, width - 6, ACS_HLINE);
+			window.HLine({3u, y}, width - 6, ACS_HLINE);
 	} else {
 		const auto key =
 			GetGlobalKeyBindings().GetKeyNames(row->command);
 
-		if (const auto key_width = StringWidthMB(key); key_width < 20)
-			window.MoveCursor({20 - (int)key_width, (int)y});
+		if (const unsigned key_width = StringWidthMB(key); key_width < 20)
+			window.MoveCursor({20u - key_width, y});
 		window.String(key);
-		window.Char({21, (int)y}, ':');
-		window.String({23, (int)y},
+		window.Char({21u, y}, ':');
+		window.String({23u, y},
 			      row->text != nullptr
 			      ? my_gettext(row->text)
 			      : get_key_description(row->command));

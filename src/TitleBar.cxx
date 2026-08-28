@@ -88,14 +88,16 @@ TitleBar::Paint(const PageMeta &current_page_meta,
 	}
 
 	SelectStyle(window, Style::TITLE);
-	const int window_width = window.GetWidth();
-	window.String({window_width - (int)StringWidthMB(volume_string), 0},
+	const unsigned window_width = window.GetWidth();
+	const unsigned volume_width = StringWidthMB(volume_string);
+	window.String({window_width - volume_width, 0u},
 		      volume_string);
 
 	SelectStyle(window, Style::LINE);
 	window.HLine({0, 1}, window_width, ACS_HLINE);
 	if (flags[0]) {
-		window.MoveCursor({window_width - (int)strlen(flags) - 3, 1});
+		const unsigned flag_width = strlen(flags);
+		window.MoveCursor({window_width - flag_width - 3u, 1u});
 		window.Char('[');
 		SelectStyle(window, Style::LINE_FLAGS);
 		window.String(flags);

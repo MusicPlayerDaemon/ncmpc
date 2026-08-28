@@ -424,7 +424,7 @@ TextInputDialog::Paint(const Window window) const noexcept
 	/* clear the rest */
 	window.ClearToEol();
 	/* move the cursor to the correct position */
-	window.MoveCursor({point.x + (int)GetCursorColumn(), point.y});
+	window.MoveCursor(point + Size{GetCursorColumn(), 0u});
 
 	curs_set(1);
 }

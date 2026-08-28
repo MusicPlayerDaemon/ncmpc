@@ -21,6 +21,6 @@ class hscroll;
  * @param format the song format
  */
 void
-paint_song_row(Window window, int y, unsigned width,
+paint_song_row(Window window, unsigned y, unsigned width,
 	       bool selected, bool highlight, const struct mpd_song &song,
 	       class hscroll *hscroll, const char *format);

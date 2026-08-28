@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef NCMPC_POINT_HXX
-#define NCMPC_POINT_HXX
+#pragma once
 
 #include "Size.hxx"
 
@@ -11,6 +10,10 @@
  */
 struct Point {
 	int x, y;
+
+	constexpr Point() noexcept = default;
+	constexpr Point(int _x, int _y) noexcept:x(_x), y(_y) {}
+	constexpr Point(unsigned _x, unsigned _y) noexcept:x(_x), y(_y) {}
 
 	constexpr Point operator+(Point other) const noexcept {
 		return {x + other.x, y + other.y};
@@ -24,5 +27,3 @@ struct Point {
 		return {x + int(size.width), y + int(size.height)};
 	}
 };
-
-#endif

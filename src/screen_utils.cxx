@@ -46,7 +46,7 @@ screen_display_completion_list(const Window window,
 
 	auto i = std::next(range.begin(), offset);
 	for (unsigned y = 0; y < height; ++i) {
-		window.MoveCursor({0, (int)y});
+		window.MoveCursor({0u, y});
 		if (i == range.end())
 			break;
 
