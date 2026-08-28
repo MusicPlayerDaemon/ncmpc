@@ -74,6 +74,15 @@ class ConnectionsPage final
 			return !settings;
 		}
 
+		Style GetStyle() const noexcept {
+			if (IsError())
+				return Style::LIST_ALERT;
+			else if (active)
+				return Style::LIST_BOLD;
+			else
+				return Style::LIST;
+		}
+
 #ifdef HAVE_AVAHI
 		[[gnu::pure]]
 		auto GetHash() const noexcept {
@@ -167,7 +176,7 @@ ConnectionsPage::PaintListItem(Window window, unsigned i, [[maybe_unused]] unsig
 {
 	const auto &item = items[i];
 
-	row_color(window, item.active || item.IsError() ? Style::LIST_BOLD : Style::LIST, selected);
+	row_color(window, item.GetStyle(), selected);
 	window.String(item.name);
 	row_clear_to_eol(window, width, selected);
 }

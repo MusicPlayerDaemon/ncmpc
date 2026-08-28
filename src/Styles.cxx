@@ -129,6 +129,11 @@ static StyleData styles[size_t(Style::END)] = {
 		A_BOLD,
 	},
 	{
+		"list-alert", Style::LIST,
+		COLOR_RED, COLOR_INHERIT, A_BOLD,
+		A_BOLD,
+	},
+	{
 		"progressbar", Style::STATUS,
 		COLOR_WHITE, COLOR_INHERIT, A_BOLD,
 		A_NORMAL,

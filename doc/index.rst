@@ -300,6 +300,9 @@ the main area of ncmpc.
 :command:`color list-bold = COLOR[,ATTRIBUTE]...` - Set the bold text
 color in the main area of ncmpc.
 
+:command:`color list-alert = COLOR[,ATTRIBUTE]...` - Set the text
+color for alerts in the main area of ncmpc.
+
 :command:`color browser-directory = COLOR[,ATTRIBUTE]...` - Set the
 text color used to display directories in the browser window.
 

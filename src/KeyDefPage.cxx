@@ -254,7 +254,14 @@ CommandKeysPage::PaintListItem(const Window window, unsigned idx, [[maybe_unused
 	row_clear_to_eol(window, width, selected);
 
 	window.String(fmt::format_int{idx}.c_str());
-	window.String(conflicts[PositionToKeyIndex(idx)] ? "! "sv : ". "sv);
+
+	if (conflicts[PositionToKeyIndex(idx)]) {
+		row_color(window, Style::LIST_ALERT, selected);
+		window.String("! "sv);
+		row_color(window, Style::LIST, selected);
+	} else
+		window.String(". "sv);
+
 	window.String(GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]));
 }
 
@@ -513,7 +520,12 @@ CommandListPage::PaintListItem(const Window window, unsigned idx, unsigned y, un
 
 	unsigned x = get_cmds_max_name_width() + 1;
 
-	window.Char({x, y}, conflicts[idx] ? '!' : '-');
+	if (conflicts[idx]) {
+		row_color(window, Style::LIST_ALERT, selected);
+		window.Char({x, y}, '!');
+		row_color(window, Style::LIST, selected);
+	} else
+		window.Char({x, y}, '-');
 
 	x += 3;
 
