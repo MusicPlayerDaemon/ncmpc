@@ -32,7 +32,7 @@ PaintTableRow(const Window window, unsigned width,
 			break;
 
 		if (i > 0) {
-			SelectStyle(window, Style::LINE);
+			SelectStyle(window, Style::LIST_LINE);
 			window.Char(ACS_VLINE);
 			row_color(window, color, selected);
 		}

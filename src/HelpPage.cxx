@@ -273,8 +273,10 @@ HelpPage::PaintListItem(const Window window, unsigned i,
 	if (row->command == Command::NONE) {
 		if (row->text != nullptr)
 			window.String({6u, y}, my_gettext(row->text));
-		else if (row->highlight == 2 && width > 6)
+		else if (row->highlight == 2 && width > 6) {
+			row_color(window, Style::LIST_LINE, selected);
 			window.HLine({3u, y}, width - 6, ACS_HLINE);
+		}
 	} else {
 		const auto key =
 			GetGlobalKeyBindings().GetKeyNames(row->command);

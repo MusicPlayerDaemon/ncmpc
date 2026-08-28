@@ -165,6 +165,9 @@
 ## Set the text color for alerts in the main area of ncmpc.
 #color list-bold = red
 
+## Set the color for lines in the main area of ncmpc.
+#color list-line = ...
+
 ## Sets the text color of directories in the browser
 #color browser-directory = yellow
 
