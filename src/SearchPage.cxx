@@ -454,9 +454,9 @@ std::string_view
 SearchPage::GetTitle(std::span<char> buffer) const noexcept
 {
 	if (advanced_search_mode && !pattern.empty())
-		return FmtTruncate(buffer, "{} '{}'"sv, _("Search"), pattern);
+		return FmtTruncate(buffer, "{} {:?}"sv, _("Search"), pattern);
 	else if (!pattern.empty())
-		return FmtTruncate(buffer, "{} '{}' [{}]",
+		return FmtTruncate(buffer, "{} {:?} [{}]",
 				   _("Search"),
 				   pattern,
 				   my_gettext(mode[options.search_mode].label));
