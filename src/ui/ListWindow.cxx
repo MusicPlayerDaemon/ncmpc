@@ -44,6 +44,14 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 	}
 }
 
+[[gnu::pure]]
+static bool
+MatchListItem(const MatchExpression &m, const ListText &text, unsigned i) noexcept
+{
+	char buffer[1024];
+	return m(text.GetListItemText(buffer, i));
+}
+
 bool
 ListWindow::Find(const ListText &text,
 		 std::string_view str) noexcept
@@ -58,10 +66,7 @@ ListWindow::Find(const ListText &text,
 
 	do {
 		while (i < GetLength()) {
-			char buffer[1024];
-			const std::string_view label = text.GetListItemText(buffer, i);
-
-			if (m(label)) {
+			if (MatchListItem(m, text, i)) {
 				MoveCursor(i);
 				HighlightCursor();
 				return true;
@@ -100,10 +105,7 @@ ListWindow::ReverseFind(const ListText &text,
 
 	do {
 		while (i >= 0) {
-			char buffer[1024];
-			const std::string_view label = text.GetListItemText(buffer, i);
-
-			if (m(label)) {
+			if (MatchListItem(m, text, i)) {
 				MoveCursor(i);
 				HighlightCursor();
 				return true;
@@ -131,10 +133,7 @@ ListWindow::Jump(const ListText &text, std::string_view str) noexcept
 		return false;
 
 	for (unsigned i = 0; i < GetLength(); i++) {
-		char buffer[1024];
-		const std::string_view label = text.GetListItemText(buffer, i);
-
-		if (m(label)) {
+		if (MatchListItem(m, text, i)) {
 			MoveCursor(i);
 			HighlightCursor();
 			return true;
