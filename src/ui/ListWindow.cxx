@@ -46,10 +46,26 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 
 [[gnu::pure]]
 static bool
-MatchListItem(const MatchExpression &m, const ListText &text, unsigned i) noexcept
+MatchListItemText(const MatchExpression &m, const ListText &text, unsigned i) noexcept
 {
 	char buffer[1024];
 	return m(text.GetListItemText(buffer, i));
+}
+
+[[gnu::pure]]
+static bool
+MatchSecondListItemText(const MatchExpression &m, const ListText &text, unsigned i) noexcept
+{
+	char buffer[1024];
+	return m(text.GetSecondListItemText(buffer, i));
+}
+
+[[gnu::pure]]
+static bool
+MatchListItem(const MatchExpression &m, const ListText &text, unsigned i) noexcept
+{
+	return MatchListItemText(m, text, i) ||
+		MatchSecondListItemText(m, text, i);
 }
 
 bool

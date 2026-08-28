@@ -14,4 +14,15 @@ public:
 	[[gnu::pure]]
 	virtual std::string_view GetListItemText(std::span<char> buffer,
 						 unsigned i) const noexcept = 0;
+
+	/**
+	 * Like GetListItemText(), but return a second string (e.g. a
+	 * second column).  Only used for searching, not for
+	 * rendering.
+	 */
+	[[gnu::pure]]
+	virtual std::string_view GetSecondListItemText([[maybe_unused]] std::span<char> buffer,
+						       [[maybe_unused]] unsigned i) const noexcept {
+		return {};
+	}
 };
