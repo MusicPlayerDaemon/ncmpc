@@ -359,7 +359,7 @@ OutputsPage::PaintListItem(Window window, unsigned i,
 		break;
 
 	case Item::Special::NEW_PARTITION:
-		row_color(window, Style::LIST, selected);
+		row_color(window, Style::DIRECTORY, selected);
 		window.Char('[');
 		window.String(_("Create new partition"));
 		window.Char(']');
