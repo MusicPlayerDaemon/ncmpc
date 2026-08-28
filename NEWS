@@ -1,6 +1,7 @@
 ncmpc 0.55 - not yet released
 * reduce the number of pages displayed in the top row
 * new page switcher
+* redesigned search page
 * fix connection name if connected to fallback address
 * new "connections" page
 * add Zeroconf support to find MPD on the local network

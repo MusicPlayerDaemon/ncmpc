@@ -6,30 +6,35 @@
 #include "screen.hxx"
 #include "i18n.h"
 #include "Options.hxx"
-#include "Bindings.hxx"
-#include "GlobalBindings.hxx"
 #include "charset.hxx"
+#include "Command.hxx"
 #include "FileListPage.hxx"
-#include "filelist.hxx"
+#include "Styles.hxx"
+#include "page/ProxyPage.hxx"
+#include "ui/form/StringEditRow.hxx"
+#include "ui/form/TableForm.hxx"
 #include "ui/dialogs/TextInputDialog.hxx"
-#include "ui/TextListRenderer.hxx"
-#include "lib/fmt/ToSpan.hxx"
+#include "ui/paint.hxx"
 #include "client/mpdclient.hxx"
 #include "time/Parser.hxx"
+#include "co/Task.hxx"
+#include "util/LocaleString.hxx"
 #include "util/StringCompare.hxx"
+#include "util/StringStrip.hxx"
 
 #include <fmt/format.h>
 
+#include <array>
 #include <iterator>
-
-#include <string.h>
 
 using std::string_view_literals::operator""sv;
 
 enum {
-	SEARCH_URI = MPD_TAG_COUNT + 100,
+	SEARCH_URI = MPD_TAG_COUNT,
+	SEARCH_COUNT,
+
 	SEARCH_MODIFIED,
-	SEARCH_ARTIST_TITLE,
+	SEARCH_ADVANCED,
 };
 
 static constexpr struct {
@@ -69,151 +74,24 @@ search_get_tag_id(std::string_view name) noexcept
 	return -1;
 }
 
-struct SearchMode {
-	int table;
-	const char *label;
-};
+struct SearchFilter {
+	std::array<std::string, SEARCH_COUNT> tag_constraints;
 
-static constexpr SearchMode mode[] = {
-	{ MPD_TAG_TITLE, N_("Title") },
-	{ MPD_TAG_ARTIST, N_("Artist") },
-	{ MPD_TAG_ALBUM, N_("Album") },
-	{ SEARCH_URI, N_("Filename") },
-	{ SEARCH_ARTIST_TITLE, N_("Artist + Title") },
-	{ MPD_TAG_COUNT, nullptr }
-};
+	time_t modified_since = 0;
 
-static const char *const help_text[] = {
-	"",
-	"",
-	"",
-	"Quick     -  Enter a string and ncmpc will search according",
-	"             to the current search mode (displayed above).",
-	"",
-	"Advanced  -  <tag>:<search term> [<tag>:<search term>...]",
-	"		Example: artist:radiohead album:pablo honey",
-	"		Example: modified:14d (units: s, M, h, d, m, y)",
-	"",
-	"		Available tags: artist, album, title, track,",
-	"		name, genre, date composer, performer, label,",
-	"		comment, file",
-	"",
-};
+	bool IsEmpty() const noexcept {
+		for (const auto &i : tag_constraints)
+			if (!i.empty())
+				return false;
 
-static bool advanced_search_mode = false;
-
-class SearchPage final : public FileListPage {
-	History search_history;
-	std::string pattern;
-
-public:
-	SearchPage(ScreenManager &_screen, const Window _window) noexcept
-		:FileListPage(_screen, _screen, _window,
-			      !options.search_format.empty()
-			      ? options.search_format.c_str()
-			      : options.list_format.c_str()) {
-		lw.HideCursor();
-		lw.SetLength(std::size(help_text));
+		return modified_since == 0;
 	}
 
-private:
-	void Clear(bool clear_pattern) noexcept;
-	void Reload(struct mpdclient &c);
+	void SetAdvanced(std::string_view s);
 
-	[[nodiscard]]
-	Co::InvokeTask Start(struct mpdclient &c);
-
-public:
-	/* virtual methods from class Page */
-	void Paint() const noexcept override;
-	void Update(struct mpdclient &c, unsigned events) noexcept override;
-	bool OnCommand(struct mpdclient &c, Command cmd) override;
-	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
+	void SendDbSearch(struct mpd_connection &c) const noexcept;
+	bool DoSearch(struct mpdclient &c, FileList &result) const noexcept;
 };
-
-/* search info */
-class SearchHelpText final : public ListText {
-public:
-	/* virtual methods from class ListText */
-	std::string_view GetListItemText(std::span<char> buffer,
-					 unsigned idx) const noexcept override {
-		assert(idx < std::size(help_text));
-
-		if (idx == 0)
-			return FmtTruncate(buffer, " {} : {}"sv,
-					   GetGlobalKeyBindings().GetKeyNames(Command::SCREEN_SEARCH),
-					   "New search"sv);
-
-		if (idx == 1)
-			return FmtTruncate(buffer, " {} : {} [{}]"sv,
-					   GetGlobalKeyBindings().GetKeyNames(Command::SEARCH_MODE),
-					   get_key_description(Command::SEARCH_MODE),
-					   my_gettext(mode[options.search_mode].label));
-
-		return help_text[idx];
-	}
-};
-
-void
-SearchPage::Clear(bool clear_pattern) noexcept
-{
-	filelist.clear();
-	lw.SetLength(0);
-
-	if (clear_pattern)
-		pattern.clear();
-
-	SchedulePaint();
-}
-
-static FileList
-search_simple_query(struct mpd_connection *connection, bool exact_match,
-		    int table, const char *local_pattern)
-{
-	const LocaleToUtf8Z filter_utf8(local_pattern);
-
-	if (table == SEARCH_ARTIST_TITLE) {
-		mpd_command_list_begin(connection, false);
-
-		mpd_search_db_songs(connection, exact_match);
-		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_ARTIST,
-					      filter_utf8.c_str());
-		mpd_search_commit(connection);
-
-		mpd_search_db_songs(connection, exact_match);
-		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      MPD_TAG_TITLE,
-					      filter_utf8.c_str());
-		mpd_search_commit(connection);
-
-		mpd_command_list_end(connection);
-
-		FileList list;
-		list.Receive(*connection);
-		list.RemoveDuplicateSongs();
-		return list;
-	} else if (table == SEARCH_URI) {
-		mpd_search_db_songs(connection, exact_match);
-		mpd_search_add_uri_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      filter_utf8.c_str());
-		mpd_search_commit(connection);
-
-		FileList list;
-		list.Receive(*connection);
-		return list;
-	} else {
-		mpd_search_db_songs(connection, exact_match);
-		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
-					      (enum mpd_tag_type)table,
-					      filter_utf8.c_str());
-		mpd_search_commit(connection);
-
-		FileList list;
-		list.Receive(*connection);
-		return list;
-	}
-}
 
 /**
  * Throws on error.
@@ -224,135 +102,304 @@ ParseModifiedSince(std::string_view s)
 	return time(nullptr) - ParseDuration(s);
 }
 
-/*-----------------------------------------------------------------------
- * NOTE: This code exists to test a new search ui,
- *       Its ugly and MUST be redesigned before the next release!
- *-----------------------------------------------------------------------
- */
-static bool
-search_advanced_query(Interface &interface,
-		      struct mpd_connection *connection, const char *query,
-		      FileList &fl)
-try {
-	advanced_search_mode = false;
-	if (strchr(query, ':') == nullptr)
-		return false;
+inline void
+SearchFilter::SetAdvanced(std::string_view s)
+{
+	while (!s.empty()) {
+		auto [a, value] = SplitLast(s, ':');
+		if (value.data() == nullptr)
+			throw std::invalid_argument{"Missing colon"};
 
-	std::string str(query);
+		auto [rest, name] = SplitLast(a, ' ');
+		if (name.empty()) {
+			name = rest;
+			rest = {};
 
-	static constexpr size_t N = 10;
-
-	char *tabv[N];
-	char *matchv[N];
-	int table[N];
-
-	/*
-	 * Replace every : with a '\0' and every space character
-	 * before it unless spi = -1, link the resulting strings
-	 * to their proper vector.
-	 */
-	int spi = -1;
-	size_t n = 0;
-	for (size_t i = 0; str[i] != '\0' && n < N; i++) {
-		switch(str[i]) {
-		case ' ':
-			spi = i;
-			continue;
-		case ':':
-			str[i] = '\0';
-			if (spi != -1)
-				str[spi] = '\0';
-
-			matchv[n] = &str[i + 1];
-			tabv[n] = &str[spi + 1];
-			table[n] = search_get_tag_id(tabv[n]);
-			if (table[n] < 0) {
-				interface.Alert(fmt::format(fmt::runtime(_("Bad search tag {}")),
-							    tabv[n]));
-				return false;
-			}
-
-			++n;
-			/* FALLTHROUGH */
-		default:
-			continue;
+			if (name.empty())
+				throw std::invalid_argument{"Missing name"};
 		}
+
+		const int tag = search_get_tag_id(name);
+		if (tag < 0)
+			throw std::invalid_argument{
+				fmt::format(fmt::runtime(_("Bad search tag {}")), name),
+			};
+
+		value = Strip(value);
+		if (value.empty())
+			throw std::invalid_argument{
+				fmt::format(fmt::runtime(_("No argument for search tag {}")), name),
+			};
+
+		if (tag == SEARCH_MODIFIED) {
+			modified_since = ParseModifiedSince(value);
+		} else {
+			const std::size_t idx = static_cast<std::size_t>(tag);
+			assert(idx < tag_constraints.size());
+			auto &contraint = tag_constraints[idx];
+			if (!contraint.empty())
+				throw std::invalid_argument{"Duplicate name"};
+
+			contraint = value;
+		}
+
+		s = rest;
 	}
-
-	/* Get rid of obvious failure case */
-	if (matchv[n - 1][0] == '\0') {
-		interface.Alert(fmt::format(fmt::runtime(_("No argument for search tag {}")),
-					    tabv[n - 1]));
-		return false;
-	}
-
-	advanced_search_mode = true;
-
-	/*-----------------------------------------------------------------------
-	 * NOTE (again): This code exists to test a new search ui,
-	 *               Its ugly and MUST be redesigned before the next release!
-	 *             + the code below should live in mpdclient.c
-	 *-----------------------------------------------------------------------
-	 */
-	/** stupid - but this is just a test...... (fulhack)  */
-	mpd_search_db_songs(connection, false);
-
-	for (size_t i = 0; i < n; i++) {
-		const LocaleToUtf8Z value{matchv[i]};
-
-		if (table[i] == SEARCH_URI)
-			mpd_search_add_uri_constraint(connection,
-						      MPD_OPERATOR_DEFAULT,
-						      value.c_str());
-		else if (table[i] == SEARCH_MODIFIED)
-			mpd_search_add_modified_since_constraint(connection,
-								 MPD_OPERATOR_DEFAULT,
-								 ParseModifiedSince(value.c_str()));
-		else
-			mpd_search_add_tag_constraint(connection,
-						      MPD_OPERATOR_DEFAULT,
-						      (enum mpd_tag_type)table[i],
-						      value.c_str());
-	}
-
-	mpd_search_commit(connection);
-	fl.Receive(*connection);
-	return mpd_response_finish(connection);
-} catch (...) {
-	mpd_search_cancel(connection);
-	throw;
 }
 
-static FileList
-do_search(Interface &interface,
-	  struct mpdclient *c, const char *query)
+inline void
+SearchFilter::SendDbSearch(struct mpd_connection &c) const noexcept
 {
-	auto *connection = c->GetConnection();
-	if (connection == nullptr)
-		return {};
+	constexpr bool exact_match = false; // TODO
 
-	if (FileList fl;
-	    search_advanced_query(interface, connection, query, fl))
-		return fl;
+	mpd_search_db_songs(&c, exact_match);
 
-	if (mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS) {
-		c->HandleError();
-		return {};
+	for (unsigned i = 0; i < tag_constraints.size(); ++i) {
+		if (tag_constraints[i].empty())
+			continue;
+
+		const LocaleToUtf8Z utf8{tag_constraints[i]};
+
+		if (i == SEARCH_URI)
+			mpd_search_add_uri_constraint(&c, MPD_OPERATOR_DEFAULT,
+						      utf8.c_str());
+		else
+			mpd_search_add_tag_constraint(&c, MPD_OPERATOR_DEFAULT,
+						      static_cast<enum mpd_tag_type>(i),
+						      utf8.c_str());
 	}
 
-	return search_simple_query(connection, false,
-				   mode[options.search_mode].table,
-				   query);
+	if (modified_since > 0)
+		mpd_search_add_modified_since_constraint(&c,
+							 MPD_OPERATOR_DEFAULT,
+							 modified_since);
+
+	mpd_search_commit(&c);
+}
+
+inline bool
+SearchFilter::DoSearch(struct mpdclient &c, FileList &result) const noexcept
+{
+	if (IsEmpty())
+		return false;
+
+	auto *connection = c.GetConnection();
+	if (connection == nullptr)
+		return false;
+
+	SendDbSearch(*connection);
+
+	result.Receive(*connection);
+	if (mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS) {
+		c.HandleError();
+		return false;
+	}
+
+	return true;
+}
+
+template<std::size_t N>
+static constexpr std::array<StringEditRow, N>
+MakeStringEditRowArray(const std::span<const char *const, N> labels) noexcept
+{
+	return [&]<std::size_t... i>(std::index_sequence<i...>) {
+		return std::array<StringEditRow, N>{
+			StringEditRow{my_gettext(labels[i]), ""sv}...
+		};
+	}(std::make_index_sequence<N>{});
+}
+
+struct SearchFilterForm {
+	static constexpr unsigned tags[] = {
+		MPD_TAG_TITLE,
+		MPD_TAG_ARTIST,
+		MPD_TAG_ALBUM,
+		SEARCH_URI,
+		SEARCH_ADVANCED,
+	};
+
+	static constexpr const char *labels[] = {
+		N_("Title"),
+		N_("Artist"),
+		N_("Album"),
+		N_("Filename"),
+		N_("Advanced"),
+	};
+
+	static constexpr unsigned N_ROWS = std::size(labels);
+
+	std::array<StringEditRow, N_ROWS> rows = MakeStringEditRowArray(std::span{labels});
+
+	void Clear() noexcept {
+		for (auto &i : rows)
+			i.Clear();
+	}
+
+	operator SearchFilter() const {
+		SearchFilter filter;
+
+		for (unsigned i = 0; i < N_ROWS; ++i) {
+			const auto &value = rows[i].GetValue();
+			const unsigned tag = tags[i];
+			if (tag == SEARCH_ADVANCED)
+				filter.SetAdvanced(value);
+			else
+				filter.tag_constraints[tag] = value;
+		};
+
+		return filter;
+	}
+};
+
+class SearchFilterPage final : public ListPage, ListRenderer {
+	ModalDock &modal_dock;
+
+	SearchFilterForm filter;
+
+	static constexpr unsigned SEARCH_INDEX = SearchFilterForm::N_ROWS;
+
+public:
+	SearchFilterPage(PageContainer &_container, const Window _window,
+			 ModalDock &_modal_dock) noexcept
+		:ListPage(_container, _window),
+		 modal_dock(_modal_dock)
+	{
+		std::apply([](auto&... rows) {
+			AdjustLabelWidths(rows...);
+		}, filter.rows);
+
+		lw.SetLength(SEARCH_INDEX + 1);
+	}
+
+	bool IsSearchButtonSelected() const noexcept {
+		return lw.GetCursorIndex() == SEARCH_INDEX;
+	}
+
+	SearchFilter GetFilter() const {
+		return filter;
+	}
+
+private:
+	Co::InvokeTask EditPattern(unsigned i) noexcept {
+		if (co_await filter.rows[i].Edit(modal_dock))
+			SchedulePaint();
+	}
+
+	/* virtual methods from class Page */
+	void Paint() const noexcept override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
+
+	/* virtual methods from class ListRenderer */
+	void PaintListItem(const Window window, unsigned i, unsigned y, unsigned width,
+			   bool selected) const noexcept override;
+};
+
+void
+SearchFilterPage::Paint() const noexcept
+{
+	lw.Paint(*this);
+}
+
+bool
+SearchFilterPage::OnCommand(struct mpdclient &c, Command cmd)
+{
+	if (cmd == Command::LIST_RANGE_SELECT)
+		return false;
+
+	if (ListPage::OnCommand(c, cmd))
+		return true;
+
+	switch(cmd) {
+	case Command::PLAY:
+		if (unsigned i = lw.GetCursorIndex(); i < filter.rows.size()) {
+			CoStart(EditPattern(i));
+			return true;
+		}
+
+		return false;
+
+	case Command::DELETE:
+		if (unsigned i = lw.GetCursorIndex(); i < filter.rows.size()) {
+			filter.rows[i].Clear();
+			SchedulePaint();
+			return true;
+		}
+
+		return false;
+
+	case Command::CLEAR:
+		filter.Clear();
+		SchedulePaint();
+		return true;
+
+	default:
+		return false;
+	}
+}
+
+std::string_view
+SearchFilterPage::GetTitle([[maybe_unused]] std::span<char> buffer) const noexcept
+{
+	return _("Search");
 }
 
 void
-SearchPage::Reload(struct mpdclient &c)
+SearchFilterPage::PaintListItem(const Window window, unsigned i,
+				unsigned y, unsigned width,
+				bool selected) const noexcept
 {
-	if (pattern.empty())
+	if (i == SEARCH_INDEX) {
+		row_paint_text(window, width, Style::DIRECTORY, selected, _("Search"));
 		return;
+	}
 
-	lw.ShowCursor();
-	filelist = do_search(GetInterface(), &c, pattern.c_str());
+	filter.rows[i].Paint(window, y, width, selected);
+}
+
+class SearchResultPage final : public FileListPage {
+	Page *const parent;
+
+	SearchFilter filter;
+
+public:
+	SearchResultPage(PageContainer &_container, ScreenManager &_screen,
+			 Page *_parent,
+			 const Window _window) noexcept
+		:FileListPage(_container, _screen, _window,
+			      !options.search_format.empty()
+			      ? options.search_format.c_str()
+			      : options.list_format.c_str()),
+		 parent(_parent) {}
+
+	void SetFilter(struct mpdclient &c,SearchFilter &&_filter) noexcept {
+		filter = std::move(_filter);
+		Reload(c);
+	}
+
+private:
+	void Reload(struct mpdclient &c);
+
+	[[nodiscard]]
+	Co::InvokeTask Start(struct mpdclient &c);
+
+public:
+	/* virtual methods from class FileListPage */
+	bool HandleEnter(struct mpdclient &c) override;
+
+	/* virtual methods from class Page */
+	void Update(struct mpdclient &c, unsigned events) noexcept override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
+	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
+};
+
+void
+SearchResultPage::Reload(struct mpdclient &c)
+{
+	filelist.clear();
+	filelist.emplace_back(nullptr);
+
+	filter.DoSearch(c, filelist);
 	lw.SetLength(filelist.size());
 
 	screen_browser_sync_highlights(filelist, c.playlist);
@@ -360,60 +407,18 @@ SearchPage::Reload(struct mpdclient &c)
 	SchedulePaint();
 }
 
-inline Co::InvokeTask
-SearchPage::Start(struct mpdclient &c)
+bool
+SearchResultPage::HandleEnter(struct mpdclient &c)
 {
-	if (!c.IsReady())
-		co_return;
+	if (lw.GetCursorIndex() == 0 && parent != nullptr)
+		/* handle ".." */
+		return parent->OnCommand(c, Command::GO_PARENT_DIRECTORY);
 
-	Clear(true);
-
-	pattern = co_await TextInputDialog{
-		screen, _("Search"),
-		{},
-		{ .history = &search_history },
-	};
-
-	if (pattern.empty()) {
-		lw.Reset();
-		co_return;
-	}
-
-	Reload(c);
-}
-
-static std::unique_ptr<Page>
-screen_search_init(ScreenManager &_screen, const Window window)
-{
-	return std::make_unique<SearchPage>(_screen, window);
+	return FileListPage::HandleEnter(c);
 }
 
 void
-SearchPage::Paint() const noexcept
-{
-	if (!filelist.empty()) {
-		FileListPage::Paint();
-	} else {
-		lw.Paint(TextListRenderer(SearchHelpText()));
-	}
-}
-
-std::string_view
-SearchPage::GetTitle(std::span<char> buffer) const noexcept
-{
-	if (advanced_search_mode && !pattern.empty())
-		return FmtTruncate(buffer, "{} {:?}"sv, _("Search"), pattern);
-	else if (!pattern.empty())
-		return FmtTruncate(buffer, "{} {:?} [{}]",
-				   _("Search"),
-				   pattern,
-				   my_gettext(mode[options.search_mode].label));
-	else
-		return _("Search");
-}
-
-void
-SearchPage::Update(struct mpdclient &c, unsigned events) noexcept
+SearchResultPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	if (events & MPD_IDLE_QUEUE) {
 		screen_browser_sync_highlights(filelist, c.playlist);
@@ -422,36 +427,11 @@ SearchPage::Update(struct mpdclient &c, unsigned events) noexcept
 }
 
 bool
-SearchPage::OnCommand(struct mpdclient &c, Command cmd)
+SearchResultPage::OnCommand(struct mpdclient &c, Command cmd)
 {
 	switch (cmd) {
-	case Command::SEARCH_MODE:
-		options.search_mode++;
-		if (mode[options.search_mode].label == nullptr)
-			options.search_mode = 0;
-		FmtAlert("{}: {}"sv, _("Search mode"),
-			 my_gettext(mode[options.search_mode].label));
-
-		if (pattern.empty())
-			/* show the new mode in the help text */
-			SchedulePaint();
-		else if (!advanced_search_mode)
-			/* reload only if the new search mode is going
-			   to be considered */
-			Reload(c);
-		return true;
-
 	case Command::SCREEN_UPDATE:
 		Reload(c);
-		return true;
-
-	case Command::SCREEN_SEARCH:
-		CoStart(Start(c));
-		return true;
-
-	case Command::CLEAR:
-		Clear(true);
-		lw.Reset();
 		return true;
 
 	default:
@@ -462,6 +442,79 @@ SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	return false;
+}
+
+std::string_view
+SearchResultPage::GetTitle([[maybe_unused]] std::span<char> buffer) const noexcept
+{
+	return _("Search");
+}
+
+class SearchPage final : public ProxyPage {
+	SearchFilterPage filter_page;
+	SearchResultPage result_page;
+
+public:
+	SearchPage(ScreenManager &screen, const Window _window)
+		:ProxyPage(screen, _window),
+		 filter_page(*this, _window, screen),
+		 result_page(*this, screen, this, _window) {}
+
+public:
+	/* virtual methods from class Page */
+	void OnOpen(struct mpdclient &c) noexcept override;
+	bool OnCommand(struct mpdclient &c, Command cmd) override;
+};
+
+void
+SearchPage::OnOpen(struct mpdclient &c) noexcept
+{
+	ProxyPage::OnOpen(c);
+
+	if (GetCurrentPage() == nullptr)
+		SetCurrentPage(c, &filter_page);
+}
+
+bool
+SearchPage::OnCommand(struct mpdclient &c, Command cmd)
+{
+	if (ProxyPage::OnCommand(c, cmd))
+		return true;
+
+	switch(cmd) {
+	case Command::PLAY:
+		if (GetCurrentPage() == &filter_page &&
+		    filter_page.IsSearchButtonSelected()) {
+			if (auto filter = filter_page.GetFilter(); !filter.IsEmpty()) {
+				result_page.SetFilter(c, std::move(filter));
+				SetCurrentPage(c, &result_page);
+				return true;
+			}
+		}
+
+		return false;
+
+	case Command::SCREEN_SEARCH:
+	case Command::GO_PARENT_DIRECTORY:
+	case Command::GO_ROOT_DIRECTORY:
+		if (GetCurrentPage() != &filter_page) {
+			SetCurrentPage(c, &filter_page);
+			return true;
+		}
+
+		return false;
+
+	default:
+		return false;
+	}
+
+	std::unreachable();
+}
+
+static std::unique_ptr<Page>
+screen_search_init(ScreenManager &_screen, const Window window)
+{
+	return std::make_unique<SearchPage>(_screen, window);
 }
 
 const PageMeta screen_search = {
