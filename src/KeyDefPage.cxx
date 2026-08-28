@@ -5,6 +5,7 @@
 #include "PageMeta.hxx"
 #include "screen.hxx"
 #include "KeyName.hxx"
+#include "Styles.hxx"
 #include "i18n.h"
 #include "ConfigFile.hxx"
 #include "Bindings.hxx"
@@ -14,8 +15,9 @@
 #include "page/ProxyPage.hxx"
 #include "dialogs/KeyDialog.hxx"
 #include "ui/Bell.hxx"
+#include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"
-#include "ui/TextListRenderer.hxx"
+#include "ui/paint.hxx"
 #include "lib/fmt/ToSpan.hxx"
 
 #include <fmt/format.h>
@@ -26,7 +28,7 @@
 
 using std::string_view_literals::operator""sv;
 
-class CommandKeysPage final : public ListPage, ListText {
+class CommandKeysPage final : public ListPage, ListText, ListRenderer {
 	ScreenManager &screen;
 	Page *const parent;
 
@@ -128,6 +130,10 @@ private:
 	/* virtual methods from class ListText */
 	std::string_view GetListItemText(std::span<char> buffer,
 					 unsigned i) const noexcept override;
+
+	/* virtual methods from class ListRenderer */
+	void PaintListItem(const Window window, unsigned i, unsigned y, unsigned width,
+			   bool selected) const noexcept override;
 };
 
 /* TODO: rename to check_n_keys / subcmd_count_keys? */
@@ -214,21 +220,42 @@ CommandKeysPage::AddKey()
 }
 
 std::string_view
-CommandKeysPage::GetListItemText(std::span<char> buffer,
+CommandKeysPage::GetListItemText([[maybe_unused]] std::span<char> buffer,
 				 unsigned idx) const noexcept
 {
 	if (idx == GetLeavePosition())
 		return "[..]"sv;
 
 	if (idx == GetAddPosition())
-		return FmtTruncate(buffer, "{}. {}"sv, idx, _("Add new key"));
+		return _("Add new key");
 
 	assert(IsKeyPosition(idx));
 
-	return FmtTruncate(buffer, "{}. {:<20}   ({}){}"sv, idx,
-			   GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]),
-			   binding->keys[PositionToKeyIndex(idx)],
-			   conflicts[PositionToKeyIndex(idx)] ? " !"sv : ""sv);
+	return GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]);
+}
+
+void
+CommandKeysPage::PaintListItem(const Window window, unsigned idx, [[maybe_unused]] unsigned y, unsigned width,
+			       bool selected) const noexcept
+{
+	if (idx == GetLeavePosition()) {
+		row_paint_text(window, width, Style::DIRECTORY, selected, "[..]"sv);
+		return;
+	}
+
+	if (idx == GetAddPosition()) {
+		row_paint_text(window, width, Style::DIRECTORY, selected, _("Add new key"));
+		return;
+	}
+
+	assert(IsKeyPosition(idx));
+
+	row_color(window, Style::LIST, selected);
+	row_clear_to_eol(window, width, selected);
+
+	window.String(fmt::format_int{idx}.c_str());
+	window.String(conflicts[PositionToKeyIndex(idx)] ? "! "sv : ". "sv);
+	window.String(GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]));
 }
 
 void
@@ -247,7 +274,7 @@ CommandKeysPage::GetTitle(std::span<char> buffer) const noexcept
 void
 CommandKeysPage::Paint() const noexcept
 {
-	lw.Paint(TextListRenderer(*this));
+	lw.Paint(*this);
 }
 
 bool
@@ -292,7 +319,7 @@ CommandKeysPage::OnCommand(struct mpdclient &c, Command cmd)
 	}
 }
 
-class CommandListPage final : public ListPage, ListText {
+class CommandListPage final : public ListPage, ListText, ListRenderer {
 	ScreenManager &screen;
 
 	KeyBindings *bindings = nullptr;
@@ -367,6 +394,12 @@ private:
 	/* virtual methods from class ListText */
 	std::string_view GetListItemText(std::span<char> buffer,
 					 unsigned i) const noexcept override;
+	std::string_view GetSecondListItemText(std::span<char> buffer,
+					       unsigned i) const noexcept override;
+
+	/* virtual methods from class ListRenderer */
+	void PaintListItem(const Window window, unsigned i, unsigned y, unsigned width,
+			   bool selected) const noexcept override;
 };
 
 bool
@@ -419,7 +452,7 @@ CommandListPage::Save()
 }
 
 std::string_view
-CommandListPage::GetListItemText(std::span<char> buffer,
+CommandListPage::GetListItemText([[maybe_unused]] std::span<char> buffer,
 				 unsigned idx) const noexcept
 {
 	if (idx == command_item_apply())
@@ -429,26 +462,21 @@ CommandListPage::GetListItemText(std::span<char> buffer,
 
 	assert(idx < command_n_commands);
 
-	/*
-	 * Format the lines in two aligned columnes for the key name and
-	 * the description, like this:
-	 *
-	 *	this-command - do this
-	 *	that-one     - do that
-	 */
-	const char *name = get_key_command_name(Command(idx));
-	size_t len = strlen(name);
-	strncpy(buffer.data(), name, buffer.size());
+	return get_key_command_name(static_cast<Command>(idx));
+}
 
-	if (len < get_cmds_max_name_width())
-		memset(buffer.data() + len, ' ', get_cmds_max_name_width() - len);
+std::string_view
+CommandListPage::GetSecondListItemText([[maybe_unused]] std::span<char> buffer,
+				       unsigned idx) const noexcept
+{
+	if (idx == command_item_apply())
+		return {};
+	if (idx == command_item_save())
+		return {};
 
-	std::size_t length = FmtTruncate(buffer.subspan(get_cmds_max_name_width()),
-					 " - {}{}"sv,
-					 my_gettext(get_command_definitions()[idx].description),
-					 conflicts[idx] ? " !"sv : ""sv).size();
+	assert(idx < command_n_commands);
 
-	return {buffer.data(), get_cmds_max_name_width() + length};
+	return my_gettext(get_command_definitions()[idx].description);
 }
 
 void
@@ -462,6 +490,36 @@ CommandListPage::OnOpen([[maybe_unused]] struct mpdclient &c) noexcept
 	CheckConflicts();
 }
 
+void
+CommandListPage::PaintListItem(const Window window, unsigned idx, unsigned y, unsigned width,
+			       bool selected) const noexcept
+{
+	if (idx == command_item_apply()) {
+		row_paint_text(window, width, Style::DIRECTORY, selected,
+			       _("===> Apply key bindings "));
+		return;
+	}
+
+	if (idx == command_item_save()) {
+		row_paint_text(window, width, Style::DIRECTORY, selected,
+			       _("===> Apply & Save key bindings  "));
+		return;
+	}
+
+	row_color(window, Style::LIST, selected);
+	row_clear_to_eol(window, width, selected);
+
+	window.String({0u, y}, get_key_command_name(static_cast<Command>(idx)));
+
+	unsigned x = get_cmds_max_name_width() + 1;
+
+	window.Char({x, y}, conflicts[idx] ? '!' : '-');
+
+	x += 3;
+
+	window.String({x, y}, my_gettext(get_command_definitions()[idx].description));
+}
+
 std::string_view
 CommandListPage::GetTitle(std::span<char>) const noexcept
 {
@@ -471,7 +529,7 @@ CommandListPage::GetTitle(std::span<char>) const noexcept
 void
 CommandListPage::Paint() const noexcept
 {
-	lw.Paint(TextListRenderer(*this));
+	lw.Paint(*this);
 }
 
 bool
