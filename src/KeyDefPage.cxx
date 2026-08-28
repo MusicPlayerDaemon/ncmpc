@@ -570,9 +570,7 @@ KeyDefPage::OnCommand(struct mpdclient &c, Command cmd)
 		return false;
 	}
 
-	/* unreachable */
-	assert(0);
-	return false;
+	std::unreachable();
 }
 
 const PageMeta screen_keydef = {
