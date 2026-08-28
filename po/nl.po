@@ -648,11 +648,11 @@ msgid "Wrote {}"
 msgstr ""
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
+msgid "Apply key bindings"
 msgstr ""
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
+msgid "Apply & Save key bindings"
 msgstr ""
 
 #: src/KeyDefPage.cxx:449

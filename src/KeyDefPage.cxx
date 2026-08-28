@@ -463,9 +463,9 @@ CommandListPage::GetListItemText([[maybe_unused]] std::span<char> buffer,
 				 unsigned idx) const noexcept
 {
 	if (idx == command_item_apply())
-		return _("===> Apply key bindings ");
+		return _("Apply key bindings");
 	if (idx == command_item_save())
-		return _("===> Apply & Save key bindings  ");
+		return _("Apply & Save key bindings");
 
 	assert(idx < command_n_commands);
 
@@ -503,13 +503,13 @@ CommandListPage::PaintListItem(const Window window, unsigned idx, unsigned y, un
 {
 	if (idx == command_item_apply()) {
 		row_paint_text(window, width, Style::DIRECTORY, selected,
-			       _("===> Apply key bindings "));
+			       _("Apply key bindings"));
 		return;
 	}
 
 	if (idx == command_item_save()) {
 		row_paint_text(window, width, Style::DIRECTORY, selected,
-			       _("===> Apply & Save key bindings  "));
+			       _("Apply & Save key bindings"));
 		return;
 	}
 

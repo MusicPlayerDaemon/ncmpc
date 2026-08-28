@@ -642,12 +642,12 @@ msgid "Wrote {}"
 msgstr "{} ჩაწერილია"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> ღილაკის მინიჭებების გადატარება "
+msgid "Apply key bindings"
+msgstr "ღილაკის მინიჭებების გადატარება"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> ღილაკის მინიჭებების გადატარება და შენახვა  "
+msgid "Apply & Save key bindings"
+msgstr "ღილაკის მინიჭებების გადატარება და შენახვა"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

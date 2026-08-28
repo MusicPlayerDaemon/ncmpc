@@ -643,12 +643,12 @@ msgid "Wrote {}"
 msgstr "{} 쓰기"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> 키 조합을 적용 "
+msgid "Apply key bindings"
+msgstr "키 조합을 적용"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> 키 조합을 적용하고 저장  "
+msgid "Apply & Save key bindings"
+msgstr "키 조합을 적용하고 저장"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

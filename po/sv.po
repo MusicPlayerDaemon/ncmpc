@@ -643,12 +643,12 @@ msgid "Wrote {}"
 msgstr "Sparade {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> Verkställ "
+msgid "Apply key bindings"
+msgstr "Verkställ"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Verkställ och spara  "
+msgid "Apply & Save key bindings"
+msgstr "Verkställ och spara"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

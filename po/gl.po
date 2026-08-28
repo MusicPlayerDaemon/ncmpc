@@ -653,12 +653,12 @@ msgid "Wrote {}"
 msgstr "Escribiuse {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> Aplicar os atallos de teclado "
+msgid "Apply key bindings"
+msgstr "Aplicar os atallos de teclado"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Aplicar e guardar os atallos de teclado  "
+msgid "Apply & Save key bindings"
+msgstr "Aplicar e guardar os atallos de teclado"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

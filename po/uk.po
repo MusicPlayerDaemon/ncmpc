@@ -654,12 +654,12 @@ msgid "Wrote {}"
 msgstr "Записаний {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> Застосування прив'язки клавіші "
+msgid "Apply key bindings"
+msgstr "Застосування прив'язки клавіші"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Застосування та збереження прив'язки клавіші  "
+msgid "Apply & Save key bindings"
+msgstr "Застосування та збереження прив'язки клавіші"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

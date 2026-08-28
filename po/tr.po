@@ -605,12 +605,12 @@ msgid "Wrote {}"
 msgstr "{} yazıldı"
 
 #: src/KeyDefPage.cxx:436
-msgid "===> Apply key bindings "
-msgstr "===> Tuş atamalarını uygula "
+msgid "Apply key bindings"
+msgstr "Tuş atamalarını uygula"
 
 #: src/KeyDefPage.cxx:438
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Tuş atamalarını uygula ve kaydet  "
+msgid "Apply & Save key bindings"
+msgstr "Tuş atamalarını uygula ve kaydet"
 
 #: src/KeyDefPage.cxx:475
 msgid "Edit key bindings"

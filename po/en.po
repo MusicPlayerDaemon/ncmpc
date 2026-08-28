@@ -645,12 +645,12 @@ msgid "Wrote {}"
 msgstr "Wrote {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> Apply key bindings "
+msgid "Apply key bindings"
+msgstr "Apply key bindings"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Apply & Save key bindings  "
+msgid "Apply & Save key bindings"
+msgstr "Apply & Save key bindings"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

@@ -646,12 +646,12 @@ msgid "Wrote {}"
 msgstr "{} geschrieben"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> Tastenbelegung anwenden "
+msgid "Apply key bindings"
+msgstr "Tastenbelegung anwenden"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Tastenbelegung speichern und anwenden  "
+msgid "Apply & Save key bindings"
+msgstr "Tastenbelegung speichern und anwenden"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

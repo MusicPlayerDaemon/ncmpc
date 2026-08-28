@@ -648,12 +648,12 @@ msgid "Wrote {}"
 msgstr "{} creado"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> Aplicar las teclas de acceso rápido "
+msgid "Apply key bindings"
+msgstr "Aplicar las teclas de acceso rápido"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Aplicar y guardar las teclas de acceso rápido  "
+msgid "Apply & Save key bindings"
+msgstr "Aplicar y guardar las teclas de acceso rápido"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

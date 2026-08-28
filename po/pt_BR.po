@@ -646,12 +646,12 @@ msgid "Wrote {}"
 msgstr "Gravei {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> Aplicar teclas de atalho "
+msgid "Apply key bindings"
+msgstr "Aplicar teclas de atalho"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Aplicar e salvar teclas de atalho  "
+msgid "Apply & Save key bindings"
+msgstr "Aplicar e salvar teclas de atalho"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

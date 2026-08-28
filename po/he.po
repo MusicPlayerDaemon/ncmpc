@@ -639,12 +639,12 @@ msgid "Wrote {}"
 msgstr "נכתב {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "=====> ישם תצורת מקשים "
+msgid "Apply key bindings"
+msgstr "ישם תצורת מקשים"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "=====> ישם ושמור תצורת מקשים  "
+msgid "Apply & Save key bindings"
+msgstr "ישם ושמור תצורת מקשים"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

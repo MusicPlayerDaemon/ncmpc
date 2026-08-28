@@ -647,12 +647,12 @@ msgid "Wrote {}"
 msgstr "写入 {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> 应用快捷键设置 "
+msgid "Apply key bindings"
+msgstr "应用快捷键设置"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> 应用并保存快捷键设置  "
+msgid "Apply & Save key bindings"
+msgstr "应用并保存快捷键设置"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

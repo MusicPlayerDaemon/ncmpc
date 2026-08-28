@@ -642,12 +642,12 @@ msgid "Wrote {}"
 msgstr "Zapísané {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> Použiť nastavenie klávesov "
+msgid "Apply key bindings"
+msgstr "Použiť nastavenie klávesov"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Použiť & Uložiť nastavenie klávesov  "
+msgid "Apply & Save key bindings"
+msgstr "Použiť & Uložiť nastavenie klávesov"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

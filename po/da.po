@@ -654,12 +654,12 @@ msgid "Wrote {}"
 msgstr "Skrev {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "==> Anvend taste bindinger "
+msgid "Apply key bindings"
+msgstr "Anvend taste bindinger"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "==> Anvend og gem taste bindinger  "
+msgid "Apply & Save key bindings"
+msgstr "Anvend og gem taste bindinger"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

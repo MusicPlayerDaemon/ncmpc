@@ -642,12 +642,12 @@ msgid "Wrote {}"
 msgstr "எழுதினார் {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> விசை பிணைப்புகளைப் பயன்படுத்துங்கள் "
+msgid "Apply key bindings"
+msgstr "விசை பிணைப்புகளைப் பயன்படுத்துங்கள்"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> விசை பிணைப்புகளைப் பயன்படுத்துங்கள் மற்றும் சேமிக்கவும்  "
+msgid "Apply & Save key bindings"
+msgstr "விசை பிணைப்புகளைப் பயன்படுத்துங்கள் மற்றும் சேமிக்கவும்"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

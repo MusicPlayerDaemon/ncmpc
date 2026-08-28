@@ -652,12 +652,12 @@ msgid "Wrote {}"
 msgstr "{} elmentve"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> Billentyű beállítások használata "
+msgid "Apply key bindings"
+msgstr "Billentyű beállítások használata"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Alkalmaz és Menti a billentyű beállításokat  "
+msgid "Apply & Save key bindings"
+msgstr "Alkalmaz és Menti a billentyű beállításokat"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

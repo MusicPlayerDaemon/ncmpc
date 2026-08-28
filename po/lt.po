@@ -649,12 +649,12 @@ msgid "Wrote {}"
 msgstr "Parašė {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> Taikyti klavišų susiejimus "
+msgid "Apply key bindings"
+msgstr "Taikyti klavišų susiejimus"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Taikyti ir išsaugoti klavišų susiejimus  "
+msgid "Apply & Save key bindings"
+msgstr "Taikyti ir išsaugoti klavišų susiejimus"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

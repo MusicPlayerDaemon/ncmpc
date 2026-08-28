@@ -643,12 +643,12 @@ msgid "Wrote {}"
 msgstr "Записано {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "===> Применить клавиатурные комбинации "
+msgid "Apply key bindings"
+msgstr "Применить клавиатурные комбинации"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "===> Применить и сохранить клавиатурные комбинации  "
+msgid "Apply & Save key bindings"
+msgstr "Применить и сохранить клавиатурные комбинации"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"

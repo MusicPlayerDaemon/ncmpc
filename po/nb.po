@@ -656,12 +656,12 @@ msgid "Wrote {}"
 msgstr "Skrev {}"
 
 #: src/KeyDefPage.cxx:411
-msgid "===> Apply key bindings "
-msgstr "==> Bruk snarveier "
+msgid "Apply key bindings"
+msgstr "Bruk snarveier"
 
 #: src/KeyDefPage.cxx:413
-msgid "===> Apply & Save key bindings  "
-msgstr "==> Bruk og Lagre snarveier  "
+msgid "Apply & Save key bindings"
+msgstr "Bruk og Lagre snarveier"
 
 #: src/KeyDefPage.cxx:449
 msgid "Edit key bindings"
