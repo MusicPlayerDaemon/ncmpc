@@ -524,10 +524,13 @@ CommandListPage::PaintListItem(const Window window, unsigned idx, unsigned y, un
 		row_color(window, Style::LIST_ALERT, selected);
 		window.Char({x, y}, '!');
 		row_color(window, Style::LIST, selected);
-	} else
-		window.Char({x, y}, '-');
+	} else {
+		SelectStyle(window, Style::LIST_LINE);
+		window.Char({x, y}, ACS_VLINE);
+		row_color(window, Style::LIST, selected);
+	}
 
-	x += 3;
+	x += 2;
 
 	window.String({x, y}, my_gettext(get_command_definitions()[idx].description));
 }
