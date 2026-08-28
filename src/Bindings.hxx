@@ -86,6 +86,13 @@ struct KeyBindings {
 
 #ifndef NCMPC_MINI
 	/**
+	 * Does the specified command have at least one key binding
+	 * that conflicts with another command?
+	 */
+	[[gnu::pure]]
+	bool HasConflict(Command command) const noexcept;
+
+	/**
 	 * @return true on success, false on error
 	 */
 	bool Check(std::span<char> buffer={}) const noexcept;

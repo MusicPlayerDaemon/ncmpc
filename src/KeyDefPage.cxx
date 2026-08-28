@@ -33,6 +33,8 @@ class CommandKeysPage final : public ListPage, ListText {
 	const KeyBindings *bindings;
 	KeyBinding *binding;
 
+	std::array<bool, MAX_COMMAND_KEYS> conflicts;
+
 	/**
 	 * The command being edited, represented by a array subscript
 	 * to #bindings, or -1, if no command is being edited
@@ -53,6 +55,7 @@ public:
 		subcmd = _cmd;
 		lw.Reset();
 		UpdateListLength();
+		CheckConflicts();
 	}
 
 private:
@@ -90,6 +93,11 @@ private:
 
 	/* TODO: rename to check_n_keys / subcmd_count_keys? */
 	void UpdateListLength() noexcept;
+
+	void CheckConflicts() noexcept {
+		for (unsigned i = 0; i < n_keys; ++i)
+			conflicts[i] = bindings->FindKey(binding->keys[i]) != static_cast<Command>(subcmd);
+	}
 
 	/**
 	 * Delete a key from a given command's definition.
@@ -129,6 +137,8 @@ CommandKeysPage::UpdateListLength() noexcept
 	n_keys = binding->GetKeyCount();
 
 	lw.SetLength(CalculateListLength());
+
+	CheckConflicts();
 }
 
 void
@@ -151,9 +161,6 @@ CommandKeysPage::DeleteKey(int key_index)
 
 	/* repaint */
 	SchedulePaint();
-
-	/* update key conflict flags */
-	bindings->Check();
 }
 
 Co::InvokeTask
@@ -196,7 +203,7 @@ CommandKeysPage::OverwriteKey(int key_index) noexcept
 	SchedulePaint();
 
 	/* update key conflict flags */
-	bindings->Check();
+	CheckConflicts();
 }
 
 void
@@ -218,9 +225,10 @@ CommandKeysPage::GetListItemText(std::span<char> buffer,
 
 	assert(IsKeyPosition(idx));
 
-	return FmtTruncate(buffer, "{}. {:<20}   ({}) "sv, idx,
+	return FmtTruncate(buffer, "{}. {:<20}   ({}){}"sv, idx,
 			   GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]),
-			   binding->keys[PositionToKeyIndex(idx)]);
+			   binding->keys[PositionToKeyIndex(idx)],
+			   conflicts[PositionToKeyIndex(idx)] ? " !"sv : ""sv);
 }
 
 void
@@ -292,6 +300,8 @@ class CommandListPage final : public ListPage, ListText {
 	/** the number of commands */
 	static constexpr size_t command_n_commands = size_t(Command::NONE);
 
+	std::array<bool, command_n_commands> conflicts;
+
 public:
 	CommandListPage(PageContainer &_container, ScreenManager &_screen, const Window _window)
 		:ListPage(_container, _window), screen(_screen) {}
@@ -333,6 +343,11 @@ private:
 	/** The position of the up ("[..]") item */
 	static constexpr unsigned GetLeavePosition() {
 		return 0;
+	}
+
+	void CheckConflicts() noexcept {
+		for (unsigned i = 0; i < conflicts.size(); ++i)
+			conflicts[i] = bindings->HasConflict(static_cast<Command>(i));
 	}
 
 public:
@@ -429,7 +444,9 @@ CommandListPage::GetListItemText(std::span<char> buffer,
 		memset(buffer.data() + len, ' ', get_cmds_max_name_width() - len);
 
 	std::size_t length = FmtTruncate(buffer.subspan(get_cmds_max_name_width()),
-					 " - {}"sv, my_gettext(get_command_definitions()[idx].description)).size();
+					 " - {}{}"sv,
+					 my_gettext(get_command_definitions()[idx].description),
+					 conflicts[idx] ? " !"sv : ""sv).size();
 
 	return {buffer.data(), get_cmds_max_name_width() + length};
 }
@@ -441,6 +458,8 @@ CommandListPage::OnOpen([[maybe_unused]] struct mpdclient &c) noexcept
 		bindings = new KeyBindings(GetGlobalKeyBindings());
 
 	lw.SetLength(command_length());
+
+	CheckConflicts();
 }
 
 std::string_view

@@ -50,6 +50,20 @@ KeyBindings::FindKey(int key) const noexcept
 #ifndef NCMPC_MINI
 
 bool
+KeyBindings::HasConflict(Command cmd) const noexcept
+{
+	for (const auto key : Get(cmd).keys) {
+		if (key == 0)
+			break;
+
+		if (FindKey(key) != cmd)
+			return true;
+	}
+
+	return false;
+}
+
+bool
 KeyBindings::Check(std::span<char> buffer) const noexcept
 {
 	bool success = true;
