@@ -19,6 +19,10 @@ public:
 	explicit ProxyPage(PageContainer &_parent, const Window _window) noexcept
 		:Page(_parent), window(_window) {}
 
+	Window GetWindow() const noexcept {
+		return window;
+	}
+
 	[[nodiscard]]
 	const Page *GetCurrentPage() const noexcept {
 		return current_page;

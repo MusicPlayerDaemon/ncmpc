@@ -32,30 +32,29 @@ class CommandKeysPage final : public ListPage, ListText, ListRenderer {
 	ScreenManager &screen;
 	Page *const parent;
 
-	const KeyBindings *bindings;
-	KeyBinding *binding;
+	const KeyBindings &bindings;
+	KeyBinding &binding;
 
 	std::array<bool, MAX_COMMAND_KEYS> conflicts;
 
 	/**
 	 * The command being edited, represented by a array subscript
-	 * to #bindings, or -1, if no command is being edited
+	 * to #bindings.
 	 */
-	int subcmd = -1;
+	const unsigned subcmd;
 
 	/** The number of keys assigned to the current command */
 	unsigned n_keys = 0;
 
 public:
 	CommandKeysPage(PageContainer &_container, ScreenManager &_screen, Page *_parent,
-			const Window _window) noexcept
-		:ListPage(_container, _window), screen(_screen), parent(_parent) {}
-
-	void SetCommand(KeyBindings *_bindings, unsigned _cmd) {
-		bindings = _bindings;
-		binding = &_bindings->key_bindings[_cmd];
-		subcmd = _cmd;
-		lw.Reset();
+			const Window _window,
+			KeyBindings &_bindings, unsigned _cmd) noexcept
+		:ListPage(_container, _window), screen(_screen), parent(_parent),
+		 bindings(_bindings),
+		 binding(_bindings.key_bindings[_cmd]),
+		 subcmd(_cmd)
+	{
 		UpdateListLength();
 		CheckConflicts();
 	}
@@ -98,7 +97,7 @@ private:
 
 	void CheckConflicts() noexcept {
 		for (unsigned i = 0; i < n_keys; ++i)
-			conflicts[i] = bindings->FindKey(binding->keys[i]) != static_cast<Command>(subcmd);
+			conflicts[i] = bindings.FindKey(binding.keys[i]) != static_cast<Command>(subcmd);
 	}
 
 	/**
@@ -140,7 +139,7 @@ private:
 void
 CommandKeysPage::UpdateListLength() noexcept
 {
-	n_keys = binding->GetKeyCount();
+	n_keys = binding.GetKeyCount();
 
 	lw.SetLength(CalculateListLength());
 
@@ -152,15 +151,15 @@ CommandKeysPage::DeleteKey(int key_index)
 {
 	/* shift the keys to close the gap that appeared */
 	int i = key_index+1;
-	while (i < MAX_COMMAND_KEYS && binding->keys[i])
-		binding->keys[key_index++] = binding->keys[i++];
+	while (i < MAX_COMMAND_KEYS && binding.keys[i])
+		binding.keys[key_index++] = binding.keys[i++];
 
 	/* As key_index now holds the index of the last key slot that contained
 	   a key, we use it to empty this slot, because this key has been copied
 	   to the previous slot in the loop above */
-	binding->keys[key_index] = 0;
+	binding.keys[key_index] = 0;
 
-	binding->modified = true;
+	binding.modified = true;
 	UpdateListLength();
 
 	Alert(_("Deleted"));
@@ -188,7 +187,7 @@ CommandKeysPage::OverwriteKey(int key_index) noexcept
 		co_return;
 	}
 
-	const Command cmd = bindings->FindKey(key);
+	const Command cmd = bindings.FindKey(key);
 	if (cmd != Command::NONE) {
 		FmtAlert(_("Error: key {} is already used for {}"),
 			 GetLocalizedKeyName(key),
@@ -197,8 +196,8 @@ CommandKeysPage::OverwriteKey(int key_index) noexcept
 		co_return;
 	}
 
-	binding->keys[key_index] = key;
-	binding->modified = true;
+	binding.keys[key_index] = key;
+	binding.modified = true;
 
 	FmtAlert(_("Assigned {} to {}"),
 		 GetLocalizedKeyName(key),
@@ -231,7 +230,7 @@ CommandKeysPage::GetListItemText([[maybe_unused]] std::span<char> buffer,
 
 	assert(IsKeyPosition(idx));
 
-	return GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]);
+	return GetLocalizedKeyName(binding.keys[PositionToKeyIndex(idx)]);
 }
 
 void
@@ -262,7 +261,7 @@ CommandKeysPage::PaintListItem(const Window window, unsigned idx, [[maybe_unused
 	} else
 		window.String(". "sv);
 
-	window.String(GetLocalizedKeyName(binding->keys[PositionToKeyIndex(idx)]));
+	window.String(GetLocalizedKeyName(binding.keys[PositionToKeyIndex(idx)]));
 }
 
 void
@@ -342,6 +341,10 @@ public:
 
 	~CommandListPage() override {
 		delete bindings;
+	}
+
+	auto &GetScreenManager() const noexcept {
+		return screen;
 	}
 
 	KeyBindings *GetBindings() {
@@ -585,13 +588,12 @@ CommandListPage::OnCommand(struct mpdclient &c, Command cmd)
 
 class KeyDefPage final : public ProxyPage {
 	CommandListPage command_list_page;
-	CommandKeysPage command_keys_page;
+	std::optional<CommandKeysPage> command_keys_page;
 
 public:
 	KeyDefPage(ScreenManager &screen, const Window _window)
 		:ProxyPage(screen, _window),
-		 command_list_page(*this, screen, _window),
-		 command_keys_page(*this, screen, this, _window) {}
+		 command_list_page(*this, screen, _window) {}
 
 public:
 	/* virtual methods from class Page */
@@ -635,9 +637,10 @@ KeyDefPage::OnCommand(struct mpdclient &c, Command cmd)
 		if (GetCurrentPage() == &command_list_page) {
 			int s = command_list_page.GetSelectedCommand();
 			if (s >= 0) {
-				command_keys_page.SetCommand(command_list_page.GetBindings(),
-							     s);
-				SetCurrentPage(c, &command_keys_page);
+				command_keys_page.emplace(*this, command_list_page.GetScreenManager(),
+							  this, GetWindow(),
+							  *command_list_page.GetBindings(), s);
+				SetCurrentPage(c, &*command_keys_page);
 				return true;
 			}
 		}
@@ -648,6 +651,7 @@ KeyDefPage::OnCommand(struct mpdclient &c, Command cmd)
 	case Command::GO_ROOT_DIRECTORY:
 		if (GetCurrentPage() != &command_list_page) {
 			SetCurrentPage(c, &command_list_page);
+			command_keys_page.reset();
 			return true;
 		}
 
