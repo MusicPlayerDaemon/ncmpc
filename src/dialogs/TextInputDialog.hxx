@@ -89,25 +89,9 @@ public:
 	TextInputDialog(ModalDock &_dock,
 			std::string_view _prompt,
 			std::string &&_value={},
-			TextInputDialogOptions _options={}) noexcept
-		:ModalDialog(_dock), prompt(_prompt),
-		 value(std::move(_value)),
-		 history(_options.history), completion(_options.completion),
-		 masked(_options.masked), fragile(_options.fragile)
-	{
-		Show();
+			TextInputDialogOptions _options={}) noexcept;
 
-		if (history) {
-			/* append the a new line to our history list */
-			history->emplace_back();
-			/* hlist points to the current item in the history list */
-			hcurrent = hlist = std::prev(history->end());
-		}
-	}
-
-	~TextInputDialog() noexcept {
-		Hide();
-	}
+	~TextInputDialog() noexcept;
 
 	void SetModifiedCallback(ModifiedCallback &&_modified_callback) noexcept {
 		modified_callback = std::move(_modified_callback);

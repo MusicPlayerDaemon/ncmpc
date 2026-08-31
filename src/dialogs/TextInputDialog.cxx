@@ -23,6 +23,30 @@ using std::string_view_literals::operator""sv;
 /** max items stored in the history list */
 static constexpr std::size_t wrln_max_history_length = 32;
 
+TextInputDialog::TextInputDialog(ModalDock &_dock,
+				 std::string_view _prompt,
+				 std::string &&_value={},
+				 TextInputDialogOptions _options={}) noexcept
+	:ModalDialog(_dock), prompt(_prompt),
+	 value(std::move(_value)),
+	 history(_options.history), completion(_options.completion),
+	 masked(_options.masked), fragile(_options.fragile)
+{
+	Show();
+
+	if (history) {
+		/* append the a new line to our history list */
+		history->emplace_back();
+		/* hlist points to the current item in the history list */
+		hcurrent = hlist = std::prev(history->end());
+	}
+}
+
+TextInputDialog::~TextInputDialog() noexcept
+{
+	Hide();
+}
+
 inline void
 TextInputDialog::CommitHistory() noexcept
 {
