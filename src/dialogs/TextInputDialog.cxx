@@ -248,6 +248,7 @@ TextInputDialog::OnLeave(const Window window) noexcept
 void
 TextInputDialog::OnCancel() noexcept
 {
+	canceled = true;
 	value.clear();
 
 	if (history) {

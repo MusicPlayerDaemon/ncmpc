@@ -63,6 +63,8 @@ class TextInputDialog final : public ModalDialog {
 	/** @see TextInputDialogOptions::fragile */
 	const bool fragile;
 
+	bool canceled = false;
+
 	/**
 	 * Is (all of) the text selected?  This is initially true and
 	 * entering new text will delete the old value.
@@ -111,6 +113,10 @@ public:
 	 */
 	Awaitable operator co_await() noexcept {
 		return *this;
+	}
+
+	bool WasCanceled() const noexcept {
+		return canceled;
 	}
 
 private:
