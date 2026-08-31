@@ -14,6 +14,7 @@ page = static_library(
   include_directories: inc,
   dependencies: [
     ui_dep,
+    dialogs_dep,
     fmt_dep,
   ],
 )
