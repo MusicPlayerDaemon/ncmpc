@@ -153,11 +153,3 @@ FileList::Receive(struct mpd_connection &connection) noexcept
 	while ((entity = mpd_recv_entity(&connection)) != nullptr)
 		emplace_back(entity);
 }
-
-std::unique_ptr<FileList>
-filelist_new_recv(struct mpd_connection *connection) noexcept
-{
-	auto filelist = std::make_unique<FileList>();
-	filelist->Receive(*connection);
-	return filelist;
-}

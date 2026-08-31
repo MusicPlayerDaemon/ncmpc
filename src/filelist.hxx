@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef FILELIST_H
-#define FILELIST_H
+#pragma once
 
-#include <memory>
 #include <vector>
 #include <utility>
 
@@ -95,12 +93,3 @@ public:
 	 */
 	void Receive(struct mpd_connection &connection) noexcept;
 };
-
-/**
- * Creates a new FileList and receives entities from the connection.
- * This does not finish the response, and does not check for errors.
- */
-std::unique_ptr<FileList>
-filelist_new_recv(struct mpd_connection *connection) noexcept;
-
-#endif
