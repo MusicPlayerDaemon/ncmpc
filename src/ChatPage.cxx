@@ -9,7 +9,7 @@
 #include "Command.hxx"
 #include "Options.hxx"
 #include "page/TextPage.hxx"
-#include "dialogs/TextInputDialog.hxx"
+#include "ui/dialogs/TextInputDialog.hxx"
 #include "client/mpdclient.hxx"
 #include "util/StringAPI.hxx"
 

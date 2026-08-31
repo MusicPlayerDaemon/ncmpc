@@ -398,7 +398,7 @@ subdir('src/net')
 subdir('src/event')
 subdir('src/client')
 subdir('src/ui')
-subdir('src/dialogs')
+subdir('src/ui/dialogs')
 subdir('src/page')
 
 if enable_connections_page

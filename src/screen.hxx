@@ -9,7 +9,7 @@
 #include "StatusBar.hxx"
 #include "page/Container.hxx"
 #include "page/FindSupport.hxx"
-#include "dialogs/ModalDock.hxx"
+#include "ui/dialogs/ModalDock.hxx"
 #include "ui/Point.hxx"
 #include "ui/Window.hxx"
 #include "event/IdleEvent.hxx"

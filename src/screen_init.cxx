@@ -7,7 +7,7 @@
 #include "Styles.hxx"
 #include "Options.hxx"
 #include "page/Page.hxx"
-#include "dialogs/ModalDialog.hxx"
+#include "ui/dialogs/ModalDialog.hxx"
 #include "ui/Options.hxx"
 
 /* minimum window size */

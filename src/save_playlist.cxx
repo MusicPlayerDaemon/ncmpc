@@ -9,8 +9,8 @@
 #include "Completion.hxx"
 #include "screen.hxx"
 #include "screen_utils.hxx"
-#include "dialogs/TextInputDialog.hxx"
-#include "dialogs/YesNoDialog.hxx"
+#include "ui/dialogs/TextInputDialog.hxx"
+#include "ui/dialogs/YesNoDialog.hxx"
 #include "client/mpdclient.hxx"
 #include "co/InvokeTask.hxx"
 

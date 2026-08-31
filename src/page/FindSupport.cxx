@@ -6,7 +6,7 @@
 #include "i18n.h"
 #include "Command.hxx"
 #include "Interface.hxx"
-#include "dialogs/TextInputDialog.hxx"
+#include "ui/dialogs/TextInputDialog.hxx"
 #include "ui/Bell.hxx"
 #include "ui/ListWindow.hxx"
 #include "ui/Options.hxx"

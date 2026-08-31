@@ -8,7 +8,7 @@
 #include "Command.hxx"
 #include "i18n.h"
 #include "page/ListPage.hxx"
-#include "dialogs/TextInputDialog.hxx"
+#include "ui/dialogs/TextInputDialog.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/paint.hxx"
 #include "client/mpdclient.hxx"

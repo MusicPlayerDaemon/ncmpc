@@ -18,7 +18,7 @@
 #include "screen_utils.hxx"
 #include "db_completion.hxx"
 #include "page/ListPage.hxx"
-#include "dialogs/TextInputDialog.hxx"
+#include "ui/dialogs/TextInputDialog.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"
 #include "client/mpdclient.hxx"

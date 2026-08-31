@@ -11,7 +11,7 @@
 #include "charset.hxx"
 #include "FileListPage.hxx"
 #include "filelist.hxx"
-#include "dialogs/TextInputDialog.hxx"
+#include "ui/dialogs/TextInputDialog.hxx"
 #include "ui/TextListRenderer.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "client/mpdclient.hxx"

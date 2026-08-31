@@ -13,7 +13,7 @@
 #include "Options.hxx"
 #include "page/ListPage.hxx"
 #include "page/ProxyPage.hxx"
-#include "dialogs/KeyDialog.hxx"
+#include "ui/dialogs/KeyDialog.hxx"
 #include "ui/Bell.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"

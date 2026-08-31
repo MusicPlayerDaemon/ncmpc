@@ -13,7 +13,7 @@
 #include "screen_client.hxx"
 #include "Command.hxx"
 #include "Options.hxx"
-#include "dialogs/YesNoDialog.hxx"
+#include "ui/dialogs/YesNoDialog.hxx"
 #include "ui/Bell.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "client/mpdclient.hxx"
