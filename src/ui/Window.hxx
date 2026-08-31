@@ -118,6 +118,14 @@ struct Window {
 		mvwhline(w, p.y, p.x, ch, width);
 	}
 
+	void VLine(unsigned height, chtype ch) const noexcept {
+		wvline(w, ch, height);
+	}
+
+	void VLine(Point p, unsigned height, chtype ch) const noexcept {
+		mvwvline(w, p.y, p.x, ch, height);
+	}
+
 #if NCURSES_WIDECHAR
 	void Char(const cchar_t *ch) const noexcept {
 		wadd_wch(w, ch);
