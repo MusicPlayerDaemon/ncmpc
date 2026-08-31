@@ -25,13 +25,14 @@ static constexpr std::size_t wrln_max_history_length = 32;
 
 TextInputDialog::TextInputDialog(ModalDock &_dock,
 				 std::string_view _prompt,
-				 std::string &&_value={},
-				 TextInputDialogOptions _options={}) noexcept
+				 std::string &&_value,
+				 TextInputDialogOptions _options) noexcept
 	:ModalDialog(_dock), prompt(_prompt),
 	 value(std::move(_value)),
 	 history(_options.history), completion(_options.completion),
 	 masked(_options.masked), fragile(_options.fragile)
 {
+	MoveCursorToEnd();
 	Show();
 
 	if (history) {
