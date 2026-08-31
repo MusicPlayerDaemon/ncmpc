@@ -155,23 +155,23 @@ SongListPage::LoadSongList(struct mpdclient &c)
 {
 	auto *connection = c.GetConnection();
 
-	filelist = std::make_unique<FileList>();
+	filelist.clear();
 	/* add a dummy entry for ".." */
-	filelist->emplace_back(nullptr);
+	filelist.emplace_back(nullptr);
 
 	if (connection != nullptr) {
 		mpd_search_db_songs(connection, true);
 		AddConstraints(connection, filter);
 		mpd_search_commit(connection);
 
-		filelist->Receive(*connection);
+		filelist.Receive(*connection);
 
 		c.FinishCommand();
 	}
 
 	/* fix highlights */
-	screen_browser_sync_highlights(*filelist, c.playlist);
-	lw.SetLength(filelist->size());
+	screen_browser_sync_highlights(filelist, c.playlist);
+	lw.SetLength(filelist.size());
 }
 
 void

@@ -66,12 +66,12 @@ LoadPlaylist(struct mpdclient &c, const char *name, FileList &l)
 	return c.FinishCommand();
 }
 
-static std::unique_ptr<FileList>
+static FileList
 LoadPlaylist(struct mpdclient &c, const std::string &name)
 {
-	auto l = std::make_unique<FileList>();
+	FileList l;
 	if (!name.empty())
-		LoadPlaylist(c, name.c_str(), *l);
+		LoadPlaylist(c, name.c_str(), l);
 
 	return l;
 }
@@ -80,7 +80,7 @@ void
 EditPlaylistPage::Reload(struct mpdclient &c)
 {
 	filelist = ::LoadPlaylist(c, name.c_str());
-	lw.SetLength(filelist->size());
+	lw.SetLength(filelist.size());
 	SchedulePaint();
 }
 
@@ -96,11 +96,11 @@ EditPlaylistPage::SaveSelection() noexcept
 void
 EditPlaylistPage::RestoreSelection() noexcept
 {
-	if (!filelist || !selected_song)
+	if (!selected_song)
 		/* there was no selection */
 		return;
 
-	int i = filelist->FindSong(*selected_song);
+	int i = filelist.FindSong(*selected_song);
 	if (i >= 0)
 		lw.SetCursor(i);
 

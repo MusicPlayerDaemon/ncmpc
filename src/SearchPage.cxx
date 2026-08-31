@@ -156,17 +156,16 @@ public:
 void
 SearchPage::Clear(bool clear_pattern) noexcept
 {
-	if (filelist) {
-		filelist = std::make_unique<FileList>();
-		lw.SetLength(0);
-	}
+	filelist.clear();
+	lw.SetLength(0);
+
 	if (clear_pattern)
 		pattern.clear();
 
 	SchedulePaint();
 }
 
-static std::unique_ptr<FileList>
+static FileList
 search_simple_query(struct mpd_connection *connection, bool exact_match,
 		    int table, const char *local_pattern)
 {
@@ -189,8 +188,9 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 
 		mpd_command_list_end(connection);
 
-		auto list = filelist_new_recv(connection);
-		list->RemoveDuplicateSongs();
+		FileList list;
+		list.Receive(*connection);
+		list.RemoveDuplicateSongs();
 		return list;
 	} else if (table == SEARCH_URI) {
 		mpd_search_db_songs(connection, exact_match);
@@ -198,7 +198,9 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 					      filter_utf8.c_str());
 		mpd_search_commit(connection);
 
-		return filelist_new_recv(connection);
+		FileList list;
+		list.Receive(*connection);
+		return list;
 	} else {
 		mpd_search_db_songs(connection, exact_match);
 		mpd_search_add_tag_constraint(connection, MPD_OPERATOR_DEFAULT,
@@ -206,7 +208,9 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
 					      filter_utf8.c_str());
 		mpd_search_commit(connection);
 
-		return filelist_new_recv(connection);
+		FileList list;
+		list.Receive(*connection);
+		return list;
 	}
 }
 
@@ -274,13 +278,14 @@ ParseModifiedSince(const char *s)
  *       Its ugly and MUST be redesigned before the next release!
  *-----------------------------------------------------------------------
  */
-static std::unique_ptr<FileList>
+static bool
 search_advanced_query(Interface &interface,
-		      struct mpd_connection *connection, const char *query)
+		      struct mpd_connection *connection, const char *query,
+		      FileList &fl)
 try {
 	advanced_search_mode = false;
 	if (strchr(query, ':') == nullptr)
-		return nullptr;
+		return false;
 
 	std::string str(query);
 
@@ -313,7 +318,7 @@ try {
 			if (table[n] < 0) {
 				interface.Alert(fmt::format(fmt::runtime(_("Bad search tag {}")),
 							    tabv[n]));
-				return nullptr;
+				return false;
 			}
 
 			++n;
@@ -327,7 +332,7 @@ try {
 	if (matchv[n - 1][0] == '\0') {
 		interface.Alert(fmt::format(fmt::runtime(_("No argument for search tag {}")),
 					    tabv[n - 1]));
-		return nullptr;
+		return false;
 	}
 
 	advanced_search_mode = true;
@@ -360,39 +365,33 @@ try {
 	}
 
 	mpd_search_commit(connection);
-	auto fl = filelist_new_recv(connection);
-	if (!mpd_response_finish(connection))
-		fl.reset();
-
-	return fl;
+	fl.Receive(*connection);
+	return mpd_response_finish(connection);
 } catch (...) {
 	mpd_search_cancel(connection);
 	throw;
 }
 
-static std::unique_ptr<FileList>
+static FileList
 do_search(Interface &interface,
 	  struct mpdclient *c, const char *query)
 {
 	auto *connection = c->GetConnection();
 	if (connection == nullptr)
-		return nullptr;
+		return {};
 
-	auto fl = search_advanced_query(interface, connection, query);
-	if (fl != nullptr)
+	if (FileList fl;
+	    search_advanced_query(interface, connection, query, fl))
 		return fl;
 
 	if (mpd_connection_get_error(connection) != MPD_ERROR_SUCCESS) {
 		c->HandleError();
-		return nullptr;
+		return {};
 	}
 
-	fl = search_simple_query(connection, false,
-				 mode[options.search_mode].table,
-				 query);
-	if (fl == nullptr)
-		c->HandleError();
-	return fl;
+	return search_simple_query(connection, false,
+				   mode[options.search_mode].table,
+				   query);
 }
 
 void
@@ -403,11 +402,9 @@ SearchPage::Reload(struct mpdclient &c)
 
 	lw.ShowCursor();
 	filelist = do_search(GetInterface(), &c, pattern.c_str());
-	if (filelist == nullptr)
-		filelist = std::make_unique<FileList>();
-	lw.SetLength(filelist->size());
+	lw.SetLength(filelist.size());
 
-	screen_browser_sync_highlights(*filelist, c.playlist);
+	screen_browser_sync_highlights(filelist, c.playlist);
 
 	SchedulePaint();
 }
@@ -443,7 +440,7 @@ screen_search_init(ScreenManager &_screen, const Window window)
 void
 SearchPage::Paint() const noexcept
 {
-	if (filelist) {
+	if (!filelist.empty()) {
 		FileListPage::Paint();
 	} else {
 		lw.Paint(TextListRenderer(SearchHelpText()));
@@ -467,8 +464,8 @@ SearchPage::GetTitle(std::span<char> buffer) const noexcept
 void
 SearchPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
-	if (filelist != nullptr && events & MPD_IDLE_QUEUE) {
-		screen_browser_sync_highlights(*filelist, c.playlist);
+	if (events & MPD_IDLE_QUEUE) {
+		screen_browser_sync_highlights(filelist, c.playlist);
 		SchedulePaint();
 	}
 }

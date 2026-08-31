@@ -96,14 +96,14 @@ screen_file_load_list(struct mpdclient *c, const char *current_path,
 bool
 FileBrowserPage::Reload(struct mpdclient &c) noexcept
 {
-	filelist = std::make_unique<FileList>();
+	filelist.clear();
 	if (!current_path.empty())
 		/* add a dummy entry for ./.. */
-		filelist->emplace_back(nullptr);
+		filelist.emplace_back(nullptr);
 
-	const bool success = screen_file_load_list(&c, current_path.c_str(), *filelist);
+	const bool success = screen_file_load_list(&c, current_path.c_str(), filelist);
 
-	lw.SetLength(filelist->size());
+	lw.SetLength(filelist.size());
 
 	SchedulePaint();
 
@@ -118,7 +118,7 @@ FileBrowserPage::ChangeDirectory(struct mpdclient &c,
 
 	const bool success = Reload(c);
 
-	screen_browser_sync_highlights(*filelist, c.playlist);
+	screen_browser_sync_highlights(filelist, c.playlist);
 
 	lw.Reset();
 
@@ -133,7 +133,7 @@ FileBrowserPage::ChangeToParent(struct mpdclient &c) noexcept
 	bool success = ChangeDirectory(c, GetParentUri(old_path));
 
 	int idx = success
-		? filelist->FindDirectory(old_path.c_str())
+		? filelist.FindDirectory(old_path.c_str())
 		: -1;
 
 	if (success && idx >= 0) {
@@ -176,7 +176,7 @@ FileBrowserPage::GotoSong(struct mpdclient &c, const struct mpd_song &song) noex
 
 	/* select the specified song */
 
-	int i = filelist->FindSong(song);
+	int i = filelist.FindSong(song);
 	if (i < 0)
 		i = 0;
 
@@ -205,7 +205,7 @@ FileBrowserPage::HandleSave(struct mpdclient &c) noexcept
 		return;
 
 	for (const unsigned i : range) {
-		auto &entry = (*filelist)[i];
+		auto &entry = filelist[i];
 		if (entry.entity) {
 			struct mpd_entity *entity = entry.entity;
 			if (mpd_entity_get_type(entity) == MPD_ENTITY_TYPE_PLAYLIST) {
@@ -232,7 +232,7 @@ FileBrowserPage::HandleDelete(struct mpdclient &c)
 	std::forward_list<std::string> playlists;
 	const auto range = lw.GetRange();
 	for (auto it = playlists.before_begin(); const unsigned i : range) {
-		auto &entry = (*filelist)[i];
+		auto &entry = filelist[i];
 		if (entry.entity == nullptr)
 			continue;
 
@@ -314,7 +314,7 @@ FileBrowserPage::Update(struct mpdclient &c, unsigned events) noexcept
 		      | MPD_IDLE_QUEUE
 #endif
 		      )) {
-		screen_browser_sync_highlights(*filelist, c.playlist);
+		screen_browser_sync_highlights(filelist, c.playlist);
 		SchedulePaint();
 	}
 }
@@ -334,7 +334,7 @@ FileBrowserPage::OnCommand(struct mpdclient &c, Command cmd)
 
 	case Command::SCREEN_UPDATE:
 		Reload(c);
-		screen_browser_sync_highlights(*filelist, c.playlist);
+		screen_browser_sync_highlights(filelist, c.playlist);
 		return false;
 
 	default:

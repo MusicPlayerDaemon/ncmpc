@@ -68,10 +68,9 @@ std::string_view
 FileListPage::GetListItemText(std::span<char> buffer,
 			      unsigned idx) const noexcept
 {
-	assert(filelist != nullptr);
-	assert(idx < filelist->size());
+	assert(idx < filelist.size());
 
-	const auto &entry = (*filelist)[idx];
+	const auto &entry = filelist[idx];
 	const auto *entity = entry.entity;
 
 	if( entity == nullptr )
@@ -157,18 +156,30 @@ FileListPage::EnqueueAndPlay(struct mpdclient &c, FileListEntry &entry) noexcept
 	return true;
 }
 
-FileListEntry *
+inline FileListEntry *
+FileListPage::GetSelectedEntry() noexcept
+{
+	const auto range = lw.GetRange();
+
+	if (range.empty() ||
+	    range.end_index > range.start_index + 1 ||
+	    range.start_index >= filelist.size())
+		return nullptr;
+
+	return &filelist[range.start_index];
+}
+
+inline const FileListEntry *
 FileListPage::GetSelectedEntry() const noexcept
 {
 	const auto range = lw.GetRange();
 
-	if (filelist == nullptr ||
-	    range.empty() ||
+	if (range.empty() ||
 	    range.end_index > range.start_index + 1 ||
-	    range.start_index >= filelist->size())
+	    range.start_index >= filelist.size())
 		return nullptr;
 
-	return &(*filelist)[range.start_index];
+	return &filelist[range.start_index];
 }
 
 const struct mpd_entity *
@@ -192,13 +203,13 @@ FileListPage::GetSelectedSong() const noexcept
 		: nullptr;
 }
 
-FileListEntry *
-FileListPage::GetIndex(unsigned i) const noexcept
+inline FileListEntry *
+FileListPage::GetIndex(unsigned i) noexcept
 {
-	if (filelist == nullptr || i >= filelist->size())
+	if (i >= filelist.size())
 		return nullptr;
 
-	return &(*filelist)[i];
+	return &filelist[i];
 }
 
 bool
@@ -328,11 +339,8 @@ FileListPage::HandleEdit(struct mpdclient &c) noexcept
 inline void
 FileListPage::HandleSelectAll(struct mpdclient &c) noexcept
 {
-	if (filelist == nullptr)
-		return;
-
-	for (unsigned i = 0; i < filelist->size(); ++i) {
-		auto &entry = (*filelist)[i];
+	for (unsigned i = 0; i < filelist.size(); ++i) {
+		auto &entry = filelist[i];
 
 		if (entry.entity != nullptr)
 			HandleSelectEntry(c, entry, false);
@@ -374,9 +382,6 @@ FileListPage::OnMouse(struct mpdclient &c, Point p,
 bool
 FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 {
-	if (filelist == nullptr)
-		return false;
-
 	if (ListPage::OnCommand(c, cmd))
 		return true;
 
@@ -459,10 +464,9 @@ FileListPage::PaintListItem(const Window window, unsigned i,
 			    unsigned y, unsigned width,
 			    bool selected) const noexcept
 {
-	assert(filelist != nullptr);
-	assert(i < filelist->size());
+	assert(i < filelist.size());
 
-	const auto &entry = (*filelist)[i];
+	const auto &entry = filelist[i];
 	const struct mpd_entity *entity = entry.entity;
 	if (entity == nullptr) {
 		screen_browser_paint_directory(window, width, selected, ".."sv);
@@ -520,10 +524,9 @@ FileListPage::PaintStatusBarOverride(const Window window) const noexcept
 
 	unsigned duration = 0;
 
-	assert(filelist != nullptr);
 	for (const unsigned i : lw.GetRange()) {
-		assert(i < filelist->size());
-		const auto &entry = (*filelist)[i];
+		assert(i < filelist.size());
+		const auto &entry = filelist[i];
 		const auto *entity = entry.entity;
 
 		if (entity != nullptr &&

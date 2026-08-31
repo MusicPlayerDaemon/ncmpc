@@ -4,6 +4,7 @@
 #pragma once
 
 #include "config.h"
+#include "filelist.hxx"
 #include "page/ListPage.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"
@@ -13,14 +14,12 @@
 struct mpdclient;
 struct MpdQueue;
 class ScreenManager;
-class FileList;
-struct FileListEntry;
 
 class FileListPage : public ListPage, ListRenderer, ListText {
 protected:
 	ScreenManager &screen;
 
-	std::unique_ptr<FileList> filelist;
+	FileList filelist;
 	const char *const song_format;
 
 public:
@@ -31,13 +30,16 @@ public:
 
 protected:
 	[[gnu::pure]]
-	FileListEntry *GetSelectedEntry() const noexcept;
+	FileListEntry *GetSelectedEntry() noexcept;
+
+	[[gnu::pure]]
+	const FileListEntry *GetSelectedEntry() const noexcept;
 
 	[[gnu::pure]]
 	const struct mpd_entity *GetSelectedEntity() const noexcept;
 
 	[[gnu::pure]]
-	FileListEntry *GetIndex(unsigned i) const noexcept;
+	FileListEntry *GetIndex(unsigned i) noexcept;
 
 protected:
 	virtual bool HandleEnter(struct mpdclient &c);
