@@ -21,6 +21,10 @@ public:
 	ListWindow(Window _window, Size _size) noexcept
 		:ListCursor(_size.height), window(_window), width(_size.width) {}
 
+	Window GetWindow() const noexcept {
+		return window;
+	}
+
 	unsigned GetWidth() const noexcept {
 		return width;
 	}

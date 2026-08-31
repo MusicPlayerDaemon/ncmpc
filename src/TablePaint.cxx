@@ -31,11 +31,11 @@ PaintTableRow(const Window window, unsigned width,
 		if (cl.width == 0)
 			break;
 
-		if (i > 0) {
-			SelectStyle(window, Style::LIST_LINE);
-			window.Char(ACS_VLINE);
-			row_color(window, color, selected);
-		}
+		if (i > 0)
+			/* this space is a placeholder just to move
+			   the cursor and will be overwritten with
+			   ACS_VLINE by PaintTableLines() */
+			window.Char(' ');
 
 		char buffer[1024];
 
@@ -45,4 +45,25 @@ PaintTableRow(const Window window, unsigned width,
 	}
 
 	row_clear_to_eol(window, width, selected);
+}
+
+void
+PaintTableLines(const Window window, const TableLayout &layout) noexcept
+{
+	SelectStyle(window, Style::LIST_LINE);
+
+	const unsigned height = window.GetHeight();
+
+	unsigned x = 0;
+	const size_t n_columns = layout.structure.columns.size();
+	for (size_t i = 0; i < n_columns; ++i) {
+		const auto &cl = layout.columns[i];
+		if (cl.width == 0)
+			break;
+
+		if (i > 0)
+			window.VLine({x++, 0u}, height, ACS_VLINE);
+
+		x += cl.width;
+	}
 }

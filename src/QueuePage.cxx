@@ -411,6 +411,11 @@ QueuePage::Paint() const noexcept
 #endif
 
 	lw.Paint(*this);
+
+#ifndef NCMPC_MINI
+	if (!song_table_structure.columns.empty())
+		PaintTableLines(lw.GetWindow(), table_layout);
+#endif
 }
 
 bool

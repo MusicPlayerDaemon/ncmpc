@@ -6,8 +6,12 @@
 struct Window;
 struct TableLayout;
 struct mpd_song;
+class ListWindow;
 
 void
 PaintTableRow(Window window, unsigned width,
 	      bool selected, bool highlight, const struct mpd_song &song,
 	      const TableLayout &layout) noexcept;
+
+void
+PaintTableLines(Window window, const TableLayout &layout) noexcept;
