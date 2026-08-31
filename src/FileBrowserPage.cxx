@@ -39,7 +39,7 @@ public:
 	bool GotoSong(struct mpdclient &c, const struct mpd_song &song) noexcept;
 
 private:
-	void Reload(struct mpdclient &c) noexcept;
+	bool Reload(struct mpdclient &c) noexcept;
 
 	/**
 	 * Change to the specified absolute directory.
@@ -75,22 +75,25 @@ public:
 	std::string_view GetTitle(std::span<char> buffer) const noexcept override;
 };
 
-static void
+static bool
 screen_file_load_list(struct mpdclient *c, const char *current_path,
 		      FileList &filelist) noexcept
 {
 	auto *connection = c->GetConnection();
 	if (connection == nullptr)
-		return;
+		return false;
 
 	mpd_send_list_meta(connection, current_path);
 	filelist.Receive(*connection);
 
-	if (c->FinishCommand())
-		filelist.Sort();
+	if (!c->FinishCommand())
+		return false;
+
+	filelist.Sort();
+	return true;
 }
 
-void
+bool
 FileBrowserPage::Reload(struct mpdclient &c) noexcept
 {
 	filelist = std::make_unique<FileList>();
@@ -98,11 +101,13 @@ FileBrowserPage::Reload(struct mpdclient &c) noexcept
 		/* add a dummy entry for ./.. */
 		filelist->emplace_back(nullptr);
 
-	screen_file_load_list(&c, current_path.c_str(), *filelist);
+	const bool success = screen_file_load_list(&c, current_path.c_str(), *filelist);
 
 	lw.SetLength(filelist->size());
 
 	SchedulePaint();
+
+	return success;
 }
 
 bool
@@ -111,13 +116,13 @@ FileBrowserPage::ChangeDirectory(struct mpdclient &c,
 {
 	current_path = new_path;
 
-	Reload(c);
+	const bool success = Reload(c);
 
 	screen_browser_sync_highlights(*filelist, c.playlist);
 
 	lw.Reset();
 
-	return filelist != nullptr;
+	return success;
 }
 
 bool
