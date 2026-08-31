@@ -45,8 +45,8 @@ public:
 
 	FileList() = default;
 
-	FileList(const FileList &) = delete;
-	FileList &operator=(const FileList &) = delete;
+	FileList(FileList &&) noexcept = default;
+	FileList &operator=(FileList &&) noexcept = default;
 
 	size_type size() const noexcept {
 		return entries.size();
@@ -54,6 +54,10 @@ public:
 
 	bool empty() const noexcept {
 		return entries.empty();
+	}
+
+	void clear() noexcept {
+		entries.clear();
 	}
 
 	FileListEntry &operator[](size_type i) noexcept {
