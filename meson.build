@@ -399,6 +399,7 @@ subdir('src/event')
 subdir('src/client')
 subdir('src/ui')
 subdir('src/ui/dialogs')
+subdir('src/ui/form')
 subdir('src/page')
 subdir('src/time')
 
@@ -465,6 +466,7 @@ ncmpc = executable('ncmpc',
     fmt_dep,
     ui_dep,
     dialogs_dep,
+    form_dep,
     page_dep,
     avahi_dep,
   ],
