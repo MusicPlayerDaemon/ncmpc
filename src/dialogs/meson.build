@@ -3,6 +3,7 @@ dialogs = static_library(
   'ModalDialog.cxx',
   'YesNoDialog.cxx',
   'KeyDialog.cxx',
+  'StringEditDialog.cxx',
   'TextInputDialog.cxx',
   include_directories: inc,
   dependencies: [
