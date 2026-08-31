@@ -15,6 +15,7 @@
 #endif
 
 #include <cassert>
+#include <utility> // for std::exchange()
 
 #include <string.h>
 
@@ -228,6 +229,13 @@ TextInputDialog::DeleteChar(size_t x) noexcept
 	InvokeModifiedCallback();
 }
 
+inline void
+TextInputDialog::Clear() noexcept
+{
+	value.clear();
+	cursor = start = 0;
+}
+
 void
 TextInputDialog::OnLeave(const Window window) noexcept
 {
@@ -254,6 +262,8 @@ TextInputDialog::OnCancel() noexcept
 bool
 TextInputDialog::OnKey(const Window window, int key)
 {
+	const bool was_selected = std::exchange(selected, false);
+
 	if (key == KEY_RETURN || key == KEY_LINEFEED) {
 		if (fragile) {
 			Cancel();
@@ -273,7 +283,10 @@ TextInputDialog::OnKey(const Window window, int key)
 	}
 
 	if (IsBackspace(key)) {
-		if (cursor > 0) { /* - 1 from buf[n+1] to buf   */
+		if (was_selected) {
+			Clear();
+			InvokeModifiedCallback();
+		} else if (cursor > 0) { /* - 1 from buf[n+1] to buf   */
 			MoveCursorLeft();
 			DeleteChar();
 		}
@@ -329,6 +342,12 @@ TextInputDialog::OnKey(const Window window, int key)
 		MoveCursorToEnd();
 		break;
 	case KEY_CTL('K'):
+		if (was_selected) {
+			Clear();
+			InvokeModifiedCallback();
+			return true;
+		}
+
 		value.erase(cursor);
 		InvokeModifiedCallback();
 		break;
@@ -354,6 +373,12 @@ TextInputDialog::OnKey(const Window window, int key)
 		break;
 	case KEY_DC:		/* handle delete key. As above */
 	case KEY_CTL('D'):
+		if (was_selected) {
+			Clear();
+			InvokeModifiedCallback();
+			return true;
+		}
+
 		if (cursor < value.length())
 			DeleteChar();
 		break;
@@ -400,9 +425,12 @@ TextInputDialog::OnKey(const Window window, int key)
 		/* ignore char */
 		break;
 	default:
-		if (key >= 32 && key <= 0xff)
+		if (key >= 32 && key <= 0xff) {
+			if (was_selected)
+				Clear();
+
 			InsertByte(window, key);
-		else  if (fragile) {
+		} else  if (fragile) {
 			Cancel();
 			return false;
 		}
@@ -437,6 +465,9 @@ TextInputDialog::Paint(const Window window) const noexcept
 
 	SelectStyle(window, Style::INPUT);
 
+	if (selected)
+		window.AttributeOn(A_REVERSE);
+
 	/* print visible part of the line buffer */
 	if (masked) {
 		const unsigned value_width = StringWidthMB(value.substr(start));
@@ -445,6 +476,8 @@ TextInputDialog::Paint(const Window window) const noexcept
 	} else {
 		window.String({value.c_str() + start, screen_to_bytes(value.c_str() + start, width)});
 	}
+
+	window.AttributeOff(A_REVERSE);
 
 	/* clear the rest */
 	window.ClearToEol();

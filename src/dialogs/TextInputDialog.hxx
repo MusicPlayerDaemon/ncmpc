@@ -63,6 +63,12 @@ class TextInputDialog final : public ModalDialog {
 	/** @see TextInputDialogOptions::fragile */
 	const bool fragile;
 
+	/**
+	 * Is (all of) the text selected?  This is initially true and
+	 * entering new text will delete the old value.
+	 */
+	bool selected = true;
+
 	bool ready = false;
 
 	/** the byte position of the cursor */
@@ -137,6 +143,8 @@ private:
 	void DeleteChar() noexcept {
 		DeleteChar(cursor);
 	}
+
+	void Clear() noexcept;
 
 	void InvokeModifiedCallback() const noexcept {
 		if (modified_callback != nullptr)
