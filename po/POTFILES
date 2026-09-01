@@ -22,7 +22,7 @@ src/Styles.cxx
 src/TabBar.cxx
 src/TagListPage.cxx
 src/TitleBar.cxx
-src/dialogs/YesNoDialog.cxx
+src/ui/dialogs/YesNoDialog.cxx
 src/page/FindSupport.cxx
 src/player_command.cxx
 src/save_playlist.cxx

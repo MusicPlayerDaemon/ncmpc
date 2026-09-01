@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 22:13+0200\n"
+"POT-Creation-Date: 2026-09-01 17:00+0200\n"
 "PO-Revision-Date: 2026-02-28 06:09+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/ncmpc/"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.16.1-dev\n"
 
-#: src/Bindings.cxx:67 src/Bindings.cxx:75
+#: src/Bindings.cxx:81 src/Bindings.cxx:89
 #, c++-format
 msgid "Key {:?} assigned to {:?} and {:?}"
 msgstr "ღილაკი {:?} მინიჭებულია {:?}-ზე და {:?}-ზე"
@@ -400,7 +400,7 @@ msgstr "არასწორი ფერის სახელი"
 msgid "Incomplete color definition"
 msgstr "დაუსრულებელი ფერის აღწერა"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:222
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:226
 msgid "Invalid number"
 msgstr "არასწორი ნომერი"
 
@@ -455,32 +455,32 @@ msgstr "დასაკრავი სიის რედაქტორი"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:240
+#: src/FileBrowserPage.cxx:245
 msgid "Deleting this item is not possible"
 msgstr "ამ ელემენტის წაშლა შეუძლებელია"
 
-#: src/FileBrowserPage.cxx:250
+#: src/FileBrowserPage.cxx:255
 #, c++-format
 msgid "Delete playlist {}?"
 msgstr "წაიშალოს დასაკრავი სია {}?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:269
+#: src/FileBrowserPage.cxx:274
 msgid "Playlist deleted"
 msgstr "დასაკრავი სია წაიშალა"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:296 src/FileBrowserPage.cxx:367
+#: src/FileBrowserPage.cxx:301 src/FileBrowserPage.cxx:372
 msgid "Browse"
 msgstr "პოვნა"
 
-#: src/FileListPage.cxx:107
+#: src/FileListPage.cxx:106
 #, c++-format
 msgid "Loading playlist '{}'"
 msgstr "იტვირთება დასაკრავი სია '{}'"
 
-#: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
+#: src/FileListPage.cxx:147 src/FileListPage.cxx:248 src/FileListPage.cxx:268
 #: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
@@ -580,84 +580,84 @@ msgstr "დონით მაღლა ასვლა"
 msgid "Apply and save changes"
 msgstr "ცვლილებების გადატარება და შენახვა"
 
-#: src/HelpPage.cxx:233 src/HelpPage.cxx:329
+#: src/HelpPage.cxx:233 src/HelpPage.cxx:331
 msgid "Help"
 msgstr "დახმარება"
 
-#: src/KeyDefPage.cxx:150
+#: src/KeyDefPage.cxx:166
 msgid "Deleted"
 msgstr "წაშლილი"
 
-#: src/KeyDefPage.cxx:164
+#: src/KeyDefPage.cxx:177
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "შეიყვანეთ ახალი ღილაკი {}-ისთვის"
 
-#: src/KeyDefPage.cxx:169
+#: src/KeyDefPage.cxx:182
 msgid "Aborted"
 msgstr "შეწყვეტილია"
 
-#: src/KeyDefPage.cxx:174
+#: src/KeyDefPage.cxx:187
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-Space-ს ვერ გამოიყენებთ"
 
-#: src/KeyDefPage.cxx:180
+#: src/KeyDefPage.cxx:193
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "შეცდომა: ღილაკი {} უკვე გამოიყენება {}-ისთვის"
 
-#: src/KeyDefPage.cxx:190
+#: src/KeyDefPage.cxx:203
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "{} მინიჭებულია {}-ზე"
 
-#: src/KeyDefPage.cxx:217
+#: src/KeyDefPage.cxx:230 src/KeyDefPage.cxx:247
 msgid "Add new key"
 msgstr "ახალი ღილაკის დამატება"
 
-#: src/KeyDefPage.cxx:235
+#: src/KeyDefPage.cxx:277
 #, c++-format
 msgid "Edit keys for {}"
 msgstr "ღილაკების ჩასწორება {}-ისთვის"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:426
 msgid "You have new key bindings"
 msgstr "გაქვთ ახალი ღილაკის მინიჭებები"
 
-#: src/KeyDefPage.cxx:373
+#: src/KeyDefPage.cxx:428
 msgid "Keybindings unchanged."
 msgstr "ღილაკის მინიჭებები არ უცვლელია."
 
-#: src/KeyDefPage.cxx:383
+#: src/KeyDefPage.cxx:438
 msgid "Unable to write configuration"
 msgstr "კონფიგურაციის ჩაწერა შეუძლებელია"
 
-#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
+#: src/KeyDefPage.cxx:447 src/KeyDefPage.cxx:456
 msgid "Error"
 msgstr "შეცდომა"
 
-#: src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:454
 #, c++-format
 msgid "Wrote {}"
 msgstr "{} ჩაწერილია"
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:466 src/KeyDefPage.cxx:506
 msgid "Apply key bindings"
 msgstr "ღილაკის მინიჭებების გადატარება"
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:468 src/KeyDefPage.cxx:512
 msgid "Apply & Save key bindings"
 msgstr "ღილაკის მინიჭებების გადატარება და შენახვა"
 
-#: src/KeyDefPage.cxx:449
+#: src/KeyDefPage.cxx:541
 msgid "Edit key bindings"
 msgstr "ღილაკის მინიჭებების ჩასწორება"
 
-#: src/KeyDefPage.cxx:530
+#: src/KeyDefPage.cxx:622
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "შენიშვნა: დაგავიწყდათ თქვენი ცვლილებების 'გადატარება'?"
 
-#: src/KeyDefPage.cxx:580
+#: src/KeyDefPage.cxx:670
 msgid "Keys"
 msgstr "გასაღებები"
 
@@ -863,7 +863,7 @@ msgstr "ახალი დანაყოფის შექმნა"
 msgid "Add"
 msgstr "დამატება"
 
-#: src/QueuePage.cxx:372 src/QueuePage.cxx:658
+#: src/QueuePage.cxx:372 src/QueuePage.cxx:663
 msgid "Queue"
 msgstr "რიგი"
 
@@ -872,7 +872,7 @@ msgstr "რიგი"
 msgid "Queue on {}"
 msgstr "რიგშია {}-ზე"
 
-#: src/QueuePage.cxx:610 src/player_command.cxx:63
+#: src/QueuePage.cxx:615 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "არეული რიგი"
 
@@ -944,26 +944,26 @@ msgstr "ფაილის სახელი"
 msgid "Artist + Title"
 msgstr "შემსრულებელი + სახელი"
 
-#: src/SearchPage.cxx:263 src/SearchPage.cxx:267
+#: src/SearchPage.cxx:267 src/SearchPage.cxx:271
 msgid "Unrecognized suffix"
 msgstr "უცნობი სუფიქსი"
 
-#: src/SearchPage.cxx:314
+#: src/SearchPage.cxx:319
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "არასწორი ძებნის ჭდე {}"
 
-#: src/SearchPage.cxx:328
+#: src/SearchPage.cxx:333
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "არგუმენტის გარეშე ძებნის ჭდისთვის {}"
 
-#: src/SearchPage.cxx:424 src/SearchPage.cxx:457 src/SearchPage.cxx:460
-#: src/SearchPage.cxx:464 src/SearchPage.cxx:521
+#: src/SearchPage.cxx:421 src/SearchPage.cxx:454 src/SearchPage.cxx:457
+#: src/SearchPage.cxx:461 src/SearchPage.cxx:518
 msgid "Search"
 msgstr "ძებნა"
 
-#: src/SearchPage.cxx:484
+#: src/SearchPage.cxx:481
 msgid "Search mode"
 msgstr "ძებნის რეჟიმი"
 
@@ -1088,15 +1088,15 @@ msgstr "მიმდინარეობს დაკვრა:"
 msgid "[Paused]"
 msgstr "[შეჩერებულია]"
 
-#: src/Styles.cxx:245 src/Styles.cxx:301
+#: src/Styles.cxx:255 src/Styles.cxx:311
 msgid "Unknown color"
 msgstr "უცნობი ფერი"
 
-#: src/Styles.cxx:311
+#: src/Styles.cxx:321
 msgid "Unknown color field"
 msgstr "უცნობი ფერის ველი"
 
-#: src/Styles.cxx:344
+#: src/Styles.cxx:354
 msgid "Terminal lacks color capabilities"
 msgstr "ტერმინალს ფერების აღქმა არ აქვს"
 

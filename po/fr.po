@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 22:13+0200\n"
+"POT-Creation-Date: 2026-09-01 17:00+0200\n"
 "PO-Revision-Date: 2022-04-01 16:10+0000\n"
 "Last-Translator: lionelvaux <lionel.vaux@univ-amu.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/ncmpc/"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Generator: Weblate 4.12-dev\n"
 "X-Launchpad-Export-Date: 2011-01-05 20:00+0000\n"
 
-#: src/Bindings.cxx:67 src/Bindings.cxx:75
+#: src/Bindings.cxx:81 src/Bindings.cxx:89
 #, c++-format
 msgid "Key {:?} assigned to {:?} and {:?}"
 msgstr "La touche {:?} est assignée à {:?} et à {:?}"
@@ -406,7 +406,7 @@ msgstr "Mauvais nom de couleur"
 msgid "Incomplete color definition"
 msgstr "Définition de couleur incomplète"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:222
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:226
 msgid "Invalid number"
 msgstr "Nombre invalide"
 
@@ -462,32 +462,32 @@ msgstr "Liste de lecture effacée"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:240
+#: src/FileBrowserPage.cxx:245
 msgid "Deleting this item is not possible"
 msgstr "Impossible d'effacer ce type d'objet"
 
-#: src/FileBrowserPage.cxx:250
+#: src/FileBrowserPage.cxx:255
 #, c++-format
 msgid "Delete playlist {}?"
 msgstr "Supprimer la liste de lecture de {} ?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:269
+#: src/FileBrowserPage.cxx:274
 msgid "Playlist deleted"
 msgstr "Liste de lecture effacée"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:296 src/FileBrowserPage.cxx:367
+#: src/FileBrowserPage.cxx:301 src/FileBrowserPage.cxx:372
 msgid "Browse"
 msgstr "Parcourir"
 
-#: src/FileListPage.cxx:107
+#: src/FileListPage.cxx:106
 #, c++-format
 msgid "Loading playlist '{}'"
 msgstr "Chargement de la liste de lecture « {} »"
 
-#: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
+#: src/FileListPage.cxx:147 src/FileListPage.cxx:248 src/FileListPage.cxx:268
 #: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
@@ -587,84 +587,84 @@ msgstr "Aller au dossier parent"
 msgid "Apply and save changes"
 msgstr "Appliquer et sauvegarder les changements"
 
-#: src/HelpPage.cxx:233 src/HelpPage.cxx:329
+#: src/HelpPage.cxx:233 src/HelpPage.cxx:331
 msgid "Help"
 msgstr "Aide"
 
-#: src/KeyDefPage.cxx:150
+#: src/KeyDefPage.cxx:166
 msgid "Deleted"
 msgstr "Effacé"
 
-#: src/KeyDefPage.cxx:164
+#: src/KeyDefPage.cxx:177
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "Entrez la nouvelle touche pour {} "
 
-#: src/KeyDefPage.cxx:169
+#: src/KeyDefPage.cxx:182
 msgid "Aborted"
 msgstr "Annulé"
 
-#: src/KeyDefPage.cxx:174
+#: src/KeyDefPage.cxx:187
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-Espace ne peut être utilisé"
 
-#: src/KeyDefPage.cxx:180
+#: src/KeyDefPage.cxx:193
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "Erreur : la touche {} est déjà attribuée à {}"
 
-#: src/KeyDefPage.cxx:190
+#: src/KeyDefPage.cxx:203
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "{} assignée à {}"
 
-#: src/KeyDefPage.cxx:217
+#: src/KeyDefPage.cxx:230 src/KeyDefPage.cxx:247
 msgid "Add new key"
 msgstr "Ajouter une nouvelle touche"
 
-#: src/KeyDefPage.cxx:235
+#: src/KeyDefPage.cxx:277
 #, c++-format
 msgid "Edit keys for {}"
 msgstr "Modifier les touches pour {}"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:426
 msgid "You have new key bindings"
 msgstr "Vous avez une nouvelle correspondance de touches"
 
-#: src/KeyDefPage.cxx:373
+#: src/KeyDefPage.cxx:428
 msgid "Keybindings unchanged."
 msgstr "La correspondance des touches n'a pas été changée."
 
-#: src/KeyDefPage.cxx:383
+#: src/KeyDefPage.cxx:438
 msgid "Unable to write configuration"
 msgstr "Échec de sauvegarde de la configuration"
 
-#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
+#: src/KeyDefPage.cxx:447 src/KeyDefPage.cxx:456
 msgid "Error"
 msgstr "Erreur"
 
-#: src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:454
 #, c++-format
 msgid "Wrote {}"
 msgstr "{} écrit"
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:466 src/KeyDefPage.cxx:506
 msgid "Apply key bindings"
 msgstr "Appliquer la correspondance des touches"
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:468 src/KeyDefPage.cxx:512
 msgid "Apply & Save key bindings"
 msgstr "Appliquer et Enregistrer la correspondance des touches"
 
-#: src/KeyDefPage.cxx:449
+#: src/KeyDefPage.cxx:541
 msgid "Edit key bindings"
 msgstr "Modifier les correspondances de touches"
 
-#: src/KeyDefPage.cxx:530
+#: src/KeyDefPage.cxx:622
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Remarque : avez-vous oublié d'« Appliquer » vos changements ?"
 
-#: src/KeyDefPage.cxx:580
+#: src/KeyDefPage.cxx:670
 msgid "Keys"
 msgstr "Touches"
 
@@ -879,7 +879,7 @@ msgstr "Créer une nouvelle partition"
 msgid "Add"
 msgstr "Ajouter"
 
-#: src/QueuePage.cxx:372 src/QueuePage.cxx:658
+#: src/QueuePage.cxx:372 src/QueuePage.cxx:663
 msgid "Queue"
 msgstr "File d'attente"
 
@@ -888,7 +888,7 @@ msgstr "File d'attente"
 msgid "Queue on {}"
 msgstr "File d'attente en {}"
 
-#: src/QueuePage.cxx:610 src/player_command.cxx:63
+#: src/QueuePage.cxx:615 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "File d'attente mélangée"
 
@@ -960,26 +960,26 @@ msgstr "Nom de fichier"
 msgid "Artist + Title"
 msgstr "Artiste + Titre"
 
-#: src/SearchPage.cxx:263 src/SearchPage.cxx:267
+#: src/SearchPage.cxx:267 src/SearchPage.cxx:271
 msgid "Unrecognized suffix"
 msgstr "Suffixe non reconnu"
 
-#: src/SearchPage.cxx:314
+#: src/SearchPage.cxx:319
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "Mauvais champ recherché {}"
 
-#: src/SearchPage.cxx:328
+#: src/SearchPage.cxx:333
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "Pas d'argument pour le champ recherché {}"
 
-#: src/SearchPage.cxx:424 src/SearchPage.cxx:457 src/SearchPage.cxx:460
-#: src/SearchPage.cxx:464 src/SearchPage.cxx:521
+#: src/SearchPage.cxx:421 src/SearchPage.cxx:454 src/SearchPage.cxx:457
+#: src/SearchPage.cxx:461 src/SearchPage.cxx:518
 msgid "Search"
 msgstr "Rechercher"
 
-#: src/SearchPage.cxx:484
+#: src/SearchPage.cxx:481
 msgid "Search mode"
 msgstr "Mode de recherche "
 
@@ -1104,15 +1104,15 @@ msgstr "En Lecture :"
 msgid "[Paused]"
 msgstr "[En Pause]"
 
-#: src/Styles.cxx:245 src/Styles.cxx:301
+#: src/Styles.cxx:255 src/Styles.cxx:311
 msgid "Unknown color"
 msgstr "Couleur inconnue"
 
-#: src/Styles.cxx:311
+#: src/Styles.cxx:321
 msgid "Unknown color field"
 msgstr "Couleur de champ inconnue"
 
-#: src/Styles.cxx:344
+#: src/Styles.cxx:354
 msgid "Terminal lacks color capabilities"
 msgstr "Le terminal ne dispose pas de la gestion des couleurs"
 

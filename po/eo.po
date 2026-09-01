@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 22:13+0200\n"
+"POT-Creation-Date: 2026-09-01 17:00+0200\n"
 "PO-Revision-Date: 2021-03-29 23:26+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/ncmpc/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.6-dev\n"
 "X-Launchpad-Export-Date: 2011-06-23 08:56+0000\n"
 
-#: src/Bindings.cxx:67 src/Bindings.cxx:75
+#: src/Bindings.cxx:81 src/Bindings.cxx:89
 #, c++-format
 msgid "Key {:?} assigned to {:?} and {:?}"
 msgstr "Klavo {:?} estas asignita al {:?} kaj {:?}"
@@ -404,7 +404,7 @@ msgstr "Nevalida kolornomo"
 msgid "Incomplete color definition"
 msgstr "Nekompleta kolordifino"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:222
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:226
 msgid "Invalid number"
 msgstr "Nevalida nombro"
 
@@ -461,32 +461,32 @@ msgstr "Forviŝiĝis ludlisto"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:240
+#: src/FileBrowserPage.cxx:245
 msgid "Deleting this item is not possible"
 msgstr "Ne eblas forviŝi ĉi tiun eron"
 
-#: src/FileBrowserPage.cxx:250
+#: src/FileBrowserPage.cxx:255
 #, c++-format
 msgid "Delete playlist {}?"
 msgstr "Ĉu forviŝi ludliston {}?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:269
+#: src/FileBrowserPage.cxx:274
 msgid "Playlist deleted"
 msgstr "Forviŝiĝis ludlisto"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:296 src/FileBrowserPage.cxx:367
+#: src/FileBrowserPage.cxx:301 src/FileBrowserPage.cxx:372
 msgid "Browse"
 msgstr "Foliumi"
 
-#: src/FileListPage.cxx:107
+#: src/FileListPage.cxx:106
 #, c++-format
 msgid "Loading playlist '{}'"
 msgstr "Ŝargante ludliston '{}'"
 
-#: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
+#: src/FileListPage.cxx:147 src/FileListPage.cxx:248 src/FileListPage.cxx:268
 #: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
@@ -586,84 +586,84 @@ msgstr "Supreniri unu nivelon"
 msgid "Apply and save changes"
 msgstr "Efektivigi kaj konservi ŝanĝojn"
 
-#: src/HelpPage.cxx:233 src/HelpPage.cxx:329
+#: src/HelpPage.cxx:233 src/HelpPage.cxx:331
 msgid "Help"
 msgstr "Helpo"
 
-#: src/KeyDefPage.cxx:150
+#: src/KeyDefPage.cxx:166
 msgid "Deleted"
 msgstr "Forviŝiĝis"
 
-#: src/KeyDefPage.cxx:164
+#: src/KeyDefPage.cxx:177
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "Premu novan klavon por {}"
 
-#: src/KeyDefPage.cxx:169
+#: src/KeyDefPage.cxx:182
 msgid "Aborted"
 msgstr "Nuligita"
 
-#: src/KeyDefPage.cxx:174
+#: src/KeyDefPage.cxx:187
 msgid "Ctrl-Space can't be used"
 msgstr "Stir-Spaceto ne uzeblas"
 
-#: src/KeyDefPage.cxx:180
+#: src/KeyDefPage.cxx:193
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "Eraro: klavo {} jam estas asignita por {}"
 
-#: src/KeyDefPage.cxx:190
+#: src/KeyDefPage.cxx:203
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "Asignis la klavon {} al {}"
 
-#: src/KeyDefPage.cxx:217
+#: src/KeyDefPage.cxx:230 src/KeyDefPage.cxx:247
 msgid "Add new key"
 msgstr "Aldoni novan klavon"
 
-#: src/KeyDefPage.cxx:235
+#: src/KeyDefPage.cxx:277
 #, c++-format
 msgid "Edit keys for {}"
 msgstr "Redakti klavojn por {}"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:426
 msgid "You have new key bindings"
 msgstr "Efektiviĝis novaj klavasignoj"
 
-#: src/KeyDefPage.cxx:373
+#: src/KeyDefPage.cxx:428
 msgid "Keybindings unchanged."
 msgstr "Ne ŝanĝiĝis klavasignoj."
 
-#: src/KeyDefPage.cxx:383
+#: src/KeyDefPage.cxx:438
 msgid "Unable to write configuration"
 msgstr "Malsukcesis skribi agordojn"
 
-#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
+#: src/KeyDefPage.cxx:447 src/KeyDefPage.cxx:456
 msgid "Error"
 msgstr "Eraro"
 
-#: src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:454
 #, c++-format
 msgid "Wrote {}"
 msgstr "Skribis sur {}"
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:466 src/KeyDefPage.cxx:506
 msgid "Apply key bindings"
 msgstr "Efektivigi klavasignojn"
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:468 src/KeyDefPage.cxx:512
 msgid "Apply & Save key bindings"
 msgstr "Efektivigi kaj Konservi klavasignojn"
 
-#: src/KeyDefPage.cxx:449
+#: src/KeyDefPage.cxx:541
 msgid "Edit key bindings"
 msgstr "Redakti klavasignojn"
 
-#: src/KeyDefPage.cxx:530
+#: src/KeyDefPage.cxx:622
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Noto: Ĉu vi forgesis 'Efektivigi' viajn ŝanĝojn?"
 
-#: src/KeyDefPage.cxx:580
+#: src/KeyDefPage.cxx:670
 msgid "Keys"
 msgstr "Klavoj"
 
@@ -873,7 +873,7 @@ msgstr "Krei novan dividaĵon"
 msgid "Add"
 msgstr "Aldoni"
 
-#: src/QueuePage.cxx:372 src/QueuePage.cxx:658
+#: src/QueuePage.cxx:372 src/QueuePage.cxx:663
 msgid "Queue"
 msgstr "Vico"
 
@@ -882,7 +882,7 @@ msgstr "Vico"
 msgid "Queue on {}"
 msgstr "Vico ĉe {}"
 
-#: src/QueuePage.cxx:610 src/player_command.cxx:63
+#: src/QueuePage.cxx:615 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "Miksiĝis vico"
 
@@ -954,26 +954,26 @@ msgstr "Dosiernomo"
 msgid "Artist + Title"
 msgstr "Muzikisto + Titolo"
 
-#: src/SearchPage.cxx:263 src/SearchPage.cxx:267
+#: src/SearchPage.cxx:267 src/SearchPage.cxx:271
 msgid "Unrecognized suffix"
 msgstr "Nekonata sufikso"
 
-#: src/SearchPage.cxx:314
+#: src/SearchPage.cxx:319
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "Nekonata serĉa etikedo {}"
 
-#: src/SearchPage.cxx:328
+#: src/SearchPage.cxx:333
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "Mankas argumento de serĉa etikedo {}"
 
-#: src/SearchPage.cxx:424 src/SearchPage.cxx:457 src/SearchPage.cxx:460
-#: src/SearchPage.cxx:464 src/SearchPage.cxx:521
+#: src/SearchPage.cxx:421 src/SearchPage.cxx:454 src/SearchPage.cxx:457
+#: src/SearchPage.cxx:461 src/SearchPage.cxx:518
 msgid "Search"
 msgstr "Serĉi"
 
-#: src/SearchPage.cxx:484
+#: src/SearchPage.cxx:481
 msgid "Search mode"
 msgstr "Serĉa reĝimo"
 
@@ -1098,15 +1098,15 @@ msgstr "Ludanta:"
 msgid "[Paused]"
 msgstr "[Paŭzita]"
 
-#: src/Styles.cxx:245 src/Styles.cxx:301
+#: src/Styles.cxx:255 src/Styles.cxx:311
 msgid "Unknown color"
 msgstr "Nekonata koloro"
 
-#: src/Styles.cxx:311
+#: src/Styles.cxx:321
 msgid "Unknown color field"
 msgstr "Nekonata kolorkampo"
 
-#: src/Styles.cxx:344
+#: src/Styles.cxx:354
 msgid "Terminal lacks color capabilities"
 msgstr "Al la terminalo mankas koloraj kapabloj"
 

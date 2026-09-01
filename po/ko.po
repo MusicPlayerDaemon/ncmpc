@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 22:13+0200\n"
+"POT-Creation-Date: 2026-09-01 17:00+0200\n"
 "PO-Revision-Date: 2026-03-09 02:09+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 5.17-dev\n"
 "X-Launchpad-Export-Date: 2009-10-19 13:36+0000\n"
 
-#: src/Bindings.cxx:67 src/Bindings.cxx:75
+#: src/Bindings.cxx:81 src/Bindings.cxx:89
 #, fuzzy, c++-format
 msgid "Key {:?} assigned to {:?} and {:?}"
 msgstr "{:?} 키가 {:?} 및 {:?} 에 지정됨"
@@ -401,7 +401,7 @@ msgstr "잘못된 색상 이름"
 msgid "Incomplete color definition"
 msgstr "불완전한 색상 지정"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:222
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:226
 msgid "Invalid number"
 msgstr "잘못된 숫자"
 
@@ -456,32 +456,32 @@ msgstr "연주목록 편집기"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:240
+#: src/FileBrowserPage.cxx:245
 msgid "Deleting this item is not possible"
 msgstr "이 항목을 지울 수 없습니다"
 
-#: src/FileBrowserPage.cxx:250
+#: src/FileBrowserPage.cxx:255
 #, c++-format
 msgid "Delete playlist {}?"
 msgstr "{} 연주목록을 지울까요?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:269
+#: src/FileBrowserPage.cxx:274
 msgid "Playlist deleted"
 msgstr "연주목록을 지움"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:296 src/FileBrowserPage.cxx:367
+#: src/FileBrowserPage.cxx:301 src/FileBrowserPage.cxx:372
 msgid "Browse"
 msgstr "음원"
 
-#: src/FileListPage.cxx:107
+#: src/FileListPage.cxx:106
 #, c++-format
 msgid "Loading playlist '{}'"
 msgstr "'{}' 연주목록을 읽는 중"
 
-#: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
+#: src/FileListPage.cxx:147 src/FileListPage.cxx:248 src/FileListPage.cxx:268
 #: src/TagListPage.cxx:187
 #, c++-format
 msgid "Adding '{}' to queue"
@@ -581,84 +581,84 @@ msgstr "한 단계 위로 가기"
 msgid "Apply and save changes"
 msgstr "적용하고 변경사항을 저장"
 
-#: src/HelpPage.cxx:233 src/HelpPage.cxx:329
+#: src/HelpPage.cxx:233 src/HelpPage.cxx:331
 msgid "Help"
 msgstr "도움"
 
-#: src/KeyDefPage.cxx:150
+#: src/KeyDefPage.cxx:166
 msgid "Deleted"
 msgstr "삭제됨"
 
-#: src/KeyDefPage.cxx:164
+#: src/KeyDefPage.cxx:177
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "{}의 새 키 입력"
 
-#: src/KeyDefPage.cxx:169
+#: src/KeyDefPage.cxx:182
 msgid "Aborted"
 msgstr "중단됨"
 
-#: src/KeyDefPage.cxx:174
+#: src/KeyDefPage.cxx:187
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-Space 사용할 수 없음"
 
-#: src/KeyDefPage.cxx:180
+#: src/KeyDefPage.cxx:193
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "오류: {} 키는 이미 {}에 사용함"
 
-#: src/KeyDefPage.cxx:190
+#: src/KeyDefPage.cxx:203
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "{} 키가 {}에 지정됨"
 
-#: src/KeyDefPage.cxx:217
+#: src/KeyDefPage.cxx:230 src/KeyDefPage.cxx:247
 msgid "Add new key"
 msgstr "새로운 키 추가"
 
-#: src/KeyDefPage.cxx:235
+#: src/KeyDefPage.cxx:277
 #, c++-format
 msgid "Edit keys for {}"
 msgstr "{} 키 편집"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:426
 msgid "You have new key bindings"
 msgstr "새로운 키 조합입니다"
 
-#: src/KeyDefPage.cxx:373
+#: src/KeyDefPage.cxx:428
 msgid "Keybindings unchanged."
 msgstr "키 조합이 바뀌지 않았습니다."
 
-#: src/KeyDefPage.cxx:383
+#: src/KeyDefPage.cxx:438
 msgid "Unable to write configuration"
 msgstr "설정 쓰기가 안 됨"
 
-#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
+#: src/KeyDefPage.cxx:447 src/KeyDefPage.cxx:456
 msgid "Error"
 msgstr "오류"
 
-#: src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:454
 #, c++-format
 msgid "Wrote {}"
 msgstr "{} 쓰기"
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:466 src/KeyDefPage.cxx:506
 msgid "Apply key bindings"
 msgstr "키 조합을 적용"
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:468 src/KeyDefPage.cxx:512
 msgid "Apply & Save key bindings"
 msgstr "키 조합을 적용하고 저장"
 
-#: src/KeyDefPage.cxx:449
+#: src/KeyDefPage.cxx:541
 msgid "Edit key bindings"
 msgstr "키 조합 편집"
 
-#: src/KeyDefPage.cxx:530
+#: src/KeyDefPage.cxx:622
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "주의: 변경사항 '적용하기'를 잊었나요?"
 
-#: src/KeyDefPage.cxx:580
+#: src/KeyDefPage.cxx:670
 msgid "Keys"
 msgstr "키"
 
@@ -864,7 +864,7 @@ msgstr "새 칸막이 만들기"
 msgid "Add"
 msgstr "추가하기"
 
-#: src/QueuePage.cxx:372 src/QueuePage.cxx:658
+#: src/QueuePage.cxx:372 src/QueuePage.cxx:663
 msgid "Queue"
 msgstr "순서"
 
@@ -873,7 +873,7 @@ msgstr "순서"
 msgid "Queue on {}"
 msgstr "순서 {}"
 
-#: src/QueuePage.cxx:610 src/player_command.cxx:63
+#: src/QueuePage.cxx:615 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr "순서 뒤섞음"
 
@@ -945,26 +945,26 @@ msgstr "파일이름"
 msgid "Artist + Title"
 msgstr "연주가 + 제목"
 
-#: src/SearchPage.cxx:263 src/SearchPage.cxx:267
+#: src/SearchPage.cxx:267 src/SearchPage.cxx:271
 msgid "Unrecognized suffix"
 msgstr "미 인식 서픽스"
 
-#: src/SearchPage.cxx:314
+#: src/SearchPage.cxx:319
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "잘못된 찾기 태그 {}"
 
-#: src/SearchPage.cxx:328
+#: src/SearchPage.cxx:333
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "{} 찾기 태그의 인자가 없음"
 
-#: src/SearchPage.cxx:424 src/SearchPage.cxx:457 src/SearchPage.cxx:460
-#: src/SearchPage.cxx:464 src/SearchPage.cxx:521
+#: src/SearchPage.cxx:421 src/SearchPage.cxx:454 src/SearchPage.cxx:457
+#: src/SearchPage.cxx:461 src/SearchPage.cxx:518
 msgid "Search"
 msgstr "찾기"
 
-#: src/SearchPage.cxx:484
+#: src/SearchPage.cxx:481
 msgid "Search mode"
 msgstr "찾기 방식"
 
@@ -1089,15 +1089,15 @@ msgstr "연주 중:"
 msgid "[Paused]"
 msgstr "[잠깐 멈춤]"
 
-#: src/Styles.cxx:245 src/Styles.cxx:301
+#: src/Styles.cxx:255 src/Styles.cxx:311
 msgid "Unknown color"
 msgstr "모르는 색상"
 
-#: src/Styles.cxx:311
+#: src/Styles.cxx:321
 msgid "Unknown color field"
 msgstr "모르는 색상 필드"
 
-#: src/Styles.cxx:344
+#: src/Styles.cxx:354
 msgid "Terminal lacks color capabilities"
 msgstr "터미널의 색상 기능이 부족합니다"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-27 22:13+0200\n"
+"POT-Creation-Date: 2026-09-01 17:00+0200\n"
 "PO-Revision-Date: 2009-09-24 21:45+0000\n"
 "Last-Translator: Kiszel Kristóf <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2010-09-07 18:28+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: src/Bindings.cxx:67 src/Bindings.cxx:75
+#: src/Bindings.cxx:81 src/Bindings.cxx:89
 #, c++-format
 msgid "Key {:?} assigned to {:?} and {:?}"
 msgstr "A(z) {:?} gomb a követlezőkhoz van rendelve: {:?} és {:?}"
@@ -405,7 +405,7 @@ msgstr "Hibás szín megnevezés"
 msgid "Incomplete color definition"
 msgstr "Hiányos szín megadás"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:222
+#: src/ConfigParser.cxx:363 src/SearchPage.cxx:226
 msgid "Invalid number"
 msgstr "Érvénytelen szám"
 
@@ -462,32 +462,32 @@ msgstr "Lejátszólista törölve"
 #. translators: the "delete" command is only possible
 #. for playlists; the user attempted to delete a song
 #. or a directory or something else
-#: src/FileBrowserPage.cxx:240
+#: src/FileBrowserPage.cxx:245
 msgid "Deleting this item is not possible"
 msgstr "Ez az elem nem törölhető"
 
-#: src/FileBrowserPage.cxx:250
+#: src/FileBrowserPage.cxx:255
 #, c++-format
 msgid "Delete playlist {}?"
 msgstr "Törlöd a {} lejátszólistát?"
 
 #. translators: MPD deleted the playlist, as requested by the
 #. user
-#: src/FileBrowserPage.cxx:269
+#: src/FileBrowserPage.cxx:274
 msgid "Playlist deleted"
 msgstr "Lejátszólista törölve"
 
 #. translators: caption of the browser screen
-#: src/FileBrowserPage.cxx:296 src/FileBrowserPage.cxx:367
+#: src/FileBrowserPage.cxx:301 src/FileBrowserPage.cxx:372
 msgid "Browse"
 msgstr "Tallózás"
 
-#: src/FileListPage.cxx:107
+#: src/FileListPage.cxx:106
 #, fuzzy, c++-format
 msgid "Loading playlist '{}'"
 msgstr "{} lejátszólista betöltése..."
 
-#: src/FileListPage.cxx:148 src/FileListPage.cxx:237 src/FileListPage.cxx:257
+#: src/FileListPage.cxx:147 src/FileListPage.cxx:248 src/FileListPage.cxx:268
 #: src/TagListPage.cxx:187
 #, fuzzy, c++-format
 msgid "Adding '{}' to queue"
@@ -589,85 +589,85 @@ msgstr "Egy szinttel feljebb"
 msgid "Apply and save changes"
 msgstr "Alkalmaz és menti a változásokat"
 
-#: src/HelpPage.cxx:233 src/HelpPage.cxx:329
+#: src/HelpPage.cxx:233 src/HelpPage.cxx:331
 msgid "Help"
 msgstr "Súgó"
 
-#: src/KeyDefPage.cxx:150
+#: src/KeyDefPage.cxx:166
 msgid "Deleted"
 msgstr "Törölve"
 
-#: src/KeyDefPage.cxx:164
+#: src/KeyDefPage.cxx:177
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "Nyomd meg az új gombot a következőhöz: {}"
 
-#: src/KeyDefPage.cxx:169
+#: src/KeyDefPage.cxx:182
 msgid "Aborted"
 msgstr "Megszakítva"
 
-#: src/KeyDefPage.cxx:174
+#: src/KeyDefPage.cxx:187
 msgid "Ctrl-Space can't be used"
 msgstr ""
 
-#: src/KeyDefPage.cxx:180
+#: src/KeyDefPage.cxx:193
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "Hiba: {} gombot már a következő funkció használja: {}"
 
-#: src/KeyDefPage.cxx:190
+#: src/KeyDefPage.cxx:203
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "{} hozzárendelve a következőhöz: {}"
 
-#: src/KeyDefPage.cxx:217
+#: src/KeyDefPage.cxx:230 src/KeyDefPage.cxx:247
 msgid "Add new key"
 msgstr "Új gomb hozzáadása"
 
-#: src/KeyDefPage.cxx:235
+#: src/KeyDefPage.cxx:277
 #, c++-format
 msgid "Edit keys for {}"
 msgstr "Gombok módosítása a következőhöz: {}"
 
-#: src/KeyDefPage.cxx:371
+#: src/KeyDefPage.cxx:426
 msgid "You have new key bindings"
 msgstr "Új billentyű beállításaid vannak"
 
-#: src/KeyDefPage.cxx:373
+#: src/KeyDefPage.cxx:428
 msgid "Keybindings unchanged."
 msgstr "A billentyű beállítások változatlanok."
 
-#: src/KeyDefPage.cxx:383
+#: src/KeyDefPage.cxx:438
 #, fuzzy
 msgid "Unable to write configuration"
 msgstr "Hiányos gyorsbillentyű definíció"
 
-#: src/KeyDefPage.cxx:392 src/KeyDefPage.cxx:401
+#: src/KeyDefPage.cxx:447 src/KeyDefPage.cxx:456
 msgid "Error"
 msgstr "Hiba"
 
-#: src/KeyDefPage.cxx:399
+#: src/KeyDefPage.cxx:454
 #, c++-format
 msgid "Wrote {}"
 msgstr "{} elmentve"
 
-#: src/KeyDefPage.cxx:411
+#: src/KeyDefPage.cxx:466 src/KeyDefPage.cxx:506
 msgid "Apply key bindings"
 msgstr "Billentyű beállítások használata"
 
-#: src/KeyDefPage.cxx:413
+#: src/KeyDefPage.cxx:468 src/KeyDefPage.cxx:512
 msgid "Apply & Save key bindings"
 msgstr "Alkalmaz és Menti a billentyű beállításokat"
 
-#: src/KeyDefPage.cxx:449
+#: src/KeyDefPage.cxx:541
 msgid "Edit key bindings"
 msgstr "Billentyűk változtatása"
 
-#: src/KeyDefPage.cxx:530
+#: src/KeyDefPage.cxx:622
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Észrevétel: nem felejtetted el érvényesíteni a változtatásaidat?"
 
-#: src/KeyDefPage.cxx:580
+#: src/KeyDefPage.cxx:670
 msgid "Keys"
 msgstr ""
 
@@ -879,7 +879,7 @@ msgstr ""
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: src/QueuePage.cxx:372 src/QueuePage.cxx:658
+#: src/QueuePage.cxx:372 src/QueuePage.cxx:663
 msgid "Queue"
 msgstr ""
 
@@ -888,7 +888,7 @@ msgstr ""
 msgid "Queue on {}"
 msgstr ""
 
-#: src/QueuePage.cxx:610 src/player_command.cxx:63
+#: src/QueuePage.cxx:615 src/player_command.cxx:63
 msgid "Shuffled queue"
 msgstr ""
 
@@ -960,26 +960,26 @@ msgstr "Fájlnév"
 msgid "Artist + Title"
 msgstr "Előadó és Cím"
 
-#: src/SearchPage.cxx:263 src/SearchPage.cxx:267
+#: src/SearchPage.cxx:267 src/SearchPage.cxx:271
 msgid "Unrecognized suffix"
 msgstr ""
 
-#: src/SearchPage.cxx:314
+#: src/SearchPage.cxx:319
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "Hibás keresési elem {}"
 
-#: src/SearchPage.cxx:328
+#: src/SearchPage.cxx:333
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "Nincs argumentuma a(z) {} keresési elemnek"
 
-#: src/SearchPage.cxx:424 src/SearchPage.cxx:457 src/SearchPage.cxx:460
-#: src/SearchPage.cxx:464 src/SearchPage.cxx:521
+#: src/SearchPage.cxx:421 src/SearchPage.cxx:454 src/SearchPage.cxx:457
+#: src/SearchPage.cxx:461 src/SearchPage.cxx:518
 msgid "Search"
 msgstr "Keresés"
 
-#: src/SearchPage.cxx:484
+#: src/SearchPage.cxx:481
 msgid "Search mode"
 msgstr "Keresési mód"
 
@@ -1105,17 +1105,17 @@ msgstr "Ami szól:"
 msgid "[Paused]"
 msgstr "[Szüneteltetve]"
 
-#: src/Styles.cxx:245 src/Styles.cxx:301
+#: src/Styles.cxx:255 src/Styles.cxx:311
 #, fuzzy
 msgid "Unknown color"
 msgstr "Ismeretlen parancs"
 
-#: src/Styles.cxx:311
+#: src/Styles.cxx:321
 #, fuzzy
 msgid "Unknown color field"
 msgstr "Figyelem: ismeretlen szín mező - {}\n"
 
-#: src/Styles.cxx:344
+#: src/Styles.cxx:354
 msgid "Terminal lacks color capabilities"
 msgstr "A terminál nem támogatja a színeket"
 
