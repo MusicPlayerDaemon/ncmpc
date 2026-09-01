@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#include "time_format.hxx"
-#include "i18n.h"
+#include "Format.hxx"
 #include "lib/fmt/ToSpan.hxx"
+#include "i18n.h"
 
 #include <stdio.h>
 

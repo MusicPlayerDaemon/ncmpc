@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 17:00+0200\n"
+"POT-Creation-Date: 2026-09-01 17:01+0200\n"
 "PO-Revision-Date: 2024-11-03 05:07+0000\n"
 "Last-Translator: Milan Šalka <salka.milan@googlemail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/ncmpc/"
@@ -1229,27 +1229,27 @@ msgstr "Aktualizácia databáze {} začala"
 msgid "Database update started"
 msgstr "Bola spustená aktualizácia databáze"
 
-#: src/time_format.cxx:31
+#: src/time/Format.cxx:31
 msgid "year"
 msgstr "rok"
 
-#: src/time_format.cxx:33
+#: src/time/Format.cxx:33
 msgid "years"
 msgstr "roky"
 
-#: src/time_format.cxx:44
+#: src/time/Format.cxx:44
 msgid "week"
 msgstr "týždeň"
 
-#: src/time_format.cxx:47
+#: src/time/Format.cxx:47
 msgid "weeks"
 msgstr "týždne"
 
-#: src/time_format.cxx:58
+#: src/time/Format.cxx:58
 msgid "day"
 msgstr "deň"
 
-#: src/time_format.cxx:61
+#: src/time/Format.cxx:61
 msgid "days"
 msgstr "dni"
 

@@ -13,7 +13,6 @@
 #include "Completion.hxx"
 #include "Styles.hxx"
 #include "SongRowPaint.hxx"
-#include "time_format.hxx"
 #include "screen.hxx"
 #include "screen_utils.hxx"
 #include "db_completion.hxx"
@@ -24,6 +23,7 @@
 #include "client/mpdclient.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "event/CoarseTimerEvent.hxx"
+#include "time/Format.hxx"
 
 #ifndef NCMPC_MINI
 #include "hscroll.hxx"

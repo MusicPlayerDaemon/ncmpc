@@ -400,9 +400,9 @@ subdir('src/client')
 subdir('src/ui')
 subdir('src/ui/dialogs')
 subdir('src/page')
+subdir('src/time')
 
 if enable_connections_page
-  subdir('src/time')
   subdir('src/lib/avahi')
   conf.set('HAVE_AVAHI', avahi_dep.found())
 else
@@ -447,11 +447,11 @@ ncmpc = executable('ncmpc',
   'src/charset.cxx',
   'src/Completion.cxx',
   'src/strfsong.cxx',
-  'src/time_format.cxx',
   sources,
   include_directories: inc,
   dependencies: [
     util_dep,
+    time_dep,
     coroutines_dep,
     thread_dep,
     event_dep,

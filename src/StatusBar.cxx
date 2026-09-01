@@ -7,9 +7,9 @@
 #include "i18n.h"
 #include "strfsong.hxx"
 #include "DelayedSeek.hxx"
-#include "time_format.hxx"
 #include "ui/Options.hxx"
 #include "lib/fmt/ToSpan.hxx"
+#include "time/Format.hxx"
 #include "util/LocaleString.hxx"
 
 #include <mpd/client.h>

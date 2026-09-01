@@ -28,4 +28,4 @@ src/player_command.cxx
 src/save_playlist.cxx
 src/screen.cxx
 src/screen_client.cxx
-src/time_format.cxx
+src/time/Format.cxx
