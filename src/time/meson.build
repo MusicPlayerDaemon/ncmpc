@@ -2,6 +2,7 @@ time = static_library(
   'time',
   'Convert.cxx',
   'Format.cxx',
+  'Parser.cxx',
   include_directories: inc,
   dependencies: [
     fmt_dep,

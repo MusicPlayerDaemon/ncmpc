@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 17:01+0200\n"
+"POT-Creation-Date: 2026-09-01 17:02+0200\n"
 "PO-Revision-Date: 2020-12-17 04:29+0000\n"
 "Last-Translator: Takuro Onoue <kusanaginoturugi@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/ncmpc/"
@@ -400,7 +400,7 @@ msgstr ""
 msgid "Incomplete color definition"
 msgstr ""
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:226
+#: src/ConfigParser.cxx:363 src/time/Parser.cxx:56
 msgid "Invalid number"
 msgstr ""
 
@@ -878,94 +878,90 @@ msgstr ""
 msgid "Shuffled queue"
 msgstr ""
 
-#: src/SearchPage.cxx:39
+#: src/SearchPage.cxx:40
 msgid "artist"
 msgstr ""
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:41
 msgid "album"
 msgstr ""
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:42
 msgid "title"
 msgstr ""
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:43
 msgid "track"
 msgstr ""
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:44
 msgid "name"
 msgstr ""
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:45
 msgid "genre"
 msgstr ""
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:46
 msgid "date"
 msgstr ""
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:47
 msgid "composer"
 msgstr ""
 
-#: src/SearchPage.cxx:47
+#: src/SearchPage.cxx:48
 msgid "performer"
 msgstr ""
 
-#: src/SearchPage.cxx:48
+#: src/SearchPage.cxx:49
 msgid "label"
 msgstr ""
 
-#: src/SearchPage.cxx:49
+#: src/SearchPage.cxx:50
 msgid "comment"
 msgstr ""
 
-#: src/SearchPage.cxx:57
+#: src/SearchPage.cxx:58
 msgid "file"
 msgstr ""
 
-#: src/SearchPage.cxx:77 src/SongPage.cxx:51
+#: src/SearchPage.cxx:78 src/SongPage.cxx:51
 msgid "Title"
 msgstr ""
 
-#: src/SearchPage.cxx:78 src/SongPage.cxx:50
+#: src/SearchPage.cxx:79 src/SongPage.cxx:50
 msgid "Artist"
 msgstr ""
 
-#: src/SearchPage.cxx:79 src/SongPage.cxx:52
+#: src/SearchPage.cxx:80 src/SongPage.cxx:52
 msgid "Album"
 msgstr ""
 
-#: src/SearchPage.cxx:80
+#: src/SearchPage.cxx:81
 msgid "Filename"
 msgstr ""
 
-#: src/SearchPage.cxx:81
+#: src/SearchPage.cxx:82
 msgid "Artist + Title"
 msgstr ""
 
-#: src/SearchPage.cxx:267 src/SearchPage.cxx:271
-msgid "Unrecognized suffix"
-msgstr ""
-
-#: src/SearchPage.cxx:319
+#: src/SearchPage.cxx:270
 #, c++-format
 msgid "Bad search tag {}"
 msgstr ""
 
-#: src/SearchPage.cxx:333
+#: src/SearchPage.cxx:284
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr ""
 
-#: src/SearchPage.cxx:421 src/SearchPage.cxx:454 src/SearchPage.cxx:457
-#: src/SearchPage.cxx:461 src/SearchPage.cxx:518
+#: src/SearchPage.cxx:372 src/SearchPage.cxx:405 src/SearchPage.cxx:408
+#: src/SearchPage.cxx:412 src/SearchPage.cxx:469
 msgid "Search"
 msgstr ""
 
-#: src/SearchPage.cxx:481
+#: src/SearchPage.cxx:432
 msgid "Search mode"
 msgstr ""
 
@@ -1248,4 +1244,8 @@ msgstr ""
 
 #: src/time/Format.cxx:61
 msgid "days"
+msgstr ""
+
+#: src/time/Parser.cxx:15 src/time/Parser.cxx:44
+msgid "Unrecognized suffix"
 msgstr ""

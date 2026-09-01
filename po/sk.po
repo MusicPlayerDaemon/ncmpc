@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.11.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 17:01+0200\n"
+"POT-Creation-Date: 2026-09-01 17:02+0200\n"
 "PO-Revision-Date: 2024-11-03 05:07+0000\n"
 "Last-Translator: Milan Šalka <salka.milan@googlemail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/ncmpc/"
@@ -400,7 +400,7 @@ msgstr "Nesprávny názov farby"
 msgid "Incomplete color definition"
 msgstr "Neúplná definícia farby"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:226
+#: src/ConfigParser.cxx:363 src/time/Parser.cxx:56
 msgid "Invalid number"
 msgstr "Neplatné číslo"
 
@@ -881,94 +881,90 @@ msgstr "Poradie na {}"
 msgid "Shuffled queue"
 msgstr "Poradie bolo zamiešané"
 
-#: src/SearchPage.cxx:39
+#: src/SearchPage.cxx:40
 msgid "artist"
 msgstr "interpret"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:41
 msgid "album"
 msgstr "album"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:42
 msgid "title"
 msgstr "názov"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:43
 msgid "track"
 msgstr "stopa"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:44
 msgid "name"
 msgstr "názov"
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:45
 msgid "genre"
 msgstr "žáner"
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:46
 msgid "date"
 msgstr "dátum"
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:47
 msgid "composer"
 msgstr "skladateľ"
 
-#: src/SearchPage.cxx:47
+#: src/SearchPage.cxx:48
 msgid "performer"
 msgstr "umelec"
 
-#: src/SearchPage.cxx:48
+#: src/SearchPage.cxx:49
 msgid "label"
 msgstr "štítok"
 
-#: src/SearchPage.cxx:49
+#: src/SearchPage.cxx:50
 msgid "comment"
 msgstr "komentár"
 
-#: src/SearchPage.cxx:57
+#: src/SearchPage.cxx:58
 msgid "file"
 msgstr "súbor"
 
-#: src/SearchPage.cxx:77 src/SongPage.cxx:51
+#: src/SearchPage.cxx:78 src/SongPage.cxx:51
 msgid "Title"
 msgstr "Názov"
 
-#: src/SearchPage.cxx:78 src/SongPage.cxx:50
+#: src/SearchPage.cxx:79 src/SongPage.cxx:50
 msgid "Artist"
 msgstr "Interpret"
 
-#: src/SearchPage.cxx:79 src/SongPage.cxx:52
+#: src/SearchPage.cxx:80 src/SongPage.cxx:52
 msgid "Album"
 msgstr "Album"
 
-#: src/SearchPage.cxx:80
+#: src/SearchPage.cxx:81
 msgid "Filename"
 msgstr "Názov súboru"
 
-#: src/SearchPage.cxx:81
+#: src/SearchPage.cxx:82
 msgid "Artist + Title"
 msgstr "Interpret + Názov"
 
-#: src/SearchPage.cxx:267 src/SearchPage.cxx:271
-msgid "Unrecognized suffix"
-msgstr "Nerozpoznaná prípona"
-
-#: src/SearchPage.cxx:319
+#: src/SearchPage.cxx:270
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "Zlá značka vyhľadávania {}"
 
-#: src/SearchPage.cxx:333
+#: src/SearchPage.cxx:284
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "Chýba argument pre značku vyhľadávania {}"
 
-#: src/SearchPage.cxx:421 src/SearchPage.cxx:454 src/SearchPage.cxx:457
-#: src/SearchPage.cxx:461 src/SearchPage.cxx:518
+#: src/SearchPage.cxx:372 src/SearchPage.cxx:405 src/SearchPage.cxx:408
+#: src/SearchPage.cxx:412 src/SearchPage.cxx:469
 msgid "Search"
 msgstr "Hľadanie"
 
-#: src/SearchPage.cxx:481
+#: src/SearchPage.cxx:432
 msgid "Search mode"
 msgstr "Režim vyhľadávania"
 
@@ -1252,6 +1248,10 @@ msgstr "deň"
 #: src/time/Format.cxx:61
 msgid "days"
 msgstr "dni"
+
+#: src/time/Parser.cxx:15 src/time/Parser.cxx:44
+msgid "Unrecognized suffix"
+msgstr "Nerozpoznaná prípona"
 
 #~ msgid "All tracks"
 #~ msgstr "Všetky stopy"

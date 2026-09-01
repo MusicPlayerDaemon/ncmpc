@@ -29,3 +29,4 @@ src/save_playlist.cxx
 src/screen.cxx
 src/screen_client.cxx
 src/time/Format.cxx
+src/time/Parser.cxx

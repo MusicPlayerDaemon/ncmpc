@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 17:01+0200\n"
+"POT-Creation-Date: 2026-09-01 17:02+0200\n"
 "PO-Revision-Date: 2026-03-02 06:09+0000\n"
 "Last-Translator: தமிழ்நேரம் <tamilneram247@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -400,7 +400,7 @@ msgstr "மோசமான வண்ண பெயர்"
 msgid "Incomplete color definition"
 msgstr "முழுமையற்ற வண்ண வரையறை"
 
-#: src/ConfigParser.cxx:363 src/SearchPage.cxx:226
+#: src/ConfigParser.cxx:363 src/time/Parser.cxx:56
 msgid "Invalid number"
 msgstr "தவறான எண்"
 
@@ -876,94 +876,90 @@ msgstr "{} இல் வரிசை"
 msgid "Shuffled queue"
 msgstr "மாற்றப்பட்ட வரிசை"
 
-#: src/SearchPage.cxx:39
+#: src/SearchPage.cxx:40
 msgid "artist"
 msgstr "கலைஞர்"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:41
 msgid "album"
 msgstr "தொகுப்பு"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:42
 msgid "title"
 msgstr "தலைப்பு"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:43
 msgid "track"
 msgstr "மின்தடம்"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:44
 msgid "name"
 msgstr "பெயர்"
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:45
 msgid "genre"
 msgstr "வகை"
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:46
 msgid "date"
 msgstr "திகதி"
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:47
 msgid "composer"
 msgstr "இசையமைப்பாளர்"
 
-#: src/SearchPage.cxx:47
+#: src/SearchPage.cxx:48
 msgid "performer"
 msgstr "நடிகர்"
 
-#: src/SearchPage.cxx:48
+#: src/SearchPage.cxx:49
 msgid "label"
 msgstr "சிட்டை"
 
-#: src/SearchPage.cxx:49
+#: src/SearchPage.cxx:50
 msgid "comment"
 msgstr "கருத்து"
 
-#: src/SearchPage.cxx:57
+#: src/SearchPage.cxx:58
 msgid "file"
 msgstr "கோப்பு"
 
-#: src/SearchPage.cxx:77 src/SongPage.cxx:51
+#: src/SearchPage.cxx:78 src/SongPage.cxx:51
 msgid "Title"
 msgstr "தலைப்பு"
 
-#: src/SearchPage.cxx:78 src/SongPage.cxx:50
+#: src/SearchPage.cxx:79 src/SongPage.cxx:50
 msgid "Artist"
 msgstr "கலைஞர்"
 
-#: src/SearchPage.cxx:79 src/SongPage.cxx:52
+#: src/SearchPage.cxx:80 src/SongPage.cxx:52
 msgid "Album"
 msgstr "தொகுப்பு"
 
-#: src/SearchPage.cxx:80
+#: src/SearchPage.cxx:81
 msgid "Filename"
 msgstr "கோப்புப்பெயர்"
 
-#: src/SearchPage.cxx:81
+#: src/SearchPage.cxx:82
 msgid "Artist + Title"
 msgstr "கலைஞர் + தலைப்பு"
 
-#: src/SearchPage.cxx:267 src/SearchPage.cxx:271
-msgid "Unrecognized suffix"
-msgstr "அங்கீகரிக்கப்படாத பின்னொட்டு"
-
-#: src/SearchPage.cxx:319
+#: src/SearchPage.cxx:270
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "மோசமான தேடல் குறிச்சொல் {}"
 
-#: src/SearchPage.cxx:333
+#: src/SearchPage.cxx:284
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "தேடல் குறிச்சொல்லுக்கு எந்த வாதமும் இல்லை {}"
 
-#: src/SearchPage.cxx:421 src/SearchPage.cxx:454 src/SearchPage.cxx:457
-#: src/SearchPage.cxx:461 src/SearchPage.cxx:518
+#: src/SearchPage.cxx:372 src/SearchPage.cxx:405 src/SearchPage.cxx:408
+#: src/SearchPage.cxx:412 src/SearchPage.cxx:469
 msgid "Search"
 msgstr "தேடல்"
 
-#: src/SearchPage.cxx:481
+#: src/SearchPage.cxx:432
 msgid "Search mode"
 msgstr "தேடல் பயன்முறை"
 
@@ -1247,6 +1243,10 @@ msgstr "நாள்"
 #: src/time/Format.cxx:61
 msgid "days"
 msgstr "நாட்கள்"
+
+#: src/time/Parser.cxx:15 src/time/Parser.cxx:44
+msgid "Unrecognized suffix"
+msgstr "அங்கீகரிக்கப்படாத பின்னொட்டு"
 
 #~ msgid "All tracks"
 #~ msgstr "அனைத்து தடங்களும்"
