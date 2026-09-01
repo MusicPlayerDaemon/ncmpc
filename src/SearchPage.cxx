@@ -16,7 +16,7 @@
 #include "lib/fmt/ToSpan.hxx"
 #include "client/mpdclient.hxx"
 #include "time/Parser.hxx"
-#include "util/StringAPI.hxx"
+#include "util/StringCompare.hxx"
 
 #include <fmt/format.h>
 
@@ -51,14 +51,14 @@ static constexpr struct {
 	{ MPD_TAG_COUNT, nullptr, nullptr }
 };
 
-static int
-search_get_tag_id(const char *name)
+static constexpr int
+search_get_tag_id(std::string_view name) noexcept
 {
-	if (StringIsEqualIgnoreCase(name, "file") ||
+	if (StringIsEqualIgnoreCase(name, "file"sv) ||
 	    StringIsEqualIgnoreCase(name, _("file")))
 		return SEARCH_URI;
 
-	if (StringIsEqualIgnoreCase(name, "modified"))
+	if (StringIsEqualIgnoreCase(name, "modified"sv))
 		return SEARCH_MODIFIED;
 
 	for (unsigned i = 0; search_tag[i].name != nullptr; ++i)
