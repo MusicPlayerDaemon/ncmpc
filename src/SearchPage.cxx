@@ -63,7 +63,7 @@ search_get_tag_id(const char *name)
 
 	for (unsigned i = 0; search_tag[i].name != nullptr; ++i)
 		if (StringIsEqualIgnoreCase(search_tag[i].name, name) ||
-		    StringIsEqualIgnoreCase(search_tag[i].localname, name))
+		    StringIsEqualIgnoreCase(my_gettext(search_tag[i].localname), name))
 			return search_tag[i].tag_type;
 
 	return -1;
