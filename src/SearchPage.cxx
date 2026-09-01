@@ -15,6 +15,7 @@
 #include "ui/TextListRenderer.hxx"
 #include "lib/fmt/ToSpan.hxx"
 #include "client/mpdclient.hxx"
+#include "util/NumberParser.hxx" // for FromChars()
 #include "util/StringAPI.hxx"
 
 #include <fmt/format.h>
@@ -218,12 +219,10 @@ search_simple_query(struct mpd_connection *connection, bool exact_match,
  * Throws on error.
  */
 static time_t
-ParseModifiedSince(const char *s)
+ParseTimeUnit(std::string_view s)
 {
-	char *endptr;
-	time_t value = strtoul(s, &endptr, 10);
-	if (endptr == s)
-		throw _("Invalid number");
+	if (s.size() != 1)
+		throw _("Unrecognized suffix");
 
 	constexpr time_t MINUTE = 60;
 	constexpr time_t HOUR = 60 * MINUTE;
@@ -231,44 +230,45 @@ ParseModifiedSince(const char *s)
 	constexpr time_t MONTH = 30 * DAY; // TODO: inaccurate
 	constexpr time_t YEAR = 365 * DAY; // TODO: inaccurate
 
-	s = endptr;
-	switch (*s) {
+	switch (s.front()) {
 	case 's':
-		++s;
-		break;
+		return 1;
 
 	case 'M':
-		++s;
-		value *= MINUTE;
-		break;
+		return MINUTE;
 
 	case 'h':
-		++s;
-		value *= HOUR;
-		break;
+		return HOUR;
 
 	case 'd':
-		++s;
-		value *= DAY;
-		break;
+		return DAY;
 
 	case 'm':
-		++s;
-		value *= MONTH;
-		break;
+		return MONTH;
 
 	case 'y':
 	case 'Y':
-		++s;
-		value *= YEAR;
-		break;
+		return YEAR;
 
 	default:
 		throw _("Unrecognized suffix");
 	}
+}
 
-	if (*s != '\0')
-		throw _("Unrecognized suffix");
+/**
+ * Throws on error.
+ */
+static time_t
+ParseModifiedSince(std::string_view s)
+{
+	time_t value;
+	if (const auto result = FromChars(s, value); result.ec != std::errc{})
+		throw _("Invalid number");
+	else
+		s = {result.ptr, s.end()};
+
+	if (!s.empty())
+		value *= ParseTimeUnit(s);
 
 	return time(nullptr) - value;
 }
