@@ -11,7 +11,7 @@ IsIncompleteCharMB(std::string_view s) noexcept
 {
 	std::mbstate_t mb{};
 	const std::size_t length = std::mbrlen(s.data(), s.size(), &mb);
-	return length == std::size_t(-2);
+	return length == static_cast<std::size_t>(-2);
 }
 
 std::size_t
@@ -25,10 +25,10 @@ StringLengthMB(std::string_view _s) noexcept
 	while (s < end) {
 		wchar_t w;
 		std::size_t n = std::mbrtowc(&w, s, end - s, &state);
-		if (n == std::size_t(-2))
+		if (n == static_cast<std::size_t>(-2))
 			break;
 
-		if (n == std::size_t(-1) || n == 0) {
+		if (n == static_cast<std::size_t>(-1) || n == 0) {
 			++s;
 		} else {
 			s += n;
@@ -45,10 +45,10 @@ CharSizeMB(std::string_view s) noexcept
 {
 	std::mbstate_t mb{};
 	const std::size_t length = std::mbrlen(s.data(), s.size(), &mb);
-	if (length == std::size_t(-2))
+	if (length == static_cast<std::size_t>(-2))
 		return s.size();
 
-	if (length == std::size_t(-1))
+	if (length == static_cast<std::size_t>(-1))
 		return 1;
 
 	return length;
@@ -64,7 +64,7 @@ PrevCharMB(const char *start, const char *reference) noexcept
 
 		std::mbstate_t mb{};
 		const std::size_t length = std::mbrlen(p, reference - p, &mb);
-		if (length != std::size_t(-1))
+		if (length != static_cast<std::size_t>(-1))
 			break;
 	}
 
@@ -82,14 +82,14 @@ AtCharMB(std::string_view _s, size_t i) noexcept
 		wchar_t w;
 		std::size_t n = std::mbrtowc(&w, s, end - s, &state);
 
-		if (n == std::size_t(-2)) {
+		if (n == static_cast<std::size_t>(-2)) {
 			s += std::strlen(s);
 			break;
 		}
 
 		--i;
 
-		if (n == std::size_t(-1) || n == 0)
+		if (n == static_cast<std::size_t>(-1) || n == 0)
 			++s;
 		else
 			s += n;
@@ -109,10 +109,10 @@ StringWidthMB(std::string_view _s) noexcept
 	while (s < end) {
 		wchar_t w;
 		std::size_t n = std::mbrtowc(&w, s, end - s, &state);
-		if (n == std::size_t(-2))
+		if (n == static_cast<std::size_t>(-2))
 			break;
 
-		if (n == std::size_t(-1) || n == 0) {
+		if (n == static_cast<std::size_t>(-1) || n == 0) {
 			++s;
 		} else {
 			s += n;
@@ -135,10 +135,10 @@ AtWidthMB(std::string_view _s, size_t width) noexcept
 	while (width > 0 && s < end) {
 		wchar_t w;
 		std::size_t n = std::mbrtowc(&w, s, end - s, &state);
-		if (n == std::size_t(-2))
+		if (n == static_cast<std::size_t>(-2))
 			break;
 
-		if (n == std::size_t(-1) || n == 0) {
+		if (n == static_cast<std::size_t>(-1) || n == 0) {
 			--width;
 			++s;
 		} else {
