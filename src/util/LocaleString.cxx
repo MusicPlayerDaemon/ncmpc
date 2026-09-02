@@ -9,7 +9,7 @@
 bool
 IsIncompleteCharMB(std::string_view s) noexcept
 {
-	auto mb = std::mbstate_t();
+	std::mbstate_t mb{};
 	const std::size_t length = std::mbrlen(s.data(), s.size(), &mb);
 	return length == std::size_t(-2);
 }
@@ -19,7 +19,7 @@ StringLengthMB(std::string_view _s) noexcept
 {
 	const char *s = _s.data();
 	const char *const end = s + _s.size();
-	auto state = std::mbstate_t();
+	std::mbstate_t state{};
 
 	size_t length = 0;
 	while (s < end) {
@@ -43,7 +43,7 @@ StringLengthMB(std::string_view _s) noexcept
 std::size_t
 CharSizeMB(std::string_view s) noexcept
 {
-	auto mb = std::mbstate_t();
+	std::mbstate_t mb{};
 	const std::size_t length = std::mbrlen(s.data(), s.size(), &mb);
 	if (length == std::size_t(-2))
 		return s.size();
@@ -62,7 +62,7 @@ PrevCharMB(const char *start, const char *reference) noexcept
 	while (p > start) {
 		--p;
 
-		auto mb = std::mbstate_t();
+		std::mbstate_t mb{};
 		const std::size_t length = std::mbrlen(p, reference - p, &mb);
 		if (length != std::size_t(-1))
 			break;
@@ -76,7 +76,7 @@ AtCharMB(std::string_view _s, size_t i) noexcept
 {
 	const char *s = _s.data();
 	const char *const end = s + _s.size();
-	auto state = std::mbstate_t();
+	std::mbstate_t state{};
 
 	while (i > 0) {
 		wchar_t w;
@@ -103,7 +103,7 @@ StringWidthMB(std::string_view _s) noexcept
 {
 	const char *s = _s.data();
 	const char *const end = s + _s.size();
-	auto state = std::mbstate_t();
+	std::mbstate_t state{};
 
 	size_t width = 0;
 	while (s < end) {
@@ -130,7 +130,7 @@ AtWidthMB(std::string_view _s, size_t width) noexcept
 {
 	const char *s = _s.data();
 	const char *const end = s + _s.size();
-	auto state = std::mbstate_t();
+	std::mbstate_t state{};
 
 	while (width > 0 && s < end) {
 		wchar_t w;
