@@ -29,3 +29,10 @@ IsBackspace(int key) noexcept
 	       key == KEY_BACKSPACE2 ||
 	       key == KEY_BACKSPACE3;
 }
+
+/**
+ * One-time global initialization of this library.  This may define
+ * key mappings or determine key codes at runtime.
+ */
+void
+InitKeys() noexcept;

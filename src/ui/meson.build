@@ -1,6 +1,7 @@
 ui = static_library(
   'ui',
   'Bell.cxx',
+  'Keys.cxx',
   'ListCursor.cxx',
   'ListWindow.cxx',
   'TextListRenderer.cxx',
