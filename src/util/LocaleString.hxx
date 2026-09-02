@@ -34,17 +34,20 @@ CharSizeMB(std::string_view s) noexcept;
 /**
  * Determine the start of the character preceding the given reference.
  *
- * @param s the start of the string
+ * @param start the start of the string
  */
 [[gnu::pure]]
 const char *
 PrevCharMB(const char *start, const char *reference) noexcept;
 
 /**
- * Find the `i`th character of the given string.  Returns the end of
- * the string if the string is shorter than `i` characters.
+ * Find the #i'th character of the given string.
  *
- * @param s the start of the string
+ * @param s the string
+ * @param i the character number
+ *
+ * @return a pointer to the first byte of the character (or the end of
+ * the string if the string is shorter than #i characters)
  */
 [[gnu::pure]]
 const char *
@@ -68,7 +71,7 @@ StringWidthMB(std::string_view s) noexcept;
 /**
  * Find the first character which doesn't fully fit into the given width.
  *
- * @param s the start of the string
+ * @param s the string
  */
 [[gnu::pure]]
 const char *
