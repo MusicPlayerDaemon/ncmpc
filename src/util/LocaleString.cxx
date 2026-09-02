@@ -3,9 +3,8 @@
 
 #include "LocaleString.hxx"
 
+#include <cstring>
 #include <cwchar>
-
-#include <string.h>
 
 bool
 IsIncompleteCharMB(std::string_view s) noexcept
@@ -84,7 +83,7 @@ AtCharMB(std::string_view _s, size_t i) noexcept
 		std::size_t n = std::mbrtowc(&w, s, end - s, &state);
 
 		if (n == std::size_t(-2)) {
-			s += strlen(s);
+			s += std::strlen(s);
 			break;
 		}
 
