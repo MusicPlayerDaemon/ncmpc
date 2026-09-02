@@ -156,7 +156,7 @@ FileListPage::EnqueueAndPlay(struct mpdclient &c, FileListEntry &entry) noexcept
 	return true;
 }
 
-inline FileListEntry *
+FileListEntry *
 FileListPage::GetSelectedEntry() noexcept
 {
 	const auto range = lw.GetRange();
@@ -169,7 +169,7 @@ FileListPage::GetSelectedEntry() noexcept
 	return &filelist[range.start_index];
 }
 
-inline const FileListEntry *
+const FileListEntry *
 FileListPage::GetSelectedEntry() const noexcept
 {
 	const auto range = lw.GetRange();
