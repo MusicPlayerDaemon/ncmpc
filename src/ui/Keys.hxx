@@ -16,6 +16,16 @@ enum : int {
 	KEY_BACKSPACE3 = 0x7f,
 };
 
+#ifdef NCURSES_VERSION
+
+/**
+ * These key codes are determined at runtime by InitKeys() using
+ * the terminfo database.  May be 0 if unknown/unsupported.
+ */
+extern int key_control_up, key_control_down, key_control_left, key_control_right;
+
+#endif // NCURSES_VERSION
+
 constexpr bool
 IsFKey(int key) noexcept
 {
