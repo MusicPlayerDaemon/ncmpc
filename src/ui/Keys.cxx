@@ -10,6 +10,11 @@
 #ifdef NCURSES_VERSION
 int key_control_up, key_control_down, key_control_left, key_control_right;
 
+#ifdef __APPLE__
+/* wtf, Apple ships a broken ncurses on macOS (NCURSES_CONST is empty) */
+#pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
+#endif
+
 /**
  * Wrapper for key_defined(tigetstr()).
  */
