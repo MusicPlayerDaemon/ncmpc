@@ -9,6 +9,7 @@
 
 #ifdef NCURSES_VERSION
 int key_control_up, key_control_down, key_control_left, key_control_right;
+int key_control_delete;
 
 /**
  * Wrapper for key_defined(tigetstr()).
@@ -53,6 +54,7 @@ InitKeys() noexcept
 	key_control_down = GetKeyCode("kDN5");
 	key_control_left = GetKeyCode("kLFT5");
 	key_control_right = GetKeyCode("kRIT5");
+	key_control_delete = GetKeyCode("kDC5");
 
 #endif // NCURSES_VERSION
 }

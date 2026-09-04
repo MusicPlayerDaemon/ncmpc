@@ -333,6 +333,17 @@ TextInputDialog::OnKey(const Window window, int key)
 		return true;
 	}
 
+	if (key_control_delete && key == key_control_delete) {
+		const std::string_view v = ValueAfterCursor();
+		const char *p = NextWordMB(v);
+		if (p > v.data()) {
+			value.erase(cursor, p - v.data());
+			InvokeModifiedCallback();
+		}
+
+		return true;
+	}
+
 	switch (key) {
 	case KEY_TAB:
 #ifndef NCMPC_MINI

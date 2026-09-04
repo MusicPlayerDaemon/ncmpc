@@ -23,6 +23,7 @@ enum : int {
  * the terminfo database.  May be 0 if unknown/unsupported.
  */
 extern int key_control_up, key_control_down, key_control_left, key_control_right;
+extern int key_control_delete;
 
 #endif // NCURSES_VERSION
 
