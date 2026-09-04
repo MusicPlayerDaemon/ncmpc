@@ -156,7 +156,7 @@ TextInputDialog::MoveCursorRight() noexcept
 	if (cursor == value.length())
 		return;
 
-	size_t size = CharSizeMB(value.substr(cursor));
+	size_t size = CharSizeMB(std::string_view{value}.substr(cursor));
 	cursor += size;
 	if (GetCursorColumn() >= width)
 		start = right_align_bytes(value.c_str(), cursor, width);
@@ -223,7 +223,7 @@ TextInputDialog::DeleteChar(size_t x) noexcept
 {
 	assert(x < value.length());
 
-	size_t length = CharSizeMB(value.substr(x));
+	size_t length = CharSizeMB(std::string_view{value}.substr(x));
 	value.erase(x, length);
 
 	InvokeModifiedCallback();
@@ -471,7 +471,7 @@ TextInputDialog::Paint(const Window window) const noexcept
 
 	/* print visible part of the line buffer */
 	if (masked) {
-		const unsigned value_width = StringWidthMB(value.substr(start));
+		const unsigned value_width = StringWidthMB(std::string_view{value}.substr(start));
 		window.HLine(value_width, '*');
 		window.MoveCursor(point + Size{value_width, 0});
 	} else {
