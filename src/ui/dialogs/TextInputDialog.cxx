@@ -397,17 +397,10 @@ TextInputDialog::OnKey(const Window window, int key)
 		InvokeModifiedCallback();
 		break;
 	case KEY_CTL('W'):
-		/* Firstly remove trailing spaces. */
-		for (; cursor > 0 && value[cursor - 1] == ' ';)
-		{
-			MoveCursorLeft();
-			DeleteChar();
-		}
-		/* Then remove word until next space. */
-		for (; cursor > 0 && value[cursor - 1] != ' ';)
-		{
-			MoveCursorLeft();
-			DeleteChar();
+		if (const std::size_t old_cursor = cursor;
+		    MoveCursorWordLeft(), cursor < old_cursor) {
+			value.erase(cursor, old_cursor - cursor);
+			InvokeModifiedCallback();
 		}
 		break;
 	case KEY_DC:		/* handle delete key. As above */
