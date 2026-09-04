@@ -151,6 +151,20 @@ right_align_bytes(const char *data, size_t right, unsigned width) noexcept
 }
 
 inline void
+TextInputDialog::CursorMovedRight() noexcept
+{
+	if (GetCursorColumn() >= width)
+		start = right_align_bytes(value.c_str(), cursor, width);
+}
+
+inline void
+TextInputDialog::CursorMovedLeft() noexcept
+{
+	if (cursor < start)
+		start = cursor;
+}
+
+inline void
 TextInputDialog::MoveCursorRight() noexcept
 {
 	if (cursor == value.length())
@@ -158,8 +172,7 @@ TextInputDialog::MoveCursorRight() noexcept
 
 	size_t size = CharSizeMB(std::string_view{value}.substr(cursor));
 	cursor += size;
-	if (GetCursorColumn() >= width)
-		start = right_align_bytes(value.c_str(), cursor, width);
+	CursorMovedRight();
 }
 
 inline void
@@ -167,17 +180,14 @@ TextInputDialog::MoveCursorLeft() noexcept
 {
 	const char *new_cursor = LastCharMB(std::string_view{value}.substr(0, cursor));
 	cursor = new_cursor - value.data();
-	if (cursor < start)
-		start = cursor;
+	CursorMovedLeft();
 }
 
 inline void
 TextInputDialog::MoveCursorToEnd() noexcept
 {
 	cursor = value.length();
-	if (GetCursorColumn() >= width)
-		start = right_align_bytes(value.c_str(),
-					      cursor, width);
+	CursorMovedRight();
 }
 
 inline void
@@ -211,8 +221,7 @@ TextInputDialog::InsertByte([[maybe_unused]] const Window window, int key) noexc
 #endif
 
 	cursor += length;
-	if (GetCursorColumn() >= width)
-		start = right_align_bytes(value.c_str(), cursor, width);
+	CursorMovedRight();
 
 	InvokeModifiedCallback();
 }

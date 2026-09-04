@@ -135,6 +135,18 @@ private:
 	[[gnu::pure]]
 	unsigned GetCursorColumn() const noexcept;
 
+	/**
+	 * The cursor was moved (an arbitrary amount) to the right.
+	 * This method adjusts the scroll position.
+	 */
+	void CursorMovedRight() noexcept;
+
+	/**
+	 * The cursor was moved (an arbitrary amount) to the left.
+	 * This method adjusts the scroll position.
+	 */
+	void CursorMovedLeft() noexcept;
+
 	/** move the cursor one step to the right */
 	void MoveCursorRight() noexcept;
 
