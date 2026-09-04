@@ -55,15 +55,16 @@ CharSizeMB(std::string_view s) noexcept
 }
 
 const char *
-PrevCharMB(const char *start, const char *reference) noexcept
+LastCharMB(std::string_view s) noexcept
 {
-	const char *p = reference;
+	const char *const end = s.data() + s.size();
+	const char *p = s.data() + s.size();
 
-	while (p > start) {
+	while (p > s.data()) {
 		--p;
 
 		std::mbstate_t mb{};
-		const std::size_t length = std::mbrlen(p, reference - p, &mb);
+		const std::size_t length = std::mbrlen(p, end - p, &mb);
 		if (length != static_cast<std::size_t>(-1))
 			break;
 	}

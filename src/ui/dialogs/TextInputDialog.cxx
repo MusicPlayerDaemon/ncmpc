@@ -165,9 +165,8 @@ TextInputDialog::MoveCursorRight() noexcept
 inline void
 TextInputDialog::MoveCursorLeft() noexcept
 {
-	const char *v = value.c_str();
-	const char *new_cursor = PrevCharMB(v, v + cursor);
-	cursor = new_cursor - v;
+	const char *new_cursor = LastCharMB(std::string_view{value}.substr(0, cursor));
+	cursor = new_cursor - value.data();
 	if (cursor < start)
 		start = cursor;
 }

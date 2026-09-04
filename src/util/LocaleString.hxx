@@ -32,13 +32,12 @@ std::size_t
 CharSizeMB(std::string_view s) noexcept;
 
 /**
- * Determine the start of the character preceding the given reference.
- *
- * @param start the start of the string
+ * Find the start of the last multi-byte character in the given
+ * string.
  */
 [[gnu::pure]]
 const char *
-PrevCharMB(const char *start, const char *reference) noexcept;
+LastCharMB(std::string_view s) noexcept;
 
 /**
  * Find the #i'th character of the given string.
