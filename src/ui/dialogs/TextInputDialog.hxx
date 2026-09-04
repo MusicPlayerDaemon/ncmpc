@@ -128,6 +128,14 @@ private:
 		return std::move(value);
 	}
 
+	std::string_view ValueBeforeCursor() const noexcept {
+		return std::string_view{value}.substr(0, cursor);
+	}
+
+	std::string_view ValueAfterCursor() const noexcept {
+		return std::string_view{value}.substr(cursor);
+	}
+
 	void CommitHistory() noexcept;
 	void SetReady() noexcept;
 

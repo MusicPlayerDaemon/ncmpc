@@ -170,7 +170,7 @@ TextInputDialog::MoveCursorRight() noexcept
 	if (cursor == value.length())
 		return;
 
-	size_t size = CharSizeMB(std::string_view{value}.substr(cursor));
+	size_t size = CharSizeMB(ValueAfterCursor());
 	cursor += size;
 	CursorMovedRight();
 }
@@ -178,7 +178,7 @@ TextInputDialog::MoveCursorRight() noexcept
 inline void
 TextInputDialog::MoveCursorLeft() noexcept
 {
-	const char *new_cursor = LastCharMB(std::string_view{value}.substr(0, cursor));
+	const char *new_cursor = LastCharMB(ValueBeforeCursor());
 	cursor = new_cursor - value.data();
 	CursorMovedLeft();
 }
