@@ -11,7 +11,7 @@
 template<std::derived_from<FormRow>... Rows>
 [[gnu::pure]]
 unsigned
-MaxLabelWidth(Rows... rows) noexcept
+MaxLabelWidth(const Rows&... rows) noexcept
 {
 	unsigned max_width = 0;
 	((max_width = std::max(max_width, rows.GetLabelWidth())), ...);
@@ -20,7 +20,7 @@ MaxLabelWidth(Rows... rows) noexcept
 
 template<class... R>
 void
-AdjustLabelWidths(R... rows) noexcept
+AdjustLabelWidths(R&... rows) noexcept
 {
 	const unsigned label_width = MaxLabelWidth(rows...);
 	(rows.SetLabelWidth(label_width), ...);
