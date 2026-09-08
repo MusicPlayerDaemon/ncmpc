@@ -62,12 +62,20 @@ if enable_nls
 endif
 
 conf.set('HAVE_LOCALE_T', enable_locale and cc.has_header_symbol('locale.h', 'locale_t'))
-iconv_dep = dependency('', required: false)
-if enable_locale
-  iconv_dep = dependency('iconv', required: get_option('charset'))
-  iconv_found = iconv_dep.found()
+
+charset_opt = get_option('charset')
+if not enable_locale or charset_opt.disabled()
+    has_charset = false
+else
+    has_c8rtomb = compiler.has_function('c8rtomb', prefix: '#include <cuchar>')
+    has_mbrtoc8 = compiler.has_function('mbrtoc8', prefix: '#include <cuchar>')
+    has_charset = has_c8rtomb and has_mbrtoc8
+
+    if charset_opt.enabled() and not has_charset
+        error('Character set support requested but not available')
+    endif
 endif
-conf.set('HAVE_ICONV', enable_locale and iconv_found)
+conf.set('ENABLE_CHARSET', has_charset)
 
 async_connect = get_option('async_connect')
 conf.set('ENABLE_ASYNC_CONNECT', async_connect)
@@ -458,7 +466,6 @@ ncmpc = executable('ncmpc',
     event_dep,
     pcre_dep,
     intl_dep,
-    iconv_dep,
     m_dep,
     curses_dep,
     lirc_dep,

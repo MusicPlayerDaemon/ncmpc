@@ -9,11 +9,12 @@
 #include <string>
 #include <string_view>
 
-#ifdef HAVE_ICONV
+#ifdef ENABLE_LOCALE
 
 void
 charset_init() noexcept;
-#endif
+
+#endif // ENABLE_LOCALE
 
 [[nodiscard]]
 char *
@@ -29,14 +30,14 @@ utf8_to_locale(std::string_view src, std::span<char> buffer) noexcept;
  * necessary, then this class is a no-op.
  */
 class Utf8ToLocale {
-#ifdef HAVE_ICONV
+#ifdef ENABLE_CHARSET
 	std::string value;
 #else
 	const std::string_view value;
 #endif
 
 public:
-#ifdef HAVE_ICONV
+#ifdef ENABLE_CHARSET
 	[[nodiscard]]
 	explicit Utf8ToLocale(const std::string_view src) noexcept;
 
@@ -53,7 +54,7 @@ public:
 			return value;
 	}
 
-#ifdef HAVE_ICONV
+#ifdef ENABLE_CHARSET
 	[[nodiscard]] [[gnu::pure]]
 	const char *c_str() const noexcept {
 		return value.c_str();
@@ -75,14 +76,14 @@ public:
  * necessary, then this class is a no-op.
  */
 class LocaleToUtf8 {
-#ifdef HAVE_ICONV
+#ifdef ENABLE_CHARSET
 	std::string value;
 #else
 	const std::string_view value;
 #endif
 
 public:
-#ifdef HAVE_ICONV
+#ifdef ENABLE_CHARSET
 	[[nodiscard]]
 	explicit LocaleToUtf8(const std::string_view src) noexcept;
 
@@ -99,7 +100,7 @@ public:
 			return value;
 	}
 
-#ifdef HAVE_ICONV
+#ifdef ENABLE_CHARSET
 	[[nodiscard]] [[gnu::pure]]
 	const char *c_str() const noexcept {
 		return value.c_str();
@@ -115,7 +116,7 @@ public:
 #endif
 };
 
-#ifdef HAVE_ICONV
+#ifdef ENABLE_CHARSET
 
 using LocaleToUtf8Z = LocaleToUtf8;
 
@@ -142,4 +143,4 @@ public:
 	}
 };
 
-#endif // !HAVE_ICONV
+#endif // !ENABLE_CHARSET

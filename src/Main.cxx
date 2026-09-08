@@ -261,10 +261,8 @@ try {
 	setlocale(LC_COLLATE,"");
 	/* charset */
 	setlocale(LC_CTYPE,"");
-#ifdef HAVE_ICONV
 	/* initialize charset conversions */
 	charset_init();
-#endif
 
 	[[maybe_unused]] const ScopeInitUTF8 init_utf8;
 

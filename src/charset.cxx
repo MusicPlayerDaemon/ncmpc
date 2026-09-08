@@ -9,20 +9,26 @@
 
 #include <assert.h>
 
-#ifdef HAVE_ICONV
-#include <langinfo.h>
-#include <iconv.h>
-#include <errno.h>
+#ifdef ENABLE_CHARSET
+#include <cuchar>
+
+/**
+ * Replacement definition for MB_CUR_MAX which is not a constant
+ * expression; 8 is generous, because 4 is the practical limit
+ */
+static constexpr std::size_t MAX_MB_SIZE = 8;
+
 #endif
 
-#ifdef HAVE_ICONV
+#ifdef ENABLE_LOCALE
+#include <langinfo.h>
+
 static bool noconvert = true;
-static const char *charset;
 
 void
 charset_init() noexcept
 {
-	charset = nl_langinfo(CODESET);
+	const char *charset = nl_langinfo(CODESET);
 	noconvert = charset == nullptr || StringIsEqualIgnoreCase(charset, "utf-8");
 }
 #endif
@@ -37,144 +43,7 @@ CopyTruncateString(std::span<char> dest, const std::string_view src) noexcept
 	return p;
 }
 
-#ifdef HAVE_ICONV
-
-static char *
-Iconv(iconv_t i,
-      std::span<char> _dest,
-      const std::string_view _src) noexcept
-{
-	static constexpr char FALLBACK = '?';
-
-	char *dest = _dest.data();
-	std::size_t dest_size = _dest.size();
-	--dest_size; /* reserve once byte for the null terminator */
-
-	char *src = const_cast<char *>(_src.data());
-	std::size_t src_length = _src.size();
-
-	while (src_length > 0) {
-		size_t err = iconv(i,
-				   &src, &src_length,
-				   &dest, &dest_size);
-		if (err == (size_t)-1) {
-			switch (errno) {
-			case EILSEQ:
-				/* invalid sequence: use fallback
-				   character instead */
-				++src;
-				--src_length;
-
-				if (dest_size > 0) {
-					*dest++ = FALLBACK;
-					--dest_size;
-				}
-
-				break;
-
-			case EINVAL:
-				/* incomplete sequence: add fallback
-				   character and stop */
-				if (dest_size > 0)
-					*dest++ = FALLBACK;
-				*dest = '\0';
-				return dest;
-
-			case E2BIG:
-				/* output buffer is full: stop here */
-				*dest = '\0';
-				return dest;
-
-			default:
-				/* unknown error: stop here */
-				*dest = '\0';
-				return dest;
-			}
-		}
-	}
-
-	*dest = '\0';
-	return dest;
-}
-
-static char *
-Iconv(const char *tocode, const char *fromcode,
-      std::span<char> dest,
-      const std::string_view src) noexcept
-{
-	const auto i = iconv_open(tocode, fromcode);
-	if (i == (iconv_t)-1) {
-		CopyTruncateString(dest, src);
-		return dest.data();
-	}
-
-	AtScopeExit(i) { iconv_close(i); };
-
-	return Iconv(i, dest, src);
-}
-
-[[gnu::pure]]
-static std::string
-Iconv(iconv_t i, const std::string_view _src) noexcept
-{
-	static constexpr char FALLBACK = '?';
-
-	std::string dest;
-
-	char *src = const_cast<char *>(_src.data());
-	std::size_t src_length = _src.size();
-
-	while (src_length > 0) {
-		char buffer[1024], *outbuf = buffer;
-		size_t outbytesleft = sizeof(buffer);
-
-		size_t err = iconv(i,
-				   &src, &src_length,
-				   &outbuf, &outbytesleft);
-		dest.append(buffer, outbuf);
-		if (err == (size_t)-1) {
-			switch (errno) {
-			case EILSEQ:
-				/* invalid sequence: use fallback
-				   character instead */
-				++src;
-				--src_length;
-				dest.push_back(FALLBACK);
-				break;
-
-			case EINVAL:
-				/* incomplete sequence: add fallback
-				   character and stop */
-				dest.push_back(FALLBACK);
-				return dest;
-
-			case E2BIG:
-				/* output buffer is full: flush it */
-				break;
-
-			default:
-				/* unknown error: stop here */
-				return dest;
-			}
-		}
-	}
-
-	return dest;
-}
-
-[[gnu::pure]]
-static std::string
-Iconv(const char *tocode, const char *fromcode,
-      const std::string_view src) noexcept
-{
-	const auto i = iconv_open(tocode, fromcode);
-	if (i == (iconv_t)-1)
-		return std::string{src};
-
-	AtScopeExit(i) { iconv_close(i); };
-
-	return Iconv(i, src);
-}
+#ifdef ENABLE_CHARSET
 
 [[gnu::pure]]
 static std::string
@@ -183,7 +52,23 @@ utf8_to_locale(const std::string_view src) noexcept
 	if (noconvert)
 		return std::string{src};
 
-	return Iconv(charset, "utf-8", src);
+	std::string result;
+	result.reserve(src.size());
+
+	mbstate_t state{};
+	for (unsigned char byte : src) {
+		char buffer[MAX_MB_SIZE];
+
+		std::size_t n = std::c8rtomb(buffer, static_cast<char8_t>(byte), &state);
+		if (n == static_cast<std::size_t>(-1)) {
+			result.push_back('?');
+			state = {};
+		} else if (n > 0) {
+			result.append(buffer, n);
+		}
+	}
+
+	return result;
 }
 
 #endif
@@ -191,21 +76,40 @@ utf8_to_locale(const std::string_view src) noexcept
 char *
 CopyUtf8ToLocale(std::span<char> dest, const std::string_view src) noexcept
 {
-#ifdef HAVE_ICONV
-	if (noconvert) {
+#ifdef ENABLE_CHARSET
+	if (noconvert)
 #endif
 		return CopyTruncateString(dest, src);
-#ifdef HAVE_ICONV
-	} else {
-		return Iconv(charset, "utf-8", dest, src);
+
+#ifdef ENABLE_CHARSET
+	assert(dest.size() > MAX_MB_SIZE + 1);
+
+	mbstate_t state{};
+	char *p = dest.data();
+	const char *const end = p + dest.size() - MAX_MB_SIZE - 1;
+
+	for (unsigned char byte : src) {
+		if (p > end)
+			break;
+
+		std::size_t result = std::c8rtomb(p, static_cast<char8_t>(byte), &state);
+		if (result == static_cast<std::size_t>(-1)) {
+			*p++ = '?';
+			state = {};
+		} else if (result > 0) {
+			p += result;
+		}
 	}
-#endif
+
+	*p = '\0';
+	return p;
+#endif // ENABLE_CHARSET
 }
 
 std::string_view
 utf8_to_locale(std::string_view src, std::span<char> buffer) noexcept
 {
-#ifdef HAVE_ICONV
+#ifdef ENABLE_CHARSET
 	char *end = CopyUtf8ToLocale(buffer, src);
 	return {buffer.data(), end};
 #else
@@ -214,16 +118,47 @@ utf8_to_locale(std::string_view src, std::span<char> buffer) noexcept
 #endif
 }
 
-#ifdef HAVE_ICONV
+#ifdef ENABLE_CHARSET
 
 [[gnu::pure]]
 static std::string
-locale_to_utf8(const std::string_view src) noexcept
+locale_to_utf8(std::string_view src) noexcept
 {
 	if (noconvert)
 		return std::string{src};
 
-	return Iconv("utf-8", charset, src);
+	std::string result;
+	result.reserve(src.size());
+
+	mbstate_t state{};
+
+	while (!src.empty()) {
+		char8_t c8;
+		std::size_t n = std::mbrtoc8(&c8, src.data(), src.size(), &state);
+		if (n == static_cast<std::size_t>(-1)) {
+			// error
+			result.push_back('?');
+			src = src.substr(1);
+			state = {};
+		} else if (n == static_cast<std::size_t>(-2)) {
+			// incomplete sequence at end
+			result.push_back('?');
+			break;
+		} else if (n == static_cast<std::size_t>(-3)) {
+			// no input consumed yet
+			result.push_back(static_cast<char>(c8));
+		} else if (n == 0) {
+			// null character
+			result.push_back('\0');
+			src = src.substr(1);
+		} else {
+			// n bytes consumed from input, output UTF-8 code unit
+			result.push_back(static_cast<char>(c8));
+			src = src.substr(n);
+		}
+	}
+
+	return result;
 }
 
 Utf8ToLocale::Utf8ToLocale(const std::string_view src) noexcept
@@ -232,4 +167,4 @@ Utf8ToLocale::Utf8ToLocale(const std::string_view src) noexcept
 LocaleToUtf8::LocaleToUtf8(const std::string_view src) noexcept
 	:value(locale_to_utf8(src)) {}
 
-#endif
+#endif // ENABLE_CHARSET
