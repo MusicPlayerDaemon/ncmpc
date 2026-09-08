@@ -37,27 +37,13 @@ EndRowStyle(const Window window) noexcept
  * selected and the wide_cursor option is enabled, it draws the cursor
  * on the space.
  */
-static inline void
-ClearRowEnd(const Window window, unsigned width, bool selected) noexcept
-{
-	if (selected && ui_options.wide_cursor)
-		window.HLine(width, ' ');
-	else
-		window.ClearToEol();
-}
+void
+ClearRowEnd(const Window window, unsigned width, bool selected) noexcept;
 
 /**
  * Paint a plain-text row.
  */
-static inline void
+void
 PaintTextRow(const Window window, unsigned width,
 	     Style style, bool selected,
-	     std::string_view text) noexcept
-{
-	SelectRowStyle(window, style, selected);
-
-	window.String(text);
-
-	/* erase the unused space after the text */
-	ClearRowEnd(window, width, selected);
-}
+	     std::string_view text) noexcept;

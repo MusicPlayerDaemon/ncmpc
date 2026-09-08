@@ -4,6 +4,7 @@ ui = static_library(
   'Keys.cxx',
   'ListCursor.cxx',
   'ListWindow.cxx',
+  'RowPaint.cxx',
   'TextListRenderer.cxx',
   include_directories: inc,
   dependencies: [
