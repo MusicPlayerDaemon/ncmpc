@@ -333,6 +333,9 @@ used to display alerts in the status window.
 :command:`color input = COLOR[,ATTRIBUTE]...` - Set the text color of
 text input controls.
 
+:command:`color button = COLOR[,ATTRIBUTE]...` - Set the color of
+button controls.
+
 :command:`colordef COLOR = R, G, B` - Redefine any of the base
 colors. The RGB values must be integer values between 0 and 1000.
 *Note*: Only some terminals allow redefinitions of colors!

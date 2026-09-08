@@ -33,6 +33,7 @@ enum class Style : unsigned {
 	DIRECTORY,
 	PLAYLIST,
 	INPUT,
+	BUTTON,
 	BACKGROUND,
 	END
 };

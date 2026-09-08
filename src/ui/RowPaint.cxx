@@ -4,6 +4,8 @@
 #include "RowPaint.hxx"
 #include "Options.hxx"
 
+using std::string_view_literals::operator""sv;
+
 void
 ClearRowEnd(const Window window, unsigned width, bool selected) noexcept
 {
@@ -30,5 +32,11 @@ void
 PaintButtonRow(const Window window, unsigned width, bool selected,
 	       std::string_view text) noexcept
 {
-	PaintTextRow(window, width, Style::DIRECTORY, selected, text);
+	SelectRowStyle(window, Style::BUTTON, selected);
+	window.String("[ "sv);
+	window.String(text);
+	window.String(" ]"sv);
+
+	SelectRowStyle(window, Style::LIST, selected);
+	ClearRowEnd(window, width, selected);
 }

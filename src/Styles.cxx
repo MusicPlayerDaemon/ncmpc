@@ -184,6 +184,11 @@ static StyleData styles[size_t(Style::END)] = {
 		A_NORMAL,
 	},
 	{
+		"button", Style::BACKGROUND,
+		COLOR_BLACK, COLOR_CYAN, A_NORMAL,
+		A_NORMAL,
+	},
+	{
 		"background", Style::DEFAULT,
 		COLOR_NONE, COLOR_BLACK, A_NORMAL,
 		A_NORMAL,
