@@ -350,7 +350,7 @@ SearchFilterPage::PaintListItem(const Window window, unsigned i,
 				bool selected) const noexcept
 {
 	if (i == SEARCH_INDEX) {
-		PaintTextRow(window, width, Style::DIRECTORY, selected, _("Search"));
+		PaintButtonRow(window, width, selected, _("Search"));
 		return;
 	}
 

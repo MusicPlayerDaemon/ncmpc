@@ -243,7 +243,7 @@ CommandKeysPage::PaintListItem(const Window window, unsigned idx, [[maybe_unused
 	}
 
 	if (idx == GetAddPosition()) {
-		PaintTextRow(window, width, Style::DIRECTORY, selected, _("Add new key"));
+		PaintButtonRow(window, width, selected, _("Add new key"));
 		return;
 	}
 
@@ -505,14 +505,12 @@ CommandListPage::PaintListItem(const Window window, unsigned idx, unsigned y, un
 			       bool selected) const noexcept
 {
 	if (idx == command_item_apply()) {
-		PaintTextRow(window, width, Style::DIRECTORY, selected,
-			     _("Apply key bindings"));
+		PaintButtonRow(window, width, selected, _("Apply key bindings"));
 		return;
 	}
 
 	if (idx == command_item_save()) {
-		PaintTextRow(window, width, Style::DIRECTORY, selected,
-			     _("Apply & Save key bindings"));
+		PaintButtonRow(window, width, selected, _("Apply & Save key bindings"));
 		return;
 	}
 

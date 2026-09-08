@@ -47,3 +47,10 @@ void
 PaintTextRow(const Window window, unsigned width,
 	     Style style, bool selected,
 	     std::string_view text) noexcept;
+
+/**
+ * Paint a row with a button triggering an action.
+ */
+void
+PaintButtonRow(const Window window, unsigned width, bool selected,
+	       std::string_view text) noexcept;

@@ -359,11 +359,7 @@ OutputsPage::PaintListItem(Window window, unsigned i,
 		break;
 
 	case Item::Special::NEW_PARTITION:
-		SelectRowStyle(window, Style::DIRECTORY, selected);
-		window.Char('[');
-		window.String(_("Create new partition"));
-		window.Char(']');
-		ClearRowEnd(window, width, selected);
+		PaintButtonRow(window, width, selected, _("Create new partition"));
 		return;
 	}
 

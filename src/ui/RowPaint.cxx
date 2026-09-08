@@ -25,3 +25,10 @@ PaintTextRow(const Window window, unsigned width,
 	/* erase the unused space after the text */
 	ClearRowEnd(window, width, selected);
 }
+
+void
+PaintButtonRow(const Window window, unsigned width, bool selected,
+	       std::string_view text) noexcept
+{
+	PaintTextRow(window, width, Style::DIRECTORY, selected, text);
+}
