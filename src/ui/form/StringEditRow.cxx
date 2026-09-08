@@ -3,7 +3,7 @@
 
 #include "StringEditRow.hxx"
 #include "ui/dialogs/StringEditDialog.hxx"
-#include "ui/paint.hxx"
+#include "ui/RowPaint.hxx"
 #include "ui/Window.hxx"
 #include "Styles.hxx"
 

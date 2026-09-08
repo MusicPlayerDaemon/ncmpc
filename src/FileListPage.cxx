@@ -14,7 +14,7 @@
 #include "filelist.hxx"
 #include "Styles.hxx"
 #include "SongRowPaint.hxx"
-#include "ui/paint.hxx"
+#include "ui/RowPaint.hxx"
 #include "client/mpdclient.hxx"
 #include "time/Format.hxx"
 #include "util/UriUtil.hxx"

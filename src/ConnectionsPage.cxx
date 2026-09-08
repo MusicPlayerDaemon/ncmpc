@@ -14,7 +14,7 @@
 #include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"
 #include "ui/ListRenderer.hxx"
-#include "ui/paint.hxx"
+#include "ui/RowPaint.hxx"
 #include "util/LocaleString.hxx"
 
 #ifdef HAVE_AVAHI

@@ -2,7 +2,7 @@
 // Copyright The Music Player Daemon Project
 
 #include "FormRow.hxx"
-#include "ui/paint.hxx"
+#include "ui/RowPaint.hxx"
 #include "ui/Window.hxx"
 #include "util/LocaleString.hxx"
 #include "charset.hxx"

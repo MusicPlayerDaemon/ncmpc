@@ -10,7 +10,7 @@
 #include "page/ListPage.hxx"
 #include "ui/dialogs/TextInputDialog.hxx"
 #include "ui/ListRenderer.hxx"
-#include "ui/paint.hxx"
+#include "ui/RowPaint.hxx"
 #include "client/mpdclient.hxx"
 #include "util/FNVHash.hxx"
 #include "util/StringAPI.hxx"

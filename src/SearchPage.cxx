@@ -14,7 +14,7 @@
 #include "ui/form/StringEditRow.hxx"
 #include "ui/form/TableForm.hxx"
 #include "ui/dialogs/TextInputDialog.hxx"
-#include "ui/paint.hxx"
+#include "ui/RowPaint.hxx"
 #include "client/mpdclient.hxx"
 #include "time/Parser.hxx"
 #include "co/Task.hxx"

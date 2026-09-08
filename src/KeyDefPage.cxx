@@ -17,7 +17,7 @@
 #include "ui/Bell.hxx"
 #include "ui/ListRenderer.hxx"
 #include "ui/ListText.hxx"
-#include "ui/paint.hxx"
+#include "ui/RowPaint.hxx"
 #include "lib/fmt/ToSpan.hxx"
 
 #include <fmt/format.h>
