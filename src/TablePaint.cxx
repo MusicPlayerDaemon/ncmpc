@@ -22,7 +22,7 @@ PaintTableRow(const Window window, unsigned width,
 	      const TableLayout &layout) noexcept
 {
 	const auto color = highlight ? Style::LIST_BOLD : Style::LIST;
-	row_color(window, color, selected);
+	SelectRowStyle(window, color, selected);
 
 	const size_t n_columns = layout.structure.columns.size();
 	for (size_t i = 0; i < n_columns; ++i) {
@@ -44,7 +44,7 @@ PaintTableRow(const Window window, unsigned width,
 		FillSpace(window, cl.width - StringWidthMB(s));
 	}
 
-	row_clear_to_eol(window, width, selected);
+	ClearRowEnd(window, width, selected);
 }
 
 void

@@ -23,7 +23,7 @@ paint_song_row(const Window window, [[maybe_unused]] unsigned y, unsigned width,
 	char buffer[1024];
 
 	const std::string_view text = strfsong(buffer, format, song);
-	row_paint_text(window, width, highlight ? Style::LIST_BOLD : Style::LIST,
+	PaintTextRow(window, width, highlight ? Style::LIST_BOLD : Style::LIST,
 		       selected, text);
 
 #ifndef NCMPC_MINI

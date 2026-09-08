@@ -176,9 +176,9 @@ ConnectionsPage::PaintListItem(Window window, unsigned i, [[maybe_unused]] unsig
 {
 	const auto &item = items[i];
 
-	row_color(window, item.GetStyle(), selected);
+	SelectRowStyle(window, item.GetStyle(), selected);
 	window.String(item.name);
-	row_clear_to_eol(window, width, selected);
+	ClearRowEnd(window, width, selected);
 }
 
 void

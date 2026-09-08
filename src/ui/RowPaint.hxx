@@ -12,7 +12,7 @@
  * true.
  */
 static inline void
-row_color(const Window window, Style style, bool selected) noexcept
+SelectRowStyle(const Window window, Style style, bool selected) noexcept
 {
 	SelectStyle(window, style);
 
@@ -27,7 +27,7 @@ row_color(const Window window, Style style, bool selected) noexcept
  * "reverse" mode.
  */
 static inline void
-row_color_end(const Window window) noexcept
+EndRowStyle(const Window window) noexcept
 {
 	window.AttributeOff(A_REVERSE);
 }
@@ -38,7 +38,7 @@ row_color_end(const Window window) noexcept
  * on the space.
  */
 static inline void
-row_clear_to_eol(const Window window, unsigned width, bool selected) noexcept
+ClearRowEnd(const Window window, unsigned width, bool selected) noexcept
 {
 	if (selected && ui_options.wide_cursor)
 		window.HLine(width, ' ');
@@ -50,14 +50,14 @@ row_clear_to_eol(const Window window, unsigned width, bool selected) noexcept
  * Paint a plain-text row.
  */
 static inline void
-row_paint_text(const Window window, unsigned width,
-	       Style style, bool selected,
-	       std::string_view text) noexcept
+PaintTextRow(const Window window, unsigned width,
+	     Style style, bool selected,
+	     std::string_view text) noexcept
 {
-	row_color(window, style, selected);
+	SelectRowStyle(window, style, selected);
 
 	window.String(text);
 
 	/* erase the unused space after the text */
-	row_clear_to_eol(window, width, selected);
+	ClearRowEnd(window, width, selected);
 }

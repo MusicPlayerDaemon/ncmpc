@@ -17,8 +17,8 @@ FormRow::FormRow(std::string_view _label_locale) noexcept
 unsigned
 FormRow::PaintLabel(const Window window, unsigned width, bool selected) const noexcept
 {
-	row_color(window, Style::LIST_BOLD, selected);
-	row_clear_to_eol(window, width, selected);
+	SelectRowStyle(window, Style::LIST_BOLD, selected);
+	ClearRowEnd(window, width, selected);
 
 	window.String(label_locale);
 	window.Char(':');

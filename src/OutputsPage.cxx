@@ -339,11 +339,11 @@ PaintPartition(const Window window, unsigned width, bool selected, bool active,
 {
 	const char *name = mpd_partition_get_name(&partition);
 
-	row_color(window, active ? Style::LIST_BOLD : Style::LIST, selected);
+	SelectRowStyle(window, active ? Style::LIST_BOLD : Style::LIST, selected);
 	window.String(_("Partition"));
 	window.String(": "sv);
 	window.String(name);
-	row_clear_to_eol(window, width, selected);
+	ClearRowEnd(window, width, selected);
 }
 
 void
@@ -359,11 +359,11 @@ OutputsPage::PaintListItem(Window window, unsigned i,
 		break;
 
 	case Item::Special::NEW_PARTITION:
-		row_color(window, Style::DIRECTORY, selected);
+		SelectRowStyle(window, Style::DIRECTORY, selected);
 		window.Char('[');
 		window.String(_("Create new partition"));
 		window.Char(']');
-		row_clear_to_eol(window, width, selected);
+		ClearRowEnd(window, width, selected);
 		return;
 	}
 
@@ -379,10 +379,10 @@ OutputsPage::PaintListItem(Window window, unsigned i,
 
 	const auto *output = item.output.get();
 
-	row_color(window, Style::LIST, selected);
+	SelectRowStyle(window, Style::LIST, selected);
 	window.String(mpd_output_get_enabled(output) ? "[X] "sv : "[ ] "sv);
 	window.String(mpd_output_get_name(output));
-	row_clear_to_eol(window, width, selected);
+	ClearRowEnd(window, width, selected);
 }
 
 void

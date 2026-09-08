@@ -13,7 +13,7 @@ StringEditRow::Paint(const Window window, unsigned y, unsigned width,
 {
 	unsigned x = PaintLabel(window, width, selected);
 
-	row_color(window, Style::LIST, selected);
+	SelectRowStyle(window, Style::LIST, selected);
 	window.String({x, y}, value);
 }
 

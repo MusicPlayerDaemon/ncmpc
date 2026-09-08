@@ -442,21 +442,21 @@ void
 screen_browser_paint_directory(const Window window, unsigned width,
 			       bool selected, std::string_view name) noexcept
 {
-	row_color(window, Style::DIRECTORY, selected);
+	SelectRowStyle(window, Style::DIRECTORY, selected);
 
 	window.Char('[');
 	window.String(name);
 	window.Char(']');
 
 	/* erase the unused space after the text */
-	row_clear_to_eol(window, width, selected);
+	ClearRowEnd(window, width, selected);
 }
 
 static void
 screen_browser_paint_playlist(const Window window, unsigned width,
 			      bool selected, std::string_view name) noexcept
 {
-	row_paint_text(window, width, Style::PLAYLIST, selected, name);
+	PaintTextRow(window, width, Style::PLAYLIST, selected, name);
 }
 
 void
@@ -501,7 +501,7 @@ FileListPage::PaintListItem(const Window window, unsigned i,
 	}
 
 	default:
-		row_paint_text(window, width,
+		PaintTextRow(window, width,
 			       highlight ? Style::LIST_BOLD : Style::LIST,
 			       selected, "<unknown>");
 	}

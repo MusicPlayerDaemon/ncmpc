@@ -9,7 +9,7 @@
 #include "Match.hxx"
 #include "Options.hxx"
 #include "Command.hxx"
-#include "paint.hxx"
+#include "RowPaint.hxx"
 
 void
 ListWindow::Paint(const ListRenderer &renderer) const noexcept
@@ -36,7 +36,7 @@ ListWindow::Paint(const ListRenderer &renderer) const noexcept
 		renderer.PaintListItem(window, j, i, width, is_selected);
 	}
 
-	row_color_end(window);
+	EndRowStyle(window);
 
 	if (ui_options.hardware_cursor && IsVisible(GetCursorIndex())) {
 		curs_set(1);

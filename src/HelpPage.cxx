@@ -265,8 +265,7 @@ HelpPage::PaintListItem(const Window window, unsigned i,
 
 	assert(i < std::size(help_text));
 
-	row_color(window, row->highlight ? Style::LIST_BOLD : Style::LIST,
-		  selected);
+	SelectRowStyle(window, row->highlight ? Style::LIST_BOLD : Style::LIST, selected);
 
 	window.ClearToEol();
 
@@ -274,7 +273,7 @@ HelpPage::PaintListItem(const Window window, unsigned i,
 		if (row->text != nullptr)
 			window.String({6u, y}, my_gettext(row->text));
 		else if (row->highlight == 2 && width > 6) {
-			row_color(window, Style::LIST_LINE, selected);
+			SelectRowStyle(window, Style::LIST_LINE, selected);
 			window.HLine({3u, y}, width - 6, ACS_HLINE);
 		}
 	} else {

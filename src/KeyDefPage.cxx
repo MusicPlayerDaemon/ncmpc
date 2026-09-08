@@ -238,26 +238,26 @@ CommandKeysPage::PaintListItem(const Window window, unsigned idx, [[maybe_unused
 			       bool selected) const noexcept
 {
 	if (idx == GetLeavePosition()) {
-		row_paint_text(window, width, Style::DIRECTORY, selected, "[..]"sv);
+		PaintTextRow(window, width, Style::DIRECTORY, selected, "[..]"sv);
 		return;
 	}
 
 	if (idx == GetAddPosition()) {
-		row_paint_text(window, width, Style::DIRECTORY, selected, _("Add new key"));
+		PaintTextRow(window, width, Style::DIRECTORY, selected, _("Add new key"));
 		return;
 	}
 
 	assert(IsKeyPosition(idx));
 
-	row_color(window, Style::LIST, selected);
-	row_clear_to_eol(window, width, selected);
+	SelectRowStyle(window, Style::LIST, selected);
+	ClearRowEnd(window, width, selected);
 
 	window.String(fmt::format_int{idx}.c_str());
 
 	if (conflicts[PositionToKeyIndex(idx)]) {
-		row_color(window, Style::LIST_ALERT, selected);
+		SelectRowStyle(window, Style::LIST_ALERT, selected);
 		window.String("! "sv);
-		row_color(window, Style::LIST, selected);
+		SelectRowStyle(window, Style::LIST, selected);
 	} else
 		window.String(". "sv);
 
@@ -505,32 +505,32 @@ CommandListPage::PaintListItem(const Window window, unsigned idx, unsigned y, un
 			       bool selected) const noexcept
 {
 	if (idx == command_item_apply()) {
-		row_paint_text(window, width, Style::DIRECTORY, selected,
-			       _("Apply key bindings"));
+		PaintTextRow(window, width, Style::DIRECTORY, selected,
+			     _("Apply key bindings"));
 		return;
 	}
 
 	if (idx == command_item_save()) {
-		row_paint_text(window, width, Style::DIRECTORY, selected,
-			       _("Apply & Save key bindings"));
+		PaintTextRow(window, width, Style::DIRECTORY, selected,
+			     _("Apply & Save key bindings"));
 		return;
 	}
 
-	row_color(window, Style::LIST, selected);
-	row_clear_to_eol(window, width, selected);
+	SelectRowStyle(window, Style::LIST, selected);
+	ClearRowEnd(window, width, selected);
 
 	window.String({0u, y}, get_key_command_name(static_cast<Command>(idx)));
 
 	unsigned x = get_cmds_max_name_width() + 1;
 
 	if (conflicts[idx]) {
-		row_color(window, Style::LIST_ALERT, selected);
+		SelectRowStyle(window, Style::LIST_ALERT, selected);
 		window.Char({x, y}, '!');
-		row_color(window, Style::LIST, selected);
+		SelectRowStyle(window, Style::LIST, selected);
 	} else {
 		SelectStyle(window, Style::LIST_LINE);
 		window.Char({x, y}, ACS_VLINE);
-		row_color(window, Style::LIST, selected);
+		SelectRowStyle(window, Style::LIST, selected);
 	}
 
 	x += 2;

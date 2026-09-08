@@ -3,7 +3,7 @@
 
 #include "TextListRenderer.hxx"
 #include "ListText.hxx"
-#include "paint.hxx"
+#include "RowPaint.hxx"
 
 #include <assert.h>
 
@@ -11,7 +11,7 @@ static void
 list_window_paint_row(const Window window, unsigned width, bool selected,
 		      std::string_view text) noexcept
 {
-	row_paint_text(window, width, Style::LIST,
+	PaintTextRow(window, width, Style::LIST,
 		       selected, text);
 }
 
