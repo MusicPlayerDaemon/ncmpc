@@ -7,6 +7,7 @@ ncmpc 0.55 - not yet released
 * text input: support Ctrl-Left, Ctrl-Right, Ctrl-Delete
 * add color style "button"
 * add Zeroconf support to find MPD on the local network
+* rename build option "iconv" to "charset"
 * fix broken main area after terminal had been very small
 * fix crash bug
 
