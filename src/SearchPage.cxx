@@ -507,8 +507,6 @@ SearchPage::OnCommand(struct mpdclient &c, Command cmd)
 	default:
 		return false;
 	}
-
-	std::unreachable();
 }
 
 static std::unique_ptr<Page>
