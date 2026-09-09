@@ -453,10 +453,26 @@ screen_browser_paint_directory(const Window window, unsigned width,
 }
 
 static void
+screen_browser_paint_directory(const Window window, unsigned width, bool selected,
+			       const struct mpd_directory &directory) noexcept
+{
+	const char *name = GetUriFilename(mpd_directory_get_path(&directory));
+	screen_browser_paint_directory(window, width, selected, Utf8ToLocale{name});
+}
+
+static void
 screen_browser_paint_playlist(const Window window, unsigned width,
 			      bool selected, std::string_view name) noexcept
 {
 	PaintTextRow(window, width, Style::PLAYLIST, selected, name);
+}
+
+static void
+screen_browser_paint_playlist(const Window window, unsigned width, bool selected,
+			      const struct mpd_playlist &playlist) noexcept
+{
+	const char *name = GetUriFilename(mpd_playlist_get_path(&playlist));
+	screen_browser_paint_playlist(window, width, selected, Utf8ToLocale{name});
 }
 
 void
@@ -480,12 +496,10 @@ FileListPage::PaintListItem(const Window window, unsigned i,
 #endif
 
 	switch (mpd_entity_get_type(entity)) {
-	case MPD_ENTITY_TYPE_DIRECTORY: {
-		const auto *directory = mpd_entity_get_directory(entity);
-		const char *name = GetUriFilename(mpd_directory_get_path(directory));
-		screen_browser_paint_directory(window, width, selected, Utf8ToLocale{name});
+	case MPD_ENTITY_TYPE_DIRECTORY:
+		screen_browser_paint_directory(window, width, selected,
+					       *mpd_entity_get_directory(entity));
 		break;
-	}
 
 	case MPD_ENTITY_TYPE_SONG:
 		paint_song_row(window, y, width, selected, highlight,
@@ -493,17 +507,15 @@ FileListPage::PaintListItem(const Window window, unsigned i,
 			       song_format);
 		break;
 
-	case MPD_ENTITY_TYPE_PLAYLIST: {
-		const auto *playlist = mpd_entity_get_playlist(entity);
-		const char *name = GetUriFilename(mpd_playlist_get_path(playlist));
-		screen_browser_paint_playlist(window, width, selected, Utf8ToLocale{name});
+	case MPD_ENTITY_TYPE_PLAYLIST:
+		screen_browser_paint_playlist(window, width, selected,
+					      *mpd_entity_get_playlist(entity));
 		break;
-	}
 
 	default:
 		PaintTextRow(window, width,
-			       highlight ? Style::LIST_BOLD : Style::LIST,
-			       selected, "<unknown>");
+			     highlight ? Style::LIST_BOLD : Style::LIST,
+			     selected, "<unknown>");
 	}
 }
 
