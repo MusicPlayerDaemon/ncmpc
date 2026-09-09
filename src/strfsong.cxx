@@ -43,13 +43,13 @@ skip(const char *p) noexcept
 }
 
 static char *
-CopyString(char *dest, char *const dest_end,
+CopyString(std::span<char> dest,
 	   std::string_view src) noexcept
 {
-	if (src.size() >= size_t(dest_end - dest))
-		src = src.substr(0, dest_end - dest - 1);
+	if (src.size() > dest.size())
+		src = src.substr(0, dest.size());
 
-	return std::copy(src.begin(), src.end(), dest);
+	return std::copy(src.begin(), src.end(), dest.data());
 }
 
 static char *
@@ -251,7 +251,7 @@ _strfsong(char *const s0, char *const end,
 			found = true;
 		}
 
-		s = CopyString(s, end, value);
+		s = CopyString({s, end}, value);
 	}
 
 	if(last) *last = p;
