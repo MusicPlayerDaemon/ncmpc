@@ -53,13 +53,6 @@ CopyString(std::span<char> dest,
 }
 
 static char *
-CopyStringFromUTF8(char *dest, char *const dest_end,
-		   std::string_view src_utf8) noexcept
-{
-	return CopyUtf8ToLocale({dest, dest_end}, src_utf8);
-}
-
-static char *
 CopyTag(char *dest, char *const end,
 	const struct mpd_song &song, enum mpd_tag_type tag) noexcept
 {
@@ -67,14 +60,14 @@ CopyTag(char *dest, char *const end,
 	if (value == nullptr)
 		return dest;
 
-	dest = CopyStringFromUTF8(dest, end, value);
+	dest = CopyUtf8ToLocale({dest, end}, value);
 
 	for (unsigned i = 1; dest + 5 < end &&
 		     (value = mpd_song_get_tag(&song, tag, i)) != nullptr;
 	     ++i) {
 		*dest++ = ',';
 		*dest++ = ' ';
-		dest = CopyStringFromUTF8(dest, end, value);
+		dest = CopyUtf8ToLocale({dest, end}, value);
 	}
 
 	return dest;
@@ -238,7 +231,7 @@ _strfsong(char *const s0, char *const end,
 
 		if (value_utf8.data() != nullptr) {
 			found = true;
-			s = CopyStringFromUTF8(s, end, value_utf8);
+			s = CopyUtf8ToLocale({s, end}, value_utf8);
 			continue;
 		}
 
