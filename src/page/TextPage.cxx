@@ -68,7 +68,7 @@ TextPage::GetListItemText(std::span<char> buffer, unsigned idx) const noexcept
 {
 	assert(idx < lines.size());
 
-	return utf8_to_locale(lines[idx].c_str(), buffer);
+	return utf8_to_locale(lines[idx], buffer);
 }
 
 void
