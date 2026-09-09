@@ -92,7 +92,7 @@ _strfsong(char *const s0, char *const end,
 
 	char *s = s0;
 	const char *p;
-	for (p = format; *p != '\0' && s < end - 1;) {
+	for (p = format; *p != '\0' && s < end;) {
 		/* OR */
 		if (p[0] == '|') {
 			++p;
@@ -253,7 +253,6 @@ _strfsong(char *const s0, char *const end,
 
 	if(last) *last = p;
 
-	*s = '\0';
 	return s - s0;
 }
 
