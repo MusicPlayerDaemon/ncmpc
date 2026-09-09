@@ -11,6 +11,7 @@
 #include <mpd/client.h>
 
 #include <algorithm>
+#include <cassert>
 
 #include <string.h>
 
@@ -79,7 +80,8 @@ CopyTag(char *dest, char *const end,
 	return dest;
 }
 
-static size_t
+[[nodiscard]]
+static char *
 _strfsong(char *const s0, char *const end,
 	  const char *format,
 	  const struct mpd_song &song,
@@ -119,10 +121,11 @@ _strfsong(char *const s0, char *const end,
 
 		/* EXPRESSION START */
 		if (p[0] == '[') {
-			size_t n = _strfsong(s, end, p + 1,
-					     song, &p);
-			if (n > 0) {
-				s += n;
+			char *new_s = _strfsong(s, end, p + 1,
+						song, &p);
+			if (new_s != s) {
+				assert(new_s > s);
+				s = new_s;
 				found = true;
 			} else {
 				missed = true;
@@ -253,15 +256,15 @@ _strfsong(char *const s0, char *const end,
 
 	if(last) *last = p;
 
-	return s - s0;
+	return s;
 }
 
 std::string_view
 strfsong(std::span<char> buffer, const char *format,
 	 const struct mpd_song &song) noexcept
 {
-	std::size_t length = _strfsong(buffer.data(), buffer.data() + buffer.size(), format, song, nullptr);
-	return {buffer.data(), length};
+	const char *end = _strfsong(buffer.data(), buffer.data() + buffer.size(), format, song, nullptr);
+	return {buffer.data(), end};
 }
 
 TagMask
