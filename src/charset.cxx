@@ -25,11 +25,20 @@ static constexpr std::size_t MAX_MB_SIZE = 8;
 
 static bool noconvert = true;
 
+[[gnu::pure]]
+static bool
+IsUTF8(const char *charset) noexcept
+{
+	assert(charset != nullptr);
+
+	return StringIsEqualIgnoreCase(charset, "utf-8");
+}
+
 void
 charset_init() noexcept
 {
 	const char *charset = nl_langinfo(CODESET);
-	noconvert = charset == nullptr || StringIsEqualIgnoreCase(charset, "utf-8");
+	noconvert = charset == nullptr || IsUTF8(charset);
 }
 #endif
 
