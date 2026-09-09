@@ -43,14 +43,13 @@ charset_init() noexcept
 }
 #endif
 
+[[nodiscard]]
 static char *
 CopyTruncateString(std::span<char> dest, const std::string_view src) noexcept
 {
 	assert(!dest.empty());
 
-	char *p = std::copy_n(src.begin(), std::min(dest.size() - 1, src.size()), dest.data());
-	*p = 0;
-	return p;
+	return std::copy_n(src.begin(), std::min(dest.size(), src.size()), dest.data());
 }
 
 #ifdef ENABLE_CHARSET
@@ -92,11 +91,11 @@ CopyUtf8ToLocale(std::span<char> dest, const std::string_view src) noexcept
 		return CopyTruncateString(dest, src);
 
 #ifdef ENABLE_CHARSET
-	assert(dest.size() > MAX_MB_SIZE + 1);
+	assert(dest.size() > MAX_MB_SIZE);
 
 	mbstate_t state{};
 	char *p = dest.data();
-	const char *const end = p + dest.size() - MAX_MB_SIZE - 1;
+	const char *const end = p + dest.size() - MAX_MB_SIZE;
 
 	for (unsigned char byte : src) {
 		if (p > end)
@@ -111,7 +110,6 @@ CopyUtf8ToLocale(std::span<char> dest, const std::string_view src) noexcept
 		}
 	}
 
-	*p = '\0';
 	return p;
 #endif // ENABLE_CHARSET
 }
