@@ -115,14 +115,16 @@ CopyUtf8ToLocale(std::span<char> dest, const std::string_view src) noexcept
 }
 
 std::string_view
-utf8_to_locale(std::string_view src, std::span<char> buffer) noexcept
+utf8_to_locale(std::string_view src, [[maybe_unused]] std::span<char> buffer) noexcept
 {
+#ifdef ENABLE_CHARSET
+	if (noconvert)
+#endif
+		return src;
+
 #ifdef ENABLE_CHARSET
 	char *end = CopyUtf8ToLocale(buffer, src);
 	return {buffer.data(), end};
-#else
-	(void)buffer;
-	return src;
 #endif
 }
 
