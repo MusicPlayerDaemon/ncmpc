@@ -31,7 +31,8 @@ IsUTF8(const char *charset) noexcept
 {
 	assert(charset != nullptr);
 
-	return StringIsEqualIgnoreCase(charset, "utf-8");
+	return StringIsEqualIgnoreCase(charset, "utf-8") ||
+		StringIsEqualIgnoreCase(charset, "utf8");
 }
 
 void
