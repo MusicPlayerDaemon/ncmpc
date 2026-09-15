@@ -63,6 +63,8 @@ class TextInputDialog final : public ModalDialog {
 	/** @see TextInputDialogOptions::fragile */
 	const bool fragile;
 
+	bool prompt_visible;
+
 	bool canceled = false;
 
 	/**
@@ -184,9 +186,10 @@ private:
 	}
 
 public:
-	/* virtual methodds from Modal */
+	/* virtual methodds from ModalDialog */
 	void OnLeave(Window window) noexcept override;
 	void OnCancel() noexcept override;
 	bool OnKey(Window window, int key) override;
+	void OnResize(Window window, Size size) noexcept override;
 	void Paint(Window window) const noexcept override;
 };

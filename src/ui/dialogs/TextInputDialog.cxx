@@ -483,26 +483,32 @@ TextInputDialog::OnKey(const Window window, int key)
 }
 
 void
+TextInputDialog::OnResize([[maybe_unused]] Window window, Size size) noexcept
+{
+	const auto prompt_width = StringWidthMB(prompt) + 2;
+
+	width = size.width;
+
+	/* if the terminal is too narrow, hide the prompt */
+	prompt_visible = prompt_width + 8 < size.width;
+
+	if (prompt_visible)
+		width -= prompt_width;
+}
+
+void
 TextInputDialog::Paint(const Window window) const noexcept
 {
 	if (ui_options.enable_colors)
 		window.SetBackgroundStyle(Style::INPUT);
 
-	SelectStyle(window, Style::STATUS_ALERT);
-	window.String({0, 0}, prompt);
-	window.String(": "sv);
-
-	point = window.GetCursor();
-
-	const int window_width = window.GetWidth();
-	width = window_width;
-	if (point.x + 8 < window_width)
-		width -= point.x;
-	else {
-		/* the terminal is too narrow or the prompt is too
-		   long: avoid integer underflow and erase the prompt,
-		   use the full width for the value */
-		point.x = 0;
+	if (prompt_visible) {
+		SelectStyle(window, Style::STATUS_ALERT);
+		window.String({0, 0}, prompt);
+		window.String(": "sv);
+		point = window.GetCursor();
+	} else {
+		point = {};
 		window.MoveCursor(point);
 	}
 
