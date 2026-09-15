@@ -497,10 +497,10 @@ QueuePage::OnMouse(struct mpdclient &c, Point p, mmask_t bstate)
 		/* play */
 		const struct mpd_song *song = GetSelectedSong();
 		if (song != nullptr) {
+			const auto song_id = mpd_song_get_id(song);
 			auto *connection = c.GetConnection();
 			if (connection != nullptr &&
-			    !mpd_run_play_id(connection,
-					     mpd_song_get_id(song)))
+			    !mpd_run_play_id(connection, song_id))
 				c.HandleError();
 		}
 	} else if (bstate & (BUTTON3_CLICKED|BUTTON3_DOUBLE_CLICKED)) {
@@ -575,9 +575,10 @@ QueuePage::OnCommand(struct mpdclient &c, Command cmd)
 	switch(cmd) {
 	case Command::PLAY:
 		if (const auto *song = GetSelectedSong()) {
+			const auto song_id = mpd_song_get_id(song);
 			if (connection = c.GetConnection();
 			    connection != nullptr &&
-			    !mpd_run_play_id(connection, mpd_song_get_id(song)))
+			    !mpd_run_play_id(connection, song_id))
 				c.HandleError();
 
 			return true;

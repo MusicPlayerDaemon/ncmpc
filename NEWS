@@ -9,7 +9,7 @@ ncmpc 0.55 - not yet released
 * add Zeroconf support to find MPD on the local network
 * rename build option "iconv" to "charset"
 * fix broken main area after terminal had been very small
-* fix crash bug
+* fix crash bugs
 
 ncmpc 0.54 - (2026-08-13)
 * suspend to the shell with Ctrl-Z
