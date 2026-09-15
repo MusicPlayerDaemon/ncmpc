@@ -1,5 +1,12 @@
+util_sources = []
+
+if has_charset
+  util_sources += 'LocaleConvert.cxx'
+endif
+
 util = static_library(
   'util',
+  util_sources,
   'LocaleString.cxx',
   'LocaleExtract.cxx',
   'LocaleWord.cxx',
