@@ -69,9 +69,9 @@ MpdQueue::FindById(unsigned id) const noexcept
 }
 
 int
-MpdQueue::FindByUri(const char *filename) const noexcept
+MpdQueue::FindByUri(const char *filename, size_type start_pos) const noexcept
 {
-	for (size_type i = 0; i < size(); ++i) {
+	for (size_type i = start_pos; i < size(); ++i) {
 		const auto &song = (*this)[i];
 		if (StringIsEqual(mpd_song_get_uri(&song), filename))
 			return i;

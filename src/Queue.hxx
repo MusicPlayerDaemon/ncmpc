@@ -87,7 +87,7 @@ struct MpdQueue {
 	 * @return the song position
 	 */
 	[[gnu::pure]]
-	int FindByUri(const char *uri) const noexcept;
+	int FindByUri(const char *uri, size_type start_pos=0) const noexcept;
 
 	/**
 	 * Like FindByUri(), but return the song id, not the song position
