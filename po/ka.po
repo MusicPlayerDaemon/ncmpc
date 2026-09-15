@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-01 17:02+0200\n"
-"PO-Revision-Date: 2026-02-28 06:09+0000\n"
+"PO-Revision-Date: 2026-09-09 01:51+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/ncmpc/"
 "translations/ka/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:89
 #, c++-format
@@ -46,7 +46,7 @@ msgstr "გასვლა"
 
 #: src/Command.cxx:20
 msgid "Suspend"
-msgstr ""
+msgstr "ძილი"
 
 #: src/Command.cxx:24
 msgid "Move cursor up"
@@ -114,7 +114,7 @@ msgstr "დახმარების ეკრანი"
 
 #: src/Command.cxx:59
 msgid "Page Switcher"
-msgstr ""
+msgstr "გვერდის გადამრთველი"
 
 #: src/Command.cxx:61 src/HelpPage.cxx:125
 msgid "Queue screen"
@@ -330,9 +330,8 @@ msgid "Outputs screen"
 msgstr "გამოტანის ეკრანი"
 
 #: src/Command.cxx:208
-#, fuzzy
 msgid "Connections"
-msgstr "{}-ისთან დაკავშირება"
+msgstr "კავშირები"
 
 #: src/Command.cxx:213 src/HelpPage.cxx:191
 msgid "Chat screen"

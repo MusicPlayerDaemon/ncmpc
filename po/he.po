@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-01 17:02+0200\n"
-"PO-Revision-Date: 2024-11-11 13:00+0000\n"
+"PO-Revision-Date: 2026-09-01 09:51+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/ncmpc/"
 "translations/he/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 "X-Launchpad-Export-Date: 2010-09-07 18:28+0000\n"
 
 #: src/Bindings.cxx:81 src/Bindings.cxx:89
@@ -43,7 +43,7 @@ msgstr "יציאה"
 
 #: src/Command.cxx:20
 msgid "Suspend"
-msgstr ""
+msgstr "השהיה"
 
 #: src/Command.cxx:24
 msgid "Move cursor up"
@@ -111,7 +111,7 @@ msgstr "מסך עזרה"
 
 #: src/Command.cxx:59
 msgid "Page Switcher"
-msgstr ""
+msgstr "בורר עמודים"
 
 #: src/Command.cxx:61 src/HelpPage.cxx:125
 msgid "Queue screen"
@@ -327,9 +327,8 @@ msgid "Outputs screen"
 msgstr "מסך הפלט"
 
 #: src/Command.cxx:208
-#, fuzzy
 msgid "Connections"
-msgstr "מתבצעת התחברות אל {}"
+msgstr "חיבורים"
 
 #: src/Command.cxx:213 src/HelpPage.cxx:191
 msgid "Chat screen"
