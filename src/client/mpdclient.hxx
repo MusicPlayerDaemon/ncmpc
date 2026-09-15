@@ -341,6 +341,7 @@ public:
 	bool RunAdd(const struct mpd_song &song) noexcept;
 	bool RunDelete(unsigned pos) noexcept;
 	bool RunDeleteRange(unsigned start, unsigned end) noexcept;
+	bool RunDeleteUri(const char *uri) noexcept;
 	bool RunMove(unsigned dest, unsigned src) noexcept;
 
 private:

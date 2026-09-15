@@ -272,13 +272,10 @@ FileListPage::HandleSelectEntry(struct mpdclient &c, FileListEntry &entry,
 	} else {
 		/* remove song from playlist */
 		const auto *song = mpd_entity_get_song(entry.entity);
-		int idx;
 
 		entry.flags &= ~HIGHLIGHT;
 
-		while ((idx = c.playlist.FindByUri(mpd_song_get_uri(song))) >= 0)
-			if (!c.RunDelete(idx))
-				break;
+		c.RunDeleteUri(mpd_song_get_uri(song));
 #endif
 	}
 

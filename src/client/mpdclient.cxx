@@ -775,6 +775,17 @@ mpdclient::RunDeleteRange(unsigned start, unsigned end) noexcept
 }
 
 bool
+mpdclient::RunDeleteUri(const char *uri) noexcept
+{
+	int idx;
+	while ((idx = playlist.FindByUri(uri)) >= 0)
+		if (!RunDelete(idx))
+			return false;
+
+	return true;
+}
+
+bool
 mpdclient::RunMove(unsigned dest_pos, unsigned src_pos) noexcept
 {
 	if (dest_pos == src_pos)
