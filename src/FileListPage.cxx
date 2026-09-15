@@ -277,7 +277,8 @@ FileListPage::HandleSelectEntry(struct mpdclient &c, FileListEntry &entry,
 		entry.flags &= ~HIGHLIGHT;
 
 		while ((idx = c.playlist.FindByUri(mpd_song_get_uri(song))) >= 0)
-			c.RunDelete(idx);
+			if (!c.RunDelete(idx))
+				break;
 #endif
 	}
 
