@@ -494,6 +494,9 @@ TextInputDialog::OnResize([[maybe_unused]] Window window, Size size) noexcept
 
 	if (prompt_visible)
 		width -= prompt_width;
+
+	/* ensure the cursor stays visible if the window shrinks */
+	CursorMovedRight();
 }
 
 void
