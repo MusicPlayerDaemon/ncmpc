@@ -373,13 +373,19 @@ parse_color_definition(char *str)
 }
 #endif
 
-static std::string
-GetStringValue(std::string_view s) noexcept
+static constexpr std::string_view
+GetStringViewValue(std::string_view s) noexcept
 {
 	if (s.size() >= 2 && s.front() == '\"' && s.back() == '\"')
 		s = s.substr(1, s.size() - 2);
 
-	return std::string{s};
+	return s;
+}
+
+static std::string
+GetStringValue(std::string_view s) noexcept
+{
+	return std::string{GetStringViewValue(s)};
 }
 
 static constexpr bool
