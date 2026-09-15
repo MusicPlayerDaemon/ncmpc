@@ -777,10 +777,55 @@ mpdclient::RunDeleteRange(unsigned start, unsigned end) noexcept
 bool
 mpdclient::RunDeleteUri(const char *uri) noexcept
 {
-	int idx;
-	while ((idx = playlist.FindByUri(uri)) >= 0)
-		if (!RunDelete(idx))
-			return false;
+	auto *c = GetConnection();
+	if (c == nullptr)
+		return false;
+
+	int pos = playlist.FindByUri(uri);
+	if (pos < 0)
+		return true;
+
+	if (!mpd_command_list_begin(c, false))
+		return HandleError();
+
+	std::size_t n = 0;
+	do {
+		if (!mpd_send_delete_id(c, mpd_song_get_id(&playlist[pos])))
+			return HandleError();
+
+		++n;
+		pos = playlist.FindByUri(uri, pos + 1);
+	} while (pos >= 0);
+
+	assert(n > 0);
+
+	if (!mpd_send_status(c) ||
+	    !mpd_command_list_end(c))
+		return HandleError();
+
+	events |= MPD_IDLE_QUEUE;
+
+	const struct mpd_status *new_status = ReceiveStatus();
+	if (new_status == nullptr)
+		return false;
+
+	if (!mpd_response_finish(c))
+		return HandleError();
+
+	if (mpd_status_get_queue_length(new_status) == playlist.size() - n &&
+	    mpd_status_get_queue_version(new_status) == playlist.version + n) {
+		/* the cheap route: match on the new playlist length
+		   and its version, we can keep our local playlist
+		   copy in sync */
+		playlist.version = mpd_status_get_queue_version(new_status);
+
+		/* remove the song from the local playlist */
+		for (pos = playlist.FindByUri(uri); pos >= 0;
+		     pos = playlist.FindByUri(uri, pos))
+			playlist.RemoveIndex(pos);
+
+		assert(playlist.size() == mpd_status_get_queue_length(new_status));
+	}
 
 	return true;
 }
