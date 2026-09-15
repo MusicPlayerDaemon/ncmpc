@@ -2,7 +2,6 @@
 // Copyright The Music Player Daemon Project
 
 #include "charset.hxx"
-#include "util/ScopeExit.hxx"
 #include "util/StringAPI.hxx"
 
 #include <algorithm>
