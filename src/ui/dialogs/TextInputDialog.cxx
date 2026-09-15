@@ -34,8 +34,8 @@ TextInputDialog::TextInputDialog(ModalDock &_dock,
 	 history(_options.history), completion(_options.completion),
 	 masked(_options.masked), fragile(_options.fragile)
 {
-	MoveCursorToEnd();
 	Show();
+	MoveCursorToEnd();
 
 	if (history) {
 		/* append the a new line to our history list */
