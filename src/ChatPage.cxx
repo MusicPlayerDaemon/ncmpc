@@ -42,7 +42,7 @@ private:
 	void ProcessMessage(const struct mpd_message &message);
 
 	[[gnu::pure]]
-	const std::string &GetPrefix() noexcept;
+	std::string_view GetPrefix() noexcept;
 
 	void SendMessage(struct mpdclient &c, const char *msg) noexcept;
 
@@ -117,7 +117,7 @@ ChatPage::Update(struct mpdclient &c, unsigned events) noexcept
 	}
 }
 
-const std::string &
+inline std::string_view
 ChatPage::GetPrefix() noexcept
 {
 	if (!prefix.empty())
