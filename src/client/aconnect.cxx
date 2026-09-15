@@ -42,7 +42,8 @@ struct AsyncMpdConnect final : ConnectSocketHandler {
 
 /**
  * Receive the "welcome" line from MPD and return it as a
- * null-terminated string.
+ * null-terminated string.  It must be available with a single recv()
+ * call.
  *
  * Throw on error.
  */
