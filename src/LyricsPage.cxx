@@ -327,9 +327,12 @@ LyricsPage::GetTitle(std::span<char> buffer) const noexcept
 		return _("Lyrics");
 }
 
-void
+inline void
 LyricsPage::Edit() noexcept
 {
+	if (artist == nullptr || title == nullptr)
+		return;
+
 	const auto path = cache.MakePath(artist, title);
 	if (path.empty()) {
 		Alert(_("Lyrics cache is unavailable"));
