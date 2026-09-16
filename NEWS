@@ -9,6 +9,7 @@ ncmpc 0.55 - not yet released
 * add Zeroconf support to find MPD on the local network
 * rename build option "iconv" to "charset"
 * use $PATH to look up the "text_editor"
+* automatically update song highlights in library page
 * fix the %grouping% tag
 * fix missing tags in song-table-column
 * fix lyrics display after editing
