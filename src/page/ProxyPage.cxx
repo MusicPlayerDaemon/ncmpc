@@ -15,8 +15,13 @@ ProxyPage::SetCurrentPage(struct mpdclient &c, Page *new_page) noexcept
 
 	if (current_page != nullptr && is_open) {
 		current_page->OnOpen(c);
-		current_page->Resize(GetLastSize());
-		current_page->Update(c);
+
+		if (have_size) {
+			current_page->Resize(GetLastSize());
+
+			if (have_update)
+				current_page->Update(c);
+		}
 	}
 
 	SchedulePaint();
@@ -47,6 +52,8 @@ ProxyPage::OnClose() noexcept
 void
 ProxyPage::OnResize(Size size) noexcept
 {
+	have_size = true;
+
 	if (current_page != nullptr)
 		current_page->Resize(size);
 }
@@ -63,6 +70,8 @@ ProxyPage::Paint() const noexcept
 void
 ProxyPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
+	have_update = true;
+
 	if (current_page != nullptr) {
 		current_page->AddPendingEvents(events);
 		current_page->Update(c);

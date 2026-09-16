@@ -13,7 +13,7 @@ class ProxyPage : public Page, public PageContainer {
 
 	Page *current_page = nullptr;
 
-	bool is_open = false;
+	bool is_open = false, have_size = false, have_update = false;
 
 public:
 	explicit ProxyPage(PageContainer &_parent, const Window _window) noexcept
