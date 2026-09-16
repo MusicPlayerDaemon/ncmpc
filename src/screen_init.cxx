@@ -152,5 +152,7 @@ void
 ScreenManager::Init(struct mpdclient &c) noexcept
 {
 	current_page = MakePage(screen_queue);
-	GetCurrentPage().OnOpen(c);
+	auto &p = GetCurrentPage();
+	p.OnOpen(c);
+	p.Resize(main_window.GetSize());
 }
