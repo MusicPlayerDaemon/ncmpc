@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The Music Player Daemon Project
 
-#ifndef STRING_UTF8_HXX
-#define STRING_UTF8_HXX
+#pragma once
 
 #include "config.h"
 
@@ -19,6 +18,4 @@ public:
 
 [[gnu::pure]]
 int
-CollateUTF8(const char *a, const char *b);
-
-#endif
+CollateUTF8(const char *a, const char *b) noexcept;

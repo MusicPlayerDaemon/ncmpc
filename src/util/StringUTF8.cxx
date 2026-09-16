@@ -49,7 +49,7 @@ ScopeInitUTF8::~ScopeInitUTF8() noexcept
 
 [[gnu::pure]]
 int
-CollateUTF8(const char *a, const char *b)
+CollateUTF8(const char *a, const char *b) noexcept
 {
 #ifdef HAVE_LOCALE_T
 	if (utf8_locale != locale_t(0))
