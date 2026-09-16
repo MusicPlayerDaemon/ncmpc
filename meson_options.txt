@@ -97,4 +97,5 @@ option('html_manual', type: 'boolean',
 	value: true,
 	description: 'Build the HTML manual')
 
-option('test', type: 'boolean', value: false, description: 'Build the unit tests and debug programs')
+option('test', type: 'feature', value: 'disabled',
+       description: 'Build the unit tests and debug programs')

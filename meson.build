@@ -489,7 +489,7 @@ install_data('AUTHORS', 'COPYING', 'NEWS', 'README.rst',
   'doc/ncmpc.lirc',
   install_dir: docdir)
 
-if get_option('test')
+if not get_option('test').disabled()
   subdir('test')
 endif
 

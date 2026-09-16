@@ -10,3 +10,11 @@ executable(
     fmt_dep,
   ],
 )
+
+gtest = dependency('gtest', main: true,
+                   include_type: 'system',
+                   disabler: true,
+                   required: get_option('test'))
+
+subdir('util')
+subdir('co')
