@@ -37,7 +37,9 @@ public:
 	void Commit() noexcept;
 
 	void Cancel() noexcept {
+		id = -1;
 		commit_timer.Cancel();
+
 	}
 
 
