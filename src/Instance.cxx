@@ -6,6 +6,11 @@
 #include "event/SignalMonitor.hxx"
 #include "util/Exception.hxx" // for GetFullMessage()
 
+#ifndef NCMPC_MINI
+#include "TableGlue.hxx" // for song_table_structure
+#include "TableStructure.hxx"
+#endif
+
 #include <signal.h>
 
 #include "strfsong.hxx"
@@ -67,6 +72,9 @@ Instance::Instance()
 	tag_mask |= SongFormatToTagMask(options.status_format.c_str());
 #ifndef NCMPC_MINI
 	tag_mask |= SongFormatToTagMask(options.xterm_title_format.c_str());
+
+	for (const auto &i : song_table_structure.columns)
+		tag_mask |= SongFormatToTagMask(i.format.c_str());
 #endif
 
 	client.WhitelistTags(tag_mask);
