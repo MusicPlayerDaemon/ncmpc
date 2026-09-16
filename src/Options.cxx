@@ -266,7 +266,7 @@ options_parse(int argc, const char *argv[])
 
 			/* retrieve a option argument */
 			std::string name;
-			const char *value = strrchr(arg + 2, '=');
+			const char *value = strchr(arg + 2, '=');
 			if (value != nullptr) {
 				name.assign(arg, value);
 				value++;
