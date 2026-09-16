@@ -5,7 +5,6 @@
 #include "FindSupport.hxx"
 #include "charset.hxx"
 #include "ui/TextListRenderer.hxx"
-#include "screen.hxx"
 
 #include <algorithm>
 
