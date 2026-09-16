@@ -4,12 +4,6 @@
 #include "ListCursor.hxx"
 #include "Options.hxx"
 
-ListCursor::ListCursor(unsigned _height) noexcept
-	:height(_height),
-	 scroll_offset(ClampScrollOffset(ui_options.scroll_offset, height))
-{
-}
-
 void
 ListCursor::Reset() noexcept
 {
@@ -83,6 +77,13 @@ void
 ListCursor::ScrollTo(unsigned n) noexcept
 {
 	highlight_cursor = false;
+
+	if (n == 0) {
+		/* this special case allows calling SetLength() before
+		   SetHeight() */
+		start = 0;
+		return;
+	}
 
 	int new_start = start;
 

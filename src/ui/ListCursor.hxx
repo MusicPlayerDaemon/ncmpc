@@ -86,8 +86,6 @@ class ListCursor {
 	bool highlight_cursor = false;
 
 public:
-	explicit ListCursor(unsigned _height) noexcept;
-
 	constexpr unsigned GetHeight() const noexcept {
 		return height;
 	}

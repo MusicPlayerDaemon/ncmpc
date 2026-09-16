@@ -14,7 +14,7 @@ protected:
 	ListWindow lw;
 
 	ListPage(PageContainer &_parent, Window window) noexcept
-		:Page(_parent), lw(window, window.GetSize()) {}
+		:Page(_parent), lw(window) {}
 
 public:
 	unsigned GetWidth() const noexcept {

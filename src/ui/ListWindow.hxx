@@ -18,8 +18,8 @@ class ListWindow : public ListCursor {
 	unsigned width;
 
 public:
-	ListWindow(Window _window, Size _size) noexcept
-		:ListCursor(_size.height), window(_window), width(_size.width) {}
+	explicit ListWindow(Window _window) noexcept
+		:window(_window) {}
 
 	Window GetWindow() const noexcept {
 		return window;

@@ -74,9 +74,6 @@ public:
 		 hide_cursor_timer(screen.GetEventLoop(),
 				   BIND_THIS_METHOD(OnHideCursorTimer))
 	{
-#ifndef NCMPC_MINI
-		table_layout.Calculate(GetWidth());
-#endif
 	}
 
 private:
