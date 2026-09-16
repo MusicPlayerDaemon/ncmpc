@@ -17,6 +17,19 @@ handle_player_command(Interface &interface,
 	if (!c.IsReady() || c.status == nullptr)
 		return false;
 
+	switch(cmd) {
+	case Command::SEEK_FORWARD:
+		seek.Seek(options.seek_time);
+		return true;
+
+	case Command::SEEK_BACKWARD:
+		seek.Seek(-int(options.seek_time));
+		return true;
+
+	default:
+		break;
+	}
+
 	seek.Cancel();
 
 	switch(cmd) {
@@ -39,17 +52,11 @@ handle_player_command(Interface &interface,
 	case Command::CROP:
 		mpdclient_cmd_crop(c);
 		break;
-	case Command::SEEK_FORWARD:
-		seek.Seek(options.seek_time);
-		break;
 
 	case Command::TRACK_NEXT:
 		if (auto *connection = c.GetConnection();
 		    connection != nullptr && !mpd_run_next(connection))
 			c.HandleError();
-		break;
-	case Command::SEEK_BACKWARD:
-		seek.Seek(-int(options.seek_time));
 		break;
 
 	case Command::TRACK_PREVIOUS:
