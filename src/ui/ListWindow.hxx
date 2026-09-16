@@ -34,10 +34,6 @@ public:
 		width = _size.width;
 	}
 
-	void Refresh() const noexcept {
-		window.Refresh();
-	}
-
 	void Paint(const ListRenderer &renderer) const noexcept;
 
 	/** perform basic list window commands (movement) */
