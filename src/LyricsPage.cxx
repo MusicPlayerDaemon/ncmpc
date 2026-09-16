@@ -408,7 +408,7 @@ LyricsPage::Edit() noexcept
 	} else if (WIFEXITED(status)) {
 		if (WEXITSTATUS(status) == 0)
 			/* update to get the changes */
-			Reload();
+			LoadFromCache();
 		else if (WEXITSTATUS(status) == 127)
 			Alert(_("Can't start editor"));
 		else
