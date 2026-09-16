@@ -54,8 +54,6 @@ Instance::Instance()
 #endif
 	 user_input(event_loop, *screen_manager.main_window.w, *this)
 {
-	screen_manager.Init(client);
-
 #ifndef _WIN32
 	InitSignals();
 	SignalMonitorInit(event_loop);
@@ -78,6 +76,8 @@ Instance::Instance()
 #endif
 
 	client.WhitelistTags(tag_mask);
+
+	screen_manager.Init(client);
 }
 
 Instance::~Instance()
