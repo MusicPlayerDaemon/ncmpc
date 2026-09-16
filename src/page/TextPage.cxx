@@ -5,6 +5,7 @@
 #include "FindSupport.hxx"
 #include "charset.hxx"
 #include "ui/TextListRenderer.hxx"
+#include "util/CharUtil.hxx"
 
 #include <algorithm>
 
@@ -47,9 +48,7 @@ TextPage::Append(const char *str) noexcept
 		/* reset control characters */
 
 		std::replace_if(lines.back().begin(), lines.back().end(),
-				[](unsigned char ch){
-					return ch < 0x20;
-				}, ' ');
+				IsNonPrintableASCII, ' ');
 
 		str = next;
 	}
