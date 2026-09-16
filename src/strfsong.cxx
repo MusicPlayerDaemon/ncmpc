@@ -276,6 +276,7 @@ SongFormatToTagMask(const char *format) noexcept
 		{"%albumartist%", MPD_TAG_ALBUM_ARTIST},
 		{"%composer%", MPD_TAG_COMPOSER},
 		{"%performer%", MPD_TAG_PERFORMER},
+		{"%grouping%", MPD_TAG_GROUPING},
 	};
 
 	for (const auto &i : tag_references)

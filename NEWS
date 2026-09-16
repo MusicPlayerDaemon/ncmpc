@@ -9,6 +9,7 @@ ncmpc 0.55 - not yet released
 * add Zeroconf support to find MPD on the local network
 * rename build option "iconv" to "charset"
 * use $PATH to look up the "text_editor"
+* fix the %grouping% tag
 * fix lyrics display after editing
 * fix endless loop if deleting from queue fails
 * fix broken main area after terminal had been very small
