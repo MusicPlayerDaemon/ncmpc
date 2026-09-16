@@ -67,9 +67,13 @@ ConvertLocaleToUtf8String(std::string_view src) noexcept
 
 	mbstate_t state{};
 
-	while (!src.empty()) {
+	while (true) {
 		char8_t c8;
 		std::size_t n = std::mbrtoc8(&c8, src.data(), src.size(), &state);
+
+		if (src.empty() && n != static_cast<std::size_t>(-3))
+			break;
+
 		if (n == static_cast<std::size_t>(-1)) {
 			// error
 			result.push_back('?');
