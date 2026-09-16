@@ -89,7 +89,7 @@ public:
 		return paint_event.GetEventLoop();
 	}
 
-	void Init(struct mpdclient *c) noexcept;
+	void Init(struct mpdclient &c) noexcept;
 	void Exit() noexcept;
 
 	const PageMeta &GetCurrentPageMeta() const noexcept {

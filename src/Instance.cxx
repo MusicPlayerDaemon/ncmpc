@@ -54,7 +54,7 @@ Instance::Instance()
 #endif
 	 user_input(event_loop, *screen_manager.main_window.w, *this)
 {
-	screen_manager.Init(&client);
+	screen_manager.Init(client);
 
 #ifndef _WIN32
 	InitSignals();

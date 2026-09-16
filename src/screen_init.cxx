@@ -149,8 +149,8 @@ ScreenManager::OnResize() noexcept
 }
 
 void
-ScreenManager::Init(struct mpdclient *c) noexcept
+ScreenManager::Init(struct mpdclient &c) noexcept
 {
 	current_page = MakePage(screen_queue);
-	GetCurrentPage().OnOpen(*c);
+	GetCurrentPage().OnOpen(c);
 }
