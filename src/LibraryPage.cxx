@@ -91,6 +91,7 @@ SongListPage::Update(struct mpdclient &c, unsigned events) noexcept
 {
 	if (events & MPD_IDLE_DATABASE) {
 		LoadSongList(c);
+		SchedulePaint();
 #ifndef NCMPC_MINI
 	} else if (events & MPD_IDLE_QUEUE) {
 		screen_browser_sync_highlights(filelist, c.playlist);
