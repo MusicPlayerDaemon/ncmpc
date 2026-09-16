@@ -1,3 +1,8 @@
+util_test_sources = []
+if has_charset
+  util_test_sources += 'TestLocaleConvert.cxx'
+endif
+
 test(
   'TestUtil',
   executable(
@@ -8,6 +13,7 @@ test(
     'TestFNVHash.cxx',
     'TestStaticVector.cxx',
     'TestStringStrip.cxx',
+    util_test_sources,
     include_directories: inc,
     dependencies: [gtest, util_dep],
   ),
