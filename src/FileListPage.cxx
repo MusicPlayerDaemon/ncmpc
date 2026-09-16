@@ -275,7 +275,13 @@ FileListPage::HandleSelectEntry(struct mpdclient &c, FileListEntry &entry,
 
 		entry.flags &= ~HIGHLIGHT;
 
-		c.RunDeleteUri(mpd_song_get_uri(song));
+		/* we need to copy the URI because
+		   mpdclient::GetConnection() may handle idle events
+		   and may invalidate the song object befor using the
+		   URI */
+		const std::string uri{mpd_song_get_uri(song)};
+
+		c.RunDeleteUri(uri.c_str());
 #endif
 	}
 
