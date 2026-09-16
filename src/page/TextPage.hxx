@@ -35,14 +35,14 @@ protected:
 	/**
 	 * @param str a UTF-8 string
 	 */
-	void Append(const char *str) noexcept;
+	void Append(std::string_view s) noexcept;
 
 	/**
 	 * @param str a UTF-8 string
 	 */
-	void Set(const char *str) noexcept {
+	void Set(std::string_view s) noexcept {
 		Clear();
-		Append(str);
+		Append(s);
 	}
 
 public:

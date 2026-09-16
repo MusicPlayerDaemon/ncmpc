@@ -83,7 +83,7 @@ private:
 
 	void Cancel() noexcept;
 
-	void Set(const char *s) noexcept;
+	void Set(std::string_view s) noexcept;
 
 	void StartPluginCycle() noexcept;
 
@@ -155,7 +155,7 @@ LyricsPage::Save() noexcept
 }
 
 void
-LyricsPage::Set(const char *s) noexcept
+LyricsPage::Set(std::string_view s) noexcept
 {
 	if (reloading) {
 		unsigned saved_start = lw.GetOrigin();
@@ -178,7 +178,7 @@ LyricsPage::OnPluginSuccess(const char *_plugin_name,
 {
 	plugin_name = _plugin_name;
 
-	Set(result.c_str());
+	Set(result);
 
 	if (options.lyrics_autosave && cache.IsAvailable() &&
 	    !cache.Exists(artist, title))
@@ -197,7 +197,7 @@ LyricsPage::OnPluginError(std::string error) noexcept
 {
 	plugin_name.clear();
 
-	Set(error.c_str());
+	Set(error);
 
 	/* translators: no lyrics were found for the song */
 	Alert(_("No lyrics"));
@@ -252,7 +252,7 @@ LyricsPage::Load(const struct mpd_song &_song) noexcept
 	if (auto from_cache = cache.Load(artist, title); !from_cache.empty()) {
 		/* cached */
 		plugin_name = "cache";
-		Set(from_cache.c_str());
+		Set(from_cache);
 	} else
 		/* not cached - invoke plugins */
 		StartPluginCycle();

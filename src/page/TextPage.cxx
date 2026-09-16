@@ -6,11 +6,12 @@
 #include "charset.hxx"
 #include "ui/TextListRenderer.hxx"
 #include "util/CharUtil.hxx"
+#include "util/IterableSplitString.hxx"
+#include "util/StringStrip.hxx"
 
 #include <algorithm>
 
 #include <assert.h>
-#include <string.h>
 
 TextPage::TextPage(PageContainer &_parent, Window window,
 		   FindSupport &_find_support) noexcept
@@ -28,33 +29,22 @@ TextPage::Clear() noexcept
 }
 
 void
-TextPage::Append(const char *str) noexcept
+TextPage::Append(std::string_view v) noexcept
 {
-	assert(str != nullptr);
-
-	const char *eol;
-	while ((eol = strchr(str, '\n')) != nullptr) {
-		const char *next = eol + 1;
-
+	for (std::string_view line : IterableSplitString(v, '\n')) {
 		/* strip whitespace at end */
 
-		while (eol > str && (unsigned char)eol[-1] <= 0x20)
-			--eol;
+		line = StripRight(line);
 
 		/* create copy and append it to lines */
 
-		lines.emplace_back(str, eol);
+		lines.emplace_back(line);
 
 		/* reset control characters */
 
 		std::replace_if(lines.back().begin(), lines.back().end(),
 				IsNonPrintableASCII, ' ');
-
-		str = next;
 	}
-
-	if (*str != 0)
-		lines.emplace_back(str);
 
 	lw.SetLength(lines.size());
 
