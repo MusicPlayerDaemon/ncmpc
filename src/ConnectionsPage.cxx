@@ -231,7 +231,7 @@ ConnectionsPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	case Command::LIST_JUMP:
-		CoStart(Jump(screen, *this, *this));
+		CoStart(Jump(screen, *this));
 		return true;
 
 	default:

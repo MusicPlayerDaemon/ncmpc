@@ -9,8 +9,7 @@
 #include <fmt/format.h>
 
 Co::InvokeTask
-ListPage::Jump(ModalDock &modal_dock, const ListText &text,
-	       const ListRenderer &renderer) noexcept
+ListPage::Jump(ModalDock &modal_dock, const ListText &text) noexcept
 {
 	TextInputDialog dialog{
 		modal_dock,
@@ -19,9 +18,9 @@ ListPage::Jump(ModalDock &modal_dock, const ListText &text,
 		{ .fragile = true },
 	};
 
-	dialog.SetModifiedCallback([this, &text, &renderer](std::string_view value) noexcept {
+	dialog.SetModifiedCallback([this, &text](std::string_view value) noexcept {
 		lw.Jump(text, value);
-		lw.Paint(renderer);
+		SchedulePaint();
 	});
 
 	co_await dialog;

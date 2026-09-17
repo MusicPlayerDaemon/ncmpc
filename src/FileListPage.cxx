@@ -397,7 +397,7 @@ FileListPage::OnCommand(struct mpdclient &c, Command cmd)
 		CoStart(screen.find_support.Find(lw, *this, cmd));
 		return true;
 	case Command::LIST_JUMP:
-		CoStart(Jump(screen, *this, *this));
+		CoStart(Jump(screen, *this));
 		return true;
 
 	default:

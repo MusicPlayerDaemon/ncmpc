@@ -248,7 +248,7 @@ TagListPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	case Command::LIST_JUMP:
-		CoStart(Jump(modal_dock, *this, *this));
+		CoStart(Jump(modal_dock, *this));
 		return true;
 
 	default:

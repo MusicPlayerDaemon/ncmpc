@@ -59,5 +59,5 @@ protected:
 	 */
 	[[nodiscard]]
 	Co::InvokeTask Jump(ModalDock &modal_dock,
-			    const ListText &text, const ListRenderer &renderer) noexcept;
+			    const ListText &text) noexcept;
 };
