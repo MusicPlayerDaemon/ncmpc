@@ -24,6 +24,7 @@ src/TagListPage.cxx
 src/TitleBar.cxx
 src/ui/dialogs/YesNoDialog.cxx
 src/page/FindSupport.cxx
+src/page/ListPage.cxx
 src/player_command.cxx
 src/save_playlist.cxx
 src/screen.cxx

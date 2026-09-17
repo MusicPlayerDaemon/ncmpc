@@ -6,6 +6,9 @@
 #include "Page.hxx"
 #include "ui/ListWindow.hxx"
 
+namespace Co { class InvokeTask; }
+class ModalDock;
+
 /**
  * An abstract #Page implementation which shows a #ListWindow.
  */
@@ -47,6 +50,14 @@ public:
 
 		return false;
 	}
-
 #endif
+
+protected:
+	/**
+	 * Query user for a string and jump to the entry which begins
+	 * with this string while the users types.
+	 */
+	[[nodiscard]]
+	Co::InvokeTask Jump(ModalDock &modal_dock,
+			    const ListText &text, const ListRenderer &renderer) noexcept;
 };

@@ -11,9 +11,11 @@
 #include <vector>
 #include <string>
 
+class ModalDock;
 class FindSupport;
 
 class TagListPage : public ListPage, ListRenderer, ListText {
+	ModalDock &modal_dock;
 	FindSupport &find_support;
 	Page *const parent;
 
@@ -27,12 +29,14 @@ class TagListPage : public ListPage, ListRenderer, ListText {
 
 public:
 	TagListPage(PageContainer &_container,
+		    ModalDock &_modal_dock,
 		    FindSupport &_find_support, Page *_parent,
 		    const enum mpd_tag_type _tag,
 		    const char *_all_text,
 		    Window _window) noexcept
 		:ListPage(_container, _window),
-		 find_support(_find_support), parent(_parent),
+		 modal_dock(_modal_dock), find_support(_find_support),
+		 parent(_parent),
 		 tag(_tag), all_text(_all_text) {}
 
 	auto GetTag() const noexcept {

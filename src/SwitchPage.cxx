@@ -89,7 +89,7 @@ SwitchPage::OnCommand(struct mpdclient &c, Command cmd)
 		return true;
 
 	case Command::LIST_JUMP:
-		CoStart(screen.find_support.Jump(lw, *this, list_renderer));
+		CoStart(Jump(screen, *this, list_renderer));
 		return true;
 
 	default:

@@ -40,11 +40,6 @@ public:
 	[[nodiscard]]
 	Co::InvokeTask Find(ListWindow &lw, const ListText &text, Command cmd) noexcept;
 
-	/* query user for a string and jump to the entry
-	 * which begins with this string while the users types */
-	[[nodiscard]]
-	Co::InvokeTask Jump(ListWindow &lw, const ListText &text, const ListRenderer &renderer) noexcept;
-
 private:
 	[[nodiscard]]
 	Co::InvokeTask DoFind(ListWindow &lw, const ListText &text, bool reversed) noexcept;

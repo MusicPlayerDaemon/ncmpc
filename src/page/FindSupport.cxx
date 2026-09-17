@@ -16,7 +16,6 @@
 
 #define FIND_PROMPT  _("Find")
 #define RFIND_PROMPT _("Find backward")
-#define JUMP_PROMPT _("Jump")
 
 inline Co::InvokeTask
 FindSupport::DoFind(ListWindow &lw, const ListText &text, bool reversed) noexcept
@@ -69,24 +68,4 @@ FindSupport::Find(ListWindow &lw, const ListText &text, Command cmd) noexcept
 	default:
 		return {};
 	}
-}
-
-Co::InvokeTask
-FindSupport::Jump(ListWindow &lw,
-		  const ListText &text,
-		  const ListRenderer &renderer) noexcept
-{
-	TextInputDialog dialog{
-		modal_dock,
-		JUMP_PROMPT,
-		{},
-		{ .fragile = true },
-	};
-
-	dialog.SetModifiedCallback([&lw, &text, &renderer](std::string_view value) noexcept {
-		lw.Jump(text, value);
-		lw.Paint(renderer);
-	});
-
-	co_await dialog;
 }

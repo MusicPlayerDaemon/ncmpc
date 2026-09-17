@@ -1,6 +1,7 @@
 page_sources = [
   'Page.cxx',
   'ProxyPage.cxx',
+  'ListPage.cxx',
   'FindSupport.cxx',
 ]
 
