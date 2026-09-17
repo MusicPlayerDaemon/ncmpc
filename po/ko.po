@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 17:02+0200\n"
+"POT-Creation-Date: 2026-09-17 09:35+0200\n"
 "PO-Revision-Date: 2026-03-09 02:09+0000\n"
 "Last-Translator: Min Ho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/ncmpc/"
@@ -389,7 +389,7 @@ msgstr "잘못된 시간 표시 형식"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:587
+#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:589
 msgid "Missing '='"
 msgstr "'=' 기호가 없음"
 
@@ -413,31 +413,31 @@ msgstr "잘못된 색상 지정"
 #. name was specified in
 #. the configuration
 #. file
-#: src/ConfigParser.cxx:433
+#: src/ConfigParser.cxx:435
 msgid "Unknown screen name"
 msgstr "모르는 화면 이름"
 
-#: src/ConfigParser.cxx:462
+#: src/ConfigParser.cxx:464
 msgid "Unknown MPD tag"
 msgstr "모르는 MPD 태그"
 
-#: src/ConfigParser.cxx:489
+#: src/ConfigParser.cxx:491
 msgid "Invalid search mode"
 msgstr "잘못된 검색 모드"
 
-#: src/ConfigParser.cxx:507
+#: src/ConfigParser.cxx:509
 msgid "Unknown search mode"
 msgstr "모르는 검색 모드"
 
-#: src/ConfigParser.cxx:540
+#: src/ConfigParser.cxx:542
 msgid "Invalid column width"
 msgstr "잘못된 열 너비"
 
-#: src/ConfigParser.cxx:549
+#: src/ConfigParser.cxx:551
 msgid "Invalid column fraction width"
 msgstr "잘못된 열 나누기 너비"
 
-#: src/ConfigParser.cxx:760
+#: src/ConfigParser.cxx:762
 msgid "Unknown configuration parameter"
 msgstr "모르는 설정 요소"
 
@@ -581,76 +581,76 @@ msgstr "한 단계 위로 가기"
 msgid "Apply and save changes"
 msgstr "적용하고 변경사항을 저장"
 
-#: src/HelpPage.cxx:233 src/HelpPage.cxx:331
+#: src/HelpPage.cxx:233 src/HelpPage.cxx:330
 msgid "Help"
 msgstr "도움"
 
-#: src/KeyDefPage.cxx:166
+#: src/KeyDefPage.cxx:165
 msgid "Deleted"
 msgstr "삭제됨"
 
-#: src/KeyDefPage.cxx:177
+#: src/KeyDefPage.cxx:176
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "{}의 새 키 입력"
 
-#: src/KeyDefPage.cxx:182
+#: src/KeyDefPage.cxx:181
 msgid "Aborted"
 msgstr "중단됨"
 
-#: src/KeyDefPage.cxx:187
+#: src/KeyDefPage.cxx:186
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-Space 사용할 수 없음"
 
-#: src/KeyDefPage.cxx:193
+#: src/KeyDefPage.cxx:192
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "오류: {} 키는 이미 {}에 사용함"
 
-#: src/KeyDefPage.cxx:203
+#: src/KeyDefPage.cxx:202
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "{} 키가 {}에 지정됨"
 
-#: src/KeyDefPage.cxx:230 src/KeyDefPage.cxx:247
+#: src/KeyDefPage.cxx:229 src/KeyDefPage.cxx:246
 msgid "Add new key"
 msgstr "새로운 키 추가"
 
-#: src/KeyDefPage.cxx:277
+#: src/KeyDefPage.cxx:276
 #, c++-format
 msgid "Edit keys for {}"
 msgstr "{} 키 편집"
 
-#: src/KeyDefPage.cxx:426
+#: src/KeyDefPage.cxx:429
 msgid "You have new key bindings"
 msgstr "새로운 키 조합입니다"
 
-#: src/KeyDefPage.cxx:428
+#: src/KeyDefPage.cxx:431
 msgid "Keybindings unchanged."
 msgstr "키 조합이 바뀌지 않았습니다."
 
-#: src/KeyDefPage.cxx:438
+#: src/KeyDefPage.cxx:441
 msgid "Unable to write configuration"
 msgstr "설정 쓰기가 안 됨"
 
-#: src/KeyDefPage.cxx:447 src/KeyDefPage.cxx:456
+#: src/KeyDefPage.cxx:450 src/KeyDefPage.cxx:459
 msgid "Error"
 msgstr "오류"
 
-#: src/KeyDefPage.cxx:454
+#: src/KeyDefPage.cxx:457
 #, c++-format
 msgid "Wrote {}"
 msgstr "{} 쓰기"
 
-#: src/KeyDefPage.cxx:466 src/KeyDefPage.cxx:506
+#: src/KeyDefPage.cxx:469 src/KeyDefPage.cxx:508
 msgid "Apply key bindings"
 msgstr "키 조합을 적용"
 
-#: src/KeyDefPage.cxx:468 src/KeyDefPage.cxx:512
+#: src/KeyDefPage.cxx:471 src/KeyDefPage.cxx:513
 msgid "Apply & Save key bindings"
 msgstr "키 조합을 적용하고 저장"
 
-#: src/KeyDefPage.cxx:541
+#: src/KeyDefPage.cxx:542
 msgid "Edit key bindings"
 msgstr "키 조합 편집"
 
@@ -658,7 +658,7 @@ msgstr "키 조합 편집"
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "주의: 변경사항 '적용하기'를 잊었나요?"
 
-#: src/KeyDefPage.cxx:670
+#: src/KeyDefPage.cxx:672
 msgid "Keys"
 msgstr "키"
 
@@ -750,66 +750,66 @@ msgstr "아티스트"
 msgid "Albums"
 msgstr "음반"
 
-#: src/LibraryPage.cxx:133
+#: src/LibraryPage.cxx:139
 msgid "All"
 msgstr "모두"
 
-#: src/LibraryPage.cxx:209
+#: src/LibraryPage.cxx:215
 msgid "Songs"
 msgstr "곡"
 
-#: src/LibraryPage.cxx:335
+#: src/LibraryPage.cxx:341
 msgid "Library"
 msgstr "라이브러리"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:203
+#: src/LyricsPage.cxx:204
 msgid "No lyrics"
 msgstr "가사 없음"
 
-#: src/LyricsPage.cxx:217
+#: src/LyricsPage.cxx:218
 #, c++-format
 msgid "Lyrics timeout occurred after {} seconds"
 msgstr "{} 초 후에 가사 끝남"
 
-#: src/LyricsPage.cxx:314 src/LyricsPage.cxx:322 src/LyricsPage.cxx:325
-#: src/LyricsPage.cxx:327 src/LyricsPage.cxx:457
+#: src/LyricsPage.cxx:326 src/LyricsPage.cxx:334 src/LyricsPage.cxx:337
+#: src/LyricsPage.cxx:339 src/LyricsPage.cxx:472
 msgid "Lyrics"
 msgstr "가사"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:318
+#: src/LyricsPage.cxx:330
 msgid "loading..."
 msgstr "불러오는 중..."
 
-#: src/LyricsPage.cxx:335
+#: src/LyricsPage.cxx:350
 msgid "Lyrics cache is unavailable"
 msgstr "가사 캐시를 사용할 수 없습니다"
 
-#: src/LyricsPage.cxx:340
+#: src/LyricsPage.cxx:355
 msgid "Editor not configured"
 msgstr "편집기 설정 안됨"
 
-#: src/LyricsPage.cxx:375 src/LyricsPage.cxx:398
+#: src/LyricsPage.cxx:390 src/LyricsPage.cxx:413
 msgid "Can't start editor"
 msgstr "편집기를 사용할 수 없음"
 
-#: src/LyricsPage.cxx:391 src/LyricsPage.cxx:401 src/LyricsPage.cxx:405
+#: src/LyricsPage.cxx:406 src/LyricsPage.cxx:416 src/LyricsPage.cxx:420
 msgid "Editor exited unexpectedly"
 msgstr "편집기가 갑자기 종료됨"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:427
+#: src/LyricsPage.cxx:442
 msgid "Lyrics saved"
 msgstr "가사 저장됨"
 
-#: src/LyricsPage.cxx:433
+#: src/LyricsPage.cxx:448
 msgid "Lyrics deleted"
 msgstr "가사 삭제됨"
 
-#: src/LyricsPage.cxx:434
+#: src/LyricsPage.cxx:449
 msgid "No saved lyrics"
 msgstr "저장된 가사 없음"
 
@@ -848,7 +848,7 @@ msgstr "출력 '{}' 활성화됨"
 msgid "Output '{}' disabled"
 msgstr "출력 '{}' 비활성화됨"
 
-#: src/OutputsPage.cxx:333 src/OutputsPage.cxx:432
+#: src/OutputsPage.cxx:333 src/OutputsPage.cxx:428
 msgid "Outputs"
 msgstr "출력"
 
@@ -856,113 +856,109 @@ msgstr "출력"
 msgid "Partition"
 msgstr "칸막이"
 
-#: src/OutputsPage.cxx:364
+#: src/OutputsPage.cxx:362
 msgid "Create new partition"
 msgstr "새 칸막이 만들기"
 
-#: src/QueuePage.cxx:308
+#: src/QueuePage.cxx:305
 msgid "Add"
 msgstr "추가하기"
 
-#: src/QueuePage.cxx:372 src/QueuePage.cxx:663
+#: src/QueuePage.cxx:369 src/QueuePage.cxx:661
 msgid "Queue"
 msgstr "순서"
 
-#: src/QueuePage.cxx:374
+#: src/QueuePage.cxx:371
 #, c++-format
 msgid "Queue on {}"
 msgstr "순서 {}"
 
-#: src/QueuePage.cxx:615 src/player_command.cxx:63
+#: src/QueuePage.cxx:613 src/player_command.cxx:70
 msgid "Shuffled queue"
 msgstr "순서 뒤섞음"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:45
 msgid "artist"
 msgstr "연주가"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:46
 msgid "album"
 msgstr "음반"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:47
 msgid "title"
 msgstr "제목"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:48
 msgid "track"
 msgstr "곡"
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:49
 msgid "name"
 msgstr "이름"
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:50
 msgid "genre"
 msgstr "장르"
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:51
 msgid "date"
 msgstr "날짜"
 
-#: src/SearchPage.cxx:47
+#: src/SearchPage.cxx:52
 msgid "composer"
 msgstr "작곡가"
 
-#: src/SearchPage.cxx:48
+#: src/SearchPage.cxx:53
 msgid "performer"
 msgstr "연주가"
 
-#: src/SearchPage.cxx:49
+#: src/SearchPage.cxx:54
 msgid "label"
 msgstr "라벨"
 
-#: src/SearchPage.cxx:50
+#: src/SearchPage.cxx:55
 msgid "comment"
 msgstr "설명"
 
-#: src/SearchPage.cxx:58
+#: src/SearchPage.cxx:63
 msgid "file"
 msgstr "파일"
 
-#: src/SearchPage.cxx:78 src/SongPage.cxx:51
-msgid "Title"
-msgstr "제목"
-
-#: src/SearchPage.cxx:79 src/SongPage.cxx:50
-msgid "Artist"
-msgstr "연주가"
-
-#: src/SearchPage.cxx:80 src/SongPage.cxx:52
-msgid "Album"
-msgstr "음반"
-
-#: src/SearchPage.cxx:81
-msgid "Filename"
-msgstr "파일이름"
-
-#: src/SearchPage.cxx:82
-msgid "Artist + Title"
-msgstr "연주가 + 제목"
-
-#: src/SearchPage.cxx:270
+#: src/SearchPage.cxx:125
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "잘못된 찾기 태그 {}"
 
-#: src/SearchPage.cxx:284
+#: src/SearchPage.cxx:131
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "{} 찾기 태그의 인자가 없음"
 
-#: src/SearchPage.cxx:372 src/SearchPage.cxx:405 src/SearchPage.cxx:408
-#: src/SearchPage.cxx:412 src/SearchPage.cxx:469
+#: src/SearchPage.cxx:222 src/SongPage.cxx:51
+msgid "Title"
+msgstr "제목"
+
+#: src/SearchPage.cxx:223 src/SongPage.cxx:50
+msgid "Artist"
+msgstr "연주가"
+
+#: src/SearchPage.cxx:224 src/SongPage.cxx:52
+msgid "Album"
+msgstr "음반"
+
+#: src/SearchPage.cxx:225
+msgid "Filename"
+msgstr "파일이름"
+
+#: src/SearchPage.cxx:226
+msgid "Advanced"
+msgstr ""
+
+#: src/SearchPage.cxx:344 src/SearchPage.cxx:353 src/SearchPage.cxx:450
+#: src/SearchPage.cxx:520
 msgid "Search"
 msgstr "찾기"
-
-#: src/SearchPage.cxx:432
-msgid "Search mode"
-msgstr "찾기 방식"
 
 #: src/SongPage.cxx:53
 msgid "Work"
@@ -1085,15 +1081,15 @@ msgstr "연주 중:"
 msgid "[Paused]"
 msgstr "[잠깐 멈춤]"
 
-#: src/Styles.cxx:255 src/Styles.cxx:311
+#: src/Styles.cxx:260 src/Styles.cxx:316
 msgid "Unknown color"
 msgstr "모르는 색상"
 
-#: src/Styles.cxx:321
+#: src/Styles.cxx:326
 msgid "Unknown color field"
 msgstr "모르는 색상 필드"
 
-#: src/Styles.cxx:354
+#: src/Styles.cxx:359
 msgid "Terminal lacks color capabilities"
 msgstr "터미널의 색상 기능이 부족합니다"
 
@@ -1113,16 +1109,16 @@ msgstr "찾기"
 msgid "Find backward"
 msgstr "뒤로 찾기"
 
-#: src/page/FindSupport.cxx:19
-msgid "Jump"
-msgstr "이동"
-
-#: src/page/FindSupport.cxx:46
+#: src/page/FindSupport.cxx:45
 #, c++-format
 msgid "Unable to find '{}'"
 msgstr "'{}' 찾을 수 없음"
 
-#: src/player_command.cxx:71
+#: src/page/ListPage.cxx:17
+msgid "Jump"
+msgstr "이동"
+
+#: src/player_command.cxx:78
 msgid "Cleared queue"
 msgstr "순서 지움"
 
@@ -1248,6 +1244,12 @@ msgstr "일"
 #: src/time/Parser.cxx:15 src/time/Parser.cxx:44
 msgid "Unrecognized suffix"
 msgstr "미 인식 서픽스"
+
+#~ msgid "Artist + Title"
+#~ msgstr "연주가 + 제목"
+
+#~ msgid "Search mode"
+#~ msgstr "찾기 방식"
 
 #~ msgid "All tracks"
 #~ msgstr "모든 곡"

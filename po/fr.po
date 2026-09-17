@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc 0.14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 17:02+0200\n"
+"POT-Creation-Date: 2026-09-17 09:35+0200\n"
 "PO-Revision-Date: 2022-04-01 16:10+0000\n"
 "Last-Translator: lionelvaux <lionel.vaux@univ-amu.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/ncmpc/"
@@ -394,7 +394,7 @@ msgstr "Mauvais type d'affichage du temps"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:587
+#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:589
 msgid "Missing '='"
 msgstr "Manque '='"
 
@@ -418,31 +418,31 @@ msgstr "Définition de couleur malformée"
 #. name was specified in
 #. the configuration
 #. file
-#: src/ConfigParser.cxx:433
+#: src/ConfigParser.cxx:435
 msgid "Unknown screen name"
 msgstr "Nom d'écran inconnu"
 
-#: src/ConfigParser.cxx:462
+#: src/ConfigParser.cxx:464
 msgid "Unknown MPD tag"
 msgstr "Étiquette MPD inconnue"
 
-#: src/ConfigParser.cxx:489
+#: src/ConfigParser.cxx:491
 msgid "Invalid search mode"
 msgstr "Mode de recherche invalide"
 
-#: src/ConfigParser.cxx:507
+#: src/ConfigParser.cxx:509
 msgid "Unknown search mode"
 msgstr "Mode de recherche inconnu"
 
-#: src/ConfigParser.cxx:540
+#: src/ConfigParser.cxx:542
 msgid "Invalid column width"
 msgstr ""
 
-#: src/ConfigParser.cxx:549
+#: src/ConfigParser.cxx:551
 msgid "Invalid column fraction width"
 msgstr ""
 
-#: src/ConfigParser.cxx:760
+#: src/ConfigParser.cxx:762
 msgid "Unknown configuration parameter"
 msgstr "Paramètre de configuration inconnu"
 
@@ -587,76 +587,76 @@ msgstr "Aller au dossier parent"
 msgid "Apply and save changes"
 msgstr "Appliquer et sauvegarder les changements"
 
-#: src/HelpPage.cxx:233 src/HelpPage.cxx:331
+#: src/HelpPage.cxx:233 src/HelpPage.cxx:330
 msgid "Help"
 msgstr "Aide"
 
-#: src/KeyDefPage.cxx:166
+#: src/KeyDefPage.cxx:165
 msgid "Deleted"
 msgstr "Effacé"
 
-#: src/KeyDefPage.cxx:177
+#: src/KeyDefPage.cxx:176
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "Entrez la nouvelle touche pour {} "
 
-#: src/KeyDefPage.cxx:182
+#: src/KeyDefPage.cxx:181
 msgid "Aborted"
 msgstr "Annulé"
 
-#: src/KeyDefPage.cxx:187
+#: src/KeyDefPage.cxx:186
 msgid "Ctrl-Space can't be used"
 msgstr "Ctrl-Espace ne peut être utilisé"
 
-#: src/KeyDefPage.cxx:193
+#: src/KeyDefPage.cxx:192
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "Erreur : la touche {} est déjà attribuée à {}"
 
-#: src/KeyDefPage.cxx:203
+#: src/KeyDefPage.cxx:202
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "{} assignée à {}"
 
-#: src/KeyDefPage.cxx:230 src/KeyDefPage.cxx:247
+#: src/KeyDefPage.cxx:229 src/KeyDefPage.cxx:246
 msgid "Add new key"
 msgstr "Ajouter une nouvelle touche"
 
-#: src/KeyDefPage.cxx:277
+#: src/KeyDefPage.cxx:276
 #, c++-format
 msgid "Edit keys for {}"
 msgstr "Modifier les touches pour {}"
 
-#: src/KeyDefPage.cxx:426
+#: src/KeyDefPage.cxx:429
 msgid "You have new key bindings"
 msgstr "Vous avez une nouvelle correspondance de touches"
 
-#: src/KeyDefPage.cxx:428
+#: src/KeyDefPage.cxx:431
 msgid "Keybindings unchanged."
 msgstr "La correspondance des touches n'a pas été changée."
 
-#: src/KeyDefPage.cxx:438
+#: src/KeyDefPage.cxx:441
 msgid "Unable to write configuration"
 msgstr "Échec de sauvegarde de la configuration"
 
-#: src/KeyDefPage.cxx:447 src/KeyDefPage.cxx:456
+#: src/KeyDefPage.cxx:450 src/KeyDefPage.cxx:459
 msgid "Error"
 msgstr "Erreur"
 
-#: src/KeyDefPage.cxx:454
+#: src/KeyDefPage.cxx:457
 #, c++-format
 msgid "Wrote {}"
 msgstr "{} écrit"
 
-#: src/KeyDefPage.cxx:466 src/KeyDefPage.cxx:506
+#: src/KeyDefPage.cxx:469 src/KeyDefPage.cxx:508
 msgid "Apply key bindings"
 msgstr "Appliquer la correspondance des touches"
 
-#: src/KeyDefPage.cxx:468 src/KeyDefPage.cxx:512
+#: src/KeyDefPage.cxx:471 src/KeyDefPage.cxx:513
 msgid "Apply & Save key bindings"
 msgstr "Appliquer et Enregistrer la correspondance des touches"
 
-#: src/KeyDefPage.cxx:541
+#: src/KeyDefPage.cxx:542
 msgid "Edit key bindings"
 msgstr "Modifier les correspondances de touches"
 
@@ -664,7 +664,7 @@ msgstr "Modifier les correspondances de touches"
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "Remarque : avez-vous oublié d'« Appliquer » vos changements ?"
 
-#: src/KeyDefPage.cxx:670
+#: src/KeyDefPage.cxx:672
 msgid "Keys"
 msgstr "Touches"
 
@@ -756,66 +756,66 @@ msgstr "Artistes"
 msgid "Albums"
 msgstr "Albums"
 
-#: src/LibraryPage.cxx:133
+#: src/LibraryPage.cxx:139
 msgid "All"
 msgstr "Tous"
 
-#: src/LibraryPage.cxx:209
+#: src/LibraryPage.cxx:215
 msgid "Songs"
 msgstr "Morceaux"
 
-#: src/LibraryPage.cxx:335
+#: src/LibraryPage.cxx:341
 msgid "Library"
 msgstr "Bibliothèque"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:203
+#: src/LyricsPage.cxx:204
 msgid "No lyrics"
 msgstr "Pas de paroles"
 
-#: src/LyricsPage.cxx:217
+#: src/LyricsPage.cxx:218
 #, c++-format
 msgid "Lyrics timeout occurred after {} seconds"
 msgstr "Expiration du délai après {} secondes pour les paroles"
 
-#: src/LyricsPage.cxx:314 src/LyricsPage.cxx:322 src/LyricsPage.cxx:325
-#: src/LyricsPage.cxx:327 src/LyricsPage.cxx:457
+#: src/LyricsPage.cxx:326 src/LyricsPage.cxx:334 src/LyricsPage.cxx:337
+#: src/LyricsPage.cxx:339 src/LyricsPage.cxx:472
 msgid "Lyrics"
 msgstr "Paroles"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:318
+#: src/LyricsPage.cxx:330
 msgid "loading..."
 msgstr "Chargement..."
 
-#: src/LyricsPage.cxx:335
+#: src/LyricsPage.cxx:350
 msgid "Lyrics cache is unavailable"
 msgstr ""
 
-#: src/LyricsPage.cxx:340
+#: src/LyricsPage.cxx:355
 msgid "Editor not configured"
 msgstr "L'éditeur n'est pas configuré"
 
-#: src/LyricsPage.cxx:375 src/LyricsPage.cxx:398
+#: src/LyricsPage.cxx:390 src/LyricsPage.cxx:413
 msgid "Can't start editor"
 msgstr "Impossible de démarrer l'éditeur"
 
-#: src/LyricsPage.cxx:391 src/LyricsPage.cxx:401 src/LyricsPage.cxx:405
+#: src/LyricsPage.cxx:406 src/LyricsPage.cxx:416 src/LyricsPage.cxx:420
 msgid "Editor exited unexpectedly"
 msgstr "L'éditeur a quitté de façon inattendue"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:427
+#: src/LyricsPage.cxx:442
 msgid "Lyrics saved"
 msgstr "Paroles enregistrées"
 
-#: src/LyricsPage.cxx:433
+#: src/LyricsPage.cxx:448
 msgid "Lyrics deleted"
 msgstr "Paroles supprimées"
 
-#: src/LyricsPage.cxx:434
+#: src/LyricsPage.cxx:449
 msgid "No saved lyrics"
 msgstr "Aucune parole sauvée"
 
@@ -863,7 +863,7 @@ msgstr "Sortie {} activée"
 msgid "Output '{}' disabled"
 msgstr "Sortie {} désactivée"
 
-#: src/OutputsPage.cxx:333 src/OutputsPage.cxx:432
+#: src/OutputsPage.cxx:333 src/OutputsPage.cxx:428
 msgid "Outputs"
 msgstr "Sorties"
 
@@ -871,113 +871,109 @@ msgstr "Sorties"
 msgid "Partition"
 msgstr "Partition"
 
-#: src/OutputsPage.cxx:364
+#: src/OutputsPage.cxx:362
 msgid "Create new partition"
 msgstr "Créer une nouvelle partition"
 
-#: src/QueuePage.cxx:308
+#: src/QueuePage.cxx:305
 msgid "Add"
 msgstr "Ajouter"
 
-#: src/QueuePage.cxx:372 src/QueuePage.cxx:663
+#: src/QueuePage.cxx:369 src/QueuePage.cxx:661
 msgid "Queue"
 msgstr "File d'attente"
 
-#: src/QueuePage.cxx:374
+#: src/QueuePage.cxx:371
 #, c++-format
 msgid "Queue on {}"
 msgstr "File d'attente en {}"
 
-#: src/QueuePage.cxx:615 src/player_command.cxx:63
+#: src/QueuePage.cxx:613 src/player_command.cxx:70
 msgid "Shuffled queue"
 msgstr "File d'attente mélangée"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:45
 msgid "artist"
 msgstr "artiste"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:46
 msgid "album"
 msgstr "album"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:47
 msgid "title"
 msgstr "titre"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:48
 msgid "track"
 msgstr "piste"
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:49
 msgid "name"
 msgstr "nom"
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:50
 msgid "genre"
 msgstr "genre"
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:51
 msgid "date"
 msgstr "date"
 
-#: src/SearchPage.cxx:47
+#: src/SearchPage.cxx:52
 msgid "composer"
 msgstr "compositeur"
 
-#: src/SearchPage.cxx:48
+#: src/SearchPage.cxx:53
 msgid "performer"
 msgstr "interprète"
 
-#: src/SearchPage.cxx:49
+#: src/SearchPage.cxx:54
 msgid "label"
 msgstr ""
 
-#: src/SearchPage.cxx:50
+#: src/SearchPage.cxx:55
 msgid "comment"
 msgstr "commentaire"
 
-#: src/SearchPage.cxx:58
+#: src/SearchPage.cxx:63
 msgid "file"
 msgstr "fichier"
 
-#: src/SearchPage.cxx:78 src/SongPage.cxx:51
-msgid "Title"
-msgstr "Titre"
-
-#: src/SearchPage.cxx:79 src/SongPage.cxx:50
-msgid "Artist"
-msgstr "Artiste"
-
-#: src/SearchPage.cxx:80 src/SongPage.cxx:52
-msgid "Album"
-msgstr "Album"
-
-#: src/SearchPage.cxx:81
-msgid "Filename"
-msgstr "Nom de fichier"
-
-#: src/SearchPage.cxx:82
-msgid "Artist + Title"
-msgstr "Artiste + Titre"
-
-#: src/SearchPage.cxx:270
+#: src/SearchPage.cxx:125
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "Mauvais champ recherché {}"
 
-#: src/SearchPage.cxx:284
+#: src/SearchPage.cxx:131
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "Pas d'argument pour le champ recherché {}"
 
-#: src/SearchPage.cxx:372 src/SearchPage.cxx:405 src/SearchPage.cxx:408
-#: src/SearchPage.cxx:412 src/SearchPage.cxx:469
+#: src/SearchPage.cxx:222 src/SongPage.cxx:51
+msgid "Title"
+msgstr "Titre"
+
+#: src/SearchPage.cxx:223 src/SongPage.cxx:50
+msgid "Artist"
+msgstr "Artiste"
+
+#: src/SearchPage.cxx:224 src/SongPage.cxx:52
+msgid "Album"
+msgstr "Album"
+
+#: src/SearchPage.cxx:225
+msgid "Filename"
+msgstr "Nom de fichier"
+
+#: src/SearchPage.cxx:226
+msgid "Advanced"
+msgstr ""
+
+#: src/SearchPage.cxx:344 src/SearchPage.cxx:353 src/SearchPage.cxx:450
+#: src/SearchPage.cxx:520
 msgid "Search"
 msgstr "Rechercher"
-
-#: src/SearchPage.cxx:432
-msgid "Search mode"
-msgstr "Mode de recherche "
 
 #: src/SongPage.cxx:53
 msgid "Work"
@@ -1100,15 +1096,15 @@ msgstr "En Lecture :"
 msgid "[Paused]"
 msgstr "[En Pause]"
 
-#: src/Styles.cxx:255 src/Styles.cxx:311
+#: src/Styles.cxx:260 src/Styles.cxx:316
 msgid "Unknown color"
 msgstr "Couleur inconnue"
 
-#: src/Styles.cxx:321
+#: src/Styles.cxx:326
 msgid "Unknown color field"
 msgstr "Couleur de champ inconnue"
 
-#: src/Styles.cxx:354
+#: src/Styles.cxx:359
 msgid "Terminal lacks color capabilities"
 msgstr "Le terminal ne dispose pas de la gestion des couleurs"
 
@@ -1128,16 +1124,16 @@ msgstr "Trouver"
 msgid "Find backward"
 msgstr "Trouver avant"
 
-#: src/page/FindSupport.cxx:19
-msgid "Jump"
-msgstr "Sauter"
-
-#: src/page/FindSupport.cxx:46
+#: src/page/FindSupport.cxx:45
 #, c++-format
 msgid "Unable to find '{}'"
 msgstr "Impossible de trouver « {} »"
 
-#: src/player_command.cxx:71
+#: src/page/ListPage.cxx:17
+msgid "Jump"
+msgstr "Sauter"
+
+#: src/player_command.cxx:78
 msgid "Cleared queue"
 msgstr "File d'attente effacée"
 
@@ -1263,6 +1259,12 @@ msgstr "jours"
 #: src/time/Parser.cxx:15 src/time/Parser.cxx:44
 msgid "Unrecognized suffix"
 msgstr "Suffixe non reconnu"
+
+#~ msgid "Artist + Title"
+#~ msgstr "Artiste + Titre"
+
+#~ msgid "Search mode"
+#~ msgstr "Mode de recherche "
 
 #~ msgid "All tracks"
 #~ msgstr "Toutes les pistes"

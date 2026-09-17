@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ncmpc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 17:02+0200\n"
+"POT-Creation-Date: 2026-09-17 09:35+0200\n"
 "PO-Revision-Date: 2026-03-02 06:09+0000\n"
 "Last-Translator: தமிழ்நேரம் <tamilneram247@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/ncmpc/translations/"
@@ -388,7 +388,7 @@ msgstr "மோசமான நேர காட்சி வகை"
 
 #. an equals sign '=' was expected while parsing a
 #. configuration file line
-#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:587
+#: src/ConfigParser.cxx:299 src/ConfigParser.cxx:589
 msgid "Missing '='"
 msgstr "'=' காணவில்லை"
 
@@ -412,31 +412,31 @@ msgstr "தவறாக வண்ண வரையறை"
 #. name was specified in
 #. the configuration
 #. file
-#: src/ConfigParser.cxx:433
+#: src/ConfigParser.cxx:435
 msgid "Unknown screen name"
 msgstr "அறியப்படாத திரை பெயர்"
 
-#: src/ConfigParser.cxx:462
+#: src/ConfigParser.cxx:464
 msgid "Unknown MPD tag"
 msgstr "தெரியாத MPD குறிச்சொல்"
 
-#: src/ConfigParser.cxx:489
+#: src/ConfigParser.cxx:491
 msgid "Invalid search mode"
 msgstr "தவறான தேடல் முறை"
 
-#: src/ConfigParser.cxx:507
+#: src/ConfigParser.cxx:509
 msgid "Unknown search mode"
 msgstr "அறியப்படாத தேடல் முறை"
 
-#: src/ConfigParser.cxx:540
+#: src/ConfigParser.cxx:542
 msgid "Invalid column width"
 msgstr "தவறான நெடுவரிசை அகலம்"
 
-#: src/ConfigParser.cxx:549
+#: src/ConfigParser.cxx:551
 msgid "Invalid column fraction width"
 msgstr "தவறான நெடுவரிசை பின்னம் அகலம்"
 
-#: src/ConfigParser.cxx:760
+#: src/ConfigParser.cxx:762
 msgid "Unknown configuration parameter"
 msgstr "அறியப்படாத உள்ளமைவு அளவுரு"
 
@@ -580,76 +580,76 @@ msgstr "ஒரு நிலைக்கு செல்லுங்கள்"
 msgid "Apply and save changes"
 msgstr "மாற்றங்களைப் பயன்படுத்துங்கள் மற்றும் சேமிக்கவும்"
 
-#: src/HelpPage.cxx:233 src/HelpPage.cxx:331
+#: src/HelpPage.cxx:233 src/HelpPage.cxx:330
 msgid "Help"
 msgstr "உதவி"
 
-#: src/KeyDefPage.cxx:166
+#: src/KeyDefPage.cxx:165
 msgid "Deleted"
 msgstr "நீக்கப்பட்டது"
 
-#: src/KeyDefPage.cxx:177
+#: src/KeyDefPage.cxx:176
 #, c++-format
 msgid "Enter new key for {}"
 msgstr "{For க்கு புதிய விசையை உள்ளிடவும்"
 
-#: src/KeyDefPage.cxx:182
+#: src/KeyDefPage.cxx:181
 msgid "Aborted"
 msgstr "கருக்கலைப்பு"
 
-#: src/KeyDefPage.cxx:187
+#: src/KeyDefPage.cxx:186
 msgid "Ctrl-Space can't be used"
 msgstr "கட்டு-இடைவெளி ஐப் பயன்படுத்த முடியாது"
 
-#: src/KeyDefPage.cxx:193
+#: src/KeyDefPage.cxx:192
 #, c++-format
 msgid "Error: key {} is already used for {}"
 msgstr "பிழை: விசை {} ஏற்கனவே {for க்கு பயன்படுத்தப்படுகிறது"
 
-#: src/KeyDefPage.cxx:203
+#: src/KeyDefPage.cxx:202
 #, c++-format
 msgid "Assigned {} to {}"
 msgstr "{To க்கு ஒதுக்கப்பட்டுள்ளது"
 
-#: src/KeyDefPage.cxx:230 src/KeyDefPage.cxx:247
+#: src/KeyDefPage.cxx:229 src/KeyDefPage.cxx:246
 msgid "Add new key"
 msgstr "புதிய விசையைச் சேர்க்கவும்"
 
-#: src/KeyDefPage.cxx:277
+#: src/KeyDefPage.cxx:276
 #, c++-format
 msgid "Edit keys for {}"
 msgstr "{} க்கான விசைகளைத் திருத்தவும்"
 
-#: src/KeyDefPage.cxx:426
+#: src/KeyDefPage.cxx:429
 msgid "You have new key bindings"
 msgstr "உங்களிடம் புதிய முக்கிய பிணைப்புகள் உள்ளன"
 
-#: src/KeyDefPage.cxx:428
+#: src/KeyDefPage.cxx:431
 msgid "Keybindings unchanged."
 msgstr "விசைப்பலகைகள் மாறாது."
 
-#: src/KeyDefPage.cxx:438
+#: src/KeyDefPage.cxx:441
 msgid "Unable to write configuration"
 msgstr "உள்ளமைவை எழுத முடியவில்லை"
 
-#: src/KeyDefPage.cxx:447 src/KeyDefPage.cxx:456
+#: src/KeyDefPage.cxx:450 src/KeyDefPage.cxx:459
 msgid "Error"
 msgstr "பிழை"
 
-#: src/KeyDefPage.cxx:454
+#: src/KeyDefPage.cxx:457
 #, c++-format
 msgid "Wrote {}"
 msgstr "எழுதினார் {}"
 
-#: src/KeyDefPage.cxx:466 src/KeyDefPage.cxx:506
+#: src/KeyDefPage.cxx:469 src/KeyDefPage.cxx:508
 msgid "Apply key bindings"
 msgstr "விசை பிணைப்புகளைப் பயன்படுத்துங்கள்"
 
-#: src/KeyDefPage.cxx:468 src/KeyDefPage.cxx:512
+#: src/KeyDefPage.cxx:471 src/KeyDefPage.cxx:513
 msgid "Apply & Save key bindings"
 msgstr "விசை பிணைப்புகளைப் பயன்படுத்துங்கள் மற்றும் சேமிக்கவும்"
 
-#: src/KeyDefPage.cxx:541
+#: src/KeyDefPage.cxx:542
 msgid "Edit key bindings"
 msgstr "முக்கிய பிணைப்புகளைத் திருத்து"
 
@@ -657,7 +657,7 @@ msgstr "முக்கிய பிணைப்புகளைத் திர�
 msgid "Note: Did you forget to 'Apply' your changes?"
 msgstr "குறிப்பு: உங்கள் மாற்றங்களை 'பயன்படுத்த' மறந்துவிட்டீர்களா?"
 
-#: src/KeyDefPage.cxx:670
+#: src/KeyDefPage.cxx:672
 msgid "Keys"
 msgstr "விசைகள்"
 
@@ -749,66 +749,66 @@ msgstr "கலைஞர்கள்"
 msgid "Albums"
 msgstr "தொகுப்புகள்"
 
-#: src/LibraryPage.cxx:133
+#: src/LibraryPage.cxx:139
 msgid "All"
 msgstr "அனைத்தும்"
 
-#: src/LibraryPage.cxx:209
+#: src/LibraryPage.cxx:215
 msgid "Songs"
 msgstr "பாடல்கள்"
 
-#: src/LibraryPage.cxx:335
+#: src/LibraryPage.cxx:341
 msgid "Library"
 msgstr "நூலகம்"
 
 #. translators: no lyrics were found for the song
-#: src/LyricsPage.cxx:203
+#: src/LyricsPage.cxx:204
 msgid "No lyrics"
 msgstr "பாடல் இல்லை"
 
-#: src/LyricsPage.cxx:217
+#: src/LyricsPage.cxx:218
 #, c++-format
 msgid "Lyrics timeout occurred after {} seconds"
 msgstr "{} விநாடிகளுக்குப் பிறகு பாடல் நேரம் முடிந்தது"
 
-#: src/LyricsPage.cxx:314 src/LyricsPage.cxx:322 src/LyricsPage.cxx:325
-#: src/LyricsPage.cxx:327 src/LyricsPage.cxx:457
+#: src/LyricsPage.cxx:326 src/LyricsPage.cxx:334 src/LyricsPage.cxx:337
+#: src/LyricsPage.cxx:339 src/LyricsPage.cxx:472
 msgid "Lyrics"
 msgstr "பாடல்"
 
 #. translators: this message is
 #. displayed while data is
 #. retrieved
-#: src/LyricsPage.cxx:318
+#: src/LyricsPage.cxx:330
 msgid "loading..."
 msgstr "ஏற்றுகிறது ..."
 
-#: src/LyricsPage.cxx:335
+#: src/LyricsPage.cxx:350
 msgid "Lyrics cache is unavailable"
 msgstr "பாடல் கேச் கிடைக்கவில்லை"
 
-#: src/LyricsPage.cxx:340
+#: src/LyricsPage.cxx:355
 msgid "Editor not configured"
 msgstr "ஆசிரியர் கட்டமைக்கப்படவில்லை"
 
-#: src/LyricsPage.cxx:375 src/LyricsPage.cxx:398
+#: src/LyricsPage.cxx:390 src/LyricsPage.cxx:413
 msgid "Can't start editor"
 msgstr "எடிட்டரைத் தொடங்க முடியாது"
 
-#: src/LyricsPage.cxx:391 src/LyricsPage.cxx:401 src/LyricsPage.cxx:405
+#: src/LyricsPage.cxx:406 src/LyricsPage.cxx:416 src/LyricsPage.cxx:420
 msgid "Editor exited unexpectedly"
 msgstr "ஆசிரியர் எதிர்பாராத விதமாக வெளியேறினார்"
 
 #. lyrics for the song were saved on hard disk
-#: src/LyricsPage.cxx:427
+#: src/LyricsPage.cxx:442
 msgid "Lyrics saved"
 msgstr "பாடல் சேமிக்கப்பட்டது"
 
-#: src/LyricsPage.cxx:433
+#: src/LyricsPage.cxx:448
 msgid "Lyrics deleted"
 msgstr "பாடல் நீக்கப்பட்டது"
 
-#: src/LyricsPage.cxx:434
+#: src/LyricsPage.cxx:449
 msgid "No saved lyrics"
 msgstr "சேமித்த பாடல் இல்லை"
 
@@ -847,7 +847,7 @@ msgstr "வெளியீடு '{}' இயக்கப்பட்டது"
 msgid "Output '{}' disabled"
 msgstr "வெளியீடு '{}' முடக்கப்பட்டது"
 
-#: src/OutputsPage.cxx:333 src/OutputsPage.cxx:432
+#: src/OutputsPage.cxx:333 src/OutputsPage.cxx:428
 msgid "Outputs"
 msgstr "வெளியீடுகள்"
 
@@ -855,113 +855,109 @@ msgstr "வெளியீடுகள்"
 msgid "Partition"
 msgstr "பிரிவினை"
 
-#: src/OutputsPage.cxx:364
+#: src/OutputsPage.cxx:362
 msgid "Create new partition"
 msgstr "புதிய பகிர்வை உருவாக்கவும்"
 
-#: src/QueuePage.cxx:308
+#: src/QueuePage.cxx:305
 msgid "Add"
 msgstr "கூட்டு"
 
-#: src/QueuePage.cxx:372 src/QueuePage.cxx:663
+#: src/QueuePage.cxx:369 src/QueuePage.cxx:661
 msgid "Queue"
 msgstr "வரிசை"
 
-#: src/QueuePage.cxx:374
+#: src/QueuePage.cxx:371
 #, c++-format
 msgid "Queue on {}"
 msgstr "{} இல் வரிசை"
 
-#: src/QueuePage.cxx:615 src/player_command.cxx:63
+#: src/QueuePage.cxx:613 src/player_command.cxx:70
 msgid "Shuffled queue"
 msgstr "மாற்றப்பட்ட வரிசை"
 
-#: src/SearchPage.cxx:40
+#: src/SearchPage.cxx:45
 msgid "artist"
 msgstr "கலைஞர்"
 
-#: src/SearchPage.cxx:41
+#: src/SearchPage.cxx:46
 msgid "album"
 msgstr "தொகுப்பு"
 
-#: src/SearchPage.cxx:42
+#: src/SearchPage.cxx:47
 msgid "title"
 msgstr "தலைப்பு"
 
-#: src/SearchPage.cxx:43
+#: src/SearchPage.cxx:48
 msgid "track"
 msgstr "மின்தடம்"
 
-#: src/SearchPage.cxx:44
+#: src/SearchPage.cxx:49
 msgid "name"
 msgstr "பெயர்"
 
-#: src/SearchPage.cxx:45
+#: src/SearchPage.cxx:50
 msgid "genre"
 msgstr "வகை"
 
-#: src/SearchPage.cxx:46
+#: src/SearchPage.cxx:51
 msgid "date"
 msgstr "திகதி"
 
-#: src/SearchPage.cxx:47
+#: src/SearchPage.cxx:52
 msgid "composer"
 msgstr "இசையமைப்பாளர்"
 
-#: src/SearchPage.cxx:48
+#: src/SearchPage.cxx:53
 msgid "performer"
 msgstr "நடிகர்"
 
-#: src/SearchPage.cxx:49
+#: src/SearchPage.cxx:54
 msgid "label"
 msgstr "சிட்டை"
 
-#: src/SearchPage.cxx:50
+#: src/SearchPage.cxx:55
 msgid "comment"
 msgstr "கருத்து"
 
-#: src/SearchPage.cxx:58
+#: src/SearchPage.cxx:63
 msgid "file"
 msgstr "கோப்பு"
 
-#: src/SearchPage.cxx:78 src/SongPage.cxx:51
-msgid "Title"
-msgstr "தலைப்பு"
-
-#: src/SearchPage.cxx:79 src/SongPage.cxx:50
-msgid "Artist"
-msgstr "கலைஞர்"
-
-#: src/SearchPage.cxx:80 src/SongPage.cxx:52
-msgid "Album"
-msgstr "தொகுப்பு"
-
-#: src/SearchPage.cxx:81
-msgid "Filename"
-msgstr "கோப்புப்பெயர்"
-
-#: src/SearchPage.cxx:82
-msgid "Artist + Title"
-msgstr "கலைஞர் + தலைப்பு"
-
-#: src/SearchPage.cxx:270
+#: src/SearchPage.cxx:125
 #, c++-format
 msgid "Bad search tag {}"
 msgstr "மோசமான தேடல் குறிச்சொல் {}"
 
-#: src/SearchPage.cxx:284
+#: src/SearchPage.cxx:131
 #, c++-format
 msgid "No argument for search tag {}"
 msgstr "தேடல் குறிச்சொல்லுக்கு எந்த வாதமும் இல்லை {}"
 
-#: src/SearchPage.cxx:372 src/SearchPage.cxx:405 src/SearchPage.cxx:408
-#: src/SearchPage.cxx:412 src/SearchPage.cxx:469
+#: src/SearchPage.cxx:222 src/SongPage.cxx:51
+msgid "Title"
+msgstr "தலைப்பு"
+
+#: src/SearchPage.cxx:223 src/SongPage.cxx:50
+msgid "Artist"
+msgstr "கலைஞர்"
+
+#: src/SearchPage.cxx:224 src/SongPage.cxx:52
+msgid "Album"
+msgstr "தொகுப்பு"
+
+#: src/SearchPage.cxx:225
+msgid "Filename"
+msgstr "கோப்புப்பெயர்"
+
+#: src/SearchPage.cxx:226
+msgid "Advanced"
+msgstr ""
+
+#: src/SearchPage.cxx:344 src/SearchPage.cxx:353 src/SearchPage.cxx:450
+#: src/SearchPage.cxx:520
 msgid "Search"
 msgstr "தேடல்"
-
-#: src/SearchPage.cxx:432
-msgid "Search mode"
-msgstr "தேடல் பயன்முறை"
 
 #: src/SongPage.cxx:53
 msgid "Work"
@@ -1084,15 +1080,15 @@ msgstr "விளையாடுவது:"
 msgid "[Paused]"
 msgstr "[இடைநிறுத்தப்பட்டது]"
 
-#: src/Styles.cxx:255 src/Styles.cxx:311
+#: src/Styles.cxx:260 src/Styles.cxx:316
 msgid "Unknown color"
 msgstr "தெரியாத நிறம்"
 
-#: src/Styles.cxx:321
+#: src/Styles.cxx:326
 msgid "Unknown color field"
 msgstr "அறியப்படாத வண்ண புலம்"
 
-#: src/Styles.cxx:354
+#: src/Styles.cxx:359
 msgid "Terminal lacks color capabilities"
 msgstr "முனையத்தில் வண்ண திறன்கள் இல்லை"
 
@@ -1112,16 +1108,16 @@ msgstr "கண்டுபிடி"
 msgid "Find backward"
 msgstr "பின்தங்கிய நிலையில் காண்க"
 
-#: src/page/FindSupport.cxx:19
-msgid "Jump"
-msgstr "தாவு"
-
-#: src/page/FindSupport.cxx:46
+#: src/page/FindSupport.cxx:45
 #, c++-format
 msgid "Unable to find '{}'"
 msgstr "'{}' கண்டுபிடிக்க முடியவில்லை"
 
-#: src/player_command.cxx:71
+#: src/page/ListPage.cxx:17
+msgid "Jump"
+msgstr "தாவு"
+
+#: src/player_command.cxx:78
 msgid "Cleared queue"
 msgstr "அழிக்கப்பட்ட வரிசை"
 
@@ -1247,6 +1243,12 @@ msgstr "நாட்கள்"
 #: src/time/Parser.cxx:15 src/time/Parser.cxx:44
 msgid "Unrecognized suffix"
 msgstr "அங்கீகரிக்கப்படாத பின்னொட்டு"
+
+#~ msgid "Artist + Title"
+#~ msgstr "கலைஞர் + தலைப்பு"
+
+#~ msgid "Search mode"
+#~ msgstr "தேடல் பயன்முறை"
 
 #~ msgid "All tracks"
 #~ msgstr "அனைத்து தடங்களும்"
